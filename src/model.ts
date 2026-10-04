@@ -984,7 +984,7 @@ export interface Notification {
  * what they support; callers should persist the whole object and hand it back.
  */
 export interface Cursor {
-  /** Absolute URL of the next page, taken from an RFC 5988 `Link` header or the body. */
+  /** Absolute URL of the next page, from a `Link` header or the body, on the requested origin. */
   nextUrl?: string
   etag?: string
   /** Opaque forge-native cursor, for example a GraphQL `endCursor`. */
@@ -1348,21 +1348,31 @@ export interface Installation extends ForgeOrigin {
 }
 
 /** Every `Date` field in the model, by name. */
-export const DATE_FIELDS: ReadonlySet<string> = new Set(['closedAt', 'completedAt', 'createdAt', 'dismissedAt', 'dueOn', 'expiresAt', 'lastActivityAt', 'lastReadAt', 'occurredAt', 'publishedAt', 'pushedAt', 'resetAt', 'startedAt', 'updatedAt'])
+export const DATE_FIELDS: ReadonlySet<string> = new Set(['closedAt', 'completedAt', 'createdAt', 'date', 'deliveredAt', 'dismissedAt', 'dueOn', 'expiresAt', 'lastActivityAt', 'lastReadAt', 'occurredAt', 'publishedAt', 'pushedAt', 'resetAt', 'startedAt', 'submittedAt', 'updatedAt'])
+
+const UNNORMALISED_FIELDS: ReadonlySet<string> = new Set(['payload', 'raw'])
 
 /**
  * Turns the ISO strings `JSON.stringify` left in a model value back into
- * `Date`s, at any depth, for every field in {@link DATE_FIELDS}. Returns a copy.
+ * `Date`s, at any depth, for every field in {@link DATE_FIELDS}, skipping
+ * `raw` and `payload`. Returns a copy.
  */
 export function reviveDates<T>(value: T): T {
   if (Array.isArray(value)) {
-    return value.map(reviveDates) as T
+    return value.map(item => reviveDates(item)) as T
   }
   if (!value || typeof value !== 'object' || value instanceof Date) {
     return value
   }
-  return Object.fromEntries(Object.entries(value).map(([key, item]) => [
-    key,
-    DATE_FIELDS.has(key) && typeof item === 'string' && !Number.isNaN(Date.parse(item)) ? new Date(item) : reviveDates(item),
-  ])) as T
+  return Object.fromEntries(Object.entries(value).map(([key, item]) => [key, reviveField(key, item)])) as T
+}
+
+function reviveField(key: string, item: unknown): unknown {
+  if (UNNORMALISED_FIELDS.has(key)) {
+    return item
+  }
+  if (DATE_FIELDS.has(key) && typeof item === 'string' && !Number.isNaN(Date.parse(item))) {
+    return new Date(item)
+  }
+  return reviveDates(item)
 }

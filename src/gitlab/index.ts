@@ -174,11 +174,11 @@ function threadPath(ref: ResolvedThreadRef): string {
   const project = `/projects/${projectId(ref.repo)}`
   switch (ref.kind) {
     case 'pull_request':
-      return `${project}/merge_requests/${ref.number}`
+      return `${project}/merge_requests/${encodeURIComponent(ref.number)}`
     case 'commit':
-      return `${project}/repository/commits/${ref.number}`
+      return `${project}/repository/commits/${encodeURIComponent(ref.number)}`
     default:
-      return `${project}/issues/${ref.number}`
+      return `${project}/issues/${encodeURIComponent(ref.number)}`
   }
 }
 
@@ -692,13 +692,7 @@ const GITLAB: ProviderDefinition<GitLabOptions> = {
         runsPage: verb(true, (repo, query = {}) => list(`${projectPath(repo)}/pipelines`, query, (raw: GitLabPipeline) => toPipeline(repo, raw), { query: { ref: query.branch, status: PIPELINE_STATES[query.state ?? 'unknown'] } })),
         run: verb(true, async ref => toPipeline(ref.repo, (await fetcher.json<GitLabPipeline>(`${projectPath(ref.repo)}/pipelines/${ref.id}`)).data)),
         jobsPage: verb(true, (ref, listOptions = {}) => list(`${projectPath(ref.repo)}/pipelines/${ref.id}/jobs`, listOptions, (raw: GitLabJob) => toCiJob(ref, raw))),
-        log: verb('experimental', async (ref) => {
-          const response = await fetcher.raw(`${projectPath(ref.repo)}/jobs/${ref.id}/trace`)
-          if (!response.body) {
-            throw new ForgeApiError('GitLab returned no job trace', response.status, '', context)
-          }
-          return response.body
-        }),
+        log: verb('experimental', async ref => (await fetcher.stream(`${projectPath(ref.repo)}/jobs/${encodeURIComponent(ref.id)}/trace`)).body),
       },
       securityAlerts: {
         kinds: { dependency: 'experimental', code_scanning: 'experimental', secret: 'experimental' },

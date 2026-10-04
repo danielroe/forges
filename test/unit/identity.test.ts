@@ -89,6 +89,28 @@ describe('forges aggregate', () => {
     expect(() => forges.threads.get({ ...pull, instance: 'ghe.example.com' })).toThrow(UnknownForgeError)
   })
 
+  it('turns a ref no provider serves into a per-item warning in getMany', async () => {
+    const forges = createForges([fake({ instance: 'one.test', seed: { repos: [{ repo: 'acme/widgets' }], threads: [{ repo: 'acme/widgets', kind: 'issue', title: 'Hello' }] } })])
+    const known = { forge: 'fake', instance: 'one.test', repo: { forge: 'fake', instance: 'one.test', owner: 'acme', name: 'widgets' }, kind: 'issue', number: '1' } as const
+    const unknown = { ...pull, instance: 'ghe.example.com' }
+
+    const results = await forges.threads.getMany([unknown, known])
+
+    expect(results).toMatchObject([
+      { ok: false, ref: unknown, warning: { code: 'thread_unreadable', cause: { name: 'UnknownForgeError' } } },
+      { ok: true, thread: { title: 'Hello' } },
+    ])
+  })
+
+  it('reads a URL with a malformed escape or a reserved path as nothing', () => {
+    const forges = createForges([github({ auth }), forgejo({ auth, baseUrl: 'https://codeberg.org' })])
+
+    expect(forges.parseUrl('https://github.com/acme/widgets/issues/%E0%A4%A')).toBeUndefined()
+    expect(forges.parseUrl('https://github.com/settings/profile')).toBeUndefined()
+    expect(forges.parseUrl('https://codeberg.org/explore/repos')).toBeUndefined()
+    expect(forges.parseUrl('https://codeberg.org/user/settings')).toBeUndefined()
+  })
+
   it('refuses two providers for the same instance', () => {
     expect(() => createForges([github({ auth }), github({ auth })])).toThrow('Two providers are registered for github on github.com')
   })

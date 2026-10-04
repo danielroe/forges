@@ -666,3 +666,38 @@ describe('github merge', () => {
     expect(bodies).toEqual([{ url: 'https://api.github.com/repos/acme/widgets/pulls/42/merge', body: '{"merge_method":"squash","commit_message":"Ship it"}' }])
   })
 })
+
+describe('github path safety', () => {
+  function recordingProvider(options: { readOnly?: boolean } = {}) {
+    const urls: string[] = []
+    const fetch = async (url: string) => {
+      urls.push(url)
+      return new Response('{}', { status: 200 })
+    }
+    return { provider: github({ auth: { type: 'token', token: 't' }, fetch, ...options }).create(), urls }
+  }
+
+  it('keeps a thread number that tries to climb out of the repository inside it', async () => {
+    const { provider, urls } = recordingProvider()
+
+    await provider.threads.comment({ ...pull, kind: 'issue', number: '1/../../../../user/keys' }, 'hi')
+
+    expect(urls).toEqual(['https://api.github.com/repos/acme/widgets/issues/1%2F..%2F..%2F..%2F..%2Fuser%2Fkeys/comments'])
+  })
+
+  it('encodes owner, name and number so they cannot add path segments or a query', async () => {
+    const { provider, urls } = recordingProvider()
+
+    await provider.threads.comment({ ...pull, repo: { ...repo, owner: 'acme/x', name: 'widgets?y=1' }, kind: 'issue', number: '1?x=' }, 'hi')
+
+    expect(urls).toEqual(['https://api.github.com/repos/acme%2Fx/widgets%3Fy%3D1/issues/1%3Fx%3D/comments'])
+  })
+
+  it('rejects a mutating `request()` on a read-only provider', async () => {
+    const { provider, urls } = recordingProvider({ readOnly: true })
+
+    await expect(provider.request('DELETE', '/repos/acme/widgets')).rejects.toThrow('is a write and this github provider is read-only')
+    await provider.request('GET', '/repos/acme/widgets')
+    expect(urls).toEqual(['https://api.github.com/repos/acme/widgets'])
+  })
+})

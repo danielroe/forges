@@ -51,7 +51,7 @@ Each provider has its own subpath export (`forges/github`, `forges/gitlab`, and 
 Each [provider page](#providers) lists the `auth` types that forge accepts. Two options apply to every provider:
 
 - Leave out `auth` for an anonymous provider. It sends no credentials and makes public reads only. Writes, notifications, and subscriptions report `false`.
-- Set `readOnly: true` to use a credential for reads only. Every write reports `false` and rejects with `ReadOnlyError`.
+- Set `readOnly: true` to use a credential for reads only. Every write reports `false` and rejects with `ReadOnlyError`, including `provider.request()` with a method other than `GET`, `HEAD` or `OPTIONS`. Pass `mutates: false` for a request that only reads, such as a GraphQL query. This guard relies on the caller's declaration; it does not restrict the credential's server-side permissions.
 
 ```ts
 import { github, gitlab } from 'forges'

@@ -1,5 +1,6 @@
-import { describe, expect, it, vi } from 'vitest'
-import { ForbiddenError, ForgeApiError, InsufficientScopeError, RateLimitedError } from '../../src/errors.ts'
+import type { ForgeRawRequestOptions, RawResponse } from '../../src/fetch.ts'
+import { describe, expect, expectTypeOf, it, vi } from 'vitest'
+import { ForbiddenError, ForgeApiError, InsufficientScopeError, RateLimitedError, ReadOnlyError } from '../../src/errors.ts'
 import { createFetcher, createRequest, parseLinkHeader } from '../../src/fetch.ts'
 
 describe('parseLinkHeader', () => {
@@ -194,7 +195,7 @@ describe('streaming transport', () => {
     await expect(fetcher.stream('/releases/assets/9')).rejects.toMatchObject({ status: 410 })
   })
 
-  it('lets the runtime follow a redirect it hides from `redirect: manual`', async () => {
+  it('rejects a redirect hidden by the runtime', async () => {
     const modes: Array<RequestRedirect | undefined> = []
     const fetcher = createFetcher({
       baseUrl: 'https://api.example',
@@ -207,10 +208,8 @@ describe('streaming transport', () => {
       },
     })
 
-    const result = await fetcher.stream('/releases/assets/9')
-
-    expect(await new Response(result.body).text()).toBe('asset')
-    expect(modes).toEqual(['manual', undefined])
+    await expect(fetcher.stream('/releases/assets/9')).rejects.toThrow('Hidden redirect refused')
+    expect(modes).toEqual(['manual'])
   })
 
   it('answers `request()` with the stream when `raw` is set', async () => {
@@ -310,5 +309,219 @@ describe('cancellation and rate-limit resets', () => {
     const error = await fetcher.json('/a').catch((error: unknown) => error) as RateLimitedError
 
     expect(error.resetAt).toEqual(new Date(2_000_000_000_000))
+  })
+})
+
+describe('credential scope', () => {
+  function recordingFetcher() {
+    const calls: Array<{ url: string, authorization: string | null }> = []
+    const fetcher = createFetcher({
+      baseUrl: 'https://api.example/v1',
+      authHeaders: () => ({ authorization: 'Bearer secret' }),
+      query: { 'api-version': '7.1' },
+      fetch: async (url, init) => {
+        calls.push({ url, authorization: new Headers(init?.headers).get('authorization') })
+        return new Response('[]', { status: 200 })
+      },
+    })
+    return { fetcher, calls }
+  }
+
+  it('rejects a cursor on another origin before fetching', async () => {
+    const { fetcher, calls } = recordingFetcher()
+
+    await expect(fetcher.page('/items', { cursor: { nextUrl: 'https://other.example/items' } })).rejects.toThrow(TypeError)
+
+    expect(calls).toEqual([])
+  })
+
+  it('does not send the credential to another origin through `request()`', async () => {
+    const { fetcher, calls } = recordingFetcher()
+
+    await createRequest(fetcher)('GET', 'https://evil.example/x')
+
+    expect(calls).toEqual([{ url: 'https://evil.example/x', authorization: null }])
+  })
+
+  it('still authenticates an absolute URL on its own origin', async () => {
+    const { fetcher, calls } = recordingFetcher()
+
+    await fetcher.page('/items', { cursor: { nextUrl: 'https://api.example/v1/items?page=2' } })
+
+    expect(calls).toEqual([{ url: 'https://api.example/v1/items?page=2&api-version=7.1', authorization: 'Bearer secret' }])
+  })
+})
+
+describe('path safety', () => {
+  const fetcher = createFetcher({ baseUrl: 'https://api.example', fetch: async () => new Response('{}', { status: 200 }) })
+
+  it.each([
+    '/repos/a/b/issues/1/../../../../user/keys',
+    '/repos/a/b/issues/%2e%2E/x',
+    '/repos/a/b/issues/.%2e/x',
+    '/repos/a/b/issues/1\\..\\x',
+    '/repos/a/b/issues/1#/comments',
+  ])('refuses %s', async (path) => {
+    await expect(fetcher.json(path)).rejects.toThrow(TypeError)
+  })
+
+  it('allows dots inside a segment and dot segments in the query', async () => {
+    await expect(fetcher.json('/repos/a/b.c/contents/.github/x..y?path=../z')).resolves.toMatchObject({ data: {} })
+  })
+})
+
+describe('streaming timeout', () => {
+  function slowBodyFetch(chunks: number) {
+    return async (_url: string, init?: RequestInit) => {
+      const signal = init!.signal!
+      let sent = 0
+      return new Response(new ReadableStream<Uint8Array>({
+        async pull(controller) {
+          await new Promise(resolve => setTimeout(resolve, 20))
+          if (signal.aborted) {
+            controller.error(signal.reason)
+            return
+          }
+          controller.enqueue(new Uint8Array([sent++]))
+          if (sent === chunks) {
+            controller.close()
+          }
+        },
+      }), { status: 200 })
+    }
+  }
+
+  it('times out while waiting for stream headers', async () => {
+    const fetcher = createFetcher({ baseUrl: 'https://api.example', timeout: 10, fetch: (_url, init) => new Promise((_, reject) => {
+      init!.signal!.addEventListener('abort', () => reject(init!.signal!.reason), { once: true })
+    }) })
+
+    await expect(fetcher.stream('/logs')).rejects.toMatchObject({ name: 'ForgeTimeoutError' })
+  })
+
+  it('preserves caller cancellation after stream headers', async () => {
+    const controller = new AbortController()
+    const fetcher = createFetcher({ baseUrl: 'https://api.example', timeout: 50, fetch: slowBodyFetch(8) })
+    const result = await fetcher.stream('/logs', { signal: controller.signal })
+    const reason = new Error('cancelled')
+    controller.abort(reason)
+
+    await expect(new Response(result.body).arrayBuffer()).rejects.toBe(reason)
+  })
+
+  it('lets a streamed body outlive the request timeout', async () => {
+    const fetcher = createFetcher({ baseUrl: 'https://api.example', timeout: 50, fetch: slowBodyFetch(8) })
+
+    const result = await fetcher.stream('/logs')
+
+    expect(new Uint8Array(await new Response(result.body).arrayBuffer())).toHaveLength(8)
+  })
+
+  it('still times out a JSON body that takes too long', async () => {
+    const fetcher = createFetcher({ baseUrl: 'https://api.example', timeout: 50, fetch: slowBodyFetch(8) })
+
+    await expect(fetcher.json('/slow')).rejects.toMatchObject({ name: 'TimeoutError' })
+  })
+})
+
+describe('retry wait', () => {
+  it('rejects with the caller\'s abort reason while waiting to retry', async () => {
+    const controller = new AbortController()
+    const fetcher = createFetcher({ baseUrl: 'https://api.example', fetch: async () => new Response('', { status: 429, headers: { 'retry-after': '30' } }) })
+    const reason = new Error('cancelled')
+    const pending = fetcher.json('/a', { signal: controller.signal })
+    setTimeout(() => controller.abort(reason), 10)
+
+    await expect(pending).rejects.toBe(reason)
+  })
+})
+
+describe('request()', () => {
+  function bodyFetcher() {
+    const sent: Array<{ body: unknown, contentType: string | null, method?: string }> = []
+    const fetcher = createFetcher({
+      baseUrl: 'https://api.example',
+      fetch: async (_url, init) => {
+        sent.push({ body: init?.body, contentType: new Headers(init?.headers).get('content-type'), method: init?.method })
+        return new Response('{}', { status: 200 })
+      },
+    })
+    return { fetcher, sent }
+  }
+
+  it('sends bytes as they are', async () => {
+    const { fetcher, sent } = bodyFetcher()
+    const bytes = new Uint8Array([1, 2, 3])
+
+    await createRequest(fetcher)('POST', '/upload', { body: bytes, headers: { 'content-type': 'application/octet-stream' } })
+
+    expect(sent).toEqual([{ body: bytes, contentType: 'application/octet-stream', method: 'POST' }])
+  })
+
+  it.each([
+    new Blob(['content']),
+    new FormData(),
+    new URLSearchParams({ a: '1' }),
+    new ArrayBuffer(2),
+    new DataView(new ArrayBuffer(2)),
+    new ReadableStream(),
+  ])('preserves native fetch bodies: %s', async (body) => {
+    const { fetcher, sent } = bodyFetcher()
+
+    await createRequest(fetcher)('POST', '/x', { body })
+
+    expect(sent[0]!.body).toBe(body)
+    expect(sent[0]!.contentType).toBeNull()
+  })
+
+  it('preserves JSON serialization of dates and custom objects', async () => {
+    const { fetcher, sent } = bodyFetcher()
+    class Value {
+      toJSON() {
+        return { value: 1 }
+      }
+    }
+
+    await createRequest(fetcher)('POST', '/x', { body: new Date(0) })
+    await createRequest(fetcher)('POST', '/x', { body: new Value() })
+
+    expect(sent.map(({ body, contentType }) => [body, contentType])).toEqual([
+      ['"1970-01-01T00:00:00.000Z"', 'application/json'],
+      ['{"value":1}', 'application/json'],
+    ])
+  })
+
+  it('sends plain objects and arrays as JSON', async () => {
+    const { fetcher, sent } = bodyFetcher()
+
+    await createRequest(fetcher)('POST', '/x', { body: { a: 1 } })
+    await createRequest(fetcher)('POST', '/x', { body: [1] })
+
+    expect(sent.map(({ body, contentType }) => [body, contentType])).toEqual([['{"a":1}', 'application/json'], ['[1]', 'application/json']])
+  })
+
+  it('types a raw request passed as a variable as a stream', async () => {
+    const { fetcher } = bodyFetcher()
+    const options: ForgeRawRequestOptions = { raw: true }
+
+    const result = await createRequest(fetcher)('GET', '/x', options)
+
+    expectTypeOf(result).toEqualTypeOf<RawResponse>()
+    expect(result.body).toBeInstanceOf(ReadableStream)
+  })
+
+  it('rejects a mutating request on a read-only provider unless it says it only reads', async () => {
+    const { fetcher, sent } = bodyFetcher()
+    const request = createRequest(fetcher, { readOnly: method => new ReadOnlyError(`${method} is a write`) })
+
+    await expect(request('DELETE', '/x')).rejects.toBeInstanceOf(ReadOnlyError)
+    await expect(request('POST', '/x', { raw: true })).rejects.toBeInstanceOf(ReadOnlyError)
+    expect(sent).toEqual([])
+    await expect(request('get', '/x')).resolves.toMatchObject({ status: 200 })
+    await expect(request('HEAD', '/x', { raw: true })).resolves.toMatchObject({ status: 200 })
+    await expect(request('OPTIONS', '/x')).resolves.toMatchObject({ status: 200 })
+    await expect(request('POST', '/graphql', { body: { query: '{ viewer { login } }' }, mutates: false })).resolves.toMatchObject({ status: 200 })
+    await expect(request('GET', '/x', { mutates: true })).rejects.toBeInstanceOf(ReadOnlyError)
+    expect(sent.map(call => call.method)).toEqual(['GET', 'HEAD', 'OPTIONS', 'POST'])
   })
 })

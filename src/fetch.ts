@@ -8,12 +8,13 @@ export interface FetcherOptions {
   baseUrl: string
   /** Injected for tests and for runtimes with a non-global fetch. */
   fetch?: FetchLike
-  /** Per-request timeout in milliseconds. Defaults to 30000. */
+  /** Timeout in milliseconds (headers only for streams). Defaults to 30000. */
   timeout?: number
+  /** Default headers, sent only to the API origin. */
   headers?: Record<string, string>
-  /** Resolved before every request, so short-lived credentials can refresh. */
+  /** Credentials resolved before each API-origin request. */
   authHeaders?: () => Promise<Record<string, string>> | Record<string, string>
-  /** Query parameters sent with every request unless the request sets them, such as an API version. */
+  /** API-origin query defaults; request parameters take precedence. */
   query?: Record<string, string>
   context?: ForgeErrorContext
   /**
@@ -63,9 +64,8 @@ export interface Fetcher {
   raw: (path: string, options?: RequestOptions) => Promise<Response>
   /**
    * Bytes as they arrive, through the same timeout and error mapping as
-   * {@link Fetcher.json}. Redirects to another host are followed without the
-   * `Authorization` header, as forges redirect downloads to a CDN that
-   * rejects a forwarded credential.
+   * {@link Fetcher.json}. HTTP(S) download redirects to another origin omit
+   * all headers and credentials. HTTPS downloads cannot redirect to HTTP.
    */
   stream: (path: string, options?: RequestOptions) => Promise<RawResponse>
   json: <T>(path: string, options?: RequestOptions) => Promise<FetchResult<T>>
@@ -77,6 +77,10 @@ export interface Fetcher {
 }
 
 const BODY_EXCERPT_LENGTH = 512
+
+const REDIRECT_STATUSES = new Set([301, 302, 303, 307, 308])
+
+const DOT_SEGMENT_RE = /^(?:\.|%2e){1,2}$/i
 
 /** Parses an RFC 5988 `Link` header into a map of rel to URL. */
 export function parseLinkHeader(header: string | null | undefined): Record<string, string> {
@@ -208,13 +212,71 @@ export function anySignal(signals: AbortSignal[]): AbortSignal {
   return controller.signal
 }
 
+function assertUrl(url: URL): URL {
+  if ((url.protocol !== 'https:' && url.protocol !== 'http:') || url.username || url.password) {
+    throw new TypeError('Invalid request URL')
+  }
+  return url
+}
+
+function assertInput(input: string): void {
+  for (const char of input) {
+    const code = char.charCodeAt(0)
+    if (code <= 32 || code === 127) {
+      throw new TypeError('Invalid request URL')
+    }
+  }
+}
+
+function assertRelativePath(path: string): string {
+  const pathname = path.split('?', 1)[0]!
+  if (path.includes('#') || pathname.includes('\\') || pathname.split('/').some(segment => DOT_SEGMENT_RE.test(segment))) {
+    throw new TypeError(`Unsafe request path ${JSON.stringify(path)}. Check the refs passed to the provider.`)
+  }
+  return path
+}
+
+function sleep(ms: number, signal: AbortSignal | undefined): Promise<void> {
+  return new Promise((resolve, reject) => {
+    if (signal?.aborted) {
+      reject(signal.reason)
+      return
+    }
+    const timer = setTimeout(() => {
+      signal?.removeEventListener('abort', onAbort)
+      resolve()
+    }, ms)
+    function onAbort() {
+      clearTimeout(timer)
+      reject(signal!.reason)
+    }
+    signal?.addEventListener('abort', onAbort, { once: true })
+  })
+}
+
 export function createFetcher(options: FetcherOptions): Fetcher {
   const timeout = options.timeout ?? 30_000
   const doFetch: FetchLike = options.fetch ?? ((input, init) => globalThis.fetch(input, init))
-  const base = options.baseUrl.replace(/\/$/, '')
+  assertInput(options.baseUrl)
+  const base = assertUrl(new URL(options.baseUrl))
+  if (base.search || base.hash) {
+    throw new TypeError('Invalid API base URL')
+  }
+  base.pathname = `${base.pathname.replace(/\/$/, '')}/`
+  const baseOrigin = base.origin
 
   function resolve(path: string, query?: RequestOptions['query']): string {
-    const url = new URL(/^https?:\/\//.test(path) ? path : `${base}/${path.replace(/^\//, '')}`)
+    assertInput(path)
+    let url: URL | undefined
+    try {
+      url = new URL(path)
+    }
+    catch {
+      if (path.startsWith('//') || path.split('/', 1)[0]!.includes(':')) {
+        throw new TypeError('Invalid request URL')
+      }
+    }
+    url = assertUrl(url ?? new URL(assertRelativePath(path).replace(/^\//, ''), base))
     for (const [key, value] of Object.entries(query ?? {})) {
       if (value !== undefined) {
         url.searchParams.set(key, String(value))
@@ -236,13 +298,17 @@ export function createFetcher(options: FetcherOptions): Fetcher {
     return target.toString()
   }
 
-  async function send(url: string, options_: RequestOptions, attempt: number, authenticated = true): Promise<Response> {
-    const signals = [AbortSignal.timeout(timeout)]
+  async function send(url: string, options_: RequestOptions, attempt: number, authenticated = true, download = false, redirects = 0, streaming = false): Promise<Response> {
+    const target = assertUrl(new URL(url))
+    const trusted = authenticated && target.origin === baseOrigin
+    const controller = streaming ? new AbortController() : undefined
+    const timer = controller ? setTimeout(() => controller.abort(new DOMException('Request timed out', 'TimeoutError')), timeout) : undefined
+    const signals = [controller?.signal ?? AbortSignal.timeout(timeout)]
     if (options_.signal) {
       signals.push(options_.signal)
     }
-    const headers = new Headers(options.headers)
-    for (const [key, value] of Object.entries(authenticated ? await (options.authHeaders?.() ?? {}) : {})) {
+    const headers = new Headers(trusted ? options.headers : undefined)
+    for (const [key, value] of Object.entries(trusted ? await (options.authHeaders?.() ?? {}) : {})) {
       headers.set(key, value)
     }
     for (const [key, value] of new Headers(options_.headers as HeadersInit | undefined)) {
@@ -258,8 +324,10 @@ export function createFetcher(options: FetcherOptions): Fetcher {
 
     let response: Response
     try {
-      response = await doFetch(authenticated ? withDefaultQuery(url) : url, {
+      response = await doFetch(trusted ? withDefaultQuery(url) : url, {
         ...init,
+        redirect: 'manual',
+        credentials: trusted ? init.credentials : 'omit',
         headers,
         body: payload === undefined ? init.body : JSON.stringify(payload),
         signal: anySignal(signals),
@@ -283,8 +351,42 @@ export function createFetcher(options: FetcherOptions): Fetcher {
         { cause },
       )
     }
+    finally {
+      clearTimeout(timer)
+    }
 
-    // A manual redirect is the caller asking to inspect the hop, not a failure.
+    if (response.type === 'opaqueredirect' && options_.redirect !== 'manual') {
+      throw new TypeError('Hidden redirect refused')
+    }
+    const location = REDIRECT_STATUSES.has(response.status) ? response.headers.get('location') : null
+    if (location && options_.redirect !== 'manual') {
+      await response.body?.cancel()
+      if (options_.redirect === 'error' || redirects >= 20) {
+        throw new TypeError('Request redirect refused')
+      }
+      assertInput(location)
+      const next = assertUrl(new URL(location, target))
+      const sameOrigin = next.origin === target.origin
+      if ((!sameOrigin && !download) || (target.protocol === 'https:' && next.protocol !== 'https:')) {
+        throw new TypeError('Unsafe request redirect')
+      }
+      const method = (options_.method ?? 'GET').toUpperCase()
+      if (!sameOrigin && method !== 'GET' && method !== 'HEAD') {
+        throw new TypeError('Unsafe request redirect')
+      }
+      let nextOptions = options_
+      if (!sameOrigin) {
+        nextOptions = { method, signal: options_.signal, credentials: 'omit' }
+      }
+      else if ((response.status === 303 && method !== 'HEAD') || ((response.status === 301 || response.status === 302) && method === 'POST')) {
+        const nextHeaders = new Headers(options_.headers)
+        for (const name of ['content-type', 'content-length', 'content-encoding', 'content-language', 'content-location']) {
+          nextHeaders.delete(name)
+        }
+        nextOptions = { ...options_, method: 'GET', body: undefined, json: undefined, headers: nextHeaders }
+      }
+      return send(next.toString(), nextOptions, attempt, authenticated && sameOrigin, download, redirects + 1, streaming)
+    }
     if (response.ok || response.status === 304 || (options_.redirect === 'manual' && (response.type === 'opaqueredirect' || (response.status >= 300 && response.status < 400)))) {
       return response
     }
@@ -301,8 +403,8 @@ export function createFetcher(options: FetcherOptions): Fetcher {
       const wait = retryAfterMs(response)
       if (secondary && attempt === 0 && wait !== undefined && wait <= 60_000) {
         options.onRetry?.({ url, method: options_.method ?? 'GET', wait })
-        await new Promise(resolve => setTimeout(resolve, wait))
-        return send(url, options_, attempt + 1, authenticated)
+        await sleep(wait, options_.signal)
+        return send(url, options_, attempt + 1, authenticated, download, redirects, streaming)
       }
       throw new RateLimitedError('Rate limited by the forge', response.status, body, {
         ...context,
@@ -356,7 +458,11 @@ export function createFetcher(options: FetcherOptions): Fetcher {
 
   async function page<T>(path: string, options_: PaginateOptions & { cursor?: Cursor } = {}): Promise<FetchResult<T[]>> {
     const { select, cursor, ...requestOptions } = options_
-    const url = cursor?.nextUrl ?? resolve(path, requestOptions.query)
+    const initial = resolve(path, requestOptions.query)
+    const url = cursor?.nextUrl ? resolve(cursor.nextUrl) : initial
+    if (new URL(url).origin !== new URL(initial).origin) {
+      throw new TypeError('Pagination URL must remain on the requested origin')
+    }
     const result: FetchResult<unknown> = await json<unknown>(url, { ...requestOptions, etag: cursor?.nextUrl ? undefined : requestOptions.etag, query: undefined })
     const next = result.notModified ? undefined : select ? select(result.data, result.cursor?.nextUrl) : undefined
     if (!next) {
@@ -375,26 +481,12 @@ export function createFetcher(options: FetcherOptions): Fetcher {
   }
 
   async function stream(path: string, options_: RequestOptions = {}): Promise<RawResponse> {
-    const response = await raw(path, { ...options_, redirect: 'manual' })
-    const body = (followed: Response): RawResponse => ({ status: followed.status, headers: followed.headers, body: followed.body ?? emptyStream() })
-    // Browsers hide manual redirects; their own redirect handling drops `Authorization` across origins.
-    if (response.type === 'opaqueredirect') {
-      return body(await raw(path, options_))
-    }
-    const location = response.status >= 300 && response.status < 400 ? response.headers.get('location') : undefined
-    if (!location) {
-      return body(response)
-    }
-    const target = new URL(location, resolve(path))
-    if (target.host === new URL(resolve(path)).host) {
-      return body(await raw(target.toString(), options_))
-    }
-    const { signal, mapError } = options_
     try {
-      return body(await send(target.toString(), { signal }, 0, false))
+      const response = await send(resolve(path, options_.query), options_, 0, true, true, 0, true)
+      return { status: response.status, headers: response.headers, body: response.body ?? emptyStream() }
     }
     catch (error) {
-      throw mapError ? mapError(error) : error
+      throw options_.mapError ? options_.mapError(error) : error
     }
   }
 
@@ -407,10 +499,12 @@ function emptyStream(): ReadableStream<Uint8Array> {
 
 export interface ForgeRequestOptions {
   query?: RequestOptions['query']
-  /** Objects are sent as JSON; strings are sent as-is. */
+  /** Native fetch bodies and strings are sent as-is; other values are sent as JSON. */
   body?: unknown
   headers?: Record<string, string>
   signal?: AbortSignal
+  /** Caller-declared mutation. Defaults to `false` for GET/HEAD/OPTIONS, otherwise `true`. */
+  mutates?: boolean
 }
 
 export interface ForgeResponse<T> {
@@ -426,31 +520,47 @@ export interface ForgeRawRequestOptions extends ForgeRequestOptions {
 }
 
 export interface ForgeRequest {
-  <T = unknown>(method: string, path: string, options?: ForgeRequestOptions): Promise<ForgeResponse<T>>
   (method: string, path: string, options: ForgeRawRequestOptions): Promise<RawResponse>
+  <T = unknown>(method: string, path: string, options?: ForgeRequestOptions): Promise<ForgeResponse<T>>
 }
 
+export interface CreateRequestOptions {
+  /** Error for mutating requests. */
+  readOnly?: (method: string, path: string) => Error
+}
+
+const SAFE_METHODS = new Set(['GET', 'HEAD', 'OPTIONS'])
+
 /** Builds a provider's `request()` escape hatch on top of its fetcher. */
-export function createRequest(fetcher: Fetcher): ForgeRequest {
+export function createRequest(fetcher: Fetcher, { readOnly }: CreateRequestOptions = {}): ForgeRequest {
   return (async <T>(method: string, path: string, options: ForgeRequestOptions | ForgeRawRequestOptions = {}): Promise<ForgeResponse<T> | RawResponse> => {
-    const json = options.body !== undefined && typeof options.body !== 'string'
-    if ('raw' in options && options.raw) {
-      return fetcher.stream(path, {
-        method: method.toUpperCase(),
-        query: options.query,
-        signal: options.signal,
-        headers: { ...json ? { 'content-type': 'application/json' } : {}, ...options.headers },
-        body: options.body === undefined ? undefined : json ? JSON.stringify(options.body) : options.body as string,
-      })
+    const upperMethod = method.toUpperCase()
+    if (readOnly && (options.mutates ?? !SAFE_METHODS.has(upperMethod))) {
+      throw readOnly(upperMethod, path)
     }
-    const result = await fetcher.json<T>(path, {
-      method: method.toUpperCase(),
+    const json = options.body !== undefined && isJsonBody(options.body)
+    const init: RequestOptions = {
+      method: upperMethod,
       query: options.query,
       signal: options.signal,
       headers: { ...json ? { 'content-type': 'application/json' } : {}, ...options.headers },
-      body: options.body === undefined ? undefined : json ? JSON.stringify(options.body) : options.body as string,
-    })
+      body: options.body === undefined ? undefined : json ? JSON.stringify(options.body) : options.body as BodyInit,
+    }
+    if ('raw' in options && options.raw) {
+      return fetcher.stream(path, init)
+    }
+    const result = await fetcher.json<T>(path, init)
     const rateLimit = rateLimitOf(result.response)
     return { status: result.response.status, data: result.data, headers: result.response.headers, ...rateLimit ? { rateLimit } : {} }
   }) as ForgeRequest
+}
+
+function isJsonBody(value: unknown): boolean {
+  return typeof value !== 'string'
+    && !(value instanceof ArrayBuffer)
+    && !ArrayBuffer.isView(value)
+    && !(typeof Blob !== 'undefined' && value instanceof Blob)
+    && !(typeof FormData !== 'undefined' && value instanceof FormData)
+    && !(value instanceof URLSearchParams)
+    && !(typeof ReadableStream !== 'undefined' && value instanceof ReadableStream)
 }
