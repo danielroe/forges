@@ -223,7 +223,7 @@ importers:
         specifier: 22.0.1
         version: 22.0.1
       '@types/node':
-        specifier: ^24.19.0
+        specifier: 24.19.0
         version: 24.19.0
       '@vitest/coverage-v8':
         specifier: 5.0.3
@@ -344,7 +344,7 @@ importers:
         specifier: 6.0.3
         version: 6.0.3
       vue-tsc:
-        specifier: ^3.3.11
+        specifier: 3.3.11
         version: 3.3.11(typescript@6.0.3)
 
 packages:
