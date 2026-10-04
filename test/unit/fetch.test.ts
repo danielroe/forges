@@ -1,5 +1,5 @@
-import type { ForgeRawRequestOptions } from '../../src/fetch.ts'
-import { describe, expect, it, vi } from 'vitest'
+import type { ForgeRawRequestOptions, RawResponse } from '../../src/fetch.ts'
+import { describe, expect, expectTypeOf, it, vi } from 'vitest'
 import { ForbiddenError, ForgeApiError, InsufficientScopeError, RateLimitedError } from '../../src/errors.ts'
 import { createFetcher, createRequest, parseLinkHeader } from '../../src/fetch.ts'
 
@@ -401,6 +401,7 @@ describe('request()', () => {
 
     const result = await createRequest(fetcher)('GET', '/x', options)
 
+    expectTypeOf(result).toEqualTypeOf<RawResponse>()
     expect(result.body).toBeInstanceOf(ReadableStream)
   })
 })

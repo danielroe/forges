@@ -13,8 +13,8 @@ describe('serialisation helpers', () => {
     expect(revived.items[0]!.title).toBe('2026-01-02')
   })
 
-  it('revives delivery and commit signature dates', () => {
-    const value = { deliveredAt: new Date(0), author: { date: new Date(1) } }
+  it('revives delivery, commit signature and review dates', () => {
+    const value = { deliveredAt: new Date(0), author: { date: new Date(1) }, submittedAt: new Date(2) }
 
     expect(reviveDates(JSON.parse(JSON.stringify(value)))).toEqual(value)
   })
