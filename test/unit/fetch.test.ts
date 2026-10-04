@@ -404,6 +404,39 @@ describe('request()', () => {
     expect(sent).toEqual([{ body: bytes, contentType: 'application/octet-stream', method: 'POST' }])
   })
 
+  it.each([
+    new Blob(['content']),
+    new FormData(),
+    new URLSearchParams({ a: '1' }),
+    new ArrayBuffer(2),
+    new DataView(new ArrayBuffer(2)),
+    new ReadableStream(),
+  ])('preserves native fetch bodies: %s', async (body) => {
+    const { fetcher, sent } = bodyFetcher()
+
+    await createRequest(fetcher)('POST', '/x', { body })
+
+    expect(sent[0]!.body).toBe(body)
+    expect(sent[0]!.contentType).toBeNull()
+  })
+
+  it('preserves JSON serialization of dates and custom objects', async () => {
+    const { fetcher, sent } = bodyFetcher()
+    class Value {
+      toJSON() {
+        return { value: 1 }
+      }
+    }
+
+    await createRequest(fetcher)('POST', '/x', { body: new Date(0) })
+    await createRequest(fetcher)('POST', '/x', { body: new Value() })
+
+    expect(sent.map(({ body, contentType }) => [body, contentType])).toEqual([
+      ['"1970-01-01T00:00:00.000Z"', 'application/json'],
+      ['{"value":1}', 'application/json'],
+    ])
+  })
+
   it('sends plain objects and arrays as JSON', async () => {
     const { fetcher, sent } = bodyFetcher()
 

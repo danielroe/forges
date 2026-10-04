@@ -494,7 +494,7 @@ function emptyStream(): ReadableStream<Uint8Array> {
 
 export interface ForgeRequestOptions {
   query?: RequestOptions['query']
-  /** Plain objects, arrays and primitives are sent as JSON; anything else as is. */
+  /** Native fetch bodies and strings are sent as-is; other values are sent as JSON. */
   body?: unknown
   headers?: Record<string, string>
   signal?: AbortSignal
@@ -539,12 +539,11 @@ export function createRequest(fetcher: Fetcher): ForgeRequest {
 }
 
 function isJsonBody(value: unknown): boolean {
-  if (value === null || typeof value === 'number' || typeof value === 'boolean' || Array.isArray(value)) {
-    return true
-  }
-  if (typeof value !== 'object') {
-    return false
-  }
-  const prototype = Object.getPrototypeOf(value)
-  return prototype === Object.prototype || prototype === null
+  return typeof value !== 'string'
+    && !(value instanceof ArrayBuffer)
+    && !ArrayBuffer.isView(value)
+    && !(typeof Blob !== 'undefined' && value instanceof Blob)
+    && !(typeof FormData !== 'undefined' && value instanceof FormData)
+    && !(value instanceof URLSearchParams)
+    && !(typeof ReadableStream !== 'undefined' && value instanceof ReadableStream)
 }
