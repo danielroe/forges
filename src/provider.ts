@@ -19,6 +19,7 @@ import type {
   CommitQuery,
   CommitSearchQuery,
   Comparison,
+  Cursor,
   FileContent,
   FileOptions,
   ForgeEvent,
@@ -83,7 +84,7 @@ import type {
 import type { ForgeVerb } from './supports.ts'
 import type { ParsedForgeUrl, ReferenceOptions, UrlTarget } from './web.ts'
 import { UnknownForgeError } from './errors.ts'
-import { toWarning } from './utils.ts'
+import { iteratePages, toWarning } from './utils.ts'
 
 /** No credentials: public reads only. Every write, notifications and subscriptions are unsupported. */
 export interface AnonymousAuth {
@@ -672,42 +673,69 @@ export interface Forges {
   }
   securityAlerts: { list: SecurityAlertsApi['list'] }
   /**
-   * Fans out to every provider that supports search, merging by `updatedAt`,
-   * newest first. A provider that rejects contributes one `warnings` entry
-   * and no items.
+   * Lazily merges provider searches by `updatedAt`, descending unless `direction: 'asc'`.
+   * Provider failures add `search_failed` warnings; cursors and sort are unsupported.
    */
   search: {
-    threads: (query?: SearchQuery) => ForgeIterable<Thread>
-    repos: (query?: RepoSearchQuery) => ForgeIterable<Repo>
+    threads: (query?: Omit<SearchQuery, 'cursor' | 'sort'>) => ForgeIterable<Thread>
+    repos: (query?: Omit<RepoSearchQuery, 'cursor' | 'sort'>) => ForgeIterable<Repo>
   }
 }
 
-/**
- * One page from each provider that supports `verb`, merged newest first. A
- * provider that rejects adds a `search_failed` warning and no items; cursors
- * are per provider, so the fan-out reads one page each rather than paging.
- */
-function fanOut<T extends { updatedAt?: Date }>(
+function mergeByUpdated<T extends { updatedAt?: Date }>(
   providers: ForgeProvider[],
   verb: ForgeVerb,
-  read: (provider: ForgeProvider) => Promise<Page<T>>,
+  direction: 'asc' | 'desc',
+  read: (provider: ForgeProvider, cursor: Cursor | undefined) => Promise<Page<T>>,
 ): ForgeIterable<T> {
   const warnings: ForgeWarning[] = []
   return {
     warnings,
     async* [Symbol.asyncIterator]() {
-      const results = await Promise.all(providers.filter(provider => provider.can(verb)).map(async (provider) => {
+      const sources = providers.filter(provider => provider.can(verb)).map((provider) => {
+        const iterable = iteratePages<T, { cursor?: Cursor }>(options => read(provider, options.cursor))
+        return { provider, iterable, iterator: iterable[Symbol.asyncIterator]() }
+      })
+      type Source = typeof sources[number]
+      const heads = new Map<Source, T>()
+
+      async function advance(source: Source): Promise<void> {
         try {
-          const page = await read(provider)
-          warnings.push(...page.warnings ?? [])
-          return page.items
+          const next = await source.iterator.next()
+          if (!next.done) {
+            heads.set(source, next.value)
+            return
+          }
         }
         catch (error) {
-          warnings.push(toWarning('search_failed', error, `${provider.kind}:${provider.instance}`))
-          return []
+          warnings.push(toWarning('search_failed', error, `${source.provider.kind}:${source.provider.instance}`))
         }
-      }))
-      yield* results.flat().sort((a, b) => (b.updatedAt?.getTime() ?? 0) - (a.updatedAt?.getTime() ?? 0))
+        heads.delete(source)
+        warnings.push(...source.iterable.warnings)
+      }
+
+      const time = (item: T) => item.updatedAt?.getTime() ?? 0
+      const comesFirst = direction === 'asc' ? (a: T, b: T) => time(a) < time(b) : (a: T, b: T) => time(a) > time(b)
+      try {
+        await Promise.all(sources.map(advance))
+        while (heads.size) {
+          let picked: [Source, T] | undefined
+          for (const entry of heads) {
+            if (!picked || comesFirst(entry[1], picked[1])) {
+              picked = entry
+            }
+          }
+          const [source, item] = picked!
+          yield item
+          await advance(source)
+        }
+      }
+      finally {
+        for (const source of heads.keys()) {
+          warnings.push(...source.iterable.warnings)
+        }
+        await Promise.all([...heads.keys()].map(source => source.iterator.return?.()))
+      }
     },
   }
 }
@@ -775,8 +803,8 @@ export function createForges(factories: Array<ForgeProviderFactory | ForgeProvid
     },
     securityAlerts: { list: (repo, options) => route(repo).securityAlerts.list(repo, options) },
     search: {
-      threads: (query = {}) => fanOut(providers, 'search.threads', provider => provider.search.threadsPage(query)),
-      repos: (query = {}) => fanOut(providers, 'search.repos', provider => provider.search.reposPage(query)),
+      threads: (query = {}) => mergeByUpdated(providers, 'search.threads', query.direction ?? 'desc', (provider, cursor) => provider.search.threadsPage(searchQuery(query, cursor))),
+      repos: (query = {}) => mergeByUpdated(providers, 'search.repos', query.direction ?? 'desc', (provider, cursor) => provider.search.reposPage(searchQuery(query, cursor))),
     },
     get: (kind, instance) => providers.find(
       provider => provider.kind === kind && (!instance || provider.instance === instance),
@@ -809,4 +837,8 @@ export function createForges(factories: Array<ForgeProviderFactory | ForgeProvid
       },
     },
   }
+}
+
+function searchQuery<Q extends { direction?: 'asc' | 'desc' }>(query: Q, cursor: Cursor | undefined): Q & { sort: 'updated', cursor?: Cursor } {
+  return { ...query, sort: 'updated', direction: query.direction ?? 'desc', ...cursor ? { cursor } : {} }
 }
