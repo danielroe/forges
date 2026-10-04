@@ -218,3 +218,18 @@ describe('gitlab release webhooks', () => {
     expect(event).toMatchObject({ kind: 'release_published', detail: { type: 'release', release: { id: 'v2.0.0', tag: 'v2.0.0' }, name: 'Two' } })
   })
 })
+
+describe('gitlab path safety', () => {
+  it('refuses a comment id that would climb out of the thread, before any request', async () => {
+    const urls: string[] = []
+    const provider = gitlab({ auth: { type: 'token', token: 't' }, fetch: async (url) => {
+      urls.push(url)
+      return new Response(null, { status: 204 })
+    } }).create()
+    const repo = { forge: 'gitlab', instance: 'gitlab.com', owner: 'acme', name: 'widgets' }
+    const thread = { forge: 'gitlab', instance: 'gitlab.com', repo, kind: 'issue', number: '1' } as const
+
+    await expect(provider.threads.deleteComment({ forge: 'gitlab', instance: 'gitlab.com', thread, id: '../../../../../user' })).rejects.toThrow(TypeError)
+    expect(urls).toEqual([])
+  })
+})

@@ -1,3 +1,4 @@
+import type { ForgeRawRequestOptions } from '../../src/fetch.ts'
 import { describe, expect, it, vi } from 'vitest'
 import { ForbiddenError, ForgeApiError, InsufficientScopeError, RateLimitedError } from '../../src/errors.ts'
 import { createFetcher, createRequest, parseLinkHeader } from '../../src/fetch.ts'
@@ -310,5 +311,98 @@ describe('cancellation and rate-limit resets', () => {
     const error = await fetcher.json('/a').catch((error: unknown) => error) as RateLimitedError
 
     expect(error.resetAt).toEqual(new Date(2_000_000_000_000))
+  })
+})
+
+describe('credential scope', () => {
+  function recordingFetcher() {
+    const calls: Array<{ url: string, authorization: string | null }> = []
+    const fetcher = createFetcher({
+      baseUrl: 'https://api.example/v1',
+      authHeaders: () => ({ authorization: 'Bearer secret' }),
+      query: { 'api-version': '7.1' },
+      fetch: async (url, init) => {
+        calls.push({ url, authorization: new Headers(init?.headers).get('authorization') })
+        return new Response('[]', { status: 200 })
+      },
+    })
+    return { fetcher, calls }
+  }
+
+  it('does not send the credential or default query to another origin through a cursor', async () => {
+    const { fetcher, calls } = recordingFetcher()
+
+    await fetcher.page('/items', { cursor: { nextUrl: 'https://evil.example/collect' } })
+
+    expect(calls).toEqual([{ url: 'https://evil.example/collect', authorization: null }])
+  })
+
+  it('does not send the credential to another origin through `request()`', async () => {
+    const { fetcher, calls } = recordingFetcher()
+
+    await createRequest(fetcher)('GET', 'https://evil.example/x')
+
+    expect(calls).toEqual([{ url: 'https://evil.example/x', authorization: null }])
+  })
+
+  it('still authenticates an absolute URL on its own origin', async () => {
+    const { fetcher, calls } = recordingFetcher()
+
+    await fetcher.page('/items', { cursor: { nextUrl: 'https://api.example/v1/items?page=2' } })
+
+    expect(calls).toEqual([{ url: 'https://api.example/v1/items?page=2&api-version=7.1', authorization: 'Bearer secret' }])
+  })
+})
+
+describe('path safety', () => {
+  const fetcher = createFetcher({ baseUrl: 'https://api.example', fetch: async () => new Response('{}', { status: 200 }) })
+
+  it.each([
+    '/repos/a/b/issues/1/../../../../user/keys',
+    '/repos/a/b/issues/%2e%2E/x',
+    '/repos/a/b/issues/.%2e/x',
+    '/repos/a/b/issues/1\\..\\x',
+    '/repos/a/b/issues/1#/comments',
+  ])('refuses %s', async (path) => {
+    await expect(fetcher.json(path)).rejects.toThrow(TypeError)
+  })
+
+  it('allows dots inside a segment and dot segments in the query', async () => {
+    await expect(fetcher.json('/repos/a/b.c/contents/.github/x..y?path=../z')).resolves.toMatchObject({ data: {} })
+  })
+})
+
+describe('retry wait', () => {
+  it('rejects with the caller\'s abort reason while waiting to retry', async () => {
+    const controller = new AbortController()
+    const fetcher = createFetcher({ baseUrl: 'https://api.example', fetch: async () => new Response('', { status: 429, headers: { 'retry-after': '30' } }) })
+    const reason = new Error('cancelled')
+    const pending = fetcher.json('/a', { signal: controller.signal })
+    setTimeout(() => controller.abort(reason), 10)
+
+    await expect(pending).rejects.toBe(reason)
+  })
+})
+
+describe('request()', () => {
+  function bodyFetcher() {
+    const sent: Array<{ body: unknown, contentType: string | null, method?: string }> = []
+    const fetcher = createFetcher({
+      baseUrl: 'https://api.example',
+      fetch: async (_url, init) => {
+        sent.push({ body: init?.body, contentType: new Headers(init?.headers).get('content-type'), method: init?.method })
+        return new Response('{}', { status: 200 })
+      },
+    })
+    return { fetcher, sent }
+  }
+
+  it('types a raw request passed as a variable as a stream', async () => {
+    const { fetcher } = bodyFetcher()
+    const options: ForgeRawRequestOptions = { raw: true }
+
+    const result = await createRequest(fetcher)('GET', '/x', options)
+
+    expect(result.body).toBeInstanceOf(ReadableStream)
   })
 })

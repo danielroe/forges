@@ -78,6 +78,11 @@ export interface Fetcher {
 
 const BODY_EXCERPT_LENGTH = 512
 
+const ABSOLUTE_URL_RE = /^https?:\/\//i
+
+/** `.` or `..`, also percent-encoded. */
+const DOT_SEGMENT_RE = /^(?:\.|%2e){1,2}$/i
+
 /** Parses an RFC 5988 `Link` header into a map of rel to URL. */
 export function parseLinkHeader(header: string | null | undefined): Record<string, string> {
   const links: Record<string, string> = {}
@@ -208,13 +213,51 @@ export function anySignal(signals: AbortSignal[]): AbortSignal {
   return controller.signal
 }
 
+function originOf(url: string): string | undefined {
+  try {
+    return new URL(url).origin
+  }
+  catch {
+    return undefined
+  }
+}
+
+/** Stops a crafted ref field from steering a path to another endpoint. */
+function assertRelativePath(path: string): string {
+  const pathname = path.split('?', 1)[0]!
+  if (path.includes('#') || pathname.includes('\\') || pathname.split('/').some(segment => DOT_SEGMENT_RE.test(segment))) {
+    throw new TypeError(`Unsafe request path ${JSON.stringify(path)}. Check the refs passed to the provider.`)
+  }
+  return path
+}
+
+/** An abortable `setTimeout`. */
+function sleep(ms: number, signal: AbortSignal | undefined): Promise<void> {
+  return new Promise((resolve, reject) => {
+    if (signal?.aborted) {
+      reject(signal.reason)
+      return
+    }
+    const timer = setTimeout(() => {
+      signal?.removeEventListener('abort', onAbort)
+      resolve()
+    }, ms)
+    function onAbort() {
+      clearTimeout(timer)
+      reject(signal!.reason)
+    }
+    signal?.addEventListener('abort', onAbort, { once: true })
+  })
+}
+
 export function createFetcher(options: FetcherOptions): Fetcher {
   const timeout = options.timeout ?? 30_000
   const doFetch: FetchLike = options.fetch ?? ((input, init) => globalThis.fetch(input, init))
   const base = options.baseUrl.replace(/\/$/, '')
+  const baseOrigin = originOf(base)
 
   function resolve(path: string, query?: RequestOptions['query']): string {
-    const url = new URL(/^https?:\/\//.test(path) ? path : `${base}/${path.replace(/^\//, '')}`)
+    const url = new URL(ABSOLUTE_URL_RE.test(path) ? path : `${base}/${assertRelativePath(path).replace(/^\//, '')}`)
     for (const [key, value] of Object.entries(query ?? {})) {
       if (value !== undefined) {
         url.searchParams.set(key, String(value))
@@ -237,12 +280,13 @@ export function createFetcher(options: FetcherOptions): Fetcher {
   }
 
   async function send(url: string, options_: RequestOptions, attempt: number, authenticated = true): Promise<Response> {
+    const trusted = authenticated && baseOrigin !== undefined && originOf(url) === baseOrigin
     const signals = [AbortSignal.timeout(timeout)]
     if (options_.signal) {
       signals.push(options_.signal)
     }
     const headers = new Headers(options.headers)
-    for (const [key, value] of Object.entries(authenticated ? await (options.authHeaders?.() ?? {}) : {})) {
+    for (const [key, value] of Object.entries(trusted ? await (options.authHeaders?.() ?? {}) : {})) {
       headers.set(key, value)
     }
     for (const [key, value] of new Headers(options_.headers as HeadersInit | undefined)) {
@@ -258,7 +302,7 @@ export function createFetcher(options: FetcherOptions): Fetcher {
 
     let response: Response
     try {
-      response = await doFetch(authenticated ? withDefaultQuery(url) : url, {
+      response = await doFetch(trusted ? withDefaultQuery(url) : url, {
         ...init,
         headers,
         body: payload === undefined ? init.body : JSON.stringify(payload),
@@ -301,7 +345,7 @@ export function createFetcher(options: FetcherOptions): Fetcher {
       const wait = retryAfterMs(response)
       if (secondary && attempt === 0 && wait !== undefined && wait <= 60_000) {
         options.onRetry?.({ url, method: options_.method ?? 'GET', wait })
-        await new Promise(resolve => setTimeout(resolve, wait))
+        await sleep(wait, options_.signal)
         return send(url, options_, attempt + 1, authenticated)
       }
       throw new RateLimitedError('Rate limited by the forge', response.status, body, {
@@ -426,8 +470,8 @@ export interface ForgeRawRequestOptions extends ForgeRequestOptions {
 }
 
 export interface ForgeRequest {
-  <T = unknown>(method: string, path: string, options?: ForgeRequestOptions): Promise<ForgeResponse<T>>
   (method: string, path: string, options: ForgeRawRequestOptions): Promise<RawResponse>
+  <T = unknown>(method: string, path: string, options?: ForgeRequestOptions): Promise<ForgeResponse<T>>
 }
 
 /** Builds a provider's `request()` escape hatch on top of its fetcher. */

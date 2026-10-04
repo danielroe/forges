@@ -577,8 +577,9 @@ export interface ForgeProvider {
   /**
    * Sends a raw request to the forge's API through the same hardened fetcher
    * the provider uses, so authentication, timeouts, rate-limit handling and
-   * typed errors all apply. `path` is relative to `baseUrl` (absolute URLs
-   * are accepted). Use it for endpoints the normalised model does not cover.
+   * typed errors all apply. `path` is relative to `baseUrl`; absolute URLs on
+   * another origin get no credentials. Use it for endpoints the normalised
+   * model does not cover.
    */
   readonly request: ForgeRequest
   readonly kind: ForgeKind
@@ -660,7 +661,7 @@ export interface Forges {
   repos: { get: (ref: RepoRef) => Promise<Repo> }
   threads: {
     get: (ref: ThreadRef) => Promise<Thread>
-    /** Grouped per provider, results in input order. */
+    /** Grouped per provider, results in input order. An unregistered origin is a per-item warning. */
     getMany: (refs: ThreadRef[]) => Promise<GetManyResult[]>
   }
   releases: {
@@ -747,11 +748,16 @@ export function createForges(factories: Array<ForgeProviderFactory | ForgeProvid
       get: ref => route(ref).threads.get(ref),
       async getMany(refs) {
         const groups = new Map<ForgeProvider, number[]>()
+        const results: GetManyResult[] = Array.from({ length: refs.length })
         for (const [index, ref] of refs.entries()) {
-          const provider = route(ref)
+          const provider = find(ref)
+          if (!provider) {
+            const error = new UnknownForgeError(`No provider registered for ${ref.forge} on ${ref.instance}`, { forge: ref.forge, instance: ref.instance })
+            results[index] = { ok: false, ref, warning: toWarning('thread_unreadable', error, ref.number) }
+            continue
+          }
           groups.set(provider, [...groups.get(provider) ?? [], index])
         }
-        const results: GetManyResult[] = Array.from({ length: refs.length })
         await Promise.all([...groups].map(async ([provider, indexes]) => {
           const batch = await provider.threads.getMany(indexes.map(index => refs[index]!))
           for (const [position, index] of indexes.entries()) {

@@ -173,11 +173,11 @@ function threadPath(ref: ResolvedThreadRef): string {
   const project = `/projects/${projectId(ref.repo)}`
   switch (ref.kind) {
     case 'pull_request':
-      return `${project}/merge_requests/${ref.number}`
+      return `${project}/merge_requests/${encodeURIComponent(ref.number)}`
     case 'commit':
-      return `${project}/repository/commits/${ref.number}`
+      return `${project}/repository/commits/${encodeURIComponent(ref.number)}`
     default:
-      return `${project}/issues/${ref.number}`
+      return `${project}/issues/${encodeURIComponent(ref.number)}`
   }
 }
 

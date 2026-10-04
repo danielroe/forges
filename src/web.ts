@@ -92,7 +92,13 @@ export function parseWebUrl(web: WebLinks, input: string | URL, origin: ForgeOri
   if (prefix && !url.pathname.startsWith(`${prefix}/`)) {
     return undefined
   }
-  const segments = url.pathname.slice(prefix.length).split('/').filter(Boolean).map(decodeURIComponent)
+  let segments: string[]
+  try {
+    segments = url.pathname.slice(prefix.length).split('/').filter(Boolean).map(decodeURIComponent)
+  }
+  catch {
+    return undefined
+  }
   return web.parse(segments, url, origin)
 }
 
@@ -112,6 +118,8 @@ interface GitHubShape {
   lineFragment: (line: number) => string
   /** Reference prefix for pulls when it differs from issues. */
   pullPrefix?: string
+  /** First path segments that are the forge's own pages (`settings`), not owners. */
+  reserved?: readonly string[]
 }
 
 /** Web links for forges laid out like GitHub: `/{owner}/{name}/issues/{n}` and friends. */
@@ -119,6 +127,7 @@ export function githubShapedWeb(origin: string, shape: GitHubShape): WebLinks {
   const repoPath = (repo: RepoRef) => `/${encodePath(repo.owner)}/${encodeURIComponent(repo.name)}`
   const kindPath: Partial<Record<ThreadKind, string>> = { issue: 'issues', pull_request: shape.pull, commit: 'commit', ...shape.discussions ? { discussion: 'discussions' } : {} }
   const kindOf = new Map<string, ThreadKind>(Object.entries(kindPath).map(([kind, path]) => [path, kind as ThreadKind]))
+  const reserved = new Set(shape.reserved?.map(segment => segment.toLowerCase()))
   return {
     origin,
     repo: repoPath,
@@ -131,7 +140,7 @@ export function githubShapedWeb(origin: string, shape: GitHubShape): WebLinks {
     compare: (repo, base, head) => `${repoPath(repo)}/compare/${encodeURIComponent(base)}...${encodeURIComponent(head)}`,
     parse: (segments, url, from) => {
       const [owner, name, section, id] = segments
-      if (!owner || !name) {
+      if (!owner || !name || reserved.has(owner.toLowerCase())) {
         return undefined
       }
       const repo: RepoRef = { ...from, owner, name: name.replace(/\.git$/, '') }

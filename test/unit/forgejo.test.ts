@@ -79,3 +79,18 @@ describe('forgejo release webhooks', () => {
     expect(event).toMatchObject({ kind: 'release_published', detail: { release: { id: '31001', tag: 'v0.4.0' }, name: 'Four' } })
   })
 })
+
+describe('forgejo path safety', () => {
+  it('encodes owner, name and number in thread paths', async () => {
+    const urls: string[] = []
+    const provider = forgejo({ baseUrl: 'https://codeberg.org', auth: { type: 'token', token: 't' }, fetch: async (url) => {
+      urls.push(url)
+      return new Response('{"id":1,"body":"hi","user":{"id":1,"login":"a"}}', { status: 201 })
+    } }).create()
+    const repo = { forge: 'forgejo', instance: 'codeberg.org', owner: 'acme/x', name: 'widgets' }
+
+    await provider.threads.comment({ forge: 'forgejo', instance: 'codeberg.org', repo, kind: 'pull_request', number: '1?x=' }, 'hi')
+
+    expect(urls).toEqual(['https://codeberg.org/api/v1/repos/acme%2Fx/widgets/issues/1%3Fx%3D/comments'])
+  })
+})

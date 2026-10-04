@@ -165,20 +165,23 @@ const GHES_MARK_DONE = '3.13'
 const GHES_DEPENDABOT_ALERTS = '3.8'
 const GRAPHQL_BATCH = 20
 
+/** github.com pages that look like `/{owner}/...`. */
+const GITHUB_RESERVED_PATHS = ['about', 'account', 'apps', 'codespaces', 'collections', 'contact', 'customer-stories', 'dashboard', 'enterprise', 'enterprises', 'events', 'explore', 'features', 'gist', 'issues', 'join', 'login', 'logout', 'marketplace', 'new', 'notifications', 'organizations', 'orgs', 'pricing', 'pulls', 'search', 'security', 'settings', 'signup', 'site', 'sponsors', 'stars', 'topics', 'trending', 'users', 'watching']
+
 const ISSUE_LIKE = { issue: true, pull_request: true, discussion: true } as const
 
 function repoPath(repo: RepoRef): string {
-  return `/repos/${repo.owner}/${repo.name}`
+  return `/repos/${encodeURIComponent(repo.owner)}/${encodeURIComponent(repo.name)}`
 }
 
 function threadPath(ref: ResolvedThreadRef): string {
   switch (ref.kind) {
     case 'pull_request':
-      return `${repoPath(ref.repo)}/pulls/${ref.number}`
+      return `${repoPath(ref.repo)}/pulls/${encodeURIComponent(ref.number)}`
     case 'commit':
-      return `${repoPath(ref.repo)}/commits/${ref.number}`
+      return `${repoPath(ref.repo)}/commits/${encodeURIComponent(ref.number)}`
     default:
-      return `${repoPath(ref.repo)}/issues/${ref.number}`
+      return `${repoPath(ref.repo)}/issues/${encodeURIComponent(ref.number)}`
   }
 }
 
@@ -477,15 +480,15 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
       return { ...page, items: page.items.map(({ comment }) => toDiscussionComment(ref, comment)) }
     }
     const path = ref.kind === 'commit'
-      ? `${repoPath(ref.repo)}/commits/${ref.number}/comments`
-      : `${repoPath(ref.repo)}/issues/${ref.number}/comments`
+      ? `${repoPath(ref.repo)}/commits/${encodeURIComponent(ref.number)}/comments`
+      : `${repoPath(ref.repo)}/issues/${encodeURIComponent(ref.number)}/comments`
     return list(path, listOptions, (raw: GitHubComment) => toComment(ref, raw))
   }
 
   function commentPath(ref: CommentRef): string {
     return ref.thread.kind === 'commit'
-      ? `${repoPath(ref.thread.repo)}/comments/${ref.id}`
-      : `${repoPath(ref.thread.repo)}/issues/comments/${ref.id}`
+      ? `${repoPath(ref.thread.repo)}/comments/${encodeURIComponent(ref.id)}`
+      : `${repoPath(ref.thread.repo)}/issues/comments/${encodeURIComponent(ref.id)}`
   }
 
   async function setState(thread: ThreadRef, state: 'open' | 'closed', options_: CloseOptions = {}): Promise<void> {
@@ -653,7 +656,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
 
   /** Repository hooks, or organisation hooks for a namespace ref. */
   function hooksPath(target: RepoRef): string {
-    return isNamespaceRef(target) ? `/orgs/${target.owner}/hooks` : `${repoPath(target)}/hooks`
+    return isNamespaceRef(target) ? `/orgs/${encodeURIComponent(target.owner)}/hooks` : `${repoPath(target)}/hooks`
   }
 
   function hookConfig(input: { url?: string, contentType?: 'json' | 'form', secret?: string }): Record<string, string> {
@@ -913,11 +916,11 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
   function reactionPath(target: ThreadRef | CommentRef): string {
     if ('thread' in target) {
       return target.thread.kind === 'commit'
-        ? `${repoPath(target.thread.repo)}/comments/${target.id}/reactions`
-        : `${repoPath(target.thread.repo)}/issues/comments/${target.id}/reactions`
+        ? `${repoPath(target.thread.repo)}/comments/${encodeURIComponent(target.id)}/reactions`
+        : `${repoPath(target.thread.repo)}/issues/comments/${encodeURIComponent(target.id)}/reactions`
     }
     const ref = requireIssueOrPull(target, context, 'react to')
-    return `${repoPath(ref.repo)}/issues/${ref.number}/reactions`
+    return `${repoPath(ref.repo)}/issues/${encodeURIComponent(ref.number)}/reactions`
   }
 
   /** The authenticated login, read once and reused; reactions are deleted by id, so removing one needs it. */
@@ -968,13 +971,13 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
     const login = await viewerLogin()
     const mine = data.find(item => item.content === reaction && item.user?.login === login)
     if (mine) {
-      await fetcher.raw(`${path}/${mine.id}`, { method: 'DELETE' })
+      await fetcher.raw(`${path}/${encodeURIComponent(mine.id)}`, { method: 'DELETE' })
     }
   }
 
   async function issuePatch(thread: ThreadRef, json: Record<string, unknown>, action: string): Promise<void> {
     const ref = requireIssueOrPull(thread, context, action)
-    await fetcher.raw(`${repoPath(ref.repo)}/issues/${ref.number}`, { method: 'PATCH', json })
+    await fetcher.raw(`${repoPath(ref.repo)}/issues/${encodeURIComponent(ref.number)}`, { method: 'PATCH', json })
   }
 
   /** Check runs need an installation credential; a token writes a commit status instead. */
@@ -1029,15 +1032,15 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
         if (ref.type !== 'check_run') {
           throw new UnsupportedOperationError(`GitHub cannot re-run a ${ref.type}; only check runs can be re-requested`, context)
         }
-        await fetcher.raw(`${repoPath(ref.repo)}/check-runs/${ref.id}/rerequest`, { method: 'POST' })
+        await fetcher.raw(`${repoPath(ref.repo)}/check-runs/${encodeURIComponent(ref.id)}/rerequest`, { method: 'POST' })
       }),
     },
     ci: {
       runsPage: verb(true, runsPage),
-      run: verb(true, async ref => toWorkflowRun(ref.repo, (await fetcher.json<GitHubWorkflowRun>(`${repoPath(ref.repo)}/actions/runs/${ref.id}`)).data)),
-      jobsPage: verb(true, (ref, listOptions = {}) => list(`${repoPath(ref.repo)}/actions/runs/${ref.id}/jobs`, listOptions, (raw: GitHubWorkflowJob) => toWorkflowJob(ref, raw), { select: (body, next) => ({ items: (body as { jobs: GitHubWorkflowJob[] }).jobs, next }) })),
+      run: verb(true, async ref => toWorkflowRun(ref.repo, (await fetcher.json<GitHubWorkflowRun>(`${repoPath(ref.repo)}/actions/runs/${encodeURIComponent(ref.id)}`)).data)),
+      jobsPage: verb(true, (ref, listOptions = {}) => list(`${repoPath(ref.repo)}/actions/runs/${encodeURIComponent(ref.id)}/jobs`, listOptions, (raw: GitHubWorkflowJob) => toWorkflowJob(ref, raw), { select: (body, next) => ({ items: (body as { jobs: GitHubWorkflowJob[] }).jobs, next }) })),
       log: verb(true, async (ref) => {
-        const response = await fetcher.raw(`${repoPath(ref.repo)}/actions/jobs/${ref.id}/logs`)
+        const response = await fetcher.raw(`${repoPath(ref.repo)}/actions/jobs/${encodeURIComponent(ref.id)}/logs`)
         if (!response.body) {
           throw new ForgeApiError('GitHub returned no log body', response.status, '', context)
         }
@@ -1073,9 +1076,9 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
     },
     releases: {
       listPage: verb(true, releasesPage),
-      get: verb(true, async ref => toRelease(ref.repo, (await fetcher.json<GitHubRelease>(`${repoPath(ref.repo)}/releases/${ref.id}`)).data)),
+      get: verb(true, async ref => toRelease(ref.repo, (await fetcher.json<GitHubRelease>(`${repoPath(ref.repo)}/releases/${encodeURIComponent(ref.id)}`)).data)),
       getByTag: verb(true, async (repo, tag) => toRelease(repo, (await fetcher.json<GitHubRelease>(`${repoPath(repo)}/releases/tags/${encodeURIComponent(tag)}`)).data)),
-      downloadAsset: verb(true, async (ref, downloadOptions = {}) => (await fetcher.stream(`${repoPath(ref.repo)}/releases/assets/${ref.id}`, {
+      downloadAsset: verb(true, async (ref, downloadOptions = {}) => (await fetcher.stream(`${repoPath(ref.repo)}/releases/assets/${encodeURIComponent(ref.id)}`, {
         headers: { accept: 'application/octet-stream' },
         signal: downloadOptions.signal,
       })).body),
@@ -1102,7 +1105,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
     traits: { poll: true, eventKinds: 'native', auth: ['token', 'app', 'anonymous'], limits: { bodyLength: 65536, commentLength: 65536, labelLength: 50 } },
     probeVersion: enterprise ? async () => (await fetcher.json<{ installed_version?: string }>('/meta')).data.installed_version : undefined,
     installations: credentials ? verb(true, createInstallationsApi(credentials)) : undefined,
-    web: githubShapedWeb(enterprise ? baseUrl.replace(/\/api\/v3$/, '') : `https://${webHost(host)}`, { pull: 'pull', discussions: true, commentFragment: 'issuecomment-', file: at => `/blob/${encodeURIComponent(at)}`, lineFragment: line => `L${line}` }),
+    web: githubShapedWeb(enterprise ? baseUrl.replace(/\/api\/v3$/, '') : `https://${webHost(host)}`, { pull: 'pull', discussions: true, commentFragment: 'issuecomment-', file: at => `/blob/${encodeURIComponent(at)}`, lineFragment: line => `L${line}`, reserved: GITHUB_RESERVED_PATHS }),
     webhooks: {
       listPage: verb(true, (target, listOptions = {}) => list(hooksPath(target), listOptions, (raw: GitHubHook) => toWebhook(target, raw), { mapError: scopeIs404 })),
       create: verb(true, async (target, input) => toWebhook(target, (await fetcher.json<GitHubHook>(hooksPath(target), {
@@ -1115,7 +1118,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
         },
         mapError: scopeIs404,
       })).data)),
-      update: verb(true, async (ref, update) => toWebhook(ref.target, (await fetcher.json<GitHubHook>(`${hooksPath(ref.target)}/${ref.id}`, {
+      update: verb(true, async (ref, update) => toWebhook(ref.target, (await fetcher.json<GitHubHook>(`${hooksPath(ref.target)}/${encodeURIComponent(ref.id)}`, {
         method: 'PATCH',
         json: {
           ...update.active === undefined ? {} : { active: update.active },
@@ -1125,20 +1128,20 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
         mapError: scopeIs404,
       })).data)),
       delete: verb(true, async (ref) => {
-        await fetcher.raw(`${hooksPath(ref.target)}/${ref.id}`, { method: 'DELETE', mapError: scopeIs404 })
+        await fetcher.raw(`${hooksPath(ref.target)}/${encodeURIComponent(ref.id)}`, { method: 'DELETE', mapError: scopeIs404 })
       }),
       rotateSecret: verb('experimental', async (ref, secret) => {
-        const current = toWebhook(ref.target, (await fetcher.json<GitHubHook>(`${hooksPath(ref.target)}/${ref.id}`, { mapError: scopeIs404 })).data)
-        const { data } = await fetcher.json<GitHubHook>(`${hooksPath(ref.target)}/${ref.id}`, {
+        const current = toWebhook(ref.target, (await fetcher.json<GitHubHook>(`${hooksPath(ref.target)}/${encodeURIComponent(ref.id)}`, { mapError: scopeIs404 })).data)
+        const { data } = await fetcher.json<GitHubHook>(`${hooksPath(ref.target)}/${encodeURIComponent(ref.id)}`, {
           method: 'PATCH',
           json: { config: hookConfig({ url: current.url, contentType: current.contentType, secret }) },
           mapError: scopeIs404,
         })
         return toWebhook(ref.target, data)
       }),
-      deliveriesPage: verb(true, (ref, listOptions = {}) => list(`${hooksPath(ref.target)}/${ref.id}/deliveries`, listOptions, (raw: GitHubHookDelivery) => toWebhookDelivery(ref, raw), { mapError: scopeIs404 })),
+      deliveriesPage: verb(true, (ref, listOptions = {}) => list(`${hooksPath(ref.target)}/${encodeURIComponent(ref.id)}/deliveries`, listOptions, (raw: GitHubHookDelivery) => toWebhookDelivery(ref, raw), { mapError: scopeIs404 })),
       redeliver: verb(true, async (ref) => {
-        await fetcher.raw(`${hooksPath(ref.hook.target)}/${ref.hook.id}/deliveries/${ref.id}/attempts`, { method: 'POST', mapError: scopeIs404 })
+        await fetcher.raw(`${hooksPath(ref.hook.target)}/${encodeURIComponent(ref.hook.id)}/deliveries/${encodeURIComponent(ref.id)}/attempts`, { method: 'POST', mapError: scopeIs404 })
       }),
     },
     scopes: githubScopesFor,
@@ -1187,13 +1190,13 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
     notifications: {
       listPage: verb(true, notificationPage),
       markRead: verb(true, async (ref: NotificationRef) => {
-        await fetcher.raw(`/notifications/threads/${ref.id}`, { method: 'PATCH' })
+        await fetcher.raw(`/notifications/threads/${encodeURIComponent(ref.id)}`, { method: 'PATCH' })
       }),
       markDone: verb(enterprise ? ({ version }) => versionAtLeast(version, GHES_MARK_DONE) : true, async (ref: NotificationRef) => {
-        await fetcher.raw(`/notifications/threads/${ref.id}`, { method: 'DELETE' })
+        await fetcher.raw(`/notifications/threads/${encodeURIComponent(ref.id)}`, { method: 'DELETE' })
       }),
       unsubscribe: verb(true, async (ref: NotificationRef) => {
-        await fetcher.raw(`/notifications/threads/${ref.id}/subscription`, { method: 'DELETE' })
+        await fetcher.raw(`/notifications/threads/${encodeURIComponent(ref.id)}/subscription`, { method: 'DELETE' })
       }),
       markAllRead: verb(true, async (bulk: BulkNotificationOptions = {}) => {
         await fetcher.raw(bulk.repo ? `${repoPath(bulk.repo)}/notifications` : '/notifications', {
@@ -1213,9 +1216,9 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
           return { ...page, items: page.items.map(({ comment, isReply }) => toDiscussionCommentEvent(ref, comment, isReply)) }
         }
         if (ref.kind === 'commit') {
-          return list(`${repoPath(ref.repo)}/commits/${ref.number}/comments`, listOptions, (comment: GitHubTimelineEntry) => toEvent(instance, ref, { ...comment, event: 'commented' }))
+          return list(`${repoPath(ref.repo)}/commits/${encodeURIComponent(ref.number)}/comments`, listOptions, (comment: GitHubTimelineEntry) => toEvent(instance, ref, { ...comment, event: 'commented' }))
         }
-        return list(`${repoPath(ref.repo)}/issues/${ref.number}/timeline`, listOptions, (entry: GitHubTimelineEntry) => toEvent(instance, ref, entry))
+        return list(`${repoPath(ref.repo)}/issues/${encodeURIComponent(ref.number)}/timeline`, listOptions, (entry: GitHubTimelineEntry) => toEvent(instance, ref, entry))
       }),
       commentsPage: perKind({ issue: true, pull_request: true, discussion: !anonymous, commit: 'experimental' }, commentsPage),
       reviewsPage: verb(true, reviewsPage),
@@ -1224,7 +1227,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
       createReview: verb(true, createReview),
       submitReview: verb(true, async (ref, event, body) => {
         const pull = requirePull(ref.thread, 'reviewed')
-        const { data } = await fetcher.json<GitHubReview>(`${threadPath(pull)}/reviews/${ref.id}/events`, {
+        const { data } = await fetcher.json<GitHubReview>(`${threadPath(pull)}/reviews/${encodeURIComponent(ref.id)}/events`, {
           method: 'POST',
           json: { event: REVIEW_EVENTS[event], body },
         })
@@ -1250,8 +1253,8 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
           return (await import('./graphql.ts')).toDiscussionComment(ref, data.addDiscussionComment.comment)
         }
         const path = ref.kind === 'commit'
-          ? `${repoPath(ref.repo)}/commits/${ref.number}/comments`
-          : `${repoPath(ref.repo)}/issues/${ref.number}/comments`
+          ? `${repoPath(ref.repo)}/commits/${encodeURIComponent(ref.number)}/comments`
+          : `${repoPath(ref.repo)}/issues/${encodeURIComponent(ref.number)}/comments`
         const { data } = await fetcher.json<GitHubComment>(path, { method: 'POST', json: { body } })
         return toComment(ref, data)
       }),
@@ -1293,7 +1296,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
         if (!input.labels?.length && !assignees?.length) {
           return toThread(ref, pull)
         }
-        const { data: issue } = await fetcher.json<GitHubIssue>(`${repoPath(repo)}/issues/${pull.number}`, {
+        const { data: issue } = await fetcher.json<GitHubIssue>(`${repoPath(repo)}/issues/${encodeURIComponent(pull.number)}`, {
           method: 'PATCH',
           json: { labels: input.labels, assignees },
         })
@@ -1311,12 +1314,12 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
       }),
       addLabels: perKind({ issue: 'experimental', pull_request: true }, async (thread, labels) => {
         const ref = requireIssueOrPull(thread, context, 'label')
-        await fetcher.raw(`${repoPath(ref.repo)}/issues/${ref.number}/labels`, { method: 'POST', json: { labels } })
+        await fetcher.raw(`${repoPath(ref.repo)}/issues/${encodeURIComponent(ref.number)}/labels`, { method: 'POST', json: { labels } })
       }),
       removeLabels: perKind({ issue: 'experimental', pull_request: true }, async (thread, labels) => {
         const ref = requireIssueOrPull(thread, context, 'label')
         for (const label of labels) {
-          await fetcher.raw(`${repoPath(ref.repo)}/issues/${ref.number}/labels/${encodeURIComponent(label)}`, { method: 'DELETE' })
+          await fetcher.raw(`${repoPath(ref.repo)}/issues/${encodeURIComponent(ref.number)}/labels/${encodeURIComponent(label)}`, { method: 'DELETE' })
         }
       }),
       setMilestone: perKind({ issue: 'experimental', pull_request: 'experimental' }, (thread, milestone) => issuePatch(
@@ -1343,11 +1346,11 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
       }),
       setLabels: perKind({ issue: 'experimental', pull_request: true }, async (thread, labels) => {
         const ref = requireIssueOrPull(thread, context, 'label')
-        await fetcher.raw(`${repoPath(ref.repo)}/issues/${ref.number}/labels`, { method: 'PUT', json: { labels } })
+        await fetcher.raw(`${repoPath(ref.repo)}/issues/${encodeURIComponent(ref.number)}/labels`, { method: 'PUT', json: { labels } })
       }),
       assign: perKind({ issue: 'experimental', pull_request: true }, async (thread, assignees) => {
         const ref = requireIssueOrPull(thread, context, 'assign')
-        await fetcher.raw(`${repoPath(ref.repo)}/issues/${ref.number}`, { method: 'PATCH', json: { assignees: assignees.map(actorLogin) } })
+        await fetcher.raw(`${repoPath(ref.repo)}/issues/${encodeURIComponent(ref.number)}`, { method: 'PATCH', json: { assignees: assignees.map(actorLogin) } })
       }),
       requestReview: perKind({ pull_request: true }, async (thread, reviewers) => {
         const ref = requireThread(thread, context)
