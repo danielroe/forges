@@ -8,7 +8,7 @@ export interface FetcherOptions {
   baseUrl: string
   /** Injected for tests and for runtimes with a non-global fetch. */
   fetch?: FetchLike
-  /** Per-request timeout in milliseconds. Defaults to 30000. */
+  /** Timeout in milliseconds (headers only for streams). Defaults to 30000. */
   timeout?: number
   /** Default headers, sent only to the API origin. */
   headers?: Record<string, string>
@@ -301,11 +301,9 @@ export function createFetcher(options: FetcherOptions): Fetcher {
   async function send(url: string, options_: RequestOptions, attempt: number, authenticated = true, download = false, redirects = 0, streaming = false): Promise<Response> {
     const target = assertUrl(new URL(url))
     const trusted = authenticated && target.origin === baseOrigin
-    const timeoutSignal = AbortSignal.timeout(timeout)
-    const timeoutController = new AbortController()
-    const onTimeout = () => timeoutController.abort(timeoutSignal.reason)
-    timeoutSignal.addEventListener('abort', onTimeout, { once: true })
-    const signals = [timeoutController.signal]
+    const controller = streaming ? new AbortController() : undefined
+    const timer = controller ? setTimeout(() => controller.abort(new DOMException('Request timed out', 'TimeoutError')), timeout) : undefined
+    const signals = [controller?.signal ?? AbortSignal.timeout(timeout)]
     if (options_.signal) {
       signals.push(options_.signal)
     }
@@ -353,6 +351,9 @@ export function createFetcher(options: FetcherOptions): Fetcher {
         { cause },
       )
     }
+    finally {
+      clearTimeout(timer)
+    }
 
     if (response.type === 'opaqueredirect' && options_.redirect !== 'manual') {
       throw new TypeError('Hidden redirect refused')
@@ -387,9 +388,6 @@ export function createFetcher(options: FetcherOptions): Fetcher {
       return send(next.toString(), nextOptions, attempt, authenticated && sameOrigin, download, redirects + 1, streaming)
     }
     if (response.ok || response.status === 304 || (options_.redirect === 'manual' && (response.type === 'opaqueredirect' || (response.status >= 300 && response.status < 400)))) {
-      if (streaming) {
-        timeoutSignal.removeEventListener('abort', onTimeout)
-      }
       return response
     }
 

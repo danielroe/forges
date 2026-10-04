@@ -391,6 +391,24 @@ describe('streaming timeout', () => {
     }
   }
 
+  it('times out while waiting for stream headers', async () => {
+    const fetcher = createFetcher({ baseUrl: 'https://api.example', timeout: 10, fetch: (_url, init) => new Promise((_, reject) => {
+      init!.signal!.addEventListener('abort', () => reject(init!.signal!.reason), { once: true })
+    }) })
+
+    await expect(fetcher.stream('/logs')).rejects.toMatchObject({ name: 'ForgeTimeoutError' })
+  })
+
+  it('preserves caller cancellation after stream headers', async () => {
+    const controller = new AbortController()
+    const fetcher = createFetcher({ baseUrl: 'https://api.example', timeout: 50, fetch: slowBodyFetch(8) })
+    const result = await fetcher.stream('/logs', { signal: controller.signal })
+    const reason = new Error('cancelled')
+    controller.abort(reason)
+
+    await expect(new Response(result.body).arrayBuffer()).rejects.toBe(reason)
+  })
+
   it('lets a streamed body outlive the request timeout', async () => {
     const fetcher = createFetcher({ baseUrl: 'https://api.example', timeout: 50, fetch: slowBodyFetch(8) })
 

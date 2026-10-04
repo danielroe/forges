@@ -1038,13 +1038,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
       runsPage: verb(true, runsPage),
       run: verb(true, async ref => toWorkflowRun(ref.repo, (await fetcher.json<GitHubWorkflowRun>(`${repoPath(ref.repo)}/actions/runs/${encodeURIComponent(ref.id)}`)).data)),
       jobsPage: verb(true, (ref, listOptions = {}) => list(`${repoPath(ref.repo)}/actions/runs/${encodeURIComponent(ref.id)}/jobs`, listOptions, (raw: GitHubWorkflowJob) => toWorkflowJob(ref, raw), { select: (body, next) => ({ items: (body as { jobs: GitHubWorkflowJob[] }).jobs, next }) })),
-      log: verb(true, async (ref) => {
-        const response = await fetcher.raw(`${repoPath(ref.repo)}/actions/jobs/${encodeURIComponent(ref.id)}/logs`)
-        if (!response.body) {
-          throw new ForgeApiError('GitHub returned no log body', response.status, '', context)
-        }
-        return response.body
-      }),
+      log: verb(true, async ref => (await fetcher.stream(`${repoPath(ref.repo)}/actions/jobs/${encodeURIComponent(ref.id)}/logs`)).body),
     },
     contents: {
       file: verb(true, readFile),
