@@ -494,7 +494,7 @@ function emptyStream(): ReadableStream<Uint8Array> {
 
 export interface ForgeRequestOptions {
   query?: RequestOptions['query']
-  /** Objects are sent as JSON; strings are sent as-is. */
+  /** Plain objects, arrays and primitives are sent as JSON; anything else as is. */
   body?: unknown
   headers?: Record<string, string>
   signal?: AbortSignal
@@ -520,24 +520,31 @@ export interface ForgeRequest {
 /** Builds a provider's `request()` escape hatch on top of its fetcher. */
 export function createRequest(fetcher: Fetcher): ForgeRequest {
   return (async <T>(method: string, path: string, options: ForgeRequestOptions | ForgeRawRequestOptions = {}): Promise<ForgeResponse<T> | RawResponse> => {
-    const json = options.body !== undefined && typeof options.body !== 'string'
-    if ('raw' in options && options.raw) {
-      return fetcher.stream(path, {
-        method: method.toUpperCase(),
-        query: options.query,
-        signal: options.signal,
-        headers: { ...json ? { 'content-type': 'application/json' } : {}, ...options.headers },
-        body: options.body === undefined ? undefined : json ? JSON.stringify(options.body) : options.body as string,
-      })
-    }
-    const result = await fetcher.json<T>(path, {
-      method: method.toUpperCase(),
+    const upperMethod = method.toUpperCase()
+    const json = options.body !== undefined && isJsonBody(options.body)
+    const init: RequestOptions = {
+      method: upperMethod,
       query: options.query,
       signal: options.signal,
       headers: { ...json ? { 'content-type': 'application/json' } : {}, ...options.headers },
-      body: options.body === undefined ? undefined : json ? JSON.stringify(options.body) : options.body as string,
-    })
+      body: options.body === undefined ? undefined : json ? JSON.stringify(options.body) : options.body as BodyInit,
+    }
+    if ('raw' in options && options.raw) {
+      return fetcher.stream(path, init)
+    }
+    const result = await fetcher.json<T>(path, init)
     const rateLimit = rateLimitOf(result.response)
     return { status: result.response.status, data: result.data, headers: result.response.headers, ...rateLimit ? { rateLimit } : {} }
   }) as ForgeRequest
+}
+
+function isJsonBody(value: unknown): boolean {
+  if (value === null || typeof value === 'number' || typeof value === 'boolean' || Array.isArray(value)) {
+    return true
+  }
+  if (typeof value !== 'object') {
+    return false
+  }
+  const prototype = Object.getPrototypeOf(value)
+  return prototype === Object.prototype || prototype === null
 }

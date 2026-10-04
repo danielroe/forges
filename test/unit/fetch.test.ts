@@ -395,6 +395,24 @@ describe('request()', () => {
     return { fetcher, sent }
   }
 
+  it('sends bytes as they are', async () => {
+    const { fetcher, sent } = bodyFetcher()
+    const bytes = new Uint8Array([1, 2, 3])
+
+    await createRequest(fetcher)('POST', '/upload', { body: bytes, headers: { 'content-type': 'application/octet-stream' } })
+
+    expect(sent).toEqual([{ body: bytes, contentType: 'application/octet-stream', method: 'POST' }])
+  })
+
+  it('sends plain objects and arrays as JSON', async () => {
+    const { fetcher, sent } = bodyFetcher()
+
+    await createRequest(fetcher)('POST', '/x', { body: { a: 1 } })
+    await createRequest(fetcher)('POST', '/x', { body: [1] })
+
+    expect(sent.map(({ body, contentType }) => [body, contentType])).toEqual([['{"a":1}', 'application/json'], ['[1]', 'application/json']])
+  })
+
   it('types a raw request passed as a variable as a stream', async () => {
     const { fetcher } = bodyFetcher()
     const options: ForgeRawRequestOptions = { raw: true }
