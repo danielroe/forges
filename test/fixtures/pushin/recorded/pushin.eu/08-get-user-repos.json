@@ -1,0 +1,46 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://pushin.eu/api/v1/user/repos?per_page=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "x-ratelimit-remaining": "4990",
+      "x-ratelimit-reset": "1791129600"
+    },
+    "body": [
+      {
+        "id": "repo_034KGysv7UrbfMN79ro6eN",
+        "name": "roe.dev",
+        "owner": {
+          "type": "User",
+          "html_url": "https://pushin.eu/danielroe",
+          "login": "danielroe"
+        },
+        "private": false,
+        "description": null,
+        "permissions": {
+          "push": true,
+          "pull": true,
+          "admin": true,
+          "maintain": true,
+          "triage": true
+        },
+        "url": "https://pushin.eu/api/v1/repos/danielroe/roe.dev",
+        "updated_at": "2026-10-03T16:55:04.575460Z",
+        "topics": [],
+        "created_at": "2026-09-06T19:13:09.398456Z",
+        "full_name": "danielroe/roe.dev",
+        "visibility": "public",
+        "default_branch": "main",
+        "homepage": null,
+        "html_url": "https://pushin.eu/danielroe/roe.dev",
+        "clone_url": "https://git.pushin.eu/danielroe/roe.dev.git",
+        "forks_count": 0,
+        "stargazers_count": 0,
+        "watchers_count": 0
+      }
+    ]
+  }
+}

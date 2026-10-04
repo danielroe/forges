@@ -1,5 +1,5 @@
-import type { Actor, Collaborator, Comment, ForgeOrigin, Label, Repo, RepoPermissions, RepoRef, RepoRole, ResolvedThreadRef, Thread, ThreadRef } from '../model.ts'
-import type { PushinCollaborator, PushinComment, PushinLabel, PushinPullRequest, PushinRepository, PushinUser } from './types.ts'
+import type { Actor, Collaborator, Comment, ForgeOrigin, Label, Notification, NotificationReason, Repo, RepoPermissions, RepoRef, RepoRole, ResolvedThreadRef, Thread, ThreadRef } from '../model.ts'
+import type { PushinCollaborator, PushinComment, PushinLabel, PushinNotification, PushinRepository, PushinThread, PushinUser } from './types.ts'
 import { toDate } from '../utils.ts'
 
 export const FORGE = 'pushin'
@@ -50,9 +50,12 @@ export function toRepo(origin: ForgeOrigin, raw: PushinRepository): Repo {
   }
 }
 
-/** pushin.eu label colours are names (`purple`), not hex. */
 export function toLabel(raw: PushinLabel): Label {
-  return { name: raw.name, description: raw.description ?? undefined }
+  return {
+    name: raw.name,
+    colour: raw.color && /^[0-9a-f]{6}$/i.test(raw.color) ? raw.color : undefined,
+    description: raw.description ?? undefined,
+  }
 }
 
 type RawPermissions = PushinRepository['permissions']
@@ -105,17 +108,52 @@ export function toComment(thread: ThreadRef, raw: PushinComment): Comment {
   }
 }
 
-export function toPullThread(ref: ResolvedThreadRef, raw: PushinPullRequest): Thread {
-  const origin = { forge: FORGE, instance: ref.instance }
-  const state = raw.merged_at || raw.state === 'closed' || raw.state === 'merged' ? 'closed' : 'open'
+const REASONS: Record<string, NotificationReason> = {
+  assign: 'assigned',
+  review_requested: 'review_requested',
+  mention: 'mention',
+  author: 'author',
+  comment: 'comment',
+  subscribed: 'subscribed',
+  state_change: 'state_change',
+  manual: 'manual',
+}
+
+export function toNotification(origin: ForgeOrigin, raw: PushinNotification): Notification {
+  const repo = toRepoRef(origin, raw.repository)
+  const kind = raw.subject.type === 'Issue' ? 'issue' : raw.subject.type === 'PullRequest' ? 'pull_request' : undefined
+  const number = /\/(\d+)\/?$/.exec(raw.subject.url)?.[1]
   return {
-    ref: { ...ref, externalId: raw.id },
-    kind: 'pull_request',
+    ref: { ...origin, id: raw.id },
+    subject: kind && number
+      ? { type: 'thread', thread: { ...origin, repo, kind, number } }
+      : { type: 'other', typeRaw: raw.subject.type, repo, url: raw.subject.url },
+    subjectTypeRaw: raw.subject.type,
+    reason: REASONS[raw.reason] ?? 'unknown',
+    reasonRaw: raw.reason,
+    unread: raw.unread,
+    title: raw.subject.title,
+    subjectState: 'unknown',
+    updatedAt: toDate(raw.updated_at) ?? new Date(0),
+    lastReadAt: toDate(raw.last_read_at),
+    url: raw.html_url ?? raw.subject.url,
+    raw,
+  }
+}
+
+export function toThread(ref: ResolvedThreadRef, raw: PushinThread): Thread {
+  const origin = { forge: FORGE, instance: ref.instance }
+  const kind = raw.pull_request ? 'pull_request' : ref.kind
+  const merged = kind === 'pull_request' && (raw.merged || raw.merged_at || raw.pull_request?.merged_at || raw.state === 'merged')
+  const state = merged || raw.state === 'closed' ? 'closed' : 'open'
+  return {
+    ref: { ...ref, kind, externalId: raw.id },
+    kind,
     title: raw.title,
     body: raw.body ?? undefined,
     state,
-    stateRaw: raw.merged_at ? 'merged' : raw.state,
-    isDraft: raw.draft ?? false,
+    stateRaw: merged ? 'merged' : raw.state,
+    isDraft: kind === 'pull_request' && (raw.draft ?? false),
     author: toActor(origin, raw.user),
     assignees: (raw.assignees ?? []).flatMap(user => toActor(origin, user) ?? []),
     reviewers: [],
@@ -123,12 +161,12 @@ export function toPullThread(ref: ResolvedThreadRef, raw: PushinPullRequest): Th
     url: raw.html_url,
     createdAt: toDate(raw.created_at),
     updatedAt: toDate(raw.updated_at),
-    closedAt: toDate(raw.closed_at ?? undefined),
+    closedAt: toDate(raw.closed_at),
     lastActivityAt: toDate(raw.updated_at),
     locked: raw.locked,
     commentCount: raw.comments,
-    branches: raw.head || raw.base
-      ? { head: { ref: raw.head?.ref ?? '', sha: raw.head?.sha }, base: { ref: raw.base?.ref ?? '' } }
+    branches: kind === 'pull_request' && (raw.head || raw.base)
+      ? { head: { ref: raw.head?.ref ?? '', sha: raw.head?.sha ?? undefined }, base: { ref: raw.base?.ref ?? '' } }
       : undefined,
     raw,
   }

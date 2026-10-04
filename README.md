@@ -120,14 +120,14 @@ The GitHub column assumes app auth with an installation. With a token, `installa
 | `repos.addCollaborator` | experimental | experimental | ❌ | experimental | experimental | ❌ | ❌ | ❌ | ❌ | ❌ |
 | `repos.assignableUsers` | ✅ | ✅ | ❌ | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ |
 | `repos.reviewerCandidates` | emulated | emulated | ❌ | experimental | experimental | ❌ | ❌ | ❌ | ❌ | ❌ |
-| `threads.get` | issue, PR, discussion, commit (experimental) | issue, PR, commit (experimental) | issue (experimental), PR, commit (experimental) | issue, PR, commit (experimental) | issue, PR, commit (experimental) | issue (experimental), PR | issue (experimental), PR | PR | PR (experimental) | issue, PR |
-| `threads.list` | issue, PR, discussion | issue, PR | issue (experimental), PR | issue, PR | issue, PR | issue (experimental), PR | issue, PR | PR | PR (experimental) | issue (experimental), PR |
+| `threads.get` | issue, PR, discussion, commit (experimental) | issue, PR, commit (experimental) | issue (experimental), PR, commit (experimental) | issue, PR, commit (experimental) | issue, PR, commit (experimental) | issue (experimental), PR | issue (experimental), PR | PR | issue, PR (experimental) | issue, PR |
+| `threads.list` | issue, PR, discussion | issue, PR | issue (experimental), PR | issue, PR | issue, PR | issue (experimental), PR | issue, PR | PR | issue, PR (experimental) | issue (experimental), PR |
 | `threads.getMany` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | `comments.list` | issue, PR, discussion, commit (experimental) | issue, PR, commit (experimental) | issue (experimental), PR, commit (experimental) | issue, PR | issue, PR | issue (experimental), PR | issue (experimental), PR | PR | issue, PR (experimental) | issue, PR |
 | `comments.edit` | issue (experimental), PR, discussion (experimental), commit (experimental) | issue (experimental), PR (experimental) | issue (experimental), PR (experimental), commit (experimental) | issue (experimental), PR (experimental) | issue (experimental), PR (experimental) | issue (experimental), PR (experimental) | issue (experimental), PR (experimental) | PR (experimental) | ❌ | issue (experimental), PR (experimental) |
 | `comments.delete` | issue (experimental), PR, discussion (experimental), commit (experimental) | issue (experimental), PR (experimental) | issue (experimental), PR (experimental), commit (experimental) | issue (experimental), PR (experimental) | issue (experimental), PR (experimental) | issue (experimental), PR (experimental) | issue (experimental), PR (experimental) | PR (experimental) | ❌ | issue (experimental), PR (experimental) |
 | `reactions.list` | issue, PR, discussion | issue, PR | ❌ | issue, PR | issue, PR | ❌ | ❌ | ❌ | ❌ | ❌ |
-| `notifications.list` | ✅ | ✅ | ❌ | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ | experimental |
+| `notifications.list` | ✅ | ✅ | ❌ | ✅ | ✅ | ✅ | ❌ | ❌ | experimental | experimental |
 | `notifications.markRead` | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ | experimental |
 | `notifications.markDone` | ✅ | ✅ | ❌ | emulated | emulated | ❌ | ❌ | ❌ | ❌ | ❌ |
 | `notifications.unsubscribe` | ✅ | ✅ | ❌ | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ |

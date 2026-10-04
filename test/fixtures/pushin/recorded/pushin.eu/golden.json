@@ -19,18 +19,196 @@
       "https": "https://git.pushin.eu/pjullrich/pushin.git"
     },
     "createdAt": "2026-07-11T17:16:01.893Z",
-    "updatedAt": "2026-09-29T11:06:56.004Z"
+    "updatedAt": "2026-10-04T10:35:38.882Z",
+    "permissions": {
+      "admin": false,
+      "maintain": false,
+      "push": false,
+      "triage": false,
+      "pull": true
+    }
   },
   "labels": {
     "items": [
       {
         "name": "Future"
       }
-    ]
+    ],
+    "rateLimit": {
+      "remaining": 4997,
+      "resetAt": "<now>"
+    }
+  },
+  "issue": {
+    "ref": {
+      "forge": "pushin",
+      "instance": "pushin.eu",
+      "repo": {
+        "forge": "pushin",
+        "instance": "pushin.eu",
+        "owner": "pjullrich",
+        "name": "pushin"
+      },
+      "kind": "issue",
+      "number": "31",
+      "externalId": "iss_034MXkKugnsXKXVjgfZAN1"
+    },
+    "kind": "issue",
+    "title": "Dependabot replacement",
+    "body": "Hi, \n\nThanks for creating pushin. I moved most of my repo's over from GitHub. But what keeps me from migrating my production repo's is dependabot. I'm addicted to it :D I understand this might not be so easy, but still like to mention it. Also, I wouldn't mind if this was part of a paid plan.\n\nKind regards,\nWouter",
+    "state": "open",
+    "stateRaw": "open",
+    "isDraft": false,
+    "author": {
+      "forge": "pushin",
+      "instance": "pushin.eu",
+      "login": "woutor",
+      "id": "u_034JlTWNDVWjH6SVRWjBXp",
+      "avatarUrl": "https://cdn.pushin.eu/-/avatars/u_034JlTWNDVWjH6SVRWjBXp/b4c80fd1",
+      "url": "https://pushin.eu/woutor",
+      "typeRaw": "User",
+      "isBotHint": false
+    },
+    "assignees": [],
+    "reviewers": [],
+    "labels": [
+      {
+        "name": "Future"
+      }
+    ],
+    "url": "https://pushin.eu/pjullrich/pushin/issues/31",
+    "createdAt": "2026-09-10T18:49:04.985Z",
+    "updatedAt": "2026-09-10T18:50:47.132Z",
+    "lastActivityAt": "2026-09-10T18:50:47.132Z"
+  },
+  "issue list": {
+    "items": [
+      {
+        "ref": {
+          "forge": "pushin",
+          "instance": "pushin.eu",
+          "repo": {
+            "forge": "pushin",
+            "instance": "pushin.eu",
+            "owner": "pjullrich",
+            "name": "pushin"
+          },
+          "kind": "issue",
+          "number": "48",
+          "externalId": "iss_034WGDJ8wkKGtAJ7MfmM2T"
+        },
+        "kind": "issue",
+        "title": "Releases with downloadable assets",
+        "body": "We publish our open-source CLI with goreleaser. On every tag it creates a release and uploads the binaries and a checksums file.\n\nWhat we need:\n - Releases tied to tags, with notes, and a release page in the UI.\n - An API for creating a release and uploading assets. If it follows GitHub's Releases API, goreleaser works unchanged through its github_urls setting.\n - Stable download URLs for assets.",
+        "state": "open",
+        "stateRaw": "open",
+        "isDraft": false,
+        "author": {
+          "forge": "pushin",
+          "instance": "pushin.eu",
+          "login": "antoine",
+          "id": "u_034NWUr8cxFmBRn6njSdYT",
+          "avatarUrl": "https://cdn.pushin.eu/-/avatars/u_034NWUr8cxFmBRn6njSdYT",
+          "url": "https://pushin.eu/antoine",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "assignees": [],
+        "reviewers": [],
+        "labels": [],
+        "url": "https://pushin.eu/pjullrich/pushin/issues/48",
+        "createdAt": "2026-09-27T19:58:30.348Z",
+        "updatedAt": "2026-09-29T22:35:45.189Z",
+        "lastActivityAt": "2026-09-29T22:35:45.189Z"
+      },
+      {
+        "ref": {
+          "forge": "pushin",
+          "instance": "pushin.eu",
+          "repo": {
+            "forge": "pushin",
+            "instance": "pushin.eu",
+            "owner": "pjullrich",
+            "name": "pushin"
+          },
+          "kind": "issue",
+          "number": "47",
+          "externalId": "iss_034WGCE66WJmQ6lSSwXkoh"
+        },
+        "kind": "issue",
+        "title": "Webhooks for push, tag and pull request events",
+        "body": "We'd like to run CI (Woodpecker) and automatic deploys from Pushin repositories. Both learn about changes from forge webhooks, so without them a push or a tag builds nothing.\n\nWhat we need:\n - Per-repository webhooks, configurable in the UI and the API.\n - Events: push (with branch and before/after SHA), tag created, and pull request opened, updated or closed.\n - Payloads in the GitHub or Gitea shape, since the API already follows GitHub.\n - A signature header (HMAC-SHA256 with a shared secret).\n - A delivery log with redelivery, so a missed delivery can be seen and fixed.\n\nThanks for the nice product!",
+        "state": "open",
+        "stateRaw": "open",
+        "isDraft": false,
+        "author": {
+          "forge": "pushin",
+          "instance": "pushin.eu",
+          "login": "antoine",
+          "id": "u_034NWUr8cxFmBRn6njSdYT",
+          "avatarUrl": "https://cdn.pushin.eu/-/avatars/u_034NWUr8cxFmBRn6njSdYT",
+          "url": "https://pushin.eu/antoine",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "assignees": [],
+        "reviewers": [],
+        "labels": [],
+        "url": "https://pushin.eu/pjullrich/pushin/issues/47",
+        "createdAt": "2026-09-27T19:57:47.705Z",
+        "updatedAt": "2026-09-28T13:36:29.402Z",
+        "lastActivityAt": "2026-09-28T13:36:29.402Z"
+      },
+      {
+        "ref": {
+          "forge": "pushin",
+          "instance": "pushin.eu",
+          "repo": {
+            "forge": "pushin",
+            "instance": "pushin.eu",
+            "owner": "pjullrich",
+            "name": "pushin"
+          },
+          "kind": "issue",
+          "number": "45",
+          "externalId": "iss_034UUry1LHKpg4sVf9y70s"
+        },
+        "kind": "issue",
+        "title": "Default git branch should be showing when viewing the repository after it changes",
+        "body": "## Problem\n\nOn the pcharbon70/catena repository I tried changing the default branch and now the HEAD and the default branch are out of sync. I changed the git default branch from `rewrite` to `c-otp-asm` and the main page still lands on `rewrite`. The `pun` tool also agrees on the new default branch.\n\n## Running these you can see the reproduction:\n\n`$ git ls-remote --symref https://git.pushin.eu/pcharbon70/catena.git HEAD`\n\n     ref: refs/heads/rewrite\tHEAD\n     8f6fd300d52e0355e1fe46946ff978d78397872b\tHEAD\n\n\n`$ pun repo view -R pcharbon70/catena --json=default_branch,full_name` \n\n {\n  \"default_branch\": \"c-otp-asm\",\n  \"full_name\": \"pcharbon70/catena\"\n}",
+        "state": "open",
+        "stateRaw": "open",
+        "isDraft": false,
+        "author": {
+          "forge": "pushin",
+          "instance": "pushin.eu",
+          "login": "pcharbon70",
+          "id": "u_034PIl4auUoWJdkib1Bk5W",
+          "avatarUrl": "https://cdn.pushin.eu/-/avatars/u_034PIl4auUoWJdkib1Bk5W",
+          "url": "https://pushin.eu/pcharbon70",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "assignees": [],
+        "reviewers": [],
+        "labels": [],
+        "url": "https://pushin.eu/pjullrich/pushin/issues/45",
+        "createdAt": "2026-09-24T17:42:55.953Z",
+        "updatedAt": "2026-09-25T08:43:59.795Z",
+        "lastActivityAt": "2026-09-25T08:43:59.795Z"
+      }
+    ],
+    "cursor": {
+      "nextUrl": "https://pushin.eu/api/v1/repos/pjullrich/pushin/issues?page=2&per_page=3"
+    },
+    "rateLimit": {
+      "remaining": 4994,
+      "resetAt": "<now>"
+    }
   },
   "issue getMany": [
     {
-      "ok": false,
+      "ok": true,
       "ref": {
         "forge": "pushin",
         "instance": "pushin.eu",
@@ -43,17 +221,238 @@
         "kind": "issue",
         "number": "31"
       },
-      "warning": {
-        "code": "thread_unreadable",
-        "message": "pushin.eu has no API to read an issue",
-        "subject": "31",
-        "cause": {
-          "name": "UnsupportedOperationError",
-          "message": "pushin.eu has no API to read an issue"
-        }
+      "thread": {
+        "ref": {
+          "forge": "pushin",
+          "instance": "pushin.eu",
+          "repo": {
+            "forge": "pushin",
+            "instance": "pushin.eu",
+            "owner": "pjullrich",
+            "name": "pushin"
+          },
+          "kind": "issue",
+          "number": "31",
+          "externalId": "iss_034MXkKugnsXKXVjgfZAN1"
+        },
+        "kind": "issue",
+        "title": "Dependabot replacement",
+        "body": "Hi, \n\nThanks for creating pushin. I moved most of my repo's over from GitHub. But what keeps me from migrating my production repo's is dependabot. I'm addicted to it :D I understand this might not be so easy, but still like to mention it. Also, I wouldn't mind if this was part of a paid plan.\n\nKind regards,\nWouter",
+        "state": "open",
+        "stateRaw": "open",
+        "isDraft": false,
+        "author": {
+          "forge": "pushin",
+          "instance": "pushin.eu",
+          "login": "woutor",
+          "id": "u_034JlTWNDVWjH6SVRWjBXp",
+          "avatarUrl": "https://cdn.pushin.eu/-/avatars/u_034JlTWNDVWjH6SVRWjBXp/b4c80fd1",
+          "url": "https://pushin.eu/woutor",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "assignees": [],
+        "reviewers": [],
+        "labels": [
+          {
+            "name": "Future"
+          }
+        ],
+        "url": "https://pushin.eu/pjullrich/pushin/issues/31",
+        "createdAt": "2026-09-10T18:49:04.985Z",
+        "updatedAt": "2026-09-10T18:50:47.132Z",
+        "lastActivityAt": "2026-09-10T18:50:47.132Z"
       }
     }
   ],
+  "issue events": {
+    "items": [
+      {
+        "forge": "pushin",
+        "instance": "pushin.eu",
+        "id": "com_034MYshdfLIStFvBci89ad",
+        "kind": "comment",
+        "kindRaw": "comment",
+        "summary": "pjullrich commented",
+        "occurredAt": "2026-09-10T19:35:19.796Z",
+        "actor": {
+          "forge": "pushin",
+          "instance": "pushin.eu",
+          "login": "pjullrich",
+          "id": "u_033jgKZKCNGC2kCrD0IBBG",
+          "avatarUrl": "https://cdn.pushin.eu/-/avatars/u_033jgKZKCNGC2kCrD0IBBG/72d51f75",
+          "url": "https://pushin.eu/pjullrich",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "repo": {
+          "forge": "pushin",
+          "instance": "pushin.eu",
+          "owner": "pjullrich",
+          "name": "pushin"
+        },
+        "thread": {
+          "forge": "pushin",
+          "instance": "pushin.eu",
+          "repo": {
+            "forge": "pushin",
+            "instance": "pushin.eu",
+            "owner": "pjullrich",
+            "name": "pushin"
+          },
+          "kind": "issue",
+          "number": "31"
+        },
+        "source": "poll",
+        "detail": {
+          "type": "comment",
+          "comment": {
+            "forge": "pushin",
+            "instance": "pushin.eu",
+            "thread": {
+              "forge": "pushin",
+              "instance": "pushin.eu",
+              "repo": {
+                "forge": "pushin",
+                "instance": "pushin.eu",
+                "owner": "pjullrich",
+                "name": "pushin"
+              },
+              "kind": "issue",
+              "number": "31"
+            },
+            "id": "com_034MYshdfLIStFvBci89ad"
+          },
+          "body": "Uh that’s would be very interesting but there are so many languages and package managers I’d need to monitor 🤔 which language support would you need?"
+        },
+        "action": "created"
+      },
+      {
+        "forge": "pushin",
+        "instance": "pushin.eu",
+        "id": "com_034Mtxxbwc3yWMgib1YSC1",
+        "kind": "comment",
+        "kindRaw": "comment",
+        "summary": "woutor commented",
+        "occurredAt": "2026-09-11T09:54:29.783Z",
+        "actor": {
+          "forge": "pushin",
+          "instance": "pushin.eu",
+          "login": "woutor",
+          "id": "u_034JlTWNDVWjH6SVRWjBXp",
+          "avatarUrl": "https://cdn.pushin.eu/-/avatars/u_034JlTWNDVWjH6SVRWjBXp/b4c80fd1",
+          "url": "https://pushin.eu/woutor",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "repo": {
+          "forge": "pushin",
+          "instance": "pushin.eu",
+          "owner": "pjullrich",
+          "name": "pushin"
+        },
+        "thread": {
+          "forge": "pushin",
+          "instance": "pushin.eu",
+          "repo": {
+            "forge": "pushin",
+            "instance": "pushin.eu",
+            "owner": "pjullrich",
+            "name": "pushin"
+          },
+          "kind": "issue",
+          "number": "31"
+        },
+        "source": "poll",
+        "detail": {
+          "type": "comment",
+          "comment": {
+            "forge": "pushin",
+            "instance": "pushin.eu",
+            "thread": {
+              "forge": "pushin",
+              "instance": "pushin.eu",
+              "repo": {
+                "forge": "pushin",
+                "instance": "pushin.eu",
+                "owner": "pjullrich",
+                "name": "pushin"
+              },
+              "kind": "issue",
+              "number": "31"
+            },
+            "id": "com_034Mtxxbwc3yWMgib1YSC1"
+          },
+          "body": "Yes, I understand it's a longshot. Currently my stack is based on Python (uv) and Docker, with some golang on the side. I've also seen alternatives like https://www.mend.io/renovate/. I'll have a look into those soon."
+        },
+        "action": "created"
+      },
+      {
+        "forge": "pushin",
+        "instance": "pushin.eu",
+        "id": "com_034SZrprBqvZTfuO869bVT",
+        "kind": "comment",
+        "kindRaw": "comment",
+        "summary": "asgeirn commented",
+        "occurredAt": "2026-09-21T08:53:49.022Z",
+        "actor": {
+          "forge": "pushin",
+          "instance": "pushin.eu",
+          "login": "asgeirn",
+          "id": "u_034L7K1lsejurUtw96HCS7",
+          "avatarUrl": "https://cdn.pushin.eu/-/avatars/u_034L7K1lsejurUtw96HCS7",
+          "url": "https://pushin.eu/asgeirn",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "repo": {
+          "forge": "pushin",
+          "instance": "pushin.eu",
+          "owner": "pjullrich",
+          "name": "pushin"
+        },
+        "thread": {
+          "forge": "pushin",
+          "instance": "pushin.eu",
+          "repo": {
+            "forge": "pushin",
+            "instance": "pushin.eu",
+            "owner": "pjullrich",
+            "name": "pushin"
+          },
+          "kind": "issue",
+          "number": "31"
+        },
+        "source": "poll",
+        "detail": {
+          "type": "comment",
+          "comment": {
+            "forge": "pushin",
+            "instance": "pushin.eu",
+            "thread": {
+              "forge": "pushin",
+              "instance": "pushin.eu",
+              "repo": {
+                "forge": "pushin",
+                "instance": "pushin.eu",
+                "owner": "pjullrich",
+                "name": "pushin"
+              },
+              "kind": "issue",
+              "number": "31"
+            },
+            "id": "com_034SZrprBqvZTfuO869bVT"
+          },
+          "body": "The most likely candidate in my view would be Renovate, this one supports a large number of package managers and already has support for Forgejo / Gitea in addition to GitHub."
+        },
+        "action": "created"
+      }
+    ],
+    "rateLimit": {
+      "remaining": 4991,
+      "resetAt": "<now>"
+    }
+  },
   "issue comments": {
     "items": [
       {
@@ -152,6 +551,53 @@
         "createdAt": "2026-09-21T08:53:49.022Z",
         "updatedAt": "2026-09-25T20:51:38.356Z"
       }
-    ]
+    ],
+    "rateLimit": {
+      "remaining": 4991,
+      "resetAt": "<now>"
+    }
+  },
+  "own repos": {
+    "items": [
+      {
+        "ref": {
+          "forge": "pushin",
+          "instance": "pushin.eu",
+          "owner": "danielroe",
+          "name": "roe.dev",
+          "externalId": "repo_034KGysv7UrbfMN79ro6eN"
+        },
+        "defaultBranch": "main",
+        "visibility": "public",
+        "visibilityRaw": "public",
+        "isFork": false,
+        "isArchived": false,
+        "topics": [],
+        "url": "https://pushin.eu/danielroe/roe.dev",
+        "cloneUrls": {
+          "https": "https://git.pushin.eu/danielroe/roe.dev.git"
+        },
+        "createdAt": "2026-09-06T19:13:09.398Z",
+        "updatedAt": "2026-10-03T16:55:04.575Z",
+        "permissions": {
+          "admin": true,
+          "maintain": true,
+          "push": true,
+          "triage": true,
+          "pull": true
+        }
+      }
+    ],
+    "rateLimit": {
+      "remaining": 4990,
+      "resetAt": "<now>"
+    }
+  },
+  "notifications": {
+    "items": [],
+    "rateLimit": {
+      "remaining": 4989,
+      "resetAt": "<now>"
+    }
   }
 }

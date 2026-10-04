@@ -5,7 +5,10 @@
   },
   "response": {
     "status": 200,
-    "headers": {},
+    "headers": {
+      "x-ratelimit-remaining": "4997",
+      "x-ratelimit-reset": "1791129600"
+    },
     "body": [
       {
         "default": false,

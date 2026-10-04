@@ -1,5 +1,3 @@
-/** Payloads served by pushin.eu `/api/v1`. Ids are opaque strings. */
-
 export interface PushinUser {
   id: string
   login: string
@@ -20,6 +18,7 @@ export interface PushinRepository {
   description?: string | null
   homepage?: string | null
   default_branch?: string
+  url?: string
   html_url?: string
   clone_url?: string
   topics?: string[]
@@ -37,7 +36,6 @@ export interface PushinComment {
   body: string
   created_at?: string
   updated_at?: string
-  /** Set on a reply; pushin.eu threads comments. */
   in_reply_to_id?: string | null
 }
 
@@ -45,7 +43,6 @@ export interface PushinLabel {
   id: string
   name: string
   description?: string | null
-  /** A colour name such as `purple`, not a hex triplet. */
   color?: string | null
   default?: boolean
 }
@@ -55,8 +52,7 @@ export interface PushinCollaborator extends PushinUser {
   permissions?: { admin?: boolean, maintain?: boolean, push?: boolean, triage?: boolean, pull?: boolean }
 }
 
-/** Inferred from the repository and comment payloads; unverified against a live pull request. */
-export interface PushinPullRequest {
+export interface PushinThread {
   id: string
   number: number
   title: string
@@ -71,8 +67,23 @@ export interface PushinPullRequest {
   created_at?: string
   updated_at?: string
   closed_at?: string | null
-  merged_at?: string | null
   comments?: number
-  head?: { ref?: string, sha?: string } | null
-  base?: { ref?: string, sha?: string } | null
+  url?: string
+  repository_url?: string
+  pull_request?: { url: string, html_url?: string, merged_at?: string | null }
+  merged?: boolean
+  merged_at?: string | null
+  head?: { ref?: string | null, sha?: string | null } | null
+  base?: { ref?: string | null } | null
+}
+
+export interface PushinNotification {
+  id: string
+  html_url?: string
+  last_read_at?: string | null
+  reason: string
+  repository: PushinRepository
+  subject: { title: string, type: string, url: string }
+  unread: boolean
+  updated_at: string
 }
