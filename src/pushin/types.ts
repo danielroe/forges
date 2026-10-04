@@ -1,5 +1,3 @@
-/** Payloads served by pushin.eu `/api/v1`. Ids are opaque strings. */
-
 export interface PushinUser {
   id: string
   login: string
@@ -38,7 +36,6 @@ export interface PushinComment {
   body: string
   created_at?: string
   updated_at?: string
-  /** Set on a reply; pushin.eu threads comments. */
   in_reply_to_id?: string | null
 }
 
@@ -55,7 +52,7 @@ export interface PushinCollaborator extends PushinUser {
   permissions?: { admin?: boolean, maintain?: boolean, push?: boolean, triage?: boolean, pull?: boolean }
 }
 
-export interface PushinIssue {
+export interface PushinThread {
   id: string
   number: number
   title: string
@@ -74,9 +71,6 @@ export interface PushinIssue {
   url?: string
   repository_url?: string
   pull_request?: { url: string, html_url?: string, merged_at?: string | null }
-}
-
-export interface PushinPullRequest extends PushinIssue {
   merged?: boolean
   merged_at?: string | null
   head?: { ref?: string | null, sha?: string | null } | null

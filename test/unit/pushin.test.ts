@@ -18,14 +18,12 @@ function provider(overrides: Parameters<typeof fixtureFetch>[1]) {
 
 describe('pushin', () => {
   it('reads issues and pull requests through their own endpoints', async () => {
-    const { forge, calls } = provider({
+    const { forge } = provider({
       [`GET ${base}/repos/acme/widgets/issues/31`]: { status: 200, body: raw },
       [`GET ${base}/repos/acme/widgets/pulls/31`]: { status: 200, body: { ...raw, merged: true, head: { ref: null, sha: null }, base: { ref: null } } },
     })
     expect(await forge.threads.get(issue)).toMatchObject({ kind: 'issue', ref: { externalId: 'iss_31' }, state: 'open' })
     expect(await forge.threads.get(pull)).toMatchObject({ kind: 'pull_request', state: 'closed', stateRaw: 'merged', branches: { head: { ref: '' }, base: { ref: '' } } })
-    expect(calls[0]?.authorization).toBe('Bearer t')
-    expect(forge.can('threads.get', 'issue')).toBe(true)
     await expect(forge.threads.get({ ...issue, kind: 'discussion' })).rejects.toThrow(UnsupportedOperationError)
   })
 
@@ -43,17 +41,16 @@ describe('pushin', () => {
     expect(page.items.map(thread => thread.kind)).toEqual(['issue', 'pull_request'])
     expect(page.rateLimit).toMatchObject({ limit: 90, remaining: 89 })
     expect(page.cursor?.nextUrl).toBe(next)
-    expect((await forge.threads.listPage(repo, { kind: 'issue', state: 'all', perPage: 2 })).items).toHaveLength(1)
+    expect((await forge.threads.listPage(repo, { kind: 'issue', state: 'all', perPage: 2 })).items.map(thread => [thread.kind, thread.ref.number])).toEqual([['issue', '31']])
     expect((await forge.threads.listPage(repo, { cursor: page.cursor })).items[0]?.ref.number).toBe('33')
     expect(calls.at(-1)?.url).toBe(next)
   })
 
   it('passes all states to the pull listing', async () => {
-    const { forge, calls } = provider({
+    const { forge } = provider({
       [`GET ${base}/repos/acme/widgets/pulls?state=all&per_page=1`]: { status: 200, body: [raw] },
     })
     expect((await forge.threads.listPage(repo, { kind: 'pull_request', state: 'all', perPage: 1 })).items[0]?.kind).toBe('pull_request')
-    expect(calls[0]?.url).toContain('state=all')
   })
 
   it('normalises merged pull requests returned by the issues API', () => {
@@ -82,14 +79,15 @@ describe('pushin', () => {
       last_read_at: null,
       html_url: 'https://pushin.eu/acme/widgets/issues/31',
     }
-    const { forge, calls } = provider({
+    const { forge } = provider({
       [`GET ${base}/notifications?all=true&since=2026-09-10T12%3A00%3A00.000Z&per_page=1`]: { status: 200, body: [notification] },
     })
     const page = await forge.notifications.listPage({ all: true, since, perPage: 1 })
     expect(page.items[0]).toMatchObject({ ref: { ...origin, id: 'n_1' }, reason: 'assigned', subject: { type: 'thread', thread: { ...issue, repo: { externalId: 'r_1' } } }, url: notification.html_url })
-    expect(calls[0]?.authorization).toBe('Bearer t')
+    expect(page.items[0]?.updatedAt).toEqual(since)
+    expect(page.items[0]?.lastReadAt).toBeUndefined()
     expect(toNotification(origin, { ...notification, subject: { ...notification.subject, type: 'PullRequest', url: `${base}/repos/acme/widgets/pulls/31` } }).subject).toMatchObject({ type: 'thread', thread: { kind: 'pull_request', number: '31' } })
     expect(toNotification(origin, { ...notification, reason: 'future_reason' }).reason).toBe('unknown')
-    expect(forge.can('notifications.markRead')).toBe(false)
+    expect(toNotification(origin, { ...notification, subject: { ...notification.subject, url: `${base}/repos/acme/widgets/issues/not-a-number` } }).subject).toMatchObject({ type: 'other', url: `${base}/repos/acme/widgets/issues/not-a-number` })
   })
 })

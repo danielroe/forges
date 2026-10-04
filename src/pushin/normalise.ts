@@ -1,5 +1,5 @@
 import type { Actor, Collaborator, Comment, ForgeOrigin, Label, Notification, NotificationReason, Repo, RepoPermissions, RepoRef, RepoRole, ResolvedThreadRef, Thread, ThreadRef } from '../model.ts'
-import type { PushinCollaborator, PushinComment, PushinIssue, PushinLabel, PushinNotification, PushinPullRequest, PushinRepository, PushinUser } from './types.ts'
+import type { PushinCollaborator, PushinComment, PushinLabel, PushinNotification, PushinRepository, PushinThread, PushinUser } from './types.ts'
 import { toDate } from '../utils.ts'
 
 export const FORGE = 'pushin'
@@ -141,11 +141,10 @@ export function toNotification(origin: ForgeOrigin, raw: PushinNotification): No
   }
 }
 
-export function toThread(ref: ResolvedThreadRef, raw: PushinIssue | PushinPullRequest): Thread {
+export function toThread(ref: ResolvedThreadRef, raw: PushinThread): Thread {
   const origin = { forge: FORGE, instance: ref.instance }
-  const pull = raw as PushinPullRequest
   const kind = raw.pull_request ? 'pull_request' : ref.kind
-  const merged = kind === 'pull_request' && (pull.merged || pull.merged_at || raw.pull_request?.merged_at || raw.state === 'merged')
+  const merged = kind === 'pull_request' && (raw.merged || raw.merged_at || raw.pull_request?.merged_at || raw.state === 'merged')
   const state = merged || raw.state === 'closed' ? 'closed' : 'open'
   return {
     ref: { ...ref, kind, externalId: raw.id },
@@ -162,12 +161,12 @@ export function toThread(ref: ResolvedThreadRef, raw: PushinIssue | PushinPullRe
     url: raw.html_url,
     createdAt: toDate(raw.created_at),
     updatedAt: toDate(raw.updated_at),
-    closedAt: toDate(raw.closed_at ?? undefined),
+    closedAt: toDate(raw.closed_at),
     lastActivityAt: toDate(raw.updated_at),
     locked: raw.locked,
     commentCount: raw.comments,
-    branches: kind === 'pull_request' && (pull.head || pull.base)
-      ? { head: { ref: pull.head?.ref ?? '', sha: pull.head?.sha ?? undefined }, base: { ref: pull.base?.ref ?? '' } }
+    branches: kind === 'pull_request' && (raw.head || raw.base)
+      ? { head: { ref: raw.head?.ref ?? '', sha: raw.head?.sha ?? undefined }, base: { ref: raw.base?.ref ?? '' } }
       : undefined,
     raw,
   }
