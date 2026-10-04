@@ -473,7 +473,9 @@ function createProvider<TOptions extends ForgeOptionsBase, TState>(
     kind: definition.kind,
     instance,
     baseUrl,
-    request: createRequest(spec.request ?? fetcher),
+    request: createRequest(spec.request ?? fetcher, options.readOnly
+      ? { readOnly: (method, path) => new ReadOnlyError(`${method} ${path} is a write and this ${definition.kind} provider is read-only. Pass \`mutates: false\` if it only reads.`, origin) }
+      : {}),
     get capabilities() {
       return capabilities
     },

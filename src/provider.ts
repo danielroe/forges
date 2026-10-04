@@ -127,7 +127,7 @@ export interface ForgeOptionsBase {
    * `refreshCapabilities()` makes.
    */
   instanceVersion?: string
-  /** Every write rejects with `ReadOnlyError`, and its capability is `false`, whatever the credential allows. */
+  /** Every write, including a mutating `request()`, rejects with `ReadOnlyError` and reports `false`. */
   readOnly?: boolean
   /** Called before a request is retried after a secondary rate limit, with the wait in milliseconds. */
   onRetry?: FetcherOptions['onRetry']

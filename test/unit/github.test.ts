@@ -654,13 +654,13 @@ describe('github data residency', () => {
 })
 
 describe('github path safety', () => {
-  function recordingProvider() {
+  function recordingProvider(options: { readOnly?: boolean } = {}) {
     const urls: string[] = []
     const fetch = async (url: string) => {
       urls.push(url)
       return new Response('{}', { status: 200 })
     }
-    return { provider: github({ auth: { type: 'token', token: 't' }, fetch }).create(), urls }
+    return { provider: github({ auth: { type: 'token', token: 't' }, fetch, ...options }).create(), urls }
   }
 
   it('keeps a thread number that tries to climb out of the repository inside it', async () => {
@@ -677,5 +677,13 @@ describe('github path safety', () => {
     await provider.threads.comment({ ...pull, repo: { ...repo, owner: 'acme/x', name: 'widgets?y=1' }, kind: 'issue', number: '1?x=' }, 'hi')
 
     expect(urls).toEqual(['https://api.github.com/repos/acme%2Fx/widgets%3Fy%3D1/issues/1%3Fx%3D/comments'])
+  })
+
+  it('rejects a mutating `request()` on a read-only provider', async () => {
+    const { provider, urls } = recordingProvider({ readOnly: true })
+
+    await expect(provider.request('DELETE', '/repos/acme/widgets')).rejects.toThrow('is a write and this github provider is read-only')
+    await provider.request('GET', '/repos/acme/widgets')
+    expect(urls).toEqual(['https://api.github.com/repos/acme/widgets'])
   })
 })

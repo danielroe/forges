@@ -503,6 +503,8 @@ export interface ForgeRequestOptions {
   body?: unknown
   headers?: Record<string, string>
   signal?: AbortSignal
+  /** Changes state. Defaults to `false` for GET/HEAD/OPTIONS, otherwise `true`. */
+  mutates?: boolean
 }
 
 export interface ForgeResponse<T> {
@@ -522,10 +524,20 @@ export interface ForgeRequest {
   <T = unknown>(method: string, path: string, options?: ForgeRequestOptions): Promise<ForgeResponse<T>>
 }
 
+export interface CreateRequestOptions {
+  /** Error for mutating requests. */
+  readOnly?: (method: string, path: string) => Error
+}
+
+const SAFE_METHODS = new Set(['GET', 'HEAD', 'OPTIONS'])
+
 /** Builds a provider's `request()` escape hatch on top of its fetcher. */
-export function createRequest(fetcher: Fetcher): ForgeRequest {
+export function createRequest(fetcher: Fetcher, { readOnly }: CreateRequestOptions = {}): ForgeRequest {
   return (async <T>(method: string, path: string, options: ForgeRequestOptions | ForgeRawRequestOptions = {}): Promise<ForgeResponse<T> | RawResponse> => {
     const upperMethod = method.toUpperCase()
+    if (readOnly && (options.mutates ?? !SAFE_METHODS.has(upperMethod))) {
+      throw readOnly(upperMethod, path)
+    }
     const json = options.body !== undefined && isJsonBody(options.body)
     const init: RequestOptions = {
       method: upperMethod,

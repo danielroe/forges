@@ -1,6 +1,6 @@
 import type { ForgeRawRequestOptions, RawResponse } from '../../src/fetch.ts'
 import { describe, expect, expectTypeOf, it, vi } from 'vitest'
-import { ForbiddenError, ForgeApiError, InsufficientScopeError, RateLimitedError } from '../../src/errors.ts'
+import { ForbiddenError, ForgeApiError, InsufficientScopeError, RateLimitedError, ReadOnlyError } from '../../src/errors.ts'
 import { createFetcher, createRequest, parseLinkHeader } from '../../src/fetch.ts'
 
 describe('parseLinkHeader', () => {
@@ -508,5 +508,16 @@ describe('request()', () => {
 
     expectTypeOf(result).toEqualTypeOf<RawResponse>()
     expect(result.body).toBeInstanceOf(ReadableStream)
+  })
+
+  it('rejects a mutating request on a read-only provider unless it says it only reads', async () => {
+    const { fetcher, sent } = bodyFetcher()
+    const request = createRequest(fetcher, { readOnly: method => new ReadOnlyError(`${method} is a write`) })
+
+    await expect(request('DELETE', '/x')).rejects.toBeInstanceOf(ReadOnlyError)
+    await expect(request('get', '/x')).resolves.toMatchObject({ status: 200 })
+    await expect(request('POST', '/graphql', { body: { query: '{ viewer { login } }' }, mutates: false })).resolves.toMatchObject({ status: 200 })
+    await expect(request('GET', '/x', { mutates: true })).rejects.toBeInstanceOf(ReadOnlyError)
+    expect(sent.map(call => call.method)).toEqual(['GET', 'POST'])
   })
 })
