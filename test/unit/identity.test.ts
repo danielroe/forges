@@ -102,6 +102,21 @@ describe('forges aggregate', () => {
     ])
   })
 
+  it('does not hand one provider\'s cursor to every provider when listing notifications', async () => {
+    const forges = createForges([fake({ instance: 'one.test' }), fake({ instance: 'two.test' })])
+    const seen: unknown[] = []
+    for (const provider of forges.providers) {
+      provider.notifications.list = (options) => {
+        seen.push(options)
+        return forgeIterable(async function* () {})
+      }
+    }
+
+    await Array.fromAsync(forges.notifications.list({ since: new Date(0), cursor: { nextUrl: 'https://one.test/next' } } as never))
+
+    expect(seen).toEqual([{ since: new Date(0) }, { since: new Date(0) }])
+  })
+
   it('reads a URL with a malformed escape or a reserved path as nothing', () => {
     const forges = createForges([github({ auth }), forgejo({ auth, baseUrl: 'https://codeberg.org' })])
 
