@@ -652,8 +652,8 @@ export interface Forges {
   forUrl: (url: string | URL) => ForgeProvider | undefined
   /** Reads a web URL on any registered instance. */
   parseUrl: (url: string | URL) => (ParsedForgeUrl & { provider: ForgeProvider }) | undefined
-  /** Notifications from every registered provider, provider by provider. */
-  notifications: { list: (options?: ListOptions) => ForgeIterable<Notification> }
+  /** Notifications provider by provider, starting from the beginning. */
+  notifications: { list: (options?: Omit<ListOptions, 'cursor'>) => ForgeIterable<Notification> }
   /** Reads routed to the provider each ref belongs to; an unregistered origin throws `UnknownForgeError`. */
   repos: { get: (ref: RepoRef) => Promise<Repo> }
   threads: {
@@ -778,7 +778,8 @@ export function createForges(factories: Array<ForgeProviderFactory | ForgeProvid
     ),
     all: kind => providers.filter(provider => provider.kind === kind),
     notifications: {
-      list(options) {
+      list(options = {}) {
+        const { cursor: _cursor, ...listOptions } = options as ListOptions
         const warnings: ForgeWarning[] = []
         return {
           warnings,
@@ -787,7 +788,7 @@ export function createForges(factories: Array<ForgeProviderFactory | ForgeProvid
               if (!provider.can('notifications.list')) {
                 continue
               }
-              const iterable = provider.notifications.list(options)
+              const iterable = provider.notifications.list(listOptions)
               try {
                 yield* iterable
               }
