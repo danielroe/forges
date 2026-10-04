@@ -1,6 +1,5 @@
-import type { ProviderContext, ProviderDefinition, ProviderSpec } from '../define.ts'
+import type { MergeHooks, ProviderContext, ProviderDefinition, ProviderSpec } from '../define.ts'
 import type {
-  ApproveAndMergeOptions,
   Check,
   CheckReportInput,
   CheckState,
@@ -20,7 +19,9 @@ import type {
   Installation,
   ListOptions,
   MergeMethod,
+  MergeOptions,
   Notification,
+  NotificationListOptions,
   NotificationRef,
   Page,
   PageOptions,
@@ -240,7 +241,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
     return []
   }
 
-  async function notificationPage(listOptions: ListOptions = {}): Promise<Page<Notification>> {
+  async function notificationPage(listOptions: NotificationListOptions = {}): Promise<Page<Notification>> {
     const result = await fetcher.json<GitHubNotification[]>(listOptions.cursor?.nextUrl ?? '/notifications', {
       query: listOptions.cursor?.nextUrl
         ? undefined
@@ -511,7 +512,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
     })
   }
 
-  async function approveAndMerge(thread: ThreadRef, options_: ApproveAndMergeOptions = {}): Promise<void> {
+  async function merge(thread: ThreadRef, options_: MergeOptions = {}, hooks: MergeHooks = {}): Promise<void> {
     const ref = requireThread(thread, context)
     if (ref.kind !== 'pull_request') {
       throw new UnsupportedOperationError('Only pull requests can be merged', context)
@@ -519,7 +520,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
     if (options_.whenChecksPass) {
       throw new UnsupportedOperationError('GitHub auto-merge is not available through the REST API', context)
     }
-    if (options_.method === 'rebase-merge' || options_.method === 'fast-forward-only') {
+    if (options_.method === 'rebase_merge' || options_.method === 'fast_forward_only') {
       throw new UnsupportedOperationError(`GitHub does not support the ${options_.method} merge method`, context)
     }
     let method: MergeMethod | undefined = options_.method
@@ -531,12 +532,10 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
       }>(repoPath(ref.repo))
       method = soleMergeMethod({ merge: repo.allow_merge_commit, squash: repo.allow_squash_merge, rebase: repo.allow_rebase_merge }, context)
     }
-    if (options_.approve !== false) {
-      await createReview(ref, { event: 'approve', body: options_.body })
-    }
+    await hooks.beforeMerge?.()
     await fetcher.raw(`${threadPath(ref)}/merge`, {
       method: 'PUT',
-      json: { merge_method: method, sha: options_.sha },
+      json: { merge_method: method, sha: options_.sha, commit_message: options_.message },
       mapError: toMergeError,
     })
   }
@@ -701,7 +700,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
         qualifiers.push(`${name}:${value}`)
       }
     }
-    for (const label of query.label ?? []) {
+    for (const label of query.labels ?? []) {
       qualifiers.push(`label:"${label}"`)
     }
     if (query.since) {
@@ -753,7 +752,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
     return toPage(result, raw => toRepo(instance, raw), warnings)
   }
 
-  const COMMIT_SEARCH_SORTS: Record<NonNullable<CommitSearchQuery['sort']>, string> = { 'author-date': 'author-date', 'committer-date': 'committer-date' }
+  const COMMIT_SEARCH_SORTS: Record<NonNullable<CommitSearchQuery['sort']>, string> = { author_date: 'author-date', committer_date: 'committer-date' }
 
   async function searchCommitsPage(query: CommitSearchQuery): Promise<Page<Commit>> {
     const qualifiers = [
@@ -1345,7 +1344,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
         const ref = requireIssueOrPull(thread, context, 'label')
         await fetcher.raw(`${repoPath(ref.repo)}/issues/${ref.number}/labels`, { method: 'PUT', json: { labels } })
       }),
-      assign: perKind({ issue: 'experimental', pull_request: true }, async (thread, assignees) => {
+      setAssignees: perKind({ issue: 'experimental', pull_request: true }, async (thread, assignees) => {
         const ref = requireIssueOrPull(thread, context, 'assign')
         await fetcher.raw(`${repoPath(ref.repo)}/issues/${ref.number}`, { method: 'PATCH', json: { assignees: assignees.map(actorLogin) } })
       }),
@@ -1363,7 +1362,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
       }),
       close: perKind(ISSUE_LIKE, (ref, options_) => setState(ref, 'closed', options_)),
       reopen: perKind({ issue: 'experimental', pull_request: true, discussion: true }, ref => setState(ref, 'open')),
-      approveAndMerge: verb(true, approveAndMerge),
+      merge: verb(true, merge),
       subscriptions: perKind(ISSUE_LIKE, {
         subscription: async (thread): Promise<SubscriptionState> => {
           const { state } = await subscriptionNode(thread)
@@ -1425,7 +1424,7 @@ export function githubScopesFor(verb: ForgeVerb): VerbScopes {
   if (verb === 'checks.report') {
     return { token: ['repo:status'], permissions: { checks: 'write', statuses: 'write' } }
   }
-  const writes = new Set(['comment', 'upsertComment', 'editComment', 'deleteComment', 'create', 'update', 'close', 'reopen', 'setLabels', 'addLabels', 'removeLabels', 'setMilestone', 'react', 'unreact', 'assign', 'requestReview', 'approveAndMerge', 'createReview', 'submitReview', 'approve', 'transfer', 'markDuplicate', 'resolveReviewThread', 'unresolveReviewThread', 'createLabel', 'addCollaborator', 'subscribe', 'unsubscribe'])
+  const writes = new Set(['comment', 'upsertComment', 'editComment', 'deleteComment', 'create', 'update', 'close', 'reopen', 'setLabels', 'addLabels', 'removeLabels', 'setMilestone', 'react', 'unreact', 'setAssignees', 'requestReview', 'merge', 'approveAndMerge', 'createReview', 'submitReview', 'approve', 'transfer', 'markDuplicate', 'resolveReviewThread', 'unresolveReviewThread', 'createLabel', 'addCollaborator', 'subscribe', 'unsubscribe'])
   const write = writes.has(name)
   if (group === 'threads') {
     return { token: ['repo', 'public_repo'], permissions: { issues: write ? 'write' : 'read', pull_requests: write ? 'write' : 'read' } }

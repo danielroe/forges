@@ -108,8 +108,8 @@ export function toRepo(origin: ForgeOrigin, raw: ForgejoRepositoryDetail): Repo 
           ...raw.allow_merge_commits ? ['merge' as const] : [],
           ...raw.allow_squash_merge ? ['squash' as const] : [],
           ...raw.allow_rebase ? ['rebase' as const] : [],
-          ...raw.allow_rebase_explicit ? ['rebase-merge' as const] : [],
-          ...raw.allow_fast_forward_only_merge ? ['fast-forward-only' as const] : [],
+          ...raw.allow_rebase_explicit ? ['rebase_merge' as const] : [],
+          ...raw.allow_fast_forward_only_merge ? ['fast_forward_only' as const] : [],
         ],
     features: raw.has_issues === undefined
       ? undefined

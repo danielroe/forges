@@ -153,7 +153,7 @@ describe('gitlab merge methods', () => {
   it('rejects a method the project is not configured for', async () => {
     const { instance, calls } = provider()
 
-    await expect(instance.threads.approveAndMerge!(mr, { method: 'rebase-merge' })).rejects.toThrow(UnsupportedOperationError)
+    await expect(instance.threads.approveAndMerge!(mr, { method: 'rebase_merge' })).rejects.toThrow(UnsupportedOperationError)
     expect(calls.map(call => call.method)).toEqual(['GET'])
   })
 
@@ -161,7 +161,7 @@ describe('gitlab merge methods', () => {
     const { instance, calls } = provider({
       [`GET ${P}`]: { status: 200, body: { merge_method: 'ff', squash_option: 'always' } },
     })
-    await instance.threads.approveAndMerge!(mr, { approve: false })
+    await instance.threads.merge!(mr)
 
     expect(calls.at(-1)!.body).toContain('"squash":true')
   })
@@ -173,12 +173,12 @@ describe('gitlab merge methods', () => {
     const error = await instance.threads.approveAndMerge!(mr).catch((error: unknown) => error)
 
     expect(error).toBeInstanceOf(MergeMethodRequiredError)
-    expect((error as MergeMethodRequiredError).allowed).toEqual(['rebase-merge', 'squash'])
+    expect((error as MergeMethodRequiredError).allowed).toEqual(['rebase_merge', 'squash'])
   })
 
   it('can queue the merge until the pipeline succeeds', async () => {
     const { instance, calls } = provider()
-    await instance.threads.approveAndMerge!(mr, { method: 'squash', approve: false, whenChecksPass: true })
+    await instance.threads.merge!(mr, { method: 'squash', whenChecksPass: true })
 
     expect(calls[0]!.body).toBe('{"squash":true,"merge_when_pipeline_succeeds":true}')
   })
@@ -215,6 +215,6 @@ describe('gitlab release webhooks', () => {
     const body = JSON.stringify({ object_kind: 'release', action: 'create', id: 7, tag: 'v2.0.0', name: 'Two', project: { id: 1, path_with_namespace: 'acme/platform/widgets' } })
     const [event] = await provider.webhooks.ingest({ headers: { 'x-gitlab-event': 'Release Hook', 'x-gitlab-token': 's' }, body })
 
-    expect(event).toMatchObject({ kind: 'release_published', detail: { type: 'release', release: { id: 'v2.0.0', tag: 'v2.0.0' }, name: 'Two' } })
+    expect(event).toMatchObject({ kind: 'release', action: 'published', detail: { type: 'release', release: { id: 'v2.0.0', tag: 'v2.0.0' }, name: 'Two' } })
   })
 })

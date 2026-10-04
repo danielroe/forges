@@ -1,5 +1,5 @@
 import type { WebhookHandlers } from '../define.ts'
-import type { EventKind, ForgeEventInput, RepoRef, ThreadRef } from '../model.ts'
+import type { EventAction, EventKind, ForgeEventInput, RepoRef, ThreadRef } from '../model.ts'
 import type { WebhookDelivery } from '../provider.ts'
 import type { GitLabOptions } from './index.ts'
 import type { GitLabUser } from './types.ts'
@@ -66,7 +66,7 @@ interface GitLabWebhookPayload {
 
 const ZERO_SHA = /^0+$/
 
-function repoLevel(instance: string, payload: GitLabWebhookPayload, who: string, repo: RepoRef | undefined): Pick<ForgeEventInput, 'kind' | 'detail' | 'summary'> | undefined {
+function repoLevel(instance: string, payload: GitLabWebhookPayload, who: string, repo: RepoRef | undefined): Pick<ForgeEventInput, 'kind' | 'action' | 'detail' | 'summary'> | undefined {
   switch (payload.object_kind ?? payload.event_name) {
     case 'push':
     case 'tag_push':
@@ -84,19 +84,22 @@ function repoLevel(instance: string, payload: GitLabWebhookPayload, who: string,
         return undefined
       }
       return {
-        kind: 'release_published',
+        kind: 'release',
+        action: 'published',
         detail: { type: 'release', release: { forge: FORGE, instance, repo, id: payload.tag ?? String(payload.id), tag: payload.tag }, name: payload.name },
         summary: `${who} published ${payload.name ?? payload.tag ?? 'a release'}`,
       }
     case 'project_rename':
       return {
-        kind: 'repo_renamed',
+        kind: 'repo',
+        action: 'renamed',
         detail: { type: 'repo_renamed', from: payload.old_path_with_namespace ?? '', to: payload.path_with_namespace ?? '' },
         summary: `${who} renamed the project`,
       }
     case 'project_transfer':
       return {
-        kind: 'repo_transferred',
+        kind: 'repo',
+        action: 'transferred',
         detail: {
           type: 'repo_transferred',
           fromOwner: payload.old_path_with_namespace?.split('/').slice(0, -1).join('/'),
@@ -112,7 +115,8 @@ function repoLevel(instance: string, payload: GitLabWebhookPayload, who: string,
     case 'user_update_for_team':
     case 'user_update_for_group':
       return {
-        kind: 'membership_changed',
+        kind: 'membership',
+        action: membershipAction(payload.event_name),
         detail: {
           type: 'membership',
           actionRaw: payload.event_name ?? 'member',
@@ -125,6 +129,16 @@ function repoLevel(instance: string, payload: GitLabWebhookPayload, who: string,
     default:
       return undefined
   }
+}
+
+function membershipAction(eventName: string | undefined): EventAction {
+  if (eventName?.startsWith('user_add_')) {
+    return 'added'
+  }
+  if (eventName?.startsWith('user_remove_')) {
+    return 'removed'
+  }
+  return eventName?.startsWith('user_update_') ? 'edited' : 'other'
 }
 
 function eventKindFor(payload: GitLabWebhookPayload): EventKind {
@@ -198,6 +212,7 @@ export function translateGitLabWebhook(instance: string, delivery: WebhookDelive
       instance,
       id: deliveryId,
       kind: level.kind,
+      action: level.action,
       kindRaw: payload.object_kind ?? payload.event_name ?? event,
       summary: level.summary,
       occurredAt: toDate(payload.commits?.at(-1)?.timestamp ?? payload.released_at) ?? new Date(),
@@ -217,7 +232,7 @@ export function translateGitLabWebhook(instance: string, delivery: WebhookDelive
     id: deliveryId,
     kind,
     kindRaw: action ? `${payload.object_kind}.${action}` : payload.object_kind ?? event,
-    action: action === 'update' && attributes?.oldrev ? 'synchronized' : action === 'merge' ? 'merged' : eventAction(action),
+    action: action === 'update' && attributes?.oldrev ? 'synchronised' : action === 'merge' ? 'merged' : eventAction(action),
     actionRaw: action,
     detail: kind === 'comment' || kind === 'review_comment'
       ? { type: kind, comment: thread && attributes?.id !== undefined ? { forge: FORGE, instance, thread, id: String(attributes.id) } : undefined, body: attributes?.note }

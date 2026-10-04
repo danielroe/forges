@@ -108,8 +108,9 @@ const RECORDED_HEADERS = ['link', 'etag', 'location', 'retry-after', 'x-ratelimi
 
 /**
  * Wraps `fetch` (the global one by default) and records every response as a
- * {@link Fixture}. Request headers are never recorded, so credentials do not
- * end up in fixtures; `redact` can rewrite each fixture before it is kept.
+ * {@link Fixture}. Request headers are never recorded, but URLs and response
+ * bodies are, and either can hold a secret (an installation token, a query
+ * token). Use `redact` to rewrite each fixture before it is kept.
  */
 export function recordingFetch(fetch: FetchLike = globalThis.fetch, redact: (fixture: Fixture) => Fixture = fixture => fixture): RecordingFetch {
   const fixtures: Fixture[] = []

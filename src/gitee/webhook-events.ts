@@ -9,8 +9,7 @@ export const GITEE_NATIVE_EVENTS: NativeEventMap = {
   assignment: ['issues_events', 'merge_requests_events'],
   review: ['merge_requests_events'],
   push: ['push_events'],
-  ref_created: ['tag_push_events'],
-  ref_deleted: ['tag_push_events'],
+  ref: ['tag_push_events'],
 }
 
 /** Normalised kinds and actions Gitee deliveries translate into. */
@@ -21,6 +20,6 @@ export const GITEE_WEBHOOK_EVENTS: WebhookEventType[] = [
   { kind: 'state_change', action: 'reopened' },
   { kind: 'state_change', action: 'merged' },
   { kind: 'push' },
-  { kind: 'ref_created' },
-  { kind: 'ref_deleted' },
+  { kind: 'ref', action: 'created' },
+  { kind: 'ref', action: 'deleted' },
 ]

@@ -93,6 +93,7 @@ export type {
   MergeMethod,
   Milestone,
   Notification,
+  NotificationListOptions,
   NotificationReason,
   NotificationRef,
   NotificationSubject,

@@ -652,3 +652,17 @@ describe('github data residency', () => {
     expect(await provider.refreshCapabilities()).not.toHaveProperty('version', expect.anything())
   })
 })
+
+describe('github merge', () => {
+  it('merges without approving and sends `message` as the commit message', async () => {
+    const bodies: Array<{ url: string, body?: string }> = []
+    const provider = github({ auth: { type: 'token', token: 't' }, fetch: async (url, init) => {
+      bodies.push({ url, body: init?.body as string | undefined })
+      return new Response('{}', { status: 200 })
+    } }).create()
+
+    await provider.threads.merge(pull, { method: 'squash', message: 'Ship it' })
+
+    expect(bodies).toEqual([{ url: 'https://api.github.com/repos/acme/widgets/pulls/42/merge', body: '{"merge_method":"squash","commit_message":"Ship it"}' }])
+  })
+})

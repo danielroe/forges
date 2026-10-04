@@ -277,7 +277,7 @@ export const contracts: ProviderContract[] = [
       multiMethodRepo: { name: 'main', merge_strategies: ['merge_commit', 'squash'] },
       review: { method: 'POST', url: 'https://api.bitbucket.org/2.0/repositories/acme/widgets/pullrequests/31/approve', body: '' },
       merge: { method: 'POST', url: 'https://api.bitbucket.org/2.0/repositories/acme/widgets/pullrequests/31/merge', body: '{"merge_strategy":"squash"}' },
-      explicit: { method: 'rebase-merge', bodyContains: '"merge_strategy":"rebase_merge"' },
+      explicit: { method: 'rebase_merge', bodyContains: '"merge_strategy":"rebase_merge"' },
     },
     webhook: {
       body: fixture('bitbucket', 'webhooks/pullrequest-comment-created'),
@@ -297,7 +297,7 @@ export const contracts: ProviderContract[] = [
     instance: 'tangled.org',
     repo: { owner: 'did:plc:acmeowner222222222222222', name: 'widgets' },
     create: (fetch, options) => create(tangled({
-      auth: { type: 'app-password', identifier: 'acme.example.com', password: 'app-password', pds: 'https://pds.example.com' },
+      auth: { type: 'app_password', identifier: 'acme.example.com', password: 'app-password', pds: 'https://pds.example.com' },
       fetch,
       timeout: options?.timeout,
       webSocket: options?.webSocket,

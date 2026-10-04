@@ -1,4 +1,4 @@
-import type { ForgeEvent, ForgeEventInput, WebhookDelivery } from '../../src/index.ts'
+import type { ForgeEventInput, WebhookDelivery } from '../../src/index.ts'
 import { describe, expect, it } from 'vitest'
 import { translateAzureWebhook } from '../../src/azure-devops/webhooks.ts'
 import { translateBitbucketWebhook } from '../../src/bitbucket/webhooks.ts'
@@ -21,7 +21,7 @@ const TRANSLATE: Record<string, (delivery: WebhookDelivery) => ForgeEventInput[]
   tangled: delivery => translateTangledWebhook('tangled.sh', delivery, 'https://tangled.sh'),
 }
 
-const EXPECTED: Record<string, Array<Pick<ForgeEvent, 'kind' | 'summary' | 'detail'>>> = {
+const EXPECTED: Record<string, Array<Pick<ForgeEventInput, 'kind' | 'action' | 'summary' | 'detail'>>> = {
   'github push': [
     {
       kind: 'push',
@@ -46,7 +46,8 @@ const EXPECTED: Record<string, Array<Pick<ForgeEvent, 'kind' | 'summary' | 'deta
   ],
   'github delete push': [
     {
-      kind: 'ref_deleted',
+      kind: 'ref',
+      action: 'deleted',
       summary: 'ada deleted v1',
       detail: {
         type: 'ref',
@@ -79,7 +80,8 @@ const EXPECTED: Record<string, Array<Pick<ForgeEvent, 'kind' | 'summary' | 'deta
   ],
   'gitlab delete': [
     {
-      kind: 'ref_deleted',
+      kind: 'ref',
+      action: 'deleted',
       summary: 'ada deleted old',
       detail: {
         type: 'ref',
@@ -90,7 +92,8 @@ const EXPECTED: Record<string, Array<Pick<ForgeEvent, 'kind' | 'summary' | 'deta
   ],
   'gitlab tag create': [
     {
-      kind: 'ref_created',
+      kind: 'ref',
+      action: 'created',
       summary: 'ada created v1.0.0',
       detail: {
         type: 'ref',
@@ -123,7 +126,8 @@ const EXPECTED: Record<string, Array<Pick<ForgeEvent, 'kind' | 'summary' | 'deta
   ],
   'forgejo delete push': [
     {
-      kind: 'ref_deleted',
+      kind: 'ref',
+      action: 'deleted',
       summary: 'ada deleted old',
       detail: {
         type: 'ref',
@@ -154,7 +158,8 @@ const EXPECTED: Record<string, Array<Pick<ForgeEvent, 'kind' | 'summary' | 'deta
       },
     },
     {
-      kind: 'ref_created',
+      kind: 'ref',
+      action: 'created',
       summary: 'ada created v1',
       detail: {
         type: 'ref',
@@ -163,7 +168,8 @@ const EXPECTED: Record<string, Array<Pick<ForgeEvent, 'kind' | 'summary' | 'deta
       },
     },
     {
-      kind: 'ref_deleted',
+      kind: 'ref',
+      action: 'deleted',
       summary: 'ada deleted gone',
       detail: {
         type: 'ref',
@@ -196,7 +202,8 @@ const EXPECTED: Record<string, Array<Pick<ForgeEvent, 'kind' | 'summary' | 'deta
   ],
   'gitee tag create': [
     {
-      kind: 'ref_created',
+      kind: 'ref',
+      action: 'created',
       summary: 'ada created v1',
       detail: {
         type: 'ref',
@@ -227,7 +234,8 @@ const EXPECTED: Record<string, Array<Pick<ForgeEvent, 'kind' | 'summary' | 'deta
       },
     },
     {
-      kind: 'ref_created',
+      kind: 'ref',
+      action: 'created',
       summary: 'ada@contoso.com created new',
       detail: {
         type: 'ref',
@@ -236,7 +244,8 @@ const EXPECTED: Record<string, Array<Pick<ForgeEvent, 'kind' | 'summary' | 'deta
       },
     },
     {
-      kind: 'ref_deleted',
+      kind: 'ref',
+      action: 'deleted',
       summary: 'ada@contoso.com deleted old',
       detail: {
         type: 'ref',
@@ -265,7 +274,8 @@ const EXPECTED: Record<string, Array<Pick<ForgeEvent, 'kind' | 'summary' | 'deta
       },
     },
     {
-      kind: 'ref_created',
+      kind: 'ref',
+      action: 'created',
       summary: 'ada created v1',
       detail: {
         type: 'ref',
@@ -274,7 +284,8 @@ const EXPECTED: Record<string, Array<Pick<ForgeEvent, 'kind' | 'summary' | 'deta
       },
     },
     {
-      kind: 'ref_deleted',
+      kind: 'ref',
+      action: 'deleted',
       summary: 'ada deleted gone',
       detail: {
         type: 'ref',
@@ -300,7 +311,8 @@ const EXPECTED: Record<string, Array<Pick<ForgeEvent, 'kind' | 'summary' | 'deta
   ],
   'tangled delete push': [
     {
-      kind: 'ref_deleted',
+      kind: 'ref',
+      action: 'deleted',
       summary: 'did:plc:ada deleted v1',
       detail: {
         type: 'ref',
@@ -316,6 +328,6 @@ describe('push webhooks', () => {
     const { forge, headers, payload } = CASES[name]!
     const events = TRANSLATE[forge]!({ headers, body: JSON.stringify(payload) })
 
-    expect(events.map(({ kind, summary, detail }) => ({ kind, summary, detail }))).toEqual(EXPECTED[name])
+    expect(events.map(({ kind, action, summary, detail }) => ({ kind, action, summary, detail }))).toEqual(EXPECTED[name])
   })
 })

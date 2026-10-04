@@ -107,7 +107,7 @@ export function translateOriginWebhook(instance: string, delivery: WebhookDelive
   if (event.type.startsWith('installation.')) {
     return [{
       ...base,
-      kind: 'installation_changed',
+      kind: 'installation',
       installationId: payload.installation?.id ?? envelope.installationId,
       detail: { type: 'installation', actionRaw: event.type, installationId: payload.installation?.id ?? envelope.installationId, added: (payload.installation?.repositories ?? []).map(reference => toRepoRef(instance, reference)), removed: [] },
       summary: `Installation ${event.type.slice('installation.'.length)}`,
@@ -122,7 +122,7 @@ const ORIGIN_WEBHOOK_EVENTS: WebhookEventType[] = [
   { kind: 'state_change', action: 'opened' },
   { kind: 'state_change', action: 'closed' },
   { kind: 'state_change', action: 'merged' },
-  { kind: 'installation_changed' },
+  { kind: 'installation' },
 ]
 
 export const cursorOriginWebhooks: WebhookHandlers<CursorOriginOptions> = ({ instance, baseUrl, createFetcher }) => {

@@ -49,7 +49,7 @@ const providers = [
   ['gitee token', () => gitee({ auth }).create()],
   ['azure devops token', () => azureDevOps({ auth, organization: 'acme' }).create()],
   ['cursor origin token', () => cursorOrigin({ auth }).create()],
-  ['tangled app password', () => tangled({ auth: { type: 'app-password', identifier: 'handle', password: 'password' }, notificationsUrl: 'https://notifications.example' }).create()],
+  ['tangled app password', () => tangled({ auth: { type: 'app_password', identifier: 'handle', password: 'password' }, notificationsUrl: 'https://notifications.example' }).create()],
   ['fake', () => fake().create()],
 ] as const
 

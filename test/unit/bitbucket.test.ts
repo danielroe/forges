@@ -68,7 +68,7 @@ describe('bitbucket provider', () => {
 
   it('accepts an expected sha that matches the abbreviated head', async () => {
     const { instance, calls } = provider()
-    await instance.threads.approveAndMerge!(pull, { sha: '6dcb09b5b57875f334f61aebed695e2e4193db5e', method: 'squash', approve: false })
+    await instance.threads.merge!(pull, { sha: '6dcb09b5b57875f334f61aebed695e2e4193db5e', method: 'squash' })
 
     expect(calls.at(-1)!.url).toMatch(/\/merge$/)
   })

@@ -14,7 +14,7 @@ function github(event: string, payload: Record<string, unknown>): WebhookDeliver
 
 describe('event actions', () => {
   it('normalises forge-native verbs', () => {
-    expect(['closed', 'close', 'synchronize', 'label_added', 'Update'].map(eventAction)).toEqual(['closed', 'closed', 'synchronized', 'labeled', 'edited'])
+    expect(['closed', 'close', 'synchronize', 'label_added', 'Update'].map(eventAction)).toEqual(['closed', 'closed', 'synchronised', 'labelled', 'edited'])
     expect(eventAction('cross-referenced')).toBeUndefined()
   })
 
@@ -50,7 +50,7 @@ describe('github webhook detail', () => {
     const [label] = translateGitHubWebhook('github.com', github('issues', { action: 'unlabeled', issue: { number: 5 }, label: { name: 'bug' } }))
 
     expect(review!.detail).toEqual({ type: 'review', state: 'changes_requested', stateRaw: 'changes_requested', body: 'Nearly' })
-    expect(label).toMatchObject({ kind: 'label', action: 'unlabeled', detail: { type: 'label', label: 'bug' } })
+    expect(label).toMatchObject({ kind: 'label', action: 'unlabelled', detail: { type: 'label', label: 'bug' } })
   })
 
   it('matches "anything that closed" across kinds', () => {

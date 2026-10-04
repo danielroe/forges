@@ -44,6 +44,14 @@ describe('gitee', () => {
     await expect(gitee({ auth: { type: 'token', token: 't' }, fetch }).create().threads.approveAndMerge!(pull)).rejects.toThrow(MergeMethodRequiredError)
   })
 
+  it('merges without approving, sending `message` as the description', async () => {
+    const { fetch, calls } = fixtureFetch('gitee')
+    await gitee({ auth: { type: 'token', token: 't' }, fetch }).create().threads.merge!(pull, { method: 'merge', message: 'Ship it' })
+
+    expect(calls.map(call => `${call.method} ${new URL(call.url).pathname}`)).toEqual(['PUT /api/v5/repos/acme/widgets/pulls/7/merge'])
+    expect(JSON.parse(calls[0]!.body!)).toEqual({ merge_method: 'merge', description: 'Ship it' })
+  })
+
   it('writes issues through the owner-scoped endpoint and refuses several assignees', async () => {
     const { fetch, calls } = fixtureFetch('gitee', {
       'PATCH https://gitee.com/api/v5/repos/acme/issues/I8ABCD': { status: 200, body: { id: 7001, number: 'I8ABCD', state: 'closed', title: 'x' } },
@@ -53,6 +61,6 @@ describe('gitee', () => {
 
     expect(calls[0]).toMatchObject({ method: 'PATCH', url: 'https://gitee.com/api/v5/repos/acme/issues/I8ABCD' })
     expect(JSON.parse(calls[0]!.body!)).toEqual({ repo: 'widgets', state: 'closed' })
-    await expect(provider.threads.assign!(issue, ['ada', 'grace'])).rejects.toThrow(UnsupportedOperationError)
+    await expect(provider.threads.setAssignees!(issue, ['ada', 'grace'])).rejects.toThrow(UnsupportedOperationError)
   })
 })

@@ -109,8 +109,8 @@ export function toIssueState(state: string): ThreadState {
 const STRATEGIES: Record<string, MergeMethod> = {
   merge_commit: 'merge',
   squash: 'squash',
-  fast_forward: 'fast-forward-only',
-  rebase_merge: 'rebase-merge',
+  fast_forward: 'fast_forward_only',
+  rebase_merge: 'rebase_merge',
   rebase_fast_forward: 'rebase',
 }
 

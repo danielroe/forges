@@ -1,7 +1,7 @@
 import type { ProviderSpec } from '../define.ts'
 import type { ForgeErrorContext } from '../errors.ts'
 import type { Fetcher, RequestOptions } from '../fetch.ts'
-import type { Actor, ListOptions, Notification, NotificationSubject, Page, RepoRef } from '../model.ts'
+import type { Actor, Notification, NotificationListOptions, NotificationSubject, Page, RepoRef } from '../model.ts'
 import type { AtprotoClient } from './atproto.ts'
 import type { IssueRecord, PullRecord } from './types.ts'
 import { verb } from '../define.ts'
@@ -99,7 +99,7 @@ export function createTangledNotifications(url: string, { instance, context, fet
     }
   }
 
-  async function page(listOptions: ListOptions = {}): Promise<Page<Notification>> {
+  async function page(listOptions: NotificationListOptions = {}): Promise<Page<Notification>> {
     const data = await call<{ notifications: DeliberiNotification[] }>(NOTIFICATION_NSID.list, {
       query: { read: listOptions.all ? 'all' : 'unread', limit: listOptions.perPage ?? 100 },
       signal: listOptions.signal,

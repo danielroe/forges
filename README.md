@@ -93,7 +93,7 @@ if (gh.can('threads.addLabels', thread.ref.kind)) {
 
 `capabilities.experimental` is `true` when the provider as a whole is experimental: its tests use hand-written fixtures only, or the forge's API is unstable. Gitee, Azure DevOps, Cursor Origin, and pushin.eu are experimental providers.
 
-Some capabilities depend on the instance version. For example, GitHub Enterprise Server supports marking notifications done from version 3.13. Pass `instanceVersion` if you know it. Otherwise, call `refreshCapabilities()`, which makes at most one request.
+Some capabilities depend on the instance version. For example, GitHub Enterprise Server supports marking notifications done from version 3.13. Pass `instanceVersion` if you know it. Otherwise, call `refreshCapabilities()`, which reads the version once per provider.
 
 CI enforces every `true` entry. During `vitest run`, `test/setup/verbs.ts` records each verb a test calls. `pnpm test:capabilities` then runs `scripts/check-capabilities.ts`, which fails for any capability that a provider declares `true` and no test called.
 
@@ -145,8 +145,9 @@ The GitHub column assumes app auth with an installation. With a token, `installa
 | `writes.removeLabels` | issue (experimental), PR | issue (experimental), PR (experimental) | ❌ | issue (experimental), PR (experimental) | issue (experimental), PR (experimental) | issue (experimental), PR (experimental) | ❌ | ❌ | ❌ | ❌ |
 | `writes.setMilestone` | issue (experimental), PR (experimental) | issue (experimental), PR (experimental) | ❌ | issue (experimental), PR (experimental) | issue (experimental), PR (experimental) | ❌ | ❌ | ❌ | ❌ | ❌ |
 | `writes.react` | issue (experimental), PR, discussion (experimental) | issue (experimental), PR (experimental) | ❌ | issue (experimental), PR (experimental) | issue (experimental), PR (experimental) | ❌ | ❌ | ❌ | ❌ | ❌ |
-| `writes.assign` | issue (experimental), PR | issue (experimental), PR (experimental) | issue (experimental) | issue (experimental), PR (experimental) | issue (experimental), PR (experimental) | issue (experimental) | issue (experimental) | ❌ | ❌ | ❌ |
+| `writes.setAssignees` | issue (experimental), PR | issue (experimental), PR (experimental) | issue (experimental) | issue (experimental), PR (experimental) | issue (experimental), PR (experimental) | issue (experimental) | issue (experimental) | ❌ | ❌ | ❌ |
 | `writes.requestReview` | PR | PR (experimental) | PR (experimental) | PR (experimental) | PR (experimental) | PR (experimental) | PR (experimental) | PR (experimental) | ❌ | ❌ |
+| `writes.merge` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ |
 | `writes.approveAndMerge` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ |
 | `writes.transfer` | experimental | experimental | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ |
 | `writes.markDuplicate` | experimental | emulated | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ |
@@ -193,7 +194,7 @@ The GitHub column assumes app auth with an installation. With a token, `installa
 | `search.commits` | ✅ | experimental | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ |
 | `securityAlerts` | dependency (experimental), code scanning (experimental), secret (experimental) | dependency (experimental), code scanning (experimental), secret (experimental) | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ |
 | `eventKinds` | native | heuristic | native | native | native | native | native | native | native | native |
-| `auth` | `token`, `app`, `anonymous` | `token`, `anonymous` | `token`, `basic`, `anonymous` | `token`, `anonymous` | `token`, `anonymous` | `token`, `anonymous` | `token`, `basic`, `anonymous` | `token`, `app` | `token`, `anonymous` | `anonymous`, `app-password`, `oauth` |
+| `auth` | `token`, `app`, `anonymous` | `token`, `anonymous` | `token`, `basic`, `anonymous` | `token`, `anonymous` | `token`, `anonymous` | `token`, `anonymous` | `token`, `basic`, `anonymous` | `token`, `app` | `token`, `anonymous` | `anonymous`, `app_password`, `oauth` |
 | `limits` | body 65536, comment 65536, label 50 | body 1048576, comment 1000000, label 255 | unknown | unknown | unknown | unknown | unknown | unknown | unknown | unknown |
 <!-- capabilities:end -->
 
@@ -255,15 +256,16 @@ On a Lite provider, `capabilities.sources.webhook` is `false`, and `webhooks.ver
 `providersFromEnv()` from `forges/env` reads `FORGES_<KIND>_<FIELD>` variables, such as `FORGES_GITHUB_TOKEN` and `FORGES_GITLAB_BASE_URL`, and returns one entry per provider. Add a suffix to configure a second instance of the same forge, as in `FORGES_GITHUB_TOKEN_WORK`. An entry that couldn't be configured has a `skipped` reason, which never contains the credential:
 
 ```ts
-import { createForges } from 'forges'
-import { providersFromEnv } from 'forges/env'
+import { forgesFromEnv } from 'forges/env'
 
-const forges = createForges(providersFromEnv(process.env).flatMap(entry => entry.factory ? [entry.factory] : []))
+const forges = forgesFromEnv(process.env)
 ```
+
+`forgesFromEnv()` passes every configured entry to `createForges()`. Use `providersFromEnv()` when you want to read the `skipped` reasons. Set `FORGES_<KIND>_READ_ONLY=1` to create a provider with `readOnly: true`.
 
 ## JSON schemas
 
-`forges/schema` exports a draft-07 JSON Schema for each public model type, keyed by type name. `forges/schema/<Type>.json` serves each schema as a standalone file. You can use them to validate stored events or to generate types in another language:
+`forges/schema` exports a JSON Schema for each public model type, keyed by type name, with references in OpenAPI's `#/components/schemas/<Type>` form. `forges/schema/<Type>.json` serves each schema as a standalone draft-07 document. You can use them to validate stored events or to generate types in another language:
 
 ```ts
 import { schemas } from 'forges/schema'
@@ -307,7 +309,7 @@ const headers = await signDelivery('github', body, 'secret', { 'x-github-event':
 const events = await forge.webhooks.ingest({ headers, body })
 ```
 
-`recordingFetch()` wraps `fetch` and collects each response as a fixture that you can save and replay. It doesn't record request headers, so credentials stay out of fixtures.
+`recordingFetch()` wraps `fetch` and collects each response as a fixture that you can save and replay. It doesn't record request headers, but it does record URLs and response bodies, which can hold tokens. Pass a `redact` function to clean each fixture before you save it.
 
 ## Writing a provider
 

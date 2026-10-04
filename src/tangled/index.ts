@@ -8,7 +8,7 @@ import type {
   ThreadKind,
   ThreadRef,
 } from '../model.ts'
-import type { ForgeOptionsBase, ThreadsApi } from '../provider.ts'
+import type { AnonymousAuth, ForgeOptionsBase, ThreadsApi } from '../provider.ts'
 import type { WebSocketFactory, WebSocketLike } from './subscribe.ts'
 import type { FeedCommentRecord, IssueRecord, PullRecord, RepoRecord } from './types.ts'
 import { defineForgeProvider, perKind, verb } from '../define.ts'
@@ -39,12 +39,13 @@ export type { WebSocketFactory, WebSocketLike } from './subscribe.ts'
 /**
  * Credentials for writing records. Reads are public and need none.
  *
- * - `app-password` creates a session on the account's PDS.
+ * - `app_password` creates a session on the account's PDS.
  * - `oauth` takes a `fetch` from an atproto OAuth client that already signs
  *   requests (DPoP) for `pds`.
  */
 export type TangledAuth
-  = | { type: 'app-password', identifier: string, password: string, pds?: string }
+  = | AnonymousAuth
+    | { type: 'app_password', identifier: string, password: string, pds?: string }
     | { type: 'oauth', did: string, pds: string, fetch: FetchLike }
 
 export interface TangledOptions extends ForgeOptionsBase {
@@ -225,7 +226,7 @@ const TANGLED: ProviderDefinition<TangledOptions> = {
 
     const unverified = { issue: writable && 'experimental', pull_request: writable && 'experimental' } as const
     return {
-      traits: { poll: false, eventKinds: 'native', auth: ['anonymous', 'app-password', 'oauth'] },
+      traits: { poll: false, eventKinds: 'native', auth: ['anonymous', 'app_password', 'oauth'] },
       request: api,
       repos: {
         get: verb(true, async (ref) => {

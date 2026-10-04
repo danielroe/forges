@@ -29,8 +29,8 @@ describe('fake forge', () => {
     expect(after).toMatchObject({ state: 'closed', stateReason: 'completed', commentCount: 1, labels: [{ name: 'bug' }] })
     expect(events.map(event => [event.kind, event.action])).toEqual([
       ['comment', 'created'],
-      ['label', 'labeled'],
-      ['label', 'unlabeled'],
+      ['label', 'labelled'],
+      ['label', 'unlabelled'],
       ['state_change', 'closed'],
     ])
     expect(factory.store.events).toHaveLength(4)
@@ -245,5 +245,23 @@ describe('fake webhook management', () => {
     expect(listed).toHaveLength(1)
     expect(listed[0]!.active).toBe(false)
     expect(factory.store.webhooks).toEqual([])
+  })
+})
+
+describe('fake capabilities', () => {
+  it('reports approveAndMerge unsupported when the forge cannot approve', () => {
+    const forge = fake({ support: { 'threads.approve': false, 'threads.createReview': false } }).create()
+
+    expect(forge.capabilities.writes.merge).toBe(true)
+    expect(forge.capabilities.writes.approveAndMerge).toBe(false)
+  })
+
+  it('copies support from a real provider\'s capabilities, with `support` taking precedence', () => {
+    const base = fake().create().capabilities
+    const source = { ...base, writes: { ...base.writes, addLabels: { issue: false, pull_request: 'experimental', discussion: false, commit: false } } } as typeof base
+    const forge = fake({ capabilities: source, support: { 'threads.close': false } }).create()
+
+    expect(forge.capabilities.writes.addLabels).toMatchObject({ issue: false, pull_request: 'experimental' })
+    expect(forge.can('threads.close', 'issue')).toBe(false)
   })
 })

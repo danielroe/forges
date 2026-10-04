@@ -76,6 +76,6 @@ describe('forgejo release webhooks', () => {
     })
     const [event] = await provider.webhooks.ingest({ headers: { 'x-forgejo-event': 'release', 'x-forgejo-signature': await hmacSha256Hex('s', body) }, body })
 
-    expect(event).toMatchObject({ kind: 'release_published', detail: { release: { id: '31001', tag: 'v0.4.0' }, name: 'Four' } })
+    expect(event).toMatchObject({ kind: 'release', action: 'published', detail: { release: { id: '31001', tag: 'v0.4.0' }, name: 'Four' } })
   })
 })

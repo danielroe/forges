@@ -418,7 +418,7 @@ describe('request compatibility with Octokit', () => {
 
   it('searches commits, which has its own rate-limit pool', async () => {
     await compare(
-      provider => provider.search.commitsPage({ author: 'octocat', sort: 'committer-date', direction: 'asc' }),
+      provider => provider.search.commitsPage({ author: 'octocat', sort: 'committer_date', direction: 'asc' }),
       octokit => octokit.rest.search.commits({ q: 'author:octocat', sort: 'committer-date', order: 'asc' }),
     )
   })
@@ -441,7 +441,7 @@ describe('request compatibility with Octokit', () => {
     await compare(
       async (provider) => {
         await provider.threads.setLabels!(pull, ['bug'])
-        await provider.threads.assign!(pull, ['octocat'])
+        await provider.threads.setAssignees!(pull, ['octocat'])
         await provider.threads.requestReview!(pull, ['hubot'])
       },
       async (octokit) => {

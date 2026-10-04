@@ -156,7 +156,7 @@ function toEventAction(activity: ActivityRecord): EventAction {
     case COLLECTIONS.issue:
       return operation === 'create' ? 'opened' : 'edited'
     case COLLECTIONS.pull:
-      return operation === 'create' ? 'opened' : 'synchronized'
+      return operation === 'create' ? 'opened' : 'synchronised'
     case COLLECTIONS.issueState:
     case COLLECTIONS.pullStatus:
       return STATE_ACTIONS[stateToken(activity.record as StateRecord) ?? ''] ?? 'other'

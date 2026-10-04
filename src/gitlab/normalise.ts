@@ -237,8 +237,8 @@ export function toRepo(instance: string, raw: GitLabProjectDetail): Repo {
       ? undefined
       : [
           ...raw.merge_method === 'merge' ? ['merge' as const] : [],
-          ...raw.merge_method === 'rebase_merge' ? ['rebase-merge' as const] : [],
-          ...raw.merge_method === 'ff' ? ['fast-forward-only' as const] : [],
+          ...raw.merge_method === 'rebase_merge' ? ['rebase_merge' as const] : [],
+          ...raw.merge_method === 'ff' ? ['fast_forward_only' as const] : [],
           ...raw.squash_option && raw.squash_option !== 'never' ? ['squash' as const] : [],
         ],
     features: raw.issues_access_level === undefined && raw.issues_enabled === undefined

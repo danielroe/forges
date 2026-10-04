@@ -1,6 +1,5 @@
-import type { ProviderContext, ProviderDefinition, ProviderSpec } from '../define.ts'
+import type { MergeHooks, ProviderContext, ProviderDefinition, ProviderSpec } from '../define.ts'
 import type {
-  ApproveAndMergeOptions,
   Check,
   CheckState,
   Comment,
@@ -9,7 +8,9 @@ import type {
   ForgeWarning,
   ListOptions,
   MergeMethod,
+  MergeOptions,
   Notification,
+  NotificationListOptions,
   NotificationRef,
   Page,
   PageOptions,
@@ -165,7 +166,7 @@ function setupForgejo({ origin, fetcher, baseUrl }: ProviderContext<ForgejoOptio
     })
   }
 
-  async function notificationPage(listOptions: ListOptions = {}): Promise<Page<Notification>> {
+  async function notificationPage(listOptions: NotificationListOptions = {}): Promise<Page<Notification>> {
     const result = await fetcher.json<ForgejoNotification[]>(listOptions.cursor?.nextUrl ?? '/notifications', {
       query: listOptions.cursor?.nextUrl
         ? undefined
@@ -227,7 +228,7 @@ function setupForgejo({ origin, fetcher, baseUrl }: ProviderContext<ForgejoOptio
     })
   }
 
-  async function approveAndMerge(thread: ThreadRef, mergeOptions: ApproveAndMergeOptions = {}): Promise<void> {
+  async function merge(thread: ThreadRef, mergeOptions: MergeOptions = {}, hooks: MergeHooks = {}): Promise<void> {
     const ref = requireThread(thread, context)
     if (ref.kind !== 'pull_request') {
       throw new UnsupportedOperationError('Only pull requests can be merged', context)
@@ -243,20 +244,19 @@ function setupForgejo({ origin, fetcher, baseUrl }: ProviderContext<ForgejoOptio
         allow_fast_forward_only_merge?: boolean
       }>(repoPath(ref.repo))
       method = soleMergeMethod({
-        'merge': repo.allow_merge_commits,
-        'rebase': repo.allow_rebase,
-        'rebase-merge': repo.allow_rebase_explicit,
-        'squash': repo.allow_squash_merge,
-        'fast-forward-only': repo.allow_fast_forward_only_merge,
+        merge: repo.allow_merge_commits,
+        rebase: repo.allow_rebase,
+        rebase_merge: repo.allow_rebase_explicit,
+        squash: repo.allow_squash_merge,
+        fast_forward_only: repo.allow_fast_forward_only_merge,
       }, context)
     }
-    if (mergeOptions.approve !== false) {
-      await createReview(ref, { event: 'approve', body: mergeOptions.body })
-    }
+    await hooks.beforeMerge?.()
     await fetcher.raw(`${pull}/merge`, {
       method: 'POST',
       json: {
-        Do: method,
+        Do: method.replaceAll('_', '-'),
+        MergeMessageField: mergeOptions.message,
         head_commit_id: mergeOptions.sha,
         merge_when_checks_succeed: mergeOptions.whenChecksPass,
       },
@@ -376,7 +376,7 @@ function setupForgejo({ origin, fetcher, baseUrl }: ProviderContext<ForgejoOptio
         q: query.text,
         type: query.kind === 'pull_request' ? 'pulls' : query.kind === 'issue' ? 'issues' : undefined,
         state: query.state ?? 'all',
-        labels: query.label?.join(','),
+        labels: query.labels?.join(','),
         created_by: query.author,
         assigned_by: query.assignee,
         since: query.since?.toISOString(),
@@ -657,7 +657,7 @@ function setupForgejo({ origin, fetcher, baseUrl }: ProviderContext<ForgejoOptio
         const ref = requireIssueOrPull(thread, context, 'label')
         await fetcher.raw(`${issuePath(ref)}/labels`, { method: 'PUT', json: { labels: await resolveLabels(ref.repo, labels) } })
       }),
-      assign: perKind({ issue: 'experimental', pull_request: 'experimental' }, async (thread, assignees) => {
+      setAssignees: perKind({ issue: 'experimental', pull_request: 'experimental' }, async (thread, assignees) => {
         const ref = requireIssueOrPull(thread, context, 'assign')
         await fetcher.raw(issuePath(ref), { method: 'PATCH', json: { assignees: assignees.map(actorLogin) } })
       }),
@@ -666,7 +666,7 @@ function setupForgejo({ origin, fetcher, baseUrl }: ProviderContext<ForgejoOptio
       }),
       close: perKind({ issue: 'experimental', pull_request: true }, ref => setState(ref, 'closed')),
       reopen: perKind({ issue: 'experimental', pull_request: true }, ref => setState(ref, 'open')),
-      approveAndMerge: verb(true, approveAndMerge),
+      merge: verb(true, merge),
       subscriptions: perKind(ISSUE_AND_PULL, {
         async subscription(thread): Promise<SubscriptionState> {
           const ref = requireIssueOrPull(thread, context, 'read the subscription of')
@@ -735,7 +735,7 @@ export const forgejoLite: (options: ForgejoOptions) => ForgeProviderFactory<Forg
  */
 export function forgejoScopesFor(verb: ForgeVerb): VerbScopes {
   const [group = '', name = ''] = verb.split('.')
-  const writes = new Set(['comment', 'upsertComment', 'editComment', 'deleteComment', 'create', 'update', 'close', 'reopen', 'setLabels', 'addLabels', 'removeLabels', 'setMilestone', 'react', 'unreact', 'assign', 'requestReview', 'approveAndMerge', 'createReview', 'submitReview', 'approve', 'createLabel', 'addCollaborator', 'subscribe', 'unsubscribe', 'report'])
+  const writes = new Set(['comment', 'upsertComment', 'editComment', 'deleteComment', 'create', 'update', 'close', 'reopen', 'setLabels', 'addLabels', 'removeLabels', 'setMilestone', 'react', 'unreact', 'setAssignees', 'requestReview', 'merge', 'approveAndMerge', 'createReview', 'submitReview', 'approve', 'createLabel', 'addCollaborator', 'subscribe', 'unsubscribe', 'report'])
   const write = writes.has(name)
   if (group === 'webhooks') {
     return name === 'verify' || name === 'ingest' ? {} : { token: ['write:repository', 'write:organization'] }

@@ -36,7 +36,7 @@ const PULL = { pull_request: true } as const
 const PER_PAGE = 50
 /** System work item types that are not issues: test management and code review records. */
 const NOT_ISSUES = ['Test Case', 'Test Plan', 'Test Suite', 'Shared Steps', 'Shared Parameter', 'Code Review Request', 'Code Review Response', 'Feedback Request', 'Feedback Response']
-const MERGE_STRATEGIES = { 'merge': 'noFastForward', 'squash': 'squash', 'rebase': 'rebase', 'rebase-merge': 'rebaseMerge' } as const
+const MERGE_STRATEGIES = { merge: 'noFastForward', squash: 'squash', rebase: 'rebase', rebase_merge: 'rebaseMerge' } as const
 
 function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: ProviderContext<AzureDevOpsOptions, undefined>): ProviderSpec {
   const enc = encodeURIComponent
@@ -307,7 +307,7 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
     const page = await workItemPage(query.repo, {
       text: query.text,
       state: query.state ?? 'all',
-      labels: query.label,
+      labels: query.labels,
       author: query.author,
       assignee: query.assignee,
       since: query.since,
@@ -531,7 +531,7 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
           await fetcher.raw(`${pullPath(ref)}/labels`, { method: 'POST', json: { name } })
         }
       }),
-      assign: perKind({ issue: 'experimental' }, async (thread, assignees) => {
+      setAssignees: perKind({ issue: 'experimental' }, async (thread, assignees) => {
         if (assignees.length > 1) {
           throw new UnsupportedOperationError('Azure DevOps work items take a single assignee', context)
         }
@@ -545,7 +545,7 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
           await fetcher.raw(`${pullPath(ref)}/reviewers/${enc(id)}`, { method: 'PUT', json: { vote: 0 } })
         }
       }),
-      approveAndMerge: verb(true, async (thread, mergeOptions = {}) => {
+      merge: verb(true, async (thread, mergeOptions = {}, hooks = {}) => {
         const ref = requireThread(thread, context)
         if (ref.kind !== 'pull_request') {
           throw new UnsupportedOperationError('Only pull requests can be completed', context)
@@ -553,17 +553,15 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
         if (!mergeOptions.method) {
           throw new MergeMethodRequiredError(Object.keys(MERGE_STRATEGIES) as MergeMethod[], context)
         }
-        if (mergeOptions.method === 'fast-forward-only') {
+        if (mergeOptions.method === 'fast_forward_only') {
           throw new UnsupportedOperationError('Azure DevOps does not support fast-forward-only completion', context)
         }
         const completionOptions = {
           mergeStrategy: MERGE_STRATEGIES[mergeOptions.method],
-          ...mergeOptions.body ? { mergeCommitMessage: mergeOptions.body } : {},
+          ...mergeOptions.message ? { mergeCommitMessage: mergeOptions.message } : {},
         }
         const id = await myId()
-        if (mergeOptions.approve !== false) {
-          await createReview(ref, { event: 'approve', body: undefined })
-        }
+        await hooks.beforeMerge?.()
         if (mergeOptions.whenChecksPass) {
           await fetcher.raw(pullPath(ref), { method: 'PATCH', json: { autoCompleteSetBy: { id }, completionOptions }, mapError: toMergeError })
           return

@@ -76,7 +76,7 @@ function eventKindFor(event: string, payload: ForgejoWebhookPayload): EventKind 
 
 const ZERO_SHA = /^0+$/
 
-function repoLevel(origin: ForgeOrigin, event: string, payload: ForgejoWebhookPayload, who: string): Pick<ForgeEventInput, 'kind' | 'detail' | 'summary'> | undefined {
+function repoLevel(origin: ForgeOrigin, event: string, payload: ForgejoWebhookPayload, who: string): Pick<ForgeEventInput, 'kind' | 'action' | 'detail' | 'summary'> | undefined {
   switch (event) {
     case 'push':
       return refEvent(who, {
@@ -90,7 +90,8 @@ function repoLevel(origin: ForgeOrigin, event: string, payload: ForgejoWebhookPa
     case 'create':
     case 'delete':
       return {
-        kind: event === 'create' ? 'ref_created' : 'ref_deleted',
+        kind: 'ref',
+        action: event === 'create' ? 'created' : 'deleted',
         detail: { type: 'ref', ref: payload.ref ?? '', refType: payload.ref_type ?? 'branch' },
         summary: `${who} ${event === 'create' ? 'created' : 'deleted'} ${payload.ref_type ?? 'ref'} ${payload.ref ?? ''}`.trim(),
       }
@@ -99,7 +100,8 @@ function repoLevel(origin: ForgeOrigin, event: string, payload: ForgejoWebhookPa
         return undefined
       }
       return {
-        kind: 'release_published',
+        kind: 'release',
+        action: 'published',
         detail: {
           type: 'release',
           release: { ...origin, repo: toRepoRef(origin, payload.repository), id: String(payload.release.id), tag: payload.release.tag_name },
@@ -151,6 +153,7 @@ export function translateForgejoWebhook(origin: ForgeOrigin, delivery: WebhookDe
       ...origin,
       id: deliveryId,
       kind: level.kind,
+      action: level.action,
       kindRaw: payload.action ? `${event}.${payload.action}` : event,
       summary: level.summary,
       occurredAt: toDate(payload.commits?.at(-1)?.timestamp ?? payload.release?.published_at) ?? new Date(),

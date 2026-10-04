@@ -49,7 +49,7 @@ export interface GitHubWebhookPayload {
   release?: { id: number, tag_name?: string, name?: string | null, published_at?: string | null }
 }
 
-type RepoLevel = Pick<ForgeEventInput, 'kind' | 'detail' | 'summary'> & { occurredAt?: Date }
+type RepoLevel = Pick<ForgeEventInput, 'kind' | 'action' | 'detail' | 'summary'> & { occurredAt?: Date }
 
 function repoLevel(instance: string, event: string, payload: GitHubWebhookPayload, who: string): RepoLevel | undefined {
   switch (event) {
@@ -68,26 +68,27 @@ function repoLevel(instance: string, event: string, payload: GitHubWebhookPayloa
     case 'create':
     case 'delete':
       return {
-        kind: event === 'create' ? 'ref_created' : 'ref_deleted',
+        kind: 'ref',
+        action: event === 'create' ? 'created' : 'deleted',
         detail: { type: 'ref', ref: payload.ref ?? '', refType: payload.ref_type ?? 'branch' },
         summary: `${who} ${event === 'create' ? 'created' : 'deleted'} ${payload.ref_type ?? 'ref'} ${payload.ref ?? ''}`.trim(),
       }
     case 'repository':
       if (payload.action === 'renamed') {
-        return { kind: 'repo_renamed', detail: { type: 'repo_renamed', from: payload.changes?.repository?.name?.from ?? '', to: payload.repository?.name ?? '' }, summary: `${who} renamed the repository` }
+        return { kind: 'repo', action: 'renamed', detail: { type: 'repo_renamed', from: payload.changes?.repository?.name?.from ?? '', to: payload.repository?.name ?? '' }, summary: `${who} renamed the repository` }
       }
       if (payload.action === 'transferred') {
         const from = payload.changes?.owner?.from
-        return { kind: 'repo_transferred', detail: { type: 'repo_transferred', fromOwner: (from?.organization ?? from?.user)?.login, toOwner: payload.repository?.owner?.login }, summary: `${who} transferred the repository` }
+        return { kind: 'repo', action: 'transferred', detail: { type: 'repo_transferred', fromOwner: (from?.organization ?? from?.user)?.login, toOwner: payload.repository?.owner?.login }, summary: `${who} transferred the repository` }
       }
       if (payload.action === 'archived' || payload.action === 'unarchived') {
-        return { kind: 'repo_archived', detail: { type: 'repo_archived', archived: payload.action === 'archived' }, summary: `${who} ${payload.action} the repository` }
+        return { kind: 'repo', action: payload.action, detail: { type: 'repo_archived', archived: payload.action === 'archived' }, summary: `${who} ${payload.action} the repository` }
       }
       return undefined
     case 'installation':
     case 'installation_repositories':
       return {
-        kind: 'installation_changed',
+        kind: 'installation',
         detail: {
           type: 'installation',
           actionRaw: payload.action ?? event,
@@ -100,7 +101,7 @@ function repoLevel(instance: string, event: string, payload: GitHubWebhookPayloa
     case 'member':
     case 'membership':
       return {
-        kind: 'membership_changed',
+        kind: 'membership',
         detail: { type: 'membership', actionRaw: payload.action ?? event, member: toActor(instance, payload.member ?? payload.membership?.user) },
         summary: `${who} ${payload.action ?? 'changed'} a member`,
       }
@@ -109,7 +110,8 @@ function repoLevel(instance: string, event: string, payload: GitHubWebhookPayloa
         return undefined
       }
       return {
-        kind: 'release_published',
+        kind: 'release',
+        action: 'published',
         detail: {
           type: 'release',
           release: { forge: FORGE, instance, repo: toRepoRef(instance, payload.repository), id: String(payload.release.id), tag: payload.release.tag_name },
@@ -254,6 +256,7 @@ export function translateGitHubWebhook(instance: string, delivery: WebhookDelive
       instance,
       id: deliveryId,
       kind: level.kind,
+      action: level.action,
       kindRaw: payload.action ? `${event}.${payload.action}` : event,
       summary: level.summary,
       occurredAt: level.occurredAt ?? new Date(),
