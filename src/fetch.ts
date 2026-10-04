@@ -503,7 +503,7 @@ export interface ForgeRequestOptions {
   body?: unknown
   headers?: Record<string, string>
   signal?: AbortSignal
-  /** Changes state. Defaults to `false` for GET/HEAD/OPTIONS, otherwise `true`. */
+  /** Caller-declared mutation. Defaults to `false` for GET/HEAD/OPTIONS, otherwise `true`. */
   mutates?: boolean
 }
 
