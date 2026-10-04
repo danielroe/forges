@@ -578,7 +578,8 @@ export interface ForgeProvider {
    * Sends a raw request to the forge's API through the same hardened fetcher
    * the provider uses, so authentication, timeouts, rate-limit handling and
    * typed errors all apply. `path` is relative to `baseUrl`; absolute URLs on
-   * another origin get no credentials. Use it for endpoints the normalised
+   * another origin get no default headers or provider credentials. Explicit
+   * request headers still apply. Use it for endpoints the normalised
    * model does not cover.
    */
   readonly request: ForgeRequest

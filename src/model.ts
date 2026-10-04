@@ -980,7 +980,7 @@ export interface Notification {
  * what they support; callers should persist the whole object and hand it back.
  */
 export interface Cursor {
-  /** Absolute URL of the next page, from a `Link` header or the body. Gets credentials only on the API origin. */
+  /** Absolute URL of the next page, from a `Link` header or the body, on the requested origin. */
   nextUrl?: string
   etag?: string
   /** Opaque forge-native cursor, for example a GraphQL `endCursor`. */

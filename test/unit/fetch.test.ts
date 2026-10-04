@@ -195,7 +195,7 @@ describe('streaming transport', () => {
     await expect(fetcher.stream('/releases/assets/9')).rejects.toMatchObject({ status: 410 })
   })
 
-  it('lets the runtime follow a redirect it hides from `redirect: manual`', async () => {
+  it('rejects a redirect hidden by the runtime', async () => {
     const modes: Array<RequestRedirect | undefined> = []
     const fetcher = createFetcher({
       baseUrl: 'https://api.example',
@@ -208,10 +208,8 @@ describe('streaming transport', () => {
       },
     })
 
-    const result = await fetcher.stream('/releases/assets/9')
-
-    expect(await new Response(result.body).text()).toBe('asset')
-    expect(modes).toEqual(['manual', undefined])
+    await expect(fetcher.stream('/releases/assets/9')).rejects.toThrow('Hidden redirect refused')
+    expect(modes).toEqual(['manual'])
   })
 
   it('answers `request()` with the stream when `raw` is set', async () => {
@@ -329,12 +327,12 @@ describe('credential scope', () => {
     return { fetcher, calls }
   }
 
-  it('does not send the credential or default query to another origin through a cursor', async () => {
+  it('rejects a cursor on another origin before fetching', async () => {
     const { fetcher, calls } = recordingFetcher()
 
-    await fetcher.page('/items', { cursor: { nextUrl: 'https://evil.example/collect' } })
+    await expect(fetcher.page('/items', { cursor: { nextUrl: 'https://other.example/items' } })).rejects.toThrow(TypeError)
 
-    expect(calls).toEqual([{ url: 'https://evil.example/collect', authorization: null }])
+    expect(calls).toEqual([])
   })
 
   it('does not send the credential to another origin through `request()`', async () => {

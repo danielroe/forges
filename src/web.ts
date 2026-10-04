@@ -85,7 +85,7 @@ export function parseWebUrl(web: WebLinks, input: string | URL, origin: ForgeOri
     return undefined
   }
   const base = new URL(web.origin)
-  if (url.host !== base.host) {
+  if (url.origin !== base.origin || url.username || url.password) {
     return undefined
   }
   const prefix = base.pathname.replace(/\/$/, '')
