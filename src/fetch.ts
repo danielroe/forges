@@ -12,9 +12,9 @@ export interface FetcherOptions {
   timeout?: number
   /** Default headers, sent only to the API origin. */
   headers?: Record<string, string>
-  /** Resolved before every request on the API origin, so short-lived credentials can refresh. */
+  /** Credentials resolved before each API-origin request. */
   authHeaders?: () => Promise<Record<string, string>> | Record<string, string>
-  /** Query parameters sent on the API origin unless the request sets them, such as an API version. */
+  /** API-origin query defaults; request parameters take precedence. */
   query?: Record<string, string>
   context?: ForgeErrorContext
   /**
@@ -80,7 +80,6 @@ const BODY_EXCERPT_LENGTH = 512
 
 const REDIRECT_STATUSES = new Set([301, 302, 303, 307, 308])
 
-/** `.` or `..`, also percent-encoded. */
 const DOT_SEGMENT_RE = /^(?:\.|%2e){1,2}$/i
 
 /** Parses an RFC 5988 `Link` header into a map of rel to URL. */
@@ -229,7 +228,6 @@ function assertInput(input: string): void {
   }
 }
 
-/** Stops a crafted ref field from steering a path to another endpoint. */
 function assertRelativePath(path: string): string {
   const pathname = path.split('?', 1)[0]!
   if (path.includes('#') || pathname.includes('\\') || pathname.split('/').some(segment => DOT_SEGMENT_RE.test(segment))) {
@@ -238,7 +236,6 @@ function assertRelativePath(path: string): string {
   return path
 }
 
-/** An abortable `setTimeout`. */
 function sleep(ms: number, signal: AbortSignal | undefined): Promise<void> {
   return new Promise((resolve, reject) => {
     if (signal?.aborted) {

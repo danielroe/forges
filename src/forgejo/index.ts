@@ -97,7 +97,6 @@ export const FORGEJO_PROFILE: ForgejoProfile = {
 
 const ISSUE_AND_PULL = { issue: true, pull_request: true } as const
 
-/** Forgejo and Gitea pages that look like `/{owner}/...`. */
 const FORGEJO_RESERVED_PATHS = ['-', '.well-known', 'admin', 'api', 'assets', 'attachments', 'avatars', 'captcha', 'explore', 'issues', 'login', 'milestones', 'notifications', 'org', 'pulls', 'repo', 'repo-avatars', 'search', 'user']
 
 /** The Forgejo implementation for one deployment family. Shared by `forgejo()` and `gitea()`. */

@@ -165,7 +165,6 @@ const GHES_MARK_DONE = '3.13'
 const GHES_DEPENDABOT_ALERTS = '3.8'
 const GRAPHQL_BATCH = 20
 
-/** github.com pages that look like `/{owner}/...`. */
 const GITHUB_RESERVED_PATHS = ['about', 'account', 'apps', 'codespaces', 'collections', 'contact', 'customer-stories', 'dashboard', 'enterprise', 'enterprises', 'events', 'explore', 'features', 'gist', 'issues', 'join', 'login', 'logout', 'marketplace', 'new', 'notifications', 'organizations', 'orgs', 'pricing', 'pulls', 'search', 'security', 'settings', 'signup', 'site', 'sponsors', 'stars', 'topics', 'trending', 'users', 'watching']
 
 const ISSUE_LIKE = { issue: true, pull_request: true, discussion: true } as const

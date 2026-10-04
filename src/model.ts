@@ -1346,7 +1346,6 @@ export interface Installation extends ForgeOrigin {
 /** Every `Date` field in the model, by name. */
 export const DATE_FIELDS: ReadonlySet<string> = new Set(['closedAt', 'completedAt', 'createdAt', 'date', 'deliveredAt', 'dismissedAt', 'dueOn', 'expiresAt', 'lastActivityAt', 'lastReadAt', 'occurredAt', 'publishedAt', 'pushedAt', 'resetAt', 'startedAt', 'submittedAt', 'updatedAt'])
 
-/** The forge's own JSON, which `reviveDates` leaves alone. */
 const UNNORMALISED_FIELDS: ReadonlySet<string> = new Set(['payload', 'raw'])
 
 /**

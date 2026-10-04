@@ -118,7 +118,7 @@ interface GitHubShape {
   lineFragment: (line: number) => string
   /** Reference prefix for pulls when it differs from issues. */
   pullPrefix?: string
-  /** First path segments that are the forge's own pages (`settings`), not owners. */
+  /** Reserved owner segments. */
   reserved?: readonly string[]
 }
 
