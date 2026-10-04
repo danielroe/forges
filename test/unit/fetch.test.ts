@@ -370,6 +370,42 @@ describe('path safety', () => {
   })
 })
 
+describe('streaming timeout', () => {
+  function slowBodyFetch(chunks: number) {
+    return async (_url: string, init?: RequestInit) => {
+      const signal = init!.signal!
+      let sent = 0
+      return new Response(new ReadableStream<Uint8Array>({
+        async pull(controller) {
+          await new Promise(resolve => setTimeout(resolve, 20))
+          if (signal.aborted) {
+            controller.error(signal.reason)
+            return
+          }
+          controller.enqueue(new Uint8Array([sent++]))
+          if (sent === chunks) {
+            controller.close()
+          }
+        },
+      }), { status: 200 })
+    }
+  }
+
+  it('lets a streamed body outlive the request timeout', async () => {
+    const fetcher = createFetcher({ baseUrl: 'https://api.example', timeout: 50, fetch: slowBodyFetch(8) })
+
+    const result = await fetcher.stream('/logs')
+
+    expect(new Uint8Array(await new Response(result.body).arrayBuffer())).toHaveLength(8)
+  })
+
+  it('still times out a JSON body that takes too long', async () => {
+    const fetcher = createFetcher({ baseUrl: 'https://api.example', timeout: 50, fetch: slowBodyFetch(8) })
+
+    await expect(fetcher.json('/slow')).rejects.toMatchObject({ name: 'TimeoutError' })
+  })
+})
+
 describe('retry wait', () => {
   it('rejects with the caller\'s abort reason while waiting to retry', async () => {
     const controller = new AbortController()

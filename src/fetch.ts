@@ -298,10 +298,14 @@ export function createFetcher(options: FetcherOptions): Fetcher {
     return target.toString()
   }
 
-  async function send(url: string, options_: RequestOptions, attempt: number, authenticated = true, download = false, redirects = 0): Promise<Response> {
+  async function send(url: string, options_: RequestOptions, attempt: number, authenticated = true, download = false, redirects = 0, streaming = false): Promise<Response> {
     const target = assertUrl(new URL(url))
     const trusted = authenticated && target.origin === baseOrigin
-    const signals = [AbortSignal.timeout(timeout)]
+    const timeoutSignal = AbortSignal.timeout(timeout)
+    const timeoutController = new AbortController()
+    const onTimeout = () => timeoutController.abort(timeoutSignal.reason)
+    timeoutSignal.addEventListener('abort', onTimeout, { once: true })
+    const signals = [timeoutController.signal]
     if (options_.signal) {
       signals.push(options_.signal)
     }
@@ -380,9 +384,12 @@ export function createFetcher(options: FetcherOptions): Fetcher {
         }
         nextOptions = { ...options_, method: 'GET', body: undefined, json: undefined, headers: nextHeaders }
       }
-      return send(next.toString(), nextOptions, attempt, authenticated && sameOrigin, download, redirects + 1)
+      return send(next.toString(), nextOptions, attempt, authenticated && sameOrigin, download, redirects + 1, streaming)
     }
     if (response.ok || response.status === 304 || (options_.redirect === 'manual' && (response.type === 'opaqueredirect' || (response.status >= 300 && response.status < 400)))) {
+      if (streaming) {
+        timeoutSignal.removeEventListener('abort', onTimeout)
+      }
       return response
     }
 
@@ -399,7 +406,7 @@ export function createFetcher(options: FetcherOptions): Fetcher {
       if (secondary && attempt === 0 && wait !== undefined && wait <= 60_000) {
         options.onRetry?.({ url, method: options_.method ?? 'GET', wait })
         await sleep(wait, options_.signal)
-        return send(url, options_, attempt + 1, authenticated, download, redirects)
+        return send(url, options_, attempt + 1, authenticated, download, redirects, streaming)
       }
       throw new RateLimitedError('Rate limited by the forge', response.status, body, {
         ...context,
@@ -477,7 +484,7 @@ export function createFetcher(options: FetcherOptions): Fetcher {
 
   async function stream(path: string, options_: RequestOptions = {}): Promise<RawResponse> {
     try {
-      const response = await send(resolve(path, options_.query), options_, 0, true, true)
+      const response = await send(resolve(path, options_.query), options_, 0, true, true, 0, true)
       return { status: response.status, headers: response.headers, body: response.body ?? emptyStream() }
     }
     catch (error) {
