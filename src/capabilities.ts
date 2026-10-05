@@ -24,9 +24,13 @@ export function upsertKinds(spec: ProviderSpec, env: CapabilityEnv): Record<Verb
   ])) as Record<VerbKind, boolean | 'emulated' | 'experimental'>
 }
 
-/** As supported as `merge`, when the provider can approve at all. */
+/** Support for the composed verb, requiring both approval and merging. */
 export function approveAndMergeSupport(spec: ProviderSpec, env: CapabilityEnv): boolean | 'emulated' | 'experimental' {
-  return resolve((spec.threads.approve ?? spec.threads.createReview)?.support, env) === false ? false : resolve(spec.threads.merge?.support, env)
+  const merge = resolve(spec.threads.merge?.support, env)
+  if (!merge || !resolve((spec.threads.approve ?? spec.threads.createReview)?.support, env)) {
+    return false
+  }
+  return resolve(spec.threads.approveAndMerge?.support ?? merge, env)
 }
 
 function read(source: unknown, path: string): unknown {

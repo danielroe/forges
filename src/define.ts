@@ -124,6 +124,8 @@ export interface ProviderSpec {
     requestReview?: ThreadVerb<'requestReview'>
     /** `beforeMerge` runs once the merge is validated, just before it is sent. */
     merge?: Verb<(ref: ThreadRef, options?: MergeOptions, hooks?: MergeHooks) => Promise<void>>
+    /** Optional support override; approval and merging must also be supported. */
+    approveAndMerge?: { support: SupportInput }
     /** One capability covers reading and changing the subscription. */
     subscriptions?: KindVerb<{ [K in 'subscription' | 'subscribe' | 'unsubscribe']: NonNullable<ThreadsApi[K]> }>
     checks?: KindVerb<(ref: ThreadRef) => Promise<Page<Check>>>

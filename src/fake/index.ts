@@ -746,6 +746,7 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
             record(ref, 'assignment', 'review_requested', `requested review from ${reviewer.login}`, { type: 'assignment', assignee: reviewer })
           }
         }),
+        ...givenSupport('threads.approveAndMerge') === undefined ? {} : { approveAndMerge: { support: support('threads.approveAndMerge', true) } },
         merge: verb(support('threads.merge', true), async (ref, _mergeOptions = {}, hooks = {}) => {
           const state = threadState(ref)
           if (state.thread.kind !== 'pull_request') {

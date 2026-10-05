@@ -113,6 +113,11 @@ describe('exported types', () => {
     expectTypeOf<'unknown'>().toExtend<NotificationReason>()
   })
 
+  it('exports merge options and file metadata from the package root', () => {
+    expectTypeOf<root.MergeOptions>().toEqualTypeOf<NonNullable<Parameters<ForgeProvider['threads']['merge']>[1]>>()
+    expectTypeOf<root.FileMetadata>().toEqualTypeOf<Omit<root.FileContent, 'encoding' | 'content'>>()
+  })
+
   it('declares every verb as present on the provider surface', () => {
     expectTypeOf<ForgeProvider['threads']['comment']>().not.toBeNullable()
     expectTypeOf<ForgeProvider['notifications']['markRead']>().not.toBeNullable()

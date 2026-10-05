@@ -42,7 +42,7 @@ If you don't pass `method`, `merge()` reads the repository's allowed merge metho
 These options reject with `UnsupportedOperationError`:
 
 - `whenChecksPass`, because the REST API doesn't enable auto-merge.
-- The `rebase-merge` and `fast-forward-only` methods, which GitHub doesn't have.
+- The `rebase_merge` and `fast_forward_only` methods, which GitHub doesn't have.
 
 ## Checks
 
