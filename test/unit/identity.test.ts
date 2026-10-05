@@ -1,4 +1,4 @@
-import type { RepoRef, ThreadRef } from '../../src/index.ts'
+import type { Page, RepoRef, SearchQuery, Thread, ThreadRef } from '../../src/index.ts'
 import { describe, expect, it } from 'vitest'
 import { azureDevOps } from '../../src/azure-devops/index.ts'
 import { bitbucket } from '../../src/bitbucket/index.ts'
@@ -102,6 +102,21 @@ describe('forges aggregate', () => {
     ])
   })
 
+  it('does not hand one provider\'s cursor to every provider when listing notifications', async () => {
+    const forges = createForges([fake({ instance: 'one.test' }), fake({ instance: 'two.test' })])
+    const seen: unknown[] = []
+    for (const provider of forges.providers) {
+      provider.notifications.list = (options) => {
+        seen.push(options)
+        return forgeIterable(async function* () {})
+      }
+    }
+
+    await Array.fromAsync(forges.notifications.list({ since: new Date(0), cursor: { nextUrl: 'https://one.test/next' } } as never))
+
+    expect(seen).toEqual([{ since: new Date(0) }, { since: new Date(0) }])
+  })
+
   it('reads a URL with a malformed escape or a reserved path as nothing', () => {
     const forges = createForges([github({ auth }), forgejo({ auth, baseUrl: 'https://codeberg.org' })])
 
@@ -147,5 +162,43 @@ describe('cross-forge search', () => {
 
     expect(titles).toEqual(['Crash on save', 'Crash on start'])
     expect(iterable.warnings).toMatchObject([{ code: 'search_failed', message: 'index offline', subject: 'fake:three.test' }])
+  })
+})
+
+describe('cross-forge search paging', () => {
+  it('reads every page of each provider and merges them newest first', async () => {
+    const forges = createForges([fake({ instance: 'one.test' }), fake({ instance: 'two.test' })])
+    const thread = (title: string, day: number) => ({ title, updatedAt: new Date(Date.UTC(2025, 0, day)) }) as Thread
+    const pages: Record<string, Array<Page<Thread>>> = {
+      'one.test': [{ items: [thread('a1', 9), thread('a2', 6)], cursor: { token: 'next' } }, { items: [thread('a3', 2)] }],
+      'two.test': [{ items: [thread('b1', 8)], cursor: { token: 'next' } }, { items: [thread('b2', 4)] }],
+    }
+    const queries: SearchQuery[] = []
+    for (const provider of forges.providers) {
+      provider.search.threadsPage = async (query) => {
+        queries.push(query)
+        return pages[provider.instance]![query.cursor ? 1 : 0]!
+      }
+    }
+
+    const newest = (await Array.fromAsync(forges.search.threads({ text: 'x' }))).map(item => item.title)
+
+    expect(newest).toEqual(['a1', 'b1', 'a2', 'b2', 'a3'])
+    expect(queries.every(query => query.sort === 'updated' && query.direction === 'desc')).toBe(true)
+  })
+
+  it('stops reading pages once the consumer stops', async () => {
+    const forges = createForges([fake({ instance: 'one.test' })])
+    let reads = 0
+    forges.providers[0]!.search.threadsPage = async () => {
+      reads++
+      return { items: [{ title: String(reads), updatedAt: new Date() } as Thread], cursor: { token: 'more' } }
+    }
+
+    const iterator = forges.search.threads()[Symbol.asyncIterator]()
+    await iterator.next()
+    await iterator.return?.()
+
+    expect(reads).toBe(1)
   })
 })
