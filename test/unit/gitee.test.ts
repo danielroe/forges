@@ -44,6 +44,14 @@ describe('gitee', () => {
     await expect(gitee({ auth: { type: 'token', token: 't' }, fetch }).create().threads.approveAndMerge!(pull)).rejects.toThrow(MergeMethodRequiredError)
   })
 
+  it('merges without approving, sending `message` as the description', async () => {
+    const { fetch, calls } = fixtureFetch('gitee')
+    await gitee({ auth: { type: 'token', token: 't' }, fetch }).create().threads.merge!(pull, { method: 'merge', message: 'Ship it' })
+
+    expect(calls.map(call => `${call.method} ${new URL(call.url).pathname}`)).toEqual(['PUT /api/v5/repos/acme/widgets/pulls/7/merge'])
+    expect(JSON.parse(calls[0]!.body!)).toEqual({ merge_method: 'merge', description: 'Ship it' })
+  })
+
   it('writes issues through the owner-scoped endpoint and refuses several assignees', async () => {
     const { fetch, calls } = fixtureFetch('gitee', {
       'PATCH https://gitee.com/api/v5/repos/acme/issues/I8ABCD': { status: 200, body: { id: 7001, number: 'I8ABCD', state: 'closed', title: 'x' } },
@@ -53,6 +61,27 @@ describe('gitee', () => {
 
     expect(calls[0]).toMatchObject({ method: 'PATCH', url: 'https://gitee.com/api/v5/repos/acme/issues/I8ABCD' })
     expect(JSON.parse(calls[0]!.body!)).toEqual({ repo: 'widgets', state: 'closed' })
-    await expect(provider.threads.assign!(issue, ['ada', 'grace'])).rejects.toThrow(UnsupportedOperationError)
+    await expect(provider.threads.setAssignees!(issue, ['ada', 'grace'])).rejects.toThrow(UnsupportedOperationError)
+  })
+})
+
+describe('gitee label filters', () => {
+  const repository = { id: 1, path: 'widgets', name: 'widgets', full_name: 'acme/widgets', namespace: { path: 'acme' }, owner: { login: 'acme' } }
+  const issues = [
+    { id: 1, number: 'I1', title: 'Both', state: 'open', labels: [{ name: 'bug' }, { name: 'ui' }], repository },
+    { id: 2, number: 'I2', title: 'One', state: 'open', labels: [{ name: 'bug' }], repository },
+  ]
+  const provider = gitee({ auth: { type: 'token', token: 't' }, fetch: async () => Response.json(issues) }).create()
+
+  it('lists only threads carrying every label', async () => {
+    const page = await provider.threads.listPage(repo, { kind: 'issue', labels: ['bug', 'ui'] })
+
+    expect(page.items.map(thread => thread.title)).toEqual(['Both'])
+  })
+
+  it('searches only threads carrying every label', async () => {
+    const page = await provider.search.threadsPage({ repo, labels: ['bug', 'ui'] })
+
+    expect(page.items.map(thread => thread.title)).toEqual(['Both'])
   })
 })

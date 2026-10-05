@@ -95,11 +95,11 @@ export function translateBitbucketWebhook(instance: string, delivery: WebhookDel
   }
 
   if (event === 'repo:updated' && payload.changes?.name) {
-    return [{ forge: FORGE, instance, id: deliveryId, kind: 'repo_renamed', kindRaw: event, summary: `${who} renamed the repository`, occurredAt: new Date(), actor, repo, detail: { type: 'repo_renamed', from: payload.changes.name.old, to: payload.changes.name.new }, source: 'webhook', payload }]
+    return [{ forge: FORGE, instance, id: deliveryId, kind: 'repo', action: 'renamed', kindRaw: event, summary: `${who} renamed the repository`, occurredAt: new Date(), actor, repo, detail: { type: 'repo_renamed', from: payload.changes.name.old, to: payload.changes.name.new }, source: 'webhook', payload }]
   }
 
   if (event === 'repo:transfer') {
-    return [{ forge: FORGE, instance, id: deliveryId, kind: 'repo_transferred', kindRaw: event, summary: `${who} transferred the repository`, occurredAt: new Date(), actor, repo, detail: { type: 'repo_transferred', fromOwner: payload.previous_workspace?.slug, toOwner: repo?.owner }, source: 'webhook', payload }]
+    return [{ forge: FORGE, instance, id: deliveryId, kind: 'repo', action: 'transferred', kindRaw: event, summary: `${who} transferred the repository`, occurredAt: new Date(), actor, repo, detail: { type: 'repo_transferred', fromOwner: payload.previous_workspace?.slug, toOwner: repo?.owner }, source: 'webhook', payload }]
   }
 
   if (event === 'issue:updated' && payload.issue) {

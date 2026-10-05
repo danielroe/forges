@@ -14,7 +14,7 @@ function github(event: string, payload: Record<string, unknown>): WebhookDeliver
 
 describe('event actions', () => {
   it('normalises forge-native verbs', () => {
-    expect(['closed', 'close', 'synchronize', 'label_added', 'Update'].map(eventAction)).toEqual(['closed', 'closed', 'synchronized', 'labeled', 'edited'])
+    expect(['closed', 'close', 'synchronize', 'label_added', 'Update'].map(eventAction)).toEqual(['closed', 'closed', 'synchronised', 'labelled', 'edited'])
     expect(eventAction('cross-referenced')).toBeUndefined()
   })
 
@@ -50,7 +50,18 @@ describe('github webhook detail', () => {
     const [label] = translateGitHubWebhook('github.com', github('issues', { action: 'unlabeled', issue: { number: 5 }, label: { name: 'bug' } }))
 
     expect(review!.detail).toEqual({ type: 'review', state: 'changes_requested', stateRaw: 'changes_requested', body: 'Nearly' })
-    expect(label).toMatchObject({ kind: 'label', action: 'unlabeled', detail: { type: 'label', label: 'bug' } })
+    expect(label).toMatchObject({ kind: 'label', action: 'unlabelled', detail: { type: 'label', label: 'bug' } })
+  })
+
+  it('reports a review request as an assignment of the requested reviewer', () => {
+    const reviewer = { login: 'hubot', id: 4, type: 'User' }
+    const [webhook] = translateGitHubWebhook('github.com', github('pull_request', { action: 'review_requested', pull_request: { number: 4 }, requested_reviewer: reviewer }))
+    const polled = toGitHubEvent('github.com', { forge: 'github', instance: 'github.com', repo: { forge: 'github', instance: 'github.com', owner: 'acme', name: 'widgets' }, kind: 'pull_request', number: '4' }, { event: 'review_requested', actor: sender, requested_reviewer: reviewer })
+
+    for (const event of [webhook!, completeEvent(polled)]) {
+      expect(event).toMatchObject({ kind: 'assignment', action: 'review_requested', detail: { type: 'assignment', assignee: { login: 'hubot' } } })
+    }
+    expect(polled.summary).toBe('octocat requested review from hubot')
   })
 
   it('matches "anything that closed" across kinds', () => {

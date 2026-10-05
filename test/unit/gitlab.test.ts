@@ -100,6 +100,16 @@ describe('gitlab provider', () => {
     expect(note('Mentioned in commit c0c5081dc665d64b56fcee63df5429b013bb69b6')).toBe('referenced')
   })
 
+  it('approves a merge request natively and refuses an approval body', async () => {
+    const { instance, calls } = provider()
+
+    expect(instance.capabilities.reviews.approve).toBe(true)
+    await instance.threads.approve(mr)
+    expect(calls.map(call => `${call.method} ${call.url}`)).toEqual([`POST ${P}/merge_requests/23/approve`])
+    await expect(instance.threads.approve(mr, 'Looks good')).rejects.toThrow(UnsupportedOperationError)
+    expect(calls).toHaveLength(1)
+  })
+
   it('maps a 401 from approve to InsufficientScopeError, not a revoked token', async () => {
     const { instance } = provider({
       [`POST ${P}/merge_requests/23/approve`]: { status: 401, body: { message: '401 Unauthorized' } },
@@ -153,7 +163,7 @@ describe('gitlab merge methods', () => {
   it('rejects a method the project is not configured for', async () => {
     const { instance, calls } = provider()
 
-    await expect(instance.threads.approveAndMerge!(mr, { method: 'rebase-merge' })).rejects.toThrow(UnsupportedOperationError)
+    await expect(instance.threads.approveAndMerge!(mr, { method: 'rebase_merge' })).rejects.toThrow(UnsupportedOperationError)
     expect(calls.map(call => call.method)).toEqual(['GET'])
   })
 
@@ -161,7 +171,7 @@ describe('gitlab merge methods', () => {
     const { instance, calls } = provider({
       [`GET ${P}`]: { status: 200, body: { merge_method: 'ff', squash_option: 'always' } },
     })
-    await instance.threads.approveAndMerge!(mr, { approve: false })
+    await instance.threads.merge!(mr)
 
     expect(calls.at(-1)!.body).toContain('"squash":true')
   })
@@ -173,12 +183,12 @@ describe('gitlab merge methods', () => {
     const error = await instance.threads.approveAndMerge!(mr).catch((error: unknown) => error)
 
     expect(error).toBeInstanceOf(MergeMethodRequiredError)
-    expect((error as MergeMethodRequiredError).allowed).toEqual(['rebase-merge', 'squash'])
+    expect((error as MergeMethodRequiredError).allowed).toEqual(['rebase_merge', 'squash'])
   })
 
   it('can queue the merge until the pipeline succeeds', async () => {
     const { instance, calls } = provider()
-    await instance.threads.approveAndMerge!(mr, { method: 'squash', approve: false, whenChecksPass: true })
+    await instance.threads.merge!(mr, { method: 'squash', whenChecksPass: true })
 
     expect(calls[0]!.body).toBe('{"squash":true,"merge_when_pipeline_succeeds":true}')
   })
@@ -209,13 +219,61 @@ describe('gitlab webhooks', () => {
   })
 })
 
+describe('gitlab update webhooks', () => {
+  it('splits label, assignee and reviewer changes into one event each', async () => {
+    const instance = gitlab({ auth: { type: 'token', token: 't' }, webhookSecret: 's' }).create()
+    const events = await instance.webhooks.ingest({
+      headers: { 'x-gitlab-token': 's', 'x-gitlab-event': 'Merge Request Hook', 'x-gitlab-event-uuid': 'd1' },
+      body: JSON.stringify({
+        object_kind: 'merge_request',
+        user: { id: 4101, username: 'ada' },
+        project: { id: 278964, path_with_namespace: 'acme/platform/widgets' },
+        object_attributes: { iid: 23, action: 'update', updated_at: '2025-09-18 10:00:00 UTC' },
+        changes: {
+          labels: { previous: [{ title: 'bug' }, { title: 'ui' }], current: [{ title: 'bug' }, { title: 'docs' }] },
+          assignees: { previous: [{ id: 1, username: 'grace' }], current: [{ id: 2, username: 'linus' }] },
+          reviewers: { previous: [], current: [{ id: 3, username: 'ken' }] },
+        },
+      }),
+    })
+
+    expect(events.map(event => [event.id, event.kind, event.action, event.detail])).toEqual([
+      ['d1:0', 'label', 'labelled', { type: 'label', label: 'docs' }],
+      ['d1:1', 'label', 'unlabelled', { type: 'label', label: 'ui' }],
+      ['d1:2', 'assignment', 'assigned', { type: 'assignment', assignee: expect.objectContaining({ login: 'linus' }) }],
+      ['d1:3', 'assignment', 'unassigned', { type: 'assignment', assignee: expect.objectContaining({ login: 'grace' }) }],
+      ['d1:4', 'assignment', 'review_requested', { type: 'assignment', assignee: expect.objectContaining({ login: 'ken' }) }],
+    ])
+    expect(events.every(event => event.thread?.number === '23')).toBe(true)
+    for (const event of events) {
+      expect(instance.webhooks.events).toContainEqual({ kind: event.kind, action: event.action })
+    }
+  })
+
+  it('keeps the delivery id for a single change', async () => {
+    const instance = gitlab({ auth: { type: 'token', token: 't' }, webhookSecret: 's' }).create()
+    const events = await instance.webhooks.ingest({
+      headers: { 'x-gitlab-token': 's', 'x-gitlab-event': 'Issue Hook', 'x-gitlab-event-uuid': 'd2' },
+      body: JSON.stringify({
+        object_kind: 'issue',
+        user: { id: 4101, username: 'ada' },
+        project: { id: 278964, path_with_namespace: 'acme/platform/widgets' },
+        object_attributes: { iid: 5, action: 'update' },
+        changes: { labels: { previous: [], current: [{ title: 'bug' }] } },
+      }),
+    })
+
+    expect(events).toMatchObject([{ id: 'd2', kind: 'label', action: 'labelled', summary: 'ada added label bug' }])
+  })
+})
+
 describe('gitlab release webhooks', () => {
   it('keys GitLab releases by tag so the ref can be fetched', async () => {
     const provider = gitlab({ auth: { type: 'token', token: 't' }, webhookSecret: 's' }).create()
     const body = JSON.stringify({ object_kind: 'release', action: 'create', id: 7, tag: 'v2.0.0', name: 'Two', project: { id: 1, path_with_namespace: 'acme/platform/widgets' } })
     const [event] = await provider.webhooks.ingest({ headers: { 'x-gitlab-event': 'Release Hook', 'x-gitlab-token': 's' }, body })
 
-    expect(event).toMatchObject({ kind: 'release_published', detail: { type: 'release', release: { id: 'v2.0.0', tag: 'v2.0.0' }, name: 'Two' } })
+    expect(event).toMatchObject({ kind: 'release', action: 'published', detail: { type: 'release', release: { id: 'v2.0.0', tag: 'v2.0.0' }, name: 'Two' } })
   })
 })
 

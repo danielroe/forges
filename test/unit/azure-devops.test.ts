@@ -54,7 +54,7 @@ describe('azure devops', () => {
 
   it('completes with the current source commit when merging now', async () => {
     const { instance, calls } = provider(me)
-    await instance.threads.approveAndMerge!(pull, { approve: false, method: 'rebase-merge' })
+    await instance.threads.merge!(pull, { method: 'rebase_merge' })
 
     expect(JSON.parse(calls.at(-1)!.body!)).toEqual({ status: 'completed', lastMergeSourceCommit: { commitId: '9e8d7c6b5a4f3e2d1c0b9a8f7e6d5c4b3a2f1e0d' }, completionOptions: { mergeStrategy: 'rebaseMerge' } })
   })

@@ -29,8 +29,8 @@ describe('fake forge', () => {
     expect(after).toMatchObject({ state: 'closed', stateReason: 'completed', commentCount: 1, labels: [{ name: 'bug' }] })
     expect(events.map(event => [event.kind, event.action])).toEqual([
       ['comment', 'created'],
-      ['label', 'labeled'],
-      ['label', 'unlabeled'],
+      ['label', 'labelled'],
+      ['label', 'unlabelled'],
       ['state_change', 'closed'],
     ])
     expect(factory.store.events).toHaveLength(4)
@@ -245,5 +245,71 @@ describe('fake webhook management', () => {
     expect(listed).toHaveLength(1)
     expect(listed[0]!.active).toBe(false)
     expect(factory.store.webhooks).toEqual([])
+  })
+})
+
+describe('fake capabilities', () => {
+  it.each([false, () => false] as const)('rejects approveAndMerge when explicitly disabled with %s', async (support) => {
+    const factory = fake({ seed, support: { 'threads.approveAndMerge': support } })
+    const forge = factory.create()
+    const repo = { forge: 'fake', instance: 'fake.test', owner: 'acme', name: 'widgets' }
+    const pull = { ...repo, repo, kind: 'pull_request' as const, number: '2' }
+
+    expect(forge.can('threads.approveAndMerge')).toBe(false)
+    expect(forge.can('threads.merge')).toBe(true)
+    await expect(forge.threads.approveAndMerge(pull)).rejects.toThrow(UnsupportedOperationError)
+    expect((await forge.threads.get(pull)).state).toBe('open')
+    expect((await forge.threads.reviewsPage(pull)).items).toEqual([])
+    expect(factory.store.events).toEqual([])
+  })
+
+  it('copies disabled approveAndMerge support and allows an explicit override', async () => {
+    const base = fake().create().capabilities
+    const capabilities = { ...base, writes: { ...base.writes, approveAndMerge: false as const } }
+    const forge = fake({ seed, capabilities }).create()
+    const repo = { forge: 'fake', instance: 'fake.test', owner: 'acme', name: 'widgets' }
+    const pull = { ...repo, repo, kind: 'pull_request' as const, number: '2' }
+
+    expect(forge.can('threads.approveAndMerge')).toBe(false)
+    await expect(forge.threads.approveAndMerge(pull)).rejects.toThrow(UnsupportedOperationError)
+
+    const enabled = fake({ seed, capabilities, support: { 'threads.approveAndMerge': true } }).create()
+    expect(enabled.can('threads.approveAndMerge')).toBe(true)
+    await enabled.threads.approveAndMerge(pull)
+    expect((await enabled.threads.get(pull)).state).toBe('merged')
+  })
+
+  it.each(['threads.merge', 'threads.createReview'] as const)('requires %s even when approveAndMerge is explicitly enabled', async (verb) => {
+    const forge = fake({ seed, support: { [verb]: false, 'threads.approveAndMerge': true } }).create()
+    const repo = { forge: 'fake', instance: 'fake.test', owner: 'acme', name: 'widgets' }
+    const pull = { ...repo, repo, kind: 'pull_request' as const, number: '2' }
+
+    expect(forge.can('threads.approveAndMerge')).toBe(false)
+    await expect(forge.threads.approveAndMerge(pull)).rejects.toThrow(UnsupportedOperationError)
+  })
+
+  it('blocks an explicit approveAndMerge override on a read-only provider', async () => {
+    const forge = fake({ seed, readOnly: true, support: { 'threads.approveAndMerge': true } }).create()
+    const repo = { forge: 'fake', instance: 'fake.test', owner: 'acme', name: 'widgets' }
+    const pull = { ...repo, repo, kind: 'pull_request' as const, number: '2' }
+
+    expect(forge.can('threads.approveAndMerge')).toBe(false)
+    await expect(forge.threads.approveAndMerge(pull)).rejects.toThrow(UnsupportedOperationError)
+  })
+
+  it('reports approveAndMerge unsupported when the forge cannot approve', () => {
+    const forge = fake({ support: { 'threads.approve': false, 'threads.createReview': false } }).create()
+
+    expect(forge.capabilities.writes.merge).toBe(true)
+    expect(forge.capabilities.writes.approveAndMerge).toBe(false)
+  })
+
+  it('copies support from a real provider\'s capabilities, with `support` taking precedence', () => {
+    const base = fake().create().capabilities
+    const source = { ...base, writes: { ...base.writes, addLabels: { issue: false, pull_request: 'experimental', discussion: false, commit: false } } } as typeof base
+    const forge = fake({ capabilities: source, support: { 'threads.close': false } }).create()
+
+    expect(forge.capabilities.writes.addLabels).toMatchObject({ issue: false, pull_request: 'experimental' })
+    expect(forge.can('threads.close', 'issue')).toBe(false)
   })
 })

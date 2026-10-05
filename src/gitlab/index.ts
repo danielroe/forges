@@ -1,7 +1,6 @@
-import type { ProviderDefinition } from '../define.ts'
+import type { MergeHooks, ProviderDefinition } from '../define.ts'
 import type {
   Actor,
-  ApproveAndMergeOptions,
   CheckState,
   Comment,
   CommentRef,
@@ -13,7 +12,9 @@ import type {
   ForgeWarning,
   ListOptions,
   MergeMethod,
+  MergeOptions,
   Notification,
+  NotificationListOptions,
   NotificationRef,
   Page,
   PageOptions,
@@ -165,8 +166,8 @@ const VULNERABILITIES_QUERY = `query ProjectVulnerabilities($fullPath: ID!, $fir
 
 const BASE_METHODS: Record<NonNullable<GitLabProjectSettings['merge_method']>, MergeMethod> = {
   merge: 'merge',
-  rebase_merge: 'rebase-merge',
-  ff: 'fast-forward-only',
+  rebase_merge: 'rebase_merge',
+  ff: 'fast_forward_only',
 }
 
 function threadPath(ref: ResolvedThreadRef): string {
@@ -193,7 +194,7 @@ const GITLAB: ProviderDefinition<GitLabOptions> = {
      * GitLab lists pending and done to-dos separately. With `all`, pending
      * pages are followed by done pages; `cursor.token` marks the switch.
      */
-    async function notificationPage(listOptions: ListOptions = {}): Promise<Page<Notification>> {
+    async function notificationPage(listOptions: NotificationListOptions = {}): Promise<Page<Notification>> {
       const cursor = listOptions.cursor
       const state = cursor?.token === 'done' ? 'done' : 'pending'
       const result = await fetcher.json<GitLabTodo[]>(cursor?.nextUrl ?? '/todos', {
@@ -390,7 +391,7 @@ const GITLAB: ProviderDefinition<GitLabOptions> = {
             search: query.text,
             in: query.text ? 'title,description' : undefined,
             state: state === 'open' ? 'opened' : state === 'closed' ? 'closed' : undefined,
-            labels: query.label?.join(','),
+            labels: query.labels?.join(','),
             author_username: query.author,
             assignee_username: query.assignee,
             updated_after: query.since?.toISOString(),
@@ -509,19 +510,18 @@ const GITLAB: ProviderDefinition<GitLabOptions> = {
       return data
     }
 
-    async function approveAndMerge(thread: ThreadRef, mergeOptions: ApproveAndMergeOptions = {}): Promise<void> {
+    async function merge(thread: ThreadRef, mergeOptions: MergeOptions = {}, hooks: MergeHooks = {}): Promise<void> {
       const ref = requireThread(thread, context)
       if (ref.kind !== 'pull_request') {
         throw new UnsupportedOperationError('Only merge requests can be merged', context)
       }
       const method = await resolveMergeMethod(ref, mergeOptions.method)
-      if (mergeOptions.approve !== false) {
-        await approve(ref)
-      }
+      await hooks.beforeMerge?.()
       await fetcher.raw(`${threadPath(ref)}/merge`, {
         method: 'PUT',
         json: {
           sha: mergeOptions.sha,
+          ...mergeOptions.message ? { [method === 'squash' ? 'squash_commit_message' : 'merge_commit_message']: mergeOptions.message } : {},
           squash: method === 'squash',
           merge_when_pipeline_succeeds: mergeOptions.whenChecksPass ?? false,
         },
@@ -709,6 +709,9 @@ const GITLAB: ProviderDefinition<GitLabOptions> = {
           const { data } = await fetcher.json<GitLabApprovals>(`${threadPath(ref)}/approvals`)
           return { items: toApprovalReviews(ref, data) }
         }),
+        approve: verb(true, async (thread, body) => {
+          await approve(thread, body)
+        }),
         createReview: verb('emulated', async (thread, input) => {
           if (input.event !== 'approve') {
             throw new UnsupportedOperationError('GitLab has approvals, not reviews; only `approve` can be created', context)
@@ -876,7 +879,7 @@ const GITLAB: ProviderDefinition<GitLabOptions> = {
           const ref = requireIssueOrPull(thread, context, 'label')
           await fetcher.raw(threadPath(ref), { method: 'PUT', json: { labels: labels.join(',') } })
         }),
-        assign: perKind({ issue: 'experimental', pull_request: 'experimental' }, async (thread, assignees) => {
+        setAssignees: perKind({ issue: 'experimental', pull_request: 'experimental' }, async (thread, assignees) => {
           const ref = requireIssueOrPull(thread, context, 'assign')
           await fetcher.raw(threadPath(ref), { method: 'PUT', json: { assignee_ids: await Promise.all(assignees.map(userId)) } })
         }),
@@ -891,7 +894,7 @@ const GITLAB: ProviderDefinition<GitLabOptions> = {
         }),
         close: perKind({ issue: 'experimental', pull_request: true }, ref => setState(ref, 'close')),
         reopen: perKind({ issue: 'experimental', pull_request: true }, ref => setState(ref, 'reopen')),
-        approveAndMerge: verb(true, approveAndMerge),
+        merge: verb(true, merge),
         subscriptions: perKind(ISSUE_LIKE, {
           subscription: async (thread): Promise<SubscriptionState> => {
             const ref = requireIssueOrPull(thread, context, 'read the subscription of')

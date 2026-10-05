@@ -16,7 +16,7 @@ const PAIRS: Array<[string, () => ForgeProvider, () => ForgeProvider]> = [
   ['gitee', () => gitee({ auth }).create(), () => giteeLite({ auth }).create()],
   ['azure devops', () => azureDevOps({ auth, organization: 'acme' }).create(), () => azureDevOpsLite({ auth, organization: 'acme' }).create()],
   ['cursor origin', () => cursorOrigin({ auth }).create(), () => cursorOriginLite({ auth }).create()],
-  ['tangled', () => tangled({ auth: { type: 'app-password', identifier: 'h', password: 'p' } }).create(), () => tangledLite({ auth: { type: 'app-password', identifier: 'h', password: 'p' } }).create()],
+  ['tangled', () => tangled({ auth: { type: 'app_password', identifier: 'h', password: 'p' } }).create(), () => tangledLite({ auth: { type: 'app_password', identifier: 'h', password: 'p' } }).create()],
 ]
 
 describe('lite factories', () => {

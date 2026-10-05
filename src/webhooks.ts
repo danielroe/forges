@@ -53,12 +53,13 @@ export interface RefChange {
 }
 
 /** The kind, detail and summary of one ref update in a push: a deletion, a creation, or new commits. */
-export function refEvent(who: string, change: RefChange): Pick<ForgeEventInput, 'kind' | 'detail' | 'summary'> {
+export function refEvent(who: string, change: RefChange): Pick<ForgeEventInput, 'kind' | 'action' | 'detail' | 'summary'> {
   const name = change.ref.replace(/^refs\/(?:heads|tags)\//, '')
   const refType = change.refType ?? (change.ref.startsWith('refs/tags/') ? 'tag' : 'branch')
   if (change.deleted || change.created) {
     return {
-      kind: change.deleted ? 'ref_deleted' : 'ref_created',
+      kind: 'ref',
+      action: change.deleted ? 'deleted' : 'created',
       detail: { type: 'ref', ref: change.ref, refType },
       summary: `${who} ${change.deleted ? 'deleted' : 'created'} ${name}`,
     }

@@ -1,5 +1,5 @@
 import type { Fetcher, FetcherOptions } from './fetch.ts'
-import type { Check, Comment, ForgeEventInput, ForgeInstance, ForgeKind, Installation, ListOptions, Notification, Page, RepoRef, SecurityAlertKind, SecurityAlertListOptions, TextLimits, ThreadKind, ThreadRef, UpsertCommentInput, UpsertCommentResult, WebhookEventType } from './model.ts'
+import type { ApproveAndMergeOptions, Check, Comment, ForgeEventInput, ForgeInstance, ForgeKind, Installation, ListOptions, MergeOptions, Notification, NotificationListOptions, Page, RepoRef, SecurityAlertKind, SecurityAlertListOptions, TextLimits, ThreadKind, ThreadRef, UpsertCommentInput, UpsertCommentResult, WebhookEventType } from './model.ts'
 import type {
   AuthKind,
   ChecksApi,
@@ -26,7 +26,7 @@ import type {
 } from './provider.ts'
 import type { ForgeVerb } from './supports.ts'
 import type { WebLinks } from './web.ts'
-import { ALERT_KINDS, capabilitiesOf, KINDS, resolve, restrict, upsertKinds, WRITE_VERBS } from './capabilities.ts'
+import { ALERT_KINDS, approveAndMergeSupport, capabilitiesOf, KINDS, resolve, restrict, upsertKinds, WRITE_VERBS } from './capabilities.ts'
 import { CAPABILITY_TABLE } from './capability-table.ts'
 import { isSha } from './contents.ts'
 import { ReadOnlyError, UnsupportedOperationError, WebhookVerificationError } from './errors.ts'
@@ -34,7 +34,7 @@ import { completeEvent } from './events.ts'
 import { createFetcher, createRequest } from './fetch.ts'
 import { commentMarker, hasCommentMarker } from './model.ts'
 import { supports } from './supports.ts'
-import { forgeIterable, hostOf, iteratePages } from './utils.ts'
+import { forgeIterable, hostOf, iteratePages, memo } from './utils.ts'
 import { parseWebUrl, referenceFor, webUrlFor } from './web.ts'
 
 /** What support can depend on once the provider exists. */
@@ -120,9 +120,12 @@ export interface ProviderSpec {
     reactionsPage?: KindVerb<ThreadsApi['reactionsPage']>
     transfer?: Verb<ThreadsApi['transfer']>
     markDuplicate?: Verb<ThreadsApi['markDuplicate']>
-    assign?: ThreadVerb<'assign'>
+    setAssignees?: ThreadVerb<'setAssignees'>
     requestReview?: ThreadVerb<'requestReview'>
-    approveAndMerge?: Verb<NonNullable<ThreadsApi['approveAndMerge']>>
+    /** `beforeMerge` runs once the merge is validated, just before it is sent. */
+    merge?: Verb<(ref: ThreadRef, options?: MergeOptions, hooks?: MergeHooks) => Promise<void>>
+    /** Optional support override; approval and merging must also be supported. */
+    approveAndMerge?: { support: SupportInput }
     /** One capability covers reading and changing the subscription. */
     subscriptions?: KindVerb<{ [K in 'subscription' | 'subscribe' | 'unsubscribe']: NonNullable<ThreadsApi[K]> }>
     checks?: KindVerb<(ref: ThreadRef) => Promise<Page<Check>>>
@@ -181,7 +184,7 @@ export interface ProviderSpec {
   }
   /** Omit when the forge has no notifications. `list` is derived from `page`. */
   notifications?: {
-    listPage: Verb<(options?: ListOptions) => Promise<Page<Notification>>>
+    listPage: Verb<(options?: NotificationListOptions) => Promise<Page<Notification>>>
   } & { [K in Exclude<keyof NotificationsApi, 'list' | 'listPage'>]?: Verb<NonNullable<NotificationsApi[K]>> }
   installations?: Verb<Omit<InstallationsApi, 'list' | 'repos'>>
   sources?: { subscribe: Verb<(options?: SubscribeOptions) => AsyncIterable<{ event: ForgeEventInput, cursor: string }>> }
@@ -204,6 +207,10 @@ export interface ProviderSpec {
   request?: Fetcher
   /** Reads the instance version for `refreshCapabilities()`. Omit when capabilities never depend on it. */
   probeVersion?: () => Promise<string | undefined>
+}
+
+export interface MergeHooks {
+  beforeMerge?: () => Promise<void>
 }
 
 export interface ProviderBase<TOptions, TState> {
@@ -334,6 +341,7 @@ function createProvider<TOptions extends ForgeOptionsBase, TState>(
   const spec = anonymous || options.readOnly ? restrict(declaredSpec, anonymous) : declaredSpec
 
   const env: CapabilityEnv = { version: options.instanceVersion }
+  const probeVersion = spec.probeVersion && memo(spec.probeVersion)
   const flags = { experimental: Boolean(definition.experimental), readOnly: Boolean(options.readOnly), webhook: Boolean(handlers) }
   let capabilities = capabilitiesOf(spec, env, flags)
 
@@ -398,6 +406,9 @@ function createProvider<TOptions extends ForgeOptionsBase, TState>(
     'threads.subscribe': kindGate('threads.subscribe', subscriptions?.kinds, subscriptions?.run.subscribe),
     'threads.unsubscribe': kindGate('threads.unsubscribe', subscriptions?.kinds, subscriptions?.run.unsubscribe),
     'threads.approve': gate('threads.approve', approve?.support, approve?.run),
+    'threads.approveAndMerge': gate('threads.approveAndMerge', (mergeEnv: CapabilityEnv) => approveAndMergeSupport(spec, mergeEnv), async (ref: ThreadRef, { body, ...mergeOptions }: ApproveAndMergeOptions = {}) => {
+      await spec.threads.merge!.run(ref, mergeOptions, { beforeMerge: () => call('threads.approve')(ref, body) })
+    }),
     'contents.resolveRef': (repo: RepoRef, ref: string) => isSha(ref)
       ? Promise.resolve(ref.toLowerCase())
       : gate('contents.resolveRef', spec.contents?.resolveRef?.support, spec.contents?.resolveRef?.run)(repo, ref),
@@ -480,8 +491,8 @@ function createProvider<TOptions extends ForgeOptionsBase, TState>(
       return capabilities
     },
     async refreshCapabilities() {
-      if (!options.instanceVersion && spec.probeVersion) {
-        env.version = await spec.probeVersion()
+      if (!options.instanceVersion && probeVersion) {
+        env.version = await probeVersion()
         capabilities = capabilitiesOf(spec, env, flags)
       }
       return capabilities

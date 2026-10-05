@@ -13,7 +13,7 @@ export interface CapabilityEntry {
   /** Support is declared per thread kind. */
   perKind?: boolean
   /** The capability is computed by core rather than read from a declared verb. */
-  derived?: 'experimental' | 'poll' | 'webhook' | 'upsertComment' | 'subscriptionSet' | 'approve' | 'alertKinds' | 'eventKinds' | 'auth' | 'limits'
+  derived?: 'experimental' | 'poll' | 'webhook' | 'upsertComment' | 'subscriptionSet' | 'approve' | 'approveAndMerge' | 'alertKinds' | 'eventKinds' | 'auth' | 'limits'
   /** The entry adds verbs and a declaration to a capability another entry produces. */
   alias?: boolean
   /** The verbs change state, so `readOnly` and anonymous providers reject them. */
@@ -69,9 +69,10 @@ const TABLE = [
   { capability: 'writes.removeLabels', write: true, spec: 'threads.removeLabels', perKind: true },
   { capability: 'writes.setMilestone', write: true, spec: 'threads.setMilestone', perKind: true },
   { capability: 'writes.react', write: true, spec: 'threads.reactions', perKind: true, verbs: ['threads.react', 'threads.unreact'] },
-  { capability: 'writes.assign', write: true, spec: 'threads.assign', perKind: true },
+  { capability: 'writes.setAssignees', write: true, spec: 'threads.setAssignees', perKind: true },
   { capability: 'writes.requestReview', write: true, spec: 'threads.requestReview', perKind: true },
-  { capability: 'writes.approveAndMerge', write: true, spec: 'threads.approveAndMerge' },
+  { capability: 'writes.merge', write: true, spec: 'threads.merge' },
+  { capability: 'writes.approveAndMerge', write: true, derived: 'approveAndMerge', verbs: ['threads.approveAndMerge'] },
   { capability: 'writes.transfer', write: true, spec: 'threads.transfer' },
   { capability: 'writes.markDuplicate', write: true, spec: 'threads.markDuplicate' },
   { capability: 'subscriptions.get', account: true, spec: 'threads.subscriptions', perKind: true, verbs: ['threads.subscription'] },

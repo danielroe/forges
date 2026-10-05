@@ -161,6 +161,7 @@ export interface GitHubTimelineEntry {
   state?: string
   label?: { name: string }
   assignee?: GitHubUser
+  requested_reviewer?: GitHubUser
   sha?: string
   message?: string
   author?: { name?: string, email?: string, date?: string }
@@ -394,6 +395,19 @@ export interface GitHubComparison {
   merge_base_commit?: { sha: string }
   commits?: GitHubCommit[]
   files?: GitHubCommitFile[]
+}
+
+export interface GitHubAsyncMerge {
+  status: 'pending' | 'merged' | 'enqueued' | 'failed'
+  details?: {
+    message?: string
+    uuid?: string
+    merge_method?: string
+    merge_action?: string
+    expected_head_sha?: string
+    bypass_rules?: boolean
+    sha?: string
+  }
 }
 
 export interface GitHubHook {

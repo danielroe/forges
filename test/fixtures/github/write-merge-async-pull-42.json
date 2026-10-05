@@ -1,0 +1,22 @@
+{
+  "handAuthored": true,
+  "request": {
+    "method": "PUT",
+    "url": "https://api.github.com/repos/acme/widgets/pulls/42/merge-async"
+  },
+  "response": {
+    "status": 202,
+    "headers": {},
+    "body": {
+      "status": "pending",
+      "details": {
+        "message": "Merge request accepted",
+        "uuid": "3f1c2a9e-5b7d-4e8a-9c0f-1a2b3c4d5e6f",
+        "merge_method": "squash",
+        "merge_action": "direct_merge",
+        "expected_head_sha": "6dcb09b5b57875f334f61aebed695e2e4193db5e",
+        "bypass_rules": false
+      }
+    }
+  }
+}

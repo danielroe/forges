@@ -68,9 +68,24 @@ describe('bitbucket provider', () => {
 
   it('accepts an expected sha that matches the abbreviated head', async () => {
     const { instance, calls } = provider()
-    await instance.threads.approveAndMerge!(pull, { sha: '6dcb09b5b57875f334f61aebed695e2e4193db5e', method: 'squash', approve: false })
+    await instance.threads.merge!(pull, { sha: '6dcb09b5b57875f334f61aebed695e2e4193db5e', method: 'squash' })
 
     expect(calls.at(-1)!.url).toMatch(/\/merge$/)
+  })
+})
+
+describe('bitbucket webhooks', () => {
+  it('subscribes `repo` to renames and transfers', async () => {
+    const bodies: string[] = []
+    const instance = bitbucket({ auth: { type: 'token', token: 't' }, fetch: async (_url, init) => {
+      bodies.push(init?.body as string)
+      return Response.json({ uuid: '{hook}', url: 'https://hooks.test/in', active: true, events: ['repo:updated', 'repo:transfer'] })
+    } }).create()
+
+    await instance.webhooks.create(repo, { url: 'https://hooks.test/in', events: ['repo'] })
+
+    expect(JSON.parse(bodies[0]!).events).toEqual(['repo:updated', 'repo:transfer'])
+    expect(instance.webhooks.events).toContainEqual({ kind: 'repo', action: 'renamed' })
   })
 })
 

@@ -1,7 +1,8 @@
 /**
  * Every public type in this module is JSON-serialisable except `Date`, which
- * serialises to an ISO 8601 string through `JSON.stringify`. `raw` and
- * `payload` fields hold the forge's own JSON.
+ * serialises to an ISO 8601 string through `JSON.stringify`, and the bytes of
+ * a binary {@link FileContent}. `raw` and `payload` fields hold the forge's
+ * own JSON.
  */
 
 /**
@@ -470,7 +471,7 @@ export interface Check {
 export interface CheckReportInput {
   /** Status context or check run name. */
   name: string
-  state: CheckState
+  state: Exclude<CheckState, 'unknown'>
   description?: string
   /** Where a person goes to see the detail. */
   url?: string
@@ -526,7 +527,7 @@ export interface CiJob {
 export interface CiRunQuery extends PageOptions {
   branch?: string
   /** Normalised state; forges that filter on their own names translate it. */
-  state?: CheckState
+  state?: Exclude<CheckState, 'unknown'>
 }
 
 /** A commit addressed by its full sha. */
@@ -538,17 +539,19 @@ export interface CommitRef extends ForgeOrigin {
 /** `'binary'` carries bytes; `'utf-8'` carries text the forge reported as text. */
 export type FileEncoding = 'utf-8' | 'binary'
 
-export interface FileContent {
+export interface FileMetadata {
   path: string
-  /** A string only when `encoding` is `'utf-8'`. */
-  content: Uint8Array | string
-  encoding: FileEncoding
   /** Blob sha, where the forge reports one. */
   sha?: string
   size?: number
   /** Web page for the file at this ref, where the forge has one. */
   url?: string
 }
+
+/** A file's contents. Narrow on `encoding` to get text or bytes. */
+export type FileContent
+  = | FileMetadata & { encoding: 'utf-8', content: string }
+    | FileMetadata & { encoding: 'binary', content: Uint8Array }
 
 export interface FileOptions {
   /** Branch, tag or sha. Defaults to the repository's default branch. */
@@ -715,17 +718,13 @@ export interface SecurityAlert {
   raw: unknown
 }
 
-export interface SecurityAlertListOptions {
+export interface SecurityAlertListOptions extends PageOptions {
   /** Omitted lists every kind the provider can read, one after another. */
   kind?: Exclude<SecurityAlertKind, 'other'>
-  /** Defaults to `'open'`. */
+  /** Defaults to `'open'`. `'closed'` is fixed or dismissed. */
   state?: 'open' | 'closed' | 'all'
-  perPage?: number
-  cursor?: Cursor
-  signal?: AbortSignal
 }
 
-/** A non-fatal problem encountered while producing a result. */
 /** The warning codes providers emit; providers may add codes in a minor release. */
 export type ForgeWarningCode
   = | 'checks_unreadable'
@@ -747,6 +746,7 @@ export type ForgeWarningCode
     | 'tree_truncated'
     | (string & {})
 
+/** A non-fatal problem encountered while producing a result. */
 export interface ForgeWarning {
   /** Stable machine-readable code. */
   code: ForgeWarningCode
@@ -832,14 +832,11 @@ export type EventKind
     | 'referenced'
     | 'reaction'
     | 'push'
-    | 'ref_created'
-    | 'ref_deleted'
-    | 'repo_renamed'
-    | 'repo_transferred'
-    | 'repo_archived'
-    | 'installation_changed'
-    | 'membership_changed'
-    | 'release_published'
+    | 'ref'
+    | 'repo'
+    | 'installation'
+    | 'membership'
+    | 'release'
     | 'other'
 
 export interface PushCommit {
@@ -862,14 +859,21 @@ export type EventAction
     | 'created'
     | 'deleted'
     | 'submitted'
-    | 'labeled'
-    | 'unlabeled'
+    | 'labelled'
+    | 'unlabelled'
     | 'assigned'
     | 'unassigned'
     | 'review_requested'
-    | 'synchronized'
+    | 'synchronised'
     | 'ready_for_review'
     | 'converted_to_draft'
+    | 'published'
+    | 'renamed'
+    | 'transferred'
+    | 'archived'
+    | 'unarchived'
+    | 'added'
+    | 'removed'
     | 'other'
 
 /** Typed detail for an event. Discriminated by `type`. */
@@ -1006,20 +1010,23 @@ export interface Page<T> {
   warnings?: ForgeWarning[]
 }
 
-export interface ListOptions {
+/** Options for listings that can start from a point in time: events, comments, reactions. */
+export interface ListOptions extends PageOptions {
+  /** Only items updated at or after this time. */
   since?: Date
-  cursor?: Cursor
-  /** Include notifications already marked read. Defaults to `false`. */
-  all?: boolean
-  perPage?: number
-  signal?: AbortSignal
 }
 
-export interface ThreadQuery {
+export interface NotificationListOptions extends ListOptions {
+  /** Include notifications already marked read. Defaults to `false`. */
+  all?: boolean
+}
+
+export interface ThreadQuery extends PageOptions {
   /** Omitted lists every listable kind; forges that list kinds separately emit them one after another. */
   kind?: 'issue' | 'pull_request' | 'discussion'
   /** Defaults to `'open'`. */
   state?: 'open' | 'closed' | 'all'
+  /** Threads carrying every one of these labels. */
   labels?: string[]
   /** Author login. */
   author?: string
@@ -1038,10 +1045,6 @@ export interface ThreadQuery {
   sort?: 'created' | 'updated' | 'comments'
   /** Defaults to `'desc'`. */
   direction?: 'asc' | 'desc'
-  perPage?: number
-  /** Resume after the page that returned this cursor. */
-  cursor?: Cursor
-  signal?: AbortSignal
 }
 
 /**
@@ -1061,7 +1064,8 @@ export interface SearchQuery extends PageOptions {
   /** Threads the login authored, is assigned, commented on or was mentioned in. */
   involves?: string
   assignee?: string
-  label?: string[]
+  /** Threads carrying every one of these labels. */
+  labels?: string[]
   /** Updated at or after. */
   since?: Date
   /** Defaults to the forge's relevance order. */
@@ -1084,7 +1088,7 @@ export interface CommitSearchQuery extends PageOptions {
   /** Authored or committed at or before. */
   until?: Date
   /** Defaults to the forge's relevance order. */
-  sort?: 'author-date' | 'committer-date'
+  sort?: 'author_date' | 'committer_date'
   /** Defaults to `'desc'`. */
   direction?: 'asc' | 'desc'
 }
@@ -1166,6 +1170,10 @@ export type GetManyResult
  * as HTML.
  */
 export function commentMarker(key: string): string {
+  const end = ['-->', '--!>'].find(token => key.includes(token))
+  if (end) {
+    throw new TypeError(`Comment key ${JSON.stringify(key)} contains \`${end}\`, which would end the hidden marker early.`)
+  }
   return `<!-- forges:key=${key} -->`
 }
 
@@ -1188,13 +1196,6 @@ export interface TextLimits {
   labelLength?: number
 }
 
-/**
- * Stable identity key for a repository. When the provider set `externalId`
- * the key is built from it, so renames and transfers keep the key. Otherwise
- * it falls back to `owner` and `name`. A ref built by hand without
- * `externalId` therefore keys differently from the same repo as returned by
- * a provider.
- */
 const CASE_INSENSITIVE = new Set<ForgeKind>(['github', 'gitlab', 'forgejo', 'gitea', 'bitbucket', 'gitee', 'azure-devops'])
 
 /** Whether `forge` treats owner and repository names case-insensitively. Unknown forges are assumed not to. */
@@ -1213,8 +1214,10 @@ export function isNamespaceRef(ref: RepoRef): boolean {
 }
 
 /**
- * Stable identity key for a repository: by `externalId` when known, otherwise
- * by path, lowercased on forges that ignore case.
+ * Stable identity key for a repository: by `externalId` when known, so renames
+ * and transfers keep the key, otherwise by path, lowercased on forges that
+ * ignore case. A hand-built ref without `externalId` therefore keys
+ * differently from the same repo as a provider returns it.
  */
 export function repoKey(repo: RepoRef): string {
   if (repo.externalId) {
@@ -1317,19 +1320,22 @@ export function notificationThread(notification: Notification): ThreadRef | unde
   return notification.subject.type === 'thread' ? notification.subject.thread : undefined
 }
 
-export type MergeMethod = 'merge' | 'squash' | 'rebase' | 'rebase-merge' | 'fast-forward-only'
+export type MergeMethod = 'merge' | 'squash' | 'rebase' | 'rebase_merge' | 'fast_forward_only'
 
-export interface ApproveAndMergeOptions {
-  /** Review body sent with the approval. */
-  body?: string
+export interface MergeOptions {
   /** Defaults to the repository's only allowed method. */
   method?: MergeMethod
   /** Expected head sha; the merge is refused if the branch has moved. */
   sha?: string
-  /** Set to `false` to merge without submitting an approving review. */
-  approve?: boolean
+  /** Merge commit message, where the forge takes one. */
+  message?: string
   /** Queue the merge until required checks pass, where the forge supports it. */
   whenChecksPass?: boolean
+}
+
+export interface ApproveAndMergeOptions extends MergeOptions {
+  /** Review body sent with the approval. Rejected where approvals carry no body (Azure DevOps, Bitbucket, GitLab). */
+  body?: string
 }
 
 /** An app installation on an account, with its own credential scope. */

@@ -20,7 +20,7 @@ function provider(overrides = {}, auth = true) {
   const { fetch, calls } = fixtureFetch('tangled', overrides)
   return {
     instance: tangled({
-      auth: auth ? { type: 'app-password', identifier: 'acme.example.com', password: 'pw', pds: PDS } : undefined,
+      auth: auth ? { type: 'app_password', identifier: 'acme.example.com', password: 'pw', pds: PDS } : undefined,
       fetch,
     }).create(),
     calls,
@@ -176,7 +176,7 @@ describe('tangled writes', () => {
       [`POST ${PDS}/xrpc/com.atproto.server.refreshSession`]: { status: 200, body: { did: OWNER, accessJwt: 'fresh-jwt', refreshJwt: 'fresh-refresh' } },
     })
     const instance = tangled({
-      auth: { type: 'app-password', identifier: OWNER, password: 'pw', pds: PDS },
+      auth: { type: 'app_password', identifier: OWNER, password: 'pw', pds: PDS },
       fetch: async (url, init) => {
         if (url.endsWith('createRecord') && attempts++ === 0) {
           return new Response('{"error":"ExpiredToken","message":"Token has expired"}', { status: 400 })
@@ -216,7 +216,7 @@ describe('tangled notifications (experimental)', () => {
     const { fetch, calls } = fixtureFetch('tangled')
     return {
       instance: tangled({
-        auth: { type: 'app-password', identifier: 'acme.example.com', password: 'pw', pds: PDS },
+        auth: { type: 'app_password', identifier: 'acme.example.com', password: 'pw', pds: PDS },
         notificationsUrl: 'https://notifs.example.com',
         fetch,
       }).create(),
@@ -306,5 +306,13 @@ describe('tangled webhooks', () => {
     })
 
     expect(event!.thread).toMatchObject({ number: PULL, externalId: PULL, displayNumber: '4' })
+  })
+})
+
+describe('tangled anonymous auth', () => {
+  it('treats `{ type: \'anonymous\' }` like no credentials', () => {
+    const provider = tangled({ auth: { type: 'anonymous' } }).create()
+
+    expect(provider.capabilities.writes.comment.issue).toBe(false)
   })
 })

@@ -83,7 +83,7 @@
       "token",
       "basic",
       "app",
-      "app-password",
+      "app_password",
       "oauth",
       "anonymous"
     ],
@@ -644,6 +644,21 @@
     ],
     "x-forges-type": "Comparison"
   },
+  "Cursor": {
+    "type": "object",
+    "properties": {
+      "nextUrl": {
+        "type": "string"
+      },
+      "etag": {
+        "type": "string"
+      },
+      "token": {
+        "type": "string"
+      }
+    },
+    "x-forges-type": "Cursor"
+  },
   "EventAction": {
     "type": "string",
     "enum": [
@@ -655,14 +670,21 @@
       "created",
       "deleted",
       "submitted",
-      "labeled",
-      "unlabeled",
+      "labelled",
+      "unlabelled",
       "assigned",
       "unassigned",
       "review_requested",
-      "synchronized",
+      "synchronised",
       "ready_for_review",
       "converted_to_draft",
+      "published",
+      "renamed",
+      "transferred",
+      "archived",
+      "unarchived",
+      "added",
+      "removed",
       "other"
     ],
     "x-forges-type": "EventAction"
@@ -1009,96 +1031,78 @@
       "referenced",
       "reaction",
       "push",
-      "ref_created",
-      "ref_deleted",
-      "repo_renamed",
-      "repo_transferred",
-      "repo_archived",
-      "installation_changed",
-      "membership_changed",
-      "release_published",
+      "ref",
+      "repo",
+      "installation",
+      "membership",
+      "release",
       "other"
     ],
     "x-forges-type": "EventKind"
   },
   "FileContent": {
-    "type": "object",
-    "properties": {
-      "path": {
-        "type": "string"
-      },
-      "content": {
-        "anyOf": [
-          {
-            "type": "object",
-            "properties": {
-              "BYTES_PER_ELEMENT": {
-                "type": "number"
-              },
-              "buffer": {
-                "type": "object",
-                "properties": {
-                  "byteLength": {
-                    "type": "number"
-                  }
-                },
-                "required": [
-                  "byteLength"
-                ]
-              },
-              "byteLength": {
-                "type": "number"
-              },
-              "byteOffset": {
-                "type": "number"
-              },
-              "length": {
-                "type": "number"
-              }
-            },
-            "required": [
-              "BYTES_PER_ELEMENT",
-              "buffer",
-              "byteLength",
-              "byteOffset",
-              "length"
-            ],
-            "additionalProperties": {
-              "type": "number"
-            }
+    "anyOf": [
+      {
+        "type": "object",
+        "properties": {
+          "encoding": {
+            "type": "string",
+            "const": "utf-8"
           },
-          {
+          "content": {
+            "type": "string"
+          },
+          "path": {
+            "type": "string"
+          },
+          "sha": {
+            "type": "string"
+          },
+          "size": {
+            "type": "number"
+          },
+          "url": {
             "type": "string"
           }
+        },
+        "required": [
+          "content",
+          "encoding",
+          "path"
         ]
       },
-      "encoding": {
-        "$ref": "#/components/schemas/FileEncoding"
-      },
-      "sha": {
-        "type": "string"
-      },
-      "size": {
-        "type": "number"
-      },
-      "url": {
-        "type": "string"
+      {
+        "type": "object",
+        "properties": {
+          "encoding": {
+            "type": "string",
+            "const": "binary"
+          },
+          "content": {
+            "description": "Bytes, as a `Uint8Array`. JSON cannot carry them.",
+            "x-forges-type": "Uint8Array"
+          },
+          "path": {
+            "type": "string"
+          },
+          "sha": {
+            "type": "string"
+          },
+          "size": {
+            "type": "number"
+          },
+          "url": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "content",
+          "encoding",
+          "path"
+        ]
       }
-    },
-    "required": [
-      "path",
-      "content",
-      "encoding"
     ],
     "x-forges-type": "FileContent"
-  },
-  "FileEncoding": {
-    "type": "string",
-    "enum": [
-      "utf-8",
-      "binary"
-    ],
-    "x-forges-type": "FileEncoding"
   },
   "FileStatus": {
     "type": "string",
@@ -1319,11 +1323,14 @@
           "react": {
             "$ref": "#/components/schemas/PerKind"
           },
-          "assign": {
+          "setAssignees": {
             "$ref": "#/components/schemas/PerKind"
           },
           "requestReview": {
             "$ref": "#/components/schemas/PerKind"
+          },
+          "merge": {
+            "$ref": "#/components/schemas/Support"
           },
           "approveAndMerge": {
             "$ref": "#/components/schemas/Support"
@@ -1347,8 +1354,9 @@
           "removeLabels",
           "setMilestone",
           "react",
-          "assign",
+          "setAssignees",
           "requestReview",
+          "merge",
           "approveAndMerge",
           "transfer",
           "markDuplicate"
@@ -1880,8 +1888,8 @@
       "merge",
       "squash",
       "rebase",
-      "rebase-merge",
-      "fast-forward-only"
+      "rebase_merge",
+      "fast_forward_only"
     ],
     "x-forges-type": "MergeMethod"
   },

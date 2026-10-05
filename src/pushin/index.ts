@@ -2,12 +2,11 @@ import type { ProviderContext, ProviderDefinition, ProviderFactoryFunction, Prov
 import type { Comment, Cursor, ForgeEventInput, ListOptions, Page, RepoRef, ResolvedThreadRef, Thread, ThreadQuery, ThreadRef } from '../model.ts'
 import type { AnonymousAuth, ForgeOptionsBase, TokenAuth, VerbScopes } from '../provider.ts'
 import type { ForgeVerb } from '../supports.ts'
-import type { PushinCollaborator, PushinComment, PushinLabel, PushinPullRequest, PushinRepository } from './types.ts'
+import type { PushinCollaborator, PushinComment, PushinLabel, PushinNotification, PushinRepository, PushinThread } from './types.ts'
 import { defineForgeProvider, perKind, verb } from '../define.ts'
-import { UnsupportedOperationError } from '../errors.ts'
-import { createListing, getManyConcurrently, requireThread, toPage } from '../utils.ts'
+import { createListing, getManyConcurrently, requireIssueOrPull, toPage } from '../utils.ts'
 import { githubShapedWeb } from '../web.ts'
-import { FORGE, toActor, toCollaborator, toComment, toLabel, toPullThread, toRepo } from './normalise.ts'
+import { FORGE, toActor, toCollaborator, toComment, toLabel, toNotification, toRepo, toThread } from './normalise.ts'
 
 /** A personal access token created in Settings (`pun_pat_…`), sent as `Authorization: Bearer`. */
 export type PushinAuth = TokenAuth | AnonymousAuth
@@ -23,40 +22,34 @@ function setupPushin({ instance, origin: context, fetcher, baseUrl }: ProviderCo
   const list = createListing(fetcher, 'per_page')
   const repoPath = (repo: RepoRef) => `/repos/${encodeURIComponent(repo.owner)}/${encodeURIComponent(repo.name)}`
 
-  function requirePull(thread: ThreadRef, action: string): ResolvedThreadRef {
-    const ref = requireThread(thread, context)
-    if (ref.kind !== 'pull_request') {
-      throw new UnsupportedOperationError(`pushin.eu has no API to ${action} an ${ref.kind === 'issue' ? 'issue' : ref.kind}`, context)
-    }
-    return ref
-  }
-
-  /** Issue and pull comments are the only thread content the API serves; both hang off the thread's number. */
-  function commentsPath(ref: ResolvedThreadRef): string {
-    return `${repoPath(ref.repo)}/${ref.kind === 'pull_request' ? 'pulls' : 'issues'}/${encodeURIComponent(ref.number)}/comments`
+  function threadPath(ref: ResolvedThreadRef): string {
+    return `${repoPath(ref.repo)}/${ref.kind === 'pull_request' ? 'pulls' : 'issues'}/${encodeURIComponent(ref.number)}`
   }
 
   async function get(thread: ThreadRef): Promise<Thread> {
-    const ref = requirePull(thread, 'read')
-    const { data } = await fetcher.json<PushinPullRequest>(`${repoPath(ref.repo)}/pulls/${encodeURIComponent(ref.number)}`)
-    return toPullThread(ref, data)
+    const ref = requireIssueOrPull(thread, context, 'read')
+    const { data } = await fetcher.json<PushinThread>(threadPath(ref))
+    return toThread(ref, data)
   }
 
   async function listPage(repo: RepoRef, query: ThreadQuery = {}): Promise<Page<Thread>> {
-    if (query.kind && query.kind !== 'pull_request') {
+    if (query.kind && query.kind !== 'issue' && query.kind !== 'pull_request') {
       return { items: [], warnings: [{ code: 'kind_unsupported', message: `pushin.eu has no listing for ${query.kind}s` }] }
     }
-    const result = await fetcher.page<PushinPullRequest>(`${repoPath(repo)}/pulls`, {
-      query: { state: query.state === 'all' ? undefined : query.state, per_page: query.perPage },
+    const kind = query.kind === 'pull_request' ? 'pull_request' : 'issue'
+    const result = await fetcher.page<PushinThread>(`${repoPath(repo)}/${kind === 'pull_request' ? 'pulls' : 'issues'}`, {
+      query: { state: query.state, per_page: query.perPage },
       cursor: query.cursor,
       signal: query.signal,
     })
-    return toPage(result, raw => toPullThread({ forge: FORGE, instance, repo, kind: 'pull_request', number: String(raw.number) }, raw))
+    return toPage(result, raw => query.kind === 'issue' && raw.pull_request
+      ? undefined
+      : toThread({ forge: FORGE, instance, repo, kind, number: String(raw.number) }, raw))
   }
 
   async function commentsPage(thread: ThreadRef, listOptions: ListOptions = {}): Promise<Page<Comment>> {
-    const ref = requireThread(thread, context)
-    const result = await fetcher.page<PushinComment>(commentsPath(ref), {
+    const ref = requireIssueOrPull(thread, context, 'read comments on')
+    const result = await fetcher.page<PushinComment>(`${threadPath(ref)}/comments`, {
       query: { per_page: listOptions.perPage },
       cursor: listOptions.cursor,
       signal: listOptions.signal,
@@ -64,9 +57,8 @@ function setupPushin({ instance, origin: context, fetcher, baseUrl }: ProviderCo
     return toPage(result, raw => toComment(ref, raw))
   }
 
-  /** The only timeline the API serves is the comment listing, so events are comments and nothing else. */
   async function eventsPage(thread: ThreadRef, listOptions: ListOptions = {}): Promise<Page<ForgeEventInput>> {
-    const ref = requireThread(thread, context)
+    const ref = requireIssueOrPull(thread, context, 'read events for')
     const page = await commentsPage(ref, listOptions)
     return {
       ...page,
@@ -88,15 +80,6 @@ function setupPushin({ instance, origin: context, fetcher, baseUrl }: ProviderCo
     }
   }
 
-  async function labelsPage(repo: RepoRef, listOptions: ListOptions = {}): Promise<Page<ReturnType<typeof toLabel>>> {
-    const result = await fetcher.page<PushinLabel>(`${repoPath(repo)}/labels`, {
-      query: { per_page: listOptions.perPage },
-      cursor: listOptions.cursor,
-      signal: listOptions.signal,
-    })
-    return toPage(result, toLabel)
-  }
-
   return {
     traits: {
       poll: false,
@@ -106,15 +89,20 @@ function setupPushin({ instance, origin: context, fetcher, baseUrl }: ProviderCo
     repos: {
       get: verb(true, async repo => toRepo({ forge: FORGE, instance }, (await fetcher.json<PushinRepository>(repoPath(repo))).data)),
       listPage: verb('experimental', (listOptions = {}) => list('/user/repos', listOptions, (raw: PushinRepository) => toRepo({ forge: FORGE, instance }, raw))),
-      labelsPage: verb(true, labelsPage),
+      labelsPage: verb(true, (repo, listOptions = {}) => list(`${repoPath(repo)}/labels`, listOptions, (raw: PushinLabel) => toLabel(raw))),
       collaboratorsPage: verb('experimental', (repo, listOptions = {}) => list(`${repoPath(repo)}/collaborators`, listOptions, (raw: PushinCollaborator) => toCollaborator({ forge: FORGE, instance }, raw))),
     },
     threads: {
-      get: perKind({ pull_request: 'experimental' }, get),
-      listPage: perKind({ pull_request: 'experimental' }, listPage),
+      get: perKind({ issue: true, pull_request: 'experimental' }, get),
+      listPage: perKind({ issue: true, pull_request: 'experimental' }, listPage),
       getMany: verb(true, refs => getManyConcurrently(refs, get)),
       eventsPage: verb('emulated', eventsPage),
       commentsPage: perKind({ issue: true, pull_request: 'experimental' }, commentsPage),
+    },
+    notifications: {
+      listPage: verb('experimental', (listOptions = {}) => list('/notifications', listOptions, (raw: PushinNotification) => toNotification({ forge: FORGE, instance }, raw), {
+        query: { all: listOptions.all, since: listOptions.since?.toISOString() },
+      })),
     },
     web: githubShapedWeb(baseUrl.replace(/\/api\/v1$/, ''), {
       pull: 'pulls',
@@ -138,10 +126,10 @@ const PUSHIN: ProviderDefinition<PushinOptions> = {
   setup: setupPushin,
 }
 
-/** Creates a pushin.eu provider. Only repositories, labels, collaborators, pull requests and comments are served. */
+/** Creates a pushin.eu provider. */
 export const pushin: ProviderFactoryFunction<PushinOptions> = /* @__PURE__ */ defineForgeProvider(PUSHIN)
 
-/** pushin.eu issues one personal access token with no scope selection. */
+/** Scope requirements for a pushin.eu operation. */
 export function pushinScopesFor(_verb: ForgeVerb): VerbScopes {
   return { note: 'A personal access token created in Settings; pushin.eu does not scope tokens per resource' }
 }

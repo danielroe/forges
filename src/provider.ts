@@ -33,8 +33,10 @@ import type {
   Label,
   LabelInput,
   ListOptions,
+  MergeOptions,
   Milestone,
   Notification,
+  NotificationListOptions,
   NotificationRef,
   Page,
   PageOptions,
@@ -54,6 +56,7 @@ import type {
   ReviewRef,
   SearchQuery,
   SecurityAlert,
+  SecurityAlertKind,
   SecurityAlertListOptions,
   SubscriptionState,
   Support,
@@ -101,16 +104,16 @@ export interface BasicAuth {
   password: string
 }
 
-/** GitHub App credentials. Omit `installationId` to act as the app itself. */
+/** App credentials. Omit `installationId` to act as the app itself. */
 export interface AppAuth {
   type: 'app'
   appId: string | number
-  /** PEM-encoded RSA private key, PKCS#1 or PKCS#8. */
+  /** PEM private key: RSA (PKCS#1 or PKCS#8) on GitHub, Ed25519 PKCS#8 on Cursor Origin. */
   privateKey: string
   installationId?: string | number
 }
 
-export type AuthKind = 'token' | 'basic' | 'app' | 'app-password' | 'oauth' | 'anonymous'
+export type AuthKind = 'token' | 'basic' | 'app' | 'app_password' | 'oauth' | 'anonymous'
 
 export interface ForgeOptionsBase {
   /** API base URL. Defaults to the forge's public instance. */
@@ -173,7 +176,7 @@ export interface ForgeCapabilities {
     markAllDone: Support
     unreadCount: Support
   }
-  /** Write verbs, per thread kind except `approveAndMerge`. */
+  /** Write verbs, per thread kind except `merge`, `approveAndMerge`, `transfer` and `markDuplicate`. */
   writes: {
     comment: PerKind
     /** Composed from `comment`, `comments.list` and `comments.edit`, so always `'emulated'` where it works at all. */
@@ -187,14 +190,15 @@ export interface ForgeCapabilities {
     removeLabels: PerKind
     setMilestone: PerKind
     react: PerKind
-    assign: PerKind
+    setAssignees: PerKind
     requestReview: PerKind
+    merge: Support
+    /** Composed from `merge` and `reviews.approve`. */
     approveAndMerge: Support
     transfer: Support
     markDuplicate: Support
   }
-  /** Thread-level subscription read and write, distinct from notification unsubscribe. */
-  /** Reading a thread subscription (`get`) and changing it (`set`), per kind. */
+  /** Reading a thread subscription (`get`) and changing it (`set`), per kind. Distinct from notification unsubscribe. */
   subscriptions: { get: PerKind, set: PerKind }
   /**
    * `thread` covers `Thread.checks` and `threads.checks()` (pull requests
@@ -238,7 +242,7 @@ export interface ForgeCapabilities {
     redeliver: Support
   }
   releases: { list: Support, get: Support, latest: Support, getByTag: Support, downloadAsset: Support }
-  /** Cross-repository search. No code or commit search: `threads` covers issues and pull requests. */
+  /** Cross-repository search of issues and pull requests, repositories and commits. No code search. */
   search: { threads: Support, repos: Support, commits: Support }
   /** Per alert kind, since each needs its own token scope on GitHub. */
   securityAlerts: AlertSupport
@@ -278,8 +282,8 @@ export interface BulkNotificationOptions {
 }
 
 export interface NotificationsApi {
-  list: (options?: ListOptions) => ForgeIterable<Notification>
-  listPage: (options?: ListOptions) => Promise<Page<Notification>>
+  list: (options?: NotificationListOptions) => ForgeIterable<Notification>
+  listPage: (options?: NotificationListOptions) => Promise<Page<Notification>>
   markRead: (ref: NotificationRef) => Promise<void>
   markDone: (ref: NotificationRef, options?: NotificationWriteOptions) => Promise<void>
   /** Stops notifications for the notification's thread, and on some forges also clears the notification. */
@@ -353,18 +357,19 @@ export interface ThreadsApi {
   /** Marks the thread a duplicate of `canonical`, which must be in the same repository on most forges. */
   markDuplicate: (ref: ThreadRef, canonical: ThreadRef) => Promise<void>
   /** Replaces the thread's assignees. */
-  assign: (ref: ThreadRef, assignees: Array<string | Actor>) => Promise<void>
+  setAssignees: (ref: ThreadRef, assignees: Array<string | Actor>) => Promise<void>
   /** Adds reviewers to a pull request. */
   requestReview: (ref: ThreadRef, reviewers: Array<string | Actor>) => Promise<void>
   close: (ref: ThreadRef, options?: CloseOptions) => Promise<void>
   reopen: (ref: ThreadRef) => Promise<void>
+  merge: (ref: ThreadRef, options?: MergeOptions) => Promise<void>
+  /** Approves, then merges. The merge method is checked before the approval is sent. */
   approveAndMerge: (ref: ThreadRef, options?: ApproveAndMergeOptions) => Promise<void>
   /** The authenticated account's subscription to the thread. */
   subscription: (ref: ThreadRef) => Promise<SubscriptionState>
   subscribe: (ref: ThreadRef) => Promise<void>
   /** Stops the account's notifications for a thread, leaving existing notifications alone. */
   unsubscribe: (ref: ThreadRef) => Promise<void>
-  /** Every check on a pull request's head commit. */
   /** Every check on the pull's head, in one page; `warnings` names the sources that could not be read. */
   checks: (ref: ThreadRef) => Promise<Page<Check>>
   /**
@@ -425,7 +430,7 @@ export interface ContentsApi {
   branchesPage: (repo: RepoRef, options?: PageOptions) => Promise<Page<Branch>>
   tags: (repo: RepoRef, options?: PageOptions) => ForgeIterable<Tag>
   tagsPage: (repo: RepoRef, options?: PageOptions) => Promise<Page<Tag>>
-  /** Resolves a branch, tag or sha to a full commit sha; a 40-hex `ref` is returned as is. */
+  /** Resolves a branch, tag or sha to a full commit sha; a full sha is returned as is. */
   resolveRef: (repo: RepoRef, ref: string) => Promise<string>
   commits: (repo: RepoRef, query?: CommitQuery) => ForgeIterable<Commit>
   commitsPage: (repo: RepoRef, query?: CommitQuery) => Promise<Page<Commit>>
@@ -557,18 +562,18 @@ export interface SubscriptionItem {
   cursor: string
 }
 
-/**
- * Push delivery over a long-lived connection. Iteration ends when the signal
- * aborts or the consumer stops iterating; a dropped connection throws
- * `SubscriptionClosedError` carrying the last cursor. There is no automatic
- * reconnection.
- */
 export interface UsersApi {
   /** Reads an account by login, without needing a credential where the forge allows it. */
   get: (login: string) => Promise<User>
 }
 
 export interface SourcesApi {
+  /**
+   * Push delivery over a long-lived connection. Iteration ends when the signal
+   * aborts or the consumer stops iterating; a dropped connection throws
+   * `SubscriptionClosedError` carrying the last cursor. There is no automatic
+   * reconnection.
+   */
   subscribe: (options?: SubscribeOptions) => AsyncIterable<SubscriptionItem>
 }
 
@@ -586,8 +591,8 @@ export interface ForgeProvider {
   /** Static, no-network capabilities until `refreshCapabilities()` resolves. */
   readonly capabilities: ForgeCapabilities
   /**
-   * Re-derives capabilities from the instance version, with at most one
-   * network call (GHES `/meta`, GitLab, Forgejo and Gitea `/version`).
+   * Re-derives capabilities from the instance version. The version is read
+   * once per provider (GHES `/meta`, GitLab, Forgejo and Gitea `/version`).
    * Updates `capabilities` and returns it.
    */
   refreshCapabilities: () => Promise<ForgeCapabilities>
@@ -612,7 +617,7 @@ export interface ForgeProvider {
    * `UnsupportedOperationError` when this is `false`: the capability is the
    * question, the method is the action.
    */
-  can: (verb: ForgeVerb, kind?: string) => boolean
+  can: (verb: ForgeVerb, kind?: ThreadKind | SecurityAlertKind) => boolean
   /** The web page for `target`, built without a request; `undefined` when the forge has no such page. */
   urlFor: (target: UrlTarget) => string | undefined
   /**
@@ -654,7 +659,7 @@ export interface Forges {
   /** Reads a web URL on any registered instance. */
   parseUrl: (url: string | URL) => (ParsedForgeUrl & { provider: ForgeProvider }) | undefined
   /** Notifications provider by provider, starting from the beginning. */
-  notifications: { list: (options?: Omit<ListOptions, 'cursor'>) => ForgeIterable<Notification> }
+  notifications: { list: (options?: Omit<NotificationListOptions, 'cursor'>) => ForgeIterable<Notification> }
   /** Reads routed to the provider each ref belongs to; an unregistered origin throws `UnknownForgeError`. */
   repos: { get: (ref: RepoRef) => Promise<Repo> }
   threads: {

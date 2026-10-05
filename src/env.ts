@@ -23,6 +23,7 @@ const FIELDS = [
   'PRIVATE_KEY',
   'ORGANIZATION',
   'IDENTIFIER',
+  'READ_ONLY',
   'BASE_URL',
   'PASSWORD',
   'USERNAME',
@@ -91,8 +92,21 @@ export function providersFromEnv(env: Record<string, string | undefined>, option
   return [...sets.values()].map(set => withInstance(fromFields(set.kind, set.suffix, set.fields, options)))
 }
 
+/** Adds `instance`, creating a provider only when it is first read. */
 function withInstance(entry: EnvProvider): EnvProvider {
-  return entry.factory ? { ...entry, instance: entry.factory.create().instance } : entry
+  const { factory } = entry
+  if (!factory) {
+    return entry
+  }
+  let instance: string | undefined
+  return Object.defineProperty({ ...entry }, 'instance', {
+    enumerable: true,
+    configurable: true,
+    get: () => instance ??= factory.create().instance,
+    set: (value: string | undefined) => {
+      instance = value
+    },
+  })
 }
 
 function fromFields(kind: typeof KINDS[number], suffix: string, fields: Partial<Record<Field, string>>, options: FromEnvOptions): EnvProvider {
@@ -102,9 +116,10 @@ function fromFields(kind: typeof KINDS[number], suffix: string, fields: Partial<
     ...fields.WEBHOOK_SECRET ? { webhookSecret: fields.WEBHOOK_SECRET } : {},
     ...fields.INSTANCE ? { instance: fields.INSTANCE } : {},
     ...fields.INSTANCE_VERSION ? { instanceVersion: fields.INSTANCE_VERSION } : {},
+    ...isOn(fields.READ_ONLY) ? { readOnly: true } : {},
   }
   const demoRepo = parseRepo(fields.DEMO_REPO)
-  const anonymous = fields.ENABLED === '1' || fields.ENABLED === 'true' || Boolean(demoRepo)
+  const anonymous = isOn(fields.ENABLED) || Boolean(demoRepo)
   const entry = { kind: kind.toLowerCase().replaceAll('_', '-'), suffix, ...demoRepo ? { demoRepo } : {} }
   if (fields.ENABLED === '0' || fields.ENABLED === 'false') {
     return { ...entry, skipped: 'ENABLED is off' }
@@ -164,7 +179,7 @@ function fromFields(kind: typeof KINDS[number], suffix: string, fields: Partial<
           ...fields.API_URL ? { apiUrl: fields.API_URL } : {},
           ...fields.NOTIFICATIONS_URL ? { notificationsUrl: fields.NOTIFICATIONS_URL } : {},
           ...fields.IDENTIFIER && fields.PASSWORD
-            ? { auth: { type: 'app-password', identifier: fields.IDENTIFIER, password: fields.PASSWORD, ...fields.PDS ? { pds: fields.PDS } : {} } }
+            ? { auth: { type: 'app_password', identifier: fields.IDENTIFIER, password: fields.PASSWORD, ...fields.PDS ? { pds: fields.PDS } : {} } }
             : {},
         }),
       }
@@ -176,6 +191,10 @@ function fromFields(kind: typeof KINDS[number], suffix: string, fields: Partial<
       return { ...entry, factory: create({ ...base, ...fields.TOKEN ? { auth: { type: 'token', token: fields.TOKEN } } : {} }) }
     }
   }
+}
+
+function isOn(value: string | undefined): boolean {
+  return value === '1' || value === 'true'
 }
 
 /** Builds `Forges` from environment variables; see {@link providersFromEnv}. */

@@ -9,7 +9,7 @@ export type { Ed25519Jwk, JwtClaims } from './crypto.ts'
 export { cursorOrigin, cursorOriginLite, ORIGIN_API_VERSION } from './cursor-origin/index.ts'
 export type { CursorOriginAuth, CursorOriginOptions } from './cursor-origin/index.ts'
 export { defineForgeProvider, perKind, verb } from './define.ts'
-export type { AlertKind, CapabilityEnv, KindVerb, ProviderBase, ProviderContext, ProviderDefinition, ProviderFactoryFunction, ProviderSpec, SupportInput, Verb, VerbKind, WebhookHandlers } from './define.ts'
+export type { AlertKind, CapabilityEnv, KindVerb, MergeHooks, ProviderBase, ProviderContext, ProviderDefinition, ProviderFactoryFunction, ProviderSpec, SupportInput, Verb, VerbKind, WebhookHandlers } from './define.ts'
 export {
   ContentNotTextError,
   ForbiddenError,
@@ -74,6 +74,7 @@ export type {
   EventKind,
   FileContent,
   FileEncoding,
+  FileMetadata,
   FileOptions,
   FileStatus,
   ForgeEvent,
@@ -91,8 +92,10 @@ export type {
   LabelInput,
   ListOptions,
   MergeMethod,
+  MergeOptions,
   Milestone,
   Notification,
+  NotificationListOptions,
   NotificationReason,
   NotificationRef,
   NotificationSubject,

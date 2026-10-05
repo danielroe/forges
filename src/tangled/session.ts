@@ -21,12 +21,12 @@ export interface TangledSession {
 }
 
 export function createTangledSession({ options, fetcher, atproto, context }: { options: TangledOptions, fetcher: Fetcher, atproto: AtprotoClient, context: ForgeErrorContext }): TangledSession {
-  const writable = Boolean(options.auth)
+  const writable = options.auth !== undefined && options.auth.type !== 'anonymous'
   let session: Promise<Session> | undefined
   let pdsUrl: string | undefined
 
   async function createSession(refresh?: Session): Promise<Session> {
-    const auth = options.auth as Extract<TangledAuth, { type: 'app-password' }>
+    const auth = options.auth as Extract<TangledAuth, { type: 'app_password' }>
     if (!pdsUrl) {
       pdsUrl = auth.pds
         ?? (auth.identifier.startsWith('did:') ? (await atproto.resolveDid(auth.identifier)).pds : undefined)

@@ -1,5 +1,5 @@
 import type { CommentRef, ForgeOrigin, ReleaseRef, RepoRef, ResolvedThreadRef, ThreadKind, ThreadRef } from './model.ts'
-import { isResolvedThread } from './model.ts'
+import { isResolvedThread, normaliseRepoName } from './model.ts'
 
 /** Something with a web page. */
 export type UrlTarget
@@ -44,8 +44,11 @@ export interface WebLinks {
 }
 
 export function sameRepo(a: RepoRef, b: RepoRef | undefined): boolean {
-  return Boolean(b) && a.forge === b!.forge && a.instance === b!.instance
-    && a.owner.toLowerCase() === b!.owner.toLowerCase() && a.name.toLowerCase() === b!.name.toLowerCase()
+  if (!b || a.forge !== b.forge || a.instance !== b.instance) {
+    return false
+  }
+  const [left, right] = [normaliseRepoName(a), normaliseRepoName(b)]
+  return left.owner === right.owner && left.name === right.name
 }
 
 function encodePath(path: string): string {

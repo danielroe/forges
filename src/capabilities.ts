@@ -24,6 +24,15 @@ export function upsertKinds(spec: ProviderSpec, env: CapabilityEnv): Record<Verb
   ])) as Record<VerbKind, boolean | 'emulated' | 'experimental'>
 }
 
+/** Support for the composed verb, requiring both approval and merging. */
+export function approveAndMergeSupport(spec: ProviderSpec, env: CapabilityEnv): boolean | 'emulated' | 'experimental' {
+  const merge = resolve(spec.threads.merge?.support, env)
+  if (!merge || !resolve((spec.threads.approve ?? spec.threads.createReview)?.support, env)) {
+    return false
+  }
+  return resolve(spec.threads.approveAndMerge?.support ?? merge, env)
+}
+
 function read(source: unknown, path: string): unknown {
   return path.split('.').reduce<unknown>((value, key) => (value as Record<string, unknown> | undefined)?.[key], source)
 }
@@ -50,6 +59,8 @@ function valueFor(entry: CapabilityEntry, spec: ProviderSpec, env: CapabilityEnv
       return resolveKinds(flags.readOnly ? undefined : spec.threads.subscriptions?.kinds, env)
     case 'approve':
       return resolve((spec.threads.approve ?? spec.threads.createReview)?.support, env)
+    case 'approveAndMerge':
+      return approveAndMergeSupport(spec, env)
     case 'alertKinds':
       return Object.fromEntries(ALERT_KINDS.map(kind => [kind, resolve(spec.securityAlerts?.kinds[kind], env)]))
     case 'eventKinds':

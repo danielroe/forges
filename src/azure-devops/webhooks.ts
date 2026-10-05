@@ -82,7 +82,7 @@ export function translateAzureWebhook(instance: string, organization: string, de
     }))
   }
   if (event.eventType === 'git.repo.renamed' && repo) {
-    return [{ ...base, kind: 'repo_renamed', detail: { type: 'repo_renamed', from: String((resource as { oldName?: string }).oldName ?? ''), to: repository!.name }, summary: event.message?.text ?? 'Repository renamed' }]
+    return [{ ...base, kind: 'repo', action: 'renamed', detail: { type: 'repo_renamed', from: String((resource as { oldName?: string }).oldName ?? ''), to: repository!.name }, summary: event.message?.text ?? 'Repository renamed' }]
   }
   return [{ ...base, kind: 'other', summary: event.message?.text ?? event.eventType }]
 }

@@ -45,7 +45,7 @@ const providers: Array<[string, ForgeProvider]> = [
   ['gitee', gitee({ auth }).create()],
   ['azure-devops', azureDevOps({ auth, organization: 'acme' }).create()],
   ['cursor-origin', cursorOrigin({ auth }).create()],
-  ['tangled', tangled({ auth: { type: 'app-password', identifier: 'h', password: 'p' }, notificationsUrl: 'https://notifications.example' }).create()],
+  ['tangled', tangled({ auth: { type: 'app_password', identifier: 'h', password: 'p' }, notificationsUrl: 'https://notifications.example' }).create()],
   ['pushin', pushin({ auth }).create()],
 ]
 

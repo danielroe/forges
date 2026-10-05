@@ -1,4 +1,4 @@
-import type { FileContent, FileOptions } from './model.ts'
+import type { FileContent, FileMetadata, FileOptions } from './model.ts'
 import { ContentNotTextError } from './errors.ts'
 
 /** Decodes base64, tolerating the newlines GitHub and Gitea wrap it in. */
@@ -18,7 +18,7 @@ export function fromBase64(value: string): Uint8Array {
  */
 export function toFileContent(
   bytes: Uint8Array,
-  file: Omit<FileContent, 'content' | 'encoding'>,
+  file: FileMetadata,
   options: FileOptions | undefined,
   context?: { forge?: string, instance?: string },
 ): FileContent {
@@ -33,7 +33,7 @@ export function toFileContent(
   }
 }
 
-/** True for a full 40-character commit sha, which needs no lookup to resolve. */
+/** True for a full SHA-1 or SHA-256 commit id, which needs no lookup to resolve. */
 export function isSha(ref: string): boolean {
-  return /^[0-9a-f]{40}$/i.test(ref)
+  return /^(?:[0-9a-f]{40}|[0-9a-f]{64})$/i.test(ref)
 }

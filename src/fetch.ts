@@ -236,7 +236,7 @@ function assertRelativePath(path: string): string {
   return path
 }
 
-function sleep(ms: number, signal: AbortSignal | undefined): Promise<void> {
+export function sleep(ms: number, signal: AbortSignal | undefined): Promise<void> {
   return new Promise((resolve, reject) => {
     if (signal?.aborted) {
       reject(signal.reason)

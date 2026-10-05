@@ -42,12 +42,13 @@ import type {
   WebhookEventType,
   WebhookRef,
 } from '../model.ts'
-import type { ForgeOptionsBase, ForgeProvider, ForgeProviderFactory, ForgeVerb, SubscribeOptions } from '../provider.ts'
+import type { ForgeCapabilities, ForgeOptionsBase, ForgeProvider, ForgeProviderFactory, ForgeVerb, SubscribeOptions } from '../provider.ts'
 import { toFileContent } from '../contents.ts'
 import { bodyText, headerValue } from '../crypto.ts'
 import { defineForgeProvider, perKind, verb } from '../define.ts'
 import { ForgeApiError } from '../errors.ts'
 import { completeEvent } from '../events.ts'
+import { capabilityOf } from '../supports.ts'
 import { getManyConcurrently } from '../utils.ts'
 import { verifyHmacSignature } from '../webhooks.ts'
 
@@ -150,6 +151,8 @@ export interface FakeOptions extends Omit<ForgeOptionsBase, 'fetch'> {
   seed?: FakeSeed
   /** Overrides the default support of individual verbs. */
   support?: Partial<Record<ForgeVerb, FakeSupport>>
+  /** Support to copy from a real provider, such as `github().create().capabilities`. `support` wins where both set a verb. */
+  capabilities?: ForgeCapabilities
 }
 
 interface FakeRunState {
@@ -485,12 +488,13 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
     })
   }
 
+  const givenSupport = (name: ForgeVerb): FakeSupport | undefined => options.support?.[name] ?? (options.capabilities && capabilityOf(options.capabilities, name))
   const support = (name: ForgeVerb, fallback: SupportInput): SupportInput => {
-    const given = options.support?.[name]
+    const given = givenSupport(name)
     return given === undefined || typeof given === 'object' ? fallback : given
   }
   const kinds = (name: ForgeVerb, fallback: Partial<Record<VerbKind, SupportInput>>): Partial<Record<VerbKind, SupportInput>> => {
-    const given = options.support?.[name]
+    const given = givenSupport(name)
     if (given === undefined) {
       return fallback
     }
@@ -594,7 +598,7 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
               && (!query.author || thread.author?.login === query.author)
               && (!query.assignee || thread.assignees.some(item => item.login === query.assignee))
               && (!query.involves || thread.author?.login === query.involves || thread.assignees.some(item => item.login === query.involves))
-              && (!query.label?.length || query.label.every(name => thread.labels.some(item => item.name === name)))
+              && (!query.labels?.length || query.labels.every(name => thread.labels.some(item => item.name === name)))
               && (!query.since || (thread.updatedAt?.getTime() ?? 0) >= query.since.getTime()))
           return pageOf(query.direction === 'asc' ? items : items.toReversed(), query)
         }),
@@ -706,14 +710,14 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
           const thread = threadState(ref).thread
           for (const name of labels.filter(name => !thread.labels.some(item => item.name === name))) {
             thread.labels = [...thread.labels, label(name)]
-            record(ref, 'label', 'labeled', `added label ${name}`, { type: 'label', label: name })
+            record(ref, 'label', 'labelled', `added label ${name}`, { type: 'label', label: name })
           }
         }),
         removeLabels: perKind(kinds('threads.removeLabels', WRITABLE), async (ref, labels) => {
           const thread = threadState(ref).thread
           for (const name of labels.filter(name => thread.labels.some(item => item.name === name))) {
             thread.labels = thread.labels.filter(item => item.name !== name)
-            record(ref, 'label', 'unlabeled', `removed label ${name}`, { type: 'label', label: name })
+            record(ref, 'label', 'unlabelled', `removed label ${name}`, { type: 'label', label: name })
           }
         }),
         setLabels: perKind(kinds('threads.setLabels', WRITABLE), async (ref, labels) => {
@@ -722,13 +726,13 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
           const after = new Set(labels)
           thread.labels = labels.map(label)
           for (const name of [...after].filter(name => !before.has(name))) {
-            record(ref, 'label', 'labeled', `added label ${name}`, { type: 'label', label: name })
+            record(ref, 'label', 'labelled', `added label ${name}`, { type: 'label', label: name })
           }
           for (const name of [...before].filter(name => !after.has(name))) {
-            record(ref, 'label', 'unlabeled', `removed label ${name}`, { type: 'label', label: name })
+            record(ref, 'label', 'unlabelled', `removed label ${name}`, { type: 'label', label: name })
           }
         }),
-        assign: perKind(kinds('threads.assign', WRITABLE), async (ref, assignees) => {
+        setAssignees: perKind(kinds('threads.setAssignees', WRITABLE), async (ref, assignees) => {
           const thread = threadState(ref).thread
           thread.assignees = assignees.map(item => typeof item === 'string' ? actor(item) : item)
           for (const assignee of thread.assignees) {
@@ -742,14 +746,13 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
             record(ref, 'assignment', 'review_requested', `requested review from ${reviewer.login}`, { type: 'assignment', assignee: reviewer })
           }
         }),
-        approveAndMerge: verb(support('threads.approveAndMerge', true), async (ref, mergeOptions = {}) => {
+        ...givenSupport('threads.approveAndMerge') === undefined ? {} : { approveAndMerge: { support: support('threads.approveAndMerge', true) } },
+        merge: verb(support('threads.merge', true), async (ref, _mergeOptions = {}, hooks = {}) => {
           const state = threadState(ref)
           if (state.thread.kind !== 'pull_request') {
             throw notFound(`No pull request ${slugOf(ref.repo)}#${ref.number}`)
           }
-          if (mergeOptions.approve !== false) {
-            createReview(ref, { event: 'approve', body: mergeOptions.body })
-          }
+          await hooks.beforeMerge?.()
           setState(ref, 'merged', 'merged')
         }),
         subscriptions: perKind(kinds('threads.subscription', WRITABLE), {

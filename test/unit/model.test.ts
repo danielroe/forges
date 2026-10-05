@@ -4,8 +4,10 @@ import { describe, expect, expectTypeOf, it } from 'vitest'
 import { forgejo } from '../../src/forgejo/index.ts'
 import { github } from '../../src/github/index.ts'
 import * as root from '../../src/index.ts'
-import { notificationKey, repoKey, threadKey } from '../../src/model.ts'
+import { commentMarker, notificationKey, repoKey, threadKey } from '../../src/model.ts'
 import { createForges } from '../../src/provider.ts'
+import { summariseChecks } from '../../src/utils.ts'
+import { sameRepo } from '../../src/web.ts'
 
 const repo: RepoRef = { forge: 'github', instance: 'github.com', owner: 'acme', name: 'widgets' }
 const ghes: RepoRef = { ...repo, instance: 'ghe.example.com' }
@@ -111,9 +113,43 @@ describe('exported types', () => {
     expectTypeOf<'unknown'>().toExtend<NotificationReason>()
   })
 
+  it('exports merge options and file metadata from the package root', () => {
+    expectTypeOf<root.MergeOptions>().toEqualTypeOf<NonNullable<Parameters<ForgeProvider['threads']['merge']>[1]>>()
+    expectTypeOf<root.FileMetadata>().toEqualTypeOf<Omit<root.FileContent, 'encoding' | 'content'>>()
+  })
+
   it('declares every verb as present on the provider surface', () => {
     expectTypeOf<ForgeProvider['threads']['comment']>().not.toBeNullable()
     expectTypeOf<ForgeProvider['notifications']['markRead']>().not.toBeNullable()
     expectTypeOf<Forges['providers']>().toEqualTypeOf<ForgeProvider[]>()
+  })
+})
+
+describe('small helpers', () => {
+  it('summarises checks as unknown when any state is unknown and nothing failed or runs', () => {
+    expect(summariseChecks(['success', 'unknown']).state).toBe('unknown')
+    expect(summariseChecks(['success', 'neutral']).state).toBe('success')
+    expect(summariseChecks(['unknown', 'pending']).state).toBe('pending')
+    expect(summariseChecks([]).state).toBe('unknown')
+  })
+
+  it('refuses a comment key that would end the hidden marker', () => {
+    expect(() => commentMarker('a-->b')).toThrow(TypeError)
+    expect(() => commentMarker('a--!>b')).toThrow(TypeError)
+    expect(commentMarker('release')).toBe('<!-- forges:key=release -->')
+  })
+
+  it('compares repositories case-insensitively only where the forge does', () => {
+    const tangledRepo: RepoRef = { forge: 'tangled', instance: 'tangled.org', owner: 'did:plc:abc', name: 'Core' }
+
+    expect(sameRepo(repo, { ...repo, owner: 'ACME' })).toBe(true)
+    expect(sameRepo(tangledRepo, { ...tangledRepo, name: 'core' })).toBe(false)
+  })
+
+  it('resolves a full SHA-256 commit id without a request', async () => {
+    const sha = 'a'.repeat(64)
+    const provider = github({ auth: { type: 'token', token: 't' }, fetch: () => Promise.reject(new Error('no request expected')) }).create()
+
+    expect(await provider.contents.resolveRef(repo, sha.toUpperCase())).toBe(sha)
   })
 })

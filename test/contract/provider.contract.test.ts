@@ -262,15 +262,16 @@ describe.each(contracts)('contract: $name', (contract) => {
         ...merge!.reads,
         { method: merge!.review.method, url: merge!.review.url },
         { method: merge!.merge.method, url: merge!.merge.url },
+        ...merge!.settle ?? [],
       ])
-      expect(calls.at(-1)!.body ?? '').toContain(merge!.merge.body)
+      expect(calls[merge!.reads.length + 1]!.body ?? '').toContain(merge!.merge.body)
     })
 
     it('merges with an explicit method without reading the repository', async () => {
       const { instance, calls } = provider()
-      await instance.threads.approveAndMerge!(threadRef(), { method: merge!.explicit.method, approve: false })
+      await instance.threads.merge!(threadRef(), { method: merge!.explicit.method })
 
-      expect(calls).toHaveLength(1)
+      expect(calls).toHaveLength(1 + (merge!.settle?.length ?? 0))
       expect(calls[0]!.url).toBe(merge!.merge.url)
       expect(calls[0]!.body).toContain(merge!.explicit.bodyContains)
     })
@@ -286,7 +287,7 @@ describe.each(contracts)('contract: $name', (contract) => {
       })
       const instance = contract.create(fetch)
 
-      await expect(instance.threads.approveAndMerge!(threadRef(), { method: 'merge', approve: false })).rejects.toThrow(ErrorType)
+      await expect(instance.threads.merge!(threadRef(), { method: 'merge' })).rejects.toThrow(ErrorType)
     })
   })
 

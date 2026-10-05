@@ -334,10 +334,13 @@ function setupOrigin({ options, baseUrl, instance, origin: context, fetcher, cre
         const users = reviewers.map(reviewer => typeof reviewer === 'string' ? reviewer : reviewer.id)
         await fetcher.raw(`${pullPath(requireThread(thread, context))}/requested_reviewers`, { method: 'POST', json: { users } })
       }),
-      approveAndMerge: verb(true, async (thread, mergeOptions = {}) => {
+      merge: verb(true, async (thread, mergeOptions = {}, hooks = {}) => {
         const ref = requireThread(thread, context)
         if (mergeOptions.whenChecksPass) {
           throw new UnsupportedOperationError('Cursor Origin has no merge queue or auto-merge', context)
+        }
+        if (mergeOptions.message) {
+          throw new UnsupportedOperationError('Cursor Origin does not take a merge commit message', context)
         }
         if (mergeOptions.method && mergeOptions.method !== 'merge' && mergeOptions.method !== 'squash') {
           throw new UnsupportedOperationError(`Cursor Origin does not support the ${mergeOptions.method} merge method`, context)
@@ -347,9 +350,7 @@ function setupOrigin({ options, baseUrl, instance, origin: context, fetcher, cre
           const { data: repo } = await fetcher.json<OriginRepo>(repoPath(ref.repo))
           method = soleMergeMethod({ merge: repo.allowMergeCommit, squash: repo.allowSquashMerge }, context)
         }
-        if (mergeOptions.approve !== false) {
-          await createReview(ref, { event: 'approve', body: mergeOptions.body })
-        }
+        await hooks.beforeMerge?.()
         await fetcher.raw(`${pullPath(ref)}/merge`, { method: 'POST', json: { mergeMethod: method, expectedHeadSha: mergeOptions.sha }, mapError: toMergeError })
       }),
       reviewsPage: verb(true, async (thread, listOptions: PageOptions = {}) => {

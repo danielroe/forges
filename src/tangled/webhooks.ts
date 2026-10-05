@@ -13,7 +13,7 @@ export const SIGNATURE_HEADER = 'x-tangled-signature-256'
 export const EVENT_HEADER = 'x-tangled-event'
 export const DELIVERY_HEADER = 'x-tangled-delivery'
 
-const PULL_ACTIONS: Record<string, EventAction> = { created: 'opened', resubmitted: 'synchronized' }
+const PULL_ACTIONS: Record<string, EventAction> = { created: 'opened', resubmitted: 'synchronised' }
 
 export function verifyTangledSignature(delivery: WebhookDelivery, secret: string | undefined): Promise<boolean> {
   return verifyHmacSignature(delivery, secret, { header: SIGNATURE_HEADER, prefix: 'sha256=' })

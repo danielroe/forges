@@ -64,6 +64,7 @@ describe('github iteration', () => {
     const refreshed = await ghes.refreshCapabilities()
     expect(refreshed).toMatchObject({ version: '3.12.4', notifications: { markDone: false } })
     expect(ghes.capabilities.version).toBe('3.12.4')
+    await ghes.refreshCapabilities()
     expect(calls.map(call => call.url)).toEqual(['https://ghe.example.com/api/v3/meta'])
   })
 
@@ -143,12 +144,12 @@ describe('github iteration', () => {
     }
 
     expect(await ingest('repository', { action: 'renamed', repository, changes: { repository: { name: { from: 'widgets' } } } }))
-      .toMatchObject({ kind: 'repo_renamed', detail: { from: 'widgets', to: 'gizmos' } })
+      .toMatchObject({ kind: 'repo', action: 'renamed', detail: { from: 'widgets', to: 'gizmos' } })
     expect(await ingest('installation_repositories', { action: 'added', installation: { id: 9 }, repositories_added: [repository] }))
-      .toMatchObject({ kind: 'installation_changed', installationId: '9', detail: { installationId: '9', added: [{ name: 'gizmos' }] } })
+      .toMatchObject({ kind: 'installation', installationId: '9', detail: { installationId: '9', added: [{ name: 'gizmos' }] } })
     expect(await ingest('release', { action: 'published', repository, release: { id: 5, tag_name: 'v1.0.0', name: 'One' } }))
-      .toMatchObject({ kind: 'release_published', detail: { release: { id: '5', tag: 'v1.0.0' }, name: 'One' } })
-    expect(await ingest('delete', { ref: 'old', ref_type: 'branch', repository })).toMatchObject({ kind: 'ref_deleted', detail: { ref: 'old', refType: 'branch' } })
+      .toMatchObject({ kind: 'release', action: 'published', detail: { release: { id: '5', tag: 'v1.0.0' }, name: 'One' } })
+    expect(await ingest('delete', { ref: 'old', ref_type: 'branch', repository })).toMatchObject({ kind: 'ref', action: 'deleted', detail: { ref: 'old', refType: 'branch' } })
   })
 })
 
@@ -187,14 +188,14 @@ describe('gitlab iteration', () => {
     expect(await gitlab({ auth: { type: 'token', token: 't' }, fetch }).create().notifications!.unreadCount!()).toBe(7)
   })
 
-  it('reports a tag push that creates a ref as ref_created', async () => {
+  it('reports a tag push that creates a ref as a ref event', async () => {
     const provider = gitlab({ auth: { type: 'token', token: 't' }, webhookSecret: 's' }).create()
     const [event] = await provider.webhooks.ingest({
       headers: { 'x-gitlab-event': 'Tag Push Hook', 'x-gitlab-token': 's' },
       body: JSON.stringify({ object_kind: 'tag_push', ref: 'refs/tags/v1.0.0', before: '0000000000000000000000000000000000000000', after: 'abc', project: { id: 1, path_with_namespace: 'acme/widgets' } }),
     })
 
-    expect(event).toMatchObject({ kind: 'ref_created', detail: { type: 'ref', ref: 'refs/tags/v1.0.0', refType: 'tag' } })
+    expect(event).toMatchObject({ kind: 'ref', action: 'created', detail: { type: 'ref', ref: 'refs/tags/v1.0.0', refType: 'tag' } })
   })
 })
 
@@ -228,7 +229,7 @@ describe('bitbucket iteration', () => {
     })
     const events = await provider.webhooks.ingest({ headers: { 'x-event-key': 'repo:push', 'x-hub-signature': await sign(body) }, body })
 
-    expect(events.map(event => event.kind)).toEqual(['push', 'ref_deleted'])
+    expect(events.map(event => event.kind)).toEqual(['push', 'ref'])
     expect(events[0]!.detail).toMatchObject({ before: 'a', after: 'b', commitCount: 1 })
   })
 })
@@ -284,7 +285,7 @@ describe('tangled iteration', () => {
         body: { notifications: [{ uri: 'at://did:plc:x/sh.tangled.feed.star/1', read: false, type: 'repo_starred', actorDid: 'did:plc:x', repoDid: 'did:plc:widgetsrepo2222222222222', createdAt: '2025-09-18T00:00:00Z' }], workUnreadCount: 0, socialUnreadCount: 1 },
       },
     })
-    const provider = tangled({ auth: { type: 'app-password', identifier: 'acme.example.com', password: 'pw', pds: 'https://pds.example.com' }, notificationsUrl: 'https://notifs.example.com', fetch }).create()
+    const provider = tangled({ auth: { type: 'app_password', identifier: 'acme.example.com', password: 'pw', pds: 'https://pds.example.com' }, notificationsUrl: 'https://notifs.example.com', fetch }).create()
     const [star] = (await provider.notifications!.listPage()).items
 
     expect(star).toMatchObject({ reason: 'starred', subject: { type: 'repo', repo: { owner: OWNER, name: 'widgets' } } })

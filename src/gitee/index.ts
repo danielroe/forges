@@ -1,12 +1,12 @@
 import type { ProviderContext, ProviderDefinition, ProviderFactoryFunction, ProviderSpec } from '../define.ts'
-import type { Check, Comment, Cursor, EventKind, ForgeEventInput, ForgeWarning, ListOptions, Notification, Page, Release, Repo, RepoRef, RepoSearchQuery, ResolvedThreadRef, Review, ReviewInput, SearchQuery, Thread, ThreadQuery, ThreadRef } from '../model.ts'
+import type { Check, Comment, Cursor, EventKind, ForgeEventInput, ForgeWarning, ListOptions, Notification, NotificationListOptions, Page, Release, Repo, RepoRef, RepoSearchQuery, ResolvedThreadRef, Review, ReviewInput, SearchQuery, Thread, ThreadQuery, ThreadRef } from '../model.ts'
 import type { AnonymousAuth, BulkNotificationOptions, ForgeOptionsBase, TokenAuth, VerbScopes } from '../provider.ts'
 import type { ForgeVerb } from '../supports.ts'
 import type { GiteeBranch, GiteeCheckRun, GiteeComment, GiteeCommit, GiteeCommitFile, GiteeCompare, GiteeContentFile, GiteeHook, GiteeIssue, GiteeLabel, GiteeNotification, GiteeOperateLog, GiteePullRequest, GiteeRelease, GiteeRepository, GiteeTag, GiteeTree, GiteeUser } from './types.ts'
 import { fromBase64, toFileContent } from '../contents.ts'
 import { defineForgeProvider, perKind, verb } from '../define.ts'
 import { ForgeApiError, ForgeError, MergeMethodRequiredError, toMergeError, UnsupportedOperationError } from '../errors.ts'
-import { actorLogin, getManyConcurrently, hexColour, iteratePages, phased, requireIssueOrPull, requireThread, summariseChecks, toDate, toWarning } from '../utils.ts'
+import { actorLogin, getManyConcurrently, hasEveryLabel, hexColour, iteratePages, phased, requireIssueOrPull, requireThread, summariseChecks, toDate, toWarning } from '../utils.ts'
 import { githubShapedWeb } from '../web.ts'
 import { nativeEventsFor } from '../webhooks.ts'
 import { FORGE, isConversationComment, toActor, toBranch, toChangedFile, toCheck, toComment, toCommentEvent, toCommit, toIssueThread, toLogEvent, toNotification, toPullThread, toRelease, toRepo, toRepoRef, toTag, toTreeEntry, toWebhook } from './normalise.ts'
@@ -147,7 +147,7 @@ function setupGitee({ instance, origin: context, fetcher, baseUrl }: ProviderCon
       }, { perPage: query.perPage, cursor, signal: query.signal })
       return {
         items: result.items
-          .filter(raw => createdAfter === undefined || (Date.parse(raw.created_at ?? '') || 0) >= createdAfter)
+          .filter(raw => (createdAfter === undefined || (Date.parse(raw.created_at ?? '') || 0) >= createdAfter) && hasEveryLabel(raw.labels, query.labels))
           .map((raw) => {
             const ref: ResolvedThreadRef = { forge: FORGE, instance, repo, kind: phase.kind, number: String(raw.number) }
             return pulls ? toPullThread(ref, raw) : toIssueThread(ref, raw)
@@ -179,7 +179,7 @@ function setupGitee({ instance, origin: context, fetcher, baseUrl }: ProviderCon
       q: query.text ?? '',
       repo: query.repo ? `${query.repo.owner}/${query.repo.name}` : undefined,
       state: query.state && query.state !== 'all' ? query.state : undefined,
-      label: query.label?.join(','),
+      label: query.labels?.join(','),
       author: query.author,
       assignee: query.assignee,
       sort: query.sort === 'updated' ? 'updated_at' : 'created_at',
@@ -188,7 +188,7 @@ function setupGitee({ instance, origin: context, fetcher, baseUrl }: ProviderCon
     return {
       items: page.items.flatMap((raw) => {
         const repo = query.repo ?? (raw.repository && toRepoRef(instance, raw.repository))
-        return repo ? [toIssueThread({ forge: FORGE, instance, repo, kind: 'issue', number: raw.number }, raw)] : []
+        return repo && hasEveryLabel(raw.labels, query.labels) ? [toIssueThread({ forge: FORGE, instance, repo, kind: 'issue', number: raw.number }, raw)] : []
       }),
       cursor: page.cursor,
       ...warnings.length ? { warnings } : {},
@@ -240,7 +240,7 @@ function setupGitee({ instance, origin: context, fetcher, baseUrl }: ProviderCon
     await fetcher.raw(threadPath(ref), { method: 'PATCH', json: { state } })
   }
 
-  async function notificationPage(listOptions: ListOptions = {}): Promise<Page<Notification>> {
+  async function notificationPage(listOptions: NotificationListOptions = {}): Promise<Page<Notification>> {
     const perPage = Math.min(listOptions.perPage ?? PER_PAGE, 100)
     const url = listOptions.cursor?.nextUrl ?? fetcher.resolve('/notifications/threads', { unread: listOptions.all ? undefined : true, since: listOptions.since?.toISOString(), page: 1, per_page: perPage })
     const page = Number(new URL(url).searchParams.get('page') ?? 1)
@@ -458,7 +458,7 @@ function setupGitee({ instance, origin: context, fetcher, baseUrl }: ProviderCon
       setLabels: perKind({ issue: 'experimental', pull_request: 'experimental' }, async (thread, labels) => {
         await fetcher.raw(`${threadPath(requireIssueOrPull(thread, context, 'label'))}/labels`, { method: 'PUT', json: labels })
       }),
-      assign: perKind({ issue: 'experimental' }, async (thread, assignees) => {
+      setAssignees: perKind({ issue: 'experimental' }, async (thread, assignees) => {
         if (assignees.length > 1) {
           throw new UnsupportedOperationError('Gitee issues take a single assignee', context)
         }
@@ -467,7 +467,7 @@ function setupGitee({ instance, origin: context, fetcher, baseUrl }: ProviderCon
       requestReview: perKind({ pull_request: 'experimental' }, async (thread, reviewers) => {
         await fetcher.raw(`${threadPath(requireThread(thread, context))}/assignees`, { method: 'POST', json: { assignees: reviewers.map(actorLogin).join(',') } })
       }),
-      approveAndMerge: verb(true, async (thread, mergeOptions = {}) => {
+      merge: verb(true, async (thread, mergeOptions = {}, hooks = {}) => {
         const ref = requireThread(thread, context)
         if (ref.kind !== 'pull_request') {
           throw new UnsupportedOperationError('Only pull requests can be merged', context)
@@ -481,10 +481,8 @@ function setupGitee({ instance, origin: context, fetcher, baseUrl }: ProviderCon
         if (!['merge', 'squash', 'rebase'].includes(mergeOptions.method)) {
           throw new UnsupportedOperationError(`Gitee does not support the ${mergeOptions.method} merge method`, context)
         }
-        if (mergeOptions.approve !== false) {
-          await createReview(ref, { event: 'approve' })
-        }
-        await fetcher.raw(`${threadPath(ref)}/merge`, { method: 'PUT', json: { merge_method: mergeOptions.method, description: mergeOptions.body }, mapError: toMergeError })
+        await hooks.beforeMerge?.()
+        await fetcher.raw(`${threadPath(ref)}/merge`, { method: 'PUT', json: { merge_method: mergeOptions.method, description: mergeOptions.message }, mapError: toMergeError })
       }),
       checks: perKind(PULL, async (thread) => {
         const ref = requireThread(thread, context)

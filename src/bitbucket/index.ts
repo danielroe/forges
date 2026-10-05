@@ -1,7 +1,6 @@
-import type { ProviderDefinition } from '../define.ts'
+import type { MergeHooks, ProviderDefinition } from '../define.ts'
 import type {
   Actor,
-  ApproveAndMergeOptions,
   Check,
   CheckState,
   Comment,
@@ -11,6 +10,7 @@ import type {
   ForgeWarning,
   ListOptions,
   MergeMethod,
+  MergeOptions,
   Page,
   Repo,
   RepoRef,
@@ -181,7 +181,7 @@ const BITBUCKET: ProviderDefinition<BitbucketOptions> = {
         .map(method => [method, true])), context)
     }
 
-    async function approveAndMerge(thread: ThreadRef, mergeOptions: ApproveAndMergeOptions = {}): Promise<void> {
+    async function merge(thread: ThreadRef, mergeOptions: MergeOptions = {}, hooks: MergeHooks = {}): Promise<void> {
       const ref = requireThread(thread, context)
       if (ref.kind !== 'pull_request') {
         throw new UnsupportedOperationError('Only pull requests can be merged', context)
@@ -198,12 +198,10 @@ const BITBUCKET: ProviderDefinition<BitbucketOptions> = {
         }
       }
       const method = mergeOptions.method ?? await resolveMergeMethod(ref, pull)
-      if (mergeOptions.approve !== false) {
-        await createReview(ref, { event: 'approve' })
-      }
+      await hooks.beforeMerge?.()
       await fetcher.raw(`${threadPath(ref)}/merge`, {
         method: 'POST',
-        json: { merge_strategy: toStrategy(method), message: mergeOptions.body },
+        json: { merge_strategy: toStrategy(method), message: mergeOptions.message },
         mapError: toMergeError,
       })
     }
@@ -345,7 +343,7 @@ const BITBUCKET: ProviderDefinition<BitbucketOptions> = {
       }
       const warnings: ForgeWarning[] = []
       if (!query.cursor) {
-        if (query.label?.length) {
+        if (query.labels?.length) {
           warnings.push({ code: 'filter_unsupported', message: 'Bitbucket has no labels; the label filter was ignored' })
         }
         if (query.involves) {
@@ -646,7 +644,7 @@ const BITBUCKET: ProviderDefinition<BitbucketOptions> = {
           })
           return toIssueThread(ref, data)
         }),
-        assign: perKind({ issue: 'experimental' }, async (thread, assignees) => {
+        setAssignees: perKind({ issue: 'experimental' }, async (thread, assignees) => {
           const ref = requireThread(thread, context)
           if (ref.kind !== 'issue') {
             throw new UnsupportedOperationError('Bitbucket only assigns issues', context)
@@ -686,7 +684,7 @@ const BITBUCKET: ProviderDefinition<BitbucketOptions> = {
           }
           await setIssueState(ref, 'open')
         }),
-        approveAndMerge: verb(true, approveAndMerge),
+        merge: verb(true, merge),
         subscriptions: perKind({ issue: 'experimental' }, {
           subscription: async (thread): Promise<SubscriptionState> => {
             try {
@@ -723,7 +721,7 @@ export function bitbucketScopesFor(verb: ForgeVerb): VerbScopes {
   if (group === 'webhooks') {
     return name === 'verify' || name === 'ingest' ? {} : { token: ['webhook'] }
   }
-  const writes = new Set(['comment', 'upsertComment', 'editComment', 'deleteComment', 'create', 'update', 'close', 'reopen', 'approveAndMerge', 'approve', 'createReview', 'submitReview', 'assign', 'requestReview', 'report'])
+  const writes = new Set(['comment', 'upsertComment', 'editComment', 'deleteComment', 'create', 'update', 'close', 'reopen', 'merge', 'approveAndMerge', 'approve', 'createReview', 'submitReview', 'setAssignees', 'requestReview', 'report'])
   const write = writes.has(name)
   if (group === 'threads') {
     return { token: [write ? 'issue:write' : 'issue', write ? 'pullrequest:write' : 'pullrequest'] }

@@ -13,10 +13,9 @@ export const GITLAB_NATIVE_EVENTS: NativeEventMap = {
   label: ['issues_events', 'merge_requests_events'],
   assignment: ['issues_events', 'merge_requests_events'],
   push: ['push_events'],
-  ref_created: ['tag_push_events', 'push_events'],
-  ref_deleted: ['tag_push_events', 'push_events'],
-  release_published: ['releases_events'],
-  membership_changed: ['member_events'],
+  ref: ['tag_push_events', 'push_events'],
+  release: ['releases_events'],
+  membership: ['member_events'],
 }
 
 /** Normalised kinds and actions GitLab deliveries translate into. */
@@ -28,11 +27,14 @@ export const GITLAB_WEBHOOK_EVENTS: WebhookEventType[] = [
   { kind: 'state_change', action: 'closed' },
   { kind: 'state_change', action: 'reopened' },
   { kind: 'state_change', action: 'merged' },
-  { kind: 'label', action: 'labeled' },
+  { kind: 'label', action: 'labelled' },
+  { kind: 'label', action: 'unlabelled' },
   { kind: 'assignment', action: 'assigned' },
+  { kind: 'assignment', action: 'unassigned' },
+  { kind: 'assignment', action: 'review_requested' },
   { kind: 'push' },
-  { kind: 'ref_created' },
-  { kind: 'ref_deleted' },
-  { kind: 'release_published' },
-  { kind: 'membership_changed' },
+  { kind: 'ref', action: 'created' },
+  { kind: 'ref', action: 'deleted' },
+  { kind: 'release', action: 'published' },
+  { kind: 'membership' },
 ]

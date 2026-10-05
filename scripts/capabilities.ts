@@ -15,7 +15,7 @@ export function matrixProviders(forges: typeof Forges): Array<{ slug: string, na
     { slug: 'azure-devops', name: 'Azure DevOps', provider: azureDevOps({ auth, organization: 'acme' }).create() },
     { slug: 'cursor-origin', name: 'Cursor Origin', provider: cursorOrigin({ auth }).create() },
     { slug: 'pushin', name: 'pushin.eu', provider: pushin({ auth }).create() },
-    { slug: 'tangled', name: 'Tangled', provider: tangled({ auth: { type: 'app-password', identifier: 'handle', password: 'password' }, notificationsUrl: 'https://notifications.example' }).create() },
+    { slug: 'tangled', name: 'Tangled', provider: tangled({ auth: { type: 'app_password', identifier: 'handle', password: 'password' }, notificationsUrl: 'https://notifications.example' }).create() },
   ]
 }
 

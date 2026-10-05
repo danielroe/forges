@@ -76,7 +76,7 @@ describe('forgejo release webhooks', () => {
     })
     const [event] = await provider.webhooks.ingest({ headers: { 'x-forgejo-event': 'release', 'x-forgejo-signature': await hmacSha256Hex('s', body) }, body })
 
-    expect(event).toMatchObject({ kind: 'release_published', detail: { release: { id: '31001', tag: 'v0.4.0' }, name: 'Four' } })
+    expect(event).toMatchObject({ kind: 'release', action: 'published', detail: { release: { id: '31001', tag: 'v0.4.0' }, name: 'Four' } })
   })
 })
 
@@ -92,5 +92,45 @@ describe('forgejo path safety', () => {
     await provider.threads.comment({ forge: 'forgejo', instance: 'codeberg.org', repo, kind: 'pull_request', number: '1?x=' }, 'hi')
 
     expect(urls).toEqual(['https://codeberg.org/api/v1/repos/acme%2Fx/widgets/issues/1%3Fx%3D/comments'])
+  })
+})
+
+describe('forgejo label filters', () => {
+  const repository = { id: 64021, name: 'widgets', full_name: 'acme/widgets', owner: { id: 4001, login: 'acme' } }
+  const issues = [
+    { id: 1, number: 1, title: 'Both', state: 'open', labels: [{ id: 1, name: 'bug' }, { id: 2, name: 'ui' }], repository },
+    { id: 2, number: 2, title: 'One', state: 'open', labels: [{ id: 1, name: 'bug' }], repository },
+  ]
+  const provider = forgejo({ auth: { type: 'token', token: 't' }, fetch: async () => Response.json(issues) }).create()
+  const repo = { forge: 'forgejo', instance: 'codeberg.org', owner: 'acme', name: 'widgets' }
+
+  it('lists only threads carrying every label', async () => {
+    const page = await provider.threads.listPage(repo, { labels: ['bug', 'ui'] })
+
+    expect(page.items.map(thread => thread.title)).toEqual(['Both'])
+  })
+
+  it('searches only threads carrying every label', async () => {
+    const page = await provider.search.threadsPage({ labels: ['bug', 'ui'] })
+
+    expect(page.items.map(thread => thread.title)).toEqual(['Both'])
+  })
+})
+
+describe('forgejo label webhooks', () => {
+  it.each([['label_updated', 'edited'], ['label_cleared', 'unlabelled']])('maps %s to %s', async (action, expected) => {
+    const { hmacSha256Hex } = await import('../../src/crypto.ts')
+    const provider = forgejo({ auth: { type: 'token', token: 't' }, webhookSecret: 's' }).create()
+    const body = JSON.stringify({
+      action,
+      number: 3,
+      issue: { id: 3, number: 3, title: 'x', state: 'open', labels: [] },
+      repository: { id: 64021, name: 'widgets', full_name: 'acme/widgets', owner: { id: 4001, login: 'acme' } },
+      sender: { id: 4002, login: 'ada' },
+    })
+    const [event] = await provider.webhooks.ingest({ headers: { 'x-forgejo-event': 'issues', 'x-forgejo-signature': await hmacSha256Hex('s', body) }, body })
+
+    expect(event).toMatchObject({ kind: 'label', action: expected })
+    expect(provider.webhooks.events).toContainEqual({ kind: 'label', action: expected })
   })
 })

@@ -21,6 +21,7 @@ export const ROOT_TYPES = [
   'Comment',
   'Commit',
   'Comparison',
+  'Cursor',
   'FileContent',
   'ForgeCapabilities',
   'ForgeEvent',
@@ -65,6 +66,21 @@ function rewriteRefs(value: unknown, prefix: string): unknown {
   return value
 }
 
+const BYTES_SCHEMA: Schema = { 'description': 'Bytes, as a `Uint8Array`. JSON cannot carry them.', 'x-forges-type': 'Uint8Array' }
+
+function replaceByteArrays(value: unknown): unknown {
+  if (Array.isArray(value)) {
+    return value.map(replaceByteArrays)
+  }
+  if (!value || typeof value !== 'object') {
+    return value
+  }
+  if ('BYTES_PER_ELEMENT' in ((value as { properties?: object }).properties ?? {})) {
+    return BYTES_SCHEMA
+  }
+  return Object.fromEntries(Object.entries(value).map(([key, item]) => [key, replaceByteArrays(item)]))
+}
+
 /** `name` and every schema it references, directly or through another. */
 function dependenciesOf(name: string, schemas: Record<string, Schema>): string[] {
   const found = new Set<string>()
@@ -99,7 +115,7 @@ export function generateSchemas(): Record<string, Schema> {
   }
   return Object.fromEntries(Object.keys(definitions).sort().map(name => [
     name,
-    { ...rewriteRefs(definitions[name], '#/components/schemas/') as Schema, 'x-forges-type': name },
+    { ...rewriteRefs(replaceByteArrays(definitions[name]), '#/components/schemas/') as Schema, 'x-forges-type': name },
   ]))
 }
 
