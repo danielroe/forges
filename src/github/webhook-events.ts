@@ -34,7 +34,7 @@ export const GITHUB_WEBHOOK_EVENTS: WebhookEventType[] = [
   { kind: 'label', action: 'unlabelled' },
   { kind: 'assignment', action: 'assigned' },
   { kind: 'assignment', action: 'unassigned' },
-  { kind: 'review', action: 'review_requested' },
+  { kind: 'assignment', action: 'review_requested' },
   { kind: 'push' },
   { kind: 'ref', action: 'created' },
   { kind: 'ref', action: 'deleted' },

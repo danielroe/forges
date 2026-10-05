@@ -29,6 +29,7 @@ export interface GitHubWebhookPayload {
   comment?: { id?: number, body?: string, created_at?: string, user?: GitHubUser | null, path?: string, line?: number | null }
   review?: { id?: number, state?: string, body?: string | null, submitted_at?: string | null, user?: GitHubUser | null }
   assignee?: GitHubUser | null
+  requested_reviewer?: GitHubUser | null
   label?: { name?: string }
   commits?: Array<{ id: string, message: string, timestamp?: string, url?: string, author?: { name?: string, username?: string } }>
   head_commit?: { id: string, timestamp?: string } | null
@@ -223,7 +224,7 @@ function detailOf(kind: EventKind, thread: ThreadRef | undefined, instance: stri
     case 'label':
       return payload.label?.name ? { type: 'label', label: payload.label.name } : undefined
     case 'assignment':
-      return { type: 'assignment', assignee: toActor(instance, payload.assignee ?? undefined) }
+      return { type: 'assignment', assignee: toActor(instance, payload.assignee ?? payload.requested_reviewer ?? undefined) }
     case 'state_change': {
       const pull = payload.pull_request
       const state = pull?.merged ? 'merged' : payload.action === 'closed' ? 'closed' : 'open'

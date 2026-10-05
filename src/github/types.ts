@@ -161,6 +161,7 @@ export interface GitHubTimelineEntry {
   state?: string
   label?: { name: string }
   assignee?: GitHubUser
+  requested_reviewer?: GitHubUser
   sha?: string
   message?: string
   author?: { name?: string, email?: string, date?: string }

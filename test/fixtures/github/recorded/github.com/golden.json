@@ -402,13 +402,22 @@
         "forge": "github",
         "instance": "github.com",
         "id": "RRE_lADOErHI986wdqKTzwAAAAP4t9WT",
-        "kind": "review",
+        "kind": "assignment",
         "kindRaw": "review_requested",
         "detail": {
-          "type": "review",
-          "state": "unknown"
+          "type": "assignment",
+          "assignee": {
+            "forge": "github",
+            "instance": "github.com",
+            "login": "pi0",
+            "id": "5158436",
+            "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?v=4",
+            "url": "https://github.com/pi0",
+            "typeRaw": "User",
+            "isBotHint": false
+          }
         },
-        "summary": "iiio2 reviewed (commented)",
+        "summary": "iiio2 requested review from pi0",
         "occurredAt": "2025-03-31T13:49:13.000Z",
         "actor": {
           "forge": "github",

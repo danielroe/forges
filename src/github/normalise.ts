@@ -407,7 +407,8 @@ const EVENT_KINDS: Record<string, EventKind> = {
   'commented': 'comment',
   'reviewed': 'review',
   'line_commented': 'review_comment',
-  'review_requested': 'review',
+  'review_requested': 'assignment',
+  'review_request_removed': 'assignment',
   'committed': 'commit',
   'labeled': 'label',
   'unlabeled': 'label',
@@ -446,6 +447,9 @@ function summarise(entry: GitHubTimelineEntry, kind: EventKind, actor?: Actor): 
     case 'referenced':
       return `${who} referenced this`
     case 'assignment':
+      if (entry.event === 'review_requested' || entry.event === 'review_request_removed') {
+        return `${who} ${entry.event === 'review_requested' ? 'requested review from' : 'removed the review request for'} ${entry.requested_reviewer?.login ?? ''}`.trim()
+      }
       return `${who} ${entry.event === 'unassigned' ? 'unassigned' : 'assigned'} ${entry.assignee?.login ?? ''}`.trim()
     default:
       return `${who} ${entry.event ?? 'acted'}`
@@ -477,7 +481,7 @@ function timelineDetail(instance: string, thread: ThreadRef, entry: GitHubTimeli
     case 'label':
       return entry.label ? { type: 'label', label: entry.label.name } : undefined
     case 'assignment':
-      return { type: 'assignment', assignee: toActor(instance, entry.assignee) }
+      return { type: 'assignment', assignee: toActor(instance, entry.assignee ?? entry.requested_reviewer) }
     case 'referenced':
       return crossReference(instance, thread, entry)
     case 'state_change':
