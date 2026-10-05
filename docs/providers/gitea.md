@@ -55,6 +55,8 @@ Gitea sends these headers with each delivery:
 
 The Gitea provider doesn't read `X-Forgejo-*` headers.
 
+A label delivery doesn't say which labels were added or removed. A changed label set becomes a `label` event with the `edited` action, and removing every label becomes one with the `unlabelled` action.
+
 ## Recording fixtures
 
 ```sh

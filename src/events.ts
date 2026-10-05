@@ -24,6 +24,8 @@ const ACTIONS: Record<string, EventAction> = {
   unlabeled: 'unlabelled',
   unlabelled: 'unlabelled',
   label_removed: 'unlabelled',
+  label_updated: 'edited',
+  label_cleared: 'unlabelled',
   assigned: 'assigned',
   unassigned: 'unassigned',
   review_requested: 'review_requested',

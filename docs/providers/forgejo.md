@@ -68,6 +68,8 @@ Forgejo sends these headers with each delivery:
 
 The provider also accepts the `X-Gitea-*` version of each header.
 
+A label delivery doesn't say which labels were added or removed. A changed label set becomes a `label` event with the `edited` action, and removing every label becomes one with the `unlabelled` action.
+
 `webhooks.deliveries()` and `webhooks.redeliver()` are unavailable.
 
 ## Recording fixtures

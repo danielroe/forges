@@ -44,7 +44,7 @@ export const FORGEJO_WEBHOOK_EVENTS: WebhookEventType[] = [
   { kind: 'state_change', action: 'closed' },
   { kind: 'state_change', action: 'reopened' },
   { kind: 'state_change', action: 'merged' },
-  { kind: 'label', action: 'labelled' },
+  { kind: 'label', action: 'edited' },
   { kind: 'label', action: 'unlabelled' },
   { kind: 'assignment', action: 'assigned' },
   { kind: 'assignment', action: 'unassigned' },
