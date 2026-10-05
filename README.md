@@ -345,6 +345,8 @@ Source files import each other with `.ts` extensions, so `node scripts/<name>.ts
 
 ## Licence
 
+Made with ❤️
+
 Published under the [MIT licence](./LICENCE).
 
 <!-- Badges -->
