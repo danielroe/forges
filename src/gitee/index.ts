@@ -6,7 +6,7 @@ import type { GiteeBranch, GiteeCheckRun, GiteeComment, GiteeCommit, GiteeCommit
 import { fromBase64, toFileContent } from '../contents.ts'
 import { defineForgeProvider, perKind, verb } from '../define.ts'
 import { ForgeApiError, ForgeError, MergeMethodRequiredError, toMergeError, UnsupportedOperationError } from '../errors.ts'
-import { actorLogin, getManyConcurrently, hexColour, iteratePages, phased, requireIssueOrPull, requireThread, summariseChecks, toDate, toWarning } from '../utils.ts'
+import { actorLogin, getManyConcurrently, hasEveryLabel, hexColour, iteratePages, phased, requireIssueOrPull, requireThread, summariseChecks, toDate, toWarning } from '../utils.ts'
 import { githubShapedWeb } from '../web.ts'
 import { nativeEventsFor } from '../webhooks.ts'
 import { FORGE, isConversationComment, toActor, toBranch, toChangedFile, toCheck, toComment, toCommentEvent, toCommit, toIssueThread, toLogEvent, toNotification, toPullThread, toRelease, toRepo, toRepoRef, toTag, toTreeEntry, toWebhook } from './normalise.ts'
@@ -147,7 +147,7 @@ function setupGitee({ instance, origin: context, fetcher, baseUrl }: ProviderCon
       }, { perPage: query.perPage, cursor, signal: query.signal })
       return {
         items: result.items
-          .filter(raw => createdAfter === undefined || (Date.parse(raw.created_at ?? '') || 0) >= createdAfter)
+          .filter(raw => (createdAfter === undefined || (Date.parse(raw.created_at ?? '') || 0) >= createdAfter) && hasEveryLabel(raw.labels, query.labels))
           .map((raw) => {
             const ref: ResolvedThreadRef = { forge: FORGE, instance, repo, kind: phase.kind, number: String(raw.number) }
             return pulls ? toPullThread(ref, raw) : toIssueThread(ref, raw)
@@ -188,7 +188,7 @@ function setupGitee({ instance, origin: context, fetcher, baseUrl }: ProviderCon
     return {
       items: page.items.flatMap((raw) => {
         const repo = query.repo ?? (raw.repository && toRepoRef(instance, raw.repository))
-        return repo ? [toIssueThread({ forge: FORGE, instance, repo, kind: 'issue', number: raw.number }, raw)] : []
+        return repo && hasEveryLabel(raw.labels, query.labels) ? [toIssueThread({ forge: FORGE, instance, repo, kind: 'issue', number: raw.number }, raw)] : []
       }),
       cursor: page.cursor,
       ...warnings.length ? { warnings } : {},

@@ -66,7 +66,7 @@ import { fromBase64, toFileContent } from '../contents.ts'
 import { defineForgeProvider, perKind, verb } from '../define.ts'
 import { ForgeApiError, ForgeError, soleMergeMethod, toMergeError, UnsupportedOperationError } from '../errors.ts'
 import { isNamespaceRef, reactionContent } from '../model.ts'
-import { actorLogin, createListing, getManyConcurrently, hexColour, memo, memoBy, requireIssueOrPull, requireThread, summariseChecks, toDate, toPage, toWarning } from '../utils.ts'
+import { actorLogin, createListing, getManyConcurrently, hasEveryLabel, hexColour, memo, memoBy, requireIssueOrPull, requireThread, summariseChecks, toDate, toPage, toWarning } from '../utils.ts'
 import { githubShapedWeb } from '../web.ts'
 import { nativeEventsFor } from '../webhooks.ts'
 import { numberFromUrl, toActor, toBranch, toChangedFile, toComment, toCommit, toEvent, toLabel, toMilestone, toNotification, toRelease, toRepo, toReview, toReviewComment, toRole, toStatusCheck, toStatusChecks, toTag, toThread, toThreadKind, toTreeEntry, toWebhook } from './normalise.ts'
@@ -356,7 +356,7 @@ function setupForgejo({ origin, fetcher, baseUrl }: ProviderContext<ForgejoOptio
       signal: query.signal,
     })
     const older = (raw: ForgejoIssue) => createdAfter !== undefined && (Date.parse(raw.created_at ?? '') || 0) < createdAfter
-    const page = toPage(result, raw => older(raw) ? undefined : toThread({ ...origin, repo, kind: raw.pull_request ? 'pull_request' : 'issue', number: String(raw.number) }, raw), warnings)
+    const page = toPage(result, raw => older(raw) || !hasEveryLabel(raw.labels, query.labels) ? undefined : toThread({ ...origin, repo, kind: raw.pull_request ? 'pull_request' : 'issue', number: String(raw.number) }, raw), warnings)
     return (result.data ?? []).some(older) ? { ...page, cursor: undefined } : page
   }
 
@@ -393,7 +393,7 @@ function setupForgejo({ origin, fetcher, baseUrl }: ProviderContext<ForgejoOptio
       const repo = query.repo ?? (name
         ? { ...origin, owner, name, externalId: raw.repository?.id === undefined ? undefined : String(raw.repository.id) }
         : undefined)
-      if (!repo || (query.repo && raw.repository && raw.repository.full_name !== `${query.repo.owner}/${query.repo.name}`)) {
+      if (!repo || !hasEveryLabel(raw.labels, query.labels) || (query.repo && raw.repository && raw.repository.full_name !== `${query.repo.owner}/${query.repo.name}`)) {
         return undefined
       }
       return toThread({ ...origin, repo, kind: raw.pull_request ? 'pull_request' : 'issue', number: String(raw.number) }, raw)

@@ -181,6 +181,11 @@ export async function phased<T>(phases: Array<(cursor?: Cursor) => Promise<Page<
   return index + 1 < phases.length ? { ...page, cursor: { token: `${index + 1}:` } } : page
 }
 
+/** Whether `labels` include every name in `wanted`; true when nothing is wanted. */
+export function hasEveryLabel(labels: ReadonlyArray<{ name: string }> | undefined, wanted: readonly string[] | undefined): boolean {
+  return !wanted?.length || wanted.every(name => labels?.some(label => label.name === name))
+}
+
 /** Any failure fails, else any pending is pending, else any unknown (or none at all) is unknown, else success. */
 export function summariseChecks(states: CheckState[], url?: string): ChecksSummary {
   const failed = states.filter(state => state === 'failure').length

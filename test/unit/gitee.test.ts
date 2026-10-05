@@ -64,3 +64,24 @@ describe('gitee', () => {
     await expect(provider.threads.setAssignees!(issue, ['ada', 'grace'])).rejects.toThrow(UnsupportedOperationError)
   })
 })
+
+describe('gitee label filters', () => {
+  const repository = { id: 1, path: 'widgets', name: 'widgets', full_name: 'acme/widgets', namespace: { path: 'acme' }, owner: { login: 'acme' } }
+  const issues = [
+    { id: 1, number: 'I1', title: 'Both', state: 'open', labels: [{ name: 'bug' }, { name: 'ui' }], repository },
+    { id: 2, number: 'I2', title: 'One', state: 'open', labels: [{ name: 'bug' }], repository },
+  ]
+  const provider = gitee({ auth: { type: 'token', token: 't' }, fetch: async () => Response.json(issues) }).create()
+
+  it('lists only threads carrying every label', async () => {
+    const page = await provider.threads.listPage(repo, { kind: 'issue', labels: ['bug', 'ui'] })
+
+    expect(page.items.map(thread => thread.title)).toEqual(['Both'])
+  })
+
+  it('searches only threads carrying every label', async () => {
+    const page = await provider.search.threadsPage({ repo, labels: ['bug', 'ui'] })
+
+    expect(page.items.map(thread => thread.title)).toEqual(['Both'])
+  })
+})

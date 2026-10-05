@@ -1026,6 +1026,7 @@ export interface ThreadQuery extends PageOptions {
   kind?: 'issue' | 'pull_request' | 'discussion'
   /** Defaults to `'open'`. */
   state?: 'open' | 'closed' | 'all'
+  /** Threads carrying every one of these labels. */
   labels?: string[]
   /** Author login. */
   author?: string

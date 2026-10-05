@@ -94,3 +94,25 @@ describe('forgejo path safety', () => {
     expect(urls).toEqual(['https://codeberg.org/api/v1/repos/acme%2Fx/widgets/issues/1%3Fx%3D/comments'])
   })
 })
+
+describe('forgejo label filters', () => {
+  const repository = { id: 64021, name: 'widgets', full_name: 'acme/widgets', owner: { id: 4001, login: 'acme' } }
+  const issues = [
+    { id: 1, number: 1, title: 'Both', state: 'open', labels: [{ id: 1, name: 'bug' }, { id: 2, name: 'ui' }], repository },
+    { id: 2, number: 2, title: 'One', state: 'open', labels: [{ id: 1, name: 'bug' }], repository },
+  ]
+  const provider = forgejo({ auth: { type: 'token', token: 't' }, fetch: async () => Response.json(issues) }).create()
+  const repo = { forge: 'forgejo', instance: 'codeberg.org', owner: 'acme', name: 'widgets' }
+
+  it('lists only threads carrying every label', async () => {
+    const page = await provider.threads.listPage(repo, { labels: ['bug', 'ui'] })
+
+    expect(page.items.map(thread => thread.title)).toEqual(['Both'])
+  })
+
+  it('searches only threads carrying every label', async () => {
+    const page = await provider.search.threadsPage({ labels: ['bug', 'ui'] })
+
+    expect(page.items.map(thread => thread.title)).toEqual(['Both'])
+  })
+})
