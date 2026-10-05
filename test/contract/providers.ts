@@ -60,6 +60,7 @@ export interface ProviderContract {
     multiMethodRepo: Record<string, unknown>
     review: Call & { body: string }
     merge: Call & { body: string }
+    settle?: Call[]
     /** An explicit merge method that needs no repository lookup, and a fragment of the resulting body. */
     explicit: { method: MergeMethod, bodyContains: string }
   }
@@ -138,7 +139,8 @@ export const contracts: ProviderContract[] = [
       reads: [{ method: 'GET', url: 'https://api.github.com/repos/acme/widgets' }],
       multiMethodRepo: { allow_merge_commit: true, allow_squash_merge: true, allow_rebase_merge: false },
       review: { method: 'POST', url: 'https://api.github.com/repos/acme/widgets/pulls/42/reviews', body: '{"event":"APPROVE"}' },
-      merge: { method: 'PUT', url: 'https://api.github.com/repos/acme/widgets/pulls/42/merge', body: '{"merge_method":"squash"}' },
+      merge: { method: 'PUT', url: 'https://api.github.com/repos/acme/widgets/pulls/42/merge-async', body: '{"merge_method":"squash","merge_action":"direct_merge"}' },
+      settle: [{ method: 'GET', url: 'https://api.github.com/repos/acme/widgets/pulls/42/merge-async/3f1c2a9e-5b7d-4e8a-9c0f-1a2b3c4d5e6f' }],
       explicit: { method: 'rebase', bodyContains: '"merge_method":"rebase"' },
     },
     webhook: {

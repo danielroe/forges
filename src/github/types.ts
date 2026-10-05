@@ -397,6 +397,19 @@ export interface GitHubComparison {
   files?: GitHubCommitFile[]
 }
 
+export interface GitHubAsyncMerge {
+  status: 'pending' | 'merged' | 'enqueued' | 'failed'
+  details?: {
+    message?: string
+    uuid?: string
+    merge_method?: string
+    merge_action?: string
+    expected_head_sha?: string
+    bypass_rules?: boolean
+    sha?: string
+  }
+}
+
 export interface GitHubHook {
   id: number
   name?: string

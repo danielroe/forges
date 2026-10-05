@@ -69,6 +69,7 @@ import type {
   ThreadsBatchResult,
 } from './graphql.ts'
 import type {
+  GitHubAsyncMerge,
   GitHubBlob,
   GitHubBranch,
   GitHubCheckRun,
@@ -104,11 +105,14 @@ import {
   ForbiddenError,
   ForgeApiError,
   ForgeError,
+  ForgeTimeoutError,
   InsufficientScopeError,
+  MergeBlockedError,
   soleMergeMethod,
   toMergeError,
   UnsupportedOperationError,
 } from '../errors.ts'
+import { sleep } from '../fetch.ts'
 import { isNamespaceRef, isResolvedThread, reactionContent } from '../model.ts'
 import { actorLogin, createListing, forgeIterable, getManyConcurrently, hostOf, iteratePages, memo, phased, requireIssueOrPull, requireThread, summariseChecks, toDate, toPage, toWarning, versionAtLeast } from '../utils.ts'
 import { githubShapedWeb } from '../web.ts'
@@ -165,6 +169,7 @@ const GHES_MARK_DONE = '3.13'
 /** GitHub Enterprise Server versions with the Dependabot alerts REST API. */
 const GHES_DEPENDABOT_ALERTS = '3.8'
 const GRAPHQL_BATCH = 20
+const POLL_DELAYS = [500, 1000, 2000]
 
 const GITHUB_RESERVED_PATHS = ['about', 'account', 'apps', 'codespaces', 'collections', 'contact', 'customer-stories', 'dashboard', 'enterprise', 'enterprises', 'events', 'explore', 'features', 'gist', 'issues', 'join', 'login', 'logout', 'marketplace', 'new', 'notifications', 'organizations', 'orgs', 'pricing', 'pulls', 'search', 'security', 'settings', 'signup', 'site', 'sponsors', 'stars', 'topics', 'trending', 'users', 'watching']
 
@@ -535,11 +540,108 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
       method = soleMergeMethod({ merge: repo.allow_merge_commit, squash: repo.allow_squash_merge, rebase: repo.allow_rebase_merge }, context)
     }
     await hooks.beforeMerge?.()
-    await fetcher.raw(`${threadPath(ref)}/merge`, {
-      method: 'PUT',
-      json: { merge_method: method, sha: options_.sha, commit_message: options_.message },
-      mapError: toMergeError,
-    })
+    await directMerge(ref, method, options_)
+  }
+
+  async function directMerge(ref: ResolvedThreadRef, method: MergeMethod, mergeOptions: MergeOptions): Promise<void> {
+    const path = `${threadPath(ref)}/merge`
+    const { sha, message } = mergeOptions
+    const body = { merge_method: method, sha, commit_message: message }
+    const timeout = options.timeout ?? 30_000
+    const budget = new AbortController()
+    const timer = setTimeout(() => budget.abort(new DOMException('Merge timed out', 'TimeoutError')), timeout)
+    const timedOut = (url: string, requestMethod: string, cause: unknown, uuid?: string) => new ForgeTimeoutError(
+      uuid
+        ? `Merge request ${uuid} for pull request ${ref.number} was still pending after ${timeout}ms; GitHub may still complete it`
+        : `Merge of pull request ${ref.number} got no response within ${timeout}ms; GitHub may still complete it`,
+      timeout,
+      { ...context, url, method: requestMethod },
+      { cause },
+    )
+    let url = fetcher.resolve(`${path}-async`)
+    let requestMethod = 'PUT'
+    let uuid: string | undefined
+    try {
+      let state: GitHubAsyncMerge
+      let status: number
+      try {
+        const { data, response } = await fetcher.json<GitHubAsyncMerge>(`${path}-async`, { method: 'PUT', json: { ...body, merge_action: 'direct_merge' }, signal: budget.signal })
+        state = data
+        status = response.status
+      }
+      catch (error) {
+        if (budget.signal.aborted) {
+          throw error
+        }
+        if (enterprise && isPlainApiError(error, 404)) {
+          url = fetcher.resolve(path)
+          await fetcher.raw(path, { method: 'PUT', json: body, mapError: toMergeError, signal: budget.signal })
+          return
+        }
+        state = pendingMergeFrom(error, method, sha)
+        status = 409
+      }
+      for (let attempt = 0; state.status === 'pending'; attempt++) {
+        uuid = state.details?.uuid
+        if (!uuid) {
+          throw new ForgeApiError('GitHub reported a pending merge without a request id', status, JSON.stringify(state).slice(0, 512), { ...context, url, method: requestMethod })
+        }
+        const poll = `${path}-async/${encodeURIComponent(uuid)}`
+        url = fetcher.resolve(poll)
+        requestMethod = 'GET'
+        await sleep(POLL_DELAYS[Math.min(attempt, POLL_DELAYS.length - 1)]!, budget.signal)
+        const { data, response } = await fetcher.json<GitHubAsyncMerge>(poll, { signal: budget.signal })
+        state = data
+        status = response.status
+      }
+      const errorContext = { ...context, url, method: requestMethod }
+      const excerpt = JSON.stringify(state).slice(0, 512)
+      switch (state.status as string) {
+        case 'merged':
+          return
+        case 'enqueued':
+          throw new MergeBlockedError('Pull request was added to a merge queue and has not merged', status, excerpt, errorContext)
+        case 'failed':
+          throw new MergeBlockedError(state.details?.message || 'GitHub could not merge the pull request', status, excerpt, errorContext)
+        default:
+          throw new ForgeApiError(`GitHub reported an unknown merge status ${JSON.stringify(state.status)}`, status, excerpt, errorContext)
+      }
+    }
+    catch (error) {
+      throw budget.signal.aborted ? timedOut(url, requestMethod, error, uuid) : error
+    }
+    finally {
+      clearTimeout(timer)
+    }
+  }
+
+  function pendingMergeFrom(error: unknown, method: MergeMethod, sha: string | undefined): GitHubAsyncMerge {
+    if (!(error instanceof ForgeApiError)) {
+      throw error
+    }
+    if (isPlainApiError(error, 400)) {
+      throw new MergeBlockedError('Pull request cannot be merged in its current state', 400, error.body, { ...context, url: error.url, method: error.method })
+    }
+    if (!isPlainApiError(error, 409)) {
+      throw toMergeError(error)
+    }
+    let pending: GitHubAsyncMerge | undefined
+    try {
+      pending = JSON.parse(error.body) as GitHubAsyncMerge
+    }
+    catch {}
+    const details = pending?.details
+    if (!details?.uuid) {
+      throw toMergeError(error)
+    }
+    if (details.merge_action !== 'direct_merge' || details.merge_method !== method || details.bypass_rules || (sha !== undefined && details.expected_head_sha !== sha)) {
+      throw new MergeBlockedError('Another merge request with different options is pending for this pull request', 409, error.body, { ...context, url: error.url, method: error.method })
+    }
+    return { status: 'pending', details }
+  }
+
+  function isPlainApiError(error: unknown, status: number): boolean {
+    return error instanceof ForgeApiError && error.constructor === ForgeApiError && error.status === status
   }
 
   const REVIEW_EVENTS: Record<ReviewEvent, string> = { approve: 'APPROVE', request_changes: 'REQUEST_CHANGES', comment: 'COMMENT' }

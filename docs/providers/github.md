@@ -39,6 +39,18 @@ Pass `instanceVersion` if you know the version. Otherwise, `refreshCapabilities(
 
 If you don't pass `method`, `merge()` reads the repository's allowed merge methods. When exactly one method is allowed, it uses that method. When several are allowed, it throws `MergeMethodRequiredError`.
 
+`merge()` and `approveAndMerge()` request a direct merge through GitHub's asynchronous merge API, so neither adds the pull request to a merge queue. Both wait for the result, within the provider's `timeout` (30 seconds by default), and resolve once GitHub reports the pull request merged, including when it was already merged. Otherwise, they reject with one of these errors:
+
+- `MergeBlockedError` when GitHub refuses or fails the merge, for example for a draft, a failing required check, or a pull request already in a merge queue. When GitHub reports a failed merge, the error message is GitHub's description of the failure.
+- `MergeConflictError` when GitHub responds with a conflict status that names no pending merge request.
+- `ForgeTimeoutError` when the merge is still pending after `timeout`. The message includes the merge request's UUID. GitHub can still complete the merge after this error, so read the pull request's state before you retry.
+
+If a direct merge with the same method is already pending, and it expects the same head sha when you pass `sha`, the operation waits for that request instead. A pending request with different options rejects with `MergeBlockedError`.
+
+When the pull request is part of a stack, GitHub also merges every open pull request below it in the stack. `approveAndMerge()` approves only the pull request you pass.
+
+GitHub Enterprise Server releases without the asynchronous merge API use the synchronous merge endpoint instead. That endpoint doesn't support stacked pull requests.
+
 These options reject with `UnsupportedOperationError`:
 
 - `whenChecksPass`, because the REST API doesn't enable auto-merge.

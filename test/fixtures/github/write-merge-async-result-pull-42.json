@@ -1,0 +1,18 @@
+{
+  "handAuthored": true,
+  "request": {
+    "method": "GET",
+    "url": "https://api.github.com/repos/acme/widgets/pulls/42/merge-async/3f1c2a9e-5b7d-4e8a-9c0f-1a2b3c4d5e6f"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "status": "merged",
+      "details": {
+        "message": "Pull request merged",
+        "sha": "7a9c3e1f0b2d4c6e8a1f3b5d7c9e0a2b4d6f8a1c"
+      }
+    }
+  }
+}
