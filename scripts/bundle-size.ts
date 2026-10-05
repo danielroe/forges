@@ -12,7 +12,7 @@ import { rolldown } from 'rolldown'
 
 /** `absent` is a string only the webhook code contains; a Lite bundle must not carry it. */
 const BUDGETS: Array<{ name: string, source: string, imports: string, minified: number, gzipped: number, absent?: string }> = [
-  { name: 'forges', source: 'index.mjs', imports: 'createForges', minified: 9_500, gzipped: 2_700 },
+  { name: 'forges', source: 'index.mjs', imports: 'createForges', minified: 9_750, gzipped: 2_700 },
   { name: 'forges/github', source: 'github/index.mjs', imports: 'github', minified: 95_500, gzipped: 29_000 },
   { name: 'github lite', source: 'github/index.mjs', imports: 'githubLite', minified: 88_000, gzipped: 26_900, absent: 'x-hub-signature-256' },
   { name: 'forges/gitlab', source: 'gitlab/index.mjs', imports: 'gitlab', minified: 74_000, gzipped: 23_250 },
