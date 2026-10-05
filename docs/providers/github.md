@@ -45,7 +45,7 @@ If you don't pass `method`, `merge()` reads the repository's allowed merge metho
 - `MergeConflictError` when GitHub responds with a conflict status that names no pending merge request.
 - `ForgeTimeoutError` when the merge is still pending after `timeout`. The message includes the merge request's UUID. GitHub can still complete the merge after this error, so read the pull request's state before you retry.
 
-If a direct merge with the same method is already pending, and it expects the same head sha when you pass `sha`, the operation waits for that request instead. A pending request with different options rejects with `MergeBlockedError`.
+If a direct merge with the same method is already pending, and it expects the same head sha when you pass `sha`, the operation waits for that request instead. A pending request with different options rejects with `MergeBlockedError`. Supplying `message` also prevents adopting a pending request because GitHub doesn't return its commit message.
 
 When the pull request is part of a stack, GitHub also merges every open pull request below it in the stack. `approveAndMerge()` approves only the pull request you pass.
 

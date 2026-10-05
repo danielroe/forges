@@ -578,7 +578,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
           await fetcher.raw(path, { method: 'PUT', json: body, mapError: toMergeError, signal: budget.signal })
           return
         }
-        state = pendingMergeFrom(error, method, sha)
+        state = pendingMergeFrom(error, method, sha, message)
         status = 409
       }
       for (let attempt = 0; state.status === 'pending'; attempt++) {
@@ -615,7 +615,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
     }
   }
 
-  function pendingMergeFrom(error: unknown, method: MergeMethod, sha: string | undefined): GitHubAsyncMerge {
+  function pendingMergeFrom(error: unknown, method: MergeMethod, sha: string | undefined, message: string | undefined): GitHubAsyncMerge {
     if (!(error instanceof ForgeApiError)) {
       throw error
     }
@@ -634,8 +634,8 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
     if (!details?.uuid) {
       throw toMergeError(error)
     }
-    if (details.merge_action !== 'direct_merge' || details.merge_method !== method || details.bypass_rules || (sha !== undefined && details.expected_head_sha !== sha)) {
-      throw new MergeBlockedError('Another merge request with different options is pending for this pull request', 409, error.body, { ...context, url: error.url, method: error.method })
+    if (message !== undefined || details.merge_action !== 'direct_merge' || details.merge_method !== method || details.bypass_rules || (sha !== undefined && details.expected_head_sha !== sha)) {
+      throw new MergeBlockedError('Another merge request is pending whose options do not match or cannot be verified', 409, error.body, { ...context, url: error.url, method: error.method })
     }
     return { status: 'pending', details }
   }

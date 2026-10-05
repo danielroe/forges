@@ -232,6 +232,13 @@ describe('github merging', () => {
     expect(calls.map(call => call.method)).toEqual(['PUT', 'GET'])
   })
 
+  it.each(['Release widgets', ''])('refuses to adopt a pending request when a commit message is supplied (%j)', async (message) => {
+    const { merge, calls } = forge({ [`PUT ${ASYNC}`]: { status: 409, body: pending() } })
+
+    expect(await merge({ method: 'squash', sha: SHA, message, approve: false })).toBeInstanceOf(MergeBlockedError)
+    expect(calls.map(call => call.method)).toEqual(['PUT'])
+  })
+
   it('waits on an existing pending request for any head when no sha is given', async () => {
     const { merge } = forge({
       [`PUT ${ASYNC}`]: { status: 409, body: pending({ expected_head_sha: 'f'.repeat(40) }) },
