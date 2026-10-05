@@ -21,7 +21,7 @@ export interface TangledSession {
 }
 
 export function createTangledSession({ options, fetcher, atproto, context }: { options: TangledOptions, fetcher: Fetcher, atproto: AtprotoClient, context: ForgeErrorContext }): TangledSession {
-  const writable = Boolean(options.auth) && options.auth?.type !== 'anonymous'
+  const writable = options.auth !== undefined && options.auth.type !== 'anonymous'
   let session: Promise<Session> | undefined
   let pdsUrl: string | undefined
 

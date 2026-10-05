@@ -74,6 +74,21 @@ describe('bitbucket provider', () => {
   })
 })
 
+describe('bitbucket webhooks', () => {
+  it('subscribes `repo` to renames and transfers', async () => {
+    const bodies: string[] = []
+    const instance = bitbucket({ auth: { type: 'token', token: 't' }, fetch: async (_url, init) => {
+      bodies.push(init?.body as string)
+      return Response.json({ uuid: '{hook}', url: 'https://hooks.test/in', active: true, events: ['repo:updated', 'repo:transfer'] })
+    } }).create()
+
+    await instance.webhooks.create(repo, { url: 'https://hooks.test/in', events: ['repo'] })
+
+    expect(JSON.parse(bodies[0]!).events).toEqual(['repo:updated', 'repo:transfer'])
+    expect(instance.webhooks.events).toContainEqual({ kind: 'repo', action: 'renamed' })
+  })
+})
+
 describe('bitbucket queries', () => {
   it('escapes quotes in BBQL string literals', async () => {
     const urls: string[] = []

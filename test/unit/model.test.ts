@@ -135,6 +135,7 @@ describe('small helpers', () => {
 
   it('refuses a comment key that would end the hidden marker', () => {
     expect(() => commentMarker('a-->b')).toThrow(TypeError)
+    expect(() => commentMarker('a--!>b')).toThrow(TypeError)
     expect(commentMarker('release')).toBe('<!-- forges:key=release -->')
   })
 

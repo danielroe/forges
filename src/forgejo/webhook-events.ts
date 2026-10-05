@@ -30,7 +30,6 @@ export const FORGEJO_NATIVE_EVENTS: NativeEventMap = {
   assignment: ['issue_assign', 'pull_request_assign'],
   push: ['push'],
   ref: ['create', 'delete'],
-  repo: ['repository'],
   release: ['release'],
 }
 
@@ -52,9 +51,5 @@ export const FORGEJO_WEBHOOK_EVENTS: WebhookEventType[] = [
   { kind: 'push' },
   { kind: 'ref', action: 'created' },
   { kind: 'ref', action: 'deleted' },
-  { kind: 'repo', action: 'renamed' },
-  { kind: 'repo', action: 'transferred' },
-  { kind: 'repo', action: 'archived' },
-  { kind: 'repo', action: 'unarchived' },
   { kind: 'release', action: 'published' },
 ]

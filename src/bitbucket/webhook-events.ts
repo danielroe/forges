@@ -8,7 +8,7 @@ export const BITBUCKET_NATIVE_EVENTS: NativeEventMap = {
   state_change: ['issue:created', 'issue:updated', 'pullrequest:created', 'pullrequest:updated', 'pullrequest:fulfilled', 'pullrequest:rejected'],
   push: ['repo:push'],
   ref: ['repo:push'],
-  repo: ['repo:transfer'],
+  repo: ['repo:updated', 'repo:transfer'],
 }
 
 /** Normalised kinds and actions Bitbucket deliveries translate into. */
@@ -23,5 +23,6 @@ export const BITBUCKET_WEBHOOK_EVENTS: WebhookEventType[] = [
   { kind: 'push' },
   { kind: 'ref', action: 'created' },
   { kind: 'ref', action: 'deleted' },
+  { kind: 'repo', action: 'renamed' },
   { kind: 'repo', action: 'transferred' },
 ]

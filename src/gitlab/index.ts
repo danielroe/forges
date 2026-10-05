@@ -709,7 +709,7 @@ const GITLAB: ProviderDefinition<GitLabOptions> = {
           const { data } = await fetcher.json<GitLabApprovals>(`${threadPath(ref)}/approvals`)
           return { items: toApprovalReviews(ref, data) }
         }),
-        approve: verb('emulated', async (thread, body) => {
+        approve: verb(true, async (thread, body) => {
           await approve(thread, body)
         }),
         createReview: verb('emulated', async (thread, input) => {

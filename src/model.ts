@@ -1169,8 +1169,9 @@ export type GetManyResult
  * as HTML.
  */
 export function commentMarker(key: string): string {
-  if (key.includes('-->')) {
-    throw new TypeError(`Comment key ${JSON.stringify(key)} contains \`-->\`, which would end the hidden marker early.`)
+  const end = ['-->', '--!>'].find(token => key.includes(token))
+  if (end) {
+    throw new TypeError(`Comment key ${JSON.stringify(key)} contains \`${end}\`, which would end the hidden marker early.`)
   }
   return `<!-- forges:key=${key} -->`
 }
@@ -1332,7 +1333,7 @@ export interface MergeOptions {
 }
 
 export interface ApproveAndMergeOptions extends MergeOptions {
-  /** Review body sent with the approval. */
+  /** Review body sent with the approval. Rejected where approvals carry no body (Azure DevOps, Bitbucket, GitLab). */
   body?: string
 }
 

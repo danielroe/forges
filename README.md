@@ -175,7 +175,7 @@ The GitHub column assumes app auth with an installation. With a token, `installa
 | `reviews.list` | ✅ | emulated | emulated | ✅ | ✅ | ❌ | emulated | ✅ | ❌ | ❌ |
 | `reviews.create` | ✅ | emulated | emulated | experimental | experimental | emulated | emulated | experimental | ❌ | ❌ |
 | `reviews.submit` | ✅ | ❌ | ❌ | experimental | experimental | ❌ | ❌ | ❌ | ❌ | ❌ |
-| `reviews.approve` | ✅ | emulated | emulated | experimental | experimental | emulated | emulated | experimental | ❌ | ❌ |
+| `reviews.approve` | ✅ | ✅ | emulated | experimental | experimental | emulated | emulated | experimental | ❌ | ❌ |
 | `reviews.resolveThread` | ✅ | experimental | ❌ | ❌ | ❌ | ❌ | experimental | experimental | ❌ | ❌ |
 | `releases.list` | ✅ | ✅ | ❌ | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ |
 | `releases.get` | ✅ | ✅ | ❌ | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ |

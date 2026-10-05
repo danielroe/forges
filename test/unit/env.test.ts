@@ -54,4 +54,16 @@ describe('environment flags', () => {
     expect(entry!.instance).toBe('github.com')
     expect(created).toBe(1)
   })
+
+  it('lets `instance` be overwritten without creating a provider', () => {
+    const [entry] = providersFromEnv({ FORGES_GITHUB_TOKEN: 't' })
+    const factory = entry!.factory!
+    factory.create = () => {
+      throw new Error('not expected')
+    }
+
+    entry!.instance = 'ghe.example.com'
+
+    expect(entry!.instance).toBe('ghe.example.com')
+  })
 })

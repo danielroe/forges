@@ -100,6 +100,16 @@ describe('gitlab provider', () => {
     expect(note('Mentioned in commit c0c5081dc665d64b56fcee63df5429b013bb69b6')).toBe('referenced')
   })
 
+  it('approves a merge request natively and refuses an approval body', async () => {
+    const { instance, calls } = provider()
+
+    expect(instance.capabilities.reviews.approve).toBe(true)
+    await instance.threads.approve(mr)
+    expect(calls.map(call => `${call.method} ${call.url}`)).toEqual([`POST ${P}/merge_requests/23/approve`])
+    await expect(instance.threads.approve(mr, 'Looks good')).rejects.toThrow(UnsupportedOperationError)
+    expect(calls).toHaveLength(1)
+  })
+
   it('maps a 401 from approve to InsufficientScopeError, not a revoked token', async () => {
     const { instance } = provider({
       [`POST ${P}/merge_requests/23/approve`]: { status: 401, body: { message: '401 Unauthorized' } },

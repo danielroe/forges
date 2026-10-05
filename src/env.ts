@@ -99,7 +99,14 @@ function withInstance(entry: EnvProvider): EnvProvider {
     return entry
   }
   let instance: string | undefined
-  return Object.defineProperty({ ...entry }, 'instance', { enumerable: true, get: () => instance ??= factory.create().instance })
+  return Object.defineProperty({ ...entry }, 'instance', {
+    enumerable: true,
+    configurable: true,
+    get: () => instance ??= factory.create().instance,
+    set: (value: string | undefined) => {
+      instance = value
+    },
+  })
 }
 
 function fromFields(kind: typeof KINDS[number], suffix: string, fields: Partial<Record<Field, string>>, options: FromEnvOptions): EnvProvider {

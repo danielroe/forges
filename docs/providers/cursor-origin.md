@@ -35,7 +35,7 @@ For a pull request in a stack, `thread.stack` contains the stack ID and the pare
 
 ## Merging
 
-Origin supports the `merge` and `squash` methods only. If you don't pass `method`, `merge()` reads the repository settings. When exactly one method is allowed, it uses that method. When both are allowed, it throws `MergeMethodRequiredError`. `whenChecksPass` is unavailable.
+Origin supports the `merge` and `squash` methods only. If you don't pass `method`, `merge()` reads the repository settings. When exactly one method is allowed, it uses that method. When both are allowed, it throws `MergeMethodRequiredError`. `whenChecksPass` and `message` are unavailable.
 
 ## Review comments
 

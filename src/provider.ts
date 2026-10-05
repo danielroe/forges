@@ -175,7 +175,7 @@ export interface ForgeCapabilities {
     markAllDone: Support
     unreadCount: Support
   }
-  /** Write verbs, per thread kind except the last four. */
+  /** Write verbs, per thread kind except `merge`, `approveAndMerge`, `transfer` and `markDuplicate`. */
   writes: {
     comment: PerKind
     /** Composed from `comment`, `comments.list` and `comments.edit`, so always `'emulated'` where it works at all. */
