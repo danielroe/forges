@@ -70,6 +70,8 @@ const events = await forge.webhooks.ingest({ headers: request.headers, body: awa
 
 The event name is in `X-Gitlab-Event`, and the delivery ID is in `X-Gitlab-Event-UUID`.
 
+An issue or merge request update that changes labels, assignees, or reviewers becomes one event per label or person added or removed. When there's more than one, each event ID is the delivery ID followed by `:` and the event's index.
+
 When you create a hook with `webhooks.create()`, `nativeEvents` takes GitLab's event flag names, such as `issues_events`.
 
 ## Recording fixtures

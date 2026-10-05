@@ -219,6 +219,54 @@ describe('gitlab webhooks', () => {
   })
 })
 
+describe('gitlab update webhooks', () => {
+  it('splits label, assignee and reviewer changes into one event each', async () => {
+    const instance = gitlab({ auth: { type: 'token', token: 't' }, webhookSecret: 's' }).create()
+    const events = await instance.webhooks.ingest({
+      headers: { 'x-gitlab-token': 's', 'x-gitlab-event': 'Merge Request Hook', 'x-gitlab-event-uuid': 'd1' },
+      body: JSON.stringify({
+        object_kind: 'merge_request',
+        user: { id: 4101, username: 'ada' },
+        project: { id: 278964, path_with_namespace: 'acme/platform/widgets' },
+        object_attributes: { iid: 23, action: 'update', updated_at: '2025-09-18 10:00:00 UTC' },
+        changes: {
+          labels: { previous: [{ title: 'bug' }, { title: 'ui' }], current: [{ title: 'bug' }, { title: 'docs' }] },
+          assignees: { previous: [{ id: 1, username: 'grace' }], current: [{ id: 2, username: 'linus' }] },
+          reviewers: { previous: [], current: [{ id: 3, username: 'ken' }] },
+        },
+      }),
+    })
+
+    expect(events.map(event => [event.id, event.kind, event.action, event.detail])).toEqual([
+      ['d1:0', 'label', 'labelled', { type: 'label', label: 'docs' }],
+      ['d1:1', 'label', 'unlabelled', { type: 'label', label: 'ui' }],
+      ['d1:2', 'assignment', 'assigned', { type: 'assignment', assignee: expect.objectContaining({ login: 'linus' }) }],
+      ['d1:3', 'assignment', 'unassigned', { type: 'assignment', assignee: expect.objectContaining({ login: 'grace' }) }],
+      ['d1:4', 'assignment', 'review_requested', { type: 'assignment', assignee: expect.objectContaining({ login: 'ken' }) }],
+    ])
+    expect(events.every(event => event.thread?.number === '23')).toBe(true)
+    for (const event of events) {
+      expect(instance.webhooks.events).toContainEqual({ kind: event.kind, action: event.action })
+    }
+  })
+
+  it('keeps the delivery id for a single change', async () => {
+    const instance = gitlab({ auth: { type: 'token', token: 't' }, webhookSecret: 's' }).create()
+    const events = await instance.webhooks.ingest({
+      headers: { 'x-gitlab-token': 's', 'x-gitlab-event': 'Issue Hook', 'x-gitlab-event-uuid': 'd2' },
+      body: JSON.stringify({
+        object_kind: 'issue',
+        user: { id: 4101, username: 'ada' },
+        project: { id: 278964, path_with_namespace: 'acme/platform/widgets' },
+        object_attributes: { iid: 5, action: 'update' },
+        changes: { labels: { previous: [], current: [{ title: 'bug' }] } },
+      }),
+    })
+
+    expect(events).toMatchObject([{ id: 'd2', kind: 'label', action: 'labelled', summary: 'ada added label bug' }])
+  })
+})
+
 describe('gitlab release webhooks', () => {
   it('keys GitLab releases by tag so the ref can be fetched', async () => {
     const provider = gitlab({ auth: { type: 'token', token: 't' }, webhookSecret: 's' }).create()
