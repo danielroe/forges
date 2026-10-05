@@ -88,6 +88,7 @@
   },
   "scripts": {
     "build": "tsdown && node scripts/generate-schemas.ts --dist",
+    "check:all": "pnpm lint && pnpm test && pnpm test:versions && pnpm test:size",
     "dev": "vitest dev",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
