@@ -3,37 +3,37 @@ const features = [
   {
     icon: 'i-lucide-shapes',
     title: 'One data model',
-    description: 'Issues, pull requests, comments, checks and events look the same on every forge. The raw payload stays one field away.',
+    description: 'Issues, pull requests, comments, checks and events have the same shape on every forge. The original payload is in the raw field.',
     to: '/concepts/data-model',
   },
   {
     icon: 'i-lucide-list-checks',
-    title: 'Capabilities, not guesses',
-    description: 'Each provider declares what it supports, and CI checks the claims. Ask provider.can() before a call instead of catching a failure.',
+    title: 'Declared capabilities',
+    description: 'Each provider declares what it supports, and CI checks the claims against the tests. Call provider.can() to check support before you call an operation.',
     to: '/concepts/capabilities',
   },
   {
     icon: 'i-lucide-webhook',
-    title: 'Webhooks that verify',
-    description: 'Signatures are checked, and deliveries become typed events with the same kind and action on every forge.',
+    title: 'Verified webhooks',
+    description: 'The provider verifies each delivery and turns it into typed events, with the same kinds and actions on every forge.',
     to: '/guides/webhooks',
   },
   {
     icon: 'i-lucide-package',
     title: 'Small bundles',
-    description: 'Import one forge from its subpath. Lite factories leave out webhook code. GitHub in the browser is 24 kB gzipped.',
+    description: 'Import one forge from its subpath. Lite factories leave out webhook code. The GitHub Lite provider is about 24 kB gzipped.',
     to: '/guides/bundling',
   },
   {
     icon: 'i-lucide-flask-conical',
-    title: 'Easy to test',
-    description: 'An in-memory forge and recorded fixtures keep your tests fast and offline.',
+    title: 'Offline tests',
+    description: 'Run your tests against an in-memory forge or replayed responses, with no network.',
     to: '/guides/testing',
   },
   {
     icon: 'i-lucide-shield-check',
     title: 'Typed errors and retries',
-    description: 'Rate limits, revoked tokens and missing scopes have their own error classes. Short rate limits retry once.',
+    description: 'Rate limits, revoked tokens and missing scopes have their own error classes. After a short rate limit, the provider retries once.',
     to: '/guides/errors',
   },
 ]
@@ -42,12 +42,12 @@ const projects = [
   {
     icon: 'i-lucide-inbox',
     title: 'A notification inbox',
-    description: 'Merge the notifications of GitHub, GitLab and Forgejo into one list.',
+    description: 'Merge the notifications from every forge you configure into one list.',
     to: '/examples/inbox-cli',
   },
   {
     icon: 'i-lucide-tag',
-    title: 'A triage bot',
+    title: 'A label bot',
     description: 'Label new threads and close them from a comment command, on any forge.',
     to: '/examples/label-bot',
   },
@@ -98,8 +98,8 @@ export default async function handler(request: Request) {
     <UPageSection
       :ui="{ container: 'py-12 sm:py-16 lg:py-20' }"
       headline="What you get"
-      title="The parts every forge integration needs"
-      description="Write against the model. The provider handles the endpoints, pagination, authentication and rate limits of its forge."
+      title="What the providers handle"
+      description="You write code against the shared model. Each provider handles the endpoints, pagination, authentication and rate limits of its forge."
     >
       <UPageGrid class="lg:grid-cols-3">
         <UPageCard
@@ -116,7 +116,7 @@ export default async function handler(request: Request) {
       :ui="{ container: 'py-12 sm:py-16 lg:py-20' }"
       headline="Write it once"
       title="The same code on every forge"
-      description="Register as many providers as you need. Calls go to the provider that owns the ref."
+      description="Register as many providers as you need. Each call goes to the provider that matches its ref."
     >
       <div class="grid gap-6 lg:grid-cols-2">
         <LandingCode
@@ -134,7 +134,7 @@ export default async function handler(request: Request) {
       :ui="{ container: 'py-12 sm:py-16 lg:py-20' }"
       headline="Know before you call"
       title="See what each forge can do"
-      description="Bitbucket has no releases. Tangled has no checks. Every provider declares its support, so your code can check first."
+      description="Bitbucket has no releases, and Tangled has no checks. Every provider declares what it supports, so your code can check before it calls."
     >
       <LandingCapabilityGrid />
 
@@ -154,7 +154,7 @@ export default async function handler(request: Request) {
       :ui="{ container: 'py-12 sm:py-16 lg:py-20' }"
       headline="Use it for"
       title="What you can build"
-      description="Small, tested projects show each idea end to end."
+      description="Each card links to a tested example project or a guide."
     >
       <UPageGrid class="lg:grid-cols-4">
         <UPageCard
@@ -169,7 +169,7 @@ export default async function handler(request: Request) {
     <UPageSection :ui="{ container: 'py-12 sm:py-16 lg:py-24' }">
       <div class="mx-auto flex max-w-2xl flex-col items-center text-center">
         <h2 class="text-3xl font-semibold tracking-tight text-highlighted sm:text-4xl">
-          Make your first call in five minutes
+          Make your first call
         </h2>
         <p class="mt-4 text-pretty text-muted">
           Install the package, read an issue and add a second forge.

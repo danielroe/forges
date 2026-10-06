@@ -1,6 +1,7 @@
 {
   "name": "forges-docs",
   "private": true,
+  "description": "One API for every code forge: issues, pull requests, notifications, checks and webhooks.",
   "scripts": {
     "dev": "nuxt dev",
     "build": "nuxt build"

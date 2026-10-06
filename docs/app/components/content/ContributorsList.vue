@@ -59,7 +59,7 @@ const { data: contributors } = await useAsyncData('contributors', async () => {
     v-else
     class="my-8 text-muted"
   >
-    The list could not be loaded. See the
+    The contributor list is unavailable. See the
     <a
       :href="`https://github.com/${repository}/graphs/contributors`"
       target="_blank"

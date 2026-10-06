@@ -4,7 +4,7 @@ description: "Use gitlab.com and self-managed GitLab: issues, merge requests, to
 icon: i-simple-icons-gitlab
 ---
 
-The GitLab provider covers gitlab.com and self-managed GitLab. It reads and writes issues, merge requests, and commit comments. It also covers to-dos, pipelines and jobs, commit statuses, releases, vulnerabilities, and project and group webhooks. Merge requests have `kind: 'pull_request'`.
+The GitLab provider covers gitlab.com and self-managed GitLab. It reads and writes issues, merge requests and commit comments. It also covers to-dos, pipelines and jobs, commit statuses, releases, vulnerabilities and project and group webhooks. Merge requests have `kind: 'pull_request'`.
 
 | Detail | Value |
 | --- | --- |
@@ -14,7 +14,7 @@ The GitLab provider covers gitlab.com and self-managed GitLab. It reads and writ
 
 ## Authentication
 
-The provider accepts a personal, project, group, or OAuth access token:
+The provider accepts a personal, project, group or OAuth access token:
 
 ```ts
 import { gitlab } from 'forges/gitlab'
@@ -52,11 +52,11 @@ Webhook delivery logs and redelivery require GitLab 17.0 or later. Pass `instanc
 
 ## Event kinds from system notes
 
-GitLab reports label, state, and assignment changes as English text in system notes. The provider parses this text, so `capabilities.eventKinds` is `'heuristic'`. Text that the provider doesn't recognise becomes an event with `kind: 'other'`. The event's `kindRaw` and `payload` keep the original note.
+GitLab reports label, state and assignment changes as English text in system notes. The provider parses this text, so `capabilities.eventKinds` is `'heuristic'`. Text that the provider doesn't recognise becomes an event with `kind: 'other'`. The event's `kindRaw` and `payload` keep the original note.
 
 ## Approvals as reviews
 
-`threads.reviews()` returns one review for each approver, with the ID `approval:<username>`. `createReview({ event: 'approve' })` approves the merge request. A body, inline comments, or any other event reject with `UnsupportedOperationError`.
+`threads.reviews()` returns one review for each approver, with the ID `approval:<username>`. `createReview({ event: 'approve' })` approves the merge request. A body, inline comments or any other event reject with `UnsupportedOperationError`.
 
 GitLab responds with `401` when the user isn't allowed to approve. The provider raises this response as `InsufficientScopeError`.
 
@@ -68,7 +68,7 @@ GitLab release assets are links to arbitrary URLs, so `releases.downloadAsset()`
 
 `search.commits()` uses Advanced Search. GitLab doesn't report whether an instance has Advanced Search, so the capability is `'experimental'`. On an instance without it, the search returns an empty page.
 
-Commit search accepts free text only. If you pass `author`, `committer`, `since`, `until`, or `sort`, the result has a `filter_unsupported` warning. `search.threads()` has no `involves` filter and adds the same warning when you pass one.
+Commit search accepts free text only. If you pass `author`, `committer`, `since`, `until` or `sort`, the result has a `filter_unsupported` warning. `search.threads()` has no `involves` filter and adds the same warning when you pass one.
 
 ## Webhooks
 
@@ -87,7 +87,7 @@ const events = await forge.webhooks.ingest({
 
 The event name is in `X-Gitlab-Event`, and the delivery ID is in `X-Gitlab-Event-UUID`.
 
-An issue or merge request update that changes labels, assignees, or reviewers becomes one event per label or person added or removed. When there's more than one, each event ID is the delivery ID followed by `:` and the event's index.
+An issue or merge request update that changes labels, assignees or reviewers becomes one event per label or person added or removed. When there's more than one, each event ID is the delivery ID followed by `:` and the event's index.
 
 When you create a hook with `webhooks.create()`, `nativeEvents` takes GitLab's event flag names, such as `issues_events`.
 

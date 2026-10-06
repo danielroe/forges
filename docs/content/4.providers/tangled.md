@@ -4,7 +4,7 @@ description: "Use Tangled, a forge built on atproto: issues, pulls, comments, li
 icon: i-lucide-spool
 ---
 
-The Tangled provider covers [Tangled](https://tangled.org), a forge built on atproto. It reads and writes issues, pulls, and comments. It also streams live events from Jetstream and verifies incoming push webhooks. Tangled has no reviews, checks, releases, or repository contents API, so those capabilities are `false`.
+The Tangled provider covers [Tangled](https://tangled.org), a forge built on atproto. It reads and writes issues, pulls and comments. It also streams live events from Jetstream and verifies incoming push webhooks. Tangled has no reviews, checks, releases or repository contents API, so those capabilities are `false`.
 
 | Detail | Value |
 | --- | --- |
@@ -36,7 +36,7 @@ With `app_password`, the provider creates a session on the account's PDS (person
 2. The DID document, if `identifier` is a DID.
 3. `https://bsky.social`.
 
-With `oauth`, pass the `did`, the `pds`, and a `fetch` from an atproto OAuth client that signs requests:
+With `oauth`, pass the `did`, the `pds` and a `fetch` from an atproto OAuth client that signs requests:
 
 ```ts
 tangled({
@@ -73,7 +73,7 @@ A ref from a webhook has no `number` until it's matched to a record. To fill `nu
 
 ## Thread state
 
-A thread's state is the latest state record written by the thread's author, the repo owner, or a collaborator. The provider ignores state records from other accounts. If another account calls `close()` or `reopen()`, the call throws `InsufficientScopeError` and writes no record.
+A thread's state is the latest state record written by the thread's author, the repo owner or a collaborator. The provider ignores state records from other accounts. If another account calls `close()` or `reopen()`, the call throws `InsufficientScopeError` and writes no record.
 
 ## Listing threads
 

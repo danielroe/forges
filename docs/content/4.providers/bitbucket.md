@@ -4,7 +4,7 @@ description: "Use Bitbucket Cloud: pull requests, issues, build statuses, reposi
 icon: i-simple-icons-bitbucket
 ---
 
-The Bitbucket provider covers Bitbucket Cloud (bitbucket.org). It reads and writes pull requests, issues, and commit comments. It also covers build statuses, repository contents, and repository and workspace webhooks. Bitbucket has no notifications, labels, releases, or reactions, so those capabilities are `false`.
+The Bitbucket provider covers Bitbucket Cloud (bitbucket.org). It reads and writes pull requests, issues and commit comments. It also covers build statuses, repository contents and repository and workspace webhooks. Bitbucket has no notifications, labels, releases or reactions, so those capabilities are `false`.
 
 | Detail | Value |
 | --- | --- |
@@ -16,7 +16,7 @@ The Bitbucket provider covers Bitbucket Cloud (bitbucket.org). It reads and writ
 
 The provider accepts an access token or Basic credentials:
 
-- An access token is an OAuth token, or a repository, project, or workspace access token.
+- An access token is an OAuth token, or a repository, project or workspace access token.
 - Basic credentials are a username and app password, or an Atlassian account email and API token.
 
 ```ts

@@ -1,6 +1,6 @@
 # Contributing
 
-Thanks for helping with `forges`. This page covers how to set up the repository, the checks a change has to pass, and the rules that keep the providers consistent. The same content is in the [documentation](https://forges.link/contributing/guidelines).
+Thanks for helping with `forges`. This page covers how to set up the repository, the checks a change has to pass and the rules that keep the providers consistent. The same content is in the [documentation](https://forges.link/contributing/guidelines).
 
 By taking part, you agree to the [Code of Conduct](./CODE_OF_CONDUCT.md).
 
@@ -26,7 +26,7 @@ pnpm test:unit
 | `pnpm lint`, `pnpm lint:fix` | Lints, and fixes what it can |
 | `pnpm capability-matrix` | Regenerates the capability tables in the README and the docs |
 | `pnpm record-fixtures <forge>` | Records responses from a live forge |
-| `pnpm check:all` | Runs lint, tests, the engines check and the size check |
+| `pnpm check:all` | Runs lint, tests, the engines check, a build and the size check |
 
 ## Project layout
 
@@ -41,10 +41,10 @@ pnpm test:unit
 
 ## Rules
 
-- Declare a capability `true` only when a test calls it. Use `'experimental'` for anything that is not verified against a recording of the live forge.
+- Declare a capability `true` only when a test calls it. Use `'experimental'` for anything that isn't verified against a recording of the live forge.
 - After you change a provider's capabilities, run `pnpm capability-matrix`. A test fails if the README or the docs are out of date.
 - Import source files with the `.ts` extension, so that `node scripts/<name>.ts` runs without a build.
-- Do not add runtime dependencies. Do not import Node.js built-in modules from a provider.
+- Don't add runtime dependencies. Don't import Node.js built-in modules from a provider.
 - Keep errors, warnings and `skipped` reasons free of credentials.
 - Add a test for each change. For a new read, record a fixture instead of writing one by hand.
 
@@ -54,7 +54,7 @@ To add a forge or an operation, read [Write a provider](https://forges.link/cont
 
 Commits follow [Conventional Commits](https://www.conventionalcommits.org). Releases are cut from the commit messages, so the type decides the version bump. Use the provider as the scope when a change concerns one forge:
 
-```
+```text
 feat(github): adopt asynchronous direct merges
 fix(gitlab): read nested group paths
 docs: explain webhook verification

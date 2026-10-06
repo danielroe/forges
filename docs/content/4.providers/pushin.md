@@ -4,7 +4,7 @@ description: "Use pushin.eu, a European git host: repositories, issues, pull req
 icon: i-lucide-send
 ---
 
-The pushin.eu provider covers [pushin.eu](https://pushin.eu), a European git host with an API modelled on GitHub's. The provider reads repositories, labels, collaborators, issues, pull requests, comments, and notifications. The API's [OpenAPI specification](https://pushin.eu/api/v1/openapi.json) documents its endpoints.
+The pushin.eu provider covers [pushin.eu](https://pushin.eu), a European git host with an API modelled on GitHub's. The provider reads repositories, labels, collaborators, issues, pull requests, comments and notifications. The API's [OpenAPI specification](https://pushin.eu/api/v1/openapi.json) documents its endpoints.
 
 | Detail | Value |
 | --- | --- |
@@ -13,7 +13,7 @@ The pushin.eu provider covers [pushin.eu](https://pushin.eu), a European git hos
 | Auth | `token`, `anonymous` |
 
 ::note
-The pushin.eu provider is experimental. Its tests use hand-written fixtures, and the forge's API can change. See [Capabilities](/concepts/capabilities).
+The pushin.eu provider is experimental. See [Capabilities](/concepts/capabilities).
 ::
 
 ## Authentication
@@ -65,8 +65,8 @@ The API has no hook endpoints and no documented signature scheme. `capabilities.
 ## Recording fixtures
 
 ```sh
-PUSHIN_TOKEN=... FIXTURE_PUSHIN_REPO=pjullrich/pushin pnpm \
-record-fixtures pushin
+PUSHIN_TOKEN=... FIXTURE_PUSHIN_REPO=pjullrich/pushin \
+pnpm record-fixtures pushin
 ```
 
 To choose the threads to record, set `FIXTURE_PUSHIN_ISSUE` and `FIXTURE_PUSHIN_PULL`. To record another deployment, set `PUSHIN_BASE_URL`. The recorder redacts `pun_pat_` tokens.

@@ -4,7 +4,7 @@ description: Use pull requests on Cursor Origin, including stacked pull requests
 icon: i-simple-icons-cursor
 ---
 
-The Cursor Origin provider covers pull requests on Origin, including stacked pull requests, with their comments, reviews, and check runs. It also covers repository contents and Origin App installations. Origin has no issues, discussions, releases, or notifications.
+The Cursor Origin provider covers pull requests on Origin, including stacked pull requests, with their comments, reviews and check runs. It also covers repository contents and Origin App installations. Origin has no issues, discussions, releases or notifications.
 
 | Detail | Value |
 | --- | --- |

@@ -4,7 +4,7 @@ description: "Use gitee.com through the Gitee Open API v5: issues, pull requests
 icon: i-simple-icons-gitee
 ---
 
-The Gitee provider covers gitee.com through the Gitee Open API v5. It reads and writes issues and pull requests. It also covers notifications, releases, repository contents, check runs, and repository webhooks. The provider doesn't cover the enterprise edition (`e.gitee.com`).
+The Gitee provider covers gitee.com through the Gitee Open API v5. It reads and writes issues and pull requests. It also covers notifications, releases, repository contents, check runs and repository webhooks. The provider doesn't cover the enterprise edition (`e.gitee.com`).
 
 | Detail | Value |
 | --- | --- |
@@ -38,7 +38,7 @@ The instance is `gitee.com`. `baseUrl` defaults to `https://gitee.com`, and the 
 
 Issue numbers are alphanumeric, such as `I8ABCD`. Pull request numbers are integers.
 
-A Gitee issue is `open`, `progressing`, `closed`, or `rejected`. The provider maps these states as follows:
+A Gitee issue is `open`, `progressing`, `closed` or `rejected`. The provider maps these states as follows:
 
 - `progressing` issues are open, so a listing of open issues includes them.
 - `rejected` issues are closed, with `stateReason: 'not_planned'`.

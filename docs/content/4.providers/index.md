@@ -1,7 +1,7 @@
 ---
 title: Providers
 navigation: false
-description: The forges that forges supports, with their import paths and factories.
+description: Every supported forge, with its import path and factories.
 icon: i-lucide-server
 ---
 

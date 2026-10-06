@@ -4,7 +4,7 @@ description: "Use github.com and GitHub Enterprise Server: issues, pull requests
 icon: i-simple-icons-github
 ---
 
-The GitHub provider covers github.com and GitHub Enterprise Server. It reads and writes issues, pull requests, discussions, and commit comments. It also covers notifications, Actions runs and jobs, checks, releases, security alerts, webhooks, and GitHub App installations.
+The GitHub provider covers github.com and GitHub Enterprise Server. It reads and writes issues, pull requests, discussions and commit comments. It also covers notifications, Actions runs and jobs, checks, releases, security alerts, webhooks and GitHub App installations.
 
 | Detail | Value |
 | --- | --- |
@@ -14,7 +14,7 @@ The GitHub provider covers github.com and GitHub Enterprise Server. It reads and
 
 ## Authentication
 
-The provider accepts a personal access token (classic or fine-grained), an OAuth token, or GitHub App credentials:
+The provider accepts a personal access token (classic or fine-grained), an OAuth token or GitHub App credentials:
 
 ```ts
 import { github } from 'forges/github'
@@ -62,7 +62,7 @@ If you don't pass `method`, `merge()` reads the repository's allowed merge metho
 
 `merge()` and `approveAndMerge()` request a direct merge through GitHub's asynchronous merge API, so neither adds the pull request to a merge queue. Both wait for the result, within the provider's `timeout` (30 seconds by default), and resolve once GitHub reports the pull request merged, including when it was already merged. Otherwise, they reject with one of these errors:
 
-- `MergeBlockedError` when GitHub refuses or fails the merge, for example for a draft, a failing required check, or a pull request already in a merge queue. When GitHub reports a failed merge, the error message is GitHub's description of the failure.
+- `MergeBlockedError` when GitHub refuses or fails the merge, for example for a draft, a failing required check or a pull request already in a merge queue. When GitHub reports a failed merge, the error message is GitHub's description of the failure.
 - `MergeConflictError` when GitHub responds with a conflict status that names no pending merge request.
 - `ForgeTimeoutError` when the merge is still pending after `timeout`. The message includes the merge request's UUID. GitHub can still complete the merge after this error, so read the pull request's state before you retry.
 
@@ -128,7 +128,7 @@ GitHub sends these headers with each delivery:
 GITHUB_TOKEN=ghp_... pnpm record-fixtures github
 ```
 
-To record different targets, set `FIXTURE_GITHUB_REPO`, `FIXTURE_GITHUB_PULL`, `FIXTURE_GITHUB_ISSUE`, `FIXTURE_GITHUB_DISCUSSION_REPO`, or `FIXTURE_GITHUB_DISCUSSION`. To record a GitHub Enterprise Server instance, set `GITHUB_BASE_URL`.
+To record different targets, set `FIXTURE_GITHUB_REPO`, `FIXTURE_GITHUB_PULL`, `FIXTURE_GITHUB_ISSUE`, `FIXTURE_GITHUB_DISCUSSION_REPO` or `FIXTURE_GITHUB_DISCUSSION`. To record a GitHub Enterprise Server instance, set `GITHUB_BASE_URL`.
 
 <!-- capabilities:start -->
 ## Capabilities

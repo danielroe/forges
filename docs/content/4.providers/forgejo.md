@@ -4,7 +4,7 @@ description: "Use Codeberg and self-hosted Forgejo instances: issues, pull reque
 icon: i-simple-icons-forgejo
 ---
 
-The Forgejo provider covers Codeberg and self-hosted Forgejo instances. It reads and writes issues and pull requests. It also covers notifications, commit statuses, releases, repository contents, and repository and organisation webhooks. The [Gitea](/providers/gitea) provider uses the same implementation.
+The Forgejo provider covers Codeberg and self-hosted Forgejo instances. It reads and writes issues and pull requests. It also covers notifications, commit statuses, releases, repository contents and repository and organisation webhooks. The [Gitea](/providers/gitea) provider uses the same implementation.
 
 | Detail | Value |
 | --- | --- |

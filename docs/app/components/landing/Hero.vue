@@ -62,7 +62,7 @@ async function copy() {
       </h1>
 
       <p class="mt-6 max-w-2xl text-pretty text-lg text-muted">
-        Issues, pull requests, notifications, checks and webhooks on GitHub, GitLab, Forgejo and seven more, through one typed data model.
+        Work with issues, pull requests, notifications, checks and webhooks on GitHub, GitLab, Forgejo and seven more forges through one typed data model.
       </p>
 
       <div class="mt-9 flex flex-wrap items-center justify-center gap-3">

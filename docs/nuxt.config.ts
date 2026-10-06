@@ -9,7 +9,6 @@ export default defineNuxtConfig({
   site: {
     name: 'forges',
     url,
-    description: 'One TypeScript API for issues, pull requests, notifications, checks and webhooks on every code forge.',
   },
   icon: {
     clientBundle: {

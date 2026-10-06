@@ -1,7 +1,6 @@
 // A variable, because Docus's generated config types omit `schema`.
 const seo = {
   title: 'forges',
-  description: 'One TypeScript API for issues, pull requests, notifications, checks and webhooks on GitHub, GitLab, Bitbucket, Forgejo, Gitea and more.',
   schema: {
     type: 'SoftwareApplication',
     applicationCategory: 'DeveloperApplication',
@@ -34,7 +33,7 @@ export default defineAppConfig({
       links: [
         {
           icon: 'i-simple-icons-github',
-          label: 'GitHub Repository',
+          label: 'GitHub repository',
           to: 'https://github.com/danielroe/forges',
           target: '_blank',
         },

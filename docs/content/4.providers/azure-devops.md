@@ -4,7 +4,7 @@ description: Use Azure Repos pull requests and Azure Boards work items on Azure 
 icon: i-simple-icons-azuredevops
 ---
 
-The Azure DevOps provider covers Azure Repos pull requests and Azure Boards work items, which it treats as issues. It also covers pull request statuses, branch policies, repository contents, and incoming service hook deliveries. It works with Azure DevOps Services and Azure DevOps Server through REST API version 7.1 (`AZURE_DEVOPS_API_VERSION`).
+The Azure DevOps provider covers Azure Repos pull requests and Azure Boards work items, which it treats as issues. It also covers pull request statuses, branch policies, repository contents and incoming service hook deliveries. It works with Azure DevOps Services and Azure DevOps Server through REST API version 7.1 (`AZURE_DEVOPS_API_VERSION`).
 
 | Detail | Value |
 | --- | --- |
