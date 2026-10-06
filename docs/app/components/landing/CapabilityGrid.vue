@@ -16,11 +16,14 @@ const rows: Array<{ verb: string, support: string }> = [
 
 const levels: Record<string, Support> = { Y: 'yes', E: 'experimental', M: 'emulated', N: 'no' }
 
-const legend: Array<{ level: Support, label: string }> = [
-  { level: 'yes', label: 'Native and verified' },
-  { level: 'experimental', label: 'Experimental' },
-  { level: 'no', label: 'Not available' },
-]
+const labels: Record<Support, string> = {
+  yes: 'Native and verified',
+  experimental: 'Experimental',
+  emulated: 'Emulated',
+  no: 'Not available',
+}
+
+const legend: Support[] = ['yes', 'experimental', 'no']
 </script>
 
 <template>
@@ -51,8 +54,10 @@ const legend: Array<{ level: Support, label: string }> = [
           >
             <span
               class="cell"
+              role="img"
               :data-level="levels[char]"
-              :title="`${forges[index]}: ${levels[char]}`"
+              :title="`${forges[index]}: ${labels[levels[char]!]}`"
+              :aria-label="`${forges[index]}: ${labels[levels[char]!]}`"
             />
           </div>
         </template>
@@ -61,15 +66,15 @@ const legend: Array<{ level: Support, label: string }> = [
 
     <ul class="mt-6 flex flex-wrap justify-center gap-x-6 gap-y-2 text-xs text-muted">
       <li
-        v-for="item of legend"
-        :key="item.level"
+        v-for="level of legend"
+        :key="level"
         class="inline-flex items-center gap-2"
       >
         <span
           class="cell"
-          :data-level="item.level"
+          :data-level="level"
         />
-        {{ item.label }}
+        {{ labels[level] }}
       </li>
     </ul>
   </div>

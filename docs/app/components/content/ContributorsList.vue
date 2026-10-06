@@ -42,7 +42,7 @@ const { data: contributors } = await useAsyncData('contributors', async () => {
       >
         <img
           :src="`${contributor.avatar_url}&s=96`"
-          :alt="`${contributor.login} avatar`"
+          alt=""
           width="40"
           height="40"
           loading="lazy"

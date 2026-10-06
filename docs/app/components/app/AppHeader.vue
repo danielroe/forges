@@ -13,7 +13,7 @@ const links = computed(() => [
         'icon': 'i-simple-icons-github',
         'to': appConfig.github.url,
         'target': '_blank',
-        'aria-label': 'GitHub',
+        'aria-label': 'forges on GitHub',
       }]
     : []),
   {

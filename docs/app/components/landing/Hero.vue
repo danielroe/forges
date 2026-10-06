@@ -86,6 +86,10 @@ async function copy() {
           <span class="text-muted">$</span>
           {{ command }}
         </UButton>
+        <span
+          class="sr-only"
+          aria-live="polite"
+        >{{ copied ? 'Copied to clipboard' : '' }}</span>
       </div>
 
       <div class="mt-16 flex flex-col items-center gap-3">
