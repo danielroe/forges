@@ -9,7 +9,7 @@ export interface InboxEnv {
   warnings: ForgeWarning[]
 }
 
-/** Builds providers from the `FORGES_*` scheme the README documents. */
+/** Builds providers from `FORGES_*` environment variables. */
 export function fromEnv(env: Record<string, string | undefined>): InboxEnv {
   const providers: ForgeProvider[] = []
   const repos: RepoRef[] = []

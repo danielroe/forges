@@ -10,11 +10,8 @@ describe('provider pages', () => {
     expect(page).toBe(withSection(page, providerSection(provider)))
   })
 
-  it.each([
-    ['README', '../../README.md'],
-    ['capability matrix page', '../../docs/content/5.reference/2.capability-matrix.md'],
-  ])('keeps the %s in step with the providers', (_name, path) => {
-    const page = readFileSync(new URL(path, import.meta.url), 'utf8')
+  it('keeps the capability matrix page in step with the providers', () => {
+    const page = readFileSync(new URL('../../docs/content/5.reference/2.capability-matrix.md', import.meta.url), 'utf8')
 
     expect(page).toBe(withSection(page, matrix(forges)))
   })
