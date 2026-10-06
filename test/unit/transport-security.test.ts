@@ -84,6 +84,55 @@ describe('transport security', () => {
     expect(fetch).toHaveBeenCalledTimes(2)
   })
 
+  describe('where fetch hides redirects', () => {
+    function browserFetch(final: string, status = 200) {
+      const fetch = vi.fn(async (url: string, init?: RequestInit) => {
+        if (init?.redirect === 'manual') {
+          const hidden = new Response(null, { status: 200 })
+          Object.defineProperties(hidden, { type: { value: 'opaqueredirect' }, status: { value: 0 } })
+          return hidden
+        }
+        const response = new Response('{"ok":true}', { status })
+        Object.defineProperties(response, { url: { value: final }, redirected: { value: final !== url } })
+        return response
+      })
+      return { fetcher: createFetcher({ baseUrl, authHeaders: () => ({ authorization: 'Bearer provider-secret' }), fetch }), fetch }
+    }
+
+    it('lets the runtime follow a same-origin redirect', async () => {
+      const { fetcher, fetch } = browserFetch('https://api.example/repositories/1')
+
+      await expect(fetcher.json('/repos/acme/old')).resolves.toMatchObject({ data: { ok: true } })
+      expect(fetch.mock.calls.map(([, init]) => init?.redirect)).toEqual(['manual', 'follow'])
+      expect(new Headers(fetch.mock.calls[1]![1]?.headers).get('authorization')).toBe('Bearer provider-secret')
+    })
+
+    it('rejects an API response that arrived from another origin', async () => {
+      const { fetcher } = browserFetch('https://service.example/items')
+
+      await expect(fetcher.json('/items')).rejects.toThrow('Unsafe request redirect')
+    })
+
+    it('accepts a download that arrived from another origin over HTTPS', async () => {
+      const { fetcher } = browserFetch('https://cdn.example/asset')
+
+      expect((await fetcher.stream('/asset')).status).toBe(200)
+    })
+
+    it('rejects a download that arrived over HTTP', async () => {
+      const { fetcher } = browserFetch('http://cdn.example/asset')
+
+      await expect(fetcher.stream('/asset')).rejects.toThrow('Unsafe request redirect')
+    })
+
+    it('does not send a request body again', async () => {
+      const { fetcher, fetch } = browserFetch('https://api.example/next')
+
+      await expect(fetcher.json('/items', { method: 'POST', json: { value: 1 } })).rejects.toThrow('Hidden redirect refused')
+      expect(fetch).toHaveBeenCalledTimes(1)
+    })
+  })
+
   it('rewrites a POST redirected with 303 to a GET without its body', async () => {
     const { fetcher, fetch } = recordingFetcher(url => url.includes('/v1/items') ? new Response(null, { status: 303, headers: { location: '/next' } }) : new Response('{}'))
     await fetcher.json('/items', { method: 'POST', json: { value: 1 } })

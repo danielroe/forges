@@ -68,6 +68,8 @@ export interface Fetcher {
    * Bytes as they arrive, through the same timeout and error mapping as
    * {@link Fetcher.json}. HTTP(S) download redirects to another origin omit
    * all headers and credentials. HTTPS downloads cannot redirect to HTTP.
+   * Where `fetch` hides redirects (browsers), the runtime follows GET and HEAD
+   * under its own header rules.
    */
   stream: (path: string, options?: RequestOptions) => Promise<RawResponse>
   json: <T>(path: string, options?: RequestOptions) => Promise<FetchResult<T>>
@@ -301,7 +303,7 @@ export function createFetcher(options: FetcherOptions): Fetcher {
     return target.toString()
   }
 
-  async function send(url: string, options_: RequestOptions, attempt: number, authenticated = true, download = false, redirects = 0, streaming = false): Promise<Response> {
+  async function send(url: string, options_: RequestOptions, attempt: number, authenticated = true, download = false, redirects = 0, streaming = false, follow = false): Promise<Response> {
     const target = assertUrl(new URL(url))
     const trusted = authenticated && target.origin === baseOrigin
     const controller = streaming ? new AbortController() : undefined
@@ -329,7 +331,7 @@ export function createFetcher(options: FetcherOptions): Fetcher {
     try {
       response = await doFetch(trusted ? withDefaultQuery(url) : url, {
         ...init,
-        redirect: 'manual',
+        redirect: follow ? 'follow' : 'manual',
         credentials: trusted ? init.credentials : 'omit',
         headers,
         body: payload === undefined ? init.body : JSON.stringify(payload),
@@ -359,7 +361,18 @@ export function createFetcher(options: FetcherOptions): Fetcher {
     }
 
     if (response.type === 'opaqueredirect' && options_.redirect !== 'manual') {
-      throw new TypeError('Hidden redirect refused')
+      const method = (options_.method ?? 'GET').toUpperCase()
+      if (options_.redirect === 'error' || (method !== 'GET' && method !== 'HEAD')) {
+        throw new TypeError('Hidden redirect refused')
+      }
+      return send(url, options_, attempt, authenticated, download, redirects, streaming, true)
+    }
+    if (follow && response.redirected && response.url) {
+      const final = assertUrl(new URL(response.url))
+      if ((final.origin !== target.origin && !download) || (target.protocol === 'https:' && final.protocol !== 'https:')) {
+        await response.body?.cancel()
+        throw new TypeError('Unsafe request redirect')
+      }
     }
     const location = REDIRECT_STATUSES.has(response.status) ? response.headers.get('location') : null
     if (location && options_.redirect !== 'manual') {
@@ -417,7 +430,7 @@ export function createFetcher(options: FetcherOptions): Fetcher {
       if (secondary && attempt === 0 && wait !== undefined && wait <= 60_000) {
         options.onRetry?.({ url, method: options_.method ?? 'GET', wait })
         await sleep(wait, options_.signal)
-        return send(url, options_, attempt + 1, authenticated, download, redirects, streaming)
+        return send(url, options_, attempt + 1, authenticated, download, redirects, streaming, follow)
       }
       throw new RateLimitedError('Rate limited by the forge', response.status, body, {
         ...context,

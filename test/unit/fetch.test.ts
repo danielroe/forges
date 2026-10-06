@@ -212,7 +212,7 @@ describe('streaming transport', () => {
     await expect(fetcher.stream('/releases/assets/9')).rejects.toMatchObject({ status: 410 })
   })
 
-  it('rejects a redirect hidden by the runtime', async () => {
+  it('lets the runtime follow a redirect it hides', async () => {
     const modes: Array<RequestRedirect | undefined> = []
     const fetcher = createFetcher({
       baseUrl: 'https://api.example',
@@ -225,8 +225,8 @@ describe('streaming transport', () => {
       },
     })
 
-    await expect(fetcher.stream('/releases/assets/9')).rejects.toThrow('Hidden redirect refused')
-    expect(modes).toEqual(['manual'])
+    expect(await new Response((await fetcher.stream('/releases/assets/9')).body).text()).toBe('asset')
+    expect(modes).toEqual(['manual', 'follow'])
   })
 
   it('answers `request()` with the stream when `raw` is set', async () => {
