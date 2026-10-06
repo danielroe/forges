@@ -7,6 +7,7 @@ export interface ForgeErrorContext {
   method?: string
 }
 
+/** Base class for every error that forges throws. */
 export class ForgeError extends Error {
   override name = 'ForgeError'
   readonly forge?: ForgeKind
@@ -23,6 +24,7 @@ export class ForgeError extends Error {
   }
 }
 
+/** The forge responded with an error. */
 export class ForgeApiError extends ForgeError {
   override name = 'ForgeApiError'
   readonly status: number
@@ -46,6 +48,7 @@ export class AuthenticationRequiredError extends ForgeApiError {
   override name = 'AuthenticationRequiredError'
 }
 
+/** A rate limit was hit and a retry didn't help. */
 export class RateLimitedError extends ForgeApiError {
   override name = 'RateLimitedError'
   readonly resetAt?: Date
@@ -65,6 +68,7 @@ export class RateLimitedError extends ForgeApiError {
   }
 }
 
+/** The credential was revoked or expired. */
 export class TokenRevokedError extends ForgeApiError {
   override name = 'TokenRevokedError'
 }
@@ -130,6 +134,7 @@ export class MergeConflictError extends ForgeApiError {
   override name = 'MergeConflictError'
 }
 
+/** A request or a pending merge exceeded `timeout`. */
 export class ForgeTimeoutError extends ForgeError {
   override name = 'ForgeTimeoutError'
   readonly timeout: number
@@ -156,10 +161,12 @@ export class ForgeNetworkError extends ForgeError {
   override name = 'ForgeNetworkError'
 }
 
+/** A delivery's signature didn't match. */
 export class WebhookVerificationError extends ForgeError {
   override name = 'WebhookVerificationError'
 }
 
+/** The forge doesn't support the operation. */
 export class UnsupportedOperationError extends ForgeError {
   override name = 'UnsupportedOperationError'
 }
