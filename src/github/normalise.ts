@@ -18,7 +18,6 @@ import type {
   Notification,
   NotificationReason,
   NotificationSubject,
-  ReactionContent,
   ReactionSummary,
   Release,
   Repo,
@@ -74,6 +73,7 @@ import type {
   GitHubWorkflowRun,
 } from './types.ts'
 import { reviewState } from '../events.ts'
+import { REACTION_CONTENTS } from '../model.ts'
 import { checkRunState, toDate, toFileStatus } from '../utils.ts'
 import { eventKindsOf } from '../webhooks.ts'
 import { GITHUB_NATIVE_EVENTS } from './webhook-events.ts'
@@ -177,13 +177,11 @@ export function toRepo(instance: string, raw: GitHubRepositoryDetail): Repo {
   }
 }
 
-const REACTIONS: ReactionContent[] = ['+1', '-1', 'laugh', 'confused', 'heart', 'hooray', 'rocket', 'eyes']
-
 export function toReactions(raw: GitHubReactions | undefined): ReactionSummary | undefined {
   if (!raw) {
     return undefined
   }
-  const counts = Object.fromEntries(REACTIONS.flatMap(name => raw[name] ? [[name, raw[name]!]] : []))
+  const counts = Object.fromEntries(REACTION_CONTENTS.flatMap(name => raw[name] ? [[name, raw[name]!]] : []))
   return { total: raw.total_count ?? Object.values(counts).reduce((sum, count) => sum + count, 0), counts }
 }
 

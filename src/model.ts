@@ -301,14 +301,14 @@ export interface LabelInput {
   description?: string
 }
 
+/** Every name {@link ReactionContent} covers. */
+export const REACTION_CONTENTS = ['+1', '-1', 'laugh', 'confused', 'heart', 'hooray', 'rocket', 'eyes'] as const
+
 /**
  * The reactions every forge with reactions has in common, named as GitHub
  * names them. A forge-native name with no entry here is not reported.
  */
-export type ReactionContent = '+1' | '-1' | 'laugh' | 'confused' | 'heart' | 'hooray' | 'rocket' | 'eyes'
-
-/** Every name {@link ReactionContent} covers. */
-export const REACTION_CONTENTS: readonly ReactionContent[] = ['+1', '-1', 'laugh', 'confused', 'heart', 'hooray', 'rocket', 'eyes']
+export type ReactionContent = (typeof REACTION_CONTENTS)[number]
 
 /** The normalised name for a forge-native reaction name, or `'other'` where there is none. */
 export function reactionContent(raw: string): ReactionContent | 'other' {
