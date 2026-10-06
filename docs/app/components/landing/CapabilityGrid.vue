@@ -1,20 +1,15 @@
 <script setup lang="ts">
+import providers from '#capabilities'
+
 type Support = 'yes' | 'experimental' | 'emulated' | 'no'
 
-const forges = ['GitHub', 'GitLab', 'Bitbucket', 'Forgejo', 'Gitea', 'Gitee', 'Azure DevOps', 'Cursor Origin', 'pushin.eu', 'Tangled']
-
-// Mirrors the capability matrix: Y native, E experimental, M emulated, N unsupported.
-const rows: Array<{ verb: string, support: string }> = [
-  { verb: 'writes.merge', support: 'YYYYYYYYNN' },
-  { verb: 'notifications.list', support: 'YYNYYYNNEE' },
-  { verb: 'releases.list', support: 'YYNYYYNNNN' },
-  { verb: 'checks.list', support: 'YYYYYEEENN' },
-  { verb: 'search.threads', support: 'YYEYYEENNN' },
-  { verb: 'webhooks.create', support: 'YEEEEENNNN' },
-  { verb: 'ci.runs', support: 'YYNNNNNNNN' },
-]
-
-const levels: Record<string, Support> = { Y: 'yes', E: 'experimental', M: 'emulated', N: 'no' }
+const rows = ['writes.merge', 'notifications.list', 'releases.list', 'checks.list', 'search.threads', 'webhooks.create', 'ci.runs'].map(capability => ({
+  capability,
+  levels: providers.map(({ capabilities }): Support => {
+    const value = capability.split('.').reduce<unknown>((entry, key) => (entry as Record<string, unknown>)[key], capabilities)
+    return value === true ? 'yes' : value || 'no'
+  }),
+}))
 
 const labels: Record<Support, string> = {
   yes: 'Native and verified',
@@ -30,34 +25,37 @@ const legend: Support[] = ['yes', 'experimental', 'no']
   <div>
     <div class="overflow-x-auto">
       <!-- Fixed column widths -->
-      <div class="mx-auto grid w-max grid-cols-[11rem_repeat(10,2.25rem)] items-center gap-y-1.5 pr-16">
+      <div
+        class="mx-auto grid w-max items-center gap-y-1.5 pr-16"
+        :style="{ gridTemplateColumns: `11rem repeat(${providers.length}, 2.25rem)` }"
+      >
         <div />
         <div
-          v-for="forge of forges"
-          :key="forge"
+          v-for="{ name } of providers"
+          :key="name"
           class="relative h-24"
         >
-          <span class="absolute bottom-0 left-1/2 origin-bottom-left -rotate-45 whitespace-nowrap font-mono text-xs text-muted">{{ forge }}</span>
+          <span class="absolute bottom-0 left-1/2 origin-bottom-left -rotate-45 whitespace-nowrap font-mono text-xs text-muted">{{ name }}</span>
         </div>
 
         <template
           v-for="row of rows"
-          :key="row.verb"
+          :key="row.capability"
         >
           <div class="font-mono text-xs text-highlighted">
-            {{ row.verb }}
+            {{ row.capability }}
           </div>
           <div
-            v-for="(char, index) of row.support"
+            v-for="(level, index) of row.levels"
             :key="index"
             class="flex justify-center"
           >
             <span
               class="cell"
               role="img"
-              :data-level="levels[char]"
-              :title="`${forges[index]}: ${labels[levels[char]!]}`"
-              :aria-label="`${forges[index]}: ${labels[levels[char]!]}`"
+              :data-level="level"
+              :title="`${providers[index]!.name}: ${labels[level]}`"
+              :aria-label="`${providers[index]!.name}: ${labels[level]}`"
             />
           </div>
         </template>
