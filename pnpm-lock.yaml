@@ -254,11 +254,17 @@ importers:
 
   docs:
     dependencies:
-      better-sqlite3:
-        specifier: ^12.11.1
-        version: 12.11.1
+      '@iconify-json/lucide':
+        specifier: 1.2.139
+        version: 1.2.139
+      '@iconify-json/simple-icons':
+        specifier: 1.2.98
+        version: 1.2.98
+      '@iconify-json/vscode-icons':
+        specifier: 1.2.84
+        version: 1.2.84
       docus:
-        specifier: latest
+        specifier: 5.13.0
         version: 5.13.0(ca31f592a37a12566b42073a9a6d5269)
       nuxt:
         specifier: ^4.4.8
@@ -268,13 +274,13 @@ importers:
     dependencies:
       forges:
         specifier: workspace:*
-        version: link:../../docs
+        version: link:../..
 
   examples/inbox-cli:
     dependencies:
       forges:
         specifier: workspace:*
-        version: link:../../docs
+        version: link:../..
     devDependencies:
       '@forges-examples/fixture-fetch':
         specifier: workspace:*
@@ -293,7 +299,7 @@ importers:
     dependencies:
       forges:
         specifier: workspace:*
-        version: link:../../docs
+        version: link:../..
     devDependencies:
       '@forges-examples/fixture-fetch':
         specifier: workspace:*
@@ -312,7 +318,7 @@ importers:
     dependencies:
       forges:
         specifier: workspace:*
-        version: link:../../docs
+        version: link:../..
     devDependencies:
       '@forges-examples/fixture-fetch':
         specifier: workspace:*
@@ -331,7 +337,7 @@ importers:
     dependencies:
       forges:
         specifier: workspace:*
-        version: link:../docs
+        version: link:..
       nuxt:
         specifier: npm:nuxt-nightly@5x
         version: nuxt-nightly@5.0.0-29852495.9beb9427(69717aaa54d7f2e01254a008c7e11243)
