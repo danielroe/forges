@@ -1,25 +1,22 @@
-// A variable, because Docus's generated config types omit `schema`.
-const seo = {
-  title: 'forges',
-  schema: {
-    type: 'SoftwareApplication',
-    applicationCategory: 'DeveloperApplication',
-    operatingSystem: 'Web',
-    price: 0,
-    priceCurrency: 'USD',
-    sameAs: [
-      'https://github.com/danielroe/forges',
-      'https://www.npmjs.com/package/forges',
-      'https://npmx.dev/package/forges',
-    ],
-  },
-}
-
 export default defineAppConfig({
   search: {
     fts: true,
   },
-  seo,
+  seo: {
+    title: 'forges',
+    schema: {
+      type: 'SoftwareApplication',
+      applicationCategory: 'DeveloperApplication',
+      operatingSystem: 'Web',
+      price: 0,
+      priceCurrency: 'USD',
+      sameAs: [
+        'https://github.com/danielroe/forges',
+        'https://www.npmjs.com/package/forges',
+        'https://npmx.dev/package/forges',
+      ],
+    },
+  },
   header: {
     title: 'forges',
   },

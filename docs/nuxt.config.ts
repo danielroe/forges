@@ -6,6 +6,11 @@ const url = previewUrl ?? 'https://forges.link'
 
 export default defineNuxtConfig({
   extends: ['docus'],
+  docus: {
+    assistant: {
+      enabled: false,
+    },
+  },
   site: {
     name: 'forges',
     url,
@@ -24,9 +29,6 @@ export default defineNuxtConfig({
         'vscode-icons:file-type-yarn',
       ],
     },
-  },
-  llms: {
-    domain: url,
   },
   runtimeConfig: {
     // Server-only token for listing contributors of a private repository.
