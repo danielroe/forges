@@ -1,0 +1,13 @@
+{
+  "name": "forges-docs",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt dev",
+    "build": "nuxt build"
+  },
+  "dependencies": {
+    "better-sqlite3": "^12.11.1",
+    "docus": "latest",
+    "nuxt": "^4.4.8"
+  }
+}

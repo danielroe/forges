@@ -7,6 +7,7 @@ trustPolicyExclude:
 shellEmulator: true
 
 packages:
+  - docs
   - playground
   - examples/*
 
@@ -14,5 +15,7 @@ overrides:
   forges: 'workspace:*'
 
 allowBuilds:
+  better-sqlite3: false
   esbuild: false
   simple-git-hooks: true
+  vue-demi: false

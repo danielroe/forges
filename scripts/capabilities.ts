@@ -1,7 +1,7 @@
 import type * as Forges from '../src/index.ts'
 import { CAPABILITY_TABLE } from '../src/capability-table.ts'
 
-/** Providers as the matrix and provider pages show them, keyed by their `docs/providers/<slug>.md` page. */
+/** Providers as the matrix and provider pages show them, keyed by their `docs/content/4.providers/<slug>.md` page. */
 export function matrixProviders(forges: typeof Forges): Array<{ slug: string, name: string, provider: Forges.ForgeProvider }> {
   const { azureDevOps, bitbucket, cursorOrigin, forgejo, gitea, gitee, github, gitlab, pushin, tangled } = forges
   const auth = { type: 'token', token: 'token' } as const

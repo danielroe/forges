@@ -204,16 +204,16 @@ The GitHub column assumes app auth with an installation. With a token, `installa
 
 | Forge | Import | Factories |
 | --- | --- | --- |
-| [GitHub and GitHub Enterprise Server](./docs/providers/github.md) | `forges/github` | `github`, `githubLite` |
-| [GitLab](./docs/providers/gitlab.md) | `forges/gitlab` | `gitlab`, `gitlabLite` |
-| [Bitbucket Cloud](./docs/providers/bitbucket.md) | `forges/bitbucket` | `bitbucket`, `bitbucketLite` |
-| [Forgejo and Codeberg](./docs/providers/forgejo.md) | `forges/forgejo` | `forgejo`, `forgejoLite` |
-| [Gitea](./docs/providers/gitea.md) | `forges/gitea` | `gitea`, `giteaLite` |
-| [Gitee](./docs/providers/gitee.md) | `forges/gitee` | `gitee`, `giteeLite` |
-| [Azure DevOps](./docs/providers/azure-devops.md) | `forges/azure-devops` | `azureDevOps`, `azureDevOpsLite` |
-| [Cursor Origin](./docs/providers/cursor-origin.md) | `forges/cursor-origin` | `cursorOrigin`, `cursorOriginLite` |
-| [Tangled](./docs/providers/tangled.md) | `forges/tangled` | `tangled`, `tangledLite` |
-| [pushin.eu](./docs/providers/pushin.md) | `forges/pushin` | `pushin` |
+| [GitHub and GitHub Enterprise Server](./docs/content/4.providers/github.md) | `forges/github` | `github`, `githubLite` |
+| [GitLab](./docs/content/4.providers/gitlab.md) | `forges/gitlab` | `gitlab`, `gitlabLite` |
+| [Bitbucket Cloud](./docs/content/4.providers/bitbucket.md) | `forges/bitbucket` | `bitbucket`, `bitbucketLite` |
+| [Forgejo and Codeberg](./docs/content/4.providers/forgejo.md) | `forges/forgejo` | `forgejo`, `forgejoLite` |
+| [Gitea](./docs/content/4.providers/gitea.md) | `forges/gitea` | `gitea`, `giteaLite` |
+| [Gitee](./docs/content/4.providers/gitee.md) | `forges/gitee` | `gitee`, `giteeLite` |
+| [Azure DevOps](./docs/content/4.providers/azure-devops.md) | `forges/azure-devops` | `azureDevOps`, `azureDevOpsLite` |
+| [Cursor Origin](./docs/content/4.providers/cursor-origin.md) | `forges/cursor-origin` | `cursorOrigin`, `cursorOriginLite` |
+| [Tangled](./docs/content/4.providers/tangled.md) | `forges/tangled` | `tangled`, `tangledLite` |
+| [pushin.eu](./docs/content/4.providers/pushin.md) | `forges/pushin` | `pushin` |
 
 Each provider page covers authentication, the instance URL, behaviour specific to that forge, webhook verification, and the full capability list.
 
@@ -249,7 +249,7 @@ const forge = githubLite({ auth: { type: 'token', token: userAccessToken } }).cr
 
 In this example, `userAccessToken` is a token that your app obtained for the signed-in user, for example through GitHub's OAuth flow.
 
-On a Lite provider, `capabilities.sources.webhook` is `false`, and `webhooks.verify()` and `webhooks.ingest()` reject. `forges/github` loads its GraphQL documents as a separate chunk on first use. [Browser bundles](./docs/bundling.md) lists the bundle sizes and explains how CI enforces them.
+On a Lite provider, `capabilities.sources.webhook` is `false`, and `webhooks.verify()` and `webhooks.ingest()` reject. `forges/github` loads its GraphQL documents as a separate chunk on first use. [Browser bundles](./docs/content/2.guides/8.bundling.md) lists the bundle sizes and explains how CI enforces them.
 
 ## Configuring providers from the environment
 

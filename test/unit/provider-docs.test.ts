@@ -5,14 +5,17 @@ import * as forges from '../../src/index.ts'
 
 describe('provider pages', () => {
   it.each(matrixProviders(forges))('keeps the $name capability section in step with the provider', ({ slug, provider }) => {
-    const page = readFileSync(new URL(`../../docs/providers/${slug}.md`, import.meta.url), 'utf8')
+    const page = readFileSync(new URL(`../../docs/content/4.providers/${slug}.md`, import.meta.url), 'utf8')
 
     expect(page).toBe(withSection(page, providerSection(provider)))
   })
 
-  it('keeps the README capability matrix in step with the providers', () => {
-    const readme = readFileSync(new URL('../../README.md', import.meta.url), 'utf8')
+  it.each([
+    ['README', '../../README.md'],
+    ['capability matrix page', '../../docs/content/5.reference/2.capability-matrix.md'],
+  ])('keeps the %s in step with the providers', (_name, path) => {
+    const page = readFileSync(new URL(path, import.meta.url), 'utf8')
 
-    expect(readme).toBe(withSection(readme, matrix(forges)))
+    expect(page).toBe(withSection(page, matrix(forges)))
   })
 })

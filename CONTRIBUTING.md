@@ -1,0 +1,81 @@
+# Contributing
+
+Thanks for helping with `forges`. This page covers how to set up the repository, the checks a change has to pass, and the rules that keep the providers consistent. The same content is in the [documentation](https://forges.link/contributing/guidelines).
+
+By taking part, you agree to the [Code of Conduct](./CODE_OF_CONDUCT.md).
+
+## Set up
+
+You need Node.js 22.18 or later and [pnpm](https://pnpm.io). The repository pins the versions it develops with in `devEngines`.
+
+```sh
+pnpm install
+pnpm test:unit
+```
+
+## Commands
+
+| Command | What it does |
+| --- | --- |
+| `pnpm dev` | Runs the unit tests in watch mode |
+| `pnpm test:unit` | Runs the unit tests once |
+| `pnpm test:types` | Type-checks `src`, `test` and `scripts` |
+| `pnpm test:capabilities` | Fails for a capability that a provider declares `true` and no test called |
+| `pnpm test:knip` | Finds unused files, exports and dependencies |
+| `pnpm test:size` | Checks the browser bundle budgets. Run `pnpm build` first |
+| `pnpm lint`, `pnpm lint:fix` | Lints, and fixes what it can |
+| `pnpm capability-matrix` | Regenerates the capability tables in the README and the docs |
+| `pnpm record-fixtures <forge>` | Records responses from a live forge |
+| `pnpm check:all` | Runs lint, tests, the engines check and the size check |
+
+## Project layout
+
+| Path | Content |
+| --- | --- |
+| `src/<forge>/` | One provider each: its factory, normalisation and webhook handling |
+| `src/model.ts`, `src/provider.ts`, `src/define.ts` | The shared model, the provider interface and `defineForgeProvider()` |
+| `src/fake/`, `src/testing/` | The in-memory forge and the test helpers |
+| `test/` | Unit tests, recorded fixtures and the shared recording steps |
+| `examples/` | Small, tested projects that use the library |
+| `docs/` | The documentation site |
+
+## Rules
+
+- Declare a capability `true` only when a test calls it. Use `'experimental'` for anything that is not verified against a recording of the live forge.
+- After you change a provider's capabilities, run `pnpm capability-matrix`. A test fails if the README or the docs are out of date.
+- Import source files with the `.ts` extension, so that `node scripts/<name>.ts` runs without a build.
+- Do not add runtime dependencies. Do not import Node.js built-in modules from a provider.
+- Keep errors, warnings and `skipped` reasons free of credentials.
+- Add a test for each change. For a new read, record a fixture instead of writing one by hand.
+
+To add a forge or an operation, read [Write a provider](https://forges.link/contributing/write-a-provider) and [Record fixtures](https://forges.link/contributing/record-fixtures).
+
+## Commit messages
+
+Commits follow [Conventional Commits](https://www.conventionalcommits.org). Releases are cut from the commit messages, so the type decides the version bump. Use the provider as the scope when a change concerns one forge:
+
+```
+feat(github): adopt asynchronous direct merges
+fix(gitlab): read nested group paths
+docs: explain webhook verification
+```
+
+Use the same format for the title of a pull request.
+
+## Pull requests
+
+- Keep a pull request to one change.
+- Run `pnpm check:all` before you push. CI runs the same checks.
+- Describe what changed and why. Link the issue it closes.
+
+## Writing documentation
+
+The documentation lives in `docs/content`. Write short sentences in the second person, and prefer a code example to a long explanation. Avoid em-dashes and filler words. Run the site locally with:
+
+```sh
+pnpm --filter forges-docs dev
+```
+
+## Reporting a problem
+
+Open an [issue](https://github.com/danielroe/forges/issues) with steps to reproduce. For a forge-specific bug, name the forge and, for a self-hosted forge, its version.
