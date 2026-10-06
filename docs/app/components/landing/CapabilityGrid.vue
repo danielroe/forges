@@ -1,24 +1,8 @@
 <script setup lang="ts">
-import providers from '#capabilities'
+import { groups, providers } from '#capabilities'
 
-type Support = 'yes' | 'experimental' | 'emulated' | 'no'
-
-const rows = ['writes.merge', 'notifications.list', 'releases.list', 'checks.list', 'search.threads', 'webhooks.create', 'ci.runs'].map(capability => ({
-  capability,
-  levels: providers.map(({ capabilities }): Support => {
-    const value = capability.split('.').reduce<unknown>((entry, key) => (entry as Record<string, unknown>)[key], capabilities)
-    return value === true ? 'yes' : value || 'no'
-  }),
-}))
-
-const labels: Record<Support, string> = {
-  yes: 'Native and verified',
-  experimental: 'Experimental',
-  emulated: 'Emulated',
-  no: 'Not available',
-}
-
-const legend: Support[] = ['yes', 'experimental', 'no']
+const featured = ['writes.merge', 'notifications.list', 'releases.list', 'checks.list', 'search.threads', 'webhooks.create', 'ci.runs']
+const rows = groups.flatMap(group => group.rows).filter(row => featured.includes(row.capability))
 </script>
 
 <template>
@@ -46,61 +30,26 @@ const legend: Support[] = ['yes', 'experimental', 'no']
             {{ row.capability }}
           </div>
           <div
-            v-for="(level, index) of row.levels"
+            v-for="(cell, index) of row.cells"
             :key="index"
             class="flex justify-center"
           >
             <span
-              class="cell"
               role="img"
-              :data-level="level"
-              :title="`${providers[index]!.name}: ${labels[level]}`"
-              :aria-label="`${providers[index]!.name}: ${labels[level]}`"
-            />
+              class="inline-flex"
+              :title="`${providers[index]!.name}: ${supportLabels[cell.level]}`"
+              :aria-label="`${providers[index]!.name}: ${supportLabels[cell.level]}`"
+            >
+              <CapabilityCell :level="cell.level" />
+            </span>
           </div>
         </template>
       </div>
     </div>
 
-    <ul class="mt-6 flex flex-wrap justify-center gap-x-6 gap-y-2 text-xs text-muted">
-      <li
-        v-for="level of legend"
-        :key="level"
-        class="inline-flex items-center gap-2"
-      >
-        <span
-          class="cell"
-          :data-level="level"
-        />
-        {{ labels[level] }}
-      </li>
-    </ul>
+    <CapabilityLegend
+      :levels="['native', 'experimental', 'none']"
+      class="mt-6 [&>ul]:justify-center"
+    />
   </div>
 </template>
-
-<style scoped>
-.cell {
-  display: inline-block;
-  width: 1.125rem;
-  height: 1.125rem;
-}
-
-.cell[data-level='yes'] {
-  background: var(--ui-primary);
-}
-
-.cell[data-level='experimental'] {
-  background: repeating-linear-gradient(135deg, var(--ui-primary) 0 2px, transparent 2px 4px);
-  outline: 1px solid color-mix(in oklab, var(--ui-primary) 55%, transparent);
-  outline-offset: -1px;
-}
-
-.cell[data-level='emulated'] {
-  background: color-mix(in oklab, var(--ui-primary) 45%, transparent);
-}
-
-.cell[data-level='no'] {
-  background: var(--ui-bg-accented);
-  opacity: 0.55;
-}
-</style>

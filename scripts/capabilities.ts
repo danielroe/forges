@@ -2,40 +2,67 @@ import type * as Forges from '../src/index.ts'
 import { CAPABILITY_TABLE } from '../src/capability-table.ts'
 
 /** Providers as the matrix and provider pages show them, keyed by their `docs/content/4.providers/<slug>.md` page. */
-export function matrixProviders(forges: typeof Forges): Array<{ slug: string, name: string, provider: Forges.ForgeProvider }> {
+export function matrixProviders(forges: typeof Forges): Array<{ slug: string, name: string, factories: string[], provider: Forges.ForgeProvider }> {
   const { azureDevOps, bitbucket, cursorOrigin, forgejo, gitea, gitee, github, gitlab, pushin, tangled } = forges
   const auth = { type: 'token', token: 'token' } as const
+  const entry = <O>(slug: string, name: string, factory: (options: O) => Forges.ForgeProviderFactory, options: O) => {
+    const exported = Object.keys(forges).find(key => (forges as Record<string, unknown>)[key] === factory)!
+    return { slug, name, factories: [exported, `${exported}Lite`].filter(key => key in forges), provider: factory(options).create() }
+  }
   return [
-    { slug: 'github', name: 'GitHub', provider: github({ auth: { type: 'app', appId: 1, privateKey: '', installationId: 1 } }).create() },
-    { slug: 'gitlab', name: 'GitLab', provider: gitlab({ auth }).create() },
-    { slug: 'bitbucket', name: 'Bitbucket', provider: bitbucket({ auth }).create() },
-    { slug: 'forgejo', name: 'Forgejo', provider: forgejo({ auth }).create() },
-    { slug: 'gitea', name: 'Gitea', provider: gitea({ auth }).create() },
-    { slug: 'gitee', name: 'Gitee', provider: gitee({ auth }).create() },
-    { slug: 'azure-devops', name: 'Azure DevOps', provider: azureDevOps({ auth, organization: 'acme' }).create() },
-    { slug: 'cursor-origin', name: 'Cursor Origin', provider: cursorOrigin({ auth }).create() },
-    { slug: 'pushin', name: 'pushin.eu', provider: pushin({ auth }).create() },
-    { slug: 'tangled', name: 'Tangled', provider: tangled({ auth: { type: 'app_password', identifier: 'handle', password: 'password' }, notificationsUrl: 'https://notifications.example' }).create() },
+    entry('github', 'GitHub', github, { auth: { type: 'app', appId: 1, privateKey: '', installationId: 1 } }),
+    entry('gitlab', 'GitLab', gitlab, { auth }),
+    entry('bitbucket', 'Bitbucket', bitbucket, { auth }),
+    entry('forgejo', 'Forgejo', forgejo, { auth }),
+    entry('gitea', 'Gitea', gitea, { auth }),
+    entry('gitee', 'Gitee', gitee, { auth }),
+    entry('azure-devops', 'Azure DevOps', azureDevOps, { auth, organization: 'acme' }),
+    entry('cursor-origin', 'Cursor Origin', cursorOrigin, { auth }),
+    entry('pushin', 'pushin.eu', pushin, { auth }),
+    entry('tangled', 'Tangled', tangled, { auth: { type: 'app_password', identifier: 'handle', password: 'password' }, notificationsUrl: 'https://notifications.example' }),
   ]
 }
 
 const KINDS: Record<string, string> = { issue: 'issue', pull_request: 'PR', discussion: 'discussion', commit: 'commit', dependency: 'dependency', code_scanning: 'code scanning', secret: 'secret', advisory: 'advisory' }
 
+/** How far a provider supports a capability, as the docs show it. */
+export type SupportLevel = 'native' | 'experimental' | 'emulated' | 'none'
+
+export interface SupportCell {
+  level: SupportLevel
+  /** Support per thread or alert kind, for capabilities declared per kind. */
+  kinds?: Array<{ kind: string, label: string, level: SupportLevel }>
+}
+
+const LEVEL_RANK: SupportLevel[] = ['native', 'experimental', 'emulated', 'none']
+
+function levelOf(value: unknown): SupportLevel {
+  return value === true ? 'native' : value === 'experimental' || value === 'emulated' ? value : 'none'
+}
+
+/** A capability value as a level, with the level of each kind for per-kind values. */
+export function supportCell(value: unknown): SupportCell {
+  if (!value || typeof value !== 'object') {
+    return { level: levelOf(value) }
+  }
+  const kinds = Object.entries(value).map(([kind, support]) => ({ kind, label: KINDS[kind] ?? kind, level: levelOf(support) }))
+  const level = LEVEL_RANK.find(rank => kinds.some(kind => kind.level === rank)) ?? 'none'
+  return { level, kinds }
+}
+
 function cell(value: unknown): string {
-  if (value === true) {
-    return '✅'
-  }
-  if (value === false || value === undefined) {
-    return '❌'
-  }
   if (Array.isArray(value)) {
     return value.map(item => `\`${item}\``).join(', ')
   }
-  if (typeof value === 'object' && value) {
-    const entries = Object.entries(value).filter(([, support]) => support)
-    return entries.map(([kind, support]) => support === true ? KINDS[kind] : `${KINDS[kind]} (${support})`).join(', ') || '❌'
+  if (typeof value === 'string' && value !== 'experimental' && value !== 'emulated') {
+    return value
   }
-  return String(value)
+  const { level, kinds } = supportCell(value)
+  if (!kinds) {
+    return level === 'native' ? '✅' : level === 'none' ? '❌' : level
+  }
+  const supported = kinds.filter(kind => kind.level !== 'none')
+  return supported.map(({ label, level }) => level === 'native' ? label : `${label} (${level})`).join(', ') || '❌'
 }
 
 function at(capabilities: Forges.ForgeCapabilities, path: string): unknown {
@@ -52,38 +79,108 @@ const rows: Array<[string, (capabilities: Forges.ForgeCapabilities) => unknown]>
       : (c: Forges.ForgeCapabilities) => at(c, entry.capability),
   ])
 
+const META = new Set(['experimental', 'eventKinds', 'auth', 'limits'])
+
+export interface CapabilityRow {
+  /** Path on `ForgeCapabilities`, such as `threads.list`. */
+  capability: string
+  /** Verbs on `ForgeProvider` the capability covers. */
+  verbs: readonly string[]
+  write: boolean
+  account: boolean
+  /** One cell per provider, in `matrixProviders()` order. */
+  cells: SupportCell[]
+}
+
+export interface CapabilityGroup {
+  /** The first segment of each capability path in the group. */
+  name: string
+  rows: CapabilityRow[]
+}
+
+export interface CapabilityProvider {
+  slug: string
+  name: string
+  /** The subpath the provider is imported from. */
+  import: string
+  factories: string[]
+  experimental: boolean
+  auth: string[]
+  eventKinds: string
+  limits?: Record<string, number>
+  /** How many capabilities have each level. Per-kind capabilities count at their best level. */
+  summary: Record<SupportLevel, number>
+}
+
+/** The capability matrix as structured data, grouped by namespace. */
+export function capabilityData(forges: typeof Forges): { providers: CapabilityProvider[], groups: CapabilityGroup[] } {
+  const entries = matrixProviders(forges)
+  const groups: CapabilityGroup[] = []
+  for (const entry of CAPABILITY_TABLE) {
+    if (entry.alias || META.has(entry.capability)) {
+      continue
+    }
+    const name = entry.capability.split('.')[0]!
+    let group = groups.find(group => group.name === name)
+    if (!group) {
+      group = { name, rows: [] }
+      groups.push(group)
+    }
+    group.rows.push({
+      capability: entry.capability,
+      verbs: entry.verbs ?? [],
+      write: !!entry.write,
+      account: !!entry.account,
+      cells: entries.map(({ provider }) => supportCell(at(provider.capabilities, entry.capability))),
+    })
+  }
+  const providers = entries.map(({ slug, name, factories, provider: { capabilities } }, index) => {
+    const summary: Record<SupportLevel, number> = { native: 0, experimental: 0, emulated: 0, none: 0 }
+    for (const row of groups.flatMap(group => group.rows)) {
+      summary[row.cells[index]!.level]++
+    }
+    return { slug, name, import: `forges/${slug}`, factories, experimental: !!capabilities.experimental, auth: [...capabilities.auth], eventKinds: capabilities.eventKinds, ...capabilities.limits ? { limits: { ...capabilities.limits } } : {}, summary }
+  })
+  return { providers, groups }
+}
+
+const GENERATED = '<!-- Generated by `pnpm capability-matrix`; do not edit by hand. -->'
+
 /** The capability matrix across every provider, as a Markdown table. */
 export function matrix(forges: typeof Forges): string {
   const providers = matrixProviders(forges)
   return [
+    GENERATED,
+    '::capability-matrix',
     `| Capability | ${providers.map(({ name }) => name).join(' | ')} |`,
     `| --- | ${providers.map(() => '---').join(' | ')} |`,
     ...rows.map(([name, read]) => `| \`${name}\` | ${providers.map(({ provider }) => cell(read(provider.capabilities))).join(' | ')} |`),
+    '::',
   ].join('\n')
 }
 
-const START = '<!-- capabilities:start -->'
-const END = '<!-- capabilities:end -->'
+/** Every provider, as the generated section of the providers index page. */
+export function providerIndex(forges: typeof Forges): string {
+  return [
+    GENERATED,
+    '::provider-grid',
+    '| Forge | Import | Factories |',
+    '| --- | --- | --- |',
+    ...matrixProviders(forges).map(({ slug, name, factories }) => `| [${name}](/providers/${slug}) | \`forges/${slug}\` | ${factories.map(factory => `\`${factory}()\``).join(', ')} |`),
+    '::',
+  ].join('\n')
+}
 
 /** One provider's capabilities, as the generated section of its page. */
-export function providerSection(provider: Forges.ForgeProvider): string {
+export function providerSection(slug: string, provider: Forges.ForgeProvider): string {
   return [
     '## Capabilities',
     '',
-    'Generated by `pnpm capability-matrix`; do not edit by hand.',
-    '',
+    GENERATED,
+    `::provider-capabilities{provider="${slug}"}`,
     '| Capability | Support |',
     '| --- | --- |',
     ...rows.map(([name, read]) => `| \`${name}\` | ${cell(read(provider.capabilities))} |`),
+    '::',
   ].join('\n')
-}
-
-/** Replaces the text between the capability markers of a Markdown page. */
-export function withSection(page: string, section: string): string {
-  const start = page.indexOf(START)
-  const end = page.indexOf(END)
-  if (start < 0 || end < start) {
-    throw new Error('Page has no capability markers')
-  }
-  return `${page.slice(0, start + START.length)}\n${section}\n${page.slice(end)}`
 }

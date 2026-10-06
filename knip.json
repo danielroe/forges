@@ -4,7 +4,7 @@
   "ignoreWorkspaces": ["docs", "playground"],
   "workspaces": {
     ".": {
-      "entry": ["scripts/*.ts", "test/**/*.test.ts"],
+      "entry": ["scripts/*.ts", "scripts/sections/*.ts", "test/**/*.test.ts"],
       "project": ["src/**/*.ts", "scripts/**/*.ts", "test/**/*.ts"]
     }
   }

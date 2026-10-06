@@ -1,18 +1,24 @@
 import { readFileSync } from 'node:fs'
 import { describe, expect, it } from 'vitest'
-import { matrix, matrixProviders, providerSection, withSection } from '../../scripts/capabilities.ts'
+import { capabilityData } from '../../scripts/capabilities.ts'
+import { docsSections, withSection } from '../../scripts/docs-sections.ts'
 import * as forges from '../../src/index.ts'
 
-describe('provider pages', () => {
-  it.each(matrixProviders(forges))('keeps the $name capability section in step with the provider', ({ slug, provider }) => {
-    const page = readFileSync(new URL(`../../docs/content/4.providers/${slug}.md`, import.meta.url), 'utf8')
+const sections = await docsSections()
 
-    expect(page).toBe(withSection(page, providerSection(provider)))
+describe('generated docs', () => {
+  it.each(sections)('keeps the $marker section of $page in step with the source', (section) => {
+    const page = readFileSync(new URL(`../../docs/content/${section.page}`, import.meta.url), 'utf8')
+
+    expect(page).toBe(withSection(page, section))
   })
 
-  it('keeps the capability matrix page in step with the providers', () => {
-    const page = readFileSync(new URL('../../docs/content/5.reference/2.capability-matrix.md', import.meta.url), 'utf8')
+  it('gives the structured matrix one cell per provider in every row', () => {
+    const { providers, groups } = capabilityData(forges)
+    const rows = groups.flatMap(group => group.rows)
 
-    expect(page).toBe(withSection(page, matrix(forges)))
+    expect(new Set(groups.map(group => group.name)).size).toBe(groups.length)
+    expect(rows.every(row => row.cells.length === providers.length)).toBe(true)
+    expect(providers.every(({ summary }) => Object.values(summary).reduce((total, count) => total + count) === rows.length)).toBe(true)
   })
 })

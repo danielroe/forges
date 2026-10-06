@@ -6,3 +6,54 @@
 .dark {
   --ui-primary: var(--ui-color-primary-400);
 }
+
+/* Matrices put each row header on its own line on narrow screens, so every column fits without scrolling. */
+@media (width < 64rem) {
+  .interlaced-matrix,
+  .interlaced-matrix :is(thead, tbody, tfoot) {
+    display: block;
+  }
+
+  .interlaced-matrix colgroup {
+    display: none;
+  }
+
+  .interlaced-matrix tr {
+    display: grid;
+    grid-template-columns: repeat(var(--matrix-columns), minmax(0, 1fr));
+  }
+
+  .interlaced-matrix tr > :first-child {
+    grid-column: 1 / -1;
+  }
+}
+
+/* Capability support levels. */
+.capability-cell {
+  display: inline-grid;
+  flex: none;
+  width: var(--capability-cell-size, 1.125rem);
+  height: var(--capability-cell-size, 1.125rem);
+}
+
+.capability-kinds {
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1px;
+}
+
+.capability-swatch[data-level='native'] {
+  background: var(--ui-primary);
+}
+
+.capability-swatch[data-level='experimental'] {
+  background: repeating-linear-gradient(135deg, var(--ui-primary) 0 1.5px, transparent 1.5px 3.5px);
+  box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--ui-primary) 55%, transparent);
+}
+
+.capability-swatch[data-level='emulated'] {
+  background: color-mix(in oklab, var(--ui-primary) 40%, transparent);
+}
+
+.capability-swatch[data-level='none'] {
+  background: color-mix(in oklab, var(--ui-bg-accented) 55%, transparent);
+}
