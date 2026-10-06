@@ -129,7 +129,7 @@
     "pre-commit": "pnpm nano-staged"
   },
   "nano-staged": {
-    "*.{js,ts,mjs,cjs,json,yml,yaml,md,.*rc}": [
+    "*.{js,ts,mjs,cjs,vue,json,yml,yaml,md,.*rc}": [
       "pnpm eslint --fix"
     ]
   }

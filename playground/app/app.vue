@@ -153,7 +153,6 @@ FORGES_TANGLED_DEMO_REPO=did:plc:.../repo   # threads to show where there are no
         </li>
       </ul>
     </article>
-
   </main>
 </template>
 
