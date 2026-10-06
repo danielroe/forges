@@ -472,6 +472,17 @@ describe('github contents', () => {
     expect(page.warnings?.[0]?.code).toBe('tree_truncated')
   })
 
+  it('lists the default branch tree without reading the repository', async () => {
+    const { fetch, calls } = fixtureFetch('github', {
+      'GET https://api.github.com/repos/acme/widgets/git/trees/HEAD%3Asrc': { status: 200, body: { sha: 't1', tree: [], truncated: false } },
+    })
+    const provider = github({ auth: { type: 'token', token: 't' }, fetch }).create()
+
+    await provider.contents.treePage(repo, { path: 'src' })
+
+    expect(calls.map(call => call.url)).toEqual(['https://api.github.com/repos/acme/widgets/git/trees/HEAD%3Asrc'])
+  })
+
   it('reads branches, tags, commits and a comparison', async () => {
     const { provider } = tokenProvider()
 

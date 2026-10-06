@@ -944,7 +944,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
   }
 
   async function treePage(repo: RepoRef, treeOptions: TreeOptions = {}): Promise<Page<TreeEntry>> {
-    const ref = treeOptions.ref ?? (await fetcher.json<GitHubRepositoryDetail>(repoPath(repo))).data.default_branch ?? 'HEAD'
+    const ref = treeOptions.ref ?? 'HEAD'
     const target = treeOptions.path ? `${ref}:${treeOptions.path.replace(/^\/|\/$/g, '')}` : ref
     const { data, response } = await fetcher.json<GitHubTree>(`${repoPath(repo)}/git/trees/${encodeURIComponent(target)}`, {
       query: treeOptions.recursive ? { recursive: '1' } : {},
