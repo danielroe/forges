@@ -40,7 +40,7 @@ const app = github({
 
 For app auth, `privateKey` is the app's PEM key, in PKCS#1 or PKCS#8 format. With `installationId`, the provider mints and caches installation tokens as it needs them. Without `installationId`, the provider authenticates as the app itself. In that case, `installations.list()` lists the app's installations, and `installations.provider(installation)` returns a provider for one installation.
 
-Without `auth`, the provider makes anonymous public reads.
+Without `auth`, the provider makes anonymous public reads. GitHub serves job logs only to authenticated requests, so `ci.log` is unsupported without `auth`.
 
 ## GitHub Enterprise Server
 

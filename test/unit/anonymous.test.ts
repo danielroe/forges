@@ -16,9 +16,18 @@ describe('anonymous providers', () => {
 
     expect(calls[0]!.authorization).toBeUndefined()
     expect(forge.capabilities.auth).toContain('anonymous')
-    expect(['threads.comment', 'threads.close', 'notifications.list', 'repos.list', 'installations.list', 'threads.subscribe'].filter(verb => forge.can(verb as never))).toEqual([])
+    expect(['threads.comment', 'threads.close', 'notifications.list', 'repos.list', 'installations.list', 'threads.subscribe', 'ci.log'].filter(verb => forge.can(verb as never))).toEqual([])
     expect(forge.can('threads.get', 'issue')).toBe(true)
     await expect(forge.threads.comment(issue, 'hi')).rejects.toThrow(UnsupportedOperationError)
+  })
+
+  it('rejects GitHub job logs without a request', async () => {
+    const { fetch, calls } = fixtureFetch('github')
+    const forge = github({ fetch }).create()
+
+    expect(forge.can('ci.runs')).toBe(true)
+    await expect(forge.ci.log({ forge: 'github', instance: 'github.com', repo, id: '4002' })).rejects.toThrow(UnsupportedOperationError)
+    expect(calls).toEqual([])
   })
 
   it('rejects the account repository list without a request', async () => {
@@ -45,6 +54,16 @@ describe('anonymous providers', () => {
     expect(page.warnings).toBeUndefined()
     expect(forge.can('threads.get', 'discussion')).toBe(false)
     expect(urls.some(url => url.endsWith('/graphql'))).toBe(false)
+  })
+
+  it('reads GitHub reviews without asking GraphQL for their conversations', async () => {
+    const { fetch, calls } = fixtureFetch('github')
+    const forge = github({ fetch }).create()
+
+    const reviews = await Array.fromAsync(forge.threads.reviews({ ...issue, kind: 'pull_request', number: '42' }))
+
+    expect(reviews.length).toBeGreaterThan(0)
+    expect(calls.some(call => call.url.endsWith('/graphql'))).toBe(false)
   })
 
   it('accepts `{ type: \'anonymous\' }` explicitly on every forge that allows it', () => {

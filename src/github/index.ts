@@ -663,6 +663,9 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
   /** Resolvable conversations, by the id of each comment in them; empty when GraphQL is unreachable. */
   async function reviewThreadsByComment(ref: ResolvedThreadRef): Promise<Map<string, { id: string, resolved: boolean }>> {
     const byComment = new Map<string, { id: string, resolved: boolean }>()
+    if (anonymous) {
+      return byComment
+    }
     let data: ReviewThreadsResult
     try {
       data = await graphql<ReviewThreadsResult>('REVIEW_THREADS', { owner: ref.repo.owner, name: ref.repo.name, number: Number(ref.number) })
@@ -1136,7 +1139,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
       runsPage: verb(true, runsPage),
       run: verb(true, async ref => toWorkflowRun(ref.repo, (await fetcher.json<GitHubWorkflowRun>(`${repoPath(ref.repo)}/actions/runs/${encodeURIComponent(ref.id)}`)).data)),
       jobsPage: verb(true, (ref, listOptions = {}) => list(`${repoPath(ref.repo)}/actions/runs/${encodeURIComponent(ref.id)}/jobs`, listOptions, (raw: GitHubWorkflowJob) => toWorkflowJob(ref, raw), { select: (body, next) => ({ items: (body as { jobs: GitHubWorkflowJob[] }).jobs, next }) })),
-      log: verb(true, async ref => (await fetcher.stream(`${repoPath(ref.repo)}/actions/jobs/${encodeURIComponent(ref.id)}/logs`)).body),
+      log: verb(!anonymous, async ref => (await fetcher.stream(`${repoPath(ref.repo)}/actions/jobs/${encodeURIComponent(ref.id)}/logs`)).body),
     },
     contents: {
       file: verb(true, readFile),
