@@ -770,11 +770,12 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
   function scopeIs404(error: unknown): unknown {
     if (error instanceof NotFoundError) {
       return new ForbiddenError(
-        'GitHub answered 404 for a webhook endpoint, which it also does when the credential lacks admin:repo_hook or admin:org_hook',
+        'GitHub responded with 404 for a webhook endpoint, which it also does when the credential lacks admin:repo_hook or admin:org_hook',
         404,
         error.body,
         'resource_protected',
         { forge: error.forge, instance: error.instance, url: error.url, method: error.method, reasonRaw: 'hook_scope_404' },
+        { cause: error },
       )
     }
     return error

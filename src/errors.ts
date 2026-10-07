@@ -36,12 +36,12 @@ export class ForgeApiError extends ForgeError {
   }
 }
 
-/** A 404: the resource does not exist, or the credential cannot see it, which many forges answer the same way. */
+/** A 404: the resource does not exist, or the credential cannot see it. Many forges respond the same way to both. */
 export class NotFoundError extends ForgeApiError {
   override name = 'NotFoundError'
 }
 
-/** A 401 for a request sent without credentials: the forge needs them. A rejected credential is {@link TokenRevokedError}. */
+/** A 401 for a request sent without credentials. A rejected credential is {@link TokenRevokedError}. */
 export class AuthenticationRequiredError extends ForgeApiError {
   override name = 'AuthenticationRequiredError'
 }
@@ -57,9 +57,8 @@ export class RateLimitedError extends ForgeApiError {
     status: number,
     body: string,
     options: { resetAt?: Date, secondary?: boolean } & ForgeErrorContext = {},
-    errorOptions?: ErrorOptions,
   ) {
-    super(message, status, body, options, errorOptions)
+    super(message, status, body, options)
     this.resetAt = options.resetAt
     this.secondary = options.secondary ?? false
   }
