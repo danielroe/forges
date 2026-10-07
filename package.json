@@ -10,7 +10,7 @@
     },
     "packageManager": {
       "name": "pnpm",
-      "version": "12.9.1",
+      "version": "12.10.1",
       "onFail": "download"
     }
   },
@@ -112,7 +112,7 @@
   "devDependencies": {
     "@antfu/eslint-config": "9.5.1",
     "@arethetypeswrong/core": "0.18.5",
-    "@octokit/openapi-webhooks-types": "12.1.0",
+    "@octokit/openapi-webhooks-types": "12.2.0",
     "@octokit/rest": "22.0.1",
     "@types/node": "24.19.1",
     "@vitest/coverage-v8": "5.0.3",
@@ -120,7 +120,7 @@
     "installed-check": "11.0.0",
     "knip": "6.39.0",
     "nano-staged": "1.0.2",
-    "pkg-pr-new": "0.0.88",
+    "pkg-pr-new": "0.0.90",
     "publint": "0.3.25",
     "rolldown": "1.2.12",
     "simple-git-hooks": "2.14.0",
