@@ -641,7 +641,7 @@ export interface ForgeProvider {
    * an unmapped verb returns `{}`.
    */
   scopesFor: (verb: ForgeVerb) => VerbScopes
-  /** Reads a web URL on this provider's instance into refs; `undefined` for anything else. */
+  /** Reads a web or SSH clone URL on this provider's instance into refs; `undefined` for anything else. */
   parseUrl: (url: string | URL) => ParsedForgeUrl | undefined
   /**
    * How to mention `ref` in Markdown on this forge (`#42`, `!42`,
@@ -671,7 +671,7 @@ export interface Forges {
   for: (ref: ForgeOrigin) => ForgeProvider | undefined
   /** The provider whose instance serves `url`. */
   forUrl: (url: string | URL) => ForgeProvider | undefined
-  /** Reads a web URL on any registered instance. */
+  /** Reads a web or SSH clone URL on any registered instance. */
   parseUrl: (url: string | URL) => (ParsedForgeUrl & { provider: ForgeProvider }) | undefined
   /** Notifications from every registered provider, provider by provider. */
   notifications: { list: (options?: NotificationListOptions) => ForgeIterable<Notification> }

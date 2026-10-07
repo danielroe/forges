@@ -79,19 +79,23 @@ export function webUrlFor(web: WebLinks, target: UrlTarget): string | undefined 
   return path === undefined ? undefined : `${web.origin}${path}`
 }
 
+/** `ssh://user@host:port/path` with the host in group 1, or `user@host:path` with it in group 2; the path is group 3. */
+const SSH_URL_RE = /^(?:(?:git\+)?ssh:\/\/(?:[^@/]+@)?([^:/]+)(?::\d+)?\/|(?:[^@/\s]+@)?([^:/\s]+):(?!\/))(.+)$/i
+
 export function parseWebUrl(web: WebLinks, input: string | URL, origin: ForgeOrigin): ParsedForgeUrl | undefined {
+  const base = new URL(web.origin)
+  const prefix = base.pathname.replace(/\/$/, '')
+  const ssh = SSH_URL_RE.exec(String(input))
   let url: URL
   try {
-    url = new URL(input)
+    url = new URL(ssh && (ssh[1] ?? ssh[2])!.toLowerCase() === base.hostname ? `${base.origin}${prefix}/${ssh[3]}` : input)
   }
   catch {
     return undefined
   }
-  const base = new URL(web.origin)
   if (url.origin !== base.origin || url.username || url.password) {
     return undefined
   }
-  const prefix = base.pathname.replace(/\/$/, '')
   if (prefix && !url.pathname.startsWith(`${prefix}/`)) {
     return undefined
   }

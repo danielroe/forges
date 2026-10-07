@@ -70,6 +70,21 @@ describe('web links', () => {
     expect(gh.parseUrl('https://gitlab.com/acme/widgets')).toBeUndefined()
   })
 
+  it.each([
+    'git@github.com:acme/widgets.git',
+    'org-12345@github.com:acme/widgets.git',
+    'ssh://git@github.com/acme/widgets.git',
+    'ssh://git@github.com:22/acme/widgets',
+    'git+ssh://git@github.com/acme/widgets.git',
+  ])('parses the clone URL %s', (url) => {
+    expect(gh.parseUrl(url)?.repo).toMatchObject({ owner: 'acme', name: 'widgets' })
+  })
+
+  it('parses clone URLs on its own instance only', () => {
+    expect(gl.parseUrl('git@gitlab.com:acme/platform/widgets.git')?.repo).toMatchObject({ owner: 'acme/platform', name: 'widgets' })
+    expect(gh.parseUrl('git@gitlab.com:acme/widgets.git')).toBeUndefined()
+  })
+
   it('writes each forge\'s cross-reference syntax', () => {
     const glPull = { ...pull, forge: 'gitlab', instance: 'gitlab.com', repo: { ...repo, forge: 'gitlab', instance: 'gitlab.com' } }
 
