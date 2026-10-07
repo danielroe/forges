@@ -34,6 +34,7 @@ import type {
   AnonymousAuth,
   BulkNotificationOptions,
   ForgeOptionsBase,
+  MilestoneListOptions,
   NotificationWriteOptions,
   TokenAuth,
   VerbScopes,
@@ -65,7 +66,7 @@ import { fromBase64, toFileContent } from '../contents.ts'
 import { defineForgeProvider, perKind, verb } from '../define.ts'
 import { ForgeError, NotFoundError, soleMergeMethod, toMergeError, UnsupportedOperationError } from '../errors.ts'
 import { isNamespaceRef, reactionContent } from '../model.ts'
-import { actorLogin, createListing, getManyConcurrently, hasEveryLabel, hexColour, memo, memoBy, requireIssueOrPull, requireThread, resolveToken, summariseChecks, toDate, toPage, toWarning } from '../utils.ts'
+import { actorLogin, createListing, getManyConcurrently, hasEveryLabel, hexColour, memo, memoBy, milestoneId, requireIssueOrPull, requireThread, resolveToken, summariseChecks, toDate, toPage, toWarning } from '../utils.ts'
 import { githubShapedWeb } from '../web.ts'
 import { nativeEventsFor } from '../webhooks.ts'
 import { numberFromUrl, toActor, toBranch, toChangedFile, toComment, toCommit, toEvent, toLabel, toMilestone, toNotification, toRelease, toRepo, toReview, toReviewComment, toRole, toStatusCheck, toStatusChecks, toTag, toThread, toThreadKind, toTreeEntry, toWebhook } from './normalise.ts'
@@ -355,6 +356,10 @@ function setupForgejo({ origin, fetcher: baseFetcher, baseUrl }: ProviderContext
     return toStatusChecks(repo, data)
   }
 
+  function milestonesPage(repo: RepoRef, listOptions: MilestoneListOptions = {}) {
+    return list(`${repoPath(repo)}/milestones`, listOptions, (raw: ForgejoMilestone) => toMilestone(raw)!, { query: { state: listOptions.state ?? 'open' } })
+  }
+
   async function releasesPage(repo: RepoRef, listOptions: PageOptions = {}): Promise<Page<Release>> {
     return list(`${repoPath(repo)}/releases`, listOptions, (raw: ForgejoRelease) => toRelease(repo, raw))
   }
@@ -464,7 +469,7 @@ function setupForgejo({ origin, fetcher: baseFetcher, baseUrl }: ProviderContext
         method: 'POST',
         json: { name: label.name, color: hexColour(label.colour, '#'), description: label.description },
       })).data)),
-      milestonesPage: verb(true, (repo, listOptions = {}) => list(`${repoPath(repo)}/milestones`, listOptions, (raw: ForgejoMilestone) => toMilestone(raw)!, { query: { state: listOptions.state ?? 'open' } })),
+      milestonesPage: verb(true, milestonesPage),
       collaboratorsPage: verb(true, (repo, listOptions = {}) => list(`${repoPath(repo)}/collaborators`, listOptions, (raw: ForgejoUser) => ({ actor: toActor(origin, raw)!, role: 'read' as const, raw }))),
       permissionFor: verb('experimental', async (repo, actor) => {
         const { data } = await fetcher.json<{ permission?: string, role_name?: string }>(`${repoPath(repo)}/collaborators/${encodeURIComponent(actorLogin(actor))}/permission`)
@@ -665,7 +670,7 @@ function setupForgejo({ origin, fetcher: baseFetcher, baseUrl }: ProviderContext
       }),
       setMilestone: perKind({ issue: 'experimental', pull_request: 'experimental' }, async (thread, milestone) => {
         const ref = requireIssueOrPull(thread, context, 'set the milestone of')
-        await fetcher.raw(issuePath(ref), { method: 'PATCH', json: { milestone: milestone === undefined ? 0 : Number(typeof milestone === 'string' ? milestone : milestone.id) } })
+        await fetcher.raw(issuePath(ref), { method: 'PATCH', json: { milestone: milestone === undefined ? 0 : await milestoneId(milestone, page => milestonesPage(ref.repo, page), context) } })
       }),
       reactionsPage: perKind(ISSUE_AND_PULL, async (target, listOptions = {}) => {
         const result = await fetcher.page<ForgejoReaction>(reactionPath(target), {

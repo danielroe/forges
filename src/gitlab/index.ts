@@ -39,6 +39,7 @@ import type {
   AnonymousAuth,
   BulkNotificationOptions,
   ForgeOptionsBase,
+  MilestoneListOptions,
   NotificationWriteOptions,
   TokenAuth,
   VerbScopes,
@@ -75,7 +76,7 @@ import { fromBase64, toFileContent } from '../contents.ts'
 import { defineForgeProvider, perKind, verb } from '../define.ts'
 import { InsufficientScopeError, NotFoundError, soleMergeMethod, TokenRevokedError, toMergeError, UnresolvedThreadError, UnsupportedOperationError } from '../errors.ts'
 import { isNamespaceRef, reactionContent } from '../model.ts'
-import { createListing, getManyConcurrently, hexColour, memo, memoBy, phased, requireIssueOrPull, requireThread, resolveToken, syntheticReview, toDate, toPage, toWarning, versionAtLeast } from '../utils.ts'
+import { createListing, getManyConcurrently, hexColour, memo, memoBy, milestoneId, phased, requireIssueOrPull, requireThread, resolveToken, syntheticReview, toDate, toPage, toWarning, versionAtLeast } from '../utils.ts'
 import { nativeEventsFor } from '../webhooks.ts'
 import {
   FORGE,
@@ -237,6 +238,10 @@ const GITLAB: ProviderDefinition<GitLabOptions> = {
     }
 
     const list = createListing(fetcher, 'per_page')
+
+    function milestonesPage(repo: RepoRef, listOptions: MilestoneListOptions = {}) {
+      return list(`${projectPath(repo)}/milestones`, listOptions, (raw: GitLabMilestone) => toMilestone(raw)!, { query: { state: (listOptions.state ?? 'open') === 'all' ? undefined : listOptions.state === 'closed' ? 'closed' : 'active' } })
+    }
 
     async function readUser(path: string): Promise<User> {
       const { data } = await fetcher.json<GitLabUser & { bio?: string, organization?: string, location?: string, website_url?: string, created_at?: string, followers?: number, following?: number }>(path)
@@ -572,7 +577,7 @@ const GITLAB: ProviderDefinition<GitLabOptions> = {
           method: 'POST',
           json: { name: label.name, color: hexColour(label.colour, '#'), description: label.description },
         })).data)),
-        milestonesPage: verb(true, (repo, listOptions = {}) => list(`${projectPath(repo)}/milestones`, listOptions, (raw: GitLabMilestone) => toMilestone(raw)!, { query: { state: (listOptions.state ?? 'open') === 'all' ? undefined : listOptions.state === 'closed' ? 'closed' : 'active' } })),
+        milestonesPage: verb(true, milestonesPage),
         collaboratorsPage: verb(true, (repo, listOptions = {}) => list(`${projectPath(repo)}/members/all`, listOptions, (raw: GitLabMember) => ({ actor: toActor(instance, raw)!, role: toRole(raw.access_level), roleRaw: String(raw.access_level), raw }))),
         permissionFor: verb(true, async (repo, actor) => {
           try {
@@ -830,7 +835,7 @@ const GITLAB: ProviderDefinition<GitLabOptions> = {
         }),
         setMilestone: perKind({ issue: 'experimental', pull_request: 'experimental' }, async (thread, milestone) => {
           const ref = requireIssueOrPull(thread, context, 'set the milestone of')
-          await fetcher.raw(threadPath(ref), { method: 'PUT', json: { milestone_id: milestone === undefined ? 0 : Number(typeof milestone === 'string' ? milestone : milestone.id) } })
+          await fetcher.raw(threadPath(ref), { method: 'PUT', json: { milestone_id: milestone === undefined ? 0 : await milestoneId(milestone, page => milestonesPage(ref.repo, page), context) } })
         }),
         reactionsPage: perKind(ISSUE_LIKE, async (target, listOptions = {}) => {
           const result = await fetcher.page<GitLabAwardEmoji & { created_at?: string }>(`${awardPath(target)}/award_emoji`, {

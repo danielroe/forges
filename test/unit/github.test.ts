@@ -235,6 +235,51 @@ describe('github discussions', () => {
     expect(requests).toEqual([{ method: 'PATCH', url: 'https://api.github.com/repos/acme/widgets/issues/7', body: { state: 'closed', state_reason: 'not_planned' } }])
   })
 
+  describe('setMilestone', () => {
+    const issue = { forge: 'github', instance: 'github.com', repo, kind: 'issue', number: '7' } as const
+
+    function milestoneProvider() {
+      const requests: Array<{ method?: string, url: string, body?: unknown }> = []
+      const provider = github({
+        auth: { type: 'token', token: 't' },
+        fetch: async (url, init) => {
+          requests.push({ method: init?.method, url, body: init?.body && JSON.parse(String(init.body)) })
+          return url.includes('/milestones')
+            ? Response.json([{ number: 3, title: 'v1.0', state: 'closed' }, { number: 4, title: 'v2.0', state: 'open' }])
+            : new Response(null, { status: 204 })
+        },
+      }).create()
+      return { provider, requests }
+    }
+
+    it('sends a numeric id as it is', async () => {
+      const { provider, requests } = milestoneProvider()
+
+      await provider.threads.setMilestone(issue, '3')
+
+      expect(requests).toEqual([{ method: 'PATCH', url: 'https://api.github.com/repos/acme/widgets/issues/7', body: { milestone: 3 } }])
+    })
+
+    it('looks a title up among open and closed milestones', async () => {
+      const { provider, requests } = milestoneProvider()
+
+      await provider.threads.setMilestone(issue, 'v2.0')
+
+      expect(requests.map(request => request.url)).toEqual([
+        'https://api.github.com/repos/acme/widgets/milestones?state=all',
+        'https://api.github.com/repos/acme/widgets/issues/7',
+      ])
+      expect(requests.at(-1)!.body).toEqual({ milestone: 4 })
+    })
+
+    it('refuses a title no milestone has instead of clearing the milestone', async () => {
+      const { provider, requests } = milestoneProvider()
+
+      await expect(provider.threads.setMilestone(issue, 'v3.0')).rejects.toThrow('No milestone titled v3.0')
+      expect(requests.filter(request => request.method === 'PATCH')).toEqual([])
+    })
+  })
+
   it('refuses to close a commit', async () => {
     const { provider } = tokenProvider()
     await expect(provider.threads.close!({ ...pull, kind: 'commit', number: 'adbc974' })).rejects.toThrow(UnsupportedOperationError)

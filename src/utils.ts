@@ -1,7 +1,7 @@
 import type { ForgeErrorContext } from './errors.ts'
 import type { Fetcher, FetchResult, PaginateOptions } from './fetch.ts'
-import type { Actor, ChecksSummary, CheckState, Cursor, FileStatus, ForgeWarning, GetManyResult, ListOptions, Page, PageOptions, RateLimit, ResolvedThreadRef, Review, ReviewState, Thread, ThreadRef } from './model.ts'
-import type { ForgeIterable, TokenAuth } from './provider.ts'
+import type { Actor, ChecksSummary, CheckState, Cursor, FileStatus, ForgeWarning, GetManyResult, ListOptions, Milestone, Page, PageOptions, RateLimit, ResolvedThreadRef, Review, ReviewState, Thread, ThreadRef } from './model.ts'
+import type { ForgeIterable, MilestoneListOptions, TokenAuth } from './provider.ts'
 import { ForgeApiError, UnresolvedThreadError, UnsupportedOperationError } from './errors.ts'
 import { rateLimitOf } from './fetch.ts'
 import { isResolvedThread } from './model.ts'
@@ -129,6 +129,27 @@ export function requireIssueOrPull(ref: ThreadRef, context: ForgeErrorContext, v
 /** The token in `auth`, read again on every call when it is a function. */
 export async function resolveToken(auth: TokenAuth): Promise<string> {
   return typeof auth.token === 'function' ? await auth.token() : auth.token
+}
+
+/**
+ * The forge-native id `threads.setMilestone` sends: the milestone's `id`, a
+ * string of digits as it is, or the id of the milestone with that title.
+ */
+export async function milestoneId(
+  milestone: Milestone | string,
+  page: (options: MilestoneListOptions) => Promise<Page<Milestone>>,
+  context: ForgeErrorContext,
+): Promise<number> {
+  const value = typeof milestone === 'string' ? milestone : milestone.id
+  if (/^\d+$/.test(value)) {
+    return Number(value)
+  }
+  for await (const candidate of iteratePages(page, { state: 'all' })) {
+    if (candidate.title === value) {
+      return Number(candidate.id)
+    }
+  }
+  throw new UnsupportedOperationError(`No milestone titled ${value}`, context)
 }
 
 /** A login from either a login string or an actor. */

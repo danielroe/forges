@@ -53,6 +53,7 @@ import type {
   ForgeOptionsBase,
   ForgeProvider,
   InstallationsApi,
+  MilestoneListOptions,
   VerbScopes,
 } from '../provider.ts'
 import type { ForgeVerb } from '../supports.ts'
@@ -103,7 +104,7 @@ import { defineForgeProvider, perKind, verb } from '../define.ts'
 import { ForbiddenError, ForgeApiError, ForgeError, ForgeTimeoutError, InsufficientScopeError, MergeBlockedError, NotFoundError, soleMergeMethod, toMergeError, UnsupportedOperationError } from '../errors.ts'
 import { sleep } from '../fetch.ts'
 import { isNamespaceRef, isResolvedThread, reactionContent } from '../model.ts'
-import { actorLogin, createListing, forgeIterable, getManyConcurrently, hostOf, iteratePages, memo, phased, requireIssueOrPull, requireThread, summariseChecks, toDate, toPage, toWarning, versionAtLeast } from '../utils.ts'
+import { actorLogin, createListing, forgeIterable, getManyConcurrently, hostOf, iteratePages, memo, milestoneId, phased, requireIssueOrPull, requireThread, summariseChecks, toDate, toPage, toWarning, versionAtLeast } from '../utils.ts'
 import { githubShapedWeb } from '../web.ts'
 import { nativeEventsFor } from '../webhooks.ts'
 import { createAppCredentials, createAuthHeaders } from './auth.ts'
@@ -888,6 +889,10 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
     })
   }
 
+  function milestonesPage(repo: RepoRef, listOptions: MilestoneListOptions = {}) {
+    return list(`${repoPath(repo)}/milestones`, listOptions, (raw: GitHubMilestone) => toMilestone(raw)!, { query: { state: listOptions.state ?? 'open' } })
+  }
+
   const REPO_SEARCH_SORTS: Partial<Record<NonNullable<RepoSearchQuery['sort']>, string>> = { updated: 'updated', stars: 'stars' }
 
   async function searchReposPage(query: RepoSearchQuery): Promise<Page<Repo>> {
@@ -1316,7 +1321,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
         method: 'POST',
         json: { name: label.name, color: label.colour, description: label.description },
       })).data)),
-      milestonesPage: verb(true, (repo, listOptions = {}) => list(`${repoPath(repo)}/milestones`, listOptions, (raw: GitHubMilestone) => toMilestone(raw)!, { query: { state: listOptions.state ?? 'open' } })),
+      milestonesPage: verb(true, milestonesPage),
       collaboratorsPage: verb(true, (repo, listOptions = {}) => list(`${repoPath(repo)}/collaborators`, listOptions, (raw: GitHubCollaborator) => toCollaborator(instance, raw))),
       permissionFor: verb(true, async (repo, actor) => {
         const { data } = await fetcher.json<{ permission?: string, role_name?: string, user?: GitHubCollaborator }>(
@@ -1474,9 +1479,9 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
           await fetcher.raw(`${repoPath(ref.repo)}/issues/${encodeURIComponent(ref.number)}/labels/${encodeURIComponent(label)}`, { method: 'DELETE' })
         }
       }),
-      setMilestone: perKind({ issue: 'experimental', pull_request: 'experimental' }, (thread, milestone) => issuePatch(
+      setMilestone: perKind({ issue: 'experimental', pull_request: 'experimental' }, async (thread, milestone) => issuePatch(
         thread,
-        { milestone: milestone === undefined ? null : Number(typeof milestone === 'string' ? milestone : milestone.id) },
+        { milestone: milestone === undefined ? null : await milestoneId(milestone, page => milestonesPage(requireThread(thread, context).repo, page), context) },
         'set the milestone of',
       )),
       reactions: perKind({ issue: 'experimental', pull_request: true, discussion: 'experimental' }, { react, unreact }),

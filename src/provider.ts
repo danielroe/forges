@@ -347,7 +347,7 @@ export interface ThreadsApi {
   addLabels: (ref: ThreadRef, labels: string[]) => Promise<void>
   /** Removes labels, leaving the rest in place. Labels the thread does not carry are ignored. */
   removeLabels: (ref: ThreadRef, labels: string[]) => Promise<void>
-  /** Sets the thread's milestone, or clears it with `undefined`. */
+  /** Sets the thread's milestone, by milestone, id or title, or clears it with `undefined`. */
   setMilestone: (ref: ThreadRef, milestone: Milestone | string | undefined) => Promise<void>
   /** Reactions left on the thread or on one of its comments. */
   reactions: (target: ThreadRef | CommentRef, options?: ListOptions) => ForgeIterable<Reaction>
