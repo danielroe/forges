@@ -9,20 +9,39 @@ import { recordingFetch } from '../src/testing/index.ts'
 import { STEPS } from '../test/recording/steps.ts'
 
 const USER_KEYS_TO_DROP = new Set([
+  'account_status',
+  'can_create_group',
+  'can_create_project',
   'collaborators',
+  'color_scheme_id',
+  'confirmed_at',
   'created',
+  'current_sign_in_at',
   'disk_usage',
+  'external',
+  'has_2fa_enabled',
+  'identities',
   'is_admin',
+  'is_auditor',
   'language',
+  'last_activity_on',
   'last_login',
+  'last_sign_in_at',
   'login_name',
+  'namespace_id',
   'owned_private_repos',
   'plan',
   'private_gists',
+  'private_profile',
   'prohibit_login',
+  'projects_limit',
   'restricted',
+  'scim_identities',
+  'theme_id',
   'total_private_repos',
   'two_factor_authentication',
+  'two_factor_enabled',
+  'using_license_seat',
   'visibility',
 ])
 const TOKEN_PATTERN = /\b(?:gh[pousr]_\w{20,}|github_pat_\w{20,}|pun_pat_\w{20,})\b/g
@@ -99,8 +118,9 @@ let failures = 0
 const recorder = recordingFetch(async (input, init) => {
   const response = await fetch(input, init)
   const method = (init?.method ?? 'GET').toUpperCase()
-  console.info(`${response.ok ? 'recorded' : 'FAILED  '} ${response.status} ${method} ${input}`)
-  if (!response.ok) {
+  const recorded = response.ok || (response.status >= 300 && response.status < 400)
+  console.info(`${recorded ? 'recorded' : 'FAILED  '} ${response.status} ${method} ${input}`)
+  if (!recorded) {
     failures++
   }
   return response
@@ -204,11 +224,10 @@ function targetFor(): Target {
         fetch: recordLive,
         timeout,
       }).create()
-      const slug = env.FIXTURE_BITBUCKET_REPO ?? 'atlassian/python-bitbucket'
+      const slug = env.FIXTURE_BITBUCKET_REPO ?? 'neelabo/neeview'
       return { provider, manifest: {
         repo: repoRef('bitbucket', provider.instance, slug),
-        pull: ref('bitbucket', provider.instance, slug, 'pull_request', env.FIXTURE_BITBUCKET_PULL ?? '1'),
-        issue: ref('bitbucket', provider.instance, slug, 'issue', env.FIXTURE_BITBUCKET_ISSUE),
+        pull: ref('bitbucket', provider.instance, slug, 'pull_request', env.FIXTURE_BITBUCKET_PULL ?? '37'),
       } }
     }
     case 'tangled': {

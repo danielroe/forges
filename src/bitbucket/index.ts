@@ -396,7 +396,7 @@ const BITBUCKET: ProviderDefinition<BitbucketOptions> = {
       traits: { poll: false, eventKinds: 'native', authKinds: ['token', 'basic', 'anonymous'] },
       normaliseMarkdown,
       users: {
-        me: verb('experimental', async () => {
+        me: verb(true, async () => {
           const { data } = await fetcher.json<BitbucketUser>('/user')
           return { ...toActor(instance, data)!, raw: data }
         }),

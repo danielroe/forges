@@ -1,0 +1,100 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitea.com/api/v1/repos/gitea/tea/git/commits/4f714bf67af9e03198b076f8d71aeb9512e7129a?stat=true&files=true"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "url": "https://gitea.com/api/v1/repos/gitea/tea/git/commits/4f714bf67af9e03198b076f8d71aeb9512e7129a",
+      "sha": "4f714bf67af9e03198b076f8d71aeb9512e7129a",
+      "created": "2018-10-20T10:55:38+08:00",
+      "html_url": "https://gitea.com/gitea/tea/commit/4f714bf67af9e03198b076f8d71aeb9512e7129a",
+      "commit": {
+        "url": "https://gitea.com/api/v1/repos/gitea/tea/git/commits/4f714bf67af9e03198b076f8d71aeb9512e7129a",
+        "author": {
+          "name": "Lunny Xiao",
+          "email": "redacted@example.invalid",
+          "date": "2018-10-20T10:55:38+08:00"
+        },
+        "committer": {
+          "name": "Lunny Xiao",
+          "email": "redacted@example.invalid",
+          "date": "2018-10-20T10:55:38+08:00"
+        },
+        "message": "typo\n",
+        "tree": {
+          "url": "https://gitea.com/api/v1/repos/gitea/tea/git/trees/a84575757cbb9f9e86e41a65d7a93abee1546f8c",
+          "sha": "a84575757cbb9f9e86e41a65d7a93abee1546f8c",
+          "created": "2018-10-20T10:55:38+08:00"
+        },
+        "verification": {
+          "verified": true,
+          "reason": "lunny / C3B7C91B632F738A",
+          "signature": "-----BEGIN PGP SIGNATURE-----\n\niQIzBAABCAAdFiEEumb2f9c/cFjXEtMIw7fJG2Mvc4oFAlvKmSoACgkQw7fJG2Mv\nc4qOjA/+MkNHC9pRZ7jUWusfxZy9T8OoNjoXca+8YT2HNKNVzLv0AavDGneydhWj\nTeLBbzQBlwQctid//6PpWzadk7x8PJv8d2ygct2XQ4LRqjXSwvvWP2Vpgkt/419Q\nnOav46SHi9+4BTg9mnQn4c92r72UyDvMC6ZaOjxy2cglcrZ964+4xQFDI4PulpUq\nSNaX7eMk4pwl4xm8lAPdQllcJn7Uoocih17lZBsTaOsrK9bV7T38T0dq/4uZEr+7\npDnh9lVGHrSHqvi6ijASnmMTfk5Wgz4bOq1VBRHdKd/Ygbg9mqPVDK8jeGgcUI3O\no+A0tVyaB7ONsE0PpSYuO79T5G7kIeVVVEvoImh++h63R4QEJtF6nfQUXRDTrWlA\nH2mdS+zGKS1ytkG5YVT7nVp/MiBAc4WPJWsJuagU+EfwgTfDhkfT+dpcL5vSvtUT\nZ6yKONC93TNAC61Ze8AM8R18neR0fvP4LDI4wPzCuR9rwlAnbG7CfrNlkX8Z4i/R\nZt2xfAXjnZKvWmdx/boicFTmsWss88qabYEtsDhV02wvhkVVHaIcl5b5N/fewv0/\nBVbJadz6i70J1ZMbWz6z9W+wOeNJBbr/CZe6+lzSsb54JogljU2TnAfP5ny6Y+mJ\nDWNvEVeM7BlvCi1B/ckHmjjw3wSxF8H+tIHEGZdZNpKLkPwB5AU=\n=tLkr\n-----END PGP SIGNATURE-----",
+          "signer": {
+            "name": "Lunny Xiao",
+            "email": "redacted@example.invalid",
+            "username": "lunny"
+          },
+          "payload": "tree a84575757cbb9f9e86e41a65d7a93abee1546f8c\nparent 303911d10f4f2e52182b0b5ba404ed8423f45b32\nauthor Lunny Xiao <redacted@example.invalid> 1540004138 +0800\ncommitter Lunny Xiao <redacted@example.invalid> 1540004138 +0800\n\ntypo\n"
+        }
+      },
+      "author": {
+        "id": 1,
+        "login": "lunny",
+        "type": "User",
+        "source_id": 0,
+        "full_name": "Lunny Xiao",
+        "email": "redacted@example.invalid",
+        "avatar_url": "https://seccdn.libravatar.org/avatar/b897d40dc87fdba4a024827c3967597434681a8f4f0f4eb5d73e0f8b1a0a9274?d=identicon",
+        "html_url": "https://gitea.com/lunny",
+        "active": false,
+        "location": "Silicon Valley",
+        "website": "https://gitea.com",
+        "description": "",
+        "followers_count": 114,
+        "following_count": 95,
+        "starred_repos_count": 366,
+        "username": "lunny"
+      },
+      "committer": {
+        "id": 1,
+        "login": "lunny",
+        "type": "User",
+        "source_id": 0,
+        "full_name": "Lunny Xiao",
+        "email": "redacted@example.invalid",
+        "avatar_url": "https://seccdn.libravatar.org/avatar/b897d40dc87fdba4a024827c3967597434681a8f4f0f4eb5d73e0f8b1a0a9274?d=identicon",
+        "html_url": "https://gitea.com/lunny",
+        "active": false,
+        "location": "Silicon Valley",
+        "website": "https://gitea.com",
+        "description": "",
+        "followers_count": 114,
+        "following_count": 95,
+        "starred_repos_count": 366,
+        "username": "lunny"
+      },
+      "parents": [
+        {
+          "url": "https://gitea.com/api/v1/repos/gitea/tea/git/commits/303911d10f4f2e52182b0b5ba404ed8423f45b32",
+          "sha": "303911d10f4f2e52182b0b5ba404ed8423f45b32",
+          "created": "0001-01-01T00:00:00Z"
+        }
+      ],
+      "files": [
+        {
+          "filename": "cmd/releases.go",
+          "status": "modified"
+        }
+      ],
+      "stats": {
+        "total": 4,
+        "additions": 2,
+        "deletions": 2
+      }
+    }
+  }
+}

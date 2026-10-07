@@ -1,0 +1,28 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitea.com/api/v1/user"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "id": 250665,
+      "login": "danielroe",
+      "type": "User",
+      "source_id": 1,
+      "full_name": "",
+      "email": "redacted@example.invalid",
+      "avatar_url": "https://seccdn.libravatar.org/avatar/82a8f6237bb263bac46d7cc8ec3054d715ce6a55a8626d6e977769d57d2c94e6?d=identicon",
+      "html_url": "https://gitea.com/danielroe",
+      "active": true,
+      "location": "",
+      "website": "",
+      "description": "",
+      "followers_count": 0,
+      "following_count": 0,
+      "starred_repos_count": 0,
+      "username": "danielroe"
+    }
+  }
+}

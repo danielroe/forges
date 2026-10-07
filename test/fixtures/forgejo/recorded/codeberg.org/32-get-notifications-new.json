@@ -1,0 +1,13 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://codeberg.org/api/v1/notifications/new"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "new": 4
+    }
+  }
+}

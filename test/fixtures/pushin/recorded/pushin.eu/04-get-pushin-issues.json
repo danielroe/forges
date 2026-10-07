@@ -7,8 +7,8 @@
     "status": 200,
     "headers": {
       "link": "<https://pushin.eu/api/v1/repos/pjullrich/pushin/issues?page=2&per_page=3>; rel=\"next\"",
-      "x-ratelimit-remaining": "4994",
-      "x-ratelimit-reset": "1791129600"
+      "x-ratelimit-remaining": "4995",
+      "x-ratelimit-reset": "1791374400"
     },
     "body": [
       {
@@ -54,24 +54,24 @@
         "repository_url": "https://pushin.eu/api/v1/repos/pjullrich/pushin"
       },
       {
-        "id": "iss_034UUry1LHKpg4sVf9y70s",
+        "id": "iss_034ScgP2qWR3Inxa2ADjQ7",
         "state": "open",
         "user": {
-          "id": "u_034PIl4auUoWJdkib1Bk5W",
+          "id": "u_034S8yOz5R2ritBLbmgoSc",
           "type": "User",
-          "avatar_url": "https://cdn.pushin.eu/-/avatars/u_034PIl4auUoWJdkib1Bk5W",
-          "html_url": "https://pushin.eu/pcharbon70",
-          "login": "pcharbon70"
+          "avatar_url": "https://cdn.pushin.eu/-/avatars/u_034S8yOz5R2ritBLbmgoSc",
+          "html_url": "https://pushin.eu/sanddorn",
+          "login": "sanddorn"
         },
-        "number": 45,
-        "title": "Default git branch should be showing when viewing the repository after it changes",
-        "body": "## Problem\n\nOn the pcharbon70/catena repository I tried changing the default branch and now the HEAD and the default branch are out of sync. I changed the git default branch from `rewrite` to `c-otp-asm` and the main page still lands on `rewrite`. The `pun` tool also agrees on the new default branch.\n\n## Running these you can see the reproduction:\n\n`$ git ls-remote --symref https://git.pushin.eu/pcharbon70/catena.git HEAD`\n\n     ref: refs/heads/rewrite\tHEAD\n     8f6fd300d52e0355e1fe46946ff978d78397872b\tHEAD\n\n\n`$ pun repo view -R pcharbon70/catena --json=default_branch,full_name` \n\n {\n  \"default_branch\": \"c-otp-asm\",\n  \"full_name\": \"pcharbon70/catena\"\n}",
+        "number": 42,
+        "title": "Runner per User/Organization",
+        "body": "Great Job having pushin. \nGreat to have Runners per Repo. \nBUT: Low-frequent repos do not need a dedicated runner, i.e. one shared runner for the user (or organizatioin) would be sufficient. AFAIK is that feature already implemented in gitea, so, maybe an easy task?",
         "labels": [],
-        "url": "https://pushin.eu/api/v1/repos/pjullrich/pushin/issues/45",
-        "updated_at": "2026-09-25T08:43:59.795971Z",
-        "created_at": "2026-09-24T17:42:55.953913Z",
+        "url": "https://pushin.eu/api/v1/repos/pjullrich/pushin/issues/42",
+        "updated_at": "2026-09-21T12:07:20.829482Z",
+        "created_at": "2026-09-21T10:48:32.864449Z",
         "closed_at": null,
-        "html_url": "https://pushin.eu/pjullrich/pushin/issues/45",
+        "html_url": "https://pushin.eu/pjullrich/pushin/issues/42",
         "repository_url": "https://pushin.eu/api/v1/repos/pjullrich/pushin"
       }
     ]

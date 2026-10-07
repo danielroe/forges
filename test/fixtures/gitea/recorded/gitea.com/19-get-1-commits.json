@@ -28,8 +28,8 @@
           },
           "message": "typo\n",
           "tree": {
-            "url": "https://gitea.com/api/v1/repos/gitea/tea/git/trees/4f714bf67af9e03198b076f8d71aeb9512e7129a",
-            "sha": "4f714bf67af9e03198b076f8d71aeb9512e7129a",
+            "url": "https://gitea.com/api/v1/repos/gitea/tea/git/trees/a84575757cbb9f9e86e41a65d7a93abee1546f8c",
+            "sha": "a84575757cbb9f9e86e41a65d7a93abee1546f8c",
             "created": "2018-10-20T10:55:38+08:00"
           },
           "verification": {
@@ -41,12 +41,13 @@
               "email": "redacted@example.invalid",
               "username": "lunny"
             },
-            "payload": "tree a84575757cbb9f9e86e41a65d7a93abee1546f8c\nparent 303911d10f4f2e52182b0b5ba404ed8423f45b32\nauthor Lunny Xiao <xiaolunwen@gmail.com> 1540004138 +0800\ncommitter Lunny Xiao <xiaolunwen@gmail.com> 1540004138 +0800\n\ntypo\n"
+            "payload": "tree a84575757cbb9f9e86e41a65d7a93abee1546f8c\nparent 303911d10f4f2e52182b0b5ba404ed8423f45b32\nauthor Lunny Xiao <redacted@example.invalid> 1540004138 +0800\ncommitter Lunny Xiao <redacted@example.invalid> 1540004138 +0800\n\ntypo\n"
           }
         },
         "author": {
           "id": 1,
           "login": "lunny",
+          "type": "User",
           "source_id": 0,
           "full_name": "Lunny Xiao",
           "email": "redacted@example.invalid",
@@ -57,13 +58,14 @@
           "website": "https://gitea.com",
           "description": "",
           "followers_count": 114,
-          "following_count": 94,
+          "following_count": 95,
           "starred_repos_count": 366,
           "username": "lunny"
         },
         "committer": {
           "id": 1,
           "login": "lunny",
+          "type": "User",
           "source_id": 0,
           "full_name": "Lunny Xiao",
           "email": "redacted@example.invalid",
@@ -74,7 +76,7 @@
           "website": "https://gitea.com",
           "description": "",
           "followers_count": 114,
-          "following_count": 94,
+          "following_count": 95,
           "starred_repos_count": 366,
           "username": "lunny"
         },
@@ -116,8 +118,8 @@
           },
           "message": "add release create\n",
           "tree": {
-            "url": "https://gitea.com/api/v1/repos/gitea/tea/git/trees/303911d10f4f2e52182b0b5ba404ed8423f45b32",
-            "sha": "303911d10f4f2e52182b0b5ba404ed8423f45b32",
+            "url": "https://gitea.com/api/v1/repos/gitea/tea/git/trees/d00968b9ce7e8a66811d8575ceed3256558e35fd",
+            "sha": "d00968b9ce7e8a66811d8575ceed3256558e35fd",
             "created": "2018-10-12T22:49:47+08:00"
           },
           "verification": {
@@ -129,12 +131,13 @@
               "email": "redacted@example.invalid",
               "username": "lunny"
             },
-            "payload": "tree d00968b9ce7e8a66811d8575ceed3256558e35fd\nparent 9d5cda4bfec2e6e0c09e802cf3bf7dd3de69f504\nauthor Lunny Xiao <xiaolunwen@gmail.com> 1539355787 +0800\ncommitter Lunny Xiao <xiaolunwen@gmail.com> 1539355787 +0800\n\nadd release create\n"
+            "payload": "tree d00968b9ce7e8a66811d8575ceed3256558e35fd\nparent 9d5cda4bfec2e6e0c09e802cf3bf7dd3de69f504\nauthor Lunny Xiao <redacted@example.invalid> 1539355787 +0800\ncommitter Lunny Xiao <redacted@example.invalid> 1539355787 +0800\n\nadd release create\n"
           }
         },
         "author": {
           "id": 1,
           "login": "lunny",
+          "type": "User",
           "source_id": 0,
           "full_name": "Lunny Xiao",
           "email": "redacted@example.invalid",
@@ -145,13 +148,14 @@
           "website": "https://gitea.com",
           "description": "",
           "followers_count": 114,
-          "following_count": 94,
+          "following_count": 95,
           "starred_repos_count": 366,
           "username": "lunny"
         },
         "committer": {
           "id": 1,
           "login": "lunny",
+          "type": "User",
           "source_id": 0,
           "full_name": "Lunny Xiao",
           "email": "redacted@example.invalid",
@@ -162,7 +166,7 @@
           "website": "https://gitea.com",
           "description": "",
           "followers_count": 114,
-          "following_count": 94,
+          "following_count": 95,
           "starred_repos_count": 366,
           "username": "lunny"
         },

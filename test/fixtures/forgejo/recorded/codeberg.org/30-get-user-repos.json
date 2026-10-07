@@ -1,0 +1,13 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://codeberg.org/api/v1/user/repos?limit=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "<https://codeberg.org/api/v1/user/repos?limit=3&page=2>; rel=\"next\",<https://codeberg.org/api/v1/user/repos?limit=3&page=2>; rel=\"last\""
+    },
+    "body": []
+  }
+}

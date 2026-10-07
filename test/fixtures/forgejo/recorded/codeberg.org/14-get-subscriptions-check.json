@@ -1,0 +1,18 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/issues/5000/subscriptions/check"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "subscribed": false,
+      "ignored": true,
+      "reason": null,
+      "created_at": "2024-08-18T08:02:19+02:00",
+      "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/pulls/5000/subscriptions",
+      "repository_url": "https://codeberg.org/api/v1/repos/forgejo/forgejo"
+    }
+  }
+}

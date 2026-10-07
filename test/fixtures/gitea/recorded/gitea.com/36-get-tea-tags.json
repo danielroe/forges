@@ -1,0 +1,48 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitea.com/api/v1/repos/gitea/tea/tags?limit=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": [
+      {
+        "name": "v0.16.0",
+        "message": "Make `tea issues create` honor `--output json` (#1114)\n\n## Problem\n\nFollow-up to #1111, covering the issues side of the same hole: `tea issues create` accepts `--output` (it parses through the urfave/cli v3 ancestor-flag cascade — `issues` carries the flag via `AllDefaultFlags`, `create` never declares it) but the action never reads it. Without this fix, `tea issues create --output json | jq .url` feeds jq a markdown document.\n\nThe default output is doubly hostile to consumers: glamour renders the details as markdown (with OSC 8 hyperlinks around the URL when piped), and a second bare `fmt.Println(issue.HTMLURL)` line follows it.\n\n## What this changes\n\n- `task.CreateIssue` now returns the created `*gitea.Issue` instead of printing it.\n- `runIssuesCreate` switches on `--output`, mirroring the detail-command precedent and the merged create-PR behavior from #1111: `--output json` emits compact lean JSON; any other value (or no flag) falls through to the previous rendering, byte-identical to before.\n- Lean JSON shape: `index`, `title`, `url`, `state` — matching `createdPullJSON` in `cmd/pulls/create.go`, including its post-review compact encoding.\n- The interactive path is untouched — it only triggers when zero flags are set, so `--output` can never be active there.\n\nExample:\n\n```\n$ tea issues create --output json --title \"bug: thing\" | jq -r .url\nhttps://gitea.example.com/owner/repo/issues/42\n```\n\nThere is no agit-flow equivalent on issues, so no extra guard is needed — unlike the pulls side, every creation path produces an `*gitea.Issue`.\n\n---------\n\nCo-authored-by: Danilo Sousa <redacted@example.invalid>\nReviewed-on: https://gitea.com/gitea/tea/pulls/1114\nReviewed-by: Lunny Xiao <redacted@example.invalid>\nCo-authored-by: ongolk <redacted@example.invalid>\n",
+        "id": "9c12138d6273ba8feb6e7578833cc330c0cd6461",
+        "commit": {
+          "url": "https://gitea.com/api/v1/repos/gitea/tea/git/commits/9c12138d6273ba8feb6e7578833cc330c0cd6461",
+          "sha": "9c12138d6273ba8feb6e7578833cc330c0cd6461",
+          "created": "2026-09-10T04:29:39Z"
+        },
+        "zipball_url": "https://gitea.com/gitea/tea/archive/v0.16.0.zip",
+        "tarball_url": "https://gitea.com/gitea/tea/archive/v0.16.0.tar.gz"
+      },
+      {
+        "name": "v0.15.1",
+        "message": "Release v0.15.1\n",
+        "id": "017c3977acdd7111232f50a48b72ac21ed23dc39",
+        "commit": {
+          "url": "https://gitea.com/api/v1/repos/gitea/tea/git/commits/017c3977acdd7111232f50a48b72ac21ed23dc39",
+          "sha": "f34697c5ed65928e265d6f48e16928819ce0f332",
+          "created": "2026-08-02T22:40:05+08:00"
+        },
+        "zipball_url": "https://gitea.com/gitea/tea/archive/v0.15.1.zip",
+        "tarball_url": "https://gitea.com/gitea/tea/archive/v0.15.1.tar.gz"
+      },
+      {
+        "name": "v0.15.0",
+        "message": "ci(goreleaser): mirror release artifacts to Cloudflare R2 (#1063)\n\nPorts the Cloudflare R2 release mirror from [gitea.com/gitea/runner](https://gitea.com/gitea/runner) to `tea`, so release artifacts land in R2 alongside S3 for the duration of the migration away from S3.\n\nTwo commits, meant to be reviewed in order.\n\n## 1. `ci(goreleaser): migrate release config to goreleaser v2`\n\nA purely mechanical migration, no behaviour change intended:\n\n- add `version: 2`\n- `blobs.folder` -> `blobs.directory`\n- `snapshot.name_template` -> `snapshot.version_template`\n- `nightly.name_template` -> `nightly.version_template`\n- `version: \"~> v1\"` -> `\"~> v2\"` in both release workflows\n\nThis is a prefactor rather than scope creep. Under goreleaser v1 the custom-publisher pipe runs *4th*, before the `release` pipe; under v2 it runs *last*. That ordering difference matters for the change below: on v1 a failed R2 upload would abort the publish after every artifact had already gone to S3 but **before** the Gitea release was created, leaving a half-finished release. On v2 the R2 mirror runs after the release exists, which matches the behaviour the runner repo already has in production.\n\nThe pre-existing `archives.format` deprecation warning is deliberately left alone; it is orthogonal to this change and the runner repo has not addressed it either.\n\n## 2. `ci(goreleaser): mirror release artifacts to Cloudflare R2`\n\n- **`scripts/upload-r2.sh`** — uploads one local file to one R2 object key using curl's built-in AWS SigV4 signer (R2 is S3-API compatible). Credentials are fed through `curl --config -` so they never appear in `ps` output. Also provides a `--check-config` preflight mode. This file is byte-identical to the runner repo's copy.\n- **`.goreleaser.yaml`** — a `publishers:` entry mirroring the existing S3 `blobs:` upload into R2. A second `blobs:` entry is not usable here: the blob pipe authenticates from the global `AWS_*` environment and has no per-entry credentials, whereas `publishers:` supports per-entry `env:`.\n- **Both release workflows** — forward the R2 secrets, plus an early `check R2 configuration` step. Custom publishers run as the very last step of goreleaser's publish pipeline, so without a preflight a missing secret would only surface after the release had been created and every artifact already uploaded to S3.\n\n### Deviation from the runner implementation\n\nThe publisher here also sets `signature: true` in addition to `checksum: true`. `tea` has a `signs:` block that GPG-signs the checksum file, and the S3 blob pipe uploads the resulting `checksums.txt.sig`; without `signature: true` the R2 mirror would carry the artifacts and their checksums but no signature to verify them against.\n\nThe object key prefix is `tea/{{ .Version }}/...`, matching the existing S3 `directory: \"tea/{{.Version}}\"`.\n\n## Required repository secrets\n\nThis PR is inert until these are configured. The preflight step will fail the release loudly if they are missing:\n\n- `R2_ENDPOINT` — e.g. `https://<account>.r2.cloudflarestorage.com`\n- `R2_BUCKET`\n- `R2_ACCESS_KEY_ID`\n- `R2_SECRET_ACCESS_KEY`\n\n## Verification\n\n- `goreleaser check` against the migrated config (with the pro-only `nightly:` block temporarily stripped, since the check ran with the OSS v2 binary): *configuration is valid*, the only deprecation being the pre-existing `archives.format`.\n- A real `goreleaser build --snapshot --clean --single-target` against the v2 config: succeeded, including the `xz` and `.goreleaser.checksum.sh` post-hooks.\n- `scripts/upload-r2.sh`: clean under `sh -n` and `shellcheck`; all four `--check-config` cases exercised (all vars unset, one missing, all set, wrong argument count).\n- The actual upload path was not exercised end to end, since that needs live R2 credentials.\n\nReviewed-on: https://gitea.com/gitea/tea/pulls/1063\nReviewed-by: Zettat123 <redacted@example.invalid>\n",
+        "id": "61b8536e4a3e04d9db74b05b4d9cd489d07d8d50",
+        "commit": {
+          "url": "https://gitea.com/api/v1/repos/gitea/tea/git/commits/61b8536e4a3e04d9db74b05b4d9cd489d07d8d50",
+          "sha": "61b8536e4a3e04d9db74b05b4d9cd489d07d8d50",
+          "created": "2026-07-26T03:21:03Z"
+        },
+        "zipball_url": "https://gitea.com/gitea/tea/archive/v0.15.0.zip",
+        "tarball_url": "https://gitea.com/gitea/tea/archive/v0.15.0.tar.gz"
+      }
+    ]
+  }
+}

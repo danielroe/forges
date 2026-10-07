@@ -1,0 +1,28 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://codeberg.org/api/v1/users/forgejo-renovate-action"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "id": 165503,
+      "login": "forgejo-renovate-action",
+      "source_id": 0,
+      "full_name": "",
+      "email": "redacted@example.invalid",
+      "avatar_url": "https://codeberg.org/avatars/4ac1fe8134d3be047891754798052f343835927de69c67a26386ca3a5becbbbc",
+      "html_url": "https://codeberg.org/forgejo-renovate-action",
+      "active": false,
+      "location": "",
+      "pronouns": "",
+      "website": "",
+      "description": "",
+      "followers_count": 4,
+      "following_count": 0,
+      "starred_repos_count": 0,
+      "username": "forgejo-renovate-action"
+    }
+  }
+}

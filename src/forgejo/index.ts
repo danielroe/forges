@@ -430,7 +430,7 @@ function setupForgejo({ origin, fetcher, baseUrl }: ProviderContext<ForgejoOptio
     probeVersion: async () => (await fetcher.json<{ version?: string }>('/version')).data.version,
     users: {
       get: verb(true, login => readUser(`/users/${encodeURIComponent(login)}`)),
-      me: verb('experimental', () => readUser('/user')),
+      me: verb(true, () => readUser('/user')),
     },
     repos: {
       get: verb(true, async ref => toRepo(origin, (await fetcher.json<ForgejoRepositoryDetail>(repoPath(ref))).data)),

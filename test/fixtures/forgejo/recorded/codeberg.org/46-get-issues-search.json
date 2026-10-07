@@ -1,0 +1,215 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://codeberg.org/api/v1/repos/issues/search?q=fix&state=all&owner=forgejo&limit=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "<https://codeberg.org/api/v1/repos/issues/search?limit=3&owner=forgejo&page=2&q=fix&state=all>; rel=\"next\",<https://codeberg.org/api/v1/repos/issues/search?limit=3&owner=forgejo&page=2177&q=fix&state=all>; rel=\"last\""
+    },
+    "body": [
+      {
+        "id": 7624884,
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/pulls/14738",
+        "html_url": "https://codeberg.org/forgejo/forgejo/pulls/14738",
+        "number": 14738,
+        "user": {
+          "id": 1198973,
+          "login": "siraben",
+          "source_id": 0,
+          "full_name": "",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://codeberg.org/avatars/576219cfc2155816f83314a267512b87ad4b7a9ba1787647736e49a8ad559ec8",
+          "html_url": "https://codeberg.org/siraben",
+          "active": false,
+          "location": "",
+          "pronouns": "",
+          "website": "",
+          "description": "",
+          "followers_count": 0,
+          "following_count": 0,
+          "starred_repos_count": 0,
+          "username": "siraben"
+        },
+        "original_author": "",
+        "original_author_id": 0,
+        "title": "Fix commit status reporting for scheduled workflows",
+        "body": "While going through the logs of my self-hosted Forgejo instance, I found over 100K `head commit is missing in event payload` errors in 30 days. This was a result of scheduled Actions jobs whose stored event was push but the payload only had the schedule action.\n\nSo when creating schedules and runs we should record the event explicitly and also for existing runs, use the stored commit SHA for the status.\n\nI'm not very familiar with how to add the appropriate unit tests.\n\n## Checklist\n\n### Compliance\n\n- [x] I confirm that I make this contribution in accordance with [Forgejo's AI Agreement](https://codeberg.org/forgejo/governance/src/commit/9084720dc6a7fbf1d3f358919d46bd6adfb55287/AIAgreement.md).\n\n### Tests for Go changes\n\n(can be removed for JavaScript changes)\n\n- I added test coverage for Go changes...\n  - [ ] in their respective `*_test.go` for unit tests.\n  - [ ] in the `tests/integration` directory if it involves interactions with a live Forgejo server.\n- I ran...\n  - [ ] `make pr-go` before pushing\n\n### Documentation\n\n- [ ] I created a pull request [to the documentation](https://codeberg.org/forgejo/docs) to explain to Forgejo users how to use this change.\n- [x] I did not document these changes and I do not expect someone else to do it.\n\n### Release notes\n\n- [x] This change will be noticed by a Forgejo user or admin (feature, bug fix, performance, etc.). I suggest to include a release note for this change.\n- [ ] This change is not visible to a Forgejo user or admin (refactor, dependency upgrade, etc.). I think there is no need to add a release note for this change.\n",
+        "ref": "",
+        "assets": [],
+        "labels": [
+          {
+            "id": 96148,
+            "name": "code/actions",
+            "exclusive": false,
+            "is_archived": false,
+            "color": "eb6420",
+            "description": "Forgejo Actions feature",
+            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/96148"
+          },
+          {
+            "id": 201031,
+            "name": "test/needs-help",
+            "exclusive": true,
+            "is_archived": false,
+            "color": "5319e7",
+            "description": "help needed to add a test",
+            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/201031"
+          }
+        ],
+        "milestone": null,
+        "assignee": null,
+        "assignees": null,
+        "state": "open",
+        "is_locked": false,
+        "comments": 0,
+        "created_at": "2026-10-07T01:19:00+02:00",
+        "updated_at": "2026-10-07T10:35:15+02:00",
+        "closed_at": null,
+        "due_date": null,
+        "pull_request": {
+          "merged": false,
+          "merged_at": null,
+          "draft": false,
+          "html_url": "https://codeberg.org/forgejo/forgejo/pulls/14738"
+        },
+        "repository": {
+          "id": 73144,
+          "name": "forgejo",
+          "owner": "forgejo",
+          "full_name": "forgejo/forgejo"
+        },
+        "pin_order": 0
+      },
+      {
+        "id": 7624866,
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/pulls/14737",
+        "html_url": "https://codeberg.org/forgejo/forgejo/pulls/14737",
+        "number": 14737,
+        "user": {
+          "id": 135189,
+          "login": "AverageHelper",
+          "source_id": 0,
+          "full_name": "",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://codeberg.org/avatars/7e98b9e83fc5cb7de518d81b4143260fa6a042913e28e59342e9debe55293189",
+          "html_url": "https://codeberg.org/AverageHelper",
+          "active": false,
+          "location": "on your left",
+          "pronouns": "she/her",
+          "website": "https://average.name",
+          "description": "",
+          "followers_count": 2,
+          "following_count": 2,
+          "starred_repos_count": 32,
+          "username": "AverageHelper"
+        },
+        "original_author": "",
+        "original_author_id": 0,
+        "title": "refactor: migrate DOM utils to Typescript",
+        "body": "This PR converts our `dom.js` utils to Typescript, adding appropriate types along the way. This continues !14508's scoped approach to tightening our frontend type-checks, in line with the feedback in https://codeberg.org/forgejo/forgejo/pulls/5859#issuecomment-2560264.\n\nThis one was a doozy to get right, but I checked through all the call sites for these that I could grep for, and I think I managed to write type annotations that accurately describe these functions' invariants and their current usage throughout the codebase. I also fixed some incorrect documentation about certain parameters. As a result, our tooling can enforce those invariants more soundly, making it easier to audit around new uses of these functions and to trim down existing uses later on (e.g. jQuery removal over time).\n\nAs a bonus, jQuery has type declarations now (via `@types/jquery`), which will make further TS ports and refactors easier to reason about in the meantime.\n\n> [!IMPORTANT]\n> We must not update `@types/jquery` past the semver-major version of `jquery` we have installed. I'm not sure how best to represent that to Renovate when the package versions don't match, but I can look into that if someone else doesn't get to it first, lol.\n\n## Checklist\n\n### Compliance\n\n- [x] I confirm that I make this contribution in accordance with [Forgejo's AI Agreement](https://codeberg.org/forgejo/governance/src/commit/9084720dc6a7fbf1d3f358919d46bd6adfb55287/AIAgreement.md).\n\n### Documentation\n\n- [ ] I created a pull request [to the documentation](https://codeberg.org/forgejo/docs) to explain to Forgejo users how to use this change.\n- [x] I did not document these changes and I do not expect someone else to do it.\n\n### Release notes\n\n- [ ] This change will be noticed by a Forgejo user or admin (feature, bug fix, performance, etc.). I suggest to include a release note for this change.\n- [x] This change is not visible to a Forgejo user or admin (refactor, dependency upgrade, etc.). I think there is no need to add a release note for this change.\n\n*The decision if the pull request will be shown in the release notes is up to the mergers / release team.*\n\nThe content of the `release-notes/<pull request number>.md` file will serve as the basis for the release notes. If the file does not exist, the title of the pull request will be used instead.\n",
+        "ref": "",
+        "assets": [],
+        "labels": [
+          {
+            "id": 201029,
+            "name": "test/not-needed",
+            "exclusive": true,
+            "is_archived": false,
+            "color": "5319e7",
+            "description": "no additional test is needed",
+            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/201029"
+          }
+        ],
+        "milestone": null,
+        "assignee": null,
+        "assignees": null,
+        "state": "open",
+        "is_locked": false,
+        "comments": 1,
+        "created_at": "2026-10-07T01:15:40+02:00",
+        "updated_at": "2026-10-07T09:34:45+02:00",
+        "closed_at": null,
+        "due_date": null,
+        "pull_request": {
+          "merged": false,
+          "merged_at": null,
+          "draft": false,
+          "html_url": "https://codeberg.org/forgejo/forgejo/pulls/14737"
+        },
+        "repository": {
+          "id": 73144,
+          "name": "forgejo",
+          "owner": "forgejo",
+          "full_name": "forgejo/forgejo"
+        },
+        "pin_order": 0
+      },
+      {
+        "id": 7623867,
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/pulls/14736",
+        "html_url": "https://codeberg.org/forgejo/forgejo/pulls/14736",
+        "number": 14736,
+        "user": {
+          "id": 1405727,
+          "login": "nanobee",
+          "source_id": 0,
+          "full_name": "",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://codeberg.org/avatars/2fe7b47925e18f9546b1a898e399ae2203b6cc28e4a18ce4cd4f6ae521828bd0",
+          "html_url": "https://codeberg.org/nanobee",
+          "active": false,
+          "location": "",
+          "pronouns": "she/her",
+          "website": "",
+          "description": "",
+          "followers_count": 0,
+          "following_count": 0,
+          "starred_repos_count": 1,
+          "username": "nanobee"
+        },
+        "original_author": "",
+        "original_author_id": 0,
+        "title": "WIP: tests: make the `time.Sleep` fake in `TestVerifySSHkeyPage` to gain up to 1min",
+        "body": "Wrap `TestVerifySSHkeyPage` in a `synctest.Test` to benefit of the fake clock during the `time.Sleep` of up to 1min.\r\n\r\n## Checklist\r\n\r\nThe [contributor guide](https://forgejo.org/docs/next/contributor/) contains information that will be helpful to first time contributors. All work and communication must conform to Forgejo's [AI Agreement](https://codeberg.org/forgejo/governance/src/branch/main/AIAgreement.md). There also are a few [conditions for merging Pull Requests in Forgejo repositories](https://codeberg.org/forgejo/governance/src/branch/main/PullRequestsAgreement.md). You are also welcome to join the [Forgejo development chatroom](https://matrix.to/#/#forgejo-development:matrix.org).\r\n\r\n### Compliance\r\n\r\n- [x] I confirm that I make this contribution in accordance with [Forgejo's AI Agreement](https://codeberg.org/forgejo/governance/src/commit/9084720dc6a7fbf1d3f358919d46bd6adfb55287/AIAgreement.md).\r\n\r\n### Tests for Go changes\r\n\r\n- [x] I ran `make pr-go` before pushing\r\n\r\n### Documentation\r\n\r\n- [ ] I created a pull request [to the documentation](https://codeberg.org/forgejo/docs) to explain to Forgejo users how to use this change.\r\n- [x] I did not document these changes and I do not expect someone else to do it.\r\n\r\n### Release notes\r\n\r\n- [ ] This change will be noticed by a Forgejo user or admin (feature, bug fix, performance, etc.). I suggest to include a release note for this change.\r\n- [x] This change is not visible to a Forgejo user or admin (refactor, dependency upgrade, etc.). I think there is no need to add a release note for this change.",
+        "ref": "",
+        "assets": [],
+        "labels": [
+          {
+            "id": 201029,
+            "name": "test/not-needed",
+            "exclusive": true,
+            "is_archived": false,
+            "color": "5319e7",
+            "description": "no additional test is needed",
+            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/201029"
+          }
+        ],
+        "milestone": null,
+        "assignee": null,
+        "assignees": null,
+        "state": "open",
+        "is_locked": false,
+        "comments": 1,
+        "created_at": "2026-10-06T22:12:36+02:00",
+        "updated_at": "2026-10-07T10:23:19+02:00",
+        "closed_at": null,
+        "due_date": null,
+        "pull_request": {
+          "merged": false,
+          "merged_at": null,
+          "draft": true,
+          "html_url": "https://codeberg.org/forgejo/forgejo/pulls/14736"
+        },
+        "repository": {
+          "id": 73144,
+          "name": "forgejo",
+          "owner": "forgejo",
+          "full_name": "forgejo/forgejo"
+        },
+        "pin_order": 0
+      }
+    ]
+  }
+}

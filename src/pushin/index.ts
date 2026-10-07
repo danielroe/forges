@@ -88,7 +88,7 @@ function setupPushin({ instance, origin: context, fetcher, baseUrl }: ProviderCo
       authKinds: ['token', 'anonymous'],
     },
     users: {
-      me: verb('experimental', async () => {
+      me: verb(true, async () => {
         const { data } = await fetcher.json<PushinUser>('/user')
         return { ...toActor({ forge: FORGE, instance }, data)!, company: data.company ?? undefined, raw: data }
       }),

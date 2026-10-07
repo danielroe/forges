@@ -1,0 +1,45 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/diffstat/neelabo/neeview:8215aaf2e487%0Dda15924148db?pagelen=3&from_pullrequest_id=37&topic=true"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "\"452150e1f2cee00185afa24a0f3cd4a49f9ac546de9ef4e321bc12a79e746b7a\""
+    },
+    "body": {
+      "values": [
+        {
+          "type": "diffstat",
+          "lines_added": 23,
+          "lines_removed": 23,
+          "status": "modified",
+          "old": {
+            "path": "NeeView/Languages/pt-BR.restext",
+            "type": "commit_file",
+            "escaped_path": "NeeView/Languages/pt-BR.restext",
+            "links": {
+              "self": {
+                "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/src/da15924148db9f9f9ca62050560ccfcb9f973005/NeeView/Languages/pt-BR.restext"
+              }
+            }
+          },
+          "new": {
+            "path": "NeeView/Languages/pt-BR.restext",
+            "type": "commit_file",
+            "escaped_path": "NeeView/Languages/pt-BR.restext",
+            "links": {
+              "self": {
+                "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/src/8215aaf2e487324420e5d274d02975e255270fa7/NeeView/Languages/pt-BR.restext"
+              }
+            }
+          }
+        }
+      ],
+      "pagelen": 3,
+      "size": 1,
+      "page": 1
+    }
+  }
+}

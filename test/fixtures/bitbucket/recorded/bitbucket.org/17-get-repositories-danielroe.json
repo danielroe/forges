@@ -1,0 +1,18 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.bitbucket.org/2.0/repositories/danielroe?role=member&pagelen=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"3af23848e95f9597327a359b7274b388\""
+    },
+    "body": {
+      "values": [],
+      "pagelen": 3,
+      "size": 1,
+      "page": 1
+    }
+  }
+}

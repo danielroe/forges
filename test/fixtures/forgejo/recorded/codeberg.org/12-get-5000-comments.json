@@ -1,0 +1,42 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/issues/5000/comments?limit=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": [
+      {
+        "id": 2181409,
+        "html_url": "https://codeberg.org/forgejo/forgejo/pulls/5000#issuecomment-2181409",
+        "pull_request_url": "https://codeberg.org/forgejo/forgejo/pulls/5000",
+        "issue_url": "",
+        "user": {
+          "id": 165503,
+          "login": "forgejo-renovate-action",
+          "source_id": 0,
+          "full_name": "",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://codeberg.org/avatars/4ac1fe8134d3be047891754798052f343835927de69c67a26386ca3a5becbbbc",
+          "html_url": "https://codeberg.org/forgejo-renovate-action",
+          "active": false,
+          "location": "",
+          "pronouns": "",
+          "website": "",
+          "description": "",
+          "followers_count": 4,
+          "following_count": 0,
+          "starred_repos_count": 0,
+          "username": "forgejo-renovate-action"
+        },
+        "original_author": "",
+        "original_author_id": 0,
+        "body": "### ⚠️ Artifact update problem\n\nRenovate failed to update an artifact related to this branch. You probably do not want to merge this PR as-is.\n\n♻ Renovate will retry this branch, including artifacts, only when one of the following happens:\n\n - any of the package files in this branch needs updating, or \n - the branch becomes conflicted, or\n - you click the rebase/retry checkbox if found above, or\n - you rename this PR's title to start with \"rebase!\" to trigger it manually\n\nThe artifact failure details are included below:\n\n##### File name: package-lock.json\n\n```\nnpm error code ERESOLVE\nnpm error ERESOLVE unable to resolve dependency tree\nnpm error\nnpm error While resolving: undefined@undefined\nnpm error Found: eslint@9.9.0\nnpm error node_modules/eslint\nnpm error   dev eslint@\"9.9.0\" from the root project\nnpm error\nnpm error Could not resolve dependency:\nnpm error peer eslint@\"^8.0.1\" from eslint-plugin-github@5.0.1\nnpm error node_modules/eslint-plugin-github\nnpm error   dev eslint-plugin-github@\"5.0.1\" from the root project\nnpm error\nnpm error Fix the upstream dependency conflict, or retry\nnpm error this command with --force or --legacy-peer-deps\nnpm error to accept an incorrect (and potentially broken) dependency resolution.\nnpm error\nnpm error\nnpm error For a full report see:\nnpm error /workspace/forgejo/forgejo/.tmp/cache/others/npm/_logs/2024-08-18T06_02_10_783Z-eresolve-report.txt\nnpm error A complete log of this run can be found in: /workspace/forgejo/forgejo/.tmp/cache/others/npm/_logs/2024-08-18T06_02_10_783Z-debug-0.log\n\n```\n\n",
+        "assets": [],
+        "created_at": "2024-08-18T08:02:25+02:00",
+        "updated_at": "2024-08-18T08:02:25+02:00"
+      }
+    ]
+  }
+}

@@ -560,7 +560,7 @@ const GITLAB: ProviderDefinition<GitLabOptions> = {
           }
           return readUser(`/users/${matches[0].id}`)
         }),
-        me: verb('experimental', () => readUser('/user')),
+        me: verb(true, () => readUser('/user')),
       },
       repos: {
         get: verb(true, async (ref) => {

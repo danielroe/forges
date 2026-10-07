@@ -1,0 +1,22 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://pushin.eu/api/v1/user"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "x-ratelimit-remaining": "4991",
+      "x-ratelimit-reset": "1791374400"
+    },
+    "body": {
+      "id": "u_034KGcbXmCJviF1JfQCAWY",
+      "name": "daniel roe",
+      "type": "User",
+      "company": null,
+      "avatar_url": "https://cdn.pushin.eu/-/avatars/u_034KGcbXmCJviF1JfQCAWY/0a945a3b",
+      "html_url": "https://pushin.eu/danielroe",
+      "login": "danielroe"
+    }
+  }
+}

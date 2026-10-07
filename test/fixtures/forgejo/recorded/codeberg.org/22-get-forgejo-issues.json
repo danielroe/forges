@@ -1,0 +1,229 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/issues?state=open&type=issues&limit=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "<https://codeberg.org/api/v1/repos/forgejo/forgejo/issues?limit=3&page=2&state=open&type=issues>; rel=\"next\",<https://codeberg.org/api/v1/repos/forgejo/forgejo/issues?limit=3&page=518&state=open&type=issues>; rel=\"last\""
+    },
+    "body": [
+      {
+        "id": 7623534,
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/issues/14734",
+        "html_url": "https://codeberg.org/forgejo/forgejo/issues/14734",
+        "number": 14734,
+        "user": {
+          "id": 598649,
+          "login": "landsman",
+          "source_id": 0,
+          "full_name": "Michal Landsman",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://codeberg.org/avatars/4b5fb696b31a2b68b64b6f0952dee03bd7417ab95cce4796f9c50609f25a59a9",
+          "html_url": "https://codeberg.org/landsman",
+          "active": false,
+          "location": "Prague, Czech Republic",
+          "pronouns": "",
+          "website": "https://www.insuit.cz",
+          "description": "",
+          "followers_count": 0,
+          "following_count": 4,
+          "starred_repos_count": 12,
+          "username": "landsman"
+        },
+        "original_author": "",
+        "original_author_id": 0,
+        "title": "enh(api): resolve, unresolve and reply to pull request review conversations",
+        "body": "### Existing problems this enhancement addresses\n\nA pull request review can be answered over the API, but its conversations can never be closed\r\nover it. In Forgejo 16.0.5:\r\n\r\n- There is no endpoint to resolve or unresolve a review conversation. The web UI does it through\r\n  POST /{owner}/{repo}/issues/resolve_conversation, which needs a browser session and a CSRF token,\r\n  so an API token cannot reach it.\r\n- There is no endpoint to reply in an existing conversation. The closest is\r\n  POST /repos/{owner}/{repo}/pulls/{index}/reviews/{id}/comments, which creates a comment by path\r\n  and line. On a stale review (the branch was rebased or pushed since), the line no longer matches,\r\n  and the comment lands as a new one on the current code instead of as a reply in the thread.\r\n\r\nSo tools that work on pull requests through the API (CI bots, review bots, MCP servers used by\r\ncoding agents) can address every point of a review and still leave every thread open. Someone has\r\nto open the browser and click \"Resolve conversation\" on each one. It also makes it impossible to\r\ntell, from the API alone, which addressed points the author considers done.\n\n### Enhancement description\n\nAdd API endpoints for the two actions the web UI already offers on a review conversation:\r\n\r\n- POST   /repos/{owner}/{repo}/pulls/{index}/comments/{id}/replies\r\n  Reply in the conversation the comment belongs to, with the same threading the UI uses, whether\r\n  or not the review is stale. Body: {\"body\": \"...\"}.\r\n- POST   /repos/{owner}/{repo}/pulls/{index}/comments/{id}/resolve\r\n- DELETE /repos/{owner}/{repo}/pulls/{index}/comments/{id}/resolve\r\n  Mark the conversation resolved or unresolved, with the same permission check as the web action\r\n  (the PR author, or anyone with write access).\r\n\r\nReads need no change: PullReviewComment already carries `resolver`.\n\n### Details and notes\n\n- Version checked: Forgejo 16.0.5+gitea-1.22.0, against the instance's /swagger.v1.json. The\r\n  review endpoints present are list/create/get/submit/delete review, list/create/get/delete review\r\n  comment, and dismiss/undismiss; nothing for resolving or replying.\r\n- The web route for resolving exists (resolve_conversation, with action=Resolve|UnResolve and\r\n  comment_id), so this is exposing an existing action, not adding new behaviour.\r\n- The paths above are a suggestion; nesting under /reviews/{id}/comments/{comment} would work as\r\n  well, if that fits the existing API better.\r\n- Use case that hit this: an agent addressed every point of a review over the API, posted a summary\r\n  comment, and could not close a single thread.\n\n",
+        "ref": "",
+        "assets": [],
+        "labels": [
+          {
+            "id": 181598,
+            "name": "code/api",
+            "exclusive": false,
+            "is_archived": false,
+            "color": "eb6420",
+            "description": "API",
+            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/181598"
+          },
+          {
+            "id": 78139,
+            "name": "enhancement/feature",
+            "exclusive": false,
+            "is_archived": false,
+            "color": "207de5",
+            "description": "New feature",
+            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/78139"
+          }
+        ],
+        "milestone": null,
+        "assignee": null,
+        "assignees": null,
+        "state": "open",
+        "is_locked": false,
+        "comments": 1,
+        "created_at": "2026-10-06T21:22:04+02:00",
+        "updated_at": "2026-10-06T21:48:58+02:00",
+        "closed_at": null,
+        "due_date": null,
+        "pull_request": null,
+        "repository": {
+          "id": 73144,
+          "name": "forgejo",
+          "owner": "forgejo",
+          "full_name": "forgejo/forgejo"
+        },
+        "pin_order": 0
+      },
+      {
+        "id": 7622340,
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/issues/14728",
+        "html_url": "https://codeberg.org/forgejo/forgejo/issues/14728",
+        "number": 14728,
+        "user": {
+          "id": 1533123,
+          "login": "Cyridian",
+          "source_id": 0,
+          "full_name": "",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://codeberg.org/avatars/8e3a163881188e158e9882cc034cc41e",
+          "html_url": "https://codeberg.org/Cyridian",
+          "active": false,
+          "location": "",
+          "pronouns": "",
+          "website": "",
+          "description": "",
+          "followers_count": 0,
+          "following_count": 0,
+          "starred_repos_count": 0,
+          "username": "Cyridian"
+        },
+        "original_author": "",
+        "original_author_id": 0,
+        "title": "bug: Actions run builds the previous commit after a failed refs/pull/N/head update, but reports status on the new head",
+        "body": "### Can you reproduce the bug on the Forgejo test instance?\n\nNo, I can't try it on the test instance for some reason\n\n### Description\n\nWhen two or more pushes to PR branches of the same repository land at nearly the same moment, the\r\n`refs/pull/N/head` update for one of them can fail, while the synchronize event for it still fires. The\r\nActions run for that PR then checks out the old commit, but its commit status is written to the new head.\r\nA PR can show a green check for a commit that was never built.\r\n\r\nMy best interpretation:\r\n1. Each push runs its own `TestPullRequest`. `PushToBaseRepo` does `git fetch file://<repo> refs/heads/<branch>`\r\n   and then sets `refs/pull/N/head` (`services/pull/pull.go`).\r\n2. Forgejo runs git with `fetch.writeCommitGraph=true` (`modules/git/git.go`), so every such fetch rewrites the\r\n   commit-graph and takes `commit-graph-chain.lock`. Git does not wait for that lock; a concurrent fetch into the\r\n   same repository exits 128.\r\n3. On that error the ref is not updated and the loop continues, but the `isSync` path still calls\r\n   `PullRequestSynchronized` for the PR (the `err == nil` check there tests a different error).\r\n4. The Actions notifier resolves the run commit from `refs/pull/N/head` (`services/actions/notifier_helper.go`),\r\n   which is still the old commit, while the payload's `pull_request.head.sha` comes from the branch\r\n   (`services/convert/pull.go`) and the commit status is written to that new head\r\n   (`services/actions/commit_status.go`).\r\n\r\nTo reproduce:\r\n- Open several PRs on one repository and push to their branches at the same moment (for example, merging the\r\n  base branch into each of them in a loop).\r\n- Some runs show `GITHUB_SHA` different from `github.event.pull_request.head.sha`, and `refs/pull/N/head` lags the\r\n  branch until the next push.\r\n- Outside Forgejo, eight concurrent `git fetch file://... refs/heads/bN` into one repository with\r\n  `fetch.writeCommitGraph=true` gave 2 lock failures in a single trial; with it set to `false`, none.\r\n\r\nMy take:\r\nEither the ref update is retried or serialised (the code already notes that `TestPullRequest` should become a\r\nqueue), or a PR whose ref update failed does not emit a synchronize event, so no run reports on a commit it did not\r\nbuild.\r\n\r\nWorkaround:\r\nA workflow step that fails when `GITHUB_SHA` differs from `github.event.pull_request.head.sha`; pushing a new commit\r\nto the branch repairs the ref.\n\n### Forgejo Version\n\n15.0.3\n\n### How are you running Forgejo?\n\nSelf-hosted, Docker image, Kubuntu native. The relevant code looks unchanged on main.\n\n### Logs\n\nservices/pull/pull.go:324:TestPullRequest() [E] PushToBaseRepo: exit status 128 - fatal: Unable to create\r\n'/data/git/repositories/<owner>/<repo>.git/./objects/info/commit-graphs/commit-graph-chain.lock': File exists.\n\n### Database\n\nSQLite\n\n",
+        "ref": "",
+        "assets": [],
+        "labels": [
+          {
+            "id": 201022,
+            "name": "bug/new-report",
+            "exclusive": true,
+            "is_archived": false,
+            "color": "e11d21",
+            "description": "bug has just been reported and need triage (default label on issue creation)",
+            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/201022"
+          },
+          {
+            "id": 96148,
+            "name": "code/actions",
+            "exclusive": false,
+            "is_archived": false,
+            "color": "eb6420",
+            "description": "Forgejo Actions feature",
+            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/96148"
+          }
+        ],
+        "milestone": null,
+        "assignee": null,
+        "assignees": null,
+        "state": "open",
+        "is_locked": false,
+        "comments": 1,
+        "created_at": "2026-10-06T18:32:27+02:00",
+        "updated_at": "2026-10-06T20:29:18+02:00",
+        "closed_at": null,
+        "due_date": null,
+        "pull_request": null,
+        "repository": {
+          "id": 73144,
+          "name": "forgejo",
+          "owner": "forgejo",
+          "full_name": "forgejo/forgejo"
+        },
+        "pin_order": 0
+      },
+      {
+        "id": 7620855,
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/issues/14727",
+        "html_url": "https://codeberg.org/forgejo/forgejo/issues/14727",
+        "number": 14727,
+        "user": {
+          "id": 1476988,
+          "login": "thojo0",
+          "source_id": 0,
+          "full_name": "Thojo0",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://codeberg.org/avatars/c980dba0a5ff38e836a3eed003502f797b33abdc7a13bbb4a3e1823e9adb6a28",
+          "html_url": "https://codeberg.org/thojo0",
+          "active": false,
+          "location": "",
+          "pronouns": "",
+          "website": "https://thojo0.de",
+          "description": "",
+          "followers_count": 0,
+          "following_count": 0,
+          "starred_repos_count": 0,
+          "username": "thojo0"
+        },
+        "original_author": "",
+        "original_author_id": 0,
+        "title": "bug: ACCOUNT_LINKING auto not possible with 2FA on login",
+        "body": "### Can you reproduce the bug on the Forgejo test instance?\n\nNo, I can't try it on the test instance for some reason\n\n### Description\n\nIf you configure:\n```ini\n[oauth2_client]\nACCOUNT_LINKING = auto\n```\nAnd try to sign in to an existing account with 2FA (TOTP) configured, forgejo asks for the TOTP key.\nIf you put it in, a 500 error comes.\nLog:\n```\nUserSignIn: not in LinkAccount session\nrouter: completed POST /user/two_factor for 1.1.1.1:0, 500 Internal Server Error in 9.8ms @ auth/2fa.go:43(auth.TwoFactorPost)\n```\nI think on `auto` it should skip 2FA on login too.\nIn security settings it works without 2FA confirmation.\nI configured \"Skip local 2FA\" in the  OAuth2 source.\n\n### Screenshots\n\n![Bildschirmfoto vom 2026-10-06 15-26-31](/attachments/6eca4ab4-9bab-4f47-b829-9feb664ef282)\n\n### Forgejo Version\n\n16.0.5\n\n### Browser Version\n\nFirefox 154.0\n\n",
+        "ref": "",
+        "assets": [
+          {
+            "id": 2009733,
+            "name": "Bildschirmfoto vom 2026-10-06 15-26-31.png",
+            "size": 21968,
+            "download_count": 0,
+            "created_at": "2026-10-06T15:27:04+02:00",
+            "uuid": "6eca4ab4-9bab-4f47-b829-9feb664ef282",
+            "browser_download_url": "https://codeberg.org/attachments/6eca4ab4-9bab-4f47-b829-9feb664ef282",
+            "type": "attachment"
+          }
+        ],
+        "labels": [
+          {
+            "id": 201022,
+            "name": "bug/new-report",
+            "exclusive": true,
+            "is_archived": false,
+            "color": "e11d21",
+            "description": "bug has just been reported and need triage (default label on issue creation)",
+            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/201022"
+          },
+          {
+            "id": 87703,
+            "name": "forgejo/ui",
+            "exclusive": false,
+            "is_archived": false,
+            "color": "eb6420",
+            "description": "User interface",
+            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/87703"
+          }
+        ],
+        "milestone": null,
+        "assignee": null,
+        "assignees": null,
+        "state": "open",
+        "is_locked": false,
+        "comments": 0,
+        "created_at": "2026-10-06T15:33:46+02:00",
+        "updated_at": "2026-10-06T15:36:33+02:00",
+        "closed_at": null,
+        "due_date": null,
+        "pull_request": null,
+        "repository": {
+          "id": 73144,
+          "name": "forgejo",
+          "owner": "forgejo",
+          "full_name": "forgejo/forgejo"
+        },
+        "pin_order": 0
+      }
+    ]
+  }
+}

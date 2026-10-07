@@ -1,0 +1,115 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/repository/tags?per_page=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "<https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/repository/tags?id=gitlab-org%2Fcli&order_by=updated&page=2&per_page=3&sort=desc>; rel=\"next\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/repository/tags?id=gitlab-org%2Fcli&order_by=updated&page=1&per_page=3&sort=desc>; rel=\"first\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/repository/tags?id=gitlab-org%2Fcli&order_by=updated&page=55&per_page=3&sort=desc>; rel=\"last\"",
+      "etag": "W/\"ae6af3c926af9453d24e97ec23a48acf\"",
+      "ratelimit-remaining": "1958",
+      "ratelimit-reset": "1791375060",
+      "x-total": "165",
+      "x-total-pages": "55",
+      "x-next-page": "2",
+      "x-page": "1",
+      "x-per-page": "3"
+    },
+    "body": [
+      {
+        "name": "v1.121.0",
+        "message": "Release v1.121.0",
+        "target": "e3abc8e79c419e580779d26c1f72ab463095ac70",
+        "commit": {
+          "id": "4d447cc6c19858928884626d802c8f7b7c5f799e",
+          "short_id": "4d447cc6",
+          "created_at": "2026-10-06T11:37:36.000+02:00",
+          "parent_ids": [
+            "44e9f48f1565e27bc1500310e8c6c28b8f39dc59",
+            "048eec04a2cca8410ac7b56b5a9d17c9b8057e6b"
+          ],
+          "title": "Merge branch 'renovate/github.com-tidwall-pretty-1.x' into 'main'",
+          "message": "Merge branch 'renovate/github.com-tidwall-pretty-1.x' into 'main'\n\nchore(deps): update module github.com/tidwall/pretty to v1.2.2\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/3994\n\nMerged-by: Ahmed Hemdan <redacted@example.invalid>\nApproved-by: Ahmed Hemdan <redacted@example.invalid>\nCo-authored-by: GitLab Renovate Bot <redacted@example.invalid>",
+          "author_name": "Ahmed Hemdan",
+          "author_email": "redacted@example.invalid",
+          "authored_date": "2026-10-06T11:37:36.000+02:00",
+          "committer_name": "GitLab",
+          "committer_email": "redacted@example.invalid",
+          "committed_date": "2026-10-06T11:37:36.000+02:00",
+          "trailers": {},
+          "extended_trailers": {},
+          "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/4d447cc6c19858928884626d802c8f7b7c5f799e"
+        },
+        "release": {
+          "tag_name": "v1.121.0",
+          "description": "## Changelog   \n### ✨ Features   \n* c5fece4b: feat(stack): add --skip-push for local stack synchronization (Ahmed Anwar <redacted@example.invalid>)   \n* e924cf16: feat: add update subcommand for managed binaries (Kai Armstrong <redacted@example.invalid>)   \n### 🐛 Bug Fixes   \n* a70f5c8c: fix(ci): scroll and reveal truncated job names (Aleksandr Sheikin <redacted@example.invalid>)   \n* dc4a00ea: fix(commands): do not offer filename completions if no args taken (Ville Skyttä <redacted@example.invalid>)   \n* 68b06896: fix(df): stream large binary downloads safely (Michael Eddington <redacted@example.invalid>)   \n* 6c11bf31: fix(label): show the real total in the list header (unstable-code <redacted@example.invalid>)   \n* 6853ff19: fix(mr): warn when publishing --reviewer-state on your own merge request (Andrei Zubov <redacted@example.invalid>)   \n### 📦 Dependencies   \n* 37ea25e1: chore(deps): bump golangci-lint to v2.14.0 (GitLab Renovate Bot <redacted@example.invalid>)   \n* ba3f9187: chore(deps): update module github.com/docker/cli to v29.8.2+incompatible (GitLab Renovate Bot <redacted@example.invalid>)   \n* 048eec04: chore(deps): update module github.com/tidwall/pretty to v1.2.2 (GitLab Renovate Bot <redacted@example.invalid>)   \n### 🔧 Maintenance   \n* a722b341: chore: combine the integration test coverage with the unit test coverage (Swapnaneel Patra <redacted@example.invalid>)   \n### 🔀 Others   \n* ab082413: perf(mr-note): improving note lookup using early exit searching (Parth Sharma <redacted@example.invalid>)   \n* e1c33d76: test: mock the OS keyring in every test binary (Kai Armstrong <redacted@example.invalid>)\n\n"
+        },
+        "protected": true,
+        "created_at": "2026-10-06T12:08:58.000Z"
+      },
+      {
+        "name": "v1.120.0",
+        "message": "Release v1.120.0",
+        "target": "5eabdba6c3ac3fda6574b6b191e98917138f36db",
+        "commit": {
+          "id": "78790114c4d7196c97b2b1a1263a0d725835640d",
+          "short_id": "78790114",
+          "created_at": "2026-09-29T17:12:44.000+10:00",
+          "parent_ids": [
+            "b8b4e0988bbf2f6fed4752a88ce29ecfb7df44cc",
+            "6df4dae42c464a2dba3865697cd5fbbcd531f719"
+          ],
+          "title": "Merge branch 'kxrma47/8547-validate-list-output' into 'main'",
+          "message": "Merge branch 'kxrma47/8547-validate-list-output' into 'main'\n\nfix(issue): reject invalid list output flags\n\nCloses #8547\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/3941\n\nMerged-by: James Hebden <redacted@example.invalid>\nApproved-by: James Hebden <redacted@example.invalid>\nCo-authored-by: Mahidul Haque <redacted@example.invalid>",
+          "author_name": "James Hebden",
+          "author_email": "redacted@example.invalid",
+          "authored_date": "2026-09-29T17:12:44.000+10:00",
+          "committer_name": "GitLab",
+          "committer_email": "redacted@example.invalid",
+          "committed_date": "2026-09-29T17:12:44.000+10:00",
+          "trailers": {},
+          "extended_trailers": {},
+          "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/78790114c4d7196c97b2b1a1263a0d725835640d"
+        },
+        "release": {
+          "tag_name": "v1.120.0",
+          "description": "## Changelog   \n### ✨ Features   \n* c81a40c8: feat(df): add package command to check a single PURL (Michael Eddington <redacted@example.invalid>)   \n* cd957b0d: feat(mcp): close annotation coverage gaps and add coverage test (James Hebden <redacted@example.invalid>)   \n* 6d7a7473: feat(stack): add a command to delete a stack (Maksym Tymoshyk <redacted@example.invalid>)   \n* 9ae8b354: feat(stack): properly update branches on stack reorder and add guards rebase in-progress (Casey Morris <redacted@example.invalid>)   \n* 0a2765c7: feat(telemetry): distinguish MCP tool calls from direct CLI use (Kai Armstrong <redacted@example.invalid>)   \n* d5dde305: feat: delegate path ownership to domain teams without Maintainer (Kai Armstrong <redacted@example.invalid>)   \n* b20fb66d: feat: mr note create support for internal notes/threads (Giannis Kepas <redacted@example.invalid>)   \n### 🐛 Bug Fixes   \n* 6df4dae4: fix(issue): reject invalid list output flags (Mahidul Haque <redacted@example.invalid>)   \n* cb7c3eb5: fix(mr): fast-forward a checked-out branch on repeat checkout (Jeston Singh <redacted@example.invalid>)   \n* f1a933b9: fix(orbit): require Orbit CLI 0.130.0 so setup picks your agents (Jean-Gabriel Doyon <redacted@example.invalid>)   \n* c9b48d28: fix: cmd/glab tests fail under goleak (Syed Saif Ali Alvi <redacted@example.invalid>)   \n### 📝 Documentation   \n* 7b5192e7: docs(agents): drop the removed gen-config command (Kai Armstrong <redacted@example.invalid>)   \n* 00edd69e: docs(skills): add contributing section to bundled glab skill (Dmitry Gruzd <redacted@example.invalid>)   \n### 📦 Dependencies   \n* 008bcb03: chore(deps): update dependency @commitlint/cli to ^21.2.3 (GitLab Renovate Bot <redacted@example.invalid>)   \n* 542d54c2: chore(deps): update dependency @commitlint/config-conventional to ^21.2.3 (GitLab Renovate Bot <redacted@example.invalid>)   \n* 77a8e92e: chore(deps): update dependency @commitlint/format to ^21.2.3 (GitLab Renovate Bot <redacted@example.invalid>)   \n* 93f95503: chore(deps): update dependency @commitlint/lint to ^21.2.3 (GitLab Renovate Bot <redacted@example.invalid>)   \n* 9b8d080c: chore(deps): update dependency @commitlint/read to ^21.2.3 (GitLab Renovate Bot <redacted@example.invalid>)   \n* 8446d1de: chore(deps): update dependency markdownlint-cli2 to v0.23.3 (GitLab Renovate Bot <redacted@example.invalid>)   \n* cee1c145: chore(deps): update module github.com/dustin/go-humanize to v1.1.0 (GitLab Renovate Bot <redacted@example.invalid>)   \n* 5c3f65ad: chore(deps): update module gitlab.com/gitlab-org/api/client-go/v3 to v3.14.0 (GitLab Renovate Bot <redacted@example.invalid>)   \n* ad728cd0: chore(deps): update module gitlab.com/gitlab-org/api/client-go/v3 to v3.15.0 (GitLab Renovate Bot <redacted@example.invalid>)   \n### 🔧 Maintenance   \n* 32512e34: chore: add tw-docops CODEOWNERS for docs lint config (Marcel Amirault <redacted@example.invalid>)   \n* 729129ac: refactor: remove the custom --project and --hostname flag pair (Jean van der Walt <redacted@example.invalid>)   \n### 🔀 Others   \n* f91498fc: test(mr): scope the mr note publish integration test to API contract (Kai Armstrong <redacted@example.invalid>)\n\n"
+        },
+        "protected": true,
+        "created_at": "2026-09-29T12:09:46.000Z"
+      },
+      {
+        "name": "v1.119.0",
+        "message": "Release v1.119.0",
+        "target": "e4103c7cc2404dac34cf1201f78a2db46c5f7b1b",
+        "commit": {
+          "id": "f5016eda261bb7142627d05d1d85a20d6dd56ddc",
+          "short_id": "f5016eda",
+          "created_at": "2026-09-22T14:02:44.000+02:00",
+          "parent_ids": [
+            "e9e360763319734865d09237ee5f4a4d68d94a60",
+            "99ffb5f86d8168e85c78b57ee11c92138ac137d3"
+          ],
+          "title": "Merge branch 'renovate/github.com-docker-cli-29.x' into 'main'",
+          "message": "Merge branch 'renovate/github.com-docker-cli-29.x' into 'main'\n\nchore(deps): update module github.com/docker/cli to v29.8.1+incompatible\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/3953\n\nMerged-by: Ahmed Hemdan <redacted@example.invalid>\nApproved-by: Ahmed Hemdan <redacted@example.invalid>\nCo-authored-by: GitLab Renovate Bot <redacted@example.invalid>",
+          "author_name": "Ahmed Hemdan",
+          "author_email": "redacted@example.invalid",
+          "authored_date": "2026-09-22T14:02:44.000+02:00",
+          "committer_name": "GitLab",
+          "committer_email": "redacted@example.invalid",
+          "committed_date": "2026-09-22T14:02:44.000+02:00",
+          "trailers": {},
+          "extended_trailers": {},
+          "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/f5016eda261bb7142627d05d1d85a20d6dd56ddc"
+        },
+        "release": {
+          "tag_name": "v1.119.0",
+          "description": "## Changelog   \n### ✨ Features   \n* d95ea085: feat(df): add cargo proxy matcher (Michael Eddington <redacted@example.invalid>)   \n* 7d0a007e: feat(df): add yarn wrapper command behind the firewall proxy (Michael Eddington <redacted@example.invalid>)   \n* 588dce27: feat(df): render firewall summary in a colored unicode box (Michael Eddington <redacted@example.invalid>)   \n* 4785f5d7: feat(mr): add --draft flag for pending review comments (Andrei Zubov <redacted@example.invalid>)   \n* f12316af: feat(mr): add mr note publish to publish pending review comments (Andrei Zubov <redacted@example.invalid>)   \n* cde22a13: feat(skills): add glab skills get (Dmitry Gruzd <redacted@example.invalid>)   \n* 9cba09ff: feat: add AI Agent Identity scaffolding (Jean van der Walt <redacted@example.invalid>)   \n### 🐛 Bug Fixes   \n* 1d03bc02: fix(auth): Replace shell with glab process (Philipp Hahn <redacted@example.invalid>)   \n* fbb11dc6: fix(auth): install the Docker credential shim into a writable directory (Kai Armstrong <redacted@example.invalid>)   \n* 08e87303: fix(auth): refresh OAuth tokens with a five-minute grace period (Aditya Parida <redacted@example.invalid>)   \n* 3cc582db: fix(auth): use the configured subfolder when refreshing OAuth tokens (ANBUCHELVAN GANESAN CSE <redacted@example.invalid>)   \n* 92d16dc1: fix(mr): use standard unified diff headers in mr diff (Marco Carotta <redacted@example.invalid>)   \n### 📝 Documentation   \n* b5a61738: docs(auth): add an organization-wide setup recipe (Kai Armstrong <redacted@example.invalid>)   \n* 1efe867b: docs: correct the snippet command docs to only mention `create` (Uma Chandran <redacted@example.invalid>)   \n### 📦 Dependencies   \n* 3fa004cb: chore(deps): bump golangci-lint to v2.13.2 (GitLab Renovate Bot <redacted@example.invalid>)   \n* f8719867: chore(deps): update module github.com/docker/cli to v29.8.0+incompatible (GitLab Renovate Bot <redacted@example.invalid>)   \n* 99ffb5f8: chore(deps): update module github.com/docker/cli to v29.8.1+incompatible (GitLab Renovate Bot <redacted@example.invalid>)   \n* 03fc1311: chore(deps): update module github.com/mattn/go-runewidth to v0.0.30 (GitLab Renovate Bot <redacted@example.invalid>)   \n* 710741b0: chore(deps): update module gitlab.com/gitlab-org/api/client-go/v3 to v3.1.0 (GitLab Renovate Bot <redacted@example.invalid>)   \n* 2f13f088: chore(deps): update module gitlab.com/gitlab-org/api/client-go/v3 to v3.12.0 (GitLab Renovate Bot <redacted@example.invalid>)   \n* 4a1212ec: chore(deps): update module gitlab.com/gitlab-org/api/client-go/v3 to v3.13.0 (GitLab Renovate Bot <redacted@example.invalid>)   \n* a5eff031: chore(deps): update module gitlab.com/gitlab-org/api/client-go/v3 to v3.2.0 (GitLab Renovate Bot <redacted@example.invalid>)   \n* ef41f554: chore(deps): update module gitlab.com/gitlab-org/api/client-go/v3 to v3.4.0 (GitLab Renovate Bot <redacted@example.invalid>)   \n* 849b08af: chore(deps): update module gitlab.com/gitlab-org/api/client-go/v3 to v3.6.0 (GitLab Renovate Bot <redacted@example.invalid>)   \n* 8862f45c: chore(deps): update module golang.org/x/crypto to v0.57.0 (GitLab Renovate Bot <redacted@example.invalid>)   \n* 6e3dd220: chore(deps): update module golang.org/x/oauth2 to v0.37.0 (GitLab Renovate Bot <redacted@example.invalid>)   \n### 🔧 Maintenance   \n* 0d8bb408: ci: add govulncheck reachability scanning (Kai Armstrong <redacted@example.invalid>)   \n* 38d1ea9a: ci: exclude test fixtures from secret detection and refresh commit-lint deps (Kai Armstrong <redacted@example.invalid>)   \n* 20755344: ci: parallelize pipeline jobs and stabilize the Go cache key (Kai Armstrong <redacted@example.invalid>)   \n* f35f24de: ci: remove the code navigation job (Kai Armstrong <redacted@example.invalid>)   \n* ba6c1913: ci: remove the danger-review job (Kai Armstrong <redacted@example.invalid>)   \n* e905b0dc: refactor(cluster): fix stale keyring token-cache comments (Anish Kumar <redacted@example.invalid>)   \n* 3c62b36c: refactor(orbit): rename orbit_local config keys to orbit_cli (Jean-Gabriel Doyon <redacted@example.invalid>)   \n### 🔀 Others   \n* 90783cf0: perf(mcp): cut tool catalog context by 24.5% (Kai Armstrong <redacted@example.invalid>)   \n* 542bd8ca: test(securefile): expect file_extension field from client-go v3.4.0 (James Hebden <redacted@example.invalid>)\n\n"
+        },
+        "protected": true,
+        "created_at": "2026-09-22T12:08:31.000Z"
+      }
+    ]
+  }
+}

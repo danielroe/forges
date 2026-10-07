@@ -1,0 +1,14 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://pushin.eu/api/v1/notifications?per_page=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "x-ratelimit-remaining": "4989",
+      "x-ratelimit-reset": "1791374400"
+    },
+    "body": []
+  }
+}

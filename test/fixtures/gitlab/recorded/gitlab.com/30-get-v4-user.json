@@ -1,0 +1,43 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitlab.com/api/v4/user"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"221f038213c6fd95a4751f1f7e29aa18\"",
+      "ratelimit-remaining": "1970",
+      "ratelimit-reset": "1791375060"
+    },
+    "body": {
+      "id": 2179675,
+      "username": "danielroe",
+      "public_email": "",
+      "name": "Daniel Roe",
+      "state": "active",
+      "locked": false,
+      "avatar_url": "https://secure.gravatar.com/avatar/82a8f6237bb263bac46d7cc8ec3054d715ce6a55a8626d6e977769d57d2c94e6?s=80&d=identicon",
+      "web_url": "https://gitlab.com/danielroe",
+      "created_at": "2018-04-03T19:17:02.700Z",
+      "bio": "",
+      "location": "",
+      "linkedin": "daniel-roe",
+      "twitter": "",
+      "discord": "448776407863001090",
+      "website_url": "https://roe.dev/",
+      "github": "danielroe",
+      "job_title": "",
+      "pronouns": "he/him",
+      "organization": "",
+      "bot": false,
+      "work_information": null,
+      "local_time": "12:10 PM",
+      "email": "redacted@example.invalid",
+      "commit_email": "redacted@example.invalid",
+      "preferred_language": "en",
+      "shared_runners_minutes_limit": null,
+      "extra_shared_runners_minutes_limit": null
+    }
+  }
+}

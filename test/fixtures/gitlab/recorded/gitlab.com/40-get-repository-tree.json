@@ -1,0 +1,43 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/repository/tree?per_page=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "<https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/repository/tree?id=gitlab-org%2Fcli&page=2&pagination=legacy&per_page=3&recursive=false&with_last_commit=false>; rel=\"next\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/repository/tree?id=gitlab-org%2Fcli&page=1&pagination=legacy&per_page=3&recursive=false&with_last_commit=false>; rel=\"first\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/repository/tree?id=gitlab-org%2Fcli&page=10&pagination=legacy&per_page=3&recursive=false&with_last_commit=false>; rel=\"last\"",
+      "etag": "W/\"21e44687368afa83e1d7e7b837f31ea4\"",
+      "ratelimit-remaining": "1960",
+      "ratelimit-reset": "1791375060",
+      "x-total": "30",
+      "x-total-pages": "10",
+      "x-next-page": "2",
+      "x-page": "1",
+      "x-per-page": "3"
+    },
+    "body": [
+      {
+        "id": "85a5a1b44904319f73745a96186d5adcc813271b",
+        "name": ".claude",
+        "type": "tree",
+        "path": ".claude",
+        "mode": "040000"
+      },
+      {
+        "id": "e371d23889872c83fc0d806932bc32e26c3bd601",
+        "name": ".gitlab",
+        "type": "tree",
+        "path": ".gitlab",
+        "mode": "040000"
+      },
+      {
+        "id": "4e0a120137a10582bf4e6bfea508d4e14cdeeb58",
+        "name": ".vscode",
+        "type": "tree",
+        "path": ".vscode",
+        "mode": "040000"
+      }
+    ]
+  }
+}
