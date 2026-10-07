@@ -784,7 +784,11 @@ export interface Thread {
   isDraft: boolean
   author?: Actor
   assignees: Actor[]
-  /** Requested and submitted reviewers, where the thread read already carries them. */
+  /**
+   * Reviewers the thread read reports. Some forges report outstanding requests
+   * only, others each reviewer's verdict; `threads.reviews()` has every
+   * submitted review.
+   */
   reviewers: Reviewer[]
   labels: Label[]
   url?: string
