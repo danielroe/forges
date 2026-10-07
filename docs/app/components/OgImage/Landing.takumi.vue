@@ -18,14 +18,14 @@ const mark = '<svg width="96" height="96" viewBox="0 0 800 800" fill="none" xmln
       v-html="mark"
     />
     <h1
-      class="m-0 mb-6 text-[76px] text-white leading-[1.1] text-center wrap-break-word"
+      class="m-0 mb-6 text-[76px] text-white leading-[1.1] text-center wrap-break-word text-balance"
       style="font-family: Fraenkisch"
     >
       {{ title?.slice(0, 60).toLowerCase() }}
     </h1>
     <p
       v-if="description"
-      class="m-0 text-[28px] text-neutral-400 leading-[1.4] text-center max-w-225 wrap-break-word"
+      class="m-0 text-[28px] text-neutral-400 leading-[1.4] text-center max-w-225 wrap-break-word text-balance"
     >
       {{ description?.slice(0, 200) }}
     </p>
