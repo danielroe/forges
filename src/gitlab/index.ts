@@ -74,7 +74,7 @@ import { fromBase64, toFileContent } from '../contents.ts'
 import { defineForgeProvider, perKind, verb } from '../define.ts'
 import { InsufficientScopeError, NotFoundError, soleMergeMethod, TokenRevokedError, toMergeError, UnresolvedThreadError, UnsupportedOperationError } from '../errors.ts'
 import { isNamespaceRef, reactionContent } from '../model.ts'
-import { createListing, getManyConcurrently, hexColour, memo, memoBy, phased, requireIssueOrPull, requireThread, syntheticReview, toDate, toPage, toWarning, versionAtLeast } from '../utils.ts'
+import { createListing, getManyConcurrently, hexColour, memo, memoBy, phased, requireIssueOrPull, requireThread, resolveToken, syntheticReview, toDate, toPage, toWarning, versionAtLeast } from '../utils.ts'
 import { nativeEventsFor } from '../webhooks.ts'
 import {
   FORGE,
@@ -178,7 +178,7 @@ const GITLAB: ProviderDefinition<GitLabOptions> = {
   anonymous: true,
   apiPath: '/api/v4',
   headers: { accept: 'application/json' },
-  authHeaders: ({ options: { auth } }) => auth?.type === 'token' ? () => ({ authorization: `Bearer ${auth.token}` }) : undefined,
+  authHeaders: ({ options: { auth } }) => auth?.type === 'token' ? async () => ({ authorization: `Bearer ${await resolveToken(auth)}` }) : undefined,
   setup({ instance, baseUrl, origin: context, fetcher }) {
     /**
      * GitLab lists pending and done to-dos separately. With `all`, pending

@@ -4,6 +4,7 @@ import type { AnonymousAuth, AppAuth, TokenAuth } from '../provider.ts'
 import type { GitHubInstallationToken } from './types.ts'
 import { signRs256Jwt } from '../crypto.ts'
 import { createFetcher } from '../fetch.ts'
+import { resolveToken } from '../utils.ts'
 
 export type GitHubAuth = TokenAuth | AppAuth | AnonymousAuth
 
@@ -88,7 +89,7 @@ export function createAuthHeaders(
     return async () => ({})
   }
   if (auth.type === 'token') {
-    return async () => ({ authorization: `Bearer ${auth.token}` })
+    return async () => ({ authorization: `Bearer ${await resolveToken(auth)}` })
   }
   const app = credentials!
   const installationId = auth.installationId

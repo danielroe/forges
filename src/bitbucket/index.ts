@@ -56,7 +56,7 @@ import { toBase64 } from '../crypto.ts'
 import { defineForgeProvider, perKind, verb } from '../define.ts'
 import { ForgeError, MergeConflictError, NotFoundError, soleMergeMethod, toMergeError, UnsupportedOperationError } from '../errors.ts'
 import { isNamespaceRef } from '../model.ts'
-import { createListing, getManyConcurrently, hostOf, phased, requireThread, summariseChecks, syntheticReview, toPage, toWarning } from '../utils.ts'
+import { createListing, getManyConcurrently, hostOf, phased, requireThread, resolveToken, summariseChecks, syntheticReview, toPage, toWarning } from '../utils.ts'
 import { nativeEventsFor } from '../webhooks.ts'
 import {
   FORGE,
@@ -132,7 +132,10 @@ const BITBUCKET: ProviderDefinition<BitbucketOptions> = {
     if (!auth || auth.type === 'anonymous') {
       return undefined
     }
-    const authorization = auth.type === 'token' ? `Bearer ${auth.token}` : `Basic ${toBase64(new TextEncoder().encode(`${auth.username}:${auth.password}`))}`
+    if (auth.type === 'token') {
+      return async () => ({ authorization: `Bearer ${await resolveToken(auth)}` })
+    }
+    const authorization = `Basic ${toBase64(new TextEncoder().encode(`${auth.username}:${auth.password}`))}`
     return () => ({ authorization })
   },
   setup({ instance, origin: context, fetcher, baseUrl }) {

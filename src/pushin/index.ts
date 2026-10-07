@@ -4,7 +4,7 @@ import type { AnonymousAuth, ForgeOptionsBase, TokenAuth, VerbScopes } from '../
 import type { ForgeVerb } from '../supports.ts'
 import type { PushinCollaborator, PushinComment, PushinLabel, PushinNotification, PushinRepository, PushinThread } from './types.ts'
 import { defineForgeProvider, perKind, verb } from '../define.ts'
-import { createListing, getManyConcurrently, requireIssueOrPull, toPage } from '../utils.ts'
+import { createListing, getManyConcurrently, requireIssueOrPull, resolveToken, toPage } from '../utils.ts'
 import { githubShapedWeb } from '../web.ts'
 import { FORGE, toActor, toCollaborator, toComment, toLabel, toNotification, toRepo, toThread } from './normalise.ts'
 
@@ -122,7 +122,7 @@ const PUSHIN: ProviderDefinition<PushinOptions> = {
   baseUrl: 'https://pushin.eu',
   apiPath: '/api/v1',
   headers: { accept: 'application/vnd.github+json' },
-  authHeaders: ({ options: { auth } }) => auth?.type === 'token' ? () => ({ authorization: `Bearer ${auth.token}` }) : undefined,
+  authHeaders: ({ options: { auth } }) => auth?.type === 'token' ? async () => ({ authorization: `Bearer ${await resolveToken(auth)}` }) : undefined,
   setup: setupPushin,
 }
 

@@ -1,7 +1,7 @@
 import type { ForgeErrorContext } from './errors.ts'
 import type { Fetcher, FetchResult, PaginateOptions } from './fetch.ts'
 import type { Actor, ChecksSummary, CheckState, Cursor, FileStatus, ForgeWarning, GetManyResult, ListOptions, Page, PageOptions, RateLimit, ResolvedThreadRef, Review, ReviewState, Thread, ThreadRef } from './model.ts'
-import type { ForgeIterable } from './provider.ts'
+import type { ForgeIterable, TokenAuth } from './provider.ts'
 import { ForgeApiError, UnresolvedThreadError, UnsupportedOperationError } from './errors.ts'
 import { rateLimitOf } from './fetch.ts'
 import { isResolvedThread } from './model.ts'
@@ -124,6 +124,11 @@ export function requireIssueOrPull(ref: ThreadRef, context: ForgeErrorContext, v
     throw new UnsupportedOperationError(`${context.forge ?? 'This forge'} cannot ${verb} a ${thread.kind}`, context)
   }
   return thread as ResolvedThreadRef & { kind: 'issue' | 'pull_request' }
+}
+
+/** The token in `auth`, read again on every call when it is a function. */
+export async function resolveToken(auth: TokenAuth): Promise<string> {
+  return typeof auth.token === 'function' ? await auth.token() : auth.token
 }
 
 /** A login from either a login string or an actor. */

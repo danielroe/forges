@@ -5,7 +5,7 @@ import type { AzureCommit, AzureCommitDiffs, AzureIdentity, AzureItem, AzurePoli
 import { toFileContent } from '../contents.ts'
 import { defineForgeProvider, perKind, verb } from '../define.ts'
 import { ForgeError, MergeMethodRequiredError, NotFoundError, toMergeError, UnsupportedOperationError } from '../errors.ts'
-import { getManyConcurrently, memo, phased, requireIssueOrPull, requireThread, summariseChecks, syntheticReview, toWarning } from '../utils.ts'
+import { getManyConcurrently, memo, phased, requireIssueOrPull, requireThread, resolveToken, summariseChecks, syntheticReview, toWarning } from '../utils.ts'
 import { FORGE, isConversationThread, projectRef, toActor, toBranch, toChangedFile, toCommit, toPolicyCheck, toPullComment, toPullThread, toRepo, toRepoRef, toStatusCheck, toTag, toThreadEvents, toTreeEntry, toWorkItemComment, toWorkItemEvents, toWorkItemThread } from './normalise.ts'
 import { azureWeb } from './web.ts'
 import { azureDevOpsWebhooks } from './webhooks.ts'
@@ -604,8 +604,7 @@ const AZURE_DEVOPS: ProviderDefinition<AzureDevOpsOptions> = {
     if (!auth || auth.type === 'anonymous') {
       return undefined
     }
-    const credentials = auth.type === 'token' ? `:${auth.token}` : `${auth.username}:${auth.password}`
-    return () => ({ authorization: `Basic ${btoa(credentials)}` })
+    return async () => ({ authorization: `Basic ${btoa(auth.type === 'token' ? `:${await resolveToken(auth)}` : `${auth.username}:${auth.password}`)}` })
   },
   setup: setupAzure,
 }

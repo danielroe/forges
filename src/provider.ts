@@ -92,8 +92,11 @@ export interface AnonymousAuth {
 
 export interface TokenAuth {
   type: 'token'
-  /** Personal access token or OAuth access token. */
-  token: string
+  /**
+   * Personal access token or OAuth access token. A function is called before
+   * every request, so a refreshed token applies without a new provider.
+   */
+  token: string | (() => string | Promise<string>)
 }
 
 /** HTTP Basic credentials, for example a Bitbucket app password or Atlassian API token. */
