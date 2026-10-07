@@ -89,4 +89,17 @@ describe('listing merged pull requests', () => {
 
     expect(page.items.map(thread => thread.title)).toEqual(['Merged'])
   })
+
+  it('reports merged GitHub pull requests as merged when listed from the pulls API', async () => {
+    const { fetch, urls } = capture(url => url.pathname.endsWith('/pulls')
+      ? [
+          { number: 1, title: 'Merged', state: 'closed', merged_at: '2026-01-01T00:00:00Z', head: { ref: 'a', sha: 'b' }, base: { ref: 'main', sha: 'c' } },
+          { number: 2, title: 'Closed', state: 'closed', merged_at: null, head: { ref: 'd', sha: 'e' }, base: { ref: 'main', sha: 'c' } },
+        ]
+      : {})
+    const page = await github({ fetch }).create().threads.listPage({ forge: 'github', instance: 'github.com', owner: 'acme', name: 'widgets' }, { kind: 'pull_request', state: 'closed' })
+
+    expect(urls[0]!.pathname).toBe('/repos/acme/widgets/pulls')
+    expect(page.items.map(thread => [thread.ref.number, thread.state])).toEqual([['1', 'merged'], ['2', 'closed']])
+  })
 })

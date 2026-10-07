@@ -126,6 +126,7 @@ export interface GitHubIssue {
   state_reason?: string | null
   draft?: boolean
   merged?: boolean
+  merged_at?: string | null
   locked?: boolean
   comments?: number
   html_url?: string

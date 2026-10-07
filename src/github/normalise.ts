@@ -242,8 +242,8 @@ export function toThreadKind(subjectType: string): ThreadKind {
   }
 }
 
-export function toThreadState(issue: Pick<GitHubIssue, 'state' | 'merged' | 'pull_request'>): ThreadState {
-  if (issue.merged || issue.pull_request?.merged_at) {
+export function toThreadState(issue: Pick<GitHubIssue, 'state' | 'merged' | 'merged_at' | 'pull_request'>): ThreadState {
+  if (issue.merged || issue.merged_at || issue.pull_request?.merged_at) {
     return 'merged'
   }
   if (issue.state === 'open' || issue.state === 'closed') {
