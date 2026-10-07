@@ -45,6 +45,11 @@ The [quick start](https://forges.link/getting-started/quick-start) walks through
 - [Reference](https://forges.link/reference/provider-api): the provider API, the capability matrix, errors and JSON schemas.
 - [Examples](https://forges.link/examples): small, tested projects that use `forges`.
 
+## related projects
+
+- [`@agntn/forges`](https://github.com/agntn/forges): a TypeScript API for GitHub, GitLab, Gitea, Forgejo and GitBucket, with an MCP server and Pi and OMP extensions for agents.
+- [`git-pkgs/forge`](https://github.com/git-pkgs/forge): a Go library and CLI for GitHub, GitLab, Gitea, Forgejo, Bitbucket Cloud, Gerrit and Tangled.
+
 ## contributing
 
 Read the [contribution guide](./CONTRIBUTING.md) to set up the repository and run the checks.
