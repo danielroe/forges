@@ -239,8 +239,8 @@ const GITLAB: ProviderDefinition<GitLabOptions> = {
 
     const list = createListing(fetcher, 'per_page')
 
-    function milestonesPage(repo: RepoRef, listOptions: MilestoneListOptions = {}) {
-      return list(`${projectPath(repo)}/milestones`, listOptions, (raw: GitLabMilestone) => toMilestone(raw)!, { query: { state: (listOptions.state ?? 'open') === 'all' ? undefined : listOptions.state === 'closed' ? 'closed' : 'active' } })
+    function milestonesPage(repo: RepoRef, listOptions: MilestoneListOptions = {}, includeAncestors?: boolean) {
+      return list(`${projectPath(repo)}/milestones`, listOptions, (raw: GitLabMilestone) => toMilestone(raw)!, { query: { state: (listOptions.state ?? 'open') === 'all' ? undefined : listOptions.state === 'closed' ? 'closed' : 'active', include_ancestors: includeAncestors } })
     }
 
     async function readUser(path: string): Promise<User> {
@@ -835,7 +835,7 @@ const GITLAB: ProviderDefinition<GitLabOptions> = {
         }),
         setMilestone: perKind({ issue: 'experimental', pull_request: 'experimental' }, async (thread, milestone) => {
           const ref = requireIssueOrPull(thread, context, 'set the milestone of')
-          await fetcher.raw(threadPath(ref), { method: 'PUT', json: { milestone_id: milestone === undefined ? 0 : await milestoneId(milestone, page => milestonesPage(ref.repo, page), context) } })
+          await fetcher.raw(threadPath(ref), { method: 'PUT', json: { milestone_id: milestone === undefined ? 0 : await milestoneId(milestone, page => milestonesPage(ref.repo, page, true), context) } })
         }),
         reactionsPage: perKind(ISSUE_LIKE, async (target, listOptions = {}) => {
           const result = await fetcher.page<GitLabAwardEmoji & { created_at?: string }>(`${awardPath(target)}/award_emoji`, {

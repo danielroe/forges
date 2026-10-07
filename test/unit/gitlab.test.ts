@@ -161,6 +161,21 @@ describe('gitlab provider', () => {
     expect(error).toBeInstanceOf(RateLimitedError)
     expect((error as RateLimitedError).resetAt).toEqual(new Date(1_800_000_000_000))
   })
+
+  it('finds a milestone title among ancestor group milestones', async () => {
+    const { instance, calls } = provider({
+      [`GET ${P}/milestones?include_ancestors=true`]: { status: 200, body: [{ id: 41, iid: 2, group_id: 9, title: 'Group milestone', state: 'active' }] },
+      [`PUT ${P}/merge_requests/23`]: { status: 200, body: {} },
+    })
+
+    await instance.threads.setMilestone!(mr, 'Group milestone')
+
+    expect(calls.map(call => `${call.method} ${call.url}`)).toEqual([
+      `GET ${P}/milestones?include_ancestors=true`,
+      `PUT ${P}/merge_requests/23`,
+    ])
+    expect(JSON.parse(calls.at(-1)!.body!)).toEqual({ milestone_id: 41 })
+  })
 })
 
 describe('gitlab merge methods', () => {
