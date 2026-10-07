@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { UnsupportedOperationError } from '../../src/errors.ts'
+import { NotFoundError, UnsupportedOperationError } from '../../src/errors.ts'
 import { fake } from '../../src/fake/index.ts'
 import { commentMarker } from '../../src/model.ts'
 import { signDelivery } from '../../src/testing/index.ts'
@@ -59,6 +59,14 @@ describe('fake forge', () => {
     expect(forge.can('notifications.markDone')).toBe(false)
     await expect(forge.threads.close(pull)).rejects.toThrow(UnsupportedOperationError)
     await expect(forge.notifications.markDone({ forge: 'fake', instance: 'fake.test', id: '1' })).rejects.toThrow(UnsupportedOperationError)
+  })
+
+  it('rejects reads of missing records with NotFoundError', async () => {
+    const forge = fake({ seed }).create()
+    const repo = { forge: 'fake', instance: 'fake.test', owner: 'acme', name: 'missing' }
+
+    await expect(forge.repos.get(repo)).rejects.toThrow(NotFoundError)
+    await expect(forge.threads.get({ forge: 'fake', instance: 'fake.test', repo: { ...repo, name: 'widgets' }, kind: 'issue', number: '99' })).rejects.toThrow(NotFoundError)
   })
 
   it('streams writes to subscribers as they happen', async () => {

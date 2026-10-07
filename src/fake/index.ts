@@ -46,7 +46,7 @@ import type { ForgeCapabilities, ForgeOptionsBase, ForgeProvider, ForgeProviderF
 import { toFileContent } from '../contents.ts'
 import { bodyText, headerValue } from '../crypto.ts'
 import { defineForgeProvider, perKind, verb } from '../define.ts'
-import { ForgeApiError } from '../errors.ts'
+import { NotFoundError } from '../errors.ts'
 import { completeEvent } from '../events.ts'
 import { capabilityOf } from '../supports.ts'
 import { getManyConcurrently } from '../utils.ts'
@@ -241,7 +241,7 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
   const secrets = new Map<string, string | undefined>()
   const listeners = new Set<(event: ForgeEvent) => void>()
 
-  const notFound = (message: string) => new ForgeApiError(message, 404, '', origin)
+  const notFound = (message: string) => new NotFoundError(message, 404, '', origin)
   const actor = (login: string): Actor => ({ ...origin, login, id: login, isBotHint: login.endsWith('[bot]') })
   const label = (name: string): Label => ({ name })
   const repoRef = (slug: string): RepoRef => ({ ...origin, ...splitRepo(slug) })

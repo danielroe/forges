@@ -62,7 +62,7 @@ import type {
 import type { WebhookHeaderNames } from './webhook-events.ts'
 import { fromBase64, toFileContent } from '../contents.ts'
 import { defineForgeProvider, perKind, verb } from '../define.ts'
-import { ForgeApiError, ForgeError, NotFoundError, soleMergeMethod, toMergeError, UnsupportedOperationError } from '../errors.ts'
+import { ForgeError, NotFoundError, soleMergeMethod, toMergeError, UnsupportedOperationError } from '../errors.ts'
 import { isNamespaceRef, reactionContent } from '../model.ts'
 import { actorLogin, createListing, getManyConcurrently, hasEveryLabel, hexColour, memo, memoBy, requireIssueOrPull, requireThread, summariseChecks, toDate, toPage, toWarning } from '../utils.ts'
 import { githubShapedWeb } from '../web.ts'
@@ -507,7 +507,7 @@ function setupForgejo({ origin, fetcher, baseUrl }: ProviderContext<ForgejoOptio
         const { data } = await fetcher.json<ForgejoCommit[]>(`${repoPath(repo)}/commits`, { query: { sha: ref, limit: 1, stat: 'false' } })
         const sha = data[0]?.sha
         if (!sha) {
-          throw new ForgeApiError(`${profile.forge} has no commit for ${ref}`, 404, '', context)
+          throw new NotFoundError(`${profile.forge} has no commit for ${ref}`, 404, '', context)
         }
         return sha
       }),

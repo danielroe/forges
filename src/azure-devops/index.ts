@@ -4,7 +4,7 @@ import type { AnonymousAuth, BasicAuth, ForgeOptionsBase, TokenAuth } from '../p
 import type { AzureCommit, AzureCommitDiffs, AzureIdentity, AzureItem, AzurePolicyEvaluation, AzurePullRequest, AzureRef, AzureRepository, AzureReviewer, AzureStatus, AzureThread, AzureWorkItem, AzureWorkItemComment, AzureWorkItemUpdate } from './types.ts'
 import { toFileContent } from '../contents.ts'
 import { defineForgeProvider, perKind, verb } from '../define.ts'
-import { ForgeApiError, ForgeError, MergeMethodRequiredError, toMergeError, UnsupportedOperationError } from '../errors.ts'
+import { ForgeError, MergeMethodRequiredError, NotFoundError, toMergeError, UnsupportedOperationError } from '../errors.ts'
 import { getManyConcurrently, memo, phased, requireIssueOrPull, requireThread, summariseChecks, syntheticReview, toWarning } from '../utils.ts'
 import { FORGE, isConversationThread, projectRef, toActor, toBranch, toChangedFile, toCommit, toPolicyCheck, toPullComment, toPullThread, toRepo, toRepoRef, toStatusCheck, toTag, toThreadEvents, toTreeEntry, toWorkItemComment, toWorkItemEvents, toWorkItemThread } from './normalise.ts'
 import { azureWeb } from './web.ts'
@@ -368,7 +368,7 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
         })
         const sha = data.value[0]?.commitId
         if (!sha) {
-          throw new ForgeApiError(`Azure DevOps has no commit for ${ref}`, 404, '', context)
+          throw new NotFoundError(`Azure DevOps has no commit for ${ref}`, 404, '', context)
         }
         return sha
       }),

@@ -276,7 +276,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
     })
     const discussion = data.repository?.discussion
     if (!discussion) {
-      throw new ForgeApiError(`Discussion ${ref.number} not found`, 404, '', context)
+      throw new NotFoundError(`Discussion ${ref.number} not found`, 404, '', context)
     }
     return (await import('./graphql.ts')).toDiscussionThread(ref, discussion)
   }
@@ -728,7 +728,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
     })
     const node = ref.kind === 'discussion' ? data.repository?.discussion : data.repository?.issueOrPullRequest
     if (!node) {
-      throw new ForgeApiError(`Thread ${ref.number} not found`, 404, '', context)
+      throw new NotFoundError(`Thread ${ref.number} not found`, 404, '', context)
     }
     return { id: node.id, state: node.viewerSubscription }
   }
@@ -1426,7 +1426,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
         }
         const target = await graphql<{ repository: { id: string } | null }>('REPOSITORY_ID', { owner: repo.owner, name: repo.name })
         if (!target.repository) {
-          throw new ForgeApiError(`Repository ${repo.owner}/${repo.name} not found`, 404, '', context)
+          throw new NotFoundError(`Repository ${repo.owner}/${repo.name} not found`, 404, '', context)
         }
         const data = await graphql<{ transferIssue: { issue: { id: string, number: number } } }>('TRANSFER_ISSUE', { issue: await nodeId(ref), repo: target.repository.id })
         return { forge: FORGE, instance, repo, kind: 'issue', number: String(data.transferIssue.issue.number), externalId: data.transferIssue.issue.id }

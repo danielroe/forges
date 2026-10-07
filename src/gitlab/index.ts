@@ -72,7 +72,7 @@ import type {
 } from './types.ts'
 import { fromBase64, toFileContent } from '../contents.ts'
 import { defineForgeProvider, perKind, verb } from '../define.ts'
-import { ForgeApiError, InsufficientScopeError, NotFoundError, soleMergeMethod, TokenRevokedError, toMergeError, UnresolvedThreadError, UnsupportedOperationError } from '../errors.ts'
+import { InsufficientScopeError, NotFoundError, soleMergeMethod, TokenRevokedError, toMergeError, UnresolvedThreadError, UnsupportedOperationError } from '../errors.ts'
 import { isNamespaceRef, reactionContent } from '../model.ts'
 import { createListing, getManyConcurrently, hexColour, memo, memoBy, phased, requireIssueOrPull, requireThread, syntheticReview, toDate, toPage, toWarning, versionAtLeast } from '../utils.ts'
 import { nativeEventsFor } from '../webhooks.ts'
@@ -550,7 +550,7 @@ const GITLAB: ProviderDefinition<GitLabOptions> = {
         get: verb(true, async (login) => {
           const { data: matches } = await fetcher.json<GitLabUser[]>('/users', { query: { username: login } })
           if (!matches?.[0]) {
-            throw new ForgeApiError(`No GitLab user named ${login}`, 404, '', context)
+            throw new NotFoundError(`No GitLab user named ${login}`, 404, '', context)
           }
           const { data } = await fetcher.json<GitLabUser & { bio?: string, organization?: string, location?: string, website_url?: string, created_at?: string, followers?: number, following?: number }>(`/users/${matches[0].id}`)
           return { ...toActor(instance, data)!, bio: data.bio || undefined, company: data.organization || undefined, location: data.location || undefined, websiteUrl: data.website_url || undefined, createdAt: toDate(data.created_at), followers: data.followers, following: data.following, raw: data }
