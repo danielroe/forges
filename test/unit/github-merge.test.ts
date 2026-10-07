@@ -265,8 +265,10 @@ describe('github merging', () => {
 
   it('maps a 400 for a closed or draft pull request to MergeBlockedError', async () => {
     const { merge } = forge({ [`PUT ${ASYNC}`]: { status: 400, body: { message: 'Pull request is in draft state' } } })
+    const error = await merge({ method: 'squash', approve: false })
 
-    expect(await merge({ method: 'squash', approve: false })).toBeInstanceOf(MergeBlockedError)
+    expect(error).toBeInstanceOf(MergeBlockedError)
+    expect((error as Error).cause).toBeInstanceOf(ForgeApiError)
   })
 
   it('rejects options GitHub cannot honour before any request', async () => {

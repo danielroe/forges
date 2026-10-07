@@ -57,8 +57,9 @@ export class RateLimitedError extends ForgeApiError {
     status: number,
     body: string,
     options: { resetAt?: Date, secondary?: boolean } & ForgeErrorContext = {},
+    errorOptions?: ErrorOptions,
   ) {
-    super(message, status, body, options)
+    super(message, status, body, options, errorOptions)
     this.resetAt = options.resetAt
     this.secondary = options.secondary ?? false
   }
@@ -203,10 +204,10 @@ export class MergeMethodRequiredError extends ForgeError {
   override name = 'MergeMethodRequiredError'
   readonly allowed: MergeMethod[]
 
-  constructor(allowed: MergeMethod[], context?: ForgeErrorContext) {
+  constructor(allowed: MergeMethod[], context?: ForgeErrorContext, options?: ErrorOptions) {
     super(allowed.length
       ? `Repository allows ${allowed.join(', ')}; pass \`method\` to choose one`
-      : 'Repository reports no merge method this provider can use; pass `method` explicitly', context)
+      : 'Repository reports no merge method this provider can use; pass `method` explicitly', context, options)
     this.allowed = allowed
   }
 }

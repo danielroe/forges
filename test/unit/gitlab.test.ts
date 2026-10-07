@@ -5,6 +5,7 @@ import {
   InsufficientScopeError,
   MergeMethodRequiredError,
   RateLimitedError,
+  TokenRevokedError,
   UnresolvedThreadError,
   UnsupportedOperationError,
 } from '../../src/errors.ts'
@@ -115,7 +116,10 @@ describe('gitlab provider', () => {
       [`POST ${P}/merge_requests/23/approve`]: { status: 401, body: { message: '401 Unauthorized' } },
     })
 
-    await expect(instance.threads.approveAndMerge!(mr, { method: 'squash' })).rejects.toThrow(InsufficientScopeError)
+    const error = await instance.threads.approveAndMerge!(mr, { method: 'squash' }).catch((error: unknown) => error)
+
+    expect(error).toBeInstanceOf(InsufficientScopeError)
+    expect((error as Error).cause).toBeInstanceOf(TokenRevokedError)
   })
 
   it('lists pending then done to-dos when all is set', async () => {

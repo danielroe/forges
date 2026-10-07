@@ -102,8 +102,8 @@ export function subscribeJetstream(options: JetstreamSubscriptionOptions): Async
           socket.close(1011)
         })
       })
-      socket.addEventListener('error', () => {
-        chain = chain.then(() => settle({ error: new SubscriptionClosedError('Subscription connection failed', lastCursor, options.context) }))
+      socket.addEventListener('error', (event) => {
+        chain = chain.then(() => settle({ error: new SubscriptionClosedError('Subscription connection failed', lastCursor, options.context, { cause: event }) }))
       })
       socket.addEventListener('close', ({ code, reason }) => {
         chain = chain.then(() => settle({

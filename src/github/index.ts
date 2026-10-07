@@ -616,7 +616,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
       throw error
     }
     if (isPlainApiError(error, 400)) {
-      throw new MergeBlockedError('Pull request cannot be merged in its current state', 400, error.body, { ...context, url: error.url, method: error.method })
+      throw new MergeBlockedError('Pull request cannot be merged in its current state', 400, error.body, { ...context, url: error.url, method: error.method }, { cause: error })
     }
     if (!isPlainApiError(error, 409)) {
       throw toMergeError(error)
@@ -631,7 +631,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
       throw toMergeError(error)
     }
     if (message !== undefined || details.merge_action !== 'direct_merge' || details.merge_method !== method || details.bypass_rules || (sha !== undefined && details.expected_head_sha !== sha)) {
-      throw new MergeBlockedError('Another merge request is pending whose options do not match or cannot be verified', 409, error.body, { ...context, url: error.url, method: error.method })
+      throw new MergeBlockedError('Another merge request is pending whose options do not match or cannot be verified', 409, error.body, { ...context, url: error.url, method: error.method }, { cause: error })
     }
     return { status: 'pending', details }
   }

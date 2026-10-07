@@ -494,7 +494,7 @@ const GITLAB: ProviderDefinition<GitLabOptions> = {
       const { data } = await fetcher.json<GitLabApprovals>(`${threadPath(ref)}/approve`, {
         method: 'POST',
         mapError: error => error instanceof TokenRevokedError
-          ? new InsufficientScopeError('Not allowed to approve this merge request', 401, error.body, { ...context, url: error.url, method: error.method })
+          ? new InsufficientScopeError('Not allowed to approve this merge request', 401, error.body, { ...context, url: error.url, method: error.method }, { cause: error })
           : error,
       })
       return data
