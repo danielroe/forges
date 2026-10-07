@@ -46,7 +46,7 @@ const { copied, copy, message } = useCopyToClipboard(() => command)
       </NuxtLink>
 
       <h1 class="mt-6 text-balance text-4xl font-semibold tracking-tight text-highlighted sm:text-6xl">
-        one API for every
+        one api for every
         <span class="text-primary">code forge</span>
       </h1>
 
