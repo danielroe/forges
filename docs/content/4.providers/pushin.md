@@ -67,14 +67,14 @@ The API has no hook endpoints and no documented signature scheme. `capabilities.
 
 `pushin()` contains no webhook code, so the provider has no `pushinLite()` factory.
 
-## Recording fixtures
-
+::contributing{title="Record pushin.eu fixtures" to="/contributing/record-fixtures"}
 ```sh
 PUSHIN_TOKEN=... FIXTURE_PUSHIN_REPO=pjullrich/pushin \
 pnpm record-fixtures pushin
 ```
 
 To choose the threads to record, set `FIXTURE_PUSHIN_ISSUE` and `FIXTURE_PUSHIN_PULL`. To record another deployment, set `PUSHIN_BASE_URL`. The recorder redacts `pun_pat_` tokens.
+::
 
 <!-- capabilities:start -->
 ## Capabilities

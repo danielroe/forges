@@ -101,8 +101,7 @@ const events = await forge.webhooks.ingest({
 
 You manage service hook subscriptions at the organization level, not on a repository, so the `webhooks` management methods are unavailable.
 
-## Recording fixtures
-
+::contributing{title="Record Azure DevOps fixtures" to="/contributing/record-fixtures"}
 ```sh
 AZURE_DEVOPS_TOKEN=... \
 FIXTURE_AZURE_DEVOPS_ORGANIZATION=acme \
@@ -112,6 +111,7 @@ pnpm record-fixtures azure-devops
 ```
 
 To add a work item, set `FIXTURE_AZURE_DEVOPS_ISSUE`.
+::
 
 <!-- capabilities:start -->
 ## Capabilities

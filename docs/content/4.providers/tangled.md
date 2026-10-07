@@ -135,8 +135,7 @@ Tangled sends these headers with each delivery:
 
 A `push` delivery becomes a `push` or `ref` event. Tangled has no API to register hooks, so the `webhooks` management methods are unavailable.
 
-## Recording fixtures
-
+::contributing{title="Record Tangled fixtures" to="/contributing/record-fixtures"}
 Recording needs no credentials:
 
 ```sh
@@ -144,6 +143,7 @@ pnpm record-fixtures tangled
 ```
 
 To record other threads, set `FIXTURE_TANGLED_ISSUE` and `FIXTURE_TANGLED_PULL` to AT-URIs. To record through a Slingshot cache, set `TANGLED_RECORDS_URL`.
+::
 
 <!-- capabilities:start -->
 ## Capabilities

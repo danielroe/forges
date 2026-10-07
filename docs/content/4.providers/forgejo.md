@@ -94,14 +94,14 @@ A label delivery doesn't say which labels were added or removed. A changed label
 
 `webhooks.deliveries()` and `webhooks.redeliver()` are unavailable.
 
-## Recording fixtures
-
+::contributing{title="Record Forgejo fixtures" to="/contributing/record-fixtures"}
 ```sh
 CODEBERG_TOKEN=... FIXTURE_FORGEJO_REPO=owner/repo \
 FIXTURE_FORGEJO_PULL=1 pnpm record-fixtures forgejo
 ```
 
 To add an issue, set `FIXTURE_FORGEJO_ISSUE`. To record another instance, set `CODEBERG_BASE_URL`.
+::
 
 <!-- capabilities:start -->
 ## Capabilities

@@ -90,14 +90,14 @@ Gitee sends the password or the signature in `X-Gitee-Token`, and the provider a
 
 Webhook management works on repositories only. Gitee has no delivery log, so `webhooks.deliveries()` and `webhooks.redeliver()` are unavailable.
 
-## Recording fixtures
-
+::contributing{title="Record Gitee fixtures" to="/contributing/record-fixtures"}
 ```sh
 GITEE_TOKEN=... FIXTURE_GITEE_REPO=owner/repo FIXTURE_GITEE_PULL=1 \
 pnpm record-fixtures gitee
 ```
 
 To add an issue, set `FIXTURE_GITEE_ISSUE`.
+::
 
 <!-- capabilities:start -->
 ## Capabilities

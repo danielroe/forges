@@ -79,14 +79,14 @@ The Gitea provider doesn't read `X-Forgejo-*` headers.
 
 A label delivery doesn't say which labels were added or removed. A changed label set becomes a `label` event with the `edited` action, and removing every label becomes one with the `unlabelled` action.
 
-## Recording fixtures
-
+::contributing{title="Record Gitea fixtures" to="/contributing/record-fixtures"}
 ```sh
 GITEA_TOKEN=... FIXTURE_GITEA_REPO=owner/repo FIXTURE_GITEA_PULL=1 \
 pnpm record-fixtures gitea
 ```
 
 To add an issue, set `FIXTURE_GITEA_ISSUE`. To record a self-hosted instance, set `GITEA_BASE_URL`.
+::
 
 <!-- capabilities:start -->
 ## Capabilities

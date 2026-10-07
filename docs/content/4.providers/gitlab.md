@@ -96,14 +96,14 @@ An issue or merge request update that changes labels, assignees or reviewers bec
 
 When you create a hook with `webhooks.create()`, `nativeEvents` takes GitLab's event flag names, such as `issues_events`.
 
-## Recording fixtures
-
+::contributing{title="Record GitLab fixtures" to="/contributing/record-fixtures"}
 ```sh
 GITLAB_TOKEN=glpat-... FIXTURE_GITLAB_PROJECT=group/project \
 FIXTURE_GITLAB_MR=1 pnpm record-fixtures gitlab
 ```
 
 To add an issue, set `FIXTURE_GITLAB_ISSUE`. To record a self-managed instance, set `GITLAB_BASE_URL`.
+::
 
 <!-- capabilities:start -->
 ## Capabilities

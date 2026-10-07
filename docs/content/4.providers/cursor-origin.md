@@ -87,12 +87,12 @@ const events = await forge.webhooks.ingest({
 
 `installation.*` deliveries become `installation` events. You register hooks in the app definition, so the `webhooks` management methods are unavailable.
 
-## Recording fixtures
-
+::contributing{title="Record Cursor Origin fixtures" to="/contributing/record-fixtures"}
 ```sh
 CURSOR_AUTH_TOKEN=... FIXTURE_CURSOR_ORIGIN_REPO=owner/repo \
 FIXTURE_CURSOR_ORIGIN_PULL=1 pnpm record-fixtures cursor-origin
 ```
+::
 
 <!-- capabilities:start -->
 ## Capabilities

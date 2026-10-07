@@ -95,14 +95,14 @@ Bitbucket sends these headers with each delivery:
 
 Bitbucket has no delivery log, so `webhooks.deliveries()` and `webhooks.redeliver()` are unavailable.
 
-## Recording fixtures
-
+::contributing{title="Record Bitbucket fixtures" to="/contributing/record-fixtures"}
 ```sh
 BITBUCKET_TOKEN=... FIXTURE_BITBUCKET_REPO=workspace/repo \
 FIXTURE_BITBUCKET_PULL=1 pnpm record-fixtures bitbucket
 ```
 
 To use Basic credentials, set `BITBUCKET_USERNAME` and `BITBUCKET_APP_PASSWORD` in place of `BITBUCKET_TOKEN`. To add an issue, set `FIXTURE_BITBUCKET_ISSUE`.
+::
 
 <!-- capabilities:start -->
 ## Capabilities

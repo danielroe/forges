@@ -127,13 +127,13 @@ GitHub sends these headers with each delivery:
 
 `installation` and `installation_repositories` deliveries become `installation` events.
 
-## Recording fixtures
-
+::contributing{title="Record GitHub fixtures" to="/contributing/record-fixtures"}
 ```sh
 GITHUB_TOKEN=ghp_... pnpm record-fixtures github
 ```
 
 To record different targets, set `FIXTURE_GITHUB_REPO`, `FIXTURE_GITHUB_PULL`, `FIXTURE_GITHUB_ISSUE`, `FIXTURE_GITHUB_DISCUSSION_REPO` or `FIXTURE_GITHUB_DISCUSSION`. To record a GitHub Enterprise Server instance, set `GITHUB_BASE_URL`.
+::
 
 <!-- capabilities:start -->
 ## Capabilities
