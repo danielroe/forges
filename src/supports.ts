@@ -16,11 +16,28 @@ const VERBS = new Map<string, string>(
  * Without `kind`, a per-kind verb counts as supported when any kind is.
  */
 export function supports(capabilities: ForgeCapabilities, verb: ForgeVerb, kind?: ThreadKind | SecurityAlertKind): boolean {
+  return supportOf(capabilities, verb, kind) !== false
+}
+
+/** Levels from strongest to weakest, as the capability matrix ranks them. */
+const LEVELS: Support[] = [true, 'experimental', 'emulated']
+
+/**
+ * How well `verb` is supported according to `capabilities`: `true`,
+ * `'experimental'`, `'emulated'` or `false`, for `kind` where support differs
+ * by thread kind (or by alert kind for `securityAlerts`). Without `kind`, a
+ * per-kind verb reports its strongest level across kinds.
+ */
+export function supportOf(capabilities: ForgeCapabilities, verb: ForgeVerb, kind?: ThreadKind | SecurityAlertKind): Support {
   const support = capabilityOf(capabilities, verb)
   if (typeof support !== 'object') {
-    return support !== false
+    return support
   }
-  return kind ? (support[kind] ?? false) !== false : Object.values(support).some(value => value !== false)
+  if (kind) {
+    return support[kind] ?? false
+  }
+  const levels = Object.values(support)
+  return LEVELS.find(level => levels.includes(level)) ?? false
 }
 
 /** The capability entry behind `verb`: one support level, or one per kind. */

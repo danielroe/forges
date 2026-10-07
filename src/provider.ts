@@ -624,6 +624,13 @@ export interface ForgeProvider {
    * question, the method is the action.
    */
   can: (verb: ForgeVerb, kind?: ThreadKind | SecurityAlertKind) => boolean
+  /**
+   * How well `verb` is supported: `true`, `'experimental'`, `'emulated'` or
+   * `false`, for `kind` where support differs by kind. `can()` is `true` for
+   * every level but `false`. Without `kind`, a per-kind verb reports its
+   * strongest level across kinds.
+   */
+  support: (verb: ForgeVerb, kind?: ThreadKind | SecurityAlertKind) => Support
   /** The web page for `target`, built without a request; `undefined` when the forge has no such page. */
   urlFor: (target: UrlTarget) => string | undefined
   /**

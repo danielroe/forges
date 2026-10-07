@@ -171,11 +171,11 @@ export async function markDone(forges: Forges, key: string, options: InboxOption
     throw new Error(`${provider.forge} has no notification writes`)
   }
 
-  if (provider.capabilities.notifications.markDone !== false && notifications.markDone) {
+  if (provider.can('notifications.markDone') && notifications.markDone) {
     await notifications.markDone(row.notification, { thread: row.thread })
     return { key, verb: 'markDone', forge: provider.forge }
   }
-  if (provider.capabilities.notifications.markRead !== false && notifications.markRead) {
+  if (provider.can('notifications.markRead') && notifications.markRead) {
     await notifications.markRead(row.notification)
     return { key, verb: 'markRead', forge: provider.forge }
   }

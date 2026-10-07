@@ -33,7 +33,7 @@ import { ReadOnlyError, UnsupportedOperationError, WebhookVerificationError } fr
 import { completeEvent } from './events.ts'
 import { createFetcher, createRequest } from './fetch.ts'
 import { commentMarker, hasCommentMarker } from './model.ts'
-import { supports } from './supports.ts'
+import { supportOf, supports } from './supports.ts'
 import { forgeIterable, hostOf, iteratePages, memo } from './utils.ts'
 import { parseWebUrl, referenceFor, webUrlFor } from './web.ts'
 
@@ -502,6 +502,7 @@ function createProvider<TOptions extends ForgeOptionsBase, TState>(
     normaliseMarkdown: spec.normaliseMarkdown ?? (body => body),
     scopesFor: verb => spec.scopes?.(verb) ?? {},
     can: (verb, kind) => supports(capabilities, verb, kind),
+    support: (verb, kind) => supportOf(capabilities, verb, kind),
     urlFor: target => spec.web ? webUrlFor(spec.web, target) : undefined,
     parseUrl: url => spec.web ? parseWebUrl(spec.web, url, origin) : undefined,
     referenceTo: (ref, referenceOptions) => referenceFor(spec.web, ref, referenceOptions),
