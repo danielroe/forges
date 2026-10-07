@@ -179,7 +179,8 @@ function isRateLimited(response: Response): boolean {
   if (response.status === 429) {
     return true
   }
-  if (response.status !== 403) {
+  // A zero budget never resets; the request needs other credentials.
+  if (response.status !== 403 || headerNumber(response, 'x-ratelimit-limit', 'ratelimit-limit') === 0) {
     return false
   }
   return response.headers.get('x-ratelimit-remaining') === '0'
@@ -396,10 +397,14 @@ export function createFetcher(options: FetcherOptions): Fetcher {
     const body = (await response.text()).slice(0, BODY_EXCERPT_LENGTH)
     const context = { ...options.context, url, method: options_.method ?? 'GET' }
 
+    const credentialed = (trusted && options.authenticated) || headers.has('authorization')
     if (response.status === 401) {
-      throw (trusted && options.authenticated) || headers.has('authorization')
+      throw credentialed
         ? new TokenRevokedError('Credentials were rejected by the forge', 401, body, context)
         : new AuthenticationRequiredError('Credentials are required for this request', 401, body, context)
+    }
+    if (response.status === 403 && !credentialed && headerNumber(response, 'x-ratelimit-limit', 'ratelimit-limit') === 0) {
+      throw new AuthenticationRequiredError('Credentials are required for this request', 403, body, context)
     }
 
     if (response.status === 404) {

@@ -43,7 +43,10 @@ export class NotFoundError extends ForgeApiError {
   override name = 'NotFoundError'
 }
 
-/** A 401 for a request sent without credentials. A rejected credential is {@link TokenRevokedError}. */
+/**
+ * A 401, or a 403 with a request budget of zero (GitHub GraphQL), for a request
+ * sent without credentials. A rejected credential is {@link TokenRevokedError}.
+ */
 export class AuthenticationRequiredError extends ForgeApiError {
   override name = 'AuthenticationRequiredError'
 }

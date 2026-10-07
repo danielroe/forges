@@ -1,6 +1,6 @@
 import type { ForgeRawRequestOptions, RawResponse } from '../../src/fetch.ts'
 import { describe, expect, expectTypeOf, it, vi } from 'vitest'
-import { ForbiddenError, ForgeApiError, InsufficientScopeError, RateLimitedError, ReadOnlyError } from '../../src/errors.ts'
+import { AuthenticationRequiredError, ForbiddenError, ForgeApiError, InsufficientScopeError, RateLimitedError, ReadOnlyError } from '../../src/errors.ts'
 import { createFetcher, createRequest, parseLinkHeader } from '../../src/fetch.ts'
 
 describe('parseLinkHeader', () => {
@@ -140,6 +140,23 @@ describe('createFetcher', () => {
     expect(error).toBeInstanceOf(RateLimitedError)
     expect((error as RateLimitedError).resetAt).toEqual(new Date(1_800_000_000_000))
     expect(attempts).toBe(1)
+  })
+
+  it('treats a zero request budget as missing access rather than a rate limit', async () => {
+    const fetch = async () => new Response('{"message":"API rate limit exceeded"}', {
+      status: 403,
+      headers: { 'x-ratelimit-limit': '0', 'x-ratelimit-remaining': '0', 'x-ratelimit-reset': '1800000000' },
+    })
+    const anonymous = createFetcher({ baseUrl: 'https://api.example', fetch })
+    const authenticated = createFetcher({ baseUrl: 'https://api.example', fetch, authHeaders: () => ({ authorization: 'Bearer t' }) })
+
+    const missing = await anonymous.json('/graphql', { method: 'POST' }).catch((error: unknown) => error)
+    const insufficient = await authenticated.json('/graphql', { method: 'POST' }).catch((error: unknown) => error)
+
+    expect(missing).toBeInstanceOf(AuthenticationRequiredError)
+    expect((missing as AuthenticationRequiredError).body).toContain('rate limit exceeded')
+    expect(insufficient).toBeInstanceOf(InsufficientScopeError)
+    expect(insufficient).not.toBeInstanceOf(RateLimitedError)
   })
 
   it('wraps other failures with status and a body excerpt', async () => {
