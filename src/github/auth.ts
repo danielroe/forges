@@ -6,6 +6,7 @@ import { signRs256Jwt } from '../crypto.ts'
 import { createFetcher } from '../fetch.ts'
 import { resolveToken } from '../utils.ts'
 
+/** The credentials GitHub accepts: a token, a GitHub App, or none for anonymous reads. */
 export type GitHubAuth = TokenAuth | AppAuth | AnonymousAuth
 
 export interface AuthContext {

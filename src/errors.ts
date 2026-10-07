@@ -1,5 +1,6 @@
 import type { ForgeInstance, ForgeKind, MergeMethod } from './model.ts'
 
+/** Where an error happened: the forge, the instance and the request. */
 export interface ForgeErrorContext {
   forge?: ForgeKind
   instance?: ForgeInstance
@@ -10,6 +11,7 @@ export interface ForgeErrorContext {
 /** Base class for every error that forges throws. */
 export class ForgeError extends Error {
   override name = 'ForgeError'
+  /** The forge that the request went to. */
   readonly forge?: ForgeKind
   readonly instance?: ForgeInstance
   readonly url?: string
@@ -54,6 +56,7 @@ export class AuthenticationRequiredError extends ForgeApiError {
 /** A rate limit was hit and a retry didn't help. */
 export class RateLimitedError extends ForgeApiError {
   override name = 'RateLimitedError'
+  /** When the limit resets, when the forge says. */
   readonly resetAt?: Date
   /** A secondary (abuse) limit, which has no remaining-request counter. */
   readonly secondary: boolean
@@ -94,6 +97,7 @@ export type ForbiddenReason = 'org_restriction' | 'sso_required' | 'rate_limit_a
  */
 export class ForbiddenError extends ForgeApiError {
   override name = 'ForbiddenError'
+  /** Why the forge refused the request. */
   readonly reason: ForbiddenReason
   /** The forge's own wording, for diagnostics and for reasons not yet mapped. */
   readonly reasonRaw?: string
@@ -140,6 +144,7 @@ export class MergeConflictError extends ForgeApiError {
 /** A request or a pending merge exceeded `timeout`. */
 export class ForgeTimeoutError extends ForgeError {
   override name = 'ForgeTimeoutError'
+  /** The timeout that was exceeded, in milliseconds. */
   readonly timeout: number
 
   constructor(message: string, timeout: number, context?: ForgeErrorContext, options?: ErrorOptions) {
@@ -151,6 +156,7 @@ export class ForgeTimeoutError extends ForgeError {
 /** A subscription connection closed or failed. Resume from `cursor`. */
 export class SubscriptionClosedError extends ForgeError {
   override name = 'SubscriptionClosedError'
+  /** The cursor of the last event received. Pass it to `subscribe()` to resume. */
   readonly cursor?: string
 
   constructor(message: string, cursor: string | undefined, context?: ForgeErrorContext, options?: ErrorOptions) {
@@ -212,6 +218,7 @@ export class UnresolvedThreadError extends ForgeError {
 /** No merge method was given, and the repository allows several or reports none. */
 export class MergeMethodRequiredError extends ForgeError {
   override name = 'MergeMethodRequiredError'
+  /** The merge methods that the repository allows. */
   readonly allowed: MergeMethod[]
 
   constructor(allowed: MergeMethod[], context?: ForgeErrorContext, options?: ErrorOptions) {

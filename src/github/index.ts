@@ -148,6 +148,7 @@ const DISCUSSION_CLOSE_REASONS: Partial<Record<CloseReason, string>> = { complet
 
 export type { GitHubAuth } from './auth.ts'
 
+/** Options for `github()`. */
 export interface GitHubOptions extends ForgeOptionsBase {
   /** Defaults to `{ type: 'anonymous' }`: public reads only. */
   auth?: GitHubAuth

@@ -5,10 +5,13 @@ import { SubscriptionClosedError } from '../errors.ts'
 
 /** The subset of the WHATWG `WebSocket` the subscription uses. */
 export interface WebSocketLike {
+  /** Registers a listener for a socket event. */
   addEventListener: (type: 'open' | 'message' | 'error' | 'close', listener: (event: { data?: unknown, code?: number, reason?: string }) => void) => void
+  /** Closes the socket, optionally with a close code and reason. */
   close: (code?: number, reason?: string) => void
 }
 
+/** Opens a WebSocket for a URL, such as `url => new WebSocket(url)`. */
 export type WebSocketFactory = (url: string) => WebSocketLike
 
 export interface JetstreamSubscriptionOptions extends SubscribeOptions {

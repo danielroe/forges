@@ -74,6 +74,7 @@ import { forgejoWebhooks } from './webhooks.ts'
 /** Forgejo and Gitea have no app-installation credential, so only tokens are accepted. */
 export type ForgejoAuth = TokenAuth | AnonymousAuth
 
+/** Options for `forgejo()`. */
 export interface ForgejoOptions extends ForgeOptionsBase {
   /** Defaults to `{ type: 'anonymous' }`: public reads only. */
   auth?: ForgejoAuth

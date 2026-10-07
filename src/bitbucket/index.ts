@@ -94,6 +94,7 @@ import { bitbucketWebhooks } from './webhooks.ts'
  */
 export type BitbucketAuth = TokenAuth | BasicAuth | AnonymousAuth
 
+/** Options for `bitbucket()`. */
 export interface BitbucketOptions extends ForgeOptionsBase {
   /** Defaults to `{ type: 'anonymous' }`: public reads only. */
   auth?: BitbucketAuth
@@ -704,6 +705,7 @@ const BITBUCKET: ProviderDefinition<BitbucketOptions> = {
   },
 }
 
+/** Creates a Bitbucket Cloud provider. */
 export const bitbucket: ProviderFactoryFunction<BitbucketOptions> = /* @__PURE__ */ defineForgeProvider({ ...BITBUCKET, webhooks: bitbucketWebhooks })
 
 /** `bitbucket()` without webhook ingestion, for bundles that never receive a delivery. */

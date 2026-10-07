@@ -7,22 +7,41 @@ export interface Fixture {
   /** `true` when the fixture was written from documentation, not recorded. */
   handAuthored?: boolean
   /** GraphQL requests share one URL, so they are matched on `operationName` and, when recorded, `variables` too. */
-  request: { method: string, url: string, operationName?: string, variables?: Record<string, unknown> }
+  request: {
+    method: string
+    url: string
+    /** The GraphQL operation name, for a GraphQL request. */
+    operationName?: string
+    /** The GraphQL variables, for a GraphQL request. */
+    variables?: Record<string, unknown>
+  }
   /** A JSON body, or the text of a response that is not JSON. */
-  response: { status: number, headers?: Record<string, string>, body?: unknown }
+  response: {
+    status: number
+    headers?: Record<string, string>
+    /** The response body: parsed JSON, or the text of a response that is not JSON. */
+    body?: unknown
+  }
 }
 
+/** A request that `fixtureFetch()` received. */
 export interface FixtureCall {
   method: string
   url: string
   body?: string
+  /** The GraphQL operation name, for a GraphQL request. */
   operationName?: string
+  /** The GraphQL variables, for a GraphQL request. */
   variables?: Record<string, unknown>
+  /** The `Authorization` header that the request carried. */
   authorization?: string
+  /** All the request headers. */
   headers: Headers
 }
 
+/** A `fetch` that answers from fixtures, and records the calls it received. */
 export interface FixtureFetch {
+  /** The `fetch` to pass to a provider. */
   fetch: FetchLike
   /** Every request made, in order, including ones no fixture matched. */
   calls: FixtureCall[]
@@ -98,7 +117,9 @@ export function fixtureFetch(fixtures: Iterable<Fixture>, overrides: Record<stri
   return { fetch, calls }
 }
 
+/** A `fetch` that forwards to the real one and records every exchange as a fixture. */
 export interface RecordingFetch {
+  /** The `fetch` to pass to a provider. */
   fetch: FetchLike
   /** One fixture per response, in order; pass them to {@link fixtureFetch} to replay. */
   fixtures: Fixture[]

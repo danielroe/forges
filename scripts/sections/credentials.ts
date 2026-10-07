@@ -5,7 +5,7 @@ import { requirementsTable, taskTable } from '../credentials.ts'
 const requirements = await requirementsTable(forges)
 
 const sections: DocsSectionSource = source => [
-  { page: '5.reference/4.environment-variables.md', marker: 'forge-requirements', content: requirements },
+  { page: '5.reference/22.environment-variables.md', marker: 'forge-requirements', content: requirements },
   { page: '2.guides/3.environment.md', marker: 'credentials-wizard', content: taskTable(source) },
 ]
 

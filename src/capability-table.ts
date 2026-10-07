@@ -149,6 +149,9 @@ interface TableRow extends CapabilityEntry {
   listing?: boolean
 }
 
+/**
+ * Every capability with the verbs it covers and the flags that gate it, in the order the capability matrix lists them.
+ */
 export const CAPABILITY_TABLE: readonly CapabilityEntry[] = (TABLE as readonly TableRow[]).map(({ listing, ...row }) => {
   const spec = row.spec ?? (row.derived ? undefined : defaultSpec(row.capability, listing))
   const verbs = row.verbs ?? (spec?.endsWith('Page') ? [spec.slice(0, -4), spec] : spec ? [spec] : undefined)

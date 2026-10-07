@@ -5,6 +5,7 @@ import { forgejoDefinition } from '../forgejo/index.ts'
 import { GITEA_HEADERS } from '../forgejo/webhook-events.ts'
 import { forgejoWebhooks } from '../forgejo/webhooks.ts'
 
+/** Options for `gitea()`, the same as for `forgejo()`. */
 export type GiteaOptions = ForgejoOptions
 
 /**

@@ -18,6 +18,7 @@ export interface ParsedForgeUrl {
   release?: ReleaseRef
 }
 
+/** Options for `provider.referenceTo()`. */
 export interface ReferenceOptions {
   /** Repository the reference is written in; a reference within it is the short form. */
   from?: RepoRef
@@ -30,12 +31,19 @@ export interface ReferenceOptions {
  * `origin`; any builder may return `undefined` when the forge has no such page.
  */
 export interface WebLinks {
+  /** The origin of the forge website, such as `https://github.com`. */
   origin: string
+  /** The page of a repository. */
   repo: (repo: RepoRef) => string
+  /** The page of an issue or pull request. */
   thread: (ref: ResolvedThreadRef) => string | undefined
+  /** The page of a comment, anchored on its thread. */
   comment?: (ref: CommentRef & { thread: ResolvedThreadRef }) => string | undefined
+  /** The page of a release. */
   release?: (ref: ReleaseRef) => string | undefined
+  /** The page of a file at a revision, optionally at a line. */
   file?: (repo: RepoRef, path: string, at: string, line?: number) => string | undefined
+  /** The page that compares two revisions. */
   compare?: (repo: RepoRef, base: string, head: string) => string | undefined
   /** Reads a URL already known to be on `origin`, split into path segments. */
   parse: (segments: string[], url: URL, origin: ForgeOrigin) => ParsedForgeUrl | undefined
@@ -112,12 +120,17 @@ export function referenceFor(web: WebLinks | undefined, ref: ThreadRef, options:
   return web.reference?.(ref, sameRepo(ref.repo, options.from), options.expand ?? false) ?? webUrlFor(web, { thread: ref })
 }
 
+/** How a forge that lays out its website like GitHub differs from GitHub. */
 export interface GitHubShape {
+  /** The path segment of pull requests, such as `pull` or `pulls`. */
   pull: string
+  /** The forge has discussions, which are addressed like issues. */
   discussions?: boolean
   /** Fragment for a comment id, for example `issuecomment-` or `note_`. */
   commentFragment: string
+  /** The path segment that leads to a file at a revision. */
   file: (at: string) => string
+  /** The URL fragment that selects a line of a file. */
   lineFragment: (line: number) => string
   /** Reference prefix for pulls when it differs from issues. */
   pullPrefix?: string

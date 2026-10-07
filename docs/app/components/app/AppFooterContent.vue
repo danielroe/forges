@@ -5,7 +5,7 @@ const { data: attribution } = await useFetch('/api/footer-contributors', {
 
 const links = [
   { label: 'Documentation', to: '/getting-started/introduction' },
-  { label: 'API reference', to: '/reference/provider-api' },
+  { label: 'API reference', to: '/reference/overview' },
   { label: 'Developers', to: '/developers' },
 ]
 </script>

@@ -54,22 +54,30 @@ import { verifyHmacSignature } from '../webhooks.ts'
 
 /** A repository to seed, as `owner/name` plus whatever the test cares about. */
 export interface FakeRepoSeed {
+  /** The repository as `owner/name`. */
   repo: string
   description?: string
+  /** The default branch. Defaults to `main`. */
   defaultBranch?: string
+  /** Defaults to `public`. */
   visibility?: Repo['visibility']
+  /** Names of the labels that the repository defines. */
   labels?: string[]
 }
 
+/** An issue, pull request or discussion to seed. */
 export interface FakeThreadSeed {
+  /** The repository as `owner/name`. */
   repo: string
   kind: Exclude<ThreadKind, 'other' | 'commit'>
   /** Defaults to the next free number in the repository. */
   number?: number
   title: string
   body?: string
+  /** Defaults to `open`. */
   state?: ThreadState
   isDraft?: boolean
+  /** The login of the author. Defaults to the viewer. */
   author?: string
   labels?: string[]
   assignees?: string[]
@@ -83,6 +91,7 @@ export interface FakeThreadSeed {
 
 /** A CI run to seed, with its jobs and their logs. */
 export interface FakeRunSeed {
+  /** The repository as `owner/name`. */
   repo: string
   name: string
   state?: CheckState
@@ -93,6 +102,7 @@ export interface FakeRunSeed {
 
 /** A file to seed into a repository, at `ref` or on every ref. */
 export interface FakeFileSeed {
+  /** The repository as `owner/name`. */
   repo: string
   path: string
   /** Text, or bytes for a binary file. */
@@ -103,6 +113,7 @@ export interface FakeFileSeed {
 
 /** A commit to seed, with the files it changed. */
 export interface FakeCommitSeed {
+  /** The repository as `owner/name`. */
   repo: string
   sha: string
   message: string
@@ -112,14 +123,21 @@ export interface FakeCommitSeed {
   files?: Array<{ path: string, status?: FileStatus, additions?: number, deletions?: number, patch?: string }>
 }
 
+/** A notification to seed, for an issue or pull request that is seeded as well. */
 export interface FakeNotificationSeed {
+  /** The repository as `owner/name`. */
   repo: string
+  /** The number of the thread the notification is about. */
   number: number
+  /** Why the viewer got the notification. */
   reason?: NotificationReason
+  /** Defaults to `true`. */
   unread?: boolean
 }
 
+/** A release to seed. */
 export interface FakeReleaseSeed {
+  /** The repository as `owner/name`. */
   repo: string
   tag: string
   name?: string
@@ -130,6 +148,7 @@ export interface FakeReleaseSeed {
   assets?: Array<{ name: string, content: string | Uint8Array, contentType?: string }>
 }
 
+/** The data a fake forge starts with. */
 export interface FakeSeed {
   repos?: FakeRepoSeed[]
   files?: FakeFileSeed[]
@@ -143,6 +162,7 @@ export interface FakeSeed {
 /** Support for one verb: a level, or a level per thread kind for per-kind verbs. */
 export type FakeSupport = SupportInput | Partial<Record<VerbKind, SupportInput>>
 
+/** Options for `fake()`. */
 export interface FakeOptions extends Omit<ForgeOptionsBase, 'fetch'> {
   /** Defaults to `fake`. */
   forge?: ForgeKind
@@ -174,6 +194,7 @@ interface FakeThreadState {
 
 /** The in-memory state behind a fake forge. Mutate it to set up a test, read it to assert. */
 export interface FakeStore {
+  /** Every repository with its threads, releases, runs, files and commits, keyed by `owner/name`. */
   repos: Map<string, {
     repo: Repo
     labels: string[]
@@ -204,7 +225,9 @@ const FAKE_WEBHOOK_EVENTS: WebhookEventType[] = [
   { kind: 'push' },
 ]
 
+/** What `fake()` returns: a provider factory that also exposes the store. */
 export interface FakeForgeFactory extends ForgeProviderFactory<ForgeProvider> {
+  /** The in-memory state of the forge. */
   readonly store: FakeStore
 }
 

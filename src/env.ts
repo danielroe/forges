@@ -38,10 +38,12 @@ const FIELDS = [
 
 type Field = typeof FIELDS[number]
 
+/** One set of variables that `providersFromEnv()` reads, and the provider factory it made from them. */
 export interface EnvProvider {
   forge: string
   /** The part after the field, for example `WORK` in `FORGES_GITHUB_TOKEN_WORK`. Empty for the unsuffixed set. */
   suffix: string
+  /** The factory to pass to `createForges()`. Missing when the set was skipped. */
   factory?: ForgeProviderFactory
   /** Instance host the factory's providers report, when the set was not skipped. */
   instance?: string
@@ -57,6 +59,7 @@ function parseRepo(value: string | undefined): { owner: string, name: string } |
   return path && slash > 0 ? { owner: path.slice(0, slash), name: path.slice(slash + 1) } : undefined
 }
 
+/** Options for `providersFromEnv()` and `forgesFromEnv()`. */
 export interface FromEnvOptions {
   /** Passed to every provider, for tests and runtimes without a global `fetch`. */
   fetch?: FetchLike

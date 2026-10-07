@@ -79,9 +79,13 @@ function pkcs1ToPkcs8(der: Uint8Array): Uint8Array {
   return new Uint8Array([0x30, ...derLength(contents.length), ...contents])
 }
 
+/** The claims of a signed JWT. Other claims are passed through. */
 export interface JwtClaims {
+  /** The issuer, such as the app ID. */
   iss: string
+  /** When the token was issued, in seconds since the epoch. */
   iat: number
+  /** When the token expires, in seconds since the epoch. */
   exp: number
   [claim: string]: unknown
 }
@@ -101,6 +105,7 @@ export async function signRs256Jwt(privateKeyPem: string, claims: JwtClaims): Pr
   return `${payload}.${toBase64Url(new Uint8Array(signature))}`
 }
 
+/** The value of a header, whatever the casing of `name`, from a `Headers` object or a plain record. */
 export function headerValue(headers: Headers | Record<string, string>, name: string): string | undefined {
   if (headers instanceof Headers) {
     return headers.get(name) ?? undefined
@@ -114,6 +119,7 @@ export function headerValue(headers: Headers | Record<string, string>, name: str
   return undefined
 }
 
+/** A request body as text. */
 export function bodyText(body: string | Uint8Array): string {
   return typeof body === 'string' ? body : new TextDecoder().decode(body)
 }
@@ -133,8 +139,11 @@ export async function signEdDsaJwt(privateKeyPem: string, claims: JwtClaims, kid
 
 /** An Ed25519 public key in JWK form, as served from a JWKS endpoint. */
 export interface Ed25519Jwk {
+  /** The key type, always `OKP`. */
   kty: 'OKP'
+  /** The curve, always `Ed25519`. */
   crv: 'Ed25519'
+  /** The public key, base64url encoded. */
   x: string
   kid?: string
 }

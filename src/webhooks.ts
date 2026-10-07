@@ -38,9 +38,11 @@ export function verifySharedToken(delivery: WebhookDelivery, secret: string | un
   return Boolean(key && token && timingSafeEqual(token, key))
 }
 
+/** One ref update in a push delivery. */
 export interface RefChange {
   /** A full ref such as `refs/heads/main`, or a bare name when `refType` is given. */
   ref: string
+  /** Whether the ref is a branch or a tag. */
   refType?: 'branch' | 'tag'
   before?: string
   after?: string

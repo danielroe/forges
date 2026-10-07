@@ -28,11 +28,14 @@ export type Support = boolean | 'emulated' | 'experimental'
 /** Host of a single forge deployment, for example `github.com` or `codeberg.org`. */
 export type ForgeInstance = string
 
+/** Where an object comes from: the forge and the instance of that forge. */
 export interface ForgeOrigin {
   forge: ForgeKind
+  /** The host of the instance, such as `github.com` or `git.example.com`. */
   instance: ForgeInstance
 }
 
+/** Addresses a repository by its forge, instance, owner and name. */
 export interface RepoRef extends ForgeOrigin {
   /**
    * Full namespace path. On forges with nested groups (GitLab) this contains
@@ -55,14 +58,19 @@ export interface RepoRef extends ForgeOrigin {
   externalId?: string
 }
 
+/** Who can see a repository. */
 export type RepoVisibility = 'public' | 'private' | 'internal'
 
 /** The authenticated account's access to a repository. */
 export interface RepoPermissions {
+  /** Full administrative access. */
   admin: boolean
+  /** Manage the repository without access to sensitive or destructive settings. */
   maintain: boolean
   push: boolean
+  /** Manage issues and pull requests without write access. */
   triage: boolean
+  /** Read and clone the repository. */
   pull: boolean
 }
 
@@ -79,35 +87,47 @@ export interface RepoFeatures {
 /** A collaborator's role, highest first. `'none'` is an explicit absence of access. */
 export type RepoRole = 'admin' | 'maintain' | 'write' | 'triage' | 'read' | 'none'
 
+/** An account with a role on a repository. */
 export interface Collaborator {
   actor: Actor
   role: RepoRole
   /** Forge-native role name, for example `maintainer` or `reporter`. */
   roleRaw?: string
+  /** What the role allows. */
   permissions?: RepoPermissions
   raw: unknown
 }
 
+/** A repository as every forge reports it. Fields that not every forge has, such as `openPullCount`, are optional. */
 export interface Repo {
   ref: RepoRef
   description?: string
   defaultBranch?: string
+  /** Who can see the repository. */
   visibility: RepoVisibility
   visibilityRaw?: string
   isFork: boolean
+  /** The repository is archived and read-only. */
   isArchived: boolean
+  /** The repository that this one was forked from. */
   parent?: RepoRef
+  /** Topics, also called tags, that describe the repository. */
   topics: string[]
   url?: string
   /** Git remotes. Tangled maps the hosting knot to its SSH host. */
-  cloneUrls?: { https?: string, ssh?: string }
+  cloneUrls?: {
+    https?: string
+    ssh?: string
+  }
   createdAt?: Date
   updatedAt?: Date
   /** Last push, where the listing endpoint reports it. */
   pushedAt?: Date
   /** Open issues only, never combined with pull requests. */
   openIssueCount?: number
+  /** The number of open pull requests, where the forge reports it. */
   openPullCount?: number
+  /** What the authenticated account may do. */
   permissions?: RepoPermissions
   /** Merge methods the repository allows, where the forge reports them. Empty means the forge reported none. */
   mergeMethods?: MergeMethod[]
@@ -162,6 +182,7 @@ export interface ReleaseRef extends ForgeOrigin {
  * workspace hook.
  */
 export interface WebhookRef extends ForgeOrigin {
+  /** The repository or namespace that the hook is registered on. */
   target: RepoRef
   /** Forge-native hook id. */
   id: string
@@ -199,13 +220,16 @@ export interface Webhook {
   raw: unknown
 }
 
+/** What `webhooks.create()` needs to register a hook. */
 export interface WebhookInput {
   url: string
   /** Normalised kinds, translated to the forge's own event names. */
   events?: EventKind[]
   /** Forge-native event names, sent as given and merged with the translation of `events`. */
   nativeEvents?: string[]
+  /** The secret that signs the deliveries. */
   secret?: string
+  /** How to encode the delivery body. */
   contentType?: 'json' | 'form'
   /** Defaults to `true`. */
   active?: boolean
@@ -219,6 +243,7 @@ export interface WebhookDeliveryRecord {
   ref: WebhookDeliveryRef
   /** Forge-native event name of the delivery. */
   event: string
+  /** The HTTP status that the receiver answered with. */
   status: number
   /** `true` when the forge considered the delivery successful. */
   ok: boolean
@@ -228,6 +253,7 @@ export interface WebhookDeliveryRecord {
   raw: unknown
 }
 
+/** What an alert is about. `other` is a kind that the model does not name. */
 export type SecurityAlertKind = 'dependency' | 'code_scanning' | 'secret' | 'advisory' | 'other'
 
 /** A security alert: a vulnerable dependency, a code scanning result, a leaked secret or an advisory. */
@@ -257,6 +283,7 @@ export interface NotificationRef extends ForgeOrigin {
   id: string
 }
 
+/** An account: a user, an organisation or a bot. */
 export interface Actor extends ForgeOrigin {
   login: string
   id: string
@@ -271,7 +298,10 @@ export interface Actor extends ForgeOrigin {
    */
   isBotHint: boolean
   /** The app behind a bot account, where the forge ties one to it (GitHub Apps' `slug[bot]` users). */
-  app?: { slug: string, id?: string }
+  app?: {
+    slug: string
+    id?: string
+  }
 }
 
 /** A user or organisation account, as `users.get()` reads it. */
@@ -287,8 +317,10 @@ export interface User extends Actor {
   raw: unknown
 }
 
+/** A label that a repository defines. */
 export interface Label {
   name: string
+  /** The colour as hex digits, without a leading `#`. */
   colour?: string
   description?: string
 }
@@ -326,13 +358,17 @@ export interface Reaction {
   raw: unknown
 }
 
+/** The reactions on a thread or comment, counted. */
 export interface ReactionSummary {
+  /** The number of reactions of every kind. */
   total: number
+  /** The number of reactions of each kind. */
   counts: Partial<Record<ReactionContent, number>>
   /** Reactions the authenticated account has left. Absent when the forge does not report them. */
   viewerReacted?: ReactionContent[]
 }
 
+/** A milestone that groups threads. */
 export interface Milestone {
   /** Forge-native milestone id, as `threads.setMilestone` takes it. */
   id: string
@@ -351,6 +387,7 @@ export interface Milestone {
  */
 export type ThreadState = 'open' | 'closed' | 'merged' | 'unknown'
 
+/** What a review or a reviewer says about a pull request. `unknown` is a state that the model does not name. */
 export type ReviewState = 'approved' | 'changes_requested' | 'commented' | 'pending' | 'dismissed' | 'unknown'
 
 /** Reference to a review on a pull request. */
@@ -373,12 +410,16 @@ export interface ReviewComment {
   /** Forge-native id of the comment this one replies to. */
   inReplyTo?: string
   /** The resolvable conversation the comment belongs to, where the forge has one. */
-  thread?: { id: string, resolved: boolean }
+  thread?: {
+    id: string
+    resolved: boolean
+  }
   createdAt?: Date
   url?: string
   raw: unknown
 }
 
+/** A review of a pull request. */
 export interface Review {
   ref: ReviewRef
   author?: Actor
@@ -398,6 +439,7 @@ export interface Review {
 /** What a review does when it is submitted. Omitted creates a pending review where the forge has them. */
 export type ReviewEvent = 'approve' | 'request_changes' | 'comment'
 
+/** An inline comment to send with a review. */
 export interface ReviewCommentInput {
   path: string
   /** Line in the diff, in `side`. */
@@ -408,13 +450,16 @@ export interface ReviewCommentInput {
   body: string
 }
 
+/** What `threads.createReview()` needs. */
 export interface ReviewInput {
   /** Omitted creates a pending review, where the forge has them; submit it with `submitReview`. */
   event?: ReviewEvent
   body?: string
+  /** Inline comments to send with the review. */
   comments?: ReviewCommentInput[]
 }
 
+/** A reviewer who was asked to review a pull request, and what they said. */
 export interface Reviewer {
   actor: Actor
   state: ReviewState
@@ -423,13 +468,24 @@ export interface Reviewer {
   isTeam?: boolean
 }
 
+/** The branches of a pull request. */
 export interface PullBranches {
   /** `sha` is absent on forges where a pull is a patch rather than a branch (Tangled). */
-  head: { ref: string, sha?: string, repo?: RepoRef }
-  base: { ref: string, sha?: string }
+  head: {
+    ref: string
+    sha?: string
+    /** The repository that holds the head branch, which differs for a fork. */
+    repo?: RepoRef
+  }
+  base: {
+    ref: string
+    sha?: string
+  }
+  /** The merge commit, once the pull request is merged. */
   mergeCommitSha?: string
 }
 
+/** Where a pull request sits in a stack of pull requests. */
 export interface ThreadStack {
   /** Forge-native stack id, where the forge names stacks. */
   id?: string
@@ -453,6 +509,7 @@ export interface ChecksSummary {
 /** `neutral` covers skipped and informational results, which neither pass nor fail. */
 export type CheckState = 'pending' | 'success' | 'failure' | 'neutral' | 'unknown'
 
+/** One check on a commit: a check run, a commit status, a job or a policy evaluation. */
 export interface Check {
   ref: CheckRef
   name: string
@@ -472,6 +529,7 @@ export interface CheckReportInput {
   /** Status context or check run name. */
   name: string
   state: Exclude<CheckState, 'unknown'>
+  /** A short description of the state. */
   description?: string
   /** Where a person goes to see the detail. */
   url?: string
@@ -492,6 +550,7 @@ export interface CiJobRef extends ForgeOrigin {
   run?: CiRunRef
 }
 
+/** A CI run, such as a workflow run or a pipeline. */
 export interface CiRun {
   ref: CiRunRef
   name: string
@@ -502,6 +561,7 @@ export interface CiRun {
   /** What triggered the run, as the forge names it. */
   eventRaw?: string
   branch?: string
+  /** The commit that the run ran on. */
   sha?: string
   url?: string
   actor?: Actor
@@ -511,6 +571,7 @@ export interface CiRun {
   raw: unknown
 }
 
+/** One job of a CI run. */
 export interface CiJob {
   ref: CiJobRef
   name: string
@@ -524,6 +585,7 @@ export interface CiJob {
   raw: unknown
 }
 
+/** Filters for `ci.runs()`. */
 export interface CiRunQuery extends PageOptions {
   branch?: string
   /** Normalised state; forges that filter on their own names translate it. */
@@ -533,13 +595,16 @@ export interface CiRunQuery extends PageOptions {
 /** A commit addressed by its full sha. */
 export interface CommitRef extends ForgeOrigin {
   repo: RepoRef
+  /** The full sha of the commit. */
   sha: string
 }
 
 /** `'binary'` carries bytes; `'utf-8'` carries text the forge reported as text. */
 export type FileEncoding = 'utf-8' | 'binary'
 
+/** What a forge reports about a file, apart from its content. */
 export interface FileMetadata {
+  /** The path from the repository root. */
   path: string
   /** Blob sha, where the forge reports one. */
   sha?: string
@@ -553,6 +618,7 @@ export type FileContent
   = | FileMetadata & { encoding: 'utf-8', content: string }
     | FileMetadata & { encoding: 'binary', content: Uint8Array }
 
+/** Options for `contents.file()`. */
 export interface FileOptions {
   /** Branch, tag or sha. Defaults to the repository's default branch. */
   ref?: string
@@ -564,19 +630,23 @@ export interface FileOptions {
   signal?: AbortSignal
 }
 
+/** What a tree entry is. */
 export type TreeEntryType = 'file' | 'directory' | 'symlink' | 'submodule'
 
+/** One entry of a repository tree. */
 export interface TreeEntry {
   /** Path from the repository root, without a leading slash. */
   path: string
   type: TreeEntryType
   sha?: string
+  /** The size in bytes, for a file. */
   size?: number
   /** POSIX mode as the forge reports it, for example `100644`. */
   mode?: string
   url?: string
 }
 
+/** Options for `contents.tree()`. */
 export interface TreeOptions extends PageOptions {
   /** Branch, tag or sha. Defaults to the repository's default branch. */
   ref?: string
@@ -586,8 +656,10 @@ export interface TreeOptions extends PageOptions {
   recursive?: boolean
 }
 
+/** A branch of a repository. */
 export interface Branch {
   name: string
+  /** The commit that the branch points at. */
   sha: string
   isDefault?: boolean
   isProtected?: boolean
@@ -595,6 +667,7 @@ export interface Branch {
   raw: unknown
 }
 
+/** A tag of a repository. */
 export interface Tag {
   name: string
   /** Commit the tag points at, after dereferencing an annotated tag where the forge does so. */
@@ -605,14 +678,18 @@ export interface Tag {
 
 /** Git authorship, with the forge account behind it where the forge matched one. */
 export interface CommitSignature {
+  /** The account, where the forge can match it. */
   actor?: Actor
   name?: string
   email?: string
+  /** When the commit was authored or committed. */
   date?: Date
 }
 
+/** How a commit or pull request changed a file. */
 export type FileStatus = 'added' | 'modified' | 'removed' | 'renamed' | 'copied' | 'changed'
 
+/** A file that a commit or pull request changed. */
 export interface ChangedFile {
   path: string
   /** Path before a rename or copy. */
@@ -625,27 +702,39 @@ export interface ChangedFile {
   patch?: string
   /** Blob sha after the change. */
   sha?: string
+  /** The file is binary, so it has no patch. */
   isBinary?: boolean
 }
 
+/** A commit. */
 export interface Commit {
   ref: CommitRef
+  /** The full sha. */
   sha: string
   message: string
+  /** Who wrote the change. */
   author?: CommitSignature
+  /** Who recorded the change. */
   committer?: CommitSignature
   parents: string[]
   url?: string
-  stats?: { additions: number, deletions: number, total?: number }
+  stats?: {
+    additions: number
+    deletions: number
+    total?: number
+  }
   /** Present on `contents.commit`; absent from listings. */
   files?: ChangedFile[]
   raw: unknown
 }
 
+/** Filters for `contents.commits()`. */
 export interface CommitQuery extends PageOptions {
   /** Branch, tag or sha to walk back from. */
   ref?: string
+  /** Only commits at or after this time. */
   since?: Date
+  /** Only commits at or before this time. */
   until?: Date
   /** Only commits touching this path. */
   path?: string
@@ -653,11 +742,17 @@ export interface CommitQuery extends PageOptions {
   author?: string
 }
 
+/** The difference between two revisions. */
 export interface Comparison {
+  /** The revision that the comparison starts from. */
   base: string
+  /** The revision that the comparison ends at. */
   head: string
+  /** The number of commits that `head` has and `base` lacks. */
   aheadBy?: number
+  /** The number of commits that `base` has and `head` lacks. */
   behindBy?: number
+  /** The commits between the two revisions. */
   commits: Commit[]
   files: ChangedFile[]
   /** The merge base, where the forge reports it. */
@@ -673,6 +768,7 @@ export interface ReleaseAssetRef extends ForgeOrigin {
   id: string
 }
 
+/** A file attached to a release. */
 export interface ReleaseAsset {
   /** Absent where the forge publishes a download URL but nothing to address the asset by. */
   ref?: ReleaseAssetRef
@@ -680,13 +776,16 @@ export interface ReleaseAsset {
   url: string
   size?: number
   downloadCount?: number
+  /** The media type. */
   contentType?: string
 }
 
+/** A release of a repository. */
 export interface Release {
   ref: ReleaseRef
   name?: string
   tag: string
+  /** The release notes. */
   body?: string
   isDraft: boolean
   isPrerelease: boolean
@@ -698,8 +797,10 @@ export interface Release {
   raw: unknown
 }
 
+/** How severe an alert is. `unknown` is a level that the model does not name. */
 export type SecuritySeverity = 'critical' | 'high' | 'medium' | 'low' | 'unknown'
 
+/** A security alert on a repository. */
 export interface SecurityAlert {
   ref: SecurityAlertRef
   kind: SecurityAlertKind
@@ -708,9 +809,15 @@ export interface SecurityAlert {
   severityRaw?: string
   state: 'open' | 'fixed' | 'dismissed' | 'unknown'
   stateRaw: string
+  /** A short description of the problem. */
   title: string
   /** `ecosystem` is absent where the forge reports only the package name. */
-  package?: { ecosystem?: string, name: string, vulnerableRange?: string, fixedIn?: string }
+  package?: {
+    ecosystem?: string
+    name: string
+    vulnerableRange?: string
+    fixedIn?: string
+  }
   url?: string
   createdAt?: Date
   updatedAt?: Date
@@ -718,6 +825,7 @@ export interface SecurityAlert {
   raw: unknown
 }
 
+/** Filters for `securityAlerts.list()`. */
 export interface SecurityAlertListOptions extends PageOptions {
   /** Omitted lists every kind the provider can read, one after another. */
   kind?: Exclude<SecurityAlertKind, 'other'>
@@ -750,12 +858,18 @@ export type ForgeWarningCode
 export interface ForgeWarning {
   /** Stable machine-readable code. */
   code: ForgeWarningCode
+  /** A description of the problem, for a person. */
   message: string
   /** Key or URI of the item the warning concerns, when it concerns one. */
   subject?: string
-  cause?: { name: string, message: string, status?: number }
+  cause?: {
+    name: string
+    message: string
+    status?: number
+  }
 }
 
+/** An issue, pull request, discussion or commit conversation. */
 export interface Thread {
   ref: ThreadRef
   kind: ThreadKind
@@ -807,6 +921,7 @@ export interface CommentRef extends ForgeOrigin {
   id: string
 }
 
+/** A comment on a thread. */
 export interface Comment {
   ref: CommentRef
   body: string
@@ -818,8 +933,10 @@ export interface Comment {
   raw: unknown
 }
 
+/** Whether the account gets notifications for a thread. */
 export type SubscriptionState = 'subscribed' | 'ignored' | 'none'
 
+/** What an event is about. */
 export type EventKind
   = | 'comment'
     | 'review'
@@ -839,6 +956,7 @@ export type EventKind
     | 'release'
     | 'other'
 
+/** A commit as a push delivery reports it. */
 export interface PushCommit {
   sha: string
   message?: string
@@ -895,6 +1013,7 @@ export type EventDetail
     /** A cross-reference: another thread or commit mentioned this one. */
     | { type: 'referenced', from?: ThreadRef | CommitRef, fromRepo?: RepoRef, text?: string }
 
+/** Something that happened on a forge, in the same shape whichever forge reports it. */
 export interface ForgeEvent extends ForgeOrigin {
   id: string
   kind: EventKind
@@ -910,6 +1029,7 @@ export interface ForgeEvent extends ForgeOrigin {
   actor?: Actor
   repo?: RepoRef
   thread?: ThreadRef
+  /** The details that belong to the kind of event. */
   detail?: EventDetail
   /** App installation the delivery belongs to, for app webhooks. */
   installationId?: string
@@ -922,6 +1042,7 @@ export interface ForgeEvent extends ForgeOrigin {
 /** A {@link ForgeEvent} as a provider builds it; core derives `action` when it is absent. */
 export type ForgeEventInput = Omit<ForgeEvent, 'action'> & { action?: EventAction }
 
+/** How an event reached the caller. */
 export type SourceKind = 'poll' | 'webhook' | 'subscribe'
 
 /**
@@ -959,9 +1080,11 @@ export type NotificationSubject
     | { type: 'security_alert', alert: SecurityAlertRef }
     | { type: 'other', typeRaw: string, repo?: RepoRef, id?: string, url?: string }
 
+/** A notification of the authenticated account. */
 export interface Notification {
   ref: NotificationRef
   subject: NotificationSubject
+  /** Why the account got the notification. */
   reason: NotificationReason
   /** Forge-native reason string. Absent when the forge reports no reason at all. */
   reasonRaw?: string
@@ -986,6 +1109,7 @@ export interface Notification {
 export interface Cursor {
   /** Absolute URL of the next page, from a `Link` header or the body, on the requested origin. */
   nextUrl?: string
+  /** A validator for a conditional request. */
   etag?: string
   /** Opaque forge-native cursor, for example a GraphQL `endCursor`. */
   token?: string
@@ -993,12 +1117,18 @@ export interface Cursor {
 
 /** Request budget the forge reported on the response, where it reports one. */
 export interface RateLimit {
+  /** The size of the request budget. */
   limit?: number
+  /** The number of requests left in the budget. */
   remaining?: number
   /** When `remaining` resets. */
   resetAt?: Date
 }
 
+/**
+ * One page of a listing: its `items`, and the `cursor` to pass back for the next page. The cursor is absent on the
+ * last page.
+ */
 export interface Page<T> {
   items: T[]
   /** From the response headers of the request behind this page. */
@@ -1012,6 +1142,7 @@ export interface Page<T> {
   etag?: string
   /** True when the forge reported no change since `cursor.etag`. */
   notModified?: boolean
+  /** The non-fatal problems that came up while reading the page. */
   warnings?: ForgeWarning[]
 }
 
@@ -1021,11 +1152,13 @@ export interface ListOptions extends PageOptions {
   since?: Date
 }
 
+/** Options for `notifications.list()`. */
 export interface NotificationListOptions extends ListOptions {
   /** Include notifications already marked read. Defaults to `false`. */
   all?: boolean
 }
 
+/** Filters for `threads.list()`. */
 export interface ThreadQuery extends PageOptions {
   /** Omitted lists every listable kind; forges that list kinds separately emit them one after another. */
   kind?: 'issue' | 'pull_request' | 'discussion'
@@ -1045,6 +1178,7 @@ export interface ThreadQuery extends PageOptions {
   milestone?: string
   /** Updated at or after. */
   since?: Date
+  /** Created at or after. */
   createdAfter?: Date
   /** Defaults to `'created'`. Unsupported orders produce a warning and the forge's own order. */
   sort?: 'created' | 'updated' | 'comments'
@@ -1079,6 +1213,7 @@ export interface SearchQuery extends PageOptions {
   direction?: 'asc' | 'desc'
 }
 
+/** A search for commits. */
 export interface CommitSearchQuery extends PageOptions {
   /** Free text, matched against the commit message. */
   text?: string
@@ -1098,17 +1233,22 @@ export interface CommitSearchQuery extends PageOptions {
   direction?: 'asc' | 'desc'
 }
 
+/** A search for repositories. */
 export interface RepoSearchQuery extends PageOptions {
   text?: string
   /** Limit to one account or namespace. */
   owner?: string
+  /** The main language of the repository. */
   language?: string
+  /** Defaults to the forge's relevance order. */
   sort?: 'created' | 'updated' | 'stars' | 'relevance'
+  /** Defaults to `desc`. */
   direction?: 'asc' | 'desc'
 }
 
 /** Options for listings that take no filters: releases, installations, labels. */
 export interface PageOptions {
+  /** How many items to ask for. The forge may return fewer. */
   perPage?: number
   /** Resume after the page that returned this cursor. */
   cursor?: Cursor
@@ -1118,15 +1258,19 @@ export interface PageOptions {
 /** How the account is attached to the repositories it lists. */
 export type RepoAffiliation = 'owner' | 'collaborator' | 'organisation_member'
 
+/** Filters for `repos.list()`. */
 export interface RepoQuery extends PageOptions {
   /** Defaults to every affiliation the forge lists. Unsupported values produce a `filter_unsupported` warning. */
   affiliation?: RepoAffiliation[]
+  /** Only repositories with this visibility. */
   visibility?: RepoVisibility | 'all'
   /** Defaults to the forge's own order. Unsupported orders produce a `sort_unsupported` warning. */
   sort?: 'created' | 'updated' | 'pushed' | 'name'
+  /** Defaults to the forge's own direction. */
   direction?: 'asc' | 'desc'
 }
 
+/** What `threads.upsertComment()` needs. */
 export interface UpsertCommentInput {
   /**
    * Identifies the comment to replace across runs. It is written into the
@@ -1137,16 +1281,20 @@ export interface UpsertCommentInput {
   body: string
 }
 
+/** What `threads.upsertComment()` did. */
 export interface UpsertCommentResult {
+  /** The comment that was created or edited. */
   comment: Comment
   /** `false` when an existing comment with the same key was edited. */
   created: boolean
 }
 
+/** What `threads.create()` needs. */
 export interface ThreadCreateInput {
   kind: 'issue' | 'pull_request' | 'discussion'
   title: string
   body?: string
+  /** Names of the labels to add. */
   labels?: string[]
   /** Logins, or actors where the forge needs ids. */
   assignees?: Array<string | Actor>
@@ -1154,11 +1302,13 @@ export interface ThreadCreateInput {
   head?: string
   /** Pull requests: target branch. */
   base?: string
+  /** Open the pull request as a draft. */
   draft?: boolean
   /** Discussions: category name or id. */
   category?: string
 }
 
+/** The fields that `threads.update()` changes. Fields left out stay as they are. */
 export interface ThreadUpdateInput {
   title?: string
   body?: string
@@ -1187,10 +1337,12 @@ export function hasCommentMarker(body: string, key: string): boolean {
   return body.includes(commentMarker(key))
 }
 
+/** A short-lived token that acts as one app installation. */
 export interface InstallationToken {
   token: string
   expiresAt: Date
   permissions: Record<string, string>
+  /** Whether the token reaches all repositories or only selected ones. */
   repositorySelection?: string
 }
 
@@ -1266,6 +1418,7 @@ export function repoSlug(repo: RepoRef): string {
 /** A thread ref whose number is known, and which can therefore be keyed and fetched. */
 export type ResolvedThreadRef = ThreadRef & { number: string }
 
+/** Whether a thread ref has a number, so that it is a `ResolvedThreadRef`. */
 export function isResolvedThread(thread: ThreadRef): thread is ResolvedThreadRef {
   return typeof thread.number === 'string' && thread.number !== ''
 }
@@ -1279,6 +1432,7 @@ export function threadKey(thread: ResolvedThreadRef): string {
   return `${repoKey(thread.repo)}#${kind}/${thread.number}`
 }
 
+/** A string that identifies a notification, for use as a key in a map or a store. */
 export function notificationKey(ref: NotificationRef): string {
   return `${ref.forge}:${ref.instance}:notification/${ref.id}`
 }
@@ -1325,8 +1479,10 @@ export function notificationThread(notification: Notification): ThreadRef | unde
   return notification.subject.type === 'thread' ? notification.subject.thread : undefined
 }
 
+/** How a pull request is merged. */
 export type MergeMethod = 'merge' | 'squash' | 'rebase' | 'rebase_merge' | 'fast_forward_only'
 
+/** Options for `threads.merge()`. */
 export interface MergeOptions {
   /** Defaults to the repository's only allowed method. */
   method?: MergeMethod
@@ -1338,6 +1494,7 @@ export interface MergeOptions {
   whenChecksPass?: boolean
 }
 
+/** Options for `threads.approveAndMerge()`. */
 export interface ApproveAndMergeOptions extends MergeOptions {
   /** Review body sent with the approval. Rejected where approvals carry no body (Azure DevOps, Bitbucket, GitLab). */
   body?: string

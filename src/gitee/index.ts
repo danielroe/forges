@@ -16,6 +16,7 @@ import { giteeWebhooks } from './webhooks.ts'
 /** A personal access token or OAuth access token, sent as `Authorization: token`. */
 export type GiteeAuth = TokenAuth | AnonymousAuth
 
+/** Options for `gitee()`. */
 export interface GiteeOptions extends ForgeOptionsBase {
   /** Defaults to `{ type: 'anonymous' }`: public reads only. */
   auth?: GiteeAuth

@@ -89,6 +89,7 @@ export function versionAtLeast(version: string | undefined, minimum: string): bo
   return true
 }
 
+/** Reads a timestamp from a forge response, or `undefined` when it is empty or not a date. */
 export function toDate(value: string | number | null | undefined): Date | undefined {
   if (value === null || value === undefined || value === '') {
     return undefined
@@ -97,6 +98,7 @@ export function toDate(value: string | number | null | undefined): Date | undefi
   return Number.isNaN(date.getTime()) ? undefined : date
 }
 
+/** The host of `baseUrl`, including the port when there is one. */
 export function hostOf(baseUrl: string): string {
   return new URL(baseUrl).host
 }
@@ -150,7 +152,9 @@ export function toPage<R, T>(result: FetchResult<R[]>, map: (raw: R) => T | unde
   }
 }
 
+/** Extra options for a listing: the query, how to select the items and map errors, and where to collect warnings. */
 export interface ListingExtras extends Pick<PaginateOptions, 'query' | 'select' | 'mapError'> {
+  /** Collects the non-fatal warnings of the listing. */
   warnings?: ForgeWarning[]
 }
 

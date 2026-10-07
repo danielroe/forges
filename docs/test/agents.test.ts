@@ -37,7 +37,7 @@ async function mcp<T = any>(method: string, params: Record<string, unknown> = {}
 const docsResources = [
   { uri: 'forges://docs/pages', heading: '# forges documentation' },
   { uri: 'forges://docs/getting-started/quick-start', heading: '# Quick start' },
-  { uri: 'forges://docs/reference/provider-api', heading: '# Provider API' },
+  { uri: 'forges://docs/reference/overview', heading: '# Overview' },
   { uri: 'forges://docs/reference/capability-matrix', heading: '# Capability matrix' },
   { uri: 'forges://docs/reference/errors', heading: '# Errors' },
 ]
@@ -138,7 +138,7 @@ describe('developer portal', () => {
     expect(response.headers.get('content-type')).toMatch(/^text\/html/)
     const html = await response.text()
     expect(html).toContain('<title>Developers - forges</title>')
-    for (const path of ['/getting-started/quick-start', '/guides/authentication', '/guides/testing', '/reference/provider-api', '/llms.txt']) {
+    for (const path of ['/getting-started/quick-start', '/guides/authentication', '/guides/testing', '/reference/overview', '/llms.txt']) {
       expect(html).toContain(`href="${path}"`)
     }
   })
@@ -160,7 +160,7 @@ describe('developer portal', () => {
   it('links the documentation from the homepage', async () => {
     const html = await get('/').then(response => response.text())
     expect(html).toContain('<title>One TypeScript API for every code forge - forges</title>')
-    for (const path of ['/developers', '/reference/provider-api', '/getting-started/introduction']) {
+    for (const path of ['/developers', '/reference/overview', '/getting-started/introduction']) {
       expect(html).toContain(`href="${path}"`)
     }
   })

@@ -25,6 +25,7 @@ pnpm test:unit
 | `pnpm test:size` | Checks the browser bundle budgets. Run `pnpm build` first |
 | `pnpm lint`, `pnpm lint:fix` | Lints, and fixes what it can |
 | `pnpm capability-matrix` | Regenerates the capability tables in the docs |
+| `pnpm docs:api` | Writes the API reference pages that the docs build generates |
 | `pnpm record-fixtures <forge>` | Records responses from a live forge |
 | `pnpm check:all` | Runs lint, tests, the engines check, a build and the size check |
 

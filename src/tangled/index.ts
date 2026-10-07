@@ -48,7 +48,9 @@ export type TangledAuth
     | { type: 'app_password', identifier: string, password: string, pds?: string }
     | { type: 'oauth', did: string, pds: string, fetch: FetchLike }
 
+/** Options for `tangled()`. */
 export interface TangledOptions extends ForgeOptionsBase {
+  /** An app password session, or none for anonymous reads. */
   auth?: TangledAuth
   /** Appview web root, used for links and as the `instance`. Defaults to `https://tangled.org`. */
   baseUrl?: string

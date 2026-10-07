@@ -115,6 +115,7 @@ import { gitlabWebhooks } from './webhooks.ts'
 /** Personal, project, group or OAuth access token. */
 export type GitLabAuth = TokenAuth | AnonymousAuth
 
+/** Options for `gitlab()`. */
 export interface GitLabOptions extends ForgeOptionsBase {
   /** Defaults to `{ type: 'anonymous' }`: public reads only. */
   auth?: GitLabAuth

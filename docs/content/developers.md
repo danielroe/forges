@@ -59,7 +59,7 @@ Every write updates `sandbox.store` and adds an event to `sandbox.store.events`.
 
 ## Reference
 
-- [Provider API](/reference/provider-api): every namespace on a provider, and the methods in each
+- [API reference](/reference/overview): every export, and every namespace and method on a provider
 - [Capability matrix](/reference/capability-matrix): which operations each forge supports
 - [Errors](/reference/errors): every error class that forges throws
 - [Environment variables](/reference/environment-variables): every variable that `forges/env` reads

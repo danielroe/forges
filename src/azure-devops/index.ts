@@ -18,6 +18,7 @@ const COMMENTS_API_VERSION = '7.1-preview.4'
 /** A personal access token (sent as basic auth with an empty user name), or explicit basic credentials. */
 export type AzureDevOpsAuth = TokenAuth | BasicAuth | AnonymousAuth
 
+/** Options for `azureDevOps()`. */
 export interface AzureDevOpsOptions extends ForgeOptionsBase {
   /** Defaults to `{ type: 'anonymous' }`: public reads only. */
   auth?: AzureDevOpsAuth

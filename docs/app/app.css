@@ -76,3 +76,21 @@ body {
 .capability-swatch[data-level='none'] {
   background: color-mix(in oklab, var(--ui-bg-accented) 55%, transparent);
 }
+
+/*
+ * Sticky matrix headers blur the rows that scroll under them, like the site header.
+ * The blur sits in a layer behind each cell, so a rotated label that overflows its
+ * cell is not cut off by the background of the next cell.
+ */
+.sticky-matrix-head th {
+  position: relative;
+}
+
+.sticky-matrix-head th::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: color-mix(in oklab, var(--ui-bg) 75%, transparent);
+  backdrop-filter: blur(8px);
+}

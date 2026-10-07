@@ -107,6 +107,7 @@
     "dev:playground": "pnpm --filter playground dev",
     "record-fixtures": "node --env-file-if-exists=.env scripts/record-fixtures.ts",
     "capability-matrix": "node scripts/capability-matrix.ts",
+    "docs:api": "node scripts/docs-api.ts",
     "test:size": "node scripts/bundle-size.ts"
   },
   "devDependencies": {

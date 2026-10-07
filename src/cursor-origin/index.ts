@@ -17,7 +17,9 @@ export type { CursorOriginAuth } from './auth.ts'
 /** The Origin API version this provider was built against. See `docs/providers/cursor-origin.md`. */
 export const ORIGIN_API_VERSION = 'v1alpha1'
 
+/** Options for `cursorOrigin()`. */
 export interface CursorOriginOptions extends ForgeOptionsBase {
+  /** Token or app credentials. Cursor Origin has no anonymous access, so this is required. */
   auth: CursorOriginAuth
   /** API root. Defaults to `https://api.cursor.com`; `/v1/origin` is appended. */
   baseUrl?: string
