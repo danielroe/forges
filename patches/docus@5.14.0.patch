@@ -18,6 +18,38 @@ index cb502028d08e2477d6891f15fb86818e99339a56..55095ff5315044f479b776cb45ec6e56
  const nuxtUiLocale = computed(() => nuxtUiLocales[getLocaleKey(locale.value) as keyof typeof nuxtUiLocales] || nuxtUiLocales.en)
  const lang = computed(() => nuxtUiLocale.value.code)
  const dir = computed(() => nuxtUiLocale.value.dir)
+diff --git a/app/components/docs/DocsAsideRight.vue b/app/components/docs/DocsAsideRight.vue
+index ab48a67f9135673e22961178e7813e65c7b1be05..558a33a567c61f5d2e4fd100dacd9ea16c1e8565 100644
+--- a/app/components/docs/DocsAsideRight.vue
++++ b/app/components/docs/DocsAsideRight.vue
+@@ -32,6 +32,9 @@ const contentTocVariants = useUIConfig('contentToc')
+       </template>
+     </UContentToc>
+ 
+-    <DocsAsideMobileBar :links="links" />
++    <LazyDocsAsideMobileBar
++      v-if="subNavigationMode"
++      :links="links"
++    />
+   </div>
+ </template>
+diff --git a/app/composables/useSeo.ts b/app/composables/useSeo.ts
+index 49add3cd0a8df9f9cae54ed27548fba3e4ef24fb..4add47e910202b66d85dda81989645c305ffe190 100644
+--- a/app/composables/useSeo.ts
++++ b/app/composables/useSeo.ts
+@@ -169,7 +169,11 @@ export function useSeo(options: UseSeoOptions) {
+     })
+   }
+ 
+-  // JSON-LD structured data
++  // JSON-LD structured data, rendered on the server outside of development
++  if (import.meta.client && !import.meta.dev) {
++    return
++  }
++
+   if (type.value === 'article') {
+     useSchemaOrg([
+       defineArticle({
 diff --git a/app/error.vue b/app/error.vue
 index c3c359c427bb3670e872c94735de8f06e9c506fe..5845a332c67e4649478741a43dad874dd14cfa9c 100644
 --- a/app/error.vue
@@ -39,3 +71,16 @@ index c3c359c427bb3670e872c94735de8f06e9c506fe..5845a332c67e4649478741a43dad874d
  const nuxtUiLocale = computed(() => nuxtUiLocales[getLocaleKey(locale.value) as keyof typeof nuxtUiLocales] || nuxtUiLocales.en)
  const lang = computed(() => nuxtUiLocale.value.code)
  const dir = computed(() => nuxtUiLocale.value.dir)
+diff --git a/app/pages/[[lang]]/[...slug].vue b/app/pages/[[lang]]/[...slug].vue
+index 1ce2998f9f2f40cba9533fee57b43eb3bedbdf4a..fbc1dc494385a42360265e52a79d3a5b2552ed9e 100644
+--- a/app/pages/[[lang]]/[...slug].vue
++++ b/app/pages/[[lang]]/[...slug].vue
+@@ -91,7 +91,7 @@ const editLink = computed(() => {
+           v-bind="link"
+         />
+ 
+-        <DocsPageHeaderLinks />
++        <LazyDocsPageHeaderLinks hydrate-on-idle />
+       </template>
+     </UPageHeader>
+ 

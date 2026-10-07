@@ -46,6 +46,13 @@ export default defineNuxtConfig({
       ],
     },
   },
+  experimental: {
+    defaults: {
+      nuxtLink: {
+        prefetchOn: { visibility: false, interaction: true },
+      },
+    },
+  },
   runtimeConfig: {
     // Server-only token for listing contributors of a private repository.
     githubToken: process.env.GITHUB_TOKEN ?? '',
@@ -53,6 +60,14 @@ export default defineNuxtConfig({
   app: {
     head: {
       link: [{ rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' }],
+    },
+  },
+  hooks: {
+    // Links prefetch on interaction and lazy components load on hydration, so no chunk needs `<link rel="prefetch">`.
+    'build:manifest': (manifest) => {
+      for (const chunk of Object.values(manifest)) {
+        chunk.prefetch = false
+      }
     },
   },
 })

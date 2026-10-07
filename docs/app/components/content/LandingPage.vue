@@ -101,10 +101,11 @@ export default async function handler(request: Request) {
       description="You write code against the shared model. Each provider handles the endpoints, pagination, authentication and rate limits of its forge."
     >
       <UPageGrid class="lg:grid-cols-3">
-        <UPageCard
+        <LazyUPageCard
           v-for="feature of features"
           :key="feature.title"
           v-bind="feature"
+          hydrate-on-interaction
           spotlight
           spotlight-color="primary"
         />
@@ -117,13 +118,15 @@ export default async function handler(request: Request) {
       description="Register as many providers as you need. Each call goes to the provider that matches its ref."
     >
       <div class="grid gap-6 lg:grid-cols-2">
-        <LandingCode
+        <LazyLandingCode
           label="Notifications from three forges"
           :code="manyForges"
+          hydrate-never
         />
-        <LandingCode
+        <LazyLandingCode
           label="A verified webhook endpoint"
           :code="webhook"
+          hydrate-never
         />
       </div>
     </UPageSection>
@@ -133,7 +136,7 @@ export default async function handler(request: Request) {
       title="see what each forge can do"
       description="Every provider declares what it supports, so your code can check before it calls."
     >
-      <LandingCapabilityGrid />
+      <LazyLandingCapabilityGrid hydrate-never />
 
       <div class="mt-10 flex justify-center">
         <UButton
@@ -153,10 +156,11 @@ export default async function handler(request: Request) {
       description="Explore examples and guides for your next project."
     >
       <UPageGrid class="lg:grid-cols-4">
-        <UPageCard
+        <LazyUPageCard
           v-for="project of projects"
           :key="project.title"
           v-bind="project"
+          hydrate-on-interaction
           variant="subtle"
         />
       </UPageGrid>

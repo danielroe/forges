@@ -1,0 +1,34 @@
+diff --git a/dist/runtime/components/Kbd.vue b/dist/runtime/components/Kbd.vue
+index 0181a09a5c94a6248c73afe3960903d2573df759..0c49553347a1685b4c87bdfa615c136296578dcc 100644
+--- a/dist/runtime/components/Kbd.vue
++++ b/dist/runtime/components/Kbd.vue
+@@ -3,7 +3,7 @@ import theme from "#build/ui/kbd";
+ </script>
+ 
+ <script setup>
+-import { computed } from "vue";
++import { computed, onMounted, shallowRef } from "vue";
+ import { Primitive } from "reka-ui";
+ import { useAppConfig } from "#imports";
+ import { useKbd } from "../composables/useKbd";
+@@ -21,6 +21,11 @@ const _props = defineProps({
+ defineSlots();
+ const props = useComponentProps("kbd", _props);
+ const { getKbdKey } = useKbd();
++const mounted = shallowRef(false);
++onMounted(() => {
++  mounted.value = true;
++});
++const key = computed(() => !mounted.value && ["meta", "alt", "ctrl"].includes(props.value) ? " " : getKbdKey(props.value));
+ const appConfig = useAppConfig();
+ const ui = computed(() => tv({ extend: theme, ...appConfig.ui?.kbd || {} }));
+ </script>
+@@ -28,7 +33,7 @@ const ui = computed(() => tv({ extend: theme, ...appConfig.ui?.kbd || {} }));
+ <template>
+   <Primitive :as="props.as" :class="ui({ class: [props.ui?.base, props.class], color: props.color, variant: props.variant, size: props.size })">
+     <slot>
+-      {{ getKbdKey(props.value) }}
++      {{ key }}
+     </slot>
+   </Primitive>
+ </template>

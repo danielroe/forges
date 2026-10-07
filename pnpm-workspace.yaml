@@ -54,6 +54,7 @@ overrides:
   forges: 'workspace:*'
 
 patchedDependencies:
+  '@nuxt/ui@4.11.3': patches/@nuxt__ui@4.11.3.patch
   docus@5.14.0: patches/docus@5.14.0.patch
 
 allowBuilds:
