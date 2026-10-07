@@ -106,7 +106,7 @@ function setupOrigin({ options, baseUrl, instance, origin: context, fetcher, cre
     const page = await tokenPage<OriginPullRequest>(`${repoPath(repo)}/pulls`, 'pullRequests', {
       ...query,
       query: {
-        state: query.state ?? 'open',
+        state: query.state === 'merged' ? 'closed' : query.state ?? 'open',
         author: query.author,
         sortBy: query.sort === 'updated' ? 'updated' : 'created',
         direction: query.direction ?? 'desc',
@@ -117,7 +117,7 @@ function setupOrigin({ options, baseUrl, instance, origin: context, fetcher, cre
     return {
       items: page.items
         .map(raw => toThread({ forge: FORGE, instance, repo, kind: 'pull_request', number: raw.number }, raw))
-        .filter(thread => since === undefined || (thread.updatedAt?.getTime() ?? 0) >= since),
+        .filter(thread => (since === undefined || (thread.updatedAt?.getTime() ?? 0) >= since) && (query.state !== 'merged' || thread.state === 'merged')),
       cursor: page.cursor,
       ...warnings.length ? { warnings } : {},
     }

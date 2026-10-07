@@ -347,7 +347,7 @@ const GITLAB: ProviderDefinition<GitLabOptions> = {
         const merges = kind === 'pull_request'
         const result = await fetcher.page<GitLabIssue>(`${projectPath(repo)}/${merges ? 'merge_requests' : 'issues'}`, {
           query: {
-            state: state === 'open' ? 'opened' : state === 'closed' && !merges ? 'closed' : undefined,
+            state: state === 'open' ? 'opened' : state === 'merged' ? 'merged' : state === 'closed' && !merges ? 'closed' : undefined,
             labels: query.labels?.join(','),
             author_username: query.author,
             assignee_username: query.assignee,

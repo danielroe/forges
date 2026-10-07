@@ -38,11 +38,11 @@ function setupPushin({ instance, origin: context, fetcher, baseUrl }: ProviderCo
     }
     const kind = query.kind === 'pull_request' ? 'pull_request' : 'issue'
     const result = await fetcher.page<PushinThread>(`${repoPath(repo)}/${kind === 'pull_request' ? 'pulls' : 'issues'}`, {
-      query: { state: query.state, per_page: query.perPage },
+      query: { state: query.state === 'merged' ? 'closed' : query.state, per_page: query.perPage },
       cursor: query.cursor,
       signal: query.signal,
     })
-    return toPage(result, raw => query.kind === 'issue' && raw.pull_request
+    return toPage(result, raw => (query.kind === 'issue' && raw.pull_request) || (query.state === 'merged' && !raw.merged && !raw.merged_at && !raw.pull_request?.merged_at)
       ? undefined
       : toThread({ forge: FORGE, instance, repo, kind, number: String(raw.number) }, raw))
   }

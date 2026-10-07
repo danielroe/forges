@@ -1029,8 +1029,11 @@ export interface NotificationListOptions extends ListOptions {
 export interface ThreadQuery extends PageOptions {
   /** Omitted lists every listable kind; forges that list kinds separately emit them one after another. */
   kind?: 'issue' | 'pull_request' | 'discussion'
-  /** Defaults to `'open'`. */
-  state?: 'open' | 'closed' | 'all'
+  /**
+   * Defaults to `'open'`. `'closed'` includes merged pull requests; `'merged'`
+   * lists pull requests only, and lists nothing for another `kind`.
+   */
+  state?: 'open' | 'closed' | 'merged' | 'all'
   /** Threads carrying every one of these labels. */
   labels?: string[]
   /** Author login. */

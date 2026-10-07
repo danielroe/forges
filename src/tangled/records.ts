@@ -419,7 +419,7 @@ export function createTangledRecords({ options, instance, webUrl, context, atpro
       const direction = (query.direction ?? 'desc') === 'desc' ? -1 : 1
       yield* threadsRead
         .filter((thread): thread is Thread => Boolean(thread))
-        .filter(thread => state === 'all' || (state === 'open' ? thread.state === 'open' : thread.state !== 'open'))
+        .filter(thread => state === 'all' || (state === 'open' ? thread.state === 'open' : state === 'merged' ? thread.state === 'merged' : thread.state !== 'open'))
         .filter(thread => !query.author || thread.author?.login === query.author || thread.author?.id === query.author)
         .filter(thread => !query.since || (thread.lastActivityAt?.getTime() ?? 0) >= query.since.getTime())
         .filter(thread => !query.createdAfter || (thread.createdAt?.getTime() ?? 0) >= query.createdAfter.getTime())

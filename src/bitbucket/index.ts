@@ -102,7 +102,7 @@ export interface BitbucketOptions extends ForgeOptionsBase {
   baseUrl?: string
 }
 
-const PULL_STATES = { open: ['OPEN'], closed: ['MERGED', 'DECLINED', 'SUPERSEDED'], all: ['OPEN', 'MERGED', 'DECLINED', 'SUPERSEDED'] } as const
+const PULL_STATES = { open: ['OPEN'], merged: ['MERGED'], closed: ['MERGED', 'DECLINED', 'SUPERSEDED'], all: ['OPEN', 'MERGED', 'DECLINED', 'SUPERSEDED'] } as const
 const ISSUE_STATES = { open: ['new', 'open', 'on hold'], closed: ['resolved', 'invalid', 'duplicate', 'wontfix', 'closed'] } as const
 
 /** A BBQL string literal. */
@@ -295,7 +295,7 @@ const BITBUCKET: ProviderDefinition<BitbucketOptions> = {
           if (query.assignee) {
             clauses.push(`assignee.nickname = ${bbql(query.assignee)}`)
           }
-          if (state !== 'all') {
+          if (state !== 'all' && state !== 'merged') {
             clauses.push(`(${ISSUE_STATES[state].map(value => `state = "${value}"`).join(' OR ')})`)
           }
         }

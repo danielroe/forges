@@ -426,6 +426,14 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
         ...warnings.length ? { warnings } : {},
       }
     }
+    if (state === 'merged') {
+      const page = await searchThreadsPage(
+        { repo, kind: 'pull_request', labels: query.labels, author: query.author, assignee: query.assignee, involves: query.involves, since: query.since, sort: query.sort ?? 'created', direction, perPage: query.perPage, cursor: query.cursor, signal: query.signal },
+        ['is:merged', ...query.createdAfter ? [`created:>=${query.createdAfter.toISOString()}`] : []],
+      )
+      await withPullChecks(page)
+      return page
+    }
     const result = await fetcher.page<GitHubIssue>(`${repoPath(repo)}/issues`, {
       query: {
         state,
@@ -832,10 +840,10 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
     return qualifiers
   }
 
-  async function searchThreadsPage(query: SearchQuery): Promise<Page<Thread>> {
+  async function searchThreadsPage(query: SearchQuery, extra: string[] = []): Promise<Page<Thread>> {
     const result = await fetcher.page<GitHubIssue>('/search/issues', {
       query: {
-        q: searchQualifiers(query).join(' '),
+        q: [...searchQualifiers(query), ...extra].join(' '),
         sort: query.sort && query.sort !== 'relevance' ? query.sort : undefined,
         order: query.direction,
         per_page: query.perPage,
@@ -1183,7 +1191,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
       }),
     },
     search: {
-      threadsPage: verb(true, searchThreadsPage),
+      threadsPage: verb(true, query => searchThreadsPage(query)),
       reposPage: verb(true, searchReposPage),
       commitsPage: verb(true, searchCommitsPage),
     },

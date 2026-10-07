@@ -348,7 +348,7 @@ function setupForgejo({ origin, fetcher, baseUrl }: ProviderContext<ForgejoOptio
     const createdAfter = query.createdAfter?.getTime()
     const result = await fetcher.page<ForgejoIssue>(`${repoPath(repo)}/issues`, {
       query: {
-        state: query.state ?? 'open',
+        state: query.state === 'merged' ? 'closed' : query.state ?? 'open',
         type: query.kind === 'pull_request' ? 'pulls' : query.kind === 'issue' ? 'issues' : undefined,
         labels: query.labels?.join(','),
         created_by: query.author,
@@ -360,7 +360,8 @@ function setupForgejo({ origin, fetcher, baseUrl }: ProviderContext<ForgejoOptio
       signal: query.signal,
     })
     const older = (raw: ForgejoIssue) => createdAfter !== undefined && (Date.parse(raw.created_at ?? '') || 0) < createdAfter
-    const page = toPage(result, raw => older(raw) || !hasEveryLabel(raw.labels, query.labels) ? undefined : toThread({ ...origin, repo, kind: raw.pull_request ? 'pull_request' : 'issue', number: String(raw.number) }, raw), warnings)
+    const unmerged = (raw: ForgejoIssue) => query.state === 'merged' && !raw.pull_request?.merged
+    const page = toPage(result, raw => older(raw) || unmerged(raw) || !hasEveryLabel(raw.labels, query.labels) ? undefined : toThread({ ...origin, repo, kind: raw.pull_request ? 'pull_request' : 'issue', number: String(raw.number) }, raw), warnings)
     return (result.data ?? []).some(older) ? { ...page, cursor: undefined } : page
   }
 

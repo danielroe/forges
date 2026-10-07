@@ -1,5 +1,5 @@
 import type { Fetcher, FetcherOptions } from './fetch.ts'
-import type { ApproveAndMergeOptions, Check, Comment, ForgeEventInput, ForgeInstance, ForgeKind, Installation, ListOptions, MergeOptions, Notification, NotificationListOptions, Page, RepoRef, SecurityAlertKind, SecurityAlertListOptions, TextLimits, ThreadKind, ThreadRef, UpsertCommentInput, UpsertCommentResult, WebhookEventType } from './model.ts'
+import type { ApproveAndMergeOptions, Check, Comment, ForgeEventInput, ForgeInstance, ForgeKind, Installation, ListOptions, MergeOptions, Notification, NotificationListOptions, Page, RepoRef, SecurityAlertKind, SecurityAlertListOptions, TextLimits, ThreadKind, ThreadQuery, ThreadRef, UpsertCommentInput, UpsertCommentResult, WebhookEventType } from './model.ts'
 import type {
   AuthKind,
   ChecksApi,
@@ -394,7 +394,17 @@ function createProvider<TOptions extends ForgeOptionsBase, TState>(
   const declaredInstallations = spec.installations
   const installationsSupported = () => Boolean(declaredInstallations && resolve(declaredInstallations.support, env))
 
+  const listThreads = kindGate('threads.listPage', spec.threads.listPage.kinds, spec.threads.listPage.run)
   const special: Record<string, unknown> = {
+    'threads.listPage': async (repo: RepoRef, query: ThreadQuery = {}) => {
+      if (query.state !== 'merged') {
+        return listThreads(repo, query)
+      }
+      if (query.kind && query.kind !== 'pull_request') {
+        return { items: [] }
+      }
+      return listThreads(repo, { ...query, kind: 'pull_request' })
+    },
     'threads.eventsPage': async (ref: ThreadRef, listOptions?: ListOptions) => {
       const page = await gate('threads.eventsPage', spec.threads.eventsPage.support, spec.threads.eventsPage.run)(ref, listOptions) as Page<ForgeEventInput>
       return { ...page, items: page.items.map(completeEvent) }

@@ -214,7 +214,7 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
       }
     }
     const state = query.state ?? 'open'
-    const pullStates = state === 'open' ? ['active'] : state === 'closed' ? ['completed', 'abandoned'] : ['all']
+    const pullStates = state === 'open' ? ['active'] : state === 'merged' ? ['completed'] : state === 'closed' ? ['completed', 'abandoned'] : ['all']
     const phases: Array<(cursor?: Cursor) => Promise<Page<Thread>>> = []
     if (query.kind !== 'pull_request') {
       phases.push(cursor => workItemPage(repo, query, cursor))
