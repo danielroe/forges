@@ -44,7 +44,7 @@ export default defineNuxtConfig({
         name: 'JetBrains Mono',
         provider: 'fontsource',
         weights: [400, 500, 700],
-        styles: ['normal'],
+        styles: ['normal', 'italic'],
       },
     ],
     defaults: { subsets: ['latin'] },
