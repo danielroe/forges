@@ -21,17 +21,4 @@
 <stop offset="1" stop-color="#FF8904"/>
 </linearGradient>
 </defs>
-<style>
-@media (prefers-color-scheme: dark) {
-  [fill="#2D2927"] {
-    fill: #F0ECE8;
-  }
-  [stop-color="#2D2927"] {
-    stop-color: #F0ECE8;
-  }
-  [stop-color="#68441D"] {
-    stop-color: #F4D3AE;
-  }
-}
-</style>
 </svg>
