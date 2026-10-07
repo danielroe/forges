@@ -158,6 +158,7 @@ const GHES_MARK_DONE = '3.13'
 /** GitHub Enterprise Server versions with the Dependabot alerts REST API. */
 const GHES_DEPENDABOT_ALERTS = '3.8'
 const GRAPHQL_BATCH = 20
+const REVIEW_CONTEXT_TTL = 5 * 60_000
 const POLL_DELAYS = [500, 1000, 2000]
 
 const GITHUB_RESERVED_PATHS = ['about', 'account', 'apps', 'codespaces', 'collections', 'contact', 'customer-stories', 'dashboard', 'enterprise', 'enterprises', 'events', 'explore', 'features', 'gist', 'issues', 'join', 'login', 'logout', 'marketplace', 'new', 'notifications', 'organizations', 'orgs', 'pricing', 'pulls', 'search', 'security', 'settings', 'signup', 'site', 'sponsors', 'stars', 'topics', 'trending', 'users', 'watching']
@@ -686,6 +687,9 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
     return byComment
   }
 
+  /** Review comments and conversations read for a pull's first page of reviews, reused by its later pages. */
+  const reviewContext = new Map<string, { at: number, read: Promise<[GitHubReviewComment[], Map<string, { id: string, resolved: boolean }>]> }>()
+
   async function reviewsPage(thread: ThreadRef, listOptions: PageOptions = {}): Promise<Page<Review>> {
     const ref = requirePull(thread, 'reviewed')
     const result = await fetcher.page<GitHubReview>(`${threadPath(ref)}/reviews`, {
@@ -693,10 +697,25 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
       cursor: listOptions.cursor,
       signal: listOptions.signal,
     })
-    const [comments, byComment] = await Promise.all([
-      Array.fromAsync(fetcher.items<GitHubReviewComment>(`${threadPath(ref)}/comments`, { query: { per_page: 100 } })),
-      reviewThreadsByComment(ref),
-    ])
+    const now = Date.now()
+    for (const [path, entry] of reviewContext) {
+      if (now - entry.at >= REVIEW_CONTEXT_TTL) {
+        reviewContext.delete(path)
+      }
+    }
+    const key = threadPath(ref)
+    const kept = (listOptions.cursor && reviewContext.get(key)) || {
+      at: now,
+      read: Promise.all([
+        Array.fromAsync(fetcher.items<GitHubReviewComment>(`${key}/comments`, { query: { per_page: 100 } })),
+        reviewThreadsByComment(ref),
+      ]),
+    }
+    reviewContext.delete(key)
+    const [comments, byComment] = await kept.read
+    if (result.cursor) {
+      reviewContext.set(key, kept)
+    }
     return toPage(result, raw => toReview(
       ref,
       raw,
