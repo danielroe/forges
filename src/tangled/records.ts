@@ -299,6 +299,7 @@ export function createTangledRecords({ options, instance, webUrl, context, atpro
       url: `${webUrl}/${path}`,
       cloneUrls: { https: `${webUrl}/${path}`, ssh: `ssh://git@${sshHost(record.knot)}/${path}` },
       createdAt: toDate(record.createdAt),
+      homepage: record.website || undefined,
       raw,
     }
   }

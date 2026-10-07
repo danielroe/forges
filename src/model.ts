@@ -105,9 +105,24 @@ export interface Repo {
   updatedAt?: Date
   /** Last push, where the listing endpoint reports it. */
   pushedAt?: Date
-  /** Open issues only, never combined with pull requests. */
+  /**
+   * Open issues only, never combined with pull requests. Absent where the
+   * forge reports only the combined count (GitHub).
+   */
   openIssueCount?: number
   openPullCount?: number
+  /** The account or organisation that owns the repository, where the forge reports one. */
+  owner?: Actor
+  /** Primary language, as the forge detects it. */
+  language?: string
+  /** Project website, apart from the repository's own `url`. */
+  homepage?: string
+  /** SPDX identifier of the licence the forge detects, for example `MIT`. */
+  licence?: string
+  stars?: number
+  forks?: number
+  /** Accounts watching the repository's activity, apart from stars. */
+  watchers?: number
   permissions?: RepoPermissions
   /** Merge methods the repository allows, where the forge reports them. Empty means the forge reported none. */
   mergeMethods?: MergeMethod[]

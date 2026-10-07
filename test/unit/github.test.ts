@@ -5,7 +5,7 @@ import { describe, expect, it, vi } from 'vitest'
 import { ContentNotTextError, ForbiddenError, InsufficientScopeError, UnresolvedThreadError, UnsupportedOperationError } from '../../src/errors.ts'
 import { graphqlUrl } from '../../src/github/graphql-client.ts'
 import { github } from '../../src/github/index.ts'
-import { toEvent, toNotification, toReason } from '../../src/github/normalise.ts'
+import { toEvent, toNotification, toReason, toRepo } from '../../src/github/normalise.ts'
 import { notificationThread } from '../../src/model.ts'
 import { fixtureFetch } from '../utils/fixtures.ts'
 
@@ -470,6 +470,16 @@ describe('github checks and CI', () => {
     expect(jobs.map(job => job.state)).toEqual(['success', 'failure'])
     expect(jobs[1]!.ref.run?.id).toBe('77')
     expect(log).toContain('lint failed')
+  })
+})
+
+describe('github repositories', () => {
+  it('leaves out a licence GitHub could not identify', () => {
+    const repo = toRepo('github.com', { name: 'widgets', full_name: 'acme/widgets', license: { spdx_id: 'NOASSERTION' }, homepage: '', stargazers_count: 3 })
+
+    expect(repo).toMatchObject({ stars: 3 })
+    expect(repo.licence).toBeUndefined()
+    expect(repo.homepage).toBeUndefined()
   })
 })
 

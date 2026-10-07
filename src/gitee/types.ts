@@ -34,6 +34,12 @@ export interface GiteeRepository {
   updated_at?: string
   open_issues_count?: number
   parent?: GiteeRepository | null
+  language?: string | null
+  homepage?: string | null
+  license?: string | null
+  stargazers_count?: number
+  forks_count?: number
+  watchers_count?: number
 }
 
 export interface GiteeLabel {

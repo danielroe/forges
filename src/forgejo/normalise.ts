@@ -102,6 +102,13 @@ export function toRepo(origin: ForgeOrigin, raw: ForgejoRepositoryDetail): Repo 
     updatedAt: toDate(raw.updated_at),
     openIssueCount: raw.open_issues_count,
     openPullCount: raw.open_pr_counter,
+    owner: toActor(origin, raw.owner),
+    language: raw.language || undefined,
+    homepage: raw.website || undefined,
+    licence: raw.licenses?.length === 1 ? raw.licenses[0] : undefined,
+    stars: raw.stars_count,
+    forks: raw.forks_count,
+    watchers: raw.watchers_count,
     mergeMethods: raw.allow_merge_commits === undefined
       ? undefined
       : [

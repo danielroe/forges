@@ -45,6 +45,10 @@ export function toRepo(origin: ForgeOrigin, raw: PushinRepository): Repo {
     cloneUrls: raw.clone_url ? { https: raw.clone_url } : undefined,
     createdAt: toDate(raw.created_at),
     updatedAt: toDate(raw.updated_at),
+    owner: toActor(origin, raw.owner),
+    homepage: raw.homepage || undefined,
+    stars: raw.stargazers_count,
+    forks: raw.forks_count,
     permissions: toPermissions(raw.permissions),
     raw,
   }

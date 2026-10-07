@@ -233,6 +233,9 @@ export function toRepo(instance: string, raw: GitLabProjectDetail): Repo {
     createdAt: toDate(raw.created_at),
     updatedAt: toDate(raw.last_activity_at),
     openIssueCount: raw.open_issues_count,
+    owner: toActor(instance, raw.owner),
+    stars: raw.star_count,
+    forks: raw.forks_count,
     mergeMethods: raw.merge_method === undefined
       ? undefined
       : [

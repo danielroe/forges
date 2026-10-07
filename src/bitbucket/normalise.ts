@@ -67,6 +67,9 @@ export function toRepo(instance: string, raw: BitbucketRepositoryDetail): Repo {
     cloneUrls: clone('https') || clone('ssh') ? { https: clone('https'), ssh: clone('ssh') } : undefined,
     createdAt: toDate(raw.created_on),
     updatedAt: toDate(raw.updated_on),
+    owner: toActor(instance, raw.owner),
+    language: raw.language || undefined,
+    homepage: raw.website || undefined,
     features: raw.has_issues === undefined
       ? undefined
       : { issues: raw.has_issues, pullRequests: true, discussions: false, wiki: raw.has_wiki ?? false, projects: false, releases: false },

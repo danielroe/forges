@@ -27,6 +27,9 @@ export interface BitbucketRepositoryDetail extends BitbucketRepository {
   created_on?: string
   updated_on?: string
   links?: { html?: { href: string }, clone?: Array<{ name: string, href: string }> }
+  language?: string
+  website?: string | null
+  owner?: BitbucketUser | null
 }
 
 export interface BitbucketPage<T> {

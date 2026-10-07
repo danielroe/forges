@@ -38,6 +38,10 @@ export interface GitLabProjectDetail extends GitLabProject {
   merge_requests_access_level?: string
   wiki_access_level?: string
   releases_access_level?: string
+  star_count?: number
+  forks_count?: number
+  /** Set for projects in a user's namespace, not a group's. */
+  owner?: GitLabUser | null
 }
 
 export interface GitLabLabel {

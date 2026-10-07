@@ -147,6 +147,13 @@ export function toRepo(instance: string, raw: GitHubRepositoryDetail): Repo {
     createdAt: toDate(raw.created_at),
     updatedAt: toDate(raw.updated_at),
     pushedAt: toDate(raw.pushed_at),
+    owner: toActor(instance, raw.owner),
+    language: raw.language ?? undefined,
+    homepage: raw.homepage || undefined,
+    licence: raw.license?.spdx_id && raw.license.spdx_id !== 'NOASSERTION' ? raw.license.spdx_id : undefined,
+    stars: raw.stargazers_count,
+    forks: raw.forks_count,
+    watchers: raw.subscribers_count,
     mergeMethods: raw.allow_merge_commit === undefined && raw.allow_squash_merge === undefined && raw.allow_rebase_merge === undefined
       ? undefined
       : [

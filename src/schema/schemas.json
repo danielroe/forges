@@ -2528,6 +2528,27 @@
       "openPullCount": {
         "type": "number"
       },
+      "owner": {
+        "$ref": "#/components/schemas/Actor"
+      },
+      "language": {
+        "type": "string"
+      },
+      "homepage": {
+        "type": "string"
+      },
+      "licence": {
+        "type": "string"
+      },
+      "stars": {
+        "type": "number"
+      },
+      "forks": {
+        "type": "number"
+      },
+      "watchers": {
+        "type": "number"
+      },
       "permissions": {
         "$ref": "#/components/schemas/RepoPermissions"
       },
