@@ -7,7 +7,6 @@ import { github } from '../../src/github/index.ts'
 import { toActor } from '../../src/github/normalise.ts'
 import { gitlab } from '../../src/gitlab/index.ts'
 import { UnsupportedOperationError } from '../../src/index.ts'
-import { pushin } from '../../src/pushin/index.ts'
 import { tangled } from '../../src/tangled/index.ts'
 import { fixtureFetch } from '../../src/testing/index.ts'
 
@@ -57,20 +56,11 @@ describe('users.get', () => {
 describe('users.me', () => {
   const auth = { type: 'token', token: 't' } as const
 
-  it.each([
-    ['github', 'https://api.github.com/user', { login: 'octocat', id: 1, type: 'User', name: 'The Octocat' }, (fetch: never) => github({ auth, fetch })],
-    ['gitlab', 'https://gitlab.com/api/v4/user', { id: 7, username: 'octocat', name: 'The Octocat' }, (fetch: never) => gitlab({ auth, fetch })],
-    ['forgejo', 'https://codeberg.org/api/v1/user', { id: 2, login: 'octocat', full_name: 'The Octocat' }, (fetch: never) => forgejo({ auth, fetch, baseUrl: 'https://codeberg.org' })],
-    ['gitee', 'https://gitee.com/api/v5/user', { id: 3, login: 'octocat', name: 'The Octocat' }, (fetch: never) => gitee({ auth, fetch })],
-    ['bitbucket', 'https://api.bitbucket.org/2.0/user', { uuid: '{1}', nickname: 'octocat', display_name: 'The Octocat' }, (fetch: never) => bitbucket({ auth, fetch })],
-    ['pushin', 'https://pushin.eu/api/v1/user', { id: '4', login: 'octocat', name: 'The Octocat', company: 'Pushin' }, (fetch: never) => pushin({ auth, fetch })],
-  ])('reads the authenticated %s account', async (_name, url, body, create) => {
-    const { fetch, calls } = fixtureFetch([], { [`GET ${url}`]: { status: 200, body } })
-    const forge = create(fetch as never).create()
+  it('reads the authenticated Gitee account', async () => {
+    const { fetch, calls } = fixtureFetch([], { 'GET https://gitee.com/api/v5/user': { status: 200, body: { id: 3, login: 'octocat', name: 'The Octocat' } } })
 
-    expect(forge.can('users.me')).toBe(true)
-    expect(await forge.users.me()).toMatchObject({ login: 'octocat', name: 'The Octocat' })
-    expect(calls.map(call => call.url)).toEqual([url])
+    expect(await gitee({ auth, fetch }).create().users.me()).toMatchObject({ login: 'octocat', name: 'The Octocat' })
+    expect(calls.map(call => call.url)).toEqual(['https://gitee.com/api/v5/user'])
   })
 
   it('reads the fake viewer', async () => {

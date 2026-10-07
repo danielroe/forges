@@ -445,7 +445,9 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
       await withPullChecks(page)
       return page
     }
-    const result = await fetcher.page<GitHubIssue>(`${repoPath(repo)}/issues`, {
+    // `/pulls` returns full pages but has no label, author, assignee or since filter.
+    const pullsOnly = query.kind === 'pull_request' && !query.labels?.length && !query.author && !query.assignee && !query.since && query.sort !== 'comments'
+    const result = await fetcher.page<GitHubIssue>(`${repoPath(repo)}/${pullsOnly ? 'pulls' : 'issues'}`, {
       query: {
         state,
         labels: query.labels?.join(','),
@@ -461,7 +463,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
     })
     const older = (raw: GitHubIssue) => createdAfter !== undefined && (Date.parse(raw.created_at ?? '') || 0) < createdAfter
     const page = toPage(result, (raw) => {
-      const isPull = Boolean(raw.pull_request)
+      const isPull = Boolean(raw.pull_request || raw.head)
       if ((query.kind === 'issue' && isPull) || (query.kind === 'pull_request' && !isPull) || older(raw)) {
         return undefined
       }
@@ -472,7 +474,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
     return ordered && (result.data ?? []).some(older) ? { ...page, cursor: undefined } : page
   }
 
-  /** Fills `checks` on every pull in the page with one batched rollup read. */
+  /** Fills `checks`, and a missing `commentCount`, on every pull in the page with one batched read. */
   async function withPullChecks(page: Page<Thread>): Promise<void> {
     const pulls = page.items.filter(thread => thread.kind === 'pull_request')
     if (!pulls.length || anonymous) {
@@ -481,8 +483,9 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
     try {
       const results = await getMany(pulls.map(thread => thread.ref))
       for (const [index, result] of results.entries()) {
-        if (result.ok && result.thread.checks) {
-          pulls[index]!.checks = result.thread.checks
+        if (result.ok) {
+          pulls[index]!.checks = result.thread.checks ?? pulls[index]!.checks
+          pulls[index]!.commentCount ??= result.thread.commentCount
         }
       }
     }
@@ -831,9 +834,8 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
     if (query.repo) {
       qualifiers.push(`repo:${query.repo.owner}/${query.repo.name}`)
     }
-    if (query.kind) {
-      qualifiers.push(query.kind === 'pull_request' ? 'is:pr' : 'is:issue')
-    }
+    // GitHub requires a kind; naming both needs `advanced_search`.
+    qualifiers.push(query.kind ? query.kind === 'pull_request' ? 'is:pr' : 'is:issue' : '(is:issue OR is:pull-request)')
     if (query.state && query.state !== 'all') {
       qualifiers.push(`state:${query.state}`)
     }
@@ -858,6 +860,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
     const result = await fetcher.page<GitHubIssue>('/search/issues', {
       query: {
         q: searchQualifiers(query).join(' '),
+        advanced_search: query.kind ? undefined : 'true',
         sort: query.sort && query.sort !== 'relevance' ? query.sort : undefined,
         order: query.direction,
         per_page: query.perPage,
@@ -1284,7 +1287,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
     scopes: githubScopesFor,
     users: {
       get: verb(true, async login => toUser(instance, (await fetcher.json<GitHubUserDetail>(`/users/${encodeURIComponent(login)}`)).data)),
-      me: verb(auth.type === 'token' && 'experimental', async () => toUser(instance, (await fetcher.json<GitHubUserDetail>('/user')).data)),
+      me: verb(auth.type === 'token', async () => toUser(instance, (await fetcher.json<GitHubUserDetail>('/user')).data)),
     },
     repos: {
       get: verb(true, async (ref) => {

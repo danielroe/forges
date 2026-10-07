@@ -16,7 +16,7 @@ describe('queryRaw', () => {
     await provider.search.reposPage({ owner: 'acme', queryRaw: 'stars:>100' })
     await provider.search.commitsPage({ text: 'fix', queryRaw: 'merge:false' })
 
-    expect(queries).toEqual(['crash review-requested:octocat', 'user:acme stars:>100', 'fix merge:false'])
+    expect(queries).toEqual(['crash (is:issue OR is:pull-request) review-requested:octocat', 'user:acme stars:>100', 'fix merge:false'])
   })
 
   it('drops it with a warning where the search has no query syntax', async () => {

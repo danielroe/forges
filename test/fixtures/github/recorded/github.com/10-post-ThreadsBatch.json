@@ -6,17 +6,20 @@
     "variables": {
       "o0": "h3js",
       "n0": "h3",
-      "k0": 1566,
+      "k0": 1557,
       "o1": "h3js",
       "n1": "h3",
-      "k1": 1565
+      "k1": 1502,
+      "o2": "h3js",
+      "n2": "h3",
+      "k2": 1501
     }
   },
   "response": {
     "status": 200,
     "headers": {
       "x-ratelimit-remaining": "4678",
-      "x-ratelimit-reset": "1790946663"
+      "x-ratelimit-reset": "1791379749"
     },
     "body": {
       "errors": [
@@ -95,6 +98,46 @@
           "locations": [
             {
               "line": 41,
+              "column": 202
+            }
+          ],
+          "message": "Your token has not been granted the required scopes to execute this query. The 'url' field requires one of the following scopes: ['read:org', 'read:discussion'], but your token has only been granted the: ['gist', 'notifications', 'repo'] scopes. Please modify your token's scopes at: https://github.com/settings/tokens."
+        },
+        {
+          "type": "INSUFFICIENT_SCOPES",
+          "locations": [
+            {
+              "line": 61,
+              "column": 181
+            }
+          ],
+          "message": "Your token has not been granted the required scopes to execute this query. The 'slug' field requires one of the following scopes: ['read:org', 'read:discussion'], but your token has only been granted the: ['gist', 'notifications', 'repo'] scopes. Please modify your token's scopes at: https://github.com/settings/tokens."
+        },
+        {
+          "type": "INSUFFICIENT_SCOPES",
+          "locations": [
+            {
+              "line": 61,
+              "column": 186
+            }
+          ],
+          "message": "Your token has not been granted the required scopes to execute this query. The 'databaseId' field requires one of the following scopes: ['read:org', 'read:discussion'], but your token has only been granted the: ['gist', 'notifications', 'repo'] scopes. Please modify your token's scopes at: https://github.com/settings/tokens."
+        },
+        {
+          "type": "INSUFFICIENT_SCOPES",
+          "locations": [
+            {
+              "line": 61,
+              "column": 197
+            }
+          ],
+          "message": "Your token has not been granted the required scopes to execute this query. The 'name' field requires one of the following scopes: ['read:org', 'read:discussion'], but your token has only been granted the: ['gist', 'notifications', 'repo'] scopes. Please modify your token's scopes at: https://github.com/settings/tokens."
+        },
+        {
+          "type": "INSUFFICIENT_SCOPES",
+          "locations": [
+            {
+              "line": 61,
               "column": 202
             }
           ],

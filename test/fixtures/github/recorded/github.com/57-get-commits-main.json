@@ -6,30 +6,30 @@
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"d98963ceb08e92ba3e2070b4b83f885a09a239137e57bc15c5a9342ea68799ce\"",
-      "x-ratelimit-remaining": "4773",
-      "x-ratelimit-reset": "1790944607"
+      "etag": "W/\"13e6331ab91beedbeb961a7e7933ca7625796fcc438f5afe5fa8ef72a549d30b\"",
+      "x-ratelimit-remaining": "4950",
+      "x-ratelimit-reset": "1791382247"
     },
     "body": {
-      "sha": "62c263298b41881759fe5bc38da4dd879856180c",
-      "node_id": "C_kwDOErHI99oAKDYyYzI2MzI5OGI0MTg4MTc1OWZlNWJjMzhkYTRkZDg3OTg1NjE4MGM",
+      "sha": "66cfb8a357b6285451bad498c2c40002601fae98",
+      "node_id": "C_kwDOErHI99oAKDY2Y2ZiOGEzNTdiNjI4NTQ1MWJhZDQ5OGMyYzQwMDAyNjAxZmFlOTg",
       "commit": {
         "author": {
           "name": "Pooya Parsa",
           "email": "redacted@example.invalid",
-          "date": "2026-09-29T16:33:27Z"
+          "date": "2026-10-07T12:37:06Z"
         },
         "committer": {
           "name": "Pooya Parsa",
           "email": "redacted@example.invalid",
-          "date": "2026-09-29T16:33:27Z"
+          "date": "2026-10-07T12:37:06Z"
         },
-        "message": "chore(deps): update rou3 to v0.11\n\n- rules: drop per-method materialization of agnostic rules (rou3 now pools a node's `\"\"` and method-scoped registrations; the copies duplicated layers)\n- rules/compiler: use `compileRouterToString` options object\n- test: `:name` no longer matches an empty segment",
+        "message": "chore(release): v2.0.2",
         "tree": {
-          "sha": "9c07e6c58f10167f96378297fd402e7f4e0c425c",
-          "url": "https://api.github.com/repos/h3js/h3/git/trees/9c07e6c58f10167f96378297fd402e7f4e0c425c"
+          "sha": "7fdddeb4d070bfef143c879c7ec0ebcfa964a031",
+          "url": "https://api.github.com/repos/h3js/h3/git/trees/7fdddeb4d070bfef143c879c7ec0ebcfa964a031"
         },
-        "url": "https://api.github.com/repos/h3js/h3/git/commits/62c263298b41881759fe5bc38da4dd879856180c",
+        "url": "https://api.github.com/repos/h3js/h3/git/commits/66cfb8a357b6285451bad498c2c40002601fae98",
         "comment_count": 0,
         "verification": {
           "verified": false,
@@ -39,9 +39,9 @@
           "verified_at": null
         }
       },
-      "url": "https://api.github.com/repos/h3js/h3/commits/62c263298b41881759fe5bc38da4dd879856180c",
-      "html_url": "https://github.com/h3js/h3/commit/62c263298b41881759fe5bc38da4dd879856180c",
-      "comments_url": "https://api.github.com/repos/h3js/h3/commits/62c263298b41881759fe5bc38da4dd879856180c/comments",
+      "url": "https://api.github.com/repos/h3js/h3/commits/66cfb8a357b6285451bad498c2c40002601fae98",
+      "html_url": "https://github.com/h3js/h3/commit/66cfb8a357b6285451bad498c2c40002601fae98",
+      "comments_url": "https://api.github.com/repos/h3js/h3/commits/66cfb8a357b6285451bad498c2c40002601fae98/comments",
       "author": {
         "login": "pi0",
         "id": 5158436,
@@ -86,148 +86,40 @@
       },
       "parents": [
         {
-          "sha": "a546b4c1c6df4670e348f15d218465dd351b9b37",
-          "url": "https://api.github.com/repos/h3js/h3/commits/a546b4c1c6df4670e348f15d218465dd351b9b37",
-          "html_url": "https://github.com/h3js/h3/commit/a546b4c1c6df4670e348f15d218465dd351b9b37"
+          "sha": "07d7d2c0dac8fbbcd28b5c8c1278699372456dc5",
+          "url": "https://api.github.com/repos/h3js/h3/commits/07d7d2c0dac8fbbcd28b5c8c1278699372456dc5",
+          "html_url": "https://github.com/h3js/h3/commit/07d7d2c0dac8fbbcd28b5c8c1278699372456dc5"
         }
       ],
       "stats": {
-        "total": 256,
-        "additions": 67,
-        "deletions": 189
+        "total": 36,
+        "additions": 35,
+        "deletions": 1
       },
       "files": [
         {
-          "sha": "8e747ebd00a95cb487acdf0c9815abe34cb60ed4",
-          "filename": "AGENTS.md",
+          "sha": "e9382241dd61e0b6065b861cb80231e8a986217a",
+          "filename": "CHANGELOG.md",
           "status": "modified",
-          "additions": 1,
-          "deletions": 1,
-          "changes": 2,
-          "blob_url": "https://github.com/h3js/h3/blob/62c263298b41881759fe5bc38da4dd879856180c/AGENTS.md",
-          "raw_url": "https://github.com/h3js/h3/raw/62c263298b41881759fe5bc38da4dd879856180c/AGENTS.md",
-          "contents_url": "https://api.github.com/repos/h3js/h3/contents/AGENTS.md?ref=62c263298b41881759fe5bc38da4dd879856180c",
-          "patch": "@@ -103,7 +103,7 @@ src/\n │   ├── compiler.ts       # h3/rules/compiler — build-time codegen\n │   ├── handlers/         # Built-in rule handlers (headers, redirect, cors, cache)\n │   ├── compiler/         # Codegen internals (compile, codegen, runtime-rules, options)\n-│   └── internal/         # key parsing, scope checks, node-key bucketing, pre-merge analysis\n+│   └── internal/         # key parsing, scope checks, pre-merge analysis\n ├── _entries/             # Platform-specific entry points\n │   ├── generic.ts        # Web Worker / Browser\n │   ├── node.ts           # Node.js (adds toNodeHandler)"
+          "additions": 34,
+          "deletions": 0,
+          "changes": 34,
+          "blob_url": "https://github.com/h3js/h3/blob/66cfb8a357b6285451bad498c2c40002601fae98/CHANGELOG.md",
+          "raw_url": "https://github.com/h3js/h3/raw/66cfb8a357b6285451bad498c2c40002601fae98/CHANGELOG.md",
+          "contents_url": "https://api.github.com/repos/h3js/h3/contents/CHANGELOG.md?ref=66cfb8a357b6285451bad498c2c40002601fae98",
+          "patch": "@@ -2,6 +2,40 @@\n \n All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.\n \n+## v2.0.2\n+\n+[compare changes](https://github.com/h3js/h3/compare/v2.0.1...v2.0.2)\n+\n+### 🩹 Fixes\n+\n+- **node:** Call `onError` for stream errors in Node.js handlers ([#1571](https://github.com/h3js/h3/pull/1571))\n+- **response:** Use matching reason phrases in redirect and noContent ([#1570](https://github.com/h3js/h3/pull/1570))\n+- **middleware:** Pass through handled responses in `onError` ([#1574](https://github.com/h3js/h3/pull/1574))\n+\n+### 📖 Documentation\n+\n+- Add v2 blog article ([9adeeee](https://github.com/h3js/h3/commit/9adeeee))\n+\n+### 🌊 Types\n+\n+- **session:** Remove `@ts-nocheck` from iron-crypto ([#1572](https://github.com/h3js/h3/pull/1572))\n+- **route:** Infer `defineRoute` handler input from validation schemas ([ec527f0](https://github.com/h3js/h3/commit/ec527f0))\n+\n+### 🏡 Chore\n+\n+- **session:** Retarget legacy seal fallback removal to v3 ([#1573](https://github.com/h3js/h3/pull/1573))\n+- **session:** Mark `legacySealFallback` as deprecated ([44dbfb8](https://github.com/h3js/h3/commit/44dbfb8))\n+- Update deps ([ac79e5f](https://github.com/h3js/h3/commit/ac79e5f))\n+- Update release script ([07d7d2c](https://github.com/h3js/h3/commit/07d7d2c))\n+\n+### ❤️ Contributors\n+\n+- Pooya Parsa ([@pi0](https://github.com/pi0))\n+- Pi0x <redacted@example.invalid>\n+- Bao Nguyen ([@giaBaoJS](https://github.com/giaBaoJS))\n+- Kaan Çelebi ([@kaanisthatyou](https://github.com/kaanisthatyou))\n+- Daniel Shafer ([@dannyshafer](https://github.com/dannyshafer))\n+\n ## v2.0.1-rc.33\n \n [compare changes](https://github.com/h3js/h3/compare/v2.0.1-rc.32...v2.0.1-rc.33)"
         },
         {
-          "sha": "508e7e7cf1814ea9dd71c9443a559e7aa61bf034",
+          "sha": "66df2963ae61e37eca135c5019ea5d88df781fee",
           "filename": "package.json",
           "status": "modified",
           "additions": 1,
           "deletions": 1,
           "changes": 2,
-          "blob_url": "https://github.com/h3js/h3/blob/62c263298b41881759fe5bc38da4dd879856180c/package.json",
-          "raw_url": "https://github.com/h3js/h3/raw/62c263298b41881759fe5bc38da4dd879856180c/package.json",
-          "contents_url": "https://api.github.com/repos/h3js/h3/contents/package.json?ref=62c263298b41881759fe5bc38da4dd879856180c",
-          "patch": "@@ -54,7 +54,7 @@\n     \"typecheck\": \"tsc --noEmit\"\n   },\n   \"dependencies\": {\n-    \"rou3\": \"^0.10.2\",\n+    \"rou3\": \"^0.11.0\",\n     \"srvx\": \"^1.0.5\"\n   },\n   \"devDependencies\": {"
-        },
-        {
-          "sha": "467388400d911beded3fdc0d0b20d4570f538190",
-          "filename": "pnpm-lock.yaml",
-          "status": "modified",
-          "additions": 6,
-          "deletions": 5,
-          "changes": 11,
-          "blob_url": "https://github.com/h3js/h3/blob/62c263298b41881759fe5bc38da4dd879856180c/pnpm-lock.yaml",
-          "raw_url": "https://github.com/h3js/h3/raw/62c263298b41881759fe5bc38da4dd879856180c/pnpm-lock.yaml",
-          "contents_url": "https://api.github.com/repos/h3js/h3/contents/pnpm-lock.yaml?ref=62c263298b41881759fe5bc38da4dd879856180c",
-          "patch": "@@ -110,8 +110,8 @@ importers:\n   .:\n     dependencies:\n       rou3:\n-        specifier: ^0.10.2\n-        version: 0.10.2\n+        specifier: ^0.11.0\n+        version: 0.11.0\n       srvx:\n         specifier: ^1.0.5\n         version: 1.0.5\n@@ -2183,8 +2183,9 @@ packages:\n     engines: {node: ^20.19.0 || >=22.12.0}\n     hasBin: true\n \n-  rou3@0.10.2:\n-    resolution: {integrity: sha512-Bhpf3+tMjagZmFmNDpZ/idBoywJmuUdOTz/5e4bVJx3WU0LupnPubK6nTTkrlETEoBwkxr1u3RqETTmCBL43TQ==}\n+  rou3@0.11.0:\n+    resolution: {integrity: sha512-QYkFgNURTMBzmDpfFOpJNscLALbTlmFG/TGl4JVENesWNnrPAt7XHcml56Esb7fprnSRk4iwbgkmpZEPfX5MsA==}\n+    engines: {node: '>=20.19.0'}\n \n   rou3@0.9.2:\n     resolution: {integrity: sha512-3SOzvaAg8rkHrXtRjpCvCvbyO5to9oOO27Z/XqHEYXfMRVSw/qMIVdmaOk9W2lcRLtR6dlqTjo9hDeJk70QBYQ==}\n@@ -3958,7 +3959,7 @@ snapshots:\n       '@rolldown/binding-win32-arm64-msvc': 1.2.11\n       '@rolldown/binding-win32-x64-msvc': 1.2.11\n \n-  rou3@0.10.2: {}\n+  rou3@0.11.0: {}\n \n   rou3@0.9.2: {}\n "
-        },
-        {
-          "sha": "1f6fc367825acfa9282ff22c4952544de1a094ab",
-          "filename": "src/rules/compiler/compile.ts",
-          "status": "modified",
-          "additions": 1,
-          "deletions": 1,
-          "changes": 2,
-          "blob_url": "https://github.com/h3js/h3/blob/62c263298b41881759fe5bc38da4dd879856180c/src%2Frules%2Fcompiler%2Fcompile.ts",
-          "raw_url": "https://github.com/h3js/h3/raw/62c263298b41881759fe5bc38da4dd879856180c/src%2Frules%2Fcompiler%2Fcompile.ts",
-          "contents_url": "https://api.github.com/repos/h3js/h3/contents/src%2Frules%2Fcompiler%2Fcompile.ts?ref=62c263298b41881759fe5bc38da4dd879856180c",
-          "patch": "@@ -151,7 +151,7 @@ function resolveCompileCtx(\n  */\n function emitFindRouteRules(ctx: CompileCtx): string {\n   const router = ctx.router ?? createRulesRouter(ctx.rules, {}, ctx.baseURL, ctx.preMerge);\n-  return compileRouterToString(router, undefined, {\n+  return compileRouterToString(router, {\n     matchAll: true,\n     serialize: (data) =>\n       Array.isArray(data)"
-        },
-        {
-          "sha": "1b7eb3af8e357247f8b9d3bb111e54452b0e5942",
-          "filename": "src/rules/internal/nodes.ts",
-          "status": "removed",
-          "additions": 0,
-          "deletions": 113,
-          "changes": 113,
-          "blob_url": "https://github.com/h3js/h3/blob/a546b4c1c6df4670e348f15d218465dd351b9b37/src%2Frules%2Finternal%2Fnodes.ts",
-          "raw_url": "https://github.com/h3js/h3/raw/a546b4c1c6df4670e348f15d218465dd351b9b37/src%2Frules%2Finternal%2Fnodes.ts",
-          "contents_url": "https://api.github.com/repos/h3js/h3/contents/src%2Frules%2Finternal%2Fnodes.ts?ref=a546b4c1c6df4670e348f15d218465dd351b9b37",
-          "patch": "@@ -1,113 +0,0 @@\n-import { routeNodeKeys } from \"rou3\";\n-import type { RouteRuleEntry } from \"../merge.ts\";\n-\n-/**\n- * Which methods each pattern's method-agnostic entries must **also** be\n- * registered under, so no method-scoped registration can hide them.\n- *\n- * rou3 resolves `methods[method] || methods[\"\"]` **per radix node**, and it\n- * buckets by node, not by pattern text: `*`, `:id` and `:userId` all collapse\n- * onto `node.param`, `**` and `**:rest` onto `node.wildcard`, `/admin` and\n- * `/admin/` onto the same terminal node. So a single method-scoped registration\n- * on a node hides *every* method-agnostic registration sharing that node — an\n- * innocuous `GET /users/:id: { headers }` next to `/users/*: { auth }` (a\n- * custom gate rule) silently deleted that gate for GET.\n- *\n- * `routeNodeKeys` makes that node identity observable (`routeNodeKeys(a)` and\n- * `routeNodeKeys(b)` intersect iff `a` and `b` share a node), so the agnostic\n- * copies can be placed exactly where a scoped registration could shadow them,\n- * instead of on every method used anywhere in the rule set.\n- *\n- * Patterns are grouped by shared node, **transitively**: optional syntax\n- * (`:x?`, `:x*`, `{…}?`) registers one pattern on several nodes, and registering\n- * that pattern under a method reaches all of them — so a method that has to be\n- * materialized for one of its nodes must be materialized for the whole group,\n- * or the copy would shadow an agnostic registration on a sibling node. Within a\n- * group every agnostic pattern is materialized onto the same method set, which\n- * makes the invariant local and checkable: for any node and any method with a\n- * scoped registration there, every agnostic entry on that node is registered\n- * under that method too.\n- *\n- * The grouping is deliberately allowed to over-approximate (node keys erase\n- * regex constraints and widen `**:name` to `**`, and a group is a transitive\n- * closure): an extra copy only ever *adds* an agnostic layer where it would\n- * already have applied via `methods[\"\"]`, so over-merging is the fail-closed\n- * direction. Under-approximating is what drops gates.\n- *\n- * Build-time only — the returned copies are registrations, so no matcher pays\n- * anything per request.\n- */\n-export function sharedNodeMethods(\n-  byPath: Map<string, Map<string, RouteRuleEntry[]>>,\n-): Map<string, Set<string>> {\n-  const parents = new Map<string, string>();\n-  const find = (key: string): string => {\n-    let root = key;\n-    while (parents.get(root) !== root) {\n-      root = parents.get(root)!;\n-    }\n-    return root;\n-  };\n-\n-  const keysByPath = new Map<string, string[]>();\n-  for (const path of byPath.keys()) {\n-    const keys = nodeKeys(path);\n-    keysByPath.set(path, keys);\n-    for (const key of keys) {\n-      if (!parents.has(key)) {\n-        parents.set(key, key);\n-      }\n-    }\n-    for (const key of keys) {\n-      const [a, b] = [find(keys[0]!), find(key)];\n-      if (a !== b) {\n-        parents.set(b, a);\n-      }\n-    }\n-  }\n-\n-  const groupMethods = new Map<string, Set<string>>();\n-  for (const [path, methods] of byPath) {\n-    for (const method of methods.keys()) {\n-      if (!method) {\n-        continue;\n-      }\n-      const root = find(keysByPath.get(path)![0]!);\n-      let scoped = groupMethods.get(root);\n-      if (!scoped) {\n-        groupMethods.set(root, (scoped = new Set()));\n-      }\n-      scoped.add(method);\n-    }\n-  }\n-  if (groupMethods.size === 0) {\n-    return new Map();\n-  }\n-\n-  const byPathMethods = new Map<string, Set<string>>();\n-  for (const [path, keys] of keysByPath) {\n-    const scoped = groupMethods.get(find(keys[0]!));\n-    if (scoped?.size) {\n-      byPathMethods.set(path, scoped);\n-    }\n-  }\n-  return byPathMethods;\n-}\n-\n-/**\n- * A pattern's node keys, with rou3's parse errors re-thrown in h3's own voice —\n- * this is the first thing the router build asks of a pattern, so an unparseable\n- * rule key surfaces here rather than as a bare `rou3:` (or raw `RegExp`) throw\n- * from `addRoute` further down.\n- */\n-function nodeKeys(path: string): string[] {\n-  let keys: string[];\n-  try {\n-    keys = routeNodeKeys(path);\n-  } catch (error) {\n-    throw new Error(`[h3] rules: invalid route pattern \\`${path}\\`: ${(error as Error).message}`, {\n-      cause: error,\n-    });\n-  }\n-  return keys.length > 0 ? keys : [path];\n-}"
-        },
-        {
-          "sha": "4825cfad2aa7558804794de9387783e7feea08e7",
-          "filename": "src/rules/internal/premerge.ts",
-          "status": "modified",
-          "additions": 1,
-          "deletions": 1,
-          "changes": 2,
-          "blob_url": "https://github.com/h3js/h3/blob/62c263298b41881759fe5bc38da4dd879856180c/src%2Frules%2Finternal%2Fpremerge.ts",
-          "raw_url": "https://github.com/h3js/h3/raw/62c263298b41881759fe5bc38da4dd879856180c/src%2Frules%2Finternal%2Fpremerge.ts",
-          "contents_url": "https://api.github.com/repos/h3js/h3/contents/src%2Frules%2Finternal%2Fpremerge.ts?ref=62c263298b41881759fe5bc38da4dd879856180c",
-          "patch": "@@ -95,7 +95,7 @@ export function routeContainmentRanks(paths: string[]): Map<string, number> {\n  * ordered by containment (rou3 `compareRoutes`); partial overlaps make \"most\n  * specific layer\" ambiguous and throw. Method-scoped rules are materialized as a\n  * `method × path` matrix so a broad method-scoped rule still reaches narrower\n- * agnostic patterns via rou3's `methods[m] || methods[\"\"]` fallback.\n+ * agnostic patterns, whose own layer would otherwise win as the most specific.\n  */\n export function preMergeRuleLayers(\n   byPath: Map<string, Map<string, RouteRuleEntry[]>>,"
-        },
-        {
-          "sha": "3721d2c1fc7b90d352c7f0359be0dc356be0a4fc",
-          "filename": "src/rules/match.ts",
-          "status": "modified",
-          "additions": 23,
-          "deletions": 35,
-          "changes": 58,
-          "blob_url": "https://github.com/h3js/h3/blob/62c263298b41881759fe5bc38da4dd879856180c/src%2Frules%2Fmatch.ts",
-          "raw_url": "https://github.com/h3js/h3/raw/62c263298b41881759fe5bc38da4dd879856180c/src%2Frules%2Fmatch.ts",
-          "contents_url": "https://api.github.com/repos/h3js/h3/contents/src%2Frules%2Fmatch.ts?ref=62c263298b41881759fe5bc38da4dd879856180c",
-          "patch": "@@ -3,7 +3,6 @@ import type { RouterContext } from \"rou3\";\n import { parseRouteKey } from \"./internal/key.ts\";\n import { mergeMatchedRouteRules } from \"./merge.ts\";\n import type { RouteOverridePredicate, RouteRuleEntry, RouteRuleLayer } from \"./merge.ts\";\n-import { sharedNodeMethods } from \"./internal/nodes.ts\";\n import { preMergeRuleLayers, routeContainmentRanks } from \"./internal/premerge.ts\";\n import type { PreMergedRouteRules } from \"./internal/premerge.ts\";\n import { ruleHandlers } from \"./handlers/index.ts\";\n@@ -115,20 +114,17 @@ export function createRulesRouter(\n   if (preMerge) {\n     for (const [path, methods] of preMergeRuleLayers(byPath)) {\n       for (const [method, data] of methods) {\n-        addRoute(router, method, base + path, data);\n+        addRuleRoute(router, method, base + path, data);\n       }\n     }\n     return router;\n   }\n   // Specificity rank of each pattern, stamped onto its entries so `resolveLayers`\n   // can merge matched layers broad → narrow without asking rou3 (or any\n   // containment predicate) anything per request (see `RouteRuleEntry.rank`).\n-  // Stamped per pattern (not per registration) so it survives the duplication\n-  // below: the agnostic array is registered by reference under `\"\"` and each\n-  // method materialized for it, and the HEAD materialization above shares the\n-  // GET entries — every copy is a registration *of the same pattern* under\n-  // another method, never of another pattern, so the rank a copy carries is\n-  // still its own pattern's containment depth.\n+  // Stamped per pattern (not per registration): the HEAD materialization above\n+  // shares the GET entries, a registration *of the same pattern* under another\n+  // method, so the rank it carries is still its own pattern's containment depth.\n   // preMerge returned above: there the chain is resolved at build time and the\n   // rank lives on the pre-merged layer (`PreMergedRouteRules.rank`) instead.\n   for (const [path, rank] of routeContainmentRanks([...byPath.keys()])) {\n@@ -141,35 +137,12 @@ export function createRulesRouter(\n       }\n     }\n   }\n-  // Per pattern, the methods scoped on a node it shares — the only methods for\n-  // which a registration could hide its agnostic entries (HEAD included, having\n-  // been materialized above).\n-  const sharedMethods = sharedNodeMethods(byPath);\n-  // Pass 1 — agnostic entries, on `\"\"` (the fallback for every method with no\n-  // registration on the node) and on each of those methods. Registering them\n-  // first keeps them ahead of the method-scoped layers of *any* pattern that\n-  // shares their node: rou3 pushes same-node/same-method registrations in\n-  // insertion order and its specificity sort is stable, so an equally-specific\n-  // method-scoped rule still overrides. Between *differently*-specific spellings\n-  // on one node (`/a/*` vs `/a/:id`) rou3's own sort decides, exactly as it does\n-  // for two agnostic patterns — method scope does not re-rank patterns, it only\n-  // selects which are matched.\n-  for (const [path, methods] of byPath) {\n-    const agnostic = methods.get(\"\");\n-    if (!agnostic) {\n-      continue;\n-    }\n-    addRoute(router, \"\", base + path, agnostic);\n-    for (const method of sharedMethods.get(path) || []) {\n-      addRoute(router, method, base + path, agnostic);\n-    }\n-  }\n-  // Pass 2 — method-scoped entries.\n+  // rou3 pools a node's `\"\"` and method-scoped registrations: a lookup for a\n+  // method sees both, ordered by specificity, with the method-scoped layer last\n+  // (so it overrides) between equally-specific ones.\n   for (const [path, methods] of byPath) {\n     for (const [method, entries] of methods) {\n-      if (method) {\n-        addRoute(router, method, base + path, entries);\n-      }\n+      addRuleRoute(router, method, base + path, entries);\n     }\n   }\n   return router;\n@@ -551,3 +524,18 @@ function withScopeBase(name: string, options: unknown, baseURL: string): unknown\n   }\n   return options;\n }\n+\n+/**\n+ * `addRoute`, with rou3's parse errors re-thrown in h3's own voice, so an\n+ * unparseable rule key surfaces as an h3 rules error rather than a bare `rou3:`\n+ * (or raw `RegExp`) throw.\n+ */\n+function addRuleRoute<T>(router: RouterContext<T>, method: string, path: string, data: T): void {\n+  try {\n+    addRoute(router, method, path, data);\n+  } catch (error) {\n+    throw new Error(`[h3] rules: invalid route pattern \\`${path}\\`: ${(error as Error).message}`, {\n+      cause: error,\n+    });\n+  }\n+}"
-        },
-        {
-          "sha": "f1c712d623471ccc7feac77736fbcde7ac609dfb",
-          "filename": "test/bench/bundle.test.ts",
-          "status": "modified",
-          "additions": 2,
-          "deletions": 2,
-          "changes": 4,
-          "blob_url": "https://github.com/h3js/h3/blob/62c263298b41881759fe5bc38da4dd879856180c/test%2Fbench%2Fbundle.test.ts",
-          "raw_url": "https://github.com/h3js/h3/raw/62c263298b41881759fe5bc38da4dd879856180c/test%2Fbench%2Fbundle.test.ts",
-          "contents_url": "https://api.github.com/repos/h3js/h3/contents/test%2Fbench%2Fbundle.test.ts?ref=62c263298b41881759fe5bc38da4dd879856180c",
-          "patch": "@@ -18,8 +18,8 @@ describe(\"benchmark\", () => {\n     if (process.env.DEBUG) {\n       console.log(`Bundle size (H3): ${bundle.bytes} (gzip: ${bundle.gzipSize})`);\n     }\n-    expect(bundle.bytes).toBeLessThanOrEqual(20_800); // <20.8kb\n-    expect(bundle.gzipSize).toBeLessThanOrEqual(8_050); // <8.05kb\n+    expect(bundle.bytes).toBeLessThanOrEqual(22_400); // <22.4kb\n+    expect(bundle.gzipSize).toBeLessThanOrEqual(8_850); // <8.85kb\n   });\n \n   it(\"bundle size (H3Core)\", async () => {"
-        },
-        {
-          "sha": "037c6650cd9ae0fa8d283b78984762df02d976e6",
-          "filename": "test/middleware.test.ts",
-          "status": "modified",
-          "additions": 7,
-          "deletions": 6,
-          "changes": 13,
-          "blob_url": "https://github.com/h3js/h3/blob/62c263298b41881759fe5bc38da4dd879856180c/test%2Fmiddleware.test.ts",
-          "raw_url": "https://github.com/h3js/h3/raw/62c263298b41881759fe5bc38da4dd879856180c/test%2Fmiddleware.test.ts",
-          "contents_url": "https://api.github.com/repos/h3js/h3/contents/test%2Fmiddleware.test.ts?ref=62c263298b41881759fe5bc38da4dd879856180c",
-          "patch": "@@ -235,18 +235,19 @@ describeMatrix(\"middleware\", (t, { it, expect }) => {\n // Regression: `use(route, ...)` used to compile its own regex for the route\n // filter while the router matched with rou3, and the two disagreed — so a\n // request could reach a handler with the guard registered for it skipped.\n-// A `:param` regex was `[^/]+`, rejecting the empty segment rou3's trie accepts\n-// (`/admin//` reaches `/admin/:id` with `id: \"\"`), and the `/**` regex made the\n+// A `:param` regex was `[^/]+`, rejecting the empty segment rou3's trie accepted\n+// (`/admin//` reached `/admin/:id` with `id: \"\"`), and the `/**` regex made the\n // separator optional (`/admin/**` also fired on `/adminx`). Both matchers are\n // now rou3, so the scope of a `use()` is the match-set of the same pattern.\n describeMatrix(\"middleware route scope\", (t, { it, expect }) => {\n   // Every path here is routed by its own pattern, so its guard must fire.\n   const scopes = [\n-    { route: \"/admin/:id\", paths: [\"/admin/7\", \"/admin/7/\", \"/admin//\"] },\n+    // `:id` needs a value, so `/admin//` is not routed; `*` accepts an empty one.\n+    { route: \"/admin/:id\", paths: [\"/admin/7\", \"/admin/7/\"] },\n     { route: \"/admin/**\", paths: [\"/admin\", \"/admin/\", \"/admin//\", \"/admin/x\", \"/admin/x/y\"] },\n     // A named `**` needs at least one segment, so `/files` itself is not routed.\n     { route: \"/files/**:rest\", paths: [\"/files/a\", \"/files/a/b\", \"/files/a/b/\"] },\n-    { route: \"/a/*\", paths: [\"/a\", \"/a/\", \"/a/x\", \"/a/x/\"] },\n+    { route: \"/a/*\", paths: [\"/a\", \"/a/\", \"/a//\", \"/a/x\", \"/a/x/\"] },\n     { route: \"/api\", paths: [\"/api\", \"/api/\"] },\n   ];\n \n@@ -280,8 +281,8 @@ describeMatrix(\"middleware route scope\", (t, { it, expect }) => {\n   // A leading empty segment is only reachable in web mode: the node test client\n   // resolves `//admin/...` against its base URL as a protocol-relative URL.\n   it.skipIf(t.target === \"node\")(\"guards a path with an empty leading segment\", async () => {\n-    t.app.use(\"/:tenant/admin/**\", () => \"DENIED\");\n-    t.app.get(\"/:tenant/admin/users\", () => \"ALLOWED\");\n+    t.app.use(\"/*/admin/**\", () => \"DENIED\");\n+    t.app.get(\"/*/admin/users\", () => \"ALLOWED\");\n \n     const res = await t.app.request(new Request(\"http://localhost//admin/users\"));\n     expect(await res.text()).toBe(\"DENIED\");"
-        },
-        {
-          "sha": "8d14c24b57f980a81e814c0763377dfa90149cb4",
-          "filename": "test/rules/match.test.ts",
-          "status": "modified",
-          "additions": 23,
-          "deletions": 22,
-          "changes": 45,
-          "blob_url": "https://github.com/h3js/h3/blob/62c263298b41881759fe5bc38da4dd879856180c/test%2Frules%2Fmatch.test.ts",
-          "raw_url": "https://github.com/h3js/h3/raw/62c263298b41881759fe5bc38da4dd879856180c/test%2Frules%2Fmatch.test.ts",
-          "contents_url": "https://api.github.com/repos/h3js/h3/contents/test%2Frules%2Fmatch.test.ts?ref=62c263298b41881759fe5bc38da4dd879856180c",
-          "patch": "@@ -174,9 +174,10 @@ describe(\"createMatcherFromFind override guard\", () => {\n // rou3 buckets registrations by *node*, not by pattern text: `*`, `:id` and\n // `:userId` all collapse onto `node.param`, `**`/`**:rest` onto `node.wildcard`,\n // and `/admin`/`/admin/` onto the same terminal node — and lookup resolves\n-// `node.methods[method] || node.methods[\"\"]`. So a method-scoped rule spelled\n-// differently from a method-agnostic one on the same node used to hide it\n-// outright: the agnostic gate was never returned for that method.\n+// `node.methods[method] || node.methods[\"\"]` (before rou3 0.11). So a\n+// method-scoped rule spelled differently from a method-agnostic one on the same\n+// node used to hide it outright: the agnostic gate was never returned for that\n+// method. rou3 now pools both buckets; these pin that the gate survives.\n //\n // Each pair below is [agnostic rule, method-scoped sibling, probe path]. The\n // agnostic rule must survive on *every* method; the scoped one appears only on\n@@ -310,40 +311,40 @@ describe(\"method-agnostic rules vs node-aliased method-scoped siblings\", () => {\n   });\n \n   it(\"does not register agnostic-only rule sets per method\", () => {\n-    // No method-scoped key anywhere → no materialization, byte-identical output.\n+    // No method-scoped key anywhere → no method guard in the output.\n     const before = compileFindRouteRules({ \"/a/**\": { headers: { \"x-a\": \"1\" } } });\n     expect(before).not.toContain('m===\"GET\"');\n   });\n \n-  it(\"materializes an agnostic rule only onto methods scoped on a node it shares\", () => {\n-    // `/a/**` and `/b/**` land on different radix nodes, so the POST-scoped key\n-    // cannot hide the agnostic one and must not buy it a POST copy. Only the\n-    // `/b/**` branch may be method-guarded.\n+  it(\"registers an agnostic rule once, never per method\", () => {\n+    // `/a/**` and `/b/**` land on different radix nodes: only the `/b/**`\n+    // branch is method-guarded, and the agnostic entry array `$0` is pushed once.\n     const code = compileFindRouteRules({\n       \"/a/**\": { headers: { \"x-a\": \"1\" } },\n       \"POST /b/**\": { headers: { \"x-b\": \"1\" } },\n     });\n     expect(code.match(/m===/g)).toHaveLength(1);\n     expect(code).toContain('m===\"POST\"');\n-    // `$0` is the agnostic pattern's entry array: declared once, pushed once —\n-    // no second, method-scoped registration of it.\n     expect(code.match(/data:\\$0/g)).toHaveLength(1);\n-    // …while a shared node does buy that copy (`/a/*` aliasing `/a/:id`): the\n-    // agnostic layer is pushed from the POST branch as well as the fallback one.\n-    const shared = compileFindRouteRules({\n-      \"/a/*\": { headers: { \"x-a\": \"1\" } },\n-      \"POST /a/:id\": { headers: { \"x-b\": \"1\" } },\n-    });\n-    expect(shared.match(/data:\\$0/g)).toHaveLength(2);\n+    // On a shared node (`/a/*` aliasing `/a/:id`) rou3 returns the agnostic layer\n+    // alongside the POST one — exactly once, with no per-method copy of it.\n+    const find = new Function(\n+      \"__ruleHandlers__$headers\",\n+      `return (${compileFindRouteRules({\n+        \"/a/*\": { headers: { \"x-a\": \"1\" } },\n+        \"POST /a/:id\": { headers: { \"x-b\": \"1\" } },\n+      })});`,\n+    )(undefined) as FindRouteRules;\n+    expect(\n+      find(\"POST\", \"/a/b\").map((layer) => (layer.data as { route: string }[])[0]!.route),\n+    ).toEqual([\"/a/*\", \"/a/:id\"]);\n+    expect(find(\"GET\", \"/a/b\")).toHaveLength(1);\n   });\n \n   it(\"keeps agnostic rules on every node an optional pattern spans\", () => {\n     // `/a/:x?` registers on *two* nodes (`/a` and `/a/*`), and `GET /a/:id`\n-    // scopes GET on the second — so the agnostic layers on **both** nodes need\n-    // a GET copy: `/a/:x?`'s own (or `GET /a/:id` hides it on `/a/*`) and\n-    // `/a`'s (because `/a/:x?`'s GET copy lands on `/a` too and would hide the\n-    // rule there). Grouping shared nodes transitively is what covers both; a\n-    // per-node grouping drops one or the other, fail-open either way.\n+    // scopes GET on the second — so a scoped registration must hide neither\n+    // `/a/:x?` on `/a/*` nor `/a` on `/a`, on any method.\n     const config: Record<string, RouteRuleConfig> = {\n       \"/a\": { cors: { origin: [\"https://admin.example\"] } },\n       \"/a/:x?\": { headers: { \"x-opt\": \"1\" } },"
-        },
-        {
-          "sha": "5e7b76745d99a30a4aa737539ac9fa1d6dda5684",
-          "filename": "test/rules/rules.test.ts",
-          "status": "modified",
-          "additions": 2,
-          "deletions": 2,
-          "changes": 4,
-          "blob_url": "https://github.com/h3js/h3/blob/62c263298b41881759fe5bc38da4dd879856180c/test%2Frules%2Frules.test.ts",
-          "raw_url": "https://github.com/h3js/h3/raw/62c263298b41881759fe5bc38da4dd879856180c/test%2Frules%2Frules.test.ts",
-          "contents_url": "https://api.github.com/repos/h3js/h3/contents/test%2Frules%2Frules.test.ts?ref=62c263298b41881759fe5bc38da4dd879856180c",
-          "patch": "@@ -961,8 +961,8 @@ describe(\"method-scoped rules (end-to-end)\", () => {\n \n   it(\"a method-scoped rule is not bypassable with a lowercase/mixed-case method\", async () => {\n     // Rule keys are uppercased at parse time (internal/key.ts), so the lookup\n-    // method must be too: rou3 resolves `methods[method] || methods[\"\"]` and a\n-    // method-scoped rule never populates `methods[\"\"]`, making a case mismatch a\n+    // method must be too: rou3 looks up `methods[method]` (plus `methods[\"\"]`)\n+    // and a method-scoped rule never populates `methods[\"\"]`, making a case mismatch a\n     // *total* miss that fails OPEN over a method-agnostic route (`app.all`, and\n     // every `app.mount()` base, which registers `all(base + \"/**\")`).\n     //"
+          "blob_url": "https://github.com/h3js/h3/blob/66cfb8a357b6285451bad498c2c40002601fae98/package.json",
+          "raw_url": "https://github.com/h3js/h3/raw/66cfb8a357b6285451bad498c2c40002601fae98/package.json",
+          "contents_url": "https://api.github.com/repos/h3js/h3/contents/package.json?ref=66cfb8a357b6285451bad498c2c40002601fae98",
+          "patch": "@@ -1,6 +1,6 @@\n {\n   \"name\": \"h3\",\n-  \"version\": \"2.0.1\",\n+  \"version\": \"2.0.2\",\n   \"description\": \"Minimal H(TTP) framework built for high performance and portability.\",\n   \"homepage\": \"https://h3.dev\",\n   \"license\": \"MIT\","
         }
       ]
     }

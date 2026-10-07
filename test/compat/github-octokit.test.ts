@@ -72,9 +72,9 @@ async function drain(iterable: AsyncIterable<unknown>): Promise<unknown[]> {
   return items
 }
 
-function harness() {
-  const ours = fixtureFetch('github')
-  const theirs = fixtureFetch('github')
+function harness(overrides: Parameters<typeof fixtureFetch>[1] = {}) {
+  const ours = fixtureFetch('github', overrides)
+  const theirs = fixtureFetch('github', overrides)
   return {
     provider: github({ auth: { type: 'token', token: TOKEN }, fetch: ours.fetch }).create(),
     octokit: new Octokit({ auth: TOKEN, request: { fetch: theirs.fetch } }),
@@ -384,10 +384,21 @@ describe('request compatibility with Octokit', () => {
     )
   })
 
-  it('lists pull requests through the issues API, as GitHub filters by label and author only there', async () => {
+  it('lists pull requests through the pulls API', async () => {
     const h = harness()
     await drain(h.provider.threads.list(repo, { kind: 'pull_request' }))
-    await h.octokit.paginate(h.octokit.rest.issues.listForRepo, { owner, repo: name, state: 'open', sort: 'created', direction: 'desc' })
+    await h.octokit.paginate(h.octokit.rest.pulls.list, { owner, repo: name, state: 'open', sort: 'created', direction: 'desc' })
+    const rest = h.ours.filter(call => !call.url.endsWith('/graphql'))
+
+    expect(rest.map(comparable)).toEqual(h.theirs.map(comparable))
+    expect(h.ours.length - rest.length).toBe(1)
+  })
+
+  it('lists labelled pull requests through the issues API, as GitHub filters by label and author only there', async () => {
+    const listed = (await import('../fixtures/github/list-issues.json')).default.response
+    const h = harness({ 'GET https://api.github.com/repos/acme/widgets/issues?state=open&labels=enhancement&sort=created&direction=desc': listed as never })
+    await drain(h.provider.threads.list(repo, { kind: 'pull_request', labels: ['enhancement'] }))
+    await h.octokit.paginate(h.octokit.rest.issues.listForRepo, { owner, repo: name, state: 'open', labels: 'enhancement', sort: 'created', direction: 'desc' })
     const rest = h.ours.filter(call => !call.url.endsWith('/graphql'))
 
     expect(rest.map(comparable)).toEqual(h.theirs.map(comparable))

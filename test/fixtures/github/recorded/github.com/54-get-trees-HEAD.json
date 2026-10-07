@@ -6,13 +6,13 @@
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"3a363818aed507696cafc8a85820a9923e34ab8886a34a7974862f327b74bdb2\"",
-      "x-ratelimit-remaining": "4776",
-      "x-ratelimit-reset": "1790944607"
+      "etag": "W/\"351413cae910db3dde5d05892dc90e7e247b5ab193a5b196274ca4b2cd1d84e2\"",
+      "x-ratelimit-remaining": "4953",
+      "x-ratelimit-reset": "1791382247"
     },
     "body": {
-      "sha": "62c263298b41881759fe5bc38da4dd879856180c",
-      "url": "https://api.github.com/repos/h3js/h3/git/trees/62c263298b41881759fe5bc38da4dd879856180c",
+      "sha": "66cfb8a357b6285451bad498c2c40002601fae98",
+      "url": "https://api.github.com/repos/h3js/h3/git/trees/66cfb8a357b6285451bad498c2c40002601fae98",
       "tree": [
         {
           "path": ".config",
@@ -64,9 +64,9 @@
           "path": "CHANGELOG.md",
           "mode": "100644",
           "type": "blob",
-          "sha": "6975a6281e2f4bb2b7e8abe046d86e4f25c5275a",
-          "size": 124321,
-          "url": "https://api.github.com/repos/h3js/h3/git/blobs/6975a6281e2f4bb2b7e8abe046d86e4f25c5275a"
+          "sha": "e9382241dd61e0b6065b861cb80231e8a986217a",
+          "size": 128510,
+          "url": "https://api.github.com/repos/h3js/h3/git/blobs/e9382241dd61e0b6065b861cb80231e8a986217a"
         },
         {
           "path": "CLAUDE.md",
@@ -88,9 +88,9 @@
           "path": "MIGRATION.md",
           "mode": "100644",
           "type": "blob",
-          "sha": "b37c5fccc1c28577519a48450122840b567bf6e6",
+          "sha": "3b6e445def4b9123d788476449b788f61b0155f7",
           "size": 10904,
-          "url": "https://api.github.com/repos/h3js/h3/git/blobs/b37c5fccc1c28577519a48450122840b567bf6e6"
+          "url": "https://api.github.com/repos/h3js/h3/git/blobs/3b6e445def4b9123d788476449b788f61b0155f7"
         },
         {
           "path": "README.md",
@@ -119,8 +119,8 @@
           "path": "docs",
           "mode": "040000",
           "type": "tree",
-          "sha": "387844f61bafccd31a64ab0360888690a68837a6",
-          "url": "https://api.github.com/repos/h3js/h3/git/trees/387844f61bafccd31a64ab0360888690a68837a6"
+          "sha": "882c1818902ea4c4c66c5c32bae51a491920d110",
+          "url": "https://api.github.com/repos/h3js/h3/git/trees/882c1818902ea4c4c66c5c32bae51a491920d110"
         },
         {
           "path": "examples",
@@ -133,9 +133,9 @@
           "path": "package.json",
           "mode": "100644",
           "type": "blob",
-          "sha": "508e7e7cf1814ea9dd71c9443a559e7aa61bf034",
-          "size": 3708,
-          "url": "https://api.github.com/repos/h3js/h3/git/blobs/508e7e7cf1814ea9dd71c9443a559e7aa61bf034"
+          "sha": "66df2963ae61e37eca135c5019ea5d88df781fee",
+          "size": 3689,
+          "url": "https://api.github.com/repos/h3js/h3/git/blobs/66df2963ae61e37eca135c5019ea5d88df781fee"
         },
         {
           "path": "playground",
@@ -148,9 +148,9 @@
           "path": "pnpm-lock.yaml",
           "mode": "100644",
           "type": "blob",
-          "sha": "467388400d911beded3fdc0d0b20d4570f538190",
-          "size": 135533,
-          "url": "https://api.github.com/repos/h3js/h3/git/blobs/467388400d911beded3fdc0d0b20d4570f538190"
+          "sha": "5b9e1876cca0de5540a42393434dab6f2674f365",
+          "size": 135539,
+          "url": "https://api.github.com/repos/h3js/h3/git/blobs/5b9e1876cca0de5540a42393434dab6f2674f365"
         },
         {
           "path": "pnpm-workspace.yaml",
@@ -172,15 +172,15 @@
           "path": "src",
           "mode": "040000",
           "type": "tree",
-          "sha": "7891983fc1f671271aade2589cac063c5cfe4838",
-          "url": "https://api.github.com/repos/h3js/h3/git/trees/7891983fc1f671271aade2589cac063c5cfe4838"
+          "sha": "95542adc82f05b32d23fbc2c524afabe86e1378f",
+          "url": "https://api.github.com/repos/h3js/h3/git/trees/95542adc82f05b32d23fbc2c524afabe86e1378f"
         },
         {
           "path": "test",
           "mode": "040000",
           "type": "tree",
-          "sha": "aaaf6e3cb5ef1e3e8dcdf043c9c470ba08aa274f",
-          "url": "https://api.github.com/repos/h3js/h3/git/trees/aaaf6e3cb5ef1e3e8dcdf043c9c470ba08aa274f"
+          "sha": "0938c3b88c4a11bbcc5246b4cabb6854dc9ed27e",
+          "url": "https://api.github.com/repos/h3js/h3/git/trees/0938c3b88c4a11bbcc5246b4cabb6854dc9ed27e"
         },
         {
           "path": "tsconfig.json",

@@ -6,9 +6,9 @@
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"c094f62ed2f9a42f2af7c864d75a5d94e527ccca423f3c3b100b1e55aab4a0ce\"",
-      "x-ratelimit-remaining": "4788",
-      "x-ratelimit-reset": "1790944607"
+      "etag": "W/\"16c7d6a0b78e86009bf3b114ca0d521b343477d5861d6f9de8550dd3dea03926\"",
+      "x-ratelimit-remaining": "4965",
+      "x-ratelimit-reset": "1791382247"
     },
     "body": [
       {
@@ -152,16 +152,16 @@
               "releases_url": "https://api.github.com/repos/h3js/h3/releases{/id}",
               "deployments_url": "https://api.github.com/repos/h3js/h3/deployments",
               "created_at": "2020-11-17T14:15:44Z",
-              "updated_at": "2026-09-30T17:06:22Z",
-              "pushed_at": "2026-09-29T16:33:50Z",
+              "updated_at": "2026-10-07T12:37:30Z",
+              "pushed_at": "2026-10-07T12:37:26Z",
               "git_url": "git://github.com/h3js/h3.git",
               "ssh_url": "git@github.com:h3js/h3.git",
               "clone_url": "https://github.com/h3js/h3.git",
               "svn_url": "https://github.com/h3js/h3",
               "homepage": "https://h3.dev",
-              "size": 7844,
-              "stargazers_count": 5442,
-              "watchers_count": 5442,
+              "size": 8167,
+              "stargazers_count": 5447,
+              "watchers_count": 5447,
               "language": "TypeScript",
               "has_issues": true,
               "has_projects": true,
@@ -173,7 +173,7 @@
               "mirror_url": null,
               "archived": false,
               "disabled": false,
-              "open_issues_count": 57,
+              "open_issues_count": 53,
               "license": {
                 "key": "mit",
                 "name": "MIT License",
@@ -189,8 +189,8 @@
               "topics": [],
               "visibility": "public",
               "forks": 367,
-              "open_issues": 57,
-              "watchers": 5442,
+              "open_issues": 53,
+              "watchers": 5447,
               "default_branch": "main",
               "permissions": {
                 "admin": false,

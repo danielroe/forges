@@ -1,14 +1,14 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://api.github.com/repos/h3js/h3/releases/latest"
+    "url": "https://api.github.com/repos/h3js/h3/releases/tags/v2.0.2"
   },
   "response": {
     "status": 200,
     "headers": {
       "etag": "W/\"f4713cf714e47328edb87cbe7b48e483603787c93b451237d056bb78f81ebf0f\"",
-      "x-ratelimit-remaining": "4996",
-      "x-ratelimit-reset": "1791382545"
+      "x-ratelimit-remaining": "4945",
+      "x-ratelimit-reset": "1791382247"
     },
     "body": {
       "url": "https://api.github.com/repos/h3js/h3/releases/405748393",

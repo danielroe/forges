@@ -6,9 +6,9 @@
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"e21e37c9602041aaeebe91841ab61ca2687c1d4d4d2e9f45f149e0aa8df96079\"",
-      "x-ratelimit-remaining": "4799",
-      "x-ratelimit-reset": "1790944607"
+      "etag": "W/\"f0edfa31dd47c22fc5541524d0b95801c9b042ce61c4fd17d876c82bccb9d6b7\"",
+      "x-ratelimit-remaining": "4976",
+      "x-ratelimit-reset": "1791382247"
     },
     "body": {
       "url": "https://api.github.com/repos/h3js/h3/pulls/1000",
@@ -310,16 +310,16 @@
           "releases_url": "https://api.github.com/repos/h3js/h3/releases{/id}",
           "deployments_url": "https://api.github.com/repos/h3js/h3/deployments",
           "created_at": "2020-11-17T14:15:44Z",
-          "updated_at": "2026-09-30T17:06:22Z",
-          "pushed_at": "2026-09-29T16:33:50Z",
+          "updated_at": "2026-10-07T12:37:30Z",
+          "pushed_at": "2026-10-07T12:37:26Z",
           "git_url": "git://github.com/h3js/h3.git",
           "ssh_url": "git@github.com:h3js/h3.git",
           "clone_url": "https://github.com/h3js/h3.git",
           "svn_url": "https://github.com/h3js/h3",
           "homepage": "https://h3.dev",
-          "size": 7844,
-          "stargazers_count": 5442,
-          "watchers_count": 5442,
+          "size": 8167,
+          "stargazers_count": 5447,
+          "watchers_count": 5447,
           "language": "TypeScript",
           "has_issues": true,
           "has_projects": true,
@@ -331,7 +331,7 @@
           "mirror_url": null,
           "archived": false,
           "disabled": false,
-          "open_issues_count": 57,
+          "open_issues_count": 53,
           "license": {
             "key": "mit",
             "name": "MIT License",
@@ -347,8 +347,8 @@
           "topics": [],
           "visibility": "public",
           "forks": 367,
-          "open_issues": 57,
-          "watchers": 5442,
+          "open_issues": 53,
+          "watchers": 5447,
           "default_branch": "main"
         }
       },
