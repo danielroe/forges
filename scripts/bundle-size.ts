@@ -17,8 +17,8 @@ const BUDGETS: Array<{ name: string, source: string, imports: string, minified: 
   { name: 'github lite', source: 'github/index.mjs', imports: 'githubLite', minified: 89_500, gzipped: 27_550, absent: 'x-hub-signature-256' },
   { name: 'forges/gitlab', source: 'gitlab/index.mjs', imports: 'gitlab', minified: 75_500, gzipped: 23_550 },
   { name: 'gitlab lite', source: 'gitlab/index.mjs', imports: 'gitlabLite', minified: 68_500, gzipped: 21_500, absent: 'x-gitlab-token' },
-  { name: 'forges/tangled', source: 'tangled/index.mjs', imports: 'tangled', minified: 57_250, gzipped: 18_900 },
-  { name: 'tangled lite', source: 'tangled/index.mjs', imports: 'tangledLite', minified: 53_500, gzipped: 17_700, absent: 'x-tangled-signature-256' },
+  { name: 'forges/tangled', source: 'tangled/index.mjs', imports: 'tangled', minified: 58_750, gzipped: 19_350 },
+  { name: 'tangled lite', source: 'tangled/index.mjs', imports: 'tangledLite', minified: 55_000, gzipped: 18_150, absent: 'x-tangled-signature-256' },
 ]
 
 async function measure(source: string, imports: string): Promise<{ minified: number, gzipped: number, lazy: number, code: string }> {

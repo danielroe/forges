@@ -1,5 +1,5 @@
 import type { FetchLike } from '../src/fetch.ts'
-import type { ForgeEvent, Notification, NotificationReason, Page, Thread } from '../src/model.ts'
+import type { ForgeEvent, Notification, NotificationReason, Page, Repo, Thread } from '../src/model.ts'
 import type { ForgeProvider } from '../src/provider.ts'
 import type { RecordingManifest, StepContext } from './recording/steps.ts'
 import { existsSync, readdirSync, readFileSync } from 'node:fs'
@@ -9,7 +9,7 @@ import { forgejo } from '../src/forgejo/index.ts'
 import { gitea } from '../src/gitea/index.ts'
 import { github } from '../src/github/index.ts'
 import { gitlab } from '../src/gitlab/index.ts'
-import { notificationThread } from '../src/model.ts'
+import { notificationThread, repoKey } from '../src/model.ts'
 import { pushin } from '../src/pushin/index.ts'
 import { tangled } from '../src/tangled/index.ts'
 import { STEPS } from './recording/steps.ts'
@@ -129,6 +129,15 @@ for (const { name, create } of providers) {
             expect(thread.number).toMatch(/^\d+$/)
           }
         }
+      })
+
+      it.skipIf(!manifest?.steps.includes('repo'))('reads the repository its own web URL names', async () => {
+        const instance = create(fixtureFetch(directory).fetch, manifest!)
+        const url = instance.urlFor({ repo: manifest!.repo })!
+        const parsed = instance.parseUrl(url)
+
+        expect(parsed).toBeDefined()
+        expect(repoKey((await instance.repos.get(parsed!.repo)).ref)).toBe(repoKey((output.repo as Repo).ref))
       })
 
       it.skipIf(!manifest?.steps.includes('pull'))('normalises a pull request and its first events', () => {

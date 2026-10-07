@@ -62,6 +62,11 @@ export interface TangledOptions extends ForgeOptionsBase {
   /** Constellation-compatible backlink index. */
   backlinksUrl?: string
   /**
+   * Service for `com.atproto.identity.resolveHandle`, so a `RepoRef.owner` can
+   * be a handle. Defaults to `https://public.api.bsky.app`.
+   */
+  handleResolverUrl?: string
+  /**
    * Slingshot-compatible record cache, for example
    * `https://slingshot.microcosm.blue`. By default records are read from each
    * author's PDS.
@@ -109,6 +114,7 @@ const TANGLED: ProviderDefinition<TangledOptions> = {
       fetcher,
       plcUrl: (options.plcUrl ?? 'https://plc.directory').replace(/\/$/, ''),
       backlinksUrl: (options.backlinksUrl ?? 'https://constellation.microcosm.blue').replace(/\/$/, ''),
+      handleResolverUrl: (options.handleResolverUrl ?? 'https://public.api.bsky.app').replace(/\/$/, ''),
       recordsUrl: options.recordsUrl?.replace(/\/$/, ''),
       context,
     })
@@ -116,7 +122,7 @@ const TANGLED: ProviderDefinition<TangledOptions> = {
     const { writable, viewerDid, pdsCall, createRecord, putOwnRecord, deleteOwnRecord, ownRecords } = createTangledSession({ options, fetcher, atproto, context })
 
     /** The repo DID a thread record must reference, from the ref or the repo record. */
-    const { stateAuthors, actorFor, resolveRepo, threadFor, subjectUri, activity, toStreamEvent, repoDidOf, toRepo, readThread, wholePage, listPage, listComments, findSubscription } = createTangledRecords({ options, instance, webUrl, context, atproto, api, fetcher, ownRecords })
+    const { stateAuthors, actorFor, resolveRepo, threadFor, subjectUri, activity, toStreamEvent, canonicalRepo, canonicalRef, repoDidOf, toRepo, readThread, wholePage, listPage, listComments, findSubscription } = createTangledRecords({ options, instance, webUrl, context, atproto, api, fetcher, ownRecords })
 
     const threads = {
       get: perKind(ISSUE_AND_PULL, readThread),
@@ -164,10 +170,10 @@ const TANGLED: ProviderDefinition<TangledOptions> = {
       if (input.labels?.length || input.assignees?.length) {
         throw new UnsupportedOperationError('Tangled labels and assignees are not written yet', context)
       }
-      const repoDid = await repoDidOf(repo)
+      const [address, repoDid] = await Promise.all([canonicalRef(repo), repoDidOf(repo)])
       const record: IssueRecord = { repo: repoDid, title: input.title, body: input.body, createdAt: new Date().toISOString() }
       const created = await createRecord(COLLECTIONS.issue, { ...record })
-      const ref = toThreadRef(instance, { ...repo, externalId: repoDid }, parseAtUri(created.uri)!)
+      const ref = toThreadRef(instance, { ...address, externalId: repoDid }, parseAtUri(created.uri)!)
       return toThread(ref, record, await actorFor(await viewerDid()), {}, 0)
     }
     const update: ThreadsApi['update'] = async (thread, input) => {
@@ -230,9 +236,8 @@ const TANGLED: ProviderDefinition<TangledOptions> = {
       request: api,
       repos: {
         get: verb(true, async (ref) => {
-          const uri = atUri(ref.owner, COLLECTIONS.repo, ref.name)
-          const result = await atproto.getRecord<RepoRecord>(uri)
-          return toRepo(ref, result.value, result)
+          const { ref: found, record } = await canonicalRepo(ref)
+          return toRepo(found, record.value, record)
         }),
         listPage: verb(writable && 'experimental', async (): Promise<Page<Repo>> => {
           if (!writable) {

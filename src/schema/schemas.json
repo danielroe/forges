@@ -2469,6 +2469,9 @@
       "ref": {
         "$ref": "#/components/schemas/RepoRef"
       },
+      "displayName": {
+        "type": "string"
+      },
       "description": {
         "type": "string"
       },

@@ -90,6 +90,8 @@ export interface Collaborator {
 
 export interface Repo {
   ref: RepoRef
+  /** The repository's name where `ref.name` is an identifier rather than the name (a Tangled record key). */
+  displayName?: string
   description?: string
   defaultBranch?: string
   visibility: RepoVisibility
