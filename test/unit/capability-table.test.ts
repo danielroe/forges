@@ -82,6 +82,13 @@ const declared = new Set(providers.flatMap(([, create]) => {
 }))
 
 describe('capability table', () => {
+  it('declares listings as their page verb and covers the iterable', () => {
+    const labels = table.find(entry => entry.capability === 'repos.labels')
+
+    expect(labels).toEqual({ capability: 'repos.labels', spec: 'repos.labelsPage', verbs: ['repos.labels', 'repos.labelsPage'] })
+    expect(table.filter(entry => 'listing' in entry)).toEqual([])
+  })
+
   it('produces every capability leaf exactly once', () => {
     const produced = table.filter(entry => !entry.alias).map(entry => entry.capability)
 

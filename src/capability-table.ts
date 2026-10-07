@@ -8,8 +8,6 @@ export interface CapabilityEntry {
   capability: string
   /** Where the verb is declared on `ProviderSpec`, dot-separated. */
   spec?: string
-  /** The verb is a listing: declared as `<spec>Page`, which also yields the iterable. */
-  listing?: boolean
   /** Verbs on `ForgeProvider` this capability covers. */
   verbs?: readonly string[]
   /** Support is declared per thread kind. */
@@ -146,13 +144,18 @@ export type ForgeVerb = VerbsOf<(typeof TABLE)[number]>
 /** Every `ProviderSpec` path the table declares. */
 export type TableSpecPath = SpecOf<(typeof TABLE)[number]>
 
-export const CAPABILITY_TABLE: readonly CapabilityEntry[] = (TABLE as readonly CapabilityEntry[]).map((row) => {
-  const spec = row.spec ?? (row.derived ? undefined : defaultSpec(row))
+/** A table row: a listing is declared as its `Page` verb, which also yields the iterable. */
+interface TableRow extends CapabilityEntry {
+  listing?: boolean
+}
+
+export const CAPABILITY_TABLE: readonly CapabilityEntry[] = (TABLE as readonly TableRow[]).map(({ listing, ...row }) => {
+  const spec = row.spec ?? (row.derived ? undefined : defaultSpec(row.capability, listing))
   const verbs = row.verbs ?? (spec?.endsWith('Page') ? [spec.slice(0, -4), spec] : spec ? [spec] : undefined)
   return { ...row, ...spec ? { spec } : {}, ...verbs ? { verbs } : {} }
 })
 
-function defaultSpec({ capability, listing }: CapabilityEntry): string {
+function defaultSpec(capability: string, listing: boolean | undefined): string {
   const path = capability.startsWith('writes.') ? `threads.${capability.slice('writes.'.length)}` : capability
   return listing ? `${path}Page` : path
 }
