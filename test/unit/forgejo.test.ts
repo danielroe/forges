@@ -182,6 +182,38 @@ describe('forgejo label filters', () => {
   })
 })
 
+describe('forgejo label names', () => {
+  function serve(owner: string) {
+    const calls: Array<{ method: string, url: string, body?: string }> = []
+    const fetch = async (url: string, init?: RequestInit) => {
+      calls.push({ method: init?.method ?? 'GET', url, body: init?.body as string | undefined })
+      if (url === `https://codeberg.org/api/v1/repos/${owner}/widgets/labels?limit=50`) {
+        return Response.json([{ id: 1, name: 'bug', color: 'ff0000' }])
+      }
+      if (url === 'https://codeberg.org/api/v1/orgs/acme/labels?limit=50') {
+        return Response.json([{ id: 9, name: 'triage', color: '00ff00' }])
+      }
+      return init?.method === 'POST' ? Response.json([]) : Response.json({ message: 'not found' }, { status: 404 })
+    }
+    const thread = { forge: 'forgejo', instance: 'codeberg.org', repo: { forge: 'forgejo', instance: 'codeberg.org', owner, name: 'widgets' }, kind: 'issue', number: '7' } as const
+    return { provider: forgejo({ auth: { type: 'token', token: 't' }, fetch }).create(), thread, calls }
+  }
+
+  it('resolves a label the organisation shares', async () => {
+    const { provider, thread, calls } = serve('acme')
+
+    await provider.threads.addLabels!(thread, ['bug', 'triage'])
+
+    expect(calls.at(-1)).toMatchObject({ method: 'POST', body: '{"labels":[1,9]}' })
+  })
+
+  it('names a label neither the repository nor its owner has', async () => {
+    const { provider, thread } = serve('ada')
+
+    await expect(provider.threads.addLabels!(thread, ['triage'])).rejects.toThrow('No label named triage in ada/widgets')
+  })
+})
+
 describe('forgejo search filters', () => {
   const repository = { id: 64021, name: 'widgets', full_name: 'acme/widgets', owner: { id: 4001, login: 'acme' } }
   const ada = { id: 1, login: 'Ada' }

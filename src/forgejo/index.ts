@@ -165,16 +165,30 @@ function setupForgejo({ origin, fetcher: baseFetcher, baseUrl }: ProviderContext
 
   const labelIdsOf = memoBy(async (path: string) => {
     const map = new Map<string, number>()
-    for await (const label of fetcher.items<{ id: number, name: string }>(`${path}/labels`, { query: { limit: 50 } })) {
+    for await (const label of fetcher.items<{ id: number, name: string }>(path, { query: { limit: 50 } })) {
       map.set(label.name, label.id)
     }
     return map
   })
 
+  /** Labels an organisation shares with its repositories; none for a user, whose `/orgs` route is a 404. */
+  const orgLabelIdsOf = memoBy(async (owner: string) => {
+    try {
+      return await labelIdsOf(`/orgs/${encodeURIComponent(owner)}/labels`)
+    }
+    catch (error) {
+      if (error instanceof NotFoundError) {
+        return new Map<string, number>()
+      }
+      throw error
+    }
+  })
+
   async function resolveLabels(repo: RepoRef, names: string[]): Promise<number[]> {
-    const map = await labelIdsOf(repoPath(repo))
+    const map = await labelIdsOf(`${repoPath(repo)}/labels`)
+    const shared = names.some(name => !map.has(name)) ? await orgLabelIdsOf(repo.owner) : undefined
     return names.map((name) => {
-      const id = map.get(name)
+      const id = map.get(name) ?? shared?.get(name)
       if (id === undefined) {
         throw new UnsupportedOperationError(`No label named ${name} in ${repo.owner}/${repo.name}`, context)
       }
