@@ -4,6 +4,7 @@ export { bitbucket, bitbucketLite } from './bitbucket/index.ts'
 export type { BitbucketAuth, BitbucketOptions } from './bitbucket/index.ts'
 export { cursorOrigin, cursorOriginLite, ORIGIN_API_VERSION } from './cursor-origin/index.ts'
 export type { CursorOriginAuth, CursorOriginOptions } from './cursor-origin/index.ts'
+export type { ProviderFactoryFunction } from './define.ts'
 export {
   AuthenticationRequiredError,
   ContentNotTextError,
