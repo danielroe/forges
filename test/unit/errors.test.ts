@@ -21,6 +21,16 @@ describe('status mapping', () => {
     await expect(fetcherAnswering(401, () => ({ authorization: 'Bearer t' })).json('/me')).rejects.toBeInstanceOf(TokenRevokedError)
     await expect(fetcherAnswering(401).json('/me')).rejects.toBeInstanceOf(AuthenticationRequiredError)
   })
+
+  it('maps a 401 to TokenRevokedError when the fetch carries the credential', async () => {
+    const fetcher = createFetcher({
+      baseUrl: 'https://api.example',
+      authenticated: true,
+      fetch: async () => new Response('{"message":"nope"}', { status: 401 }),
+    })
+
+    await expect(fetcher.json('/me')).rejects.toBeInstanceOf(TokenRevokedError)
+  })
 })
 
 describe('merge errors', () => {

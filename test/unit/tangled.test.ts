@@ -1,6 +1,6 @@
 import type { ResolvedThreadRef } from '../../src/model.ts'
 import { describe, expect, it } from 'vitest'
-import { InsufficientScopeError, SubscriptionClosedError, UnresolvedThreadError, UnsupportedOperationError } from '../../src/errors.ts'
+import { InsufficientScopeError, SubscriptionClosedError, TokenRevokedError, UnresolvedThreadError, UnsupportedOperationError } from '../../src/errors.ts'
 import { notificationThread, repoKey, threadKey } from '../../src/model.ts'
 import { parseAtUri } from '../../src/tangled/atproto.ts'
 import { tangled } from '../../src/tangled/index.ts'
@@ -208,6 +208,29 @@ describe('tangled writes', () => {
     await instance.threads.reopen!(pull)
 
     expect(signed).toEqual([`${PDS}/xrpc/com.atproto.repo.createRecord`])
+  })
+
+  it('maps a rejected app password to TokenRevokedError', async () => {
+    const { instance } = provider({
+      [`POST ${PDS}/xrpc/com.atproto.server.createSession`]: { status: 401, body: { error: 'AuthenticationRequired', message: 'Invalid identifier or password' } },
+    })
+
+    await expect(instance.threads.comment(pull, 'x')).rejects.toThrow(TokenRevokedError)
+  })
+
+  it('maps a 401 through the OAuth client fetch to TokenRevokedError', async () => {
+    const { fetch: base } = fixtureFetch('tangled')
+    const instance = tangled({
+      auth: {
+        type: 'oauth',
+        did: OWNER,
+        pds: PDS,
+        fetch: async () => new Response('{"error":"InvalidToken"}', { status: 401 }),
+      },
+      fetch: base,
+    }).create()
+
+    await expect(instance.threads.reopen!(pull)).rejects.toThrow(TokenRevokedError)
   })
 })
 

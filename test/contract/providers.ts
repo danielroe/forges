@@ -31,6 +31,8 @@ export interface ProviderContract {
   create: (fetch: FetchLike, options?: { timeout?: number, webSocket?: WebSocketFactory }) => ForgeProvider
   /** A read that exercises the fetcher, for error mapping. Defaults to the first notifications page. */
   probe?: (instance: ForgeProvider) => Promise<unknown>
+  /** `probe` and `request()` send no credential, so a 401 is `AuthenticationRequiredError`. */
+  anonymousReads?: boolean
   thread: { number: string, title: string, label?: string, eventKinds: EventKind[], botActor: boolean }
   /** A raw path for `request()`, relative to the provider's API base, and a field its body must have. */
   request: { path: string, field: string }
@@ -312,6 +314,7 @@ export const contracts: ProviderContract[] = [
       kind: 'pull_request',
       number: TANGLED_PULL,
     }),
+    anonymousReads: true,
     request: { path: '/xrpc/_health', field: 'version' },
     thread: { number: TANGLED_PULL, title: 'Cache compiled templates', eventKinds: ['comment', 'label', 'reaction'], botActor: false },
     writes: {

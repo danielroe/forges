@@ -1,4 +1,3 @@
-import type { FetchLike } from '../../src/fetch.ts'
 import type { Notification, ResolvedThreadRef } from '../../src/model.ts'
 import type { ForgeProvider, ForgeVerb } from '../../src/provider.ts'
 import { describe, expect, it } from 'vitest'
@@ -455,15 +454,17 @@ describe.each(contracts)('contract: $name', (contract) => {
     expect(response.data).toHaveProperty(contract.request.field)
     expect(response.headers).toBeInstanceOf(Headers)
     expect(calls[0]!.method).toBe('GET')
-    const rejecting = rejectingFetch()
-    const error = await contract.create(rejecting.fetch).request('GET', contract.request.path).catch((error: unknown) => error)
-    expect(error).toBeInstanceOf(rejecting.expected())
+    await expect(contract.create(stubFetch(401)).request('GET', contract.request.path)).rejects.toThrow(contract.anonymousReads ? AuthenticationRequiredError : TokenRevokedError)
   })
 
-  it('maps a 401 to TokenRevokedError, or AuthenticationRequiredError when no credential was sent', async () => {
-    const rejecting = rejectingFetch()
-    const error = await probe(contract.create(rejecting.fetch)).catch((error: unknown) => error)
-    expect(error).toBeInstanceOf(rejecting.expected())
+  it.runIf(!contract.anonymousReads)('maps a revoked token to TokenRevokedError', async () => {
+    const instance = contract.create(stubFetch(401, {}, { message: 'Bad credentials' }))
+    await expect(probe(instance)).rejects.toThrow(TokenRevokedError)
+  })
+
+  it.runIf(contract.anonymousReads)('maps a 401 on an anonymous read to AuthenticationRequiredError', async () => {
+    const instance = contract.create(stubFetch(401, {}, { message: 'Authentication required' }))
+    await expect(probe(instance)).rejects.toThrow(AuthenticationRequiredError)
   })
 
   it('maps a rate limit to RateLimitedError with a reset time', async () => {
@@ -538,13 +539,3 @@ describe.each(contracts)('contract: $name', (contract) => {
     }
   })
 })
-
-/** Answers every request with a 401, and says which error fits whether the request carried a credential. */
-function rejectingFetch() {
-  let authorised = false
-  const fetch: FetchLike = async (_url, init) => {
-    authorised = new Headers(init?.headers).has('authorization')
-    return new Response(JSON.stringify({ message: 'Bad credentials' }), { status: 401 })
-  }
-  return { fetch, expected: () => authorised ? TokenRevokedError : AuthenticationRequiredError }
-}

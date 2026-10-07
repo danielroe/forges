@@ -14,6 +14,8 @@ export interface FetcherOptions {
   headers?: Record<string, string>
   /** Credentials resolved before each API-origin request. */
   authHeaders?: () => Promise<Record<string, string>> | Record<string, string>
+  /** Requests carry credentials that `authHeaders` does not set, for example through a `fetch` that signs them. */
+  authenticated?: boolean
   /** API-origin query defaults; request parameters take precedence. */
   query?: Record<string, string>
   context?: ForgeErrorContext
@@ -395,9 +397,9 @@ export function createFetcher(options: FetcherOptions): Fetcher {
     const context = { ...options.context, url, method: options_.method ?? 'GET' }
 
     if (response.status === 401) {
-      throw headers.has('authorization')
+      throw (trusted && options.authenticated) || headers.has('authorization')
         ? new TokenRevokedError('Credentials were rejected by the forge', 401, body, context)
-        : new AuthenticationRequiredError('The forge needs credentials for this request, and none were sent', 401, body, context)
+        : new AuthenticationRequiredError('Credentials are required for this request', 401, body, context)
     }
 
     if (response.status === 404) {

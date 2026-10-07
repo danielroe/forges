@@ -3,7 +3,7 @@ import type { Fetcher, RequestOptions } from '../fetch.ts'
 import type { AtprotoClient } from './atproto.ts'
 import type { TangledAuth, TangledOptions } from './index.ts'
 import type { Session, TangledRecord } from './types.ts'
-import { ForgeApiError, InsufficientScopeError } from '../errors.ts'
+import { AuthenticationRequiredError, ForgeApiError, InsufficientScopeError, TokenRevokedError } from '../errors.ts'
 import { createFetcher } from '../fetch.ts'
 import { parseAtUri } from './atproto.ts'
 
@@ -36,7 +36,7 @@ export function createTangledSession({ options, fetcher, atproto, context }: { o
       `${pdsUrl}/xrpc/com.atproto.server.${refresh ? 'refreshSession' : 'createSession'}`,
       refresh
         ? { method: 'POST', headers: { authorization: `Bearer ${refresh.refreshJwt}` } }
-        : { method: 'POST', json: { identifier: auth.identifier, password: auth.password } },
+        : { method: 'POST', json: { identifier: auth.identifier, password: auth.password }, mapError: rejectedPassword },
     )
     return data
   }
@@ -58,7 +58,7 @@ export function createTangledSession({ options, fetcher, atproto, context }: { o
   async function pdsCall<T>(nsid: string, init: RequestOptions = {}): Promise<T> {
     const auth = options.auth!
     if (auth.type === 'oauth') {
-      const client = createFetcher({ baseUrl: auth.pds, fetch: auth.fetch, timeout: options.timeout, context })
+      const client = createFetcher({ baseUrl: auth.pds, fetch: auth.fetch, authenticated: true, timeout: options.timeout, context })
       return (await client.json<T>(`${auth.pds.replace(/\/$/, '')}/xrpc/${nsid}`, init)).data
     }
     const send = async (current: Session) => (await fetcher.json<T>(`${pdsUrl}/xrpc/${nsid}`, {
@@ -126,4 +126,12 @@ export function createTangledSession({ options, fetcher, atproto, context }: { o
   }
 
   return { writable, viewerDid, pdsCall, createRecord, putOwnRecord, deleteOwnRecord, ownRecords }
+}
+
+function rejectedPassword(error: unknown): unknown {
+  if (!(error instanceof AuthenticationRequiredError)) {
+    return error
+  }
+  const context = { forge: error.forge, instance: error.instance, url: error.url, method: error.method }
+  return new TokenRevokedError('The PDS rejected the identifier or app password', error.status, error.body, context, { cause: error })
 }
