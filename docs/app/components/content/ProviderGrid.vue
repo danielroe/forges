@@ -2,12 +2,16 @@
 import { groups, providers } from '#capabilities'
 
 const total = groups.reduce((sum, group) => sum + group.rows.length, 0)
+
+const supported = (provider: (typeof providers)[number]) => total - provider.summary.none
+
+const sorted = [...providers].sort((a, b) => supported(b) - supported(a) || b.summary.native - a.summary.native)
 </script>
 
 <template>
   <ul class="not-prose my-6 grid gap-4 sm:grid-cols-2">
     <li
-      v-for="provider of providers"
+      v-for="provider of sorted"
       :key="provider.slug"
       class="min-w-0"
     >
