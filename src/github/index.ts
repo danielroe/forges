@@ -834,8 +834,10 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
     if (query.repo) {
       qualifiers.push(`repo:${query.repo.owner}/${query.repo.name}`)
     }
-    // GitHub requires a kind; naming both needs `advanced_search`.
-    qualifiers.push(query.kind ? query.kind === 'pull_request' ? 'is:pr' : 'is:issue' : '(is:issue OR is:pull-request)')
+    // GitHub rejects a search without a kind for some tokens, so `searchThreadsPage` always names one.
+    if (query.kind) {
+      qualifiers.push(query.kind === 'pull_request' ? 'is:pr' : 'is:issue')
+    }
     if (query.state && query.state !== 'all') {
       qualifiers.push(`state:${query.state}`)
     }
@@ -856,11 +858,18 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
     return qualifiers
   }
 
+  /** Without a `kind`, issues then pull requests, as two searches: GitHub rejects one for both with a fine-grained token. */
   async function searchThreadsPage(query: SearchQuery): Promise<Page<Thread>> {
+    if (!query.kind) {
+      return phased((['issue', 'pull_request'] as const).map(kind => (cursor?: Cursor) => searchKindPage({ ...query, kind, cursor })), query.cursor)
+    }
+    return searchKindPage(query)
+  }
+
+  async function searchKindPage(query: SearchQuery): Promise<Page<Thread>> {
     const result = await fetcher.page<GitHubIssue>('/search/issues', {
       query: {
         q: searchQualifiers(query).join(' '),
-        advanced_search: query.kind ? undefined : 'true',
         sort: query.sort && query.sort !== 'relevance' ? query.sort : undefined,
         order: query.direction,
         per_page: query.perPage,

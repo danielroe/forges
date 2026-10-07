@@ -12,11 +12,27 @@ describe('queryRaw', () => {
       },
     }).create()
 
-    await provider.search.threadsPage({ text: 'crash', queryRaw: 'review-requested:octocat' })
+    await provider.search.threadsPage({ text: 'crash', kind: 'issue', queryRaw: 'review-requested:octocat' })
     await provider.search.reposPage({ owner: 'acme', queryRaw: 'stars:>100' })
     await provider.search.commitsPage({ text: 'fix', queryRaw: 'merge:false' })
 
-    expect(queries).toEqual(['crash (is:issue OR is:pull-request) review-requested:octocat', 'user:acme stars:>100', 'fix merge:false'])
+    expect(queries).toEqual(['crash is:issue review-requested:octocat', 'user:acme stars:>100', 'fix merge:false'])
+  })
+
+  it('searches issues, then pull requests, when no kind is given', async () => {
+    const requests: URL[] = []
+    const provider = github({
+      fetch: async (url) => {
+        requests.push(new URL(url))
+        return Response.json({ items: [] })
+      },
+    }).create()
+
+    const first = await provider.search.threadsPage({ text: 'crash', repo: { forge: 'github', instance: 'github.com', owner: 'acme', name: 'widgets' } })
+    await provider.search.threadsPage({ text: 'crash', repo: { forge: 'github', instance: 'github.com', owner: 'acme', name: 'widgets' }, cursor: first.cursor })
+
+    expect(requests.map(url => url.searchParams.get('q'))).toEqual(['crash repo:acme/widgets is:issue', 'crash repo:acme/widgets is:pr'])
+    expect(requests.every(url => !url.searchParams.has('advanced_search'))).toBe(true)
   })
 
   it('drops it with a warning where the search has no query syntax', async () => {
