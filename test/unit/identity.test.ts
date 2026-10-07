@@ -145,6 +145,21 @@ describe('forges aggregate', () => {
     expect(titles).toEqual(['Hello'])
     expect(iterable.warnings).toMatchObject([{ code: 'notifications_failed', message: 'offline', subject: 'fake:two.test' }])
   })
+
+  it('lists each provider\'s notifications from the start, ignoring a cursor', async () => {
+    const forges = createForges([fake({ instance: 'one.test' }), fake({ instance: 'two.test' })])
+    const seen: unknown[] = []
+    for (const provider of forges.providers) {
+      provider.notifications.list = (options) => {
+        seen.push(options)
+        return forgeIterable(async function* () {})
+      }
+    }
+
+    await Array.fromAsync(forges.notifications.list({ all: true, cursor: { nextUrl: 'https://one.test/next' } } as never))
+
+    expect(seen).toEqual([{ all: true, cursor: undefined }, { all: true, cursor: undefined }])
+  })
 })
 
 describe('cross-forge search', () => {

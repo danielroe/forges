@@ -674,7 +674,7 @@ export interface Forges {
   /** Reads a web or SSH clone URL on any registered instance. */
   parseUrl: (url: string | URL) => (ParsedForgeUrl & { provider: ForgeProvider }) | undefined
   /** Notifications from every registered provider, provider by provider. */
-  notifications: { list: (options?: NotificationListOptions) => ForgeIterable<Notification> }
+  notifications: { list: (options?: Omit<NotificationListOptions, 'cursor'>) => ForgeIterable<Notification> }
   /** Reads routed to the provider each ref belongs to; an unregistered origin throws `UnknownForgeError`. */
   repos: { get: (ref: RepoRef) => Promise<Repo> }
   threads: {
@@ -808,7 +808,7 @@ export function createForges(factories: Array<ForgeProviderFactory | ForgeProvid
               if (!provider.can('notifications.list')) {
                 continue
               }
-              const iterable = provider.notifications.list(options)
+              const iterable = provider.notifications.list({ ...options, cursor: undefined })
               try {
                 yield* iterable
               }
