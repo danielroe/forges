@@ -42,9 +42,10 @@ function setupPushin({ instance, origin: context, fetcher, baseUrl }: ProviderCo
       cursor: query.cursor,
       signal: query.signal,
     })
-    return toPage(result, raw => (query.kind === 'issue' && raw.pull_request) || (query.state === 'merged' && !raw.merged && !raw.merged_at && !raw.pull_request?.merged_at)
-      ? undefined
-      : toThread({ forge: FORGE, instance, repo, kind, number: String(raw.number) }, raw))
+    return toPage(result, (raw) => {
+      const thread = toThread({ forge: FORGE, instance, repo, kind, number: String(raw.number) }, raw)
+      return (query.kind === 'issue' && raw.pull_request) || (query.state === 'merged' && thread.state !== 'merged') ? undefined : thread
+    })
   }
 
   async function commentsPage(thread: ThreadRef, listOptions: ListOptions = {}): Promise<Page<Comment>> {

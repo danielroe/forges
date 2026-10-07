@@ -23,7 +23,7 @@ describe('pushin', () => {
       [`GET ${base}/repos/acme/widgets/pulls/31`]: { status: 200, body: { ...raw, merged: true, head: { ref: null, sha: null }, base: { ref: null } } },
     })
     expect(await forge.threads.get(issue)).toMatchObject({ kind: 'issue', ref: { externalId: 'iss_31' }, state: 'open' })
-    expect(await forge.threads.get(pull)).toMatchObject({ kind: 'pull_request', state: 'closed', stateRaw: 'merged', branches: { head: { ref: '' }, base: { ref: '' } } })
+    expect(await forge.threads.get(pull)).toMatchObject({ kind: 'pull_request', state: 'merged', stateRaw: 'merged', branches: { head: { ref: '' }, base: { ref: '' } } })
     await expect(forge.threads.get({ ...issue, kind: 'discussion' })).rejects.toThrow(UnsupportedOperationError)
   })
 
@@ -57,7 +57,7 @@ describe('pushin', () => {
     expect(toThread(issue, { ...raw, state: 'closed', pull_request: { url: `${base}/repos/acme/widgets/pulls/31`, merged_at: '2026-09-10T12:00:00Z' } })).toMatchObject({
       kind: 'pull_request',
       ref: { kind: 'pull_request' },
-      state: 'closed',
+      state: 'merged',
       stateRaw: 'merged',
     })
   })

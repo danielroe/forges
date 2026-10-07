@@ -149,7 +149,7 @@ export function toThread(ref: ResolvedThreadRef, raw: PushinThread): Thread {
   const origin = { forge: FORGE, instance: ref.instance }
   const kind = raw.pull_request ? 'pull_request' : ref.kind
   const merged = kind === 'pull_request' && (raw.merged || raw.merged_at || raw.pull_request?.merged_at || raw.state === 'merged')
-  const state = merged || raw.state === 'closed' ? 'closed' : 'open'
+  const state = merged ? 'merged' : raw.state === 'closed' ? 'closed' : 'open'
   return {
     ref: { ...ref, kind, externalId: raw.id },
     kind,
