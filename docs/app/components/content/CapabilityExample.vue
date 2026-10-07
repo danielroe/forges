@@ -26,7 +26,12 @@ const rows = props.capabilities.split(',').map((capability) => {
 </script>
 
 <template>
-  <div class="not-prose my-6 overflow-x-auto rounded-lg border border-default">
+  <div
+    class="not-prose my-6 overflow-x-auto rounded-lg border border-default"
+    tabindex="0"
+    role="region"
+    aria-label="Capability support"
+  >
     <table
       role="table"
       class="interlaced-matrix w-full text-left text-xs"

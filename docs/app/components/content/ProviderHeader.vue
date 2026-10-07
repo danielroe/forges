@@ -18,12 +18,7 @@ const sources = groups.find(group => group.name === 'sources')!.rows.map(row => 
 }))
 const statement = `import { ${provider.factories.join(', ')} } from '${provider.import}'`
 
-const copied = ref(false)
-async function copy() {
-  await navigator.clipboard.writeText(statement)
-  copied.value = true
-  setTimeout(() => copied.value = false, 2000)
-}
+const { copied, copy, message } = useCopyToClipboard(() => statement)
 </script>
 
 <template>
@@ -51,6 +46,10 @@ async function copy() {
         class="shrink-0"
         @click="copy"
       />
+      <span
+        class="sr-only"
+        aria-live="polite"
+      >{{ message }}</span>
     </div>
 
     <dl class="grid gap-px bg-(--ui-border) text-xs sm:grid-cols-2 lg:grid-cols-4">

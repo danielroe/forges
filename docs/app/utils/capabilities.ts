@@ -1,4 +1,4 @@
-import type { SupportCell, SupportLevel } from '#capabilities'
+import type { CapabilityRow, SupportCell, SupportLevel } from '#capabilities'
 
 export const supportLevels: SupportLevel[] = ['native', 'experimental', 'emulated', 'none']
 
@@ -45,4 +45,13 @@ export function describeCell(cell: SupportCell): string {
   return supported.length
     ? supported.map(kind => `${kind.label} ${shortSupportLabels[kind.level].toLowerCase()}`).join(', ')
     : shortSupportLabels.none
+}
+
+/** Text for what a row does, for screen readers. */
+export function describeRow(row: CapabilityRow): string {
+  return [
+    row.verbs.length ? `Calls ${row.verbs.map(verb => `${verb}()`).join(', ')}.` : '',
+    row.write ? 'Changes state.' : '',
+    row.account ? 'Needs an account.' : '',
+  ].filter(Boolean).join(' ')
 }

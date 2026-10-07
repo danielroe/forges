@@ -150,14 +150,7 @@ onMounted(async () => {
   ready.value = true
 })
 
-const copied = ref(false)
-let timer: ReturnType<typeof setTimeout> | undefined
-async function copy() {
-  await navigator.clipboard.writeText(`${dotenv.value}\n`)
-  copied.value = true
-  clearTimeout(timer)
-  timer = setTimeout(() => (copied.value = false), 2000)
-}
+const { copied, copy, message: copyMessage } = useCopyToClipboard(() => `${dotenv.value}\n`)
 </script>
 
 <template>
@@ -187,6 +180,11 @@ async function copy() {
               class="size-4"
             />
             {{ item.name }}
+            <UIcon
+              v-if="item.slug === slug"
+              name="i-lucide-check"
+              class="size-3.5"
+            />
           </label>
         </div>
       </fieldset>
@@ -198,14 +196,14 @@ async function copy() {
         </legend>
         <div class="grid gap-3">
           <div
-            v-for="group of taskGroups"
+            v-for="(group, position) of taskGroups"
             :key="group.name"
             role="group"
-            :aria-labelledby="`${id}-${group.name}`"
+            :aria-labelledby="`${id}-group-${position}`"
             class="grid gap-1.5 sm:grid-cols-[6.5rem_1fr]"
           >
             <span
-              :id="`${id}-${group.name}`"
+              :id="`${id}-group-${position}`"
               class="pt-1 text-xs text-muted"
             >{{ group.name }}</span>
             <div class="flex flex-wrap gap-1.5">
@@ -283,6 +281,11 @@ async function copy() {
                 >
                 {{ item.label }}
                 <UIcon
+                  v-if="item === option"
+                  name="i-lucide-check"
+                  class="size-3"
+                />
+                <UIcon
                   v-if="gaps(item).length"
                   name="i-lucide-triangle-alert"
                   class="size-3 text-warning"
@@ -295,7 +298,12 @@ async function copy() {
             </fieldset>
           </header>
           <div class="relative">
-            <pre class="overflow-x-auto rounded-md border border-default bg-elevated/40 py-3 pr-12 pl-3 font-mono text-xs leading-6"><code><span
+            <pre
+              tabindex="0"
+              role="region"
+              aria-label="Environment variables"
+              class="overflow-x-auto rounded-md border border-default bg-elevated/40 py-3 pr-12 pl-3 font-mono text-xs leading-6"
+            ><code><span
               v-for="line of lines"
               :key="line.field"
               class="block whitespace-pre"
@@ -313,7 +321,7 @@ async function copy() {
             <span
               class="sr-only"
               aria-live="polite"
-            >{{ copied ? 'Copied to the clipboard' : '' }}</span>
+            >{{ copyMessage }}</span>
           </div>
           <p
             v-if="lines.some(line => line.optional)"

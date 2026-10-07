@@ -177,7 +177,6 @@ const limits = provider.limits ? Object.entries(provider.limits).map(([key, leng
                   v-for="kind of row.cell.kinds.filter(kind => kind.level !== 'none')"
                   :key="kind.kind"
                   class="inline-flex items-center gap-1.5 font-mono text-[11px] text-toned"
-                  :title="supportLabels[kind.level]"
                 >
                   <CapabilityCell
                     :level="kind.level"

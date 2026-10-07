@@ -63,15 +63,7 @@ function toggle(directory: string) {
 const selected = ref(data.value?.entry)
 const file = computed(() => data.value?.files.find(file => file.path === selected.value))
 
-const copied = ref(false)
-async function copy() {
-  if (!file.value) {
-    return
-  }
-  await navigator.clipboard.writeText(file.value.content)
-  copied.value = true
-  setTimeout(() => copied.value = false, 2000)
-}
+const { copied, copy, message } = useCopyToClipboard(() => file.value?.content ?? '')
 </script>
 
 <template>
@@ -90,6 +82,7 @@ async function copy() {
         target="_blank"
         icon="i-simple-icons-github"
         label="View on GitHub"
+        aria-label="View on GitHub (opens in a new tab)"
         color="neutral"
         variant="ghost"
         size="xs"
@@ -138,6 +131,11 @@ async function copy() {
                 class="size-3.5 shrink-0"
               />
               <span class="truncate">{{ entry.name }}</span>
+              <UIcon
+                v-if="entry.path === selected"
+                name="i-lucide-check"
+                class="ml-auto size-3 shrink-0"
+              />
             </button>
           </li>
         </ul>
@@ -153,7 +151,7 @@ async function copy() {
             :to="file.url"
             target="_blank"
             icon="i-lucide-external-link"
-            :aria-label="`Open ${file.path} on GitHub`"
+            :aria-label="`Open ${file.path} on GitHub (opens in a new tab)`"
             color="neutral"
             variant="ghost"
             size="xs"
@@ -166,11 +164,16 @@ async function copy() {
             size="xs"
             @click="copy"
           />
+          <span
+            class="sr-only"
+            aria-live="polite"
+          >{{ message }}</span>
         </div>
         <!-- eslint-disable-next-line vue/no-v-html -->
         <div
           class="example-code max-h-[32rem] overflow-auto bg-muted/40 text-[13px] leading-6"
           tabindex="0"
+          role="region"
           :aria-label="file.path"
           v-html="file.html"
         />

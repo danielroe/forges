@@ -7,44 +7,58 @@ const rows = groups.flatMap(group => group.rows).filter(row => featured.includes
 
 <template>
   <div>
-    <div class="overflow-x-auto">
-      <!-- Fixed column widths -->
-      <div
-        class="mx-auto grid w-max items-center gap-y-1.5 pr-16"
-        :style="{ gridTemplateColumns: `11rem repeat(${providers.length}, 2.25rem)` }"
-      >
-        <div />
-        <div
-          v-for="{ name } of providers"
-          :key="name"
-          class="relative h-24"
-        >
-          <span class="absolute bottom-0 left-1/2 origin-bottom-left -rotate-45 whitespace-nowrap font-mono text-xs text-muted">{{ name }}</span>
-        </div>
-
-        <template
-          v-for="row of rows"
-          :key="row.capability"
-        >
-          <div class="font-mono text-xs text-highlighted">
-            {{ row.capability }}
-          </div>
-          <div
-            v-for="(cell, index) of row.cells"
-            :key="index"
-            class="flex justify-center"
-          >
-            <span
-              role="img"
-              class="inline-flex"
-              :title="`${providers[index]!.name}: ${supportLabels[cell.level]}`"
-              :aria-label="`${providers[index]!.name}: ${supportLabels[cell.level]}`"
+    <div
+      class="overflow-x-auto"
+      tabindex="0"
+      role="region"
+      aria-label="Capability support"
+    >
+      <table class="mx-auto w-max border-separate border-spacing-y-1.5 pr-16 text-left">
+        <caption class="sr-only">
+          Support for selected capabilities, by forge
+        </caption>
+        <thead>
+          <tr>
+            <th
+              scope="col"
+              class="w-44"
             >
-              <CapabilityCell :level="cell.level" />
-            </span>
-          </div>
-        </template>
-      </div>
+              <span class="sr-only">Capability</span>
+            </th>
+            <th
+              v-for="{ name } of providers"
+              :key="name"
+              scope="col"
+              class="relative h-24 w-9 p-0 font-normal"
+            >
+              <span class="absolute bottom-0 left-1/2 origin-bottom-left -rotate-45 whitespace-nowrap font-mono text-xs text-muted">{{ name }}</span>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            v-for="row of rows"
+            :key="row.capability"
+          >
+            <th
+              scope="row"
+              class="font-mono text-xs font-normal text-highlighted"
+            >
+              {{ row.capability }}
+            </th>
+            <td
+              v-for="(cell, index) of row.cells"
+              :key="index"
+              class="p-0"
+            >
+              <span class="flex justify-center">
+                <CapabilityCell :level="cell.level" />
+              </span>
+              <span class="sr-only">{{ shortSupportLabels[cell.level] }}</span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
 
     <CapabilityLegend

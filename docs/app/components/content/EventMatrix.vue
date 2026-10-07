@@ -24,10 +24,8 @@ function grid(count: number) {
 }
 
 function describe(cell: Cell) {
-  if (!cell.declared) {
-    return 'Not declared'
-  }
-  return cell.actions.length ? cell.actions.join(', ') : 'Any action'
+  const support = cell.declared ? cell.actions.join(', ') || 'Any action' : 'Not declared'
+  return cell.subscribe.length ? `${support}. Subscribes to ${cell.subscribe.join(', ')}.` : support
 }
 
 const TIP_HALF_WIDTH = 128

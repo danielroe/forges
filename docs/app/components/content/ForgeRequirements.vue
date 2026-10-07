@@ -7,7 +7,12 @@ const rows = requirements.map(forge => ({ ...forge, provider: providers.find(({ 
 </script>
 
 <template>
-  <div class="not-prose my-6 rounded-lg border border-default sm:overflow-x-auto">
+  <div
+    class="not-prose my-6 rounded-lg border border-default sm:overflow-x-auto"
+    tabindex="0"
+    role="region"
+    aria-label="Forge requirements"
+  >
     <table
       role="table"
       class="forge-requirements w-full text-left text-sm sm:min-w-[44rem]"

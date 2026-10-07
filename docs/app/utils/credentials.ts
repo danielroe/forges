@@ -45,6 +45,6 @@ export function stepHtml(text: string): string {
   return text.split(/(`[^`]+`)/).map(part => part.startsWith('`')
     ? `<code>${escape(part.slice(1, -1))}</code>`
     : escape(part)
-        .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>')
+        .replace(/\[([^\]]+)\]\((https:\/\/[^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1<span class="sr-only"> (opens in a new tab)</span></a>')
         .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')).join('')
 }

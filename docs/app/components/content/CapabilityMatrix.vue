@@ -53,6 +53,8 @@ function leave() {
   tip.value = undefined
 }
 
+const status = computed(() => `${visible.value.reduce((count, group) => count + group.rows.length, 0)} of ${total} capabilities shown`)
+
 function limits(values?: Record<string, number>) {
   return values ? Object.entries(values).map(([key, length]) => `${key.replace('Length', '')} ${length.toLocaleString('en')}`) : []
 }
@@ -74,6 +76,12 @@ function limits(values?: Record<string, number>) {
         label="Only rows that differ"
         size="sm"
       />
+      <p
+        class="sr-only"
+        role="status"
+      >
+        {{ status }}
+      </p>
     </div>
 
     <CapabilityLegend
@@ -156,7 +164,6 @@ function limits(values?: Record<string, number>) {
                       v-if="provider.experimental"
                       class="capability-swatch size-2"
                       data-level="experimental"
-                      title="Experimental provider"
                     />
                     <span
                       v-if="provider.experimental"
@@ -208,6 +215,7 @@ function limits(values?: Record<string, number>) {
                 <template v-else>
                   {{ row.capability }}
                 </template>
+                <span class="sr-only"> {{ describeRow(row) }}</span>
               </th>
               <td
                 v-for="(cell, index) of row.cells"
@@ -359,7 +367,12 @@ function limits(values?: Record<string, number>) {
     <h3 class="mt-14 mb-4 text-lg font-semibold text-highlighted">
       Authentication and limits
     </h3>
-    <div class="overflow-x-auto rounded-md border border-default">
+    <div
+      class="overflow-x-auto rounded-md border border-default"
+      tabindex="0"
+      role="region"
+      aria-label="Authentication and limits"
+    >
       <table class="w-full text-left text-sm">
         <thead class="bg-elevated/50 text-xs text-muted">
           <tr>

@@ -17,18 +17,7 @@ const forges = [
 ]
 
 const command = 'pnpm add forges'
-const copied = ref(false)
-
-async function copy() {
-  try {
-    await navigator.clipboard.writeText(command)
-    copied.value = true
-    setTimeout(() => (copied.value = false), 1600)
-  }
-  catch {
-    copied.value = false
-  }
-}
+const { copied, copy, message } = useCopyToClipboard(() => command)
 </script>
 
 <template>
@@ -89,7 +78,7 @@ async function copy() {
         <span
           class="sr-only"
           aria-live="polite"
-        >{{ copied ? 'Copied to clipboard' : '' }}</span>
+        >{{ message }}</span>
       </div>
 
       <div class="mt-16 flex flex-col items-center gap-3">
