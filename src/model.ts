@@ -750,7 +750,6 @@ export type ForgeWarningCode
     | 'filter_unsupported'
     | 'index_possibly_stale'
     | 'insufficient_scope'
-    | 'issue_tracker_disabled'
     | 'kind_unsupported'
     | 'notifications_failed'
     | 'record_unreachable'

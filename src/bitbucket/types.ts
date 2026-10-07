@@ -58,21 +58,6 @@ export interface BitbucketPullRequest {
   participants?: Array<{ user?: BitbucketUser, role?: string, approved?: boolean, state?: string | null }>
 }
 
-export interface BitbucketIssue {
-  id: number
-  title: string
-  content?: { raw?: string }
-  state: string
-  kind?: string
-  priority?: string
-  reporter?: BitbucketUser
-  assignee?: BitbucketUser | null
-  created_on?: string
-  updated_on?: string
-  links?: { html?: { href: string } }
-  repository?: BitbucketRepository
-}
-
 export interface BitbucketCommit {
   hash: string
   message?: string
@@ -96,13 +81,6 @@ export interface BitbucketActivity {
   approval?: { date: string, user?: BitbucketUser }
   changes_requested?: { date: string, user?: BitbucketUser }
   update?: { date: string, state?: string, author?: BitbucketUser, title?: string }
-}
-
-export interface BitbucketIssueChange {
-  id: number
-  created_on?: string
-  user?: BitbucketUser
-  changes?: Record<string, { old?: string, new?: string }>
 }
 
 export interface BitbucketBranch {

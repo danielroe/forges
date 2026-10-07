@@ -12,6 +12,7 @@ import type {
   MergeMethod,
   MergeOptions,
   Page,
+  PageOptions,
   Repo,
   RepoRef,
   RepoSearchQuery,
@@ -19,7 +20,6 @@ import type {
   Review,
   ReviewInput,
   SearchQuery,
-  SubscriptionState,
   Thread,
   ThreadQuery,
   ThreadRef,
@@ -27,13 +27,12 @@ import type {
 import type {
   AnonymousAuth,
   BasicAuth,
-  CloseOptions,
-  CloseReason,
   ForgeOptionsBase,
   TokenAuth,
   VerbScopes,
 } from '../provider.ts'
 import type { ForgeVerb } from '../supports.ts'
+import type { ListingExtras } from '../utils.ts'
 import type {
   BitbucketActivity,
   BitbucketBranch,
@@ -43,8 +42,6 @@ import type {
   BitbucketCommitStatus,
   BitbucketDiffStat,
   BitbucketHook,
-  BitbucketIssue,
-  BitbucketIssueChange,
   BitbucketPage,
   BitbucketPullRequest,
   BitbucketRef,
@@ -55,7 +52,7 @@ import type {
 import { toFileContent } from '../contents.ts'
 import { toBase64 } from '../crypto.ts'
 import { defineForgeProvider, perKind, verb } from '../define.ts'
-import { ForgeError, MergeConflictError, NotFoundError, soleMergeMethod, toMergeError, UnsupportedOperationError } from '../errors.ts'
+import { ForgeError, MergeConflictError, soleMergeMethod, toMergeError, UnsupportedOperationError } from '../errors.ts'
 import { isNamespaceRef } from '../model.ts'
 import { createListing, getManyConcurrently, hostOf, phased, requireThread, resolveToken, summariseChecks, syntheticReview, toPage, toWarning } from '../utils.ts'
 import { nativeEventsFor } from '../webhooks.ts'
@@ -70,8 +67,6 @@ import {
   toCommentEvent,
   toCommit,
   toCommitThread,
-  toIssueChangeEvent,
-  toIssueThread,
   toMergeMethod,
   toPullThread,
   toRepo,
@@ -103,7 +98,6 @@ export interface BitbucketOptions extends ForgeOptionsBase {
 }
 
 const PULL_STATES = { open: ['OPEN'], merged: ['MERGED'], closed: ['MERGED', 'DECLINED', 'SUPERSEDED'], all: ['OPEN', 'MERGED', 'DECLINED', 'SUPERSEDED'] } as const
-const ISSUE_STATES = { open: ['new', 'open', 'on hold'], closed: ['resolved', 'invalid', 'duplicate', 'wontfix', 'closed'] } as const
 
 /** A BBQL string literal. */
 function bbql(value: string): string {
@@ -120,8 +114,6 @@ function page<T>(body: unknown) {
 }
 
 /** Creates a Bitbucket Cloud provider. Bitbucket Data Center has a different API and is not supported. */
-const BITBUCKET_CLOSE_REASONS: Record<CloseReason, string> = { completed: 'resolved', not_planned: 'wontfix', duplicate: 'duplicate' }
-
 const BITBUCKET: ProviderDefinition<BitbucketOptions> = {
   forge: FORGE,
 
@@ -149,8 +141,6 @@ const BITBUCKET: ProviderDefinition<BitbucketOptions> = {
       switch (ref.kind) {
         case 'pull_request':
           return `${repoPath(ref)}/pullrequests/${ref.number}`
-        case 'issue':
-          return `${repoPath(ref)}/issues/${ref.number}`
         case 'commit':
           return `${repoPath(ref)}/commit/${ref.number}`
         default:
@@ -201,10 +191,6 @@ const BITBUCKET: ProviderDefinition<BitbucketOptions> = {
       })
     }
 
-    async function setIssueState(ref: ResolvedThreadRef, state: string): Promise<void> {
-      await fetcher.raw(threadPath(ref), { method: 'PUT', json: { state } })
-    }
-
     const STATUS_STATES: Record<CheckState, string> = { pending: 'INPROGRESS', success: 'SUCCESSFUL', failure: 'FAILED', neutral: 'STOPPED', unknown: 'INPROGRESS' }
 
     function repoPathOf(repo: RepoRef): string {
@@ -241,8 +227,6 @@ const BITBUCKET: ProviderDefinition<BitbucketOptions> = {
           }
           return result
         }
-        case 'issue':
-          return toIssueThread(ref, (await fetcher.json<BitbucketIssue>(threadPath(ref))).data)
         case 'commit':
           return toCommitThread(ref, (await fetcher.json<BitbucketCommit>(threadPath(ref))).data)
         default:
@@ -251,74 +235,41 @@ const BITBUCKET: ProviderDefinition<BitbucketOptions> = {
     }
 
     async function listPage(repo: RepoRef, query: ThreadQuery = {}): Promise<Page<Thread>> {
-      if (query.kind === 'discussion') {
-        return { items: [], warnings: [{ code: 'kind_unsupported', message: 'Bitbucket has no discussions' }] }
+      if (query.kind && query.kind !== 'pull_request') {
+        return { items: [], warnings: [{ code: 'kind_unsupported', message: `Bitbucket Cloud has no ${query.kind === 'issue' ? 'issues' : 'discussions'}` }] }
       }
       const warnings: ForgeWarning[] = []
-      const warn = (warning: ForgeWarning) => warnings.push(warning)
-      const kinds = query.kind ? [query.kind] : ['issue', 'pull_request'] as const
       if (!query.cursor) {
         if (query.labels?.length) {
-          warn({ code: 'filter_unsupported', message: 'Bitbucket has no labels; the labels filter was ignored' })
+          warnings.push({ code: 'filter_unsupported', message: 'Bitbucket has no labels; the labels filter was ignored' })
         }
         if (query.sort === 'comments') {
-          warn({ code: 'sort_unsupported', message: 'Bitbucket cannot sort by comment count; sorted by creation time' })
+          warnings.push({ code: 'sort_unsupported', message: 'Bitbucket cannot sort by comment count; sorted by creation time' })
         }
-        if (query.assignee && kinds.includes('pull_request')) {
-          warn({ code: 'filter_unsupported', message: 'Bitbucket pull requests have no assignees; the assignee filter was ignored' })
+        if (query.assignee) {
+          warnings.push({ code: 'filter_unsupported', message: 'Bitbucket pull requests have no assignees; the assignee filter was ignored' })
         }
       }
       const field = query.sort === 'updated' ? 'updated_on' : 'created_on'
-      const sort = `${(query.direction ?? 'desc') === 'desc' ? '-' : ''}${field}`
-      const state = query.state ?? 'open'
-      const listed = await phased(kinds.map(kind => async (cursor?: Cursor): Promise<Page<Thread>> => {
-        const clauses: string[] = []
-        if (query.since) {
-          clauses.push(`updated_on >= ${query.since.toISOString()}`)
-        }
-        if (query.createdAfter) {
-          clauses.push(`created_on >= ${query.createdAfter.toISOString()}`)
-        }
-        const params = new URLSearchParams({ sort, pagelen: String(query.perPage ?? 50) })
-        if (kind === 'pull_request') {
-          if (query.author) {
-            clauses.push(`author.nickname = ${bbql(query.author)}`)
-          }
-          for (const value of PULL_STATES[state]) {
-            params.append('state', value)
-          }
-        }
-        else {
-          if (query.author) {
-            clauses.push(`reporter.nickname = ${bbql(query.author)}`)
-          }
-          if (query.assignee) {
-            clauses.push(`assignee.nickname = ${bbql(query.assignee)}`)
-          }
-          if (state !== 'all' && state !== 'merged') {
-            clauses.push(`(${ISSUE_STATES[state].map(value => `state = "${value}"`).join(' OR ')})`)
-          }
-        }
-        if (clauses.length) {
-          params.set('q', clauses.join(' AND '))
-        }
-        const path = `${repoPathOf(repo)}/${kind === 'pull_request' ? 'pullrequests' : 'issues'}?${params}`
-        try {
-          const result = await fetcher.page<BitbucketPullRequest & BitbucketIssue>(path, { signal: query.signal, cursor, select: page<BitbucketPullRequest & BitbucketIssue> })
-          return toPage(result, (raw) => {
-            const ref: ResolvedThreadRef = { forge: FORGE, instance, repo, kind, number: String(raw.id) }
-            return kind === 'pull_request' ? toPullThread(ref, raw) : toIssueThread(ref, raw)
-          })
-        }
-        catch (error) {
-          if (kind === 'issue' && error instanceof NotFoundError) {
-            return { items: [], warnings: [toWarning('issue_tracker_disabled', error, `${repo.owner}/${repo.name}`)] }
-          }
-          throw error
-        }
-      }), query.cursor)
-      const all = [...warnings, ...listed.warnings ?? []]
-      return all.length ? { ...listed, warnings: all } : listed
+      const clauses: string[] = []
+      if (query.since) {
+        clauses.push(`updated_on >= ${query.since.toISOString()}`)
+      }
+      if (query.createdAfter) {
+        clauses.push(`created_on >= ${query.createdAfter.toISOString()}`)
+      }
+      if (query.author) {
+        clauses.push(`author.nickname = ${bbql(query.author)}`)
+      }
+      const params = new URLSearchParams({ sort: `${(query.direction ?? 'desc') === 'desc' ? '-' : ''}${field}`, pagelen: String(query.perPage ?? 50) })
+      for (const value of PULL_STATES[query.state ?? 'open']) {
+        params.append('state', value)
+      }
+      if (clauses.length) {
+        params.set('q', clauses.join(' AND '))
+      }
+      const result = await fetcher.page<BitbucketPullRequest>(`${repoPathOf(repo)}/pullrequests?${params}`, { signal: query.signal, cursor: query.cursor, select: page<BitbucketPullRequest> })
+      return toPage(result, raw => toPullThread({ forge: FORGE, instance, repo, kind: 'pull_request', number: String(raw.id) }, raw), warnings.length ? warnings : undefined)
     }
 
     /** Repository hooks, or workspace hooks for a namespace ref. */
@@ -374,7 +325,27 @@ const BITBUCKET: ProviderDefinition<BitbucketOptions> = {
         ...query.language ? [`language = ${bbql(query.language)}`] : [],
       ]
       const field = query.sort === 'created' ? 'created_on' : 'updated_on'
-      return list(query.owner ? `/repositories/${encodeURIComponent(query.owner)}` : '/repositories', query, (raw: BitbucketRepositoryDetail) => toRepo(instance, raw), { query: { role: query.owner ? undefined : 'member', q: clauses.length ? clauses.join(' AND ') : undefined, sort: `${(query.direction ?? 'desc') === 'desc' ? '-' : ''}${field}` }, select: page<BitbucketRepositoryDetail>, warnings: query.sort === 'stars' ? [{ code: 'sort_unsupported', message: 'Bitbucket has no stars; sorted by update time' }] : undefined })
+      const extras = {
+        query: { q: clauses.length ? clauses.join(' AND ') : undefined, sort: `${(query.direction ?? 'desc') === 'desc' ? '-' : ''}${field}` },
+        warnings: query.sort === 'stars' ? [{ code: 'sort_unsupported', message: 'Bitbucket has no stars; sorted by update time' }] : undefined,
+      }
+      return query.owner
+        ? list(`/repositories/${encodeURIComponent(query.owner)}`, query, (raw: BitbucketRepositoryDetail) => toRepo(instance, raw), { ...extras, select: page<BitbucketRepositoryDetail> })
+        : memberRepos(query, extras)
+    }
+
+    /** One phase per workspace the account belongs to; Bitbucket lists repositories by workspace only. */
+    async function memberRepos(listOptions: PageOptions, extras: ListingExtras = {}): Promise<Page<Repo>> {
+      const workspaces = await Array.fromAsync(fetcher.items<{ workspace: { slug: string } }>('/user/workspaces', { query: { pagelen: 100 }, select: page, signal: listOptions.signal }))
+      if (!workspaces.length) {
+        return { items: [] }
+      }
+      return phased(workspaces.map(({ workspace }) => (cursor?: Cursor) => list(
+        `/repositories/${encodeURIComponent(workspace.slug)}`,
+        { ...listOptions, cursor },
+        (raw: BitbucketRepositoryDetail) => toRepo(instance, raw),
+        { ...extras, query: { ...extras.query, role: 'member' }, select: page<BitbucketRepositoryDetail> },
+      )), listOptions.cursor)
     }
 
     /** Bitbucket has participants, not reviews: one synthesised review per participant who has voted. */
@@ -421,14 +392,6 @@ const BITBUCKET: ProviderDefinition<BitbucketOptions> = {
       return `${commentsPath(requireThread(ref.thread, context))}/${ref.id}`
     }
 
-    async function watch(thread: ThreadRef, method: 'GET' | 'PUT' | 'DELETE'): Promise<Response> {
-      const ref = requireThread(thread, context)
-      if (ref.kind !== 'issue') {
-        throw new UnsupportedOperationError('Bitbucket can only watch issues', context)
-      }
-      return fetcher.raw(`${threadPath(ref)}/watch`, { method })
-    }
-
     return {
       traits: { poll: false, eventKinds: 'native', authKinds: ['token', 'basic', 'anonymous'] },
       normaliseMarkdown,
@@ -473,7 +436,7 @@ const BITBUCKET: ProviderDefinition<BitbucketOptions> = {
         get: verb(true, async (ref) => {
           return toRepo(instance, (await fetcher.json<BitbucketRepositoryDetail>(repoPathOf(ref))).data)
         }),
-        listPage: verb('experimental', (listOptions = {}) => list('/repositories', listOptions, (raw: BitbucketRepositoryDetail) => toRepo(instance, raw), { query: { role: 'member' }, select: page<BitbucketRepositoryDetail> })),
+        listPage: verb('experimental', (listOptions = {}) => memberRepos(listOptions)),
       },
       search: {
         threadsPage: verb('experimental', searchThreadsPage),
@@ -545,9 +508,9 @@ const BITBUCKET: ProviderDefinition<BitbucketOptions> = {
           return { items: toParticipantReviews(ref, (await fetcher.json<BitbucketPullRequest>(threadPath(ref))).data) }
         }),
         createReview: verb('emulated', createReview),
-        get: perKind({ issue: 'experimental', pull_request: true, commit: 'experimental' }, get),
+        get: perKind({ pull_request: true, commit: 'experimental' }, get),
         getMany: verb(true, refs => getManyConcurrently(refs, get)),
-        listPage: perKind({ issue: 'experimental', pull_request: true }, listPage),
+        listPage: perKind({ pull_request: true }, listPage),
         eventsPage: verb(true, async (thread: ThreadRef, listOptions: ListOptions = {}): Promise<Page<ForgeEventInput>> => {
           const ref = requireThread(thread, context)
           const events: ForgeEventInput[] = []
@@ -557,14 +520,6 @@ const BITBUCKET: ProviderDefinition<BitbucketOptions> = {
               events.push(toActivityEvent(ref, entry, index++))
             }
           }
-          else if (ref.kind === 'issue') {
-            for await (const comment of all<BitbucketComment>(commentsPath(ref), listOptions)) {
-              events.push(toCommentEvent(ref, comment))
-            }
-            for await (const change of all<BitbucketIssueChange>(`${threadPath(ref)}/changes`, listOptions)) {
-              events.push(toIssueChangeEvent(ref, change))
-            }
-          }
           else {
             for await (const comment of all<BitbucketComment>(commentsPath(ref), listOptions)) {
               events.push(toCommentEvent(ref, comment))
@@ -572,11 +527,11 @@ const BITBUCKET: ProviderDefinition<BitbucketOptions> = {
           }
           return { items: events.sort((a, b) => a.occurredAt.getTime() - b.occurredAt.getTime()) }
         }),
-        commentsPage: perKind({ issue: 'experimental', pull_request: true, commit: 'experimental' }, async (thread: ThreadRef, listOptions: ListOptions = {}): Promise<Page<Comment>> => {
+        commentsPage: perKind({ pull_request: true, commit: 'experimental' }, async (thread: ThreadRef, listOptions: ListOptions = {}): Promise<Page<Comment>> => {
           const ref = requireThread(thread, context)
           return list(commentsPath(ref), listOptions, (comment: BitbucketComment) => toComment(ref, comment), { select: page<BitbucketComment> })
         }),
-        comment: perKind({ issue: 'experimental', pull_request: true, commit: 'experimental' }, async (thread, body) => {
+        comment: perKind({ pull_request: true, commit: 'experimental' }, async (thread, body) => {
           const ref = requireThread(thread, context)
           const { data } = await fetcher.json<BitbucketComment>(commentsPath(ref), {
             method: 'POST',
@@ -584,33 +539,16 @@ const BITBUCKET: ProviderDefinition<BitbucketOptions> = {
           })
           return toComment(ref, data)
         }),
-        editComment: perKind({ issue: 'experimental', pull_request: 'experimental', commit: 'experimental' }, async (ref, body) => {
+        editComment: perKind({ pull_request: 'experimental', commit: 'experimental' }, async (ref, body) => {
           const { data } = await fetcher.json<BitbucketComment>(commentPath(ref), { method: 'PUT', json: { content: { raw: body } } })
           return toComment(ref.thread, data)
         }),
-        deleteComment: perKind({ issue: 'experimental', pull_request: 'experimental', commit: 'experimental' }, async (ref) => {
+        deleteComment: perKind({ pull_request: 'experimental', commit: 'experimental' }, async (ref) => {
           await fetcher.raw(commentPath(ref), { method: 'DELETE' })
         }),
-        create: perKind({ issue: 'experimental', pull_request: 'experimental' }, async (repo, input) => {
-          if (input.kind === 'discussion') {
-            throw new UnsupportedOperationError('Bitbucket has no discussions', context)
-          }
+        create: perKind({ pull_request: 'experimental' }, async (repo, input) => {
           if (input.labels?.length) {
             throw new UnsupportedOperationError('Bitbucket has no labels', context)
-          }
-          if (input.kind === 'issue') {
-            if ((input.assignees?.length ?? 0) > 1) {
-              throw new UnsupportedOperationError('Bitbucket issues have a single assignee', context)
-            }
-            const { data } = await fetcher.json<BitbucketIssue>(`${repoPathOf(repo)}/issues`, {
-              method: 'POST',
-              json: {
-                title: input.title,
-                content: { raw: input.body ?? '' },
-                ...input.assignees?.[0] ? { assignee: accountRef(input.assignees[0]) } : {},
-              },
-            })
-            return toIssueThread({ forge: FORGE, instance, repo, kind: 'issue', number: String(data.id) }, data)
           }
           if (!input.head || !input.base) {
             throw new UnsupportedOperationError('Creating a pull request needs head and base branches', context)
@@ -630,30 +568,10 @@ const BITBUCKET: ProviderDefinition<BitbucketOptions> = {
           })
           return toPullThread({ forge: FORGE, instance, repo, kind: 'pull_request', number: String(data.id) }, data)
         }),
-        update: perKind({ issue: 'experimental', pull_request: 'experimental' }, async (thread, input) => {
-          const ref = requireThread(thread, context)
-          if (ref.kind === 'pull_request') {
-            const { data } = await fetcher.json<BitbucketPullRequest>(threadPath(ref), { method: 'PUT', json: { title: input.title, description: input.body } })
-            return toPullThread(ref, data)
-          }
-          if (ref.kind !== 'issue') {
-            throw new UnsupportedOperationError(`Bitbucket cannot update a ${ref.kind}`, context)
-          }
-          const { data } = await fetcher.json<BitbucketIssue>(threadPath(ref), {
-            method: 'PUT',
-            json: { title: input.title, ...input.body === undefined ? {} : { content: { raw: input.body } } },
-          })
-          return toIssueThread(ref, data)
-        }),
-        setAssignees: perKind({ issue: 'experimental' }, async (thread, assignees) => {
-          const ref = requireThread(thread, context)
-          if (ref.kind !== 'issue') {
-            throw new UnsupportedOperationError('Bitbucket only assigns issues', context)
-          }
-          if (assignees.length > 1) {
-            throw new UnsupportedOperationError('Bitbucket issues have a single assignee', context)
-          }
-          await fetcher.raw(threadPath(ref), { method: 'PUT', json: { assignee: assignees[0] ? accountRef(assignees[0]) : null } })
+        update: perKind({ pull_request: 'experimental' }, async (thread, input) => {
+          const ref = requirePull(thread, 'updated')
+          const { data } = await fetcher.json<BitbucketPullRequest>(threadPath(ref), { method: 'PUT', json: { title: input.title, description: input.body } })
+          return toPullThread(ref, data)
         }),
         requestReview: perKind({ pull_request: 'experimental' }, async (thread, reviewers) => {
           const ref = requireThread(thread, context)
@@ -667,45 +585,10 @@ const BITBUCKET: ProviderDefinition<BitbucketOptions> = {
             json: { title: data.title, reviewers: [...uuids].map(uuid => ({ uuid })) },
           })
         }),
-        close: perKind({ issue: 'experimental', pull_request: true }, async (thread, closeOptions: CloseOptions = {}) => {
-          const ref = requireThread(thread, context)
-          if (ref.kind === 'pull_request') {
-            await fetcher.raw(`${threadPath(ref)}/decline`, { method: 'POST' })
-            return
-          }
-          if (ref.kind !== 'issue') {
-            throw new UnsupportedOperationError(`Bitbucket cannot close a ${ref.kind}`, context)
-          }
-          await setIssueState(ref, closeOptions.reasonRaw ?? BITBUCKET_CLOSE_REASONS[closeOptions.reason ?? 'completed'])
-        }),
-        reopen: perKind({ issue: 'experimental' }, async (thread) => {
-          const ref = requireThread(thread, context)
-          if (ref.kind !== 'issue') {
-            throw new UnsupportedOperationError(`Bitbucket cannot reopen a ${ref.kind}; declined pull requests stay declined`, context)
-          }
-          await setIssueState(ref, 'open')
+        close: perKind({ pull_request: true }, async (thread) => {
+          await fetcher.raw(`${threadPath(requirePull(thread, 'declined'))}/decline`, { method: 'POST' })
         }),
         merge: verb(true, merge),
-        subscriptions: perKind({ issue: 'experimental' }, {
-          subscription: async (thread): Promise<SubscriptionState> => {
-            try {
-              await watch(thread, 'GET')
-              return 'subscribed'
-            }
-            catch (error) {
-              if (error instanceof NotFoundError) {
-                return 'none'
-              }
-              throw error
-            }
-          },
-          subscribe: async (thread) => {
-            await watch(thread, 'PUT')
-          },
-          unsubscribe: async (thread) => {
-            await watch(thread, 'DELETE')
-          },
-        }),
       },
     }
   },
