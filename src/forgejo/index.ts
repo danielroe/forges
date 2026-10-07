@@ -101,6 +101,11 @@ const ISSUE_AND_PULL = { issue: true, pull_request: true } as const
 /** Timelines send no usable count, so only a full page of an explicit size shows that another follows. */
 const TIMELINE_PAGE_SIZE = 50
 
+/** Whether `user` has `login`, in any case; `true` when no login is wanted. Forgejo's issue search ignores `created_by` and `assigned_by`. */
+function sameLogin(user: ForgejoUser | null | undefined, login: string | undefined): boolean {
+  return !login || user?.login.toLowerCase() === login.toLowerCase()
+}
+
 const FORGEJO_RESERVED_PATHS = ['-', '.well-known', 'admin', 'api', 'assets', 'attachments', 'avatars', 'captcha', 'explore', 'issues', 'login', 'milestones', 'notifications', 'org', 'pulls', 'repo', 'repo-avatars', 'search', 'user']
 
 /** The Forgejo implementation for one deployment family. Shared by `forgejo()` and `gitea()`. */
@@ -403,7 +408,7 @@ function setupForgejo({ origin, fetcher: baseFetcher, baseUrl }: ProviderContext
       const repo = query.repo ?? (name
         ? { ...origin, owner, name, externalId: raw.repository?.id === undefined ? undefined : String(raw.repository.id) }
         : undefined)
-      if (!repo || !hasEveryLabel(raw.labels, query.labels) || (query.repo && raw.repository && raw.repository.full_name !== `${query.repo.owner}/${query.repo.name}`)) {
+      if (!repo || !hasEveryLabel(raw.labels, query.labels) || !sameLogin(raw.user, query.author) || (query.assignee && !raw.assignees?.some(user => sameLogin(user, query.assignee))) || (query.repo && raw.repository && raw.repository.full_name !== `${query.repo.owner}/${query.repo.name}`)) {
         return undefined
       }
       return toThread({ ...origin, repo, kind: raw.pull_request ? 'pull_request' : 'issue', number: String(raw.number) }, raw)

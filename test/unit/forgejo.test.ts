@@ -182,6 +182,29 @@ describe('forgejo label filters', () => {
   })
 })
 
+describe('forgejo search filters', () => {
+  const repository = { id: 64021, name: 'widgets', full_name: 'acme/widgets', owner: { id: 4001, login: 'acme' } }
+  const ada = { id: 1, login: 'Ada' }
+  const grace = { id: 2, login: 'grace' }
+  const issues = [
+    { id: 1, number: 1, title: 'By Ada', state: 'open', user: ada, assignees: [grace], repository },
+    { id: 2, number: 2, title: 'By Grace', state: 'open', user: grace, assignees: [ada], repository },
+  ]
+  const provider = forgejo({ auth: { type: 'token', token: 't' }, fetch: async () => Response.json(issues) }).create()
+
+  it('searches only threads by the author', async () => {
+    const page = await provider.search.threadsPage({ author: 'ada' })
+
+    expect(page.items.map(thread => thread.title)).toEqual(['By Ada'])
+  })
+
+  it('searches only threads assigned to the assignee', async () => {
+    const page = await provider.search.threadsPage({ assignee: 'ada' })
+
+    expect(page.items.map(thread => thread.title)).toEqual(['By Grace'])
+  })
+})
+
 describe('forgejo label webhooks', () => {
   it.each([['label_updated', 'edited'], ['label_cleared', 'unlabelled']])('maps %s to %s', async (action, expected) => {
     const { hmacSha256Hex } = await import('../../src/crypto.ts')
