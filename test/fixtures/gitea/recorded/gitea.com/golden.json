@@ -73,7 +73,10 @@
         "name": "kind/build",
         "colour": "ff925c"
       }
-    ]
+    ],
+    "cursor": {
+      "nextUrl": "https://gitea.com/api/v1/repos/gitea/tea/labels?limit=3&page=2"
+    }
   },
   "milestones": {
     "items": []
@@ -1111,7 +1114,10 @@
         "source": "poll",
         "action": "other"
       }
-    ]
+    ],
+    "cursor": {
+      "nextUrl": "https://gitea.com/api/v1/repos/gitea/tea/issues/1/timeline?limit=3&page=2"
+    }
   },
   "pull comments": {
     "items": []
@@ -1655,7 +1661,10 @@
         "source": "poll",
         "action": "other"
       }
-    ]
+    ],
+    "cursor": {
+      "nextUrl": "https://gitea.com/api/v1/repos/gitea/tea/issues/1095/timeline?limit=3&page=2"
+    }
   },
   "issue comments": {
     "items": []
@@ -1776,7 +1785,10 @@
         "name": "v0.15.0",
         "sha": "61b8536e4a3e04d9db74b05b4d9cd489d07d8d50"
       }
-    ]
+    ],
+    "cursor": {
+      "nextUrl": "https://gitea.com/api/v1/repos/gitea/tea/tags?limit=3&page=2"
+    }
   },
   "resolve default branch": "bcd62a1fb2ce6fdd51ebea91cc33ddbcae000b68",
   "commits": {

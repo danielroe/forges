@@ -69,6 +69,7 @@ import { actorLogin, createListing, getManyConcurrently, hasEveryLabel, hexColou
 import { githubShapedWeb } from '../web.ts'
 import { nativeEventsFor } from '../webhooks.ts'
 import { numberFromUrl, toActor, toBranch, toChangedFile, toComment, toCommit, toEvent, toLabel, toMilestone, toNotification, toRelease, toRepo, toReview, toReviewComment, toRole, toStatusCheck, toStatusChecks, toTag, toThread, toThreadKind, toTreeEntry, toWebhook } from './normalise.ts'
+import { countedPages } from './pages.ts'
 import { FORGEJO_HEADERS, FORGEJO_NATIVE_EVENTS } from './webhook-events.ts'
 import { forgejoWebhooks } from './webhooks.ts'
 
@@ -97,6 +98,9 @@ export const FORGEJO_PROFILE: ForgejoProfile = {
 
 const ISSUE_AND_PULL = { issue: true, pull_request: true } as const
 
+/** Timelines send no usable count, so only a full page of an explicit size shows that another follows. */
+const TIMELINE_PAGE_SIZE = 50
+
 const FORGEJO_RESERVED_PATHS = ['-', '.well-known', 'admin', 'api', 'assets', 'attachments', 'avatars', 'captcha', 'explore', 'issues', 'login', 'milestones', 'notifications', 'org', 'pulls', 'repo', 'repo-avatars', 'search', 'user']
 
 /** The Forgejo implementation for one deployment family. Shared by `forgejo()` and `gitea()`. */
@@ -112,8 +116,9 @@ export function forgejoDefinition(profile: ForgejoProfile): ProviderDefinition<F
   }
 }
 
-function setupForgejo({ origin, fetcher, baseUrl }: ProviderContext<ForgejoOptions, undefined>, profile: ForgejoProfile): ProviderSpec {
+function setupForgejo({ origin, fetcher: baseFetcher, baseUrl }: ProviderContext<ForgejoOptions, undefined>, profile: ForgejoProfile): ProviderSpec {
   const context = origin
+  const fetcher = countedPages(baseFetcher)
 
   const list = createListing(fetcher, 'limit')
 
@@ -584,7 +589,7 @@ function setupForgejo({ origin, fetcher, baseUrl }: ProviderContext<ForgejoOptio
       listPage: perKind(ISSUE_AND_PULL, listPage),
       eventsPage: verb(true, async (thread: ThreadRef, listOptions: ListOptions = {}): Promise<Page<ForgeEventInput>> => {
         const ref = requireThread(thread, context)
-        return list(`${issuePath(ref)}/timeline`, listOptions, (entry: ForgejoTimelineEntry) => toEvent(ref, entry))
+        return list(`${issuePath(ref)}/timeline`, { perPage: TIMELINE_PAGE_SIZE, ...listOptions }, (entry: ForgejoTimelineEntry) => toEvent(ref, entry))
       }),
       commentsPage: perKind(ISSUE_AND_PULL, async (thread: ThreadRef, listOptions: ListOptions = {}): Promise<Page<Comment>> => {
         const ref = requireIssueOrPull(thread, context, 'list comments on')
