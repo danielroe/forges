@@ -139,6 +139,7 @@ export interface GitLabIssue {
 
 export interface GitLabPipeline {
   id: number
+  project_id?: number
   status: string
   web_url?: string
   sha?: string

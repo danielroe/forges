@@ -737,7 +737,9 @@ const GITLAB: ProviderDefinition<GitLabOptions> = {
           if (!data.head_pipeline) {
             return { items: [] }
           }
-          return { items: await Array.fromAsync(fetcher.items<GitLabJob>(`${projectPath(ref.repo)}/pipelines/${data.head_pipeline.id}/jobs`, { query: { per_page: 100 } }), job => toJobCheck(ref.repo, job)) }
+          const pipelineProject = data.head_pipeline.project_id
+          const project = pipelineProject === undefined || pipelineProject === data.target_project_id ? projectPath(ref.repo) : `/projects/${pipelineProject}`
+          return { items: await Array.fromAsync(fetcher.items<GitLabJob>(`${project}/pipelines/${data.head_pipeline.id}/jobs`, { query: { per_page: 100 } }), job => toJobCheck(ref.repo, job)) }
         }),
         get: perKind({ issue: true, pull_request: true, commit: 'experimental' }, get),
         getMany: verb(true, refs => getManyConcurrently(refs, get)),
