@@ -5,7 +5,10 @@ const mark = '<svg width="72" height="72" viewBox="0 0 800 800" fill="none" xmln
 </script>
 
 <template>
-  <div class="w-full h-full flex flex-col justify-between bg-neutral-950 px-20 py-16">
+  <div
+    class="w-full h-full flex flex-col justify-between bg-neutral-950 px-20 py-16"
+    style="font-family: Inter"
+  >
     <!-- Corner glows matching the hero. -->
     <div class="absolute top-0 left-0 w-225 h-160 bg-[radial-gradient(circle_at_top_left,rgba(249,115,22,0.38)_0%,rgba(249,115,22,0.12)_40%,transparent_70%)]" />
     <div class="absolute top-0 right-0 w-175 h-150 bg-[radial-gradient(circle_at_top_right,rgba(244,63,94,0.28)_0%,rgba(244,63,94,0.08)_40%,transparent_70%)]" />
@@ -16,7 +19,7 @@ const mark = '<svg width="72" height="72" viewBox="0 0 800 800" fill="none" xmln
         class="w-18 h-18 flex"
         v-html="mark"
       />
-      <p class="m-0 ml-5 text-[40px] font-bold text-white tracking-tight">
+      <p class="m-0 ml-5 text-[44px] text-white tracking-tight" style="font-family: Fraenkisch">
         forges
       </p>
     </div>
@@ -30,7 +33,8 @@ const mark = '<svg width="72" height="72" viewBox="0 0 800 800" fill="none" xmln
       </p>
       <h1
         v-if="title"
-        class="m-0 mb-6 text-[64px] font-bold text-white leading-[1.1] w-full max-w-240 wrap-break-word"
+        style="font-family: Fraenkisch"
+        class="m-0 mb-6 text-[68px] text-white leading-[1.1] w-full max-w-240 wrap-break-word"
       >
         {{ title?.slice(0, 60) }}
       </h1>

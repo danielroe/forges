@@ -1,3 +1,21 @@
+@theme {
+  --font-display: 'Fraenkisch', 'Iowan Old Style', 'Palatino Linotype', 'URW Palladio L', P052, Georgia, serif;
+  --font-sans: 'Iowan Old Style', 'Palatino Linotype', 'URW Palladio L', P052, Georgia, serif;
+  --font-serif: 'Iowan Old Style', 'Palatino Linotype', 'URW Palladio L', P052, Georgia, serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+}
+
+body {
+  font-family: var(--font-sans);
+}
+
+:is(h1, h2),
+.font-display {
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+
 /* Primary text uses shade 700 in light mode for WCAG AA contrast. */
 :root {
   --ui-primary: var(--ui-color-primary-700);

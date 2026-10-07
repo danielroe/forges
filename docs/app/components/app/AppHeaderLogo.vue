@@ -10,6 +10,6 @@ const appConfig = useAppConfig()
       class="size-7 shrink-0"
       aria-hidden="true"
     >
-    <span class="font-mono text-lg leading-none font-medium tracking-tight">{{ appConfig.header?.title }}</span>
+    <span class="font-display text-xl leading-none">{{ appConfig.header?.title }}</span>
   </span>
 </template>

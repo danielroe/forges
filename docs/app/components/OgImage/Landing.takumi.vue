@@ -5,7 +5,10 @@ const mark = '<svg width="96" height="96" viewBox="0 0 800 800" fill="none" xmln
 </script>
 
 <template>
-  <div class="w-full h-full flex flex-col items-center justify-center bg-neutral-950 px-20 py-16">
+  <div
+    class="w-full h-full flex flex-col items-center justify-center bg-neutral-950 px-20 py-16"
+    style="font-family: Inter"
+  >
     <div class="absolute top-0 left-0 w-250 h-160 bg-[radial-gradient(circle_at_top_left,rgba(249,115,22,0.42)_0%,rgba(249,115,22,0.14)_40%,transparent_70%)]" />
     <div class="absolute top-0 right-0 w-200 h-150 bg-[radial-gradient(circle_at_top_right,rgba(244,63,94,0.30)_0%,rgba(244,63,94,0.09)_40%,transparent_70%)]" />
 
@@ -14,7 +17,10 @@ const mark = '<svg width="96" height="96" viewBox="0 0 800 800" fill="none" xmln
       class="w-24 h-24 flex mb-8"
       v-html="mark"
     />
-    <h1 class="m-0 mb-6 text-[72px] font-bold text-white leading-[1.1] text-center wrap-break-word">
+    <h1
+      class="m-0 mb-6 text-[76px] text-white leading-[1.1] text-center wrap-break-word"
+      style="font-family: Fraenkisch"
+    >
       {{ title?.slice(0, 60) }}
     </h1>
     <p

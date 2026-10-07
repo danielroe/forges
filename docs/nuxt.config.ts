@@ -6,7 +6,7 @@ const url = previewUrl ?? 'https://forges.link'
 
 export default defineNuxtConfig({
   extends: ['docus'],
-  modules: ['@nuxtjs/critters'],
+  modules: ['@nuxt/fonts', '@nuxtjs/critters'],
   docus: {
     assistant: {
       enabled: false,
@@ -26,6 +26,26 @@ export default defineNuxtConfig({
       // The color mode script adds `.dark` to `<html>` before first paint, so the dark theme stays inlined.
       allowRules: [/\.dark\b/],
     },
+  },
+  fonts: {
+    families: [
+      {
+        name: 'Fraenkisch',
+        src: '/fonts/Fraenkisch-400.woff2',
+        weight: 400,
+        style: 'normal',
+        display: 'swap',
+        global: true,
+        fallbacks: ['Iowan Old Style', 'Palatino Linotype', 'URW Palladio L', 'P052', 'Georgia', 'serif'],
+      },
+      {
+        name: 'JetBrains Mono',
+        provider: 'fontsource',
+        weights: [400, 500, 700],
+        styles: ['normal'],
+      },
+    ],
+    defaults: { subsets: ['latin'] },
   },
   site: {
     name: 'forges',
@@ -59,7 +79,10 @@ export default defineNuxtConfig({
   },
   app: {
     head: {
-      link: [{ rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' }],
+      link: [
+        { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
+        { rel: 'preload', href: '/fonts/Fraenkisch-400.woff2', as: 'font', type: 'font/woff2', crossorigin: 'anonymous' },
+      ],
     },
   },
   hooks: {
