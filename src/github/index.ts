@@ -427,10 +427,21 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
       }
     }
     if (state === 'merged') {
-      const page = await searchThreadsPage(
-        { repo, kind: 'pull_request', labels: query.labels, author: query.author, assignee: query.assignee, involves: query.involves, since: query.since, sort: query.sort ?? 'created', direction, perPage: query.perPage, cursor: query.cursor, signal: query.signal },
-        ['is:merged', ...query.createdAfter ? [`created:>=${query.createdAfter.toISOString()}`] : []],
-      )
+      const page = await searchThreadsPage({
+        repo,
+        kind: 'pull_request',
+        labels: query.labels,
+        author: query.author,
+        assignee: query.assignee,
+        involves: query.involves,
+        since: query.since,
+        queryRaw: `is:merged${query.createdAfter ? ` created:>=${query.createdAfter.toISOString()}` : ''}`,
+        sort: query.sort ?? 'created',
+        direction,
+        perPage: query.perPage,
+        cursor: query.cursor,
+        signal: query.signal,
+      })
       await withPullChecks(page)
       return page
     }
@@ -837,13 +848,16 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
     if (query.since) {
       qualifiers.push(`updated:>=${query.since.toISOString()}`)
     }
+    if (query.queryRaw) {
+      qualifiers.push(query.queryRaw)
+    }
     return qualifiers
   }
 
-  async function searchThreadsPage(query: SearchQuery, extra: string[] = []): Promise<Page<Thread>> {
+  async function searchThreadsPage(query: SearchQuery): Promise<Page<Thread>> {
     const result = await fetcher.page<GitHubIssue>('/search/issues', {
       query: {
-        q: [...searchQualifiers(query), ...extra].join(' '),
+        q: searchQualifiers(query).join(' '),
         sort: query.sort && query.sort !== 'relevance' ? query.sort : undefined,
         order: query.direction,
         per_page: query.perPage,
@@ -865,7 +879,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
   const REPO_SEARCH_SORTS: Partial<Record<NonNullable<RepoSearchQuery['sort']>, string>> = { updated: 'updated', stars: 'stars' }
 
   async function searchReposPage(query: RepoSearchQuery): Promise<Page<Repo>> {
-    const qualifiers = [query.text, query.owner && `user:${query.owner}`, query.language && `language:${query.language}`].filter(Boolean)
+    const qualifiers = [query.text, query.owner && `user:${query.owner}`, query.language && `language:${query.language}`, query.queryRaw].filter(Boolean)
     const warnings: ForgeWarning[] = query.sort === 'created'
       ? [{ code: 'sort_unsupported', message: 'GitHub repository search cannot sort by creation time; sorted by relevance' }]
       : []
@@ -893,6 +907,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
       query.committer && `committer:${query.committer}`,
       query.since && `author-date:>=${query.since.toISOString()}`,
       query.until && `author-date:<=${query.until.toISOString()}`,
+      query.queryRaw,
     ].filter(Boolean)
     const result = await fetcher.page<GitHubCommitSearchItem>('/search/commits', {
       query: {
@@ -1191,9 +1206,10 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
       }),
     },
     search: {
-      threadsPage: verb(true, query => searchThreadsPage(query)),
+      threadsPage: verb(true, searchThreadsPage),
       reposPage: verb(true, searchReposPage),
       commitsPage: verb(true, searchCommitsPage),
+      queryRaw: true,
     },
     releases: {
       listPage: verb(true, releasesPage),

@@ -1078,6 +1078,12 @@ export interface ThreadQuery extends PageOptions {
 export interface SearchQuery extends PageOptions {
   /** Free text, matched against title and body. */
   text?: string
+  /**
+   * Forge-native query syntax, added to the query as is, for qualifiers the
+   * other fields don't cover. Forges whose search has no query syntax ignore
+   * it with a `filter_unsupported` warning.
+   */
+  queryRaw?: string
   /** Limit to one repository. */
   repo?: RepoRef
   kind?: 'issue' | 'pull_request'
@@ -1100,6 +1106,8 @@ export interface SearchQuery extends PageOptions {
 export interface CommitSearchQuery extends PageOptions {
   /** Free text, matched against the commit message. */
   text?: string
+  /** Forge-native query syntax; see {@link SearchQuery.queryRaw}. */
+  queryRaw?: string
   /** Limit to one repository. */
   repo?: RepoRef
   /** Commits whose author is this login. */
@@ -1118,6 +1126,8 @@ export interface CommitSearchQuery extends PageOptions {
 
 export interface RepoSearchQuery extends PageOptions {
   text?: string
+  /** Forge-native query syntax; see {@link SearchQuery.queryRaw}. */
+  queryRaw?: string
   /** Limit to one account or namespace. */
   owner?: string
   language?: string

@@ -169,6 +169,8 @@ export interface ProviderSpec {
     threadsPage?: Verb<SearchApi['threadsPage']>
     reposPage?: Verb<SearchApi['reposPage']>
     commitsPage?: Verb<SearchApi['commitsPage']>
+    /** The searches pass `queryRaw` on; without this, core drops it with a warning. */
+    queryRaw?: boolean
   }
   releases?: {
     listPage: Verb<ReleasesApi['listPage']>
@@ -395,7 +397,18 @@ function createProvider<TOptions extends ForgeOptionsBase, TState>(
   const installationsSupported = () => Boolean(declaredInstallations && resolve(declaredInstallations.support, env))
 
   const listThreads = kindGate('threads.listPage', spec.threads.listPage.kinds, spec.threads.listPage.run)
+  const native = spec.search?.queryRaw
+  const search = (name: 'threadsPage' | 'reposPage' | 'commitsPage') => {
+    const run = gate(`search.${name}`, spec.search?.[name]?.support, spec.search?.[name]?.run)
+    return async ({ queryRaw, ...query }: { queryRaw?: string, cursor?: unknown } = {}) => {
+      const page = await run(native ? { queryRaw, ...query } : query) as Page<unknown>
+      return !queryRaw || native || query.cursor ? page : { ...page, warnings: [{ code: 'filter_unsupported', message: 'This search has no query syntax; queryRaw was ignored' }, ...page.warnings ?? []] }
+    }
+  }
   const special: Record<string, unknown> = {
+    'search.threadsPage': search('threadsPage'),
+    'search.reposPage': search('reposPage'),
+    'search.commitsPage': search('commitsPage'),
     'threads.listPage': async (repo: RepoRef, query: ThreadQuery = {}) => {
       if (query.state !== 'merged') {
         return listThreads(repo, query)

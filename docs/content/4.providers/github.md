@@ -98,6 +98,12 @@ GitHub gives search a lower rate limit than the rest of the API. Commit search h
 
 Repository search can't sort by creation time. A request for that sort order returns results by relevance, with a `sort_unsupported` warning.
 
+`queryRaw` is added to the search query as is, so it accepts any [GitHub search qualifier](https://docs.github.com/search-github/searching-on-github):
+
+```ts
+const page = await gh.search.threadsPage({ kind: 'pull_request', queryRaw: 'review-requested:@me' })
+```
+
 ## Webhook management
 
 GitHub responds with `404` on its webhook endpoints when the credential lacks `admin:repo_hook` or `admin:org_hook`. The provider raises this response as `ForbiddenError` with `reason: 'resource_protected'`.
