@@ -29,11 +29,21 @@ export class ForgeApiError extends ForgeError {
   /** Truncated response body, for diagnostics. */
   readonly body: string
 
-  constructor(message: string, status: number, body: string, context?: ForgeErrorContext) {
-    super(message, context)
+  constructor(message: string, status: number, body: string, context?: ForgeErrorContext, options?: ErrorOptions) {
+    super(message, context, options)
     this.status = status
     this.body = body
   }
+}
+
+/** A 404: the resource does not exist, or the credential cannot see it, which many forges answer the same way. */
+export class NotFoundError extends ForgeApiError {
+  override name = 'NotFoundError'
+}
+
+/** A 401 for a request sent without credentials: the forge needs them. A rejected credential is {@link TokenRevokedError}. */
+export class AuthenticationRequiredError extends ForgeApiError {
+  override name = 'AuthenticationRequiredError'
 }
 
 export class RateLimitedError extends ForgeApiError {
@@ -47,8 +57,9 @@ export class RateLimitedError extends ForgeApiError {
     status: number,
     body: string,
     options: { resetAt?: Date, secondary?: boolean } & ForgeErrorContext = {},
+    errorOptions?: ErrorOptions,
   ) {
-    super(message, status, body, options)
+    super(message, status, body, options, errorOptions)
     this.resetAt = options.resetAt
     this.secondary = options.secondary ?? false
   }
@@ -80,8 +91,8 @@ export class ForbiddenError extends ForgeApiError {
   /** The forge's own wording, for diagnostics and for reasons not yet mapped. */
   readonly reasonRaw?: string
 
-  constructor(message: string, status: number, body: string, reason: ForbiddenReason, context?: ForgeErrorContext & { reasonRaw?: string }) {
-    super(message, status, body, context)
+  constructor(message: string, status: number, body: string, reason: ForbiddenReason, context?: ForgeErrorContext & { reasonRaw?: string }, options?: ErrorOptions) {
+    super(message, status, body, context, options)
     this.reason = reason
     this.reasonRaw = context?.reasonRaw
   }
@@ -90,7 +101,7 @@ export class ForbiddenError extends ForgeApiError {
 /** Body patterns that identify a 403 reason, most specific first. */
 const FORBIDDEN_PATTERNS: Array<[ForbiddenReason, RegExp]> = [
   ['org_restriction', /third[- ]party application|OAuth App access restrictions|organization has enabled OAuth|not authorized by the organization|blocked by the organization/i],
-  ['sso_required', /SAML|single sign[- ]on|SSO|must be granted .* organization/i],
+  ['sso_required', /SAML|single sign[- ]on|\bSSO\b|must be granted .* organization/i],
   ['rate_limit_abuse', /abuse detection|secondary rate limit/i],
   ['resource_protected', /archived|read[- ]only|protected branch|repository has been disabled|is disabled/i],
 ]
@@ -175,10 +186,10 @@ export function toMergeError(error: unknown): unknown {
   }
   const context = { forge: error.forge, instance: error.instance, url: error.url, method: error.method }
   if (error.status === 405) {
-    return new MergeBlockedError('Pull request is not mergeable yet', 405, error.body, context)
+    return new MergeBlockedError('Pull request is not mergeable yet', error.status, error.body, context, { cause: error })
   }
   if (error.status === 406 || error.status === 409) {
-    return new MergeConflictError('Pull request conflicts with its base or the head has moved', 409, error.body, context)
+    return new MergeConflictError('Pull request conflicts with its base or the head has moved', error.status, error.body, context, { cause: error })
   }
   return error
 }
@@ -188,13 +199,15 @@ export class UnresolvedThreadError extends ForgeError {
   override name = 'UnresolvedThreadError'
 }
 
-/** No merge method was given and the repository allows more than one. */
+/** No merge method was given, and the repository allows several or reports none. */
 export class MergeMethodRequiredError extends ForgeError {
   override name = 'MergeMethodRequiredError'
   readonly allowed: MergeMethod[]
 
   constructor(allowed: MergeMethod[], context?: ForgeErrorContext) {
-    super(`Repository allows ${allowed.length ? allowed.join(', ') : 'no merge methods'}; pass \`method\` explicitly`, context)
+    super(allowed.length
+      ? `The repository allows ${allowed.join(', ')}. Pass \`method\` to choose one.`
+      : 'The repository reports no merge method this provider can use. Pass `method` explicitly.', context)
     this.allowed = allowed
   }
 }

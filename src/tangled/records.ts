@@ -18,13 +18,7 @@ import type { AtprotoClient, AtUri } from './atproto.ts'
 import type { TangledOptions } from './index.ts'
 import type { TangledSession } from './session.ts'
 import type { FeedCommentRecord, IssueRecord, JetstreamCommitEvent, PullRecord, RepoRecord, StateRecord, SubscriptionRecord, TangledRecord } from './types.ts'
-import {
-  ForgeApiError,
-  ForgeError,
-  RateLimitedError,
-  TokenRevokedError,
-  UnresolvedThreadError,
-} from '../errors.ts'
+import { ForgeApiError, ForgeError, NotFoundError, RateLimitedError, TokenRevokedError, UnresolvedThreadError } from '../errors.ts'
 import { forgeIterable, mapConcurrent, phased, requireThread, toDate, toWarning } from '../utils.ts'
 import { atUri, parseAtUri } from './atproto.ts'
 import {
@@ -197,7 +191,7 @@ export function createTangledRecords({ options, instance, webUrl, context, atpro
       return (await atproto.getRecord<T>(uri)).value
     }
     catch (error) {
-      if (error instanceof ForgeApiError && (error.status === 400 || error.status === 404)) {
+      if (error instanceof NotFoundError || (error instanceof ForgeApiError && error.status === 400)) {
         return undefined
       }
       if (error instanceof RateLimitedError || error instanceof TokenRevokedError || !(error instanceof ForgeError)) {

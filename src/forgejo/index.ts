@@ -1,4 +1,4 @@
-import type { MergeHooks, ProviderContext, ProviderDefinition, ProviderSpec } from '../define.ts'
+import type { MergeHooks, ProviderContext, ProviderDefinition, ProviderFactoryFunction, ProviderSpec } from '../define.ts'
 import type {
   Check,
   CheckState,
@@ -33,8 +33,6 @@ import type {
   AnonymousAuth,
   BulkNotificationOptions,
   ForgeOptionsBase,
-  ForgeProvider,
-  ForgeProviderFactory,
   NotificationWriteOptions,
   TokenAuth,
   VerbScopes,
@@ -64,7 +62,7 @@ import type {
 import type { WebhookHeaderNames } from './webhook-events.ts'
 import { fromBase64, toFileContent } from '../contents.ts'
 import { defineForgeProvider, perKind, verb } from '../define.ts'
-import { ForgeApiError, ForgeError, soleMergeMethod, toMergeError, UnsupportedOperationError } from '../errors.ts'
+import { ForgeApiError, ForgeError, NotFoundError, soleMergeMethod, toMergeError, UnsupportedOperationError } from '../errors.ts'
 import { isNamespaceRef, reactionContent } from '../model.ts'
 import { actorLogin, createListing, getManyConcurrently, hasEveryLabel, hexColour, memo, memoBy, requireIssueOrPull, requireThread, summariseChecks, toDate, toPage, toWarning } from '../utils.ts'
 import { githubShapedWeb } from '../web.ts'
@@ -537,7 +535,7 @@ function setupForgejo({ origin, fetcher, baseUrl }: ProviderContext<ForgejoOptio
           return toRelease(repo, (await fetcher.json<ForgejoRelease>(`${repoPath(repo)}/releases/latest`)).data)
         }
         catch (error) {
-          if (error instanceof ForgeApiError && error.status === 404) {
+          if (error instanceof NotFoundError) {
             return undefined
           }
           throw error
@@ -726,10 +724,10 @@ function setupForgejo({ origin, fetcher, baseUrl }: ProviderContext<ForgejoOptio
 const FORGEJO = /* @__PURE__ */ forgejoDefinition(FORGEJO_PROFILE)
 
 /** Creates a Forgejo provider for Codeberg or any self-hosted Forgejo instance. */
-export const forgejo: (options: ForgejoOptions) => ForgeProviderFactory<ForgeProvider> = /* @__PURE__ */ defineForgeProvider({ ...FORGEJO, webhooks: forgejoWebhooks(FORGEJO_PROFILE) })
+export const forgejo: ProviderFactoryFunction<ForgejoOptions> = /* @__PURE__ */ defineForgeProvider({ ...FORGEJO, webhooks: forgejoWebhooks(FORGEJO_PROFILE) })
 
 /** `forgejo()` without webhook ingestion, for bundles that never receive a delivery. */
-export const forgejoLite: (options: ForgejoOptions) => ForgeProviderFactory<ForgeProvider> = /* @__PURE__ */ defineForgeProvider(FORGEJO)
+export const forgejoLite: ProviderFactoryFunction<ForgejoOptions> = /* @__PURE__ */ defineForgeProvider(FORGEJO)
 
 /**
  * Forgejo and Gitea token scopes, which are per resource group with a

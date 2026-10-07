@@ -1,4 +1,4 @@
-import type { MergeHooks, ProviderDefinition } from '../define.ts'
+import type { MergeHooks, ProviderDefinition, ProviderFactoryFunction } from '../define.ts'
 import type {
   Actor,
   Check,
@@ -30,8 +30,6 @@ import type {
   CloseOptions,
   CloseReason,
   ForgeOptionsBase,
-  ForgeProvider,
-  ForgeProviderFactory,
   TokenAuth,
   VerbScopes,
 } from '../provider.ts'
@@ -56,14 +54,7 @@ import type {
 import { toFileContent } from '../contents.ts'
 import { toBase64 } from '../crypto.ts'
 import { defineForgeProvider, perKind, verb } from '../define.ts'
-import {
-  ForgeApiError,
-  ForgeError,
-  MergeConflictError,
-  soleMergeMethod,
-  toMergeError,
-  UnsupportedOperationError,
-} from '../errors.ts'
+import { ForgeError, MergeConflictError, NotFoundError, soleMergeMethod, toMergeError, UnsupportedOperationError } from '../errors.ts'
 import { isNamespaceRef } from '../model.ts'
 import { createListing, getManyConcurrently, hostOf, phased, requireThread, summariseChecks, syntheticReview, toPage, toWarning } from '../utils.ts'
 import { nativeEventsFor } from '../webhooks.ts'
@@ -316,7 +307,7 @@ const BITBUCKET: ProviderDefinition<BitbucketOptions> = {
           })
         }
         catch (error) {
-          if (kind === 'issue' && error instanceof ForgeApiError && error.status === 404) {
+          if (kind === 'issue' && error instanceof NotFoundError) {
             return { items: [], warnings: [toWarning('issue_tracker_disabled', error, `${repo.owner}/${repo.name}`)] }
           }
           throw error
@@ -692,7 +683,7 @@ const BITBUCKET: ProviderDefinition<BitbucketOptions> = {
               return 'subscribed'
             }
             catch (error) {
-              if (error instanceof ForgeApiError && error.status === 404) {
+              if (error instanceof NotFoundError) {
                 return 'none'
               }
               throw error
@@ -710,10 +701,10 @@ const BITBUCKET: ProviderDefinition<BitbucketOptions> = {
   },
 }
 
-export const bitbucket: (options: BitbucketOptions) => ForgeProviderFactory<ForgeProvider> = /* @__PURE__ */ defineForgeProvider({ ...BITBUCKET, webhooks: bitbucketWebhooks })
+export const bitbucket: ProviderFactoryFunction<BitbucketOptions> = /* @__PURE__ */ defineForgeProvider({ ...BITBUCKET, webhooks: bitbucketWebhooks })
 
 /** `bitbucket()` without webhook ingestion, for bundles that never receive a delivery. */
-export const bitbucketLite: (options: BitbucketOptions) => ForgeProviderFactory<ForgeProvider> = /* @__PURE__ */ defineForgeProvider(BITBUCKET)
+export const bitbucketLite: ProviderFactoryFunction<BitbucketOptions> = /* @__PURE__ */ defineForgeProvider(BITBUCKET)
 
 /** Bitbucket Cloud scopes, as an app password or OAuth consumer grants them. */
 export function bitbucketScopesFor(verb: ForgeVerb): VerbScopes {

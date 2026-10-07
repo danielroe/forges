@@ -5,7 +5,7 @@ import type { ForgeVerb } from '../supports.ts'
 import type { GiteeBranch, GiteeCheckRun, GiteeComment, GiteeCommit, GiteeCommitFile, GiteeCompare, GiteeContentFile, GiteeHook, GiteeIssue, GiteeLabel, GiteeNotification, GiteeOperateLog, GiteePullRequest, GiteeRelease, GiteeRepository, GiteeTag, GiteeTree, GiteeUser } from './types.ts'
 import { fromBase64, toFileContent } from '../contents.ts'
 import { defineForgeProvider, perKind, verb } from '../define.ts'
-import { ForgeApiError, ForgeError, MergeMethodRequiredError, toMergeError, UnsupportedOperationError } from '../errors.ts'
+import { ForgeError, MergeMethodRequiredError, NotFoundError, toMergeError, UnsupportedOperationError } from '../errors.ts'
 import { actorLogin, getManyConcurrently, hasEveryLabel, hexColour, iteratePages, phased, requireIssueOrPull, requireThread, summariseChecks, toDate, toWarning } from '../utils.ts'
 import { githubShapedWeb } from '../web.ts'
 import { nativeEventsFor } from '../webhooks.ts'
@@ -381,7 +381,7 @@ function setupGitee({ instance, origin: context, fetcher, baseUrl }: ProviderCon
           }
         }
         catch (error) {
-          if (!(error instanceof ForgeApiError && error.status === 404)) {
+          if (!(error instanceof NotFoundError)) {
             throw error
           }
           return undefined

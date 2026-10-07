@@ -4,6 +4,7 @@ import { describe, expect, expectTypeOf, it } from 'vitest'
 import { forgejo } from '../../src/forgejo/index.ts'
 import { github } from '../../src/github/index.ts'
 import * as root from '../../src/index.ts'
+import * as kit from '../../src/kit.ts'
 import { commentMarker, notificationKey, repoKey, threadKey } from '../../src/model.ts'
 import { createForges } from '../../src/provider.ts'
 import { summariseChecks } from '../../src/utils.ts'
@@ -64,6 +65,21 @@ describe('root entry', () => {
   it('exports every provider factory', () => {
     const factories = ['bitbucket', 'forgejo', 'gitea', 'github', 'gitlab', 'tangled']
     expect(Object.keys(root).filter(name => factories.includes(name)).sort()).toEqual(factories)
+  })
+
+  it('exports the consumer helpers and leaves provider-authoring tools to `forges/kit`', () => {
+    const authoring = ['CAPABILITY_TABLE', 'createFetcher', 'defineForgeProvider', 'forgeIterable', 'hmacSha256Hex', 'iteratePages', 'perKind', 'refEvent', 'toPage', 'verb']
+
+    expect(Object.keys(root).filter(name => authoring.includes(name))).toEqual([])
+    expect(Object.keys(kit).filter(name => authoring.includes(name)).sort()).toEqual([...authoring].sort())
+    expect(Object.keys(root)).toEqual(expect.arrayContaining(['AuthenticationRequiredError', 'commentMarker', 'hasCommentMarker', 'isNamespaceRef', 'NotFoundError', 'REACTION_CONTENTS', 'reactionContent']))
+    expectTypeOf<root.CommitSearchQuery>().toHaveProperty('committer')
+  })
+
+  it('lets every provider factory be called without options', () => {
+    for (const factory of [root.bitbucket, root.forgejo, root.gitea, root.gitee, root.github, root.gitlab, root.pushin, root.tangled]) {
+      expect(factory().create().kind).toBeTypeOf('string')
+    }
   })
 })
 

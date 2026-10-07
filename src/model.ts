@@ -308,11 +308,11 @@ export interface LabelInput {
 export type ReactionContent = '+1' | '-1' | 'laugh' | 'confused' | 'heart' | 'hooray' | 'rocket' | 'eyes'
 
 /** Every name {@link ReactionContent} covers. */
-export const REACTION_CONTENTS: ReactionContent[] = ['+1', '-1', 'laugh', 'confused', 'heart', 'hooray', 'rocket', 'eyes']
+export const REACTION_CONTENTS: readonly ReactionContent[] = ['+1', '-1', 'laugh', 'confused', 'heart', 'hooray', 'rocket', 'eyes']
 
 /** The normalised name for a forge-native reaction name, or `'other'` where there is none. */
 export function reactionContent(raw: string): ReactionContent | 'other' {
-  return (REACTION_CONTENTS as string[]).includes(raw) ? raw as ReactionContent : 'other'
+  return (REACTION_CONTENTS as readonly string[]).includes(raw) ? raw as ReactionContent : 'other'
 }
 
 /** One reaction left on a thread or a comment, as `threads.reactions()` lists them. */

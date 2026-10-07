@@ -35,4 +35,4 @@ Before the bot closes a thread, it calls `repos.permissionFor()` to read the com
 pnpm --filter @forges-examples/label-bot test
 ```
 
-The tests sign deliveries with `hmacSha256Hex()` from `forges`. They serve responses from the fixtures in `test/fixtures/github/`, without a network connection.
+The tests sign deliveries with `signDelivery()` from `forges/testing`. They serve responses from the fixtures in `test/fixtures/github/`, without a network connection.

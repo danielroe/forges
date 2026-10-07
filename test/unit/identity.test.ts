@@ -6,7 +6,8 @@ import { fake } from '../../src/fake/index.ts'
 import { forgejo } from '../../src/forgejo/index.ts'
 import { github } from '../../src/github/index.ts'
 import { gitlab } from '../../src/gitlab/index.ts'
-import { createForges, forgeIterable, parseNotificationKey, parseRepoKey, parseThreadKey, repoKey, repoSlug, threadKey, threadSlug, UnknownForgeError } from '../../src/index.ts'
+import { createForges, parseNotificationKey, parseRepoKey, parseThreadKey, repoKey, repoSlug, threadKey, threadSlug, UnknownForgeError } from '../../src/index.ts'
+import { forgeIterable } from '../../src/kit.ts'
 import { tangled } from '../../src/tangled/index.ts'
 
 const auth = { type: 'token', token: 't' } as const

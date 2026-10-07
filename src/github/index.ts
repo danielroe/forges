@@ -1,4 +1,4 @@
-import type { MergeHooks, ProviderContext, ProviderDefinition, ProviderSpec } from '../define.ts'
+import type { MergeHooks, ProviderContext, ProviderDefinition, ProviderFactoryFunction, ProviderSpec } from '../define.ts'
 import type {
   Check,
   CheckReportInput,
@@ -52,7 +52,6 @@ import type {
   CloseReason,
   ForgeOptionsBase,
   ForgeProvider,
-  ForgeProviderFactory,
   InstallationsApi,
   VerbScopes,
 } from '../provider.ts'
@@ -101,17 +100,7 @@ import type {
 } from './types.ts'
 import { fromBase64, toFileContent } from '../contents.ts'
 import { defineForgeProvider, perKind, verb } from '../define.ts'
-import {
-  ForbiddenError,
-  ForgeApiError,
-  ForgeError,
-  ForgeTimeoutError,
-  InsufficientScopeError,
-  MergeBlockedError,
-  soleMergeMethod,
-  toMergeError,
-  UnsupportedOperationError,
-} from '../errors.ts'
+import { ForbiddenError, ForgeApiError, ForgeError, ForgeTimeoutError, InsufficientScopeError, MergeBlockedError, NotFoundError, soleMergeMethod, toMergeError, UnsupportedOperationError } from '../errors.ts'
 import { sleep } from '../fetch.ts'
 import { isNamespaceRef, isResolvedThread, reactionContent } from '../model.ts'
 import { actorLogin, createListing, forgeIterable, getManyConcurrently, hostOf, iteratePages, memo, phased, requireIssueOrPull, requireThread, summariseChecks, toDate, toPage, toWarning, versionAtLeast } from '../utils.ts'
@@ -580,7 +569,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
         if (budget.signal.aborted) {
           throw error
         }
-        if (enterprise && isPlainApiError(error, 404)) {
+        if (enterprise && error instanceof NotFoundError) {
           url = fetcher.resolve(path)
           await fetcher.raw(path, { method: 'PUT', json: body, mapError: toMergeError, signal: budget.signal })
           return
@@ -779,7 +768,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
    * `admin:repo_hook` or `admin:org_hook`, so the status alone is misleading.
    */
   function scopeIs404(error: unknown): unknown {
-    if (error instanceof ForgeApiError && error.constructor === ForgeApiError && error.status === 404) {
+    if (error instanceof NotFoundError) {
       return new ForbiddenError(
         'GitHub answered 404 for a webhook endpoint, which it also does when the credential lacks admin:repo_hook or admin:org_hook',
         404,
@@ -1006,7 +995,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
         return toPage(result, raw => source.map(repo, raw))
       }
       catch (error) {
-        if (!listOptions.kind && (error instanceof InsufficientScopeError || (error instanceof ForgeApiError && error.status === 404))) {
+        if (!listOptions.kind && (error instanceof InsufficientScopeError || error instanceof NotFoundError)) {
           return { items: [], warnings: [toWarning(error instanceof InsufficientScopeError ? 'insufficient_scope' : 'alerts_unavailable', error, kind)] }
         }
         throw error
@@ -1188,7 +1177,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
           return toRelease(repo, (await fetcher.json<GitHubRelease>(`${repoPath(repo)}/releases/latest`)).data)
         }
         catch (error) {
-          if (error instanceof ForgeApiError && error.status === 404) {
+          if (error instanceof NotFoundError) {
             return undefined
           }
           throw error
@@ -1494,10 +1483,10 @@ const GITHUB: ProviderDefinition<GitHubOptions, AppCredentials | undefined> = {
 }
 
 /** Creates a GitHub provider for github.com or a GitHub Enterprise Server instance. */
-export const github: (options: GitHubOptions) => ForgeProviderFactory<ForgeProvider> = /* @__PURE__ */ defineForgeProvider({ ...GITHUB, webhooks: githubWebhooks })
+export const github: ProviderFactoryFunction<GitHubOptions> = /* @__PURE__ */ defineForgeProvider({ ...GITHUB, webhooks: githubWebhooks })
 
 /** `github()` without webhook ingestion, for bundles that never receive a delivery. */
-export const githubLite: (options: GitHubOptions) => ForgeProviderFactory<ForgeProvider> = /* @__PURE__ */ defineForgeProvider(GITHUB)
+export const githubLite: ProviderFactoryFunction<GitHubOptions> = /* @__PURE__ */ defineForgeProvider(GITHUB)
 
 /**
  * Token scopes and fine-grained permissions GitHub documents per endpoint

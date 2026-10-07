@@ -2,15 +2,10 @@ export { AZURE_DEVOPS_API_VERSION, azureDevOps, azureDevOpsLite } from './azure-
 export type { AzureDevOpsAuth, AzureDevOpsOptions } from './azure-devops/index.ts'
 export { bitbucket, bitbucketLite } from './bitbucket/index.ts'
 export type { BitbucketAuth, BitbucketOptions } from './bitbucket/index.ts'
-export { CAPABILITY_TABLE } from './capability-table.ts'
-export type { CapabilityEntry } from './capability-table.ts'
-export { bodyText, headerValue, hmacSha256Base64, hmacSha256Hex, sha256Hex, signEdDsaJwt, signRs256Jwt, timingSafeEqual, verifyEd25519 } from './crypto.ts'
-export type { Ed25519Jwk, JwtClaims } from './crypto.ts'
 export { cursorOrigin, cursorOriginLite, ORIGIN_API_VERSION } from './cursor-origin/index.ts'
 export type { CursorOriginAuth, CursorOriginOptions } from './cursor-origin/index.ts'
-export { defineForgeProvider, perKind, verb } from './define.ts'
-export type { AlertKind, CapabilityEnv, KindVerb, MergeHooks, ProviderBase, ProviderContext, ProviderDefinition, ProviderFactoryFunction, ProviderSpec, SupportInput, Verb, VerbKind, WebhookHandlers } from './define.ts'
 export {
+  AuthenticationRequiredError,
   ContentNotTextError,
   ForbiddenError,
   ForgeApiError,
@@ -21,6 +16,7 @@ export {
   MergeBlockedError,
   MergeConflictError,
   MergeMethodRequiredError,
+  NotFoundError,
   RateLimitedError,
   ReadOnlyError,
   SubscriptionClosedError,
@@ -31,9 +27,7 @@ export {
   WebhookVerificationError,
 } from './errors.ts'
 export type { ForbiddenReason, ForgeErrorContext } from './errors.ts'
-export { completeEvent, eventAction, reviewState } from './events.ts'
-export { createFetcher, createRequest, parseLinkHeader } from './fetch.ts'
-export type { Fetcher, FetcherOptions, FetchLike, FetchResult, ForgeRawRequestOptions, ForgeRequest, ForgeRequestOptions, ForgeResponse, PaginateOptions, RawResponse, RequestOptions } from './fetch.ts'
+export type { FetchLike, ForgeRawRequestOptions, ForgeRequest, ForgeRequestOptions, ForgeResponse, RawResponse } from './fetch.ts'
 export { forgejo, forgejoLite } from './forgejo/index.ts'
 export type { ForgejoAuth, ForgejoOptions } from './forgejo/index.ts'
 export { gitea, giteaLite } from './gitea/index.ts'
@@ -44,7 +38,7 @@ export { github, githubLite } from './github/index.ts'
 export type { GitHubAuth, GitHubOptions } from './github/index.ts'
 export { gitlab, gitlabLite } from './gitlab/index.ts'
 export type { GitLabAuth, GitLabOptions } from './gitlab/index.ts'
-export { DATE_FIELDS, isResolvedThread, namesAreCaseInsensitive, normaliseRepoName, notificationKey, notificationThread, parseNotificationKey, parseRepoKey, parseThreadKey, repoKey, repoSlug, reviveDates, threadKey, threadSlug } from './model.ts'
+export { commentMarker, DATE_FIELDS, hasCommentMarker, isNamespaceRef, isResolvedThread, namesAreCaseInsensitive, normaliseRepoName, notificationKey, notificationThread, parseNotificationKey, parseRepoKey, parseThreadKey, REACTION_CONTENTS, reactionContent, repoKey, repoSlug, reviveDates, threadKey, threadSlug } from './model.ts'
 export type {
   Actor,
   ApproveAndMergeOptions,
@@ -66,6 +60,7 @@ export type {
   Commit,
   CommitQuery,
   CommitRef,
+  CommitSearchQuery,
   CommitSignature,
   Comparison,
   Cursor,
@@ -206,8 +201,5 @@ export { supports } from './supports.ts'
 export type { ForgeVerb } from './supports.ts'
 export { tangled, tangledLite } from './tangled/index.ts'
 export type { TangledAuth, TangledOptions, WebSocketFactory, WebSocketLike } from './tangled/index.ts'
-export { forgeIterable, getManyConcurrently, hostOf, iteratePages, mapConcurrent, phased, requireThread, summariseChecks, toDate, toPage, toWarning, versionAtLeast } from './utils.ts'
-export type { ParsedForgeUrl, ReferenceOptions, UrlTarget, WebLinks } from './web.ts'
+export type { ParsedForgeUrl, ReferenceOptions, UrlTarget } from './web.ts'
 export { parseForgeUrl } from './web.ts'
-export { refEvent, verifyHmacSignature, verifySharedToken } from './webhooks.ts'
-export type { RefChange } from './webhooks.ts'

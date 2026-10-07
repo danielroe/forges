@@ -1,4 +1,4 @@
-import type { MergeHooks, ProviderDefinition } from '../define.ts'
+import type { MergeHooks, ProviderDefinition, ProviderFactoryFunction } from '../define.ts'
 import type {
   Actor,
   CheckState,
@@ -38,8 +38,6 @@ import type {
   AnonymousAuth,
   BulkNotificationOptions,
   ForgeOptionsBase,
-  ForgeProvider,
-  ForgeProviderFactory,
   NotificationWriteOptions,
   TokenAuth,
   VerbScopes,
@@ -74,15 +72,7 @@ import type {
 } from './types.ts'
 import { fromBase64, toFileContent } from '../contents.ts'
 import { defineForgeProvider, perKind, verb } from '../define.ts'
-import {
-  ForgeApiError,
-  InsufficientScopeError,
-  soleMergeMethod,
-  TokenRevokedError,
-  toMergeError,
-  UnresolvedThreadError,
-  UnsupportedOperationError,
-} from '../errors.ts'
+import { ForgeApiError, InsufficientScopeError, NotFoundError, soleMergeMethod, TokenRevokedError, toMergeError, UnresolvedThreadError, UnsupportedOperationError } from '../errors.ts'
 import { isNamespaceRef, reactionContent } from '../model.ts'
 import { createListing, getManyConcurrently, hexColour, memo, memoBy, phased, requireIssueOrPull, requireThread, syntheticReview, toDate, toPage, toWarning, versionAtLeast } from '../utils.ts'
 import { nativeEventsFor } from '../webhooks.ts'
@@ -584,7 +574,7 @@ const GITLAB: ProviderDefinition<GitLabOptions> = {
             return toRole(data.access_level)
           }
           catch (error) {
-            if (error instanceof ForgeApiError && error.status === 404) {
+            if (error instanceof NotFoundError) {
               return 'none'
             }
             throw error
@@ -909,10 +899,10 @@ const GITLAB: ProviderDefinition<GitLabOptions> = {
 }
 
 /** Creates a GitLab provider for gitlab.com or a self-managed instance. */
-export const gitlab: (options: GitLabOptions) => ForgeProviderFactory<ForgeProvider> = /* @__PURE__ */ defineForgeProvider({ ...GITLAB, webhooks: gitlabWebhooks })
+export const gitlab: ProviderFactoryFunction<GitLabOptions> = /* @__PURE__ */ defineForgeProvider({ ...GITLAB, webhooks: gitlabWebhooks })
 
 /** `gitlab()` without webhook ingestion, for bundles that never receive a delivery. */
-export const gitlabLite: (options: GitLabOptions) => ForgeProviderFactory<ForgeProvider> = /* @__PURE__ */ defineForgeProvider(GITLAB)
+export const gitlabLite: ProviderFactoryFunction<GitLabOptions> = /* @__PURE__ */ defineForgeProvider(GITLAB)
 
 /** GitLab tokens carry coarse scopes; `api` covers writes and `read_api` reads. */
 export function gitlabScopesFor(verb: ForgeVerb): VerbScopes {

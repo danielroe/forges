@@ -1,6 +1,7 @@
 import type { FixtureResponse } from '@forges-examples/fixture-fetch'
 import { fixtureFetch } from '@forges-examples/fixture-fetch'
-import { createForges, github, hmacSha256Hex } from 'forges'
+import { createForges, github } from 'forges'
+import { signDelivery } from 'forges/testing'
 import { describe, expect, it } from 'vitest'
 import { createHandler } from '../src/handler.ts'
 
@@ -35,9 +36,8 @@ async function deliver(
     method: 'POST',
     headers: {
       'content-type': 'application/json',
-      'x-github-event': event,
-      'x-github-delivery': 'delivery-1',
-      'x-hub-signature-256': signature ?? `sha256=${await hmacSha256Hex(SECRET, body)}`,
+      ...await signDelivery('github', body, SECRET, { 'x-github-event': event, 'x-github-delivery': 'delivery-1' }),
+      ...signature ? { 'x-hub-signature-256': signature } : {},
     },
     body,
   }))

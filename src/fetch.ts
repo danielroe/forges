@@ -1,6 +1,6 @@
 import type { ForgeErrorContext } from './errors.ts'
 import type { Cursor, RateLimit } from './model.ts'
-import { ForbiddenError, forbiddenReason, ForgeApiError, ForgeNetworkError, ForgeTimeoutError, InsufficientScopeError, RateLimitedError, TokenRevokedError } from './errors.ts'
+import { AuthenticationRequiredError, ForbiddenError, forbiddenReason, ForgeApiError, ForgeNetworkError, ForgeTimeoutError, InsufficientScopeError, NotFoundError, RateLimitedError, TokenRevokedError } from './errors.ts'
 
 export type FetchLike = (input: string, init?: RequestInit) => Promise<Response>
 
@@ -395,7 +395,13 @@ export function createFetcher(options: FetcherOptions): Fetcher {
     const context = { ...options.context, url, method: options_.method ?? 'GET' }
 
     if (response.status === 401) {
-      throw new TokenRevokedError('Credentials were rejected by the forge', 401, body, context)
+      throw headers.has('authorization')
+        ? new TokenRevokedError('Credentials were rejected by the forge', 401, body, context)
+        : new AuthenticationRequiredError('The forge needs credentials for this request, and none were sent', 401, body, context)
+    }
+
+    if (response.status === 404) {
+      throw new NotFoundError(`Nothing found at ${options_.method ?? 'GET'} ${url}, or the credential cannot see it`, 404, body, context)
     }
 
     if (isRateLimited(response)) {

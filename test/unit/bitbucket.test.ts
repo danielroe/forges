@@ -1,3 +1,4 @@
+import type { BitbucketOptions } from '../../src/bitbucket/index.ts'
 import type { ResolvedThreadRef } from '../../src/model.ts'
 import { describe, expect, it } from 'vitest'
 import { bitbucket } from '../../src/bitbucket/index.ts'
@@ -9,7 +10,7 @@ import { fixtureFetch } from '../utils/fixtures.ts'
 const repo = { forge: 'bitbucket', instance: 'bitbucket.org', owner: 'acme', name: 'widgets' } as const
 const pull: ResolvedThreadRef = { forge: 'bitbucket', instance: 'bitbucket.org', repo, kind: 'pull_request', number: '31' }
 
-function provider(auth: Parameters<typeof bitbucket>[0]['auth'] = { type: 'token', token: 't' }) {
+function provider(auth: BitbucketOptions['auth'] = { type: 'token', token: 't' }) {
   const { fetch, calls } = fixtureFetch('bitbucket')
   return { instance: bitbucket({ auth, fetch }).create(), calls }
 }
