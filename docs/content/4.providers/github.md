@@ -98,6 +98,8 @@ GitHub gives search a lower rate limit than the rest of the API. Commit search h
 
 Repository search can't sort by creation time. A request for that sort order returns results by relevance, with a `sort_unsupported` warning.
 
+Without a `kind`, `search.threads()` uses GitHub's advanced search to return issues and pull requests in one sorted list. `text` and `queryRaw` are each wrapped in parentheses, so an `OR` in either one stays inside it. Parentheses and an unclosed `"` in `text` are ignored, as GitHub's legacy search ignores them. On GitHub Enterprise Server, or with a GitHub App user access token (`ghu_`), it searches issues and then pull requests instead, so results are sorted within each kind only.
+
 `queryRaw` is added to the search query as is, so it accepts any [GitHub search qualifier](https://docs.github.com/search-github/searching-on-github):
 
 ```ts

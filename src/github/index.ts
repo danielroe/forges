@@ -104,7 +104,7 @@ import { defineForgeProvider, perKind, verb } from '../define.ts'
 import { ForbiddenError, ForgeApiError, ForgeError, ForgeTimeoutError, InsufficientScopeError, MergeBlockedError, NotFoundError, soleMergeMethod, toMergeError, UnsupportedOperationError } from '../errors.ts'
 import { sleep } from '../fetch.ts'
 import { isNamespaceRef, isResolvedThread, reactionContent } from '../model.ts'
-import { actorLogin, createListing, forgeIterable, getManyConcurrently, hostOf, iteratePages, memo, milestoneId, phased, requireIssueOrPull, requireThread, summariseChecks, toDate, toPage, toWarning, versionAtLeast } from '../utils.ts'
+import { actorLogin, createListing, forgeIterable, getManyConcurrently, hostOf, iteratePages, memo, milestoneId, phased, requireIssueOrPull, requireThread, resolveToken, summariseChecks, toDate, toPage, toWarning, versionAtLeast } from '../utils.ts'
 import { githubShapedWeb } from '../web.ts'
 import { nativeEventsFor } from '../webhooks.ts'
 import { createAppCredentials, createAuthHeaders } from './auth.ts'
@@ -192,6 +192,19 @@ function webHost(host: string): string {
 
 function installationId(installation: Installation | string): string {
   return typeof installation === 'string' ? installation : installation.id
+}
+
+/**
+ * Free text as legacy search reads it: advanced search parses parentheses and
+ * an unclosed quote as syntax, so those are dropped outside quoted phrases.
+ */
+function advancedFreeText(text: string): string {
+  const parts = text.split('"')
+  if (parts.length % 2 === 0) {
+    const unclosed = parts.pop()!
+    parts.push(`${parts.pop()} ${unclosed}`)
+  }
+  return parts.map((part, index) => index % 2 ? part : part.replace(/[()\s]+/g, ' ')).join('"').trim()
 }
 
 function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, createFetcher, derive, state: credentials }: ProviderContext<GitHubOptions, AppCredentials | undefined>): ProviderSpec {
@@ -829,16 +842,17 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
   /** GitHub search qualifiers, in the order the docs list them. */
   function searchQualifiers(query: SearchQuery): string[] {
     const qualifiers: string[] = []
-    if (query.text) {
-      qualifiers.push(query.text)
+    const advanced = !query.kind
+    /** In advanced search a bare `OR` binds looser than the other qualifiers, so caller syntax is grouped. */
+    const group = (value: string) => advanced ? `(${value})` : value
+    const text = advanced && query.text ? advancedFreeText(query.text) : query.text
+    if (text) {
+      qualifiers.push(group(text))
     }
     if (query.repo) {
       qualifiers.push(`repo:${query.repo.owner}/${query.repo.name}`)
     }
-    // GitHub rejects a search without a kind for some tokens, so `searchThreadsPage` always names one.
-    if (query.kind) {
-      qualifiers.push(query.kind === 'pull_request' ? 'is:pr' : 'is:issue')
-    }
+    qualifiers.push(query.kind ? query.kind === 'pull_request' ? 'is:pr' : 'is:issue' : '(is:issue OR is:pr)')
     if (query.state && query.state !== 'all') {
       qualifiers.push(`state:${query.state}`)
     }
@@ -854,23 +868,28 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
       qualifiers.push(`updated:>=${query.since.toISOString()}`)
     }
     if (query.queryRaw) {
-      qualifiers.push(query.queryRaw)
+      qualifiers.push(group(query.queryRaw))
     }
     return qualifiers
   }
 
-  /** Without a `kind`, issues then pull requests, as two searches: GitHub rejects one for both with a fine-grained token. */
+  /**
+   * GitHub requires a kind in issue search; naming both needs advanced search.
+   * GitHub Enterprise Server may predate it, and GitHub App user access tokens
+   * can't search both kinds at once, so those read issues, then pull requests.
+   */
   async function searchThreadsPage(query: SearchQuery): Promise<Page<Thread>> {
-    if (!query.kind) {
-      return phased((['issue', 'pull_request'] as const).map(kind => (cursor?: Cursor) => searchKindPage({ ...query, kind, cursor })), query.cursor)
+    if (!query.kind && (enterprise || (auth.type === 'token' && (await resolveToken(auth)).startsWith('ghu_')))) {
+      return phased((['issue', 'pull_request'] as const).map(kind => (cursor?: Cursor) => searchIssuesPage({ ...query, kind, cursor })), query.cursor)
     }
-    return searchKindPage(query)
+    return searchIssuesPage(query)
   }
 
-  async function searchKindPage(query: SearchQuery): Promise<Page<Thread>> {
+  async function searchIssuesPage(query: SearchQuery): Promise<Page<Thread>> {
     const result = await fetcher.page<GitHubIssue>('/search/issues', {
       query: {
         q: searchQualifiers(query).join(' '),
+        advanced_search: query.kind ? undefined : 'true',
         sort: query.sort && query.sort !== 'relevance' ? query.sort : undefined,
         order: query.direction,
         per_page: query.perPage,
