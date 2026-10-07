@@ -102,4 +102,36 @@ describe('listing merged pull requests', () => {
     expect(urls[0]!.pathname).toBe('/repos/acme/widgets/pulls')
     expect(page.items.map(thread => [thread.ref.number, thread.state])).toEqual([['1', 'merged'], ['2', 'closed']])
   })
+
+  it('reads on past pages that hold no merged pull requests', async () => {
+    const urls: URL[] = []
+    const fetch: FetchLike = async (input) => {
+      const url = new URL(input)
+      urls.push(url)
+      const second = url.searchParams.get('page') === '2'
+      return Response.json(
+        [{ number: second ? 2 : 1, title: second ? 'Merged' : 'Closed', state: 'closed', pull_request: { merged: second } }],
+        second ? {} : { headers: { link: `<${url.origin}${url.pathname}?state=closed&type=pulls&page=2>; rel="next"` } },
+      )
+    }
+    const page = await forgejo({ auth, fetch, baseUrl: 'https://codeberg.org' }).create().threads.listPage({ forge: 'forgejo', instance: 'codeberg.org', owner: 'acme', name: 'widgets' }, { state: 'merged' })
+
+    expect(urls).toHaveLength(2)
+    expect(page.items.map(thread => thread.ref.number)).toEqual(['2'])
+    expect(page.cursor).toBeUndefined()
+  })
+
+  it('stops reading after ten empty pages and hands back the cursor', async () => {
+    let reads = 0
+    const fetch: FetchLike = async (input) => {
+      const url = new URL(input)
+      reads++
+      return Response.json([{ number: reads, title: 'Closed', state: 'closed', pull_request: { merged: false } }], { headers: { link: `<${url.origin}${url.pathname}?page=${reads + 1}>; rel="next"` } })
+    }
+    const page = await forgejo({ auth, fetch, baseUrl: 'https://codeberg.org' }).create().threads.listPage({ forge: 'forgejo', instance: 'codeberg.org', owner: 'acme', name: 'widgets' }, { state: 'merged' })
+
+    expect(reads).toBe(10)
+    expect(page.items).toEqual([])
+    expect(page.cursor).toBeDefined()
+  })
 })

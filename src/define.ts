@@ -1,5 +1,5 @@
 import type { Fetcher, FetcherOptions } from './fetch.ts'
-import type { ApproveAndMergeOptions, Check, Comment, ForgeEventInput, ForgeInstance, ForgeKind, Installation, ListOptions, MergeOptions, Notification, NotificationListOptions, Page, RepoRef, SecurityAlertKind, SecurityAlertListOptions, TextLimits, ThreadKind, ThreadQuery, ThreadRef, UpsertCommentInput, UpsertCommentResult, WebhookEventType } from './model.ts'
+import type { ApproveAndMergeOptions, Check, Comment, Cursor, ForgeEventInput, ForgeInstance, ForgeKind, Installation, ListOptions, MergeOptions, Notification, NotificationListOptions, Page, RepoRef, SecurityAlertKind, SecurityAlertListOptions, TextLimits, ThreadKind, ThreadQuery, ThreadRef, UpsertCommentInput, UpsertCommentResult, WebhookEventType } from './model.ts'
 import type {
   AuthKind,
   ChecksApi,
@@ -305,6 +305,27 @@ function instanceHost(baseUrl: string, kind: ForgeKind): string {
   }
 }
 
+/** Most reads spent looking for a first item when a provider's filtering empties a page. */
+const MAX_EMPTY_READS = 10
+
+/**
+ * Providers that cannot filter on the forge's side drop items from each page
+ * they read, so a page can come back empty with a `cursor`. Reads on until the
+ * page has an item, the listing ends or `MAX_EMPTY_READS` reads are spent.
+ */
+async function nonEmptyPage<T>(read: (cursor: Cursor | undefined) => Promise<Page<T>>, start: Cursor | undefined): Promise<Page<T>> {
+  let page = await read(start)
+  const warnings = page.warnings
+  for (let reads = 1; !page.items.length && page.cursor && !page.notModified && reads < MAX_EMPTY_READS; reads++) {
+    page = await read(page.cursor)
+  }
+  if (!warnings?.length || page.warnings === warnings) {
+    return page
+  }
+  const later = (page.warnings ?? []).filter(warning => !warnings.some(seen => seen.code === warning.code && seen.message === warning.message))
+  return { ...page, warnings: [...warnings, ...later] }
+}
+
 function createProvider<TOptions extends ForgeOptionsBase, TState>(
   definition: ProviderDefinition<TOptions, TState>,
   givenOptions: TOptions,
@@ -410,13 +431,11 @@ function createProvider<TOptions extends ForgeOptionsBase, TState>(
     'search.reposPage': search('reposPage'),
     'search.commitsPage': search('commitsPage'),
     'threads.listPage': async (repo: RepoRef, query: ThreadQuery = {}) => {
-      if (query.state !== 'merged') {
-        return listThreads(repo, query)
-      }
-      if (query.kind && query.kind !== 'pull_request') {
+      if (query.state === 'merged' && query.kind && query.kind !== 'pull_request') {
         return { items: [] }
       }
-      return listThreads(repo, { ...query, kind: 'pull_request' })
+      const run = (cursor: Cursor | undefined) => listThreads(repo, { ...query, ...query.state === 'merged' ? { kind: 'pull_request' } : {}, cursor })
+      return nonEmptyPage(run, query.cursor)
     },
     'threads.eventsPage': async (ref: ThreadRef, listOptions?: ListOptions) => {
       const page = await gate('threads.eventsPage', spec.threads.eventsPage.support, spec.threads.eventsPage.run)(ref, listOptions) as Page<ForgeEventInput>
