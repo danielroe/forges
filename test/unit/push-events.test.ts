@@ -1,4 +1,5 @@
-import type { ForgeEventInput, WebhookDelivery } from '../../src/index.ts'
+import type { WebhookDelivery } from '../../src/index.ts'
+import type { ForgeEventInput } from '../../src/kit.ts'
 import { describe, expect, it } from 'vitest'
 import { translateAzureWebhook } from '../../src/azure-devops/webhooks.ts'
 import { translateBitbucketWebhook } from '../../src/bitbucket/webhooks.ts'

@@ -39,7 +39,7 @@ export { github, githubLite } from './github/index.ts'
 export type { GitHubAuth, GitHubOptions } from './github/index.ts'
 export { gitlab, gitlabLite } from './gitlab/index.ts'
 export type { GitLabAuth, GitLabOptions } from './gitlab/index.ts'
-export { commentMarker, DATE_FIELDS, hasCommentMarker, isNamespaceRef, isResolvedThread, namesAreCaseInsensitive, normaliseRepoName, notificationKey, notificationThread, parseNotificationKey, parseRepoKey, parseThreadKey, REACTION_CONTENTS, reactionContent, repoKey, repoSlug, reviveDates, threadKey, threadSlug } from './model.ts'
+export { commentMarker, DATE_FIELDS, hasCommentMarker, isNamespaceRef, isResolvedThread, namesAreCaseInsensitive, normaliseRepoName, notificationKey, notificationThread, parseNotificationKey, parseRepoKey, parseThreadKey, REACTION_CONTENTS, repoKey, repoSlug, reviveDates, threadKey, threadSlug } from './model.ts'
 export type {
   Actor,
   ApproveAndMergeOptions,
@@ -74,7 +74,6 @@ export type {
   FileOptions,
   FileStatus,
   ForgeEvent,
-  ForgeEventInput,
   ForgeInstance,
   ForgeKind,
   ForgeOrigin,

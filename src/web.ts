@@ -112,7 +112,7 @@ export function referenceFor(web: WebLinks | undefined, ref: ThreadRef, options:
   return web.reference?.(ref, sameRepo(ref.repo, options.from), options.expand ?? false) ?? webUrlFor(web, { thread: ref })
 }
 
-interface GitHubShape {
+export interface GitHubShape {
   pull: string
   discussions?: boolean
   /** Fragment for a comment id, for example `issuecomment-` or `note_`. */

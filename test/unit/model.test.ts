@@ -68,11 +68,11 @@ describe('root entry', () => {
   })
 
   it('exports the consumer helpers and leaves provider-authoring tools to `forges/kit`', () => {
-    const authoring = ['CAPABILITY_TABLE', 'createFetcher', 'defineForgeProvider', 'forgeIterable', 'hmacSha256Hex', 'iteratePages', 'perKind', 'refEvent', 'toPage', 'verb']
+    const authoring = ['CAPABILITY_TABLE', 'createFetcher', 'createListing', 'defineForgeProvider', 'forgeIterable', 'githubShapedWeb', 'hmacSha256Hex', 'iteratePages', 'nativeEventsFor', 'perKind', 'reactionContent', 'refEvent', 'soleMergeMethod', 'toFileContent', 'toMergeError', 'toPage', 'verb']
 
     expect(Object.keys(root).filter(name => authoring.includes(name))).toEqual([])
     expect(Object.keys(kit).filter(name => authoring.includes(name)).sort()).toEqual([...authoring].sort())
-    expect(Object.keys(root)).toEqual(expect.arrayContaining(['AuthenticationRequiredError', 'commentMarker', 'hasCommentMarker', 'isNamespaceRef', 'NotFoundError', 'REACTION_CONTENTS', 'reactionContent']))
+    expect(Object.keys(root)).toEqual(expect.arrayContaining(['AuthenticationRequiredError', 'commentMarker', 'hasCommentMarker', 'isNamespaceRef', 'NotFoundError', 'REACTION_CONTENTS']))
     expectTypeOf<root.CommitSearchQuery>().toHaveProperty('committer')
   })
 
