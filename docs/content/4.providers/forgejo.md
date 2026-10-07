@@ -63,7 +63,7 @@ Reviews are native. `createReview()` without an `event` creates a pending review
 
 ## Search
 
-`search.threads()` searches across repositories. It has no `involves` filter and returns results newest first. Passing `involves` adds a `filter_unsupported` warning. Passing a `sort` other than `relevance` adds a `sort_unsupported` warning.
+`search.threads()` searches across repositories. It has no `involves` filter and returns results newest first, whatever the `sort` or `direction`. Passing `involves` adds a `filter_unsupported` warning. Passing a `sort` other than `relevance` adds a `sort_unsupported` warning.
 
 ## Webhooks
 
