@@ -1177,7 +1177,7 @@ export type GetManyResult
 export function commentMarker(key: string): string {
   const end = ['-->', '--!>'].find(token => key.includes(token))
   if (end) {
-    throw new TypeError(`Comment key ${JSON.stringify(key)} contains \`${end}\`, which would end the hidden marker early.`)
+    throw new TypeError(`Comment key ${JSON.stringify(key)} contains \`${end}\`, which would end the hidden marker early`)
   }
   return `<!-- forges:key=${key} -->`
 }

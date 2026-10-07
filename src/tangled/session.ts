@@ -133,5 +133,5 @@ function rejectedPassword(error: unknown): unknown {
     return error
   }
   const context = { forge: error.forge, instance: error.instance, url: error.url, method: error.method }
-  return new TokenRevokedError('The PDS rejected the identifier or app password', error.status, error.body, context, { cause: error })
+  return new TokenRevokedError('Identifier or app password was rejected by the PDS', error.status, error.body, context, { cause: error })
 }

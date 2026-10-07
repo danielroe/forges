@@ -43,8 +43,8 @@ describe('merge errors', () => {
   })
 
   it('says what to do whether the repository allows several merge methods or none', () => {
-    expect(new MergeMethodRequiredError(['merge', 'squash']).message).toBe('The repository allows merge, squash. Pass `method` to choose one.')
-    expect(new MergeMethodRequiredError([]).message).toBe('The repository reports no merge method this provider can use. Pass `method` explicitly.')
+    expect(new MergeMethodRequiredError(['merge', 'squash']).message).toBe('Repository allows merge, squash; pass `method` to choose one')
+    expect(new MergeMethodRequiredError([]).message).toBe('Repository reports no merge method this provider can use; pass `method` explicitly')
   })
 })
 

@@ -205,8 +205,8 @@ export class MergeMethodRequiredError extends ForgeError {
 
   constructor(allowed: MergeMethod[], context?: ForgeErrorContext) {
     super(allowed.length
-      ? `The repository allows ${allowed.join(', ')}. Pass \`method\` to choose one.`
-      : 'The repository reports no merge method this provider can use. Pass `method` explicitly.', context)
+      ? `Repository allows ${allowed.join(', ')}; pass \`method\` to choose one`
+      : 'Repository reports no merge method this provider can use; pass `method` explicitly', context)
     this.allowed = allowed
   }
 }

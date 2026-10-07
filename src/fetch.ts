@@ -233,7 +233,7 @@ function assertInput(input: string): void {
 function assertRelativePath(path: string): string {
   const pathname = path.split('?', 1)[0]!
   if (path.includes('#') || pathname.includes('\\') || pathname.split('/').some(segment => DOT_SEGMENT_RE.test(segment))) {
-    throw new TypeError(`Unsafe request path ${JSON.stringify(path)}. Check the refs passed to the provider.`)
+    throw new TypeError(`Unsafe request path ${JSON.stringify(path)}; check the refs passed to the provider`)
   }
   return path
 }
