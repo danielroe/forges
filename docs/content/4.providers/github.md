@@ -231,7 +231,7 @@ To record different targets, set `FIXTURE_GITHUB_REPO`, `FIXTURE_GITHUB_PULL`, `
 | `search.commits` | ✅ |
 | `securityAlerts` | dependency (experimental), code scanning (experimental), secret (experimental) |
 | `eventKinds` | native |
-| `auth` | `token`, `app`, `anonymous` |
+| `authKinds` | `token`, `app`, `anonymous` |
 | `limits` | body 65536, comment 65536, label 50 |
 ::
 <!-- capabilities:end -->

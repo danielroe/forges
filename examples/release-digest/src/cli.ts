@@ -19,7 +19,7 @@ function parseRepo(argument: string): RepoRef {
   if (!name || segments.length === 0) {
     throw new Error(`Expected <forge>:<owner>/<name>, got ${argument}`)
   }
-  return { forge: provider.kind, instance: provider.instance, owner: segments.join('/'), name }
+  return { forge: provider.forge, instance: provider.instance, owner: segments.join('/'), name }
 }
 
 const repos = process.argv.slice(2).map(parseRepo)

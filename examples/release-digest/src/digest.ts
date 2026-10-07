@@ -39,7 +39,7 @@ async function openPulls(provider: ForgeProvider, repo: RepoRef, warnings: Forge
   if (provider.capabilities.threads.list.pull_request === false) {
     warnings.push({
       code: 'threads_list_unsupported',
-      message: `${provider.kind} cannot list pull requests`,
+      message: `${provider.forge} cannot list pull requests`,
       subject: repoName(repo),
     })
     return []
@@ -82,7 +82,7 @@ async function latestRelease(provider: ForgeProvider, repo: RepoRef, warnings: F
   if (!provider.can('releases.latest')) {
     warnings.push({
       code: 'releases_unsupported',
-      message: `${provider.kind} has no releases`,
+      message: `${provider.forge} has no releases`,
       subject: repoName(repo),
     })
     return undefined
@@ -132,7 +132,7 @@ export async function buildDigest(forges: Forges, repos: readonly RepoRef[], opt
       })
     }
 
-    entries.push({ forge: provider.kind, repo: repoName(repo), release, failing, warnings: entryWarnings })
+    entries.push({ forge: provider.forge, repo: repoName(repo), release, failing, warnings: entryWarnings })
     warnings.push(...entryWarnings)
   }
 

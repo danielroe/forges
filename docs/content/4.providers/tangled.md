@@ -241,7 +241,7 @@ To record other threads, set `FIXTURE_TANGLED_ISSUE` and `FIXTURE_TANGLED_PULL` 
 | `search.commits` | ❌ |
 | `securityAlerts` | ❌ |
 | `eventKinds` | native |
-| `auth` | `anonymous`, `app_password`, `oauth` |
+| `authKinds` | `anonymous`, `app_password`, `oauth` |
 | `limits` | unknown |
 ::
 <!-- capabilities:end -->

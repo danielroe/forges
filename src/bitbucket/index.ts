@@ -122,7 +122,7 @@ function page<T>(body: unknown) {
 const BITBUCKET_CLOSE_REASONS: Record<CloseReason, string> = { completed: 'resolved', not_planned: 'wontfix', duplicate: 'duplicate' }
 
 const BITBUCKET: ProviderDefinition<BitbucketOptions> = {
-  kind: FORGE,
+  forge: FORGE,
 
   baseUrl: 'https://api.bitbucket.org/2.0',
   anonymous: true,
@@ -426,7 +426,7 @@ const BITBUCKET: ProviderDefinition<BitbucketOptions> = {
     }
 
     return {
-      traits: { poll: false, eventKinds: 'native', auth: ['token', 'basic', 'anonymous'] },
+      traits: { poll: false, eventKinds: 'native', authKinds: ['token', 'basic', 'anonymous'] },
       normaliseMarkdown,
       web: bitbucketWeb(hostOf(baseUrl) === 'api.bitbucket.org' ? 'https://bitbucket.org' : baseUrl.replace(/\/2\.0$/, '')),
       webhooks: {

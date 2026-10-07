@@ -20,7 +20,7 @@ async function attempt<T>(run: () => Promise<T>): Promise<{ value?: T, error?: E
 async function repoFor(provider: ForgeProvider): Promise<RepoRef | undefined> {
   const configured = demoRepo(provider)
   if (configured) {
-    return { forge: provider.kind, instance: provider.instance, ...configured }
+    return { forge: provider.forge, instance: provider.instance, ...configured }
   }
   return provider.capabilities.repos.list ? (await provider.repos.listPage({ perPage: 1 })).items[0]?.ref : undefined
 }
@@ -62,7 +62,7 @@ async function checks(provider: ForgeProvider, repo: RepoRef) {
 export default defineEventHandler(async (event) => {
   const showRaw = getQuery(event).raw === '1'
   const providers = await Promise.all(useForges().providers.map(async (provider) => {
-    const key = `${provider.kind}/${provider.instance}`
+    const key = `${provider.forge}/${provider.instance}`
     const repo = await repoFor(provider).catch(() => undefined)
     const [listing, checkResult, release, alerts] = await Promise.all([
       attempt(() => latest(provider, repo)),
@@ -72,7 +72,7 @@ export default defineEventHandler(async (event) => {
     ])
     return {
       key,
-      forge: provider.kind,
+      forge: provider.forge,
       instance: provider.instance,
       repo: repo ? `${repo.owner}/${repo.name}` : undefined,
       capabilities: provider.capabilities,

@@ -6,10 +6,10 @@ describe('forges/testing', () => {
   it.each(contracts.filter(contract => contract.name !== 'cursor-origin'))('signs a delivery $name verifies', async (contract) => {
     const { fetch } = fixtureFetch([])
     const provider = contract.create(fetch)
-    const headers = await signDelivery(provider.kind, contract.webhook.body, WEBHOOK_SECRET)
+    const headers = await signDelivery(provider.forge, contract.webhook.body, WEBHOOK_SECRET)
 
     expect(await provider.webhooks.verify({ headers, body: contract.webhook.body })).toBe(true)
-    expect(await provider.webhooks.verify({ headers: await signDelivery(provider.kind, contract.webhook.body, 'wrong'), body: contract.webhook.body })).toBe(false)
+    expect(await provider.webhooks.verify({ headers: await signDelivery(provider.forge, contract.webhook.body, 'wrong'), body: contract.webhook.body })).toBe(false)
   })
 
   it('replays what it recorded', async () => {

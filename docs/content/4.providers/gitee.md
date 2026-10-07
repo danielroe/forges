@@ -195,7 +195,7 @@ To add an issue, set `FIXTURE_GITEE_ISSUE`.
 | `search.commits` | ❌ |
 | `securityAlerts` | ❌ |
 | `eventKinds` | native |
-| `auth` | `token`, `anonymous` |
+| `authKinds` | `token`, `anonymous` |
 | `limits` | unknown |
 ::
 <!-- capabilities:end -->

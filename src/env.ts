@@ -39,7 +39,7 @@ const FIELDS = [
 type Field = typeof FIELDS[number]
 
 export interface EnvProvider {
-  kind: string
+  forge: string
   /** The part after the field, for example `WORK` in `FORGES_GITHUB_TOKEN_WORK`. Empty for the unsuffixed set. */
   suffix: string
   factory?: ForgeProviderFactory
@@ -120,7 +120,7 @@ function fromFields(kind: typeof KINDS[number], suffix: string, fields: Partial<
   }
   const demoRepo = parseRepo(fields.DEMO_REPO)
   const anonymous = isOn(fields.ENABLED) || Boolean(demoRepo)
-  const entry = { kind: kind.toLowerCase().replaceAll('_', '-'), suffix, ...demoRepo ? { demoRepo } : {} }
+  const entry = { forge: kind.toLowerCase().replaceAll('_', '-'), suffix, ...demoRepo ? { demoRepo } : {} }
   if (fields.ENABLED === '0' || fields.ENABLED === 'false') {
     return { ...entry, skipped: 'ENABLED is off' }
   }

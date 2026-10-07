@@ -262,7 +262,7 @@ function setupGitee({ instance, origin: context, fetcher, baseUrl }: ProviderCon
     checks: {
       list: verb('experimental', async (repo, sha) => ({ items: await headChecks(repo, sha) })),
     },
-    traits: { poll: true, eventKinds: 'native', auth: ['token', 'anonymous'] },
+    traits: { poll: true, eventKinds: 'native', authKinds: ['token', 'anonymous'] },
     users: {
       get: verb('experimental', async (login) => {
         const { data } = await fetcher.json<GiteeUser & { bio?: string | null, company?: string | null, blog?: string | null, created_at?: string, followers?: number, following?: number, public_repos?: number }>(`/users/${encodeURIComponent(login)}`)
@@ -518,7 +518,7 @@ function setupGitee({ instance, origin: context, fetcher, baseUrl }: ProviderCon
 }
 
 const GITEE: ProviderDefinition<GiteeOptions> = {
-  kind: FORGE,
+  forge: FORGE,
   experimental: true,
   baseUrl: 'https://gitee.com',
   anonymous: true,

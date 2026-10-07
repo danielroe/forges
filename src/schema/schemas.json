@@ -1591,7 +1591,7 @@
           "heuristic"
         ]
       },
-      "auth": {
+      "authKinds": {
         "type": "array",
         "items": {
           "$ref": "#/components/schemas/AuthKind"
@@ -1621,7 +1621,7 @@
       "securityAlerts",
       "installations",
       "eventKinds",
-      "auth"
+      "authKinds"
     ],
     "x-forges-type": "ForgeCapabilities"
   },

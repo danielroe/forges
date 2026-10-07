@@ -190,7 +190,7 @@ FIXTURE_CURSOR_ORIGIN_PULL=1 pnpm record-fixtures cursor-origin
 | `search.commits` | ❌ |
 | `securityAlerts` | ❌ |
 | `eventKinds` | native |
-| `auth` | `token`, `app` |
+| `authKinds` | `token`, `app` |
 | `limits` | unknown |
 ::
 <!-- capabilities:end -->

@@ -19,8 +19,8 @@ export function fromEnv(env: Record<string, string | undefined>): InboxEnv {
     if (!entry.factory) {
       warnings.push({
         code: 'provider_skipped',
-        message: `${entry.kind}${entry.suffix ? ` (${entry.suffix})` : ''}: ${entry.skipped ?? 'not configured'}`,
-        subject: entry.kind,
+        message: `${entry.forge}${entry.suffix ? ` (${entry.suffix})` : ''}: ${entry.skipped ?? 'not configured'}`,
+        subject: entry.forge,
       })
       continue
     }
@@ -28,7 +28,7 @@ export function fromEnv(env: Record<string, string | undefined>): InboxEnv {
     providers.push(provider)
     if (entry.demoRepo) {
       repos.push({
-        forge: provider.kind,
+        forge: provider.forge,
         instance: provider.instance,
         owner: entry.demoRepo.owner,
         name: entry.demoRepo.name,

@@ -61,7 +61,7 @@ function rowFromNotification(provider: ForgeProvider, notification: Notification
   return {
     key: notificationKey(notification.ref),
     at: notification.updatedAt,
-    forge: provider.kind,
+    forge: provider.forge,
     instance: provider.instance,
     repo: repo ? repoName(repo) : '-',
     kind: thread ? thread.kind : subject.type,
@@ -77,7 +77,7 @@ function rowFromThread(provider: ForgeProvider, thread: Thread): InboxRow {
   return {
     key: isResolvedThread(thread.ref) ? threadKey(thread.ref) : `${repoName(thread.ref.repo)}#?`,
     at: thread.lastActivityAt ?? thread.updatedAt ?? thread.createdAt ?? new Date(0),
-    forge: provider.kind,
+    forge: provider.forge,
     instance: provider.instance,
     repo: repoName(thread.ref.repo),
     kind: thread.kind,
@@ -116,13 +116,13 @@ export async function collectInbox(forges: Forges, options: InboxOptions = {}): 
     }
 
     const repos = (options.repos ?? []).filter(
-      repo => repo.forge === provider.kind && repo.instance === provider.instance,
+      repo => repo.forge === provider.forge && repo.instance === provider.instance,
     )
     if (repos.length === 0) {
       warnings.push({
         code: 'no_notifications_source',
-        message: `${provider.kind} (${provider.instance}) cannot list notifications and no repository was configured for it`,
-        subject: `${provider.kind}/${provider.instance}`,
+        message: `${provider.forge} (${provider.instance}) cannot list notifications and no repository was configured for it`,
+        subject: `${provider.forge}/${provider.instance}`,
       })
       continue
     }
@@ -168,16 +168,16 @@ export async function markDone(forges: Forges, key: string, options: InboxOption
   const { provider } = row
   const notifications = provider.notifications
   if (!notifications) {
-    throw new Error(`${provider.kind} has no notification writes`)
+    throw new Error(`${provider.forge} has no notification writes`)
   }
 
   if (provider.capabilities.notifications.markDone !== false && notifications.markDone) {
     await notifications.markDone(row.notification, { thread: row.thread })
-    return { key, verb: 'markDone', forge: provider.kind }
+    return { key, verb: 'markDone', forge: provider.forge }
   }
   if (provider.capabilities.notifications.markRead !== false && notifications.markRead) {
     await notifications.markRead(row.notification)
-    return { key, verb: 'markRead', forge: provider.kind }
+    return { key, verb: 'markRead', forge: provider.forge }
   }
-  throw new Error(`${provider.kind} supports neither markDone nor markRead`)
+  throw new Error(`${provider.forge} supports neither markDone nor markRead`)
 }

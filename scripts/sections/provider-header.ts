@@ -13,7 +13,7 @@ const sections: DocsSectionSource = forges => matrixProviders(forges).map(({ slu
     '| --- | --- |',
     `| Import | \`forges/${slug}\` |`,
     `| Factories | ${code(factories.map(factory => `${factory}()`))} |`,
-    `| Auth | ${code(provider.capabilities.auth)} |`,
+    `| Auth | ${code(provider.capabilities.authKinds)} |`,
     '::',
   ].join('\n'),
 }))

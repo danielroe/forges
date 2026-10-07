@@ -90,7 +90,7 @@ export function trackProvider(provider: ForgeProvider): ForgeProvider {
     get(target, property, receiver) {
       const member = Reflect.get(target, property, receiver) as unknown
       return member && typeof member === 'object' && typeof property === 'string' && property !== 'capabilities'
-        ? trackGroup(target.kind, property, member)
+        ? trackGroup(target.forge, property, member)
         : member
     },
   })

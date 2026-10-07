@@ -13,7 +13,7 @@ export interface CapabilityEntry {
   /** Support is declared per thread kind. */
   perKind?: boolean
   /** The capability is computed by core rather than read from a declared verb. */
-  derived?: 'experimental' | 'poll' | 'webhook' | 'upsertComment' | 'subscriptionSet' | 'approve' | 'approveAndMerge' | 'alertKinds' | 'eventKinds' | 'auth' | 'limits'
+  derived?: 'experimental' | 'poll' | 'webhook' | 'upsertComment' | 'subscriptionSet' | 'approve' | 'approveAndMerge' | 'alertKinds' | 'eventKinds' | 'authKinds' | 'limits'
   /** The entry adds verbs and a declaration to a capability another entry produces. */
   alias?: boolean
   /** The verbs change state, so `readOnly` and anonymous providers reject them. */
@@ -120,7 +120,7 @@ const TABLE = [
   { capability: 'search.commits', listing: true },
   { capability: 'securityAlerts', derived: 'alertKinds', verbs: ['securityAlerts.list', 'securityAlerts.listPage'] },
   { capability: 'eventKinds', derived: 'eventKinds' },
-  { capability: 'auth', derived: 'auth' },
+  { capability: 'authKinds', derived: 'authKinds' },
   { capability: 'limits', derived: 'limits' },
 ] as const
 

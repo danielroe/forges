@@ -78,7 +78,7 @@ describe('root entry', () => {
 
   it('lets every provider factory be called without options', () => {
     for (const factory of [root.bitbucket, root.forgejo, root.gitea, root.gitee, root.github, root.gitlab, root.pushin, root.tangled]) {
-      expect(factory().create().kind).toBeTypeOf('string')
+      expect(factory().create().forge).toBeTypeOf('string')
     }
   })
 })

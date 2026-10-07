@@ -201,7 +201,7 @@ To add an issue, set `FIXTURE_GITLAB_ISSUE`. To record a self-managed instance, 
 | `search.commits` | experimental |
 | `securityAlerts` | dependency (experimental), code scanning (experimental), secret (experimental) |
 | `eventKinds` | heuristic |
-| `auth` | `token`, `anonymous` |
+| `authKinds` | `token`, `anonymous` |
 | `limits` | body 1048576, comment 1000000, label 255 |
 ::
 <!-- capabilities:end -->

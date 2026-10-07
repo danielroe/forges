@@ -79,7 +79,7 @@ export function createLabelBot(options: LabelBotOptions) {
       actions.push({ kind: 'labelled', reason: options.label, thread: describe(ref) })
     }
     else {
-      actions.push({ kind: 'unsupported', reason: `${provider.kind} cannot add labels to a ${kind}`, thread: describe(ref) })
+      actions.push({ kind: 'unsupported', reason: `${provider.forge} cannot add labels to a ${kind}`, thread: describe(ref) })
     }
 
     if (provider.can('threads.upsertComment', kind)) {
@@ -87,7 +87,7 @@ export function createLabelBot(options: LabelBotOptions) {
       actions.push({ kind: 'commented', reason: 'matched title', thread: describe(ref) })
     }
     else {
-      actions.push({ kind: 'unsupported', reason: `${provider.kind} cannot comment on a ${kind}`, thread: describe(ref) })
+      actions.push({ kind: 'unsupported', reason: `${provider.forge} cannot comment on a ${kind}`, thread: describe(ref) })
     }
 
     return actions
@@ -110,14 +110,14 @@ export function createLabelBot(options: LabelBotOptions) {
     }
 
     if (!provider.can('repos.permissionFor')) {
-      return [{ kind: 'unsupported', reason: `cannot check collaborators on ${provider.kind}`, thread: describe(ref) }]
+      return [{ kind: 'unsupported', reason: `cannot check collaborators on ${provider.forge}`, thread: describe(ref) }]
     }
     if (!WRITE_ROLES.has(await provider.repos.permissionFor(ref.repo, login))) {
       return [{ kind: 'refused', reason: `${login} cannot write to the repository`, thread: describe(ref) }]
     }
 
     if (!provider.can('threads.close', kind)) {
-      return [{ kind: 'unsupported', reason: `${provider.kind} cannot close a ${kind}`, thread: describe(ref) }]
+      return [{ kind: 'unsupported', reason: `${provider.forge} cannot close a ${kind}`, thread: describe(ref) }]
     }
 
     await provider.threads.close(ref)

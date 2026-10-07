@@ -14,7 +14,7 @@ interface Summary {
     webhooks: Array<{ kind: string, summary?: string, occurredAt: string, raw?: unknown }>
     subscribe: boolean
   }>
-  skipped: Array<{ kind: string, suffix: string, reason: string }>
+  skipped: Array<{ forge: string, suffix: string, reason: string }>
 }
 
 const showRaw = ref(false)
@@ -64,8 +64,8 @@ FORGES_TANGLED_ENABLED=1            # anonymous reads and the live feed
 FORGES_TANGLED_DEMO_REPO=did:plc:.../repo   # threads to show where there are no notifications</pre>
     </section>
 
-    <p v-for="entry in data?.skipped" :key="`${entry.kind}${entry.suffix}`" class="warning">
-      Skipped {{ entry.kind }}{{ entry.suffix ? ` (${entry.suffix})` : '' }}: {{ entry.reason }}
+    <p v-for="entry in data?.skipped" :key="`${entry.forge}${entry.suffix}`" class="warning">
+      Skipped {{ entry.forge }}{{ entry.suffix ? ` (${entry.suffix})` : '' }}: {{ entry.reason }}
     </p>
 
     <article v-for="provider in data?.providers" :key="provider.key">

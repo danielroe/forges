@@ -29,9 +29,9 @@ export function demoRepo(provider: ForgeProvider): { owner: string, name: string
   return demoRepos.get(provider)
 }
 
-/** Provider sets in the environment that could not be configured, by kind and reason only. */
-export function skippedProviders(): Array<{ kind: string, suffix: string, reason: string }> {
-  return providersFromEnv(process.env).flatMap(entry => entry.skipped ? [{ kind: entry.kind, suffix: entry.suffix, reason: entry.skipped }] : [])
+/** Provider sets in the environment that could not be configured, by forge and reason only. */
+export function skippedProviders(): Array<{ forge: string, suffix: string, reason: string }> {
+  return providersFromEnv(process.env).flatMap(entry => entry.skipped ? [{ forge: entry.forge, suffix: entry.suffix, reason: entry.skipped }] : [])
 }
 
 const recent = new Map<string, ForgeEvent[]>()

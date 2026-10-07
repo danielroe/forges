@@ -84,8 +84,8 @@ describe('forges aggregate', () => {
   it('routes by origin and URL, and rejects unregistered origins', async () => {
     const forges = createForges([github({ auth }), forgejo({ auth, baseUrl: 'https://codeberg.org' })])
 
-    expect(forges.for(pull)?.kind).toBe('github')
-    expect(forges.forUrl('https://codeberg.org/acme/widgets/pulls/1')?.kind).toBe('forgejo')
+    expect(forges.for(pull)?.forge).toBe('github')
+    expect(forges.forUrl('https://codeberg.org/acme/widgets/pulls/1')?.forge).toBe('forgejo')
     expect(forges.parseUrl('https://github.com/acme/widgets/pull/42')?.thread).toMatchObject({ kind: 'pull_request', number: '42' })
     expect(() => forges.threads.get({ ...pull, instance: 'ghe.example.com' })).toThrow(UnknownForgeError)
   })

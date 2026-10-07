@@ -172,7 +172,7 @@ describe('forgejo and gitea', () => {
     const body = JSON.stringify({ action: 'opened', issue: { number: 3 }, repository: { id: 1, name: 'w', full_name: 'a/w' }, sender: { id: 2, login: 'ada' } })
     const signature = await hmacSha256Hex('s', body)
 
-    expect(provider.kind).toBe('gitea')
+    expect(provider.forge).toBe('gitea')
     expect(provider.instance).toBe('gitea.com')
     const [event] = await provider.webhooks.ingest({ headers: { 'x-gitea-event': 'issues', 'x-gitea-signature': signature }, body })
     expect(event).toMatchObject({ forge: 'gitea', thread: { forge: 'gitea', repo: { forge: 'gitea' } } })

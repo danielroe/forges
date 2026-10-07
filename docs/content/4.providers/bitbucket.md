@@ -200,7 +200,7 @@ To use Basic credentials, set `BITBUCKET_USERNAME` and `BITBUCKET_APP_PASSWORD` 
 | `search.commits` | ❌ |
 | `securityAlerts` | ❌ |
 | `eventKinds` | native |
-| `auth` | `token`, `basic`, `anonymous` |
+| `authKinds` | `token`, `basic`, `anonymous` |
 | `limits` | unknown |
 ::
 <!-- capabilities:end -->

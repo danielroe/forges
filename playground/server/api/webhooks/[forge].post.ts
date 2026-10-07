@@ -13,7 +13,7 @@ export default defineEventHandler(async (event) => {
       headers: event.req.headers,
       body: new Uint8Array(await event.req.arrayBuffer()),
     })
-    recordWebhookEvents(`${provider.kind}/${provider.instance}`, events)
+    recordWebhookEvents(`${provider.forge}/${provider.instance}`, events)
     return redactRaw({ events })
   }
   catch (error) {

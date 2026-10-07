@@ -320,7 +320,7 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
   }
 
   return {
-    traits: { poll: false, eventKinds: 'native', auth: ['token', 'basic', 'anonymous'] },
+    traits: { poll: false, eventKinds: 'native', authKinds: ['token', 'basic', 'anonymous'] },
     search: { threadsPage: verb('experimental', searchThreadsPage) },
     repos: {
       get: verb(true, async (ref) => {
@@ -594,7 +594,7 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
 }
 
 const AZURE_DEVOPS: ProviderDefinition<AzureDevOpsOptions> = {
-  kind: FORGE,
+  forge: FORGE,
   experimental: true,
   baseUrl: 'https://dev.azure.com',
   anonymous: true,

@@ -145,7 +145,7 @@ export type FakeSupport = SupportInput | Partial<Record<VerbKind, SupportInput>>
 
 export interface FakeOptions extends Omit<ForgeOptionsBase, 'fetch'> {
   /** Defaults to `fake`. */
-  kind?: ForgeKind
+  forge?: ForgeKind
   /** Login of the authenticated account; authors every write. Defaults to `fake-user`. */
   viewer?: string
   seed?: FakeSeed
@@ -233,7 +233,7 @@ function splitRepo(slug: string): { owner: string, name: string } {
  * from `forges/testing` signs them.
  */
 export function fake(options: FakeOptions = {}): FakeForgeFactory {
-  const forge = options.kind ?? 'fake'
+  const forge = options.forge ?? 'fake'
   const instance = options.instance ?? 'fake.test'
   const origin = { forge, instance }
   const viewerLogin = options.viewer ?? 'fake-user'
@@ -561,7 +561,7 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
   }
 
   const factory = defineForgeProvider<FakeOptions>({
-    kind: forge,
+    forge,
     baseUrl: `https://${instance}`,
     webhooks: () => ({
       verify: delivery => verifyHmacSignature(delivery, options.webhookSecret, { header: SIGNATURE_HEADER }),
@@ -579,7 +579,7 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
       events: FAKE_WEBHOOK_EVENTS,
     }),
     setup: () => ({
-      traits: { poll: pollSupport, eventKinds: 'native', auth: ['token'] },
+      traits: { poll: pollSupport, eventKinds: 'native', authKinds: ['token'] },
       repos: {
         get: verb(support('repos.get', true), async repo => repoState(repo).repo),
         listPage: verb(support('repos.list', true), async (listOptions: ListOptions = {}) => pageOf([...store.repos.values()].map(state => state.repo), listOptions)),

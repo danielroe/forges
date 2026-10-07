@@ -101,7 +101,7 @@ export interface TangledOptions extends ForgeOptionsBase {
 const ISSUE_AND_PULL = { issue: true, pull_request: true } as const
 
 const TANGLED: ProviderDefinition<TangledOptions> = {
-  kind: FORGE,
+  forge: FORGE,
   baseUrl: 'https://tangled.org',
   headers: { accept: 'application/json' },
   setup({ options, instance, baseUrl: webUrl, origin: context, fetcher, createFetcher: fetcherFor }) {
@@ -226,7 +226,7 @@ const TANGLED: ProviderDefinition<TangledOptions> = {
 
     const unverified = { issue: writable && 'experimental', pull_request: writable && 'experimental' } as const
     return {
-      traits: { poll: false, eventKinds: 'native', auth: ['anonymous', 'app_password', 'oauth'] },
+      traits: { poll: false, eventKinds: 'native', authKinds: ['anonymous', 'app_password', 'oauth'] },
       request: api,
       repos: {
         get: verb(true, async (ref) => {

@@ -79,7 +79,7 @@ export interface ProviderSpec {
     /** Whether notifications can be polled; usually the notifications list support. */
     poll: boolean | 'emulated' | 'experimental'
     eventKinds: ForgeCapabilities['eventKinds']
-    auth: readonly AuthKind[]
+    authKinds: readonly AuthKind[]
     limits?: TextLimits
   }
   /** Listings are declared as pages; core derives the iterables. */
@@ -237,7 +237,7 @@ export interface ProviderContext<TOptions, TState> extends ProviderBase<TOptions
 }
 
 export interface ProviderDefinition<TOptions extends ForgeOptionsBase, TState = undefined> {
-  kind: ForgeKind
+  forge: ForgeKind
   experimental?: true
   /**
    * Accepts a missing `auth` as `{ type: 'anonymous' }`: core then sends no
@@ -313,11 +313,11 @@ function createProvider<TOptions extends ForgeOptionsBase, TState>(
   const options = anonymous && !givenAuth ? { ...givenOptions, auth: { type: 'anonymous' } } as TOptions : givenOptions
   const root = (options.baseUrl ?? definition.baseUrl).replace(/\/$/, '')
   const baseUrl = definition.apiPath && !root.endsWith(definition.apiPath) ? `${root}${definition.apiPath}` : root
-  const host = instanceHost(baseUrl, definition.kind)
+  const host = instanceHost(baseUrl, definition.forge)
   const instance = options.instance ?? definition.instance?.(host) ?? host
-  const origin = { forge: definition.kind, instance }
+  const origin = { forge: definition.forge, instance }
   const headers = { ...definition.headers, 'user-agent': options.userAgent ?? 'forges' }
-  const prepared = { options, forge: definition.kind, instance, baseUrl, headers, origin, state: givenState }
+  const prepared = { options, forge: definition.forge, instance, baseUrl, headers, origin, state: givenState }
   const state = (definition.prepare ? definition.prepare(prepared) : givenState) as TState
   const base: ProviderBase<TOptions, TState> = { ...prepared, state }
   const makeFetcher = (overrides: Partial<FetcherOptions> & { baseUrl: string }) => createFetcher({
@@ -339,6 +339,7 @@ function createProvider<TOptions extends ForgeOptionsBase, TState>(
   const declaredSpec = definition.setup(ctx)
   const handlers = definition.webhooks?.(ctx)
   const spec = anonymous || options.readOnly ? restrict(declaredSpec, anonymous) : declaredSpec
+  const authKind = anonymous ? 'anonymous' : (givenAuth?.type ?? spec.traits.authKinds[0] ?? 'anonymous') as AuthKind
 
   const env: CapabilityEnv = { version: options.instanceVersion }
   const probeVersion = spec.probeVersion && memo(spec.probeVersion)
@@ -346,8 +347,8 @@ function createProvider<TOptions extends ForgeOptionsBase, TState>(
   let capabilities = capabilitiesOf(spec, env, flags)
 
   const unsupported = (verb: string) => options.readOnly && WRITE_VERBS.has(verb)
-    ? new ReadOnlyError(`${verb} is a write and this ${definition.kind} provider is read-only`, origin)
-    : new UnsupportedOperationError(`${definition.kind} does not support ${verb}`, origin)
+    ? new ReadOnlyError(`${verb} is a write and this ${definition.forge} provider is read-only`, origin)
+    : new UnsupportedOperationError(`${definition.forge} does not support ${verb}`, origin)
   /** An iterable that rejects on first read, for listings the forge does not have. */
   const emptyIterable = <T>(verb: string): ForgeIterable<T> => forgeIterable<T>(async function* () {
     throw unsupported(verb)
@@ -367,7 +368,7 @@ function createProvider<TOptions extends ForgeOptionsBase, TState>(
       }
       const kind = kindOf(name, args)
       if (kind && (KINDS as string[]).includes(kind) && !resolve(kinds?.[kind as VerbKind], env)) {
-        return Promise.reject(new UnsupportedOperationError(`${definition.kind} does not support ${verb} for a ${kind.replace('_', ' ')}`, origin))
+        return Promise.reject(new UnsupportedOperationError(`${definition.forge} does not support ${verb} for a ${kind.replace('_', ' ')}`, origin))
       }
       return run(...args)
     }
@@ -429,7 +430,7 @@ function createProvider<TOptions extends ForgeOptionsBase, TState>(
       const supported = alerts && (listOptions.kind ? resolve(alerts.kinds[listOptions.kind as AlertKind], env) : ALERT_KINDS.some(kind => resolve(alerts.kinds[kind], env)))
       if (!supported) {
         return Promise.reject(listOptions.kind
-          ? new UnsupportedOperationError(`${definition.kind} cannot list ${listOptions.kind.replace('_', ' ')} alerts`, origin)
+          ? new UnsupportedOperationError(`${definition.forge} cannot list ${listOptions.kind.replace('_', ' ')} alerts`, origin)
           : unsupported('securityAlerts.list'))
       }
       return alerts.listPage(repo, listOptions)
@@ -481,11 +482,12 @@ function createProvider<TOptions extends ForgeOptionsBase, TState>(
 
   return {
     ...api as unknown as Pick<ForgeProvider, 'repos' | 'notifications' | 'threads' | 'webhooks' | 'releases' | 'contents' | 'checks' | 'ci' | 'users' | 'search' | 'securityAlerts' | 'sources' | 'installations'>,
-    kind: definition.kind,
+    forge: definition.forge,
     instance,
     baseUrl,
+    authKind,
     request: createRequest(spec.request ?? fetcher, options.readOnly
-      ? { readOnly: (method, path) => new ReadOnlyError(`${method} ${path} is a write and this ${definition.kind} provider is read-only; pass \`mutates: false\` if it only reads`, origin) }
+      ? { readOnly: (method, path) => new ReadOnlyError(`${method} ${path} is a write and this ${definition.forge} provider is read-only; pass \`mutates: false\` if it only reads`, origin) }
       : {}),
     get capabilities() {
       return capabilities
@@ -514,7 +516,7 @@ export function defineForgeProvider<TOptions extends ForgeOptionsBase, TState = 
   definition: ProviderDefinition<TOptions, TState>,
 ): ProviderFactoryFunction<TOptions> {
   return ((options: TOptions = {} as TOptions) => ({
-    kind: definition.kind,
+    forge: definition.forge,
     ...definition.experimental ? { experimental: true as const } : {},
     create: () => createProvider(definition, options),
   })) as ProviderFactoryFunction<TOptions>

@@ -84,7 +84,7 @@ function setupPushin({ instance, origin: context, fetcher, baseUrl }: ProviderCo
     traits: {
       poll: false,
       eventKinds: 'native',
-      auth: ['token', 'anonymous'],
+      authKinds: ['token', 'anonymous'],
     },
     repos: {
       get: verb(true, async repo => toRepo({ forge: FORGE, instance }, (await fetcher.json<PushinRepository>(repoPath(repo))).data)),
@@ -116,7 +116,7 @@ function setupPushin({ instance, origin: context, fetcher, baseUrl }: ProviderCo
 }
 
 const PUSHIN: ProviderDefinition<PushinOptions> = {
-  kind: FORGE,
+  forge: FORGE,
   experimental: true,
   anonymous: true,
   baseUrl: 'https://pushin.eu',

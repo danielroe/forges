@@ -172,7 +172,7 @@ To choose the threads to record, set `FIXTURE_PUSHIN_ISSUE` and `FIXTURE_PUSHIN_
 | `search.commits` | ❌ |
 | `securityAlerts` | ❌ |
 | `eventKinds` | native |
-| `auth` | `token`, `anonymous` |
+| `authKinds` | `token`, `anonymous` |
 | `limits` | unknown |
 ::
 <!-- capabilities:end -->

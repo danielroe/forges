@@ -209,7 +209,7 @@ To add a work item, set `FIXTURE_AZURE_DEVOPS_ISSUE`.
 | `search.commits` | ❌ |
 | `securityAlerts` | ❌ |
 | `eventKinds` | native |
-| `auth` | `token`, `basic`, `anonymous` |
+| `authKinds` | `token`, `basic`, `anonymous` |
 | `limits` | unknown |
 ::
 <!-- capabilities:end -->

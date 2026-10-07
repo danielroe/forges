@@ -34,7 +34,7 @@ export function createHandler(options: HandlerOptions): (request: Request) => Pr
     const body = await request.text()
     try {
       const actions = await bot.ingest(provider, { headers: request.headers, body })
-      return Response.json({ forge: provider.kind, actions } satisfies DeliveryResult)
+      return Response.json({ forge: provider.forge, actions } satisfies DeliveryResult)
     }
     catch (error) {
       if (error instanceof WebhookVerificationError) {

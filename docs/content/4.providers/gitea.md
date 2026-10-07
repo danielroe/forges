@@ -184,7 +184,7 @@ To add an issue, set `FIXTURE_GITEA_ISSUE`. To record a self-hosted instance, se
 | `search.commits` | ❌ |
 | `securityAlerts` | ❌ |
 | `eventKinds` | native |
-| `auth` | `token`, `anonymous` |
+| `authKinds` | `token`, `anonymous` |
 | `limits` | unknown |
 ::
 <!-- capabilities:end -->

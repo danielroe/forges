@@ -79,7 +79,7 @@ const rows: Array<[string, (capabilities: Forges.ForgeCapabilities) => unknown]>
       : (c: Forges.ForgeCapabilities) => at(c, entry.capability),
   ])
 
-const META = new Set(['experimental', 'eventKinds', 'auth', 'limits'])
+const META = new Set(['experimental', 'eventKinds', 'authKinds', 'limits'])
 
 export interface CapabilityRow {
   /** Path on `ForgeCapabilities`, such as `threads.list`. */
@@ -139,7 +139,7 @@ export function capabilityData(forges: typeof Forges): { providers: CapabilityPr
     for (const row of groups.flatMap(group => group.rows)) {
       summary[row.cells[index]!.level]++
     }
-    return { slug, name, import: `forges/${slug}`, factories, experimental: !!capabilities.experimental, auth: [...capabilities.auth], eventKinds: capabilities.eventKinds, ...capabilities.limits ? { limits: { ...capabilities.limits } } : {}, summary }
+    return { slug, name, import: `forges/${slug}`, factories, experimental: !!capabilities.experimental, auth: [...capabilities.authKinds], eventKinds: capabilities.eventKinds, ...capabilities.limits ? { limits: { ...capabilities.limits } } : {}, summary }
   })
   return { providers, groups }
 }

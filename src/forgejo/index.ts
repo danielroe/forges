@@ -101,7 +101,7 @@ const FORGEJO_RESERVED_PATHS = ['-', '.well-known', 'admin', 'api', 'assets', 'a
 /** The Forgejo implementation for one deployment family. Shared by `forgejo()` and `gitea()`. */
 export function forgejoDefinition(profile: ForgejoProfile): ProviderDefinition<ForgejoOptions> {
   return {
-    kind: profile.forge,
+    forge: profile.forge,
     baseUrl: profile.defaultBaseUrl,
     anonymous: true,
     apiPath: '/api/v1',
@@ -415,7 +415,7 @@ function setupForgejo({ origin, fetcher, baseUrl }: ProviderContext<ForgejoOptio
   }
 
   return {
-    traits: { poll: true, eventKinds: 'native', auth: ['token', 'anonymous'] },
+    traits: { poll: true, eventKinds: 'native', authKinds: ['token', 'anonymous'] },
     search: {
       threadsPage: verb(true, searchThreadsPage),
       reposPage: verb(true, searchReposPage),

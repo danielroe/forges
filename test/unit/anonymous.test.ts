@@ -15,7 +15,8 @@ describe('anonymous providers', () => {
     await forge.repos.get(repo)
 
     expect(calls[0]!.authorization).toBeUndefined()
-    expect(forge.capabilities.auth).toContain('anonymous')
+    expect(forge.capabilities.authKinds).toContain('anonymous')
+    expect(forge.authKind).toBe('anonymous')
     expect(['threads.comment', 'threads.close', 'notifications.list', 'repos.list', 'installations.list', 'threads.subscribe', 'ci.log'].filter(verb => forge.can(verb as never))).toEqual([])
     expect(forge.can('threads.get', 'issue')).toBe(true)
     await expect(forge.threads.comment(issue, 'hi')).rejects.toThrow(UnsupportedOperationError)
@@ -71,6 +72,15 @@ describe('anonymous providers', () => {
       expect(forge.can('threads.get', 'issue')).toBe(true)
       expect(forge.can('notifications.list')).toBe(false)
     }
+  })
+})
+
+describe('auth kind', () => {
+  it('reports the auth type each provider was created with', () => {
+    expect(github({ auth: { type: 'token', token: 't' } }).create().authKind).toBe('token')
+    expect(gitlab({ auth: { type: 'anonymous' } }).create().authKind).toBe('anonymous')
+    expect(forgejo({ baseUrl: 'https://codeberg.org' }).create().authKind).toBe('anonymous')
+    expect(github({ auth: { type: 'token', token: 't' }, readOnly: true }).create().authKind).toBe('token')
   })
 })
 

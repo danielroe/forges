@@ -65,8 +65,8 @@ function valueFor(entry: CapabilityEntry, spec: ProviderSpec, env: CapabilityEnv
       return Object.fromEntries(ALERT_KINDS.map(kind => [kind, resolve(spec.securityAlerts?.kinds[kind], env)]))
     case 'eventKinds':
       return spec.traits.eventKinds
-    case 'auth':
-      return spec.traits.auth
+    case 'authKinds':
+      return spec.traits.authKinds
     case 'limits':
       return spec.traits.limits
   }

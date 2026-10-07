@@ -199,7 +199,7 @@ To add an issue, set `FIXTURE_FORGEJO_ISSUE`. To record another instance, set `C
 | `search.commits` | ❌ |
 | `securityAlerts` | ❌ |
 | `eventKinds` | native |
-| `auth` | `token`, `anonymous` |
+| `authKinds` | `token`, `anonymous` |
 | `limits` | unknown |
 ::
 <!-- capabilities:end -->

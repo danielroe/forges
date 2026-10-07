@@ -264,7 +264,7 @@ function setupOrigin({ options, baseUrl, instance, origin: context, fetcher, cre
         }
       }),
     },
-    traits: { poll: false, eventKinds: 'native', auth: ['token', 'app'] },
+    traits: { poll: false, eventKinds: 'native', authKinds: ['token', 'app'] },
     repos: {
       get: verb(true, async ref => toRepo(instance, (await fetcher.json<OriginRepo>(repoPath(ref))).data)),
       listPage: verb(repoAccess && 'experimental', async (listOptions = {}) => {
@@ -377,7 +377,7 @@ function setupOrigin({ options, baseUrl, instance, origin: context, fetcher, cre
 }
 
 const ORIGIN: ProviderDefinition<CursorOriginOptions, OriginAppCredentials | undefined> = {
-  kind: FORGE,
+  forge: FORGE,
   experimental: true,
   baseUrl: 'https://api.cursor.com',
   apiPath: '/v1/origin',
