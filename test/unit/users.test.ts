@@ -1,10 +1,14 @@
 import { describe, expect, it } from 'vitest'
 import { bitbucket } from '../../src/bitbucket/index.ts'
+import { fake } from '../../src/fake/index.ts'
 import { forgejo } from '../../src/forgejo/index.ts'
+import { gitee } from '../../src/gitee/index.ts'
 import { github } from '../../src/github/index.ts'
 import { toActor } from '../../src/github/normalise.ts'
 import { gitlab } from '../../src/gitlab/index.ts'
 import { UnsupportedOperationError } from '../../src/index.ts'
+import { pushin } from '../../src/pushin/index.ts'
+import { tangled } from '../../src/tangled/index.ts'
 import { fixtureFetch } from '../../src/testing/index.ts'
 
 describe('users.get', () => {
@@ -47,5 +51,40 @@ describe('users.get', () => {
   it('ties a GitHub App bot account to its app', () => {
     expect(toActor('github.com', { login: 'renovate[bot]', id: 2, type: 'Bot' })?.app).toEqual({ slug: 'renovate' })
     expect(toActor('github.com', { login: 'octocat', id: 1, type: 'User' })?.app).toBeUndefined()
+  })
+})
+
+describe('users.me', () => {
+  const auth = { type: 'token', token: 't' } as const
+
+  it.each([
+    ['github', 'https://api.github.com/user', { login: 'octocat', id: 1, type: 'User', name: 'The Octocat' }, (fetch: never) => github({ auth, fetch })],
+    ['gitlab', 'https://gitlab.com/api/v4/user', { id: 7, username: 'octocat', name: 'The Octocat' }, (fetch: never) => gitlab({ auth, fetch })],
+    ['forgejo', 'https://codeberg.org/api/v1/user', { id: 2, login: 'octocat', full_name: 'The Octocat' }, (fetch: never) => forgejo({ auth, fetch, baseUrl: 'https://codeberg.org' })],
+    ['gitee', 'https://gitee.com/api/v5/user', { id: 3, login: 'octocat', name: 'The Octocat' }, (fetch: never) => gitee({ auth, fetch })],
+    ['bitbucket', 'https://api.bitbucket.org/2.0/user', { uuid: '{1}', nickname: 'octocat', display_name: 'The Octocat' }, (fetch: never) => bitbucket({ auth, fetch })],
+    ['pushin', 'https://pushin.eu/api/v1/user', { id: '4', login: 'octocat', name: 'The Octocat', company: 'Pushin' }, (fetch: never) => pushin({ auth, fetch })],
+  ])('reads the authenticated %s account', async (_name, url, body, create) => {
+    const { fetch, calls } = fixtureFetch([], { [`GET ${url}`]: { status: 200, body } })
+    const forge = create(fetch as never).create()
+
+    expect(forge.can('users.me')).toBe(true)
+    expect(await forge.users.me()).toMatchObject({ login: 'octocat', name: 'The Octocat' })
+    expect(calls.map(call => call.url)).toEqual([url])
+  })
+
+  it('reads the fake viewer', async () => {
+    expect(await fake({ viewer: 'grace' }).create().users.me()).toMatchObject({ login: 'grace' })
+  })
+
+  it('needs a credential', async () => {
+    for (const forge of [github({}).create(), gitlab({}).create(), tangled({}).create()]) {
+      expect(forge.can('users.me')).toBe(false)
+      await expect(forge.users.me()).rejects.toThrow(UnsupportedOperationError)
+    }
+  })
+
+  it('is unsupported for a GitHub App installation', () => {
+    expect(github({ auth: { type: 'app', appId: 1, privateKey: 'k', installationId: 2 } }).create().can('users.me')).toBe(false)
   })
 })

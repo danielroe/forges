@@ -2,7 +2,7 @@ import type { ProviderContext, ProviderDefinition, ProviderFactoryFunction, Prov
 import type { Comment, ForgeEventInput, ListOptions, Page, RepoRef, ResolvedThreadRef, Thread, ThreadQuery, ThreadRef } from '../model.ts'
 import type { AnonymousAuth, ForgeOptionsBase, TokenAuth, VerbScopes } from '../provider.ts'
 import type { ForgeVerb } from '../supports.ts'
-import type { PushinCollaborator, PushinComment, PushinLabel, PushinNotification, PushinRepository, PushinThread } from './types.ts'
+import type { PushinCollaborator, PushinComment, PushinLabel, PushinNotification, PushinRepository, PushinThread, PushinUser } from './types.ts'
 import { defineForgeProvider, perKind, verb } from '../define.ts'
 import { createListing, getManyConcurrently, requireIssueOrPull, resolveToken, toPage } from '../utils.ts'
 import { githubShapedWeb } from '../web.ts'
@@ -85,6 +85,12 @@ function setupPushin({ instance, origin: context, fetcher, baseUrl }: ProviderCo
       poll: false,
       eventKinds: 'native',
       authKinds: ['token', 'anonymous'],
+    },
+    users: {
+      me: verb('experimental', async () => {
+        const { data } = await fetcher.json<PushinUser>('/user')
+        return { ...toActor({ forge: FORGE, instance }, data)!, company: data.company ?? undefined, raw: data }
+      }),
     },
     repos: {
       get: verb(true, async repo => toRepo({ forge: FORGE, instance }, (await fetcher.json<PushinRepository>(repoPath(repo))).data)),

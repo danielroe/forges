@@ -203,7 +203,7 @@ export interface CredentialTask {
 }
 
 const TASKS: CredentialTask[] = [
-  { id: 'repos', group: 'Read', label: 'Repositories and people', capabilities: ['repos.get', 'repos.list', 'repos.labels', 'repos.milestones', 'repos.collaborators', 'repos.permissionFor', 'repos.assignableUsers', 'repos.reviewerCandidates', 'users.get'] },
+  { id: 'repos', group: 'Read', label: 'Repositories and people', capabilities: ['repos.get', 'repos.list', 'repos.labels', 'repos.milestones', 'repos.collaborators', 'repos.permissionFor', 'repos.assignableUsers', 'repos.reviewerCandidates', 'users.get', 'users.me'] },
   { id: 'threads', group: 'Read', label: 'Issues and PRs', capabilities: ['threads.get', 'threads.list', 'threads.getMany', 'comments.list', 'reactions.list', 'reviews.list', 'contents.threadFiles', 'contents.threadCommits'] },
   { id: 'code', group: 'Read', label: 'Code and history', capabilities: ['contents.file', 'contents.tree', 'contents.branches', 'contents.tags', 'contents.resolveRef', 'contents.commits', 'contents.commit', 'contents.compare'] },
   { id: 'releases', group: 'Read', label: 'Releases', capabilities: ['releases.list', 'releases.get', 'releases.latest', 'releases.getByTag', 'releases.downloadAsset'] },

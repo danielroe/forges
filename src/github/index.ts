@@ -1258,7 +1258,10 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
       }),
     },
     scopes: githubScopesFor,
-    users: { get: verb(true, async login => toUser(instance, (await fetcher.json<GitHubUserDetail>(`/users/${encodeURIComponent(login)}`)).data)) },
+    users: {
+      get: verb(true, async login => toUser(instance, (await fetcher.json<GitHubUserDetail>(`/users/${encodeURIComponent(login)}`)).data)),
+      me: verb(auth.type === 'token' && 'experimental', async () => toUser(instance, (await fetcher.json<GitHubUserDetail>('/user')).data)),
+    },
     repos: {
       get: verb(true, async (ref) => {
         return toRepo(instance, (await fetcher.json<GitHubRepositoryDetail>(repoPath(ref))).data)

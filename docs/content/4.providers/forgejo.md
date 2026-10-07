@@ -116,6 +116,7 @@ To add an issue, set `FIXTURE_FORGEJO_ISSUE`. To record another instance, set `C
 | `sources.subscribe` | ❌ |
 | `repos.get` | ✅ |
 | `users.get` | ✅ |
+| `users.me` | experimental |
 | `repos.list` | ✅ |
 | `repos.labels` | ✅ |
 | `repos.createLabel` | experimental |

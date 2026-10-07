@@ -248,6 +248,9 @@ const TANGLED: ProviderDefinition<TangledOptions> = {
         }),
       },
       notifications,
+      users: {
+        me: verb(writable && 'experimental', async () => ({ ...await actorFor(await viewerDid()), raw: undefined })),
+      },
       threads: {
         ...threads,
         comment: perKind({ issue: writable && 'experimental', pull_request: writable }, comment),

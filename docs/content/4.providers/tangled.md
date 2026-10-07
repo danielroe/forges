@@ -158,6 +158,7 @@ To record other threads, set `FIXTURE_TANGLED_ISSUE` and `FIXTURE_TANGLED_PULL` 
 | `sources.subscribe` | ✅ |
 | `repos.get` | ✅ |
 | `users.get` | ❌ |
+| `users.me` | experimental |
 | `repos.list` | experimental |
 | `repos.labels` | ❌ |
 | `repos.createLabel` | ❌ |

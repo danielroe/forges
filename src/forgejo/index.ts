@@ -28,6 +28,7 @@ import type {
   Thread,
   ThreadQuery,
   ThreadRef,
+  User,
 } from '../model.ts'
 import type {
   AnonymousAuth,
@@ -115,6 +116,11 @@ function setupForgejo({ origin, fetcher, baseUrl }: ProviderContext<ForgejoOptio
   const context = origin
 
   const list = createListing(fetcher, 'limit')
+
+  async function readUser(path: string): Promise<User> {
+    const { data } = await fetcher.json<ForgejoUser & { description?: string, location?: string, website?: string, created?: string, followers_count?: number, following_count?: number }>(path)
+    return { ...toActor(origin, data)!, bio: data.description || undefined, location: data.location || undefined, websiteUrl: data.website || undefined, createdAt: toDate(data.created), followers: data.followers_count, following: data.following_count, raw: data }
+  }
 
   function repoPath(repo: Pick<RepoRef, 'owner' | 'name'>): string {
     return `/repos/${encodeURIComponent(repo.owner)}/${encodeURIComponent(repo.name)}`
@@ -422,10 +428,8 @@ function setupForgejo({ origin, fetcher, baseUrl }: ProviderContext<ForgejoOptio
     },
     probeVersion: async () => (await fetcher.json<{ version?: string }>('/version')).data.version,
     users: {
-      get: verb(true, async (login) => {
-        const { data } = await fetcher.json<ForgejoUser & { description?: string, location?: string, website?: string, created?: string, followers_count?: number, following_count?: number }>(`/users/${encodeURIComponent(login)}`)
-        return { ...toActor(origin, data)!, bio: data.description || undefined, location: data.location || undefined, websiteUrl: data.website || undefined, createdAt: toDate(data.created), followers: data.followers_count, following: data.following_count, raw: data }
-      }),
+      get: verb(true, login => readUser(`/users/${encodeURIComponent(login)}`)),
+      me: verb('experimental', () => readUser('/user')),
     },
     repos: {
       get: verb(true, async ref => toRepo(origin, (await fetcher.json<ForgejoRepositoryDetail>(repoPath(ref))).data)),

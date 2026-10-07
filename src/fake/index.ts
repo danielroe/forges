@@ -580,6 +580,9 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
     }),
     setup: () => ({
       traits: { poll: pollSupport, eventKinds: 'native', authKinds: ['token'] },
+      users: {
+        me: verb(support('users.me', true), async () => ({ ...actor(viewerLogin), raw: undefined })),
+      },
       repos: {
         get: verb(support('repos.get', true), async repo => repoState(repo).repo),
         listPage: verb(support('repos.list', true), async (listOptions: ListOptions = {}) => pageOf([...store.repos.values()].map(state => state.repo), listOptions)),

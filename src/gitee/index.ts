@@ -1,5 +1,5 @@
 import type { ProviderContext, ProviderDefinition, ProviderFactoryFunction, ProviderSpec } from '../define.ts'
-import type { Check, Comment, Cursor, EventKind, ForgeEventInput, ForgeWarning, ListOptions, Notification, NotificationListOptions, Page, Release, Repo, RepoRef, RepoSearchQuery, ResolvedThreadRef, Review, ReviewInput, SearchQuery, Thread, ThreadQuery, ThreadRef } from '../model.ts'
+import type { Check, Comment, Cursor, EventKind, ForgeEventInput, ForgeWarning, ListOptions, Notification, NotificationListOptions, Page, Release, Repo, RepoRef, RepoSearchQuery, ResolvedThreadRef, Review, ReviewInput, SearchQuery, Thread, ThreadQuery, ThreadRef, User } from '../model.ts'
 import type { AnonymousAuth, BulkNotificationOptions, ForgeOptionsBase, TokenAuth, VerbScopes } from '../provider.ts'
 import type { ForgeVerb } from '../supports.ts'
 import type { GiteeBranch, GiteeCheckRun, GiteeComment, GiteeCommit, GiteeCommitFile, GiteeCompare, GiteeContentFile, GiteeHook, GiteeIssue, GiteeLabel, GiteeNotification, GiteeOperateLog, GiteePullRequest, GiteeRelease, GiteeRepository, GiteeTag, GiteeTree, GiteeUser } from './types.ts'
@@ -29,6 +29,11 @@ const PER_PAGE = 50
 
 function setupGitee({ instance, origin: context, fetcher, baseUrl }: ProviderContext<GiteeOptions, undefined>): ProviderSpec {
   const repoPath = (repo: RepoRef) => `/repos/${encodeURIComponent(repo.owner)}/${encodeURIComponent(repo.name)}`
+  async function readUser(path: string): Promise<User> {
+    const { data } = await fetcher.json<GiteeUser & { bio?: string | null, company?: string | null, blog?: string | null, created_at?: string, followers?: number, following?: number, public_repos?: number }>(path)
+    return { ...toActor(instance, data)!, bio: data.bio ?? undefined, company: data.company ?? undefined, websiteUrl: data.blog || undefined, createdAt: toDate(data.created_at), followers: data.followers, following: data.following, publicRepos: data.public_repos, raw: data }
+  }
+
   function requirePull(thread: ThreadRef, action: string): ResolvedThreadRef {
     const ref = requireThread(thread, context)
     if (ref.kind !== 'pull_request') {
@@ -264,10 +269,8 @@ function setupGitee({ instance, origin: context, fetcher, baseUrl }: ProviderCon
     },
     traits: { poll: true, eventKinds: 'native', authKinds: ['token', 'anonymous'] },
     users: {
-      get: verb('experimental', async (login) => {
-        const { data } = await fetcher.json<GiteeUser & { bio?: string | null, company?: string | null, blog?: string | null, created_at?: string, followers?: number, following?: number, public_repos?: number }>(`/users/${encodeURIComponent(login)}`)
-        return { ...toActor(instance, data)!, bio: data.bio ?? undefined, company: data.company ?? undefined, websiteUrl: data.blog || undefined, createdAt: toDate(data.created_at), followers: data.followers, following: data.following, publicRepos: data.public_repos, raw: data }
-      }),
+      get: verb('experimental', login => readUser(`/users/${encodeURIComponent(login)}`)),
+      me: verb('experimental', () => readUser('/user')),
     },
     repos: {
       get: verb(true, async ref => toRepo(instance, (await fetcher.json<GiteeRepository>(repoPath(ref))).data)),

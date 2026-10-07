@@ -42,6 +42,8 @@ For app auth, `privateKey` is the app's PEM key, in PKCS#1 or PKCS#8 format. Wit
 
 Without `auth`, the provider makes anonymous public reads. GitHub serves job logs only to authenticated requests, so `ci.log` is unsupported without `auth`.
 
+`users.me()` needs a token. An app installation token belongs to no account, so the capability tables below, which assume app auth, show it as unsupported.
+
 ## GitHub Enterprise Server
 
 Set `baseUrl` to the API root of the server. The `instance` in every ref is the server's host:
@@ -148,6 +150,7 @@ To record different targets, set `FIXTURE_GITHUB_REPO`, `FIXTURE_GITHUB_PULL`, `
 | `sources.subscribe` | ❌ |
 | `repos.get` | ✅ |
 | `users.get` | ✅ |
+| `users.me` | ❌ |
 | `repos.list` | ✅ |
 | `repos.labels` | ✅ |
 | `repos.createLabel` | experimental |

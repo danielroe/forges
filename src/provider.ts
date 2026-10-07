@@ -164,7 +164,7 @@ export interface ForgeCapabilities {
     assignableUsers: Support
     reviewerCandidates: Support
   }
-  users: { get: Support }
+  users: { get: Support, me: Support }
   threads: { get: PerKind, list: PerKind, getMany: Support }
   comments: { list: PerKind, edit: PerKind, delete: PerKind }
   /** Listing the reactions on a thread or one of its comments, per thread kind. */
@@ -568,6 +568,8 @@ export interface SubscriptionItem {
 export interface UsersApi {
   /** Reads an account by login, without needing a credential where the forge allows it. */
   get: (login: string) => Promise<User>
+  /** The account the provider's credential belongs to. */
+  me: () => Promise<User>
 }
 
 export interface SourcesApi {

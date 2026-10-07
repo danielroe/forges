@@ -107,6 +107,7 @@ FIXTURE_CURSOR_ORIGIN_PULL=1 pnpm record-fixtures cursor-origin
 | `sources.subscribe` | ❌ |
 | `repos.get` | ✅ |
 | `users.get` | ❌ |
+| `users.me` | ❌ |
 | `repos.list` | experimental |
 | `repos.labels` | ❌ |
 | `repos.createLabel` | ❌ |

@@ -95,8 +95,8 @@ export interface ProviderSpec {
     assignableUsersPage?: Verb<ReposApi['assignableUsersPage']>
     reviewerCandidatesPage?: Verb<ReposApi['reviewerCandidatesPage']>
   }
-  /** Omit when the forge cannot read an account by login. */
-  users?: { get: Verb<UsersApi['get']> }
+  /** `get` is omitted when the forge cannot read an account by login. */
+  users?: { get?: Verb<UsersApi['get']>, me?: Verb<UsersApi['me']> }
   threads: {
     get: ThreadVerb<'get'>
     listPage: ThreadVerb<'listPage'>

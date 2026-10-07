@@ -1197,10 +1197,14 @@
         "properties": {
           "get": {
             "$ref": "#/components/schemas/Support"
+          },
+          "me": {
+            "$ref": "#/components/schemas/Support"
           }
         },
         "required": [
-          "get"
+          "get",
+          "me"
         ]
       },
       "threads": {

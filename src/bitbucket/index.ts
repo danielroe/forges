@@ -50,6 +50,7 @@ import type {
   BitbucketRef,
   BitbucketRepositoryDetail,
   BitbucketSrcEntry,
+  BitbucketUser,
 } from './types.ts'
 import { toFileContent } from '../contents.ts'
 import { toBase64 } from '../crypto.ts'
@@ -431,6 +432,12 @@ const BITBUCKET: ProviderDefinition<BitbucketOptions> = {
     return {
       traits: { poll: false, eventKinds: 'native', authKinds: ['token', 'basic', 'anonymous'] },
       normaliseMarkdown,
+      users: {
+        me: verb('experimental', async () => {
+          const { data } = await fetcher.json<BitbucketUser>('/user')
+          return { ...toActor(instance, data)!, raw: data }
+        }),
+      },
       web: bitbucketWeb(hostOf(baseUrl) === 'api.bitbucket.org' ? 'https://bitbucket.org' : baseUrl.replace(/\/2\.0$/, '')),
       webhooks: {
         listPage: verb('experimental', (target, listOptions = {}) => list(hooksPath(target), listOptions, (raw: BitbucketHook) => toWebhook(target, raw), { select: page<BitbucketHook> })),

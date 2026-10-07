@@ -117,6 +117,7 @@ To use Basic credentials, set `BITBUCKET_USERNAME` and `BITBUCKET_APP_PASSWORD` 
 | `sources.subscribe` | ❌ |
 | `repos.get` | ✅ |
 | `users.get` | ❌ |
+| `users.me` | experimental |
 | `repos.list` | experimental |
 | `repos.labels` | ❌ |
 | `repos.createLabel` | ❌ |
