@@ -83,11 +83,14 @@ const links = [
             to="https://github.com/danielroe/forges"
             class="text-xs text-muted hover:text-highlighted transition-colors"
           >
-            source
+            github
           </ULink>
-          <div class="flex items-center gap-1 border-l border-default pl-4">
-            <AppFooterRight />
-          </div>
+          <ULink
+            to="https://npmx.dev/package/forges"
+            class="text-xs text-muted hover:text-highlighted transition-colors"
+          >
+            npmx
+          </ULink>
         </div>
       </div>
     </UContainer>
