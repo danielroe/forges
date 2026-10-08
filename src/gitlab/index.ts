@@ -74,7 +74,7 @@ import type {
 } from './types.ts'
 import { fromBase64, toFileContent } from '../contents.ts'
 import { defineForgeProvider, perKind, verb } from '../define.ts'
-import { InsufficientScopeError, NotFoundError, soleMergeMethod, TokenRevokedError, toMergeError, UnresolvedThreadError, UnsupportedOperationError } from '../errors.ts'
+import { AuthenticationRequiredError, ForbiddenError, InsufficientScopeError, NotFoundError, soleMergeMethod, TokenRevokedError, toMergeError, UnresolvedThreadError, UnsupportedOperationError } from '../errors.ts'
 import { isNamespaceRef, reactionContent } from '../model.ts'
 import { createListing, getManyConcurrently, hexColour, memo, memoBy, milestoneId, phased, requireIssueOrPull, requireThread, resolveToken, syntheticReview, toDate, toPage, toWarning, versionAtLeast } from '../utils.ts'
 import { nativeEventsFor } from '../webhooks.ts'
@@ -566,10 +566,20 @@ const GITLAB: ProviderDefinition<GitLabOptions> = {
       users: {
         get: verb(true, async (login) => {
           const { data: matches } = await fetcher.json<GitLabUser[]>('/users', { query: { username: login } })
-          if (!matches?.[0]) {
+          const [match] = matches ?? []
+          if (!match) {
             throw new NotFoundError(`No GitLab user named ${login}`, 404, '', context)
           }
-          return readUser(`/users/${matches[0].id}`)
+          try {
+            return await readUser(`/users/${match.id}`)
+          }
+          catch (error) {
+            // GitLab.com shows a full profile only to someone signed in; the search result still has the basics.
+            if (error instanceof InsufficientScopeError || error instanceof ForbiddenError || error instanceof AuthenticationRequiredError) {
+              return { ...toActor(instance, match)!, raw: match }
+            }
+            throw error
+          }
         }),
         me: verb(true, () => readUser('/user')),
       },
