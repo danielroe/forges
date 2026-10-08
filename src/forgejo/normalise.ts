@@ -413,23 +413,11 @@ export function toStatusChecks(repo: RepoRef, raw: ForgejoCombinedStatus): Check
   return (raw.statuses ?? []).map(status => toStatusCheck(repo, status))
 }
 
-/** Forgejo Actions shares one status vocabulary between runs and jobs. */
+/** Every Actions run and job status behind each normalised state, as the repeated `status` filter takes them. */
+export const ACTION_STATES: Record<Exclude<CheckState, 'unknown'>, string[]> = { pending: ['waiting', 'running', 'blocked'], success: ['success'], failure: ['failure', 'cancelled'], neutral: ['skipped'] }
+
 function actionState(status: string): CheckState {
-  switch (status) {
-    case 'success':
-      return 'success'
-    case 'failure':
-    case 'cancelled':
-      return 'failure'
-    case 'skipped':
-      return 'neutral'
-    case 'waiting':
-    case 'running':
-    case 'blocked':
-      return 'pending'
-    default:
-      return 'unknown'
-  }
+  return (Object.keys(ACTION_STATES) as Array<keyof typeof ACTION_STATES>).find(state => ACTION_STATES[state].includes(status)) ?? 'unknown'
 }
 
 /** Forgejo writes the zero Unix time for a run that never started or stopped. */

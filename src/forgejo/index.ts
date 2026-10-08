@@ -73,7 +73,7 @@ import { isNamespaceRef, reactionContent } from '../model.ts'
 import { actorLogin, createListing, getManyConcurrently, hasEveryLabel, hexColour, hostOf, memo, memoBy, milestoneId, requireIssueOrPull, requireThread, resolveToken, summariseChecks, toDate, toPage, toWarning, versionAtLeast } from '../utils.ts'
 import { githubShapedWeb } from '../web.ts'
 import { nativeEventsFor } from '../webhooks.ts'
-import { actionBranch, numberFromUrl, toActionJob, toActionRun, toActor, toBranch, toChangedFile, toComment, toCommit, toEvent, toLabel, toMilestone, toNotification, toRelease, toRepo, toReview, toReviewComment, toRole, toStatusCheck, toStatusChecks, toTag, toThread, toThreadKind, toTreeEntry, toWebhook } from './normalise.ts'
+import { ACTION_STATES, actionBranch, numberFromUrl, toActionJob, toActionRun, toActor, toBranch, toChangedFile, toComment, toCommit, toEvent, toLabel, toMilestone, toNotification, toRelease, toRepo, toReview, toReviewComment, toRole, toStatusCheck, toStatusChecks, toTag, toThread, toThreadKind, toTreeEntry, toWebhook } from './normalise.ts'
 import { countedPages } from './pages.ts'
 import { FORGEJO_HEADERS, FORGEJO_NATIVE_EVENTS } from './webhook-events.ts'
 import { forgejoWebhooks } from './webhooks.ts'
@@ -110,9 +110,6 @@ const ISSUE_AND_PULL = { issue: true, pull_request: true } as const
 /** Forgejo versions with the Actions runs API, and with run jobs and job logs. */
 const FORGEJO_ACTION_RUNS = '12.0'
 const FORGEJO_ACTION_JOBS = '16.0'
-
-/** Every Actions run status behind each normalised state, as the repeated `status` filter takes them. */
-const ACTION_STATES: Record<Exclude<CheckState, 'unknown'>, string[]> = { pending: ['waiting', 'running', 'blocked'], success: ['success'], failure: ['failure', 'cancelled'], neutral: ['skipped'] }
 
 /** Timelines send no usable count, so only a full page of an explicit size shows that another follows. */
 const TIMELINE_PAGE_SIZE = 50
