@@ -34,16 +34,16 @@ for await (const notification of forges.notifications.list()) {
 }
 ```
 
-The [quick start](https://forges.link/getting-started/quick-start) walks through reading a thread, writing a comment and checking what a forge supports.
+The example above lists the notifications of two forges in a single loop. To go further, the [quick start](https://forges.link/getting-started/quick-start) walks you through reading a thread, writing a comment and checking what a forge supports.
 
 ## documentation
 
-- [Getting started](https://forges.link/getting-started/introduction): installation, import paths and a first call.
-- [Guides](https://forges.link/guides/authentication): authentication, several forges, environment variables, webhooks, capabilities, errors, pagination, browser bundles and testing.
-- [Concepts](https://forges.link/concepts/data-model): the data model, capabilities, providers and events.
-- [Providers](https://forges.link/providers): authentication and behaviour specific to each forge.
-- [Reference](https://forges.link/reference/overview): the API, the capability matrix, errors and JSON schemas.
-- [Examples](https://forges.link/examples): small, tested projects that use `forges`.
+- [Getting started](https://forges.link/getting-started/introduction) covers installation, import paths and a first call.
+- The [guides](https://forges.link/guides/authentication) explain authentication, working with several forges, environment variables, webhooks, capabilities, errors, pagination, browser bundles and testing.
+- The [concepts](https://forges.link/concepts/data-model) describe the data model, capabilities, providers and events.
+- Each [provider page](https://forges.link/providers) explains how to authenticate and how that forge behaves.
+- The [reference](https://forges.link/reference/overview) lists the API, the capability matrix, errors and JSON schemas.
+- The [examples](https://forges.link/examples) are small, tested projects that use `forges`.
 
 ## related projects
 
@@ -52,7 +52,7 @@ The [quick start](https://forges.link/getting-started/quick-start) walks through
 
 ## contributing
 
-Read the [contribution guide](./CONTRIBUTING.md) to set up the repository and run the checks.
+Contributions are welcome. The [contribution guide](./CONTRIBUTING.md) explains how to set up the repository and run the checks.
 
 ## licence
 

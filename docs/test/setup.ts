@@ -26,7 +26,7 @@ function freePort(): Promise<number> {
 
 export default async function setup(project: TestProject) {
   if (!existsSync(entry)) {
-    throw new Error('Build the docs first: `pnpm --filter forges-docs build`')
+    throw new Error('Build the docs first: `pnpm build:docs`')
   }
 
   const port = await freePort()

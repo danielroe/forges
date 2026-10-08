@@ -90,6 +90,7 @@
   },
   "scripts": {
     "build": "tsdown && node scripts/generate-schemas.ts --dist",
+    "build:docs": "pnpm --filter forges-docs build",
     "check:all": "pnpm lint && pnpm test && pnpm test:versions && pnpm build && pnpm test:size",
     "dev": "vitest dev",
     "lint": "eslint .",

@@ -86,7 +86,7 @@ jobs:
         run: pnpm install
 
       - name: 🛠 Build docs
-        run: pnpm --filter forges-docs build
+        run: pnpm build:docs
 
       - name: 🧪 Test docs
         run: pnpm test:docs
@@ -110,7 +110,7 @@ jobs:
         run: pnpm docs:api
 
       - name: 🛠 Build docs
-        run: pnpm --filter forges-docs build
+        run: pnpm build:docs
 
       - name: 🔗 Check links
         uses: lycheeverse/lychee-action@e7477775783ea5526144ba13e8db5eec57747ce8 # v2.9.0

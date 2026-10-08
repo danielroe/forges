@@ -1,5 +1,5 @@
 # Link checking for the Markdown in this repository and the built documentation site.
-# Run `pnpm test:links` after `pnpm --filter forges-docs build`.
+# Run `pnpm test:links` after `pnpm build:docs`.
 
 # Resolves root-relative links (such as `/guides/authentication`) against the built site.
 root_dir = "docs/.output/public"

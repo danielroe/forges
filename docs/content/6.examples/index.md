@@ -7,7 +7,7 @@ description: Small, tested projects that use forges.
 icon: i-lucide-boxes
 ---
 
-The [`examples`](https://github.com/danielroe/forges/tree/main/examples) folder holds projects that each solve one problem on any forge. Their tests run the real providers against fixtures, so you can read them as a guide to testing your own code.
+The [`examples`](https://github.com/danielroe/forges/tree/main/examples) folder holds small projects that each solve one problem on any forge. Their tests run the real providers against fixtures, which makes them a useful guide when you write tests for your own code as well.
 
 ::card-group
   ::card{title="Inbox CLI" icon="i-lucide-inbox" to="/examples/inbox-cli"}

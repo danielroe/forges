@@ -1,10 +1,12 @@
 # `release-digest`
 
-Prints the latest release of each repository you pass, and its open pull requests with failing checks. The repositories can be on any number of forges.
+Prints the latest release of each repository that you pass, together with the open pull requests whose checks are failing. The repositories can be on any number of forges.
 
-The digest reads the checks of each open pull request once, with `threads.checks()`. The result has the names of the failing checks and the failed and total counts. When a forge doesn't support an operation, such as listing releases on Bitbucket, the digest prints a warning to stderr and continues.
+For every open pull request, the digest reads the checks once with `threads.checks()`. The result has the names of the failing checks, along with the number of failed and total checks. If a forge doesn't support an operation, such as listing releases on Bitbucket, the digest prints a warning to stderr and carries on.
 
 ## Run it
+
+Pass the repositories as arguments, and the credentials of each forge as environment variables:
 
 ```sh
 FORGES_GITHUB_TOKEN=ghp_... FORGES_GITLAB_TOKEN=glpat-... \
@@ -19,7 +21,7 @@ gitlab  acme/platform/widgets  v2.0.0 (2025-09-10)
   #23  Cache compiled templates 1/3 failed  [test: lint]
 ```
 
-Each argument is `<forge>:<owner>/<name>`. A GitLab owner can contain slashes, as in `gitlab:acme/platform/widgets`.
+Each argument has the form `<forge>:<owner>/<name>`. A GitLab owner can contain slashes, as in `gitlab:acme/platform/widgets`.
 
 ## Run the tests
 
@@ -27,4 +29,4 @@ Each argument is `<forge>:<owner>/<name>`. A GitLab owner can contain slashes, a
 pnpm --filter @forges-examples/release-digest test
 ```
 
-The tests run the GitHub, GitLab, Forgejo, and Bitbucket providers against the fixtures in `test/fixtures/`, without a network connection.
+The tests run the GitHub, GitLab, Forgejo and Bitbucket providers against the fixtures in `test/fixtures/`, so they work without a network connection.
