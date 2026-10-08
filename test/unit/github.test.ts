@@ -737,6 +737,23 @@ describe('github checks, releases and security alerts', () => {
     expect(results.map(result => !result.ok && result.warning)).toEqual(Array.from({ length: 2 }, () => expect.objectContaining({ code: 'insufficient_scope', message: `GraphQL ThreadsBatch failed: ${message}`, cause: expect.objectContaining({ name: 'InsufficientScopeError' }) })))
   })
 
+  it('reports a missing GraphQL scope only on the thread whose alias was denied', async () => {
+    const message = 'Your token has not been granted the required scopes to execute this query.'
+    const provider = github({
+      auth: { type: 'token', token: 't' },
+      fetch: async () => Response.json({
+        data: { t0: null, t1: null },
+        errors: [{ type: 'INSUFFICIENT_SCOPES', message, path: ['t0'] }, { type: 'NOT_FOUND', message: 'Could not resolve to an Issue with the number of 7.', path: ['t1'] }],
+      }),
+    }).create()
+    const results = await provider.threads.getMany([{ forge: 'github', instance: 'github.com', repo: widgets, kind: 'pull_request', number: '42' }, { forge: 'github', instance: 'github.com', repo: widgets, kind: 'issue', number: '7' }])
+
+    expect(results.map(result => !result.ok && result.warning)).toEqual([
+      expect.objectContaining({ code: 'insufficient_scope', subject: '42', cause: expect.objectContaining({ name: 'InsufficientScopeError' }) }),
+      expect.objectContaining({ code: 'thread_unreadable', message: 'Could not resolve to an Issue with the number of 7.', subject: '7' }),
+    ])
+  })
+
   it('reports an unreadable alert kind as a warning when listing every kind, and throws when asked for it', async () => {
     const { fetch } = fixtureFetch('github', { [secretScanning]: { status: 403, body: { message: 'Resource not accessible by personal access token' } } })
     const provider = github({ auth: { type: 'token', token: 't' }, fetch }).create()

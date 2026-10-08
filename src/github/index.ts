@@ -408,8 +408,12 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
           return
         }
         if (!discussion && !issueOrPullRequest) {
-          const message = data.errors?.find(error => error.path?.[0] === `t${offset}`)?.message ?? 'Not found'
-          results[index] = { ok: false, ref, warning: { code: 'thread_unreadable', message, subject: ref.number } }
+          const error = data.errors?.find(error => error.path?.[0] === `t${offset}`)
+          if (error?.type === 'INSUFFICIENT_SCOPES') {
+            results[index] = { ok: false, ref, warning: toWarning('insufficient_scope', graphqlError('ThreadsBatch', [error], url, { instance }), ref.number) }
+            return
+          }
+          results[index] = { ok: false, ref, warning: { code: 'thread_unreadable', message: error?.message ?? 'Not found', subject: ref.number } }
           return
         }
         results[index] = { ok: true, ref, thread: discussion ? g.toDiscussionThread(ref, discussion) : g.toGraphQLThread(ref, issueOrPullRequest!) }
