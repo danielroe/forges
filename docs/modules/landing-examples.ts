@@ -20,7 +20,14 @@ export default defineNuxtModule({
 
     nuxt.options.alias['#landing-examples'] = addTemplate({
       filename: 'landing-examples/index.js',
-      getContents: () => `export default [\n${forgeExamples.map(example => `  { name: ${JSON.stringify(example.name)}, slug: ${JSON.stringify(example.slug)}, load: () => import('./${example.slug}.js').then(module => module.default) },`).join('\n')}\n]`,
+      // The first example renders on load, so it ships with the page rather than in its own chunk.
+      getContents: () => [
+        `import initial from './${forgeExamples[0]!.slug}.js'`,
+        `export { initial }`,
+        `export default [`,
+        ...forgeExamples.map((example, index) => `  { name: ${JSON.stringify(example.name)}, slug: ${JSON.stringify(example.slug)}, load: ${index ? `() => import('./${example.slug}.js').then(module => module.default)` : '() => Promise.resolve(initial)'} },`),
+        `]`,
+      ].join('\n'),
     }).dst
 
     addTypeTemplate({
@@ -28,6 +35,7 @@ export default defineNuxtModule({
       getContents: () => [
         `export interface HighlightedExample { html: string }`,
         `export interface ForgeExample { name: string, slug: string, load: () => Promise<HighlightedExample> }`,
+        `export declare const initial: HighlightedExample`,
         `declare const examples: ForgeExample[]`,
         `export default examples`,
       ].join('\n'),

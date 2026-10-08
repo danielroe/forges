@@ -1,27 +1,34 @@
 <script setup lang="ts">
 import { providers } from '#capabilities'
-import examples from '#landing-examples'
+import examples, { initial } from '#landing-examples'
 
 const tabs = examples.map(example => ({
   ...example,
   icon: example.slug === 'unified' ? 'i-lucide-layers' : providers.find(provider => provider.slug === example.slug)!.icon,
 }))
 
-const selected = ref('Unified')
-const highlighted = shallowRef(await tabs[0]!.load())
+const selected = ref(tabs[0]!.name)
+const shown = shallowRef({ name: tabs[0]!.name, ...initial })
 
 watch(selected, async (name) => {
-  const example = await tabs.find(tab => tab.name === name)!.load()
-  if (selected.value === name) {
-    highlighted.value = example
+  try {
+    const example = await tabs.find(tab => tab.name === name)!.load()
+    if (selected.value === name) {
+      shown.value = { name, ...example }
+    }
+  }
+  catch {
+    if (selected.value === name) {
+      selected.value = shown.value.name
+    }
   }
 })
 </script>
 
 <template>
   <LandingCode
-    :html="highlighted.html"
-    :label="`${selected} example`"
+    :html="shown.html"
+    :label="`${shown.name} example`"
   >
     <template #header>
       <div class="flex items-center justify-between gap-4">
