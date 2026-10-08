@@ -185,7 +185,9 @@ const GITLAB: ProviderDefinition<GitLabOptions> = {
   apiPath: '/api/v4',
   headers: { accept: 'application/json' },
   authHeaders: ({ options: { auth } }) => auth?.type === 'token' ? async () => ({ authorization: `Bearer ${await resolveToken(auth)}` }) : undefined,
-  setup({ instance, baseUrl, origin: context, fetcher }) {
+  setup({ options, instance, baseUrl, origin: context, fetcher }) {
+    /** GitLab serves notes only to a signed-in user, even on public projects. */
+    const anonymous = options.auth?.type === 'anonymous'
     /**
      * GitLab lists pending and done to-dos separately. With `all`, pending
      * pages are followed by done pages; `cursor.token` marks the switch.
@@ -764,7 +766,7 @@ const GITLAB: ProviderDefinition<GitLabOptions> = {
           }
           return list(`${threadPath(ref)}/notes`, listOptions, (note: GitLabNote) => toNoteEvent(ref, note), { query: { sort: 'asc', order_by: 'created_at' } })
         }),
-        commentsPage: perKind({ issue: true, pull_request: true, commit: 'experimental' }, async (thread: ThreadRef, listOptions: ListOptions = {}): Promise<Page<Comment>> => {
+        commentsPage: perKind({ issue: !anonymous, pull_request: !anonymous, commit: 'experimental' }, async (thread: ThreadRef, listOptions: ListOptions = {}): Promise<Page<Comment>> => {
           const ref = requireThread(thread, context)
           if (ref.kind === 'commit') {
             return list(`${threadPath(ref)}/comments`, listOptions, (comment: GitLabCommitComment) => toCommitComment(ref, comment))

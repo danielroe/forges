@@ -31,6 +31,24 @@ describe('anonymous providers', () => {
     expect(calls).toEqual([])
   })
 
+  it('rejects GitLab issue and merge request comments without a request, since notes need a token', async () => {
+    const calls: string[] = []
+    const forge = gitlab({
+      fetch: async (url) => {
+        calls.push(url)
+        return Response.json([])
+      },
+    }).create()
+    const gitlabRepo = { forge: 'gitlab', instance: 'gitlab.com', owner: 'acme', name: 'widgets' }
+
+    expect(forge.can('threads.comments', 'issue')).toBe(false)
+    expect(forge.can('threads.comments', 'pull_request')).toBe(false)
+    expect(forge.can('threads.comments', 'commit')).toBe(true)
+    expect(gitlab({ auth: { type: 'token', token: 't' } }).create().can('threads.comments', 'issue')).toBe(true)
+    await expect(forge.threads.commentsPage({ forge: 'gitlab', instance: 'gitlab.com', repo: gitlabRepo, kind: 'issue', number: '1' })).rejects.toThrow(UnsupportedOperationError)
+    expect(calls).toEqual([])
+  })
+
   it('rejects the account repository list without a request', async () => {
     const { fetch, calls } = fixtureFetch('github')
     const forge = github({ fetch }).create()
