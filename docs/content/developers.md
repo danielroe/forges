@@ -67,7 +67,7 @@ Every write updates `sandbox.store` and adds an event to `sandbox.store.events`.
 
 ## Connect an AI agent
 
-- [`/llms.txt`](/llms.txt) lists every page of the documentation, and [`/llms-full.txt`](/llms-full.txt) has all of it in one file.
+- [`/llms.txt`](/llms.txt) lists every page of the documentation.
 - Each page has a Markdown version. Append `.md` to the page URL, or send `Accept: text/markdown`.
 - `https://forges.link/mcp` is an MCP server for these docs, with tools and resources. It uses streamable HTTP and needs no authentication.
 - [`/openapi.json`](/openapi.json) describes the routes that this site serves to agents. `/.well-known/api-catalog` lists the service documents.

@@ -101,6 +101,7 @@
     "test:docs": "vitest run --project docs",
     "test:capabilities": "node scripts/check-capabilities.ts",
     "test:knip": "knip",
+    "test:links": "lychee --config lychee.toml --include-fragments docs/.output/public README.md CONTRIBUTING.md CODE_OF_CONDUCT.md docs/README.md docs/content examples test/fixtures",
     "test:versions": "installed-check -d --no-workspaces",
     "test:types": "tsc --noEmit",
     "dev:docs": "pnpm --filter forges-docs dev",

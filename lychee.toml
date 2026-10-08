@@ -1,0 +1,20 @@
+# Link checking for the Markdown in this repository and the built documentation site.
+# Run `pnpm test:links` after `pnpm --filter forges-docs build`.
+
+# Resolves root-relative links (such as `/guides/authentication`) against the built site.
+root_dir = "docs/.output/public"
+fallback_extensions = ["html"]
+no_progress = true
+max_retries = 3
+# Some hosts, such as npm.chart.dev, do not answer requests without a browser user agent.
+user_agent = "Mozilla/5.0 (compatible; lychee)"
+
+exclude = [
+  # "Edit this page" links redirect anonymous requests to a login page.
+  "^https://github\\.com/[^/]+/[^/]+/edit/",
+  # The MCP endpoint only accepts POST (streamable HTTP), so a GET check returns 405.
+  "^https://forges\\.link/mcp$",
+  # The generated llms.txt links to `/llms-full.txt`, but generating it overflows the stack with
+  # `mdast-util-to-markdown` >= 2.1.3: https://github.com/nuxt-content/remark-mdc/issues/161
+  "/llms-full\\.txt$",
+]
