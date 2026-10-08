@@ -6,7 +6,6 @@ export interface MatrixProvider {
   name: string
   factories: string[]
   provider: Forges.ForgeProvider
-  /** The same provider created without credentials. */
   anonymous: Forges.ForgeProvider
 }
 
