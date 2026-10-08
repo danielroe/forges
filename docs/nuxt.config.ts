@@ -1,4 +1,5 @@
 import process from 'node:process'
+import { codeThemes } from './shared/code-theme.ts'
 
 // magic comment to trigger deployment until repo is public - abracadabra 👀
 
@@ -9,6 +10,13 @@ const url = previewUrl ?? 'https://forges.link'
 export default defineNuxtConfig({
   extends: ['docus'],
   modules: ['@nuxt/fonts', '@nuxtjs/critters'],
+  content: {
+    build: {
+      markdown: {
+        highlight: { theme: codeThemes },
+      },
+    },
+  },
   docus: {
     assistant: {
       enabled: false,

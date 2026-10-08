@@ -44,6 +44,12 @@ export default defineAppConfig({
     },
   },
   ui: {
+    button: {
+      slots: {
+        // A 44px hit area on touch screens, without changing the visible size.
+        base: 'relative pointer-coarse:after:absolute pointer-coarse:after:top-1/2 pointer-coarse:after:left-1/2 pointer-coarse:after:size-11 pointer-coarse:after:-translate-1/2',
+      },
+    },
     pageLinks: {
       slots: {
         linkLabel: 'truncate pe-4',

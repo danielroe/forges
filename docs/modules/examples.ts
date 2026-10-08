@@ -1,7 +1,8 @@
-import type { BundledLanguage, BundledTheme } from 'shiki'
+import type { BundledLanguage } from 'shiki'
 import { addTemplate, addTypeTemplate, defineNuxtModule } from 'nuxt/kit'
 import { createHighlighter } from 'shiki'
 import { documentedExamples, exampleSource, repositoryUrl } from '../../scripts/examples.ts'
+import { codeThemes } from '../shared/code-theme.ts'
 
 const LANGUAGES: Record<string, BundledLanguage> = { ts: 'ts', json: 'json', md: 'md' }
 
@@ -11,13 +12,8 @@ export default defineNuxtModule({
     const examples = documentedExamples()
     let highlighter: ReturnType<typeof createHighlighter> | undefined
 
-    function themes(): { light: BundledTheme, dark: BundledTheme } {
-      const theme = (nuxt.options as { content?: { build?: { markdown?: { highlight?: { theme?: Record<string, BundledTheme> } } } } }).content?.build?.markdown?.highlight?.theme
-      return { light: theme?.light ?? theme?.default ?? 'material-theme-lighter', dark: theme?.dark ?? 'material-theme-palenight' }
-    }
-
     async function data(name: string) {
-      highlighter ??= createHighlighter({ themes: Object.values(themes()), langs: Object.values(LANGUAGES) })
+      highlighter ??= createHighlighter({ themes: Object.values(codeThemes), langs: Object.values(LANGUAGES) })
       const shiki = await highlighter
       const { url, files, entry } = exampleSource(name)
       return {
@@ -29,7 +25,7 @@ export default defineNuxtModule({
           content,
           url: `${repositoryUrl()}/blob/main/examples/${name}/${path}`,
           // The docs' global `.shiki` styles add a background to every token, so the `<pre>` drops the class and theme variables.
-          html: shiki.codeToHtml(content, { lang: LANGUAGES[path.split('.').pop()!] ?? 'text', themes: themes(), defaultColor: false }).replace(/^<pre[^>]*>/, '<pre>'),
+          html: shiki.codeToHtml(content, { lang: LANGUAGES[path.split('.').pop()!] ?? 'text', themes: codeThemes, defaultColor: false }).replace(/^<pre[^>]*>/, '<pre>'),
         })),
       }
     }

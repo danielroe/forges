@@ -211,8 +211,8 @@ const { copied, copy, message } = useCopyToClipboard(() => file.value?.content ?
 }
 
 .example-code span {
-  color: var(--shiki-light);
-  font-style: var(--shiki-light-font-style);
+  color: var(--shiki-default);
+  font-style: var(--shiki-default-font-style);
 }
 
 .dark .example-code span {

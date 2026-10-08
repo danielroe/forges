@@ -1,10 +1,12 @@
 // Accessibility fixes for Docus markup that its components cannot configure.
+const scrollables = new ResizeObserver(entries => entries.forEach(entry => syncScrollable(entry.target as HTMLElement)))
+
 function patch() {
-  // Scrollable code blocks and tables are keyboard focusable.
-  for (const element of document.querySelectorAll('pre, .overflow-x-auto')) {
-    if (element.scrollWidth > element.clientWidth && !element.hasAttribute('tabindex')) {
-      element.setAttribute('tabindex', '0')
-    }
+  // Scrollable code blocks and tables are keyboard focusable while they overflow.
+  scrollables.disconnect()
+  for (const element of document.querySelectorAll<HTMLElement>('pre, .overflow-x-auto, [role="region"]')) {
+    syncScrollable(element)
+    scrollables.observe(element)
   }
 
   // The icon-only copy menu button gets a label.
