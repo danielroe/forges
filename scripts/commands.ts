@@ -16,6 +16,7 @@ export const COMMANDS: Command[] = [
   { commands: ['pnpm test'], scripts: ['test'], description: 'Runs the unit tests, the capability check, the type check and knip' },
   { commands: ['pnpm test:unit'], scripts: ['test:unit'], description: 'Runs the unit tests once' },
   { commands: ['pnpm test:docs'], scripts: ['test:docs'], description: 'Tests the built docs site. Build the docs first' },
+  { commands: ['pnpm test:links'], scripts: ['test:links'], description: 'Checks the links of the Markdown and the built docs site with lychee. Build the docs first' },
   { commands: ['pnpm test:types'], scripts: ['test:types'], description: 'Type-checks `src`, `test` and `scripts`' },
   { commands: ['pnpm test:capabilities'], scripts: ['test:capabilities'], description: 'Fails for a capability that a provider declares `true` and no test called' },
   { commands: ['pnpm test:knip'], scripts: ['test:knip'], description: 'Finds unused files, exports and dependencies' },
