@@ -102,7 +102,7 @@ const page = await gh.search.threadsPage({ kind: 'pull_request', queryRaw: 'revi
 
 ## Webhook management
 
-If the credential lacks `admin:repo_hook` or `admin:org_hook`, GitHub answers with a `404` on its webhook endpoints. The provider raises this response as a `ForbiddenError` with `reason: 'resource_protected'`, so check the scopes of your credential when you see it.
+If the credential lacks `admin:repo_hook` or `admin:org_hook`, GitHub responds with a `404` on its webhook endpoints. The provider raises this response as a `ForbiddenError` with `reason: 'resource_protected'`, so check the scopes of your credential when you see it.
 
 `webhooks.deliveries()` reads the delivery log of a hook, and `webhooks.redeliver()` sends a delivery again.
 

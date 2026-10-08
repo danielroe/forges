@@ -104,7 +104,7 @@ Some of the documentation is generated. After you change the capabilities of a p
 
 Providers also run in browsers. `forges` is meant to work in browsers as well as in Node.js, and it has no runtime dependencies to keep the bundle small. For this reason, providers don't import Node.js built-in modules, and adding a runtime dependency is something to discuss in an issue first. Source files are imported with the `.ts` extension, so that `node scripts/<name>.ts` runs without a build.
 
-Finally, credentials must never leak: errors, warnings and `skipped` reasons should not contain one.
+Finally, credentials must never leak: errors, warnings and `skipped` reasons must not contain one.
 
 ## Documentation
 
