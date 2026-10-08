@@ -1,4 +1,7 @@
 <script setup lang="ts">
+const command = 'pnpm add forges'
+const { copied, copy, message } = useCopyToClipboard(() => command)
+
 const features = [
   {
     icon: 'i-lucide-shapes',
@@ -75,16 +78,8 @@ const section = { container: 'py-10 sm:py-12 lg:py-16 gap-8 sm:gap-10' }
     <LandingHero />
 
     <UPageSection
-      :ui="{ container: `${section.container} pt-0 sm:pt-0 lg:pt-0` }"
-    >
-      <LazyLandingForgeSwitcher
-        class="mx-auto w-full max-w-5xl"
-        hydrate-on-visible
-      />
-    </UPageSection>
-
-    <UPageSection
-      :ui="section"
+      class="relative"
+      :ui="{ container: `${section.container} -mt-24 pt-8 sm:pt-8 lg:pt-8` }"
       title="features"
       description="You write code against one model. forges handles the endpoints, pagination, authentication and rate limits of each forge."
     >
@@ -155,15 +150,21 @@ const section = { container: 'py-10 sm:py-12 lg:py-16 gap-8 sm:gap-10' }
             quick start
           </UButton>
           <UButton
-            to="https://npmx.dev/package/forges"
-            target="_blank"
             size="xl"
             color="neutral"
             variant="outline"
-            icon="i-custom-npmx"
+            class="cursor-copy font-mono"
+            :aria-label="`Copy ${command}`"
+            :trailing-icon="copied ? 'i-lucide-check' : 'i-lucide-copy'"
+            @click="copy"
           >
-            view on npmx
+            <span class="text-muted">$</span>
+            {{ command }}
           </UButton>
+          <span
+            class="sr-only"
+            aria-live="polite"
+          >{{ message }}</span>
         </div>
       </div>
     </UPageSection>

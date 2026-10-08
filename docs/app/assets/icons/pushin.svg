@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <defs>
+    <mask id="mark" mask-type="alpha">
+      <image width="32" height="32" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAB4ElEQVR4nNVXr0/DQBSeq6ubq1uqqpA1pK4JYq4Oh6KCBUEyOYerawLZ3Nz+CQQJCQkkmLoFgxtqrqjyLrwur4937XrtRrjkM32X+76797ODwX9b7sWnD4gBCWCFSPCbfyhSB0k2gKIBG9zr9EFsA1JALhBlDDvbyeV7cTefbIuXwagLuQdYk4OViCUgAFjCfgtty9PJWw7kBeDWlDxkt160fVIg94xeAG+ek1tHrQ8xXejzNSEPj0aOAlLy7BGzjQBTTLdfMdC0wB0OIFWu0ZE75OkXAjmNiScDAUMMzFgnICFP7zDbTEhD+SZ6ATZiqBNQFpmlYLsWBHQvNITAJwcHgt1mxSbpjRwJYnK4GGDMDR6z2Zi+tqmA0v9ZzZ6KAIKQuG+v1FWxwA9ftRQg9YYS6wbyCPAKCLoIqMO2QUAIeKjUAwMXbLFozVjxUmjfgAyC8JzZxmg36xtNaSgIaFWE9hWhLUTHEqAtxX0J0DYiJNA2oz4EALkPUGPatE5EXTumtsBAgOqG00r+CwLEgcT9mfX45GtWdpuWK4xkmiLUfyASEXwo/WDkyib3dVyq4nUVwcdySj4W9u/G8rObx/zr2VKjedpVhNGPicL9/CqrDbiWQv7m10wj5vg/p4dc32xW5CqyCC8JAAAAAElFTkSuQmCC" />
+    </mask>
+  </defs>
+  <path d="M0 0h32v32H0z" fill="currentColor" mask="url(#mark)" />
+</svg>
