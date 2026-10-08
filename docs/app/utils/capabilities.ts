@@ -1,4 +1,20 @@
-import type { CapabilityRow, SupportCell, SupportLevel } from '#capabilities'
+import type { CapabilityProvider, CapabilityRow, SupportCell, SupportLevel } from '#capabilities'
+
+const UNAVAILABLE: SupportCell = { level: 'none' }
+
+/** A row's cells with credentials, or as each forge's anonymous provider reports them. */
+export function cellsFor(row: CapabilityRow, anonymous: boolean): SupportCell[] {
+  return anonymous ? row.anonymousCells.map(cell => cell ?? UNAVAILABLE) : row.cells
+}
+
+/** A provider's summary with credentials, or without; a forge with no anonymous access supports nothing without. */
+export function summaryFor(provider: CapabilityProvider, anonymous: boolean): Record<SupportLevel, number> {
+  if (!anonymous) {
+    return provider.summary
+  }
+  const total = Object.values(provider.summary).reduce((sum, count) => sum + count, 0)
+  return provider.anonymousSummary ?? { native: 0, experimental: 0, emulated: 0, none: total }
+}
 
 export const supportLevels: SupportLevel[] = ['native', 'experimental', 'emulated', 'none']
 
@@ -15,10 +31,6 @@ export const supportDescriptions: Record<SupportLevel, string> = {
   emulated: 'Composed from other calls, so its behaviour can differ from a native operation.',
   none: 'Calling it rejects with UnsupportedOperationError.',
 }
-
-export const signedInLabel = 'Needs credentials'
-
-export const signedInDescription = 'Supported, but an anonymous provider reports it unavailable, because the forge serves it only to signed-in users.'
 
 export const eventKindDescriptions: Record<string, string> = {
   native: 'The forge reports what kind of change each event is.',
@@ -43,11 +55,11 @@ export function rotatedHeaderHeight(lengths: number[]): string {
 /** Text for one cell, for screen readers. */
 export function describeCell(cell: SupportCell): string {
   if (!cell.kinds) {
-    return cell.signedIn ? `${shortSupportLabels[cell.level]}, ${signedInLabel.toLowerCase()}` : shortSupportLabels[cell.level]
+    return shortSupportLabels[cell.level]
   }
   const supported = cell.kinds.filter(kind => kind.level !== 'none')
   return supported.length
-    ? supported.map(kind => `${kind.label} ${shortSupportLabels[kind.level].toLowerCase()}${kind.signedIn ? `, ${signedInLabel.toLowerCase()}` : ''}`).join('; ')
+    ? supported.map(kind => `${kind.label} ${shortSupportLabels[kind.level].toLowerCase()}`).join(', ')
     : shortSupportLabels.none
 }
 

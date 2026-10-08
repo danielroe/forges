@@ -22,14 +22,17 @@ describe('generated docs', () => {
     expect(providers.every(({ summary }) => Object.values(summary).reduce((total, count) => total + count) === rows.length)).toBe(true)
   })
 
-  it('marks support an anonymous provider lacks, except on rows that always need an account', () => {
+  it('gives every row the cells an anonymous provider would show', () => {
     const { providers, groups } = capabilityData(forges)
     const rows = new Map(groups.flatMap(group => group.rows).map(row => [row.capability, row]))
     const gitlab = providers.findIndex(({ slug }) => slug === 'gitlab')
+    const cursor = providers.findIndex(({ slug }) => slug === 'cursor-origin')
 
-    expect(rows.get('repos.labels')!.cells[gitlab]).toEqual({ level: 'native', signedIn: true })
-    expect(rows.get('repos.get')!.cells[gitlab]).toEqual({ level: 'native' })
-    expect(rows.get('comments.list')!.cells[gitlab]!.kinds).toContainEqual({ kind: 'issue', label: 'issue', level: 'native', signedIn: true })
-    expect(rows.get('writes.close')!.cells[gitlab]!.kinds!.some(kind => kind.signedIn)).toBe(false)
+    expect(rows.get('repos.labels')!.cells[gitlab]).toEqual({ level: 'native' })
+    expect(rows.get('repos.labels')!.anonymousCells[gitlab]).toEqual({ level: 'none' })
+    expect(rows.get('repos.get')!.anonymousCells[gitlab]).toEqual({ level: 'native' })
+    expect(rows.get('repos.get')!.anonymousCells[cursor]).toBeNull()
+    expect(providers[gitlab]!.anonymousSummary!.native).toBeLessThan(providers[gitlab]!.summary.native)
+    expect(providers[cursor]!.anonymousSummary).toBeUndefined()
   })
 })

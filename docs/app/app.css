@@ -118,11 +118,6 @@ h2,
   background: color-mix(in oklab, var(--ui-bg-accented) 55%, transparent);
 }
 
-/* Support that needs credentials loses its top-right corner. */
-.capability-swatch[data-signed-in] {
-  clip-path: polygon(0 0, 50% 0, 100% 50%, 100% 100%, 0 100%);
-}
-
 /*
  * Sticky matrix headers blur the rows that scroll under them, like the site header.
  * The blur sits in a layer behind each cell, so a rotated label that overflows its

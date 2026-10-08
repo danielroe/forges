@@ -12,26 +12,29 @@ if (!provider) {
 }
 
 const total = Object.values(provider.summary).reduce((sum, count) => sum + count, 0)
+const anonymous = useAnonymousView()
+const summary = computed(() => summaryFor(provider, anonymous.value))
 
-const sections = groups.map(group => ({
+const sections = computed(() => groups.map(group => ({
   name: group.name,
   rows: group.rows.map(row => ({
     capability: row.capability,
     name: row.capability.includes('.') ? row.capability.slice(group.name.length + 1) : row.capability,
-    cell: row.cells[index]!,
+    cell: cellsFor(row, anonymous.value)[index]!,
   })),
-}))
-const hasSignedIn = sections.some(section => section.rows.some(({ cell }) => cell.signedIn || cell.kinds?.some(kind => kind.signedIn)))
-const available = sections.filter(section => section.rows.some(row => row.cell.level !== 'none'))
-const unavailable = sections.filter(section => !available.includes(section))
+})))
+const available = computed(() => sections.value.filter(section => section.rows.some(row => row.cell.level !== 'none')))
+const unavailable = computed(() => sections.value.filter(section => !available.value.includes(section)))
 
-const heights = available.map(section => section.rows.length + 2)
-const half = heights.reduce((sum, height) => sum + height, 0) / 2
-let split = 0
-for (let height = 0; split < heights.length && height + heights[split]! / 2 < half; split++) {
-  height += heights[split]!
-}
-const columns = [{ sections: available.slice(0, split) }, { sections: available.slice(split) }]
+const columns = computed(() => {
+  const heights = available.value.map(section => section.rows.length + 2)
+  const half = heights.reduce((sum, height) => sum + height, 0) / 2
+  let split = 0
+  for (let height = 0; split < heights.length && height + heights[split]! / 2 < half; split++) {
+    height += heights[split]!
+  }
+  return [{ sections: available.value.slice(0, split) }, { sections: available.value.slice(split) }]
+})
 
 const limits = provider.limits ? Object.entries(provider.limits).map(([key, length]) => ({ key: key.replace('Length', ''), length: length.toLocaleString('en') })) : []
 </script>
@@ -41,9 +44,15 @@ const limits = provider.limits ? Object.entries(provider.limits).map(([key, leng
     <div class="rounded-lg border border-default p-4 sm:p-5">
       <div class="flex flex-wrap items-end justify-between gap-3">
         <p class="text-sm text-muted">
-          <span class="text-3xl font-semibold text-highlighted tabular-nums">{{ provider.summary.native }}</span>
-          of {{ total }} capabilities native and verified
+          <span class="text-3xl font-semibold text-highlighted tabular-nums">{{ summary.native }}</span>
+          of {{ total }} capabilities native and verified{{ anonymous ? ' without credentials' : '' }}
         </p>
+        <USwitch
+          v-if="provider.anonymousSummary"
+          v-model="anonymous"
+          label="Without credentials"
+          size="sm"
+        />
         <UButton
           :to="{ path: '/reference/capability-matrix', query: { forge: provider.slug } }"
           variant="ghost"
@@ -58,14 +67,14 @@ const limits = provider.limits ? Object.entries(provider.limits).map(([key, leng
       <div
         class="mt-4 flex h-2 gap-px overflow-hidden bg-elevated"
         role="img"
-        :aria-label="supportLevels.map(level => `${provider!.summary[level]} ${supportLabels[level].toLowerCase()}`).join(', ')"
+        :aria-label="supportLevels.map(level => `${summary[level]} ${supportLabels[level].toLowerCase()}`).join(', ')"
       >
         <span
           v-for="level of supportLevels"
           :key="level"
           class="capability-swatch"
           :data-level="level"
-          :style="{ width: `${provider.summary[level] / total * 100}%` }"
+          :style="{ width: `${summary[level] / total * 100}%` }"
         />
       </div>
 
@@ -80,13 +89,12 @@ const limits = provider.limits ? Object.entries(provider.limits).map(([key, leng
             class="[--capability-cell-size:0.625rem]"
           />
           {{ supportLabels[level] }}
-          <span class="font-mono text-toned tabular-nums">{{ provider.summary[level] }}</span>
+          <span class="font-mono text-toned tabular-nums">{{ summary[level] }}</span>
         </li>
       </ul>
 
       <CapabilityLegend
         :levels="[]"
-        :signed-in="hasSignedIn"
         explain
         class="mt-3"
       />
@@ -182,11 +190,10 @@ const limits = provider.limits ? Object.entries(provider.limits).map(([key, leng
                 >
                   <CapabilityCell
                     :level="kind.level"
-                    :signed-in="kind.signedIn"
                     class="[--capability-cell-size:0.625rem]"
                   />
                   {{ kind.label }}
-                  <span class="sr-only">({{ supportLabels[kind.level].toLowerCase() }}{{ kind.signedIn ? `, ${signedInLabel.toLowerCase()}` : '' }})</span>
+                  <span class="sr-only">({{ supportLabels[kind.level].toLowerCase() }})</span>
                 </span>
               </span>
               <span
@@ -196,14 +203,9 @@ const limits = provider.limits ? Object.entries(provider.limits).map(([key, leng
               >
                 <CapabilityCell
                   :level="row.cell.level"
-                  :signed-in="row.cell.signedIn"
                   class="[--capability-cell-size:0.625rem]"
                 />
                 {{ shortSupportLabels[row.cell.level] }}
-                <span
-                  v-if="row.cell.signedIn"
-                  class="sr-only"
-                >({{ signedInLabel.toLowerCase() }})</span>
               </span>
             </li>
           </ul>

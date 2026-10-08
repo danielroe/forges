@@ -5,6 +5,7 @@ import { groups, providers } from '#capabilities'
 const route = useRoute()
 const filter = ref('')
 const differing = ref(false)
+const anonymous = useAnonymousView()
 const hoveredColumn = ref<number>()
 const highlighted = computed(() => providers.findIndex(({ slug }) => slug === route.query.forge))
 
@@ -23,7 +24,7 @@ const visible = computed(() => {
       ...group,
       rows: group.rows.filter(row =>
         (!needle || row.capability.toLowerCase().includes(needle) || row.verbs.some(verb => verb.toLowerCase().includes(needle)))
-        && (!differing.value || new Set(row.cells.map(signature)).size > 1)),
+        && (!differing.value || new Set(cellsFor(row, anonymous.value).map(signature)).size > 1)),
     }))
     .filter(group => group.rows.length)
 })
@@ -31,6 +32,9 @@ const visible = computed(() => {
 const TIP_HALF_WIDTH = 128
 const wrapper = useTemplateRef('wrapper')
 const tip = ref<{ row: CapabilityRow, column: number, x: number, y: number }>()
+const tipCell = computed(() => tip.value && cellsFor(tip.value.row, anonymous.value)[tip.value.column]!)
+/** The other view's cell, or `null` for a forge without anonymous access. */
+const tipOther = computed(() => tip.value && (anonymous.value ? tip.value.row.cells[tip.value.column]! : tip.value.row.anonymousCells[tip.value.column]!))
 
 function inspect(event: PointerEvent) {
   const target = (event.target as HTMLElement).closest<HTMLTableCellElement>('td, th')
@@ -76,6 +80,11 @@ function limits(values?: Record<string, number>) {
         label="Only rows that differ"
         size="sm"
       />
+      <USwitch
+        v-model="anonymous"
+        label="Without credentials"
+        size="sm"
+      />
       <p
         class="sr-only"
         role="status"
@@ -86,7 +95,6 @@ function limits(values?: Record<string, number>) {
 
     <CapabilityLegend
       kinds
-      signed-in
       explain
       class="mb-2"
     >
@@ -156,7 +164,7 @@ function limits(values?: Record<string, number>) {
                 <NuxtLink
                   :to="provider.to"
                   class="group relative flex flex-col items-center justify-end gap-2 pb-2 font-mono text-[11px] text-muted transition hover:text-highlighted lg:text-xs"
-                  :class="{ 'text-highlighted': index === hoveredColumn || index === highlighted }"
+                  :class="{ 'text-highlighted': index === hoveredColumn || index === highlighted, 'opacity-40': anonymous && !provider.anonymousSummary }"
                   :style="{ height: headerHeight }"
                 >
                   <span class="absolute bottom-9 left-1/2 flex origin-bottom-left -rotate-45 items-center gap-1.5 whitespace-nowrap">
@@ -170,6 +178,10 @@ function limits(values?: Record<string, number>) {
                       v-if="provider.experimental"
                       class="sr-only"
                     >(experimental provider)</span>
+                    <span
+                      v-if="anonymous && !provider.anonymousSummary"
+                      class="sr-only"
+                    >(no anonymous access)</span>
                   </span>
                   <UIcon
                     :name="provider.icon"
@@ -219,7 +231,7 @@ function limits(values?: Record<string, number>) {
                 <span class="sr-only"> {{ describeRow(row) }}</span>
               </th>
               <td
-                v-for="(cell, index) of row.cells"
+                v-for="(cell, index) of cellsFor(row, anonymous)"
                 :key="index"
                 role="cell"
               >
@@ -251,7 +263,7 @@ function limits(values?: Record<string, number>) {
                 class="pt-6 text-left align-bottom text-xs font-normal max-lg:pb-3 lg:pb-6"
               >
                 <span class="block font-mono text-highlighted">Coverage</span>
-                <span class="block text-muted">Native and verified, of {{ total }}</span>
+                <span class="block text-muted">Native and verified, of {{ total }}{{ anonymous ? ', without credentials' : '' }}</span>
               </th>
               <td
                 v-for="provider of providers"
@@ -268,10 +280,10 @@ function limits(values?: Record<string, number>) {
                     :key="level"
                     class="capability-swatch block w-full"
                     :data-level="level"
-                    :style="{ height: `${provider.summary[level] / total * 100}%` }"
+                    :style="{ height: `${summaryFor(provider, anonymous)[level] / total * 100}%` }"
                   />
                 </span>
-                <span class="mt-1.5 block font-mono text-[11px] text-muted tabular-nums">{{ provider.summary.native }}</span>
+                <span class="mt-1.5 block font-mono text-[11px] text-muted tabular-nums">{{ summaryFor(provider, anonymous).native }}</span>
               </td>
             </tr>
           </tfoot>
@@ -296,21 +308,20 @@ function limits(values?: Record<string, number>) {
         </div>
 
         <ul
-          v-if="tip.row.cells[tip.column]!.kinds"
+          v-if="tipCell!.kinds"
           class="mt-3 space-y-1.5"
         >
           <li
-            v-for="kind of tip.row.cells[tip.column]!.kinds"
+            v-for="kind of tipCell!.kinds"
             :key="kind.kind"
             class="flex items-center gap-2"
           >
             <CapabilityCell
               :level="kind.level"
-              :signed-in="kind.signedIn"
               class="[--capability-cell-size:0.75rem]"
             />
             <span class="w-20 font-mono text-toned">{{ kind.label }}</span>
-            <span class="text-muted">{{ supportLabels[kind.level] }}<template v-if="kind.signedIn">, {{ signedInLabel.toLowerCase() }}</template></span>
+            <span class="text-muted">{{ supportLabels[kind.level] }}</span>
           </li>
         </ul>
         <div
@@ -318,17 +329,18 @@ function limits(values?: Record<string, number>) {
           class="mt-3 flex items-center gap-2"
         >
           <CapabilityCell
-            :level="tip.row.cells[tip.column]!.level"
-            :signed-in="tip.row.cells[tip.column]!.signedIn"
+            :level="tipCell!.level"
             class="[--capability-cell-size:0.75rem]"
           />
-          <span class="text-default">{{ supportLabels[tip.row.cells[tip.column]!.level] }}</span>
+          <span class="text-default">{{ supportLabels[tipCell!.level] }}</span>
         </div>
-        <div
-          v-if="tip.row.cells[tip.column]!.signedIn"
-          class="mt-1.5 text-muted"
-        >
-          {{ signedInLabel }}
+        <div class="mt-2 text-muted">
+          <template v-if="tipOther === null">
+            No anonymous access
+          </template>
+          <template v-else>
+            {{ anonymous ? 'With credentials' : 'Without credentials' }}: {{ describeCell(tipOther!).toLowerCase() }}
+          </template>
         </div>
 
         <div
