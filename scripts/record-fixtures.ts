@@ -51,16 +51,6 @@ function isPrivate(value: unknown): boolean {
   return Boolean(item && typeof item === 'object' && (item.private || item.is_private || item.visibility === 'private'))
 }
 
-/** A Forgejo Actions run carries its webhook payload as a JSON string; anything else is redacted as text. */
-function redactPayload(payload: string): unknown {
-  try {
-    return JSON.stringify(redact(JSON.parse(payload)))
-  }
-  catch {
-    return redact(payload)
-  }
-}
-
 function redact(value: unknown): unknown {
   if (typeof value === 'string') {
     return value
@@ -88,8 +78,9 @@ function redact(value: unknown): unknown {
     else if (isUser && key === 'node_id') {
       result[key] = 'REDACTED'
     }
-    else if (key === 'event_payload' && typeof entry === 'string') {
-      result[key] = redactPayload(entry)
+    // A Forgejo Actions run repeats its whole webhook delivery, commit messages and all, and nothing reads it.
+    else if (key === 'event_payload') {
+      continue
     }
     else {
       result[key] = redact(entry)
