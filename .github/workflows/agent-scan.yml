@@ -1,15 +1,16 @@
 name: agent-scan
 
 on:
-  pull_request_target:
+  pull_request_target: # zizmor: ignore[dangerous-triggers] only renames the PR title via the API without checking out anything
     types:
       - closed
 
-permissions:
-  pull-requests: write
+permissions: {}
 
 jobs:
   rename:
+    permissions:
+      pull-requests: write
     if: >-
       !github.event.pull_request.merged
       && contains(github.event.pull_request.labels.*.name, 'possible bot')
