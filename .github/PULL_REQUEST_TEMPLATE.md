@@ -8,12 +8,12 @@
 
 <!-- What does this change, and why? If it concerns a single forge, name it, and for a self-hosted forge, its version. -->
 
-## 🧪 Testing
+### 🧪 Testing
 
 <!-- How was this change tested? -->
 <!-- DON'T DELETE THIS SECTION! If you didn't add tests, explain why. -->
 
-## 📚 Docs
+### 📚 Docs
 
 <!-- Could this affect how people use forges? Then the documentation probably needs an update. -->
 <!-- DON'T DELETE THIS SECTION! If you didn't change the docs, explain why. -->
