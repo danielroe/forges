@@ -471,7 +471,7 @@ function setupForgejo({ origin, fetcher: baseFetcher, baseUrl }: ProviderContext
         return { items, next: next ?? countedNextUrl(url, items.length, total_count === undefined ? null : String(total_count)) }
       },
     })
-    // Forgejo before 16.0 ignores `ref`, so the branch is checked here too.
+    // Forgejo before 15.0 ignores `ref`, so the branch is checked here too.
     return toPage(result, raw => query.branch && actionBranch(raw) !== query.branch ? undefined : toActionRun(repo, raw))
   }
 

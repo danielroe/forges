@@ -59,7 +59,7 @@ Reviews are native. `createReview()` without an `event` creates a pending review
 
 The `ci` methods read Forgejo Actions. Runs need Forgejo 12 or later, jobs and job logs need Forgejo 16. Codeberg runs a current release, so they work there out of the box. For a self-hosted instance, pass `instanceVersion` or call `refreshCapabilities()` first.
 
-Forgejo before 16 ignores the branch filter, so `ci.runs()` drops runs of other branches itself, and a page can come back shorter than `perPage`. `ci.jobs()` returns every job of a run in one page, because Forgejo doesn't page them.
+Forgejo before 15 ignores the branch filter, so `ci.runs()` drops runs of other branches itself, and a page can come back shorter than `perPage`. `ci.jobs()` returns every job of a run in one page, because Forgejo doesn't page them.
 
 ## Changed files
 

@@ -272,7 +272,7 @@ describe('forgejo actions', () => {
   it('pages runs explicitly and keeps the branch where Forgejo ignores `ref`', async () => {
     const urls: string[] = []
     const run = (id: number, prettyref: string, status: string) => ({ id, workflow_id: 'test.yml', index_in_repo: id, prettyref, commit_sha: 'c4a92ff', status, started: '1970-01-01T00:00:00Z', stopped: '2026-10-02T03:42:02Z' })
-    const provider = forgejo({ auth, baseUrl: 'https://git.example.org', instanceVersion: '15.0.2', fetch: async (url) => {
+    const provider = forgejo({ auth, baseUrl: 'https://git.example.org', instanceVersion: '14.0.5', fetch: async (url) => {
       urls.push(String(url))
       return Response.json({ total_count: 3, workflow_runs: [run(3, 'main', 'cancelled'), run(2, '#9', 'failure'), run(1, 'c4a92ff', 'failure')] })
     } }).create()
