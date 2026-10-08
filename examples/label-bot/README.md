@@ -23,7 +23,7 @@ pnpm --filter @forges-examples/label-bot start
 
 Then point the webhook of your forge at `http://<host>:3000/webhooks/<forge>`, for example `/webhooks/github`. If you configure several instances of the same forge, add the host of the instance to the path, as in `/webhooks/gitlab/gitlab.example.com`.
 
-If the signature of a delivery doesn't verify, the bot responds with `401`. For any other delivery, it responds with a JSON list of the actions that it took.
+If the signature of a delivery doesn't verify, the bot responds with `401`. For any other delivery, it responds with a JSON object that has the `forge` and an `actions` list of the actions that it took.
 
 The handler in `src/handler.ts` is a `(request: Request) => Promise<Response>` function, so it runs on any runtime that supports the Fetch API. `src/server.ts` serves it with `node:http`.
 

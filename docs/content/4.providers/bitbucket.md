@@ -19,7 +19,7 @@ The Bitbucket provider works with Bitbucket Cloud (bitbucket.org). It can read a
 
 ## Authentication
 
-The provider accepts an access token or Basic credentials. An access token is an OAuth token, or a repository, project or workspace access token. Basic credentials are either a username with an app password, or the email of an Atlassian account with an API token:
+The provider accepts an access token or Basic credentials. An access token is an OAuth token, or a repository, project or workspace access token. Basic credentials are the email of an Atlassian account together with an API token. Bitbucket Cloud has retired app passwords, so they no longer work:
 
 ```ts
 import { bitbucket } from 'forges/bitbucket'
@@ -31,8 +31,8 @@ const forge = bitbucket({
 const basic = bitbucket({
   auth: {
     type: 'basic',
-    username: process.env.BITBUCKET_USERNAME!,
-    password: process.env.BITBUCKET_APP_PASSWORD!,
+    username: process.env.BITBUCKET_EMAIL!,
+    password: process.env.BITBUCKET_API_TOKEN!,
   },
 }).create()
 ```
