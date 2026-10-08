@@ -230,11 +230,13 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
     const state = query.state ?? 'open'
     const pullStates = state === 'open' ? ['active'] : state === 'merged' ? ['completed'] : state === 'closed' ? ['completed', 'abandoned'] : ['all']
     const phases: Array<(cursor?: Cursor) => Promise<Page<Thread>>> = []
-    if (query.kind !== 'pull_request' && !anonymous) {
-      phases.push(cursor => workItemPage(repo, query, cursor))
-    }
-    else if (query.kind !== 'pull_request' && !query.cursor) {
-      warnings.push({ code: 'kind_unsupported', message: 'Azure DevOps lists work items only to signed-in users; this listing has pull requests only' })
+    if (query.kind !== 'pull_request') {
+      if (!anonymous) {
+        phases.push(cursor => workItemPage(repo, query, cursor))
+      }
+      else if (!query.cursor) {
+        warnings.push({ code: 'kind_unsupported', message: 'Azure DevOps lists work items only to signed-in users; this listing has pull requests only' })
+      }
     }
     if (query.kind !== 'issue') {
       phases.push(...pullStates.map(status => (cursor?: Cursor) => pullPage(repo, status, query, cursor)))
