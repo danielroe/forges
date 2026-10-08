@@ -1,7 +1,8 @@
 import type { ForgeRawRequestOptions, RawResponse } from '../../src/fetch.ts'
-import { describe, expect, expectTypeOf, it, vi } from 'vitest'
+import { afterEach, describe, expect, expectTypeOf, it, vi } from 'vitest'
 import { AuthenticationRequiredError, ForbiddenError, ForgeApiError, InsufficientScopeError, RateLimitedError, ReadOnlyError } from '../../src/errors.ts'
 import { createFetcher, createRequest, parseLinkHeader } from '../../src/fetch.ts'
+import { github } from '../../src/github/index.ts'
 
 describe('parseLinkHeader', () => {
   it('parses multiple relations', () => {
@@ -540,5 +541,35 @@ describe('request()', () => {
     await expect(request('POST', '/graphql', { body: { query: '{ viewer { login } }' }, mutates: false })).resolves.toMatchObject({ status: 200 })
     await expect(request('GET', '/x', { mutates: true })).rejects.toBeInstanceOf(ReadOnlyError)
     expect(sent.map(call => call.method)).toEqual(['GET', 'HEAD', 'OPTIONS', 'POST'])
+  })
+})
+
+describe('user agent', () => {
+  afterEach(() => {
+    vi.unstubAllGlobals()
+  })
+
+  async function sentUserAgent(userAgent?: string): Promise<string | null> {
+    let seen: string | null = null
+    const forge = github({
+      userAgent,
+      fetch: async (_url, init) => {
+        seen = new Headers(init?.headers).get('user-agent')
+        return new Response('{}', { status: 200 })
+      },
+    }).create()
+    await forge.request('GET', '/rate_limit')
+    return seen
+  }
+
+  it('identifies the library outside a browser', async () => {
+    expect(await sentUserAgent()).toBe('forges')
+  })
+
+  it('leaves the user agent to a browser, unless the caller sets one', async () => {
+    vi.stubGlobal('document', {})
+
+    expect(await sentUserAgent()).toBeNull()
+    expect(await sentUserAgent('my-app')).toBe('my-app')
   })
 })
