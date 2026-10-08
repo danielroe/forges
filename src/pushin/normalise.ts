@@ -11,7 +11,7 @@ export function toActor(origin: ForgeOrigin, user: PushinUser | undefined | null
   return {
     ...origin,
     login: user.login,
-    id: user.id,
+    id: String(user.id ?? user.login),
     name: user.name ?? undefined,
     avatarUrl: user.avatar_url,
     url: user.html_url,
@@ -26,7 +26,7 @@ export function toRepoRef(origin: ForgeOrigin, raw: PushinRepository): RepoRef {
     ...origin,
     owner: raw.owner?.login ?? owner ?? '',
     name: raw.name ?? name ?? '',
-    externalId: raw.id,
+    externalId: raw.node_id ?? String(raw.id),
   }
 }
 
@@ -103,7 +103,7 @@ export function toCollaborator(origin: ForgeOrigin, raw: PushinCollaborator): Co
 
 export function toComment(thread: ThreadRef, raw: PushinComment): Comment {
   return {
-    ref: { forge: FORGE, instance: thread.instance, thread, id: raw.id },
+    ref: { forge: FORGE, instance: thread.instance, thread, id: String(raw.id) },
     body: raw.body,
     author: toActor({ forge: FORGE, instance: thread.instance }, raw.user),
     createdAt: toDate(raw.created_at),
@@ -128,7 +128,7 @@ export function toNotification(origin: ForgeOrigin, raw: PushinNotification): No
   const kind = raw.subject.type === 'Issue' ? 'issue' : raw.subject.type === 'PullRequest' ? 'pull_request' : undefined
   const number = /\/(\d+)\/?$/.exec(raw.subject.url)?.[1]
   return {
-    ref: { ...origin, id: raw.id },
+    ref: { ...origin, id: String(raw.id) },
     subject: kind && number
       ? { type: 'thread', thread: { ...origin, repo, kind, number } }
       : { type: 'other', typeRaw: raw.subject.type, repo, url: raw.subject.url },
@@ -151,7 +151,7 @@ export function toThread(ref: ResolvedThreadRef, raw: PushinThread): Thread {
   const merged = kind === 'pull_request' && (raw.merged || raw.merged_at || raw.pull_request?.merged_at || raw.state === 'merged')
   const state = merged ? 'merged' : raw.state === 'closed' ? 'closed' : 'open'
   return {
-    ref: { ...ref, kind, externalId: raw.id },
+    ref: { ...ref, kind, externalId: raw.node_id ?? String(raw.id) },
     kind,
     title: raw.title,
     body: raw.body ?? undefined,

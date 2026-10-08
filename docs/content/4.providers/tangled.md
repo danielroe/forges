@@ -1,7 +1,7 @@
 ---
 title: Tangled
 description: "Use Tangled, a forge built on atproto: issues, pulls, comments, live events and webhooks."
-icon: i-lucide-spool
+icon: i-custom-tangled
 ---
 
 The Tangled provider covers [Tangled](https://tangled.org), a forge built on atproto. It reads and writes issues, pulls and comments. It also streams live events from Jetstream and verifies incoming push webhooks. Tangled has no reviews, checks, releases or repository contents API, so those capabilities are `false`.

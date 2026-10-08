@@ -1,5 +1,5 @@
 export interface PushinUser {
-  id: string
+  id?: number | string
   login: string
   type?: string
   name?: string | null
@@ -9,7 +9,8 @@ export interface PushinUser {
 }
 
 export interface PushinRepository {
-  id: string
+  id: number | string
+  node_id?: string
   name: string
   full_name: string
   owner?: PushinUser | null
@@ -31,16 +32,16 @@ export interface PushinRepository {
 }
 
 export interface PushinComment {
-  id: string
+  id: number | string
   user?: PushinUser | null
   body: string
   created_at?: string
   updated_at?: string
-  in_reply_to_id?: string | null
+  in_reply_to_id?: number | string | null
 }
 
 export interface PushinLabel {
-  id: string
+  id: number | string
   name: string
   description?: string | null
   color?: string | null
@@ -53,7 +54,8 @@ export interface PushinCollaborator extends PushinUser {
 }
 
 export interface PushinThread {
-  id: string
+  id: number | string
+  node_id?: string
   number: number
   title: string
   body?: string | null
@@ -78,7 +80,7 @@ export interface PushinThread {
 }
 
 export interface PushinNotification {
-  id: string
+  id: number | string
   html_url?: string
   last_read_at?: string | null
   reason: string

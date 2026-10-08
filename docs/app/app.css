@@ -9,6 +9,46 @@ body {
   font-family: var(--font-sans);
 }
 
+:root {
+  --code-background: var(--ui-bg-elevated);
+  --code-text: var(--ui-text);
+  --code-comment: var(--ui-text-dimmed);
+  --code-string: var(--ui-color-primary-700);
+  --code-keyword: var(--ui-color-secondary-700);
+  --code-literal: var(--ui-color-primary-800);
+  --code-strong: var(--ui-text-highlighted);
+}
+
+.dark {
+  --code-string: var(--ui-color-primary-300);
+  --code-keyword: var(--ui-color-secondary-300);
+  --code-literal: var(--ui-color-primary-400);
+}
+
+/* One focus indicator for every control, whatever ring or outline its component sets. */
+:focus-visible {
+  outline: 2px solid var(--ui-primary);
+  outline-offset: 2px;
+  --tw-ring-color: var(--ui-border-accented);
+}
+
+:focus-visible::before,
+:focus-visible::after {
+  --tw-ring-color: transparent;
+}
+
+.syntax-code span {
+  color: var(--shiki-default, inherit);
+  font-style: var(--shiki-default-font-style, inherit);
+  font-weight: var(--shiki-default-font-weight, inherit);
+}
+
+.dark .syntax-code span {
+  color: var(--shiki-dark, inherit);
+  font-style: var(--shiki-dark-font-style, inherit);
+  font-weight: var(--shiki-dark-font-weight, inherit);
+}
+
 h1,
 h2,
 .font-display {

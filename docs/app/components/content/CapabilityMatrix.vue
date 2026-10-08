@@ -369,7 +369,6 @@ function limits(values?: Record<string, number>) {
     </h3>
     <div
       class="overflow-x-auto rounded-md border border-default"
-      tabindex="0"
       role="region"
       aria-label="Authentication and limits"
     >

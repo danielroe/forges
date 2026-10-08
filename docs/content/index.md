@@ -1,7 +1,7 @@
 ---
 seo:
-  title: One TypeScript API for every code forge
-  description: Work with issues, pull requests, notifications, checks and webhooks on every code forge through one typed API
+  title: One TypeScript client, every forge
+  description: Work with issues, pull requests, notifications, checks and webhooks on every forge through one typed client
 ---
 
 ::landing-page

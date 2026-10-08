@@ -1,28 +1,12 @@
 <script setup lang="ts">
 // Docus header with an added npmx link.
-const appConfig = useAppConfig()
 const { forced: forcedColorMode } = useDocusColorMode()
 
 const { isEnabled: isAssistantEnabled } = useAssistant()
 const { isEnabled, locales } = useDocusI18n()
 const { subNavigationMode } = useSubNavigation()
 
-const links = computed(() => [
-  ...(appConfig.github && appConfig.github.url
-    ? [{
-        'icon': 'i-simple-icons-github',
-        'to': appConfig.github.url,
-        'target': '_blank',
-        'aria-label': 'forges on GitHub',
-      }]
-    : []),
-  {
-    'icon': 'i-custom-npmx',
-    'to': 'https://npmx.dev/package/forges',
-    'target': '_blank',
-    'aria-label': 'forges on npmx',
-  },
-])
+const links = useHeaderLinks()
 </script>
 
 <template>

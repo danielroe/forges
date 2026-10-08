@@ -32,7 +32,7 @@ const links = [
             <AppHeaderLogo />
           </NuxtLink>
           <p class="mt-3 text-sm text-muted">
-            one API for every code forge.
+            one client, every forge.
           </p>
         </div>
 

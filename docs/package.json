@@ -2,7 +2,7 @@
   "name": "forges-docs",
   "type": "module",
   "private": true,
-  "description": "One API for every code forge: issues, pull requests, notifications, checks and webhooks.",
+  "description": "One client, every forge: issues, pull requests, notifications, checks and webhooks.",
   "scripts": {
     "dev": "nuxt dev",
     "build": "nuxt build",
@@ -14,9 +14,11 @@
     "@iconify-json/vscode-icons": "1.2.85",
     "@nuxt/fonts": "0.14.0",
     "@nuxtjs/critters": "0.10.1",
+    "@shikijs/twoslash": "4.5.0",
     "docus": "5.14.0",
     "forges": "workspace:*",
     "nuxt": "^4.6.0",
-    "shiki": "4.5.0"
+    "shiki": "4.5.0",
+    "twoslash": "0.3.9"
   }
 }

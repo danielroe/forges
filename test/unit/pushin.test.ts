@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { UnsupportedOperationError } from '../../src/errors.ts'
 import { pushin } from '../../src/pushin/index.ts'
-import { toLabel, toNotification, toThread } from '../../src/pushin/normalise.ts'
+import { toComment, toLabel, toNotification, toRepo, toThread } from '../../src/pushin/normalise.ts'
 import { fixtureFetch } from '../../src/testing/index.ts'
 
 const origin = { forge: 'pushin', instance: 'pushin.eu' } as const
@@ -60,6 +60,15 @@ describe('pushin', () => {
       state: 'merged',
       stateRaw: 'merged',
     })
+  })
+
+  it('normalises integer ids to strings and prefers node_id as the external id', () => {
+    const user = { id: 7, login: 'octo' }
+    expect(toThread(issue, { ...raw, id: 31, user })).toMatchObject({ ref: { externalId: '31' }, author: { id: '7' } })
+    expect(toThread(issue, { ...raw, id: 31, node_id: 'iss_31' }).ref.externalId).toBe('iss_31')
+    expect(toComment(issue, { id: 9, body: '', user }).ref.id).toBe('9')
+    expect(toRepo(origin, { id: 5, node_id: 'repo_5', name: 'widgets', full_name: 'acme/widgets', owner: { login: 'acme' } }).ref.externalId).toBe('repo_5')
+    expect(toNotification(origin, { id: 3, repository: { id: 5, name: 'widgets', full_name: 'acme/widgets' }, subject: { title: '', type: 'Issue', url: '' }, reason: 'mention', unread: true, updated_at: '' })).toMatchObject({ ref: { id: '3' }, subject: { repo: { externalId: '5' } } })
   })
 
   it('preserves hex label colours and omits colour names', () => {
