@@ -52,6 +52,8 @@ packages:
 
 overrides:
   forges: 'workspace:*'
+  # Newer versions overflow the stack in `remark-mdc`, which breaks `llms-full.txt`: https://github.com/nuxt-content/remark-mdc/issues/161
+  mdast-util-to-markdown: 2.1.2
 
 patchedDependencies:
   '@nuxt/ui@4.11.3': patches/@nuxt__ui@4.11.3.patch
