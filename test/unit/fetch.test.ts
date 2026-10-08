@@ -269,6 +269,13 @@ describe('403 classification', () => {
     expect(error).toBeInstanceOf(RateLimitedError)
   })
 
+  it('keeps a 403 that only quotes a rate limit as InsufficientScopeError', async () => {
+    const error = await forbidden('{"message":"The issue says: rate limit exceeded after 3 tries"}').json('/thing').catch((error: unknown) => error)
+
+    expect(error).toBeInstanceOf(InsufficientScopeError)
+    expect(error).not.toBeInstanceOf(RateLimitedError)
+  })
+
   it('keeps a scope mismatch as InsufficientScopeError', async () => {
     const error = await forbidden('{"message":"nope"}', { 'x-accepted-oauth-scopes': 'repo', 'x-oauth-scopes': 'read:user' })
       .json('/thing')

@@ -101,6 +101,8 @@ const BODY_EXCERPT_LENGTH = 512
 
 const REDIRECT_STATUSES = new Set([301, 302, 303, 307, 308])
 
+/** A forge's plain-text rate limit refusal, such as Gitee's `403 Forbidden (Rate Limit Exceeded)`. */
+const PLAIN_RATE_LIMIT_RE = /^[^{<]{0,80}\brate limit exceeded\b/i
 const DOT_SEGMENT_RE = /^(?:\.|%2e){1,2}$/i
 
 /** Parses an RFC 5988 `Link` header into a map of rel to URL. */
@@ -445,8 +447,9 @@ export function createFetcher(options: FetcherOptions): Fetcher {
       throw new NotFoundError(`Nothing found at ${options_.method ?? 'GET'} ${url}, or the credential cannot see it`, 404, body, context)
     }
 
-    // Some forges, such as Gitee, report a rate limit as a 403 with no rate limit headers.
-    if (isRateLimited(response) || (response.status === 403 && !rateLimitOf(response) && /\brate limit exceeded\b/i.test(body))) {
+    // Some forges, such as Gitee, report a rate limit as a short plain-text 403 with no rate limit headers.
+    // Only a body that starts with the phrase counts, so a message that quotes it stays a `ForbiddenError`.
+    if (isRateLimited(response) || (response.status === 403 && !rateLimitOf(response) && PLAIN_RATE_LIMIT_RE.test(body.trim()))) {
       const secondary = response.status === 403 || response.headers.has('retry-after')
       const wait = retryAfterMs(response)
       if (secondary && attempt === 0 && wait !== undefined && wait <= 60_000) {
