@@ -26,12 +26,12 @@ function provider(overrides = {}) {
 
 describe('gitlab provider', () => {
   it('falls back to the user search when the profile needs credentials', async () => {
-    const fetch = async (url: string) => url.includes('/users?')
-      ? Response.json([{ id: 7, username: 'alice', name: 'Alice', avatar_url: 'https://gitlab.com/a.png', web_url: 'https://gitlab.com/alice' }])
-      : Response.json({ message: '403 Forbidden - Not authorized!' }, { status: 403 })
-    const user = await gitlab({ fetch }).create().users.get('alice')
+    const { fetch } = fixtureFetch('gitlab/recorded/gitlab.com', {
+      'GET https://gitlab.com/api/v4/users/8420142': { status: 403, headers: {}, body: { message: '403 Forbidden - Not authorized!' } },
+    })
+    const user = await gitlab({ fetch }).create().users.get('gitlab-dependency-update-bot')
 
-    expect(user).toMatchObject({ login: 'alice', id: '7', name: 'Alice', url: 'https://gitlab.com/alice' })
+    expect(user).toMatchObject({ login: 'gitlab-dependency-update-bot', id: '8420142', name: 'GitLab Dependency Bot', url: 'https://gitlab.com/gitlab-dependency-update-bot' })
   })
 
   it('appends the api prefix and reports the instance host', () => {

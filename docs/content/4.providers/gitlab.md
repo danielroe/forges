@@ -31,7 +31,7 @@ const forge = gitlab({
 
 Project and group access tokens act as bot users. Use one when you need a credential that isn't tied to a person.
 
-Without `auth`, the provider makes anonymous public reads. GitLab serves issue and merge request comments only to signed-in users, even on public projects, so an anonymous provider reports `threads.comments` unsupported for them. Reading their events without a token fails with `AuthenticationRequiredError`.
+Without `auth`, the provider makes anonymous public reads. GitLab serves issue and merge request comments only to signed-in users, even on public projects, so an anonymous provider reports `threads.comments` unsupported for them. Reading their events without a token fails with `AuthenticationRequiredError`. GitLab.com shows full profiles only to signed-in users, so anonymous `users.get()` returns the login, ID, name, avatar, and URL without `bio`, `createdAt`, or follower counts.
 
 ## Self-managed instances
 
