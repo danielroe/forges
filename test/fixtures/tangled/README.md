@@ -2,8 +2,7 @@
 
 Every fixture here is hand-authored. Shapes follow the `sh.tangled.*` lexicons
 (Tangled core at `7fcec78`, via `@atcute/tangled`) and records, Constellation
-responses and Jetstream messages observed live while writing them, with every
-value replaced.
+responses and Jetstream messages observed live, with every value replaced.
 
 - `plc-*.json`: DID documents from `plc.directory`.
 - `record-*.json`: `com.atproto.repo.getRecord` from the author's PDS.

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-// Docus header with an added npmx link.
+// The Docus header, with an npmx link.
 const { forced: forcedColorMode } = useDocusColorMode()
 
 const { isEnabled: isAssistantEnabled } = useAssistant()

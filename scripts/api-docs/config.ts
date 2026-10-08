@@ -16,7 +16,7 @@ export const ENTRIES: Record<string, string> = {
 /** Where the reference pages go, under the content directory. */
 export const REFERENCE_DIRECTORY = '5.reference'
 
-/** Directories that hold generated pages, so that a run removes the pages it no longer writes. */
+/** Directories that hold generated pages. A run removes the generated pages in them before it writes new ones. */
 export const GENERATED_DIRECTORIES = [REFERENCE_DIRECTORY, '7.contributing']
 
 const FORGE_DATA_RE = /^(?:raw|payload)$|Raw$/

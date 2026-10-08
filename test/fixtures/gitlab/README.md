@@ -1,9 +1,8 @@
 # GitLab fixtures
 
-Every fixture here is hand-authored from the public GitLab REST API
-documentation. gitlab.com was not reachable from the environment that wrote
-them, so none has been checked against a live response yet. Run
-`pnpm record-fixtures gitlab` to record real reads into `recorded/`.
+The fixtures outside `recorded/` are hand-authored from the public GitLab REST
+API documentation. `recorded/` holds reads recorded by
+`pnpm record-fixtures gitlab`.
 
 The project lives in a nested group (`acme/platform/widgets`) so the namespace
 handling is exercised. The page 2 to-do points at a group-level epic with no

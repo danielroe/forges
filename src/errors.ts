@@ -99,7 +99,7 @@ export class ForbiddenError extends ForgeApiError {
   override name = 'ForbiddenError'
   /** Why the forge refused the request. */
   readonly reason: ForbiddenReason
-  /** The forge's own wording, for diagnostics and for reasons not yet mapped. */
+  /** The forge's own wording, for diagnostics and for reasons that have no `ForbiddenReason`. */
   readonly reasonRaw?: string
 
   constructor(message: string, status: number, body: string, reason: ForbiddenReason, context?: ForgeErrorContext & { reasonRaw?: string }, options?: ErrorOptions) {

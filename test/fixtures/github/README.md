@@ -1,8 +1,8 @@
 # GitHub fixtures
 
-Every fixture here is hand-authored from the public GitHub REST documentation
-rather than recorded, because no credential was available in this worktree.
-Refresh recordable ones with `pnpm record-fixtures` once a token is present.
+The fixtures outside `recorded/` are hand-authored from the public GitHub REST
+documentation. `recorded/` holds reads recorded by `pnpm record-fixtures github`,
+which needs a token.
 
 `app-installation-token.json` and the webhook payloads in `test/contract/`
 cannot be recorded by that script at all: they need a GitHub App and a live

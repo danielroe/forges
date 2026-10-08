@@ -154,7 +154,7 @@ export interface Repo {
 
 /**
  * Kind of thread. `'other'` holds forge-specific subjects with no shared kind
- * yet (check suites, epics); `typeRaw` names them.
+ * (check suites, epics); `typeRaw` names them.
  */
 export type ThreadKind = 'issue' | 'pull_request' | 'discussion' | 'commit' | 'other'
 
@@ -1128,7 +1128,7 @@ export interface Notification {
 }
 
 /**
- * Opaque-ish resumption token. Fields are optional because forges differ in
+ * Resumption token. Fields are optional because forges differ in
  * what they support; callers should persist the whole object and hand it back.
  */
 export interface Cursor {

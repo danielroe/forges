@@ -1,8 +1,8 @@
 # Forgejo fixtures
 
-Every fixture here is hand-authored from the public Forgejo and Gitea Swagger
-documentation rather than recorded, because no credential was available in this
-worktree. Refresh them with `pnpm record-fixtures` once a token is present.
+The fixtures outside `recorded/` are hand-authored from the public Forgejo and
+Gitea Swagger documentation. `recorded/` holds reads recorded by
+`pnpm record-fixtures forgejo`, which needs a token.
 
 Values are deliberately distinct: notification ids are `551x`, thread numbers
 are `7` and `9`, comment ids are `88000x`, timeline ids are `7701xx`.
