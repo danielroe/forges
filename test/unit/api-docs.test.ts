@@ -27,6 +27,11 @@ afterAll(() => {
 
 const BANNER = '<!-- Do not edit by hand: `pnpm docs:api` writes this page from the JSDoc comments in `src/`. -->'
 
+/** A page as the generator writes it: front matter, then the banner. */
+function generatedPage(text: string): string {
+  return `---\ntitle: "Page"\n---\n\n${BANNER}\n\n${text}\n`
+}
+
 const OPTIONS: PagesOptions = {
   basePath: '/api',
   directory: 'reference',
@@ -325,12 +330,31 @@ describe('writeFiles', () => {
     const directory = temporary()
     mkdirSync(join(directory, 'reference'))
     writeFileSync(join(directory, 'reference/11.hand.md'), 'mine')
-    writeFiles(directory, [{ path: 'reference/01.old.md', content: `${BANNER}\nold` }])
-    writeFiles(directory, [{ path: 'reference/02.new.md', content: `${BANNER}\nnew` }])
+    writeFiles(directory, [{ path: 'reference/01.old.md', content: generatedPage('old') }])
+    writeFiles(directory, [{ path: 'reference/02.new.md', content: generatedPage('new') }])
 
     expect(existsSync(join(directory, 'reference/01.old.md'))).toBe(false)
     expect(readFileSync(join(directory, 'reference/02.new.md'), 'utf8')).toContain('new')
     expect(readFileSync(join(directory, 'reference/11.hand.md'), 'utf8')).toBe('mine')
+  })
+
+  it('does not remove a hand-written page that quotes the banner', () => {
+    const directory = temporary()
+    mkdirSync(join(directory, 'reference'))
+    writeFileSync(join(directory, 'reference/11.hand.md'), `---\ntitle: "Hand"\n---\n\nThe generator writes this banner:\n\n${BANNER}\n`)
+    writeFiles(directory, [{ path: 'reference/02.new.md', content: generatedPage('new') }])
+
+    expect(existsSync(join(directory, 'reference/11.hand.md'))).toBe(true)
+  })
+
+  it('keeps the earlier pages when a target is taken by a hand-written page', () => {
+    const directory = temporary()
+    mkdirSync(join(directory, 'reference'))
+    writeFiles(directory, [{ path: 'reference/01.old.md', content: generatedPage('old') }])
+    writeFileSync(join(directory, 'reference/02.hand.md'), 'mine')
+
+    expect(() => writeFiles(directory, [{ path: 'reference/02.hand.md', content: generatedPage('new') }])).toThrow('was not generated')
+    expect(existsSync(join(directory, 'reference/01.old.md'))).toBe(true)
   })
 
   it('refuses to overwrite a page that it did not write', () => {

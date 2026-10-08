@@ -50,7 +50,7 @@ export type TangledAuth
 
 /** Options for `tangled()`. */
 export interface TangledOptions extends ForgeOptionsBase {
-  /** An app password session, or none for anonymous reads. */
+  /** An app password session, an OAuth client that signs requests, or none for anonymous reads. */
   auth?: TangledAuth
   /**
    * Appview web root, used for links and as the `instance`.
