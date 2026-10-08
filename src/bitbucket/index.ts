@@ -85,8 +85,7 @@ import { bitbucketWebhooks } from './webhooks.ts'
  *
  * - `token`: an OAuth access token or a repository, project or workspace
  *   access token, sent as a bearer token.
- * - `basic`: a username and app password, or an Atlassian account email and
- *   API token.
+ * - `basic`: an Atlassian account email and API token.
  */
 export type BitbucketAuth = TokenAuth | BasicAuth | AnonymousAuth
 
