@@ -279,7 +279,7 @@ describe('forgejo actions', () => {
 
     const page = await provider.ci.runsPage(repo, { branch: 'main', state: 'failure' })
 
-    expect(urls).toEqual(['https://git.example.org/api/v1/repos/acme/widgets/actions/runs?ref=refs%2Fheads%2Fmain&status=failure&page=1&limit=50'])
+    expect(urls).toEqual(['https://git.example.org/api/v1/repos/acme/widgets/actions/runs?status=failure&status=cancelled&ref=refs%2Fheads%2Fmain&page=1&limit=50'])
     expect(page.items).toMatchObject([{ number: '3', branch: 'main', state: 'failure', stateRaw: 'cancelled', startedAt: undefined }])
   })
 

@@ -111,8 +111,8 @@ const ISSUE_AND_PULL = { issue: true, pull_request: true } as const
 const FORGEJO_ACTION_RUNS = '12.0'
 const FORGEJO_ACTION_JOBS = '16.0'
 
-/** The Actions run status filter per normalised state; `pending` covers running runs only. */
-const ACTION_STATES: Record<Exclude<CheckState, 'unknown'>, string> = { pending: 'running', success: 'success', failure: 'failure', neutral: 'skipped' }
+/** Every Actions run status behind each normalised state, as the repeated `status` filter takes them. */
+const ACTION_STATES: Record<Exclude<CheckState, 'unknown'>, string[]> = { pending: ['waiting', 'running', 'blocked'], success: ['success'], failure: ['failure', 'cancelled'], neutral: ['skipped'] }
 
 /** Timelines send no usable count, so only a full page of an explicit size shows that another follows. */
 const TIMELINE_PAGE_SIZE = 50
@@ -458,11 +458,11 @@ function setupForgejo({ origin, fetcher: baseFetcher, baseUrl }: ProviderContext
   }
 
   async function runsPage(repo: RepoRef, query: CiRunQuery = {}): Promise<Page<CiRun>> {
-    const result = await fetcher.page<ForgejoActionRun>(`${repoPath(repo)}/actions/runs`, {
+    const statuses = query.state ? `?${ACTION_STATES[query.state].map(status => `status=${status}`).join('&')}` : ''
+    const result = await fetcher.page<ForgejoActionRun>(`${repoPath(repo)}/actions/runs${statuses}`, {
       // Without `page`, Forgejo ignores `limit` and sends the whole run history.
       query: {
         ref: query.branch ? `refs/heads/${query.branch}` : undefined,
-        status: query.state && ACTION_STATES[query.state],
         page: 1,
         limit: query.perPage ?? 50,
       },
