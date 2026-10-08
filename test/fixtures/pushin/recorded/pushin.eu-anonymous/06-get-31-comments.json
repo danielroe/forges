@@ -1,0 +1,63 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://pushin.eu/api/v1/repos/pjullrich/pushin/issues/31/comments?per_page=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "x-ratelimit-remaining": "83",
+      "x-ratelimit-reset": "1791478800"
+    },
+    "body": [
+      {
+        "id": 1723,
+        "user": {
+          "id": 2,
+          "type": "User",
+          "avatar_url": "https://cdn.pushin.eu/-/avatars/u_033jgKZKCNGC2kCrD0IBBG/72d51f75",
+          "html_url": "https://pushin.eu/pjullrich",
+          "login": "pjullrich",
+          "node_id": "REDACTED"
+        },
+        "body": "Uh that’s would be very interesting but there are so many languages and package managers I’d need to monitor 🤔 which language support would you need?",
+        "updated_at": "2026-09-11T08:48:49.232057Z",
+        "created_at": "2026-09-10T19:35:19.796240Z",
+        "in_reply_to_id": null,
+        "node_id": "com_034MYshdfLIStFvBci89ad"
+      },
+      {
+        "id": 1729,
+        "user": {
+          "id": 207,
+          "type": "User",
+          "avatar_url": "https://cdn.pushin.eu/-/avatars/u_034JlTWNDVWjH6SVRWjBXp/b4c80fd1",
+          "html_url": "https://pushin.eu/woutor",
+          "login": "woutor",
+          "node_id": "REDACTED"
+        },
+        "body": "Yes, I understand it's a longshot. Currently my stack is based on Python (uv) and Docker, with some golang on the side. I've also seen alternatives like https://www.mend.io/renovate/. I'll have a look into those soon.",
+        "updated_at": "2026-09-11T10:08:47.760333Z",
+        "created_at": "2026-09-11T09:54:29.783531Z",
+        "in_reply_to_id": 1723,
+        "node_id": "com_034Mtxxbwc3yWMgib1YSC1"
+      },
+      {
+        "id": 1956,
+        "user": {
+          "id": 335,
+          "type": "User",
+          "avatar_url": "https://cdn.pushin.eu/-/avatars/u_034L7K1lsejurUtw96HCS7",
+          "html_url": "https://pushin.eu/asgeirn",
+          "login": "asgeirn",
+          "node_id": "REDACTED"
+        },
+        "body": "The most likely candidate in my view would be Renovate, this one supports a large number of package managers and already has support for Forgejo / Gitea in addition to GitHub.",
+        "updated_at": "2026-09-25T20:51:38.356915Z",
+        "created_at": "2026-09-21T08:53:49.022340Z",
+        "in_reply_to_id": null,
+        "node_id": "com_034SZrprBqvZTfuO869bVT"
+      }
+    ]
+  }
+}

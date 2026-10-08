@@ -6,9 +6,10 @@
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"a5887f1f1c8ce031ed24eb899bfe534d\"",
-      "ratelimit-remaining": "482",
-      "ratelimit-reset": "1791474000"
+      "etag": "W/\"fd6721bdde3f9ea1796ecebf499406a0\"",
+      "ratelimit-limit": "500",
+      "ratelimit-remaining": "487",
+      "ratelimit-reset": "1791477420"
     },
     "body": {
       "id": 205066734,
@@ -27,7 +28,7 @@
         "name": "Kai Armstrong",
         "state": "active",
         "locked": false,
-        "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/2935693/avatar.png?v=1791470810",
+        "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/2935693/avatar.png?v=1791475756",
         "web_url": "https://gitlab.com/phikai"
       },
       "labels": [

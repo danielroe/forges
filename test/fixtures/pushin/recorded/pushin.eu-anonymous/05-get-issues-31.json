@@ -1,0 +1,45 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://pushin.eu/api/v1/repos/pjullrich/pushin/issues/31"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "x-ratelimit-remaining": "84",
+      "x-ratelimit-reset": "1791478800"
+    },
+    "body": {
+      "id": 5576,
+      "state": "open",
+      "user": {
+        "id": 207,
+        "type": "User",
+        "avatar_url": "https://cdn.pushin.eu/-/avatars/u_034JlTWNDVWjH6SVRWjBXp/b4c80fd1",
+        "html_url": "https://pushin.eu/woutor",
+        "login": "woutor",
+        "node_id": "REDACTED"
+      },
+      "number": 31,
+      "title": "Dependabot replacement",
+      "body": "Hi, \n\nThanks for creating pushin. I moved most of my repo's over from GitHub. But what keeps me from migrating my production repo's is dependabot. I'm addicted to it :D I understand this might not be so easy, but still like to mention it. Also, I wouldn't mind if this was part of a paid plan.\n\nKind regards,\nWouter",
+      "labels": [
+        {
+          "default": false,
+          "id": 3800,
+          "name": "Future",
+          "description": null,
+          "color": "8250df",
+          "node_id": "lab_034MPnNCl9jhodaCWwhgPO"
+        }
+      ],
+      "url": "https://pushin.eu/api/v1/repos/pjullrich/pushin/issues/31",
+      "updated_at": "2026-09-10T18:50:47.132932Z",
+      "created_at": "2026-09-10T18:49:04.985025Z",
+      "closed_at": null,
+      "html_url": "https://pushin.eu/pjullrich/pushin/issues/31",
+      "node_id": "iss_034MXkKugnsXKXVjgfZAN1",
+      "repository_url": "https://pushin.eu/api/v1/repos/pjullrich/pushin"
+    }
+  }
+}

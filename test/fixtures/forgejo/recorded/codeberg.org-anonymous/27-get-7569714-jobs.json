@@ -1,0 +1,27 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/actions/runs/7569714/jobs"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": [
+      {
+        "id": 13879413,
+        "run_id": 7569714,
+        "attempt": 1,
+        "handle": "5caf88f5-b191-4617-8ffe-a65497de8ce5",
+        "repo_id": 73144,
+        "owner_id": 70422,
+        "name": "set",
+        "needs": null,
+        "runs_on": [
+          "docker"
+        ],
+        "task_id": 10241088,
+        "status": "success"
+      }
+    ]
+  }
+}

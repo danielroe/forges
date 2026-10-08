@@ -1,0 +1,54 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/repository/commits/main"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"d5f3aa408cb48949c3783573ea213d37\"",
+      "ratelimit-limit": "500",
+      "ratelimit-remaining": "473",
+      "ratelimit-reset": "1791477480"
+    },
+    "body": {
+      "id": "8ae0c0ef5cf94d75354053095bbdc2ec7fefd96f",
+      "short_id": "8ae0c0ef",
+      "created_at": "2026-10-07T16:53:26.000-05:00",
+      "parent_ids": [
+        "2da6525661e7508e9a6990d4d3981f2d4e2b0ff5",
+        "c96c824fc26597ea5a27a3e5a0aad746f7a4baf9"
+      ],
+      "title": "Merge branch 'docs/update-code-of-conduct-link' into 'main'",
+      "message": "Merge branch 'docs/update-code-of-conduct-link' into 'main'\n\ndocs: update Code of Conduct link in README\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/3999\n\nMerged-by: Kai Armstrong <redacted@example.invalid>\nApproved-by: Kai Armstrong <redacted@example.invalid>\nCo-authored-by: Ahmed Anwar <redacted@example.invalid>",
+      "author_name": "Kai Armstrong",
+      "author_email": "redacted@example.invalid",
+      "authored_date": "2026-10-07T16:53:26.000-05:00",
+      "committer_name": "GitLab",
+      "committer_email": "redacted@example.invalid",
+      "committed_date": "2026-10-07T16:53:26.000-05:00",
+      "trailers": {},
+      "extended_trailers": {},
+      "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/8ae0c0ef5cf94d75354053095bbdc2ec7fefd96f",
+      "stats": {
+        "additions": 1,
+        "deletions": 1,
+        "total": 2
+      },
+      "status": "success",
+      "project_id": 34675721,
+      "last_pipeline": {
+        "id": 2924614571,
+        "iid": 14897,
+        "project_id": 34675721,
+        "sha": "8ae0c0ef5cf94d75354053095bbdc2ec7fefd96f",
+        "ref": "main",
+        "status": "success",
+        "source": "schedule",
+        "created_at": "2026-10-08T01:13:50.317Z",
+        "updated_at": "2026-10-08T01:25:41.004Z",
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/pipelines/2924614571"
+      }
+    }
+  }
+}

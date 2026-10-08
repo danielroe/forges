@@ -1,0 +1,14 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/pullrequests/37/diffstat?pagelen=3"
+  },
+  "response": {
+    "status": 302,
+    "headers": {
+      "location": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/diffstat/neelabo/neeview:8215aaf2e487%0Dda15924148db?pagelen=3&from_pullrequest_id=37&topic=true",
+      "x-ratelimit-remaining": "49",
+      "x-ratelimit-reset": "2166"
+    }
+  }
+}

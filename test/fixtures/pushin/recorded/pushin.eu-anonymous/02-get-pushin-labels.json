@@ -1,0 +1,23 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://pushin.eu/api/v1/repos/pjullrich/pushin/labels?per_page=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "x-ratelimit-remaining": "88",
+      "x-ratelimit-reset": "1791478800"
+    },
+    "body": [
+      {
+        "default": false,
+        "id": 3800,
+        "name": "Future",
+        "description": null,
+        "color": "8250df",
+        "node_id": "lab_034MPnNCl9jhodaCWwhgPO"
+      }
+    ]
+  }
+}

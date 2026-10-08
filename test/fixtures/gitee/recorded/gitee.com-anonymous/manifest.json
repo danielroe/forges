@@ -1,0 +1,69 @@
+{
+  "baseUrl": "https://gitee.com/api/v5",
+  "anonymous": true,
+  "repo": {
+    "forge": "gitee",
+    "instance": "gitee.com",
+    "owner": "cmcc-oneos",
+    "name": "OneOS"
+  },
+  "pull": {
+    "forge": "gitee",
+    "instance": "gitee.com",
+    "repo": {
+      "forge": "gitee",
+      "instance": "gitee.com",
+      "owner": "cmcc-oneos",
+      "name": "OneOS"
+    },
+    "kind": "pull_request",
+    "number": "550"
+  },
+  "issue": {
+    "forge": "gitee",
+    "instance": "gitee.com",
+    "repo": {
+      "forge": "gitee",
+      "instance": "gitee.com",
+      "owner": "cmcc-oneos",
+      "name": "OneOS"
+    },
+    "kind": "issue",
+    "number": "I8NUPF"
+  },
+  "recordedAt": "2026-10-08T19:11:38.833Z",
+  "steps": [
+    "repo",
+    "labels",
+    "collaborators",
+    "pull",
+    "pull list",
+    "pull getMany",
+    "pull events",
+    "pull comments",
+    "pull checks",
+    "pull files",
+    "pull commits",
+    "issue",
+    "issue list",
+    "issue getMany",
+    "issue events",
+    "issue comments",
+    "user",
+    "checks",
+    "readme",
+    "tree",
+    "branches",
+    "tags",
+    "resolve default branch",
+    "commits",
+    "commit",
+    "compare",
+    "releases",
+    "latest release",
+    "release",
+    "release by tag",
+    "search threads",
+    "search repos"
+  ]
+}

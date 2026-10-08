@@ -120,6 +120,7 @@ Bitbucket doesn't keep a delivery log, so `webhooks.deliveries()` and `webhooks.
 | `threads.get` | PR, commit (experimental) |
 | `threads.list` | PR |
 | `threads.getMany` | ✅ |
+| `threads.events` | PR, commit (experimental) |
 | `comments.list` | PR, commit (experimental) |
 | `comments.edit` | PR (experimental), commit (experimental) |
 | `comments.delete` | PR (experimental), commit (experimental) |
@@ -187,7 +188,7 @@ Bitbucket doesn't keep a delivery log, so `webhooks.deliveries()` and `webhooks.
 | `webhooks.deliveries` | ❌ |
 | `webhooks.redeliver` | ❌ |
 | `search.threads` | experimental |
-| `search.repos` | experimental |
+| `search.repos` | experimental (needs credentials) |
 | `search.commits` | ❌ |
 | `securityAlerts` | ❌ |
 | `eventKinds` | native |

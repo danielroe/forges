@@ -1,0 +1,178 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/labels?page=1&per_page=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"70b81c4a1869d321a9c2b844213594a2\"",
+      "x-ratelimit-limit": "60",
+      "x-ratelimit-remaining": "58"
+    },
+    "body": [
+      {
+        "id": 84315881,
+        "color": "DB2828",
+        "name": "bug",
+        "repository_id": 6797625,
+        "url": "https://gitee.com/api/v5/enterprises/oneos-team/labels/bug",
+        "created_at": "2020-10-21T11:28:14+08:00",
+        "updated_at": "2023-04-26T13:06:38+08:00"
+      },
+      {
+        "id": 157504550,
+        "color": "ec0019",
+        "name": "ci_compile_failed",
+        "repository_id": 6797625,
+        "url": "https://gitee.com/api/v5/enterprises/oneos-team/labels/ci_compile_failed",
+        "created_at": "2022-05-13T10:33:31+08:00",
+        "updated_at": "2024-11-21T16:55:08+08:00"
+      },
+      {
+        "id": 157504535,
+        "color": "20c22e",
+        "name": "ci_compile_success",
+        "repository_id": 6797625,
+        "url": "https://gitee.com/api/v5/enterprises/oneos-team/labels/ci_compile_success",
+        "created_at": "2022-05-13T10:33:26+08:00",
+        "updated_at": "2024-10-17T09:54:23+08:00"
+      },
+      {
+        "id": 179321917,
+        "color": "febc08",
+        "name": "ci_compile_warning",
+        "repository_id": 6797625,
+        "url": "https://gitee.com/api/v5/enterprises/oneos-team/labels/ci_compile_warning",
+        "created_at": "2022-10-24T10:10:08+08:00",
+        "updated_at": "2024-11-29T11:14:58+08:00"
+      },
+      {
+        "id": 153034199,
+        "color": "ec0019",
+        "name": "ci_failed",
+        "repository_id": 6797625,
+        "url": "https://gitee.com/api/v5/enterprises/oneos-team/labels/ci_failed",
+        "created_at": "2022-04-13T20:14:10+08:00",
+        "updated_at": "2022-05-24T17:14:56+08:00"
+      },
+      {
+        "id": 189676764,
+        "color": "ec0019",
+        "name": "ci_scan_failed",
+        "repository_id": 6797625,
+        "url": "https://gitee.com/api/v5/enterprises/oneos-team/labels/ci_scan_failed",
+        "created_at": "2023-01-31T10:48:43+08:00",
+        "updated_at": "2023-12-26T14:43:21+08:00"
+      },
+      {
+        "id": 189676720,
+        "color": "20c22e",
+        "name": "ci_scan_success",
+        "repository_id": 6797625,
+        "url": "https://gitee.com/api/v5/enterprises/oneos-team/labels/ci_scan_success",
+        "created_at": "2023-01-31T10:48:30+08:00",
+        "updated_at": "2024-11-29T11:14:58+08:00"
+      },
+      {
+        "id": 189676742,
+        "color": "febc08",
+        "name": "ci_scan_warning",
+        "repository_id": 6797625,
+        "url": "https://gitee.com/api/v5/enterprises/oneos-team/labels/ci_scan_warning",
+        "created_at": "2023-01-31T10:48:37+08:00",
+        "updated_at": "2023-12-25T10:43:30+08:00"
+      },
+      {
+        "id": 157504587,
+        "color": "ec0019",
+        "name": "ci_smoke_failed",
+        "repository_id": 6797625,
+        "url": "https://gitee.com/api/v5/enterprises/oneos-team/labels/ci_smoke_failed",
+        "created_at": "2022-05-13T10:33:40+08:00",
+        "updated_at": "2024-11-29T11:14:58+08:00"
+      },
+      {
+        "id": 157504579,
+        "color": "20c22e",
+        "name": "ci_smoke_success",
+        "repository_id": 6797625,
+        "url": "https://gitee.com/api/v5/enterprises/oneos-team/labels/ci_smoke_success",
+        "created_at": "2022-05-13T10:33:37+08:00",
+        "updated_at": "2024-11-27T15:12:24+08:00"
+      },
+      {
+        "id": 179321888,
+        "color": "febc08",
+        "name": "ci_smoke_warning",
+        "repository_id": 6797625,
+        "url": "https://gitee.com/api/v5/enterprises/oneos-team/labels/ci_smoke_warning",
+        "created_at": "2022-10-24T10:09:56+08:00",
+        "updated_at": "2024-10-23T18:29:45+08:00"
+      },
+      {
+        "id": 153034128,
+        "color": "20c22e",
+        "name": "ci_success",
+        "repository_id": 6797625,
+        "url": "https://gitee.com/api/v5/enterprises/oneos-team/labels/ci_success",
+        "created_at": "2022-04-13T20:14:01+08:00",
+        "updated_at": "2022-05-17T15:59:20+08:00"
+      },
+      {
+        "id": 84315884,
+        "color": "767676",
+        "name": "duplicate",
+        "repository_id": 6797625,
+        "url": "https://gitee.com/api/v5/enterprises/oneos-team/labels/duplicate",
+        "created_at": "2020-10-21T11:28:14+08:00",
+        "updated_at": "2020-10-21T11:28:14+08:00"
+      },
+      {
+        "id": 84315882,
+        "color": "F2711C",
+        "name": "enhancement",
+        "repository_id": 6797625,
+        "url": "https://gitee.com/api/v5/enterprises/oneos-team/labels/enhancement",
+        "created_at": "2020-10-21T11:28:14+08:00",
+        "updated_at": "2020-10-21T11:28:14+08:00"
+      },
+      {
+        "id": 84315883,
+        "color": "B5CC18",
+        "name": "feature",
+        "repository_id": 6797625,
+        "url": "https://gitee.com/api/v5/enterprises/oneos-team/labels/feature",
+        "created_at": "2020-10-21T11:28:14+08:00",
+        "updated_at": "2020-10-21T11:28:17+08:00"
+      },
+      {
+        "id": 84315885,
+        "color": "1B1C1D",
+        "name": "invalid",
+        "repository_id": 6797625,
+        "url": "https://gitee.com/api/v5/enterprises/oneos-team/labels/invalid",
+        "created_at": "2020-10-21T11:28:14+08:00",
+        "updated_at": "2020-10-21T11:28:14+08:00"
+      },
+      {
+        "id": 84315886,
+        "color": "00B5AD",
+        "name": "question",
+        "repository_id": 6797625,
+        "url": "https://gitee.com/api/v5/enterprises/oneos-team/labels/question",
+        "created_at": "2020-10-21T11:28:14+08:00",
+        "updated_at": "2020-10-21T11:28:14+08:00"
+      },
+      {
+        "id": 84315887,
+        "color": "6435C9",
+        "name": "wontfix",
+        "repository_id": 6797625,
+        "url": "https://gitee.com/api/v5/enterprises/oneos-team/labels/wontfix",
+        "created_at": "2020-10-21T11:28:15+08:00",
+        "updated_at": "2020-10-21T11:28:15+08:00"
+      }
+    ]
+  }
+}

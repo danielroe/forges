@@ -1,0 +1,816 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/commits?limit=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "<https://codeberg.org/api/v1/repos/forgejo/forgejo/commits?limit=3&page=2>; rel=\"next\",<https://codeberg.org/api/v1/repos/forgejo/forgejo/commits?limit=3&page=8642>; rel=\"last\"",
+      "x-total": "25926",
+      "x-total-count": "25926",
+      "x-page": "1"
+    },
+    "body": [
+      {
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/a4c0e1b87343355e44c317804a3b43e728795a4d",
+        "sha": "a4c0e1b87343355e44c317804a3b43e728795a4d",
+        "created": "2026-10-08T18:02:18+02:00",
+        "html_url": "https://codeberg.org/forgejo/forgejo/commit/a4c0e1b87343355e44c317804a3b43e728795a4d",
+        "commit": {
+          "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/a4c0e1b87343355e44c317804a3b43e728795a4d",
+          "author": {
+            "name": "0ko",
+            "email": "redacted@example.invalid",
+            "date": "2026-10-08T18:02:18+02:00"
+          },
+          "committer": {
+            "name": "0ko",
+            "email": "redacted@example.invalid",
+            "date": "2026-10-08T18:02:18+02:00"
+          },
+          "message": "merge commit: i18n: translations update from Codeberg Translate (#14384)\n\nReviewed-on: https://codeberg.org/forgejo/forgejo/pulls/14384\nReviewed-by: 0ko <redacted@example.invalid>\n",
+          "tree": {
+            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/trees/a4c0e1b87343355e44c317804a3b43e728795a4d",
+            "sha": "a4c0e1b87343355e44c317804a3b43e728795a4d",
+            "created": "2026-10-08T18:02:18+02:00"
+          },
+          "verification": {
+            "verified": false,
+            "reason": "gpg.error.not_signed_commit",
+            "signature": "",
+            "signer": null,
+            "payload": ""
+          }
+        },
+        "author": {
+          "id": 35856,
+          "login": "0ko",
+          "source_id": 0,
+          "full_name": "",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://codeberg.org/avatars/679e72b1ca263a192b488b84af24e10c4f32e2c3f46eb2baa7928c986ba460ef",
+          "html_url": "https://codeberg.org/0ko",
+          "active": false,
+          "location": "",
+          "pronouns": "",
+          "website": "",
+          "description": "Hi! I do things related to Forgejo<br><button><p>⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀<img src=\"0ko/me/raw/f\" height=\"128\"/><pre class=\"code-block is-loading\"></pre>![](0ko/me/raw/g \"Gopher (has ur IP)\")</button><br>[**Contact**](0ko/me/src/c.md) ◦ [**Donate**](0ko/me/src/d.md)",
+          "followers_count": 37,
+          "following_count": 27,
+          "starred_repos_count": 30,
+          "username": "0ko"
+        },
+        "committer": {
+          "id": 35856,
+          "login": "0ko",
+          "source_id": 0,
+          "full_name": "",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://codeberg.org/avatars/679e72b1ca263a192b488b84af24e10c4f32e2c3f46eb2baa7928c986ba460ef",
+          "html_url": "https://codeberg.org/0ko",
+          "active": false,
+          "location": "",
+          "pronouns": "",
+          "website": "",
+          "description": "Hi! I do things related to Forgejo<br><button><p>⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀<img src=\"0ko/me/raw/f\" height=\"128\"/><pre class=\"code-block is-loading\"></pre>![](0ko/me/raw/g \"Gopher (has ur IP)\")</button><br>[**Contact**](0ko/me/src/c.md) ◦ [**Donate**](0ko/me/src/d.md)",
+          "followers_count": 37,
+          "following_count": 27,
+          "starred_repos_count": 30,
+          "username": "0ko"
+        },
+        "parents": [
+          {
+            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/5cd7f7fc198cd9f9ef23b6c9d81177ad323795be",
+            "sha": "5cd7f7fc198cd9f9ef23b6c9d81177ad323795be",
+            "created": "0001-01-01T00:00:00Z"
+          },
+          {
+            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/eb861bdea01202dd294159ae6f4cc539bc33d27b",
+            "sha": "eb861bdea01202dd294159ae6f4cc539bc33d27b",
+            "created": "0001-01-01T00:00:00Z"
+          }
+        ],
+        "files": [
+          {
+            "filename": "options/locale/locale_ar.ini",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale/locale_ca.ini",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale/locale_eo.ini",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale/locale_es-ES.ini",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale/locale_et.ini",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale/locale_fi-FI.ini",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale/locale_gl.ini",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale/locale_ja-JP.ini",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale/locale_ko-KR.ini",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale/locale_pl-PL.ini",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale/locale_pt-PT.ini",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale/locale_ru-RU.ini",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale/locale_sv-SE.ini",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale/locale_uk-UA.ini",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale/locale_vi.ini",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale/locale_zh-CN.ini",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale/locale_zh-TW.ini",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_ca.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_cs-CZ.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_da.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_de-DE.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_el-GR.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_es-ES.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_eu.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_fa-IR.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_fi-FI.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_fil.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_fr-FR.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_fr_CA.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_ga.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_hu-HU.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_id-ID.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_it-IT.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_ja-JP.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_ko-KR.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_lv-LV.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_nb_NO.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_nds.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_nl-NL.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_pl-PL.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_pt-BR.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_pt-PT.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_ru-RU.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_si-LK.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_sv-SE.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_ta.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_th.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_tr-TR.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_uk-UA.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_zh-CN.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_zh-TW.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale/locale_lo.ini",
+            "status": "removed"
+          },
+          {
+            "filename": "options/locale_next/locale_lo.json",
+            "status": "removed"
+          }
+        ],
+        "stats": {
+          "total": 0,
+          "additions": 0,
+          "deletions": 0
+        }
+      },
+      {
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/5cd7f7fc198cd9f9ef23b6c9d81177ad323795be",
+        "sha": "5cd7f7fc198cd9f9ef23b6c9d81177ad323795be",
+        "created": "2026-10-08T16:02:09+02:00",
+        "html_url": "https://codeberg.org/forgejo/forgejo/commit/5cd7f7fc198cd9f9ef23b6c9d81177ad323795be",
+        "commit": {
+          "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/5cd7f7fc198cd9f9ef23b6c9d81177ad323795be",
+          "author": {
+            "name": "erik",
+            "email": "redacted@example.invalid",
+            "date": "2026-10-08T16:02:09+02:00"
+          },
+          "committer": {
+            "name": "Mathieu Fenniak",
+            "email": "redacted@example.invalid",
+            "date": "2026-10-08T16:02:09+02:00"
+          },
+          "message": "feat: instance-wide Service Message via modal dialog (#11934)\n\nAs outlined in [this discussion](https://codeberg.org/forgejo/discussions/issues/453), service messages enable showing modal messages to users. The service message is intended to be used by instance admins to inform users about instance specifics.\n\nReviewed-on: https://codeberg.org/forgejo/forgejo/pulls/11934\nReviewed-by: Mathieu Fenniak <redacted@example.invalid>\n",
+          "tree": {
+            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/trees/5cd7f7fc198cd9f9ef23b6c9d81177ad323795be",
+            "sha": "5cd7f7fc198cd9f9ef23b6c9d81177ad323795be",
+            "created": "2026-10-08T16:02:09+02:00"
+          },
+          "verification": {
+            "verified": false,
+            "reason": "gpg.error.not_signed_commit",
+            "signature": "",
+            "signer": null,
+            "payload": ""
+          }
+        },
+        "author": {
+          "id": 91002,
+          "login": "patdyn",
+          "source_id": 0,
+          "full_name": "",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://codeberg.org/avatars/d562b7736cb9ea2dee358a1e51a2ea58c65863318d725b777247bbd546a386d0",
+          "html_url": "https://codeberg.org/patdyn",
+          "active": false,
+          "location": "",
+          "pronouns": "",
+          "website": "",
+          "description": "",
+          "followers_count": 1,
+          "following_count": 0,
+          "starred_repos_count": 1,
+          "username": "patdyn"
+        },
+        "committer": {
+          "id": 222642,
+          "login": "mfenniak",
+          "source_id": 0,
+          "full_name": "Mathieu Fenniak",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://codeberg.org/avatars/561ee781e72bbbfd2865db7b4ba4fbf50f64da3d3cb0f4e1897b6da25224a2a7",
+          "html_url": "https://codeberg.org/mfenniak",
+          "active": false,
+          "location": "Calgary, Alberta, Canada",
+          "pronouns": "he/him",
+          "website": "https://mathieu.fenniak.net/",
+          "description": "Open Source Software Developer. My hobbies include poorly maintaining too many bicycles, running distances that are too far, GM-ing TTRPGs, and, well, more software development obviously.",
+          "followers_count": 20,
+          "following_count": 0,
+          "starred_repos_count": 4,
+          "username": "mfenniak"
+        },
+        "parents": [
+          {
+            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/9f57f94b8194f812b68f22c9c5af975b981752b8",
+            "sha": "9f57f94b8194f812b68f22c9c5af975b981752b8",
+            "created": "0001-01-01T00:00:00Z"
+          }
+        ],
+        "files": [
+          {
+            "filename": "models/forgejo_migrations/v18a_add-confirmation-info-to-user.go",
+            "status": "added"
+          },
+          {
+            "filename": "models/forgejo_migrations/v18a_add-service-message.go",
+            "status": "added"
+          },
+          {
+            "filename": "models/service_message/main_test.go",
+            "status": "added"
+          },
+          {
+            "filename": "models/service_message/service_message.go",
+            "status": "added"
+          },
+          {
+            "filename": "models/service_message/service_message_test.go",
+            "status": "added"
+          },
+          {
+            "filename": "modules/service_message/service_message.go",
+            "status": "added"
+          },
+          {
+            "filename": "routers/web/admin/service_message.go",
+            "status": "added"
+          },
+          {
+            "filename": "routers/web/user/service_message.go",
+            "status": "added"
+          },
+          {
+            "filename": "services/admin_setting/admin_setting.go",
+            "status": "added"
+          },
+          {
+            "filename": "services/admin_setting/admin_setting_test.go",
+            "status": "added"
+          },
+          {
+            "filename": "services/admin_setting/main_test.go",
+            "status": "added"
+          },
+          {
+            "filename": "services/forms/service_message.go",
+            "status": "added"
+          },
+          {
+            "filename": "services/service_message/service_message.go",
+            "status": "added"
+          },
+          {
+            "filename": "services/service_message/service_message_test.go",
+            "status": "added"
+          },
+          {
+            "filename": "templates/admin/service_message.tmpl",
+            "status": "added"
+          },
+          {
+            "filename": "templates/base/modal_service_message.tmpl",
+            "status": "added"
+          },
+          {
+            "filename": "templates/base/service_message.tmpl",
+            "status": "added"
+          },
+          {
+            "filename": "tests/integration/service_message_test.go",
+            "status": "added"
+          },
+          {
+            "filename": "web_src/css/features/servicemessage.css",
+            "status": "added"
+          },
+          {
+            "filename": "web_src/js/features/service-message.ts",
+            "status": "added"
+          },
+          {
+            "filename": "models/user/user.go",
+            "status": "modified"
+          },
+          {
+            "filename": "models/user/user_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_en-US.json",
+            "status": "modified"
+          },
+          {
+            "filename": "routers/web/admin/config.go",
+            "status": "modified"
+          },
+          {
+            "filename": "routers/web/web.go",
+            "status": "modified"
+          },
+          {
+            "filename": "templates/admin/navbar.tmpl",
+            "status": "modified"
+          },
+          {
+            "filename": "templates/base/head.tmpl",
+            "status": "modified"
+          },
+          {
+            "filename": "templates/shared/combomarkdowneditor.tmpl",
+            "status": "modified"
+          },
+          {
+            "filename": "web_src/css/index.css",
+            "status": "modified"
+          },
+          {
+            "filename": "web_src/js/index.js",
+            "status": "modified"
+          }
+        ],
+        "stats": {
+          "total": 973,
+          "additions": 934,
+          "deletions": 39
+        }
+      },
+      {
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/eb861bdea01202dd294159ae6f4cc539bc33d27b",
+        "sha": "eb861bdea01202dd294159ae6f4cc539bc33d27b",
+        "created": "2026-10-08T13:46:42Z",
+        "html_url": "https://codeberg.org/forgejo/forgejo/commit/eb861bdea01202dd294159ae6f4cc539bc33d27b",
+        "commit": {
+          "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/eb861bdea01202dd294159ae6f4cc539bc33d27b",
+          "author": {
+            "name": "Codeberg Translate",
+            "email": "redacted@example.invalid",
+            "date": "2026-10-08T13:46:39Z"
+          },
+          "committer": {
+            "name": "Codeberg Translate",
+            "email": "redacted@example.invalid",
+            "date": "2026-10-08T13:46:42Z"
+          },
+          "message": "i18n: update of translations from Codeberg Translate\n\nCo-authored-by: 0ko <redacted@example.invalid>\nCo-authored-by: Aindriú Mac Giolla Eoin <redacted@example.invalid>\nCo-authored-by: Andrei Stepanov <redacted@example.invalid>\nCo-authored-by: AsahiRocks <redacted@example.invalid>\nCo-authored-by: Atalanttore <redacted@example.invalid>\nCo-authored-by: Benedikt Straub <redacted@example.invalid>\nCo-authored-by: Codeberg Translate <redacted@example.invalid>\nCo-authored-by: Edgarsons <redacted@example.invalid>\nCo-authored-by: Elviska <redacted@example.invalid>\nCo-authored-by: Erin of Yukis <redacted@example.invalid>\nCo-authored-by: Ignore <redacted@example.invalid>\nCo-authored-by: Lauri Lepik <redacted@example.invalid>\nCo-authored-by: Marti <redacted@example.invalid>\nCo-authored-by: PeculiarDemon <redacted@example.invalid>\nCo-authored-by: SomeTr <redacted@example.invalid>\nCo-authored-by: Wuzzy <redacted@example.invalid>\nCo-authored-by: artnay <redacted@example.invalid>\nCo-authored-by: bittin <redacted@example.invalid>\nCo-authored-by: frju365 <redacted@example.invalid>\nCo-authored-by: gallegonovato <redacted@example.invalid>\nCo-authored-by: johnroyer <redacted@example.invalid>\nCo-authored-by: jsyoon <redacted@example.invalid>\nCo-authored-by: nikosavola <redacted@example.invalid>\nCo-authored-by: ombrelin <redacted@example.invalid>\nCo-authored-by: oscarotero <redacted@example.invalid>\nCo-authored-by: ospalh <redacted@example.invalid>\nCo-authored-by: othmane <redacted@example.invalid>\nCo-authored-by: ricardosimoes <redacted@example.invalid>\nCo-authored-by: sinsky <redacted@example.invalid>\nCo-authored-by: vmtj <redacted@example.invalid>\nCo-authored-by: wannsomu <redacted@example.invalid>\nCo-authored-by: xtex <redacted@example.invalid>\nCo-authored-by: yeager <redacted@example.invalid>\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo-next/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo-next/cs/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo-next/de/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo-next/es/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo-next/fi/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo-next/fr/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo-next/ga/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo-next/ja/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo-next/ko/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo-next/lv/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo-next/nds/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo-next/pt_PT/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo-next/ru/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo-next/sv/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo-next/uk/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo-next/zh_Hans/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo/ar/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo/ca/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo/eo/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo/es/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo/et/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo/fi/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo/gl/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo/ja/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo/ko/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo/pl/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo/pt_PT/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo/ru/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo/sv/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo/uk/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo/vi/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo/zh_Hans/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo/zh_Hant/\nTranslation: Forgejo/forgejo\nTranslation: Forgejo/forgejo-next\n",
+          "tree": {
+            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/trees/eb861bdea01202dd294159ae6f4cc539bc33d27b",
+            "sha": "eb861bdea01202dd294159ae6f4cc539bc33d27b",
+            "created": "2026-10-08T13:46:42Z"
+          },
+          "verification": {
+            "verified": true,
+            "reason": "translate / E21F1D62EE3AAC1C",
+            "signature": "-----BEGIN PGP SIGNATURE-----\n\niQGzBAABCgAdFiEEISK0V2BEKQIf09dd4h8dYu46rBwFAmrHnsIACgkQ4h8dYu46\nrBz76wwAl55vSTGzAN5J4x0gFI7lV8RGwOv7CI2HeCZm8IrREBuS4buFPrCmmVVZ\nUMMpH2YihxiuYV+9oUQMOxPqGmP0e5ah4IKkxLqNKj+ZkEvzqYdG+P9ULBfe7PCE\nyJKRLZXSjHik4Jf5M/2Sok1HFoJyA88D5CQllsID+LLC+VKr4w72A4iSxD/2vnIL\nJN/r1vVsDqzgL2lS2th4U0WkRWQh/oTAw2x2PHmh/StPs9DFjlyd1p3kEW5gVM65\n8vLb1UagGyVjQMklulZZbSWO5op6REEXt0UltEbNof6SI/zomMO/51Z0933sF9kf\nNTJpdVl9O4eXTyaVOG9NcUGjf/7I0N15AWkoYTLG1Km06KHwGlNZeRj9xWKiUyp+\n9PMTfAOYZe3xSCR0z+tYW5zagX4+yN03epvmgNmHKB07kKgELRAK6WGEKyguvyA7\nLXXAVwrVfuCKzap8EDEQtP3veQe6W7d9ot+/zX3CaX/V0SSZpOyGGqajF40+piYW\n5bpNxHSf\n=+Bsm\n-----END PGP SIGNATURE-----\n",
+            "signer": {
+              "name": "translate",
+              "email": "redacted@example.invalid",
+              "username": ""
+            },
+            "payload": "tree 10b3fe3022f8faabf9c22c9d377832b94dfbedb1\nparent 9f57f94b8194f812b68f22c9c5af975b981752b8\nauthor Codeberg Translate <redacted@example.invalid> 1791467199 +0000\ncommitter Codeberg Translate <redacted@example.invalid> 1791467202 +0000\n\ni18n: update of translations from Codeberg Translate\n\nCo-authored-by: 0ko <redacted@example.invalid>\nCo-authored-by: Aindriú Mac Giolla Eoin <redacted@example.invalid>\nCo-authored-by: Andrei Stepanov <redacted@example.invalid>\nCo-authored-by: AsahiRocks <redacted@example.invalid>\nCo-authored-by: Atalanttore <redacted@example.invalid>\nCo-authored-by: Benedikt Straub <redacted@example.invalid>\nCo-authored-by: Codeberg Translate <redacted@example.invalid>\nCo-authored-by: Edgarsons <redacted@example.invalid>\nCo-authored-by: Elviska <redacted@example.invalid>\nCo-authored-by: Erin of Yukis <redacted@example.invalid>\nCo-authored-by: Ignore <redacted@example.invalid>\nCo-authored-by: Lauri Lepik <redacted@example.invalid>\nCo-authored-by: Marti <redacted@example.invalid>\nCo-authored-by: PeculiarDemon <redacted@example.invalid>\nCo-authored-by: SomeTr <redacted@example.invalid>\nCo-authored-by: Wuzzy <redacted@example.invalid>\nCo-authored-by: artnay <redacted@example.invalid>\nCo-authored-by: bittin <redacted@example.invalid>\nCo-authored-by: frju365 <redacted@example.invalid>\nCo-authored-by: gallegonovato <redacted@example.invalid>\nCo-authored-by: johnroyer <redacted@example.invalid>\nCo-authored-by: jsyoon <redacted@example.invalid>\nCo-authored-by: nikosavola <redacted@example.invalid>\nCo-authored-by: ombrelin <redacted@example.invalid>\nCo-authored-by: oscarotero <redacted@example.invalid>\nCo-authored-by: ospalh <redacted@example.invalid>\nCo-authored-by: othmane <redacted@example.invalid>\nCo-authored-by: ricardosimoes <redacted@example.invalid>\nCo-authored-by: sinsky <redacted@example.invalid>\nCo-authored-by: vmtj <redacted@example.invalid>\nCo-authored-by: wannsomu <redacted@example.invalid>\nCo-authored-by: xtex <redacted@example.invalid>\nCo-authored-by: yeager <redacted@example.invalid>\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo-next/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo-next/cs/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo-next/de/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo-next/es/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo-next/fi/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo-next/fr/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo-next/ga/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo-next/ja/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo-next/ko/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo-next/lv/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo-next/nds/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo-next/pt_PT/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo-next/ru/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo-next/sv/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo-next/uk/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo-next/zh_Hans/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo/ar/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo/ca/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo/eo/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo/es/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo/et/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo/fi/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo/gl/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo/ja/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo/ko/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo/pl/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo/pt_PT/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo/ru/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo/sv/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo/uk/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo/vi/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo/zh_Hans/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo/zh_Hant/\nTranslation: Forgejo/forgejo\nTranslation: Forgejo/forgejo-next\n"
+          }
+        },
+        "author": {
+          "id": 67160,
+          "login": "translate",
+          "source_id": 0,
+          "full_name": "Codeberg Translate",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://codeberg.org/avatars/f598c7ce35150033dbfd52a44af76c8b",
+          "html_url": "https://codeberg.org/translate",
+          "active": false,
+          "location": "",
+          "pronouns": "",
+          "website": "https://translate.codeberg.org",
+          "description": "I'm a bot opening PR's with translation changes from https://translate.codeberg.org",
+          "followers_count": 12,
+          "following_count": 0,
+          "starred_repos_count": 0,
+          "username": "translate"
+        },
+        "committer": {
+          "id": 67160,
+          "login": "translate",
+          "source_id": 0,
+          "full_name": "Codeberg Translate",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://codeberg.org/avatars/f598c7ce35150033dbfd52a44af76c8b",
+          "html_url": "https://codeberg.org/translate",
+          "active": false,
+          "location": "",
+          "pronouns": "",
+          "website": "https://translate.codeberg.org",
+          "description": "I'm a bot opening PR's with translation changes from https://translate.codeberg.org",
+          "followers_count": 12,
+          "following_count": 0,
+          "starred_repos_count": 0,
+          "username": "translate"
+        },
+        "parents": [
+          {
+            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/9f57f94b8194f812b68f22c9c5af975b981752b8",
+            "sha": "9f57f94b8194f812b68f22c9c5af975b981752b8",
+            "created": "0001-01-01T00:00:00Z"
+          }
+        ],
+        "files": [
+          {
+            "filename": "options/locale/locale_lo.ini",
+            "status": "removed"
+          },
+          {
+            "filename": "options/locale_next/locale_lo.json",
+            "status": "removed"
+          },
+          {
+            "filename": "options/locale/locale_ar.ini",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale/locale_ca.ini",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale/locale_eo.ini",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale/locale_es-ES.ini",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale/locale_et.ini",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale/locale_fi-FI.ini",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale/locale_gl.ini",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale/locale_ja-JP.ini",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale/locale_ko-KR.ini",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale/locale_pl-PL.ini",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale/locale_pt-PT.ini",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale/locale_ru-RU.ini",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale/locale_sv-SE.ini",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale/locale_uk-UA.ini",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale/locale_vi.ini",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale/locale_zh-CN.ini",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale/locale_zh-TW.ini",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_ca.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_cs-CZ.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_da.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_de-DE.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_el-GR.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_es-ES.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_eu.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_fa-IR.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_fi-FI.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_fil.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_fr-FR.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_fr_CA.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_ga.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_hu-HU.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_id-ID.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_it-IT.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_ja-JP.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_ko-KR.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_lv-LV.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_nb_NO.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_nds.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_nl-NL.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_pl-PL.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_pt-BR.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_pt-PT.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_ru-RU.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_si-LK.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_sv-SE.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_ta.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_th.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_tr-TR.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_uk-UA.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_zh-CN.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_zh-TW.json",
+            "status": "modified"
+          }
+        ],
+        "stats": {
+          "total": 6203,
+          "additions": 1626,
+          "deletions": 4577
+        }
+      }
+    ]
+  }
+}

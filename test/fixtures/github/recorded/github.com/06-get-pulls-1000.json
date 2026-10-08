@@ -6,9 +6,10 @@
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"f0edfa31dd47c22fc5541524d0b95801c9b042ce61c4fd17d876c82bccb9d6b7\"",
-      "x-ratelimit-remaining": "4984",
-      "x-ratelimit-reset": "1791382247"
+      "etag": "W/\"9b4ee1b5af595bdb63678f7d6432d6f73536e88d0c5dfe9b31950bd50d5db2aa\"",
+      "x-ratelimit-limit": "5000",
+      "x-ratelimit-remaining": "4948",
+      "x-ratelimit-reset": "1791487708"
     },
     "body": {
       "url": "https://api.github.com/repos/h3js/h3/pulls/1000",
@@ -310,7 +311,7 @@
           "releases_url": "https://api.github.com/repos/h3js/h3/releases{/id}",
           "deployments_url": "https://api.github.com/repos/h3js/h3/deployments",
           "created_at": "2020-11-17T14:15:44Z",
-          "updated_at": "2026-10-07T12:37:30Z",
+          "updated_at": "2026-10-08T17:07:53Z",
           "pushed_at": "2026-10-07T12:37:26Z",
           "git_url": "git://github.com/h3js/h3.git",
           "ssh_url": "git@github.com:h3js/h3.git",
@@ -318,8 +319,8 @@
           "svn_url": "https://github.com/h3js/h3",
           "homepage": "https://h3.dev",
           "size": 8167,
-          "stargazers_count": 5447,
-          "watchers_count": 5447,
+          "stargazers_count": 5448,
+          "watchers_count": 5448,
           "language": "TypeScript",
           "has_issues": true,
           "has_projects": true,
@@ -327,11 +328,11 @@
           "has_wiki": false,
           "has_pages": false,
           "has_discussions": true,
-          "forks_count": 367,
+          "forks_count": 368,
           "mirror_url": null,
           "archived": false,
           "disabled": false,
-          "open_issues_count": 53,
+          "open_issues_count": 54,
           "license": {
             "key": "mit",
             "name": "MIT License",
@@ -346,9 +347,9 @@
           "pull_request_creation_policy": "all",
           "topics": [],
           "visibility": "public",
-          "forks": 367,
-          "open_issues": 53,
-          "watchers": 5447,
+          "forks": 368,
+          "open_issues": 54,
+          "watchers": 5448,
           "default_branch": "main"
         }
       },

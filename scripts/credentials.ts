@@ -50,8 +50,7 @@ function at(capabilities: Forges.ForgeCapabilities, path: string): unknown {
   return path.split('.').reduce<unknown>((value, key) => (value as Record<string, unknown> | undefined)?.[key], capabilities)
 }
 
-const CAPABILITIES = CAPABILITY_TABLE.filter(entry => !entry.alias)
-const ACCOUNT = CAPABILITIES.filter(entry => entry.write || entry.account).map(entry => entry.capability)
+const ACCOUNT = CAPABILITY_TABLE.filter(entry => entry.write || entry.account).map(entry => entry.capability)
 
 function probe(kind: string, fields: Record<string, string>) {
   const env = Object.fromEntries(Object.entries(fields).map(([field, value]) => [`FORGES_${kind}_${field}`, value]))
@@ -204,7 +203,7 @@ export interface CredentialTask {
 
 const TASKS: CredentialTask[] = [
   { id: 'repos', group: 'Read', label: 'Repositories and people', capabilities: ['repos.get', 'repos.list', 'repos.labels', 'repos.milestones', 'repos.collaborators', 'repos.permissionFor', 'repos.assignableUsers', 'repos.reviewerCandidates', 'users.get', 'users.me'] },
-  { id: 'threads', group: 'Read', label: 'Issues and PRs', capabilities: ['threads.get', 'threads.list', 'threads.getMany', 'comments.list', 'reactions.list', 'reviews.list', 'contents.threadFiles', 'contents.threadCommits'] },
+  { id: 'threads', group: 'Read', label: 'Issues and PRs', capabilities: ['threads.get', 'threads.list', 'threads.getMany', 'threads.events', 'comments.list', 'reactions.list', 'reviews.list', 'contents.threadFiles', 'contents.threadCommits'] },
   { id: 'code', group: 'Read', label: 'Code and history', capabilities: ['contents.file', 'contents.tree', 'contents.branches', 'contents.tags', 'contents.resolveRef', 'contents.commits', 'contents.commit', 'contents.compare'] },
   { id: 'releases', group: 'Read', label: 'Releases', capabilities: ['releases.list', 'releases.get', 'releases.latest', 'releases.getByTag', 'releases.downloadAsset'] },
   { id: 'ci', group: 'Read', label: 'Checks and CI', capabilities: ['checks.thread', 'checks.list', 'ci.runs', 'ci.run', 'ci.jobs', 'ci.log'] },
@@ -239,7 +238,7 @@ export function credentialTasks(forges: typeof Forges): CredentialTask[] {
 
 /** Distinct `scopesFor()` results for the verbs of each task a forge supports, keyed by task id. */
 export function taskScopes(forges: typeof Forges): Record<string, Record<string, Forges.VerbScopes[]>> {
-  const verbs = new Map(CAPABILITIES.map(entry => [entry.capability, CAPABILITY_TABLE.filter(other => other.capability === entry.capability).flatMap(other => other.verbs ?? [])]))
+  const verbs = new Map(CAPABILITY_TABLE.map(entry => [entry.capability, entry.verbs ?? []]))
   return Object.fromEntries(matrixProviders(forges).map(({ slug, provider }) => [slug, Object.fromEntries(credentialTasks(forges).map((task) => {
     const scopes = task.capabilities
       .filter(capability => supportCell(at(provider.capabilities, capability)).level !== 'none')

@@ -1,0 +1,59 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/pipelines/2927376976"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"66971a59a16cfe0cb295db95da902cc6\"",
+      "ratelimit-limit": "500",
+      "ratelimit-remaining": "480",
+      "ratelimit-reset": "1791477420"
+    },
+    "body": {
+      "id": 2927376976,
+      "iid": 14925,
+      "project_id": 34675721,
+      "sha": "f0662f095afc0618007ad5d165426cd421a7e2ce",
+      "ref": "refs/merge-requests/4001/merge",
+      "status": "running",
+      "source": "merge_request_event",
+      "created_at": "2026-10-08T16:30:34.268Z",
+      "updated_at": "2026-10-08T16:30:37.682Z",
+      "web_url": "https://gitlab.com/gitlab-org/cli/-/pipelines/2927376976",
+      "before_sha": "f0662f095afc0618007ad5d165426cd421a7e2ce",
+      "tag": false,
+      "yaml_errors": null,
+      "user": {
+        "id": 2935693,
+        "username": "phikai",
+        "public_email": "redacted@example.invalid",
+        "name": "Kai Armstrong",
+        "state": "active",
+        "locked": false,
+        "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/2935693/avatar.png?v=1791475756",
+        "web_url": "https://gitlab.com/phikai"
+      },
+      "started_at": "2026-10-08T16:30:37.678Z",
+      "finished_at": null,
+      "committed_at": null,
+      "duration": null,
+      "queued_duration": 3,
+      "coverage": null,
+      "detailed_status": {
+        "icon": "status_running",
+        "text": "Running",
+        "label": "running",
+        "group": "running",
+        "tooltip": "running",
+        "has_details": true,
+        "details_path": "/gitlab-org/cli/-/pipelines/2927376976",
+        "illustration": null,
+        "favicon": "/assets/ci_favicons/favicon_status_running-9c635b2419a8e1ec991c993061b89cc5aefc0743bb238ecd0c381e7741a70e8c.png"
+      },
+      "archived": false,
+      "name": null
+    }
+  }
+}

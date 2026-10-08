@@ -1,0 +1,30 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/contents/README.md"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"fdc064dc07830ecd1ab424244b864f3d\"",
+      "x-ratelimit-limit": "60",
+      "x-ratelimit-remaining": "36"
+    },
+    "body": {
+      "type": "file",
+      "encoding": "base64",
+      "size": 3894,
+      "name": "README.md",
+      "path": "README.md",
+      "content": "IyBPbmVPU+amgui/sAoKT25lT1PmmK/kuK3lm73np7vliqjpkojlr7nnianogZTnvZHpoobln5/mjqjlh7rnmoTovbvph4/nuqfmk43kvZzns7vnu5/vvIzlhbfmnInlj6/oo4HliarjgIHot6jlubPlj7DjgIHkvY7lip/ogJfjgIHpq5jlronlhajnrYnnibnngrnvvIzmlK/mjIFBUk0gQ29ydGV4LUHlkowgQ29ydGV4LU3jgIFNSVBT44CBUklTQy1W562J5Li75rWB6Iqv54mH5p625p6E77yM5YW85a65UE9TSVjjgIFDTVNJU+etieagh+WHhuaOpeWPo++8jOaUr+aMgUphdmFzY3JpcHTjgIFNaWNyb1B5dGhvbuetiemrmOe6p+ivreiogOW8gOWPkeaooeW8j++8jOaPkOS+m+WbvuW9ouWMluW8gOWPkeW3peWFt++8jOiDveWkn+acieaViOaPkOWNh+W8gOWPkeaViOeOh+OAgemZjeS9juW8gOWPkeaIkOacrO+8jOW4ruWKqeeUqOaIt+W/q+mAn+W8gOWPkeeos+WumuWPr+mdoOOAgeWuieWFqOaYk+eUqOeahOeJqeiBlOe9keW6lOeUqOOAggoKIyMgT25lT1PmnrbmnoQKCk9uZU9T5oC75L2T5p625p6E6YeH55So5YiG5bGC6K6+6K6h77yM5Li75L2T55Sx6amx5Yqo44CB5YaF5qC444CB57uE5Lu244CB5a6J5YWo5qGG5p6257uE5oiQ44CC6YeH55So5LiA5Liq6L276YeP57qn5YaF5qC45Yqg5aSa5Liq57O757uf57uE5Lu255qE5qih5byP77yM5Yqg5LiK5rW36YeP56Gs5Lu255qE6YCC6YWN5pSv5oyB77yM5L2/T25lT1PlhbflpIfmnoHpq5jnmoTlj6/kvLjnvKnmgKfkuI7mmJPnlKjmgKfjgILmk43kvZzns7vnu5/mlbTkvZPmnrbmnoTlpoLkuIvlm77vvJoKCiFbXShkb2NzL2ltYWdlcy9vbmVvc19hcmNoaXRlY3R1cmUucG5nKQojIyMg5YaF5qC4CgrmnoHnroDnmoTorr7orqHmgJ3ot6/vvIzlnKjlh4/lsJHotYTmupDlvIDplIDnmoTmg4XlhrXkuIvlhbzlhbfkvJjnp4DnmoTlrp7ml7blk43lupTnibnlvoHvvIzmlK/mjIHlpJrku7vliqHnrqHnkIbosIPluqbvvIzmj5DkvpvkuLDlr4znmoRJUEPnrZbnlaXvvIzlpoLkv6Hlj7fph4/jgIHkupLmlqXph4/jgIHmtojmga/pmJ/liJfjgIHpgq7nrrHnrYnvvIzmj5Dkvpvkuobpq5jmlYjlj6/pnaDnmoRSVE9T5YaF5qC45pSv5pKR44CCCgojIyMg6amx5YqoCuaPkOS+m+S4sOWvjOeahEJTUOadv+e6p+aUr+aSke+8jOmAgumFjei2heWNg+asvk1DVe+8jOaUr+aMgUFSTeOAgVJJU0MtVuOAgU1JUFPjgIFYdGVuc2HjgIFDLVNreeetieS4u+a1geaetuaehO+8jOmAmui/h+aKveixoeiuvuiuoe+8jOWwhuaJgOacieWkluiuvuS7peiuvuWkh+aWueW8j+i/m+ihjOeuoeeQhu+8jOaegeWkp+aPkOWNh+S6huW6lOeUqOW8gOWPkeeahOS+v+WIqeaAp+OAggoKIyMjIOe7hOS7tgoK5o+Q5L6b5YyF5ous572R57uc5Y2P6K6u44CB5LqR5bmz5Y+w5o6l5YWl44CB6L+c56iL5Y2H57qn44CB5paH5Lu257O757uf44CB5pel5b+X57O757uf44CB5rWL6K+V5qGG5p6244CB6LCD6K+V5bel5YW3562J5LyX5aSa6YCa55So5pyN5Yqh6IO95Yqb77yM5Lmf5YyF5ous6auY57K+5bqm5a6a5L2N562J5LiT5Lia5bqU55So6aKG5Z+f55qE5a6M5pW06Kej5Yaz5pa55qGI44CC55Sx5LqO6YeH55So5LqG5qih5Z2X5YyW55qE6K6+6K6h77yM5Zug5q2k5ZCE5Liq57uE5Lu255u45LqS54us56uL77yM6ICm5ZCI5oCn5L2O77yM5piT5LqO54G15rS76KOB5Ymq44CCCgojIyMg5a6J5YWo566h55CG5qGG5p62Cgrnu4jnq6/kvqfln7rkuo7kv6Hku7vmoLnlrp7njrDovbvph4/nuqfnmoTkuLvliqjmo4DmtYvlkozlj6/kv6Hluqbph4/vvIzmj5Dkvpvovbvph4/nuqfnmoTlr4bnoIHnrpfms5XlupPlj4rovbvph4/nuqflr4bpkqXnrqHnkIbkuI7lr4bpkqXljY/llYbmnLrliLbvvIzlrp7njrDnq6/liLDnq6/lronlhajpgJrkv6HjgILlubPlj7Dkvqfln7rkuo7lpKfmlbDmja7mgIHlir/mhJ/nn6XmioDmnK/vvIzluK7liqnnlKjmiLflu7rnq4vnq6/kvqflronlhajnlLvlg4/vvIzmoLnmja7lupTnlKjlnLrmma/liLblrprkuI3lkIznmoTlronlhajnrqHnkIbnrZbnlaXjgIIKCiMjIE9uZU9T54m554K5CgojIyMg54G15rS76KOB5YmqCgrmiqLljaDlvI/nmoTlrp7ml7blpJrku7vliqFSVE9T5YaF5qC477yM5pSv5oyB5aSa5Lu75Yqh5aSE55CG44CB6L2v5Lu25a6a5pe25Zmo44CB5L+h5Y+36YeP44CB5LqS5pal6ZSB44CB5raI5oGv6Zif5YiX44CB6YKu566x5ZKM5a6e5pe26LCD5bqm562J54m55oCn77yMUkFN5ZKMUk9N6LWE5rqQ5Y2g55So5p6B5bCP44CC5Y+v54G15rS76KOB5Ymq77yM5pCt6YWN5Liw5a+M57uE5Lu277yM6YCC5bqU5LiN5ZCM5a6i5oi36ZyA5rGC44CCCgojIyMg6Leo6Iqv54mH5bmz5Y+wCgrlupTnlKjnqIvluo/lj6/ml6DnvJ3np7vmpI3vvIzlpKfluYXmj5Dpq5jova/ku7blpI3nlKjnjofjgILmlK/mjIHnmoTkuLvmtYHoiq/niYfmnrbmnoTmnInvvJpBUk0gQ29ydGV4LUHlkoxDb3J0ZXgtTeOAgU1JUFPjgIFSSVNDLVbnrYnjgILmlK/mjIHlh6DkuY7miYDmnInnmoRNQ1XlkozkuLvmtYHnmoROQi1JT1TjgIE0R+OAgVdJRknjgIHok53niZnpgJrkv6Hoiq/niYfjgIIKCiMjIyDnu4Tku7bkuLDlr4wKCuaPkOS+m+S4sOWvjOeahOe7hOS7tuWKn+iDve+8jOWmguS6kuiBlOS6kumAmuOAgeerr+S6keiejeWQiOOAgei/nOeoi+WNh+e6p+OAgeWupOWGheWkluWumuS9jeOAgeS9juWKn+iAl+aOp+WItuetieOAguWQjOaXtuaPkOS+m+W8gOaUvueahOesrOS4ieaWuee7hOS7tueuoeeQhuW3peWFt++8jOaUr+aMgea3u+WKoOWQhOexu+esrOS4ieaWuee7hOS7tu+8jOS7peS+v+aJqeWxleezu+e7n+WKn+iDveOAggoKIyMjIOaYk+S6juW8gOWPkQoK5LiA56uZ5byP5byA5Y+R5bel5YW3T25lT1MgU3R1ZGlv5Y+v55So5LqO5a+55YaF5qC45ZKM57uE5Lu255qE5Yqf6IO96L+b6KGM6YWN572u77yM5pSv5oyB57uE5Lu26Ieq55Sx6KOB5Ymq77yM6K6p57O757uf5oyJ6ZyA6L+b6KGM56ev5pyo5byP5p6E5bu677yM5ZCM5pe25Y+v5biu5Yqp55So5oi36Lef6Liq6LCD6K+V77yM5b+r6YCf5a6a5L2N6Zeu6aKY44CCCgojIyMg5L2O5Yqf6ICX6K6+6K6hCgrmlK/mjIFNQ1XlkozlpJblm7Torr7lpIfnmoTlip/ogJfnrqHnkIbvvIznlKjmiLflj6/ku6XmoLnmja7kuJrliqHlnLrmma/pgInmi6nnm7jlupTkvY7lip/ogJfmlrnmoYjvvIzns7vnu5/kvJroh6rliqjph4fnlKjnm7jlupTlip/ogJfmjqfliLbnrZbnlaXvvIzov5vooYzkvJHnnKDlkozosIPpopHosIPljovvvIzmnInmlYjpmY3kvY7orr7lpIfmlbTkvZPlip/ogJfjgIIKCiMjIyDlronlhajorr7orqEKCumSiOWvueeJqeiBlOe9keiuvuWkh+i1hOa6kOWPl+mZkOOAgea1t+mHj+i/nuaOpeOAgee9kee7nOW8guaehOetieeJueeCue+8jOWPguiAg+etieS/nTIuMOWPiuOAikdCL1QgMzY5NTEtMjAxOCDkv6Hmga/lronlhajmioDmnK8g54mp6IGU572R5oSf55+l57uI56uv5bqU55So5a6J5YWo5oqA5pyv6KaB5rGC44CL562J6KeE6IyD77yM5Zyo57O757uf5a6J5YWo44CB6YCa5L+h5a6J5YWo44CB5pWw5o2u5a6J5YWo562J5pa56Z2i5o+Q5L6b5aSa57u05bqm5a6J5YWo6Ziy5oqk6IO95Yqb44CCCgojIyMgT3BlbkNQVeW8gOWPkeahhuaetgoK5pSv5oyB6YCa5L+hU29D6Iqv54mHT3BlbkNQVeW8gOWPkeaooeW8j++8jOS4uuW8gOWPkeiAheW4puadpeWxj+iUveWkjeadgumAmuS/oeiKr+eJh+W3ruW8gueahOmrmOaViOW8gOWPkeaWueW8j++8jOaPkOS+m+e7n+S4gOW8gOWPkeS9k+mqjOOAguWQjOaXtu+8jOWcqOWQjOagt+eahOS4muWKoeWKn+iDveS4i++8jOWHj+WwkeS6huiuvuWkh+mineWklk1DVeW8gOmUgOWSjOWtmOWCqOWZqOeahOS9v+eUqO+8jOWkp+W5hemZjeS9juiuvuWkh+aIkOacrOOAggoKIyMg6K645Y+v5Y2P6K6uCgpPbmVPUyDku6PnoIHpgbXlvqogQXBhY2hlIDIuMCBsaWNlbnNlIOW8gOa6kOWNj+iuruOAggoKCgoK",
+      "sha": "fcbdd4aac39a56022313463cc291c972c70c83cb",
+      "url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/contents/README.md",
+      "html_url": "https://gitee.com/cmcc-oneos/OneOS/blob/dev/README.md",
+      "download_url": "https://gitee.com/cmcc-oneos/OneOS/raw/dev/README.md",
+      "_links": {
+        "self": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/contents/README.md",
+        "html": "https://gitee.com/cmcc-oneos/OneOS/blob/dev/README.md"
+      }
+    }
+  }
+}

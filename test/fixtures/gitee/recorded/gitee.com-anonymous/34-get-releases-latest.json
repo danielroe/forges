@@ -1,0 +1,52 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/releases/latest"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"2431a6bbff5156d8022c8d94ba1f49b2\"",
+      "x-ratelimit-limit": "60",
+      "x-ratelimit-remaining": "26"
+    },
+    "body": {
+      "id": 502758,
+      "tag_name": "OneOS-Lite-v3.3.1",
+      "target_commitish": "68641635fa8404f5152d1bfb465fdd5082e2c43d",
+      "prerelease": false,
+      "name": "OneOS-Lite-v3.3.1",
+      "body": "优化使用体验",
+      "author": {
+        "id": 7894055,
+        "login": "cmcc-oneos-admin",
+        "name": "CMCC-OneOS",
+        "avatar_url": "https://foruda.gitee.com/avatar/1670466967165594212/7894055_cmcc-oneos-admin_1670466966.png",
+        "url": "https://gitee.com/api/v5/users/cmcc-oneos-admin",
+        "html_url": "https://gitee.com/cmcc-oneos-admin",
+        "remark": "",
+        "followers_url": "https://gitee.com/api/v5/users/cmcc-oneos-admin/followers",
+        "following_url": "https://gitee.com/api/v5/users/cmcc-oneos-admin/following_url{/other_user}",
+        "gists_url": "https://gitee.com/api/v5/users/cmcc-oneos-admin/gists{/gist_id}",
+        "starred_url": "https://gitee.com/api/v5/users/cmcc-oneos-admin/starred{/owner}{/repo}",
+        "subscriptions_url": "https://gitee.com/api/v5/users/cmcc-oneos-admin/subscriptions",
+        "organizations_url": "https://gitee.com/api/v5/users/cmcc-oneos-admin/orgs",
+        "repos_url": "https://gitee.com/api/v5/users/cmcc-oneos-admin/repos",
+        "events_url": "https://gitee.com/api/v5/users/cmcc-oneos-admin/events{/privacy}",
+        "received_events_url": "https://gitee.com/api/v5/users/cmcc-oneos-admin/received_events",
+        "type": "User"
+      },
+      "created_at": "2025-06-12T14:42:27+08:00",
+      "assets": [
+        {
+          "browser_download_url": "https://gitee.com/cmcc-oneos/OneOS/archive/refs/tags/OneOS-Lite-v3.3.1.zip",
+          "name": "OneOS-Lite-v3.3.1.zip"
+        },
+        {
+          "browser_download_url": "https://gitee.com/cmcc-oneos/OneOS/archive/refs/tags/OneOS-Lite-v3.3.1.tar.gz",
+          "name": "OneOS-Lite-v3.3.1.tar.gz"
+        }
+      ]
+    }
+  }
+}

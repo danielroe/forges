@@ -1,0 +1,80 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://code.forgejo.org/api/v1/repos/forgejo/runner/pulls/1765/reviews?limit=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "x-total-count": "2"
+    },
+    "body": [
+      {
+        "id": 11223,
+        "user": {
+          "id": 1324,
+          "login": "mfenniak",
+          "source_id": 0,
+          "full_name": "Mathieu Fenniak",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://code.forgejo.org/avatars/02690dbc4a237b1617d46226d6132729cd0a2534d161edd6f7788708b68654c8",
+          "html_url": "https://code.forgejo.org/mfenniak",
+          "active": false,
+          "location": "Calgary, Alberta, Canada",
+          "pronouns": "he/him",
+          "website": "https://mathieu.fenniak.net/",
+          "description": "Open Source Software Developer. My hobbies include poorly maintaining too many bicycles, running distances that are too far, GM-ing TTRPGs, and, well, more software development obviously.",
+          "followers_count": 0,
+          "following_count": 0,
+          "starred_repos_count": 0,
+          "username": "mfenniak"
+        },
+        "team": null,
+        "state": "REQUEST_CHANGES",
+        "body": "```\r\n::error::Cannot find Buildx release v0.37.2 in https://raw.githubusercontent.com/docker/actions-toolkit/main/.github/buildx-releases.json\r\n```\r\n\r\nPremature upgrade, I suppose.  Marking w/ rejected review until it can be retried later.\r\n",
+        "commit_id": "4348bba01b5300d6d0c0218dc48e3de88068018b",
+        "stale": false,
+        "official": false,
+        "dismissed": true,
+        "comments_count": 0,
+        "submitted_at": "2026-10-01T00:13:31Z",
+        "updated_at": "2026-10-02T02:59:16Z",
+        "html_url": "https://code.forgejo.org/forgejo/runner/pulls/1765#issuecomment-102175",
+        "pull_request_url": "https://code.forgejo.org/forgejo/runner/pulls/1765"
+      },
+      {
+        "id": 11230,
+        "user": {
+          "id": 1324,
+          "login": "mfenniak",
+          "source_id": 0,
+          "full_name": "Mathieu Fenniak",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://code.forgejo.org/avatars/02690dbc4a237b1617d46226d6132729cd0a2534d161edd6f7788708b68654c8",
+          "html_url": "https://code.forgejo.org/mfenniak",
+          "active": false,
+          "location": "Calgary, Alberta, Canada",
+          "pronouns": "he/him",
+          "website": "https://mathieu.fenniak.net/",
+          "description": "Open Source Software Developer. My hobbies include poorly maintaining too many bicycles, running distances that are too far, GM-ing TTRPGs, and, well, more software development obviously.",
+          "followers_count": 0,
+          "following_count": 0,
+          "starred_repos_count": 0,
+          "username": "mfenniak"
+        },
+        "team": null,
+        "state": "APPROVED",
+        "body": "",
+        "commit_id": "4348bba01b5300d6d0c0218dc48e3de88068018b",
+        "stale": false,
+        "official": true,
+        "dismissed": false,
+        "comments_count": 0,
+        "submitted_at": "2026-10-02T02:59:16Z",
+        "updated_at": "2026-10-02T02:59:16Z",
+        "html_url": "https://code.forgejo.org/forgejo/runner/pulls/1765#issuecomment-102270",
+        "pull_request_url": "https://code.forgejo.org/forgejo/runner/pulls/1765"
+      }
+    ]
+  }
+}

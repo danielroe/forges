@@ -6,9 +6,10 @@
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"8cef7e702da7d86ee3e950ab42d8e1bdfe5f3039cbf0109119895e9aa79c1610\"",
-      "x-ratelimit-remaining": "4962",
-      "x-ratelimit-reset": "1791382247"
+      "etag": "W/\"1346415b35bb762ebf027b9959c0067443037c2305c9320b6cdae18868313d82\"",
+      "x-ratelimit-limit": "5000",
+      "x-ratelimit-remaining": "4926",
+      "x-ratelimit-reset": "1791487708"
     },
     "body": {
       "login": "iiio2",

@@ -1,0 +1,45 @@
+{
+  "baseUrl": "https://api.bitbucket.org/2.0",
+  "anonymous": true,
+  "repo": {
+    "forge": "bitbucket",
+    "instance": "bitbucket.org",
+    "owner": "neelabo",
+    "name": "neeview"
+  },
+  "pull": {
+    "forge": "bitbucket",
+    "instance": "bitbucket.org",
+    "repo": {
+      "forge": "bitbucket",
+      "instance": "bitbucket.org",
+      "owner": "neelabo",
+      "name": "neeview"
+    },
+    "kind": "pull_request",
+    "number": "37"
+  },
+  "recordedAt": "2026-10-08T16:23:51.003Z",
+  "steps": [
+    "repo",
+    "pull",
+    "pull list",
+    "pull getMany",
+    "pull events",
+    "pull comments",
+    "pull reviews",
+    "pull checks",
+    "pull files",
+    "pull commits",
+    "checks",
+    "readme",
+    "tree",
+    "branches",
+    "tags",
+    "resolve default branch",
+    "commits",
+    "commit",
+    "compare",
+    "search threads"
+  ]
+}

@@ -1,0 +1,133 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/releases?page=1&per_page=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "<https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/releases?owner=cmcc-oneos&page=2&per_page=3&repo=OneOS>; rel='next', <https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/releases?owner=cmcc-oneos&page=3&per_page=3&repo=OneOS>; rel='last'",
+      "etag": "W/\"f4100e2a1ef76e82fefb5a1ed741ed4c\"",
+      "x-ratelimit-limit": "60",
+      "x-ratelimit-remaining": "27",
+      "total_page": "3",
+      "total_count": "9"
+    },
+    "body": [
+      {
+        "id": 224819,
+        "tag_name": "OneOS-v2.2.1",
+        "target_commitish": "511c1b66c3b31d314a7f937eb6d267a475f3e2c8",
+        "prerelease": false,
+        "name": "OneOS-v2.2.1",
+        "body": "# ReleaseNotes\r\n\r\n## [OneOS-V2.2.1]\r\n\r\n### 内核\r\n\r\n1、新增longArch支持\r\n2、新增AC6编译器支持\r\n3、新增ARMV5te（ARM9）架构支持\r\n4、新增GCC编译器9.3版本支持\r\n5、新增C++库适配\r\n6、支持CPU使用率统计、内存内容监测、运行信息维测统计\r\n\r\n### 驱动\r\n\r\n1、新增驱动库适配AC6编译器\r\n2、新增CODESYS支持（相关开发板适配）\r\n3、新增USB驱动框架\r\n4、新增国密一级认证芯片支持\r\n\r\n### 组件\r\n\r\n1、新增LWIP支持IPV6\r\n2、新增FOTA解决方案(电信云模式、主从模式)\r\n3、新增MOLINK蓝牙模组支持\r\n4、新增蜂窝网络日志统计\r\n5、新增电源管理能耗分析框架\r\n6、新增COAP3支持\r\n7、新增定位组件端侧RTK优化    ",
+        "author": {
+          "id": 7894055,
+          "login": "cmcc-oneos-admin",
+          "name": "CMCC-OneOS",
+          "avatar_url": "https://foruda.gitee.com/avatar/1670466967165594212/7894055_cmcc-oneos-admin_1670466966.png",
+          "url": "https://gitee.com/api/v5/users/cmcc-oneos-admin",
+          "html_url": "https://gitee.com/cmcc-oneos-admin",
+          "remark": "",
+          "followers_url": "https://gitee.com/api/v5/users/cmcc-oneos-admin/followers",
+          "following_url": "https://gitee.com/api/v5/users/cmcc-oneos-admin/following_url{/other_user}",
+          "gists_url": "https://gitee.com/api/v5/users/cmcc-oneos-admin/gists{/gist_id}",
+          "starred_url": "https://gitee.com/api/v5/users/cmcc-oneos-admin/starred{/owner}{/repo}",
+          "subscriptions_url": "https://gitee.com/api/v5/users/cmcc-oneos-admin/subscriptions",
+          "organizations_url": "https://gitee.com/api/v5/users/cmcc-oneos-admin/orgs",
+          "repos_url": "https://gitee.com/api/v5/users/cmcc-oneos-admin/repos",
+          "events_url": "https://gitee.com/api/v5/users/cmcc-oneos-admin/events{/privacy}",
+          "received_events_url": "https://gitee.com/api/v5/users/cmcc-oneos-admin/received_events",
+          "type": "User"
+        },
+        "created_at": "2022-05-19T13:19:24+08:00",
+        "assets": [
+          {
+            "browser_download_url": "https://gitee.com/cmcc-oneos/OneOS/archive/refs/tags/OneOS-v2.2.1.zip",
+            "name": "OneOS-v2.2.1.zip"
+          },
+          {
+            "browser_download_url": "https://gitee.com/cmcc-oneos/OneOS/archive/refs/tags/OneOS-v2.2.1.tar.gz",
+            "name": "OneOS-v2.2.1.tar.gz"
+          }
+        ]
+      },
+      {
+        "id": 230726,
+        "tag_name": "OneOS-v2.3.1",
+        "target_commitish": "c897abd8f43425784f5a2ba77e1fa31f3dfa96d8",
+        "prerelease": false,
+        "name": "OneOS-v2.3.1",
+        "body": "# ReleaseNotes\r\n\r\n## [OneOS-V2.3.1]\r\n\r\n### 内核\r\n\r\n1、RISC-V架构支持异常检测\r\n2、新增中断栈检测和使用统计功能\r\n3、新增IPC维测TRACE机制\r\n4、优化部分API接口使用场景限制\r\n\r\n### 驱动\r\n\r\n1、部分驱动框架及功能优化\r\n2、新增芯昇、极海、沁恒微、启英泰伦芯片适配\r\n3、支持TinyUsb\r\n4、支持STM32H743片外flash\r\n5、支持WM8978芯片录音功能\r\n\r\n### 组件\r\n\r\n1、新增精简版MQTT协议栈\r\n2、支持Websocket通信协议\r\n3、支持Modbus通信协议\r\n4、支持FreeCoAP Client功能\r\n5、OTA增加GCC和MDK环境下编译优化等级\r\n6、OTA支持收包超时可配置\r\n7、Molink新增多模组自动识别和销毁操作\r\n8、完善Molink模组异常后处理机制\r\n9、支持轻量级数据库SQLite\r\n\r\n### 其它\r\n\r\n1、解决部分已知BUG\r\n2、优化使用体验",
+        "author": {
+          "id": 7894055,
+          "login": "cmcc-oneos-admin",
+          "name": "CMCC-OneOS",
+          "avatar_url": "https://foruda.gitee.com/avatar/1670466967165594212/7894055_cmcc-oneos-admin_1670466966.png",
+          "url": "https://gitee.com/api/v5/users/cmcc-oneos-admin",
+          "html_url": "https://gitee.com/cmcc-oneos-admin",
+          "remark": "",
+          "followers_url": "https://gitee.com/api/v5/users/cmcc-oneos-admin/followers",
+          "following_url": "https://gitee.com/api/v5/users/cmcc-oneos-admin/following_url{/other_user}",
+          "gists_url": "https://gitee.com/api/v5/users/cmcc-oneos-admin/gists{/gist_id}",
+          "starred_url": "https://gitee.com/api/v5/users/cmcc-oneos-admin/starred{/owner}{/repo}",
+          "subscriptions_url": "https://gitee.com/api/v5/users/cmcc-oneos-admin/subscriptions",
+          "organizations_url": "https://gitee.com/api/v5/users/cmcc-oneos-admin/orgs",
+          "repos_url": "https://gitee.com/api/v5/users/cmcc-oneos-admin/repos",
+          "events_url": "https://gitee.com/api/v5/users/cmcc-oneos-admin/events{/privacy}",
+          "received_events_url": "https://gitee.com/api/v5/users/cmcc-oneos-admin/received_events",
+          "type": "User"
+        },
+        "created_at": "2022-06-13T14:59:58+08:00",
+        "assets": [
+          {
+            "browser_download_url": "https://gitee.com/cmcc-oneos/OneOS/archive/refs/tags/OneOS-v2.3.1.zip",
+            "name": "OneOS-v2.3.1.zip"
+          },
+          {
+            "browser_download_url": "https://gitee.com/cmcc-oneos/OneOS/archive/refs/tags/OneOS-v2.3.1.tar.gz",
+            "name": "OneOS-v2.3.1.tar.gz"
+          }
+        ]
+      },
+      {
+        "id": 254659,
+        "tag_name": "OneOS-v2.4.1",
+        "target_commitish": "4b4255d1c3909c44acc3ec7b954f97869972a475",
+        "prerelease": false,
+        "name": "OneOS-v2.4.1",
+        "body": "# ReleaseNotes\r\n\r\n## [OneOS-V2.4.1] \r\n\r\n### 内核\r\n\r\n1、增加对POSIX-PSE51接口的适配\r\n\r\n2、增加对CMSIS-RTOS接口的适配\r\n\r\n3、新增单链表定时器，支持软硬Timer\r\n\r\n4、新增最小内核裁剪工程\r\n\r\n### 驱动\r\n\r\n1、新增统一查询中断栈大小的接口\r\n\r\n2、新增芯昇、兆易创新、方寸微、中控微、沁恒微、平头哥、恩智浦芯片适配\r\n\r\n3、新增对TinyUsb驱动和协议的完善\r\n\r\n4、新增对镁光NAND FLASH驱动支持\r\n\r\n5、新增对雷凌带USB接口的Wifi模组支持\r\n\r\n6、新增摄像头框架，支持豪威科技摄像头\r\n\r\n### 组件\r\n\r\n1、GUI组件升级，支持LVGL 8.2\r\n\r\n2、增加Wifi及Bluetooth异构组网组件\r\n\r\n3、新增分布式通信组件\r\n\r\n4、适配支持MicroPython 1.18\r\n\r\n5、增加精简版Coap协议\r\n\r\n6、支持DTLS1.3-PSK\r\n\r\n### 其它\r\n\r\n1、解决一些已知问题\r\n\r\n2、优化使用体验",
+        "author": {
+          "id": 10460386,
+          "login": "wuli_zhou123",
+          "name": "无厘头",
+          "avatar_url": "https://gitee.com/assets/no_portrait.png",
+          "url": "https://gitee.com/api/v5/users/wuli_zhou123",
+          "html_url": "https://gitee.com/wuli_zhou123",
+          "remark": "",
+          "followers_url": "https://gitee.com/api/v5/users/wuli_zhou123/followers",
+          "following_url": "https://gitee.com/api/v5/users/wuli_zhou123/following_url{/other_user}",
+          "gists_url": "https://gitee.com/api/v5/users/wuli_zhou123/gists{/gist_id}",
+          "starred_url": "https://gitee.com/api/v5/users/wuli_zhou123/starred{/owner}{/repo}",
+          "subscriptions_url": "https://gitee.com/api/v5/users/wuli_zhou123/subscriptions",
+          "organizations_url": "https://gitee.com/api/v5/users/wuli_zhou123/orgs",
+          "repos_url": "https://gitee.com/api/v5/users/wuli_zhou123/repos",
+          "events_url": "https://gitee.com/api/v5/users/wuli_zhou123/events{/privacy}",
+          "received_events_url": "https://gitee.com/api/v5/users/wuli_zhou123/received_events",
+          "type": "User"
+        },
+        "created_at": "2022-09-30T14:24:09+08:00",
+        "assets": [
+          {
+            "browser_download_url": "https://gitee.com/cmcc-oneos/OneOS/archive/refs/tags/OneOS-v2.4.1.zip",
+            "name": "OneOS-v2.4.1.zip"
+          },
+          {
+            "browser_download_url": "https://gitee.com/cmcc-oneos/OneOS/archive/refs/tags/OneOS-v2.4.1.tar.gz",
+            "name": "OneOS-v2.4.1.tar.gz"
+          }
+        ]
+      }
+    ]
+  }
+}

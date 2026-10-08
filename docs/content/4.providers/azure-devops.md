@@ -18,7 +18,7 @@ The Azure DevOps provider works with Azure Repos pull requests and with Azure Bo
 <!-- header:end -->
 
 ::note
-The Azure DevOps provider is experimental. Its behaviour hasn't been verified against a recording of the live forge, so most of its capabilities are `'experimental'`. To learn what that means, see [Capabilities](/concepts/capabilities).
+The Azure DevOps provider is experimental. Its behaviour has only been verified against an anonymous recording of the live forge, so most of its capabilities are `'experimental'`. To learn what that means, see [Capabilities](/concepts/capabilities).
 ::
 
 ## Authentication
@@ -34,7 +34,7 @@ const forge = azureDevOps({
 }).create()
 ```
 
-If you leave out `auth`, the provider makes anonymous reads of public data.
+If you leave out `auth`, the provider makes anonymous reads of public data. Azure DevOps sends requests for pull request statuses, policy evaluations and work item queries without credentials to its sign-in page, so an anonymous provider reads pull requests without `checks`, and reports `threads.checks`, `search.threads` and listing work items as unsupported.
 
 ## Instance
 
@@ -125,8 +125,9 @@ You manage service hook subscriptions at the level of the organization and not o
 | `repos.assignableUsers` | ❌ |
 | `repos.reviewerCandidates` | ❌ |
 | `threads.get` | issue (experimental), PR |
-| `threads.list` | issue, PR |
+| `threads.list` | issue (needs credentials), PR |
 | `threads.getMany` | ✅ |
+| `threads.events` | issue (experimental), PR |
 | `comments.list` | issue (experimental), PR |
 | `comments.edit` | issue (experimental), PR (experimental) |
 | `comments.delete` | issue (experimental), PR (experimental) |
@@ -158,7 +159,7 @@ You manage service hook subscriptions at the level of the organization and not o
 | `subscriptions.get` | ❌ |
 | `subscriptions.set` | ❌ |
 | `installations` | ❌ |
-| `checks.thread` | PR |
+| `checks.thread` | PR (needs credentials) |
 | `checks.list` | experimental |
 | `checks.report` | experimental |
 | `checks.rerun` | ❌ |
@@ -193,7 +194,7 @@ You manage service hook subscriptions at the level of the organization and not o
 | `webhooks.rotateSecret` | ❌ |
 | `webhooks.deliveries` | ❌ |
 | `webhooks.redeliver` | ❌ |
-| `search.threads` | experimental |
+| `search.threads` | experimental (needs credentials) |
 | `search.repos` | ❌ |
 | `search.commits` | ❌ |
 | `securityAlerts` | ❌ |

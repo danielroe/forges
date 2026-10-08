@@ -1,0 +1,107 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/commits/dev"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"70cfd142e895d6fa554c90935981a0d8\"",
+      "x-ratelimit-limit": "60",
+      "x-ratelimit-remaining": "31"
+    },
+    "body": {
+      "url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/commits/107e129ad71b24c315f9c6bf00de9ae63da0e4f6",
+      "sha": "107e129ad71b24c315f9c6bf00de9ae63da0e4f6",
+      "html_url": "https://gitee.com/cmcc-oneos/OneOS/commit/107e129ad71b24c315f9c6bf00de9ae63da0e4f6",
+      "comments_url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/commits/107e129ad71b24c315f9c6bf00de9ae63da0e4f6/comments",
+      "commit": {
+        "author": {
+          "name": "CMCC-OneOS",
+          "date": "2025-06-12T06:33:45+00:00",
+          "email": "redacted@example.invalid"
+        },
+        "committer": {
+          "name": "Gitee",
+          "date": "2025-06-12T06:33:45+00:00",
+          "email": "redacted@example.invalid"
+        },
+        "message": "!550 delete Kconfig menu of semidrive\nMerge pull request !550 from chao/dev",
+        "tree": {
+          "sha": "e05ef50bafa2592cb51cbe220800b5cb1f361be2",
+          "url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/git/trees/e05ef50bafa2592cb51cbe220800b5cb1f361be2"
+        }
+      },
+      "author": {
+        "id": 7894055,
+        "login": "cmcc-oneos-admin",
+        "name": "CMCC-OneOS",
+        "avatar_url": "https://foruda.gitee.com/avatar/1670466967165594212/7894055_cmcc-oneos-admin_1670466966.png",
+        "url": "https://gitee.com/api/v5/users/cmcc-oneos-admin",
+        "html_url": "https://gitee.com/cmcc-oneos-admin",
+        "remark": "",
+        "followers_url": "https://gitee.com/api/v5/users/cmcc-oneos-admin/followers",
+        "following_url": "https://gitee.com/api/v5/users/cmcc-oneos-admin/following_url{/other_user}",
+        "gists_url": "https://gitee.com/api/v5/users/cmcc-oneos-admin/gists{/gist_id}",
+        "starred_url": "https://gitee.com/api/v5/users/cmcc-oneos-admin/starred{/owner}{/repo}",
+        "subscriptions_url": "https://gitee.com/api/v5/users/cmcc-oneos-admin/subscriptions",
+        "organizations_url": "https://gitee.com/api/v5/users/cmcc-oneos-admin/orgs",
+        "repos_url": "https://gitee.com/api/v5/users/cmcc-oneos-admin/repos",
+        "events_url": "https://gitee.com/api/v5/users/cmcc-oneos-admin/events{/privacy}",
+        "received_events_url": "https://gitee.com/api/v5/users/cmcc-oneos-admin/received_events",
+        "type": "User"
+      },
+      "committer": {
+        "id": 10186697,
+        "login": "gitee-bot",
+        "name": "Gitee GPG Bot",
+        "avatar_url": "https://foruda.gitee.com/avatar/1677201213385506226/10186697_gitee-bot_1639518846.png",
+        "url": "https://gitee.com/api/v5/users/gitee-bot",
+        "html_url": "https://gitee.com/gitee-bot",
+        "remark": "",
+        "followers_url": "https://gitee.com/api/v5/users/gitee-bot/followers",
+        "following_url": "https://gitee.com/api/v5/users/gitee-bot/following_url{/other_user}",
+        "gists_url": "https://gitee.com/api/v5/users/gitee-bot/gists{/gist_id}",
+        "starred_url": "https://gitee.com/api/v5/users/gitee-bot/starred{/owner}{/repo}",
+        "subscriptions_url": "https://gitee.com/api/v5/users/gitee-bot/subscriptions",
+        "organizations_url": "https://gitee.com/api/v5/users/gitee-bot/orgs",
+        "repos_url": "https://gitee.com/api/v5/users/gitee-bot/repos",
+        "events_url": "https://gitee.com/api/v5/users/gitee-bot/events{/privacy}",
+        "received_events_url": "https://gitee.com/api/v5/users/gitee-bot/received_events",
+        "type": "User"
+      },
+      "parents": [
+        {
+          "sha": "2fa826a00e1c4f42113d878d198584360e180eb0",
+          "url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/commits/2fa826a00e1c4f42113d878d198584360e180eb0"
+        },
+        {
+          "sha": "63e44b69ea1af37d309cce490c59cda5d190c8a1",
+          "url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/commits/63e44b69ea1af37d309cce490c59cda5d190c8a1"
+        }
+      ],
+      "stats": {
+        "id": "107e129ad71b24c315f9c6bf00de9ae63da0e4f6",
+        "additions": 0,
+        "deletions": 7,
+        "total": 7
+      },
+      "files": [
+        {
+          "sha": "7407eb96e104fa5cebd1eff5e04923b4226b2199",
+          "filename": "templates/configs/Kconfig",
+          "status": "modified",
+          "additions": 0,
+          "deletions": 7,
+          "changes": 7,
+          "blob_url": "https://gitee.com/cmcc-oneos/OneOS/blob/107e129ad71b24c315f9c6bf00de9ae63da0e4f6/templates/configs/Kconfig",
+          "raw_url": "https://gitee.com/cmcc-oneos/OneOS/raw/107e129ad71b24c315f9c6bf00de9ae63da0e4f6/templates/configs/Kconfig",
+          "content_url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/contents/templates/configs/Kconfig?ref=107e129ad71b24c315f9c6bf00de9ae63da0e4f6",
+          "patch": "@@ -62,9 +62,6 @@ choice\n     config MANUFACTOR_SAMSUNG\r\n         bool \"SAMSUNG\"\r\n         \r\n-    config MANUFACTOR_SEMIDRIVE\r\n-        bool \"SEMIDRIVE\"\r\n-        \r\n endchoice\r\n \r\n if MANUFACTOR_STM32\r\n@@ -150,7 +147,3 @@ endif\n if MANUFACTOR_SAMSUNG\r\n     source \"$OS_ROOT/templates/configs/samsung/Kconfig\"\r\n endif\r\n-\r\n-if MANUFACTOR_SEMIDRIVE\r\n-    source \"$OS_ROOT/templates/configs/semidrive/Kconfig\"\r\n-endif\r\n",
+          "truncated": false
+        }
+      ],
+      "truncated": false
+    }
+  }
+}

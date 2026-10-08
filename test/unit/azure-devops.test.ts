@@ -29,6 +29,23 @@ describe('azure devops', () => {
     expect(page.items[0]!.ref.repo).toMatchObject({ owner: 'acme/Widgets', name: '', kind: 'namespace' })
   })
 
+  it('lists pull requests only, with a warning, when anonymous and no kind is given', async () => {
+    const { fetch, calls } = fixtureFetch('azure-devops')
+    const page = await azureDevOps({ organization: 'acme', fetch }).create().threads.listPage(repo)
+
+    expect(calls.some(call => call.url.includes('/wiql'))).toBe(false)
+    expect(page.items.every(thread => thread.ref.kind === 'pull_request')).toBe(true)
+    expect(page.warnings).toContainEqual(expect.objectContaining({ code: 'kind_unsupported' }))
+  })
+
+  it('reads a pull request without its checks when anonymous', async () => {
+    const { fetch, calls } = fixtureFetch('azure-devops')
+    const thread = await azureDevOps({ organization: 'acme', fetch }).create().threads.get(pull)
+
+    expect(thread.checks).toBeUndefined()
+    expect(calls.some(call => call.url.includes('/statuses') || call.url.includes('/policy/'))).toBe(false)
+  })
+
   it('closes a work item by moving it to its type\'s completed state', async () => {
     const { instance, calls } = provider({
       'GET https://dev.azure.com/acme/Widgets/_apis/wit/workitems/101?api-version=7.1': { status: 200, body: { id: 101, fields: { 'System.WorkItemType': 'Issue', 'System.State': 'To Do' } } },

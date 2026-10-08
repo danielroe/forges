@@ -1309,12 +1309,17 @@
           "getMany": {
             "$ref": "#/components/schemas/Support",
             "description": "Support for `threads.getMany()`."
+          },
+          "events": {
+            "$ref": "#/components/schemas/PerKind",
+            "description": "Support for `threads.events()` and `threads.eventsPage()`, per thread kind."
           }
         },
         "required": [
           "get",
           "list",
-          "getMany"
+          "getMany",
+          "events"
         ]
       },
       "comments": {

@@ -1,0 +1,58 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://dev.azure.com/dnceng-public/public/_apis/git/repositories/dotnet-public-wiki/items?scopePath=%2F&recursionLevel=oneLevel&api-version=7.1"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "count": 6,
+      "value": [
+        {
+          "objectId": "6f5bf80f955183fe9b0c8640961303620245c8a4",
+          "gitObjectType": "tree",
+          "commitId": "af56d96fdbd7c26e9fc94336b6f50dcc6ceff484",
+          "path": "/",
+          "isFolder": true,
+          "url": "https://dev.azure.com/dnceng-public/cbb18261-c48f-4abb-8651-8cdcb5474649/_apis/git/repositories/2459d599-fdb2-4d28-9810-daeec061cf90/items?path=%2F&versionType=Branch&versionOptions=None"
+        },
+        {
+          "objectId": "3c98174af07e1b99ad682cb7f8d46911f1529701",
+          "gitObjectType": "blob",
+          "commitId": "af56d96fdbd7c26e9fc94336b6f50dcc6ceff484",
+          "path": "/.order",
+          "url": "https://dev.azure.com/dnceng-public/public/_apis/git/repositories/2459d599-fdb2-4d28-9810-daeec061cf90/items//.order?versionType=Branch&versionOptions=None"
+        },
+        {
+          "objectId": "b866280442ba9a002f541b9e075770fd797998a6",
+          "gitObjectType": "blob",
+          "commitId": "af56d96fdbd7c26e9fc94336b6f50dcc6ceff484",
+          "path": "/Artifacts-Feeds.md",
+          "url": "https://dev.azure.com/dnceng-public/public/_apis/git/repositories/2459d599-fdb2-4d28-9810-daeec061cf90/items//Artifacts-Feeds.md?versionType=Branch&versionOptions=None"
+        },
+        {
+          "objectId": "b79eb7d4eef6d2d9dd1350f708f81604f8219a8d",
+          "gitObjectType": "blob",
+          "commitId": "af56d96fdbd7c26e9fc94336b6f50dcc6ceff484",
+          "path": "/Home.md",
+          "url": "https://dev.azure.com/dnceng-public/public/_apis/git/repositories/2459d599-fdb2-4d28-9810-daeec061cf90/items//Home.md?versionType=Branch&versionOptions=None"
+        },
+        {
+          "objectId": "0ca446aab9d09eac8625b53e3df8da661976c458",
+          "gitObjectType": "blob",
+          "commitId": "af56d96fdbd7c26e9fc94336b6f50dcc6ceff484",
+          "path": "/README.md",
+          "url": "https://dev.azure.com/dnceng-public/public/_apis/git/repositories/2459d599-fdb2-4d28-9810-daeec061cf90/items//README.md?versionType=Branch&versionOptions=None"
+        },
+        {
+          "objectId": "2e53db551b5289fde97df23188a309d10347d869",
+          "gitObjectType": "blob",
+          "commitId": "af56d96fdbd7c26e9fc94336b6f50dcc6ceff484",
+          "path": "/es-metadata.yml",
+          "url": "https://dev.azure.com/dnceng-public/public/_apis/git/repositories/2459d599-fdb2-4d28-9810-daeec061cf90/items//es-metadata.yml?versionType=Branch&versionOptions=None"
+        }
+      ]
+    }
+  }
+}

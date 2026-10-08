@@ -12,52 +12,103 @@
   "response": {
     "status": 200,
     "headers": {
-      "x-ratelimit-remaining": "4677",
-      "x-ratelimit-reset": "1791379749"
+      "x-ratelimit-limit": "5000",
+      "x-ratelimit-remaining": "4834",
+      "x-ratelimit-reset": "1791488075"
     },
     "body": {
-      "errors": [
-        {
-          "type": "INSUFFICIENT_SCOPES",
-          "locations": [
-            {
-              "line": 21,
-              "column": 181
+      "data": {
+        "t0": {
+          "issueOrPullRequest": {
+            "__typename": "PullRequest",
+            "id": "PR_kwDOErHI986Qx98s",
+            "number": 1000,
+            "title": "chore: include `node_modules` in `.prettierignore`",
+            "body": "<!--\r\nPLEASE DO THIS BEFORE SUBMITTING A PR\r\n\r\n1) Make sure there is an issue covering the problem or idea first. If not, please create one. Reference it in the PR via \"resolves #12312312\" \r\n2) Please keep your changes minimal and split them if you need to.\r\n3) Ensure there is a minimal reproduction attached for bug fixes.\r\n\r\nThis will greatly help speed up the review process.\r\n\r\nThanks for your contribution ❤️\r\n-->\r\n",
+            "state": "CLOSED",
+            "isDraft": false,
+            "createdAt": "2025-03-31T13:49:12Z",
+            "updatedAt": "2025-04-05T04:37:13Z",
+            "closedAt": "2025-04-01T18:18:21Z",
+            "mergedAt": null,
+            "url": "https://github.com/h3js/h3/pull/1000",
+            "locked": false,
+            "author": {
+              "__typename": "User",
+              "login": "iiio2",
+              "avatarUrl": "https://avatars.githubusercontent.com/u/47961062?u=aa036dd99622ed04ed8cbf8affb249af7bdcc199&v=4",
+              "url": "https://github.com/iiio2",
+              "databaseId": 47961062,
+              "name": "abeer0"
+            },
+            "assignees": {
+              "nodes": []
+            },
+            "labels": {
+              "nodes": []
+            },
+            "comments": {
+              "totalCount": 3
+            },
+            "participants": {
+              "nodes": [
+                {
+                  "__typename": "User",
+                  "login": "iiio2",
+                  "avatarUrl": "https://avatars.githubusercontent.com/u/47961062?u=aa036dd99622ed04ed8cbf8affb249af7bdcc199&v=4",
+                  "url": "https://github.com/iiio2",
+                  "databaseId": 47961062,
+                  "name": "abeer0"
+                },
+                {
+                  "__typename": "User",
+                  "login": "pi0",
+                  "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?u=3609b2822870b982f2b93c432569ee017e970148&v=4",
+                  "url": "https://github.com/pi0",
+                  "databaseId": 5158436,
+                  "name": "Pooya Parsa"
+                }
+              ]
+            },
+            "milestone": null,
+            "viewerSubscription": "UNSUBSCRIBED",
+            "headRefName": "chore/update-prettierignore",
+            "headRefOid": "adbc974043a83820a5ae388265b5ee1465926561",
+            "baseRefName": "main",
+            "baseRefOid": "e5788bb16d62ac64e5fa13b14862ed719f768d04",
+            "headRepository": {
+              "databaseId": 812599578,
+              "name": "h3",
+              "owner": {
+                "login": "iiio2"
+              }
+            },
+            "mergeCommit": null,
+            "commits": {
+              "nodes": [
+                {
+                  "commit": {
+                    "statusCheckRollup": null
+                  }
+                }
+              ]
+            },
+            "reviewRequests": {
+              "nodes": [
+                {
+                  "requestedReviewer": {
+                    "__typename": "User",
+                    "login": "pi0",
+                    "databaseId": 5158436,
+                    "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?u=3609b2822870b982f2b93c432569ee017e970148&v=4",
+                    "url": "https://github.com/pi0"
+                  }
+                }
+              ]
             }
-          ],
-          "message": "Your token has not been granted the required scopes to execute this query. The 'slug' field requires one of the following scopes: ['read:org', 'read:discussion'], but your token has only been granted the: ['gist', 'notifications', 'repo'] scopes. Please modify your token's scopes at: https://github.com/settings/tokens."
-        },
-        {
-          "type": "INSUFFICIENT_SCOPES",
-          "locations": [
-            {
-              "line": 21,
-              "column": 186
-            }
-          ],
-          "message": "Your token has not been granted the required scopes to execute this query. The 'databaseId' field requires one of the following scopes: ['read:org', 'read:discussion'], but your token has only been granted the: ['gist', 'notifications', 'repo'] scopes. Please modify your token's scopes at: https://github.com/settings/tokens."
-        },
-        {
-          "type": "INSUFFICIENT_SCOPES",
-          "locations": [
-            {
-              "line": 21,
-              "column": 197
-            }
-          ],
-          "message": "Your token has not been granted the required scopes to execute this query. The 'name' field requires one of the following scopes: ['read:org', 'read:discussion'], but your token has only been granted the: ['gist', 'notifications', 'repo'] scopes. Please modify your token's scopes at: https://github.com/settings/tokens."
-        },
-        {
-          "type": "INSUFFICIENT_SCOPES",
-          "locations": [
-            {
-              "line": 21,
-              "column": 202
-            }
-          ],
-          "message": "Your token has not been granted the required scopes to execute this query. The 'url' field requires one of the following scopes: ['read:org', 'read:discussion'], but your token has only been granted the: ['gist', 'notifications', 'repo'] scopes. Please modify your token's scopes at: https://github.com/settings/tokens."
+          }
         }
-      ]
+      }
     }
   }
 }

@@ -1,0 +1,29 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.github.com/repos/h3js/h3/pulls/1000/files?per_page=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"e32ce358b1a1e147c7506517a6f753fbed3a4c130d56d9e190f96afb8c42755e\"",
+      "x-ratelimit-limit": "60",
+      "x-ratelimit-remaining": "40",
+      "x-ratelimit-reset": "1791488828"
+    },
+    "body": [
+      {
+        "sha": "86167650d1b479a034773ee53ccb60428ce71427",
+        "filename": ".prettierignore",
+        "status": "modified",
+        "additions": 1,
+        "deletions": 0,
+        "changes": 1,
+        "blob_url": "https://github.com/h3js/h3/blob/adbc974043a83820a5ae388265b5ee1465926561/.prettierignore",
+        "raw_url": "https://github.com/h3js/h3/raw/adbc974043a83820a5ae388265b5ee1465926561/.prettierignore",
+        "contents_url": "https://api.github.com/repos/h3js/h3/contents/.prettierignore?ref=adbc974043a83820a5ae388265b5ee1465926561",
+        "patch": "@@ -3,3 +3,4 @@ lib\n .nuxt\n .output\n src/types/_headers.ts\n+node_modules\n\\ No newline at end of file"
+      }
+    ]
+  }
+}

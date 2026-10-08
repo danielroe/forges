@@ -1,0 +1,19 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.github.com/repos/h3js/h3/dependabot/alerts?state=open&per_page=3"
+  },
+  "response": {
+    "status": 403,
+    "headers": {
+      "x-ratelimit-limit": "5000",
+      "x-ratelimit-remaining": "4973",
+      "x-ratelimit-reset": "1791486223"
+    },
+    "body": {
+      "message": "Dependabot alerts are disabled for this repository.",
+      "documentation_url": "https://docs.github.com/rest/dependabot/alerts#list-dependabot-alerts-for-a-repository",
+      "status": "403"
+    }
+  }
+}

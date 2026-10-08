@@ -6,9 +6,10 @@
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"cbed86add6eef8c5e01b85b5d8fb8e631fd7756161420f1076d50e96952ec1ab\"",
-      "x-ratelimit-remaining": "4967",
-      "x-ratelimit-reset": "1791382247"
+      "etag": "W/\"2e1805236b99509f1628f3d44b0337021ef1d44a95096ca73e6138c913398d72\"",
+      "x-ratelimit-limit": "5000",
+      "x-ratelimit-remaining": "4931",
+      "x-ratelimit-reset": "1791487708"
     },
     "body": {
       "url": "https://api.github.com/repos/h3js/h3/issues/1558",

@@ -1,0 +1,38 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://pushin.eu/api/v1/repos/pjullrich/pushin"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "x-ratelimit-remaining": "89",
+      "x-ratelimit-reset": "1791478800"
+    },
+    "body": {
+      "id": 3,
+      "name": "pushin",
+      "owner": {
+        "type": "User",
+        "html_url": "https://pushin.eu/pjullrich",
+        "login": "pjullrich"
+      },
+      "private": false,
+      "description": "Leave your comments and feedback for Pushin.eu in this repo!",
+      "url": "https://pushin.eu/api/v1/repos/pjullrich/pushin",
+      "updated_at": "2026-10-08T12:38:03.217307Z",
+      "topics": [],
+      "created_at": "2026-07-11T17:16:01.893622Z",
+      "full_name": "pjullrich/pushin",
+      "visibility": "public",
+      "default_branch": "main",
+      "homepage": null,
+      "html_url": "https://pushin.eu/pjullrich/pushin",
+      "node_id": "repo_033njmWmzIFsMhzbVEe4Kh",
+      "clone_url": "https://git.pushin.eu/pjullrich/pushin.git",
+      "forks_count": 0,
+      "stargazers_count": 25,
+      "watchers_count": 0
+    }
+  }
+}

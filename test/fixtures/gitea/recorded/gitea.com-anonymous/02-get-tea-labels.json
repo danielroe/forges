@@ -1,0 +1,41 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitea.com/api/v1/repos/gitea/tea/labels?limit=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "x-total-count": "32"
+    },
+    "body": [
+      {
+        "id": 431,
+        "name": "kind/breaking",
+        "exclusive": false,
+        "is_archived": false,
+        "color": "fbca04",
+        "description": "",
+        "url": "https://gitea.com/api/v1/repos/gitea/tea/labels/431"
+      },
+      {
+        "id": 432,
+        "name": "kind/bug",
+        "exclusive": true,
+        "is_archived": false,
+        "color": "fc2929",
+        "description": "",
+        "url": "https://gitea.com/api/v1/repos/gitea/tea/labels/432"
+      },
+      {
+        "id": 2821,
+        "name": "kind/build",
+        "exclusive": false,
+        "is_archived": false,
+        "color": "ff925c",
+        "description": "",
+        "url": "https://gitea.com/api/v1/repos/gitea/tea/labels/2821"
+      }
+    ]
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/pulls/550/commits"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"8a939e4c0dbb187f3b6b5eed7f7eb875\"",
+      "x-ratelimit-limit": "60",
+      "x-ratelimit-remaining": "45"
+    },
+    "body": [
+      {
+        "url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/commits/63e44b69ea1af37d309cce490c59cda5d190c8a1",
+        "sha": "63e44b69ea1af37d309cce490c59cda5d190c8a1",
+        "html_url": "https://gitee.com/cmcc-oneos/OneOS/commits/63e44b69ea1af37d309cce490c59cda5d190c8a1",
+        "comments_url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/commits/63e44b69ea1af37d309cce490c59cda5d190c8a1/comments",
+        "commit": {
+          "url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/commits/63e44b69ea1af37d309cce490c59cda5d190c8a1",
+          "author": {
+            "name": "pangchao",
+            "email": "redacted@example.invalid",
+            "date": "2025-06-12T11:06:45+08:00"
+          },
+          "committer": {
+            "name": "pangchao",
+            "email": "redacted@example.invalid",
+            "date": "2025-06-12T11:06:45+08:00"
+          },
+          "message": "delete Kconfig menu of semidrive\n",
+          "comment_count": 0
+        },
+        "author": null,
+        "committer": {},
+        "parents": {
+          "url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/commits/63e44b69ea1af37d309cce490c59cda5d190c8a1",
+          "sha": "2fa826a00e1c4f42113d878d198584360e180eb0",
+          "shas": [
+            "2fa826a00e1c4f42113d878d198584360e180eb0"
+          ]
+        }
+      }
+    ]
+  }
+}

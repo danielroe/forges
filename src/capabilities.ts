@@ -15,6 +15,13 @@ export function resolveKinds(kinds: Partial<Record<VerbKind, SupportInput>> | un
   return Object.fromEntries(KINDS.map(kind => [kind, resolve(kinds?.[kind], env)])) as Record<VerbKind, boolean | 'emulated' | 'experimental'>
 }
 
+/** A thread's events are read for each kind the provider reads threads of, at the weaker of the two levels. */
+export function threadEventKinds(spec: ProviderSpec, env: CapabilityEnv): Record<VerbKind, boolean | 'emulated' | 'experimental'> {
+  const events = resolve(spec.threads.eventsPage.support, env)
+  const threads = resolveKinds(spec.threads.get.kinds, env)
+  return Object.fromEntries(KINDS.map(kind => [kind, events && threads[kind] && (events === true ? threads[kind] : events)])) as Record<VerbKind, boolean | 'emulated' | 'experimental'>
+}
+
 /** `upsertComment` is composed of listing, creating and editing a comment, so it needs all three for the kind. */
 export function upsertKinds(spec: ProviderSpec, env: CapabilityEnv): Record<VerbKind, boolean | 'emulated' | 'experimental'> {
   const parts = [spec.threads.commentsPage, spec.threads.comment, spec.threads.editComment]
@@ -53,6 +60,8 @@ function valueFor(entry: CapabilityEntry, spec: ProviderSpec, env: CapabilityEnv
       return spec.traits.poll
     case 'webhook':
       return flags.webhook
+    case 'threadEvents':
+      return threadEventKinds(spec, env)
     case 'upsertComment':
       return upsertKinds(spec, env)
     case 'subscriptionSet':
@@ -90,9 +99,6 @@ export function capabilitiesOf(spec: ProviderSpec, env: CapabilityEnv, flags: Ca
     ...flags.experimental ? { experimental: true as const } : {},
   }
   for (const entry of CAPABILITY_TABLE) {
-    if (entry.alias) {
-      continue
-    }
     const value = valueFor(entry, spec, env, flags)
     if (value !== undefined) {
       write(capabilities, entry.capability, value)

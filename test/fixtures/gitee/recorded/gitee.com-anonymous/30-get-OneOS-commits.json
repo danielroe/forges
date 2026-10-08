@@ -1,0 +1,187 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/commits?page=1&per_page=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"3899476b5e8b49291447c0490423f3f5\"",
+      "x-ratelimit-limit": "60",
+      "x-ratelimit-remaining": "30",
+      "total_page": "630",
+      "total_count": "1890"
+    },
+    "body": [
+      {
+        "url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/commits/107e129ad71b24c315f9c6bf00de9ae63da0e4f6",
+        "sha": "107e129ad71b24c315f9c6bf00de9ae63da0e4f6",
+        "html_url": "https://gitee.com/cmcc-oneos/OneOS/commit/107e129ad71b24c315f9c6bf00de9ae63da0e4f6",
+        "comments_url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/commits/107e129ad71b24c315f9c6bf00de9ae63da0e4f6/comments",
+        "commit": {
+          "author": {
+            "name": "CMCC-OneOS",
+            "date": "2025-06-12T06:33:45+00:00",
+            "email": "redacted@example.invalid"
+          },
+          "committer": {
+            "name": "Gitee",
+            "date": "2025-06-12T06:33:45+00:00",
+            "email": "redacted@example.invalid"
+          },
+          "message": "!550 delete Kconfig menu of semidrive\nMerge pull request !550 from chao/dev",
+          "tree": {
+            "sha": "e05ef50bafa2592cb51cbe220800b5cb1f361be2",
+            "url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/git/trees/e05ef50bafa2592cb51cbe220800b5cb1f361be2"
+          }
+        },
+        "author": {
+          "id": 7894055,
+          "login": "cmcc-oneos-admin",
+          "name": "CMCC-OneOS",
+          "avatar_url": "https://foruda.gitee.com/avatar/1670466967165594212/7894055_cmcc-oneos-admin_1670466966.png",
+          "url": "https://gitee.com/api/v5/users/cmcc-oneos-admin",
+          "html_url": "https://gitee.com/cmcc-oneos-admin",
+          "remark": "",
+          "followers_url": "https://gitee.com/api/v5/users/cmcc-oneos-admin/followers",
+          "following_url": "https://gitee.com/api/v5/users/cmcc-oneos-admin/following_url{/other_user}",
+          "gists_url": "https://gitee.com/api/v5/users/cmcc-oneos-admin/gists{/gist_id}",
+          "starred_url": "https://gitee.com/api/v5/users/cmcc-oneos-admin/starred{/owner}{/repo}",
+          "subscriptions_url": "https://gitee.com/api/v5/users/cmcc-oneos-admin/subscriptions",
+          "organizations_url": "https://gitee.com/api/v5/users/cmcc-oneos-admin/orgs",
+          "repos_url": "https://gitee.com/api/v5/users/cmcc-oneos-admin/repos",
+          "events_url": "https://gitee.com/api/v5/users/cmcc-oneos-admin/events{/privacy}",
+          "received_events_url": "https://gitee.com/api/v5/users/cmcc-oneos-admin/received_events",
+          "type": "User"
+        },
+        "committer": {
+          "id": 10186697,
+          "login": "gitee-bot",
+          "name": "Gitee GPG Bot",
+          "avatar_url": "https://foruda.gitee.com/avatar/1677201213385506226/10186697_gitee-bot_1639518846.png",
+          "url": "https://gitee.com/api/v5/users/gitee-bot",
+          "html_url": "https://gitee.com/gitee-bot",
+          "remark": "",
+          "followers_url": "https://gitee.com/api/v5/users/gitee-bot/followers",
+          "following_url": "https://gitee.com/api/v5/users/gitee-bot/following_url{/other_user}",
+          "gists_url": "https://gitee.com/api/v5/users/gitee-bot/gists{/gist_id}",
+          "starred_url": "https://gitee.com/api/v5/users/gitee-bot/starred{/owner}{/repo}",
+          "subscriptions_url": "https://gitee.com/api/v5/users/gitee-bot/subscriptions",
+          "organizations_url": "https://gitee.com/api/v5/users/gitee-bot/orgs",
+          "repos_url": "https://gitee.com/api/v5/users/gitee-bot/repos",
+          "events_url": "https://gitee.com/api/v5/users/gitee-bot/events{/privacy}",
+          "received_events_url": "https://gitee.com/api/v5/users/gitee-bot/received_events",
+          "type": "User"
+        },
+        "parents": [
+          {
+            "sha": "2fa826a00e1c4f42113d878d198584360e180eb0",
+            "url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/commits/2fa826a00e1c4f42113d878d198584360e180eb0"
+          },
+          {
+            "sha": "63e44b69ea1af37d309cce490c59cda5d190c8a1",
+            "url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/commits/63e44b69ea1af37d309cce490c59cda5d190c8a1"
+          }
+        ]
+      },
+      {
+        "url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/commits/63e44b69ea1af37d309cce490c59cda5d190c8a1",
+        "sha": "63e44b69ea1af37d309cce490c59cda5d190c8a1",
+        "html_url": "https://gitee.com/cmcc-oneos/OneOS/commit/63e44b69ea1af37d309cce490c59cda5d190c8a1",
+        "comments_url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/commits/63e44b69ea1af37d309cce490c59cda5d190c8a1/comments",
+        "commit": {
+          "author": {
+            "name": "pangchao",
+            "date": "2025-06-12T11:06:45+08:00",
+            "email": "redacted@example.invalid"
+          },
+          "committer": {
+            "name": "pangchao",
+            "date": "2025-06-12T11:06:45+08:00",
+            "email": "redacted@example.invalid"
+          },
+          "message": "delete Kconfig menu of semidrive\n",
+          "tree": {
+            "sha": "e05ef50bafa2592cb51cbe220800b5cb1f361be2",
+            "url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/git/trees/e05ef50bafa2592cb51cbe220800b5cb1f361be2"
+          }
+        },
+        "author": null,
+        "committer": null,
+        "parents": [
+          {
+            "sha": "2fa826a00e1c4f42113d878d198584360e180eb0",
+            "url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/commits/2fa826a00e1c4f42113d878d198584360e180eb0"
+          }
+        ]
+      },
+      {
+        "url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/commits/2fa826a00e1c4f42113d878d198584360e180eb0",
+        "sha": "2fa826a00e1c4f42113d878d198584360e180eb0",
+        "html_url": "https://gitee.com/cmcc-oneos/OneOS/commit/2fa826a00e1c4f42113d878d198584360e180eb0",
+        "comments_url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/commits/2fa826a00e1c4f42113d878d198584360e180eb0/comments",
+        "commit": {
+          "author": {
+            "name": "CMCC-OneOS",
+            "date": "2025-05-07T11:12:05+00:00",
+            "email": "redacted@example.invalid"
+          },
+          "committer": {
+            "name": "Gitee",
+            "date": "2025-05-07T11:12:05+00:00",
+            "email": "redacted@example.invalid"
+          },
+          "message": "删除文件 templates/configs/semidrive",
+          "tree": {
+            "sha": "2bc7a882d3178375b6997242c4d3f990c7863b0c",
+            "url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/git/trees/2bc7a882d3178375b6997242c4d3f990c7863b0c"
+          }
+        },
+        "author": {
+          "id": 7894055,
+          "login": "cmcc-oneos-admin",
+          "name": "CMCC-OneOS",
+          "avatar_url": "https://foruda.gitee.com/avatar/1670466967165594212/7894055_cmcc-oneos-admin_1670466966.png",
+          "url": "https://gitee.com/api/v5/users/cmcc-oneos-admin",
+          "html_url": "https://gitee.com/cmcc-oneos-admin",
+          "remark": "",
+          "followers_url": "https://gitee.com/api/v5/users/cmcc-oneos-admin/followers",
+          "following_url": "https://gitee.com/api/v5/users/cmcc-oneos-admin/following_url{/other_user}",
+          "gists_url": "https://gitee.com/api/v5/users/cmcc-oneos-admin/gists{/gist_id}",
+          "starred_url": "https://gitee.com/api/v5/users/cmcc-oneos-admin/starred{/owner}{/repo}",
+          "subscriptions_url": "https://gitee.com/api/v5/users/cmcc-oneos-admin/subscriptions",
+          "organizations_url": "https://gitee.com/api/v5/users/cmcc-oneos-admin/orgs",
+          "repos_url": "https://gitee.com/api/v5/users/cmcc-oneos-admin/repos",
+          "events_url": "https://gitee.com/api/v5/users/cmcc-oneos-admin/events{/privacy}",
+          "received_events_url": "https://gitee.com/api/v5/users/cmcc-oneos-admin/received_events",
+          "type": "User"
+        },
+        "committer": {
+          "id": 10186697,
+          "login": "gitee-bot",
+          "name": "Gitee GPG Bot",
+          "avatar_url": "https://foruda.gitee.com/avatar/1677201213385506226/10186697_gitee-bot_1639518846.png",
+          "url": "https://gitee.com/api/v5/users/gitee-bot",
+          "html_url": "https://gitee.com/gitee-bot",
+          "remark": "",
+          "followers_url": "https://gitee.com/api/v5/users/gitee-bot/followers",
+          "following_url": "https://gitee.com/api/v5/users/gitee-bot/following_url{/other_user}",
+          "gists_url": "https://gitee.com/api/v5/users/gitee-bot/gists{/gist_id}",
+          "starred_url": "https://gitee.com/api/v5/users/gitee-bot/starred{/owner}{/repo}",
+          "subscriptions_url": "https://gitee.com/api/v5/users/gitee-bot/subscriptions",
+          "organizations_url": "https://gitee.com/api/v5/users/gitee-bot/orgs",
+          "repos_url": "https://gitee.com/api/v5/users/gitee-bot/repos",
+          "events_url": "https://gitee.com/api/v5/users/gitee-bot/events{/privacy}",
+          "received_events_url": "https://gitee.com/api/v5/users/gitee-bot/received_events",
+          "type": "User"
+        },
+        "parents": [
+          {
+            "sha": "968660917d4ec12e0fe294a784e18775cc1aa288",
+            "url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/commits/968660917d4ec12e0fe294a784e18775cc1aa288"
+          }
+        ]
+      }
+    ]
+  }
+}

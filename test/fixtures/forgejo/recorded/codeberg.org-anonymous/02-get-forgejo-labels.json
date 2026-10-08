@@ -1,0 +1,977 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels?limit=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "x-total-count": "107"
+    },
+    "body": [
+      {
+        "id": 204851,
+        "name": "arch/riscv64",
+        "exclusive": true,
+        "is_archived": true,
+        "color": "fbca04",
+        "description": "",
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/204851"
+      },
+      {
+        "id": 104878,
+        "name": "backport/v1.19",
+        "exclusive": false,
+        "is_archived": true,
+        "color": "bfe5bf",
+        "description": "Scheduled for backport to Forgejo v1.19",
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/104878"
+      },
+      {
+        "id": 121414,
+        "name": "backport/v1.20",
+        "exclusive": false,
+        "is_archived": true,
+        "color": "bfe5bf",
+        "description": "Scheduled for backport to Forgejo v1.20",
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/121414"
+      },
+      {
+        "id": 150022,
+        "name": "backport/v1.21/forgejo",
+        "exclusive": false,
+        "is_archived": true,
+        "color": "bfe5bf",
+        "description": "Scheduled for backport to Forgejo v1.21",
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/150022"
+      },
+      {
+        "id": 283156,
+        "name": "backport/v10.0/forgejo",
+        "exclusive": false,
+        "is_archived": true,
+        "color": "bfe5bf",
+        "description": "Automated backport to v10.0",
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/283156"
+      },
+      {
+        "id": 330631,
+        "name": "backport/v11.0/forgejo",
+        "exclusive": false,
+        "is_archived": true,
+        "color": "bfe5bf",
+        "description": "Automated backport to v11.0",
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/330631"
+      },
+      {
+        "id": 460829,
+        "name": "backport/v12.0/forgejo",
+        "exclusive": false,
+        "is_archived": true,
+        "color": "bfe5bf",
+        "description": "Automated backport to v12.0",
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/460829"
+      },
+      {
+        "id": 652345,
+        "name": "backport/v13.0/forgejo",
+        "exclusive": false,
+        "is_archived": true,
+        "color": "bfe5bf",
+        "description": "Automated backport to v13.0",
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/652345"
+      },
+      {
+        "id": 837324,
+        "name": "backport/v14.0/forgejo",
+        "exclusive": false,
+        "is_archived": true,
+        "color": "bfe5bf",
+        "description": "Automated backport to v14.0",
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/837324"
+      },
+      {
+        "id": 1335450,
+        "name": "backport/v15.0/forgejo",
+        "exclusive": false,
+        "is_archived": false,
+        "color": "bfe5bf",
+        "description": "Automated backport to v15.0",
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/1335450"
+      },
+      {
+        "id": 1852910,
+        "name": "backport/v16.0/forgejo",
+        "exclusive": false,
+        "is_archived": false,
+        "color": "bfe5bf",
+        "description": "Automated backport to v16.0",
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/1852910"
+      },
+      {
+        "id": 2188590,
+        "name": "backport/v17.0/forgejo",
+        "exclusive": false,
+        "is_archived": false,
+        "color": "bfe5bf",
+        "description": "Automated backport to v17.0",
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/2188590"
+      },
+      {
+        "id": 202906,
+        "name": "backport/v7.0/forgejo",
+        "exclusive": false,
+        "is_archived": true,
+        "color": "bfe5bf",
+        "description": "Scheduled for backport to Forgejo v7.0",
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/202906"
+      },
+      {
+        "id": 230610,
+        "name": "backport/v8.0/forgejo",
+        "exclusive": false,
+        "is_archived": true,
+        "color": "bfe5bf",
+        "description": "Scheduled for backport to Forgejo v8.0",
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/230610"
+      },
+      {
+        "id": 257228,
+        "name": "backport/v9.0/forgejo",
+        "exclusive": false,
+        "is_archived": true,
+        "color": "bfe5bf",
+        "description": "Scheduled for backport to Forgejo v9.0",
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/257228"
+      },
+      {
+        "id": 235136,
+        "name": "breaking",
+        "exclusive": false,
+        "is_archived": false,
+        "color": "e11d21",
+        "description": "The release containing this change is not backward compatible",
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/235136"
+      },
+      {
+        "id": 78137,
+        "name": "bug",
+        "exclusive": false,
+        "is_archived": true,
+        "color": "ee0701",
+        "description": "Something is not working",
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/78137"
+      },
+      {
+        "id": 201023,
+        "name": "bug/confirmed",
+        "exclusive": true,
+        "is_archived": false,
+        "color": "e11d21",
+        "description": "it can be reproduced",
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/201023"
+      },
+      {
+        "id": 201026,
+        "name": "bug/duplicate",
+        "exclusive": true,
+        "is_archived": false,
+        "color": "ee6767",
+        "description": "bug has already been reported in the Forgejo tracker",
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/201026"
+      },
+      {
+        "id": 201024,
+        "name": "bug/needs-more-info",
+        "exclusive": true,
+        "is_archived": false,
+        "color": "ee6767",
+        "description": "the information provided does not contain enough details",
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/201024"
+      },
+      {
+        "id": 201022,
+        "name": "bug/new-report",
+        "exclusive": true,
+        "is_archived": false,
+        "color": "e11d21",
+        "description": "bug has just been reported and need triage (default label on issue creation)",
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/201022"
+      },
+      {
+        "id": 201025,
+        "name": "bug/reported-upstream",
+        "exclusive": true,
+        "is_archived": false,
+        "color": "ee6767",
+        "description": "bug cannot be fixed within Forgejo easily, it has been reported upstream",
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/201025"
+      },
+      {
+        "id": 96148,
+        "name": "code/actions",
+        "exclusive": false,
+        "is_archived": false,
+        "color": "eb6420",
+        "description": "Forgejo Actions feature",
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/96148"
+      },
+      {
+        "id": 181598,
+        "name": "code/api",
+        "exclusive": false,
+        "is_archived": false,
+        "color": "eb6420",
+        "description": "API",
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/181598"
+      },
+      {
+        "id": 840693,
+        "name": "code/auth",
+        "exclusive": false,
+        "is_archived": false,
+        "color": "eb6420",
+        "description": "Forgejo Authentication",
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/840693"
+      },
+      {
+        "id": 840696,
+        "name": "code/auth/faidp",
+        "exclusive": false,
+        "is_archived": false,
+        "color": "eb6420",
+        "description": "Forgejo as Identity Provider (in OAuth/OIDC flow)",
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/840696"
+      },
+      {
+        "id": 840699,
+        "name": "code/auth/farp",
+        "exclusive": false,
+        "is_archived": false,
+        "color": "eb6420",
+        "description": "Forgejo as Relying Party / Client (in OAuth/OIDC flow)",
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/840699"
+      },
+      {
+        "id": 235691,
+        "name": "code/email",
+        "exclusive": false,
+        "is_archived": false,
+        "color": "eb6420",
+        "description": "Everything related to email in Forgejo",
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/235691"
+      },
+      {
+        "id": 79349,
+        "name": "code/federation",
+        "exclusive": false,
+        "is_archived": false,
+        "color": "eb6420",
+        "description": "Federation",
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/79349"
+      },
+      {
+        "id": 440493,
+        "name": "code/git",
+        "exclusive": false,
+        "is_archived": false,
+        "color": "eb6420",
+        "description": "Related to the Git backend in Forgejo",
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/440493"
+      },
+      {
+        "id": 329708,
+        "name": "code/migrations",
+        "exclusive": false,
+        "is_archived": false,
+        "color": "eb6420",
+        "description": "Migration between Git forges (i.e. for GitHub, GitLab, Gitea, Forgejo, etc.). NOT for database migrations.",
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/329708"
+      },
+      {
+        "id": 441003,
+        "name": "code/packages",
+        "exclusive": false,
+        "is_archived": false,
+        "color": "eb6420",
+        "description": "Forgejo package and container registry",
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/441003"
+      },
+      {
+        "id": 267848,
+        "name": "code/wiki",
+        "exclusive": false,
+        "is_archived": false,
+        "color": "eb6420",
+        "description": "",
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/267848"
+      },
+      {
+        "id": 206103,
+        "name": "database/MySQL",
+        "exclusive": true,
+        "is_archived": false,
+        "color": "006b75",
+        "description": "https://www.mysql.com/",
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/206103"
+      },
+      {
+        "id": 206102,
+        "name": "database/PostgreSQL",
+        "exclusive": true,
+        "is_archived": false,
+        "color": "006b75",
+        "description": "https://www.postgresql.org/",
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/206102"
+      },
+      {
+        "id": 206104,
+        "name": "database/SQLite",
+        "exclusive": true,
+        "is_archived": false,
+        "color": "006b75",
+        "description": "https://sqlite.org/",
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/206104"
+      },
+      {
+        "id": 223008,
+        "name": "dependency-upgrade",
+        "exclusive": false,
+        "is_archived": false,
+        "color": "0052cc",
+        "description": "https://codeberg.org/forgejo/forgejo/issues/2779",
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/223008"
+      },
+      {
+        "id": 109175,
+        "name": "dependency/Chi",
+        "exclusive": true,
+        "is_archived": true,
+        "color": "0052cc",
+        "description": "https://github.com/go-chi/chi/",
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/109175"
+      },
+      {
+        "id": 85538,
+        "name": "dependency/Chroma",
+        "exclusive": true,
+        "is_archived": true,
+        "color": "0052cc",
+        "description": "https://github.com/alecthomas/chroma/",
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/85538"
+      },
+      {
+        "id": 114735,
+        "name": "dependency/F3",
+        "exclusive": true,
+        "is_archived": false,
+        "color": "0052cc",
+        "description": "https://f3.forgefriends.org/",
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/114735"
+      },
+      {
+        "id": 123313,
+        "name": "dependency/ForgeFed",
+        "exclusive": true,
+        "is_archived": false,
+        "color": "0052cc",
+        "description": "https://forgefed.org",
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/123313"
+      },
+      {
+        "id": 140417,
+        "name": "dependency/garage",
+        "exclusive": true,
+        "is_archived": false,
+        "color": "0052cc",
+        "description": "https://git.deuxfleurs.fr/Deuxfleurs/garage",
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/140417"
+      },
+      {
+        "id": 85536,
+        "name": "dependency/Gitea",
+        "exclusive": true,
+        "is_archived": true,
+        "color": "0052cc",
+        "description": "https://github.com/go-gitea/gitea",
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/85536"
+      },
+      {
+        "id": 135296,
+        "name": "dependency/Golang",
+        "exclusive": true,
+        "is_archived": false,
+        "color": "0052cc",
+        "description": "https://go.dev/",
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/135296"
+      },
+      {
+        "id": 79185,
+        "name": "Discussion",
+        "exclusive": false,
+        "is_archived": false,
+        "color": "5319e7",
+        "description": "",
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/79185"
+      },
+      {
+        "id": 78138,
+        "name": "duplicate",
+        "exclusive": false,
+        "is_archived": false,
+        "color": "cccccc",
+        "description": "This issue or pull request already exists",
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/78138"
+      },
+      {
+        "id": 78139,
+        "name": "enhancement/feature",
+        "exclusive": false,
+        "is_archived": false,
+        "color": "207de5",
+        "description": "New feature",
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/78139"
+      },
+      {
+        "id": 81214,
+        "name": "forgejo/accessibility",
+        "exclusive": false,
+        "is_archived": false,
+        "color": "eb6420",
+        "description": "Accessibility (a11y)",
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/81214"
+      },
+      {
+        "id": 82706,
+        "name": "forgejo/branding",
+        "exclusive": false,
+        "is_archived": false,
+        "color": "eb6420",
+        "description": "Branding (logo, name, tagline etc.)",
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/82706"
+      },
+      {
+        "id": 79180,
+        "name": "forgejo/ci",
+        "exclusive": false,
+        "is_archived": false,
+        "color": "eb6420",
+        "description": "Forgejo Actions CI configuration",
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/79180"
+      },
+      {
+        "id": 288795,
+        "name": "forgejo/commit-graph",
+        "exclusive": false,
+        "is_archived": false,
+        "color": "eb6420",
+        "description": "The commit graph feature and page.",
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/288795"
+      },
+      {
+        "id": 79387,
+        "name": "forgejo/documentation",
+        "exclusive": false,
+        "is_archived": false,
+        "color": "eb6420",
+        "description": "",
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/79387"
+      },
+      {
+        "id": 116080,
+        "name": "forgejo/furnace cleanup",
+        "exclusive": false,
+        "is_archived": true,
+        "color": "eb6420",
+        "description": "Keeping Forgejo in sync with its dependencies and contributing back to them",
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/116080"
+      },
+      {
+        "id": 82637,
+        "name": "forgejo/i18n",
+        "exclusive": false,
+        "is_archived": false,
+        "color": "eb6420",
+        "description": "t9n/translation, l10n/localization, and i18n/internationalization of Forgejo",
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/82637"
+      },
+      {
+        "id": 694393,
+        "name": "forgejo/interop",
+        "exclusive": false,
+        "is_archived": false,
+        "color": "eb6420",
+        "description": "Interoperability with other services: Webhooks, bridges, integrations",
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/694393"
+      },
+      {
+        "id": 120787,
+        "name": "forgejo/moderation",
+        "exclusive": false,
+        "is_archived": false,
+        "color": "eb6420",
+        "description": "Moderation",
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/120787"
+      },
+      {
+        "id": 83271,
+        "name": "forgejo/privacy",
+        "exclusive": false,
+        "is_archived": false,
+        "color": "eb6420",
+        "description": "Privacy first",
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/83271"
+      },
+      {
+        "id": 79181,
+        "name": "forgejo/release",
+        "exclusive": false,
+        "is_archived": false,
+        "color": "eb6420",
+        "description": "Release management",
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/79181"
+      },
+      {
+        "id": 82969,
+        "name": "forgejo/scaling",
+        "exclusive": false,
+        "is_archived": false,
+        "color": "eb6420",
+        "description": "Performance and scaling",
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/82969"
+      },
+      {
+        "id": 79184,
+        "name": "forgejo/security",
+        "exclusive": false,
+        "is_archived": false,
+        "color": "eb6420",
+        "description": "Security  (please disclose responsibly)",
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/79184"
+      },
+      {
+        "id": 87703,
+        "name": "forgejo/ui",
+        "exclusive": false,
+        "is_archived": false,
+        "color": "eb6420",
+        "description": "User interface",
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/87703"
+      },
+      {
+        "id": 226641,
+        "name": "Gain/High",
+        "exclusive": true,
+        "is_archived": false,
+        "color": "fbca04",
+        "description": "User research provides indicators that this would be good to have, interested contributors are encouraged to pick this.",
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/226641"
+      },
+      {
+        "id": 228692,
+        "name": "Gain/Nice to have",
+        "exclusive": true,
+        "is_archived": false,
+        "color": "5319e7",
+        "description": "This is likely worth having, but the assumption is not backed by user research data (it might benefit a small amount of users only.) Unlikely to receive much attention, but feel free to pick.",
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/228692"
+      },
+      {
+        "id": 226643,
+        "name": "Gain/Undefined",
+        "exclusive": true,
+        "is_archived": false,
+        "color": "eb6420",
+        "description": "Not enough information to assess the request's benefits. This issue may be closed if no gain is established: You can help by giving us more input.",
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/226643"
+      },
+      {
+        "id": 226640,
+        "name": "Gain/Very High",
+        "exclusive": true,
+        "is_archived": false,
+        "color": "006b75",
+        "description": "User research indicates that this is an important improvement for Forgejo users. Contributions very welcome!",
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/226640"
+      },
+      {
+        "id": 222666,
+        "name": "good first issue",
+        "exclusive": false,
+        "is_archived": false,
+        "color": "70c24a",
+        "description": "Optimal for first-timers! Make sure to look for further explanations and ask for help if needed. If you want, you can consider the person who added this label as a point of contact.",
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/222666"
+      },
+      {
+        "id": 292587,
+        "name": "i18n/backport-stable",
+        "exclusive": false,
+        "is_archived": false,
+        "color": "fad8c7",
+        "description": "This PR needs to be backported to stable branch of Forgejo safely and manually, using a migration script.",
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/292587"
+      },
+      {
+        "id": 841842,
+        "name": "impact/large",
+        "exclusive": true,
+        "is_archived": false,
+        "color": "e11d21",
+        "description": "Large impact: Potential data loss, many users affected, major degradation in UX.",
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/841842"
+      },
+      {
+        "id": 841839,
+        "name": "impact/medium",
+        "exclusive": true,
+        "is_archived": false,
+        "color": "eb6420",
+        "description": "Medium impact: Several users affected, degradation in UX, workarounds might be available but inconvenient. ",
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/841839"
+      },
+      {
+        "id": 841836,
+        "name": "impact/small",
+        "exclusive": true,
+        "is_archived": false,
+        "color": "207de5",
+        "description": "Small impact: No data loss, workarounds might be available, affects few users.",
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/841836"
+      },
+      {
+        "id": 841833,
+        "name": "impact/unknown",
+        "exclusive": true,
+        "is_archived": false,
+        "color": "545454",
+        "description": "Report was not yet triaged to assess impact.",
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/841833"
+      },
+      {
+        "id": 246427,
+        "name": "Incompatible license",
+        "exclusive": false,
+        "is_archived": false,
+        "color": "e11d21",
+        "description": "This pull request contains changes that are not (yet) compatible with the current Forgejo license",
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/246427"
+      },
+      {
+        "id": 83982,
+        "name": "issue/closed",
+        "exclusive": true,
+        "is_archived": false,
+        "color": "0052cc",
+        "description": "The issue was resolved in the repository of the dependency",
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/83982"
+      },
+      {
+        "id": 83392,
+        "name": "issue/do-not-exist-yet",
+        "exclusive": true,
+        "is_archived": false,
+        "color": "0052cc",
+        "description": "An issue should be created in the respository of the dependency",
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/83392"
+      },
+      {
+        "id": 78144,
+        "name": "issue/open",
+        "exclusive": true,
+        "is_archived": false,
+        "color": "0052cc",
+        "description": "An open issue exists in the upstream repository of the dependency",
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/78144"
+      },
+      {
+        "id": 181437,
+        "name": "manual test",
+        "exclusive": false,
+        "is_archived": true,
+        "color": "e11d21",
+        "description": "Pull requests that have been merged with a manual test",
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/181437"
+      },
+      {
+        "id": 231210,
+        "name": "Manually tested during feature freeze",
+        "exclusive": false,
+        "is_archived": false,
+        "color": "009800",
+        "description": "The manual test instructions were followed",
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/231210"
+      },
+      {
+        "id": 115149,
+        "name": "OS/FreeBSD",
+        "exclusive": true,
+        "is_archived": false,
+        "color": "009800",
+        "description": "Specific to the FreeBSD Operating System",
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/115149"
+      },
+      {
+        "id": 115148,
+        "name": "OS/Linux",
+        "exclusive": true,
+        "is_archived": false,
+        "color": "009800",
+        "description": "Specific to (GNU/)Linux Operating Systems",
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/115148"
+      },
+      {
+        "id": 115151,
+        "name": "OS/macOS",
+        "exclusive": true,
+        "is_archived": false,
+        "color": "009800",
+        "description": "Specific to the MacOS Operating System",
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/115151"
+      },
+      {
+        "id": 115150,
+        "name": "OS/Windows",
+        "exclusive": true,
+        "is_archived": false,
+        "color": "009800",
+        "description": "Specific to the Windows Operating System",
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/115150"
+      },
+      {
+        "id": 841206,
+        "name": "problem",
+        "exclusive": false,
+        "is_archived": false,
+        "color": "fbca04",
+        "description": "A user report about a problem. Needs to be triaged to find potential solutions.",
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/841206"
+      },
+      {
+        "id": 250861,
+        "name": "QA",
+        "exclusive": false,
+        "is_archived": false,
+        "color": "70c24a",
+        "description": "",
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/250861"
+      },
+      {
+        "id": 239243,
+        "name": "regression",
+        "exclusive": false,
+        "is_archived": false,
+        "color": "e11d21",
+        "description": "found in the version of the milestone and not before",
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/239243"
+      },
+      {
+        "id": 237776,
+        "name": "release blocker",
+        "exclusive": false,
+        "is_archived": false,
+        "color": "e11d21",
+        "description": "Issues that must be fixed before the release can be published",
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/237776"
+      },
+      {
+        "id": 230492,
+        "name": "Release Cycle/Feature Freeze",
+        "exclusive": true,
+        "is_archived": false,
+        "color": "0052cc",
+        "description": "Only bug fixes with automated tests (except for CSS/JavaScript)",
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/230492"
+      },
+      {
+        "id": 204793,
+        "name": "release-blocker/v7.0",
+        "exclusive": true,
+        "is_archived": true,
+        "color": "e11d21",
+        "description": "Issues that must be fixed before Forgejo v7.0 can be released 17 April 2024",
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/204793"
+      },
+      {
+        "id": 210210,
+        "name": "release-blocker/v7.0.1",
+        "exclusive": true,
+        "is_archived": true,
+        "color": "e11d21",
+        "description": "Issues that must be fixed before Forgejo v7.0.1 can be released",
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/210210"
+      },
+      {
+        "id": 211405,
+        "name": "release-blocker/v7.0.2",
+        "exclusive": true,
+        "is_archived": true,
+        "color": "e11d21",
+        "description": "Issues that must be fixed before Forgejo v7.0.2 can be released",
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/211405"
+      },
+      {
+        "id": 212495,
+        "name": "release-blocker/v7.0.3",
+        "exclusive": true,
+        "is_archived": true,
+        "color": "e11d21",
+        "description": "Issues that must be fixed before Forgejo v7.0.3 can be released",
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/212495"
+      },
+      {
+        "id": 218228,
+        "name": "release-blocker/v7.0.4",
+        "exclusive": true,
+        "is_archived": true,
+        "color": "e11d21",
+        "description": "Issues that must be fixed before Forgejo v7.0.4 can be released ",
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/218228"
+      },
+      {
+        "id": 222746,
+        "name": "release-blocker/v8.0.0",
+        "exclusive": true,
+        "is_archived": true,
+        "color": "e11d21",
+        "description": "Issues that must be fixed before Forgejo v8.0.0 can be released",
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/222746"
+      },
+      {
+        "id": 252671,
+        "name": "release-blocker/v9.0.0",
+        "exclusive": false,
+        "is_archived": true,
+        "color": "e11d21",
+        "description": "Issues that must be fixed before Forgejo v9.0.0 can be released",
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/252671"
+      },
+      {
+        "id": 456953,
+        "name": "run-all-playwright-tests",
+        "exclusive": false,
+        "is_archived": false,
+        "color": "009800",
+        "description": "Add this label to a PR to run all playwright tests manually.",
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/456953"
+      },
+      {
+        "id": 159443,
+        "name": "run-end-to-end-tests",
+        "exclusive": false,
+        "is_archived": false,
+        "color": "009800",
+        "description": "Trigger additional tests on the PR when it is ready to be merged",
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/159443"
+      },
+      {
+        "id": 1710683,
+        "name": "stage/2-research",
+        "exclusive": true,
+        "is_archived": false,
+        "color": "006b75",
+        "description": "Needs research to moe on.",
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/1710683"
+      },
+      {
+        "id": 1710686,
+        "name": "stage/3-design",
+        "exclusive": true,
+        "is_archived": false,
+        "color": "0052cc",
+        "description": "Needs design to move on",
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/1710686"
+      },
+      {
+        "id": 1710689,
+        "name": "stage/4-implementation",
+        "exclusive": true,
+        "is_archived": false,
+        "color": "009800",
+        "description": "This is actionable and waits for implementation",
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/1710689"
+      },
+      {
+        "id": 201028,
+        "name": "test/manual",
+        "exclusive": true,
+        "is_archived": false,
+        "color": "5319e7",
+        "description": "manual testing has been documented",
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/201028"
+      },
+      {
+        "id": 201027,
+        "name": "test/needed",
+        "exclusive": true,
+        "is_archived": false,
+        "color": "5319e7",
+        "description": "test should be added",
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/201027"
+      },
+      {
+        "id": 201031,
+        "name": "test/needs-help",
+        "exclusive": true,
+        "is_archived": false,
+        "color": "5319e7",
+        "description": "help needed to add a test",
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/201031"
+      },
+      {
+        "id": 201029,
+        "name": "test/not-needed",
+        "exclusive": true,
+        "is_archived": false,
+        "color": "5319e7",
+        "description": "no additional test is needed",
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/201029"
+      },
+      {
+        "id": 201030,
+        "name": "test/present",
+        "exclusive": true,
+        "is_archived": false,
+        "color": "5319e7",
+        "description": "test has been added",
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/201030"
+      },
+      {
+        "id": 167348,
+        "name": "untested",
+        "exclusive": false,
+        "is_archived": true,
+        "color": "e11d21",
+        "description": "Pull requests that have been merged with no test and submitted as is to the dependency where they belong",
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/167348"
+      },
+      {
+        "id": 272670,
+        "name": "User research - time-tracker",
+        "exclusive": false,
+        "is_archived": false,
+        "color": "fbca04",
+        "description": "Time tracking feature for issues and the JS stopwatch.",
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/272670"
+      },
+      {
+        "id": 217340,
+        "name": "valuable code",
+        "exclusive": false,
+        "is_archived": false,
+        "color": "207de5",
+        "description": "This PR was closed because the implementation is incomplete",
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/217340"
+      },
+      {
+        "id": 209916,
+        "name": "worth a release-note",
+        "exclusive": false,
+        "is_archived": false,
+        "color": "f6c6c7",
+        "description": "Add this PR to the release notes",
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/209916"
+      }
+    ]
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitea.com/api/v1/repos/gitea/tea/pulls/1/files?limit=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "x-total-count": "2",
+      "x-page": "1"
+    },
+    "body": [
+      {
+        "filename": "README.md",
+        "status": "changed",
+        "additions": 1,
+        "deletions": 0,
+        "changes": 1,
+        "html_url": "https://gitea.com/gitea/tea/src/commit/4f714bf67af9e03198b076f8d71aeb9512e7129a/README.md",
+        "contents_url": "https://gitea.com/api/v1/repos/gitea/tea/contents/README.md?ref=4f714bf67af9e03198b076f8d71aeb9512e7129a",
+        "raw_url": "https://gitea.com/gitea/tea/raw/commit/4f714bf67af9e03198b076f8d71aeb9512e7129a/README.md"
+      },
+      {
+        "filename": "cmd/releases.go",
+        "status": "changed",
+        "additions": 57,
+        "deletions": 0,
+        "changes": 57,
+        "html_url": "https://gitea.com/gitea/tea/src/commit/4f714bf67af9e03198b076f8d71aeb9512e7129a/cmd/releases.go",
+        "contents_url": "https://gitea.com/api/v1/repos/gitea/tea/contents/cmd/releases.go?ref=4f714bf67af9e03198b076f8d71aeb9512e7129a",
+        "raw_url": "https://gitea.com/gitea/tea/raw/commit/4f714bf67af9e03198b076f8d71aeb9512e7129a/cmd/releases.go"
+      }
+    ]
+  }
+}

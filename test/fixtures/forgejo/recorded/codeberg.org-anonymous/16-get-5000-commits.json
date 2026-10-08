@@ -1,0 +1,101 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/pulls/5000/commits?limit=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "x-total-count": "1",
+      "x-page": "1"
+    },
+    "body": [
+      {
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/69c030a3335c84b5d9fb7277179c78b61473323b",
+        "sha": "69c030a3335c84b5d9fb7277179c78b61473323b",
+        "created": "2024-08-18T06:02:11Z",
+        "html_url": "https://codeberg.org/forgejo/forgejo/commit/69c030a3335c84b5d9fb7277179c78b61473323b",
+        "commit": {
+          "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/69c030a3335c84b5d9fb7277179c78b61473323b",
+          "author": {
+            "name": "Renovate Bot",
+            "email": "redacted@example.invalid",
+            "date": "2024-08-18T06:02:11Z"
+          },
+          "committer": {
+            "name": "Renovate Bot",
+            "email": "redacted@example.invalid",
+            "date": "2024-08-18T06:02:11Z"
+          },
+          "message": "Update linters\n",
+          "tree": {
+            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/trees/69c030a3335c84b5d9fb7277179c78b61473323b",
+            "sha": "69c030a3335c84b5d9fb7277179c78b61473323b",
+            "created": "2024-08-18T06:02:11Z"
+          },
+          "verification": {
+            "verified": false,
+            "reason": "gpg.error.not_signed_commit",
+            "signature": "",
+            "signer": null,
+            "payload": ""
+          }
+        },
+        "author": {
+          "id": 165503,
+          "login": "forgejo-renovate-action",
+          "source_id": 0,
+          "full_name": "",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://codeberg.org/avatars/4ac1fe8134d3be047891754798052f343835927de69c67a26386ca3a5becbbbc",
+          "html_url": "https://codeberg.org/forgejo-renovate-action",
+          "active": false,
+          "location": "",
+          "pronouns": "",
+          "website": "",
+          "description": "",
+          "followers_count": 4,
+          "following_count": 0,
+          "starred_repos_count": 0,
+          "username": "forgejo-renovate-action"
+        },
+        "committer": {
+          "id": 165503,
+          "login": "forgejo-renovate-action",
+          "source_id": 0,
+          "full_name": "",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://codeberg.org/avatars/4ac1fe8134d3be047891754798052f343835927de69c67a26386ca3a5becbbbc",
+          "html_url": "https://codeberg.org/forgejo-renovate-action",
+          "active": false,
+          "location": "",
+          "pronouns": "",
+          "website": "",
+          "description": "",
+          "followers_count": 4,
+          "following_count": 0,
+          "starred_repos_count": 0,
+          "username": "forgejo-renovate-action"
+        },
+        "parents": [
+          {
+            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/adf4dcdbbf386aa8f86efbcbe04bb2ba29cb8f5b",
+            "sha": "adf4dcdbbf386aa8f86efbcbe04bb2ba29cb8f5b",
+            "created": "0001-01-01T00:00:00Z"
+          }
+        ],
+        "files": [
+          {
+            "filename": "package.json",
+            "status": "modified"
+          }
+        ],
+        "stats": {
+          "total": 12,
+          "additions": 6,
+          "deletions": 6
+        }
+      }
+    ]
+  }
+}

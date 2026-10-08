@@ -6,144 +6,532 @@
     "variables": {
       "o0": "h3js",
       "n0": "h3",
-      "k0": 1557,
+      "k0": 1575,
       "o1": "h3js",
       "n1": "h3",
-      "k1": 1502,
+      "k1": 1557,
       "o2": "h3js",
       "n2": "h3",
-      "k2": 1501
+      "k2": 1502
     }
   },
   "response": {
     "status": 200,
     "headers": {
-      "x-ratelimit-remaining": "4678",
-      "x-ratelimit-reset": "1791379749"
+      "x-ratelimit-limit": "5000",
+      "x-ratelimit-remaining": "4835",
+      "x-ratelimit-reset": "1791488075"
     },
     "body": {
-      "errors": [
-        {
-          "type": "INSUFFICIENT_SCOPES",
-          "locations": [
-            {
-              "line": 21,
-              "column": 181
+      "data": {
+        "t0": {
+          "issueOrPullRequest": {
+            "__typename": "PullRequest",
+            "id": "PR_kwDOErHI988AAAABHJjnRQ",
+            "number": 1575,
+            "title": "docs: add h3-prometheus to community section",
+            "body": "## Summary\n- List [`h3-prometheus`](https://github.com/s00d/h3-prometheus) under Community utils (H3 v2 Prometheus metrics plugin)\n\n## Links\n- Repo: https://github.com/s00d/h3-prometheus\n- npm: https://www.npmjs.com/package/h3-prometheus (when published)\n\n\nMade with [Cursor](https://cursor.com)\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n\n## Summary by CodeRabbit\n\n* **Documentation**\n  * Added a community listing for an H3 metrics plugin, highlighting its Prometheus metrics, configurable signals, scrape endpoint, and Grafana dashboard.\n\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
+            "state": "OPEN",
+            "isDraft": false,
+            "createdAt": "2026-10-07T15:25:17Z",
+            "updatedAt": "2026-10-07T15:27:32Z",
+            "closedAt": null,
+            "mergedAt": null,
+            "url": "https://github.com/h3js/h3/pull/1575",
+            "locked": false,
+            "author": {
+              "__typename": "User",
+              "login": "s00d",
+              "avatarUrl": "https://avatars.githubusercontent.com/u/2684895?v=4",
+              "url": "https://github.com/s00d",
+              "databaseId": 2684895,
+              "name": "Pavel Kuzmin"
+            },
+            "assignees": {
+              "nodes": []
+            },
+            "labels": {
+              "nodes": []
+            },
+            "comments": {
+              "totalCount": 1
+            },
+            "participants": {
+              "nodes": [
+                {
+                  "__typename": "User",
+                  "login": "s00d",
+                  "avatarUrl": "https://avatars.githubusercontent.com/u/2684895?v=4",
+                  "url": "https://github.com/s00d",
+                  "databaseId": 2684895,
+                  "name": "Pavel Kuzmin"
+                }
+              ]
+            },
+            "milestone": null,
+            "viewerSubscription": "UNSUBSCRIBED",
+            "headRefName": "docs/add-h3-prometheus-community",
+            "headRefOid": "a0a405d6441c4a9c66ac30c3adc0d11d3acea53f",
+            "baseRefName": "main",
+            "baseRefOid": "66cfb8a357b6285451bad498c2c40002601fae98",
+            "headRepository": {
+              "databaseId": 1408996886,
+              "name": "h3",
+              "owner": {
+                "login": "s00d"
+              }
+            },
+            "mergeCommit": null,
+            "commits": {
+              "nodes": [
+                {
+                  "commit": {
+                    "statusCheckRollup": {
+                      "state": "SUCCESS",
+                      "contexts": {
+                        "totalCount": 3,
+                        "checkRunCountsByState": [
+                          {
+                            "state": "ACTION_REQUIRED",
+                            "count": 0
+                          },
+                          {
+                            "state": "CANCELLED",
+                            "count": 0
+                          },
+                          {
+                            "state": "COMPLETED",
+                            "count": 0
+                          },
+                          {
+                            "state": "FAILURE",
+                            "count": 0
+                          },
+                          {
+                            "state": "IN_PROGRESS",
+                            "count": 0
+                          },
+                          {
+                            "state": "NEUTRAL",
+                            "count": 0
+                          },
+                          {
+                            "state": "PENDING",
+                            "count": 0
+                          },
+                          {
+                            "state": "QUEUED",
+                            "count": 0
+                          },
+                          {
+                            "state": "SKIPPED",
+                            "count": 0
+                          },
+                          {
+                            "state": "STALE",
+                            "count": 0
+                          },
+                          {
+                            "state": "STARTUP_FAILURE",
+                            "count": 0
+                          },
+                          {
+                            "state": "SUCCESS",
+                            "count": 2
+                          },
+                          {
+                            "state": "TIMED_OUT",
+                            "count": 0
+                          },
+                          {
+                            "state": "WAITING",
+                            "count": 0
+                          }
+                        ],
+                        "statusContextCountsByState": [
+                          {
+                            "state": "EXPECTED",
+                            "count": 0
+                          },
+                          {
+                            "state": "ERROR",
+                            "count": 0
+                          },
+                          {
+                            "state": "FAILURE",
+                            "count": 0
+                          },
+                          {
+                            "state": "PENDING",
+                            "count": 0
+                          },
+                          {
+                            "state": "SUCCESS",
+                            "count": 1
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              ]
+            },
+            "reviewRequests": {
+              "nodes": [
+                {
+                  "requestedReviewer": {
+                    "__typename": "User",
+                    "login": "pi0",
+                    "databaseId": 5158436,
+                    "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?u=3609b2822870b982f2b93c432569ee017e970148&v=4",
+                    "url": "https://github.com/pi0"
+                  }
+                }
+              ]
             }
-          ],
-          "message": "Your token has not been granted the required scopes to execute this query. The 'slug' field requires one of the following scopes: ['read:org', 'read:discussion'], but your token has only been granted the: ['gist', 'notifications', 'repo'] scopes. Please modify your token's scopes at: https://github.com/settings/tokens."
+          }
         },
-        {
-          "type": "INSUFFICIENT_SCOPES",
-          "locations": [
-            {
-              "line": 21,
-              "column": 186
+        "t1": {
+          "issueOrPullRequest": {
+            "__typename": "PullRequest",
+            "id": "PR_kwDOErHI988AAAABFO055g",
+            "number": 1557,
+            "title": "feat(rules): request conditions in rule keys (`GET:MD /path`)",
+            "body": "Route rule keys can now be scoped to a named request condition with `METHOD:NAME /path`. Conditions match request headers and are defined in `routeRules()` options.\n\n```ts\nimport { routeRules } from \"h3/rules\";\n\napp.use(\n  routeRules(\n    {\n      // GET /blog/hello with `Accept: text/markdown` → 307 /blog/hello.md\n      \"GET:MD /blog/**\": { redirect: \"/blog/**.md\" },\n      // Already Markdown: don't redirect again\n      \"GET:MD /blog/*.md\": { redirect: false },\n    },\n    {\n      conditions: {\n        MD: { headers: { accept: /\\btext\\/markdown\\b/ } },\n      },\n    },\n  ),\n);\n```\n\n- A request that satisfies a condition keeps every plain `GET` rule and gets the condition's rules on top. When several conditions are satisfied, all of them apply.\n- Header checks: `true` means present, `false` means absent, a string must match exactly, and a `RegExp` is tested against the value.\n- Rule sets without conditions do no extra work per request.\n- `cache` entries and memoized matches are kept separate per condition.\n- The compiler supports conditions: `compileRouteRules(config, { conditions })` exports `resolveRouteRulesMethod(event, method)` for the compiled matcher.\n\nAlso fixes a `preMerge` bug where a method-scoped rule on a shared route node (`GET /a/:id`) hid an agnostic rule (`/a/*`) for `GET /a`.\n\n🤖 Generated with AI assistant\n\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n## Summary by CodeRabbit\n\n- **New Features**\n  - Added named request conditions for route rules, matching requests by header presence, absence, exact values, or regular expressions.\n  - Requests now combine standard method rules with rules for satisfied conditions. GET conditions also apply to HEAD requests.\n  - Added validation for condition definitions and rule keys, including a limit of six conditions per method.\n  - Cached responses are kept separate across condition variants.\n- **Documentation**\n  - Expanded the Route Rules guide with configuration, matching behavior, precedence, and security considerations.\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
+            "state": "OPEN",
+            "isDraft": false,
+            "createdAt": "2026-09-26T08:58:13Z",
+            "updatedAt": "2026-09-26T10:12:18Z",
+            "closedAt": null,
+            "mergedAt": null,
+            "url": "https://github.com/h3js/h3/pull/1557",
+            "locked": false,
+            "author": {
+              "__typename": "User",
+              "login": "pi0x",
+              "avatarUrl": "https://avatars.githubusercontent.com/u/286783767?u=880c7e98a9e910cc2184cf6ed383350bed41cb08&v=4",
+              "url": "https://github.com/pi0x",
+              "databaseId": 286783767,
+              "name": "pi0x"
+            },
+            "assignees": {
+              "nodes": []
+            },
+            "labels": {
+              "nodes": []
+            },
+            "comments": {
+              "totalCount": 3
+            },
+            "participants": {
+              "nodes": [
+                {
+                  "__typename": "User",
+                  "login": "pi0x",
+                  "avatarUrl": "https://avatars.githubusercontent.com/u/286783767?u=880c7e98a9e910cc2184cf6ed383350bed41cb08&v=4",
+                  "url": "https://github.com/pi0x",
+                  "databaseId": 286783767,
+                  "name": "pi0x"
+                },
+                {
+                  "__typename": "User",
+                  "login": "pi0",
+                  "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?u=3609b2822870b982f2b93c432569ee017e970148&v=4",
+                  "url": "https://github.com/pi0",
+                  "databaseId": 5158436,
+                  "name": "Pooya Parsa"
+                }
+              ]
+            },
+            "milestone": null,
+            "viewerSubscription": "UNSUBSCRIBED",
+            "headRefName": "feat/route-rule-mods",
+            "headRefOid": "e8b3545344f20a287f83c81a85d8471406a6e5be",
+            "baseRefName": "main",
+            "baseRefOid": "75c68e2200d56f5d8c05ecd9bd38ac7ca31df17f",
+            "headRepository": {
+              "databaseId": 313641207,
+              "name": "h3",
+              "owner": {
+                "login": "h3js"
+              }
+            },
+            "mergeCommit": null,
+            "commits": {
+              "nodes": [
+                {
+                  "commit": {
+                    "statusCheckRollup": {
+                      "state": "SUCCESS",
+                      "contexts": {
+                        "totalCount": 8,
+                        "checkRunCountsByState": [
+                          {
+                            "state": "ACTION_REQUIRED",
+                            "count": 0
+                          },
+                          {
+                            "state": "CANCELLED",
+                            "count": 0
+                          },
+                          {
+                            "state": "COMPLETED",
+                            "count": 0
+                          },
+                          {
+                            "state": "FAILURE",
+                            "count": 0
+                          },
+                          {
+                            "state": "IN_PROGRESS",
+                            "count": 0
+                          },
+                          {
+                            "state": "NEUTRAL",
+                            "count": 0
+                          },
+                          {
+                            "state": "PENDING",
+                            "count": 0
+                          },
+                          {
+                            "state": "QUEUED",
+                            "count": 0
+                          },
+                          {
+                            "state": "SKIPPED",
+                            "count": 0
+                          },
+                          {
+                            "state": "STALE",
+                            "count": 0
+                          },
+                          {
+                            "state": "STARTUP_FAILURE",
+                            "count": 0
+                          },
+                          {
+                            "state": "SUCCESS",
+                            "count": 7
+                          },
+                          {
+                            "state": "TIMED_OUT",
+                            "count": 0
+                          },
+                          {
+                            "state": "WAITING",
+                            "count": 0
+                          }
+                        ],
+                        "statusContextCountsByState": [
+                          {
+                            "state": "EXPECTED",
+                            "count": 0
+                          },
+                          {
+                            "state": "ERROR",
+                            "count": 0
+                          },
+                          {
+                            "state": "FAILURE",
+                            "count": 0
+                          },
+                          {
+                            "state": "PENDING",
+                            "count": 0
+                          },
+                          {
+                            "state": "SUCCESS",
+                            "count": 1
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              ]
+            },
+            "reviewRequests": {
+              "nodes": [
+                {
+                  "requestedReviewer": {
+                    "__typename": "User",
+                    "login": "pi0",
+                    "databaseId": 5158436,
+                    "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?u=3609b2822870b982f2b93c432569ee017e970148&v=4",
+                    "url": "https://github.com/pi0"
+                  }
+                }
+              ]
             }
-          ],
-          "message": "Your token has not been granted the required scopes to execute this query. The 'databaseId' field requires one of the following scopes: ['read:org', 'read:discussion'], but your token has only been granted the: ['gist', 'notifications', 'repo'] scopes. Please modify your token's scopes at: https://github.com/settings/tokens."
+          }
         },
-        {
-          "type": "INSUFFICIENT_SCOPES",
-          "locations": [
-            {
-              "line": 21,
-              "column": 197
+        "t2": {
+          "issueOrPullRequest": {
+            "__typename": "PullRequest",
+            "id": "PR_kwDOErHI98708j6H",
+            "number": 1502,
+            "title": "feat(context): per-event typed H3EventContext",
+            "body": "Draft based on exploration of #1501 (includes those commits, as I still have to git good). Also proposed in https://github.com/h3js/h3/issues/1437#issuecomment-5025050049\r\n\r\nCommit ad5fcba essentially adds a second param to H3Event that consists in a typed H3EventContext, as well as adds a type argument to the latter for customizing internals.\r\n\r\nOne such use case is properly typing `params` in something like `defineValidatedHandler`, which might have also coerced its data (eg: an id being number instead) keeping the parity between runtime and types.\r\n\r\nThis also adds room of improvements for other validated data for `defineValidatedHandler` such as headers and queries which they currently simply gets mutaded in place, going back to their string form instead. A clear followup for this would be to introduce also `event.context.{headers,query}` with the coerced data and type output of the validation schemas (also reducing the number of operations performed by the forward and back mutation).\r\n\r\nLeaving as draft till #1501 is merged and this concept is approved, @pi0 no further work is needed in this PR other than your own changes or if you want me to also add the `event.context.{headers,query}` logic or defer to next PR",
+            "state": "OPEN",
+            "isDraft": true,
+            "createdAt": "2026-07-22T15:32:17Z",
+            "updatedAt": "2026-07-23T14:15:00Z",
+            "closedAt": null,
+            "mergedAt": null,
+            "url": "https://github.com/h3js/h3/pull/1502",
+            "locked": false,
+            "author": {
+              "__typename": "User",
+              "login": "sandros94",
+              "avatarUrl": "https://avatars.githubusercontent.com/u/13056429?u=37da263a037d4051ba41dc01eb3cae656191e7ca&v=4",
+              "url": "https://github.com/sandros94",
+              "databaseId": 13056429,
+              "name": "Sandro Circi"
+            },
+            "assignees": {
+              "nodes": []
+            },
+            "labels": {
+              "nodes": []
+            },
+            "comments": {
+              "totalCount": 5
+            },
+            "participants": {
+              "nodes": [
+                {
+                  "__typename": "User",
+                  "login": "sandros94",
+                  "avatarUrl": "https://avatars.githubusercontent.com/u/13056429?u=37da263a037d4051ba41dc01eb3cae656191e7ca&v=4",
+                  "url": "https://github.com/sandros94",
+                  "databaseId": 13056429,
+                  "name": "Sandro Circi"
+                },
+                {
+                  "__typename": "User",
+                  "login": "gulshan",
+                  "avatarUrl": "https://avatars.githubusercontent.com/u/751732?v=4",
+                  "url": "https://github.com/gulshan",
+                  "databaseId": 751732,
+                  "name": "Gulshan"
+                }
+              ]
+            },
+            "milestone": null,
+            "viewerSubscription": "UNSUBSCRIBED",
+            "headRefName": "feat/context-typing",
+            "headRefOid": "bc756c55f117055d68a48a444f822a6ce601190e",
+            "baseRefName": "main",
+            "baseRefOid": "4a32c1b75528f881cd85c89ee626c136b7026958",
+            "headRepository": {
+              "databaseId": 923619984,
+              "name": "h3",
+              "owner": {
+                "login": "sandros94"
+              }
+            },
+            "mergeCommit": null,
+            "commits": {
+              "nodes": [
+                {
+                  "commit": {
+                    "statusCheckRollup": {
+                      "state": "SUCCESS",
+                      "contexts": {
+                        "totalCount": 7,
+                        "checkRunCountsByState": [
+                          {
+                            "state": "ACTION_REQUIRED",
+                            "count": 0
+                          },
+                          {
+                            "state": "CANCELLED",
+                            "count": 0
+                          },
+                          {
+                            "state": "COMPLETED",
+                            "count": 0
+                          },
+                          {
+                            "state": "FAILURE",
+                            "count": 0
+                          },
+                          {
+                            "state": "IN_PROGRESS",
+                            "count": 0
+                          },
+                          {
+                            "state": "NEUTRAL",
+                            "count": 0
+                          },
+                          {
+                            "state": "PENDING",
+                            "count": 0
+                          },
+                          {
+                            "state": "QUEUED",
+                            "count": 0
+                          },
+                          {
+                            "state": "SKIPPED",
+                            "count": 1
+                          },
+                          {
+                            "state": "STALE",
+                            "count": 0
+                          },
+                          {
+                            "state": "STARTUP_FAILURE",
+                            "count": 0
+                          },
+                          {
+                            "state": "SUCCESS",
+                            "count": 5
+                          },
+                          {
+                            "state": "TIMED_OUT",
+                            "count": 0
+                          },
+                          {
+                            "state": "WAITING",
+                            "count": 0
+                          }
+                        ],
+                        "statusContextCountsByState": [
+                          {
+                            "state": "EXPECTED",
+                            "count": 0
+                          },
+                          {
+                            "state": "ERROR",
+                            "count": 0
+                          },
+                          {
+                            "state": "FAILURE",
+                            "count": 0
+                          },
+                          {
+                            "state": "PENDING",
+                            "count": 0
+                          },
+                          {
+                            "state": "SUCCESS",
+                            "count": 1
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              ]
+            },
+            "reviewRequests": {
+              "nodes": []
             }
-          ],
-          "message": "Your token has not been granted the required scopes to execute this query. The 'name' field requires one of the following scopes: ['read:org', 'read:discussion'], but your token has only been granted the: ['gist', 'notifications', 'repo'] scopes. Please modify your token's scopes at: https://github.com/settings/tokens."
-        },
-        {
-          "type": "INSUFFICIENT_SCOPES",
-          "locations": [
-            {
-              "line": 21,
-              "column": 202
-            }
-          ],
-          "message": "Your token has not been granted the required scopes to execute this query. The 'url' field requires one of the following scopes: ['read:org', 'read:discussion'], but your token has only been granted the: ['gist', 'notifications', 'repo'] scopes. Please modify your token's scopes at: https://github.com/settings/tokens."
-        },
-        {
-          "type": "INSUFFICIENT_SCOPES",
-          "locations": [
-            {
-              "line": 41,
-              "column": 181
-            }
-          ],
-          "message": "Your token has not been granted the required scopes to execute this query. The 'slug' field requires one of the following scopes: ['read:org', 'read:discussion'], but your token has only been granted the: ['gist', 'notifications', 'repo'] scopes. Please modify your token's scopes at: https://github.com/settings/tokens."
-        },
-        {
-          "type": "INSUFFICIENT_SCOPES",
-          "locations": [
-            {
-              "line": 41,
-              "column": 186
-            }
-          ],
-          "message": "Your token has not been granted the required scopes to execute this query. The 'databaseId' field requires one of the following scopes: ['read:org', 'read:discussion'], but your token has only been granted the: ['gist', 'notifications', 'repo'] scopes. Please modify your token's scopes at: https://github.com/settings/tokens."
-        },
-        {
-          "type": "INSUFFICIENT_SCOPES",
-          "locations": [
-            {
-              "line": 41,
-              "column": 197
-            }
-          ],
-          "message": "Your token has not been granted the required scopes to execute this query. The 'name' field requires one of the following scopes: ['read:org', 'read:discussion'], but your token has only been granted the: ['gist', 'notifications', 'repo'] scopes. Please modify your token's scopes at: https://github.com/settings/tokens."
-        },
-        {
-          "type": "INSUFFICIENT_SCOPES",
-          "locations": [
-            {
-              "line": 41,
-              "column": 202
-            }
-          ],
-          "message": "Your token has not been granted the required scopes to execute this query. The 'url' field requires one of the following scopes: ['read:org', 'read:discussion'], but your token has only been granted the: ['gist', 'notifications', 'repo'] scopes. Please modify your token's scopes at: https://github.com/settings/tokens."
-        },
-        {
-          "type": "INSUFFICIENT_SCOPES",
-          "locations": [
-            {
-              "line": 61,
-              "column": 181
-            }
-          ],
-          "message": "Your token has not been granted the required scopes to execute this query. The 'slug' field requires one of the following scopes: ['read:org', 'read:discussion'], but your token has only been granted the: ['gist', 'notifications', 'repo'] scopes. Please modify your token's scopes at: https://github.com/settings/tokens."
-        },
-        {
-          "type": "INSUFFICIENT_SCOPES",
-          "locations": [
-            {
-              "line": 61,
-              "column": 186
-            }
-          ],
-          "message": "Your token has not been granted the required scopes to execute this query. The 'databaseId' field requires one of the following scopes: ['read:org', 'read:discussion'], but your token has only been granted the: ['gist', 'notifications', 'repo'] scopes. Please modify your token's scopes at: https://github.com/settings/tokens."
-        },
-        {
-          "type": "INSUFFICIENT_SCOPES",
-          "locations": [
-            {
-              "line": 61,
-              "column": 197
-            }
-          ],
-          "message": "Your token has not been granted the required scopes to execute this query. The 'name' field requires one of the following scopes: ['read:org', 'read:discussion'], but your token has only been granted the: ['gist', 'notifications', 'repo'] scopes. Please modify your token's scopes at: https://github.com/settings/tokens."
-        },
-        {
-          "type": "INSUFFICIENT_SCOPES",
-          "locations": [
-            {
-              "line": 61,
-              "column": 202
-            }
-          ],
-          "message": "Your token has not been granted the required scopes to execute this query. The 'url' field requires one of the following scopes: ['read:org', 'read:discussion'], but your token has only been granted the: ['gist', 'notifications', 'repo'] scopes. Please modify your token's scopes at: https://github.com/settings/tokens."
+          }
         }
-      ]
+      }
     }
   }
 }

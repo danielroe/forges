@@ -13,9 +13,7 @@ export interface CapabilityEntry {
   /** Support is declared per thread kind. */
   perKind?: boolean
   /** The capability is computed by core rather than read from a declared verb. */
-  derived?: 'experimental' | 'poll' | 'webhook' | 'upsertComment' | 'subscriptionSet' | 'approve' | 'approveAndMerge' | 'alertKinds' | 'eventKinds' | 'authKinds' | 'limits'
-  /** The entry adds verbs and a declaration to a capability another entry produces. */
-  alias?: boolean
+  derived?: 'experimental' | 'poll' | 'webhook' | 'threadEvents' | 'upsertComment' | 'subscriptionSet' | 'approve' | 'approveAndMerge' | 'alertKinds' | 'eventKinds' | 'authKinds' | 'limits'
   /** The verbs change state, so `readOnly` and anonymous providers reject them. */
   write?: boolean
   /** The verbs need an account, so anonymous providers reject them. */
@@ -47,9 +45,9 @@ const TABLE = [
   { capability: 'repos.assignableUsers', listing: true },
   { capability: 'repos.reviewerCandidates', listing: true },
   { capability: 'threads.get', perKind: true },
-  { capability: 'threads.get', spec: 'threads.eventsPage', alias: true },
   { capability: 'threads.list', listing: true, perKind: true },
   { capability: 'threads.getMany' },
+  { capability: 'threads.events', spec: 'threads.eventsPage', derived: 'threadEvents' },
   { capability: 'comments.list', spec: 'threads.commentsPage', perKind: true },
   { capability: 'comments.edit', write: true, spec: 'threads.editComment', perKind: true },
   { capability: 'comments.delete', write: true, spec: 'threads.deleteComment', perKind: true },

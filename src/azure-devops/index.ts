@@ -42,7 +42,6 @@ export interface AzureDevOpsOptions extends ForgeOptionsBase {
 }
 
 const ISSUE_AND_PULL = { issue: true, pull_request: true } as const
-const PULL = { pull_request: true } as const
 const PER_PAGE = 50
 /** System work item types that are not issues: test management and code review records. */
 const NOT_ISSUES = ['Test Case', 'Test Plan', 'Test Suite', 'Shared Steps', 'Shared Parameter', 'Code Review Request', 'Code Review Response', 'Feedback Request', 'Feedback Response']
@@ -50,6 +49,8 @@ const MERGE_STRATEGIES = { merge: 'noFastForward', squash: 'squash', rebase: 're
 
 function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: ProviderContext<AzureDevOpsOptions, undefined>): ProviderSpec {
   const enc = encodeURIComponent
+  /** Pull request statuses, policy evaluations and WIQL queries redirect a request without credentials to sign in. */
+  const anonymous = options.auth?.type === 'anonymous'
 
   const STATUS_STATES: Record<CheckState, AzureStatus['state']> = { pending: 'pending', success: 'succeeded', failure: 'failed', neutral: 'notApplicable', unknown: 'notSet' }
 
@@ -143,6 +144,9 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
     }
     const { data } = await fetcher.json<AzurePullRequest>(pullPath(ref))
     const result = toPullThread({ ...ref, repo: toRepoRef(instance, scope(ref.repo).org, data.repository) }, data)
+    if (anonymous) {
+      return result
+    }
     try {
       result.checks = summariseChecks((await pullChecks(ref, data)).map(check => check.state))
     }
@@ -226,8 +230,11 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
     const state = query.state ?? 'open'
     const pullStates = state === 'open' ? ['active'] : state === 'merged' ? ['completed'] : state === 'closed' ? ['completed', 'abandoned'] : ['all']
     const phases: Array<(cursor?: Cursor) => Promise<Page<Thread>>> = []
-    if (query.kind !== 'pull_request') {
+    if (query.kind !== 'pull_request' && !anonymous) {
       phases.push(cursor => workItemPage(repo, query, cursor))
+    }
+    else if (query.kind !== 'pull_request' && !query.cursor) {
+      warnings.push({ code: 'kind_unsupported', message: 'Azure DevOps lists work items only to signed-in users; this listing has pull requests only' })
     }
     if (query.kind !== 'issue') {
       phases.push(...pullStates.map(status => (cursor?: Cursor) => pullPage(repo, status, query, cursor)))
@@ -331,7 +338,7 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
 
   return {
     traits: { poll: false, eventKinds: 'native', authKinds: ['token', 'basic', 'anonymous'] },
-    search: { threadsPage: verb('experimental', searchThreadsPage) },
+    search: { threadsPage: verb(!anonymous && 'experimental', searchThreadsPage) },
     repos: {
       get: verb(true, async (ref) => {
         const { data } = await fetcher.json<AzureRepository>(repoPath(ref))
@@ -431,7 +438,7 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
     threads: {
       get: perKind({ issue: 'experimental', pull_request: true }, get),
       getMany: verb(true, refs => getManyConcurrently(refs, get)),
-      listPage: perKind(ISSUE_AND_PULL, listPage),
+      listPage: perKind({ issue: !anonymous, pull_request: true }, listPage),
       eventsPage: verb(true, eventsPage),
       commitsPage: verb('experimental', async (thread, listOptions = {}) => {
         const ref = requireThread(thread, context)
@@ -579,7 +586,7 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
         const sha = mergeOptions.sha ?? (await fetcher.json<AzurePullRequest>(pullPath(ref))).data.lastMergeSourceCommit?.commitId
         await fetcher.raw(pullPath(ref), { method: 'PATCH', json: { status: 'completed', lastMergeSourceCommit: { commitId: sha }, completionOptions }, mapError: toMergeError })
       }),
-      checks: perKind(PULL, async (thread) => {
+      checks: perKind({ pull_request: !anonymous }, async (thread) => {
         const ref = requireThread(thread, context)
         return { items: await pullChecks(ref, (await fetcher.json<AzurePullRequest>(pullPath(ref))).data) }
       }),

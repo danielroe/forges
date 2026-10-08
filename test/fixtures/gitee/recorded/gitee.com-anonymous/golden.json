@@ -1,0 +1,2370 @@
+{
+  "repo": {
+    "ref": {
+      "forge": "gitee",
+      "instance": "gitee.com",
+      "owner": "cmcc-oneos",
+      "name": "OneOS",
+      "externalId": "11463759"
+    },
+    "description": "OneOS是中国移动针对物联网领域推出的轻量级操作系统，具有可裁剪、跨平台、低功耗、高安全等特点，支持ARM Cortex-M/R/A、MIPS、RISC-V等主流CPU架构，兼容POSIX、CMSIS等标准接口，支持Micropython语言开发，提供图形化开发工具，能够有效提高开发效率并降低开发成本，帮助客户开发稳定可靠、安全易用的物联网应用。 \r\n官网地址：https://os.iot.10086.cn/",
+    "defaultBranch": "dev",
+    "visibility": "public",
+    "isFork": false,
+    "isArchived": false,
+    "topics": [],
+    "url": "https://gitee.com/cmcc-oneos/OneOS.git",
+    "cloneUrls": {
+      "https": "https://gitee.com/cmcc-oneos/OneOS.git.git",
+      "ssh": "git@gitee.com:cmcc-oneos/OneOS.git"
+    },
+    "createdAt": "2020-09-11T02:57:26.000Z",
+    "updatedAt": "2026-10-08T01:13:51.000Z",
+    "pushedAt": "2025-06-12T06:42:27.000Z",
+    "openIssueCount": 35,
+    "owner": {
+      "forge": "gitee",
+      "instance": "gitee.com",
+      "login": "cmcc-oneos-admin",
+      "id": "7894055",
+      "name": "CMCC-OneOS",
+      "avatarUrl": "https://foruda.gitee.com/avatar/1670466967165594212/7894055_cmcc-oneos-admin_1670466966.png",
+      "url": "https://gitee.com/cmcc-oneos-admin",
+      "typeRaw": "User",
+      "isBotHint": false
+    },
+    "language": "C",
+    "licence": "Apache-2.0",
+    "stars": 529,
+    "forks": 285,
+    "watchers": 120
+  },
+  "labels": {
+    "items": [
+      {
+        "name": "bug",
+        "colour": "DB2828"
+      },
+      {
+        "name": "ci_compile_failed",
+        "colour": "ec0019"
+      },
+      {
+        "name": "ci_compile_success",
+        "colour": "20c22e"
+      },
+      {
+        "name": "ci_compile_warning",
+        "colour": "febc08"
+      },
+      {
+        "name": "ci_failed",
+        "colour": "ec0019"
+      },
+      {
+        "name": "ci_scan_failed",
+        "colour": "ec0019"
+      },
+      {
+        "name": "ci_scan_success",
+        "colour": "20c22e"
+      },
+      {
+        "name": "ci_scan_warning",
+        "colour": "febc08"
+      },
+      {
+        "name": "ci_smoke_failed",
+        "colour": "ec0019"
+      },
+      {
+        "name": "ci_smoke_success",
+        "colour": "20c22e"
+      },
+      {
+        "name": "ci_smoke_warning",
+        "colour": "febc08"
+      },
+      {
+        "name": "ci_success",
+        "colour": "20c22e"
+      },
+      {
+        "name": "duplicate",
+        "colour": "767676"
+      },
+      {
+        "name": "enhancement",
+        "colour": "F2711C"
+      },
+      {
+        "name": "feature",
+        "colour": "B5CC18"
+      },
+      {
+        "name": "invalid",
+        "colour": "1B1C1D"
+      },
+      {
+        "name": "question",
+        "colour": "00B5AD"
+      },
+      {
+        "name": "wontfix",
+        "colour": "6435C9"
+      }
+    ]
+  },
+  "collaborators": {
+    "items": [
+      {
+        "actor": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "login": "charlseJ",
+          "id": "625070",
+          "name": "非yun",
+          "avatarUrl": "https://gitee.com/assets/no_portrait.png",
+          "url": "https://gitee.com/charlseJ",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "role": "read"
+      },
+      {
+        "actor": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "login": "longlin7594",
+          "id": "1444807",
+          "name": "longlin",
+          "avatarUrl": "https://gitee.com/assets/no_portrait.png",
+          "url": "https://gitee.com/longlin7594",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "role": "read"
+      },
+      {
+        "actor": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "login": "shanshi87hl",
+          "id": "4766708",
+          "name": "磊Ray",
+          "avatarUrl": "https://gitee.com/assets/no_portrait.png",
+          "url": "https://gitee.com/shanshi87hl",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "role": "read"
+      }
+    ],
+    "cursor": {
+      "nextUrl": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/collaborators?page=2&per_page=3"
+    }
+  },
+  "pull": {
+    "ref": {
+      "forge": "gitee",
+      "instance": "gitee.com",
+      "repo": {
+        "forge": "gitee",
+        "instance": "gitee.com",
+        "owner": "cmcc-oneos",
+        "name": "OneOS"
+      },
+      "kind": "pull_request",
+      "number": "550",
+      "externalId": "14461987"
+    },
+    "kind": "pull_request",
+    "title": "delete Kconfig menu of semidrive",
+    "body": "1. delete Kconfig menu of semidrive\r\n---\r\n### 提交PR原因\r\n\r\n\r\n\r\n### 描述说明（配置修改、注意事项等说明）\r\n\r\n\r\n\r\n\r\n\r\n",
+    "state": "merged",
+    "stateRaw": "merged",
+    "isDraft": false,
+    "author": {
+      "forge": "gitee",
+      "instance": "gitee.com",
+      "login": "pc-courage",
+      "id": "8078236",
+      "name": "chao",
+      "avatarUrl": "https://gitee.com/assets/no_portrait.png",
+      "url": "https://gitee.com/pc-courage",
+      "typeRaw": "User",
+      "isBotHint": false
+    },
+    "assignees": [],
+    "reviewers": [
+      {
+        "actor": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "login": "anandacoo",
+          "id": "5641649",
+          "name": "ZD",
+          "avatarUrl": "https://gitee.com/assets/no_portrait.png",
+          "url": "https://gitee.com/anandacoo",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "state": "approved",
+        "stateRaw": "accepted"
+      },
+      {
+        "actor": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "login": "yeslulin",
+          "id": "7762062",
+          "name": "yuanwai",
+          "avatarUrl": "https://gitee.com/assets/no_portrait.png",
+          "url": "https://gitee.com/yeslulin",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "state": "approved",
+        "stateRaw": "accepted"
+      },
+      {
+        "actor": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "login": "cmcc-oneos-admin",
+          "id": "7894055",
+          "name": "CMCC-OneOS",
+          "avatarUrl": "https://foruda.gitee.com/avatar/1670466967165594212/7894055_cmcc-oneos-admin_1670466966.png",
+          "url": "https://gitee.com/cmcc-oneos-admin",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "state": "approved",
+        "stateRaw": "accepted"
+      },
+      {
+        "actor": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "login": "pc-courage",
+          "id": "8078236",
+          "name": "chao",
+          "avatarUrl": "https://gitee.com/assets/no_portrait.png",
+          "url": "https://gitee.com/pc-courage",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "state": "approved",
+        "stateRaw": "accepted"
+      },
+      {
+        "actor": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "login": "zhanghongwei_cmiot",
+          "id": "8157480",
+          "name": "zhanghongwei",
+          "avatarUrl": "https://gitee.com/assets/no_portrait.png",
+          "url": "https://gitee.com/zhanghongwei_cmiot",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "state": "approved",
+        "stateRaw": "accepted"
+      },
+      {
+        "actor": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "login": "cmiot_jixiaowei",
+          "id": "8337774",
+          "name": "jixiaowei",
+          "avatarUrl": "https://gitee.com/assets/no_portrait.png",
+          "url": "https://gitee.com/cmiot_jixiaowei",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "state": "approved",
+        "stateRaw": "accepted"
+      }
+    ],
+    "labels": [],
+    "url": "https://gitee.com/cmcc-oneos/OneOS/pulls/550",
+    "createdAt": "2025-06-12T03:27:06.000Z",
+    "updatedAt": "2025-06-12T06:33:45.000Z",
+    "closedAt": "2025-06-12T06:33:46.000Z",
+    "lastActivityAt": "2025-06-12T06:33:45.000Z",
+    "locked": false,
+    "branches": {
+      "head": {
+        "ref": "dev",
+        "sha": "63e44b69ea1af37d309cce490c59cda5d190c8a1",
+        "repo": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "owner": "pc-courage",
+          "name": "OneOS",
+          "externalId": "34019295"
+        }
+      },
+      "base": {
+        "ref": "dev",
+        "sha": "2fa826a00e1c4f42113d878d198584360e180eb0"
+      }
+    },
+    "checks": {
+      "state": "unknown",
+      "total": 0,
+      "failed": 0
+    }
+  },
+  "pull list": {
+    "items": []
+  },
+  "pull getMany": [
+    {
+      "ok": true,
+      "ref": {
+        "forge": "gitee",
+        "instance": "gitee.com",
+        "repo": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "owner": "cmcc-oneos",
+          "name": "OneOS"
+        },
+        "kind": "pull_request",
+        "number": "550"
+      },
+      "thread": {
+        "ref": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "repo": {
+            "forge": "gitee",
+            "instance": "gitee.com",
+            "owner": "cmcc-oneos",
+            "name": "OneOS"
+          },
+          "kind": "pull_request",
+          "number": "550",
+          "externalId": "14461987"
+        },
+        "kind": "pull_request",
+        "title": "delete Kconfig menu of semidrive",
+        "body": "1. delete Kconfig menu of semidrive\r\n---\r\n### 提交PR原因\r\n\r\n\r\n\r\n### 描述说明（配置修改、注意事项等说明）\r\n\r\n\r\n\r\n\r\n\r\n",
+        "state": "merged",
+        "stateRaw": "merged",
+        "isDraft": false,
+        "author": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "login": "pc-courage",
+          "id": "8078236",
+          "name": "chao",
+          "avatarUrl": "https://gitee.com/assets/no_portrait.png",
+          "url": "https://gitee.com/pc-courage",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "assignees": [],
+        "reviewers": [
+          {
+            "actor": {
+              "forge": "gitee",
+              "instance": "gitee.com",
+              "login": "anandacoo",
+              "id": "5641649",
+              "name": "ZD",
+              "avatarUrl": "https://gitee.com/assets/no_portrait.png",
+              "url": "https://gitee.com/anandacoo",
+              "typeRaw": "User",
+              "isBotHint": false
+            },
+            "state": "approved",
+            "stateRaw": "accepted"
+          },
+          {
+            "actor": {
+              "forge": "gitee",
+              "instance": "gitee.com",
+              "login": "yeslulin",
+              "id": "7762062",
+              "name": "yuanwai",
+              "avatarUrl": "https://gitee.com/assets/no_portrait.png",
+              "url": "https://gitee.com/yeslulin",
+              "typeRaw": "User",
+              "isBotHint": false
+            },
+            "state": "approved",
+            "stateRaw": "accepted"
+          },
+          {
+            "actor": {
+              "forge": "gitee",
+              "instance": "gitee.com",
+              "login": "cmcc-oneos-admin",
+              "id": "7894055",
+              "name": "CMCC-OneOS",
+              "avatarUrl": "https://foruda.gitee.com/avatar/1670466967165594212/7894055_cmcc-oneos-admin_1670466966.png",
+              "url": "https://gitee.com/cmcc-oneos-admin",
+              "typeRaw": "User",
+              "isBotHint": false
+            },
+            "state": "approved",
+            "stateRaw": "accepted"
+          },
+          {
+            "actor": {
+              "forge": "gitee",
+              "instance": "gitee.com",
+              "login": "pc-courage",
+              "id": "8078236",
+              "name": "chao",
+              "avatarUrl": "https://gitee.com/assets/no_portrait.png",
+              "url": "https://gitee.com/pc-courage",
+              "typeRaw": "User",
+              "isBotHint": false
+            },
+            "state": "approved",
+            "stateRaw": "accepted"
+          },
+          {
+            "actor": {
+              "forge": "gitee",
+              "instance": "gitee.com",
+              "login": "zhanghongwei_cmiot",
+              "id": "8157480",
+              "name": "zhanghongwei",
+              "avatarUrl": "https://gitee.com/assets/no_portrait.png",
+              "url": "https://gitee.com/zhanghongwei_cmiot",
+              "typeRaw": "User",
+              "isBotHint": false
+            },
+            "state": "approved",
+            "stateRaw": "accepted"
+          },
+          {
+            "actor": {
+              "forge": "gitee",
+              "instance": "gitee.com",
+              "login": "cmiot_jixiaowei",
+              "id": "8337774",
+              "name": "jixiaowei",
+              "avatarUrl": "https://gitee.com/assets/no_portrait.png",
+              "url": "https://gitee.com/cmiot_jixiaowei",
+              "typeRaw": "User",
+              "isBotHint": false
+            },
+            "state": "approved",
+            "stateRaw": "accepted"
+          }
+        ],
+        "labels": [],
+        "url": "https://gitee.com/cmcc-oneos/OneOS/pulls/550",
+        "createdAt": "2025-06-12T03:27:06.000Z",
+        "updatedAt": "2025-06-12T06:33:45.000Z",
+        "closedAt": "2025-06-12T06:33:46.000Z",
+        "lastActivityAt": "2025-06-12T06:33:45.000Z",
+        "locked": false,
+        "branches": {
+          "head": {
+            "ref": "dev",
+            "sha": "63e44b69ea1af37d309cce490c59cda5d190c8a1",
+            "repo": {
+              "forge": "gitee",
+              "instance": "gitee.com",
+              "owner": "pc-courage",
+              "name": "OneOS",
+              "externalId": "34019295"
+            }
+          },
+          "base": {
+            "ref": "dev",
+            "sha": "2fa826a00e1c4f42113d878d198584360e180eb0"
+          }
+        },
+        "checks": {
+          "state": "unknown",
+          "total": 0,
+          "failed": 0
+        }
+      }
+    }
+  ],
+  "pull events": {
+    "items": [
+      {
+        "forge": "gitee",
+        "instance": "gitee.com",
+        "id": "log:221198632",
+        "kind": "assignment",
+        "kindRaw": "set_assignee",
+        "summary": "pc-courage 指派了 ZD 参与评审",
+        "occurredAt": "2025-06-12T03:27:08.000Z",
+        "actor": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "login": "pc-courage",
+          "id": "8078236",
+          "name": "chao",
+          "avatarUrl": "https://gitee.com/assets/no_portrait.png",
+          "url": "https://gitee.com/pc-courage",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "repo": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "owner": "cmcc-oneos",
+          "name": "OneOS"
+        },
+        "thread": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "repo": {
+            "forge": "gitee",
+            "instance": "gitee.com",
+            "owner": "cmcc-oneos",
+            "name": "OneOS"
+          },
+          "kind": "pull_request",
+          "number": "550"
+        },
+        "source": "poll",
+        "action": "other"
+      },
+      {
+        "forge": "gitee",
+        "instance": "gitee.com",
+        "id": "log:221198633",
+        "kind": "assignment",
+        "kindRaw": "set_assignee",
+        "summary": "pc-courage 指派了 yuanwai 参与评审",
+        "occurredAt": "2025-06-12T03:27:08.000Z",
+        "actor": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "login": "pc-courage",
+          "id": "8078236",
+          "name": "chao",
+          "avatarUrl": "https://gitee.com/assets/no_portrait.png",
+          "url": "https://gitee.com/pc-courage",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "repo": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "owner": "cmcc-oneos",
+          "name": "OneOS"
+        },
+        "thread": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "repo": {
+            "forge": "gitee",
+            "instance": "gitee.com",
+            "owner": "cmcc-oneos",
+            "name": "OneOS"
+          },
+          "kind": "pull_request",
+          "number": "550"
+        },
+        "source": "poll",
+        "action": "other"
+      },
+      {
+        "forge": "gitee",
+        "instance": "gitee.com",
+        "id": "log:221198635",
+        "kind": "assignment",
+        "kindRaw": "set_assignee",
+        "summary": "pc-courage 指派了 chao 参与评审",
+        "occurredAt": "2025-06-12T03:27:08.000Z",
+        "actor": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "login": "pc-courage",
+          "id": "8078236",
+          "name": "chao",
+          "avatarUrl": "https://gitee.com/assets/no_portrait.png",
+          "url": "https://gitee.com/pc-courage",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "repo": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "owner": "cmcc-oneos",
+          "name": "OneOS"
+        },
+        "thread": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "repo": {
+            "forge": "gitee",
+            "instance": "gitee.com",
+            "owner": "cmcc-oneos",
+            "name": "OneOS"
+          },
+          "kind": "pull_request",
+          "number": "550"
+        },
+        "source": "poll",
+        "action": "other"
+      },
+      {
+        "forge": "gitee",
+        "instance": "gitee.com",
+        "id": "log:221198636",
+        "kind": "assignment",
+        "kindRaw": "set_assignee",
+        "summary": "pc-courage 指派了 zhanghongwei 参与评审",
+        "occurredAt": "2025-06-12T03:27:08.000Z",
+        "actor": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "login": "pc-courage",
+          "id": "8078236",
+          "name": "chao",
+          "avatarUrl": "https://gitee.com/assets/no_portrait.png",
+          "url": "https://gitee.com/pc-courage",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "repo": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "owner": "cmcc-oneos",
+          "name": "OneOS"
+        },
+        "thread": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "repo": {
+            "forge": "gitee",
+            "instance": "gitee.com",
+            "owner": "cmcc-oneos",
+            "name": "OneOS"
+          },
+          "kind": "pull_request",
+          "number": "550"
+        },
+        "source": "poll",
+        "action": "other"
+      },
+      {
+        "forge": "gitee",
+        "instance": "gitee.com",
+        "id": "log:221198637",
+        "kind": "assignment",
+        "kindRaw": "set_assignee",
+        "summary": "pc-courage 指派了 jixiaowei 参与评审",
+        "occurredAt": "2025-06-12T03:27:08.000Z",
+        "actor": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "login": "pc-courage",
+          "id": "8078236",
+          "name": "chao",
+          "avatarUrl": "https://gitee.com/assets/no_portrait.png",
+          "url": "https://gitee.com/pc-courage",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "repo": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "owner": "cmcc-oneos",
+          "name": "OneOS"
+        },
+        "thread": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "repo": {
+            "forge": "gitee",
+            "instance": "gitee.com",
+            "owner": "cmcc-oneos",
+            "name": "OneOS"
+          },
+          "kind": "pull_request",
+          "number": "550"
+        },
+        "source": "poll",
+        "action": "other"
+      },
+      {
+        "forge": "gitee",
+        "instance": "gitee.com",
+        "id": "log:221198638",
+        "kind": "other",
+        "kindRaw": "set_tester",
+        "summary": "pc-courage 指派了测试人OneOS-CI",
+        "occurredAt": "2025-06-12T03:27:08.000Z",
+        "actor": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "login": "pc-courage",
+          "id": "8078236",
+          "name": "chao",
+          "avatarUrl": "https://gitee.com/assets/no_portrait.png",
+          "url": "https://gitee.com/pc-courage",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "repo": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "owner": "cmcc-oneos",
+          "name": "OneOS"
+        },
+        "thread": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "repo": {
+            "forge": "gitee",
+            "instance": "gitee.com",
+            "owner": "cmcc-oneos",
+            "name": "OneOS"
+          },
+          "kind": "pull_request",
+          "number": "550"
+        },
+        "source": "poll",
+        "action": "other"
+      },
+      {
+        "forge": "gitee",
+        "instance": "gitee.com",
+        "id": "log:221235041",
+        "kind": "assignment",
+        "kindRaw": "set_assignee",
+        "summary": "cmcc-oneos-admin 指派了 CMCC-OneOS 参与评审",
+        "occurredAt": "2025-06-12T06:33:35.000Z",
+        "actor": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "login": "cmcc-oneos-admin",
+          "id": "7894055",
+          "name": "CMCC-OneOS",
+          "avatarUrl": "https://foruda.gitee.com/avatar/1670466967165594212/7894055_cmcc-oneos-admin_1670466966.png",
+          "url": "https://gitee.com/cmcc-oneos-admin",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "repo": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "owner": "cmcc-oneos",
+          "name": "OneOS"
+        },
+        "thread": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "repo": {
+            "forge": "gitee",
+            "instance": "gitee.com",
+            "owner": "cmcc-oneos",
+            "name": "OneOS"
+          },
+          "kind": "pull_request",
+          "number": "550"
+        },
+        "source": "poll",
+        "action": "other"
+      },
+      {
+        "forge": "gitee",
+        "instance": "gitee.com",
+        "id": "log:221235042",
+        "kind": "other",
+        "kindRaw": "check_pass",
+        "summary": "cmcc-oneos-admin 审查通过",
+        "occurredAt": "2025-06-12T06:33:35.000Z",
+        "actor": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "login": "cmcc-oneos-admin",
+          "id": "7894055",
+          "name": "CMCC-OneOS",
+          "avatarUrl": "https://foruda.gitee.com/avatar/1670466967165594212/7894055_cmcc-oneos-admin_1670466966.png",
+          "url": "https://gitee.com/cmcc-oneos-admin",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "repo": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "owner": "cmcc-oneos",
+          "name": "OneOS"
+        },
+        "thread": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "repo": {
+            "forge": "gitee",
+            "instance": "gitee.com",
+            "owner": "cmcc-oneos",
+            "name": "OneOS"
+          },
+          "kind": "pull_request",
+          "number": "550"
+        },
+        "source": "poll",
+        "action": "other"
+      },
+      {
+        "forge": "gitee",
+        "instance": "gitee.com",
+        "id": "log:221235043",
+        "kind": "other",
+        "kindRaw": "force_check_pass",
+        "summary": "cmcc-oneos-admin 审查通过(所有)",
+        "occurredAt": "2025-06-12T06:33:35.000Z",
+        "actor": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "login": "cmcc-oneos-admin",
+          "id": "7894055",
+          "name": "CMCC-OneOS",
+          "avatarUrl": "https://foruda.gitee.com/avatar/1670466967165594212/7894055_cmcc-oneos-admin_1670466966.png",
+          "url": "https://gitee.com/cmcc-oneos-admin",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "repo": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "owner": "cmcc-oneos",
+          "name": "OneOS"
+        },
+        "thread": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "repo": {
+            "forge": "gitee",
+            "instance": "gitee.com",
+            "owner": "cmcc-oneos",
+            "name": "OneOS"
+          },
+          "kind": "pull_request",
+          "number": "550"
+        },
+        "source": "poll",
+        "action": "other"
+      },
+      {
+        "forge": "gitee",
+        "instance": "gitee.com",
+        "id": "log:221235057",
+        "kind": "other",
+        "kindRaw": "set_tester",
+        "summary": "cmcc-oneos-admin 指派了测试人CMCC-OneOS",
+        "occurredAt": "2025-06-12T06:33:39.000Z",
+        "actor": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "login": "cmcc-oneos-admin",
+          "id": "7894055",
+          "name": "CMCC-OneOS",
+          "avatarUrl": "https://foruda.gitee.com/avatar/1670466967165594212/7894055_cmcc-oneos-admin_1670466966.png",
+          "url": "https://gitee.com/cmcc-oneos-admin",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "repo": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "owner": "cmcc-oneos",
+          "name": "OneOS"
+        },
+        "thread": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "repo": {
+            "forge": "gitee",
+            "instance": "gitee.com",
+            "owner": "cmcc-oneos",
+            "name": "OneOS"
+          },
+          "kind": "pull_request",
+          "number": "550"
+        },
+        "source": "poll",
+        "action": "other"
+      },
+      {
+        "forge": "gitee",
+        "instance": "gitee.com",
+        "id": "log:221235058",
+        "kind": "other",
+        "kindRaw": "test_pass",
+        "summary": "cmcc-oneos-admin 测试通过",
+        "occurredAt": "2025-06-12T06:33:39.000Z",
+        "actor": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "login": "cmcc-oneos-admin",
+          "id": "7894055",
+          "name": "CMCC-OneOS",
+          "avatarUrl": "https://foruda.gitee.com/avatar/1670466967165594212/7894055_cmcc-oneos-admin_1670466966.png",
+          "url": "https://gitee.com/cmcc-oneos-admin",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "repo": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "owner": "cmcc-oneos",
+          "name": "OneOS"
+        },
+        "thread": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "repo": {
+            "forge": "gitee",
+            "instance": "gitee.com",
+            "owner": "cmcc-oneos",
+            "name": "OneOS"
+          },
+          "kind": "pull_request",
+          "number": "550"
+        },
+        "source": "poll",
+        "action": "other"
+      },
+      {
+        "forge": "gitee",
+        "instance": "gitee.com",
+        "id": "log:221235059",
+        "kind": "other",
+        "kindRaw": "force_test_pass",
+        "summary": "cmcc-oneos-admin 测试通过(所有)",
+        "occurredAt": "2025-06-12T06:33:39.000Z",
+        "actor": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "login": "cmcc-oneos-admin",
+          "id": "7894055",
+          "name": "CMCC-OneOS",
+          "avatarUrl": "https://foruda.gitee.com/avatar/1670466967165594212/7894055_cmcc-oneos-admin_1670466966.png",
+          "url": "https://gitee.com/cmcc-oneos-admin",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "repo": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "owner": "cmcc-oneos",
+          "name": "OneOS"
+        },
+        "thread": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "repo": {
+            "forge": "gitee",
+            "instance": "gitee.com",
+            "owner": "cmcc-oneos",
+            "name": "OneOS"
+          },
+          "kind": "pull_request",
+          "number": "550"
+        },
+        "source": "poll",
+        "action": "other"
+      },
+      {
+        "forge": "gitee",
+        "instance": "gitee.com",
+        "id": "log:221235091",
+        "kind": "other",
+        "kindRaw": "merged_pr",
+        "summary": "cmcc-oneos-admin 合并了Pull Request（通过 Web 合并）",
+        "occurredAt": "2025-06-12T06:33:45.000Z",
+        "actor": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "login": "cmcc-oneos-admin",
+          "id": "7894055",
+          "name": "CMCC-OneOS",
+          "avatarUrl": "https://foruda.gitee.com/avatar/1670466967165594212/7894055_cmcc-oneos-admin_1670466966.png",
+          "url": "https://gitee.com/cmcc-oneos-admin",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "repo": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "owner": "cmcc-oneos",
+          "name": "OneOS"
+        },
+        "thread": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "repo": {
+            "forge": "gitee",
+            "instance": "gitee.com",
+            "owner": "cmcc-oneos",
+            "name": "OneOS"
+          },
+          "kind": "pull_request",
+          "number": "550"
+        },
+        "source": "poll",
+        "action": "other"
+      }
+    ]
+  },
+  "pull comments": {
+    "items": []
+  },
+  "pull checks": {
+    "items": []
+  },
+  "pull files": {
+    "items": [
+      {
+        "path": "templates/configs/Kconfig",
+        "status": "changed",
+        "statusRaw": null,
+        "additions": "0",
+        "deletions": "7",
+        "patch": "@@ -62,9 +62,6 @@ choice\n     config MANUFACTOR_SAMSUNG\r\n         bool \"SAMSUNG\"\r\n         \r\n-    config MANUFACTOR_SEMIDRIVE\r\n-        bool \"SEMIDRIVE\"\r\n-        \r\n endchoice\r\n \r\n if MANUFACTOR_STM32\r\n@@ -150,7 +147,3 @@ endif\n if MANUFACTOR_SAMSUNG\r\n     source \"$OS_ROOT/templates/configs/samsung/Kconfig\"\r\n endif\r\n-\r\n-if MANUFACTOR_SEMIDRIVE\r\n-    source \"$OS_ROOT/templates/configs/semidrive/Kconfig\"\r\n-endif\r\n",
+        "sha": "63e44b69ea1af37d309cce490c59cda5d190c8a1"
+      }
+    ]
+  },
+  "pull commits": {
+    "items": [
+      {
+        "ref": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "repo": {
+            "forge": "gitee",
+            "instance": "gitee.com",
+            "owner": "cmcc-oneos",
+            "name": "OneOS"
+          },
+          "sha": "63e44b69ea1af37d309cce490c59cda5d190c8a1"
+        },
+        "sha": "63e44b69ea1af37d309cce490c59cda5d190c8a1",
+        "message": "delete Kconfig menu of semidrive\n",
+        "author": {
+          "name": "pangchao",
+          "email": "redacted@example.invalid",
+          "date": "2025-06-12T03:06:45.000Z"
+        },
+        "committer": {
+          "actor": {
+            "forge": "gitee",
+            "instance": "gitee.com",
+            "id": "undefined",
+            "isBotHint": false
+          },
+          "name": "pangchao",
+          "email": "redacted@example.invalid",
+          "date": "2025-06-12T03:06:45.000Z"
+        },
+        "parents": [
+          "2fa826a00e1c4f42113d878d198584360e180eb0"
+        ],
+        "url": "https://gitee.com/cmcc-oneos/OneOS/commits/63e44b69ea1af37d309cce490c59cda5d190c8a1"
+      }
+    ]
+  },
+  "issue": {
+    "ref": {
+      "forge": "gitee",
+      "instance": "gitee.com",
+      "repo": {
+        "forge": "gitee",
+        "instance": "gitee.com",
+        "owner": "cmcc-oneos",
+        "name": "OneOS"
+      },
+      "kind": "issue",
+      "number": "I8NUPF",
+      "externalId": "14549811"
+    },
+    "kind": "issue",
+    "title": "OneOS-Cube 的\"project.bat\"报错",
+    "body": "我使用OneOS_V3.0.1版本库，使用OneOS-Cube\r\n的\"project.bat\"报错，这个啥问题呢？我版本不对还是？\r\n![输入图片说明](https://foruda.gitee.com/images/1702385106550083650/bff15a72_12490192.png \"1.png\")",
+    "state": "open",
+    "stateRaw": "open",
+    "isDraft": false,
+    "author": {
+      "forge": "gitee",
+      "instance": "gitee.com",
+      "login": "jiangjinglong",
+      "id": "12490192",
+      "name": "OneOS助手",
+      "avatarUrl": "https://gitee.com/assets/no_portrait.png",
+      "url": "https://gitee.com/jiangjinglong",
+      "typeRaw": "User",
+      "isBotHint": false
+    },
+    "assignees": [
+      {
+        "forge": "gitee",
+        "instance": "gitee.com",
+        "login": "pc-courage",
+        "id": "8078236",
+        "name": "chao",
+        "avatarUrl": "https://gitee.com/assets/no_portrait.png",
+        "url": "https://gitee.com/pc-courage",
+        "typeRaw": "User",
+        "isBotHint": false
+      }
+    ],
+    "reviewers": [],
+    "labels": [],
+    "url": "https://gitee.com/cmcc-oneos/OneOS/issues/I8NUPF",
+    "createdAt": "2023-12-12T12:45:13.000Z",
+    "updatedAt": "2023-12-25T03:41:36.000Z",
+    "lastActivityAt": "2023-12-25T03:41:36.000Z",
+    "commentCount": 2
+  },
+  "issue list": {
+    "items": [
+      {
+        "ref": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "repo": {
+            "forge": "gitee",
+            "instance": "gitee.com",
+            "owner": "cmcc-oneos",
+            "name": "OneOS"
+          },
+          "kind": "issue",
+          "number": "ICEGJY",
+          "externalId": "20830030"
+        },
+        "kind": "issue",
+        "title": "oos project",
+        "body": "oos project\r\n![g](https://foruda.gitee.com/images/1749647885448652552/f7f58ed6_9519554.png \"屏幕截图\")",
+        "state": "open",
+        "stateRaw": "open",
+        "isDraft": false,
+        "author": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "login": "arctic603",
+          "id": "9519554",
+          "name": "飞雏Arctic",
+          "avatarUrl": "https://foruda.gitee.com/avatar/1699259994795560788/9519554_arcticlight_1699259994.png",
+          "url": "https://gitee.com/arctic603",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "assignees": [],
+        "reviewers": [],
+        "labels": [],
+        "url": "https://gitee.com/cmcc-oneos/OneOS/issues/ICEGJY",
+        "createdAt": "2025-06-11T13:18:17.000Z",
+        "updatedAt": "2025-06-12T03:05:45.000Z",
+        "lastActivityAt": "2025-06-12T03:05:45.000Z",
+        "commentCount": 2
+      },
+      {
+        "ref": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "repo": {
+            "forge": "gitee",
+            "instance": "gitee.com",
+            "owner": "cmcc-oneos",
+            "name": "OneOS"
+          },
+          "kind": "issue",
+          "number": "I9SI93",
+          "externalId": "16446567"
+        },
+        "kind": "issue",
+        "title": "关于ili9341驱动的问题",
+        "body": "请问一下，graphic文件夹里自带的ili9341驱动（ili9341.c）并没有将ili9341注册成graphic设备的代码，而os_graphic_ops结构体里所需的函数我也没在ili9341.c里发现，我该怎么将它注册成graphic设备？",
+        "state": "open",
+        "stateRaw": "open",
+        "isDraft": false,
+        "author": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "login": "w-morning",
+          "id": "9910315",
+          "name": "w晨",
+          "avatarUrl": "https://gitee.com/assets/no_portrait.png",
+          "url": "https://gitee.com/w-morning",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "assignees": [],
+        "reviewers": [],
+        "labels": [],
+        "url": "https://gitee.com/cmcc-oneos/OneOS/issues/I9SI93",
+        "createdAt": "2024-05-27T07:46:21.000Z",
+        "updatedAt": "2024-05-29T03:29:53.000Z",
+        "lastActivityAt": "2024-05-29T03:29:53.000Z",
+        "commentCount": 1
+      },
+      {
+        "ref": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "repo": {
+            "forge": "gitee",
+            "instance": "gitee.com",
+            "owner": "cmcc-oneos",
+            "name": "OneOS"
+          },
+          "kind": "issue",
+          "number": "I9QK2Y",
+          "externalId": "16355626"
+        },
+        "kind": "issue",
+        "title": "oneos是否支持容器化部署？",
+        "body": "想问下oneos是否能支持容器化部署，然后最低的配置是什么呢？",
+        "state": "open",
+        "stateRaw": "open",
+        "isDraft": false,
+        "author": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "login": "wu_mayunnnnnn",
+          "id": "7934778",
+          "name": "Handsome Wu",
+          "avatarUrl": "https://foruda.gitee.com/avatar/1677103811800513556/7934778_wu_mayunnnnnn_1617629638.png",
+          "url": "https://gitee.com/wu_mayunnnnnn",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "assignees": [],
+        "reviewers": [],
+        "labels": [],
+        "url": "https://gitee.com/cmcc-oneos/OneOS/issues/I9QK2Y",
+        "createdAt": "2024-05-20T03:01:58.000Z",
+        "updatedAt": "2024-05-20T03:01:58.000Z",
+        "lastActivityAt": "2024-05-20T03:01:58.000Z",
+        "commentCount": 0
+      }
+    ],
+    "cursor": {
+      "nextUrl": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/issues?state=open&sort=created&direction=desc&page=2&per_page=3",
+      "token": "0:"
+    }
+  },
+  "issue getMany": [
+    {
+      "ok": true,
+      "ref": {
+        "forge": "gitee",
+        "instance": "gitee.com",
+        "repo": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "owner": "cmcc-oneos",
+          "name": "OneOS"
+        },
+        "kind": "issue",
+        "number": "I8NUPF"
+      },
+      "thread": {
+        "ref": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "repo": {
+            "forge": "gitee",
+            "instance": "gitee.com",
+            "owner": "cmcc-oneos",
+            "name": "OneOS"
+          },
+          "kind": "issue",
+          "number": "I8NUPF",
+          "externalId": "14549811"
+        },
+        "kind": "issue",
+        "title": "OneOS-Cube 的\"project.bat\"报错",
+        "body": "我使用OneOS_V3.0.1版本库，使用OneOS-Cube\r\n的\"project.bat\"报错，这个啥问题呢？我版本不对还是？\r\n![输入图片说明](https://foruda.gitee.com/images/1702385106550083650/bff15a72_12490192.png \"1.png\")",
+        "state": "open",
+        "stateRaw": "open",
+        "isDraft": false,
+        "author": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "login": "jiangjinglong",
+          "id": "12490192",
+          "name": "OneOS助手",
+          "avatarUrl": "https://gitee.com/assets/no_portrait.png",
+          "url": "https://gitee.com/jiangjinglong",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "assignees": [
+          {
+            "forge": "gitee",
+            "instance": "gitee.com",
+            "login": "pc-courage",
+            "id": "8078236",
+            "name": "chao",
+            "avatarUrl": "https://gitee.com/assets/no_portrait.png",
+            "url": "https://gitee.com/pc-courage",
+            "typeRaw": "User",
+            "isBotHint": false
+          }
+        ],
+        "reviewers": [],
+        "labels": [],
+        "url": "https://gitee.com/cmcc-oneos/OneOS/issues/I8NUPF",
+        "createdAt": "2023-12-12T12:45:13.000Z",
+        "updatedAt": "2023-12-25T03:41:36.000Z",
+        "lastActivityAt": "2023-12-25T03:41:36.000Z",
+        "commentCount": 2
+      }
+    }
+  ],
+  "issue events": {
+    "items": [
+      {
+        "forge": "gitee",
+        "instance": "gitee.com",
+        "id": "log:143694761",
+        "kind": "other",
+        "kindRaw": "create",
+        "summary": "jiangjinglong 创建了任务",
+        "occurredAt": "2023-12-12T12:45:13.000Z",
+        "actor": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "login": "jiangjinglong",
+          "id": "12490192",
+          "name": "OneOS助手",
+          "avatarUrl": "https://gitee.com/assets/no_portrait.png",
+          "url": "https://gitee.com/jiangjinglong",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "repo": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "owner": "cmcc-oneos",
+          "name": "OneOS"
+        },
+        "thread": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "repo": {
+            "forge": "gitee",
+            "instance": "gitee.com",
+            "owner": "cmcc-oneos",
+            "name": "OneOS"
+          },
+          "kind": "issue",
+          "number": "I8NUPF"
+        },
+        "source": "poll",
+        "action": "created"
+      },
+      {
+        "forge": "gitee",
+        "instance": "gitee.com",
+        "id": "log:145468161",
+        "kind": "other",
+        "kindRaw": "setting_assignee",
+        "summary": "pc-courage 将负责人设置为覃攀",
+        "occurredAt": "2023-12-25T03:36:26.000Z",
+        "actor": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "login": "pc-courage",
+          "id": "8078236",
+          "name": "chao",
+          "avatarUrl": "https://gitee.com/assets/no_portrait.png",
+          "url": "https://gitee.com/pc-courage",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "repo": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "owner": "cmcc-oneos",
+          "name": "OneOS"
+        },
+        "thread": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "repo": {
+            "forge": "gitee",
+            "instance": "gitee.com",
+            "owner": "cmcc-oneos",
+            "name": "OneOS"
+          },
+          "kind": "issue",
+          "number": "I8NUPF"
+        },
+        "source": "poll",
+        "action": "other"
+      },
+      {
+        "forge": "gitee",
+        "instance": "gitee.com",
+        "id": "log:145469533",
+        "kind": "other",
+        "kindRaw": "change_assignee",
+        "summary": "pc-courage 将负责人从 覃攀 修改为chao",
+        "occurredAt": "2023-12-25T03:41:16.000Z",
+        "actor": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "login": "pc-courage",
+          "id": "8078236",
+          "name": "chao",
+          "avatarUrl": "https://gitee.com/assets/no_portrait.png",
+          "url": "https://gitee.com/pc-courage",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "repo": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "owner": "cmcc-oneos",
+          "name": "OneOS"
+        },
+        "thread": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "repo": {
+            "forge": "gitee",
+            "instance": "gitee.com",
+            "owner": "cmcc-oneos",
+            "name": "OneOS"
+          },
+          "kind": "issue",
+          "number": "I8NUPF"
+        },
+        "source": "poll",
+        "action": "other"
+      },
+      {
+        "forge": "gitee",
+        "instance": "gitee.com",
+        "id": "comment:23908904",
+        "kind": "comment",
+        "kindRaw": "comment",
+        "summary": "pc-courage commented",
+        "occurredAt": "2023-12-25T03:41:17.000Z",
+        "actor": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "login": "pc-courage",
+          "id": "8078236",
+          "name": "chao",
+          "avatarUrl": "https://gitee.com/assets/no_portrait.png",
+          "url": "https://gitee.com/pc-courage",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "repo": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "owner": "cmcc-oneos",
+          "name": "OneOS"
+        },
+        "thread": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "repo": {
+            "forge": "gitee",
+            "instance": "gitee.com",
+            "owner": "cmcc-oneos",
+            "name": "OneOS"
+          },
+          "kind": "issue",
+          "number": "I8NUPF"
+        },
+        "source": "poll",
+        "action": "created"
+      },
+      {
+        "forge": "gitee",
+        "instance": "gitee.com",
+        "id": "comment:23908920",
+        "kind": "comment",
+        "kindRaw": "comment",
+        "summary": "pc-courage commented",
+        "occurredAt": "2023-12-25T03:41:36.000Z",
+        "actor": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "login": "pc-courage",
+          "id": "8078236",
+          "name": "chao",
+          "avatarUrl": "https://gitee.com/assets/no_portrait.png",
+          "url": "https://gitee.com/pc-courage",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "repo": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "owner": "cmcc-oneos",
+          "name": "OneOS"
+        },
+        "thread": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "repo": {
+            "forge": "gitee",
+            "instance": "gitee.com",
+            "owner": "cmcc-oneos",
+            "name": "OneOS"
+          },
+          "kind": "issue",
+          "number": "I8NUPF"
+        },
+        "source": "poll",
+        "action": "created"
+      }
+    ]
+  },
+  "issue comments": {
+    "items": [
+      {
+        "ref": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "thread": {
+            "forge": "gitee",
+            "instance": "gitee.com",
+            "repo": {
+              "forge": "gitee",
+              "instance": "gitee.com",
+              "owner": "cmcc-oneos",
+              "name": "OneOS"
+            },
+            "kind": "issue",
+            "number": "I8NUPF"
+          },
+          "id": "23908904"
+        },
+        "body": "现在统一为oos命令集，使用最新的命令，oos project，不清楚的指令可以输入oos，会弹出提示信息。",
+        "author": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "login": "pc-courage",
+          "id": "8078236",
+          "name": "chao",
+          "avatarUrl": "https://gitee.com/assets/no_portrait.png",
+          "url": "https://gitee.com/pc-courage",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "createdAt": "2023-12-25T03:41:17.000Z",
+        "updatedAt": "2023-12-25T03:41:17.000Z"
+      },
+      {
+        "ref": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "thread": {
+            "forge": "gitee",
+            "instance": "gitee.com",
+            "repo": {
+              "forge": "gitee",
+              "instance": "gitee.com",
+              "owner": "cmcc-oneos",
+              "name": "OneOS"
+            },
+            "kind": "issue",
+            "number": "I8NUPF"
+          },
+          "id": "23908920"
+        },
+        "body": "> oos\r\nusage: oos COMMAND [ARGS]\r\nThe complete list of recognized oos commands are:\r\n  project  Initialize a project\r\n  build    Compile a project\r\n  config   Do menuconfig\r\n  init     Adapt the IDE and update the compiled file\r\n  clean    Remove specified targets and dependencies\r\n  pack     Component Management Methods\r\n  help     Display detailed help on a command\r\n\r\nSee 'oos help <command>' for more information on a specific command\r\n\r\nGeneral Options:\r\n  -V, --version Show version and exit.",
+        "author": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "login": "pc-courage",
+          "id": "8078236",
+          "name": "chao",
+          "avatarUrl": "https://gitee.com/assets/no_portrait.png",
+          "url": "https://gitee.com/pc-courage",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "createdAt": "2023-12-25T03:41:36.000Z",
+        "updatedAt": "2023-12-25T03:41:36.000Z"
+      }
+    ]
+  },
+  "user": {
+    "forge": "gitee",
+    "instance": "gitee.com",
+    "login": "pc-courage",
+    "id": "8078236",
+    "name": "chao",
+    "avatarUrl": "https://gitee.com/assets/no_portrait.png",
+    "url": "https://gitee.com/pc-courage",
+    "typeRaw": "User",
+    "isBotHint": false,
+    "bio": "",
+    "createdAt": "2020-09-16T08:37:14.000Z",
+    "followers": 2,
+    "following": 4,
+    "publicRepos": 66
+  },
+  "checks": {
+    "items": []
+  },
+  "readme": {
+    "path": "README.md",
+    "sha": "fcbdd4aac39a56022313463cc291c972c70c83cb",
+    "size": 3894,
+    "url": "https://gitee.com/cmcc-oneos/OneOS/blob/dev/README.md",
+    "content": "# OneOS概述\n\nOneOS是中国移动针对物联网领域推出的轻量级操作系统，具有可裁剪、跨平台、低功耗、高安全等特点，支持ARM Cortex-A和 Cortex-M、MIPS、RISC-V等主流芯片架构，兼容POSIX、CMSIS等标准接口，支持Javascript、MicroPython等高级语言开发模式，提供图形化开发工具，能够有效提升开发效率、降低开发成本，帮助用户快速开发稳定可靠、安全易用的物联网应用。\n\n## OneOS架构\n\nOneOS总体架构采用分层设计，主体由驱动、内核、组件、安全框架组成。采用一个轻量级内核加多个系统组件的模式，加上海量硬件的适配支持，使OneOS具备极高的可伸缩性与易用性。操作系统整体架构如下图：\n\n![](docs/images/oneos_architecture.png)\n### 内核\n\n极简的设计思路，在减少资源开销的情况下兼具优秀的实时响应特征，支持多任务管理调度，提供丰富的IPC策略，如信号量、互斥量、消息队列、邮箱等，提供了高效可靠的RTOS内核支撑。\n\n### 驱动\n提供丰富的BSP板级支撑，适配超千款MCU，支持ARM、RISC-V、MIPS、Xtensa、C-Sky等主流架构，通过抽象设计，将所有外设以设备方式进行管理，极大提升了应用开发的便利性。\n\n### 组件\n\n提供包括网络协议、云平台接入、远程升级、文件系统、日志系统、测试框架、调试工具等众多通用服务能力，也包括高精度定位等专业应用领域的完整解决方案。由于采用了模块化的设计，因此各个组件相互独立，耦合性低，易于灵活裁剪。\n\n### 安全管理框架\n\n终端侧基于信任根实现轻量级的主动检测和可信度量，提供轻量级的密码算法库及轻量级密钥管理与密钥协商机制，实现端到端安全通信。平台侧基于大数据态势感知技术，帮助用户建立端侧安全画像，根据应用场景制定不同的安全管理策略。\n\n## OneOS特点\n\n### 灵活裁剪\n\n抢占式的实时多任务RTOS内核，支持多任务处理、软件定时器、信号量、互斥锁、消息队列、邮箱和实时调度等特性，RAM和ROM资源占用极小。可灵活裁剪，搭配丰富组件，适应不同客户需求。\n\n### 跨芯片平台\n\n应用程序可无缝移植，大幅提高软件复用率。支持的主流芯片架构有：ARM Cortex-A和Cortex-M、MIPS、RISC-V等。支持几乎所有的MCU和主流的NB-IOT、4G、WIFI、蓝牙通信芯片。\n\n### 组件丰富\n\n提供丰富的组件功能，如互联互通、端云融合、远程升级、室内外定位、低功耗控制等。同时提供开放的第三方组件管理工具，支持添加各类第三方组件，以便扩展系统功能。\n\n### 易于开发\n\n一站式开发工具OneOS Studio可用于对内核和组件的功能进行配置，支持组件自由裁剪，让系统按需进行积木式构建，同时可帮助用户跟踪调试，快速定位问题。\n\n### 低功耗设计\n\n支持MCU和外围设备的功耗管理，用户可以根据业务场景选择相应低功耗方案，系统会自动采用相应功耗控制策略，进行休眠和调频调压，有效降低设备整体功耗。\n\n### 安全设计\n\n针对物联网设备资源受限、海量连接、网络异构等特点，参考等保2.0及《GB/T 36951-2018 信息安全技术 物联网感知终端应用安全技术要求》等规范，在系统安全、通信安全、数据安全等方面提供多维度安全防护能力。\n\n### OpenCPU开发框架\n\n支持通信SoC芯片OpenCPU开发模式，为开发者带来屏蔽复杂通信芯片差异的高效开发方式，提供统一开发体验。同时，在同样的业务功能下，减少了设备额外MCU开销和存储器的使用，大幅降低设备成本。\n\n## 许可协议\n\nOneOS 代码遵循 Apache 2.0 license 开源协议。\n\n\n\n\n",
+    "encoding": "utf-8"
+  },
+  "tree": {
+    "items": [
+      {
+        "path": ".clang-format",
+        "type": "file",
+        "sha": "15d527a6d7968fa79b8bbe8948c377a95e4970d5",
+        "size": 3660,
+        "mode": "100644"
+      },
+      {
+        "path": ".clang-format-ignore",
+        "type": "file",
+        "sha": "4798d2463d1c43059a42f34caba7b566bf301ad8",
+        "size": 5346,
+        "mode": "100644"
+      },
+      {
+        "path": ".cppcheck-ignore",
+        "type": "file",
+        "sha": "d89f11064e4846697b3e20796e1dfc81c61e81fa",
+        "size": 3858,
+        "mode": "100644"
+      },
+      {
+        "path": ".gitee",
+        "type": "directory",
+        "sha": "fa8fdc5b8ee4c00af5f5cef177a9609511951de0",
+        "size": 0,
+        "mode": "40000"
+      },
+      {
+        "path": ".gitignore",
+        "type": "file",
+        "sha": "fe98de19efed88350e0eea392bc9db4aafb36c99",
+        "size": 570,
+        "mode": "100644"
+      },
+      {
+        "path": ".gitlab-ci.yml",
+        "type": "file",
+        "sha": "887e1170d06f798db95f2b3105d4739549bb7e0a",
+        "size": 585,
+        "mode": "100644"
+      },
+      {
+        "path": ".workflow",
+        "type": "directory",
+        "sha": "5876a202eac454cde6a04e4048b9b9735b8fb8a4",
+        "size": 0,
+        "mode": "40000"
+      },
+      {
+        "path": "Kconfig",
+        "type": "file",
+        "sha": "d5c9ff5b19530b3cd9119bb9772ec1d1a78ba4f8",
+        "size": 1535,
+        "mode": "100644"
+      },
+      {
+        "path": "LICENSE",
+        "type": "file",
+        "sha": "261eeb9e9f8b2b4b0d119366dda99c6fd7d35c64",
+        "size": 11357,
+        "mode": "100644"
+      },
+      {
+        "path": "README.md",
+        "type": "file",
+        "sha": "fcbdd4aac39a56022313463cc291c972c70c83cb",
+        "size": 3894,
+        "mode": "100644"
+      },
+      {
+        "path": "arch",
+        "type": "directory",
+        "sha": "c3439daa1eb1c165c94f4fdcc575c3d0c3e9a8e8",
+        "size": 0,
+        "mode": "40000"
+      },
+      {
+        "path": "common",
+        "type": "directory",
+        "sha": "3e791e4dcfd7d8cf116b2b459c63e207aaa6b6f3",
+        "size": 0,
+        "mode": "40000"
+      },
+      {
+        "path": "components",
+        "type": "directory",
+        "sha": "7271296cc33a41aa214f0e1d2dc4b4742d957ef5",
+        "size": 0,
+        "mode": "40000"
+      },
+      {
+        "path": "demos",
+        "type": "directory",
+        "sha": "c9a5303c5cc1ee02ac037b05f545b7ce4f68b1f0",
+        "size": 0,
+        "mode": "40000"
+      },
+      {
+        "path": "docs",
+        "type": "directory",
+        "sha": "8e0439ad867334647cc69bff154cec0fc75de7c8",
+        "size": 0,
+        "mode": "40000"
+      },
+      {
+        "path": "drivers",
+        "type": "directory",
+        "sha": "fcc9003b793764180987a75a92a6fa6d949d019a",
+        "size": 0,
+        "mode": "40000"
+      },
+      {
+        "path": "kernel",
+        "type": "directory",
+        "sha": "f274bb4e142d5d3cffa70ac5c8e8d4e4bd967469",
+        "size": 0,
+        "mode": "40000"
+      },
+      {
+        "path": "libc",
+        "type": "directory",
+        "sha": "24e5065267579af42b430e2de79c91f7a5e3b482",
+        "size": 0,
+        "mode": "40000"
+      },
+      {
+        "path": "notice.txt",
+        "type": "file",
+        "sha": "bbd9d9a208989ef088ff21987886a440ff32241a",
+        "size": 18725,
+        "mode": "100644"
+      },
+      {
+        "path": "osal",
+        "type": "directory",
+        "sha": "b25f0a5ddd5e254462fa6a279b44dcb7d8e4ac8f",
+        "size": 0,
+        "mode": "40000"
+      },
+      {
+        "path": "projects",
+        "type": "directory",
+        "sha": "62e3265961709428fc1f1752248cff515b135bbf",
+        "size": 0,
+        "mode": "40000"
+      },
+      {
+        "path": "scripts",
+        "type": "directory",
+        "sha": "80614a1ef030238ba2ec3830e3785e7f6ace394e",
+        "size": 0,
+        "mode": "40000"
+      },
+      {
+        "path": "templates",
+        "type": "directory",
+        "sha": "bdd7891bcff5541e7600f0f51eed7a6624e1c852",
+        "size": 0,
+        "mode": "40000"
+      },
+      {
+        "path": "user",
+        "type": "directory",
+        "sha": "239ec593c6a2192e76c005435f748b2ad28be832",
+        "size": 0,
+        "mode": "40000"
+      },
+      {
+        "path": "weave.yaml",
+        "type": "file",
+        "sha": "cf24edb13e25402a43f340d7885bfb8d3704cc18",
+        "size": 115,
+        "mode": "100644"
+      }
+    ]
+  },
+  "branches": {
+    "items": [
+      {
+        "name": "OneOS-Lite-V3.2.0",
+        "sha": "0bbf9cdf3c21b24e6ca063ccb25a65d3417e5658",
+        "isProtected": true
+      },
+      {
+        "name": "OneOS-Lite-V3.2.1",
+        "sha": "fb06c97b9117cf5446944726b3c79600a4011c39",
+        "isProtected": true
+      },
+      {
+        "name": "OneOS-Lite-V3.3.0",
+        "sha": "1b3606f0d04d46fe9df3b7f19dfb795f0d25e04a",
+        "isProtected": true
+      }
+    ],
+    "cursor": {
+      "nextUrl": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/branches?page=2&per_page=3"
+    }
+  },
+  "tags": {
+    "items": [
+      {
+        "name": "OneOS-Lite-v3.1.0",
+        "sha": "8205aefb6a984a72c3d8331c3c5584b86c61de7d"
+      },
+      {
+        "name": "OneOS-Lite-v3.2.0",
+        "sha": "0bbf9cdf3c21b24e6ca063ccb25a65d3417e5658"
+      },
+      {
+        "name": "OneOS-Lite-v3.2.1",
+        "sha": "fb06c97b9117cf5446944726b3c79600a4011c39"
+      },
+      {
+        "name": "OneOS-Lite-v3.3.0",
+        "sha": "1b3606f0d04d46fe9df3b7f19dfb795f0d25e04a"
+      },
+      {
+        "name": "OneOS-Lite-v3.3.1",
+        "sha": "68641635fa8404f5152d1bfb465fdd5082e2c43d"
+      },
+      {
+        "name": "OneOS-v2.2.1",
+        "sha": "511c1b66c3b31d314a7f937eb6d267a475f3e2c8"
+      },
+      {
+        "name": "OneOS-v2.3.1",
+        "sha": "c897abd8f43425784f5a2ba77e1fa31f3dfa96d8"
+      },
+      {
+        "name": "OneOS-v2.4.1",
+        "sha": "4b4255d1c3909c44acc3ec7b954f97869972a475"
+      },
+      {
+        "name": "OneOS-v3.0.1",
+        "sha": "1fd3ec7483b2fa793fb7dd4a3a90c72b8ab03708"
+      },
+      {
+        "name": "OneOS_for_OneNET_v1.0.0_release",
+        "sha": "27b07f87c0a8f2673244a9cdc6bcee68281396e3"
+      }
+    ]
+  },
+  "resolve default branch": "107e129ad71b24c315f9c6bf00de9ae63da0e4f6",
+  "commits": {
+    "items": [
+      {
+        "ref": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "repo": {
+            "forge": "gitee",
+            "instance": "gitee.com",
+            "owner": "cmcc-oneos",
+            "name": "OneOS"
+          },
+          "sha": "107e129ad71b24c315f9c6bf00de9ae63da0e4f6"
+        },
+        "sha": "107e129ad71b24c315f9c6bf00de9ae63da0e4f6",
+        "message": "!550 delete Kconfig menu of semidrive\nMerge pull request !550 from chao/dev",
+        "author": {
+          "actor": {
+            "forge": "gitee",
+            "instance": "gitee.com",
+            "login": "cmcc-oneos-admin",
+            "id": "7894055",
+            "name": "CMCC-OneOS",
+            "avatarUrl": "https://foruda.gitee.com/avatar/1670466967165594212/7894055_cmcc-oneos-admin_1670466966.png",
+            "url": "https://gitee.com/cmcc-oneos-admin",
+            "typeRaw": "User",
+            "isBotHint": false
+          },
+          "name": "CMCC-OneOS",
+          "email": "redacted@example.invalid",
+          "date": "2025-06-12T06:33:45.000Z"
+        },
+        "committer": {
+          "actor": {
+            "forge": "gitee",
+            "instance": "gitee.com",
+            "login": "gitee-bot",
+            "id": "10186697",
+            "name": "Gitee GPG Bot",
+            "avatarUrl": "https://foruda.gitee.com/avatar/1677201213385506226/10186697_gitee-bot_1639518846.png",
+            "url": "https://gitee.com/gitee-bot",
+            "typeRaw": "User",
+            "isBotHint": true
+          },
+          "name": "Gitee",
+          "email": "redacted@example.invalid",
+          "date": "2025-06-12T06:33:45.000Z"
+        },
+        "parents": [
+          "2fa826a00e1c4f42113d878d198584360e180eb0",
+          "63e44b69ea1af37d309cce490c59cda5d190c8a1"
+        ],
+        "url": "https://gitee.com/cmcc-oneos/OneOS/commit/107e129ad71b24c315f9c6bf00de9ae63da0e4f6"
+      },
+      {
+        "ref": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "repo": {
+            "forge": "gitee",
+            "instance": "gitee.com",
+            "owner": "cmcc-oneos",
+            "name": "OneOS"
+          },
+          "sha": "63e44b69ea1af37d309cce490c59cda5d190c8a1"
+        },
+        "sha": "63e44b69ea1af37d309cce490c59cda5d190c8a1",
+        "message": "delete Kconfig menu of semidrive\n",
+        "author": {
+          "name": "pangchao",
+          "email": "redacted@example.invalid",
+          "date": "2025-06-12T03:06:45.000Z"
+        },
+        "committer": {
+          "name": "pangchao",
+          "email": "redacted@example.invalid",
+          "date": "2025-06-12T03:06:45.000Z"
+        },
+        "parents": [
+          "2fa826a00e1c4f42113d878d198584360e180eb0"
+        ],
+        "url": "https://gitee.com/cmcc-oneos/OneOS/commit/63e44b69ea1af37d309cce490c59cda5d190c8a1"
+      },
+      {
+        "ref": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "repo": {
+            "forge": "gitee",
+            "instance": "gitee.com",
+            "owner": "cmcc-oneos",
+            "name": "OneOS"
+          },
+          "sha": "2fa826a00e1c4f42113d878d198584360e180eb0"
+        },
+        "sha": "2fa826a00e1c4f42113d878d198584360e180eb0",
+        "message": "删除文件 templates/configs/semidrive",
+        "author": {
+          "actor": {
+            "forge": "gitee",
+            "instance": "gitee.com",
+            "login": "cmcc-oneos-admin",
+            "id": "7894055",
+            "name": "CMCC-OneOS",
+            "avatarUrl": "https://foruda.gitee.com/avatar/1670466967165594212/7894055_cmcc-oneos-admin_1670466966.png",
+            "url": "https://gitee.com/cmcc-oneos-admin",
+            "typeRaw": "User",
+            "isBotHint": false
+          },
+          "name": "CMCC-OneOS",
+          "email": "redacted@example.invalid",
+          "date": "2025-05-07T11:12:05.000Z"
+        },
+        "committer": {
+          "actor": {
+            "forge": "gitee",
+            "instance": "gitee.com",
+            "login": "gitee-bot",
+            "id": "10186697",
+            "name": "Gitee GPG Bot",
+            "avatarUrl": "https://foruda.gitee.com/avatar/1677201213385506226/10186697_gitee-bot_1639518846.png",
+            "url": "https://gitee.com/gitee-bot",
+            "typeRaw": "User",
+            "isBotHint": true
+          },
+          "name": "Gitee",
+          "email": "redacted@example.invalid",
+          "date": "2025-05-07T11:12:05.000Z"
+        },
+        "parents": [
+          "968660917d4ec12e0fe294a784e18775cc1aa288"
+        ],
+        "url": "https://gitee.com/cmcc-oneos/OneOS/commit/2fa826a00e1c4f42113d878d198584360e180eb0"
+      }
+    ],
+    "cursor": {
+      "nextUrl": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/commits?page=2&per_page=3"
+    }
+  },
+  "commit": {
+    "ref": {
+      "forge": "gitee",
+      "instance": "gitee.com",
+      "repo": {
+        "forge": "gitee",
+        "instance": "gitee.com",
+        "owner": "cmcc-oneos",
+        "name": "OneOS"
+      },
+      "sha": "63e44b69ea1af37d309cce490c59cda5d190c8a1"
+    },
+    "sha": "63e44b69ea1af37d309cce490c59cda5d190c8a1",
+    "message": "delete Kconfig menu of semidrive\n",
+    "author": {
+      "name": "pangchao",
+      "email": "redacted@example.invalid",
+      "date": "2025-06-12T03:06:45.000Z"
+    },
+    "committer": {
+      "name": "pangchao",
+      "email": "redacted@example.invalid",
+      "date": "2025-06-12T03:06:45.000Z"
+    },
+    "parents": [
+      "2fa826a00e1c4f42113d878d198584360e180eb0"
+    ],
+    "url": "https://gitee.com/cmcc-oneos/OneOS/commit/63e44b69ea1af37d309cce490c59cda5d190c8a1",
+    "stats": {
+      "additions": 0,
+      "deletions": 7,
+      "total": 7
+    },
+    "files": [
+      {
+        "path": "templates/configs/Kconfig",
+        "status": "modified",
+        "statusRaw": "modified",
+        "additions": 0,
+        "deletions": 7,
+        "patch": "@@ -62,9 +62,6 @@ choice\n     config MANUFACTOR_SAMSUNG\r\n         bool \"SAMSUNG\"\r\n         \r\n-    config MANUFACTOR_SEMIDRIVE\r\n-        bool \"SEMIDRIVE\"\r\n-        \r\n endchoice\r\n \r\n if MANUFACTOR_STM32\r\n@@ -150,7 +147,3 @@ endif\n if MANUFACTOR_SAMSUNG\r\n     source \"$OS_ROOT/templates/configs/samsung/Kconfig\"\r\n endif\r\n-\r\n-if MANUFACTOR_SEMIDRIVE\r\n-    source \"$OS_ROOT/templates/configs/semidrive/Kconfig\"\r\n-endif\r\n",
+        "sha": "7407eb96e104fa5cebd1eff5e04923b4226b2199"
+      }
+    ]
+  },
+  "compare": {
+    "base": "dev",
+    "head": "63e44b69ea1af37d309cce490c59cda5d190c8a1",
+    "aheadBy": 0,
+    "commits": [],
+    "files": []
+  },
+  "releases": {
+    "items": [
+      {
+        "ref": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "repo": {
+            "forge": "gitee",
+            "instance": "gitee.com",
+            "owner": "cmcc-oneos",
+            "name": "OneOS"
+          },
+          "id": "224819",
+          "tag": "OneOS-v2.2.1"
+        },
+        "name": "OneOS-v2.2.1",
+        "tag": "OneOS-v2.2.1",
+        "body": "# ReleaseNotes\r\n\r\n## [OneOS-V2.2.1]\r\n\r\n### 内核\r\n\r\n1、新增longArch支持\r\n2、新增AC6编译器支持\r\n3、新增ARMV5te（ARM9）架构支持\r\n4、新增GCC编译器9.3版本支持\r\n5、新增C++库适配\r\n6、支持CPU使用率统计、内存内容监测、运行信息维测统计\r\n\r\n### 驱动\r\n\r\n1、新增驱动库适配AC6编译器\r\n2、新增CODESYS支持（相关开发板适配）\r\n3、新增USB驱动框架\r\n4、新增国密一级认证芯片支持\r\n\r\n### 组件\r\n\r\n1、新增LWIP支持IPV6\r\n2、新增FOTA解决方案(电信云模式、主从模式)\r\n3、新增MOLINK蓝牙模组支持\r\n4、新增蜂窝网络日志统计\r\n5、新增电源管理能耗分析框架\r\n6、新增COAP3支持\r\n7、新增定位组件端侧RTK优化    ",
+        "isDraft": false,
+        "isPrerelease": false,
+        "author": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "login": "cmcc-oneos-admin",
+          "id": "7894055",
+          "name": "CMCC-OneOS",
+          "avatarUrl": "https://foruda.gitee.com/avatar/1670466967165594212/7894055_cmcc-oneos-admin_1670466966.png",
+          "url": "https://gitee.com/cmcc-oneos-admin",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "publishedAt": "2022-05-19T05:19:24.000Z",
+        "createdAt": "2022-05-19T05:19:24.000Z",
+        "assets": [
+          {
+            "name": "OneOS-v2.2.1.zip",
+            "url": "https://gitee.com/cmcc-oneos/OneOS/archive/refs/tags/OneOS-v2.2.1.zip"
+          },
+          {
+            "name": "OneOS-v2.2.1.tar.gz",
+            "url": "https://gitee.com/cmcc-oneos/OneOS/archive/refs/tags/OneOS-v2.2.1.tar.gz"
+          }
+        ]
+      },
+      {
+        "ref": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "repo": {
+            "forge": "gitee",
+            "instance": "gitee.com",
+            "owner": "cmcc-oneos",
+            "name": "OneOS"
+          },
+          "id": "230726",
+          "tag": "OneOS-v2.3.1"
+        },
+        "name": "OneOS-v2.3.1",
+        "tag": "OneOS-v2.3.1",
+        "body": "# ReleaseNotes\r\n\r\n## [OneOS-V2.3.1]\r\n\r\n### 内核\r\n\r\n1、RISC-V架构支持异常检测\r\n2、新增中断栈检测和使用统计功能\r\n3、新增IPC维测TRACE机制\r\n4、优化部分API接口使用场景限制\r\n\r\n### 驱动\r\n\r\n1、部分驱动框架及功能优化\r\n2、新增芯昇、极海、沁恒微、启英泰伦芯片适配\r\n3、支持TinyUsb\r\n4、支持STM32H743片外flash\r\n5、支持WM8978芯片录音功能\r\n\r\n### 组件\r\n\r\n1、新增精简版MQTT协议栈\r\n2、支持Websocket通信协议\r\n3、支持Modbus通信协议\r\n4、支持FreeCoAP Client功能\r\n5、OTA增加GCC和MDK环境下编译优化等级\r\n6、OTA支持收包超时可配置\r\n7、Molink新增多模组自动识别和销毁操作\r\n8、完善Molink模组异常后处理机制\r\n9、支持轻量级数据库SQLite\r\n\r\n### 其它\r\n\r\n1、解决部分已知BUG\r\n2、优化使用体验",
+        "isDraft": false,
+        "isPrerelease": false,
+        "author": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "login": "cmcc-oneos-admin",
+          "id": "7894055",
+          "name": "CMCC-OneOS",
+          "avatarUrl": "https://foruda.gitee.com/avatar/1670466967165594212/7894055_cmcc-oneos-admin_1670466966.png",
+          "url": "https://gitee.com/cmcc-oneos-admin",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "publishedAt": "2022-06-13T06:59:58.000Z",
+        "createdAt": "2022-06-13T06:59:58.000Z",
+        "assets": [
+          {
+            "name": "OneOS-v2.3.1.zip",
+            "url": "https://gitee.com/cmcc-oneos/OneOS/archive/refs/tags/OneOS-v2.3.1.zip"
+          },
+          {
+            "name": "OneOS-v2.3.1.tar.gz",
+            "url": "https://gitee.com/cmcc-oneos/OneOS/archive/refs/tags/OneOS-v2.3.1.tar.gz"
+          }
+        ]
+      },
+      {
+        "ref": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "repo": {
+            "forge": "gitee",
+            "instance": "gitee.com",
+            "owner": "cmcc-oneos",
+            "name": "OneOS"
+          },
+          "id": "254659",
+          "tag": "OneOS-v2.4.1"
+        },
+        "name": "OneOS-v2.4.1",
+        "tag": "OneOS-v2.4.1",
+        "body": "# ReleaseNotes\r\n\r\n## [OneOS-V2.4.1] \r\n\r\n### 内核\r\n\r\n1、增加对POSIX-PSE51接口的适配\r\n\r\n2、增加对CMSIS-RTOS接口的适配\r\n\r\n3、新增单链表定时器，支持软硬Timer\r\n\r\n4、新增最小内核裁剪工程\r\n\r\n### 驱动\r\n\r\n1、新增统一查询中断栈大小的接口\r\n\r\n2、新增芯昇、兆易创新、方寸微、中控微、沁恒微、平头哥、恩智浦芯片适配\r\n\r\n3、新增对TinyUsb驱动和协议的完善\r\n\r\n4、新增对镁光NAND FLASH驱动支持\r\n\r\n5、新增对雷凌带USB接口的Wifi模组支持\r\n\r\n6、新增摄像头框架，支持豪威科技摄像头\r\n\r\n### 组件\r\n\r\n1、GUI组件升级，支持LVGL 8.2\r\n\r\n2、增加Wifi及Bluetooth异构组网组件\r\n\r\n3、新增分布式通信组件\r\n\r\n4、适配支持MicroPython 1.18\r\n\r\n5、增加精简版Coap协议\r\n\r\n6、支持DTLS1.3-PSK\r\n\r\n### 其它\r\n\r\n1、解决一些已知问题\r\n\r\n2、优化使用体验",
+        "isDraft": false,
+        "isPrerelease": false,
+        "author": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "login": "wuli_zhou123",
+          "id": "10460386",
+          "name": "无厘头",
+          "avatarUrl": "https://gitee.com/assets/no_portrait.png",
+          "url": "https://gitee.com/wuli_zhou123",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "publishedAt": "2022-09-30T06:24:09.000Z",
+        "createdAt": "2022-09-30T06:24:09.000Z",
+        "assets": [
+          {
+            "name": "OneOS-v2.4.1.zip",
+            "url": "https://gitee.com/cmcc-oneos/OneOS/archive/refs/tags/OneOS-v2.4.1.zip"
+          },
+          {
+            "name": "OneOS-v2.4.1.tar.gz",
+            "url": "https://gitee.com/cmcc-oneos/OneOS/archive/refs/tags/OneOS-v2.4.1.tar.gz"
+          }
+        ]
+      }
+    ],
+    "cursor": {
+      "nextUrl": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/releases?page=2&per_page=3"
+    }
+  },
+  "latest release": {
+    "ref": {
+      "forge": "gitee",
+      "instance": "gitee.com",
+      "repo": {
+        "forge": "gitee",
+        "instance": "gitee.com",
+        "owner": "cmcc-oneos",
+        "name": "OneOS"
+      },
+      "id": "502758",
+      "tag": "OneOS-Lite-v3.3.1"
+    },
+    "name": "OneOS-Lite-v3.3.1",
+    "tag": "OneOS-Lite-v3.3.1",
+    "body": "优化使用体验",
+    "isDraft": false,
+    "isPrerelease": false,
+    "author": {
+      "forge": "gitee",
+      "instance": "gitee.com",
+      "login": "cmcc-oneos-admin",
+      "id": "7894055",
+      "name": "CMCC-OneOS",
+      "avatarUrl": "https://foruda.gitee.com/avatar/1670466967165594212/7894055_cmcc-oneos-admin_1670466966.png",
+      "url": "https://gitee.com/cmcc-oneos-admin",
+      "typeRaw": "User",
+      "isBotHint": false
+    },
+    "publishedAt": "2025-06-12T06:42:27.000Z",
+    "createdAt": "2025-06-12T06:42:27.000Z",
+    "assets": [
+      {
+        "name": "OneOS-Lite-v3.3.1.zip",
+        "url": "https://gitee.com/cmcc-oneos/OneOS/archive/refs/tags/OneOS-Lite-v3.3.1.zip"
+      },
+      {
+        "name": "OneOS-Lite-v3.3.1.tar.gz",
+        "url": "https://gitee.com/cmcc-oneos/OneOS/archive/refs/tags/OneOS-Lite-v3.3.1.tar.gz"
+      }
+    ]
+  },
+  "release": {
+    "ref": {
+      "forge": "gitee",
+      "instance": "gitee.com",
+      "repo": {
+        "forge": "gitee",
+        "instance": "gitee.com",
+        "owner": "cmcc-oneos",
+        "name": "OneOS"
+      },
+      "id": "224819",
+      "tag": "OneOS-v2.2.1"
+    },
+    "name": "OneOS-v2.2.1",
+    "tag": "OneOS-v2.2.1",
+    "body": "# ReleaseNotes\r\n\r\n## [OneOS-V2.2.1]\r\n\r\n### 内核\r\n\r\n1、新增longArch支持\r\n2、新增AC6编译器支持\r\n3、新增ARMV5te（ARM9）架构支持\r\n4、新增GCC编译器9.3版本支持\r\n5、新增C++库适配\r\n6、支持CPU使用率统计、内存内容监测、运行信息维测统计\r\n\r\n### 驱动\r\n\r\n1、新增驱动库适配AC6编译器\r\n2、新增CODESYS支持（相关开发板适配）\r\n3、新增USB驱动框架\r\n4、新增国密一级认证芯片支持\r\n\r\n### 组件\r\n\r\n1、新增LWIP支持IPV6\r\n2、新增FOTA解决方案(电信云模式、主从模式)\r\n3、新增MOLINK蓝牙模组支持\r\n4、新增蜂窝网络日志统计\r\n5、新增电源管理能耗分析框架\r\n6、新增COAP3支持\r\n7、新增定位组件端侧RTK优化    ",
+    "isDraft": false,
+    "isPrerelease": false,
+    "author": {
+      "forge": "gitee",
+      "instance": "gitee.com",
+      "login": "cmcc-oneos-admin",
+      "id": "7894055",
+      "name": "CMCC-OneOS",
+      "avatarUrl": "https://foruda.gitee.com/avatar/1670466967165594212/7894055_cmcc-oneos-admin_1670466966.png",
+      "url": "https://gitee.com/cmcc-oneos-admin",
+      "typeRaw": "User",
+      "isBotHint": false
+    },
+    "publishedAt": "2022-05-19T05:19:24.000Z",
+    "createdAt": "2022-05-19T05:19:24.000Z",
+    "assets": [
+      {
+        "name": "OneOS-v2.2.1.zip",
+        "url": "https://gitee.com/cmcc-oneos/OneOS/archive/refs/tags/OneOS-v2.2.1.zip"
+      },
+      {
+        "name": "OneOS-v2.2.1.tar.gz",
+        "url": "https://gitee.com/cmcc-oneos/OneOS/archive/refs/tags/OneOS-v2.2.1.tar.gz"
+      }
+    ]
+  },
+  "release by tag": {
+    "ref": {
+      "forge": "gitee",
+      "instance": "gitee.com",
+      "repo": {
+        "forge": "gitee",
+        "instance": "gitee.com",
+        "owner": "cmcc-oneos",
+        "name": "OneOS"
+      },
+      "id": "224819",
+      "tag": "OneOS-v2.2.1"
+    },
+    "name": "OneOS-v2.2.1",
+    "tag": "OneOS-v2.2.1",
+    "body": "# ReleaseNotes\r\n\r\n## [OneOS-V2.2.1]\r\n\r\n### 内核\r\n\r\n1、新增longArch支持\r\n2、新增AC6编译器支持\r\n3、新增ARMV5te（ARM9）架构支持\r\n4、新增GCC编译器9.3版本支持\r\n5、新增C++库适配\r\n6、支持CPU使用率统计、内存内容监测、运行信息维测统计\r\n\r\n### 驱动\r\n\r\n1、新增驱动库适配AC6编译器\r\n2、新增CODESYS支持（相关开发板适配）\r\n3、新增USB驱动框架\r\n4、新增国密一级认证芯片支持\r\n\r\n### 组件\r\n\r\n1、新增LWIP支持IPV6\r\n2、新增FOTA解决方案(电信云模式、主从模式)\r\n3、新增MOLINK蓝牙模组支持\r\n4、新增蜂窝网络日志统计\r\n5、新增电源管理能耗分析框架\r\n6、新增COAP3支持\r\n7、新增定位组件端侧RTK优化    ",
+    "isDraft": false,
+    "isPrerelease": false,
+    "author": {
+      "forge": "gitee",
+      "instance": "gitee.com",
+      "login": "cmcc-oneos-admin",
+      "id": "7894055",
+      "name": "CMCC-OneOS",
+      "avatarUrl": "https://foruda.gitee.com/avatar/1670466967165594212/7894055_cmcc-oneos-admin_1670466966.png",
+      "url": "https://gitee.com/cmcc-oneos-admin",
+      "typeRaw": "User",
+      "isBotHint": false
+    },
+    "publishedAt": "2022-05-19T05:19:24.000Z",
+    "createdAt": "2022-05-19T05:19:24.000Z",
+    "assets": [
+      {
+        "name": "OneOS-v2.2.1.zip",
+        "url": "https://gitee.com/cmcc-oneos/OneOS/archive/refs/tags/OneOS-v2.2.1.zip"
+      },
+      {
+        "name": "OneOS-v2.2.1.tar.gz",
+        "url": "https://gitee.com/cmcc-oneos/OneOS/archive/refs/tags/OneOS-v2.2.1.tar.gz"
+      }
+    ]
+  },
+  "search threads": {
+    "items": [
+      {
+        "ref": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "repo": {
+            "forge": "gitee",
+            "instance": "gitee.com",
+            "owner": "cmcc-oneos",
+            "name": "OneOS"
+          },
+          "kind": "issue",
+          "number": "I6XZ2N",
+          "externalId": "11662799"
+        },
+        "kind": "issue",
+        "title": "fix little problem",
+        "body": "drivers/hal/beken/beken72XX_HAL/func/bk7011_cal/bk7231N_cal.c has little problem",
+        "state": "open",
+        "stateRaw": "progressing",
+        "isDraft": false,
+        "author": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "login": "bushilei",
+          "id": "12770884",
+          "name": "bushilei",
+          "avatarUrl": "https://gitee.com/assets/no_portrait.png",
+          "url": "https://gitee.com/bushilei",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "assignees": [],
+        "reviewers": [],
+        "labels": [],
+        "url": "https://gitee.com/cmcc-oneos/OneOS/issues/I6XZ2N",
+        "createdAt": "2023-04-23T02:33:34.000Z",
+        "updatedAt": "2023-12-25T03:46:55.000Z",
+        "lastActivityAt": "2023-12-25T03:46:55.000Z",
+        "commentCount": 1
+      }
+    ]
+  },
+  "search repos": {
+    "items": []
+  }
+}

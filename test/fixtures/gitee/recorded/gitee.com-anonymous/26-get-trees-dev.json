@@ -1,0 +1,221 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/git/trees/dev"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"6704738079af5287cc21ecdcf04bf134\"",
+      "x-ratelimit-limit": "60",
+      "x-ratelimit-remaining": "34"
+    },
+    "body": {
+      "sha": "dev",
+      "url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/git/trees/dev",
+      "tree": [
+        {
+          "path": ".clang-format",
+          "mode": "100644",
+          "type": "blob",
+          "sha": "15d527a6d7968fa79b8bbe8948c377a95e4970d5",
+          "size": 3660,
+          "url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/git/blobs/15d527a6d7968fa79b8bbe8948c377a95e4970d5"
+        },
+        {
+          "path": ".clang-format-ignore",
+          "mode": "100644",
+          "type": "blob",
+          "sha": "4798d2463d1c43059a42f34caba7b566bf301ad8",
+          "size": 5346,
+          "url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/git/blobs/4798d2463d1c43059a42f34caba7b566bf301ad8"
+        },
+        {
+          "path": ".cppcheck-ignore",
+          "mode": "100644",
+          "type": "blob",
+          "sha": "d89f11064e4846697b3e20796e1dfc81c61e81fa",
+          "size": 3858,
+          "url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/git/blobs/d89f11064e4846697b3e20796e1dfc81c61e81fa"
+        },
+        {
+          "path": ".gitee",
+          "mode": "40000",
+          "type": "tree",
+          "sha": "fa8fdc5b8ee4c00af5f5cef177a9609511951de0",
+          "size": 0,
+          "url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/git/trees/fa8fdc5b8ee4c00af5f5cef177a9609511951de0"
+        },
+        {
+          "path": ".gitignore",
+          "mode": "100644",
+          "type": "blob",
+          "sha": "fe98de19efed88350e0eea392bc9db4aafb36c99",
+          "size": 570,
+          "url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/git/blobs/fe98de19efed88350e0eea392bc9db4aafb36c99"
+        },
+        {
+          "path": ".gitlab-ci.yml",
+          "mode": "100644",
+          "type": "blob",
+          "sha": "887e1170d06f798db95f2b3105d4739549bb7e0a",
+          "size": 585,
+          "url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/git/blobs/887e1170d06f798db95f2b3105d4739549bb7e0a"
+        },
+        {
+          "path": ".workflow",
+          "mode": "40000",
+          "type": "tree",
+          "sha": "5876a202eac454cde6a04e4048b9b9735b8fb8a4",
+          "size": 0,
+          "url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/git/trees/5876a202eac454cde6a04e4048b9b9735b8fb8a4"
+        },
+        {
+          "path": "Kconfig",
+          "mode": "100644",
+          "type": "blob",
+          "sha": "d5c9ff5b19530b3cd9119bb9772ec1d1a78ba4f8",
+          "size": 1535,
+          "url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/git/blobs/d5c9ff5b19530b3cd9119bb9772ec1d1a78ba4f8"
+        },
+        {
+          "path": "LICENSE",
+          "mode": "100644",
+          "type": "blob",
+          "sha": "261eeb9e9f8b2b4b0d119366dda99c6fd7d35c64",
+          "size": 11357,
+          "url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/git/blobs/261eeb9e9f8b2b4b0d119366dda99c6fd7d35c64"
+        },
+        {
+          "path": "README.md",
+          "mode": "100644",
+          "type": "blob",
+          "sha": "fcbdd4aac39a56022313463cc291c972c70c83cb",
+          "size": 3894,
+          "url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/git/blobs/fcbdd4aac39a56022313463cc291c972c70c83cb"
+        },
+        {
+          "path": "arch",
+          "mode": "40000",
+          "type": "tree",
+          "sha": "c3439daa1eb1c165c94f4fdcc575c3d0c3e9a8e8",
+          "size": 0,
+          "url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/git/trees/c3439daa1eb1c165c94f4fdcc575c3d0c3e9a8e8"
+        },
+        {
+          "path": "common",
+          "mode": "40000",
+          "type": "tree",
+          "sha": "3e791e4dcfd7d8cf116b2b459c63e207aaa6b6f3",
+          "size": 0,
+          "url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/git/trees/3e791e4dcfd7d8cf116b2b459c63e207aaa6b6f3"
+        },
+        {
+          "path": "components",
+          "mode": "40000",
+          "type": "tree",
+          "sha": "7271296cc33a41aa214f0e1d2dc4b4742d957ef5",
+          "size": 0,
+          "url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/git/trees/7271296cc33a41aa214f0e1d2dc4b4742d957ef5"
+        },
+        {
+          "path": "demos",
+          "mode": "40000",
+          "type": "tree",
+          "sha": "c9a5303c5cc1ee02ac037b05f545b7ce4f68b1f0",
+          "size": 0,
+          "url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/git/trees/c9a5303c5cc1ee02ac037b05f545b7ce4f68b1f0"
+        },
+        {
+          "path": "docs",
+          "mode": "40000",
+          "type": "tree",
+          "sha": "8e0439ad867334647cc69bff154cec0fc75de7c8",
+          "size": 0,
+          "url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/git/trees/8e0439ad867334647cc69bff154cec0fc75de7c8"
+        },
+        {
+          "path": "drivers",
+          "mode": "40000",
+          "type": "tree",
+          "sha": "fcc9003b793764180987a75a92a6fa6d949d019a",
+          "size": 0,
+          "url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/git/trees/fcc9003b793764180987a75a92a6fa6d949d019a"
+        },
+        {
+          "path": "kernel",
+          "mode": "40000",
+          "type": "tree",
+          "sha": "f274bb4e142d5d3cffa70ac5c8e8d4e4bd967469",
+          "size": 0,
+          "url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/git/trees/f274bb4e142d5d3cffa70ac5c8e8d4e4bd967469"
+        },
+        {
+          "path": "libc",
+          "mode": "40000",
+          "type": "tree",
+          "sha": "24e5065267579af42b430e2de79c91f7a5e3b482",
+          "size": 0,
+          "url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/git/trees/24e5065267579af42b430e2de79c91f7a5e3b482"
+        },
+        {
+          "path": "notice.txt",
+          "mode": "100644",
+          "type": "blob",
+          "sha": "bbd9d9a208989ef088ff21987886a440ff32241a",
+          "size": 18725,
+          "url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/git/blobs/bbd9d9a208989ef088ff21987886a440ff32241a"
+        },
+        {
+          "path": "osal",
+          "mode": "40000",
+          "type": "tree",
+          "sha": "b25f0a5ddd5e254462fa6a279b44dcb7d8e4ac8f",
+          "size": 0,
+          "url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/git/trees/b25f0a5ddd5e254462fa6a279b44dcb7d8e4ac8f"
+        },
+        {
+          "path": "projects",
+          "mode": "40000",
+          "type": "tree",
+          "sha": "62e3265961709428fc1f1752248cff515b135bbf",
+          "size": 0,
+          "url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/git/trees/62e3265961709428fc1f1752248cff515b135bbf"
+        },
+        {
+          "path": "scripts",
+          "mode": "40000",
+          "type": "tree",
+          "sha": "80614a1ef030238ba2ec3830e3785e7f6ace394e",
+          "size": 0,
+          "url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/git/trees/80614a1ef030238ba2ec3830e3785e7f6ace394e"
+        },
+        {
+          "path": "templates",
+          "mode": "40000",
+          "type": "tree",
+          "sha": "bdd7891bcff5541e7600f0f51eed7a6624e1c852",
+          "size": 0,
+          "url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/git/trees/bdd7891bcff5541e7600f0f51eed7a6624e1c852"
+        },
+        {
+          "path": "user",
+          "mode": "40000",
+          "type": "tree",
+          "sha": "239ec593c6a2192e76c005435f748b2ad28be832",
+          "size": 0,
+          "url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/git/trees/239ec593c6a2192e76c005435f748b2ad28be832"
+        },
+        {
+          "path": "weave.yaml",
+          "mode": "100644",
+          "type": "blob",
+          "sha": "cf24edb13e25402a43f340d7885bfb8d3704cc18",
+          "size": 115,
+          "url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/git/blobs/cf24edb13e25402a43f340d7885bfb8d3704cc18"
+        }
+      ],
+      "truncated": false
+    }
+  }
+}

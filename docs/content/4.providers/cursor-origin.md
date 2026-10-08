@@ -113,6 +113,7 @@ Deliveries of `installation.*` events become `installation` events. You register
 | `threads.get` | PR |
 | `threads.list` | PR |
 | `threads.getMany` | ✅ |
+| `threads.events` | PR |
 | `comments.list` | PR |
 | `comments.edit` | PR (experimental) |
 | `comments.delete` | PR (experimental) |

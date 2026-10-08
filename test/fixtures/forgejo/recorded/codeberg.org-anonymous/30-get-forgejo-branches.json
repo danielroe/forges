@@ -1,0 +1,141 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/branches?limit=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "<https://codeberg.org/api/v1/repos/forgejo/forgejo/branches?limit=3&page=2>; rel=\"next\",<https://codeberg.org/api/v1/repos/forgejo/forgejo/branches?limit=3&page=14>; rel=\"last\"",
+      "x-total-count": "40"
+    },
+    "body": [
+      {
+        "name": "forgejo",
+        "commit": {
+          "id": "a4c0e1b87343355e44c317804a3b43e728795a4d",
+          "message": "merge commit: i18n: translations update from Codeberg Translate (#14384)\n\nReviewed-on: https://codeberg.org/forgejo/forgejo/pulls/14384\nReviewed-by: 0ko <redacted@example.invalid>\n",
+          "url": "https://codeberg.org/forgejo/forgejo/commit/a4c0e1b87343355e44c317804a3b43e728795a4d",
+          "author": {
+            "name": "0ko",
+            "email": "redacted@example.invalid",
+            "username": "0ko"
+          },
+          "committer": {
+            "name": "0ko",
+            "email": "redacted@example.invalid",
+            "username": "0ko"
+          },
+          "verification": {
+            "verified": false,
+            "reason": "gpg.error.not_signed_commit",
+            "signature": "",
+            "signer": null,
+            "payload": ""
+          },
+          "timestamp": "2026-10-08T18:02:18+02:00",
+          "added": null,
+          "removed": null,
+          "modified": null
+        },
+        "protected": true,
+        "required_approvals": 1,
+        "enable_status_check": true,
+        "status_check_contexts": [
+          "testing / frontend-checks (pull_request)",
+          "testing / backend-checks (pull_request)",
+          "testing / test-unit (pull_request)",
+          "testing / test-pgsql (pull_request)",
+          "testing / test-sqlite (pull_request)",
+          "testing / test-mysql (pull_request)"
+        ],
+        "user_can_push": false,
+        "user_can_merge": false,
+        "effective_branch_protection_name": ""
+      },
+      {
+        "name": "v17.0/forgejo",
+        "commit": {
+          "id": "497a21a4bad8c33559fe0747314563dbf19b4fd0",
+          "message": "[v17.0/forgejo] fix(ui): stop buttons breaking on hover (#14758)\n\n**Backport:** https://codeberg.org/forgejo/forgejo/pulls/14753\n\nFixes forgejo/forgejo#14749.\n\nRegression of forgejo/forgejo!14281, affecting primary `<a>`-based buttons in hover state. Conflict occurred with the following broad `base.css` rule:\n\nhttps://codeberg.org/forgejo/forgejo/src/commit/adfdb1a53298d953669fcf49d61393a32b256fb5/web_src/css/base.css#L317-L323\n\n## Preview\n\n|Before|After|\n|-|-|\n|![bb](/attachments/cd3ac990-fecf-494f-9f98-9d22ef056356)|![ba](/attachments/4c7e515d-351c-4d2c-a3d5-2065a6af3328)||\n\n## Fix\n\nInstead of overriding variables per variant style, variant styles are now providing separate `-hover` variables for the main rule to apply accordingly.\n\n## Testing\n\nNo hover tests were present for buttons because previously I had issues trying to add them. Now they are present, though without changing the specific colors.\n\nAnother issue was that demo page only featured enabled `<button>` buttons and disabled `<a>` buttons. So, no style testing was ran on enabled `<a>` buttons.\n\nThis regression is now somewhat covered against by the following part of the test:\n\n```ts\nexpect(primaryHover.color).toBe(primary.color);\n```\n\nSame visual tests are now running for both `<a`> and `<button>` button variants, enabled and disabled.\n\n## Release notes\n\nNot needed because no stable versions of v17 were published yet.\n\nCo-authored-by: 0ko <redacted@example.invalid>\nReviewed-on: https://codeberg.org/forgejo/forgejo/pulls/14758\nReviewed-by: 0ko <redacted@example.invalid>\n",
+          "url": "https://codeberg.org/forgejo/forgejo/commit/497a21a4bad8c33559fe0747314563dbf19b4fd0",
+          "author": {
+            "name": "forgejo-backport-action",
+            "email": "redacted@example.invalid",
+            "username": "forgejo-backport-action"
+          },
+          "committer": {
+            "name": "0ko",
+            "email": "redacted@example.invalid",
+            "username": "0ko"
+          },
+          "verification": {
+            "verified": false,
+            "reason": "gpg.error.not_signed_commit",
+            "signature": "",
+            "signer": null,
+            "payload": ""
+          },
+          "timestamp": "2026-10-08T18:01:16+02:00",
+          "added": null,
+          "removed": null,
+          "modified": null
+        },
+        "protected": true,
+        "required_approvals": 1,
+        "enable_status_check": true,
+        "status_check_contexts": [
+          "testing / frontend-checks (pull_request)",
+          "testing / backend-checks (pull_request)",
+          "testing / test-unit (pull_request)",
+          "testing / test-pgsql (pull_request)",
+          "testing / test-sqlite (pull_request)",
+          "testing / test-mysql (pull_request)"
+        ],
+        "user_can_push": false,
+        "user_can_merge": false,
+        "effective_branch_protection_name": ""
+      },
+      {
+        "name": "bp-v17.0/pr-14752",
+        "commit": {
+          "id": "14f24bf51248713818c67a26301e8d2ad0e0ef71",
+          "message": "fix(ui): proper use of modern components in org teams ui (#14752)\n\nFixes forgejo/forgejo#14750.\n\nRegression as result of combining #14281 with #13943 and #13630.\n\nStyles in modern `button.css` were never supposed to act as overrides of Fomantic styles, but in a few places during v17 devcycle they ended up doing that before they broke.\n\nAs currently `button.css` does not offer alternative to Fomantic's `tiny` buttons those were just reverted to be fully Fomantic governed.\n\n|Change|Before|After|\n|-|-|-|\n|Fixed classes|![1abef](/attachments/6e7121d2-3b42-4010-b7b5-3d832dd9dc50)|![1aft](/attachments/7279c52f-9d59-4ae7-bbd5-18e533d013e7)|\n|Reverted|![2abef](/attachments/f807bd12-96a1-40bf-b928-712162b2c696)|![2aft](/attachments/46f52e0b-71e6-4a82-897b-e1d8694bb078)|\n\nNot needed, no stable v17 versions were published.\n\n<!--[x] I confirm that I make this contribution in accordance with [Forgejo''s AI Agreement]-->\n\nReviewed-on: https://codeberg.org/forgejo/forgejo/pulls/14752\nReviewed-by: Andreas Ahlenstorf <redacted@example.invalid>\n(cherry picked from commit d915e5a5abb92527ac7fd0d60997b5fc57cf8467)\n",
+          "url": "https://codeberg.org/forgejo/forgejo/commit/14f24bf51248713818c67a26301e8d2ad0e0ef71",
+          "author": {
+            "name": "0ko",
+            "email": "redacted@example.invalid",
+            "username": "0ko"
+          },
+          "committer": {
+            "name": "Robert Wolff",
+            "email": "redacted@example.invalid",
+            "username": "mahlzahn"
+          },
+          "verification": {
+            "verified": true,
+            "reason": "mahlzahn / 1614C70AD69A61A1",
+            "signature": "-----BEGIN PGP SIGNATURE-----\n\niHUEABYKAB0WIQSVYq5X9OJmWF7YCjcWFMcK1pphoQUCasel7wAKCRAWFMcK1pph\noeDHAQC6PraGqo8587K/uVb+dn/+/jgQzxPIAsPt7RKGncFdygEAzhDwhoW+I8W0\nizJRMNWED6MaVSSlvMtHYWexkFcivAY=\n=Flda\n-----END PGP SIGNATURE-----\n",
+            "signer": {
+              "name": "mahlzahn",
+              "email": "redacted@example.invalid",
+              "username": ""
+            },
+            "payload": "tree b0c69d1a63edf7bbbb87996371f410d37e696dd2\nparent d90178e17e73ec823d6a6c0a22fe241f6b2b0e33\nauthor 0ko <redacted@example.invalid> 1791455833 +0200\ncommitter Robert Wolff <redacted@example.invalid> 1791469037 +0200\n\nfix(ui): proper use of modern components in org teams ui (#14752)\n\nFixes forgejo/forgejo#14750.\n\nRegression as result of combining #14281 with #13943 and #13630.\n\nStyles in modern `button.css` were never supposed to act as overrides of Fomantic styles, but in a few places during v17 devcycle they ended up doing that before they broke.\n\nAs currently `button.css` does not offer alternative to Fomantic's `tiny` buttons those were just reverted to be fully Fomantic governed.\n\n|Change|Before|After|\n|-|-|-|\n|Fixed classes|![1abef](/attachments/6e7121d2-3b42-4010-b7b5-3d832dd9dc50)|![1aft](/attachments/7279c52f-9d59-4ae7-bbd5-18e533d013e7)|\n|Reverted|![2abef](/attachments/f807bd12-96a1-40bf-b928-712162b2c696)|![2aft](/attachments/46f52e0b-71e6-4a82-897b-e1d8694bb078)|\n\nNot needed, no stable v17 versions were published.\n\n<!--[x] I confirm that I make this contribution in accordance with [Forgejo''s AI Agreement]-->\n\nReviewed-on: https://codeberg.org/forgejo/forgejo/pulls/14752\nReviewed-by: Andreas Ahlenstorf <redacted@example.invalid>\n(cherry picked from commit d915e5a5abb92527ac7fd0d60997b5fc57cf8467)\n"
+          },
+          "timestamp": "2026-10-08T12:37:13+02:00",
+          "added": null,
+          "removed": null,
+          "modified": null
+        },
+        "protected": false,
+        "required_approvals": 0,
+        "enable_status_check": false,
+        "status_check_contexts": [],
+        "user_can_push": false,
+        "user_can_merge": false,
+        "effective_branch_protection_name": ""
+      }
+    ]
+  }
+}

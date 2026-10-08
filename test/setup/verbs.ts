@@ -5,7 +5,8 @@ import { afterAll, vi } from 'vitest'
 
 /**
  * Records every provider verb a test file calls successfully, per forge and
- * thread kind, into `test/.verbs/`. `scripts/check-capabilities.ts` reads the
+ * thread kind, into `test/.verbs/`. Calls on anonymous providers are recorded
+ * under `<forge>:anonymous` as well. `scripts/check-capabilities.ts` reads the
  * files after the run and fails for any capability declared `true` that no
  * test reached.
  */
@@ -20,13 +21,15 @@ function kindOf(args: unknown[]): string | undefined {
   return (thread?.kind ?? first?.kind ?? second?.kind) as string | undefined
 }
 
-function record(forge: string, verb: string, args: unknown[]): void {
-  const set = exercised.get(forge) ?? new Set<string>()
-  exercised.set(forge, set)
-  set.add(verb)
+function record(provider: ForgeProvider, verb: string, args: unknown[]): void {
   const kind = kindOf(args)
-  if (kind) {
-    set.add(`${verb}:${kind}`)
+  for (const key of provider.authKind === 'anonymous' ? [provider.forge, `${provider.forge}:anonymous`] : [provider.forge]) {
+    const set = exercised.get(key) ?? new Set<string>()
+    exercised.set(key, set)
+    set.add(verb)
+    if (kind) {
+      set.add(`${verb}:${kind}`)
+    }
   }
 }
 
@@ -59,7 +62,7 @@ function trackIterable<T extends AsyncIterable<unknown>>(iterable: T, done: () =
   })
 }
 
-function trackGroup(forge: string, group: string, value: object): object {
+function trackGroup(provider: ForgeProvider, group: string, value: object): object {
   return new Proxy(value, {
     get(target, property, receiver) {
       const member = Reflect.get(target, property, receiver) as unknown
@@ -70,15 +73,15 @@ function trackGroup(forge: string, group: string, value: object): object {
       return (...args: unknown[]) => {
         const result = (member as (...args: unknown[]) => unknown).apply(target, args)
         if (result && typeof result === 'object' && Symbol.asyncIterator in result) {
-          return trackIterable(result as AsyncIterable<unknown>, () => record(forge, verb, args))
+          return trackIterable(result as AsyncIterable<unknown>, () => record(provider, verb, args))
         }
         if (result instanceof Promise) {
           return result.then((value) => {
-            record(forge, verb, args)
+            record(provider, verb, args)
             return value
           })
         }
-        record(forge, verb, args)
+        record(provider, verb, args)
         return result
       }
     },
@@ -90,7 +93,7 @@ export function trackProvider(provider: ForgeProvider): ForgeProvider {
     get(target, property, receiver) {
       const member = Reflect.get(target, property, receiver) as unknown
       return member && typeof member === 'object' && typeof property === 'string' && property !== 'capabilities'
-        ? trackGroup(target.forge, property, member)
+        ? trackGroup(target, property, member)
         : member
     },
   })

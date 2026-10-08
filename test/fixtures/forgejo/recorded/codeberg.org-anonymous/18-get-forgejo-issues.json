@@ -1,0 +1,222 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/issues?state=open&type=issues&limit=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "<https://codeberg.org/api/v1/repos/forgejo/forgejo/issues?limit=3&page=2&state=open&type=issues>; rel=\"next\",<https://codeberg.org/api/v1/repos/forgejo/forgejo/issues?limit=3&page=520&state=open&type=issues>; rel=\"last\"",
+      "x-total-count": "1560"
+    },
+    "body": [
+      {
+        "id": 7638741,
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/issues/14757",
+        "html_url": "https://codeberg.org/forgejo/forgejo/issues/14757",
+        "number": 14757,
+        "user": {
+          "id": 598649,
+          "login": "landsman",
+          "source_id": 0,
+          "full_name": "Michal Landsman",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://codeberg.org/avatars/4b5fb696b31a2b68b64b6f0952dee03bd7417ab95cce4796f9c50609f25a59a9",
+          "html_url": "https://codeberg.org/landsman",
+          "active": false,
+          "location": "Prague, Czech Republic",
+          "pronouns": "",
+          "website": "https://www.insuit.cz",
+          "description": "",
+          "followers_count": 0,
+          "following_count": 4,
+          "starred_repos_count": 12,
+          "username": "landsman"
+        },
+        "original_author": "",
+        "original_author_id": 0,
+        "title": "bug: teams setting permission description for PRs is unclear",
+        "body": "### Can you reproduce the bug on the Forgejo test instance?\n\nNo, I've tried it and the problem is not present there\n\n### Description\n\n1. create a team\n2. set permissions: Code - no access, Issues - write, Pull requests - READ\n\nWhat.I noticed strange that Pull Request has a description saying: \"Read: Reading and create pull requests.\".\n\nSo I was thinking how it's even possible to create a PR without access into a code. Hopefully it's not, button is disabled, but that description makes me wonder. \n\nCan we do a condition description based on what I check in \"code\" section?\n\n### Screenshots\n\nbellow\n\n### Forgejo Version\n\n16.0.5\n\n### Browser Version\n\nChrome Version 154.0.8037.98 (Official Build) (arm64)\n\n",
+        "ref": "",
+        "assets": [
+          {
+            "id": 2017131,
+            "name": "Screenshot 2026-10-08 at 1.38.06 PM.png",
+            "size": 658252,
+            "download_count": 0,
+            "created_at": "2026-10-08T13:38:13+02:00",
+            "uuid": "52aa7914-19d6-42e8-bf3a-ccc3f2fc2f19",
+            "browser_download_url": "https://codeberg.org/attachments/52aa7914-19d6-42e8-bf3a-ccc3f2fc2f19",
+            "type": "attachment"
+          },
+          {
+            "id": 2017134,
+            "name": "Screenshot 2026-10-08 at 1.38.39 PM.png",
+            "size": 592869,
+            "download_count": 0,
+            "created_at": "2026-10-08T13:38:51+02:00",
+            "uuid": "775d194a-1a55-4eae-9033-7441b2f22c41",
+            "browser_download_url": "https://codeberg.org/attachments/775d194a-1a55-4eae-9033-7441b2f22c41",
+            "type": "attachment"
+          }
+        ],
+        "labels": [
+          {
+            "id": 201022,
+            "name": "bug/new-report",
+            "exclusive": true,
+            "is_archived": false,
+            "color": "e11d21",
+            "description": "bug has just been reported and need triage (default label on issue creation)",
+            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/201022"
+          },
+          {
+            "id": 87703,
+            "name": "forgejo/ui",
+            "exclusive": false,
+            "is_archived": false,
+            "color": "eb6420",
+            "description": "User interface",
+            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/87703"
+          }
+        ],
+        "milestone": null,
+        "assignee": null,
+        "assignees": null,
+        "state": "open",
+        "is_locked": false,
+        "comments": 0,
+        "created_at": "2026-10-08T13:39:47+02:00",
+        "updated_at": "2026-10-08T13:40:45+02:00",
+        "closed_at": null,
+        "due_date": null,
+        "pull_request": null,
+        "repository": {
+          "id": 73144,
+          "name": "forgejo",
+          "owner": "forgejo",
+          "full_name": "forgejo/forgejo"
+        },
+        "pin_order": 0
+      },
+      {
+        "id": 7638423,
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/issues/14756",
+        "html_url": "https://codeberg.org/forgejo/forgejo/issues/14756",
+        "number": 14756,
+        "user": {
+          "id": 598649,
+          "login": "landsman",
+          "source_id": 0,
+          "full_name": "Michal Landsman",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://codeberg.org/avatars/4b5fb696b31a2b68b64b6f0952dee03bd7417ab95cce4796f9c50609f25a59a9",
+          "html_url": "https://codeberg.org/landsman",
+          "active": false,
+          "location": "Prague, Czech Republic",
+          "pronouns": "",
+          "website": "https://www.insuit.cz",
+          "description": "",
+          "followers_count": 0,
+          "following_count": 4,
+          "starred_repos_count": 12,
+          "username": "landsman"
+        },
+        "original_author": "",
+        "original_author_id": 0,
+        "title": "enh: real-time events in PRs or issues",
+        "body": "### Existing problems this enhancement addresses\n\nOpen issue or pull request page, new comments, edited comments, and reactions don’t appear until the page is reloaded. For example, when a bot edits its “working…” comment to show the result, the page still shows the old comment.\r\n\r\nReloading can discard a half-written comment and reset the scroll position. Without live updates, you may only notice activity through notifications.\r\n\r\nThe same goes for other interactive elements on the PR page (linked related issues bellow).\n\n### Enhancement description\n\nWorkarounds:\r\n- Reload the page\r\n- Have the bot mention the person in its first comment to trigger a notification\r\n- I haven’t checked whether editing a comment sends a notification\n\n### Details and notes\n\nForgejo 16.0.5+gitea-1.22.0, self-hosted.\r\n\r\nProbably related:\r\n- #12906 - the same problem with the checks and merge box.\r\n- #13511 - /user/events (EventSource) is the only pushed update, covers only the navbar, and has been reported broken on Forgejo 15–16.\n\n",
+        "ref": "",
+        "assets": [],
+        "labels": [
+          {
+            "id": 78139,
+            "name": "enhancement/feature",
+            "exclusive": false,
+            "is_archived": false,
+            "color": "207de5",
+            "description": "New feature",
+            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/78139"
+          }
+        ],
+        "milestone": null,
+        "assignee": null,
+        "assignees": null,
+        "state": "open",
+        "is_locked": false,
+        "comments": 0,
+        "created_at": "2026-10-08T13:00:51+02:00",
+        "updated_at": "2026-10-08T13:00:51+02:00",
+        "closed_at": null,
+        "due_date": null,
+        "pull_request": null,
+        "repository": {
+          "id": 73144,
+          "name": "forgejo",
+          "owner": "forgejo",
+          "full_name": "forgejo/forgejo"
+        },
+        "pin_order": 0
+      },
+      {
+        "id": 7638294,
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/issues/14755",
+        "html_url": "https://codeberg.org/forgejo/forgejo/issues/14755",
+        "number": 14755,
+        "user": {
+          "id": 381495,
+          "login": "slink",
+          "source_id": 0,
+          "full_name": "Nils Goroll",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://codeberg.org/avatars/b5d63dc33281a8f89f64eed46eee13a2777e9d8944872537ba94ed13495e4c6b",
+          "html_url": "https://codeberg.org/slink",
+          "active": false,
+          "location": "Germany",
+          "pronouns": "he/him",
+          "website": "https://uplex.de",
+          "description": "Vinyl Cache (ex Varnish Cache) co-maintainer\r\nCurrently working towards moving our repos to Forgejo on https://code.vinyl-cache.org/",
+          "followers_count": 0,
+          "following_count": 0,
+          "starred_repos_count": 1,
+          "username": "slink"
+        },
+        "original_author": "",
+        "original_author_id": 0,
+        "title": "bug: git over ssh broken with default config if forgejo and sshd have differing XDG_RUNTIME_DIR",
+        "body": "### Can you reproduce the bug on the Forgejo test instance?\n\nNo, I can't try it on the test instance for some reason\n\n### Description\n\nAfter updating to https://codeberg.org/slink/forgejo/commit/512c06974d14d8fdcb7a214c8e506057dbd981b8, which is based on 08ba2d68b6d2d4052d8dae16e15cb5be4ad01897, git over ssh was no longer possible:\r\n\r\n```\r\n$ git push\r\nForgejo: Internal Server Connection Error\r\nfatal: Could not read from remote repository.\r\n\r\nPlease make sure you have the correct access rights\r\nand the repository exists.\r\n$ git pull\r\nForgejo: Internal Server Connection Error\r\nfatal: Could not read from remote repository.\r\n\r\nPlease make sure you have the correct access rights\r\nand the repository exists.\r\n```\r\n\r\nI tracked down the reason by adding `set >/tmp/env && /usr/bin/strace -o /tmp/tr -f ` to the `command` for my ssh key and found the following:\r\n\r\n```\r\n$ grep -E 'internal.sock|Forge' /tmp/tr\r\n1599397 connect(4, {sa_family=AF_UNIX, sun_path=\"/run/user/1001/forgejo/internal.sock\"}, 39) = -1 ENOENT (No such file or directory)\r\n1599397 write(2, \"Forgejo: Internal Server Connect\"..., 42) = 42\r\n1599397 connect(4, {sa_family=AF_UNIX, sun_path=\"/run/user/1001/forgejo/internal.sock\"}, 39) = -1 ENOENT (No such file or directory)\r\n$ grep XDG /tmp/env\r\nXDG_RUNTIME_DIR='/run/user/1001'\r\n```\r\n\r\nforgejo itself is started via systemD with the `RunTimeDirectory` as in the example\r\n\r\nhttps://codeberg.org/forgejo/forgejo/src/commit/adfdb1a53298d953669fcf49d61393a32b256fb5/contrib/systemd/forgejo.service#L59\r\n\r\n```\r\n# grep -vE '^#|^$' /etc/systemd/system/forgejo.service\r\n[Unit]\r\nDescription=Forgejo (Beyond coding. We forge.)\r\nAfter=syslog.target\r\nAfter=network.target\r\nWants=postgresql.service\r\nAfter=postgresql.service\r\n[Service]\r\nRestartSec=2s\r\nType=simple\r\nUser=git\r\nGroup=git\r\nWorkingDirectory=/var/lib/forgejo/\r\nRuntimeDirectory=forgejo\r\nRuntimeDirectoryMode=0750\r\nExecStart=/usr/local/bin/forgejo web --config /etc/forgejo/app.ini\r\nRestart=always\r\nEnvironment=USER=git HOME=/home/git FORGEJO_WORK_DIR=/var/lib/forgejo\r\n[Install]\r\nWantedBy=multi-user.target\r\n```\r\n\r\nThe socket gets created as `/run/forgejo/internal.sock`\r\n\r\n```\r\n# ls -rtl /run/forgejo/internal.sock \r\nsrwxr-xr-x 1 git git 0  8. Okt  11:56 /run/forgejo/internal.sock\r\n```\r\n\r\nSo clearly the problem is that systemD starts forgejo without `XDG_RUNTIME_DIR` being set, but when coming in via `sshd`, it is set. This does not work with the default from cda3aca4c92e775ccfeec66648a061e05f823b54 / #14148\r\n\r\nWhile the workaround is trivial (to set `INTERNAL_LISTENER_PATH` in the `.ini` to the right absolute path), I wonder if the default should be changed to cause less friction?\n\n### Forgejo Version\n\n08ba2d68b6d2d4052d8dae16e15cb5be4ad01897\n\n### How are you running Forgejo?\n\nself built self hosted\n\n### Logs\n\n_No response_\n\n### Database\n\nPostgreSQL\n\n",
+        "ref": "",
+        "assets": [],
+        "labels": [
+          {
+            "id": 201022,
+            "name": "bug/new-report",
+            "exclusive": true,
+            "is_archived": false,
+            "color": "e11d21",
+            "description": "bug has just been reported and need triage (default label on issue creation)",
+            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/201022"
+          }
+        ],
+        "milestone": null,
+        "assignee": null,
+        "assignees": null,
+        "state": "open",
+        "is_locked": false,
+        "comments": 3,
+        "created_at": "2026-10-08T12:38:38+02:00",
+        "updated_at": "2026-10-08T13:04:01+02:00",
+        "closed_at": null,
+        "due_date": null,
+        "pull_request": null,
+        "repository": {
+          "id": 73144,
+          "name": "forgejo",
+          "owner": "forgejo",
+          "full_name": "forgejo/forgejo"
+        },
+        "pin_order": 0
+      }
+    ]
+  }
+}

@@ -13,12 +13,12 @@ import { rolldown } from 'rolldown'
 /** `absent` is a string only the webhook code contains; a Lite bundle must not carry it. */
 const BUDGETS: Array<{ name: string, source: string, imports: string, minified: number, gzipped: number, absent?: string }> = [
   { name: 'forges', source: 'index.mjs', imports: 'createForges', minified: 9_000, gzipped: 2_650 },
-  { name: 'forges/github', source: 'github/index.mjs', imports: 'github', minified: 99_000, gzipped: 30_300 },
-  { name: 'github lite', source: 'github/index.mjs', imports: 'githubLite', minified: 91_000, gzipped: 28_150, absent: 'x-hub-signature-256' },
-  { name: 'forges/gitlab', source: 'gitlab/index.mjs', imports: 'gitlab', minified: 76_450, gzipped: 24_000 },
-  { name: 'gitlab lite', source: 'gitlab/index.mjs', imports: 'gitlabLite', minified: 69_550, gzipped: 21_900, absent: 'x-gitlab-token' },
-  { name: 'forges/tangled', source: 'tangled/index.mjs', imports: 'tangled', minified: 59_500, gzipped: 19_600 },
-  { name: 'tangled lite', source: 'tangled/index.mjs', imports: 'tangledLite', minified: 55_750, gzipped: 18_400, absent: 'x-tangled-signature-256' },
+  { name: 'forges/github', source: 'github/index.mjs', imports: 'github', minified: 99_250, gzipped: 30_400 },
+  { name: 'github lite', source: 'github/index.mjs', imports: 'githubLite', minified: 91_250, gzipped: 28_250, absent: 'x-hub-signature-256' },
+  { name: 'forges/gitlab', source: 'gitlab/index.mjs', imports: 'gitlab', minified: 76_650, gzipped: 24_050 },
+  { name: 'gitlab lite', source: 'gitlab/index.mjs', imports: 'gitlabLite', minified: 69_750, gzipped: 22_000, absent: 'x-gitlab-token' },
+  { name: 'forges/tangled', source: 'tangled/index.mjs', imports: 'tangled', minified: 59_600, gzipped: 19_650 },
+  { name: 'tangled lite', source: 'tangled/index.mjs', imports: 'tangledLite', minified: 55_900, gzipped: 18_450, absent: 'x-tangled-signature-256' },
 ]
 
 async function measure(source: string, imports: string): Promise<{ minified: number, gzipped: number, lazy: number, code: string }> {

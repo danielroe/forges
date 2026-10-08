@@ -1,0 +1,130 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/tags"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"8393708e1fc7cc47936b82074680cd5a\"",
+      "x-ratelimit-limit": "60",
+      "x-ratelimit-remaining": "32"
+    },
+    "body": [
+      {
+        "name": "OneOS-Lite-v3.1.0",
+        "message": "ReleaseNotes\r\n\r\n1、易用性优化，smp相关的配置与工程关联，非多核芯片不显示smp配置项\r\n\r\n2、内核配置优化，按照内核功能，分级展开\r\n\r\n3、单链表定时器和哈希定时器接口统一\r\n\r\n4、性能优化，多核smp和单核代码分离\r\n\r\n5、维测接口功能优化\r\n\r\n6、新增支持ARM Cortex-R5F架构芯驰 E3110芯片\r\n\r\n7、新增支持RISC-V架构北京芯昇 CM32M433R-START 开发板\r\n\r\n8、新增OneNET接入SDK功能\r\n\r\n9、新增Dlog保存到Flash功能",
+        "commit": {
+          "sha": "8205aefb6a984a72c3d8331c3c5584b86c61de7d",
+          "date": "2025-06-12T06:25:21+00:00"
+        },
+        "tagger": {
+          "name": "CMCC-OneOS",
+          "email": "redacted@example.invalid",
+          "date": "2025-06-12T06:36:03+00:00"
+        }
+      },
+      {
+        "name": "OneOS-Lite-v3.2.0",
+        "message": "ReleaseNotes\r\n\r\n1、代码瘦身，仓库拆分为主仓库及组件、bsp额外仓库\r\n\r\n2、支持Cube工具组件仓库查找下载及日志记录\r\n\r\n3、支持Cube创建工程BSP下载及日志记录\r\n\r\n4、移除OCF/AMS等组件\r\n\r\n5、新增Lwip支持DNS local hostname、IPv4广播\r\n\r\n6、修复Dlog日志降速问题\r\n\r\n7、修复HDSC/CM32/ST中堆栈溢出问题\r\n\r\n8、修复set_dns不生效问题\r\n\r\n9、修复部分工程适配编译问题\r\n\r\n10、OneOS Lite-V3.2.0版本需要Cube v2.1.0及之后工具版本配套支持",
+        "commit": {
+          "sha": "0bbf9cdf3c21b24e6ca063ccb25a65d3417e5658",
+          "date": "2025-06-12T06:23:06+00:00"
+        },
+        "tagger": {
+          "name": "CMCC-OneOS",
+          "email": "redacted@example.invalid",
+          "date": "2025-06-12T06:37:06+00:00"
+        }
+      },
+      {
+        "name": "OneOS-Lite-v3.2.1",
+        "message": "优化用户体验问题",
+        "commit": {
+          "sha": "fb06c97b9117cf5446944726b3c79600a4011c39",
+          "date": "2025-06-12T06:23:51+00:00"
+        },
+        "tagger": {
+          "name": "CMCC-OneOS",
+          "email": "redacted@example.invalid",
+          "date": "2025-06-12T06:41:32+00:00"
+        }
+      },
+      {
+        "name": "OneOS-Lite-v3.3.0",
+        "message": "ReleaseNotes\r\n\r\n1、移植fileX文件系统，支持文件、目录的基本操作\r\n\r\n2、完成基于FAT文件系统的文件系统对标分析\r\n\r\n3、优化使用体验",
+        "commit": {
+          "sha": "1b3606f0d04d46fe9df3b7f19dfb795f0d25e04a",
+          "date": "2025-06-12T06:24:24+00:00"
+        },
+        "tagger": {
+          "name": "CMCC-OneOS",
+          "email": "redacted@example.invalid",
+          "date": "2025-06-12T06:40:07+00:00"
+        }
+      },
+      {
+        "name": "OneOS-Lite-v3.3.1",
+        "message": "优化使用体验",
+        "commit": {
+          "sha": "68641635fa8404f5152d1bfb465fdd5082e2c43d",
+          "date": "2025-06-12T06:24:54+00:00"
+        },
+        "tagger": {
+          "name": "CMCC-OneOS",
+          "email": "redacted@example.invalid",
+          "date": "2025-06-12T06:42:27+00:00"
+        }
+      },
+      {
+        "name": "OneOS-v2.2.1",
+        "message": "",
+        "commit": {
+          "sha": "511c1b66c3b31d314a7f937eb6d267a475f3e2c8",
+          "date": "2023-01-13T01:55:30+00:00"
+        },
+        "tagger": null
+      },
+      {
+        "name": "OneOS-v2.3.1",
+        "message": "",
+        "commit": {
+          "sha": "c897abd8f43425784f5a2ba77e1fa31f3dfa96d8",
+          "date": "2023-01-13T01:55:55+00:00"
+        },
+        "tagger": null
+      },
+      {
+        "name": "OneOS-v2.4.1",
+        "message": "",
+        "commit": {
+          "sha": "4b4255d1c3909c44acc3ec7b954f97869972a475",
+          "date": "2023-01-13T01:56:15+00:00"
+        },
+        "tagger": null
+      },
+      {
+        "name": "OneOS-v3.0.1",
+        "message": "",
+        "commit": {
+          "sha": "1fd3ec7483b2fa793fb7dd4a3a90c72b8ab03708",
+          "date": "2023-04-10T09:43:45+08:00"
+        },
+        "tagger": null
+      },
+      {
+        "name": "OneOS_for_OneNET_v1.0.0_release",
+        "message": "OneOS_for_OneNET_v1.0.0_release",
+        "commit": {
+          "sha": "27b07f87c0a8f2673244a9cdc6bcee68281396e3",
+          "date": "2023-07-04T08:22:50+00:00"
+        },
+        "tagger": {
+          "name": "无厘头",
+          "email": "redacted@example.invalid",
+          "date": "2023-09-27T02:25:24+00:00"
+        }
+      }
+    ]
+  }
+}

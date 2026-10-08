@@ -1,0 +1,44 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/issues/14613/comments?limit=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "x-total-count": "1"
+    },
+    "body": [
+      {
+        "id": 24317943,
+        "html_url": "https://codeberg.org/forgejo/forgejo/issues/14613#issuecomment-24317943",
+        "pull_request_url": "",
+        "issue_url": "https://codeberg.org/forgejo/forgejo/issues/14613",
+        "user": {
+          "id": 222642,
+          "login": "mfenniak",
+          "source_id": 0,
+          "full_name": "Mathieu Fenniak",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://codeberg.org/avatars/561ee781e72bbbfd2865db7b4ba4fbf50f64da3d3cb0f4e1897b6da25224a2a7",
+          "html_url": "https://codeberg.org/mfenniak",
+          "active": false,
+          "location": "Calgary, Alberta, Canada",
+          "pronouns": "he/him",
+          "website": "https://mathieu.fenniak.net/",
+          "description": "Open Source Software Developer. My hobbies include poorly maintaining too many bicycles, running distances that are too far, GM-ing TTRPGs, and, well, more software development obviously.",
+          "followers_count": 20,
+          "following_count": 0,
+          "starred_repos_count": 4,
+          "username": "mfenniak"
+        },
+        "original_author": "",
+        "original_author_id": 0,
+        "body": "Thanks for reporting this issue @miguelmurran.  It will be fixed by #14621.",
+        "assets": [],
+        "created_at": "2026-09-30T19:31:03+02:00",
+        "updated_at": "2026-09-30T19:31:03+02:00"
+      }
+    ]
+  }
+}

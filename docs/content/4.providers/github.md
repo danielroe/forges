@@ -139,7 +139,7 @@ Deliveries of the `installation` and `installation_repositories` events become `
 | Capability | Support |
 | --- | --- |
 | `experimental` | ❌ |
-| `sources.poll` | ✅ |
+| `sources.poll` | ✅ (needs credentials) |
 | `sources.webhook` | ✅ |
 | `sources.subscribe` | ❌ |
 | `repos.get` | ✅ |
@@ -149,18 +149,19 @@ Deliveries of the `installation` and `installation_repositories` events become `
 | `repos.labels` | ✅ |
 | `repos.createLabel` | experimental |
 | `repos.milestones` | ✅ |
-| `repos.collaborators` | ✅ |
-| `repos.permissionFor` | ✅ |
+| `repos.collaborators` | ✅ (needs credentials) |
+| `repos.permissionFor` | ✅ (needs credentials) |
 | `repos.addCollaborator` | experimental |
 | `repos.assignableUsers` | ✅ |
-| `repos.reviewerCandidates` | emulated |
-| `threads.get` | issue, PR, discussion, commit (experimental) |
-| `threads.list` | issue, PR, discussion |
+| `repos.reviewerCandidates` | emulated (needs credentials) |
+| `threads.get` | issue, PR, discussion (needs credentials), commit (experimental) |
+| `threads.list` | issue, PR, discussion (needs credentials) |
 | `threads.getMany` | ✅ |
-| `comments.list` | issue, PR, discussion, commit (experimental) |
+| `threads.events` | issue, PR, discussion (needs credentials), commit (experimental) |
+| `comments.list` | issue, PR, discussion (needs credentials), commit (experimental) |
 | `comments.edit` | issue (experimental), PR, discussion (experimental), commit (experimental) |
 | `comments.delete` | issue (experimental), PR, discussion (experimental), commit (experimental) |
-| `reactions.list` | issue, PR, discussion |
+| `reactions.list` | issue, PR, discussion (needs credentials) |
 | `notifications.list` | ✅ |
 | `notifications.markRead` | ✅ |
 | `notifications.markDone` | ✅ |
@@ -195,7 +196,7 @@ Deliveries of the `installation` and `installation_repositories` events become `
 | `ci.runs` | ✅ |
 | `ci.run` | ✅ |
 | `ci.jobs` | ✅ |
-| `ci.log` | ✅ |
+| `ci.log` | ✅ (needs credentials) |
 | `contents.file` | ✅ |
 | `contents.tree` | ✅ |
 | `contents.branches` | ✅ |
@@ -226,7 +227,7 @@ Deliveries of the `installation` and `installation_repositories` events become `
 | `search.threads` | ✅ |
 | `search.repos` | ✅ |
 | `search.commits` | ✅ |
-| `securityAlerts` | dependency (experimental), code scanning (experimental), secret (experimental) |
+| `securityAlerts` | dependency (experimental, needs credentials), code scanning (experimental, needs credentials), secret (experimental, needs credentials) |
 | `eventKinds` | native |
 | `authKinds` | `token`, `app`, `anonymous` |
 | `limits` | body 65536, comment 65536, label 50 |

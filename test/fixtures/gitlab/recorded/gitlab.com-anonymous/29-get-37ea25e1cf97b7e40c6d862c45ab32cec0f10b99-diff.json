@@ -1,0 +1,36 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/repository/commits/37ea25e1cf97b7e40c6d862c45ab32cec0f10b99/diff"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "<https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/repository/commits/37ea25e1cf97b7e40c6d862c45ab32cec0f10b99/diff?id=gitlab-org%2Fcli&page=1&per_page=20&sha=37ea25e1cf97b7e40c6d862c45ab32cec0f10b99&unidiff=false>; rel=\"first\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/repository/commits/37ea25e1cf97b7e40c6d862c45ab32cec0f10b99/diff?id=gitlab-org%2Fcli&page=1&per_page=20&sha=37ea25e1cf97b7e40c6d862c45ab32cec0f10b99&unidiff=false>; rel=\"last\"",
+      "etag": "W/\"46835595493b6647b454ad2e8d41bfe1\"",
+      "ratelimit-limit": "500",
+      "ratelimit-remaining": "471",
+      "ratelimit-reset": "1791477480",
+      "x-total": "1",
+      "x-total-pages": "1",
+      "x-next-page": "",
+      "x-page": "1",
+      "x-per-page": "20"
+    },
+    "body": [
+      {
+        "diff": "@@ -1,7 +1,7 @@\n golang 1.27.0\n \n # For linting and formatting Go code (includes gofumpt and goimports)\n-golangci-lint 2.13.2\n+golangci-lint 2.14.0\n \n # For linting shell scripts\n shellcheck 0.11.0\n",
+        "collapsed": false,
+        "too_large": false,
+        "new_path": ".tool-versions",
+        "old_path": ".tool-versions",
+        "a_mode": "100644",
+        "b_mode": "100644",
+        "new_file": false,
+        "renamed_file": false,
+        "deleted_file": false,
+        "generated_file": null
+      }
+    ]
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://dev.azure.com/dnceng-public/public/_apis/git/repositories/dotnet-public-wiki/refs?filter=heads%2F&api-version=7.1"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "value": [
+        {
+          "name": "refs/heads/main",
+          "objectId": "af56d96fdbd7c26e9fc94336b6f50dcc6ceff484",
+          "creator": {
+            "displayName": "Ilya Skuratovsky",
+            "url": "https://spsprodcus4.vssps.visualstudio.com/A10a5dd58-16e3-41e8-b079-e25cb8111111/_apis/Identities/0994e4e4-d484-4337-a745-54d4db413c14",
+            "_links": {
+              "avatar": {
+                "href": "https://dev.azure.com/dnceng-public/_apis/GraphProfile/MemberAvatars/aad.YjI5ZmEwOGMtMjQ2YS03ODFmLTk0MzktM2VmMzAwZDJhYjEy"
+              }
+            },
+            "id": "0994e4e4-d484-4337-a745-54d4db413c14",
+            "uniqueName": null,
+            "imageUrl": null,
+            "descriptor": "aad.YjI5ZmEwOGMtMjQ2YS03ODFmLTk0MzktM2VmMzAwZDJhYjEy"
+          },
+          "url": "https://dev.azure.com/dnceng-public/cbb18261-c48f-4abb-8651-8cdcb5474649/_apis/git/repositories/2459d599-fdb2-4d28-9810-daeec061cf90/refs?filter=heads%2Fmain"
+        }
+      ],
+      "count": 1
+    }
+  }
+}

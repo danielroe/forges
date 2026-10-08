@@ -7,8 +7,9 @@
     "status": 200,
     "headers": {
       "link": "<https://api.github.com/search/commits?q=fix+repo%3Ah3js%2Fh3&per_page=3&page=2>; rel=\"next\", <https://api.github.com/search/commits?q=fix+repo%3Ah3js%2Fh3&per_page=3&page=146>; rel=\"last\"",
+      "x-ratelimit-limit": "30",
       "x-ratelimit-remaining": "27",
-      "x-ratelimit-reset": "1791379028"
+      "x-ratelimit-reset": "1791485986"
     },
     "body": {
       "total_count": 436,

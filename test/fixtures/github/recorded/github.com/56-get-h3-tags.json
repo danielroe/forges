@@ -7,9 +7,10 @@
     "status": 200,
     "headers": {
       "link": "<https://api.github.com/repositories/313641207/tags?per_page=3&page=2>; rel=\"next\", <https://api.github.com/repositories/313641207/tags?per_page=3&page=56>; rel=\"last\"",
-      "etag": "W/\"ccf3c3d62158b63f9198fa8e721ba5bb9bf95cff9cbf1f961fb582ac7e7bfee0\"",
-      "x-ratelimit-remaining": "4951",
-      "x-ratelimit-reset": "1791382247"
+      "etag": "W/\"8ec2254525db5aacc193db77fea55e73b02b49a54355c3142fffb01e536eb271\"",
+      "x-ratelimit-limit": "5000",
+      "x-ratelimit-remaining": "4915",
+      "x-ratelimit-reset": "1791487708"
     },
     "body": [
       {

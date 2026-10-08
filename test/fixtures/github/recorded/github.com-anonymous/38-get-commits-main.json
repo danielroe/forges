@@ -1,0 +1,128 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.github.com/repos/h3js/h3/commits/main"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"f495e0e70916adab41119f050e496b5a92a539dbfd9f5564e9798227b4233fa8\"",
+      "x-ratelimit-limit": "60",
+      "x-ratelimit-remaining": "22",
+      "x-ratelimit-reset": "1791488828"
+    },
+    "body": {
+      "sha": "66cfb8a357b6285451bad498c2c40002601fae98",
+      "node_id": "C_kwDOErHI99oAKDY2Y2ZiOGEzNTdiNjI4NTQ1MWJhZDQ5OGMyYzQwMDAyNjAxZmFlOTg",
+      "commit": {
+        "author": {
+          "name": "Pooya Parsa",
+          "email": "redacted@example.invalid",
+          "date": "2026-10-07T12:37:06Z"
+        },
+        "committer": {
+          "name": "Pooya Parsa",
+          "email": "redacted@example.invalid",
+          "date": "2026-10-07T12:37:06Z"
+        },
+        "message": "chore(release): v2.0.2",
+        "tree": {
+          "sha": "7fdddeb4d070bfef143c879c7ec0ebcfa964a031",
+          "url": "https://api.github.com/repos/h3js/h3/git/trees/7fdddeb4d070bfef143c879c7ec0ebcfa964a031"
+        },
+        "url": "https://api.github.com/repos/h3js/h3/git/commits/66cfb8a357b6285451bad498c2c40002601fae98",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/h3js/h3/commits/66cfb8a357b6285451bad498c2c40002601fae98",
+      "html_url": "https://github.com/h3js/h3/commit/66cfb8a357b6285451bad498c2c40002601fae98",
+      "comments_url": "https://api.github.com/repos/h3js/h3/commits/66cfb8a357b6285451bad498c2c40002601fae98/comments",
+      "author": {
+        "login": "pi0",
+        "id": 5158436,
+        "node_id": "REDACTED",
+        "avatar_url": "https://avatars.githubusercontent.com/u/5158436?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/pi0",
+        "html_url": "https://github.com/pi0",
+        "followers_url": "https://api.github.com/users/pi0/followers",
+        "following_url": "https://api.github.com/users/pi0/following{/other_user}",
+        "gists_url": "https://api.github.com/users/pi0/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/pi0/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/pi0/subscriptions",
+        "organizations_url": "https://api.github.com/users/pi0/orgs",
+        "repos_url": "https://api.github.com/users/pi0/repos",
+        "events_url": "https://api.github.com/users/pi0/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/pi0/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "committer": {
+        "login": "pi0",
+        "id": 5158436,
+        "node_id": "REDACTED",
+        "avatar_url": "https://avatars.githubusercontent.com/u/5158436?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/pi0",
+        "html_url": "https://github.com/pi0",
+        "followers_url": "https://api.github.com/users/pi0/followers",
+        "following_url": "https://api.github.com/users/pi0/following{/other_user}",
+        "gists_url": "https://api.github.com/users/pi0/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/pi0/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/pi0/subscriptions",
+        "organizations_url": "https://api.github.com/users/pi0/orgs",
+        "repos_url": "https://api.github.com/users/pi0/repos",
+        "events_url": "https://api.github.com/users/pi0/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/pi0/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "parents": [
+        {
+          "sha": "07d7d2c0dac8fbbcd28b5c8c1278699372456dc5",
+          "url": "https://api.github.com/repos/h3js/h3/commits/07d7d2c0dac8fbbcd28b5c8c1278699372456dc5",
+          "html_url": "https://github.com/h3js/h3/commit/07d7d2c0dac8fbbcd28b5c8c1278699372456dc5"
+        }
+      ],
+      "stats": {
+        "total": 36,
+        "additions": 35,
+        "deletions": 1
+      },
+      "files": [
+        {
+          "sha": "e9382241dd61e0b6065b861cb80231e8a986217a",
+          "filename": "CHANGELOG.md",
+          "status": "modified",
+          "additions": 34,
+          "deletions": 0,
+          "changes": 34,
+          "blob_url": "https://github.com/h3js/h3/blob/66cfb8a357b6285451bad498c2c40002601fae98/CHANGELOG.md",
+          "raw_url": "https://github.com/h3js/h3/raw/66cfb8a357b6285451bad498c2c40002601fae98/CHANGELOG.md",
+          "contents_url": "https://api.github.com/repos/h3js/h3/contents/CHANGELOG.md?ref=66cfb8a357b6285451bad498c2c40002601fae98",
+          "patch": "@@ -2,6 +2,40 @@\n \n All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.\n \n+## v2.0.2\n+\n+[compare changes](https://github.com/h3js/h3/compare/v2.0.1...v2.0.2)\n+\n+### 🩹 Fixes\n+\n+- **node:** Call `onError` for stream errors in Node.js handlers ([#1571](https://github.com/h3js/h3/pull/1571))\n+- **response:** Use matching reason phrases in redirect and noContent ([#1570](https://github.com/h3js/h3/pull/1570))\n+- **middleware:** Pass through handled responses in `onError` ([#1574](https://github.com/h3js/h3/pull/1574))\n+\n+### 📖 Documentation\n+\n+- Add v2 blog article ([9adeeee](https://github.com/h3js/h3/commit/9adeeee))\n+\n+### 🌊 Types\n+\n+- **session:** Remove `@ts-nocheck` from iron-crypto ([#1572](https://github.com/h3js/h3/pull/1572))\n+- **route:** Infer `defineRoute` handler input from validation schemas ([ec527f0](https://github.com/h3js/h3/commit/ec527f0))\n+\n+### 🏡 Chore\n+\n+- **session:** Retarget legacy seal fallback removal to v3 ([#1573](https://github.com/h3js/h3/pull/1573))\n+- **session:** Mark `legacySealFallback` as deprecated ([44dbfb8](https://github.com/h3js/h3/commit/44dbfb8))\n+- Update deps ([ac79e5f](https://github.com/h3js/h3/commit/ac79e5f))\n+- Update release script ([07d7d2c](https://github.com/h3js/h3/commit/07d7d2c))\n+\n+### ❤️ Contributors\n+\n+- Pooya Parsa ([@pi0](https://github.com/pi0))\n+- Pi0x <redacted@example.invalid>\n+- Bao Nguyen ([@giaBaoJS](https://github.com/giaBaoJS))\n+- Kaan Çelebi ([@kaanisthatyou](https://github.com/kaanisthatyou))\n+- Daniel Shafer ([@dannyshafer](https://github.com/dannyshafer))\n+\n ## v2.0.1-rc.33\n \n [compare changes](https://github.com/h3js/h3/compare/v2.0.1-rc.32...v2.0.1-rc.33)"
+        },
+        {
+          "sha": "66df2963ae61e37eca135c5019ea5d88df781fee",
+          "filename": "package.json",
+          "status": "modified",
+          "additions": 1,
+          "deletions": 1,
+          "changes": 2,
+          "blob_url": "https://github.com/h3js/h3/blob/66cfb8a357b6285451bad498c2c40002601fae98/package.json",
+          "raw_url": "https://github.com/h3js/h3/raw/66cfb8a357b6285451bad498c2c40002601fae98/package.json",
+          "contents_url": "https://api.github.com/repos/h3js/h3/contents/package.json?ref=66cfb8a357b6285451bad498c2c40002601fae98",
+          "patch": "@@ -1,6 +1,6 @@\n {\n   \"name\": \"h3\",\n-  \"version\": \"2.0.1\",\n+  \"version\": \"2.0.2\",\n   \"description\": \"Minimal H(TTP) framework built for high performance and portability.\",\n   \"homepage\": \"https://h3.dev\",\n   \"license\": \"MIT\","
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,109 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitee.com/api/v5/repos/cmcc-oneos/issues/I8NUPF/operate_logs?repo=OneOS"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"2f5f4439aadab6afe518f3db3a7ccaf9\"",
+      "x-ratelimit-limit": "60",
+      "x-ratelimit-remaining": "40"
+    },
+    "body": [
+      {
+        "id": 145469533,
+        "icon": "add user icon",
+        "user": {
+          "id": 8078236,
+          "login": "pc-courage",
+          "name": "chao",
+          "avatar_url": "https://gitee.com/assets/no_portrait.png",
+          "url": "https://gitee.com/api/v5/users/pc-courage",
+          "html_url": "https://gitee.com/pc-courage",
+          "remark": "庞超",
+          "followers_url": "https://gitee.com/api/v5/users/pc-courage/followers",
+          "following_url": "https://gitee.com/api/v5/users/pc-courage/following_url{/other_user}",
+          "gists_url": "https://gitee.com/api/v5/users/pc-courage/gists{/gist_id}",
+          "starred_url": "https://gitee.com/api/v5/users/pc-courage/starred{/owner}{/repo}",
+          "subscriptions_url": "https://gitee.com/api/v5/users/pc-courage/subscriptions",
+          "organizations_url": "https://gitee.com/api/v5/users/pc-courage/orgs",
+          "repos_url": "https://gitee.com/api/v5/users/pc-courage/repos",
+          "events_url": "https://gitee.com/api/v5/users/pc-courage/events{/privacy}",
+          "received_events_url": "https://gitee.com/api/v5/users/pc-courage/received_events",
+          "type": "User"
+        },
+        "content": "将负责人从 覃攀 修改为chao",
+        "link_target": null,
+        "created_at": "2023-12-25T11:41:16+08:00",
+        "action_type": "change_assignee",
+        "before_change_value": "覃攀",
+        "after_change_value": "chao",
+        "before_change_id": 1958399,
+        "after_change_id": 8078236
+      },
+      {
+        "id": 145468161,
+        "icon": "add user icon",
+        "user": {
+          "id": 8078236,
+          "login": "pc-courage",
+          "name": "chao",
+          "avatar_url": "https://gitee.com/assets/no_portrait.png",
+          "url": "https://gitee.com/api/v5/users/pc-courage",
+          "html_url": "https://gitee.com/pc-courage",
+          "remark": "庞超",
+          "followers_url": "https://gitee.com/api/v5/users/pc-courage/followers",
+          "following_url": "https://gitee.com/api/v5/users/pc-courage/following_url{/other_user}",
+          "gists_url": "https://gitee.com/api/v5/users/pc-courage/gists{/gist_id}",
+          "starred_url": "https://gitee.com/api/v5/users/pc-courage/starred{/owner}{/repo}",
+          "subscriptions_url": "https://gitee.com/api/v5/users/pc-courage/subscriptions",
+          "organizations_url": "https://gitee.com/api/v5/users/pc-courage/orgs",
+          "repos_url": "https://gitee.com/api/v5/users/pc-courage/repos",
+          "events_url": "https://gitee.com/api/v5/users/pc-courage/events{/privacy}",
+          "received_events_url": "https://gitee.com/api/v5/users/pc-courage/received_events",
+          "type": "User"
+        },
+        "content": "将负责人设置为覃攀",
+        "link_target": null,
+        "created_at": "2023-12-25T11:36:26+08:00",
+        "action_type": "setting_assignee",
+        "before_change_value": "",
+        "after_change_value": "覃攀",
+        "before_change_id": 0,
+        "after_change_id": 1958399
+      },
+      {
+        "id": 143694761,
+        "icon": "add square icon",
+        "user": {
+          "id": 12490192,
+          "login": "jiangjinglong",
+          "name": "OneOS助手",
+          "avatar_url": "https://gitee.com/assets/no_portrait.png",
+          "url": "https://gitee.com/api/v5/users/jiangjinglong",
+          "html_url": "https://gitee.com/jiangjinglong",
+          "remark": null,
+          "followers_url": "https://gitee.com/api/v5/users/jiangjinglong/followers",
+          "following_url": "https://gitee.com/api/v5/users/jiangjinglong/following_url{/other_user}",
+          "gists_url": "https://gitee.com/api/v5/users/jiangjinglong/gists{/gist_id}",
+          "starred_url": "https://gitee.com/api/v5/users/jiangjinglong/starred{/owner}{/repo}",
+          "subscriptions_url": "https://gitee.com/api/v5/users/jiangjinglong/subscriptions",
+          "organizations_url": "https://gitee.com/api/v5/users/jiangjinglong/orgs",
+          "repos_url": "https://gitee.com/api/v5/users/jiangjinglong/repos",
+          "events_url": "https://gitee.com/api/v5/users/jiangjinglong/events{/privacy}",
+          "received_events_url": "https://gitee.com/api/v5/users/jiangjinglong/received_events",
+          "type": "User"
+        },
+        "content": "创建了任务",
+        "link_target": null,
+        "created_at": "2023-12-12T20:45:13+08:00",
+        "action_type": "create",
+        "before_change_value": "",
+        "after_change_value": "任务",
+        "before_change_id": null,
+        "after_change_id": 284499
+      }
+    ]
+  }
+}

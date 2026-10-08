@@ -1,0 +1,18 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/pulls/550/comments?page=1&per_page=50"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "<https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/pulls/550/comments?number=550&owner=cmcc-oneos&page=0&per_page=50&repo=OneOS>; rel='last'",
+      "etag": "W/\"d751713988987e9331980363e24189ce\"",
+      "x-ratelimit-limit": "60",
+      "x-ratelimit-remaining": "51",
+      "total_page": "0",
+      "total_count": "0"
+    },
+    "body": []
+  }
+}

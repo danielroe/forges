@@ -86,6 +86,7 @@ function limits(values?: Record<string, number>) {
 
     <CapabilityLegend
       kinds
+      signed-in
       explain
       class="mb-2"
     >
@@ -305,10 +306,11 @@ function limits(values?: Record<string, number>) {
           >
             <CapabilityCell
               :level="kind.level"
+              :signed-in="kind.signedIn"
               class="[--capability-cell-size:0.75rem]"
             />
             <span class="w-20 font-mono text-toned">{{ kind.label }}</span>
-            <span class="text-muted">{{ supportLabels[kind.level] }}</span>
+            <span class="text-muted">{{ supportLabels[kind.level] }}<template v-if="kind.signedIn">, {{ signedInLabel.toLowerCase() }}</template></span>
           </li>
         </ul>
         <div
@@ -317,9 +319,16 @@ function limits(values?: Record<string, number>) {
         >
           <CapabilityCell
             :level="tip.row.cells[tip.column]!.level"
+            :signed-in="tip.row.cells[tip.column]!.signedIn"
             class="[--capability-cell-size:0.75rem]"
           />
           <span class="text-default">{{ supportLabels[tip.row.cells[tip.column]!.level] }}</span>
+        </div>
+        <div
+          v-if="tip.row.cells[tip.column]!.signedIn"
+          class="mt-1.5 text-muted"
+        >
+          {{ signedInLabel }}
         </div>
 
         <div

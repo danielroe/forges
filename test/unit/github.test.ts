@@ -626,6 +626,16 @@ describe('github release assets', () => {
     expect(calls.at(-1)!.headers.get('authorization')).toBeNull()
     expect(calls.at(-2)!.headers.get('accept')).toBe('application/octet-stream')
   })
+
+  it('streams an asset without credentials', async () => {
+    const { fetch } = fixtureFetch('github')
+    const provider = github({ fetch }).create()
+
+    const release = await provider.releases.getByTag(repo, 'v1.2.0')
+    const downloaded = await new Response(await provider.releases.downloadAsset(release.assets![0]!.ref!)).json() as { bytes: string }
+
+    expect(downloaded.bytes).toBe('asset bytes')
+  })
 })
 
 describe('github search', () => {

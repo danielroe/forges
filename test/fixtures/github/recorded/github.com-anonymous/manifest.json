@@ -1,0 +1,89 @@
+{
+  "baseUrl": "https://api.github.com",
+  "anonymous": true,
+  "repo": {
+    "forge": "github",
+    "instance": "github.com",
+    "owner": "h3js",
+    "name": "h3"
+  },
+  "pull": {
+    "forge": "github",
+    "instance": "github.com",
+    "repo": {
+      "forge": "github",
+      "instance": "github.com",
+      "owner": "h3js",
+      "name": "h3"
+    },
+    "kind": "pull_request",
+    "number": "1000"
+  },
+  "issue": {
+    "forge": "github",
+    "instance": "github.com",
+    "repo": {
+      "forge": "github",
+      "instance": "github.com",
+      "owner": "h3js",
+      "name": "h3"
+    },
+    "kind": "issue",
+    "number": "1558"
+  },
+  "discussion": {
+    "forge": "github",
+    "instance": "github.com",
+    "repo": {
+      "forge": "github",
+      "instance": "github.com",
+      "owner": "nuxt",
+      "name": "nuxt"
+    },
+    "kind": "discussion",
+    "number": "9303"
+  },
+  "recordedAt": "2026-10-08T18:47:08.718Z",
+  "steps": [
+    "repo",
+    "labels",
+    "milestones",
+    "assignable users",
+    "pull",
+    "pull list",
+    "pull getMany",
+    "pull events",
+    "pull comments",
+    "pull reactions",
+    "pull reviews",
+    "pull checks",
+    "pull files",
+    "pull commits",
+    "issue",
+    "issue list",
+    "issue getMany",
+    "issue events",
+    "issue comments",
+    "issue reactions",
+    "user",
+    "checks",
+    "ci runs",
+    "ci run",
+    "ci jobs",
+    "readme",
+    "tree",
+    "branches",
+    "tags",
+    "resolve default branch",
+    "commits",
+    "commit",
+    "compare",
+    "releases",
+    "latest release",
+    "release",
+    "release by tag",
+    "search threads",
+    "search repos",
+    "search commits"
+  ]
+}

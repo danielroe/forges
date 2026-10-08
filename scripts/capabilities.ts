@@ -1,13 +1,25 @@
+import type { CapabilityEntry } from '../src/capability-table.ts'
 import type * as Forges from '../src/index.ts'
 import { CAPABILITY_TABLE } from '../src/capability-table.ts'
 
+export interface MatrixProvider {
+  slug: string
+  name: string
+  factories: string[]
+  provider: Forges.ForgeProvider
+  /** The same provider created without credentials, for a forge that accepts anonymous reads. */
+  anonymous?: Forges.ForgeProvider
+}
+
 /** Providers as the matrix and provider pages show them, keyed by their `docs/content/4.providers/<slug>.md` page. */
-export function matrixProviders(forges: typeof Forges): Array<{ slug: string, name: string, factories: string[], provider: Forges.ForgeProvider }> {
+export function matrixProviders(forges: typeof Forges): MatrixProvider[] {
   const { azureDevOps, bitbucket, cursorOrigin, forgejo, gitea, gitee, github, gitlab, pushin, tangled } = forges
   const auth = { type: 'token', token: 'token' } as const
-  const entry = <O>(slug: string, name: string, factory: (options: O) => Forges.ForgeProviderFactory, options: O) => {
+  const entry = <O>(slug: string, name: string, factory: (options: O) => Forges.ForgeProviderFactory, options: O): MatrixProvider => {
     const exported = Object.keys(forges).find(key => (forges as Record<string, unknown>)[key] === factory)!
-    return { slug, name, factories: [exported, `${exported}Lite`].filter(key => key in forges), provider: factory(options).create() }
+    const provider = factory(options).create()
+    const anonymous = provider.capabilities.authKinds.includes('anonymous') ? factory({ ...options, auth: undefined }).create() : undefined
+    return { slug, name, factories: [exported, `${exported}Lite`].filter(key => key in forges), provider, anonymous }
   }
   return [
     entry('github', 'GitHub', github, { auth: { type: 'app', appId: 1, privateKey: '', installationId: 1 } }),
@@ -30,8 +42,10 @@ export type SupportLevel = 'native' | 'experimental' | 'emulated' | 'none'
 
 export interface SupportCell {
   level: SupportLevel
+  /** Supported with credentials, but not by an anonymous provider. */
+  signedIn?: true
   /** Support per thread or alert kind, for capabilities declared per kind. */
-  kinds?: Array<{ kind: string, label: string, level: SupportLevel }>
+  kinds?: Array<{ kind: string, label: string, level: SupportLevel, signedIn?: true }>
 }
 
 const LEVEL_RANK: SupportLevel[] = ['native', 'experimental', 'emulated', 'none']
@@ -40,44 +54,70 @@ function levelOf(value: unknown): SupportLevel {
   return value === true ? 'native' : value === 'experimental' || value === 'emulated' ? value : 'none'
 }
 
-/** A capability value as a level, with the level of each kind for per-kind values. */
-export function supportCell(value: unknown): SupportCell {
+function signedIn(level: SupportLevel, anonymous: unknown, compare: boolean): { signedIn?: true } {
+  return compare && level !== 'none' && levelOf(anonymous) === 'none' ? { signedIn: true } : {}
+}
+
+/**
+ * A capability value as a level, with the level of each kind for per-kind values.
+ * Pass `anonymous`, the same capability on an anonymous provider, to mark
+ * support that needs credentials.
+ */
+export function supportCell(value: unknown, ...anonymous: [] | [unknown]): SupportCell {
+  const compare = anonymous.length > 0
   if (!value || typeof value !== 'object') {
-    return { level: levelOf(value) }
+    const level = levelOf(value)
+    return { level, ...signedIn(level, anonymous[0], compare) }
   }
-  const kinds = Object.entries(value).map(([kind, support]) => ({ kind, label: KINDS[kind] ?? kind, level: levelOf(support) }))
+  const kinds = Object.entries(value).map(([kind, support]) => {
+    const level = levelOf(support)
+    return { kind, label: KINDS[kind] ?? kind, level, ...signedIn(level, (anonymous[0] as Record<string, unknown> | undefined)?.[kind], compare) }
+  })
   const level = LEVEL_RANK.find(rank => kinds.some(kind => kind.level === rank)) ?? 'none'
   return { level, kinds }
 }
 
-function cell(value: unknown): string {
+function cell(value: unknown, ...anonymous: [] | [unknown]): string {
   if (Array.isArray(value)) {
     return value.map(item => `\`${item}\``).join(', ')
   }
   if (typeof value === 'string' && value !== 'experimental' && value !== 'emulated') {
     return value
   }
-  const { level, kinds } = supportCell(value)
+  const { level, kinds, signedIn } = supportCell(value, ...anonymous)
   if (!kinds) {
-    return level === 'native' ? '✅' : level === 'none' ? '❌' : level
+    const text = level === 'native' ? '✅' : level === 'none' ? '❌' : level
+    return signedIn ? `${text} (needs credentials)` : text
   }
   const supported = kinds.filter(kind => kind.level !== 'none')
-  return supported.map(({ label, level }) => level === 'native' ? label : `${label} (${level})`).join(', ') || '❌'
+  return supported.map(({ label, level, signedIn }) => {
+    const notes = [level === 'native' ? '' : level, signedIn ? 'needs credentials' : ''].filter(Boolean)
+    return notes.length ? `${label} (${notes.join(', ')})` : label
+  }).join(', ') || '❌'
 }
 
 function at(capabilities: Forges.ForgeCapabilities, path: string): unknown {
   return path.split('.').reduce<unknown>((value, key) => (value as Record<string, unknown> | undefined)?.[key], capabilities)
 }
 
+/** Writes and account verbs need credentials on every forge, so only the other capabilities mark what does. */
+function comparesAnonymous(entry: CapabilityEntry): boolean {
+  return !entry.write && !entry.account
+}
+
 /** One row per capability the table produces, in table order. */
-const rows: Array<[string, (capabilities: Forges.ForgeCapabilities) => unknown]> = (CAPABILITY_TABLE)
-  .filter(entry => !entry.alias)
-  .map(entry => [
-    entry.capability,
-    entry.capability === 'limits'
-      ? (c: Forges.ForgeCapabilities) => c.limits ? Object.entries(c.limits).map(([key, length]) => `${key.replace('Length', '')} ${length}`).join(', ') : 'unknown'
-      : (c: Forges.ForgeCapabilities) => at(c, entry.capability),
-  ])
+const rows = CAPABILITY_TABLE.map(entry => ({
+  name: entry.capability,
+  read: entry.capability === 'limits'
+    ? (c: Forges.ForgeCapabilities) => c.limits ? Object.entries(c.limits).map(([key, length]) => `${key.replace('Length', '')} ${length}`).join(', ') : 'unknown'
+    : (c: Forges.ForgeCapabilities) => at(c, entry.capability),
+  compare: comparesAnonymous(entry),
+}))
+
+/** A row's cell for one provider, marking support its anonymous provider lacks. */
+function rowCell(row: typeof rows[number], { provider, anonymous }: Pick<MatrixProvider, 'provider' | 'anonymous'>): string {
+  return anonymous && row.compare ? cell(row.read(provider.capabilities), row.read(anonymous.capabilities)) : cell(row.read(provider.capabilities))
+}
 
 const META = new Set(['experimental', 'eventKinds', 'authKinds', 'limits'])
 
@@ -117,7 +157,7 @@ export function capabilityData(forges: typeof Forges): { providers: CapabilityPr
   const entries = matrixProviders(forges)
   const groups: CapabilityGroup[] = []
   for (const entry of CAPABILITY_TABLE) {
-    if (entry.alias || META.has(entry.capability)) {
+    if (META.has(entry.capability)) {
       continue
     }
     const name = entry.capability.split('.')[0]!
@@ -131,7 +171,9 @@ export function capabilityData(forges: typeof Forges): { providers: CapabilityPr
       verbs: entry.verbs ?? [],
       write: !!entry.write,
       account: !!entry.account,
-      cells: entries.map(({ provider }) => supportCell(at(provider.capabilities, entry.capability))),
+      cells: entries.map(({ provider, anonymous }) => anonymous && comparesAnonymous(entry)
+        ? supportCell(at(provider.capabilities, entry.capability), at(anonymous.capabilities, entry.capability))
+        : supportCell(at(provider.capabilities, entry.capability))),
     })
   }
   const providers = entries.map(({ slug, name, factories, provider: { capabilities } }, index) => {
@@ -154,7 +196,7 @@ export function matrix(forges: typeof Forges): string {
     '::capability-matrix',
     `| Capability | ${providers.map(({ name }) => name).join(' | ')} |`,
     `| --- | ${providers.map(() => '---').join(' | ')} |`,
-    ...rows.map(([name, read]) => `| \`${name}\` | ${providers.map(({ provider }) => cell(read(provider.capabilities))).join(' | ')} |`),
+    ...rows.map(row => `| \`${row.name}\` | ${providers.map(provider => rowCell(row, provider)).join(' | ')} |`),
     '::',
   ].join('\n')
 }
@@ -172,7 +214,7 @@ export function providerIndex(forges: typeof Forges): string {
 }
 
 /** One provider's capabilities, as the generated section of its page. */
-export function providerSection(slug: string, provider: Forges.ForgeProvider): string {
+export function providerSection({ slug, provider, anonymous }: MatrixProvider): string {
   return [
     '## Capabilities',
     '',
@@ -180,7 +222,7 @@ export function providerSection(slug: string, provider: Forges.ForgeProvider): s
     `::provider-capabilities{provider="${slug}"}`,
     '| Capability | Support |',
     '| --- | --- |',
-    ...rows.map(([name, read]) => `| \`${name}\` | ${cell(read(provider.capabilities))} |`),
+    ...rows.map(row => `| \`${row.name}\` | ${rowCell(row, { provider, anonymous })} |`),
     '::',
   ].join('\n')
 }

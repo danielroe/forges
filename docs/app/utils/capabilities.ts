@@ -16,6 +16,10 @@ export const supportDescriptions: Record<SupportLevel, string> = {
   none: 'Calling it rejects with UnsupportedOperationError.',
 }
 
+export const signedInLabel = 'Needs credentials'
+
+export const signedInDescription = 'Supported, but an anonymous provider reports it unavailable, because the forge serves it only to signed-in users.'
+
 export const eventKindDescriptions: Record<string, string> = {
   native: 'The forge reports what kind of change each event is.',
   heuristic: 'Some kinds are read from the text of system notes, so wording the provider does not recognise comes through as other.',
@@ -39,11 +43,11 @@ export function rotatedHeaderHeight(lengths: number[]): string {
 /** Text for one cell, for screen readers. */
 export function describeCell(cell: SupportCell): string {
   if (!cell.kinds) {
-    return shortSupportLabels[cell.level]
+    return cell.signedIn ? `${shortSupportLabels[cell.level]}, ${signedInLabel.toLowerCase()}` : shortSupportLabels[cell.level]
   }
   const supported = cell.kinds.filter(kind => kind.level !== 'none')
   return supported.length
-    ? supported.map(kind => `${kind.label} ${shortSupportLabels[kind.level].toLowerCase()}`).join(', ')
+    ? supported.map(kind => `${kind.label} ${shortSupportLabels[kind.level].toLowerCase()}${kind.signedIn ? `, ${signedInLabel.toLowerCase()}` : ''}`).join('; ')
     : shortSupportLabels.none
 }
 

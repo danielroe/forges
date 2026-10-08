@@ -1,0 +1,384 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/refs/tags?pagelen=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "x-ratelimit-remaining": "56",
+      "x-ratelimit-reset": "2163"
+    },
+    "body": {
+      "values": [
+        {
+          "name": "1.0",
+          "type": "tag",
+          "message": "version 1.0\n",
+          "date": "2016-01-14T16:21:51+00:00",
+          "tagger": {
+            "type": "author",
+            "raw": "nee <redacted@example.invalid>",
+            "user": {
+              "display_name": "Ito Mitsuhiro",
+              "links": {
+                "self": {
+                  "href": "https://api.bitbucket.org/2.0/users/%7B7247b96a-9628-4fa3-b0ed-06bd83dc23a1%7D"
+                },
+                "avatar": {
+                  "href": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/557058:1c074cc5-5f7e-4f74-a716-6ade7135e7bd/4281deb6-857a-4a03-a588-29cb13085c34/128"
+                },
+                "html": {
+                  "href": "https://bitbucket.org/%7B7247b96a-9628-4fa3-b0ed-06bd83dc23a1%7D/"
+                }
+              },
+              "type": "user",
+              "uuid": "{7247b96a-9628-4fa3-b0ed-06bd83dc23a1}",
+              "account_id": "557058:1c074cc5-5f7e-4f74-a716-6ade7135e7bd",
+              "nickname": "neelabo"
+            }
+          },
+          "target": {
+            "type": "commit",
+            "hash": "91fedfd0c4f4796f66be601c57688dcc8a9b9a31",
+            "date": "2016-01-14T06:41:32+00:00",
+            "author": {
+              "type": "author",
+              "raw": "nee <redacted@example.invalid>",
+              "user": {
+                "display_name": "Ito Mitsuhiro",
+                "links": {
+                  "self": {
+                    "href": "https://api.bitbucket.org/2.0/users/%7B7247b96a-9628-4fa3-b0ed-06bd83dc23a1%7D"
+                  },
+                  "avatar": {
+                    "href": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/557058:1c074cc5-5f7e-4f74-a716-6ade7135e7bd/4281deb6-857a-4a03-a588-29cb13085c34/128"
+                  },
+                  "html": {
+                    "href": "https://bitbucket.org/%7B7247b96a-9628-4fa3-b0ed-06bd83dc23a1%7D/"
+                  }
+                },
+                "type": "user",
+                "uuid": "{7247b96a-9628-4fa3-b0ed-06bd83dc23a1}",
+                "account_id": "557058:1c074cc5-5f7e-4f74-a716-6ade7135e7bd",
+                "nickname": "neelabo"
+              }
+            },
+            "message": "- 初期キーバインド変更\n",
+            "links": {
+              "self": {
+                "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/commit/91fedfd0c4f4796f66be601c57688dcc8a9b9a31"
+              },
+              "html": {
+                "href": "https://bitbucket.org/neelabo/neeview/commits/91fedfd0c4f4796f66be601c57688dcc8a9b9a31"
+              },
+              "diff": {
+                "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/diff/91fedfd0c4f4796f66be601c57688dcc8a9b9a31"
+              },
+              "approve": {
+                "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/commit/91fedfd0c4f4796f66be601c57688dcc8a9b9a31/approve"
+              },
+              "comments": {
+                "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/commit/91fedfd0c4f4796f66be601c57688dcc8a9b9a31/comments"
+              },
+              "statuses": {
+                "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/commit/91fedfd0c4f4796f66be601c57688dcc8a9b9a31/statuses"
+              },
+              "patch": {
+                "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/patch/91fedfd0c4f4796f66be601c57688dcc8a9b9a31"
+              }
+            },
+            "parents": [
+              {
+                "hash": "960d69e4ff3f971aa394f2d3aa2286f982a98d54",
+                "links": {
+                  "self": {
+                    "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/commit/960d69e4ff3f971aa394f2d3aa2286f982a98d54"
+                  },
+                  "html": {
+                    "href": "https://bitbucket.org/neelabo/neeview/commits/960d69e4ff3f971aa394f2d3aa2286f982a98d54"
+                  }
+                },
+                "type": "commit"
+              }
+            ],
+            "repository": {
+              "type": "repository",
+              "full_name": "neelabo/neeview",
+              "links": {
+                "self": {
+                  "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview"
+                },
+                "html": {
+                  "href": "https://bitbucket.org/neelabo/neeview"
+                },
+                "avatar": {
+                  "href": "https://bytebucket.org/ravatar/%7B6b283030-4828-41db-b559-8b120365f356%7D?ts=c_sharp"
+                }
+              },
+              "name": "NeeView",
+              "uuid": "{6b283030-4828-41db-b559-8b120365f356}"
+            }
+          },
+          "links": {
+            "self": {
+              "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/refs/tags/1.0"
+            },
+            "commits": {
+              "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/commits/1.0"
+            },
+            "html": {
+              "href": "https://bitbucket.org/neelabo/neeview/commits/tag/1.0"
+            }
+          }
+        },
+        {
+          "name": "1.1",
+          "type": "tag",
+          "message": "",
+          "date": "2016-02-09T19:06:54+00:00",
+          "tagger": {
+            "type": "author",
+            "raw": "nee <redacted@example.invalid>",
+            "user": {
+              "display_name": "Ito Mitsuhiro",
+              "links": {
+                "self": {
+                  "href": "https://api.bitbucket.org/2.0/users/%7B7247b96a-9628-4fa3-b0ed-06bd83dc23a1%7D"
+                },
+                "avatar": {
+                  "href": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/557058:1c074cc5-5f7e-4f74-a716-6ade7135e7bd/4281deb6-857a-4a03-a588-29cb13085c34/128"
+                },
+                "html": {
+                  "href": "https://bitbucket.org/%7B7247b96a-9628-4fa3-b0ed-06bd83dc23a1%7D/"
+                }
+              },
+              "type": "user",
+              "uuid": "{7247b96a-9628-4fa3-b0ed-06bd83dc23a1}",
+              "account_id": "557058:1c074cc5-5f7e-4f74-a716-6ade7135e7bd",
+              "nickname": "neelabo"
+            }
+          },
+          "target": {
+            "type": "commit",
+            "hash": "b21d22c353a5468c4647b5429aa1704b866ebd1d",
+            "date": "2016-01-23T02:23:34+00:00",
+            "author": {
+              "type": "author",
+              "raw": "nee <redacted@example.invalid>",
+              "user": {
+                "display_name": "Ito Mitsuhiro",
+                "links": {
+                  "self": {
+                    "href": "https://api.bitbucket.org/2.0/users/%7B7247b96a-9628-4fa3-b0ed-06bd83dc23a1%7D"
+                  },
+                  "avatar": {
+                    "href": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/557058:1c074cc5-5f7e-4f74-a716-6ade7135e7bd/4281deb6-857a-4a03-a588-29cb13085c34/128"
+                  },
+                  "html": {
+                    "href": "https://bitbucket.org/%7B7247b96a-9628-4fa3-b0ed-06bd83dc23a1%7D/"
+                  }
+                },
+                "type": "user",
+                "uuid": "{7247b96a-9628-4fa3-b0ed-06bd83dc23a1}",
+                "account_id": "557058:1c074cc5-5f7e-4f74-a716-6ade7135e7bd",
+                "nickname": "neelabo"
+              }
+            },
+            "message": "- コマンドの応答速度向上\n",
+            "links": {
+              "self": {
+                "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/commit/b21d22c353a5468c4647b5429aa1704b866ebd1d"
+              },
+              "html": {
+                "href": "https://bitbucket.org/neelabo/neeview/commits/b21d22c353a5468c4647b5429aa1704b866ebd1d"
+              },
+              "diff": {
+                "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/diff/b21d22c353a5468c4647b5429aa1704b866ebd1d"
+              },
+              "approve": {
+                "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/commit/b21d22c353a5468c4647b5429aa1704b866ebd1d/approve"
+              },
+              "comments": {
+                "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/commit/b21d22c353a5468c4647b5429aa1704b866ebd1d/comments"
+              },
+              "statuses": {
+                "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/commit/b21d22c353a5468c4647b5429aa1704b866ebd1d/statuses"
+              },
+              "patch": {
+                "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/patch/b21d22c353a5468c4647b5429aa1704b866ebd1d"
+              }
+            },
+            "parents": [
+              {
+                "hash": "a2bd7d28201dea12e86133a3818543ed0c743188",
+                "links": {
+                  "self": {
+                    "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/commit/a2bd7d28201dea12e86133a3818543ed0c743188"
+                  },
+                  "html": {
+                    "href": "https://bitbucket.org/neelabo/neeview/commits/a2bd7d28201dea12e86133a3818543ed0c743188"
+                  }
+                },
+                "type": "commit"
+              }
+            ],
+            "repository": {
+              "type": "repository",
+              "full_name": "neelabo/neeview",
+              "links": {
+                "self": {
+                  "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview"
+                },
+                "html": {
+                  "href": "https://bitbucket.org/neelabo/neeview"
+                },
+                "avatar": {
+                  "href": "https://bytebucket.org/ravatar/%7B6b283030-4828-41db-b559-8b120365f356%7D?ts=c_sharp"
+                }
+              },
+              "name": "NeeView",
+              "uuid": "{6b283030-4828-41db-b559-8b120365f356}"
+            }
+          },
+          "links": {
+            "self": {
+              "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/refs/tags/1.1"
+            },
+            "commits": {
+              "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/commits/1.1"
+            },
+            "html": {
+              "href": "https://bitbucket.org/neelabo/neeview/commits/tag/1.1"
+            }
+          }
+        },
+        {
+          "name": "1.10",
+          "type": "tag",
+          "message": "",
+          "date": "2016-05-28T10:13:23+00:00",
+          "tagger": {
+            "type": "author",
+            "raw": "nee <redacted@example.invalid>",
+            "user": {
+              "display_name": "Ito Mitsuhiro",
+              "links": {
+                "self": {
+                  "href": "https://api.bitbucket.org/2.0/users/%7B7247b96a-9628-4fa3-b0ed-06bd83dc23a1%7D"
+                },
+                "avatar": {
+                  "href": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/557058:1c074cc5-5f7e-4f74-a716-6ade7135e7bd/4281deb6-857a-4a03-a588-29cb13085c34/128"
+                },
+                "html": {
+                  "href": "https://bitbucket.org/%7B7247b96a-9628-4fa3-b0ed-06bd83dc23a1%7D/"
+                }
+              },
+              "type": "user",
+              "uuid": "{7247b96a-9628-4fa3-b0ed-06bd83dc23a1}",
+              "account_id": "557058:1c074cc5-5f7e-4f74-a716-6ade7135e7bd",
+              "nickname": "neelabo"
+            }
+          },
+          "target": {
+            "type": "commit",
+            "hash": "21fa5cdf12841255a48d3cfb389e8f5ea2144a1b",
+            "date": "2016-05-26T08:22:27+00:00",
+            "author": {
+              "type": "author",
+              "raw": "nee <redacted@example.invalid>",
+              "user": {
+                "display_name": "Ito Mitsuhiro",
+                "links": {
+                  "self": {
+                    "href": "https://api.bitbucket.org/2.0/users/%7B7247b96a-9628-4fa3-b0ed-06bd83dc23a1%7D"
+                  },
+                  "avatar": {
+                    "href": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/557058:1c074cc5-5f7e-4f74-a716-6ade7135e7bd/4281deb6-857a-4a03-a588-29cb13085c34/128"
+                  },
+                  "html": {
+                    "href": "https://bitbucket.org/%7B7247b96a-9628-4fa3-b0ed-06bd83dc23a1%7D/"
+                  }
+                },
+                "type": "user",
+                "uuid": "{7247b96a-9628-4fa3-b0ed-06bd83dc23a1}",
+                "account_id": "557058:1c074cc5-5f7e-4f74-a716-6ade7135e7bd",
+                "nickname": "neelabo"
+              }
+            },
+            "message": "- メニューのページリストフラグの整備\n",
+            "links": {
+              "self": {
+                "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/commit/21fa5cdf12841255a48d3cfb389e8f5ea2144a1b"
+              },
+              "html": {
+                "href": "https://bitbucket.org/neelabo/neeview/commits/21fa5cdf12841255a48d3cfb389e8f5ea2144a1b"
+              },
+              "diff": {
+                "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/diff/21fa5cdf12841255a48d3cfb389e8f5ea2144a1b"
+              },
+              "approve": {
+                "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/commit/21fa5cdf12841255a48d3cfb389e8f5ea2144a1b/approve"
+              },
+              "comments": {
+                "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/commit/21fa5cdf12841255a48d3cfb389e8f5ea2144a1b/comments"
+              },
+              "statuses": {
+                "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/commit/21fa5cdf12841255a48d3cfb389e8f5ea2144a1b/statuses"
+              },
+              "patch": {
+                "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/patch/21fa5cdf12841255a48d3cfb389e8f5ea2144a1b"
+              }
+            },
+            "parents": [
+              {
+                "hash": "3787979acf282feed5e37dacdde874af2cb06a25",
+                "links": {
+                  "self": {
+                    "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/commit/3787979acf282feed5e37dacdde874af2cb06a25"
+                  },
+                  "html": {
+                    "href": "https://bitbucket.org/neelabo/neeview/commits/3787979acf282feed5e37dacdde874af2cb06a25"
+                  }
+                },
+                "type": "commit"
+              }
+            ],
+            "repository": {
+              "type": "repository",
+              "full_name": "neelabo/neeview",
+              "links": {
+                "self": {
+                  "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview"
+                },
+                "html": {
+                  "href": "https://bitbucket.org/neelabo/neeview"
+                },
+                "avatar": {
+                  "href": "https://bytebucket.org/ravatar/%7B6b283030-4828-41db-b559-8b120365f356%7D?ts=c_sharp"
+                }
+              },
+              "name": "NeeView",
+              "uuid": "{6b283030-4828-41db-b559-8b120365f356}"
+            }
+          },
+          "links": {
+            "self": {
+              "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/refs/tags/1.10"
+            },
+            "commits": {
+              "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/commits/1.10"
+            },
+            "html": {
+              "href": "https://bitbucket.org/neelabo/neeview/commits/tag/1.10"
+            }
+          }
+        }
+      ],
+      "pagelen": 3,
+      "size": 79,
+      "page": 1,
+      "next": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/refs/tags?pagelen=3&page=2"
+    }
+  }
+}

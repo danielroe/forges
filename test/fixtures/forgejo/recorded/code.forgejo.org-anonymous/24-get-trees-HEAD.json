@@ -1,0 +1,45 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://code.forgejo.org/api/v1/repos/forgejo/runner/git/trees/HEAD?per_page=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "x-total-count": "25"
+    },
+    "body": {
+      "sha": "c4a92ffa5e3a400ae7e9c40a2914e649eb338ad7",
+      "url": "https://code.forgejo.org/api/v1/repos/forgejo/runner/git/trees/c4a92ffa5e3a400ae7e9c40a2914e649eb338ad7",
+      "tree": [
+        {
+          "path": ".dockerignore",
+          "mode": "100644",
+          "type": "blob",
+          "size": 26,
+          "sha": "7b6d2b2bd0c7c2b442731a1a3328e0dd3822993a",
+          "url": "https://code.forgejo.org/api/v1/repos/forgejo/runner/git/blobs/7b6d2b2bd0c7c2b442731a1a3328e0dd3822993a"
+        },
+        {
+          "path": ".editorconfig",
+          "mode": "100644",
+          "type": "blob",
+          "size": 221,
+          "sha": "deec24a1296fa9d475acc0aef5d394792383a9ba",
+          "url": "https://code.forgejo.org/api/v1/repos/forgejo/runner/git/blobs/deec24a1296fa9d475acc0aef5d394792383a9ba"
+        },
+        {
+          "path": ".forgejo",
+          "mode": "040000",
+          "type": "tree",
+          "size": 0,
+          "sha": "8323245fbcb269725ba0c287d195556c4eb01ec1",
+          "url": "https://code.forgejo.org/api/v1/repos/forgejo/runner/git/trees/8323245fbcb269725ba0c287d195556c4eb01ec1"
+        }
+      ],
+      "truncated": true,
+      "page": 1,
+      "total_count": 25
+    }
+  }
+}

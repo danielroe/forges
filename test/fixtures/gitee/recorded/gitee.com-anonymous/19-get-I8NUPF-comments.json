@@ -1,0 +1,86 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/issues/I8NUPF/comments?page=1&per_page=50"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"35461d4d07395db122670f9071c80053\"",
+      "x-ratelimit-limit": "60",
+      "x-ratelimit-remaining": "40",
+      "total_page": "1",
+      "total_count": "2"
+    },
+    "body": [
+      {
+        "id": 23908904,
+        "body": "现在统一为oos命令集，使用最新的命令，oos project，不清楚的指令可以输入oos，会弹出提示信息。",
+        "user": {
+          "id": 8078236,
+          "login": "pc-courage",
+          "name": "chao",
+          "avatar_url": "https://gitee.com/assets/no_portrait.png",
+          "url": "https://gitee.com/api/v5/users/pc-courage",
+          "html_url": "https://gitee.com/pc-courage",
+          "remark": "",
+          "followers_url": "https://gitee.com/api/v5/users/pc-courage/followers",
+          "following_url": "https://gitee.com/api/v5/users/pc-courage/following_url{/other_user}",
+          "gists_url": "https://gitee.com/api/v5/users/pc-courage/gists{/gist_id}",
+          "starred_url": "https://gitee.com/api/v5/users/pc-courage/starred{/owner}{/repo}",
+          "subscriptions_url": "https://gitee.com/api/v5/users/pc-courage/subscriptions",
+          "organizations_url": "https://gitee.com/api/v5/users/pc-courage/orgs",
+          "repos_url": "https://gitee.com/api/v5/users/pc-courage/repos",
+          "events_url": "https://gitee.com/api/v5/users/pc-courage/events{/privacy}",
+          "received_events_url": "https://gitee.com/api/v5/users/pc-courage/received_events",
+          "type": "User"
+        },
+        "source": null,
+        "target": {
+          "issue": {
+            "id": 14549811,
+            "title": "OneOS-Cube 的\"project.bat\"报错",
+            "number": "I8NUPF"
+          },
+          "pull_request": null
+        },
+        "created_at": "2023-12-25T11:41:17+08:00",
+        "updated_at": "2023-12-25T11:41:17+08:00"
+      },
+      {
+        "id": 23908920,
+        "body": "> oos\r\nusage: oos COMMAND [ARGS]\r\nThe complete list of recognized oos commands are:\r\n  project  Initialize a project\r\n  build    Compile a project\r\n  config   Do menuconfig\r\n  init     Adapt the IDE and update the compiled file\r\n  clean    Remove specified targets and dependencies\r\n  pack     Component Management Methods\r\n  help     Display detailed help on a command\r\n\r\nSee 'oos help <command>' for more information on a specific command\r\n\r\nGeneral Options:\r\n  -V, --version Show version and exit.",
+        "user": {
+          "id": 8078236,
+          "login": "pc-courage",
+          "name": "chao",
+          "avatar_url": "https://gitee.com/assets/no_portrait.png",
+          "url": "https://gitee.com/api/v5/users/pc-courage",
+          "html_url": "https://gitee.com/pc-courage",
+          "remark": "",
+          "followers_url": "https://gitee.com/api/v5/users/pc-courage/followers",
+          "following_url": "https://gitee.com/api/v5/users/pc-courage/following_url{/other_user}",
+          "gists_url": "https://gitee.com/api/v5/users/pc-courage/gists{/gist_id}",
+          "starred_url": "https://gitee.com/api/v5/users/pc-courage/starred{/owner}{/repo}",
+          "subscriptions_url": "https://gitee.com/api/v5/users/pc-courage/subscriptions",
+          "organizations_url": "https://gitee.com/api/v5/users/pc-courage/orgs",
+          "repos_url": "https://gitee.com/api/v5/users/pc-courage/repos",
+          "events_url": "https://gitee.com/api/v5/users/pc-courage/events{/privacy}",
+          "received_events_url": "https://gitee.com/api/v5/users/pc-courage/received_events",
+          "type": "User"
+        },
+        "source": null,
+        "target": {
+          "issue": {
+            "id": 14549811,
+            "title": "OneOS-Cube 的\"project.bat\"报错",
+            "number": "I8NUPF"
+          },
+          "pull_request": null
+        },
+        "created_at": "2023-12-25T11:41:36+08:00",
+        "updated_at": "2023-12-25T11:41:36+08:00"
+      }
+    ]
+  }
+}

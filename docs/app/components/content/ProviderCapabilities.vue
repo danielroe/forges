@@ -21,6 +21,7 @@ const sections = groups.map(group => ({
     cell: row.cells[index]!,
   })),
 }))
+const hasSignedIn = sections.some(section => section.rows.some(({ cell }) => cell.signedIn || cell.kinds?.some(kind => kind.signedIn)))
 const available = sections.filter(section => section.rows.some(row => row.cell.level !== 'none'))
 const unavailable = sections.filter(section => !available.includes(section))
 
@@ -85,6 +86,7 @@ const limits = provider.limits ? Object.entries(provider.limits).map(([key, leng
 
       <CapabilityLegend
         :levels="[]"
+        :signed-in="hasSignedIn"
         explain
         class="mt-3"
       />
@@ -180,10 +182,11 @@ const limits = provider.limits ? Object.entries(provider.limits).map(([key, leng
                 >
                   <CapabilityCell
                     :level="kind.level"
+                    :signed-in="kind.signedIn"
                     class="[--capability-cell-size:0.625rem]"
                   />
                   {{ kind.label }}
-                  <span class="sr-only">({{ supportLabels[kind.level].toLowerCase() }})</span>
+                  <span class="sr-only">({{ supportLabels[kind.level].toLowerCase() }}{{ kind.signedIn ? `, ${signedInLabel.toLowerCase()}` : '' }})</span>
                 </span>
               </span>
               <span
@@ -193,9 +196,14 @@ const limits = provider.limits ? Object.entries(provider.limits).map(([key, leng
               >
                 <CapabilityCell
                   :level="row.cell.level"
+                  :signed-in="row.cell.signedIn"
                   class="[--capability-cell-size:0.625rem]"
                 />
                 {{ shortSupportLabels[row.cell.level] }}
+                <span
+                  v-if="row.cell.signedIn"
+                  class="sr-only"
+                >({{ signedInLabel.toLowerCase() }})</span>
               </span>
             </li>
           </ul>

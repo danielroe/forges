@@ -6,9 +6,10 @@
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"0b7aad4e141fbbcbf6ce671b9505755ff5619d07df4b05dfe2d867ecbe701f46\"",
-      "x-ratelimit-remaining": "4947",
-      "x-ratelimit-reset": "1791382247"
+      "etag": "W/\"99cf0cce7ceed320368e397485611dfb2840168afdba87ec1e005a570310c4ad\"",
+      "x-ratelimit-limit": "5000",
+      "x-ratelimit-remaining": "4911",
+      "x-ratelimit-reset": "1791487708"
     },
     "body": {
       "url": "https://api.github.com/repos/h3js/h3/compare/main...adbc974043a83820a5ae388265b5ee1465926561",

@@ -1,0 +1,771 @@
+{
+  "repo": {
+    "ref": {
+      "forge": "bitbucket",
+      "instance": "bitbucket.org",
+      "owner": "neelabo",
+      "name": "neeview",
+      "externalId": "{6b283030-4828-41db-b559-8b120365f356}"
+    },
+    "description": "Image viewer",
+    "defaultBranch": "master",
+    "visibility": "public",
+    "visibilityRaw": "public",
+    "isFork": false,
+    "isArchived": false,
+    "topics": [],
+    "url": "https://bitbucket.org/neelabo/neeview",
+    "cloneUrls": {
+      "https": "https://bitbucket.org/neelabo/neeview.git",
+      "ssh": "git@bitbucket.org:neelabo/neeview.git"
+    },
+    "createdAt": "2015-12-26T05:41:19.222Z",
+    "updatedAt": "2025-01-17T15:05:15.976Z",
+    "owner": {
+      "forge": "bitbucket",
+      "instance": "bitbucket.org",
+      "login": "neelabo-team",
+      "id": "{04a60307-bfb6-4dfc-9b19-e862ceab584f}",
+      "name": "Ito Mitsuhiro",
+      "avatarUrl": "https://bitbucket.org/account/neelabo-team/avatar/",
+      "url": "https://bitbucket.org/%7B04a60307-bfb6-4dfc-9b19-e862ceab584f%7D/",
+      "typeRaw": "team",
+      "isBotHint": false
+    },
+    "language": "c#",
+    "features": {
+      "issues": true,
+      "pullRequests": true,
+      "discussions": false,
+      "wiki": true,
+      "projects": false,
+      "releases": false
+    }
+  },
+  "pull": {
+    "ref": {
+      "forge": "bitbucket",
+      "instance": "bitbucket.org",
+      "repo": {
+        "forge": "bitbucket",
+        "instance": "bitbucket.org",
+        "owner": "neelabo",
+        "name": "neeview",
+        "externalId": "{6b283030-4828-41db-b559-8b120365f356}"
+      },
+      "kind": "pull_request",
+      "number": "37"
+    },
+    "kind": "pull_request",
+    "title": "pt-BR.restext alterados online com o Bitbucket",
+    "body": "pt-BR.restext alterados online com o Bitbucket",
+    "state": "merged",
+    "stateRaw": "MERGED",
+    "isDraft": false,
+    "assignees": [],
+    "reviewers": [],
+    "lastActivityAt": "2024-08-30T01:38:03.366Z",
+    "branches": {
+      "head": {
+        "ref": "Havokdan/ptbrrestext-alterados-online-com-o-bitbu-1724958740233",
+        "sha": "8215aaf2e487",
+        "repo": {
+          "forge": "bitbucket",
+          "instance": "bitbucket.org",
+          "owner": "Havokdan",
+          "name": "neeview-3",
+          "externalId": "{5690e6b8-debd-4cb2-8721-31fe55d8ca4f}"
+        }
+      },
+      "base": {
+        "ref": "master",
+        "sha": "da15924148db"
+      },
+      "mergeCommitSha": "c695e01b1d8e"
+    },
+    "author": {
+      "forge": "bitbucket",
+      "instance": "bitbucket.org",
+      "login": "Havokdan",
+      "id": "{97fc50f7-c82e-4a3f-bd4a-e9877df29f39}",
+      "name": "Havokdan",
+      "avatarUrl": "https://secure.gravatar.com/avatar/9a050257614c5cfc943e4a599529de6b?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FH-5.png",
+      "url": "https://bitbucket.org/%7B97fc50f7-c82e-4a3f-bd4a-e9877df29f39%7D/",
+      "typeRaw": "user",
+      "isBotHint": false
+    },
+    "url": "https://bitbucket.org/neelabo/neeview/pull-requests/37",
+    "createdAt": "2024-08-29T19:12:45.576Z",
+    "updatedAt": "2024-08-30T01:38:03.366Z",
+    "closedAt": "2024-08-30T01:38:03.366Z",
+    "labels": [],
+    "commentCount": 0,
+    "checks": {
+      "state": "unknown",
+      "total": 0,
+      "failed": 0
+    }
+  },
+  "pull list": {
+    "items": [],
+    "rateLimit": {
+      "remaining": 58,
+      "resetAt": "1970-01-01T00:36:08.000Z"
+    }
+  },
+  "pull getMany": [
+    {
+      "ok": true,
+      "ref": {
+        "forge": "bitbucket",
+        "instance": "bitbucket.org",
+        "repo": {
+          "forge": "bitbucket",
+          "instance": "bitbucket.org",
+          "owner": "neelabo",
+          "name": "neeview"
+        },
+        "kind": "pull_request",
+        "number": "37"
+      },
+      "thread": {
+        "ref": {
+          "forge": "bitbucket",
+          "instance": "bitbucket.org",
+          "repo": {
+            "forge": "bitbucket",
+            "instance": "bitbucket.org",
+            "owner": "neelabo",
+            "name": "neeview",
+            "externalId": "{6b283030-4828-41db-b559-8b120365f356}"
+          },
+          "kind": "pull_request",
+          "number": "37"
+        },
+        "kind": "pull_request",
+        "title": "pt-BR.restext alterados online com o Bitbucket",
+        "body": "pt-BR.restext alterados online com o Bitbucket",
+        "state": "merged",
+        "stateRaw": "MERGED",
+        "isDraft": false,
+        "assignees": [],
+        "reviewers": [],
+        "lastActivityAt": "2024-08-30T01:38:03.366Z",
+        "branches": {
+          "head": {
+            "ref": "Havokdan/ptbrrestext-alterados-online-com-o-bitbu-1724958740233",
+            "sha": "8215aaf2e487",
+            "repo": {
+              "forge": "bitbucket",
+              "instance": "bitbucket.org",
+              "owner": "Havokdan",
+              "name": "neeview-3",
+              "externalId": "{5690e6b8-debd-4cb2-8721-31fe55d8ca4f}"
+            }
+          },
+          "base": {
+            "ref": "master",
+            "sha": "da15924148db"
+          },
+          "mergeCommitSha": "c695e01b1d8e"
+        },
+        "author": {
+          "forge": "bitbucket",
+          "instance": "bitbucket.org",
+          "login": "Havokdan",
+          "id": "{97fc50f7-c82e-4a3f-bd4a-e9877df29f39}",
+          "name": "Havokdan",
+          "avatarUrl": "https://secure.gravatar.com/avatar/9a050257614c5cfc943e4a599529de6b?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FH-5.png",
+          "url": "https://bitbucket.org/%7B97fc50f7-c82e-4a3f-bd4a-e9877df29f39%7D/",
+          "typeRaw": "user",
+          "isBotHint": false
+        },
+        "url": "https://bitbucket.org/neelabo/neeview/pull-requests/37",
+        "createdAt": "2024-08-29T19:12:45.576Z",
+        "updatedAt": "2024-08-30T01:38:03.366Z",
+        "closedAt": "2024-08-30T01:38:03.366Z",
+        "labels": [],
+        "commentCount": 0,
+        "checks": {
+          "state": "unknown",
+          "total": 0,
+          "failed": 0
+        }
+      }
+    }
+  ],
+  "pull events": {
+    "items": [
+      {
+        "forge": "bitbucket",
+        "instance": "bitbucket.org",
+        "id": "update:2024-08-29T19:12:49.553164+00:00",
+        "kind": "other",
+        "kindRaw": "update",
+        "summary": "Havokdan updated the pull request",
+        "occurredAt": "2024-08-29T19:12:49.553Z",
+        "actor": {
+          "forge": "bitbucket",
+          "instance": "bitbucket.org",
+          "login": "Havokdan",
+          "id": "{97fc50f7-c82e-4a3f-bd4a-e9877df29f39}",
+          "name": "Havokdan",
+          "avatarUrl": "https://secure.gravatar.com/avatar/9a050257614c5cfc943e4a599529de6b?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FH-5.png",
+          "url": "https://bitbucket.org/%7B97fc50f7-c82e-4a3f-bd4a-e9877df29f39%7D/",
+          "typeRaw": "user",
+          "isBotHint": false
+        },
+        "repo": {
+          "forge": "bitbucket",
+          "instance": "bitbucket.org",
+          "owner": "neelabo",
+          "name": "neeview"
+        },
+        "thread": {
+          "forge": "bitbucket",
+          "instance": "bitbucket.org",
+          "repo": {
+            "forge": "bitbucket",
+            "instance": "bitbucket.org",
+            "owner": "neelabo",
+            "name": "neeview"
+          },
+          "kind": "pull_request",
+          "number": "37"
+        },
+        "source": "poll",
+        "action": "edited"
+      },
+      {
+        "forge": "bitbucket",
+        "instance": "bitbucket.org",
+        "id": "update:2024-08-29T19:12:49.648650+00:00",
+        "kind": "other",
+        "kindRaw": "update",
+        "summary": "Havokdan updated the pull request",
+        "occurredAt": "2024-08-29T19:12:49.648Z",
+        "actor": {
+          "forge": "bitbucket",
+          "instance": "bitbucket.org",
+          "login": "Havokdan",
+          "id": "{97fc50f7-c82e-4a3f-bd4a-e9877df29f39}",
+          "name": "Havokdan",
+          "avatarUrl": "https://secure.gravatar.com/avatar/9a050257614c5cfc943e4a599529de6b?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FH-5.png",
+          "url": "https://bitbucket.org/%7B97fc50f7-c82e-4a3f-bd4a-e9877df29f39%7D/",
+          "typeRaw": "user",
+          "isBotHint": false
+        },
+        "repo": {
+          "forge": "bitbucket",
+          "instance": "bitbucket.org",
+          "owner": "neelabo",
+          "name": "neeview"
+        },
+        "thread": {
+          "forge": "bitbucket",
+          "instance": "bitbucket.org",
+          "repo": {
+            "forge": "bitbucket",
+            "instance": "bitbucket.org",
+            "owner": "neelabo",
+            "name": "neeview"
+          },
+          "kind": "pull_request",
+          "number": "37"
+        },
+        "source": "poll",
+        "action": "edited"
+      },
+      {
+        "forge": "bitbucket",
+        "instance": "bitbucket.org",
+        "id": "approval:{7247b96a-9628-4fa3-b0ed-06bd83dc23a1}:2024-08-30T01:37:44.724408+00:00",
+        "kind": "review",
+        "kindRaw": "approval",
+        "summary": "neelabo approved",
+        "occurredAt": "2024-08-30T01:37:44.724Z",
+        "actor": {
+          "forge": "bitbucket",
+          "instance": "bitbucket.org",
+          "login": "neelabo",
+          "id": "{7247b96a-9628-4fa3-b0ed-06bd83dc23a1}",
+          "name": "Ito Mitsuhiro",
+          "avatarUrl": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/557058:1c074cc5-5f7e-4f74-a716-6ade7135e7bd/4281deb6-857a-4a03-a588-29cb13085c34/128",
+          "url": "https://bitbucket.org/%7B7247b96a-9628-4fa3-b0ed-06bd83dc23a1%7D/",
+          "typeRaw": "user",
+          "isBotHint": false
+        },
+        "repo": {
+          "forge": "bitbucket",
+          "instance": "bitbucket.org",
+          "owner": "neelabo",
+          "name": "neeview"
+        },
+        "thread": {
+          "forge": "bitbucket",
+          "instance": "bitbucket.org",
+          "repo": {
+            "forge": "bitbucket",
+            "instance": "bitbucket.org",
+            "owner": "neelabo",
+            "name": "neeview"
+          },
+          "kind": "pull_request",
+          "number": "37"
+        },
+        "source": "poll",
+        "action": "submitted"
+      },
+      {
+        "forge": "bitbucket",
+        "instance": "bitbucket.org",
+        "id": "update:2024-08-30T01:38:03.397305+00:00",
+        "kind": "state_change",
+        "kindRaw": "update.MERGED",
+        "summary": "neelabo merged",
+        "occurredAt": "2024-08-30T01:38:03.397Z",
+        "actor": {
+          "forge": "bitbucket",
+          "instance": "bitbucket.org",
+          "login": "neelabo",
+          "id": "{7247b96a-9628-4fa3-b0ed-06bd83dc23a1}",
+          "name": "Ito Mitsuhiro",
+          "avatarUrl": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/557058:1c074cc5-5f7e-4f74-a716-6ade7135e7bd/4281deb6-857a-4a03-a588-29cb13085c34/128",
+          "url": "https://bitbucket.org/%7B7247b96a-9628-4fa3-b0ed-06bd83dc23a1%7D/",
+          "typeRaw": "user",
+          "isBotHint": false
+        },
+        "repo": {
+          "forge": "bitbucket",
+          "instance": "bitbucket.org",
+          "owner": "neelabo",
+          "name": "neeview"
+        },
+        "thread": {
+          "forge": "bitbucket",
+          "instance": "bitbucket.org",
+          "repo": {
+            "forge": "bitbucket",
+            "instance": "bitbucket.org",
+            "owner": "neelabo",
+            "name": "neeview"
+          },
+          "kind": "pull_request",
+          "number": "37"
+        },
+        "source": "poll",
+        "action": "merged"
+      }
+    ]
+  },
+  "pull comments": {
+    "items": [],
+    "rateLimit": {
+      "remaining": 59,
+      "resetAt": "1970-01-01T00:36:06.000Z"
+    }
+  },
+  "pull reviews": {
+    "items": [
+      {
+        "ref": {
+          "forge": "bitbucket",
+          "instance": "bitbucket.org",
+          "thread": {
+            "forge": "bitbucket",
+            "instance": "bitbucket.org",
+            "repo": {
+              "forge": "bitbucket",
+              "instance": "bitbucket.org",
+              "owner": "neelabo",
+              "name": "neeview"
+            },
+            "kind": "pull_request",
+            "number": "37"
+          },
+          "id": "participant:{7247b96a-9628-4fa3-b0ed-06bd83dc23a1}"
+        },
+        "author": {
+          "forge": "bitbucket",
+          "instance": "bitbucket.org",
+          "login": "neelabo",
+          "id": "{7247b96a-9628-4fa3-b0ed-06bd83dc23a1}",
+          "name": "Ito Mitsuhiro",
+          "avatarUrl": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/557058:1c074cc5-5f7e-4f74-a716-6ade7135e7bd/4281deb6-857a-4a03-a588-29cb13085c34/128",
+          "url": "https://bitbucket.org/%7B7247b96a-9628-4fa3-b0ed-06bd83dc23a1%7D/",
+          "typeRaw": "user",
+          "isBotHint": false
+        },
+        "state": "approved",
+        "stateRaw": "approved",
+        "comments": false
+      }
+    ]
+  },
+  "pull checks": {
+    "items": []
+  },
+  "pull files": {
+    "items": [
+      {
+        "path": "NeeView/Languages/pt-BR.restext",
+        "status": "modified",
+        "statusRaw": "modified",
+        "additions": 23,
+        "deletions": 23
+      }
+    ],
+    "rateLimit": {
+      "remaining": 59,
+      "resetAt": "1970-01-01T00:36:05.000Z"
+    }
+  },
+  "pull commits": {
+    "items": [
+      {
+        "ref": {
+          "forge": "bitbucket",
+          "instance": "bitbucket.org",
+          "repo": {
+            "forge": "bitbucket",
+            "instance": "bitbucket.org",
+            "owner": "neelabo",
+            "name": "neeview"
+          },
+          "sha": "c695e01b1d8e100f0aa9ae1d95dcc041a25b0d0f"
+        },
+        "sha": "c695e01b1d8e100f0aa9ae1d95dcc041a25b0d0f",
+        "message": "Merged in Havokdan/ptbrrestext-alterados-online-com-o-bitbu-1724958740233 (pull request #37)\n\npt-BR.restext alterados online com o Bitbucket\n\nApproved-by: Ito Mitsuhiro",
+        "author": {
+          "actor": {
+            "forge": "bitbucket",
+            "instance": "bitbucket.org",
+            "login": "Havokdan",
+            "id": "{97fc50f7-c82e-4a3f-bd4a-e9877df29f39}",
+            "name": "Havokdan",
+            "avatarUrl": "https://secure.gravatar.com/avatar/9a050257614c5cfc943e4a599529de6b?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FH-5.png",
+            "url": "https://bitbucket.org/%7B97fc50f7-c82e-4a3f-bd4a-e9877df29f39%7D/",
+            "typeRaw": "user",
+            "isBotHint": false
+          },
+          "name": "Havokdan",
+          "email": "redacted@example.invalid",
+          "date": "2024-08-30T01:37:58.000Z"
+        },
+        "parents": [
+          "da15924148db9f9f9ca62050560ccfcb9f973005",
+          "8215aaf2e487324420e5d274d02975e255270fa7"
+        ],
+        "url": "https://bitbucket.org/neelabo/neeview/commits/c695e01b1d8e100f0aa9ae1d95dcc041a25b0d0f"
+      },
+      {
+        "ref": {
+          "forge": "bitbucket",
+          "instance": "bitbucket.org",
+          "repo": {
+            "forge": "bitbucket",
+            "instance": "bitbucket.org",
+            "owner": "neelabo",
+            "name": "neeview"
+          },
+          "sha": "8215aaf2e487324420e5d274d02975e255270fa7"
+        },
+        "sha": "8215aaf2e487324420e5d274d02975e255270fa7",
+        "message": "pt-BR.restext alterados online com o Bitbucket",
+        "author": {
+          "actor": {
+            "forge": "bitbucket",
+            "instance": "bitbucket.org",
+            "login": "Havokdan",
+            "id": "{97fc50f7-c82e-4a3f-bd4a-e9877df29f39}",
+            "name": "Havokdan",
+            "avatarUrl": "https://secure.gravatar.com/avatar/9a050257614c5cfc943e4a599529de6b?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FH-5.png",
+            "url": "https://bitbucket.org/%7B97fc50f7-c82e-4a3f-bd4a-e9877df29f39%7D/",
+            "typeRaw": "user",
+            "isBotHint": false
+          },
+          "name": "Havokdan",
+          "email": "redacted@example.invalid",
+          "date": "2024-08-29T19:12:41.000Z"
+        },
+        "parents": [
+          "da15924148db9f9f9ca62050560ccfcb9f973005"
+        ],
+        "url": "https://bitbucket.org/neelabo/neeview/commits/8215aaf2e487324420e5d274d02975e255270fa7"
+      }
+    ],
+    "rateLimit": {
+      "remaining": 48,
+      "resetAt": "1970-01-01T00:36:05.000Z"
+    }
+  },
+  "checks": {
+    "items": []
+  },
+  "readme": {
+    "path": "README.md",
+    "sha": "6f202224c3c938d01c46892ed305df6e385ce13f",
+    "size": 814,
+    "content": "# :warning: Notice\n\n**NeeView project page has been moved to [GitHub](https://github.com/neelabo/NeeView).**  \n**This repository will not be updated in the future.**\n\n----\n\n# :warning: お知らせ\n\n**NeeView プロジェクトページは [GitHub](https://github.com/neelabo/NeeView) に移動しました。**  \n**このリポジトリは今後更新されません。**\n\n----\n\n# NeeView\n\nアプリの使用についてはWikiを参照してください\n  \n  * [NeeViewプロジェクト Wiki](https://bitbucket.org/neelabo/neeview/wiki/)\n\n## 開発環境\n\n* Windows 10 Pro 64bit\n* VisualStudio 2022\n    - .Net デスクトップ開発\n    - C++によるデスクトップ開発\n\n## Gitリポジトリからのプロジェクト取得\n\n% git clone --recursive https://bitbucket.org/neelabo/neeview.git NeeView\n\n\n",
+    "encoding": "utf-8"
+  },
+  "tree": {
+    "items": [
+      {
+        "path": "MakePackage",
+        "type": "directory",
+        "sha": "6f202224c3c938d01c46892ed305df6e385ce13f"
+      },
+      {
+        "path": "NeeLaboratory.Remote",
+        "type": "directory",
+        "sha": "6f202224c3c938d01c46892ed305df6e385ce13f"
+      },
+      {
+        "path": "NeeLaboratory.Runtime",
+        "type": "directory",
+        "sha": "6f202224c3c938d01c46892ed305df6e385ce13f"
+      }
+    ],
+    "cursor": {
+      "nextUrl": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/src/master/?pagelen=3&page=ByUK",
+      "etag": "W/\"f2b870d7bb844a34494dace84771789e\""
+    },
+    "rateLimit": {
+      "remaining": 59,
+      "resetAt": "1970-01-01T00:36:03.000Z"
+    }
+  },
+  "branches": {
+    "items": [
+      {
+        "name": "master",
+        "sha": "6f202224c3c938d01c46892ed305df6e385ce13f",
+        "url": "https://bitbucket.org/neelabo/neeview/branch/master"
+      },
+      {
+        "name": "version-39",
+        "sha": "fe9ce7cee75becaff7a1198f1d0403069ce532ef",
+        "url": "https://bitbucket.org/neelabo/neeview/branch/version-39"
+      },
+      {
+        "name": "version-41",
+        "sha": "f0a523158015c4527222b7b065862a01ce78df33",
+        "url": "https://bitbucket.org/neelabo/neeview/branch/version-41"
+      }
+    ],
+    "cursor": {
+      "nextUrl": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/refs/branches?pagelen=3&page=2",
+      "etag": "W/\"9ddd0149fcc6c781d8da6bbbe84d041f\""
+    },
+    "rateLimit": {
+      "remaining": 57,
+      "resetAt": "1970-01-01T00:36:03.000Z"
+    }
+  },
+  "tags": {
+    "items": [
+      {
+        "name": "1.0",
+        "sha": "91fedfd0c4f4796f66be601c57688dcc8a9b9a31",
+        "url": "https://bitbucket.org/neelabo/neeview/commits/tag/1.0"
+      },
+      {
+        "name": "1.1",
+        "sha": "b21d22c353a5468c4647b5429aa1704b866ebd1d",
+        "url": "https://bitbucket.org/neelabo/neeview/commits/tag/1.1"
+      },
+      {
+        "name": "1.10",
+        "sha": "21fa5cdf12841255a48d3cfb389e8f5ea2144a1b",
+        "url": "https://bitbucket.org/neelabo/neeview/commits/tag/1.10"
+      }
+    ],
+    "cursor": {
+      "nextUrl": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/refs/tags?pagelen=3&page=2"
+    },
+    "rateLimit": {
+      "remaining": 56,
+      "resetAt": "1970-01-01T00:36:03.000Z"
+    }
+  },
+  "resolve default branch": "6f202224c3c938d01c46892ed305df6e385ce13f",
+  "commits": {
+    "items": [
+      {
+        "ref": {
+          "forge": "bitbucket",
+          "instance": "bitbucket.org",
+          "repo": {
+            "forge": "bitbucket",
+            "instance": "bitbucket.org",
+            "owner": "neelabo",
+            "name": "neeview"
+          },
+          "sha": "6f202224c3c938d01c46892ed305df6e385ce13f"
+        },
+        "sha": "6f202224c3c938d01c46892ed305df6e385ce13f",
+        "message": "README.md を Bitbucket 上でオンラインで編集しました。",
+        "author": {
+          "actor": {
+            "forge": "bitbucket",
+            "instance": "bitbucket.org",
+            "login": "neelabo",
+            "id": "{7247b96a-9628-4fa3-b0ed-06bd83dc23a1}",
+            "name": "Ito Mitsuhiro",
+            "avatarUrl": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/557058:1c074cc5-5f7e-4f74-a716-6ade7135e7bd/4281deb6-857a-4a03-a588-29cb13085c34/128",
+            "url": "https://bitbucket.org/%7B7247b96a-9628-4fa3-b0ed-06bd83dc23a1%7D/",
+            "typeRaw": "user",
+            "isBotHint": false
+          },
+          "name": "Ito Mitsuhiro",
+          "email": "redacted@example.invalid",
+          "date": "2025-01-17T15:05:14.000Z"
+        },
+        "parents": [
+          "56e41d7f141a970cebab5f816de3ea45342758db"
+        ],
+        "url": "https://bitbucket.org/neelabo/neeview/commits/6f202224c3c938d01c46892ed305df6e385ce13f"
+      },
+      {
+        "ref": {
+          "forge": "bitbucket",
+          "instance": "bitbucket.org",
+          "repo": {
+            "forge": "bitbucket",
+            "instance": "bitbucket.org",
+            "owner": "neelabo",
+            "name": "neeview"
+          },
+          "sha": "56e41d7f141a970cebab5f816de3ea45342758db"
+        },
+        "sha": "56e41d7f141a970cebab5f816de3ea45342758db",
+        "message": "README.md を Bitbucket 上でオンラインで編集しました。",
+        "author": {
+          "actor": {
+            "forge": "bitbucket",
+            "instance": "bitbucket.org",
+            "login": "neelabo",
+            "id": "{7247b96a-9628-4fa3-b0ed-06bd83dc23a1}",
+            "name": "Ito Mitsuhiro",
+            "avatarUrl": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/557058:1c074cc5-5f7e-4f74-a716-6ade7135e7bd/4281deb6-857a-4a03-a588-29cb13085c34/128",
+            "url": "https://bitbucket.org/%7B7247b96a-9628-4fa3-b0ed-06bd83dc23a1%7D/",
+            "typeRaw": "user",
+            "isBotHint": false
+          },
+          "name": "Ito Mitsuhiro",
+          "email": "redacted@example.invalid",
+          "date": "2025-01-17T15:03:04.000Z"
+        },
+        "parents": [
+          "bab2d8307ed1bbf5fe9cc7c7d573df4ea0d1a31f"
+        ],
+        "url": "https://bitbucket.org/neelabo/neeview/commits/56e41d7f141a970cebab5f816de3ea45342758db"
+      },
+      {
+        "ref": {
+          "forge": "bitbucket",
+          "instance": "bitbucket.org",
+          "repo": {
+            "forge": "bitbucket",
+            "instance": "bitbucket.org",
+            "owner": "neelabo",
+            "name": "neeview"
+          },
+          "sha": "bab2d8307ed1bbf5fe9cc7c7d573df4ea0d1a31f"
+        },
+        "sha": "bab2d8307ed1bbf5fe9cc7c7d573df4ea0d1a31f",
+        "message": "README.md を Bitbucket 上でオンラインで編集しました。",
+        "author": {
+          "actor": {
+            "forge": "bitbucket",
+            "instance": "bitbucket.org",
+            "login": "neelabo",
+            "id": "{7247b96a-9628-4fa3-b0ed-06bd83dc23a1}",
+            "name": "Ito Mitsuhiro",
+            "avatarUrl": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/557058:1c074cc5-5f7e-4f74-a716-6ade7135e7bd/4281deb6-857a-4a03-a588-29cb13085c34/128",
+            "url": "https://bitbucket.org/%7B7247b96a-9628-4fa3-b0ed-06bd83dc23a1%7D/",
+            "typeRaw": "user",
+            "isBotHint": false
+          },
+          "name": "Ito Mitsuhiro",
+          "email": "redacted@example.invalid",
+          "date": "2025-01-17T13:08:50.000Z"
+        },
+        "parents": [
+          "be84cd06d63c97d0abc46a1b8e0518a304879538"
+        ],
+        "url": "https://bitbucket.org/neelabo/neeview/commits/bab2d8307ed1bbf5fe9cc7c7d573df4ea0d1a31f"
+      }
+    ],
+    "cursor": {
+      "nextUrl": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/commits?pagelen=3&ctx=d5e2e14a2cb88a859a94007cb3d64516&page=2",
+      "etag": "W/\"482388cbcf6f99511c9a085ac18b8327\""
+    },
+    "rateLimit": {
+      "remaining": 49,
+      "resetAt": "1970-01-01T00:36:02.000Z"
+    }
+  },
+  "commit": {
+    "ref": {
+      "forge": "bitbucket",
+      "instance": "bitbucket.org",
+      "repo": {
+        "forge": "bitbucket",
+        "instance": "bitbucket.org",
+        "owner": "neelabo",
+        "name": "neeview"
+      },
+      "sha": "8215aaf2e487324420e5d274d02975e255270fa7"
+    },
+    "sha": "8215aaf2e487324420e5d274d02975e255270fa7",
+    "message": "pt-BR.restext alterados online com o Bitbucket",
+    "author": {
+      "actor": {
+        "forge": "bitbucket",
+        "instance": "bitbucket.org",
+        "login": "Havokdan",
+        "id": "{97fc50f7-c82e-4a3f-bd4a-e9877df29f39}",
+        "name": "Havokdan",
+        "avatarUrl": "https://secure.gravatar.com/avatar/9a050257614c5cfc943e4a599529de6b?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FH-5.png",
+        "url": "https://bitbucket.org/%7B97fc50f7-c82e-4a3f-bd4a-e9877df29f39%7D/",
+        "typeRaw": "user",
+        "isBotHint": false
+      },
+      "name": "Havokdan",
+      "email": "redacted@example.invalid",
+      "date": "2024-08-29T19:12:41.000Z"
+    },
+    "parents": [
+      "da15924148db9f9f9ca62050560ccfcb9f973005"
+    ],
+    "url": "https://bitbucket.org/neelabo/neeview/commits/8215aaf2e487324420e5d274d02975e255270fa7",
+    "files": [
+      {
+        "path": "NeeView/Languages/pt-BR.restext",
+        "status": "modified",
+        "statusRaw": "modified",
+        "additions": 23,
+        "deletions": 23
+      }
+    ]
+  },
+  "compare": {
+    "base": "master",
+    "head": "8215aaf2e487",
+    "aheadBy": 0,
+    "commits": [],
+    "files": []
+  },
+  "search threads": {
+    "items": [],
+    "cursor": {
+      "nextUrl": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/pullrequests?sort=-updated_on&pagelen=3&state=OPEN&state=MERGED&state=DECLINED&state=SUPERSEDED&page=2"
+    },
+    "rateLimit": {
+      "remaining": 39,
+      "resetAt": "1970-01-01T00:36:00.000Z"
+    }
+  }
+}

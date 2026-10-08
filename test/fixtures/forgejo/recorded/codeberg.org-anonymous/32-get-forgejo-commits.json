@@ -1,0 +1,312 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/commits?sha=forgejo&limit=1&stat=false"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "<https://codeberg.org/api/v1/repos/forgejo/forgejo/commits?limit=1&page=2&sha=forgejo&stat=false>; rel=\"next\",<https://codeberg.org/api/v1/repos/forgejo/forgejo/commits?limit=1&page=25926&sha=forgejo&stat=false>; rel=\"last\"",
+      "x-total": "25926",
+      "x-total-count": "25926",
+      "x-page": "1"
+    },
+    "body": [
+      {
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/a4c0e1b87343355e44c317804a3b43e728795a4d",
+        "sha": "a4c0e1b87343355e44c317804a3b43e728795a4d",
+        "created": "2026-10-08T18:02:18+02:00",
+        "html_url": "https://codeberg.org/forgejo/forgejo/commit/a4c0e1b87343355e44c317804a3b43e728795a4d",
+        "commit": {
+          "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/a4c0e1b87343355e44c317804a3b43e728795a4d",
+          "author": {
+            "name": "0ko",
+            "email": "redacted@example.invalid",
+            "date": "2026-10-08T18:02:18+02:00"
+          },
+          "committer": {
+            "name": "0ko",
+            "email": "redacted@example.invalid",
+            "date": "2026-10-08T18:02:18+02:00"
+          },
+          "message": "merge commit: i18n: translations update from Codeberg Translate (#14384)\n\nReviewed-on: https://codeberg.org/forgejo/forgejo/pulls/14384\nReviewed-by: 0ko <redacted@example.invalid>\n",
+          "tree": {
+            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/trees/a4c0e1b87343355e44c317804a3b43e728795a4d",
+            "sha": "a4c0e1b87343355e44c317804a3b43e728795a4d",
+            "created": "2026-10-08T18:02:18+02:00"
+          },
+          "verification": {
+            "verified": false,
+            "reason": "gpg.error.not_signed_commit",
+            "signature": "",
+            "signer": null,
+            "payload": ""
+          }
+        },
+        "author": {
+          "id": 35856,
+          "login": "0ko",
+          "source_id": 0,
+          "full_name": "",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://codeberg.org/avatars/679e72b1ca263a192b488b84af24e10c4f32e2c3f46eb2baa7928c986ba460ef",
+          "html_url": "https://codeberg.org/0ko",
+          "active": false,
+          "location": "",
+          "pronouns": "",
+          "website": "",
+          "description": "Hi! I do things related to Forgejo<br><button><p>⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀<img src=\"0ko/me/raw/f\" height=\"128\"/><pre class=\"code-block is-loading\"></pre>![](0ko/me/raw/g \"Gopher (has ur IP)\")</button><br>[**Contact**](0ko/me/src/c.md) ◦ [**Donate**](0ko/me/src/d.md)",
+          "followers_count": 37,
+          "following_count": 27,
+          "starred_repos_count": 30,
+          "username": "0ko"
+        },
+        "committer": {
+          "id": 35856,
+          "login": "0ko",
+          "source_id": 0,
+          "full_name": "",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://codeberg.org/avatars/679e72b1ca263a192b488b84af24e10c4f32e2c3f46eb2baa7928c986ba460ef",
+          "html_url": "https://codeberg.org/0ko",
+          "active": false,
+          "location": "",
+          "pronouns": "",
+          "website": "",
+          "description": "Hi! I do things related to Forgejo<br><button><p>⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀<img src=\"0ko/me/raw/f\" height=\"128\"/><pre class=\"code-block is-loading\"></pre>![](0ko/me/raw/g \"Gopher (has ur IP)\")</button><br>[**Contact**](0ko/me/src/c.md) ◦ [**Donate**](0ko/me/src/d.md)",
+          "followers_count": 37,
+          "following_count": 27,
+          "starred_repos_count": 30,
+          "username": "0ko"
+        },
+        "parents": [
+          {
+            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/5cd7f7fc198cd9f9ef23b6c9d81177ad323795be",
+            "sha": "5cd7f7fc198cd9f9ef23b6c9d81177ad323795be",
+            "created": "0001-01-01T00:00:00Z"
+          },
+          {
+            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/eb861bdea01202dd294159ae6f4cc539bc33d27b",
+            "sha": "eb861bdea01202dd294159ae6f4cc539bc33d27b",
+            "created": "0001-01-01T00:00:00Z"
+          }
+        ],
+        "files": [
+          {
+            "filename": "options/locale/locale_lo.ini",
+            "status": "removed"
+          },
+          {
+            "filename": "options/locale_next/locale_lo.json",
+            "status": "removed"
+          },
+          {
+            "filename": "options/locale/locale_ar.ini",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale/locale_ca.ini",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale/locale_eo.ini",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale/locale_es-ES.ini",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale/locale_et.ini",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale/locale_fi-FI.ini",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale/locale_gl.ini",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale/locale_ja-JP.ini",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale/locale_ko-KR.ini",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale/locale_pl-PL.ini",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale/locale_pt-PT.ini",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale/locale_ru-RU.ini",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale/locale_sv-SE.ini",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale/locale_uk-UA.ini",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale/locale_vi.ini",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale/locale_zh-CN.ini",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale/locale_zh-TW.ini",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_ca.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_cs-CZ.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_da.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_de-DE.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_el-GR.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_es-ES.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_eu.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_fa-IR.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_fi-FI.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_fil.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_fr-FR.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_fr_CA.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_ga.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_hu-HU.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_id-ID.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_it-IT.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_ja-JP.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_ko-KR.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_lv-LV.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_nb_NO.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_nds.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_nl-NL.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_pl-PL.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_pt-BR.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_pt-PT.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_ru-RU.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_si-LK.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_sv-SE.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_ta.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_th.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_tr-TR.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_uk-UA.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_zh-CN.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_zh-TW.json",
+            "status": "modified"
+          }
+        ],
+        "stats": null
+      }
+    ]
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/diffstat/8215aaf2e487..master?pagelen=50"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "\"3d8eac2becaf7eafc8e5dac3f890e982a78e6c457a358541e94c3e5d8eeef7e9\"",
+      "x-ratelimit-remaining": "48",
+      "x-ratelimit-reset": "2161"
+    },
+    "body": {
+      "values": [],
+      "pagelen": 50,
+      "size": 0,
+      "page": 1
+    }
+  }
+}

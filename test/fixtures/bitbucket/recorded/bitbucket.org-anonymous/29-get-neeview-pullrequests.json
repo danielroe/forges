@@ -1,0 +1,558 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/pullrequests?sort=-updated_on&pagelen=3&state=OPEN&state=MERGED&state=DECLINED&state=SUPERSEDED"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "x-ratelimit-remaining": "39",
+      "x-ratelimit-reset": "2160"
+    },
+    "body": {
+      "values": [
+        {
+          "comment_count": 0,
+          "task_count": 0,
+          "type": "pullrequest",
+          "id": 37,
+          "title": "pt-BR.restext alterados online com o Bitbucket",
+          "description": "pt-BR.restext alterados online com o Bitbucket",
+          "state": "MERGED",
+          "draft": false,
+          "merge_commit": {
+            "hash": "c695e01b1d8e",
+            "links": {
+              "self": {
+                "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/commit/c695e01b1d8e"
+              },
+              "html": {
+                "href": "https://bitbucket.org/neelabo/neeview/commits/c695e01b1d8e"
+              }
+            },
+            "type": "commit"
+          },
+          "close_source_branch": false,
+          "closed_by": {
+            "display_name": "Ito Mitsuhiro",
+            "links": {
+              "self": {
+                "href": "https://api.bitbucket.org/2.0/users/%7B7247b96a-9628-4fa3-b0ed-06bd83dc23a1%7D"
+              },
+              "avatar": {
+                "href": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/557058:1c074cc5-5f7e-4f74-a716-6ade7135e7bd/4281deb6-857a-4a03-a588-29cb13085c34/128"
+              },
+              "html": {
+                "href": "https://bitbucket.org/%7B7247b96a-9628-4fa3-b0ed-06bd83dc23a1%7D/"
+              }
+            },
+            "type": "user",
+            "uuid": "{7247b96a-9628-4fa3-b0ed-06bd83dc23a1}",
+            "account_id": "557058:1c074cc5-5f7e-4f74-a716-6ade7135e7bd",
+            "nickname": "neelabo"
+          },
+          "author": {
+            "display_name": "Havokdan",
+            "links": {
+              "self": {
+                "href": "https://api.bitbucket.org/2.0/users/%7B97fc50f7-c82e-4a3f-bd4a-e9877df29f39%7D"
+              },
+              "avatar": {
+                "href": "https://secure.gravatar.com/avatar/9a050257614c5cfc943e4a599529de6b?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FH-5.png"
+              },
+              "html": {
+                "href": "https://bitbucket.org/%7B97fc50f7-c82e-4a3f-bd4a-e9877df29f39%7D/"
+              }
+            },
+            "type": "user",
+            "uuid": "{97fc50f7-c82e-4a3f-bd4a-e9877df29f39}",
+            "account_id": "60d876b17261900068293ed7",
+            "nickname": "Havokdan"
+          },
+          "reason": "",
+          "created_on": "2024-08-29T19:12:45.576673+00:00",
+          "updated_on": "2024-08-30T01:38:03.366165+00:00",
+          "destination": {
+            "branch": {
+              "name": "master"
+            },
+            "commit": {
+              "hash": "da15924148db",
+              "links": {
+                "self": {
+                  "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/commit/da15924148db"
+                },
+                "html": {
+                  "href": "https://bitbucket.org/neelabo/neeview/commits/da15924148db"
+                }
+              },
+              "type": "commit"
+            },
+            "repository": {
+              "type": "repository",
+              "full_name": "neelabo/neeview",
+              "links": {
+                "self": {
+                  "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview"
+                },
+                "html": {
+                  "href": "https://bitbucket.org/neelabo/neeview"
+                },
+                "avatar": {
+                  "href": "https://bytebucket.org/ravatar/%7B6b283030-4828-41db-b559-8b120365f356%7D?ts=c_sharp"
+                }
+              },
+              "name": "NeeView",
+              "uuid": "{6b283030-4828-41db-b559-8b120365f356}"
+            }
+          },
+          "source": {
+            "branch": {
+              "name": "Havokdan/ptbrrestext-alterados-online-com-o-bitbu-1724958740233",
+              "links": {}
+            },
+            "commit": {
+              "hash": "8215aaf2e487",
+              "links": {
+                "self": {
+                  "href": "https://api.bitbucket.org/2.0/repositories/Havokdan/neeview-3/commit/8215aaf2e487"
+                },
+                "html": {
+                  "href": "https://bitbucket.org/Havokdan/neeview-3/commits/8215aaf2e487"
+                }
+              },
+              "type": "commit"
+            },
+            "repository": {
+              "type": "repository",
+              "full_name": "Havokdan/neeview-3",
+              "links": {
+                "self": {
+                  "href": "https://api.bitbucket.org/2.0/repositories/Havokdan/neeview-3"
+                },
+                "html": {
+                  "href": "https://bitbucket.org/Havokdan/neeview-3"
+                },
+                "avatar": {
+                  "href": "https://bytebucket.org/ravatar/%7B5690e6b8-debd-4cb2-8721-31fe55d8ca4f%7D?ts=c_sharp"
+                }
+              },
+              "name": "neeview-3",
+              "uuid": "{5690e6b8-debd-4cb2-8721-31fe55d8ca4f}"
+            }
+          },
+          "links": {
+            "self": {
+              "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/pullrequests/37"
+            },
+            "html": {
+              "href": "https://bitbucket.org/neelabo/neeview/pull-requests/37"
+            },
+            "commits": {
+              "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/pullrequests/37/commits"
+            },
+            "approve": {
+              "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/pullrequests/37/approve"
+            },
+            "request-changes": {
+              "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/pullrequests/37/request-changes"
+            },
+            "diff": {
+              "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/diff/neelabo/neeview:8215aaf2e487%0Dda15924148db?from_pullrequest_id=37&topic=true"
+            },
+            "diffstat": {
+              "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/diffstat/neelabo/neeview:8215aaf2e487%0Dda15924148db?from_pullrequest_id=37&topic=true"
+            },
+            "comments": {
+              "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/pullrequests/37/comments"
+            },
+            "activity": {
+              "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/pullrequests/37/activity"
+            },
+            "merge": {
+              "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/pullrequests/37/merge"
+            },
+            "decline": {
+              "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/pullrequests/37/decline"
+            },
+            "statuses": {
+              "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/pullrequests/37/statuses"
+            },
+            "mergeability_checks": {
+              "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/pullrequests/37/mergeability/checks"
+            }
+          },
+          "summary": {
+            "type": "rendered",
+            "raw": "pt-BR.restext alterados online com o Bitbucket",
+            "markup": "markdown",
+            "html": "<p>pt-BR.restext alterados online com o Bitbucket</p>"
+          },
+          "queued": false
+        },
+        {
+          "comment_count": 0,
+          "task_count": 0,
+          "type": "pullrequest",
+          "id": 36,
+          "title": "pt-BR.restext alterados online com o Bitbucket",
+          "description": "pt-BR.restext alterados online com o Bitbucket",
+          "state": "MERGED",
+          "draft": false,
+          "merge_commit": {
+            "hash": "27952297817f",
+            "links": {
+              "self": {
+                "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/commit/27952297817f"
+              },
+              "html": {
+                "href": "https://bitbucket.org/neelabo/neeview/commits/27952297817f"
+              }
+            },
+            "type": "commit"
+          },
+          "close_source_branch": false,
+          "closed_by": {
+            "display_name": "Ito Mitsuhiro",
+            "links": {
+              "self": {
+                "href": "https://api.bitbucket.org/2.0/users/%7B7247b96a-9628-4fa3-b0ed-06bd83dc23a1%7D"
+              },
+              "avatar": {
+                "href": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/557058:1c074cc5-5f7e-4f74-a716-6ade7135e7bd/4281deb6-857a-4a03-a588-29cb13085c34/128"
+              },
+              "html": {
+                "href": "https://bitbucket.org/%7B7247b96a-9628-4fa3-b0ed-06bd83dc23a1%7D/"
+              }
+            },
+            "type": "user",
+            "uuid": "{7247b96a-9628-4fa3-b0ed-06bd83dc23a1}",
+            "account_id": "557058:1c074cc5-5f7e-4f74-a716-6ade7135e7bd",
+            "nickname": "neelabo"
+          },
+          "author": {
+            "display_name": "Havokdan",
+            "links": {
+              "self": {
+                "href": "https://api.bitbucket.org/2.0/users/%7B97fc50f7-c82e-4a3f-bd4a-e9877df29f39%7D"
+              },
+              "avatar": {
+                "href": "https://secure.gravatar.com/avatar/9a050257614c5cfc943e4a599529de6b?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FH-5.png"
+              },
+              "html": {
+                "href": "https://bitbucket.org/%7B97fc50f7-c82e-4a3f-bd4a-e9877df29f39%7D/"
+              }
+            },
+            "type": "user",
+            "uuid": "{97fc50f7-c82e-4a3f-bd4a-e9877df29f39}",
+            "account_id": "60d876b17261900068293ed7",
+            "nickname": "Havokdan"
+          },
+          "reason": "",
+          "created_on": "2024-08-28T13:49:34.038483+00:00",
+          "updated_on": "2024-08-29T02:46:03.601911+00:00",
+          "destination": {
+            "branch": {
+              "name": "master"
+            },
+            "commit": {
+              "hash": "ad28c507c984",
+              "links": {
+                "self": {
+                  "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/commit/ad28c507c984"
+                },
+                "html": {
+                  "href": "https://bitbucket.org/neelabo/neeview/commits/ad28c507c984"
+                }
+              },
+              "type": "commit"
+            },
+            "repository": {
+              "type": "repository",
+              "full_name": "neelabo/neeview",
+              "links": {
+                "self": {
+                  "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview"
+                },
+                "html": {
+                  "href": "https://bitbucket.org/neelabo/neeview"
+                },
+                "avatar": {
+                  "href": "https://bytebucket.org/ravatar/%7B6b283030-4828-41db-b559-8b120365f356%7D?ts=c_sharp"
+                }
+              },
+              "name": "NeeView",
+              "uuid": "{6b283030-4828-41db-b559-8b120365f356}"
+            }
+          },
+          "source": {
+            "branch": {
+              "name": "Havokdan/ptbrrestext-alterados-online-com-o-bitbu-1724852945942",
+              "links": {}
+            },
+            "commit": {
+              "hash": "8cd5d03ddb9c",
+              "links": {
+                "self": {
+                  "href": "https://api.bitbucket.org/2.0/repositories/Havokdan/neeview-2/commit/8cd5d03ddb9c"
+                },
+                "html": {
+                  "href": "https://bitbucket.org/Havokdan/neeview-2/commits/8cd5d03ddb9c"
+                }
+              },
+              "type": "commit"
+            },
+            "repository": {
+              "type": "repository",
+              "full_name": "Havokdan/neeview-2",
+              "links": {
+                "self": {
+                  "href": "https://api.bitbucket.org/2.0/repositories/Havokdan/neeview-2"
+                },
+                "html": {
+                  "href": "https://bitbucket.org/Havokdan/neeview-2"
+                },
+                "avatar": {
+                  "href": "https://bytebucket.org/ravatar/%7Ba3c09f1f-6a00-45e2-839e-90cbbb3be604%7D?ts=c_sharp"
+                }
+              },
+              "name": "neeview-2",
+              "uuid": "{a3c09f1f-6a00-45e2-839e-90cbbb3be604}"
+            }
+          },
+          "links": {
+            "self": {
+              "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/pullrequests/36"
+            },
+            "html": {
+              "href": "https://bitbucket.org/neelabo/neeview/pull-requests/36"
+            },
+            "commits": {
+              "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/pullrequests/36/commits"
+            },
+            "approve": {
+              "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/pullrequests/36/approve"
+            },
+            "request-changes": {
+              "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/pullrequests/36/request-changes"
+            },
+            "diff": {
+              "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/diff/neelabo/neeview:8cd5d03ddb9c%0Dad28c507c984?from_pullrequest_id=36&topic=true"
+            },
+            "diffstat": {
+              "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/diffstat/neelabo/neeview:8cd5d03ddb9c%0Dad28c507c984?from_pullrequest_id=36&topic=true"
+            },
+            "comments": {
+              "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/pullrequests/36/comments"
+            },
+            "activity": {
+              "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/pullrequests/36/activity"
+            },
+            "merge": {
+              "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/pullrequests/36/merge"
+            },
+            "decline": {
+              "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/pullrequests/36/decline"
+            },
+            "statuses": {
+              "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/pullrequests/36/statuses"
+            },
+            "mergeability_checks": {
+              "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/pullrequests/36/mergeability/checks"
+            }
+          },
+          "summary": {
+            "type": "rendered",
+            "raw": "pt-BR.restext alterados online com o Bitbucket",
+            "markup": "markdown",
+            "html": "<p>pt-BR.restext alterados online com o Bitbucket</p>"
+          },
+          "queued": false
+        },
+        {
+          "comment_count": 0,
+          "task_count": 0,
+          "type": "pullrequest",
+          "id": 35,
+          "title": "pt-BR.restext alterados online com o Bitbucket",
+          "description": "pt-BR.restext alterados online com o Bitbucket",
+          "state": "MERGED",
+          "draft": false,
+          "merge_commit": {
+            "hash": "63e93ee2f3a2",
+            "links": {
+              "self": {
+                "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/commit/63e93ee2f3a2"
+              },
+              "html": {
+                "href": "https://bitbucket.org/neelabo/neeview/commits/63e93ee2f3a2"
+              }
+            },
+            "type": "commit"
+          },
+          "close_source_branch": false,
+          "closed_by": {
+            "display_name": "Ito Mitsuhiro",
+            "links": {
+              "self": {
+                "href": "https://api.bitbucket.org/2.0/users/%7B7247b96a-9628-4fa3-b0ed-06bd83dc23a1%7D"
+              },
+              "avatar": {
+                "href": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/557058:1c074cc5-5f7e-4f74-a716-6ade7135e7bd/4281deb6-857a-4a03-a588-29cb13085c34/128"
+              },
+              "html": {
+                "href": "https://bitbucket.org/%7B7247b96a-9628-4fa3-b0ed-06bd83dc23a1%7D/"
+              }
+            },
+            "type": "user",
+            "uuid": "{7247b96a-9628-4fa3-b0ed-06bd83dc23a1}",
+            "account_id": "557058:1c074cc5-5f7e-4f74-a716-6ade7135e7bd",
+            "nickname": "neelabo"
+          },
+          "author": {
+            "display_name": "Havokdan",
+            "links": {
+              "self": {
+                "href": "https://api.bitbucket.org/2.0/users/%7B97fc50f7-c82e-4a3f-bd4a-e9877df29f39%7D"
+              },
+              "avatar": {
+                "href": "https://secure.gravatar.com/avatar/9a050257614c5cfc943e4a599529de6b?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FH-5.png"
+              },
+              "html": {
+                "href": "https://bitbucket.org/%7B97fc50f7-c82e-4a3f-bd4a-e9877df29f39%7D/"
+              }
+            },
+            "type": "user",
+            "uuid": "{97fc50f7-c82e-4a3f-bd4a-e9877df29f39}",
+            "account_id": "60d876b17261900068293ed7",
+            "nickname": "Havokdan"
+          },
+          "reason": "",
+          "created_on": "2024-05-14T22:15:36.359601+00:00",
+          "updated_on": "2024-05-15T01:03:21.249326+00:00",
+          "destination": {
+            "branch": {
+              "name": "master"
+            },
+            "commit": {
+              "hash": "80a6830b434a",
+              "links": {
+                "self": {
+                  "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/commit/80a6830b434a"
+                },
+                "html": {
+                  "href": "https://bitbucket.org/neelabo/neeview/commits/80a6830b434a"
+                }
+              },
+              "type": "commit"
+            },
+            "repository": {
+              "type": "repository",
+              "full_name": "neelabo/neeview",
+              "links": {
+                "self": {
+                  "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview"
+                },
+                "html": {
+                  "href": "https://bitbucket.org/neelabo/neeview"
+                },
+                "avatar": {
+                  "href": "https://bytebucket.org/ravatar/%7B6b283030-4828-41db-b559-8b120365f356%7D?ts=c_sharp"
+                }
+              },
+              "name": "NeeView",
+              "uuid": "{6b283030-4828-41db-b559-8b120365f356}"
+            }
+          },
+          "source": {
+            "branch": {
+              "name": "Havokdan/ptbrrestext-alterados-online-com-o-bitbu-1715724930274",
+              "links": {}
+            },
+            "commit": {
+              "hash": "e6c29edc1148",
+              "links": {
+                "self": {
+                  "href": "https://api.bitbucket.org/2.0/repositories/Havokdan/neeview-1/commit/e6c29edc1148"
+                },
+                "html": {
+                  "href": "https://bitbucket.org/Havokdan/neeview-1/commits/e6c29edc1148"
+                }
+              },
+              "type": "commit"
+            },
+            "repository": {
+              "type": "repository",
+              "full_name": "Havokdan/neeview-1",
+              "links": {
+                "self": {
+                  "href": "https://api.bitbucket.org/2.0/repositories/Havokdan/neeview-1"
+                },
+                "html": {
+                  "href": "https://bitbucket.org/Havokdan/neeview-1"
+                },
+                "avatar": {
+                  "href": "https://bytebucket.org/ravatar/%7B3b7adf4d-69f7-4815-bb25-984cb9cbdd16%7D?ts=c_sharp"
+                }
+              },
+              "name": "neeview-1",
+              "uuid": "{3b7adf4d-69f7-4815-bb25-984cb9cbdd16}"
+            }
+          },
+          "links": {
+            "self": {
+              "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/pullrequests/35"
+            },
+            "html": {
+              "href": "https://bitbucket.org/neelabo/neeview/pull-requests/35"
+            },
+            "commits": {
+              "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/pullrequests/35/commits"
+            },
+            "approve": {
+              "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/pullrequests/35/approve"
+            },
+            "request-changes": {
+              "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/pullrequests/35/request-changes"
+            },
+            "diff": {
+              "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/diff/neelabo/neeview:e6c29edc1148%0D80a6830b434a?from_pullrequest_id=35&topic=true"
+            },
+            "diffstat": {
+              "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/diffstat/neelabo/neeview:e6c29edc1148%0D80a6830b434a?from_pullrequest_id=35&topic=true"
+            },
+            "comments": {
+              "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/pullrequests/35/comments"
+            },
+            "activity": {
+              "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/pullrequests/35/activity"
+            },
+            "merge": {
+              "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/pullrequests/35/merge"
+            },
+            "decline": {
+              "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/pullrequests/35/decline"
+            },
+            "statuses": {
+              "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/pullrequests/35/statuses"
+            },
+            "mergeability_checks": {
+              "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/pullrequests/35/mergeability/checks"
+            }
+          },
+          "summary": {
+            "type": "rendered",
+            "raw": "pt-BR.restext alterados online com o Bitbucket",
+            "markup": "markdown",
+            "html": "<p>pt-BR.restext alterados online com o Bitbucket</p>"
+          },
+          "queued": false
+        }
+      ],
+      "pagelen": 3,
+      "size": 37,
+      "page": 1,
+      "next": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/pullrequests?sort=-updated_on&pagelen=3&state=OPEN&state=MERGED&state=DECLINED&state=SUPERSEDED&page=2"
+    }
+  }
+}

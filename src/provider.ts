@@ -207,6 +207,8 @@ export interface ForgeCapabilities {
     list: PerKind
     /** Support for `threads.getMany()`. */
     getMany: Support
+    /** Support for `threads.events()` and `threads.eventsPage()`, per thread kind. */
+    events: PerKind
   }
   comments: {
     /** Support for `threads.comments()` and `threads.commentsPage()`, per thread kind. */

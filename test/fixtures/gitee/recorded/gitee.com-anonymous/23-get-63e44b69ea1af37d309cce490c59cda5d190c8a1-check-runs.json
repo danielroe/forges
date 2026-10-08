@@ -1,0 +1,18 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/commits/63e44b69ea1af37d309cce490c59cda5d190c8a1/check-runs"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"315c207b52f13855d266aeaae7595076\"",
+      "x-ratelimit-limit": "60",
+      "x-ratelimit-remaining": "37"
+    },
+    "body": {
+      "total_count": 0,
+      "check_runs": []
+    }
+  }
+}

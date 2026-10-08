@@ -1,0 +1,85 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/branches?page=1&per_page=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "<https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/branches?direction=asc&owner=cmcc-oneos&page=2&per_page=3&repo=OneOS&sort=name>; rel='next', <https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/branches?direction=asc&owner=cmcc-oneos&page=5&per_page=3&repo=OneOS&sort=name>; rel='last'",
+      "etag": "W/\"6f2877d3196b200ddc46bbd457b99d52\"",
+      "x-ratelimit-limit": "60",
+      "x-ratelimit-remaining": "33",
+      "total_page": "5",
+      "total_count": "15"
+    },
+    "body": [
+      {
+        "name": "OneOS-Lite-V3.2.0",
+        "commit": {
+          "sha": "0bbf9cdf3c21b24e6ca063ccb25a65d3417e5658",
+          "url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/commits/0bbf9cdf3c21b24e6ca063ccb25a65d3417e5658",
+          "commit": {
+            "author": {
+              "name": "CMCC-OneOS",
+              "date": "2025-06-12T14:23:06+08:00",
+              "email": "redacted@example.invalid"
+            },
+            "committer": {
+              "name": "Gitee",
+              "date": "2025-06-12T14:23:06+08:00",
+              "email": "redacted@example.invalid"
+            },
+            "message": "!556 delete Kconfig menu of semidrive"
+          }
+        },
+        "protected": true,
+        "protection_url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/branches/OneOS-Lite-V3.2.0/protection"
+      },
+      {
+        "name": "OneOS-Lite-V3.2.1",
+        "commit": {
+          "sha": "fb06c97b9117cf5446944726b3c79600a4011c39",
+          "url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/commits/fb06c97b9117cf5446944726b3c79600a4011c39",
+          "commit": {
+            "author": {
+              "name": "CMCC-OneOS",
+              "date": "2025-06-12T14:23:51+08:00",
+              "email": "redacted@example.invalid"
+            },
+            "committer": {
+              "name": "Gitee",
+              "date": "2025-06-12T14:23:51+08:00",
+              "email": "redacted@example.invalid"
+            },
+            "message": "!555 delete Kconfig menu of semidrive"
+          }
+        },
+        "protected": true,
+        "protection_url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/branches/OneOS-Lite-V3.2.1/protection"
+      },
+      {
+        "name": "OneOS-Lite-V3.3.0",
+        "commit": {
+          "sha": "1b3606f0d04d46fe9df3b7f19dfb795f0d25e04a",
+          "url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/commits/1b3606f0d04d46fe9df3b7f19dfb795f0d25e04a",
+          "commit": {
+            "author": {
+              "name": "CMCC-OneOS",
+              "date": "2025-06-12T14:24:24+08:00",
+              "email": "redacted@example.invalid"
+            },
+            "committer": {
+              "name": "Gitee",
+              "date": "2025-06-12T14:24:24+08:00",
+              "email": "redacted@example.invalid"
+            },
+            "message": "!554 delete Kconfig menu of semidrive"
+          }
+        },
+        "protected": true,
+        "protection_url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/branches/OneOS-Lite-V3.3.0/protection"
+      }
+    ]
+  }
+}

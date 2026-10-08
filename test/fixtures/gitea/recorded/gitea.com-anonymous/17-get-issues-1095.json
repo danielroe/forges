@@ -1,0 +1,62 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitea.com/api/v1/repos/gitea/tea/issues/1095"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "id": 488319,
+      "url": "https://gitea.com/api/v1/repos/gitea/tea/issues/1095",
+      "html_url": "https://gitea.com/gitea/tea/issues/1095",
+      "number": 1095,
+      "user": {
+        "id": 233120,
+        "login": "DerGary",
+        "type": "User",
+        "source_id": 0,
+        "full_name": "",
+        "email": "redacted@example.invalid",
+        "avatar_url": "https://seccdn.libravatar.org/avatar/9f9333fd9c24b48f75a5869b26d55c86b5a46d0d46c5d0287cd96707af3e74f1?d=identicon",
+        "html_url": "https://gitea.com/DerGary",
+        "active": false,
+        "location": "",
+        "website": "",
+        "description": "",
+        "followers_count": 0,
+        "following_count": 0,
+        "starred_repos_count": 0,
+        "username": "DerGary"
+      },
+      "original_author": "",
+      "original_author_id": 0,
+      "title": "Feature request: read `--description` from stdin or a file for `issues create` / `pulls create`",
+      "body": "### Problem\n\n`tea comments add` already resolves its body from stdin — `cmd/comments/add.go` calls `interact.IsStdinPiped()` and `resolveBody(...)`, so `printf '…' | tea comments add 151` works nicely.\n\n`tea issues create` and `tea pulls create` do not. `cmd/flags/issue_pr.go` passes `Body: ctx.String(\"description\")` straight through, so the body can only ever arrive as a command-line argument.\n\n### Why that hurts\n\nOn Windows, PowerShell 5.1 builds the command line for native executables itself and does not escape inner double quotes. Any description containing `\"` — a quoted error message, a JSON snippet, anything realistic in a bug report — gets split into several arguments. Concretely, a description containing the text `--data-binary @file` ended up parsed by tea as a flag:\n\n```\nError: flag provided but not defined: -data-binary\n```\n\nNon-ASCII text is a second casualty: arguments are re-encoded through the ANSI code page on the way to the process, so German umlauts in a description come out mangled.\n\nThe result is that on Windows, `tea issues create` is unusable for anything longer than a single plain sentence, and the workaround is to call the REST API with `curl --data-binary @file` instead.\n\n### Proposal\n\nRoute `issues create` and `pulls create` through the same body resolution that `comments add` already uses:\n\n- read the body from stdin when stdin is piped\n- and/or add `--description-file <path>` (`-` for stdin)\n\nThe same applies to `pulls edit --description` and `issues edit --description`.\n\nThis is the non-interactive complement to #321, which added stdin support for comments back in 2021.\n\nTested against tea 0.15.1.",
+      "ref": "",
+      "assets": [],
+      "labels": [],
+      "milestone": null,
+      "projects": null,
+      "assignee": null,
+      "assignees": null,
+      "state": "closed",
+      "is_locked": false,
+      "comments": 0,
+      "created_at": "2026-08-21T15:45:20Z",
+      "updated_at": "2026-08-23T12:46:24Z",
+      "closed_at": "2026-08-23T12:46:23Z",
+      "due_date": null,
+      "time_estimate": 0,
+      "pull_request": null,
+      "repository": {
+        "id": 550,
+        "name": "tea",
+        "owner": "gitea",
+        "full_name": "gitea/tea"
+      },
+      "pin_order": 0,
+      "content_version": 0
+    }
+  }
+}

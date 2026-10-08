@@ -31,7 +31,7 @@ const forge = gitlab({
 
 Project and group access tokens act as bot users, so they are the right choice when you need a credential that isn't tied to a person.
 
-If you leave out `auth`, the provider makes anonymous reads of public data. GitLab serves the comments of issues and merge requests only to signed-in users, even on public projects. An anonymous provider therefore reports `threads.comments` as unsupported for them, and reading their events without a token fails with `AuthenticationRequiredError`. GitLab.com also shows full profiles only to signed-in users, so an anonymous `users.get()` returns the login, ID, name, avatar and URL, without `bio`, `createdAt` or follower counts.
+If you leave out `auth`, the provider makes anonymous reads of public data. GitLab serves notes, labels, milestones, members, commit statuses, commit search and vulnerabilities only to signed-in users, even on public projects. An anonymous provider therefore reports comments and events, `repos.labels`, `repos.milestones`, `repos.collaborators`, `repos.permissionFor`, `checks.list`, `search.commits` and `securityAlerts` as unsupported. GitLab.com also shows full profiles only to signed-in users, so an anonymous `users.get()` returns the login, ID, name, avatar and URL, without `bio`, `createdAt` or follower counts.
 
 ## Self-managed instances
 
@@ -104,25 +104,26 @@ If you create a hook with `webhooks.create()`, `nativeEvents` takes the names of
 | Capability | Support |
 | --- | --- |
 | `experimental` | ❌ |
-| `sources.poll` | ✅ |
+| `sources.poll` | ✅ (needs credentials) |
 | `sources.webhook` | ✅ |
 | `sources.subscribe` | ❌ |
 | `repos.get` | ✅ |
 | `users.get` | ✅ |
 | `users.me` | ✅ |
 | `repos.list` | ✅ |
-| `repos.labels` | ✅ |
+| `repos.labels` | ✅ (needs credentials) |
 | `repos.createLabel` | experimental |
-| `repos.milestones` | ✅ |
-| `repos.collaborators` | ✅ |
-| `repos.permissionFor` | ✅ |
+| `repos.milestones` | ✅ (needs credentials) |
+| `repos.collaborators` | ✅ (needs credentials) |
+| `repos.permissionFor` | ✅ (needs credentials) |
 | `repos.addCollaborator` | experimental |
 | `repos.assignableUsers` | ✅ |
 | `repos.reviewerCandidates` | emulated |
 | `threads.get` | issue, PR, commit (experimental) |
 | `threads.list` | issue, PR |
 | `threads.getMany` | ✅ |
-| `comments.list` | issue, PR, commit (experimental) |
+| `threads.events` | issue (needs credentials), PR (needs credentials), commit (experimental, needs credentials) |
+| `comments.list` | issue (needs credentials), PR (needs credentials), commit (experimental) |
 | `comments.edit` | issue (experimental), PR (experimental) |
 | `comments.delete` | issue (experimental), PR (experimental) |
 | `reactions.list` | issue, PR |
@@ -154,7 +155,7 @@ If you create a hook with `webhooks.create()`, `nativeEvents` takes the names of
 | `subscriptions.set` | issue, PR |
 | `installations` | ❌ |
 | `checks.thread` | PR |
-| `checks.list` | ✅ |
+| `checks.list` | ✅ (needs credentials) |
 | `checks.report` | experimental |
 | `checks.rerun` | experimental |
 | `ci.runs` | ✅ |
@@ -190,8 +191,8 @@ If you create a hook with `webhooks.create()`, `nativeEvents` takes the names of
 | `webhooks.redeliver` | ❌ |
 | `search.threads` | ✅ |
 | `search.repos` | ✅ |
-| `search.commits` | experimental |
-| `securityAlerts` | dependency (experimental), code scanning (experimental), secret (experimental) |
+| `search.commits` | experimental (needs credentials) |
+| `securityAlerts` | dependency (experimental, needs credentials), code scanning (experimental, needs credentials), secret (experimental, needs credentials) |
 | `eventKinds` | heuristic |
 | `authKinds` | `token`, `anonymous` |
 | `limits` | body 1048576, comment 1000000, label 255 |

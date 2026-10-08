@@ -8,8 +8,9 @@
     "headers": {
       "link": "<https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/users?id=gitlab-org%2Fcli&page=2&per_page=3>; rel=\"next\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/users?id=gitlab-org%2Fcli&page=1&per_page=3>; rel=\"first\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/users?id=gitlab-org%2Fcli&page=984&per_page=3>; rel=\"last\"",
       "etag": "W/\"e4d6d597bde4055f85ac2cd09f35aef4\"",
-      "ratelimit-remaining": "495",
-      "ratelimit-reset": "1791473940",
+      "ratelimit-limit": "500",
+      "ratelimit-remaining": "498",
+      "ratelimit-reset": "1791477420",
       "x-total": "2950",
       "x-total-pages": "984",
       "x-next-page": "2",

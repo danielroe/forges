@@ -106,7 +106,7 @@ A label delivery doesn't say which labels were added or removed. When the set of
 | Capability | Support |
 | --- | --- |
 | `experimental` | ❌ |
-| `sources.poll` | ✅ |
+| `sources.poll` | ✅ (needs credentials) |
 | `sources.webhook` | ✅ |
 | `sources.subscribe` | ❌ |
 | `repos.get` | ✅ |
@@ -116,14 +116,15 @@ A label delivery doesn't say which labels were added or removed. When the set of
 | `repos.labels` | ✅ |
 | `repos.createLabel` | experimental |
 | `repos.milestones` | ✅ |
-| `repos.collaborators` | ✅ |
-| `repos.permissionFor` | experimental |
+| `repos.collaborators` | ✅ (needs credentials) |
+| `repos.permissionFor` | experimental (needs credentials) |
 | `repos.addCollaborator` | experimental |
-| `repos.assignableUsers` | ✅ |
-| `repos.reviewerCandidates` | experimental |
+| `repos.assignableUsers` | ✅ (needs credentials) |
+| `repos.reviewerCandidates` | experimental (needs credentials) |
 | `threads.get` | issue, PR, commit (experimental) |
 | `threads.list` | issue, PR |
 | `threads.getMany` | ✅ |
+| `threads.events` | issue, PR, commit (experimental) |
 | `comments.list` | issue, PR |
 | `comments.edit` | issue (experimental), PR (experimental) |
 | `comments.delete` | issue (experimental), PR (experimental) |

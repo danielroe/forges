@@ -1,0 +1,48 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.github.com/repos/h3js/h3/tags?per_page=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "<https://api.github.com/repositories/313641207/tags?per_page=3&page=2>; rel=\"next\", <https://api.github.com/repositories/313641207/tags?per_page=3&page=56>; rel=\"last\"",
+      "etag": "W/\"41b81a8667f003eb334862eb3bcf669da26d2bf2cc71c36d6108510694ff6794\"",
+      "x-ratelimit-limit": "60",
+      "x-ratelimit-remaining": "23",
+      "x-ratelimit-reset": "1791488828"
+    },
+    "body": [
+      {
+        "name": "v2.0.2",
+        "zipball_url": "https://api.github.com/repos/h3js/h3/zipball/refs/tags/v2.0.2",
+        "tarball_url": "https://api.github.com/repos/h3js/h3/tarball/refs/tags/v2.0.2",
+        "commit": {
+          "sha": "66cfb8a357b6285451bad498c2c40002601fae98",
+          "url": "https://api.github.com/repos/h3js/h3/commits/66cfb8a357b6285451bad498c2c40002601fae98"
+        },
+        "node_id": "MDM6UmVmMzEzNjQxMjA3OnJlZnMvdGFncy92Mi4wLjI="
+      },
+      {
+        "name": "v2.0.1",
+        "zipball_url": "https://api.github.com/repos/h3js/h3/zipball/refs/tags/v2.0.1",
+        "tarball_url": "https://api.github.com/repos/h3js/h3/tarball/refs/tags/v2.0.1",
+        "commit": {
+          "sha": "26d3d3d4fc60ebece9975eee5415b114cb8dbcd5",
+          "url": "https://api.github.com/repos/h3js/h3/commits/26d3d3d4fc60ebece9975eee5415b114cb8dbcd5"
+        },
+        "node_id": "MDM6UmVmMzEzNjQxMjA3OnJlZnMvdGFncy92Mi4wLjE="
+      },
+      {
+        "name": "v2.0.1-rc.33",
+        "zipball_url": "https://api.github.com/repos/h3js/h3/zipball/refs/tags/v2.0.1-rc.33",
+        "tarball_url": "https://api.github.com/repos/h3js/h3/tarball/refs/tags/v2.0.1-rc.33",
+        "commit": {
+          "sha": "3cbc7535a61bfb7d3fcce949f30de471a90d572b",
+          "url": "https://api.github.com/repos/h3js/h3/commits/3cbc7535a61bfb7d3fcce949f30de471a90d572b"
+        },
+        "node_id": "MDM6UmVmMzEzNjQxMjA3OnJlZnMvdGFncy92Mi4wLjEtcmMuMzM="
+      }
+    ]
+  }
+}

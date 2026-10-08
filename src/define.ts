@@ -26,7 +26,7 @@ import type {
 } from './provider.ts'
 import type { ForgeVerb } from './supports.ts'
 import type { WebLinks } from './web.ts'
-import { ALERT_KINDS, approveAndMergeSupport, capabilitiesOf, KINDS, resolve, restrict, upsertKinds, WRITE_VERBS } from './capabilities.ts'
+import { ALERT_KINDS, approveAndMergeSupport, capabilitiesOf, KINDS, resolve, restrict, threadEventKinds, upsertKinds, WRITE_VERBS } from './capabilities.ts'
 import { CAPABILITY_TABLE } from './capability-table.ts'
 import { isSha } from './contents.ts'
 import { ReadOnlyError, UnsupportedOperationError, WebhookVerificationError } from './errors.ts'
@@ -483,6 +483,7 @@ function createProvider<TOptions extends ForgeOptionsBase, TState>(
   const installationsSupported = () => Boolean(declaredInstallations && resolve(declaredInstallations.support, env))
 
   const listThreads = kindGate('threads.listPage', spec.threads.listPage.kinds, spec.threads.listPage.run)
+  const listEvents = kindGate('threads.eventsPage', Object.fromEntries(KINDS.map(kind => [kind, (kindEnv: CapabilityEnv) => threadEventKinds(spec, kindEnv)[kind]])), spec.threads.eventsPage.run)
   const native = spec.search?.queryRaw
   const search = (name: 'threadsPage' | 'reposPage' | 'commitsPage') => {
     const run = gate(`search.${name}`, spec.search?.[name]?.support, spec.search?.[name]?.run)
@@ -503,7 +504,7 @@ function createProvider<TOptions extends ForgeOptionsBase, TState>(
       return nonEmptyPage(run, query.cursor)
     },
     'threads.eventsPage': async (ref: ThreadRef, listOptions?: ListOptions) => {
-      const page = await gate('threads.eventsPage', spec.threads.eventsPage.support, spec.threads.eventsPage.run)(ref, listOptions) as Page<ForgeEventInput>
+      const page = await listEvents(ref, listOptions) as Page<ForgeEventInput>
       return { ...page, items: page.items.map(completeEvent) }
     },
     'threads.upsertComment': kindGate(

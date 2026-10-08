@@ -7,9 +7,10 @@
     "status": 200,
     "headers": {
       "link": "<https://api.github.com/repositories/313641207/releases?per_page=3&page=2>; rel=\"next\", <https://api.github.com/repositories/313641207/releases?per_page=3&page=30>; rel=\"last\"",
-      "etag": "W/\"83f03ba59555d6bd397145da63cac384aaac2584362e7a1fe41d6ab114de3b03\"",
-      "x-ratelimit-remaining": "4946",
-      "x-ratelimit-reset": "1791382247"
+      "etag": "W/\"f4a779756b422212780e1a45424e61ccab2b49828e2427014ed5c791c2d1b1cb\"",
+      "x-ratelimit-limit": "5000",
+      "x-ratelimit-remaining": "4910",
+      "x-ratelimit-reset": "1791487708"
     },
     "body": [
       {
@@ -52,7 +53,19 @@
         "assets": [],
         "tarball_url": "https://api.github.com/repos/h3js/h3/tarball/v2.0.2",
         "zipball_url": "https://api.github.com/repos/h3js/h3/zipball/v2.0.2",
-        "body": "[compare changes](https://github.com/h3js/h3/compare/v2.0.1...v2.0.2)\r\n\r\n### 🩹 Fixes\r\n\r\n- **node:** Call `onError` for stream errors in Node.js handlers ([#1571](https://github.com/h3js/h3/pull/1571))\r\n- **response:** Use matching reason phrases in redirect and noContent ([#1570](https://github.com/h3js/h3/pull/1570))\r\n- **middleware:** Pass through handled responses in `onError` ([#1574](https://github.com/h3js/h3/pull/1574))\r\n\r\n### 🌊 Types\r\n\r\n- **session:** Remove `@ts-nocheck` from iron-crypto ([#1572](https://github.com/h3js/h3/pull/1572))\r\n- **route:** Infer `defineRoute` handler input from validation schemas ([ec527f0](https://github.com/h3js/h3/commit/ec527f0))\r\n\r\n### 🏡 Chore\r\n\r\n- **session:** Retarget legacy seal fallback removal to v3 ([#1573](https://github.com/h3js/h3/pull/1573))\r\n- **session:** Mark `legacySealFallback` as deprecated ([44dbfb8](https://github.com/h3js/h3/commit/44dbfb8))\r\n\r\n### ❤️ Contributors\r\n\r\n- Pooya Parsa ([@pi0](https://github.com/pi0))\r\n- Bao Nguyen ([@giaBaoJS](https://github.com/giaBaoJS))\r\n- Kaan Çelebi ([@kaanisthatyou](https://github.com/kaanisthatyou))\r\n- Daniel Shafer ([@dannyshafer](https://github.com/dannyshafer))"
+        "body": "[compare changes](https://github.com/h3js/h3/compare/v2.0.1...v2.0.2)\r\n\r\n### 🩹 Fixes\r\n\r\n- **node:** Call `onError` for stream errors in Node.js handlers ([#1571](https://github.com/h3js/h3/pull/1571))\r\n- **response:** Use matching reason phrases in redirect and noContent ([#1570](https://github.com/h3js/h3/pull/1570))\r\n- **middleware:** Pass through handled responses in `onError` ([#1574](https://github.com/h3js/h3/pull/1574))\r\n\r\n### 🌊 Types\r\n\r\n- **session:** Remove `@ts-nocheck` from iron-crypto ([#1572](https://github.com/h3js/h3/pull/1572))\r\n- **route:** Infer `defineRoute` handler input from validation schemas ([ec527f0](https://github.com/h3js/h3/commit/ec527f0))\r\n\r\n### 🏡 Chore\r\n\r\n- **session:** Retarget legacy seal fallback removal to v3 ([#1573](https://github.com/h3js/h3/pull/1573))\r\n- **session:** Mark `legacySealFallback` as deprecated ([44dbfb8](https://github.com/h3js/h3/commit/44dbfb8))\r\n\r\n### ❤️ Contributors\r\n\r\n- Pooya Parsa ([@pi0](https://github.com/pi0))\r\n- Bao Nguyen ([@giaBaoJS](https://github.com/giaBaoJS))\r\n- Kaan Çelebi ([@kaanisthatyou](https://github.com/kaanisthatyou))\r\n- Daniel Shafer ([@dannyshafer](https://github.com/dannyshafer))",
+        "reactions": {
+          "url": "https://api.github.com/repos/h3js/h3/releases/405748393/reactions",
+          "total_count": 6,
+          "+1": 0,
+          "-1": 0,
+          "laugh": 0,
+          "hooray": 0,
+          "confused": 0,
+          "heart": 2,
+          "rocket": 2,
+          "eyes": 2
+        }
       },
       {
         "url": "https://api.github.com/repos/h3js/h3/releases/402457524",

@@ -4,9 +4,11 @@ import type { ForgeProvider } from '../src/provider.ts'
 import type { RecordingManifest, StepContext } from './recording/steps.ts'
 import { existsSync, readdirSync, readFileSync } from 'node:fs'
 import { beforeAll, describe, expect, it, vi } from 'vitest'
+import { azureDevOps } from '../src/azure-devops/index.ts'
 import { bitbucket } from '../src/bitbucket/index.ts'
 import { forgejo } from '../src/forgejo/index.ts'
 import { gitea } from '../src/gitea/index.ts'
+import { gitee } from '../src/gitee/index.ts'
 import { github } from '../src/github/index.ts'
 import { gitlab } from '../src/gitlab/index.ts'
 import { notificationThread, repoKey } from '../src/model.ts'
@@ -51,6 +53,8 @@ const providers: Array<{ name: string, create: Create }> = [
   { name: 'gitlab', create: (fetch, manifest) => gitlab({ auth: authFor(manifest), baseUrl: manifest.baseUrl, fetch }).create() },
   { name: 'bitbucket', create: (fetch, manifest) => bitbucket({ auth: authFor(manifest), baseUrl: manifest.baseUrl, fetch }).create() },
   { name: 'pushin', create: (fetch, manifest) => pushin({ auth: authFor(manifest), baseUrl: manifest.baseUrl, fetch }).create() },
+  { name: 'gitee', create: (fetch, manifest) => gitee({ auth: authFor(manifest), fetch }).create() },
+  { name: 'azure-devops', create: (fetch, manifest) => azureDevOps({ auth: authFor(manifest), organization: manifest.repo.owner.split('/')[0]!, fetch }).create() },
   {
     name: 'tangled',
     create: (fetch, manifest, messages = []) => tangled({

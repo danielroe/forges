@@ -1,0 +1,50 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitee.com/api/v5/users/pc-courage"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"9d5d4c50e93135ef2c1f5fc8ac6a2612\"",
+      "x-ratelimit-limit": "60",
+      "x-ratelimit-remaining": "38"
+    },
+    "body": {
+      "id": 8078236,
+      "login": "pc-courage",
+      "name": "chao",
+      "avatar_url": "https://gitee.com/assets/no_portrait.png",
+      "url": "https://gitee.com/api/v5/users/pc-courage",
+      "html_url": "https://gitee.com/pc-courage",
+      "remark": "",
+      "followers_url": "https://gitee.com/api/v5/users/pc-courage/followers",
+      "following_url": "https://gitee.com/api/v5/users/pc-courage/following_url{/other_user}",
+      "gists_url": "https://gitee.com/api/v5/users/pc-courage/gists{/gist_id}",
+      "starred_url": "https://gitee.com/api/v5/users/pc-courage/starred{/owner}{/repo}",
+      "subscriptions_url": "https://gitee.com/api/v5/users/pc-courage/subscriptions",
+      "organizations_url": "https://gitee.com/api/v5/users/pc-courage/orgs",
+      "repos_url": "https://gitee.com/api/v5/users/pc-courage/repos",
+      "events_url": "https://gitee.com/api/v5/users/pc-courage/events{/privacy}",
+      "received_events_url": "https://gitee.com/api/v5/users/pc-courage/received_events",
+      "type": "User",
+      "blog": null,
+      "weibo": null,
+      "bio": "",
+      "public_repos": 66,
+      "public_gists": 0,
+      "followers": 2,
+      "following": 4,
+      "stared": 2,
+      "watched": 67,
+      "created_at": "2020-09-16T16:37:14+08:00",
+      "updated_at": "2026-08-20T15:24:43+08:00",
+      "company": null,
+      "profession": null,
+      "wechat": null,
+      "qq": null,
+      "linkedin": null,
+      "email": null
+    }
+  }
+}

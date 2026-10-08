@@ -1,0 +1,41 @@
+{
+  "baseUrl": "https://dev.azure.com",
+  "anonymous": true,
+  "repo": {
+    "forge": "azure-devops",
+    "instance": "dev.azure.com",
+    "owner": "dnceng-public/public",
+    "name": "dotnet-public-wiki"
+  },
+  "pull": {
+    "forge": "azure-devops",
+    "instance": "dev.azure.com",
+    "repo": {
+      "forge": "azure-devops",
+      "instance": "dev.azure.com",
+      "owner": "dnceng-public/public",
+      "name": "dotnet-public-wiki"
+    },
+    "kind": "pull_request",
+    "number": "5"
+  },
+  "recordedAt": "2026-10-08T16:34:03.718Z",
+  "steps": [
+    "repo",
+    "pull",
+    "pull list",
+    "pull getMany",
+    "pull events",
+    "pull comments",
+    "pull reviews",
+    "pull commits",
+    "checks",
+    "readme",
+    "tree",
+    "branches",
+    "tags",
+    "resolve default branch",
+    "commits",
+    "commit"
+  ]
+}

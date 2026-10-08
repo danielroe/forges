@@ -1,0 +1,71 @@
+{
+  "baseUrl": "https://gitea.com/api/v1",
+  "anonymous": true,
+  "repo": {
+    "forge": "gitea",
+    "instance": "gitea.com",
+    "owner": "gitea",
+    "name": "tea"
+  },
+  "pull": {
+    "forge": "gitea",
+    "instance": "gitea.com",
+    "repo": {
+      "forge": "gitea",
+      "instance": "gitea.com",
+      "owner": "gitea",
+      "name": "tea"
+    },
+    "kind": "pull_request",
+    "number": "1"
+  },
+  "issue": {
+    "forge": "gitea",
+    "instance": "gitea.com",
+    "repo": {
+      "forge": "gitea",
+      "instance": "gitea.com",
+      "owner": "gitea",
+      "name": "tea"
+    },
+    "kind": "issue",
+    "number": "1095"
+  },
+  "recordedAt": "2026-10-08T16:23:50.998Z",
+  "steps": [
+    "repo",
+    "labels",
+    "milestones",
+    "pull",
+    "pull list",
+    "pull getMany",
+    "pull events",
+    "pull comments",
+    "pull reactions",
+    "pull reviews",
+    "pull checks",
+    "pull files",
+    "pull commits",
+    "issue",
+    "issue list",
+    "issue getMany",
+    "issue events",
+    "issue comments",
+    "issue reactions",
+    "user",
+    "checks",
+    "readme",
+    "tree",
+    "branches",
+    "tags",
+    "resolve default branch",
+    "commits",
+    "commit",
+    "releases",
+    "latest release",
+    "release",
+    "release by tag",
+    "search threads",
+    "search repos"
+  ]
+}

@@ -18,7 +18,7 @@ The Gitee provider works with gitee.com through the Gitee Open API v5. It can re
 <!-- header:end -->
 
 ::note
-The Gitee provider is experimental. Its behaviour hasn't been verified against a recording of the live forge, so most of its capabilities are `'experimental'`. To learn what that means, see [Capabilities](/concepts/capabilities).
+The Gitee provider is experimental. Its behaviour has only been verified against an anonymous recording of the live forge, so most of its capabilities are `'experimental'`. To learn what that means, see [Capabilities](/concepts/capabilities).
 ::
 
 ## Authentication
@@ -95,7 +95,7 @@ You can manage webhooks on repositories only. Gitee doesn't keep a delivery log,
 | Capability | Support |
 | --- | --- |
 | `experimental` | ✅ |
-| `sources.poll` | ✅ |
+| `sources.poll` | ✅ (needs credentials) |
 | `sources.webhook` | ✅ |
 | `sources.subscribe` | ❌ |
 | `repos.get` | ✅ |
@@ -113,6 +113,7 @@ You can manage webhooks on repositories only. Gitee doesn't keep a delivery log,
 | `threads.get` | issue (experimental), PR |
 | `threads.list` | issue (experimental), PR |
 | `threads.getMany` | ✅ |
+| `threads.events` | issue (experimental), PR |
 | `comments.list` | issue (experimental), PR |
 | `comments.edit` | issue (experimental), PR (experimental) |
 | `comments.delete` | issue (experimental), PR (experimental) |

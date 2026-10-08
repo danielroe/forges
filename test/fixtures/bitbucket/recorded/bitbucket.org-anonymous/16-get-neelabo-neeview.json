@@ -1,0 +1,144 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"dc389133741ebf25e664fa095a3f62d3\"",
+      "x-ratelimit-remaining": "58",
+      "x-ratelimit-reset": "2164"
+    },
+    "body": {
+      "type": "repository",
+      "full_name": "neelabo/neeview",
+      "links": {
+        "self": {
+          "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview"
+        },
+        "html": {
+          "href": "https://bitbucket.org/neelabo/neeview"
+        },
+        "avatar": {
+          "href": "https://bytebucket.org/ravatar/%7B6b283030-4828-41db-b559-8b120365f356%7D?ts=c_sharp"
+        },
+        "pullrequests": {
+          "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/pullrequests"
+        },
+        "commits": {
+          "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/commits"
+        },
+        "forks": {
+          "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/forks"
+        },
+        "watchers": {
+          "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/watchers"
+        },
+        "branches": {
+          "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/refs/branches"
+        },
+        "tags": {
+          "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/refs/tags"
+        },
+        "downloads": {
+          "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/downloads"
+        },
+        "source": {
+          "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/src"
+        },
+        "clone": [
+          {
+            "name": "https",
+            "href": "https://bitbucket.org/neelabo/neeview.git"
+          },
+          {
+            "name": "ssh",
+            "href": "git@bitbucket.org:neelabo/neeview.git"
+          }
+        ],
+        "issues": {
+          "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/issues"
+        },
+        "hooks": {
+          "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/hooks"
+        }
+      },
+      "name": "NeeView",
+      "slug": "neeview",
+      "description": "Image viewer",
+      "scm": "git",
+      "website": null,
+      "owner": {
+        "display_name": "Ito Mitsuhiro",
+        "links": {
+          "self": {
+            "href": "https://api.bitbucket.org/2.0/workspaces/%7B7247b96a-9628-4fa3-b0ed-06bd83dc23a1%7D"
+          },
+          "avatar": {
+            "href": "https://bitbucket.org/account/neelabo-team/avatar/"
+          },
+          "html": {
+            "href": "https://bitbucket.org/%7B04a60307-bfb6-4dfc-9b19-e862ceab584f%7D/"
+          }
+        },
+        "type": "team",
+        "uuid": "{04a60307-bfb6-4dfc-9b19-e862ceab584f}",
+        "username": "neelabo-team"
+      },
+      "workspace": {
+        "type": "workspace",
+        "uuid": "{7247b96a-9628-4fa3-b0ed-06bd83dc23a1}",
+        "name": "Ito Mitsuhiro",
+        "slug": "neelabo",
+        "links": {
+          "avatar": {
+            "href": "https://bitbucket.org/workspaces/neelabo/avatar/?ts=1543459268"
+          },
+          "html": {
+            "href": "https://bitbucket.org/neelabo/"
+          },
+          "self": {
+            "href": "https://api.bitbucket.org/2.0/workspaces/neelabo"
+          }
+        }
+      },
+      "is_private": false,
+      "project": {
+        "type": "project",
+        "key": "NV",
+        "uuid": "{155c3b98-5f80-4df6-a9c0-a7810f5e80a4}",
+        "name": "NeeView",
+        "links": {
+          "self": {
+            "href": "https://api.bitbucket.org/2.0/workspaces/neelabo/projects/NV"
+          },
+          "html": {
+            "href": "https://bitbucket.org/neelabo/workspace/projects/NV"
+          },
+          "avatar": {
+            "href": "https://bitbucket.org/neelabo/workspace/projects/NV/avatar/32?ts=1590654751"
+          }
+        }
+      },
+      "fork_policy": "allow_forks",
+      "created_on": "2015-12-26T05:41:19.222256+00:00",
+      "updated_on": "2025-01-17T15:05:15.976497+00:00",
+      "size": 99075964,
+      "language": "c#",
+      "uuid": "{6b283030-4828-41db-b559-8b120365f356}",
+      "mainbranch": {
+        "name": "master",
+        "type": "branch"
+      },
+      "override_settings": {
+        "default_merge_strategy": false,
+        "branching_model": false
+      },
+      "parent": null,
+      "enforced_signed_commits": null,
+      "has_issues": true,
+      "has_wiki": true
+    }
+  }
+}

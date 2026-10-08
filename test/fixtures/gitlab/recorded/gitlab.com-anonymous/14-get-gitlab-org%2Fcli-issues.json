@@ -8,8 +8,9 @@
     "headers": {
       "link": "<https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/issues?id=gitlab-org%2Fcli&order_by=created_at&page=2&per_page=3&sort=desc&state=opened&with_labels_details=false>; rel=\"next\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/issues?id=gitlab-org%2Fcli&order_by=created_at&page=1&per_page=3&sort=desc&state=opened&with_labels_details=false>; rel=\"first\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/issues?id=gitlab-org%2Fcli&order_by=created_at&page=88&per_page=3&sort=desc&state=opened&with_labels_details=false>; rel=\"last\"",
       "etag": "W/\"8e6788712866ce615f814fe4f909f095\"",
-      "ratelimit-remaining": "481",
-      "ratelimit-reset": "1791474000",
+      "ratelimit-limit": "500",
+      "ratelimit-remaining": "486",
+      "ratelimit-reset": "1791477420",
       "x-total": "264",
       "x-total-pages": "88",
       "x-next-page": "2",

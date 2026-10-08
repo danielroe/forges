@@ -135,7 +135,7 @@ export interface RecordingFetch {
   fixtures: Fixture[]
 }
 
-const RECORDED_HEADERS = ['link', 'etag', 'location', 'retry-after', 'x-ratelimit-remaining', 'x-ratelimit-reset', 'ratelimit-remaining', 'ratelimit-reset', 'x-total', 'x-total-count', 'x-total-pages', 'x-next-page', 'x-page', 'x-per-page', 'total_page', 'total_count']
+const RECORDED_HEADERS = ['link', 'etag', 'location', 'retry-after', 'x-ratelimit-limit', 'ratelimit-limit', 'x-ratelimit-remaining', 'x-ratelimit-reset', 'ratelimit-remaining', 'ratelimit-reset', 'x-total', 'x-total-count', 'x-total-pages', 'x-next-page', 'x-page', 'x-per-page', 'total_page', 'total_count']
 
 /**
  * Wraps `fetch` (the global one by default) and records every response as a

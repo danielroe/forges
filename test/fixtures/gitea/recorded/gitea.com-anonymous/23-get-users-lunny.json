@@ -1,0 +1,28 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitea.com/api/v1/users/lunny"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "id": 1,
+      "login": "lunny",
+      "type": "User",
+      "source_id": 0,
+      "full_name": "Lunny Xiao",
+      "email": "redacted@example.invalid",
+      "avatar_url": "https://seccdn.libravatar.org/avatar/b897d40dc87fdba4a024827c3967597434681a8f4f0f4eb5d73e0f8b1a0a9274?d=identicon",
+      "html_url": "https://gitea.com/lunny",
+      "active": false,
+      "location": "Silicon Valley",
+      "website": "https://gitea.com",
+      "description": "",
+      "followers_count": 114,
+      "following_count": 95,
+      "starred_repos_count": 366,
+      "username": "lunny"
+    }
+  }
+}

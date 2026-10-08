@@ -7,8 +7,9 @@
     "status": 200,
     "headers": {
       "etag": "W/\"613ead4a2d9f60943a0b5ab31582164d\"",
-      "ratelimit-remaining": "456",
-      "ratelimit-reset": "1791474000"
+      "ratelimit-limit": "500",
+      "ratelimit-remaining": "465",
+      "ratelimit-reset": "1791477480"
     },
     "body": {
       "name": "v1.121.0",

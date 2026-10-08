@@ -100,7 +100,7 @@ if (!target || (target !== 'tangled' && !(target in TOKEN_VARIABLES))) {
 
 const bitbucketBasic = !flags.anonymous && target === 'bitbucket' && env.BITBUCKET_USERNAME && env.BITBUCKET_APP_PASSWORD
 const token = flags.anonymous ? undefined : env[TOKEN_VARIABLES[target] ?? '']
-if (!token && !bitbucketBasic && ['cursor-origin', 'azure-devops'].includes(target)) {
+if (!token && target === 'cursor-origin') {
   console.error(flags.anonymous ? `${target} has no anonymous access.` : `No ${TOKEN_VARIABLES[target]} in the environment or .env.`)
   exit(1)
 }
@@ -207,7 +207,7 @@ function repoRef(forge: string, instance: string, slug: string): Forges.RepoRef 
   return { forge, instance, owner, name }
 }
 
-const timeout = 10_000
+const timeout = 30_000
 const tokenAuth = token ? { type: 'token' as const, token } : undefined
 
 interface Target {
@@ -294,7 +294,7 @@ function targetFor(): Target {
     }
     case 'azure-devops': {
       const organization = env.FIXTURE_AZURE_DEVOPS_ORGANIZATION ?? ''
-      const provider = azureDevOps({ auth: tokenAuth!, organization, fetch: recordLive, timeout }).create()
+      const provider = azureDevOps({ auth: tokenAuth, organization, fetch: recordLive, timeout }).create()
       const repo = { forge: 'azure-devops', instance: provider.instance, owner: `${organization}/${env.FIXTURE_AZURE_DEVOPS_PROJECT ?? ''}`, name: env.FIXTURE_AZURE_DEVOPS_REPO ?? '' }
       return { provider, manifest: {
         repo,

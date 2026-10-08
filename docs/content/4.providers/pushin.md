@@ -93,6 +93,7 @@ Since `pushin()` contains no webhook code, there is no `pushinLite()` factory fo
 | `threads.get` | issue, PR (experimental) |
 | `threads.list` | issue, PR (experimental) |
 | `threads.getMany` | ✅ |
+| `threads.events` | issue (emulated), PR (emulated) |
 | `comments.list` | issue, PR (experimental) |
 | `comments.edit` | ❌ |
 | `comments.delete` | ❌ |

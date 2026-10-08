@@ -62,7 +62,8 @@
       "etag": "W/\"e4d6d597bde4055f85ac2cd09f35aef4\""
     },
     "rateLimit": {
-      "remaining": 483,
+      "limit": 500,
+      "remaining": 488,
       "resetAt": "<now>"
     }
   },
@@ -212,11 +213,11 @@
             "actor": {
               "forge": "gitlab",
               "instance": "gitlab.com",
-              "login": "jachapman",
-              "id": "20358008",
-              "name": "Jack Chapman",
-              "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/20358008/avatar.png?v=1791457524",
-              "url": "https://gitlab.com/jachapman",
+              "login": "jay_mccure",
+              "id": "11809982",
+              "name": "Jay McCure",
+              "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1791444159",
+              "url": "https://gitlab.com/jay_mccure",
               "isBotHint": false
             },
             "state": "unknown"
@@ -239,7 +240,7 @@
         "branches": {
           "head": {
             "ref": "fix/release-create-links-in-create-request-upstream",
-            "sha": "2fe33e2c4598e45b69f9a3f8da1282b6ad7d9942"
+            "sha": "a8fd0cf3e6c71f2f8ae78af866173f4eac3212e6"
           },
           "base": {
             "ref": "main"
@@ -288,7 +289,7 @@
             "name": "workflow::ready for review"
           }
         ],
-        "commentCount": 4,
+        "commentCount": 8,
         "reactions": {
           "total": 0,
           "counts": {}
@@ -321,7 +322,7 @@
             "login": "marcel.amirault",
             "id": "4155490",
             "name": "Marcel Amirault",
-            "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/4155490/avatar.png?v=1791470973",
+            "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/4155490/avatar.png?v=1791474708",
             "url": "https://gitlab.com/marcel.amirault",
             "isBotHint": false
           }
@@ -354,7 +355,7 @@
             "state": "unknown"
           }
         ],
-        "lastActivityAt": "<now>",
+        "lastActivityAt": "2026-10-08T14:40:20.869Z",
         "branches": {
           "head": {
             "ref": "docs-review-app-group-secrets",
@@ -376,14 +377,14 @@
           "login": "marcel.amirault",
           "id": "4155490",
           "name": "Marcel Amirault",
-          "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/4155490/avatar.png?v=1791470973",
+          "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/4155490/avatar.png?v=1791474708",
           "url": "https://gitlab.com/marcel.amirault",
           "typeRaw": "user",
           "isBotHint": false
         },
         "url": "https://gitlab.com/gitlab-org/cli/-/merge_requests/4039",
         "createdAt": "2026-10-08T06:45:11.363Z",
-        "updatedAt": "<now>",
+        "updatedAt": "2026-10-08T14:40:20.869Z",
         "labels": [
           {
             "name": "Technical Writing"
@@ -506,11 +507,12 @@
     ],
     "cursor": {
       "nextUrl": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/merge_requests?id=gitlab-org%2Fcli&order_by=created_at&page=2&per_page=3&sort=desc&state=opened&with_labels_details=false&with_merge_status_recheck=false",
-      "etag": "W/\"db6c9562577e0ca1f113af1738064eb1\"",
+      "etag": "W/\"430a1bef199c4390941263158c62dab4\"",
       "token": "0:"
     },
     "rateLimit": {
-      "remaining": 493,
+      "limit": 500,
+      "remaining": 496,
       "resetAt": "<now>"
     }
   },
@@ -641,7 +643,8 @@
   "pull reactions": {
     "items": [],
     "rateLimit": {
-      "remaining": 489,
+      "limit": 500,
+      "remaining": 494,
       "resetAt": "<now>"
     }
   },
@@ -1069,7 +1072,8 @@
       }
     ],
     "rateLimit": {
-      "remaining": 485,
+      "limit": 500,
+      "remaining": 490,
       "resetAt": "<now>"
     }
   },
@@ -1106,7 +1110,8 @@
       }
     ],
     "rateLimit": {
-      "remaining": 484,
+      "limit": 500,
+      "remaining": 489,
       "resetAt": "<now>"
     }
   },
@@ -1148,7 +1153,8 @@
       "etag": "W/\"e4d6d597bde4055f85ac2cd09f35aef4\""
     },
     "rateLimit": {
-      "remaining": 483,
+      "limit": 500,
+      "remaining": 488,
       "resetAt": "<now>"
     }
   },
@@ -1403,7 +1409,8 @@
       "token": "0:"
     },
     "rateLimit": {
-      "remaining": 481,
+      "limit": 500,
+      "remaining": 486,
       "resetAt": "<now>"
     }
   },
@@ -1478,7 +1485,8 @@
   "issue reactions": {
     "items": [],
     "rateLimit": {
-      "remaining": 477,
+      "limit": 500,
+      "remaining": 484,
       "resetAt": "<now>"
     }
   },
@@ -1504,16 +1512,16 @@
             "owner": "gitlab-org",
             "name": "cli"
           },
-          "id": "2927190635"
+          "id": "2927376976"
         },
-        "name": "duo_workflow",
+        "name": "merge_request_event",
         "state": "pending",
         "stateRaw": "running",
-        "number": "14921",
-        "eventRaw": "duo_workflow",
-        "branch": "refs/workloads/85bbe4ba37d",
-        "sha": "8ae0c0ef5cf94d75354053095bbdc2ec7fefd96f",
-        "url": "https://gitlab.com/gitlab-org/cli/-/pipelines/2927190635",
+        "number": "14925",
+        "eventRaw": "merge_request_event",
+        "branch": "refs/merge-requests/4001/merge",
+        "sha": "f0662f095afc0618007ad5d165426cd421a7e2ce",
+        "url": "https://gitlab.com/gitlab-org/cli/-/pipelines/2927376976",
         "createdAt": "<now>"
       },
       {
@@ -1526,17 +1534,17 @@
             "owner": "gitlab-org",
             "name": "cli"
           },
-          "id": "2926469141"
+          "id": "2927334059"
         },
         "name": "duo_workflow",
         "state": "success",
         "stateRaw": "success",
-        "number": "14920",
+        "number": "14924",
         "eventRaw": "duo_workflow",
-        "branch": "refs/workloads/b64af0bfa5b",
-        "sha": "8ae0c0ef5cf94d75354053095bbdc2ec7fefd96f",
-        "url": "https://gitlab.com/gitlab-org/cli/-/pipelines/2926469141",
-        "createdAt": "2026-10-08T12:29:48.122Z"
+        "branch": "refs/workloads/c4e06365b2d",
+        "sha": "6107cac63ef7f07032f277963374de2b15cdae1d",
+        "url": "https://gitlab.com/gitlab-org/cli/-/pipelines/2927334059",
+        "createdAt": "<now>"
       },
       {
         "ref": {
@@ -1548,25 +1556,26 @@
             "owner": "gitlab-org",
             "name": "cli"
           },
-          "id": "2926294988"
+          "id": "2927333747"
         },
-        "name": "duo_workflow",
+        "name": "merge_request_event",
         "state": "success",
         "stateRaw": "success",
-        "number": "14919",
-        "eventRaw": "duo_workflow",
-        "branch": "refs/workloads/f766c5edc91",
-        "sha": "e5744837964583c704f00328e92496fb11dd9e30",
-        "url": "https://gitlab.com/gitlab-org/cli/-/pipelines/2926294988",
-        "createdAt": "2026-10-08T11:43:10.765Z"
+        "number": "14923",
+        "eventRaw": "merge_request_event",
+        "branch": "refs/merge-requests/4021/merge",
+        "sha": "5c7a0cfdbe12a8a33df16925752e69981f4277e6",
+        "url": "https://gitlab.com/gitlab-org/cli/-/pipelines/2927333747",
+        "createdAt": "<now>"
       }
     ],
     "cursor": {
       "nextUrl": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/pipelines?id=gitlab-org%2Fcli&order_by=id&page=2&per_page=3&sort=desc",
-      "etag": "W/\"7e8a7357f44d743ef0b37cc6fc3cf9bc\""
+      "etag": "W/\"5e1e69f2d66a227a645c3ee80394f007\""
     },
     "rateLimit": {
-      "remaining": 471,
+      "limit": 500,
+      "remaining": 481,
       "resetAt": "<now>"
     }
   },
@@ -1580,24 +1589,24 @@
         "owner": "gitlab-org",
         "name": "cli"
       },
-      "id": "2927190635"
+      "id": "2927376976"
     },
-    "name": "duo_workflow",
+    "name": "merge_request_event",
     "state": "pending",
     "stateRaw": "running",
-    "number": "14921",
-    "eventRaw": "duo_workflow",
-    "branch": "refs/workloads/85bbe4ba37d",
-    "sha": "8ae0c0ef5cf94d75354053095bbdc2ec7fefd96f",
-    "url": "https://gitlab.com/gitlab-org/cli/-/pipelines/2927190635",
+    "number": "14925",
+    "eventRaw": "merge_request_event",
+    "branch": "refs/merge-requests/4001/merge",
+    "sha": "f0662f095afc0618007ad5d165426cd421a7e2ce",
+    "url": "https://gitlab.com/gitlab-org/cli/-/pipelines/2927376976",
     "actor": {
       "forge": "gitlab",
       "instance": "gitlab.com",
-      "login": "duo-code-review-gitlab-org",
-      "id": "32742181",
-      "name": "Duo Code Review",
-      "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/32742181/code-review-flow.png?v=1791417632",
-      "url": "https://gitlab.com/duo-code-review-gitlab-org",
+      "login": "phikai",
+      "id": "2935693",
+      "name": "Kai Armstrong",
+      "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/2935693/avatar.png?v=1791475756",
+      "url": "https://gitlab.com/phikai",
       "isBotHint": false
     },
     "createdAt": "<now>",
@@ -1615,7 +1624,7 @@
             "owner": "gitlab-org",
             "name": "cli"
           },
-          "id": "17036018767",
+          "id": "17037487739",
           "run": {
             "forge": "gitlab",
             "instance": "gitlab.com",
@@ -1625,19 +1634,81 @@
               "owner": "gitlab-org",
               "name": "cli"
             },
-            "id": "2927190635"
+            "id": "2927376976"
           }
         },
-        "name": "workload",
+        "name": "review-docs-cleanup",
+        "state": "neutral",
+        "stateRaw": "manual",
+        "stage": "review",
+        "url": "https://gitlab.com/gitlab-org/cli/-/jobs/17037487739"
+      },
+      {
+        "ref": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "repo": {
+            "forge": "gitlab",
+            "instance": "gitlab.com",
+            "owner": "gitlab-org",
+            "name": "cli"
+          },
+          "id": "17037487738",
+          "run": {
+            "forge": "gitlab",
+            "instance": "gitlab.com",
+            "repo": {
+              "forge": "gitlab",
+              "instance": "gitlab.com",
+              "owner": "gitlab-org",
+              "name": "cli"
+            },
+            "id": "2927376976"
+          }
+        },
+        "name": "review-docs-deploy",
+        "state": "neutral",
+        "stateRaw": "manual",
+        "stage": "review",
+        "url": "https://gitlab.com/gitlab-org/cli/-/jobs/17037487738"
+      },
+      {
+        "ref": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "repo": {
+            "forge": "gitlab",
+            "instance": "gitlab.com",
+            "owner": "gitlab-org",
+            "name": "cli"
+          },
+          "id": "17037487737",
+          "run": {
+            "forge": "gitlab",
+            "instance": "gitlab.com",
+            "repo": {
+              "forge": "gitlab",
+              "instance": "gitlab.com",
+              "owner": "gitlab-org",
+              "name": "cli"
+            },
+            "id": "2927376976"
+          }
+        },
+        "name": "tests:coverage",
         "state": "pending",
-        "stateRaw": "running",
-        "stage": "build",
-        "url": "https://gitlab.com/gitlab-org/cli/-/jobs/17036018767",
-        "startedAt": "<now>"
+        "stateRaw": "created",
+        "stage": "test",
+        "url": "https://gitlab.com/gitlab-org/cli/-/jobs/17037487737"
       }
     ],
+    "cursor": {
+      "nextUrl": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/pipelines/2927376976/jobs?id=gitlab-org%2Fcli&include_retried=false&page=2&per_page=3&pipeline_id=2927376976",
+      "etag": "W/\"646c06139f231cf8ab125a175ca36ef6\""
+    },
     "rateLimit": {
-      "remaining": 469,
+      "limit": 500,
+      "remaining": 479,
       "resetAt": "<now>"
     }
   },
@@ -1674,7 +1745,8 @@
       "etag": "W/\"21e44687368afa83e1d7e7b837f31ea4\""
     },
     "rateLimit": {
-      "remaining": 466,
+      "limit": 500,
+      "remaining": 476,
       "resetAt": "<now>"
     }
   },
@@ -1707,7 +1779,8 @@
       "etag": "W/\"b29a5b6c83593279289b357f7ff2a3db\""
     },
     "rateLimit": {
-      "remaining": 465,
+      "limit": 500,
+      "remaining": 475,
       "resetAt": "<now>"
     }
   },
@@ -1731,7 +1804,8 @@
       "etag": "W/\"ae6af3c926af9453d24e97ec23a48acf\""
     },
     "rateLimit": {
-      "remaining": 464,
+      "limit": 500,
+      "remaining": 474,
       "resetAt": "<now>"
     }
   },
@@ -1833,7 +1907,8 @@
       "etag": "W/\"7188eba3dc943291e734ec4591b4b563\""
     },
     "rateLimit": {
-      "remaining": 462,
+      "limit": 500,
+      "remaining": 472,
       "resetAt": "<now>"
     }
   },
@@ -2428,7 +2503,8 @@
       "etag": "W/\"fc9cedaf13fed5581d7c99903772d06e\""
     },
     "rateLimit": {
-      "remaining": 458,
+      "limit": 500,
+      "remaining": 468,
       "resetAt": "<now>"
     }
   },
@@ -2990,7 +3066,7 @@
         "isDraft": false,
         "assignees": [],
         "reviewers": [],
-        "lastActivityAt": "2026-10-08T11:42:28.638Z",
+        "lastActivityAt": "<now>",
         "author": {
           "forge": "gitlab",
           "instance": "gitlab.com",
@@ -3003,7 +3079,7 @@
         },
         "url": "https://gitlab.com/gitlab-org/cli/-/work_items/7943",
         "createdAt": "2025-07-30T13:42:40.813Z",
-        "updatedAt": "2026-10-08T11:42:28.638Z",
+        "updatedAt": "<now>",
         "labels": [
           {
             "name": "UI text"
@@ -3033,7 +3109,7 @@
             "name": "vintage"
           }
         ],
-        "commentCount": 3,
+        "commentCount": 4,
         "reactions": {
           "total": 0,
           "counts": {}
@@ -3199,16 +3275,65 @@
     ],
     "cursor": {
       "nextUrl": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/issues?id=gitlab-org%2Fcli&in=title%2Cdescription&order_by=updated_at&page=2&per_page=3&search=fix&sort=desc&state=all&with_labels_details=false",
-      "etag": "W/\"ec29c14feb2d82a4bdceac0e1e00fd1e\"",
+      "etag": "W/\"9a04827fb3d47c86ece8573ed64bb3af\"",
       "token": "0:"
     },
     "rateLimit": {
-      "remaining": 454,
+      "limit": 500,
+      "remaining": 464,
       "resetAt": "<now>"
     }
   },
   "search repos": {
     "items": [
+      {
+        "ref": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "owner": "bsrvdental",
+          "name": "dentalclinicinscarborough",
+          "externalId": "87397304"
+        },
+        "defaultBranch": "main",
+        "visibility": "public",
+        "visibilityRaw": "public",
+        "isFork": false,
+        "isArchived": false,
+        "topics": [],
+        "url": "https://gitlab.com/bsrvdental/dentalclinicinscarborough",
+        "cloneUrls": {
+          "https": "https://gitlab.com/bsrvdental/dentalclinicinscarborough.git",
+          "ssh": "git@gitlab.com:bsrvdental/dentalclinicinscarborough.git"
+        },
+        "createdAt": "<now>",
+        "updatedAt": "<now>",
+        "stars": 0,
+        "forks": 0
+      },
+      {
+        "ref": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "owner": "marmota",
+          "name": "poweramp-radio-cli",
+          "externalId": "87397109"
+        },
+        "defaultBranch": "main",
+        "visibility": "public",
+        "visibilityRaw": "public",
+        "isFork": false,
+        "isArchived": false,
+        "topics": [],
+        "url": "https://gitlab.com/marmota/poweramp-radio-cli",
+        "cloneUrls": {
+          "https": "https://gitlab.com/marmota/poweramp-radio-cli.git",
+          "ssh": "git@gitlab.com:marmota/poweramp-radio-cli.git"
+        },
+        "createdAt": "<now>",
+        "updatedAt": "<now>",
+        "stars": 0,
+        "forks": 0
+      },
       {
         "ref": {
           "forge": "gitlab",
@@ -3229,75 +3354,20 @@
           "https": "https://gitlab.com/KotlinJS5/pulsestream.git",
           "ssh": "git@gitlab.com:KotlinJS5/pulsestream.git"
         },
-        "createdAt": "<now>",
+        "createdAt": "2026-10-08T15:29:04.588Z",
         "updatedAt": "<now>",
-        "stars": 0,
-        "forks": 0
-      },
-      {
-        "ref": {
-          "forge": "gitlab",
-          "instance": "gitlab.com",
-          "owner": "sebastix-group/nostr",
-          "name": "ditto-v2",
-          "externalId": "87392557"
-        },
-        "description": "Nostr client with other stuff",
-        "defaultBranch": "main",
-        "visibility": "public",
-        "visibilityRaw": "public",
-        "isFork": false,
-        "isArchived": false,
-        "topics": [],
-        "url": "https://gitlab.com/sebastix-group/nostr/ditto-v2",
-        "cloneUrls": {
-          "https": "https://gitlab.com/sebastix-group/nostr/ditto-v2.git",
-          "ssh": "git@gitlab.com:sebastix-group/nostr/ditto-v2.git"
-        },
-        "createdAt": "2026-10-08T14:19:26.111Z",
-        "updatedAt": "2026-10-08T14:19:25.992Z",
-        "stars": 0,
-        "forks": 0
-      },
-      {
-        "ref": {
-          "forge": "gitlab",
-          "instance": "gitlab.com",
-          "owner": "svrbc/forks",
-          "name": "analytics.svrbc.org",
-          "externalId": "87391122"
-        },
-        "description": "Who visits SVRBC's sites, and what they click: https://analytics.svrbc.org",
-        "defaultBranch": "master",
-        "visibility": "public",
-        "visibilityRaw": "public",
-        "isFork": false,
-        "isArchived": false,
-        "topics": [],
-        "url": "https://gitlab.com/svrbc/forks/analytics.svrbc.org",
-        "cloneUrls": {
-          "https": "https://gitlab.com/svrbc/forks/analytics.svrbc.org.git",
-          "ssh": "git@gitlab.com:svrbc/forks/analytics.svrbc.org.git"
-        },
-        "createdAt": "2026-10-08T13:53:13.467Z",
-        "updatedAt": "2026-10-08T13:53:13.337Z",
         "stars": 0,
         "forks": 0
       }
     ],
     "cursor": {
       "nextUrl": "https://gitlab.com/api/v4/projects?imported=false&include_hidden=false&membership=false&order_by=created_at&owned=false&page=2&per_page=3&repository_checksum_failed=false&search=cli&simple=false&sort=desc&starred=false&statistics=false&wiki_checksum_failed=false&with_custom_attributes=false&with_issues_enabled=false&with_merge_requests_enabled=false",
-      "etag": "W/\"f376ef766fa658227e215c40fc7a8299\""
+      "etag": "W/\"28bb5ae0cd401d0dd7b9f6ea6f23c27d\""
     },
     "rateLimit": {
-      "remaining": 453,
+      "limit": 500,
+      "remaining": 463,
       "resetAt": "<now>"
-    }
-  },
-  "security alerts": {
-    "items": [],
-    "cursor": {
-      "token": "eyJzZXZlcml0eSI6ImxvdyIsInZ1bG5lcmFiaWxpdHlfaWQiOiIzNzkxMTE4OTYifQ"
     }
   }
 }

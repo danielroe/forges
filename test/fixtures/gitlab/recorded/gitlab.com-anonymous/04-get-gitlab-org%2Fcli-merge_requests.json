@@ -7,9 +7,10 @@
     "status": 200,
     "headers": {
       "link": "<https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/merge_requests?id=gitlab-org%2Fcli&order_by=created_at&page=2&per_page=3&sort=desc&state=opened&with_labels_details=false&with_merge_status_recheck=false>; rel=\"next\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/merge_requests?id=gitlab-org%2Fcli&order_by=created_at&page=1&per_page=3&sort=desc&state=opened&with_labels_details=false&with_merge_status_recheck=false>; rel=\"first\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/merge_requests?id=gitlab-org%2Fcli&order_by=created_at&page=28&per_page=3&sort=desc&state=opened&with_labels_details=false&with_merge_status_recheck=false>; rel=\"last\"",
-      "etag": "W/\"db6c9562577e0ca1f113af1738064eb1\"",
-      "ratelimit-remaining": "493",
-      "ratelimit-reset": "1791473940",
+      "etag": "W/\"430a1bef199c4390941263158c62dab4\"",
+      "ratelimit-limit": "500",
+      "ratelimit-remaining": "496",
+      "ratelimit-reset": "1791477420",
       "x-total": "83",
       "x-total-pages": "28",
       "x-next-page": "2",
@@ -25,7 +26,7 @@
         "description": "## Description\n\nThis MR fixes gitlab-org/gitlab#574029. We have been \"handling\" it by manually editing and saving each release after it was created. It was quite inconvenient, so before adding a hacky stage to automate it we threw an agent at it to see how it could be properly fixed.\n\nThe main change is that instead of having the links get sent separately, they get sent in the create request. If the release already exists, it goes through the existing route.\n\n## Related Issues\nResolves gitlab-org/gitlab#574029 (it was closed without a fix)\n\nRelated to #7859 (feedback issue for the move from release-cli to glab)\n\n## How has this been tested?\n\n- Unit tests for `ToReleaseAssetsOptions`\n- Updated the create test with the new behavior\n- End-to-end manual test (not included):\n    - Our company's self-managed instance\n    - `release:` job with one link\n    - release-cli container image carrying this glab\n    - Replaced the used image with the patched one\n    - Running a tag release generated the expected effect",
         "state": "opened",
         "created_at": "2026-10-08T11:30:25.375Z",
-        "updated_at": "2026-10-08T15:37:23.577Z",
+        "updated_at": "2026-10-08T16:20:53.545Z",
         "merged_by": null,
         "merge_user": null,
         "merged_at": null,
@@ -33,7 +34,7 @@
         "closed_at": null,
         "target_branch": "main",
         "source_branch": "fix/release-create-links-in-create-request-upstream",
-        "user_notes_count": 4,
+        "user_notes_count": 8,
         "upvotes": 0,
         "downvotes": 0,
         "author": {
@@ -71,14 +72,14 @@
         },
         "reviewers": [
           {
-            "id": 20358008,
-            "username": "jachapman",
+            "id": 11809982,
+            "username": "jay_mccure",
             "public_email": "",
-            "name": "Jack Chapman",
+            "name": "Jay McCure",
             "state": "active",
             "locked": false,
-            "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/20358008/avatar.png?v=1791457524",
-            "web_url": "https://gitlab.com/jachapman"
+            "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1791444159",
+            "web_url": "https://gitlab.com/jay_mccure"
           },
           {
             "id": 21826781,
@@ -111,9 +112,9 @@
         "milestone": null,
         "merge_when_pipeline_succeeds": false,
         "merge_status": "can_be_merged",
-        "detailed_merge_status": "discussions_not_resolved",
+        "detailed_merge_status": "requested_changes",
         "merge_after": null,
-        "sha": "2fe33e2c4598e45b69f9a3f8da1282b6ad7d9942",
+        "sha": "a8fd0cf3e6c71f2f8ae78af866173f4eac3212e6",
         "merge_commit_sha": null,
         "squash_commit_sha": null,
         "discussion_locked": null,
@@ -171,7 +172,7 @@
           "name": "Marcel Amirault",
           "state": "active",
           "locked": false,
-          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/4155490/avatar.png?v=1791470973",
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/4155490/avatar.png?v=1791474708",
           "web_url": "https://gitlab.com/marcel.amirault",
           "bot": false
         },
@@ -183,7 +184,7 @@
             "name": "Marcel Amirault",
             "state": "active",
             "locked": false,
-            "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/4155490/avatar.png?v=1791470973",
+            "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/4155490/avatar.png?v=1791474708",
             "web_url": "https://gitlab.com/marcel.amirault"
           }
         ],
@@ -194,7 +195,7 @@
           "name": "Marcel Amirault",
           "state": "active",
           "locked": false,
-          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/4155490/avatar.png?v=1791470973",
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/4155490/avatar.png?v=1791474708",
           "web_url": "https://gitlab.com/marcel.amirault"
         },
         "reviewers": [

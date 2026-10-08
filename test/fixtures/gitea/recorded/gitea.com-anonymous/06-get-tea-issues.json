@@ -1,0 +1,216 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitea.com/api/v1/repos/gitea/tea/issues?state=open&type=pulls&limit=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "<https://gitea.com/api/v1/repos/gitea/tea/issues?limit=3&page=2&state=open&type=pulls>; rel=\"next\",<https://gitea.com/api/v1/repos/gitea/tea/issues?limit=3&page=13&state=open&type=pulls>; rel=\"last\"",
+      "x-total-count": "37"
+    },
+    "body": [
+      {
+        "id": 508514,
+        "url": "https://gitea.com/api/v1/repos/gitea/tea/issues/1126",
+        "html_url": "https://gitea.com/gitea/tea/pulls/1126",
+        "number": 1126,
+        "user": {
+          "id": 173651,
+          "login": "bircni",
+          "type": "User",
+          "source_id": 0,
+          "full_name": "bircni",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://seccdn.libravatar.org/avatar/345fd80f2a069177c27dd0de27c99672940cce0923fca8de847119c573aab745?d=identicon",
+          "html_url": "https://gitea.com/bircni",
+          "active": false,
+          "location": "",
+          "website": "",
+          "description": "",
+          "followers_count": 0,
+          "following_count": 2,
+          "starred_repos_count": 2,
+          "username": "bircni"
+        },
+        "original_author": "",
+        "original_author_id": 0,
+        "title": "feat!: switch tea to the Cobra command tree (5/5)",
+        "body": "Part 5/5 of the tea 1.0 rewrite. Builds on #1125: the last two commits are new.\n\n**Stack** (split from #1121; each PR targets `main` and builds, tests and lints on its own — the shipped CLI only changes in part 5):\n\n1. #1122 Toolchain and foundation packages\n2. #1123 Credentials and Git\n3. #1124 Terminal\n4. #1125 Services\n5. #1126 CLI wiring, docs, removal of the old tree ← this PR\n\n## Changes\n\n- **feat!: switch tea to the Cobra command tree:** `internal/app` wires the packages from parts 1–4 into explicit noun/verb commands with `--repo`, `--json` / `--jq`, `--sudo` and `--debug`; `main.go` points at it. Build, release and docs tooling (`tools/cli-docs`, Makefile, goreleaser, snap, CI) and README / CONTRIBUTING are updated.\n- **refactor!: remove the urfave/cli command tree:** deletes `cmd/`, `modules/`, the old integration tests, contrib completion scripts and the generated `docs/CLI.md`, and drops their dependencies. This commit only deletes.\n\n## Breaking changes\n\nThis is a breaking release. It requires Gitea 28 or newer; configuration moves to separate `config.yml` and `hosts.yml` files and requires fresh authentication, and command names, aliases, flags and output formats change. `docs/migration-1.0.md` maps every old command, flag and environment variable to its replacement.\n\n\n## Issues\n\nfixes #1118\nfixes #1116\nfixes #1115\nfixes #1094\nfixes #1091\nfixes #1073\nfixes #1052\nfixes #1032\nfixes #1023\nfixes #966\nfixes #908\nfixes #833\nfixes #831\nfixes #817\nfixes #804\nfixes #779\nfixes #770\nfixes #737\nfixes #697\nfixes #726\nfixes #677\nfixes #672\nfixes #633\nfixes #632\nfixes #560\nfixes #556\nfixes #523\nfixes #516\nfixes #510\nfixes #504\nfixes #500\nfixes #482\nfixes #406\nfixes #403\nfixes #373\nfixes #351\nfixes #344\nfixes #326\nfixes #325\nfixes #323\nfixes #246\nfixes #240\nfixes #232\nfixes #197\nfixes #172\nfixes #141\nfixes #69\nfixes #1110\nfixes #569\nfixes #480\nfixes #666\nfixes #670\nfixes #457\nfixes #643\nfixes #498\nfixes #490\nfixes #1069\nfixes #834\nfixes #602\nfixes #328\nfixes #417\nfixes #571\nfixes #1029\nfixes #489\nfixes #1050\nfixes #162\nfixes #430\nfixes #1087\nfixes #683\n\n",
+        "ref": "",
+        "assets": [],
+        "labels": [
+          {
+            "id": 431,
+            "name": "kind/breaking",
+            "exclusive": false,
+            "is_archived": false,
+            "color": "fbca04",
+            "description": "",
+            "url": "https://gitea.com/api/v1/repos/gitea/tea/labels/431"
+          }
+        ],
+        "milestone": null,
+        "projects": null,
+        "assignee": null,
+        "assignees": null,
+        "state": "open",
+        "is_locked": false,
+        "comments": 0,
+        "created_at": "2026-10-07T05:15:17Z",
+        "updated_at": "2026-10-07T18:51:36Z",
+        "closed_at": null,
+        "due_date": null,
+        "time_estimate": 0,
+        "pull_request": {
+          "merged": false,
+          "merged_at": null,
+          "draft": false,
+          "html_url": "https://gitea.com/gitea/tea/pulls/1126"
+        },
+        "repository": {
+          "id": 550,
+          "name": "tea",
+          "owner": "gitea",
+          "full_name": "gitea/tea"
+        },
+        "pin_order": 0,
+        "content_version": 3
+      },
+      {
+        "id": 508513,
+        "url": "https://gitea.com/api/v1/repos/gitea/tea/issues/1125",
+        "html_url": "https://gitea.com/gitea/tea/pulls/1125",
+        "number": 1125,
+        "user": {
+          "id": 173651,
+          "login": "bircni",
+          "type": "User",
+          "source_id": 0,
+          "full_name": "bircni",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://seccdn.libravatar.org/avatar/345fd80f2a069177c27dd0de27c99672940cce0923fca8de847119c573aab745?d=identicon",
+          "html_url": "https://gitea.com/bircni",
+          "active": false,
+          "location": "",
+          "website": "",
+          "description": "",
+          "followers_count": 0,
+          "following_count": 2,
+          "starred_repos_count": 2,
+          "username": "bircni"
+        },
+        "original_author": "",
+        "original_author_id": 0,
+        "title": "feat: add the services layer for the Cobra rewrite (4/5)",
+        "body": "Part 4/5 of the tea 1.0 rewrite. Builds on #1124: only the last commit is new.\n\n**Stack** (split from #1121; each PR targets `main` and builds, tests and lints on its own — the shipped CLI only changes in part 5):\n\n1. #1122 Toolchain and foundation packages\n2. #1123 Credentials and Git\n3. #1124 Terminal\n4. #1125 Services ← this PR\n5. #1126 CLI wiring, docs, removal of the old tree\n\n## Changes\n\n- `internal/services`: typed Gitea workflows built on `gitea.dev/sdk`, independent of CLI flags and terminal I/O: issues, pull requests, reviews, comments, labels, milestones, releases and assets, repositories, branches, wiki, Actions (workflows, runs, jobs, logs, artifacts, secrets, variables), organizations, teams, webhooks, notifications, SSH keys, tracked time, admin users, search and status.\n- SDK types are mapped to tea's own output types, so `--json` stays a stable contract. Requests the SDK cannot express yet (e.g. pull list filters, multi-status run lists, org label archiving) go through small raw helpers, each marked `TODO(sdk)` with the missing SDK piece.\n- Targets Gitea 28 or newer: no version or API-schema probing. List helpers fill pages capped by `MAX_RESPONSE_ITEMS`.\n\nNothing imports this package yet.\n\n",
+        "ref": "",
+        "assets": [],
+        "labels": [
+          {
+            "id": 451,
+            "name": "kind/refactor",
+            "exclusive": true,
+            "is_archived": false,
+            "color": "2467bf",
+            "description": "",
+            "url": "https://gitea.com/api/v1/repos/gitea/tea/labels/451"
+          }
+        ],
+        "milestone": null,
+        "projects": null,
+        "assignee": null,
+        "assignees": null,
+        "state": "open",
+        "is_locked": false,
+        "comments": 0,
+        "created_at": "2026-10-07T05:15:13Z",
+        "updated_at": "2026-10-07T19:02:16Z",
+        "closed_at": null,
+        "due_date": null,
+        "time_estimate": 0,
+        "pull_request": {
+          "merged": false,
+          "merged_at": null,
+          "draft": false,
+          "html_url": "https://gitea.com/gitea/tea/pulls/1125"
+        },
+        "repository": {
+          "id": 550,
+          "name": "tea",
+          "owner": "gitea",
+          "full_name": "gitea/tea"
+        },
+        "pin_order": 0,
+        "content_version": 2
+      },
+      {
+        "id": 508512,
+        "url": "https://gitea.com/api/v1/repos/gitea/tea/issues/1124",
+        "html_url": "https://gitea.com/gitea/tea/pulls/1124",
+        "number": 1124,
+        "user": {
+          "id": 173651,
+          "login": "bircni",
+          "type": "User",
+          "source_id": 0,
+          "full_name": "bircni",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://seccdn.libravatar.org/avatar/345fd80f2a069177c27dd0de27c99672940cce0923fca8de847119c573aab745?d=identicon",
+          "html_url": "https://gitea.com/bircni",
+          "active": false,
+          "location": "",
+          "website": "",
+          "description": "",
+          "followers_count": 0,
+          "following_count": 2,
+          "starred_repos_count": 2,
+          "username": "bircni"
+        },
+        "original_author": "",
+        "original_author_id": 0,
+        "title": "feat: add the terminal package for the Cobra rewrite (3/5)",
+        "body": "Part 3/5 of the tea 1.0 rewrite. Builds on #1123: only the last commit is new.\n\n**Stack** (split from #1121; each PR targets `main` and builds, tests and lints on its own — the shipped CLI only changes in part 5):\n\n1. #1122 Toolchain and foundation packages\n2. #1123 Credentials and Git\n3. #1124 Terminal ← this PR\n4. #1125 Services\n5. #1126 CLI wiring, docs, removal of the old tree\n\n## Changes\n\n- `internal/terminal`: streams and the prompting policy, interactive forms (issue, PR, review, merge, milestone), editor / pager / browser launching, JSON and `--jq` output.\n- An aligned table renderer and a record renderer for human output; both strip control and escape characters from server-supplied text so titles and bodies cannot inject terminal sequences.\n\nNothing imports this package yet.\n",
+        "ref": "",
+        "assets": [],
+        "labels": [
+          {
+            "id": 451,
+            "name": "kind/refactor",
+            "exclusive": true,
+            "is_archived": false,
+            "color": "2467bf",
+            "description": "",
+            "url": "https://gitea.com/api/v1/repos/gitea/tea/labels/451"
+          }
+        ],
+        "milestone": null,
+        "projects": null,
+        "assignee": null,
+        "assignees": null,
+        "state": "open",
+        "is_locked": false,
+        "comments": 0,
+        "created_at": "2026-10-07T05:15:10Z",
+        "updated_at": "2026-10-07T18:51:28Z",
+        "closed_at": null,
+        "due_date": null,
+        "time_estimate": 0,
+        "pull_request": {
+          "merged": false,
+          "merged_at": null,
+          "draft": false,
+          "html_url": "https://gitea.com/gitea/tea/pulls/1124"
+        },
+        "repository": {
+          "id": 550,
+          "name": "tea",
+          "owner": "gitea",
+          "full_name": "gitea/tea"
+        },
+        "pin_order": 0,
+        "content_version": 1
+      }
+    ]
+  }
+}

@@ -75,6 +75,27 @@ describe('anonymous providers', () => {
     expect(urls.some(url => url.endsWith('/graphql'))).toBe(false)
   })
 
+  it('reports a GitHub discussion unreadable in getMany without a GraphQL request', async () => {
+    const { fetch, calls } = fixtureFetch('github')
+    const forge = github({ fetch }).create()
+
+    const [result] = await forge.threads.getMany([{ ...issue, kind: 'discussion', number: '7' }])
+
+    expect(result).toMatchObject({ ok: false, warning: { code: 'thread_unreadable' } })
+    expect(calls).toEqual([])
+  })
+
+  it('rejects thread events for a kind an anonymous provider cannot read, without a request', async () => {
+    const { fetch, calls } = fixtureFetch('github')
+    const forge = github({ fetch }).create()
+    const discussion = { ...issue, kind: 'discussion' as const, number: '7' }
+
+    expect(forge.can('threads.events', 'issue')).toBe(true)
+    expect(forge.can('threads.events', 'discussion')).toBe(false)
+    await expect(forge.threads.eventsPage(discussion)).rejects.toThrow(UnsupportedOperationError)
+    expect(calls).toEqual([])
+  })
+
   it('reads GitHub reviews without asking GraphQL for their conversations', async () => {
     const { fetch, calls } = fixtureFetch('github')
     const forge = github({ fetch }).create()

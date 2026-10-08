@@ -1,0 +1,61 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://dev.azure.com/dnceng-public/public/_apis/git/repositories/dotnet-public-wiki?api-version=7.1"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "id": "2459d599-fdb2-4d28-9810-daeec061cf90",
+      "name": "dotnet-public-wiki",
+      "url": "https://dev.azure.com/dnceng-public/cbb18261-c48f-4abb-8651-8cdcb5474649/_apis/git/repositories/2459d599-fdb2-4d28-9810-daeec061cf90",
+      "project": {
+        "id": "cbb18261-c48f-4abb-8651-8cdcb5474649",
+        "name": "public",
+        "description": "Project exists exclusively for .NET Core projects which build publicly",
+        "url": "https://dev.azure.com/dnceng-public/_apis/projects/cbb18261-c48f-4abb-8651-8cdcb5474649",
+        "state": "wellFormed",
+        "revision": 20,
+        "visibility": "public",
+        "lastUpdateTime": "2023-05-16T15:27:53.67Z"
+      },
+      "defaultBranch": "refs/heads/main",
+      "size": 12337,
+      "remoteUrl": "https://dev.azure.com/dnceng-public/public/_git/dotnet-public-wiki",
+      "sshUrl": "git@ssh.dev.azure.com:v3/dnceng-public/public/dotnet-public-wiki",
+      "webUrl": "https://dev.azure.com/dnceng-public/public/_git/dotnet-public-wiki",
+      "_links": {
+        "self": {
+          "href": "https://dev.azure.com/dnceng-public/cbb18261-c48f-4abb-8651-8cdcb5474649/_apis/git/repositories/2459d599-fdb2-4d28-9810-daeec061cf90"
+        },
+        "project": {
+          "href": "vstfs:///Classification/TeamProject/cbb18261-c48f-4abb-8651-8cdcb5474649"
+        },
+        "web": {
+          "href": "https://dev.azure.com/dnceng-public/public/_git/dotnet-public-wiki"
+        },
+        "ssh": {
+          "href": "git@ssh.dev.azure.com:v3/dnceng-public/public/dotnet-public-wiki"
+        },
+        "commits": {
+          "href": "https://dev.azure.com/dnceng-public/cbb18261-c48f-4abb-8651-8cdcb5474649/_apis/git/repositories/2459d599-fdb2-4d28-9810-daeec061cf90/commits"
+        },
+        "refs": {
+          "href": "https://dev.azure.com/dnceng-public/cbb18261-c48f-4abb-8651-8cdcb5474649/_apis/git/repositories/2459d599-fdb2-4d28-9810-daeec061cf90/refs"
+        },
+        "pullRequests": {
+          "href": "https://dev.azure.com/dnceng-public/cbb18261-c48f-4abb-8651-8cdcb5474649/_apis/git/repositories/2459d599-fdb2-4d28-9810-daeec061cf90/pullRequests"
+        },
+        "items": {
+          "href": "https://dev.azure.com/dnceng-public/cbb18261-c48f-4abb-8651-8cdcb5474649/_apis/git/repositories/2459d599-fdb2-4d28-9810-daeec061cf90/items"
+        },
+        "pushes": {
+          "href": "https://dev.azure.com/dnceng-public/cbb18261-c48f-4abb-8651-8cdcb5474649/_apis/git/repositories/2459d599-fdb2-4d28-9810-daeec061cf90/pushes"
+        }
+      },
+      "isDisabled": false,
+      "isInMaintenance": false
+    }
+  }
+}

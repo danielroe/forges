@@ -12,52 +12,60 @@
   "response": {
     "status": 200,
     "headers": {
-      "x-ratelimit-remaining": "4672",
-      "x-ratelimit-reset": "1791379749"
+      "x-ratelimit-limit": "5000",
+      "x-ratelimit-remaining": "4819",
+      "x-ratelimit-reset": "1791488075"
     },
     "body": {
-      "errors": [
-        {
-          "type": "INSUFFICIENT_SCOPES",
-          "locations": [
-            {
-              "line": 21,
-              "column": 181
-            }
-          ],
-          "message": "Your token has not been granted the required scopes to execute this query. The 'slug' field requires one of the following scopes: ['read:org', 'read:discussion'], but your token has only been granted the: ['gist', 'notifications', 'repo'] scopes. Please modify your token's scopes at: https://github.com/settings/tokens."
-        },
-        {
-          "type": "INSUFFICIENT_SCOPES",
-          "locations": [
-            {
-              "line": 21,
-              "column": 186
-            }
-          ],
-          "message": "Your token has not been granted the required scopes to execute this query. The 'databaseId' field requires one of the following scopes: ['read:org', 'read:discussion'], but your token has only been granted the: ['gist', 'notifications', 'repo'] scopes. Please modify your token's scopes at: https://github.com/settings/tokens."
-        },
-        {
-          "type": "INSUFFICIENT_SCOPES",
-          "locations": [
-            {
-              "line": 21,
-              "column": 197
-            }
-          ],
-          "message": "Your token has not been granted the required scopes to execute this query. The 'name' field requires one of the following scopes: ['read:org', 'read:discussion'], but your token has only been granted the: ['gist', 'notifications', 'repo'] scopes. Please modify your token's scopes at: https://github.com/settings/tokens."
-        },
-        {
-          "type": "INSUFFICIENT_SCOPES",
-          "locations": [
-            {
-              "line": 21,
-              "column": 202
-            }
-          ],
-          "message": "Your token has not been granted the required scopes to execute this query. The 'url' field requires one of the following scopes: ['read:org', 'read:discussion'], but your token has only been granted the: ['gist', 'notifications', 'repo'] scopes. Please modify your token's scopes at: https://github.com/settings/tokens."
+      "data": {
+        "t0": {
+          "issueOrPullRequest": {
+            "__typename": "Issue",
+            "id": "I_kwDOErHI988AAAABTVvvng",
+            "number": 1558,
+            "title": "rules: skip `redirect` when the request is already at the target (avoid `false` resets)",
+            "body": "When a `redirect` rule's target falls inside its own pattern, requests to the target redirect again. Today the only fix is a `false` reset, which is easy to forget and hard to get right:\n\n```ts\nrouteRules({\n  \"/docs/**\": { redirect: \"/docs/v2/**\" },\n});\n// GET /docs/intro    → 307 /docs/v2/intro\n// GET /docs/v2/intro → 307 /docs/v2/v2/intro  (and so on)\n```\n\nThe same happens with the new request conditions (#1557) when redirecting Markdown requests to `.md` files:\n\n```ts\n{\n  \"GET:MD /blog/**\": { redirect: \"/blog/**.md\" },\n  // Required today, and only covers one segment (`/blog/a/b.md` still loops):\n  \"GET:MD /blog/*.md\": { redirect: false },\n}\n```\n\n### Proposal\n\nA `redirect` rule never fires when the request path already has the shape of its target, meaning the request is already at a URL this rule could have sent it to.\n\n- `to: \"/blog/**.md\"`: skip when the path starts with `/blog/` and ends with `.md`, at any depth.\n- `to: \"/docs/v2/**\"`: skip when the path starts with `/docs/v2/`.\n- `to: \"/new\"` (no `**`): skip only an exact redirect to the current path.\n- Targets on another origin keep today's behavior. Only the path part of `to` is compared, not the query or fragment.\n\nThe earlier example then works without a reset:\n\n```ts\n{ \"GET:MD /blog/**\": { redirect: \"/blog/**.md\" } }\n```\n\nThe prefix and suffix around `**` can be worked out at startup. Each request then costs one `startsWith`/`endsWith` check, and only when a redirect rule matches.\n\n### Trade-off\n\nThis changes current behavior. A rule that deliberately redirects `/a/b/c` to `/a/b/b/c` would stop firing. That seems unlikely to be intended, but it should go in the changelog. `proxy` could get the same guard, but it doesn't loop on the client side, so it can wait.\n\n### Alternatives considered\n\n- **Path checks in conditions** (`MD: { headers, path: /(?<!\\.md)$/ }`): more general, but you'd need a negative regex to say \"doesn't end in `.md`\".\n- **Exclusion syntax in patterns** (`/blog/**` except `*.md`): rou3 has no negation, so this needs new pattern syntax.\n\n🤖 Generated with AI assistant\n",
+            "state": "CLOSED",
+            "stateReason": "COMPLETED",
+            "createdAt": "2026-09-26T09:14:12Z",
+            "updatedAt": "2026-09-28T22:20:48Z",
+            "closedAt": "2026-09-28T22:20:48Z",
+            "url": "https://github.com/h3js/h3/issues/1558",
+            "locked": false,
+            "author": {
+              "__typename": "User",
+              "login": "pi0x",
+              "avatarUrl": "https://avatars.githubusercontent.com/u/286783767?u=880c7e98a9e910cc2184cf6ed383350bed41cb08&v=4",
+              "url": "https://github.com/pi0x",
+              "databaseId": 286783767,
+              "name": "pi0x"
+            },
+            "assignees": {
+              "nodes": []
+            },
+            "labels": {
+              "nodes": []
+            },
+            "comments": {
+              "totalCount": 0
+            },
+            "participants": {
+              "nodes": [
+                {
+                  "__typename": "User",
+                  "login": "pi0x",
+                  "avatarUrl": "https://avatars.githubusercontent.com/u/286783767?u=880c7e98a9e910cc2184cf6ed383350bed41cb08&v=4",
+                  "url": "https://github.com/pi0x",
+                  "databaseId": 286783767,
+                  "name": "pi0x"
+                }
+              ]
+            },
+            "milestone": null,
+            "viewerSubscription": "UNSUBSCRIBED"
+          }
         }
-      ]
+      }
     }
   }
 }

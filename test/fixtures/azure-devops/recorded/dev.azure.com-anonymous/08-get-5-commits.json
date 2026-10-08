@@ -1,0 +1,29 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://dev.azure.com/dnceng-public/public/_apis/git/repositories/dotnet-public-wiki/pullRequests/5/commits?%24top=3&api-version=7.1"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "count": 1,
+      "value": [
+        {
+          "commitId": "3aae318f1661c50c34effbbf6882119ed161f2d6",
+          "author": {
+            "name": "GitOps",
+            "email": null,
+            "date": "2026-02-18T04:35:00Z"
+          },
+          "committer": {
+            "name": "MerlinBot",
+            "date": "2026-02-18T04:35:01Z"
+          },
+          "comment": "Inventory bootstrapping onboarding",
+          "url": "https://dev.azure.com/dnceng-public/cbb18261-c48f-4abb-8651-8cdcb5474649/_apis/git/repositories/2459d599-fdb2-4d28-9810-daeec061cf90/commits/3aae318f1661c50c34effbbf6882119ed161f2d6"
+        }
+      ]
+    }
+  }
+}

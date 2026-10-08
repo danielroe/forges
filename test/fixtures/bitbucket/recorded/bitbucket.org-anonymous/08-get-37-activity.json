@@ -1,0 +1,134 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/pullrequests/37/activity?pagelen=3&ctx=Ajs9tbCjCAhK"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"9653d95ecdff964b32f5eace427a0fbe\"",
+      "x-ratelimit-remaining": "57",
+      "x-ratelimit-reset": "2167"
+    },
+    "body": {
+      "values": [
+        {
+          "pull_request": {
+            "type": "pullrequest",
+            "id": 37,
+            "title": "pt-BR.restext alterados online com o Bitbucket",
+            "draft": false,
+            "links": {
+              "self": {
+                "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/pullrequests/37"
+              },
+              "html": {
+                "href": "https://bitbucket.org/neelabo/neeview/pull-requests/37"
+              }
+            },
+            "queued": false
+          },
+          "update": {
+            "state": "OPEN",
+            "draft": false,
+            "title": "pt-BR.restext alterados online com o Bitbucket",
+            "description": "pt-BR.restext alterados online com o Bitbucket",
+            "reviewers": [],
+            "changes": {},
+            "reason": "",
+            "details": "",
+            "author": {
+              "display_name": "Havokdan",
+              "links": {
+                "self": {
+                  "href": "https://api.bitbucket.org/2.0/users/%7B97fc50f7-c82e-4a3f-bd4a-e9877df29f39%7D"
+                },
+                "avatar": {
+                  "href": "https://secure.gravatar.com/avatar/9a050257614c5cfc943e4a599529de6b?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FH-5.png"
+                },
+                "html": {
+                  "href": "https://bitbucket.org/%7B97fc50f7-c82e-4a3f-bd4a-e9877df29f39%7D/"
+                }
+              },
+              "type": "user",
+              "uuid": "{97fc50f7-c82e-4a3f-bd4a-e9877df29f39}",
+              "account_id": "60d876b17261900068293ed7",
+              "nickname": "Havokdan"
+            },
+            "date": "2024-08-29T19:12:49.553164+00:00",
+            "destination": {
+              "branch": {
+                "name": "master"
+              },
+              "commit": {
+                "hash": "da15924148db",
+                "links": {
+                  "self": {
+                    "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/commit/da15924148db"
+                  },
+                  "html": {
+                    "href": "https://bitbucket.org/neelabo/neeview/commits/da15924148db"
+                  }
+                },
+                "type": "commit"
+              },
+              "repository": {
+                "type": "repository",
+                "full_name": "neelabo/neeview",
+                "links": {
+                  "self": {
+                    "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview"
+                  },
+                  "html": {
+                    "href": "https://bitbucket.org/neelabo/neeview"
+                  },
+                  "avatar": {
+                    "href": "https://bytebucket.org/ravatar/%7B6b283030-4828-41db-b559-8b120365f356%7D?ts=c_sharp"
+                  }
+                },
+                "name": "NeeView",
+                "uuid": "{6b283030-4828-41db-b559-8b120365f356}"
+              }
+            },
+            "source": {
+              "branch": {
+                "name": "Havokdan/ptbrrestext-alterados-online-com-o-bitbu-1724958740233"
+              },
+              "commit": {
+                "hash": "8215aaf2e487",
+                "links": {
+                  "self": {
+                    "href": "https://api.bitbucket.org/2.0/repositories/Havokdan/neeview-3/commit/8215aaf2e487"
+                  },
+                  "html": {
+                    "href": "https://bitbucket.org/Havokdan/neeview-3/commits/8215aaf2e487"
+                  }
+                },
+                "type": "commit"
+              },
+              "repository": {
+                "type": "repository",
+                "full_name": "Havokdan/neeview-3",
+                "links": {
+                  "self": {
+                    "href": "https://api.bitbucket.org/2.0/repositories/Havokdan/neeview-3"
+                  },
+                  "html": {
+                    "href": "https://bitbucket.org/Havokdan/neeview-3"
+                  },
+                  "avatar": {
+                    "href": "https://bytebucket.org/ravatar/%7B5690e6b8-debd-4cb2-8721-31fe55d8ca4f%7D?ts=c_sharp"
+                  }
+                },
+                "name": "neeview-3",
+                "uuid": "{5690e6b8-debd-4cb2-8721-31fe55d8ca4f}"
+              }
+            },
+            "queued": false
+          }
+        }
+      ],
+      "pagelen": 3
+    }
+  }
+}

@@ -164,6 +164,7 @@ A `push` delivery becomes a `push` or `ref` event. Tangled has no API to registe
 | `threads.get` | issue, PR |
 | `threads.list` | issue (experimental), PR |
 | `threads.getMany` | ✅ |
+| `threads.events` | issue, PR |
 | `comments.list` | issue, PR |
 | `comments.edit` | issue (experimental), PR (experimental) |
 | `comments.delete` | issue (experimental), PR (experimental) |

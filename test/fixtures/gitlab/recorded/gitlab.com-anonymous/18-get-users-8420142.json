@@ -1,0 +1,17 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitlab.com/api/v4/users/8420142"
+  },
+  "response": {
+    "status": 403,
+    "headers": {
+      "ratelimit-limit": "500",
+      "ratelimit-remaining": "482",
+      "ratelimit-reset": "1791477420"
+    },
+    "body": {
+      "message": "403 Forbidden - Not authorized!"
+    }
+  }
+}

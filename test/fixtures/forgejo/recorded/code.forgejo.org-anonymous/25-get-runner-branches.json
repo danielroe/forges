@@ -1,0 +1,136 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://code.forgejo.org/api/v1/repos/forgejo/runner/branches?limit=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "<https://code.forgejo.org/api/v1/repos/forgejo/runner/branches?limit=3&page=2>; rel=\"next\",<https://code.forgejo.org/api/v1/repos/forgejo/runner/branches?limit=3&page=3>; rel=\"last\"",
+      "x-total-count": "9"
+    },
+    "body": [
+      {
+        "name": "main",
+        "commit": {
+          "id": "c4a92ffa5e3a400ae7e9c40a2914e649eb338ad7",
+          "message": "Update dependency buildx to v0.37.2 (#1765)\n\nReviewed-on: https://code.forgejo.org/forgejo/runner/pulls/1765\nReviewed-by: Mathieu Fenniak <redacted@example.invalid>\n",
+          "url": "https://code.forgejo.org/forgejo/runner/commit/c4a92ffa5e3a400ae7e9c40a2914e649eb338ad7",
+          "author": {
+            "name": "Renovate Bot",
+            "email": "redacted@example.invalid",
+            "username": "viceice-bot"
+          },
+          "committer": {
+            "name": "Mathieu Fenniak",
+            "email": "redacted@example.invalid",
+            "username": "mfenniak"
+          },
+          "verification": {
+            "verified": false,
+            "reason": "gpg.error.not_signed_commit",
+            "signature": "",
+            "signer": null,
+            "payload": ""
+          },
+          "timestamp": "2026-10-02T02:59:29Z",
+          "added": null,
+          "removed": null,
+          "modified": null
+        },
+        "protected": true,
+        "required_approvals": 1,
+        "enable_status_check": true,
+        "status_check_contexts": [
+          "checks / Build Forgejo Runner *",
+          "checks / Run exec tests *",
+          "checks / Run integration tests with *",
+          "cascade / *"
+        ],
+        "user_can_push": false,
+        "user_can_merge": false,
+        "effective_branch_protection_name": ""
+      },
+      {
+        "name": "support-v12.13.x",
+        "commit": {
+          "id": "4140a19a2e1d1d865bbe5b9e7ee13e00c8c5f6a9",
+          "message": "fix: EvaluateIf() loses ${{ inputs.x }} on reusable workflow expansion (#1643)\n\nFixes https://codeberg.org/forgejo/forgejo/issues/13558.\n\nWhen expanding a workflow, a new set of inputs is created in a new parse context for evaluation.  But that parse context was being lost, rather than being preserved, causing future access to `EvaluateIf` to have no access to the expanded workflow's inputs.\n\nReviewed-on: https://code.forgejo.org/forgejo/runner/pulls/1643\nReviewed-by: Andreas Ahlenstorf <redacted@example.invalid>\n",
+          "url": "https://code.forgejo.org/forgejo/runner/commit/4140a19a2e1d1d865bbe5b9e7ee13e00c8c5f6a9",
+          "author": {
+            "name": "Mathieu Fenniak",
+            "email": "redacted@example.invalid",
+            "username": "mfenniak"
+          },
+          "committer": {
+            "name": "Mathieu Fenniak",
+            "email": "redacted@example.invalid",
+            "username": "mfenniak"
+          },
+          "verification": {
+            "verified": true,
+            "reason": "mfenniak / SHA256:8t/0nQnAFgcb0RIAedHgxhpnFz7zzlVXLALecgCpNqM",
+            "signature": "-----BEGIN SSH SIGNATURE-----\nU1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgOITBG2F+eYPz6hZ95gk1fbuokN\nEFqFM/iyHOYSANYzEAAAADZ2l0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5\nAAAAQB4zgEbJlM49EnfNtSl5DWlEcNbeeY0JQSMFYnecoj552QO/IXW6CIVetMZb9Tf+II\nrufIx4BlBvTiw6o48n6ww=\n-----END SSH SIGNATURE-----\n",
+            "signer": {
+              "name": "mfenniak",
+              "email": "redacted@example.invalid",
+              "username": ""
+            },
+            "payload": "tree d9be6b4b7a588787dbdf3f11a11802f2934542a3\nparent 028abfe75988fde4f1019301035d2b3ccc096c89\nauthor Mathieu Fenniak <redacted@example.invalid> 1784815848 +0000\ncommitter Mathieu Fenniak <redacted@example.invalid> 1784816208 -0600\nchange-id lyzsvykmqsltsrpmtrnuzvyxnxwpstvs\n\nfix: EvaluateIf() loses ${{ inputs.x }} on reusable workflow expansion (#1643)\n\nFixes https://codeberg.org/forgejo/forgejo/issues/13558.\n\nWhen expanding a workflow, a new set of inputs is created in a new parse context for evaluation.  But that parse context was being lost, rather than being preserved, causing future access to `EvaluateIf` to have no access to the expanded workflow's inputs.\n\nReviewed-on: https://code.forgejo.org/forgejo/runner/pulls/1643\nReviewed-by: Andreas Ahlenstorf <redacted@example.invalid>\n"
+          },
+          "timestamp": "2026-07-23T14:10:48Z",
+          "added": null,
+          "removed": null,
+          "modified": null
+        },
+        "protected": false,
+        "required_approvals": 0,
+        "enable_status_check": false,
+        "status_check_contexts": [],
+        "user_can_push": false,
+        "user_can_merge": false,
+        "effective_branch_protection_name": ""
+      },
+      {
+        "name": "validate-1460",
+        "commit": {
+          "id": "1d4ec9e82fc6e6d3305898b3243d134a7ee6fafb",
+          "message": "test: validate PR 1460 cascade update\n",
+          "url": "https://code.forgejo.org/forgejo/runner/commit/1d4ec9e82fc6e6d3305898b3243d134a7ee6fafb",
+          "author": {
+            "name": "Mathieu Fenniak",
+            "email": "redacted@example.invalid",
+            "username": "mfenniak"
+          },
+          "committer": {
+            "name": "Mathieu Fenniak",
+            "email": "redacted@example.invalid",
+            "username": "mfenniak"
+          },
+          "verification": {
+            "verified": true,
+            "reason": "mfenniak / SHA256:8t/0nQnAFgcb0RIAedHgxhpnFz7zzlVXLALecgCpNqM",
+            "signature": "-----BEGIN SSH SIGNATURE-----\nU1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgOITBG2F+eYPz6hZ95gk1fbuokN\nEFqFM/iyHOYSANYzEAAAADZ2l0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5\nAAAAQCApw4K6Cd1vC7/+9p+NxMTuFuQO6MVt/hN7N5fzOU4G1334zeI4f5wfwjK5//5shV\nYSazdMhIyXhkSgIpPdWAY=\n-----END SSH SIGNATURE-----\n",
+            "signer": {
+              "name": "mfenniak",
+              "email": "redacted@example.invalid",
+              "username": ""
+            },
+            "payload": "tree 04e914d0eb15486e7c88891979b91d513c855e5f\nparent 8f15e4cbfe21fc2ca5e02b5a3b6796c4f578bce6\nauthor Mathieu Fenniak <redacted@example.invalid> 1774733429 -0600\ncommitter Mathieu Fenniak <redacted@example.invalid> 1774733439 -0600\nchange-id qoxvzruqxwquknvqmpppvnyzluzrvozw\n\ntest: validate PR 1460 cascade update\n"
+          },
+          "timestamp": "2026-03-28T15:30:29-06:00",
+          "added": null,
+          "removed": null,
+          "modified": null
+        },
+        "protected": false,
+        "required_approvals": 0,
+        "enable_status_check": false,
+        "status_check_contexts": [],
+        "user_can_push": false,
+        "user_can_merge": false,
+        "effective_branch_protection_name": ""
+      }
+    ]
+  }
+}

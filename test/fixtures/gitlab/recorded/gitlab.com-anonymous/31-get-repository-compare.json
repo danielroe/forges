@@ -1,0 +1,23 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/repository/compare?from=main&to=37ea25e1cf97b7e40c6d862c45ab32cec0f10b99"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"6fa0106d194a12c4a883b58c0dde7743\"",
+      "ratelimit-limit": "500",
+      "ratelimit-remaining": "469",
+      "ratelimit-reset": "1791477480"
+    },
+    "body": {
+      "commit": null,
+      "commits": [],
+      "diffs": [],
+      "compare_timeout": false,
+      "compare_same_ref": false,
+      "web_url": "https://gitlab.com/gitlab-org/cli/-/compare/37ea25e1cf97b7e40c6d862c45ab32cec0f10b99...37ea25e1cf97b7e40c6d862c45ab32cec0f10b99"
+    }
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://code.forgejo.org/api/v1/repos/forgejo/runner/milestones?state=open&limit=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "x-total-count": "0"
+    },
+    "body": []
+  }
+}

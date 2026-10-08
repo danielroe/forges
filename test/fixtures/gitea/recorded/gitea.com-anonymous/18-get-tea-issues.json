@@ -1,0 +1,201 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitea.com/api/v1/repos/gitea/tea/issues?state=open&type=issues&limit=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "<https://gitea.com/api/v1/repos/gitea/tea/issues?limit=3&page=2&state=open&type=issues>; rel=\"next\",<https://gitea.com/api/v1/repos/gitea/tea/issues?limit=3&page=38&state=open&type=issues>; rel=\"last\"",
+      "x-total-count": "113"
+    },
+    "body": [
+      {
+        "id": 503293,
+        "url": "https://gitea.com/api/v1/repos/gitea/tea/issues/1118",
+        "html_url": "https://gitea.com/gitea/tea/issues/1118",
+        "number": 1118,
+        "user": {
+          "id": 245812,
+          "login": "Arimil",
+          "type": "User",
+          "source_id": 0,
+          "full_name": "",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://seccdn.libravatar.org/avatar/d714245760f26bf1fdcb36f50133f50b7e8ce46cb6c7efb9f66bfdf84ea570d2?d=identicon",
+          "html_url": "https://gitea.com/Arimil",
+          "active": false,
+          "location": "",
+          "website": "",
+          "description": "",
+          "followers_count": 0,
+          "following_count": 0,
+          "starred_repos_count": 0,
+          "username": "Arimil"
+        },
+        "original_author": "",
+        "original_author_id": 0,
+        "title": "Bug: SSH login fails when REQUIRE_SIGNIN_VIEW is true",
+        "body": "### describe your environment\r\n- tea version used (`tea -v`): 0.16.0\r\n    - [ ] I also reproduced the issue [with the latest main build](https://dl.gitea.com/tea/main/)\r\n- Gitea version used: 1.27.3\r\n    - [ ] the issue only occurred after updating gitea recently\r\n- operating system: Linux\r\n- I make use of...\r\n    - [ ] non-standard default branch names (no `main`,`master`, or `trunk`)\r\n    - [ ] .ssh/config or .gitconfig host aliases in my git remotes\r\n    - [x] ssh_agent or similar\r\n    - [ ] non-standard ports for gitea and/or ssh\r\n    - [ ] something else that's likely to interact badly with tea: ...\r\n\r\n\r\nPlease provide the output of `git remote -v` (if the issue is related to tea not finding resources on Gitea):\r\n```\r\n\r\n```\r\n\r\n### describe the issue (observed vs expected behaviour)\r\n\r\nWhen `REQUIRE_SIGNIN_VIEW` is set to `true` the `/api/v1/version` endpoint is inaccessible unless logged in. Tea will attempt to check the servers version number before singing the request with the chosen ssh key. This causes the version request to return a 403 causing the tea login process to fail.",
+        "ref": "",
+        "assets": [],
+        "labels": [
+          {
+            "id": 432,
+            "name": "kind/bug",
+            "exclusive": true,
+            "is_archived": false,
+            "color": "fc2929",
+            "description": "",
+            "url": "https://gitea.com/api/v1/repos/gitea/tea/labels/432"
+          }
+        ],
+        "milestone": null,
+        "projects": null,
+        "assignee": null,
+        "assignees": null,
+        "state": "open",
+        "is_locked": false,
+        "comments": 0,
+        "created_at": "2026-09-19T02:26:17Z",
+        "updated_at": "2026-10-07T05:19:56Z",
+        "closed_at": null,
+        "due_date": null,
+        "time_estimate": 0,
+        "pull_request": null,
+        "repository": {
+          "id": 550,
+          "name": "tea",
+          "owner": "gitea",
+          "full_name": "gitea/tea"
+        },
+        "pin_order": 0,
+        "content_version": 0
+      },
+      {
+        "id": 500910,
+        "url": "https://gitea.com/api/v1/repos/gitea/tea/issues/1116",
+        "html_url": "https://gitea.com/gitea/tea/issues/1116",
+        "number": 1116,
+        "user": {
+          "id": 71724,
+          "login": "mcepl",
+          "type": "User",
+          "source_id": 0,
+          "full_name": "Matěj Cepl",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://seccdn.libravatar.org/avatar/89a46e16e83773e5c0b272d834d6401f208b4f2cce88b17b5e7e719c210b6c59?d=identicon",
+          "html_url": "https://gitea.com/mcepl",
+          "active": false,
+          "location": "",
+          "website": "",
+          "description": "",
+          "followers_count": 1,
+          "following_count": 0,
+          "starred_repos_count": 0,
+          "username": "mcepl"
+        },
+        "original_author": "",
+        "original_author_id": 0,
+        "title": "`tea pr list` should have `--global` option",
+        "body": "It should be an equivalent of the gitea-wide list as what we have in the web UI as https://gitea.com/pulls (the same for `tea pr review`).",
+        "ref": "",
+        "assets": [],
+        "labels": [
+          {
+            "id": 438,
+            "name": "kind/proposal",
+            "exclusive": true,
+            "is_archived": false,
+            "color": "5319e7",
+            "description": "",
+            "url": "https://gitea.com/api/v1/repos/gitea/tea/labels/438"
+          }
+        ],
+        "milestone": null,
+        "projects": null,
+        "assignee": null,
+        "assignees": null,
+        "state": "open",
+        "is_locked": false,
+        "comments": 0,
+        "created_at": "2026-09-11T17:17:25Z",
+        "updated_at": "2026-10-07T05:19:56Z",
+        "closed_at": null,
+        "due_date": null,
+        "time_estimate": 0,
+        "pull_request": null,
+        "repository": {
+          "id": 550,
+          "name": "tea",
+          "owner": "gitea",
+          "full_name": "gitea/tea"
+        },
+        "pin_order": 0,
+        "content_version": 0
+      },
+      {
+        "id": 500903,
+        "url": "https://gitea.com/api/v1/repos/gitea/tea/issues/1115",
+        "html_url": "https://gitea.com/gitea/tea/issues/1115",
+        "number": 1115,
+        "user": {
+          "id": 71724,
+          "login": "mcepl",
+          "type": "User",
+          "source_id": 0,
+          "full_name": "Matěj Cepl",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://seccdn.libravatar.org/avatar/89a46e16e83773e5c0b272d834d6401f208b4f2cce88b17b5e7e719c210b6c59?d=identicon",
+          "html_url": "https://gitea.com/mcepl",
+          "active": false,
+          "location": "",
+          "website": "",
+          "description": "",
+          "followers_count": 1,
+          "following_count": 0,
+          "starred_repos_count": 0,
+          "username": "mcepl"
+        },
+        "original_author": "",
+        "original_author_id": 0,
+        "title": "RFE: make `tea repo ct` just an option to `tea repo create`",
+        "body": "I think it is a horrible user interface design to hide something which is just an option (from the user point of view at least; it is probably much more complicated inside of the program, but user doesn’t care that much) behind a name which is completely impossible to remember. Yes, I know it should be `tea repo create --template NAME_OF_TEMPLATE` which has been taken, so either rename `--template` to `--make-template` or create new option `--use-template`, but either of these would be much more discoverable than completely different sub-command with a name which I just cannot remember.",
+        "ref": "",
+        "assets": [],
+        "labels": [
+          {
+            "id": 438,
+            "name": "kind/proposal",
+            "exclusive": true,
+            "is_archived": false,
+            "color": "5319e7",
+            "description": "",
+            "url": "https://gitea.com/api/v1/repos/gitea/tea/labels/438"
+          }
+        ],
+        "milestone": null,
+        "projects": null,
+        "assignee": null,
+        "assignees": null,
+        "state": "open",
+        "is_locked": false,
+        "comments": 0,
+        "created_at": "2026-09-11T15:56:42Z",
+        "updated_at": "2026-10-07T05:19:56Z",
+        "closed_at": null,
+        "due_date": null,
+        "time_estimate": 0,
+        "pull_request": null,
+        "repository": {
+          "id": 550,
+          "name": "tea",
+          "owner": "gitea",
+          "full_name": "gitea/tea"
+        },
+        "pin_order": 0,
+        "content_version": 0
+      }
+    ]
+  }
+}

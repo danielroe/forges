@@ -1,0 +1,42 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.github.com/repos/h3js/h3/branches?per_page=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "<https://api.github.com/repositories/313641207/branches?per_page=3&page=2>; rel=\"next\", <https://api.github.com/repositories/313641207/branches?per_page=3&page=11>; rel=\"last\"",
+      "etag": "W/\"0dbcd95775dd4f74cbc919e05693ae9265cf9994137713263b649ef7f4274c18\"",
+      "x-ratelimit-limit": "60",
+      "x-ratelimit-remaining": "24",
+      "x-ratelimit-reset": "1791488828"
+    },
+    "body": [
+      {
+        "name": "build/compact",
+        "commit": {
+          "sha": "90936b21a372151098539e7deeec434f5f653058",
+          "url": "https://api.github.com/repos/h3js/h3/commits/90936b21a372151098539e7deeec434f5f653058"
+        },
+        "protected": false
+      },
+      {
+        "name": "chore/bench",
+        "commit": {
+          "sha": "694bdc7f29fe5541d39b6efcc4f7c95370425316",
+          "url": "https://api.github.com/repos/h3js/h3/commits/694bdc7f29fe5541d39b6efcc4f7c95370425316"
+        },
+        "protected": false
+      },
+      {
+        "name": "chore/playground",
+        "commit": {
+          "sha": "1e54e809d3cf7fd60f0a338883da65dd69033326",
+          "url": "https://api.github.com/repos/h3js/h3/commits/1e54e809d3cf7fd60f0a338883da65dd69033326"
+        },
+        "protected": false
+      }
+    ]
+  }
+}

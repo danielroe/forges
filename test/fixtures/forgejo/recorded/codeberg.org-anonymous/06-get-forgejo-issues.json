@@ -1,0 +1,234 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/issues?state=open&type=pulls&limit=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "<https://codeberg.org/api/v1/repos/forgejo/forgejo/issues?limit=3&page=2&state=open&type=pulls>; rel=\"next\",<https://codeberg.org/api/v1/repos/forgejo/forgejo/issues?limit=3&page=53&state=open&type=pulls>; rel=\"last\"",
+      "x-total-count": "157"
+    },
+    "body": [
+      {
+        "id": 7639926,
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/pulls/14759",
+        "html_url": "https://codeberg.org/forgejo/forgejo/pulls/14759",
+        "number": 14759,
+        "user": {
+          "id": 55597,
+          "login": "mahlzahn",
+          "source_id": 0,
+          "full_name": "Robert Wolff",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://codeberg.org/avatars/38aaf335c256be75baad14a954801bfeb7aea344f7dadc3e699a683f535fab6a",
+          "html_url": "https://codeberg.org/mahlzahn",
+          "active": false,
+          "location": "",
+          "pronouns": "",
+          "website": "",
+          "description": "[⁂](https://symbol.fediverse.info) <a rel=\"me\" href=\"https://nerdculture.de/@mahlzahn\">@mahlzahn@nerdculture.de</a>",
+          "followers_count": 22,
+          "following_count": 3,
+          "starred_repos_count": 44,
+          "username": "mahlzahn"
+        },
+        "original_author": "",
+        "original_author_id": 0,
+        "title": "[v17.0/forgejo] fix(ui): proper use of modern components in org teams ui",
+        "body": "**Backport**: #14752\r\n\r\nFixes forgejo/forgejo#14750.\r\n\r\nRegression as result of combining #14281 with #13943 and #13630.\r\n\r\nStyles in modern `button.css` were never supposed to act as overrides of Fomantic styles, but in a few places during v17 devcycle they ended up doing that before they broke.\r\n\r\nAs currently `button.css` does not offer alternative to Fomantic's `tiny` buttons those were just reverted to be fully Fomantic governed.\r\n\r\n|Change|Before|After|\r\n|-|-|-|\r\n|Fixed classes|![1abef](/attachments/6e7121d2-3b42-4010-b7b5-3d832dd9dc50)|![1aft](/attachments/7279c52f-9d59-4ae7-bbd5-18e533d013e7)|\r\n|Reverted|![2abef](/attachments/f807bd12-96a1-40bf-b928-712162b2c696)|![2aft](/attachments/46f52e0b-71e6-4a82-897b-e1d8694bb078)|\r\n\r\nNot needed, no stable v17 versions were published.\r\n\r\n<!--[x] I confirm that I make this contribution in accordance with [Forgejo''s AI Agreement]-->\r\n\r\nReviewed-on: https://codeberg.org/forgejo/forgejo/pulls/14752\r\nReviewed-by: Andreas Ahlenstorf <redacted@example.invalid>\r\n(cherry picked from commit d915e5a5abb92527ac7fd0d60997b5fc57cf8467)",
+        "ref": "",
+        "assets": [],
+        "labels": [
+          {
+            "id": 201023,
+            "name": "bug/confirmed",
+            "exclusive": true,
+            "is_archived": false,
+            "color": "e11d21",
+            "description": "it can be reproduced",
+            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/201023"
+          },
+          {
+            "id": 87703,
+            "name": "forgejo/ui",
+            "exclusive": false,
+            "is_archived": false,
+            "color": "eb6420",
+            "description": "User interface",
+            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/87703"
+          },
+          {
+            "id": 201028,
+            "name": "test/manual",
+            "exclusive": true,
+            "is_archived": false,
+            "color": "5319e7",
+            "description": "manual testing has been documented",
+            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/201028"
+          }
+        ],
+        "milestone": null,
+        "assignee": null,
+        "assignees": null,
+        "state": "open",
+        "is_locked": false,
+        "comments": 1,
+        "created_at": "2026-10-08T16:20:09+02:00",
+        "updated_at": "2026-10-08T17:42:12+02:00",
+        "closed_at": null,
+        "due_date": null,
+        "pull_request": {
+          "merged": false,
+          "merged_at": null,
+          "draft": false,
+          "html_url": "https://codeberg.org/forgejo/forgejo/pulls/14759"
+        },
+        "repository": {
+          "id": 73144,
+          "name": "forgejo",
+          "owner": "forgejo",
+          "full_name": "forgejo/forgejo"
+        },
+        "pin_order": 0
+      },
+      {
+        "id": 7637577,
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/pulls/14754",
+        "html_url": "https://codeberg.org/forgejo/forgejo/pulls/14754",
+        "number": 14754,
+        "user": {
+          "id": 1003461,
+          "login": "0xdeafbeef",
+          "source_id": 0,
+          "full_name": "",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://codeberg.org/avatars/2cf24bcb44605b08abd3bbca77b4de29",
+          "html_url": "https://codeberg.org/0xdeafbeef",
+          "active": false,
+          "location": "",
+          "pronouns": "",
+          "website": "",
+          "description": "",
+          "followers_count": 0,
+          "following_count": 0,
+          "starred_repos_count": 1,
+          "username": "0xdeafbeef"
+        },
+        "original_author": "",
+        "original_author_id": 0,
+        "title": "fix(api): delete the repository when a migration fails",
+        "body": "POST /api/v1/repos/migrate creates the repository with status \"being\r\nmigrated\" before it migrates. A deferred function was supposed to delete\r\nit when the migration failed, but it checked `repo != nil`, and\r\n`repo, err = migrations.MigrateRepository(...)` had already set `repo` to\r\nnil on failure. The repository stayed behind, empty and stuck in \"being\r\nmigrated\", and a retry with the same name failed until someone deleted it.\r\n\r\nThe same deferred function also read `err` after `updateRepoUnits`\r\nassigned it, so a failure there deleted a repository that had migrated\r\nsuccessfully while the API still answered 201.\r\n\r\nThe deferred function now only handles a panic; a failed migration\r\ndeletes the repository at the place it fails. The API also passes\r\nOriginalURL, so the system notice for a failed migration names the\r\nsource instead of \"Migrate repository from  failed\".\r\n\r\n\r\n## Checklist\r\n\r\nThe [contributor guide](https://forgejo.org/docs/next/contributor/) contains information that will be helpful to first time contributors. All work and communication must conform to Forgejo's [AI Agreement](https://codeberg.org/forgejo/governance/src/branch/main/AIAgreement.md). There also are a few [conditions for merging Pull Requests in Forgejo repositories](https://codeberg.org/forgejo/governance/src/branch/main/PullRequestsAgreement.md). You are also welcome to join the [Forgejo development chatroom](https://matrix.to/#/#forgejo-development:matrix.org).\r\n\r\n### Compliance\r\n\r\n- [x] I confirm that I make this contribution in accordance with [Forgejo's AI Agreement](https://codeberg.org/forgejo/governance/src/commit/9084720dc6a7fbf1d3f358919d46bd6adfb55287/AIAgreement.md).\r\n\r\n### Tests for Go changes\r\n\r\n(can be removed for JavaScript changes)\r\n\r\n- I added test coverage for Go changes...\r\n  - [x] in their respective `*_test.go` for unit tests.\r\n  - [ ] in the `tests/integration` directory if it involves interactions with a live Forgejo server.\r\n- I ran...\r\n  - [x] `make pr-go` before pushing\r\n\r\n### Tests for JavaScript changes\r\n\r\n(can be removed for Go changes)\r\n\r\n- I added test coverage for JavaScript changes...\r\n  - [ ] in `web_src/js/*.test.js` if it can be unit tested.\r\n  - [ ] in `tests/e2e/*.test.e2e.js` if it requires interactions with a live Forgejo server (see also the [developer guide for JavaScript testing](https://codeberg.org/forgejo/forgejo/src/branch/forgejo/tests/e2e/README.md#end-to-end-tests)).\r\n\r\n### Documentation\r\n\r\n- [ ] I created a pull request [to the documentation](https://codeberg.org/forgejo/docs) to explain to Forgejo users how to use this change.\r\n- [ ] I did not document these changes and I do not expect someone else to do it.\r\n\r\n### Release notes\r\n\r\n- [x] This change will be noticed by a Forgejo user or admin (feature, bug fix, performance, etc.). I suggest to include a release note for this change.\r\n- [ ] This change is not visible to a Forgejo user or admin (refactor, dependency upgrade, etc.). I think there is no need to add a release note for this change.\r\n\r\n*The decision if the pull request will be shown in the release notes is up to the mergers / release team.*\r\n\r\nThe content of the `release-notes/<pull request number>.md` file will serve as the basis for the release notes. If the file does not exist, the title of the pull request will be used instead.\r\n",
+        "ref": "",
+        "assets": [],
+        "labels": [
+          {
+            "id": 201027,
+            "name": "test/needed",
+            "exclusive": true,
+            "is_archived": false,
+            "color": "5319e7",
+            "description": "test should be added",
+            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/201027"
+          }
+        ],
+        "milestone": null,
+        "assignee": null,
+        "assignees": null,
+        "state": "open",
+        "is_locked": false,
+        "comments": 1,
+        "created_at": "2026-10-08T12:07:36+02:00",
+        "updated_at": "2026-10-08T17:12:35+02:00",
+        "closed_at": null,
+        "due_date": null,
+        "pull_request": {
+          "merged": false,
+          "merged_at": null,
+          "draft": false,
+          "html_url": "https://codeberg.org/forgejo/forgejo/pulls/14754"
+        },
+        "repository": {
+          "id": 73144,
+          "name": "forgejo",
+          "owner": "forgejo",
+          "full_name": "forgejo/forgejo"
+        },
+        "pin_order": 0
+      },
+      {
+        "id": 7636587,
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/pulls/14751",
+        "html_url": "https://codeberg.org/forgejo/forgejo/pulls/14751",
+        "number": 14751,
+        "user": {
+          "id": 141082,
+          "login": "viceice-bot",
+          "source_id": 0,
+          "full_name": "",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://codeberg.org/avatars/b25a3a294c6f5514eb9f56b9c808425d05578e5f414b0d36ac88ade50e166d02",
+          "html_url": "https://codeberg.org/viceice-bot",
+          "active": false,
+          "location": "",
+          "pronouns": "",
+          "website": "",
+          "description": "I'm a bot from @viceice",
+          "followers_count": 6,
+          "following_count": 1,
+          "starred_repos_count": 2,
+          "username": "viceice-bot"
+        },
+        "original_author": "",
+        "original_author_id": 0,
+        "title": "Update https://codeberg.org/clouds666/unkai action to v0.2.17 (forgejo)",
+        "body": "This PR contains the following updates:\n\n| Package | Type | Update | Change |\n|---|---|---|---|\n| [https://codeberg.org/clouds666/unkai](https://codeberg.org/clouds666/unkai) | action | patch | `v0.2.15` → `v0.2.17` |\n\n---\n\n### Release Notes\n\n<details>\n<summary>clouds666/unkai (https://codeberg.org/clouds666/unkai)</summary>\n\n### [`v0.2.17`](https://codeberg.org/clouds666/unkai/releases/tag/v0.2.17)\n\n[Compare Source](https://codeberg.org/clouds666/unkai/compare/v0.2.16...v0.2.17)\n\n<!--start release-notes-assistant-->\n\n<!--URL:https://codeberg.org/clouds666/unkai-->\n\n- bug fixes\n  - [PR](https://codeberg.org/clouds666/unkai/pulls/196): <!--number 196 --><!--line 0 --><!--description Zml4KGFjdGlvbik6IHByaW9yaXRpemUgYGFjdGlvbl9yZXBvc2l0b3J5YCBhbmQgYGFjdGlvbl9yZWZgIGZvciBkeW5hbWljLXVzZXMgYWN0aW9uIHdvcmthcm91bmQ=-->fix(action): prioritize `action_repository` and `action_ref` for dynamic-uses action workaround<!--description-->\n- other\n  - [PR](https://codeberg.org/clouds666/unkai/pulls/197): <!--number 197 --><!--line 0 --><!--description ZW5oOiBhZGQgdW5rYWkgbmFtZSB0byBjb21tZW50IChpbiBhZGRpdGlvbiB0byB2ZXJzaW9uKQ==-->enh: add unkai name to comment (in addition to version)<!--description-->\n\n<!--end release-notes-assistant-->\n\n### [`v0.2.16`](https://codeberg.org/clouds666/unkai/releases/tag/v0.2.16)\n\n[Compare Source](https://codeberg.org/clouds666/unkai/compare/v0.2.15...v0.2.16)\n\n<!--start release-notes-assistant-->\n\n<!--URL:https://codeberg.org/clouds666/unkai-->\n\n- bug fixes\n  - [PR](https://codeberg.org/clouds666/unkai/pulls/180): <!--number 180 --><!--line 0 --><!--description Zml4KGFjdGlvbik6IHVzZSBuZXN0ZWQgYWN0aW9uLXJ1biBhY3Rpb24gYXQgdGhlIHNhbWUgcmVmZXJlbmNlIGFzIHRoZSBjb21wb3NpdGUgYWN0aW9u-->fix(action): use nested action-run action at the same reference as the composite action<!--description-->\n  - [PR](https://codeberg.org/clouds666/unkai/pulls/184): <!--number 184 --><!--line 0 --><!--description Zml4KGFjdGlvbik6IHVzZSBgZm9yZ2UuaGVhZF9yZWZgIGluc3RlYWQgb2YgYGZvcmdlLnJlZmAgd2hlbiBhdmFpbGFibGU=-->fix(action): use `forge.head_ref` instead of `forge.ref` when available<!--description-->\n- other\n  - [PR](https://codeberg.org/clouds666/unkai/pulls/195): <!--number 195 --><!--line 0 --><!--description Y2hvcmUoY2kpOiBmaXggcmVub3ZhdGUgd29ya2Zsb3c=-->chore(ci): fix renovate workflow<!--description-->\n  - [PR](https://codeberg.org/clouds666/unkai/pulls/194): <!--number 194 --><!--line 0 --><!--description ZW5oOiBza2lwIGh1bmtzIHRoYXQgY29udGFpbiBubyBjb3ZlcmVkIGFkZGVkIGxpbmVz-->enh: skip hunks that contain no covered added lines<!--description-->\n  - [PR](https://codeberg.org/clouds666/unkai/pulls/193): <!--number 193 --><!--line 0 --><!--description Y2hvcmUoY2kpOiBlbnN1cmUgdGVzdCBnb2xkZW4gb3V0cHV0IGZpbGVzIGFyZSBnZW5lcmF0ZWQgYnkgdGhlIGN1cnJlbnQgdmVyc2lvbiBvZiB1bmthaQ==-->chore(ci): ensure test golden output files are generated by the current version of unkai<!--description-->\n  - [PR](https://codeberg.org/clouds666/unkai/pulls/185): <!--number 185 --><!--line 0 --><!--description ZW5oOiBpbXByb3ZlIGNvbG9yIGNvZGluZyBvZiBkaWZmZXJlbnQgY291bnRz-->enh: improve color coding of different counts<!--description-->\n  - [PR](https://codeberg.org/clouds666/unkai/pulls/192): <!--number 192 --><!--line 0 --><!--description ZW5oOiBhbGxvdyB1c2VyIHRvIHNwZWNpZnkgY3VzdG9tIGNvbW1lbnQgaWQ=-->enh: allow user to specify custom comment id<!--description-->\n  - [PR](https://codeberg.org/clouds666/unkai/pulls/190): <!--number 190 --><!--line 0 --><!--description Y2hvcmU6IHNob3J0ZW4gbGljZW5zZSB0ZXh0IGluIGZpbGVz-->chore: shorten license text in files<!--description-->\n  - [PR](https://codeberg.org/clouds666/unkai/pulls/189): <!--number 189 --><!--line 0 --><!--description Y2hvcmU6IHVwZGF0ZSBkYWdnZXIgZGVwZW5kZW5jaWVz-->chore: update dagger dependencies<!--description-->\n  - [PR](https://codeberg.org/clouds666/unkai/pulls/188): <!--number 188 --><!--line 0 --><!--description ZW5oOiBhZGQgaWRzIHRvIGNyZWF0ZS1vci11cGRhdGUtY29tbWVudCBhY3Rpb24gY2FsbHM=-->enh: add ids to create-or-update-comment action calls<!--description-->\n  - [PR](https://codeberg.org/clouds666/unkai/pulls/187): <!--number 187 --><!--line 0 --><!--description VXBkYXRlIGh0dHBzOi8vY29kZS5mb3JnZWpvLm9yZy9mb3JnZWpvL2NyZWF0ZS1vci11cGRhdGUtY29tbWVudCBhY3Rpb24gdG8gdjAuMC4z-->Update <https://code.forgejo.org/forgejo/create-or-update-comment> action to v0.0.3<!--description-->\n  - [PR](https://codeberg.org/clouds666/unkai/pulls/186): <!--number 186 --><!--line 0 --><!--description Y2hvcmU6IGRlZmluZSB2ZXJzaW9uIG9mIGRhZ2dlciByZW5vdmF0ZSBtb2R1bGUgaW4gYGRhZ2dlci5qc29uYA==-->chore: define version of dagger renovate module in `dagger.json`<!--description-->\n  - [PR](https://codeberg.org/clouds666/unkai/pulls/183): <!--number 183 --><!--line 0 --><!--description UGluIGh0dHBzOi8vZ2l0aHViLmNvbS9qZW5zZW5nL2R5bmFtaWMtdXNlcyBhY3Rpb24gdG8gOGJjMjRmMA==-->Pin <https://github.com/jenseng/dynamic-uses> action to [`8bc24f0`](https://github.com/clouds666/unkai/commit/8bc24f0)<!--description-->\n  - [PR](https://codeberg.org/clouds666/unkai/pulls/182): <!--number 182 --><!--line 0 --><!--description VXBkYXRlIG1vZHVsZSBnb2xhbmcub3JnL3gvdG9vbHMgdG8gdjAuNTEuMA==-->Update module golang.org/x/tools to v0.51.0<!--description-->\n  - [PR](https://codeberg.org/clouds666/unkai/pulls/181): <!--number 181 --><!--line 0 --><!--description Y2hvcmUoY2kpOiBlbmFibGUgd29ya2Zsb3cgZGlzcGF0Y2ggZm9yIHVwZGF0ZSB3b3JrZmxvdw==-->chore(ci): enable workflow dispatch for update workflow<!--description-->\n  - [PR](https://codeberg.org/clouds666/unkai/pulls/163): <!--number 163 --><!--line 0 --><!--description Y2hvcmU6IG5vIGNvbnRleHQgaW50ZXJwb2xhdGlvbiBpbiBydW4gYmxvY2tz-->chore: no context interpolation in run blocks<!--description-->\n  - [PR](https://codeberg.org/clouds666/unkai/pulls/178): <!--number 178 --><!--line 0 --><!--description Y2hvcmUoY2kpOiBkaXNhYmxlIHdvcmtmbG93IGRpc3BhdGNoIGZvciB1cGRhdGUgYWN0aW9u-->chore(ci): disable workflow dispatch for update action<!--description-->\n  - [PR](https://codeberg.org/clouds666/unkai/pulls/177): <!--number 177 --><!--line 0 --><!--description VXBkYXRlIC4vYWN0aW9uLXJ1biBpbiBjb21wb3NpdGUgYWN0aW9u-->Update ./action-run in composite action<!--description-->\n\n<!--end release-notes-assistant-->\n\n</details>\n\n---\n\n### Configuration\n\n📅 **Schedule**: (UTC)\n\n- Branch creation\n  - Between 12:00 AM and 03:59 AM (`* 0-3 * * *`)\n- Automerge\n  - Between 12:00 AM and 03:59 AM (`* 0-3 * * *`)\n\n🚦 **Automerge**: Disabled by config. Please merge this manually once you are satisfied.\n\n♻ **Rebasing**: Whenever PR becomes conflicted, or you tick the rebase/retry checkbox.\n\n🔕 **Ignore**: Close this PR and you won't be reminded about this update again.\n\n---\n\n - [ ] <!-- rebase-check -->If you want to rebase/retry this PR, check this box\n\n---\n\nThis PR has been generated by [Mend Renovate CLI](https://github.com/renovatebot/renovate).\n<!--renovate-debug:eyJjcmVhdGVkSW5WZXIiOiI0NC4xMzMuMCIsInVwZGF0ZWRJblZlciI6IjQ0LjEzMy4wIiwidGFyZ2V0QnJhbmNoIjoiZm9yZ2VqbyIsImxhYmVscyI6WyJkZXBlbmRlbmN5LXVwZ3JhZGUiLCJ0ZXN0L25vdC1uZWVkZWQiXX0=-->\n",
+        "ref": "",
+        "assets": [],
+        "labels": [
+          {
+            "id": 223008,
+            "name": "dependency-upgrade",
+            "exclusive": false,
+            "is_archived": false,
+            "color": "0052cc",
+            "description": "https://codeberg.org/forgejo/forgejo/issues/2779",
+            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/223008"
+          },
+          {
+            "id": 201029,
+            "name": "test/not-needed",
+            "exclusive": true,
+            "is_archived": false,
+            "color": "5319e7",
+            "description": "no additional test is needed",
+            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/201029"
+          }
+        ],
+        "milestone": null,
+        "assignee": null,
+        "assignees": null,
+        "state": "open",
+        "is_locked": false,
+        "comments": 0,
+        "created_at": "2026-10-08T10:44:34+02:00",
+        "updated_at": "2026-10-08T11:02:42+02:00",
+        "closed_at": null,
+        "due_date": null,
+        "pull_request": {
+          "merged": false,
+          "merged_at": null,
+          "draft": false,
+          "html_url": "https://codeberg.org/forgejo/forgejo/pulls/14751"
+        },
+        "repository": {
+          "id": 73144,
+          "name": "forgejo",
+          "owner": "forgejo",
+          "full_name": "forgejo/forgejo"
+        },
+        "pin_order": 0
+      }
+    ]
+  }
+}

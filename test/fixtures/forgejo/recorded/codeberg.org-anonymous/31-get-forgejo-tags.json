@@ -1,0 +1,63 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/tags?limit=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "<https://codeberg.org/api/v1/repos/forgejo/forgejo/tags?limit=3&page=2>; rel=\"next\",<https://codeberg.org/api/v1/repos/forgejo/forgejo/tags?limit=3&page=101>; rel=\"last\"",
+      "x-total-count": "303"
+    },
+    "body": [
+      {
+        "name": "v18.0.0-dev",
+        "message": "chore: 17.0.0 is now stable - development tag [skip ci]",
+        "id": "7eea67def1c8d724237450665e1e4fe998d52255",
+        "commit": {
+          "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/7eea67def1c8d724237450665e1e4fe998d52255",
+          "sha": "7eea67def1c8d724237450665e1e4fe998d52255",
+          "created": "2026-09-24T20:38:41+02:00"
+        },
+        "zipball_url": "https://codeberg.org/forgejo/forgejo/archive/v18.0.0-dev.zip",
+        "tarball_url": "https://codeberg.org/forgejo/forgejo/archive/v18.0.0-dev.tar.gz",
+        "archive_download_count": {
+          "zip": 28,
+          "tar_gz": 13
+        }
+      },
+      {
+        "name": "v16.0.5",
+        "message": "[v16.0/forgejo] 2026-09-17 security patches (#14370)\n\nReviewed-on: https://codeberg.org/forgejo/forgejo/pulls/14370\nReviewed-by: Michael Kriese <redacted@example.invalid>",
+        "id": "8d24b7d52df327118cd776cf461d34e52e0ec1ce",
+        "commit": {
+          "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/8d24b7d52df327118cd776cf461d34e52e0ec1ce",
+          "sha": "8d24b7d52df327118cd776cf461d34e52e0ec1ce",
+          "created": "2026-09-17T07:12:14+02:00"
+        },
+        "zipball_url": "https://codeberg.org/forgejo/forgejo/archive/v16.0.5.zip",
+        "tarball_url": "https://codeberg.org/forgejo/forgejo/archive/v16.0.5.tar.gz",
+        "archive_download_count": {
+          "zip": 92,
+          "tar_gz": 505
+        }
+      },
+      {
+        "name": "v15.0.9",
+        "message": "[v15.0/forgejo] 2026-09-17 security patches placeholder (#14371)\n\nReviewed-on: https://codeberg.org/forgejo/forgejo/pulls/14371\nReviewed-by: Michael Kriese <redacted@example.invalid>",
+        "id": "19b9b9d216bbfb501c18514bd1a8c980246ca3f7",
+        "commit": {
+          "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/19b9b9d216bbfb501c18514bd1a8c980246ca3f7",
+          "sha": "19b9b9d216bbfb501c18514bd1a8c980246ca3f7",
+          "created": "2026-09-17T07:11:47+02:00"
+        },
+        "zipball_url": "https://codeberg.org/forgejo/forgejo/archive/v15.0.9.zip",
+        "tarball_url": "https://codeberg.org/forgejo/forgejo/archive/v15.0.9.tar.gz",
+        "archive_download_count": {
+          "zip": 31,
+          "tar_gz": 1078
+        }
+      }
+    ]
+  }
+}

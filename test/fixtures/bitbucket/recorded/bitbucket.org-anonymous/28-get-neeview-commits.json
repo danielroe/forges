@@ -1,0 +1,18 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/commits?include=8215aaf2e487&exclude=master&pagelen=50"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "\"482388cbcf6f99511c9a085ac18b8327\"",
+      "x-ratelimit-remaining": "49",
+      "x-ratelimit-reset": "2161"
+    },
+    "body": {
+      "values": [],
+      "pagelen": 50
+    }
+  }
+}

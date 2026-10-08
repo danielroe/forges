@@ -13,8 +13,9 @@
   "response": {
     "status": 200,
     "headers": {
-      "x-ratelimit-remaining": "4993",
-      "x-ratelimit-reset": "1791379105"
+      "x-ratelimit-limit": "5000",
+      "x-ratelimit-remaining": "4814",
+      "x-ratelimit-reset": "1791488075"
     },
     "body": {
       "data": {

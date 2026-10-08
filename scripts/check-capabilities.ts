@@ -1,7 +1,9 @@
 /**
  * Fails for every capability a provider declares `true` that no test
- * exercised. Reads `test/.verbs/`, written by `test/setup/verbs.ts` during
- * `vitest run`; pass `--report` to print without failing.
+ * exercised, and for every capability an anonymous provider declares `true`
+ * that no test exercised without credentials. Reads `test/.verbs/`, written by
+ * `test/setup/verbs.ts` during `vitest run`; pass `--report` to print without
+ * failing.
  */
 import type { ForgeCapabilities, ForgeProvider } from '../src/index.ts'
 import { existsSync, readdirSync, readFileSync } from 'node:fs'
@@ -28,7 +30,7 @@ for (const file of readdirSync(directory)) {
 }
 
 /** Forges sharing one implementation, so a test on either exercises both. */
-for (const [left, right] of [['forgejo', 'gitea']]) {
+for (const [left, right] of [['forgejo', 'gitea'], ['forgejo:anonymous', 'gitea:anonymous']]) {
   const merged = new Set([...exercised.get(left!) ?? [], ...exercised.get(right!) ?? []])
   exercised.set(left!, merged)
   exercised.set(right!, merged)
@@ -47,6 +49,15 @@ const providers: Array<[string, ForgeProvider]> = [
   ['cursor-origin', cursorOrigin({ auth }).create()],
   ['tangled', tangled({ auth: { type: 'app_password', identifier: 'h', password: 'p' }, notificationsUrl: 'https://notifications.example' }).create()],
   ['pushin', pushin({ auth }).create()],
+  ['github:anonymous', github({}).create()],
+  ['gitlab:anonymous', gitlab({}).create()],
+  ['bitbucket:anonymous', bitbucket({}).create()],
+  ['forgejo:anonymous', forgejo({}).create()],
+  ['gitea:anonymous', gitea({}).create()],
+  ['gitee:anonymous', gitee({}).create()],
+  ['azure-devops:anonymous', azureDevOps({ organization: 'acme' }).create()],
+  ['tangled:anonymous', tangled({}).create()],
+  ['pushin:anonymous', pushin({}).create()],
 ]
 
 function read(capabilities: ForgeCapabilities, path: string): unknown {
@@ -57,7 +68,8 @@ const untested: string[] = []
 for (const [forge, provider] of providers) {
   const seen = exercised.get(forge) ?? new Set<string>()
   for (const entry of CAPABILITY_TABLE) {
-    if (!entry.verbs?.length) {
+    // Verifying and translating a webhook delivery sends no request, so credentials make no difference to it.
+    if (!entry.verbs?.length || (provider.authKind === 'anonymous' && entry.derived === 'webhook')) {
       continue
     }
     const value = read(provider.capabilities, entry.capability)

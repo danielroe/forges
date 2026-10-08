@@ -1,0 +1,36 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/pulls/550/files"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"4956a3517872c50e788bcbb3f22bedd0\"",
+      "x-ratelimit-limit": "60",
+      "x-ratelimit-remaining": "46"
+    },
+    "body": [
+      {
+        "sha": "63e44b69ea1af37d309cce490c59cda5d190c8a1",
+        "filename": "templates/configs/Kconfig",
+        "status": null,
+        "additions": "0",
+        "deletions": "7",
+        "blob_url": "https://gitee.com/cmcc-oneos/OneOS/blob/63e44b69ea1af37d309cce490c59cda5d190c8a1/templates/configs/Kconfig",
+        "raw_url": "https://gitee.com/cmcc-oneos/OneOS/raw/63e44b69ea1af37d309cce490c59cda5d190c8a1/templates/configs/Kconfig",
+        "patch": {
+          "diff": "@@ -62,9 +62,6 @@ choice\n     config MANUFACTOR_SAMSUNG\r\n         bool \"SAMSUNG\"\r\n         \r\n-    config MANUFACTOR_SEMIDRIVE\r\n-        bool \"SEMIDRIVE\"\r\n-        \r\n endchoice\r\n \r\n if MANUFACTOR_STM32\r\n@@ -150,7 +147,3 @@ endif\n if MANUFACTOR_SAMSUNG\r\n     source \"$OS_ROOT/templates/configs/samsung/Kconfig\"\r\n endif\r\n-\r\n-if MANUFACTOR_SEMIDRIVE\r\n-    source \"$OS_ROOT/templates/configs/semidrive/Kconfig\"\r\n-endif\r\n",
+          "new_path": "templates/configs/Kconfig",
+          "old_path": "templates/configs/Kconfig",
+          "a_mode": "100644",
+          "b_mode": "100644",
+          "new_file": false,
+          "renamed_file": false,
+          "deleted_file": false,
+          "too_large": false
+        }
+      }
+    ]
+  }
+}

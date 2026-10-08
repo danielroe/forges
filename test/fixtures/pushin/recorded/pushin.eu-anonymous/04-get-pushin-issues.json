@@ -1,0 +1,85 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://pushin.eu/api/v1/repos/pjullrich/pushin/issues?per_page=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "<https://pushin.eu/api/v1/repos/pjullrich/pushin/issues?page=2&per_page=3>; rel=\"next\"",
+      "x-ratelimit-remaining": "85",
+      "x-ratelimit-reset": "1791478800"
+    },
+    "body": [
+      {
+        "id": 6077,
+        "state": "open",
+        "user": {
+          "id": 111,
+          "type": "User",
+          "avatar_url": "https://cdn.pushin.eu/-/avatars/u_034JbKhWukdCUuTCxN8n0l",
+          "html_url": "https://pushin.eu/tamimi",
+          "login": "tamimi",
+          "node_id": "REDACTED"
+        },
+        "number": 49,
+        "title": "Mermaid diagram viewer",
+        "body": "It would be nice to have a builtin mermaid diagram viewer in the readme or code docs.\nThanks",
+        "labels": [],
+        "url": "https://pushin.eu/api/v1/repos/pjullrich/pushin/issues/49",
+        "updated_at": "2026-10-08T15:11:57.946036Z",
+        "created_at": "2026-10-08T15:11:57.946036Z",
+        "closed_at": null,
+        "html_url": "https://pushin.eu/pjullrich/pushin/issues/49",
+        "node_id": "iss_034cPuXvy8o4tpN1yn6vEg",
+        "repository_url": "https://pushin.eu/api/v1/repos/pjullrich/pushin"
+      },
+      {
+        "id": 5996,
+        "state": "open",
+        "user": {
+          "id": 462,
+          "type": "User",
+          "avatar_url": "https://cdn.pushin.eu/-/avatars/u_034NWUr8cxFmBRn6njSdYT",
+          "html_url": "https://pushin.eu/antoine",
+          "login": "antoine",
+          "node_id": "REDACTED"
+        },
+        "number": 48,
+        "title": "Releases with downloadable assets",
+        "body": "We publish our open-source CLI with goreleaser. On every tag it creates a release and uploads the binaries and a checksums file.\n\nWhat we need:\n - Releases tied to tags, with notes, and a release page in the UI.\n - An API for creating a release and uploading assets. If it follows GitHub's Releases API, goreleaser works unchanged through its github_urls setting.\n - Stable download URLs for assets.",
+        "labels": [],
+        "url": "https://pushin.eu/api/v1/repos/pjullrich/pushin/issues/48",
+        "updated_at": "2026-09-29T22:35:45.189435Z",
+        "created_at": "2026-09-27T19:58:30.348631Z",
+        "closed_at": null,
+        "html_url": "https://pushin.eu/pjullrich/pushin/issues/48",
+        "node_id": "iss_034WGDJ8wkKGtAJ7MfmM2T",
+        "repository_url": "https://pushin.eu/api/v1/repos/pjullrich/pushin"
+      },
+      {
+        "id": 5995,
+        "state": "open",
+        "user": {
+          "id": 462,
+          "type": "User",
+          "avatar_url": "https://cdn.pushin.eu/-/avatars/u_034NWUr8cxFmBRn6njSdYT",
+          "html_url": "https://pushin.eu/antoine",
+          "login": "antoine",
+          "node_id": "REDACTED"
+        },
+        "number": 47,
+        "title": "Webhooks for push, tag and pull request events",
+        "body": "We'd like to run CI (Woodpecker) and automatic deploys from Pushin repositories. Both learn about changes from forge webhooks, so without them a push or a tag builds nothing.\n\nWhat we need:\n - Per-repository webhooks, configurable in the UI and the API.\n - Events: push (with branch and before/after SHA), tag created, and pull request opened, updated or closed.\n - Payloads in the GitHub or Gitea shape, since the API already follows GitHub.\n - A signature header (HMAC-SHA256 with a shared secret).\n - A delivery log with redelivery, so a missed delivery can be seen and fixed.\n\nThanks for the nice product!",
+        "labels": [],
+        "url": "https://pushin.eu/api/v1/repos/pjullrich/pushin/issues/47",
+        "updated_at": "2026-09-28T13:36:29.402280Z",
+        "created_at": "2026-09-27T19:57:47.705428Z",
+        "closed_at": null,
+        "html_url": "https://pushin.eu/pjullrich/pushin/issues/47",
+        "node_id": "iss_034WGCE66WJmQ6lSSwXkoh",
+        "repository_url": "https://pushin.eu/api/v1/repos/pjullrich/pushin"
+      }
+    ]
+  }
+}

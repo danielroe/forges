@@ -7,9 +7,10 @@
     "status": 200,
     "headers": {
       "link": "<https://api.github.com/repositories/313641207/issues/1000/timeline?per_page=3&page=2>; rel=\"next\", <https://api.github.com/repositories/313641207/issues/1000/timeline?per_page=3&page=3>; rel=\"last\"",
-      "etag": "W/\"6fbffdb2787245837772a759f12fbb7d6ca603e91c90b559355d149fbcde1d33\"",
-      "x-ratelimit-remaining": "4980",
-      "x-ratelimit-reset": "1791382247"
+      "etag": "W/\"5a09997336f05d6a82a7ca8e1a88fec1a93fda509a5e017b90597b3c8815aec7\"",
+      "x-ratelimit-limit": "5000",
+      "x-ratelimit-remaining": "4944",
+      "x-ratelimit-reset": "1791487708"
     },
     "body": [
       {

@@ -1,0 +1,111 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.github.com/repos/h3js/h3/issues/1558"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"d253f859f788c6038fb84dc233b02e8ed3346896b6e73f4cae7c757d61094dcf\"",
+      "x-ratelimit-limit": "60",
+      "x-ratelimit-remaining": "36",
+      "x-ratelimit-reset": "1791488828"
+    },
+    "body": {
+      "url": "https://api.github.com/repos/h3js/h3/issues/1558",
+      "repository_url": "https://api.github.com/repos/h3js/h3",
+      "labels_url": "https://api.github.com/repos/h3js/h3/issues/1558/labels{/name}",
+      "comments_url": "https://api.github.com/repos/h3js/h3/issues/1558/comments",
+      "events_url": "https://api.github.com/repos/h3js/h3/issues/1558/events",
+      "html_url": "https://github.com/h3js/h3/issues/1558",
+      "id": 5592838046,
+      "node_id": "I_kwDOErHI988AAAABTVvvng",
+      "number": 1558,
+      "title": "rules: skip `redirect` when the request is already at the target (avoid `false` resets)",
+      "user": {
+        "login": "pi0x",
+        "id": 286783767,
+        "node_id": "REDACTED",
+        "avatar_url": "https://avatars.githubusercontent.com/u/286783767?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/pi0x",
+        "html_url": "https://github.com/pi0x",
+        "followers_url": "https://api.github.com/users/pi0x/followers",
+        "following_url": "https://api.github.com/users/pi0x/following{/other_user}",
+        "gists_url": "https://api.github.com/users/pi0x/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/pi0x/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/pi0x/subscriptions",
+        "organizations_url": "https://api.github.com/users/pi0x/orgs",
+        "repos_url": "https://api.github.com/users/pi0x/repos",
+        "events_url": "https://api.github.com/users/pi0x/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/pi0x/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "labels": [],
+      "state": "closed",
+      "locked": false,
+      "assignees": [],
+      "milestone": null,
+      "comments": 0,
+      "created_at": "2026-09-26T09:14:12Z",
+      "updated_at": "2026-09-28T22:20:48Z",
+      "closed_at": "2026-09-28T22:20:48Z",
+      "assignee": null,
+      "author_association": "CONTRIBUTOR",
+      "issue_field_values": [],
+      "type": null,
+      "active_lock_reason": null,
+      "sub_issues_summary": {
+        "total": 0,
+        "completed": 0,
+        "percent_completed": 0
+      },
+      "issue_dependencies_summary": {
+        "blocked_by": 0,
+        "total_blocked_by": 0,
+        "blocking": 0,
+        "total_blocking": 0
+      },
+      "body": "When a `redirect` rule's target falls inside its own pattern, requests to the target redirect again. Today the only fix is a `false` reset, which is easy to forget and hard to get right:\n\n```ts\nrouteRules({\n  \"/docs/**\": { redirect: \"/docs/v2/**\" },\n});\n// GET /docs/intro    → 307 /docs/v2/intro\n// GET /docs/v2/intro → 307 /docs/v2/v2/intro  (and so on)\n```\n\nThe same happens with the new request conditions (#1557) when redirecting Markdown requests to `.md` files:\n\n```ts\n{\n  \"GET:MD /blog/**\": { redirect: \"/blog/**.md\" },\n  // Required today, and only covers one segment (`/blog/a/b.md` still loops):\n  \"GET:MD /blog/*.md\": { redirect: false },\n}\n```\n\n### Proposal\n\nA `redirect` rule never fires when the request path already has the shape of its target, meaning the request is already at a URL this rule could have sent it to.\n\n- `to: \"/blog/**.md\"`: skip when the path starts with `/blog/` and ends with `.md`, at any depth.\n- `to: \"/docs/v2/**\"`: skip when the path starts with `/docs/v2/`.\n- `to: \"/new\"` (no `**`): skip only an exact redirect to the current path.\n- Targets on another origin keep today's behavior. Only the path part of `to` is compared, not the query or fragment.\n\nThe earlier example then works without a reset:\n\n```ts\n{ \"GET:MD /blog/**\": { redirect: \"/blog/**.md\" } }\n```\n\nThe prefix and suffix around `**` can be worked out at startup. Each request then costs one `startsWith`/`endsWith` check, and only when a redirect rule matches.\n\n### Trade-off\n\nThis changes current behavior. A rule that deliberately redirects `/a/b/c` to `/a/b/b/c` would stop firing. That seems unlikely to be intended, but it should go in the changelog. `proxy` could get the same guard, but it doesn't loop on the client side, so it can wait.\n\n### Alternatives considered\n\n- **Path checks in conditions** (`MD: { headers, path: /(?<!\\.md)$/ }`): more general, but you'd need a negative regex to say \"doesn't end in `.md`\".\n- **Exclusion syntax in patterns** (`/blog/**` except `*.md`): rou3 has no negation, so this needs new pattern syntax.\n\n🤖 Generated with AI assistant\n",
+      "closed_by": {
+        "login": "pi0",
+        "id": 5158436,
+        "node_id": "REDACTED",
+        "avatar_url": "https://avatars.githubusercontent.com/u/5158436?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/pi0",
+        "html_url": "https://github.com/pi0",
+        "followers_url": "https://api.github.com/users/pi0/followers",
+        "following_url": "https://api.github.com/users/pi0/following{/other_user}",
+        "gists_url": "https://api.github.com/users/pi0/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/pi0/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/pi0/subscriptions",
+        "organizations_url": "https://api.github.com/users/pi0/orgs",
+        "repos_url": "https://api.github.com/users/pi0/repos",
+        "events_url": "https://api.github.com/users/pi0/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/pi0/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "reactions": {
+        "url": "https://api.github.com/repos/h3js/h3/issues/1558/reactions",
+        "total_count": 0,
+        "+1": 0,
+        "-1": 0,
+        "laugh": 0,
+        "hooray": 0,
+        "confused": 0,
+        "heart": 0,
+        "rocket": 0,
+        "eyes": 0
+      },
+      "timeline_url": "https://api.github.com/repos/h3js/h3/issues/1558/timeline",
+      "performed_via_github_app": null,
+      "state_reason": "completed",
+      "pinned_comment": null
+    }
+  }
+}

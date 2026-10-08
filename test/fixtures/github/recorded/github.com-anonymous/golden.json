@@ -1,0 +1,2586 @@
+{
+  "repo": {
+    "ref": {
+      "forge": "github",
+      "instance": "github.com",
+      "owner": "h3js",
+      "name": "h3",
+      "externalId": "313641207"
+    },
+    "description": "⚡️ Minimal H(TTP) framework built for high performance and portability ",
+    "defaultBranch": "main",
+    "visibility": "public",
+    "visibilityRaw": "public",
+    "isFork": false,
+    "isArchived": false,
+    "topics": [],
+    "url": "https://github.com/h3js/h3",
+    "cloneUrls": {
+      "https": "https://github.com/h3js/h3.git",
+      "ssh": "git@github.com:h3js/h3.git"
+    },
+    "createdAt": "2020-11-17T14:15:44.000Z",
+    "updatedAt": "2026-10-08T17:07:53.000Z",
+    "pushedAt": "2026-10-07T12:37:26.000Z",
+    "owner": {
+      "forge": "github",
+      "instance": "github.com",
+      "login": "h3js",
+      "id": "208435796",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/208435796?v=4",
+      "url": "https://github.com/h3js",
+      "typeRaw": "Organization",
+      "isBotHint": false
+    },
+    "language": "TypeScript",
+    "homepage": "https://h3.dev",
+    "licence": "MIT",
+    "stars": 5448,
+    "forks": 368,
+    "watchers": 17,
+    "features": {
+      "issues": true,
+      "pullRequests": true,
+      "discussions": true,
+      "wiki": false,
+      "projects": true,
+      "releases": true
+    }
+  },
+  "labels": {
+    "items": [
+      {
+        "name": "breaking change",
+        "colour": "DF8359",
+        "description": ""
+      },
+      {
+        "name": "bug",
+        "colour": "d73a4a",
+        "description": "Something isn't working"
+      },
+      {
+        "name": "bun",
+        "colour": "abb080",
+        "description": ""
+      }
+    ],
+    "cursor": {
+      "nextUrl": "https://api.github.com/repositories/313641207/labels?per_page=3&page=2",
+      "etag": "W/\"1c1f0a874f0c88e2b75d8c05ed0dbac7586cfda13656082884abca8933aa490e\""
+    },
+    "rateLimit": {
+      "limit": 60,
+      "remaining": 58,
+      "resetAt": "<now>"
+    }
+  },
+  "milestones": {
+    "items": [],
+    "rateLimit": {
+      "limit": 60,
+      "remaining": 57,
+      "resetAt": "<now>"
+    }
+  },
+  "assignable users": {
+    "items": [
+      {
+        "forge": "github",
+        "instance": "github.com",
+        "login": "danielroe",
+        "id": "28706372",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/28706372?v=4",
+        "url": "https://github.com/danielroe",
+        "typeRaw": "User",
+        "isBotHint": false
+      },
+      {
+        "forge": "github",
+        "instance": "github.com",
+        "login": "pi0",
+        "id": "5158436",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?v=4",
+        "url": "https://github.com/pi0",
+        "typeRaw": "User",
+        "isBotHint": false
+      },
+      {
+        "forge": "github",
+        "instance": "github.com",
+        "login": "pi0x",
+        "id": "286783767",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/286783767?v=4",
+        "url": "https://github.com/pi0x",
+        "typeRaw": "User",
+        "isBotHint": false
+      }
+    ],
+    "rateLimit": {
+      "limit": 60,
+      "remaining": 56,
+      "resetAt": "<now>"
+    }
+  },
+  "pull": {
+    "ref": {
+      "forge": "github",
+      "instance": "github.com",
+      "repo": {
+        "forge": "github",
+        "instance": "github.com",
+        "owner": "h3js",
+        "name": "h3"
+      },
+      "kind": "pull_request",
+      "number": "1000",
+      "externalId": "PR_kwDOErHI986Qx98s"
+    },
+    "kind": "pull_request",
+    "title": "chore: include `node_modules` in `.prettierignore`",
+    "body": "<!--\r\nPLEASE DO THIS BEFORE SUBMITTING A PR\r\n\r\n1) Make sure there is an issue covering the problem or idea first. If not, please create one. Reference it in the PR via \"resolves #12312312\" \r\n2) Please keep your changes minimal and split them if you need to.\r\n3) Ensure there is a minimal reproduction attached for bug fixes.\r\n\r\nThis will greatly help speed up the review process.\r\n\r\nThanks for your contribution ❤️\r\n-->\r\n",
+    "state": "closed",
+    "stateRaw": "closed",
+    "isDraft": false,
+    "author": {
+      "forge": "github",
+      "instance": "github.com",
+      "login": "iiio2",
+      "id": "47961062",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/47961062?v=4",
+      "url": "https://github.com/iiio2",
+      "typeRaw": "User",
+      "isBotHint": false
+    },
+    "assignees": [],
+    "reviewers": [
+      {
+        "actor": {
+          "forge": "github",
+          "instance": "github.com",
+          "login": "pi0",
+          "id": "5158436",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?v=4",
+          "url": "https://github.com/pi0",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "state": "pending",
+        "stateRaw": "requested"
+      }
+    ],
+    "labels": [],
+    "url": "https://github.com/h3js/h3/pull/1000",
+    "createdAt": "2025-03-31T13:49:12.000Z",
+    "updatedAt": "2025-04-05T04:37:13.000Z",
+    "closedAt": "2025-04-01T18:18:21.000Z",
+    "lastActivityAt": "2025-04-05T04:37:13.000Z",
+    "locked": false,
+    "commentCount": 3,
+    "branches": {
+      "head": {
+        "ref": "chore/update-prettierignore",
+        "sha": "adbc974043a83820a5ae388265b5ee1465926561",
+        "repo": {
+          "forge": "github",
+          "instance": "github.com",
+          "owner": "iiio2",
+          "name": "h3",
+          "externalId": "812599578"
+        }
+      },
+      "base": {
+        "ref": "main",
+        "sha": "e5788bb16d62ac64e5fa13b14862ed719f768d04"
+      },
+      "mergeCommitSha": "ecb62300961be17e1f59cb23b4f2d083c83bcbf1"
+    },
+    "checks": {
+      "state": "unknown",
+      "total": 0,
+      "failed": 0,
+      "url": "https://github.com/h3js/h3/pull/1000/checks"
+    }
+  },
+  "pull list": {
+    "items": [
+      {
+        "ref": {
+          "forge": "github",
+          "instance": "github.com",
+          "repo": {
+            "forge": "github",
+            "instance": "github.com",
+            "owner": "h3js",
+            "name": "h3"
+          },
+          "kind": "pull_request",
+          "number": "1575",
+          "externalId": "PR_kwDOErHI988AAAABHJjnRQ"
+        },
+        "kind": "pull_request",
+        "title": "docs: add h3-prometheus to community section",
+        "body": "## Summary\n- List [`h3-prometheus`](https://github.com/s00d/h3-prometheus) under Community utils (H3 v2 Prometheus metrics plugin)\n\n## Links\n- Repo: https://github.com/s00d/h3-prometheus\n- npm: https://www.npmjs.com/package/h3-prometheus (when published)\n\n\nMade with [Cursor](https://cursor.com)\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n\n## Summary by CodeRabbit\n\n* **Documentation**\n  * Added a community listing for an H3 metrics plugin, highlighting its Prometheus metrics, configurable signals, scrape endpoint, and Grafana dashboard.\n\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
+        "state": "open",
+        "stateRaw": "open",
+        "isDraft": false,
+        "author": {
+          "forge": "github",
+          "instance": "github.com",
+          "login": "s00d",
+          "id": "2684895",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/2684895?v=4",
+          "url": "https://github.com/s00d",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "assignees": [],
+        "reviewers": [
+          {
+            "actor": {
+              "forge": "github",
+              "instance": "github.com",
+              "login": "pi0",
+              "id": "5158436",
+              "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?v=4",
+              "url": "https://github.com/pi0",
+              "typeRaw": "User",
+              "isBotHint": false
+            },
+            "state": "pending",
+            "stateRaw": "requested"
+          }
+        ],
+        "labels": [],
+        "url": "https://github.com/h3js/h3/pull/1575",
+        "createdAt": "2026-10-07T15:25:17.000Z",
+        "updatedAt": "2026-10-07T15:27:32.000Z",
+        "lastActivityAt": "2026-10-07T15:27:32.000Z",
+        "locked": false,
+        "branches": {
+          "head": {
+            "ref": "docs/add-h3-prometheus-community",
+            "sha": "a0a405d6441c4a9c66ac30c3adc0d11d3acea53f",
+            "repo": {
+              "forge": "github",
+              "instance": "github.com",
+              "owner": "s00d",
+              "name": "h3",
+              "externalId": "1408996886"
+            }
+          },
+          "base": {
+            "ref": "main",
+            "sha": "66cfb8a357b6285451bad498c2c40002601fae98"
+          },
+          "mergeCommitSha": "a198745c67591bdc65cfed963feece4a391de2d9"
+        }
+      },
+      {
+        "ref": {
+          "forge": "github",
+          "instance": "github.com",
+          "repo": {
+            "forge": "github",
+            "instance": "github.com",
+            "owner": "h3js",
+            "name": "h3"
+          },
+          "kind": "pull_request",
+          "number": "1557",
+          "externalId": "PR_kwDOErHI988AAAABFO055g"
+        },
+        "kind": "pull_request",
+        "title": "feat(rules): request conditions in rule keys (`GET:MD /path`)",
+        "body": "Route rule keys can now be scoped to a named request condition with `METHOD:NAME /path`. Conditions match request headers and are defined in `routeRules()` options.\n\n```ts\nimport { routeRules } from \"h3/rules\";\n\napp.use(\n  routeRules(\n    {\n      // GET /blog/hello with `Accept: text/markdown` → 307 /blog/hello.md\n      \"GET:MD /blog/**\": { redirect: \"/blog/**.md\" },\n      // Already Markdown: don't redirect again\n      \"GET:MD /blog/*.md\": { redirect: false },\n    },\n    {\n      conditions: {\n        MD: { headers: { accept: /\\btext\\/markdown\\b/ } },\n      },\n    },\n  ),\n);\n```\n\n- A request that satisfies a condition keeps every plain `GET` rule and gets the condition's rules on top. When several conditions are satisfied, all of them apply.\n- Header checks: `true` means present, `false` means absent, a string must match exactly, and a `RegExp` is tested against the value.\n- Rule sets without conditions do no extra work per request.\n- `cache` entries and memoized matches are kept separate per condition.\n- The compiler supports conditions: `compileRouteRules(config, { conditions })` exports `resolveRouteRulesMethod(event, method)` for the compiled matcher.\n\nAlso fixes a `preMerge` bug where a method-scoped rule on a shared route node (`GET /a/:id`) hid an agnostic rule (`/a/*`) for `GET /a`.\n\n🤖 Generated with AI assistant\n\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n## Summary by CodeRabbit\n\n- **New Features**\n  - Added named request conditions for route rules, matching requests by header presence, absence, exact values, or regular expressions.\n  - Requests now combine standard method rules with rules for satisfied conditions. GET conditions also apply to HEAD requests.\n  - Added validation for condition definitions and rule keys, including a limit of six conditions per method.\n  - Cached responses are kept separate across condition variants.\n- **Documentation**\n  - Expanded the Route Rules guide with configuration, matching behavior, precedence, and security considerations.\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
+        "state": "open",
+        "stateRaw": "open",
+        "isDraft": false,
+        "author": {
+          "forge": "github",
+          "instance": "github.com",
+          "login": "pi0x",
+          "id": "286783767",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/286783767?v=4",
+          "url": "https://github.com/pi0x",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "assignees": [],
+        "reviewers": [
+          {
+            "actor": {
+              "forge": "github",
+              "instance": "github.com",
+              "login": "pi0",
+              "id": "5158436",
+              "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?v=4",
+              "url": "https://github.com/pi0",
+              "typeRaw": "User",
+              "isBotHint": false
+            },
+            "state": "pending",
+            "stateRaw": "requested"
+          }
+        ],
+        "labels": [],
+        "url": "https://github.com/h3js/h3/pull/1557",
+        "createdAt": "2026-09-26T08:58:13.000Z",
+        "updatedAt": "2026-09-26T10:12:18.000Z",
+        "lastActivityAt": "2026-09-26T10:12:18.000Z",
+        "locked": false,
+        "branches": {
+          "head": {
+            "ref": "feat/route-rule-mods",
+            "sha": "e8b3545344f20a287f83c81a85d8471406a6e5be",
+            "repo": {
+              "forge": "github",
+              "instance": "github.com",
+              "owner": "h3js",
+              "name": "h3",
+              "externalId": "313641207"
+            }
+          },
+          "base": {
+            "ref": "main",
+            "sha": "75c68e2200d56f5d8c05ecd9bd38ac7ca31df17f"
+          }
+        }
+      },
+      {
+        "ref": {
+          "forge": "github",
+          "instance": "github.com",
+          "repo": {
+            "forge": "github",
+            "instance": "github.com",
+            "owner": "h3js",
+            "name": "h3"
+          },
+          "kind": "pull_request",
+          "number": "1502",
+          "externalId": "PR_kwDOErHI98708j6H"
+        },
+        "kind": "pull_request",
+        "title": "feat(context): per-event typed H3EventContext",
+        "body": "Draft based on exploration of #1501 (includes those commits, as I still have to git good). Also proposed in https://github.com/h3js/h3/issues/1437#issuecomment-5025050049\r\n\r\nCommit ad5fcba essentially adds a second param to H3Event that consists in a typed H3EventContext, as well as adds a type argument to the latter for customizing internals.\r\n\r\nOne such use case is properly typing `params` in something like `defineValidatedHandler`, which might have also coerced its data (eg: an id being number instead) keeping the parity between runtime and types.\r\n\r\nThis also adds room of improvements for other validated data for `defineValidatedHandler` such as headers and queries which they currently simply gets mutaded in place, going back to their string form instead. A clear followup for this would be to introduce also `event.context.{headers,query}` with the coerced data and type output of the validation schemas (also reducing the number of operations performed by the forward and back mutation).\r\n\r\nLeaving as draft till #1501 is merged and this concept is approved, @pi0 no further work is needed in this PR other than your own changes or if you want me to also add the `event.context.{headers,query}` logic or defer to next PR",
+        "state": "open",
+        "stateRaw": "open",
+        "isDraft": true,
+        "author": {
+          "forge": "github",
+          "instance": "github.com",
+          "login": "sandros94",
+          "id": "13056429",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/13056429?v=4",
+          "url": "https://github.com/sandros94",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "assignees": [],
+        "reviewers": [],
+        "labels": [],
+        "url": "https://github.com/h3js/h3/pull/1502",
+        "createdAt": "2026-07-22T15:32:17.000Z",
+        "updatedAt": "2026-07-23T14:15:00.000Z",
+        "lastActivityAt": "2026-07-23T14:15:00.000Z",
+        "locked": false,
+        "branches": {
+          "head": {
+            "ref": "feat/context-typing",
+            "sha": "bc756c55f117055d68a48a444f822a6ce601190e",
+            "repo": {
+              "forge": "github",
+              "instance": "github.com",
+              "owner": "sandros94",
+              "name": "h3",
+              "externalId": "923619984"
+            }
+          },
+          "base": {
+            "ref": "main",
+            "sha": "4a32c1b75528f881cd85c89ee626c136b7026958"
+          }
+        }
+      }
+    ],
+    "cursor": {
+      "nextUrl": "https://api.github.com/repositories/313641207/pulls?state=open&sort=created&direction=desc&per_page=3&page=2",
+      "etag": "W/\"2f8561a8f84d39cb2ccff4967fb765a8ca493b828b08d1402674034819dbf91d\""
+    },
+    "rateLimit": {
+      "limit": 60,
+      "remaining": 52,
+      "resetAt": "<now>"
+    }
+  },
+  "pull getMany": [
+    {
+      "ok": true,
+      "ref": {
+        "forge": "github",
+        "instance": "github.com",
+        "repo": {
+          "forge": "github",
+          "instance": "github.com",
+          "owner": "h3js",
+          "name": "h3"
+        },
+        "kind": "pull_request",
+        "number": "1000"
+      },
+      "thread": {
+        "ref": {
+          "forge": "github",
+          "instance": "github.com",
+          "repo": {
+            "forge": "github",
+            "instance": "github.com",
+            "owner": "h3js",
+            "name": "h3"
+          },
+          "kind": "pull_request",
+          "number": "1000",
+          "externalId": "PR_kwDOErHI986Qx98s"
+        },
+        "kind": "pull_request",
+        "title": "chore: include `node_modules` in `.prettierignore`",
+        "body": "<!--\r\nPLEASE DO THIS BEFORE SUBMITTING A PR\r\n\r\n1) Make sure there is an issue covering the problem or idea first. If not, please create one. Reference it in the PR via \"resolves #12312312\" \r\n2) Please keep your changes minimal and split them if you need to.\r\n3) Ensure there is a minimal reproduction attached for bug fixes.\r\n\r\nThis will greatly help speed up the review process.\r\n\r\nThanks for your contribution ❤️\r\n-->\r\n",
+        "state": "closed",
+        "stateRaw": "closed",
+        "isDraft": false,
+        "author": {
+          "forge": "github",
+          "instance": "github.com",
+          "login": "iiio2",
+          "id": "47961062",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/47961062?v=4",
+          "url": "https://github.com/iiio2",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "assignees": [],
+        "reviewers": [
+          {
+            "actor": {
+              "forge": "github",
+              "instance": "github.com",
+              "login": "pi0",
+              "id": "5158436",
+              "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?v=4",
+              "url": "https://github.com/pi0",
+              "typeRaw": "User",
+              "isBotHint": false
+            },
+            "state": "pending",
+            "stateRaw": "requested"
+          }
+        ],
+        "labels": [],
+        "url": "https://github.com/h3js/h3/pull/1000",
+        "createdAt": "2025-03-31T13:49:12.000Z",
+        "updatedAt": "2025-04-05T04:37:13.000Z",
+        "closedAt": "2025-04-01T18:18:21.000Z",
+        "lastActivityAt": "2025-04-05T04:37:13.000Z",
+        "locked": false,
+        "commentCount": 3,
+        "branches": {
+          "head": {
+            "ref": "chore/update-prettierignore",
+            "sha": "adbc974043a83820a5ae388265b5ee1465926561",
+            "repo": {
+              "forge": "github",
+              "instance": "github.com",
+              "owner": "iiio2",
+              "name": "h3",
+              "externalId": "812599578"
+            }
+          },
+          "base": {
+            "ref": "main",
+            "sha": "e5788bb16d62ac64e5fa13b14862ed719f768d04"
+          },
+          "mergeCommitSha": "ecb62300961be17e1f59cb23b4f2d083c83bcbf1"
+        },
+        "checks": {
+          "state": "unknown",
+          "total": 0,
+          "failed": 0,
+          "url": "https://github.com/h3js/h3/pull/1000/checks"
+        }
+      }
+    }
+  ],
+  "pull events": {
+    "items": [
+      {
+        "forge": "github",
+        "instance": "github.com",
+        "id": "C_kwDOErHI99oAKGFkYmM5NzQwNDNhODM4MjBhNWFlMzg4MjY1YjVlZTE0NjU5MjY1NjE",
+        "kind": "commit",
+        "kindRaw": "committed",
+        "summary": "Mr. Robot committed adbc974",
+        "occurredAt": "2025-03-31T13:48:41.000Z",
+        "repo": {
+          "forge": "github",
+          "instance": "github.com",
+          "owner": "h3js",
+          "name": "h3"
+        },
+        "thread": {
+          "forge": "github",
+          "instance": "github.com",
+          "repo": {
+            "forge": "github",
+            "instance": "github.com",
+            "owner": "h3js",
+            "name": "h3"
+          },
+          "kind": "pull_request",
+          "number": "1000"
+        },
+        "source": "poll",
+        "action": "other"
+      },
+      {
+        "forge": "github",
+        "instance": "github.com",
+        "id": "RRE_lADOErHI986wdqKTzwAAAAP4t9WT",
+        "kind": "assignment",
+        "kindRaw": "review_requested",
+        "detail": {
+          "type": "assignment",
+          "assignee": {
+            "forge": "github",
+            "instance": "github.com",
+            "login": "pi0",
+            "id": "5158436",
+            "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?v=4",
+            "url": "https://github.com/pi0",
+            "typeRaw": "User",
+            "isBotHint": false
+          }
+        },
+        "summary": "iiio2 requested review from pi0",
+        "occurredAt": "2025-03-31T13:49:13.000Z",
+        "actor": {
+          "forge": "github",
+          "instance": "github.com",
+          "login": "iiio2",
+          "id": "47961062",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/47961062?v=4",
+          "url": "https://github.com/iiio2",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "repo": {
+          "forge": "github",
+          "instance": "github.com",
+          "owner": "h3js",
+          "name": "h3"
+        },
+        "thread": {
+          "forge": "github",
+          "instance": "github.com",
+          "repo": {
+            "forge": "github",
+            "instance": "github.com",
+            "owner": "h3js",
+            "name": "h3"
+          },
+          "kind": "pull_request",
+          "number": "1000"
+        },
+        "source": "poll",
+        "action": "review_requested"
+      },
+      {
+        "forge": "github",
+        "instance": "github.com",
+        "id": "IC_kwDOErHI986k4oEa",
+        "kind": "comment",
+        "kindRaw": "commented",
+        "detail": {
+          "type": "comment",
+          "comment": {
+            "forge": "github",
+            "instance": "github.com",
+            "thread": {
+              "forge": "github",
+              "instance": "github.com",
+              "repo": {
+                "forge": "github",
+                "instance": "github.com",
+                "owner": "h3js",
+                "name": "h3"
+              },
+              "kind": "pull_request",
+              "number": "1000"
+            },
+            "id": "2766307610"
+          },
+          "body": "## [Codecov](https://app.codecov.io/gh/unjs/h3/pull/1000?dropdown=coverage&src=pr&el=h1&utm_medium=referral&utm_source=github&utm_content=comment&utm_campaign=pr+comments&utm_term=unjs) Report\nAll modified and coverable lines are covered by tests :white_check_mark:\n> Project coverage is 82.80%. Comparing base [(`a58d7c9`)](https://app.codecov.io/gh/unjs/h3/commit/a58d7c977b30ef1782bb390a38fed3b28f8afca9?dropdown=coverage&el=desc&utm_medium=referral&utm_source=github&utm_content=comment&utm_campaign=pr+comments&utm_term=unjs) to head [(`adbc974`)](https://app.codecov.io/gh/unjs/h3/commit/adbc974043a83820a5ae388265b5ee1465926561?dropdown=coverage&el=desc&utm_medium=referral&utm_source=github&utm_content=comment&utm_campaign=pr+comments&utm_term=unjs).\n> Report is 234 commits behind head on main.\n\n<details><summary>Additional details and impacted files</summary>\n\n\n```diff\n@@            Coverage Diff             @@\n##             main    #1000      +/-   ##\n==========================================\n+ Coverage   77.83%   82.80%   +4.97%     \n==========================================\n  Files          47       35      -12     \n  Lines        4286     2623    -1663     \n  Branches      611      669      +58     \n==========================================\n- Hits         3336     2172    -1164     \n+ Misses        933      449     -484     \n+ Partials       17        2      -15     \n```\n\n</details>\n\n[:umbrella: View full report in Codecov by Sentry](https://app.codecov.io/gh/unjs/h3/pull/1000?dropdown=coverage&src=pr&el=continue&utm_medium=referral&utm_source=github&utm_content=comment&utm_campaign=pr+comments&utm_term=unjs).   \n:loudspeaker: Have feedback on the report? [Share it here](https://about.codecov.io/codecov-pr-comment-feedback/?utm_medium=referral&utm_source=github&utm_content=comment&utm_campaign=pr+comments&utm_term=unjs).\n\n<details><summary> :rocket: New features to boost your workflow: </summary>\n\n- :snowflake: [Test Analytics](https://docs.codecov.com/docs/test-analytics): Detect flaky tests, report on failures, and find test suite problems.\n- :package: [JS Bundle Analysis](https://docs.codecov.com/docs/javascript-bundle-analysis): Save yourself from yourself by tracking and limiting bundle sizes in JS merges.\n</details>"
+        },
+        "summary": "codecov[bot] commented",
+        "occurredAt": "2025-03-31T13:50:31.000Z",
+        "actor": {
+          "forge": "github",
+          "instance": "github.com",
+          "login": "codecov[bot]",
+          "id": "22429695",
+          "avatarUrl": "https://avatars.githubusercontent.com/in/254?v=4",
+          "url": "https://github.com/apps/codecov",
+          "typeRaw": "Bot",
+          "isBotHint": true,
+          "app": {
+            "slug": "codecov"
+          }
+        },
+        "repo": {
+          "forge": "github",
+          "instance": "github.com",
+          "owner": "h3js",
+          "name": "h3"
+        },
+        "thread": {
+          "forge": "github",
+          "instance": "github.com",
+          "repo": {
+            "forge": "github",
+            "instance": "github.com",
+            "owner": "h3js",
+            "name": "h3"
+          },
+          "kind": "pull_request",
+          "number": "1000"
+        },
+        "source": "poll",
+        "action": "created"
+      }
+    ],
+    "cursor": {
+      "nextUrl": "https://api.github.com/repositories/313641207/issues/1000/timeline?per_page=3&page=2",
+      "etag": "W/\"9163665165d3a64b13efe70f954e7587fd41b2e44de37d3d8819835861a063b6\""
+    },
+    "rateLimit": {
+      "limit": 60,
+      "remaining": 48,
+      "resetAt": "<now>"
+    }
+  },
+  "pull comments": {
+    "items": [
+      {
+        "ref": {
+          "forge": "github",
+          "instance": "github.com",
+          "thread": {
+            "forge": "github",
+            "instance": "github.com",
+            "repo": {
+              "forge": "github",
+              "instance": "github.com",
+              "owner": "h3js",
+              "name": "h3"
+            },
+            "kind": "pull_request",
+            "number": "1000"
+          },
+          "id": "2766307610"
+        },
+        "body": "## [Codecov](https://app.codecov.io/gh/unjs/h3/pull/1000?dropdown=coverage&src=pr&el=h1&utm_medium=referral&utm_source=github&utm_content=comment&utm_campaign=pr+comments&utm_term=unjs) Report\nAll modified and coverable lines are covered by tests :white_check_mark:\n> Project coverage is 82.80%. Comparing base [(`a58d7c9`)](https://app.codecov.io/gh/unjs/h3/commit/a58d7c977b30ef1782bb390a38fed3b28f8afca9?dropdown=coverage&el=desc&utm_medium=referral&utm_source=github&utm_content=comment&utm_campaign=pr+comments&utm_term=unjs) to head [(`adbc974`)](https://app.codecov.io/gh/unjs/h3/commit/adbc974043a83820a5ae388265b5ee1465926561?dropdown=coverage&el=desc&utm_medium=referral&utm_source=github&utm_content=comment&utm_campaign=pr+comments&utm_term=unjs).\n> Report is 234 commits behind head on main.\n\n<details><summary>Additional details and impacted files</summary>\n\n\n```diff\n@@            Coverage Diff             @@\n##             main    #1000      +/-   ##\n==========================================\n+ Coverage   77.83%   82.80%   +4.97%     \n==========================================\n  Files          47       35      -12     \n  Lines        4286     2623    -1663     \n  Branches      611      669      +58     \n==========================================\n- Hits         3336     2172    -1164     \n+ Misses        933      449     -484     \n+ Partials       17        2      -15     \n```\n\n</details>\n\n[:umbrella: View full report in Codecov by Sentry](https://app.codecov.io/gh/unjs/h3/pull/1000?dropdown=coverage&src=pr&el=continue&utm_medium=referral&utm_source=github&utm_content=comment&utm_campaign=pr+comments&utm_term=unjs).   \n:loudspeaker: Have feedback on the report? [Share it here](https://about.codecov.io/codecov-pr-comment-feedback/?utm_medium=referral&utm_source=github&utm_content=comment&utm_campaign=pr+comments&utm_term=unjs).\n\n<details><summary> :rocket: New features to boost your workflow: </summary>\n\n- :snowflake: [Test Analytics](https://docs.codecov.com/docs/test-analytics): Detect flaky tests, report on failures, and find test suite problems.\n- :package: [JS Bundle Analysis](https://docs.codecov.com/docs/javascript-bundle-analysis): Save yourself from yourself by tracking and limiting bundle sizes in JS merges.\n</details>",
+        "author": {
+          "forge": "github",
+          "instance": "github.com",
+          "login": "codecov[bot]",
+          "id": "22429695",
+          "avatarUrl": "https://avatars.githubusercontent.com/in/254?v=4",
+          "url": "https://github.com/apps/codecov",
+          "typeRaw": "Bot",
+          "isBotHint": true,
+          "app": {
+            "slug": "codecov"
+          }
+        },
+        "createdAt": "2025-03-31T13:50:31.000Z",
+        "updatedAt": "2025-04-01T18:18:31.000Z",
+        "url": "https://github.com/h3js/h3/pull/1000#issuecomment-2766307610",
+        "reactions": {
+          "total": 0,
+          "counts": {}
+        }
+      },
+      {
+        "ref": {
+          "forge": "github",
+          "instance": "github.com",
+          "thread": {
+            "forge": "github",
+            "instance": "github.com",
+            "repo": {
+              "forge": "github",
+              "instance": "github.com",
+              "owner": "h3js",
+              "name": "h3"
+            },
+            "kind": "pull_request",
+            "number": "1000"
+          },
+          "id": "2770320484"
+        },
+        "body": "thanks for PR but i think even with `prettier -c .` `node_modules` is already ignored and it is not needed (if I'm wrong and there is a case please lmk to reopen)",
+        "author": {
+          "forge": "github",
+          "instance": "github.com",
+          "login": "pi0",
+          "id": "5158436",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?v=4",
+          "url": "https://github.com/pi0",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "createdAt": "2025-04-01T18:18:21.000Z",
+        "updatedAt": "2025-04-01T18:18:21.000Z",
+        "url": "https://github.com/h3js/h3/pull/1000#issuecomment-2770320484",
+        "reactions": {
+          "total": 1,
+          "counts": {
+            "+1": 1
+          }
+        }
+      },
+      {
+        "ref": {
+          "forge": "github",
+          "instance": "github.com",
+          "thread": {
+            "forge": "github",
+            "instance": "github.com",
+            "repo": {
+              "forge": "github",
+              "instance": "github.com",
+              "owner": "h3js",
+              "name": "h3"
+            },
+            "kind": "pull_request",
+            "number": "1000"
+          },
+          "id": "2774151897"
+        },
+        "body": "Oh, Ok @pi0 . Thank you. ",
+        "author": {
+          "forge": "github",
+          "instance": "github.com",
+          "login": "iiio2",
+          "id": "47961062",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/47961062?v=4",
+          "url": "https://github.com/iiio2",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "createdAt": "2025-04-03T02:15:08.000Z",
+        "updatedAt": "2025-04-03T02:15:08.000Z",
+        "url": "https://github.com/h3js/h3/pull/1000#issuecomment-2774151897",
+        "reactions": {
+          "total": 0,
+          "counts": {}
+        }
+      }
+    ],
+    "rateLimit": {
+      "limit": 60,
+      "remaining": 47,
+      "resetAt": "<now>"
+    }
+  },
+  "pull reactions": {
+    "items": [],
+    "rateLimit": {
+      "limit": 60,
+      "remaining": 46,
+      "resetAt": "<now>"
+    }
+  },
+  "pull reviews": {
+    "items": [],
+    "rateLimit": {
+      "limit": 60,
+      "remaining": 45,
+      "resetAt": "<now>"
+    }
+  },
+  "pull checks": {
+    "items": [],
+    "warnings": []
+  },
+  "pull files": {
+    "items": [
+      {
+        "path": ".prettierignore",
+        "status": "modified",
+        "statusRaw": "modified",
+        "additions": 1,
+        "deletions": 0,
+        "patch": "@@ -3,3 +3,4 @@ lib\n .nuxt\n .output\n src/types/_headers.ts\n+node_modules\n\\ No newline at end of file",
+        "sha": "86167650d1b479a034773ee53ccb60428ce71427"
+      }
+    ],
+    "rateLimit": {
+      "limit": 60,
+      "remaining": 40,
+      "resetAt": "<now>"
+    }
+  },
+  "pull commits": {
+    "items": [
+      {
+        "ref": {
+          "forge": "github",
+          "instance": "github.com",
+          "repo": {
+            "forge": "github",
+            "instance": "github.com",
+            "owner": "h3js",
+            "name": "h3"
+          },
+          "sha": "adbc974043a83820a5ae388265b5ee1465926561"
+        },
+        "sha": "adbc974043a83820a5ae388265b5ee1465926561",
+        "message": "chore: include `node_modules` in `.prettierignore`",
+        "author": {
+          "actor": {
+            "forge": "github",
+            "instance": "github.com",
+            "login": "iiio2",
+            "id": "47961062",
+            "avatarUrl": "https://avatars.githubusercontent.com/u/47961062?v=4",
+            "url": "https://github.com/iiio2",
+            "typeRaw": "User",
+            "isBotHint": false
+          },
+          "name": "Mr. Robot",
+          "email": "redacted@example.invalid",
+          "date": "2025-03-31T13:48:41.000Z"
+        },
+        "committer": {
+          "actor": {
+            "forge": "github",
+            "instance": "github.com",
+            "login": "iiio2",
+            "id": "47961062",
+            "avatarUrl": "https://avatars.githubusercontent.com/u/47961062?v=4",
+            "url": "https://github.com/iiio2",
+            "typeRaw": "User",
+            "isBotHint": false
+          },
+          "name": "Mr. Robot",
+          "email": "redacted@example.invalid",
+          "date": "2025-03-31T13:48:41.000Z"
+        },
+        "parents": [
+          "e5788bb16d62ac64e5fa13b14862ed719f768d04"
+        ],
+        "url": "https://github.com/h3js/h3/commit/adbc974043a83820a5ae388265b5ee1465926561"
+      }
+    ],
+    "rateLimit": {
+      "limit": 60,
+      "remaining": 39,
+      "resetAt": "<now>"
+    }
+  },
+  "issue": {
+    "ref": {
+      "forge": "github",
+      "instance": "github.com",
+      "repo": {
+        "forge": "github",
+        "instance": "github.com",
+        "owner": "h3js",
+        "name": "h3"
+      },
+      "kind": "issue",
+      "number": "1558",
+      "externalId": "I_kwDOErHI988AAAABTVvvng"
+    },
+    "kind": "issue",
+    "title": "rules: skip `redirect` when the request is already at the target (avoid `false` resets)",
+    "body": "When a `redirect` rule's target falls inside its own pattern, requests to the target redirect again. Today the only fix is a `false` reset, which is easy to forget and hard to get right:\n\n```ts\nrouteRules({\n  \"/docs/**\": { redirect: \"/docs/v2/**\" },\n});\n// GET /docs/intro    → 307 /docs/v2/intro\n// GET /docs/v2/intro → 307 /docs/v2/v2/intro  (and so on)\n```\n\nThe same happens with the new request conditions (#1557) when redirecting Markdown requests to `.md` files:\n\n```ts\n{\n  \"GET:MD /blog/**\": { redirect: \"/blog/**.md\" },\n  // Required today, and only covers one segment (`/blog/a/b.md` still loops):\n  \"GET:MD /blog/*.md\": { redirect: false },\n}\n```\n\n### Proposal\n\nA `redirect` rule never fires when the request path already has the shape of its target, meaning the request is already at a URL this rule could have sent it to.\n\n- `to: \"/blog/**.md\"`: skip when the path starts with `/blog/` and ends with `.md`, at any depth.\n- `to: \"/docs/v2/**\"`: skip when the path starts with `/docs/v2/`.\n- `to: \"/new\"` (no `**`): skip only an exact redirect to the current path.\n- Targets on another origin keep today's behavior. Only the path part of `to` is compared, not the query or fragment.\n\nThe earlier example then works without a reset:\n\n```ts\n{ \"GET:MD /blog/**\": { redirect: \"/blog/**.md\" } }\n```\n\nThe prefix and suffix around `**` can be worked out at startup. Each request then costs one `startsWith`/`endsWith` check, and only when a redirect rule matches.\n\n### Trade-off\n\nThis changes current behavior. A rule that deliberately redirects `/a/b/c` to `/a/b/b/c` would stop firing. That seems unlikely to be intended, but it should go in the changelog. `proxy` could get the same guard, but it doesn't loop on the client side, so it can wait.\n\n### Alternatives considered\n\n- **Path checks in conditions** (`MD: { headers, path: /(?<!\\.md)$/ }`): more general, but you'd need a negative regex to say \"doesn't end in `.md`\".\n- **Exclusion syntax in patterns** (`/blog/**` except `*.md`): rou3 has no negation, so this needs new pattern syntax.\n\n🤖 Generated with AI assistant\n",
+    "state": "closed",
+    "stateRaw": "closed",
+    "stateReason": "completed",
+    "isDraft": false,
+    "author": {
+      "forge": "github",
+      "instance": "github.com",
+      "login": "pi0x",
+      "id": "286783767",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/286783767?v=4",
+      "url": "https://github.com/pi0x",
+      "typeRaw": "User",
+      "isBotHint": false
+    },
+    "assignees": [],
+    "reviewers": [],
+    "labels": [],
+    "url": "https://github.com/h3js/h3/issues/1558",
+    "createdAt": "2026-09-26T09:14:12.000Z",
+    "updatedAt": "2026-09-28T22:20:48.000Z",
+    "closedAt": "2026-09-28T22:20:48.000Z",
+    "lastActivityAt": "2026-09-28T22:20:48.000Z",
+    "locked": false,
+    "commentCount": 0,
+    "reactions": {
+      "total": 0,
+      "counts": {}
+    }
+  },
+  "issue list": {
+    "items": [
+      {
+        "ref": {
+          "forge": "github",
+          "instance": "github.com",
+          "repo": {
+            "forge": "github",
+            "instance": "github.com",
+            "owner": "h3js",
+            "name": "h3"
+          },
+          "kind": "issue",
+          "number": "1567",
+          "externalId": "I_kwDOErHI988AAAABUYFmsg"
+        },
+        "kind": "issue",
+        "title": "getValidatedQuery should account for ambiguous data",
+        "body": "### Describe the feature\n\n## Premise\n\nreadQuery() as it is currently only works if you either\n\n1. have extremely simple data - basically exclusively strings.\n2. make a custom schema with coercing (assuming the validation library supports everything needed) for every API endpoint, not really being able to reuse existing schemas\n3. send all data as body payload (this wouldn't be a problem if GET and DELETE were allowed to have bodies)\n4. send all data as stringified JSON\n5. or (like me) make a shim that tries its best at adjusting the data to better fit a schema\n\nnone of these options are particularly enticing, so (imo) there should be a system to somehow fix this in h3.\n\n## My shim/workaround\n\nwithout posting code, I basically crawl through the zod type definition alongside the passed data and adjust the data where it can't be unambiguously represented by query parameters.\n\nI'm not sure how viable this is for h3 considering it's supposed to be somewhat validator-agnostic… But then again, having this feature for a limited amount of libraries would be better than having it for none at all.\n\n## Additional notes\n\nzod has already declined to implement a version of this on their side: https://github.com/colinhacks/zod/issues/2873\n\n### Additional information\n\n- [ ] Would you be willing to help implement this feature?",
+        "state": "open",
+        "stateRaw": "open",
+        "isDraft": false,
+        "author": {
+          "forge": "github",
+          "instance": "github.com",
+          "login": "LMR-eitea",
+          "id": "332368094",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/332368094?v=4",
+          "url": "https://github.com/LMR-eitea",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "assignees": [],
+        "reviewers": [],
+        "labels": [
+          {
+            "name": "enhancement",
+            "colour": "a2eeef",
+            "description": "New feature or request"
+          }
+        ],
+        "url": "https://github.com/h3js/h3/issues/1567",
+        "createdAt": "2026-10-01T12:48:44.000Z",
+        "updatedAt": "2026-10-01T12:48:44.000Z",
+        "lastActivityAt": "2026-10-01T12:48:44.000Z",
+        "locked": false,
+        "commentCount": 0,
+        "reactions": {
+          "total": 0,
+          "counts": {}
+        }
+      }
+    ],
+    "cursor": {
+      "nextUrl": "https://api.github.com/repositories/313641207/issues?state=open&sort=created&direction=desc&per_page=3&after=Y3Vyc29yOnYyOpLPAAABoNzvuIjPAAAAAU1aceU%3D&page=2",
+      "etag": "W/\"b796a260f018bae8d6f3f022eeacd9acf342651bf35057404d62901051dd09e4\""
+    },
+    "rateLimit": {
+      "limit": 60,
+      "remaining": 37,
+      "resetAt": "<now>"
+    }
+  },
+  "issue getMany": [
+    {
+      "ok": true,
+      "ref": {
+        "forge": "github",
+        "instance": "github.com",
+        "repo": {
+          "forge": "github",
+          "instance": "github.com",
+          "owner": "h3js",
+          "name": "h3"
+        },
+        "kind": "issue",
+        "number": "1558"
+      },
+      "thread": {
+        "ref": {
+          "forge": "github",
+          "instance": "github.com",
+          "repo": {
+            "forge": "github",
+            "instance": "github.com",
+            "owner": "h3js",
+            "name": "h3"
+          },
+          "kind": "issue",
+          "number": "1558",
+          "externalId": "I_kwDOErHI988AAAABTVvvng"
+        },
+        "kind": "issue",
+        "title": "rules: skip `redirect` when the request is already at the target (avoid `false` resets)",
+        "body": "When a `redirect` rule's target falls inside its own pattern, requests to the target redirect again. Today the only fix is a `false` reset, which is easy to forget and hard to get right:\n\n```ts\nrouteRules({\n  \"/docs/**\": { redirect: \"/docs/v2/**\" },\n});\n// GET /docs/intro    → 307 /docs/v2/intro\n// GET /docs/v2/intro → 307 /docs/v2/v2/intro  (and so on)\n```\n\nThe same happens with the new request conditions (#1557) when redirecting Markdown requests to `.md` files:\n\n```ts\n{\n  \"GET:MD /blog/**\": { redirect: \"/blog/**.md\" },\n  // Required today, and only covers one segment (`/blog/a/b.md` still loops):\n  \"GET:MD /blog/*.md\": { redirect: false },\n}\n```\n\n### Proposal\n\nA `redirect` rule never fires when the request path already has the shape of its target, meaning the request is already at a URL this rule could have sent it to.\n\n- `to: \"/blog/**.md\"`: skip when the path starts with `/blog/` and ends with `.md`, at any depth.\n- `to: \"/docs/v2/**\"`: skip when the path starts with `/docs/v2/`.\n- `to: \"/new\"` (no `**`): skip only an exact redirect to the current path.\n- Targets on another origin keep today's behavior. Only the path part of `to` is compared, not the query or fragment.\n\nThe earlier example then works without a reset:\n\n```ts\n{ \"GET:MD /blog/**\": { redirect: \"/blog/**.md\" } }\n```\n\nThe prefix and suffix around `**` can be worked out at startup. Each request then costs one `startsWith`/`endsWith` check, and only when a redirect rule matches.\n\n### Trade-off\n\nThis changes current behavior. A rule that deliberately redirects `/a/b/c` to `/a/b/b/c` would stop firing. That seems unlikely to be intended, but it should go in the changelog. `proxy` could get the same guard, but it doesn't loop on the client side, so it can wait.\n\n### Alternatives considered\n\n- **Path checks in conditions** (`MD: { headers, path: /(?<!\\.md)$/ }`): more general, but you'd need a negative regex to say \"doesn't end in `.md`\".\n- **Exclusion syntax in patterns** (`/blog/**` except `*.md`): rou3 has no negation, so this needs new pattern syntax.\n\n🤖 Generated with AI assistant\n",
+        "state": "closed",
+        "stateRaw": "closed",
+        "stateReason": "completed",
+        "isDraft": false,
+        "author": {
+          "forge": "github",
+          "instance": "github.com",
+          "login": "pi0x",
+          "id": "286783767",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/286783767?v=4",
+          "url": "https://github.com/pi0x",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "assignees": [],
+        "reviewers": [],
+        "labels": [],
+        "url": "https://github.com/h3js/h3/issues/1558",
+        "createdAt": "2026-09-26T09:14:12.000Z",
+        "updatedAt": "2026-09-28T22:20:48.000Z",
+        "closedAt": "2026-09-28T22:20:48.000Z",
+        "lastActivityAt": "2026-09-28T22:20:48.000Z",
+        "locked": false,
+        "commentCount": 0,
+        "reactions": {
+          "total": 0,
+          "counts": {}
+        }
+      }
+    }
+  ],
+  "issue events": {
+    "items": [
+      {
+        "forge": "github",
+        "instance": "github.com",
+        "id": "1558-cross-referenced-2026-09-26T09:58:18Z",
+        "kind": "referenced",
+        "kindRaw": "cross-referenced",
+        "detail": {
+          "type": "referenced",
+          "from": {
+            "forge": "github",
+            "instance": "github.com",
+            "repo": {
+              "forge": "github",
+              "instance": "github.com",
+              "owner": "h3js",
+              "name": "h3",
+              "externalId": "313641207"
+            },
+            "kind": "pull_request",
+            "number": "1559"
+          },
+          "fromRepo": {
+            "forge": "github",
+            "instance": "github.com",
+            "owner": "h3js",
+            "name": "h3",
+            "externalId": "313641207"
+          }
+        },
+        "summary": "pi0x referenced this",
+        "occurredAt": "2026-09-26T09:58:18.000Z",
+        "actor": {
+          "forge": "github",
+          "instance": "github.com",
+          "login": "pi0x",
+          "id": "286783767",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/286783767?v=4",
+          "url": "https://github.com/pi0x",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "repo": {
+          "forge": "github",
+          "instance": "github.com",
+          "owner": "h3js",
+          "name": "h3"
+        },
+        "thread": {
+          "forge": "github",
+          "instance": "github.com",
+          "repo": {
+            "forge": "github",
+            "instance": "github.com",
+            "owner": "h3js",
+            "name": "h3"
+          },
+          "kind": "issue",
+          "number": "1558"
+        },
+        "source": "poll",
+        "action": "other"
+      },
+      {
+        "forge": "github",
+        "instance": "github.com",
+        "id": "CE_lADOErHI988AAAABTVvvns8AAAAHdVMZGw",
+        "kind": "state_change",
+        "kindRaw": "closed",
+        "detail": {
+          "type": "state_change",
+          "state": "closed"
+        },
+        "summary": "pi0 closed",
+        "occurredAt": "2026-09-28T22:20:48.000Z",
+        "actor": {
+          "forge": "github",
+          "instance": "github.com",
+          "login": "pi0",
+          "id": "5158436",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?v=4",
+          "url": "https://github.com/pi0",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "repo": {
+          "forge": "github",
+          "instance": "github.com",
+          "owner": "h3js",
+          "name": "h3"
+        },
+        "thread": {
+          "forge": "github",
+          "instance": "github.com",
+          "repo": {
+            "forge": "github",
+            "instance": "github.com",
+            "owner": "h3js",
+            "name": "h3"
+          },
+          "kind": "issue",
+          "number": "1558"
+        },
+        "source": "poll",
+        "action": "closed"
+      }
+    ],
+    "rateLimit": {
+      "limit": 60,
+      "remaining": 35,
+      "resetAt": "<now>"
+    }
+  },
+  "issue comments": {
+    "items": [],
+    "rateLimit": {
+      "limit": 60,
+      "remaining": 34,
+      "resetAt": "<now>"
+    }
+  },
+  "issue reactions": {
+    "items": [],
+    "rateLimit": {
+      "limit": 60,
+      "remaining": 33,
+      "resetAt": "<now>"
+    }
+  },
+  "user": {
+    "forge": "github",
+    "instance": "github.com",
+    "login": "iiio2",
+    "id": "47961062",
+    "name": "abeer0",
+    "avatarUrl": "https://avatars.githubusercontent.com/u/47961062?v=4",
+    "url": "https://github.com/iiio2",
+    "typeRaw": "User",
+    "isBotHint": false,
+    "createdAt": "2019-02-25T03:44:43.000Z",
+    "followers": 17,
+    "following": 0,
+    "publicRepos": 96
+  },
+  "checks": {
+    "items": [],
+    "warnings": []
+  },
+  "ci runs": {
+    "items": [
+      {
+        "ref": {
+          "forge": "github",
+          "instance": "github.com",
+          "repo": {
+            "forge": "github",
+            "instance": "github.com",
+            "owner": "h3js",
+            "name": "h3"
+          },
+          "id": "37643783539"
+        },
+        "name": "autofix.ci",
+        "state": "failure",
+        "stateRaw": "completed",
+        "number": "4250",
+        "eventRaw": "pull_request",
+        "branch": "docs/add-h3-prometheus-community",
+        "sha": "a0a405d6441c4a9c66ac30c3adc0d11d3acea53f",
+        "url": "https://github.com/h3js/h3/actions/runs/37643783539",
+        "actor": {
+          "forge": "github",
+          "instance": "github.com",
+          "login": "s00d",
+          "id": "2684895",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/2684895?v=4",
+          "url": "https://github.com/s00d",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "createdAt": "2026-10-07T15:25:23.000Z",
+        "startedAt": "2026-10-07T15:25:23.000Z",
+        "completedAt": "2026-10-07T15:25:23.000Z"
+      },
+      {
+        "ref": {
+          "forge": "github",
+          "instance": "github.com",
+          "repo": {
+            "forge": "github",
+            "instance": "github.com",
+            "owner": "h3js",
+            "name": "h3"
+          },
+          "id": "37643783367"
+        },
+        "name": "ci",
+        "state": "failure",
+        "stateRaw": "completed",
+        "number": "4743",
+        "eventRaw": "pull_request",
+        "branch": "docs/add-h3-prometheus-community",
+        "sha": "a0a405d6441c4a9c66ac30c3adc0d11d3acea53f",
+        "url": "https://github.com/h3js/h3/actions/runs/37643783367",
+        "actor": {
+          "forge": "github",
+          "instance": "github.com",
+          "login": "s00d",
+          "id": "2684895",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/2684895?v=4",
+          "url": "https://github.com/s00d",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "createdAt": "2026-10-07T15:25:23.000Z",
+        "startedAt": "2026-10-07T15:25:23.000Z",
+        "completedAt": "2026-10-07T15:25:23.000Z"
+      },
+      {
+        "ref": {
+          "forge": "github",
+          "instance": "github.com",
+          "repo": {
+            "forge": "github",
+            "instance": "github.com",
+            "owner": "h3js",
+            "name": "h3"
+          },
+          "id": "37622425333"
+        },
+        "name": "publish",
+        "state": "failure",
+        "stateRaw": "completed",
+        "number": "76",
+        "eventRaw": "workflow_run",
+        "branch": "main",
+        "sha": "66cfb8a357b6285451bad498c2c40002601fae98",
+        "url": "https://github.com/h3js/h3/actions/runs/37622425333",
+        "actor": {
+          "forge": "github",
+          "instance": "github.com",
+          "login": "pi0",
+          "id": "5158436",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?v=4",
+          "url": "https://github.com/pi0",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "createdAt": "2026-10-07T12:38:14.000Z",
+        "startedAt": "2026-10-07T12:38:14.000Z",
+        "completedAt": "2026-10-07T12:38:45.000Z"
+      }
+    ],
+    "cursor": {
+      "nextUrl": "https://api.github.com/repositories/313641207/actions/runs?per_page=3&page=2",
+      "etag": "W/\"694ffe5e3410aa1d17dea9806c4dadb2070eea8b3567e66f8e135b38d5f072d7\""
+    },
+    "rateLimit": {
+      "limit": 60,
+      "remaining": 29,
+      "resetAt": "<now>"
+    }
+  },
+  "ci run": {
+    "ref": {
+      "forge": "github",
+      "instance": "github.com",
+      "repo": {
+        "forge": "github",
+        "instance": "github.com",
+        "owner": "h3js",
+        "name": "h3"
+      },
+      "id": "37643783539"
+    },
+    "name": "autofix.ci",
+    "state": "failure",
+    "stateRaw": "completed",
+    "number": "4250",
+    "eventRaw": "pull_request",
+    "branch": "docs/add-h3-prometheus-community",
+    "sha": "a0a405d6441c4a9c66ac30c3adc0d11d3acea53f",
+    "url": "https://github.com/h3js/h3/actions/runs/37643783539",
+    "actor": {
+      "forge": "github",
+      "instance": "github.com",
+      "login": "s00d",
+      "id": "2684895",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/2684895?v=4",
+      "url": "https://github.com/s00d",
+      "typeRaw": "User",
+      "isBotHint": false
+    },
+    "createdAt": "2026-10-07T15:25:23.000Z",
+    "startedAt": "2026-10-07T15:25:23.000Z",
+    "completedAt": "2026-10-07T15:25:23.000Z"
+  },
+  "ci jobs": {
+    "items": [],
+    "rateLimit": {
+      "limit": 60,
+      "remaining": 27,
+      "resetAt": "<now>"
+    }
+  },
+  "readme": {
+    "path": "README.md",
+    "sha": "d92f7989b1031b703fc52ecc132344ac8d8f44e5",
+    "size": 1390,
+    "url": "https://github.com/h3js/h3/blob/main/README.md",
+    "content": "# H3\n\n<!-- automd:badges -->\n\n[![npm version](https://img.shields.io/npm/v/h3)](https://npmjs.com/package/h3)\n[![npm downloads](https://img.shields.io/npm/dm/h3)](https://npm.chart.dev/h3)\n\n<!-- /automd -->\n\nH3 (pronounced as /eɪtʃθriː/, like h-3) is a minimal h(ttp) framework built for high performance and portability.\n\n> [!NOTE]\n> You are on the v2 active branch. Check out [tree/v1](https://github.com/h3js/h3/tree/v1) and [v1.h3.dev](https://v1.h3.dev/) for legacy v1.\n\n👉 [Documentation](https://h3.dev)\n\n## Contribution\n\n<details>\n  <summary>Local development</summary>\n\n- Clone this repository\n- Install the latest LTS version of [Node.js](https://nodejs.org/en/)\n- Enable [Corepack](https://github.com/nodejs/corepack) using `corepack enable`\n- Install dependencies using `pnpm install`\n- Run tests using `pnpm dev` or `pnpm test`\n\n</details>\n\n<!-- /automd -->\n\n## License\n\n<!-- automd:contributors license=MIT author=\"pi0\" -->\n\nPublished under the [MIT](https://github.com/h3js/h3/blob/main/LICENSE) license.\nMade by [@pi0](https://github.com/pi0) and [community](https://github.com/h3js/h3/graphs/contributors) 💛\n<br><br>\n<a href=\"https://github.com/h3js/h3/graphs/contributors\">\n<img src=\"https://contrib.rocks/image?repo=h3js/h3\" />\n</a>\n\n<!-- /automd -->\n\n<!-- automd:with-automd -->\n\n---\n\n_🤖 auto updated with [automd](https://automd.unjs.io)_\n\n<!-- /automd -->\n",
+    "encoding": "utf-8"
+  },
+  "tree": {
+    "items": [
+      {
+        "path": ".config",
+        "type": "directory",
+        "sha": "4025be9fc592042854727ed135f3878c26a118d7",
+        "mode": "040000"
+      },
+      {
+        "path": ".github",
+        "type": "directory",
+        "sha": "44886992d96d71a3b1da894ee41802769bd13247",
+        "mode": "040000"
+      },
+      {
+        "path": ".gitignore",
+        "type": "file",
+        "sha": "95e76db7fdd5be39f1a24621061caafa0f37b2a7",
+        "size": 142,
+        "mode": "100644"
+      },
+      {
+        "path": ".oxfmtrc.json",
+        "type": "file",
+        "sha": "e0b9a498ad983804da81fac923702ba3c38771e5",
+        "size": 66,
+        "mode": "100644"
+      },
+      {
+        "path": ".oxlintrc.json",
+        "type": "file",
+        "sha": "9ecdb5822f0d6dd0cee5d7376b5107b8f6c4b8ad",
+        "size": 587,
+        "mode": "100644"
+      },
+      {
+        "path": "AGENTS.md",
+        "type": "file",
+        "sha": "8e747ebd00a95cb487acdf0c9815abe34cb60ed4",
+        "size": 11788,
+        "mode": "100644"
+      },
+      {
+        "path": "CHANGELOG.md",
+        "type": "file",
+        "sha": "e9382241dd61e0b6065b861cb80231e8a986217a",
+        "size": 128510,
+        "mode": "100644"
+      },
+      {
+        "path": "CLAUDE.md",
+        "type": "file",
+        "sha": "43c994c2d3617f947bcb5adf1933e21dabe46bb5",
+        "size": 11,
+        "mode": "100644"
+      },
+      {
+        "path": "LICENSE",
+        "type": "file",
+        "sha": "e739abce461d8b2899aaec6529a4af24a417e0fc",
+        "size": 1078,
+        "mode": "100644"
+      },
+      {
+        "path": "MIGRATION.md",
+        "type": "file",
+        "sha": "3b6e445def4b9123d788476449b788f61b0155f7",
+        "size": 10904,
+        "mode": "100644"
+      },
+      {
+        "path": "README.md",
+        "type": "file",
+        "sha": "d92f7989b1031b703fc52ecc132344ac8d8f44e5",
+        "size": 1390,
+        "mode": "100644"
+      },
+      {
+        "path": "bin",
+        "type": "directory",
+        "sha": "d9bfe1f2027ded134c11586b2d4fe8db180d2181",
+        "mode": "040000"
+      },
+      {
+        "path": "build.config.ts",
+        "type": "file",
+        "sha": "de2cc11c91678a1c9bd0065c7ee8a238d9ef2170",
+        "size": 1761,
+        "mode": "100644"
+      },
+      {
+        "path": "docs",
+        "type": "directory",
+        "sha": "882c1818902ea4c4c66c5c32bae51a491920d110",
+        "mode": "040000"
+      },
+      {
+        "path": "examples",
+        "type": "directory",
+        "sha": "0acf88b54ec999cbc63c67bf236094264b49cda4",
+        "mode": "040000"
+      },
+      {
+        "path": "package.json",
+        "type": "file",
+        "sha": "66df2963ae61e37eca135c5019ea5d88df781fee",
+        "size": 3689,
+        "mode": "100644"
+      },
+      {
+        "path": "playground",
+        "type": "directory",
+        "sha": "7c8cdc6fbe3a1155f761484a55f1f4ba5578c859",
+        "mode": "040000"
+      },
+      {
+        "path": "pnpm-lock.yaml",
+        "type": "file",
+        "sha": "5b9e1876cca0de5540a42393434dab6f2674f365",
+        "size": 135539,
+        "mode": "100644"
+      },
+      {
+        "path": "pnpm-workspace.yaml",
+        "type": "file",
+        "sha": "78269dd4f16523773c025bdd11060777dcc59e30",
+        "size": 242,
+        "mode": "100644"
+      },
+      {
+        "path": "renovate.json",
+        "type": "file",
+        "sha": "4a21dca6656268ab72b923c6e8deb0a59dfbaa74",
+        "size": 83,
+        "mode": "100644"
+      },
+      {
+        "path": "src",
+        "type": "directory",
+        "sha": "95542adc82f05b32d23fbc2c524afabe86e1378f",
+        "mode": "040000"
+      },
+      {
+        "path": "test",
+        "type": "directory",
+        "sha": "0938c3b88c4a11bbcc5246b4cabb6854dc9ed27e",
+        "mode": "040000"
+      },
+      {
+        "path": "tsconfig.json",
+        "type": "file",
+        "sha": "fbdb441c8847590e276a0d55367c0b309e0c4765",
+        "size": 743,
+        "mode": "100644"
+      },
+      {
+        "path": "typos.toml",
+        "type": "file",
+        "sha": "d6be7ff59ebf356db734e70ea04dc3dcae6f1c5b",
+        "size": 181,
+        "mode": "100644"
+      },
+      {
+        "path": "vitest.config.mjs",
+        "type": "file",
+        "sha": "a01db407ec44902842fe8f5cdea71dfdcdecde20",
+        "size": 708,
+        "mode": "100644"
+      }
+    ],
+    "rateLimit": {
+      "limit": 60,
+      "remaining": 25,
+      "resetAt": "<now>"
+    }
+  },
+  "branches": {
+    "items": [
+      {
+        "name": "build/compact",
+        "sha": "90936b21a372151098539e7deeec434f5f653058",
+        "isProtected": false
+      },
+      {
+        "name": "chore/bench",
+        "sha": "694bdc7f29fe5541d39b6efcc4f7c95370425316",
+        "isProtected": false
+      },
+      {
+        "name": "chore/playground",
+        "sha": "1e54e809d3cf7fd60f0a338883da65dd69033326",
+        "isProtected": false
+      }
+    ],
+    "cursor": {
+      "nextUrl": "https://api.github.com/repositories/313641207/branches?per_page=3&page=2",
+      "etag": "W/\"0dbcd95775dd4f74cbc919e05693ae9265cf9994137713263b649ef7f4274c18\""
+    },
+    "rateLimit": {
+      "limit": 60,
+      "remaining": 24,
+      "resetAt": "<now>"
+    }
+  },
+  "tags": {
+    "items": [
+      {
+        "name": "v2.0.2",
+        "sha": "66cfb8a357b6285451bad498c2c40002601fae98"
+      },
+      {
+        "name": "v2.0.1",
+        "sha": "26d3d3d4fc60ebece9975eee5415b114cb8dbcd5"
+      },
+      {
+        "name": "v2.0.1-rc.33",
+        "sha": "3cbc7535a61bfb7d3fcce949f30de471a90d572b"
+      }
+    ],
+    "cursor": {
+      "nextUrl": "https://api.github.com/repositories/313641207/tags?per_page=3&page=2",
+      "etag": "W/\"41b81a8667f003eb334862eb3bcf669da26d2bf2cc71c36d6108510694ff6794\""
+    },
+    "rateLimit": {
+      "limit": 60,
+      "remaining": 23,
+      "resetAt": "<now>"
+    }
+  },
+  "resolve default branch": "66cfb8a357b6285451bad498c2c40002601fae98",
+  "commits": {
+    "items": [
+      {
+        "ref": {
+          "forge": "github",
+          "instance": "github.com",
+          "repo": {
+            "forge": "github",
+            "instance": "github.com",
+            "owner": "h3js",
+            "name": "h3"
+          },
+          "sha": "66cfb8a357b6285451bad498c2c40002601fae98"
+        },
+        "sha": "66cfb8a357b6285451bad498c2c40002601fae98",
+        "message": "chore(release): v2.0.2",
+        "author": {
+          "actor": {
+            "forge": "github",
+            "instance": "github.com",
+            "login": "pi0",
+            "id": "5158436",
+            "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?v=4",
+            "url": "https://github.com/pi0",
+            "typeRaw": "User",
+            "isBotHint": false
+          },
+          "name": "Pooya Parsa",
+          "email": "redacted@example.invalid",
+          "date": "2026-10-07T12:37:06.000Z"
+        },
+        "committer": {
+          "actor": {
+            "forge": "github",
+            "instance": "github.com",
+            "login": "pi0",
+            "id": "5158436",
+            "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?v=4",
+            "url": "https://github.com/pi0",
+            "typeRaw": "User",
+            "isBotHint": false
+          },
+          "name": "Pooya Parsa",
+          "email": "redacted@example.invalid",
+          "date": "2026-10-07T12:37:06.000Z"
+        },
+        "parents": [
+          "07d7d2c0dac8fbbcd28b5c8c1278699372456dc5"
+        ],
+        "url": "https://github.com/h3js/h3/commit/66cfb8a357b6285451bad498c2c40002601fae98"
+      },
+      {
+        "ref": {
+          "forge": "github",
+          "instance": "github.com",
+          "repo": {
+            "forge": "github",
+            "instance": "github.com",
+            "owner": "h3js",
+            "name": "h3"
+          },
+          "sha": "07d7d2c0dac8fbbcd28b5c8c1278699372456dc5"
+        },
+        "sha": "07d7d2c0dac8fbbcd28b5c8c1278699372456dc5",
+        "message": "chore: update release script",
+        "author": {
+          "actor": {
+            "forge": "github",
+            "instance": "github.com",
+            "login": "pi0",
+            "id": "5158436",
+            "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?v=4",
+            "url": "https://github.com/pi0",
+            "typeRaw": "User",
+            "isBotHint": false
+          },
+          "name": "Pooya Parsa",
+          "email": "redacted@example.invalid",
+          "date": "2026-10-07T12:36:38.000Z"
+        },
+        "committer": {
+          "actor": {
+            "forge": "github",
+            "instance": "github.com",
+            "login": "pi0",
+            "id": "5158436",
+            "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?v=4",
+            "url": "https://github.com/pi0",
+            "typeRaw": "User",
+            "isBotHint": false
+          },
+          "name": "Pooya Parsa",
+          "email": "redacted@example.invalid",
+          "date": "2026-10-07T12:36:38.000Z"
+        },
+        "parents": [
+          "ac79e5fcb148e8aa5702f71535fedb84070d0fca"
+        ],
+        "url": "https://github.com/h3js/h3/commit/07d7d2c0dac8fbbcd28b5c8c1278699372456dc5"
+      },
+      {
+        "ref": {
+          "forge": "github",
+          "instance": "github.com",
+          "repo": {
+            "forge": "github",
+            "instance": "github.com",
+            "owner": "h3js",
+            "name": "h3"
+          },
+          "sha": "ac79e5fcb148e8aa5702f71535fedb84070d0fca"
+        },
+        "sha": "ac79e5fcb148e8aa5702f71535fedb84070d0fca",
+        "message": "chore: update deps",
+        "author": {
+          "actor": {
+            "forge": "github",
+            "instance": "github.com",
+            "login": "pi0",
+            "id": "5158436",
+            "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?v=4",
+            "url": "https://github.com/pi0",
+            "typeRaw": "User",
+            "isBotHint": false
+          },
+          "name": "Pooya Parsa",
+          "email": "redacted@example.invalid",
+          "date": "2026-10-07T12:34:26.000Z"
+        },
+        "committer": {
+          "actor": {
+            "forge": "github",
+            "instance": "github.com",
+            "login": "pi0",
+            "id": "5158436",
+            "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?v=4",
+            "url": "https://github.com/pi0",
+            "typeRaw": "User",
+            "isBotHint": false
+          },
+          "name": "Pooya Parsa",
+          "email": "redacted@example.invalid",
+          "date": "2026-10-07T12:35:01.000Z"
+        },
+        "parents": [
+          "44dbfb8870d4fbad7f272d5811fdfa033faa8562"
+        ],
+        "url": "https://github.com/h3js/h3/commit/ac79e5fcb148e8aa5702f71535fedb84070d0fca"
+      }
+    ],
+    "cursor": {
+      "nextUrl": "https://api.github.com/repositories/313641207/commits?per_page=3&page=2",
+      "etag": "W/\"38c118742e047343b5ecb1015bbe5d11212d078deb634bf6fa4afc6daba4147c\""
+    },
+    "rateLimit": {
+      "limit": 60,
+      "remaining": 21,
+      "resetAt": "<now>"
+    }
+  },
+  "commit": {
+    "ref": {
+      "forge": "github",
+      "instance": "github.com",
+      "repo": {
+        "forge": "github",
+        "instance": "github.com",
+        "owner": "h3js",
+        "name": "h3"
+      },
+      "sha": "adbc974043a83820a5ae388265b5ee1465926561"
+    },
+    "sha": "adbc974043a83820a5ae388265b5ee1465926561",
+    "message": "chore: include `node_modules` in `.prettierignore`",
+    "author": {
+      "actor": {
+        "forge": "github",
+        "instance": "github.com",
+        "login": "iiio2",
+        "id": "47961062",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/47961062?v=4",
+        "url": "https://github.com/iiio2",
+        "typeRaw": "User",
+        "isBotHint": false
+      },
+      "name": "Mr. Robot",
+      "email": "redacted@example.invalid",
+      "date": "2025-03-31T13:48:41.000Z"
+    },
+    "committer": {
+      "actor": {
+        "forge": "github",
+        "instance": "github.com",
+        "login": "iiio2",
+        "id": "47961062",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/47961062?v=4",
+        "url": "https://github.com/iiio2",
+        "typeRaw": "User",
+        "isBotHint": false
+      },
+      "name": "Mr. Robot",
+      "email": "redacted@example.invalid",
+      "date": "2025-03-31T13:48:41.000Z"
+    },
+    "parents": [
+      "e5788bb16d62ac64e5fa13b14862ed719f768d04"
+    ],
+    "url": "https://github.com/h3js/h3/commit/adbc974043a83820a5ae388265b5ee1465926561",
+    "stats": {
+      "additions": 1,
+      "deletions": 0,
+      "total": 1
+    },
+    "files": [
+      {
+        "path": ".prettierignore",
+        "status": "modified",
+        "statusRaw": "modified",
+        "additions": 1,
+        "deletions": 0,
+        "patch": "@@ -3,3 +3,4 @@ lib\n .nuxt\n .output\n src/types/_headers.ts\n+node_modules\n\\ No newline at end of file",
+        "sha": "86167650d1b479a034773ee53ccb60428ce71427"
+      }
+    ]
+  },
+  "compare": {
+    "base": "main",
+    "head": "adbc974043a83820a5ae388265b5ee1465926561",
+    "aheadBy": 1,
+    "behindBy": 684,
+    "mergeBaseSha": "e5788bb16d62ac64e5fa13b14862ed719f768d04",
+    "commits": [
+      {
+        "ref": {
+          "forge": "github",
+          "instance": "github.com",
+          "repo": {
+            "forge": "github",
+            "instance": "github.com",
+            "owner": "h3js",
+            "name": "h3"
+          },
+          "sha": "adbc974043a83820a5ae388265b5ee1465926561"
+        },
+        "sha": "adbc974043a83820a5ae388265b5ee1465926561",
+        "message": "chore: include `node_modules` in `.prettierignore`",
+        "author": {
+          "actor": {
+            "forge": "github",
+            "instance": "github.com",
+            "login": "iiio2",
+            "id": "47961062",
+            "avatarUrl": "https://avatars.githubusercontent.com/u/47961062?v=4",
+            "url": "https://github.com/iiio2",
+            "typeRaw": "User",
+            "isBotHint": false
+          },
+          "name": "Mr. Robot",
+          "email": "redacted@example.invalid",
+          "date": "2025-03-31T13:48:41.000Z"
+        },
+        "committer": {
+          "actor": {
+            "forge": "github",
+            "instance": "github.com",
+            "login": "iiio2",
+            "id": "47961062",
+            "avatarUrl": "https://avatars.githubusercontent.com/u/47961062?v=4",
+            "url": "https://github.com/iiio2",
+            "typeRaw": "User",
+            "isBotHint": false
+          },
+          "name": "Mr. Robot",
+          "email": "redacted@example.invalid",
+          "date": "2025-03-31T13:48:41.000Z"
+        },
+        "parents": [
+          "e5788bb16d62ac64e5fa13b14862ed719f768d04"
+        ],
+        "url": "https://github.com/h3js/h3/commit/adbc974043a83820a5ae388265b5ee1465926561"
+      }
+    ],
+    "files": [
+      {
+        "path": ".prettierignore",
+        "status": "modified",
+        "statusRaw": "modified",
+        "additions": 1,
+        "deletions": 0,
+        "patch": "@@ -3,3 +3,4 @@ lib\n .nuxt\n .output\n src/types/_headers.ts\n+node_modules\n\\ No newline at end of file",
+        "sha": "86167650d1b479a034773ee53ccb60428ce71427"
+      }
+    ]
+  },
+  "releases": {
+    "items": [
+      {
+        "ref": {
+          "forge": "github",
+          "instance": "github.com",
+          "repo": {
+            "forge": "github",
+            "instance": "github.com",
+            "owner": "h3js",
+            "name": "h3"
+          },
+          "id": "405748393",
+          "tag": "v2.0.2"
+        },
+        "name": "",
+        "tag": "v2.0.2",
+        "body": "[compare changes](https://github.com/h3js/h3/compare/v2.0.1...v2.0.2)\r\n\r\n### 🩹 Fixes\r\n\r\n- **node:** Call `onError` for stream errors in Node.js handlers ([#1571](https://github.com/h3js/h3/pull/1571))\r\n- **response:** Use matching reason phrases in redirect and noContent ([#1570](https://github.com/h3js/h3/pull/1570))\r\n- **middleware:** Pass through handled responses in `onError` ([#1574](https://github.com/h3js/h3/pull/1574))\r\n\r\n### 🌊 Types\r\n\r\n- **session:** Remove `@ts-nocheck` from iron-crypto ([#1572](https://github.com/h3js/h3/pull/1572))\r\n- **route:** Infer `defineRoute` handler input from validation schemas ([ec527f0](https://github.com/h3js/h3/commit/ec527f0))\r\n\r\n### 🏡 Chore\r\n\r\n- **session:** Retarget legacy seal fallback removal to v3 ([#1573](https://github.com/h3js/h3/pull/1573))\r\n- **session:** Mark `legacySealFallback` as deprecated ([44dbfb8](https://github.com/h3js/h3/commit/44dbfb8))\r\n\r\n### ❤️ Contributors\r\n\r\n- Pooya Parsa ([@pi0](https://github.com/pi0))\r\n- Bao Nguyen ([@giaBaoJS](https://github.com/giaBaoJS))\r\n- Kaan Çelebi ([@kaanisthatyou](https://github.com/kaanisthatyou))\r\n- Daniel Shafer ([@dannyshafer](https://github.com/dannyshafer))",
+        "isDraft": false,
+        "isPrerelease": false,
+        "author": {
+          "forge": "github",
+          "instance": "github.com",
+          "login": "pi0",
+          "id": "5158436",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?v=4",
+          "url": "https://github.com/pi0",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "publishedAt": "2026-10-07T12:38:07.000Z",
+        "createdAt": "2026-10-07T12:37:06.000Z",
+        "url": "https://github.com/h3js/h3/releases/tag/v2.0.2",
+        "assets": []
+      },
+      {
+        "ref": {
+          "forge": "github",
+          "instance": "github.com",
+          "repo": {
+            "forge": "github",
+            "instance": "github.com",
+            "owner": "h3js",
+            "name": "h3"
+          },
+          "id": "402457524",
+          "tag": "v2.0.1-rc.33"
+        },
+        "name": "v2.0.1-rc.33",
+        "tag": "v2.0.1-rc.33",
+        "body": "[compare changes](https://github.com/h3js/h3/compare/v2.0.1-rc.32...v2.0.1-rc.33)\n\n> [!IMPORTANT]\n> This release upgrades the router to **[rou3 v1](https://github.com/h3js/rou3)** (from v0.9). Route patterns now follow [URLPattern](https://developer.mozilla.org/en-US/docs/Web/API/URL_Pattern_API) syntax more closely, and some patterns match differently. **Please read the routing changes section below before you upgrade.** The full guide is the [rou3 migration guide](https://github.com/h3js/rou3/blob/main/docs/migration.md).\n\n## ⚠️ Routing changes (rou3 v1)\n\nThese changes apply to `app.get()` / `app.on()` / ... routes, `app.use(route, ...)` middleware scopes, `mount()`, and `routeRules` keys alike.\n\n### Upgrade checklist\n\n1. **Check every `*` in your routes.** It now spans segments: `/admin/*` matches `/admin/a/b`. Use `:name` to match exactly one segment.\n2. **Replace `params._`** with `params[0]`, or name the catch-all (`/**:path` → `params.path`). On the base path (`/foo` for `/foo/**`), the key is now left out instead of being `\"\"`.\n3. **Rename params that contain `-`** (`:user-id` → `:userId`).\n4. **Start your app once.** Patterns that used to be accepted with a surprising meaning now throw a `rou3: ...` error when you register them. The error quotes the route.\n5. **Run on Node.js 20.19 or later** (rou3 v1 requires `>=20.19.0`).\n\n### Behavior changes\n\n| Route              | Request         | rc.32                         | rc.33                          |\n| ------------------ | --------------- | ----------------------------- | ------------------------------ |\n| `/users/*`         | `/users/a/b`    | 404                           | `{ 0: \"a/b\" }`                 |\n| `/foo/**`          | `/foo`          | `{ _: \"\" }`                   | `{}`                           |\n| `/foo/**`          | `/foo/a/b`      | `{ _: \"a/b\" }`                | `{ 0: \"a/b\", _: \"a/b\" }` (`_` is deprecated) |\n| `/about`           | `/about//`      | match                         | 404 (only **one** trailing slash is ignored) |\n| `/u/:id/x`         | `/u//x`         | `{ id: \"\" }`                  | 404 (`:name` never matches an empty segment) |\n| `/api/:user-id`    | `/api/abc-id`   | `{ \"user-id\": \"abc-id\" }`     | `{ user: \"abc\" }` (`-` ends a param name)   |\n| `/f/:name.:ext`    | `/f/a.tar.gz`   | `{ name: \"a.tar\", ext: \"gz\" }` | `{ name: \"a\", ext: \"tar.gz\" }` |\n| `/d/:a-:b`         | `/d/x-y-z`      | `{ \"a-\": \"x-y-\", b: \"z\" }`    | `{ a: \"x\", b: \"y-z\" }`         |\n\n- **`*` is a greedy catch-all.** This also widens middleware and route rules: `app.use(\"/admin/*\", guard)` and `routeRules({ \"/admin/*\": ... })` now apply at every depth below `/admin`, not just one level. To match exactly one segment, use `/admin/:id` (or `/admin/:id?` to also match `/admin`). Inside a segment, replace `*` with `([^\\x2f]*)`, so `/*.png` becomes `/([^\\x2f]*).png`.\n- **`(.*)` and `:name(.*)` are catch-alls** too, like `*`.\n- **Segments after `**` are matched.** `/**/_payload.json` matches only paths that end in `/_payload.json`. Before, those trailing segments were ignored.\n- **One catch-all per route.** A route can have only one of `*`, `**`, `:x+`, `:x*`, `(.*)` or `:x(.*)`. For example, `/**/*.png` now throws; write `/**/:file.png` instead.\n- **Several captures in one segment** split like URLPattern: `:name` takes as little as it can. To keep the old split, add a constraint, e.g. `/:name.:ext(\\w+)`.\n- **`prefix-:param?`** makes only the param optional, not the whole segment. Write `/a/{pre-:x}?` to make the whole segment optional.\n- **Backslash escapes are literal characters**: `/foo\\.bar` matches `/foo.bar`.\n- **Method-agnostic routes are no longer hidden by method routes** on the same path shape. When both match, the more specific one wins. On a tie, the method route still wins.\n- **Patterns that now throw**, among others: `+` / `*` after a constrained or prefixed param (`/a/:x(\\d+)+`), invalid param names (`/:0`, `/:id$`, `/:café`), duplicate param names, unbalanced braces or parens, look-arounds / anchors / capturing groups inside a regex constraint, and a dot segment next to a param. See [Patterns that now throw](https://github.com/h3js/rou3/blob/main/docs/migration.md#patterns-that-now-throw).\n- **Types:** `InferRouteParams` reads param names the same way as the router. Optional params and a trailing `*` / `**` are typed `string | undefined`.\n\n### Route rules (`h3/rules`)\n\n- Rule keys are normalized exactly like route patterns, so a rule always matches the requests that the route registered with the same string serves. Non-ASCII and space characters in rule keys are now stored percent-encoded: `MatchedRouteRule.route` and the default `cache` rule name read `/caf%C3%A9/**` for a `\"/café/**\"` key. ([7cbf21c](https://github.com/h3js/h3/commit/7cbf21c))\n- Because `*` is now a catch-all, a redirect or proxy key such as `/x/*/old/**` has two catch-alls and is rejected when the rules are created. Use `:param` for the single segment.\n- An alternate path reading (for example `/docs/x%2fy` decoded to `/docs/x/y`) can bring back a permission that a broader `false` reset removed, but only from a pattern that is equal to or more specific than every pattern that reset it. Restricting custom handlers should keep setting `restricting: true`. ([3f1c9e5](https://github.com/h3js/h3/commit/3f1c9e5))\n\nSee the updated [Routing](https://h3.dev/guide/basics/routing) and [Route Rules](https://h3.dev/guide/rules) guides.\n\n## 🚀 Enhancements\n\n- **rules:** Skip `redirect` when the request is already at the target, so `\"/docs/**\": { redirect: \"/docs/v2/**\" }` no longer loops ([#1559](https://github.com/h3js/h3/pull/1559))\n\n## 🔒 Security hardening\n\n- **mount:** Reject an empty segment directly after a mount base (`/api//admin`) with `404`. Before, the path was collapsed to `/admin`, which reached the mounted app while skipping `use(\"/api/admin/**\")` guards on the parent. This also applies to `withBase()` ([1161eb7](https://github.com/h3js/h3/commit/1161eb7))\n- **session:** Keep loaded session data prototype-free ([46bc1a2](https://github.com/h3js/h3/commit/46bc1a2))\n\n## 🩹 Fixes\n\n- **validate:** Preserve repeated query values in `defineValidatedHandler`. Query validators now receive `string | string[]`, the same shape as `getQuery` ([#1562](https://github.com/h3js/h3/pull/1562))\n- **cookie:** Size cookie chunks by their encoded length, so non-ASCII or escaped values no longer exceed the chunk limit ([#1565](https://github.com/h3js/h3/pull/1565))\n- **cookie:** Include `partitioned` in the distinct-cookie key ([#1553](https://github.com/h3js/h3/pull/1553))\n- **sse:** Preserve buffered events during overlapping flushes ([#1555](https://github.com/h3js/h3/pull/1555))\n- **static:** Honor q-values and case in `accept-encoding` ([#1560](https://github.com/h3js/h3/pull/1560))\n- **static:** Set the `vary` header when a single encoding is accepted ([#1556](https://github.com/h3js/h3/pull/1556))\n- **static:** Resolve the MIME type of a precompressed variant from the requested asset ([#1564](https://github.com/h3js/h3/pull/1564))\n- **mime:** Add `.mjs` and `.cjs` to the common MIME types ([#1566](https://github.com/h3js/h3/pull/1566))\n- **rules:** Allow `headers: false` in `RouteRuleConfig` ([edcc329](https://github.com/h3js/h3/commit/edcc329))\n\n## 🌊 Types\n\n- **auth:** `event.context.basicAuth.username` and `realm` are always set after `requireBasicAuth` ([#1550](https://github.com/h3js/h3/pull/1550))\n- **handler:** `EventHandlerRequest[\"query\"]` accepts `string | string[]` values ([#1562](https://github.com/h3js/h3/pull/1562))\n\n## 📖 Documentation\n\n- Document raw query access via `event.url.search` ([#1551](https://github.com/h3js/h3/pull/1551))\n\n## ❤️ Contributors\n\n- Pooya Parsa ([@pi0](https://github.com/pi0))\n- [@pi0x](https://github.com/pi0x)\n- [@00200200](https://github.com/00200200)\n- Alexandre Kohler ([@kwy404](https://github.com/kwy404))\n- Kauê Leivingson ([@Kaue-TecsaGroup](https://github.com/Kaue-TecsaGroup))\n- Maxim Gagiev ([@maximilliangrand](https://github.com/maximilliangrand))\n- Oskar Lebuda ([@OskarLebuda](https://github.com/OskarLebuda))\n- Breken ([@breken-ai](https://github.com/breken-ai))\n- Geonseok ([@hxperl](https://github.com/hxperl))\n- Okxint ([@okxint](https://github.com/okxint))\n",
+        "isDraft": false,
+        "isPrerelease": false,
+        "author": {
+          "forge": "github",
+          "instance": "github.com",
+          "login": "pi0x",
+          "id": "286783767",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/286783767?v=4",
+          "url": "https://github.com/pi0x",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "publishedAt": "2026-10-03T10:26:32.000Z",
+        "createdAt": "2026-10-03T10:19:58.000Z",
+        "url": "https://github.com/h3js/h3/releases/tag/v2.0.1-rc.33",
+        "assets": []
+      },
+      {
+        "ref": {
+          "forge": "github",
+          "instance": "github.com",
+          "repo": {
+            "forge": "github",
+            "instance": "github.com",
+            "owner": "h3js",
+            "name": "h3"
+          },
+          "id": "402594410",
+          "tag": "v2.0.1"
+        },
+        "name": "v2.0.1",
+        "tag": "v2.0.1",
+        "body": "H3 v2 is now stable! 🎉\n\n> [!NOTE]\n> A full release article is coming soon on the [H3 blog](https://h3.dev/blog).\n\nH3 v2 is a full rewrite on top of web standards (`Request`, `Response`, `URL`, `Headers`). It stays compatible with most v1 utilities and is faster and smaller than v1.\n\n👉 **Get started:** https://h3.dev/guide\n👉 **Upgrading from v1:** https://h3.dev/migration\n\n## Highlights\n\n- **🌐 Web standards first:** Handlers receive `event.req` (a standard `Request`) and `event.url`, and set response headers through `event.res`. Return any value (string, object, `Response`, stream, `Blob`, ...) and H3 converts it to a `Response`.\n- **🚀 Runs everywhere:** The same app runs on Node.js, Bun, Deno, Cloudflare Workers, Service Workers and browsers. [srvx](https://srvx.h3.dev) provides a universal server layer, and `event.req.runtime` gives access to runtime-specific details when needed.\n- **⚡ Fast and small:** Routing uses [rou3](https://github.com/h3js/rou3) v1, and the core is a fraction of v1's bundle size. Every handler can be called directly with `handler.fetch()`.\n- **🧩 Middleware and plugins:** Onion-style `(event, next)` middleware, built-in helpers (`onRequest`, `onResponse`, `onError`, `basicAuth`, `bodyLimit`, ...) and reusable `definePlugin()` extensions.\n- **🔒 Type safety:** Typed handlers, responses and errors (`HTTPError`), plus validated handlers and body/query/params validation with any [Standard Schema](https://standardschema.dev) library.\n- **📏 Route rules (`h3/rules`):** Add headers, redirects, CORS, caching and proxying to groups of routes with one config object. See the [Route Rules guide](https://h3.dev/guide/rules).\n- **🧰 Built-in utilities:** Cookies (including chunked), sessions, CORS, proxy, static files, cache headers, SSE, WebSockets via [crossws](https://crossws.h3.dev), JSON-RPC/MCP helpers and an `h3/tracing` plugin. See https://h3.dev/utils.\n\n## Requirements\n\n- Node.js `>= 20.19` (if you run on Node.js)\n\n## Upgrading\n\nMost v1 utilities keep working, and deprecated v1 names are still exported to make upgrading easier. Read the [migration guide](https://h3.dev/migration) for the breaking changes and their new equivalents.\n\n## Thanks\n\nThank you to everyone who tested the betas and release candidates, reported issues, and sent PRs, and to the [Nitro](https://nitro.build) community for using v2 throughout its development. ❤️\n\nFor background on the v2 design, see the [v2 beta announcement](https://h3.dev/blog/v2-beta).\n",
+        "isDraft": false,
+        "isPrerelease": false,
+        "author": {
+          "forge": "github",
+          "instance": "github.com",
+          "login": "pi0x",
+          "id": "286783767",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/286783767?v=4",
+          "url": "https://github.com/pi0x",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "publishedAt": "2026-10-03T16:29:13.000Z",
+        "createdAt": "2026-10-03T16:26:16.000Z",
+        "url": "https://github.com/h3js/h3/releases/tag/v2.0.1",
+        "assets": []
+      }
+    ],
+    "cursor": {
+      "nextUrl": "https://api.github.com/repositories/313641207/releases?per_page=3&page=2",
+      "etag": "W/\"45761829977e60959e2425b32f51bcdb30bdea58961a9fb197e62a0d928b997e\""
+    },
+    "rateLimit": {
+      "limit": 60,
+      "remaining": 18,
+      "resetAt": "<now>"
+    }
+  },
+  "latest release": {
+    "ref": {
+      "forge": "github",
+      "instance": "github.com",
+      "repo": {
+        "forge": "github",
+        "instance": "github.com",
+        "owner": "h3js",
+        "name": "h3"
+      },
+      "id": "405748393",
+      "tag": "v2.0.2"
+    },
+    "name": "",
+    "tag": "v2.0.2",
+    "body": "[compare changes](https://github.com/h3js/h3/compare/v2.0.1...v2.0.2)\r\n\r\n### 🩹 Fixes\r\n\r\n- **node:** Call `onError` for stream errors in Node.js handlers ([#1571](https://github.com/h3js/h3/pull/1571))\r\n- **response:** Use matching reason phrases in redirect and noContent ([#1570](https://github.com/h3js/h3/pull/1570))\r\n- **middleware:** Pass through handled responses in `onError` ([#1574](https://github.com/h3js/h3/pull/1574))\r\n\r\n### 🌊 Types\r\n\r\n- **session:** Remove `@ts-nocheck` from iron-crypto ([#1572](https://github.com/h3js/h3/pull/1572))\r\n- **route:** Infer `defineRoute` handler input from validation schemas ([ec527f0](https://github.com/h3js/h3/commit/ec527f0))\r\n\r\n### 🏡 Chore\r\n\r\n- **session:** Retarget legacy seal fallback removal to v3 ([#1573](https://github.com/h3js/h3/pull/1573))\r\n- **session:** Mark `legacySealFallback` as deprecated ([44dbfb8](https://github.com/h3js/h3/commit/44dbfb8))\r\n\r\n### ❤️ Contributors\r\n\r\n- Pooya Parsa ([@pi0](https://github.com/pi0))\r\n- Bao Nguyen ([@giaBaoJS](https://github.com/giaBaoJS))\r\n- Kaan Çelebi ([@kaanisthatyou](https://github.com/kaanisthatyou))\r\n- Daniel Shafer ([@dannyshafer](https://github.com/dannyshafer))",
+    "isDraft": false,
+    "isPrerelease": false,
+    "author": {
+      "forge": "github",
+      "instance": "github.com",
+      "login": "pi0",
+      "id": "5158436",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?v=4",
+      "url": "https://github.com/pi0",
+      "typeRaw": "User",
+      "isBotHint": false
+    },
+    "publishedAt": "2026-10-07T12:38:07.000Z",
+    "createdAt": "2026-10-07T12:37:06.000Z",
+    "url": "https://github.com/h3js/h3/releases/tag/v2.0.2",
+    "assets": []
+  },
+  "release": {
+    "ref": {
+      "forge": "github",
+      "instance": "github.com",
+      "repo": {
+        "forge": "github",
+        "instance": "github.com",
+        "owner": "h3js",
+        "name": "h3"
+      },
+      "id": "405748393",
+      "tag": "v2.0.2"
+    },
+    "name": "",
+    "tag": "v2.0.2",
+    "body": "[compare changes](https://github.com/h3js/h3/compare/v2.0.1...v2.0.2)\r\n\r\n### 🩹 Fixes\r\n\r\n- **node:** Call `onError` for stream errors in Node.js handlers ([#1571](https://github.com/h3js/h3/pull/1571))\r\n- **response:** Use matching reason phrases in redirect and noContent ([#1570](https://github.com/h3js/h3/pull/1570))\r\n- **middleware:** Pass through handled responses in `onError` ([#1574](https://github.com/h3js/h3/pull/1574))\r\n\r\n### 🌊 Types\r\n\r\n- **session:** Remove `@ts-nocheck` from iron-crypto ([#1572](https://github.com/h3js/h3/pull/1572))\r\n- **route:** Infer `defineRoute` handler input from validation schemas ([ec527f0](https://github.com/h3js/h3/commit/ec527f0))\r\n\r\n### 🏡 Chore\r\n\r\n- **session:** Retarget legacy seal fallback removal to v3 ([#1573](https://github.com/h3js/h3/pull/1573))\r\n- **session:** Mark `legacySealFallback` as deprecated ([44dbfb8](https://github.com/h3js/h3/commit/44dbfb8))\r\n\r\n### ❤️ Contributors\r\n\r\n- Pooya Parsa ([@pi0](https://github.com/pi0))\r\n- Bao Nguyen ([@giaBaoJS](https://github.com/giaBaoJS))\r\n- Kaan Çelebi ([@kaanisthatyou](https://github.com/kaanisthatyou))\r\n- Daniel Shafer ([@dannyshafer](https://github.com/dannyshafer))",
+    "isDraft": false,
+    "isPrerelease": false,
+    "author": {
+      "forge": "github",
+      "instance": "github.com",
+      "login": "pi0",
+      "id": "5158436",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?v=4",
+      "url": "https://github.com/pi0",
+      "typeRaw": "User",
+      "isBotHint": false
+    },
+    "publishedAt": "2026-10-07T12:38:07.000Z",
+    "createdAt": "2026-10-07T12:37:06.000Z",
+    "url": "https://github.com/h3js/h3/releases/tag/v2.0.2",
+    "assets": []
+  },
+  "release by tag": {
+    "ref": {
+      "forge": "github",
+      "instance": "github.com",
+      "repo": {
+        "forge": "github",
+        "instance": "github.com",
+        "owner": "h3js",
+        "name": "h3"
+      },
+      "id": "405748393",
+      "tag": "v2.0.2"
+    },
+    "name": "",
+    "tag": "v2.0.2",
+    "body": "[compare changes](https://github.com/h3js/h3/compare/v2.0.1...v2.0.2)\r\n\r\n### 🩹 Fixes\r\n\r\n- **node:** Call `onError` for stream errors in Node.js handlers ([#1571](https://github.com/h3js/h3/pull/1571))\r\n- **response:** Use matching reason phrases in redirect and noContent ([#1570](https://github.com/h3js/h3/pull/1570))\r\n- **middleware:** Pass through handled responses in `onError` ([#1574](https://github.com/h3js/h3/pull/1574))\r\n\r\n### 🌊 Types\r\n\r\n- **session:** Remove `@ts-nocheck` from iron-crypto ([#1572](https://github.com/h3js/h3/pull/1572))\r\n- **route:** Infer `defineRoute` handler input from validation schemas ([ec527f0](https://github.com/h3js/h3/commit/ec527f0))\r\n\r\n### 🏡 Chore\r\n\r\n- **session:** Retarget legacy seal fallback removal to v3 ([#1573](https://github.com/h3js/h3/pull/1573))\r\n- **session:** Mark `legacySealFallback` as deprecated ([44dbfb8](https://github.com/h3js/h3/commit/44dbfb8))\r\n\r\n### ❤️ Contributors\r\n\r\n- Pooya Parsa ([@pi0](https://github.com/pi0))\r\n- Bao Nguyen ([@giaBaoJS](https://github.com/giaBaoJS))\r\n- Kaan Çelebi ([@kaanisthatyou](https://github.com/kaanisthatyou))\r\n- Daniel Shafer ([@dannyshafer](https://github.com/dannyshafer))",
+    "isDraft": false,
+    "isPrerelease": false,
+    "author": {
+      "forge": "github",
+      "instance": "github.com",
+      "login": "pi0",
+      "id": "5158436",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?v=4",
+      "url": "https://github.com/pi0",
+      "typeRaw": "User",
+      "isBotHint": false
+    },
+    "publishedAt": "2026-10-07T12:38:07.000Z",
+    "createdAt": "2026-10-07T12:37:06.000Z",
+    "url": "https://github.com/h3js/h3/releases/tag/v2.0.2",
+    "assets": []
+  },
+  "search threads": {
+    "items": [
+      {
+        "ref": {
+          "forge": "github",
+          "instance": "github.com",
+          "repo": {
+            "forge": "github",
+            "instance": "github.com",
+            "owner": "h3js",
+            "name": "h3"
+          },
+          "kind": "pull_request",
+          "number": "1557",
+          "externalId": "PR_kwDOErHI988AAAABFO055g"
+        },
+        "kind": "pull_request",
+        "title": "feat(rules): request conditions in rule keys (`GET:MD /path`)",
+        "body": "Route rule keys can now be scoped to a named request condition with `METHOD:NAME /path`. Conditions match request headers and are defined in `routeRules()` options.\n\n```ts\nimport { routeRules } from \"h3/rules\";\n\napp.use(\n  routeRules(\n    {\n      // GET /blog/hello with `Accept: text/markdown` → 307 /blog/hello.md\n      \"GET:MD /blog/**\": { redirect: \"/blog/**.md\" },\n      // Already Markdown: don't redirect again\n      \"GET:MD /blog/*.md\": { redirect: false },\n    },\n    {\n      conditions: {\n        MD: { headers: { accept: /\\btext\\/markdown\\b/ } },\n      },\n    },\n  ),\n);\n```\n\n- A request that satisfies a condition keeps every plain `GET` rule and gets the condition's rules on top. When several conditions are satisfied, all of them apply.\n- Header checks: `true` means present, `false` means absent, a string must match exactly, and a `RegExp` is tested against the value.\n- Rule sets without conditions do no extra work per request.\n- `cache` entries and memoized matches are kept separate per condition.\n- The compiler supports conditions: `compileRouteRules(config, { conditions })` exports `resolveRouteRulesMethod(event, method)` for the compiled matcher.\n\nAlso fixes a `preMerge` bug where a method-scoped rule on a shared route node (`GET /a/:id`) hid an agnostic rule (`/a/*`) for `GET /a`.\n\n🤖 Generated with AI assistant\n\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n## Summary by CodeRabbit\n\n- **New Features**\n  - Added named request conditions for route rules, matching requests by header presence, absence, exact values, or regular expressions.\n  - Requests now combine standard method rules with rules for satisfied conditions. GET conditions also apply to HEAD requests.\n  - Added validation for condition definitions and rule keys, including a limit of six conditions per method.\n  - Cached responses are kept separate across condition variants.\n- **Documentation**\n  - Expanded the Route Rules guide with configuration, matching behavior, precedence, and security considerations.\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
+        "state": "open",
+        "stateRaw": "open",
+        "isDraft": false,
+        "author": {
+          "forge": "github",
+          "instance": "github.com",
+          "login": "pi0x",
+          "id": "286783767",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/286783767?v=4",
+          "url": "https://github.com/pi0x",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "assignees": [],
+        "reviewers": [],
+        "labels": [],
+        "url": "https://github.com/h3js/h3/pull/1557",
+        "createdAt": "2026-09-26T08:58:13.000Z",
+        "updatedAt": "2026-09-26T10:12:18.000Z",
+        "lastActivityAt": "2026-09-26T10:12:18.000Z",
+        "locked": false,
+        "commentCount": 3,
+        "reactions": {
+          "total": 0,
+          "counts": {}
+        }
+      },
+      {
+        "ref": {
+          "forge": "github",
+          "instance": "github.com",
+          "repo": {
+            "forge": "github",
+            "instance": "github.com",
+            "owner": "h3js",
+            "name": "h3"
+          },
+          "kind": "pull_request",
+          "number": "1422",
+          "externalId": "PR_kwDOErHI987sEw0e"
+        },
+        "kind": "pull_request",
+        "title": "fix(sanitizeStatusCode): return default for non-numeric input instead of NaN",
+        "body": "`sanitizeStatusCode` accepts `string | number` and parses strings with `Number.parseInt`. For a non-numeric string `Number.parseInt` returns `NaN`, and `NaN` slips through the range check because every comparison with `NaN` is `false`:\n\n```ts\nsanitizeStatusCode(\"abc\"); // -> NaN  (expected 200)\n```\n\nSo an invalid code can reach `createError` (`err.statusCode = sanitizeStatusCode(input.statusCode, ...)`) and the response helpers (`event.node.res.statusCode = sanitizeStatusCode(...)`), where a `NaN` status is no longer a valid HTTP status.\n\nThis is the same issue that was fixed for v2 on `main` in #1420; this backports the guard to the v1 line. The `Number.parseInt` behaviour and the `100..999` range are unchanged, I only added the `Number.isNaN` check:\n\n```ts\nif (Number.isNaN(statusCode) || statusCode < 100 || statusCode > 999) {\n  return defaultStatusCode;\n}\n```\n\nAdded a unit test covering valid codes, out-of-range codes and non-numeric strings. It fails before the change (returns `NaN`) and passes after.\n",
+        "state": "open",
+        "stateRaw": "open",
+        "isDraft": false,
+        "author": {
+          "forge": "github",
+          "instance": "github.com",
+          "login": "mahirhir",
+          "id": "246701683",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/246701683?v=4",
+          "url": "https://github.com/mahirhir",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "assignees": [],
+        "reviewers": [],
+        "labels": [
+          {
+            "name": "v1",
+            "colour": "B42F7D",
+            "description": ""
+          }
+        ],
+        "url": "https://github.com/h3js/h3/pull/1422",
+        "createdAt": "2026-06-30T05:13:40.000Z",
+        "updatedAt": "2026-09-14T14:34:57.000Z",
+        "lastActivityAt": "2026-09-14T14:34:57.000Z",
+        "locked": false,
+        "commentCount": 2,
+        "reactions": {
+          "total": 0,
+          "counts": {}
+        }
+      },
+      {
+        "ref": {
+          "forge": "github",
+          "instance": "github.com",
+          "repo": {
+            "forge": "github",
+            "instance": "github.com",
+            "owner": "h3js",
+            "name": "h3"
+          },
+          "kind": "issue",
+          "number": "1567",
+          "externalId": "I_kwDOErHI988AAAABUYFmsg"
+        },
+        "kind": "issue",
+        "title": "getValidatedQuery should account for ambiguous data",
+        "body": "### Describe the feature\n\n## Premise\n\nreadQuery() as it is currently only works if you either\n\n1. have extremely simple data - basically exclusively strings.\n2. make a custom schema with coercing (assuming the validation library supports everything needed) for every API endpoint, not really being able to reuse existing schemas\n3. send all data as body payload (this wouldn't be a problem if GET and DELETE were allowed to have bodies)\n4. send all data as stringified JSON\n5. or (like me) make a shim that tries its best at adjusting the data to better fit a schema\n\nnone of these options are particularly enticing, so (imo) there should be a system to somehow fix this in h3.\n\n## My shim/workaround\n\nwithout posting code, I basically crawl through the zod type definition alongside the passed data and adjust the data where it can't be unambiguously represented by query parameters.\n\nI'm not sure how viable this is for h3 considering it's supposed to be somewhat validator-agnostic… But then again, having this feature for a limited amount of libraries would be better than having it for none at all.\n\n## Additional notes\n\nzod has already declined to implement a version of this on their side: https://github.com/colinhacks/zod/issues/2873\n\n### Additional information\n\n- [ ] Would you be willing to help implement this feature?",
+        "state": "open",
+        "stateRaw": "open",
+        "isDraft": false,
+        "author": {
+          "forge": "github",
+          "instance": "github.com",
+          "login": "LMR-eitea",
+          "id": "332368094",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/332368094?v=4",
+          "url": "https://github.com/LMR-eitea",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "assignees": [],
+        "reviewers": [],
+        "labels": [
+          {
+            "name": "enhancement",
+            "colour": "a2eeef",
+            "description": "New feature or request"
+          }
+        ],
+        "url": "https://github.com/h3js/h3/issues/1567",
+        "createdAt": "2026-10-01T12:48:44.000Z",
+        "updatedAt": "2026-10-01T12:48:44.000Z",
+        "lastActivityAt": "2026-10-01T12:48:44.000Z",
+        "locked": false,
+        "commentCount": 0,
+        "reactions": {
+          "total": 0,
+          "counts": {}
+        }
+      }
+    ],
+    "cursor": {
+      "nextUrl": "https://api.github.com/search/issues?q=%28fix%29+repo%3Ah3js%2Fh3+%28is%3Aissue+OR+is%3Apr%29&advanced_search=true&per_page=3&page=2"
+    },
+    "rateLimit": {
+      "limit": 10,
+      "remaining": 9,
+      "resetAt": "<now>"
+    }
+  },
+  "search repos": {
+    "items": [
+      {
+        "ref": {
+          "forge": "github",
+          "instance": "github.com",
+          "owner": "uber",
+          "name": "h3",
+          "externalId": "114948816"
+        },
+        "description": "Hexagonal hierarchical geospatial indexing system",
+        "defaultBranch": "master",
+        "visibility": "public",
+        "visibilityRaw": "public",
+        "isFork": false,
+        "isArchived": false,
+        "topics": [
+          "geospatial",
+          "h3",
+          "hexagon",
+          "spatial-indexing",
+          "uber"
+        ],
+        "url": "https://github.com/uber/h3",
+        "cloneUrls": {
+          "https": "https://github.com/uber/h3.git",
+          "ssh": "git@github.com:uber/h3.git"
+        },
+        "createdAt": "2017-12-21T01:38:35.000Z",
+        "updatedAt": "2026-10-08T08:17:13.000Z",
+        "pushedAt": "2026-10-02T01:00:28.000Z",
+        "owner": {
+          "forge": "github",
+          "instance": "github.com",
+          "login": "uber",
+          "id": "538264",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/538264?v=4",
+          "url": "https://github.com/uber",
+          "typeRaw": "Organization",
+          "isBotHint": false
+        },
+        "language": "C",
+        "homepage": "https://h3geo.org",
+        "licence": "Apache-2.0",
+        "stars": 6586,
+        "forks": 630,
+        "features": {
+          "issues": true,
+          "pullRequests": true,
+          "discussions": true,
+          "wiki": false,
+          "projects": true,
+          "releases": true
+        }
+      },
+      {
+        "ref": {
+          "forge": "github",
+          "instance": "github.com",
+          "owner": "h3js",
+          "name": "h3",
+          "externalId": "313641207"
+        },
+        "description": "⚡️ Minimal H(TTP) framework built for high performance and portability ",
+        "defaultBranch": "main",
+        "visibility": "public",
+        "visibilityRaw": "public",
+        "isFork": false,
+        "isArchived": false,
+        "topics": [],
+        "url": "https://github.com/h3js/h3",
+        "cloneUrls": {
+          "https": "https://github.com/h3js/h3.git",
+          "ssh": "git@github.com:h3js/h3.git"
+        },
+        "createdAt": "2020-11-17T14:15:44.000Z",
+        "updatedAt": "2026-10-08T17:07:53.000Z",
+        "pushedAt": "2026-10-07T12:37:26.000Z",
+        "owner": {
+          "forge": "github",
+          "instance": "github.com",
+          "login": "h3js",
+          "id": "208435796",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/208435796?v=4",
+          "url": "https://github.com/h3js",
+          "typeRaw": "Organization",
+          "isBotHint": false
+        },
+        "language": "TypeScript",
+        "homepage": "https://h3.dev",
+        "licence": "MIT",
+        "stars": 5448,
+        "forks": 368,
+        "features": {
+          "issues": true,
+          "pullRequests": true,
+          "discussions": true,
+          "wiki": false,
+          "projects": true,
+          "releases": true
+        }
+      },
+      {
+        "ref": {
+          "forge": "github",
+          "instance": "github.com",
+          "owner": "AIMixer",
+          "name": "ComfyUI_MiniMaxH3_Director",
+          "externalId": "1322502505"
+        },
+        "description": "Multi-segment MiniMax H3 Director for official ComfyUI MiniMax-H3",
+        "defaultBranch": "main",
+        "visibility": "public",
+        "visibilityRaw": "public",
+        "isFork": false,
+        "isArchived": false,
+        "topics": [],
+        "url": "https://github.com/AIMixer/ComfyUI_MiniMaxH3_Director",
+        "cloneUrls": {
+          "https": "https://github.com/AIMixer/ComfyUI_MiniMaxH3_Director.git",
+          "ssh": "git@github.com:AIMixer/ComfyUI_MiniMaxH3_Director.git"
+        },
+        "createdAt": "2026-08-04T04:20:36.000Z",
+        "updatedAt": "<now>",
+        "pushedAt": "2026-09-30T10:23:49.000Z",
+        "owner": {
+          "forge": "github",
+          "instance": "github.com",
+          "login": "AIMixer",
+          "id": "149470765",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/149470765?v=4",
+          "url": "https://github.com/AIMixer",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "language": "JavaScript",
+        "licence": "Apache-2.0",
+        "stars": 2230,
+        "forks": 262,
+        "features": {
+          "issues": true,
+          "pullRequests": true,
+          "discussions": false,
+          "wiki": true,
+          "projects": true,
+          "releases": true
+        }
+      }
+    ],
+    "cursor": {
+      "nextUrl": "https://api.github.com/search/repositories?q=h3&per_page=3&page=2"
+    },
+    "rateLimit": {
+      "limit": 10,
+      "remaining": 9,
+      "resetAt": "<now>"
+    }
+  },
+  "search commits": {
+    "items": [
+      {
+        "ref": {
+          "forge": "github",
+          "instance": "github.com",
+          "repo": {
+            "forge": "github",
+            "instance": "github.com",
+            "owner": "h3js",
+            "name": "h3"
+          },
+          "sha": "b52a9e7417bab5bbcdbf737d62c8fa0a61e84976"
+        },
+        "sha": "b52a9e7417bab5bbcdbf737d62c8fa0a61e84976",
+        "message": "fix(middleware): pass through handled responses in `onError` (#1574)",
+        "author": {
+          "actor": {
+            "forge": "github",
+            "instance": "github.com",
+            "login": "pi0x",
+            "id": "286783767",
+            "avatarUrl": "https://avatars.githubusercontent.com/u/286783767?v=4",
+            "url": "https://github.com/pi0x",
+            "typeRaw": "User",
+            "isBotHint": false
+          },
+          "name": "pi0x",
+          "email": "redacted@example.invalid",
+          "date": "2026-10-07T11:58:34.000Z"
+        },
+        "committer": {
+          "actor": {
+            "forge": "github",
+            "instance": "github.com",
+            "login": "web-flow",
+            "id": "19864447",
+            "avatarUrl": "https://avatars.githubusercontent.com/u/19864447?v=4",
+            "url": "https://github.com/web-flow",
+            "typeRaw": "User",
+            "isBotHint": false
+          },
+          "name": "GitHub",
+          "email": "redacted@example.invalid",
+          "date": "2026-10-07T11:58:34.000Z"
+        },
+        "parents": [
+          "403bd029e5ee9ecd10c59682ea08f5b0ce90e05b"
+        ],
+        "url": "https://github.com/h3js/h3/commit/b52a9e7417bab5bbcdbf737d62c8fa0a61e84976"
+      },
+      {
+        "ref": {
+          "forge": "github",
+          "instance": "github.com",
+          "repo": {
+            "forge": "github",
+            "instance": "github.com",
+            "owner": "h3js",
+            "name": "h3"
+          },
+          "sha": "403bd029e5ee9ecd10c59682ea08f5b0ce90e05b"
+        },
+        "sha": "403bd029e5ee9ecd10c59682ea08f5b0ce90e05b",
+        "message": "fix(response): use matching reason phrases in redirect and noContent (#1570)",
+        "author": {
+          "actor": {
+            "forge": "github",
+            "instance": "github.com",
+            "login": "giaBaoJS",
+            "id": "39545125",
+            "avatarUrl": "https://avatars.githubusercontent.com/u/39545125?v=4",
+            "url": "https://github.com/giaBaoJS",
+            "typeRaw": "User",
+            "isBotHint": false
+          },
+          "name": "Bao Nguyen",
+          "email": "redacted@example.invalid",
+          "date": "2026-10-07T11:56:48.000Z"
+        },
+        "committer": {
+          "actor": {
+            "forge": "github",
+            "instance": "github.com",
+            "login": "web-flow",
+            "id": "19864447",
+            "avatarUrl": "https://avatars.githubusercontent.com/u/19864447?v=4",
+            "url": "https://github.com/web-flow",
+            "typeRaw": "User",
+            "isBotHint": false
+          },
+          "name": "GitHub",
+          "email": "redacted@example.invalid",
+          "date": "2026-10-07T11:56:48.000Z"
+        },
+        "parents": [
+          "bca3a8e8d5ab556c874c771aa5a9fade06194948"
+        ],
+        "url": "https://github.com/h3js/h3/commit/403bd029e5ee9ecd10c59682ea08f5b0ce90e05b"
+      },
+      {
+        "ref": {
+          "forge": "github",
+          "instance": "github.com",
+          "repo": {
+            "forge": "github",
+            "instance": "github.com",
+            "owner": "h3js",
+            "name": "h3"
+          },
+          "sha": "bca3a8e8d5ab556c874c771aa5a9fade06194948"
+        },
+        "sha": "bca3a8e8d5ab556c874c771aa5a9fade06194948",
+        "message": "fix(node): call `onError` for stream errors in Node.js handlers (#1571)",
+        "author": {
+          "actor": {
+            "forge": "github",
+            "instance": "github.com",
+            "login": "kaanisthatyou",
+            "id": "121812333",
+            "avatarUrl": "https://avatars.githubusercontent.com/u/121812333?v=4",
+            "url": "https://github.com/kaanisthatyou",
+            "typeRaw": "User",
+            "isBotHint": false
+          },
+          "name": "Kaan Çelebi",
+          "email": "redacted@example.invalid",
+          "date": "2026-10-07T11:53:46.000Z"
+        },
+        "committer": {
+          "actor": {
+            "forge": "github",
+            "instance": "github.com",
+            "login": "web-flow",
+            "id": "19864447",
+            "avatarUrl": "https://avatars.githubusercontent.com/u/19864447?v=4",
+            "url": "https://github.com/web-flow",
+            "typeRaw": "User",
+            "isBotHint": false
+          },
+          "name": "GitHub",
+          "email": "redacted@example.invalid",
+          "date": "2026-10-07T11:53:46.000Z"
+        },
+        "parents": [
+          "fb34b0f5144c9e2e5658fd30038a95582accd9d3"
+        ],
+        "url": "https://github.com/h3js/h3/commit/bca3a8e8d5ab556c874c771aa5a9fade06194948"
+      }
+    ],
+    "cursor": {
+      "nextUrl": "https://api.github.com/search/commits?q=fix+repo%3Ah3js%2Fh3&per_page=3&page=2"
+    },
+    "rateLimit": {
+      "limit": 10,
+      "remaining": 9,
+      "resetAt": "<now>"
+    }
+  }
+}

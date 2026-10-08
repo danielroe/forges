@@ -1,0 +1,67 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/commits/63e44b69ea1af37d309cce490c59cda5d190c8a1"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"41862af2d6c23ea6de5eab5e5d612147\"",
+      "x-ratelimit-limit": "60",
+      "x-ratelimit-remaining": "29"
+    },
+    "body": {
+      "url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/commits/63e44b69ea1af37d309cce490c59cda5d190c8a1",
+      "sha": "63e44b69ea1af37d309cce490c59cda5d190c8a1",
+      "html_url": "https://gitee.com/cmcc-oneos/OneOS/commit/63e44b69ea1af37d309cce490c59cda5d190c8a1",
+      "comments_url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/commits/63e44b69ea1af37d309cce490c59cda5d190c8a1/comments",
+      "commit": {
+        "author": {
+          "name": "pangchao",
+          "date": "2025-06-12T11:06:45+08:00",
+          "email": "redacted@example.invalid"
+        },
+        "committer": {
+          "name": "pangchao",
+          "date": "2025-06-12T11:06:45+08:00",
+          "email": "redacted@example.invalid"
+        },
+        "message": "delete Kconfig menu of semidrive\n",
+        "tree": {
+          "sha": "e05ef50bafa2592cb51cbe220800b5cb1f361be2",
+          "url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/git/trees/e05ef50bafa2592cb51cbe220800b5cb1f361be2"
+        }
+      },
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "2fa826a00e1c4f42113d878d198584360e180eb0",
+          "url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/commits/2fa826a00e1c4f42113d878d198584360e180eb0"
+        }
+      ],
+      "stats": {
+        "id": "63e44b69ea1af37d309cce490c59cda5d190c8a1",
+        "additions": 0,
+        "deletions": 7,
+        "total": 7
+      },
+      "files": [
+        {
+          "sha": "7407eb96e104fa5cebd1eff5e04923b4226b2199",
+          "filename": "templates/configs/Kconfig",
+          "status": "modified",
+          "additions": 0,
+          "deletions": 7,
+          "changes": 7,
+          "blob_url": "https://gitee.com/cmcc-oneos/OneOS/blob/63e44b69ea1af37d309cce490c59cda5d190c8a1/templates/configs/Kconfig",
+          "raw_url": "https://gitee.com/cmcc-oneos/OneOS/raw/63e44b69ea1af37d309cce490c59cda5d190c8a1/templates/configs/Kconfig",
+          "content_url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/contents/templates/configs/Kconfig?ref=63e44b69ea1af37d309cce490c59cda5d190c8a1",
+          "patch": "@@ -62,9 +62,6 @@ choice\n     config MANUFACTOR_SAMSUNG\r\n         bool \"SAMSUNG\"\r\n         \r\n-    config MANUFACTOR_SEMIDRIVE\r\n-        bool \"SEMIDRIVE\"\r\n-        \r\n endchoice\r\n \r\n if MANUFACTOR_STM32\r\n@@ -150,7 +147,3 @@ endif\n if MANUFACTOR_SAMSUNG\r\n     source \"$OS_ROOT/templates/configs/samsung/Kconfig\"\r\n endif\r\n-\r\n-if MANUFACTOR_SEMIDRIVE\r\n-    source \"$OS_ROOT/templates/configs/semidrive/Kconfig\"\r\n-endif\r\n",
+          "truncated": false
+        }
+      ],
+      "truncated": false
+    }
+  }
+}

@@ -1,0 +1,114 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitlab.com/api/v4/projects?search=cli&per_page=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "<https://gitlab.com/api/v4/projects?imported=false&include_hidden=false&membership=false&order_by=created_at&owned=false&page=2&per_page=3&repository_checksum_failed=false&search=cli&simple=false&sort=desc&starred=false&statistics=false&wiki_checksum_failed=false&with_custom_attributes=false&with_issues_enabled=false&with_merge_requests_enabled=false>; rel=\"next\", <https://gitlab.com/api/v4/projects?imported=false&include_hidden=false&membership=false&order_by=created_at&owned=false&page=1&per_page=3&repository_checksum_failed=false&search=cli&simple=false&sort=desc&starred=false&statistics=false&wiki_checksum_failed=false&with_custom_attributes=false&with_issues_enabled=false&with_merge_requests_enabled=false>; rel=\"first\"",
+      "etag": "W/\"28bb5ae0cd401d0dd7b9f6ea6f23c27d\"",
+      "ratelimit-limit": "500",
+      "ratelimit-remaining": "463",
+      "ratelimit-reset": "1791477480",
+      "x-next-page": "2",
+      "x-page": "1",
+      "x-per-page": "3"
+    },
+    "body": [
+      {
+        "id": 87397304,
+        "description": null,
+        "name": "dentalclinicinscarborough",
+        "name_with_namespace": "BSRV Dental  Office / dentalclinicinscarborough",
+        "path": "dentalclinicinscarborough",
+        "path_with_namespace": "bsrvdental/dentalclinicinscarborough",
+        "created_at": "2026-10-08T15:54:18.786Z",
+        "default_branch": "main",
+        "tag_list": [],
+        "topics": [],
+        "ssh_url_to_repo": "git@gitlab.com:bsrvdental/dentalclinicinscarborough.git",
+        "http_url_to_repo": "https://gitlab.com/bsrvdental/dentalclinicinscarborough.git",
+        "web_url": "https://gitlab.com/bsrvdental/dentalclinicinscarborough",
+        "readme_url": "https://gitlab.com/bsrvdental/dentalclinicinscarborough/-/blob/main/README.md",
+        "forks_count": 0,
+        "avatar_url": null,
+        "star_count": 0,
+        "last_activity_at": "2026-10-08T15:54:18.706Z",
+        "visibility": "public",
+        "namespace": {
+          "id": 144282040,
+          "name": "BSRV Dental  Office",
+          "path": "bsrvdental",
+          "kind": "user",
+          "full_path": "bsrvdental",
+          "parent_id": null,
+          "avatar_url": "/uploads/-/system/user/avatar/43170891/avatar.png?v=1791474738",
+          "web_url": "https://gitlab.com/bsrvdental"
+        }
+      },
+      {
+        "id": 87397109,
+        "description": null,
+        "name": "Poweramp Radio cli",
+        "name_with_namespace": "Ivan Zabe / Poweramp Radio cli",
+        "path": "poweramp-radio-cli",
+        "path_with_namespace": "marmota/poweramp-radio-cli",
+        "created_at": "2026-10-08T15:49:34.999Z",
+        "default_branch": "main",
+        "tag_list": [],
+        "topics": [],
+        "ssh_url_to_repo": "git@gitlab.com:marmota/poweramp-radio-cli.git",
+        "http_url_to_repo": "https://gitlab.com/marmota/poweramp-radio-cli.git",
+        "web_url": "https://gitlab.com/marmota/poweramp-radio-cli",
+        "readme_url": "https://gitlab.com/marmota/poweramp-radio-cli/-/blob/main/README.md",
+        "forks_count": 0,
+        "avatar_url": null,
+        "star_count": 0,
+        "last_activity_at": "2026-10-08T15:49:34.907Z",
+        "visibility": "public",
+        "namespace": {
+          "id": 4597788,
+          "name": "Ivan Zabe",
+          "path": "marmota",
+          "kind": "user",
+          "full_path": "marmota",
+          "parent_id": null,
+          "avatar_url": "https://secure.gravatar.com/avatar/e2350b942b9aecf8da977a139f809a78015638f827d09808ab618c95bf406e58?s=80&d=identicon",
+          "web_url": "https://gitlab.com/marmota"
+        }
+      },
+      {
+        "id": 87396069,
+        "description": "Pulse Stream — open-source Android streaming app: Stremio-addon client with built-in ExoPlayer, Material 3 dark UI.",
+        "name": "PulseStream",
+        "name_with_namespace": "Syed Najam Ul Hassnain / PulseStream",
+        "path": "pulsestream",
+        "path_with_namespace": "KotlinJS5/pulsestream",
+        "created_at": "2026-10-08T15:29:04.588Z",
+        "default_branch": "main",
+        "tag_list": [],
+        "topics": [],
+        "ssh_url_to_repo": "git@gitlab.com:KotlinJS5/pulsestream.git",
+        "http_url_to_repo": "https://gitlab.com/KotlinJS5/pulsestream.git",
+        "web_url": "https://gitlab.com/KotlinJS5/pulsestream",
+        "readme_url": "https://gitlab.com/KotlinJS5/pulsestream/-/blob/main/README.md",
+        "forks_count": 0,
+        "avatar_url": null,
+        "star_count": 0,
+        "last_activity_at": "2026-10-08T16:32:23.122Z",
+        "visibility": "public",
+        "namespace": {
+          "id": 144279679,
+          "name": "Syed Najam Ul Hassnain",
+          "path": "KotlinJS5",
+          "kind": "user",
+          "full_path": "KotlinJS5",
+          "parent_id": null,
+          "avatar_url": "https://secure.gravatar.com/avatar/c493d1a5f8725a99708b2a7e6bcb99da68b22569eadcb22aa5bf47c044df26b8?s=80&d=identicon",
+          "web_url": "https://gitlab.com/KotlinJS5"
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,91 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/collaborators?page=1&per_page=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "<https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/collaborators?owner=cmcc-oneos&page=2&per_page=3&repo=OneOS>; rel='next', <https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/collaborators?owner=cmcc-oneos&page=10&per_page=3&repo=OneOS>; rel='last'",
+      "etag": "W/\"4c2e931ee478a1b98285038ff76aba37\"",
+      "x-ratelimit-limit": "60",
+      "x-ratelimit-remaining": "57",
+      "total_page": "10",
+      "total_count": "29"
+    },
+    "body": [
+      {
+        "id": 625070,
+        "login": "charlseJ",
+        "name": "非yun",
+        "avatar_url": "https://gitee.com/assets/no_portrait.png",
+        "url": "https://gitee.com/api/v5/users/charlseJ",
+        "html_url": "https://gitee.com/charlseJ",
+        "remark": "",
+        "followers_url": "https://gitee.com/api/v5/users/charlseJ/followers",
+        "following_url": "https://gitee.com/api/v5/users/charlseJ/following_url{/other_user}",
+        "gists_url": "https://gitee.com/api/v5/users/charlseJ/gists{/gist_id}",
+        "starred_url": "https://gitee.com/api/v5/users/charlseJ/starred{/owner}{/repo}",
+        "subscriptions_url": "https://gitee.com/api/v5/users/charlseJ/subscriptions",
+        "organizations_url": "https://gitee.com/api/v5/users/charlseJ/orgs",
+        "repos_url": "https://gitee.com/api/v5/users/charlseJ/repos",
+        "events_url": "https://gitee.com/api/v5/users/charlseJ/events{/privacy}",
+        "received_events_url": "https://gitee.com/api/v5/users/charlseJ/received_events",
+        "type": "User",
+        "permissions": {
+          "pull": true,
+          "push": false,
+          "admin": false
+        }
+      },
+      {
+        "id": 1444807,
+        "login": "longlin7594",
+        "name": "longlin",
+        "avatar_url": "https://gitee.com/assets/no_portrait.png",
+        "url": "https://gitee.com/api/v5/users/longlin7594",
+        "html_url": "https://gitee.com/longlin7594",
+        "remark": "",
+        "followers_url": "https://gitee.com/api/v5/users/longlin7594/followers",
+        "following_url": "https://gitee.com/api/v5/users/longlin7594/following_url{/other_user}",
+        "gists_url": "https://gitee.com/api/v5/users/longlin7594/gists{/gist_id}",
+        "starred_url": "https://gitee.com/api/v5/users/longlin7594/starred{/owner}{/repo}",
+        "subscriptions_url": "https://gitee.com/api/v5/users/longlin7594/subscriptions",
+        "organizations_url": "https://gitee.com/api/v5/users/longlin7594/orgs",
+        "repos_url": "https://gitee.com/api/v5/users/longlin7594/repos",
+        "events_url": "https://gitee.com/api/v5/users/longlin7594/events{/privacy}",
+        "received_events_url": "https://gitee.com/api/v5/users/longlin7594/received_events",
+        "type": "User",
+        "permissions": {
+          "pull": true,
+          "push": false,
+          "admin": false
+        }
+      },
+      {
+        "id": 4766708,
+        "login": "shanshi87hl",
+        "name": "磊Ray",
+        "avatar_url": "https://gitee.com/assets/no_portrait.png",
+        "url": "https://gitee.com/api/v5/users/shanshi87hl",
+        "html_url": "https://gitee.com/shanshi87hl",
+        "remark": "",
+        "followers_url": "https://gitee.com/api/v5/users/shanshi87hl/followers",
+        "following_url": "https://gitee.com/api/v5/users/shanshi87hl/following_url{/other_user}",
+        "gists_url": "https://gitee.com/api/v5/users/shanshi87hl/gists{/gist_id}",
+        "starred_url": "https://gitee.com/api/v5/users/shanshi87hl/starred{/owner}{/repo}",
+        "subscriptions_url": "https://gitee.com/api/v5/users/shanshi87hl/subscriptions",
+        "organizations_url": "https://gitee.com/api/v5/users/shanshi87hl/orgs",
+        "repos_url": "https://gitee.com/api/v5/users/shanshi87hl/repos",
+        "events_url": "https://gitee.com/api/v5/users/shanshi87hl/events{/privacy}",
+        "received_events_url": "https://gitee.com/api/v5/users/shanshi87hl/received_events",
+        "type": "User",
+        "permissions": {
+          "pull": true,
+          "push": false,
+          "admin": false
+        }
+      }
+    ]
+  }
+}

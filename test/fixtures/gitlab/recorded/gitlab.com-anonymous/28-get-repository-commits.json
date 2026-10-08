@@ -1,0 +1,80 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/repository/commits?per_page=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "<https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/repository/commits?id=gitlab-org%2Fcli&order=default&page=2&pagination=legacy&per_page=3&trailers=false>; rel=\"next\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/repository/commits?id=gitlab-org%2Fcli&order=default&page=1&pagination=legacy&per_page=3&trailers=false>; rel=\"first\"",
+      "etag": "W/\"7188eba3dc943291e734ec4591b4b563\"",
+      "ratelimit-limit": "500",
+      "ratelimit-remaining": "472",
+      "ratelimit-reset": "1791477480",
+      "x-next-page": "2",
+      "x-page": "1",
+      "x-per-page": "3"
+    },
+    "body": [
+      {
+        "id": "8ae0c0ef5cf94d75354053095bbdc2ec7fefd96f",
+        "short_id": "8ae0c0ef",
+        "created_at": "2026-10-07T16:53:26.000-05:00",
+        "parent_ids": [
+          "2da6525661e7508e9a6990d4d3981f2d4e2b0ff5",
+          "c96c824fc26597ea5a27a3e5a0aad746f7a4baf9"
+        ],
+        "title": "Merge branch 'docs/update-code-of-conduct-link' into 'main'",
+        "message": "Merge branch 'docs/update-code-of-conduct-link' into 'main'\n\ndocs: update Code of Conduct link in README\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/3999\n\nMerged-by: Kai Armstrong <redacted@example.invalid>\nApproved-by: Kai Armstrong <redacted@example.invalid>\nCo-authored-by: Ahmed Anwar <redacted@example.invalid>",
+        "author_name": "Kai Armstrong",
+        "author_email": "redacted@example.invalid",
+        "authored_date": "2026-10-07T16:53:26.000-05:00",
+        "committer_name": "GitLab",
+        "committer_email": "redacted@example.invalid",
+        "committed_date": "2026-10-07T16:53:26.000-05:00",
+        "trailers": {},
+        "extended_trailers": {},
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/8ae0c0ef5cf94d75354053095bbdc2ec7fefd96f"
+      },
+      {
+        "id": "2da6525661e7508e9a6990d4d3981f2d4e2b0ff5",
+        "short_id": "2da65256",
+        "created_at": "2026-10-07T11:40:59.000-05:00",
+        "parent_ids": [
+          "41771b819e87c5ab6dac398403424cbaf16358c0",
+          "6acd6ea999916967b288fb5aae3fec93c25ba080"
+        ],
+        "title": "Merge branch 'unstable-code/fix-iteration-list-total' into 'main'",
+        "message": "Merge branch 'unstable-code/fix-iteration-list-total' into 'main'\n\nfix(iteration): show the real total in list header\n\nCloses #8591\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4015\n\nMerged-by: Kai Armstrong <redacted@example.invalid>\nApproved-by: Ravi Kumar <redacted@example.invalid>\nApproved-by: Kai Armstrong <redacted@example.invalid>\nCo-authored-by: unstable-code <redacted@example.invalid>",
+        "author_name": "Kai Armstrong",
+        "author_email": "redacted@example.invalid",
+        "authored_date": "2026-10-07T11:40:59.000-05:00",
+        "committer_name": "GitLab",
+        "committer_email": "redacted@example.invalid",
+        "committed_date": "2026-10-07T11:40:59.000-05:00",
+        "trailers": {},
+        "extended_trailers": {},
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/2da6525661e7508e9a6990d4d3981f2d4e2b0ff5"
+      },
+      {
+        "id": "6acd6ea999916967b288fb5aae3fec93c25ba080",
+        "short_id": "6acd6ea9",
+        "created_at": "2026-10-07T11:40:59.000-05:00",
+        "parent_ids": [
+          "48512c0d0e5242782451ff24a435f6bab07ad1d2"
+        ],
+        "title": "fix(iteration): show the real total in list header",
+        "message": "fix(iteration): show the real total in list header\n",
+        "author_name": "unstable-code",
+        "author_email": "redacted@example.invalid",
+        "authored_date": "2026-10-08T01:40:59.000+09:00",
+        "committer_name": "GitLab",
+        "committer_email": "redacted@example.invalid",
+        "committed_date": "2026-10-07T11:40:59.000-05:00",
+        "trailers": {},
+        "extended_trailers": {},
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/6acd6ea999916967b288fb5aae3fec93c25ba080"
+      }
+    ]
+  }
+}

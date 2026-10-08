@@ -137,8 +137,10 @@ const BITBUCKET: ProviderDefinition<BitbucketOptions> = {
     const authorization = `Basic ${toBase64(new TextEncoder().encode(`${auth.username}:${auth.password}`))}`
     return () => ({ authorization })
   },
-  setup({ instance, origin: context, fetcher, baseUrl }) {
+  setup({ options, instance, origin: context, fetcher, baseUrl }) {
     const list = createListing(fetcher, 'pagelen', 50)
+    /** Repository search covers the signed-in account's workspaces. */
+    const anonymous = options.auth?.type === 'anonymous'
     function repoPath(ref: ResolvedThreadRef): string {
       return `/repositories/${encodeURIComponent(ref.repo.owner)}/${encodeURIComponent(ref.repo.name)}`
     }
@@ -446,7 +448,7 @@ const BITBUCKET: ProviderDefinition<BitbucketOptions> = {
       },
       search: {
         threadsPage: verb('experimental', searchThreadsPage),
-        reposPage: verb('experimental', searchReposPage),
+        reposPage: verb(!anonymous && 'experimental', searchReposPage),
       },
       contents: {
         file: verb(true, async (repo, path, fileOptions = {}) => {

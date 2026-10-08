@@ -90,7 +90,7 @@ describe('capability table', () => {
   })
 
   it('produces every capability leaf exactly once', () => {
-    const produced = table.filter(entry => !entry.alias).map(entry => entry.capability)
+    const produced = table.map(entry => entry.capability)
 
     expect(new Set(produced).size).toBe(produced.length)
     for (const [name, create] of providers) {
@@ -107,14 +107,6 @@ describe('capability table', () => {
 
     expect(new Set(paths).size).toBe(paths.length)
     expect([...declared].sort()).toEqual([...declared].filter(path => paths.includes(path)).sort())
-  })
-
-  it('names a capability every alias entry shares', () => {
-    const produced = new Set(table.filter(entry => !entry.alias).map(entry => entry.capability))
-
-    for (const entry of table.filter(entry => entry.alias)) {
-      expect(produced).toContain(entry.capability)
-    }
   })
 
   it('has an entry for every verb ProviderSpec declares', () => {

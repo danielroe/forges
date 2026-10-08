@@ -364,7 +364,9 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
 
   async function getMany(refs: ThreadRef[]): Promise<GetManyResult[]> {
     if (anonymous) {
-      return getManyConcurrently(refs, get)
+      return getManyConcurrently(refs, ref => ref.kind === 'discussion'
+        ? Promise.reject(new UnsupportedOperationError('github does not read discussions without credentials', context))
+        : get(ref))
     }
     const results: GetManyResult[] = Array.from({ length: refs.length })
     const batchable: Array<{ index: number, ref: ResolvedThreadRef }> = []
@@ -1273,9 +1275,9 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
     },
     securityAlerts: {
       kinds: {
-        dependency: enterprise ? ({ version }) => versionAtLeast(version, GHES_DEPENDABOT_ALERTS) && 'experimental' : 'experimental',
-        code_scanning: 'experimental',
-        secret: 'experimental',
+        dependency: !anonymous && (enterprise ? ({ version }) => versionAtLeast(version, GHES_DEPENDABOT_ALERTS) && 'experimental' : 'experimental'),
+        code_scanning: !anonymous && 'experimental',
+        secret: !anonymous && 'experimental',
       },
       listPage: alertsPage,
     },
@@ -1345,8 +1347,8 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
         json: { name: label.name, color: label.colour, description: label.description },
       })).data)),
       milestonesPage: verb(true, milestonesPage),
-      collaboratorsPage: verb(true, (repo, listOptions = {}) => list(`${repoPath(repo)}/collaborators`, listOptions, (raw: GitHubCollaborator) => toCollaborator(instance, raw))),
-      permissionFor: verb(true, async (repo, actor) => {
+      collaboratorsPage: verb(!anonymous, (repo, listOptions = {}) => list(`${repoPath(repo)}/collaborators`, listOptions, (raw: GitHubCollaborator) => toCollaborator(instance, raw))),
+      permissionFor: verb(!anonymous, async (repo, actor) => {
         const { data } = await fetcher.json<{ permission?: string, role_name?: string, user?: GitHubCollaborator }>(
           `${repoPath(repo)}/collaborators/${encodeURIComponent(actorLogin(actor))}/permission`,
         )
@@ -1356,7 +1358,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
         await fetcher.raw(`${repoPath(repo)}/collaborators/${encodeURIComponent(actorLogin(actor))}`, { method: 'PUT', json: { permission: role } })
       }),
       assignableUsersPage: verb(true, (repo, listOptions = {}) => list(`${repoPath(repo)}/assignees`, listOptions, (raw: GitHubUserDetail) => toActor(instance, raw)!)),
-      reviewerCandidatesPage: verb('emulated', async (thread, listOptions = {}) => {
+      reviewerCandidatesPage: verb(!anonymous && 'emulated', async (thread, listOptions = {}) => {
         const ref = requireThread(thread, context)
         const page = await fetcher.page<GitHubCollaborator>(`${repoPath(ref.repo)}/collaborators`, {
           query: { per_page: listOptions.perPage },

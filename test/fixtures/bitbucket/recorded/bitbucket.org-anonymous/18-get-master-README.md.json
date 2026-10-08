@@ -1,0 +1,46 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/src/master/README.md?format=meta"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "\"16d47cdd183eaa37c89360056b5243a3\"",
+      "x-ratelimit-remaining": "48",
+      "x-ratelimit-reset": "2164"
+    },
+    "body": {
+      "path": "README.md",
+      "commit": {
+        "hash": "6f202224c3c938d01c46892ed305df6e385ce13f",
+        "links": {
+          "self": {
+            "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/commit/6f202224c3c938d01c46892ed305df6e385ce13f"
+          },
+          "html": {
+            "href": "https://bitbucket.org/neelabo/neeview/commits/6f202224c3c938d01c46892ed305df6e385ce13f"
+          }
+        },
+        "type": "commit"
+      },
+      "type": "commit_file",
+      "attributes": [],
+      "escaped_path": "README.md",
+      "size": 814,
+      "mimetype": "text/markdown",
+      "links": {
+        "self": {
+          "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/src/6f202224c3c938d01c46892ed305df6e385ce13f/README.md"
+        },
+        "meta": {
+          "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/src/6f202224c3c938d01c46892ed305df6e385ce13f/README.md?format=meta"
+        },
+        "history": {
+          "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/filehistory/6f202224c3c938d01c46892ed305df6e385ce13f/README.md"
+        }
+      },
+      "has_malware_warning": false
+    }
+  }
+}

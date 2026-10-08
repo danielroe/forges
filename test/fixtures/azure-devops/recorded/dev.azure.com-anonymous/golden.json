@@ -1,0 +1,710 @@
+{
+  "repo": {
+    "ref": {
+      "forge": "azure-devops",
+      "instance": "dev.azure.com",
+      "owner": "dnceng-public/public",
+      "name": "dotnet-public-wiki",
+      "externalId": "2459d599-fdb2-4d28-9810-daeec061cf90"
+    },
+    "defaultBranch": "main",
+    "visibility": "private",
+    "isFork": false,
+    "isArchived": false,
+    "topics": [],
+    "url": "https://dev.azure.com/dnceng-public/public/_git/dotnet-public-wiki",
+    "cloneUrls": {
+      "https": "https://dev.azure.com/dnceng-public/public/_git/dotnet-public-wiki",
+      "ssh": "git@ssh.dev.azure.com:v3/dnceng-public/public/dotnet-public-wiki"
+    }
+  },
+  "pull": {
+    "ref": {
+      "forge": "azure-devops",
+      "instance": "dev.azure.com",
+      "repo": {
+        "forge": "azure-devops",
+        "instance": "dev.azure.com",
+        "owner": "dnceng-public/public",
+        "name": "dotnet-public-wiki",
+        "externalId": "2459d599-fdb2-4d28-9810-daeec061cf90"
+      },
+      "kind": "pull_request",
+      "number": "5",
+      "externalId": "vstfs:///Git/PullRequestId/cbb18261-c48f-4abb-8651-8cdcb5474649%2f2459d599-fdb2-4d28-9810-daeec061cf90%2f5"
+    },
+    "kind": "pull_request",
+    "title": "Inventory bootstrapping",
+    "body": "This **automated pull request**, created by **1ES**, is part of the **[Inventory-As-Code](https://aka.ms/inventory-as-code)** onboarding to improve **bug-routing** and **incident response** and **permissions management**.\n \n#🚀 What’s Changing?\n\n- This PR adds inventory metadata to your repository sourced from Product Catalog.\n- Once merged, this metadata will supersede [Product Catalog](https://product-catalog-web.prod.space.microsoft.com/), which will eventually be retired. You'll manage repository inventory directly via source code.\n\n#✅ Action Required :\n\n##1. Review the YAML file(s)\n- Ensure the repository inventory metadata is accurate.\n\n##2. If the metadata is inaccurate\n- **[Preferred]** Edit the PR directly\n- **Alternatively**: Approve and merge the PR, then open a new PR with corrections.\n- **[Not Recommended]** Reject the PR and manually configure inventory by adding es-metadata.yml file.\n\n##3. Approve and Merge the Pull Request\n- Once reviewed, approve and merge the PR to onboard your repository to Inventory-As-Code.\n  **Note**: For repositories under orgs that have [opted into auto-merge](https://eng.ms/docs/cloud-ai-platform/devdiv/one-engineering-system-1es/1es-docs/product-catalog/inventory-as-code/auto-prsforinventory-as-code#:~:text=in%20the%20extension.-%2c%F0%9F%91%80%20What%20Happens%20When%20You%20Receive%20an%20Auto-PR?%2c-%E2%9C%85%20PR%20Title:%20The), this PR will be automatically merged within 24 hours of creation\n\n#ℹ️ Why You’re Receiving This PR\nYou are listed as a service admin for the service this repository is assigned to.\nIf this repo should not be associated with your service:\n    1. Visit: https://product-catalog-web.prod.space.microsoft.com/Product/serviced\n    2. Replace serviceId with the service value from es-metadata.yml file and unassign the repo.\n\n#ℹ️ How does this impact permissions\n• For organizations onboarded to the 1ES Permission Service (https://aka.ms/engtenant/access), the owning Service retains administrative permissions.\n• Consuming services (if applicable) will have contribute access on the repository.\n• Read more on how Inventory-As-Code and the 1ES Permission Service here (https://eng.ms/docs/more/engineering-tenant-esme/perms/inventory).\n\n**Need Assistance?**\n \n📩 **Questions:** [Teams Channel for InventoryAsCode](https://teams.microsoft.com/l/channel/19%3Af82f631a47e248d6a573712683c4a96b%40thread.skype/InventoryAsCode%20Migration?groupId=fa2bea20-1f8d-42f6-9697-ebe18dbb7bc3&tenantId=72f988bf-86f1-41af-91ab-2d7cd011db47)\n📖 **Learn More:** https://aka.ms/inventory-as-code\n<!-- GitOpsUserAgent=GitOps.Apps.Job.inventorybootstrapping -->\n",
+    "state": "merged",
+    "stateRaw": "completed",
+    "isDraft": false,
+    "author": {
+      "forge": "azure-devops",
+      "instance": "dev.azure.com",
+      "login": "MerlinBot",
+      "id": "56b0f042-b05e-86d9-b0f7-c5ddb1e76385",
+      "name": "MerlinBot",
+      "avatarUrl": null,
+      "typeRaw": "user",
+      "isBotHint": false
+    },
+    "assignees": [],
+    "reviewers": [
+      {
+        "actor": {
+          "forge": "azure-devops",
+          "instance": "dev.azure.com",
+          "login": "Mark Wilkie",
+          "id": "08c37c0d-dc6c-6635-9662-1fa8dad90878",
+          "name": "Mark Wilkie",
+          "avatarUrl": null,
+          "typeRaw": "user",
+          "isBotHint": false
+        },
+        "state": "pending",
+        "stateRaw": "vote:0"
+      },
+      {
+        "actor": {
+          "forge": "azure-devops",
+          "instance": "dev.azure.com",
+          "login": "Matt Mitchell (.NET)",
+          "id": "ab548af8-1ef9-4928-8fd6-2014ea725a67",
+          "name": "Matt Mitchell (.NET)",
+          "avatarUrl": null,
+          "typeRaw": "user",
+          "isBotHint": false
+        },
+        "state": "pending",
+        "stateRaw": "vote:0"
+      },
+      {
+        "actor": {
+          "forge": "azure-devops",
+          "instance": "dev.azure.com",
+          "login": "Michael Stuckey",
+          "id": "bd413ef1-76d5-6333-81e6-82cd5d6c365d",
+          "name": "Michael Stuckey",
+          "avatarUrl": null,
+          "typeRaw": "user",
+          "isBotHint": false
+        },
+        "state": "pending",
+        "stateRaw": "vote:0"
+      }
+    ],
+    "labels": [],
+    "createdAt": "2026-02-18T04:35:01.964Z",
+    "closedAt": "2026-02-18T04:35:05.168Z",
+    "lastActivityAt": "2026-02-18T04:35:05.168Z",
+    "branches": {
+      "head": {
+        "ref": "invBootstrap",
+        "sha": "3aae318f1661c50c34effbbf6882119ed161f2d6"
+      },
+      "base": {
+        "ref": "main",
+        "sha": "2adc745e20d7a07fb7f177853d3e78a95b007aef"
+      },
+      "mergeCommitSha": "af56d96fdbd7c26e9fc94336b6f50dcc6ceff484"
+    }
+  },
+  "pull list": {
+    "items": []
+  },
+  "pull getMany": [
+    {
+      "ok": true,
+      "ref": {
+        "forge": "azure-devops",
+        "instance": "dev.azure.com",
+        "repo": {
+          "forge": "azure-devops",
+          "instance": "dev.azure.com",
+          "owner": "dnceng-public/public",
+          "name": "dotnet-public-wiki"
+        },
+        "kind": "pull_request",
+        "number": "5"
+      },
+      "thread": {
+        "ref": {
+          "forge": "azure-devops",
+          "instance": "dev.azure.com",
+          "repo": {
+            "forge": "azure-devops",
+            "instance": "dev.azure.com",
+            "owner": "dnceng-public/public",
+            "name": "dotnet-public-wiki",
+            "externalId": "2459d599-fdb2-4d28-9810-daeec061cf90"
+          },
+          "kind": "pull_request",
+          "number": "5",
+          "externalId": "vstfs:///Git/PullRequestId/cbb18261-c48f-4abb-8651-8cdcb5474649%2f2459d599-fdb2-4d28-9810-daeec061cf90%2f5"
+        },
+        "kind": "pull_request",
+        "title": "Inventory bootstrapping",
+        "body": "This **automated pull request**, created by **1ES**, is part of the **[Inventory-As-Code](https://aka.ms/inventory-as-code)** onboarding to improve **bug-routing** and **incident response** and **permissions management**.\n \n#🚀 What’s Changing?\n\n- This PR adds inventory metadata to your repository sourced from Product Catalog.\n- Once merged, this metadata will supersede [Product Catalog](https://product-catalog-web.prod.space.microsoft.com/), which will eventually be retired. You'll manage repository inventory directly via source code.\n\n#✅ Action Required :\n\n##1. Review the YAML file(s)\n- Ensure the repository inventory metadata is accurate.\n\n##2. If the metadata is inaccurate\n- **[Preferred]** Edit the PR directly\n- **Alternatively**: Approve and merge the PR, then open a new PR with corrections.\n- **[Not Recommended]** Reject the PR and manually configure inventory by adding es-metadata.yml file.\n\n##3. Approve and Merge the Pull Request\n- Once reviewed, approve and merge the PR to onboard your repository to Inventory-As-Code.\n  **Note**: For repositories under orgs that have [opted into auto-merge](https://eng.ms/docs/cloud-ai-platform/devdiv/one-engineering-system-1es/1es-docs/product-catalog/inventory-as-code/auto-prsforinventory-as-code#:~:text=in%20the%20extension.-%2c%F0%9F%91%80%20What%20Happens%20When%20You%20Receive%20an%20Auto-PR?%2c-%E2%9C%85%20PR%20Title:%20The), this PR will be automatically merged within 24 hours of creation\n\n#ℹ️ Why You’re Receiving This PR\nYou are listed as a service admin for the service this repository is assigned to.\nIf this repo should not be associated with your service:\n    1. Visit: https://product-catalog-web.prod.space.microsoft.com/Product/serviced\n    2. Replace serviceId with the service value from es-metadata.yml file and unassign the repo.\n\n#ℹ️ How does this impact permissions\n• For organizations onboarded to the 1ES Permission Service (https://aka.ms/engtenant/access), the owning Service retains administrative permissions.\n• Consuming services (if applicable) will have contribute access on the repository.\n• Read more on how Inventory-As-Code and the 1ES Permission Service here (https://eng.ms/docs/more/engineering-tenant-esme/perms/inventory).\n\n**Need Assistance?**\n \n📩 **Questions:** [Teams Channel for InventoryAsCode](https://teams.microsoft.com/l/channel/19%3Af82f631a47e248d6a573712683c4a96b%40thread.skype/InventoryAsCode%20Migration?groupId=fa2bea20-1f8d-42f6-9697-ebe18dbb7bc3&tenantId=72f988bf-86f1-41af-91ab-2d7cd011db47)\n📖 **Learn More:** https://aka.ms/inventory-as-code\n<!-- GitOpsUserAgent=GitOps.Apps.Job.inventorybootstrapping -->\n",
+        "state": "merged",
+        "stateRaw": "completed",
+        "isDraft": false,
+        "author": {
+          "forge": "azure-devops",
+          "instance": "dev.azure.com",
+          "login": "MerlinBot",
+          "id": "56b0f042-b05e-86d9-b0f7-c5ddb1e76385",
+          "name": "MerlinBot",
+          "avatarUrl": null,
+          "typeRaw": "user",
+          "isBotHint": false
+        },
+        "assignees": [],
+        "reviewers": [
+          {
+            "actor": {
+              "forge": "azure-devops",
+              "instance": "dev.azure.com",
+              "login": "Mark Wilkie",
+              "id": "08c37c0d-dc6c-6635-9662-1fa8dad90878",
+              "name": "Mark Wilkie",
+              "avatarUrl": null,
+              "typeRaw": "user",
+              "isBotHint": false
+            },
+            "state": "pending",
+            "stateRaw": "vote:0"
+          },
+          {
+            "actor": {
+              "forge": "azure-devops",
+              "instance": "dev.azure.com",
+              "login": "Matt Mitchell (.NET)",
+              "id": "ab548af8-1ef9-4928-8fd6-2014ea725a67",
+              "name": "Matt Mitchell (.NET)",
+              "avatarUrl": null,
+              "typeRaw": "user",
+              "isBotHint": false
+            },
+            "state": "pending",
+            "stateRaw": "vote:0"
+          },
+          {
+            "actor": {
+              "forge": "azure-devops",
+              "instance": "dev.azure.com",
+              "login": "Michael Stuckey",
+              "id": "bd413ef1-76d5-6333-81e6-82cd5d6c365d",
+              "name": "Michael Stuckey",
+              "avatarUrl": null,
+              "typeRaw": "user",
+              "isBotHint": false
+            },
+            "state": "pending",
+            "stateRaw": "vote:0"
+          }
+        ],
+        "labels": [],
+        "createdAt": "2026-02-18T04:35:01.964Z",
+        "closedAt": "2026-02-18T04:35:05.168Z",
+        "lastActivityAt": "2026-02-18T04:35:05.168Z",
+        "branches": {
+          "head": {
+            "ref": "invBootstrap",
+            "sha": "3aae318f1661c50c34effbbf6882119ed161f2d6"
+          },
+          "base": {
+            "ref": "main",
+            "sha": "2adc745e20d7a07fb7f177853d3e78a95b007aef"
+          },
+          "mergeCommitSha": "af56d96fdbd7c26e9fc94336b6f50dcc6ceff484"
+        }
+      }
+    }
+  ],
+  "pull events": {
+    "items": [
+      {
+        "forge": "azure-devops",
+        "instance": "dev.azure.com",
+        "id": "8/1",
+        "kind": "other",
+        "kindRaw": "ReviewersUpdate",
+        "summary": "Microsoft.VisualStudio.Services.TFS MerlinBot added 3 reviewers",
+        "occurredAt": "2026-02-18T04:35:03.630Z",
+        "actor": {
+          "forge": "azure-devops",
+          "instance": "dev.azure.com",
+          "login": "Microsoft.VisualStudio.Services.TFS",
+          "id": "00000002-0000-8888-8000-000000000000",
+          "name": "Microsoft.VisualStudio.Services.TFS",
+          "avatarUrl": null,
+          "typeRaw": "user",
+          "isBotHint": false
+        },
+        "repo": {
+          "forge": "azure-devops",
+          "instance": "dev.azure.com",
+          "owner": "dnceng-public/public",
+          "name": "dotnet-public-wiki"
+        },
+        "thread": {
+          "forge": "azure-devops",
+          "instance": "dev.azure.com",
+          "repo": {
+            "forge": "azure-devops",
+            "instance": "dev.azure.com",
+            "owner": "dnceng-public/public",
+            "name": "dotnet-public-wiki"
+          },
+          "kind": "pull_request",
+          "number": "5"
+        },
+        "source": "poll",
+        "action": "other"
+      },
+      {
+        "forge": "azure-devops",
+        "instance": "dev.azure.com",
+        "id": "9/1",
+        "kind": "other",
+        "kindRaw": "AutoCompleteUpdate",
+        "summary": "Microsoft.VisualStudio.Services.TFS MerlinBot set auto-complete",
+        "occurredAt": "2026-02-18T04:35:04.080Z",
+        "actor": {
+          "forge": "azure-devops",
+          "instance": "dev.azure.com",
+          "login": "Microsoft.VisualStudio.Services.TFS",
+          "id": "00000002-0000-8888-8000-000000000000",
+          "name": "Microsoft.VisualStudio.Services.TFS",
+          "avatarUrl": null,
+          "typeRaw": "user",
+          "isBotHint": false
+        },
+        "repo": {
+          "forge": "azure-devops",
+          "instance": "dev.azure.com",
+          "owner": "dnceng-public/public",
+          "name": "dotnet-public-wiki"
+        },
+        "thread": {
+          "forge": "azure-devops",
+          "instance": "dev.azure.com",
+          "repo": {
+            "forge": "azure-devops",
+            "instance": "dev.azure.com",
+            "owner": "dnceng-public/public",
+            "name": "dotnet-public-wiki"
+          },
+          "kind": "pull_request",
+          "number": "5"
+        },
+        "source": "poll",
+        "action": "other"
+      },
+      {
+        "forge": "azure-devops",
+        "instance": "dev.azure.com",
+        "id": "10/1",
+        "kind": "other",
+        "kindRaw": "StatusUpdate",
+        "summary": "MerlinBot MerlinBot updated the pull request status to Completed",
+        "occurredAt": "2026-02-18T04:35:05.380Z",
+        "actor": {
+          "forge": "azure-devops",
+          "instance": "dev.azure.com",
+          "login": "MerlinBot",
+          "id": "56b0f042-b05e-86d9-b0f7-c5ddb1e76385",
+          "name": "MerlinBot",
+          "avatarUrl": null,
+          "typeRaw": "user",
+          "isBotHint": false
+        },
+        "repo": {
+          "forge": "azure-devops",
+          "instance": "dev.azure.com",
+          "owner": "dnceng-public/public",
+          "name": "dotnet-public-wiki"
+        },
+        "thread": {
+          "forge": "azure-devops",
+          "instance": "dev.azure.com",
+          "repo": {
+            "forge": "azure-devops",
+            "instance": "dev.azure.com",
+            "owner": "dnceng-public/public",
+            "name": "dotnet-public-wiki"
+          },
+          "kind": "pull_request",
+          "number": "5"
+        },
+        "source": "poll",
+        "action": "other"
+      },
+      {
+        "forge": "azure-devops",
+        "instance": "dev.azure.com",
+        "id": "12/1",
+        "kind": "comment",
+        "kindRaw": "text",
+        "summary": "MerlinBot commented",
+        "occurredAt": "2026-02-18T04:35:14.040Z",
+        "actor": {
+          "forge": "azure-devops",
+          "instance": "dev.azure.com",
+          "login": "MerlinBot",
+          "id": "56b0f042-b05e-86d9-b0f7-c5ddb1e76385",
+          "name": "MerlinBot",
+          "avatarUrl": null,
+          "typeRaw": "user",
+          "isBotHint": false
+        },
+        "repo": {
+          "forge": "azure-devops",
+          "instance": "dev.azure.com",
+          "owner": "dnceng-public/public",
+          "name": "dotnet-public-wiki"
+        },
+        "thread": {
+          "forge": "azure-devops",
+          "instance": "dev.azure.com",
+          "repo": {
+            "forge": "azure-devops",
+            "instance": "dev.azure.com",
+            "owner": "dnceng-public/public",
+            "name": "dotnet-public-wiki"
+          },
+          "kind": "pull_request",
+          "number": "5"
+        },
+        "source": "poll",
+        "action": "created"
+      },
+      {
+        "forge": "azure-devops",
+        "instance": "dev.azure.com",
+        "id": "14/1",
+        "kind": "comment",
+        "kindRaw": "text",
+        "summary": "MerlinBot commented",
+        "occurredAt": "2026-02-18T04:35:26.667Z",
+        "actor": {
+          "forge": "azure-devops",
+          "instance": "dev.azure.com",
+          "login": "MerlinBot",
+          "id": "56b0f042-b05e-86d9-b0f7-c5ddb1e76385",
+          "name": "MerlinBot",
+          "avatarUrl": null,
+          "typeRaw": "user",
+          "isBotHint": false
+        },
+        "repo": {
+          "forge": "azure-devops",
+          "instance": "dev.azure.com",
+          "owner": "dnceng-public/public",
+          "name": "dotnet-public-wiki"
+        },
+        "thread": {
+          "forge": "azure-devops",
+          "instance": "dev.azure.com",
+          "repo": {
+            "forge": "azure-devops",
+            "instance": "dev.azure.com",
+            "owner": "dnceng-public/public",
+            "name": "dotnet-public-wiki"
+          },
+          "kind": "pull_request",
+          "number": "5"
+        },
+        "source": "poll",
+        "action": "created"
+      }
+    ]
+  },
+  "pull comments": {
+    "items": [
+      {
+        "ref": {
+          "forge": "azure-devops",
+          "instance": "dev.azure.com",
+          "thread": {
+            "forge": "azure-devops",
+            "instance": "dev.azure.com",
+            "repo": {
+              "forge": "azure-devops",
+              "instance": "dev.azure.com",
+              "owner": "dnceng-public/public",
+              "name": "dotnet-public-wiki"
+            },
+            "kind": "pull_request",
+            "number": "5"
+          },
+          "id": "12/1"
+        },
+        "body": "<img src=\"https://img.shields.io/static/v1?label=ES Metadata Validation&message=Information&color=green\">\n\n<p />\n\n\n## Valid\n---\n- /es-metadata.yml\n\n\n\n\n<p align=\"right\"><sub>Total execution time: 0.39 seconds</sub></p>\n\n<!-- Policy app identification https://img.shields.io/static/v1?label=EsMetadata. -->\n<!-- GitOpsUserAgent=GitOps.Outcome.Service.EsMetadata -->\n",
+        "author": {
+          "forge": "azure-devops",
+          "instance": "dev.azure.com",
+          "login": "MerlinBot",
+          "id": "56b0f042-b05e-86d9-b0f7-c5ddb1e76385",
+          "name": "MerlinBot",
+          "avatarUrl": null,
+          "typeRaw": "user",
+          "isBotHint": false
+        },
+        "createdAt": "2026-02-18T04:35:14.040Z",
+        "updatedAt": "2026-02-18T04:35:14.040Z"
+      },
+      {
+        "ref": {
+          "forge": "azure-devops",
+          "instance": "dev.azure.com",
+          "thread": {
+            "forge": "azure-devops",
+            "instance": "dev.azure.com",
+            "repo": {
+              "forge": "azure-devops",
+              "instance": "dev.azure.com",
+              "owner": "dnceng-public/public",
+              "name": "dotnet-public-wiki"
+            },
+            "kind": "pull_request",
+            "number": "5"
+          },
+          "id": "14/1"
+        },
+        "body": "<img src=\"https://img.shields.io/static/v1?label=1ES+Inventory+Policy&message=Information&color=green\">\n\n<p />\n\n\n# 1ES inventory check has PASSED.\n## Valid\n---\nTotal number of valid files: 1\n- /es-metadata.yml\n\n\n\n\n<p align=\"right\"><sub>Total execution time: 13.05 seconds</sub></p>\n\n<!-- Policy app identification https://img.shields.io/static/v1?label=SpaceCodeOwnership. -->\n<!-- GitOpsUserAgent=GitOps.Outcome.Service.SpaceCodeOwnership -->\n",
+        "author": {
+          "forge": "azure-devops",
+          "instance": "dev.azure.com",
+          "login": "MerlinBot",
+          "id": "56b0f042-b05e-86d9-b0f7-c5ddb1e76385",
+          "name": "MerlinBot",
+          "avatarUrl": null,
+          "typeRaw": "user",
+          "isBotHint": false
+        },
+        "createdAt": "2026-02-18T04:35:26.667Z",
+        "updatedAt": "2026-02-18T04:35:26.667Z"
+      }
+    ]
+  },
+  "pull reviews": {
+    "items": []
+  },
+  "pull commits": {
+    "items": [
+      {
+        "ref": {
+          "forge": "azure-devops",
+          "instance": "dev.azure.com",
+          "repo": {
+            "forge": "azure-devops",
+            "instance": "dev.azure.com",
+            "owner": "dnceng-public/public",
+            "name": "dotnet-public-wiki"
+          },
+          "sha": "3aae318f1661c50c34effbbf6882119ed161f2d6"
+        },
+        "sha": "3aae318f1661c50c34effbbf6882119ed161f2d6",
+        "message": "Inventory bootstrapping onboarding",
+        "author": {
+          "name": "GitOps",
+          "email": null,
+          "date": "2026-02-18T04:35:00.000Z"
+        },
+        "committer": {
+          "name": "MerlinBot",
+          "date": "2026-02-18T04:35:01.000Z"
+        },
+        "parents": []
+      }
+    ]
+  },
+  "checks": {
+    "items": []
+  },
+  "readme": {
+    "path": "README.md",
+    "content": "# Introduction \r\nTODO: Give a short introduction of your project. Let this section explain the objectives or the motivation behind this project. \r\n\r\n# Getting Started\r\nTODO: Guide users through getting your code up and running on their own system. In this section you can talk about:\r\n1.\tInstallation process\r\n2.\tSoftware dependencies\r\n3.\tLatest releases\r\n4.\tAPI references\r\n\r\n# Build and Test\r\nTODO: Describe and show how to build your code and run the tests. \r\n\r\n# Contribute\r\nTODO: Explain how other users and developers can contribute to make your code better. \r\n\r\nIf you want to learn more about creating good readme files then refer the following [guidelines](https://docs.microsoft.com/en-us/azure/devops/repos/git/create-a-readme?view=azure-devops). You can also seek inspiration from the below readme files:\r\n- [ASP.NET Core](https://github.com/aspnet/Home)\r\n- [Visual Studio Code](https://github.com/Microsoft/vscode)\r\n- [Chakra Core](https://github.com/Microsoft/ChakraCore)",
+    "encoding": "utf-8"
+  },
+  "tree": {
+    "items": [
+      {
+        "path": ".order",
+        "type": "file",
+        "sha": "3c98174af07e1b99ad682cb7f8d46911f1529701"
+      },
+      {
+        "path": "Artifacts-Feeds.md",
+        "type": "file",
+        "sha": "b866280442ba9a002f541b9e075770fd797998a6"
+      },
+      {
+        "path": "Home.md",
+        "type": "file",
+        "sha": "b79eb7d4eef6d2d9dd1350f708f81604f8219a8d"
+      },
+      {
+        "path": "README.md",
+        "type": "file",
+        "sha": "0ca446aab9d09eac8625b53e3df8da661976c458"
+      },
+      {
+        "path": "es-metadata.yml",
+        "type": "file",
+        "sha": "2e53db551b5289fde97df23188a309d10347d869"
+      }
+    ]
+  },
+  "branches": {
+    "items": [
+      {
+        "name": "main",
+        "sha": "af56d96fdbd7c26e9fc94336b6f50dcc6ceff484",
+        "url": "https://dev.azure.com/dnceng-public/cbb18261-c48f-4abb-8651-8cdcb5474649/_apis/git/repositories/2459d599-fdb2-4d28-9810-daeec061cf90/refs?filter=heads%2Fmain"
+      }
+    ]
+  },
+  "tags": {
+    "items": []
+  },
+  "resolve default branch": "af56d96fdbd7c26e9fc94336b6f50dcc6ceff484",
+  "commits": {
+    "items": [
+      {
+        "ref": {
+          "forge": "azure-devops",
+          "instance": "dev.azure.com",
+          "repo": {
+            "forge": "azure-devops",
+            "instance": "dev.azure.com",
+            "owner": "dnceng-public/public",
+            "name": "dotnet-public-wiki"
+          },
+          "sha": "af56d96fdbd7c26e9fc94336b6f50dcc6ceff484"
+        },
+        "sha": "af56d96fdbd7c26e9fc94336b6f50dcc6ceff484",
+        "message": "Merge pull request 5 from invBootstrap into main",
+        "author": {
+          "name": "MerlinBot",
+          "email": null,
+          "date": "2026-02-18T04:35:04.000Z"
+        },
+        "committer": {
+          "name": "MerlinBot",
+          "email": null,
+          "date": "2026-02-18T04:35:04.000Z"
+        },
+        "parents": [],
+        "url": "https://dev.azure.com/dnceng-public/public/_git/dotnet-public-wiki/commit/af56d96fdbd7c26e9fc94336b6f50dcc6ceff484",
+        "stats": {
+          "additions": 1,
+          "deletions": 0
+        }
+      },
+      {
+        "ref": {
+          "forge": "azure-devops",
+          "instance": "dev.azure.com",
+          "repo": {
+            "forge": "azure-devops",
+            "instance": "dev.azure.com",
+            "owner": "dnceng-public/public",
+            "name": "dotnet-public-wiki"
+          },
+          "sha": "6573a31da8967bc68b9344ec48aeb38df3435be0"
+        },
+        "sha": "6573a31da8967bc68b9344ec48aeb38df3435be0",
+        "message": "Merge pull request 5 from invBootstrap into main",
+        "author": {
+          "name": "MerlinBot",
+          "email": null,
+          "date": "2026-02-18T04:35:02.000Z"
+        },
+        "committer": {
+          "name": "MerlinBot",
+          "email": null,
+          "date": "2026-02-18T04:35:02.000Z"
+        },
+        "parents": [],
+        "url": "https://dev.azure.com/dnceng-public/public/_git/dotnet-public-wiki/commit/6573a31da8967bc68b9344ec48aeb38df3435be0",
+        "stats": {
+          "additions": 1,
+          "deletions": 0
+        }
+      },
+      {
+        "ref": {
+          "forge": "azure-devops",
+          "instance": "dev.azure.com",
+          "repo": {
+            "forge": "azure-devops",
+            "instance": "dev.azure.com",
+            "owner": "dnceng-public/public",
+            "name": "dotnet-public-wiki"
+          },
+          "sha": "3aae318f1661c50c34effbbf6882119ed161f2d6"
+        },
+        "sha": "3aae318f1661c50c34effbbf6882119ed161f2d6",
+        "message": "Inventory bootstrapping onboarding",
+        "author": {
+          "name": "GitOps",
+          "email": null,
+          "date": "2026-02-18T04:35:00.000Z"
+        },
+        "committer": {
+          "name": "MerlinBot",
+          "date": "2026-02-18T04:35:01.000Z"
+        },
+        "parents": [],
+        "url": "https://dev.azure.com/dnceng-public/public/_git/dotnet-public-wiki/commit/3aae318f1661c50c34effbbf6882119ed161f2d6",
+        "stats": {
+          "additions": 1,
+          "deletions": 0
+        }
+      }
+    ]
+  },
+  "commit": {
+    "ref": {
+      "forge": "azure-devops",
+      "instance": "dev.azure.com",
+      "repo": {
+        "forge": "azure-devops",
+        "instance": "dev.azure.com",
+        "owner": "dnceng-public/public",
+        "name": "dotnet-public-wiki"
+      },
+      "sha": "3aae318f1661c50c34effbbf6882119ed161f2d6"
+    },
+    "sha": "3aae318f1661c50c34effbbf6882119ed161f2d6",
+    "message": "Inventory bootstrapping onboarding",
+    "author": {
+      "name": "GitOps",
+      "email": null,
+      "date": "2026-02-18T04:35:00.000Z"
+    },
+    "committer": {
+      "name": "MerlinBot",
+      "date": "2026-02-18T04:35:01.000Z"
+    },
+    "parents": [
+      "2adc745e20d7a07fb7f177853d3e78a95b007aef"
+    ],
+    "url": "https://dev.azure.com/dnceng-public/public/_git/dotnet-public-wiki/commit/3aae318f1661c50c34effbbf6882119ed161f2d6",
+    "stats": {
+      "additions": 1,
+      "deletions": 0
+    },
+    "files": [
+      {
+        "path": "es-metadata.yml",
+        "status": "added",
+        "statusRaw": "add",
+        "sha": "2e53db551b5289fde97df23188a309d10347d869"
+      }
+    ]
+  }
+}

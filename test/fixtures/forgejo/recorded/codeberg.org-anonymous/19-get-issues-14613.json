@@ -1,0 +1,78 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/issues/14613"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "id": 7506453,
+      "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/issues/14613",
+      "html_url": "https://codeberg.org/forgejo/forgejo/issues/14613",
+      "number": 14613,
+      "user": {
+        "id": 1515717,
+        "login": "miguelmurran",
+        "source_id": 0,
+        "full_name": "",
+        "email": "redacted@example.invalid",
+        "avatar_url": "https://codeberg.org/avatars/bd5725fc7122f825f60ab08dc29ef7e6",
+        "html_url": "https://codeberg.org/miguelmurran",
+        "active": false,
+        "location": "",
+        "pronouns": "",
+        "website": "",
+        "description": "",
+        "followers_count": 0,
+        "following_count": 0,
+        "starred_repos_count": 0,
+        "username": "miguelmurran"
+      },
+      "original_author": "",
+      "original_author_id": 0,
+      "title": "problem: deleting a user fails with \"FOREIGN KEY constraint failed\" when the user has a repo-scoped access token",
+      "body": "### Does your problem still exist on the latest Forgejo version?\n\nYes, the problem still exists (tested on a next instance)\n\n### About your usage of Forgejo\n\nSmall self-hosted homelab instance with one admin and a few service accounts for automation. One of the service\r\naccounts was created for a single job and given a token scoped to one repository. When that job was retired I tried\r\nto delete the account.\n\n### Problem description\n\nDeleting a user fails with `500 DeleteUser: deleteBeans: foreign key constraint violation: FOREIGN KEY constraint\r\nfailed`. It happens through the admin UI, through `DELETE /api/v1/admin/users/{username}`, and also with\r\n`?purge=true`. The user owns no repositories and no organizations.\r\n\r\nI reproduced it on a `.backup` copy of the SQLite database. The user had an access token created with a\r\nper-repository scope (`write:repository` on one repo). That scope is stored in `access_token_resource_repo`, which\r\nhas a foreign key `token_id` -> `access_token.id`. Deleting the user deletes the user's `access_token` rows without\r\nfirst deleting the matching `access_token_resource_repo` rows, so SQLite rejects it. With foreign keys enabled on\r\nthe copy, `DELETE FROM user WHERE id=N` alone succeeds, while `DELETE FROM access_token WHERE uid=N` fails until\r\nthe `access_token_resource_repo` row is removed.\r\n\r\nSteps to reproduce:\r\n1. Create a user and add it as a collaborator on a repository.\r\n2. As that user, create an access token scoped to that single repository (for example `write:repository`).\r\n3. As an admin, delete the user (UI or API).\r\n\r\nExpected: the user and its tokens, including their per-repository scope rows, are deleted.\n\n### Potential workarounds\n\nBack up the database, delete the user's row from `access_token_resource_repo`, then delete the user normally\r\n(the API returned 204 afterwards and the user was gone).\r\n\r\nA user that is still a member of an organization must first be removed from it; that is a separate, clear error\r\n(`user still has membership of organizations`) and is not part of this bug.\n\n### Forgejo Version\n\n16.0.3 (`16.0.3+gitea-1.22.0` as reported by `/api/v1/version`), database schema version 305.\n\n### Other details about your environment (software names and versions)\n\n- OS: Debian GNU/Linux 13 (trixie), running in an unprivileged LXC container\r\n- Deployment: the `forgejo` binary from the release download, run by a systemd unit (`forgejo web --config /etc/forgejo/app.ini`); no Docker\r\n- Database: SQLite (sqlite3 CLI 3.46.1 used for the reproduction)\r\n- Reverse proxy in front: nginx (Nginx Proxy Manager)\r\n- No LDAP or other external authentication sources\n\n### Solutions\n\n*Accepted solutions to address this problem will go here*\n\n\n",
+      "ref": "",
+      "assets": [],
+      "labels": [
+        {
+          "id": 841833,
+          "name": "impact/unknown",
+          "exclusive": true,
+          "is_archived": false,
+          "color": "545454",
+          "description": "Report was not yet triaged to assess impact.",
+          "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/841833"
+        },
+        {
+          "id": 841206,
+          "name": "problem",
+          "exclusive": false,
+          "is_archived": false,
+          "color": "fbca04",
+          "description": "A user report about a problem. Needs to be triaged to find potential solutions.",
+          "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/841206"
+        }
+      ],
+      "milestone": null,
+      "assignee": null,
+      "assignees": null,
+      "state": "closed",
+      "is_locked": false,
+      "comments": 1,
+      "created_at": "2026-09-30T08:17:37+02:00",
+      "updated_at": "2026-09-30T23:46:27+02:00",
+      "closed_at": "2026-09-30T20:46:39+02:00",
+      "due_date": null,
+      "pull_request": null,
+      "repository": {
+        "id": 73144,
+        "name": "forgejo",
+        "owner": "forgejo",
+        "full_name": "forgejo/forgejo"
+      },
+      "pin_order": 0
+    }
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitea.com/api/v1/repos/gitea/tea/milestones?state=open&limit=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "x-total-count": "0"
+    },
+    "body": []
+  }
+}

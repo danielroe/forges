@@ -1,0 +1,32 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/contents/README.md"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "name": "README.md",
+      "path": "README.md",
+      "sha": "e6f1b6c3d1bf880d606379609238c57fe60016db",
+      "last_commit_sha": "676fb7e0a74e801cc5e5eedd6af37c16f56aa63f",
+      "last_commit_when": "2025-09-04T01:53:40+02:00",
+      "type": "file",
+      "size": 2790,
+      "encoding": "base64",
+      "content": "PGRpdiBhbGlnbj0iY2VudGVyIj4KICAgIDxpbWcgc3JjPSIuL2Fzc2V0cy9sb2dvLnN2ZyIgYWx0PSIiIHdpZHRoPSIxOTIiIGFsaWduPSJjZW50ZXIiIC8+CiAgICA8aDEgYWxpZ249ImNlbnRlciI+V2VsY29tZSB0byBGb3JnZWpvPC9oMT4KPC9kaXY+CgpIaSB0aGVyZSEgVGlyZWQgb2YgYmlnIHBsYXRmb3JtcyBwbGF5aW5nIG1vbm9wb2x5PwpQcm92aWRpbmcgR2l0IGhvc3RpbmcgZm9yIHlvdXIgcHJvamVjdCwgZnJpZW5kcywgY29tcGFueSBvciBjb21tdW5pdHk/CioqRm9yZ2VqbyoqICgvZm9yJ2QmIzg2NTvKkmUuam8vIGluc3BpcmVkIGJ5IGZvcsSdZWpvIOKAkyB0aGUgRXNwZXJhbnRvIHdvcmQgZm9yICpmb3JnZSopIGhhcyB5b3UgY292ZXJlZCB3aXRoIGl0cyBpbnR1aXRpdmUgaW50ZXJmYWNlLApsaWdodCBhbmQgZWFzeSBob3N0aW5nIGFuZCBhIGxvdCBvZiBidWlsdC1pbiBmdW5jdGlvbmFsaXR5LgoKRm9yZ2VqbyB3YXMgW2NyZWF0ZWQgaW4gMjAyMl0oaHR0cHM6Ly9mb3JnZWpvLm9yZy8yMDIyLTEyLTE1LWhlbGxvLWZvcmdlam8vKQpiZWNhdXNlIHdlIHRoaW5rIHRoYXQgdGhlIHByb2plY3Qgc2hvdWxkIGJlIG93bmVkIGJ5IGFuIGluZGVwZW5kZW50IGNvbW11bml0eS4KSWYgeW91IHNlY29uZCB0aGF0LCB0aGVuIEZvcmdlam8gaXMgZm9yIHlvdSEKT3VyIHByb21pc2U6ICoqSW5kZXBlbmRlbnQgRnJlZS9MaWJyZSBTb2Z0d2FyZSBmb3JldmVyISoqCgojIyBXaGF0IGRvZXMgRm9yZ2VqbyBvZmZlcj8KCklmIHlvdSBsaWtlIGFueSBvZiB0aGUgZm9sbG93aW5nLCBGb3JnZWpvIGlzIGxpdGVyYWxseSBtZWFudCBmb3IgeW91OgoKLSBMaWdodHdlaWdodDogRm9yZ2VqbyBjYW4gZWFzaWx5IGJlIGhvc3RlZCBvbiBuZWFybHkgKipldmVyeSBtYWNoaW5lKiouCiAgUnVubmluZyBvbiBhIFJhc3BiZXJyeT8gU21hbGwgY2xvdWQgaW5zdGFuY2U/IE5vIHByb2JsZW0hCi0gUHJvamVjdCBtYW5hZ2VtZW50OiBCZXNpZGVzIEdpdCBob3N0aW5nLCBGb3JnZWpvIG9mZmVycyBpc3N1ZXMsCiAgcHVsbCByZXF1ZXN0cywgd2lraXMsIGthbmJhbiBib2FyZHMgYW5kIG11Y2ggbW9yZSB0byAqKmNvb3JkaW5hdGUgd2l0aCB5b3VyIHRlYW0qKi4KLSBQdWJsaXNoaW5nOiBIYXZlIHNvbWV0aGluZyB0byBzaGFyZT8gVXNlICoqcmVsZWFzZXMqKiB0byBob3N0IHlvdXIgc29mdHdhcmUgZm9yIGRvd25sb2FkLAogIG9yIHVzZSB0aGUgKipwYWNrYWdlIHJlZ2lzdHJ5KiogdG8gcHVibGlzaCBpdCBmb3IgZG9ja2VyLCBucG0gYW5kIG1hbnkgb3RoZXIgcGFja2FnZSBtYW5hZ2Vycy4KLSBDdXN0b21pemFibGU6IFdhbnQgdG8gY2hhbmdlIHlvdXIgbG9vaz8gQ2hhbmdlIHNvbWUgc2V0dGluZ3M/CiAgVGhlcmUgYXJlIG1hbnkgKipjb25maWcgc3dpdGNoZXMqKiB0byBtYWtlIEZvcmdlam8gd29yayBleGFjdGx5IGxpa2UgeW91IHdhbnQuCi0gUG93ZXJmdWw6IE9yZ2FuaXphdGlvbnMgJiB0ZWFtIHBlcm1pc3Npb25zLCBDSSBpbnRlZ3JhdGlvbiwgQ29kZSBTZWFyY2gsIExEQVAsIE9BdXRoIGFuZCBtdWNoIG1vcmUuCiAgSWYgeW91IGhhdmUgKiphZHZhbmNlZCBuZWVkcyoqLCBGb3JnZWpvIGhhcyB5b3UgY292ZXJlZC4KLSBQcml2YWN5OiBGcm9tIHVwZGF0ZSBjaGVja2VyIHRvIGRlZmF1bHQgc2V0dGluZ3M6IEZvcmdlam8gaXMgYnVpbHQgdG8gYmUgKipwcml2YWN5IGZpcnN0KiogZm9yIHlvdSBhbmQgeW91ciBjcmV3LgotIEZlZGVyYXRpb246IChXSVApIFdlIGFyZSBhY3RpdmVseSB3b3JraW5nIHRvIGNvbm5lY3Qgc29mdHdhcmUgZm9yZ2VzIHdpdGggZWFjaCBvdGhlciB0aHJvdWdoICoqQWN0aXZpdHlQdWIqKiwKICBhbmQgY3JlYXRlIGEgY29sbGFib3JhdGl2ZSBuZXR3b3JrIG9mIHBlcnNvbmFsIGluc3RhbmNlcy4KCiMjIExlYXJuIG1vcmUKCkRpdmUgaW50byB0aGUgW2RvY3VtZW50YXRpb25dKGh0dHBzOi8vZm9yZ2Vqby5vcmcvZG9jcy9sYXRlc3QvKSwgc3Vic2NyaWJlIHRvIHJlbGVhc2VzIGFuZCBibG9nIHBvc3Qgb24gW291ciB3ZWJzaXRlXShodHRwczovL2Zvcmdlam8ub3JnKSwgPGEgaHJlZj0iaHR0cHM6Ly9mbG9zcy5zb2NpYWwvQGZvcmdlam8iIHJlbD0ibWUiPmZpbmQgdXMgb24gdGhlIEZlZGl2ZXJzZTwvYT4gb3IgaG9wIGludG8gW291ciBNYXRyaXggcm9vbV0oaHR0cHM6Ly9tYXRyaXgudG8vIy8jZm9yZ2Vqby1jaGF0Om1hdHJpeC5vcmcpIGlmIHlvdSBoYXZlIGFueSBxdWVzdGlvbnMgb3Igd2FudCB0byBnZXQgaW52b2x2ZWQuCgojIyBMaWNlbnNlCgpGb3JnZWpvIGlzIGRpc3RyaWJ1dGVkIHVuZGVyIHRoZSB0ZXJtcyBvZiB0aGUgW0dQTCB2ZXJzaW9uIDMuMF0oTElDRU5TRSkgb3IgYW55IGxhdGVyIHZlcnNpb24uCgpUaGUgYWdyZWVtZW50IGZvciB0aGlzIGxpY2Vuc2UgW3dhcyBkb2N1bWVudGVkIGluIEp1bmUgMjAyM10oaHR0cHM6Ly9jb2RlYmVyZy5vcmcvZm9yZ2Vqby9nb3Zlcm5hbmNlL3B1bGxzLzI0KSBhbmQgaW1wbGVtZW50ZWQgZHVyaW5nIHRoZSBkZXZlbG9wbWVudCBvZiBGb3JnZWpvIHY5LjAuIEFsbCBGb3JnZWpvIHZlcnNpb25zIGJlZm9yZSB2OS4wIGFyZSBkaXN0cmlidXRlZCB1bmRlciB0aGUgTUlUIGxpY2Vuc2UuCgojIyBHZXQgaW52b2x2ZWQKCklmIHlvdSBhcmUgaW50ZXJlc3RlZCBpbiBtYWtpbmcgRm9yZ2VqbyBiZXR0ZXIsIGVpdGhlciBieSByZXBvcnRpbmcgYSBidWcgb3IgYnkgY2hhbmdpbmcgdGhlIGdvdmVybmFuY2UsIHBsZWFzZSBbdGFrZSBhIGxvb2sgYXQgdGhlIGNvbnRyaWJ1dGlvbiBndWlkZV0oQ09OVFJJQlVUSU5HLm1kKS4K",
+      "target": null,
+      "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/contents/README.md?ref=forgejo",
+      "html_url": "https://codeberg.org/forgejo/forgejo/src/branch/forgejo/README.md",
+      "git_url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/blobs/e6f1b6c3d1bf880d606379609238c57fe60016db",
+      "download_url": "https://codeberg.org/forgejo/forgejo/raw/branch/forgejo/README.md",
+      "submodule_git_url": null,
+      "_links": {
+        "self": "https://codeberg.org/api/v1/repos/forgejo/forgejo/contents/README.md?ref=forgejo",
+        "git": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/blobs/e6f1b6c3d1bf880d606379609238c57fe60016db",
+        "html": "https://codeberg.org/forgejo/forgejo/src/branch/forgejo/README.md"
+      }
+    }
+  }
+}

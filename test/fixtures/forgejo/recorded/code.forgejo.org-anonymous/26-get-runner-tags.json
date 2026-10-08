@@ -1,0 +1,63 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://code.forgejo.org/api/v1/repos/forgejo/runner/tags?limit=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "<https://code.forgejo.org/api/v1/repos/forgejo/runner/tags?limit=3&page=2>; rel=\"next\",<https://code.forgejo.org/api/v1/repos/forgejo/runner/tags?limit=3&page=37>; rel=\"last\"",
+      "x-total-count": "109"
+    },
+    "body": [
+      {
+        "name": "v13.2.0",
+        "message": "fix(jobparser): incomplete job definition triggers pre-execution-error inside a reusable workflow (#1747)\n\nRemove the incorrect job qualifying when namespaces are enabled.\n\nReviewed-on: https://code.forgejo.org/forgejo/runner/pulls/1747\nReviewed-by: Andreas Ahlenstorf <redacted@example.invalid>",
+        "id": "df6b843fb929bb04b933b09c6bf208774d42480b",
+        "commit": {
+          "url": "https://code.forgejo.org/api/v1/repos/forgejo/runner/git/commits/df6b843fb929bb04b933b09c6bf208774d42480b",
+          "sha": "df6b843fb929bb04b933b09c6bf208774d42480b",
+          "created": "2026-09-18T21:03:02Z"
+        },
+        "zipball_url": "https://code.forgejo.org/forgejo/runner/archive/v13.2.0.zip",
+        "tarball_url": "https://code.forgejo.org/forgejo/runner/archive/v13.2.0.tar.gz",
+        "archive_download_count": {
+          "zip": 29,
+          "tar_gz": 468
+        }
+      },
+      {
+        "name": "v13.1.0",
+        "message": "fix: move environment-related description fields from capability to create RPC (#1719)\n\nFields that could vary between different environments in a plugin, such as the operating system identifier, are now returned in the `CreateResponse` rather than the `CapabilitiesResponse`.\n\nFixes #1677.\n\nReviewed-on: https://code.forgejo.org/forgejo/runner/pulls/1719\nReviewed-by: Andreas Ahlenstorf <redacted@example.invalid>",
+        "id": "6095cb17bfdbded5aa4ea84c18a4b69fd9574cca",
+        "commit": {
+          "url": "https://code.forgejo.org/api/v1/repos/forgejo/runner/git/commits/6095cb17bfdbded5aa4ea84c18a4b69fd9574cca",
+          "sha": "6095cb17bfdbded5aa4ea84c18a4b69fd9574cca",
+          "created": "2026-08-31T15:43:44Z"
+        },
+        "zipball_url": "https://code.forgejo.org/forgejo/runner/archive/v13.1.0.zip",
+        "tarball_url": "https://code.forgejo.org/forgejo/runner/archive/v13.1.0.tar.gz",
+        "archive_download_count": {
+          "zip": 21,
+          "tar_gz": 587
+        }
+      },
+      {
+        "name": "v13.0.0",
+        "message": "chore: prepare for runner v13 release (#1645)\n\nGlobal search and replace of `runner/v12` for `runner/v13`.\n\n<!--start release-notes-assistant-->\n<!--URL:https://code.forgejo.org/forgejo/runner-->\n- other\n  - [PR](https://code.forgejo.org/forgejo/runner/pulls/1645): <!--number 1645 --><!--line 0 --><!--description Y2hvcmU6IHByZXBhcmUgZm9yIHJ1bm5lciB2MTMgcmVsZWFzZQ==-->chore: prepare for runner v13 release<!--description-->\n<!--end release-notes-assistant-->\n\nReviewed-on: https://code.forgejo.org/forgejo/runner/pulls/1645\nReviewed-by: Andreas Ahlenstorf <redacted@example.invalid>",
+        "id": "1a633ad51320631293dfcac99755b13659efe784",
+        "commit": {
+          "url": "https://code.forgejo.org/api/v1/repos/forgejo/runner/git/commits/1a633ad51320631293dfcac99755b13659efe784",
+          "sha": "1a633ad51320631293dfcac99755b13659efe784",
+          "created": "2026-08-03T15:55:53Z"
+        },
+        "zipball_url": "https://code.forgejo.org/forgejo/runner/archive/v13.0.0.zip",
+        "tarball_url": "https://code.forgejo.org/forgejo/runner/archive/v13.0.0.tar.gz",
+        "archive_download_count": {
+          "zip": 32,
+          "tar_gz": 1789
+        }
+      }
+    ]
+  }
+}

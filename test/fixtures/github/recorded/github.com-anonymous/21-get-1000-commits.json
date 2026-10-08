@@ -1,0 +1,99 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.github.com/repos/h3js/h3/pulls/1000/commits?per_page=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"459a1c943c695841c2c44ccdf9677af9f66b9de6a7023a6f15bb71546eb37864\"",
+      "x-ratelimit-limit": "60",
+      "x-ratelimit-remaining": "39",
+      "x-ratelimit-reset": "1791488828"
+    },
+    "body": [
+      {
+        "sha": "adbc974043a83820a5ae388265b5ee1465926561",
+        "node_id": "C_kwDOMG9JGtoAKGFkYmM5NzQwNDNhODM4MjBhNWFlMzg4MjY1YjVlZTE0NjU5MjY1NjE",
+        "commit": {
+          "author": {
+            "name": "Mr. Robot",
+            "email": "redacted@example.invalid",
+            "date": "2025-03-31T13:48:41Z"
+          },
+          "committer": {
+            "name": "Mr. Robot",
+            "email": "redacted@example.invalid",
+            "date": "2025-03-31T13:48:41Z"
+          },
+          "message": "chore: include `node_modules` in `.prettierignore`",
+          "tree": {
+            "sha": "98fa895ef6f2d4d307287a680158152e0595e4f1",
+            "url": "https://api.github.com/repos/h3js/h3/git/trees/98fa895ef6f2d4d307287a680158152e0595e4f1"
+          },
+          "url": "https://api.github.com/repos/h3js/h3/git/commits/adbc974043a83820a5ae388265b5ee1465926561",
+          "comment_count": 0,
+          "verification": {
+            "verified": false,
+            "reason": "unsigned",
+            "signature": null,
+            "payload": null,
+            "verified_at": null
+          }
+        },
+        "url": "https://api.github.com/repos/h3js/h3/commits/adbc974043a83820a5ae388265b5ee1465926561",
+        "html_url": "https://github.com/h3js/h3/commit/adbc974043a83820a5ae388265b5ee1465926561",
+        "comments_url": "https://api.github.com/repos/h3js/h3/commits/adbc974043a83820a5ae388265b5ee1465926561/comments",
+        "author": {
+          "login": "iiio2",
+          "id": 47961062,
+          "node_id": "REDACTED",
+          "avatar_url": "https://avatars.githubusercontent.com/u/47961062?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/iiio2",
+          "html_url": "https://github.com/iiio2",
+          "followers_url": "https://api.github.com/users/iiio2/followers",
+          "following_url": "https://api.github.com/users/iiio2/following{/other_user}",
+          "gists_url": "https://api.github.com/users/iiio2/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/iiio2/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/iiio2/subscriptions",
+          "organizations_url": "https://api.github.com/users/iiio2/orgs",
+          "repos_url": "https://api.github.com/users/iiio2/repos",
+          "events_url": "https://api.github.com/users/iiio2/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/iiio2/received_events",
+          "type": "User",
+          "user_view_type": "public",
+          "site_admin": false
+        },
+        "committer": {
+          "login": "iiio2",
+          "id": 47961062,
+          "node_id": "REDACTED",
+          "avatar_url": "https://avatars.githubusercontent.com/u/47961062?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/iiio2",
+          "html_url": "https://github.com/iiio2",
+          "followers_url": "https://api.github.com/users/iiio2/followers",
+          "following_url": "https://api.github.com/users/iiio2/following{/other_user}",
+          "gists_url": "https://api.github.com/users/iiio2/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/iiio2/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/iiio2/subscriptions",
+          "organizations_url": "https://api.github.com/users/iiio2/orgs",
+          "repos_url": "https://api.github.com/users/iiio2/repos",
+          "events_url": "https://api.github.com/users/iiio2/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/iiio2/received_events",
+          "type": "User",
+          "user_view_type": "public",
+          "site_admin": false
+        },
+        "parents": [
+          {
+            "sha": "e5788bb16d62ac64e5fa13b14862ed719f768d04",
+            "url": "https://api.github.com/repos/h3js/h3/commits/e5788bb16d62ac64e5fa13b14862ed719f768d04",
+            "html_url": "https://github.com/h3js/h3/commit/e5788bb16d62ac64e5fa13b14862ed719f768d04"
+          }
+        ]
+      }
+    ]
+  }
+}

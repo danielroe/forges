@@ -1,0 +1,304 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/issues?search=fix&in=title%2Cdescription&order_by=updated_at&sort=desc&per_page=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "<https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/issues?id=gitlab-org%2Fcli&in=title%2Cdescription&order_by=updated_at&page=2&per_page=3&search=fix&sort=desc&state=all&with_labels_details=false>; rel=\"next\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/issues?id=gitlab-org%2Fcli&in=title%2Cdescription&order_by=updated_at&page=1&per_page=3&search=fix&sort=desc&state=all&with_labels_details=false>; rel=\"first\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/issues?id=gitlab-org%2Fcli&in=title%2Cdescription&order_by=updated_at&page=215&per_page=3&search=fix&sort=desc&state=all&with_labels_details=false>; rel=\"last\"",
+      "etag": "W/\"9a04827fb3d47c86ece8573ed64bb3af\"",
+      "ratelimit-limit": "500",
+      "ratelimit-remaining": "464",
+      "ratelimit-reset": "1791477480",
+      "x-total": "643",
+      "x-total-pages": "215",
+      "x-next-page": "2",
+      "x-page": "1",
+      "x-per-page": "3"
+    },
+    "body": [
+      {
+        "id": 171307244,
+        "iid": 7943,
+        "project_id": 34675721,
+        "title": "Impossible to configure_docker, since container_registry_domains is not stored when --use-keyring is supplied and also not checked",
+        "description": "### Checklist\n\n<!-- Please test the latest versions, that will remove the possibility that you see a bug that is fixed in a newer version. -->\n\n- [x] I'm using the latest version of the extension (Run `glab --version`)\n  - Extension version: 1.65.0\n- [x] Operating system and version: Fedora 42\n- [x] Gitlab.com or self-managed instance? self-managed instance\n- [x] GitLab version (if self-managed) 18.05\n- [x] I have performed `glab auth status` to check for authentication issues\n- [ ] Run the command in debug mode (like `DEBUG=true glab mr list`) and attach any useful output\n\n### Summary\n\nUsing `glab auth login` with `--use-keyring` does not store the survey answer to supplied container registry domains.\n\nAdditionally `glab auth status` does not check for validity of container registry credentials.\n\n### Steps to reproduce\n\n1. Login with `glab auth login --use-keyring` and provide container registry domains\n2. Try to do `glab auth configure-docker`\n3. See the error\n\n### What is the current _bug_ behavior?\n\nThe error is thrown:\n\n```\nERROR: no hosts were configured - ensure you've logged in via oauth2 and configured at least one container registry domain for a host\n```\n\n### What is the expected _correct_ behavior?\n\n`configure_docker` succeeds and container registry domains are retained when using the keyring, as without using `--use-keyring`.\n\nElse the error could also be more understandable, such as \"no container registries found in configuration retrieved from keyring/configuration file at path …\".",
+        "state": "opened",
+        "created_at": "2025-07-30T13:42:40.813Z",
+        "updated_at": "2026-10-08T16:35:00.893Z",
+        "closed_at": null,
+        "closed_by": null,
+        "labels": [
+          "UI text",
+          "category:gitlab cli",
+          "devops::ai coding",
+          "documentation",
+          "group::code review",
+          "section::ai",
+          "tw::triaged",
+          "type::bug",
+          "vintage"
+        ],
+        "milestone": null,
+        "assignees": [],
+        "author": {
+          "id": 287902,
+          "username": "almereyda",
+          "public_email": "",
+          "name": "jon r",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://secure.gravatar.com/avatar/ad39b9365c973d6987beb07b1f856a879302d359cdfdbe1325e449714dc59cf9?s=80&d=identicon",
+          "web_url": "https://gitlab.com/almereyda"
+        },
+        "type": "ISSUE",
+        "assignee": null,
+        "user_notes_count": 4,
+        "merge_requests_count": 0,
+        "upvotes": 0,
+        "downvotes": 0,
+        "start_date": null,
+        "due_date": null,
+        "confidential": false,
+        "discussion_locked": null,
+        "issue_type": "issue",
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/work_items/7943",
+        "time_stats": {
+          "time_estimate": 0,
+          "total_time_spent": 0,
+          "human_time_estimate": null,
+          "human_total_time_spent": null
+        },
+        "task_completion_status": {
+          "count": 6,
+          "completed_count": 5
+        },
+        "weight": null,
+        "blocking_issues_count": 0,
+        "has_tasks": false,
+        "_links": {
+          "self": "https://gitlab.com/api/v4/projects/34675721/issues/7943",
+          "notes": "https://gitlab.com/api/v4/projects/34675721/issues/7943/notes",
+          "award_emoji": "https://gitlab.com/api/v4/projects/34675721/issues/7943/award_emoji",
+          "project": "https://gitlab.com/api/v4/projects/34675721",
+          "closed_as_duplicate_of": null
+        },
+        "references": {
+          "short": "#7943",
+          "relative": "#7943",
+          "full": "gitlab-org/cli#7943"
+        },
+        "severity": "UNKNOWN",
+        "moved_to_id": null,
+        "imported": false,
+        "imported_from": "none",
+        "service_desk_reply_to": null,
+        "epic_iid": null,
+        "epic": null,
+        "iteration": null,
+        "health_status": null
+      },
+      {
+        "id": 205552991,
+        "iid": 8583,
+        "project_id": 34675721,
+        "title": "Remove the experimental `glab mcp serve` command in favour of the GitLab MCP Server",
+        "description": "## Summary\n\nAs [requested in !3093](https://gitlab.com/gitlab-org/cli/-/merge_requests/3093#note_3944378084), deprecate, then remove, the experimental `glab mcp` command and its supporting code, and direct users to the [GitLab MCP Server](https://docs.gitlab.com/user/model_context_protocol/mcp_server/).\n\n## Why\n\n- **Two GitLab MCP servers confuse users.** Users compare the two and report tool counts from one against the other ([gitlab#588956](https://gitlab.com/gitlab-org/gitlab/-/work_items/588956)). The GitLab MCP Server is the documented, supported path.\n- **The original reason to use `glab mcp serve` is gone.** It was used to work around the GitLab MCP Server being Premium/Ultimate only. The GitLab MCP Server is now available on Free, Premium, and Ultimate, across GitLab.com, Self-Managed, and Dedicated ([gitlab-org&21183](https://gitlab.com/groups/gitlab-org/-/work_items/21183)), and is working towards GA ([gitlab-org&19117](https://gitlab.com/groups/gitlab-org/-/work_items/19117)).\n- **It was always meant to be temporary.** The original MR planned to \"swap this one out with the official server when it's ready\" ([!2361](https://gitlab.com/gitlab-org/cli/-/merge_requests/2361)).\n- **Agents with a shell don't need it.** Coding agents can run `glab` directly, using `--help` and `--output json`. The MCP wrapper re-exposes the same commands at a large context cost.\n- **It has a maintenance cost.** Every command carries MCP annotations (`internal/mcpannotations`, referenced from ~230 files), and the server has its own schema generation, flag handling, response capping, and an MCP SDK dependency.\n\nThe feature is marked experimental, so it can be removed under the [experiment support policy](https://docs.gitlab.com/policy/development_stages_support/).\n\nUsage metrics for `glab mcp serve` and per-tool MCP calls are posted in an internal comment on this issue.\n\n## Proposal\n\n**Timing:** deprecate when the GitLab MCP Server reaches GA ([gitlab-org&19117](https://gitlab.com/groups/gitlab-org/-/work_items/19117)), then remove one milestone later.\n\n1. **Deprecate, in the milestone the GitLab MCP Server reaches GA.** Set cobra's `Deprecated` on `glab mcp` and `glab mcp serve`, following the [deprecation message conventions](https://docs.gitlab.com/development/documentation/cli_styleguide/#deprecation-messages). The message says the command is scheduled to be removed and points to the GitLab MCP Server docs. `make gen-docs` removes the command's pages. Implemented in [!3998](https://gitlab.com/gitlab-org/cli/-/merge_requests/3998), to merge once the GitLab MCP Server is GA.\n2. **Remove, one milestone after deprecation.** Delete `internal/commands/mcp/`, the `invocation_source` telemetry property, and the `github.com/modelcontextprotocol/go-sdk` dependency. The command annotations stay, because read-only mode ([#8353](https://gitlab.com/gitlab-org/cli/-/work_items/8353)) will reuse the read/write classification. Implemented in [!4014](https://gitlab.com/gitlab-org/cli/-/merge_requests/4014).\n\n[!3093](https://gitlab.com/gitlab-org/cli/-/merge_requests/3093) is a proof of concept for step 2 and can be used as a starting point.\n\n## Open questions\n\n- **Local-only commands (answered from usage data).** Earlier discussion ([!2361](https://gitlab.com/gitlab-org/cli/-/merge_requests/2361)) suggested keeping a slimmed `glab mcp` for commands that only make sense locally, such as `glab cluster agent update-kubeconfig` and `glab opentofu init`. Usage data (see the internal comment) shows none of these commands were called through MCP. Agents that use them run `glab` from the shell instead, so we don't plan to keep a slimmed `glab mcp`.\n- **Rate limits.** The GitLab MCP Server [limits requests](https://docs.gitlab.com/user/model_context_protocol/mcp_server/) to 60 per minute on Free and 600 per minute per user on Premium and Ultimate. `glab mcp serve` falls under the standard API rate limits. Will heavy agent workloads, especially on Free, hit the GitLab MCP Server limits?\n- **Governance controls (answered).** `glab mcp serve` has no user-configurable controls. Tool exposure is fixed in code, and write tools only carry a `destructiveHint` for the client. The GitLab MCP Server already offers more: an instance or top-level group setting to allow access, per-client toolset selection, an `mcp` OAuth scope, and read/write tool annotations. Removing `glab mcp serve` doesn't take away any governance control.\n- **Release mechanics. (answered)** Removing an experimental command does not require a breaking-change. So the automated release will work as per normal.\n\n## Related issues to close or update\n\n- [#8147](https://gitlab.com/gitlab-org/cli/-/work_items/8147): serve Agent Skills via the MCP subcommand.\n- [#8058](https://gitlab.com/gitlab-org/cli/-/work_items/8058): filter tools on the MCP server.\n\n## Related\n\n- [gitlab#588956](https://gitlab.com/gitlab-org/gitlab/-/work_items/588956): GitLab MCP server vs Glab MCP server.\n- [gitlab-org&19117](https://gitlab.com/groups/gitlab-org/-/work_items/19117): GitLab MCP Server GA.\n- [!3093](https://gitlab.com/gitlab-org/cli/-/merge_requests/3093): draft removal PoC.",
+        "state": "opened",
+        "created_at": "2026-10-06T04:00:32.366Z",
+        "updated_at": "2026-10-08T10:01:38.838Z",
+        "closed_at": null,
+        "closed_by": null,
+        "labels": [
+          "automation:ml",
+          "backend",
+          "category:gitlab cli",
+          "devops::ai clients",
+          "maintenance::removal",
+          "section::ai",
+          "type::maintenance"
+        ],
+        "milestone": null,
+        "assignees": [
+          {
+            "id": 11809982,
+            "username": "jay_mccure",
+            "public_email": "",
+            "name": "Jay McCure",
+            "state": "active",
+            "locked": false,
+            "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1791444159",
+            "web_url": "https://gitlab.com/jay_mccure"
+          }
+        ],
+        "author": {
+          "id": 11809982,
+          "username": "jay_mccure",
+          "public_email": "",
+          "name": "Jay McCure",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1791444159",
+          "web_url": "https://gitlab.com/jay_mccure"
+        },
+        "type": "ISSUE",
+        "assignee": {
+          "id": 11809982,
+          "username": "jay_mccure",
+          "public_email": "",
+          "name": "Jay McCure",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1791444159",
+          "web_url": "https://gitlab.com/jay_mccure"
+        },
+        "user_notes_count": 6,
+        "merge_requests_count": 0,
+        "upvotes": 1,
+        "downvotes": 0,
+        "start_date": null,
+        "due_date": null,
+        "confidential": false,
+        "discussion_locked": null,
+        "issue_type": "issue",
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/work_items/8583",
+        "time_stats": {
+          "time_estimate": 0,
+          "total_time_spent": 0,
+          "human_time_estimate": null,
+          "human_total_time_spent": null
+        },
+        "task_completion_status": {
+          "count": 0,
+          "completed_count": 0
+        },
+        "weight": null,
+        "blocking_issues_count": 0,
+        "has_tasks": true,
+        "task_status": "0 of 0 checklist items completed",
+        "_links": {
+          "self": "https://gitlab.com/api/v4/projects/34675721/issues/8583",
+          "notes": "https://gitlab.com/api/v4/projects/34675721/issues/8583/notes",
+          "award_emoji": "https://gitlab.com/api/v4/projects/34675721/issues/8583/award_emoji",
+          "project": "https://gitlab.com/api/v4/projects/34675721",
+          "closed_as_duplicate_of": null
+        },
+        "references": {
+          "short": "#8583",
+          "relative": "#8583",
+          "full": "gitlab-org/cli#8583"
+        },
+        "severity": "UNKNOWN",
+        "moved_to_id": null,
+        "imported": false,
+        "imported_from": "none",
+        "service_desk_reply_to": null,
+        "epic_iid": null,
+        "epic": null,
+        "iteration": null,
+        "health_status": null
+      },
+      {
+        "id": 125083464,
+        "iid": 1270,
+        "project_id": 34675721,
+        "title": "glab repo clone using a full URL authenticates to gitlab.com",
+        "description": "### Checklist\n\n<!-- Please test the latest versions, that will remove the possibility that you see a bug that is fixed in a newer version. -->\n\n- [X] I'm using the latest version of the extension (Run `glab --version`)\n- [X] Gitlab.com or self-managed instance? _both_\n- [X] I have performed `glab auth status` to check for authentication issues\n\n### Summary\n\n<!-- Summarize the bug encountered concisely -->\n\n### Steps to reproduce\n\nSet an incorrect/empty token for the gitlab.com host entry in `~/.config/glab-cli/config.yml`\nSet `host` to gitlab.com in `~/.config/glab-cli/config.yml` or remove `host` as it will default to gitlab.com\n\n\n`glab repo clone https://mygitlab.com/mygroup/myrepo`\n\n<!-- How one can reproduce the issue - this is very important -->\n\n### What is the current _bug_ behavior?\n`GET https://gitlab.com/api/v4/user: 401 {message: 401 Unauthorized}`\n<!-- What actually happens -->\n\n### What is the expected _correct_ behavior?\nrepo is cloned similar to:\n\n`GITLAB_HOST=mygitlab.com glab repo clone https://mygitlab.com/mygroup/myrepo`\n<!-- What you should see instead -->\n\n### Workaround\n\nSet `host` to your desired env in `~/.config/glab-cli/config.yml`\n\n<!-- If you can, link to the line of code that might be responsible for the problem -->",
+        "state": "opened",
+        "created_at": "2023-03-10T07:53:21.411Z",
+        "updated_at": "2026-10-07T18:16:58.589Z",
+        "closed_at": null,
+        "closed_by": null,
+        "labels": [
+          "category:gitlab cli",
+          "cli",
+          "devops::create",
+          "group::code review",
+          "section::dev",
+          "severity::4",
+          "type::bug",
+          "vintage"
+        ],
+        "milestone": null,
+        "assignees": [
+          {
+            "id": 42048126,
+            "username": "sjestonsingh",
+            "public_email": "redacted@example.invalid",
+            "name": "Jeston Singh",
+            "state": "active",
+            "locked": false,
+            "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/42048126/avatar.png?v=1791469043",
+            "web_url": "https://gitlab.com/sjestonsingh"
+          }
+        ],
+        "author": {
+          "id": 11809982,
+          "username": "jay_mccure",
+          "public_email": "",
+          "name": "Jay McCure",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1791444159",
+          "web_url": "https://gitlab.com/jay_mccure"
+        },
+        "type": "ISSUE",
+        "assignee": {
+          "id": 42048126,
+          "username": "sjestonsingh",
+          "public_email": "redacted@example.invalid",
+          "name": "Jeston Singh",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/42048126/avatar.png?v=1791469043",
+          "web_url": "https://gitlab.com/sjestonsingh"
+        },
+        "user_notes_count": 13,
+        "merge_requests_count": 1,
+        "upvotes": 0,
+        "downvotes": 0,
+        "start_date": null,
+        "due_date": null,
+        "confidential": false,
+        "discussion_locked": null,
+        "issue_type": "issue",
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/work_items/1270",
+        "time_stats": {
+          "time_estimate": 0,
+          "total_time_spent": 0,
+          "human_time_estimate": null,
+          "human_total_time_spent": null
+        },
+        "task_completion_status": {
+          "count": 3,
+          "completed_count": 3
+        },
+        "weight": null,
+        "blocking_issues_count": 0,
+        "has_tasks": false,
+        "_links": {
+          "self": "https://gitlab.com/api/v4/projects/34675721/issues/1270",
+          "notes": "https://gitlab.com/api/v4/projects/34675721/issues/1270/notes",
+          "award_emoji": "https://gitlab.com/api/v4/projects/34675721/issues/1270/award_emoji",
+          "project": "https://gitlab.com/api/v4/projects/34675721",
+          "closed_as_duplicate_of": null
+        },
+        "references": {
+          "short": "#1270",
+          "relative": "#1270",
+          "full": "gitlab-org/cli#1270"
+        },
+        "severity": "UNKNOWN",
+        "moved_to_id": null,
+        "imported": false,
+        "imported_from": "none",
+        "service_desk_reply_to": null,
+        "epic_iid": null,
+        "epic": null,
+        "iteration": null,
+        "health_status": null
+      }
+    ]
+  }
+}

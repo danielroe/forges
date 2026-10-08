@@ -2,6 +2,8 @@
 withDefaults(defineProps<{
   levels?: Array<'native' | 'experimental' | 'emulated' | 'none'>
   kinds?: boolean
+  /** Adds the marker for support that needs credentials. */
+  signedIn?: boolean
   /** Adds a disclosure that explains each level. */
   explain?: boolean
 }>(), {
@@ -14,7 +16,7 @@ const kindLabels = ['issue', 'PR', 'discussion', 'commit']
 <template>
   <div>
     <ul
-      v-if="levels.length || kinds || $slots.default"
+      v-if="levels.length || kinds || signedIn || $slots.default"
       class="flex flex-wrap items-center gap-x-5 gap-y-2 text-xs text-muted"
     >
       <li
@@ -41,13 +43,23 @@ const kindLabels = ['issue', 'PR', 'discussion', 'commit']
         </span>
         <span>Per thread kind</span>
       </li>
+      <li
+        v-if="signedIn"
+        class="inline-flex items-center gap-2"
+      >
+        <CapabilityCell
+          level="native"
+          :signed-in="true"
+        />
+        {{ signedInLabel }}
+      </li>
       <slot />
     </ul>
 
     <details
       v-if="explain"
       class="group text-xs"
-      :class="{ 'mt-3': levels.length || kinds || $slots.default }"
+      :class="{ 'mt-3': levels.length || kinds || signedIn || $slots.default }"
     >
       <summary class="inline-flex cursor-pointer list-none items-center gap-1.5 text-muted hover:text-highlighted [&::-webkit-details-marker]:hidden">
         <UIcon
@@ -70,6 +82,19 @@ const kindLabels = ['issue', 'PR', 'discussion', 'commit']
           </dt>
           <dd class="text-muted max-sm:mb-1.5">
             {{ supportDescriptions[level] }}
+          </dd>
+        </template>
+        <template v-if="signedIn">
+          <dt class="flex items-center gap-2 font-medium text-highlighted">
+            <CapabilityCell
+              level="native"
+              :signed-in="true"
+              class="[--capability-cell-size:0.75rem]"
+            />
+            {{ signedInLabel }}
+          </dt>
+          <dd class="text-muted max-sm:mb-1.5">
+            {{ signedInDescription }}
           </dd>
         </template>
         <slot name="explain" />

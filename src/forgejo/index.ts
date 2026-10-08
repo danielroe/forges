@@ -134,8 +134,10 @@ export function forgejoDefinition(profile: ForgejoProfile): ProviderDefinition<F
   }
 }
 
-function setupForgejo({ origin, fetcher: baseFetcher, baseUrl }: ProviderContext<ForgejoOptions, undefined>, profile: ForgejoProfile): ProviderSpec {
+function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: ProviderContext<ForgejoOptions, undefined>, profile: ForgejoProfile): ProviderSpec {
   const context = origin
+  /** Collaborators, assignees, reviewers and permissions are served only to signed-in users. */
+  const anonymous = options.auth?.type === 'anonymous'
   const fetcher = countedPages(baseFetcher)
 
   const list = createListing(fetcher, 'limit')
@@ -511,8 +513,8 @@ function setupForgejo({ origin, fetcher: baseFetcher, baseUrl }: ProviderContext
         json: { name: label.name, color: hexColour(label.colour, '#'), description: label.description },
       })).data)),
       milestonesPage: verb(true, milestonesPage),
-      collaboratorsPage: verb(true, (repo, listOptions = {}) => list(`${repoPath(repo)}/collaborators`, listOptions, (raw: ForgejoUser) => ({ actor: toActor(origin, raw)!, role: 'read' as const, raw }))),
-      permissionFor: verb('experimental', async (repo, actor) => {
+      collaboratorsPage: verb(!anonymous, (repo, listOptions = {}) => list(`${repoPath(repo)}/collaborators`, listOptions, (raw: ForgejoUser) => ({ actor: toActor(origin, raw)!, role: 'read' as const, raw }))),
+      permissionFor: verb(!anonymous && 'experimental', async (repo, actor) => {
         const { data } = await fetcher.json<{ permission?: string, role_name?: string }>(`${repoPath(repo)}/collaborators/${encodeURIComponent(actorLogin(actor))}/permission`)
         return toRole(data.role_name ?? data.permission)
       }),
@@ -522,8 +524,8 @@ function setupForgejo({ origin, fetcher: baseFetcher, baseUrl }: ProviderContext
           json: { permission: role === 'admin' ? 'admin' : role === 'read' || role === 'triage' ? 'read' : 'write' },
         })
       }),
-      assignableUsersPage: verb(true, (repo, listOptions = {}) => list(`${repoPath(repo)}/assignees`, listOptions, (raw: ForgejoUser) => toActor(origin, raw)!)),
-      reviewerCandidatesPage: verb('experimental', (thread, listOptions = {}) => list(`${repoPath(requireThread(thread, context).repo)}/reviewers`, listOptions, (raw: ForgejoUser) => toActor(origin, raw)!)),
+      assignableUsersPage: verb(!anonymous, (repo, listOptions = {}) => list(`${repoPath(repo)}/assignees`, listOptions, (raw: ForgejoUser) => toActor(origin, raw)!)),
+      reviewerCandidatesPage: verb(!anonymous && 'experimental', (thread, listOptions = {}) => list(`${repoPath(requireThread(thread, context).repo)}/reviewers`, listOptions, (raw: ForgejoUser) => toActor(origin, raw)!)),
     },
     notifications: {
       listPage: verb(true, notificationPage),

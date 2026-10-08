@@ -1,0 +1,52 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/releases/tags/OneOS-v2.2.1"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"8916099e2301c5814713cc618c794b66\"",
+      "x-ratelimit-limit": "60",
+      "x-ratelimit-remaining": "24"
+    },
+    "body": {
+      "id": 224819,
+      "tag_name": "OneOS-v2.2.1",
+      "target_commitish": "511c1b66c3b31d314a7f937eb6d267a475f3e2c8",
+      "prerelease": false,
+      "name": "OneOS-v2.2.1",
+      "body": "# ReleaseNotes\r\n\r\n## [OneOS-V2.2.1]\r\n\r\n### 内核\r\n\r\n1、新增longArch支持\r\n2、新增AC6编译器支持\r\n3、新增ARMV5te（ARM9）架构支持\r\n4、新增GCC编译器9.3版本支持\r\n5、新增C++库适配\r\n6、支持CPU使用率统计、内存内容监测、运行信息维测统计\r\n\r\n### 驱动\r\n\r\n1、新增驱动库适配AC6编译器\r\n2、新增CODESYS支持（相关开发板适配）\r\n3、新增USB驱动框架\r\n4、新增国密一级认证芯片支持\r\n\r\n### 组件\r\n\r\n1、新增LWIP支持IPV6\r\n2、新增FOTA解决方案(电信云模式、主从模式)\r\n3、新增MOLINK蓝牙模组支持\r\n4、新增蜂窝网络日志统计\r\n5、新增电源管理能耗分析框架\r\n6、新增COAP3支持\r\n7、新增定位组件端侧RTK优化    ",
+      "author": {
+        "id": 7894055,
+        "login": "cmcc-oneos-admin",
+        "name": "CMCC-OneOS",
+        "avatar_url": "https://foruda.gitee.com/avatar/1670466967165594212/7894055_cmcc-oneos-admin_1670466966.png",
+        "url": "https://gitee.com/api/v5/users/cmcc-oneos-admin",
+        "html_url": "https://gitee.com/cmcc-oneos-admin",
+        "remark": "",
+        "followers_url": "https://gitee.com/api/v5/users/cmcc-oneos-admin/followers",
+        "following_url": "https://gitee.com/api/v5/users/cmcc-oneos-admin/following_url{/other_user}",
+        "gists_url": "https://gitee.com/api/v5/users/cmcc-oneos-admin/gists{/gist_id}",
+        "starred_url": "https://gitee.com/api/v5/users/cmcc-oneos-admin/starred{/owner}{/repo}",
+        "subscriptions_url": "https://gitee.com/api/v5/users/cmcc-oneos-admin/subscriptions",
+        "organizations_url": "https://gitee.com/api/v5/users/cmcc-oneos-admin/orgs",
+        "repos_url": "https://gitee.com/api/v5/users/cmcc-oneos-admin/repos",
+        "events_url": "https://gitee.com/api/v5/users/cmcc-oneos-admin/events{/privacy}",
+        "received_events_url": "https://gitee.com/api/v5/users/cmcc-oneos-admin/received_events",
+        "type": "User"
+      },
+      "created_at": "2022-05-19T13:19:24+08:00",
+      "assets": [
+        {
+          "browser_download_url": "https://gitee.com/cmcc-oneos/OneOS/archive/refs/tags/OneOS-v2.2.1.zip",
+          "name": "OneOS-v2.2.1.zip"
+        },
+        {
+          "browser_download_url": "https://gitee.com/cmcc-oneos/OneOS/archive/refs/tags/OneOS-v2.2.1.tar.gz",
+          "name": "OneOS-v2.2.1.tar.gz"
+        }
+      ]
+    }
+  }
+}

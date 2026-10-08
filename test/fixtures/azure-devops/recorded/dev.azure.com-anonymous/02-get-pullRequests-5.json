@@ -1,0 +1,189 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://dev.azure.com/dnceng-public/public/_apis/git/repositories/dotnet-public-wiki/pullRequests/5?api-version=7.1"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "repository": {
+        "id": "2459d599-fdb2-4d28-9810-daeec061cf90",
+        "name": "dotnet-public-wiki",
+        "url": "https://dev.azure.com/dnceng-public/cbb18261-c48f-4abb-8651-8cdcb5474649/_apis/git/repositories/2459d599-fdb2-4d28-9810-daeec061cf90",
+        "project": {
+          "id": "cbb18261-c48f-4abb-8651-8cdcb5474649",
+          "name": "public",
+          "description": "Project exists exclusively for .NET Core projects which build publicly",
+          "url": "https://dev.azure.com/dnceng-public/_apis/projects/cbb18261-c48f-4abb-8651-8cdcb5474649",
+          "state": "wellFormed",
+          "revision": 20,
+          "visibility": "public",
+          "lastUpdateTime": "2023-05-16T15:27:53.67Z"
+        },
+        "size": 12337,
+        "remoteUrl": "https://dev.azure.com/dnceng-public/public/_git/dotnet-public-wiki",
+        "sshUrl": "git@ssh.dev.azure.com:v3/dnceng-public/public/dotnet-public-wiki",
+        "webUrl": "https://dev.azure.com/dnceng-public/public/_git/dotnet-public-wiki",
+        "isDisabled": false,
+        "isInMaintenance": false
+      },
+      "pullRequestId": 5,
+      "codeReviewId": 5,
+      "status": "completed",
+      "createdBy": {
+        "displayName": "MerlinBot",
+        "url": "https://spsprodcus4.vssps.visualstudio.com/A10a5dd58-16e3-41e8-b079-e25cb8111111/_apis/Identities/56b0f042-b05e-86d9-b0f7-c5ddb1e76385",
+        "_links": {
+          "avatar": {
+            "href": "https://dev.azure.com/dnceng-public/_apis/GraphProfile/MemberAvatars/svc.NmZjYzkyZTUtNzNhNy00Zjg4LThkMTMtZDkwNDViNDVmYjI3OkFwcGxpY2F0aW9uOjU2YjBmMDQyLWIwNWUtODZkOS1iMGY3LWM1ZGRiMWU3NjM4NQ"
+          }
+        },
+        "id": "56b0f042-b05e-86d9-b0f7-c5ddb1e76385",
+        "uniqueName": null,
+        "imageUrl": null,
+        "descriptor": "svc.NmZjYzkyZTUtNzNhNy00Zjg4LThkMTMtZDkwNDViNDVmYjI3OkFwcGxpY2F0aW9uOjU2YjBmMDQyLWIwNWUtODZkOS1iMGY3LWM1ZGRiMWU3NjM4NQ"
+      },
+      "creationDate": "2026-02-18T04:35:01.9643061Z",
+      "closedDate": "2026-02-18T04:35:05.1682215Z",
+      "title": "Inventory bootstrapping",
+      "description": "This **automated pull request**, created by **1ES**, is part of the **[Inventory-As-Code](https://aka.ms/inventory-as-code)** onboarding to improve **bug-routing** and **incident response** and **permissions management**.\n \n#🚀 What’s Changing?\n\n- This PR adds inventory metadata to your repository sourced from Product Catalog.\n- Once merged, this metadata will supersede [Product Catalog](https://product-catalog-web.prod.space.microsoft.com/), which will eventually be retired. You'll manage repository inventory directly via source code.\n\n#✅ Action Required :\n\n##1. Review the YAML file(s)\n- Ensure the repository inventory metadata is accurate.\n\n##2. If the metadata is inaccurate\n- **[Preferred]** Edit the PR directly\n- **Alternatively**: Approve and merge the PR, then open a new PR with corrections.\n- **[Not Recommended]** Reject the PR and manually configure inventory by adding es-metadata.yml file.\n\n##3. Approve and Merge the Pull Request\n- Once reviewed, approve and merge the PR to onboard your repository to Inventory-As-Code.\n  **Note**: For repositories under orgs that have [opted into auto-merge](https://eng.ms/docs/cloud-ai-platform/devdiv/one-engineering-system-1es/1es-docs/product-catalog/inventory-as-code/auto-prsforinventory-as-code#:~:text=in%20the%20extension.-%2c%F0%9F%91%80%20What%20Happens%20When%20You%20Receive%20an%20Auto-PR?%2c-%E2%9C%85%20PR%20Title:%20The), this PR will be automatically merged within 24 hours of creation\n\n#ℹ️ Why You’re Receiving This PR\nYou are listed as a service admin for the service this repository is assigned to.\nIf this repo should not be associated with your service:\n    1. Visit: https://product-catalog-web.prod.space.microsoft.com/Product/serviced\n    2. Replace serviceId with the service value from es-metadata.yml file and unassign the repo.\n\n#ℹ️ How does this impact permissions\n• For organizations onboarded to the 1ES Permission Service (https://aka.ms/engtenant/access), the owning Service retains administrative permissions.\n• Consuming services (if applicable) will have contribute access on the repository.\n• Read more on how Inventory-As-Code and the 1ES Permission Service here (https://eng.ms/docs/more/engineering-tenant-esme/perms/inventory).\n\n**Need Assistance?**\n \n📩 **Questions:** [Teams Channel for InventoryAsCode](https://teams.microsoft.com/l/channel/19%3Af82f631a47e248d6a573712683c4a96b%40thread.skype/InventoryAsCode%20Migration?groupId=fa2bea20-1f8d-42f6-9697-ebe18dbb7bc3&tenantId=72f988bf-86f1-41af-91ab-2d7cd011db47)\n📖 **Learn More:** https://aka.ms/inventory-as-code\n<!-- GitOpsUserAgent=GitOps.Apps.Job.inventorybootstrapping -->\n",
+      "sourceRefName": "refs/heads/invBootstrap",
+      "targetRefName": "refs/heads/main",
+      "mergeStatus": "succeeded",
+      "isDraft": false,
+      "mergeId": "300b2edb-c12b-45ac-be2f-b124ba120ec0",
+      "lastMergeSourceCommit": {
+        "commitId": "3aae318f1661c50c34effbbf6882119ed161f2d6",
+        "url": "https://dev.azure.com/dnceng-public/cbb18261-c48f-4abb-8651-8cdcb5474649/_apis/git/repositories/2459d599-fdb2-4d28-9810-daeec061cf90/commits/3aae318f1661c50c34effbbf6882119ed161f2d6"
+      },
+      "lastMergeTargetCommit": {
+        "commitId": "2adc745e20d7a07fb7f177853d3e78a95b007aef",
+        "url": "https://dev.azure.com/dnceng-public/cbb18261-c48f-4abb-8651-8cdcb5474649/_apis/git/repositories/2459d599-fdb2-4d28-9810-daeec061cf90/commits/2adc745e20d7a07fb7f177853d3e78a95b007aef"
+      },
+      "lastMergeCommit": {
+        "commitId": "af56d96fdbd7c26e9fc94336b6f50dcc6ceff484",
+        "author": {
+          "name": "MerlinBot",
+          "email": null,
+          "date": "2026-02-18T04:35:04Z"
+        },
+        "committer": {
+          "name": "MerlinBot",
+          "email": null,
+          "date": "2026-02-18T04:35:04Z"
+        },
+        "comment": "Merge pull request 5 from invBootstrap into main",
+        "url": "https://dev.azure.com/dnceng-public/cbb18261-c48f-4abb-8651-8cdcb5474649/_apis/git/repositories/2459d599-fdb2-4d28-9810-daeec061cf90/commits/af56d96fdbd7c26e9fc94336b6f50dcc6ceff484"
+      },
+      "reviewers": [
+        {
+          "reviewerUrl": "https://dev.azure.com/dnceng-public/cbb18261-c48f-4abb-8651-8cdcb5474649/_apis/git/repositories/2459d599-fdb2-4d28-9810-daeec061cf90/pullRequests/5/reviewers/08c37c0d-dc6c-6635-9662-1fa8dad90878",
+          "vote": 0,
+          "hasDeclined": false,
+          "isFlagged": false,
+          "displayName": "Mark Wilkie",
+          "url": "https://spsprodcus4.vssps.visualstudio.com/A10a5dd58-16e3-41e8-b079-e25cb8111111/_apis/Identities/08c37c0d-dc6c-6635-9662-1fa8dad90878",
+          "_links": {
+            "avatar": {
+              "href": "https://dev.azure.com/dnceng-public/_apis/GraphProfile/MemberAvatars/aad.MDhjMzdjMGQtZGM2Yy03NjM1LTk2NjItMWZhOGRhZDkwODc4"
+            }
+          },
+          "id": "08c37c0d-dc6c-6635-9662-1fa8dad90878",
+          "uniqueName": null,
+          "imageUrl": null
+        },
+        {
+          "reviewerUrl": "https://dev.azure.com/dnceng-public/cbb18261-c48f-4abb-8651-8cdcb5474649/_apis/git/repositories/2459d599-fdb2-4d28-9810-daeec061cf90/pullRequests/5/reviewers/ab548af8-1ef9-4928-8fd6-2014ea725a67",
+          "vote": 0,
+          "hasDeclined": false,
+          "isFlagged": false,
+          "displayName": "Matt Mitchell (.NET)",
+          "url": "https://spsprodcus4.vssps.visualstudio.com/A10a5dd58-16e3-41e8-b079-e25cb8111111/_apis/Identities/ab548af8-1ef9-4928-8fd6-2014ea725a67",
+          "_links": {
+            "avatar": {
+              "href": "https://dev.azure.com/dnceng-public/_apis/GraphProfile/MemberAvatars/aad.NzIwMmY4NmUtODhlOC03Yjc0LWFlYzYtMTMwZGQzMDI5MGI1"
+            }
+          },
+          "id": "ab548af8-1ef9-4928-8fd6-2014ea725a67",
+          "uniqueName": null,
+          "imageUrl": null
+        },
+        {
+          "reviewerUrl": "https://dev.azure.com/dnceng-public/cbb18261-c48f-4abb-8651-8cdcb5474649/_apis/git/repositories/2459d599-fdb2-4d28-9810-daeec061cf90/pullRequests/5/reviewers/bd413ef1-76d5-6333-81e6-82cd5d6c365d",
+          "vote": 0,
+          "hasDeclined": false,
+          "isFlagged": false,
+          "displayName": "Michael Stuckey",
+          "url": "https://spsprodcus4.vssps.visualstudio.com/A10a5dd58-16e3-41e8-b079-e25cb8111111/_apis/Identities/bd413ef1-76d5-6333-81e6-82cd5d6c365d",
+          "_links": {
+            "avatar": {
+              "href": "https://dev.azure.com/dnceng-public/_apis/GraphProfile/MemberAvatars/aad.YmQ0MTNlZjEtNzZkNS03MzMzLTgxZTYtODJjZDVkNmMzNjVk"
+            }
+          },
+          "id": "bd413ef1-76d5-6333-81e6-82cd5d6c365d",
+          "uniqueName": null,
+          "imageUrl": null
+        }
+      ],
+      "url": "https://dev.azure.com/dnceng-public/cbb18261-c48f-4abb-8651-8cdcb5474649/_apis/git/repositories/2459d599-fdb2-4d28-9810-daeec061cf90/pullRequests/5",
+      "_links": {
+        "self": {
+          "href": "https://dev.azure.com/dnceng-public/cbb18261-c48f-4abb-8651-8cdcb5474649/_apis/git/repositories/2459d599-fdb2-4d28-9810-daeec061cf90/pullRequests/5"
+        },
+        "repository": {
+          "href": "https://dev.azure.com/dnceng-public/cbb18261-c48f-4abb-8651-8cdcb5474649/_apis/git/repositories/2459d599-fdb2-4d28-9810-daeec061cf90"
+        },
+        "workItems": {
+          "href": "https://dev.azure.com/dnceng-public/cbb18261-c48f-4abb-8651-8cdcb5474649/_apis/git/repositories/2459d599-fdb2-4d28-9810-daeec061cf90/pullRequests/5/workitems"
+        },
+        "sourceBranch": {
+          "href": "https://dev.azure.com/dnceng-public/cbb18261-c48f-4abb-8651-8cdcb5474649/_apis/git/repositories/2459d599-fdb2-4d28-9810-daeec061cf90/refs/heads/invBootstrap"
+        },
+        "targetBranch": {
+          "href": "https://dev.azure.com/dnceng-public/cbb18261-c48f-4abb-8651-8cdcb5474649/_apis/git/repositories/2459d599-fdb2-4d28-9810-daeec061cf90/refs/heads/main"
+        },
+        "statuses": {
+          "href": "https://dev.azure.com/dnceng-public/cbb18261-c48f-4abb-8651-8cdcb5474649/_apis/git/repositories/2459d599-fdb2-4d28-9810-daeec061cf90/pullRequests/5/statuses"
+        },
+        "sourceCommit": {
+          "href": "https://dev.azure.com/dnceng-public/cbb18261-c48f-4abb-8651-8cdcb5474649/_apis/git/repositories/2459d599-fdb2-4d28-9810-daeec061cf90/commits/3aae318f1661c50c34effbbf6882119ed161f2d6"
+        },
+        "targetCommit": {
+          "href": "https://dev.azure.com/dnceng-public/cbb18261-c48f-4abb-8651-8cdcb5474649/_apis/git/repositories/2459d599-fdb2-4d28-9810-daeec061cf90/commits/2adc745e20d7a07fb7f177853d3e78a95b007aef"
+        },
+        "mergeCommit": {
+          "href": "https://dev.azure.com/dnceng-public/cbb18261-c48f-4abb-8651-8cdcb5474649/_apis/git/repositories/2459d599-fdb2-4d28-9810-daeec061cf90/commits/af56d96fdbd7c26e9fc94336b6f50dcc6ceff484"
+        },
+        "createdBy": {
+          "href": "https://spsprodcus4.vssps.visualstudio.com/A10a5dd58-16e3-41e8-b079-e25cb8111111/_apis/Identities/56b0f042-b05e-86d9-b0f7-c5ddb1e76385"
+        },
+        "iterations": {
+          "href": "https://dev.azure.com/dnceng-public/cbb18261-c48f-4abb-8651-8cdcb5474649/_apis/git/repositories/2459d599-fdb2-4d28-9810-daeec061cf90/pullRequests/5/iterations"
+        }
+      },
+      "completionOptions": {
+        "deleteSourceBranch": true,
+        "squashMerge": true,
+        "mergeStrategy": "squash",
+        "triggeredByAutoComplete": true
+      },
+      "supportsIterations": true,
+      "completionQueueTime": "2026-02-18T04:35:04.2382254Z",
+      "closedBy": {
+        "displayName": "MerlinBot",
+        "url": "https://spsprodcus4.vssps.visualstudio.com/A10a5dd58-16e3-41e8-b079-e25cb8111111/_apis/Identities/56b0f042-b05e-86d9-b0f7-c5ddb1e76385",
+        "_links": {
+          "avatar": {
+            "href": "https://dev.azure.com/dnceng-public/_apis/GraphProfile/MemberAvatars/svc.NmZjYzkyZTUtNzNhNy00Zjg4LThkMTMtZDkwNDViNDVmYjI3OkFwcGxpY2F0aW9uOjU2YjBmMDQyLWIwNWUtODZkOS1iMGY3LWM1ZGRiMWU3NjM4NQ"
+          }
+        },
+        "id": "56b0f042-b05e-86d9-b0f7-c5ddb1e76385",
+        "uniqueName": null,
+        "imageUrl": null,
+        "descriptor": "svc.NmZjYzkyZTUtNzNhNy00Zjg4LThkMTMtZDkwNDViNDVmYjI3OkFwcGxpY2F0aW9uOjU2YjBmMDQyLWIwNWUtODZkOS1iMGY3LWM1ZGRiMWU3NjM4NQ"
+      },
+      "artifactId": "vstfs:///Git/PullRequestId/cbb18261-c48f-4abb-8651-8cdcb5474649%2f2459d599-fdb2-4d28-9810-daeec061cf90%2f5"
+    }
+  }
+}

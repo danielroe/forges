@@ -7,8 +7,9 @@
     "status": 200,
     "headers": {
       "etag": "\"d92f7989b1031b703fc52ecc132344ac8d8f44e5\"",
-      "x-ratelimit-remaining": "4954",
-      "x-ratelimit-reset": "1791382247"
+      "x-ratelimit-limit": "5000",
+      "x-ratelimit-remaining": "4918",
+      "x-ratelimit-reset": "1791487708"
     },
     "body": {
       "name": "README.md",

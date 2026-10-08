@@ -186,7 +186,7 @@ const GITLAB: ProviderDefinition<GitLabOptions> = {
   headers: { accept: 'application/json' },
   authHeaders: ({ options: { auth } }) => auth?.type === 'token' ? async () => ({ authorization: `Bearer ${await resolveToken(auth)}` }) : undefined,
   setup({ options, instance, baseUrl, origin: context, fetcher }) {
-    /** GitLab serves issue and merge request comments only to signed-in users. */
+    /** GitLab serves notes, labels, milestones, members, commit statuses, commit search and vulnerabilities only to signed-in users. */
     const anonymous = options.auth?.type === 'anonymous'
     /**
      * GitLab lists pending and done to-dos separately. With `all`, pending
@@ -588,14 +588,14 @@ const GITLAB: ProviderDefinition<GitLabOptions> = {
           return toRepo(instance, (await fetcher.json<GitLabProjectDetail>(projectPath(ref))).data)
         }),
         listPage: verb(true, (listOptions = {}) => list('/projects', listOptions, (raw: GitLabProjectDetail) => toRepo(instance, raw), { query: { membership: true } })),
-        labelsPage: verb(true, (repo, listOptions = {}) => list(`${projectPath(repo)}/labels`, listOptions, toLabel)),
+        labelsPage: verb(!anonymous, (repo, listOptions = {}) => list(`${projectPath(repo)}/labels`, listOptions, toLabel)),
         createLabel: verb('experimental', async (repo, label) => toLabel((await fetcher.json<GitLabLabel>(`${projectPath(repo)}/labels`, {
           method: 'POST',
           json: { name: label.name, color: hexColour(label.colour, '#'), description: label.description },
         })).data)),
-        milestonesPage: verb(true, milestonesPage),
-        collaboratorsPage: verb(true, (repo, listOptions = {}) => list(`${projectPath(repo)}/members/all`, listOptions, (raw: GitLabMember) => ({ actor: toActor(instance, raw)!, role: toRole(raw.access_level), roleRaw: String(raw.access_level), raw }))),
-        permissionFor: verb(true, async (repo, actor) => {
+        milestonesPage: verb(!anonymous, milestonesPage),
+        collaboratorsPage: verb(!anonymous, (repo, listOptions = {}) => list(`${projectPath(repo)}/members/all`, listOptions, (raw: GitLabMember) => ({ actor: toActor(instance, raw)!, role: toRole(raw.access_level), roleRaw: String(raw.access_level), raw }))),
+        permissionFor: verb(!anonymous, async (repo, actor) => {
           try {
             const { data } = await fetcher.json<GitLabMember>(`${projectPath(repo)}/members/all/${await userId(actor)}`)
             return toRole(data.access_level)
@@ -680,10 +680,10 @@ const GITLAB: ProviderDefinition<GitLabOptions> = {
       search: {
         threadsPage: verb(true, searchThreadsPage),
         reposPage: verb(true, searchReposPage),
-        commitsPage: verb('experimental', searchCommitsPage),
+        commitsPage: verb(!anonymous && 'experimental', searchCommitsPage),
       },
       checks: {
-        list: verb(true, async (repo, sha) => ({
+        list: verb(!anonymous, async (repo, sha) => ({
           items: await Array.fromAsync(
             fetcher.items<GitLabCommitStatus>(`${projectPath(repo)}/repository/commits/${sha}/statuses`, { query: { per_page: 100 } }),
             raw => toStatusCheck(repo, raw),
@@ -712,7 +712,7 @@ const GITLAB: ProviderDefinition<GitLabOptions> = {
         log: verb('experimental', async ref => (await fetcher.stream(`${projectPath(ref.repo)}/jobs/${encodeURIComponent(ref.id)}/trace`)).body),
       },
       securityAlerts: {
-        kinds: { dependency: 'experimental', code_scanning: 'experimental', secret: 'experimental' },
+        kinds: { dependency: !anonymous && 'experimental', code_scanning: !anonymous && 'experimental', secret: !anonymous && 'experimental' },
         listPage: vulnerabilitiesPage,
       },
       threads: {
@@ -765,7 +765,7 @@ const GITLAB: ProviderDefinition<GitLabOptions> = {
         get: perKind({ issue: true, pull_request: true, commit: 'experimental' }, get),
         getMany: verb(true, refs => getManyConcurrently(refs, get)),
         listPage: perKind(ISSUE_LIKE, listPage),
-        eventsPage: verb(true, async (thread: ThreadRef, listOptions: ListOptions = {}): Promise<Page<ForgeEventInput>> => {
+        eventsPage: verb(!anonymous, async (thread: ThreadRef, listOptions: ListOptions = {}): Promise<Page<ForgeEventInput>> => {
           const ref = requireThread(thread, context)
           if (ref.kind === 'commit') {
             const offset = Number(listOptions.cursor?.token ?? 0)

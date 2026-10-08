@@ -1,0 +1,25 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/pulls/5000/files?limit=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "x-total-count": "1",
+      "x-page": "1"
+    },
+    "body": [
+      {
+        "filename": "package.json",
+        "status": "changed",
+        "additions": 6,
+        "deletions": 6,
+        "changes": 12,
+        "html_url": "https://codeberg.org/forgejo/forgejo/src/commit/69c030a3335c84b5d9fb7277179c78b61473323b/package.json",
+        "contents_url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/contents/package.json?ref=69c030a3335c84b5d9fb7277179c78b61473323b",
+        "raw_url": "https://codeberg.org/forgejo/forgejo/raw/commit/69c030a3335c84b5d9fb7277179c78b61473323b/package.json"
+      }
+    ]
+  }
+}

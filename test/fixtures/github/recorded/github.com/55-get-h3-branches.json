@@ -7,9 +7,10 @@
     "status": 200,
     "headers": {
       "link": "<https://api.github.com/repositories/313641207/branches?per_page=3&page=2>; rel=\"next\", <https://api.github.com/repositories/313641207/branches?per_page=3&page=11>; rel=\"last\"",
-      "etag": "W/\"470c8d7947eabba1b005b48c000b33263b138998878895fc12d02d150730880b\"",
-      "x-ratelimit-remaining": "4952",
-      "x-ratelimit-reset": "1791382247"
+      "etag": "W/\"0d4f6c71e05088de5af98aee7639dd0bd1e38506c953e67dfd4a2dc289fcd94d\"",
+      "x-ratelimit-limit": "5000",
+      "x-ratelimit-remaining": "4916",
+      "x-ratelimit-reset": "1791487708"
     },
     "body": [
       {

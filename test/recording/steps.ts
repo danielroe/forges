@@ -60,7 +60,14 @@ function threadSteps(kind: 'issue' | 'pull_request' | 'discussion', key: 'issue'
       return thread
     } },
     { name: `${key} list`, verb: 'threads.listPage', kind, run: (provider, manifest) => provider.threads.listPage(manifest.repo, { kind, ...page }) },
-    { name: `${key} getMany`, verb: 'threads.getMany', kind, run: (provider, manifest) => provider.threads.getMany([ref(manifest)]) },
+    { name: `${key} getMany`, verb: 'threads.getMany', kind, run: async (provider, manifest) => {
+      const results = await provider.threads.getMany([ref(manifest)])
+      const failed = results.find(result => !result.ok)
+      if (failed) {
+        throw new Error(`getMany could not read the thread: ${failed.warning.message}`)
+      }
+      return results
+    } },
     { name: `${key} events`, verb: 'threads.eventsPage', kind, run: (provider, manifest) => provider.threads.eventsPage(ref(manifest), page) },
     { name: `${key} comments`, verb: 'threads.commentsPage', kind, run: (provider, manifest) => provider.threads.commentsPage(ref(manifest), page) },
     { name: `${key} reactions`, verb: 'threads.reactionsPage', kind, run: (provider, manifest) => provider.threads.reactionsPage(ref(manifest), page) },
