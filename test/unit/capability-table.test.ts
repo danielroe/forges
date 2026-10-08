@@ -109,6 +109,15 @@ describe('capability table', () => {
     expect([...declared].sort()).toEqual([...declared].filter(path => paths.includes(path)).sort())
   })
 
+  it('reads thread events for every kind a signed-in provider reads threads of', () => {
+    const kinds = ['issue', 'pull_request', 'discussion', 'commit'] as const
+
+    for (const [name, create] of providers.filter(([name]) => name.endsWith('token'))) {
+      const provider = create()
+      expect([name, kinds.map(kind => provider.can('threads.events', kind))]).toEqual([name, kinds.map(kind => provider.can('threads.get', kind))])
+    }
+  })
+
   it('has an entry for every verb ProviderSpec declares', () => {
     const uncovered: Uncovered[] = []
 
