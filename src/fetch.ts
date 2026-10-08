@@ -445,7 +445,8 @@ export function createFetcher(options: FetcherOptions): Fetcher {
       throw new NotFoundError(`Nothing found at ${options_.method ?? 'GET'} ${url}, or the credential cannot see it`, 404, body, context)
     }
 
-    if (isRateLimited(response)) {
+    // Some forges, such as Gitee, report a rate limit as a 403 with no rate limit headers.
+    if (isRateLimited(response) || (response.status === 403 && !rateLimitOf(response) && /\brate limit exceeded\b/i.test(body))) {
       const secondary = response.status === 403 || response.headers.has('retry-after')
       const wait = retryAfterMs(response)
       if (secondary && attempt === 0 && wait !== undefined && wait <= 60_000) {

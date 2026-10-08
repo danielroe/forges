@@ -263,6 +263,12 @@ describe('403 classification', () => {
     expect((error as ForbiddenError).reason).toBe('sso_required')
   })
 
+  it('maps a 403 whose body reports a rate limit to RateLimitedError', async () => {
+    const error = await forbidden('403 Forbidden (Rate Limit Exceeded)').json('/thing').catch((error: unknown) => error)
+
+    expect(error).toBeInstanceOf(RateLimitedError)
+  })
+
   it('keeps a scope mismatch as InsufficientScopeError', async () => {
     const error = await forbidden('{"message":"nope"}', { 'x-accepted-oauth-scopes': 'repo', 'x-oauth-scopes': 'read:user' })
       .json('/thing')
