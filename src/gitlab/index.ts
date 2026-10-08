@@ -186,7 +186,7 @@ const GITLAB: ProviderDefinition<GitLabOptions> = {
   headers: { accept: 'application/json' },
   authHeaders: ({ options: { auth } }) => auth?.type === 'token' ? async () => ({ authorization: `Bearer ${await resolveToken(auth)}` }) : undefined,
   setup({ options, instance, baseUrl, origin: context, fetcher }) {
-    /** GitLab serves notes only to a signed-in user, even on public projects. */
+    /** GitLab serves issue and merge request comments only to signed-in users. */
     const anonymous = options.auth?.type === 'anonymous'
     /**
      * GitLab lists pending and done to-dos separately. With `all`, pending

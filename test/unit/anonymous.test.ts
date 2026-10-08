@@ -31,7 +31,7 @@ describe('anonymous providers', () => {
     expect(calls).toEqual([])
   })
 
-  it('rejects GitLab issue and merge request comments without a request, since notes need a token', async () => {
+  it('rejects GitLab issue and merge request comments without a request, since they need a token', async () => {
     const calls: string[] = []
     const forge = gitlab({
       fetch: async (url) => {
