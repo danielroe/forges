@@ -104,12 +104,10 @@ jobs:
       - name: 🛠 Build docs
         run: pnpm --filter forges-docs build
 
-      - name: 🔗 Install lychee
-        uses: taiki-e/install-action@f7e5d7c961414b23f5b25b2da9294395d08513ad # v2
-        with:
-          tool: lychee@0.24.2
-
       - name: 🔗 Check links
-        run: pnpm test:links
+        uses: lycheeverse/lychee-action@e7477775783ea5526144ba13e8db5eec57747ce8 # v2.9.0
+        with:
+          lycheeVersion: v0.24.2
+          args: --config lychee.toml --include-fragments docs/.output/public README.md CONTRIBUTING.md CODE_OF_CONDUCT.md docs/README.md docs/content examples test/fixtures
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
