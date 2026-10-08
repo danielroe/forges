@@ -55,7 +55,11 @@ Forgejo supports reviews natively. `createReview()` without an `event` creates a
 
 ## Checks and CI
 
-`checks.list()` reads commit statuses, and `checks.report()` writes them. Forgejo Actions has no stable API for runs and jobs, so `checks.rerun()` and the `ci` methods aren't available.
+`checks.list()` reads commit statuses, and `checks.report()` writes them. `checks.rerun()` isn't available.
+
+The `ci` methods read Forgejo Actions. Runs need Forgejo 12 or later, and jobs and job logs need Forgejo 16. Codeberg runs a current release, so they work there out of the box. For a self-hosted instance, pass `instanceVersion` or call `refreshCapabilities()` first.
+
+Forgejo before 15 ignores the branch filter, so `ci.runs()` drops the runs of other branches itself, and a page can come back shorter than `perPage`. Forgejo doesn't page the jobs of a run, so `ci.jobs()` returns all of them in one page.
 
 ## Changed files
 
@@ -155,10 +159,10 @@ A label delivery doesn't say which labels were added or removed. When the set of
 | `checks.list` | ✅ |
 | `checks.report` | experimental |
 | `checks.rerun` | ❌ |
-| `ci.runs` | ❌ |
-| `ci.run` | ❌ |
-| `ci.jobs` | ❌ |
-| `ci.log` | ❌ |
+| `ci.runs` | ✅ |
+| `ci.run` | ✅ |
+| `ci.jobs` | ✅ |
+| `ci.log` | experimental |
 | `contents.file` | ✅ |
 | `contents.tree` | ✅ |
 | `contents.branches` | ✅ |
