@@ -23,7 +23,7 @@ permissions: {}
 jobs:
   # Parse commits since the last tag, push a `release/vX.Y.Z` branch, open
   # or update a draft release PR, and close any superseded release PRs
-  # (e.g. `release/v1.0.1` when the bump is `release/v1.1.0`).
+  # (e.g. `release/v1.0.1` when the bump is now `release/v1.1.0`).
   pr:
     if: |
       !github.event.repository.fork

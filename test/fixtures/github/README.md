@@ -2,7 +2,7 @@
 
 The fixtures outside `recorded/` are hand-authored from the public GitHub REST
 documentation. `recorded/` holds reads recorded by `pnpm record-fixtures github`,
-which needs a token.
+which uses `GITHUB_TOKEN` when it is set and records anonymously otherwise.
 
 `app-installation-token.json` and the webhook payloads in `test/contract/`
 cannot be recorded by that script at all: they need a GitHub App and a live

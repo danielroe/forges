@@ -59,7 +59,7 @@ export function writeFiles(contentDir: string, files: GeneratedFile[]): void {
     }
   }
 
-  // Check every target before removing anything, so that a refusal leaves the existing pages in place.
+  // Check every target before removing anything, so that a refusal leaves the earlier pages in place.
   for (const file of files) {
     const path = join(contentDir, file.path)
     if (existsSync(path) && !previous.has(path)) {
