@@ -63,6 +63,9 @@ import { toDate, toFileStatus } from '../utils.ts'
 import { eventKindsOf } from '../webhooks.ts'
 import { FORGEJO_NATIVE_EVENTS } from './webhook-events.ts'
 
+/** The id of the built-in user that Forgejo and Gitea Actions act as. */
+const ACTIONS_USER_ID = -2
+
 /** Normalisers take the origin because they serve both Forgejo and Gitea. */
 export function toActor(origin: ForgeOrigin, user: ForgejoUser | undefined | null): Actor | undefined {
   if (!user) {
@@ -76,7 +79,7 @@ export function toActor(origin: ForgeOrigin, user: ForgejoUser | undefined | nul
     avatarUrl: user.avatar_url,
     url: user.html_url,
     typeRaw: user.is_bot === undefined ? undefined : user.is_bot ? 'bot' : 'user',
-    isBotHint: user.is_bot === true || user.login.endsWith('[bot]'),
+    isBotHint: user.is_bot === true || user.id === ACTIONS_USER_ID || user.login.endsWith('[bot]'),
   }
 }
 
