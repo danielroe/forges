@@ -1,5 +1,5 @@
 import type { Fetcher } from '../fetch.ts'
-import { ForgeApiError } from '../errors.ts'
+import { ForgeApiError, InsufficientScopeError } from '../errors.ts'
 import { FORGE } from './normalise.ts'
 
 type Documents = typeof import('./graphql.ts')
@@ -17,7 +17,21 @@ export function graphqlUrl(baseUrl: string): string {
 
 interface GraphQLResponse<T> {
   data?: T
-  errors?: Array<{ message: string, type?: string }>
+  errors?: GraphQLErrors
+}
+
+type GraphQLErrors = Array<{ message: string, type?: string }>
+
+/** A failed GraphQL response as an error: `InsufficientScopeError` when the token lacks a scope a field needs. */
+export function graphqlError(operationName: string | undefined, errors: GraphQLErrors | undefined, url: string, context: { instance: string }): ForgeApiError {
+  const message = errors?.map(error => error.message).join('; ') || 'Empty GraphQL response'
+  const ErrorClass = errors?.some(error => error.type === 'INSUFFICIENT_SCOPES') ? InsufficientScopeError : ForgeApiError
+  return new ErrorClass(`GraphQL ${operationName ?? 'request'} failed: ${message}`, 200, JSON.stringify(errors ?? null).slice(0, 512), {
+    forge: FORGE,
+    instance: context.instance,
+    url,
+    method: 'POST',
+  })
 }
 
 /** Runs a named document from `./graphql`, or a query built at the call site. The module loads on first use. */
@@ -32,13 +46,7 @@ export function createGraphQLClient(fetcher: Fetcher, url: string, context: { in
       json: { query, variables, operationName },
     })
     if (data.errors?.length || !data.data) {
-      const message = data.errors?.map(error => error.message).join('; ') ?? 'Empty GraphQL response'
-      throw new ForgeApiError(`GraphQL ${operationName ?? 'request'} failed: ${message}`, 200, JSON.stringify(data.errors ?? null).slice(0, 512), {
-        forge: FORGE,
-        instance: context.instance,
-        url,
-        method: 'POST',
-      })
+      throw graphqlError(operationName, data.errors, url, context)
     }
     return data.data
   }

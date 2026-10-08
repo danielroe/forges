@@ -108,7 +108,7 @@ import { actorLogin, createListing, forgeIterable, getManyConcurrently, hostOf, 
 import { githubShapedWeb } from '../web.ts'
 import { nativeEventsFor } from '../webhooks.ts'
 import { createAppCredentials, createAuthHeaders } from './auth.ts'
-import { createGraphQLClient, graphqlUrl } from './graphql-client.ts'
+import { createGraphQLClient, graphqlError, graphqlUrl } from './graphql-client.ts'
 import {
   FORGE,
   repoRefFromApiUrl,
@@ -393,14 +393,20 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
     for (let start = 0; start < batchable.length; start += GRAPHQL_BATCH) {
       const chunk = batchable.slice(start, start + GRAPHQL_BATCH)
       const { query, variables } = g.threadsBatchQuery(chunk.map(item => item.ref))
-      const { data } = await fetcher.json<{ data?: ThreadsBatchResult, errors?: Array<{ message: string, path?: Array<string | number> }> }>(graphqlUrl(baseUrl), {
+      const url = graphqlUrl(baseUrl)
+      const { data } = await fetcher.json<{ data?: ThreadsBatchResult, errors?: Array<{ message: string, type?: string, path?: Array<string | number> }> }>(url, {
         method: 'POST',
         json: { query, variables, operationName: 'ThreadsBatch' },
       })
+      const failure = data.data ? undefined : graphqlError('ThreadsBatch', data.errors, url, { instance })
       chunk.forEach(({ index, ref }, offset) => {
         const node = data.data?.[`t${offset}`]
         const discussion = ref.kind === 'discussion' ? node?.discussion : undefined
         const issueOrPullRequest = ref.kind === 'discussion' ? undefined : node?.issueOrPullRequest
+        if (failure) {
+          results[index] = { ok: false, ref, warning: toWarning(failure instanceof InsufficientScopeError ? 'insufficient_scope' : 'thread_unreadable', failure, ref.number) }
+          return
+        }
         if (!discussion && !issueOrPullRequest) {
           const message = data.errors?.find(error => error.path?.[0] === `t${offset}`)?.message ?? 'Not found'
           results[index] = { ok: false, ref, warning: { code: 'thread_unreadable', message, subject: ref.number } }
