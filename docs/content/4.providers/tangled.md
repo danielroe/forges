@@ -146,7 +146,7 @@ A `push` delivery becomes a `push` or `ref` event. Tangled has no API to registe
 | Capability | Support | Without credentials |
 | --- | --- | --- |
 | `experimental` | ❌ | ❌ |
-| `sources.poll` | ❌ | ❌ |
+| `sources.poll` | experimental | ❌ |
 | `sources.webhook` | ✅ | ✅ |
 | `sources.subscribe` | ✅ | ✅ |
 | `repos.get` | ✅ | ✅ |

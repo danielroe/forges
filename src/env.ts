@@ -173,9 +173,12 @@ function fromFields(kind: typeof KINDS[number], suffix: string, fields: Partial<
           }),
         }
       }
-      return fields.TOKEN
-        ? { ...entry, factory: cursorOrigin({ ...base, auth: { type: 'token', token: fields.TOKEN } }) }
-        : { ...entry, skipped: 'needs TOKEN, or APP_ID and PRIVATE_KEY' }
+      if (fields.TOKEN) {
+        return { ...entry, factory: cursorOrigin({ ...base, auth: { type: 'token', token: fields.TOKEN } }) }
+      }
+      return isOn(fields.ENABLED)
+        ? { ...entry, factory: cursorOrigin(base) }
+        : { ...entry, skipped: 'needs TOKEN, or APP_ID and PRIVATE_KEY, or ENABLED for webhooks only' }
     case 'TANGLED':
       return {
         ...entry,

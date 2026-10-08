@@ -57,7 +57,7 @@ function valueFor(entry: CapabilityEntry, spec: ProviderSpec, env: CapabilityEnv
     case 'experimental':
       return undefined
     case 'poll':
-      return spec.traits.poll
+      return resolve(spec.notifications?.listPage.support, env)
     case 'webhook':
       return flags.webhook
     case 'threadEvents':
@@ -125,14 +125,17 @@ function update(target: unknown, path: string, change: (value: unknown) => unkno
 const unsupported = (declared: unknown) => declared && { ...declared as object, support: false }
 const unsupportedKinds = (declared: unknown) => declared && { ...declared as object, kinds: {} }
 
-/** Marks writes unsupported, and with `anonymous` everything that needs an account. */
-export function restrict(spec: ProviderSpec, anonymous: boolean): ProviderSpec {
+/**
+ * Marks writes unsupported, with `anonymous` everything that needs an account,
+ * and with `webhooksOnly` every declared verb, leaving only webhook ingestion.
+ */
+export function restrict(spec: ProviderSpec, anonymous: boolean, webhooksOnly = false): ProviderSpec {
   let restricted: unknown = spec
   for (const entry of CAPABILITY_TABLE) {
-    if (entry.spec && (entry.write || (anonymous && entry.account))) {
+    if (entry.spec && (entry.write || (anonymous && (entry.account || webhooksOnly)))) {
       restricted = update(restricted, entry.spec, entry.perKind ? unsupportedKinds : unsupported)
     }
   }
   const result = restricted as ProviderSpec
-  return anonymous ? { ...result, traits: { ...result.traits, poll: false } } : result
+  return anonymous && webhooksOnly ? { ...result, securityAlerts: undefined } : result
 }

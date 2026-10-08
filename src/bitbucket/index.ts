@@ -401,7 +401,7 @@ const BITBUCKET: ProviderDefinition<BitbucketOptions> = {
     }
 
     return {
-      traits: { poll: false, eventKinds: 'native', authKinds: ['token', 'basic', 'anonymous'] },
+      traits: { eventKinds: 'native', authKinds: ['token', 'basic', 'anonymous'] },
       normaliseMarkdown,
       users: {
         me: verb(true, async () => {

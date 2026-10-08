@@ -56,6 +56,7 @@ const providers: Array<[string, ForgeProvider]> = [
   ['gitea:anonymous', gitea({}).create()],
   ['gitee:anonymous', gitee({}).create()],
   ['azure-devops:anonymous', azureDevOps({ organization: 'acme' }).create()],
+  ['cursor-origin:anonymous', cursorOrigin({}).create()],
   ['tangled:anonymous', tangled({}).create()],
   ['pushin:anonymous', pushin({}).create()],
 ]

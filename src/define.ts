@@ -96,8 +96,6 @@ type ThreadVerb<K extends keyof ThreadsApi> = KindVerb<NonNullable<ThreadsApi[K]
 export interface ProviderSpec {
   /** Capabilities that no single verb carries. */
   traits: {
-    /** Whether notifications can be polled; usually the notifications list support. */
-    poll: boolean | 'emulated' | 'experimental'
     /** Whether event kinds come from the forge or are inferred from text. See `ForgeCapabilities.eventKinds`. */
     eventKinds: ForgeCapabilities['eventKinds']
     /** The auth types the provider accepts. */
@@ -304,9 +302,11 @@ export interface ProviderDefinition<TOptions extends ForgeOptionsBase, TState = 
   /**
    * Accepts a missing `auth` as `{ type: 'anonymous' }`: core then sends no
    * credentials and marks writes, notifications, subscriptions, installations
-   * and the account's repository list unsupported.
+   * and the account's repository list unsupported. `'webhooks'` marks every
+   * verb unsupported, for a forge whose API needs credentials but whose
+   * webhook deliveries can be verified without them.
    */
-  anonymous?: true
+  anonymous?: true | 'webhooks'
   /** Default `baseUrl` when the caller passes none. */
   baseUrl: string
   /** Appended to `baseUrl` unless already present, for example `/api/v4`. */
@@ -426,7 +426,7 @@ function createProvider<TOptions extends ForgeOptionsBase, TState>(
   }
   const declaredSpec = definition.setup(ctx)
   const handlers = definition.webhooks?.(ctx)
-  const spec = anonymous || options.readOnly ? restrict(declaredSpec, anonymous) : declaredSpec
+  const spec = anonymous || options.readOnly ? restrict(declaredSpec, anonymous, definition.anonymous === 'webhooks') : declaredSpec
   const authKind = anonymous ? 'anonymous' : (givenAuth?.type ?? spec.traits.authKinds[0] ?? 'anonymous') as AuthKind
 
   const env: CapabilityEnv = { version: options.instanceVersion }

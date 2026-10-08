@@ -1287,7 +1287,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
       },
       listPage: alertsPage,
     },
-    traits: { poll: true, eventKinds: 'native', authKinds: ['token', 'app', 'anonymous'], limits: { bodyLength: 65536, commentLength: 65536, labelLength: 50 } },
+    traits: { eventKinds: 'native', authKinds: ['token', 'app', 'anonymous'], limits: { bodyLength: 65536, commentLength: 65536, labelLength: 50 } },
     probeVersion: enterprise ? async () => (await fetcher.json<{ installed_version?: string }>('/meta')).data.installed_version : undefined,
     installations: credentials ? verb(true, createInstallationsApi(credentials)) : undefined,
     web: githubShapedWeb(enterprise ? baseUrl.replace(/\/api\/v3$/, '') : `https://${webHost(host)}`, { pull: 'pull', discussions: true, commentFragment: 'issuecomment-', file: at => `/blob/${encodeURIComponent(at)}`, lineFragment: line => `L${line}`, reserved: GITHUB_RESERVED_PATHS }),

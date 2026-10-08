@@ -43,6 +43,8 @@ export interface ForgeRequirements {
     with: string[]
     /** Capabilities the forge supports that an anonymous provider does not reach. */
     unavailable: string[]
+    /** `true` when the anonymous provider reads from the forge, not only webhook deliveries. */
+    reads: boolean
   }
 }
 
@@ -142,6 +144,7 @@ export async function forgeRequirements(forges: typeof Forges): Promise<ForgeReq
         default: !!bare.provider,
         with: anonymousWith,
         unavailable: unavailable(anonymous),
+        reads: supported.some(capability => capability !== 'sources.webhook' && !unavailable(anonymous).includes(capability)),
       },
     }
   }))
@@ -167,10 +170,11 @@ function optionalCell({ credentials }: ForgeRequirements): string {
 
 function anonymousCell({ anonymous }: ForgeRequirements): string {
   const enable = anonymous.with.map(field => `\`${field}\``).join(' or ')
+  const access = anonymous.reads ? 'Anonymous reads' : 'Webhooks only'
   if (anonymous.default) {
-    return 'Anonymous reads'
+    return access
   }
-  return enable ? `Anonymous reads with ${enable}. Skipped otherwise` : `Skipped, even with \`ENABLED\``
+  return enable ? `${access} with ${enable}. Skipped otherwise` : `Skipped, even with \`ENABLED\``
 }
 
 /** The generated "What each forge needs" section of the environment variables page. Forges with the same needs share a row. */

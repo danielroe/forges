@@ -6,8 +6,8 @@ export interface MatrixProvider {
   name: string
   factories: string[]
   provider: Forges.ForgeProvider
-  /** The same provider created without credentials, for a forge that accepts anonymous reads. */
-  anonymous?: Forges.ForgeProvider
+  /** The same provider created without credentials. */
+  anonymous: Forges.ForgeProvider
 }
 
 /** Providers as the matrix and provider pages show them, keyed by their `docs/content/4.providers/<slug>.md` page. */
@@ -17,7 +17,10 @@ export function matrixProviders(forges: typeof Forges): MatrixProvider[] {
   const entry = <O>(slug: string, name: string, factory: (options: O) => Forges.ForgeProviderFactory, options: O): MatrixProvider => {
     const exported = Object.keys(forges).find(key => (forges as Record<string, unknown>)[key] === factory)!
     const provider = factory(options).create()
-    const anonymous = provider.capabilities.authKinds.includes('anonymous') ? factory({ ...options, auth: undefined }).create() : undefined
+    if (!provider.capabilities.authKinds.includes('anonymous')) {
+      throw new Error(`${name} has no anonymous provider to show support without credentials for`)
+    }
+    const anonymous = factory({ ...options, auth: undefined }).create()
     return { slug, name, factories: [exported, `${exported}Lite`].filter(key => key in forges), provider, anonymous }
   }
   return [
@@ -99,8 +102,8 @@ export interface CapabilityRow {
   account: boolean
   /** One cell per provider, in `matrixProviders()` order. */
   cells: SupportCell[]
-  /** The same cells for each provider's anonymous provider, or `null` for a forge without anonymous access. */
-  anonymousCells: Array<SupportCell | null>
+  /** The same cells for each provider's anonymous provider. */
+  anonymousCells: SupportCell[]
 }
 
 export interface CapabilityGroup {
@@ -121,8 +124,8 @@ export interface CapabilityProvider {
   limits?: Record<string, number>
   /** How many capabilities have each level. Per-kind capabilities count at their best level. */
   summary: Record<SupportLevel, number>
-  /** The same count for the anonymous provider, for a forge that accepts anonymous access. */
-  anonymousSummary?: Record<SupportLevel, number>
+  /** The same count for the anonymous provider. */
+  anonymousSummary: Record<SupportLevel, number>
 }
 
 /** The capability matrix as structured data, grouped by namespace. */
@@ -145,7 +148,7 @@ export function capabilityData(forges: typeof Forges): { providers: CapabilityPr
       write: !!entry.write,
       account: !!entry.account,
       cells: entries.map(({ provider }) => supportCell(at(provider.capabilities, entry.capability))),
-      anonymousCells: entries.map(({ anonymous }) => anonymous ? supportCell(at(anonymous.capabilities, entry.capability)) : null),
+      anonymousCells: entries.map(({ anonymous }) => supportCell(at(anonymous.capabilities, entry.capability))),
     })
   }
   const all = groups.flatMap(group => group.rows)
@@ -156,7 +159,7 @@ export function capabilityData(forges: typeof Forges): { providers: CapabilityPr
     }
     return summary
   }
-  const providers = entries.map(({ slug, name, factories, provider: { capabilities }, anonymous }, index) => ({
+  const providers = entries.map(({ slug, name, factories, provider: { capabilities } }, index) => ({
     slug,
     name,
     import: `forges/${slug}`,
@@ -166,7 +169,7 @@ export function capabilityData(forges: typeof Forges): { providers: CapabilityPr
     eventKinds: capabilities.eventKinds,
     ...capabilities.limits ? { limits: { ...capabilities.limits } } : {},
     summary: summarise(all.map(row => row.cells[index]!)),
-    ...anonymous ? { anonymousSummary: summarise(all.map(row => row.anonymousCells[index]!)) } : {},
+    anonymousSummary: summarise(all.map(row => row.anonymousCells[index]!)),
   }))
   return { providers, groups }
 }
@@ -205,9 +208,9 @@ export function providerSection({ slug, provider, anonymous }: MatrixProvider): 
     '',
     GENERATED,
     `::provider-capabilities{provider="${slug}"}`,
-    anonymous ? '| Capability | Support | Without credentials |' : '| Capability | Support |',
-    anonymous ? '| --- | --- | --- |' : '| --- | --- |',
-    ...rows.map(row => `| \`${row.name}\` | ${cell(row.read(provider.capabilities))}${anonymous ? ` | ${cell(row.read(anonymous.capabilities))}` : ''} |`),
+    '| Capability | Support | Without credentials |',
+    '| --- | --- | --- |',
+    ...rows.map(row => `| \`${row.name}\` | ${cell(row.read(provider.capabilities))} | ${cell(row.read(anonymous.capabilities))} |`),
     '::',
   ].join('\n')
 }

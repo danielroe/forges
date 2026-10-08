@@ -90,7 +90,6 @@ function setupPushin({ instance, origin: context, fetcher, baseUrl }: ProviderCo
 
   return {
     traits: {
-      poll: false,
       eventKinds: 'native',
       authKinds: ['token', 'anonymous'],
     },

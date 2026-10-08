@@ -1,19 +1,13 @@
 import type { CapabilityProvider, CapabilityRow, SupportCell, SupportLevel } from '#capabilities'
 
-const UNAVAILABLE: SupportCell = { level: 'none' }
-
 /** A row's cells with credentials, or as each forge's anonymous provider reports them. */
 export function cellsFor(row: CapabilityRow, anonymous: boolean): SupportCell[] {
-  return anonymous ? row.anonymousCells.map(cell => cell ?? UNAVAILABLE) : row.cells
+  return anonymous ? row.anonymousCells : row.cells
 }
 
-/** A provider's summary with credentials, or without; a forge with no anonymous access supports nothing without. */
+/** A provider's summary with credentials, or without. */
 export function summaryFor(provider: CapabilityProvider, anonymous: boolean): Record<SupportLevel, number> {
-  if (!anonymous) {
-    return provider.summary
-  }
-  const total = Object.values(provider.summary).reduce((sum, count) => sum + count, 0)
-  return provider.anonymousSummary ?? { native: 0, experimental: 0, emulated: 0, none: total }
+  return anonymous ? provider.anonymousSummary : provider.summary
 }
 
 export const supportLevels: SupportLevel[] = ['native', 'experimental', 'emulated', 'none']

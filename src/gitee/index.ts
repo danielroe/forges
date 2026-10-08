@@ -275,7 +275,7 @@ function setupGitee({ instance, origin: context, fetcher, baseUrl }: ProviderCon
     checks: {
       list: verb('experimental', async (repo, sha) => ({ items: await headChecks(repo, sha) })),
     },
-    traits: { poll: true, eventKinds: 'native', authKinds: ['token', 'anonymous'] },
+    traits: { eventKinds: 'native', authKinds: ['token', 'anonymous'] },
     users: {
       get: verb('experimental', login => readUser(`/users/${encodeURIComponent(login)}`)),
       me: verb('experimental', () => readUser('/user')),

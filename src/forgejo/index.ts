@@ -494,7 +494,7 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
   }
 
   return {
-    traits: { poll: true, eventKinds: 'native', authKinds: ['token', 'anonymous'] },
+    traits: { eventKinds: 'native', authKinds: ['token', 'anonymous'] },
     search: {
       threadsPage: verb(true, searchThreadsPage),
       reposPage: verb(true, searchReposPage),

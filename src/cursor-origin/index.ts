@@ -1,6 +1,6 @@
 import type { ProviderContext, ProviderDefinition, ProviderFactoryFunction, ProviderSpec } from '../define.ts'
 import type { Check, Comment, Cursor, ForgeEventInput, ForgeWarning, Installation, ListOptions, MergeMethod, Page, PageOptions, Repo, RepoRef, ResolvedThreadRef, Review, ReviewEvent, ReviewInput, Thread, ThreadQuery, ThreadRef } from '../model.ts'
-import type { ForgeOptionsBase, InstallationsApi } from '../provider.ts'
+import type { AnonymousAuth, ForgeOptionsBase, InstallationsApi } from '../provider.ts'
 import type { CursorOriginAuth, OriginAppCredentials } from './auth.ts'
 import type { OriginBlob, OriginBranch, OriginCheckRun, OriginComment, OriginCommit, OriginCommitFile, OriginComparison, OriginContent, OriginGitRef, OriginInstallation, OriginPullRequest, OriginRepo, OriginReview, OriginTree } from './types.ts'
 import { fromBase64, toFileContent } from '../contents.ts'
@@ -19,8 +19,11 @@ export const ORIGIN_API_VERSION = 'v1alpha1'
 
 /** Options for `cursorOrigin()`. */
 export interface CursorOriginOptions extends ForgeOptionsBase {
-  /** Token or app credentials. Cursor Origin has no anonymous access, so this is required. */
-  auth: CursorOriginAuth
+  /**
+   * Token or app credentials. Cursor Origin's API has no anonymous access, so
+   * without `auth` the provider only verifies and translates webhook deliveries.
+   */
+  auth?: CursorOriginAuth | AnonymousAuth
   /**
    * API root. `/v1/origin` is appended.
    * @default https://api.cursor.com
@@ -196,7 +199,7 @@ function setupOrigin({ options, baseUrl, instance, origin: context, fetcher, cre
   }
 
   const auth = options.auth
-  const repoAccess = auth.type === 'token' || auth.installationId !== undefined
+  const repoAccess = auth?.type === 'token' || (auth?.type === 'app' && auth.installationId !== undefined)
 
   return {
     checks: {
@@ -269,11 +272,11 @@ function setupOrigin({ options, baseUrl, instance, origin: context, fetcher, cre
         }
       }),
     },
-    traits: { poll: false, eventKinds: 'native', authKinds: ['token', 'app'] },
+    traits: { eventKinds: 'native', authKinds: ['token', 'app', 'anonymous'] },
     repos: {
       get: verb(true, async ref => toRepo(instance, (await fetcher.json<OriginRepo>(repoPath(ref))).data)),
       listPage: verb(repoAccess && 'experimental', async (listOptions = {}) => {
-        if (auth.type === 'app') {
+        if (auth?.type === 'app') {
           if (auth.installationId === undefined) {
             throw new UnsupportedOperationError('An app without an installation has no repositories; use installations.repos()', context)
           }
@@ -282,7 +285,7 @@ function setupOrigin({ options, baseUrl, instance, origin: context, fetcher, cre
         return userReposPage(listOptions)
       }),
     },
-    installations: credentials && auth.type === 'app' && auth.installationId === undefined ? verb(true, createInstallationsApi(credentials)) : undefined,
+    installations: credentials && auth?.type === 'app' && auth.installationId === undefined ? verb(true, createInstallationsApi(credentials)) : undefined,
     threads: {
       get: perKind(PULL, get),
       getMany: verb(true, refs => getManyConcurrently(refs, get)),
@@ -384,15 +387,19 @@ function setupOrigin({ options, baseUrl, instance, origin: context, fetcher, cre
 const ORIGIN: ProviderDefinition<CursorOriginOptions, OriginAppCredentials | undefined> = {
   forge: FORGE,
   experimental: true,
+  anonymous: 'webhooks',
   baseUrl: 'https://api.cursor.com',
   apiPath: '/v1/origin',
   instance: host => host === 'api.cursor.com' ? 'origin.cursor.com' : host,
   headers: { accept: 'application/json' },
-  prepare: ({ options, state, baseUrl, headers }) => options.auth.type === 'app'
+  prepare: ({ options, state, baseUrl, headers }) => options.auth?.type === 'app'
     ? state ?? createOriginAppCredentials(options.auth, authHeaders => createFetcherFor(baseUrl, headers, options, authHeaders))
     : undefined,
   authHeaders: ({ options, state }) => {
     const auth = options.auth
+    if (!auth || auth.type === 'anonymous') {
+      return undefined
+    }
     if (auth.type === 'token') {
       return async () => ({ authorization: `Bearer ${await resolveToken(auth)}` })
     }

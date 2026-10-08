@@ -33,8 +33,7 @@ const TIP_HALF_WIDTH = 128
 const wrapper = useTemplateRef('wrapper')
 const tip = ref<{ row: CapabilityRow, column: number, x: number, y: number }>()
 const tipCell = computed(() => tip.value && cellsFor(tip.value.row, anonymous.value)[tip.value.column]!)
-/** The other view's cell, or `null` for a forge without anonymous access. */
-const tipOther = computed(() => tip.value && (anonymous.value ? tip.value.row.cells[tip.value.column]! : tip.value.row.anonymousCells[tip.value.column]!))
+const tipOther = computed(() => tip.value && cellsFor(tip.value.row, !anonymous.value)[tip.value.column]!)
 
 function inspect(event: PointerEvent) {
   const target = (event.target as HTMLElement).closest<HTMLTableCellElement>('td, th')
@@ -164,7 +163,7 @@ function limits(values?: Record<string, number>) {
                 <NuxtLink
                   :to="provider.to"
                   class="group relative flex flex-col items-center justify-end gap-2 pb-2 font-mono text-[11px] text-muted transition hover:text-highlighted lg:text-xs"
-                  :class="{ 'text-highlighted': index === hoveredColumn || index === highlighted, 'opacity-40': anonymous && !provider.anonymousSummary }"
+                  :class="{ 'text-highlighted': index === hoveredColumn || index === highlighted }"
                   :style="{ height: headerHeight }"
                 >
                   <span class="absolute bottom-9 left-1/2 flex origin-bottom-left -rotate-45 items-center gap-1.5 whitespace-nowrap">
@@ -178,10 +177,6 @@ function limits(values?: Record<string, number>) {
                       v-if="provider.experimental"
                       class="sr-only"
                     >(experimental provider)</span>
-                    <span
-                      v-if="anonymous && !provider.anonymousSummary"
-                      class="sr-only"
-                    >(no anonymous access)</span>
                   </span>
                   <UIcon
                     :name="provider.icon"
@@ -335,12 +330,7 @@ function limits(values?: Record<string, number>) {
           <span class="text-default">{{ supportLabels[tipCell!.level] }}</span>
         </div>
         <div class="mt-2 text-muted">
-          <template v-if="tipOther === null">
-            No anonymous access
-          </template>
-          <template v-else>
-            {{ anonymous ? 'With credentials' : 'Without credentials' }}: {{ describeCell(tipOther!).toLowerCase() }}
-          </template>
+          {{ anonymous ? 'With credentials' : 'Without credentials' }}: {{ describeCell(tipOther!).toLowerCase() }}
         </div>
 
         <div

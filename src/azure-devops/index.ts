@@ -337,7 +337,7 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
   }
 
   return {
-    traits: { poll: false, eventKinds: 'native', authKinds: ['token', 'basic', 'anonymous'] },
+    traits: { eventKinds: 'native', authKinds: ['token', 'basic', 'anonymous'] },
     search: { threadsPage: verb(!anonymous && 'experimental', searchThreadsPage) },
     repos: {
       get: verb(true, async (ref) => {

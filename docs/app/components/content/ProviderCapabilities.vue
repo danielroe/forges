@@ -48,7 +48,6 @@ const limits = provider.limits ? Object.entries(provider.limits).map(([key, leng
           of {{ total }} capabilities native and verified{{ anonymous ? ' without credentials' : '' }}
         </p>
         <USwitch
-          v-if="provider.anonymousSummary"
           v-model="anonymous"
           label="Without credentials"
           size="sm"

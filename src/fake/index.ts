@@ -552,9 +552,6 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
     return typeof given === 'object' ? given : Object.fromEntries(Object.keys(fallback).map(kind => [kind, given]))
   }
 
-  const listSupport = support('notifications.list', true)
-  const pollSupport = typeof listSupport === 'function' ? true : listSupport
-
   function setState(ref: ThreadRef, state: ThreadState, action: EventAction): void {
     const current = threadState(ref).thread
     current.state = state
@@ -630,7 +627,7 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
       events: FAKE_WEBHOOK_EVENTS,
     }),
     setup: () => ({
-      traits: { poll: pollSupport, eventKinds: 'native', authKinds: ['token'] },
+      traits: { eventKinds: 'native', authKinds: ['token'] },
       users: {
         me: verb(support('users.me', true), async () => ({ ...actor(viewerLogin), raw: undefined })),
       },

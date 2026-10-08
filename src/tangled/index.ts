@@ -237,7 +237,7 @@ const TANGLED: ProviderDefinition<TangledOptions> = {
 
     const unverified = { issue: writable && 'experimental', pull_request: writable && 'experimental' } as const
     return {
-      traits: { poll: false, eventKinds: 'native', authKinds: ['anonymous', 'app_password', 'oauth'] },
+      traits: { eventKinds: 'native', authKinds: ['anonymous', 'app_password', 'oauth'] },
       request: api,
       repos: {
         get: verb(true, async (ref) => {

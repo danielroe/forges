@@ -75,7 +75,7 @@ Since `pushin()` contains no webhook code, there is no `pushinLite()` factory fo
 | Capability | Support | Without credentials |
 | --- | --- | --- |
 | `experimental` | ✅ | ✅ |
-| `sources.poll` | ❌ | ❌ |
+| `sources.poll` | experimental | ❌ |
 | `sources.webhook` | ❌ | ❌ |
 | `sources.subscribe` | ❌ | ❌ |
 | `repos.get` | ✅ | ✅ |

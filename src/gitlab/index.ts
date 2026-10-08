@@ -537,7 +537,7 @@ const GITLAB: ProviderDefinition<GitLabOptions> = {
     }
 
     return {
-      traits: { poll: true, eventKinds: 'heuristic', authKinds: ['token', 'anonymous'], limits: { bodyLength: 1_048_576, commentLength: 1_000_000, labelLength: 255 } },
+      traits: { eventKinds: 'heuristic', authKinds: ['token', 'anonymous'], limits: { bodyLength: 1_048_576, commentLength: 1_000_000, labelLength: 255 } },
       probeVersion: async () => (await fetcher.json<{ version?: string }>('/version')).data.version,
       web: gitlabWeb(baseUrl.replace(/\/api\/v4$/, '')),
       webhooks: {
