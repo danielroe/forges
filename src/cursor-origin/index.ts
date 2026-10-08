@@ -14,7 +14,7 @@ import { cursorOriginWebhooks } from './webhooks.ts'
 
 export type { CursorOriginAuth } from './auth.ts'
 
-/** The Origin API version this provider is built against. See `docs/providers/cursor-origin.md`. */
+/** The Origin API version this provider was built against. See `docs/content/4.providers/cursor-origin.md`. */
 export const ORIGIN_API_VERSION = 'v1alpha1'
 
 /** Options for `cursorOrigin()`. */

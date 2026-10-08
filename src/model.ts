@@ -1128,7 +1128,7 @@ export interface Notification {
 }
 
 /**
- * Resumption token. Fields are optional because forges differ in
+ * Opaque-ish resumption token. Fields are optional because forges differ in
  * what they support; callers should persist the whole object and hand it back.
  */
 export interface Cursor {
