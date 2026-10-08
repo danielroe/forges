@@ -134,4 +134,4 @@ Keep a pull request to one change, so it is easy to review. Before you push, run
 
 ## Reporting a problem
 
-Open an [issue](https://github.com/danielroe/forges/issues) with steps to reproduce the problem. If it only happens on one forge, name the forge, and for a self-hosted forge, tell us its version.
+Open an [issue](https://github.com/danielroe/forges/issues) with steps to reproduce the problem. If it only happens on one forge, tell us which one, and if it's self-hosted, let us know its version.
