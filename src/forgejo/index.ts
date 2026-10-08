@@ -74,7 +74,7 @@ import { actorLogin, createListing, getManyConcurrently, hasEveryLabel, hexColou
 import { githubShapedWeb } from '../web.ts'
 import { nativeEventsFor } from '../webhooks.ts'
 import { ACTION_STATES, actionBranch, numberFromUrl, toActionJob, toActionRun, toActor, toBranch, toChangedFile, toComment, toCommit, toEvent, toLabel, toMilestone, toNotification, toRelease, toRepo, toReview, toReviewComment, toRole, toStatusCheck, toStatusChecks, toTag, toThread, toThreadKind, toTreeEntry, toWebhook } from './normalise.ts'
-import { countedPages } from './pages.ts'
+import { countedNextUrl, countedPages } from './pages.ts'
 import { FORGEJO_HEADERS, FORGEJO_NATIVE_EVENTS } from './webhook-events.ts'
 import { forgejoWebhooks } from './webhooks.ts'
 
@@ -456,16 +456,20 @@ function setupForgejo({ origin, fetcher: baseFetcher, baseUrl }: ProviderContext
 
   async function runsPage(repo: RepoRef, query: CiRunQuery = {}): Promise<Page<CiRun>> {
     const statuses = query.state ? `?${ACTION_STATES[query.state].map(status => `status=${status}`).join('&')}` : ''
-    const result = await fetcher.page<ForgejoActionRun>(`${repoPath(repo)}/actions/runs${statuses}`, {
-      // Without `page`, Forgejo ignores `limit` and sends the whole run history.
-      query: {
-        ref: query.branch ? `refs/heads/${query.branch}` : undefined,
-        page: 1,
-        limit: query.perPage ?? 50,
-      },
+    const path = `${repoPath(repo)}/actions/runs${statuses}`
+    // Without `page`, Forgejo ignores `limit` and sends the whole run history.
+    const pageQuery = { ref: query.branch ? `refs/heads/${query.branch}` : undefined, page: 1, limit: query.perPage ?? 50 }
+    const url = query.cursor?.nextUrl ? fetcher.resolve(query.cursor.nextUrl) : fetcher.resolve(path, pageQuery)
+    const result = await fetcher.page<ForgejoActionRun>(path, {
+      query: pageQuery,
       cursor: query.cursor,
       signal: query.signal,
-      select: (body, next) => ({ items: (body as { workflow_runs: ForgejoActionRun[] | null }).workflow_runs ?? [], next }),
+      // Forgejo caps `limit` at its maximum page size and reports the total only in the body.
+      select: (body, next) => {
+        const { workflow_runs, total_count } = body as { workflow_runs: ForgejoActionRun[] | null, total_count?: number }
+        const items = workflow_runs ?? []
+        return { items, next: next ?? countedNextUrl(url, items.length, total_count === undefined ? null : String(total_count)) }
+      },
     })
     // Forgejo before 16.0 ignores `ref`, so the branch is checked here too.
     return toPage(result, raw => query.branch && actionBranch(raw) !== query.branch ? undefined : toActionRun(repo, raw))

@@ -2,7 +2,7 @@ import type { Fetcher, FetchResult, PaginateOptions } from '../fetch.ts'
 import type { Cursor } from '../model.ts'
 
 /** A full page is followed even when `x-total-count` disagrees, because timelines report the page's own length. */
-function countedNextUrl(url: string, count: number, totalHeader: string | null): string | undefined {
+export function countedNextUrl(url: string, count: number, totalHeader: string | null): string | undefined {
   const next = new URL(url)
   const page = Number(next.searchParams.get('page')) || 1
   const limit = Number(next.searchParams.get('limit')) || undefined

@@ -283,6 +283,26 @@ describe('forgejo actions', () => {
     expect(page.items).toMatchObject([{ number: '3', branch: 'main', state: 'failure', stateRaw: 'cancelled', startedAt: undefined }])
   })
 
+  it('continues runs past a page that Forgejo capped below `perPage`', async () => {
+    const urls: string[] = []
+    const provider = forgejo({ auth, baseUrl: 'https://git.example.org', instanceVersion: '16.0.0', fetch: async (url) => {
+      urls.push(String(url))
+      const first = new URL(String(url)).searchParams.get('page') === '1' ? 120 : 70
+      return Response.json({ total_count: 120, workflow_runs: Array.from({ length: 50 }, (_, index) => ({ id: first - index, status: 'success' })) })
+    } }).create()
+
+    const first = await provider.ci.runsPage(repo, { perPage: 100 })
+    const second = await provider.ci.runsPage(repo, { perPage: 100, cursor: first.cursor })
+
+    expect(first.items).toHaveLength(50)
+    expect(urls).toEqual([
+      'https://git.example.org/api/v1/repos/acme/widgets/actions/runs?page=1&limit=100',
+      'https://git.example.org/api/v1/repos/acme/widgets/actions/runs?page=2&limit=50',
+    ])
+    expect(second.items[0]!.ref.id).toBe('70')
+    expect(second.cursor?.nextUrl).toBe('https://git.example.org/api/v1/repos/acme/widgets/actions/runs?page=3&limit=50')
+  })
+
   it('streams a job log', async () => {
     const provider = forgejo({ auth, baseUrl: 'https://git.example.org', instanceVersion: '16.0.0', fetch: async url => new Response(String(url).endsWith('/actions/jobs/404013/logs') ? 'workflow prepared\n' : null, { status: 200 }) }).create()
 
