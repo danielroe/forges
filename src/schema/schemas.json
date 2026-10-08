@@ -6,7 +6,8 @@
         "$ref": "#/components/schemas/ForgeKind"
       },
       "instance": {
-        "$ref": "#/components/schemas/ForgeInstance"
+        "$ref": "#/components/schemas/ForgeInstance",
+        "description": "The host of the instance, such as `github.com` or `git.example.com`."
       },
       "login": {
         "type": "string"
@@ -24,10 +25,12 @@
         "type": "string"
       },
       "typeRaw": {
-        "type": "string"
+        "type": "string",
+        "description": "Forge-reported account type, retained verbatim for callers that classify further."
       },
       "isBotHint": {
-        "type": "boolean"
+        "type": "boolean",
+        "description": "Hint derived from forge metadata that the actor is automation. Callers own the classification policy."
       },
       "app": {
         "type": "object",
@@ -41,7 +44,8 @@
         },
         "required": [
           "slug"
-        ]
+        ],
+        "description": "The app behind a bot account, where the forge ties one to it (GitHub Apps' `slug[bot]` users)."
       }
     },
     "required": [
@@ -51,6 +55,7 @@
       "isBotHint",
       "login"
     ],
+    "description": "An account: a user, an organisation or a bot.",
     "x-forges-type": "Actor"
   },
   "AlertSupport": {
@@ -75,6 +80,7 @@
       "secret",
       "advisory"
     ],
+    "description": "Support per security alert kind.",
     "x-forges-type": "AlertSupport"
   },
   "AuthKind": {
@@ -87,6 +93,7 @@
       "oauth",
       "anonymous"
     ],
+    "description": "The credential types that a provider can accept.",
     "x-forges-type": "AuthKind"
   },
   "Branch": {
@@ -96,7 +103,8 @@
         "type": "string"
       },
       "sha": {
-        "type": "string"
+        "type": "string",
+        "description": "The commit that the branch points at."
       },
       "isDefault": {
         "type": "boolean"
@@ -114,6 +122,7 @@
       "sha",
       "raw"
     ],
+    "description": "A branch of a repository.",
     "x-forges-type": "Branch"
   },
   "ChangedFile": {
@@ -123,7 +132,8 @@
         "type": "string"
       },
       "previousPath": {
-        "type": "string"
+        "type": "string",
+        "description": "Path before a rename or copy."
       },
       "status": {
         "$ref": "#/components/schemas/FileStatus"
@@ -138,19 +148,23 @@
         "type": "number"
       },
       "patch": {
-        "type": "string"
+        "type": "string",
+        "description": "Unified diff for the file, where the forge returns one inline."
       },
       "sha": {
-        "type": "string"
+        "type": "string",
+        "description": "Blob sha after the change."
       },
       "isBinary": {
-        "type": "boolean"
+        "type": "boolean",
+        "description": "The file is binary, so it has no patch."
       }
     },
     "required": [
       "path",
       "status"
     ],
+    "description": "A file that a commit or pull request changed.",
     "x-forges-type": "ChangedFile"
   },
   "Check": {
@@ -166,10 +180,12 @@
         "$ref": "#/components/schemas/CheckState"
       },
       "stateRaw": {
-        "type": "string"
+        "type": "string",
+        "description": "Forge-native status, for example `in_progress` or `running`."
       },
       "conclusionRaw": {
-        "type": "string"
+        "type": "string",
+        "description": "Forge-native conclusion, where the forge reports one apart from the status."
       },
       "url": {
         "type": "string"
@@ -191,6 +207,7 @@
       "stateRaw",
       "raw"
     ],
+    "description": "One check on a commit: a check run, a commit status, a job or a policy evaluation.",
     "x-forges-type": "Check"
   },
   "CheckRef": {
@@ -200,7 +217,8 @@
         "$ref": "#/components/schemas/ForgeKind"
       },
       "instance": {
-        "$ref": "#/components/schemas/ForgeInstance"
+        "$ref": "#/components/schemas/ForgeInstance",
+        "description": "The host of the instance, such as `github.com` or `git.example.com`."
       },
       "repo": {
         "$ref": "#/components/schemas/RepoRef"
@@ -215,7 +233,8 @@
           "status",
           "job",
           "policy"
-        ]
+        ],
+        "description": "What the id addresses: a check run, a commit status, a CI job, or a branch policy evaluation."
       }
     },
     "required": [
@@ -225,6 +244,7 @@
       "repo",
       "type"
     ],
+    "description": "One check run, commit status or CI job.",
     "x-forges-type": "CheckRef"
   },
   "CheckState": {
@@ -236,6 +256,7 @@
       "neutral",
       "unknown"
     ],
+    "description": "`neutral` covers skipped and informational results, which neither pass nor fail.",
     "x-forges-type": "CheckState"
   },
   "ChecksSummary": {
@@ -254,7 +275,8 @@
         "type": "string"
       },
       "total": {
-        "type": "number"
+        "type": "number",
+        "description": "Absent when the forge reports only a combined state."
       },
       "failed": {
         "type": "number"
@@ -266,6 +288,7 @@
     "required": [
       "state"
     ],
+    "description": "Combined state of the checks on a pull request's head commit. `failure` when any check failed, else `pending` while any runs, else `success`.",
     "x-forges-type": "ChecksSummary"
   },
   "CiJob": {
@@ -284,7 +307,8 @@
         "type": "string"
       },
       "stage": {
-        "type": "string"
+        "type": "string",
+        "description": "Stage or group the job belongs to, where the forge has one."
       },
       "url": {
         "type": "string"
@@ -306,6 +330,7 @@
       "stateRaw",
       "raw"
     ],
+    "description": "One job of a CI run.",
     "x-forges-type": "CiJob"
   },
   "CiJobRef": {
@@ -315,7 +340,8 @@
         "$ref": "#/components/schemas/ForgeKind"
       },
       "instance": {
-        "$ref": "#/components/schemas/ForgeInstance"
+        "$ref": "#/components/schemas/ForgeInstance",
+        "description": "The host of the instance, such as `github.com` or `git.example.com`."
       },
       "repo": {
         "$ref": "#/components/schemas/RepoRef"
@@ -333,6 +359,7 @@
       "instance",
       "repo"
     ],
+    "description": "One job inside a run. `run` is absent when the job was addressed on its own.",
     "x-forges-type": "CiJobRef"
   },
   "CiRun": {
@@ -351,16 +378,19 @@
         "type": "string"
       },
       "number": {
-        "type": "string"
+        "type": "string",
+        "description": "Per-repo run number, where the forge has one."
       },
       "eventRaw": {
-        "type": "string"
+        "type": "string",
+        "description": "What triggered the run, as the forge names it."
       },
       "branch": {
         "type": "string"
       },
       "sha": {
-        "type": "string"
+        "type": "string",
+        "description": "The commit that the run ran on."
       },
       "url": {
         "type": "string"
@@ -389,6 +419,7 @@
       "stateRaw",
       "raw"
     ],
+    "description": "A CI run, such as a workflow run or a pipeline.",
     "x-forges-type": "CiRun"
   },
   "CiRunRef": {
@@ -398,7 +429,8 @@
         "$ref": "#/components/schemas/ForgeKind"
       },
       "instance": {
-        "$ref": "#/components/schemas/ForgeInstance"
+        "$ref": "#/components/schemas/ForgeInstance",
+        "description": "The host of the instance, such as `github.com` or `git.example.com`."
       },
       "repo": {
         "$ref": "#/components/schemas/RepoRef"
@@ -413,6 +445,7 @@
       "instance",
       "repo"
     ],
+    "description": "A CI run: a workflow run, a pipeline, or a build.",
     "x-forges-type": "CiRunRef"
   },
   "Collaborator": {
@@ -425,10 +458,12 @@
         "$ref": "#/components/schemas/RepoRole"
       },
       "roleRaw": {
-        "type": "string"
+        "type": "string",
+        "description": "Forge-native role name, for example `maintainer` or `reporter`."
       },
       "permissions": {
-        "$ref": "#/components/schemas/RepoPermissions"
+        "$ref": "#/components/schemas/RepoPermissions",
+        "description": "What the role allows."
       },
       "raw": {}
     },
@@ -437,6 +472,7 @@
       "role",
       "raw"
     ],
+    "description": "An account with a role on a repository.",
     "x-forges-type": "Collaborator"
   },
   "Comment": {
@@ -472,6 +508,7 @@
       "body",
       "raw"
     ],
+    "description": "A comment on a thread.",
     "x-forges-type": "Comment"
   },
   "CommentRef": {
@@ -481,13 +518,15 @@
         "$ref": "#/components/schemas/ForgeKind"
       },
       "instance": {
-        "$ref": "#/components/schemas/ForgeInstance"
+        "$ref": "#/components/schemas/ForgeInstance",
+        "description": "The host of the instance, such as `github.com` or `git.example.com`."
       },
       "thread": {
         "$ref": "#/components/schemas/ThreadRef"
       },
       "id": {
-        "type": "string"
+        "type": "string",
+        "description": "Forge-native comment id; an AT-URI on Tangled."
       }
     },
     "required": [
@@ -496,6 +535,7 @@
       "instance",
       "thread"
     ],
+    "description": "Reference to a comment on a thread.",
     "x-forges-type": "CommentRef"
   },
   "Commit": {
@@ -505,16 +545,19 @@
         "$ref": "#/components/schemas/CommitRef"
       },
       "sha": {
-        "type": "string"
+        "type": "string",
+        "description": "The full sha."
       },
       "message": {
         "type": "string"
       },
       "author": {
-        "$ref": "#/components/schemas/CommitSignature"
+        "$ref": "#/components/schemas/CommitSignature",
+        "description": "Who wrote the change."
       },
       "committer": {
-        "$ref": "#/components/schemas/CommitSignature"
+        "$ref": "#/components/schemas/CommitSignature",
+        "description": "Who recorded the change."
       },
       "parents": {
         "type": "array",
@@ -547,7 +590,8 @@
         "type": "array",
         "items": {
           "$ref": "#/components/schemas/ChangedFile"
-        }
+        },
+        "description": "Present on `contents.commit`; absent from listings."
       },
       "raw": {}
     },
@@ -558,6 +602,7 @@
       "parents",
       "raw"
     ],
+    "description": "A commit.",
     "x-forges-type": "Commit"
   },
   "CommitRef": {
@@ -567,13 +612,15 @@
         "$ref": "#/components/schemas/ForgeKind"
       },
       "instance": {
-        "$ref": "#/components/schemas/ForgeInstance"
+        "$ref": "#/components/schemas/ForgeInstance",
+        "description": "The host of the instance, such as `github.com` or `git.example.com`."
       },
       "repo": {
         "$ref": "#/components/schemas/RepoRef"
       },
       "sha": {
-        "type": "string"
+        "type": "string",
+        "description": "The full sha of the commit."
       }
     },
     "required": [
@@ -582,13 +629,15 @@
       "repo",
       "sha"
     ],
+    "description": "A commit addressed by its full sha.",
     "x-forges-type": "CommitRef"
   },
   "CommitSignature": {
     "type": "object",
     "properties": {
       "actor": {
-        "$ref": "#/components/schemas/Actor"
+        "$ref": "#/components/schemas/Actor",
+        "description": "The account, where the forge can match it."
       },
       "name": {
         "type": "string"
@@ -598,31 +647,38 @@
       },
       "date": {
         "type": "string",
-        "format": "date-time"
+        "format": "date-time",
+        "description": "When the commit was authored or committed."
       }
     },
+    "description": "Git authorship, with the forge account behind it where the forge matched one.",
     "x-forges-type": "CommitSignature"
   },
   "Comparison": {
     "type": "object",
     "properties": {
       "base": {
-        "type": "string"
+        "type": "string",
+        "description": "The revision that the comparison starts from."
       },
       "head": {
-        "type": "string"
+        "type": "string",
+        "description": "The revision that the comparison ends at."
       },
       "aheadBy": {
-        "type": "number"
+        "type": "number",
+        "description": "The number of commits that `head` has and `base` lacks."
       },
       "behindBy": {
-        "type": "number"
+        "type": "number",
+        "description": "The number of commits that `base` has and `head` lacks."
       },
       "commits": {
         "type": "array",
         "items": {
           "$ref": "#/components/schemas/Commit"
-        }
+        },
+        "description": "The commits between the two revisions."
       },
       "files": {
         "type": "array",
@@ -631,7 +687,8 @@
         }
       },
       "mergeBaseSha": {
-        "type": "string"
+        "type": "string",
+        "description": "The merge base, where the forge reports it."
       },
       "raw": {}
     },
@@ -642,21 +699,26 @@
       "files",
       "raw"
     ],
+    "description": "The difference between two revisions.",
     "x-forges-type": "Comparison"
   },
   "Cursor": {
     "type": "object",
     "properties": {
       "nextUrl": {
-        "type": "string"
+        "type": "string",
+        "description": "Absolute URL of the next page, from a `Link` header or the body, on the requested origin."
       },
       "etag": {
-        "type": "string"
+        "type": "string",
+        "description": "A validator for a conditional request."
       },
       "token": {
-        "type": "string"
+        "type": "string",
+        "description": "Opaque forge-native cursor, for example a GraphQL `endCursor`."
       }
     },
+    "description": "Opaque-ish resumption token. Fields are optional because forges differ in what they support; callers should persist the whole object and hand it back.",
     "x-forges-type": "Cursor"
   },
   "EventAction": {
@@ -687,6 +749,7 @@
       "removed",
       "other"
     ],
+    "description": "What happened, independent of `kind`, so \"anything that closed\" is `action === 'closed'` whatever the subject.",
     "x-forges-type": "EventAction"
   },
   "EventDetail": {
@@ -1015,6 +1078,7 @@
         ]
       }
     ],
+    "description": "Typed detail for an event. Discriminated by `type`.",
     "x-forges-type": "EventDetail"
   },
   "EventKind": {
@@ -1038,6 +1102,7 @@
       "release",
       "other"
     ],
+    "description": "What an event is about.",
     "x-forges-type": "EventKind"
   },
   "FileContent": {
@@ -1053,16 +1118,19 @@
             "type": "string"
           },
           "path": {
-            "type": "string"
+            "type": "string",
+            "description": "The path from the repository root."
           },
           "sha": {
-            "type": "string"
+            "type": "string",
+            "description": "Blob sha, where the forge reports one."
           },
           "size": {
             "type": "number"
           },
           "url": {
-            "type": "string"
+            "type": "string",
+            "description": "Web page for the file at this ref, where the forge has one."
           }
         },
         "required": [
@@ -1083,16 +1151,19 @@
             "x-forges-type": "Uint8Array"
           },
           "path": {
-            "type": "string"
+            "type": "string",
+            "description": "The path from the repository root."
           },
           "sha": {
-            "type": "string"
+            "type": "string",
+            "description": "Blob sha, where the forge reports one."
           },
           "size": {
             "type": "number"
           },
           "url": {
-            "type": "string"
+            "type": "string",
+            "description": "Web page for the file at this ref, where the forge has one."
           }
         },
         "required": [
@@ -1102,6 +1173,7 @@
         ]
       }
     ],
+    "description": "A file's contents. Narrow on `encoding` to get text or bytes.",
     "x-forges-type": "FileContent"
   },
   "FileStatus": {
@@ -1114,17 +1186,20 @@
       "copied",
       "changed"
     ],
+    "description": "How a commit or pull request changed a file.",
     "x-forges-type": "FileStatus"
   },
   "ForgeCapabilities": {
     "type": "object",
     "properties": {
       "version": {
-        "type": "string"
+        "type": "string",
+        "description": "Instance version the capabilities were computed for, when known."
       },
       "experimental": {
         "type": "boolean",
-        "const": true
+        "const": true,
+        "description": "The provider as a whole has not reached parity: hand-authored fixtures only, or an unstable upstream."
       },
       "sources": {
         "type": "object",
@@ -1143,40 +1218,51 @@
           "poll",
           "webhook",
           "subscribe"
-        ]
+        ],
+        "description": "`subscribe` is a long-lived push stream; see  {@link  SourcesApi } ."
       },
       "repos": {
         "type": "object",
         "properties": {
           "get": {
-            "$ref": "#/components/schemas/Support"
+            "$ref": "#/components/schemas/Support",
+            "description": "Support for `repos.get()`."
           },
           "list": {
-            "$ref": "#/components/schemas/Support"
+            "$ref": "#/components/schemas/Support",
+            "description": "Support for `repos.list()` and `repos.listPage()`."
           },
           "labels": {
-            "$ref": "#/components/schemas/Support"
+            "$ref": "#/components/schemas/Support",
+            "description": "Support for `repos.labels()` and `repos.labelsPage()`."
           },
           "createLabel": {
-            "$ref": "#/components/schemas/Support"
+            "$ref": "#/components/schemas/Support",
+            "description": "Support for `repos.createLabel()`."
           },
           "milestones": {
-            "$ref": "#/components/schemas/Support"
+            "$ref": "#/components/schemas/Support",
+            "description": "Support for `repos.milestones()` and `repos.milestonesPage()`."
           },
           "collaborators": {
-            "$ref": "#/components/schemas/Support"
+            "$ref": "#/components/schemas/Support",
+            "description": "Support for `repos.collaborators()` and `repos.collaboratorsPage()`."
           },
           "permissionFor": {
-            "$ref": "#/components/schemas/Support"
+            "$ref": "#/components/schemas/Support",
+            "description": "Support for `repos.permissionFor()`."
           },
           "addCollaborator": {
-            "$ref": "#/components/schemas/Support"
+            "$ref": "#/components/schemas/Support",
+            "description": "Support for `repos.addCollaborator()`."
           },
           "assignableUsers": {
-            "$ref": "#/components/schemas/Support"
+            "$ref": "#/components/schemas/Support",
+            "description": "Support for `repos.assignableUsers()` and `repos.assignableUsersPage()`."
           },
           "reviewerCandidates": {
-            "$ref": "#/components/schemas/Support"
+            "$ref": "#/components/schemas/Support",
+            "description": "Support for `repos.reviewerCandidates()` and `repos.reviewerCandidatesPage()`."
           }
         },
         "required": [
@@ -1196,10 +1282,12 @@
         "type": "object",
         "properties": {
           "get": {
-            "$ref": "#/components/schemas/Support"
+            "$ref": "#/components/schemas/Support",
+            "description": "Support for `users.get()`."
           },
           "me": {
-            "$ref": "#/components/schemas/Support"
+            "$ref": "#/components/schemas/Support",
+            "description": "Support for `users.me()`."
           }
         },
         "required": [
@@ -1211,13 +1299,16 @@
         "type": "object",
         "properties": {
           "get": {
-            "$ref": "#/components/schemas/PerKind"
+            "$ref": "#/components/schemas/PerKind",
+            "description": "Support for `threads.get()`, per thread kind."
           },
           "list": {
-            "$ref": "#/components/schemas/PerKind"
+            "$ref": "#/components/schemas/PerKind",
+            "description": "Support for `threads.list()` and `threads.listPage()`, per thread kind."
           },
           "getMany": {
-            "$ref": "#/components/schemas/Support"
+            "$ref": "#/components/schemas/Support",
+            "description": "Support for `threads.getMany()`."
           }
         },
         "required": [
@@ -1230,13 +1321,16 @@
         "type": "object",
         "properties": {
           "list": {
-            "$ref": "#/components/schemas/PerKind"
+            "$ref": "#/components/schemas/PerKind",
+            "description": "Support for `threads.comments()` and `threads.commentsPage()`, per thread kind."
           },
           "edit": {
-            "$ref": "#/components/schemas/PerKind"
+            "$ref": "#/components/schemas/PerKind",
+            "description": "Support for `threads.editComment()`, per thread kind."
           },
           "delete": {
-            "$ref": "#/components/schemas/PerKind"
+            "$ref": "#/components/schemas/PerKind",
+            "description": "Support for `threads.deleteComment()`, per thread kind."
           }
         },
         "required": [
@@ -1249,36 +1343,45 @@
         "type": "object",
         "properties": {
           "list": {
-            "$ref": "#/components/schemas/PerKind"
+            "$ref": "#/components/schemas/PerKind",
+            "description": "Support for `threads.reactions()` and `threads.reactionsPage()`, per thread kind."
           }
         },
         "required": [
           "list"
-        ]
+        ],
+        "description": "Listing the reactions on a thread or one of its comments, per thread kind."
       },
       "notifications": {
         "type": "object",
         "properties": {
           "list": {
-            "$ref": "#/components/schemas/Support"
+            "$ref": "#/components/schemas/Support",
+            "description": "Support for `notifications.list()` and `notifications.listPage()`."
           },
           "markRead": {
-            "$ref": "#/components/schemas/Support"
+            "$ref": "#/components/schemas/Support",
+            "description": "Support for `notifications.markRead()`."
           },
           "markDone": {
-            "$ref": "#/components/schemas/Support"
+            "$ref": "#/components/schemas/Support",
+            "description": "Support for `notifications.markDone()`."
           },
           "unsubscribe": {
-            "$ref": "#/components/schemas/Support"
+            "$ref": "#/components/schemas/Support",
+            "description": "Support for `notifications.unsubscribe()`."
           },
           "markAllRead": {
-            "$ref": "#/components/schemas/Support"
+            "$ref": "#/components/schemas/Support",
+            "description": "Support for `notifications.markAllRead()`."
           },
           "markAllDone": {
-            "$ref": "#/components/schemas/Support"
+            "$ref": "#/components/schemas/Support",
+            "description": "Support for `notifications.markAllDone()`."
           },
           "unreadCount": {
-            "$ref": "#/components/schemas/Support"
+            "$ref": "#/components/schemas/Support",
+            "description": "Support for `notifications.unreadCount()`."
           }
         },
         "required": [
@@ -1295,55 +1398,72 @@
         "type": "object",
         "properties": {
           "comment": {
-            "$ref": "#/components/schemas/PerKind"
+            "$ref": "#/components/schemas/PerKind",
+            "description": "Support for `threads.comment()`, per thread kind."
           },
           "upsertComment": {
-            "$ref": "#/components/schemas/PerKind"
+            "$ref": "#/components/schemas/PerKind",
+            "description": "Composed from `comment`, `comments.list` and `comments.edit`, so always `'emulated'` where it works at all."
           },
           "close": {
-            "$ref": "#/components/schemas/PerKind"
+            "$ref": "#/components/schemas/PerKind",
+            "description": "Support for `threads.close()`, per thread kind."
           },
           "reopen": {
-            "$ref": "#/components/schemas/PerKind"
+            "$ref": "#/components/schemas/PerKind",
+            "description": "Support for `threads.reopen()`, per thread kind."
           },
           "create": {
-            "$ref": "#/components/schemas/PerKind"
+            "$ref": "#/components/schemas/PerKind",
+            "description": "Support for `threads.create()`, per thread kind."
           },
           "update": {
-            "$ref": "#/components/schemas/PerKind"
+            "$ref": "#/components/schemas/PerKind",
+            "description": "Support for `threads.update()`, per thread kind."
           },
           "setLabels": {
-            "$ref": "#/components/schemas/PerKind"
+            "$ref": "#/components/schemas/PerKind",
+            "description": "Support for `threads.setLabels()`, per thread kind."
           },
           "addLabels": {
-            "$ref": "#/components/schemas/PerKind"
+            "$ref": "#/components/schemas/PerKind",
+            "description": "Support for `threads.addLabels()`, per thread kind."
           },
           "removeLabels": {
-            "$ref": "#/components/schemas/PerKind"
+            "$ref": "#/components/schemas/PerKind",
+            "description": "Support for `threads.removeLabels()`, per thread kind."
           },
           "setMilestone": {
-            "$ref": "#/components/schemas/PerKind"
+            "$ref": "#/components/schemas/PerKind",
+            "description": "Support for `threads.setMilestone()`, per thread kind."
           },
           "react": {
-            "$ref": "#/components/schemas/PerKind"
+            "$ref": "#/components/schemas/PerKind",
+            "description": "Support for `threads.react()` and `threads.unreact()`, per thread kind."
           },
           "setAssignees": {
-            "$ref": "#/components/schemas/PerKind"
+            "$ref": "#/components/schemas/PerKind",
+            "description": "Support for `threads.setAssignees()`, per thread kind."
           },
           "requestReview": {
-            "$ref": "#/components/schemas/PerKind"
+            "$ref": "#/components/schemas/PerKind",
+            "description": "Support for `threads.requestReview()`, per thread kind."
           },
           "merge": {
-            "$ref": "#/components/schemas/Support"
+            "$ref": "#/components/schemas/Support",
+            "description": "Support for `threads.merge()`."
           },
           "approveAndMerge": {
-            "$ref": "#/components/schemas/Support"
+            "$ref": "#/components/schemas/Support",
+            "description": "Composed from `merge` and `reviews.approve`."
           },
           "transfer": {
-            "$ref": "#/components/schemas/Support"
+            "$ref": "#/components/schemas/Support",
+            "description": "Support for `threads.transfer()`."
           },
           "markDuplicate": {
-            "$ref": "#/components/schemas/Support"
+            "$ref": "#/components/schemas/Support",
+            "description": "Support for `threads.markDuplicate()`."
           }
         },
         "required": [
@@ -1364,37 +1484,45 @@
           "approveAndMerge",
           "transfer",
           "markDuplicate"
-        ]
+        ],
+        "description": "Write verbs, per thread kind except `merge`, `approveAndMerge`, `transfer` and `markDuplicate`."
       },
       "subscriptions": {
         "type": "object",
         "properties": {
           "get": {
-            "$ref": "#/components/schemas/PerKind"
+            "$ref": "#/components/schemas/PerKind",
+            "description": "Support for `threads.subscription()`, per thread kind."
           },
           "set": {
-            "$ref": "#/components/schemas/PerKind"
+            "$ref": "#/components/schemas/PerKind",
+            "description": "Support for `threads.subscribe()` and `threads.unsubscribe()`, per thread kind."
           }
         },
         "required": [
           "get",
           "set"
-        ]
+        ],
+        "description": "Reading a thread subscription (`get`) and changing it (`set`), per kind. Distinct from notification unsubscribe."
       },
       "checks": {
         "type": "object",
         "properties": {
           "thread": {
-            "$ref": "#/components/schemas/PerKind"
+            "$ref": "#/components/schemas/PerKind",
+            "description": "Support for `threads.checks()`, per thread kind."
           },
           "list": {
-            "$ref": "#/components/schemas/Support"
+            "$ref": "#/components/schemas/Support",
+            "description": "Support for `checks.list()`."
           },
           "report": {
-            "$ref": "#/components/schemas/Support"
+            "$ref": "#/components/schemas/Support",
+            "description": "Support for `checks.report()`."
           },
           "rerun": {
-            "$ref": "#/components/schemas/Support"
+            "$ref": "#/components/schemas/Support",
+            "description": "Support for `checks.rerun()`."
           }
         },
         "required": [
@@ -1402,22 +1530,27 @@
           "list",
           "report",
           "rerun"
-        ]
+        ],
+        "description": "`thread` covers `Thread.checks` and `threads.checks()` (pull requests only); the rest are the commit-level surface. `report` is a commit status unless the credential can write check runs."
       },
       "ci": {
         "type": "object",
         "properties": {
           "runs": {
-            "$ref": "#/components/schemas/Support"
+            "$ref": "#/components/schemas/Support",
+            "description": "Support for `ci.runs()` and `ci.runsPage()`."
           },
           "run": {
-            "$ref": "#/components/schemas/Support"
+            "$ref": "#/components/schemas/Support",
+            "description": "Support for `ci.run()`."
           },
           "jobs": {
-            "$ref": "#/components/schemas/Support"
+            "$ref": "#/components/schemas/Support",
+            "description": "Support for `ci.jobs()` and `ci.jobsPage()`."
           },
           "log": {
-            "$ref": "#/components/schemas/Support"
+            "$ref": "#/components/schemas/Support",
+            "description": "Support for `ci.log()`."
           }
         },
         "required": [
@@ -1425,25 +1558,31 @@
           "run",
           "jobs",
           "log"
-        ]
+        ],
+        "description": "Read-only CI surface. `log` is `false` where job logs are not reachable over the API."
       },
       "reviews": {
         "type": "object",
         "properties": {
           "list": {
-            "$ref": "#/components/schemas/Support"
+            "$ref": "#/components/schemas/Support",
+            "description": "Support for `threads.reviews()` and `threads.reviewsPage()`."
           },
           "create": {
-            "$ref": "#/components/schemas/Support"
+            "$ref": "#/components/schemas/Support",
+            "description": "Support for `threads.createReview()`."
           },
           "submit": {
-            "$ref": "#/components/schemas/Support"
+            "$ref": "#/components/schemas/Support",
+            "description": "Support for `threads.submitReview()`."
           },
           "approve": {
-            "$ref": "#/components/schemas/Support"
+            "$ref": "#/components/schemas/Support",
+            "description": "Support for `threads.approve()`."
           },
           "resolveThread": {
-            "$ref": "#/components/schemas/Support"
+            "$ref": "#/components/schemas/Support",
+            "description": "Support for `threads.resolveReviewThread()` and `threads.unresolveReviewThread()`."
           }
         },
         "required": [
@@ -1452,40 +1591,51 @@
           "submit",
           "approve",
           "resolveThread"
-        ]
+        ],
+        "description": "Reviews on a pull request. `list` is `'emulated'` where reviews are synthesised from approvals or votes; `create` then covers only the events the forge's approval endpoint can express."
       },
       "contents": {
         "type": "object",
         "properties": {
           "file": {
-            "$ref": "#/components/schemas/Support"
+            "$ref": "#/components/schemas/Support",
+            "description": "Support for `contents.file()`."
           },
           "tree": {
-            "$ref": "#/components/schemas/Support"
+            "$ref": "#/components/schemas/Support",
+            "description": "Support for `contents.tree()` and `contents.treePage()`."
           },
           "branches": {
-            "$ref": "#/components/schemas/Support"
+            "$ref": "#/components/schemas/Support",
+            "description": "Support for `contents.branches()` and `contents.branchesPage()`."
           },
           "tags": {
-            "$ref": "#/components/schemas/Support"
+            "$ref": "#/components/schemas/Support",
+            "description": "Support for `contents.tags()` and `contents.tagsPage()`."
           },
           "resolveRef": {
-            "$ref": "#/components/schemas/Support"
+            "$ref": "#/components/schemas/Support",
+            "description": "Support for `contents.resolveRef()`."
           },
           "commits": {
-            "$ref": "#/components/schemas/Support"
+            "$ref": "#/components/schemas/Support",
+            "description": "Support for `contents.commits()` and `contents.commitsPage()`."
           },
           "commit": {
-            "$ref": "#/components/schemas/Support"
+            "$ref": "#/components/schemas/Support",
+            "description": "Support for `contents.commit()`."
           },
           "compare": {
-            "$ref": "#/components/schemas/Support"
+            "$ref": "#/components/schemas/Support",
+            "description": "Support for `contents.compare()`."
           },
           "threadFiles": {
-            "$ref": "#/components/schemas/Support"
+            "$ref": "#/components/schemas/Support",
+            "description": "`threads.files` and `threads.commits` on a pull request."
           },
           "threadCommits": {
-            "$ref": "#/components/schemas/Support"
+            "$ref": "#/components/schemas/Support",
+            "description": "Support for `threads.commits()` and `threads.commitsPage()`."
           }
         },
         "required": [
@@ -1499,31 +1649,39 @@
           "compare",
           "threadFiles",
           "threadCommits"
-        ]
+        ],
+        "description": "Repository contents. `tree` is `'emulated'` where recursion is walked level by level rather than by the forge."
       },
       "webhooks": {
         "type": "object",
         "properties": {
           "list": {
-            "$ref": "#/components/schemas/Support"
+            "$ref": "#/components/schemas/Support",
+            "description": "Support for `webhooks.list()` and `webhooks.listPage()`."
           },
           "create": {
-            "$ref": "#/components/schemas/Support"
+            "$ref": "#/components/schemas/Support",
+            "description": "Support for `webhooks.create()`."
           },
           "update": {
-            "$ref": "#/components/schemas/Support"
+            "$ref": "#/components/schemas/Support",
+            "description": "Support for `webhooks.update()`."
           },
           "delete": {
-            "$ref": "#/components/schemas/Support"
+            "$ref": "#/components/schemas/Support",
+            "description": "Support for `webhooks.delete()`."
           },
           "rotateSecret": {
-            "$ref": "#/components/schemas/Support"
+            "$ref": "#/components/schemas/Support",
+            "description": "Support for `webhooks.rotateSecret()`."
           },
           "deliveries": {
-            "$ref": "#/components/schemas/Support"
+            "$ref": "#/components/schemas/Support",
+            "description": "Support for `webhooks.deliveries()` and `webhooks.deliveriesPage()`."
           },
           "redeliver": {
-            "$ref": "#/components/schemas/Support"
+            "$ref": "#/components/schemas/Support",
+            "description": "Support for `webhooks.redeliver()`."
           }
         },
         "required": [
@@ -1534,25 +1692,31 @@
           "rotateSecret",
           "deliveries",
           "redeliver"
-        ]
+        ],
+        "description": "Managing registered webhooks, beside receiving deliveries."
       },
       "releases": {
         "type": "object",
         "properties": {
           "list": {
-            "$ref": "#/components/schemas/Support"
+            "$ref": "#/components/schemas/Support",
+            "description": "Support for `releases.list()` and `releases.listPage()`."
           },
           "get": {
-            "$ref": "#/components/schemas/Support"
+            "$ref": "#/components/schemas/Support",
+            "description": "Support for `releases.get()`."
           },
           "latest": {
-            "$ref": "#/components/schemas/Support"
+            "$ref": "#/components/schemas/Support",
+            "description": "Support for `releases.latest()`."
           },
           "getByTag": {
-            "$ref": "#/components/schemas/Support"
+            "$ref": "#/components/schemas/Support",
+            "description": "Support for `releases.getByTag()`."
           },
           "downloadAsset": {
-            "$ref": "#/components/schemas/Support"
+            "$ref": "#/components/schemas/Support",
+            "description": "Support for `releases.downloadAsset()`."
           }
         },
         "required": [
@@ -1567,42 +1731,51 @@
         "type": "object",
         "properties": {
           "threads": {
-            "$ref": "#/components/schemas/Support"
+            "$ref": "#/components/schemas/Support",
+            "description": "Support for `search.threads()` and `search.threadsPage()`."
           },
           "repos": {
-            "$ref": "#/components/schemas/Support"
+            "$ref": "#/components/schemas/Support",
+            "description": "Support for `search.repos()` and `search.reposPage()`."
           },
           "commits": {
-            "$ref": "#/components/schemas/Support"
+            "$ref": "#/components/schemas/Support",
+            "description": "Support for `search.commits()` and `search.commitsPage()`."
           }
         },
         "required": [
           "threads",
           "repos",
           "commits"
-        ]
+        ],
+        "description": "Cross-repository search of issues and pull requests, repositories and commits. No code search."
       },
       "securityAlerts": {
-        "$ref": "#/components/schemas/AlertSupport"
+        "$ref": "#/components/schemas/AlertSupport",
+        "description": "Per alert kind, since each needs its own token scope on GitHub."
       },
       "installations": {
-        "$ref": "#/components/schemas/Support"
+        "$ref": "#/components/schemas/Support",
+        "description": "Enumerating app installations and deriving one provider per installation."
       },
       "eventKinds": {
         "type": "string",
         "enum": [
           "native",
           "heuristic"
-        ]
+        ],
+        "description": "`'heuristic'` when event kinds are inferred from free text (GitLab system notes) rather than reported by the forge, so `kind` may be `'other'` or wrong for unrecognised wording; `kindRaw` and `payload` stay exact."
       },
       "authKinds": {
         "type": "array",
         "items": {
           "$ref": "#/components/schemas/AuthKind"
-        }
+        },
+        "description": "Auth types the provider accepts. The type this provider was created with is `ForgeProvider.authKind`."
       },
       "limits": {
-        "$ref": "#/components/schemas/TextLimits"
+        "$ref": "#/components/schemas/TextLimits",
+        "description": "Maximum text lengths the forge accepts."
       }
     },
     "required": [
@@ -1627,6 +1800,7 @@
       "eventKinds",
       "authKinds"
     ],
+    "description": "What a provider supports, operation by operation. It is computed without a request, and `refreshCapabilities()` refines it with the instance version. Each group holds one entry per capability, and the [capability matrix](/reference/capability-matrix) lists them for every forge.",
     "x-forges-type": "ForgeCapabilities"
   },
   "ForgeEvent": {
@@ -1636,7 +1810,8 @@
         "$ref": "#/components/schemas/ForgeKind"
       },
       "instance": {
-        "$ref": "#/components/schemas/ForgeInstance"
+        "$ref": "#/components/schemas/ForgeInstance",
+        "description": "The host of the instance, such as `github.com` or `git.example.com`."
       },
       "id": {
         "type": "string"
@@ -1645,16 +1820,20 @@
         "$ref": "#/components/schemas/EventKind"
       },
       "kindRaw": {
-        "type": "string"
+        "type": "string",
+        "description": "Forge-native event name the normalised `kind` was derived from."
       },
       "action": {
-        "$ref": "#/components/schemas/EventAction"
+        "$ref": "#/components/schemas/EventAction",
+        "description": "Normalised verb; `other` when the forge's wording has no equivalent."
       },
       "actionRaw": {
-        "type": "string"
+        "type": "string",
+        "description": "Forge-native verb `action` was derived from."
       },
       "summary": {
-        "type": "string"
+        "type": "string",
+        "description": "Single line describing the event, suitable for a list row."
       },
       "occurredAt": {
         "type": "string",
@@ -1670,15 +1849,20 @@
         "$ref": "#/components/schemas/ThreadRef"
       },
       "detail": {
-        "$ref": "#/components/schemas/EventDetail"
+        "$ref": "#/components/schemas/EventDetail",
+        "description": "The details that belong to the kind of event."
       },
       "installationId": {
-        "type": "string"
+        "type": "string",
+        "description": "App installation the delivery belongs to, for app webhooks."
       },
       "source": {
-        "$ref": "#/components/schemas/SourceKind"
+        "$ref": "#/components/schemas/SourceKind",
+        "description": "Delivery mechanism the event arrived through."
       },
-      "payload": {}
+      "payload": {
+        "description": "Unnormalised forge payload, retained for fidelity."
+      }
     },
     "required": [
       "action",
@@ -1691,10 +1875,12 @@
       "source",
       "summary"
     ],
+    "description": "An event on a forge, such as a comment, a state change or a push.",
     "x-forges-type": "ForgeEvent"
   },
   "ForgeInstance": {
     "type": "string",
+    "description": "Host of a single forge deployment, for example `github.com` or `codeberg.org`.",
     "x-forges-type": "ForgeInstance"
   },
   "ForgeKind": {
@@ -1706,19 +1892,23 @@
         "type": "string"
       }
     ],
+    "description": "Identifier of a forge implementation. Unknown forges are permitted so that third-party providers can be registered without a core release.",
     "x-forges-type": "ForgeKind"
   },
   "ForgeWarning": {
     "type": "object",
     "properties": {
       "code": {
-        "$ref": "#/components/schemas/ForgeWarningCode"
+        "$ref": "#/components/schemas/ForgeWarningCode",
+        "description": "Stable machine-readable code."
       },
       "message": {
-        "type": "string"
+        "type": "string",
+        "description": "A description of the problem, for a person."
       },
       "subject": {
-        "type": "string"
+        "type": "string",
+        "description": "Key or URI of the item the warning concerns, when it concerns one."
       },
       "cause": {
         "type": "object",
@@ -1743,10 +1933,12 @@
       "code",
       "message"
     ],
+    "description": "A non-fatal problem encountered while producing a result.",
     "x-forges-type": "ForgeWarning"
   },
   "ForgeWarningCode": {
     "type": "string",
+    "description": "The warning codes providers emit; providers may add codes in a minor release.",
     "x-forges-type": "ForgeWarningCode"
   },
   "GetManyResult": {
@@ -1792,6 +1984,7 @@
         ]
       }
     ],
+    "description": "One `threads.getMany()` entry, in input order; narrow on `ok`.",
     "x-forges-type": "GetManyResult"
   },
   "Installation": {
@@ -1801,7 +1994,8 @@
         "$ref": "#/components/schemas/ForgeKind"
       },
       "instance": {
-        "$ref": "#/components/schemas/ForgeInstance"
+        "$ref": "#/components/schemas/ForgeInstance",
+        "description": "The host of the instance, such as `github.com` or `git.example.com`."
       },
       "id": {
         "type": "string"
@@ -1810,10 +2004,12 @@
         "$ref": "#/components/schemas/Actor"
       },
       "targetTypeRaw": {
-        "type": "string"
+        "type": "string",
+        "description": "Forge-native target type, for example `Organization` or `User`."
       },
       "repositorySelectionRaw": {
-        "type": "string"
+        "type": "string",
+        "description": "Forge-native repository selection, for example `all` or `selected`."
       },
       "raw": {}
     },
@@ -1823,6 +2019,7 @@
       "instance",
       "raw"
     ],
+    "description": "An app installation on an account, with its own credential scope.",
     "x-forges-type": "Installation"
   },
   "InstallationToken": {
@@ -1842,7 +2039,8 @@
         }
       },
       "repositorySelection": {
-        "type": "string"
+        "type": "string",
+        "description": "Whether the token reaches all repositories or only selected ones."
       }
     },
     "required": [
@@ -1850,6 +2048,7 @@
       "expiresAt",
       "permissions"
     ],
+    "description": "A short-lived token that acts as one app installation.",
     "x-forges-type": "InstallationToken"
   },
   "KnownForgeKind": {
@@ -1866,6 +2065,7 @@
       "cursor-origin",
       "pushin"
     ],
+    "description": "The forges this package ships providers for.",
     "x-forges-type": "KnownForgeKind"
   },
   "Label": {
@@ -1875,7 +2075,8 @@
         "type": "string"
       },
       "colour": {
-        "type": "string"
+        "type": "string",
+        "description": "The colour as hex digits, without a leading `#`."
       },
       "description": {
         "type": "string"
@@ -1884,6 +2085,7 @@
     "required": [
       "name"
     ],
+    "description": "A label that a repository defines.",
     "x-forges-type": "Label"
   },
   "MergeMethod": {
@@ -1895,13 +2097,15 @@
       "rebase_merge",
       "fast_forward_only"
     ],
+    "description": "How a pull request is merged.",
     "x-forges-type": "MergeMethod"
   },
   "Milestone": {
     "type": "object",
     "properties": {
       "id": {
-        "type": "string"
+        "type": "string",
+        "description": "Forge-native milestone id, as `threads.setMilestone` takes it."
       },
       "title": {
         "type": "string"
@@ -1931,6 +2135,7 @@
       "state",
       "raw"
     ],
+    "description": "A milestone that groups threads.",
     "x-forges-type": "Milestone"
   },
   "Notification": {
@@ -1943,13 +2148,16 @@
         "$ref": "#/components/schemas/NotificationSubject"
       },
       "reason": {
-        "$ref": "#/components/schemas/NotificationReason"
+        "$ref": "#/components/schemas/NotificationReason",
+        "description": "Why the account got the notification."
       },
       "reasonRaw": {
-        "type": "string"
+        "type": "string",
+        "description": "Forge-native reason string. Absent when the forge reports no reason at all."
       },
       "subjectTypeRaw": {
-        "type": "string"
+        "type": "string",
+        "description": "Forge-native subject type, for example `PullRequest`, `Release` or `followed`."
       },
       "unread": {
         "type": "boolean"
@@ -1958,7 +2166,8 @@
         "type": "string"
       },
       "subjectState": {
-        "$ref": "#/components/schemas/ThreadState"
+        "$ref": "#/components/schemas/ThreadState",
+        "description": "State of a thread subject as reported by the notification payload."
       },
       "subjectStateRaw": {
         "type": "string"
@@ -1974,7 +2183,9 @@
       "url": {
         "type": "string"
       },
-      "raw": {}
+      "raw": {
+        "description": "Unnormalised forge payload, retained for fidelity."
+      }
     },
     "required": [
       "ref",
@@ -1986,6 +2197,7 @@
       "updatedAt",
       "raw"
     ],
+    "description": "A notification of the authenticated account.",
     "x-forges-type": "Notification"
   },
   "NotificationReason": {
@@ -2011,6 +2223,7 @@
       "team_mention",
       "unknown"
     ],
+    "description": "Why a notification was delivered. `'unknown'` covers forges that report no reason and native reasons with no normalised equivalent; `reasonRaw` keeps the original.",
     "x-forges-type": "NotificationReason"
   },
   "NotificationRef": {
@@ -2020,10 +2233,12 @@
         "$ref": "#/components/schemas/ForgeKind"
       },
       "instance": {
-        "$ref": "#/components/schemas/ForgeInstance"
+        "$ref": "#/components/schemas/ForgeInstance",
+        "description": "The host of the instance, such as `github.com` or `git.example.com`."
       },
       "id": {
-        "type": "string"
+        "type": "string",
+        "description": "Forge-native notification identifier, used for read/done/unsubscribe writes."
       }
     },
     "required": [
@@ -2031,6 +2246,7 @@
       "id",
       "instance"
     ],
+    "description": "Reference to a notification. Distinct from  {@link  ThreadRef } : a notification is a per-user delivery record whose lifetime and identity are independent of the thread it points at.",
     "x-forges-type": "NotificationRef"
   },
   "NotificationSubject": {
@@ -2141,6 +2357,7 @@
         ]
       }
     ],
+    "description": "What a notification is about. Not every notification concerns a thread.",
     "x-forges-type": "NotificationSubject"
   },
   "PerKind": {
@@ -2165,6 +2382,7 @@
       "discussion",
       "commit"
     ],
+    "description": "Per-thread-kind support. `'other'` subjects have no verbs, so they have no entry.",
     "x-forges-type": "PerKind"
   },
   "PullBranches": {
@@ -2180,12 +2398,14 @@
             "type": "string"
           },
           "repo": {
-            "$ref": "#/components/schemas/RepoRef"
+            "$ref": "#/components/schemas/RepoRef",
+            "description": "The repository that holds the head branch, which differs for a fork."
           }
         },
         "required": [
           "ref"
-        ]
+        ],
+        "description": "`sha` is absent on forges where a pull is a patch rather than a branch (Tangled)."
       },
       "base": {
         "type": "object",
@@ -2202,13 +2422,15 @@
         ]
       },
       "mergeCommitSha": {
-        "type": "string"
+        "type": "string",
+        "description": "The merge commit, once the pull request is merged."
       }
     },
     "required": [
       "head",
       "base"
     ],
+    "description": "The branches of a pull request.",
     "x-forges-type": "PullBranches"
   },
   "PushCommit": {
@@ -2230,6 +2452,7 @@
     "required": [
       "sha"
     ],
+    "description": "A commit as a push delivery reports it.",
     "x-forges-type": "PushCommit"
   },
   "Reaction": {
@@ -2244,10 +2467,12 @@
             "type": "string",
             "const": "other"
           }
-        ]
+        ],
+        "description": "`'other'` where the forge's name has no entry in  {@link  ReactionContent } ."
       },
       "contentRaw": {
-        "type": "string"
+        "type": "string",
+        "description": "The forge's own name for the reaction, such as a GitLab award emoji or a Forgejo emoji."
       },
       "actor": {
         "$ref": "#/components/schemas/Actor"
@@ -2264,6 +2489,7 @@
       "actor",
       "raw"
     ],
+    "description": "One reaction left on a thread or a comment, as `threads.reactions()` lists them.",
     "x-forges-type": "Reaction"
   },
   "ReactionContent": {
@@ -2278,13 +2504,15 @@
       "rocket",
       "eyes"
     ],
+    "description": "The reactions every forge with reactions has in common, named as GitHub names them. A forge-native name with no entry here is not reported.",
     "x-forges-type": "ReactionContent"
   },
   "ReactionSummary": {
     "type": "object",
     "properties": {
       "total": {
-        "type": "number"
+        "type": "number",
+        "description": "The number of reactions of every kind."
       },
       "counts": {
         "type": "object",
@@ -2313,19 +2541,22 @@
           "eyes": {
             "type": "number"
           }
-        }
+        },
+        "description": "The number of reactions of each kind."
       },
       "viewerReacted": {
         "type": "array",
         "items": {
           "$ref": "#/components/schemas/ReactionContent"
-        }
+        },
+        "description": "Reactions the authenticated account has left. Absent when the forge does not report them."
       }
     },
     "required": [
       "total",
       "counts"
     ],
+    "description": "The reactions on a thread or comment, counted.",
     "x-forges-type": "ReactionSummary"
   },
   "Release": {
@@ -2341,7 +2572,8 @@
         "type": "string"
       },
       "body": {
-        "type": "string"
+        "type": "string",
+        "description": "The release notes."
       },
       "isDraft": {
         "type": "boolean"
@@ -2378,13 +2610,15 @@
       "isPrerelease",
       "raw"
     ],
+    "description": "A release of a repository.",
     "x-forges-type": "Release"
   },
   "ReleaseAsset": {
     "type": "object",
     "properties": {
       "ref": {
-        "$ref": "#/components/schemas/ReleaseAssetRef"
+        "$ref": "#/components/schemas/ReleaseAssetRef",
+        "description": "Absent where the forge publishes a download URL but nothing to address the asset by."
       },
       "name": {
         "type": "string"
@@ -2399,13 +2633,15 @@
         "type": "number"
       },
       "contentType": {
-        "type": "string"
+        "type": "string",
+        "description": "The media type."
       }
     },
     "required": [
       "name",
       "url"
     ],
+    "description": "A file attached to a release.",
     "x-forges-type": "ReleaseAsset"
   },
   "ReleaseAssetRef": {
@@ -2415,7 +2651,8 @@
         "$ref": "#/components/schemas/ForgeKind"
       },
       "instance": {
-        "$ref": "#/components/schemas/ForgeInstance"
+        "$ref": "#/components/schemas/ForgeInstance",
+        "description": "The host of the instance, such as `github.com` or `git.example.com`."
       },
       "repo": {
         "$ref": "#/components/schemas/RepoRef"
@@ -2424,7 +2661,8 @@
         "$ref": "#/components/schemas/ReleaseRef"
       },
       "id": {
-        "type": "string"
+        "type": "string",
+        "description": "Forge-native asset id; the asset name, or the link id, on forges that have no asset id."
       }
     },
     "required": [
@@ -2434,6 +2672,7 @@
       "release",
       "repo"
     ],
+    "description": "A release asset, addressable for download with `releases.downloadAsset`.",
     "x-forges-type": "ReleaseAssetRef"
   },
   "ReleaseRef": {
@@ -2443,13 +2682,15 @@
         "$ref": "#/components/schemas/ForgeKind"
       },
       "instance": {
-        "$ref": "#/components/schemas/ForgeInstance"
+        "$ref": "#/components/schemas/ForgeInstance",
+        "description": "The host of the instance, such as `github.com` or `git.example.com`."
       },
       "repo": {
         "$ref": "#/components/schemas/RepoRef"
       },
       "id": {
-        "type": "string"
+        "type": "string",
+        "description": "Forge-native release id; the tag name on forges that key releases by tag."
       },
       "tag": {
         "type": "string"
@@ -2461,6 +2702,7 @@
       "instance",
       "repo"
     ],
+    "description": "A release, as a notification subject or event target.",
     "x-forges-type": "ReleaseRef"
   },
   "Repo": {
@@ -2470,7 +2712,8 @@
         "$ref": "#/components/schemas/RepoRef"
       },
       "displayName": {
-        "type": "string"
+        "type": "string",
+        "description": "The repository's name where `ref.name` is an identifier rather than the name (a Tangled record key)."
       },
       "description": {
         "type": "string"
@@ -2479,7 +2722,8 @@
         "type": "string"
       },
       "visibility": {
-        "$ref": "#/components/schemas/RepoVisibility"
+        "$ref": "#/components/schemas/RepoVisibility",
+        "description": "Who can see the repository."
       },
       "visibilityRaw": {
         "type": "string"
@@ -2488,16 +2732,19 @@
         "type": "boolean"
       },
       "isArchived": {
-        "type": "boolean"
+        "type": "boolean",
+        "description": "The repository is archived and read-only."
       },
       "parent": {
-        "$ref": "#/components/schemas/RepoRef"
+        "$ref": "#/components/schemas/RepoRef",
+        "description": "The repository that this one was forked from."
       },
       "topics": {
         "type": "array",
         "items": {
           "type": "string"
-        }
+        },
+        "description": "Topics, also called tags, that describe the repository."
       },
       "url": {
         "type": "string"
@@ -2511,7 +2758,8 @@
           "ssh": {
             "type": "string"
           }
-        }
+        },
+        "description": "Git remotes. Tangled maps the hosting knot to its SSH host."
       },
       "createdAt": {
         "type": "string",
@@ -2523,25 +2771,32 @@
       },
       "pushedAt": {
         "type": "string",
-        "format": "date-time"
+        "format": "date-time",
+        "description": "Last push, where the listing endpoint reports it."
       },
       "openIssueCount": {
-        "type": "number"
+        "type": "number",
+        "description": "Open issues only, never combined with pull requests. Absent where the forge reports only the combined count (GitHub)."
       },
       "openPullCount": {
-        "type": "number"
+        "type": "number",
+        "description": "The number of open pull requests, where the forge reports it."
       },
       "owner": {
-        "$ref": "#/components/schemas/Actor"
+        "$ref": "#/components/schemas/Actor",
+        "description": "The account or organisation that owns the repository, where the forge reports one."
       },
       "language": {
-        "type": "string"
+        "type": "string",
+        "description": "Primary language, as the forge detects it."
       },
       "homepage": {
-        "type": "string"
+        "type": "string",
+        "description": "Project website, apart from the repository's own `url`."
       },
       "licence": {
-        "type": "string"
+        "type": "string",
+        "description": "SPDX identifier of the licence the forge detects, for example `MIT`."
       },
       "stars": {
         "type": "number"
@@ -2550,16 +2805,19 @@
         "type": "number"
       },
       "watchers": {
-        "type": "number"
+        "type": "number",
+        "description": "Accounts watching the repository's activity, apart from stars."
       },
       "permissions": {
-        "$ref": "#/components/schemas/RepoPermissions"
+        "$ref": "#/components/schemas/RepoPermissions",
+        "description": "What the authenticated account may do."
       },
       "mergeMethods": {
         "type": "array",
         "items": {
           "$ref": "#/components/schemas/MergeMethod"
-        }
+        },
+        "description": "Merge methods the repository allows, where the forge reports them. Empty means the forge reported none."
       },
       "features": {
         "$ref": "#/components/schemas/RepoFeatures"
@@ -2574,6 +2832,7 @@
       "topics",
       "raw"
     ],
+    "description": "A repository as every forge reports it. Fields that not every forge has, such as `openPullCount`, are optional.",
     "x-forges-type": "Repo"
   },
   "RepoFeatures": {
@@ -2606,25 +2865,30 @@
       "projects",
       "releases"
     ],
+    "description": "Which subjects a repository has switched on, where the forge makes them per repository.",
     "x-forges-type": "RepoFeatures"
   },
   "RepoPermissions": {
     "type": "object",
     "properties": {
       "admin": {
-        "type": "boolean"
+        "type": "boolean",
+        "description": "Full administrative access."
       },
       "maintain": {
-        "type": "boolean"
+        "type": "boolean",
+        "description": "Manage the repository without access to sensitive or destructive settings."
       },
       "push": {
         "type": "boolean"
       },
       "triage": {
-        "type": "boolean"
+        "type": "boolean",
+        "description": "Manage issues and pull requests without write access."
       },
       "pull": {
-        "type": "boolean"
+        "type": "boolean",
+        "description": "Read and clone the repository."
       }
     },
     "required": [
@@ -2634,6 +2898,7 @@
       "triage",
       "pull"
     ],
+    "description": "The authenticated account's access to a repository.",
     "x-forges-type": "RepoPermissions"
   },
   "RepoRef": {
@@ -2643,23 +2908,28 @@
         "$ref": "#/components/schemas/ForgeKind"
       },
       "instance": {
-        "$ref": "#/components/schemas/ForgeInstance"
+        "$ref": "#/components/schemas/ForgeInstance",
+        "description": "The host of the instance, such as `github.com` or `git.example.com`."
       },
       "owner": {
-        "type": "string"
+        "type": "string",
+        "description": "Full namespace path. On forges with nested groups (GitLab) this contains slashes, for example `acme/platform`; `name` never does."
       },
       "name": {
-        "type": "string"
+        "type": "string",
+        "description": "Repository name. Empty for namespace-scoped refs."
       },
       "kind": {
         "type": "string",
         "enum": [
           "repo",
           "namespace"
-        ]
+        ],
+        "description": "`'namespace'` for subjects that belong to a group rather than a repository (GitLab epics). Absent means a repository."
       },
       "externalId": {
-        "type": "string"
+        "type": "string",
+        "description": "Stable forge-native identifier that survives renames and transfers: a GitHub, Forgejo or Gitea numeric id, a GitLab project or group id, a Bitbucket UUID or a Tangled repo DID.  {@link  repoKey }  prefers it over `owner` and `name`."
       }
     },
     "required": [
@@ -2668,6 +2938,7 @@
       "name",
       "owner"
     ],
+    "description": "Addresses a repository by its forge, instance, owner and name.",
     "x-forges-type": "RepoRef"
   },
   "RepoRole": {
@@ -2680,6 +2951,7 @@
       "read",
       "none"
     ],
+    "description": "A collaborator's role, highest first. `'none'` is an explicit absence of access.",
     "x-forges-type": "RepoRole"
   },
   "RepoVisibility": {
@@ -2689,6 +2961,7 @@
       "private",
       "internal"
     ],
+    "description": "Who can see a repository.",
     "x-forges-type": "RepoVisibility"
   },
   "Review": {
@@ -2725,7 +2998,8 @@
             "type": "boolean",
             "const": false
           }
-        ]
+        ],
+        "description": "Inline comments submitted with the review. `false` where the forge has approvals but no review objects to hang comments on."
       },
       "url": {
         "type": "string"
@@ -2738,6 +3012,7 @@
       "comments",
       "raw"
     ],
+    "description": "A review of a pull request.",
     "x-forges-type": "Review"
   },
   "ReviewComment": {
@@ -2756,17 +3031,20 @@
         "type": "string"
       },
       "line": {
-        "type": "number"
+        "type": "number",
+        "description": "Line in the file the comment is anchored to, in the side it is anchored to."
       },
       "side": {
         "type": "string",
         "enum": [
           "left",
           "right"
-        ]
+        ],
+        "description": "`'left'` is the base of the diff, `'right'` the head."
       },
       "inReplyTo": {
-        "type": "string"
+        "type": "string",
+        "description": "Forge-native id of the comment this one replies to."
       },
       "thread": {
         "type": "object",
@@ -2781,7 +3059,8 @@
         "required": [
           "id",
           "resolved"
-        ]
+        ],
+        "description": "The resolvable conversation the comment belongs to, where the forge has one."
       },
       "createdAt": {
         "type": "string",
@@ -2796,6 +3075,7 @@
       "body",
       "raw"
     ],
+    "description": "A comment left on a line of the diff as part of a review.",
     "x-forges-type": "ReviewComment"
   },
   "ReviewCommentInput": {
@@ -2805,7 +3085,8 @@
         "type": "string"
       },
       "line": {
-        "type": "number"
+        "type": "number",
+        "description": "Line in the diff, in `side`."
       },
       "side": {
         "type": "string",
@@ -2815,7 +3096,8 @@
         ]
       },
       "startLine": {
-        "type": "number"
+        "type": "number",
+        "description": "First line of a multi-line comment."
       },
       "body": {
         "type": "string"
@@ -2825,6 +3107,7 @@
       "path",
       "body"
     ],
+    "description": "An inline comment to send with a review.",
     "x-forges-type": "ReviewCommentInput"
   },
   "ReviewRef": {
@@ -2834,13 +3117,15 @@
         "$ref": "#/components/schemas/ForgeKind"
       },
       "instance": {
-        "$ref": "#/components/schemas/ForgeInstance"
+        "$ref": "#/components/schemas/ForgeInstance",
+        "description": "The host of the instance, such as `github.com` or `git.example.com`."
       },
       "thread": {
         "$ref": "#/components/schemas/ThreadRef"
       },
       "id": {
-        "type": "string"
+        "type": "string",
+        "description": "Forge-native review id; a synthesised `approval:<login>` where the forge has approvals but no review objects."
       }
     },
     "required": [
@@ -2849,6 +3134,7 @@
       "instance",
       "thread"
     ],
+    "description": "Reference to a review on a pull request.",
     "x-forges-type": "ReviewRef"
   },
   "ReviewState": {
@@ -2861,6 +3147,7 @@
       "dismissed",
       "unknown"
     ],
+    "description": "What a review or a reviewer says about a pull request. `unknown` is a state that the model does not name.",
     "x-forges-type": "ReviewState"
   },
   "Reviewer": {
@@ -2876,13 +3163,15 @@
         "type": "string"
       },
       "isTeam": {
-        "type": "boolean"
+        "type": "boolean",
+        "description": "True when the reviewer is a team rather than an account."
       }
     },
     "required": [
       "actor",
       "state"
     ],
+    "description": "A reviewer who was asked to review a pull request, and what they said.",
     "x-forges-type": "Reviewer"
   },
   "SecurityAlert": {
@@ -2916,7 +3205,8 @@
         "type": "string"
       },
       "title": {
-        "type": "string"
+        "type": "string",
+        "description": "A short description of the problem."
       },
       "package": {
         "type": "object",
@@ -2936,7 +3226,8 @@
         },
         "required": [
           "name"
-        ]
+        ],
+        "description": "`ecosystem` is absent where the forge reports only the package name."
       },
       "url": {
         "type": "string"
@@ -2965,6 +3256,7 @@
       "title",
       "raw"
     ],
+    "description": "A security alert on a repository.",
     "x-forges-type": "SecurityAlert"
   },
   "SecurityAlertKind": {
@@ -2976,6 +3268,7 @@
       "advisory",
       "other"
     ],
+    "description": "What an alert is about. `other` is a kind that the model does not name.",
     "x-forges-type": "SecurityAlertKind"
   },
   "SecurityAlertRef": {
@@ -2985,13 +3278,15 @@
         "$ref": "#/components/schemas/ForgeKind"
       },
       "instance": {
-        "$ref": "#/components/schemas/ForgeInstance"
+        "$ref": "#/components/schemas/ForgeInstance",
+        "description": "The host of the instance, such as `github.com` or `git.example.com`."
       },
       "repo": {
         "$ref": "#/components/schemas/RepoRef"
       },
       "id": {
-        "type": "string"
+        "type": "string",
+        "description": "Forge-native alert id. GitHub numbers each alert kind separately, so `kind` is needed to address one."
       },
       "kind": {
         "$ref": "#/components/schemas/SecurityAlertKind"
@@ -3006,6 +3301,7 @@
       "instance",
       "repo"
     ],
+    "description": "A security alert: a vulnerable dependency, a code scanning result, a leaked secret or an advisory.",
     "x-forges-type": "SecurityAlertRef"
   },
   "SecuritySeverity": {
@@ -3017,6 +3313,7 @@
       "low",
       "unknown"
     ],
+    "description": "How severe an alert is. `unknown` is a level that the model does not name.",
     "x-forges-type": "SecuritySeverity"
   },
   "SourceKind": {
@@ -3026,6 +3323,7 @@
       "webhook",
       "subscribe"
     ],
+    "description": "How an event reached the caller.",
     "x-forges-type": "SourceKind"
   },
   "SubscriptionState": {
@@ -3035,6 +3333,7 @@
       "ignored",
       "none"
     ],
+    "description": "Whether the account gets notifications for a thread.",
     "x-forges-type": "SubscriptionState"
   },
   "Support": {
@@ -3051,6 +3350,7 @@
         "const": "experimental"
       }
     ],
+    "description": "Capability flag. Every value other than `false` means the operation is available:\n\n- `true`: native, and verified against a recording of the forge's responses.\n- `'emulated'`: composed from other calls, so the result is approximate.\n- `'experimental'`: native, but either unverified against the live forge or   built on an API the forge marks unstable.",
     "x-forges-type": "Support"
   },
   "Tag": {
@@ -3060,7 +3360,8 @@
         "type": "string"
       },
       "sha": {
-        "type": "string"
+        "type": "string",
+        "description": "Commit the tag points at, after dereferencing an annotated tag where the forge does so."
       },
       "url": {
         "type": "string"
@@ -3072,6 +3373,7 @@
       "sha",
       "raw"
     ],
+    "description": "A tag of a repository.",
     "x-forges-type": "Tag"
   },
   "TextLimits": {
@@ -3087,6 +3389,7 @@
         "type": "number"
       }
     },
+    "description": "Maximum lengths the forge accepts, in characters.",
     "x-forges-type": "TextLimits"
   },
   "Thread": {
@@ -3108,10 +3411,12 @@
         "$ref": "#/components/schemas/ThreadState"
       },
       "stateRaw": {
-        "type": "string"
+        "type": "string",
+        "description": "Forge-native state string the normalised `state` was derived from."
       },
       "stateReason": {
-        "type": "string"
+        "type": "string",
+        "description": "Forge-native state qualifier, for example `completed` or `not_planned`."
       },
       "isDraft": {
         "type": "boolean"
@@ -3129,7 +3434,8 @@
         "type": "array",
         "items": {
           "$ref": "#/components/schemas/Reviewer"
-        }
+        },
+        "description": "Reviewers the thread read reports. Some forges report outstanding requests only, others each reviewer's verdict; `threads.reviews()` has every submitted review."
       },
       "labels": {
         "type": "array",
@@ -3154,7 +3460,8 @@
       },
       "lastActivityAt": {
         "type": "string",
-        "format": "date-time"
+        "format": "date-time",
+        "description": "Latest activity the forge reports for the thread."
       },
       "locked": {
         "type": "boolean"
@@ -3166,17 +3473,20 @@
         "type": "array",
         "items": {
           "$ref": "#/components/schemas/Actor"
-        }
+        },
+        "description": "Everyone who authored or commented on the thread, where the forge reports them."
       },
       "readState": {
         "type": "string",
         "enum": [
           "read",
           "unread"
-        ]
+        ],
+        "description": "Whether the authenticated account has read the thread, where the forge tracks it per thread."
       },
       "subscription": {
-        "$ref": "#/components/schemas/SubscriptionState"
+        "$ref": "#/components/schemas/SubscriptionState",
+        "description": "The authenticated account's subscription, where the thread read already carries it."
       },
       "milestone": {
         "$ref": "#/components/schemas/Milestone"
@@ -3185,21 +3495,27 @@
         "$ref": "#/components/schemas/ReactionSummary"
       },
       "branches": {
-        "$ref": "#/components/schemas/PullBranches"
+        "$ref": "#/components/schemas/PullBranches",
+        "description": "Pull requests only."
       },
       "checks": {
-        "$ref": "#/components/schemas/ChecksSummary"
+        "$ref": "#/components/schemas/ChecksSummary",
+        "description": "Pull requests only."
       },
       "stack": {
-        "$ref": "#/components/schemas/ThreadStack"
+        "$ref": "#/components/schemas/ThreadStack",
+        "description": "Pull requests in a stack: a chain of dependent pull requests, each based on the one before."
       },
       "warnings": {
         "type": "array",
         "items": {
           "$ref": "#/components/schemas/ForgeWarning"
-        }
+        },
+        "description": "Non-fatal problems hit while reading the thread, for example an unreachable record."
       },
-      "raw": {}
+      "raw": {
+        "description": "Unnormalised forge payload, retained for fidelity."
+      }
     },
     "required": [
       "ref",
@@ -3212,6 +3528,7 @@
       "labels",
       "raw"
     ],
+    "description": "An issue, pull request, discussion or commit conversation.",
     "x-forges-type": "Thread"
   },
   "ThreadKind": {
@@ -3223,6 +3540,7 @@
       "commit",
       "other"
     ],
+    "description": "Kind of thread. `'other'` holds forge-specific subjects with no shared kind (check suites, epics); `typeRaw` names them.",
     "x-forges-type": "ThreadKind"
   },
   "ThreadRef": {
@@ -3232,7 +3550,8 @@
         "$ref": "#/components/schemas/ForgeKind"
       },
       "instance": {
-        "$ref": "#/components/schemas/ForgeInstance"
+        "$ref": "#/components/schemas/ForgeInstance",
+        "description": "The host of the instance, such as `github.com` or `git.example.com`."
       },
       "repo": {
         "$ref": "#/components/schemas/RepoRef"
@@ -3241,16 +3560,20 @@
         "$ref": "#/components/schemas/ThreadKind"
       },
       "typeRaw": {
-        "type": "string"
+        "type": "string",
+        "description": "Forge-native subject type, for example `PullRequest` or `MergeRequest`."
       },
       "number": {
-        "type": "string"
+        "type": "string",
+        "description": "Per-repo thread number, the commit sha for `kind: 'commit'`, or the forge-native id for `kind: 'other'`. Absent when the forge did not identify the thread; such a ref cannot be fetched or keyed until enriched."
       },
       "displayNumber": {
-        "type": "string"
+        "type": "string",
+        "description": "Human-facing per-repo number, when it differs from `number`. Tangled identifies threads by AT-URI but shows numbers in its UI and webhooks."
       },
       "externalId": {
-        "type": "string"
+        "type": "string",
+        "description": "Globally unique forge-native identifier, where one exists: a GitHub `node_id`, a GitLab global id, or an atproto record URI."
       }
     },
     "required": [
@@ -3259,18 +3582,22 @@
       "kind",
       "repo"
     ],
+    "description": "Reference to a thread. A thread `number` is unique only within its repo, so the repo is always carried alongside it.",
     "x-forges-type": "ThreadRef"
   },
   "ThreadStack": {
     "type": "object",
     "properties": {
       "id": {
-        "type": "string"
+        "type": "string",
+        "description": "Forge-native stack id, where the forge names stacks."
       },
       "parent": {
-        "$ref": "#/components/schemas/ThreadRef"
+        "$ref": "#/components/schemas/ThreadRef",
+        "description": "The pull request this one is stacked on. Absent for the root of the stack."
       }
     },
+    "description": "Where a pull request sits in a stack of pull requests.",
     "x-forges-type": "ThreadStack"
   },
   "ThreadState": {
@@ -3281,13 +3608,15 @@
       "merged",
       "unknown"
     ],
+    "description": "Thread state. `'unknown'` is distinct from any real state and signals that the value was not present in the payload, so the caller may enrich it with `threads.get()`. Draft status is orthogonal; see `Thread.isDraft`.",
     "x-forges-type": "ThreadState"
   },
   "TreeEntry": {
     "type": "object",
     "properties": {
       "path": {
-        "type": "string"
+        "type": "string",
+        "description": "Path from the repository root, without a leading slash."
       },
       "type": {
         "$ref": "#/components/schemas/TreeEntryType"
@@ -3296,10 +3625,12 @@
         "type": "string"
       },
       "size": {
-        "type": "number"
+        "type": "number",
+        "description": "The size in bytes, for a file."
       },
       "mode": {
-        "type": "string"
+        "type": "string",
+        "description": "POSIX mode as the forge reports it, for example `100644`."
       },
       "url": {
         "type": "string"
@@ -3309,6 +3640,7 @@
       "path",
       "type"
     ],
+    "description": "One entry of a repository tree.",
     "x-forges-type": "TreeEntry"
   },
   "TreeEntryType": {
@@ -3319,22 +3651,26 @@
       "symlink",
       "submodule"
     ],
+    "description": "What a tree entry is.",
     "x-forges-type": "TreeEntryType"
   },
   "UpsertCommentResult": {
     "type": "object",
     "properties": {
       "comment": {
-        "$ref": "#/components/schemas/Comment"
+        "$ref": "#/components/schemas/Comment",
+        "description": "The comment that was created or edited."
       },
       "created": {
-        "type": "boolean"
+        "type": "boolean",
+        "description": "`false` when an existing comment with the same key was edited."
       }
     },
     "required": [
       "comment",
       "created"
     ],
+    "description": "What `threads.upsertComment()` did.",
     "x-forges-type": "UpsertCommentResult"
   },
   "User": {
@@ -3344,7 +3680,8 @@
         "$ref": "#/components/schemas/ForgeKind"
       },
       "instance": {
-        "$ref": "#/components/schemas/ForgeInstance"
+        "$ref": "#/components/schemas/ForgeInstance",
+        "description": "The host of the instance, such as `github.com` or `git.example.com`."
       },
       "login": {
         "type": "string"
@@ -3362,10 +3699,12 @@
         "type": "string"
       },
       "typeRaw": {
-        "type": "string"
+        "type": "string",
+        "description": "Forge-reported account type, retained verbatim for callers that classify further."
       },
       "isBotHint": {
-        "type": "boolean"
+        "type": "boolean",
+        "description": "Hint derived from forge metadata that the actor is automation. Callers own the classification policy."
       },
       "app": {
         "type": "object",
@@ -3379,7 +3718,8 @@
         },
         "required": [
           "slug"
-        ]
+        ],
+        "description": "The app behind a bot account, where the forge ties one to it (GitHub Apps' `slug[bot]` users)."
       },
       "bio": {
         "type": "string"
@@ -3416,6 +3756,7 @@
       "login",
       "raw"
     ],
+    "description": "A user or organisation account, as `users.get()` reads it.",
     "x-forges-type": "User"
   },
   "Webhook": {
@@ -3431,13 +3772,15 @@
         "type": "array",
         "items": {
           "$ref": "#/components/schemas/EventKind"
-        }
+        },
+        "description": "Normalised kinds the subscription covers, derived from `nativeEvents`."
       },
       "nativeEvents": {
         "type": "array",
         "items": {
           "type": "string"
-        }
+        },
+        "description": "Forge-native event names exactly as the forge stores them."
       },
       "active": {
         "type": "boolean"
@@ -3447,7 +3790,8 @@
         "enum": [
           "json",
           "form"
-        ]
+        ],
+        "description": "`'json'` or `'form'` where the forge offers a choice."
       },
       "createdAt": {
         "type": "string",
@@ -3456,6 +3800,10 @@
       "updatedAt": {
         "type": "string",
         "format": "date-time"
+      },
+      "secret": {
+        "not": {},
+        "description": "Never returned: no forge reads a webhook secret back."
       },
       "raw": {}
     },
@@ -3467,6 +3815,7 @@
       "active",
       "raw"
     ],
+    "description": "A registered webhook. The secret is never readable, so it is never returned.",
     "x-forges-type": "Webhook"
   },
   "WebhookDeliveryRecord": {
@@ -3476,20 +3825,24 @@
         "$ref": "#/components/schemas/WebhookDeliveryRef"
       },
       "event": {
-        "type": "string"
+        "type": "string",
+        "description": "Forge-native event name of the delivery."
       },
       "status": {
-        "type": "number"
+        "type": "number",
+        "description": "The HTTP status that the receiver answered with."
       },
       "ok": {
-        "type": "boolean"
+        "type": "boolean",
+        "description": "`true` when the forge considered the delivery successful."
       },
       "deliveredAt": {
         "type": "string",
         "format": "date-time"
       },
       "duration": {
-        "type": "number"
+        "type": "number",
+        "description": "Round trip in milliseconds, where the forge reports it."
       },
       "raw": {}
     },
@@ -3500,6 +3853,7 @@
       "ok",
       "raw"
     ],
+    "description": "One recorded delivery attempt.",
     "x-forges-type": "WebhookDeliveryRecord"
   },
   "WebhookDeliveryRef": {
@@ -3509,7 +3863,8 @@
         "$ref": "#/components/schemas/ForgeKind"
       },
       "instance": {
-        "$ref": "#/components/schemas/ForgeInstance"
+        "$ref": "#/components/schemas/ForgeInstance",
+        "description": "The host of the instance, such as `github.com` or `git.example.com`."
       },
       "hook": {
         "$ref": "#/components/schemas/WebhookRef"
@@ -3518,7 +3873,8 @@
         "type": "string"
       },
       "guid": {
-        "type": "string"
+        "type": "string",
+        "description": "Delivery guid, where the forge needs it to redeliver."
       }
     },
     "required": [
@@ -3527,6 +3883,7 @@
       "id",
       "instance"
     ],
+    "description": "Reference to one delivery of a webhook.",
     "x-forges-type": "WebhookDeliveryRef"
   },
   "WebhookRef": {
@@ -3536,13 +3893,16 @@
         "$ref": "#/components/schemas/ForgeKind"
       },
       "instance": {
-        "$ref": "#/components/schemas/ForgeInstance"
+        "$ref": "#/components/schemas/ForgeInstance",
+        "description": "The host of the instance, such as `github.com` or `git.example.com`."
       },
       "target": {
-        "$ref": "#/components/schemas/RepoRef"
+        "$ref": "#/components/schemas/RepoRef",
+        "description": "The repository or namespace that the hook is registered on."
       },
       "id": {
-        "type": "string"
+        "type": "string",
+        "description": "Forge-native hook id."
       }
     },
     "required": [
@@ -3551,6 +3911,7 @@
       "instance",
       "target"
     ],
+    "description": "Reference to a registered webhook. `target` is the repository, or a namespace ref (`kind: 'namespace'`, empty `name`) for an organisation or workspace hook.",
     "x-forges-type": "WebhookRef"
   }
 }
