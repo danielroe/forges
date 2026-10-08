@@ -3,10 +3,10 @@ import { fileURLToPath } from 'node:url'
 import { generateApiDocs } from './api-docs/generate.ts'
 
 const root = fileURLToPath(new URL('..', import.meta.url))
-const outDir = fileURLToPath(new URL('../docs/content/5.reference/', import.meta.url))
+const contentDir = fileURLToPath(new URL('../docs/content/', import.meta.url))
 
-const { files, undocumented, unplaced } = generateApiDocs({ root, outDir })
-console.log(`Wrote ${files.length} pages to docs/content/5.reference`)
+const { files, undocumented, unplaced } = generateApiDocs({ root, contentDir })
+console.log(`Wrote ${files.length} pages to docs/content`)
 if (unplaced.length) {
   console.log(`No page of scripts/api-docs/config.ts has a place for: ${unplaced.join(', ')}`)
 }
@@ -15,4 +15,7 @@ if (undocumented.length) {
   if (process.argv.includes('--list')) {
     console.log(undocumented.join('\n'))
   }
+}
+if (process.argv.includes('--check') && (unplaced.length || undocumented.length)) {
+  process.exitCode = 1
 }

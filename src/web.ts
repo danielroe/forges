@@ -185,7 +185,11 @@ export function githubShapedWeb(origin: string, shape: GitHubShape): WebLinks {
   }
 }
 
-/** Reads `url` with whichever of `providers` serves it. */
+/**
+ * Reads `url` with whichever of `providers` serves it.
+ * @param url The web URL to read.
+ * @param providers The providers to ask. The first that serves the URL answers.
+ */
 export function parseForgeUrl(url: string | URL, providers: ReadonlyArray<{ parseUrl: (url: string | URL) => ParsedForgeUrl | undefined }>): ParsedForgeUrl | undefined {
   for (const provider of providers) {
     const parsed = provider.parseUrl(url)

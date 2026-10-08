@@ -87,6 +87,16 @@ function callOf(input: string, init: RequestInit | undefined): FixtureCall {
  * fixture has them, `variables`. `overrides`
  * replace or add responses, keyed `METHOD url [operationName]`. An unmatched
  * request throws.
+ * @param fixtures The recorded or hand-written requests and responses to serve.
+ * @param overrides Responses that replace or add to the fixtures.
+ * @example
+ * ```ts
+ * import { github } from 'forges'
+ * import { fixtureFetch, loadFixtures } from 'forges/testing'
+ *
+ * const { fetch, calls } = fixtureFetch(await loadFixtures(new URL('./fixtures', import.meta.url)))
+ * const provider = github({ fetch }).create()
+ * ```
  */
 export function fixtureFetch(fixtures: Iterable<Fixture>, overrides: Record<string, Fixture['response']> = {}): FixtureFetch {
   const responses = new Map<string, Fixture['response']>()
@@ -132,6 +142,8 @@ const RECORDED_HEADERS = ['link', 'etag', 'location', 'retry-after', 'x-ratelimi
  * {@link Fixture}. Request headers are never recorded, but URLs and response
  * bodies are, and either can hold a secret (an installation token, a query
  * token). Use `redact` to rewrite each fixture before it is kept.
+ * @param fetch The `fetch` to record. Defaults to the global one.
+ * @param redact Rewrites each fixture before it is kept, to remove secrets.
  */
 export function recordingFetch(fetch: FetchLike = globalThis.fetch, redact: (fixture: Fixture) => Fixture = fixture => fixture): RecordingFetch {
   const fixtures: Fixture[] = []
@@ -159,6 +171,7 @@ export function recordingFetch(fetch: FetchLike = globalThis.fetch, redact: (fix
 /**
  * Reads every `*.json` fixture in `directory`, skipping `manifest.json` and
  * files without a `request`. Node, Bun and Deno only.
+ * @param directory The directory that holds the fixture JSON files.
  */
 export async function loadFixtures(directory: string | URL): Promise<Fixture[]> {
   const { readdir, readFile } = await import('node:fs/promises')
@@ -195,6 +208,10 @@ const SIGNERS: Partial<Record<ForgeKind, (body: string, secret: string) => Promi
  * (the event name and delivery id, which only the caller knows). `secret` is
  * the webhook secret, or for Cursor Origin the base64 PKCS#8 Ed25519 private
  * key matching the provider's verification key.
+ * @param forge The forge whose signature scheme to use.
+ * @param body The raw body of the delivery.
+ * @param secret The secret that signs it.
+ * @param headers Headers to add to the signed headers.
  */
 export async function signDelivery(forge: ForgeKind, body: string, secret: string, headers: Record<string, string> = {}): Promise<Record<string, string>> {
   const sign = SIGNERS[forge]

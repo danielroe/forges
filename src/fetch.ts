@@ -10,7 +10,10 @@ export interface FetcherOptions {
   baseUrl: string
   /** Injected for tests and for runtimes with a non-global fetch. */
   fetch?: FetchLike
-  /** Timeout in milliseconds (headers only for streams). Defaults to 30000. */
+  /**
+   * Timeout in milliseconds (headers only for streams).
+   * @default 30000
+   */
   timeout?: number
   /** Default headers, sent only to the API origin. */
   headers?: Record<string, string>
@@ -72,7 +75,7 @@ export interface RawResponse {
   body: ReadableStream<Uint8Array>
 }
 
-/** A client for one forge API: it adds credentials, applies the timeout, retries and maps failures to errors. */
+/** A client for one forge API. It adds credentials, applies the timeout and retries, and maps failures to errors. */
 export interface Fetcher {
   /** Sends a request and returns the response unparsed. */
   raw: (path: string, options?: RequestOptions) => Promise<Response>
@@ -273,7 +276,10 @@ export function sleep(ms: number, signal: AbortSignal | undefined): Promise<void
   })
 }
 
-/** Creates a fetcher for one forge API. */
+/**
+ * Creates a fetcher for one forge API.
+ * @param options The base URL and the credentials, timeout and error context of every request.
+ */
 export function createFetcher(options: FetcherOptions): Fetcher {
   const timeout = options.timeout ?? 30_000
   const doFetch: FetchLike = options.fetch ?? ((input, init) => globalThis.fetch(input, init))
@@ -582,8 +588,13 @@ export interface CreateRequestOptions {
 
 const SAFE_METHODS = new Set(['GET', 'HEAD', 'OPTIONS'])
 
-/** Builds a provider's `request()` escape hatch on top of its fetcher. */
-export function createRequest(fetcher: Fetcher, { readOnly }: CreateRequestOptions = {}): ForgeRequest {
+/**
+ * Builds a provider's `request()` escape hatch on top of its fetcher.
+ * @param fetcher The fetcher to send requests with.
+ * @param createOptions Where to reject writes, for a read-only provider.
+ */
+export function createRequest(fetcher: Fetcher, createOptions: CreateRequestOptions = {}): ForgeRequest {
+  const { readOnly } = createOptions
   return (async <T>(method: string, path: string, options: ForgeRequestOptions | ForgeRawRequestOptions = {}): Promise<ForgeResponse<T> | RawResponse> => {
     const upperMethod = method.toUpperCase()
     if (readOnly && (options.mutates ?? !SAFE_METHODS.has(upperMethod))) {

@@ -37,7 +37,7 @@ async function mcp<T = any>(method: string, params: Record<string, unknown> = {}
 const docsResources = [
   { uri: 'forges://docs/pages', heading: '# forges documentation' },
   { uri: 'forges://docs/getting-started/quick-start', heading: '# Quick start' },
-  { uri: 'forges://docs/reference/overview', heading: '# Overview' },
+  { uri: 'forges://docs/reference/overview', heading: '# Reference' },
   { uri: 'forges://docs/reference/capability-matrix', heading: '# Capability matrix' },
   { uri: 'forges://docs/reference/errors', heading: '# Errors' },
 ]
@@ -128,6 +128,28 @@ describe('mcp', () => {
     const card = await response.json()
     expect(card.serverInfo.name).toBe('forges')
     expect(card.resources.map((resource: { uri: string }) => resource.uri).sort()).toEqual(docsResources.map(resource => resource.uri).sort())
+  })
+})
+
+describe('generated reference', () => {
+  it.each(['/reference/overview', '/reference/providers', '/reference/threads', '/reference/errors', '/contributing/provider-kit'])('serves %s', async (path) => {
+    const response = await get(path)
+    expect(response.status).toBe(200)
+  })
+
+  it('gives each heading the id that the generated links use', async () => {
+    const html = await get('/reference/providers').then(response => response.text())
+    expect(html).toMatch(/<h3 id="createforges"/)
+    const threads = await get('/reference/threads').then(response => response.text())
+    expect(threads).toMatch(/<h2 id="providerthreads"/)
+    expect(threads).toContain('href="/reference/data-model#threadref"')
+  })
+
+  it('keeps the sidebar entry of the overview short', async () => {
+    const html = await get('/reference/providers').then(response => response.text())
+    const start = html.indexOf('href="/reference/overview"')
+    const link = html.slice(start, start + html.slice(start).indexOf('</a>'))
+    expect([...link.matchAll(/>([^<>]+)</g)].map(match => match[1])).toEqual(['Overview'])
   })
 })
 

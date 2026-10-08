@@ -20,13 +20,22 @@ export type AzureDevOpsAuth = TokenAuth | BasicAuth | AnonymousAuth
 
 /** Options for `azureDevOps()`. */
 export interface AzureDevOpsOptions extends ForgeOptionsBase {
-  /** Defaults to `{ type: 'anonymous' }`: public reads only. */
+  /**
+   * How to authenticate. Without credentials, only public reads work.
+   * @default { type: 'anonymous' }
+   */
   auth?: AzureDevOpsAuth
   /** The organization (or Azure DevOps Server collection) that `repos.list()` lists. */
   organization: string
-  /** Defaults to `https://dev.azure.com`. For Azure DevOps Server, the server root, for example `https://tfs.example.com/tfs`. */
+  /**
+   * For Azure DevOps Server, the server root, for example `https://tfs.example.com/tfs`.
+   * @default https://dev.azure.com
+   */
   baseUrl?: string
-  /** Work item type `threads.create({ kind: 'issue' })` creates. Defaults to `Issue`; Scrum projects use `Impediment` or `Product Backlog Item`. */
+  /**
+   * Work item type `threads.create({ kind: 'issue' })` creates. Scrum projects use `Impediment` or `Product Backlog Item`.
+   * @default Issue
+   */
   issueType?: string
   /** `username:password` the service hook subscription sends as basic auth. */
   webhookSecret?: string

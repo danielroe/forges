@@ -5,7 +5,6 @@ const FENCE_RE = /^\s*(?:```|~~~)/
 const IDENTIFIER_RE = /'[^']*'|"[^"]*"|[A-Z_$][\w$]*/gi
 const INLINE_LINK_RE = /\{@link(?:code|plain)? ([^ }|]+)(?:[ |]([^}]*))?\}/g
 const NON_SLUG_RE = /[^\p{L}\p{N}\s_-]/gu
-const SENTENCE_END_RE = /^(.+?[.!?])(?:\s|$)/s
 const SPACE_RE = /\s/g
 
 /** The `id` Nuxt Content gives a heading, following `github-slugger`. */
@@ -32,7 +31,7 @@ const WRAPPERS = new Set(['Array', 'AsyncGenerator', 'AsyncIterable', 'Awaited',
 export function typeToMarkdown(type: string, resolve: LinkResolver): string {
   const targets = new Set<string>()
   for (const [name] of type.matchAll(IDENTIFIER_RE)) {
-    if (!/^['"]/.test(name) && !WRAPPERS.has(name) && resolve(name)) {
+    if (/^[A-Z]/.test(name) && !WRAPPERS.has(name) && resolve(name)) {
       targets.add(name)
     }
   }
@@ -65,16 +64,6 @@ export function cell(text: string, resolve: LinkResolver): string {
 /** A type in a table cell. */
 export function typeCell(type: string, resolve: LinkResolver): string {
   return typeToMarkdown(type, resolve).replace(/\|/g, '\\|')
-}
-
-/** The first sentence of `text` with its Markdown removed, for a page description. */
-export function summary(text: string): string {
-  const plain = text
-    .replace(INLINE_LINK_RE, (_, name: string, label?: string) => label?.trim() || name)
-    .replace(/`/g, '')
-    .replace(/\s+/g, ' ')
-    .trim()
-  return SENTENCE_END_RE.exec(plain)?.[1] ?? plain
 }
 
 function linkTo(name: string, label: string | undefined, resolve: LinkResolver): string {

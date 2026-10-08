@@ -14,6 +14,15 @@ const VERBS = new Map<string, string>(
  * Whether `verb` is supported according to `capabilities`, for `kind` where
  * support differs by thread kind (or by alert kind for `securityAlerts`).
  * Without `kind`, a per-kind verb counts as supported when any kind is.
+ * @param capabilities The capabilities of a provider, such as `provider.capabilities`.
+ * @param verb The operation, named by its path on the provider, such as `threads.comment`.
+ * @param kind The thread or alert kind, for an operation whose support differs by kind.
+ * @example
+ * ```ts
+ * if (supports(provider.capabilities, 'threads.merge')) {
+ *   await provider.threads.merge(ref)
+ * }
+ * ```
  */
 export function supports(capabilities: ForgeCapabilities, verb: ForgeVerb, kind?: ThreadKind | SecurityAlertKind): boolean {
   return supportOf(capabilities, verb, kind) !== false
@@ -27,6 +36,9 @@ const LEVELS: Support[] = [true, 'experimental', 'emulated']
  * `'experimental'`, `'emulated'` or `false`, for `kind` where support differs
  * by thread kind (or by alert kind for `securityAlerts`). Without `kind`, a
  * per-kind verb reports its strongest level across kinds.
+ * @param capabilities The capabilities of a provider, such as `provider.capabilities`.
+ * @param verb The operation, named by its path on the provider, such as `threads.comment`.
+ * @param kind The thread or alert kind, for an operation whose support differs by kind.
  */
 export function supportOf(capabilities: ForgeCapabilities, verb: ForgeVerb, kind?: ThreadKind | SecurityAlertKind): Support {
   const support = capabilityOf(capabilities, verb)

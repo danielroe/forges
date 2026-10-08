@@ -130,7 +130,10 @@ export interface ForgeOptionsBase {
   instance?: string
   /** A `fetch` to use instead of the global one, for tests and for runtimes without one. */
   fetch?: FetchLike
-  /** Request timeout in milliseconds. */
+  /**
+   * Request timeout in milliseconds.
+   * @default 30000
+   */
   timeout?: number
   /** Shared secret used to verify inbound webhook deliveries. */
   webhookSecret?: string
@@ -154,9 +157,9 @@ export type PerKind = Record<Exclude<ThreadKind, 'other'>, Support>
 export type AlertSupport = Record<'dependency' | 'code_scanning' | 'secret' | 'advisory', Support>
 
 /**
- * What a provider supports, operation by operation. It is computed without a request; `refreshCapabilities()`
- * refines
-it with the instance version.
+ * What a provider supports, operation by operation. It is computed without a request, and
+ * `refreshCapabilities()` refines it with the instance version. Each group holds one entry per
+ * capability, and the [capability matrix](/reference/capability-matrix) lists them for every forge.
  */
 export interface ForgeCapabilities {
   /** Instance version the capabilities were computed for, when known. */
@@ -468,9 +471,8 @@ export interface CloseOptions {
 }
 
 /**
- * Issues, pull requests and the other kinds of discussion: reading, creating, commenting, labelling, reviewing
- * and
-merging them.
+ * Issues, pull requests and the other kinds of discussion: reading, creating, commenting, labelling,
+ * reviewing and merging them.
  */
 export interface ThreadsApi {
   /**
@@ -499,6 +501,12 @@ export interface ThreadsApi {
    * left behind. The key is carried in the body as a hidden marker; see
    * {@link commentMarker}. Composed from `comments`, `comment` and
    * `editComment`, so it costs a listing on every call.
+   * @param ref The thread to comment on.
+   * @param input The `key` that identifies the comment across runs, and its `body`.
+   * @example
+   * ```ts
+   * await provider.threads.upsertComment(ref, { key: 'preview', body: 'Preview: https://pr-42.example.com' })
+   * ```
    */
   upsertComment: (ref: ThreadRef, input: UpsertCommentInput) => Promise<UpsertCommentResult>
   /** Replaces the body of a comment. */
@@ -521,7 +529,11 @@ export interface ThreadsApi {
   reactions: (target: ThreadRef | CommentRef, options?: ListOptions) => ForgeIterable<Reaction>
   /** One page of `reactions()`. */
   reactionsPage: (target: ThreadRef | CommentRef, options?: ListOptions) => Promise<Page<Reaction>>
-  /** Reacts as the authenticated account, to the thread or to one of its comments. */
+  /**
+   * Reacts as the authenticated account, to the thread or to one of its comments.
+   * @param target The thread or comment to react to.
+   * @param reaction The reaction to leave.
+   */
   react: (target: ThreadRef | CommentRef, reaction: ReactionContent) => Promise<void>
   /** Removes the account's reaction from the thread or comment. */
   unreact: (target: ThreadRef | CommentRef, reaction: ReactionContent) => Promise<void>
@@ -537,7 +549,15 @@ export interface ThreadsApi {
   close: (ref: ThreadRef, options?: CloseOptions) => Promise<void>
   /** Reopens a closed thread. */
   reopen: (ref: ThreadRef) => Promise<void>
-  /** Merges a pull request. Without a merge method, the repository must allow exactly one. */
+  /**
+   * Merges a pull request. Without a merge method, the repository must allow exactly one.
+   * @param ref The pull request to merge.
+   * @param options The merge method, the head `sha` to expect and the commit message.
+   * @example
+   * ```ts
+   * await provider.threads.merge(ref, { method: 'squash' })
+   * ```
+   */
   merge: (ref: ThreadRef, options?: MergeOptions) => Promise<void>
   /** Approves, then merges. The merge method is checked before the approval is sent. */
   approveAndMerge: (ref: ThreadRef, options?: ApproveAndMergeOptions) => Promise<void>
@@ -610,6 +630,14 @@ export interface ContentsApi {
    * forge reports text and `as: 'text'` was asked for. Files past the forge's
    * inline limit (1 MB on GitHub) are read from the raw or blob endpoint
    * instead of failing.
+   * @param repo The repository to read from.
+   * @param path The path of the file from the repository root.
+   * @param options The revision to read, and whether to decode the content as text.
+   * @example
+   * ```ts
+   * const file = await provider.contents.file(repo, 'package.json', { as: 'text' })
+   * const manifest = JSON.parse(file.content as string)
+   * ```
    */
   file: (repo: RepoRef, path: string, options?: FileOptions) => Promise<FileContent>
   /** One level, or every descendant with `recursive`. Truncated listings carry a `tree_truncated` warning. */
@@ -723,7 +751,9 @@ export interface ReposApi {
 
 /** Options for `repos.milestones()`. */
 export interface MilestoneListOptions extends PageOptions {
-  /** Defaults to `'open'`. */
+  /**
+   * @default 'open'
+   */
   state?: 'open' | 'closed' | 'all'
 }
 
@@ -751,7 +781,17 @@ export interface InstallationsApi {
 export interface WebhooksApi {
   /** Checks a delivery's signature or token against the secret. */
   verify: (delivery: WebhookDelivery) => Promise<boolean>
-  /** Verifies the delivery, then translates it into normalised events. */
+  /**
+   * Verifies the delivery, then translates it into normalised events.
+   * @param delivery The headers and the raw body of the request, exactly as received.
+   * @example
+   * ```ts
+   * const events = await provider.webhooks.ingest({
+   *   headers: request.headers,
+   *   body: await request.text(),
+   * })
+   * ```
+   */
   ingest: (delivery: WebhookDelivery) => Promise<ForgeEvent[]>
   /** Normalised kinds and actions this provider can deliver, whatever a hook is subscribed to. */
   readonly events: WebhookEventType[]
@@ -807,7 +847,14 @@ export interface SubscriptionItem {
 export interface UsersApi {
   /** Reads an account by login, without needing a credential where the forge allows it. */
   get: (login: string) => Promise<User>
-  /** The account the provider's credential belongs to. */
+  /**
+   * The account the provider's credential belongs to.
+   * @example
+   * ```ts
+   * const me = await provider.users.me()
+   * console.log(me.login)
+   * ```
+   */
   me: () => Promise<User>
 }
 
@@ -824,7 +871,7 @@ export interface SourcesApi {
 
 export type { ForgeVerb } from './supports.ts'
 
-/** A connection to one forge: its identity, capabilities and the namespaces of operations. */
+/** A connection to one forge, with its identity, its capabilities and the namespaces of operations. */
 export interface ForgeProvider {
   /**
    * Requests endpoints relative to `baseUrl` or absolute HTTP(S) URLs.
@@ -865,6 +912,14 @@ export interface ForgeProvider {
    * including version gates. Every verb is always present and rejects with
    * `UnsupportedOperationError` when this is `false`: the capability is the
    * question, the method is the action.
+   * @param verb The operation, named by its path on the provider, such as `threads.comment`.
+   * @param kind The thread kind, for an operation whose support differs by kind.
+   * @example
+   * ```ts
+   * if (provider.can('threads.merge')) {
+   *   await provider.threads.merge(ref)
+   * }
+   * ```
    */
   can: (verb: ForgeVerb, kind?: ThreadKind | SecurityAlertKind) => boolean
   /**
@@ -872,22 +927,33 @@ export interface ForgeProvider {
    * `false`, for `kind` where support differs by kind. `can()` is `true` for
    * every level but `false`. Without `kind`, a per-kind verb reports its
    * strongest level across kinds.
+   * @param verb The operation, named by its path on the provider, such as `threads.comment`.
+   * @param kind The thread kind, for an operation whose support differs by kind.
    */
   support: (verb: ForgeVerb, kind?: ThreadKind | SecurityAlertKind) => Support
-  /** The web page for `target`, built without a request; `undefined` when the forge has no such page. */
+  /**
+   * The web page for `target`, built without a request; `undefined` when the forge has no such page.
+   * @param target What to link to: a repository, thread, comment, release, file or comparison.
+   */
   urlFor: (target: UrlTarget) => string | undefined
   /**
    * Token scopes or app permissions `verb` needs on this forge, as data for a
    * consent screen or a 403 explanation. Nothing in the library reads it, and
    * an unmapped verb returns `{}`.
+   * @param verb The operation, named by its path on the provider.
    */
   scopesFor: (verb: ForgeVerb) => VerbScopes
-  /** Reads a web or SSH clone URL on this provider's instance into refs; `undefined` for anything else. */
+  /**
+   * Reads a web or SSH clone URL on this provider's instance into refs; `undefined` for anything else.
+   * @param url The URL to read.
+   */
   parseUrl: (url: string | URL) => ParsedForgeUrl | undefined
   /**
    * How to mention `ref` in Markdown on this forge (`#42`, `!42`,
    * `acme/widgets#42`), short when written in `from`; the thread URL where the
    * forge has no reference syntax.
+   * @param ref The thread to mention.
+   * @param options The repository the reference is written in, so that a reference within it is short.
    */
   referenceTo: (ref: ThreadRef, options?: ReferenceOptions) => string | undefined
 }
@@ -1028,7 +1094,21 @@ function mergeByTime<Q extends Partial<SearchOrder>, T extends { createdAt?: Dat
   })
 }
 
-/** Combines providers into a registry. Pass factories such as `github()`, or providers that already exist. */
+/**
+ * Combines providers into a registry. Pass factories such as `github()`, or providers that already exist.
+ * @param factories Factories such as `github()`, or providers that already exist.
+ * @example
+ * ```ts
+ * import { createForges, github, gitlab } from 'forges'
+ *
+ * const forges = createForges([
+ *   github({ auth: { type: 'token', token: process.env.GITHUB_TOKEN! } }),
+ *   gitlab(),
+ * ])
+ *
+ * const repo = await forges.repos.get({ forge: 'github', instance: 'github.com', owner: 'danielroe', name: 'forges' })
+ * ```
+ */
 export function createForges(factories: Array<ForgeProviderFactory | ForgeProvider>): Forges {
   const providers = factories.map(factory => 'create' in factory ? factory.create() : factory)
   const seen = new Set<string>()

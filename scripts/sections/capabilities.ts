@@ -4,7 +4,7 @@ import { matrix, matrixProviders, providerIndex, providerSection } from '../capa
 const sections: DocsSectionSource = forges => [
   ...matrixProviders(forges).map(({ slug, provider }) => ({ page: `4.providers/${slug}.md`, marker: 'capabilities', content: providerSection(slug, provider) })),
   { page: '4.providers/index.md', marker: 'capabilities', content: providerIndex(forges) },
-  { page: '5.reference/20.capability-matrix.md', marker: 'capabilities', content: matrix(forges) },
+  { page: '5.reference/11.capability-matrix.md', marker: 'capabilities', content: matrix(forges) },
 ]
 
 export default sections

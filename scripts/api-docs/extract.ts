@@ -1,5 +1,5 @@
 import type { ApiDoc, ApiEntry, ApiMember, ApiModel, ApiParam, ApiSignature, ApiSymbol, ApiSymbolKind } from './types.ts'
-import { dirname, relative, resolve } from 'node:path'
+import { dirname, relative, resolve, sep } from 'node:path'
 import ts from 'typescript'
 
 export interface ExtractOptions {
@@ -17,6 +17,7 @@ interface Context {
   isProject: (file: ts.SourceFile) => boolean
 }
 
+const BACKTICKS_RE = /^`|`$/g
 const LEADING_DASH_RE = /^-\s*/
 const WHITESPACE_RE = /\s+/g
 const BLOCK_COMMENT_RE = /\/\*[\s\S]*?\*\//g
@@ -85,7 +86,7 @@ function describeSymbol(context: Context, name: string, symbol: ts.Symbol): ApiS
     ...docOf(checker, symbol),
     name,
     kind,
-    source: relative(context.root, declaration.getSourceFile().fileName),
+    source: relative(context.root, declaration.getSourceFile().fileName).split(sep).join('/'),
     line: position.line + 1,
     signatures: [],
     constructors: [],
@@ -186,8 +187,8 @@ function describeAlias(context: Context, described: ApiSymbol, declaration: ts.T
 }
 
 /** Public instance and static members, minus `override name = '…'` fields that only repeat the class name. */
-function isDocumentedClassMember(member: ts.ClassElement): member is ts.PropertyDeclaration | ts.MethodDeclaration {
-  if (!ts.isPropertyDeclaration(member) && !ts.isMethodDeclaration(member)) {
+function isDocumentedClassMember(member: ts.ClassElement): member is ts.PropertyDeclaration | ts.MethodDeclaration | ts.GetAccessorDeclaration {
+  if (!ts.isPropertyDeclaration(member) && !ts.isMethodDeclaration(member) && !ts.isGetAccessorDeclaration(member)) {
     return false
   }
   const flags = ts.getCombinedModifierFlags(member)
@@ -225,10 +226,10 @@ function membersOf(context: Context, type: ts.Type, owner: string, prefix = ''):
   return members
 }
 
-type MemberDeclaration = ts.PropertySignature | ts.MethodSignature | ts.PropertyDeclaration | ts.MethodDeclaration
+type MemberDeclaration = ts.PropertySignature | ts.MethodSignature | ts.PropertyDeclaration | ts.MethodDeclaration | ts.GetAccessorDeclaration
 
 function isMemberDeclaration(node: ts.Declaration): node is MemberDeclaration {
-  return ts.isPropertySignature(node) || ts.isMethodSignature(node) || ts.isPropertyDeclaration(node) || ts.isMethodDeclaration(node)
+  return ts.isPropertySignature(node) || ts.isMethodSignature(node) || ts.isPropertyDeclaration(node) || ts.isMethodDeclaration(node) || ts.isGetAccessorDeclaration(node)
 }
 
 function memberOf(context: Context, declaration: MemberDeclaration, prefix = ''): ApiMember {
@@ -239,8 +240,8 @@ function memberOf(context: Context, declaration: MemberDeclaration, prefix = '')
   const base = {
     ...symbol ? docOf(checker, symbol) : emptyDoc(),
     name: `${prefix}${declaration.name.getText()}`,
-    optional: !!declaration.questionToken,
-    readonly: !!(flags & ts.ModifierFlags.Readonly),
+    optional: 'questionToken' in declaration && !!declaration.questionToken,
+    readonly: !!(flags & ts.ModifierFlags.Readonly) || ts.isGetAccessorDeclaration(declaration),
     static: !!(flags & ts.ModifierFlags.Static),
   }
 
@@ -369,10 +370,12 @@ function docOf(checker: ts.TypeChecker, symbol: ts.Symbol): ApiDoc {
 
 function docFrom(description: string, tags: ts.JSDocTagInfo[]): ApiDoc {
   const deprecated = tags.find(tag => tag.name === 'deprecated')
+  const defaultValue = tags.find(tag => tag.name === 'default' || tag.name === 'defaultValue')
   return {
     description: description.trim(),
     examples: tags.filter(tag => tag.name === 'example').map(tagText),
     ...deprecated ? { deprecated: tagText(deprecated) } : {},
+    ...defaultValue ? { default: tagText(defaultValue).replace(BACKTICKS_RE, '') } : {},
     see: tags.filter(tag => tag.name === 'see').map(tagText),
   }
 }

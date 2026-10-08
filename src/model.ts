@@ -248,7 +248,9 @@ export interface WebhookInput {
   secret?: string
   /** How to encode the delivery body. */
   contentType?: 'json' | 'form'
-  /** Defaults to `true`. */
+  /**
+   * @default true
+   */
   active?: boolean
 }
 
@@ -640,8 +642,8 @@ export interface FileOptions {
   /** Branch, tag or sha. Defaults to the repository's default branch. */
   ref?: string
   /**
-   * `'text'` decodes as UTF-8 and rejects with {@link ContentNotTextError}
-   * when the bytes are not text. Defaults to `'binary'`.
+   * `'text'` decodes as UTF-8 and rejects with {@link ContentNotTextError} when the bytes are not text.
+   * @default 'binary'
    */
   as?: 'text' | 'binary'
   signal?: AbortSignal
@@ -846,7 +848,10 @@ export interface SecurityAlert {
 export interface SecurityAlertListOptions extends PageOptions {
   /** Omitted lists every kind the provider can read, one after another. */
   kind?: Exclude<SecurityAlertKind, 'other'>
-  /** Defaults to `'open'`. `'closed'` is fixed or dismissed. */
+  /**
+   * `'closed'` is fixed or dismissed.
+   * @default 'open'
+   */
   state?: 'open' | 'closed' | 'all'
 }
 
@@ -1033,7 +1038,7 @@ export type EventDetail
     /** A cross-reference: another thread or commit mentioned this one. */
     | { type: 'referenced', from?: ThreadRef | CommitRef, fromRepo?: RepoRef, text?: string }
 
-/** Something that happened on a forge, in the same shape whichever forge reports it. */
+/** An event on a forge, such as a comment, a state change or a push. */
 export interface ForgeEvent extends ForgeOrigin {
   id: string
   kind: EventKind
@@ -1174,7 +1179,10 @@ export interface ListOptions extends PageOptions {
 
 /** Options for `notifications.list()`. */
 export interface NotificationListOptions extends ListOptions {
-  /** Include notifications already marked read. Defaults to `false`. */
+  /**
+   * Include notifications already marked read.
+   * @default false
+   */
   all?: boolean
 }
 
@@ -1183,8 +1191,9 @@ export interface ThreadQuery extends PageOptions {
   /** Omitted lists every listable kind; forges that list kinds separately emit them one after another. */
   kind?: 'issue' | 'pull_request' | 'discussion'
   /**
-   * Defaults to `'open'`. `'closed'` includes merged pull requests; `'merged'`
-   * lists pull requests only, and lists nothing for another `kind`.
+   * `'closed'` includes merged pull requests; `'merged'` lists pull requests only,
+   * and lists nothing for another `kind`.
+   * @default 'open'
    */
   state?: 'open' | 'closed' | 'merged' | 'all'
   /** Threads carrying every one of these labels. */
@@ -1203,9 +1212,14 @@ export interface ThreadQuery extends PageOptions {
   since?: Date
   /** Created at or after. */
   createdAfter?: Date
-  /** Defaults to `'created'`. Unsupported orders produce a warning and the forge's own order. */
+  /**
+   * Unsupported orders produce a warning and the forge's own order.
+   * @default 'created'
+   */
   sort?: 'created' | 'updated' | 'comments'
-  /** Defaults to `'desc'`. */
+  /**
+   * @default 'desc'
+   */
   direction?: 'asc' | 'desc'
 }
 
@@ -1238,7 +1252,9 @@ export interface SearchQuery extends PageOptions {
   since?: Date
   /** Defaults to the forge's relevance order. */
   sort?: 'created' | 'updated' | 'comments' | 'relevance'
-  /** Defaults to `'desc'`. */
+  /**
+   * @default 'desc'
+   */
   direction?: 'asc' | 'desc'
 }
 
@@ -1260,7 +1276,9 @@ export interface CommitSearchQuery extends PageOptions {
   until?: Date
   /** Defaults to the forge's relevance order. */
   sort?: 'author_date' | 'committer_date'
-  /** Defaults to `'desc'`. */
+  /**
+   * @default 'desc'
+   */
   direction?: 'asc' | 'desc'
 }
 
@@ -1275,7 +1293,9 @@ export interface RepoSearchQuery extends PageOptions {
   language?: string
   /** Defaults to the forge's relevance order. */
   sort?: 'created' | 'updated' | 'stars' | 'relevance'
-  /** Defaults to `desc`. */
+  /**
+   * @default desc
+   */
   direction?: 'asc' | 'desc'
 }
 

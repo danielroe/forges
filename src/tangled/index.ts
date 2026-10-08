@@ -52,7 +52,10 @@ export type TangledAuth
 export interface TangledOptions extends ForgeOptionsBase {
   /** An app password session, or none for anonymous reads. */
   auth?: TangledAuth
-  /** Appview web root, used for links and as the `instance`. Defaults to `https://tangled.org`. */
+  /**
+   * Appview web root, used for links and as the `instance`.
+   * @default https://tangled.org
+   */
   baseUrl?: string
   /**
    * Base for `request()`: a Bobbin-compatible XRPC index. Defaults to

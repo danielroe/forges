@@ -21,7 +21,10 @@ export const ORIGIN_API_VERSION = 'v1alpha1'
 export interface CursorOriginOptions extends ForgeOptionsBase {
   /** Token or app credentials. Cursor Origin has no anonymous access, so this is required. */
   auth: CursorOriginAuth
-  /** API root. Defaults to `https://api.cursor.com`; `/v1/origin` is appended. */
+  /**
+   * API root. `/v1/origin` is appended.
+   * @default https://api.cursor.com
+   */
   baseUrl?: string
 }
 

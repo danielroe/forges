@@ -5,6 +5,8 @@ export interface ApiDoc {
   examples: string[]
   /** The `@deprecated` message, empty when the tag has none. */
   deprecated?: string
+  /** The `@default` value, without backticks. */
+  default?: string
   see: string[]
 }
 

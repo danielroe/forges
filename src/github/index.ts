@@ -151,7 +151,10 @@ export type { GitHubAuth } from './auth.ts'
 
 /** Options for `github()`. */
 export interface GitHubOptions extends ForgeOptionsBase {
-  /** Defaults to `{ type: 'anonymous' }`: public reads only. */
+  /**
+   * How to authenticate. Without credentials, only public reads work.
+   * @default { type: 'anonymous' }
+   */
   auth?: GitHubAuth
 }
 

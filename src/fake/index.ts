@@ -57,9 +57,14 @@ export interface FakeRepoSeed {
   /** The repository as `owner/name`. */
   repo: string
   description?: string
-  /** The default branch. Defaults to `main`. */
+  /**
+   * The default branch.
+   * @default main
+   */
   defaultBranch?: string
-  /** Defaults to `public`. */
+  /**
+   * @default public
+   */
   visibility?: Repo['visibility']
   /** Names of the labels that the repository defines. */
   labels?: string[]
@@ -74,7 +79,9 @@ export interface FakeThreadSeed {
   number?: number
   title: string
   body?: string
-  /** Defaults to `open`. */
+  /**
+   * @default open
+   */
   state?: ThreadState
   isDraft?: boolean
   /** The login of the author. Defaults to the viewer. */
@@ -131,7 +138,9 @@ export interface FakeNotificationSeed {
   number: number
   /** Why the viewer got the notification. */
   reason?: NotificationReason
-  /** Defaults to `true`. */
+  /**
+   * @default true
+   */
   unread?: boolean
 }
 
@@ -164,9 +173,14 @@ export type FakeSupport = SupportInput | Partial<Record<VerbKind, SupportInput>>
 
 /** Options for `fake()`. */
 export interface FakeOptions extends Omit<ForgeOptionsBase, 'fetch'> {
-  /** Defaults to `fake`. */
+  /**
+   * @default fake
+   */
   forge?: ForgeKind
-  /** Login of the authenticated account; authors every write. Defaults to `fake-user`. */
+  /**
+   * Login of the authenticated account; authors every write.
+   * @default fake-user
+   */
   viewer?: string
   seed?: FakeSeed
   /** Overrides the default support of individual verbs. */
@@ -254,6 +268,20 @@ function splitRepo(slug: string): { owner: string, name: string } {
  * that `threads.events()` and `sources.subscribe()` return. Webhook
  * deliveries carry normalised events as JSON, signed as `signDelivery('fake', ...)`
  * from `forges/testing` signs them.
+ * @param options The data the forge starts with, and the support of individual operations.
+ * @example
+ * ```ts
+ * import { createForges } from 'forges'
+ * import { fake } from 'forges/fake'
+ *
+ * const factory = fake({
+ *   seed: {
+ *     repos: [{ repo: 'acme/widgets' }],
+ *     threads: [{ repo: 'acme/widgets', kind: 'issue', title: 'Broken build' }],
+ *   },
+ * })
+ * const forges = createForges([factory])
+ * ```
  */
 export function fake(options: FakeOptions = {}): FakeForgeFactory {
   const forge = options.forge ?? 'fake'

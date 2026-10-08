@@ -66,12 +66,26 @@ export interface KindVerb<F> {
   run: F
 }
 
-/** Declares a verb whose support does not depend on the thread kind. */
+/**
+ * Declares a verb whose support does not depend on the thread kind.
+ * @param support How well the verb is supported.
+ * @param run The function that implements the verb.
+ */
 export function verb<F>(support: SupportInput, run: F): Verb<F> {
   return { support, run }
 }
 
-/** Declares a verb whose support depends on the thread kind. */
+/**
+ * Declares a verb whose support depends on the thread kind.
+ * @param kinds How well each thread kind is supported. Kinds that are left out are unsupported.
+ * @param run The function that implements the verb.
+ * @example
+ * ```ts
+ * const threads = {
+ *   get: perKind({ issue: true, pull_request: true }, getThread),
+ * }
+ * ```
+ */
 export function perKind<F>(kinds: Partial<Record<VerbKind, SupportInput>>, run: F): KindVerb<F> {
   return { kinds, run }
 }
@@ -254,7 +268,7 @@ export interface MergeHooks {
   beforeMerge?: () => Promise<void>
 }
 
-/** What every provider hook can read: the options, the identity and the resolved URLs. */
+/** The options, the identity and the resolved URLs that provider hooks receive. */
 export interface ProviderBase<TOptions, TState> {
   options: TOptions
   forge: ForgeKind
@@ -272,7 +286,7 @@ export interface ProviderBase<TOptions, TState> {
   state: TState
 }
 
-/** What `setup()` receives: the base, plus the fetchers and the way to derive another provider. */
+/** The argument of `setup()`: the base, the fetchers and `derive()`. */
 export interface ProviderContext<TOptions, TState> extends ProviderBase<TOptions, TState> {
   /** Authenticated with the definition's `authHeaders`. */
   fetcher: Fetcher
@@ -282,7 +296,7 @@ export interface ProviderContext<TOptions, TState> extends ProviderBase<TOptions
   derive: (options: TOptions, state?: TState) => ForgeProvider
 }
 
-/** Everything that defines a forge: its defaults, how it authenticates, and its setup. */
+/** The defaults, the authentication and the `setup()` of a forge. */
 export interface ProviderDefinition<TOptions extends ForgeOptionsBase, TState = undefined> {
   forge: ForgeKind
   /** The provider has not reached parity yet. */
@@ -602,6 +616,7 @@ function createProvider<TOptions extends ForgeOptionsBase, TState>(
 /**
  * Defines a forge provider. Returns the factory end users call, for example
  * `github({ auth })`. Nothing touches the network until `create()`.
+ * @param definition The defaults, authentication and setup of the forge.
  */
 export function defineForgeProvider<TOptions extends ForgeOptionsBase, TState = undefined>(
   definition: ProviderDefinition<TOptions, TState>,

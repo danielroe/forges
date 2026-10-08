@@ -79,7 +79,10 @@ export type ForgejoAuth = TokenAuth | AnonymousAuth
 
 /** Options for `forgejo()`. */
 export interface ForgejoOptions extends ForgeOptionsBase {
-  /** Defaults to `{ type: 'anonymous' }`: public reads only. */
+  /**
+   * How to authenticate. Without credentials, only public reads work.
+   * @default { type: 'anonymous' }
+   */
   auth?: ForgejoAuth
   /** Instance root, for example `https://codeberg.org`. */
   baseUrl?: string
