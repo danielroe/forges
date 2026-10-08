@@ -64,6 +64,8 @@ describe('web links', () => {
       thread: { kind: 'issue', number: '7' },
       comment: { id: '55' },
     })
+    expect(gh.parseUrl('https://github.com/acme/widgets/pulls/42')?.thread).toMatchObject({ kind: 'pull_request', number: '42' })
+    expect(cb.parseUrl('https://codeberg.org/acme/widgets/pull/42')?.thread).toBeUndefined()
     expect(gl.parseUrl('https://gitlab.com/acme/platform/widgets/-/merge_requests/3')).toMatchObject({ repo: { owner: 'acme/platform', name: 'widgets' }, thread: { kind: 'pull_request', number: '3' } })
     expect(az.parseUrl('https://dev.azure.com/contoso/Widgets/_git/widgets/pullrequest/42')).toMatchObject({ repo: { owner: 'contoso/Widgets', name: 'widgets' }, thread: { kind: 'pull_request', number: '42' } })
     expect(tg.parseUrl('https://tangled.org/@acme.dev/core/issues/4')).toMatchObject({ repo: { owner: 'acme.dev', name: 'core' }, thread: { kind: 'issue', displayNumber: '4' } })

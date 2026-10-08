@@ -128,6 +128,8 @@ export function referenceFor(web: WebLinks | undefined, ref: ThreadRef, options:
 export interface GitHubShape {
   /** The path segment of pull requests, such as `pull` or `pulls`. */
   pull: string
+  /** Another segment that the forge also serves pull requests under, which `parse()` accepts. */
+  pullAlias?: string
   /** The forge has discussions, which are addressed like issues. */
   discussions?: boolean
   /** Fragment for a comment id, for example `issuecomment-` or `note_`. */
@@ -147,6 +149,9 @@ export function githubShapedWeb(origin: string, shape: GitHubShape): WebLinks {
   const repoPath = (repo: RepoRef) => `/${encodePath(repo.owner)}/${encodeURIComponent(repo.name)}`
   const kindPath: Partial<Record<ThreadKind, string>> = { issue: 'issues', pull_request: shape.pull, commit: 'commit', ...shape.discussions ? { discussion: 'discussions' } : {} }
   const kindOf = new Map<string, ThreadKind>(Object.entries(kindPath).map(([kind, path]) => [path, kind as ThreadKind]))
+  if (shape.pullAlias) {
+    kindOf.set(shape.pullAlias, 'pull_request')
+  }
   const reserved = new Set(shape.reserved?.map(segment => segment.toLowerCase()))
   return {
     origin,
