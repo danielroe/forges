@@ -1,0 +1,173 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://code.forgejo.org/api/v1/repos/forgejo/runner/actions/runs/195438/jobs"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": [
+      {
+        "id": 404012,
+        "run_id": 195438,
+        "attempt": 3,
+        "handle": "1f4db3ce-e506-4934-b9df-bf30406b9bb5",
+        "repo_id": 2,
+        "owner_id": 3,
+        "name": "arm64",
+        "html_url": "https://code.forgejo.org/forgejo/runner/actions/runs/23965/jobs/0/attempt/3",
+        "needs": [
+          "__namespace.10ca442981b5e78305e863a4ddb83aafddd99a3481e29bc92745f1b2b3190706.build",
+          "__namespace.10ca442981b5e78305e863a4ddb83aafddd99a3481e29bc92745f1b2b3190706.build-unsupported-platforms",
+          "__namespace.10ca442981b5e78305e863a4ddb83aafddd99a3481e29bc92745f1b2b3190706.runner-exec-tests-with-docker",
+          "__namespace.10ca442981b5e78305e863a4ddb83aafddd99a3481e29bc92745f1b2b3190706.integration-tests-with-docker",
+          "__namespace.10ca442981b5e78305e863a4ddb83aafddd99a3481e29bc92745f1b2b3190706.integration-tests-with-docker",
+          "__namespace.10ca442981b5e78305e863a4ddb83aafddd99a3481e29bc92745f1b2b3190706.integration-tests-with-podman",
+          "__namespace.10ca442981b5e78305e863a4ddb83aafddd99a3481e29bc92745f1b2b3190706.validate-mocks",
+          "__namespace.10ca442981b5e78305e863a4ddb83aafddd99a3481e29bc92745f1b2b3190706.validate-pre-commit"
+        ],
+        "runs_on": [],
+        "task_id": 328318,
+        "status": "success"
+      },
+      {
+        "id": 404013,
+        "run_id": 195438,
+        "attempt": 1,
+        "handle": "b6927697-12c2-439a-9e61-52c2b1d2806a",
+        "repo_id": 2,
+        "owner_id": 3,
+        "name": "Build Forgejo Runner",
+        "html_url": "https://code.forgejo.org/forgejo/runner/actions/runs/23965/jobs/1/attempt/1",
+        "needs": null,
+        "runs_on": [
+          "arm64-docker"
+        ],
+        "task_id": 328167,
+        "status": "success"
+      },
+      {
+        "id": 404014,
+        "run_id": 195438,
+        "attempt": 1,
+        "handle": "c043f9e9-bae2-4120-9f30-0228da8ae331",
+        "repo_id": 2,
+        "owner_id": 3,
+        "name": "Build unsupported platforms",
+        "html_url": "https://code.forgejo.org/forgejo/runner/actions/runs/23965/jobs/2/attempt/1",
+        "needs": [
+          "build"
+        ],
+        "runs_on": [
+          "docker"
+        ],
+        "task_id": 0,
+        "status": "skipped"
+      },
+      {
+        "id": 404015,
+        "run_id": 195438,
+        "attempt": 1,
+        "handle": "cbaad9e3-ee84-4db9-98f2-4a268e33a36e",
+        "repo_id": 2,
+        "owner_id": 3,
+        "name": "Run exec tests with Docker (docker-latest)",
+        "html_url": "https://code.forgejo.org/forgejo/runner/actions/runs/23965/jobs/3/attempt/1",
+        "needs": [
+          "build"
+        ],
+        "runs_on": [
+          "arm64-lxc-trixie"
+        ],
+        "task_id": 328168,
+        "status": "success"
+      },
+      {
+        "id": 404016,
+        "run_id": 195438,
+        "attempt": 1,
+        "handle": "04d8b76b-ee2f-479f-aa37-31d0c6707445",
+        "repo_id": 2,
+        "owner_id": 3,
+        "name": "Run integration tests with Docker (docker-latest)",
+        "html_url": "https://code.forgejo.org/forgejo/runner/actions/runs/23965/jobs/4/attempt/1",
+        "needs": [
+          "build"
+        ],
+        "runs_on": [
+          "arm64-lxc-trixie"
+        ],
+        "task_id": 328169,
+        "status": "success"
+      },
+      {
+        "id": 404017,
+        "run_id": 195438,
+        "attempt": 1,
+        "handle": "2aefc725-acda-43fc-bb5a-9f4edbba42f7",
+        "repo_id": 2,
+        "owner_id": 3,
+        "name": "Run integration tests with Docker (docker-stable)",
+        "html_url": "https://code.forgejo.org/forgejo/runner/actions/runs/23965/jobs/5/attempt/1",
+        "needs": [
+          "build"
+        ],
+        "runs_on": [
+          "arm64-lxc-trixie"
+        ],
+        "task_id": 328170,
+        "status": "success"
+      },
+      {
+        "id": 404018,
+        "run_id": 195438,
+        "attempt": 3,
+        "handle": "7a4e2d62-f240-4e6b-b623-481e5d975ddd",
+        "repo_id": 2,
+        "owner_id": 3,
+        "name": "Run integration tests with Podman",
+        "html_url": "https://code.forgejo.org/forgejo/runner/actions/runs/23965/jobs/6/attempt/3",
+        "needs": [
+          "build"
+        ],
+        "runs_on": [
+          "arm64-lxc-trixie"
+        ],
+        "task_id": 328296,
+        "status": "success"
+      },
+      {
+        "id": 404019,
+        "run_id": 195438,
+        "attempt": 1,
+        "handle": "31ff15ef-e4c2-4d4e-a830-13390165f4e3",
+        "repo_id": 2,
+        "owner_id": 3,
+        "name": "validate mocks",
+        "html_url": "https://code.forgejo.org/forgejo/runner/actions/runs/23965/jobs/7/attempt/1",
+        "needs": null,
+        "runs_on": [
+          "docker"
+        ],
+        "task_id": 0,
+        "status": "skipped"
+      },
+      {
+        "id": 404020,
+        "run_id": 195438,
+        "attempt": 1,
+        "handle": "f34873e1-535d-4c0d-a7ba-88b7bb1eb2e9",
+        "repo_id": 2,
+        "owner_id": 3,
+        "name": "validate pre-commit-hooks file",
+        "html_url": "https://code.forgejo.org/forgejo/runner/actions/runs/23965/jobs/8/attempt/1",
+        "needs": null,
+        "runs_on": [
+          "docker"
+        ],
+        "task_id": 0,
+        "status": "skipped"
+      }
+    ]
+  }
+}

@@ -55,7 +55,11 @@ Reviews are native. `createReview()` without an `event` creates a pending review
 
 ## Checks and CI
 
-`checks.list()` reads commit statuses, and `checks.report()` writes them. Forgejo Actions has no stable API for runs and jobs, so `checks.rerun()` and the `ci` methods are unavailable.
+`checks.list()` reads commit statuses, and `checks.report()` writes them. `checks.rerun()` is unavailable.
+
+The `ci` methods read Forgejo Actions. Runs need Forgejo 12 or later, jobs and job logs need Forgejo 16. Codeberg runs a current release, so they work there out of the box. For a self-hosted instance, pass `instanceVersion` or call `refreshCapabilities()` first.
+
+Forgejo before 16 ignores the branch filter, so `ci.runs()` drops runs of other branches itself, and a page can come back shorter than `perPage`. `ci.jobs()` returns every job of a run in one page, because Forgejo doesn't page them.
 
 ## Changed files
 
@@ -100,7 +104,7 @@ CODEBERG_TOKEN=... FIXTURE_FORGEJO_REPO=owner/repo \
 FIXTURE_FORGEJO_PULL=1 pnpm record-fixtures forgejo
 ```
 
-To add an issue, set `FIXTURE_FORGEJO_ISSUE`. To record another instance, set `CODEBERG_BASE_URL`.
+To add an issue, set `FIXTURE_FORGEJO_ISSUE`. To record another instance, set `CODEBERG_BASE_URL`. The manifest then keeps the instance version, so the replay gates Actions the same way.
 ::
 
 <!-- capabilities:start -->
@@ -164,10 +168,10 @@ To add an issue, set `FIXTURE_FORGEJO_ISSUE`. To record another instance, set `C
 | `checks.list` | ✅ |
 | `checks.report` | experimental |
 | `checks.rerun` | ❌ |
-| `ci.runs` | ❌ |
-| `ci.run` | ❌ |
-| `ci.jobs` | ❌ |
-| `ci.log` | ❌ |
+| `ci.runs` | ✅ |
+| `ci.run` | ✅ |
+| `ci.jobs` | ✅ |
+| `ci.log` | experimental |
 | `contents.file` | ✅ |
 | `contents.tree` | ✅ |
 | `contents.branches` | ✅ |

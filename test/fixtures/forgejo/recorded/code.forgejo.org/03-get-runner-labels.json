@@ -1,0 +1,266 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://code.forgejo.org/api/v1/repos/forgejo/runner/labels?limit=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "x-total-count": "28"
+    },
+    "body": [
+      {
+        "id": 1031,
+        "name": "FreeBSD",
+        "exclusive": false,
+        "is_archived": false,
+        "color": "207de5",
+        "description": "",
+        "url": "https://code.forgejo.org/api/v1/repos/forgejo/runner/labels/1031"
+      },
+      {
+        "id": 24,
+        "name": "Kind/Breaking",
+        "exclusive": false,
+        "is_archived": false,
+        "color": "c62828",
+        "description": "Breaking change that won't be backward compatible",
+        "url": "https://code.forgejo.org/api/v1/repos/forgejo/runner/labels/24"
+      },
+      {
+        "id": 19,
+        "name": "Kind/Bug",
+        "exclusive": false,
+        "is_archived": false,
+        "color": "ee0701",
+        "description": "Something is not working",
+        "url": "https://code.forgejo.org/api/v1/repos/forgejo/runner/labels/19"
+      },
+      {
+        "id": 991,
+        "name": "Kind/Chore",
+        "exclusive": false,
+        "is_archived": false,
+        "color": "fbca04",
+        "description": "It is no fun but it needs to be done, this is a chore.",
+        "url": "https://code.forgejo.org/api/v1/repos/forgejo/runner/labels/991"
+      },
+      {
+        "id": 1034,
+        "name": "Kind/DependencyUpdate",
+        "exclusive": false,
+        "is_archived": false,
+        "color": "fbca04",
+        "description": "for pull requests that are created by renovate when updating a dependency",
+        "url": "https://code.forgejo.org/api/v1/repos/forgejo/runner/labels/1034"
+      },
+      {
+        "id": 25,
+        "name": "Kind/Documentation",
+        "exclusive": false,
+        "is_archived": false,
+        "color": "37474f",
+        "description": "Documentation changes",
+        "url": "https://code.forgejo.org/api/v1/repos/forgejo/runner/labels/25"
+      },
+      {
+        "id": 21,
+        "name": "Kind/Enhancement",
+        "exclusive": false,
+        "is_archived": false,
+        "color": "84b6eb",
+        "description": "Improve existing functionality",
+        "url": "https://code.forgejo.org/api/v1/repos/forgejo/runner/labels/21"
+      },
+      {
+        "id": 20,
+        "name": "Kind/Feature",
+        "exclusive": false,
+        "is_archived": false,
+        "color": "0288d1",
+        "description": "New functionality",
+        "url": "https://code.forgejo.org/api/v1/repos/forgejo/runner/labels/20"
+      },
+      {
+        "id": 22,
+        "name": "Kind/Security",
+        "exclusive": false,
+        "is_archived": false,
+        "color": "9c27b0",
+        "description": "This is security issue",
+        "url": "https://code.forgejo.org/api/v1/repos/forgejo/runner/labels/22"
+      },
+      {
+        "id": 23,
+        "name": "Kind/Testing",
+        "exclusive": false,
+        "is_archived": false,
+        "color": "795548",
+        "description": "Issue or pull request related to testing",
+        "url": "https://code.forgejo.org/api/v1/repos/forgejo/runner/labels/23"
+      },
+      {
+        "id": 33,
+        "name": "Priority/Critical",
+        "exclusive": true,
+        "is_archived": false,
+        "color": "b71c1c",
+        "description": "The priority is critical",
+        "url": "https://code.forgejo.org/api/v1/repos/forgejo/runner/labels/33"
+      },
+      {
+        "id": 34,
+        "name": "Priority/High",
+        "exclusive": true,
+        "is_archived": false,
+        "color": "d32f2f",
+        "description": "The priority is high",
+        "url": "https://code.forgejo.org/api/v1/repos/forgejo/runner/labels/34"
+      },
+      {
+        "id": 36,
+        "name": "Priority/Low",
+        "exclusive": true,
+        "is_archived": false,
+        "color": "4caf50",
+        "description": "The priority is low",
+        "url": "https://code.forgejo.org/api/v1/repos/forgejo/runner/labels/36"
+      },
+      {
+        "id": 35,
+        "name": "Priority/Medium",
+        "exclusive": true,
+        "is_archived": false,
+        "color": "e64a19",
+        "description": "The priority is medium",
+        "url": "https://code.forgejo.org/api/v1/repos/forgejo/runner/labels/35"
+      },
+      {
+        "id": 28,
+        "name": "Reviewed/Confirmed",
+        "exclusive": true,
+        "is_archived": false,
+        "color": "795548",
+        "description": "Issue has been confirmed",
+        "url": "https://code.forgejo.org/api/v1/repos/forgejo/runner/labels/28"
+      },
+      {
+        "id": 26,
+        "name": "Reviewed/Duplicate",
+        "exclusive": true,
+        "is_archived": false,
+        "color": "616161",
+        "description": "This issue or pull request already exists",
+        "url": "https://code.forgejo.org/api/v1/repos/forgejo/runner/labels/26"
+      },
+      {
+        "id": 27,
+        "name": "Reviewed/Invalid",
+        "exclusive": true,
+        "is_archived": false,
+        "color": "546e7a",
+        "description": "Invalid issue",
+        "url": "https://code.forgejo.org/api/v1/repos/forgejo/runner/labels/27"
+      },
+      {
+        "id": 29,
+        "name": "Reviewed/Won't Fix",
+        "exclusive": true,
+        "is_archived": false,
+        "color": "eeeeee",
+        "description": "This issue won't be fixed",
+        "url": "https://code.forgejo.org/api/v1/repos/forgejo/runner/labels/29"
+      },
+      {
+        "id": 32,
+        "name": "Status/Abandoned",
+        "exclusive": true,
+        "is_archived": false,
+        "color": "222222",
+        "description": "Somebody has started to work on this but abandoned work",
+        "url": "https://code.forgejo.org/api/v1/repos/forgejo/runner/labels/32"
+      },
+      {
+        "id": 31,
+        "name": "Status/Blocked",
+        "exclusive": true,
+        "is_archived": false,
+        "color": "880e4f",
+        "description": "Something is blocking this issue or pull request",
+        "url": "https://code.forgejo.org/api/v1/repos/forgejo/runner/labels/31"
+      },
+      {
+        "id": 30,
+        "name": "Status/Need More Info",
+        "exclusive": true,
+        "is_archived": false,
+        "color": "424242",
+        "description": "Feedback is required to reproduce issue or to continue work",
+        "url": "https://code.forgejo.org/api/v1/repos/forgejo/runner/labels/30"
+      },
+      {
+        "id": 365,
+        "name": "Windows",
+        "exclusive": false,
+        "is_archived": false,
+        "color": "207de5",
+        "description": "Windows ports is an independent project, see https://github.com/Crown0815/Forgejo-runner-windows-builder",
+        "url": "https://code.forgejo.org/api/v1/repos/forgejo/runner/labels/365"
+      },
+      {
+        "id": 968,
+        "name": "linux-powerpc64le",
+        "exclusive": false,
+        "is_archived": false,
+        "color": "207de5",
+        "description": "powerpc64le",
+        "url": "https://code.forgejo.org/api/v1/repos/forgejo/runner/labels/968"
+      },
+      {
+        "id": 970,
+        "name": "linux-riscv64",
+        "exclusive": false,
+        "is_archived": false,
+        "color": "207de5",
+        "description": "",
+        "url": "https://code.forgejo.org/api/v1/repos/forgejo/runner/labels/970"
+      },
+      {
+        "id": 969,
+        "name": "linux-s390x",
+        "exclusive": false,
+        "is_archived": false,
+        "color": "207de5",
+        "description": "",
+        "url": "https://code.forgejo.org/api/v1/repos/forgejo/runner/labels/969"
+      },
+      {
+        "id": 1032,
+        "name": "run-end-to-end-tests",
+        "exclusive": false,
+        "is_archived": false,
+        "color": "70c24a",
+        "description": "Run https://code.forgejo.org/forgejo/end-to-end with a runner compiled from this pull request",
+        "url": "https://code.forgejo.org/api/v1/repos/forgejo/runner/labels/1032"
+      },
+      {
+        "id": 1033,
+        "name": "run-forgejo-tests",
+        "exclusive": false,
+        "is_archived": false,
+        "color": "70c24a",
+        "description": "Run https://codeberg.org/forgejo/forgejo tests importing the runner from this pull request",
+        "url": "https://code.forgejo.org/api/v1/repos/forgejo/runner/labels/1033"
+      },
+      {
+        "id": 1128,
+        "name": "run-multi-platform-tests",
+        "exclusive": false,
+        "is_archived": false,
+        "color": "70c24a",
+        "description": "Label a PR for automatic execution of test suite on arm64 architecture.",
+        "url": "https://code.forgejo.org/api/v1/repos/forgejo/runner/labels/1128"
+      }
+    ]
+  }
+}

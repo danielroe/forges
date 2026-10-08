@@ -1,0 +1,44 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://code.forgejo.org/api/v1/repos/forgejo/runner/issues/1765/comments?limit=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "x-total-count": "1"
+    },
+    "body": [
+      {
+        "id": 102160,
+        "html_url": "https://code.forgejo.org/forgejo/runner/pulls/1765#issuecomment-102160",
+        "pull_request_url": "https://code.forgejo.org/forgejo/runner/pulls/1765",
+        "issue_url": "",
+        "user": {
+          "id": 135,
+          "login": "cascading-pr",
+          "source_id": 0,
+          "full_name": "",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://code.forgejo.org/avatars/8064d3bf1990211ec7e07d655da222db72b5abef5be1c4e807da676234528a78",
+          "html_url": "https://code.forgejo.org/cascading-pr",
+          "active": false,
+          "location": "",
+          "pronouns": "",
+          "website": "https://forgejo.org/docs/next/developer/repositories-dependencies/",
+          "description": "https://code.forgejo.org/actions/cascading-pr",
+          "followers_count": 0,
+          "following_count": 0,
+          "starred_repos_count": 0,
+          "username": "cascading-pr"
+        },
+        "original_author": "",
+        "original_author_id": 0,
+        "body": "cascading-pr updated at https://code.forgejo.org/actions/setup-forgejo/pulls/1133",
+        "assets": [],
+        "created_at": "2026-09-30T22:03:18Z",
+        "updated_at": "2026-09-30T22:03:18Z"
+      }
+    ]
+  }
+}

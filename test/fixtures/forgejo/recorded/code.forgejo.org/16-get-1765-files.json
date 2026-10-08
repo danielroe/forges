@@ -1,0 +1,25 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://code.forgejo.org/api/v1/repos/forgejo/runner/pulls/1765/files?limit=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "x-total-count": "1",
+      "x-page": "1"
+    },
+    "body": [
+      {
+        "filename": ".forgejo/workflows/docker-build-push-action-in-lxc.yml",
+        "status": "changed",
+        "additions": 1,
+        "deletions": 1,
+        "changes": 2,
+        "html_url": "https://code.forgejo.org/forgejo/runner/src/commit/4348bba01b5300d6d0c0218dc48e3de88068018b/.forgejo/workflows/docker-build-push-action-in-lxc.yml",
+        "contents_url": "https://code.forgejo.org/api/v1/repos/forgejo/runner/contents/.forgejo/workflows/docker-build-push-action-in-lxc.yml?ref=4348bba01b5300d6d0c0218dc48e3de88068018b",
+        "raw_url": "https://code.forgejo.org/forgejo/runner/raw/commit/4348bba01b5300d6d0c0218dc48e3de88068018b/.forgejo/workflows/docker-build-push-action-in-lxc.yml"
+      }
+    ]
+  }
+}

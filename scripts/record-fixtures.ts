@@ -78,6 +78,10 @@ function redact(value: unknown): unknown {
     else if (isUser && key === 'node_id') {
       result[key] = 'REDACTED'
     }
+    // A Forgejo Actions run carries its webhook payload as a JSON string.
+    else if (key === 'event_payload' && typeof entry === 'string' && entry.startsWith('{')) {
+      result[key] = JSON.stringify(redact(JSON.parse(entry)))
+    }
     else {
       result[key] = redact(entry)
     }
@@ -339,11 +343,20 @@ function targetFor(): Target {
     default: {
       const provider = forgejo({ baseUrl: env.CODEBERG_BASE_URL, auth: tokenAuth, fetch: recordLive, timeout }).create()
       const slug = env.FIXTURE_FORGEJO_REPO ?? 'forgejo/forgejo'
-      return { provider, manifest: {
-        repo: repoRef('forgejo', provider.instance, slug),
-        pull: ref('forgejo', provider.instance, slug, 'pull_request', env.FIXTURE_FORGEJO_PULL ?? '5000'),
-        issue: ref('forgejo', provider.instance, slug, 'issue', env.FIXTURE_FORGEJO_ISSUE),
-      } }
+      return {
+        provider,
+        manifest: {
+          repo: repoRef('forgejo', provider.instance, slug),
+          pull: ref('forgejo', provider.instance, slug, 'pull_request', env.FIXTURE_FORGEJO_PULL ?? '5000'),
+          issue: ref('forgejo', provider.instance, slug, 'issue', env.FIXTURE_FORGEJO_ISSUE),
+        },
+        // A self-hosted instance gates Actions on its version.
+        prepare: async (recorded) => {
+          if (env.CODEBERG_BASE_URL) {
+            recorded.instanceVersion = (await provider.refreshCapabilities()).version
+          }
+        },
+      }
     }
   }
 }

@@ -148,6 +148,31 @@ export interface ForgejoCombinedStatus {
   statuses: ForgejoCommitStatus[] | null
 }
 
+export interface ForgejoActionRun {
+  id: number
+  title?: string
+  workflow_id?: string
+  index_in_repo?: number
+  event?: string
+  trigger_event?: string
+  prettyref?: string
+  commit_sha?: string
+  status: string
+  html_url?: string
+  trigger_user?: ForgejoUser | null
+  created?: string
+  started?: string
+  stopped?: string
+}
+
+export interface ForgejoActionRunJob {
+  id: number
+  run_id?: number
+  name: string
+  status: string
+  html_url?: string
+}
+
 export interface ForgejoRelease {
   id: number
   tag_name: string

@@ -1,0 +1,105 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://code.forgejo.org/api/v1/repos/forgejo/runner/pulls/1765/commits?limit=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "x-total-count": "1",
+      "x-page": "1"
+    },
+    "body": [
+      {
+        "url": "https://code.forgejo.org/api/v1/repos/forgejo/runner/git/commits/4348bba01b5300d6d0c0218dc48e3de88068018b",
+        "sha": "4348bba01b5300d6d0c0218dc48e3de88068018b",
+        "created": "2026-09-30T22:02:59Z",
+        "html_url": "https://code.forgejo.org/forgejo/runner/commit/4348bba01b5300d6d0c0218dc48e3de88068018b",
+        "commit": {
+          "url": "https://code.forgejo.org/api/v1/repos/forgejo/runner/git/commits/4348bba01b5300d6d0c0218dc48e3de88068018b",
+          "author": {
+            "name": "Renovate Bot",
+            "email": "redacted@example.invalid",
+            "date": "2026-09-30T22:02:59Z"
+          },
+          "committer": {
+            "name": "Renovate Bot",
+            "email": "redacted@example.invalid",
+            "date": "2026-09-30T22:02:59Z"
+          },
+          "message": "Update dependency buildx to v0.37.2\n",
+          "tree": {
+            "url": "https://code.forgejo.org/api/v1/repos/forgejo/runner/git/trees/4348bba01b5300d6d0c0218dc48e3de88068018b",
+            "sha": "4348bba01b5300d6d0c0218dc48e3de88068018b",
+            "created": "2026-09-30T22:02:59Z"
+          },
+          "verification": {
+            "verified": true,
+            "reason": "viceice-bot / 8AC4BEEB5900F976",
+            "signature": "-----BEGIN PGP SIGNATURE-----\n\niHUEABYKAB0WIQT3nQW3uNw+hzJoFlCKxL7rWQD5dgUCar2HEwAKCRCKxL7rWQD5\ndoRjAP0eQgs+WrfxT5zamEUnM2jeopMJfwZO3gnj8ihBI1hG0AEA7zqJJEUJOha1\nyZPl4qDHO/MqpIdMdcejb1/XcJXtrgk=\n=UTQe\n-----END PGP SIGNATURE-----\n",
+            "signer": {
+              "name": "viceice-bot",
+              "email": "redacted@example.invalid",
+              "username": ""
+            },
+            "payload": "tree fe5f8554594d1132e250d894a6534e8b06f006c6\nparent 3cfcf5b674d1f8bf69b1215f7ba6283202299633\nauthor Renovate Bot <redacted@example.invalid> 1790805779 +0000\ncommitter Renovate Bot <redacted@example.invalid> 1790805779 +0000\n\nUpdate dependency buildx to v0.37.2\n"
+          }
+        },
+        "author": {
+          "id": 163,
+          "login": "viceice-bot",
+          "source_id": 0,
+          "full_name": "",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://code.forgejo.org/avatars/75f41dd71d2dc37a9932ce7c713016d30823076e66b85f6e3a8a8c0a68fc979b",
+          "html_url": "https://code.forgejo.org/viceice-bot",
+          "active": false,
+          "location": "",
+          "pronouns": "",
+          "website": "",
+          "description": "I'm a bot from @viceice",
+          "followers_count": 2,
+          "following_count": 1,
+          "starred_repos_count": 2,
+          "username": "viceice-bot"
+        },
+        "committer": {
+          "id": 163,
+          "login": "viceice-bot",
+          "source_id": 0,
+          "full_name": "",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://code.forgejo.org/avatars/75f41dd71d2dc37a9932ce7c713016d30823076e66b85f6e3a8a8c0a68fc979b",
+          "html_url": "https://code.forgejo.org/viceice-bot",
+          "active": false,
+          "location": "",
+          "pronouns": "",
+          "website": "",
+          "description": "I'm a bot from @viceice",
+          "followers_count": 2,
+          "following_count": 1,
+          "starred_repos_count": 2,
+          "username": "viceice-bot"
+        },
+        "parents": [
+          {
+            "url": "https://code.forgejo.org/api/v1/repos/forgejo/runner/git/commits/3cfcf5b674d1f8bf69b1215f7ba6283202299633",
+            "sha": "3cfcf5b674d1f8bf69b1215f7ba6283202299633",
+            "created": "0001-01-01T00:00:00Z"
+          }
+        ],
+        "files": [
+          {
+            "filename": ".forgejo/workflows/docker-build-push-action-in-lxc.yml",
+            "status": "modified"
+          }
+        ],
+        "stats": {
+          "total": 2,
+          "additions": 1,
+          "deletions": 1
+        }
+      }
+    ]
+  }
+}

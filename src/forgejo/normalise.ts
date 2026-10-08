@@ -4,6 +4,9 @@ import type {
   ChangedFile,
   Check,
   CheckState,
+  CiJob,
+  CiRun,
+  CiRunRef,
   Comment,
   Commit,
   EventDetail,
@@ -31,6 +34,8 @@ import type {
   Webhook,
 } from '../model.ts'
 import type {
+  ForgejoActionRun,
+  ForgejoActionRunJob,
   ForgejoBranch,
   ForgejoChangedFile,
   ForgejoCombinedStatus,
@@ -406,6 +411,68 @@ export function toStatusCheck(repo: RepoRef, raw: ForgejoCommitStatus): Check {
 
 export function toStatusChecks(repo: RepoRef, raw: ForgejoCombinedStatus): Check[] {
   return (raw.statuses ?? []).map(status => toStatusCheck(repo, status))
+}
+
+/** Forgejo Actions shares one status vocabulary between runs and jobs. */
+function actionState(status: string): CheckState {
+  switch (status) {
+    case 'success':
+      return 'success'
+    case 'failure':
+    case 'cancelled':
+      return 'failure'
+    case 'skipped':
+      return 'neutral'
+    case 'waiting':
+    case 'running':
+    case 'blocked':
+      return 'pending'
+    default:
+      return 'unknown'
+  }
+}
+
+/** Forgejo writes the zero Unix time for a run that never started or stopped. */
+function actionTime(value: string | undefined): Date | undefined {
+  const date = toDate(value)
+  return date && date.getTime() > 0 ? date : undefined
+}
+
+/** `prettyref` is the short ref; pull request runs carry `#<number>` or a bare sha instead of a branch. */
+export function actionBranch(raw: ForgejoActionRun): string | undefined {
+  const ref = raw.prettyref
+  return ref && !ref.startsWith('#') && ref !== raw.commit_sha ? ref : undefined
+}
+
+export function toActionRun(repo: RepoRef, raw: ForgejoActionRun): CiRun {
+  const state = actionState(raw.status)
+  return {
+    ref: { forge: repo.forge, instance: repo.instance, repo, id: String(raw.id) },
+    name: raw.workflow_id || raw.title || String(raw.id),
+    state,
+    stateRaw: raw.status,
+    number: raw.index_in_repo === undefined ? undefined : String(raw.index_in_repo),
+    eventRaw: raw.trigger_event || raw.event,
+    branch: actionBranch(raw),
+    sha: raw.commit_sha || undefined,
+    url: raw.html_url || undefined,
+    actor: toActor({ forge: repo.forge, instance: repo.instance }, raw.trigger_user),
+    createdAt: toDate(raw.created),
+    startedAt: actionTime(raw.started),
+    completedAt: state === 'pending' ? undefined : actionTime(raw.stopped),
+    raw,
+  }
+}
+
+export function toActionJob(run: CiRunRef, raw: ForgejoActionRunJob): CiJob {
+  return {
+    ref: { forge: run.forge, instance: run.instance, repo: run.repo, id: String(raw.id), run },
+    name: raw.name,
+    state: actionState(raw.status),
+    stateRaw: raw.status,
+    url: raw.html_url || undefined,
+    raw,
+  }
 }
 
 export function toRelease(repo: RepoRef, raw: ForgejoRelease): Release {

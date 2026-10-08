@@ -1,0 +1,57 @@
+{
+  "baseUrl": "https://code.forgejo.org/api/v1",
+  "repo": {
+    "forge": "forgejo",
+    "instance": "code.forgejo.org",
+    "owner": "forgejo",
+    "name": "runner"
+  },
+  "pull": {
+    "forge": "forgejo",
+    "instance": "code.forgejo.org",
+    "repo": {
+      "forge": "forgejo",
+      "instance": "code.forgejo.org",
+      "owner": "forgejo",
+      "name": "runner"
+    },
+    "kind": "pull_request",
+    "number": "1765"
+  },
+  "recordedAt": "2026-10-08T14:52:14.318Z",
+  "steps": [
+    "repo",
+    "labels",
+    "milestones",
+    "pull",
+    "pull list",
+    "pull getMany",
+    "pull events",
+    "pull comments",
+    "pull reactions",
+    "pull reviews",
+    "pull checks",
+    "pull files",
+    "pull commits",
+    "user",
+    "checks",
+    "ci runs",
+    "ci run",
+    "ci jobs",
+    "readme",
+    "tree",
+    "branches",
+    "tags",
+    "resolve default branch",
+    "commits",
+    "commit",
+    "compare",
+    "releases",
+    "latest release",
+    "release",
+    "release by tag",
+    "search threads",
+    "search repos"
+  ],
+  "instanceVersion": "17.0.0-dev-555-733016624c+gitea-1.22.0"
+}

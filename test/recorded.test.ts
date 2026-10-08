@@ -45,7 +45,7 @@ type Create = (fetch: FetchLike, manifest: Manifest, messages?: unknown[]) => Fo
 const auth = { type: 'token', token: 't' } as const
 const providers: Array<{ name: string, create: Create }> = [
   { name: 'github', create: (fetch, { baseUrl }) => github({ auth, baseUrl, fetch }).create() },
-  { name: 'forgejo', create: (fetch, { baseUrl }) => forgejo({ auth, baseUrl, fetch }).create() },
+  { name: 'forgejo', create: (fetch, { baseUrl, instanceVersion }) => forgejo({ auth, baseUrl, instanceVersion, fetch }).create() },
   { name: 'gitea', create: (fetch, { baseUrl }) => gitea({ auth, baseUrl, fetch }).create() },
   { name: 'gitlab', create: (fetch, { baseUrl }) => gitlab({ auth, baseUrl, fetch }).create() },
   { name: 'bitbucket', create: (fetch, { baseUrl }) => bitbucket({ auth, baseUrl, fetch }).create() },

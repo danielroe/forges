@@ -1,0 +1,28 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://code.forgejo.org/api/v1/users/viceice-bot"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "id": 163,
+      "login": "viceice-bot",
+      "source_id": 0,
+      "full_name": "",
+      "email": "redacted@example.invalid",
+      "avatar_url": "https://code.forgejo.org/avatars/75f41dd71d2dc37a9932ce7c713016d30823076e66b85f6e3a8a8c0a68fc979b",
+      "html_url": "https://code.forgejo.org/viceice-bot",
+      "active": false,
+      "location": "",
+      "pronouns": "",
+      "website": "",
+      "description": "I'm a bot from @viceice",
+      "followers_count": 2,
+      "following_count": 1,
+      "starred_repos_count": 2,
+      "username": "viceice-bot"
+    }
+  }
+}

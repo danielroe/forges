@@ -48,9 +48,12 @@ These sections of the Forgejo page apply to Gitea:
 - [Marking notifications done](/providers/forgejo#marking-notifications-done)
 - [Merging](/providers/forgejo#merging)
 - [Reviews](/providers/forgejo#reviews)
-- [Checks and CI](/providers/forgejo#checks-and-ci)
 - [Changed files](/providers/forgejo#changed-files)
 - [Search](/providers/forgejo#search)
+
+## Checks and CI
+
+`checks.list()` reads commit statuses, and `checks.report()` writes them. Gitea Actions has an API too, but its runs and jobs come in other shapes than Forgejo's, so the `ci` methods are unavailable for now.
 
 ## Webhooks
 

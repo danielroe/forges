@@ -5,6 +5,8 @@ import type { ForgeProvider, ForgeVerb } from '../../src/provider.ts'
 export interface RecordingManifest {
   /** The provider's API base when recorded; absent for recordings of the default instance. */
   baseUrl?: string
+  /** The instance version, for a recording whose capabilities depend on it. */
+  instanceVersion?: string
   repo: RepoRef
   pull?: ThreadRef
   issue?: ThreadRef
