@@ -9,7 +9,7 @@ const features = [
   {
     icon: 'i-lucide-list-checks',
     title: 'declared capabilities',
-    description: 'Every provider declares what its forge supports, and CI checks the claims against the tests. Ask provider.can() before you call an operation.',
+    description: 'Every provider declares what its forge supports, and we check those claims against the tests on every commit to forges. Ask provider.can() before you call an operation.',
     to: '/concepts/capabilities',
   },
   {

@@ -79,7 +79,7 @@ const kindLabels = ['issue', 'PR', 'discussion', 'commit']
             class="text-primary hover:underline"
           >
             Capabilities
-          </NuxtLink> for how CI checks each level.
+          </NuxtLink> for what each level means and how we check it.
         </dd>
       </dl>
     </details>
