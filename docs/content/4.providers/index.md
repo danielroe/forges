@@ -2,6 +2,7 @@
 title: Providers
 navigation:
   title: Overview
+  exact: true
 description: Every supported forge, with its import path and factories.
 icon: i-lucide-server
 ---

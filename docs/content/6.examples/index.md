@@ -2,6 +2,7 @@
 title: Examples
 navigation:
   title: Overview
+  exact: true
 description: Small, tested projects that use forges.
 icon: i-lucide-boxes
 ---
