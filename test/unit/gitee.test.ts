@@ -22,6 +22,21 @@ describe('gitee', () => {
     expect(toCommit(repo, { sha: 'c', parents: { sha: 'a' } }).parents).toEqual(['a'])
   })
 
+  it('searches repositories by best match unless a sort Gitee supports is asked for', async () => {
+    const urls: string[] = []
+    const forge = gitee({ fetch: async (url) => {
+      urls.push(url)
+      return Response.json([])
+    } }).create()
+
+    await forge.search.reposPage({ text: 'widgets' })
+    const created = await forge.search.reposPage({ text: 'widgets', sort: 'created' })
+    await forge.search.reposPage({ text: 'widgets', sort: 'stars' })
+
+    expect(urls.map(url => new URL(url).searchParams.get('sort'))).toEqual([null, null, 'stars_count'])
+    expect(created.warnings).toContainEqual(expect.objectContaining({ code: 'sort_unsupported' }))
+  })
+
   it('sends the token in the Authorization header, never the URL', async () => {
     const { fetch, calls } = fixtureFetch('gitee')
     await gitee({ auth: { type: 'token', token: 'gitee-token' }, fetch }).create().repos.get(repo)

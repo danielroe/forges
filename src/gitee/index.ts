@@ -212,10 +212,11 @@ function setupGitee({ instance, origin: context, fetcher, baseUrl }: ProviderCon
       q: query.text ?? '',
       owner: query.owner,
       language: query.language,
-      sort: query.sort === 'stars' ? 'stars_count' : query.sort === 'updated' ? 'last_push_at' : 'created_at',
+      sort: query.sort === 'stars' ? 'stars_count' : query.sort === 'updated' ? 'last_push_at' : undefined,
       order: query.direction ?? 'desc',
     }, { perPage: query.perPage, cursor: query.cursor, signal: query.signal })
-    return { items: page.items.map(raw => toRepo(instance, raw)), cursor: page.cursor }
+    const warnings = query.sort === 'created' && !query.cursor ? [{ code: 'sort_unsupported', message: 'Gitee has no repository search by creation time; sorted by best match' }] : undefined
+    return { items: page.items.map(raw => toRepo(instance, raw)), cursor: page.cursor, warnings }
   }
 
   async function commentsPage(thread: ThreadRef, listOptions: ListOptions = {}): Promise<Page<Comment>> {
