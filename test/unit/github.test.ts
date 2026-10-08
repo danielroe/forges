@@ -5,7 +5,7 @@ import { describe, expect, it, vi } from 'vitest'
 import { ContentNotTextError, ForbiddenError, InsufficientScopeError, UnresolvedThreadError, UnsupportedOperationError } from '../../src/errors.ts'
 import { graphqlUrl } from '../../src/github/graphql-client.ts'
 import { github } from '../../src/github/index.ts'
-import { toEvent, toNotification, toReason } from '../../src/github/normalise.ts'
+import { toEvent, toNotification, toReason, toRepo } from '../../src/github/normalise.ts'
 import { notificationThread } from '../../src/model.ts'
 import { fixtureFetch } from '../utils/fixtures.ts'
 
@@ -233,6 +233,51 @@ describe('github discussions', () => {
     await provider.threads.close({ forge: 'github', instance: 'github.com', repo, kind: 'issue', number: '7' }, { reason: 'not_planned' })
 
     expect(requests).toEqual([{ method: 'PATCH', url: 'https://api.github.com/repos/acme/widgets/issues/7', body: { state: 'closed', state_reason: 'not_planned' } }])
+  })
+
+  describe('setMilestone', () => {
+    const issue = { forge: 'github', instance: 'github.com', repo, kind: 'issue', number: '7' } as const
+
+    function milestoneProvider() {
+      const requests: Array<{ method?: string, url: string, body?: unknown }> = []
+      const provider = github({
+        auth: { type: 'token', token: 't' },
+        fetch: async (url, init) => {
+          requests.push({ method: init?.method, url, body: init?.body && JSON.parse(String(init.body)) })
+          return url.includes('/milestones')
+            ? Response.json([{ number: 3, title: 'v1.0', state: 'closed' }, { number: 4, title: 'v2.0', state: 'open' }])
+            : new Response(null, { status: 204 })
+        },
+      }).create()
+      return { provider, requests }
+    }
+
+    it('sends a numeric id as it is', async () => {
+      const { provider, requests } = milestoneProvider()
+
+      await provider.threads.setMilestone(issue, '3')
+
+      expect(requests).toEqual([{ method: 'PATCH', url: 'https://api.github.com/repos/acme/widgets/issues/7', body: { milestone: 3 } }])
+    })
+
+    it('looks a title up among open and closed milestones', async () => {
+      const { provider, requests } = milestoneProvider()
+
+      await provider.threads.setMilestone(issue, 'v2.0')
+
+      expect(requests.map(request => request.url)).toEqual([
+        'https://api.github.com/repos/acme/widgets/milestones?state=all',
+        'https://api.github.com/repos/acme/widgets/issues/7',
+      ])
+      expect(requests.at(-1)!.body).toEqual({ milestone: 4 })
+    })
+
+    it('refuses a title no milestone has instead of clearing the milestone', async () => {
+      const { provider, requests } = milestoneProvider()
+
+      await expect(provider.threads.setMilestone(issue, 'v3.0')).rejects.toThrow('No milestone titled v3.0')
+      expect(requests.filter(request => request.method === 'PATCH')).toEqual([])
+    })
   })
 
   it('refuses to close a commit', async () => {
@@ -470,6 +515,16 @@ describe('github checks and CI', () => {
     expect(jobs.map(job => job.state)).toEqual(['success', 'failure'])
     expect(jobs[1]!.ref.run?.id).toBe('77')
     expect(log).toContain('lint failed')
+  })
+})
+
+describe('github repositories', () => {
+  it('leaves out a licence GitHub could not identify', () => {
+    const repo = toRepo('github.com', { name: 'widgets', full_name: 'acme/widgets', license: { spdx_id: 'NOASSERTION' }, homepage: '', stargazers_count: 3 })
+
+    expect(repo).toMatchObject({ stars: 3 })
+    expect(repo.licence).toBeUndefined()
+    expect(repo.homepage).toBeUndefined()
   })
 })
 

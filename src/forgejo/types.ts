@@ -42,6 +42,13 @@ export interface ForgejoRepositoryDetail extends ForgejoRepository {
   has_projects?: boolean
   has_releases?: boolean
   has_pull_requests?: boolean
+  language?: string
+  website?: string
+  /** SPDX identifiers, on Gitea 1.23 and later. */
+  licenses?: string[] | null
+  stars_count?: number
+  forks_count?: number
+  watchers_count?: number
 }
 
 export interface ForgejoLabel {

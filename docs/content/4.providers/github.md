@@ -42,6 +42,8 @@ For app auth, `privateKey` is the app's PEM key, in PKCS#1 or PKCS#8 format. Wit
 
 Without `auth`, the provider makes anonymous public reads. GitHub serves job logs only to authenticated requests, so `ci.log` is unsupported without `auth`.
 
+`users.me()` needs a token. An app installation token belongs to no account, so the capability tables below, which assume app auth, show it as unsupported.
+
 ## GitHub Enterprise Server
 
 Set `baseUrl` to the API root of the server. The `instance` in every ref is the server's host:
@@ -96,6 +98,14 @@ GitHub gives search a lower rate limit than the rest of the API. Commit search h
 
 Repository search can't sort by creation time. A request for that sort order returns results by relevance, with a `sort_unsupported` warning.
 
+Without a `kind`, `search.threads()` uses GitHub's advanced search to return issues and pull requests in one sorted list. `text` and `queryRaw` are each wrapped in parentheses, so an `OR` in either one stays inside it. Parentheses and an unclosed `"` in `text` are ignored, as GitHub's legacy search ignores them. On GitHub Enterprise Server, or with a GitHub App user access token (`ghu_`), it searches issues and then pull requests instead, so results are sorted within each kind only.
+
+`queryRaw` is added to the search query as is, so it accepts any [GitHub search qualifier](https://docs.github.com/search-github/searching-on-github):
+
+```ts
+const page = await gh.search.threadsPage({ kind: 'pull_request', queryRaw: 'review-requested:@me' })
+```
+
 ## Webhook management
 
 GitHub responds with `404` on its webhook endpoints when the credential lacks `admin:repo_hook` or `admin:org_hook`. The provider raises this response as `ForbiddenError` with `reason: 'resource_protected'`.
@@ -148,6 +158,7 @@ To record different targets, set `FIXTURE_GITHUB_REPO`, `FIXTURE_GITHUB_PULL`, `
 | `sources.subscribe` | ❌ |
 | `repos.get` | ✅ |
 | `users.get` | ✅ |
+| `users.me` | ❌ |
 | `repos.list` | ✅ |
 | `repos.labels` | ✅ |
 | `repos.createLabel` | experimental |

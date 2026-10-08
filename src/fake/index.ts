@@ -603,6 +603,9 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
     }),
     setup: () => ({
       traits: { poll: pollSupport, eventKinds: 'native', authKinds: ['token'] },
+      users: {
+        me: verb(support('users.me', true), async () => ({ ...actor(viewerLogin), raw: undefined })),
+      },
       repos: {
         get: verb(support('repos.get', true), async repo => repoState(repo).repo),
         listPage: verb(support('repos.list', true), async (listOptions: ListOptions = {}) => pageOf([...store.repos.values()].map(state => state.repo), listOptions)),
@@ -651,7 +654,7 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
           const items = [...repoState(repo).threads.values()]
             .map(entry => entry.thread)
             .filter(thread => (!query.kind || thread.kind === query.kind)
-              && (state === 'all' || (state === 'open' ? thread.state === 'open' : thread.state !== 'open'))
+              && (state === 'all' || (state === 'open' ? thread.state === 'open' : state === 'merged' ? thread.state === 'merged' : thread.state !== 'open'))
               && (!query.labels?.length || query.labels.every(name => thread.labels.some(item => item.name === name)))
               && (!query.author || thread.author?.login === query.author)
               && (!query.assignee || thread.assignees.some(item => item.login === query.assignee)))

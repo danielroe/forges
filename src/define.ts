@@ -1,5 +1,5 @@
 import type { Fetcher, FetcherOptions } from './fetch.ts'
-import type { ApproveAndMergeOptions, Check, Comment, ForgeEventInput, ForgeInstance, ForgeKind, Installation, ListOptions, MergeOptions, Notification, NotificationListOptions, Page, RepoRef, SecurityAlertKind, SecurityAlertListOptions, TextLimits, ThreadKind, ThreadRef, UpsertCommentInput, UpsertCommentResult, WebhookEventType } from './model.ts'
+import type { ApproveAndMergeOptions, Check, Comment, Cursor, ForgeEventInput, ForgeInstance, ForgeKind, Installation, ListOptions, MergeOptions, Notification, NotificationListOptions, Page, RepoRef, SecurityAlertKind, SecurityAlertListOptions, TextLimits, ThreadKind, ThreadQuery, ThreadRef, UpsertCommentInput, UpsertCommentResult, WebhookEventType } from './model.ts'
 import type {
   AuthKind,
   ChecksApi,
@@ -104,8 +104,8 @@ export interface ProviderSpec {
     assignableUsersPage?: Verb<ReposApi['assignableUsersPage']>
     reviewerCandidatesPage?: Verb<ReposApi['reviewerCandidatesPage']>
   }
-  /** Omit when the forge cannot read an account by login. */
-  users?: { get: Verb<UsersApi['get']> }
+  /** `get` is omitted when the forge cannot read an account by login. */
+  users?: { get?: Verb<UsersApi['get']>, me?: Verb<UsersApi['me']> }
   threads: {
     get: ThreadVerb<'get'>
     listPage: ThreadVerb<'listPage'>
@@ -195,6 +195,8 @@ export interface ProviderSpec {
     reposPage?: Verb<SearchApi['reposPage']>
     /** The implementation of `provider.search.commits()` and `provider.search.commitsPage()`. */
     commitsPage?: Verb<SearchApi['commitsPage']>
+    /** The searches pass `queryRaw` on; without this, core drops it with a warning. */
+    queryRaw?: boolean
   }
   releases?: {
     /** The implementation of `provider.releases.list()` and `provider.releases.listPage()`. */
@@ -351,6 +353,27 @@ function instanceHost(baseUrl: string, kind: ForgeKind): string {
   }
 }
 
+/** Most reads spent looking for a first item when a provider's filtering empties a page. */
+const MAX_EMPTY_READS = 10
+
+/**
+ * Providers that cannot filter on the forge's side drop items from each page
+ * they read, so a page can come back empty with a `cursor`. Reads on until the
+ * page has an item, the listing ends or `MAX_EMPTY_READS` reads are spent.
+ */
+async function nonEmptyPage<T>(read: (cursor: Cursor | undefined) => Promise<Page<T>>, start: Cursor | undefined): Promise<Page<T>> {
+  let page = await read(start)
+  const warnings = page.warnings
+  for (let reads = 1; !page.items.length && page.cursor && !page.notModified && reads < MAX_EMPTY_READS; reads++) {
+    page = await read(page.cursor)
+  }
+  if (!warnings?.length || page.warnings === warnings) {
+    return page
+  }
+  const later = (page.warnings ?? []).filter(warning => !warnings.some(seen => seen.code === warning.code && seen.message === warning.message))
+  return { ...page, warnings: [...warnings, ...later] }
+}
+
 function createProvider<TOptions extends ForgeOptionsBase, TState>(
   definition: ProviderDefinition<TOptions, TState>,
   givenOptions: TOptions,
@@ -442,7 +465,26 @@ function createProvider<TOptions extends ForgeOptionsBase, TState>(
   const declaredInstallations = spec.installations
   const installationsSupported = () => Boolean(declaredInstallations && resolve(declaredInstallations.support, env))
 
+  const listThreads = kindGate('threads.listPage', spec.threads.listPage.kinds, spec.threads.listPage.run)
+  const native = spec.search?.queryRaw
+  const search = (name: 'threadsPage' | 'reposPage' | 'commitsPage') => {
+    const run = gate(`search.${name}`, spec.search?.[name]?.support, spec.search?.[name]?.run)
+    return async ({ queryRaw, ...query }: { queryRaw?: string, cursor?: unknown } = {}) => {
+      const page = await run(native ? { queryRaw, ...query } : query) as Page<unknown>
+      return !queryRaw || native || query.cursor ? page : { ...page, warnings: [{ code: 'filter_unsupported', message: 'This search has no query syntax; queryRaw was ignored' }, ...page.warnings ?? []] }
+    }
+  }
   const special: Record<string, unknown> = {
+    'search.threadsPage': search('threadsPage'),
+    'search.reposPage': search('reposPage'),
+    'search.commitsPage': search('commitsPage'),
+    'threads.listPage': async (repo: RepoRef, query: ThreadQuery = {}) => {
+      if (query.state === 'merged' && query.kind && query.kind !== 'pull_request') {
+        return { items: [] }
+      }
+      const run = (cursor: Cursor | undefined) => listThreads(repo, { ...query, ...query.state === 'merged' ? { kind: 'pull_request' } : {}, cursor })
+      return nonEmptyPage(run, query.cursor)
+    },
     'threads.eventsPage': async (ref: ThreadRef, listOptions?: ListOptions) => {
       const page = await gate('threads.eventsPage', spec.threads.eventsPage.support, spec.threads.eventsPage.run)(ref, listOptions) as Page<ForgeEventInput>
       return { ...page, items: page.items.map(completeEvent) }

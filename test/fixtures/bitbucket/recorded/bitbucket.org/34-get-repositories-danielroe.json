@@ -1,0 +1,18 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.bitbucket.org/2.0/repositories/danielroe?q=name+%7E+%22neeview%22&sort=-updated_on&role=member&pagelen=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "\"948d3911a7b8e77678f49cbeb18e9b35\""
+    },
+    "body": {
+      "values": [],
+      "pagelen": 3,
+      "size": 0,
+      "page": 1
+    }
+  }
+}

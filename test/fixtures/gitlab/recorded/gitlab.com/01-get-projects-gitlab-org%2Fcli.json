@@ -6,9 +6,9 @@
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"ebcd2ec2dd09c20bdbeffb59036ec007\"",
+      "etag": "W/\"2de002542d1cdd829258330c5ed3f385\"",
       "ratelimit-remaining": "1999",
-      "ratelimit-reset": "1790944320"
+      "ratelimit-reset": "1791375060"
     },
     "body": {
       "id": 34675721,
@@ -25,10 +25,10 @@
       "http_url_to_repo": "https://gitlab.com/gitlab-org/cli.git",
       "web_url": "https://gitlab.com/gitlab-org/cli",
       "readme_url": "https://gitlab.com/gitlab-org/cli/-/blob/main/README.md",
-      "forks_count": 478,
-      "avatar_url": "https://gitlab.com/uploads/-/system/project/avatar/34675721/cli-logo.png?v=1790941379",
-      "star_count": 1101,
-      "last_activity_at": "2026-10-02T11:42:59.221Z",
+      "forks_count": 481,
+      "avatar_url": "https://gitlab.com/uploads/-/system/project/avatar/34675721/cli-logo.png?v=1791368294",
+      "star_count": 1103,
+      "last_activity_at": "2026-10-07T10:18:14.336Z",
       "visibility": "public",
       "namespace": {
         "id": 9970,
@@ -101,12 +101,19 @@
       "lfs_enabled": false,
       "creator_id": 40375,
       "import_status": "finished",
-      "open_issues_count": 254,
+      "open_issues_count": 263,
       "description_html": "<p data-sourcepos=\"1:1-1:54\" dir=\"auto\">A GitLab CLI tool bringing GitLab to your command line</p>",
-      "updated_at": "2026-10-02T11:42:59.221Z",
+      "updated_at": "2026-10-07T10:18:14.336Z",
       "ci_config_path": "",
       "public_jobs": true,
       "shared_with_groups": [
+        {
+          "group_id": 129386042,
+          "group_name": "team",
+          "group_full_path": "gitlab-org/orbit/team",
+          "group_access_level": 30,
+          "expires_at": null
+        },
         {
           "group_id": 1356356,
           "group_name": "GitLab docs team",

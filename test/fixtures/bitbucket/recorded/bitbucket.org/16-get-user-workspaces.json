@@ -1,0 +1,36 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.bitbucket.org/2.0/user/workspaces?pagelen=100"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "\"6f045ce053ba30a2f381f767b9756f05\""
+    },
+    "body": {
+      "values": [
+        {
+          "type": "workspace_access",
+          "administrator": true,
+          "workspace": {
+            "type": "workspace_base",
+            "uuid": "{d980eb54-27c4-4887-bb4f-785d5f485d1c}",
+            "slug": "danielroe",
+            "links": {
+              "avatar": {
+                "href": "https://bitbucket.org/workspaces/danielroe/avatar/"
+              },
+              "self": {
+                "href": "https://api.bitbucket.org/2.0/workspaces/danielroe"
+              }
+            }
+          }
+        }
+      ],
+      "pagelen": 100,
+      "size": 1,
+      "page": 1
+    }
+  }
+}

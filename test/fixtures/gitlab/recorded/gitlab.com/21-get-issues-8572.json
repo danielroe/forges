@@ -6,9 +6,9 @@
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"0c15e395c57a8a98c76aa36c3fc012bc\"",
+      "etag": "W/\"23557e43349f5e583f9a2718624c61a7\"",
       "ratelimit-remaining": "1979",
-      "ratelimit-reset": "1790944320"
+      "ratelimit-reset": "1791375060"
     },
     "body": {
       "id": 205066734,
@@ -18,7 +18,7 @@
       "description": "### Problem to solve\n\nRight now you can do the basic CRUD operations on milestones, but you can not close them.\n\n### Proposal\n\nAdd a new flag: `glab milestone edit XXX --close` that would close the given milestone.\n\n### Further details\n\nOur milestones work on a time based, so whenever the period finishes, we create new milestones, move open work items to the these new milestones and finally we close the old milestones.\n\nSo far we can do all of it but the last part, closing milestones.\n\n### Links / references",
       "state": "closed",
       "created_at": "2026-10-01T08:48:06.066Z",
-      "updated_at": "2026-10-01T09:05:17.148Z",
+      "updated_at": "2026-10-06T11:38:09.546Z",
       "closed_at": "2026-10-01T09:05:16.165Z",
       "closed_by": {
         "id": 2935693,
@@ -27,7 +27,7 @@
         "name": "Kai Armstrong",
         "state": "active",
         "locked": false,
-        "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/2935693/avatar.png?v=1790942869",
+        "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/2935693/avatar.png?v=1791372023",
         "web_url": "https://gitlab.com/phikai"
       },
       "labels": [
@@ -43,12 +43,12 @@
         "name": "Gil Forcada Codinachs",
         "state": "active",
         "locked": false,
-        "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/163582/avatar.png?v=1790919325",
+        "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/163582/avatar.png?v=1791340807",
         "web_url": "https://gitlab.com/gforcada"
       },
       "type": "ISSUE",
       "assignee": null,
-      "user_notes_count": 1,
+      "user_notes_count": 2,
       "merge_requests_count": 0,
       "upvotes": 0,
       "downvotes": 0,

@@ -1,0 +1,318 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitea.com/api/v1/repos/gitea/tea/commits?limit=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "<https://gitea.com/api/v1/repos/gitea/tea/commits?limit=3&page=2>; rel=\"next\",<https://gitea.com/api/v1/repos/gitea/tea/commits?limit=3&page=210>; rel=\"last\"",
+      "x-total": "628",
+      "x-page": "1"
+    },
+    "body": [
+      {
+        "url": "https://gitea.com/api/v1/repos/gitea/tea/git/commits/bcd62a1fb2ce6fdd51ebea91cc33ddbcae000b68",
+        "sha": "bcd62a1fb2ce6fdd51ebea91cc33ddbcae000b68",
+        "created": "2026-10-01T19:58:41Z",
+        "html_url": "https://gitea.com/gitea/tea/commit/bcd62a1fb2ce6fdd51ebea91cc33ddbcae000b68",
+        "commit": {
+          "url": "https://gitea.com/api/v1/repos/gitea/tea/git/commits/bcd62a1fb2ce6fdd51ebea91cc33ddbcae000b68",
+          "author": {
+            "name": "Lunny Xiao",
+            "email": "redacted@example.invalid",
+            "date": "2026-10-01T19:58:41Z"
+          },
+          "committer": {
+            "name": "bircni",
+            "email": "redacted@example.invalid",
+            "date": "2026-10-01T19:58:41Z"
+          },
+          "message": "fix(login): avoid SSH passphrase prompt with ssh-agent logins (#1102)\n\nFixes #866\n\n## Problem\n\n`tea` still prompts for an SSH key passphrase for logins created with\n`--ssh-agent-key` or `--ssh-agent-principal`. During `tea login add`, tea\nauto-discovers a matching private key in `~/.ssh` even when the login is\nconfigured to use the running ssh-agent. That on-disk key is stored in\n`ssh_key`, so later `Login.Client()` asks for its passphrase and tells the SDK\nto load the file from disk instead of signing through the agent.\n\n## Changes\n\n- Stop auto-discovering a private key when the login uses the ssh-agent.\n- Add `Login.SSHKeyPath()` and use it for HTTPSign and git auth, so agent\n  logins pass an empty key path and the SDK talks to `ssh-agent`.\n- Prefer SSH remotes for agent logins, matching key-file logins.\n- Add unit tests for the new key-path and auto-discovery behavior.\n\n## Testing\n\n- `go test ./modules/config ./modules/task ./modules/git`\n- `go build ./...`\n\n---------\n\nCo-authored-by: bircni <redacted@example.invalid>\nReviewed-on: https://gitea.com/gitea/tea/pulls/1102\nReviewed-by: bircni <redacted@example.invalid>\nCo-authored-by: Lunny Xiao <redacted@example.invalid>\n",
+          "tree": {
+            "url": "https://gitea.com/api/v1/repos/gitea/tea/git/trees/0c539a5c8cce2ddb0d3fbbaf75c655ea96d999f2",
+            "sha": "0c539a5c8cce2ddb0d3fbbaf75c655ea96d999f2",
+            "created": "2026-10-01T19:58:41Z"
+          },
+          "verification": {
+            "verified": false,
+            "reason": "gpg.error.not_signed_commit",
+            "signature": "",
+            "signer": null,
+            "payload": ""
+          }
+        },
+        "author": {
+          "id": 1,
+          "login": "lunny",
+          "type": "User",
+          "source_id": 0,
+          "full_name": "Lunny Xiao",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://seccdn.libravatar.org/avatar/b897d40dc87fdba4a024827c3967597434681a8f4f0f4eb5d73e0f8b1a0a9274?d=identicon",
+          "html_url": "https://gitea.com/lunny",
+          "active": false,
+          "location": "Silicon Valley",
+          "website": "https://gitea.com",
+          "description": "",
+          "followers_count": 114,
+          "following_count": 95,
+          "starred_repos_count": 366,
+          "username": "lunny"
+        },
+        "committer": {
+          "id": 173651,
+          "login": "bircni",
+          "type": "User",
+          "source_id": 0,
+          "full_name": "bircni",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://seccdn.libravatar.org/avatar/345fd80f2a069177c27dd0de27c99672940cce0923fca8de847119c573aab745?d=identicon",
+          "html_url": "https://gitea.com/bircni",
+          "active": false,
+          "location": "",
+          "website": "",
+          "description": "",
+          "followers_count": 0,
+          "following_count": 2,
+          "starred_repos_count": 2,
+          "username": "bircni"
+        },
+        "parents": [
+          {
+            "url": "https://gitea.com/api/v1/repos/gitea/tea/git/commits/6daaa7c05e7883d4468fc7b40c2f71e0ea75562a",
+            "sha": "6daaa7c05e7883d4468fc7b40c2f71e0ea75562a",
+            "created": "0001-01-01T00:00:00Z"
+          }
+        ],
+        "files": [
+          {
+            "filename": "modules/config/login.go",
+            "status": "modified"
+          },
+          {
+            "filename": "modules/config/login_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "modules/task/login_create.go",
+            "status": "modified"
+          },
+          {
+            "filename": "modules/task/login_create_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "modules/task/pull_checkout.go",
+            "status": "modified"
+          },
+          {
+            "filename": "modules/task/pull_clean.go",
+            "status": "modified"
+          },
+          {
+            "filename": "modules/task/pull_create.go",
+            "status": "modified"
+          },
+          {
+            "filename": "modules/task/repo_clone.go",
+            "status": "modified"
+          }
+        ],
+        "stats": {
+          "total": 103,
+          "additions": 90,
+          "deletions": 13
+        }
+      },
+      {
+        "url": "https://gitea.com/api/v1/repos/gitea/tea/git/commits/6daaa7c05e7883d4468fc7b40c2f71e0ea75562a",
+        "sha": "6daaa7c05e7883d4468fc7b40c2f71e0ea75562a",
+        "created": "2026-09-30T17:48:18Z",
+        "html_url": "https://gitea.com/gitea/tea/commit/6daaa7c05e7883d4468fc7b40c2f71e0ea75562a",
+        "commit": {
+          "url": "https://gitea.com/api/v1/repos/gitea/tea/git/commits/6daaa7c05e7883d4468fc7b40c2f71e0ea75562a",
+          "author": {
+            "name": "Lunny Xiao",
+            "email": "redacted@example.invalid",
+            "date": "2026-09-30T17:48:18Z"
+          },
+          "committer": {
+            "name": "Lunny Xiao",
+            "email": "redacted@example.invalid",
+            "date": "2026-09-30T17:48:18Z"
+          },
+          "message": "Fix locale-dependent git repo detection (#1099)\n\nFixes #1089\n\n## Root cause\n`tea clone` initializes the command context by probing the current directory with `git rev-parse --show-toplevel`. `classifyRepoError` recognizes the \"not a git repository\" case by matching the English stderr text. When git emits localized errors (for example with `LANG=de_DE.UTF-8`), that match fails, and the otherwise harmless \"no repo here\" error is returned as fatal before cloning.\n\n## Fix\nPin the locale of git subprocesses to `C` by overriding `LC_ALL`, `LANG`, and `LANGUAGE` in `runGitCommand`. This keeps all git output stable for parsing while leaving the parent process locale untouched.\n\n## Tests\nAdded a regression test using a fake git executable that emits a German \"not a repository\" error unless the locale is forced to `C`, and verifies `ErrRepositoryNotExists` is returned.\n\nReviewed-on: https://gitea.com/gitea/tea/pulls/1099\nReviewed-by: Zettat123 <redacted@example.invalid>\n",
+          "tree": {
+            "url": "https://gitea.com/api/v1/repos/gitea/tea/git/trees/aa2df782d55bceabf2e37d323166325fb051bfb0",
+            "sha": "aa2df782d55bceabf2e37d323166325fb051bfb0",
+            "created": "2026-09-30T17:48:18Z"
+          },
+          "verification": {
+            "verified": false,
+            "reason": "gpg.error.not_signed_commit",
+            "signature": "",
+            "signer": null,
+            "payload": ""
+          }
+        },
+        "author": {
+          "id": 1,
+          "login": "lunny",
+          "type": "User",
+          "source_id": 0,
+          "full_name": "Lunny Xiao",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://seccdn.libravatar.org/avatar/b897d40dc87fdba4a024827c3967597434681a8f4f0f4eb5d73e0f8b1a0a9274?d=identicon",
+          "html_url": "https://gitea.com/lunny",
+          "active": false,
+          "location": "Silicon Valley",
+          "website": "https://gitea.com",
+          "description": "",
+          "followers_count": 114,
+          "following_count": 95,
+          "starred_repos_count": 366,
+          "username": "lunny"
+        },
+        "committer": {
+          "id": 1,
+          "login": "lunny",
+          "type": "User",
+          "source_id": 0,
+          "full_name": "Lunny Xiao",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://seccdn.libravatar.org/avatar/b897d40dc87fdba4a024827c3967597434681a8f4f0f4eb5d73e0f8b1a0a9274?d=identicon",
+          "html_url": "https://gitea.com/lunny",
+          "active": false,
+          "location": "Silicon Valley",
+          "website": "https://gitea.com",
+          "description": "",
+          "followers_count": 114,
+          "following_count": 95,
+          "starred_repos_count": 366,
+          "username": "lunny"
+        },
+        "parents": [
+          {
+            "url": "https://gitea.com/api/v1/repos/gitea/tea/git/commits/9c12138d6273ba8feb6e7578833cc330c0cd6461",
+            "sha": "9c12138d6273ba8feb6e7578833cc330c0cd6461",
+            "created": "0001-01-01T00:00:00Z"
+          }
+        ],
+        "files": [
+          {
+            "filename": "modules/git/cli_backend_test.go",
+            "status": "added"
+          },
+          {
+            "filename": "modules/git/cli_backend.go",
+            "status": "modified"
+          }
+        ],
+        "stats": {
+          "total": 57,
+          "additions": 56,
+          "deletions": 1
+        }
+      },
+      {
+        "url": "https://gitea.com/api/v1/repos/gitea/tea/git/commits/9c12138d6273ba8feb6e7578833cc330c0cd6461",
+        "sha": "9c12138d6273ba8feb6e7578833cc330c0cd6461",
+        "created": "2026-09-10T04:29:39Z",
+        "html_url": "https://gitea.com/gitea/tea/commit/9c12138d6273ba8feb6e7578833cc330c0cd6461",
+        "commit": {
+          "url": "https://gitea.com/api/v1/repos/gitea/tea/git/commits/9c12138d6273ba8feb6e7578833cc330c0cd6461",
+          "author": {
+            "name": "ongolk",
+            "email": "redacted@example.invalid",
+            "date": "2026-09-10T04:29:39Z"
+          },
+          "committer": {
+            "name": "Lunny Xiao",
+            "email": "redacted@example.invalid",
+            "date": "2026-09-10T04:29:39Z"
+          },
+          "message": "Make `tea issues create` honor `--output json` (#1114)\n\n## Problem\n\nFollow-up to #1111, covering the issues side of the same hole: `tea issues create` accepts `--output` (it parses through the urfave/cli v3 ancestor-flag cascade — `issues` carries the flag via `AllDefaultFlags`, `create` never declares it) but the action never reads it. Without this fix, `tea issues create --output json | jq .url` feeds jq a markdown document.\n\nThe default output is doubly hostile to consumers: glamour renders the details as markdown (with OSC 8 hyperlinks around the URL when piped), and a second bare `fmt.Println(issue.HTMLURL)` line follows it.\n\n## What this changes\n\n- `task.CreateIssue` now returns the created `*gitea.Issue` instead of printing it.\n- `runIssuesCreate` switches on `--output`, mirroring the detail-command precedent and the merged create-PR behavior from #1111: `--output json` emits compact lean JSON; any other value (or no flag) falls through to the previous rendering, byte-identical to before.\n- Lean JSON shape: `index`, `title`, `url`, `state` — matching `createdPullJSON` in `cmd/pulls/create.go`, including its post-review compact encoding.\n- The interactive path is untouched — it only triggers when zero flags are set, so `--output` can never be active there.\n\nExample:\n\n```\n$ tea issues create --output json --title \"bug: thing\" | jq -r .url\nhttps://gitea.example.com/owner/repo/issues/42\n```\n\nThere is no agit-flow equivalent on issues, so no extra guard is needed — unlike the pulls side, every creation path produces an `*gitea.Issue`.\n\n---------\n\nCo-authored-by: Danilo Sousa <redacted@example.invalid>\nReviewed-on: https://gitea.com/gitea/tea/pulls/1114\nReviewed-by: Lunny Xiao <redacted@example.invalid>\nCo-authored-by: ongolk <redacted@example.invalid>\n",
+          "tree": {
+            "url": "https://gitea.com/api/v1/repos/gitea/tea/git/trees/9aef378fedad0e977c82dbf1c98e88750b86a95e",
+            "sha": "9aef378fedad0e977c82dbf1c98e88750b86a95e",
+            "created": "2026-09-10T04:29:39Z"
+          },
+          "verification": {
+            "verified": false,
+            "reason": "gpg.error.not_signed_commit",
+            "signature": "",
+            "signer": null,
+            "payload": ""
+          }
+        },
+        "author": {
+          "id": 238961,
+          "login": "ongolk",
+          "type": "User",
+          "source_id": 0,
+          "full_name": "Danilo",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://gitea.com/avatars/bcf62ffea1913d84109a908a52d59504f020943568265ccb2627dc1e06ebe125",
+          "html_url": "https://gitea.com/ongolk",
+          "active": false,
+          "location": "",
+          "website": "https://danilo.ooo",
+          "description": "",
+          "followers_count": 0,
+          "following_count": 0,
+          "starred_repos_count": 0,
+          "username": "ongolk"
+        },
+        "committer": {
+          "id": 1,
+          "login": "lunny",
+          "type": "User",
+          "source_id": 0,
+          "full_name": "Lunny Xiao",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://seccdn.libravatar.org/avatar/b897d40dc87fdba4a024827c3967597434681a8f4f0f4eb5d73e0f8b1a0a9274?d=identicon",
+          "html_url": "https://gitea.com/lunny",
+          "active": false,
+          "location": "Silicon Valley",
+          "website": "https://gitea.com",
+          "description": "",
+          "followers_count": 114,
+          "following_count": 95,
+          "starred_repos_count": 366,
+          "username": "lunny"
+        },
+        "parents": [
+          {
+            "url": "https://gitea.com/api/v1/repos/gitea/tea/git/commits/4d09587d4cb53dd3d7becee4514118993b01f7e0",
+            "sha": "4d09587d4cb53dd3d7becee4514118993b01f7e0",
+            "created": "0001-01-01T00:00:00Z"
+          }
+        ],
+        "files": [
+          {
+            "filename": "cmd/issues/create_test.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/issues/create.go",
+            "status": "modified"
+          },
+          {
+            "filename": "modules/interact/issue_create.go",
+            "status": "modified"
+          },
+          {
+            "filename": "modules/task/issue_create.go",
+            "status": "modified"
+          }
+        ],
+        "stats": {
+          "total": 115,
+          "additions": 101,
+          "deletions": 14
+        }
+      }
+    ]
+  }
+}

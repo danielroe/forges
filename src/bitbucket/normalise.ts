@@ -7,8 +7,6 @@ import type {
   BitbucketCommitStatus,
   BitbucketDiffStat,
   BitbucketHook,
-  BitbucketIssue,
-  BitbucketIssueChange,
   BitbucketPullRequest,
   BitbucketRef,
   BitbucketRepository,
@@ -67,6 +65,9 @@ export function toRepo(instance: string, raw: BitbucketRepositoryDetail): Repo {
     cloneUrls: clone('https') || clone('ssh') ? { https: clone('https'), ssh: clone('ssh') } : undefined,
     createdAt: toDate(raw.created_on),
     updatedAt: toDate(raw.updated_on),
+    owner: toActor(instance, raw.owner),
+    language: raw.language || undefined,
+    homepage: raw.website || undefined,
     features: raw.has_issues === undefined
       ? undefined
       : { issues: raw.has_issues, pullRequests: true, discussions: false, wiki: raw.has_wiki ?? false, projects: false, releases: false },
@@ -82,24 +83,6 @@ export function toPullState(state: string): ThreadState {
       return 'merged'
     case 'DECLINED':
     case 'SUPERSEDED':
-      return 'closed'
-    default:
-      return 'unknown'
-  }
-}
-
-/** Issue tracker states; `new`, `open` and `on hold` are open, the rest are resolutions. */
-export function toIssueState(state: string): ThreadState {
-  switch (state) {
-    case 'new':
-    case 'open':
-    case 'on hold':
-      return 'open'
-    case 'resolved':
-    case 'invalid':
-    case 'duplicate':
-    case 'wontfix':
-    case 'closed':
       return 'closed'
     default:
       return 'unknown'
@@ -168,28 +151,6 @@ export function toPullThread(ref: ResolvedThreadRef, raw: BitbucketPullRequest):
     closedAt: raw.state === 'OPEN' ? undefined : toDate(raw.updated_on),
     labels: [],
     commentCount: raw.comment_count,
-    raw,
-  }
-}
-
-export function toIssueThread(ref: ResolvedThreadRef, raw: BitbucketIssue): Thread {
-  return {
-    ref: raw.repository?.uuid ? { ...ref, repo: { ...ref.repo, externalId: raw.repository.uuid } } : ref,
-    kind: 'issue',
-    title: raw.title,
-    body: raw.content?.raw,
-    state: toIssueState(raw.state),
-    stateRaw: raw.state,
-    stateReason: toIssueState(raw.state) === 'closed' ? raw.state : undefined,
-    isDraft: false,
-    assignees: raw.assignee ? [toActor(ref.instance, raw.assignee)!] : [],
-    reviewers: [],
-    lastActivityAt: toDate(raw.updated_on),
-    author: toActor(ref.instance, raw.reporter),
-    url: raw.links?.html?.href,
-    createdAt: toDate(raw.created_on),
-    updatedAt: toDate(raw.updated_on),
-    labels: raw.kind ? [{ name: raw.kind }] : [],
     raw,
   }
 }
@@ -276,14 +237,6 @@ export function toActivityEvent(thread: ResolvedThreadRef, entry: BitbucketActiv
     update?.date,
     entry,
   )
-}
-
-export function toIssueChangeEvent(thread: ResolvedThreadRef, change: BitbucketIssueChange): ForgeEventInput {
-  const state = change.changes?.state
-  const assignee = change.changes?.assignee
-  const kind: EventKind = state ? 'state_change' : assignee ? 'assignment' : change.changes?.kind ? 'label' : 'other'
-  const summary = state ? `changed state to ${state.new ?? 'unknown'}` : assignee ? 'changed the assignee' : 'updated the issue'
-  return event(thread, `change:${change.id}`, kind, `change.${Object.keys(change.changes ?? {}).join(',') || 'unknown'}`, toActor(thread.instance, change.user), summary, change.created_on, change)
 }
 
 export function toComment(thread: ThreadRef, raw: BitbucketComment): Comment {

@@ -1197,10 +1197,14 @@
         "properties": {
           "get": {
             "$ref": "#/components/schemas/Support"
+          },
+          "me": {
+            "$ref": "#/components/schemas/Support"
           }
         },
         "required": [
-          "get"
+          "get",
+          "me"
         ]
       },
       "threads": {
@@ -2465,6 +2469,9 @@
       "ref": {
         "$ref": "#/components/schemas/RepoRef"
       },
+      "displayName": {
+        "type": "string"
+      },
       "description": {
         "type": "string"
       },
@@ -2522,6 +2529,27 @@
         "type": "number"
       },
       "openPullCount": {
+        "type": "number"
+      },
+      "owner": {
+        "$ref": "#/components/schemas/Actor"
+      },
+      "language": {
+        "type": "string"
+      },
+      "homepage": {
+        "type": "string"
+      },
+      "licence": {
+        "type": "string"
+      },
+      "stars": {
+        "type": "number"
+      },
+      "forks": {
+        "type": "number"
+      },
+      "watchers": {
         "type": "number"
       },
       "permissions": {

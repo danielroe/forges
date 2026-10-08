@@ -20,8 +20,24 @@
       "ssh": "git@github.com:h3js/h3.git"
     },
     "createdAt": "2020-11-17T14:15:44.000Z",
-    "updatedAt": "2026-09-30T17:06:22.000Z",
-    "pushedAt": "2026-09-29T16:33:50.000Z",
+    "updatedAt": "<now>",
+    "pushedAt": "<now>",
+    "owner": {
+      "forge": "github",
+      "instance": "github.com",
+      "login": "h3js",
+      "id": "208435796",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/208435796?v=4",
+      "url": "https://github.com/h3js",
+      "typeRaw": "Organization",
+      "isBotHint": false
+    },
+    "language": "TypeScript",
+    "homepage": "https://h3.dev",
+    "licence": "MIT",
+    "stars": 5447,
+    "forks": 367,
+    "watchers": 17,
     "mergeMethods": [
       "merge",
       "squash",
@@ -63,17 +79,17 @@
     ],
     "cursor": {
       "nextUrl": "https://api.github.com/repositories/313641207/labels?per_page=3&page=2",
-      "etag": "W/\"b1c2106bb34735b57e34cabe18ef853b89882da2b4fcc81fdce96c98554f9cd0\""
+      "etag": "W/\"9ac431932a8934c18ad9850c539e5f4773dbb01014ff758039ef13bd5f02dbe5\""
     },
     "rateLimit": {
-      "remaining": 4811,
+      "remaining": 4988,
       "resetAt": "<now>"
     }
   },
   "milestones": {
     "items": [],
     "rateLimit": {
-      "remaining": 4810,
+      "remaining": 4987,
       "resetAt": "<now>"
     }
   },
@@ -123,7 +139,7 @@
       }
     ],
     "rateLimit": {
-      "remaining": 4794,
+      "remaining": 4971,
       "resetAt": "<now>"
     }
   },
@@ -161,7 +177,7 @@
       }
     ],
     "rateLimit": {
-      "remaining": 4808,
+      "remaining": 4985,
       "resetAt": "<now>"
     }
   },
@@ -258,37 +274,64 @@
             "name": "h3"
           },
           "kind": "pull_request",
-          "number": "1566",
-          "externalId": "PR_kwDOErHI988AAAABGC9Bdw"
+          "number": "1557",
+          "externalId": "PR_kwDOErHI988AAAABFO055g"
         },
         "kind": "pull_request",
-        "title": "fix(mime): add .mjs and .cjs to COMMON_MIME_TYPES",
-        "body": "`.mjs` (ES module) and `.cjs` (CommonJS module) files are absent from `COMMON_MIME_TYPES`. When `serveStatic` serves a `.mjs` file, `getType` returns `undefined` and no `Content-Type` header is set.\n\nBrowsers enforce strict MIME checking for `<script type=\"module\">` — a missing content-type causes a network error and the module fails to load entirely.\n\nThe fix adds both extensions mapped to `\"text/javascript\"`, consistent with `.js` and with [RFC 9239](https://www.rfc-editor.org/rfc/rfc9239).\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n\n## Summary by CodeRabbit\n\n* **Bug Fixes**\n  * `.mjs` and `.cjs` files are now identified as JavaScript files.\n\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
+        "title": "feat(rules): request conditions in rule keys (`GET:MD /path`)",
+        "body": "Route rule keys can now be scoped to a named request condition with `METHOD:NAME /path`. Conditions match request headers and are defined in `routeRules()` options.\n\n```ts\nimport { routeRules } from \"h3/rules\";\n\napp.use(\n  routeRules(\n    {\n      // GET /blog/hello with `Accept: text/markdown` → 307 /blog/hello.md\n      \"GET:MD /blog/**\": { redirect: \"/blog/**.md\" },\n      // Already Markdown: don't redirect again\n      \"GET:MD /blog/*.md\": { redirect: false },\n    },\n    {\n      conditions: {\n        MD: { headers: { accept: /\\btext\\/markdown\\b/ } },\n      },\n    },\n  ),\n);\n```\n\n- A request that satisfies a condition keeps every plain `GET` rule and gets the condition's rules on top. When several conditions are satisfied, all of them apply.\n- Header checks: `true` means present, `false` means absent, a string must match exactly, and a `RegExp` is tested against the value.\n- Rule sets without conditions do no extra work per request.\n- `cache` entries and memoized matches are kept separate per condition.\n- The compiler supports conditions: `compileRouteRules(config, { conditions })` exports `resolveRouteRulesMethod(event, method)` for the compiled matcher.\n\nAlso fixes a `preMerge` bug where a method-scoped rule on a shared route node (`GET /a/:id`) hid an agnostic rule (`/a/*`) for `GET /a`.\n\n🤖 Generated with AI assistant\n\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n## Summary by CodeRabbit\n\n- **New Features**\n  - Added named request conditions for route rules, matching requests by header presence, absence, exact values, or regular expressions.\n  - Requests now combine standard method rules with rules for satisfied conditions. GET conditions also apply to HEAD requests.\n  - Added validation for condition definitions and rule keys, including a limit of six conditions per method.\n  - Cached responses are kept separate across condition variants.\n- **Documentation**\n  - Expanded the Route Rules guide with configuration, matching behavior, precedence, and security considerations.\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
         "state": "open",
         "stateRaw": "open",
         "isDraft": false,
         "author": {
           "forge": "github",
           "instance": "github.com",
-          "login": "okxint",
-          "id": "130782884",
-          "avatarUrl": "https://avatars.githubusercontent.com/u/130782884?v=4",
-          "url": "https://github.com/okxint",
+          "login": "pi0x",
+          "id": "286783767",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/286783767?v=4",
+          "url": "https://github.com/pi0x",
           "typeRaw": "User",
           "isBotHint": false
         },
         "assignees": [],
-        "reviewers": [],
+        "reviewers": [
+          {
+            "actor": {
+              "forge": "github",
+              "instance": "github.com",
+              "login": "pi0",
+              "id": "5158436",
+              "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?v=4",
+              "url": "https://github.com/pi0",
+              "typeRaw": "User",
+              "isBotHint": false
+            },
+            "state": "pending",
+            "stateRaw": "requested"
+          }
+        ],
         "labels": [],
-        "url": "https://github.com/h3js/h3/pull/1566",
-        "createdAt": "2026-10-01T07:33:21.000Z",
-        "updatedAt": "2026-10-01T07:37:43.000Z",
-        "lastActivityAt": "2026-10-01T07:37:43.000Z",
+        "url": "https://github.com/h3js/h3/pull/1557",
+        "createdAt": "2026-09-26T08:58:13.000Z",
+        "updatedAt": "2026-09-26T10:12:18.000Z",
+        "lastActivityAt": "2026-09-26T10:12:18.000Z",
         "locked": false,
-        "commentCount": 1,
-        "reactions": {
-          "total": 0,
-          "counts": {}
+        "branches": {
+          "head": {
+            "ref": "feat/route-rule-mods",
+            "sha": "e8b3545344f20a287f83c81a85d8471406a6e5be",
+            "repo": {
+              "forge": "github",
+              "instance": "github.com",
+              "owner": "h3js",
+              "name": "h3",
+              "externalId": "313641207"
+            }
+          },
+          "base": {
+            "ref": "main",
+            "sha": "75c68e2200d56f5d8c05ecd9bd38ac7ca31df17f"
+          }
         }
       },
       {
@@ -302,46 +345,129 @@
             "name": "h3"
           },
           "kind": "pull_request",
-          "number": "1565",
-          "externalId": "PR_kwDOErHI988AAAABF0wh2A"
+          "number": "1502",
+          "externalId": "PR_kwDOErHI98708j6H"
         },
         "kind": "pull_request",
-        "title": "fix(cookie): size cookie chunks by their encoded length",
-        "body": "## Summary\n\n`setChunkedCookie` splits the raw value every `chunkMaxLength` (default 4000) characters. Each chunk is then percent-encoded by `setCookie` (`encodeURIComponent` by default), and that encoding makes it longer: `\"`, `{`, `:`, `,` and spaces become 3 bytes, and non-ASCII characters become 6–12 bytes. So the stored chunks can be far larger than the ~4KB the chunking is meant to stay under.\n\n```ts\nsetChunkedCookie(event, \"cart\", JSON.stringify(cart)); // 7501 characters\n// Set-Cookie: cart=__chunked__2\n// Set-Cookie: cart.1=… (9195 bytes)\n// Set-Cookie: cart.2=… (7932 bytes)\n```\n\nBrowsers drop cookies over 4096 bytes, so the chunks never come back. On the next request `getChunkedCookie` sees `__chunked__2` with the chunks missing and returns `undefined`. The data is lost without any error.\n\nA second failure in the same slicing: `value.slice()` cuts at UTF-16 indexes, so a chunk boundary can split a surrogate pair (an emoji, for example). `encodeURIComponent` then throws `URIError: URI malformed`, and the handler fails with a 500.\n\nSession cookies aren't affected: the sealed value is URL-safe ASCII. It hits apps that put JSON or user text into chunked cookies.\n\n## Fix\n\nA new internal helper, `splitCookieValue`, splits the value on code point boundaries, so a surrogate pair is never split. Each chunk is the longest run whose encoded form, using the same `encode` as `setCookie` (`options.encode` or `encodeURIComponent`), fits in `chunkMaxLength`. The helper measures whole candidate chunks (gallop, then bisect), so custom encoders like base64 whose length isn't additive per character are sized correctly too. A code point that can't fit even alone throws before any header is written. For values that don't grow when encoded (such as sealed sessions), the chunks are exactly the same as before, so all existing chunk snapshots are unchanged. The chunk-count cap still applies, and the helper stops as soon as it's exceeded.\n\n## Test plan\n\n- [x] New tests in `test/cookies.test.ts` (web and node, both setups):\n  - `keeps every encoded chunk within chunkMaxLength and readable`: a 2771-character JSON value (7453 bytes encoded). Every `Set-Cookie` value is ≤ 4000 bytes, and `getChunkedCookie` reads back the original.\n  - `does not split a surrogate pair across chunks`: `\"12345678901😀abc\"` with `chunkMaxLength: 12` round-trips.\n  - `sizes chunks for a custom encoder by the whole encoded chunk`: a `btoa` encoder with budget 40 gives 4 chunks of 30 characters, which round-trip.\n  - `throws when a single character cannot fit in chunkMaxLength`\n  - on `main` (62c2632): 16 failures (`expected 7453 to be less than or equal to 4000`, `URIError: URI malformed` → 500, …)\n  - with this change: `test/cookies.test.ts` and `test/session.test.ts` 192/192\n- [x] Full `vitest run` (node 24): 2872 passed, 66 skipped\n- [x] `oxlint .`, `oxfmt --check .`, `tsc --noEmit`, `obuild` and `git diff --check` are clean\n\nThis bug was found and fixed by an AI agent (breken-ai) and verified with the red/green tests above.\n\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n\n## Summary by CodeRabbit\n\n* **Bug Fixes**\n  * Chunked cookies now respect size limits based on their encoded representation, including when values contain multibyte characters.\n  * Character pairs remain intact across chunks, and chunk sizes account for the complete output of custom encoders.\n  * If a single character cannot fit within the encoded size limit, the operation returns an HTTP 500 error without writing response headers.\n  * The existing 100-chunk limit remains in place.\n\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
+        "title": "feat(context): per-event typed H3EventContext",
+        "body": "Draft based on exploration of #1501 (includes those commits, as I still have to git good). Also proposed in https://github.com/h3js/h3/issues/1437#issuecomment-5025050049\r\n\r\nCommit ad5fcba essentially adds a second param to H3Event that consists in a typed H3EventContext, as well as adds a type argument to the latter for customizing internals.\r\n\r\nOne such use case is properly typing `params` in something like `defineValidatedHandler`, which might have also coerced its data (eg: an id being number instead) keeping the parity between runtime and types.\r\n\r\nThis also adds room of improvements for other validated data for `defineValidatedHandler` such as headers and queries which they currently simply gets mutaded in place, going back to their string form instead. A clear followup for this would be to introduce also `event.context.{headers,query}` with the coerced data and type output of the validation schemas (also reducing the number of operations performed by the forward and back mutation).\r\n\r\nLeaving as draft till #1501 is merged and this concept is approved, @pi0 no further work is needed in this PR other than your own changes or if you want me to also add the `event.context.{headers,query}` logic or defer to next PR",
         "state": "open",
         "stateRaw": "open",
-        "isDraft": false,
+        "isDraft": true,
         "author": {
           "forge": "github",
           "instance": "github.com",
-          "login": "breken-ai",
-          "id": "312387581",
-          "avatarUrl": "https://avatars.githubusercontent.com/u/312387581?v=4",
-          "url": "https://github.com/breken-ai",
+          "login": "sandros94",
+          "id": "13056429",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/13056429?v=4",
+          "url": "https://github.com/sandros94",
           "typeRaw": "User",
           "isBotHint": false
         },
         "assignees": [],
         "reviewers": [],
         "labels": [],
-        "url": "https://github.com/h3js/h3/pull/1565",
-        "createdAt": "2026-09-30T04:35:21.000Z",
-        "updatedAt": "2026-09-30T05:05:18.000Z",
-        "lastActivityAt": "2026-09-30T05:05:18.000Z",
+        "url": "https://github.com/h3js/h3/pull/1502",
+        "createdAt": "2026-07-22T15:32:17.000Z",
+        "updatedAt": "2026-07-23T14:15:00.000Z",
+        "lastActivityAt": "2026-07-23T14:15:00.000Z",
         "locked": false,
-        "commentCount": 1,
-        "reactions": {
-          "total": 0,
-          "counts": {}
+        "branches": {
+          "head": {
+            "ref": "feat/context-typing",
+            "sha": "bc756c55f117055d68a48a444f822a6ce601190e",
+            "repo": {
+              "forge": "github",
+              "instance": "github.com",
+              "owner": "sandros94",
+              "name": "h3",
+              "externalId": "923619984"
+            }
+          },
+          "base": {
+            "ref": "main",
+            "sha": "4a32c1b75528f881cd85c89ee626c136b7026958"
+          }
+        }
+      },
+      {
+        "ref": {
+          "forge": "github",
+          "instance": "github.com",
+          "repo": {
+            "forge": "github",
+            "instance": "github.com",
+            "owner": "h3js",
+            "name": "h3"
+          },
+          "kind": "pull_request",
+          "number": "1501",
+          "externalId": "PR_kwDOErHI98708Tf5"
+        },
+        "kind": "pull_request",
+        "title": "feat(defineValidatedHandler): add params validation",
+        "body": "Followup for #1491, discussed in #1437\r\n\r\nThis adds params validation in `defineValidatedHandler`, while also chaining promises as discussed in the prior PR, fast-tracking for sync operations.\r\n\r\nThe only limitation of this is that types do not actually rappresent what `event.context.params` are, since they are hardcoded into `Record<string, string>`. For this I would propose a followup PR which would also allow to properly type the `H3EventContext` and add room for future improvement that I've suggested in https://github.com/h3js/h3/issues/1437#issuecomment-5025050049\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n## Summary by CodeRabbit\n\n* **New Features**\n  * Added route `params` validation to validated handlers, including optional `decodeParams` to decode values before validation.\n  * Strengthened handler typing by exposing validated `routerParams`, and standardizing query string typing.\n* **Bug Fixes**\n  * Validation now executes in a deterministic sequence (params → request → URL/query) and reliably short-circuits later async validations when earlier ones fail.\n* **Tests**\n  * Added regression and unit/type coverage for params defaults, strict vs loose params retention, decoding behavior, and async short-circuit ordering.\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
+        "state": "open",
+        "stateRaw": "open",
+        "isDraft": false,
+        "author": {
+          "forge": "github",
+          "instance": "github.com",
+          "login": "sandros94",
+          "id": "13056429",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/13056429?v=4",
+          "url": "https://github.com/sandros94",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "assignees": [],
+        "reviewers": [
+          {
+            "actor": {
+              "forge": "github",
+              "instance": "github.com",
+              "login": "pi0",
+              "id": "5158436",
+              "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?v=4",
+              "url": "https://github.com/pi0",
+              "typeRaw": "User",
+              "isBotHint": false
+            },
+            "state": "pending",
+            "stateRaw": "requested"
+          }
+        ],
+        "labels": [],
+        "url": "https://github.com/h3js/h3/pull/1501",
+        "createdAt": "2026-07-22T15:23:13.000Z",
+        "updatedAt": "2026-07-22T17:59:46.000Z",
+        "lastActivityAt": "2026-07-22T17:59:46.000Z",
+        "locked": false,
+        "branches": {
+          "head": {
+            "ref": "feat/params-validated-handler",
+            "sha": "af3b48345fcede3c661bd7cd3b0d3f7fb8629f55",
+            "repo": {
+              "forge": "github",
+              "instance": "github.com",
+              "owner": "sandros94",
+              "name": "h3",
+              "externalId": "923619984"
+            }
+          },
+          "base": {
+            "ref": "main",
+            "sha": "4a32c1b75528f881cd85c89ee626c136b7026958"
+          }
         }
       }
     ],
     "cursor": {
-      "nextUrl": "https://api.github.com/repositories/313641207/issues?state=open&sort=created&direction=desc&per_page=3&after=Y3Vyc29yOnYyOpLPAAABoPCYfyjPAAAAAVA6X-A%3D&page=2",
-      "etag": "W/\"070663fbbeb052894909b5cf3f75fc94587b380194fbd27d5791a4a2bf0f7efb\""
+      "nextUrl": "https://api.github.com/repositories/313641207/pulls?state=open&sort=created&direction=desc&per_page=3&page=2",
+      "etag": "W/\"3b16563fa3817bad3e071dd80ed0bb9ea2a105ebfa0eec410562de1db8334d9b\""
     },
     "rateLimit": {
-      "remaining": 4789,
+      "remaining": 4981,
       "resetAt": "<now>"
     }
   },
@@ -516,10 +642,10 @@
     ],
     "cursor": {
       "nextUrl": "https://api.github.com/repositories/313641207/issues/1000/timeline?per_page=3&page=2",
-      "etag": "W/\"d855b0969d840692e827c44090e823c51f8a832e5571670916b594499c74a85b\""
+      "etag": "W/\"6fbffdb2787245837772a759f12fbb7d6ca603e91c90b559355d149fbcde1d33\""
     },
     "rateLimit": {
-      "remaining": 4803,
+      "remaining": 4980,
       "resetAt": "<now>"
     }
   },
@@ -643,22 +769,22 @@
       }
     ],
     "rateLimit": {
-      "remaining": 4802,
+      "remaining": 4979,
       "resetAt": "<now>"
     }
   },
   "pull reactions": {
     "items": [],
     "rateLimit": {
-      "remaining": 4975,
-      "resetAt": "<now>"
+      "remaining": 4999,
+      "resetAt": "2026-10-07T14:15:45.000Z"
     }
   },
   "pull subscription": "none",
   "pull reviews": {
     "items": [],
     "rateLimit": {
-      "remaining": 4801,
+      "remaining": 4978,
       "resetAt": "<now>"
     }
   },
@@ -679,7 +805,7 @@
       }
     ],
     "rateLimit": {
-      "remaining": 4796,
+      "remaining": 4973,
       "resetAt": "<now>"
     }
   },
@@ -736,7 +862,7 @@
       }
     ],
     "rateLimit": {
-      "remaining": 4795,
+      "remaining": 4972,
       "resetAt": "<now>"
     }
   },
@@ -774,7 +900,7 @@
       }
     ],
     "rateLimit": {
-      "remaining": 4794,
+      "remaining": 4971,
       "resetAt": "<now>"
     }
   },
@@ -878,11 +1004,11 @@
       }
     ],
     "cursor": {
-      "nextUrl": "https://api.github.com/repositories/313641207/issues?state=open&sort=created&direction=desc&per_page=3&after=Y3Vyc29yOnYyOpLPAAABoPCYfyjPAAAAAVA6X-A%3D&page=2",
-      "etag": "W/\"070663fbbeb052894909b5cf3f75fc94587b380194fbd27d5791a4a2bf0f7efb\""
+      "nextUrl": "https://api.github.com/repositories/313641207/issues?state=open&sort=created&direction=desc&per_page=3&after=Y3Vyc29yOnYyOpLPAAABn4p0x-jPAAAAAScTaPk%3D&page=2",
+      "etag": "W/\"8ff8539300d310098de44e2b37546b5ac2c370ef5276cfae5ea554e66a35ff80\""
     },
     "rateLimit": {
-      "remaining": 4789,
+      "remaining": 4966,
       "resetAt": "<now>"
     }
   },
@@ -1017,22 +1143,22 @@
       }
     ],
     "rateLimit": {
-      "remaining": 4788,
+      "remaining": 4965,
       "resetAt": "<now>"
     }
   },
   "issue comments": {
     "items": [],
     "rateLimit": {
-      "remaining": 4787,
+      "remaining": 4964,
       "resetAt": "<now>"
     }
   },
   "issue reactions": {
     "items": [],
     "rateLimit": {
-      "remaining": 4974,
-      "resetAt": "<now>"
+      "remaining": 4998,
+      "resetAt": "2026-10-07T14:15:45.000Z"
     }
   },
   "issue subscription": "none",
@@ -3094,7 +3220,25 @@
     "createdAt": "2019-02-25T03:44:43.000Z",
     "followers": 17,
     "following": 0,
-    "publicRepos": 95
+    "publicRepos": 96
+  },
+  "me": {
+    "forge": "github",
+    "instance": "github.com",
+    "login": "danielroe",
+    "id": "28706372",
+    "name": "Daniel Roe",
+    "avatarUrl": "https://avatars.githubusercontent.com/u/28706372?v=4",
+    "url": "https://github.com/danielroe",
+    "typeRaw": "User",
+    "isBotHint": false,
+    "bio": "@nuxt • @npmx-dev • @unjs • @vuejs • @elk-zone",
+    "location": "Edinburgh, UK",
+    "websiteUrl": "https://roe.dev",
+    "createdAt": "2017-05-15T12:06:30.000Z",
+    "followers": 6127,
+    "following": 173,
+    "publicRepos": 903
   },
   "own repos": {
     "items": [
@@ -3119,8 +3263,23 @@
           "ssh": "git@github.com:43081j/ai-policy.git"
         },
         "createdAt": "2026-09-16T13:01:04.000Z",
-        "updatedAt": "2026-10-02T08:30:10.000Z",
+        "updatedAt": "2026-10-07T07:48:57.000Z",
         "pushedAt": "2026-10-02T08:30:07.000Z",
+        "owner": {
+          "forge": "github",
+          "instance": "github.com",
+          "login": "43081j",
+          "id": "5677153",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/5677153?v=4",
+          "url": "https://github.com/43081j",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "language": "Vue",
+        "homepage": "https://ai-policy.dev",
+        "licence": "MIT",
+        "stars": 55,
+        "forks": 2,
         "features": {
           "issues": true,
           "pullRequests": true,
@@ -3140,10 +3299,10 @@
     ],
     "cursor": {
       "nextUrl": "https://api.github.com/user/repos?per_page=3&page=2",
-      "etag": "W/\"334e6613740282a7ee730726e8338ce85a77e6fb8b15343c0741a43ed7367acf\""
+      "etag": "W/\"fdcd1eeb2fea2d5c596f21c585dbce3b728b96aabcea83182aba4714701a58b5\""
     },
     "rateLimit": {
-      "remaining": 4784,
+      "remaining": 4960,
       "resetAt": "<now>"
     }
   },
@@ -3153,7 +3312,7 @@
         "ref": {
           "forge": "github",
           "instance": "github.com",
-          "id": "25865358891"
+          "id": "25533866573"
         },
         "subject": {
           "type": "thread",
@@ -3164,95 +3323,29 @@
               "forge": "github",
               "instance": "github.com",
               "owner": "nuxt",
-              "name": "fonts",
-              "externalId": "760091517"
+              "name": "examples",
+              "externalId": "547882345"
             },
             "kind": "pull_request",
             "typeRaw": "PullRequest",
-            "number": "922"
+            "number": "262"
           }
         },
         "subjectTypeRaw": "PullRequest",
         "reason": "review_requested",
         "reasonRaw": "review_requested",
         "unread": true,
-        "title": "chore(deps): update all non-major dependencies",
+        "title": "chore(deps): update nuxt core to v4.6.0",
         "subjectState": "unknown",
         "updatedAt": "<now>",
-        "lastReadAt": "2026-09-25T23:49:15.000Z",
-        "url": "https://api.github.com/repos/nuxt/fonts/pulls/922"
-      },
-      {
-        "ref": {
-          "forge": "github",
-          "instance": "github.com",
-          "id": "26028564251"
-        },
-        "subject": {
-          "type": "thread",
-          "thread": {
-            "forge": "github",
-            "instance": "github.com",
-            "repo": {
-              "forge": "github",
-              "instance": "github.com",
-              "owner": "nuxt",
-              "name": "cli",
-              "externalId": "601577889"
-            },
-            "kind": "pull_request",
-            "typeRaw": "PullRequest",
-            "number": "1586"
-          }
-        },
-        "subjectTypeRaw": "PullRequest",
-        "reason": "review_requested",
-        "reasonRaw": "review_requested",
-        "unread": true,
-        "title": "chore(deps): update dependency nuxt to v5.0.0-29847385.3fde4d62",
-        "subjectState": "unknown",
-        "updatedAt": "<now>",
-        "lastReadAt": "2026-10-02T08:10:50.000Z",
-        "url": "https://api.github.com/repos/nuxt/cli/pulls/1586"
-      },
-      {
-        "ref": {
-          "forge": "github",
-          "instance": "github.com",
-          "id": "25012345264"
-        },
-        "subject": {
-          "type": "thread",
-          "thread": {
-            "forge": "github",
-            "instance": "github.com",
-            "repo": {
-              "forge": "github",
-              "instance": "github.com",
-              "owner": "nuxt-modules",
-              "name": "sanity",
-              "externalId": "285893677"
-            },
-            "kind": "pull_request",
-            "typeRaw": "PullRequest",
-            "number": "1527"
-          }
-        },
-        "subjectTypeRaw": "PullRequest",
-        "reason": "review_requested",
-        "reasonRaw": "review_requested",
-        "unread": true,
-        "title": "chore(deps): update sanity monorepo to v6",
-        "subjectState": "unknown",
-        "updatedAt": "<now>",
-        "url": "https://api.github.com/repos/nuxt-modules/sanity/pulls/1527"
+        "url": "https://api.github.com/repos/nuxt/examples/pulls/262"
       }
     ],
     "cursor": {
       "nextUrl": "https://api.github.com/notifications?all=false&per_page=3&page=2",
-      "etag": "W/\"6abaa1de9dbdc96a764744d100576b3e5aee60e8ad1be18c70b66a21492bb566\""
+      "etag": "W/\"dcdc9f43e4de476fa6191f2bc1a5fbfdcf0b7dc27e40bbac01e42d755fd67a66\""
     },
-    "etag": "W/\"6abaa1de9dbdc96a764744d100576b3e5aee60e8ad1be18c70b66a21492bb566\"",
+    "etag": "W/\"dcdc9f43e4de476fa6191f2bc1a5fbfdcf0b7dc27e40bbac01e42d755fd67a66\"",
     "notModified": false
   },
   "checks": {
@@ -3271,105 +3364,105 @@
             "owner": "h3js",
             "name": "h3"
           },
-          "id": "36831006454"
+          "id": "37622425333"
+        },
+        "name": "publish",
+        "state": "failure",
+        "stateRaw": "completed",
+        "number": "76",
+        "eventRaw": "workflow_run",
+        "branch": "main",
+        "sha": "66cfb8a357b6285451bad498c2c40002601fae98",
+        "url": "https://github.com/h3js/h3/actions/runs/37622425333",
+        "actor": {
+          "forge": "github",
+          "instance": "github.com",
+          "login": "pi0",
+          "id": "5158436",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?v=4",
+          "url": "https://github.com/pi0",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "createdAt": "<now>",
+        "startedAt": "<now>",
+        "completedAt": "<now>"
+      },
+      {
+        "ref": {
+          "forge": "github",
+          "instance": "github.com",
+          "repo": {
+            "forge": "github",
+            "instance": "github.com",
+            "owner": "h3js",
+            "name": "h3"
+          },
+          "id": "37622361262"
+        },
+        "name": "publish",
+        "state": "success",
+        "stateRaw": "completed",
+        "number": "75",
+        "eventRaw": "workflow_run",
+        "branch": "main",
+        "sha": "66cfb8a357b6285451bad498c2c40002601fae98",
+        "url": "https://github.com/h3js/h3/actions/runs/37622361262",
+        "actor": {
+          "forge": "github",
+          "instance": "github.com",
+          "login": "pi0x",
+          "id": "286783767",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/286783767?v=4",
+          "url": "https://github.com/pi0x",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "createdAt": "<now>",
+        "startedAt": "<now>",
+        "completedAt": "<now>"
+      },
+      {
+        "ref": {
+          "forge": "github",
+          "instance": "github.com",
+          "repo": {
+            "forge": "github",
+            "instance": "github.com",
+            "owner": "h3js",
+            "name": "h3"
+          },
+          "id": "37622332978"
         },
         "name": "ci",
-        "state": "failure",
+        "state": "success",
         "stateRaw": "completed",
-        "number": "4707",
-        "eventRaw": "pull_request",
-        "branch": "fix/mime-mjs-cjs",
-        "sha": "b72d2ffb9c0d858115d3aebc4b38ee6740d2da26",
-        "url": "https://github.com/h3js/h3/actions/runs/36831006454",
+        "number": "4742",
+        "eventRaw": "push",
+        "branch": "main",
+        "sha": "66cfb8a357b6285451bad498c2c40002601fae98",
+        "url": "https://github.com/h3js/h3/actions/runs/37622332978",
         "actor": {
           "forge": "github",
           "instance": "github.com",
-          "login": "okxint",
-          "id": "130782884",
-          "avatarUrl": "https://avatars.githubusercontent.com/u/130782884?v=4",
-          "url": "https://github.com/okxint",
+          "login": "pi0",
+          "id": "5158436",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?v=4",
+          "url": "https://github.com/pi0",
           "typeRaw": "User",
           "isBotHint": false
         },
-        "createdAt": "2026-10-01T07:33:25.000Z",
-        "startedAt": "2026-10-01T07:33:25.000Z",
-        "completedAt": "2026-10-01T07:33:25.000Z"
-      },
-      {
-        "ref": {
-          "forge": "github",
-          "instance": "github.com",
-          "repo": {
-            "forge": "github",
-            "instance": "github.com",
-            "owner": "h3js",
-            "name": "h3"
-          },
-          "id": "36831006435"
-        },
-        "name": "autofix.ci",
-        "state": "failure",
-        "stateRaw": "completed",
-        "number": "4214",
-        "eventRaw": "pull_request",
-        "branch": "fix/mime-mjs-cjs",
-        "sha": "b72d2ffb9c0d858115d3aebc4b38ee6740d2da26",
-        "url": "https://github.com/h3js/h3/actions/runs/36831006435",
-        "actor": {
-          "forge": "github",
-          "instance": "github.com",
-          "login": "okxint",
-          "id": "130782884",
-          "avatarUrl": "https://avatars.githubusercontent.com/u/130782884?v=4",
-          "url": "https://github.com/okxint",
-          "typeRaw": "User",
-          "isBotHint": false
-        },
-        "createdAt": "2026-10-01T07:33:25.000Z",
-        "startedAt": "2026-10-01T07:33:25.000Z",
-        "completedAt": "2026-10-01T07:33:25.000Z"
-      },
-      {
-        "ref": {
-          "forge": "github",
-          "instance": "github.com",
-          "repo": {
-            "forge": "github",
-            "instance": "github.com",
-            "owner": "h3js",
-            "name": "h3"
-          },
-          "id": "36671234388"
-        },
-        "name": "autofix.ci",
-        "state": "failure",
-        "stateRaw": "completed",
-        "number": "4213",
-        "eventRaw": "pull_request",
-        "branch": "fix/chunked-cookie-encoded-size",
-        "sha": "cd9c9735ec00babc221a6324deea65a165c84ee7",
-        "url": "https://github.com/h3js/h3/actions/runs/36671234388",
-        "actor": {
-          "forge": "github",
-          "instance": "github.com",
-          "login": "breken-ai",
-          "id": "312387581",
-          "avatarUrl": "https://avatars.githubusercontent.com/u/312387581?v=4",
-          "url": "https://github.com/breken-ai",
-          "typeRaw": "User",
-          "isBotHint": false
-        },
-        "createdAt": "2026-09-30T04:58:02.000Z",
-        "startedAt": "2026-09-30T04:58:02.000Z",
-        "completedAt": "2026-09-30T04:58:02.000Z"
+        "createdAt": "<now>",
+        "startedAt": "<now>",
+        "completedAt": "<now>"
       }
     ],
     "cursor": {
       "nextUrl": "https://api.github.com/repositories/313641207/actions/runs?per_page=3&page=2",
-      "etag": "W/\"1eb6aa5feb484a4c58ca333d127e9c12dc8f78bfb1957de76fe0e0479ac1ec93\""
+      "etag": "W/\"69c7baa30b6f2e9cb7a8f9901c27400152d99aa4a9a633d3ee255c36af22d5fc\""
     },
     "rateLimit": {
-      "remaining": 4780,
+      "remaining": 4956,
       "resetAt": "<now>"
     }
   },
@@ -3383,34 +3476,95 @@
         "owner": "h3js",
         "name": "h3"
       },
-      "id": "36831006454"
+      "id": "37622425333"
     },
-    "name": "ci",
+    "name": "publish",
     "state": "failure",
     "stateRaw": "completed",
-    "number": "4707",
-    "eventRaw": "pull_request",
-    "branch": "fix/mime-mjs-cjs",
-    "sha": "b72d2ffb9c0d858115d3aebc4b38ee6740d2da26",
-    "url": "https://github.com/h3js/h3/actions/runs/36831006454",
+    "number": "76",
+    "eventRaw": "workflow_run",
+    "branch": "main",
+    "sha": "66cfb8a357b6285451bad498c2c40002601fae98",
+    "url": "https://github.com/h3js/h3/actions/runs/37622425333",
     "actor": {
       "forge": "github",
       "instance": "github.com",
-      "login": "okxint",
-      "id": "130782884",
-      "avatarUrl": "https://avatars.githubusercontent.com/u/130782884?v=4",
-      "url": "https://github.com/okxint",
+      "login": "pi0",
+      "id": "5158436",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?v=4",
+      "url": "https://github.com/pi0",
       "typeRaw": "User",
       "isBotHint": false
     },
-    "createdAt": "2026-10-01T07:33:25.000Z",
-    "startedAt": "2026-10-01T07:33:25.000Z",
-    "completedAt": "2026-10-01T07:33:25.000Z"
+    "createdAt": "<now>",
+    "startedAt": "<now>",
+    "completedAt": "<now>"
   },
   "ci jobs": {
-    "items": [],
+    "items": [
+      {
+        "ref": {
+          "forge": "github",
+          "instance": "github.com",
+          "repo": {
+            "forge": "github",
+            "instance": "github.com",
+            "owner": "h3js",
+            "name": "h3"
+          },
+          "id": "112795731172",
+          "run": {
+            "forge": "github",
+            "instance": "github.com",
+            "repo": {
+              "forge": "github",
+              "instance": "github.com",
+              "owner": "h3js",
+              "name": "h3"
+            },
+            "id": "37622425333"
+          }
+        },
+        "name": "publish",
+        "state": "failure",
+        "stateRaw": "completed",
+        "url": "https://github.com/h3js/h3/actions/runs/37622425333/job/112795731172",
+        "startedAt": "<now>",
+        "completedAt": "<now>"
+      },
+      {
+        "ref": {
+          "forge": "github",
+          "instance": "github.com",
+          "repo": {
+            "forge": "github",
+            "instance": "github.com",
+            "owner": "h3js",
+            "name": "h3"
+          },
+          "id": "112795732624",
+          "run": {
+            "forge": "github",
+            "instance": "github.com",
+            "repo": {
+              "forge": "github",
+              "instance": "github.com",
+              "owner": "h3js",
+              "name": "h3"
+            },
+            "id": "37622425333"
+          }
+        },
+        "name": "report-skipped",
+        "state": "neutral",
+        "stateRaw": "completed",
+        "url": "https://github.com/h3js/h3/actions/runs/37622425333/job/112795732624",
+        "startedAt": "<now>",
+        "completedAt": "<now>"
+      }
+    ],
     "rateLimit": {
-      "remaining": 4779,
+      "remaining": 4955,
       "resetAt": "<now>"
     }
   },
@@ -3467,8 +3621,8 @@
       {
         "path": "CHANGELOG.md",
         "type": "file",
-        "sha": "6975a6281e2f4bb2b7e8abe046d86e4f25c5275a",
-        "size": 124321,
+        "sha": "e9382241dd61e0b6065b861cb80231e8a986217a",
+        "size": 128510,
         "mode": "100644"
       },
       {
@@ -3488,7 +3642,7 @@
       {
         "path": "MIGRATION.md",
         "type": "file",
-        "sha": "b37c5fccc1c28577519a48450122840b567bf6e6",
+        "sha": "3b6e445def4b9123d788476449b788f61b0155f7",
         "size": 10904,
         "mode": "100644"
       },
@@ -3515,7 +3669,7 @@
       {
         "path": "docs",
         "type": "directory",
-        "sha": "387844f61bafccd31a64ab0360888690a68837a6",
+        "sha": "882c1818902ea4c4c66c5c32bae51a491920d110",
         "mode": "040000"
       },
       {
@@ -3527,8 +3681,8 @@
       {
         "path": "package.json",
         "type": "file",
-        "sha": "508e7e7cf1814ea9dd71c9443a559e7aa61bf034",
-        "size": 3708,
+        "sha": "66df2963ae61e37eca135c5019ea5d88df781fee",
+        "size": 3689,
         "mode": "100644"
       },
       {
@@ -3540,8 +3694,8 @@
       {
         "path": "pnpm-lock.yaml",
         "type": "file",
-        "sha": "467388400d911beded3fdc0d0b20d4570f538190",
-        "size": 135533,
+        "sha": "5b9e1876cca0de5540a42393434dab6f2674f365",
+        "size": 135539,
         "mode": "100644"
       },
       {
@@ -3561,13 +3715,13 @@
       {
         "path": "src",
         "type": "directory",
-        "sha": "7891983fc1f671271aade2589cac063c5cfe4838",
+        "sha": "95542adc82f05b32d23fbc2c524afabe86e1378f",
         "mode": "040000"
       },
       {
         "path": "test",
         "type": "directory",
-        "sha": "aaaf6e3cb5ef1e3e8dcdf043c9c470ba08aa274f",
+        "sha": "0938c3b88c4a11bbcc5246b4cabb6854dc9ed27e",
         "mode": "040000"
       },
       {
@@ -3593,7 +3747,7 @@
       }
     ],
     "rateLimit": {
-      "remaining": 4776,
+      "remaining": 4953,
       "resetAt": "<now>"
     }
   },
@@ -3617,38 +3771,38 @@
     ],
     "cursor": {
       "nextUrl": "https://api.github.com/repositories/313641207/branches?per_page=3&page=2",
-      "etag": "W/\"3b0dbe11bcf890ff6f497010b00e784c5012f79151d47f67af5b1d1c8ba44b69\""
+      "etag": "W/\"470c8d7947eabba1b005b48c000b33263b138998878895fc12d02d150730880b\""
     },
     "rateLimit": {
-      "remaining": 4775,
+      "remaining": 4952,
       "resetAt": "<now>"
     }
   },
   "tags": {
     "items": [
       {
-        "name": "v2.0.1-rc.32",
-        "sha": "bce4ae8dbe41dfae14e96aeed4255c060f19f46b"
+        "name": "v2.0.2",
+        "sha": "66cfb8a357b6285451bad498c2c40002601fae98"
       },
       {
-        "name": "v2.0.1-rc.31",
-        "sha": "51db6d9cf61cfdbd54ec809bd793cfa11d0b7921"
+        "name": "v2.0.1",
+        "sha": "26d3d3d4fc60ebece9975eee5415b114cb8dbcd5"
       },
       {
-        "name": "v2.0.1-rc.30",
-        "sha": "d78281bc7f48c7a6622ffd5f0434c1632c4afd7c"
+        "name": "v2.0.1-rc.33",
+        "sha": "3cbc7535a61bfb7d3fcce949f30de471a90d572b"
       }
     ],
     "cursor": {
       "nextUrl": "https://api.github.com/repositories/313641207/tags?per_page=3&page=2",
-      "etag": "W/\"9f7fafd9256878cb01f4cf4fd3e772c9aec3d4fbb376ca45a6b8b9c607c42491\""
+      "etag": "W/\"ccf3c3d62158b63f9198fa8e721ba5bb9bf95cff9cbf1f961fb582ac7e7bfee0\""
     },
     "rateLimit": {
-      "remaining": 4774,
+      "remaining": 4951,
       "resetAt": "<now>"
     }
   },
-  "resolve default branch": "62c263298b41881759fe5bc38da4dd879856180c",
+  "resolve default branch": "66cfb8a357b6285451bad498c2c40002601fae98",
   "commits": {
     "items": [
       {
@@ -3661,10 +3815,10 @@
             "owner": "h3js",
             "name": "h3"
           },
-          "sha": "62c263298b41881759fe5bc38da4dd879856180c"
+          "sha": "66cfb8a357b6285451bad498c2c40002601fae98"
         },
-        "sha": "62c263298b41881759fe5bc38da4dd879856180c",
-        "message": "chore(deps): update rou3 to v0.11\n\n- rules: drop per-method materialization of agnostic rules (rou3 now pools a node's `\"\"` and method-scoped registrations; the copies duplicated layers)\n- rules/compiler: use `compileRouterToString` options object\n- test: `:name` no longer matches an empty segment",
+        "sha": "66cfb8a357b6285451bad498c2c40002601fae98",
+        "message": "chore(release): v2.0.2",
         "author": {
           "actor": {
             "forge": "github",
@@ -3678,7 +3832,7 @@
           },
           "name": "Pooya Parsa",
           "email": "redacted@example.invalid",
-          "date": "2026-09-29T16:33:27.000Z"
+          "date": "<now>"
         },
         "committer": {
           "actor": {
@@ -3693,12 +3847,12 @@
           },
           "name": "Pooya Parsa",
           "email": "redacted@example.invalid",
-          "date": "2026-09-29T16:33:27.000Z"
+          "date": "<now>"
         },
         "parents": [
-          "a546b4c1c6df4670e348f15d218465dd351b9b37"
+          "07d7d2c0dac8fbbcd28b5c8c1278699372456dc5"
         ],
-        "url": "https://github.com/h3js/h3/commit/62c263298b41881759fe5bc38da4dd879856180c"
+        "url": "https://github.com/h3js/h3/commit/66cfb8a357b6285451bad498c2c40002601fae98"
       },
       {
         "ref": {
@@ -3710,10 +3864,10 @@
             "owner": "h3js",
             "name": "h3"
           },
-          "sha": "a546b4c1c6df4670e348f15d218465dd351b9b37"
+          "sha": "07d7d2c0dac8fbbcd28b5c8c1278699372456dc5"
         },
-        "sha": "a546b4c1c6df4670e348f15d218465dd351b9b37",
-        "message": "chore(deps): update rou3 to v0.10.2",
+        "sha": "07d7d2c0dac8fbbcd28b5c8c1278699372456dc5",
+        "message": "chore: update release script",
         "author": {
           "actor": {
             "forge": "github",
@@ -3727,7 +3881,7 @@
           },
           "name": "Pooya Parsa",
           "email": "redacted@example.invalid",
-          "date": "2026-09-28T23:24:28.000Z"
+          "date": "<now>"
         },
         "committer": {
           "actor": {
@@ -3742,12 +3896,12 @@
           },
           "name": "Pooya Parsa",
           "email": "redacted@example.invalid",
-          "date": "2026-09-28T23:25:13.000Z"
+          "date": "<now>"
         },
         "parents": [
-          "26bac524c80be279187bfa68cb8bf41f164813b1"
+          "ac79e5fcb148e8aa5702f71535fedb84070d0fca"
         ],
-        "url": "https://github.com/h3js/h3/commit/a546b4c1c6df4670e348f15d218465dd351b9b37"
+        "url": "https://github.com/h3js/h3/commit/07d7d2c0dac8fbbcd28b5c8c1278699372456dc5"
       },
       {
         "ref": {
@@ -3759,52 +3913,52 @@
             "owner": "h3js",
             "name": "h3"
           },
-          "sha": "26bac524c80be279187bfa68cb8bf41f164813b1"
+          "sha": "ac79e5fcb148e8aa5702f71535fedb84070d0fca"
         },
-        "sha": "26bac524c80be279187bfa68cb8bf41f164813b1",
-        "message": "fix(static): honor q-values and case in accept-encoding (#1560)",
+        "sha": "ac79e5fcb148e8aa5702f71535fedb84070d0fca",
+        "message": "chore: update deps",
         "author": {
           "actor": {
             "forge": "github",
             "instance": "github.com",
-            "login": "pi0x",
-            "id": "286783767",
-            "avatarUrl": "https://avatars.githubusercontent.com/u/286783767?v=4",
-            "url": "https://github.com/pi0x",
+            "login": "pi0",
+            "id": "5158436",
+            "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?v=4",
+            "url": "https://github.com/pi0",
             "typeRaw": "User",
             "isBotHint": false
           },
-          "name": "pi0x",
+          "name": "Pooya Parsa",
           "email": "redacted@example.invalid",
-          "date": "2026-09-28T23:21:03.000Z"
+          "date": "<now>"
         },
         "committer": {
           "actor": {
             "forge": "github",
             "instance": "github.com",
-            "login": "web-flow",
-            "id": "19864447",
-            "avatarUrl": "https://avatars.githubusercontent.com/u/19864447?v=4",
-            "url": "https://github.com/web-flow",
+            "login": "pi0",
+            "id": "5158436",
+            "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?v=4",
+            "url": "https://github.com/pi0",
             "typeRaw": "User",
             "isBotHint": false
           },
-          "name": "GitHub",
+          "name": "Pooya Parsa",
           "email": "redacted@example.invalid",
-          "date": "2026-09-28T23:21:03.000Z"
+          "date": "<now>"
         },
         "parents": [
-          "3cfd7491f91c794402e13506253e8d04cd36317d"
+          "44dbfb8870d4fbad7f272d5811fdfa033faa8562"
         ],
-        "url": "https://github.com/h3js/h3/commit/26bac524c80be279187bfa68cb8bf41f164813b1"
+        "url": "https://github.com/h3js/h3/commit/ac79e5fcb148e8aa5702f71535fedb84070d0fca"
       }
     ],
     "cursor": {
       "nextUrl": "https://api.github.com/repositories/313641207/commits?per_page=3&page=2",
-      "etag": "W/\"a23bbe0b69ee9adbbbd9b78eb11071ea0e8b3e7d0ab84701cac070df51b773f1\""
+      "etag": "W/\"aaeec7a188c28bd198962b8f3e7e46b9ce2b11f602e397b1af016c06cf4ee8a3\""
     },
     "rateLimit": {
-      "remaining": 4772,
+      "remaining": 4949,
       "resetAt": "<now>"
     }
   },
@@ -3877,7 +4031,7 @@
     "base": "main",
     "head": "adbc974043a83820a5ae388265b5ee1465926561",
     "aheadBy": 1,
-    "behindBy": 658,
+    "behindBy": 684,
     "mergeBaseSha": "e5788bb16d62ac64e5fa13b14862ed719f768d04",
     "commits": [
       {
@@ -3954,12 +4108,12 @@
             "owner": "h3js",
             "name": "h3"
           },
-          "id": "388631582",
-          "tag": "v2.0.1-rc.32"
+          "id": "405748393",
+          "tag": "v2.0.2"
         },
         "name": "",
-        "tag": "v2.0.1-rc.32",
-        "body": "[compare changes](https://github.com/h3js/h3/compare/df811cd872015ced1cb21e30d42ec20c9f79cbc3...v2.0.1-rc.32)\r\n\r\n### 🚀 Enhancements\r\n\r\n- Export `normalizeRoute` as a public path utility ([#1549](https://github.com/h3js/h3/pull/1549))\r\n\r\n### 🩹 Fixes\r\n\r\n- **route-rules:** Pass uncacheable requests through the cache rule ([b6c7d08](https://github.com/h3js/h3/commit/b6c7d08))\r\n- Handle srvx body limit errors as 413 ([b5d20d5](https://github.com/h3js/h3/commit/b5d20d5))\r\n- **error:** Require status in HTTPError.isError ([e6b726b](https://github.com/h3js/h3/commit/e6b726b))\r\n\r\n### 🌊 Types\r\n\r\n- **handler:** Infer route handler request type instead of any ([#1546](https://github.com/h3js/h3/pull/1546))\r\n- **handler:** Use request header names for req.headers ([ae529f1](https://github.com/h3js/h3/commit/ae529f1))\r\n- Export `TypedHeaders` type ([#1547](https://github.com/h3js/h3/pull/1547))\r\n\r\n### ❤️ Contributors\r\n\r\n- Pooya Parsa (@pi0)\r\n- Rith Banerjee (@Rithb898)\r\n- Lazizbek Ergashev (@lazerg)",
+        "tag": "v2.0.2",
+        "body": "[compare changes](https://github.com/h3js/h3/compare/v2.0.1...v2.0.2)\r\n\r\n### 🩹 Fixes\r\n\r\n- **node:** Call `onError` for stream errors in Node.js handlers ([#1571](https://github.com/h3js/h3/pull/1571))\r\n- **response:** Use matching reason phrases in redirect and noContent ([#1570](https://github.com/h3js/h3/pull/1570))\r\n- **middleware:** Pass through handled responses in `onError` ([#1574](https://github.com/h3js/h3/pull/1574))\r\n\r\n### 🌊 Types\r\n\r\n- **session:** Remove `@ts-nocheck` from iron-crypto ([#1572](https://github.com/h3js/h3/pull/1572))\r\n- **route:** Infer `defineRoute` handler input from validation schemas ([ec527f0](https://github.com/h3js/h3/commit/ec527f0))\r\n\r\n### 🏡 Chore\r\n\r\n- **session:** Retarget legacy seal fallback removal to v3 ([#1573](https://github.com/h3js/h3/pull/1573))\r\n- **session:** Mark `legacySealFallback` as deprecated ([44dbfb8](https://github.com/h3js/h3/commit/44dbfb8))\r\n\r\n### ❤️ Contributors\r\n\r\n- Pooya Parsa ([@pi0](https://github.com/pi0))\r\n- Bao Nguyen ([@giaBaoJS](https://github.com/giaBaoJS))\r\n- Kaan Çelebi ([@kaanisthatyou](https://github.com/kaanisthatyou))\r\n- Daniel Shafer ([@dannyshafer](https://github.com/dannyshafer))",
         "isDraft": false,
         "isPrerelease": false,
         "author": {
@@ -3972,9 +4126,9 @@
           "typeRaw": "User",
           "isBotHint": false
         },
-        "publishedAt": "2026-09-14T18:46:42.000Z",
-        "createdAt": "2026-09-14T18:44:15.000Z",
-        "url": "https://github.com/h3js/h3/releases/tag/v2.0.1-rc.32",
+        "publishedAt": "<now>",
+        "createdAt": "<now>",
+        "url": "https://github.com/h3js/h3/releases/tag/v2.0.2",
         "assets": []
       },
       {
@@ -3987,27 +4141,27 @@
             "owner": "h3js",
             "name": "h3"
           },
-          "id": "382372940",
-          "tag": "v2.0.1-rc.31"
+          "id": "402457524",
+          "tag": "v2.0.1-rc.33"
         },
-        "name": "",
-        "tag": "v2.0.1-rc.31",
-        "body": "[compare changes](https://github.com/h3js/h3/compare/v2.0.1-rc.30...v2.0.1-rc.31)\r\n\r\n### 🚀 Enhancements\r\n\r\n- **rules:** Support non-trailing `**` in redirect/proxy targets ([228bca3](https://github.com/h3js/h3/commit/228bca3))\r\n\r\n### 🔥 Performance\r\n\r\n- **rules:** Evict memoized matches with SIEVE instead of FIFO ([#1543](https://github.com/h3js/h3/pull/1543))\r\n\r\n### 🤖 CI\r\n\r\n- Replace setup-node and corepack with setup-jup ([#1544](https://github.com/h3js/h3/pull/1544))",
+        "name": "v2.0.1-rc.33",
+        "tag": "v2.0.1-rc.33",
+        "body": "[compare changes](https://github.com/h3js/h3/compare/v2.0.1-rc.32...v2.0.1-rc.33)\n\n> [!IMPORTANT]\n> This release upgrades the router to **[rou3 v1](https://github.com/h3js/rou3)** (from v0.9). Route patterns now follow [URLPattern](https://developer.mozilla.org/en-US/docs/Web/API/URL_Pattern_API) syntax more closely, and some patterns match differently. **Please read the routing changes section below before you upgrade.** The full guide is the [rou3 migration guide](https://github.com/h3js/rou3/blob/main/docs/migration.md).\n\n## ⚠️ Routing changes (rou3 v1)\n\nThese changes apply to `app.get()` / `app.on()` / ... routes, `app.use(route, ...)` middleware scopes, `mount()`, and `routeRules` keys alike.\n\n### Upgrade checklist\n\n1. **Check every `*` in your routes.** It now spans segments: `/admin/*` matches `/admin/a/b`. Use `:name` to match exactly one segment.\n2. **Replace `params._`** with `params[0]`, or name the catch-all (`/**:path` → `params.path`). On the base path (`/foo` for `/foo/**`), the key is now left out instead of being `\"\"`.\n3. **Rename params that contain `-`** (`:user-id` → `:userId`).\n4. **Start your app once.** Patterns that used to be accepted with a surprising meaning now throw a `rou3: ...` error when you register them. The error quotes the route.\n5. **Run on Node.js 20.19 or later** (rou3 v1 requires `>=20.19.0`).\n\n### Behavior changes\n\n| Route              | Request         | rc.32                         | rc.33                          |\n| ------------------ | --------------- | ----------------------------- | ------------------------------ |\n| `/users/*`         | `/users/a/b`    | 404                           | `{ 0: \"a/b\" }`                 |\n| `/foo/**`          | `/foo`          | `{ _: \"\" }`                   | `{}`                           |\n| `/foo/**`          | `/foo/a/b`      | `{ _: \"a/b\" }`                | `{ 0: \"a/b\", _: \"a/b\" }` (`_` is deprecated) |\n| `/about`           | `/about//`      | match                         | 404 (only **one** trailing slash is ignored) |\n| `/u/:id/x`         | `/u//x`         | `{ id: \"\" }`                  | 404 (`:name` never matches an empty segment) |\n| `/api/:user-id`    | `/api/abc-id`   | `{ \"user-id\": \"abc-id\" }`     | `{ user: \"abc\" }` (`-` ends a param name)   |\n| `/f/:name.:ext`    | `/f/a.tar.gz`   | `{ name: \"a.tar\", ext: \"gz\" }` | `{ name: \"a\", ext: \"tar.gz\" }` |\n| `/d/:a-:b`         | `/d/x-y-z`      | `{ \"a-\": \"x-y-\", b: \"z\" }`    | `{ a: \"x\", b: \"y-z\" }`         |\n\n- **`*` is a greedy catch-all.** This also widens middleware and route rules: `app.use(\"/admin/*\", guard)` and `routeRules({ \"/admin/*\": ... })` now apply at every depth below `/admin`, not just one level. To match exactly one segment, use `/admin/:id` (or `/admin/:id?` to also match `/admin`). Inside a segment, replace `*` with `([^\\x2f]*)`, so `/*.png` becomes `/([^\\x2f]*).png`.\n- **`(.*)` and `:name(.*)` are catch-alls** too, like `*`.\n- **Segments after `**` are matched.** `/**/_payload.json` matches only paths that end in `/_payload.json`. Before, those trailing segments were ignored.\n- **One catch-all per route.** A route can have only one of `*`, `**`, `:x+`, `:x*`, `(.*)` or `:x(.*)`. For example, `/**/*.png` now throws; write `/**/:file.png` instead.\n- **Several captures in one segment** split like URLPattern: `:name` takes as little as it can. To keep the old split, add a constraint, e.g. `/:name.:ext(\\w+)`.\n- **`prefix-:param?`** makes only the param optional, not the whole segment. Write `/a/{pre-:x}?` to make the whole segment optional.\n- **Backslash escapes are literal characters**: `/foo\\.bar` matches `/foo.bar`.\n- **Method-agnostic routes are no longer hidden by method routes** on the same path shape. When both match, the more specific one wins. On a tie, the method route still wins.\n- **Patterns that now throw**, among others: `+` / `*` after a constrained or prefixed param (`/a/:x(\\d+)+`), invalid param names (`/:0`, `/:id$`, `/:café`), duplicate param names, unbalanced braces or parens, look-arounds / anchors / capturing groups inside a regex constraint, and a dot segment next to a param. See [Patterns that now throw](https://github.com/h3js/rou3/blob/main/docs/migration.md#patterns-that-now-throw).\n- **Types:** `InferRouteParams` reads param names the same way as the router. Optional params and a trailing `*` / `**` are typed `string | undefined`.\n\n### Route rules (`h3/rules`)\n\n- Rule keys are normalized exactly like route patterns, so a rule always matches the requests that the route registered with the same string serves. Non-ASCII and space characters in rule keys are now stored percent-encoded: `MatchedRouteRule.route` and the default `cache` rule name read `/caf%C3%A9/**` for a `\"/café/**\"` key. ([7cbf21c](https://github.com/h3js/h3/commit/7cbf21c))\n- Because `*` is now a catch-all, a redirect or proxy key such as `/x/*/old/**` has two catch-alls and is rejected when the rules are created. Use `:param` for the single segment.\n- An alternate path reading (for example `/docs/x%2fy` decoded to `/docs/x/y`) can bring back a permission that a broader `false` reset removed, but only from a pattern that is equal to or more specific than every pattern that reset it. Restricting custom handlers should keep setting `restricting: true`. ([3f1c9e5](https://github.com/h3js/h3/commit/3f1c9e5))\n\nSee the updated [Routing](https://h3.dev/guide/basics/routing) and [Route Rules](https://h3.dev/guide/rules) guides.\n\n## 🚀 Enhancements\n\n- **rules:** Skip `redirect` when the request is already at the target, so `\"/docs/**\": { redirect: \"/docs/v2/**\" }` no longer loops ([#1559](https://github.com/h3js/h3/pull/1559))\n\n## 🔒 Security hardening\n\n- **mount:** Reject an empty segment directly after a mount base (`/api//admin`) with `404`. Before, the path was collapsed to `/admin`, which reached the mounted app while skipping `use(\"/api/admin/**\")` guards on the parent. This also applies to `withBase()` ([1161eb7](https://github.com/h3js/h3/commit/1161eb7))\n- **session:** Keep loaded session data prototype-free ([46bc1a2](https://github.com/h3js/h3/commit/46bc1a2))\n\n## 🩹 Fixes\n\n- **validate:** Preserve repeated query values in `defineValidatedHandler`. Query validators now receive `string | string[]`, the same shape as `getQuery` ([#1562](https://github.com/h3js/h3/pull/1562))\n- **cookie:** Size cookie chunks by their encoded length, so non-ASCII or escaped values no longer exceed the chunk limit ([#1565](https://github.com/h3js/h3/pull/1565))\n- **cookie:** Include `partitioned` in the distinct-cookie key ([#1553](https://github.com/h3js/h3/pull/1553))\n- **sse:** Preserve buffered events during overlapping flushes ([#1555](https://github.com/h3js/h3/pull/1555))\n- **static:** Honor q-values and case in `accept-encoding` ([#1560](https://github.com/h3js/h3/pull/1560))\n- **static:** Set the `vary` header when a single encoding is accepted ([#1556](https://github.com/h3js/h3/pull/1556))\n- **static:** Resolve the MIME type of a precompressed variant from the requested asset ([#1564](https://github.com/h3js/h3/pull/1564))\n- **mime:** Add `.mjs` and `.cjs` to the common MIME types ([#1566](https://github.com/h3js/h3/pull/1566))\n- **rules:** Allow `headers: false` in `RouteRuleConfig` ([edcc329](https://github.com/h3js/h3/commit/edcc329))\n\n## 🌊 Types\n\n- **auth:** `event.context.basicAuth.username` and `realm` are always set after `requireBasicAuth` ([#1550](https://github.com/h3js/h3/pull/1550))\n- **handler:** `EventHandlerRequest[\"query\"]` accepts `string | string[]` values ([#1562](https://github.com/h3js/h3/pull/1562))\n\n## 📖 Documentation\n\n- Document raw query access via `event.url.search` ([#1551](https://github.com/h3js/h3/pull/1551))\n\n## ❤️ Contributors\n\n- Pooya Parsa ([@pi0](https://github.com/pi0))\n- [@pi0x](https://github.com/pi0x)\n- [@00200200](https://github.com/00200200)\n- Alexandre Kohler ([@kwy404](https://github.com/kwy404))\n- Kauê Leivingson ([@Kaue-TecsaGroup](https://github.com/Kaue-TecsaGroup))\n- Maxim Gagiev ([@maximilliangrand](https://github.com/maximilliangrand))\n- Oskar Lebuda ([@OskarLebuda](https://github.com/OskarLebuda))\n- Breken ([@breken-ai](https://github.com/breken-ai))\n- Geonseok ([@hxperl](https://github.com/hxperl))\n- Okxint ([@okxint](https://github.com/okxint))\n",
         "isDraft": false,
         "isPrerelease": false,
         "author": {
           "forge": "github",
           "instance": "github.com",
-          "login": "pi0",
-          "id": "5158436",
-          "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?v=4",
-          "url": "https://github.com/pi0",
+          "login": "pi0x",
+          "id": "286783767",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/286783767?v=4",
+          "url": "https://github.com/pi0x",
           "typeRaw": "User",
           "isBotHint": false
         },
-        "publishedAt": "2026-09-03T22:43:46.000Z",
-        "createdAt": "2026-09-03T22:38:38.000Z",
-        "url": "https://github.com/h3js/h3/releases/tag/v2.0.1-rc.31",
+        "publishedAt": "2026-10-03T10:26:32.000Z",
+        "createdAt": "2026-10-03T10:19:58.000Z",
+        "url": "https://github.com/h3js/h3/releases/tag/v2.0.1-rc.33",
         "assets": []
       },
       {
@@ -4020,36 +4174,36 @@
             "owner": "h3js",
             "name": "h3"
           },
-          "id": "381282224",
-          "tag": "v2.0.1-rc.30"
+          "id": "402594410",
+          "tag": "v2.0.1"
         },
-        "name": "v2.0.1-rc.30",
-        "tag": "v2.0.1-rc.30",
-        "body": "[compare changes](https://github.com/h3js/h3/compare/v2.0.1-rc.29...v2.0.1-rc.30)\r\n\r\n### 🩹 Fixes\r\n\r\n- **session:** Do not persist a session that is only read ([#1541](https://github.com/h3js/h3/pull/1541))\r\n- **cli:** Resolve docs directory to file system path with fileURLToPath ([#1540](https://github.com/h3js/h3/pull/1540), [04a78a0](https://github.com/h3js/h3/commit/04a78a0))\r\n\r\n### 💅 Refactors\r\n\r\n- **core:** Compose route middleware in the dispatcher ([#1533](https://github.com/h3js/h3/pull/1533))\r\n\r\n### 🌊 Types\r\n\r\n- **handler:** Expose validated query/headers on validated hander type ([#1538](https://github.com/h3js/h3/pull/1538))\r\n\r\n### 🏡 Chore\r\n\r\n- Update srvx to v1 ([81440ec](https://github.com/h3js/h3/commit/81440ec))\r\n\r\n### ✅ Tests\r\n\r\n- **cli:** Assert docs command spawns without a shell ([07273db](https://github.com/h3js/h3/commit/07273db))\r\n\r\n### ❤️ Contributors\r\n\r\n- Pooya Parsa (@pi0)\r\n- Dương Ngọc Anh (@koding88)\r\n- Liang Xu (@lx3133584)\r\n- Daniel Roe (@danielroe)\r\n",
+        "name": "v2.0.1",
+        "tag": "v2.0.1",
+        "body": "H3 v2 is now stable! 🎉\n\n> [!NOTE]\n> A full release article is coming soon on the [H3 blog](https://h3.dev/blog).\n\nH3 v2 is a full rewrite on top of web standards (`Request`, `Response`, `URL`, `Headers`). It stays compatible with most v1 utilities and is faster and smaller than v1.\n\n👉 **Get started:** https://h3.dev/guide\n👉 **Upgrading from v1:** https://h3.dev/migration\n\n## Highlights\n\n- **🌐 Web standards first:** Handlers receive `event.req` (a standard `Request`) and `event.url`, and set response headers through `event.res`. Return any value (string, object, `Response`, stream, `Blob`, ...) and H3 converts it to a `Response`.\n- **🚀 Runs everywhere:** The same app runs on Node.js, Bun, Deno, Cloudflare Workers, Service Workers and browsers. [srvx](https://srvx.h3.dev) provides a universal server layer, and `event.req.runtime` gives access to runtime-specific details when needed.\n- **⚡ Fast and small:** Routing uses [rou3](https://github.com/h3js/rou3) v1, and the core is a fraction of v1's bundle size. Every handler can be called directly with `handler.fetch()`.\n- **🧩 Middleware and plugins:** Onion-style `(event, next)` middleware, built-in helpers (`onRequest`, `onResponse`, `onError`, `basicAuth`, `bodyLimit`, ...) and reusable `definePlugin()` extensions.\n- **🔒 Type safety:** Typed handlers, responses and errors (`HTTPError`), plus validated handlers and body/query/params validation with any [Standard Schema](https://standardschema.dev) library.\n- **📏 Route rules (`h3/rules`):** Add headers, redirects, CORS, caching and proxying to groups of routes with one config object. See the [Route Rules guide](https://h3.dev/guide/rules).\n- **🧰 Built-in utilities:** Cookies (including chunked), sessions, CORS, proxy, static files, cache headers, SSE, WebSockets via [crossws](https://crossws.h3.dev), JSON-RPC/MCP helpers and an `h3/tracing` plugin. See https://h3.dev/utils.\n\n## Requirements\n\n- Node.js `>= 20.19` (if you run on Node.js)\n\n## Upgrading\n\nMost v1 utilities keep working, and deprecated v1 names are still exported to make upgrading easier. Read the [migration guide](https://h3.dev/migration) for the breaking changes and their new equivalents.\n\n## Thanks\n\nThank you to everyone who tested the betas and release candidates, reported issues, and sent PRs, and to the [Nitro](https://nitro.build) community for using v2 throughout its development. ❤️\n\nFor background on the v2 design, see the [v2 beta announcement](https://h3.dev/blog/v2-beta).\n",
         "isDraft": false,
         "isPrerelease": false,
         "author": {
           "forge": "github",
           "instance": "github.com",
-          "login": "pi0",
-          "id": "5158436",
-          "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?v=4",
-          "url": "https://github.com/pi0",
+          "login": "pi0x",
+          "id": "286783767",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/286783767?v=4",
+          "url": "https://github.com/pi0x",
           "typeRaw": "User",
           "isBotHint": false
         },
-        "publishedAt": "2026-09-02T13:25:51.000Z",
-        "createdAt": "2026-09-02T13:23:44.000Z",
-        "url": "https://github.com/h3js/h3/releases/tag/v2.0.1-rc.30",
+        "publishedAt": "2026-10-03T16:29:13.000Z",
+        "createdAt": "2026-10-03T16:26:16.000Z",
+        "url": "https://github.com/h3js/h3/releases/tag/v2.0.1",
         "assets": []
       }
     ],
     "cursor": {
       "nextUrl": "https://api.github.com/repositories/313641207/releases?per_page=3&page=2",
-      "etag": "W/\"7204918f799fdd24cc796dbf23841cf69284d4dea4711abf7849de8aaeadd4de\""
+      "etag": "W/\"83f03ba59555d6bd397145da63cac384aaac2584362e7a1fe41d6ab114de3b03\""
     },
     "rateLimit": {
-      "remaining": 4769,
+      "remaining": 4946,
       "resetAt": "<now>"
     }
   },
@@ -4063,12 +4217,12 @@
         "owner": "h3js",
         "name": "h3"
       },
-      "id": "388631582",
-      "tag": "v2.0.1-rc.32"
+      "id": "405748393",
+      "tag": "v2.0.2"
     },
     "name": "",
-    "tag": "v2.0.1-rc.32",
-    "body": "[compare changes](https://github.com/h3js/h3/compare/df811cd872015ced1cb21e30d42ec20c9f79cbc3...v2.0.1-rc.32)\r\n\r\n### 🚀 Enhancements\r\n\r\n- Export `normalizeRoute` as a public path utility ([#1549](https://github.com/h3js/h3/pull/1549))\r\n\r\n### 🩹 Fixes\r\n\r\n- **route-rules:** Pass uncacheable requests through the cache rule ([b6c7d08](https://github.com/h3js/h3/commit/b6c7d08))\r\n- Handle srvx body limit errors as 413 ([b5d20d5](https://github.com/h3js/h3/commit/b5d20d5))\r\n- **error:** Require status in HTTPError.isError ([e6b726b](https://github.com/h3js/h3/commit/e6b726b))\r\n\r\n### 🌊 Types\r\n\r\n- **handler:** Infer route handler request type instead of any ([#1546](https://github.com/h3js/h3/pull/1546))\r\n- **handler:** Use request header names for req.headers ([ae529f1](https://github.com/h3js/h3/commit/ae529f1))\r\n- Export `TypedHeaders` type ([#1547](https://github.com/h3js/h3/pull/1547))\r\n\r\n### ❤️ Contributors\r\n\r\n- Pooya Parsa (@pi0)\r\n- Rith Banerjee (@Rithb898)\r\n- Lazizbek Ergashev (@lazerg)",
+    "tag": "v2.0.2",
+    "body": "[compare changes](https://github.com/h3js/h3/compare/v2.0.1...v2.0.2)\r\n\r\n### 🩹 Fixes\r\n\r\n- **node:** Call `onError` for stream errors in Node.js handlers ([#1571](https://github.com/h3js/h3/pull/1571))\r\n- **response:** Use matching reason phrases in redirect and noContent ([#1570](https://github.com/h3js/h3/pull/1570))\r\n- **middleware:** Pass through handled responses in `onError` ([#1574](https://github.com/h3js/h3/pull/1574))\r\n\r\n### 🌊 Types\r\n\r\n- **session:** Remove `@ts-nocheck` from iron-crypto ([#1572](https://github.com/h3js/h3/pull/1572))\r\n- **route:** Infer `defineRoute` handler input from validation schemas ([ec527f0](https://github.com/h3js/h3/commit/ec527f0))\r\n\r\n### 🏡 Chore\r\n\r\n- **session:** Retarget legacy seal fallback removal to v3 ([#1573](https://github.com/h3js/h3/pull/1573))\r\n- **session:** Mark `legacySealFallback` as deprecated ([44dbfb8](https://github.com/h3js/h3/commit/44dbfb8))\r\n\r\n### ❤️ Contributors\r\n\r\n- Pooya Parsa ([@pi0](https://github.com/pi0))\r\n- Bao Nguyen ([@giaBaoJS](https://github.com/giaBaoJS))\r\n- Kaan Çelebi ([@kaanisthatyou](https://github.com/kaanisthatyou))\r\n- Daniel Shafer ([@dannyshafer](https://github.com/dannyshafer))",
     "isDraft": false,
     "isPrerelease": false,
     "author": {
@@ -4081,9 +4235,9 @@
       "typeRaw": "User",
       "isBotHint": false
     },
-    "publishedAt": "2026-09-14T18:46:42.000Z",
-    "createdAt": "2026-09-14T18:44:15.000Z",
-    "url": "https://github.com/h3js/h3/releases/tag/v2.0.1-rc.32",
+    "publishedAt": "<now>",
+    "createdAt": "<now>",
+    "url": "https://github.com/h3js/h3/releases/tag/v2.0.2",
     "assets": []
   },
   "release": {
@@ -4096,12 +4250,12 @@
         "owner": "h3js",
         "name": "h3"
       },
-      "id": "388631582",
-      "tag": "v2.0.1-rc.32"
+      "id": "405748393",
+      "tag": "v2.0.2"
     },
     "name": "",
-    "tag": "v2.0.1-rc.32",
-    "body": "[compare changes](https://github.com/h3js/h3/compare/df811cd872015ced1cb21e30d42ec20c9f79cbc3...v2.0.1-rc.32)\r\n\r\n### 🚀 Enhancements\r\n\r\n- Export `normalizeRoute` as a public path utility ([#1549](https://github.com/h3js/h3/pull/1549))\r\n\r\n### 🩹 Fixes\r\n\r\n- **route-rules:** Pass uncacheable requests through the cache rule ([b6c7d08](https://github.com/h3js/h3/commit/b6c7d08))\r\n- Handle srvx body limit errors as 413 ([b5d20d5](https://github.com/h3js/h3/commit/b5d20d5))\r\n- **error:** Require status in HTTPError.isError ([e6b726b](https://github.com/h3js/h3/commit/e6b726b))\r\n\r\n### 🌊 Types\r\n\r\n- **handler:** Infer route handler request type instead of any ([#1546](https://github.com/h3js/h3/pull/1546))\r\n- **handler:** Use request header names for req.headers ([ae529f1](https://github.com/h3js/h3/commit/ae529f1))\r\n- Export `TypedHeaders` type ([#1547](https://github.com/h3js/h3/pull/1547))\r\n\r\n### ❤️ Contributors\r\n\r\n- Pooya Parsa (@pi0)\r\n- Rith Banerjee (@Rithb898)\r\n- Lazizbek Ergashev (@lazerg)",
+    "tag": "v2.0.2",
+    "body": "[compare changes](https://github.com/h3js/h3/compare/v2.0.1...v2.0.2)\r\n\r\n### 🩹 Fixes\r\n\r\n- **node:** Call `onError` for stream errors in Node.js handlers ([#1571](https://github.com/h3js/h3/pull/1571))\r\n- **response:** Use matching reason phrases in redirect and noContent ([#1570](https://github.com/h3js/h3/pull/1570))\r\n- **middleware:** Pass through handled responses in `onError` ([#1574](https://github.com/h3js/h3/pull/1574))\r\n\r\n### 🌊 Types\r\n\r\n- **session:** Remove `@ts-nocheck` from iron-crypto ([#1572](https://github.com/h3js/h3/pull/1572))\r\n- **route:** Infer `defineRoute` handler input from validation schemas ([ec527f0](https://github.com/h3js/h3/commit/ec527f0))\r\n\r\n### 🏡 Chore\r\n\r\n- **session:** Retarget legacy seal fallback removal to v3 ([#1573](https://github.com/h3js/h3/pull/1573))\r\n- **session:** Mark `legacySealFallback` as deprecated ([44dbfb8](https://github.com/h3js/h3/commit/44dbfb8))\r\n\r\n### ❤️ Contributors\r\n\r\n- Pooya Parsa ([@pi0](https://github.com/pi0))\r\n- Bao Nguyen ([@giaBaoJS](https://github.com/giaBaoJS))\r\n- Kaan Çelebi ([@kaanisthatyou](https://github.com/kaanisthatyou))\r\n- Daniel Shafer ([@dannyshafer](https://github.com/dannyshafer))",
     "isDraft": false,
     "isPrerelease": false,
     "author": {
@@ -4114,9 +4268,9 @@
       "typeRaw": "User",
       "isBotHint": false
     },
-    "publishedAt": "2026-09-14T18:46:42.000Z",
-    "createdAt": "2026-09-14T18:44:15.000Z",
-    "url": "https://github.com/h3js/h3/releases/tag/v2.0.1-rc.32",
+    "publishedAt": "<now>",
+    "createdAt": "<now>",
+    "url": "https://github.com/h3js/h3/releases/tag/v2.0.2",
     "assets": []
   },
   "release by tag": {
@@ -4129,12 +4283,12 @@
         "owner": "h3js",
         "name": "h3"
       },
-      "id": "388631582",
-      "tag": "v2.0.1-rc.32"
+      "id": "405748393",
+      "tag": "v2.0.2"
     },
     "name": "",
-    "tag": "v2.0.1-rc.32",
-    "body": "[compare changes](https://github.com/h3js/h3/compare/df811cd872015ced1cb21e30d42ec20c9f79cbc3...v2.0.1-rc.32)\r\n\r\n### 🚀 Enhancements\r\n\r\n- Export `normalizeRoute` as a public path utility ([#1549](https://github.com/h3js/h3/pull/1549))\r\n\r\n### 🩹 Fixes\r\n\r\n- **route-rules:** Pass uncacheable requests through the cache rule ([b6c7d08](https://github.com/h3js/h3/commit/b6c7d08))\r\n- Handle srvx body limit errors as 413 ([b5d20d5](https://github.com/h3js/h3/commit/b5d20d5))\r\n- **error:** Require status in HTTPError.isError ([e6b726b](https://github.com/h3js/h3/commit/e6b726b))\r\n\r\n### 🌊 Types\r\n\r\n- **handler:** Infer route handler request type instead of any ([#1546](https://github.com/h3js/h3/pull/1546))\r\n- **handler:** Use request header names for req.headers ([ae529f1](https://github.com/h3js/h3/commit/ae529f1))\r\n- Export `TypedHeaders` type ([#1547](https://github.com/h3js/h3/pull/1547))\r\n\r\n### ❤️ Contributors\r\n\r\n- Pooya Parsa (@pi0)\r\n- Rith Banerjee (@Rithb898)\r\n- Lazizbek Ergashev (@lazerg)",
+    "tag": "v2.0.2",
+    "body": "[compare changes](https://github.com/h3js/h3/compare/v2.0.1...v2.0.2)\r\n\r\n### 🩹 Fixes\r\n\r\n- **node:** Call `onError` for stream errors in Node.js handlers ([#1571](https://github.com/h3js/h3/pull/1571))\r\n- **response:** Use matching reason phrases in redirect and noContent ([#1570](https://github.com/h3js/h3/pull/1570))\r\n- **middleware:** Pass through handled responses in `onError` ([#1574](https://github.com/h3js/h3/pull/1574))\r\n\r\n### 🌊 Types\r\n\r\n- **session:** Remove `@ts-nocheck` from iron-crypto ([#1572](https://github.com/h3js/h3/pull/1572))\r\n- **route:** Infer `defineRoute` handler input from validation schemas ([ec527f0](https://github.com/h3js/h3/commit/ec527f0))\r\n\r\n### 🏡 Chore\r\n\r\n- **session:** Retarget legacy seal fallback removal to v3 ([#1573](https://github.com/h3js/h3/pull/1573))\r\n- **session:** Mark `legacySealFallback` as deprecated ([44dbfb8](https://github.com/h3js/h3/commit/44dbfb8))\r\n\r\n### ❤️ Contributors\r\n\r\n- Pooya Parsa ([@pi0](https://github.com/pi0))\r\n- Bao Nguyen ([@giaBaoJS](https://github.com/giaBaoJS))\r\n- Kaan Çelebi ([@kaanisthatyou](https://github.com/kaanisthatyou))\r\n- Daniel Shafer ([@dannyshafer](https://github.com/dannyshafer))",
     "isDraft": false,
     "isPrerelease": false,
     "author": {
@@ -4147,9 +4301,9 @@
       "typeRaw": "User",
       "isBotHint": false
     },
-    "publishedAt": "2026-09-14T18:46:42.000Z",
-    "createdAt": "2026-09-14T18:44:15.000Z",
-    "url": "https://github.com/h3js/h3/releases/tag/v2.0.1-rc.32",
+    "publishedAt": "<now>",
+    "createdAt": "<now>",
+    "url": "https://github.com/h3js/h3/releases/tag/v2.0.2",
     "assets": []
   },
   "search threads": {
@@ -4165,34 +4319,34 @@
             "name": "h3"
           },
           "kind": "pull_request",
-          "number": "1562",
-          "externalId": "PR_kwDOErHI988AAAABFrIAAw"
+          "number": "1557",
+          "externalId": "PR_kwDOErHI988AAAABFO055g"
         },
         "kind": "pull_request",
-        "title": "fix(validate): preserve repeated query values in defineValidatedHandler",
-        "body": "## Summary\n\n- `defineValidatedHandler` built its query validation input with `Object.fromEntries(url.searchParams.entries())`, which keeps only the **last** value for repeated keys (`?tag=a&tag=b` → `{ tag: \"b\" }`).\n- Feed validators through the existing `parseQuery` helper (same shape as `getQuery`) and write array results back as repeated `URLSearchParams` entries.\n\n## Reproduction\n\n```ts\ndefineValidatedHandler({\n  validate: { query: z.object({ tag: z.array(z.string()) }) },\n  handler: (event) => event.url.searchParams.getAll(\"tag\"),\n});\n// GET /?tag=a&tag=b\n// before: validation fails / sees only \"b\"\n// after: validator input `{ tag: [\"a\", \"b\"] }`, handler returns `[\"a\", \"b\"]`\n```\n\n## Test plan\n\n- [x] `pnpm exec vitest run test/handler.test.ts` (23 passed)\n- [ ] CI\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n\n## Summary by CodeRabbit\n\n* **Bug Fixes**\n  * Repeated query parameters are now preserved when validated, so handlers can receive and return all values instead of only the last one.\n\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
+        "title": "feat(rules): request conditions in rule keys (`GET:MD /path`)",
+        "body": "Route rule keys can now be scoped to a named request condition with `METHOD:NAME /path`. Conditions match request headers and are defined in `routeRules()` options.\n\n```ts\nimport { routeRules } from \"h3/rules\";\n\napp.use(\n  routeRules(\n    {\n      // GET /blog/hello with `Accept: text/markdown` → 307 /blog/hello.md\n      \"GET:MD /blog/**\": { redirect: \"/blog/**.md\" },\n      // Already Markdown: don't redirect again\n      \"GET:MD /blog/*.md\": { redirect: false },\n    },\n    {\n      conditions: {\n        MD: { headers: { accept: /\\btext\\/markdown\\b/ } },\n      },\n    },\n  ),\n);\n```\n\n- A request that satisfies a condition keeps every plain `GET` rule and gets the condition's rules on top. When several conditions are satisfied, all of them apply.\n- Header checks: `true` means present, `false` means absent, a string must match exactly, and a `RegExp` is tested against the value.\n- Rule sets without conditions do no extra work per request.\n- `cache` entries and memoized matches are kept separate per condition.\n- The compiler supports conditions: `compileRouteRules(config, { conditions })` exports `resolveRouteRulesMethod(event, method)` for the compiled matcher.\n\nAlso fixes a `preMerge` bug where a method-scoped rule on a shared route node (`GET /a/:id`) hid an agnostic rule (`/a/*`) for `GET /a`.\n\n🤖 Generated with AI assistant\n\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n## Summary by CodeRabbit\n\n- **New Features**\n  - Added named request conditions for route rules, matching requests by header presence, absence, exact values, or regular expressions.\n  - Requests now combine standard method rules with rules for satisfied conditions. GET conditions also apply to HEAD requests.\n  - Added validation for condition definitions and rule keys, including a limit of six conditions per method.\n  - Cached responses are kept separate across condition variants.\n- **Documentation**\n  - Expanded the Route Rules guide with configuration, matching behavior, precedence, and security considerations.\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
         "state": "open",
         "stateRaw": "open",
         "isDraft": false,
         "author": {
           "forge": "github",
           "instance": "github.com",
-          "login": "00200200",
-          "id": "83299832",
-          "avatarUrl": "https://avatars.githubusercontent.com/u/83299832?v=4",
-          "url": "https://github.com/00200200",
+          "login": "pi0x",
+          "id": "286783767",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/286783767?v=4",
+          "url": "https://github.com/pi0x",
           "typeRaw": "User",
           "isBotHint": false
         },
         "assignees": [],
         "reviewers": [],
         "labels": [],
-        "url": "https://github.com/h3js/h3/pull/1562",
-        "createdAt": "2026-09-29T10:13:03.000Z",
-        "updatedAt": "2026-09-29T10:19:21.000Z",
-        "lastActivityAt": "2026-09-29T10:19:21.000Z",
+        "url": "https://github.com/h3js/h3/pull/1557",
+        "createdAt": "2026-09-26T08:58:13.000Z",
+        "updatedAt": "2026-09-26T10:12:18.000Z",
+        "lastActivityAt": "2026-09-26T10:12:18.000Z",
         "locked": false,
-        "commentCount": 1,
+        "commentCount": 3,
         "reactions": {
           "total": 0,
           "counts": {}
@@ -4209,34 +4363,40 @@
             "name": "h3"
           },
           "kind": "pull_request",
-          "number": "1565",
-          "externalId": "PR_kwDOErHI988AAAABF0wh2A"
+          "number": "1422",
+          "externalId": "PR_kwDOErHI987sEw0e"
         },
         "kind": "pull_request",
-        "title": "fix(cookie): size cookie chunks by their encoded length",
-        "body": "## Summary\n\n`setChunkedCookie` splits the raw value every `chunkMaxLength` (default 4000) characters. Each chunk is then percent-encoded by `setCookie` (`encodeURIComponent` by default), and that encoding makes it longer: `\"`, `{`, `:`, `,` and spaces become 3 bytes, and non-ASCII characters become 6–12 bytes. So the stored chunks can be far larger than the ~4KB the chunking is meant to stay under.\n\n```ts\nsetChunkedCookie(event, \"cart\", JSON.stringify(cart)); // 7501 characters\n// Set-Cookie: cart=__chunked__2\n// Set-Cookie: cart.1=… (9195 bytes)\n// Set-Cookie: cart.2=… (7932 bytes)\n```\n\nBrowsers drop cookies over 4096 bytes, so the chunks never come back. On the next request `getChunkedCookie` sees `__chunked__2` with the chunks missing and returns `undefined`. The data is lost without any error.\n\nA second failure in the same slicing: `value.slice()` cuts at UTF-16 indexes, so a chunk boundary can split a surrogate pair (an emoji, for example). `encodeURIComponent` then throws `URIError: URI malformed`, and the handler fails with a 500.\n\nSession cookies aren't affected: the sealed value is URL-safe ASCII. It hits apps that put JSON or user text into chunked cookies.\n\n## Fix\n\nA new internal helper, `splitCookieValue`, splits the value on code point boundaries, so a surrogate pair is never split. Each chunk is the longest run whose encoded form, using the same `encode` as `setCookie` (`options.encode` or `encodeURIComponent`), fits in `chunkMaxLength`. The helper measures whole candidate chunks (gallop, then bisect), so custom encoders like base64 whose length isn't additive per character are sized correctly too. A code point that can't fit even alone throws before any header is written. For values that don't grow when encoded (such as sealed sessions), the chunks are exactly the same as before, so all existing chunk snapshots are unchanged. The chunk-count cap still applies, and the helper stops as soon as it's exceeded.\n\n## Test plan\n\n- [x] New tests in `test/cookies.test.ts` (web and node, both setups):\n  - `keeps every encoded chunk within chunkMaxLength and readable`: a 2771-character JSON value (7453 bytes encoded). Every `Set-Cookie` value is ≤ 4000 bytes, and `getChunkedCookie` reads back the original.\n  - `does not split a surrogate pair across chunks`: `\"12345678901😀abc\"` with `chunkMaxLength: 12` round-trips.\n  - `sizes chunks for a custom encoder by the whole encoded chunk`: a `btoa` encoder with budget 40 gives 4 chunks of 30 characters, which round-trip.\n  - `throws when a single character cannot fit in chunkMaxLength`\n  - on `main` (62c2632): 16 failures (`expected 7453 to be less than or equal to 4000`, `URIError: URI malformed` → 500, …)\n  - with this change: `test/cookies.test.ts` and `test/session.test.ts` 192/192\n- [x] Full `vitest run` (node 24): 2872 passed, 66 skipped\n- [x] `oxlint .`, `oxfmt --check .`, `tsc --noEmit`, `obuild` and `git diff --check` are clean\n\nThis bug was found and fixed by an AI agent (breken-ai) and verified with the red/green tests above.\n\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n\n## Summary by CodeRabbit\n\n* **Bug Fixes**\n  * Chunked cookies now respect size limits based on their encoded representation, including when values contain multibyte characters.\n  * Character pairs remain intact across chunks, and chunk sizes account for the complete output of custom encoders.\n  * If a single character cannot fit within the encoded size limit, the operation returns an HTTP 500 error without writing response headers.\n  * The existing 100-chunk limit remains in place.\n\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
+        "title": "fix(sanitizeStatusCode): return default for non-numeric input instead of NaN",
+        "body": "`sanitizeStatusCode` accepts `string | number` and parses strings with `Number.parseInt`. For a non-numeric string `Number.parseInt` returns `NaN`, and `NaN` slips through the range check because every comparison with `NaN` is `false`:\n\n```ts\nsanitizeStatusCode(\"abc\"); // -> NaN  (expected 200)\n```\n\nSo an invalid code can reach `createError` (`err.statusCode = sanitizeStatusCode(input.statusCode, ...)`) and the response helpers (`event.node.res.statusCode = sanitizeStatusCode(...)`), where a `NaN` status is no longer a valid HTTP status.\n\nThis is the same issue that was fixed for v2 on `main` in #1420; this backports the guard to the v1 line. The `Number.parseInt` behaviour and the `100..999` range are unchanged, I only added the `Number.isNaN` check:\n\n```ts\nif (Number.isNaN(statusCode) || statusCode < 100 || statusCode > 999) {\n  return defaultStatusCode;\n}\n```\n\nAdded a unit test covering valid codes, out-of-range codes and non-numeric strings. It fails before the change (returns `NaN`) and passes after.\n",
         "state": "open",
         "stateRaw": "open",
         "isDraft": false,
         "author": {
           "forge": "github",
           "instance": "github.com",
-          "login": "breken-ai",
-          "id": "312387581",
-          "avatarUrl": "https://avatars.githubusercontent.com/u/312387581?v=4",
-          "url": "https://github.com/breken-ai",
+          "login": "mahirhir",
+          "id": "246701683",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/246701683?v=4",
+          "url": "https://github.com/mahirhir",
           "typeRaw": "User",
           "isBotHint": false
         },
         "assignees": [],
         "reviewers": [],
-        "labels": [],
-        "url": "https://github.com/h3js/h3/pull/1565",
-        "createdAt": "2026-09-30T04:35:21.000Z",
-        "updatedAt": "2026-09-30T05:05:18.000Z",
-        "lastActivityAt": "2026-09-30T05:05:18.000Z",
+        "labels": [
+          {
+            "name": "v1",
+            "colour": "B42F7D",
+            "description": ""
+          }
+        ],
+        "url": "https://github.com/h3js/h3/pull/1422",
+        "createdAt": "2026-06-30T05:13:40.000Z",
+        "updatedAt": "2026-09-14T14:34:57.000Z",
+        "lastActivityAt": "2026-09-14T14:34:57.000Z",
         "locked": false,
-        "commentCount": 1,
+        "commentCount": 2,
         "reactions": {
           "total": 0,
           "counts": {}
@@ -4252,35 +4412,41 @@
             "owner": "h3js",
             "name": "h3"
           },
-          "kind": "pull_request",
-          "number": "1566",
-          "externalId": "PR_kwDOErHI988AAAABGC9Bdw"
+          "kind": "issue",
+          "number": "1567",
+          "externalId": "I_kwDOErHI988AAAABUYFmsg"
         },
-        "kind": "pull_request",
-        "title": "fix(mime): add .mjs and .cjs to COMMON_MIME_TYPES",
-        "body": "`.mjs` (ES module) and `.cjs` (CommonJS module) files are absent from `COMMON_MIME_TYPES`. When `serveStatic` serves a `.mjs` file, `getType` returns `undefined` and no `Content-Type` header is set.\n\nBrowsers enforce strict MIME checking for `<script type=\"module\">` — a missing content-type causes a network error and the module fails to load entirely.\n\nThe fix adds both extensions mapped to `\"text/javascript\"`, consistent with `.js` and with [RFC 9239](https://www.rfc-editor.org/rfc/rfc9239).\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n\n## Summary by CodeRabbit\n\n* **Bug Fixes**\n  * `.mjs` and `.cjs` files are now identified as JavaScript files.\n\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
+        "kind": "issue",
+        "title": "getValidatedQuery should account for ambiguous data",
+        "body": "### Describe the feature\n\n## Premise\n\nreadQuery() as it is currently only works if you either\n\n1. have extremely simple data - basically exclusively strings.\n2. make a custom schema with coercing (assuming the validation library supports everything needed) for every API endpoint, not really being able to reuse existing schemas\n3. send all data as body payload (this wouldn't be a problem if GET and DELETE were allowed to have bodies)\n4. send all data as stringified JSON\n5. or (like me) make a shim that tries its best at adjusting the data to better fit a schema\n\nnone of these options are particularly enticing, so (imo) there should be a system to somehow fix this in h3.\n\n## My shim/workaround\n\nwithout posting code, I basically crawl through the zod type definition alongside the passed data and adjust the data where it can't be unambiguously represented by query parameters.\n\nI'm not sure how viable this is for h3 considering it's supposed to be somewhat validator-agnostic… But then again, having this feature for a limited amount of libraries would be better than having it for none at all.\n\n## Additional notes\n\nzod has already declined to implement a version of this on their side: https://github.com/colinhacks/zod/issues/2873\n\n### Additional information\n\n- [ ] Would you be willing to help implement this feature?",
         "state": "open",
         "stateRaw": "open",
         "isDraft": false,
         "author": {
           "forge": "github",
           "instance": "github.com",
-          "login": "okxint",
-          "id": "130782884",
-          "avatarUrl": "https://avatars.githubusercontent.com/u/130782884?v=4",
-          "url": "https://github.com/okxint",
+          "login": "LMR-eitea",
+          "id": "332368094",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/332368094?v=4",
+          "url": "https://github.com/LMR-eitea",
           "typeRaw": "User",
           "isBotHint": false
         },
         "assignees": [],
         "reviewers": [],
-        "labels": [],
-        "url": "https://github.com/h3js/h3/pull/1566",
-        "createdAt": "2026-10-01T07:33:21.000Z",
-        "updatedAt": "2026-10-01T07:37:43.000Z",
-        "lastActivityAt": "2026-10-01T07:37:43.000Z",
+        "labels": [
+          {
+            "name": "enhancement",
+            "colour": "a2eeef",
+            "description": "New feature or request"
+          }
+        ],
+        "url": "https://github.com/h3js/h3/issues/1567",
+        "createdAt": "2026-10-01T12:48:44.000Z",
+        "updatedAt": "2026-10-01T12:48:44.000Z",
+        "lastActivityAt": "2026-10-01T12:48:44.000Z",
         "locked": false,
-        "commentCount": 1,
+        "commentCount": 0,
         "reactions": {
           "total": 0,
           "counts": {}
@@ -4288,7 +4454,7 @@
       }
     ],
     "cursor": {
-      "nextUrl": "https://api.github.com/search/issues?q=fix+repo%3Ah3js%2Fh3&per_page=3&page=2"
+      "nextUrl": "https://api.github.com/search/issues?q=%28fix%29+repo%3Ah3js%2Fh3+%28is%3Aissue+OR+is%3Apr%29&advanced_search=true&per_page=3&page=2"
     },
     "rateLimit": {
       "remaining": 29,
@@ -4324,8 +4490,23 @@
           "ssh": "git@github.com:uber/h3.git"
         },
         "createdAt": "2017-12-21T01:38:35.000Z",
-        "updatedAt": "2026-10-02T08:18:32.000Z",
+        "updatedAt": "2026-10-07T06:57:45.000Z",
         "pushedAt": "2026-10-02T01:00:28.000Z",
+        "owner": {
+          "forge": "github",
+          "instance": "github.com",
+          "login": "uber",
+          "id": "538264",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/538264?v=4",
+          "url": "https://github.com/uber",
+          "typeRaw": "Organization",
+          "isBotHint": false
+        },
+        "language": "C",
+        "homepage": "https://h3geo.org",
+        "licence": "Apache-2.0",
+        "stars": 6583,
+        "forks": 629,
         "features": {
           "issues": true,
           "pullRequests": true,
@@ -4363,8 +4544,23 @@
           "ssh": "git@github.com:h3js/h3.git"
         },
         "createdAt": "2020-11-17T14:15:44.000Z",
-        "updatedAt": "2026-09-30T17:06:22.000Z",
-        "pushedAt": "2026-09-29T16:33:50.000Z",
+        "updatedAt": "<now>",
+        "pushedAt": "<now>",
+        "owner": {
+          "forge": "github",
+          "instance": "github.com",
+          "login": "h3js",
+          "id": "208435796",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/208435796?v=4",
+          "url": "https://github.com/h3js",
+          "typeRaw": "Organization",
+          "isBotHint": false
+        },
+        "language": "TypeScript",
+        "homepage": "https://h3.dev",
+        "licence": "MIT",
+        "stars": 5447,
+        "forks": 367,
         "features": {
           "issues": true,
           "pullRequests": true,
@@ -4404,6 +4600,20 @@
         "createdAt": "2026-08-04T04:20:36.000Z",
         "updatedAt": "<now>",
         "pushedAt": "2026-09-30T10:23:49.000Z",
+        "owner": {
+          "forge": "github",
+          "instance": "github.com",
+          "login": "AIMixer",
+          "id": "149470765",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/149470765?v=4",
+          "url": "https://github.com/AIMixer",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "language": "JavaScript",
+        "licence": "Apache-2.0",
+        "stars": 2205,
+        "forks": 261,
         "features": {
           "issues": true,
           "pullRequests": true,
@@ -4441,10 +4651,10 @@
             "owner": "h3js",
             "name": "h3"
           },
-          "sha": "26bac524c80be279187bfa68cb8bf41f164813b1"
+          "sha": "b52a9e7417bab5bbcdbf737d62c8fa0a61e84976"
         },
-        "sha": "26bac524c80be279187bfa68cb8bf41f164813b1",
-        "message": "fix(static): honor q-values and case in accept-encoding (#1560)",
+        "sha": "b52a9e7417bab5bbcdbf737d62c8fa0a61e84976",
+        "message": "fix(middleware): pass through handled responses in `onError` (#1574)",
         "author": {
           "actor": {
             "forge": "github",
@@ -4458,7 +4668,7 @@
           },
           "name": "pi0x",
           "email": "redacted@example.invalid",
-          "date": "2026-09-28T23:21:03.000Z"
+          "date": "2026-10-07T11:58:34.000Z"
         },
         "committer": {
           "actor": {
@@ -4473,12 +4683,12 @@
           },
           "name": "GitHub",
           "email": "redacted@example.invalid",
-          "date": "2026-09-28T23:21:03.000Z"
+          "date": "2026-10-07T11:58:34.000Z"
         },
         "parents": [
-          "3cfd7491f91c794402e13506253e8d04cd36317d"
+          "403bd029e5ee9ecd10c59682ea08f5b0ce90e05b"
         ],
-        "url": "https://github.com/h3js/h3/commit/26bac524c80be279187bfa68cb8bf41f164813b1"
+        "url": "https://github.com/h3js/h3/commit/b52a9e7417bab5bbcdbf737d62c8fa0a61e84976"
       },
       {
         "ref": {
@@ -4490,24 +4700,24 @@
             "owner": "h3js",
             "name": "h3"
           },
-          "sha": "492783be78452d1f45eb5bfbb6b47caa2f45de51"
+          "sha": "403bd029e5ee9ecd10c59682ea08f5b0ce90e05b"
         },
-        "sha": "492783be78452d1f45eb5bfbb6b47caa2f45de51",
-        "message": "fix(static): set vary header when a single encoding is accepted (#1556)",
+        "sha": "403bd029e5ee9ecd10c59682ea08f5b0ce90e05b",
+        "message": "fix(response): use matching reason phrases in redirect and noContent (#1570)",
         "author": {
           "actor": {
             "forge": "github",
             "instance": "github.com",
-            "login": "kwy404",
-            "id": "64209066",
-            "avatarUrl": "https://avatars.githubusercontent.com/u/64209066?v=4",
-            "url": "https://github.com/kwy404",
+            "login": "giaBaoJS",
+            "id": "39545125",
+            "avatarUrl": "https://avatars.githubusercontent.com/u/39545125?v=4",
+            "url": "https://github.com/giaBaoJS",
             "typeRaw": "User",
             "isBotHint": false
           },
-          "name": "Alexandre Kohler",
+          "name": "Bao Nguyen",
           "email": "redacted@example.invalid",
-          "date": "2026-09-28T22:33:34.000Z"
+          "date": "2026-10-07T11:56:48.000Z"
         },
         "committer": {
           "actor": {
@@ -4522,12 +4732,12 @@
           },
           "name": "GitHub",
           "email": "redacted@example.invalid",
-          "date": "2026-09-28T22:33:34.000Z"
+          "date": "2026-10-07T11:56:48.000Z"
         },
         "parents": [
-          "f5b33e4e3170e3d1941163930f1693495be9834b"
+          "bca3a8e8d5ab556c874c771aa5a9fade06194948"
         ],
-        "url": "https://github.com/h3js/h3/commit/492783be78452d1f45eb5bfbb6b47caa2f45de51"
+        "url": "https://github.com/h3js/h3/commit/403bd029e5ee9ecd10c59682ea08f5b0ce90e05b"
       },
       {
         "ref": {
@@ -4539,24 +4749,24 @@
             "owner": "h3js",
             "name": "h3"
           },
-          "sha": "75c68e2200d56f5d8c05ecd9bd38ac7ca31df17f"
+          "sha": "bca3a8e8d5ab556c874c771aa5a9fade06194948"
         },
-        "sha": "75c68e2200d56f5d8c05ecd9bd38ac7ca31df17f",
-        "message": "fix(sse): preserve buffered events during overlapping flushes (#1555)",
+        "sha": "bca3a8e8d5ab556c874c771aa5a9fade06194948",
+        "message": "fix(node): call `onError` for stream errors in Node.js handlers (#1571)",
         "author": {
           "actor": {
             "forge": "github",
             "instance": "github.com",
-            "login": "maximilliangrand",
-            "id": "214999687",
-            "avatarUrl": "https://avatars.githubusercontent.com/u/214999687?v=4",
-            "url": "https://github.com/maximilliangrand",
+            "login": "kaanisthatyou",
+            "id": "121812333",
+            "avatarUrl": "https://avatars.githubusercontent.com/u/121812333?v=4",
+            "url": "https://github.com/kaanisthatyou",
             "typeRaw": "User",
             "isBotHint": false
           },
-          "name": "Maxim Gagiev",
+          "name": "Kaan Çelebi",
           "email": "redacted@example.invalid",
-          "date": "2026-09-23T08:40:48.000Z"
+          "date": "2026-10-07T11:53:46.000Z"
         },
         "committer": {
           "actor": {
@@ -4571,12 +4781,12 @@
           },
           "name": "GitHub",
           "email": "redacted@example.invalid",
-          "date": "2026-09-23T08:40:48.000Z"
+          "date": "2026-10-07T11:53:46.000Z"
         },
         "parents": [
-          "b31898362a111c526271989682aef54b2a15077f"
+          "fb34b0f5144c9e2e5658fd30038a95582accd9d3"
         ],
-        "url": "https://github.com/h3js/h3/commit/75c68e2200d56f5d8c05ecd9bd38ac7ca31df17f"
+        "url": "https://github.com/h3js/h3/commit/bca3a8e8d5ab556c874c771aa5a9fade06194948"
       }
     ],
     "cursor": {

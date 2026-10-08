@@ -20,6 +20,16 @@
     },
     "createdAt": "2026-07-11T17:16:01.893Z",
     "updatedAt": "2026-10-04T10:35:38.882Z",
+    "owner": {
+      "forge": "pushin",
+      "instance": "pushin.eu",
+      "login": "pjullrich",
+      "url": "https://pushin.eu/pjullrich",
+      "typeRaw": "User",
+      "isBotHint": false
+    },
+    "stars": 25,
+    "forks": 0,
     "permissions": {
       "admin": false,
       "maintain": false,
@@ -31,11 +41,12 @@
   "labels": {
     "items": [
       {
-        "name": "Future"
+        "name": "Future",
+        "colour": "8250df"
       }
     ],
     "rateLimit": {
-      "remaining": 4997,
+      "remaining": 4998,
       "resetAt": "<now>"
     }
   },
@@ -73,7 +84,8 @@
     "reviewers": [],
     "labels": [
       {
-        "name": "Future"
+        "name": "Future",
+        "colour": "8250df"
       }
     ],
     "url": "https://pushin.eu/pjullrich/pushin/issues/31",
@@ -170,39 +182,39 @@
             "name": "pushin"
           },
           "kind": "issue",
-          "number": "45",
-          "externalId": "iss_034UUry1LHKpg4sVf9y70s"
+          "number": "42",
+          "externalId": "iss_034ScgP2qWR3Inxa2ADjQ7"
         },
         "kind": "issue",
-        "title": "Default git branch should be showing when viewing the repository after it changes",
-        "body": "## Problem\n\nOn the pcharbon70/catena repository I tried changing the default branch and now the HEAD and the default branch are out of sync. I changed the git default branch from `rewrite` to `c-otp-asm` and the main page still lands on `rewrite`. The `pun` tool also agrees on the new default branch.\n\n## Running these you can see the reproduction:\n\n`$ git ls-remote --symref https://git.pushin.eu/pcharbon70/catena.git HEAD`\n\n     ref: refs/heads/rewrite\tHEAD\n     8f6fd300d52e0355e1fe46946ff978d78397872b\tHEAD\n\n\n`$ pun repo view -R pcharbon70/catena --json=default_branch,full_name` \n\n {\n  \"default_branch\": \"c-otp-asm\",\n  \"full_name\": \"pcharbon70/catena\"\n}",
+        "title": "Runner per User/Organization",
+        "body": "Great Job having pushin. \nGreat to have Runners per Repo. \nBUT: Low-frequent repos do not need a dedicated runner, i.e. one shared runner for the user (or organizatioin) would be sufficient. AFAIK is that feature already implemented in gitea, so, maybe an easy task?",
         "state": "open",
         "stateRaw": "open",
         "isDraft": false,
         "author": {
           "forge": "pushin",
           "instance": "pushin.eu",
-          "login": "pcharbon70",
-          "id": "u_034PIl4auUoWJdkib1Bk5W",
-          "avatarUrl": "https://cdn.pushin.eu/-/avatars/u_034PIl4auUoWJdkib1Bk5W",
-          "url": "https://pushin.eu/pcharbon70",
+          "login": "sanddorn",
+          "id": "u_034S8yOz5R2ritBLbmgoSc",
+          "avatarUrl": "https://cdn.pushin.eu/-/avatars/u_034S8yOz5R2ritBLbmgoSc",
+          "url": "https://pushin.eu/sanddorn",
           "typeRaw": "User",
           "isBotHint": false
         },
         "assignees": [],
         "reviewers": [],
         "labels": [],
-        "url": "https://pushin.eu/pjullrich/pushin/issues/45",
-        "createdAt": "2026-09-24T17:42:55.953Z",
-        "updatedAt": "2026-09-25T08:43:59.795Z",
-        "lastActivityAt": "2026-09-25T08:43:59.795Z"
+        "url": "https://pushin.eu/pjullrich/pushin/issues/42",
+        "createdAt": "2026-09-21T10:48:32.864Z",
+        "updatedAt": "2026-09-21T12:07:20.829Z",
+        "lastActivityAt": "2026-09-21T12:07:20.829Z"
       }
     ],
     "cursor": {
       "nextUrl": "https://pushin.eu/api/v1/repos/pjullrich/pushin/issues?page=2&per_page=3"
     },
     "rateLimit": {
-      "remaining": 4994,
+      "remaining": 4995,
       "resetAt": "<now>"
     }
   },
@@ -255,7 +267,8 @@
         "reviewers": [],
         "labels": [
           {
-            "name": "Future"
+            "name": "Future",
+            "colour": "8250df"
           }
         ],
         "url": "https://pushin.eu/pjullrich/pushin/issues/31",
@@ -449,7 +462,7 @@
       }
     ],
     "rateLimit": {
-      "remaining": 4991,
+      "remaining": 4992,
       "resetAt": "<now>"
     }
   },
@@ -553,9 +566,20 @@
       }
     ],
     "rateLimit": {
-      "remaining": 4991,
+      "remaining": 4992,
       "resetAt": "<now>"
     }
+  },
+  "me": {
+    "forge": "pushin",
+    "instance": "pushin.eu",
+    "login": "danielroe",
+    "id": "u_034KGcbXmCJviF1JfQCAWY",
+    "name": "daniel roe",
+    "avatarUrl": "https://cdn.pushin.eu/-/avatars/u_034KGcbXmCJviF1JfQCAWY/0a945a3b",
+    "url": "https://pushin.eu/danielroe",
+    "typeRaw": "User",
+    "isBotHint": false
   },
   "own repos": {
     "items": [
@@ -578,7 +602,17 @@
           "https": "https://git.pushin.eu/danielroe/roe.dev.git"
         },
         "createdAt": "2026-09-06T19:13:09.398Z",
-        "updatedAt": "2026-10-03T16:55:04.575Z",
+        "updatedAt": "2026-10-07T08:40:05.152Z",
+        "owner": {
+          "forge": "pushin",
+          "instance": "pushin.eu",
+          "login": "danielroe",
+          "url": "https://pushin.eu/danielroe",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "stars": 0,
+        "forks": 0,
         "permissions": {
           "admin": true,
           "maintain": true,

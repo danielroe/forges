@@ -1,6 +1,6 @@
 {
   "handAuthored": true,
-  "request": { "method": "GET", "url": "https://codeberg.org/api/v1/repos/acme/widgets/issues/7/timeline" },
+  "request": { "method": "GET", "url": "https://codeberg.org/api/v1/repos/acme/widgets/issues/7/timeline?limit=50" },
   "response": {
     "status": 200,
     "headers": {},

@@ -28,11 +28,13 @@ import type {
   Thread,
   ThreadQuery,
   ThreadRef,
+  User,
 } from '../model.ts'
 import type {
   AnonymousAuth,
   BulkNotificationOptions,
   ForgeOptionsBase,
+  MilestoneListOptions,
   NotificationWriteOptions,
   TokenAuth,
   VerbScopes,
@@ -64,10 +66,11 @@ import { fromBase64, toFileContent } from '../contents.ts'
 import { defineForgeProvider, perKind, verb } from '../define.ts'
 import { ForgeError, NotFoundError, soleMergeMethod, toMergeError, UnsupportedOperationError } from '../errors.ts'
 import { isNamespaceRef, reactionContent } from '../model.ts'
-import { actorLogin, createListing, getManyConcurrently, hasEveryLabel, hexColour, memo, memoBy, requireIssueOrPull, requireThread, resolveToken, summariseChecks, toDate, toPage, toWarning } from '../utils.ts'
+import { actorLogin, createListing, getManyConcurrently, hasEveryLabel, hexColour, memo, memoBy, milestoneId, requireIssueOrPull, requireThread, resolveToken, summariseChecks, toDate, toPage, toWarning } from '../utils.ts'
 import { githubShapedWeb } from '../web.ts'
 import { nativeEventsFor } from '../webhooks.ts'
 import { numberFromUrl, toActor, toBranch, toChangedFile, toComment, toCommit, toEvent, toLabel, toMilestone, toNotification, toRelease, toRepo, toReview, toReviewComment, toRole, toStatusCheck, toStatusChecks, toTag, toThread, toThreadKind, toTreeEntry, toWebhook } from './normalise.ts'
+import { countedPages } from './pages.ts'
 import { FORGEJO_HEADERS, FORGEJO_NATIVE_EVENTS } from './webhook-events.ts'
 import { forgejoWebhooks } from './webhooks.ts'
 
@@ -97,6 +100,14 @@ export const FORGEJO_PROFILE: ForgejoProfile = {
 
 const ISSUE_AND_PULL = { issue: true, pull_request: true } as const
 
+/** Timelines send no usable count, so only a full page of an explicit size shows that another follows. */
+const TIMELINE_PAGE_SIZE = 50
+
+/** Whether `user` has `login`, in any case; `true` when no login is wanted. Forgejo's issue search ignores `created_by` and `assigned_by`. */
+function sameLogin(user: ForgejoUser | null | undefined, login: string | undefined): boolean {
+  return !login || user?.login.toLowerCase() === login.toLowerCase()
+}
+
 const FORGEJO_RESERVED_PATHS = ['-', '.well-known', 'admin', 'api', 'assets', 'attachments', 'avatars', 'captcha', 'explore', 'issues', 'login', 'milestones', 'notifications', 'org', 'pulls', 'repo', 'repo-avatars', 'search', 'user']
 
 /** The Forgejo implementation for one deployment family. Shared by `forgejo()` and `gitea()`. */
@@ -112,10 +123,16 @@ export function forgejoDefinition(profile: ForgejoProfile): ProviderDefinition<F
   }
 }
 
-function setupForgejo({ origin, fetcher, baseUrl }: ProviderContext<ForgejoOptions, undefined>, profile: ForgejoProfile): ProviderSpec {
+function setupForgejo({ origin, fetcher: baseFetcher, baseUrl }: ProviderContext<ForgejoOptions, undefined>, profile: ForgejoProfile): ProviderSpec {
   const context = origin
+  const fetcher = countedPages(baseFetcher)
 
   const list = createListing(fetcher, 'limit')
+
+  async function readUser(path: string): Promise<User> {
+    const { data } = await fetcher.json<ForgejoUser & { description?: string, location?: string, website?: string, created?: string, followers_count?: number, following_count?: number }>(path)
+    return { ...toActor(origin, data)!, bio: data.description || undefined, location: data.location || undefined, websiteUrl: data.website || undefined, createdAt: toDate(data.created), followers: data.followers_count, following: data.following_count, raw: data }
+  }
 
   function repoPath(repo: Pick<RepoRef, 'owner' | 'name'>): string {
     return `/repos/${encodeURIComponent(repo.owner)}/${encodeURIComponent(repo.name)}`
@@ -150,16 +167,30 @@ function setupForgejo({ origin, fetcher, baseUrl }: ProviderContext<ForgejoOptio
 
   const labelIdsOf = memoBy(async (path: string) => {
     const map = new Map<string, number>()
-    for await (const label of fetcher.items<{ id: number, name: string }>(`${path}/labels`, { query: { limit: 50 } })) {
+    for await (const label of fetcher.items<{ id: number, name: string }>(path, { query: { limit: 50 } })) {
       map.set(label.name, label.id)
     }
     return map
   })
 
+  /** Labels an organisation shares with its repositories; none for a user, whose `/orgs` route is a 404. */
+  const orgLabelIdsOf = memoBy(async (owner: string) => {
+    try {
+      return await labelIdsOf(`/orgs/${encodeURIComponent(owner)}/labels`)
+    }
+    catch (error) {
+      if (error instanceof NotFoundError) {
+        return new Map<string, number>()
+      }
+      throw error
+    }
+  })
+
   async function resolveLabels(repo: RepoRef, names: string[]): Promise<number[]> {
-    const map = await labelIdsOf(repoPath(repo))
+    const map = await labelIdsOf(`${repoPath(repo)}/labels`)
+    const shared = names.some(name => !map.has(name)) ? await orgLabelIdsOf(repo.owner) : undefined
     return names.map((name) => {
-      const id = map.get(name)
+      const id = map.get(name) ?? shared?.get(name)
       if (id === undefined) {
         throw new UnsupportedOperationError(`No label named ${name} in ${repo.owner}/${repo.name}`, context)
       }
@@ -326,6 +357,10 @@ function setupForgejo({ origin, fetcher, baseUrl }: ProviderContext<ForgejoOptio
     return toStatusChecks(repo, data)
   }
 
+  function milestonesPage(repo: RepoRef, listOptions: MilestoneListOptions = {}) {
+    return list(`${repoPath(repo)}/milestones`, listOptions, (raw: ForgejoMilestone) => toMilestone(raw)!, { query: { state: listOptions.state ?? 'open' } })
+  }
+
   async function releasesPage(repo: RepoRef, listOptions: PageOptions = {}): Promise<Page<Release>> {
     return list(`${repoPath(repo)}/releases`, listOptions, (raw: ForgejoRelease) => toRelease(repo, raw))
   }
@@ -343,7 +378,7 @@ function setupForgejo({ origin, fetcher, baseUrl }: ProviderContext<ForgejoOptio
     const createdAfter = query.createdAfter?.getTime()
     const result = await fetcher.page<ForgejoIssue>(`${repoPath(repo)}/issues`, {
       query: {
-        state: query.state ?? 'open',
+        state: query.state === 'merged' ? 'closed' : query.state ?? 'open',
         type: query.kind === 'pull_request' ? 'pulls' : query.kind === 'issue' ? 'issues' : undefined,
         labels: query.labels?.join(','),
         created_by: query.author,
@@ -355,7 +390,8 @@ function setupForgejo({ origin, fetcher, baseUrl }: ProviderContext<ForgejoOptio
       signal: query.signal,
     })
     const older = (raw: ForgejoIssue) => createdAfter !== undefined && (Date.parse(raw.created_at ?? '') || 0) < createdAfter
-    const page = toPage(result, raw => older(raw) || !hasEveryLabel(raw.labels, query.labels) ? undefined : toThread({ ...origin, repo, kind: raw.pull_request ? 'pull_request' : 'issue', number: String(raw.number) }, raw), warnings)
+    const unmerged = (raw: ForgejoIssue) => query.state === 'merged' && !raw.pull_request?.merged
+    const page = toPage(result, raw => older(raw) || unmerged(raw) || !hasEveryLabel(raw.labels, query.labels) ? undefined : toThread({ ...origin, repo, kind: raw.pull_request ? 'pull_request' : 'issue', number: String(raw.number) }, raw), warnings)
     return (result.data ?? []).some(older) ? { ...page, cursor: undefined } : page
   }
 
@@ -392,7 +428,7 @@ function setupForgejo({ origin, fetcher, baseUrl }: ProviderContext<ForgejoOptio
       const repo = query.repo ?? (name
         ? { ...origin, owner, name, externalId: raw.repository?.id === undefined ? undefined : String(raw.repository.id) }
         : undefined)
-      if (!repo || !hasEveryLabel(raw.labels, query.labels) || (query.repo && raw.repository && raw.repository.full_name !== `${query.repo.owner}/${query.repo.name}`)) {
+      if (!repo || !hasEveryLabel(raw.labels, query.labels) || !sameLogin(raw.user, query.author) || (query.assignee && !raw.assignees?.some(user => sameLogin(user, query.assignee))) || (query.repo && raw.repository && raw.repository.full_name !== `${query.repo.owner}/${query.repo.name}`)) {
         return undefined
       }
       return toThread({ ...origin, repo, kind: raw.pull_request ? 'pull_request' : 'issue', number: String(raw.number) }, raw)
@@ -423,10 +459,8 @@ function setupForgejo({ origin, fetcher, baseUrl }: ProviderContext<ForgejoOptio
     },
     probeVersion: async () => (await fetcher.json<{ version?: string }>('/version')).data.version,
     users: {
-      get: verb(true, async (login) => {
-        const { data } = await fetcher.json<ForgejoUser & { description?: string, location?: string, website?: string, created?: string, followers_count?: number, following_count?: number }>(`/users/${encodeURIComponent(login)}`)
-        return { ...toActor(origin, data)!, bio: data.description || undefined, location: data.location || undefined, websiteUrl: data.website || undefined, createdAt: toDate(data.created), followers: data.followers_count, following: data.following_count, raw: data }
-      }),
+      get: verb(true, login => readUser(`/users/${encodeURIComponent(login)}`)),
+      me: verb(true, () => readUser('/user')),
     },
     repos: {
       get: verb(true, async ref => toRepo(origin, (await fetcher.json<ForgejoRepositoryDetail>(repoPath(ref))).data)),
@@ -436,7 +470,7 @@ function setupForgejo({ origin, fetcher, baseUrl }: ProviderContext<ForgejoOptio
         method: 'POST',
         json: { name: label.name, color: hexColour(label.colour, '#'), description: label.description },
       })).data)),
-      milestonesPage: verb(true, (repo, listOptions = {}) => list(`${repoPath(repo)}/milestones`, listOptions, (raw: ForgejoMilestone) => toMilestone(raw)!, { query: { state: listOptions.state ?? 'open' } })),
+      milestonesPage: verb(true, milestonesPage),
       collaboratorsPage: verb(true, (repo, listOptions = {}) => list(`${repoPath(repo)}/collaborators`, listOptions, (raw: ForgejoUser) => ({ actor: toActor(origin, raw)!, role: 'read' as const, raw }))),
       permissionFor: verb('experimental', async (repo, actor) => {
         const { data } = await fetcher.json<{ permission?: string, role_name?: string }>(`${repoPath(repo)}/collaborators/${encodeURIComponent(actorLogin(actor))}/permission`)
@@ -580,7 +614,7 @@ function setupForgejo({ origin, fetcher, baseUrl }: ProviderContext<ForgejoOptio
       listPage: perKind(ISSUE_AND_PULL, listPage),
       eventsPage: verb(true, async (thread: ThreadRef, listOptions: ListOptions = {}): Promise<Page<ForgeEventInput>> => {
         const ref = requireThread(thread, context)
-        return list(`${issuePath(ref)}/timeline`, listOptions, (entry: ForgejoTimelineEntry) => toEvent(ref, entry))
+        return list(`${issuePath(ref)}/timeline`, { perPage: TIMELINE_PAGE_SIZE, ...listOptions }, (entry: ForgejoTimelineEntry) => toEvent(ref, entry))
       }),
       commentsPage: perKind(ISSUE_AND_PULL, async (thread: ThreadRef, listOptions: ListOptions = {}): Promise<Page<Comment>> => {
         const ref = requireIssueOrPull(thread, context, 'list comments on')
@@ -637,7 +671,7 @@ function setupForgejo({ origin, fetcher, baseUrl }: ProviderContext<ForgejoOptio
       }),
       setMilestone: perKind({ issue: 'experimental', pull_request: 'experimental' }, async (thread, milestone) => {
         const ref = requireIssueOrPull(thread, context, 'set the milestone of')
-        await fetcher.raw(issuePath(ref), { method: 'PATCH', json: { milestone: milestone === undefined ? 0 : Number(typeof milestone === 'string' ? milestone : milestone.id) } })
+        await fetcher.raw(issuePath(ref), { method: 'PATCH', json: { milestone: milestone === undefined ? 0 : await milestoneId(milestone, page => milestonesPage(ref.repo, page), context) } })
       }),
       reactionsPage: perKind(ISSUE_AND_PULL, async (target, listOptions = {}) => {
         const result = await fetcher.page<ForgejoReaction>(reactionPath(target), {

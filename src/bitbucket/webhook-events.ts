@@ -3,9 +3,9 @@ import type { NativeEventMap } from '../webhooks.ts'
 
 /** Native Bitbucket event names per normalised kind, for hook subscriptions. */
 export const BITBUCKET_NATIVE_EVENTS: NativeEventMap = {
-  comment: ['issue:comment_created', 'pullrequest:comment_created', 'pullrequest:comment_updated', 'pullrequest:comment_deleted'],
+  comment: ['pullrequest:comment_created', 'pullrequest:comment_updated', 'pullrequest:comment_deleted'],
   review: ['pullrequest:approved', 'pullrequest:unapproved', 'pullrequest:changes_request_created'],
-  state_change: ['issue:created', 'issue:updated', 'pullrequest:created', 'pullrequest:updated', 'pullrequest:fulfilled', 'pullrequest:rejected'],
+  state_change: ['pullrequest:created', 'pullrequest:updated', 'pullrequest:fulfilled', 'pullrequest:rejected'],
   push: ['repo:push'],
   ref: ['repo:push'],
   repo: ['repo:updated', 'repo:transfer'],

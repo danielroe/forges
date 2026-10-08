@@ -1,0 +1,295 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/issues?search=fix&in=title%2Cdescription&order_by=updated_at&sort=desc&per_page=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "<https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/issues?id=gitlab-org%2Fcli&in=title%2Cdescription&order_by=updated_at&page=2&per_page=3&search=fix&sort=desc&state=all&with_labels_details=false>; rel=\"next\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/issues?id=gitlab-org%2Fcli&in=title%2Cdescription&order_by=updated_at&page=1&per_page=3&search=fix&sort=desc&state=all&with_labels_details=false>; rel=\"first\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/issues?id=gitlab-org%2Fcli&in=title%2Cdescription&order_by=updated_at&page=214&per_page=3&search=fix&sort=desc&state=all&with_labels_details=false>; rel=\"last\"",
+      "etag": "W/\"c11e4dddef690bf96981d8833a8209e7\"",
+      "ratelimit-remaining": "1948",
+      "ratelimit-reset": "1791375060",
+      "x-total": "642",
+      "x-total-pages": "214",
+      "x-next-page": "2",
+      "x-page": "1",
+      "x-per-page": "3"
+    },
+    "body": [
+      {
+        "id": 203048763,
+        "iid": 8550,
+        "project_id": 34675721,
+        "title": "Follow-up from \"fix(orbit): forward --help to the Orbit binary once it is installed\"",
+        "description": "The following discussions from !3892 should be addressed:\n\n- [ ] @phikai started a [discussion](https://gitlab.com/gitlab-org/cli/-/merge_requests/3892#note_3831356299): \n\n    > Non-blocking, but worth recording: the shared `InstalledBinary` also tightens duo. `Installed` now requires a non-empty `duo_cli_binary_version` for a managed install, where `main` only stat-ed the path. With the managed binary on disk and no recorded version, I get `installed=false` here against `installed=true` on `main`, so the footer flips to \"not installed yet\" plus the three install steps.\n    > \n    > That is the more accurate answer, since `EnsureInstalled` would re-download in that state, and `binarymgr` covers it in \"managed binary without a recorded version is not installed\". Two follow-ups:\n    > \n    > - The duo suite only exercises the custom-path branch (`TestBinaryStatus` sets `GLAB_DUO_CLI_BINARY_PATH`), so nothing in `internal/commands/duo/cli` pins the managed-path behavior. A managed-path case next to the existing \"unknown version\" one would lock it in.\n    > - The description says duo just reuses the moved check. Calling out the footer change would help whoever bisects it later.\n\n- [ ] @phikai started a [discussion](https://gitlab.com/gitlab-org/cli/-/merge_requests/3892#note_3831356502): \n\n    > Optional: `InstallStatus.Version` now carries display text. `\"unknown version\"` is what the duo footer prints, and it means a consumer cannot tell \"no version recorded\" from a real version string. Orbit does not read `Version` at all.\n    > \n    > Returning `\"\"` and keeping the fallback in `AppendBinaryStatusFooter` would keep `binarymgr` free of user-facing strings. It also removes the mild oddity in the new tests, where `InstallStatus{Version: \"unknown version\", Installed: true}` is the expected value for a binary whose version is genuinely unknown.\n\n- [ ] @phikai started a [discussion](https://gitlab.com/gitlab-org/cli/-/merge_requests/3892#note_3831435650): \n\n    > Version 3 addresses everything I raised, and I verified the behavior rather than just the diff: help renders instead of erroring with a stale managed binary in CI, no consent prompt or update check on the help path, and the duo footer matches `main` again when a config key cannot be read. Docs regenerate with no drift.\n    > \n    > The two threads I left today are not blocking. Would be good to see them in a follow-up:\n    > \n    > - a managed-path case in the duo `TestBinaryStatus` set, so nothing in `internal/commands/duo/cli` can silently flip the footer\n    > - moving the `unknown version` fallback out of `binarymgr` and into the footer, ideally with wording that fits custom-path users, who are now the main audience for that string\n    > \n    > Approving from my side.\n\n<!-- implementation plan added during 2026-09 backlog triage -->\n\n## Implementation plan\n\n> **Note:** This plan was drafted during an AI-assisted triage of the backlog and has not been validated by a maintainer. Treat it as a starting point: file paths, line numbers, and the approach may need adjusting.\n\nTwo independent changes from !3892. They can land together or separately.\n\n1. **Return an empty version from `binarymgr`.** In `internal/binarymgr/runner.go`, delete the `if status.Version == \"\" { status.Version = \"unknown version\" }` block at lines 241-243 so `InstallStatus.Version` carries only a real recorded version. `internal/commands/orbit/orbit.go:134` reads only `Path` and `Installed`, so it needs no change.\n\n2. **Move the display fallback into the duo footer.** In `internal/commands/duo/cli/cli.go`, handle the empty version where the footer is rendered (`binaryStatus` at line 129, or the installed branch at lines 109-113). Because a managed binary with no recorded version now reports `Installed: false`, the only way to reach this line is a custom `duo_cli_binary_path`, where glab never records a version. Print `Installed: <path>` with no parenthetical in that case, rather than carrying \"unknown version\" forward; if the maintainer prefers to keep a parenthetical, \"version not recorded\" reads better than \"unknown version\" for a user-supplied binary.\n\n3. **Update the `binarymgr` expectations.** In `internal/binarymgr/runner_test.go`, change the two assertions that expect `Version: \"unknown version\"` (lines 144 and 190) to expect `Version: \"\"`.\n\n4. **Add a managed-path case to the duo suite.** In `internal/commands/duo/cli/cli_test.go`, add a subtest to `TestBinaryStatus` (line 278) that does not set `GLAB_DUO_CLI_BINARY_PATH`. Follow `managedSetup` in `internal/binarymgr/runner_test.go:116`: `t.Setenv(\"GLAB_CONFIG_DIR\", t.TempDir())`, resolve `binarymgr.ManagedBinaryPath(Spec())`, write an executable file there, set `duo_cli_binary_version` on a blank config, and assert `installed` is true with that version. Add a sibling case with the version key unset that asserts `installed` is false, which is the footer flip !3892 introduced.\n\n5. **Cover the footer wording.** Extend `internal/commands/duo/cli/cli_test.go` next to `TestAppendBinaryStatusFooter_ShowsSetupStepsWhenNotInstalled` (line 316) with an installed case that asserts the exact line the footer prints for a custom path with no recorded version.\n\n6. **Verify.** `go test ./internal/binarymgr/... ./internal/commands/duo/... ./internal/commands/orbit/...`. No cobra `Short`, `Long`, `Example`, or flag text changes, so `make gen-docs` is not needed.",
+        "state": "opened",
+        "created_at": "2026-09-14T16:05:51.171Z",
+        "updated_at": "2026-10-07T09:27:07.494Z",
+        "closed_at": null,
+        "closed_by": null,
+        "labels": [
+          "automation:ml",
+          "automation:quick-win-judged",
+          "backend",
+          "type::maintenance"
+        ],
+        "milestone": null,
+        "assignees": [
+          {
+            "id": 39330700,
+            "username": "jhahimanshu653",
+            "public_email": null,
+            "name": "Himanshu Jha",
+            "state": "active",
+            "locked": false,
+            "avatar_url": "https://secure.gravatar.com/avatar/7256804a9e07d4093a122ab52809413f75645caf9a676ecb9c6a5bd7cf8e3ba3?s=80&d=identicon",
+            "web_url": "https://gitlab.com/jhahimanshu653"
+          }
+        ],
+        "author": {
+          "id": 2935693,
+          "username": "phikai",
+          "public_email": "redacted@example.invalid",
+          "name": "Kai Armstrong",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/2935693/avatar.png?v=1791372023",
+          "web_url": "https://gitlab.com/phikai"
+        },
+        "type": "ISSUE",
+        "assignee": {
+          "id": 39330700,
+          "username": "jhahimanshu653",
+          "public_email": null,
+          "name": "Himanshu Jha",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://secure.gravatar.com/avatar/7256804a9e07d4093a122ab52809413f75645caf9a676ecb9c6a5bd7cf8e3ba3?s=80&d=identicon",
+          "web_url": "https://gitlab.com/jhahimanshu653"
+        },
+        "user_notes_count": 4,
+        "merge_requests_count": 1,
+        "upvotes": 0,
+        "downvotes": 0,
+        "start_date": null,
+        "due_date": null,
+        "confidential": false,
+        "discussion_locked": null,
+        "issue_type": "issue",
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/work_items/8550",
+        "time_stats": {
+          "time_estimate": 0,
+          "total_time_spent": 0,
+          "human_time_estimate": null,
+          "human_total_time_spent": null
+        },
+        "task_completion_status": {
+          "count": 3,
+          "completed_count": 0
+        },
+        "weight": null,
+        "blocking_issues_count": 0,
+        "has_tasks": false,
+        "_links": {
+          "self": "https://gitlab.com/api/v4/projects/34675721/issues/8550",
+          "notes": "https://gitlab.com/api/v4/projects/34675721/issues/8550/notes",
+          "award_emoji": "https://gitlab.com/api/v4/projects/34675721/issues/8550/award_emoji",
+          "project": "https://gitlab.com/api/v4/projects/34675721",
+          "closed_as_duplicate_of": null
+        },
+        "references": {
+          "short": "#8550",
+          "relative": "#8550",
+          "full": "gitlab-org/cli#8550"
+        },
+        "severity": "UNKNOWN",
+        "moved_to_id": null,
+        "imported": false,
+        "imported_from": "none",
+        "service_desk_reply_to": null,
+        "epic_iid": null,
+        "epic": null,
+        "iteration": null,
+        "health_status": null
+      },
+      {
+        "id": 204823355,
+        "iid": 8567,
+        "project_id": 34675721,
+        "title": "mr create: nil *Remote panic in non-interactive HeadRepo resolution when fork parent is itself a fork",
+        "description": "### Summary\n\n`glab mr create` panics with a nil `*Remote` when it can't prompt (no TTY, e.g. scripts or AI agents) and the fork parent of the current project is itself a fork.\n\nIn the non-interactive branch of `ResolvedRemotes.HeadRepo`, glab selects the **first** project in the network that has `ForkedFromProject != nil`. Here that is the parent, not the local project. The parent has no local git remote, so `RemoteForRepo` returns `(nil, err)`. The error is discarded and the typed-nil `*Remote` is returned as a non-nil `Interface`:\n\n```go\n// internal/glrepo/resolver.go (v1.113.0), ~L245\nif repoMap[repo].ForkedFromProject != nil {\n    selectedRepoInfo, _ := FromFullName((repoMap[repo].HTTPURLToRepo), r.defaultHostname, r.cfg)\n    remote, _ := r.RemoteForRepo(selectedRepoInfo)\n    return remote, nil\n}\n```\n\n`mr_create.go:387` then calls `headRepo.FullName()` on it and panics.\n\nThe interactive path already handles `remote == nil` by falling back to `r.remotes[0]` with a `head:<path>` resolution. The non-interactive path has no such fallback. This is related to #8422 but not the same bug: there the parent lookup fails, here it succeeds.\n\n### Environment\n\n- OS: Linux (WSL2)\n- GLAB: 1.113.0 (d62881304)\n- Invoked without a TTY\n\n### Steps to reproduce\n\n1. Project chain: `group/base` <- fork `group/sub/template` <- fork `group/sub/project`.\n2. Clone `group/sub/project`, with only `origin` as a remote.\n3. Push a branch and run without a TTY:\n   `glab mr create --target-branch main --source-branch my-branch --title t --description x < /dev/null | cat`\n\n### What is the current bug behavior?\n\n```\npanic: value method gitlab.com/gitlab-org/cli/internal/glrepo.Remote.FullName called using nil *Remote pointer\n\ngitlab.com/gitlab-org/cli/internal/glrepo.(*Remote).FullName(0x30?)\n\t<autogenerated>:1 +0x2f\ngitlab.com/gitlab-org/cli/internal/commands/mr/create.(*options).run(...)\n\tgitlab.com/gitlab-org/cli/internal/commands/mr/create/mr_create.go:387 +0x255\n```\n\nWith `--yes`, it fails the same way.\n\n### What is the expected correct behavior?\n\nThe head repo should resolve to the project behind `origin`, the only local remote. No panic.\n\n### Possible fixes\n\n- In the non-interactive loop, only consider repos that have a local remote. Or check the `RemoteForRepo` error and continue to the next repo.\n- At minimum, don't return a typed-nil `*Remote` as an `Interface`. Fall back to `r.remotes[0]` as the interactive path does.\n\nWorkaround: `glab mr create --head <group/sub/project> ...`, or create the MR via `glab api POST projects/:id/merge_requests`.",
+        "state": "opened",
+        "created_at": "2026-09-29T11:47:06.813Z",
+        "updated_at": "2026-10-07T09:26:24.215Z",
+        "closed_at": null,
+        "closed_by": null,
+        "labels": [
+          "automation:ml",
+          "backend",
+          "bug::functional",
+          "category:gitlab cli",
+          "devops::ai coding",
+          "group::code review",
+          "section::ai",
+          "type::bug"
+        ],
+        "milestone": null,
+        "assignees": [
+          {
+            "id": 39330700,
+            "username": "jhahimanshu653",
+            "public_email": null,
+            "name": "Himanshu Jha",
+            "state": "active",
+            "locked": false,
+            "avatar_url": "https://secure.gravatar.com/avatar/7256804a9e07d4093a122ab52809413f75645caf9a676ecb9c6a5bd7cf8e3ba3?s=80&d=identicon",
+            "web_url": "https://gitlab.com/jhahimanshu653"
+          }
+        ],
+        "author": {
+          "id": 26174679,
+          "username": "DerGary",
+          "public_email": "",
+          "name": "Stefan Gerasch",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/26174679/avatar.png?v=1791331951",
+          "web_url": "https://gitlab.com/DerGary"
+        },
+        "type": "ISSUE",
+        "assignee": {
+          "id": 39330700,
+          "username": "jhahimanshu653",
+          "public_email": null,
+          "name": "Himanshu Jha",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://secure.gravatar.com/avatar/7256804a9e07d4093a122ab52809413f75645caf9a676ecb9c6a5bd7cf8e3ba3?s=80&d=identicon",
+          "web_url": "https://gitlab.com/jhahimanshu653"
+        },
+        "user_notes_count": 4,
+        "merge_requests_count": 1,
+        "upvotes": 0,
+        "downvotes": 0,
+        "start_date": null,
+        "due_date": null,
+        "confidential": false,
+        "discussion_locked": null,
+        "issue_type": "issue",
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/work_items/8567",
+        "time_stats": {
+          "time_estimate": 0,
+          "total_time_spent": 0,
+          "human_time_estimate": null,
+          "human_total_time_spent": null
+        },
+        "task_completion_status": {
+          "count": 0,
+          "completed_count": 0
+        },
+        "weight": null,
+        "blocking_issues_count": 0,
+        "has_tasks": true,
+        "task_status": "0 of 0 checklist items completed",
+        "_links": {
+          "self": "https://gitlab.com/api/v4/projects/34675721/issues/8567",
+          "notes": "https://gitlab.com/api/v4/projects/34675721/issues/8567/notes",
+          "award_emoji": "https://gitlab.com/api/v4/projects/34675721/issues/8567/award_emoji",
+          "project": "https://gitlab.com/api/v4/projects/34675721",
+          "closed_as_duplicate_of": null
+        },
+        "references": {
+          "short": "#8567",
+          "relative": "#8567",
+          "full": "gitlab-org/cli#8567"
+        },
+        "severity": "UNKNOWN",
+        "moved_to_id": null,
+        "imported": false,
+        "imported_from": "none",
+        "service_desk_reply_to": null,
+        "epic_iid": null,
+        "epic": null,
+        "iteration": null,
+        "health_status": null
+      },
+      {
+        "id": 205689627,
+        "iid": 8591,
+        "project_id": 34675721,
+        "title": "`glab iteration list` header shows the page count as the total",
+        "description": "### Checklist\n\n- [x] I'm using the latest version of the extension (Run `glab --version`)\n  - Extension version: `glab 1.114.0 (4d7c6cd)`, and confirmed with a build of `main` at 48512c0d (newer than v1.120.0)\n- [x] Operating system and version: Linux 6.18.54 x86_64 (NixOS)\n- [x] Gitlab.com or self-managed instance? self-managed instance\n- [x] GitLab version (if self-managed) 19.3.3-ee\n- [x] I have performed `glab auth status` to check for authentication issues\n- [x] Run the command in debug mode (like `GLAB_DEBUG=true glab mr list`) and attach any useful output\n  (debug mode logs only the Git calls; the request itself succeeds)\n\n### Summary\n\n`glab iteration list` has the same header bug as `glab label list` (#8573): it\nprints the number of iterations on the current page as both the count and the\ntotal, so the header never shows the real total. With more iterations than one\npage, the header reads `Showing iteration 30 of 30`, which looks like a\ncomplete list. This was pointed out in the review of !3991.\n\n### Environment\n\n- OS: Linux 6.18.54 x86_64\n- SHELL: /run/current-system/sw/bin/zsh\n- TERM: xterm-256color\n- GLAB: glab 1.114.0 (4d7c6cd)\n\nOther: also checked with `glab DEV ()` built from `main` at 48512c0d.\n\nMy instance has no iterations, so live I could only observe the empty-list\nheader (`Showing iteration 0 of 0 ...` on both 1.114.0 and `main`). The\npaginated case is confirmed from the source below and with unit tests that\nmock a response with `TotalItems: 25`.\n\n### Steps to reproduce\n\n1. Use a project (or group) with more iterations than one page, or pass a\n   small `--per-page`.\n2. Run `glab iteration list -P 1`, or `glab iteration list -g <group> -P 1`.\n\n### What is the current _bug_ behavior?\n\nThe second number always equals the first one, for example\n`Showing iteration 1 of 1 on OWNER/REPO.` regardless of how many iterations\nexist. An empty list prints `Showing iteration 0 of 0 on OWNER/REPO.`\n\n### What is the expected _correct_ behavior?\n\nThe total comes from the API, as in the other list commands, for example\n`Showing 1 of 25 iterations on OWNER/REPO. (Page 1)`.\n\n### Relevant logs and/or screenshots\n\nThe JSON output (`-F json`) is correct. Only the header line is affected.\n\n### Possible fixes\n\n`internal/commands/iteration/list/iteration_list.go` passes `len(iterations)`\ntwice and discards the API response:\n\n- https://gitlab.com/gitlab-org/cli/-/blob/48512c0d/internal/commands/iteration/list/iteration_list.go#L128\n- https://gitlab.com/gitlab-org/cli/-/blob/48512c0d/internal/commands/iteration/list/iteration_list.go#L148\n\nBuild the header with `utils.NewListTitle` and `resp.TotalItems`, the same way\n!3991 fixed `label list`. I have a fix with tests ready and will open a merge\nrequest.",
+        "state": "opened",
+        "created_at": "2026-10-07T06:18:56.579Z",
+        "updated_at": "2026-10-07T07:15:00.696Z",
+        "closed_at": null,
+        "closed_by": null,
+        "labels": [
+          "automation:ml",
+          "backend",
+          "bug::functional",
+          "type::bug"
+        ],
+        "milestone": null,
+        "assignees": [],
+        "author": {
+          "id": 33478343,
+          "username": "unstable-code",
+          "public_email": "",
+          "name": "unstable-code",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://secure.gravatar.com/avatar/6c3a3abe3d13ba47a851063d0f411d5a864d8686a0f478065e83fe7b1f4a21a7?s=80&d=identicon",
+          "web_url": "https://gitlab.com/unstable-code"
+        },
+        "type": "ISSUE",
+        "assignee": null,
+        "user_notes_count": 2,
+        "merge_requests_count": 1,
+        "upvotes": 0,
+        "downvotes": 0,
+        "start_date": null,
+        "due_date": null,
+        "confidential": false,
+        "discussion_locked": null,
+        "issue_type": "issue",
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/work_items/8591",
+        "time_stats": {
+          "time_estimate": 0,
+          "total_time_spent": 0,
+          "human_time_estimate": null,
+          "human_total_time_spent": null
+        },
+        "task_completion_status": {
+          "count": 6,
+          "completed_count": 6
+        },
+        "weight": null,
+        "blocking_issues_count": 0,
+        "has_tasks": false,
+        "_links": {
+          "self": "https://gitlab.com/api/v4/projects/34675721/issues/8591",
+          "notes": "https://gitlab.com/api/v4/projects/34675721/issues/8591/notes",
+          "award_emoji": "https://gitlab.com/api/v4/projects/34675721/issues/8591/award_emoji",
+          "project": "https://gitlab.com/api/v4/projects/34675721",
+          "closed_as_duplicate_of": null
+        },
+        "references": {
+          "short": "#8591",
+          "relative": "#8591",
+          "full": "gitlab-org/cli#8591"
+        },
+        "severity": "UNKNOWN",
+        "moved_to_id": null,
+        "imported": false,
+        "imported_from": "none",
+        "service_desk_reply_to": null,
+        "epic_iid": null,
+        "epic": null,
+        "iteration": null,
+        "health_status": null
+      }
+    ]
+  }
+}

@@ -126,6 +126,7 @@ To add a work item, set `FIXTURE_AZURE_DEVOPS_ISSUE`.
 | `sources.subscribe` | ❌ |
 | `repos.get` | ✅ |
 | `users.get` | ❌ |
+| `users.me` | ❌ |
 | `repos.list` | experimental |
 | `repos.labels` | ❌ |
 | `repos.createLabel` | ❌ |

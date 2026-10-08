@@ -1,0 +1,100 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.github.com/notifications?all=false&per_page=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "<https://api.github.com/notifications?all=false&per_page=3&page=2>; rel=\"next\", <https://api.github.com/notifications?all=false&per_page=3&page=1060>; rel=\"last\"",
+      "etag": "W/\"dcdc9f43e4de476fa6191f2bc1a5fbfdcf0b7dc27e40bbac01e42d755fd67a66\"",
+      "x-ratelimit-remaining": "4959",
+      "x-ratelimit-reset": "1791382247"
+    },
+    "body": [
+      {
+        "id": "25533866573",
+        "unread": true,
+        "reason": "review_requested",
+        "updated_at": "2026-10-07T13:04:14Z",
+        "last_read_at": null,
+        "subject": {
+          "title": "chore(deps): update nuxt core to v4.6.0",
+          "url": "https://api.github.com/repos/nuxt/examples/pulls/262",
+          "latest_comment_url": "https://api.github.com/repos/nuxt/examples/issues/comments/6038465136",
+          "type": "PullRequest"
+        },
+        "repository": {
+          "id": 547882345,
+          "node_id": "R_kgDOIKgFaQ",
+          "name": "examples",
+          "full_name": "nuxt/examples",
+          "private": false,
+          "owner": {
+            "login": "nuxt",
+            "id": 23360933,
+            "node_id": "REDACTED",
+            "avatar_url": "https://avatars.githubusercontent.com/u/23360933?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/nuxt",
+            "html_url": "https://github.com/nuxt",
+            "followers_url": "https://api.github.com/users/nuxt/followers",
+            "following_url": "https://api.github.com/users/nuxt/following{/other_user}",
+            "gists_url": "https://api.github.com/users/nuxt/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/nuxt/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/nuxt/subscriptions",
+            "organizations_url": "https://api.github.com/users/nuxt/orgs",
+            "repos_url": "https://api.github.com/users/nuxt/repos",
+            "events_url": "https://api.github.com/users/nuxt/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/nuxt/received_events",
+            "type": "Organization",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "html_url": "https://github.com/nuxt/examples",
+          "description": "Deployed Nuxt examples",
+          "fork": false,
+          "url": "https://api.github.com/repos/nuxt/examples",
+          "forks_url": "https://api.github.com/repos/nuxt/examples/forks",
+          "keys_url": "https://api.github.com/repos/nuxt/examples/keys{/key_id}",
+          "collaborators_url": "https://api.github.com/repos/nuxt/examples/collaborators{/collaborator}",
+          "teams_url": "https://api.github.com/repos/nuxt/examples/teams",
+          "hooks_url": "https://api.github.com/repos/nuxt/examples/hooks",
+          "issue_events_url": "https://api.github.com/repos/nuxt/examples/issues/events{/number}",
+          "events_url": "https://api.github.com/repos/nuxt/examples/events",
+          "assignees_url": "https://api.github.com/repos/nuxt/examples/assignees{/user}",
+          "branches_url": "https://api.github.com/repos/nuxt/examples/branches{/branch}",
+          "tags_url": "https://api.github.com/repos/nuxt/examples/tags",
+          "blobs_url": "https://api.github.com/repos/nuxt/examples/git/blobs{/sha}",
+          "git_tags_url": "https://api.github.com/repos/nuxt/examples/git/tags{/sha}",
+          "git_refs_url": "https://api.github.com/repos/nuxt/examples/git/refs{/sha}",
+          "trees_url": "https://api.github.com/repos/nuxt/examples/git/trees{/sha}",
+          "statuses_url": "https://api.github.com/repos/nuxt/examples/statuses/{sha}",
+          "languages_url": "https://api.github.com/repos/nuxt/examples/languages",
+          "stargazers_url": "https://api.github.com/repos/nuxt/examples/stargazers",
+          "contributors_url": "https://api.github.com/repos/nuxt/examples/contributors",
+          "subscribers_url": "https://api.github.com/repos/nuxt/examples/subscribers",
+          "subscription_url": "https://api.github.com/repos/nuxt/examples/subscription",
+          "commits_url": "https://api.github.com/repos/nuxt/examples/commits{/sha}",
+          "git_commits_url": "https://api.github.com/repos/nuxt/examples/git/commits{/sha}",
+          "comments_url": "https://api.github.com/repos/nuxt/examples/comments{/number}",
+          "issue_comment_url": "https://api.github.com/repos/nuxt/examples/issues/comments{/number}",
+          "contents_url": "https://api.github.com/repos/nuxt/examples/contents/{+path}",
+          "compare_url": "https://api.github.com/repos/nuxt/examples/compare/{base}...{head}",
+          "merges_url": "https://api.github.com/repos/nuxt/examples/merges",
+          "archive_url": "https://api.github.com/repos/nuxt/examples/{archive_format}{/ref}",
+          "downloads_url": "https://api.github.com/repos/nuxt/examples/downloads",
+          "issues_url": "https://api.github.com/repos/nuxt/examples/issues{/number}",
+          "pulls_url": "https://api.github.com/repos/nuxt/examples/pulls{/number}",
+          "milestones_url": "https://api.github.com/repos/nuxt/examples/milestones{/number}",
+          "notifications_url": "https://api.github.com/repos/nuxt/examples/notifications{?since,all,participating}",
+          "labels_url": "https://api.github.com/repos/nuxt/examples/labels{/name}",
+          "releases_url": "https://api.github.com/repos/nuxt/examples/releases{/id}",
+          "deployments_url": "https://api.github.com/repos/nuxt/examples/deployments"
+        },
+        "url": "https://api.github.com/notifications/threads/25533866573",
+        "subscription_url": "https://api.github.com/notifications/threads/25533866573/subscription"
+      }
+    ]
+  }
+}

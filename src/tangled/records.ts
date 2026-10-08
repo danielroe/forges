@@ -17,7 +17,7 @@ import type { ForgeIterable } from '../provider.ts'
 import type { AtprotoClient, AtUri } from './atproto.ts'
 import type { TangledOptions } from './index.ts'
 import type { TangledSession } from './session.ts'
-import type { FeedCommentRecord, IssueRecord, JetstreamCommitEvent, PullRecord, RepoRecord, StateRecord, SubscriptionRecord, TangledRecord } from './types.ts'
+import type { FeedCommentRecord, IssueRecord, JetstreamCommitEvent, PullRecord, RecordResponse, RepoRecord, StateRecord, SubscriptionRecord, TangledRecord } from './types.ts'
 import { ForgeApiError, ForgeError, NotFoundError, RateLimitedError, TokenRevokedError, UnresolvedThreadError } from '../errors.ts'
 import { forgeIterable, mapConcurrent, phased, requireThread, toDate, toWarning } from '../utils.ts'
 import { atUri, parseAtUri } from './atproto.ts'
@@ -191,7 +191,7 @@ export function createTangledRecords({ options, instance, webUrl, context, atpro
       return (await atproto.getRecord<T>(uri)).value
     }
     catch (error) {
-      if (error instanceof NotFoundError || (error instanceof ForgeApiError && error.status === 400)) {
+      if (error instanceof NotFoundError) {
         return undefined
       }
       if (error instanceof RateLimitedError || error instanceof TokenRevokedError || !(error instanceof ForgeError)) {
@@ -270,11 +270,47 @@ export function createTangledRecords({ options, instance, webUrl, context, atpro
     )
   }
 
+  const canonical = new Map<string, Promise<{ ref: RepoRef, record: RecordResponse<RepoRecord> }>>()
+
+  /** The repo record `repo` names, where `owner` may be a handle and `name` the record's name rather than its key. */
+  function canonicalRepo(repo: RepoRef): Promise<{ ref: RepoRef, record: RecordResponse<RepoRecord> }> {
+    const key = `${repo.owner}/${repo.name}`
+    let found = canonical.get(key)
+    if (!found) {
+      found = (async () => {
+        const did = repo.owner.startsWith('did:') ? repo.owner : await atproto.resolveHandle(repo.owner.replace(/^@/, ''))
+        const record = await atproto.getRecord<RepoRecord>(atUri(did, COLLECTIONS.repo, repo.name)).catch((error: unknown) => {
+          if (error instanceof NotFoundError) {
+            return undefined
+          }
+          throw error
+        })
+        if (record) {
+          return { ref: { ...repo, owner: did }, record }
+        }
+        for await (const candidate of atproto.listRecords<RepoRecord>(did, COLLECTIONS.repo)) {
+          if (candidate.value.name === repo.name) {
+            return { ref: { ...repo, owner: did, name: parseAtUri(candidate.uri)!.rkey }, record: candidate }
+          }
+        }
+        throw new NotFoundError(`No Tangled repo named ${repo.name} for ${repo.owner}`, 404, '', context)
+      })()
+      found.catch(() => canonical.delete(key))
+      canonical.set(key, found)
+    }
+    return found
+  }
+
+  /** `repo` with a DID owner and the record key as `name`; refs this provider returned already are. */
+  async function canonicalRef(repo: RepoRef): Promise<RepoRef> {
+    return repo.externalId && repo.owner.startsWith('did:') ? repo : (await canonicalRepo(repo)).ref
+  }
+
   async function repoDidOf(repo: RepoRef): Promise<string> {
     if (repo.externalId) {
       return repo.externalId
     }
-    const { value } = await atproto.getRecord<RepoRecord>(atUri(repo.owner, COLLECTIONS.repo, repo.name))
+    const { record: { value } } = await canonicalRepo(repo)
     if (!value.repoDid) {
       throw new UnresolvedThreadError(`${repo.owner}/${repo.name} has no repo DID`, context)
     }
@@ -290,6 +326,7 @@ export function createTangledRecords({ options, instance, webUrl, context, atpro
     const path = `${ref.owner}/${ref.name}`
     return {
       ref: record.repoDid ? { ...ref, externalId: record.repoDid } : ref,
+      displayName: record.name && record.name !== ref.name ? record.name : undefined,
       description: record.description,
       visibility: 'public',
       isFork: Boolean(record.source),
@@ -299,6 +336,7 @@ export function createTangledRecords({ options, instance, webUrl, context, atpro
       url: `${webUrl}/${path}`,
       cloneUrls: { https: `${webUrl}/${path}`, ssh: `ssh://git@${sshHost(record.knot)}/${path}` },
       createdAt: toDate(record.createdAt),
+      homepage: record.website || undefined,
       raw,
     }
   }
@@ -386,8 +424,9 @@ export function createTangledRecords({ options, instance, webUrl, context, atpro
       if (query.labels?.length || query.assignee) {
         warn({ code: 'filter_unsupported', message: 'Tangled labels and assignees are not read yet; those filters were ignored' })
       }
+      const address = await canonicalRef(repo)
       const repoDid = await repoDidOf(repo)
-      const targets = [repoDid, atUri(repo.owner, COLLECTIONS.repo, repo.name)]
+      const targets = [repoDid, atUri(address.owner, COLLECTIONS.repo, address.name)]
       const uris: string[] = []
       for (const kind of query.kind ? [query.kind] : ['issue', 'pull_request'] as const) {
         const collection = kind === 'issue' ? COLLECTIONS.issue : COLLECTIONS.pull
@@ -419,7 +458,7 @@ export function createTangledRecords({ options, instance, webUrl, context, atpro
       const direction = (query.direction ?? 'desc') === 'desc' ? -1 : 1
       yield* threadsRead
         .filter((thread): thread is Thread => Boolean(thread))
-        .filter(thread => state === 'all' || (state === 'open' ? thread.state === 'open' : thread.state !== 'open'))
+        .filter(thread => state === 'all' || (state === 'open' ? thread.state === 'open' : state === 'merged' ? thread.state === 'merged' : thread.state !== 'open'))
         .filter(thread => !query.author || thread.author?.login === query.author || thread.author?.id === query.author)
         .filter(thread => !query.since || (thread.lastActivityAt?.getTime() ?? 0) >= query.since.getTime())
         .filter(thread => !query.createdAfter || (thread.createdAt?.getTime() ?? 0) >= query.createdAfter.getTime())
@@ -450,5 +489,5 @@ export function createTangledRecords({ options, instance, webUrl, context, atpro
     return undefined
   }
 
-  return { stateAuthors, actorFor, resolveRepo, threadFor, subjectUri, activity, toStreamEvent, repoDidOf, toRepo, readThread, wholePage, listPage, listComments, findSubscription }
+  return { stateAuthors, actorFor, resolveRepo, threadFor, subjectUri, activity, toStreamEvent, canonicalRepo, canonicalRef, repoDidOf, toRepo, readThread, wholePage, listPage, listComments, findSubscription }
 }

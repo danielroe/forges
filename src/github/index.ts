@@ -53,6 +53,7 @@ import type {
   ForgeOptionsBase,
   ForgeProvider,
   InstallationsApi,
+  MilestoneListOptions,
   VerbScopes,
 } from '../provider.ts'
 import type { ForgeVerb } from '../supports.ts'
@@ -103,7 +104,7 @@ import { defineForgeProvider, perKind, verb } from '../define.ts'
 import { ForbiddenError, ForgeApiError, ForgeError, ForgeTimeoutError, InsufficientScopeError, MergeBlockedError, NotFoundError, soleMergeMethod, toMergeError, UnsupportedOperationError } from '../errors.ts'
 import { sleep } from '../fetch.ts'
 import { isNamespaceRef, isResolvedThread, reactionContent } from '../model.ts'
-import { actorLogin, createListing, forgeIterable, getManyConcurrently, hostOf, iteratePages, memo, phased, requireIssueOrPull, requireThread, summariseChecks, toDate, toPage, toWarning, versionAtLeast } from '../utils.ts'
+import { actorLogin, createListing, forgeIterable, getManyConcurrently, hostOf, iteratePages, memo, milestoneId, phased, requireIssueOrPull, requireThread, resolveToken, summariseChecks, toDate, toPage, toWarning, versionAtLeast } from '../utils.ts'
 import { githubShapedWeb } from '../web.ts'
 import { nativeEventsFor } from '../webhooks.ts'
 import { createAppCredentials, createAuthHeaders } from './auth.ts'
@@ -192,6 +193,19 @@ function webHost(host: string): string {
 
 function installationId(installation: Installation | string): string {
   return typeof installation === 'string' ? installation : installation.id
+}
+
+/**
+ * Free text as legacy search reads it: advanced search parses parentheses and
+ * an unclosed quote as syntax, so those are dropped outside quoted phrases.
+ */
+function advancedFreeText(text: string): string {
+  const parts = text.split('"')
+  if (parts.length % 2 === 0) {
+    const unclosed = parts.pop()!
+    parts.push(`${parts.pop()} ${unclosed}`)
+  }
+  return parts.map((part, index) => index % 2 ? part : part.replace(/[()\s]+/g, ' ')).join('"').trim()
 }
 
 function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, createFetcher, derive, state: credentials }: ProviderContext<GitHubOptions, AppCredentials | undefined>): ProviderSpec {
@@ -427,7 +441,28 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
         ...warnings.length ? { warnings } : {},
       }
     }
-    const result = await fetcher.page<GitHubIssue>(`${repoPath(repo)}/issues`, {
+    if (state === 'merged') {
+      const page = await searchThreadsPage({
+        repo,
+        kind: 'pull_request',
+        labels: query.labels,
+        author: query.author,
+        assignee: query.assignee,
+        involves: query.involves,
+        since: query.since,
+        queryRaw: `is:merged${query.createdAfter ? ` created:>=${query.createdAfter.toISOString()}` : ''}`,
+        sort: query.sort ?? 'created',
+        direction,
+        perPage: query.perPage,
+        cursor: query.cursor,
+        signal: query.signal,
+      })
+      await withPullChecks(page)
+      return page
+    }
+    // `/pulls` returns full pages but has no label, author, assignee or since filter.
+    const pullsOnly = query.kind === 'pull_request' && !query.labels?.length && !query.author && !query.assignee && !query.since && query.sort !== 'comments'
+    const result = await fetcher.page<GitHubIssue>(`${repoPath(repo)}/${pullsOnly ? 'pulls' : 'issues'}`, {
       query: {
         state,
         labels: query.labels?.join(','),
@@ -443,7 +478,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
     })
     const older = (raw: GitHubIssue) => createdAfter !== undefined && (Date.parse(raw.created_at ?? '') || 0) < createdAfter
     const page = toPage(result, (raw) => {
-      const isPull = Boolean(raw.pull_request)
+      const isPull = Boolean(raw.pull_request || raw.head)
       if ((query.kind === 'issue' && isPull) || (query.kind === 'pull_request' && !isPull) || older(raw)) {
         return undefined
       }
@@ -454,7 +489,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
     return ordered && (result.data ?? []).some(older) ? { ...page, cursor: undefined } : page
   }
 
-  /** Fills `checks` on every pull in the page with one batched rollup read. */
+  /** Fills `checks`, and a missing `commentCount`, on every pull in the page with one batched read. */
   async function withPullChecks(page: Page<Thread>): Promise<void> {
     const pulls = page.items.filter(thread => thread.kind === 'pull_request')
     if (!pulls.length || anonymous) {
@@ -463,8 +498,9 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
     try {
       const results = await getMany(pulls.map(thread => thread.ref))
       for (const [index, result] of results.entries()) {
-        if (result.ok && result.thread.checks) {
-          pulls[index]!.checks = result.thread.checks
+        if (result.ok) {
+          pulls[index]!.checks = result.thread.checks ?? pulls[index]!.checks
+          pulls[index]!.commentCount ??= result.thread.commentCount
         }
       }
     }
@@ -807,15 +843,17 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
   /** GitHub search qualifiers, in the order the docs list them. */
   function searchQualifiers(query: SearchQuery): string[] {
     const qualifiers: string[] = []
-    if (query.text) {
-      qualifiers.push(query.text)
+    const advanced = !query.kind
+    /** In advanced search a bare `OR` binds looser than the other qualifiers, so caller syntax is grouped. */
+    const group = (value: string) => advanced ? `(${value})` : value
+    const text = advanced && query.text ? advancedFreeText(query.text) : query.text
+    if (text) {
+      qualifiers.push(group(text))
     }
     if (query.repo) {
       qualifiers.push(`repo:${query.repo.owner}/${query.repo.name}`)
     }
-    if (query.kind) {
-      qualifiers.push(query.kind === 'pull_request' ? 'is:pr' : 'is:issue')
-    }
+    qualifiers.push(query.kind ? query.kind === 'pull_request' ? 'is:pr' : 'is:issue' : '(is:issue OR is:pr)')
     if (query.state && query.state !== 'all') {
       qualifiers.push(`state:${query.state}`)
     }
@@ -830,13 +868,29 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
     if (query.since) {
       qualifiers.push(`updated:>=${query.since.toISOString()}`)
     }
+    if (query.queryRaw) {
+      qualifiers.push(group(query.queryRaw))
+    }
     return qualifiers
   }
 
+  /**
+   * GitHub requires a kind in issue search; naming both needs advanced search.
+   * GitHub Enterprise Server may predate it, and GitHub App user access tokens
+   * can't search both kinds at once, so those read issues, then pull requests.
+   */
   async function searchThreadsPage(query: SearchQuery): Promise<Page<Thread>> {
+    if (!query.kind && (enterprise || (auth.type === 'token' && (await resolveToken(auth)).startsWith('ghu_')))) {
+      return phased((['issue', 'pull_request'] as const).map(kind => (cursor?: Cursor) => searchIssuesPage({ ...query, kind, cursor })), query.cursor)
+    }
+    return searchIssuesPage(query)
+  }
+
+  async function searchIssuesPage(query: SearchQuery): Promise<Page<Thread>> {
     const result = await fetcher.page<GitHubIssue>('/search/issues', {
       query: {
         q: searchQualifiers(query).join(' '),
+        advanced_search: query.kind ? undefined : 'true',
         sort: query.sort && query.sort !== 'relevance' ? query.sort : undefined,
         order: query.direction,
         per_page: query.perPage,
@@ -855,10 +909,14 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
     })
   }
 
+  function milestonesPage(repo: RepoRef, listOptions: MilestoneListOptions = {}) {
+    return list(`${repoPath(repo)}/milestones`, listOptions, (raw: GitHubMilestone) => toMilestone(raw)!, { query: { state: listOptions.state ?? 'open' } })
+  }
+
   const REPO_SEARCH_SORTS: Partial<Record<NonNullable<RepoSearchQuery['sort']>, string>> = { updated: 'updated', stars: 'stars' }
 
   async function searchReposPage(query: RepoSearchQuery): Promise<Page<Repo>> {
-    const qualifiers = [query.text, query.owner && `user:${query.owner}`, query.language && `language:${query.language}`].filter(Boolean)
+    const qualifiers = [query.text, query.owner && `user:${query.owner}`, query.language && `language:${query.language}`, query.queryRaw].filter(Boolean)
     const warnings: ForgeWarning[] = query.sort === 'created'
       ? [{ code: 'sort_unsupported', message: 'GitHub repository search cannot sort by creation time; sorted by relevance' }]
       : []
@@ -886,6 +944,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
       query.committer && `committer:${query.committer}`,
       query.since && `author-date:>=${query.since.toISOString()}`,
       query.until && `author-date:<=${query.until.toISOString()}`,
+      query.queryRaw,
     ].filter(Boolean)
     const result = await fetcher.page<GitHubCommitSearchItem>('/search/commits', {
       query: {
@@ -1187,6 +1246,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
       threadsPage: verb(true, searchThreadsPage),
       reposPage: verb(true, searchReposPage),
       commitsPage: verb(true, searchCommitsPage),
+      queryRaw: true,
     },
     releases: {
       listPage: verb(true, releasesPage),
@@ -1259,7 +1319,10 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
       }),
     },
     scopes: githubScopesFor,
-    users: { get: verb(true, async login => toUser(instance, (await fetcher.json<GitHubUserDetail>(`/users/${encodeURIComponent(login)}`)).data)) },
+    users: {
+      get: verb(true, async login => toUser(instance, (await fetcher.json<GitHubUserDetail>(`/users/${encodeURIComponent(login)}`)).data)),
+      me: verb(auth.type === 'token', async () => toUser(instance, (await fetcher.json<GitHubUserDetail>('/user')).data)),
+    },
     repos: {
       get: verb(true, async (ref) => {
         return toRepo(instance, (await fetcher.json<GitHubRepositoryDetail>(repoPath(ref))).data)
@@ -1278,7 +1341,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
         method: 'POST',
         json: { name: label.name, color: label.colour, description: label.description },
       })).data)),
-      milestonesPage: verb(true, (repo, listOptions = {}) => list(`${repoPath(repo)}/milestones`, listOptions, (raw: GitHubMilestone) => toMilestone(raw)!, { query: { state: listOptions.state ?? 'open' } })),
+      milestonesPage: verb(true, milestonesPage),
       collaboratorsPage: verb(true, (repo, listOptions = {}) => list(`${repoPath(repo)}/collaborators`, listOptions, (raw: GitHubCollaborator) => toCollaborator(instance, raw))),
       permissionFor: verb(true, async (repo, actor) => {
         const { data } = await fetcher.json<{ permission?: string, role_name?: string, user?: GitHubCollaborator }>(
@@ -1436,9 +1499,9 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
           await fetcher.raw(`${repoPath(ref.repo)}/issues/${encodeURIComponent(ref.number)}/labels/${encodeURIComponent(label)}`, { method: 'DELETE' })
         }
       }),
-      setMilestone: perKind({ issue: 'experimental', pull_request: 'experimental' }, (thread, milestone) => issuePatch(
+      setMilestone: perKind({ issue: 'experimental', pull_request: 'experimental' }, async (thread, milestone) => issuePatch(
         thread,
-        { milestone: milestone === undefined ? null : Number(typeof milestone === 'string' ? milestone : milestone.id) },
+        { milestone: milestone === undefined ? null : await milestoneId(milestone, page => milestonesPage(requireThread(thread, context).repo, page), context) },
         'set the milestone of',
       )),
       reactions: perKind({ issue: 'experimental', pull_request: true, discussion: 'experimental' }, { react, unreact }),

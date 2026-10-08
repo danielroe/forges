@@ -19,6 +19,7 @@ import type {
   CommitQuery,
   CommitSearchQuery,
   Comparison,
+  Cursor,
   FileContent,
   FileOptions,
   ForgeEvent,
@@ -83,7 +84,7 @@ import type {
 import type { ForgeVerb } from './supports.ts'
 import type { ParsedForgeUrl, ReferenceOptions, UrlTarget } from './web.ts'
 import { UnknownForgeError } from './errors.ts'
-import { toWarning } from './utils.ts'
+import { forgeIterable, toWarning } from './utils.ts'
 
 /** No credentials: public reads only. Every write, notifications and subscriptions are unsupported. */
 export interface AnonymousAuth {
@@ -189,9 +190,11 @@ export interface ForgeCapabilities {
   users: {
     /** Support for `users.get()`. */
     get: Support
+    /** Support for `users.me()`. */
+    me: Support
   }
   threads: {
-    /** Support for `threads.events()` and `threads.eventsPage()`, per thread kind. */
+    /** Support for `threads.get()`, per thread kind. */
     get: PerKind
     /** Support for `threads.list()` and `threads.listPage()`, per thread kind. */
     list: PerKind
@@ -512,7 +515,7 @@ export interface ThreadsApi {
   addLabels: (ref: ThreadRef, labels: string[]) => Promise<void>
   /** Removes labels, leaving the rest in place. Labels the thread does not carry are ignored. */
   removeLabels: (ref: ThreadRef, labels: string[]) => Promise<void>
-  /** Sets the thread's milestone, or clears it with `undefined`. */
+  /** Sets the thread's milestone, by milestone, id or title, or clears it with `undefined`. */
   setMilestone: (ref: ThreadRef, milestone: Milestone | string | undefined) => Promise<void>
   /** Reactions left on the thread or on one of its comments. */
   reactions: (target: ThreadRef | CommentRef, options?: ListOptions) => ForgeIterable<Reaction>
@@ -804,6 +807,8 @@ export interface SubscriptionItem {
 export interface UsersApi {
   /** Reads an account by login, without needing a credential where the forge allows it. */
   get: (login: string) => Promise<User>
+  /** The account the provider's credential belongs to. */
+  me: () => Promise<User>
 }
 
 /** Ways to receive events: polling, webhooks and push subscriptions. */
@@ -877,7 +882,7 @@ export interface ForgeProvider {
    * an unmapped verb returns `{}`.
    */
   scopesFor: (verb: ForgeVerb) => VerbScopes
-  /** Reads a web URL on this provider's instance into refs; `undefined` for anything else. */
+  /** Reads a web or SSH clone URL on this provider's instance into refs; `undefined` for anything else. */
   parseUrl: (url: string | URL) => ParsedForgeUrl | undefined
   /**
    * How to mention `ref` in Markdown on this forge (`#42`, `!42`,
@@ -910,12 +915,12 @@ export interface Forges {
   for: (ref: ForgeOrigin) => ForgeProvider | undefined
   /** The provider whose instance serves `url`. */
   forUrl: (url: string | URL) => ForgeProvider | undefined
-  /** Reads a web URL on any registered instance. */
+  /** Reads a web or SSH clone URL on any registered instance. */
   parseUrl: (url: string | URL) => (ParsedForgeUrl & { provider: ForgeProvider }) | undefined
   /** Notifications from every registered provider, provider by provider. */
   notifications: {
     /** Lists the notifications of every provider, provider by provider. */
-    list: (options?: NotificationListOptions) => ForgeIterable<Notification>
+    list: (options?: Omit<NotificationListOptions, 'cursor'>) => ForgeIterable<Notification>
   }
   /** Reads routed to the provider each ref belongs to; an unregistered origin throws `UnknownForgeError`. */
   repos: {
@@ -938,46 +943,89 @@ export interface Forges {
     list: SecurityAlertsApi['list']
   }
   /**
-   * Fans out to every provider that supports search, merging by `updatedAt`,
-   * newest first. A provider that rejects contributes one `warnings` entry
-   * and no items.
+   * Searches every provider that supports search, reading pages as the
+   * iteration needs them and merging by `updatedAt`, or by `createdAt` with
+   * `sort: 'created'`, newest first unless `direction: 'asc'`. Each provider is
+   * asked to sort the same way; results from one that cannot are only in order
+   * within each page. A provider that rejects adds a `search_failed` warning
+   * and no further items.
    */
   search: {
     /** Searches issues and pull requests on every provider that supports search. */
-    threads: (query?: SearchQuery) => ForgeIterable<Thread>
+    threads: (query?: Omit<SearchQuery, 'cursor' | 'sort'> & { sort?: 'created' | 'updated' }) => ForgeIterable<Thread>
     /** Searches repositories on every provider that supports search. */
-    repos: (query?: RepoSearchQuery) => ForgeIterable<Repo>
+    repos: (query?: Omit<RepoSearchQuery, 'cursor' | 'sort'> & { sort?: 'created' | 'updated' }) => ForgeIterable<Repo>
   }
 }
 
-/**
- * One page from each provider that supports `verb`, merged newest first. A
- * provider that rejects adds a `search_failed` warning and no items; cursors
- * are per provider, so the fan-out reads one page each rather than paging.
- */
-function fanOut<T extends { updatedAt?: Date }>(
+interface SearchOrder {
+  sort: 'created' | 'updated'
+  direction: 'asc' | 'desc'
+}
+
+interface SearchSource<T> {
+  provider: ForgeProvider
+  items: T[]
+  cursor?: Cursor
+  done: boolean
+}
+
+/** Items without the sorted timestamp sort last within a page and are yielded as soon as they lead it. */
+function mergeByTime<Q extends Partial<SearchOrder>, T extends { createdAt?: Date, updatedAt?: Date }>(
   providers: ForgeProvider[],
   verb: ForgeVerb,
-  read: (provider: ForgeProvider) => Promise<Page<T>>,
+  query: Q,
+  read: (provider: ForgeProvider, query: Q & SearchOrder & { cursor: Cursor | undefined }) => Promise<Page<T>>,
 ): ForgeIterable<T> {
-  const warnings: ForgeWarning[] = []
-  return {
-    warnings,
-    async* [Symbol.asyncIterator]() {
-      const results = await Promise.all(providers.filter(provider => provider.can(verb)).map(async (provider) => {
+  const order: SearchOrder = { sort: query.sort === 'created' ? 'created' : 'updated', direction: query.direction === 'asc' ? 'asc' : 'desc' }
+  const sign = order.direction === 'asc' ? 1 : -1
+  const rank = (item: T, missing: number) => {
+    const time = (order.sort === 'created' ? item.createdAt : item.updatedAt)?.getTime()
+    return time === undefined ? missing : sign * time
+  }
+  return forgeIterable(async function* (warn) {
+    const sources: Array<SearchSource<T>> = providers
+      .filter(provider => provider.can(verb))
+      .map(provider => ({ provider, items: [], done: false }))
+
+    async function fill(source: SearchSource<T>): Promise<void> {
+      while (!source.items.length && !source.done) {
         try {
-          const page = await read(provider)
-          warnings.push(...page.warnings ?? [])
-          return page.items
+          const page = await read(source.provider, { ...query, ...order, cursor: source.cursor })
+          page.warnings?.forEach(warn)
+          source.items = page.items.toSorted((a, b) => rank(a, Infinity) - rank(b, Infinity) || 0)
+          source.cursor = page.cursor
+          source.done = !page.cursor?.nextUrl && !page.cursor?.token
         }
         catch (error) {
-          warnings.push(toWarning('search_failed', error, `${provider.forge}:${provider.instance}`))
-          return []
+          warn(toWarning('search_failed', error, `${source.provider.forge}:${source.provider.instance}`))
+          source.done = true
         }
-      }))
-      yield* results.flat().sort((a, b) => (b.updatedAt?.getTime() ?? 0) - (a.updatedAt?.getTime() ?? 0))
-    },
-  }
+      }
+    }
+
+    await Promise.all(sources.map(fill))
+    while (true) {
+      let next: SearchSource<T> | undefined
+      let best = Infinity
+      for (const source of sources) {
+        const head = source.items[0]
+        if (!head) {
+          continue
+        }
+        const key = rank(head, -Infinity)
+        if (!next || key < best) {
+          next = source
+          best = key
+        }
+      }
+      if (!next) {
+        return
+      }
+      yield next.items.shift()!
+      await fill(next)
+    }
+  })
 }
 
 /** Combines providers into a registry. Pass factories such as `github()`, or providers that already exist. */
@@ -1044,8 +1092,8 @@ export function createForges(factories: Array<ForgeProviderFactory | ForgeProvid
     },
     securityAlerts: { list: (repo, options) => route(repo).securityAlerts.list(repo, options) },
     search: {
-      threads: (query = {}) => fanOut(providers, 'search.threads', provider => provider.search.threadsPage(query)),
-      repos: (query = {}) => fanOut(providers, 'search.repos', provider => provider.search.reposPage(query)),
+      threads: (query = {}) => mergeByTime(providers, 'search.threads', query, (provider, page) => provider.search.threadsPage(page)),
+      repos: (query = {}) => mergeByTime(providers, 'search.repos', query, (provider, page) => provider.search.reposPage(page)),
     },
     get: (forge, instance) => providers.find(
       provider => provider.forge === forge && (!instance || provider.instance === instance),
@@ -1061,7 +1109,7 @@ export function createForges(factories: Array<ForgeProviderFactory | ForgeProvid
               if (!provider.can('notifications.list')) {
                 continue
               }
-              const iterable = provider.notifications.list(options)
+              const iterable = provider.notifications.list({ ...options, cursor: undefined })
               try {
                 yield* iterable
               }

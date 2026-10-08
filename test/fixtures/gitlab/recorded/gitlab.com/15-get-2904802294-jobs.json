@@ -7,9 +7,9 @@
     "status": 200,
     "headers": {
       "link": "<https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/pipelines/2904802294/jobs?id=gitlab-org%2Fcli&include_retried=false&page=1&per_page=100&pipeline_id=2904802294>; rel=\"first\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/pipelines/2904802294/jobs?id=gitlab-org%2Fcli&include_retried=false&page=1&per_page=100&pipeline_id=2904802294>; rel=\"last\"",
-      "etag": "W/\"4cbf2aa7e6dfb82a985bdb7d214ae8ab\"",
+      "etag": "W/\"d7d12d52ac94a7454dccfec35a0aa412\"",
       "ratelimit-remaining": "1985",
-      "ratelimit-reset": "1790944320",
+      "ratelimit-reset": "1791375060",
       "x-total": "19",
       "x-total-pages": "1",
       "x-next-page": "",
@@ -39,7 +39,7 @@
           "name": "Jay McCure",
           "state": "active",
           "locked": false,
-          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1790925516",
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1791354919",
           "web_url": "https://gitlab.com/jay_mccure",
           "created_at": "2022-06-12T22:51:50.999Z",
           "bio": "",
@@ -56,7 +56,7 @@
           "work_information": "Senior Backend Engineer at GitLab",
           "followers": 12,
           "following": 0,
-          "local_time": "10:31 PM"
+          "local_time": "10:10 PM"
         },
         "commit": {
           "id": "c8f8f604c964f29b6765c7ef33aaadada03564f1",
@@ -67,7 +67,7 @@
             "37ea25e1cf97b7e40c6d862c45ab32cec0f10b99"
           ],
           "title": "Merge branch 'renovate/golangci-lint-version' into 'main'",
-          "message": "Merge branch 'renovate/golangci-lint-version' into 'main'\n\nchore(deps): bump golangci-lint to v2.14.0\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/3988\n\nMerged-by: Jay McCure <jmccure@gitlab.com>\nApproved-by: Jay McCure <jmccure@gitlab.com>\nCo-authored-by: GitLab Renovate Bot <gitlab-bot@gitlab.com>",
+          "message": "Merge branch 'renovate/golangci-lint-version' into 'main'\n\nchore(deps): bump golangci-lint to v2.14.0\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/3988\n\nMerged-by: Jay McCure <redacted@example.invalid>\nApproved-by: Jay McCure <redacted@example.invalid>\nCo-authored-by: GitLab Renovate Bot <redacted@example.invalid>",
           "author_name": "Jay McCure",
           "author_email": "redacted@example.invalid",
           "authored_date": "2026-10-02T09:42:09.000+10:00",
@@ -125,7 +125,7 @@
           "name": "Jay McCure",
           "state": "active",
           "locked": false,
-          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1790925516",
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1791354919",
           "web_url": "https://gitlab.com/jay_mccure",
           "created_at": "2022-06-12T22:51:50.999Z",
           "bio": "",
@@ -142,7 +142,7 @@
           "work_information": "Senior Backend Engineer at GitLab",
           "followers": 12,
           "following": 0,
-          "local_time": "10:31 PM"
+          "local_time": "10:10 PM"
         },
         "commit": {
           "id": "c8f8f604c964f29b6765c7ef33aaadada03564f1",
@@ -153,7 +153,7 @@
             "37ea25e1cf97b7e40c6d862c45ab32cec0f10b99"
           ],
           "title": "Merge branch 'renovate/golangci-lint-version' into 'main'",
-          "message": "Merge branch 'renovate/golangci-lint-version' into 'main'\n\nchore(deps): bump golangci-lint to v2.14.0\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/3988\n\nMerged-by: Jay McCure <jmccure@gitlab.com>\nApproved-by: Jay McCure <jmccure@gitlab.com>\nCo-authored-by: GitLab Renovate Bot <gitlab-bot@gitlab.com>",
+          "message": "Merge branch 'renovate/golangci-lint-version' into 'main'\n\nchore(deps): bump golangci-lint to v2.14.0\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/3988\n\nMerged-by: Jay McCure <redacted@example.invalid>\nApproved-by: Jay McCure <redacted@example.invalid>\nCo-authored-by: GitLab Renovate Bot <redacted@example.invalid>",
           "author_name": "Jay McCure",
           "author_email": "redacted@example.invalid",
           "authored_date": "2026-10-02T09:42:09.000+10:00",
@@ -211,7 +211,7 @@
           "name": "Jay McCure",
           "state": "active",
           "locked": false,
-          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1790925516",
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1791354919",
           "web_url": "https://gitlab.com/jay_mccure",
           "created_at": "2022-06-12T22:51:50.999Z",
           "bio": "",
@@ -228,7 +228,7 @@
           "work_information": "Senior Backend Engineer at GitLab",
           "followers": 12,
           "following": 0,
-          "local_time": "10:31 PM"
+          "local_time": "10:10 PM"
         },
         "commit": {
           "id": "c8f8f604c964f29b6765c7ef33aaadada03564f1",
@@ -239,7 +239,7 @@
             "37ea25e1cf97b7e40c6d862c45ab32cec0f10b99"
           ],
           "title": "Merge branch 'renovate/golangci-lint-version' into 'main'",
-          "message": "Merge branch 'renovate/golangci-lint-version' into 'main'\n\nchore(deps): bump golangci-lint to v2.14.0\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/3988\n\nMerged-by: Jay McCure <jmccure@gitlab.com>\nApproved-by: Jay McCure <jmccure@gitlab.com>\nCo-authored-by: GitLab Renovate Bot <gitlab-bot@gitlab.com>",
+          "message": "Merge branch 'renovate/golangci-lint-version' into 'main'\n\nchore(deps): bump golangci-lint to v2.14.0\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/3988\n\nMerged-by: Jay McCure <redacted@example.invalid>\nApproved-by: Jay McCure <redacted@example.invalid>\nCo-authored-by: GitLab Renovate Bot <redacted@example.invalid>",
           "author_name": "Jay McCure",
           "author_email": "redacted@example.invalid",
           "authored_date": "2026-10-02T09:42:09.000+10:00",
@@ -314,19 +314,7 @@
           "status": "online",
           "job_execution_status": "active"
         },
-        "runner_manager": {
-          "id": 159839494,
-          "system_id": "r_2RAaDebQo1Wk",
-          "version": "19.5.0~pre.2219.g6ea882d9",
-          "revision": "6ea882d9",
-          "platform": "linux",
-          "architecture": "amd64",
-          "created_at": "2026-10-01T12:20:59.149Z",
-          "contacted_at": "2026-10-02T12:31:17.891Z",
-          "ip_address": "10.59.12.202",
-          "status": "online",
-          "job_execution_status": "active"
-        },
+        "runner_manager": null,
         "artifacts_expire_at": "2026-10-08T23:44:51.272Z",
         "archived": false,
         "tag_list": [
@@ -355,7 +343,7 @@
           "name": "Jay McCure",
           "state": "active",
           "locked": false,
-          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1790925516",
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1791354919",
           "web_url": "https://gitlab.com/jay_mccure",
           "created_at": "2022-06-12T22:51:50.999Z",
           "bio": "",
@@ -372,7 +360,7 @@
           "work_information": "Senior Backend Engineer at GitLab",
           "followers": 12,
           "following": 0,
-          "local_time": "10:31 PM"
+          "local_time": "10:10 PM"
         },
         "commit": {
           "id": "c8f8f604c964f29b6765c7ef33aaadada03564f1",
@@ -383,7 +371,7 @@
             "37ea25e1cf97b7e40c6d862c45ab32cec0f10b99"
           ],
           "title": "Merge branch 'renovate/golangci-lint-version' into 'main'",
-          "message": "Merge branch 'renovate/golangci-lint-version' into 'main'\n\nchore(deps): bump golangci-lint to v2.14.0\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/3988\n\nMerged-by: Jay McCure <jmccure@gitlab.com>\nApproved-by: Jay McCure <jmccure@gitlab.com>\nCo-authored-by: GitLab Renovate Bot <gitlab-bot@gitlab.com>",
+          "message": "Merge branch 'renovate/golangci-lint-version' into 'main'\n\nchore(deps): bump golangci-lint to v2.14.0\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/3988\n\nMerged-by: Jay McCure <redacted@example.invalid>\nApproved-by: Jay McCure <redacted@example.invalid>\nCo-authored-by: GitLab Renovate Bot <redacted@example.invalid>",
           "author_name": "Jay McCure",
           "author_email": "redacted@example.invalid",
           "authored_date": "2026-10-02T09:42:09.000+10:00",
@@ -458,19 +446,7 @@
           "status": "online",
           "job_execution_status": "active"
         },
-        "runner_manager": {
-          "id": 159839487,
-          "system_id": "r_r0p1MYzn8vgr",
-          "version": "19.5.0~pre.2219.g6ea882d9",
-          "revision": "6ea882d9",
-          "platform": "linux",
-          "architecture": "amd64",
-          "created_at": "2026-10-01T12:20:58.791Z",
-          "contacted_at": "2026-10-02T12:31:17.688Z",
-          "ip_address": "10.59.8.14",
-          "status": "online",
-          "job_execution_status": "active"
-        },
+        "runner_manager": null,
         "artifacts_expire_at": "2026-10-08T23:44:44.154Z",
         "archived": false,
         "tag_list": [
@@ -499,7 +475,7 @@
           "name": "Jay McCure",
           "state": "active",
           "locked": false,
-          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1790925516",
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1791354919",
           "web_url": "https://gitlab.com/jay_mccure",
           "created_at": "2022-06-12T22:51:50.999Z",
           "bio": "",
@@ -516,7 +492,7 @@
           "work_information": "Senior Backend Engineer at GitLab",
           "followers": 12,
           "following": 0,
-          "local_time": "10:31 PM"
+          "local_time": "10:10 PM"
         },
         "commit": {
           "id": "c8f8f604c964f29b6765c7ef33aaadada03564f1",
@@ -527,7 +503,7 @@
             "37ea25e1cf97b7e40c6d862c45ab32cec0f10b99"
           ],
           "title": "Merge branch 'renovate/golangci-lint-version' into 'main'",
-          "message": "Merge branch 'renovate/golangci-lint-version' into 'main'\n\nchore(deps): bump golangci-lint to v2.14.0\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/3988\n\nMerged-by: Jay McCure <jmccure@gitlab.com>\nApproved-by: Jay McCure <jmccure@gitlab.com>\nCo-authored-by: GitLab Renovate Bot <gitlab-bot@gitlab.com>",
+          "message": "Merge branch 'renovate/golangci-lint-version' into 'main'\n\nchore(deps): bump golangci-lint to v2.14.0\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/3988\n\nMerged-by: Jay McCure <redacted@example.invalid>\nApproved-by: Jay McCure <redacted@example.invalid>\nCo-authored-by: GitLab Renovate Bot <redacted@example.invalid>",
           "author_name": "Jay McCure",
           "author_email": "redacted@example.invalid",
           "authored_date": "2026-10-02T09:42:09.000+10:00",
@@ -602,19 +578,7 @@
           "status": "online",
           "job_execution_status": "active"
         },
-        "runner_manager": {
-          "id": 159839469,
-          "system_id": "r_dsc1K0lK43Ie",
-          "version": "19.5.0~pre.2219.g6ea882d9",
-          "revision": "6ea882d9",
-          "platform": "linux",
-          "architecture": "amd64",
-          "created_at": "2026-10-01T12:20:57.632Z",
-          "contacted_at": "2026-10-02T12:31:15.040Z",
-          "ip_address": "10.59.5.218",
-          "status": "online",
-          "job_execution_status": "active"
-        },
+        "runner_manager": null,
         "artifacts_expire_at": "2026-10-08T23:44:35.203Z",
         "archived": false,
         "tag_list": [
@@ -643,7 +607,7 @@
           "name": "Jay McCure",
           "state": "active",
           "locked": false,
-          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1790925516",
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1791354919",
           "web_url": "https://gitlab.com/jay_mccure",
           "created_at": "2022-06-12T22:51:50.999Z",
           "bio": "",
@@ -660,7 +624,7 @@
           "work_information": "Senior Backend Engineer at GitLab",
           "followers": 12,
           "following": 0,
-          "local_time": "10:31 PM"
+          "local_time": "10:10 PM"
         },
         "commit": {
           "id": "c8f8f604c964f29b6765c7ef33aaadada03564f1",
@@ -671,7 +635,7 @@
             "37ea25e1cf97b7e40c6d862c45ab32cec0f10b99"
           ],
           "title": "Merge branch 'renovate/golangci-lint-version' into 'main'",
-          "message": "Merge branch 'renovate/golangci-lint-version' into 'main'\n\nchore(deps): bump golangci-lint to v2.14.0\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/3988\n\nMerged-by: Jay McCure <jmccure@gitlab.com>\nApproved-by: Jay McCure <jmccure@gitlab.com>\nCo-authored-by: GitLab Renovate Bot <gitlab-bot@gitlab.com>",
+          "message": "Merge branch 'renovate/golangci-lint-version' into 'main'\n\nchore(deps): bump golangci-lint to v2.14.0\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/3988\n\nMerged-by: Jay McCure <redacted@example.invalid>\nApproved-by: Jay McCure <redacted@example.invalid>\nCo-authored-by: GitLab Renovate Bot <redacted@example.invalid>",
           "author_name": "Jay McCure",
           "author_email": "redacted@example.invalid",
           "authored_date": "2026-10-02T09:42:09.000+10:00",
@@ -746,19 +710,7 @@
           "status": "online",
           "job_execution_status": "active"
         },
-        "runner_manager": {
-          "id": 159839476,
-          "system_id": "r_KVlSei8qEZTU",
-          "version": "19.5.0~pre.2219.g6ea882d9",
-          "revision": "6ea882d9",
-          "platform": "linux",
-          "architecture": "amd64",
-          "created_at": "2026-10-01T12:20:57.869Z",
-          "contacted_at": "2026-10-02T12:31:18.047Z",
-          "ip_address": "10.59.3.154",
-          "status": "online",
-          "job_execution_status": "active"
-        },
+        "runner_manager": null,
         "artifacts_expire_at": "2026-10-08T23:45:15.573Z",
         "archived": false,
         "tag_list": [
@@ -787,7 +739,7 @@
           "name": "Jay McCure",
           "state": "active",
           "locked": false,
-          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1790925516",
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1791354919",
           "web_url": "https://gitlab.com/jay_mccure",
           "created_at": "2022-06-12T22:51:50.999Z",
           "bio": "",
@@ -804,7 +756,7 @@
           "work_information": "Senior Backend Engineer at GitLab",
           "followers": 12,
           "following": 0,
-          "local_time": "10:31 PM"
+          "local_time": "10:10 PM"
         },
         "commit": {
           "id": "c8f8f604c964f29b6765c7ef33aaadada03564f1",
@@ -815,7 +767,7 @@
             "37ea25e1cf97b7e40c6d862c45ab32cec0f10b99"
           ],
           "title": "Merge branch 'renovate/golangci-lint-version' into 'main'",
-          "message": "Merge branch 'renovate/golangci-lint-version' into 'main'\n\nchore(deps): bump golangci-lint to v2.14.0\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/3988\n\nMerged-by: Jay McCure <jmccure@gitlab.com>\nApproved-by: Jay McCure <jmccure@gitlab.com>\nCo-authored-by: GitLab Renovate Bot <gitlab-bot@gitlab.com>",
+          "message": "Merge branch 'renovate/golangci-lint-version' into 'main'\n\nchore(deps): bump golangci-lint to v2.14.0\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/3988\n\nMerged-by: Jay McCure <redacted@example.invalid>\nApproved-by: Jay McCure <redacted@example.invalid>\nCo-authored-by: GitLab Renovate Bot <redacted@example.invalid>",
           "author_name": "Jay McCure",
           "author_email": "redacted@example.invalid",
           "authored_date": "2026-10-02T09:42:09.000+10:00",
@@ -890,19 +842,7 @@
           "status": "online",
           "job_execution_status": "active"
         },
-        "runner_manager": {
-          "id": 159839479,
-          "system_id": "r_DToDwOPSjwkl",
-          "version": "19.5.0~pre.2219.g6ea882d9",
-          "revision": "6ea882d9",
-          "platform": "linux",
-          "architecture": "amd64",
-          "created_at": "2026-10-01T12:20:58.416Z",
-          "contacted_at": "2026-10-02T12:31:16.777Z",
-          "ip_address": "10.59.9.216",
-          "status": "online",
-          "job_execution_status": "active"
-        },
+        "runner_manager": null,
         "artifacts_expire_at": "2026-10-08T23:45:21.606Z",
         "archived": false,
         "tag_list": [
@@ -931,7 +871,7 @@
           "name": "Jay McCure",
           "state": "active",
           "locked": false,
-          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1790925516",
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1791354919",
           "web_url": "https://gitlab.com/jay_mccure",
           "created_at": "2022-06-12T22:51:50.999Z",
           "bio": "",
@@ -948,7 +888,7 @@
           "work_information": "Senior Backend Engineer at GitLab",
           "followers": 12,
           "following": 0,
-          "local_time": "10:31 PM"
+          "local_time": "10:10 PM"
         },
         "commit": {
           "id": "c8f8f604c964f29b6765c7ef33aaadada03564f1",
@@ -959,7 +899,7 @@
             "37ea25e1cf97b7e40c6d862c45ab32cec0f10b99"
           ],
           "title": "Merge branch 'renovate/golangci-lint-version' into 'main'",
-          "message": "Merge branch 'renovate/golangci-lint-version' into 'main'\n\nchore(deps): bump golangci-lint to v2.14.0\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/3988\n\nMerged-by: Jay McCure <jmccure@gitlab.com>\nApproved-by: Jay McCure <jmccure@gitlab.com>\nCo-authored-by: GitLab Renovate Bot <gitlab-bot@gitlab.com>",
+          "message": "Merge branch 'renovate/golangci-lint-version' into 'main'\n\nchore(deps): bump golangci-lint to v2.14.0\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/3988\n\nMerged-by: Jay McCure <redacted@example.invalid>\nApproved-by: Jay McCure <redacted@example.invalid>\nCo-authored-by: GitLab Renovate Bot <redacted@example.invalid>",
           "author_name": "Jay McCure",
           "author_email": "redacted@example.invalid",
           "authored_date": "2026-10-02T09:42:09.000+10:00",
@@ -1034,19 +974,7 @@
           "status": "online",
           "job_execution_status": "active"
         },
-        "runner_manager": {
-          "id": 159839407,
-          "system_id": "r_IqV1aUyGa2Kv",
-          "version": "19.5.0~pre.2219.g6ea882d9",
-          "revision": "6ea882d9",
-          "platform": "linux",
-          "architecture": "amd64",
-          "created_at": "2026-10-01T12:20:52.083Z",
-          "contacted_at": "2026-10-02T12:31:17.137Z",
-          "ip_address": "10.59.1.213",
-          "status": "online",
-          "job_execution_status": "active"
-        },
+        "runner_manager": null,
         "artifacts_expire_at": "2026-10-08T23:49:41.480Z",
         "archived": false,
         "tag_list": [
@@ -1075,7 +1003,7 @@
           "name": "Jay McCure",
           "state": "active",
           "locked": false,
-          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1790925516",
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1791354919",
           "web_url": "https://gitlab.com/jay_mccure",
           "created_at": "2022-06-12T22:51:50.999Z",
           "bio": "",
@@ -1092,7 +1020,7 @@
           "work_information": "Senior Backend Engineer at GitLab",
           "followers": 12,
           "following": 0,
-          "local_time": "10:31 PM"
+          "local_time": "10:10 PM"
         },
         "commit": {
           "id": "c8f8f604c964f29b6765c7ef33aaadada03564f1",
@@ -1103,7 +1031,7 @@
             "37ea25e1cf97b7e40c6d862c45ab32cec0f10b99"
           ],
           "title": "Merge branch 'renovate/golangci-lint-version' into 'main'",
-          "message": "Merge branch 'renovate/golangci-lint-version' into 'main'\n\nchore(deps): bump golangci-lint to v2.14.0\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/3988\n\nMerged-by: Jay McCure <jmccure@gitlab.com>\nApproved-by: Jay McCure <jmccure@gitlab.com>\nCo-authored-by: GitLab Renovate Bot <gitlab-bot@gitlab.com>",
+          "message": "Merge branch 'renovate/golangci-lint-version' into 'main'\n\nchore(deps): bump golangci-lint to v2.14.0\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/3988\n\nMerged-by: Jay McCure <redacted@example.invalid>\nApproved-by: Jay McCure <redacted@example.invalid>\nCo-authored-by: GitLab Renovate Bot <redacted@example.invalid>",
           "author_name": "Jay McCure",
           "author_email": "redacted@example.invalid",
           "authored_date": "2026-10-02T09:42:09.000+10:00",
@@ -1162,19 +1090,7 @@
           "status": "online",
           "job_execution_status": "active"
         },
-        "runner_manager": {
-          "id": 159839468,
-          "system_id": "r_FNzkw9FjuJqa",
-          "version": "19.5.0~pre.2219.g6ea882d9",
-          "revision": "6ea882d9",
-          "platform": "linux",
-          "architecture": "amd64",
-          "created_at": "2026-10-01T12:20:57.627Z",
-          "contacted_at": "2026-10-02T12:31:18.123Z",
-          "ip_address": "10.222.179.210",
-          "status": "online",
-          "job_execution_status": "active"
-        },
+        "runner_manager": null,
         "artifacts_expire_at": null,
         "archived": false,
         "tag_list": [
@@ -1203,7 +1119,7 @@
           "name": "Jay McCure",
           "state": "active",
           "locked": false,
-          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1790925516",
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1791354919",
           "web_url": "https://gitlab.com/jay_mccure",
           "created_at": "2022-06-12T22:51:50.999Z",
           "bio": "",
@@ -1220,7 +1136,7 @@
           "work_information": "Senior Backend Engineer at GitLab",
           "followers": 12,
           "following": 0,
-          "local_time": "10:31 PM"
+          "local_time": "10:10 PM"
         },
         "commit": {
           "id": "c8f8f604c964f29b6765c7ef33aaadada03564f1",
@@ -1231,7 +1147,7 @@
             "37ea25e1cf97b7e40c6d862c45ab32cec0f10b99"
           ],
           "title": "Merge branch 'renovate/golangci-lint-version' into 'main'",
-          "message": "Merge branch 'renovate/golangci-lint-version' into 'main'\n\nchore(deps): bump golangci-lint to v2.14.0\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/3988\n\nMerged-by: Jay McCure <jmccure@gitlab.com>\nApproved-by: Jay McCure <jmccure@gitlab.com>\nCo-authored-by: GitLab Renovate Bot <gitlab-bot@gitlab.com>",
+          "message": "Merge branch 'renovate/golangci-lint-version' into 'main'\n\nchore(deps): bump golangci-lint to v2.14.0\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/3988\n\nMerged-by: Jay McCure <redacted@example.invalid>\nApproved-by: Jay McCure <redacted@example.invalid>\nCo-authored-by: GitLab Renovate Bot <redacted@example.invalid>",
           "author_name": "Jay McCure",
           "author_email": "redacted@example.invalid",
           "authored_date": "2026-10-02T09:42:09.000+10:00",
@@ -1290,19 +1206,7 @@
           "status": "online",
           "job_execution_status": "active"
         },
-        "runner_manager": {
-          "id": 159839479,
-          "system_id": "r_DToDwOPSjwkl",
-          "version": "19.5.0~pre.2219.g6ea882d9",
-          "revision": "6ea882d9",
-          "platform": "linux",
-          "architecture": "amd64",
-          "created_at": "2026-10-01T12:20:58.416Z",
-          "contacted_at": "2026-10-02T12:31:16.777Z",
-          "ip_address": "10.59.9.216",
-          "status": "online",
-          "job_execution_status": "active"
-        },
+        "runner_manager": null,
         "artifacts_expire_at": null,
         "archived": false,
         "tag_list": [
@@ -1331,7 +1235,7 @@
           "name": "Jay McCure",
           "state": "active",
           "locked": false,
-          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1790925516",
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1791354919",
           "web_url": "https://gitlab.com/jay_mccure",
           "created_at": "2022-06-12T22:51:50.999Z",
           "bio": "",
@@ -1348,7 +1252,7 @@
           "work_information": "Senior Backend Engineer at GitLab",
           "followers": 12,
           "following": 0,
-          "local_time": "10:31 PM"
+          "local_time": "10:10 PM"
         },
         "commit": {
           "id": "c8f8f604c964f29b6765c7ef33aaadada03564f1",
@@ -1359,7 +1263,7 @@
             "37ea25e1cf97b7e40c6d862c45ab32cec0f10b99"
           ],
           "title": "Merge branch 'renovate/golangci-lint-version' into 'main'",
-          "message": "Merge branch 'renovate/golangci-lint-version' into 'main'\n\nchore(deps): bump golangci-lint to v2.14.0\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/3988\n\nMerged-by: Jay McCure <jmccure@gitlab.com>\nApproved-by: Jay McCure <jmccure@gitlab.com>\nCo-authored-by: GitLab Renovate Bot <gitlab-bot@gitlab.com>",
+          "message": "Merge branch 'renovate/golangci-lint-version' into 'main'\n\nchore(deps): bump golangci-lint to v2.14.0\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/3988\n\nMerged-by: Jay McCure <redacted@example.invalid>\nApproved-by: Jay McCure <redacted@example.invalid>\nCo-authored-by: GitLab Renovate Bot <redacted@example.invalid>",
           "author_name": "Jay McCure",
           "author_email": "redacted@example.invalid",
           "authored_date": "2026-10-02T09:42:09.000+10:00",
@@ -1418,19 +1322,7 @@
           "status": "online",
           "job_execution_status": "active"
         },
-        "runner_manager": {
-          "id": 159839483,
-          "system_id": "r_QgYCPEp6uk1T",
-          "version": "19.5.0~pre.2219.g6ea882d9",
-          "revision": "6ea882d9",
-          "platform": "linux",
-          "architecture": "amd64",
-          "created_at": "2026-10-01T12:20:58.530Z",
-          "contacted_at": "2026-10-02T12:31:18.151Z",
-          "ip_address": "10.59.11.106",
-          "status": "online",
-          "job_execution_status": "active"
-        },
+        "runner_manager": null,
         "artifacts_expire_at": null,
         "archived": false,
         "tag_list": [
@@ -1459,7 +1351,7 @@
           "name": "Jay McCure",
           "state": "active",
           "locked": false,
-          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1790925516",
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1791354919",
           "web_url": "https://gitlab.com/jay_mccure",
           "created_at": "2022-06-12T22:51:50.999Z",
           "bio": "",
@@ -1476,7 +1368,7 @@
           "work_information": "Senior Backend Engineer at GitLab",
           "followers": 12,
           "following": 0,
-          "local_time": "10:31 PM"
+          "local_time": "10:10 PM"
         },
         "commit": {
           "id": "c8f8f604c964f29b6765c7ef33aaadada03564f1",
@@ -1487,7 +1379,7 @@
             "37ea25e1cf97b7e40c6d862c45ab32cec0f10b99"
           ],
           "title": "Merge branch 'renovate/golangci-lint-version' into 'main'",
-          "message": "Merge branch 'renovate/golangci-lint-version' into 'main'\n\nchore(deps): bump golangci-lint to v2.14.0\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/3988\n\nMerged-by: Jay McCure <jmccure@gitlab.com>\nApproved-by: Jay McCure <jmccure@gitlab.com>\nCo-authored-by: GitLab Renovate Bot <gitlab-bot@gitlab.com>",
+          "message": "Merge branch 'renovate/golangci-lint-version' into 'main'\n\nchore(deps): bump golangci-lint to v2.14.0\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/3988\n\nMerged-by: Jay McCure <redacted@example.invalid>\nApproved-by: Jay McCure <redacted@example.invalid>\nCo-authored-by: GitLab Renovate Bot <redacted@example.invalid>",
           "author_name": "Jay McCure",
           "author_email": "redacted@example.invalid",
           "authored_date": "2026-10-02T09:42:09.000+10:00",
@@ -1546,19 +1438,7 @@
           "status": "online",
           "job_execution_status": "active"
         },
-        "runner_manager": {
-          "id": 159839490,
-          "system_id": "r_7TbMjXUbCran",
-          "version": "19.5.0~pre.2219.g6ea882d9",
-          "revision": "6ea882d9",
-          "platform": "linux",
-          "architecture": "amd64",
-          "created_at": "2026-10-01T12:20:58.857Z",
-          "contacted_at": "2026-10-02T12:31:16.396Z",
-          "ip_address": "10.59.13.89",
-          "status": "online",
-          "job_execution_status": "active"
-        },
+        "runner_manager": null,
         "artifacts_expire_at": null,
         "archived": false,
         "tag_list": [
@@ -1587,7 +1467,7 @@
           "name": "Jay McCure",
           "state": "active",
           "locked": false,
-          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1790925516",
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1791354919",
           "web_url": "https://gitlab.com/jay_mccure",
           "created_at": "2022-06-12T22:51:50.999Z",
           "bio": "",
@@ -1604,7 +1484,7 @@
           "work_information": "Senior Backend Engineer at GitLab",
           "followers": 12,
           "following": 0,
-          "local_time": "10:31 PM"
+          "local_time": "10:10 PM"
         },
         "commit": {
           "id": "c8f8f604c964f29b6765c7ef33aaadada03564f1",
@@ -1615,7 +1495,7 @@
             "37ea25e1cf97b7e40c6d862c45ab32cec0f10b99"
           ],
           "title": "Merge branch 'renovate/golangci-lint-version' into 'main'",
-          "message": "Merge branch 'renovate/golangci-lint-version' into 'main'\n\nchore(deps): bump golangci-lint to v2.14.0\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/3988\n\nMerged-by: Jay McCure <jmccure@gitlab.com>\nApproved-by: Jay McCure <jmccure@gitlab.com>\nCo-authored-by: GitLab Renovate Bot <gitlab-bot@gitlab.com>",
+          "message": "Merge branch 'renovate/golangci-lint-version' into 'main'\n\nchore(deps): bump golangci-lint to v2.14.0\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/3988\n\nMerged-by: Jay McCure <redacted@example.invalid>\nApproved-by: Jay McCure <redacted@example.invalid>\nCo-authored-by: GitLab Renovate Bot <redacted@example.invalid>",
           "author_name": "Jay McCure",
           "author_email": "redacted@example.invalid",
           "authored_date": "2026-10-02T09:42:09.000+10:00",
@@ -1674,19 +1554,7 @@
           "status": "online",
           "job_execution_status": "active"
         },
-        "runner_manager": {
-          "id": 159839474,
-          "system_id": "r_22ak3k0bCoYZ",
-          "version": "19.5.0~pre.2219.g6ea882d9",
-          "revision": "6ea882d9",
-          "platform": "linux",
-          "architecture": "amd64",
-          "created_at": "2026-10-01T12:20:57.742Z",
-          "contacted_at": "2026-10-02T12:31:18.268Z",
-          "ip_address": "10.223.156.197",
-          "status": "online",
-          "job_execution_status": "active"
-        },
+        "runner_manager": null,
         "artifacts_expire_at": null,
         "archived": false,
         "tag_list": [
@@ -1715,7 +1583,7 @@
           "name": "Jay McCure",
           "state": "active",
           "locked": false,
-          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1790925516",
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1791354919",
           "web_url": "https://gitlab.com/jay_mccure",
           "created_at": "2022-06-12T22:51:50.999Z",
           "bio": "",
@@ -1732,7 +1600,7 @@
           "work_information": "Senior Backend Engineer at GitLab",
           "followers": 12,
           "following": 0,
-          "local_time": "10:31 PM"
+          "local_time": "10:10 PM"
         },
         "commit": {
           "id": "c8f8f604c964f29b6765c7ef33aaadada03564f1",
@@ -1743,7 +1611,7 @@
             "37ea25e1cf97b7e40c6d862c45ab32cec0f10b99"
           ],
           "title": "Merge branch 'renovate/golangci-lint-version' into 'main'",
-          "message": "Merge branch 'renovate/golangci-lint-version' into 'main'\n\nchore(deps): bump golangci-lint to v2.14.0\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/3988\n\nMerged-by: Jay McCure <jmccure@gitlab.com>\nApproved-by: Jay McCure <jmccure@gitlab.com>\nCo-authored-by: GitLab Renovate Bot <gitlab-bot@gitlab.com>",
+          "message": "Merge branch 'renovate/golangci-lint-version' into 'main'\n\nchore(deps): bump golangci-lint to v2.14.0\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/3988\n\nMerged-by: Jay McCure <redacted@example.invalid>\nApproved-by: Jay McCure <redacted@example.invalid>\nCo-authored-by: GitLab Renovate Bot <redacted@example.invalid>",
           "author_name": "Jay McCure",
           "author_email": "redacted@example.invalid",
           "authored_date": "2026-10-02T09:42:09.000+10:00",
@@ -1802,19 +1670,7 @@
           "status": "online",
           "job_execution_status": "active"
         },
-        "runner_manager": {
-          "id": 159839473,
-          "system_id": "r_l1wUlCnbSWy9",
-          "version": "19.5.0~pre.2219.g6ea882d9",
-          "revision": "6ea882d9",
-          "platform": "linux",
-          "architecture": "amd64",
-          "created_at": "2026-10-01T12:20:57.736Z",
-          "contacted_at": "2026-10-02T12:31:17.683Z",
-          "ip_address": "10.59.6.143",
-          "status": "online",
-          "job_execution_status": "active"
-        },
+        "runner_manager": null,
         "artifacts_expire_at": null,
         "archived": false,
         "tag_list": [
@@ -1843,7 +1699,7 @@
           "name": "Jay McCure",
           "state": "active",
           "locked": false,
-          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1790925516",
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1791354919",
           "web_url": "https://gitlab.com/jay_mccure",
           "created_at": "2022-06-12T22:51:50.999Z",
           "bio": "",
@@ -1860,7 +1716,7 @@
           "work_information": "Senior Backend Engineer at GitLab",
           "followers": 12,
           "following": 0,
-          "local_time": "10:31 PM"
+          "local_time": "10:10 PM"
         },
         "commit": {
           "id": "c8f8f604c964f29b6765c7ef33aaadada03564f1",
@@ -1871,7 +1727,7 @@
             "37ea25e1cf97b7e40c6d862c45ab32cec0f10b99"
           ],
           "title": "Merge branch 'renovate/golangci-lint-version' into 'main'",
-          "message": "Merge branch 'renovate/golangci-lint-version' into 'main'\n\nchore(deps): bump golangci-lint to v2.14.0\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/3988\n\nMerged-by: Jay McCure <jmccure@gitlab.com>\nApproved-by: Jay McCure <jmccure@gitlab.com>\nCo-authored-by: GitLab Renovate Bot <gitlab-bot@gitlab.com>",
+          "message": "Merge branch 'renovate/golangci-lint-version' into 'main'\n\nchore(deps): bump golangci-lint to v2.14.0\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/3988\n\nMerged-by: Jay McCure <redacted@example.invalid>\nApproved-by: Jay McCure <redacted@example.invalid>\nCo-authored-by: GitLab Renovate Bot <redacted@example.invalid>",
           "author_name": "Jay McCure",
           "author_email": "redacted@example.invalid",
           "authored_date": "2026-10-02T09:42:09.000+10:00",
@@ -1930,19 +1786,7 @@
           "status": "online",
           "job_execution_status": "active"
         },
-        "runner_manager": {
-          "id": 159839487,
-          "system_id": "r_r0p1MYzn8vgr",
-          "version": "19.5.0~pre.2219.g6ea882d9",
-          "revision": "6ea882d9",
-          "platform": "linux",
-          "architecture": "amd64",
-          "created_at": "2026-10-01T12:20:58.791Z",
-          "contacted_at": "2026-10-02T12:31:17.688Z",
-          "ip_address": "10.59.8.14",
-          "status": "online",
-          "job_execution_status": "active"
-        },
+        "runner_manager": null,
         "artifacts_expire_at": null,
         "archived": false,
         "tag_list": [
@@ -1971,7 +1815,7 @@
           "name": "Jay McCure",
           "state": "active",
           "locked": false,
-          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1790925516",
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1791354919",
           "web_url": "https://gitlab.com/jay_mccure",
           "created_at": "2022-06-12T22:51:50.999Z",
           "bio": "",
@@ -1988,7 +1832,7 @@
           "work_information": "Senior Backend Engineer at GitLab",
           "followers": 12,
           "following": 0,
-          "local_time": "10:31 PM"
+          "local_time": "10:10 PM"
         },
         "commit": {
           "id": "c8f8f604c964f29b6765c7ef33aaadada03564f1",
@@ -1999,7 +1843,7 @@
             "37ea25e1cf97b7e40c6d862c45ab32cec0f10b99"
           ],
           "title": "Merge branch 'renovate/golangci-lint-version' into 'main'",
-          "message": "Merge branch 'renovate/golangci-lint-version' into 'main'\n\nchore(deps): bump golangci-lint to v2.14.0\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/3988\n\nMerged-by: Jay McCure <jmccure@gitlab.com>\nApproved-by: Jay McCure <jmccure@gitlab.com>\nCo-authored-by: GitLab Renovate Bot <gitlab-bot@gitlab.com>",
+          "message": "Merge branch 'renovate/golangci-lint-version' into 'main'\n\nchore(deps): bump golangci-lint to v2.14.0\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/3988\n\nMerged-by: Jay McCure <redacted@example.invalid>\nApproved-by: Jay McCure <redacted@example.invalid>\nCo-authored-by: GitLab Renovate Bot <redacted@example.invalid>",
           "author_name": "Jay McCure",
           "author_email": "redacted@example.invalid",
           "authored_date": "2026-10-02T09:42:09.000+10:00",
@@ -2086,19 +1930,7 @@
           "status": "online",
           "job_execution_status": "active"
         },
-        "runner_manager": {
-          "id": 159839482,
-          "system_id": "r_xjEcqvlF21tA",
-          "version": "19.5.0~pre.2219.g6ea882d9",
-          "revision": "6ea882d9",
-          "platform": "linux",
-          "architecture": "amd64",
-          "created_at": "2026-10-01T12:20:58.525Z",
-          "contacted_at": "2026-10-02T12:31:17.572Z",
-          "ip_address": "10.59.5.30",
-          "status": "online",
-          "job_execution_status": "active"
-        },
+        "runner_manager": null,
         "artifacts_expire_at": "2026-10-31T23:42:31.462Z",
         "archived": false,
         "tag_list": [
@@ -2127,7 +1959,7 @@
           "name": "Jay McCure",
           "state": "active",
           "locked": false,
-          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1790925516",
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1791354919",
           "web_url": "https://gitlab.com/jay_mccure",
           "created_at": "2022-06-12T22:51:50.999Z",
           "bio": "",
@@ -2144,7 +1976,7 @@
           "work_information": "Senior Backend Engineer at GitLab",
           "followers": 12,
           "following": 0,
-          "local_time": "10:31 PM"
+          "local_time": "10:10 PM"
         },
         "commit": {
           "id": "c8f8f604c964f29b6765c7ef33aaadada03564f1",
@@ -2155,7 +1987,7 @@
             "37ea25e1cf97b7e40c6d862c45ab32cec0f10b99"
           ],
           "title": "Merge branch 'renovate/golangci-lint-version' into 'main'",
-          "message": "Merge branch 'renovate/golangci-lint-version' into 'main'\n\nchore(deps): bump golangci-lint to v2.14.0\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/3988\n\nMerged-by: Jay McCure <jmccure@gitlab.com>\nApproved-by: Jay McCure <jmccure@gitlab.com>\nCo-authored-by: GitLab Renovate Bot <gitlab-bot@gitlab.com>",
+          "message": "Merge branch 'renovate/golangci-lint-version' into 'main'\n\nchore(deps): bump golangci-lint to v2.14.0\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/3988\n\nMerged-by: Jay McCure <redacted@example.invalid>\nApproved-by: Jay McCure <redacted@example.invalid>\nCo-authored-by: GitLab Renovate Bot <redacted@example.invalid>",
           "author_name": "Jay McCure",
           "author_email": "redacted@example.invalid",
           "authored_date": "2026-10-02T09:42:09.000+10:00",
@@ -2213,7 +2045,7 @@
           "name": "Jay McCure",
           "state": "active",
           "locked": false,
-          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1790925516",
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1791354919",
           "web_url": "https://gitlab.com/jay_mccure",
           "created_at": "2022-06-12T22:51:50.999Z",
           "bio": "",
@@ -2230,7 +2062,7 @@
           "work_information": "Senior Backend Engineer at GitLab",
           "followers": 12,
           "following": 0,
-          "local_time": "10:31 PM"
+          "local_time": "10:10 PM"
         },
         "commit": {
           "id": "c8f8f604c964f29b6765c7ef33aaadada03564f1",
@@ -2241,7 +2073,7 @@
             "37ea25e1cf97b7e40c6d862c45ab32cec0f10b99"
           ],
           "title": "Merge branch 'renovate/golangci-lint-version' into 'main'",
-          "message": "Merge branch 'renovate/golangci-lint-version' into 'main'\n\nchore(deps): bump golangci-lint to v2.14.0\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/3988\n\nMerged-by: Jay McCure <jmccure@gitlab.com>\nApproved-by: Jay McCure <jmccure@gitlab.com>\nCo-authored-by: GitLab Renovate Bot <gitlab-bot@gitlab.com>",
+          "message": "Merge branch 'renovate/golangci-lint-version' into 'main'\n\nchore(deps): bump golangci-lint to v2.14.0\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/3988\n\nMerged-by: Jay McCure <redacted@example.invalid>\nApproved-by: Jay McCure <redacted@example.invalid>\nCo-authored-by: GitLab Renovate Bot <redacted@example.invalid>",
           "author_name": "Jay McCure",
           "author_email": "redacted@example.invalid",
           "authored_date": "2026-10-02T09:42:09.000+10:00",
@@ -2322,19 +2154,7 @@
           "status": "online",
           "job_execution_status": "active"
         },
-        "runner_manager": {
-          "id": 159839494,
-          "system_id": "r_2RAaDebQo1Wk",
-          "version": "19.5.0~pre.2219.g6ea882d9",
-          "revision": "6ea882d9",
-          "platform": "linux",
-          "architecture": "amd64",
-          "created_at": "2026-10-01T12:20:59.149Z",
-          "contacted_at": "2026-10-02T12:31:17.891Z",
-          "ip_address": "10.59.12.202",
-          "status": "online",
-          "job_execution_status": "active"
-        },
+        "runner_manager": null,
         "artifacts_expire_at": "2026-10-31T23:42:25.591Z",
         "archived": false,
         "tag_list": [
@@ -2363,7 +2183,7 @@
           "name": "Jay McCure",
           "state": "active",
           "locked": false,
-          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1790925516",
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1791354919",
           "web_url": "https://gitlab.com/jay_mccure",
           "created_at": "2022-06-12T22:51:50.999Z",
           "bio": "",
@@ -2380,7 +2200,7 @@
           "work_information": "Senior Backend Engineer at GitLab",
           "followers": 12,
           "following": 0,
-          "local_time": "10:31 PM"
+          "local_time": "10:10 PM"
         },
         "commit": {
           "id": "c8f8f604c964f29b6765c7ef33aaadada03564f1",
@@ -2391,7 +2211,7 @@
             "37ea25e1cf97b7e40c6d862c45ab32cec0f10b99"
           ],
           "title": "Merge branch 'renovate/golangci-lint-version' into 'main'",
-          "message": "Merge branch 'renovate/golangci-lint-version' into 'main'\n\nchore(deps): bump golangci-lint to v2.14.0\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/3988\n\nMerged-by: Jay McCure <jmccure@gitlab.com>\nApproved-by: Jay McCure <jmccure@gitlab.com>\nCo-authored-by: GitLab Renovate Bot <gitlab-bot@gitlab.com>",
+          "message": "Merge branch 'renovate/golangci-lint-version' into 'main'\n\nchore(deps): bump golangci-lint to v2.14.0\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/3988\n\nMerged-by: Jay McCure <redacted@example.invalid>\nApproved-by: Jay McCure <redacted@example.invalid>\nCo-authored-by: GitLab Renovate Bot <redacted@example.invalid>",
           "author_name": "Jay McCure",
           "author_email": "redacted@example.invalid",
           "authored_date": "2026-10-02T09:42:09.000+10:00",
@@ -2418,34 +2238,12 @@
         "project": {
           "ci_job_token_scope_enabled": false
         },
-        "artifacts_file": {
-          "filename": "artifacts.zip",
-          "size": 9923
-        },
         "artifacts": [
-          {
-            "file_type": "archive",
-            "size": 9923,
-            "filename": "artifacts.zip",
-            "file_format": "zip"
-          },
-          {
-            "file_type": "metadata",
-            "size": 165,
-            "filename": "metadata.gz",
-            "file_format": "gzip"
-          },
           {
             "file_type": "trace",
             "size": 78611,
             "filename": "job.log",
             "file_format": null
-          },
-          {
-            "file_type": "sast",
-            "size": 116367,
-            "filename": "gl-sast-report.json",
-            "file_format": "raw"
           }
         ],
         "runner": {
@@ -2472,19 +2270,7 @@
           "status": "online",
           "job_execution_status": "active"
         },
-        "runner_manager": {
-          "id": 159839486,
-          "system_id": "r_lZ50eIWiT0hq",
-          "version": "19.5.0~pre.2219.g6ea882d9",
-          "revision": "6ea882d9",
-          "platform": "linux",
-          "architecture": "amd64",
-          "created_at": "2026-10-01T12:20:58.767Z",
-          "contacted_at": "2026-10-02T12:31:18.198Z",
-          "ip_address": "10.59.26.85",
-          "status": "online",
-          "job_execution_status": "active"
-        },
+        "runner_manager": null,
         "artifacts_expire_at": "2026-10-04T23:43:54.591Z",
         "archived": false,
         "tag_list": [

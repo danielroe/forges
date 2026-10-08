@@ -44,6 +44,13 @@ export function toRepo(instance: string, raw: GiteeRepository): Repo {
     updatedAt: toDate(raw.updated_at),
     pushedAt: toDate(raw.pushed_at),
     openIssueCount: raw.open_issues_count,
+    owner: toActor(instance, raw.owner),
+    language: raw.language ?? undefined,
+    homepage: raw.homepage || undefined,
+    licence: raw.license ?? undefined,
+    stars: raw.stargazers_count,
+    forks: raw.forks_count,
+    watchers: raw.watchers_count,
     raw,
   }
 }

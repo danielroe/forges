@@ -2,7 +2,7 @@ import type { WebhookHandlers } from '../define.ts'
 import type { EventKind, ForgeEventInput, ThreadRef } from '../model.ts'
 import type { WebhookDelivery } from '../provider.ts'
 import type { BitbucketOptions } from './index.ts'
-import type { BitbucketComment, BitbucketIssue, BitbucketPullRequest, BitbucketRepository, BitbucketUser } from './types.ts'
+import type { BitbucketComment, BitbucketPullRequest, BitbucketRepository, BitbucketUser } from './types.ts'
 import { bodyText, headerValue } from '../crypto.ts'
 import { WebhookVerificationError } from '../errors.ts'
 import { toDate } from '../utils.ts'
@@ -23,7 +23,6 @@ interface BitbucketWebhookPayload {
   actor?: BitbucketUser
   repository?: BitbucketRepository
   pullrequest?: BitbucketPullRequest
-  issue?: BitbucketIssue
   comment?: BitbucketComment
   approval?: { date: string, user?: BitbucketUser }
   changes_request?: { date: string, user?: BitbucketUser }
@@ -50,8 +49,6 @@ const EVENT_KINDS: Record<string, EventKind> = {
   'pullrequest:changes_request_created': 'review',
   'pullrequest:changes_request_removed': 'review',
   'pullrequest:comment_created': 'comment',
-  'issue:created': 'state_change',
-  'issue:comment_created': 'comment',
 }
 
 export function translateBitbucketWebhook(instance: string, delivery: WebhookDelivery): ForgeEventInput[] {
@@ -64,11 +61,8 @@ export function translateBitbucketWebhook(instance: string, delivery: WebhookDel
   const repo = payload.repository ? toRepoRef(instance, payload.repository) : undefined
   const actor = toActor(instance, payload.actor)
   const who = actor?.login ?? 'someone'
-  const subject = payload.pullrequest
-    ? { kind: 'pull_request' as const, id: payload.pullrequest.id }
-    : payload.issue ? { kind: 'issue' as const, id: payload.issue.id } : undefined
-  const thread: ThreadRef | undefined = repo && subject
-    ? { forge: FORGE, instance, repo, kind: subject.kind, number: String(subject.id) }
+  const thread: ThreadRef | undefined = repo && payload.pullrequest
+    ? { forge: FORGE, instance, repo, kind: 'pull_request', number: String(payload.pullrequest.id) }
     : undefined
 
   if (event === 'repo:push' && payload.push) {
@@ -100,23 +94,6 @@ export function translateBitbucketWebhook(instance: string, delivery: WebhookDel
 
   if (event === 'repo:transfer') {
     return [{ forge: FORGE, instance, id: deliveryId, kind: 'repo', action: 'transferred', kindRaw: event, summary: `${who} transferred the repository`, occurredAt: new Date(), actor, repo, detail: { type: 'repo_transferred', fromOwner: payload.previous_workspace?.slug, toOwner: repo?.owner }, source: 'webhook', payload }]
-  }
-
-  if (event === 'issue:updated' && payload.issue) {
-    return [{
-      forge: FORGE,
-      instance,
-      id: deliveryId,
-      kind: 'other',
-      kindRaw: event,
-      summary: `${who} updated issue #${payload.issue.id}`,
-      occurredAt: toDate(payload.issue.updated_on) ?? new Date(),
-      actor,
-      repo,
-      thread,
-      source: 'webhook',
-      payload,
-    }]
   }
 
   const kind = EVENT_KINDS[event] ?? 'other'

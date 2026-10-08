@@ -1,0 +1,50 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.github.com/user"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"54882ee3053871a34e51a70766eb78c04dc97c76984dfe901452e9ef73239323\"",
+      "x-ratelimit-remaining": "4961",
+      "x-ratelimit-reset": "1791382247"
+    },
+    "body": {
+      "login": "danielroe",
+      "id": 28706372,
+      "node_id": "REDACTED",
+      "avatar_url": "https://avatars.githubusercontent.com/u/28706372?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/danielroe",
+      "html_url": "https://github.com/danielroe",
+      "followers_url": "https://api.github.com/users/danielroe/followers",
+      "following_url": "https://api.github.com/users/danielroe/following{/other_user}",
+      "gists_url": "https://api.github.com/users/danielroe/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/danielroe/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/danielroe/subscriptions",
+      "organizations_url": "https://api.github.com/users/danielroe/orgs",
+      "repos_url": "https://api.github.com/users/danielroe/repos",
+      "events_url": "https://api.github.com/users/danielroe/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/danielroe/received_events",
+      "type": "User",
+      "user_view_type": "public",
+      "site_admin": false,
+      "name": "Daniel Roe",
+      "company": null,
+      "blog": "https://roe.dev",
+      "location": "Edinburgh, UK",
+      "email": "redacted@example.invalid",
+      "hireable": null,
+      "bio": "@nuxt • @npmx-dev • @unjs • @vuejs • @elk-zone",
+      "twitter_username": null,
+      "notification_email": "redacted@example.invalid",
+      "public_repos": 903,
+      "public_gists": 13,
+      "followers": 6127,
+      "following": 173,
+      "created_at": "2017-05-15T12:06:30Z",
+      "updated_at": "2026-10-01T15:56:33Z"
+    }
+  }
+}

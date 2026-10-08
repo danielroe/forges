@@ -6,124 +6,26 @@
   "response": {
     "status": 200,
     "headers": {
-      "link": "<https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/issues?id=gitlab-org%2Fcli&order_by=created_at&page=2&per_page=3&sort=desc&state=opened&with_labels_details=false>; rel=\"next\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/issues?id=gitlab-org%2Fcli&order_by=created_at&page=1&per_page=3&sort=desc&state=opened&with_labels_details=false>; rel=\"first\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/issues?id=gitlab-org%2Fcli&order_by=created_at&page=85&per_page=3&sort=desc&state=opened&with_labels_details=false>; rel=\"last\"",
-      "etag": "W/\"d39fbdc629126e1c5c63af0b1dc6f41c\"",
+      "link": "<https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/issues?id=gitlab-org%2Fcli&order_by=created_at&page=2&per_page=3&sort=desc&state=opened&with_labels_details=false>; rel=\"next\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/issues?id=gitlab-org%2Fcli&order_by=created_at&page=1&per_page=3&sort=desc&state=opened&with_labels_details=false>; rel=\"first\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/issues?id=gitlab-org%2Fcli&order_by=created_at&page=88&per_page=3&sort=desc&state=opened&with_labels_details=false>; rel=\"last\"",
+      "etag": "W/\"11da3025eb35ff212dc91ae1b2a44cdc\"",
       "ratelimit-remaining": "1980",
-      "ratelimit-reset": "1790944320",
-      "x-total": "254",
-      "x-total-pages": "85",
+      "ratelimit-reset": "1791375060",
+      "x-total": "263",
+      "x-total-pages": "88",
       "x-next-page": "2",
       "x-page": "1",
       "x-per-page": "3"
     },
     "body": [
       {
-        "id": 205204045,
-        "iid": 8574,
+        "id": 205689627,
+        "iid": 8591,
         "project_id": 34675721,
-        "title": "Move pending review comments to `glab mr note draft` subcommands",
-        "description": "### Problem to solve\n\nPending review comments (draft notes) are currently exposed as a `--draft` flag on the existing `glab mr note` verbs, plus a separate `publish` verb:\n\n| Action | Today | Status |\n| --- | --- | --- |\n| Create | `glab mr note create --draft` | Merged in !3885, released in v1.119.0 |\n| Publish | `glab mr note publish` | Merged in !3909, released in v1.120.0 |\n| List | `glab mr note list --draft` | Proposed in !3963 (#8563) |\n| Discard | `glab mr note delete --draft <id>` | Proposed in !3963 (#8563) |\n| Edit | `glab mr note update --draft <id>` | Proposed in #8569 |\n\nDraft notes are a different GitLab resource with a different API (`/merge_requests/:iid/draft_notes`, `DraftNotesService` in client-go) than published notes and discussions. Overloading every `mr note` verb with `--draft` has these costs:\n\n- Every verb branches on `--draft` into a separate code path, with its own client calls, output format, and error messages. `create` already has to dispatch `--draft` before `--reply`, and `list`/`delete`/`update` would each need a parallel implementation (!3963 adds `runDraft`, `completeDraft`, and a separate printer).\n- Flag matrices grow. `--draft` must be rejected with `--unique`, `--resolvable=false`, and `--internal` on `create`, and with `--type` and `--state` on `list`. Each rule needs validation code, help text, and tests.\n- The ID namespace changes under the same command: `glab mr note delete 123 456` deletes note 456, while `glab mr note delete --draft 123 456` deletes draft note 456.\n- `--draft` already means \"draft merge request\" on `glab mr create`, `glab mr update`, and `glab mr list`. `glab mr list --draft` and `glab mr note list --draft` would filter completely different things.\n- The publish step lives at `glab mr note publish`, detached from the commands that manage what it publishes.\n\nDiscussed in !3885 (https://gitlab.com/gitlab-org/cli/-/merge_requests/3885#note_3928426677) and agreed by @viktomas, @phikai, and @andrei.zubov. This is the shape used by the original POC (!2932) and by https://gitlab.com/viktomas/note.\n\n### Proposal\n\nAdd a `draft` noun under `glab mr note` that owns the full pending review lifecycle, and remove the flag-based commands:\n\n```shell\nglab mr note draft create  [<id> | <branch>] [-m <body>] [--file <path> [--line N[:M] | --old-line N]] [--reply <discussion-id>] [--attach <file>]\nglab mr note draft list    [<id> | <branch>] [--file <path>] [-F json]\nglab mr note draft update  [<id> | <branch>] <draft-note-id> [-m <body>] [--attach <file>]\nglab mr note draft delete  [<id> | <branch>] <draft-note-id> [--yes]\nglab mr note draft publish [<id> | <branch>] [-m <summary>] [--internal] [--reviewer-state requested_changes|reviewed] [--yes]\n```\n\nMapping from the current and proposed commands:\n\n| Before | After |\n| --- | --- |\n| `glab mr note create --draft` | `glab mr note draft create` |\n| `glab mr note publish` | `glab mr note draft publish` |\n| `glab mr note list --draft` (!3963) | `glab mr note draft list` |\n| `glab mr note delete --draft` (!3963) | `glab mr note draft delete` |\n| `glab mr note update --draft` (#8569) | `glab mr note draft update` |\n\nBehavior carried over unchanged:\n\n- `draft create`: same diff targeting (`--file`, `--line`, `--old-line`), same `--reply` prefix resolution, same `--attach` behavior, and the success output stays the bare draft note ID so it can be piped into `draft update` and `draft delete`. Flags that never applied to drafts (`--unique`, `--resolvable`, `--internal`) do not exist on the new command, so their conflict rules and tests go away.\n- `draft publish`: same flags, confirmation prompt, `--yes` requirement when non-interactive, and the \"no pending review comments\" error from `glab mr note publish`.\n- `draft list` and `draft delete`: the output and prompt behavior designed in !3963.\n- `draft update`: the position-preserving update described in #8569 (re-send the existing `position`, because the API clears it otherwise: https://gitlab.com/gitlab-org/gitlab/-/work_items/631434).\n\nRemoval of the old surface:\n\n- Remove `--draft` from `glab mr note create` and remove `glab mr note publish`, with no deprecation period. Both are marked `(EXPERIMENTAL)`, and the help text states that experimental features \"might be unstable or removed at any time.\" Call out the removal in the MR and release notes.\n- Do not add `--draft` to `mr note list`, `mr note delete`, or `mr note update`.\n\n### Further details\n\nImplementation notes:\n\n- Put the commands in their own package (for example `internal/commands/mr/note/draft/`), registered from `NewCmdNote` in `internal/commands/mr/note/mr_note.go` in place of `NewCmdPublish`.\n- Move the `--file`/`--line`/`--old-line` → `gitlab.PositionOptions` resolution currently inline in `mr_note_create.go` `complete` into a helper shared by `mr note create` and `mr note draft create`. `mrutils.BuildDiffPosition` and `mrutils.ResolveDiscussionID` are already shared.\n- Move `mr_note_publish.go`, its unit tests, and `Test_MrNotePublish_Integration` to the new package. The integration test currently creates its fixture with `NewCmdCreate` and `--draft`, so switch it to `draft create`.\n- Run `make gen-docs`. It generates `docs/source/mr/note/draft/*.md`, prunes `docs/source/mr/note/publish.md`, updates `docs/navigation-glab.yaml`, and removes the `--draft` section from `docs/source/mr/note/create.md`.\n- Keep `text.ExperimentalString` on every new command.\n\nEffect on in-flight work:\n\n- !3963 (@adityaswarupparida): retarget from `list --draft` / `delete --draft` to `draft list` / `draft delete`. The printing and prompt logic carries over. Only the command wiring and flag-conflict code changes.\n- #8569: retarget to `draft update`.\n\nOut of scope:\n\n- Publishing a single draft note (`PUT /draft_notes/:id/publish`). `draft publish` keeps the bulk \"submit review\" semantics.\n- Exposing the draft-notes `resolve_discussion` field (\"resolve this thread when the review publishes\").\n\nOpen question: should the noun be `draft`, matching the API and the original proposal, or `review`, matching the UI's \"Start a review\" and \"Submit review\"? This issue proposes `draft`.\n\n### Links / references\n\n- Design discussion: https://gitlab.com/gitlab-org/cli/-/merge_requests/3885#note_3928426677\n- `create --draft`: !3885\n- `publish`: !3909\n- Pending review workflow tracking: #8560\n- List and discard: #8563, !3963\n- Edit: #8569\n- Original POC: !2932, epic https://gitlab.com/groups/gitlab-org/-/work_items/21295\n- Prior art: https://gitlab.com/viktomas/note\n- Draft notes API: https://docs.gitlab.com/api/draft_notes/",
+        "title": "`glab iteration list` header shows the page count as the total",
+        "description": "### Checklist\n\n- [x] I'm using the latest version of the extension (Run `glab --version`)\n  - Extension version: `glab 1.114.0 (4d7c6cd)`, and confirmed with a build of `main` at 48512c0d (newer than v1.120.0)\n- [x] Operating system and version: Linux 6.18.54 x86_64 (NixOS)\n- [x] Gitlab.com or self-managed instance? self-managed instance\n- [x] GitLab version (if self-managed) 19.3.3-ee\n- [x] I have performed `glab auth status` to check for authentication issues\n- [x] Run the command in debug mode (like `GLAB_DEBUG=true glab mr list`) and attach any useful output\n  (debug mode logs only the Git calls; the request itself succeeds)\n\n### Summary\n\n`glab iteration list` has the same header bug as `glab label list` (#8573): it\nprints the number of iterations on the current page as both the count and the\ntotal, so the header never shows the real total. With more iterations than one\npage, the header reads `Showing iteration 30 of 30`, which looks like a\ncomplete list. This was pointed out in the review of !3991.\n\n### Environment\n\n- OS: Linux 6.18.54 x86_64\n- SHELL: /run/current-system/sw/bin/zsh\n- TERM: xterm-256color\n- GLAB: glab 1.114.0 (4d7c6cd)\n\nOther: also checked with `glab DEV ()` built from `main` at 48512c0d.\n\nMy instance has no iterations, so live I could only observe the empty-list\nheader (`Showing iteration 0 of 0 ...` on both 1.114.0 and `main`). The\npaginated case is confirmed from the source below and with unit tests that\nmock a response with `TotalItems: 25`.\n\n### Steps to reproduce\n\n1. Use a project (or group) with more iterations than one page, or pass a\n   small `--per-page`.\n2. Run `glab iteration list -P 1`, or `glab iteration list -g <group> -P 1`.\n\n### What is the current _bug_ behavior?\n\nThe second number always equals the first one, for example\n`Showing iteration 1 of 1 on OWNER/REPO.` regardless of how many iterations\nexist. An empty list prints `Showing iteration 0 of 0 on OWNER/REPO.`\n\n### What is the expected _correct_ behavior?\n\nThe total comes from the API, as in the other list commands, for example\n`Showing 1 of 25 iterations on OWNER/REPO. (Page 1)`.\n\n### Relevant logs and/or screenshots\n\nThe JSON output (`-F json`) is correct. Only the header line is affected.\n\n### Possible fixes\n\n`internal/commands/iteration/list/iteration_list.go` passes `len(iterations)`\ntwice and discards the API response:\n\n- https://gitlab.com/gitlab-org/cli/-/blob/48512c0d/internal/commands/iteration/list/iteration_list.go#L128\n- https://gitlab.com/gitlab-org/cli/-/blob/48512c0d/internal/commands/iteration/list/iteration_list.go#L148\n\nBuild the header with `utils.NewListTitle` and `resp.TotalItems`, the same way\n!3991 fixed `label list`. I have a fix with tests ready and will open a merge\nrequest.",
         "state": "opened",
-        "created_at": "2026-10-02T11:20:26.226Z",
-        "updated_at": "2026-10-02T11:27:53.366Z",
-        "closed_at": null,
-        "closed_by": null,
-        "labels": [
-          "category:gitlab cli",
-          "devops::ai coding",
-          "group::code review",
-          "section::ai",
-          "type::feature"
-        ],
-        "milestone": null,
-        "assignees": [
-          {
-            "id": 12455340,
-            "username": "andrei.zubov",
-            "public_email": "",
-            "name": "Andrei Zubov",
-            "state": "active",
-            "locked": false,
-            "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/12455340/avatar.png?v=1790943368",
-            "web_url": "https://gitlab.com/andrei.zubov"
-          }
-        ],
-        "author": {
-          "id": 12455340,
-          "username": "andrei.zubov",
-          "public_email": "",
-          "name": "Andrei Zubov",
-          "state": "active",
-          "locked": false,
-          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/12455340/avatar.png?v=1790943368",
-          "web_url": "https://gitlab.com/andrei.zubov"
-        },
-        "type": "ISSUE",
-        "assignee": {
-          "id": 12455340,
-          "username": "andrei.zubov",
-          "public_email": "",
-          "name": "Andrei Zubov",
-          "state": "active",
-          "locked": false,
-          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/12455340/avatar.png?v=1790943368",
-          "web_url": "https://gitlab.com/andrei.zubov"
-        },
-        "user_notes_count": 1,
-        "merge_requests_count": 0,
-        "upvotes": 0,
-        "downvotes": 0,
-        "start_date": null,
-        "due_date": null,
-        "confidential": false,
-        "discussion_locked": null,
-        "issue_type": "issue",
-        "web_url": "https://gitlab.com/gitlab-org/cli/-/work_items/8574",
-        "time_stats": {
-          "time_estimate": 0,
-          "total_time_spent": 0,
-          "human_time_estimate": null,
-          "human_total_time_spent": null
-        },
-        "task_completion_status": {
-          "count": 0,
-          "completed_count": 0
-        },
-        "weight": null,
-        "blocking_issues_count": 0,
-        "has_tasks": true,
-        "task_status": "0 of 0 checklist items completed",
-        "_links": {
-          "self": "https://gitlab.com/api/v4/projects/34675721/issues/8574",
-          "notes": "https://gitlab.com/api/v4/projects/34675721/issues/8574/notes",
-          "award_emoji": "https://gitlab.com/api/v4/projects/34675721/issues/8574/award_emoji",
-          "project": "https://gitlab.com/api/v4/projects/34675721",
-          "closed_as_duplicate_of": null
-        },
-        "references": {
-          "short": "#8574",
-          "relative": "#8574",
-          "full": "gitlab-org/cli#8574"
-        },
-        "severity": "UNKNOWN",
-        "moved_to_id": null,
-        "imported": false,
-        "imported_from": "none",
-        "service_desk_reply_to": null,
-        "epic_iid": null,
-        "epic": null,
-        "iteration": null,
-        "health_status": null
-      },
-      {
-        "id": 205179974,
-        "iid": 8573,
-        "project_id": 34675721,
-        "title": "`glab label list` header shows the page count as the total",
-        "description": "### Checklist\n\n- [x] I'm using the latest version of the extension (Run `glab --version`)\n  - Extension version: `glab 1.114.0 (4d7c6cd)`, and reproduced with a build of `main` at 59ae78ca (newer than v1.120.0)\n- [x] Operating system and version: Linux 6.18.54 x86_64 (NixOS)\n- [x] Gitlab.com or self-managed instance? self-managed instance\n- [x] GitLab version (if self-managed) 19.3.3-ee\n- [x] I have performed `glab auth status` to check for authentication issues\n- [x] Run the command in debug mode (like `GLAB_DEBUG=true glab mr list`) and attach any useful output\n  (see \"Relevant logs\" below: debug mode logs only the Git calls, and the\n  request itself succeeds)\n\n### Summary\n\n`glab label list` prints the number of labels on the current page as both the\ncount and the total, so the header never shows the real total. With the\ndefault page size, a project with 33 labels reports `Showing label 30 of 30`,\nwhich looks like a complete list.\n\n### Environment\n\n- OS: Linux 6.18.54 x86_64\n- SHELL: /run/current-system/sw/bin/zsh\n- TERM: xterm-256color\n- GLAB: glab 1.114.0 (4d7c6cd)\n\nOther: also reproduced with `glab DEV ()` built from `main` at 59ae78ca.\n\n### Steps to reproduce\n\n1. Use a project (or group) with more labels than one page. The project\n   below has 33 labels: `glab api -i \"projects/:id/labels?per_page=30\"`\n   returns `X-Total: 33` and `X-Total-Pages: 2`.\n2. Run `glab label list`.\n3. Run `glab label list -p 2`, `glab label list -P 10`, and\n   `glab label list -g <group>`.\n\n### What is the current _bug_ behavior?\n\nThe second number always equals the first one:\n\n```plaintext\n$ glab label list\nShowing label 30 of 30 on OWNER/REPO.\n$ glab label list -p 2\nShowing label 3 of 3 on OWNER/REPO.\n$ glab label list -P 10\nShowing label 10 of 10 on OWNER/REPO.\n$ glab label list -g GROUP\nShowing label 30 of 30 for group GROUP.\n```\n\n### What is the expected _correct_ behavior?\n\nThe second number is the total reported by the API:\n\n```plaintext\nShowing label 30 of 33 on OWNER/REPO.\nShowing label 3 of 33 on OWNER/REPO.\nShowing label 10 of 33 on OWNER/REPO.\nShowing label 30 of 33 for group GROUP.\n```\n\n### Relevant logs and/or screenshots\n\n`GLAB_DEBUG=true` adds no output for this command. `DEBUG=true` logs only\nthe Git calls, so the debug output does not show anything about the header:\n\n```plaintext\n$ DEBUG=true glab label list -p 2\n[git remote -v]\n[git config --get-regexp ^remote\\..*\\.glab-resolved(-base|-head)?$]\nShowing label 3 of 3 on OWNER/REPO.\n\nID\tName\tDescription\tColor\n...\n```\n\nThe table body and the JSON output (`-F json`) are correct. Only the header\nline is affected.\n\n### Possible fixes\n\n`internal/commands/label/list/label_list.go` passes `len(labels)` twice and\ndiscards the API response:\n\n- https://gitlab.com/gitlab-org/cli/-/blob/59ae78ca/internal/commands/label/list/label_list.go#L145\n- https://gitlab.com/gitlab-org/cli/-/blob/59ae78ca/internal/commands/label/list/label_list.go#L166\n\nKeeping the `*gitlab.Response` from `ListLabels` / `ListGroupLabels` and\nprinting `resp.TotalItems` fixes it, falling back to the page count when the\nresponse carries no total (GitLab omits `X-Total` for very large result sets).\nI have a fix with tests ready and will open a merge request.\n\nRelated: #1165 covers list commands that print no total at all. This issue is\nnarrower: `label list` prints a total, but the wrong one.",
-        "state": "opened",
-        "created_at": "2026-10-02T06:46:28.568Z",
-        "updated_at": "2026-10-02T07:18:59.287Z",
+        "created_at": "2026-10-07T06:18:56.579Z",
+        "updated_at": "2026-10-07T07:15:00.696Z",
         "closed_at": null,
         "closed_by": null,
         "labels": [
@@ -155,7 +57,7 @@
         "confidential": false,
         "discussion_locked": null,
         "issue_type": "issue",
-        "web_url": "https://gitlab.com/gitlab-org/cli/-/work_items/8573",
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/work_items/8591",
         "time_stats": {
           "time_estimate": 0,
           "total_time_spent": 0,
@@ -170,16 +72,16 @@
         "blocking_issues_count": 0,
         "has_tasks": false,
         "_links": {
-          "self": "https://gitlab.com/api/v4/projects/34675721/issues/8573",
-          "notes": "https://gitlab.com/api/v4/projects/34675721/issues/8573/notes",
-          "award_emoji": "https://gitlab.com/api/v4/projects/34675721/issues/8573/award_emoji",
+          "self": "https://gitlab.com/api/v4/projects/34675721/issues/8591",
+          "notes": "https://gitlab.com/api/v4/projects/34675721/issues/8591/notes",
+          "award_emoji": "https://gitlab.com/api/v4/projects/34675721/issues/8591/award_emoji",
           "project": "https://gitlab.com/api/v4/projects/34675721",
           "closed_as_duplicate_of": null
         },
         "references": {
-          "short": "#8573",
-          "relative": "#8573",
-          "full": "gitlab-org/cli#8573"
+          "short": "#8591",
+          "relative": "#8591",
+          "full": "gitlab-org/cli#8591"
         },
         "severity": "UNKNOWN",
         "moved_to_id": null,
@@ -192,40 +94,37 @@
         "health_status": null
       },
       {
-        "id": 205058499,
-        "iid": 8571,
+        "id": 205664469,
+        "iid": 8589,
         "project_id": 34675721,
-        "title": "Local configuration overrides glab-managed keys that glab writes only globally",
-        "description": "### Problem to solve\n\nA repository's local configuration (`.git/glab-cli/config.yml`) can override keys that glab sets automatically, but glab writes those keys only to the global configuration. A stale local value then wins on every read, while every write goes to a file that's never read.\n\nFor the Duo CLI, this makes `glab duo cli update` download the same version on every run in that repository:\n\n```plaintext\n$ glab duo cli update\nUpdate available: 9.5.0 → 9.26.0\nDownloading duo-darwin-arm64 version 9.26.0...\n✓ Successfully updated to version 9.26.0\n$ glab duo cli update\nUpdate available: 9.5.0 → 9.26.0\n...\n```\n\nThe local file held `duo_cli_binary_version: \"9.5.0\"`, probably left over from simulating an old install. `binarymgr.Runner.SaveBinaryInfo` writes `9.26.0` to `~/.config/glab-cli/config.yml`, but the next run reads `9.5.0` from the local file again.\n\n`glab config set` writes to the local file by default inside a repository. That's the easy way to end up here: `glab config set duo_cli_binary_version 9.5.0` run in a checkout.\n\n### Steps to reproduce\n\n```shell\ncd \"$(mktemp -d)\" && git init -q\nexport GLAB_CONFIG_DIR=\"$(mktemp -d)\"\nglab config set duo_cli_binary_version 9.5.0            # writes .git/glab-cli/config.yml\nglab config set --global duo_cli_binary_version 9.26.0\nglab config get duo_cli_binary_version                  # 9.5.0\n```\n\n### Affected keys\n\nThe keys described as \"automatically set\" in `internal/config/schema.go`:\n\n- `duo_cli_binary_path`, `duo_cli_binary_version`, `duo_cli_binary_checksum`, `duo_cli_last_update_check`\n- `orbit_cli_binary_path`, `orbit_cli_binary_version`, `orbit_cli_binary_checksum`, `orbit_cli_last_update_check`\n- the post-upgrade banner and `glab whatsnew` version keys\n\n`Scope: ScopeGlobal` doesn't cover this. It means \"not per host\", and ordinary `ScopeGlobal` keys such as `git_protocol` and `branch_prefix` are meant to be set per repository.\n\n### Proposal\n\nAdd a `KeyDef` attribute (for example `GlobalOnly`) for glab-managed state, and set it on the keys above. For those keys:\n\n1. Reads skip the local configuration.\n2. `glab config set` without `--global` writes them to the global file, or rejects the local write with an error that names `--global`.\n\nEither change alone breaks the loop. Doing both also stops new local values from being written.\n\n### Related\n\n- `glab config get --global` registers `--global` but never reads it (`internal/commands/config/get/config_get.go`), so in the reproduction above it also returns `9.5.0`. Worth a separate fix.\n- https://gitlab.com/gitlab-org/cli/-/issues/8568: local config is not shared across Git worktrees.\n- Found while reviewing https://gitlab.com/gitlab-org/cli/-/merge_requests/3981.",
+        "title": "1.5 Show specific error messages in work-items-experimental",
+        "description": "Item 1.5 in the epic https://gitlab.com/groups/gitlab-org/-/work_items/23916\n\n## Problem\n\nItem 1.1 shows one generic message for any failed request. Users need to know what went wrong and what to do about it. The difficulty is that the REST API returns 404 for three different reasons, deliberately: the work item doesn't exist, the user can't see it, or the `work_item_rest_api` feature flag is off. Experimental endpoints return 404 rather than 403 while the flag is off, so glab can't tell those cases apart.\n\n## Scope\n\nA shared error helper for all `work-items-experimental` commands, as agreed on https://gitlab.com/gitlab-org/cli/-/work_items/8582 (decision 6):\n\n| Response | Message |\n|---|---|\n| 404 | Names the work item and project or group, and lists all three possible causes, including the feature flag. The PoC's `note get` already does this. |\n| 401 | Not authenticated: suggest `glab auth login` or checking the token. |\n| 403 | No permission. Mention that granular tokens may not cover every endpoint. |\n| 400 or 422 | Show the API's message, which explains the invalid input. |\n| Network errors | Unchanged from the rest of glab. |\n\n- Keep glab's existing exit codes. Don't add new ones.\n- Use the helper in `get` now, and in every later command.\n\n## Out of scope\n\n- Detecting whether the feature flag is on. The API gives no reliable signal. If the backend adds one, for example a distinct response or header, open a follow-up issue to use it.\n\n## Done when\n\n- [ ] `get` shows the messages above for each response type.\n- [ ] Tests cover 400, 401, 403, 404 and 422 responses.\n- [ ] The helper is shared, so later commands can use it.\n- [ ] The epic's shared checklist is met.\n\nSuggested weight: 2.\n\n<!-- implementation plan added during 2026-09 backlog triage -->\n\n## Implementation plan\n\n> **Note:** This plan was drafted during an AI-assisted triage of the backlog and has not been validated by a maintainer. Treat it as a starting point: file paths, line numbers, and the approach may need adjusting.\n\nDepends on !4010 (item 1.1, `work-items-experimental get`) landing first.\n\n1. Add a helper in a shared package under `internal/commands/workitemsexperimental/` (for example `utils/errors.go`), such as `func APIError(err error, what, scope string) error`. Use `errors.As(err, *gitlab.ErrorResponse)` to read `Response.StatusCode`, following `Is404` in `internal/api/client.go:540`.\n2. Map statuses: 404 names the work item and project or group and lists all three causes (missing, no access, `work_item_rest_api` flag off); 401 suggests `glab auth login` or checking the token; 403 says no permission and that granular tokens may not cover every endpoint; 400 and 422 surface the API's `Message`. Return any other error (including network errors) unchanged.\n3. Keep existing exit codes: wrap with `cmdutils.WrapError` (`internal/cmdutils/errors.go:76`) rather than adding new codes.\n4. Replace the single `fmt.Errorf` wrap after `GetWorkItem` (which currently applies the feature flag message to every error) in `internal/commands/workitemsexperimental/get/get.go` with the helper.\n5. Add table-driven tests for the helper (400, 401, 403, 404, 422, and a non-HTTP error), and extend `internal/commands/workitemsexperimental/get/get_test.go` with one case per status using the client-go mock.\n6. The command is hidden, so `make gen-docs` should produce no changes; run it to confirm.",
         "state": "opened",
-        "created_at": "2026-10-01T07:25:21.239Z",
-        "updated_at": "2026-10-01T08:11:57.484Z",
+        "created_at": "2026-10-06T21:38:41.777Z",
+        "updated_at": "2026-10-06T22:16:39.244Z",
         "closed_at": null,
         "closed_by": null,
         "labels": [
+          "automation:ml",
           "automation:quick-win-judged",
-          "bug::functional",
-          "category:gitlab cli",
-          "devops::ai coding",
-          "group::code review",
-          "section::ai",
-          "type::bug"
+          "feature::enhancement",
+          "type::feature"
         ],
         "milestone": null,
         "assignees": [],
         "author": {
-          "id": 11809982,
-          "username": "jay_mccure",
-          "public_email": "",
-          "name": "Jay McCure",
+          "id": 42451371,
+          "username": "phil-wong",
+          "public_email": "redacted@example.invalid",
+          "name": "Phil Wong",
           "state": "active",
           "locked": false,
-          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1790925516",
-          "web_url": "https://gitlab.com/jay_mccure"
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/42451371/avatar.png?v=1791348234",
+          "web_url": "https://gitlab.com/phil-wong"
         },
         "type": "ISSUE",
         "assignee": null,
-        "user_notes_count": 1,
+        "user_notes_count": 2,
         "merge_requests_count": 0,
         "upvotes": 0,
         "downvotes": 0,
@@ -234,7 +133,7 @@
         "confidential": false,
         "discussion_locked": null,
         "issue_type": "issue",
-        "web_url": "https://gitlab.com/gitlab-org/cli/-/work_items/8571",
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/work_items/8589",
         "time_stats": {
           "time_estimate": 0,
           "total_time_spent": 0,
@@ -242,32 +141,119 @@
           "human_total_time_spent": null
         },
         "task_completion_status": {
-          "count": 0,
+          "count": 4,
           "completed_count": 0
         },
         "weight": null,
         "blocking_issues_count": 0,
-        "has_tasks": true,
-        "task_status": "0 of 0 checklist items completed",
+        "has_tasks": false,
         "_links": {
-          "self": "https://gitlab.com/api/v4/projects/34675721/issues/8571",
-          "notes": "https://gitlab.com/api/v4/projects/34675721/issues/8571/notes",
-          "award_emoji": "https://gitlab.com/api/v4/projects/34675721/issues/8571/award_emoji",
+          "self": "https://gitlab.com/api/v4/projects/34675721/issues/8589",
+          "notes": "https://gitlab.com/api/v4/projects/34675721/issues/8589/notes",
+          "award_emoji": "https://gitlab.com/api/v4/projects/34675721/issues/8589/award_emoji",
           "project": "https://gitlab.com/api/v4/projects/34675721",
           "closed_as_duplicate_of": null
         },
         "references": {
-          "short": "#8571",
-          "relative": "#8571",
-          "full": "gitlab-org/cli#8571"
+          "short": "#8589",
+          "relative": "#8589",
+          "full": "gitlab-org/cli#8589"
         },
         "severity": "UNKNOWN",
         "moved_to_id": null,
         "imported": false,
         "imported_from": "none",
         "service_desk_reply_to": null,
-        "epic_iid": null,
-        "epic": null,
+        "epic_iid": 23916,
+        "epic": {
+          "id": 5337728,
+          "iid": 23916,
+          "title": "Work Items REST API in glab",
+          "url": "/groups/gitlab-org/-/epics/23916",
+          "group_id": 9970
+        },
+        "iteration": null,
+        "health_status": null
+      },
+      {
+        "id": 205664465,
+        "iid": 8588,
+        "project_id": 34675721,
+        "title": "1.4 Add --features to work-items-experimental get",
+        "description": "Item 1.4 in the epic https://gitlab.com/groups/gitlab-org/-/work_items/23916\n\n## Problem\n\nThe REST API only returns a work item's widgets (REST \"features\") when they're requested by name. Item 1.1 requests a fixed set for the text output. Users need to choose which widgets to see, especially in JSON, and to see any of the 22 widgets the API can return.\n\n## Scope\n\n- **`--features`** on `get`, as agreed on https://gitlab.com/gitlab-org/cli/-/work_items/8582 (decision 4):\n  - A comma-separated list, for example `--features labels,milestone`.\n  - `all` to request every readable widget.\n  - Without the flag, request the widgets the text output shows.\n- **The 22 readable widgets:** `assignees`, `award_emoji`, `color`, `custom_fields`, `description`, `designs`, `development`, `error_tracking`, `health_status`, `hierarchy`, `iteration`, `labels`, `linked_items`, `milestone`, `notifications`, `progress`, `requirement_legacy`, `start_and_due_date`, `status`, `time_tracking`, `verification_status`, `weight`.\n- **Validate names before sending.** The API ignores unknown values, so a typo would silently return nothing. Reject unknown names with a list of valid ones.\n- **Widgets the type doesn't support:** the API leaves them out of the response. In text output, show \"not available for this type\" only for widgets the user requested explicitly. In JSON, leave them out, as the API does.\n- **Text output:** decide how each requested widget appears. Simple widgets such as weight or health status can be one line. Complex ones such as time tracking, development or custom fields need a short summary.\n\n## Out of scope\n\n- `--features` on `list`, `child list` and `link list`: items in iterations 2 and 5.\n\n## Notes\n\n- Premium and Ultimate widgets are left out of the response on Free, the same as unsupported widgets. Make sure the message doesn't suggest the widget is missing for another reason.\n- If text output for all 22 widgets is too much for one MR, split it: support every widget in JSON first, then add text output for the rest in a follow-up.\n\n## Done when\n\n- [ ] `get --features <list>` and `get --features all` request the right widgets.\n- [ ] Unknown names are rejected with the list of valid names.\n- [ ] Unsupported widgets show \"not available for this type\" in text output when requested.\n- [ ] Each widget has a text representation, or a follow-up issue exists for the remainder.\n- [ ] The tester guide (item 1.2) is updated.\n- [ ] The epic's shared checklist is met.\n\nSuggested weight: 3.",
+        "state": "opened",
+        "created_at": "2026-10-06T21:38:37.684Z",
+        "updated_at": "2026-10-06T22:15:17.406Z",
+        "closed_at": null,
+        "closed_by": null,
+        "labels": [
+          "automation:ml",
+          "automation:quick-win-judged",
+          "feature::addition",
+          "type::feature"
+        ],
+        "milestone": null,
+        "assignees": [],
+        "author": {
+          "id": 42451371,
+          "username": "phil-wong",
+          "public_email": "redacted@example.invalid",
+          "name": "Phil Wong",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/42451371/avatar.png?v=1791348234",
+          "web_url": "https://gitlab.com/phil-wong"
+        },
+        "type": "ISSUE",
+        "assignee": null,
+        "user_notes_count": 2,
+        "merge_requests_count": 0,
+        "upvotes": 0,
+        "downvotes": 0,
+        "start_date": null,
+        "due_date": null,
+        "confidential": false,
+        "discussion_locked": null,
+        "issue_type": "issue",
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/work_items/8588",
+        "time_stats": {
+          "time_estimate": 0,
+          "total_time_spent": 0,
+          "human_time_estimate": null,
+          "human_total_time_spent": null
+        },
+        "task_completion_status": {
+          "count": 6,
+          "completed_count": 0
+        },
+        "weight": null,
+        "blocking_issues_count": 0,
+        "has_tasks": false,
+        "_links": {
+          "self": "https://gitlab.com/api/v4/projects/34675721/issues/8588",
+          "notes": "https://gitlab.com/api/v4/projects/34675721/issues/8588/notes",
+          "award_emoji": "https://gitlab.com/api/v4/projects/34675721/issues/8588/award_emoji",
+          "project": "https://gitlab.com/api/v4/projects/34675721",
+          "closed_as_duplicate_of": null
+        },
+        "references": {
+          "short": "#8588",
+          "relative": "#8588",
+          "full": "gitlab-org/cli#8588"
+        },
+        "severity": "UNKNOWN",
+        "moved_to_id": null,
+        "imported": false,
+        "imported_from": "none",
+        "service_desk_reply_to": null,
+        "epic_iid": 23916,
+        "epic": {
+          "id": 5337728,
+          "iid": 23916,
+          "title": "Work Items REST API in glab",
+          "url": "/groups/gitlab-org/-/epics/23916",
+          "group_id": 9970
+        },
         "iteration": null,
         "health_status": null
       }

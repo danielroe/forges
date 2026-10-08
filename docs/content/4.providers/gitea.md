@@ -101,6 +101,7 @@ To add an issue, set `FIXTURE_GITEA_ISSUE`. To record a self-hosted instance, se
 | `sources.subscribe` | ❌ |
 | `repos.get` | ✅ |
 | `users.get` | ✅ |
+| `users.me` | ✅ |
 | `repos.list` | ✅ |
 | `repos.labels` | ✅ |
 | `repos.createLabel` | experimental |

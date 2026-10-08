@@ -38,6 +38,10 @@ export interface GitLabProjectDetail extends GitLabProject {
   merge_requests_access_level?: string
   wiki_access_level?: string
   releases_access_level?: string
+  star_count?: number
+  forks_count?: number
+  /** Set for projects in a user's namespace, not a group's. */
+  owner?: GitLabUser | null
 }
 
 export interface GitLabLabel {
@@ -133,13 +137,6 @@ export interface GitLabIssue {
   downvotes?: number
 }
 
-export interface GitLabPipeline {
-  id: number
-  status: string
-  web_url?: string
-  sha?: string
-}
-
 export interface GitLabJob {
   id: number
   name: string
@@ -229,6 +226,7 @@ export interface GitLabCommitStatus {
 export interface GitLabPipeline {
   id: number
   iid?: number
+  project_id?: number
   status: string
   source?: string
   ref?: string

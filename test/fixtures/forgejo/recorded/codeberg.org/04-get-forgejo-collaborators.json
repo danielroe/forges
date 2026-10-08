@@ -1,0 +1,48 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/collaborators?limit=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": [
+      {
+        "id": 132796,
+        "login": "forgejo-end-to-end",
+        "source_id": 0,
+        "full_name": "",
+        "email": "redacted@example.invalid",
+        "avatar_url": "https://codeberg.org/avatars/c58c99781709ab20e3fdc30e513602f5",
+        "html_url": "https://codeberg.org/forgejo-end-to-end",
+        "active": false,
+        "location": "",
+        "pronouns": "",
+        "website": "",
+        "description": "",
+        "followers_count": 1,
+        "following_count": 0,
+        "starred_repos_count": 0,
+        "username": "forgejo-end-to-end"
+      },
+      {
+        "id": 242382,
+        "login": "forgejo-release-manager",
+        "source_id": 0,
+        "full_name": "",
+        "email": "redacted@example.invalid",
+        "avatar_url": "https://codeberg.org/avatars/3539e323882524c1a0a185d36428fe089886580386ce4b3261cdd6d8f983af4d",
+        "html_url": "https://codeberg.org/forgejo-release-manager",
+        "active": false,
+        "location": "",
+        "pronouns": "",
+        "website": "",
+        "description": "",
+        "followers_count": 2,
+        "following_count": 0,
+        "starred_repos_count": 1,
+        "username": "forgejo-release-manager"
+      }
+    ]
+  }
+}

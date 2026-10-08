@@ -1,0 +1,149 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitlab.com/api/v4/todos?state=pending&per_page=1"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "<https://gitlab.com/api/v4/todos?page=2&per_page=1&state=pending>; rel=\"next\", <https://gitlab.com/api/v4/todos?page=1&per_page=1&state=pending>; rel=\"first\", <https://gitlab.com/api/v4/todos?page=10&per_page=1&state=pending>; rel=\"last\"",
+      "etag": "W/\"ff0fa6a7f3478ad725be0798cbb977f9\"",
+      "ratelimit-remaining": "1967",
+      "ratelimit-reset": "1791375060",
+      "x-total": "10",
+      "x-total-pages": "10",
+      "x-next-page": "2",
+      "x-page": "1",
+      "x-per-page": "1"
+    },
+    "body": [
+      {
+        "id": 328868454,
+        "project": {
+          "id": 31598236,
+          "description": "",
+          "name": "Overbookd",
+          "name_with_namespace": "24 heures INSA / Overbookd",
+          "path": "overbookd-mono",
+          "path_with_namespace": "24-heures-insa/overbookd-mono",
+          "created_at": "2021-11-25T09:38:01.109Z"
+        },
+        "author": {
+          "id": 9575078,
+          "username": "dsi11",
+          "public_email": "",
+          "name": "24-bot",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/9575078/avatar.png?v=1791331450",
+          "web_url": "https://gitlab.com/dsi11"
+        },
+        "action_name": "mentioned",
+        "target_type": "MergeRequest",
+        "target": {
+          "id": 234288574,
+          "iid": 1432,
+          "project_id": 31598236,
+          "title": "chore(deps): bump nuxt from 2.15.8 to 3.6.1 in /frontend",
+          "description": "Bumps [nuxt](https://github.com/nuxt/nuxt) from 2.15.8 to 3.6.1.\n<details>\n<summary>Release notes</summary>\n\n*Sourced from [nuxt's releases](https://github.com/nuxt/nuxt/releases).*\n\n> ## v3.6.1\n> > 3.6.1 is a bugfix/patch release with some significant patches merged since 3.6.0\n> \n> ## ✅ Upgrading\n> \n> As usual, our recommendation for upgrading is to run:\n> \n> ```sh\n> nuxi upgrade --force\n> ```\n> \n> This will refresh your lockfile as well, and ensures that you pull in updates from other dependencies that Nuxt relies on, particularly in the unjs ecosystem.\n> \n> ## 👉 Changelog\n> \n> [compare changes](https://github.com/nuxt/nuxt/compare/v3.6.0...v3.6.1)\n> \n> \n> ### 🩹 Fixes\n> \n>   - **nuxt:** Use esbuild/acorn instead of `typescript` dep ([#21729](https://github.com/nuxt/nuxt/pull/21729))\n>   - **nuxt:** Proxy headers to islands + returned prerender hints ([#21740](https://github.com/nuxt/nuxt/pull/21740))\n>   - **nuxt:** Respect `false` to disable spa loading template ([#21739](https://github.com/nuxt/nuxt/pull/21739))\n>   - **nuxt:** Remove `path` from SPA payload ([#21732](https://github.com/nuxt/nuxt/pull/21732))\n>   - **nuxt:** Only remove one item from middleware ([#21730](https://github.com/nuxt/nuxt/pull/21730))\n>   - **nuxt:** Escape colons in page paths ([#21731](https://github.com/nuxt/nuxt/pull/21731))\n>   - **nuxt:** Augment nitro config within server context as well ([#21724](https://github.com/nuxt/nuxt/pull/21724))\n>   - **nuxt:** Inline global css with `ssr: false` route rule ([#21763](https://github.com/nuxt/nuxt/pull/21763))\n>   - **vite:** Resolve css files without importer id first ([#21770](https://github.com/nuxt/nuxt/pull/21770))\n>   - **vite:** Emit assets referenced in inline css ([#21790](https://github.com/nuxt/nuxt/pull/21790))\n>   - **nuxt:** Support importing types from `#imports` ([#21796](https://github.com/nuxt/nuxt/pull/21796))\n>   - **nuxt:** Use starting index when transforming islands ([#21795](https://github.com/nuxt/nuxt/pull/21795))\n> \n> ### 📖 Documentation\n> \n>   - Add `defineNuxtRouteMiddleware` migration ([#21718](https://github.com/nuxt/nuxt/pull/21718))\n>   - Add a link to Docus layer nuxt config file ([#21742](https://github.com/nuxt/nuxt/pull/21742))\n>   - Remove outdated reference to stable version ([#21785](https://github.com/nuxt/nuxt/pull/21785))\n>   - Centre example loading spinner ([#21792](https://github.com/nuxt/nuxt/pull/21792))\n> \n> ### ✅ Tests\n> \n>   - Bump bundle size ([e69837d6a](https://github.com/nuxt/nuxt/commit/e69837d6a))\n> \n> \n> ### ❤️  Contributors\n> \n> - Jenjen75 (@jenjen75)\n> - Daniel Roe (@danielroe)\n> - Anthony Fu (@antfu)\n></tr></table> \n ... (truncated)\n</details>\n<details>\n<summary>Commits</summary>\n\n- [`54a0d5e`](https://github.com/nuxt/nuxt/commit/54a0d5e8dc2184f995169e6b4c5adaba9cffaa6c) v3.6.1\n- [`f5920ff`](https://github.com/nuxt/nuxt/commit/f5920ff2e76edfa89fb760fddea221e4a4c4d047) docs: centre example loading spinner ([#21792](https://github.com/nuxt/nuxt/issues/21792))\n- [`3233344`](https://github.com/nuxt/nuxt/commit/32333447f18f202b15507aba4a7adca7e6532604) chore(deps): update all non-major dependencies (main) ([#21794](https://github.com/nuxt/nuxt/issues/21794))\n- [`4a7134f`](https://github.com/nuxt/nuxt/commit/4a7134f9b42c69ccd857d48d879c2601e9b67c1d) fix(nuxt): use starting index when transforming islands ([#21795](https://github.com/nuxt/nuxt/issues/21795))\n- [`3550893`](https://github.com/nuxt/nuxt/commit/3550893227fc4944a535ed0d0d488bf164924057) fix(nuxt): support importing types from `#imports` ([#21796](https://github.com/nuxt/nuxt/issues/21796))\n- [`e69837d`](https://github.com/nuxt/nuxt/commit/e69837d6a77915fe82163bc09d95f7959aaf0900) test: bump bundle size\n- [`d9a3ab8`](https://github.com/nuxt/nuxt/commit/d9a3ab80e0e87bac612477a5ee464cfe54225729) chore(deps): update all non-major dependencies (main) ([#21776](https://github.com/nuxt/nuxt/issues/21776))\n- [`12403d1`](https://github.com/nuxt/nuxt/commit/12403d160f5e13538cb66056bb082bf035c1bd16) fix(vite): emit assets referenced in inline css ([#21790](https://github.com/nuxt/nuxt/issues/21790))\n- [`58e7568`](https://github.com/nuxt/nuxt/commit/58e75689d8f439a75f224e85bdfa648143af879d) docs: remove outdated reference to stable version ([#21785](https://github.com/nuxt/nuxt/issues/21785))\n- [`c970ba0`](https://github.com/nuxt/nuxt/commit/c970ba093a02bc7bed27b24655df7c0a7f277230) ci: [trigger release]\n- Additional commits viewable in [compare view](https://github.com/nuxt/nuxt/compare/v2.15.8...v3.6.1)\n</details>\n<details>\n<summary>Maintainer changes</summary>\n\nThis version was pushed to npm by [danielroe](https://www.npmjs.com/~danielroe), a new releaser for nuxt since your current version.\n</details>\n\n<br />",
+          "state": "closed",
+          "created_at": "2023-07-03T15:03:40.730Z",
+          "updated_at": "2023-07-11T11:01:52.380Z",
+          "merged_by": null,
+          "merge_user": null,
+          "merged_at": null,
+          "closed_by": {
+            "id": 8184503,
+            "username": "titouan-joseph",
+            "public_email": "",
+            "name": "Titouan-Joseph CICORELLA",
+            "state": "active",
+            "locked": false,
+            "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/8184503/avatar.png?v=1791331445",
+            "web_url": "https://gitlab.com/titouan-joseph"
+          },
+          "closed_at": "2023-07-11T10:20:04.483Z",
+          "target_branch": "main",
+          "source_branch": "dependabot/npm_and_yarn/frontend/nuxt-3.6.1",
+          "user_notes_count": 1,
+          "upvotes": 0,
+          "downvotes": 0,
+          "author": {
+            "id": 9575078,
+            "username": "dsi11",
+            "public_email": "",
+            "name": "24-bot",
+            "state": "active",
+            "locked": false,
+            "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/9575078/avatar.png?v=1791331450",
+            "web_url": "https://gitlab.com/dsi11",
+            "bot": false
+          },
+          "assignees": [],
+          "assignee": null,
+          "reviewers": [],
+          "source_project_id": 31598236,
+          "target_project_id": 31598236,
+          "labels": [
+            "Nuxt3",
+            "Scope::Web",
+            "Status::Done"
+          ],
+          "draft": false,
+          "imported": false,
+          "imported_from": "none",
+          "work_in_progress": false,
+          "milestone": null,
+          "merge_when_pipeline_succeeds": false,
+          "merge_status": "cannot_be_merged",
+          "detailed_merge_status": "not_open",
+          "merge_after": null,
+          "sha": "25233f808dc0e7be350e72d295754f9b4ad564a2",
+          "merge_commit_sha": null,
+          "squash_commit_sha": null,
+          "discussion_locked": null,
+          "should_remove_source_branch": null,
+          "force_remove_source_branch": true,
+          "prepared_at": "2023-07-03T15:03:46.169Z",
+          "reference": "!1432",
+          "references": {
+            "short": "!1432",
+            "relative": "!1432",
+            "full": "24-heures-insa/overbookd-mono!1432"
+          },
+          "web_url": "https://gitlab.com/24-heures-insa/overbookd-mono/-/merge_requests/1432",
+          "time_stats": {
+            "time_estimate": 0,
+            "total_time_spent": 0,
+            "human_time_estimate": null,
+            "human_total_time_spent": null
+          },
+          "squash": false,
+          "squash_on_merge": false,
+          "task_completion_status": {
+            "count": 0,
+            "completed_count": 0
+          },
+          "has_conflicts": true,
+          "blocking_discussions_resolved": true,
+          "approvals_before_merge": null,
+          "changes_count": "2",
+          "diff_refs": {
+            "base_sha": "47691c0febe646ee30c5dcefa63fdcec0add554a",
+            "head_sha": "25233f808dc0e7be350e72d295754f9b4ad564a2",
+            "start_sha": "47691c0febe646ee30c5dcefa63fdcec0add554a"
+          },
+          "merge_error": null,
+          "user": {
+            "can_merge": false
+          }
+        },
+        "target_url": "https://gitlab.com/24-heures-insa/overbookd-mono/-/merge_requests/1432",
+        "body": "chore(deps): bump nuxt from 2.15.8 to 3.6.1 in /frontend",
+        "state": "pending",
+        "created_at": "2023-07-03T15:03:45.939Z",
+        "updated_at": "2023-07-03T15:03:45.939Z"
+      }
+    ]
+  }
+}

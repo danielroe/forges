@@ -1,0 +1,354 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/commits?limit=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "<https://codeberg.org/api/v1/repos/forgejo/forgejo/commits?limit=3&page=2>; rel=\"next\",<https://codeberg.org/api/v1/repos/forgejo/forgejo/commits?limit=3&page=8640>; rel=\"last\"",
+      "x-total": "25919",
+      "x-page": "1"
+    },
+    "body": [
+      {
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/35d2a6245eef8206879a3aa8d54447a780fcb6ef",
+        "sha": "35d2a6245eef8206879a3aa8d54447a780fcb6ef",
+        "created": "2026-10-07T10:31:11+02:00",
+        "html_url": "https://codeberg.org/forgejo/forgejo/commit/35d2a6245eef8206879a3aa8d54447a780fcb6ef",
+        "commit": {
+          "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/35d2a6245eef8206879a3aa8d54447a780fcb6ef",
+          "author": {
+            "name": "AverageHelper",
+            "email": "redacted@example.invalid",
+            "date": "2026-10-07T10:31:11+02:00"
+          },
+          "committer": {
+            "name": "Andreas Ahlenstorf",
+            "email": "redacted@example.invalid",
+            "date": "2026-10-07T10:31:11+02:00"
+          },
+          "message": "feat: add headings to common repository webpages (#14204)\n\nTo begin addressing #7653 and #10363, this PR adds top-level headings to most public Repository pages, including:\n- Issues (Open, Closed, All)\n- Labels\n- Milestones (Open, Closed)\n- Pull requests (Open, Closed, All)\n- Projects (Open, Closed)\n- Releases\n- Tags\n- Packages\n- Wiki (list with pages present)\n- Activity (Pulse, Contributors, Code frequency, Recent commits)\n- Actions (All workflows, Named workflow, No workflows)\n\nThe change adds some new translation strings, and new template logic on the relevant pages to display translatable text as headings. The re-used existing translation strings seem to have already been used elsewhere in similar contexts, and therefore seemed intuitive for inclusion as page headings as well.\n\nThe attached video `headings-first-go.webm` shows me slowly clicking through the new pages, with their headings, in the order listed above, navigating from the page \"Open issues\", to \"Closed issues\", to \"All issues\", to \"Labels\", to \"Open milestones\", etc. This video does not include Packages, Wiki, Activity, or Actions.\n\nThe additional attached videos show the Pulse page (the default repo Activity view), whose heading now reads \"Activity between September 2, 2026 and September 9, 2026\", then proceeding to the various other activity pages. Each page's load state has been lengthened to demonstrate the new heading layouts, including error states.\n\nThis PR only adds headings to Repository pages for now. Several other Forgejo webpages are also affected by #7653, and some pages might also do well with additional explanatory text, documentation links, etc. (What the heck is a \"Milestone\" anyway, to someone who hasn't seen the concept at another forge?) I can add such explainers in this PR if that is wanted, or we can save these for discussion later. I welcome feedback on this point.\n\n## Testing these changes\n\n1. Open Forgejo locally using `make build frontend && test-e2e-debugserver`\n2. Navigate to the above-named pages\n3. Look at headings, ensure consistency.\n\nYou may test most headings at any repository, many have all units enabled. For Actions, consider testing at `/user2/test_action_run_search/actions`. You may need to log in to `user2` first. (The password is `password`).\n\nTo test Activity failure states, consider adding `await sleep(4000)` to the start of the `fetchGraphData` method, just after `isLoading` is first set, in `web_src/js/components/Repo*.vue` as appropriate, then exit the devserver during the load state.\n\n## Checklist\n\nThe [contributor guide](https://forgejo.org/docs/next/contributor/) contains information that will be helpful to first time contributors. All work and communication must conform to Forgejo's [AI Agreement](https://codeberg.org/forgejo/governance/src/branch/main/AIAgreement.md). There also are a few [conditions for merging Pull Requests in Forgejo repositories](https://codeberg.org/forgejo/governance/src/branch/main/PullRequestsAgreement.md). You are also welcome to join the [Forgejo development chatroom](https://matrix.to/#/#forgejo-development:matrix.org).\n\n### Compliance\n\n- [x] I confirm that I make this contribution in accordance with [Forgejo's AI Agreement](https://codeberg.org/forgejo/governance/src/commit/9084720dc6a7fbf1d3f358919d46bd6adfb55287/AIAgreement.md).\n\n### Tests for JavaScript changes\n\n- I added test coverage for JavaScript changes...\n  - [x] in `web_src/js/*.test.js` if it can be unit tested.\n  - [x] in `tests/e2e/*.test.e2e.js` if it requires interactions with a live Forgejo server (see also the [developer guide for JavaScript testing](https://codeberg.org/forgejo/forgejo/src/branch/forgejo/tests/e2e/README.md#end-to-end-tests)).\n\n### Documentation\n\n- [ ] I created a pull request [to the documentation](https://codeberg.org/forgejo/docs) to explain to Forgejo users how to use this change.\n- [x] I did not document these changes and I do not expect someone else to do it.\n\n### Release notes\n\n- [x] This change will be noticed by a Forgejo user or admin (feature, bug fix, performance, etc.). I suggest to include a release note for this change.\n- [ ] This change is not visible to a Forgejo user or admin (refactor, dependency upgrade, etc.). I think there is no need to add a release note for this change.\n\n*The decision if the pull request will be shown in the release notes is up to the mergers / release team.*\n\nThe content of the `release-notes/<pull request number>.md` file will serve as the basis for the release notes. If the file does not exist, the title of the pull request will be used instead.\n\nReviewed-on: https://codeberg.org/forgejo/forgejo/pulls/14204\nReviewed-by: Andreas Ahlenstorf <redacted@example.invalid>\n",
+          "tree": {
+            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/trees/35d2a6245eef8206879a3aa8d54447a780fcb6ef",
+            "sha": "35d2a6245eef8206879a3aa8d54447a780fcb6ef",
+            "created": "2026-10-07T10:31:11+02:00"
+          },
+          "verification": {
+            "verified": false,
+            "reason": "gpg.error.not_signed_commit",
+            "signature": "",
+            "signer": null,
+            "payload": ""
+          }
+        },
+        "author": {
+          "id": 135189,
+          "login": "AverageHelper",
+          "source_id": 0,
+          "full_name": "",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://codeberg.org/avatars/7e98b9e83fc5cb7de518d81b4143260fa6a042913e28e59342e9debe55293189",
+          "html_url": "https://codeberg.org/AverageHelper",
+          "active": false,
+          "location": "on your left",
+          "pronouns": "she/her",
+          "website": "https://average.name",
+          "description": "",
+          "followers_count": 2,
+          "following_count": 2,
+          "starred_repos_count": 32,
+          "username": "AverageHelper"
+        },
+        "committer": {
+          "id": 468676,
+          "login": "aahlenst",
+          "source_id": 0,
+          "full_name": "Andreas Ahlenstorf",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://codeberg.org/avatars/d15066c8d70752866771e90b9204536d",
+          "html_url": "https://codeberg.org/aahlenst",
+          "active": false,
+          "location": "Switzerland",
+          "pronouns": "he/him",
+          "website": "https://aahlenst.dev/",
+          "description": "",
+          "followers_count": 5,
+          "following_count": 0,
+          "starred_repos_count": 0,
+          "username": "aahlenst"
+        },
+        "parents": [
+          {
+            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/08ba2d68b6d2d4052d8dae16e15cb5be4ad01897",
+            "sha": "08ba2d68b6d2d4052d8dae16e15cb5be4ad01897",
+            "created": "0001-01-01T00:00:00Z"
+          }
+        ],
+        "files": [
+          {
+            "filename": "options/locale_next/locale_en-US.json",
+            "status": "modified"
+          },
+          {
+            "filename": "templates/package/shared/list.tmpl",
+            "status": "modified"
+          },
+          {
+            "filename": "templates/repo/actions/list_inner.tmpl",
+            "status": "modified"
+          },
+          {
+            "filename": "templates/repo/contributors.tmpl",
+            "status": "modified"
+          },
+          {
+            "filename": "templates/repo/issue/labels.tmpl",
+            "status": "modified"
+          },
+          {
+            "filename": "templates/repo/issue/list.tmpl",
+            "status": "modified"
+          },
+          {
+            "filename": "templates/repo/issue/milestones.tmpl",
+            "status": "modified"
+          },
+          {
+            "filename": "templates/repo/projects/list.tmpl",
+            "status": "modified"
+          },
+          {
+            "filename": "templates/repo/pulse.tmpl",
+            "status": "modified"
+          },
+          {
+            "filename": "templates/repo/release/list.tmpl",
+            "status": "modified"
+          },
+          {
+            "filename": "templates/repo/release/new.tmpl",
+            "status": "modified"
+          },
+          {
+            "filename": "templates/repo/tag/list.tmpl",
+            "status": "modified"
+          },
+          {
+            "filename": "templates/repo/wiki/pages.tmpl",
+            "status": "modified"
+          },
+          {
+            "filename": "tests/e2e/repo-activity-contributors.test.e2e.ts",
+            "status": "modified"
+          },
+          {
+            "filename": "web_src/css/repo.css",
+            "status": "modified"
+          },
+          {
+            "filename": "web_src/js/components/RepoActionView.vue",
+            "status": "modified"
+          },
+          {
+            "filename": "web_src/js/components/RepoCodeFrequency.vue",
+            "status": "modified"
+          },
+          {
+            "filename": "web_src/js/components/RepoContributors.test.js",
+            "status": "modified"
+          },
+          {
+            "filename": "web_src/js/components/RepoContributors.vue",
+            "status": "modified"
+          },
+          {
+            "filename": "web_src/js/components/RepoRecentCommits.vue",
+            "status": "modified"
+          },
+          {
+            "filename": "web_src/js/features/contributors.js",
+            "status": "modified"
+          }
+        ],
+        "stats": {
+          "total": 319,
+          "additions": 235,
+          "deletions": 84
+        }
+      },
+      {
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/08ba2d68b6d2d4052d8dae16e15cb5be4ad01897",
+        "sha": "08ba2d68b6d2d4052d8dae16e15cb5be4ad01897",
+        "created": "2026-10-06T12:33:13+02:00",
+        "html_url": "https://codeberg.org/forgejo/forgejo/commit/08ba2d68b6d2d4052d8dae16e15cb5be4ad01897",
+        "commit": {
+          "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/08ba2d68b6d2d4052d8dae16e15cb5be4ad01897",
+          "author": {
+            "name": "0ko",
+            "email": "redacted@example.invalid",
+            "date": "2026-10-06T12:33:13+02:00"
+          },
+          "committer": {
+            "name": "0ko",
+            "email": "redacted@example.invalid",
+            "date": "2026-10-06T12:33:13+02:00"
+          },
+          "message": "chore: keep locale instructions out of readme, only link to relevant resources (#14713)\n\nRel: https://codeberg.org/forgejo/forgejo/pulls/14704#issuecomment-24744138\nReviewed-on: https://codeberg.org/forgejo/forgejo/pulls/14713\nReviewed-by: Mathieu Fenniak <redacted@example.invalid>\n",
+          "tree": {
+            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/trees/08ba2d68b6d2d4052d8dae16e15cb5be4ad01897",
+            "sha": "08ba2d68b6d2d4052d8dae16e15cb5be4ad01897",
+            "created": "2026-10-06T12:33:13+02:00"
+          },
+          "verification": {
+            "verified": false,
+            "reason": "gpg.error.not_signed_commit",
+            "signature": "",
+            "signer": null,
+            "payload": ""
+          }
+        },
+        "author": {
+          "id": 35856,
+          "login": "0ko",
+          "source_id": 0,
+          "full_name": "",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://codeberg.org/avatars/679e72b1ca263a192b488b84af24e10c4f32e2c3f46eb2baa7928c986ba460ef",
+          "html_url": "https://codeberg.org/0ko",
+          "active": false,
+          "location": "",
+          "pronouns": "",
+          "website": "",
+          "description": "Hi! I do things related to Forgejo<br><button><p>⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀<img src=\"0ko/me/raw/f\" height=\"128\"/><pre class=\"code-block is-loading\"></pre>![](0ko/me/raw/g \"Gopher (has ur IP)\")</button><br>[**Contact**](0ko/me/src/c.md) ◦ [**Donate**](0ko/me/src/d.md)",
+          "followers_count": 36,
+          "following_count": 27,
+          "starred_repos_count": 30,
+          "username": "0ko"
+        },
+        "committer": {
+          "id": 35856,
+          "login": "0ko",
+          "source_id": 0,
+          "full_name": "",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://codeberg.org/avatars/679e72b1ca263a192b488b84af24e10c4f32e2c3f46eb2baa7928c986ba460ef",
+          "html_url": "https://codeberg.org/0ko",
+          "active": false,
+          "location": "",
+          "pronouns": "",
+          "website": "",
+          "description": "Hi! I do things related to Forgejo<br><button><p>⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀<img src=\"0ko/me/raw/f\" height=\"128\"/><pre class=\"code-block is-loading\"></pre>![](0ko/me/raw/g \"Gopher (has ur IP)\")</button><br>[**Contact**](0ko/me/src/c.md) ◦ [**Donate**](0ko/me/src/d.md)",
+          "followers_count": 36,
+          "following_count": 27,
+          "starred_repos_count": 30,
+          "username": "0ko"
+        },
+        "parents": [
+          {
+            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/dc52a054123abf736e95e45759d9c19a196c15fc",
+            "sha": "dc52a054123abf736e95e45759d9c19a196c15fc",
+            "created": "0001-01-01T00:00:00Z"
+          }
+        ],
+        "files": [
+          {
+            "filename": "options/locale_readme.md",
+            "status": "modified"
+          }
+        ],
+        "stats": {
+          "total": 52,
+          "additions": 15,
+          "deletions": 37
+        }
+      },
+      {
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/dc52a054123abf736e95e45759d9c19a196c15fc",
+        "sha": "dc52a054123abf736e95e45759d9c19a196c15fc",
+        "created": "2026-10-06T05:20:03+02:00",
+        "html_url": "https://codeberg.org/forgejo/forgejo/commit/dc52a054123abf736e95e45759d9c19a196c15fc",
+        "commit": {
+          "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/dc52a054123abf736e95e45759d9c19a196c15fc",
+          "author": {
+            "name": "alex5517",
+            "email": "redacted@example.invalid",
+            "date": "2026-10-06T05:20:03+02:00"
+          },
+          "committer": {
+            "name": "Mathieu Fenniak",
+            "email": "redacted@example.invalid",
+            "date": "2026-10-06T05:20:03+02:00"
+          },
+          "message": "fix(CLI): settings not loaded for create-authorized-integration (#14633)\n\nAllows `ALLOWED_DOMAINS` and `ALLOW_LOCALNETWORKS` to be used correctly during `forgejo admin user create-authorized-integration`.\n\nReviewed-on: https://codeberg.org/forgejo/forgejo/pulls/14633\nReviewed-by: Andreas Ahlenstorf <redacted@example.invalid>\n",
+          "tree": {
+            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/trees/dc52a054123abf736e95e45759d9c19a196c15fc",
+            "sha": "dc52a054123abf736e95e45759d9c19a196c15fc",
+            "created": "2026-10-06T05:20:03+02:00"
+          },
+          "verification": {
+            "verified": false,
+            "reason": "gpg.error.not_signed_commit",
+            "signature": "",
+            "signer": null,
+            "payload": ""
+          }
+        },
+        "author": {
+          "id": 1518330,
+          "login": "alex5517",
+          "source_id": 0,
+          "full_name": "",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://codeberg.org/avatars/d8aaa333c223105af02811a3130b7321",
+          "html_url": "https://codeberg.org/alex5517",
+          "active": false,
+          "location": "",
+          "pronouns": "",
+          "website": "",
+          "description": "",
+          "followers_count": 0,
+          "following_count": 0,
+          "starred_repos_count": 0,
+          "username": "alex5517"
+        },
+        "committer": {
+          "id": 222642,
+          "login": "mfenniak",
+          "source_id": 0,
+          "full_name": "Mathieu Fenniak",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://codeberg.org/avatars/561ee781e72bbbfd2865db7b4ba4fbf50f64da3d3cb0f4e1897b6da25224a2a7",
+          "html_url": "https://codeberg.org/mfenniak",
+          "active": false,
+          "location": "Calgary, Alberta, Canada",
+          "pronouns": "he/him",
+          "website": "https://mathieu.fenniak.net/",
+          "description": "Open Source Software Developer. My hobbies include poorly maintaining too many bicycles, running distances that are too far, GM-ing TTRPGs, and, well, more software development obviously.",
+          "followers_count": 19,
+          "following_count": 0,
+          "starred_repos_count": 4,
+          "username": "mfenniak"
+        },
+        "parents": [
+          {
+            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/202d46b941cb3850ea87dd561da9a91c98a4d69f",
+            "sha": "202d46b941cb3850ea87dd561da9a91c98a4d69f",
+            "created": "0001-01-01T00:00:00Z"
+          }
+        ],
+        "files": [
+          {
+            "filename": "cmd/admin_user_generate_authorized_integration.go",
+            "status": "modified"
+          }
+        ],
+        "stats": {
+          "total": 5,
+          "additions": 5,
+          "deletions": 0
+        }
+      }
+    ]
+  }
+}

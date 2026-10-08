@@ -1,0 +1,58 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/pipelines/2921312745"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"cc194827600cef36ccd9e881542bbef2\"",
+      "ratelimit-remaining": "1964",
+      "ratelimit-reset": "1791375060"
+    },
+    "body": {
+      "id": 2921312745,
+      "iid": 14854,
+      "project_id": 34675721,
+      "sha": "41771b819e87c5ab6dac398403424cbaf16358c0",
+      "ref": "main",
+      "status": "success",
+      "source": "push",
+      "created_at": "2026-10-07T08:29:21.325Z",
+      "updated_at": "2026-10-07T08:41:06.115Z",
+      "web_url": "https://gitlab.com/gitlab-org/cli/-/pipelines/2921312745",
+      "before_sha": "48512c0d0e5242782451ff24a435f6bab07ad1d2",
+      "tag": false,
+      "yaml_errors": null,
+      "user": {
+        "id": 11334402,
+        "username": "ahmed.hemdan",
+        "public_email": "",
+        "name": "Ahmed Hemdan",
+        "state": "active",
+        "locked": false,
+        "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11334402/avatar.png?v=1791371714",
+        "web_url": "https://gitlab.com/ahmed.hemdan"
+      },
+      "started_at": "2026-10-07T08:29:23.033Z",
+      "finished_at": "2026-10-07T08:41:06.103Z",
+      "committed_at": null,
+      "duration": 702,
+      "queued_duration": 1,
+      "coverage": "72.70",
+      "detailed_status": {
+        "icon": "status_success",
+        "text": "Passed",
+        "label": "passed",
+        "group": "success",
+        "tooltip": "passed",
+        "has_details": true,
+        "details_path": "/gitlab-org/cli/-/pipelines/2921312745",
+        "illustration": null,
+        "favicon": "/assets/ci_favicons/favicon_status_success-8451333011eee8ce9f2ab25dc487fe24a8758c694827a582f17f42b0a90446a2.png"
+      },
+      "archived": false,
+      "name": null
+    }
+  }
+}

@@ -64,6 +64,7 @@ Tangled records are stored on many servers, so the provider reads from several s
 | --- | --- | --- |
 | `plcUrl` | DID documents, to find each author's PDS | `https://plc.directory` |
 | `backlinksUrl` | Records that point at a thread, such as comments | `https://constellation.microcosm.blue` |
+| `handleResolverUrl` | The DID for a handle, when a ref's `owner` is a handle | `https://public.api.bsky.app` |
 | `recordsUrl` | Records, through a Slingshot-compatible cache | Each author's PDS |
 | `jetstreamUrl` | The live event stream | A public Bluesky Jetstream instance |
 | `apiUrl` | `request()` and `listSource: 'index'` | `https://api.tangled.org` |
@@ -71,6 +72,8 @@ Tangled records are stored on many servers, so the provider reads from several s
 ## Refs and numbers
 
 Issues and pulls are atproto records, identified by AT-URI. A `ThreadRef` has the AT-URI as both `number` and `externalId`. The repo's `owner` is the owner's DID, and `RepoRef.externalId` is the repo DID.
+
+A repo's `name` in the refs the provider returns is the key of its repo record. For newer repos, that key differs from the name people see, which `Repo.displayName` holds. You can pass a ref with a handle as `owner` and the visible name as `name`, as `parseUrl()` returns for a URL such as `https://tangled.org/@acme.example.com/widgets`. The provider resolves the handle and finds the record by name, so the ref it returns may differ from the one you passed.
 
 The numbers in the Tangled UI and in webhooks come from the appview, and records don't store them. The provider reports them as `displayNumber`.
 
@@ -158,6 +161,7 @@ To record other threads, set `FIXTURE_TANGLED_ISSUE` and `FIXTURE_TANGLED_PULL` 
 | `sources.subscribe` | ✅ |
 | `repos.get` | ✅ |
 | `users.get` | ❌ |
+| `users.me` | experimental |
 | `repos.list` | experimental |
 | `repos.labels` | ❌ |
 | `repos.createLabel` | ❌ |

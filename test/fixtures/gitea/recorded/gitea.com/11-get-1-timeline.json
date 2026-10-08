@@ -16,6 +16,7 @@
         "user": {
           "id": 1,
           "login": "lunny",
+          "type": "User",
           "source_id": 0,
           "full_name": "Lunny Xiao",
           "email": "redacted@example.invalid",
@@ -26,7 +27,7 @@
           "website": "https://gitea.com",
           "description": "",
           "followers_count": 114,
-          "following_count": 94,
+          "following_count": 95,
           "starred_repos_count": 366,
           "username": "lunny"
         },
@@ -50,6 +51,7 @@
           "user": {
             "id": 1,
             "login": "lunny",
+            "type": "User",
             "source_id": 0,
             "full_name": "Lunny Xiao",
             "email": "redacted@example.invalid",
@@ -60,7 +62,7 @@
             "website": "https://gitea.com",
             "description": "",
             "followers_count": 114,
-            "following_count": 94,
+            "following_count": 95,
             "starred_repos_count": 366,
             "username": "lunny"
           },
@@ -123,6 +125,7 @@
         "user": {
           "id": 1,
           "login": "lunny",
+          "type": "User",
           "source_id": 0,
           "full_name": "Lunny Xiao",
           "email": "redacted@example.invalid",
@@ -133,7 +136,7 @@
           "website": "https://gitea.com",
           "description": "",
           "followers_count": 114,
-          "following_count": 94,
+          "following_count": 95,
           "starred_repos_count": 366,
           "username": "lunny"
         },
@@ -157,6 +160,7 @@
           "user": {
             "id": 1,
             "login": "lunny",
+            "type": "User",
             "source_id": 0,
             "full_name": "Lunny Xiao",
             "email": "redacted@example.invalid",
@@ -167,7 +171,7 @@
             "website": "https://gitea.com",
             "description": "",
             "followers_count": 114,
-            "following_count": 94,
+            "following_count": 95,
             "starred_repos_count": 366,
             "username": "lunny"
           },
@@ -230,6 +234,7 @@
         "user": {
           "id": 1012,
           "login": "noerw",
+          "type": "User",
           "source_id": 0,
           "full_name": "Norwin",
           "email": "redacted@example.invalid",

@@ -93,6 +93,7 @@ export const STEPS: Step[] = [
   ...threadSteps('discussion', 'discussion'),
   { name: 'permission', verb: 'repos.permissionFor', run: (provider, manifest, context) => provider.repos.permissionFor(manifest.repo, need(context.login, 'a login')) },
   { name: 'user', verb: 'users.get', run: (provider, _manifest, context) => provider.users.get(need(context.login, 'a login')) },
+  { name: 'me', verb: 'users.me', run: provider => provider.users.me() },
   { name: 'own repos', verb: 'repos.listPage', run: provider => provider.repos.listPage(page) },
   { name: 'notifications', verb: 'notifications.listPage', run: provider => provider.notifications.listPage(page) },
   { name: 'unread count', verb: 'notifications.unreadCount', run: provider => provider.notifications.unreadCount() },

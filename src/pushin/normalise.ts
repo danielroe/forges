@@ -45,6 +45,10 @@ export function toRepo(origin: ForgeOrigin, raw: PushinRepository): Repo {
     cloneUrls: raw.clone_url ? { https: raw.clone_url } : undefined,
     createdAt: toDate(raw.created_at),
     updatedAt: toDate(raw.updated_at),
+    owner: toActor(origin, raw.owner),
+    homepage: raw.homepage || undefined,
+    stars: raw.stargazers_count,
+    forks: raw.forks_count,
     permissions: toPermissions(raw.permissions),
     raw,
   }
@@ -145,7 +149,7 @@ export function toThread(ref: ResolvedThreadRef, raw: PushinThread): Thread {
   const origin = { forge: FORGE, instance: ref.instance }
   const kind = raw.pull_request ? 'pull_request' : ref.kind
   const merged = kind === 'pull_request' && (raw.merged || raw.merged_at || raw.pull_request?.merged_at || raw.state === 'merged')
-  const state = merged || raw.state === 'closed' ? 'closed' : 'open'
+  const state = merged ? 'merged' : raw.state === 'closed' ? 'closed' : 'open'
   return {
     ref: { ...ref, kind, externalId: raw.id },
     kind,

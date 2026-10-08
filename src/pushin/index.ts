@@ -2,7 +2,7 @@ import type { ProviderContext, ProviderDefinition, ProviderFactoryFunction, Prov
 import type { Comment, ForgeEventInput, ListOptions, Page, RepoRef, ResolvedThreadRef, Thread, ThreadQuery, ThreadRef } from '../model.ts'
 import type { AnonymousAuth, ForgeOptionsBase, TokenAuth, VerbScopes } from '../provider.ts'
 import type { ForgeVerb } from '../supports.ts'
-import type { PushinCollaborator, PushinComment, PushinLabel, PushinNotification, PushinRepository, PushinThread } from './types.ts'
+import type { PushinCollaborator, PushinComment, PushinLabel, PushinNotification, PushinRepository, PushinThread, PushinUser } from './types.ts'
 import { defineForgeProvider, perKind, verb } from '../define.ts'
 import { createListing, getManyConcurrently, requireIssueOrPull, resolveToken, toPage } from '../utils.ts'
 import { githubShapedWeb } from '../web.ts'
@@ -39,13 +39,14 @@ function setupPushin({ instance, origin: context, fetcher, baseUrl }: ProviderCo
     }
     const kind = query.kind === 'pull_request' ? 'pull_request' : 'issue'
     const result = await fetcher.page<PushinThread>(`${repoPath(repo)}/${kind === 'pull_request' ? 'pulls' : 'issues'}`, {
-      query: { state: query.state, per_page: query.perPage },
+      query: { state: query.state === 'merged' ? 'closed' : query.state, per_page: query.perPage },
       cursor: query.cursor,
       signal: query.signal,
     })
-    return toPage(result, raw => query.kind === 'issue' && raw.pull_request
-      ? undefined
-      : toThread({ forge: FORGE, instance, repo, kind, number: String(raw.number) }, raw))
+    return toPage(result, (raw) => {
+      const thread = toThread({ forge: FORGE, instance, repo, kind, number: String(raw.number) }, raw)
+      return (query.kind === 'issue' && raw.pull_request) || (query.state === 'merged' && thread.state !== 'merged') ? undefined : thread
+    })
   }
 
   async function commentsPage(thread: ThreadRef, listOptions: ListOptions = {}): Promise<Page<Comment>> {
@@ -86,6 +87,12 @@ function setupPushin({ instance, origin: context, fetcher, baseUrl }: ProviderCo
       poll: false,
       eventKinds: 'native',
       authKinds: ['token', 'anonymous'],
+    },
+    users: {
+      me: verb(true, async () => {
+        const { data } = await fetcher.json<PushinUser>('/user')
+        return { ...toActor({ forge: FORGE, instance }, data)!, company: data.company ?? undefined, raw: data }
+      }),
     },
     repos: {
       get: verb(true, async repo => toRepo({ forge: FORGE, instance }, (await fetcher.json<PushinRepository>(repoPath(repo))).data)),

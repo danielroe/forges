@@ -2,7 +2,7 @@ import type { BitbucketOptions } from '../../src/bitbucket/index.ts'
 import type { ResolvedThreadRef } from '../../src/model.ts'
 import { describe, expect, it } from 'vitest'
 import { bitbucket } from '../../src/bitbucket/index.ts'
-import { toIssueState, toMergeMethod } from '../../src/bitbucket/normalise.ts'
+import { toMergeMethod } from '../../src/bitbucket/normalise.ts'
 import { MergeConflictError, UnsupportedOperationError } from '../../src/errors.ts'
 import { repoKey } from '../../src/model.ts'
 import { fixtureFetch } from '../utils/fixtures.ts'
@@ -48,9 +48,7 @@ describe('bitbucket provider', () => {
     expect(events.map(event => event.occurredAt.toISOString())).toEqual([...events.map(event => event.occurredAt.toISOString())].sort())
   })
 
-  it('maps issue tracker states and keeps the resolution as the reason', () => {
-    expect(['new', 'open', 'on hold'].map(toIssueState)).toEqual(['open', 'open', 'open'])
-    expect(['resolved', 'wontfix', 'duplicate'].map(toIssueState)).toEqual(['closed', 'closed', 'closed'])
+  it('maps no merge method for a strategy the model lacks', () => {
     expect(toMergeMethod('squash_fast_forward')).toBeUndefined()
   })
 
@@ -95,11 +93,48 @@ describe('bitbucket queries', () => {
     const urls: string[] = []
     const forge = bitbucket({ auth: { type: 'token', token: 't' }, fetch: async (url) => {
       urls.push(url)
-      return Response.json({ values: [] })
+      return Response.json({ values: url.includes('/user/workspaces') ? [{ workspace: { slug: 'acme' } }] : [] })
     } }).create()
 
     await forge.search.reposPage({ text: 'say "hi"' })
 
-    expect(new URL(urls[0]!).searchParams.get('q')).toBe('name ~ "say \\"hi\\""')
+    expect(new URL(urls[1]!).searchParams.get('q')).toBe('name ~ "say \\"hi\\""')
+  })
+
+  it('lists member repositories one workspace at a time', async () => {
+    const urls: URL[] = []
+    const forge = bitbucket({ auth: { type: 'token', token: 't' }, fetch: async (input) => {
+      const url = new URL(input)
+      urls.push(url)
+      if (url.pathname.endsWith('/user/workspaces')) {
+        return Response.json({ values: [{ workspace: { slug: 'acme' } }, { workspace: { slug: 'globex' } }] })
+      }
+      return Response.json({ values: [{ full_name: `${url.pathname.split('/').at(-1)}/widgets`, name: 'widgets', slug: 'widgets' }] })
+    } }).create()
+
+    const repos = await Array.fromAsync(forge.repos.list())
+
+    expect(repos.map(repo => `${repo.ref.owner}/${repo.ref.name}`)).toEqual(['acme/widgets', 'globex/widgets'])
+    expect(urls.filter(url => url.pathname.startsWith('/2.0/repositories/')).map(url => [url.pathname, url.searchParams.get('role')])).toEqual([
+      ['/2.0/repositories/acme', 'member'],
+      ['/2.0/repositories/globex', 'member'],
+    ])
+  })
+
+  it('lists pull requests only', async () => {
+    const urls: URL[] = []
+    const forge = bitbucket({ auth: { type: 'token', token: 't' }, fetch: async (input) => {
+      urls.push(new URL(input))
+      return Response.json({ values: [] })
+    } }).create()
+    const repo = { forge: 'bitbucket', instance: 'bitbucket.org', owner: 'acme', name: 'widgets' }
+
+    await forge.threads.listPage(repo)
+    const search = await forge.search.threadsPage({ repo, kind: 'issue' })
+
+    expect(urls.map(url => url.pathname)).toEqual(['/2.0/repositories/acme/widgets/pullrequests'])
+    expect(search.warnings?.map(warning => warning.code)).toContain('kind_unsupported')
+    expect(forge.can('threads.get', 'issue')).toBe(false)
+    await expect(forge.threads.listPage(repo, { kind: 'issue' })).rejects.toThrow(UnsupportedOperationError)
   })
 })

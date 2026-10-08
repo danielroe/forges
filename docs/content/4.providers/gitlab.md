@@ -118,6 +118,7 @@ To add an issue, set `FIXTURE_GITLAB_ISSUE`. To record a self-managed instance, 
 | `sources.subscribe` | ❌ |
 | `repos.get` | ✅ |
 | `users.get` | ✅ |
+| `users.me` | ✅ |
 | `repos.list` | ✅ |
 | `repos.labels` | ✅ |
 | `repos.createLabel` | experimental |

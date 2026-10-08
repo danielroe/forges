@@ -6,16 +6,16 @@
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"c97b2235273207e703a2b5a939707b9c5a930695db86a518ac88dba566a47ad9\"",
-      "x-ratelimit-remaining": "4972",
-      "x-ratelimit-reset": "1790947028"
+      "etag": "W/\"f4713cf714e47328edb87cbe7b48e483603787c93b451237d056bb78f81ebf0f\"",
+      "x-ratelimit-remaining": "4996",
+      "x-ratelimit-reset": "1791382545"
     },
     "body": {
-      "url": "https://api.github.com/repos/h3js/h3/releases/388631582",
-      "assets_url": "https://api.github.com/repos/h3js/h3/releases/388631582/assets",
-      "upload_url": "https://uploads.github.com/repos/h3js/h3/releases/388631582/assets{?name,label}",
-      "html_url": "https://github.com/h3js/h3/releases/tag/v2.0.1-rc.32",
-      "id": 388631582,
+      "url": "https://api.github.com/repos/h3js/h3/releases/405748393",
+      "assets_url": "https://api.github.com/repos/h3js/h3/releases/405748393/assets",
+      "upload_url": "https://uploads.github.com/repos/h3js/h3/releases/405748393/assets{?name,label}",
+      "html_url": "https://github.com/h3js/h3/releases/tag/v2.0.2",
+      "id": 405748393,
       "author": {
         "login": "pi0",
         "id": 5158436,
@@ -37,33 +37,20 @@
         "user_view_type": "public",
         "site_admin": false
       },
-      "node_id": "RE_kwDOErHI984XKgwe",
-      "tag_name": "v2.0.1-rc.32",
+      "node_id": "RE_kwDOErHI984YLzqp",
+      "tag_name": "v2.0.2",
       "target_commitish": "main",
       "name": "",
       "draft": false,
       "immutable": false,
       "prerelease": false,
-      "created_at": "2026-09-14T18:44:15Z",
-      "updated_at": "2026-09-14T18:46:42Z",
-      "published_at": "2026-09-14T18:46:42Z",
+      "created_at": "2026-10-07T12:37:06Z",
+      "updated_at": "2026-10-07T12:38:07Z",
+      "published_at": "2026-10-07T12:38:07Z",
       "assets": [],
-      "tarball_url": "https://api.github.com/repos/h3js/h3/tarball/v2.0.1-rc.32",
-      "zipball_url": "https://api.github.com/repos/h3js/h3/zipball/v2.0.1-rc.32",
-      "body": "[compare changes](https://github.com/h3js/h3/compare/df811cd872015ced1cb21e30d42ec20c9f79cbc3...v2.0.1-rc.32)\r\n\r\n### 🚀 Enhancements\r\n\r\n- Export `normalizeRoute` as a public path utility ([#1549](https://github.com/h3js/h3/pull/1549))\r\n\r\n### 🩹 Fixes\r\n\r\n- **route-rules:** Pass uncacheable requests through the cache rule ([b6c7d08](https://github.com/h3js/h3/commit/b6c7d08))\r\n- Handle srvx body limit errors as 413 ([b5d20d5](https://github.com/h3js/h3/commit/b5d20d5))\r\n- **error:** Require status in HTTPError.isError ([e6b726b](https://github.com/h3js/h3/commit/e6b726b))\r\n\r\n### 🌊 Types\r\n\r\n- **handler:** Infer route handler request type instead of any ([#1546](https://github.com/h3js/h3/pull/1546))\r\n- **handler:** Use request header names for req.headers ([ae529f1](https://github.com/h3js/h3/commit/ae529f1))\r\n- Export `TypedHeaders` type ([#1547](https://github.com/h3js/h3/pull/1547))\r\n\r\n### ❤️ Contributors\r\n\r\n- Pooya Parsa (@pi0)\r\n- Rith Banerjee (@Rithb898)\r\n- Lazizbek Ergashev (@lazerg)",
-      "reactions": {
-        "url": "https://api.github.com/repos/h3js/h3/releases/388631582/reactions",
-        "total_count": 7,
-        "+1": 0,
-        "-1": 0,
-        "laugh": 0,
-        "hooray": 1,
-        "confused": 0,
-        "heart": 3,
-        "rocket": 2,
-        "eyes": 1
-      },
-      "mentions_count": 3
+      "tarball_url": "https://api.github.com/repos/h3js/h3/tarball/v2.0.2",
+      "zipball_url": "https://api.github.com/repos/h3js/h3/zipball/v2.0.2",
+      "body": "[compare changes](https://github.com/h3js/h3/compare/v2.0.1...v2.0.2)\r\n\r\n### 🩹 Fixes\r\n\r\n- **node:** Call `onError` for stream errors in Node.js handlers ([#1571](https://github.com/h3js/h3/pull/1571))\r\n- **response:** Use matching reason phrases in redirect and noContent ([#1570](https://github.com/h3js/h3/pull/1570))\r\n- **middleware:** Pass through handled responses in `onError` ([#1574](https://github.com/h3js/h3/pull/1574))\r\n\r\n### 🌊 Types\r\n\r\n- **session:** Remove `@ts-nocheck` from iron-crypto ([#1572](https://github.com/h3js/h3/pull/1572))\r\n- **route:** Infer `defineRoute` handler input from validation schemas ([ec527f0](https://github.com/h3js/h3/commit/ec527f0))\r\n\r\n### 🏡 Chore\r\n\r\n- **session:** Retarget legacy seal fallback removal to v3 ([#1573](https://github.com/h3js/h3/pull/1573))\r\n- **session:** Mark `legacySealFallback` as deprecated ([44dbfb8](https://github.com/h3js/h3/commit/44dbfb8))\r\n\r\n### ❤️ Contributors\r\n\r\n- Pooya Parsa ([@pi0](https://github.com/pi0))\r\n- Bao Nguyen ([@giaBaoJS](https://github.com/giaBaoJS))\r\n- Kaan Çelebi ([@kaanisthatyou](https://github.com/kaanisthatyou))\r\n- Daniel Shafer ([@dannyshafer](https://github.com/dannyshafer))"
     }
   }
 }

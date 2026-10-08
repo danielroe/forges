@@ -51,6 +51,37 @@ describe('tangled identity', () => {
     expect(thread.author).toMatchObject({ login: 'ada.example.com', id: ADA })
   })
 
+  it('reads a repo whose owner is a handle, as parseUrl returns it', async () => {
+    const { instance } = provider({
+      'GET https://public.api.bsky.app/xrpc/com.atproto.identity.resolveHandle?handle=acme.example.com': { status: 200, body: { did: OWNER } },
+    })
+    const parsed = instance.parseUrl('https://tangled.org/@acme.example.com/widgets')!
+    const found = await instance.repos.get(parsed.repo)
+
+    expect(found.ref).toEqual({ ...repo, externalId: 'did:plc:widgetsrepo2222222222222' })
+    expect(found.displayName).toBeUndefined()
+  })
+
+  it('refuses a handle that the DID document does not claim', async () => {
+    const { instance } = provider({
+      'GET https://public.api.bsky.app/xrpc/com.atproto.identity.resolveHandle?handle=impostor.example.com': { status: 200, body: { did: OWNER } },
+    })
+
+    await expect(instance.repos.get({ ...repo, owner: 'impostor.example.com' })).rejects.toThrow('does not claim the handle')
+  })
+
+  it('finds a repo by its name where the record key differs', async () => {
+    const record = { uri: `at://${OWNER}/sh.tangled.repo/3lzrepokey222`, cid: 'bafy', value: { $type: 'sh.tangled.repo', knot: 'knot1.tangled.sh', name: 'gadgets', repoDid: 'did:plc:gadgetsrepo222222222222', createdAt: '2025-09-01T00:00:00Z' } }
+    const { instance } = provider({
+      [`GET ${PDS}/xrpc/com.atproto.repo.getRecord?repo=${OWNER}&collection=sh.tangled.repo&rkey=gadgets`]: { status: 400, body: { error: 'RecordNotFound' } },
+      [`GET ${PDS}/xrpc/com.atproto.repo.listRecords?repo=${OWNER}&collection=sh.tangled.repo&limit=100`]: { status: 200, body: { records: [record] } },
+    })
+    const found = await instance.repos.get({ ...repo, name: 'gadgets' })
+
+    expect(found.ref).toMatchObject({ owner: OWNER, name: '3lzrepokey222', externalId: 'did:plc:gadgetsrepo222222222222' })
+    expect(found.displayName).toBe('gadgets')
+  })
+
   it('refuses a ref whose number is not an issue or pull AT-URI', async () => {
     const { instance } = provider()
     await expect(instance.threads.get({ ...pull, number: '4' })).rejects.toThrow(UnresolvedThreadError)

@@ -89,6 +89,7 @@ To choose the threads to record, set `FIXTURE_PUSHIN_ISSUE` and `FIXTURE_PUSHIN_
 | `sources.subscribe` | ❌ |
 | `repos.get` | ✅ |
 | `users.get` | ❌ |
+| `users.me` | ✅ |
 | `repos.list` | experimental |
 | `repos.labels` | ✅ |
 | `repos.createLabel` | ❌ |

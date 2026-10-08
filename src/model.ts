@@ -101,6 +101,8 @@ export interface Collaborator {
 /** A repository as every forge reports it. Fields that not every forge has, such as `openPullCount`, are optional. */
 export interface Repo {
   ref: RepoRef
+  /** The repository's name where `ref.name` is an identifier rather than the name (a Tangled record key). */
+  displayName?: string
   description?: string
   defaultBranch?: string
   /** Who can see the repository. */
@@ -123,10 +125,25 @@ export interface Repo {
   updatedAt?: Date
   /** Last push, where the listing endpoint reports it. */
   pushedAt?: Date
-  /** Open issues only, never combined with pull requests. */
+  /**
+   * Open issues only, never combined with pull requests. Absent where the
+   * forge reports only the combined count (GitHub).
+   */
   openIssueCount?: number
   /** The number of open pull requests, where the forge reports it. */
   openPullCount?: number
+  /** The account or organisation that owns the repository, where the forge reports one. */
+  owner?: Actor
+  /** Primary language, as the forge detects it. */
+  language?: string
+  /** Project website, apart from the repository's own `url`. */
+  homepage?: string
+  /** SPDX identifier of the licence the forge detects, for example `MIT`. */
+  licence?: string
+  stars?: number
+  forks?: number
+  /** Accounts watching the repository's activity, apart from stars. */
+  watchers?: number
   /** What the authenticated account may do. */
   permissions?: RepoPermissions
   /** Merge methods the repository allows, where the forge reports them. Empty means the forge reported none. */
@@ -841,7 +858,6 @@ export type ForgeWarningCode
     | 'filter_unsupported'
     | 'index_possibly_stale'
     | 'insufficient_scope'
-    | 'issue_tracker_disabled'
     | 'kind_unsupported'
     | 'notifications_failed'
     | 'record_unreachable'
@@ -883,7 +899,11 @@ export interface Thread {
   isDraft: boolean
   author?: Actor
   assignees: Actor[]
-  /** Requested and submitted reviewers, where the thread read already carries them. */
+  /**
+   * Reviewers the thread read reports. Some forges report outstanding requests
+   * only, others each reviewer's verdict; `threads.reviews()` has every
+   * submitted review.
+   */
   reviewers: Reviewer[]
   labels: Label[]
   url?: string
@@ -1162,8 +1182,11 @@ export interface NotificationListOptions extends ListOptions {
 export interface ThreadQuery extends PageOptions {
   /** Omitted lists every listable kind; forges that list kinds separately emit them one after another. */
   kind?: 'issue' | 'pull_request' | 'discussion'
-  /** Defaults to `'open'`. */
-  state?: 'open' | 'closed' | 'all'
+  /**
+   * Defaults to `'open'`. `'closed'` includes merged pull requests; `'merged'`
+   * lists pull requests only, and lists nothing for another `kind`.
+   */
+  state?: 'open' | 'closed' | 'merged' | 'all'
   /** Threads carrying every one of these labels. */
   labels?: string[]
   /** Author login. */
@@ -1194,6 +1217,12 @@ export interface ThreadQuery extends PageOptions {
 export interface SearchQuery extends PageOptions {
   /** Free text, matched against title and body. */
   text?: string
+  /**
+   * Forge-native query syntax, added to the query as is, for qualifiers the
+   * other fields don't cover. Forges whose search has no query syntax ignore
+   * it with a `filter_unsupported` warning.
+   */
+  queryRaw?: string
   /** Limit to one repository. */
   repo?: RepoRef
   kind?: 'issue' | 'pull_request'
@@ -1217,6 +1246,8 @@ export interface SearchQuery extends PageOptions {
 export interface CommitSearchQuery extends PageOptions {
   /** Free text, matched against the commit message. */
   text?: string
+  /** Forge-native query syntax; see {@link SearchQuery.queryRaw}. */
+  queryRaw?: string
   /** Limit to one repository. */
   repo?: RepoRef
   /** Commits whose author is this login. */
@@ -1236,6 +1267,8 @@ export interface CommitSearchQuery extends PageOptions {
 /** A search for repositories. */
 export interface RepoSearchQuery extends PageOptions {
   text?: string
+  /** Forge-native query syntax; see {@link SearchQuery.queryRaw}. */
+  queryRaw?: string
   /** Limit to one account or namespace. */
   owner?: string
   /** The main language of the repository. */

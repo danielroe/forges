@@ -6,36 +6,36 @@
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"860bd238422945a14378fe6cd79a0eb0a0a129bdaa3ed13b4822061eb963ccc1\"",
-      "x-ratelimit-remaining": "4770",
-      "x-ratelimit-reset": "1790944607"
+      "etag": "W/\"0b7aad4e141fbbcbf6ce671b9505755ff5619d07df4b05dfe2d867ecbe701f46\"",
+      "x-ratelimit-remaining": "4947",
+      "x-ratelimit-reset": "1791382247"
     },
     "body": {
       "url": "https://api.github.com/repos/h3js/h3/compare/main...adbc974043a83820a5ae388265b5ee1465926561",
       "html_url": "https://github.com/h3js/h3/compare/main...adbc974043a83820a5ae388265b5ee1465926561",
-      "permalink_url": "https://github.com/h3js/h3/compare/h3js:62c2632...h3js:adbc974",
+      "permalink_url": "https://github.com/h3js/h3/compare/h3js:66cfb8a...h3js:adbc974",
       "diff_url": "https://github.com/h3js/h3/compare/main...adbc974043a83820a5ae388265b5ee1465926561.diff",
       "patch_url": "https://github.com/h3js/h3/compare/main...adbc974043a83820a5ae388265b5ee1465926561.patch",
       "base_commit": {
-        "sha": "62c263298b41881759fe5bc38da4dd879856180c",
-        "node_id": "C_kwDOErHI99oAKDYyYzI2MzI5OGI0MTg4MTc1OWZlNWJjMzhkYTRkZDg3OTg1NjE4MGM",
+        "sha": "66cfb8a357b6285451bad498c2c40002601fae98",
+        "node_id": "C_kwDOErHI99oAKDY2Y2ZiOGEzNTdiNjI4NTQ1MWJhZDQ5OGMyYzQwMDAyNjAxZmFlOTg",
         "commit": {
           "author": {
             "name": "Pooya Parsa",
             "email": "redacted@example.invalid",
-            "date": "2026-09-29T16:33:27Z"
+            "date": "2026-10-07T12:37:06Z"
           },
           "committer": {
             "name": "Pooya Parsa",
             "email": "redacted@example.invalid",
-            "date": "2026-09-29T16:33:27Z"
+            "date": "2026-10-07T12:37:06Z"
           },
-          "message": "chore(deps): update rou3 to v0.11\n\n- rules: drop per-method materialization of agnostic rules (rou3 now pools a node's `\"\"` and method-scoped registrations; the copies duplicated layers)\n- rules/compiler: use `compileRouterToString` options object\n- test: `:name` no longer matches an empty segment",
+          "message": "chore(release): v2.0.2",
           "tree": {
-            "sha": "9c07e6c58f10167f96378297fd402e7f4e0c425c",
-            "url": "https://api.github.com/repos/h3js/h3/git/trees/9c07e6c58f10167f96378297fd402e7f4e0c425c"
+            "sha": "7fdddeb4d070bfef143c879c7ec0ebcfa964a031",
+            "url": "https://api.github.com/repos/h3js/h3/git/trees/7fdddeb4d070bfef143c879c7ec0ebcfa964a031"
           },
-          "url": "https://api.github.com/repos/h3js/h3/git/commits/62c263298b41881759fe5bc38da4dd879856180c",
+          "url": "https://api.github.com/repos/h3js/h3/git/commits/66cfb8a357b6285451bad498c2c40002601fae98",
           "comment_count": 0,
           "verification": {
             "verified": false,
@@ -45,9 +45,9 @@
             "verified_at": null
           }
         },
-        "url": "https://api.github.com/repos/h3js/h3/commits/62c263298b41881759fe5bc38da4dd879856180c",
-        "html_url": "https://github.com/h3js/h3/commit/62c263298b41881759fe5bc38da4dd879856180c",
-        "comments_url": "https://api.github.com/repos/h3js/h3/commits/62c263298b41881759fe5bc38da4dd879856180c/comments",
+        "url": "https://api.github.com/repos/h3js/h3/commits/66cfb8a357b6285451bad498c2c40002601fae98",
+        "html_url": "https://github.com/h3js/h3/commit/66cfb8a357b6285451bad498c2c40002601fae98",
+        "comments_url": "https://api.github.com/repos/h3js/h3/commits/66cfb8a357b6285451bad498c2c40002601fae98/comments",
         "author": {
           "login": "pi0",
           "id": 5158436,
@@ -92,9 +92,9 @@
         },
         "parents": [
           {
-            "sha": "a546b4c1c6df4670e348f15d218465dd351b9b37",
-            "url": "https://api.github.com/repos/h3js/h3/commits/a546b4c1c6df4670e348f15d218465dd351b9b37",
-            "html_url": "https://github.com/h3js/h3/commit/a546b4c1c6df4670e348f15d218465dd351b9b37"
+            "sha": "07d7d2c0dac8fbbcd28b5c8c1278699372456dc5",
+            "url": "https://api.github.com/repos/h3js/h3/commits/07d7d2c0dac8fbbcd28b5c8c1278699372456dc5",
+            "html_url": "https://github.com/h3js/h3/commit/07d7d2c0dac8fbbcd28b5c8c1278699372456dc5"
           }
         ]
       },
@@ -182,7 +182,7 @@
       },
       "status": "diverged",
       "ahead_by": 1,
-      "behind_by": 658,
+      "behind_by": 684,
       "total_commits": 1,
       "commits": [
         {

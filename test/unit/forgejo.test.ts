@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { forgejo } from '../../src/forgejo/index.ts'
+import { gitea } from '../../src/gitea/index.ts'
 import { fixtureFetch } from '../utils/fixtures.ts'
 
 function provider() {
@@ -95,6 +96,70 @@ describe('forgejo path safety', () => {
   })
 })
 
+describe('forgejo pagination without a link header', () => {
+  const repo = { forge: 'gitea', instance: 'gitea.com', owner: 'acme', name: 'widgets' } as const
+  const label = (id: number) => ({ id, name: `l${id}`, color: '000000' })
+  const entry = (id: number) => ({ id, type: 'comment', body: 'hi', created_at: '2025-09-15T08:30:00Z', user: { id: 1, login: 'ada' } })
+
+  function serve(responses: Record<string, { body: unknown[], total?: number }>) {
+    const urls: string[] = []
+    const fetch = async (url: string) => {
+      urls.push(url)
+      const response = responses[url]
+      if (!response) {
+        return Response.json({ message: 'not found' }, { status: 404 })
+      }
+      return Response.json(response.body, { headers: response.total === undefined ? {} : { 'x-total-count': String(response.total) } })
+    }
+    return { provider: gitea({ auth: { type: 'token', token: 't' }, fetch }).create(), urls }
+  }
+
+  it('continues a listing from its total count', async () => {
+    const { provider, urls } = serve({
+      'https://gitea.com/api/v1/repos/acme/widgets/labels': { body: [label(1), label(2)], total: 3 },
+      'https://gitea.com/api/v1/repos/acme/widgets/labels?page=2&limit=2': { body: [label(3)], total: 3 },
+    })
+
+    const labels = await Array.fromAsync(provider.repos.labels(repo))
+
+    expect(labels.map(item => item.name)).toEqual(['l1', 'l2', 'l3'])
+    expect(urls).toHaveLength(2)
+  })
+
+  it('keeps the page size the forge capped the first page to', async () => {
+    const { provider } = serve({
+      'https://gitea.com/api/v1/repos/acme/widgets/labels?limit=5': { body: [label(1), label(2)], total: 3 },
+    })
+
+    const page = await provider.repos.labelsPage(repo, { perPage: 5 })
+
+    expect(page.cursor?.nextUrl).toBe('https://gitea.com/api/v1/repos/acme/widgets/labels?limit=2&page=2')
+  })
+
+  it('follows a full timeline page whose count is the page length', async () => {
+    const thread = { forge: 'gitea', instance: 'gitea.com', repo, kind: 'issue', number: '7' } as const
+    const { provider } = serve({
+      'https://gitea.com/api/v1/repos/acme/widgets/issues/7/timeline?limit=2': { body: [entry(1), entry(2)], total: 2 },
+      'https://gitea.com/api/v1/repos/acme/widgets/issues/7/timeline?limit=2&page=2': { body: [entry(3)], total: 1 },
+    })
+
+    const events = await Array.fromAsync(provider.threads.events(thread, { perPage: 2 }))
+
+    expect(events).toHaveLength(3)
+  })
+
+  it('stops when the forge ignored the limit and sent everything', async () => {
+    const { provider } = serve({
+      'https://gitea.com/api/v1/repos/acme/widgets/labels?limit=1': { body: [label(1), label(2)], total: 2 },
+    })
+
+    const page = await provider.repos.labelsPage(repo, { perPage: 1 })
+
+    expect(page.items).toHaveLength(2)
+    expect(page.cursor).toBeUndefined()
+  })
+})
+
 describe('forgejo label filters', () => {
   const repository = { id: 64021, name: 'widgets', full_name: 'acme/widgets', owner: { id: 4001, login: 'acme' } }
   const issues = [
@@ -114,6 +179,61 @@ describe('forgejo label filters', () => {
     const page = await provider.search.threadsPage({ labels: ['bug', 'ui'] })
 
     expect(page.items.map(thread => thread.title)).toEqual(['Both'])
+  })
+})
+
+describe('forgejo label names', () => {
+  function serve(owner: string) {
+    const calls: Array<{ method: string, url: string, body?: string }> = []
+    const fetch = async (url: string, init?: RequestInit) => {
+      calls.push({ method: init?.method ?? 'GET', url, body: init?.body as string | undefined })
+      if (url === `https://codeberg.org/api/v1/repos/${owner}/widgets/labels?limit=50`) {
+        return Response.json([{ id: 1, name: 'bug', color: 'ff0000' }])
+      }
+      if (url === 'https://codeberg.org/api/v1/orgs/acme/labels?limit=50') {
+        return Response.json([{ id: 9, name: 'triage', color: '00ff00' }])
+      }
+      return init?.method === 'POST' ? Response.json([]) : Response.json({ message: 'not found' }, { status: 404 })
+    }
+    const thread = { forge: 'forgejo', instance: 'codeberg.org', repo: { forge: 'forgejo', instance: 'codeberg.org', owner, name: 'widgets' }, kind: 'issue', number: '7' } as const
+    return { provider: forgejo({ auth: { type: 'token', token: 't' }, fetch }).create(), thread, calls }
+  }
+
+  it('resolves a label the organisation shares', async () => {
+    const { provider, thread, calls } = serve('acme')
+
+    await provider.threads.addLabels!(thread, ['bug', 'triage'])
+
+    expect(calls.at(-1)).toMatchObject({ method: 'POST', body: '{"labels":[1,9]}' })
+  })
+
+  it('names a label neither the repository nor its owner has', async () => {
+    const { provider, thread } = serve('ada')
+
+    await expect(provider.threads.addLabels!(thread, ['triage'])).rejects.toThrow('No label named triage in ada/widgets')
+  })
+})
+
+describe('forgejo search filters', () => {
+  const repository = { id: 64021, name: 'widgets', full_name: 'acme/widgets', owner: { id: 4001, login: 'acme' } }
+  const ada = { id: 1, login: 'Ada' }
+  const grace = { id: 2, login: 'grace' }
+  const issues = [
+    { id: 1, number: 1, title: 'By Ada', state: 'open', user: ada, assignees: [grace], repository },
+    { id: 2, number: 2, title: 'By Grace', state: 'open', user: grace, assignees: [ada], repository },
+  ]
+  const provider = forgejo({ auth: { type: 'token', token: 't' }, fetch: async () => Response.json(issues) }).create()
+
+  it('searches only threads by the author', async () => {
+    const page = await provider.search.threadsPage({ author: 'ada' })
+
+    expect(page.items.map(thread => thread.title)).toEqual(['By Ada'])
+  })
+
+  it('searches only threads assigned to the assignee', async () => {
+    const page = await provider.search.threadsPage({ assignee: 'ada' })
+
+    expect(page.items.map(thread => thread.title)).toEqual(['By Grace'])
   })
 })
 

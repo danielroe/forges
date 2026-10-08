@@ -1,0 +1,53 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/repository/commits/main"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"e60e42818e1bc86b97f7acfaf3fd75f6\"",
+      "ratelimit-remaining": "1957",
+      "ratelimit-reset": "1791375060"
+    },
+    "body": {
+      "id": "41771b819e87c5ab6dac398403424cbaf16358c0",
+      "short_id": "41771b81",
+      "created_at": "2026-10-07T10:29:13.000+02:00",
+      "parent_ids": [
+        "48512c0d0e5242782451ff24a435f6bab07ad1d2",
+        "3b299de3c3288f83344c46e48108bea98cf3fccb"
+      ],
+      "title": "Merge branch 'renovate/gitlab.com-gitlab-org-api-client-go-v3-3.x' into 'main'",
+      "message": "Merge branch 'renovate/gitlab.com-gitlab-org-api-client-go-v3-3.x' into 'main'\n\nchore(deps): update module gitlab.com/gitlab-org/api/client-go/v3 to v3.16.0\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4011\n\nMerged-by: Ahmed Hemdan <redacted@example.invalid>\nApproved-by: Ahmed Hemdan <redacted@example.invalid>\nCo-authored-by: GitLab Renovate Bot <redacted@example.invalid>",
+      "author_name": "Ahmed Hemdan",
+      "author_email": "redacted@example.invalid",
+      "authored_date": "2026-10-07T10:29:13.000+02:00",
+      "committer_name": "GitLab",
+      "committer_email": "redacted@example.invalid",
+      "committed_date": "2026-10-07T10:29:13.000+02:00",
+      "trailers": {},
+      "extended_trailers": {},
+      "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/41771b819e87c5ab6dac398403424cbaf16358c0",
+      "stats": {
+        "additions": 3,
+        "deletions": 3,
+        "total": 6
+      },
+      "status": "success",
+      "project_id": 34675721,
+      "last_pipeline": {
+        "id": 2921312745,
+        "iid": 14854,
+        "project_id": 34675721,
+        "sha": "41771b819e87c5ab6dac398403424cbaf16358c0",
+        "ref": "main",
+        "status": "success",
+        "source": "push",
+        "created_at": "2026-10-07T08:29:21.325Z",
+        "updated_at": "2026-10-07T08:41:06.115Z",
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/pipelines/2921312745"
+      }
+    }
+  }
+}

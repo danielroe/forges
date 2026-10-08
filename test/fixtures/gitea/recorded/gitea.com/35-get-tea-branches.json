@@ -1,0 +1,125 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitea.com/api/v1/repos/gitea/tea/branches?limit=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "<https://gitea.com/api/v1/repos/gitea/tea/branches?limit=3&page=2>; rel=\"next\",<https://gitea.com/api/v1/repos/gitea/tea/branches?limit=3&page=3>; rel=\"last\""
+    },
+    "body": [
+      {
+        "name": "renovate/dependencies",
+        "commit": {
+          "id": "532671e43bd75444e8a08331d352561fa8336935",
+          "message": "chore(deps): update dependencies\n",
+          "url": "https://gitea.com/gitea/tea/commit/532671e43bd75444e8a08331d352561fa8336935",
+          "author": {
+            "name": "Renovate Bot",
+            "email": "redacted@example.invalid",
+            "username": "renovate-bot"
+          },
+          "committer": {
+            "name": "Renovate Bot",
+            "email": "redacted@example.invalid",
+            "username": "renovate-bot"
+          },
+          "verification": {
+            "verified": false,
+            "reason": "gpg.error.not_signed_commit",
+            "signature": "",
+            "signer": null,
+            "payload": ""
+          },
+          "timestamp": "2026-10-06T00:10:54Z",
+          "added": null,
+          "removed": null,
+          "modified": null
+        },
+        "protected": false,
+        "required_approvals": 0,
+        "enable_status_check": false,
+        "status_check_contexts": [],
+        "user_can_push": false,
+        "user_can_merge": false,
+        "effective_branch_protection_name": ""
+      },
+      {
+        "name": "main",
+        "commit": {
+          "id": "bcd62a1fb2ce6fdd51ebea91cc33ddbcae000b68",
+          "message": "fix(login): avoid SSH passphrase prompt with ssh-agent logins (#1102)\n\nFixes #866\n\n## Problem\n\n`tea` still prompts for an SSH key passphrase for logins created with\n`--ssh-agent-key` or `--ssh-agent-principal`. During `tea login add`, tea\nauto-discovers a matching private key in `~/.ssh` even when the login is\nconfigured to use the running ssh-agent. That on-disk key is stored in\n`ssh_key`, so later `Login.Client()` asks for its passphrase and tells the SDK\nto load the file from disk instead of signing through the agent.\n\n## Changes\n\n- Stop auto-discovering a private key when the login uses the ssh-agent.\n- Add `Login.SSHKeyPath()` and use it for HTTPSign and git auth, so agent\n  logins pass an empty key path and the SDK talks to `ssh-agent`.\n- Prefer SSH remotes for agent logins, matching key-file logins.\n- Add unit tests for the new key-path and auto-discovery behavior.\n\n## Testing\n\n- `go test ./modules/config ./modules/task ./modules/git`\n- `go build ./...`\n\n---------\n\nCo-authored-by: bircni <redacted@example.invalid>\nReviewed-on: https://gitea.com/gitea/tea/pulls/1102\nReviewed-by: bircni <redacted@example.invalid>\nCo-authored-by: Lunny Xiao <redacted@example.invalid>\n",
+          "url": "https://gitea.com/gitea/tea/commit/bcd62a1fb2ce6fdd51ebea91cc33ddbcae000b68",
+          "author": {
+            "name": "Lunny Xiao",
+            "email": "redacted@example.invalid",
+            "username": "lunny"
+          },
+          "committer": {
+            "name": "bircni",
+            "email": "redacted@example.invalid",
+            "username": "bircni"
+          },
+          "verification": {
+            "verified": false,
+            "reason": "gpg.error.not_signed_commit",
+            "signature": "",
+            "signer": null,
+            "payload": ""
+          },
+          "timestamp": "2026-10-01T19:58:41Z",
+          "added": null,
+          "removed": null,
+          "modified": null
+        },
+        "protected": true,
+        "required_approvals": 1,
+        "enable_status_check": true,
+        "status_check_contexts": [
+          "check-and-test / **",
+          "do-not-merge"
+        ],
+        "user_can_push": false,
+        "user_can_merge": false,
+        "effective_branch_protection_name": ""
+      },
+      {
+        "name": "codet/tea-pull-stacks",
+        "commit": {
+          "id": "b06d902687d40fbf15c20a202775927af3c0c7c8",
+          "message": "feat(pulls): support branch-validated stack reordering\n\nAssisted-by: Codet:GPT-5-Codex\n",
+          "url": "https://gitea.com/gitea/tea/commit/b06d902687d40fbf15c20a202775927af3c0c7c8",
+          "author": {
+            "name": "Lunny Xiao",
+            "email": "redacted@example.invalid",
+            "username": "lunny"
+          },
+          "committer": {
+            "name": "Lunny Xiao",
+            "email": "redacted@example.invalid",
+            "username": "lunny"
+          },
+          "verification": {
+            "verified": false,
+            "reason": "gpg.error.not_signed_commit",
+            "signature": "",
+            "signer": null,
+            "payload": ""
+          },
+          "timestamp": "2026-09-24T23:31:32-07:00",
+          "added": null,
+          "removed": null,
+          "modified": null
+        },
+        "protected": false,
+        "required_approvals": 0,
+        "enable_status_check": false,
+        "status_check_contexts": [],
+        "user_can_push": false,
+        "user_can_merge": false,
+        "effective_branch_protection_name": ""
+      }
+    ]
+  }
+}

@@ -50,6 +50,13 @@ export interface GitHubRepositoryDetail extends GitHubRepository {
   has_discussions?: boolean
   has_wiki?: boolean
   has_projects?: boolean
+  language?: string | null
+  homepage?: string | null
+  license?: { spdx_id?: string | null } | null
+  stargazers_count?: number
+  forks_count?: number
+  /** Watchers, on the single-repository read only. `watchers_count` counts stars. */
+  subscribers_count?: number
 }
 
 export interface GitHubCollaborator extends GitHubUser {
@@ -119,6 +126,7 @@ export interface GitHubIssue {
   state_reason?: string | null
   draft?: boolean
   merged?: boolean
+  merged_at?: string | null
   locked?: boolean
   comments?: number
   html_url?: string

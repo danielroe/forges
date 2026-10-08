@@ -1,0 +1,21 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/repository/commits/37ea25e1cf97b7e40c6d862c45ab32cec0f10b99/statuses?per_page=100"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "<https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/repository/commits/37ea25e1cf97b7e40c6d862c45ab32cec0f10b99/statuses?id=gitlab-org%2Fcli&order_by=id&page=1&per_page=100&sha=37ea25e1cf97b7e40c6d862c45ab32cec0f10b99>; rel=\"first\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/repository/commits/37ea25e1cf97b7e40c6d862c45ab32cec0f10b99/statuses?id=gitlab-org%2Fcli&order_by=id&page=1&per_page=100&sha=37ea25e1cf97b7e40c6d862c45ab32cec0f10b99>; rel=\"last\"",
+      "etag": "W/\"4f53cda18c2baa0c0354bb5f9a3ecbe5\"",
+      "ratelimit-remaining": "1966",
+      "ratelimit-reset": "1791375060",
+      "x-total": "0",
+      "x-total-pages": "1",
+      "x-next-page": "",
+      "x-page": "1",
+      "x-per-page": "100"
+    },
+    "body": []
+  }
+}

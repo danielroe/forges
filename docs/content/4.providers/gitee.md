@@ -112,6 +112,7 @@ To add an issue, set `FIXTURE_GITEE_ISSUE`.
 | `sources.subscribe` | ❌ |
 | `repos.get` | ✅ |
 | `users.get` | experimental |
+| `users.me` | experimental |
 | `repos.list` | experimental |
 | `repos.labels` | experimental |
 | `repos.createLabel` | experimental |

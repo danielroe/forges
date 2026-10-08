@@ -1,0 +1,195 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitea.com/api/v1/repos/issues/search?q=fix&state=all&owner=gitea&limit=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "<https://gitea.com/api/v1/repos/issues/search?limit=3&owner=gitea&page=2&q=fix&state=all>; rel=\"next\",<https://gitea.com/api/v1/repos/issues/search?limit=3&owner=gitea&page=1111&q=fix&state=all>; rel=\"last\""
+    },
+    "body": [
+      {
+        "id": 508514,
+        "url": "https://gitea.com/api/v1/repos/gitea/tea/issues/1126",
+        "html_url": "https://gitea.com/gitea/tea/pulls/1126",
+        "number": 1126,
+        "user": {
+          "id": 173651,
+          "login": "bircni",
+          "type": "User",
+          "source_id": 0,
+          "full_name": "bircni",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://seccdn.libravatar.org/avatar/345fd80f2a069177c27dd0de27c99672940cce0923fca8de847119c573aab745?d=identicon",
+          "html_url": "https://gitea.com/bircni",
+          "active": false,
+          "location": "",
+          "website": "",
+          "description": "",
+          "followers_count": 0,
+          "following_count": 2,
+          "starred_repos_count": 2,
+          "username": "bircni"
+        },
+        "original_author": "",
+        "original_author_id": 0,
+        "title": "feat!: switch tea to the Cobra command tree (5/5)",
+        "body": "Part 5/5 of the tea 1.0 rewrite. Builds on #1125: the last two commits are new.\n\n**Stack** (split from #1121; each PR targets `main` and builds, tests and lints on its own — the shipped CLI only changes in part 5):\n\n1. #1122 Toolchain and foundation packages\n2. #1123 Credentials and Git\n3. #1124 Terminal\n4. #1125 Services\n5. #1126 CLI wiring, docs, removal of the old tree ← this PR\n\n## Changes\n\n- **feat!: switch tea to the Cobra command tree:** `internal/app` wires the packages from parts 1–4 into explicit noun/verb commands with `--repo`, `--json` / `--jq`, `--sudo` and `--debug`; `main.go` points at it. Build, release and docs tooling (`tools/cli-docs`, Makefile, goreleaser, snap, CI) and README / CONTRIBUTING are updated.\n- **refactor!: remove the urfave/cli command tree:** deletes `cmd/`, `modules/`, the old integration tests, contrib completion scripts and the generated `docs/CLI.md`, and drops their dependencies. This commit only deletes.\n\n## Breaking changes\n\nThis is a breaking release: configuration moves to separate `config.yml` and `hosts.yml` files and requires fresh authentication, and command names, aliases, flags and output formats change. `docs/migration-1.0.md` maps every old command, flag and environment variable to its replacement.\n\n\n## Issues\n\nfixes #1118\nfixes #1116\nfixes #1115\nfixes #1094\nfixes #1091\nfixes #1073\nfixes #1052\nfixes #1032\nfixes #1023\nfixes #966\nfixes #908\nfixes #833\nfixes #831\nfixes #817\nfixes #804\nfixes #779\nfixes #770\nfixes #737\nfixes #697\nfixes #726\nfixes #677\nfixes #672\nfixes #633\nfixes #632\nfixes #560\nfixes #556\nfixes #523\nfixes #516\nfixes #510\nfixes #504\nfixes #500\nfixes #482\nfixes #406\nfixes #403\nfixes #373\nfixes #351\nfixes #344\nfixes #326\nfixes #325\nfixes #323\nfixes #246\nfixes #240\nfixes #232\nfixes #197\nfixes #172\nfixes #141\nfixes #69\nfixes #1110\nfixes #569\nfixes #480\nfixes #666\nfixes #670\nfixes #457\nfixes #643\nfixes #498\nfixes #490\nfixes #1069\nfixes #834\nfixes #602\nfixes #328\nfixes #417\nfixes #571\nfixes #1029\nfixes #489\nfixes #1050\nfixes #162\nfixes #430\nfixes #1087\nfixes #683\n",
+        "ref": "",
+        "assets": [],
+        "labels": [
+          {
+            "id": 431,
+            "name": "kind/breaking",
+            "exclusive": false,
+            "is_archived": false,
+            "color": "fbca04",
+            "description": "",
+            "url": "https://gitea.com/api/v1/repos/gitea/tea/labels/431"
+          }
+        ],
+        "milestone": null,
+        "projects": null,
+        "assignee": null,
+        "assignees": null,
+        "state": "open",
+        "is_locked": false,
+        "comments": 0,
+        "created_at": "2026-10-07T05:15:17Z",
+        "updated_at": "2026-10-07T05:19:56Z",
+        "closed_at": null,
+        "due_date": null,
+        "time_estimate": 0,
+        "pull_request": {
+          "merged": false,
+          "merged_at": null,
+          "draft": false,
+          "html_url": "https://gitea.com/gitea/tea/pulls/1126"
+        },
+        "repository": {
+          "id": 550,
+          "name": "tea",
+          "owner": "gitea",
+          "full_name": "gitea/tea"
+        },
+        "pin_order": 0,
+        "content_version": 2
+      },
+      {
+        "id": 508384,
+        "url": "https://gitea.com/api/v1/repos/gitea/blog/issues/589",
+        "html_url": "https://gitea.com/gitea/blog/pulls/589",
+        "number": 589,
+        "user": {
+          "id": 173651,
+          "login": "bircni",
+          "type": "User",
+          "source_id": 0,
+          "full_name": "bircni",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://seccdn.libravatar.org/avatar/345fd80f2a069177c27dd0de27c99672940cce0923fca8de847119c573aab745?d=identicon",
+          "html_url": "https://gitea.com/bircni",
+          "active": false,
+          "location": "",
+          "website": "",
+          "description": "",
+          "followers_count": 0,
+          "following_count": 2,
+          "starred_repos_count": 2,
+          "username": "bircni"
+        },
+        "original_author": "",
+        "original_author_id": 0,
+        "title": "Add 28.1.0 blog post",
+        "body": "Adds the release post for Gitea 28.1.0, the first maintenance release of the 28 series.\n\nThe security section lists the nine vulnerabilities fixed in this release with their CVEs, a short description, the fixing PR and credits for reporters and patch authors, in the same format as the 28.0.0 post. For this release the details ship with the post instead of a placeholder.\n\nThe changelog is the autogenerated release notes from https://github.com/go-gitea/gitea/releases/tag/v28.1.0, with PR numbers linked. The notable fixes section summarizes the regressions fixed since 28.0.0.",
+        "ref": "",
+        "assets": [],
+        "labels": [],
+        "milestone": null,
+        "projects": null,
+        "assignee": null,
+        "assignees": null,
+        "state": "closed",
+        "is_locked": false,
+        "comments": 0,
+        "created_at": "2026-10-06T20:18:30Z",
+        "updated_at": "2026-10-06T20:29:58Z",
+        "closed_at": "2026-10-06T20:29:57Z",
+        "due_date": null,
+        "time_estimate": 0,
+        "pull_request": {
+          "merged": true,
+          "merged_at": "2026-10-06T20:29:57Z",
+          "draft": false,
+          "html_url": "https://gitea.com/gitea/blog/pulls/589"
+        },
+        "repository": {
+          "id": 862,
+          "name": "blog",
+          "owner": "gitea",
+          "full_name": "gitea/blog"
+        },
+        "pin_order": 0,
+        "content_version": 0
+      },
+      {
+        "id": 508364,
+        "url": "https://gitea.com/api/v1/repos/gitea/blog/issues/588",
+        "html_url": "https://gitea.com/gitea/blog/pulls/588",
+        "number": 588,
+        "user": {
+          "id": 173651,
+          "login": "bircni",
+          "type": "User",
+          "source_id": 0,
+          "full_name": "bircni",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://seccdn.libravatar.org/avatar/345fd80f2a069177c27dd0de27c99672940cce0923fca8de847119c573aab745?d=identicon",
+          "html_url": "https://gitea.com/bircni",
+          "active": false,
+          "location": "",
+          "website": "",
+          "description": "",
+          "followers_count": 0,
+          "following_count": 2,
+          "starred_repos_count": 2,
+          "username": "bircni"
+        },
+        "original_author": "",
+        "original_author_id": 0,
+        "title": "Add security details to 28.0.0 blog post",
+        "body": "Replaces the security placeholder in the 28.0.0 release post with the list of security issues fixed in this release, now that users have had about a week to upgrade.\n\nThe section follows the format of the 1.27.x posts: one entry per issue with its CVE, a short description, the fixing PR and credits for reporters and patch authors. It covers 20 issues; fixes that are not yet released or still open are intentionally left out.",
+        "ref": "",
+        "assets": [],
+        "labels": [],
+        "milestone": null,
+        "projects": null,
+        "assignee": null,
+        "assignees": null,
+        "state": "closed",
+        "is_locked": false,
+        "comments": 2,
+        "created_at": "2026-10-06T17:33:31Z",
+        "updated_at": "2026-10-06T19:12:16Z",
+        "closed_at": "2026-10-06T19:12:15Z",
+        "due_date": null,
+        "time_estimate": 0,
+        "pull_request": {
+          "merged": true,
+          "merged_at": "2026-10-06T19:12:15Z",
+          "draft": false,
+          "html_url": "https://gitea.com/gitea/blog/pulls/588"
+        },
+        "repository": {
+          "id": 862,
+          "name": "blog",
+          "owner": "gitea",
+          "full_name": "gitea/blog"
+        },
+        "pin_order": 0,
+        "content_version": 0
+      }
+    ]
+  }
+}

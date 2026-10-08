@@ -9,7 +9,8 @@ body {
   font-family: var(--font-sans);
 }
 
-:is(h1, h2),
+h1,
+h2,
 .font-display {
   font-family: var(--font-display);
   font-weight: 400;
