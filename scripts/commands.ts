@@ -13,6 +13,7 @@ export const INTERNAL_SCRIPTS = ['prepack', 'prepare']
 export const COMMANDS: Command[] = [
   { commands: ['pnpm dev'], scripts: ['dev'], description: 'Runs the unit tests in watch mode' },
   { commands: ['pnpm build'], scripts: ['build'], description: 'Builds the package into `dist`' },
+  { commands: ['pnpm build:docs'], scripts: ['build:docs'], description: 'Builds the docs site. The docs tests and the link check need it' },
   { commands: ['pnpm test'], scripts: ['test'], description: 'Runs the unit tests, the capability check, the type check and knip' },
   { commands: ['pnpm test:unit'], scripts: ['test:unit'], description: 'Runs the unit tests once' },
   { commands: ['pnpm test:docs'], scripts: ['test:docs'], description: 'Tests the built docs site. Build the docs first' },

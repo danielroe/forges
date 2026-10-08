@@ -35,6 +35,7 @@ For active development, `pnpm dev` runs the unit tests in watch mode and re-runs
 | --- | --- |
 | `pnpm dev` | Runs the unit tests in watch mode |
 | `pnpm build` | Builds the package into `dist` |
+| `pnpm build:docs` | Builds the docs site. The docs tests and the link check need it |
 | `pnpm test` | Runs the unit tests, the capability check, the type check and knip |
 | `pnpm test:unit` | Runs the unit tests once |
 | `pnpm test:docs` | Tests the built docs site. Build the docs first |
