@@ -15,4 +15,6 @@ exclude = [
   "^https://forges\\.link/",
   # A placeholder base URL that only answers real API routes.
   "^https://api\\.bitbucket\\.org/2\\.0$",
+  # The Bluesky API root has no page of its own and returns 502 for anonymous requests.
+  "^https://public\\.api\\.bsky\\.app/?$",
 ]
