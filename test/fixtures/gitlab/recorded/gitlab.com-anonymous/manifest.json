@@ -1,0 +1,71 @@
+{
+  "baseUrl": "https://gitlab.com/api/v4",
+  "anonymous": true,
+  "repo": {
+    "forge": "gitlab",
+    "instance": "gitlab.com",
+    "owner": "gitlab-org",
+    "name": "cli"
+  },
+  "pull": {
+    "forge": "gitlab",
+    "instance": "gitlab.com",
+    "repo": {
+      "forge": "gitlab",
+      "instance": "gitlab.com",
+      "owner": "gitlab-org",
+      "name": "cli"
+    },
+    "kind": "pull_request",
+    "number": "3988"
+  },
+  "issue": {
+    "forge": "gitlab",
+    "instance": "gitlab.com",
+    "repo": {
+      "forge": "gitlab",
+      "instance": "gitlab.com",
+      "owner": "gitlab-org",
+      "name": "cli"
+    },
+    "kind": "issue",
+    "number": "8572"
+  },
+  "recordedAt": "2026-10-08T15:38:46.877Z",
+  "steps": [
+    "repo",
+    "assignable users",
+    "pull",
+    "pull list",
+    "pull getMany",
+    "pull reactions",
+    "pull reviews",
+    "pull checks",
+    "pull files",
+    "pull commits",
+    "pull reviewer candidates",
+    "issue",
+    "issue list",
+    "issue getMany",
+    "issue reactions",
+    "user",
+    "ci runs",
+    "ci run",
+    "ci jobs",
+    "readme",
+    "tree",
+    "branches",
+    "tags",
+    "resolve default branch",
+    "commits",
+    "commit",
+    "compare",
+    "releases",
+    "latest release",
+    "release",
+    "release by tag",
+    "search threads",
+    "search repos",
+    "security alerts"
+  ]
+}

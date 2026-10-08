@@ -1,0 +1,52 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/users?per_page=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "<https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/users?id=gitlab-org%2Fcli&page=2&per_page=3>; rel=\"next\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/users?id=gitlab-org%2Fcli&page=1&per_page=3>; rel=\"first\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/users?id=gitlab-org%2Fcli&page=984&per_page=3>; rel=\"last\"",
+      "etag": "W/\"e4d6d597bde4055f85ac2cd09f35aef4\"",
+      "ratelimit-remaining": "483",
+      "ratelimit-reset": "1791473940",
+      "x-total": "2950",
+      "x-total-pages": "984",
+      "x-next-page": "2",
+      "x-page": "1",
+      "x-per-page": "3"
+    },
+    "body": [
+      {
+        "id": 1,
+        "username": "sytses",
+        "public_email": "",
+        "name": "Sid Sijbrandij",
+        "state": "active",
+        "locked": false,
+        "avatar_url": "https://secure.gravatar.com/avatar/adcd204e48241a6528220c7450334cc5ffab2ea1c6a89d3d0ada01d01ed2b49e?s=80&d=identicon",
+        "web_url": "https://gitlab.com/sytses"
+      },
+      {
+        "id": 2293,
+        "username": "brodock",
+        "public_email": "",
+        "name": "Gabriel Mazzetto",
+        "state": "active",
+        "locked": false,
+        "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/2293/avatar.png?v=1791431130",
+        "web_url": "https://gitlab.com/brodock"
+      },
+      {
+        "id": 4849,
+        "username": "balasankarc",
+        "public_email": "",
+        "name": "Balasankar 'Balu' C",
+        "state": "active",
+        "locked": false,
+        "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/4849/avatar.png?v=1791473379",
+        "web_url": "https://gitlab.com/balasankarc"
+      }
+    ]
+  }
+}

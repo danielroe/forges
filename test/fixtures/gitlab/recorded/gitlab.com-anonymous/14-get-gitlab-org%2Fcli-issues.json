@@ -1,0 +1,281 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/issues?state=opened&order_by=created_at&sort=desc&per_page=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "<https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/issues?id=gitlab-org%2Fcli&order_by=created_at&page=2&per_page=3&sort=desc&state=opened&with_labels_details=false>; rel=\"next\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/issues?id=gitlab-org%2Fcli&order_by=created_at&page=1&per_page=3&sort=desc&state=opened&with_labels_details=false>; rel=\"first\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/issues?id=gitlab-org%2Fcli&order_by=created_at&page=88&per_page=3&sort=desc&state=opened&with_labels_details=false>; rel=\"last\"",
+      "etag": "W/\"8e6788712866ce615f814fe4f909f095\"",
+      "ratelimit-remaining": "481",
+      "ratelimit-reset": "1791474000",
+      "x-total": "264",
+      "x-total-pages": "88",
+      "x-next-page": "2",
+      "x-page": "1",
+      "x-per-page": "3"
+    },
+    "body": [
+      {
+        "id": 205785669,
+        "iid": 8593,
+        "project_id": 34675721,
+        "title": "Accept relative dates (-7d, 2w) in list date filters, and add date filters to issue list",
+        "description": "### Problem to solve\n\nDate filters in glab only take absolute timestamps, and each command parses them differently:\n\n- `glab mr list --created-after/--created-before/--deployed-after/--deployed-before` take RFC3339 only (added in #8124).\n- `glab ci list --updated-after/--updated-before` take only the exact layout `2019-03-15T08:00:00Z`.\n- `glab issue list` has no date filters at all, even though the REST API supports `created_after`, `created_before`, `updated_after` and `updated_before`.\n\nSo everyday questions like \"issues updated in the last week\" or \"MRs created in the last 30 days\" need a date computed in the shell, which is awkward in scripts and aliases (`date -d` vs. BSD `date -v`).\n\n### Proposal\n\n1. Add one shared date flag type that accepts:\n   - absolute dates: `2026-10-01` and RFC3339 (`2026-10-01T08:00:00Z`)\n   - relative dates in the [GLQL syntax](https://docs.gitlab.com/user/glql/#values): an optional sign, a number and a unit (`d`, `w`, `m`, `y`). `-7d` is 7 days ago, `2w` is 2 weeks from now.\n2. Resolve relative values on the client to the start of that day in the local time zone, then send an absolute timestamp. This works with every GitLab version, with no API change.\n3. Use it for the existing `mr list` and `ci list` date flags (backwards compatible, since current inputs keep working).\n4. Add `--created-after`, `--created-before`, `--updated-after` and `--updated-before` to `glab issue list`.\n\nExample:\n\n    glab issue list --updated-after -7d\n    glab mr list --created-after -1m --created-before -1w\n\n### Further details\n\n- Values that start with `-` look like flags. pflag accepts both `--flag=-7d` and `--flag -7d`, but both forms deserve a test and a help-text example.\n- Using GLQL's syntax keeps glab consistent with what GitLab already documents for GLQL queries.\n- Related discussion about relative dates in GitLab's GraphQL filters: https://gitlab.com/gitlab-org/gitlab/-/merge_requests/260072#note_3973533253\n\n### Links / references\n\n- #8124 (absolute before/after filters for `mr list`)\n- GLQL relative dates: https://docs.gitlab.com/user/glql/#values\n- REST issues API filters: https://docs.gitlab.com/api/issues/#list-issues",
+        "state": "opened",
+        "created_at": "2026-10-07T21:41:42.833Z",
+        "updated_at": "2026-10-07T23:15:03.131Z",
+        "closed_at": null,
+        "closed_by": null,
+        "labels": [
+          "automation:ml",
+          "backend",
+          "feature::enhancement",
+          "type::feature"
+        ],
+        "milestone": null,
+        "assignees": [],
+        "author": {
+          "id": 241647,
+          "username": "rantoniuk",
+          "public_email": "",
+          "name": "Radek Antoniuk",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://secure.gravatar.com/avatar/6038a5e5dcb22639c7b07f7fb3515bb99b1a7d699ac2376f16d96b2fdb0094f1?s=80&d=identicon",
+          "web_url": "https://gitlab.com/rantoniuk"
+        },
+        "type": "ISSUE",
+        "assignee": null,
+        "user_notes_count": 2,
+        "merge_requests_count": 0,
+        "upvotes": 0,
+        "downvotes": 0,
+        "start_date": null,
+        "due_date": null,
+        "confidential": false,
+        "discussion_locked": null,
+        "issue_type": "issue",
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/work_items/8593",
+        "time_stats": {
+          "time_estimate": 0,
+          "total_time_spent": 0,
+          "human_time_estimate": null,
+          "human_total_time_spent": null
+        },
+        "task_completion_status": {
+          "count": 0,
+          "completed_count": 0
+        },
+        "weight": null,
+        "blocking_issues_count": 0,
+        "has_tasks": true,
+        "task_status": "0 of 0 checklist items completed",
+        "_links": {
+          "self": "https://gitlab.com/api/v4/projects/34675721/issues/8593",
+          "notes": "https://gitlab.com/api/v4/projects/34675721/issues/8593/notes",
+          "award_emoji": "https://gitlab.com/api/v4/projects/34675721/issues/8593/award_emoji",
+          "project": "https://gitlab.com/api/v4/projects/34675721",
+          "closed_as_duplicate_of": null
+        },
+        "references": {
+          "short": "#8593",
+          "relative": "#8593",
+          "full": "gitlab-org/cli#8593"
+        },
+        "severity": "UNKNOWN",
+        "moved_to_id": null,
+        "imported": false,
+        "imported_from": "none",
+        "service_desk_reply_to": null,
+        "epic_iid": null,
+        "epic": null,
+        "iteration": null,
+        "health_status": null
+      },
+      {
+        "id": 205729782,
+        "iid": 8592,
+        "project_id": 34675721,
+        "title": "`mr note create --file` fails with \"not found in MR diff\" when the MR diff is truncated (changes_count \"N+\")",
+        "description": "### Checklist\n\n- [x] I'm using the latest version of the extension (Run `glab --version`)\n  - Extension version: glab 1.121.0 (4d447cc6c)\n- [x] Operating system and version: Aurora 44.20260929.1, based on Fedora 44 Kinoite (Linux 7.1.10-200.fc44.x86_64)\n- [x] Gitlab.com or self-managed instance? self-managed instance\n- [x] GitLab version (if self-managed) 19.4.1-ee\n- [x] I have performed `glab auth status` to check for authentication issues\n- [x] Run the command in debug mode (like `GLAB_DEBUG=true glab mr list`) and attach any useful output\n  - `GLAB_DEBUG=true` prints nothing beyond the error below.\n\n### Summary\n\nOn a large MR, GitLab stores only part of the diff, and `changes_count` is reported with a `+` suffix (`\"N+\"`). `glab mr note create --file <path> --line <n>` looks the file up only in that stored list, so for any of the remaining files it fails with `file \"<path>\" not found in MR diff`, even though the file is part of the MR. A diff comment on the same path and line succeeds when posted directly with `POST /projects/:id/merge_requests/:iid/discussions` and a `position` built from the latest version's SHAs.\n\n### Environment\n\n- OS: Linux 7.1.10-200.fc44.x86_64 x86_64\n- SHELL: /bin/bash\n- TERM: xterm-256color\n- GLAB: glab 1.121.0 (4d447cc6c)\n\nOther: none\n\n### Steps to reproduce\n\n1. Open an MR whose diff exceeds the instance's diff limits, so that `GET /projects/:id/merge_requests/:iid` reports `changes_count` with a `+` suffix (`\"N+\"`).\n2. Pick a changed file that is not among the stored ones: it is missing from `GET .../merge_requests/:iid/versions/:version_id` (`diffs`) and from the paginated `GET .../merge_requests/:iid/diffs`, but present in `GET .../merge_requests/:iid/raw_diffs`.\n3. Run `glab mr note create <iid> --file <that/path> --line <added line> -m \"test\"`.\n\n### What is the current _bug_ behavior?\n\n```\nERROR\nFile \"<that/path>\" not found in MR diff.\n```\n\nNo comment is created.\n\n### What is the expected _correct_ behavior?\n\nThe diff comment is created on the given file and line, like it is with a direct API call. If glab cannot place it, the error should say the MR diff is truncated (`changes_count` \"N+\") rather than that the file isn't in the MR.\n\n### Relevant logs and/or screenshots\n\n```\n$ GLAB_DEBUG=true glab mr note create <iid> --file <that/path> --line 10 -m \"test\"\n\n   ERROR\n\n  File \"<that/path>\" not found in MR diff.\n```\n\nThe same comment posted directly through the API is accepted and anchored correctly:\n\n```shell\nglab api -X POST \"projects/:id/merge_requests/<iid>/discussions\" \\\n  -F body=@comment.md \\\n  -F 'position={\"position_type\":\"text\",\"base_sha\":\"<base>\",\"start_sha\":\"<start>\",\"head_sha\":\"<head>\",\"new_path\":\"<that/path>\",\"old_path\":\"<that/path>\",\"new_line\":10}'\n```\n\nThe created discussion has `position.new_path` = `<that/path>` and `position.new_line` = 10.\n\n### Possible fixes\n\n[`GetLatestDiffVersion`](https://gitlab.com/gitlab-org/cli/-/blob/4d447cc6c19858928884626d802c8f7b7c5f799e/internal/commands/mr/mrutils/position.go#L16) reads the file list from `GetSingleMergeRequestDiffVersion`, and [`FindFileDiff`](https://gitlab.com/gitlab-org/cli/-/blob/4d447cc6c19858928884626d802c8f7b7c5f799e/internal/commands/mr/mrutils/position.go#L34-41) fails when the path isn't in `version.Diffs`. For a truncated diff, the structured endpoints never list the file, so pagination alone won't help.\n\n---\n\n:robot: Generated with [Claude Code](https://claude.com/claude-code)",
+        "state": "opened",
+        "created_at": "2026-10-07T12:28:36.583Z",
+        "updated_at": "2026-10-07T16:25:33.584Z",
+        "closed_at": null,
+        "closed_by": null,
+        "labels": [
+          "automation:ml",
+          "backend",
+          "bug::functional",
+          "category:gitlab cli",
+          "devops::ai coding",
+          "group::code review",
+          "section::ai",
+          "type::bug"
+        ],
+        "milestone": null,
+        "assignees": [
+          {
+            "id": 42048126,
+            "username": "sjestonsingh",
+            "public_email": "redacted@example.invalid",
+            "name": "Jeston Singh",
+            "state": "active",
+            "locked": false,
+            "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/42048126/avatar.png?v=1791469043",
+            "web_url": "https://gitlab.com/sjestonsingh"
+          }
+        ],
+        "author": {
+          "id": 43124423,
+          "username": "j.niechaj",
+          "public_email": null,
+          "name": "Jakub Niechaj",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://secure.gravatar.com/avatar/f67e5e4706f85349f8b4cd0a115f8a54d993c2e25ea10f7c9b913aaacacb5ff5?s=80&d=identicon",
+          "web_url": "https://gitlab.com/j.niechaj"
+        },
+        "type": "ISSUE",
+        "assignee": {
+          "id": 42048126,
+          "username": "sjestonsingh",
+          "public_email": "redacted@example.invalid",
+          "name": "Jeston Singh",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/42048126/avatar.png?v=1791469043",
+          "web_url": "https://gitlab.com/sjestonsingh"
+        },
+        "user_notes_count": 3,
+        "merge_requests_count": 0,
+        "upvotes": 0,
+        "downvotes": 0,
+        "start_date": null,
+        "due_date": null,
+        "confidential": false,
+        "discussion_locked": null,
+        "issue_type": "issue",
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/work_items/8592",
+        "time_stats": {
+          "time_estimate": 0,
+          "total_time_spent": 0,
+          "human_time_estimate": null,
+          "human_total_time_spent": null
+        },
+        "task_completion_status": {
+          "count": 6,
+          "completed_count": 6
+        },
+        "weight": null,
+        "blocking_issues_count": 0,
+        "has_tasks": false,
+        "_links": {
+          "self": "https://gitlab.com/api/v4/projects/34675721/issues/8592",
+          "notes": "https://gitlab.com/api/v4/projects/34675721/issues/8592/notes",
+          "award_emoji": "https://gitlab.com/api/v4/projects/34675721/issues/8592/award_emoji",
+          "project": "https://gitlab.com/api/v4/projects/34675721",
+          "closed_as_duplicate_of": null
+        },
+        "references": {
+          "short": "#8592",
+          "relative": "#8592",
+          "full": "gitlab-org/cli#8592"
+        },
+        "severity": "UNKNOWN",
+        "moved_to_id": null,
+        "imported": false,
+        "imported_from": "none",
+        "service_desk_reply_to": null,
+        "epic_iid": null,
+        "epic": null,
+        "iteration": null,
+        "health_status": null
+      },
+      {
+        "id": 205664469,
+        "iid": 8589,
+        "project_id": 34675721,
+        "title": "1.5 Show specific error messages in work-items-experimental",
+        "description": "Item 1.5 in the epic https://gitlab.com/groups/gitlab-org/-/work_items/23916\n\n## Problem\n\nItem 1.1 shows one generic message for any failed request. Users need to know what went wrong and what to do about it. The difficulty is that the REST API returns 404 for three different reasons, deliberately: the work item doesn't exist, the user can't see it, or the `work_item_rest_api` feature flag is off. Experimental endpoints return 404 rather than 403 while the flag is off, so glab can't tell those cases apart.\n\n## Scope\n\nA shared error helper for all `work-items-experimental` commands, as agreed on https://gitlab.com/gitlab-org/cli/-/work_items/8582 (decision 6):\n\n| Response | Message |\n|---|---|\n| 404 | Names the work item and project or group, and lists all three possible causes, including the feature flag. The PoC's `note get` already does this. |\n| 401 | Not authenticated: suggest `glab auth login` or checking the token. |\n| 403 | No permission. Mention that granular tokens may not cover every endpoint. |\n| 400 or 422 | Show the API's message, which explains the invalid input. |\n| Network errors | Unchanged from the rest of glab. |\n\n- Keep glab's existing exit codes. Don't add new ones.\n- Use the helper in `get` now, and in every later command.\n\n## Out of scope\n\n- Detecting whether the feature flag is on. The API gives no reliable signal. If the backend adds one, for example a distinct response or header, open a follow-up issue to use it.\n\n## Done when\n\n- [ ] `get` shows the messages above for each response type.\n- [ ] Tests cover 400, 401, 403, 404 and 422 responses.\n- [ ] The helper is shared, so later commands can use it.\n- [ ] The epic's shared checklist is met.\n\nSuggested weight: 2.\n\n<!-- implementation plan added during 2026-09 backlog triage -->\n\n## Implementation plan\n\n> **Note:** This plan was drafted during an AI-assisted triage of the backlog and has not been validated by a maintainer. Treat it as a starting point: file paths, line numbers, and the approach may need adjusting.\n\nDepends on !4010 (item 1.1, `work-items-experimental get`) landing first.\n\n1. Add a helper in a shared package under `internal/commands/workitemsexperimental/` (for example `utils/errors.go`), such as `func APIError(err error, what, scope string) error`. Use `errors.As(err, *gitlab.ErrorResponse)` to read `Response.StatusCode`, following `Is404` in `internal/api/client.go:540`.\n2. Map statuses: 404 names the work item and project or group and lists all three causes (missing, no access, `work_item_rest_api` flag off); 401 suggests `glab auth login` or checking the token; 403 says no permission and that granular tokens may not cover every endpoint; 400 and 422 surface the API's `Message`. Return any other error (including network errors) unchanged.\n3. Keep existing exit codes: wrap with `cmdutils.WrapError` (`internal/cmdutils/errors.go:76`) rather than adding new codes.\n4. Replace the single `fmt.Errorf` wrap after `GetWorkItem` (which currently applies the feature flag message to every error) in `internal/commands/workitemsexperimental/get/get.go` with the helper.\n5. Add table-driven tests for the helper (400, 401, 403, 404, 422, and a non-HTTP error), and extend `internal/commands/workitemsexperimental/get/get_test.go` with one case per status using the client-go mock.\n6. The command is hidden, so `make gen-docs` should produce no changes; run it to confirm.",
+        "state": "opened",
+        "created_at": "2026-10-06T21:38:41.777Z",
+        "updated_at": "2026-10-06T22:16:39.244Z",
+        "closed_at": null,
+        "closed_by": null,
+        "labels": [
+          "automation:ml",
+          "automation:quick-win-judged",
+          "feature::enhancement",
+          "type::feature"
+        ],
+        "milestone": null,
+        "assignees": [],
+        "author": {
+          "id": 42451371,
+          "username": "phil-wong",
+          "public_email": "redacted@example.invalid",
+          "name": "Phil Wong",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/42451371/avatar.png?v=1791437984",
+          "web_url": "https://gitlab.com/phil-wong"
+        },
+        "type": "ISSUE",
+        "assignee": null,
+        "user_notes_count": 2,
+        "merge_requests_count": 0,
+        "upvotes": 0,
+        "downvotes": 0,
+        "start_date": null,
+        "due_date": null,
+        "confidential": false,
+        "discussion_locked": null,
+        "issue_type": "issue",
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/work_items/8589",
+        "time_stats": {
+          "time_estimate": 0,
+          "total_time_spent": 0,
+          "human_time_estimate": null,
+          "human_total_time_spent": null
+        },
+        "task_completion_status": {
+          "count": 4,
+          "completed_count": 0
+        },
+        "weight": null,
+        "blocking_issues_count": 0,
+        "has_tasks": false,
+        "_links": {
+          "self": "https://gitlab.com/api/v4/projects/34675721/issues/8589",
+          "notes": "https://gitlab.com/api/v4/projects/34675721/issues/8589/notes",
+          "award_emoji": "https://gitlab.com/api/v4/projects/34675721/issues/8589/award_emoji",
+          "project": "https://gitlab.com/api/v4/projects/34675721",
+          "closed_as_duplicate_of": null
+        },
+        "references": {
+          "short": "#8589",
+          "relative": "#8589",
+          "full": "gitlab-org/cli#8589"
+        },
+        "severity": "UNKNOWN",
+        "moved_to_id": null,
+        "imported": false,
+        "imported_from": "none",
+        "service_desk_reply_to": null,
+        "epic_iid": 23916,
+        "epic": {
+          "id": 5337728,
+          "iid": 23916,
+          "title": "Work Items REST API in glab",
+          "url": "/groups/gitlab-org/-/epics/23916",
+          "group_id": 9970
+        },
+        "iteration": null,
+        "health_status": null
+      }
+    ]
+  }
+}

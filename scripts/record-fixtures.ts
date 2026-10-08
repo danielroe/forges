@@ -1,9 +1,10 @@
 import type * as Forges from '../src/index.ts'
+import type { Fixture } from '../src/testing/index.ts'
 import type { RecordingManifest, StepContext } from '../test/recording/steps.ts'
 import { mkdirSync, rmSync, writeFileSync } from 'node:fs'
-import { argv, env, exit } from 'node:process'
-
+import { env, exit } from 'node:process'
 import { fileURLToPath } from 'node:url'
+import { parseArgs } from 'node:util'
 import { azureDevOps, bitbucket, cursorOrigin, forgejo, gitea, gitee, github, gitlab, pushin, tangled } from '../src/index.ts'
 import { recordingFetch } from '../src/testing/index.ts'
 import { STEPS } from '../test/recording/steps.ts'
@@ -89,30 +90,34 @@ function redact(value: unknown): unknown {
   return result
 }
 
-const target = argv[2]
+const { positionals: [target], values: flags } = parseArgs({ allowPositionals: true, options: { anonymous: { type: 'boolean', default: false } } })
 const TOKEN_VARIABLES: Record<string, string> = { 'github': 'GITHUB_TOKEN', 'forgejo': 'CODEBERG_TOKEN', 'gitlab': 'GITLAB_TOKEN', 'bitbucket': 'BITBUCKET_TOKEN', 'cursor-origin': 'CURSOR_AUTH_TOKEN', 'gitee': 'GITEE_TOKEN', 'azure-devops': 'AZURE_DEVOPS_TOKEN', 'gitea': 'GITEA_TOKEN', 'pushin': 'PUSHIN_TOKEN' }
 
 if (!target || (target !== 'tangled' && !(target in TOKEN_VARIABLES))) {
-  console.error('Usage: pnpm record-fixtures <github|forgejo|gitlab|bitbucket|tangled|cursor-origin|gitee|azure-devops|gitea|pushin>')
+  console.error('Usage: pnpm record-fixtures <github|forgejo|gitlab|bitbucket|tangled|cursor-origin|gitee|azure-devops|gitea|pushin> [--anonymous]')
   exit(1)
 }
 
-const bitbucketBasic = target === 'bitbucket' && env.BITBUCKET_USERNAME && env.BITBUCKET_APP_PASSWORD
-const token = env[TOKEN_VARIABLES[target] ?? '']
+const bitbucketBasic = !flags.anonymous && target === 'bitbucket' && env.BITBUCKET_USERNAME && env.BITBUCKET_APP_PASSWORD
+const token = flags.anonymous ? undefined : env[TOKEN_VARIABLES[target] ?? '']
 if (!token && !bitbucketBasic && ['cursor-origin', 'azure-devops'].includes(target)) {
-  console.error(`No ${TOKEN_VARIABLES[target]} in the environment or .env.`)
+  console.error(flags.anonymous ? `${target} has no anonymous access.` : `No ${TOKEN_VARIABLES[target]} in the environment or .env.`)
   exit(1)
 }
-if (!token && !bitbucketBasic) {
-  console.info('No token; recording anonymously.')
+const anonymous = target in TOKEN_VARIABLES && !token && !bitbucketBasic
+if (anonymous) {
+  console.info(flags.anonymous ? 'Recording anonymously.' : 'No token; recording anonymously.')
 }
 
 const root = env.FIXTURES_OUT ?? fileURLToPath(new URL(`../test/fixtures/${target}/recorded/`, import.meta.url))
 let out = ''
 
-/** Recordings are kept per instance host, so recording another instance never replaces this one. */
+/**
+ * Recordings are kept per instance host, so recording another instance never
+ * replaces this one. Anonymous recordings go under `<host>-anonymous/`.
+ */
 function useInstance(provider: Forges.ForgeProvider): void {
-  out = `${root}${provider.instance}/`
+  out = `${root}${provider.instance}${anonymous ? '-anonymous' : ''}/`
   rmSync(out, { recursive: true, force: true })
   mkdirSync(out, { recursive: true })
 }
@@ -122,19 +127,18 @@ let failures = 0
 const recorder = recordingFetch(async (input, init) => {
   const response = await fetch(input, init)
   const method = (init?.method ?? 'GET').toUpperCase()
-  const recorded = response.ok || (response.status >= 300 && response.status < 400)
-  console.info(`${recorded ? 'recorded' : 'FAILED  '} ${response.status} ${method} ${input}`)
-  if (!recorded) {
-    failures++
-  }
+  console.info(`${response.status < 400 ? 'recorded' : 'error   '} ${response.status} ${method} ${input}`)
   return response
 }, fixture => ({ ...fixture, response: { ...fixture.response, body: redact(fixture.response.body) } }))
 const recordLive = recorder.fetch
 
+/** Error responses from failed steps, left out of the recording. */
+const discarded = new Set<Fixture>()
+
 function writeFixtures(): void {
   let sequence = 0
   for (const fixture of recorder.fixtures) {
-    if (fixture.response.status >= 400) {
+    if (discarded.has(fixture)) {
       continue
     }
     const { method, url, operationName } = fixture.request
@@ -143,13 +147,21 @@ function writeFixtures(): void {
   }
 }
 
-async function step(name: string, run: () => Promise<unknown>): Promise<void> {
+async function step(name: string, run: () => Promise<unknown>): Promise<boolean> {
+  const start = recorder.fixtures.length
   try {
     await run()
+    return true
   }
   catch (error) {
     failures++
     console.error(`FAILED   ${name}: ${(error as Error).message}`)
+    for (const fixture of recorder.fixtures.slice(start)) {
+      if (fixture.response.status >= 400) {
+        discarded.add(fixture)
+      }
+    }
+    return false
   }
 }
 
@@ -363,7 +375,7 @@ function targetFor(): Target {
 
 const { provider, manifest: partial, prepare, after, skip = [] } = targetFor()
 useInstance(provider)
-const recorded: RecordingManifest = { baseUrl: provider.baseUrl, ...partial, recordedAt: new Date().toISOString(), steps: [] }
+const recorded: RecordingManifest = { baseUrl: provider.baseUrl, ...(anonymous && { anonymous }), ...partial, recordedAt: new Date().toISOString(), steps: [] }
 await prepare?.(recorded)
 const context: StepContext = {}
 for (const item of STEPS) {
@@ -371,9 +383,7 @@ for (const item of STEPS) {
   if (!thread || skip.includes(item.name) || !provider.can(item.verb, item.kind)) {
     continue
   }
-  const before = failures
-  await step(item.name, () => item.run(provider, recorded, context))
-  if (failures === before) {
+  if (await step(item.name, () => item.run(provider, recorded, context))) {
     recorded.steps.push(item.name)
   }
 }
@@ -383,5 +393,5 @@ writeFixtures()
 writeFileSync(`${out}manifest.json`, `${JSON.stringify(recorded, null, 2)}\n`)
 
 if (failures) {
-  console.error(`${failures} request(s) failed; the manifest lists only the steps that succeeded.`)
+  console.error(`${failures} step(s) failed; the manifest lists only the steps that succeeded.`)
 }

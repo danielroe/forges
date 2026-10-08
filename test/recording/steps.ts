@@ -7,6 +7,8 @@ export interface RecordingManifest {
   baseUrl?: string
   /** The instance version, for a recording whose capabilities depend on it. */
   instanceVersion?: string
+  /** Recorded without credentials, so replay creates the provider without them. */
+  anonymous?: boolean
   repo: RepoRef
   pull?: ThreadRef
   issue?: ThreadRef

@@ -1,0 +1,99 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/issues/8572"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"a5887f1f1c8ce031ed24eb899bfe534d\"",
+      "ratelimit-remaining": "480",
+      "ratelimit-reset": "1791474000"
+    },
+    "body": {
+      "id": 205066734,
+      "iid": 8572,
+      "project_id": 34675721,
+      "title": "Add a way to close milestones",
+      "description": "### Problem to solve\n\nRight now you can do the basic CRUD operations on milestones, but you can not close them.\n\n### Proposal\n\nAdd a new flag: `glab milestone edit XXX --close` that would close the given milestone.\n\n### Further details\n\nOur milestones work on a time based, so whenever the period finishes, we create new milestones, move open work items to the these new milestones and finally we close the old milestones.\n\nSo far we can do all of it but the last part, closing milestones.\n\n### Links / references",
+      "state": "closed",
+      "created_at": "2026-10-01T08:48:06.066Z",
+      "updated_at": "2026-10-06T11:38:09.546Z",
+      "closed_at": "2026-10-01T09:05:16.165Z",
+      "closed_by": {
+        "id": 2935693,
+        "username": "phikai",
+        "public_email": "redacted@example.invalid",
+        "name": "Kai Armstrong",
+        "state": "active",
+        "locked": false,
+        "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/2935693/avatar.png?v=1791470810",
+        "web_url": "https://gitlab.com/phikai"
+      },
+      "labels": [
+        "type::feature",
+        "workflow::complete"
+      ],
+      "milestone": null,
+      "assignees": [],
+      "author": {
+        "id": 163582,
+        "username": "gforcada",
+        "public_email": "",
+        "name": "Gil Forcada Codinachs",
+        "state": "active",
+        "locked": false,
+        "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/163582/avatar.png?v=1791429638",
+        "web_url": "https://gitlab.com/gforcada"
+      },
+      "type": "ISSUE",
+      "assignee": null,
+      "user_notes_count": 2,
+      "merge_requests_count": 0,
+      "upvotes": 0,
+      "downvotes": 0,
+      "start_date": null,
+      "due_date": null,
+      "confidential": false,
+      "discussion_locked": null,
+      "issue_type": "issue",
+      "web_url": "https://gitlab.com/gitlab-org/cli/-/work_items/8572",
+      "time_stats": {
+        "time_estimate": 0,
+        "total_time_spent": 0,
+        "human_time_estimate": null,
+        "human_total_time_spent": null
+      },
+      "task_completion_status": {
+        "count": 0,
+        "completed_count": 0
+      },
+      "weight": null,
+      "blocking_issues_count": 0,
+      "has_tasks": true,
+      "task_status": "0 of 0 checklist items completed",
+      "_links": {
+        "self": "https://gitlab.com/api/v4/projects/34675721/issues/8572",
+        "notes": "https://gitlab.com/api/v4/projects/34675721/issues/8572/notes",
+        "award_emoji": "https://gitlab.com/api/v4/projects/34675721/issues/8572/award_emoji",
+        "project": "https://gitlab.com/api/v4/projects/34675721",
+        "closed_as_duplicate_of": null
+      },
+      "references": {
+        "short": "#8572",
+        "relative": "#8572",
+        "full": "gitlab-org/cli#8572"
+      },
+      "severity": "UNKNOWN",
+      "subscribed": false,
+      "moved_to_id": null,
+      "imported": false,
+      "imported_from": "none",
+      "service_desk_reply_to": null,
+      "epic_iid": null,
+      "epic": null,
+      "iteration": null,
+      "health_status": null
+    }
+  }
+}

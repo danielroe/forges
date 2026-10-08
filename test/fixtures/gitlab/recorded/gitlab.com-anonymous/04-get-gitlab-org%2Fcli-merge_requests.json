@@ -1,0 +1,397 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/merge_requests?state=opened&order_by=created_at&sort=desc&per_page=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "<https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/merge_requests?id=gitlab-org%2Fcli&order_by=created_at&page=2&per_page=3&sort=desc&state=opened&with_labels_details=false&with_merge_status_recheck=false>; rel=\"next\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/merge_requests?id=gitlab-org%2Fcli&order_by=created_at&page=1&per_page=3&sort=desc&state=opened&with_labels_details=false&with_merge_status_recheck=false>; rel=\"first\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/merge_requests?id=gitlab-org%2Fcli&order_by=created_at&page=28&per_page=3&sort=desc&state=opened&with_labels_details=false&with_merge_status_recheck=false>; rel=\"last\"",
+      "etag": "W/\"db6c9562577e0ca1f113af1738064eb1\"",
+      "ratelimit-remaining": "493",
+      "ratelimit-reset": "1791473940",
+      "x-total": "83",
+      "x-total-pages": "28",
+      "x-next-page": "2",
+      "x-page": "1",
+      "x-per-page": "3"
+    },
+    "body": [
+      {
+        "id": 545153896,
+        "iid": 4040,
+        "project_id": 34675721,
+        "title": "fix(release): send asset links in the create release request",
+        "description": "## Description\n\nThis MR fixes gitlab-org/gitlab#574029. We have been \"handling\" it by manually editing and saving each release after it was created. It was quite inconvenient, so before adding a hacky stage to automate it we threw an agent at it to see how it could be properly fixed.\n\nThe main change is that instead of having the links get sent separately, they get sent in the create request. If the release already exists, it goes through the existing route.\n\n## Related Issues\nResolves gitlab-org/gitlab#574029 (it was closed without a fix)\n\nRelated to #7859 (feedback issue for the move from release-cli to glab)\n\n## How has this been tested?\n\n- Unit tests for `ToReleaseAssetsOptions`\n- Updated the create test with the new behavior\n- End-to-end manual test (not included):\n    - Our company's self-managed instance\n    - `release:` job with one link\n    - release-cli container image carrying this glab\n    - Replaced the used image with the patched one\n    - Running a tag release generated the expected effect",
+        "state": "opened",
+        "created_at": "2026-10-08T11:30:25.375Z",
+        "updated_at": "2026-10-08T15:37:23.577Z",
+        "merged_by": null,
+        "merge_user": null,
+        "merged_at": null,
+        "closed_by": null,
+        "closed_at": null,
+        "target_branch": "main",
+        "source_branch": "fix/release-create-links-in-create-request-upstream",
+        "user_notes_count": 4,
+        "upvotes": 0,
+        "downvotes": 0,
+        "author": {
+          "id": 27526901,
+          "username": "RabadanDotDev",
+          "public_email": "",
+          "name": "Raul Rabadan Arroyo",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/27526901/avatar.png?v=1791456591",
+          "web_url": "https://gitlab.com/RabadanDotDev",
+          "bot": false
+        },
+        "assignees": [
+          {
+            "id": 27526901,
+            "username": "RabadanDotDev",
+            "public_email": "",
+            "name": "Raul Rabadan Arroyo",
+            "state": "active",
+            "locked": false,
+            "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/27526901/avatar.png?v=1791456591",
+            "web_url": "https://gitlab.com/RabadanDotDev"
+          }
+        ],
+        "assignee": {
+          "id": 27526901,
+          "username": "RabadanDotDev",
+          "public_email": "",
+          "name": "Raul Rabadan Arroyo",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/27526901/avatar.png?v=1791456591",
+          "web_url": "https://gitlab.com/RabadanDotDev"
+        },
+        "reviewers": [
+          {
+            "id": 20358008,
+            "username": "jachapman",
+            "public_email": "",
+            "name": "Jack Chapman",
+            "state": "active",
+            "locked": false,
+            "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/20358008/avatar.png?v=1791457524",
+            "web_url": "https://gitlab.com/jachapman"
+          },
+          {
+            "id": 21826781,
+            "username": "GitLabDuo",
+            "public_email": null,
+            "name": "GitLab Duo",
+            "state": "active",
+            "locked": false,
+            "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/21826781/duo-bot.png?v=1781708173",
+            "web_url": "https://gitlab.com/GitLabDuo"
+          }
+        ],
+        "source_project_id": 87382140,
+        "target_project_id": 34675721,
+        "labels": [
+          "1st contribution",
+          "Community contribution",
+          "Hackathon",
+          "devops::ai coding",
+          "group::code review",
+          "linked-issue",
+          "section::ai",
+          "type::maintenance",
+          "workflow::ready for review"
+        ],
+        "draft": false,
+        "imported": false,
+        "imported_from": "none",
+        "work_in_progress": false,
+        "milestone": null,
+        "merge_when_pipeline_succeeds": false,
+        "merge_status": "can_be_merged",
+        "detailed_merge_status": "discussions_not_resolved",
+        "merge_after": null,
+        "sha": "2fe33e2c4598e45b69f9a3f8da1282b6ad7d9942",
+        "merge_commit_sha": null,
+        "squash_commit_sha": null,
+        "discussion_locked": null,
+        "should_remove_source_branch": null,
+        "force_remove_source_branch": true,
+        "prepared_at": "2026-10-08T11:30:28.009Z",
+        "allow_collaboration": true,
+        "allow_maintainer_to_push": true,
+        "reference": "!4040",
+        "references": {
+          "short": "!4040",
+          "relative": "!4040",
+          "full": "gitlab-org/cli!4040"
+        },
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/merge_requests/4040",
+        "time_stats": {
+          "time_estimate": 0,
+          "total_time_spent": 0,
+          "human_time_estimate": null,
+          "human_total_time_spent": null
+        },
+        "squash": true,
+        "squash_on_merge": true,
+        "task_completion_status": {
+          "count": 0,
+          "completed_count": 0
+        },
+        "has_conflicts": false,
+        "blocking_discussions_resolved": false,
+        "approvals_before_merge": null
+      },
+      {
+        "id": 544989175,
+        "iid": 4039,
+        "project_id": 34675721,
+        "title": "ci: fetch docs review app tokens from group secrets",
+        "description": "Updates the docs review app jobs to fetch `DOCS_PROJECT_API_TOKEN` and `DOCS_TRIGGER_TOKEN` from the `gitlab-org` group Secrets Manager.\n\n- Related to https://gitlab.com/gitlab-org/gitlab/-/work_items/601780+\n- Related to https://gitlab.com/gitlab-org/technical-writing/docs-gitlab-com/-/work_items/783+\n\nSuccessful review app deployment: https://gitlab.com/gitlab-org/cli/-/jobs/17021636786\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)",
+        "state": "opened",
+        "created_at": "2026-10-08T06:45:11.363Z",
+        "updated_at": "2026-10-08T14:40:20.869Z",
+        "merged_by": null,
+        "merge_user": null,
+        "merged_at": null,
+        "closed_by": null,
+        "closed_at": null,
+        "target_branch": "main",
+        "source_branch": "docs-review-app-group-secrets",
+        "user_notes_count": 2,
+        "upvotes": 0,
+        "downvotes": 0,
+        "author": {
+          "id": 4155490,
+          "username": "marcel.amirault",
+          "public_email": "",
+          "name": "Marcel Amirault",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/4155490/avatar.png?v=1791470973",
+          "web_url": "https://gitlab.com/marcel.amirault",
+          "bot": false
+        },
+        "assignees": [
+          {
+            "id": 4155490,
+            "username": "marcel.amirault",
+            "public_email": "",
+            "name": "Marcel Amirault",
+            "state": "active",
+            "locked": false,
+            "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/4155490/avatar.png?v=1791470973",
+            "web_url": "https://gitlab.com/marcel.amirault"
+          }
+        ],
+        "assignee": {
+          "id": 4155490,
+          "username": "marcel.amirault",
+          "public_email": "",
+          "name": "Marcel Amirault",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/4155490/avatar.png?v=1791470973",
+          "web_url": "https://gitlab.com/marcel.amirault"
+        },
+        "reviewers": [
+          {
+            "id": 11809982,
+            "username": "jay_mccure",
+            "public_email": "",
+            "name": "Jay McCure",
+            "state": "active",
+            "locked": false,
+            "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1791444159",
+            "web_url": "https://gitlab.com/jay_mccure"
+          },
+          {
+            "id": 21826781,
+            "username": "GitLabDuo",
+            "public_email": null,
+            "name": "GitLab Duo",
+            "state": "active",
+            "locked": false,
+            "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/21826781/duo-bot.png?v=1781708173",
+            "web_url": "https://gitlab.com/GitLabDuo"
+          }
+        ],
+        "source_project_id": 34675721,
+        "target_project_id": 34675721,
+        "labels": [
+          "Technical Writing",
+          "maintenance::pipelines",
+          "type::maintenance"
+        ],
+        "draft": false,
+        "imported": false,
+        "imported_from": "none",
+        "work_in_progress": false,
+        "milestone": {
+          "id": 7324669,
+          "iid": 144,
+          "group_id": 9970,
+          "title": "19.6",
+          "description": "",
+          "state": "active",
+          "created_at": "2026-03-03T22:58:31.265Z",
+          "updated_at": "2026-03-03T22:58:31.265Z",
+          "due_date": "2026-11-13",
+          "start_date": "2026-10-10",
+          "expired": false,
+          "web_url": "https://gitlab.com/groups/gitlab-org/-/milestones/144"
+        },
+        "merge_when_pipeline_succeeds": false,
+        "merge_status": "can_be_merged",
+        "detailed_merge_status": "not_approved",
+        "merge_after": null,
+        "sha": "e5744837964583c704f00328e92496fb11dd9e30",
+        "merge_commit_sha": null,
+        "squash_commit_sha": null,
+        "discussion_locked": null,
+        "should_remove_source_branch": null,
+        "force_remove_source_branch": true,
+        "prepared_at": "2026-10-08T06:45:13.973Z",
+        "reference": "!4039",
+        "references": {
+          "short": "!4039",
+          "relative": "!4039",
+          "full": "gitlab-org/cli!4039"
+        },
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/merge_requests/4039",
+        "time_stats": {
+          "time_estimate": 0,
+          "total_time_spent": 0,
+          "human_time_estimate": null,
+          "human_total_time_spent": null
+        },
+        "squash": true,
+        "squash_on_merge": true,
+        "task_completion_status": {
+          "count": 0,
+          "completed_count": 0
+        },
+        "has_conflicts": false,
+        "blocking_discussions_resolved": true,
+        "approvals_before_merge": null
+      },
+      {
+        "id": 544928263,
+        "iid": 4038,
+        "project_id": 34675721,
+        "title": "fix(repo): send topics instead of deprecated tag_list",
+        "description": "## Description\n\n`glab repo create --tag <value>` puts the values in `CreateProjectOptions.TagList`, which sends the\n`tag_list` API field. GitLab deprecated `tag_list` in 14.0 in favour of `topics`, and client-go marks\nthe field `Deprecated: Use Topics instead`. Because of that, `project_create.go` is one of the files\nlisted in the staticcheck `SA1019` exclusion in `.golangci.yml`, under the TODO\n\"drop these once the deprecated fields are migrated\".\n\nThis MR:\n\n- Sends the `--tag` values as `Topics` instead of `TagList`.\n- Removes `internal/commands/project/create/project_create` from that `SA1019` exclusion.\n- Changes the `--tag` help from \"The list of tags for the project.\" to \"The list of topics for the\n  project.\", which matches the GitLab UI and avoids confusion with Git tags. Docs regenerated with\n  `make gen-docs`.\n- Adds `Test_projectCreateCmd_TagsSentAsTopics`, which checks that `--tag go --tag cli` reaches the\n  API call as `Topics: [\"go\", \"cli\"]`.\n\nThere is no change for users: in GitLab, `Projects::CreateService#build_topics` uses\n`params[:topics] || params[:tag_list]`, so both fields end up in the same place. `topics` has been\naccepted since GitLab 14.0.\n\nThe flag name `--tag` / `-t` stays the same.\n\n## Related Issues\n\nNone found. Searched issues and MRs (all states) for \"TagList\", \"tag_list\", \"topics\",\n\"project topics\", \"repo create tag\", \"SA1019\", \"deprecated fields\".\n\n## How has this been tested?\n\n- `go run ./cmd/gen-docs/docs.go` (same as `make gen-docs`): only the `--tag` line in\n  `docs/source/repo/create.md` changed.\n- `go build ./...`\n- `go vet ./internal/commands/project/create/`\n- `go test ./internal/commands/project/create/` (all tests pass, including the new one).\n- `staticcheck ./internal/commands/project/create/` reports nothing now, so the exclusion is no\n  longer needed for this file.\n\nThis contribution was prepared with the help of an AI assistant. I reviewed the changes and take responsibility for them.",
+        "state": "opened",
+        "created_at": "2026-10-08T03:23:57.896Z",
+        "updated_at": "2026-10-08T13:31:28.060Z",
+        "merged_by": null,
+        "merge_user": null,
+        "merged_at": null,
+        "closed_by": null,
+        "closed_at": null,
+        "target_branch": "main",
+        "source_branch": "anishisbusy/repo-create-topics",
+        "user_notes_count": 4,
+        "upvotes": 0,
+        "downvotes": 0,
+        "author": {
+          "id": 25337378,
+          "username": "anishisbusy",
+          "public_email": "",
+          "name": "Anish Kumar",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/25337378/avatar.png?v=1791473609",
+          "web_url": "https://gitlab.com/anishisbusy",
+          "bot": false
+        },
+        "assignees": [
+          {
+            "id": 25337378,
+            "username": "anishisbusy",
+            "public_email": "",
+            "name": "Anish Kumar",
+            "state": "active",
+            "locked": false,
+            "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/25337378/avatar.png?v=1791473609",
+            "web_url": "https://gitlab.com/anishisbusy"
+          }
+        ],
+        "assignee": {
+          "id": 25337378,
+          "username": "anishisbusy",
+          "public_email": "",
+          "name": "Anish Kumar",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/25337378/avatar.png?v=1791473609",
+          "web_url": "https://gitlab.com/anishisbusy"
+        },
+        "reviewers": [
+          {
+            "id": 11701495,
+            "username": "deepika.guliani",
+            "public_email": "redacted@example.invalid",
+            "name": "Deepika Guliani",
+            "state": "active",
+            "locked": false,
+            "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11701495/avatar.png?v=1791431632",
+            "web_url": "https://gitlab.com/deepika.guliani"
+          }
+        ],
+        "source_project_id": 45049979,
+        "target_project_id": 34675721,
+        "labels": [
+          "Community contribution",
+          "Hackathon",
+          "documentation",
+          "tw::triaged",
+          "workflow::ready for review"
+        ],
+        "draft": false,
+        "imported": false,
+        "imported_from": "none",
+        "work_in_progress": false,
+        "milestone": null,
+        "merge_when_pipeline_succeeds": false,
+        "merge_status": "can_be_merged",
+        "detailed_merge_status": "not_approved",
+        "merge_after": null,
+        "sha": "b4feaccdd217d199ed18d15d3acd4447bbf677b3",
+        "merge_commit_sha": null,
+        "squash_commit_sha": null,
+        "discussion_locked": null,
+        "should_remove_source_branch": null,
+        "force_remove_source_branch": true,
+        "prepared_at": "2026-10-08T03:24:00.706Z",
+        "allow_collaboration": true,
+        "allow_maintainer_to_push": true,
+        "reference": "!4038",
+        "references": {
+          "short": "!4038",
+          "relative": "!4038",
+          "full": "gitlab-org/cli!4038"
+        },
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/merge_requests/4038",
+        "time_stats": {
+          "time_estimate": 0,
+          "total_time_spent": 0,
+          "human_time_estimate": null,
+          "human_total_time_spent": null
+        },
+        "squash": true,
+        "squash_on_merge": true,
+        "task_completion_status": {
+          "count": 0,
+          "completed_count": 0
+        },
+        "has_conflicts": false,
+        "blocking_discussions_resolved": true,
+        "approvals_before_merge": null
+      }
+    ]
+  }
+}

@@ -1,0 +1,143 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/pipelines/2927190635/jobs?per_page=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "<https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/pipelines/2927190635/jobs?id=gitlab-org%2Fcli&include_retried=false&page=1&per_page=3&pipeline_id=2927190635>; rel=\"first\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/pipelines/2927190635/jobs?id=gitlab-org%2Fcli&include_retried=false&page=1&per_page=3&pipeline_id=2927190635>; rel=\"last\"",
+      "etag": "W/\"786073b3cd02cee16974f6bca54c041a\"",
+      "ratelimit-remaining": "469",
+      "ratelimit-reset": "1791474000",
+      "x-total": "1",
+      "x-total-pages": "1",
+      "x-next-page": "",
+      "x-page": "1",
+      "x-per-page": "3"
+    },
+    "body": [
+      {
+        "id": 17036018767,
+        "status": "running",
+        "stage": "build",
+        "name": "workload",
+        "ref": "refs/workloads/85bbe4ba37d",
+        "tag": false,
+        "coverage": null,
+        "allow_failure": false,
+        "created_at": "2026-10-08T15:37:30.471Z",
+        "started_at": "2026-10-08T15:37:30.949Z",
+        "finished_at": null,
+        "erased_at": null,
+        "duration": 94.448495504,
+        "queued_duration": 0.122989,
+        "user": {
+          "id": 32742181,
+          "username": "duo-code-review-gitlab-org",
+          "public_email": null,
+          "name": "Duo Code Review",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/32742181/code-review-flow.png?v=1791417632",
+          "web_url": "https://gitlab.com/duo-code-review-gitlab-org",
+          "created_at": "2026-01-07T09:48:25.291Z",
+          "bio": "",
+          "location": "",
+          "linkedin": "",
+          "twitter": "",
+          "discord": "",
+          "website_url": "",
+          "github": "",
+          "job_title": "",
+          "pronouns": null,
+          "organization": "",
+          "bot": true,
+          "work_information": null,
+          "followers": 0,
+          "following": 0,
+          "local_time": null
+        },
+        "commit": {
+          "id": "8ae0c0ef5cf94d75354053095bbdc2ec7fefd96f",
+          "short_id": "8ae0c0ef",
+          "created_at": "2026-10-07T16:53:26.000-05:00",
+          "parent_ids": [
+            "2da6525661e7508e9a6990d4d3981f2d4e2b0ff5",
+            "c96c824fc26597ea5a27a3e5a0aad746f7a4baf9"
+          ],
+          "title": "Merge branch 'docs/update-code-of-conduct-link' into 'main'",
+          "message": "Merge branch 'docs/update-code-of-conduct-link' into 'main'\n\ndocs: update Code of Conduct link in README\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/3999\n\nMerged-by: Kai Armstrong <redacted@example.invalid>\nApproved-by: Kai Armstrong <redacted@example.invalid>\nCo-authored-by: Ahmed Anwar <redacted@example.invalid>",
+          "author_name": "Kai Armstrong",
+          "author_email": "redacted@example.invalid",
+          "authored_date": "2026-10-07T16:53:26.000-05:00",
+          "committer_name": "GitLab",
+          "committer_email": "redacted@example.invalid",
+          "committed_date": "2026-10-07T16:53:26.000-05:00",
+          "trailers": {},
+          "extended_trailers": {},
+          "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/8ae0c0ef5cf94d75354053095bbdc2ec7fefd96f"
+        },
+        "pipeline": {
+          "id": 2927190635,
+          "iid": 14921,
+          "project_id": 34675721,
+          "sha": "8ae0c0ef5cf94d75354053095bbdc2ec7fefd96f",
+          "ref": "refs/workloads/85bbe4ba37d",
+          "status": "running",
+          "source": "duo_workflow",
+          "created_at": "2026-10-08T15:37:30.388Z",
+          "updated_at": "2026-10-08T15:37:31.070Z",
+          "web_url": "https://gitlab.com/gitlab-org/cli/-/pipelines/2927190635"
+        },
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/jobs/17036018767",
+        "project": {
+          "ci_job_token_scope_enabled": false
+        },
+        "artifacts": [],
+        "runner": {
+          "id": 54907241,
+          "description": "k8s.saas-linux-small-amd64.runners-manager.gitlab.com/default ",
+          "ip_address": null,
+          "active": true,
+          "paused": false,
+          "is_shared": true,
+          "runner_type": "instance_type",
+          "name": null,
+          "online": true,
+          "created_by": {
+            "id": 6515150,
+            "username": "rhassanein-admin",
+            "public_email": "",
+            "name": "Rehab Hassanein",
+            "state": "active",
+            "locked": false,
+            "avatar_url": "https://secure.gravatar.com/avatar/f666d7b03304319b77d3e0eef49a7ea0f3f97f813536109786338b6468d7d34f?s=80&d=identicon",
+            "web_url": "https://gitlab.com/rhassanein-admin"
+          },
+          "created_at": "2026-08-06T11:12:30.404Z",
+          "status": "online",
+          "job_execution_status": "active"
+        },
+        "runner_manager": {
+          "id": 161412807,
+          "system_id": "r_bMHUEFz44Sac",
+          "version": "19.5.0~pre.2249.g29703ea1",
+          "revision": "29703ea1",
+          "platform": "linux",
+          "architecture": "amd64",
+          "created_at": "2026-10-08T15:02:57.099Z",
+          "contacted_at": "2026-10-08T15:39:05.420Z",
+          "ip_address": "10.218.11.3",
+          "status": "online",
+          "job_execution_status": "active"
+        },
+        "artifacts_expire_at": null,
+        "archived": false,
+        "tag_list": [
+          "gitlab--duo"
+        ]
+      }
+    ]
+  }
+}

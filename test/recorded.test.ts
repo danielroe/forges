@@ -42,14 +42,15 @@ const REASONS: NotificationReason[] = [
 
 type Create = (fetch: FetchLike, manifest: Manifest, messages?: unknown[]) => ForgeProvider
 
-const auth = { type: 'token', token: 't' } as const
+const token = { type: 'token', token: 't' } as const
+const authFor = ({ anonymous }: Manifest) => anonymous ? undefined : token
 const providers: Array<{ name: string, create: Create }> = [
-  { name: 'github', create: (fetch, { baseUrl }) => github({ auth, baseUrl, fetch }).create() },
-  { name: 'forgejo', create: (fetch, { baseUrl, instanceVersion }) => forgejo({ auth, baseUrl, instanceVersion, fetch }).create() },
-  { name: 'gitea', create: (fetch, { baseUrl }) => gitea({ auth, baseUrl, fetch }).create() },
-  { name: 'gitlab', create: (fetch, { baseUrl }) => gitlab({ auth, baseUrl, fetch }).create() },
-  { name: 'bitbucket', create: (fetch, { baseUrl }) => bitbucket({ auth, baseUrl, fetch }).create() },
-  { name: 'pushin', create: (fetch, { baseUrl }) => pushin({ auth, baseUrl, fetch }).create() },
+  { name: 'github', create: (fetch, manifest) => github({ auth: authFor(manifest), baseUrl: manifest.baseUrl, fetch }).create() },
+  { name: 'forgejo', create: (fetch, manifest) => forgejo({ auth: authFor(manifest), baseUrl: manifest.baseUrl, instanceVersion: manifest.instanceVersion, fetch }).create() },
+  { name: 'gitea', create: (fetch, manifest) => gitea({ auth: authFor(manifest), baseUrl: manifest.baseUrl, fetch }).create() },
+  { name: 'gitlab', create: (fetch, manifest) => gitlab({ auth: authFor(manifest), baseUrl: manifest.baseUrl, fetch }).create() },
+  { name: 'bitbucket', create: (fetch, manifest) => bitbucket({ auth: authFor(manifest), baseUrl: manifest.baseUrl, fetch }).create() },
+  { name: 'pushin', create: (fetch, manifest) => pushin({ auth: authFor(manifest), baseUrl: manifest.baseUrl, fetch }).create() },
   {
     name: 'tangled',
     create: (fetch, manifest, messages = []) => tangled({
@@ -76,7 +77,7 @@ function golden(value: unknown, now: number): string {
   }, 2)}\n`
 }
 
-/** One recording per instance host, under `<provider>/recorded/<host>/`. */
+/** One recording per instance host, under `<provider>/recorded/<host>/`, plus `<host>-anonymous/` for one made without credentials. */
 function recordings(name: string): string[] {
   const root = fixtureDirectory(`${name}/recorded`)
   return existsSync(root) ? readdirSync(root, { withFileTypes: true }).filter(entry => entry.isDirectory()).map(entry => `${name}/recorded/${entry.name}`) : []

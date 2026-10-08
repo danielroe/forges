@@ -2,7 +2,8 @@
 
 The fixtures outside `recorded/` are hand-authored from the public GitLab REST
 API documentation. `recorded/` holds reads recorded by
-`pnpm record-fixtures gitlab`.
+`pnpm record-fixtures gitlab`, and `recorded/gitlab.com-anonymous/` holds
+the reads that succeed without credentials, recorded with `--anonymous`.
 
 The project lives in a nested group (`acme/platform/widgets`) so the namespace
 handling is exercised. The page 2 to-do points at a group-level epic with no

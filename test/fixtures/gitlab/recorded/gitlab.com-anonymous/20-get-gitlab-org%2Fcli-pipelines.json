@@ -1,0 +1,59 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/pipelines?per_page=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "<https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/pipelines?id=gitlab-org%2Fcli&order_by=id&page=2&per_page=3&sort=desc>; rel=\"next\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/pipelines?id=gitlab-org%2Fcli&order_by=id&page=1&per_page=3&sort=desc>; rel=\"first\"",
+      "etag": "W/\"7e8a7357f44d743ef0b37cc6fc3cf9bc\"",
+      "ratelimit-remaining": "471",
+      "ratelimit-reset": "1791474000",
+      "x-next-page": "2",
+      "x-page": "1",
+      "x-per-page": "3"
+    },
+    "body": [
+      {
+        "id": 2927190635,
+        "iid": 14921,
+        "project_id": 34675721,
+        "sha": "8ae0c0ef5cf94d75354053095bbdc2ec7fefd96f",
+        "ref": "refs/workloads/85bbe4ba37d",
+        "status": "running",
+        "source": "duo_workflow",
+        "created_at": "2026-10-08T15:37:30.388Z",
+        "updated_at": "2026-10-08T15:37:31.070Z",
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/pipelines/2927190635",
+        "name": null
+      },
+      {
+        "id": 2926469141,
+        "iid": 14920,
+        "project_id": 34675721,
+        "sha": "8ae0c0ef5cf94d75354053095bbdc2ec7fefd96f",
+        "ref": "refs/workloads/b64af0bfa5b",
+        "status": "success",
+        "source": "duo_workflow",
+        "created_at": "2026-10-08T12:29:48.122Z",
+        "updated_at": "2026-10-08T12:31:05.001Z",
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/pipelines/2926469141",
+        "name": null
+      },
+      {
+        "id": 2926294988,
+        "iid": 14919,
+        "project_id": 34675721,
+        "sha": "e5744837964583c704f00328e92496fb11dd9e30",
+        "ref": "refs/workloads/f766c5edc91",
+        "status": "success",
+        "source": "duo_workflow",
+        "created_at": "2026-10-08T11:43:10.765Z",
+        "updated_at": "2026-10-08T11:46:38.701Z",
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/pipelines/2926294988",
+        "name": null
+      }
+    ]
+  }
+}

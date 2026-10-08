@@ -1,0 +1,2282 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/pipelines/2904802294/jobs?per_page=100"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "<https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/pipelines/2904802294/jobs?id=gitlab-org%2Fcli&include_retried=false&page=1&per_page=100&pipeline_id=2904802294>; rel=\"first\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/pipelines/2904802294/jobs?id=gitlab-org%2Fcli&include_retried=false&page=1&per_page=100&pipeline_id=2904802294>; rel=\"last\"",
+      "etag": "W/\"38adabc779b961499831b075c5ce50fe\"",
+      "ratelimit-remaining": "486",
+      "ratelimit-reset": "1791473940",
+      "x-total": "19",
+      "x-total-pages": "1",
+      "x-next-page": "",
+      "x-page": "1",
+      "x-per-page": "100"
+    },
+    "body": [
+      {
+        "id": 16883566857,
+        "status": "manual",
+        "stage": "review",
+        "name": "review-docs-cleanup",
+        "ref": "refs/merge-requests/3988/train",
+        "tag": false,
+        "coverage": null,
+        "allow_failure": true,
+        "created_at": "2026-10-01T23:42:11.886Z",
+        "started_at": null,
+        "finished_at": null,
+        "erased_at": null,
+        "duration": null,
+        "queued_duration": null,
+        "user": {
+          "id": 11809982,
+          "username": "jay_mccure",
+          "public_email": "",
+          "name": "Jay McCure",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1791444159",
+          "web_url": "https://gitlab.com/jay_mccure",
+          "created_at": "2022-06-12T22:51:50.999Z",
+          "bio": "",
+          "location": "Brisbane, Australia",
+          "linkedin": "jmccure",
+          "twitter": "",
+          "discord": "",
+          "website_url": "",
+          "github": "",
+          "job_title": "Senior Backend Engineer",
+          "pronouns": "He/Him",
+          "organization": "GitLab",
+          "bot": false,
+          "work_information": "Senior Backend Engineer at GitLab",
+          "followers": 12,
+          "following": 0,
+          "local_time": "1:38 AM"
+        },
+        "commit": {
+          "id": "c8f8f604c964f29b6765c7ef33aaadada03564f1",
+          "short_id": "c8f8f604",
+          "created_at": "2026-10-02T09:42:09.000+10:00",
+          "parent_ids": [
+            "5a38b3968afe46c133029595f4fcad920909a6fe",
+            "37ea25e1cf97b7e40c6d862c45ab32cec0f10b99"
+          ],
+          "title": "Merge branch 'renovate/golangci-lint-version' into 'main'",
+          "message": "Merge branch 'renovate/golangci-lint-version' into 'main'\n\nchore(deps): bump golangci-lint to v2.14.0\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/3988\n\nMerged-by: Jay McCure <redacted@example.invalid>\nApproved-by: Jay McCure <redacted@example.invalid>\nCo-authored-by: GitLab Renovate Bot <redacted@example.invalid>",
+          "author_name": "Jay McCure",
+          "author_email": "redacted@example.invalid",
+          "authored_date": "2026-10-02T09:42:09.000+10:00",
+          "committer_name": "GitLab",
+          "committer_email": "redacted@example.invalid",
+          "committed_date": "2026-10-02T09:42:09.000+10:00",
+          "trailers": {},
+          "extended_trailers": {},
+          "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/c8f8f604c964f29b6765c7ef33aaadada03564f1"
+        },
+        "pipeline": {
+          "id": 2904802294,
+          "iid": 14682,
+          "project_id": 34675721,
+          "sha": "c8f8f604c964f29b6765c7ef33aaadada03564f1",
+          "ref": "refs/merge-requests/3988/train",
+          "status": "success",
+          "source": "merge_request_event",
+          "created_at": "2026-10-01T23:42:11.739Z",
+          "updated_at": "2026-10-01T23:49:45.140Z",
+          "web_url": "https://gitlab.com/gitlab-org/cli/-/pipelines/2904802294"
+        },
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/jobs/16883566857",
+        "project": {
+          "ci_job_token_scope_enabled": false
+        },
+        "artifacts": [],
+        "runner": null,
+        "runner_manager": null,
+        "artifacts_expire_at": null,
+        "archived": false,
+        "tag_list": [
+          "saas-linux-medium-amd64"
+        ]
+      },
+      {
+        "id": 16883566856,
+        "status": "manual",
+        "stage": "review",
+        "name": "review-docs-deploy",
+        "ref": "refs/merge-requests/3988/train",
+        "tag": false,
+        "coverage": null,
+        "allow_failure": true,
+        "created_at": "2026-10-01T23:42:11.886Z",
+        "started_at": null,
+        "finished_at": null,
+        "erased_at": null,
+        "duration": null,
+        "queued_duration": null,
+        "user": {
+          "id": 11809982,
+          "username": "jay_mccure",
+          "public_email": "",
+          "name": "Jay McCure",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1791444159",
+          "web_url": "https://gitlab.com/jay_mccure",
+          "created_at": "2022-06-12T22:51:50.999Z",
+          "bio": "",
+          "location": "Brisbane, Australia",
+          "linkedin": "jmccure",
+          "twitter": "",
+          "discord": "",
+          "website_url": "",
+          "github": "",
+          "job_title": "Senior Backend Engineer",
+          "pronouns": "He/Him",
+          "organization": "GitLab",
+          "bot": false,
+          "work_information": "Senior Backend Engineer at GitLab",
+          "followers": 12,
+          "following": 0,
+          "local_time": "1:38 AM"
+        },
+        "commit": {
+          "id": "c8f8f604c964f29b6765c7ef33aaadada03564f1",
+          "short_id": "c8f8f604",
+          "created_at": "2026-10-02T09:42:09.000+10:00",
+          "parent_ids": [
+            "5a38b3968afe46c133029595f4fcad920909a6fe",
+            "37ea25e1cf97b7e40c6d862c45ab32cec0f10b99"
+          ],
+          "title": "Merge branch 'renovate/golangci-lint-version' into 'main'",
+          "message": "Merge branch 'renovate/golangci-lint-version' into 'main'\n\nchore(deps): bump golangci-lint to v2.14.0\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/3988\n\nMerged-by: Jay McCure <redacted@example.invalid>\nApproved-by: Jay McCure <redacted@example.invalid>\nCo-authored-by: GitLab Renovate Bot <redacted@example.invalid>",
+          "author_name": "Jay McCure",
+          "author_email": "redacted@example.invalid",
+          "authored_date": "2026-10-02T09:42:09.000+10:00",
+          "committer_name": "GitLab",
+          "committer_email": "redacted@example.invalid",
+          "committed_date": "2026-10-02T09:42:09.000+10:00",
+          "trailers": {},
+          "extended_trailers": {},
+          "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/c8f8f604c964f29b6765c7ef33aaadada03564f1"
+        },
+        "pipeline": {
+          "id": 2904802294,
+          "iid": 14682,
+          "project_id": 34675721,
+          "sha": "c8f8f604c964f29b6765c7ef33aaadada03564f1",
+          "ref": "refs/merge-requests/3988/train",
+          "status": "success",
+          "source": "merge_request_event",
+          "created_at": "2026-10-01T23:42:11.739Z",
+          "updated_at": "2026-10-01T23:49:45.140Z",
+          "web_url": "https://gitlab.com/gitlab-org/cli/-/pipelines/2904802294"
+        },
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/jobs/16883566856",
+        "project": {
+          "ci_job_token_scope_enabled": false
+        },
+        "artifacts": [],
+        "runner": null,
+        "runner_manager": null,
+        "artifacts_expire_at": null,
+        "archived": false,
+        "tag_list": [
+          "saas-linux-medium-amd64"
+        ]
+      },
+      {
+        "id": 16883566855,
+        "status": "success",
+        "stage": "build",
+        "name": "snapcraft_build_edge",
+        "ref": "refs/merge-requests/3988/train",
+        "tag": false,
+        "coverage": null,
+        "allow_failure": false,
+        "created_at": "2026-10-01T23:42:11.886Z",
+        "started_at": "2026-10-01T23:42:13.546Z",
+        "finished_at": "2026-10-01T23:44:54.131Z",
+        "erased_at": null,
+        "duration": 160.584934,
+        "queued_duration": 0.342757,
+        "user": {
+          "id": 11809982,
+          "username": "jay_mccure",
+          "public_email": "",
+          "name": "Jay McCure",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1791444159",
+          "web_url": "https://gitlab.com/jay_mccure",
+          "created_at": "2022-06-12T22:51:50.999Z",
+          "bio": "",
+          "location": "Brisbane, Australia",
+          "linkedin": "jmccure",
+          "twitter": "",
+          "discord": "",
+          "website_url": "",
+          "github": "",
+          "job_title": "Senior Backend Engineer",
+          "pronouns": "He/Him",
+          "organization": "GitLab",
+          "bot": false,
+          "work_information": "Senior Backend Engineer at GitLab",
+          "followers": 12,
+          "following": 0,
+          "local_time": "1:38 AM"
+        },
+        "commit": {
+          "id": "c8f8f604c964f29b6765c7ef33aaadada03564f1",
+          "short_id": "c8f8f604",
+          "created_at": "2026-10-02T09:42:09.000+10:00",
+          "parent_ids": [
+            "5a38b3968afe46c133029595f4fcad920909a6fe",
+            "37ea25e1cf97b7e40c6d862c45ab32cec0f10b99"
+          ],
+          "title": "Merge branch 'renovate/golangci-lint-version' into 'main'",
+          "message": "Merge branch 'renovate/golangci-lint-version' into 'main'\n\nchore(deps): bump golangci-lint to v2.14.0\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/3988\n\nMerged-by: Jay McCure <redacted@example.invalid>\nApproved-by: Jay McCure <redacted@example.invalid>\nCo-authored-by: GitLab Renovate Bot <redacted@example.invalid>",
+          "author_name": "Jay McCure",
+          "author_email": "redacted@example.invalid",
+          "authored_date": "2026-10-02T09:42:09.000+10:00",
+          "committer_name": "GitLab",
+          "committer_email": "redacted@example.invalid",
+          "committed_date": "2026-10-02T09:42:09.000+10:00",
+          "trailers": {},
+          "extended_trailers": {},
+          "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/c8f8f604c964f29b6765c7ef33aaadada03564f1"
+        },
+        "pipeline": {
+          "id": 2904802294,
+          "iid": 14682,
+          "project_id": 34675721,
+          "sha": "c8f8f604c964f29b6765c7ef33aaadada03564f1",
+          "ref": "refs/merge-requests/3988/train",
+          "status": "success",
+          "source": "merge_request_event",
+          "created_at": "2026-10-01T23:42:11.739Z",
+          "updated_at": "2026-10-01T23:49:45.140Z",
+          "web_url": "https://gitlab.com/gitlab-org/cli/-/pipelines/2904802294"
+        },
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/jobs/16883566855",
+        "project": {
+          "ci_job_token_scope_enabled": false
+        },
+        "artifacts_file": {
+          "filename": "artifacts.zip",
+          "size": 34542596
+        },
+        "artifacts": [
+          {
+            "file_type": "archive",
+            "size": 34542596,
+            "filename": "artifacts.zip",
+            "file_format": "zip"
+          },
+          {
+            "file_type": "metadata",
+            "size": 182,
+            "filename": "metadata.gz",
+            "file_format": "gzip"
+          },
+          {
+            "file_type": "trace",
+            "size": 54084,
+            "filename": "job.log",
+            "file_format": null
+          }
+        ],
+        "runner": {
+          "id": 55314121,
+          "description": "k8s.saas-linux-medium-amd64.runners-manager.gitlab.com/default",
+          "ip_address": null,
+          "active": true,
+          "paused": false,
+          "is_shared": true,
+          "runner_type": "instance_type",
+          "name": null,
+          "online": true,
+          "created_by": {
+            "id": 5372863,
+            "username": "igorwwwwwwwwwwwwwwwwwwww-admin",
+            "public_email": "",
+            "name": "Igor Wiedler",
+            "state": "active",
+            "locked": false,
+            "avatar_url": "https://secure.gravatar.com/avatar/509321df9ad78093586110676a0f3e0517e2744bce4c1963fac9ad5acd19f4f0?s=80&d=identicon",
+            "web_url": "https://gitlab.com/igorwwwwwwwwwwwwwwwwwwww-admin"
+          },
+          "created_at": "2026-08-19T15:31:33.905Z",
+          "status": "online",
+          "job_execution_status": "active"
+        },
+        "runner_manager": null,
+        "artifacts_expire_at": "2026-10-08T23:44:51.272Z",
+        "archived": false,
+        "tag_list": [
+          "saas-linux-medium-amd64"
+        ]
+      },
+      {
+        "id": 16883566854,
+        "status": "success",
+        "stage": "build",
+        "name": "build_windows: [arm64]",
+        "ref": "refs/merge-requests/3988/train",
+        "tag": false,
+        "coverage": null,
+        "allow_failure": false,
+        "created_at": "2026-10-01T23:42:11.886Z",
+        "started_at": "2026-10-01T23:42:13.450Z",
+        "finished_at": "2026-10-01T23:44:45.480Z",
+        "erased_at": null,
+        "duration": 152.030389,
+        "queued_duration": 0.301446,
+        "user": {
+          "id": 11809982,
+          "username": "jay_mccure",
+          "public_email": "",
+          "name": "Jay McCure",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1791444159",
+          "web_url": "https://gitlab.com/jay_mccure",
+          "created_at": "2022-06-12T22:51:50.999Z",
+          "bio": "",
+          "location": "Brisbane, Australia",
+          "linkedin": "jmccure",
+          "twitter": "",
+          "discord": "",
+          "website_url": "",
+          "github": "",
+          "job_title": "Senior Backend Engineer",
+          "pronouns": "He/Him",
+          "organization": "GitLab",
+          "bot": false,
+          "work_information": "Senior Backend Engineer at GitLab",
+          "followers": 12,
+          "following": 0,
+          "local_time": "1:38 AM"
+        },
+        "commit": {
+          "id": "c8f8f604c964f29b6765c7ef33aaadada03564f1",
+          "short_id": "c8f8f604",
+          "created_at": "2026-10-02T09:42:09.000+10:00",
+          "parent_ids": [
+            "5a38b3968afe46c133029595f4fcad920909a6fe",
+            "37ea25e1cf97b7e40c6d862c45ab32cec0f10b99"
+          ],
+          "title": "Merge branch 'renovate/golangci-lint-version' into 'main'",
+          "message": "Merge branch 'renovate/golangci-lint-version' into 'main'\n\nchore(deps): bump golangci-lint to v2.14.0\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/3988\n\nMerged-by: Jay McCure <redacted@example.invalid>\nApproved-by: Jay McCure <redacted@example.invalid>\nCo-authored-by: GitLab Renovate Bot <redacted@example.invalid>",
+          "author_name": "Jay McCure",
+          "author_email": "redacted@example.invalid",
+          "authored_date": "2026-10-02T09:42:09.000+10:00",
+          "committer_name": "GitLab",
+          "committer_email": "redacted@example.invalid",
+          "committed_date": "2026-10-02T09:42:09.000+10:00",
+          "trailers": {},
+          "extended_trailers": {},
+          "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/c8f8f604c964f29b6765c7ef33aaadada03564f1"
+        },
+        "pipeline": {
+          "id": 2904802294,
+          "iid": 14682,
+          "project_id": 34675721,
+          "sha": "c8f8f604c964f29b6765c7ef33aaadada03564f1",
+          "ref": "refs/merge-requests/3988/train",
+          "status": "success",
+          "source": "merge_request_event",
+          "created_at": "2026-10-01T23:42:11.739Z",
+          "updated_at": "2026-10-01T23:49:45.140Z",
+          "web_url": "https://gitlab.com/gitlab-org/cli/-/pipelines/2904802294"
+        },
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/jobs/16883566854",
+        "project": {
+          "ci_job_token_scope_enabled": false
+        },
+        "artifacts_file": {
+          "filename": "artifacts.zip",
+          "size": 17787232
+        },
+        "artifacts": [
+          {
+            "file_type": "archive",
+            "size": 17787232,
+            "filename": "artifacts.zip",
+            "file_format": "zip"
+          },
+          {
+            "file_type": "metadata",
+            "size": 193,
+            "filename": "metadata.gz",
+            "file_format": "gzip"
+          },
+          {
+            "file_type": "trace",
+            "size": 10391,
+            "filename": "job.log",
+            "file_format": null
+          }
+        ],
+        "runner": {
+          "id": 55314121,
+          "description": "k8s.saas-linux-medium-amd64.runners-manager.gitlab.com/default",
+          "ip_address": null,
+          "active": true,
+          "paused": false,
+          "is_shared": true,
+          "runner_type": "instance_type",
+          "name": null,
+          "online": true,
+          "created_by": {
+            "id": 5372863,
+            "username": "igorwwwwwwwwwwwwwwwwwwww-admin",
+            "public_email": "",
+            "name": "Igor Wiedler",
+            "state": "active",
+            "locked": false,
+            "avatar_url": "https://secure.gravatar.com/avatar/509321df9ad78093586110676a0f3e0517e2744bce4c1963fac9ad5acd19f4f0?s=80&d=identicon",
+            "web_url": "https://gitlab.com/igorwwwwwwwwwwwwwwwwwwww-admin"
+          },
+          "created_at": "2026-08-19T15:31:33.905Z",
+          "status": "online",
+          "job_execution_status": "active"
+        },
+        "runner_manager": null,
+        "artifacts_expire_at": "2026-10-08T23:44:44.154Z",
+        "archived": false,
+        "tag_list": [
+          "saas-linux-medium-amd64"
+        ]
+      },
+      {
+        "id": 16883566853,
+        "status": "success",
+        "stage": "build",
+        "name": "build_windows: [amd64]",
+        "ref": "refs/merge-requests/3988/train",
+        "tag": false,
+        "coverage": null,
+        "allow_failure": false,
+        "created_at": "2026-10-01T23:42:11.886Z",
+        "started_at": "2026-10-01T23:42:13.443Z",
+        "finished_at": "2026-10-01T23:44:36.557Z",
+        "erased_at": null,
+        "duration": 143.113882,
+        "queued_duration": 0.348287,
+        "user": {
+          "id": 11809982,
+          "username": "jay_mccure",
+          "public_email": "",
+          "name": "Jay McCure",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1791444159",
+          "web_url": "https://gitlab.com/jay_mccure",
+          "created_at": "2022-06-12T22:51:50.999Z",
+          "bio": "",
+          "location": "Brisbane, Australia",
+          "linkedin": "jmccure",
+          "twitter": "",
+          "discord": "",
+          "website_url": "",
+          "github": "",
+          "job_title": "Senior Backend Engineer",
+          "pronouns": "He/Him",
+          "organization": "GitLab",
+          "bot": false,
+          "work_information": "Senior Backend Engineer at GitLab",
+          "followers": 12,
+          "following": 0,
+          "local_time": "1:38 AM"
+        },
+        "commit": {
+          "id": "c8f8f604c964f29b6765c7ef33aaadada03564f1",
+          "short_id": "c8f8f604",
+          "created_at": "2026-10-02T09:42:09.000+10:00",
+          "parent_ids": [
+            "5a38b3968afe46c133029595f4fcad920909a6fe",
+            "37ea25e1cf97b7e40c6d862c45ab32cec0f10b99"
+          ],
+          "title": "Merge branch 'renovate/golangci-lint-version' into 'main'",
+          "message": "Merge branch 'renovate/golangci-lint-version' into 'main'\n\nchore(deps): bump golangci-lint to v2.14.0\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/3988\n\nMerged-by: Jay McCure <redacted@example.invalid>\nApproved-by: Jay McCure <redacted@example.invalid>\nCo-authored-by: GitLab Renovate Bot <redacted@example.invalid>",
+          "author_name": "Jay McCure",
+          "author_email": "redacted@example.invalid",
+          "authored_date": "2026-10-02T09:42:09.000+10:00",
+          "committer_name": "GitLab",
+          "committer_email": "redacted@example.invalid",
+          "committed_date": "2026-10-02T09:42:09.000+10:00",
+          "trailers": {},
+          "extended_trailers": {},
+          "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/c8f8f604c964f29b6765c7ef33aaadada03564f1"
+        },
+        "pipeline": {
+          "id": 2904802294,
+          "iid": 14682,
+          "project_id": 34675721,
+          "sha": "c8f8f604c964f29b6765c7ef33aaadada03564f1",
+          "ref": "refs/merge-requests/3988/train",
+          "status": "success",
+          "source": "merge_request_event",
+          "created_at": "2026-10-01T23:42:11.739Z",
+          "updated_at": "2026-10-01T23:49:45.140Z",
+          "web_url": "https://gitlab.com/gitlab-org/cli/-/pipelines/2904802294"
+        },
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/jobs/16883566853",
+        "project": {
+          "ci_job_token_scope_enabled": false
+        },
+        "artifacts_file": {
+          "filename": "artifacts.zip",
+          "size": 19585611
+        },
+        "artifacts": [
+          {
+            "file_type": "archive",
+            "size": 19585611,
+            "filename": "artifacts.zip",
+            "file_format": "zip"
+          },
+          {
+            "file_type": "metadata",
+            "size": 190,
+            "filename": "metadata.gz",
+            "file_format": "gzip"
+          },
+          {
+            "file_type": "trace",
+            "size": 10415,
+            "filename": "job.log",
+            "file_format": null
+          }
+        ],
+        "runner": {
+          "id": 55314121,
+          "description": "k8s.saas-linux-medium-amd64.runners-manager.gitlab.com/default",
+          "ip_address": null,
+          "active": true,
+          "paused": false,
+          "is_shared": true,
+          "runner_type": "instance_type",
+          "name": null,
+          "online": true,
+          "created_by": {
+            "id": 5372863,
+            "username": "igorwwwwwwwwwwwwwwwwwwww-admin",
+            "public_email": "",
+            "name": "Igor Wiedler",
+            "state": "active",
+            "locked": false,
+            "avatar_url": "https://secure.gravatar.com/avatar/509321df9ad78093586110676a0f3e0517e2744bce4c1963fac9ad5acd19f4f0?s=80&d=identicon",
+            "web_url": "https://gitlab.com/igorwwwwwwwwwwwwwwwwwwww-admin"
+          },
+          "created_at": "2026-08-19T15:31:33.905Z",
+          "status": "online",
+          "job_execution_status": "active"
+        },
+        "runner_manager": null,
+        "artifacts_expire_at": "2026-10-08T23:44:35.203Z",
+        "archived": false,
+        "tag_list": [
+          "saas-linux-medium-amd64"
+        ]
+      },
+      {
+        "id": 16883566852,
+        "status": "success",
+        "stage": "build",
+        "name": "windows_installer: [arm64, arm64]",
+        "ref": "refs/merge-requests/3988/train",
+        "tag": false,
+        "coverage": null,
+        "allow_failure": false,
+        "created_at": "2026-10-01T23:42:11.886Z",
+        "started_at": "2026-10-01T23:44:47.550Z",
+        "finished_at": "2026-10-01T23:45:16.753Z",
+        "erased_at": null,
+        "duration": 29.202932,
+        "queued_duration": 0.575773,
+        "user": {
+          "id": 11809982,
+          "username": "jay_mccure",
+          "public_email": "",
+          "name": "Jay McCure",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1791444159",
+          "web_url": "https://gitlab.com/jay_mccure",
+          "created_at": "2022-06-12T22:51:50.999Z",
+          "bio": "",
+          "location": "Brisbane, Australia",
+          "linkedin": "jmccure",
+          "twitter": "",
+          "discord": "",
+          "website_url": "",
+          "github": "",
+          "job_title": "Senior Backend Engineer",
+          "pronouns": "He/Him",
+          "organization": "GitLab",
+          "bot": false,
+          "work_information": "Senior Backend Engineer at GitLab",
+          "followers": 12,
+          "following": 0,
+          "local_time": "1:38 AM"
+        },
+        "commit": {
+          "id": "c8f8f604c964f29b6765c7ef33aaadada03564f1",
+          "short_id": "c8f8f604",
+          "created_at": "2026-10-02T09:42:09.000+10:00",
+          "parent_ids": [
+            "5a38b3968afe46c133029595f4fcad920909a6fe",
+            "37ea25e1cf97b7e40c6d862c45ab32cec0f10b99"
+          ],
+          "title": "Merge branch 'renovate/golangci-lint-version' into 'main'",
+          "message": "Merge branch 'renovate/golangci-lint-version' into 'main'\n\nchore(deps): bump golangci-lint to v2.14.0\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/3988\n\nMerged-by: Jay McCure <redacted@example.invalid>\nApproved-by: Jay McCure <redacted@example.invalid>\nCo-authored-by: GitLab Renovate Bot <redacted@example.invalid>",
+          "author_name": "Jay McCure",
+          "author_email": "redacted@example.invalid",
+          "authored_date": "2026-10-02T09:42:09.000+10:00",
+          "committer_name": "GitLab",
+          "committer_email": "redacted@example.invalid",
+          "committed_date": "2026-10-02T09:42:09.000+10:00",
+          "trailers": {},
+          "extended_trailers": {},
+          "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/c8f8f604c964f29b6765c7ef33aaadada03564f1"
+        },
+        "pipeline": {
+          "id": 2904802294,
+          "iid": 14682,
+          "project_id": 34675721,
+          "sha": "c8f8f604c964f29b6765c7ef33aaadada03564f1",
+          "ref": "refs/merge-requests/3988/train",
+          "status": "success",
+          "source": "merge_request_event",
+          "created_at": "2026-10-01T23:42:11.739Z",
+          "updated_at": "2026-10-01T23:49:45.140Z",
+          "web_url": "https://gitlab.com/gitlab-org/cli/-/pipelines/2904802294"
+        },
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/jobs/16883566852",
+        "project": {
+          "ci_job_token_scope_enabled": false
+        },
+        "artifacts_file": {
+          "filename": "artifacts.zip",
+          "size": 14185270
+        },
+        "artifacts": [
+          {
+            "file_type": "archive",
+            "size": 14185270,
+            "filename": "artifacts.zip",
+            "file_format": "zip"
+          },
+          {
+            "file_type": "metadata",
+            "size": 206,
+            "filename": "metadata.gz",
+            "file_format": "gzip"
+          },
+          {
+            "file_type": "trace",
+            "size": 26479,
+            "filename": "job.log",
+            "file_format": null
+          }
+        ],
+        "runner": {
+          "id": 55314121,
+          "description": "k8s.saas-linux-medium-amd64.runners-manager.gitlab.com/default",
+          "ip_address": null,
+          "active": true,
+          "paused": false,
+          "is_shared": true,
+          "runner_type": "instance_type",
+          "name": null,
+          "online": true,
+          "created_by": {
+            "id": 5372863,
+            "username": "igorwwwwwwwwwwwwwwwwwwww-admin",
+            "public_email": "",
+            "name": "Igor Wiedler",
+            "state": "active",
+            "locked": false,
+            "avatar_url": "https://secure.gravatar.com/avatar/509321df9ad78093586110676a0f3e0517e2744bce4c1963fac9ad5acd19f4f0?s=80&d=identicon",
+            "web_url": "https://gitlab.com/igorwwwwwwwwwwwwwwwwwwww-admin"
+          },
+          "created_at": "2026-08-19T15:31:33.905Z",
+          "status": "online",
+          "job_execution_status": "active"
+        },
+        "runner_manager": null,
+        "artifacts_expire_at": "2026-10-08T23:45:15.573Z",
+        "archived": false,
+        "tag_list": [
+          "saas-linux-medium-amd64"
+        ]
+      },
+      {
+        "id": 16883566851,
+        "status": "success",
+        "stage": "build",
+        "name": "windows_installer: [amd64, x86_64]",
+        "ref": "refs/merge-requests/3988/train",
+        "tag": false,
+        "coverage": null,
+        "allow_failure": false,
+        "created_at": "2026-10-01T23:42:11.886Z",
+        "started_at": "2026-10-01T23:44:47.206Z",
+        "finished_at": "2026-10-01T23:45:22.753Z",
+        "erased_at": null,
+        "duration": 35.547142,
+        "queued_duration": 0.303307,
+        "user": {
+          "id": 11809982,
+          "username": "jay_mccure",
+          "public_email": "",
+          "name": "Jay McCure",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1791444159",
+          "web_url": "https://gitlab.com/jay_mccure",
+          "created_at": "2022-06-12T22:51:50.999Z",
+          "bio": "",
+          "location": "Brisbane, Australia",
+          "linkedin": "jmccure",
+          "twitter": "",
+          "discord": "",
+          "website_url": "",
+          "github": "",
+          "job_title": "Senior Backend Engineer",
+          "pronouns": "He/Him",
+          "organization": "GitLab",
+          "bot": false,
+          "work_information": "Senior Backend Engineer at GitLab",
+          "followers": 12,
+          "following": 0,
+          "local_time": "1:38 AM"
+        },
+        "commit": {
+          "id": "c8f8f604c964f29b6765c7ef33aaadada03564f1",
+          "short_id": "c8f8f604",
+          "created_at": "2026-10-02T09:42:09.000+10:00",
+          "parent_ids": [
+            "5a38b3968afe46c133029595f4fcad920909a6fe",
+            "37ea25e1cf97b7e40c6d862c45ab32cec0f10b99"
+          ],
+          "title": "Merge branch 'renovate/golangci-lint-version' into 'main'",
+          "message": "Merge branch 'renovate/golangci-lint-version' into 'main'\n\nchore(deps): bump golangci-lint to v2.14.0\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/3988\n\nMerged-by: Jay McCure <redacted@example.invalid>\nApproved-by: Jay McCure <redacted@example.invalid>\nCo-authored-by: GitLab Renovate Bot <redacted@example.invalid>",
+          "author_name": "Jay McCure",
+          "author_email": "redacted@example.invalid",
+          "authored_date": "2026-10-02T09:42:09.000+10:00",
+          "committer_name": "GitLab",
+          "committer_email": "redacted@example.invalid",
+          "committed_date": "2026-10-02T09:42:09.000+10:00",
+          "trailers": {},
+          "extended_trailers": {},
+          "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/c8f8f604c964f29b6765c7ef33aaadada03564f1"
+        },
+        "pipeline": {
+          "id": 2904802294,
+          "iid": 14682,
+          "project_id": 34675721,
+          "sha": "c8f8f604c964f29b6765c7ef33aaadada03564f1",
+          "ref": "refs/merge-requests/3988/train",
+          "status": "success",
+          "source": "merge_request_event",
+          "created_at": "2026-10-01T23:42:11.739Z",
+          "updated_at": "2026-10-01T23:49:45.140Z",
+          "web_url": "https://gitlab.com/gitlab-org/cli/-/pipelines/2904802294"
+        },
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/jobs/16883566851",
+        "project": {
+          "ci_job_token_scope_enabled": false
+        },
+        "artifacts_file": {
+          "filename": "artifacts.zip",
+          "size": 15519609
+        },
+        "artifacts": [
+          {
+            "file_type": "archive",
+            "size": 15519609,
+            "filename": "artifacts.zip",
+            "file_format": "zip"
+          },
+          {
+            "file_type": "metadata",
+            "size": 205,
+            "filename": "metadata.gz",
+            "file_format": "gzip"
+          },
+          {
+            "file_type": "trace",
+            "size": 26349,
+            "filename": "job.log",
+            "file_format": null
+          }
+        ],
+        "runner": {
+          "id": 55314121,
+          "description": "k8s.saas-linux-medium-amd64.runners-manager.gitlab.com/default",
+          "ip_address": null,
+          "active": true,
+          "paused": false,
+          "is_shared": true,
+          "runner_type": "instance_type",
+          "name": null,
+          "online": true,
+          "created_by": {
+            "id": 5372863,
+            "username": "igorwwwwwwwwwwwwwwwwwwww-admin",
+            "public_email": "",
+            "name": "Igor Wiedler",
+            "state": "active",
+            "locked": false,
+            "avatar_url": "https://secure.gravatar.com/avatar/509321df9ad78093586110676a0f3e0517e2744bce4c1963fac9ad5acd19f4f0?s=80&d=identicon",
+            "web_url": "https://gitlab.com/igorwwwwwwwwwwwwwwwwwwww-admin"
+          },
+          "created_at": "2026-08-19T15:31:33.905Z",
+          "status": "online",
+          "job_execution_status": "active"
+        },
+        "runner_manager": null,
+        "artifacts_expire_at": "2026-10-08T23:45:21.606Z",
+        "archived": false,
+        "tag_list": [
+          "saas-linux-medium-amd64"
+        ]
+      },
+      {
+        "id": 16883566850,
+        "status": "success",
+        "stage": "build",
+        "name": "build_test",
+        "ref": "refs/merge-requests/3988/train",
+        "tag": false,
+        "coverage": null,
+        "allow_failure": false,
+        "created_at": "2026-10-01T23:42:11.886Z",
+        "started_at": "2026-10-01T23:45:24.498Z",
+        "finished_at": "2026-10-01T23:49:43.458Z",
+        "erased_at": null,
+        "duration": 258.960251,
+        "queued_duration": 0.36359,
+        "user": {
+          "id": 11809982,
+          "username": "jay_mccure",
+          "public_email": "",
+          "name": "Jay McCure",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1791444159",
+          "web_url": "https://gitlab.com/jay_mccure",
+          "created_at": "2022-06-12T22:51:50.999Z",
+          "bio": "",
+          "location": "Brisbane, Australia",
+          "linkedin": "jmccure",
+          "twitter": "",
+          "discord": "",
+          "website_url": "",
+          "github": "",
+          "job_title": "Senior Backend Engineer",
+          "pronouns": "He/Him",
+          "organization": "GitLab",
+          "bot": false,
+          "work_information": "Senior Backend Engineer at GitLab",
+          "followers": 12,
+          "following": 0,
+          "local_time": "1:38 AM"
+        },
+        "commit": {
+          "id": "c8f8f604c964f29b6765c7ef33aaadada03564f1",
+          "short_id": "c8f8f604",
+          "created_at": "2026-10-02T09:42:09.000+10:00",
+          "parent_ids": [
+            "5a38b3968afe46c133029595f4fcad920909a6fe",
+            "37ea25e1cf97b7e40c6d862c45ab32cec0f10b99"
+          ],
+          "title": "Merge branch 'renovate/golangci-lint-version' into 'main'",
+          "message": "Merge branch 'renovate/golangci-lint-version' into 'main'\n\nchore(deps): bump golangci-lint to v2.14.0\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/3988\n\nMerged-by: Jay McCure <redacted@example.invalid>\nApproved-by: Jay McCure <redacted@example.invalid>\nCo-authored-by: GitLab Renovate Bot <redacted@example.invalid>",
+          "author_name": "Jay McCure",
+          "author_email": "redacted@example.invalid",
+          "authored_date": "2026-10-02T09:42:09.000+10:00",
+          "committer_name": "GitLab",
+          "committer_email": "redacted@example.invalid",
+          "committed_date": "2026-10-02T09:42:09.000+10:00",
+          "trailers": {},
+          "extended_trailers": {},
+          "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/c8f8f604c964f29b6765c7ef33aaadada03564f1"
+        },
+        "pipeline": {
+          "id": 2904802294,
+          "iid": 14682,
+          "project_id": 34675721,
+          "sha": "c8f8f604c964f29b6765c7ef33aaadada03564f1",
+          "ref": "refs/merge-requests/3988/train",
+          "status": "success",
+          "source": "merge_request_event",
+          "created_at": "2026-10-01T23:42:11.739Z",
+          "updated_at": "2026-10-01T23:49:45.140Z",
+          "web_url": "https://gitlab.com/gitlab-org/cli/-/pipelines/2904802294"
+        },
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/jobs/16883566850",
+        "project": {
+          "ci_job_token_scope_enabled": false
+        },
+        "artifacts_file": {
+          "filename": "goreleaser-artifacts.zip",
+          "size": 865770344
+        },
+        "artifacts": [
+          {
+            "file_type": "archive",
+            "size": 865770344,
+            "filename": "goreleaser-artifacts.zip",
+            "file_format": "zip"
+          },
+          {
+            "file_type": "metadata",
+            "size": 1691,
+            "filename": "metadata.gz",
+            "file_format": "gzip"
+          },
+          {
+            "file_type": "trace",
+            "size": 31038,
+            "filename": "job.log",
+            "file_format": null
+          }
+        ],
+        "runner": {
+          "id": 55314183,
+          "description": "k8s.saas-linux-2xlarge-amd64.runners-manager.gitlab.com/default",
+          "ip_address": null,
+          "active": true,
+          "paused": false,
+          "is_shared": true,
+          "runner_type": "instance_type",
+          "name": null,
+          "online": true,
+          "created_by": {
+            "id": 5372863,
+            "username": "igorwwwwwwwwwwwwwwwwwwww-admin",
+            "public_email": "",
+            "name": "Igor Wiedler",
+            "state": "active",
+            "locked": false,
+            "avatar_url": "https://secure.gravatar.com/avatar/509321df9ad78093586110676a0f3e0517e2744bce4c1963fac9ad5acd19f4f0?s=80&d=identicon",
+            "web_url": "https://gitlab.com/igorwwwwwwwwwwwwwwwwwwww-admin"
+          },
+          "created_at": "2026-08-19T15:33:39.241Z",
+          "status": "online",
+          "job_execution_status": "active"
+        },
+        "runner_manager": null,
+        "artifacts_expire_at": "2026-10-08T23:49:41.480Z",
+        "archived": false,
+        "tag_list": [
+          "saas-linux-2xlarge-amd64"
+        ]
+      },
+      {
+        "id": 16883566849,
+        "status": "success",
+        "stage": "documentation",
+        "name": "docs hugo_build",
+        "ref": "refs/merge-requests/3988/train",
+        "tag": false,
+        "coverage": null,
+        "allow_failure": false,
+        "created_at": "2026-10-01T23:42:11.886Z",
+        "started_at": "2026-10-01T23:42:13.228Z",
+        "finished_at": "2026-10-01T23:42:34.505Z",
+        "erased_at": null,
+        "duration": 21.276901,
+        "queued_duration": 0.202461,
+        "user": {
+          "id": 11809982,
+          "username": "jay_mccure",
+          "public_email": "",
+          "name": "Jay McCure",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1791444159",
+          "web_url": "https://gitlab.com/jay_mccure",
+          "created_at": "2022-06-12T22:51:50.999Z",
+          "bio": "",
+          "location": "Brisbane, Australia",
+          "linkedin": "jmccure",
+          "twitter": "",
+          "discord": "",
+          "website_url": "",
+          "github": "",
+          "job_title": "Senior Backend Engineer",
+          "pronouns": "He/Him",
+          "organization": "GitLab",
+          "bot": false,
+          "work_information": "Senior Backend Engineer at GitLab",
+          "followers": 12,
+          "following": 0,
+          "local_time": "1:38 AM"
+        },
+        "commit": {
+          "id": "c8f8f604c964f29b6765c7ef33aaadada03564f1",
+          "short_id": "c8f8f604",
+          "created_at": "2026-10-02T09:42:09.000+10:00",
+          "parent_ids": [
+            "5a38b3968afe46c133029595f4fcad920909a6fe",
+            "37ea25e1cf97b7e40c6d862c45ab32cec0f10b99"
+          ],
+          "title": "Merge branch 'renovate/golangci-lint-version' into 'main'",
+          "message": "Merge branch 'renovate/golangci-lint-version' into 'main'\n\nchore(deps): bump golangci-lint to v2.14.0\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/3988\n\nMerged-by: Jay McCure <redacted@example.invalid>\nApproved-by: Jay McCure <redacted@example.invalid>\nCo-authored-by: GitLab Renovate Bot <redacted@example.invalid>",
+          "author_name": "Jay McCure",
+          "author_email": "redacted@example.invalid",
+          "authored_date": "2026-10-02T09:42:09.000+10:00",
+          "committer_name": "GitLab",
+          "committer_email": "redacted@example.invalid",
+          "committed_date": "2026-10-02T09:42:09.000+10:00",
+          "trailers": {},
+          "extended_trailers": {},
+          "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/c8f8f604c964f29b6765c7ef33aaadada03564f1"
+        },
+        "pipeline": {
+          "id": 2904802294,
+          "iid": 14682,
+          "project_id": 34675721,
+          "sha": "c8f8f604c964f29b6765c7ef33aaadada03564f1",
+          "ref": "refs/merge-requests/3988/train",
+          "status": "success",
+          "source": "merge_request_event",
+          "created_at": "2026-10-01T23:42:11.739Z",
+          "updated_at": "2026-10-01T23:49:45.140Z",
+          "web_url": "https://gitlab.com/gitlab-org/cli/-/pipelines/2904802294"
+        },
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/jobs/16883566849",
+        "project": {
+          "ci_job_token_scope_enabled": false
+        },
+        "artifacts": [
+          {
+            "file_type": "trace",
+            "size": 10865,
+            "filename": "job.log",
+            "file_format": null
+          }
+        ],
+        "runner": {
+          "id": 55314121,
+          "description": "k8s.saas-linux-medium-amd64.runners-manager.gitlab.com/default",
+          "ip_address": null,
+          "active": true,
+          "paused": false,
+          "is_shared": true,
+          "runner_type": "instance_type",
+          "name": null,
+          "online": true,
+          "created_by": {
+            "id": 5372863,
+            "username": "igorwwwwwwwwwwwwwwwwwwww-admin",
+            "public_email": "",
+            "name": "Igor Wiedler",
+            "state": "active",
+            "locked": false,
+            "avatar_url": "https://secure.gravatar.com/avatar/509321df9ad78093586110676a0f3e0517e2744bce4c1963fac9ad5acd19f4f0?s=80&d=identicon",
+            "web_url": "https://gitlab.com/igorwwwwwwwwwwwwwwwwwwww-admin"
+          },
+          "created_at": "2026-08-19T15:31:33.905Z",
+          "status": "online",
+          "job_execution_status": "active"
+        },
+        "runner_manager": null,
+        "artifacts_expire_at": null,
+        "archived": false,
+        "tag_list": [
+          "saas-linux-medium-amd64"
+        ]
+      },
+      {
+        "id": 16883566848,
+        "status": "success",
+        "stage": "documentation",
+        "name": "check_docs_markdown",
+        "ref": "refs/merge-requests/3988/train",
+        "tag": false,
+        "coverage": null,
+        "allow_failure": false,
+        "created_at": "2026-10-01T23:42:11.886Z",
+        "started_at": "2026-10-01T23:42:13.144Z",
+        "finished_at": "2026-10-01T23:42:27.424Z",
+        "erased_at": null,
+        "duration": 14.279651,
+        "queued_duration": 0.167226,
+        "user": {
+          "id": 11809982,
+          "username": "jay_mccure",
+          "public_email": "",
+          "name": "Jay McCure",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1791444159",
+          "web_url": "https://gitlab.com/jay_mccure",
+          "created_at": "2022-06-12T22:51:50.999Z",
+          "bio": "",
+          "location": "Brisbane, Australia",
+          "linkedin": "jmccure",
+          "twitter": "",
+          "discord": "",
+          "website_url": "",
+          "github": "",
+          "job_title": "Senior Backend Engineer",
+          "pronouns": "He/Him",
+          "organization": "GitLab",
+          "bot": false,
+          "work_information": "Senior Backend Engineer at GitLab",
+          "followers": 12,
+          "following": 0,
+          "local_time": "1:38 AM"
+        },
+        "commit": {
+          "id": "c8f8f604c964f29b6765c7ef33aaadada03564f1",
+          "short_id": "c8f8f604",
+          "created_at": "2026-10-02T09:42:09.000+10:00",
+          "parent_ids": [
+            "5a38b3968afe46c133029595f4fcad920909a6fe",
+            "37ea25e1cf97b7e40c6d862c45ab32cec0f10b99"
+          ],
+          "title": "Merge branch 'renovate/golangci-lint-version' into 'main'",
+          "message": "Merge branch 'renovate/golangci-lint-version' into 'main'\n\nchore(deps): bump golangci-lint to v2.14.0\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/3988\n\nMerged-by: Jay McCure <redacted@example.invalid>\nApproved-by: Jay McCure <redacted@example.invalid>\nCo-authored-by: GitLab Renovate Bot <redacted@example.invalid>",
+          "author_name": "Jay McCure",
+          "author_email": "redacted@example.invalid",
+          "authored_date": "2026-10-02T09:42:09.000+10:00",
+          "committer_name": "GitLab",
+          "committer_email": "redacted@example.invalid",
+          "committed_date": "2026-10-02T09:42:09.000+10:00",
+          "trailers": {},
+          "extended_trailers": {},
+          "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/c8f8f604c964f29b6765c7ef33aaadada03564f1"
+        },
+        "pipeline": {
+          "id": 2904802294,
+          "iid": 14682,
+          "project_id": 34675721,
+          "sha": "c8f8f604c964f29b6765c7ef33aaadada03564f1",
+          "ref": "refs/merge-requests/3988/train",
+          "status": "success",
+          "source": "merge_request_event",
+          "created_at": "2026-10-01T23:42:11.739Z",
+          "updated_at": "2026-10-01T23:49:45.140Z",
+          "web_url": "https://gitlab.com/gitlab-org/cli/-/pipelines/2904802294"
+        },
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/jobs/16883566848",
+        "project": {
+          "ci_job_token_scope_enabled": false
+        },
+        "artifacts": [
+          {
+            "file_type": "trace",
+            "size": 8481,
+            "filename": "job.log",
+            "file_format": null
+          }
+        ],
+        "runner": {
+          "id": 55314121,
+          "description": "k8s.saas-linux-medium-amd64.runners-manager.gitlab.com/default",
+          "ip_address": null,
+          "active": true,
+          "paused": false,
+          "is_shared": true,
+          "runner_type": "instance_type",
+          "name": null,
+          "online": true,
+          "created_by": {
+            "id": 5372863,
+            "username": "igorwwwwwwwwwwwwwwwwwwww-admin",
+            "public_email": "",
+            "name": "Igor Wiedler",
+            "state": "active",
+            "locked": false,
+            "avatar_url": "https://secure.gravatar.com/avatar/509321df9ad78093586110676a0f3e0517e2744bce4c1963fac9ad5acd19f4f0?s=80&d=identicon",
+            "web_url": "https://gitlab.com/igorwwwwwwwwwwwwwwwwwwww-admin"
+          },
+          "created_at": "2026-08-19T15:31:33.905Z",
+          "status": "online",
+          "job_execution_status": "active"
+        },
+        "runner_manager": null,
+        "artifacts_expire_at": null,
+        "archived": false,
+        "tag_list": [
+          "saas-linux-medium-amd64"
+        ]
+      },
+      {
+        "id": 16883566847,
+        "status": "success",
+        "stage": "documentation",
+        "name": "check_docs_update",
+        "ref": "refs/merge-requests/3988/train",
+        "tag": false,
+        "coverage": null,
+        "allow_failure": false,
+        "created_at": "2026-10-01T23:42:11.886Z",
+        "started_at": "2026-10-01T23:42:13.062Z",
+        "finished_at": "2026-10-01T23:45:16.922Z",
+        "erased_at": null,
+        "duration": 183.859394,
+        "queued_duration": 0.137386,
+        "user": {
+          "id": 11809982,
+          "username": "jay_mccure",
+          "public_email": "",
+          "name": "Jay McCure",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1791444159",
+          "web_url": "https://gitlab.com/jay_mccure",
+          "created_at": "2022-06-12T22:51:50.999Z",
+          "bio": "",
+          "location": "Brisbane, Australia",
+          "linkedin": "jmccure",
+          "twitter": "",
+          "discord": "",
+          "website_url": "",
+          "github": "",
+          "job_title": "Senior Backend Engineer",
+          "pronouns": "He/Him",
+          "organization": "GitLab",
+          "bot": false,
+          "work_information": "Senior Backend Engineer at GitLab",
+          "followers": 12,
+          "following": 0,
+          "local_time": "1:38 AM"
+        },
+        "commit": {
+          "id": "c8f8f604c964f29b6765c7ef33aaadada03564f1",
+          "short_id": "c8f8f604",
+          "created_at": "2026-10-02T09:42:09.000+10:00",
+          "parent_ids": [
+            "5a38b3968afe46c133029595f4fcad920909a6fe",
+            "37ea25e1cf97b7e40c6d862c45ab32cec0f10b99"
+          ],
+          "title": "Merge branch 'renovate/golangci-lint-version' into 'main'",
+          "message": "Merge branch 'renovate/golangci-lint-version' into 'main'\n\nchore(deps): bump golangci-lint to v2.14.0\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/3988\n\nMerged-by: Jay McCure <redacted@example.invalid>\nApproved-by: Jay McCure <redacted@example.invalid>\nCo-authored-by: GitLab Renovate Bot <redacted@example.invalid>",
+          "author_name": "Jay McCure",
+          "author_email": "redacted@example.invalid",
+          "authored_date": "2026-10-02T09:42:09.000+10:00",
+          "committer_name": "GitLab",
+          "committer_email": "redacted@example.invalid",
+          "committed_date": "2026-10-02T09:42:09.000+10:00",
+          "trailers": {},
+          "extended_trailers": {},
+          "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/c8f8f604c964f29b6765c7ef33aaadada03564f1"
+        },
+        "pipeline": {
+          "id": 2904802294,
+          "iid": 14682,
+          "project_id": 34675721,
+          "sha": "c8f8f604c964f29b6765c7ef33aaadada03564f1",
+          "ref": "refs/merge-requests/3988/train",
+          "status": "success",
+          "source": "merge_request_event",
+          "created_at": "2026-10-01T23:42:11.739Z",
+          "updated_at": "2026-10-01T23:49:45.140Z",
+          "web_url": "https://gitlab.com/gitlab-org/cli/-/pipelines/2904802294"
+        },
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/jobs/16883566847",
+        "project": {
+          "ci_job_token_scope_enabled": false
+        },
+        "artifacts": [
+          {
+            "file_type": "trace",
+            "size": 30291,
+            "filename": "job.log",
+            "file_format": null
+          }
+        ],
+        "runner": {
+          "id": 55314121,
+          "description": "k8s.saas-linux-medium-amd64.runners-manager.gitlab.com/default",
+          "ip_address": null,
+          "active": true,
+          "paused": false,
+          "is_shared": true,
+          "runner_type": "instance_type",
+          "name": null,
+          "online": true,
+          "created_by": {
+            "id": 5372863,
+            "username": "igorwwwwwwwwwwwwwwwwwwww-admin",
+            "public_email": "",
+            "name": "Igor Wiedler",
+            "state": "active",
+            "locked": false,
+            "avatar_url": "https://secure.gravatar.com/avatar/509321df9ad78093586110676a0f3e0517e2744bce4c1963fac9ad5acd19f4f0?s=80&d=identicon",
+            "web_url": "https://gitlab.com/igorwwwwwwwwwwwwwwwwwwww-admin"
+          },
+          "created_at": "2026-08-19T15:31:33.905Z",
+          "status": "online",
+          "job_execution_status": "active"
+        },
+        "runner_manager": null,
+        "artifacts_expire_at": null,
+        "archived": false,
+        "tag_list": [
+          "saas-linux-medium-amd64"
+        ]
+      },
+      {
+        "id": 16883566846,
+        "status": "success",
+        "stage": "checks",
+        "name": "check_args",
+        "ref": "refs/merge-requests/3988/train",
+        "tag": false,
+        "coverage": null,
+        "allow_failure": false,
+        "created_at": "2026-10-01T23:42:11.886Z",
+        "started_at": "2026-10-01T23:42:13.068Z",
+        "finished_at": "2026-10-01T23:42:24.061Z",
+        "erased_at": null,
+        "duration": 10.99297,
+        "queued_duration": 0.212939,
+        "user": {
+          "id": 11809982,
+          "username": "jay_mccure",
+          "public_email": "",
+          "name": "Jay McCure",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1791444159",
+          "web_url": "https://gitlab.com/jay_mccure",
+          "created_at": "2022-06-12T22:51:50.999Z",
+          "bio": "",
+          "location": "Brisbane, Australia",
+          "linkedin": "jmccure",
+          "twitter": "",
+          "discord": "",
+          "website_url": "",
+          "github": "",
+          "job_title": "Senior Backend Engineer",
+          "pronouns": "He/Him",
+          "organization": "GitLab",
+          "bot": false,
+          "work_information": "Senior Backend Engineer at GitLab",
+          "followers": 12,
+          "following": 0,
+          "local_time": "1:38 AM"
+        },
+        "commit": {
+          "id": "c8f8f604c964f29b6765c7ef33aaadada03564f1",
+          "short_id": "c8f8f604",
+          "created_at": "2026-10-02T09:42:09.000+10:00",
+          "parent_ids": [
+            "5a38b3968afe46c133029595f4fcad920909a6fe",
+            "37ea25e1cf97b7e40c6d862c45ab32cec0f10b99"
+          ],
+          "title": "Merge branch 'renovate/golangci-lint-version' into 'main'",
+          "message": "Merge branch 'renovate/golangci-lint-version' into 'main'\n\nchore(deps): bump golangci-lint to v2.14.0\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/3988\n\nMerged-by: Jay McCure <redacted@example.invalid>\nApproved-by: Jay McCure <redacted@example.invalid>\nCo-authored-by: GitLab Renovate Bot <redacted@example.invalid>",
+          "author_name": "Jay McCure",
+          "author_email": "redacted@example.invalid",
+          "authored_date": "2026-10-02T09:42:09.000+10:00",
+          "committer_name": "GitLab",
+          "committer_email": "redacted@example.invalid",
+          "committed_date": "2026-10-02T09:42:09.000+10:00",
+          "trailers": {},
+          "extended_trailers": {},
+          "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/c8f8f604c964f29b6765c7ef33aaadada03564f1"
+        },
+        "pipeline": {
+          "id": 2904802294,
+          "iid": 14682,
+          "project_id": 34675721,
+          "sha": "c8f8f604c964f29b6765c7ef33aaadada03564f1",
+          "ref": "refs/merge-requests/3988/train",
+          "status": "success",
+          "source": "merge_request_event",
+          "created_at": "2026-10-01T23:42:11.739Z",
+          "updated_at": "2026-10-01T23:49:45.140Z",
+          "web_url": "https://gitlab.com/gitlab-org/cli/-/pipelines/2904802294"
+        },
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/jobs/16883566846",
+        "project": {
+          "ci_job_token_scope_enabled": false
+        },
+        "artifacts": [
+          {
+            "file_type": "trace",
+            "size": 7444,
+            "filename": "job.log",
+            "file_format": null
+          }
+        ],
+        "runner": {
+          "id": 55314121,
+          "description": "k8s.saas-linux-medium-amd64.runners-manager.gitlab.com/default",
+          "ip_address": null,
+          "active": true,
+          "paused": false,
+          "is_shared": true,
+          "runner_type": "instance_type",
+          "name": null,
+          "online": true,
+          "created_by": {
+            "id": 5372863,
+            "username": "igorwwwwwwwwwwwwwwwwwwww-admin",
+            "public_email": "",
+            "name": "Igor Wiedler",
+            "state": "active",
+            "locked": false,
+            "avatar_url": "https://secure.gravatar.com/avatar/509321df9ad78093586110676a0f3e0517e2744bce4c1963fac9ad5acd19f4f0?s=80&d=identicon",
+            "web_url": "https://gitlab.com/igorwwwwwwwwwwwwwwwwwwww-admin"
+          },
+          "created_at": "2026-08-19T15:31:33.905Z",
+          "status": "online",
+          "job_execution_status": "active"
+        },
+        "runner_manager": null,
+        "artifacts_expire_at": null,
+        "archived": false,
+        "tag_list": [
+          "saas-linux-medium-amd64"
+        ]
+      },
+      {
+        "id": 16883566845,
+        "status": "success",
+        "stage": "checks",
+        "name": "check_embed",
+        "ref": "refs/merge-requests/3988/train",
+        "tag": false,
+        "coverage": null,
+        "allow_failure": false,
+        "created_at": "2026-10-01T23:42:11.886Z",
+        "started_at": "2026-10-01T23:42:13.030Z",
+        "finished_at": "2026-10-01T23:42:22.305Z",
+        "erased_at": null,
+        "duration": 9.275112,
+        "queued_duration": 0.224359,
+        "user": {
+          "id": 11809982,
+          "username": "jay_mccure",
+          "public_email": "",
+          "name": "Jay McCure",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1791444159",
+          "web_url": "https://gitlab.com/jay_mccure",
+          "created_at": "2022-06-12T22:51:50.999Z",
+          "bio": "",
+          "location": "Brisbane, Australia",
+          "linkedin": "jmccure",
+          "twitter": "",
+          "discord": "",
+          "website_url": "",
+          "github": "",
+          "job_title": "Senior Backend Engineer",
+          "pronouns": "He/Him",
+          "organization": "GitLab",
+          "bot": false,
+          "work_information": "Senior Backend Engineer at GitLab",
+          "followers": 12,
+          "following": 0,
+          "local_time": "1:38 AM"
+        },
+        "commit": {
+          "id": "c8f8f604c964f29b6765c7ef33aaadada03564f1",
+          "short_id": "c8f8f604",
+          "created_at": "2026-10-02T09:42:09.000+10:00",
+          "parent_ids": [
+            "5a38b3968afe46c133029595f4fcad920909a6fe",
+            "37ea25e1cf97b7e40c6d862c45ab32cec0f10b99"
+          ],
+          "title": "Merge branch 'renovate/golangci-lint-version' into 'main'",
+          "message": "Merge branch 'renovate/golangci-lint-version' into 'main'\n\nchore(deps): bump golangci-lint to v2.14.0\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/3988\n\nMerged-by: Jay McCure <redacted@example.invalid>\nApproved-by: Jay McCure <redacted@example.invalid>\nCo-authored-by: GitLab Renovate Bot <redacted@example.invalid>",
+          "author_name": "Jay McCure",
+          "author_email": "redacted@example.invalid",
+          "authored_date": "2026-10-02T09:42:09.000+10:00",
+          "committer_name": "GitLab",
+          "committer_email": "redacted@example.invalid",
+          "committed_date": "2026-10-02T09:42:09.000+10:00",
+          "trailers": {},
+          "extended_trailers": {},
+          "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/c8f8f604c964f29b6765c7ef33aaadada03564f1"
+        },
+        "pipeline": {
+          "id": 2904802294,
+          "iid": 14682,
+          "project_id": 34675721,
+          "sha": "c8f8f604c964f29b6765c7ef33aaadada03564f1",
+          "ref": "refs/merge-requests/3988/train",
+          "status": "success",
+          "source": "merge_request_event",
+          "created_at": "2026-10-01T23:42:11.739Z",
+          "updated_at": "2026-10-01T23:49:45.140Z",
+          "web_url": "https://gitlab.com/gitlab-org/cli/-/pipelines/2904802294"
+        },
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/jobs/16883566845",
+        "project": {
+          "ci_job_token_scope_enabled": false
+        },
+        "artifacts": [
+          {
+            "file_type": "trace",
+            "size": 7469,
+            "filename": "job.log",
+            "file_format": null
+          }
+        ],
+        "runner": {
+          "id": 55314121,
+          "description": "k8s.saas-linux-medium-amd64.runners-manager.gitlab.com/default",
+          "ip_address": null,
+          "active": true,
+          "paused": false,
+          "is_shared": true,
+          "runner_type": "instance_type",
+          "name": null,
+          "online": true,
+          "created_by": {
+            "id": 5372863,
+            "username": "igorwwwwwwwwwwwwwwwwwwww-admin",
+            "public_email": "",
+            "name": "Igor Wiedler",
+            "state": "active",
+            "locked": false,
+            "avatar_url": "https://secure.gravatar.com/avatar/509321df9ad78093586110676a0f3e0517e2744bce4c1963fac9ad5acd19f4f0?s=80&d=identicon",
+            "web_url": "https://gitlab.com/igorwwwwwwwwwwwwwwwwwwww-admin"
+          },
+          "created_at": "2026-08-19T15:31:33.905Z",
+          "status": "online",
+          "job_execution_status": "active"
+        },
+        "runner_manager": null,
+        "artifacts_expire_at": null,
+        "archived": false,
+        "tag_list": [
+          "saas-linux-medium-amd64"
+        ]
+      },
+      {
+        "id": 16883566844,
+        "status": "success",
+        "stage": "checks",
+        "name": "check_go_version",
+        "ref": "refs/merge-requests/3988/train",
+        "tag": false,
+        "coverage": null,
+        "allow_failure": false,
+        "created_at": "2026-10-01T23:42:11.886Z",
+        "started_at": "2026-10-01T23:42:12.998Z",
+        "finished_at": "2026-10-01T23:42:22.577Z",
+        "erased_at": null,
+        "duration": 9.579044,
+        "queued_duration": 0.244376,
+        "user": {
+          "id": 11809982,
+          "username": "jay_mccure",
+          "public_email": "",
+          "name": "Jay McCure",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1791444159",
+          "web_url": "https://gitlab.com/jay_mccure",
+          "created_at": "2022-06-12T22:51:50.999Z",
+          "bio": "",
+          "location": "Brisbane, Australia",
+          "linkedin": "jmccure",
+          "twitter": "",
+          "discord": "",
+          "website_url": "",
+          "github": "",
+          "job_title": "Senior Backend Engineer",
+          "pronouns": "He/Him",
+          "organization": "GitLab",
+          "bot": false,
+          "work_information": "Senior Backend Engineer at GitLab",
+          "followers": 12,
+          "following": 0,
+          "local_time": "1:38 AM"
+        },
+        "commit": {
+          "id": "c8f8f604c964f29b6765c7ef33aaadada03564f1",
+          "short_id": "c8f8f604",
+          "created_at": "2026-10-02T09:42:09.000+10:00",
+          "parent_ids": [
+            "5a38b3968afe46c133029595f4fcad920909a6fe",
+            "37ea25e1cf97b7e40c6d862c45ab32cec0f10b99"
+          ],
+          "title": "Merge branch 'renovate/golangci-lint-version' into 'main'",
+          "message": "Merge branch 'renovate/golangci-lint-version' into 'main'\n\nchore(deps): bump golangci-lint to v2.14.0\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/3988\n\nMerged-by: Jay McCure <redacted@example.invalid>\nApproved-by: Jay McCure <redacted@example.invalid>\nCo-authored-by: GitLab Renovate Bot <redacted@example.invalid>",
+          "author_name": "Jay McCure",
+          "author_email": "redacted@example.invalid",
+          "authored_date": "2026-10-02T09:42:09.000+10:00",
+          "committer_name": "GitLab",
+          "committer_email": "redacted@example.invalid",
+          "committed_date": "2026-10-02T09:42:09.000+10:00",
+          "trailers": {},
+          "extended_trailers": {},
+          "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/c8f8f604c964f29b6765c7ef33aaadada03564f1"
+        },
+        "pipeline": {
+          "id": 2904802294,
+          "iid": 14682,
+          "project_id": 34675721,
+          "sha": "c8f8f604c964f29b6765c7ef33aaadada03564f1",
+          "ref": "refs/merge-requests/3988/train",
+          "status": "success",
+          "source": "merge_request_event",
+          "created_at": "2026-10-01T23:42:11.739Z",
+          "updated_at": "2026-10-01T23:49:45.140Z",
+          "web_url": "https://gitlab.com/gitlab-org/cli/-/pipelines/2904802294"
+        },
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/jobs/16883566844",
+        "project": {
+          "ci_job_token_scope_enabled": false
+        },
+        "artifacts": [
+          {
+            "file_type": "trace",
+            "size": 7991,
+            "filename": "job.log",
+            "file_format": null
+          }
+        ],
+        "runner": {
+          "id": 55314121,
+          "description": "k8s.saas-linux-medium-amd64.runners-manager.gitlab.com/default",
+          "ip_address": null,
+          "active": true,
+          "paused": false,
+          "is_shared": true,
+          "runner_type": "instance_type",
+          "name": null,
+          "online": true,
+          "created_by": {
+            "id": 5372863,
+            "username": "igorwwwwwwwwwwwwwwwwwwww-admin",
+            "public_email": "",
+            "name": "Igor Wiedler",
+            "state": "active",
+            "locked": false,
+            "avatar_url": "https://secure.gravatar.com/avatar/509321df9ad78093586110676a0f3e0517e2744bce4c1963fac9ad5acd19f4f0?s=80&d=identicon",
+            "web_url": "https://gitlab.com/igorwwwwwwwwwwwwwwwwwwww-admin"
+          },
+          "created_at": "2026-08-19T15:31:33.905Z",
+          "status": "online",
+          "job_execution_status": "active"
+        },
+        "runner_manager": null,
+        "artifacts_expire_at": null,
+        "archived": false,
+        "tag_list": [
+          "saas-linux-medium-amd64"
+        ]
+      },
+      {
+        "id": 16883566843,
+        "status": "success",
+        "stage": "checks",
+        "name": "lint_commit",
+        "ref": "refs/merge-requests/3988/train",
+        "tag": false,
+        "coverage": null,
+        "allow_failure": false,
+        "created_at": "2026-10-01T23:42:11.886Z",
+        "started_at": "2026-10-01T23:42:12.941Z",
+        "finished_at": "2026-10-01T23:42:34.218Z",
+        "erased_at": null,
+        "duration": 21.27677,
+        "queued_duration": 0.245543,
+        "user": {
+          "id": 11809982,
+          "username": "jay_mccure",
+          "public_email": "",
+          "name": "Jay McCure",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1791444159",
+          "web_url": "https://gitlab.com/jay_mccure",
+          "created_at": "2022-06-12T22:51:50.999Z",
+          "bio": "",
+          "location": "Brisbane, Australia",
+          "linkedin": "jmccure",
+          "twitter": "",
+          "discord": "",
+          "website_url": "",
+          "github": "",
+          "job_title": "Senior Backend Engineer",
+          "pronouns": "He/Him",
+          "organization": "GitLab",
+          "bot": false,
+          "work_information": "Senior Backend Engineer at GitLab",
+          "followers": 12,
+          "following": 0,
+          "local_time": "1:38 AM"
+        },
+        "commit": {
+          "id": "c8f8f604c964f29b6765c7ef33aaadada03564f1",
+          "short_id": "c8f8f604",
+          "created_at": "2026-10-02T09:42:09.000+10:00",
+          "parent_ids": [
+            "5a38b3968afe46c133029595f4fcad920909a6fe",
+            "37ea25e1cf97b7e40c6d862c45ab32cec0f10b99"
+          ],
+          "title": "Merge branch 'renovate/golangci-lint-version' into 'main'",
+          "message": "Merge branch 'renovate/golangci-lint-version' into 'main'\n\nchore(deps): bump golangci-lint to v2.14.0\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/3988\n\nMerged-by: Jay McCure <redacted@example.invalid>\nApproved-by: Jay McCure <redacted@example.invalid>\nCo-authored-by: GitLab Renovate Bot <redacted@example.invalid>",
+          "author_name": "Jay McCure",
+          "author_email": "redacted@example.invalid",
+          "authored_date": "2026-10-02T09:42:09.000+10:00",
+          "committer_name": "GitLab",
+          "committer_email": "redacted@example.invalid",
+          "committed_date": "2026-10-02T09:42:09.000+10:00",
+          "trailers": {},
+          "extended_trailers": {},
+          "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/c8f8f604c964f29b6765c7ef33aaadada03564f1"
+        },
+        "pipeline": {
+          "id": 2904802294,
+          "iid": 14682,
+          "project_id": 34675721,
+          "sha": "c8f8f604c964f29b6765c7ef33aaadada03564f1",
+          "ref": "refs/merge-requests/3988/train",
+          "status": "success",
+          "source": "merge_request_event",
+          "created_at": "2026-10-01T23:42:11.739Z",
+          "updated_at": "2026-10-01T23:49:45.140Z",
+          "web_url": "https://gitlab.com/gitlab-org/cli/-/pipelines/2904802294"
+        },
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/jobs/16883566843",
+        "project": {
+          "ci_job_token_scope_enabled": false
+        },
+        "artifacts": [
+          {
+            "file_type": "trace",
+            "size": 35868,
+            "filename": "job.log",
+            "file_format": null
+          }
+        ],
+        "runner": {
+          "id": 55314121,
+          "description": "k8s.saas-linux-medium-amd64.runners-manager.gitlab.com/default",
+          "ip_address": null,
+          "active": true,
+          "paused": false,
+          "is_shared": true,
+          "runner_type": "instance_type",
+          "name": null,
+          "online": true,
+          "created_by": {
+            "id": 5372863,
+            "username": "igorwwwwwwwwwwwwwwwwwwww-admin",
+            "public_email": "",
+            "name": "Igor Wiedler",
+            "state": "active",
+            "locked": false,
+            "avatar_url": "https://secure.gravatar.com/avatar/509321df9ad78093586110676a0f3e0517e2744bce4c1963fac9ad5acd19f4f0?s=80&d=identicon",
+            "web_url": "https://gitlab.com/igorwwwwwwwwwwwwwwwwwwww-admin"
+          },
+          "created_at": "2026-08-19T15:31:33.905Z",
+          "status": "online",
+          "job_execution_status": "active"
+        },
+        "runner_manager": null,
+        "artifacts_expire_at": null,
+        "archived": false,
+        "tag_list": [
+          "saas-linux-medium-amd64"
+        ]
+      },
+      {
+        "id": 16883566842,
+        "status": "success",
+        "stage": "application-security-testing",
+        "name": "dependency-scanning-profile-0",
+        "ref": "refs/merge-requests/3988/train",
+        "tag": false,
+        "coverage": null,
+        "allow_failure": true,
+        "created_at": "2026-10-01T23:42:11.886Z",
+        "started_at": "2026-10-01T23:42:12.910Z",
+        "finished_at": "2026-10-01T23:42:32.249Z",
+        "erased_at": null,
+        "duration": 19.339616,
+        "queued_duration": 0.280643,
+        "user": {
+          "id": 11809982,
+          "username": "jay_mccure",
+          "public_email": "",
+          "name": "Jay McCure",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1791444159",
+          "web_url": "https://gitlab.com/jay_mccure",
+          "created_at": "2022-06-12T22:51:50.999Z",
+          "bio": "",
+          "location": "Brisbane, Australia",
+          "linkedin": "jmccure",
+          "twitter": "",
+          "discord": "",
+          "website_url": "",
+          "github": "",
+          "job_title": "Senior Backend Engineer",
+          "pronouns": "He/Him",
+          "organization": "GitLab",
+          "bot": false,
+          "work_information": "Senior Backend Engineer at GitLab",
+          "followers": 12,
+          "following": 0,
+          "local_time": "1:38 AM"
+        },
+        "commit": {
+          "id": "c8f8f604c964f29b6765c7ef33aaadada03564f1",
+          "short_id": "c8f8f604",
+          "created_at": "2026-10-02T09:42:09.000+10:00",
+          "parent_ids": [
+            "5a38b3968afe46c133029595f4fcad920909a6fe",
+            "37ea25e1cf97b7e40c6d862c45ab32cec0f10b99"
+          ],
+          "title": "Merge branch 'renovate/golangci-lint-version' into 'main'",
+          "message": "Merge branch 'renovate/golangci-lint-version' into 'main'\n\nchore(deps): bump golangci-lint to v2.14.0\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/3988\n\nMerged-by: Jay McCure <redacted@example.invalid>\nApproved-by: Jay McCure <redacted@example.invalid>\nCo-authored-by: GitLab Renovate Bot <redacted@example.invalid>",
+          "author_name": "Jay McCure",
+          "author_email": "redacted@example.invalid",
+          "authored_date": "2026-10-02T09:42:09.000+10:00",
+          "committer_name": "GitLab",
+          "committer_email": "redacted@example.invalid",
+          "committed_date": "2026-10-02T09:42:09.000+10:00",
+          "trailers": {},
+          "extended_trailers": {},
+          "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/c8f8f604c964f29b6765c7ef33aaadada03564f1"
+        },
+        "pipeline": {
+          "id": 2904802294,
+          "iid": 14682,
+          "project_id": 34675721,
+          "sha": "c8f8f604c964f29b6765c7ef33aaadada03564f1",
+          "ref": "refs/merge-requests/3988/train",
+          "status": "success",
+          "source": "merge_request_event",
+          "created_at": "2026-10-01T23:42:11.739Z",
+          "updated_at": "2026-10-01T23:49:45.140Z",
+          "web_url": "https://gitlab.com/gitlab-org/cli/-/pipelines/2904802294"
+        },
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/jobs/16883566842",
+        "project": {
+          "ci_job_token_scope_enabled": false
+        },
+        "artifacts_file": {
+          "filename": "artifacts.zip",
+          "size": 9682
+        },
+        "artifacts": [
+          {
+            "file_type": "archive",
+            "size": 9682,
+            "filename": "artifacts.zip",
+            "file_format": "zip"
+          },
+          {
+            "file_type": "metadata",
+            "size": 302,
+            "filename": "metadata.gz",
+            "file_format": "gzip"
+          },
+          {
+            "file_type": "trace",
+            "size": 20461,
+            "filename": "job.log",
+            "file_format": null
+          },
+          {
+            "file_type": "dependency_scanning",
+            "size": 3050,
+            "filename": "gl-dependency-scanning-report.json",
+            "file_format": "raw"
+          },
+          {
+            "file_type": "cyclonedx",
+            "size": 8568,
+            "filename": "gl-sbom.cdx.json.gz",
+            "file_format": "gzip"
+          }
+        ],
+        "runner": {
+          "id": 55314121,
+          "description": "k8s.saas-linux-medium-amd64.runners-manager.gitlab.com/default",
+          "ip_address": null,
+          "active": true,
+          "paused": false,
+          "is_shared": true,
+          "runner_type": "instance_type",
+          "name": null,
+          "online": true,
+          "created_by": {
+            "id": 5372863,
+            "username": "igorwwwwwwwwwwwwwwwwwwww-admin",
+            "public_email": "",
+            "name": "Igor Wiedler",
+            "state": "active",
+            "locked": false,
+            "avatar_url": "https://secure.gravatar.com/avatar/509321df9ad78093586110676a0f3e0517e2744bce4c1963fac9ad5acd19f4f0?s=80&d=identicon",
+            "web_url": "https://gitlab.com/igorwwwwwwwwwwwwwwwwwwww-admin"
+          },
+          "created_at": "2026-08-19T15:31:33.905Z",
+          "status": "online",
+          "job_execution_status": "active"
+        },
+        "runner_manager": null,
+        "artifacts_expire_at": "2026-10-31T23:42:31.462Z",
+        "archived": false,
+        "tag_list": [
+          "saas-linux-medium-amd64"
+        ]
+      },
+      {
+        "id": 16883566841,
+        "status": "manual",
+        "stage": "application-security-testing",
+        "name": "govulncheck",
+        "ref": "refs/merge-requests/3988/train",
+        "tag": false,
+        "coverage": null,
+        "allow_failure": true,
+        "created_at": "2026-10-01T23:42:11.886Z",
+        "started_at": null,
+        "finished_at": null,
+        "erased_at": null,
+        "duration": null,
+        "queued_duration": null,
+        "user": {
+          "id": 11809982,
+          "username": "jay_mccure",
+          "public_email": "",
+          "name": "Jay McCure",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1791444159",
+          "web_url": "https://gitlab.com/jay_mccure",
+          "created_at": "2022-06-12T22:51:50.999Z",
+          "bio": "",
+          "location": "Brisbane, Australia",
+          "linkedin": "jmccure",
+          "twitter": "",
+          "discord": "",
+          "website_url": "",
+          "github": "",
+          "job_title": "Senior Backend Engineer",
+          "pronouns": "He/Him",
+          "organization": "GitLab",
+          "bot": false,
+          "work_information": "Senior Backend Engineer at GitLab",
+          "followers": 12,
+          "following": 0,
+          "local_time": "1:38 AM"
+        },
+        "commit": {
+          "id": "c8f8f604c964f29b6765c7ef33aaadada03564f1",
+          "short_id": "c8f8f604",
+          "created_at": "2026-10-02T09:42:09.000+10:00",
+          "parent_ids": [
+            "5a38b3968afe46c133029595f4fcad920909a6fe",
+            "37ea25e1cf97b7e40c6d862c45ab32cec0f10b99"
+          ],
+          "title": "Merge branch 'renovate/golangci-lint-version' into 'main'",
+          "message": "Merge branch 'renovate/golangci-lint-version' into 'main'\n\nchore(deps): bump golangci-lint to v2.14.0\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/3988\n\nMerged-by: Jay McCure <redacted@example.invalid>\nApproved-by: Jay McCure <redacted@example.invalid>\nCo-authored-by: GitLab Renovate Bot <redacted@example.invalid>",
+          "author_name": "Jay McCure",
+          "author_email": "redacted@example.invalid",
+          "authored_date": "2026-10-02T09:42:09.000+10:00",
+          "committer_name": "GitLab",
+          "committer_email": "redacted@example.invalid",
+          "committed_date": "2026-10-02T09:42:09.000+10:00",
+          "trailers": {},
+          "extended_trailers": {},
+          "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/c8f8f604c964f29b6765c7ef33aaadada03564f1"
+        },
+        "pipeline": {
+          "id": 2904802294,
+          "iid": 14682,
+          "project_id": 34675721,
+          "sha": "c8f8f604c964f29b6765c7ef33aaadada03564f1",
+          "ref": "refs/merge-requests/3988/train",
+          "status": "success",
+          "source": "merge_request_event",
+          "created_at": "2026-10-01T23:42:11.739Z",
+          "updated_at": "2026-10-01T23:49:45.140Z",
+          "web_url": "https://gitlab.com/gitlab-org/cli/-/pipelines/2904802294"
+        },
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/jobs/16883566841",
+        "project": {
+          "ci_job_token_scope_enabled": false
+        },
+        "artifacts": [],
+        "runner": null,
+        "runner_manager": null,
+        "artifacts_expire_at": null,
+        "archived": false,
+        "tag_list": [
+          "saas-linux-medium-amd64"
+        ]
+      },
+      {
+        "id": 16883566840,
+        "status": "success",
+        "stage": "application-security-testing",
+        "name": "secret_detection",
+        "ref": "refs/merge-requests/3988/train",
+        "tag": false,
+        "coverage": null,
+        "allow_failure": true,
+        "created_at": "2026-10-01T23:42:11.886Z",
+        "started_at": "2026-10-01T23:42:12.816Z",
+        "finished_at": "2026-10-01T23:42:26.526Z",
+        "erased_at": null,
+        "duration": 13.71,
+        "queued_duration": 0.268066,
+        "user": {
+          "id": 11809982,
+          "username": "jay_mccure",
+          "public_email": "",
+          "name": "Jay McCure",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1791444159",
+          "web_url": "https://gitlab.com/jay_mccure",
+          "created_at": "2022-06-12T22:51:50.999Z",
+          "bio": "",
+          "location": "Brisbane, Australia",
+          "linkedin": "jmccure",
+          "twitter": "",
+          "discord": "",
+          "website_url": "",
+          "github": "",
+          "job_title": "Senior Backend Engineer",
+          "pronouns": "He/Him",
+          "organization": "GitLab",
+          "bot": false,
+          "work_information": "Senior Backend Engineer at GitLab",
+          "followers": 12,
+          "following": 0,
+          "local_time": "1:38 AM"
+        },
+        "commit": {
+          "id": "c8f8f604c964f29b6765c7ef33aaadada03564f1",
+          "short_id": "c8f8f604",
+          "created_at": "2026-10-02T09:42:09.000+10:00",
+          "parent_ids": [
+            "5a38b3968afe46c133029595f4fcad920909a6fe",
+            "37ea25e1cf97b7e40c6d862c45ab32cec0f10b99"
+          ],
+          "title": "Merge branch 'renovate/golangci-lint-version' into 'main'",
+          "message": "Merge branch 'renovate/golangci-lint-version' into 'main'\n\nchore(deps): bump golangci-lint to v2.14.0\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/3988\n\nMerged-by: Jay McCure <redacted@example.invalid>\nApproved-by: Jay McCure <redacted@example.invalid>\nCo-authored-by: GitLab Renovate Bot <redacted@example.invalid>",
+          "author_name": "Jay McCure",
+          "author_email": "redacted@example.invalid",
+          "authored_date": "2026-10-02T09:42:09.000+10:00",
+          "committer_name": "GitLab",
+          "committer_email": "redacted@example.invalid",
+          "committed_date": "2026-10-02T09:42:09.000+10:00",
+          "trailers": {},
+          "extended_trailers": {},
+          "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/c8f8f604c964f29b6765c7ef33aaadada03564f1"
+        },
+        "pipeline": {
+          "id": 2904802294,
+          "iid": 14682,
+          "project_id": 34675721,
+          "sha": "c8f8f604c964f29b6765c7ef33aaadada03564f1",
+          "ref": "refs/merge-requests/3988/train",
+          "status": "success",
+          "source": "merge_request_event",
+          "created_at": "2026-10-01T23:42:11.739Z",
+          "updated_at": "2026-10-01T23:49:45.140Z",
+          "web_url": "https://gitlab.com/gitlab-org/cli/-/pipelines/2904802294"
+        },
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/jobs/16883566840",
+        "project": {
+          "ci_job_token_scope_enabled": false
+        },
+        "artifacts_file": {
+          "filename": "artifacts.zip",
+          "size": 722
+        },
+        "artifacts": [
+          {
+            "file_type": "archive",
+            "size": 722,
+            "filename": "artifacts.zip",
+            "file_format": "zip"
+          },
+          {
+            "file_type": "metadata",
+            "size": 171,
+            "filename": "metadata.gz",
+            "file_format": "gzip"
+          },
+          {
+            "file_type": "trace",
+            "size": 11579,
+            "filename": "job.log",
+            "file_format": null
+          },
+          {
+            "file_type": "secret_detection",
+            "size": 1319,
+            "filename": "gl-secret-detection-report.json",
+            "file_format": "raw"
+          }
+        ],
+        "runner": {
+          "id": 55314121,
+          "description": "k8s.saas-linux-medium-amd64.runners-manager.gitlab.com/default",
+          "ip_address": null,
+          "active": true,
+          "paused": false,
+          "is_shared": true,
+          "runner_type": "instance_type",
+          "name": null,
+          "online": true,
+          "created_by": {
+            "id": 5372863,
+            "username": "igorwwwwwwwwwwwwwwwwwwww-admin",
+            "public_email": "",
+            "name": "Igor Wiedler",
+            "state": "active",
+            "locked": false,
+            "avatar_url": "https://secure.gravatar.com/avatar/509321df9ad78093586110676a0f3e0517e2744bce4c1963fac9ad5acd19f4f0?s=80&d=identicon",
+            "web_url": "https://gitlab.com/igorwwwwwwwwwwwwwwwwwwww-admin"
+          },
+          "created_at": "2026-08-19T15:31:33.905Z",
+          "status": "online",
+          "job_execution_status": "active"
+        },
+        "runner_manager": null,
+        "artifacts_expire_at": "2026-10-31T23:42:25.591Z",
+        "archived": false,
+        "tag_list": [
+          "saas-linux-medium-amd64"
+        ]
+      },
+      {
+        "id": 16883566839,
+        "status": "success",
+        "stage": "application-security-testing",
+        "name": "gitlab-advanced-sast",
+        "ref": "refs/merge-requests/3988/train",
+        "tag": false,
+        "coverage": null,
+        "allow_failure": true,
+        "created_at": "2026-10-01T23:42:11.886Z",
+        "started_at": "2026-10-01T23:42:12.790Z",
+        "finished_at": "2026-10-01T23:43:55.348Z",
+        "erased_at": null,
+        "duration": 102.557862,
+        "queued_duration": 0.304442,
+        "user": {
+          "id": 11809982,
+          "username": "jay_mccure",
+          "public_email": "",
+          "name": "Jay McCure",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1791444159",
+          "web_url": "https://gitlab.com/jay_mccure",
+          "created_at": "2022-06-12T22:51:50.999Z",
+          "bio": "",
+          "location": "Brisbane, Australia",
+          "linkedin": "jmccure",
+          "twitter": "",
+          "discord": "",
+          "website_url": "",
+          "github": "",
+          "job_title": "Senior Backend Engineer",
+          "pronouns": "He/Him",
+          "organization": "GitLab",
+          "bot": false,
+          "work_information": "Senior Backend Engineer at GitLab",
+          "followers": 12,
+          "following": 0,
+          "local_time": "1:38 AM"
+        },
+        "commit": {
+          "id": "c8f8f604c964f29b6765c7ef33aaadada03564f1",
+          "short_id": "c8f8f604",
+          "created_at": "2026-10-02T09:42:09.000+10:00",
+          "parent_ids": [
+            "5a38b3968afe46c133029595f4fcad920909a6fe",
+            "37ea25e1cf97b7e40c6d862c45ab32cec0f10b99"
+          ],
+          "title": "Merge branch 'renovate/golangci-lint-version' into 'main'",
+          "message": "Merge branch 'renovate/golangci-lint-version' into 'main'\n\nchore(deps): bump golangci-lint to v2.14.0\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/3988\n\nMerged-by: Jay McCure <redacted@example.invalid>\nApproved-by: Jay McCure <redacted@example.invalid>\nCo-authored-by: GitLab Renovate Bot <redacted@example.invalid>",
+          "author_name": "Jay McCure",
+          "author_email": "redacted@example.invalid",
+          "authored_date": "2026-10-02T09:42:09.000+10:00",
+          "committer_name": "GitLab",
+          "committer_email": "redacted@example.invalid",
+          "committed_date": "2026-10-02T09:42:09.000+10:00",
+          "trailers": {},
+          "extended_trailers": {},
+          "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/c8f8f604c964f29b6765c7ef33aaadada03564f1"
+        },
+        "pipeline": {
+          "id": 2904802294,
+          "iid": 14682,
+          "project_id": 34675721,
+          "sha": "c8f8f604c964f29b6765c7ef33aaadada03564f1",
+          "ref": "refs/merge-requests/3988/train",
+          "status": "success",
+          "source": "merge_request_event",
+          "created_at": "2026-10-01T23:42:11.739Z",
+          "updated_at": "2026-10-01T23:49:45.140Z",
+          "web_url": "https://gitlab.com/gitlab-org/cli/-/pipelines/2904802294"
+        },
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/jobs/16883566839",
+        "project": {
+          "ci_job_token_scope_enabled": false
+        },
+        "artifacts": [
+          {
+            "file_type": "trace",
+            "size": 78611,
+            "filename": "job.log",
+            "file_format": null
+          }
+        ],
+        "runner": {
+          "id": 55314121,
+          "description": "k8s.saas-linux-medium-amd64.runners-manager.gitlab.com/default",
+          "ip_address": null,
+          "active": true,
+          "paused": false,
+          "is_shared": true,
+          "runner_type": "instance_type",
+          "name": null,
+          "online": true,
+          "created_by": {
+            "id": 5372863,
+            "username": "igorwwwwwwwwwwwwwwwwwwww-admin",
+            "public_email": "",
+            "name": "Igor Wiedler",
+            "state": "active",
+            "locked": false,
+            "avatar_url": "https://secure.gravatar.com/avatar/509321df9ad78093586110676a0f3e0517e2744bce4c1963fac9ad5acd19f4f0?s=80&d=identicon",
+            "web_url": "https://gitlab.com/igorwwwwwwwwwwwwwwwwwwww-admin"
+          },
+          "created_at": "2026-08-19T15:31:33.905Z",
+          "status": "online",
+          "job_execution_status": "active"
+        },
+        "runner_manager": null,
+        "artifacts_expire_at": "2026-10-04T23:43:54.591Z",
+        "archived": false,
+        "tag_list": [
+          "saas-linux-medium-amd64"
+        ]
+      }
+    ]
+  }
+}
