@@ -1,27 +1,12 @@
 <script setup lang="ts">
-const forges = [
-  [
-    { name: 'GitHub', icon: 'i-simple-icons-github', to: '/providers/github' },
-    { name: 'GitLab', icon: 'i-simple-icons-gitlab', to: '/providers/gitlab' },
-    { name: 'Bitbucket', icon: 'i-simple-icons-bitbucket', to: '/providers/bitbucket' },
-    { name: 'Azure DevOps', icon: 'i-simple-icons-azuredevops', to: '/providers/azure-devops' },
-    { name: 'Tangled', icon: 'i-lucide-spool', to: '/providers/tangled' },
-  ],
-  [
-    { name: 'Forgejo', icon: 'i-simple-icons-forgejo', to: '/providers/forgejo' },
-    { name: 'Gitea', icon: 'i-simple-icons-gitea', to: '/providers/gitea' },
-    { name: 'Gitee', icon: 'i-simple-icons-gitee', to: '/providers/gitee' },
-    { name: 'Cursor Origin', icon: 'i-simple-icons-cursor', to: '/providers/cursor-origin' },
-    { name: 'pushin.eu', icon: 'i-lucide-send', to: '/providers/pushin' },
-  ],
-]
+import { providers } from '#capabilities'
 
 const command = 'pnpm add forges'
 const { copied, copy, message } = useCopyToClipboard(() => command)
 </script>
 
 <template>
-  <section class="hero relative isolate -mt-(--ui-header-height) flex min-h-svh items-center overflow-hidden pt-(--ui-header-height)">
+  <section class="hero relative isolate -mt-(--ui-header-height) overflow-hidden pt-(--ui-header-height)">
     <div
       class="hero-gradient absolute inset-0 -z-10"
       aria-hidden="true"
@@ -32,26 +17,14 @@ const { copied, copy, message } = useCopyToClipboard(() => command)
     />
     <LandingPixelField class="-z-10" />
 
-    <div class="mx-auto flex max-w-4xl flex-col items-center px-4 py-16 text-center sm:px-6">
-      <NuxtLink
-        to="/providers"
-        class="group inline-flex items-center gap-2 rounded-full border border-default bg-default/60 px-3 py-1 font-mono text-xs text-muted backdrop-blur transition hover:text-highlighted"
-      >
-        <span class="size-1.5 bg-primary" />
-        see supported forges
-        <UIcon
-          name="i-lucide-arrow-right"
-          class="size-3 transition group-hover:translate-x-0.5"
-        />
-      </NuxtLink>
-
-      <h1 class="mt-6 text-balance text-4xl font-semibold tracking-tight text-highlighted sm:text-6xl">
-        one api for every
-        <span class="text-primary">code forge</span>
+    <div class="mx-auto flex max-w-4xl flex-col items-center px-4 pt-20 pb-14 text-center sm:px-6 sm:pt-28 sm:pb-16">
+      <h1 class="text-balance text-4xl font-semibold tracking-tight text-highlighted sm:text-6xl">
+        one client,
+        <span class="text-primary">every forge</span>
       </h1>
 
       <p class="mt-6 max-w-2xl text-pretty text-lg text-muted">
-        Work with issues, pull requests, notifications, checks and webhooks on GitHub, GitLab, Forgejo and seven more forges through one typed data model.
+        A unified interface for issues, pull requests, notifications, checks and webhooks across {{ providers.length }} <ForgeTerm>forges</ForgeTerm>.
       </p>
 
       <div class="mt-9 flex flex-wrap items-center justify-center gap-3">
@@ -79,30 +52,6 @@ const { copied, copy, message } = useCopyToClipboard(() => command)
           class="sr-only"
           aria-live="polite"
         >{{ message }}</span>
-      </div>
-
-      <div class="mt-16 flex flex-col items-center gap-3">
-        <ul
-          v-for="(row, index) of forges"
-          :key="index"
-          class="flex flex-wrap items-center justify-center gap-x-6 gap-y-3"
-        >
-          <li
-            v-for="forge of row"
-            :key="forge.name"
-          >
-            <NuxtLink
-              :to="forge.to"
-              class="inline-flex items-center gap-2 text-sm text-muted transition hover:text-highlighted"
-            >
-              <UIcon
-                :name="forge.icon"
-                class="size-4"
-              />
-              {{ forge.name }}
-            </NuxtLink>
-          </li>
-        </ul>
       </div>
     </div>
   </section>

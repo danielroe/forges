@@ -65,29 +65,8 @@ const projects = [
   },
 ]
 
-const manyForges = `import { createForges, forgejo, github, gitlab } from 'forges'
-
-const forges = createForges([
-  github({ auth: { type: 'token', token: process.env.GITHUB_TOKEN! } }),
-  gitlab({ auth: { type: 'token', token: process.env.GITLAB_TOKEN! } }),
-  forgejo({ baseUrl: 'https://codeberg.org', auth: { type: 'token', token: process.env.CODEBERG_TOKEN! } }),
-])
-
-for await (const notification of forges.notifications.list()) {
-  console.log(notification.ref.forge, notification.title)
-}`
-
-const webhook = `import { github } from 'forges/github'
-
-const forge = github({ webhookSecret: process.env.GITHUB_WEBHOOK_SECRET }).create()
-
-export default async function handler(request: Request) {
-  const events = await forge.webhooks.ingest({ headers: request.headers, body: await request.text() })
-  for (const event of events) {
-    console.log(event.kind, event.action, event.summary)
-  }
-  return new Response(null, { status: 204 })
-}`
+// Tighter than the UPageSection defaults, so sections read as one page.
+const section = { container: 'py-10 sm:py-12 lg:py-16 gap-8 sm:gap-10' }
 </script>
 
 <template>
@@ -96,9 +75,18 @@ export default async function handler(request: Request) {
     <LandingHero />
 
     <UPageSection
-      :ui="{ container: 'py-12 sm:py-16 lg:py-20' }"
-      title="what the providers handle"
-      description="You write code against the shared model. Each provider handles the endpoints, pagination, authentication and rate limits of its forge."
+      :ui="{ container: `${section.container} pt-0 sm:pt-0 lg:pt-0` }"
+    >
+      <LazyLandingForgeSwitcher
+        class="mx-auto w-full max-w-5xl"
+        hydrate-on-visible
+      />
+    </UPageSection>
+
+    <UPageSection
+      :ui="section"
+      title="features"
+      description="You write code against one model. forges handles the endpoints, pagination, authentication and rate limits of each forge."
     >
       <UPageGrid class="lg:grid-cols-3">
         <LazyUPageCard
@@ -113,45 +101,28 @@ export default async function handler(request: Request) {
     </UPageSection>
 
     <UPageSection
-      :ui="{ container: 'py-12 sm:py-16 lg:py-20' }"
-      title="the same code on every forge"
-      description="Register as many providers as you need. Each call goes to the provider that matches its ref."
-    >
-      <div class="grid gap-6 lg:grid-cols-2">
-        <LazyLandingCode
-          label="Notifications from three forges"
-          :code="manyForges"
-          hydrate-never
-        />
-        <LazyLandingCode
-          label="A verified webhook endpoint"
-          :code="webhook"
-          hydrate-never
-        />
-      </div>
-    </UPageSection>
-
-    <UPageSection
-      :ui="{ container: 'py-12 sm:py-16 lg:py-20' }"
+      :ui="section"
       title="see what each forge can do"
       description="Every provider declares what it supports, so your code can check before it calls."
     >
-      <LazyLandingCapabilityGrid hydrate-never />
+      <div>
+        <LazyLandingCapabilityGrid hydrate-never />
 
-      <div class="mt-10 flex justify-center">
-        <UButton
-          to="/reference/capability-matrix"
-          color="neutral"
-          variant="outline"
-          trailing-icon="i-lucide-arrow-right"
-        >
-          read the full matrix
-        </UButton>
+        <div class="mt-6 flex justify-center">
+          <UButton
+            to="/reference/capability-matrix"
+            color="neutral"
+            variant="outline"
+            trailing-icon="i-lucide-arrow-right"
+          >
+            read the full matrix
+          </UButton>
+        </div>
       </div>
     </UPageSection>
 
     <UPageSection
-      :ui="{ container: 'py-12 sm:py-16 lg:py-20' }"
+      :ui="section"
       title="what you can build"
       description="Explore examples and guides for your next project."
     >
@@ -166,7 +137,7 @@ export default async function handler(request: Request) {
       </UPageGrid>
     </UPageSection>
 
-    <UPageSection :ui="{ container: 'py-12 sm:py-16 lg:py-24' }">
+    <UPageSection :ui="section">
       <div class="mx-auto flex max-w-2xl flex-col items-center text-center">
         <h2 class="text-3xl font-semibold tracking-tight text-highlighted sm:text-4xl">
           make your first call

@@ -159,7 +159,7 @@ describe('developer portal', () => {
 
   it('links the documentation from the homepage', async () => {
     const html = await get('/').then(response => response.text())
-    expect(html).toContain('<title>One TypeScript API for every code forge - forges</title>')
+    expect(html).toContain('<title>One TypeScript client, every forge - forges</title>')
     for (const path of ['/developers', '/reference/provider-api', '/getting-started/introduction']) {
       expect(html).toContain(`href="${path}"`)
     }

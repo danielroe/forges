@@ -1,7 +1,7 @@
 <script setup lang="ts">
 const props = defineProps<{
   code: string
-  label: string
+  label?: string
 }>()
 
 const TOKEN = /(\/\/.*)|('(?:[^'\\]|\\.)*'|`(?:[^`\\]|\\.)*`)|\b(import|from|const|let|await|async|for|of|if|return|new|export|default|function|as|type)\b|\b(true|false|null|undefined)\b|(\b[A-Z]\w*\b)|(\b[a-z_$][\w$]*)(?=\()|(\b\d+\b)/g
@@ -32,7 +32,10 @@ const lines = computed(() => props.code.split('\n').map((line) => {
 
 <template>
   <figure class="overflow-hidden rounded-lg border border-default bg-elevated/50">
-    <figcaption class="flex items-center gap-2 border-b border-default px-4 py-2.5 font-mono text-xs text-muted">
+    <figcaption
+      v-if="label"
+      class="flex items-center gap-2 border-b border-default px-4 py-2.5 font-mono text-xs text-muted"
+    >
       <span class="size-1.5 bg-primary" />
       {{ label }}
     </figcaption>
