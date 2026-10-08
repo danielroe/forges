@@ -99,7 +99,7 @@ export const PAGES: PageConfig[] = [
       forge('Gitee', 'gitee'),
       forge('Azure DevOps', 'azure-devops'),
       forge('Cursor Origin', 'cursor-origin'),
-      forge('pushin.eu', 'pushin'),
+      forge('Pushin.eu', 'pushin'),
       forge('Tangled', 'tangled'),
       { title: 'Forges registry', intro: 'A registry routes each ref to the provider it belongs to.', names: ['createForges', 'ForgeProviderFactory', 'ProviderFactoryFunction'] },
       { title: 'Registry methods', members: { of: 'Forges' } },

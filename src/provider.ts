@@ -137,6 +137,10 @@ export interface ForgeOptionsBase {
   timeout?: number
   /** Shared secret used to verify inbound webhook deliveries. */
   webhookSecret?: string
+  /**
+   * The `user-agent` header. Defaults to `forges`, except in a browser, which sends its own.
+   * Setting it in a browser can trigger a CORS preflight that some forges reject.
+   */
   userAgent?: string
   /**
    * Version of the forge instance, when the caller already knows it. Gates

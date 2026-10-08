@@ -275,7 +275,7 @@ export interface ProviderBase<TOptions, TState> {
   instance: ForgeInstance
   /** API base after defaults and the API path are applied. */
   baseUrl: string
-  /** Default headers: the definition's, plus `user-agent`. */
+  /** Default headers: the definition's, plus `user-agent` outside browsers or when the caller sets one. */
   headers: Record<string, string>
   /** Error context for this provider. */
   origin: {
@@ -401,7 +401,10 @@ function createProvider<TOptions extends ForgeOptionsBase, TState>(
   const host = instanceHost(baseUrl, definition.forge)
   const instance = options.instance ?? definition.instance?.(host) ?? host
   const origin = { forge: definition.forge, instance }
-  const headers = { ...definition.headers, 'user-agent': options.userAgent ?? 'forges' }
+  // Browsers send their own user agent, and setting one can trigger a CORS preflight that some forges reject.
+  const browser = 'document' in globalThis || 'WorkerGlobalScope' in globalThis
+  const userAgent = options.userAgent ?? (browser ? undefined : 'forges')
+  const headers = { ...definition.headers, ...userAgent ? { 'user-agent': userAgent } : {} }
   const prepared = { options, forge: definition.forge, instance, baseUrl, headers, origin, state: givenState }
   const state = (definition.prepare ? definition.prepare(prepared) : givenState) as TState
   const base: ProviderBase<TOptions, TState> = { ...prepared, state }

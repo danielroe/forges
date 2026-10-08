@@ -41,7 +41,7 @@ function setupPushin({ instance, origin: context, fetcher, baseUrl }: ProviderCo
 
   async function listPage(repo: RepoRef, query: ThreadQuery = {}): Promise<Page<Thread>> {
     if (query.kind && query.kind !== 'issue' && query.kind !== 'pull_request') {
-      return { items: [], warnings: [{ code: 'kind_unsupported', message: `pushin.eu has no listing for ${query.kind}s` }] }
+      return { items: [], warnings: [{ code: 'kind_unsupported', message: `Pushin.eu has no listing for ${query.kind}s` }] }
     }
     const kind = query.kind === 'pull_request' ? 'pull_request' : 'issue'
     const result = await fetcher.page<PushinThread>(`${repoPath(repo)}/${kind === 'pull_request' ? 'pulls' : 'issues'}`, {
@@ -140,12 +140,12 @@ const PUSHIN: ProviderDefinition<PushinOptions> = {
   setup: setupPushin,
 }
 
-/** Creates a pushin.eu provider. */
+/** Creates a Pushin.eu provider. */
 export const pushin: ProviderFactoryFunction<PushinOptions> = /* @__PURE__ */ defineForgeProvider(PUSHIN)
 
-/** Scope requirements for a pushin.eu operation. */
+/** Scope requirements for a Pushin.eu operation. */
 export function pushinScopesFor(_verb: ForgeVerb): VerbScopes {
-  return { note: 'A personal access token created in Settings; pushin.eu does not scope tokens per resource' }
+  return { note: 'A personal access token created in Settings; Pushin.eu does not scope tokens per resource' }
 }
 
 export { toActor as toPushinActor, toComment as toPushinComment, toRepo as toPushinRepo }

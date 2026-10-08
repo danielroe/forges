@@ -18,7 +18,7 @@ export function matrixProviders(forges: typeof Forges): Array<{ slug: string, na
     entry('gitee', 'Gitee', gitee, { auth }),
     entry('azure-devops', 'Azure DevOps', azureDevOps, { auth, organization: 'acme' }),
     entry('cursor-origin', 'Cursor Origin', cursorOrigin, { auth }),
-    entry('pushin', 'pushin.eu', pushin, { auth }),
+    entry('pushin', 'Pushin.eu', pushin, { auth }),
     entry('tangled', 'Tangled', tangled, { auth: { type: 'app_password', identifier: 'handle', password: 'password' }, notificationsUrl: 'https://notifications.example' }),
   ]
 }

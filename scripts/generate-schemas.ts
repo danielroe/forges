@@ -104,7 +104,7 @@ export function generateSchemas(): Record<string, Schema> {
     expose: 'export',
     skipTypeCheck: true,
     topRef: false,
-    jsDoc: 'basic',
+    jsDoc: 'extended',
     functions: 'hide',
     additionalProperties: true,
   })

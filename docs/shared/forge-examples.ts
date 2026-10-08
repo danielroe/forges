@@ -89,7 +89,7 @@ thread.kind      // 'pull_request'
 thread.state     // 'merged'
 thread.stateRaw  // 'merged'`,
   },
-  { name: 'pushin.eu', factory: 'pushin', module: 'pushin', options: token('PUSHIN_TOKEN'), notificationType: 'PullRequest', read: readUrl('https://pushin.eu/acme/api/pulls/42', 'merged') },
+  { name: 'Pushin.eu', factory: 'pushin', module: 'pushin', options: token('PUSHIN_TOKEN'), notificationType: 'PullRequest', read: readUrl('https://pushin.eu/acme/api/pulls/42', 'merged') },
   {
     name: 'Tangled',
     factory: 'tangled',

@@ -196,7 +196,7 @@ export const credentialSteps: Record<string, Record<string, CredentialStep[]>> =
   'pushin': {
     TOKEN: [
       {
-        text: 'Create a personal access token in your pushin.eu settings. Tokens start with `pun_pat_` and aren\'t scoped to specific resources.',
+        text: 'Create a personal access token in your Pushin.eu settings. Tokens start with `pun_pat_` and aren\'t scoped to specific resources.',
         sources: ['docs/content/4.providers/pushin.md', 'https://pushin.eu/api/v1/openapi.json'],
         verified: '2026-10-07',
       },

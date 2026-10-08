@@ -22,7 +22,7 @@ Each provider turns one forge's API into the shared [data model](/concepts/data-
 | [Gitee](/providers/gitee) | `forges/gitee` | `gitee()`, `giteeLite()` |
 | [Azure DevOps](/providers/azure-devops) | `forges/azure-devops` | `azureDevOps()`, `azureDevOpsLite()` |
 | [Cursor Origin](/providers/cursor-origin) | `forges/cursor-origin` | `cursorOrigin()`, `cursorOriginLite()` |
-| [pushin.eu](/providers/pushin) | `forges/pushin` | `pushin()` |
+| [Pushin.eu](/providers/pushin) | `forges/pushin` | `pushin()` |
 | [Tangled](/providers/tangled) | `forges/tangled` | `tangled()`, `tangledLite()` |
 ::
 <!-- capabilities:end -->

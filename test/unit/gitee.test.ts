@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { MergeMethodRequiredError, UnsupportedOperationError } from '../../src/errors.ts'
 import { gitee } from '../../src/gitee/index.ts'
+import { toCommit } from '../../src/gitee/normalise.ts'
 import { verifyGiteeToken } from '../../src/gitee/webhooks.ts'
 import { fixtureFetch } from '../utils/fixtures.ts'
 
@@ -15,6 +16,12 @@ async function sign(secret: string, timestamp: string): Promise<string> {
 }
 
 describe('gitee', () => {
+  it('reads commit parents as a repository commit or a pull request commit lists them', () => {
+    expect(toCommit(repo, { sha: 'c', parents: [{ sha: 'a' }, { sha: 'b' }] }).parents).toEqual(['a', 'b'])
+    expect(toCommit(repo, { sha: 'c', parents: { sha: 'a', shas: ['a', 'b'] } }).parents).toEqual(['a', 'b'])
+    expect(toCommit(repo, { sha: 'c', parents: { sha: 'a' } }).parents).toEqual(['a'])
+  })
+
   it('sends the token in the Authorization header, never the URL', async () => {
     const { fetch, calls } = fixtureFetch('gitee')
     await gitee({ auth: { type: 'token', token: 'gitee-token' }, fetch }).create().repos.get(repo)

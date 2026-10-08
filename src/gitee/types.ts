@@ -205,7 +205,8 @@ export interface GiteeCommit {
   }
   author?: GiteeUser | null
   committer?: GiteeUser | null
-  parents?: Array<{ sha?: string }>
+  /** An array on repository commits; one object on pull request commits, with every parent in `shas`. */
+  parents?: Array<{ sha?: string } | string> | { sha?: string, shas?: string[] }
   stats?: { additions?: number, deletions?: number, total?: number }
   files?: GiteeCommitFile[]
 }
