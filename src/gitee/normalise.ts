@@ -249,6 +249,13 @@ export function toChangedFile(raw: GiteeCommitFile): ChangedFile {
   }
 }
 
+function parentShas(parents: GiteeCommit['parents']): string[] {
+  if (Array.isArray(parents)) {
+    return parents.flatMap(parent => typeof parent === 'string' ? [parent] : parent.sha ? [parent.sha] : [])
+  }
+  return parents?.shas ?? (parents?.sha ? [parents.sha] : [])
+}
+
 export function toCommit(repo: RepoRef, raw: GiteeCommit): Commit {
   return {
     ref: { forge: FORGE, instance: repo.instance, repo, sha: raw.sha },
@@ -266,7 +273,7 @@ export function toCommit(repo: RepoRef, raw: GiteeCommit): Commit {
       email: raw.commit?.committer?.email,
       date: toDate(raw.commit?.committer?.date),
     },
-    parents: raw.parents?.flatMap(parent => parent.sha ? [parent.sha] : []) ?? [],
+    parents: parentShas(raw.parents),
     url: raw.html_url,
     ...raw.stats ? { stats: { additions: raw.stats.additions ?? 0, deletions: raw.stats.deletions ?? 0, total: raw.stats.total } } : {},
     ...raw.files ? { files: raw.files.map(toChangedFile) } : {},
