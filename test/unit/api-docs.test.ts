@@ -405,7 +405,7 @@ describe('the forges reference', () => {
   it('stays within the numbers that Git ignores, and apart from the hand-written pages', () => {
     expect(reference.map(file => file.path.replace('5.reference/', '')).filter(path => !/^(?:0[1-9]|10)\./.test(path))).toEqual([])
     expect(readdirSync(join(contentDir, '5.reference'))).toContain('11.hand.md')
-    expect(files.filter(file => !file.path.startsWith('5.reference/')).map(file => file.path)).toEqual(['7.contributing/5.provider-kit.md'])
+    expect(files.filter(file => !file.path.startsWith('5.reference/')).map(file => file.path)).toEqual(['7.contributing/6.provider-kit.md'])
   })
 
   it('names every page in lower case, as Nuxt Content serves it', () => {

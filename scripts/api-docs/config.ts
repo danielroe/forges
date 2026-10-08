@@ -194,7 +194,7 @@ export const PAGES: PageConfig[] = [
   },
   {
     slug: 'provider-kit',
-    location: { directory: '7.contributing', basePath: '/contributing', file: '5.provider-kit.md' },
+    location: { directory: '7.contributing', basePath: '/contributing', file: '6.provider-kit.md' },
     title: 'Provider kit',
     icon: 'i-lucide-puzzle',
     description: 'The building blocks of a provider, from `forges/kit`.',
