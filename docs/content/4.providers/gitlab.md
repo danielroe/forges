@@ -161,7 +161,7 @@ If you create a hook with `webhooks.create()`, `nativeEvents` takes the names of
 | `ci.runs` | ✅ | ✅ |
 | `ci.run` | ✅ | ✅ |
 | `ci.jobs` | ✅ | ✅ |
-| `ci.log` | experimental | experimental |
+| `ci.log` | experimental | ❌ |
 | `contents.file` | ✅ | ✅ |
 | `contents.tree` | ✅ | ✅ |
 | `contents.branches` | ✅ | ✅ |
