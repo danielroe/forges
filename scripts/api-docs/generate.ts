@@ -1,6 +1,8 @@
 import type { CapabilityInfo, GeneratedFile } from './pages.ts'
+import type { ApiModel } from './types.ts'
 import { existsSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
+import { EXPLORER_OPERATIONS } from '../../docs/shared/explorer.ts'
 import { CAPABILITY_TABLE } from '../../src/capability-table.ts'
 import { ENTRIES, GENERATED_DIRECTORIES, HIDDEN_MEMBERS, OVERVIEW_INTRO, OVERVIEW_OUTRO, OVERVIEW_PAGES, PAGES, REFERENCE_DIRECTORY } from './config.ts'
 import { extractApi } from './extract.ts'
@@ -21,6 +23,8 @@ export interface GenerateResult {
   undocumented: string[]
   /** Exports that no page selects. */
   unplaced: string[]
+  /** What the pages were written from, for other generated content. */
+  model: ApiModel
 }
 
 /** The banner that every generated page carries right after its front matter. A page with it was written by this generator. */
@@ -40,10 +44,11 @@ export function generateApiDocs({ root, contentDir, basePath = '/reference' }: G
     overviewPages: OVERVIEW_PAGES,
     hiddenMembers: HIDDEN_MEMBERS,
     capability: capabilityOf,
+    explorable: verb => EXPLORER_OPERATIONS.some(operation => operation.verb === verb),
     command: 'pnpm docs:api',
   })
   writeFiles(contentDir, files)
-  return { files, undocumented: undocumented(withoutHiddenMembers(model, HIDDEN_MEMBERS)), unplaced }
+  return { files, undocumented: undocumented(withoutHiddenMembers(model, HIDDEN_MEMBERS)), unplaced, model }
 }
 
 /** Replaces the pages of the previous run, and refuses to overwrite a file that it did not write. */

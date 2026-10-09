@@ -12,7 +12,7 @@ body {
 :root {
   --code-background: var(--ui-bg-elevated);
   --code-text: var(--ui-text);
-  --code-comment: var(--ui-text-dimmed);
+  --code-comment: var(--ui-text-muted);
   --code-string: var(--ui-color-primary-700);
   --code-keyword: var(--ui-color-secondary-700);
   --code-literal: var(--ui-color-primary-800);
