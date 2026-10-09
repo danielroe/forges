@@ -21,6 +21,7 @@ import { redact } from './recording/redact.ts'
 import { STEPS } from './recording/steps.ts'
 import { WRITE_STEPS } from './recording/write-steps.ts'
 import { fixtureDirectory, fixtureFetch, loadFixtures as recordedFixtures } from './utils/fixtures.ts'
+import { markStream } from './utils/provenance.ts'
 import { FakeWebSocket } from './utils/websocket.ts'
 
 type Manifest = RecordingManifest
@@ -115,7 +116,7 @@ for (const { name, create } of providers) {
     const manifest = existsSync(manifestPath) ? JSON.parse(readFileSync(manifestPath, 'utf8')) as Manifest : undefined
     const jetstreamPath = `${fixtureDirectory(directory)}jetstream.json`
     const jetstream = existsSync(jetstreamPath)
-      ? JSON.parse(readFileSync(jetstreamPath, 'utf8')) as { cursor: string, messages: unknown[] }
+      ? JSON.parse(readFileSync(jetstreamPath, 'utf8'), (key, value: unknown) => key === 'messages' ? markStream(value as unknown[], 'recorded') : value) as { cursor: string, messages: unknown[] }
       : undefined
 
     describe.skipIf(!manifest)(`recorded: ${directory.replace('/recorded/', ' ')}`, () => {

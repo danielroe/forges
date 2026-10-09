@@ -102,19 +102,19 @@ function setupPushin({ options, instance, origin: context, fetcher, baseUrl }: P
     },
     repos: {
       get: verb(true, async repo => toRepo({ forge: FORGE, instance }, (await fetcher.json<PushinRepository>(repoPath(repo))).data)),
-      listPage: verb('experimental', (listOptions = {}) => list('/user/repos', listOptions, (raw: PushinRepository) => toRepo({ forge: FORGE, instance }, raw))),
+      listPage: verb(true, (listOptions = {}) => list('/user/repos', listOptions, (raw: PushinRepository) => toRepo({ forge: FORGE, instance }, raw))),
       labelsPage: verb(true, (repo, listOptions = {}) => list(`${repoPath(repo)}/labels`, listOptions, (raw: PushinLabel) => toLabel(raw))),
-      collaboratorsPage: verb(!anonymous && 'experimental', (repo, listOptions = {}) => list(`${repoPath(repo)}/collaborators`, listOptions, (raw: PushinCollaborator) => toCollaborator({ forge: FORGE, instance }, raw))),
+      collaboratorsPage: verb(!anonymous && 'unverified', (repo, listOptions = {}) => list(`${repoPath(repo)}/collaborators`, listOptions, (raw: PushinCollaborator) => toCollaborator({ forge: FORGE, instance }, raw))),
     },
     threads: {
-      get: perKind({ issue: true, pull_request: 'experimental' }, get),
-      listPage: perKind({ issue: true, pull_request: 'experimental' }, listPage),
+      get: perKind({ issue: true, pull_request: true }, get),
+      listPage: perKind({ issue: true, pull_request: true }, listPage),
       getMany: verb(true, refs => getManyConcurrently(refs, get)),
       eventsPage: verb('emulated', eventsPage),
-      commentsPage: perKind({ issue: true, pull_request: 'experimental' }, commentsPage),
+      commentsPage: perKind({ issue: true, pull_request: true }, commentsPage),
     },
     notifications: {
-      listPage: verb('experimental', (listOptions = {}) => list('/notifications', listOptions, (raw: PushinNotification) => toNotification({ forge: FORGE, instance }, raw), {
+      listPage: verb(true, (listOptions = {}) => list('/notifications', listOptions, (raw: PushinNotification) => toNotification({ forge: FORGE, instance }, raw), {
         query: { all: listOptions.all, since: listOptions.since?.toISOString() },
       })),
     },

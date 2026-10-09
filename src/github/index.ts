@@ -1294,9 +1294,9 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
     },
     securityAlerts: {
       kinds: {
-        dependency: !anonymous && (enterprise ? ({ version }) => versionAtLeast(version, GHES_DEPENDABOT_ALERTS) && 'experimental' : 'experimental'),
-        code_scanning: !anonymous && 'experimental',
-        secret: !anonymous && 'experimental',
+        dependency: !anonymous && (enterprise ? ({ version }) => versionAtLeast(version, GHES_DEPENDABOT_ALERTS) && 'unverified' : true),
+        code_scanning: !anonymous,
+        secret: !anonymous,
       },
       listPage: alertsPage,
     },
@@ -1328,7 +1328,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
       delete: verb(true, async (ref) => {
         await fetcher.raw(`${hooksPath(ref.target)}/${encodeURIComponent(ref.id)}`, { method: 'DELETE', mapError: scopeIs404 })
       }),
-      rotateSecret: verb('experimental', async (ref, secret) => {
+      rotateSecret: verb(true, async (ref, secret) => {
         const current = toWebhook(ref.target, (await fetcher.json<GitHubHook>(`${hooksPath(ref.target)}/${encodeURIComponent(ref.id)}`, { mapError: scopeIs404 })).data)
         const { data } = await fetcher.json<GitHubHook>(`${hooksPath(ref.target)}/${encodeURIComponent(ref.id)}`, {
           method: 'PATCH',
@@ -1361,7 +1361,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
         return reposPage(fetcher, '/user/repos', false, listOptions)
       }),
       labelsPage: verb(true, (repo, listOptions = {}) => list(`${repoPath(repo)}/labels`, listOptions, toLabel)),
-      createLabel: verb('experimental', async (repo, label) => toLabel((await fetcher.json<GitHubLabel>(`${repoPath(repo)}/labels`, {
+      createLabel: verb(true, async (repo, label) => toLabel((await fetcher.json<GitHubLabel>(`${repoPath(repo)}/labels`, {
         method: 'POST',
         json: { name: label.name, color: label.colour, description: label.description },
       })).data)),
@@ -1373,7 +1373,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
         )
         return toRole({ role_name: data.role_name ?? (data.permission === 'none' ? undefined : data.permission), permissions: data.user?.permissions })
       }),
-      addCollaborator: verb('experimental', async (repo, actor, role) => {
+      addCollaborator: verb(true, async (repo, actor, role) => {
         await fetcher.raw(`${repoPath(repo)}/collaborators/${encodeURIComponent(actorLogin(actor))}`, { method: 'PUT', json: { permission: role } })
       }),
       assignableUsersPage: verb(true, (repo, listOptions = {}) => list(`${repoPath(repo)}/assignees`, listOptions, (raw: GitHubUserDetail) => toActor(instance, raw)!)),
@@ -1407,7 +1407,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
       }),
     },
     threads: {
-      get: perKind({ issue: true, pull_request: true, discussion: !anonymous, commit: 'experimental' }, get),
+      get: perKind({ issue: true, pull_request: true, discussion: !anonymous, commit: true }, get),
       getMany: verb(true, getMany),
       listPage: perKind({ ...ISSUE_LIKE, discussion: !anonymous }, listPage),
       eventsPage: verb(true, async (thread: ThreadRef, listOptions: ListOptions = {}): Promise<Page<ForgeEventInput>> => {
@@ -1421,7 +1421,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
         }
         return list(`${repoPath(ref.repo)}/issues/${encodeURIComponent(ref.number)}/timeline`, listOptions, (entry: GitHubTimelineEntry) => toEvent(instance, ref, entry))
       }),
-      commentsPage: perKind({ issue: true, pull_request: true, discussion: !anonymous, commit: 'experimental' }, commentsPage),
+      commentsPage: perKind({ issue: true, pull_request: true, discussion: !anonymous, commit: true }, commentsPage),
       reviewsPage: verb(true, reviewsPage),
       filesPage: verb(true, (ref, listOptions = {}) => list(`${threadPath(requirePull(ref, 'read for changed files'))}/files`, listOptions, toChangedFile)),
       commitsPage: verb(true, (ref, listOptions = {}) => list(`${threadPath(requirePull(ref, 'read for commits'))}/commits`, listOptions, (raw: GitHubCommit) => toCommit(ref.repo, raw))),
@@ -1447,7 +1447,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
         const { data } = await fetcher.json<GitHubIssue>(threadPath(ref))
         return data.head?.sha ? headChecks(ref.repo, data.head.sha) : { items: [] }
       }),
-      comment: perKind({ issue: 'experimental', pull_request: true, discussion: true, commit: 'experimental' }, async (thread, body) => {
+      comment: perKind({ issue: true, pull_request: true, discussion: true, commit: true }, async (thread, body) => {
         const ref = requireThread(thread, context)
         if (ref.kind === 'discussion') {
           const data = await graphql<{ addDiscussionComment: { comment: GraphQLComment } }>('ADD_DISCUSSION_COMMENT', { id: await discussionId(ref), body })
@@ -1459,7 +1459,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
         const { data } = await fetcher.json<GitHubComment>(path, { method: 'POST', json: { body } })
         return toComment(ref, data)
       }),
-      editComment: perKind({ issue: 'experimental', pull_request: true, discussion: 'experimental', commit: 'experimental' }, async (ref, body) => {
+      editComment: perKind({ issue: true, pull_request: true, discussion: true, commit: true }, async (ref, body) => {
         if (ref.thread.kind === 'discussion') {
           const data = await graphql<{ updateDiscussionComment: { comment: GraphQLComment } }>('UPDATE_DISCUSSION_COMMENT', { id: ref.id, body })
           return (await import('./graphql.ts')).toDiscussionComment(ref.thread, data.updateDiscussionComment.comment)
@@ -1467,14 +1467,14 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
         const { data } = await fetcher.json<GitHubComment>(commentPath(ref), { method: 'PATCH', json: { body } })
         return toComment(ref.thread, data)
       }),
-      deleteComment: perKind({ issue: 'experimental', pull_request: true, discussion: 'experimental', commit: 'experimental' }, async (ref) => {
+      deleteComment: perKind({ issue: true, pull_request: true, discussion: true, commit: true }, async (ref) => {
         if (ref.thread.kind === 'discussion') {
           await graphql('DELETE_DISCUSSION_COMMENT', { id: ref.id })
           return
         }
         await fetcher.raw(commentPath(ref), { method: 'DELETE' })
       }),
-      create: perKind({ issue: true, pull_request: 'experimental' }, async (repo, input: ThreadCreateInput) => {
+      create: perKind({ issue: true, pull_request: true }, async (repo, input: ThreadCreateInput) => {
         const assignees = input.assignees?.map(actorLogin)
         if (input.kind === 'issue') {
           const { data } = await fetcher.json<GitHubIssue>(`${repoPath(repo)}/issues`, {
@@ -1503,7 +1503,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
         })
         return toThread(ref, { ...pull, labels: issue.labels, assignees: issue.assignees })
       }),
-      update: perKind({ issue: 'experimental', pull_request: true, discussion: 'experimental' }, async (thread, input) => {
+      update: perKind({ issue: true, pull_request: true, discussion: true }, async (thread, input) => {
         const ref = requireThread(thread, context)
         if (ref.kind === 'discussion') {
           const data = await graphql<{ updateDiscussion: { discussion: GraphQLDiscussion } }>('UPDATE_DISCUSSION', { id: await discussionId(ref), title: input.title, body: input.body })
@@ -1513,24 +1513,24 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
         const { data } = await fetcher.json<GitHubIssue>(threadPath(target), { method: 'PATCH', json: input })
         return toThread(target, data)
       }),
-      addLabels: perKind({ issue: 'experimental', pull_request: true }, async (thread, labels) => {
+      addLabels: perKind({ issue: true, pull_request: true }, async (thread, labels) => {
         const ref = requireIssueOrPull(thread, context, 'label')
         await fetcher.raw(`${repoPath(ref.repo)}/issues/${encodeURIComponent(ref.number)}/labels`, { method: 'POST', json: { labels } })
       }),
-      removeLabels: perKind({ issue: 'experimental', pull_request: true }, async (thread, labels) => {
+      removeLabels: perKind({ issue: true, pull_request: true }, async (thread, labels) => {
         const ref = requireIssueOrPull(thread, context, 'label')
         for (const label of labels) {
           await fetcher.raw(`${repoPath(ref.repo)}/issues/${encodeURIComponent(ref.number)}/labels/${encodeURIComponent(label)}`, { method: 'DELETE' })
         }
       }),
-      setMilestone: perKind({ issue: 'experimental', pull_request: 'experimental' }, async (thread, milestone) => issuePatch(
+      setMilestone: perKind({ issue: true, pull_request: true }, async (thread, milestone) => issuePatch(
         thread,
         { milestone: milestone === undefined ? null : await milestoneId(milestone, page => milestonesPage(requireThread(thread, context).repo, page), context) },
         'set the milestone of',
       )),
-      reactions: perKind({ issue: 'experimental', pull_request: true, discussion: 'experimental' }, { react, unreact }),
+      reactions: perKind({ issue: true, pull_request: true, discussion: true }, { react, unreact }),
       reactionsPage: perKind({ issue: true, pull_request: true, discussion: !anonymous }, reactionsPage),
-      transfer: verb('experimental', async (thread, repo) => {
+      transfer: verb(true, async (thread, repo) => {
         const ref = requireThread(thread, context)
         if (ref.kind !== 'issue') {
           throw new UnsupportedOperationError('GitHub transfers issues only', context)
@@ -1542,14 +1542,14 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
         const data = await graphql<{ transferIssue: { issue: { id: string, number: number } } }>('TRANSFER_ISSUE', { issue: await nodeId(ref), repo: target.repository.id })
         return { forge: FORGE, instance, repo, kind: 'issue', number: String(data.transferIssue.issue.number), externalId: data.transferIssue.issue.id }
       }),
-      markDuplicate: verb('experimental', async (thread, canonical) => {
+      markDuplicate: verb(true, async (thread, canonical) => {
         await graphql('MARK_DUPLICATE', { canonical: await nodeId(canonical), duplicate: await nodeId(thread) })
       }),
-      setLabels: perKind({ issue: 'experimental', pull_request: true }, async (thread, labels) => {
+      setLabels: perKind({ issue: true, pull_request: true }, async (thread, labels) => {
         const ref = requireIssueOrPull(thread, context, 'label')
         await fetcher.raw(`${repoPath(ref.repo)}/issues/${encodeURIComponent(ref.number)}/labels`, { method: 'PUT', json: { labels } })
       }),
-      setAssignees: perKind({ issue: 'experimental', pull_request: true }, async (thread, assignees) => {
+      setAssignees: perKind({ issue: true, pull_request: true }, async (thread, assignees) => {
         const ref = requireIssueOrPull(thread, context, 'assign')
         await fetcher.raw(`${repoPath(ref.repo)}/issues/${encodeURIComponent(ref.number)}`, { method: 'PATCH', json: { assignees: assignees.map(actorLogin) } })
       }),
@@ -1566,7 +1566,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
         })
       }),
       close: perKind(ISSUE_LIKE, (ref, options_) => setState(ref, 'closed', options_)),
-      reopen: perKind({ issue: 'experimental', pull_request: true, discussion: true }, ref => setState(ref, 'open')),
+      reopen: perKind({ issue: true, pull_request: true, discussion: true }, ref => setState(ref, 'open')),
       merge: verb(true, merge),
       subscriptions: perKind(ISSUE_LIKE, {
         subscription: async (thread): Promise<SubscriptionState> => {

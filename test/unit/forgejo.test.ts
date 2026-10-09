@@ -262,10 +262,10 @@ describe('forgejo actions', () => {
   it('reads Actions on Codeberg and gates a self-hosted instance on its version', () => {
     const ci = (options: { baseUrl?: string, instanceVersion?: string }) => forgejo({ auth, ...options }).create().capabilities.ci
 
-    expect(ci({})).toEqual({ runs: true, run: true, jobs: true, log: 'experimental' })
+    expect(ci({})).toEqual({ runs: true, run: true, jobs: true, log: true })
     expect(ci({ baseUrl: 'https://git.example.org' })).toEqual({ runs: false, run: false, jobs: false, log: false })
     expect(ci({ baseUrl: 'https://git.example.org', instanceVersion: '15.0.2+gitea-1.22.0' })).toEqual({ runs: true, run: true, jobs: false, log: false })
-    expect(ci({ baseUrl: 'https://git.example.org', instanceVersion: '16.0.0+gitea-1.22.0' })).toEqual({ runs: true, run: true, jobs: true, log: 'experimental' })
+    expect(ci({ baseUrl: 'https://git.example.org', instanceVersion: '16.0.0+gitea-1.22.0' })).toEqual({ runs: true, run: true, jobs: true, log: true })
     expect(gitea({ auth }).create().capabilities.ci).toEqual({ runs: false, run: false, jobs: false, log: false })
   })
 

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 withDefaults(defineProps<{
-  levels?: Array<'native' | 'experimental' | 'emulated' | 'none'>
+  levels?: Array<'native' | 'experimental' | 'emulated' | 'unverified' | 'none'>
   kinds?: boolean
   /** Adds a disclosure that explains each level. */
   explain?: boolean

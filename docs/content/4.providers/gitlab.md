@@ -112,56 +112,56 @@ If you create a hook with `webhooks.create()`, `nativeEvents` takes the names of
 | `users.me` | ✅ | ❌ |
 | `repos.list` | ✅ | ❌ |
 | `repos.labels` | ✅ | ❌ |
-| `repos.createLabel` | experimental | ❌ |
+| `repos.createLabel` | ✅ | ❌ |
 | `repos.milestones` | ✅ | ❌ |
 | `repos.collaborators` | ✅ | ❌ |
 | `repos.permissionFor` | ✅ | ❌ |
-| `repos.addCollaborator` | experimental | ❌ |
+| `repos.addCollaborator` | unverified | ❌ |
 | `repos.assignableUsers` | ✅ | ✅ |
 | `repos.reviewerCandidates` | emulated | emulated |
-| `threads.get` | issue, PR, commit (experimental) | issue, PR, commit (experimental) |
+| `threads.get` | issue, PR, commit | issue, PR, commit |
 | `threads.list` | issue, PR | issue, PR |
 | `threads.getMany` | ✅ | ✅ |
-| `threads.events` | issue, PR, commit (experimental) | ❌ |
-| `comments.list` | issue, PR, commit (experimental) | commit (experimental) |
-| `comments.edit` | issue (experimental), PR (experimental) | ❌ |
-| `comments.delete` | issue (experimental), PR (experimental) | ❌ |
+| `threads.events` | issue, PR, commit | ❌ |
+| `comments.list` | issue, PR, commit | commit |
+| `comments.edit` | issue, PR | ❌ |
+| `comments.delete` | issue, PR | ❌ |
 | `reactions.list` | issue, PR | issue, PR |
 | `notifications.list` | ✅ | ❌ |
 | `notifications.markRead` | ❌ | ❌ |
 | `notifications.markDone` | ✅ | ❌ |
 | `notifications.unsubscribe` | ✅ | ❌ |
 | `notifications.markAllRead` | ❌ | ❌ |
-| `notifications.markAllDone` | experimental | ❌ |
+| `notifications.markAllDone` | ✅ | ❌ |
 | `notifications.unreadCount` | ✅ | ❌ |
-| `writes.comment` | issue (experimental), PR, commit (experimental) | ❌ |
+| `writes.comment` | issue, PR, commit | ❌ |
 | `writes.upsertComment` | issue (emulated), PR (emulated) | ❌ |
-| `writes.close` | issue (experimental), PR | ❌ |
-| `writes.reopen` | issue (experimental), PR | ❌ |
-| `writes.create` | issue (experimental), PR (experimental) | ❌ |
-| `writes.update` | issue (experimental), PR (experimental) | ❌ |
-| `writes.setLabels` | issue (experimental), PR (experimental) | ❌ |
-| `writes.addLabels` | issue (experimental), PR (experimental) | ❌ |
-| `writes.removeLabels` | issue (experimental), PR (experimental) | ❌ |
-| `writes.setMilestone` | issue (experimental), PR (experimental) | ❌ |
-| `writes.react` | issue (experimental), PR (experimental) | ❌ |
-| `writes.setAssignees` | issue (experimental), PR (experimental) | ❌ |
-| `writes.requestReview` | PR (experimental) | ❌ |
+| `writes.close` | issue, PR | ❌ |
+| `writes.reopen` | issue, PR | ❌ |
+| `writes.create` | issue, PR | ❌ |
+| `writes.update` | issue, PR | ❌ |
+| `writes.setLabels` | issue, PR | ❌ |
+| `writes.addLabels` | issue, PR | ❌ |
+| `writes.removeLabels` | issue, PR | ❌ |
+| `writes.setMilestone` | issue, PR | ❌ |
+| `writes.react` | issue, PR | ❌ |
+| `writes.setAssignees` | issue, PR | ❌ |
+| `writes.requestReview` | PR | ❌ |
 | `writes.merge` | ✅ | ❌ |
 | `writes.approveAndMerge` | ✅ | ❌ |
-| `writes.transfer` | experimental | ❌ |
+| `writes.transfer` | ✅ | ❌ |
 | `writes.markDuplicate` | emulated | ❌ |
 | `subscriptions.get` | issue, PR | ❌ |
 | `subscriptions.set` | issue, PR | ❌ |
 | `installations` | ❌ | ❌ |
 | `checks.thread` | PR | PR |
 | `checks.list` | ✅ | ❌ |
-| `checks.report` | experimental | ❌ |
-| `checks.rerun` | experimental | ❌ |
+| `checks.report` | ✅ | ❌ |
+| `checks.rerun` | ✅ | ❌ |
 | `ci.runs` | ✅ | ✅ |
 | `ci.run` | ✅ | ✅ |
 | `ci.jobs` | ✅ | ✅ |
-| `ci.log` | experimental | ❌ |
+| `ci.log` | ✅ | ❌ |
 | `contents.file` | ✅ | ✅ |
 | `contents.tree` | ✅ | ✅ |
 | `contents.branches` | ✅ | ✅ |
@@ -176,23 +176,23 @@ If you create a hook with `webhooks.create()`, `nativeEvents` takes the names of
 | `reviews.create` | emulated | ❌ |
 | `reviews.submit` | ❌ | ❌ |
 | `reviews.approve` | ✅ | ❌ |
-| `reviews.resolveThread` | experimental | ❌ |
+| `reviews.resolveThread` | unverified | ❌ |
 | `releases.list` | ✅ | ✅ |
 | `releases.get` | ✅ | ✅ |
 | `releases.latest` | ✅ | ✅ |
 | `releases.getByTag` | ✅ | ✅ |
 | `releases.downloadAsset` | ❌ | ❌ |
-| `webhooks.list` | experimental | ❌ |
-| `webhooks.create` | experimental | ❌ |
-| `webhooks.update` | experimental | ❌ |
-| `webhooks.delete` | experimental | ❌ |
-| `webhooks.rotateSecret` | experimental | ❌ |
+| `webhooks.list` | ✅ | ❌ |
+| `webhooks.create` | ✅ | ❌ |
+| `webhooks.update` | ✅ | ❌ |
+| `webhooks.delete` | ✅ | ❌ |
+| `webhooks.rotateSecret` | ✅ | ❌ |
 | `webhooks.deliveries` | ❌ | ❌ |
 | `webhooks.redeliver` | ❌ | ❌ |
 | `search.threads` | ✅ | ✅ |
 | `search.repos` | ✅ | ✅ |
 | `search.commits` | experimental | ❌ |
-| `securityAlerts` | dependency (experimental), code scanning (experimental), secret (experimental) | ❌ |
+| `securityAlerts` | dependency, code scanning, secret | ❌ |
 | `eventKinds` | heuristic | heuristic |
 | `authKinds` | `token`, `anonymous` | `token`, `anonymous` |
 | `limits` | body 1048576, comment 1000000, label 255 | body 1048576, comment 1000000, label 255 |

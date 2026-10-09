@@ -2,7 +2,7 @@
 import { groups, providers } from '#capabilities'
 import { anonymousStep, credentialSteps, envStep, forgeSteps, requirements, tasks } from '#credentials'
 
-type Level = 'native' | 'experimental' | 'emulated' | 'none'
+type Level = 'native' | 'experimental' | 'emulated' | 'unverified' | 'none'
 
 interface Option {
   id: string
@@ -34,7 +34,7 @@ function taskLevel(capabilities: string[]): Level {
   if (levels.every(level => level === 'none')) {
     return 'none'
   }
-  return (['experimental', 'emulated'] as const).find(level => levels.includes(level)) ?? 'native'
+  return (['unverified', 'experimental', 'emulated'] as const).find(level => levels.includes(level)) ?? 'native'
 }
 
 function selectableTasks(selection: string[]) {
@@ -98,7 +98,7 @@ const support = computed(() => selectedTasks.value
     ...task,
     levels: taskLevel(task.capabilities) === 'none'
       ? [{ level: 'none' as Level, capabilities: [] }]
-      : (['experimental', 'emulated', 'none'] as const)
+      : (['unverified', 'experimental', 'emulated', 'none'] as const)
           .map(level => ({ level, capabilities: task.capabilities.filter(capability => cellOf(capability).level === level) }))
           .filter(entry => entry.capabilities.length),
   }))

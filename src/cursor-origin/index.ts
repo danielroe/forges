@@ -31,7 +31,8 @@ export interface CursorOriginOptions extends ForgeOptionsBase {
   baseUrl?: string
 }
 
-const PULL = { pull_request: true } as const
+const PULL = { pull_request: 'experimental' } as const
+const UNVERIFIED = { pull_request: 'unverified' } as const
 const PAGE_SIZE = 50
 function installationId(installation: Installation | string): string {
   return typeof installation === 'string' ? installation : installation.id
@@ -203,10 +204,10 @@ function setupOrigin({ options, baseUrl, instance, origin: context, fetcher, cre
 
   return {
     checks: {
-      list: verb('experimental', async (repo, sha) => ({ items: await headChecks(repo, sha) })),
+      list: verb('unverified', async (repo, sha) => ({ items: await headChecks(repo, sha) })),
     },
     contents: {
-      file: verb('experimental', async (repo, path, fileOptions = {}) => {
+      file: verb('unverified', async (repo, path, fileOptions = {}) => {
         const { data } = await fetcher.json<OriginContent>(`${repoPath(repo)}/contents`, {
           query: { path, ref: fileOptions.ref },
           signal: fileOptions.signal,
@@ -218,7 +219,7 @@ function setupOrigin({ options, baseUrl, instance, origin: context, fetcher, cre
           : '')
         return toFileContent(fromBase64(content), file, fileOptions, context)
       }),
-      treePage: verb('experimental', async (repo, treeOptions = {}) => {
+      treePage: verb('unverified', async (repo, treeOptions = {}) => {
         const ref = treeOptions.ref ?? 'HEAD'
         const { data } = await fetcher.json<OriginTree>(`${repoPath(repo)}/git/trees/${encodeURIComponent(ref)}`, {
           query: { recursive: treeOptions.recursive ? 'true' : undefined },
@@ -231,30 +232,30 @@ function setupOrigin({ options, baseUrl, instance, origin: context, fetcher, cre
           ...data.truncated ? { warnings: [{ code: 'tree_truncated' as const, message: 'Origin truncated the tree; read subtrees non-recursively instead', subject: ref }] } : {},
         }
       }),
-      branchesPage: verb('experimental', async (repo, listOptions = {}) => {
+      branchesPage: verb('unverified', async (repo, listOptions = {}) => {
         const page = await tokenPage<OriginBranch>(`${repoPath(repo)}/branches`, 'branches', listOptions)
         return { items: page.items.map(toBranch), cursor: page.cursor }
       }),
-      tagsPage: verb('experimental', async (repo, listOptions = {}) => {
+      tagsPage: verb('unverified', async (repo, listOptions = {}) => {
         const { data } = await fetcher.json<OriginGitRef[]>(`${repoPath(repo)}/git/matching-refs`, { query: { ref: 'tags/' }, signal: listOptions.signal })
         return { items: (data ?? []).map(toTag) }
       }),
-      resolveRef: verb('experimental', async (repo, ref) => (await fetcher.json<OriginCommit>(`${repoPath(repo)}/commits/${encodeURIComponent(ref)}`)).data.sha),
-      commitsPage: verb('experimental', async (repo, query = {}) => {
+      resolveRef: verb('unverified', async (repo, ref) => (await fetcher.json<OriginCommit>(`${repoPath(repo)}/commits/${encodeURIComponent(ref)}`)).data.sha),
+      commitsPage: verb('unverified', async (repo, query = {}) => {
         const page = await tokenPage<OriginCommit>(`${repoPath(repo)}/commits`, 'commits', {
           ...query,
           query: { sha: query.ref, authorEmails: query.author, since: query.since?.toISOString() },
         })
         return { items: page.items.map(raw => toCommit(repo, raw)), cursor: page.cursor }
       }),
-      commit: verb('experimental', async (repo, sha) => {
+      commit: verb('unverified', async (repo, sha) => {
         const [commit, files] = await Promise.all([
           fetcher.json<OriginCommit>(`${repoPath(repo)}/commits/${sha}`),
           all<OriginCommitFile>(`${repoPath(repo)}/commits/${sha}/files`, 'files'),
         ])
         return toCommit(repo, commit.data, files.map(toChangedFile))
       }),
-      compare: verb('experimental', async (repo, base, head) => {
+      compare: verb('unverified', async (repo, base, head) => {
         const basehead = encodeURIComponent(`${base}...${head}`)
         const [comparison, files] = await Promise.all([
           fetcher.json<OriginComparison>(`${repoPath(repo)}/compare/${basehead}`),
@@ -274,8 +275,8 @@ function setupOrigin({ options, baseUrl, instance, origin: context, fetcher, cre
     },
     traits: { eventKinds: 'native', authKinds: ['token', 'app', 'anonymous'] },
     repos: {
-      get: verb(true, async ref => toRepo(instance, (await fetcher.json<OriginRepo>(repoPath(ref))).data)),
-      listPage: verb(repoAccess && 'experimental', async (listOptions = {}) => {
+      get: verb('experimental', async ref => toRepo(instance, (await fetcher.json<OriginRepo>(repoPath(ref))).data)),
+      listPage: verb(repoAccess && 'unverified', async (listOptions = {}) => {
         if (auth?.type === 'app') {
           if (auth.installationId === undefined) {
             throw new UnsupportedOperationError('An app without an installation has no repositories; use installations.repos()', context)
@@ -285,17 +286,17 @@ function setupOrigin({ options, baseUrl, instance, origin: context, fetcher, cre
         return userReposPage(listOptions)
       }),
     },
-    installations: credentials && auth?.type === 'app' && auth.installationId === undefined ? verb(true, createInstallationsApi(credentials)) : undefined,
+    installations: credentials && auth?.type === 'app' && auth.installationId === undefined ? verb('unverified', createInstallationsApi(credentials)) : undefined,
     threads: {
       get: perKind(PULL, get),
-      getMany: verb(true, refs => getManyConcurrently(refs, get)),
+      getMany: verb('experimental', refs => getManyConcurrently(refs, get)),
       listPage: perKind(PULL, listPage),
-      eventsPage: verb(true, eventsPage),
-      filesPage: verb('experimental', async (thread, listOptions = {}) => {
+      eventsPage: verb('experimental', eventsPage),
+      filesPage: verb('unverified', async (thread, listOptions = {}) => {
         const page = await tokenPage<OriginCommitFile>(`${pullPath(requireThread(thread, context))}/files`, 'files', listOptions)
         return { items: page.items.map(toChangedFile), cursor: page.cursor }
       }),
-      commitsPage: verb('experimental', async (thread, listOptions = {}) => {
+      commitsPage: verb('unverified', async (thread, listOptions = {}) => {
         const page = await tokenPage<OriginCommit>(`${pullPath(requireThread(thread, context))}/commits`, 'commits', listOptions)
         return { items: page.items.map(raw => toCommit(thread.repo, raw)), cursor: page.cursor }
       }),
@@ -304,11 +305,11 @@ function setupOrigin({ options, baseUrl, instance, origin: context, fetcher, cre
         const ref = requireThread(thread, context)
         return toComment(ref, (await fetcher.json<OriginComment>(`${pullPath(ref)}/comments`, { method: 'POST', json: { body } })).data)
       }),
-      editComment: perKind({ pull_request: 'experimental' }, async (ref, body) => toComment(ref.thread, (await fetcher.json<OriginComment>(`${repoPath(ref.thread.repo)}/pulls/comments/${ref.id}`, { method: 'PATCH', json: { body } })).data)),
-      deleteComment: perKind({ pull_request: 'experimental' }, async (ref) => {
+      editComment: perKind(UNVERIFIED, async (ref, body) => toComment(ref.thread, (await fetcher.json<OriginComment>(`${repoPath(ref.thread.repo)}/pulls/comments/${ref.id}`, { method: 'PATCH', json: { body } })).data)),
+      deleteComment: perKind(UNVERIFIED, async (ref) => {
         await fetcher.raw(`${repoPath(ref.thread.repo)}/pulls/comments/${ref.id}`, { method: 'DELETE' })
       }),
-      create: perKind({ pull_request: 'experimental' }, async (repo, input) => {
+      create: perKind(UNVERIFIED, async (repo, input) => {
         if (input.assignees?.length) {
           throw new UnsupportedOperationError('Cursor Origin pull requests have no assignees', context)
         }
@@ -325,7 +326,7 @@ function setupOrigin({ options, baseUrl, instance, origin: context, fetcher, cre
         }
         return toThread(ref, data)
       }),
-      update: perKind({ pull_request: 'experimental' }, async (thread, input) => {
+      update: perKind(UNVERIFIED, async (thread, input) => {
         const ref = requireThread(thread, context)
         return toThread(ref, (await fetcher.json<OriginPullRequest>(pullPath(ref), { method: 'PATCH', json: input })).data)
       }),
@@ -335,14 +336,14 @@ function setupOrigin({ options, baseUrl, instance, origin: context, fetcher, cre
       reopen: perKind(PULL, async (thread) => {
         await fetcher.raw(pullPath(requireThread(thread, context)), { method: 'PATCH', json: { state: 'open' } })
       }),
-      setLabels: perKind({ pull_request: 'experimental' }, async (thread, labels) => {
+      setLabels: perKind(UNVERIFIED, async (thread, labels) => {
         await fetcher.raw(`${pullPath(requireThread(thread, context))}/labels`, { method: 'PUT', json: { labels } })
       }),
-      requestReview: perKind({ pull_request: 'experimental' }, async (thread, reviewers) => {
+      requestReview: perKind(UNVERIFIED, async (thread, reviewers) => {
         const users = reviewers.map(reviewer => typeof reviewer === 'string' ? reviewer : reviewer.id)
         await fetcher.raw(`${pullPath(requireThread(thread, context))}/requested_reviewers`, { method: 'POST', json: { users } })
       }),
-      merge: verb(true, async (thread, mergeOptions = {}, hooks = {}) => {
+      merge: verb('experimental', async (thread, mergeOptions = {}, hooks = {}) => {
         const ref = requireThread(thread, context)
         if (mergeOptions.whenChecksPass) {
           throw new UnsupportedOperationError('Cursor Origin has no merge queue or auto-merge', context)
@@ -361,13 +362,13 @@ function setupOrigin({ options, baseUrl, instance, origin: context, fetcher, cre
         await hooks.beforeMerge?.()
         await fetcher.raw(`${pullPath(ref)}/merge`, { method: 'POST', json: { mergeMethod: method, expectedHeadSha: mergeOptions.sha }, mapError: toMergeError })
       }),
-      reviewsPage: verb(true, async (thread, listOptions: PageOptions = {}) => {
+      reviewsPage: verb('experimental', async (thread, listOptions: PageOptions = {}) => {
         const ref = requireThread(thread, context)
         const page = await tokenPage<OriginReview>(`${pullPath(ref)}/reviews`, 'reviews', listOptions)
         return { items: page.items.map(raw => toReview(ref, raw)), cursor: page.cursor }
       }),
-      createReview: verb('experimental', createReview),
-      reviewThreads: verb('experimental', {
+      createReview: verb('unverified', createReview),
+      reviewThreads: verb('unverified', {
         resolveReviewThread: (_thread, id) => setThreadResolved(id, true),
         unresolveReviewThread: (_thread, id) => setThreadResolved(id, false),
       }),

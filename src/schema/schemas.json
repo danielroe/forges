@@ -1408,7 +1408,7 @@
           },
           "upsertComment": {
             "$ref": "#/components/schemas/PerKind",
-            "description": "Composed from `comment`, `comments.list` and `comments.edit`, so always `'emulated'` where it works at all."
+            "description": "Composed from `comment`, `comments.list` and `comments.edit`, so `'emulated'` where it works at all, or `'unverified'` where a part is."
           },
           "close": {
             "$ref": "#/components/schemas/PerKind",
@@ -3353,9 +3353,13 @@
       {
         "type": "string",
         "const": "experimental"
+      },
+      {
+        "type": "string",
+        "const": "unverified"
       }
     ],
-    "description": "Capability flag. Every value other than `false` means the operation is available:\n\n- `true`: native, and verified against a recording of the forge's responses.\n- `'emulated'`: composed from other calls, so the result is approximate.\n- `'experimental'`: native, but either unverified against the live forge or built on an API the forge marks unstable.",
+    "description": "Capability flag. Every value other than `false` means the operation is available:\n\n- `true`: native, and verified against the forge's responses.\n- `'experimental'`: native and verified, but built on an API the forge marks unstable, so it can change.\n- `'emulated'`: composed from other calls, so the result is approximate.\n- `'unverified'`: implemented, but not yet verified against the forge's responses, so it may not work.",
     "x-forges-type": "Support"
   },
   "Tag": {

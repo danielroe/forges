@@ -342,19 +342,19 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
 
   return {
     traits: { eventKinds: 'native', authKinds: ['token', 'basic', 'anonymous'] },
-    search: { threadsPage: verb(!anonymous && 'experimental', searchThreadsPage) },
+    search: { threadsPage: verb(!anonymous, searchThreadsPage) },
     repos: {
       get: verb(true, async (ref) => {
         const { data } = await fetcher.json<AzureRepository>(repoPath(ref))
         return toRepo(instance, scope(ref).org, data)
       }),
-      listPage: verb('experimental', async () => {
+      listPage: verb(true, async () => {
         const { data } = await fetcher.json<{ value: AzureRepository[] }>(`/${enc(options.organization)}/_apis/git/repositories`)
         return { items: data.value.map(raw => toRepo(instance, options.organization, raw)) }
       }),
     },
     contents: {
-      file: verb('experimental', async (repo, path, fileOptions = {}) => {
+      file: verb(true, async (repo, path, fileOptions = {}) => {
         const query = {
           path,
           download: 'true',
@@ -364,7 +364,7 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
         const response = await fetcher.raw(`${repoPath(repo)}/items`, { query, signal: fileOptions.signal })
         return toFileContent(new Uint8Array(await response.arrayBuffer()), { path: path.replace(/^\//, '') }, fileOptions, context)
       }),
-      treePage: verb('experimental', async (repo, treeOptions = {}) => {
+      treePage: verb(true, async (repo, treeOptions = {}) => {
         const { data } = await fetcher.json<{ value: AzureItem[] }>(`${repoPath(repo)}/items`, {
           query: {
             scopePath: treeOptions.path ? `/${treeOptions.path.replace(/^\//, '')}` : '/',
@@ -375,15 +375,15 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
         })
         return { items: data.value.filter(item => item.path !== '/').map(toTreeEntry) }
       }),
-      branchesPage: verb('experimental', async (repo, listOptions = {}) => {
+      branchesPage: verb(true, async (repo, listOptions = {}) => {
         const { data } = await fetcher.json<{ value: AzureRef[] }>(`${repoPath(repo)}/refs`, { query: { filter: 'heads/' }, signal: listOptions.signal })
         return { items: data.value.map(toBranch) }
       }),
-      tagsPage: verb('experimental', async (repo, listOptions = {}) => {
+      tagsPage: verb(true, async (repo, listOptions = {}) => {
         const { data } = await fetcher.json<{ value: AzureRef[] }>(`${repoPath(repo)}/refs`, { query: { filter: 'tags/', peelTags: 'true' }, signal: listOptions.signal })
         return { items: data.value.map(toTag) }
       }),
-      resolveRef: verb('experimental', async (repo, ref) => {
+      resolveRef: verb(true, async (repo, ref) => {
         const { data } = await fetcher.json<{ value: AzureCommit[] }>(`${repoPath(repo)}/commits`, {
           query: { 'searchCriteria.itemVersion.version': ref, '$top': 1 },
         })
@@ -393,7 +393,7 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
         }
         return sha
       }),
-      commitsPage: verb('experimental', async (repo, query = {}) => {
+      commitsPage: verb(true, async (repo, query = {}) => {
         const { data } = await fetcher.json<{ value: AzureCommit[] }>(`${repoPath(repo)}/commits`, {
           query: {
             'searchCriteria.itemVersion.version': query.ref,
@@ -407,11 +407,11 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
         })
         return { items: data.value.map(raw => toCommit(repo, raw)) }
       }),
-      commit: verb('experimental', async (repo, sha) => {
+      commit: verb(true, async (repo, sha) => {
         const { data } = await fetcher.json<AzureCommit>(`${repoPath(repo)}/commits/${sha}`, { query: { changeCount: 100 } })
         return toCommit(repo, data, (data.changes ?? []).filter(change => !change.item?.isFolder).map(toChangedFile))
       }),
-      compare: verb('experimental', async (repo, base, head) => {
+      compare: verb(true, async (repo, base, head) => {
         const { data } = await fetcher.json<AzureCommitDiffs>(`${repoPath(repo)}/diffs/commits`, {
           query: { baseVersion: base, baseVersionType: versionType(base), targetVersion: head, targetVersionType: versionType(head), $top: 1000 },
         })
@@ -428,8 +428,8 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
       }),
     },
     checks: {
-      list: verb('experimental', async (repo, sha) => ({ items: (await fetcher.json<{ value: AzureStatus[] }>(`${repoPath(repo)}/commits/${sha}/statuses`)).data.value.map(raw => toStatusCheck(repo, raw)) })),
-      report: verb('experimental', async (repo, sha, input) => toStatusCheck(repo, (await fetcher.json<AzureStatus>(`${repoPath(repo)}/commits/${sha}/statuses`, {
+      list: verb(true, async (repo, sha) => ({ items: (await fetcher.json<{ value: AzureStatus[] }>(`${repoPath(repo)}/commits/${sha}/statuses`)).data.value.map(raw => toStatusCheck(repo, raw)) })),
+      report: verb(true, async (repo, sha, input) => toStatusCheck(repo, (await fetcher.json<AzureStatus>(`${repoPath(repo)}/commits/${sha}/statuses`, {
         method: 'POST',
         json: {
           state: STATUS_STATES[input.state],
@@ -440,11 +440,11 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
       })).data)),
     },
     threads: {
-      get: perKind({ issue: 'experimental', pull_request: true }, get),
+      get: perKind({ issue: anonymous ? 'unverified' : true, pull_request: true }, get),
       getMany: verb(true, refs => getManyConcurrently(refs, get)),
       listPage: perKind({ issue: !anonymous, pull_request: true }, listPage),
       eventsPage: verb(true, eventsPage),
-      commitsPage: verb('experimental', async (thread, listOptions = {}) => {
+      commitsPage: verb(true, async (thread, listOptions = {}) => {
         const ref = requireThread(thread, context)
         if (ref.kind !== 'pull_request') {
           throw new UnsupportedOperationError('Only pull requests can be read for commits', context)
@@ -452,7 +452,8 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
         const { data } = await fetcher.json<{ value: AzureCommit[] }>(`${pullPath(ref)}/commits`, { query: { $top: listOptions.perPage }, signal: listOptions.signal })
         return { items: data.value.map(raw => toCommit(ref.repo, raw)) }
       }),
-      commentsPage: perKind({ issue: 'experimental', pull_request: true }, commentsPage),
+      // Work item comments are a preview API.
+      commentsPage: perKind({ issue: anonymous ? 'unverified' : 'experimental', pull_request: true }, commentsPage),
       comment: perKind({ issue: 'experimental', pull_request: true }, async (thread, body) => {
         const ref = requireIssueOrPull(thread, context, 'comment on')
         if (ref.kind === 'issue') {
@@ -462,7 +463,7 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
         const { data } = await fetcher.json<AzureThread>(`${pullPath(ref)}/threads`, { method: 'POST', json: { comments: [{ parentCommentId: 0, content: body, commentType: 'text' }], status: 'active' } })
         return toPullComment(ref, data, data.comments[0]!)
       }),
-      editComment: perKind({ issue: 'experimental', pull_request: 'experimental' }, async (ref, body) => {
+      editComment: perKind({ issue: 'experimental', pull_request: true }, async (ref, body) => {
         const thread = requireIssueOrPull(ref.thread, context, 'edit comments on')
         if (thread.kind === 'issue') {
           const { data } = await fetcher.json<AzureWorkItemComment>(`${workItemPath(thread)}/comments/${ref.id}`, { method: 'PATCH', json: { text: body }, query: { 'api-version': COMMENTS_API_VERSION } })
@@ -472,7 +473,7 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
         const { data } = await fetcher.json<AzureThread['comments'][number]>(`${pullPath(thread)}/threads/${ids.thread}/comments/${ids.comment}`, { method: 'PATCH', json: { content: body } })
         return toPullComment(thread, { id: Number(ids.thread), comments: [] }, data)
       }),
-      deleteComment: perKind({ issue: 'experimental', pull_request: 'experimental' }, async (ref) => {
+      deleteComment: perKind({ issue: 'experimental', pull_request: true }, async (ref) => {
         const thread = requireIssueOrPull(ref.thread, context, 'delete comments on')
         if (thread.kind === 'issue') {
           await fetcher.raw(`${workItemPath(thread)}/comments/${ref.id}`, { method: 'DELETE', query: { 'api-version': COMMENTS_API_VERSION } })
@@ -481,7 +482,7 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
         const ids = splitCommentId(ref)
         await fetcher.raw(`${pullPath(thread)}/threads/${ids.thread}/comments/${ids.comment}`, { method: 'DELETE' })
       }),
-      create: perKind({ issue: 'experimental', pull_request: 'experimental' }, async (repo, input) => {
+      create: perKind({ issue: true, pull_request: true }, async (repo, input) => {
         if (input.kind === 'issue') {
           if ((input.assignees?.length ?? 0) > 1) {
             throw new UnsupportedOperationError('Azure DevOps work items take a single assignee', context)
@@ -520,7 +521,7 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
         })
         return toPullThread({ forge: FORGE, instance, repo, kind: 'pull_request', number: String(data.pullRequestId) }, data)
       }),
-      update: perKind({ issue: 'experimental', pull_request: 'experimental' }, async (thread, input) => {
+      update: perKind({ issue: true, pull_request: true }, async (thread, input) => {
         const ref = requireIssueOrPull(thread, context, 'update')
         if (ref.kind === 'issue') {
           const fields: Record<string, unknown> = {}
@@ -536,8 +537,8 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
         return toPullThread(ref, data)
       }),
       close: perKind(ISSUE_AND_PULL, ref => setState(ref, 'closed')),
-      reopen: perKind({ issue: 'experimental', pull_request: true }, ref => setState(ref, 'open')),
-      setLabels: perKind({ issue: 'experimental', pull_request: 'experimental' }, async (thread, labels) => {
+      reopen: perKind({ issue: true, pull_request: true }, ref => setState(ref, 'open')),
+      setLabels: perKind({ issue: true, pull_request: true }, async (thread, labels) => {
         const ref = requireIssueOrPull(thread, context, 'label')
         if (ref.kind === 'issue') {
           await patchWorkItem(ref, { 'System.Tags': labels.join('; ') })
@@ -552,14 +553,14 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
           await fetcher.raw(`${pullPath(ref)}/labels`, { method: 'POST', json: { name } })
         }
       }),
-      setAssignees: perKind({ issue: 'experimental' }, async (thread, assignees) => {
+      setAssignees: perKind({ issue: true }, async (thread, assignees) => {
         if (assignees.length > 1) {
           throw new UnsupportedOperationError('Azure DevOps work items take a single assignee', context)
         }
         const assignee = assignees[0]
         await patchWorkItem(requireIssueOrPull(thread, context, 'assign'), { 'System.AssignedTo': assignee === undefined ? '' : typeof assignee === 'string' ? assignee : assignee.login })
       }),
-      requestReview: perKind({ pull_request: 'experimental' }, async (thread, reviewers) => {
+      requestReview: perKind({ pull_request: true }, async (thread, reviewers) => {
         const ref = requireThread(thread, context)
         for (const reviewer of reviewers) {
           const id = typeof reviewer === 'string' ? reviewer : reviewer.id
@@ -590,7 +591,8 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
         const sha = mergeOptions.sha ?? (await fetcher.json<AzurePullRequest>(pullPath(ref))).data.lastMergeSourceCommit?.commitId
         await fetcher.raw(pullPath(ref), { method: 'PATCH', json: { status: 'completed', lastMergeSourceCommit: { commitId: sha }, completionOptions }, mapError: toMergeError })
       }),
-      checks: perKind({ pull_request: !anonymous }, async (thread) => {
+      // Policy evaluations are a preview API.
+      checks: perKind({ pull_request: !anonymous && 'experimental' }, async (thread) => {
         const ref = requireThread(thread, context)
         return { items: await pullChecks(ref, (await fetcher.json<AzurePullRequest>(pullPath(ref))).data) }
       }),
@@ -600,7 +602,7 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
         return { items: (data.reviewers ?? []).filter(reviewer => reviewer.vote !== 0).map(reviewer => toVoteReview(ref, reviewer)) }
       }),
       createReview: verb('emulated', createReview),
-      reviewThreads: verb('experimental', {
+      reviewThreads: verb('unverified', {
         resolveReviewThread: (thread, id) => setThreadStatus(thread, id, 'closed'),
         unresolveReviewThread: (thread, id) => setThreadStatus(thread, id, 'active'),
       }),
@@ -616,7 +618,6 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
 
 const AZURE_DEVOPS: ProviderDefinition<AzureDevOpsOptions> = {
   forge: FORGE,
-  experimental: true,
   baseUrl: 'https://dev.azure.com',
   anonymous: true,
   headers: { accept: 'application/json' },

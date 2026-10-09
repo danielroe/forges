@@ -18,7 +18,7 @@ The Gitee provider works with gitee.com through the Gitee Open API v5. It can re
 <!-- header:end -->
 
 ::note
-The Gitee provider is experimental. Its behaviour has only been verified against an anonymous recording of the live forge, so most of its capabilities are `'experimental'`. To learn what that means, see [Capabilities](/concepts/capabilities).
+The reads of the Gitee provider are verified against recordings of the live forge, but most of its writes are not yet, so they are `'unverified'`. To learn what that means, see [Capabilities](/concepts/capabilities).
 ::
 
 ## Authentication
@@ -94,94 +94,94 @@ You can manage webhooks on repositories only. Gitee doesn't keep a delivery log,
 ::provider-capabilities{provider="gitee"}
 | Capability | Support | Without credentials |
 | --- | --- | --- |
-| `experimental` | ✅ | ✅ |
+| `experimental` | ❌ | ❌ |
 | `sources.poll` | ✅ | ❌ |
 | `sources.webhook` | ✅ | ✅ |
 | `sources.subscribe` | ❌ | ❌ |
 | `repos.get` | ✅ | ✅ |
-| `users.get` | experimental | experimental |
-| `users.me` | experimental | ❌ |
-| `repos.list` | experimental | ❌ |
-| `repos.labels` | experimental | experimental |
-| `repos.createLabel` | experimental | ❌ |
+| `users.get` | ✅ | ✅ |
+| `users.me` | ✅ | ❌ |
+| `repos.list` | ✅ | ❌ |
+| `repos.labels` | ✅ | ✅ |
+| `repos.createLabel` | unverified | ❌ |
 | `repos.milestones` | ❌ | ❌ |
-| `repos.collaborators` | experimental | experimental |
+| `repos.collaborators` | ✅ | ✅ |
 | `repos.permissionFor` | ❌ | ❌ |
 | `repos.addCollaborator` | ❌ | ❌ |
 | `repos.assignableUsers` | ❌ | ❌ |
 | `repos.reviewerCandidates` | ❌ | ❌ |
-| `threads.get` | issue (experimental), PR | issue (experimental), PR |
-| `threads.list` | issue (experimental), PR | issue (experimental), PR |
+| `threads.get` | issue, PR | issue, PR |
+| `threads.list` | issue, PR | issue, PR |
 | `threads.getMany` | ✅ | ✅ |
-| `threads.events` | issue (experimental), PR | issue (experimental), PR |
-| `comments.list` | issue (experimental), PR | issue (experimental), PR |
-| `comments.edit` | issue (experimental), PR (experimental) | ❌ |
-| `comments.delete` | issue (experimental), PR (experimental) | ❌ |
+| `threads.events` | issue, PR | issue, PR |
+| `comments.list` | issue, PR | issue, PR |
+| `comments.edit` | issue (unverified), PR (unverified) | ❌ |
+| `comments.delete` | issue (unverified), PR (unverified) | ❌ |
 | `reactions.list` | ❌ | ❌ |
 | `notifications.list` | ✅ | ❌ |
 | `notifications.markRead` | ✅ | ❌ |
 | `notifications.markDone` | ❌ | ❌ |
 | `notifications.unsubscribe` | ❌ | ❌ |
-| `notifications.markAllRead` | experimental | ❌ |
+| `notifications.markAllRead` | unverified | ❌ |
 | `notifications.markAllDone` | ❌ | ❌ |
-| `notifications.unreadCount` | experimental | ❌ |
-| `writes.comment` | issue (experimental), PR | ❌ |
-| `writes.upsertComment` | issue (emulated), PR (emulated) | ❌ |
-| `writes.close` | issue, PR | ❌ |
-| `writes.reopen` | issue (experimental), PR | ❌ |
-| `writes.create` | issue (experimental), PR (experimental) | ❌ |
-| `writes.update` | issue (experimental), PR (experimental) | ❌ |
-| `writes.setLabels` | issue (experimental), PR (experimental) | ❌ |
-| `writes.addLabels` | issue (experimental), PR (experimental) | ❌ |
-| `writes.removeLabels` | issue (experimental), PR (experimental) | ❌ |
+| `notifications.unreadCount` | ✅ | ❌ |
+| `writes.comment` | issue (unverified), PR | ❌ |
+| `writes.upsertComment` | issue (unverified), PR (unverified) | ❌ |
+| `writes.close` | issue (unverified), PR | ❌ |
+| `writes.reopen` | issue (unverified), PR | ❌ |
+| `writes.create` | issue (unverified), PR (unverified) | ❌ |
+| `writes.update` | issue (unverified), PR (unverified) | ❌ |
+| `writes.setLabels` | issue (unverified), PR (unverified) | ❌ |
+| `writes.addLabels` | issue (unverified), PR (unverified) | ❌ |
+| `writes.removeLabels` | issue (unverified), PR (unverified) | ❌ |
 | `writes.setMilestone` | ❌ | ❌ |
 | `writes.react` | ❌ | ❌ |
-| `writes.setAssignees` | issue (experimental) | ❌ |
-| `writes.requestReview` | PR (experimental) | ❌ |
+| `writes.setAssignees` | issue (unverified) | ❌ |
+| `writes.requestReview` | PR (unverified) | ❌ |
 | `writes.merge` | ✅ | ❌ |
-| `writes.approveAndMerge` | ✅ | ❌ |
+| `writes.approveAndMerge` | unverified | ❌ |
 | `writes.transfer` | ❌ | ❌ |
 | `writes.markDuplicate` | ❌ | ❌ |
 | `subscriptions.get` | ❌ | ❌ |
 | `subscriptions.set` | ❌ | ❌ |
 | `installations` | ❌ | ❌ |
 | `checks.thread` | PR | PR |
-| `checks.list` | experimental | experimental |
+| `checks.list` | ✅ | ✅ |
 | `checks.report` | ❌ | ❌ |
 | `checks.rerun` | ❌ | ❌ |
 | `ci.runs` | ❌ | ❌ |
 | `ci.run` | ❌ | ❌ |
 | `ci.jobs` | ❌ | ❌ |
 | `ci.log` | ❌ | ❌ |
-| `contents.file` | experimental | experimental |
-| `contents.tree` | experimental | experimental |
-| `contents.branches` | experimental | experimental |
-| `contents.tags` | experimental | experimental |
-| `contents.resolveRef` | experimental | experimental |
-| `contents.commits` | experimental | experimental |
-| `contents.commit` | experimental | experimental |
-| `contents.compare` | experimental | experimental |
-| `contents.threadFiles` | experimental | experimental |
-| `contents.threadCommits` | experimental | experimental |
+| `contents.file` | ✅ | ✅ |
+| `contents.tree` | ✅ | ✅ |
+| `contents.branches` | ✅ | ✅ |
+| `contents.tags` | ✅ | ✅ |
+| `contents.resolveRef` | ✅ | ✅ |
+| `contents.commits` | ✅ | ✅ |
+| `contents.commit` | ✅ | ✅ |
+| `contents.compare` | ✅ | ✅ |
+| `contents.threadFiles` | ✅ | ✅ |
+| `contents.threadCommits` | ✅ | ✅ |
 | `reviews.list` | ❌ | ❌ |
-| `reviews.create` | emulated | ❌ |
+| `reviews.create` | unverified | ❌ |
 | `reviews.submit` | ❌ | ❌ |
-| `reviews.approve` | emulated | ❌ |
+| `reviews.approve` | unverified | ❌ |
 | `reviews.resolveThread` | ❌ | ❌ |
 | `releases.list` | ✅ | ✅ |
 | `releases.get` | ✅ | ✅ |
 | `releases.latest` | ✅ | ✅ |
-| `releases.getByTag` | experimental | experimental |
+| `releases.getByTag` | ✅ | ✅ |
 | `releases.downloadAsset` | ❌ | ❌ |
-| `webhooks.list` | experimental | ❌ |
-| `webhooks.create` | experimental | ❌ |
-| `webhooks.update` | experimental | ❌ |
-| `webhooks.delete` | experimental | ❌ |
-| `webhooks.rotateSecret` | experimental | ❌ |
+| `webhooks.list` | unverified | ❌ |
+| `webhooks.create` | unverified | ❌ |
+| `webhooks.update` | unverified | ❌ |
+| `webhooks.delete` | unverified | ❌ |
+| `webhooks.rotateSecret` | unverified | ❌ |
 | `webhooks.deliveries` | ❌ | ❌ |
 | `webhooks.redeliver` | ❌ | ❌ |
-| `search.threads` | experimental | experimental |
-| `search.repos` | experimental | experimental |
+| `search.threads` | ✅ | ✅ |
+| `search.repos` | ✅ | ✅ |
 | `search.commits` | ❌ | ❌ |
 | `securityAlerts` | ❌ | ❌ |
 | `eventKinds` | native | native |

@@ -3,6 +3,7 @@ import type { Fixture, FixtureFetch, FixtureFetchOptions } from '../../src/testi
 import { readdirSync, readFileSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
 import { fixtureFetch as serveFixtures } from '../../src/testing/index.ts'
+import { markPayload, markResponse } from './provenance.ts'
 
 export type { Fixture, FixtureCall, FixtureFetch } from '../../src/testing/index.ts'
 
@@ -20,9 +21,29 @@ export function loadFixtures(provider: string): Fixture[] {
     .filter(fixture => fixture.request !== undefined)
 }
 
-/** Serves the fixtures under `test/fixtures/<provider>/`; see `fixtureFetch` in `forges/testing`. */
+/**
+ * Serves the fixtures under `test/fixtures/<provider>/`; see `fixtureFetch` in
+ * `forges/testing`. Responses from a recording, or from a fixture
+ * hand-authored from documentation, carry their provenance; overrides do not.
+ */
 export function fixtureFetch(provider: string, overrides: Record<string, Fixture['response']> = {}, options: FixtureFetchOptions = {}): FixtureFetch {
-  return serveFixtures(loadFixtures(provider), overrides, options)
+  const recorded = provider.includes('/recorded/')
+  const served = serveFixtures(loadFixtures(provider), overrides, options)
+  const fetch: FetchLike = async (input, init) => {
+    const index = served.calls.length
+    const response = await served.fetch(input, init)
+    const fixture = served.calls[index]?.fixture
+    if (fixture && (recorded || fixture.handAuthored)) {
+      markResponse(response, recorded ? 'recorded' : 'documented')
+    }
+    return response
+  }
+  return { fetch, calls: served.calls }
+}
+
+/** A webhook body hand-authored from the forge's documentation, under `test/fixtures/<provider>/`. */
+export function payloadFixture(provider: string, name: string): string {
+  return markPayload(readFileSync(`${fixtureDirectory(provider)}${name}.json`, 'utf8').trim(), 'documented')
 }
 
 /** Builds a `fetch` that always returns the same response. */

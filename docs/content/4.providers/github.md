@@ -147,20 +147,20 @@ Deliveries of the `installation` and `installation_repositories` events become `
 | `users.me` | ❌ | ❌ |
 | `repos.list` | ✅ | ❌ |
 | `repos.labels` | ✅ | ✅ |
-| `repos.createLabel` | experimental | ❌ |
+| `repos.createLabel` | ✅ | ❌ |
 | `repos.milestones` | ✅ | ✅ |
 | `repos.collaborators` | ✅ | ❌ |
 | `repos.permissionFor` | ✅ | ❌ |
-| `repos.addCollaborator` | experimental | ❌ |
+| `repos.addCollaborator` | ✅ | ❌ |
 | `repos.assignableUsers` | ✅ | ✅ |
 | `repos.reviewerCandidates` | emulated | ❌ |
-| `threads.get` | issue, PR, discussion, commit (experimental) | issue, PR, commit (experimental) |
+| `threads.get` | issue, PR, discussion, commit | issue, PR, commit |
 | `threads.list` | issue, PR, discussion | issue, PR |
 | `threads.getMany` | ✅ | ✅ |
-| `threads.events` | issue, PR, discussion, commit (experimental) | issue, PR, commit (experimental) |
-| `comments.list` | issue, PR, discussion, commit (experimental) | issue, PR, commit (experimental) |
-| `comments.edit` | issue (experimental), PR, discussion (experimental), commit (experimental) | ❌ |
-| `comments.delete` | issue (experimental), PR, discussion (experimental), commit (experimental) | ❌ |
+| `threads.events` | issue, PR, discussion, commit | issue, PR, commit |
+| `comments.list` | issue, PR, discussion, commit | issue, PR, commit |
+| `comments.edit` | issue, PR, discussion, commit | ❌ |
+| `comments.delete` | issue, PR, discussion, commit | ❌ |
 | `reactions.list` | issue, PR, discussion | issue, PR |
 | `notifications.list` | ✅ | ❌ |
 | `notifications.markRead` | ✅ | ❌ |
@@ -169,23 +169,23 @@ Deliveries of the `installation` and `installation_repositories` events become `
 | `notifications.markAllRead` | ✅ | ❌ |
 | `notifications.markAllDone` | ❌ | ❌ |
 | `notifications.unreadCount` | ❌ | ❌ |
-| `writes.comment` | issue (experimental), PR, discussion, commit (experimental) | ❌ |
+| `writes.comment` | issue, PR, discussion, commit | ❌ |
 | `writes.upsertComment` | issue (emulated), PR (emulated), discussion (emulated), commit (emulated) | ❌ |
 | `writes.close` | issue, PR, discussion | ❌ |
-| `writes.reopen` | issue (experimental), PR, discussion | ❌ |
-| `writes.create` | issue, PR (experimental) | ❌ |
-| `writes.update` | issue (experimental), PR, discussion (experimental) | ❌ |
-| `writes.setLabels` | issue (experimental), PR | ❌ |
-| `writes.addLabels` | issue (experimental), PR | ❌ |
-| `writes.removeLabels` | issue (experimental), PR | ❌ |
-| `writes.setMilestone` | issue (experimental), PR (experimental) | ❌ |
-| `writes.react` | issue (experimental), PR, discussion (experimental) | ❌ |
-| `writes.setAssignees` | issue (experimental), PR | ❌ |
+| `writes.reopen` | issue, PR, discussion | ❌ |
+| `writes.create` | issue, PR | ❌ |
+| `writes.update` | issue, PR, discussion | ❌ |
+| `writes.setLabels` | issue, PR | ❌ |
+| `writes.addLabels` | issue, PR | ❌ |
+| `writes.removeLabels` | issue, PR | ❌ |
+| `writes.setMilestone` | issue, PR | ❌ |
+| `writes.react` | issue, PR, discussion | ❌ |
+| `writes.setAssignees` | issue, PR | ❌ |
 | `writes.requestReview` | PR | ❌ |
 | `writes.merge` | ✅ | ❌ |
 | `writes.approveAndMerge` | ✅ | ❌ |
-| `writes.transfer` | experimental | ❌ |
-| `writes.markDuplicate` | experimental | ❌ |
+| `writes.transfer` | ✅ | ❌ |
+| `writes.markDuplicate` | ✅ | ❌ |
 | `subscriptions.get` | issue, PR, discussion | ❌ |
 | `subscriptions.set` | issue, PR, discussion | ❌ |
 | `installations` | ✅ | ❌ |
@@ -221,13 +221,13 @@ Deliveries of the `installation` and `installation_repositories` events become `
 | `webhooks.create` | ✅ | ❌ |
 | `webhooks.update` | ✅ | ❌ |
 | `webhooks.delete` | ✅ | ❌ |
-| `webhooks.rotateSecret` | experimental | ❌ |
+| `webhooks.rotateSecret` | ✅ | ❌ |
 | `webhooks.deliveries` | ✅ | ❌ |
 | `webhooks.redeliver` | ✅ | ❌ |
 | `search.threads` | ✅ | ✅ |
 | `search.repos` | ✅ | ✅ |
 | `search.commits` | ✅ | ✅ |
-| `securityAlerts` | dependency (experimental), code scanning (experimental), secret (experimental) | ❌ |
+| `securityAlerts` | dependency, code scanning, secret | ❌ |
 | `eventKinds` | native | native |
 | `authKinds` | `token`, `app`, `anonymous` | `token`, `app`, `anonymous` |
 | `limits` | body 65536, comment 65536, label 50 | body 65536, comment 65536, label 50 |

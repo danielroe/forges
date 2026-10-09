@@ -18,7 +18,7 @@ The Pushin.eu provider works with [Pushin.eu](https://pushin.eu), a European Git
 <!-- header:end -->
 
 ::note
-The Pushin.eu provider is experimental. To learn what that means, see [Capabilities](/concepts/capabilities).
+The Pushin.eu provider is experimental, because the Pushin.eu API is young and can still change. To learn what that means, see [Capabilities](/concepts/capabilities).
 ::
 
 ## Authentication
@@ -75,30 +75,30 @@ Since `pushin()` contains no webhook code, there is no `pushinLite()` factory fo
 | Capability | Support | Without credentials |
 | --- | --- | --- |
 | `experimental` | ✅ | ✅ |
-| `sources.poll` | experimental | ❌ |
+| `sources.poll` | ✅ | ❌ |
 | `sources.webhook` | ❌ | ❌ |
 | `sources.subscribe` | ❌ | ❌ |
 | `repos.get` | ✅ | ✅ |
 | `users.get` | ❌ | ❌ |
 | `users.me` | ✅ | ❌ |
-| `repos.list` | experimental | ❌ |
+| `repos.list` | ✅ | ❌ |
 | `repos.labels` | ✅ | ✅ |
 | `repos.createLabel` | ❌ | ❌ |
 | `repos.milestones` | ❌ | ❌ |
-| `repos.collaborators` | experimental | ❌ |
+| `repos.collaborators` | unverified | ❌ |
 | `repos.permissionFor` | ❌ | ❌ |
 | `repos.addCollaborator` | ❌ | ❌ |
 | `repos.assignableUsers` | ❌ | ❌ |
 | `repos.reviewerCandidates` | ❌ | ❌ |
-| `threads.get` | issue, PR (experimental) | issue, PR (experimental) |
-| `threads.list` | issue, PR (experimental) | issue, PR (experimental) |
+| `threads.get` | issue, PR | issue, PR |
+| `threads.list` | issue, PR | issue, PR |
 | `threads.getMany` | ✅ | ✅ |
 | `threads.events` | issue (emulated), PR (emulated) | issue (emulated), PR (emulated) |
-| `comments.list` | issue, PR (experimental) | issue, PR (experimental) |
+| `comments.list` | issue, PR | issue, PR |
 | `comments.edit` | ❌ | ❌ |
 | `comments.delete` | ❌ | ❌ |
 | `reactions.list` | ❌ | ❌ |
-| `notifications.list` | experimental | ❌ |
+| `notifications.list` | ✅ | ❌ |
 | `notifications.markRead` | ❌ | ❌ |
 | `notifications.markDone` | ❌ | ❌ |
 | `notifications.unsubscribe` | ❌ | ❌ |

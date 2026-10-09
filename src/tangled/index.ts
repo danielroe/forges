@@ -86,7 +86,7 @@ export interface TangledOptions extends ForgeOptionsBase {
    * `org.tangled.temp.notification.*` lexicons (Tangled's deliberi). Its
    * service DID is derived as `did:web:<host>`. Requires `auth`. The lexicons
    * live in Tangled's `temp` namespace and may change or disappear, so the
-   * resulting capabilities report `'experimental'`.
+   * resulting capabilities report `'experimental'`, or `'unverified'`.
    */
   notificationsUrl?: string
   /**
@@ -112,6 +112,7 @@ const ISSUE_AND_PULL = { issue: true, pull_request: true } as const
 
 const TANGLED: ProviderDefinition<TangledOptions> = {
   forge: FORGE,
+  experimental: true,
   baseUrl: 'https://tangled.org',
   headers: { accept: 'application/json' },
   setup({ options, instance, baseUrl: webUrl, origin: context, fetcher, createFetcher: fetcherFor }) {
@@ -132,7 +133,7 @@ const TANGLED: ProviderDefinition<TangledOptions> = {
     const threads = {
       get: perKind(ISSUE_AND_PULL, readThread),
       getMany: verb(true, (refs: ThreadRef[]) => getManyConcurrently(refs, readThread)),
-      listPage: perKind({ issue: 'experimental', pull_request: true }, listPage),
+      listPage: perKind({ issue: true, pull_request: true }, listPage),
       eventsPage: verb(true, async (thread: ThreadRef): Promise<Page<ForgeEventInput>> => {
         const { ref, uri, kind } = subjectUri(thread)
         const target = atUri(uri.did, uri.collection, uri.rkey)
@@ -235,7 +236,7 @@ const TANGLED: ProviderDefinition<TangledOptions> = {
     const createWebSocket: WebSocketFactory = options.webSocket
       ?? (url => new globalThis.WebSocket(url) as unknown as WebSocketLike)
 
-    const unverified = { issue: writable && 'experimental', pull_request: writable && 'experimental' } as const
+    const signedIn = { issue: writable, pull_request: writable } as const
     return {
       traits: { eventKinds: 'native', authKinds: ['anonymous', 'app_password', 'oauth'] },
       request: api,
@@ -244,7 +245,7 @@ const TANGLED: ProviderDefinition<TangledOptions> = {
           const { ref: found, record } = await canonicalRepo(ref)
           return toRepo(found, record.value, record)
         }),
-        listPage: verb(writable && 'experimental', async (): Promise<Page<Repo>> => {
+        listPage: verb(writable, async (): Promise<Page<Repo>> => {
           if (!writable) {
             throw new UnsupportedOperationError('Listing your repositories needs auth', context)
           }
@@ -259,18 +260,18 @@ const TANGLED: ProviderDefinition<TangledOptions> = {
       },
       notifications,
       users: {
-        me: verb(writable && 'experimental', async () => ({ ...await actorFor(await viewerDid()), raw: undefined })),
+        me: verb(writable, async () => ({ ...await actorFor(await viewerDid()), raw: undefined })),
       },
       threads: {
         ...threads,
-        comment: perKind({ issue: writable && 'experimental', pull_request: writable }, comment),
-        editComment: perKind(unverified, editComment),
-        deleteComment: perKind(unverified, deleteComment),
-        create: perKind({ issue: writable && 'experimental' }, create),
-        update: perKind(unverified, update),
-        close: perKind({ issue: writable && 'experimental', pull_request: writable }, close),
-        reopen: perKind({ issue: writable && 'experimental', pull_request: writable }, reopen),
-        subscriptions: perKind(unverified, { subscription, subscribe, unsubscribe }),
+        comment: perKind(signedIn, comment),
+        editComment: perKind(signedIn, editComment),
+        deleteComment: perKind(signedIn, deleteComment),
+        create: perKind({ issue: writable }, create),
+        update: perKind(signedIn, update),
+        close: perKind(signedIn, close),
+        reopen: perKind(signedIn, reopen),
+        subscriptions: perKind(signedIn, { subscription, subscribe, unsubscribe }),
       },
       sources: {
         subscribe: verb(true, subscribeOptions => subscribeJetstream({

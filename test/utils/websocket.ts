@@ -1,4 +1,5 @@
 import type { WebSocketLike } from '../../src/tangled/subscribe.ts'
+import { noteSource, streamProvenance } from './provenance.ts'
 
 type Listener = (event: { data?: unknown, code?: number, reason?: string }) => void
 
@@ -10,6 +11,7 @@ export class FakeWebSocket implements WebSocketLike {
 
   constructor(url: string, messages: readonly unknown[]) {
     this.url = url
+    noteSource(streamProvenance(messages))
     setTimeout(() => {
       this.emit('open', {})
       for (const message of messages) {

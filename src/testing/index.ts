@@ -41,6 +41,8 @@ export interface FixtureCall {
   authorization?: string
   /** All the request headers. */
   headers: Headers
+  /** The fixture that answered, or `undefined` where an override did. */
+  fixture?: Fixture
 }
 
 /** Options for {@link fixtureFetch}. */
@@ -114,23 +116,23 @@ function callOf(input: string, init: RequestInit | undefined): FixtureCall {
  * ```
  */
 export function fixtureFetch(fixtures: Iterable<Fixture>, overrides: Record<string, Fixture['response']> = {}, options: FixtureFetchOptions = {}): FixtureFetch {
-  const responses = new Map<string, Fixture['response'][]>()
+  const responses = new Map<string, Array<{ response: Fixture['response'], fixture?: Fixture }>>()
   for (const fixture of fixtures) {
     const key = fixtureKey(fixture.request.method, fixture.request.url, fixture.request.operationName, fixture.request.variables)
     const queue = options.sequential ? responses.get(key) : undefined
     if (queue) {
-      queue.push(fixture.response)
+      queue.push({ response: fixture.response, fixture })
     }
     else {
-      responses.set(key, [fixture.response])
+      responses.set(key, [{ response: fixture.response, fixture }])
     }
   }
   for (const [override, response] of Object.entries(overrides)) {
     const [method = 'GET', url = '', operationName] = override.split(' ')
-    responses.set(fixtureKey(method, url, operationName), [response])
+    responses.set(fixtureKey(method, url, operationName), [{ response }])
   }
   const served = new Map<string, number>()
-  const take = (key: string): Fixture['response'] | undefined => {
+  const take = (key: string) => {
     const queue = responses.get(key)
     if (!queue) {
       return undefined
@@ -143,10 +145,12 @@ export function fixtureFetch(fixtures: Iterable<Fixture>, overrides: Record<stri
   const fetch: FetchLike = async (input, init) => {
     const call = callOf(input, init)
     calls.push(call)
-    const response = take(fixtureKey(call.method, input, call.operationName, call.variables)) ?? take(fixtureKey(call.method, input, call.operationName))
-    if (!response) {
+    const match = take(fixtureKey(call.method, input, call.operationName, call.variables)) ?? take(fixtureKey(call.method, input, call.operationName))
+    if (!match) {
       throw new Error(`No fixture for ${call.method} ${input}${call.operationName ? ` (${call.operationName})` : ''}`)
     }
+    const { response } = match
+    call.fixture = match.fixture
     const headers = new Headers(response.headers)
     const binary = response.encoding === 'base64' && typeof response.body === 'string'
     const body = response.body === undefined

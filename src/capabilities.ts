@@ -1,5 +1,6 @@
 import type { CapabilityEntry } from './capability-table.ts'
 import type { AlertKind, CapabilityEnv, KindVerb, ProviderSpec, SupportInput, Verb, VerbKind } from './define.ts'
+import type { Support } from './model.ts'
 import type { ForgeCapabilities } from './provider.ts'
 import { CAPABILITY_TABLE } from './capability-table.ts'
 
@@ -7,37 +8,40 @@ export const ALERT_KINDS: AlertKind[] = ['dependency', 'code_scanning', 'secret'
 
 export const KINDS: VerbKind[] = ['issue', 'pull_request', 'discussion', 'commit']
 
-export function resolve(support: SupportInput | undefined, env: CapabilityEnv): boolean | 'emulated' | 'experimental' {
+export function resolve(support: SupportInput | undefined, env: CapabilityEnv): Support {
   return typeof support === 'function' ? support(env) : support ?? false
 }
 
 export function resolveKinds(kinds: Partial<Record<VerbKind, SupportInput>> | undefined, env: CapabilityEnv) {
-  return Object.fromEntries(KINDS.map(kind => [kind, resolve(kinds?.[kind], env)])) as Record<VerbKind, boolean | 'emulated' | 'experimental'>
+  return Object.fromEntries(KINDS.map(kind => [kind, resolve(kinds?.[kind], env)])) as Record<VerbKind, Support>
+}
+
+/** A capability composed of `parts` is `'unverified'` when any part is. */
+function composed(parts: Support[], level: Support): Support {
+  return parts.includes(false) ? false : parts.includes('unverified') ? 'unverified' : level
 }
 
 /** A thread's events are read for each kind the provider reads threads of, at the weaker of the two levels. */
-export function threadEventKinds(spec: ProviderSpec, env: CapabilityEnv): Record<VerbKind, boolean | 'emulated' | 'experimental'> {
+export function threadEventKinds(spec: ProviderSpec, env: CapabilityEnv): Record<VerbKind, Support> {
   const events = resolve(spec.threads.eventsPage.support, env)
   const threads = resolveKinds(spec.threads.get.kinds, env)
-  return Object.fromEntries(KINDS.map(kind => [kind, events && threads[kind] && (events === true ? threads[kind] : events)])) as Record<VerbKind, boolean | 'emulated' | 'experimental'>
+  return Object.fromEntries(KINDS.map(kind => [kind, composed([events, threads[kind]], events === true ? threads[kind] : events)])) as Record<VerbKind, Support>
 }
 
 /** `upsertComment` is composed of listing, creating and editing a comment, so it needs all three for the kind. */
-export function upsertKinds(spec: ProviderSpec, env: CapabilityEnv): Record<VerbKind, boolean | 'emulated' | 'experimental'> {
+export function upsertKinds(spec: ProviderSpec, env: CapabilityEnv): Record<VerbKind, Support> {
   const parts = [spec.threads.commentsPage, spec.threads.comment, spec.threads.editComment]
   return Object.fromEntries(KINDS.map(kind => [
     kind,
-    parts.every(part => resolve(part?.kinds[kind], env) !== false) ? 'emulated' as const : false,
-  ])) as Record<VerbKind, boolean | 'emulated' | 'experimental'>
+    composed(parts.map(part => resolve(part?.kinds[kind], env)), 'emulated'),
+  ])) as Record<VerbKind, Support>
 }
 
 /** Support for the composed verb, requiring both approval and merging. */
-export function approveAndMergeSupport(spec: ProviderSpec, env: CapabilityEnv): boolean | 'emulated' | 'experimental' {
+export function approveAndMergeSupport(spec: ProviderSpec, env: CapabilityEnv): Support {
   const merge = resolve(spec.threads.merge?.support, env)
-  if (!merge || !resolve((spec.threads.approve ?? spec.threads.createReview)?.support, env)) {
-    return false
-  }
-  return resolve(spec.threads.approveAndMerge?.support ?? merge, env)
+  const approve = resolve((spec.threads.approve ?? spec.threads.createReview)?.support, env)
+  return composed([merge, approve], resolve(spec.threads.approveAndMerge?.support ?? merge, env))
 }
 
 function read(source: unknown, path: string): unknown {

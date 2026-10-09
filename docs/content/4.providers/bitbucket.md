@@ -108,7 +108,7 @@ Bitbucket doesn't keep a delivery log, so `webhooks.deliveries()` and `webhooks.
 | `repos.get` | ✅ | ✅ |
 | `users.get` | ❌ | ❌ |
 | `users.me` | ✅ | ❌ |
-| `repos.list` | experimental | ❌ |
+| `repos.list` | ✅ | ❌ |
 | `repos.labels` | ❌ | ❌ |
 | `repos.createLabel` | ❌ | ❌ |
 | `repos.milestones` | ❌ | ❌ |
@@ -117,13 +117,13 @@ Bitbucket doesn't keep a delivery log, so `webhooks.deliveries()` and `webhooks.
 | `repos.addCollaborator` | ❌ | ❌ |
 | `repos.assignableUsers` | ❌ | ❌ |
 | `repos.reviewerCandidates` | ❌ | ❌ |
-| `threads.get` | PR, commit (experimental) | PR, commit (experimental) |
+| `threads.get` | PR, commit | PR, commit |
 | `threads.list` | PR | PR |
 | `threads.getMany` | ✅ | ✅ |
-| `threads.events` | PR, commit (experimental) | PR, commit (experimental) |
-| `comments.list` | PR, commit (experimental) | PR, commit (experimental) |
-| `comments.edit` | PR (experimental), commit (experimental) | ❌ |
-| `comments.delete` | PR (experimental), commit (experimental) | ❌ |
+| `threads.events` | PR, commit | PR, commit |
+| `comments.list` | PR, commit | PR, commit |
+| `comments.edit` | PR, commit | ❌ |
+| `comments.delete` | PR, commit | ❌ |
 | `reactions.list` | ❌ | ❌ |
 | `notifications.list` | ❌ | ❌ |
 | `notifications.markRead` | ❌ | ❌ |
@@ -132,19 +132,19 @@ Bitbucket doesn't keep a delivery log, so `webhooks.deliveries()` and `webhooks.
 | `notifications.markAllRead` | ❌ | ❌ |
 | `notifications.markAllDone` | ❌ | ❌ |
 | `notifications.unreadCount` | ❌ | ❌ |
-| `writes.comment` | PR, commit (experimental) | ❌ |
+| `writes.comment` | PR, commit | ❌ |
 | `writes.upsertComment` | PR (emulated), commit (emulated) | ❌ |
 | `writes.close` | PR | ❌ |
 | `writes.reopen` | ❌ | ❌ |
-| `writes.create` | PR (experimental) | ❌ |
-| `writes.update` | PR (experimental) | ❌ |
+| `writes.create` | PR | ❌ |
+| `writes.update` | PR | ❌ |
 | `writes.setLabels` | ❌ | ❌ |
 | `writes.addLabels` | ❌ | ❌ |
 | `writes.removeLabels` | ❌ | ❌ |
 | `writes.setMilestone` | ❌ | ❌ |
 | `writes.react` | ❌ | ❌ |
 | `writes.setAssignees` | ❌ | ❌ |
-| `writes.requestReview` | PR (experimental) | ❌ |
+| `writes.requestReview` | PR | ❌ |
 | `writes.merge` | ✅ | ❌ |
 | `writes.approveAndMerge` | ✅ | ❌ |
 | `writes.transfer` | ❌ | ❌ |
@@ -154,7 +154,7 @@ Bitbucket doesn't keep a delivery log, so `webhooks.deliveries()` and `webhooks.
 | `installations` | ❌ | ❌ |
 | `checks.thread` | PR | PR |
 | `checks.list` | ✅ | ✅ |
-| `checks.report` | experimental | ❌ |
+| `checks.report` | ✅ | ❌ |
 | `checks.rerun` | ❌ | ❌ |
 | `ci.runs` | ❌ | ❌ |
 | `ci.run` | ❌ | ❌ |
@@ -180,15 +180,15 @@ Bitbucket doesn't keep a delivery log, so `webhooks.deliveries()` and `webhooks.
 | `releases.latest` | ❌ | ❌ |
 | `releases.getByTag` | ❌ | ❌ |
 | `releases.downloadAsset` | ❌ | ❌ |
-| `webhooks.list` | experimental | ❌ |
-| `webhooks.create` | experimental | ❌ |
-| `webhooks.update` | experimental | ❌ |
-| `webhooks.delete` | experimental | ❌ |
-| `webhooks.rotateSecret` | experimental | ❌ |
+| `webhooks.list` | ✅ | ❌ |
+| `webhooks.create` | ✅ | ❌ |
+| `webhooks.update` | ✅ | ❌ |
+| `webhooks.delete` | ✅ | ❌ |
+| `webhooks.rotateSecret` | ✅ | ❌ |
 | `webhooks.deliveries` | ❌ | ❌ |
 | `webhooks.redeliver` | ❌ | ❌ |
-| `search.threads` | experimental | experimental |
-| `search.repos` | experimental | ❌ |
+| `search.threads` | ✅ | ✅ |
+| `search.repos` | ✅ | ❌ |
 | `search.commits` | ❌ | ❌ |
 | `securityAlerts` | ❌ | ❌ |
 | `eventKinds` | native | native |
