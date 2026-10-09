@@ -366,6 +366,13 @@ describe('gitlab code search', () => {
     expect(calls.map(call => new URL(call.url).pathname).filter(path => /\/projects\/\d+$/.test(path))).toEqual(['/api/v4/projects/278964', '/api/v4/projects/278965'])
   })
 
+  it('asks only for a read scope to search code', () => {
+    const { instance } = provider()
+
+    expect(instance.scopesFor('search.code')).toEqual({ token: ['read_api'] })
+    expect(instance.scopesFor('search.codePage')).toEqual({ token: ['read_api'] })
+  })
+
   it('searches a project, a group or the whole instance', async () => {
     const paths: string[] = []
     const instance = gitlab({
