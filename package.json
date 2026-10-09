@@ -89,7 +89,7 @@
     "node": ">=22.18"
   },
   "scripts": {
-    "build": "tsdown && node scripts/generate-schemas.ts --dist",
+    "build": "tsdown",
     "build:docs": "pnpm --filter forges-docs build",
     "check:all": "pnpm lint && pnpm test && pnpm test:versions && pnpm build && pnpm test:size",
     "dev": "vitest dev",

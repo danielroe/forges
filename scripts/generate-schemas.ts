@@ -2,10 +2,9 @@
  * Generates JSON Schemas for the public model types.
  *
  *   node scripts/generate-schemas.ts          writes src/schema/schemas.json
- *   node scripts/generate-schemas.ts --dist   writes dist/schema/<Type>.json from src/schema/schemas.json
  *   node scripts/generate-schemas.ts --check  exits 1 when src/schema/schemas.json is stale
  */
-import { mkdirSync, readFileSync, writeFileSync } from 'node:fs'
+import { readFileSync, writeFileSync } from 'node:fs'
 import process from 'node:process'
 import { fileURLToPath, pathToFileURL } from 'node:url'
 import { createGenerator } from 'ts-json-schema-generator'
@@ -128,19 +127,8 @@ export function standaloneSchema(name: string, schemas: Record<string, Schema>):
   }
 }
 
-function writeDist(schemas: Record<string, Schema>): void {
-  mkdirSync(`${root}dist/schema`, { recursive: true })
-  for (const name of Object.keys(schemas)) {
-    writeFileSync(`${root}dist/schema/${name}.json`, `${JSON.stringify(standaloneSchema(name, schemas), null, 2)}\n`)
-  }
-}
-
 function main(): void {
   const target = `${root}src/schema/schemas.json`
-  if (process.argv.includes('--dist')) {
-    writeDist(JSON.parse(readFileSync(target, 'utf8')) as Record<string, Schema>)
-    return
-  }
   const output = `${JSON.stringify(generateSchemas(), null, 2)}\n`
   if (process.argv.includes('--check')) {
     if (readFileSync(target, 'utf8') !== output) {
