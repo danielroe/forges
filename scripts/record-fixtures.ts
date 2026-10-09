@@ -82,14 +82,7 @@ function unsign(url: string): string {
 
 const recorder = recordingFetch(async (input, init) => {
   const method = (init?.method ?? 'GET').toUpperCase()
-  let response = await fetch(input, init)
-  // Codeberg rate limits new accounts creating threads; a write recording waits rather than recording the refusal.
-  for (let attempt = 1; flags.writes && response.status === 429 && attempt <= 10; attempt++) {
-    const wait = Number(response.headers.get('retry-after') ?? 60) * 1000
-    console.info(`waiting ${wait / 1000}s ${response.status} ${method} ${unsign(input)}`)
-    await new Promise(resolve => setTimeout(resolve, wait))
-    response = await fetch(input, init)
-  }
+  const response = await fetch(input, init)
   console.info(`${response.status < 400 ? 'recorded' : 'error   '} ${response.status} ${method} ${unsign(input)}`)
   return response
 }, ({ request, response }) => {
@@ -192,8 +185,7 @@ function setupRepos(prefix: string, toRef: (slug: string) => Forges.RepoRef): Pi
   return { ...scratch && { scratch: toRef(scratch) }, ...alerts && { alerts: toRef(alerts) }, ...transfer && { transfer: toRef(transfer) } }
 }
 
-/** Long enough in a write recording to wait out a rate limit. */
-const timeout = flags.writes ? 900_000 : 30_000
+const timeout = 30_000
 
 /** What a provider signs in with: a token, Basic credentials, GitHub App credentials, or a Tangled app password with its account. */
 interface Credentials {
@@ -400,18 +392,6 @@ function targetFor(credentials: Credentials, fetch: FetchLike): Target {
   }
 }
 
-/** Spaces out writes by at least `interval` milliseconds, for forges that rate limit bursts of them. */
-function paced(fetch: FetchLike, interval: number): FetchLike {
-  let last = 0
-  return async (input, init) => {
-    if (interval && !['GET', 'HEAD'].includes((init?.method ?? 'GET').toUpperCase())) {
-      await new Promise(resolve => setTimeout(resolve, Math.max(0, last + interval - Date.now())))
-      last = Date.now()
-    }
-    return fetch(input, init)
-  }
-}
-
 /** The `Authorization` header the harness sends with `token`, as each forge expects it. */
 function authorizationFor(token: string): string {
   switch (target) {
@@ -472,10 +452,9 @@ async function recordWrites(): Promise<void> {
   }
 
   const guard = { scope: harness.scope, allows: harness.allows, repos: [scratch, transfer].filter(repo => repo !== undefined) }
-  const live = paced(recordLive, Number(env.FIXTURE_WRITE_INTERVAL ?? 0) * 1000)
-  const author = targetFor({ token: botToken, identifier: env.TANGLED_BOT_IDENTIFIER, pds: env.TANGLED_BOT_PDS }, guardedFetch(live, { ...guard, account: [`${probe.baseUrl}/notifications`, `${probe.baseUrl}/todos`] }))
+  const author = targetFor({ token: botToken, identifier: env.TANGLED_BOT_IDENTIFIER, pds: env.TANGLED_BOT_PDS }, guardedFetch(recordLive, { ...guard, account: [`${probe.baseUrl}/notifications`, `${probe.baseUrl}/todos`] }))
   // A Tangled reviewer would write records into a personal account, so Tangled runs without one.
-  const reviewer = target !== 'tangled' && (readCredentials.token || readCredentials.basic) ? targetFor(readCredentials, guardedFetch(live, guard)).provider : undefined
+  const reviewer = target !== 'tangled' && (readCredentials.token || readCredentials.basic) ? targetFor(readCredentials, guardedFetch(recordLive, guard)).provider : undefined
   useInstance(author.provider)
   const { baseUrl, instanceVersion, account, pds, notificationsUrl, recordsUrl } = { baseUrl: author.provider.baseUrl, ...author.manifest }
   const manifest: WriteManifest = { baseUrl, instanceVersion, account, pds, notificationsUrl, recordsUrl, repo: scratch, scratch, transfer, run, recordedAt: new Date().toISOString(), steps: [] }
