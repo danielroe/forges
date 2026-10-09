@@ -172,6 +172,15 @@ describe('createFetcher', () => {
     expect((error as ForgeApiError).status).toBe(404)
     expect((error as ForgeApiError).body).toContain('Not Found')
   })
+
+  it('keeps the digits of an integer beyond the safe range, leaving other numbers as numbers', async () => {
+    const fetcher = createFetcher({
+      baseUrl: 'https://api.example',
+      fetch: async () => new Response('{"id":3847328607500238881,"scale":1.5e300}'),
+    })
+
+    expect((await fetcher.json('/numbers')).data).toEqual({ id: '3847328607500238881', scale: 1.5e300 })
+  })
 })
 
 describe('streaming transport', () => {
