@@ -61,4 +61,11 @@ describe('write recording guard', () => {
 
     await expect(graphql('mutation React($id: ID!) { x }', { id: 'I_kwDOscratch1' })).rejects.toThrow(/did not come from the scratch repository/)
   })
+
+  it('never trusts ids from a GraphQL read that names no repository or id', async () => {
+    const { graphql } = guarded()
+    await graphql('query Viewer { viewer { id } }', {})
+
+    await expect(graphql('mutation React($id: ID!) { x }', { id: 'I_kwDOscratch1' })).rejects.toThrow(/did not come from the scratch repository/)
+  })
 })
