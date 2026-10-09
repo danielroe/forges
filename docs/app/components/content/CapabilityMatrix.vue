@@ -279,6 +279,7 @@ function limits(values?: Record<string, number>) {
                   />
                 </span>
                 <span class="mt-1.5 block font-mono text-[11px] text-muted tabular-nums">{{ summaryFor(provider, anonymous).native }}</span>
+                <span class="sr-only">{{ describeSummary(summaryFor(provider, anonymous)) }}</span>
               </td>
             </tr>
           </tfoot>
