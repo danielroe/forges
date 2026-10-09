@@ -219,6 +219,8 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
   const auth = options.auth ?? { type: 'anonymous' as const }
   /** GitHub GraphQL needs a credential, so anonymous providers stay on REST. */
   const anonymous = auth.type === 'anonymous'
+  /** A token or an app installation acts for an account; an app on its own reaches only its own endpoints. */
+  const actsForAccount = auth.type === 'token' || (auth.type === 'app' && auth.installationId !== undefined)
   const host = hostOf(baseUrl)
   /** GitHub Enterprise Server; `ghe.com` data residency hosts follow github.com. */
   const enterprise = host !== 'api.github.com' && !isGheCom(host)
@@ -1302,7 +1304,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
       threadsPage: verb(true, searchThreadsPage),
       reposPage: verb(true, searchReposPage),
       commitsPage: verb(true, searchCommitsPage),
-      codePage: verb(!anonymous, searchCodePage),
+      codePage: verb(actsForAccount, searchCodePage),
       queryRaw: true,
     },
     releases: {
@@ -1384,7 +1386,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
       get: verb(true, async (ref) => {
         return toRepo(instance, (await fetcher.json<GitHubRepositoryDetail>(repoPath(ref))).data)
       }),
-      listPage: verb(auth.type === 'token' || (auth.type === 'app' && auth.installationId !== undefined), async (listOptions = {}) => {
+      listPage: verb(actsForAccount, async (listOptions = {}) => {
         if (auth.type === 'app') {
           if (auth.installationId === undefined) {
             throw new UnsupportedOperationError('An app without an installation has no repositories; use installations.repos()', context)
