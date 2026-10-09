@@ -30,10 +30,17 @@
     "kind": "pull_request",
     "number": "5"
   },
-  "recordedAt": "2026-10-09T13:15:05.931Z",
+  "scratch": {
+    "forge": "pushin",
+    "instance": "pushin.eu",
+    "owner": "danielroe",
+    "name": "roe.dev"
+  },
+  "recordedAt": "2026-10-09T21:06:36.515Z",
   "steps": [
     "repo",
     "labels",
+    "collaborators",
     "pull",
     "pull list",
     "pull getMany",

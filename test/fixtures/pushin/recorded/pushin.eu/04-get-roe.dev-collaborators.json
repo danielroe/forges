@@ -1,13 +1,13 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://pushin.eu/api/v1/repos/pjullrich/pushin-cli/labels?per_page=3"
+    "url": "https://pushin.eu/api/v1/repos/danielroe/roe.dev/collaborators?per_page=3"
   },
   "response": {
     "status": 200,
     "headers": {
       "x-ratelimit-limit": "5000",
-      "x-ratelimit-remaining": "4998",
+      "x-ratelimit-remaining": "4996",
       "x-ratelimit-reset": "1791583200"
     },
     "body": []
