@@ -7,10 +7,10 @@
     "status": 200,
     "headers": {
       "link": "<https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/members/all?id=gitlab-org%2Fcli&page=2&per_page=3>; rel=\"next\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/members/all?id=gitlab-org%2Fcli&page=1&per_page=3>; rel=\"first\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/members/all?id=gitlab-org%2Fcli&page=1059&per_page=3>; rel=\"last\"",
-      "etag": "W/\"4576367e10bc5dae3dab988bedc22369\"",
+      "etag": "W/\"e64150eecd3033a89393e2b1af76014c\"",
       "ratelimit-limit": "2000",
       "ratelimit-remaining": "1996",
-      "ratelimit-reset": "1791551760",
+      "ratelimit-reset": "1791581760",
       "x-total": "3177",
       "x-total-pages": "1059",
       "x-next-page": "2",
@@ -29,16 +29,6 @@
         "web_url": "https://gitlab.com/sytses",
         "access_level": 30,
         "created_at": "2014-11-21T13:38:05.925Z",
-        "created_by": {
-          "id": 10353774,
-          "username": "jwong6-admin",
-          "public_email": null,
-          "name": "Jenny Wong",
-          "state": "active",
-          "locked": false,
-          "avatar_url": "https://secure.gravatar.com/avatar/abe6a429835e79d405d518dcf57369fd21ccee279f57e36e5e12166af858b9da?s=80&d=identicon",
-          "web_url": "https://gitlab.com/jwong6-admin"
-        },
         "expires_at": null,
         "membership_state": "active"
       },
@@ -57,25 +47,25 @@
         "membership_state": "active"
       },
       {
-        "id": 12452,
-        "username": "ayufan",
+        "id": 64248,
+        "username": "stanhu",
         "public_email": "",
-        "name": "Kamil Trzciński",
+        "name": "Stan Hu",
         "state": "active",
         "locked": false,
-        "avatar_url": "https://secure.gravatar.com/avatar/4675c8e590e767232977b9b245d70da790b2b6fd9ea0870515cf951fc2ac8ccb?s=80&d=identicon",
-        "web_url": "https://gitlab.com/ayufan",
-        "access_level": 30,
-        "created_at": "2015-04-27T20:55:33.087Z",
+        "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/64248/stanhu.jpg?v=1791579193",
+        "web_url": "https://gitlab.com/stanhu",
+        "access_level": 50,
+        "created_at": "2015-06-15T08:00:26.105Z",
         "created_by": {
-          "id": 1,
-          "username": "sytses",
+          "id": 88685,
+          "username": "marin.admin",
           "public_email": "",
-          "name": "Sid Sijbrandij",
-          "state": "active",
+          "name": "Marin Jankovski (admin)",
+          "state": "blocked",
           "locked": false,
-          "avatar_url": "https://secure.gravatar.com/avatar/adcd204e48241a6528220c7450334cc5ffab2ea1c6a89d3d0ada01d01ed2b49e?s=80&d=identicon",
-          "web_url": "https://gitlab.com/sytses"
+          "avatar_url": "https://secure.gravatar.com/avatar/813f255cf91046d045f4734d7b3b3b4f282ba9b6bfb24c37d7fc00d053828103?s=80&d=identicon",
+          "web_url": "https://gitlab.com/marin.admin"
         },
         "expires_at": null,
         "membership_state": "active"

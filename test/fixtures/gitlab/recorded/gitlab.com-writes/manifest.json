@@ -18,26 +18,33 @@
     "owner": "forges-fixtures",
     "name": "forges-fixtures-transfer"
   },
+  "collaborators": {
+    "forge": "gitlab",
+    "instance": "gitlab.com",
+    "owner": "roebot",
+    "name": "forges-fixtures-outside"
+  },
   "run": {
-    "id": "20261009140046",
+    "id": "20261009213525",
     "base": "main",
     "branches": [
-      "forges-fixtures/20261009140046-1",
-      "forges-fixtures/20261009140046-2",
-      "forges-fixtures/20261009140046-3"
+      "forges-fixtures/20261009213525-1",
+      "forges-fixtures/20261009213525-2",
+      "forges-fixtures/20261009213525-3"
     ],
     "files": [
-      "forges-fixtures/20261009140046-1.md",
-      "forges-fixtures/20261009140046-2.md",
-      "forges-fixtures/20261009140046-3.md"
+      "forges-fixtures/20261009213525-1.md",
+      "forges-fixtures/20261009213525-2.md",
+      "forges-fixtures/20261009213525-3.md"
     ]
   },
-  "recordedAt": "2026-10-09T14:00:51.747Z",
+  "recordedAt": "2026-10-09T21:35:31.112Z",
   "steps": [
     "author",
     "reviewer",
     "create label",
     "milestones",
+    "add collaborator",
     "create issue",
     "issue comment",
     "issue edit comment",
@@ -80,6 +87,9 @@
     "commit comment",
     "request review",
     "pending review",
+    "comment review",
+    "resolve review thread",
+    "unresolve review thread",
     "report check",
     "rerun check",
     "approve",

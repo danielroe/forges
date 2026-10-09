@@ -206,6 +206,15 @@ export interface GitLabProjectSettings {
 export interface GitLabNoteDetail extends GitLabNote {
   updated_at?: string
   noteable_type?: string
+  resolvable?: boolean
+  resolved?: boolean
+}
+
+/** A thread of notes; on a merge request, one that is not an individual note can be resolved. */
+export interface GitLabDiscussion {
+  id: string
+  individual_note: boolean
+  notes: GitLabNoteDetail[]
 }
 
 export interface GitLabApprovals {

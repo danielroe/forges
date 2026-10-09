@@ -6,10 +6,10 @@
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"a6e588138bf0c93185be107d4eab4527\"",
+      "etag": "W/\"f36248749803f1740743f6d6d5e7f523\"",
       "ratelimit-limit": "2000",
-      "ratelimit-remaining": "1968",
-      "ratelimit-reset": "1791551760"
+      "ratelimit-remaining": "1967",
+      "ratelimit-reset": "1791581760"
     },
     "body": {
       "id": 8420142,
@@ -36,7 +36,7 @@
       "followers": 9,
       "following": 0,
       "is_followed": false,
-      "local_time": "1:15 PM",
+      "local_time": "9:35 PM",
       "bio_html": "Beep Boop: Managed by the Maintainers of https://gitlab.com/gitlab-org/frontend/renovate-gitlab-bot and in Slack #renovate-gitlab. &#x000A; Don't confuse me with https://gitlab.com/gitlab-dependency-bot."
     }
   }

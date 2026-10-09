@@ -23,6 +23,8 @@ export interface RecordingManifest {
   alerts?: RepoRef
   /** Where a write recording transfers an issue to. */
   transfer?: RepoRef
+  /** Where a write recording adds a collaborator, when not the scratch repository. */
+  collaborators?: RepoRef
   /** The secret recorded webhook deliveries are signed with. */
   webhookSecret?: string
   /** Names of the recorded webhook deliveries, each in `<name>.delivery.json`. */

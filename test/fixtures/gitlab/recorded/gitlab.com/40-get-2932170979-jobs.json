@@ -1,0 +1,380 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/pipelines/2932170979/jobs?per_page=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "<https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/pipelines/2932170979/jobs?id=gitlab-org%2Fcli&include_retried=false&page=2&per_page=3&pipeline_id=2932170979>; rel=\"next\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/pipelines/2932170979/jobs?id=gitlab-org%2Fcli&include_retried=false&page=1&per_page=3&pipeline_id=2932170979>; rel=\"first\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/pipelines/2932170979/jobs?id=gitlab-org%2Fcli&include_retried=false&page=6&per_page=3&pipeline_id=2932170979>; rel=\"last\"",
+      "etag": "W/\"ae929ab2330b96bd8cb3a4101178b76d\"",
+      "ratelimit-limit": "2000",
+      "ratelimit-remaining": "1959",
+      "ratelimit-reset": "1791581760",
+      "x-total": "16",
+      "x-total-pages": "6",
+      "x-next-page": "2",
+      "x-page": "1",
+      "x-per-page": "3"
+    },
+    "body": [
+      {
+        "id": 17072798207,
+        "status": "created",
+        "stage": "test",
+        "name": "tests:coverage",
+        "ref": "refs/merge-requests/4009/merge",
+        "tag": false,
+        "coverage": null,
+        "allow_failure": false,
+        "created_at": "2026-10-09T21:22:49.347Z",
+        "started_at": null,
+        "finished_at": null,
+        "erased_at": null,
+        "duration": null,
+        "queued_duration": null,
+        "user": {
+          "id": 2935693,
+          "username": "phikai",
+          "public_email": "redacted@example.invalid",
+          "name": "Kai Armstrong",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/2935693/avatar.png?v=1791580974",
+          "web_url": "https://gitlab.com/phikai",
+          "created_at": "2018-10-04T15:13:26.553Z",
+          "bio": "Staff Product Manager, Create:Code Review",
+          "location": "Bulverde, TX",
+          "linkedin": "https://www.linkedin.com/in/kaiarmstrong/",
+          "twitter": "https://twitter.com/phikai",
+          "discord": "",
+          "website_url": "https://www.kaiarmstrong.com",
+          "github": "",
+          "job_title": "",
+          "pronouns": "",
+          "organization": "GitLab",
+          "bot": false,
+          "work_information": "GitLab",
+          "followers": 0,
+          "following": 0,
+          "local_time": "4:35 PM"
+        },
+        "commit": {
+          "id": "7241f1fd61b3a98ef5bd14433abd3a8823983fe3",
+          "short_id": "7241f1fd",
+          "created_at": "2026-10-09T22:54:48.000+03:00",
+          "parent_ids": [
+            "fa3b8d6792a8063eb03a5a8784517019d15829be",
+            "1641f5b0e214433660c64d56e17c207c26bc24a6"
+          ],
+          "title": "Merge branch 'chore/redundant-make-fix' into 'main'",
+          "message": "Merge branch 'chore/redundant-make-fix' into 'main'\n\nchore: remove redundant \"make fix\" tools\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4009\n\nMerged-by: Ville Skyttä <redacted@example.invalid>\nReviewed-by: Kai Armstrong <redacted@example.invalid>\n",
+          "author_name": "Ville Skyttä",
+          "author_email": "redacted@example.invalid",
+          "authored_date": "2026-10-09T22:54:48.000+03:00",
+          "committer_name": "GitLab",
+          "committer_email": "redacted@example.invalid",
+          "committed_date": "2026-10-09T22:54:48.000+03:00",
+          "trailers": {},
+          "extended_trailers": {},
+          "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/7241f1fd61b3a98ef5bd14433abd3a8823983fe3"
+        },
+        "pipeline": {
+          "id": 2932170979,
+          "iid": 15060,
+          "project_id": 34675721,
+          "sha": "7241f1fd61b3a98ef5bd14433abd3a8823983fe3",
+          "ref": "refs/merge-requests/4009/merge",
+          "status": "running",
+          "source": "merge_request_event",
+          "created_at": "2026-10-09T21:22:49.215Z",
+          "updated_at": "2026-10-09T21:22:51.811Z",
+          "web_url": "https://gitlab.com/gitlab-org/cli/-/pipelines/2932170979"
+        },
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/jobs/17072798207",
+        "project": {
+          "ci_job_token_scope_enabled": false
+        },
+        "artifacts": [],
+        "runner": null,
+        "runner_manager": null,
+        "artifacts_expire_at": null,
+        "archived": false,
+        "tag_list": [
+          "saas-linux-medium-amd64"
+        ]
+      },
+      {
+        "id": 17072798206,
+        "status": "success",
+        "stage": "test",
+        "name": "tests:integration",
+        "ref": "refs/merge-requests/4009/merge",
+        "tag": false,
+        "coverage": null,
+        "allow_failure": false,
+        "created_at": "2026-10-09T21:22:49.347Z",
+        "started_at": "2026-10-09T21:22:51.535Z",
+        "finished_at": "2026-10-09T21:27:40.177Z",
+        "erased_at": null,
+        "duration": 288.641563,
+        "queued_duration": 0.108553,
+        "user": {
+          "id": 2935693,
+          "username": "phikai",
+          "public_email": "redacted@example.invalid",
+          "name": "Kai Armstrong",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/2935693/avatar.png?v=1791580974",
+          "web_url": "https://gitlab.com/phikai",
+          "created_at": "2018-10-04T15:13:26.553Z",
+          "bio": "Staff Product Manager, Create:Code Review",
+          "location": "Bulverde, TX",
+          "linkedin": "https://www.linkedin.com/in/kaiarmstrong/",
+          "twitter": "https://twitter.com/phikai",
+          "discord": "",
+          "website_url": "https://www.kaiarmstrong.com",
+          "github": "",
+          "job_title": "",
+          "pronouns": "",
+          "organization": "GitLab",
+          "bot": false,
+          "work_information": "GitLab",
+          "followers": 0,
+          "following": 0,
+          "local_time": "4:35 PM"
+        },
+        "commit": {
+          "id": "7241f1fd61b3a98ef5bd14433abd3a8823983fe3",
+          "short_id": "7241f1fd",
+          "created_at": "2026-10-09T22:54:48.000+03:00",
+          "parent_ids": [
+            "fa3b8d6792a8063eb03a5a8784517019d15829be",
+            "1641f5b0e214433660c64d56e17c207c26bc24a6"
+          ],
+          "title": "Merge branch 'chore/redundant-make-fix' into 'main'",
+          "message": "Merge branch 'chore/redundant-make-fix' into 'main'\n\nchore: remove redundant \"make fix\" tools\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4009\n\nMerged-by: Ville Skyttä <redacted@example.invalid>\nReviewed-by: Kai Armstrong <redacted@example.invalid>\n",
+          "author_name": "Ville Skyttä",
+          "author_email": "redacted@example.invalid",
+          "authored_date": "2026-10-09T22:54:48.000+03:00",
+          "committer_name": "GitLab",
+          "committer_email": "redacted@example.invalid",
+          "committed_date": "2026-10-09T22:54:48.000+03:00",
+          "trailers": {},
+          "extended_trailers": {},
+          "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/7241f1fd61b3a98ef5bd14433abd3a8823983fe3"
+        },
+        "pipeline": {
+          "id": 2932170979,
+          "iid": 15060,
+          "project_id": 34675721,
+          "sha": "7241f1fd61b3a98ef5bd14433abd3a8823983fe3",
+          "ref": "refs/merge-requests/4009/merge",
+          "status": "running",
+          "source": "merge_request_event",
+          "created_at": "2026-10-09T21:22:49.215Z",
+          "updated_at": "2026-10-09T21:22:51.811Z",
+          "web_url": "https://gitlab.com/gitlab-org/cli/-/pipelines/2932170979"
+        },
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/jobs/17072798206",
+        "project": {
+          "ci_job_token_scope_enabled": false
+        },
+        "artifacts_file": {
+          "filename": "artifacts.zip",
+          "size": 8941
+        },
+        "artifacts": [
+          {
+            "file_type": "archive",
+            "size": 8941,
+            "filename": "artifacts.zip",
+            "file_format": "zip"
+          },
+          {
+            "file_type": "metadata",
+            "size": 171,
+            "filename": "metadata.gz",
+            "file_format": "gzip"
+          },
+          {
+            "file_type": "trace",
+            "size": 13268,
+            "filename": "job.log",
+            "file_format": null
+          },
+          {
+            "file_type": "junit",
+            "size": 1053,
+            "filename": "junit.xml.gz",
+            "file_format": "gzip"
+          }
+        ],
+        "runner": {
+          "id": 55314121,
+          "description": "k8s.saas-linux-medium-amd64.runners-manager.gitlab.com/default",
+          "ip_address": null,
+          "active": true,
+          "paused": false,
+          "is_shared": true,
+          "runner_type": "instance_type",
+          "name": null,
+          "online": true,
+          "created_by": {
+            "id": 5372863,
+            "username": "igorwwwwwwwwwwwwwwwwwwww-admin",
+            "public_email": "",
+            "name": "Igor Wiedler",
+            "state": "active",
+            "locked": false,
+            "avatar_url": "https://secure.gravatar.com/avatar/509321df9ad78093586110676a0f3e0517e2744bce4c1963fac9ad5acd19f4f0?s=80&d=identicon",
+            "web_url": "https://gitlab.com/igorwwwwwwwwwwwwwwwwwwww-admin"
+          },
+          "created_at": "2026-08-19T15:31:33.905Z",
+          "status": "online",
+          "job_execution_status": "active"
+        },
+        "runner_manager": {
+          "id": 161605654,
+          "system_id": "r_fv9xzTdta3ej",
+          "version": "19.5.0~pre.2272.g28a18501",
+          "revision": "28a18501",
+          "platform": "linux",
+          "architecture": "amd64",
+          "created_at": "2026-10-09T11:29:36.601Z",
+          "contacted_at": "2026-10-09T21:35:49.981Z",
+          "ip_address": "10.218.11.3",
+          "status": "online",
+          "job_execution_status": "active"
+        },
+        "artifacts_expire_at": "2026-10-16T21:27:38.485Z",
+        "archived": false,
+        "tag_list": [
+          "saas-linux-medium-amd64"
+        ]
+      },
+      {
+        "id": 17072798205,
+        "status": "running",
+        "stage": "test",
+        "name": "tests:unit",
+        "ref": "refs/merge-requests/4009/merge",
+        "tag": false,
+        "coverage": null,
+        "allow_failure": false,
+        "created_at": "2026-10-09T21:22:49.347Z",
+        "started_at": "2026-10-09T21:22:51.437Z",
+        "finished_at": null,
+        "erased_at": null,
+        "duration": 779.130427058,
+        "queued_duration": 0.110173,
+        "user": {
+          "id": 2935693,
+          "username": "phikai",
+          "public_email": "redacted@example.invalid",
+          "name": "Kai Armstrong",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/2935693/avatar.png?v=1791580974",
+          "web_url": "https://gitlab.com/phikai",
+          "created_at": "2018-10-04T15:13:26.553Z",
+          "bio": "Staff Product Manager, Create:Code Review",
+          "location": "Bulverde, TX",
+          "linkedin": "https://www.linkedin.com/in/kaiarmstrong/",
+          "twitter": "https://twitter.com/phikai",
+          "discord": "",
+          "website_url": "https://www.kaiarmstrong.com",
+          "github": "",
+          "job_title": "",
+          "pronouns": "",
+          "organization": "GitLab",
+          "bot": false,
+          "work_information": "GitLab",
+          "followers": 0,
+          "following": 0,
+          "local_time": "4:35 PM"
+        },
+        "commit": {
+          "id": "7241f1fd61b3a98ef5bd14433abd3a8823983fe3",
+          "short_id": "7241f1fd",
+          "created_at": "2026-10-09T22:54:48.000+03:00",
+          "parent_ids": [
+            "fa3b8d6792a8063eb03a5a8784517019d15829be",
+            "1641f5b0e214433660c64d56e17c207c26bc24a6"
+          ],
+          "title": "Merge branch 'chore/redundant-make-fix' into 'main'",
+          "message": "Merge branch 'chore/redundant-make-fix' into 'main'\n\nchore: remove redundant \"make fix\" tools\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4009\n\nMerged-by: Ville Skyttä <redacted@example.invalid>\nReviewed-by: Kai Armstrong <redacted@example.invalid>\n",
+          "author_name": "Ville Skyttä",
+          "author_email": "redacted@example.invalid",
+          "authored_date": "2026-10-09T22:54:48.000+03:00",
+          "committer_name": "GitLab",
+          "committer_email": "redacted@example.invalid",
+          "committed_date": "2026-10-09T22:54:48.000+03:00",
+          "trailers": {},
+          "extended_trailers": {},
+          "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/7241f1fd61b3a98ef5bd14433abd3a8823983fe3"
+        },
+        "pipeline": {
+          "id": 2932170979,
+          "iid": 15060,
+          "project_id": 34675721,
+          "sha": "7241f1fd61b3a98ef5bd14433abd3a8823983fe3",
+          "ref": "refs/merge-requests/4009/merge",
+          "status": "running",
+          "source": "merge_request_event",
+          "created_at": "2026-10-09T21:22:49.215Z",
+          "updated_at": "2026-10-09T21:22:51.811Z",
+          "web_url": "https://gitlab.com/gitlab-org/cli/-/pipelines/2932170979"
+        },
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/jobs/17072798205",
+        "project": {
+          "ci_job_token_scope_enabled": false
+        },
+        "artifacts": [],
+        "runner": {
+          "id": 55314121,
+          "description": "k8s.saas-linux-medium-amd64.runners-manager.gitlab.com/default",
+          "ip_address": null,
+          "active": true,
+          "paused": false,
+          "is_shared": true,
+          "runner_type": "instance_type",
+          "name": null,
+          "online": true,
+          "created_by": {
+            "id": 5372863,
+            "username": "igorwwwwwwwwwwwwwwwwwwww-admin",
+            "public_email": "",
+            "name": "Igor Wiedler",
+            "state": "active",
+            "locked": false,
+            "avatar_url": "https://secure.gravatar.com/avatar/509321df9ad78093586110676a0f3e0517e2744bce4c1963fac9ad5acd19f4f0?s=80&d=identicon",
+            "web_url": "https://gitlab.com/igorwwwwwwwwwwwwwwwwwwww-admin"
+          },
+          "created_at": "2026-08-19T15:31:33.905Z",
+          "status": "online",
+          "job_execution_status": "active"
+        },
+        "runner_manager": {
+          "id": 161605643,
+          "system_id": "r_rvCYmL52hZeA",
+          "version": "19.5.0~pre.2272.g28a18501",
+          "revision": "28a18501",
+          "platform": "linux",
+          "architecture": "amd64",
+          "created_at": "2026-10-09T11:29:35.679Z",
+          "contacted_at": "2026-10-09T21:35:49.124Z",
+          "ip_address": "10.218.11.3",
+          "status": "online",
+          "job_execution_status": "active"
+        },
+        "artifacts_expire_at": null,
+        "archived": false,
+        "tag_list": [
+          "saas-linux-medium-amd64"
+        ]
+      }
+    ]
+  }
+}

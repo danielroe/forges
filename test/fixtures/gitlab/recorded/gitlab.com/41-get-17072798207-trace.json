@@ -1,0 +1,14 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/jobs/17072798207/trace"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "ratelimit-limit": "2000",
+      "ratelimit-remaining": "1958",
+      "ratelimit-reset": "1791581760"
+    }
+  }
+}

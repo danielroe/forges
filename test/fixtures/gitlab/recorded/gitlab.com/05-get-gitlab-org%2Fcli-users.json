@@ -7,10 +7,10 @@
     "status": 200,
     "headers": {
       "link": "<https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/users?id=gitlab-org%2Fcli&page=2&per_page=3>; rel=\"next\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/users?id=gitlab-org%2Fcli&page=1&per_page=3>; rel=\"first\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/users?id=gitlab-org%2Fcli&page=983&per_page=3>; rel=\"last\"",
-      "etag": "W/\"4f281640ce0b7d548f1a57647a36c62d\"",
+      "etag": "W/\"461832709cbf5e4274e48f846255ff9b\"",
       "ratelimit-limit": "2000",
       "ratelimit-remaining": "1995",
-      "ratelimit-reset": "1791551760",
+      "ratelimit-reset": "1791581760",
       "x-total": "2949",
       "x-total-pages": "983",
       "x-next-page": "2",
@@ -45,7 +45,7 @@
         "name": "Balasankar 'Balu' C",
         "state": "active",
         "locked": false,
-        "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/4849/avatar.png?v=1791551634",
+        "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/4849/avatar.png?v=1791561330",
         "web_url": "https://gitlab.com/balasankarc"
       }
     ]

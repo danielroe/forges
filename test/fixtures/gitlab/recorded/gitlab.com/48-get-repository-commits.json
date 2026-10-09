@@ -7,73 +7,73 @@
     "status": 200,
     "headers": {
       "link": "<https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/repository/commits?id=gitlab-org%2Fcli&order=default&page=2&pagination=legacy&per_page=3&trailers=false>; rel=\"next\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/repository/commits?id=gitlab-org%2Fcli&order=default&page=1&pagination=legacy&per_page=3&trailers=false>; rel=\"first\"",
-      "etag": "W/\"c4734846453855972c7e855c6c142d6e\"",
+      "etag": "W/\"3bcb1b1248ef4342ac08ba66dc004585\"",
       "ratelimit-limit": "2000",
-      "ratelimit-remaining": "1952",
-      "ratelimit-reset": "1791551760",
+      "ratelimit-remaining": "1951",
+      "ratelimit-reset": "1791581760",
       "x-next-page": "2",
       "x-page": "1",
       "x-per-page": "3"
     },
     "body": [
       {
-        "id": "89d0008af1df78a62f5b446fb9b1bfc479771279",
-        "short_id": "89d0008a",
-        "created_at": "2026-10-09T16:06:30.000+10:00",
+        "id": "fa3b8d6792a8063eb03a5a8784517019d15829be",
+        "short_id": "fa3b8d67",
+        "created_at": "2026-10-09T14:38:45.000-05:00",
         "parent_ids": [
-          "8dc3967821c8e6d52e7146b5ee13dbf1b83caec1",
-          "172280be29d9ca0ccaa797fb30bdf9e8da66496e"
+          "86c6176e8805aaa3b0ea1ff716b26c5a55e7176c",
+          "ba969f532feb4fe697fbdf944a54610358c333d7"
         ],
-        "title": "Merge branch 'govern-codex-cursor-sync' into 'main'",
-        "message": "Merge branch 'govern-codex-cursor-sync' into 'main'\n\nfeat(govern): sync Codex and Cursor sessions through the fallback job\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4051\n\nMerged-by: Jay McCure <redacted@example.invalid>\nApproved-by: GitLab Duo <redacted@example.invalid>\nApproved-by: Jay McCure <redacted@example.invalid>\nReviewed-by: GitLab Duo <redacted@example.invalid>\nCo-authored-by: Jean van der Walt <redacted@example.invalid>",
-        "author_name": "Jay McCure",
+        "title": "Merge branch 'jhahimanshu653/fix-registry-domains-7943' into 'main'",
+        "message": "Merge branch 'jhahimanshu653/fix-registry-domains-7943' into 'main'\n\nfix(auth): persist registry domains for token logins\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4043\n\nMerged-by: Kai Armstrong <redacted@example.invalid>\nApproved-by: GitLab Duo <redacted@example.invalid>\nApproved-by: Kai Armstrong <redacted@example.invalid>\nReviewed-by: Kai Armstrong <redacted@example.invalid>\nCo-authored-by: Himanshu Jha <redacted@example.invalid>",
+        "author_name": "Kai Armstrong",
         "author_email": "redacted@example.invalid",
-        "authored_date": "2026-10-09T16:06:30.000+10:00",
+        "authored_date": "2026-10-09T14:38:45.000-05:00",
         "committer_name": "GitLab",
         "committer_email": "redacted@example.invalid",
-        "committed_date": "2026-10-09T16:06:30.000+10:00",
+        "committed_date": "2026-10-09T14:38:45.000-05:00",
         "trailers": {},
         "extended_trailers": {},
-        "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/89d0008af1df78a62f5b446fb9b1bfc479771279"
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/fa3b8d6792a8063eb03a5a8784517019d15829be"
       },
       {
-        "id": "172280be29d9ca0ccaa797fb30bdf9e8da66496e",
-        "short_id": "172280be",
-        "created_at": "2026-10-09T16:06:30.000+10:00",
+        "id": "ba969f532feb4fe697fbdf944a54610358c333d7",
+        "short_id": "ba969f53",
+        "created_at": "2026-10-09T14:37:53.000-05:00",
         "parent_ids": [
-          "8dc3967821c8e6d52e7146b5ee13dbf1b83caec1"
+          "4c1c1904125cc61044f2c67e95aa3c5847bcd9db"
         ],
-        "title": "feat(govern): sync Codex and Cursor sessions through the fallback job",
-        "message": "feat(govern): sync Codex and Cursor sessions through the fallback job\n",
-        "author_name": "Jean van der Walt",
+        "title": "fix(auth): persist registry domains for token logins",
+        "message": "fix(auth): persist registry domains for token logins\n",
+        "author_name": "Himanshu Jha",
         "author_email": "redacted@example.invalid",
-        "authored_date": "2026-10-09T19:06:30.000+13:00",
+        "authored_date": "2026-10-09T19:37:53.000+00:00",
         "committer_name": "GitLab",
         "committer_email": "redacted@example.invalid",
-        "committed_date": "2026-10-09T16:06:30.000+10:00",
+        "committed_date": "2026-10-09T14:37:53.000-05:00",
         "trailers": {},
         "extended_trailers": {},
-        "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/172280be29d9ca0ccaa797fb30bdf9e8da66496e"
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/ba969f532feb4fe697fbdf944a54610358c333d7"
       },
       {
-        "id": "8dc3967821c8e6d52e7146b5ee13dbf1b83caec1",
-        "short_id": "8dc39678",
-        "created_at": "2026-10-09T14:56:07.000+10:00",
+        "id": "86c6176e8805aaa3b0ea1ff716b26c5a55e7176c",
+        "short_id": "86c6176e",
+        "created_at": "2026-10-09T14:37:17.000-05:00",
         "parent_ids": [
-          "75297de1f762a691ed91b2bd311952743ca042eb",
-          "16e2204b01d76f87065769a579fa69cd393f0ff7"
+          "e69bf994f962943eb902d98da436425885d6a277",
+          "5d6ca7d5970f85440534321cb65cc0a513041183"
         ],
-        "title": "Merge branch 'jmc-go-1.27.2-vuln-bump' into 'main'",
-        "message": "Merge branch 'jmc-go-1.27.2-vuln-bump' into 'main'\n\nfix(deps): bump Go to 1.27.2 and golang.org/x/net to v0.60.0\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4048\n\nMerged-by: Jay McCure <redacted@example.invalid>\nApproved-by: GitLab Duo <redacted@example.invalid>\nApproved-by: Kai Armstrong <redacted@example.invalid>\nReviewed-by: GitLab Duo <redacted@example.invalid>\n",
-        "author_name": "Jay McCure",
+        "title": "Merge branch 'jhahimanshu653/duo-binary-status-8550' into 'main'",
+        "message": "Merge branch 'jhahimanshu653/duo-binary-status-8550' into 'main'\n\nfix(duo): keep missing binary versions empty\n\nCloses #8550\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4017\n\nMerged-by: Kai Armstrong <redacted@example.invalid>\nApproved-by: GitLab Duo <redacted@example.invalid>\nApproved-by: Kai Armstrong <redacted@example.invalid>\nReviewed-by: Kai Armstrong <redacted@example.invalid>\nCo-authored-by: Himanshu Jha <redacted@example.invalid>",
+        "author_name": "Kai Armstrong",
         "author_email": "redacted@example.invalid",
-        "authored_date": "2026-10-09T14:56:07.000+10:00",
+        "authored_date": "2026-10-09T14:37:17.000-05:00",
         "committer_name": "GitLab",
         "committer_email": "redacted@example.invalid",
-        "committed_date": "2026-10-09T14:56:07.000+10:00",
+        "committed_date": "2026-10-09T14:37:17.000-05:00",
         "trailers": {},
         "extended_trailers": {},
-        "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/8dc3967821c8e6d52e7146b5ee13dbf1b83caec1"
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/86c6176e8805aaa3b0ea1ff716b26c5a55e7176c"
       }
     ]
   }

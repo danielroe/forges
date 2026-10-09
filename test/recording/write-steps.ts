@@ -159,7 +159,7 @@ export const WRITE_STEPS: WriteStep[] = [
     context.milestone = result.items.find(milestone => milestone.state === 'open')
     return result
   } },
-  { name: 'add collaborator', verb: 'repos.addCollaborator', run: (provider, manifest, context) => provider.repos.addCollaborator(manifest.scratch, need(context.reviewer, 'the reviewer'), 'write') },
+  { name: 'add collaborator', verb: 'repos.addCollaborator', run: (provider, manifest, context) => provider.repos.addCollaborator(manifest.collaborators ?? manifest.scratch, need(context.reviewer, 'the reviewer'), 'write') },
 
   { name: 'create issue', verb: 'threads.create', kind: 'issue', run: async (provider, manifest, context) => {
     context.issue = await provider.threads.create(manifest.scratch, { kind: 'issue', title: `${FIXTURE_TITLE} ${manifest.run.id}: issue`, body: `Opened by run ${manifest.run.id}.` })
@@ -217,6 +217,7 @@ export const WRITE_STEPS: WriteStep[] = [
       : await provider.threads.createReview(need(context.pulls[2], 'the third pull request').ref, { event: 'approve' })
     return context.review
   } },
+  { name: 'comment review', verb: 'threads.createReview', kind: 'pull_request', as: 'reviewer', when: provider => !provider.can('threads.submitReview'), run: (provider, manifest, context) => provider.threads.createReview(threadOf(context, 'pull_request'), { event: 'comment', body: `A review comment from run ${manifest.run.id}.` }) },
   { name: 'submit review', verb: 'threads.submitReview', kind: 'pull_request', as: 'reviewer', run: async (provider, manifest, context) => {
     context.review = await provider.threads.submitReview(need(context.review, 'a pending review').ref, 'comment', `A submitted review from run ${manifest.run.id}.`)
     return context.review

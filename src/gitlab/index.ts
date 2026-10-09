@@ -54,6 +54,7 @@ import type {
   GitLabCommitStatus,
   GitLabCompare,
   GitLabDiff,
+  GitLabDiscussion,
   GitLabFile,
   GitLabHook,
   GitLabHookEvent,
@@ -607,7 +608,7 @@ const GITLAB: ProviderDefinition<GitLabOptions> = {
             throw error
           }
         }),
-        addCollaborator: verb('unverified', async (repo, actor, role) => {
+        addCollaborator: verb(true, async (repo, actor, role) => {
           await fetcher.raw(`${projectPath(repo)}/members`, { method: 'POST', json: { user_id: await userId(actor), access_level: ACCESS_LEVELS[role] } })
         }),
         assignableUsersPage: verb(true, (repo, listOptions = {}) => list(`${projectPath(repo)}/users`, listOptions, (raw: GitLabUser) => toActor(instance, raw)!)),
@@ -730,13 +731,22 @@ const GITLAB: ProviderDefinition<GitLabOptions> = {
           await approve(thread, body)
         }),
         createReview: verb('emulated', async (thread, input) => {
-          if (input.event !== 'approve') {
-            throw new UnsupportedOperationError('GitLab has approvals, not reviews; only `approve` can be created', context)
-          }
           if (input.comments?.length) {
-            throw new UnsupportedOperationError('GitLab approvals carry no inline comments; post them as discussions', context)
+            throw new UnsupportedOperationError('GitLab reviews carry no inline comments yet', context)
           }
           const ref = requireThread(thread, context)
+          if (input.event === 'comment' && input.body) {
+            const { data } = await fetcher.json<GitLabDiscussion>(`${threadPath(ref)}/discussions`, { method: 'POST', json: { body: input.body } })
+            const note = data.notes[0]!
+            return {
+              ...syntheticReview(ref, `discussion:${data.id}`, 'commented', { author: toActor(instance, note.author), stateRaw: 'discussion', submittedAt: toDate(note.created_at), raw: data }),
+              body: note.body,
+              comments: [{ ...toNoteComment(ref, note, data), raw: note }],
+            }
+          }
+          if (input.event !== 'approve') {
+            throw new UnsupportedOperationError('GitLab has approvals and discussions, not reviews; create `approve`, or `comment` with a body', context)
+          }
           const approvals = await approve(ref, input.body)
           const viewer = await viewerLogin()
           const reviews = toApprovalReviews(ref, approvals)
@@ -748,7 +758,7 @@ const GITLAB: ProviderDefinition<GitLabOptions> = {
             raw: approvals,
           }
         }),
-        reviewThreads: verb('unverified', {
+        reviewThreads: verb(true, {
           resolveReviewThread: (thread, id) => setDiscussionResolved(thread, id, true),
           unresolveReviewThread: (thread, id) => setDiscussionResolved(thread, id, false),
         }),
@@ -781,7 +791,9 @@ const GITLAB: ProviderDefinition<GitLabOptions> = {
           if (ref.kind === 'commit') {
             return list(`${threadPath(ref)}/comments`, listOptions, (comment: GitLabCommitComment) => toCommitComment(ref, comment))
           }
-          return list(`${threadPath(requireIssueOrPull(ref, context, 'list comments on'))}/notes`, listOptions, (note: GitLabNoteDetail) => note.system ? undefined : toNoteComment(ref, note), { query: { sort: 'asc', order_by: 'created_at' } })
+          // Notes carry no discussion id, so comments are read by discussion; a page holds whole discussions.
+          const page = await list(`${threadPath(requireIssueOrPull(ref, context, 'list comments on'))}/discussions`, listOptions, (discussion: GitLabDiscussion) => discussion)
+          return { ...page, items: page.items.flatMap(discussion => discussion.notes.filter(note => !note.system).map(note => toNoteComment(ref, note, discussion))) }
         }),
         comment: perKind({ issue: true, pull_request: true, commit: true }, async (thread, body) => {
           const ref = requireThread(thread, context)

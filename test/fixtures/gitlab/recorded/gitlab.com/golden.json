@@ -21,9 +21,9 @@
     },
     "createdAt": "2022-03-21T18:49:22.691Z",
     "updatedAt": "<now>",
-    "openIssueCount": 262,
+    "openIssueCount": 261,
     "stars": 1103,
-    "forks": 484,
+    "forks": 483,
     "mergeMethods": [
       "merge",
       "squash"
@@ -121,20 +121,20 @@
         "actor": {
           "forge": "gitlab",
           "instance": "gitlab.com",
-          "login": "ayufan",
-          "id": "12452",
-          "name": "Kamil Trzciński",
-          "avatarUrl": "https://secure.gravatar.com/avatar/4675c8e590e767232977b9b245d70da790b2b6fd9ea0870515cf951fc2ac8ccb?s=80&d=identicon",
-          "url": "https://gitlab.com/ayufan",
+          "login": "stanhu",
+          "id": "64248",
+          "name": "Stan Hu",
+          "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/64248/stanhu.jpg?v=1791579193",
+          "url": "https://gitlab.com/stanhu",
           "isBotHint": false
         },
-        "role": "write",
-        "roleRaw": "30"
+        "role": "admin",
+        "roleRaw": "50"
       }
     ],
     "cursor": {
       "nextUrl": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/members/all?id=gitlab-org%2Fcli&page=2&per_page=3",
-      "etag": "W/\"4576367e10bc5dae3dab988bedc22369\""
+      "etag": "W/\"e64150eecd3033a89393e2b1af76014c\""
     },
     "rateLimit": {
       "limit": 2000,
@@ -170,18 +170,18 @@
         "login": "balasankarc",
         "id": "4849",
         "name": "Balasankar 'Balu' C",
-        "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/4849/avatar.png?v=1791551634",
+        "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/4849/avatar.png?v=1791561330",
         "url": "https://gitlab.com/balasankarc",
         "isBotHint": false
       }
     ],
     "cursor": {
       "nextUrl": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/users?id=gitlab-org%2Fcli&page=2&per_page=3",
-      "etag": "W/\"4f281640ce0b7d548f1a57647a36c62d\""
+      "etag": "W/\"461832709cbf5e4274e48f846255ff9b\""
     },
     "rateLimit": {
       "limit": 2000,
-      "remaining": 1982,
+      "remaining": 1981,
       "resetAt": "<now>"
     }
   },
@@ -305,12 +305,12 @@
             "name": "cli"
           },
           "kind": "pull_request",
-          "number": "4054",
-          "externalId": "545861306"
+          "number": "4056",
+          "externalId": "546017199"
         },
         "kind": "pull_request",
-        "title": "Draft: feat(skills): install remote orbit skill from the self-updating wrapper [skip ci]",
-        "body": "## Description\n\n`glab skills install orbit` now installs a small wrapper skill. The wrapper loads the real Orbit skill from your installed `glab orbit` binary and GitLab instance, so you don't need to reinstall it to get updates. The skill is still called `orbit` everywhere you see it.\n\n## Related Issues\n\nNo public issue for this change.\n\n## How has this been tested?\n\n- `go test ./internal/commands/skills/...` covers the name rewrite, a missing `name`, and the registry entry.\n- `make lint` is clean.\n- `make gen-docs` produced no changes.\n\n<details>\n<summary>Agent context</summary>\n\n- The registry entry `orbit` now points at `skills/orbit-wrapper` (upstream frontmatter is `name: orbit-wrapper`).\n- The fetcher rewrites the top-level frontmatter `name` of the fetched SKILL.md to the registry entry name, so the installed directory and frontmatter agree. Only the first `name:` line inside the frontmatter block changes; nested keys and the body are untouched. A SKILL.md without `name` fails the fetch.\n- `scripts/skills/add-remote` gets `--name` to publish a skill under a different public name. Without it the old directory/name check still applies.\n- The registry header comment documents the exception.\n- Labels come from the repo MR template. No milestone set; the active ones listed are stale.\n- Branch pipelines were not checked.\n\n</details>",
+        "title": "Draft: fix(mr): don't add a second Draft: prefix in mr create",
+        "body": "## Description\n\n`glab mr create --draft` prepends `Draft: ` without looking at the title, so `--draft --title \"Draft: X\"` opens a merge request titled `Draft: Draft: X`. Now a title that's already a draft is sent as is.\n\nThis continues @erran's work in https://gitlab.com/gitlab-org/cli/-/merge_requests/3825, rebased onto `main` with their three commits kept as written, and adds @phikai's review suggestions from that MR on top:\n\n- `cmdutils.EnsureTitlePrefix` ignores leading whitespace, so ` Draft: X` no longer doubles. The `--ready` pattern moves into `cmdutils.StripTitlePrefixes`, so the guard and the stripper agree on whitespace and case.\n- One table test, with the `withMRCreateRemotes` helper, replaces the separate `--draft` and `--wip` tests and adds the `--related-issue` path, which turns on draft without `--draft`. Seven of its nine cases fail on `main`.\n- The redundant `NotContains` checks are dropped.\n\nThe last two commits go past what the review asked for: the guard and the stripper also match `[Draft]` and `(Draft)`, so glab's draft check agrees with what GitLab itself [treats as a draft](https://gitlab.com/gitlab-org/gitlab/-/blob/7f29ef9c09ff8fe6ae7d315f2752997e3a86fae2/lib/gitlab/regex/merge_requests.rb#L10-12) ([`MergeRequest.draft_title`](https://gitlab.com/gitlab-org/gitlab/-/blob/7f29ef9c09ff8fe6ae7d315f2752997e3a86fae2/app/models/merge_request.rb#L981-983)). Dropping those two commits narrows this to `Draft:`.\n\n`mr for` keeps its own prepend: it is deprecated and has no `--title` flag, so its title can't already carry a prefix.\n\n### Where the prefix is added\n\n```mermaid\nflowchart LR\n  D[\"glab mr create<br/>--draft\"] --> C\n  R[\"glab mr create<br/>--related-issue<br/>turns on draft\"] --> C\n  C{\"cmdutils.EnsureTitlePrefix<br/>already a draft?\"}\n  C -->|\"yes, ignoring case<br/>and leading spaces\"| K[\"title sent as is\"]\n  C -->|\"no\"| A[\"Draft: + title\"]\n```\n\nThe GitLab Duo Developer flow can pass both `--draft` and a `Draft:` title, and two of six sessions opened doubled titles (https://gitlab.com/gitlab-com/public-sector/exhibits/the-switchyard/track-3-fan-out/-/merge_requests/1, https://gitlab.com/gitlab-com/public-sector/exhibits/the-switchyard/track-5-library/-/merge_requests/1). The first one's job log has the command on [line 601](https://gitlab.com/gitlab-com/public-sector/exhibits/the-switchyard/track-3-fan-out/-/jobs/17048423228#L601).\n\n## Related Issues\n\nNone. A paired prompt change in ai-assist, https://gitlab.com/gitlab-org/modelops/applied-ml/code-suggestions/ai-assist/-/merge_requests/7402, asks the flow not to send both.\n\n## How has this been tested?\n\n- `make test`, `lefthook run pre-push` (build, `golangci-lint` against `origin/main`, `test-changed`, generated docs and code) and `scripts/comment-overlap` pass.\n- Breaking any changed condition fails a test.\n- No flag or help text changed, so `make gen-docs` produces no diff.\n\nAn AI coding assistant wrote the changes on top of @erran's commits and ran the checks above on a local checkout.",
         "state": "open",
         "stateRaw": "opened",
         "isDraft": true,
@@ -318,20 +318,20 @@
           {
             "forge": "gitlab",
             "instance": "gitlab.com",
-            "login": "dgruzd",
-            "id": "5054237",
-            "name": "Dmitry Gruzd",
-            "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/5054237/avatar.png?v=1791551204",
-            "url": "https://gitlab.com/dgruzd",
+            "login": "andunn",
+            "id": "28633741",
+            "name": "Andrew Dunn",
+            "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/28633741/avatar.png?v=1791567326",
+            "url": "https://gitlab.com/andunn",
             "isBotHint": false
           }
         ],
         "reviewers": [],
-        "lastActivityAt": "<now>",
+        "lastActivityAt": "2026-10-09T18:27:37.569Z",
         "branches": {
           "head": {
-            "ref": "orbit-skill-wrapper",
-            "sha": "b5075bca0e6e3c123ef37bce1155da2e4062e9aa",
+            "ref": "fix/mr-draft-title-prefix-rails-forms",
+            "sha": "ce58ad904babd66dac35d38df79fa5d27a4d7256",
             "repo": {
               "forge": "gitlab",
               "instance": "gitlab.com",
@@ -346,17 +346,17 @@
         "author": {
           "forge": "gitlab",
           "instance": "gitlab.com",
-          "login": "dgruzd",
-          "id": "5054237",
-          "name": "Dmitry Gruzd",
-          "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/5054237/avatar.png?v=1791551204",
-          "url": "https://gitlab.com/dgruzd",
+          "login": "andunn",
+          "id": "28633741",
+          "name": "Andrew Dunn",
+          "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/28633741/avatar.png?v=1791567326",
+          "url": "https://gitlab.com/andunn",
           "typeRaw": "user",
           "isBotHint": false
         },
-        "url": "https://gitlab.com/gitlab-org/cli/-/merge_requests/4054",
-        "createdAt": "<now>",
-        "updatedAt": "<now>",
+        "url": "https://gitlab.com/gitlab-org/cli/-/merge_requests/4056",
+        "createdAt": "2026-10-09T17:37:01.220Z",
+        "updatedAt": "2026-10-09T18:27:37.569Z",
         "labels": [
           {
             "name": "category:gitlab cli"
@@ -369,17 +369,12 @@
           },
           {
             "name": "section::ai"
+          },
+          {
+            "name": "type::bug"
           }
         ],
-        "commentCount": 0,
-        "milestone": {
-          "id": "6239396",
-          "title": "19.5",
-          "state": "open",
-          "description": "",
-          "dueOn": "2026-10-09T00:00:00.000Z",
-          "url": "https://gitlab.com/groups/gitlab-org/-/milestones/139"
-        },
+        "commentCount": 1,
         "reactions": {
           "total": 0,
           "counts": {}
@@ -511,14 +506,14 @@
               "login": "dbickford",
               "id": "12695721",
               "name": "Davis Bickford",
-              "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/12695721/avatar.png?v=1791506303",
+              "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/12695721/avatar.png?v=1791566311",
               "url": "https://gitlab.com/dbickford",
               "isBotHint": false
             },
             "state": "unknown"
           }
         ],
-        "lastActivityAt": "2026-10-09T00:15:13.598Z",
+        "lastActivityAt": "2026-10-09T19:24:16.126Z",
         "branches": {
           "head": {
             "ref": "jmrp-refuse-method-changing-redirect",
@@ -541,7 +536,7 @@
         },
         "url": "https://gitlab.com/gitlab-org/cli/-/merge_requests/4044",
         "createdAt": "2026-10-08T19:38:18.010Z",
-        "updatedAt": "2026-10-09T00:15:13.598Z",
+        "updatedAt": "2026-10-09T19:24:16.126Z",
         "labels": [
           {
             "name": "1st contribution"
@@ -580,7 +575,7 @@
     ],
     "cursor": {
       "nextUrl": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/merge_requests?id=gitlab-org%2Fcli&order_by=created_at&page=2&per_page=3&sort=desc&state=opened&with_labels_details=false&with_merge_status_recheck=false",
-      "etag": "W/\"6be8b44102a3b104d49bd21275089327\"",
+      "etag": "W/\"0fd29d7ebd9d6843edaf1c905ba436af\"",
       "token": "0:"
     },
     "rateLimit": {
@@ -768,7 +763,7 @@
           "login": "gitlab-bot",
           "id": "1786152",
           "name": "🤖 GitLab Bot 🤖",
-          "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/1786152/avatar.png?v=1791549466",
+          "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/1786152/avatar.png?v=1791578417",
           "url": "https://gitlab.com/gitlab-bot",
           "isBotHint": false
         },
@@ -807,7 +802,7 @@
           "login": "gitlab-bot",
           "id": "1786152",
           "name": "🤖 GitLab Bot 🤖",
-          "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/1786152/avatar.png?v=1791549466",
+          "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/1786152/avatar.png?v=1791578417",
           "url": "https://gitlab.com/gitlab-bot",
           "isBotHint": false
         },
@@ -835,11 +830,11 @@
     ],
     "cursor": {
       "nextUrl": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/merge_requests/3988/notes?activity_filter=all_notes&id=gitlab-org%2Fcli&noteable_id=3988&order_by=created_at&page=2&per_page=3&sort=asc",
-      "etag": "W/\"e02545fa31db8d5a5ba2200a7deddc5d\""
+      "etag": "W/\"a12a8fad4e70661f56afc99209118c6c\""
     },
     "rateLimit": {
       "limit": 2000,
-      "remaining": 1990,
+      "remaining": 1991,
       "resetAt": "<now>"
     }
   },
@@ -879,12 +874,12 @@
       }
     ],
     "cursor": {
-      "nextUrl": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/merge_requests/3988/notes?activity_filter=all_notes&id=gitlab-org%2Fcli&noteable_id=3988&order_by=created_at&page=2&per_page=3&sort=asc",
-      "etag": "W/\"e02545fa31db8d5a5ba2200a7deddc5d\""
+      "nextUrl": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/merge_requests/3988/discussions?id=gitlab-org%2Fcli&noteable_id=3988&page=2&per_page=3",
+      "etag": "W/\"19289db9368806a5ede10b09ea4965ac\""
     },
     "rateLimit": {
       "limit": 2000,
-      "remaining": 1990,
+      "remaining": 1989,
       "resetAt": "<now>"
     }
   },
@@ -892,7 +887,7 @@
     "items": [],
     "rateLimit": {
       "limit": 2000,
-      "remaining": 1989,
+      "remaining": 1988,
       "resetAt": "<now>"
     }
   },
@@ -1322,7 +1317,7 @@
     ],
     "rateLimit": {
       "limit": 2000,
-      "remaining": 1984,
+      "remaining": 1983,
       "resetAt": "<now>"
     }
   },
@@ -1360,7 +1355,7 @@
     ],
     "rateLimit": {
       "limit": 2000,
-      "remaining": 1983,
+      "remaining": 1982,
       "resetAt": "<now>"
     }
   },
@@ -1392,18 +1387,18 @@
         "login": "balasankarc",
         "id": "4849",
         "name": "Balasankar 'Balu' C",
-        "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/4849/avatar.png?v=1791551634",
+        "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/4849/avatar.png?v=1791561330",
         "url": "https://gitlab.com/balasankarc",
         "isBotHint": false
       }
     ],
     "cursor": {
       "nextUrl": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/users?id=gitlab-org%2Fcli&page=2&per_page=3",
-      "etag": "W/\"4f281640ce0b7d548f1a57647a36c62d\""
+      "etag": "W/\"461832709cbf5e4274e48f846255ff9b\""
     },
     "rateLimit": {
       "limit": 2000,
-      "remaining": 1982,
+      "remaining": 1981,
       "resetAt": "<now>"
     }
   },
@@ -1650,7 +1645,7 @@
     },
     "rateLimit": {
       "limit": 2000,
-      "remaining": 1980,
+      "remaining": 1979,
       "resetAt": "<now>"
     }
   },
@@ -1777,7 +1772,7 @@
           "login": "phikai",
           "id": "2935693",
           "name": "Kai Armstrong",
-          "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/2935693/avatar.png?v=1791547677",
+          "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/2935693/avatar.png?v=1791580974",
           "url": "https://gitlab.com/phikai",
           "isBotHint": false
         },
@@ -1816,7 +1811,7 @@
           "login": "phikai",
           "id": "2935693",
           "name": "Kai Armstrong",
-          "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/2935693/avatar.png?v=1791547677",
+          "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/2935693/avatar.png?v=1791580974",
           "url": "https://gitlab.com/phikai",
           "isBotHint": false
         },
@@ -1844,7 +1839,7 @@
     ],
     "cursor": {
       "nextUrl": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/issues/8572/notes?activity_filter=all_notes&id=gitlab-org%2Fcli&noteable_id=8572&order_by=created_at&page=2&per_page=3&sort=asc",
-      "etag": "W/\"b59b2df01010885b1e4230fb1f85f47d\""
+      "etag": "W/\"103c68aa46e40a1e90f3a920104c1a6b\""
     },
     "rateLimit": {
       "limit": 2000,
@@ -1879,7 +1874,7 @@
           "login": "phikai",
           "id": "2935693",
           "name": "Kai Armstrong",
-          "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/2935693/avatar.png?v=1791547677",
+          "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/2935693/avatar.png?v=1791580974",
           "url": "https://gitlab.com/phikai",
           "isBotHint": false
         },
@@ -1888,12 +1883,12 @@
       }
     ],
     "cursor": {
-      "nextUrl": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/issues/8572/notes?activity_filter=all_notes&id=gitlab-org%2Fcli&noteable_id=8572&order_by=created_at&page=2&per_page=3&sort=asc",
-      "etag": "W/\"b59b2df01010885b1e4230fb1f85f47d\""
+      "nextUrl": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/issues/8572/discussions?id=gitlab-org%2Fcli&noteable_id=8572&page=2&per_page=3",
+      "etag": "W/\"742b9834783e9eebf1619ad79fc39cef\""
     },
     "rateLimit": {
       "limit": 2000,
-      "remaining": 1977,
+      "remaining": 1976,
       "resetAt": "<now>"
     }
   },
@@ -1901,7 +1896,7 @@
     "items": [],
     "rateLimit": {
       "limit": 2000,
-      "remaining": 1976,
+      "remaining": 1975,
       "resetAt": "<now>"
     }
   },
@@ -1935,7 +1930,7 @@
     "items": [],
     "rateLimit": {
       "limit": 2000,
-      "remaining": 1972,
+      "remaining": 1971,
       "resetAt": "<now>"
     }
   },
@@ -1943,7 +1938,7 @@
     "items": [],
     "rateLimit": {
       "limit": 2000,
-      "remaining": 1972,
+      "remaining": 1971,
       "resetAt": "<now>"
     }
   },
@@ -1983,6 +1978,60 @@
         "ref": {
           "forge": "gitlab",
           "instance": "gitlab.com",
+          "owner": "roebot",
+          "name": "forges-fixtures-outside",
+          "externalId": "87449621"
+        },
+        "defaultBranch": "main",
+        "visibility": "public",
+        "visibilityRaw": "public",
+        "isFork": false,
+        "isArchived": false,
+        "topics": [],
+        "url": "https://gitlab.com/roebot/forges-fixtures-outside",
+        "cloneUrls": {
+          "https": "https://gitlab.com/roebot/forges-fixtures-outside.git",
+          "ssh": "git@gitlab.com:roebot/forges-fixtures-outside.git"
+        },
+        "createdAt": "<now>",
+        "updatedAt": "<now>",
+        "openIssueCount": 0,
+        "owner": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "login": "roebot",
+          "id": "43193323",
+          "name": "Daniel Roe",
+          "avatarUrl": "https://secure.gravatar.com/avatar/14ceebcfdc10030d76768a65e9d7978b914694cebcbb6ab609b3a0e8243f0eb8?s=80&d=identicon",
+          "url": "https://gitlab.com/roebot",
+          "isBotHint": false
+        },
+        "stars": 0,
+        "forks": 0,
+        "mergeMethods": [
+          "merge",
+          "squash"
+        ],
+        "features": {
+          "issues": true,
+          "pullRequests": true,
+          "discussions": false,
+          "wiki": true,
+          "projects": false,
+          "releases": true
+        },
+        "permissions": {
+          "admin": false,
+          "maintain": false,
+          "push": true,
+          "triage": true,
+          "pull": true
+        }
+      },
+      {
+        "ref": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
           "owner": "forges-fixtures",
           "name": "forges-fixtures-transfer",
           "externalId": "87428779"
@@ -2000,7 +2049,7 @@
           "ssh": "git@gitlab.com:forges-fixtures/forges-fixtures-transfer.git"
         },
         "createdAt": "2026-10-09T11:33:45.319Z",
-        "updatedAt": "2026-10-09T11:33:45.191Z",
+        "updatedAt": "2026-10-09T13:32:03.092Z",
         "openIssueCount": 0,
         "stars": 0,
         "forks": 0,
@@ -2044,8 +2093,8 @@
           "ssh": "git@gitlab.com:forges-fixtures/forges-fixtures.git"
         },
         "createdAt": "2026-10-09T11:31:15.397Z",
-        "updatedAt": "2026-10-09T11:31:15.332Z",
-        "openIssueCount": 1,
+        "updatedAt": "<now>",
+        "openIssueCount": 2,
         "stars": 0,
         "forks": 0,
         "mergeMethods": [
@@ -2067,77 +2116,15 @@
           "triage": true,
           "pull": true
         }
-      },
-      {
-        "ref": {
-          "forge": "gitlab",
-          "instance": "gitlab.com",
-          "owner": "danielroe",
-          "name": "eu-os.gitlab.io",
-          "externalId": "85529349"
-        },
-        "description": "Documentation for EU OS at https://eu-os.eu and Gitlab Issues for Project Planning.",
-        "defaultBranch": "main",
-        "visibility": "public",
-        "visibilityRaw": "public",
-        "isFork": true,
-        "isArchived": false,
-        "parent": {
-          "forge": "gitlab",
-          "instance": "gitlab.com",
-          "owner": "eu-os",
-          "name": "eu-os.gitlab.io",
-          "externalId": "65688105"
-        },
-        "topics": [],
-        "url": "https://gitlab.com/danielroe/eu-os.gitlab.io",
-        "cloneUrls": {
-          "https": "https://gitlab.com/danielroe/eu-os.gitlab.io.git",
-          "ssh": "git@gitlab.com:danielroe/eu-os.gitlab.io.git"
-        },
-        "createdAt": "2026-08-18T22:30:42.097Z",
-        "updatedAt": "2026-08-18T22:30:41.958Z",
-        "openIssueCount": 0,
-        "owner": {
-          "forge": "gitlab",
-          "instance": "gitlab.com",
-          "login": "danielroe",
-          "id": "2179675",
-          "name": "Daniel Roe",
-          "avatarUrl": "https://secure.gravatar.com/avatar/82a8f6237bb263bac46d7cc8ec3054d715ce6a55a8626d6e977769d57d2c94e6?s=80&d=identicon",
-          "url": "https://gitlab.com/danielroe",
-          "isBotHint": false
-        },
-        "stars": 0,
-        "forks": 0,
-        "mergeMethods": [
-          "merge",
-          "squash"
-        ],
-        "features": {
-          "issues": true,
-          "pullRequests": true,
-          "discussions": false,
-          "wiki": true,
-          "projects": false,
-          "releases": true
-        },
-        "permissions": {
-          "admin": true,
-          "maintain": true,
-          "push": true,
-          "triage": true,
-          "pull": true
-        }
       }
     ],
     "cursor": {
       "nextUrl": "https://gitlab.com/api/v4/projects?imported=false&include_hidden=false&membership=true&order_by=created_at&owned=false&page=2&per_page=3&repository_checksum_failed=false&simple=false&sort=desc&starred=false&statistics=false&wiki_checksum_failed=false&with_custom_attributes=false&with_issues_enabled=false&with_merge_requests_enabled=false",
-      "etag": "W/\"21742cc7ae0dc1d10ca79db3f3510f55\""
+      "etag": "W/\"e3a08a62815b4226318b8abf2da1b92a\""
     },
     "rateLimit": {
       "limit": 2000,
-      "remaining": 1966,
+      "remaining": 1965,
       "resetAt": "<now>"
     }
   },
@@ -2265,16 +2252,38 @@
             "owner": "gitlab-org",
             "name": "cli"
           },
-          "id": "2930620828"
+          "id": "2932170979"
+        },
+        "name": "merge_request_event",
+        "state": "pending",
+        "stateRaw": "running",
+        "number": "15060",
+        "eventRaw": "merge_request_event",
+        "branch": "refs/merge-requests/4009/merge",
+        "sha": "7241f1fd61b3a98ef5bd14433abd3a8823983fe3",
+        "url": "https://gitlab.com/gitlab-org/cli/-/pipelines/2932170979",
+        "createdAt": "<now>"
+      },
+      {
+        "ref": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "repo": {
+            "forge": "gitlab",
+            "instance": "gitlab.com",
+            "owner": "gitlab-org",
+            "name": "cli"
+          },
+          "id": "2932157311"
         },
         "name": "duo_workflow",
         "state": "success",
         "stateRaw": "success",
-        "number": "15038",
+        "number": "15059",
         "eventRaw": "duo_workflow",
-        "branch": "refs/workloads/e509640b865",
-        "sha": "b5075bca0e6e3c123ef37bce1155da2e4062e9aa",
-        "url": "https://gitlab.com/gitlab-org/cli/-/pipelines/2930620828",
+        "branch": "refs/workloads/9ba6a635912",
+        "sha": "fa3b8d6792a8063eb03a5a8784517019d15829be",
+        "url": "https://gitlab.com/gitlab-org/cli/-/pipelines/2932157311",
         "createdAt": "<now>"
       },
       {
@@ -2287,48 +2296,26 @@
             "owner": "gitlab-org",
             "name": "cli"
           },
-          "id": "2930620633"
+          "id": "2932144738"
         },
         "name": "duo_workflow",
-        "state": "failure",
-        "stateRaw": "failed",
-        "number": "15037",
+        "state": "success",
+        "stateRaw": "success",
+        "number": "15058",
         "eventRaw": "duo_workflow",
-        "branch": "refs/workloads/b6a6ebcc447",
-        "sha": "b5075bca0e6e3c123ef37bce1155da2e4062e9aa",
-        "url": "https://gitlab.com/gitlab-org/cli/-/pipelines/2930620633",
-        "createdAt": "<now>"
-      },
-      {
-        "ref": {
-          "forge": "gitlab",
-          "instance": "gitlab.com",
-          "repo": {
-            "forge": "gitlab",
-            "instance": "gitlab.com",
-            "owner": "gitlab-org",
-            "name": "cli"
-          },
-          "id": "2930619904"
-        },
-        "name": "merge_request_event",
-        "state": "neutral",
-        "stateRaw": "skipped",
-        "number": "15036",
-        "eventRaw": "merge_request_event",
-        "branch": "refs/merge-requests/4054/merge",
-        "sha": "b4ad5e4f58c0cbabf2014910657f65abee585a9a",
-        "url": "https://gitlab.com/gitlab-org/cli/-/pipelines/2930619904",
+        "branch": "refs/workloads/2acdec6f542",
+        "sha": "fa3b8d6792a8063eb03a5a8784517019d15829be",
+        "url": "https://gitlab.com/gitlab-org/cli/-/pipelines/2932144738",
         "createdAt": "<now>"
       }
     ],
     "cursor": {
       "nextUrl": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/pipelines?id=gitlab-org%2Fcli&order_by=id&page=2&per_page=3&sort=desc",
-      "etag": "W/\"5264cec9d84f81c593bf4a2acd2e9f88\""
+      "etag": "W/\"575b4129172b2166adc0f4ef167f48b4\""
     },
     "rateLimit": {
       "limit": 2000,
-      "remaining": 1962,
+      "remaining": 1961,
       "resetAt": "<now>"
     }
   },
@@ -2342,29 +2329,28 @@
         "owner": "gitlab-org",
         "name": "cli"
       },
-      "id": "2930620828"
+      "id": "2932170979"
     },
-    "name": "duo_workflow",
-    "state": "success",
-    "stateRaw": "success",
-    "number": "15038",
-    "eventRaw": "duo_workflow",
-    "branch": "refs/workloads/e509640b865",
-    "sha": "b5075bca0e6e3c123ef37bce1155da2e4062e9aa",
-    "url": "https://gitlab.com/gitlab-org/cli/-/pipelines/2930620828",
+    "name": "merge_request_event",
+    "state": "pending",
+    "stateRaw": "running",
+    "number": "15060",
+    "eventRaw": "merge_request_event",
+    "branch": "refs/merge-requests/4009/merge",
+    "sha": "7241f1fd61b3a98ef5bd14433abd3a8823983fe3",
+    "url": "https://gitlab.com/gitlab-org/cli/-/pipelines/2932170979",
     "actor": {
       "forge": "gitlab",
       "instance": "gitlab.com",
-      "login": "duo-risk-classification-gitlab-org",
-      "id": "42684758",
-      "name": "Duo Risk Classification",
-      "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/42684758/gitlab-duo-flow.png?v=1791504059",
-      "url": "https://gitlab.com/duo-risk-classification-gitlab-org",
+      "login": "phikai",
+      "id": "2935693",
+      "name": "Kai Armstrong",
+      "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/2935693/avatar.png?v=1791580974",
+      "url": "https://gitlab.com/phikai",
       "isBotHint": false
     },
     "createdAt": "<now>",
-    "startedAt": "<now>",
-    "completedAt": "<now>"
+    "startedAt": "<now>"
   },
   "ci jobs": {
     "items": [
@@ -2378,7 +2364,7 @@
             "owner": "gitlab-org",
             "name": "cli"
           },
-          "id": "17060862976",
+          "id": "17072798207",
           "run": {
             "forge": "gitlab",
             "instance": "gitlab.com",
@@ -2388,41 +2374,91 @@
               "owner": "gitlab-org",
               "name": "cli"
             },
-            "id": "2930620828"
+            "id": "2932170979"
           }
         },
-        "name": "workload",
+        "name": "tests:coverage",
+        "state": "pending",
+        "stateRaw": "created",
+        "stage": "test",
+        "url": "https://gitlab.com/gitlab-org/cli/-/jobs/17072798207"
+      },
+      {
+        "ref": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "repo": {
+            "forge": "gitlab",
+            "instance": "gitlab.com",
+            "owner": "gitlab-org",
+            "name": "cli"
+          },
+          "id": "17072798206",
+          "run": {
+            "forge": "gitlab",
+            "instance": "gitlab.com",
+            "repo": {
+              "forge": "gitlab",
+              "instance": "gitlab.com",
+              "owner": "gitlab-org",
+              "name": "cli"
+            },
+            "id": "2932170979"
+          }
+        },
+        "name": "tests:integration",
         "state": "success",
         "stateRaw": "success",
-        "stage": "build",
-        "url": "https://gitlab.com/gitlab-org/cli/-/jobs/17060862976",
+        "stage": "test",
+        "url": "https://gitlab.com/gitlab-org/cli/-/jobs/17072798206",
         "startedAt": "<now>",
         "completedAt": "<now>"
+      },
+      {
+        "ref": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "repo": {
+            "forge": "gitlab",
+            "instance": "gitlab.com",
+            "owner": "gitlab-org",
+            "name": "cli"
+          },
+          "id": "17072798205",
+          "run": {
+            "forge": "gitlab",
+            "instance": "gitlab.com",
+            "repo": {
+              "forge": "gitlab",
+              "instance": "gitlab.com",
+              "owner": "gitlab-org",
+              "name": "cli"
+            },
+            "id": "2932170979"
+          }
+        },
+        "name": "tests:unit",
+        "state": "pending",
+        "stateRaw": "running",
+        "stage": "test",
+        "url": "https://gitlab.com/gitlab-org/cli/-/jobs/17072798205",
+        "startedAt": "<now>"
       }
     ],
+    "cursor": {
+      "nextUrl": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/pipelines/2932170979/jobs?id=gitlab-org%2Fcli&include_retried=false&page=2&per_page=3&pipeline_id=2932170979",
+      "etag": "W/\"ae929ab2330b96bd8cb3a4101178b76d\""
+    },
     "rateLimit": {
       "limit": 2000,
-      "remaining": 1960,
+      "remaining": 1959,
       "resetAt": "<now>"
     }
   },
   "ci log": {
-    "length": 16384,
+    "length": 0,
     "head": [
-      "2026-10-09T13:10:19.824390Z 00O \u001b[0KRunning with gitlab-runner 19.5.0~pre.2272.g28a18501 (28a18501)\u001b[0;m",
-      "2026-10-09T13:10:19.824430Z 00O \u001b[0K  on k8s.saas-linux-small-amd64.runners-manager.gitlab.com/default nezyxEJex, system ID: r_y43ZOwUU7YCU\u001b[0;m",
-      "2026-10-09T13:10:19.824434Z 00O \u001b[0K  UUID: 019fd6c6-56c4-78a2-8961-bbb53e204387\u001b[0;m",
-      "2026-10-09T13:10:19.824445Z 00O \u001b[0K  feature flags: FF_USE_GIT_PROACTIVE_AUTH:true, FF_HASH_CACHE_KEYS:true, FF_MACHINE_OPTIONS_EXPAND_ENV:true, FF_DOCKER_MACHINE_JSON_OUTPUT:true\u001b[0;m",
-      "2026-10-09T13:10:19.824517Z 00O \u001b[0K\u001b[36;1mResolving secrets\u001b[0;m\u001b[0;m",
-      "2026-10-09T13:10:19.824817Z 00O section_start:1791551419:prepare_executor\r\u001b[0K",
-      "2026-10-09T13:10:19.824823Z 00O+\u001b[0K\u001b[36;1mPreparing the \"docker+machine\" executor\u001b[0;m\u001b[0;m",
-      "2026-10-09T13:10:19.925395Z 00O \u001b[0KUsing Docker executor with image debian:bookworm-slim ...\u001b[0;m",
-      "2026-10-09T13:10:19.925448Z 00O \u001b[0KUsing helper image:  registry.gitlab.com/gitlab-org/gitlab-runner/gitlab-runner-helper:x86_64-28a18501  (overridden, default would be  registry.gitlab.com/gitlab-org/gitlab-runner/gitlab-runner-helper:x86_64-v19.5.0 )\u001b[0;m",
-      "2026-10-09T13:10:19.925457Z 00O \u001b[0KUsing effective pull policy of [always] for container registry.gitlab.com/gitlab-org/gitlab-runner/gitlab-runner-helper:x86_64-28a18501\u001b[0;m",
-      "2026-10-09T13:10:19.926263Z 00O \u001b[0KAuthenticating with credentials from job payload (GitLab Registry)\u001b[0;m",
-      "2026-10-09T13:10:19.926276Z 00O \u001b[0KPulling docker image registry.gitlab.com/gitlab-org/gitlab-runner/gitlab-runner-helper:x86_64-28a18501 ...\u001b[0;m",
-      "2026-10-09T13:10:21.772159Z 00O \u001b[0KUsing docker image sha256:08749606eabcea842cbd189a80b2f3d7670b949f70dfc654d45d8b81554bd837 for registry.gitlab.com/gitlab-org/gitlab-runner/gitlab-runner-helper:x86_64-28a18501 with digest registry.gitlab.com/gitlab-org/gitlab-runner/gitlab-runner-helper@sha256:eea1152121f06d47f94871fef69559be0a87c75212f227e34e7617d1a3bbe6c3 ...\u001b[0;m",
-      "2026-10-09T13:10:23.552108Z 00O \u001b[0KUsing helper image:  registry.gitlab"
+      ""
     ]
   },
   "readme": {
@@ -2459,7 +2495,7 @@
     },
     "rateLimit": {
       "limit": 2000,
-      "remaining": 1956,
+      "remaining": 1955,
       "resetAt": "<now>"
     }
   },
@@ -2493,7 +2529,7 @@
     },
     "rateLimit": {
       "limit": 2000,
-      "remaining": 1955,
+      "remaining": 1954,
       "resetAt": "<now>"
     }
   },
@@ -2518,11 +2554,11 @@
     },
     "rateLimit": {
       "limit": 2000,
-      "remaining": 1954,
+      "remaining": 1953,
       "resetAt": "<now>"
     }
   },
-  "resolve default branch": "89d0008af1df78a62f5b446fb9b1bfc479771279",
+  "resolve default branch": "fa3b8d6792a8063eb03a5a8784517019d15829be",
   "commits": {
     "items": [
       {
@@ -2535,25 +2571,25 @@
             "owner": "gitlab-org",
             "name": "cli"
           },
-          "sha": "89d0008af1df78a62f5b446fb9b1bfc479771279"
+          "sha": "fa3b8d6792a8063eb03a5a8784517019d15829be"
         },
-        "sha": "89d0008af1df78a62f5b446fb9b1bfc479771279",
-        "message": "Merge branch 'govern-codex-cursor-sync' into 'main'\n\nfeat(govern): sync Codex and Cursor sessions through the fallback job\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4051\n\nMerged-by: Jay McCure <redacted@example.invalid>\nApproved-by: GitLab Duo <redacted@example.invalid>\nApproved-by: Jay McCure <redacted@example.invalid>\nReviewed-by: GitLab Duo <redacted@example.invalid>\nCo-authored-by: Jean van der Walt <redacted@example.invalid>",
+        "sha": "fa3b8d6792a8063eb03a5a8784517019d15829be",
+        "message": "Merge branch 'jhahimanshu653/fix-registry-domains-7943' into 'main'\n\nfix(auth): persist registry domains for token logins\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4043\n\nMerged-by: Kai Armstrong <redacted@example.invalid>\nApproved-by: GitLab Duo <redacted@example.invalid>\nApproved-by: Kai Armstrong <redacted@example.invalid>\nReviewed-by: Kai Armstrong <redacted@example.invalid>\nCo-authored-by: Himanshu Jha <redacted@example.invalid>",
         "author": {
-          "name": "Jay McCure",
+          "name": "Kai Armstrong",
           "email": "redacted@example.invalid",
-          "date": "2026-10-09T06:06:30.000Z"
+          "date": "2026-10-09T19:38:45.000Z"
         },
         "committer": {
           "name": "GitLab",
           "email": "redacted@example.invalid",
-          "date": "2026-10-09T06:06:30.000Z"
+          "date": "2026-10-09T19:38:45.000Z"
         },
         "parents": [
-          "8dc3967821c8e6d52e7146b5ee13dbf1b83caec1",
-          "172280be29d9ca0ccaa797fb30bdf9e8da66496e"
+          "86c6176e8805aaa3b0ea1ff716b26c5a55e7176c",
+          "ba969f532feb4fe697fbdf944a54610358c333d7"
         ],
-        "url": "https://gitlab.com/gitlab-org/cli/-/commit/89d0008af1df78a62f5b446fb9b1bfc479771279"
+        "url": "https://gitlab.com/gitlab-org/cli/-/commit/fa3b8d6792a8063eb03a5a8784517019d15829be"
       },
       {
         "ref": {
@@ -2565,24 +2601,24 @@
             "owner": "gitlab-org",
             "name": "cli"
           },
-          "sha": "172280be29d9ca0ccaa797fb30bdf9e8da66496e"
+          "sha": "ba969f532feb4fe697fbdf944a54610358c333d7"
         },
-        "sha": "172280be29d9ca0ccaa797fb30bdf9e8da66496e",
-        "message": "feat(govern): sync Codex and Cursor sessions through the fallback job\n",
+        "sha": "ba969f532feb4fe697fbdf944a54610358c333d7",
+        "message": "fix(auth): persist registry domains for token logins\n",
         "author": {
-          "name": "Jean van der Walt",
+          "name": "Himanshu Jha",
           "email": "redacted@example.invalid",
-          "date": "2026-10-09T06:06:30.000Z"
+          "date": "2026-10-09T19:37:53.000Z"
         },
         "committer": {
           "name": "GitLab",
           "email": "redacted@example.invalid",
-          "date": "2026-10-09T06:06:30.000Z"
+          "date": "2026-10-09T19:37:53.000Z"
         },
         "parents": [
-          "8dc3967821c8e6d52e7146b5ee13dbf1b83caec1"
+          "4c1c1904125cc61044f2c67e95aa3c5847bcd9db"
         ],
-        "url": "https://gitlab.com/gitlab-org/cli/-/commit/172280be29d9ca0ccaa797fb30bdf9e8da66496e"
+        "url": "https://gitlab.com/gitlab-org/cli/-/commit/ba969f532feb4fe697fbdf944a54610358c333d7"
       },
       {
         "ref": {
@@ -2594,34 +2630,34 @@
             "owner": "gitlab-org",
             "name": "cli"
           },
-          "sha": "8dc3967821c8e6d52e7146b5ee13dbf1b83caec1"
+          "sha": "86c6176e8805aaa3b0ea1ff716b26c5a55e7176c"
         },
-        "sha": "8dc3967821c8e6d52e7146b5ee13dbf1b83caec1",
-        "message": "Merge branch 'jmc-go-1.27.2-vuln-bump' into 'main'\n\nfix(deps): bump Go to 1.27.2 and golang.org/x/net to v0.60.0\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4048\n\nMerged-by: Jay McCure <redacted@example.invalid>\nApproved-by: GitLab Duo <redacted@example.invalid>\nApproved-by: Kai Armstrong <redacted@example.invalid>\nReviewed-by: GitLab Duo <redacted@example.invalid>\n",
+        "sha": "86c6176e8805aaa3b0ea1ff716b26c5a55e7176c",
+        "message": "Merge branch 'jhahimanshu653/duo-binary-status-8550' into 'main'\n\nfix(duo): keep missing binary versions empty\n\nCloses #8550\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4017\n\nMerged-by: Kai Armstrong <redacted@example.invalid>\nApproved-by: GitLab Duo <redacted@example.invalid>\nApproved-by: Kai Armstrong <redacted@example.invalid>\nReviewed-by: Kai Armstrong <redacted@example.invalid>\nCo-authored-by: Himanshu Jha <redacted@example.invalid>",
         "author": {
-          "name": "Jay McCure",
+          "name": "Kai Armstrong",
           "email": "redacted@example.invalid",
-          "date": "2026-10-09T04:56:07.000Z"
+          "date": "2026-10-09T19:37:17.000Z"
         },
         "committer": {
           "name": "GitLab",
           "email": "redacted@example.invalid",
-          "date": "2026-10-09T04:56:07.000Z"
+          "date": "2026-10-09T19:37:17.000Z"
         },
         "parents": [
-          "75297de1f762a691ed91b2bd311952743ca042eb",
-          "16e2204b01d76f87065769a579fa69cd393f0ff7"
+          "e69bf994f962943eb902d98da436425885d6a277",
+          "5d6ca7d5970f85440534321cb65cc0a513041183"
         ],
-        "url": "https://gitlab.com/gitlab-org/cli/-/commit/8dc3967821c8e6d52e7146b5ee13dbf1b83caec1"
+        "url": "https://gitlab.com/gitlab-org/cli/-/commit/86c6176e8805aaa3b0ea1ff716b26c5a55e7176c"
       }
     ],
     "cursor": {
       "nextUrl": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/repository/commits?id=gitlab-org%2Fcli&order=default&page=2&pagination=legacy&per_page=3&trailers=false",
-      "etag": "W/\"c4734846453855972c7e855c6c142d6e\""
+      "etag": "W/\"3bcb1b1248ef4342ac08ba66dc004585\""
     },
     "rateLimit": {
       "limit": 2000,
-      "remaining": 1952,
+      "remaining": 1951,
       "resetAt": "<now>"
     }
   },
@@ -3217,7 +3253,7 @@
     },
     "rateLimit": {
       "limit": 2000,
-      "remaining": 1948,
+      "remaining": 1947,
       "resetAt": "<now>"
     }
   },
@@ -3768,6 +3804,89 @@
             "name": "cli"
           },
           "kind": "issue",
+          "number": "8550",
+          "externalId": "203048763"
+        },
+        "kind": "issue",
+        "title": "Follow-up from \"fix(orbit): forward --help to the Orbit binary once it is installed\"",
+        "body": "The following discussions from !3892 should be addressed:\n\n- [ ] @phikai started a [discussion](https://gitlab.com/gitlab-org/cli/-/merge_requests/3892#note_3831356299): \n\n    > Non-blocking, but worth recording: the shared `InstalledBinary` also tightens duo. `Installed` now requires a non-empty `duo_cli_binary_version` for a managed install, where `main` only stat-ed the path. With the managed binary on disk and no recorded version, I get `installed=false` here against `installed=true` on `main`, so the footer flips to \"not installed yet\" plus the three install steps.\n    > \n    > That is the more accurate answer, since `EnsureInstalled` would re-download in that state, and `binarymgr` covers it in \"managed binary without a recorded version is not installed\". Two follow-ups:\n    > \n    > - The duo suite only exercises the custom-path branch (`TestBinaryStatus` sets `GLAB_DUO_CLI_BINARY_PATH`), so nothing in `internal/commands/duo/cli` pins the managed-path behavior. A managed-path case next to the existing \"unknown version\" one would lock it in.\n    > - The description says duo just reuses the moved check. Calling out the footer change would help whoever bisects it later.\n\n- [ ] @phikai started a [discussion](https://gitlab.com/gitlab-org/cli/-/merge_requests/3892#note_3831356502): \n\n    > Optional: `InstallStatus.Version` now carries display text. `\"unknown version\"` is what the duo footer prints, and it means a consumer cannot tell \"no version recorded\" from a real version string. Orbit does not read `Version` at all.\n    > \n    > Returning `\"\"` and keeping the fallback in `AppendBinaryStatusFooter` would keep `binarymgr` free of user-facing strings. It also removes the mild oddity in the new tests, where `InstallStatus{Version: \"unknown version\", Installed: true}` is the expected value for a binary whose version is genuinely unknown.\n\n- [ ] @phikai started a [discussion](https://gitlab.com/gitlab-org/cli/-/merge_requests/3892#note_3831435650): \n\n    > Version 3 addresses everything I raised, and I verified the behavior rather than just the diff: help renders instead of erroring with a stale managed binary in CI, no consent prompt or update check on the help path, and the duo footer matches `main` again when a config key cannot be read. Docs regenerate with no drift.\n    > \n    > The two threads I left today are not blocking. Would be good to see them in a follow-up:\n    > \n    > - a managed-path case in the duo `TestBinaryStatus` set, so nothing in `internal/commands/duo/cli` can silently flip the footer\n    > - moving the `unknown version` fallback out of `binarymgr` and into the footer, ideally with wording that fits custom-path users, who are now the main audience for that string\n    > \n    > Approving from my side.\n\n<!-- implementation plan added during 2026-09 backlog triage -->\n\n## Implementation plan\n\n> **Note:** This plan was drafted during an AI-assisted triage of the backlog and has not been validated by a maintainer. Treat it as a starting point: file paths, line numbers, and the approach may need adjusting.\n\nTwo independent changes from !3892. They can land together or separately.\n\n1. **Return an empty version from `binarymgr`.** In `internal/binarymgr/runner.go`, delete the `if status.Version == \"\" { status.Version = \"unknown version\" }` block at lines 241-243 so `InstallStatus.Version` carries only a real recorded version. `internal/commands/orbit/orbit.go:134` reads only `Path` and `Installed`, so it needs no change.\n\n2. **Move the display fallback into the duo footer.** In `internal/commands/duo/cli/cli.go`, handle the empty version where the footer is rendered (`binaryStatus` at line 129, or the installed branch at lines 109-113). Because a managed binary with no recorded version now reports `Installed: false`, the only way to reach this line is a custom `duo_cli_binary_path`, where glab never records a version. Print `Installed: <path>` with no parenthetical in that case, rather than carrying \"unknown version\" forward; if the maintainer prefers to keep a parenthetical, \"version not recorded\" reads better than \"unknown version\" for a user-supplied binary.\n\n3. **Update the `binarymgr` expectations.** In `internal/binarymgr/runner_test.go`, change the two assertions that expect `Version: \"unknown version\"` (lines 144 and 190) to expect `Version: \"\"`.\n\n4. **Add a managed-path case to the duo suite.** In `internal/commands/duo/cli/cli_test.go`, add a subtest to `TestBinaryStatus` (line 278) that does not set `GLAB_DUO_CLI_BINARY_PATH`. Follow `managedSetup` in `internal/binarymgr/runner_test.go:116`: `t.Setenv(\"GLAB_CONFIG_DIR\", t.TempDir())`, resolve `binarymgr.ManagedBinaryPath(Spec())`, write an executable file there, set `duo_cli_binary_version` on a blank config, and assert `installed` is true with that version. Add a sibling case with the version key unset that asserts `installed` is false, which is the footer flip !3892 introduced.\n\n5. **Cover the footer wording.** Extend `internal/commands/duo/cli/cli_test.go` next to `TestAppendBinaryStatusFooter_ShowsSetupStepsWhenNotInstalled` (line 316) with an installed case that asserts the exact line the footer prints for a custom path with no recorded version.\n\n6. **Verify.** `go test ./internal/binarymgr/... ./internal/commands/duo/... ./internal/commands/orbit/...`. No cobra `Short`, `Long`, `Example`, or flag text changes, so `make gen-docs` is not needed.",
+        "state": "closed",
+        "stateRaw": "closed",
+        "isDraft": false,
+        "assignees": [
+          {
+            "forge": "gitlab",
+            "instance": "gitlab.com",
+            "login": "jhahimanshu653",
+            "id": "39330700",
+            "name": "Himanshu Jha",
+            "avatarUrl": "https://secure.gravatar.com/avatar/7256804a9e07d4093a122ab52809413f75645caf9a676ecb9c6a5bd7cf8e3ba3?s=80&d=identicon",
+            "url": "https://gitlab.com/jhahimanshu653",
+            "isBotHint": false
+          }
+        ],
+        "reviewers": [],
+        "lastActivityAt": "2026-10-09T19:37:19.227Z",
+        "author": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "login": "phikai",
+          "id": "2935693",
+          "name": "Kai Armstrong",
+          "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/2935693/avatar.png?v=1791580974",
+          "url": "https://gitlab.com/phikai",
+          "isBotHint": false
+        },
+        "url": "https://gitlab.com/gitlab-org/cli/-/work_items/8550",
+        "createdAt": "2026-09-14T16:05:51.171Z",
+        "updatedAt": "2026-10-09T19:37:19.227Z",
+        "closedAt": "2026-10-09T19:37:19.214Z",
+        "labels": [
+          {
+            "name": "automation:ml"
+          },
+          {
+            "name": "automation:quick-win-judged"
+          },
+          {
+            "name": "backend"
+          },
+          {
+            "name": "category:gitlab cli"
+          },
+          {
+            "name": "devops::ai coding"
+          },
+          {
+            "name": "group::code review"
+          },
+          {
+            "name": "section::ai"
+          },
+          {
+            "name": "type::maintenance"
+          },
+          {
+            "name": "workflow::complete"
+          }
+        ],
+        "commentCount": 4,
+        "reactions": {
+          "total": 0,
+          "counts": {}
+        }
+      },
+      {
+        "ref": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "repo": {
+            "forge": "gitlab",
+            "instance": "gitlab.com",
+            "owner": "gitlab-org",
+            "name": "cli"
+          },
+          "kind": "issue",
           "number": "7436",
           "externalId": "140169392"
         },
@@ -3777,20 +3896,9 @@
         "state": "open",
         "stateRaw": "opened",
         "isDraft": false,
-        "assignees": [
-          {
-            "forge": "gitlab",
-            "instance": "gitlab.com",
-            "login": "vivekyarra567",
-            "id": "39012371",
-            "name": "Yarra Vivek",
-            "avatarUrl": "https://secure.gravatar.com/avatar/2e76193c97431532a49acc6f40e4aa54d6f460f91da23202bad1a76ab610ff43?s=80&d=identicon",
-            "url": "https://gitlab.com/vivekyarra567",
-            "isBotHint": false
-          }
-        ],
+        "assignees": [],
         "reviewers": [],
-        "lastActivityAt": "2026-10-09T08:16:24.194Z",
+        "lastActivityAt": "2026-10-09T15:34:46.249Z",
         "author": {
           "forge": "gitlab",
           "instance": "gitlab.com",
@@ -3803,7 +3911,7 @@
         },
         "url": "https://gitlab.com/gitlab-org/cli/-/work_items/7436",
         "createdAt": "2023-12-27T03:34:11.745Z",
-        "updatedAt": "2026-10-09T08:16:24.194Z",
+        "updatedAt": "2026-10-09T15:34:46.249Z",
         "labels": [
           {
             "name": "UI text"
@@ -3836,7 +3944,7 @@
             "name": "type::feature"
           }
         ],
-        "commentCount": 11,
+        "commentCount": 12,
         "reactions": {
           "total": 0,
           "counts": {}
@@ -3911,90 +4019,16 @@
           "total": 0,
           "counts": {}
         }
-      },
-      {
-        "ref": {
-          "forge": "gitlab",
-          "instance": "gitlab.com",
-          "repo": {
-            "forge": "gitlab",
-            "instance": "gitlab.com",
-            "owner": "gitlab-org",
-            "name": "cli"
-          },
-          "kind": "issue",
-          "number": "8597",
-          "externalId": "205905989"
-        },
-        "kind": "issue",
-        "title": "glab govern setup drops unknown fields from existing Claude Code hooks",
-        "body": "## Summary\n\n`glab govern setup` silently removes fields from the user's existing Claude Code hooks when it adds its own hooks to `~/.claude/settings.json`. This can change what those hooks do.\n\n## Impact\n\nAny field on an existing hook entry other than `type`, `command`, and `timeout` is dropped. Claude Code supports more fields than that, for example `if` and `statusMessage`.\n\nDropping `if` widens the hook's scope: a hook meant to run only for some tool calls starts running for all of them. The user isn't told that anything changed.\n\n## Steps to reproduce\n\n1. Add a hook with extra fields to `~/.claude/settings.json`:\n\n   ```json\n   {\n     \"hooks\": {\n       \"PostToolUse\": [\n         {\n           \"matcher\": \"Bash\",\n           \"hooks\": [\n             {\n               \"type\": \"command\",\n               \"command\": \"~/.claude/hooks/print-mr-link.sh\",\n               \"if\": \"Bash(git push*)\",\n               \"statusMessage\": \"Checking for MR link\"\n             }\n           ]\n         }\n       ]\n     }\n   }\n   ```\n\n1. Run `glab govern setup` and confirm.\n1. Look at `~/.claude/settings.json` again.\n\n## What happens\n\nThe `PostToolUse` entry has lost `if` and `statusMessage`:\n\n```json\n{\n  \"matcher\": \"Bash\",\n  \"hooks\": [\n    {\n      \"type\": \"command\",\n      \"command\": \"~/.claude/hooks/print-mr-link.sh\"\n    }\n  ]\n}\n```\n\nThe hook now runs after every Bash call instead of only after `git push`.\n\n## What should happen\n\nSetup adds its own `Stop` and `SessionEnd` entries and leaves every other part of the file exactly as it was, including fields glab doesn't know about.\n\n## Cause\n\n`installClaudeHooks` (`internal/commands/govern/setup/setup.go`) decodes the whole `hooks` object into `claudehooks.HookGroup` / `claudehooks.HookEntry`, adds glab's entries, then writes all of it back. `HookEntry` only has `Type`, `Command`, and `Timeout` (`internal/commands/govern/internal/claudehooks/claudehooks.go`), so any other field is lost when it's written back.\n\nTop-level settings keys are already kept through `json.RawMessage`, and `HookGroup` keeps `matcher` for the same reason (its comment says dropping it \"would widen hook scope\"). Fields on the hook entries themselves have no such protection.\n\nThis has been the case since the hooks were introduced in 9cba09ff7, so it's on `main` today. It affects every `glab govern setup` run, including with the fallback sync in https://gitlab.com/gitlab-org/cli/-/merge_requests/4013.\n\n## Possible fix\n\nKeep unknown fields when hooks are written back. For example:\n\n- Keep each event's existing groups as `json.RawMessage` and only append glab's group.\n- Or give `HookEntry` and `HookGroup` a catch-all map for unknown fields that is marshalled back out.\n\nAdd a test with an entry that has `if` and `statusMessage`, next to `TestInstallClaudeHooks_PreservesAllSettingsKeys`.\n\nFound while manually testing https://gitlab.com/gitlab-org/cli/-/merge_requests/4013.",
-        "state": "closed",
-        "stateRaw": "closed",
-        "isDraft": false,
-        "assignees": [
-          {
-            "forge": "gitlab",
-            "instance": "gitlab.com",
-            "login": "jeanvdw",
-            "id": "27487407",
-            "name": "Jean van der Walt",
-            "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/27487407/avatar.png?v=1791536039",
-            "url": "https://gitlab.com/jeanvdw",
-            "isBotHint": false
-          }
-        ],
-        "reviewers": [],
-        "lastActivityAt": "2026-10-09T06:41:09.484Z",
-        "author": {
-          "forge": "gitlab",
-          "instance": "gitlab.com",
-          "login": "jay_mccure",
-          "id": "11809982",
-          "name": "Jay McCure",
-          "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1791524742",
-          "url": "https://gitlab.com/jay_mccure",
-          "isBotHint": false
-        },
-        "url": "https://gitlab.com/gitlab-org/cli/-/work_items/8597",
-        "createdAt": "2026-10-08T23:53:45.912Z",
-        "updatedAt": "2026-10-09T06:41:09.484Z",
-        "closedAt": "2026-10-09T03:41:37.037Z",
-        "labels": [
-          {
-            "name": "category:gitlab cli"
-          },
-          {
-            "name": "devops::ai coding"
-          },
-          {
-            "name": "group::code review"
-          },
-          {
-            "name": "section::ai"
-          },
-          {
-            "name": "type::bug"
-          },
-          {
-            "name": "workflow::complete"
-          }
-        ],
-        "commentCount": 1,
-        "reactions": {
-          "total": 0,
-          "counts": {}
-        }
       }
     ],
     "cursor": {
       "nextUrl": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/issues?id=gitlab-org%2Fcli&in=title%2Cdescription&order_by=updated_at&page=2&per_page=3&search=fix&sort=desc&state=all&with_labels_details=false",
-      "etag": "W/\"6ccc25aec4f832f4f4f1253c6f4f953b\"",
+      "etag": "W/\"aea1fb40e6f73e13bf574d5db74bbb3b\"",
       "token": "0:"
     },
     "rateLimit": {
       "limit": 2000,
-      "remaining": 1944,
+      "remaining": 1943,
       "resetAt": "<now>"
     }
   },
@@ -4004,39 +4038,78 @@
         "ref": {
           "forge": "gitlab",
           "instance": "gitlab.com",
-          "owner": "l_doroshenko",
-          "name": "telnet-client",
-          "externalId": "87430009"
+          "owner": "LibreFoodPantry/client-solutions/placesetters",
+          "name": "documentation",
+          "externalId": "87449435"
         },
+        "description": "Contains details about the Thea's Pantry client solution, including design, development processes, and licensing.",
         "defaultBranch": "main",
         "visibility": "public",
         "visibilityRaw": "public",
-        "isFork": true,
+        "isFork": false,
         "isArchived": false,
-        "parent": {
+        "topics": [],
+        "url": "https://gitlab.com/LibreFoodPantry/client-solutions/placesetters/documentation",
+        "cloneUrls": {
+          "https": "https://gitlab.com/LibreFoodPantry/client-solutions/placesetters/documentation.git",
+          "ssh": "git@gitlab.com:LibreFoodPantry/client-solutions/placesetters/documentation.git"
+        },
+        "createdAt": "<now>",
+        "updatedAt": "<now>",
+        "openIssueCount": 0,
+        "stars": 0,
+        "forks": 0,
+        "mergeMethods": [
+          "merge",
+          "squash"
+        ],
+        "features": {
+          "issues": true,
+          "pullRequests": true,
+          "discussions": false,
+          "wiki": true,
+          "projects": false,
+          "releases": true
+        },
+        "permissions": {
+          "admin": false,
+          "maintain": false,
+          "push": false,
+          "triage": false,
+          "pull": false
+        }
+      },
+      {
+        "ref": {
           "forge": "gitlab",
           "instance": "gitlab.com",
-          "owner": "ap5vs",
-          "name": "telnet-client",
-          "externalId": "61746941"
+          "owner": "fxfwn",
+          "name": "netcalc",
+          "externalId": "87448195"
         },
+        "description": "A simple CLI utility to calculate network characteristics",
+        "defaultBranch": "main",
+        "visibility": "public",
+        "visibilityRaw": "public",
+        "isFork": false,
+        "isArchived": false,
         "topics": [],
-        "url": "https://gitlab.com/l_doroshenko/telnet-client",
+        "url": "https://gitlab.com/fxfwn/netcalc",
         "cloneUrls": {
-          "https": "https://gitlab.com/l_doroshenko/telnet-client.git",
-          "ssh": "git@gitlab.com:l_doroshenko/telnet-client.git"
+          "https": "https://gitlab.com/fxfwn/netcalc.git",
+          "ssh": "git@gitlab.com:fxfwn/netcalc.git"
         },
-        "createdAt": "2026-10-09T12:11:49.960Z",
-        "updatedAt": "2026-10-09T12:11:49.852Z",
-        "openIssueCount": 0,
+        "createdAt": "2026-10-09T20:24:57.913Z",
+        "updatedAt": "2026-10-09T20:24:57.805Z",
+        "openIssueCount": 1,
         "owner": {
           "forge": "gitlab",
           "instance": "gitlab.com",
-          "login": "l_doroshenko",
-          "id": "42969824",
-          "name": "Liubov Doroshenko",
-          "avatarUrl": "https://secure.gravatar.com/avatar/b0645a67e913e81c7d410fc78e77552788000360f6e99d427c5bed3cd964f274?s=80&d=identicon",
-          "url": "https://gitlab.com/l_doroshenko",
+          "login": "fxfwn",
+          "id": "43165506",
+          "name": "Skyler",
+          "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/43165506/avatar.png?v=1791578168",
+          "url": "https://gitlab.com/fxfwn",
           "isBotHint": false
         },
         "stars": 0,
@@ -4065,42 +4138,36 @@
         "ref": {
           "forge": "gitlab",
           "instance": "gitlab.com",
-          "owner": "chandler.bing",
-          "name": "ecoscan-37671564-deletion_scheduled-87429026",
-          "externalId": "87429026"
+          "owner": "wadaya-self-storage",
+          "name": "stock-storage-calculator",
+          "externalId": "87447837"
         },
-        "description": "Free and open-source music streaming Android client for Subsonic API compatible servers",
-        "defaultBranch": "develop",
+        "description": "A stock storage calculator for shops and online sellers: list your cartons by product line, get the volume in cubic metres, and choose a storage unit that fits. Python CLI and browser page in English and Arabic, by Wadaya Self Storage in Bahrain.",
+        "defaultBranch": "main",
         "visibility": "public",
         "visibilityRaw": "public",
-        "isFork": true,
+        "isFork": false,
         "isArchived": false,
-        "parent": {
-          "forge": "gitlab",
-          "instance": "gitlab.com",
-          "owner": "ultrasonic",
-          "name": "ultrasonic",
-          "externalId": "37671564"
-        },
-        "topics": [],
-        "url": "https://gitlab.com/chandler.bing/ecoscan-37671564-deletion_scheduled-87429026",
+        "topics": [
+          "arabic",
+          "bahrain",
+          "cli",
+          "csv",
+          "ecommerce",
+          "inventory",
+          "python",
+          "self-storage",
+          "small-business",
+          "storage-units"
+        ],
+        "url": "https://gitlab.com/wadaya-self-storage/stock-storage-calculator",
         "cloneUrls": {
-          "https": "https://gitlab.com/chandler.bing/ecoscan-37671564-deletion_scheduled-87429026.git",
-          "ssh": "git@gitlab.com:chandler.bing/ecoscan-37671564-deletion_scheduled-87429026.git"
+          "https": "https://gitlab.com/wadaya-self-storage/stock-storage-calculator.git",
+          "ssh": "git@gitlab.com:wadaya-self-storage/stock-storage-calculator.git"
         },
-        "createdAt": "2026-10-09T11:41:13.839Z",
-        "updatedAt": "2026-10-09T11:41:29.550Z",
+        "createdAt": "2026-10-09T20:11:52.037Z",
+        "updatedAt": "2026-10-09T20:33:37.500Z",
         "openIssueCount": 0,
-        "owner": {
-          "forge": "gitlab",
-          "instance": "gitlab.com",
-          "login": "chandler.bing",
-          "id": "39704578",
-          "name": "Chandler Bing",
-          "avatarUrl": "https://secure.gravatar.com/avatar/d9294d8e9cb4604e1cc36f51f5074652710c2c5633eeebd5d81fe035b9bb12a8?s=80&d=identicon",
-          "url": "https://gitlab.com/chandler.bing",
-          "isBotHint": false
-        },
         "stars": 0,
         "forks": 0,
         "mergeMethods": [
@@ -4112,68 +4179,6 @@
           "pullRequests": true,
           "discussions": false,
           "wiki": true,
-          "projects": false,
-          "releases": true
-        },
-        "permissions": {
-          "admin": false,
-          "maintain": false,
-          "push": false,
-          "triage": false,
-          "pull": false
-        }
-      },
-      {
-        "ref": {
-          "forge": "gitlab",
-          "instance": "gitlab.com",
-          "owner": "rachel.green.r",
-          "name": "ecoscan-5664378-deletion_scheduled-87428976",
-          "externalId": "87428976"
-        },
-        "description": ":mailbox_with_mail: Easily and securely share files from the command line. A fully featured Firefox Send client.",
-        "defaultBranch": "master",
-        "visibility": "public",
-        "visibilityRaw": "public",
-        "isFork": true,
-        "isArchived": false,
-        "parent": {
-          "forge": "gitlab",
-          "instance": "gitlab.com",
-          "owner": "timvisee",
-          "name": "ffsend",
-          "externalId": "5664378"
-        },
-        "topics": [],
-        "url": "https://gitlab.com/rachel.green.r/ecoscan-5664378-deletion_scheduled-87428976",
-        "cloneUrls": {
-          "https": "https://gitlab.com/rachel.green.r/ecoscan-5664378-deletion_scheduled-87428976.git",
-          "ssh": "git@gitlab.com:rachel.green.r/ecoscan-5664378-deletion_scheduled-87428976.git"
-        },
-        "createdAt": "2026-10-09T11:39:39.567Z",
-        "updatedAt": "2026-10-09T11:39:54.899Z",
-        "openIssueCount": 0,
-        "owner": {
-          "forge": "gitlab",
-          "instance": "gitlab.com",
-          "login": "rachel.green.r",
-          "id": "39704708",
-          "name": "Rachel Green",
-          "avatarUrl": "https://secure.gravatar.com/avatar/a5d120e5d9444ff172adcba1fca512bd91f6074be4b790d65403619422965b01?s=80&d=identicon",
-          "url": "https://gitlab.com/rachel.green.r",
-          "isBotHint": false
-        },
-        "stars": 0,
-        "forks": 0,
-        "mergeMethods": [
-          "merge",
-          "squash"
-        ],
-        "features": {
-          "issues": true,
-          "pullRequests": true,
-          "discussions": false,
-          "wiki": false,
           "projects": false,
           "releases": true
         },
@@ -4188,11 +4193,11 @@
     ],
     "cursor": {
       "nextUrl": "https://gitlab.com/api/v4/projects?imported=false&include_hidden=false&membership=false&order_by=created_at&owned=false&page=2&per_page=3&repository_checksum_failed=false&search=cli&simple=false&sort=desc&starred=false&statistics=false&wiki_checksum_failed=false&with_custom_attributes=false&with_issues_enabled=false&with_merge_requests_enabled=false",
-      "etag": "W/\"7386007080e33d77b565ee1659fce11b\""
+      "etag": "W/\"dacdbe042a5fc0b4f1a509818953e7fa\""
     },
     "rateLimit": {
       "limit": 2000,
-      "remaining": 1943,
+      "remaining": 1942,
       "resetAt": "<now>"
     }
   },
@@ -4292,7 +4297,7 @@
     },
     "rateLimit": {
       "limit": 2000,
-      "remaining": 1942,
+      "remaining": 1941,
       "resetAt": "<now>"
     }
   },
@@ -4322,13 +4327,13 @@
           "issues_events",
           "note_events"
         ],
-        "active": true,
+        "active": false,
         "createdAt": "2026-10-09T11:33:33.035Z"
       }
     ],
     "rateLimit": {
       "limit": 2000,
-      "remaining": 1941,
+      "remaining": 1940,
       "resetAt": "<now>"
     }
   },
