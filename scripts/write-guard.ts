@@ -55,8 +55,7 @@ function strings(value: unknown, into: Set<string>): void {
 export function guardedFetch(fetch: FetchLike, options: GuardOptions): FetchLike {
   const seen = new Set<string>()
   const scoped = (variables: Record<string, unknown>) => 'owner' in variables || 'name' in variables
-  const named = (variables: Record<string, unknown>) => !scoped(variables)
-    || options.repos.some(repo => variables.owner === repo.owner && variables.name === repo.name)
+  const named = (variables: Record<string, unknown>) => options.repos.some(repo => variables.owner === repo.owner && variables.name === repo.name)
   return async (input, init) => {
     const method = (init?.method ?? 'GET').toUpperCase()
     const body = parse(typeof init?.body === 'string' ? init.body : undefined)
