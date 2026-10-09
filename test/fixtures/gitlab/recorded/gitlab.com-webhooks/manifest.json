@@ -1,0 +1,24 @@
+{
+  "baseUrl": "https://gitlab.com/api/v4",
+  "repo": {
+    "forge": "gitlab",
+    "instance": "gitlab.com",
+    "owner": "forges-fixtures",
+    "name": "forges-fixtures"
+  },
+  "scratch": {
+    "forge": "gitlab",
+    "instance": "gitlab.com",
+    "owner": "forges-fixtures",
+    "name": "forges-fixtures"
+  },
+  "webhookSecret": "forges-fixture-secret",
+  "recordedAt": "2026-10-09T19:58:51.318Z",
+  "steps": [],
+  "deliveries": [
+    "01-issue-hook",
+    "02-note-hook",
+    "03-issue-hook",
+    "04-issue-hook"
+  ]
+}

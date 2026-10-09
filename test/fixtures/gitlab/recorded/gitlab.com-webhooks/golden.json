@@ -1,0 +1,204 @@
+{
+  "01-issue-hook": [
+    {
+      "forge": "gitlab",
+      "instance": "gitlab.com",
+      "id": "dfde1fa6-0b13-4fc8-abe9-6ad17209d316",
+      "kind": "state_change",
+      "kindRaw": "issue.open",
+      "action": "opened",
+      "actionRaw": "open",
+      "detail": {
+        "type": "state_change",
+        "state": "open"
+      },
+      "summary": "roebot open issue",
+      "occurredAt": "<now>",
+      "actor": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "login": "roebot",
+        "id": "43193323",
+        "name": "Daniel Roe",
+        "avatarUrl": "https://secure.gravatar.com/avatar/14ceebcfdc10030d76768a65e9d7978b914694cebcbb6ab609b3a0e8243f0eb8?s=80&d=identicon",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "owner": "forges-fixtures",
+        "name": "forges-fixtures",
+        "externalId": "87428720"
+      },
+      "thread": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "repo": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "owner": "forges-fixtures",
+          "name": "forges-fixtures",
+          "externalId": "87428720"
+        },
+        "kind": "issue",
+        "number": "11"
+      },
+      "source": "webhook"
+    }
+  ],
+  "02-note-hook": [
+    {
+      "forge": "gitlab",
+      "instance": "gitlab.com",
+      "id": "71721f0a-b7f7-4adf-8e04-2ce69a012cdc",
+      "kind": "comment",
+      "kindRaw": "note.create",
+      "action": "created",
+      "actionRaw": "create",
+      "detail": {
+        "type": "comment",
+        "comment": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "thread": {
+            "forge": "gitlab",
+            "instance": "gitlab.com",
+            "repo": {
+              "forge": "gitlab",
+              "instance": "gitlab.com",
+              "owner": "forges-fixtures",
+              "name": "forges-fixtures",
+              "externalId": "87428720"
+            },
+            "kind": "issue",
+            "number": "11"
+          },
+          "id": "3987214456"
+        },
+        "body": "A comment from run 20261009195739."
+      },
+      "summary": "roebot commented",
+      "occurredAt": "<now>",
+      "actor": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "login": "roebot",
+        "id": "43193323",
+        "name": "Daniel Roe",
+        "avatarUrl": "https://secure.gravatar.com/avatar/14ceebcfdc10030d76768a65e9d7978b914694cebcbb6ab609b3a0e8243f0eb8?s=80&d=identicon",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "owner": "forges-fixtures",
+        "name": "forges-fixtures",
+        "externalId": "87428720"
+      },
+      "thread": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "repo": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "owner": "forges-fixtures",
+          "name": "forges-fixtures",
+          "externalId": "87428720"
+        },
+        "kind": "issue",
+        "number": "11"
+      },
+      "source": "webhook"
+    }
+  ],
+  "03-issue-hook": [
+    {
+      "forge": "gitlab",
+      "instance": "gitlab.com",
+      "id": "0c16e56c-a045-448e-955f-3d5bd3b2cc58",
+      "kind": "state_change",
+      "kindRaw": "issue.close",
+      "action": "closed",
+      "actionRaw": "close",
+      "detail": {
+        "type": "state_change",
+        "state": "closed"
+      },
+      "summary": "roebot close issue",
+      "occurredAt": "<now>",
+      "actor": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "login": "roebot",
+        "id": "43193323",
+        "name": "Daniel Roe",
+        "avatarUrl": "https://secure.gravatar.com/avatar/14ceebcfdc10030d76768a65e9d7978b914694cebcbb6ab609b3a0e8243f0eb8?s=80&d=identicon",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "owner": "forges-fixtures",
+        "name": "forges-fixtures",
+        "externalId": "87428720"
+      },
+      "thread": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "repo": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "owner": "forges-fixtures",
+          "name": "forges-fixtures",
+          "externalId": "87428720"
+        },
+        "kind": "issue",
+        "number": "11"
+      },
+      "source": "webhook"
+    }
+  ],
+  "04-issue-hook": [
+    {
+      "forge": "gitlab",
+      "instance": "gitlab.com",
+      "id": "d2db3004-0bf1-4874-a1f5-a667a4dd0ab5",
+      "kind": "other",
+      "kindRaw": "issue.update",
+      "action": "edited",
+      "actionRaw": "update",
+      "summary": "roebot update issue",
+      "occurredAt": "<now>",
+      "actor": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "login": "roebot",
+        "id": "43193323",
+        "name": "Daniel Roe",
+        "avatarUrl": "https://secure.gravatar.com/avatar/14ceebcfdc10030d76768a65e9d7978b914694cebcbb6ab609b3a0e8243f0eb8?s=80&d=identicon",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "owner": "forges-fixtures",
+        "name": "forges-fixtures",
+        "externalId": "87428720"
+      },
+      "thread": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "repo": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "owner": "forges-fixtures",
+          "name": "forges-fixtures",
+          "externalId": "87428720"
+        },
+        "kind": "issue",
+        "number": "11"
+      },
+      "source": "webhook"
+    }
+  ]
+}

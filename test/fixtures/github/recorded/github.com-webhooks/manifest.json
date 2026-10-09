@@ -1,0 +1,26 @@
+{
+  "baseUrl": "https://api.github.com",
+  "repo": {
+    "forge": "github",
+    "instance": "github.com",
+    "owner": "forges-fixtures",
+    "name": "forges-fixtures"
+  },
+  "scratch": {
+    "forge": "github",
+    "instance": "github.com",
+    "owner": "forges-fixtures",
+    "name": "forges-fixtures"
+  },
+  "webhookSecret": "forges-fixture-secret",
+  "recordedAt": "2026-10-09T19:57:04.915Z",
+  "steps": [],
+  "deliveries": [
+    "01-ping",
+    "02-issues",
+    "03-issues",
+    "04-issue_comment",
+    "05-push",
+    "06-push"
+  ]
+}

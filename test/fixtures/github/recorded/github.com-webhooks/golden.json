@@ -1,0 +1,283 @@
+{
+  "01-ping": [
+    {
+      "forge": "github",
+      "instance": "github.com",
+      "id": "9218693c-c41b-11f1-9793-d8d94703883a",
+      "kind": "other",
+      "kindRaw": "ping",
+      "action": "other",
+      "summary": "danielroe-bot ping",
+      "occurredAt": "<now>",
+      "actor": {
+        "forge": "github",
+        "instance": "github.com",
+        "login": "danielroe-bot",
+        "id": "57801166",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/57801166?v=4",
+        "url": "https://github.com/danielroe-bot",
+        "typeRaw": "User",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "github",
+        "instance": "github.com",
+        "owner": "forges-fixtures",
+        "name": "forges-fixtures",
+        "externalId": "1411702196"
+      },
+      "source": "webhook"
+    }
+  ],
+  "02-issues": [
+    {
+      "forge": "github",
+      "instance": "github.com",
+      "id": "935b6bfa-c41b-11f1-94cd-01c0c2f8d842",
+      "kind": "state_change",
+      "kindRaw": "issues.opened",
+      "action": "opened",
+      "actionRaw": "opened",
+      "detail": {
+        "type": "state_change",
+        "state": "open"
+      },
+      "summary": "danielroe-bot opened issues",
+      "occurredAt": "<now>",
+      "actor": {
+        "forge": "github",
+        "instance": "github.com",
+        "login": "danielroe-bot",
+        "id": "57801166",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/57801166?v=4",
+        "url": "https://github.com/danielroe-bot",
+        "typeRaw": "User",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "github",
+        "instance": "github.com",
+        "owner": "forges-fixtures",
+        "name": "forges-fixtures",
+        "externalId": "1411702196"
+      },
+      "thread": {
+        "forge": "github",
+        "instance": "github.com",
+        "repo": {
+          "forge": "github",
+          "instance": "github.com",
+          "owner": "forges-fixtures",
+          "name": "forges-fixtures",
+          "externalId": "1411702196"
+        },
+        "kind": "issue",
+        "number": "39",
+        "externalId": "I_kwDOVCTdtM8AAAABWL7iHA"
+      },
+      "source": "webhook"
+    }
+  ],
+  "03-issues": [
+    {
+      "forge": "github",
+      "instance": "github.com",
+      "id": "93b66000-c41b-11f1-9639-31c9f014ce2d",
+      "kind": "state_change",
+      "kindRaw": "issues.closed",
+      "action": "closed",
+      "actionRaw": "closed",
+      "detail": {
+        "type": "state_change",
+        "state": "closed"
+      },
+      "summary": "danielroe-bot closed issues",
+      "occurredAt": "<now>",
+      "actor": {
+        "forge": "github",
+        "instance": "github.com",
+        "login": "danielroe-bot",
+        "id": "57801166",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/57801166?v=4",
+        "url": "https://github.com/danielroe-bot",
+        "typeRaw": "User",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "github",
+        "instance": "github.com",
+        "owner": "forges-fixtures",
+        "name": "forges-fixtures",
+        "externalId": "1411702196"
+      },
+      "thread": {
+        "forge": "github",
+        "instance": "github.com",
+        "repo": {
+          "forge": "github",
+          "instance": "github.com",
+          "owner": "forges-fixtures",
+          "name": "forges-fixtures",
+          "externalId": "1411702196"
+        },
+        "kind": "issue",
+        "number": "39",
+        "externalId": "I_kwDOVCTdtM8AAAABWL7iHA"
+      },
+      "source": "webhook"
+    }
+  ],
+  "04-issue_comment": [
+    {
+      "forge": "github",
+      "instance": "github.com",
+      "id": "93ce54d0-c41b-11f1-9258-2b68b33a516a",
+      "kind": "comment",
+      "kindRaw": "issue_comment.created",
+      "action": "created",
+      "actionRaw": "created",
+      "detail": {
+        "type": "comment",
+        "comment": {
+          "forge": "github",
+          "instance": "github.com",
+          "thread": {
+            "forge": "github",
+            "instance": "github.com",
+            "repo": {
+              "forge": "github",
+              "instance": "github.com",
+              "owner": "forges-fixtures",
+              "name": "forges-fixtures",
+              "externalId": "1411702196"
+            },
+            "kind": "issue",
+            "number": "39",
+            "externalId": "I_kwDOVCTdtM8AAAABWL7iHA"
+          },
+          "id": "6088242618"
+        },
+        "body": "A comment from run 20261009195650."
+      },
+      "summary": "danielroe-bot created a comment",
+      "occurredAt": "<now>",
+      "actor": {
+        "forge": "github",
+        "instance": "github.com",
+        "login": "danielroe-bot",
+        "id": "57801166",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/57801166?v=4",
+        "url": "https://github.com/danielroe-bot",
+        "typeRaw": "User",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "github",
+        "instance": "github.com",
+        "owner": "forges-fixtures",
+        "name": "forges-fixtures",
+        "externalId": "1411702196"
+      },
+      "thread": {
+        "forge": "github",
+        "instance": "github.com",
+        "repo": {
+          "forge": "github",
+          "instance": "github.com",
+          "owner": "forges-fixtures",
+          "name": "forges-fixtures",
+          "externalId": "1411702196"
+        },
+        "kind": "issue",
+        "number": "39",
+        "externalId": "I_kwDOVCTdtM8AAAABWL7iHA"
+      },
+      "source": "webhook"
+    }
+  ],
+  "05-push": [
+    {
+      "forge": "github",
+      "instance": "github.com",
+      "id": "94bbc6ca-c41b-11f1-99c1-3c87b395075a",
+      "kind": "push",
+      "action": "other",
+      "kindRaw": "push",
+      "summary": "danielroe-bot pushed 0 commit(s) to forges-fixtures/20261009195650-webhooks",
+      "occurredAt": "2026-10-09T14:22:23.000Z",
+      "actor": {
+        "forge": "github",
+        "instance": "github.com",
+        "login": "danielroe-bot",
+        "id": "57801166",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/57801166?v=4",
+        "url": "https://github.com/danielroe-bot",
+        "typeRaw": "User",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "github",
+        "instance": "github.com",
+        "owner": "forges-fixtures",
+        "name": "forges-fixtures",
+        "externalId": "1411702196"
+      },
+      "detail": {
+        "type": "push",
+        "ref": "refs/heads/forges-fixtures/20261009195650-webhooks",
+        "before": "0000000000000000000000000000000000000000",
+        "after": "4d6f5fbea4c34b8100ffc5e94dde1b07c781f4b5",
+        "commitCount": 0,
+        "forced": false,
+        "commits": []
+      },
+      "source": "webhook"
+    }
+  ],
+  "06-push": [
+    {
+      "forge": "github",
+      "instance": "github.com",
+      "id": "95627f9c-c41b-11f1-8bda-74e906b04925",
+      "kind": "push",
+      "action": "other",
+      "kindRaw": "push",
+      "summary": "danielroe-bot pushed 1 commit(s) to forges-fixtures/20261009195650-webhooks",
+      "occurredAt": "<now>",
+      "actor": {
+        "forge": "github",
+        "instance": "github.com",
+        "login": "danielroe-bot",
+        "id": "57801166",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/57801166?v=4",
+        "url": "https://github.com/danielroe-bot",
+        "typeRaw": "User",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "github",
+        "instance": "github.com",
+        "owner": "forges-fixtures",
+        "name": "forges-fixtures",
+        "externalId": "1411702196"
+      },
+      "detail": {
+        "type": "push",
+        "ref": "refs/heads/forges-fixtures/20261009195650-webhooks",
+        "before": "4d6f5fbea4c34b8100ffc5e94dde1b07c781f4b5",
+        "after": "86845d6182c75a02c82ad6256aa0ed4686fc4c93",
+        "commitCount": 1,
+        "forced": false,
+        "commits": [
+          {
+            "sha": "86845d6182c75a02c82ad6256aa0ed4686fc4c93",
+            "message": "test: add forges-fixtures/20261009195650-webhooks.md",
+            "author": "danielroe-bot",
+            "url": "https://github.com/forges-fixtures/forges-fixtures/commit/86845d6182c75a02c82ad6256aa0ed4686fc4c93"
+          }
+        ]
+      },
+      "source": "webhook"
+    }
+  ]
+}

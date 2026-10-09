@@ -23,6 +23,10 @@ export interface RecordingManifest {
   alerts?: RepoRef
   /** Where a write recording transfers an issue to. */
   transfer?: RepoRef
+  /** The secret recorded webhook deliveries are signed with. */
+  webhookSecret?: string
+  /** Names of the recorded webhook deliveries, each in `<name>.delivery.json`. */
+  deliveries?: string[]
   recordsUrl?: string
   /** The Tangled account the recording signed in as, a handle or DID. */
   account?: string

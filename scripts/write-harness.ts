@@ -20,6 +20,18 @@ export interface WriteHarness {
   createBranch?: (base: string, branch: string, path: string) => Promise<void>
   /** Closes open threads a fixture run opened, and deletes `branches`, `label` and the run's `hooks`. Best effort. */
   cleanUp: (branches: string[], label: string | undefined, hooks: string[]) => Promise<void>
+  /** The deliveries `hook` sent, oldest first, for forges whose API returns their headers and payloads. */
+  payloads?: (hook: string) => Promise<HookDelivery[]>
+}
+
+/** A webhook delivery as the forge sent it. */
+export interface HookDelivery {
+  headers: Record<string, string>
+  body: string
+}
+
+function lowercased(headers: Record<string, string | string[]>): Record<string, string> {
+  return Object.fromEntries(Object.entries(headers).map(([name, value]) => [name.toLowerCase(), Array.isArray(value) ? value.join(', ') : value]))
 }
 
 export interface HarnessOptions {
@@ -48,7 +60,8 @@ function client(baseUrl: string, authorization: string) {
       throw new Error(`${init.method ?? 'GET'} ${path} failed with ${response.status}: ${(await response.text()).slice(0, 200)}`)
     }
     const text = await response.text()
-    return (text ? JSON.parse(text) : undefined) as T
+    // GitHub delivery ids exceed `Number.MAX_SAFE_INTEGER`, so they are kept as their digits.
+    return (text ? JSON.parse(text, (_key, value: unknown, context?: { source?: string }) => typeof value === 'number' && !Number.isSafeInteger(value) && context?.source ? context.source : value) : undefined) as T
   }
 }
 
@@ -91,6 +104,11 @@ function github({ baseUrl, authorization, scratch, transfer }: HarnessOptions): 
         ...label ? [() => call(`${repo}/labels/${enc(label)}`, { method: 'DELETE' })] : [],
         ...hooks.map(hook => () => call(`${repo}/hooks/${enc(hook)}`, { method: 'DELETE' })),
       ])
+    },
+    async payloads(hook) {
+      const list = await call<Array<{ id: string }>>(`${repo}/hooks/${enc(hook)}/deliveries?per_page=50`)
+      const details = await Promise.all(list.map(({ id }) => call<{ request: { headers: Record<string, string>, payload: unknown } }>(`${repo}/hooks/${enc(hook)}/deliveries/${id}`)))
+      return details.reverse().map(({ request }) => ({ headers: lowercased(request.headers), body: JSON.stringify(request.payload) }))
     },
   }
 }
@@ -151,6 +169,10 @@ function gitlab({ baseUrl, authorization, scratch, transfer }: HarnessOptions): 
         ...label ? [() => call(`${project}/labels/${enc(label)}`, { method: 'DELETE' })] : [],
         ...hooks.map(hook => () => call(`${project}/hooks/${enc(hook)}`, { method: 'DELETE' })),
       ])
+    },
+    async payloads(hook) {
+      const events = await call<Array<{ request_headers: Record<string, string>, request_data: unknown }>>(`${project}/hooks/${enc(hook)}/events`)
+      return events.reverse().map(event => ({ headers: lowercased(event.request_headers), body: typeof event.request_data === 'string' ? event.request_data : JSON.stringify(event.request_data) }))
     },
   }
 }

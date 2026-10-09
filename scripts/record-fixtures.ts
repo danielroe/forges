@@ -3,23 +3,24 @@ import type * as Forges from '../src/index.ts'
 import type { Fixture } from '../src/testing/index.ts'
 import type { RecordingManifest, StepContext } from '../test/recording/steps.ts'
 import type { WriteContext, WriteManifest, WriteRun } from '../test/recording/write-steps.ts'
+import type { HookDelivery, WriteHarness } from './write-harness.ts'
 import { mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
 import { env, exit } from 'node:process'
 import { fileURLToPath } from 'node:url'
 import { parseArgs } from 'node:util'
 import { azureDevOps, bitbucket, cursorOrigin, forgejo, gitea, gitee, github, gitlab, pushin, tangled } from '../src/index.ts'
-import { recordingFetch } from '../src/testing/index.ts'
+import { recordingFetch, signDelivery } from '../src/testing/index.ts'
 import { redact } from '../test/recording/redact.ts'
 import { LOG_LIMIT, STEPS } from '../test/recording/steps.ts'
-import { fixtureLabel, WRITE_STEPS } from '../test/recording/write-steps.ts'
+import { FIXTURE_HOOK_SECRET, FIXTURE_HOOK_URL, FIXTURE_TITLE, fixtureLabel, WRITE_STEPS } from '../test/recording/write-steps.ts'
 import { guardedFetch } from './write-guard.ts'
 import { writeHarness } from './write-harness.ts'
 
-const { positionals: [target], values: flags } = parseArgs({ allowPositionals: true, options: { anonymous: { type: 'boolean', default: false }, app: { type: 'boolean', default: false }, writes: { type: 'boolean', default: false } } })
+const { positionals: [target], values: flags } = parseArgs({ allowPositionals: true, options: { anonymous: { type: 'boolean', default: false }, app: { type: 'boolean', default: false }, writes: { type: 'boolean', default: false }, webhooks: { type: 'boolean', default: false } } })
 const TOKEN_VARIABLES: Record<string, string> = { 'github': 'GITHUB_TOKEN', 'forgejo': 'CODEBERG_TOKEN', 'gitlab': 'GITLAB_TOKEN', 'bitbucket': 'BITBUCKET_TOKEN', 'cursor-origin': 'CURSOR_AUTH_TOKEN', 'gitee': 'GITEE_TOKEN', 'azure-devops': 'AZURE_DEVOPS_TOKEN', 'gitea': 'GITEA_TOKEN', 'pushin': 'PUSHIN_TOKEN', 'tangled': 'TANGLED_PASSWORD' }
 
 if (!target || !(target in TOKEN_VARIABLES)) {
-  console.error('Usage: pnpm record-fixtures <github|forgejo|gitlab|bitbucket|tangled|cursor-origin|gitee|azure-devops|gitea|pushin> [--anonymous | --app | --writes]')
+  console.error('Usage: pnpm record-fixtures <github|forgejo|gitlab|bitbucket|tangled|cursor-origin|gitee|azure-devops|gitea|pushin> [--anonymous | --app | --writes | --webhooks]')
   exit(1)
 }
 
@@ -42,7 +43,7 @@ if (!token && target === 'cursor-origin') {
   console.error(flags.anonymous ? `${target} has no anonymous access.` : `No ${TOKEN_VARIABLES[target]} in the environment or .env.`)
   exit(1)
 }
-const anonymous = !token && !bitbucketBasic && !app && !flags.writes
+const anonymous = !token && !bitbucketBasic && !app && !flags.writes && !flags.webhooks
 if (anonymous) {
   console.info(flags.anonymous ? 'Recording anonymously.' : 'No token; recording anonymously.')
 }
@@ -57,7 +58,7 @@ let out = ''
  * `<host>-writes/`.
  */
 function useInstance(provider: Forges.ForgeProvider): void {
-  out = `${root}${provider.instance}${anonymous ? '-anonymous' : app ? '-app' : flags.writes ? '-writes' : ''}/`
+  out = `${root}${provider.instance}${anonymous ? '-anonymous' : app ? '-app' : flags.writes ? '-writes' : flags.webhooks ? '-webhooks' : ''}/`
   rmSync(out, { recursive: true, force: true })
   mkdirSync(out, { recursive: true })
 }
@@ -429,7 +430,8 @@ function authorizationFor(token: string): string {
  * `<TOKEN_VARIABLE with _BOT>`, such as `GITHUB_BOT_TOKEN`, and as the
  * reviewer in the usual token variable.
  */
-async function recordWrites(): Promise<void> {
+/** The bot account, scratch repository and harness that write and webhook recordings share. */
+function scratchSetup(mode: string) {
   const variable = TOKEN_VARIABLES[target!]!
   const botVariable = variable.replace(/_(TOKEN|PASSWORD)$/, '_BOT_$1')
   const prefix = target!.toUpperCase().replace('-', '_')
@@ -437,7 +439,7 @@ async function recordWrites(): Promise<void> {
   const { provider: probe, manifest: repos } = targetFor({ token: botToken }, recordLive)
   const { scratch, transfer } = repos
   if (!botToken || !scratch) {
-    console.error(`--writes needs ${botVariable} and FIXTURE_${prefix}_SCRATCH_REPO.`)
+    console.error(`${mode} needs ${botVariable} and FIXTURE_${prefix}_SCRATCH_REPO.`)
     exit(1)
   }
   if (![scratch, transfer].every(repo => !repo || repo.name.includes('forges-fixtures'))) {
@@ -449,6 +451,11 @@ async function recordWrites(): Promise<void> {
     console.error(`${target} has no write recording setup.`)
     exit(1)
   }
+  return { prefix, botToken, probe, scratch, transfer, harness }
+}
+
+async function recordWrites(): Promise<void> {
+  const { prefix, botToken, probe, scratch, transfer, harness } = scratchSetup('--writes')
   const id = new Date().toISOString().replace(/\D/g, '').slice(0, 14)
   const run: WriteRun = {
     id,
@@ -511,7 +518,91 @@ async function recordReads(): Promise<void> {
   writeFileSync(`${out}manifest.json`, `${JSON.stringify(recorded, null, 2)}\n`)
 }
 
-await (flags.writes ? recordWrites() : recordReads())
+interface DeliverySource {
+  url: string
+  deliveries: (hook: string) => Promise<HookDelivery[]>
+  close: () => Promise<void>
+}
+
+/** The forge's own record of what a hook sent, where its API returns it; the hook can then point nowhere. */
+function forgeRecord(harness: WriteHarness): DeliverySource | undefined {
+  return harness.payloads && { url: FIXTURE_HOOK_URL, deliveries: harness.payloads, close: async () => {} }
+}
+
+/** A webhook.site relay: deliveries sent to `url` are read back over HTTPS, so the recorder needs no inbound access. */
+async function relay(): Promise<DeliverySource> {
+  const { uuid } = await (await fetch('https://webhook.site/token', { method: 'POST', headers: { accept: 'application/json' } })).json() as { uuid: string }
+  return {
+    url: `https://webhook.site/${uuid}`,
+    deliveries: async () => {
+      const { data } = await (await fetch(`https://webhook.site/token/${uuid}/requests?sorting=oldest&per_page=50`, { headers: { accept: 'application/json' } })).json() as { data: Array<{ content: string, headers: Record<string, string[] | string> }> }
+      return data.map(request => ({ body: request.content, headers: Object.fromEntries(Object.entries(request.headers).map(([name, value]) => [name.toLowerCase(), Array.isArray(value) ? value.join(', ') : value])) }))
+    },
+    close: async () => {
+      await fetch(`https://webhook.site/token/${uuid}`, { method: 'DELETE' })
+    },
+  }
+}
+
+/** Headers a delivery carries that name the event or the delivery; the rest are the relay's or the transport's. */
+const DELIVERY_HEADER = /^(?:x-(?!forwarded|real-ip|amz|vercel|webhook-site)[\w-]+|content-type|user-agent|authorization)$/
+
+/**
+ * Records webhook deliveries of the scratch repository: creates a hook, opens
+ * and comments on an issue and pushes a branch, then reads the deliveries back
+ * from the forge's API or, where the forge keeps no payloads, from a relay the
+ * hook points at. Each body is redacted and signed again with the dummy
+ * secret, so a replay verifies it like a live delivery.
+ */
+async function recordWebhooks(): Promise<void> {
+  const { botToken, scratch, harness } = scratchSetup('--webhooks')
+  const plain = targetFor({ token: botToken }, guardedFetch(globalThis.fetch, { scope: harness.scope, allows: harness.allows, repos: [scratch] })).provider
+  const id = new Date().toISOString().replace(/\D/g, '').slice(0, 14)
+  const base = await harness.prepare()
+  const relayed = forgeRecord(harness) ?? await relay()
+  const hook = await plain.webhooks.create(scratch, { url: relayed.url, events: ['comment', 'state_change', 'push'], secret: FIXTURE_HOOK_SECRET, contentType: 'json' })
+  const branch = `forges-fixtures/${id}-webhooks`
+  let deliveries: HookDelivery[] = []
+  try {
+    const issue = await plain.threads.create(scratch, { kind: 'issue', title: `${FIXTURE_TITLE} ${id}: webhooks`, body: `Opened by run ${id}.` })
+    await plain.threads.comment(issue.ref, `A comment from run ${id}.`)
+    await plain.threads.close(issue.ref)
+    await harness.createBranch?.(base, branch, `forges-fixtures/${id}-webhooks.md`)
+    for (let attempt = 0; attempt < 12 && deliveries.length < 5; attempt++) {
+      await new Promise(resolve => setTimeout(resolve, 5_000))
+      deliveries = await relayed.deliveries(hook.ref.id)
+    }
+  }
+  finally {
+    await plain.webhooks.delete(hook.ref).catch(() => {})
+    await harness.cleanUp([branch], undefined, [])
+    await relayed.close().catch(() => {})
+  }
+  useInstance(plain)
+  const names: string[] = []
+  for (const [index, delivery] of deliveries.entries()) {
+    let parsed: unknown
+    try {
+      parsed = JSON.parse(delivery.body)
+    }
+    catch {
+      console.error(`skipped a delivery that is not JSON: ${delivery.headers['content-type']}`)
+      continue
+    }
+    const body = JSON.stringify(redact(parsed))
+    const kept = Object.fromEntries(Object.entries(delivery.headers).filter(([name]) => DELIVERY_HEADER.test(name) && !/signature|token|authorization/.test(name)))
+    const headers = await signDelivery(plain.forge, body, FIXTURE_HOOK_SECRET, kept)
+    const event = headers['x-github-event'] ?? headers['x-gitlab-event'] ?? headers['x-gitea-event'] ?? headers['x-forgejo-event'] ?? headers['x-event-key'] ?? 'delivery'
+    const name = `${String(index + 1).padStart(2, '0')}-${event.toLowerCase().replace(/\W+/g, '-')}`
+    writeFileSync(`${out}${name}.delivery.json`, `${JSON.stringify({ headers, body }, null, 2)}\n`)
+    names.push(name)
+    console.info(`recorded delivery ${name}`)
+  }
+  const manifest = { baseUrl: plain.baseUrl, repo: scratch, scratch, webhookSecret: FIXTURE_HOOK_SECRET, recordedAt: new Date().toISOString(), steps: [], deliveries: names }
+  writeFileSync(`${out}manifest.json`, `${JSON.stringify(manifest, null, 2)}\n`)
+}
+
+await (flags.writes ? recordWrites() : flags.webhooks ? recordWebhooks() : recordReads())
 
 if (failures) {
   console.error(`${failures} step(s) failed; the manifest lists only the steps that succeeded.`)

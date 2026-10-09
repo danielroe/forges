@@ -21,7 +21,7 @@ import { redact } from './recording/redact.ts'
 import { STEPS } from './recording/steps.ts'
 import { WRITE_STEPS } from './recording/write-steps.ts'
 import { fixtureDirectory, fixtureFetch, loadFixtures as recordedFixtures } from './utils/fixtures.ts'
-import { markStream } from './utils/provenance.ts'
+import { markPayload, markStream } from './utils/provenance.ts'
 import { FakeWebSocket } from './utils/websocket.ts'
 
 type Manifest = RecordingManifest
@@ -55,11 +55,11 @@ const authFor = ({ anonymous }: Manifest) => anonymous ? undefined : token
 const { privateKey } = generateKeyPairSync('rsa', { modulusLength: 2048, privateKeyEncoding: { type: 'pkcs8', format: 'pem' }, publicKeyEncoding: { type: 'spki', format: 'pem' } })
 const githubAuthFor = (manifest: Manifest) => manifest.installation ? { type: 'app', appId: 1, privateKey, installationId: manifest.installation } as const : authFor(manifest)
 const providers: Array<{ name: string, create: Create }> = [
-  { name: 'github', create: (fetch, manifest) => github({ auth: githubAuthFor(manifest), baseUrl: manifest.baseUrl, fetch }).create() },
-  { name: 'forgejo', create: (fetch, manifest) => forgejo({ auth: authFor(manifest), baseUrl: manifest.baseUrl, instanceVersion: manifest.instanceVersion, fetch }).create() },
-  { name: 'gitea', create: (fetch, manifest) => gitea({ auth: authFor(manifest), baseUrl: manifest.baseUrl, fetch }).create() },
-  { name: 'gitlab', create: (fetch, manifest) => gitlab({ auth: authFor(manifest), baseUrl: manifest.baseUrl, fetch }).create() },
-  { name: 'bitbucket', create: (fetch, manifest) => bitbucket({ auth: authFor(manifest), baseUrl: manifest.baseUrl, fetch }).create() },
+  { name: 'github', create: (fetch, manifest) => github({ auth: githubAuthFor(manifest), baseUrl: manifest.baseUrl, webhookSecret: manifest.webhookSecret, fetch }).create() },
+  { name: 'forgejo', create: (fetch, manifest) => forgejo({ auth: authFor(manifest), baseUrl: manifest.baseUrl, instanceVersion: manifest.instanceVersion, webhookSecret: manifest.webhookSecret, fetch }).create() },
+  { name: 'gitea', create: (fetch, manifest) => gitea({ auth: authFor(manifest), baseUrl: manifest.baseUrl, webhookSecret: manifest.webhookSecret, fetch }).create() },
+  { name: 'gitlab', create: (fetch, manifest) => gitlab({ auth: authFor(manifest), baseUrl: manifest.baseUrl, webhookSecret: manifest.webhookSecret, fetch }).create() },
+  { name: 'bitbucket', create: (fetch, manifest) => bitbucket({ auth: authFor(manifest), baseUrl: manifest.baseUrl, webhookSecret: manifest.webhookSecret, fetch }).create() },
   { name: 'pushin', create: (fetch, manifest) => pushin({ auth: authFor(manifest), baseUrl: manifest.baseUrl, fetch }).create() },
   { name: 'gitee', create: (fetch, manifest) => gitee({ auth: authFor(manifest), fetch }).create() },
   { name: 'azure-devops', create: (fetch, manifest) => azureDevOps({ auth: authFor(manifest), organization: manifest.repo.owner.split('/')[0]!, fetch }).create() },
@@ -138,6 +138,14 @@ for (const { name, create } of providers) {
             const context: WriteContext = { pulls: [], comments: {}, wait: async () => {} }
             for (const step of WRITE_STEPS.filter(step => has(step.name))) {
               output[step.name] = await step.run(step.as === 'reviewer' ? reviewer : author, writes, context)
+            }
+            return
+          }
+          if (manifest!.deliveries) {
+            const instance = create(fixtureFetch(directory).fetch, manifest!)
+            for (const name of manifest!.deliveries) {
+              const { headers, body } = JSON.parse(readFileSync(`${fixtureDirectory(directory)}${name}.delivery.json`, 'utf8')) as { headers: Record<string, string>, body: string }
+              output[name] = await instance.webhooks.ingest({ headers, body: markPayload(body, 'recorded') })
             }
             return
           }

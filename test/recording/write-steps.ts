@@ -70,6 +70,9 @@ export const FIXTURE_HOOK_URL = 'https://example.com/hook'
 /** The secrets the webhook steps sign deliveries with. They are dummies and never come from the environment. */
 const HOOK_SECRETS = ['forges-fixture-secret', 'forges-fixture-secret-rotated'] as const
 
+/** The dummy secret recorded webhook deliveries are signed with. */
+export const FIXTURE_HOOK_SECRET = HOOK_SECRETS[0]
+
 const page = { perPage: 3 }
 
 function need<T>(value: T | undefined, what: string): T {
