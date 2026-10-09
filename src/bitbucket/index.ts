@@ -23,6 +23,8 @@ import type {
   Thread,
   ThreadQuery,
   ThreadRef,
+  Webhook,
+  WebhookRef,
 } from '../model.ts'
 import type {
   AnonymousAuth,
@@ -139,6 +141,7 @@ const BITBUCKET: ProviderDefinition<BitbucketOptions> = {
   },
   setup({ options, instance, origin: context, fetcher, baseUrl }) {
     const list = createListing(fetcher, 'pagelen', 50)
+    const webOrigin = hostOf(baseUrl) === 'api.bitbucket.org' ? 'https://bitbucket.org' : baseUrl.replace(/\/2\.0$/, '')
     /** Repository search covers the signed-in account's workspaces. */
     const anonymous = options.auth?.type === 'anonymous'
     function repoPath(ref: ResolvedThreadRef): string {
@@ -287,6 +290,17 @@ const BITBUCKET: ProviderDefinition<BitbucketOptions> = {
         : `${repoPathOf(target)}/hooks`
     }
 
+    /** Bitbucket replaces a hook whole, so a change is merged into the hook as it is. */
+    async function putHook(ref: WebhookRef, changes: Partial<BitbucketHook> & { secret?: string }): Promise<Webhook> {
+      const path = `${hooksPath(ref.target)}/${ref.id}`
+      const { data: current } = await fetcher.json<BitbucketHook>(path)
+      const { data } = await fetcher.json<BitbucketHook>(path, {
+        method: 'PUT',
+        json: { url: current.url, description: current.description, active: current.active, events: current.events, ...changes },
+      })
+      return toWebhook(ref.target, data)
+    }
+
     /**
      * Bitbucket indexes issues and pull requests per repository, so search is
      * the same `q=` filter language scoped to one repository.
@@ -409,7 +423,7 @@ const BITBUCKET: ProviderDefinition<BitbucketOptions> = {
           return { ...toActor(instance, data)!, raw: data }
         }),
       },
-      web: bitbucketWeb(hostOf(baseUrl) === 'api.bitbucket.org' ? 'https://bitbucket.org' : baseUrl.replace(/\/2\.0$/, '')),
+      web: bitbucketWeb(webOrigin),
       webhooks: {
         listPage: verb('experimental', (target, listOptions = {}) => list(hooksPath(target), listOptions, (raw: BitbucketHook) => toWebhook(target, raw), { select: page<BitbucketHook> })),
         create: verb('experimental', async (target, input) => toWebhook(target, (await fetcher.json<BitbucketHook>(hooksPath(target), {
@@ -422,22 +436,16 @@ const BITBUCKET: ProviderDefinition<BitbucketOptions> = {
             ...input.secret ? { secret: input.secret } : {},
           },
         })).data)),
-        update: verb('experimental', async (ref, update) => toWebhook(ref.target, (await fetcher.json<BitbucketHook>(`${hooksPath(ref.target)}/${ref.id}`, {
-          method: 'PUT',
-          json: {
-            ...update.url ? { url: update.url } : {},
-            ...update.active === undefined ? {} : { active: update.active },
-            ...update.events || update.nativeEvents ? { events: nativeEventsFor(BITBUCKET_NATIVE_EVENTS, update.events, update.nativeEvents) } : {},
-            ...update.secret ? { secret: update.secret } : {},
-          },
-        })).data)),
+        update: verb('experimental', async (ref, update) => putHook(ref, {
+          ...update.url ? { url: update.url } : {},
+          ...update.active === undefined ? {} : { active: update.active },
+          ...update.events || update.nativeEvents ? { events: nativeEventsFor(BITBUCKET_NATIVE_EVENTS, update.events, update.nativeEvents) } : {},
+          ...update.secret ? { secret: update.secret } : {},
+        })),
         delete: verb('experimental', async (ref) => {
           await fetcher.raw(`${hooksPath(ref.target)}/${ref.id}`, { method: 'DELETE' })
         }),
-        rotateSecret: verb('experimental', async (ref, secret) => toWebhook(ref.target, (await fetcher.json<BitbucketHook>(`${hooksPath(ref.target)}/${ref.id}`, {
-          method: 'PUT',
-          json: { secret },
-        })).data)),
+        rotateSecret: verb('experimental', async (ref, secret) => putHook(ref, { secret })),
       },
       scopes: bitbucketScopesFor,
       repos: {
@@ -500,7 +508,8 @@ const BITBUCKET: ProviderDefinition<BitbucketOptions> = {
             name: input.name,
             state: STATUS_STATES[input.state],
             description: input.description,
-            url: input.url,
+            // Bitbucket requires a link; without one, the status links to the commit.
+            url: input.url ?? `${webOrigin}/${encodeURIComponent(repo.owner)}/${encodeURIComponent(repo.name)}/commits/${sha}`,
           },
         })).data)),
       },
