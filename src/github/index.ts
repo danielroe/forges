@@ -1234,7 +1234,12 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
           if (!(error instanceof ForgeApiError) || error.status !== 422) {
             throw error
           }
-          await fetcher.raw(`${repoPath(ref.repo)}/actions/jobs/${encodeURIComponent(ref.id)}/rerun`, { method: 'POST' })
+          try {
+            await fetcher.raw(`${repoPath(ref.repo)}/actions/jobs/${encodeURIComponent(ref.id)}/rerun`, { method: 'POST' })
+          }
+          catch {
+            throw error
+          }
         }
       }),
     },
