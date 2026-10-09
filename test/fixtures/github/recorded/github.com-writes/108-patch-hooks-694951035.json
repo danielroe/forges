@@ -1,0 +1,51 @@
+{
+  "request": {
+    "method": "PATCH",
+    "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/hooks/694951035",
+    "body": {
+      "config": {
+        "url": "https://example.com/hook",
+        "content_type": "json",
+        "secret": "REDACTED"
+      }
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"56764423e3ae8d22870e29c45cf7fee905d41872d6663e983192a444b6b10763\"",
+      "x-ratelimit-limit": "500",
+      "x-ratelimit-remaining": "496",
+      "x-ratelimit-reset": "1791580139"
+    },
+    "body": {
+      "type": "Repository",
+      "id": 694951035,
+      "name": "web",
+      "active": true,
+      "events": [
+        "commit_comment",
+        "discussion_comment",
+        "issue_comment",
+        "push"
+      ],
+      "config": {
+        "content_type": "json",
+        "insecure_ssl": "0",
+        "secret": "REDACTED",
+        "url": "https://example.com/hook"
+      },
+      "updated_at": "2026-10-09T21:08:03Z",
+      "created_at": "2026-10-09T21:07:59Z",
+      "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/hooks/694951035",
+      "test_url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/hooks/694951035/test",
+      "ping_url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/hooks/694951035/pings",
+      "deliveries_url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/hooks/694951035/deliveries",
+      "last_response": {
+        "code": 502,
+        "status": "connection_error",
+        "message": "failed to connect to host"
+      }
+    }
+  }
+}

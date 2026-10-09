@@ -1,0 +1,77 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://dev.azure.com/forges/forges-fixtures/_apis/git/repositories/forges-fixtures/pullRequests/23/threads?api-version=7.1",
+    "body": {
+      "comments": [
+        {
+          "parentCommentId": 0,
+          "content": "An upserted comment from run 20261009210843.\n\n<!-- forges:key=forges-fixture -->",
+          "commentType": "text"
+        }
+      ],
+      "status": "active"
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "pullRequestThreadContext": null,
+      "id": 94,
+      "publishedDate": "2026-10-09T21:08:50.6Z",
+      "lastUpdatedDate": "2026-10-09T21:08:50.6Z",
+      "comments": [
+        {
+          "id": 1,
+          "parentCommentId": 0,
+          "author": {
+            "displayName": "danielroebot outlook.com",
+            "url": "https://spsprodweu6.vssps.visualstudio.com/Ad6317e89-50cc-469c-b506-66b9601cf085/_apis/Identities/567dfc49-0db7-43e6-83c1-d91d91db58b1",
+            "_links": {
+              "avatar": {
+                "href": "https://dev.azure.com/forges/_apis/GraphProfile/MemberAvatars/aad.MzE2OTUzNzAtY2RlZS03NzVkLWEwYjctMzUwYTkyZTJhMjc5"
+              }
+            },
+            "id": "567dfc49-0db7-43e6-83c1-d91d91db58b1",
+            "uniqueName": "redacted@example.invalid",
+            "imageUrl": "https://dev.azure.com/forges/_apis/GraphProfile/MemberAvatars/aad.MzE2OTUzNzAtY2RlZS03NzVkLWEwYjctMzUwYTkyZTJhMjc5",
+            "descriptor": "aad.MzE2OTUzNzAtY2RlZS03NzVkLWEwYjctMzUwYTkyZTJhMjc5"
+          },
+          "content": "An upserted comment from run 20261009210843.\n\n<!-- forges:key=forges-fixture -->",
+          "publishedDate": "2026-10-09T21:08:50.6Z",
+          "lastUpdatedDate": "2026-10-09T21:08:50.6Z",
+          "lastContentUpdatedDate": "2026-10-09T21:08:50.6Z",
+          "commentType": "text",
+          "_links": {
+            "self": {
+              "href": "https://dev.azure.com/forges/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/pullRequests/23/threads/94/comments/1"
+            },
+            "repository": {
+              "href": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7"
+            },
+            "threads": {
+              "href": "https://dev.azure.com/forges/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/pullRequests/23/threads/94"
+            },
+            "pullRequests": {
+              "href": "https://dev.azure.com/forges/_apis/git/pullRequests/23"
+            }
+          }
+        }
+      ],
+      "status": "active",
+      "threadContext": null,
+      "properties": null,
+      "identities": null,
+      "isDeleted": false,
+      "_links": {
+        "self": {
+          "href": "https://dev.azure.com/forges/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/pullRequests/23/threads/94"
+        },
+        "repository": {
+          "href": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7"
+        }
+      }
+    }
+  }
+}

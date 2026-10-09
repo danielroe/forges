@@ -1,0 +1,244 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://dev.azure.com/forges/forges-fixtures/_apis/git/repositories/forges-fixtures/pullRequests/23/threads?api-version=7.1"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "value": [
+        {
+          "pullRequestThreadContext": null,
+          "id": 93,
+          "publishedDate": "2026-10-09T21:08:50.24Z",
+          "lastUpdatedDate": "2026-10-09T21:08:50.79Z",
+          "comments": [
+            {
+              "id": 1,
+              "parentCommentId": 0,
+              "author": {
+                "displayName": "danielroebot outlook.com",
+                "url": "https://spsprodweu6.vssps.visualstudio.com/Ad6317e89-50cc-469c-b506-66b9601cf085/_apis/Identities/567dfc49-0db7-43e6-83c1-d91d91db58b1",
+                "_links": {
+                  "avatar": {
+                    "href": "https://dev.azure.com/forges/_apis/GraphProfile/MemberAvatars/aad.MzE2OTUzNzAtY2RlZS03NzVkLWEwYjctMzUwYTkyZTJhMjc5"
+                  }
+                },
+                "id": "567dfc49-0db7-43e6-83c1-d91d91db58b1",
+                "uniqueName": "redacted@example.invalid",
+                "imageUrl": "https://dev.azure.com/forges/_apis/GraphProfile/MemberAvatars/aad.MzE2OTUzNzAtY2RlZS03NzVkLWEwYjctMzUwYTkyZTJhMjc5",
+                "descriptor": "aad.MzE2OTUzNzAtY2RlZS03NzVkLWEwYjctMzUwYTkyZTJhMjc5"
+              },
+              "publishedDate": "2026-10-09T21:08:50.24Z",
+              "lastUpdatedDate": "2026-10-09T21:08:50.79Z",
+              "lastContentUpdatedDate": "2026-10-09T21:08:50.79Z",
+              "isDeleted": true,
+              "commentType": "text",
+              "usersLiked": [],
+              "_links": {
+                "self": {
+                  "href": "https://dev.azure.com/forges/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/pullRequests/23/threads/93/comments/1"
+                },
+                "repository": {
+                  "href": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7"
+                },
+                "threads": {
+                  "href": "https://dev.azure.com/forges/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/pullRequests/23/threads/93"
+                },
+                "pullRequests": {
+                  "href": "https://dev.azure.com/forges/_apis/git/pullRequests/23"
+                }
+              }
+            }
+          ],
+          "status": "active",
+          "threadContext": null,
+          "properties": null,
+          "identities": null,
+          "isDeleted": true,
+          "_links": {
+            "self": {
+              "href": "https://dev.azure.com/forges/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/pullRequests/23/threads/93"
+            },
+            "repository": {
+              "href": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7"
+            }
+          }
+        },
+        {
+          "pullRequestThreadContext": null,
+          "id": 94,
+          "publishedDate": "2026-10-09T21:08:50.6Z",
+          "lastUpdatedDate": "2026-10-09T21:08:50.6Z",
+          "comments": [
+            {
+              "id": 1,
+              "parentCommentId": 0,
+              "author": {
+                "displayName": "danielroebot outlook.com",
+                "url": "https://spsprodweu6.vssps.visualstudio.com/Ad6317e89-50cc-469c-b506-66b9601cf085/_apis/Identities/567dfc49-0db7-43e6-83c1-d91d91db58b1",
+                "_links": {
+                  "avatar": {
+                    "href": "https://dev.azure.com/forges/_apis/GraphProfile/MemberAvatars/aad.MzE2OTUzNzAtY2RlZS03NzVkLWEwYjctMzUwYTkyZTJhMjc5"
+                  }
+                },
+                "id": "567dfc49-0db7-43e6-83c1-d91d91db58b1",
+                "uniqueName": "redacted@example.invalid",
+                "imageUrl": "https://dev.azure.com/forges/_apis/GraphProfile/MemberAvatars/aad.MzE2OTUzNzAtY2RlZS03NzVkLWEwYjctMzUwYTkyZTJhMjc5",
+                "descriptor": "aad.MzE2OTUzNzAtY2RlZS03NzVkLWEwYjctMzUwYTkyZTJhMjc5"
+              },
+              "content": "An upserted comment from run 20261009210843.\n\n<!-- forges:key=forges-fixture -->",
+              "publishedDate": "2026-10-09T21:08:50.6Z",
+              "lastUpdatedDate": "2026-10-09T21:08:50.6Z",
+              "lastContentUpdatedDate": "2026-10-09T21:08:50.6Z",
+              "commentType": "text",
+              "usersLiked": [],
+              "_links": {
+                "self": {
+                  "href": "https://dev.azure.com/forges/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/pullRequests/23/threads/94/comments/1"
+                },
+                "repository": {
+                  "href": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7"
+                },
+                "threads": {
+                  "href": "https://dev.azure.com/forges/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/pullRequests/23/threads/94"
+                },
+                "pullRequests": {
+                  "href": "https://dev.azure.com/forges/_apis/git/pullRequests/23"
+                }
+              }
+            }
+          ],
+          "status": "active",
+          "threadContext": null,
+          "properties": null,
+          "identities": null,
+          "isDeleted": false,
+          "_links": {
+            "self": {
+              "href": "https://dev.azure.com/forges/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/pullRequests/23/threads/94"
+            },
+            "repository": {
+              "href": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7"
+            }
+          }
+        },
+        {
+          "pullRequestThreadContext": null,
+          "id": 95,
+          "publishedDate": "2026-10-09T21:08:51.3Z",
+          "lastUpdatedDate": "2026-10-09T21:08:51.3Z",
+          "comments": [
+            {
+              "id": 1,
+              "parentCommentId": 0,
+              "author": {
+                "displayName": "Microsoft.VisualStudio.Services.TFS",
+                "url": "https://spsprodweu6.vssps.visualstudio.com/Ad6317e89-50cc-469c-b506-66b9601cf085/_apis/Identities/00000002-0000-8888-8000-000000000000",
+                "_links": {
+                  "avatar": {
+                    "href": "https://dev.azure.com/forges/_apis/GraphProfile/MemberAvatars/s2s.MDAwMDAwMDItMDAwMC04ODg4LTgwMDAtMDAwMDAwMDAwMDAwQDJjODk1OTA4LTA0ZTAtNDk1Mi04OWZkLTU0YjAwNDZkNjI4OA"
+                  }
+                },
+                "id": "00000002-0000-8888-8000-000000000000",
+                "uniqueName": "",
+                "imageUrl": "https://dev.azure.com/forges/_apis/GraphProfile/MemberAvatars/s2s.MDAwMDAwMDItMDAwMC04ODg4LTgwMDAtMDAwMDAwMDAwMDAwQDJjODk1OTA4LTA0ZTAtNDk1Mi04OWZkLTU0YjAwNDZkNjI4OA",
+                "descriptor": "s2s.MDAwMDAwMDItMDAwMC04ODg4LTgwMDAtMDAwMDAwMDAwMDAwQDJjODk1OTA4LTA0ZTAtNDk1Mi04OWZkLTU0YjAwNDZkNjI4OA"
+              },
+              "content": "danielroebot outlook.com added danielroe as a reviewer",
+              "publishedDate": "2026-10-09T21:08:51.3Z",
+              "lastUpdatedDate": "2026-10-09T21:08:51.3Z",
+              "lastContentUpdatedDate": "2026-10-09T21:08:51.3Z",
+              "commentType": "system",
+              "usersLiked": [],
+              "_links": {
+                "self": {
+                  "href": "https://dev.azure.com/forges/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/pullRequests/23/threads/95/comments/1"
+                },
+                "repository": {
+                  "href": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7"
+                },
+                "threads": {
+                  "href": "https://dev.azure.com/forges/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/pullRequests/23/threads/95"
+                },
+                "pullRequests": {
+                  "href": "https://dev.azure.com/forges/_apis/git/pullRequests/23"
+                }
+              }
+            }
+          ],
+          "threadContext": null,
+          "properties": {
+            "CodeReviewReviewersUpdatedNumAdded": {
+              "$type": "System.Int32",
+              "$value": 1
+            },
+            "CodeReviewReviewersUpdatedNumChanged": {
+              "$type": "System.Int32",
+              "$value": 0
+            },
+            "CodeReviewReviewersUpdatedNumDeclined": {
+              "$type": "System.Int32",
+              "$value": 0
+            },
+            "CodeReviewReviewersUpdatedNumRemoved": {
+              "$type": "System.Int32",
+              "$value": 0
+            },
+            "CodeReviewThreadType": {
+              "$type": "System.String",
+              "$value": "ReviewersUpdate"
+            },
+            "CodeReviewReviewersUpdatedAddedIdentity": {
+              "$type": "System.String",
+              "$value": "1"
+            },
+            "CodeReviewReviewersUpdatedByIdentity": {
+              "$type": "System.String",
+              "$value": "2"
+            }
+          },
+          "identities": {
+            "1": {
+              "displayName": "danielroe",
+              "url": "https://spsprodweu6.vssps.visualstudio.com/Ad6317e89-50cc-469c-b506-66b9601cf085/_apis/Identities/48261c0d-8a6e-6a10-a9cb-c76b44ce18ce",
+              "_links": {
+                "avatar": {
+                  "href": "https://dev.azure.com/forges/_apis/GraphProfile/MemberAvatars/aad.NDgyNjFjMGQtOGE2ZS03YTEwLWE5Y2ItYzc2YjQ0Y2UxOGNl"
+                }
+              },
+              "id": "48261c0d-8a6e-6a10-a9cb-c76b44ce18ce",
+              "uniqueName": "redacted@example.invalid",
+              "imageUrl": "https://dev.azure.com/forges/_apis/GraphProfile/MemberAvatars/aad.NDgyNjFjMGQtOGE2ZS03YTEwLWE5Y2ItYzc2YjQ0Y2UxOGNl",
+              "descriptor": "aad.NDgyNjFjMGQtOGE2ZS03YTEwLWE5Y2ItYzc2YjQ0Y2UxOGNl"
+            },
+            "2": {
+              "displayName": "danielroebot outlook.com",
+              "url": "https://spsprodweu6.vssps.visualstudio.com/Ad6317e89-50cc-469c-b506-66b9601cf085/_apis/Identities/567dfc49-0db7-43e6-83c1-d91d91db58b1",
+              "_links": {
+                "avatar": {
+                  "href": "https://dev.azure.com/forges/_apis/GraphProfile/MemberAvatars/aad.MzE2OTUzNzAtY2RlZS03NzVkLWEwYjctMzUwYTkyZTJhMjc5"
+                }
+              },
+              "id": "567dfc49-0db7-43e6-83c1-d91d91db58b1",
+              "uniqueName": "redacted@example.invalid",
+              "imageUrl": "https://dev.azure.com/forges/_apis/GraphProfile/MemberAvatars/aad.MzE2OTUzNzAtY2RlZS03NzVkLWEwYjctMzUwYTkyZTJhMjc5",
+              "descriptor": "aad.MzE2OTUzNzAtY2RlZS03NzVkLWEwYjctMzUwYTkyZTJhMjc5"
+            }
+          },
+          "isDeleted": false,
+          "_links": {
+            "self": {
+              "href": "https://dev.azure.com/forges/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/pullRequests/23/threads/95"
+            },
+            "repository": {
+              "href": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7"
+            }
+          }
+        }
+      ],
+      "count": 3
+    }
+  }
+}

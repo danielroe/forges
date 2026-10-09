@@ -6,10 +6,10 @@
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"3d83a16b689c98fcb3493f3bc9a794d19f9f7686c4e1c5fe32ddc07e1bf34999\"",
+      "etag": "W/\"117d383ee289c0ab9a188f3e41e484b4d53ef25e1ffed0b00d36f406dc77168a\"",
       "x-ratelimit-limit": "5000",
-      "x-ratelimit-remaining": "4999",
-      "x-ratelimit-reset": "1791559263"
+      "x-ratelimit-remaining": "4985",
+      "x-ratelimit-reset": "1791583504"
     },
     "body": {
       "login": "danielroe",
@@ -42,7 +42,7 @@
       "notification_email": "redacted@example.invalid",
       "public_repos": 904,
       "public_gists": 13,
-      "followers": 6132,
+      "followers": 6134,
       "following": 173,
       "created_at": "2017-05-15T12:06:30Z",
       "updated_at": "2026-10-09T10:48:09Z"

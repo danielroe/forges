@@ -135,7 +135,6 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
     await fetcher.raw(`${pullPath(ref)}/threads/${enc(id)}`, {
       method: 'PATCH',
       json: { status },
-      query: { 'api-version': COMMENTS_API_VERSION },
     })
   }
 
@@ -602,7 +601,7 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
         return { items: (data.reviewers ?? []).filter(reviewer => reviewer.vote !== 0).map(reviewer => toVoteReview(ref, reviewer)) }
       }),
       createReview: verb('emulated', createReview),
-      reviewThreads: verb('unverified', {
+      reviewThreads: verb(true, {
         resolveReviewThread: (thread, id) => setThreadStatus(thread, id, 'closed'),
         unresolveReviewThread: (thread, id) => setThreadStatus(thread, id, 'active'),
       }),

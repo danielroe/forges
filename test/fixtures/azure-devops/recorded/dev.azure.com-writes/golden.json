@@ -11,12 +11,12 @@
         "kind": "namespace"
       },
       "kind": "issue",
-      "number": "12",
+      "number": "16",
       "typeRaw": "Issue"
     },
     "kind": "issue",
-    "title": "forges fixture 20261009142428: issue",
-    "body": "Opened by run 20261009142428.",
+    "title": "forges fixture 20261009210843: issue",
+    "body": "Opened by run 20261009210843.",
     "state": "open",
     "stateRaw": "To Do",
     "stateReason": "Added to backlog",
@@ -34,7 +34,7 @@
     "assignees": [],
     "reviewers": [],
     "labels": [],
-    "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_workitems/edit/12",
+    "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_workitems/edit/16",
     "createdAt": "<now>",
     "updatedAt": "<now>",
     "lastActivityAt": "<now>",
@@ -55,11 +55,11 @@
           "kind": "namespace"
         },
         "kind": "issue",
-        "number": "12"
+        "number": "16"
       },
-      "id": "1412361"
+      "id": "1412405"
     },
-    "body": "A comment from run 20261009142428.",
+    "body": "A comment from run 20261009210843.",
     "author": {
       "forge": "azure-devops",
       "instance": "dev.azure.com",
@@ -88,11 +88,11 @@
           "kind": "namespace"
         },
         "kind": "issue",
-        "number": "12"
+        "number": "16"
       },
-      "id": "1412361"
+      "id": "1412405"
     },
-    "body": "An edited comment from run 20261009142428.",
+    "body": "An edited comment from run 20261009210843.",
     "author": {
       "forge": "azure-devops",
       "instance": "dev.azure.com",
@@ -122,11 +122,11 @@
             "kind": "namespace"
           },
           "kind": "issue",
-          "number": "12"
+          "number": "16"
         },
-        "id": "1412362"
+        "id": "1412406"
       },
-      "body": "An upserted comment from run 20261009142428.\n\n",
+      "body": "An upserted comment from run 20261009210843.\n\n",
       "author": {
         "forge": "azure-devops",
         "instance": "dev.azure.com",
@@ -154,12 +154,12 @@
         "kind": "namespace"
       },
       "kind": "issue",
-      "number": "12",
+      "number": "16",
       "typeRaw": "Issue"
     },
     "kind": "issue",
-    "title": "forges fixture 20261009142428: issue, edited",
-    "body": "Edited by run 20261009142428.",
+    "title": "forges fixture 20261009210843: issue, edited",
+    "body": "Edited by run 20261009210843.",
     "state": "open",
     "stateRaw": "To Do",
     "stateReason": "Added to backlog",
@@ -189,10 +189,10 @@
     "reviewers": [],
     "labels": [
       {
-        "name": "forges-fixture-20261009142428"
+        "name": "forges-fixture-20261009210843"
       }
     ],
-    "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_workitems/edit/12",
+    "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_workitems/edit/16",
     "createdAt": "<now>",
     "updatedAt": "<now>",
     "lastActivityAt": "<now>",
@@ -210,12 +210,12 @@
         "kind": "namespace"
       },
       "kind": "issue",
-      "number": "13",
+      "number": "17",
       "typeRaw": "Issue"
     },
     "kind": "issue",
-    "title": "forges fixture 20261009142428: duplicate",
-    "body": "Opened by run 20261009142428.",
+    "title": "forges fixture 20261009210843: duplicate",
+    "body": "Opened by run 20261009210843.",
     "state": "open",
     "stateRaw": "To Do",
     "stateReason": "Added to backlog",
@@ -233,7 +233,7 @@
     "assignees": [],
     "reviewers": [],
     "labels": [],
-    "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_workitems/edit/13",
+    "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_workitems/edit/17",
     "createdAt": "<now>",
     "updatedAt": "<now>",
     "lastActivityAt": "<now>",
@@ -250,12 +250,12 @@
         "name": "forges-fixtures"
       },
       "kind": "pull_request",
-      "number": "17",
-      "externalId": "vstfs:///Git/PullRequestId/b2332e32-1afe-4c85-9407-12e7af2bf24c%2fc67c02dd-cbca-45aa-a679-021bd4d2c4a7%2f17"
+      "number": "23",
+      "externalId": "vstfs:///Git/PullRequestId/b2332e32-1afe-4c85-9407-12e7af2bf24c%2fc67c02dd-cbca-45aa-a679-021bd4d2c4a7%2f23"
     },
     "kind": "pull_request",
-    "title": "forges fixture 20261009142428: pull 1",
-    "body": "Opened by run 20261009142428.",
+    "title": "forges fixture 20261009210843: pull 1",
+    "body": "Opened by run 20261009210843.",
     "state": "open",
     "stateRaw": "active",
     "isDraft": false,
@@ -276,12 +276,12 @@
     "lastActivityAt": "<now>",
     "branches": {
       "head": {
-        "ref": "forges-fixtures/20261009142428-1",
-        "sha": "c722b0f7aa03a4fd722b58da8571862ac98b03f5"
+        "ref": "forges-fixtures/20261009210843-1",
+        "sha": "9a01bcd75f54d12908abf93c9c32b555a0bc6411"
       },
       "base": {
         "ref": "main",
-        "sha": "636c84b9c049c9370fe74413a356611a561e91a3"
+        "sha": "e1bbe32af6a598438be5bb06efa3f6209b72812a"
       }
     }
   },
@@ -296,12 +296,12 @@
         "name": "forges-fixtures"
       },
       "kind": "pull_request",
-      "number": "18",
-      "externalId": "vstfs:///Git/PullRequestId/b2332e32-1afe-4c85-9407-12e7af2bf24c%2fc67c02dd-cbca-45aa-a679-021bd4d2c4a7%2f18"
+      "number": "24",
+      "externalId": "vstfs:///Git/PullRequestId/b2332e32-1afe-4c85-9407-12e7af2bf24c%2fc67c02dd-cbca-45aa-a679-021bd4d2c4a7%2f24"
     },
     "kind": "pull_request",
-    "title": "forges fixture 20261009142428: pull 2",
-    "body": "Opened by run 20261009142428.",
+    "title": "forges fixture 20261009210843: pull 2",
+    "body": "Opened by run 20261009210843.",
     "state": "open",
     "stateRaw": "active",
     "isDraft": false,
@@ -322,12 +322,12 @@
     "lastActivityAt": "<now>",
     "branches": {
       "head": {
-        "ref": "forges-fixtures/20261009142428-2",
-        "sha": "33992d1b411d33924c8ed764fc5c05ca78273fff"
+        "ref": "forges-fixtures/20261009210843-2",
+        "sha": "c6c307a2b8883c5bea7fdbc12bda34902565ef79"
       },
       "base": {
         "ref": "main",
-        "sha": "636c84b9c049c9370fe74413a356611a561e91a3"
+        "sha": "e1bbe32af6a598438be5bb06efa3f6209b72812a"
       }
     }
   },
@@ -342,12 +342,12 @@
         "name": "forges-fixtures"
       },
       "kind": "pull_request",
-      "number": "19",
-      "externalId": "vstfs:///Git/PullRequestId/b2332e32-1afe-4c85-9407-12e7af2bf24c%2fc67c02dd-cbca-45aa-a679-021bd4d2c4a7%2f19"
+      "number": "25",
+      "externalId": "vstfs:///Git/PullRequestId/b2332e32-1afe-4c85-9407-12e7af2bf24c%2fc67c02dd-cbca-45aa-a679-021bd4d2c4a7%2f25"
     },
     "kind": "pull_request",
-    "title": "forges fixture 20261009142428: pull 3",
-    "body": "Opened by run 20261009142428.",
+    "title": "forges fixture 20261009210843: pull 3",
+    "body": "Opened by run 20261009210843.",
     "state": "open",
     "stateRaw": "active",
     "isDraft": false,
@@ -368,12 +368,12 @@
     "lastActivityAt": "<now>",
     "branches": {
       "head": {
-        "ref": "forges-fixtures/20261009142428-3",
-        "sha": "e36b9905b2164329f9aece8b15a97bfde5d73dbd"
+        "ref": "forges-fixtures/20261009210843-3",
+        "sha": "b38f7aad0c0754f8a9688e94aec6050d23d93a55"
       },
       "base": {
         "ref": "main",
-        "sha": "636c84b9c049c9370fe74413a356611a561e91a3"
+        "sha": "e1bbe32af6a598438be5bb06efa3f6209b72812a"
       }
     }
   },
@@ -391,12 +391,12 @@
           "name": "forges-fixtures"
         },
         "kind": "pull_request",
-        "number": "17",
-        "externalId": "vstfs:///Git/PullRequestId/b2332e32-1afe-4c85-9407-12e7af2bf24c%2fc67c02dd-cbca-45aa-a679-021bd4d2c4a7%2f17"
+        "number": "23",
+        "externalId": "vstfs:///Git/PullRequestId/b2332e32-1afe-4c85-9407-12e7af2bf24c%2fc67c02dd-cbca-45aa-a679-021bd4d2c4a7%2f23"
       },
-      "id": "67/1"
+      "id": "93/1"
     },
-    "body": "A comment from run 20261009142428.",
+    "body": "A comment from run 20261009210843.",
     "author": {
       "forge": "azure-devops",
       "instance": "dev.azure.com",
@@ -408,7 +408,11 @@
       "isBotHint": false
     },
     "createdAt": "<now>",
-    "updatedAt": "<now>"
+    "updatedAt": "<now>",
+    "thread": {
+      "id": "93",
+      "resolved": false
+    }
   },
   "pull edit comment": {
     "ref": {
@@ -424,12 +428,12 @@
           "name": "forges-fixtures"
         },
         "kind": "pull_request",
-        "number": "17",
-        "externalId": "vstfs:///Git/PullRequestId/b2332e32-1afe-4c85-9407-12e7af2bf24c%2fc67c02dd-cbca-45aa-a679-021bd4d2c4a7%2f17"
+        "number": "23",
+        "externalId": "vstfs:///Git/PullRequestId/b2332e32-1afe-4c85-9407-12e7af2bf24c%2fc67c02dd-cbca-45aa-a679-021bd4d2c4a7%2f23"
       },
-      "id": "67/1"
+      "id": "93/1"
     },
-    "body": "An edited comment from run 20261009142428.",
+    "body": "An edited comment from run 20261009210843.",
     "author": {
       "forge": "azure-devops",
       "instance": "dev.azure.com",
@@ -458,12 +462,12 @@
             "name": "forges-fixtures"
           },
           "kind": "pull_request",
-          "number": "17",
-          "externalId": "vstfs:///Git/PullRequestId/b2332e32-1afe-4c85-9407-12e7af2bf24c%2fc67c02dd-cbca-45aa-a679-021bd4d2c4a7%2f17"
+          "number": "23",
+          "externalId": "vstfs:///Git/PullRequestId/b2332e32-1afe-4c85-9407-12e7af2bf24c%2fc67c02dd-cbca-45aa-a679-021bd4d2c4a7%2f23"
         },
-        "id": "68/1"
+        "id": "94/1"
       },
-      "body": "An upserted comment from run 20261009142428.\n\n<!-- forges:key=forges-fixture -->",
+      "body": "An upserted comment from run 20261009210843.\n\n<!-- forges:key=forges-fixture -->",
       "author": {
         "forge": "azure-devops",
         "instance": "dev.azure.com",
@@ -475,7 +479,11 @@
         "isBotHint": false
       },
       "createdAt": "<now>",
-      "updatedAt": "<now>"
+      "updatedAt": "<now>",
+      "thread": {
+        "id": "94",
+        "resolved": false
+      }
     },
     "created": true
   },
@@ -490,12 +498,12 @@
         "name": "forges-fixtures"
       },
       "kind": "pull_request",
-      "number": "17",
-      "externalId": "vstfs:///Git/PullRequestId/b2332e32-1afe-4c85-9407-12e7af2bf24c%2fc67c02dd-cbca-45aa-a679-021bd4d2c4a7%2f17"
+      "number": "23",
+      "externalId": "vstfs:///Git/PullRequestId/b2332e32-1afe-4c85-9407-12e7af2bf24c%2fc67c02dd-cbca-45aa-a679-021bd4d2c4a7%2f23"
     },
     "kind": "pull_request",
-    "title": "forges fixture 20261009142428: pull, edited",
-    "body": "Edited by run 20261009142428.",
+    "title": "forges fixture 20261009210843: pull, edited",
+    "body": "Edited by run 20261009210843.",
     "state": "open",
     "stateRaw": "active",
     "isDraft": false,
@@ -516,12 +524,12 @@
     "lastActivityAt": "<now>",
     "branches": {
       "head": {
-        "ref": "forges-fixtures/20261009142428-1",
-        "sha": "c722b0f7aa03a4fd722b58da8571862ac98b03f5"
+        "ref": "forges-fixtures/20261009210843-1",
+        "sha": "9a01bcd75f54d12908abf93c9c32b555a0bc6411"
       },
       "base": {
         "ref": "main",
-        "sha": "636c84b9c049c9370fe74413a356611a561e91a3"
+        "sha": "e1bbe32af6a598438be5bb06efa3f6209b72812a"
       }
     }
   },
@@ -539,8 +547,8 @@
           "name": "forges-fixtures"
         },
         "kind": "pull_request",
-        "number": "19",
-        "externalId": "vstfs:///Git/PullRequestId/b2332e32-1afe-4c85-9407-12e7af2bf24c%2fc67c02dd-cbca-45aa-a679-021bd4d2c4a7%2f19"
+        "number": "25",
+        "externalId": "vstfs:///Git/PullRequestId/b2332e32-1afe-4c85-9407-12e7af2bf24c%2fc67c02dd-cbca-45aa-a679-021bd4d2c4a7%2f25"
       },
       "id": "vote:48261c0d-8a6e-6a10-a9cb-c76b44ce18ce"
     },
@@ -558,6 +566,53 @@
     "stateRaw": "vote:10",
     "comments": false
   },
+  "resolve review thread": {
+    "reviews": {
+      "items": []
+    },
+    "comments": {
+      "items": [
+        {
+          "ref": {
+            "forge": "azure-devops",
+            "instance": "dev.azure.com",
+            "thread": {
+              "forge": "azure-devops",
+              "instance": "dev.azure.com",
+              "repo": {
+                "forge": "azure-devops",
+                "instance": "dev.azure.com",
+                "owner": "forges/forges-fixtures",
+                "name": "forges-fixtures"
+              },
+              "kind": "pull_request",
+              "number": "23",
+              "externalId": "vstfs:///Git/PullRequestId/b2332e32-1afe-4c85-9407-12e7af2bf24c%2fc67c02dd-cbca-45aa-a679-021bd4d2c4a7%2f23"
+            },
+            "id": "94/1"
+          },
+          "body": "An upserted comment from run 20261009210843.\n\n<!-- forges:key=forges-fixture -->",
+          "author": {
+            "forge": "azure-devops",
+            "instance": "dev.azure.com",
+            "login": "redacted@example.invalid",
+            "id": "567dfc49-0db7-43e6-83c1-d91d91db58b1",
+            "name": "danielroebot outlook.com",
+            "avatarUrl": "https://dev.azure.com/forges/_apis/GraphProfile/MemberAvatars/aad.MzE2OTUzNzAtY2RlZS03NzVkLWEwYjctMzUwYTkyZTJhMjc5",
+            "typeRaw": "user",
+            "isBotHint": false
+          },
+          "createdAt": "<now>",
+          "updatedAt": "<now>",
+          "thread": {
+            "id": "94",
+            "resolved": false
+          }
+        }
+      ]
+    },
+    "id": "94"
+  },
   "report check": {
     "ref": {
       "forge": "azure-devops",
@@ -568,7 +623,7 @@
         "owner": "forges/forges-fixtures",
         "name": "forges-fixtures"
       },
-      "id": "4826407",
+      "id": "4827081",
       "type": "status"
     },
     "name": "forges/forges fixture",
