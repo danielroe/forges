@@ -571,14 +571,12 @@ async function recordWebhooks(): Promise<void> {
       : await plain.threads.create(scratch, { kind: 'pull_request', title: `${FIXTURE_TITLE} ${id}: webhooks`, body: `Opened by run ${id}.`, head: branch, base })
     await plain.threads.comment(thread.ref, `A comment from run ${id}.`)
     await plain.threads.close(thread.ref)
-    // Forges send a different number of deliveries, so stop once a poll finds nothing new.
-    for (let attempt = 0; attempt < 12; attempt++) {
+    // Forges send a different number of deliveries, and not always in order, so stop once two polls in a row find nothing new.
+    for (let attempt = 0, quiet = 0; attempt < 12 && quiet < 2; attempt++) {
       await new Promise(resolve => setTimeout(resolve, 5_000))
       const previous = deliveries.length
       deliveries = await relayed.deliveries(hook.ref.id)
-      if (deliveries.length > 0 && deliveries.length === previous) {
-        break
-      }
+      quiet = deliveries.length > 0 && deliveries.length === previous ? quiet + 1 : 0
     }
   }
   finally {
