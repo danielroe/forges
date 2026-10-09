@@ -500,7 +500,7 @@ export function createFetcher(options: FetcherOptions): Fetcher {
     }
     const text = await response.text()
     return {
-      data: (text ? JSON.parse(text) : undefined) as T,
+      data: (text ? parseJson(text) : undefined) as T,
       response,
       notModified: false,
       cursor: cursorFrom(response),
@@ -542,6 +542,19 @@ export function createFetcher(options: FetcherOptions): Fetcher {
   }
 
   return { raw, stream, json, page, items, resolve }
+}
+
+/**
+ * Parses JSON, keeping integers beyond `Number.MAX_SAFE_INTEGER` (such as
+ * GitHub webhook delivery ids) as their exact digits, where the runtime gives
+ * the reviver the source text.
+ */
+function parseJson(text: string): unknown {
+  if (!/\d{16}/.test(text)) {
+    return JSON.parse(text)
+  }
+  return JSON.parse(text, (_key, value: unknown, context?: { source?: string }) =>
+    typeof value === 'number' && !Number.isSafeInteger(value) && Number.isInteger(value) && context?.source ? context.source : value)
 }
 
 function emptyStream(): ReadableStream<Uint8Array> {
