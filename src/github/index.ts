@@ -1237,8 +1237,8 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
           try {
             await fetcher.raw(`${repoPath(ref.repo)}/actions/jobs/${encodeURIComponent(ref.id)}/rerun`, { method: 'POST' })
           }
-          catch {
-            throw error
+          catch (rerunError) {
+            throw rerunError instanceof NotFoundError ? error : rerunError
           }
         }
       }),
