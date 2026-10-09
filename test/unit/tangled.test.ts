@@ -183,6 +183,16 @@ describe('tangled writes', () => {
     })
   })
 
+  it('signs in at the PDS a handle resolves to', async () => {
+    const { fetch, calls } = fixtureFetch('tangled', {
+      'GET https://public.api.bsky.app/xrpc/com.atproto.identity.resolveHandle?handle=acme.example.com': { status: 200, body: { did: OWNER } },
+    })
+    const instance = tangled({ auth: { type: 'app_password', identifier: 'acme.example.com', password: 'pw' }, fetch }).create()
+    await instance.threads.comment!(pull, 'Thanks!')
+
+    expect(calls.find(call => call.url.endsWith('createSession'))!.url).toBe(`${PDS}/xrpc/com.atproto.server.createSession`)
+  })
+
   it('refuses to change state for an account the appview would ignore', async () => {
     const { instance, calls } = provider({
       [`POST ${PDS}/xrpc/com.atproto.server.createSession`]: { status: 200, body: { did: 'did:plc:strangerdid2222222222222', accessJwt: 'a', refreshJwt: 'r' } },
