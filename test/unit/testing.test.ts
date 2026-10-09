@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest'
+import { createFetcher } from '../../src/fetch.ts'
 import { github } from '../../src/github/index.ts'
 import { fixtureFetch, loadFixtures, recordingFetch, signDelivery } from '../../src/testing/index.ts'
 import { contracts, WEBHOOK_SECRET } from '../contract/providers.ts'
@@ -66,6 +67,14 @@ describe('forges/testing', () => {
     const hook = { forge: 'github', instance: 'github.com', target: { forge: 'github', instance: 'github.com', owner: 'acme', name: 'widgets' }, id: '1' }
 
     expect((await provider.webhooks.deliveriesPage(hook)).items[0]!.ref.id).toBe('3847328607500238881')
+  })
+
+  it('leaves a number that is not an integer literal as a number', async () => {
+    const recorder = recordingFetch(async () => new Response('{"id":3847328607500238881,"scale":1.5e300}'))
+    await recorder.fetch('https://api.example.com/numbers')
+    const { data } = await createFetcher({ baseUrl: 'https://api.example.com', fetch: fixtureFetch(recorder.fixtures).fetch }).json<{ id: unknown, scale: unknown }>('/numbers')
+
+    expect(data).toEqual({ id: '3847328607500238881', scale: 1.5e300 })
   })
 
   it('loads a fixture directory', async () => {

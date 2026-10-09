@@ -7,6 +7,7 @@
 import type { RepoRef } from '../src/model.ts'
 import type { ForgeProvider } from '../src/provider.ts'
 import { Buffer } from 'node:buffer'
+import { parseJson } from '../src/fetch.ts'
 import { FIXTURE_TITLE } from '../test/recording/write-steps.ts'
 
 export interface WriteHarness {
@@ -61,7 +62,7 @@ function client(baseUrl: string, authorization: string) {
     }
     const text = await response.text()
     // GitHub delivery ids exceed `Number.MAX_SAFE_INTEGER`, so they are kept as their digits.
-    return (text ? JSON.parse(text, (_key, value: unknown, context?: { source?: string }) => typeof value === 'number' && !Number.isSafeInteger(value) && context?.source ? context.source : value) : undefined) as T
+    return (text ? parseJson(text) : undefined) as T
   }
 }
 
@@ -239,6 +240,10 @@ function gitee({ baseUrl, authorization, scratch }: HarnessOptions): WriteHarnes
   }
 }
 
+/**
+ * Work items and pull request policies are project-wide, so writes may target
+ * anything under the scratch project's `_apis`, not only the scratch repository.
+ */
 function azureDevOps({ baseUrl, authorization, scratch }: HarnessOptions): WriteHarness {
   const call = client(baseUrl, authorization)
   const [org = '', project = ''] = scratch.owner.split('/')
