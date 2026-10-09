@@ -483,6 +483,49 @@
       }
     ]
   },
+  "commit thread": {
+    "ref": {
+      "forge": "bitbucket",
+      "instance": "bitbucket.org",
+      "repo": {
+        "forge": "bitbucket",
+        "instance": "bitbucket.org",
+        "owner": "neelabo",
+        "name": "neeview",
+        "externalId": "{6b283030-4828-41db-b559-8b120365f356}"
+      },
+      "kind": "commit",
+      "number": "8215aaf2e487"
+    },
+    "kind": "commit",
+    "title": "pt-BR.restext alterados online com o Bitbucket",
+    "body": "pt-BR.restext alterados online com o Bitbucket",
+    "state": "unknown",
+    "isDraft": false,
+    "assignees": [],
+    "reviewers": [],
+    "lastActivityAt": "2024-08-29T19:12:41.000Z",
+    "author": {
+      "forge": "bitbucket",
+      "instance": "bitbucket.org",
+      "login": "Havokdan",
+      "id": "{97fc50f7-c82e-4a3f-bd4a-e9877df29f39}",
+      "name": "Havokdan",
+      "avatarUrl": "https://secure.gravatar.com/avatar/9a050257614c5cfc943e4a599529de6b?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FH-5.png",
+      "url": "https://bitbucket.org/%7B97fc50f7-c82e-4a3f-bd4a-e9877df29f39%7D/",
+      "typeRaw": "user",
+      "isBotHint": false
+    },
+    "url": "https://bitbucket.org/neelabo/neeview/commits/8215aaf2e487324420e5d274d02975e255270fa7",
+    "createdAt": "2024-08-29T19:12:41.000Z",
+    "labels": []
+  },
+  "commit events": {
+    "items": []
+  },
+  "commit comments": {
+    "items": []
+  },
   "me": {
     "forge": "bitbucket",
     "instance": "bitbucket.org",
@@ -495,7 +538,49 @@
     "isBotHint": false
   },
   "own repos": {
-    "items": []
+    "items": [
+      {
+        "ref": {
+          "forge": "bitbucket",
+          "instance": "bitbucket.org",
+          "owner": "danielroe",
+          "name": "forges-fixtures",
+          "externalId": "{245afeb9-21de-4a8c-81c0-d45efbf52a8c}"
+        },
+        "defaultBranch": "main",
+        "visibility": "public",
+        "visibilityRaw": "public",
+        "isFork": false,
+        "isArchived": false,
+        "topics": [],
+        "url": "https://bitbucket.org/danielroe/forges-fixtures",
+        "cloneUrls": {
+          "https": "https://bitbucket.org/danielroe/forges-fixtures.git",
+          "ssh": "git@bitbucket.org:danielroe/forges-fixtures.git"
+        },
+        "createdAt": "2026-10-09T11:53:36.202Z",
+        "updatedAt": "2026-10-09T11:57:06.317Z",
+        "owner": {
+          "forge": "bitbucket",
+          "instance": "bitbucket.org",
+          "login": "danielroe-team",
+          "id": "{764a1587-8648-414a-8d9d-5464a9241047}",
+          "name": "Daniel Roe",
+          "avatarUrl": "https://bitbucket.org/account/danielroe-team/avatar/",
+          "url": "https://bitbucket.org/%7B764a1587-8648-414a-8d9d-5464a9241047%7D/",
+          "typeRaw": "team",
+          "isBotHint": false
+        },
+        "features": {
+          "issues": false,
+          "pullRequests": true,
+          "discussions": false,
+          "wiki": false,
+          "projects": false,
+          "releases": false
+        }
+      }
+    ]
   },
   "checks": {
     "items": []
@@ -748,5 +833,32 @@
   },
   "search repos": {
     "items": []
+  },
+  "webhooks": {
+    "items": [
+      {
+        "ref": {
+          "forge": "bitbucket",
+          "instance": "bitbucket.org",
+          "target": {
+            "forge": "bitbucket",
+            "instance": "bitbucket.org",
+            "owner": "danielroe",
+            "name": "forges-fixtures"
+          },
+          "id": "{1f2a4878-47eb-4bf8-b099-1ec1933523aa}"
+        },
+        "url": "https://example.com/hook",
+        "events": [
+          "push",
+          "ref"
+        ],
+        "nativeEvents": [
+          "repo:push"
+        ],
+        "active": true,
+        "createdAt": "2026-10-09T11:58:05.944Z"
+      }
+    ]
   }
 }

@@ -1,0 +1,38 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://plc.directory/did:plc:laqygfbyvnkyuhsuaxmp6ez3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"219-5YnIwZBR45SsbhH3/yra/1w/LKQ\""
+    },
+    "body": {
+      "@context": [
+        "https://www.w3.org/ns/did/v1",
+        "https://w3id.org/security/multikey/v1",
+        "https://w3id.org/security/suites/secp256k1-2019/v1"
+      ],
+      "id": "did:plc:laqygfbyvnkyuhsuaxmp6ez3",
+      "alsoKnownAs": [
+        "at://jensroemer.com"
+      ],
+      "verificationMethod": [
+        {
+          "id": "did:plc:laqygfbyvnkyuhsuaxmp6ez3#atproto",
+          "type": "Multikey",
+          "controller": "did:plc:laqygfbyvnkyuhsuaxmp6ez3",
+          "publicKeyMultibase": "zQ3shMvFRj2wU4vLUe1bDaHozfCRMKk2jvkzUQScV2KnfAeNc"
+        }
+      ],
+      "service": [
+        {
+          "id": "#atproto_pds",
+          "type": "AtprotoPersonalDataServer",
+          "serviceEndpoint": "https://npmx.social"
+        }
+      ]
+    }
+  }
+}

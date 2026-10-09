@@ -1,0 +1,65 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://pushin.eu/api/v1/repos/pjullrich/pushin-cli/issues/2/comments?per_page=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "<https://pushin.eu/api/v1/repos/pjullrich/pushin-cli/issues/2/comments?page=2&per_page=3>; rel=\"next\"",
+      "x-ratelimit-limit": "90",
+      "x-ratelimit-remaining": "77",
+      "x-ratelimit-reset": "1791500400"
+    },
+    "body": [
+      {
+        "id": 1609,
+        "user": {
+          "id": 2,
+          "type": "User",
+          "avatar_url": "https://cdn.pushin.eu/-/avatars/u_033jgKZKCNGC2kCrD0IBBG/72d51f75",
+          "html_url": "https://pushin.eu/pjullrich",
+          "login": "pjullrich",
+          "node_id": "REDACTED"
+        },
+        "body": "@runlevel0 aaaah, i'm sorry I forgot to hit `git push` on the new version `0.2.7`. Sorry about that! I've now pushed it. Could you retry the Linux script, please? To be honest with you I haven't tested the Linux or the Windows setup instructions because I have neither system running here. So, I'm asking humbly for a bit of patience if it doesn't work right away :)",
+        "updated_at": "2026-09-03T07:42:21.893166Z",
+        "created_at": "2026-09-03T07:42:21.893166Z",
+        "in_reply_to_id": null,
+        "node_id": "com_034II0kvxzoz61BGbCrXf6"
+      },
+      {
+        "id": 1612,
+        "user": {
+          "id": 28,
+          "type": "User",
+          "avatar_url": "https://cdn.pushin.eu/-/avatars/u_034HkSDylEuQn7QC6cObik/29407ab1",
+          "html_url": "https://pushin.eu/runlevel0",
+          "login": "runlevel0",
+          "node_id": "REDACTED"
+        },
+        "body": "Sure, no problem! Will test it and let you know :)",
+        "updated_at": "2026-09-03T15:58:29.819108Z",
+        "created_at": "2026-09-03T15:41:59.874522Z",
+        "in_reply_to_id": 1609,
+        "node_id": "com_034ITmXOeHQtBqIPLySEqU"
+      },
+      {
+        "id": 1616,
+        "user": {
+          "id": 28,
+          "type": "User",
+          "avatar_url": "https://cdn.pushin.eu/-/avatars/u_034HkSDylEuQn7QC6cObik/29407ab1",
+          "html_url": "https://pushin.eu/runlevel0",
+          "login": "runlevel0",
+          "node_id": "REDACTED"
+        },
+        "body": "@pjullrich I've just tested and it worked like a charm on Linux now!\n\nThanks for the fix, and happy to support your project!",
+        "updated_at": "2026-09-04T07:26:40.261736Z",
+        "created_at": "2026-09-04T06:33:22.317112Z",
+        "in_reply_to_id": null,
+        "node_id": "com_034IpengwtrUur5ekJAks6"
+      }
+    ]
+  }
+}

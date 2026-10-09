@@ -1,0 +1,37 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://tngl.sh/xrpc/com.atproto.repo.putRecord",
+    "body": {
+      "repo": "did:plc:7qksav5io2s4qfg67pe7iqqk",
+      "collection": "sh.tangled.repo.issue",
+      "rkey": "3mxhongxted2y",
+      "record": {
+        "body": "Edited by run 20261009191401.",
+        "repo": "did:plc:t73o44q7fppgagkrevtztyok",
+        "$type": "sh.tangled.repo.issue",
+        "title": "forges fixture 20261009191401: issue, edited",
+        "createdAt": "2026-10-09T19:14:04.146Z"
+      },
+      "swapRecord": "bafyreicoydw363o6laobi46kqeynrmego5la3qovmfbgtuhehuufok6gje"
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"119-aLUo4QQDPM8RHHtFFthafwKrwfg\"",
+      "ratelimit-limit": "3000",
+      "ratelimit-remaining": "2982",
+      "ratelimit-reset": "1791573543"
+    },
+    "body": {
+      "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.issue/3mxhongxted2y",
+      "cid": "bafyreibsqk4mzdqioiwozd7fm47issbydkpyf4rvv6mckaebmzvalpidz4",
+      "commit": {
+        "cid": "bafyreicl6bm2ccbi7tbkc43ap4o3thzvxkrzzcles5jctyjq3453v6zjke",
+        "rev": "3mxhoniyvfd2y"
+      },
+      "validationStatus": "unknown"
+    }
+  }
+}

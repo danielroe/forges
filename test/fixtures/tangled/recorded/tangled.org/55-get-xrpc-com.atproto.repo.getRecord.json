@@ -1,21 +1,24 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://zwsp.xyz/xrpc/com.atproto.repo.getRecord?repo=did%3Aplc%3Adfl62fgb7wtjj3fcbb72naae&collection=sh.tangled.repo.issue.state&rkey=3mwqkbly7uh22"
+    "url": "https://oysterling.us-west.host.bsky.network/xrpc/com.atproto.repo.getRecord?repo=did%3Aplc%3Awshs7t2adsemcrrd4snkeqli&collection=sh.tangled.repo.pull.status&rkey=3m4cefmvguj22"
   },
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"175-wOTWZjSpq/uKFPOwiMsxAvZFDJ8\""
+      "etag": "W/\"170-8ypWytym26qr96dVYV3WR2hL1Mk\"",
+      "ratelimit-limit": "3000",
+      "ratelimit-remaining": "2991",
+      "ratelimit-reset": "1791552008"
     },
     "body": {
-      "uri": "at://did:plc:dfl62fgb7wtjj3fcbb72naae/sh.tangled.repo.issue.state/3mwqkbly7uh22",
-      "cid": "bafyreiaymizjtp5bzlnz4gxeu42qnulgc4cijjyc3j4j2efnwf7w2wqqtu",
+      "uri": "at://did:plc:wshs7t2adsemcrrd4snkeqli/sh.tangled.repo.pull.status/3m4cefmvguj22",
+      "cid": "bafyreif6n2u2jyxhkiqguuuxp4e2qvmrr5rf62avy374ni6phbe37dxc7e",
       "value": {
-        "$type": "sh.tangled.repo.issue.state",
-        "issue": "at://did:plc:cnx5rmsyvousaqjfbbzzllbi/sh.tangled.repo.issue/3mwqhyckjiz22",
-        "state": "sh.tangled.repo.issue.state.closed",
-        "createdAt": "2026-09-30T14:24:37.828Z"
+        "pull": "at://did:plc:mzoihimijwyheeqok2qm5zxx/sh.tangled.repo.pull/3m4cefmvguj22",
+        "$type": "sh.tangled.repo.pull.status",
+        "status": "sh.tangled.repo.pull.status.merged",
+        "createdAt": "2025-10-29T02:07:11Z"
       }
     }
   }

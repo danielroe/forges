@@ -1,0 +1,55 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/milestones?state=open&per_page=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"0b746a01d466bf8cf57b78dd6ffcf871587731517111a89a765c404682e00e77\"",
+      "x-ratelimit-limit": "5000",
+      "x-ratelimit-remaining": "4992",
+      "x-ratelimit-reset": "1791559256"
+    },
+    "body": [
+      {
+        "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/milestones/1",
+        "html_url": "https://github.com/forges-fixtures/forges-fixtures/milestone/1",
+        "labels_url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/milestones/1/labels",
+        "id": 18439904,
+        "node_id": "MI_kwDOVCTdtM4BGV7g",
+        "number": 1,
+        "title": "Fixture milestone",
+        "description": "Open milestone for forges fixture recordings.",
+        "creator": {
+          "login": "danielroe",
+          "id": 28706372,
+          "node_id": "REDACTED",
+          "avatar_url": "https://avatars.githubusercontent.com/u/28706372?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/danielroe",
+          "html_url": "https://github.com/danielroe",
+          "followers_url": "https://api.github.com/users/danielroe/followers",
+          "following_url": "https://api.github.com/users/danielroe/following{/other_user}",
+          "gists_url": "https://api.github.com/users/danielroe/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/danielroe/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/danielroe/subscriptions",
+          "organizations_url": "https://api.github.com/users/danielroe/orgs",
+          "repos_url": "https://api.github.com/users/danielroe/repos",
+          "events_url": "https://api.github.com/users/danielroe/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/danielroe/received_events",
+          "type": "User",
+          "user_view_type": "public",
+          "site_admin": false
+        },
+        "open_issues": 0,
+        "closed_issues": 0,
+        "state": "open",
+        "created_at": "2026-10-09T11:01:59Z",
+        "updated_at": "2026-10-09T14:01:32Z",
+        "due_on": null,
+        "closed_at": null
+      }
+    ]
+  }
+}

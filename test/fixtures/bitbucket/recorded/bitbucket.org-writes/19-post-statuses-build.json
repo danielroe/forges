@@ -1,0 +1,67 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://api.bitbucket.org/2.0/repositories/danielroe/forges-fixtures/commit/ffd0b8111be4/statuses/build",
+    "body": {
+      "key": "forges fixture",
+      "name": "forges fixture",
+      "state": "SUCCESSFUL",
+      "description": "Reported by run 20261009140046",
+      "url": "https://bitbucket.org/danielroe/forges-fixtures/commits/ffd0b8111be4"
+    }
+  },
+  "response": {
+    "status": 201,
+    "headers": {
+      "location": "https://api.bitbucket.org/2.0/repositories/danielroe/forges-fixtures/commit/ffd0b8111be44559053712cdd3eb6dc662b9e97d/statuses/build/forges%20fixture"
+    },
+    "body": {
+      "key": "forges fixture",
+      "type": "build",
+      "state": "SUCCESSFUL",
+      "name": "forges fixture",
+      "refname": null,
+      "commit": {
+        "hash": "ffd0b8111be44559053712cdd3eb6dc662b9e97d",
+        "links": {
+          "self": {
+            "href": "https://api.bitbucket.org/2.0/repositories/danielroe/forges-fixtures/commit/ffd0b8111be44559053712cdd3eb6dc662b9e97d"
+          },
+          "html": {
+            "href": "https://bitbucket.org/danielroe/forges-fixtures/commits/ffd0b8111be44559053712cdd3eb6dc662b9e97d"
+          }
+        },
+        "type": "commit"
+      },
+      "url": "https://bitbucket.org/danielroe/forges-fixtures/commits/ffd0b8111be4",
+      "repository": {
+        "type": "repository",
+        "full_name": "danielroe/forges-fixtures",
+        "links": {
+          "self": {
+            "href": "https://api.bitbucket.org/2.0/repositories/danielroe/forges-fixtures"
+          },
+          "html": {
+            "href": "https://bitbucket.org/danielroe/forges-fixtures"
+          },
+          "avatar": {
+            "href": "https://bytebucket.org/ravatar/%7B245afeb9-21de-4a8c-81c0-d45efbf52a8c%7D?ts=default"
+          }
+        },
+        "name": "forges-fixtures",
+        "uuid": "{245afeb9-21de-4a8c-81c0-d45efbf52a8c}"
+      },
+      "description": "Reported by run 20261009140046",
+      "created_on": "2026-10-09T14:01:09.999231+00:00",
+      "updated_on": "2026-10-09T14:01:09.999246+00:00",
+      "links": {
+        "self": {
+          "href": "https://api.bitbucket.org/2.0/repositories/danielroe/forges-fixtures/commit/ffd0b8111be44559053712cdd3eb6dc662b9e97d/statuses/build/forges%20fixture"
+        },
+        "commit": {
+          "href": "https://api.bitbucket.org/2.0/repositories/danielroe/forges-fixtures/commit/ffd0b8111be44559053712cdd3eb6dc662b9e97d"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,59 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/pipelines/2928235639"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"62c851e9170d5a523061dca2d9befdbd\"",
+      "ratelimit-limit": "500",
+      "ratelimit-remaining": "478",
+      "ratelimit-reset": "1791495900"
+    },
+    "body": {
+      "id": 2928235639,
+      "iid": 14953,
+      "project_id": 34675721,
+      "sha": "7b4f36348b668315fcf478e47a3cabd319c00c26",
+      "ref": "refs/merge-requests/4013/merge",
+      "status": "success",
+      "source": "merge_request_event",
+      "created_at": "2026-10-08T21:25:55.861Z",
+      "updated_at": "2026-10-08T21:38:52.802Z",
+      "web_url": "https://gitlab.com/gitlab-org/cli/-/pipelines/2928235639",
+      "before_sha": "7b4f36348b668315fcf478e47a3cabd319c00c26",
+      "tag": false,
+      "yaml_errors": null,
+      "user": {
+        "id": 27487407,
+        "username": "jeanvdw",
+        "public_email": "redacted@example.invalid",
+        "name": "Jean van der Walt",
+        "state": "active",
+        "locked": false,
+        "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/27487407/avatar.png?v=1791494440",
+        "web_url": "https://gitlab.com/jeanvdw"
+      },
+      "started_at": "2026-10-08T21:25:58.020Z",
+      "finished_at": "2026-10-08T21:38:52.790Z",
+      "committed_at": null,
+      "duration": 772,
+      "queued_duration": 2,
+      "coverage": "73.20",
+      "detailed_status": {
+        "icon": "status_success",
+        "text": "Passed",
+        "label": "passed",
+        "group": "success",
+        "tooltip": "passed",
+        "has_details": true,
+        "details_path": "/gitlab-org/cli/-/pipelines/2928235639",
+        "illustration": null,
+        "favicon": "/assets/ci_favicons/favicon_status_success-8451333011eee8ce9f2ab25dc487fe24a8758c694827a582f17f42b0a90446a2.png"
+      },
+      "archived": false,
+      "name": null
+    }
+  }
+}

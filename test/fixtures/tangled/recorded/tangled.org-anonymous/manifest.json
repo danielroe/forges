@@ -1,0 +1,52 @@
+{
+  "baseUrl": "https://tangled.org",
+  "anonymous": true,
+  "repo": {
+    "forge": "tangled",
+    "instance": "tangled.org",
+    "owner": "did:plc:wshs7t2adsemcrrd4snkeqli",
+    "name": "3ljbiayluee22"
+  },
+  "pull": {
+    "forge": "tangled",
+    "instance": "tangled.org",
+    "repo": {
+      "forge": "tangled",
+      "instance": "tangled.org",
+      "owner": "did:plc:wshs7t2adsemcrrd4snkeqli",
+      "name": "3ljbiayluee22"
+    },
+    "kind": "pull_request",
+    "typeRaw": "sh.tangled.repo.pull",
+    "number": "at://did:plc:laqygfbyvnkyuhsuaxmp6ez3/sh.tangled.repo.pull/3m7lfz7dl5z22",
+    "externalId": "at://did:plc:laqygfbyvnkyuhsuaxmp6ez3/sh.tangled.repo.pull/3m7lfz7dl5z22"
+  },
+  "issue": {
+    "forge": "tangled",
+    "instance": "tangled.org",
+    "repo": {
+      "forge": "tangled",
+      "instance": "tangled.org",
+      "owner": "did:plc:wshs7t2adsemcrrd4snkeqli",
+      "name": "3ljbiayluee22"
+    },
+    "kind": "issue",
+    "typeRaw": "sh.tangled.repo.issue",
+    "number": "at://did:plc:qfpnj4og54vl56wngdriaxug/sh.tangled.repo.issue/3ljnffy24un22",
+    "externalId": "at://did:plc:qfpnj4og54vl56wngdriaxug/sh.tangled.repo.issue/3ljnffy24un22"
+  },
+  "recordedAt": "2026-10-08T21:51:26.922Z",
+  "steps": [
+    "repo",
+    "pull",
+    "pull list",
+    "pull getMany",
+    "pull events",
+    "pull comments",
+    "issue",
+    "issue list",
+    "issue getMany",
+    "issue events",
+    "issue comments"
+  ]
+}

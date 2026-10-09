@@ -52,14 +52,14 @@
         "login": "balasankarc",
         "id": "4849",
         "name": "Balasankar 'Balu' C",
-        "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/4849/avatar.png?v=1791473379",
+        "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/4849/avatar.png?v=1791486579",
         "url": "https://gitlab.com/balasankarc",
         "isBotHint": false
       }
     ],
     "cursor": {
       "nextUrl": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/users?id=gitlab-org%2Fcli&page=2&per_page=3",
-      "etag": "W/\"e4d6d597bde4055f85ac2cd09f35aef4\""
+      "etag": "W/\"5a08c9f30e8638b49ce4872a4c47f34b\""
     },
     "rateLimit": {
       "limit": 500,
@@ -187,12 +187,12 @@
             "name": "cli"
           },
           "kind": "pull_request",
-          "number": "4040",
-          "externalId": "545153896"
+          "number": "4046",
+          "externalId": "545492848"
         },
         "kind": "pull_request",
-        "title": "fix(release): send asset links in the create release request",
-        "body": "## Description\n\nThis MR fixes gitlab-org/gitlab#574029. We have been \"handling\" it by manually editing and saving each release after it was created. It was quite inconvenient, so before adding a hacky stage to automate it we threw an agent at it to see how it could be properly fixed.\n\nThe main change is that instead of having the links get sent separately, they get sent in the create request. If the release already exists, it goes through the existing route.\n\n## Related Issues\nResolves gitlab-org/gitlab#574029 (it was closed without a fix)\n\nRelated to #7859 (feedback issue for the move from release-cli to glab)\n\n## How has this been tested?\n\n- Unit tests for `ToReleaseAssetsOptions`\n- Updated the create test with the new behavior\n- End-to-end manual test (not included):\n    - Our company's self-managed instance\n    - `release:` job with one link\n    - release-cli container image carrying this glab\n    - Replaced the used image with the patched one\n    - Running a tag release generated the expected effect",
+        "title": "chore(deps): update module gitlab.com/gitlab-org/api/client-go/v3 to v3.17.0",
+        "body": "This MR contains the following updates:\n\n| Package | Type | Update | Change |\n|---|---|---|---|\n| [gitlab.com/gitlab-org/api/client-go/v3](https://gitlab.com/gitlab-org/api/client-go) | require | minor | `v3.16.1` → `v3.17.0` |\n\nMR created with the help of [gitlab-org/frontend/renovate-gitlab-bot](https://gitlab.com/gitlab-org/frontend/renovate-gitlab-bot)\n\n---\n\n### Release Notes\n\n<details>\n<summary>gitlab-org/api/client-go (gitlab.com/gitlab-org/api/client-go/v3)</summary>\n\n### [`v3.17.0`](https://gitlab.com/gitlab-org/api/client-go/tags/v3.17.0)\n\n[Compare Source](https://gitlab.com/gitlab-org/api/client-go/compare/v3.16.2...v3.17.0)\n\n#### 3.17.0\n\n##### 🚀 Features\n\n- feat(settings): add missing rate limit fields to Settings ([!3071](https://gitlab.com/gitlab-org/api/client-go/-/merge_requests/3071)) by [Frederico Frazao](https://gitlab.com/fredfrazao)\n\n### [3.17.0](https://gitlab.com/gitlab-org/api/client-go/compare/v3.16.2...v3.17.0) (2026-10-08)\n##### Features\n\n* **settings:** add missing rate limit fields to Settings ([7f7e0af](https://gitlab.com/gitlab-org/api/client-go/commit/7f7e0afa04f85e2f0a8e73d40b43ca245f090e6c))\n\n### [`v3.16.2`](https://gitlab.com/gitlab-org/api/client-go/tags/v3.16.2)\n\n[Compare Source](https://gitlab.com/gitlab-org/api/client-go/compare/v3.16.1...v3.16.2)\n\n#### 3.16.2\n\n##### 🐛 Bug Fixes\n\n- fix(projects): correct deprecated field annotations ([!3080](https://gitlab.com/gitlab-org/api/client-go/-/merge_requests/3080)) by [Radek Antoniuk](https://gitlab.com/rantoniuk)\n\n##### 🔄 Other Changes\n\n- docs(integrations): fix dead Google Chat API doc links ([!3081](https://gitlab.com/gitlab-org/api/client-go/-/merge_requests/3081)) by [Anish Kumar](https://gitlab.com/anishisbusy)\n- chore(deps): update dependency golangci-lint to v2.14.0 ([!3072](https://gitlab.com/gitlab-org/api/client-go/-/merge_requests/3072)) by [GitLab Dependency Bot](https://gitlab.com/gitlab-dependency-update-bot)\n\n#### [3.16.2](https://gitlab.com/gitlab-org/api/client-go/compare/v3.16.1...v3.16.2) (2026-10-08)\n##### Bug Fixes\n\n* **projects:** correct deprecated field annotations ([3cf3a68](https://gitlab.com/gitlab-org/api/client-go/commit/3cf3a687b819b17c9be8b7a5203f799a3af8c5b5))\n\n</details>\n\n---\n\n### Configuration\n\n📅 **Schedule**: (UTC)\n\n- Branch creation\n  - At any time (no schedule defined)\n- Automerge\n  - At any time (no schedule defined)\n\n🚦 **Automerge**: Disabled by config. Please merge this manually once you are satisfied.\n\n♻ **Rebasing**: Whenever MR becomes conflicted, or you tick the rebase/retry checkbox.\n\n🔕 **Ignore**: Close this MR and you won't be reminded about this update again.\n\n---\n\n - [ ] <!-- rebase-check -->If you want to rebase/retry this MR, check this box\n\n---\n\nThis MR has been generated by [Mend Renovate CLI](https://github.com/renovatebot/renovate).\n<!--renovate-debug:eyJjcmVhdGVkSW5WZXIiOiI0NC4xMDEuMC1naXRsYWIiLCJ1cGRhdGVkSW5WZXIiOiI0NC4xMDEuMC1naXRsYWIiLCJ0YXJnZXRCcmFuY2giOiJtYWluIiwibGFiZWxzIjpbIkNhdGVnb3J5OkdpdExhYiBDTEkiLCJhdXRvbWF0aW9uOmJvdC1hdXRob3JlZCIsImRldm9wczo6Y3JlYXRlIiwiZ3JvdXA6OmNvZGUgcmV2aWV3IiwibWFpbnRlbmFuY2U6OmRlcGVuZGVuY3kiLCJzZWN0aW9uOjpkZXYiLCJ0eXBlOjptYWludGVuYW5jZSJdfQ==-->",
         "state": "open",
         "stateRaw": "opened",
         "isDraft": false,
@@ -200,11 +200,11 @@
           {
             "forge": "gitlab",
             "instance": "gitlab.com",
-            "login": "RabadanDotDev",
-            "id": "27526901",
-            "name": "Raul Rabadan Arroyo",
-            "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/27526901/avatar.png?v=1791456591",
-            "url": "https://gitlab.com/RabadanDotDev",
+            "login": "gitlab-dependency-update-bot",
+            "id": "8420142",
+            "name": "GitLab Dependency Bot",
+            "avatarUrl": "https://secure.gravatar.com/avatar/3d0463f813f54718127bf38acba616ef6bc5160fea8111c47dd4088fcacdb91a?s=80&d=identicon",
+            "url": "https://gitlab.com/gitlab-dependency-update-bot",
             "isBotHint": false
           }
         ],
@@ -213,24 +213,11 @@
             "actor": {
               "forge": "gitlab",
               "instance": "gitlab.com",
-              "login": "jay_mccure",
-              "id": "11809982",
-              "name": "Jay McCure",
-              "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1791444159",
-              "url": "https://gitlab.com/jay_mccure",
-              "isBotHint": false
-            },
-            "state": "unknown"
-          },
-          {
-            "actor": {
-              "forge": "gitlab",
-              "instance": "gitlab.com",
-              "login": "GitLabDuo",
-              "id": "21826781",
-              "name": "GitLab Duo",
-              "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/21826781/duo-bot.png?v=1781708173",
-              "url": "https://gitlab.com/GitLabDuo",
+              "login": "ahmed.hemdan",
+              "id": "11334402",
+              "name": "Ahmed Hemdan",
+              "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/11334402/avatar.png?v=1791492299",
+              "url": "https://gitlab.com/ahmed.hemdan",
               "isBotHint": false
             },
             "state": "unknown"
@@ -239,8 +226,8 @@
         "lastActivityAt": "<now>",
         "branches": {
           "head": {
-            "ref": "fix/release-create-links-in-create-request-upstream",
-            "sha": "a8fd0cf3e6c71f2f8ae78af866173f4eac3212e6"
+            "ref": "renovate/gitlab.com-gitlab-org-api-client-go-v3-3.x",
+            "sha": "9e934cea60d6a73669958df211331d855c793ef2"
           },
           "base": {
             "ref": "main"
@@ -249,16 +236,216 @@
         "author": {
           "forge": "gitlab",
           "instance": "gitlab.com",
-          "login": "RabadanDotDev",
-          "id": "27526901",
-          "name": "Raul Rabadan Arroyo",
-          "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/27526901/avatar.png?v=1791456591",
-          "url": "https://gitlab.com/RabadanDotDev",
+          "login": "gitlab-dependency-update-bot",
+          "id": "8420142",
+          "name": "GitLab Dependency Bot",
+          "avatarUrl": "https://secure.gravatar.com/avatar/3d0463f813f54718127bf38acba616ef6bc5160fea8111c47dd4088fcacdb91a?s=80&d=identicon",
+          "url": "https://gitlab.com/gitlab-dependency-update-bot",
           "typeRaw": "user",
           "isBotHint": false
         },
-        "url": "https://gitlab.com/gitlab-org/cli/-/merge_requests/4040",
-        "createdAt": "2026-10-08T11:30:25.375Z",
+        "url": "https://gitlab.com/gitlab-org/cli/-/merge_requests/4046",
+        "createdAt": "<now>",
+        "updatedAt": "<now>",
+        "labels": [
+          {
+            "name": "Category:GitLab CLI"
+          },
+          {
+            "name": "automation:bot-authored"
+          },
+          {
+            "name": "devops::create"
+          },
+          {
+            "name": "group::code review"
+          },
+          {
+            "name": "maintenance::dependency"
+          },
+          {
+            "name": "section::dev"
+          },
+          {
+            "name": "type::maintenance"
+          }
+        ],
+        "commentCount": 1,
+        "reactions": {
+          "total": 0,
+          "counts": {}
+        }
+      },
+      {
+        "ref": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "repo": {
+            "forge": "gitlab",
+            "instance": "gitlab.com",
+            "owner": "gitlab-org",
+            "name": "cli"
+          },
+          "kind": "pull_request",
+          "number": "4045",
+          "externalId": "545492126"
+        },
+        "kind": "pull_request",
+        "title": "chore(deps): bump golangci-lint to v2.14.0",
+        "body": "This MR contains the following updates:\n\n| Package | Update | Change |\n|---|---|---|\n| [golangci/golangci-lint](https://github.com/golangci/golangci-lint) | minor | `v2.13.1-alpine` → `v2.14.0-alpine` |\n\nMR created with the help of [gitlab-org/frontend/renovate-gitlab-bot](https://gitlab.com/gitlab-org/frontend/renovate-gitlab-bot)\n\n---\n\n### Release Notes\n\n<details>\n<summary>golangci/golangci-lint (golangci/golangci-lint)</summary>\n\n### [`v2.14.0`](https://github.com/golangci/golangci-lint/blob/HEAD/CHANGELOG.md#v2140)\n\n[Compare Source](https://github.com/golangci/golangci-lint/compare/v2.13.2...v2.14.0)\n\n*Released on 2026-09-24*\n\n1. Bug fixes\n   - fix: cache of facts reloading\n2. Linters new features or changes\n   - `bodyclose`: from [`73d1f95`](https://github.com/golangci/golangci-lint/commit/73d1f95b84b4) to [`857993a`](https://github.com/golangci/golangci-lint/commit/857993a2939c) (new directive `handled`)\n   - `exhaustive`: from 0.12.0 to 0.13.0\n   - `exhaustruct_v5`: from 5.0.3 to 5.2.0 (new option: `allow-empty-blank-assignments`)\n   - `go-check-sumtype`: from 0.3.1 to [`ae6904d`](https://github.com/golangci/golangci-lint/commit/ae6904d28606)\n   - `gocritic`: from 0.14.4 to 0.15.0\n   - `gofumpt`: from 0.11.0 to 0.12.0\n   - `gomoddirectives`: from 0.9.0 to 0.10.0\n   - `gosec`: from 2.28.0 to 2.29.0 (re-enable `G407`)\n   - `govet-modernize`: from 0.49.0 to 0.50.0\n   - `loggercheck`: from 0.11.0 to 0.12.0\n   - `revive`: from 1.15.0 to 1.17.0 (new rules: `marshal-receiver`, `multiline-if-init`, `use-slices-concat`)\n   - `tagliatelle`: from 0.7.2 to 0.8.0\n3. Linters bug fixes\n   - `fatcontext`: from 0.10.0 to 0.10.1\n   - `flock`: from 0.13.0 to 0.13.1\n   - `godoclint`: from 0.11.2 to 0.11.4\n   - `protogetter`: from 0.3.21 to 1.0.1\n   - `recvcheck`: from 0.3.0 to 0.3.1\n   - `tagalign`: from 1.4.3 to 1.4.4\n\n### [`v2.13.2`](https://github.com/golangci/golangci-lint/blob/HEAD/CHANGELOG.md#v2132)\n\n[Compare Source](https://github.com/golangci/golangci-lint/compare/v2.13.1...v2.13.2)\n\n*Released on 2026-08-28*\n\n1. Bug fixes\n   - Decrease cache entropy\n2. Linters bug fixes\n   - `iface`: from 1.5.0 to 1.5.1\n   - `staticcheck`: from 0.8.0 to 0.8.1\n   - `unparam`: from [`3f964bc`](https://github.com/golangci/golangci-lint/commit/3f964bcb5673) to [`2fa3d84`](https://github.com/golangci/golangci-lint/commit/2fa3d841b0c8)\n   - `canonicalheader`: from v1.1.2 to a temporary fork\n\n</details>\n\n---\n\n### Configuration\n\n📅 **Schedule**: (UTC)\n\n- Branch creation\n  - At any time (no schedule defined)\n- Automerge\n  - At any time (no schedule defined)\n\n🚦 **Automerge**: Disabled by config. Please merge this manually once you are satisfied.\n\n♻ **Rebasing**: Whenever MR becomes conflicted, or you tick the rebase/retry checkbox.\n\n🔕 **Ignore**: Close this MR and you won't be reminded about this update again.\n\n---\n\n - [ ] <!-- rebase-check -->If you want to rebase/retry this MR, check this box\n\n---\n\nThis MR has been generated by [Mend Renovate CLI](https://github.com/renovatebot/renovate).\n<!--renovate-debug:eyJjcmVhdGVkSW5WZXIiOiI0NC4xMDEuMC1naXRsYWIiLCJ1cGRhdGVkSW5WZXIiOiI0NC4xMDEuMC1naXRsYWIiLCJ0YXJnZXRCcmFuY2giOiJtYWluIiwibGFiZWxzIjpbIkNhdGVnb3J5OkdpdExhYiBDTEkiLCJhdXRvbWF0aW9uOmJvdC1hdXRob3JlZCIsImRldm9wczo6Y3JlYXRlIiwiZ3JvdXA6OmNvZGUgcmV2aWV3IiwibWFpbnRlbmFuY2U6OmRlcGVuZGVuY3kiLCJzZWN0aW9uOjpkZXYiLCJ0eXBlOjptYWludGVuYW5jZSJdfQ==-->",
+        "state": "open",
+        "stateRaw": "opened",
+        "isDraft": false,
+        "assignees": [
+          {
+            "forge": "gitlab",
+            "instance": "gitlab.com",
+            "login": "gitlab-dependency-update-bot",
+            "id": "8420142",
+            "name": "GitLab Dependency Bot",
+            "avatarUrl": "https://secure.gravatar.com/avatar/3d0463f813f54718127bf38acba616ef6bc5160fea8111c47dd4088fcacdb91a?s=80&d=identicon",
+            "url": "https://gitlab.com/gitlab-dependency-update-bot",
+            "isBotHint": false
+          }
+        ],
+        "reviewers": [
+          {
+            "actor": {
+              "forge": "gitlab",
+              "instance": "gitlab.com",
+              "login": "ahmed.hemdan",
+              "id": "11334402",
+              "name": "Ahmed Hemdan",
+              "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/11334402/avatar.png?v=1791492299",
+              "url": "https://gitlab.com/ahmed.hemdan",
+              "isBotHint": false
+            },
+            "state": "unknown"
+          }
+        ],
+        "lastActivityAt": "<now>",
+        "branches": {
+          "head": {
+            "ref": "renovate/golangci-lint-version",
+            "sha": "000c3dbfc4b4945fc233c6dc8a53733a84286f16"
+          },
+          "base": {
+            "ref": "main"
+          }
+        },
+        "author": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "login": "gitlab-dependency-update-bot",
+          "id": "8420142",
+          "name": "GitLab Dependency Bot",
+          "avatarUrl": "https://secure.gravatar.com/avatar/3d0463f813f54718127bf38acba616ef6bc5160fea8111c47dd4088fcacdb91a?s=80&d=identicon",
+          "url": "https://gitlab.com/gitlab-dependency-update-bot",
+          "typeRaw": "user",
+          "isBotHint": false
+        },
+        "url": "https://gitlab.com/gitlab-org/cli/-/merge_requests/4045",
+        "createdAt": "<now>",
+        "updatedAt": "<now>",
+        "labels": [
+          {
+            "name": "Category:GitLab CLI"
+          },
+          {
+            "name": "automation:bot-authored"
+          },
+          {
+            "name": "devops::create"
+          },
+          {
+            "name": "group::code review"
+          },
+          {
+            "name": "maintenance::dependency"
+          },
+          {
+            "name": "section::dev"
+          },
+          {
+            "name": "type::maintenance"
+          }
+        ],
+        "commentCount": 1,
+        "reactions": {
+          "total": 0,
+          "counts": {}
+        }
+      },
+      {
+        "ref": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "repo": {
+            "forge": "gitlab",
+            "instance": "gitlab.com",
+            "owner": "gitlab-org",
+            "name": "cli"
+          },
+          "kind": "pull_request",
+          "number": "4044",
+          "externalId": "545435700"
+        },
+        "kind": "pull_request",
+        "title": "fix(api): refuse redirects that turn a write into a GET",
+        "body": "## Description\n\nWhen a proxy in front of GitLab answers an `http` request with a redirect to `https`, `glab release create` fails with `cannot unmarshal array into Go value of type gitlab.Release`, which is the error in #8095. net/http follows a 301, 302 or 303 answer to a POST, PUT, PATCH or DELETE by sending a GET to the new location without the body, so the create reaches the list releases endpoint instead. An update is worse: the GET reaches the release itself, decodes into the expected type, and glab prints `Release updated` although nothing was changed.\n\nThis MR gives the HTTP client built in `internal/api/client.go` a `CheckRedirect` policy, in the new `internal/api/redirect.go`:\n\n- A redirect that keeps the method is followed as before: every redirect of a GET or HEAD, and a 307 or 308 of a write, which resends the body.\n- A redirect that would change the method is refused, with an error that names the status and the URL that redirected.\n- When that redirect moves the same host from `http` to `https`, the error also says to set `api_protocol` to `https`. In a CI job like the one in #8095 that is the `GLAB_API_PROTOCOL: https` variable, or, as the triage note says, an `external_url` with `https`, so that `CI_SERVER_PROTOCOL` is `https` too. With CI auto-login on (`GLAB_ENABLE_CI_AUTOLOGIN=true`), glab reads the protocol from `CI_SERVER_PROTOCOL` alone, so `GLAB_API_PROTOCOL` does not help there.\n- The limit of 10 redirects is kept, because setting `CheckRedirect` replaces the default policy that enforced it.\n\nEverything that shares this client gets the policy, for example: client-go, the OAuth2 login flows and token refresh, and `glab api`. GitLab's own redirects are not affected: it answers a write to a moved project with 405 rather than a redirect ([`lib/api/helpers.rb`](https://gitlab.com/gitlab-org/gitlab/-/blob/f46efbab1af9e65bfa5f7bbd9bb7fd3ecf323307/lib/api/helpers.rb#L184-187) in gitlab-org/gitlab), and when it forwards a package registry POST it uses 307 ([`lib/api/helpers/packages/dependency_proxy_helpers.rb`](https://gitlab.com/gitlab-org/gitlab/-/blob/f46efbab1af9e65bfa5f7bbd9bb7fd3ecf323307/lib/api/helpers/packages/dependency_proxy_helpers.rb#L23-24)), which keeps the method.\n\n<details>\n<summary>Before and after, with the built binary</summary>\n\nI built glab from `main` (8ae0c0ef5) and from this branch, and ran `glab release create v1.0.0 -R <host>/group/project --notes \"new notes\" --name v1.0.0` with `GLAB_API_PROTOCOL=http` against a stand-in GitLab on `https`, behind a stand-in proxy on `http` that answers every request with a 301 to `https`.\n\nThe release does not exist yet, so glab creates it.\n\n`main`, exit 1. After the proxy's 301, glab sent `GET .../releases` in place of the `POST`:\n\n```plaintext\nERROR\nJson: cannot unmarshal array into Go value of type gitlab.Release.\n```\n\nThis branch, exit 1, and the `POST` never reaches GitLab (the error as glab prints it, unwrapped):\n\n```plaintext\nPost \"https://127.0.0.1:34627/api/v4/projects/group%2Fproject/releases\": refusing to follow the 301 redirect from http://127.0.0.1:46093/api/v4/projects/group%2Fproject/releases, which would resend this POST request as a GET without its body; the server redirects http to https, so set api_protocol to https.\n```\n\nThe release exists, so glab updates it.\n\n`main`, exit 0, and GitLab received `GET .../releases/v1%2E0%2E0` in place of the `PUT`:\n\n```plaintext\n✓ Release updated\turl=https://example.invalid/r\n✓ Release succeeded after 0.00 seconds.\n```\n\nThis branch, exit 1:\n\n```plaintext\nPut \"https://127.0.0.1:41851/api/v4/projects/group%2Fproject/releases/v1%2E0%2E0\": refusing to follow the 301 redirect from http://127.0.0.1:35035/api/v4/projects/group%2Fproject/releases/v1%2E0%2E0, which would resend this PUT request as a GET without its body; the server redirects http to https, so set api_protocol to https.\n```\n\n</details>\n\n## Related Issues\n\nResolves #8095\n\nThe same failure was reported for `glab mr create` in #7728, closed for inactivity, and in gitlab-org/api/client-go#2094. `glab mr create` goes through the same client, so it gets the refusal too; client-go itself does not change here.\n\n## How has this been tested?\n\n`internal/api/redirect_test.go` drives the client `NewClient` builds against a real `httptest` server:\n\n- A create answered with 301 and an update answered with 302 are refused, and nothing reaches the redirect target. Both fail on `main`: the create with the error from #8095, the update with no error at all.\n- A GET answered with 301 is followed, and a create answered with 308 is followed with its body intact.\n- A redirect loop stops after 10 redirects.\n- The `api_protocol` hint appears for `http` to `https` on the same host, and not for another host or for a redirect that keeps the scheme. This test fails on `main` too.\n\nChecks I ran with Go 1.27.1:\n\n- `go test` on `internal/api/...`, `internal/oauth2/...`, `internal/commands/api/...`, `internal/commands/auth/...` and `internal/commands/release/...`, and `go test -race ./internal/api/...`\n- `make test`: 5515 tests, all passing apart from the 17 the suite skips\n- `golangci-lint run` with 2.14.0: no findings in the changed files\n- `go run ./scripts/comment-overlap -threshold 1.0 -max-findings 0 ./cmd/... ./internal/...`: 0 findings\n- `make build`, `make check-embed` and `make check-args`\n- the login line GitLab's release job runs (`glab auth login --job-token ... --api-protocol $CI_SERVER_PROTOCOL`) with `http`, against a stand-in GitLab that only speaks `https`: `glab api version` then used `http`, with `GLAB_API_PROTOCOL=https` it used `https`, and with `GLAB_API_PROTOCOL=https` under CI auto-login it still used `http`\n- commitlint with `scripts/commit-lint`'s rules on the commit message and on this title",
+        "state": "open",
+        "stateRaw": "opened",
+        "isDraft": false,
+        "assignees": [
+          {
+            "forge": "gitlab",
+            "instance": "gitlab.com",
+            "login": "jmrp",
+            "id": "15767218",
+            "name": "José M. Requena Plens",
+            "avatarUrl": "https://secure.gravatar.com/avatar/c5d10bf280469d6655142b8b82c29bf87dde9ccf0184ac928f0e9738b229ef49?s=80&d=identicon",
+            "url": "https://gitlab.com/jmrp",
+            "isBotHint": false
+          }
+        ],
+        "reviewers": [
+          {
+            "actor": {
+              "forge": "gitlab",
+              "instance": "gitlab.com",
+              "login": "missy-gitlab",
+              "id": "19601131",
+              "name": "Missy Davies",
+              "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/19601131/avatar.png?v=1791493676",
+              "url": "https://gitlab.com/missy-gitlab",
+              "isBotHint": false
+            },
+            "state": "unknown"
+          }
+        ],
+        "lastActivityAt": "<now>",
+        "branches": {
+          "head": {
+            "ref": "jmrp-refuse-method-changing-redirect",
+            "sha": "40b7431795757cd9e9945d46e96afbbea8b071c5"
+          },
+          "base": {
+            "ref": "main"
+          }
+        },
+        "author": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "login": "jmrp",
+          "id": "15767218",
+          "name": "José M. Requena Plens",
+          "avatarUrl": "https://secure.gravatar.com/avatar/c5d10bf280469d6655142b8b82c29bf87dde9ccf0184ac928f0e9738b229ef49?s=80&d=identicon",
+          "url": "https://gitlab.com/jmrp",
+          "typeRaw": "user",
+          "isBotHint": false
+        },
+        "url": "https://gitlab.com/gitlab-org/cli/-/merge_requests/4044",
+        "createdAt": "2026-10-08T19:38:18.010Z",
         "updatedAt": "<now>",
         "labels": [
           {
@@ -271,228 +458,7 @@
             "name": "Hackathon"
           },
           {
-            "name": "devops::ai coding"
-          },
-          {
-            "name": "group::code review"
-          },
-          {
             "name": "linked-issue"
-          },
-          {
-            "name": "section::ai"
-          },
-          {
-            "name": "type::maintenance"
-          },
-          {
-            "name": "workflow::ready for review"
-          }
-        ],
-        "commentCount": 8,
-        "reactions": {
-          "total": 0,
-          "counts": {}
-        }
-      },
-      {
-        "ref": {
-          "forge": "gitlab",
-          "instance": "gitlab.com",
-          "repo": {
-            "forge": "gitlab",
-            "instance": "gitlab.com",
-            "owner": "gitlab-org",
-            "name": "cli"
-          },
-          "kind": "pull_request",
-          "number": "4039",
-          "externalId": "544989175"
-        },
-        "kind": "pull_request",
-        "title": "ci: fetch docs review app tokens from group secrets",
-        "body": "Updates the docs review app jobs to fetch `DOCS_PROJECT_API_TOKEN` and `DOCS_TRIGGER_TOKEN` from the `gitlab-org` group Secrets Manager.\n\n- Related to https://gitlab.com/gitlab-org/gitlab/-/work_items/601780+\n- Related to https://gitlab.com/gitlab-org/technical-writing/docs-gitlab-com/-/work_items/783+\n\nSuccessful review app deployment: https://gitlab.com/gitlab-org/cli/-/jobs/17021636786\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)",
-        "state": "open",
-        "stateRaw": "opened",
-        "isDraft": false,
-        "assignees": [
-          {
-            "forge": "gitlab",
-            "instance": "gitlab.com",
-            "login": "marcel.amirault",
-            "id": "4155490",
-            "name": "Marcel Amirault",
-            "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/4155490/avatar.png?v=1791474708",
-            "url": "https://gitlab.com/marcel.amirault",
-            "isBotHint": false
-          }
-        ],
-        "reviewers": [
-          {
-            "actor": {
-              "forge": "gitlab",
-              "instance": "gitlab.com",
-              "login": "jay_mccure",
-              "id": "11809982",
-              "name": "Jay McCure",
-              "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1791444159",
-              "url": "https://gitlab.com/jay_mccure",
-              "isBotHint": false
-            },
-            "state": "unknown"
-          },
-          {
-            "actor": {
-              "forge": "gitlab",
-              "instance": "gitlab.com",
-              "login": "GitLabDuo",
-              "id": "21826781",
-              "name": "GitLab Duo",
-              "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/21826781/duo-bot.png?v=1781708173",
-              "url": "https://gitlab.com/GitLabDuo",
-              "isBotHint": false
-            },
-            "state": "unknown"
-          }
-        ],
-        "lastActivityAt": "2026-10-08T14:40:20.869Z",
-        "branches": {
-          "head": {
-            "ref": "docs-review-app-group-secrets",
-            "sha": "e5744837964583c704f00328e92496fb11dd9e30",
-            "repo": {
-              "forge": "gitlab",
-              "instance": "gitlab.com",
-              "owner": "gitlab-org",
-              "name": "cli"
-            }
-          },
-          "base": {
-            "ref": "main"
-          }
-        },
-        "author": {
-          "forge": "gitlab",
-          "instance": "gitlab.com",
-          "login": "marcel.amirault",
-          "id": "4155490",
-          "name": "Marcel Amirault",
-          "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/4155490/avatar.png?v=1791474708",
-          "url": "https://gitlab.com/marcel.amirault",
-          "typeRaw": "user",
-          "isBotHint": false
-        },
-        "url": "https://gitlab.com/gitlab-org/cli/-/merge_requests/4039",
-        "createdAt": "2026-10-08T06:45:11.363Z",
-        "updatedAt": "2026-10-08T14:40:20.869Z",
-        "labels": [
-          {
-            "name": "Technical Writing"
-          },
-          {
-            "name": "maintenance::pipelines"
-          },
-          {
-            "name": "type::maintenance"
-          }
-        ],
-        "commentCount": 2,
-        "milestone": {
-          "id": "7324669",
-          "title": "19.6",
-          "state": "open",
-          "description": "",
-          "dueOn": "2026-11-13T00:00:00.000Z",
-          "url": "https://gitlab.com/groups/gitlab-org/-/milestones/144"
-        },
-        "reactions": {
-          "total": 0,
-          "counts": {}
-        }
-      },
-      {
-        "ref": {
-          "forge": "gitlab",
-          "instance": "gitlab.com",
-          "repo": {
-            "forge": "gitlab",
-            "instance": "gitlab.com",
-            "owner": "gitlab-org",
-            "name": "cli"
-          },
-          "kind": "pull_request",
-          "number": "4038",
-          "externalId": "544928263"
-        },
-        "kind": "pull_request",
-        "title": "fix(repo): send topics instead of deprecated tag_list",
-        "body": "## Description\n\n`glab repo create --tag <value>` puts the values in `CreateProjectOptions.TagList`, which sends the\n`tag_list` API field. GitLab deprecated `tag_list` in 14.0 in favour of `topics`, and client-go marks\nthe field `Deprecated: Use Topics instead`. Because of that, `project_create.go` is one of the files\nlisted in the staticcheck `SA1019` exclusion in `.golangci.yml`, under the TODO\n\"drop these once the deprecated fields are migrated\".\n\nThis MR:\n\n- Sends the `--tag` values as `Topics` instead of `TagList`.\n- Removes `internal/commands/project/create/project_create` from that `SA1019` exclusion.\n- Changes the `--tag` help from \"The list of tags for the project.\" to \"The list of topics for the\n  project.\", which matches the GitLab UI and avoids confusion with Git tags. Docs regenerated with\n  `make gen-docs`.\n- Adds `Test_projectCreateCmd_TagsSentAsTopics`, which checks that `--tag go --tag cli` reaches the\n  API call as `Topics: [\"go\", \"cli\"]`.\n\nThere is no change for users: in GitLab, `Projects::CreateService#build_topics` uses\n`params[:topics] || params[:tag_list]`, so both fields end up in the same place. `topics` has been\naccepted since GitLab 14.0.\n\nThe flag name `--tag` / `-t` stays the same.\n\n## Related Issues\n\nNone found. Searched issues and MRs (all states) for \"TagList\", \"tag_list\", \"topics\",\n\"project topics\", \"repo create tag\", \"SA1019\", \"deprecated fields\".\n\n## How has this been tested?\n\n- `go run ./cmd/gen-docs/docs.go` (same as `make gen-docs`): only the `--tag` line in\n  `docs/source/repo/create.md` changed.\n- `go build ./...`\n- `go vet ./internal/commands/project/create/`\n- `go test ./internal/commands/project/create/` (all tests pass, including the new one).\n- `staticcheck ./internal/commands/project/create/` reports nothing now, so the exclusion is no\n  longer needed for this file.\n\nThis contribution was prepared with the help of an AI assistant. I reviewed the changes and take responsibility for them.",
-        "state": "open",
-        "stateRaw": "opened",
-        "isDraft": false,
-        "assignees": [
-          {
-            "forge": "gitlab",
-            "instance": "gitlab.com",
-            "login": "anishisbusy",
-            "id": "25337378",
-            "name": "Anish Kumar",
-            "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/25337378/avatar.png?v=1791473609",
-            "url": "https://gitlab.com/anishisbusy",
-            "isBotHint": false
-          }
-        ],
-        "reviewers": [
-          {
-            "actor": {
-              "forge": "gitlab",
-              "instance": "gitlab.com",
-              "login": "deepika.guliani",
-              "id": "11701495",
-              "name": "Deepika Guliani",
-              "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/11701495/avatar.png?v=1791431632",
-              "url": "https://gitlab.com/deepika.guliani",
-              "isBotHint": false
-            },
-            "state": "unknown"
-          }
-        ],
-        "lastActivityAt": "2026-10-08T13:31:28.060Z",
-        "branches": {
-          "head": {
-            "ref": "anishisbusy/repo-create-topics",
-            "sha": "b4feaccdd217d199ed18d15d3acd4447bbf677b3"
-          },
-          "base": {
-            "ref": "main"
-          }
-        },
-        "author": {
-          "forge": "gitlab",
-          "instance": "gitlab.com",
-          "login": "anishisbusy",
-          "id": "25337378",
-          "name": "Anish Kumar",
-          "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/25337378/avatar.png?v=1791473609",
-          "url": "https://gitlab.com/anishisbusy",
-          "typeRaw": "user",
-          "isBotHint": false
-        },
-        "url": "https://gitlab.com/gitlab-org/cli/-/merge_requests/4038",
-        "createdAt": "2026-10-08T03:23:57.896Z",
-        "updatedAt": "2026-10-08T13:31:28.060Z",
-        "labels": [
-          {
-            "name": "Community contribution"
-          },
-          {
-            "name": "Hackathon"
-          },
-          {
-            "name": "documentation"
-          },
-          {
-            "name": "tw::triaged"
           },
           {
             "name": "workflow::ready for review"
@@ -507,7 +473,7 @@
     ],
     "cursor": {
       "nextUrl": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/merge_requests?id=gitlab-org%2Fcli&order_by=created_at&page=2&per_page=3&sort=desc&state=opened&with_labels_details=false&with_merge_status_recheck=false",
-      "etag": "W/\"430a1bef199c4390941263158c62dab4\"",
+      "etag": "W/\"c19845f1012d9c90d645b3243db6a452\"",
       "token": "0:"
     },
     "rateLimit": {
@@ -1143,14 +1109,14 @@
         "login": "balasankarc",
         "id": "4849",
         "name": "Balasankar 'Balu' C",
-        "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/4849/avatar.png?v=1791473379",
+        "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/4849/avatar.png?v=1791486579",
         "url": "https://gitlab.com/balasankarc",
         "isBotHint": false
       }
     ],
     "cursor": {
       "nextUrl": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/users?id=gitlab-org%2Fcli&page=2&per_page=3",
-      "etag": "W/\"e4d6d597bde4055f85ac2cd09f35aef4\""
+      "etag": "W/\"5a08c9f30e8638b49ce4872a4c47f34b\""
     },
     "rateLimit": {
       "limit": 500,
@@ -1211,6 +1177,62 @@
   },
   "issue list": {
     "items": [
+      {
+        "ref": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "repo": {
+            "forge": "gitlab",
+            "instance": "gitlab.com",
+            "owner": "gitlab-org",
+            "name": "cli"
+          },
+          "kind": "issue",
+          "number": "8595",
+          "externalId": "205878365"
+        },
+        "kind": "issue",
+        "title": "`host` config key / GITLAB_HOST overrides repo remotes instead of acting as a fallback",
+        "body": "### Checklist\n\n- [x] I'm using the latest version of the extension (Run `glab --version`)\n  - Extension version: glab 1.120.0 (78790114c)\n  - Also reproduced from source at main (`glab DEV`)\n- [x] Operating system and version: Linux 7.2.8-200.fc44.x86_64 x86_64\n- [x] Gitlab.com or self-managed instance? _both_\n- [x] GitLab version (if self-managed) _v19.3.3_\n- [x] I have performed `glab auth status` to check for authentication issues\n- [x] Run the command in debug mode (like `GLAB_DEBUG=true glab mr list`) and attach any useful output\n\n### Summary\n\nThe top-level `host:` key in `config.yml` (or the `GITLAB_HOST` / `GITLAB_URI` / `GL_HOST` environment variables) is treated as an **override when inside a Git repository** instead of as a default for when no host can be resolved. When the key differs from the repo's remote host, glab filters the remotes down to the configured host and fails all repo-bound commands. The key is documented as \"Default GitLab instance, outside Git repositories\", so it should only apply when the remote (or a URL argument) doesn't determine the host.\n\n### Environment\n\n- OS: Linux 7.2.8-200.fc44.x86_64 x86_64\n- SHELL: /bin/bash\n- TERM: xterm-256color\n- GLAB: glab 1.120.0 (78790114c)\n\n### Steps to reproduce\n\nWith no network required (the failure happens before any API call):\n\n```sh\ngit init /tmp/repro && cd /tmp/repro\ngit remote add origin https://gitlab.com/gitlab-org/cli.git\nmkdir -p /tmp/cfg && cat > /tmp/cfg/config.yml <<'EOF'\ngit_protocol: https\nhost: gitlab.tuwien.ac.at\nhosts:\n  gitlab.tuwien.ac.at:\n    token: fake\n    api_protocol: https\n    git_protocol: https\nEOF\nchmod 600 /tmp/cfg/config.yml\nGLAB_CONFIG_DIR=/tmp/cfg glab issue list\n```\n\nSetting `host:` to anything other than `gitlab.com` (or setting `GITLAB_HOST`) triggers the filter in any repo whose remote points to a different instance.\n\n### What is the current _bug_ behavior?\n\n1. The command fails with `None of the git remotes configured for this repository correspond to the GITLAB_HOST environment variable` even when **no** environment variable is set and the value came from the `host:` key — the error message is misleading.\n2. With `-R OWNER/REPO` (no host in the argument), the request silently goes to the configured instance instead of the repo's remote host, targeting the wrong instance and token.\n\n### What is the expected _correct_ behavior?\n\n- Inside a Git repository, the remote (or a URL argument) determines the host; the `host:` key / `GITLAB_HOST` are only fallbacks when the host cannot be resolved (e.g. outside a repo).\n- The error message should say which source set the override (config key vs. env var).\n\n### Relevant logs and/or screenshots\n\n```\n$ GLAB_CONFIG_DIR=/tmp/cfg GLAB_DEBUG=true glab issue list\n2026/10/08 19:04:51 [Could not determine base repo in telemetry hook:  none of the git remotes\nconfigured for this repository correspond to the GITLAB_HOST environment variable. Try adding\na matching remote or unsetting the variable.\n\nGITLAB_HOST is currently set to gitlab.tuwien.ac.at\n\nConfigured remotes: gitlab.com]\n\n   ERROR\n\n  None of the git remotes configured for this repository correspond to the GITLAB_HOST\n  environment variable. Try adding a matching remote or unsetting the variable.\n\n  GITLAB_HOST is currently set to gitlab.tuwien.ac.at\n\n  Configured remotes: gitlab.com.\n```\n\n(Note: in the debug log line, the trailing `]` closes the `GLAB_DEBUG` log entry, which wraps the message in brackets; it is not part of the error text.)\n\n### Possible fixes\n\n- `internal/cmdutils/factory.go`: `defaultHostname` is set from `cfg.Get(\"\", \"host\")` before `BaseRepo()` resolves; `Remotes()` then sets `hostOverride` whenever the default differs from `gitlab.com` (\\~line 192).\n- `internal/cmdutils/remote_resolver.go`: the `hostOverride` block (\\~lines 103-127) drops all non-matching remotes, then errors out.\n- `RepoOverride` (`factory.go`) resolves `-R OWNER/REPO` against `defaultHostname` instead of the repo's remote host.\n- Note: `remote_resolver_test.go` (\\~line 428) locks in the current override behavior, so this needs a decision on intended semantics (env var as hard override vs. fallback), not just a test change.\n- Related: #8084 covers the URL-host case of the same host-resolution model.",
+        "state": "open",
+        "stateRaw": "opened",
+        "isDraft": false,
+        "assignees": [],
+        "reviewers": [],
+        "lastActivityAt": "2026-10-08T18:11:44.343Z",
+        "author": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "login": "ziegenberg",
+          "id": "156252",
+          "name": "Daniel Ziegenberg",
+          "avatarUrl": "https://secure.gravatar.com/avatar/6c9be80c9e1b23ec1c54f0f3e81bc4d58e034e2bf83b8a186b8f82aa347d564c?s=80&d=identicon",
+          "url": "https://gitlab.com/ziegenberg",
+          "isBotHint": false
+        },
+        "url": "https://gitlab.com/gitlab-org/cli/-/work_items/8595",
+        "createdAt": "2026-10-08T17:19:18.480Z",
+        "updatedAt": "2026-10-08T18:11:44.343Z",
+        "labels": [
+          {
+            "name": "automation:ml"
+          },
+          {
+            "name": "backend"
+          },
+          {
+            "name": "bug::functional"
+          },
+          {
+            "name": "type::bug"
+          }
+        ],
+        "commentCount": 1,
+        "reactions": {
+          "total": 0,
+          "counts": {}
+        }
+      },
       {
         "ref": {
           "forge": "gitlab",
@@ -1294,7 +1316,7 @@
             "login": "sjestonsingh",
             "id": "42048126",
             "name": "Jeston Singh",
-            "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/42048126/avatar.png?v=1791469043",
+            "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/42048126/avatar.png?v=1791489833",
             "url": "https://gitlab.com/sjestonsingh",
             "isBotHint": false
           }
@@ -1345,67 +1367,11 @@
           "total": 0,
           "counts": {}
         }
-      },
-      {
-        "ref": {
-          "forge": "gitlab",
-          "instance": "gitlab.com",
-          "repo": {
-            "forge": "gitlab",
-            "instance": "gitlab.com",
-            "owner": "gitlab-org",
-            "name": "cli"
-          },
-          "kind": "issue",
-          "number": "8589",
-          "externalId": "205664469"
-        },
-        "kind": "issue",
-        "title": "1.5 Show specific error messages in work-items-experimental",
-        "body": "Item 1.5 in the epic https://gitlab.com/groups/gitlab-org/-/work_items/23916\n\n## Problem\n\nItem 1.1 shows one generic message for any failed request. Users need to know what went wrong and what to do about it. The difficulty is that the REST API returns 404 for three different reasons, deliberately: the work item doesn't exist, the user can't see it, or the `work_item_rest_api` feature flag is off. Experimental endpoints return 404 rather than 403 while the flag is off, so glab can't tell those cases apart.\n\n## Scope\n\nA shared error helper for all `work-items-experimental` commands, as agreed on https://gitlab.com/gitlab-org/cli/-/work_items/8582 (decision 6):\n\n| Response | Message |\n|---|---|\n| 404 | Names the work item and project or group, and lists all three possible causes, including the feature flag. The PoC's `note get` already does this. |\n| 401 | Not authenticated: suggest `glab auth login` or checking the token. |\n| 403 | No permission. Mention that granular tokens may not cover every endpoint. |\n| 400 or 422 | Show the API's message, which explains the invalid input. |\n| Network errors | Unchanged from the rest of glab. |\n\n- Keep glab's existing exit codes. Don't add new ones.\n- Use the helper in `get` now, and in every later command.\n\n## Out of scope\n\n- Detecting whether the feature flag is on. The API gives no reliable signal. If the backend adds one, for example a distinct response or header, open a follow-up issue to use it.\n\n## Done when\n\n- [ ] `get` shows the messages above for each response type.\n- [ ] Tests cover 400, 401, 403, 404 and 422 responses.\n- [ ] The helper is shared, so later commands can use it.\n- [ ] The epic's shared checklist is met.\n\nSuggested weight: 2.\n\n<!-- implementation plan added during 2026-09 backlog triage -->\n\n## Implementation plan\n\n> **Note:** This plan was drafted during an AI-assisted triage of the backlog and has not been validated by a maintainer. Treat it as a starting point: file paths, line numbers, and the approach may need adjusting.\n\nDepends on !4010 (item 1.1, `work-items-experimental get`) landing first.\n\n1. Add a helper in a shared package under `internal/commands/workitemsexperimental/` (for example `utils/errors.go`), such as `func APIError(err error, what, scope string) error`. Use `errors.As(err, *gitlab.ErrorResponse)` to read `Response.StatusCode`, following `Is404` in `internal/api/client.go:540`.\n2. Map statuses: 404 names the work item and project or group and lists all three causes (missing, no access, `work_item_rest_api` flag off); 401 suggests `glab auth login` or checking the token; 403 says no permission and that granular tokens may not cover every endpoint; 400 and 422 surface the API's `Message`. Return any other error (including network errors) unchanged.\n3. Keep existing exit codes: wrap with `cmdutils.WrapError` (`internal/cmdutils/errors.go:76`) rather than adding new codes.\n4. Replace the single `fmt.Errorf` wrap after `GetWorkItem` (which currently applies the feature flag message to every error) in `internal/commands/workitemsexperimental/get/get.go` with the helper.\n5. Add table-driven tests for the helper (400, 401, 403, 404, 422, and a non-HTTP error), and extend `internal/commands/workitemsexperimental/get/get_test.go` with one case per status using the client-go mock.\n6. The command is hidden, so `make gen-docs` should produce no changes; run it to confirm.",
-        "state": "open",
-        "stateRaw": "opened",
-        "isDraft": false,
-        "assignees": [],
-        "reviewers": [],
-        "lastActivityAt": "2026-10-06T22:16:39.244Z",
-        "author": {
-          "forge": "gitlab",
-          "instance": "gitlab.com",
-          "login": "phil-wong",
-          "id": "42451371",
-          "name": "Phil Wong",
-          "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/42451371/avatar.png?v=1791437984",
-          "url": "https://gitlab.com/phil-wong",
-          "isBotHint": false
-        },
-        "url": "https://gitlab.com/gitlab-org/cli/-/work_items/8589",
-        "createdAt": "2026-10-06T21:38:41.777Z",
-        "updatedAt": "2026-10-06T22:16:39.244Z",
-        "labels": [
-          {
-            "name": "automation:ml"
-          },
-          {
-            "name": "automation:quick-win-judged"
-          },
-          {
-            "name": "feature::enhancement"
-          },
-          {
-            "name": "type::feature"
-          }
-        ],
-        "commentCount": 2,
-        "reactions": {
-          "total": 0,
-          "counts": {}
-        }
       }
     ],
     "cursor": {
       "nextUrl": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/issues?id=gitlab-org%2Fcli&order_by=created_at&page=2&per_page=3&sort=desc&state=opened&with_labels_details=false",
-      "etag": "W/\"8e6788712866ce615f814fe4f909f095\"",
+      "etag": "W/\"a5a370225bafe9f99ac5c9cf02e95c26\"",
       "token": "0:"
     },
     "rateLimit": {
@@ -1490,6 +1456,39 @@
       "resetAt": "<now>"
     }
   },
+  "commit thread": {
+    "ref": {
+      "forge": "gitlab",
+      "instance": "gitlab.com",
+      "repo": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "owner": "gitlab-org",
+        "name": "cli"
+      },
+      "kind": "commit",
+      "number": "37ea25e1cf97b7e40c6d862c45ab32cec0f10b99"
+    },
+    "kind": "commit",
+    "title": "chore(deps): bump golangci-lint to v2.14.0",
+    "body": "chore(deps): bump golangci-lint to v2.14.0\n",
+    "state": "unknown",
+    "isDraft": false,
+    "assignees": [],
+    "reviewers": [],
+    "url": "https://gitlab.com/gitlab-org/cli/-/commit/37ea25e1cf97b7e40c6d862c45ab32cec0f10b99",
+    "createdAt": "2026-10-01T13:13:33.000Z",
+    "lastActivityAt": "2026-10-01T13:13:33.000Z",
+    "labels": []
+  },
+  "commit comments": {
+    "items": [],
+    "rateLimit": {
+      "limit": 500,
+      "remaining": 482,
+      "resetAt": "<now>"
+    }
+  },
   "user": {
     "forge": "gitlab",
     "instance": "gitlab.com",
@@ -1512,16 +1511,16 @@
             "owner": "gitlab-org",
             "name": "cli"
           },
-          "id": "2927376976"
+          "id": "2928235639"
         },
         "name": "merge_request_event",
-        "state": "pending",
-        "stateRaw": "running",
-        "number": "14925",
+        "state": "success",
+        "stateRaw": "success",
+        "number": "14953",
         "eventRaw": "merge_request_event",
-        "branch": "refs/merge-requests/4001/merge",
-        "sha": "f0662f095afc0618007ad5d165426cd421a7e2ce",
-        "url": "https://gitlab.com/gitlab-org/cli/-/pipelines/2927376976",
+        "branch": "refs/merge-requests/4013/merge",
+        "sha": "7b4f36348b668315fcf478e47a3cabd319c00c26",
+        "url": "https://gitlab.com/gitlab-org/cli/-/pipelines/2928235639",
         "createdAt": "<now>"
       },
       {
@@ -1534,16 +1533,16 @@
             "owner": "gitlab-org",
             "name": "cli"
           },
-          "id": "2927334059"
+          "id": "2928220447"
         },
         "name": "duo_workflow",
         "state": "success",
         "stateRaw": "success",
-        "number": "14924",
+        "number": "14952",
         "eventRaw": "duo_workflow",
-        "branch": "refs/workloads/c4e06365b2d",
-        "sha": "6107cac63ef7f07032f277963374de2b15cdae1d",
-        "url": "https://gitlab.com/gitlab-org/cli/-/pipelines/2927334059",
+        "branch": "refs/workloads/12a9cf4878b",
+        "sha": "28ca71867a440c0aeef71db9b3ec64403ad19ed8",
+        "url": "https://gitlab.com/gitlab-org/cli/-/pipelines/2928220447",
         "createdAt": "<now>"
       },
       {
@@ -1556,26 +1555,26 @@
             "owner": "gitlab-org",
             "name": "cli"
           },
-          "id": "2927333747"
+          "id": "2928220246"
         },
         "name": "merge_request_event",
-        "state": "success",
-        "stateRaw": "success",
-        "number": "14923",
+        "state": "failure",
+        "stateRaw": "failed",
+        "number": "14951",
         "eventRaw": "merge_request_event",
-        "branch": "refs/merge-requests/4021/merge",
-        "sha": "5c7a0cfdbe12a8a33df16925752e69981f4277e6",
-        "url": "https://gitlab.com/gitlab-org/cli/-/pipelines/2927333747",
+        "branch": "refs/merge-requests/4013/merge",
+        "sha": "10c9fbb9df1ef2ab357311c8d66f8dedd0371bb9",
+        "url": "https://gitlab.com/gitlab-org/cli/-/pipelines/2928220246",
         "createdAt": "<now>"
       }
     ],
     "cursor": {
       "nextUrl": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/pipelines?id=gitlab-org%2Fcli&order_by=id&page=2&per_page=3&sort=desc",
-      "etag": "W/\"5e1e69f2d66a227a645c3ee80394f007\""
+      "etag": "W/\"010b0f962c16a07d52ceff852101cd43\""
     },
     "rateLimit": {
       "limit": 500,
-      "remaining": 481,
+      "remaining": 479,
       "resetAt": "<now>"
     }
   },
@@ -1589,28 +1588,29 @@
         "owner": "gitlab-org",
         "name": "cli"
       },
-      "id": "2927376976"
+      "id": "2928235639"
     },
     "name": "merge_request_event",
-    "state": "pending",
-    "stateRaw": "running",
-    "number": "14925",
+    "state": "success",
+    "stateRaw": "success",
+    "number": "14953",
     "eventRaw": "merge_request_event",
-    "branch": "refs/merge-requests/4001/merge",
-    "sha": "f0662f095afc0618007ad5d165426cd421a7e2ce",
-    "url": "https://gitlab.com/gitlab-org/cli/-/pipelines/2927376976",
+    "branch": "refs/merge-requests/4013/merge",
+    "sha": "7b4f36348b668315fcf478e47a3cabd319c00c26",
+    "url": "https://gitlab.com/gitlab-org/cli/-/pipelines/2928235639",
     "actor": {
       "forge": "gitlab",
       "instance": "gitlab.com",
-      "login": "phikai",
-      "id": "2935693",
-      "name": "Kai Armstrong",
-      "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/2935693/avatar.png?v=1791475756",
-      "url": "https://gitlab.com/phikai",
+      "login": "jeanvdw",
+      "id": "27487407",
+      "name": "Jean van der Walt",
+      "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/27487407/avatar.png?v=1791494440",
+      "url": "https://gitlab.com/jeanvdw",
       "isBotHint": false
     },
     "createdAt": "<now>",
-    "startedAt": "<now>"
+    "startedAt": "<now>",
+    "completedAt": "<now>"
   },
   "ci jobs": {
     "items": [
@@ -1624,7 +1624,7 @@
             "owner": "gitlab-org",
             "name": "cli"
           },
-          "id": "17037487739",
+          "id": "17044196344",
           "run": {
             "forge": "gitlab",
             "instance": "gitlab.com",
@@ -1634,14 +1634,14 @@
               "owner": "gitlab-org",
               "name": "cli"
             },
-            "id": "2927376976"
+            "id": "2928235639"
           }
         },
         "name": "review-docs-cleanup",
         "state": "neutral",
         "stateRaw": "manual",
         "stage": "review",
-        "url": "https://gitlab.com/gitlab-org/cli/-/jobs/17037487739"
+        "url": "https://gitlab.com/gitlab-org/cli/-/jobs/17044196344"
       },
       {
         "ref": {
@@ -1653,7 +1653,7 @@
             "owner": "gitlab-org",
             "name": "cli"
           },
-          "id": "17037487738",
+          "id": "17044196343",
           "run": {
             "forge": "gitlab",
             "instance": "gitlab.com",
@@ -1663,14 +1663,14 @@
               "owner": "gitlab-org",
               "name": "cli"
             },
-            "id": "2927376976"
+            "id": "2928235639"
           }
         },
         "name": "review-docs-deploy",
         "state": "neutral",
         "stateRaw": "manual",
         "stage": "review",
-        "url": "https://gitlab.com/gitlab-org/cli/-/jobs/17037487738"
+        "url": "https://gitlab.com/gitlab-org/cli/-/jobs/17044196343"
       },
       {
         "ref": {
@@ -1682,7 +1682,7 @@
             "owner": "gitlab-org",
             "name": "cli"
           },
-          "id": "17037487737",
+          "id": "17044196342",
           "run": {
             "forge": "gitlab",
             "instance": "gitlab.com",
@@ -1692,23 +1692,25 @@
               "owner": "gitlab-org",
               "name": "cli"
             },
-            "id": "2927376976"
+            "id": "2928235639"
           }
         },
         "name": "tests:coverage",
-        "state": "pending",
-        "stateRaw": "created",
+        "state": "success",
+        "stateRaw": "success",
         "stage": "test",
-        "url": "https://gitlab.com/gitlab-org/cli/-/jobs/17037487737"
+        "url": "https://gitlab.com/gitlab-org/cli/-/jobs/17044196342",
+        "startedAt": "<now>",
+        "completedAt": "<now>"
       }
     ],
     "cursor": {
-      "nextUrl": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/pipelines/2927376976/jobs?id=gitlab-org%2Fcli&include_retried=false&page=2&per_page=3&pipeline_id=2927376976",
-      "etag": "W/\"646c06139f231cf8ab125a175ca36ef6\""
+      "nextUrl": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/pipelines/2928235639/jobs?id=gitlab-org%2Fcli&include_retried=false&page=2&per_page=3&pipeline_id=2928235639",
+      "etag": "W/\"2c8edc4d8e56d3fc5bee92d77ec1a6b2\""
     },
     "rateLimit": {
       "limit": 500,
-      "remaining": 479,
+      "remaining": 477,
       "resetAt": "<now>"
     }
   },
@@ -1746,7 +1748,7 @@
     },
     "rateLimit": {
       "limit": 500,
-      "remaining": 476,
+      "remaining": 473,
       "resetAt": "<now>"
     }
   },
@@ -1780,7 +1782,7 @@
     },
     "rateLimit": {
       "limit": 500,
-      "remaining": 475,
+      "remaining": 472,
       "resetAt": "<now>"
     }
   },
@@ -1805,11 +1807,11 @@
     },
     "rateLimit": {
       "limit": 500,
-      "remaining": 474,
+      "remaining": 471,
       "resetAt": "<now>"
     }
   },
-  "resolve default branch": "8ae0c0ef5cf94d75354053095bbdc2ec7fefd96f",
+  "resolve default branch": "679b88d982d21f3e18c0eb9e4f7bcadb11ef1791",
   "commits": {
     "items": [
       {
@@ -1822,25 +1824,25 @@
             "owner": "gitlab-org",
             "name": "cli"
           },
-          "sha": "8ae0c0ef5cf94d75354053095bbdc2ec7fefd96f"
+          "sha": "679b88d982d21f3e18c0eb9e4f7bcadb11ef1791"
         },
-        "sha": "8ae0c0ef5cf94d75354053095bbdc2ec7fefd96f",
-        "message": "Merge branch 'docs/update-code-of-conduct-link' into 'main'\n\ndocs: update Code of Conduct link in README\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/3999\n\nMerged-by: Kai Armstrong <redacted@example.invalid>\nApproved-by: Kai Armstrong <redacted@example.invalid>\nCo-authored-by: Ahmed Anwar <redacted@example.invalid>",
+        "sha": "679b88d982d21f3e18c0eb9e4f7bcadb11ef1791",
+        "message": "Merge branch '8303-api-custom-placeholders' into 'main'\n\nfeat(api): support custom placeholder values\n\nCloses #8303\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4029\n\nMerged-by: Kai Armstrong <redacted@example.invalid>\nApproved-by: GitLab Duo <redacted@example.invalid>\nApproved-by: Dmitry Gruzd <redacted@example.invalid>\nApproved-by: Kai Armstrong <redacted@example.invalid>\nReviewed-by: Kai Armstrong <redacted@example.invalid>\nReviewed-by: Dmitry Gruzd <redacted@example.invalid>\nCo-authored-by: Radek Antoniuk <redacted@example.invalid>",
         "author": {
           "name": "Kai Armstrong",
           "email": "redacted@example.invalid",
-          "date": "2026-10-07T21:53:26.000Z"
+          "date": "2026-10-08T19:36:23.000Z"
         },
         "committer": {
           "name": "GitLab",
           "email": "redacted@example.invalid",
-          "date": "2026-10-07T21:53:26.000Z"
+          "date": "2026-10-08T19:36:23.000Z"
         },
         "parents": [
-          "2da6525661e7508e9a6990d4d3981f2d4e2b0ff5",
-          "c96c824fc26597ea5a27a3e5a0aad746f7a4baf9"
+          "4b92278fc1a467d97e5d3ca4955bb6a01252f1e8",
+          "daecf6fcc1c82d58f4352007356e5f6b8a3da365"
         ],
-        "url": "https://gitlab.com/gitlab-org/cli/-/commit/8ae0c0ef5cf94d75354053095bbdc2ec7fefd96f"
+        "url": "https://gitlab.com/gitlab-org/cli/-/commit/679b88d982d21f3e18c0eb9e4f7bcadb11ef1791"
       },
       {
         "ref": {
@@ -1852,25 +1854,24 @@
             "owner": "gitlab-org",
             "name": "cli"
           },
-          "sha": "2da6525661e7508e9a6990d4d3981f2d4e2b0ff5"
+          "sha": "daecf6fcc1c82d58f4352007356e5f6b8a3da365"
         },
-        "sha": "2da6525661e7508e9a6990d4d3981f2d4e2b0ff5",
-        "message": "Merge branch 'unstable-code/fix-iteration-list-total' into 'main'\n\nfix(iteration): show the real total in list header\n\nCloses #8591\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4015\n\nMerged-by: Kai Armstrong <redacted@example.invalid>\nApproved-by: Ravi Kumar <redacted@example.invalid>\nApproved-by: Kai Armstrong <redacted@example.invalid>\nCo-authored-by: unstable-code <redacted@example.invalid>",
+        "sha": "daecf6fcc1c82d58f4352007356e5f6b8a3da365",
+        "message": "feat(api): support custom placeholder values\n",
         "author": {
-          "name": "Kai Armstrong",
+          "name": "Radek Antoniuk",
           "email": "redacted@example.invalid",
-          "date": "2026-10-07T16:40:59.000Z"
+          "date": "2026-10-08T19:36:23.000Z"
         },
         "committer": {
           "name": "GitLab",
           "email": "redacted@example.invalid",
-          "date": "2026-10-07T16:40:59.000Z"
+          "date": "2026-10-08T19:36:23.000Z"
         },
         "parents": [
-          "41771b819e87c5ab6dac398403424cbaf16358c0",
-          "6acd6ea999916967b288fb5aae3fec93c25ba080"
+          "01934ad48a6757214bd8c73e2203fac03ff1a4d7"
         ],
-        "url": "https://gitlab.com/gitlab-org/cli/-/commit/2da6525661e7508e9a6990d4d3981f2d4e2b0ff5"
+        "url": "https://gitlab.com/gitlab-org/cli/-/commit/daecf6fcc1c82d58f4352007356e5f6b8a3da365"
       },
       {
         "ref": {
@@ -1882,33 +1883,34 @@
             "owner": "gitlab-org",
             "name": "cli"
           },
-          "sha": "6acd6ea999916967b288fb5aae3fec93c25ba080"
+          "sha": "4b92278fc1a467d97e5d3ca4955bb6a01252f1e8"
         },
-        "sha": "6acd6ea999916967b288fb5aae3fec93c25ba080",
-        "message": "fix(iteration): show the real total in list header\n",
+        "sha": "4b92278fc1a467d97e5d3ca4955bb6a01252f1e8",
+        "message": "Merge branch '8576-auth-status-json' into 'main'\n\nfeat(auth): add JSON output to auth status\n\nCloses #8576\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4028\n\nMerged-by: Kai Armstrong <redacted@example.invalid>\nApproved-by: GitLab Duo <redacted@example.invalid>\nApproved-by: Kai Armstrong <redacted@example.invalid>\nReviewed-by: Kai Armstrong <redacted@example.invalid>\nCo-authored-by: Radek Antoniuk <redacted@example.invalid>",
         "author": {
-          "name": "unstable-code",
+          "name": "Kai Armstrong",
           "email": "redacted@example.invalid",
-          "date": "2026-10-07T16:40:59.000Z"
+          "date": "2026-10-08T19:22:53.000Z"
         },
         "committer": {
           "name": "GitLab",
           "email": "redacted@example.invalid",
-          "date": "2026-10-07T16:40:59.000Z"
+          "date": "2026-10-08T19:22:53.000Z"
         },
         "parents": [
-          "48512c0d0e5242782451ff24a435f6bab07ad1d2"
+          "8c93a9f3aba575d7dd67181ef392badff83dd705",
+          "b479524ad74dcfc2c8c59bb8727ab249e7f0c424"
         ],
-        "url": "https://gitlab.com/gitlab-org/cli/-/commit/6acd6ea999916967b288fb5aae3fec93c25ba080"
+        "url": "https://gitlab.com/gitlab-org/cli/-/commit/4b92278fc1a467d97e5d3ca4955bb6a01252f1e8"
       }
     ],
     "cursor": {
       "nextUrl": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/repository/commits?id=gitlab-org%2Fcli&order=default&page=2&pagination=legacy&per_page=3&trailers=false",
-      "etag": "W/\"7188eba3dc943291e734ec4591b4b563\""
+      "etag": "W/\"1e4471c02ce8027c95fb5e4e1123c672\""
     },
     "rateLimit": {
       "limit": 500,
-      "remaining": 472,
+      "remaining": 469,
       "resetAt": "<now>"
     }
   },
@@ -2504,7 +2506,7 @@
     },
     "rateLimit": {
       "limit": 500,
-      "remaining": 468,
+      "remaining": 465,
       "resetAt": "<now>"
     }
   },
@@ -3055,6 +3057,144 @@
             "name": "cli"
           },
           "kind": "issue",
+          "number": "8095",
+          "externalId": "178818838"
+        },
+        "kind": "issue",
+        "title": "[Gitlab-ci] Release error in CI/CD",
+        "body": "<!---\nPlease read this!\n\nBefore opening a new issue, make sure to search for keywords in the issues\nfiltered by the \"bug\" label:\n\n- https://gitlab.com/gitlab-org/cli/-/issues/?label_name%5B%5D=type%3A%3Abug\n\nand verify the issue you're about to submit isn't a duplicate.\n--->\n\n### Checklist\n\n<!-- Please test the latest versions, that will remove the possibility that you see a bug that is fixed in a newer version. -->\n\n- [X] I'm using the latest version of the extension (Run `glab --version`)\n  - Extension version: _Put your extension version here_\n- [X] Operating system and version: Docker image `registry.gitlab.com/gitlab-org/cli:latest`\n- [X] Gitlab.com or self-managed instance? Self managed instance\n- [X] GitLab version (if self-managed) 18.6.2 (`gitlab/gitlab-ce:18.6.2-ce.0`)\n  (Use the `version` endpoint, like this: gitlab.my-company.com/api/v4/version) \n- [ ] I have performed `glab auth status` to check for authentication issues\n- [ ] Run the command in debug mode (like `DEBUG=true glab mr list`) and attach any useful output\n\n### Summary\n\n<!-- Summarize the bug encountered concisely -->\n\nI use the docker image at `registry.gitlab.com/gitlab-org/cli:latest` to run my release job, however I keep getting error.\n\n### Environment\n\nAs mentioned earlier, I'm running a self-hosted Gitlab Community Docker instance (`gitlab/gitlab-ce:18.6.2-ce.0`), using a runner with Docker executor (other jobs with docker run ok).\n\nMy Gitlab instance is behind a reverse proxy (using Nginx Proxy Manager) for both Gitlab and Gitlab registry (`gitlab.my-domain-name` and `registry.my-domain-name` respectively).\n\nHere is my omnibus config for gitlab:\n```yaml\n      GITLAB_OMNIBUS_CONFIG: |\n        registry_external_url \"${EXTERNAL_URL}\"\n        gitlab_rails['gitlab_shell_ssh_port'] = \"${HOST_SSH_PORT}\"\n        nginx['listen_port'] = \"${CONTAINER_HTTP_PORT}\"\n        nginx['listen_https'] = false\n        registry_nginx['listen_port'] = \"${CONTAINER_REGISTRY_PORT}\"\n        registry_nginx['listen_https'] = false\n        registry_nginx['proxy_http_version'] = 1.1\n        registry_nginx['proxy_set_headers'] = {\n          \"X-Forwarded-Proto\" => \"https\",\n          \"X-Forwarded-Ssl\" => \"on\"\n        }\n        gitlab_rails['smtp_enable'] = true\n        gitlab_rails['smtp_address'] = \"smtp.gmail.com\"\n        gitlab_rails['smtp_port'] = 587\n        gitlab_rails['smtp_user_name'] = \"${USERNAME}\"\n        gitlab_rails['smtp_password'] = \"${PASSWORD}\"\n        gitlab_rails['smtp_domain'] = \"smtp.gmail.com\"\n        gitlab_rails['smtp_authentication'] = \"login\"\n        gitlab_rails['smtp_enable_starttls_auto'] = true\n        gitlab_rails['smtp_tls'] = false\n        gitlab_rails['smtp_openssl_verify_mode'] = 'peer'\n```\n\n<details>\n<summary>\nThough I haven't done any particular config on my external Nginx, here is my setup\n</summary>\n![image](/uploads/c8fee8d1b8484e1d80c1aec1d9c4dc72/image.png){width=495 height=544}\n![image](/uploads/433185104faca004f375f32bdf65d5c3/image.png){width=395 height=600}\n![image](/uploads/bfe11a026aff29be66efd0be06afac8f/image.png){width=498 height=381}\n![image](/uploads/f827959e4d10e579878f463a6b81ad8e/image.png){width=498 height=599}\n</details>\n\n<!--\nPlease include any other information that you believe might be relevant\nin debugging. For example, you may include a shell framework like oh-my-zsh\nor other customizations like editing the prompt (PS1, PS2, and others).\n-->\n\n### Steps to reproduce\n\n<!-- How one can reproduce the issue - this is very important -->\n\nBoth build and package jobs run successfully, and package registry has the file. Here is my release job:\n\n```yaml\nrelease:\n  stage: release\n  image: registry.gitlab.com/gitlab-org/cli:latest\n  rules:\n    - if: ${CI_COMMIT_TAG}\n  script:\n    - echo \"Running the release job.\"\n  release:\n    tag_name: ${CI_COMMIT_TAG}\n    name: 'Release ${CI_COMMIT_TAG}'\n    description: \"Release ${CI_COMMIT_TAG} at ${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/generic/${PACKAGE_NAME}/${CI_COMMIT_TAG}/${PACKAGE_NAME}.exe\"\n```\nNote that I first ran with assets instead of linking the package in the description, but that fails as well.\n\n### What is the current _bug_ behavior?\n\nThe release job fails, no release created.\n\n### What is the expected _correct_ behavior?\n\nThe release job should be successful and the release is created.\n\n### Relevant logs and/or screenshots\n\nI got the following error:\n```\nExecuting \"step_script\" stage of the job script 00:00\nUsing docker image sha256:54b05805f30401108ba5c40adfb1f056e7733554874958c3cabfa219b69db8e7 for registry.gitlab.com/gitlab-org/cli:latest with digest registry.gitlab.com/gitlab-org/cli@sha256:3015164b5a7d16288d3ac7c48d6685e30071603b3b519a8fb3cc177ba22ef40f ...\n$ echo \"Running the release job.\"\nRunning the release job.\nExecuting \"step_release\" stage of the job script 00:02\n$ if command -v glab &> /dev/null; then # collapsed multi-line command\n• Creating or updating release repo=###/############# tag=########\n          \n   ERROR  \n          \n  Json: cannot unmarshal array into Go value of type gitlab.Release.                                                  \nCleaning up project directory and file based variables 00:01\nERROR: Job failed: exit code 1\n```\nI saw this behaviour similar to another issue in `release-cli`, but I don't know if it is related to my Nginx: https://gitlab.com/gitlab-org/release-cli/-/issues?sort=created_date&state=closed&search=cannot+unmarshal&first_page_size=20&show=eyJpaWQiOiIxMzYiLCJmdWxsX3BhdGgiOiJnaXRsYWItb3JnL3JlbGVhc2UtY2xpIiwiaWQiOjEwMDM4MzAzMX0%3D\n\nI can't seem to see any workaround on that issue, however. Using `release-cli` also creates a similar bug.\n\n### Possible fixes\n\n<!-- If you can, link to the line of code that might be responsible for the problem -->",
+        "state": "open",
+        "stateRaw": "opened",
+        "isDraft": false,
+        "assignees": [
+          {
+            "forge": "gitlab",
+            "instance": "gitlab.com",
+            "login": "jmrp",
+            "id": "15767218",
+            "name": "José M. Requena Plens",
+            "avatarUrl": "https://secure.gravatar.com/avatar/c5d10bf280469d6655142b8b82c29bf87dde9ccf0184ac928f0e9738b229ef49?s=80&d=identicon",
+            "url": "https://gitlab.com/jmrp",
+            "isBotHint": false
+          }
+        ],
+        "reviewers": [],
+        "lastActivityAt": "2026-10-08T19:35:39.702Z",
+        "author": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "login": "AFKBETO",
+          "id": "9804282",
+          "name": "Quang Viet NGUYEN",
+          "avatarUrl": "https://secure.gravatar.com/avatar/d8317778eae037e220d4df1f4cd6b8064b33b86cadd6b8d9da0856e418fb851a?s=80&d=identicon",
+          "url": "https://gitlab.com/AFKBETO",
+          "isBotHint": false
+        },
+        "url": "https://gitlab.com/gitlab-org/cli/-/work_items/8095",
+        "createdAt": "2025-12-16T15:23:13.089Z",
+        "updatedAt": "2026-10-08T19:35:39.702Z",
+        "labels": [
+          {
+            "name": "Category:Continuous Integration"
+          },
+          {
+            "name": "automation:ml"
+          },
+          {
+            "name": "backend"
+          },
+          {
+            "name": "bug::functional"
+          },
+          {
+            "name": "category:gitlab cli"
+          },
+          {
+            "name": "devops::ai coding"
+          },
+          {
+            "name": "group::code review"
+          },
+          {
+            "name": "section::ai"
+          },
+          {
+            "name": "type::bug"
+          }
+        ],
+        "commentCount": 5,
+        "reactions": {
+          "total": 0,
+          "counts": {}
+        }
+      },
+      {
+        "ref": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "repo": {
+            "forge": "gitlab",
+            "instance": "gitlab.com",
+            "owner": "gitlab-org",
+            "name": "cli"
+          },
+          "kind": "issue",
+          "number": "8595",
+          "externalId": "205878365"
+        },
+        "kind": "issue",
+        "title": "`host` config key / GITLAB_HOST overrides repo remotes instead of acting as a fallback",
+        "body": "### Checklist\n\n- [x] I'm using the latest version of the extension (Run `glab --version`)\n  - Extension version: glab 1.120.0 (78790114c)\n  - Also reproduced from source at main (`glab DEV`)\n- [x] Operating system and version: Linux 7.2.8-200.fc44.x86_64 x86_64\n- [x] Gitlab.com or self-managed instance? _both_\n- [x] GitLab version (if self-managed) _v19.3.3_\n- [x] I have performed `glab auth status` to check for authentication issues\n- [x] Run the command in debug mode (like `GLAB_DEBUG=true glab mr list`) and attach any useful output\n\n### Summary\n\nThe top-level `host:` key in `config.yml` (or the `GITLAB_HOST` / `GITLAB_URI` / `GL_HOST` environment variables) is treated as an **override when inside a Git repository** instead of as a default for when no host can be resolved. When the key differs from the repo's remote host, glab filters the remotes down to the configured host and fails all repo-bound commands. The key is documented as \"Default GitLab instance, outside Git repositories\", so it should only apply when the remote (or a URL argument) doesn't determine the host.\n\n### Environment\n\n- OS: Linux 7.2.8-200.fc44.x86_64 x86_64\n- SHELL: /bin/bash\n- TERM: xterm-256color\n- GLAB: glab 1.120.0 (78790114c)\n\n### Steps to reproduce\n\nWith no network required (the failure happens before any API call):\n\n```sh\ngit init /tmp/repro && cd /tmp/repro\ngit remote add origin https://gitlab.com/gitlab-org/cli.git\nmkdir -p /tmp/cfg && cat > /tmp/cfg/config.yml <<'EOF'\ngit_protocol: https\nhost: gitlab.tuwien.ac.at\nhosts:\n  gitlab.tuwien.ac.at:\n    token: fake\n    api_protocol: https\n    git_protocol: https\nEOF\nchmod 600 /tmp/cfg/config.yml\nGLAB_CONFIG_DIR=/tmp/cfg glab issue list\n```\n\nSetting `host:` to anything other than `gitlab.com` (or setting `GITLAB_HOST`) triggers the filter in any repo whose remote points to a different instance.\n\n### What is the current _bug_ behavior?\n\n1. The command fails with `None of the git remotes configured for this repository correspond to the GITLAB_HOST environment variable` even when **no** environment variable is set and the value came from the `host:` key — the error message is misleading.\n2. With `-R OWNER/REPO` (no host in the argument), the request silently goes to the configured instance instead of the repo's remote host, targeting the wrong instance and token.\n\n### What is the expected _correct_ behavior?\n\n- Inside a Git repository, the remote (or a URL argument) determines the host; the `host:` key / `GITLAB_HOST` are only fallbacks when the host cannot be resolved (e.g. outside a repo).\n- The error message should say which source set the override (config key vs. env var).\n\n### Relevant logs and/or screenshots\n\n```\n$ GLAB_CONFIG_DIR=/tmp/cfg GLAB_DEBUG=true glab issue list\n2026/10/08 19:04:51 [Could not determine base repo in telemetry hook:  none of the git remotes\nconfigured for this repository correspond to the GITLAB_HOST environment variable. Try adding\na matching remote or unsetting the variable.\n\nGITLAB_HOST is currently set to gitlab.tuwien.ac.at\n\nConfigured remotes: gitlab.com]\n\n   ERROR\n\n  None of the git remotes configured for this repository correspond to the GITLAB_HOST\n  environment variable. Try adding a matching remote or unsetting the variable.\n\n  GITLAB_HOST is currently set to gitlab.tuwien.ac.at\n\n  Configured remotes: gitlab.com.\n```\n\n(Note: in the debug log line, the trailing `]` closes the `GLAB_DEBUG` log entry, which wraps the message in brackets; it is not part of the error text.)\n\n### Possible fixes\n\n- `internal/cmdutils/factory.go`: `defaultHostname` is set from `cfg.Get(\"\", \"host\")` before `BaseRepo()` resolves; `Remotes()` then sets `hostOverride` whenever the default differs from `gitlab.com` (\\~line 192).\n- `internal/cmdutils/remote_resolver.go`: the `hostOverride` block (\\~lines 103-127) drops all non-matching remotes, then errors out.\n- `RepoOverride` (`factory.go`) resolves `-R OWNER/REPO` against `defaultHostname` instead of the repo's remote host.\n- Note: `remote_resolver_test.go` (\\~line 428) locks in the current override behavior, so this needs a decision on intended semantics (env var as hard override vs. fallback), not just a test change.\n- Related: #8084 covers the URL-host case of the same host-resolution model.",
+        "state": "open",
+        "stateRaw": "opened",
+        "isDraft": false,
+        "assignees": [],
+        "reviewers": [],
+        "lastActivityAt": "2026-10-08T18:11:44.343Z",
+        "author": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "login": "ziegenberg",
+          "id": "156252",
+          "name": "Daniel Ziegenberg",
+          "avatarUrl": "https://secure.gravatar.com/avatar/6c9be80c9e1b23ec1c54f0f3e81bc4d58e034e2bf83b8a186b8f82aa347d564c?s=80&d=identicon",
+          "url": "https://gitlab.com/ziegenberg",
+          "isBotHint": false
+        },
+        "url": "https://gitlab.com/gitlab-org/cli/-/work_items/8595",
+        "createdAt": "2026-10-08T17:19:18.480Z",
+        "updatedAt": "2026-10-08T18:11:44.343Z",
+        "labels": [
+          {
+            "name": "automation:ml"
+          },
+          {
+            "name": "backend"
+          },
+          {
+            "name": "bug::functional"
+          },
+          {
+            "name": "type::bug"
+          }
+        ],
+        "commentCount": 1,
+        "reactions": {
+          "total": 0,
+          "counts": {}
+        }
+      },
+      {
+        "ref": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "repo": {
+            "forge": "gitlab",
+            "instance": "gitlab.com",
+            "owner": "gitlab-org",
+            "name": "cli"
+          },
+          "kind": "issue",
           "number": "7943",
           "externalId": "171307244"
         },
@@ -3064,9 +3204,20 @@
         "state": "open",
         "stateRaw": "opened",
         "isDraft": false,
-        "assignees": [],
+        "assignees": [
+          {
+            "forge": "gitlab",
+            "instance": "gitlab.com",
+            "login": "jhahimanshu653",
+            "id": "39330700",
+            "name": "Himanshu Jha",
+            "avatarUrl": "https://secure.gravatar.com/avatar/7256804a9e07d4093a122ab52809413f75645caf9a676ecb9c6a5bd7cf8e3ba3?s=80&d=identicon",
+            "url": "https://gitlab.com/jhahimanshu653",
+            "isBotHint": false
+          }
+        ],
         "reviewers": [],
-        "lastActivityAt": "<now>",
+        "lastActivityAt": "2026-10-08T17:49:30.805Z",
         "author": {
           "forge": "gitlab",
           "instance": "gitlab.com",
@@ -3079,7 +3230,7 @@
         },
         "url": "https://gitlab.com/gitlab-org/cli/-/work_items/7943",
         "createdAt": "2025-07-30T13:42:40.813Z",
-        "updatedAt": "<now>",
+        "updatedAt": "2026-10-08T17:49:30.805Z",
         "labels": [
           {
             "name": "UI text"
@@ -3109,164 +3260,7 @@
             "name": "vintage"
           }
         ],
-        "commentCount": 4,
-        "reactions": {
-          "total": 0,
-          "counts": {}
-        }
-      },
-      {
-        "ref": {
-          "forge": "gitlab",
-          "instance": "gitlab.com",
-          "repo": {
-            "forge": "gitlab",
-            "instance": "gitlab.com",
-            "owner": "gitlab-org",
-            "name": "cli"
-          },
-          "kind": "issue",
-          "number": "8583",
-          "externalId": "205552991"
-        },
-        "kind": "issue",
-        "title": "Remove the experimental `glab mcp serve` command in favour of the GitLab MCP Server",
-        "body": "## Summary\n\nAs [requested in !3093](https://gitlab.com/gitlab-org/cli/-/merge_requests/3093#note_3944378084), deprecate, then remove, the experimental `glab mcp` command and its supporting code, and direct users to the [GitLab MCP Server](https://docs.gitlab.com/user/model_context_protocol/mcp_server/).\n\n## Why\n\n- **Two GitLab MCP servers confuse users.** Users compare the two and report tool counts from one against the other ([gitlab#588956](https://gitlab.com/gitlab-org/gitlab/-/work_items/588956)). The GitLab MCP Server is the documented, supported path.\n- **The original reason to use `glab mcp serve` is gone.** It was used to work around the GitLab MCP Server being Premium/Ultimate only. The GitLab MCP Server is now available on Free, Premium, and Ultimate, across GitLab.com, Self-Managed, and Dedicated ([gitlab-org&21183](https://gitlab.com/groups/gitlab-org/-/work_items/21183)), and is working towards GA ([gitlab-org&19117](https://gitlab.com/groups/gitlab-org/-/work_items/19117)).\n- **It was always meant to be temporary.** The original MR planned to \"swap this one out with the official server when it's ready\" ([!2361](https://gitlab.com/gitlab-org/cli/-/merge_requests/2361)).\n- **Agents with a shell don't need it.** Coding agents can run `glab` directly, using `--help` and `--output json`. The MCP wrapper re-exposes the same commands at a large context cost.\n- **It has a maintenance cost.** Every command carries MCP annotations (`internal/mcpannotations`, referenced from ~230 files), and the server has its own schema generation, flag handling, response capping, and an MCP SDK dependency.\n\nThe feature is marked experimental, so it can be removed under the [experiment support policy](https://docs.gitlab.com/policy/development_stages_support/).\n\nUsage metrics for `glab mcp serve` and per-tool MCP calls are posted in an internal comment on this issue.\n\n## Proposal\n\n**Timing:** deprecate when the GitLab MCP Server reaches GA ([gitlab-org&19117](https://gitlab.com/groups/gitlab-org/-/work_items/19117)), then remove one milestone later.\n\n1. **Deprecate, in the milestone the GitLab MCP Server reaches GA.** Set cobra's `Deprecated` on `glab mcp` and `glab mcp serve`, following the [deprecation message conventions](https://docs.gitlab.com/development/documentation/cli_styleguide/#deprecation-messages). The message says the command is scheduled to be removed and points to the GitLab MCP Server docs. `make gen-docs` removes the command's pages. Implemented in [!3998](https://gitlab.com/gitlab-org/cli/-/merge_requests/3998), to merge once the GitLab MCP Server is GA.\n2. **Remove, one milestone after deprecation.** Delete `internal/commands/mcp/`, the `invocation_source` telemetry property, and the `github.com/modelcontextprotocol/go-sdk` dependency. The command annotations stay, because read-only mode ([#8353](https://gitlab.com/gitlab-org/cli/-/work_items/8353)) will reuse the read/write classification. Implemented in [!4014](https://gitlab.com/gitlab-org/cli/-/merge_requests/4014).\n\n[!3093](https://gitlab.com/gitlab-org/cli/-/merge_requests/3093) is a proof of concept for step 2 and can be used as a starting point.\n\n## Open questions\n\n- **Local-only commands (answered from usage data).** Earlier discussion ([!2361](https://gitlab.com/gitlab-org/cli/-/merge_requests/2361)) suggested keeping a slimmed `glab mcp` for commands that only make sense locally, such as `glab cluster agent update-kubeconfig` and `glab opentofu init`. Usage data (see the internal comment) shows none of these commands were called through MCP. Agents that use them run `glab` from the shell instead, so we don't plan to keep a slimmed `glab mcp`.\n- **Rate limits.** The GitLab MCP Server [limits requests](https://docs.gitlab.com/user/model_context_protocol/mcp_server/) to 60 per minute on Free and 600 per minute per user on Premium and Ultimate. `glab mcp serve` falls under the standard API rate limits. Will heavy agent workloads, especially on Free, hit the GitLab MCP Server limits?\n- **Governance controls (answered).** `glab mcp serve` has no user-configurable controls. Tool exposure is fixed in code, and write tools only carry a `destructiveHint` for the client. The GitLab MCP Server already offers more: an instance or top-level group setting to allow access, per-client toolset selection, an `mcp` OAuth scope, and read/write tool annotations. Removing `glab mcp serve` doesn't take away any governance control.\n- **Release mechanics. (answered)** Removing an experimental command does not require a breaking-change. So the automated release will work as per normal.\n\n## Related issues to close or update\n\n- [#8147](https://gitlab.com/gitlab-org/cli/-/work_items/8147): serve Agent Skills via the MCP subcommand.\n- [#8058](https://gitlab.com/gitlab-org/cli/-/work_items/8058): filter tools on the MCP server.\n\n## Related\n\n- [gitlab#588956](https://gitlab.com/gitlab-org/gitlab/-/work_items/588956): GitLab MCP server vs Glab MCP server.\n- [gitlab-org&19117](https://gitlab.com/groups/gitlab-org/-/work_items/19117): GitLab MCP Server GA.\n- [!3093](https://gitlab.com/gitlab-org/cli/-/merge_requests/3093): draft removal PoC.",
-        "state": "open",
-        "stateRaw": "opened",
-        "isDraft": false,
-        "assignees": [
-          {
-            "forge": "gitlab",
-            "instance": "gitlab.com",
-            "login": "jay_mccure",
-            "id": "11809982",
-            "name": "Jay McCure",
-            "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1791444159",
-            "url": "https://gitlab.com/jay_mccure",
-            "isBotHint": false
-          }
-        ],
-        "reviewers": [],
-        "lastActivityAt": "2026-10-08T10:01:38.838Z",
-        "author": {
-          "forge": "gitlab",
-          "instance": "gitlab.com",
-          "login": "jay_mccure",
-          "id": "11809982",
-          "name": "Jay McCure",
-          "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1791444159",
-          "url": "https://gitlab.com/jay_mccure",
-          "isBotHint": false
-        },
-        "url": "https://gitlab.com/gitlab-org/cli/-/work_items/8583",
-        "createdAt": "2026-10-06T04:00:32.366Z",
-        "updatedAt": "2026-10-08T10:01:38.838Z",
-        "labels": [
-          {
-            "name": "automation:ml"
-          },
-          {
-            "name": "backend"
-          },
-          {
-            "name": "category:gitlab cli"
-          },
-          {
-            "name": "devops::ai clients"
-          },
-          {
-            "name": "maintenance::removal"
-          },
-          {
-            "name": "section::ai"
-          },
-          {
-            "name": "type::maintenance"
-          }
-        ],
-        "commentCount": 6,
-        "reactions": {
-          "total": 1,
-          "counts": {
-            "+1": 1
-          }
-        }
-      },
-      {
-        "ref": {
-          "forge": "gitlab",
-          "instance": "gitlab.com",
-          "repo": {
-            "forge": "gitlab",
-            "instance": "gitlab.com",
-            "owner": "gitlab-org",
-            "name": "cli"
-          },
-          "kind": "issue",
-          "number": "1270",
-          "externalId": "125083464"
-        },
-        "kind": "issue",
-        "title": "glab repo clone using a full URL authenticates to gitlab.com",
-        "body": "### Checklist\n\n<!-- Please test the latest versions, that will remove the possibility that you see a bug that is fixed in a newer version. -->\n\n- [X] I'm using the latest version of the extension (Run `glab --version`)\n- [X] Gitlab.com or self-managed instance? _both_\n- [X] I have performed `glab auth status` to check for authentication issues\n\n### Summary\n\n<!-- Summarize the bug encountered concisely -->\n\n### Steps to reproduce\n\nSet an incorrect/empty token for the gitlab.com host entry in `~/.config/glab-cli/config.yml`\nSet `host` to gitlab.com in `~/.config/glab-cli/config.yml` or remove `host` as it will default to gitlab.com\n\n\n`glab repo clone https://mygitlab.com/mygroup/myrepo`\n\n<!-- How one can reproduce the issue - this is very important -->\n\n### What is the current _bug_ behavior?\n`GET https://gitlab.com/api/v4/user: 401 {message: 401 Unauthorized}`\n<!-- What actually happens -->\n\n### What is the expected _correct_ behavior?\nrepo is cloned similar to:\n\n`GITLAB_HOST=mygitlab.com glab repo clone https://mygitlab.com/mygroup/myrepo`\n<!-- What you should see instead -->\n\n### Workaround\n\nSet `host` to your desired env in `~/.config/glab-cli/config.yml`\n\n<!-- If you can, link to the line of code that might be responsible for the problem -->",
-        "state": "open",
-        "stateRaw": "opened",
-        "isDraft": false,
-        "assignees": [
-          {
-            "forge": "gitlab",
-            "instance": "gitlab.com",
-            "login": "sjestonsingh",
-            "id": "42048126",
-            "name": "Jeston Singh",
-            "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/42048126/avatar.png?v=1791469043",
-            "url": "https://gitlab.com/sjestonsingh",
-            "isBotHint": false
-          }
-        ],
-        "reviewers": [],
-        "lastActivityAt": "2026-10-07T18:16:58.589Z",
-        "author": {
-          "forge": "gitlab",
-          "instance": "gitlab.com",
-          "login": "jay_mccure",
-          "id": "11809982",
-          "name": "Jay McCure",
-          "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1791444159",
-          "url": "https://gitlab.com/jay_mccure",
-          "isBotHint": false
-        },
-        "url": "https://gitlab.com/gitlab-org/cli/-/work_items/1270",
-        "createdAt": "2023-03-10T07:53:21.411Z",
-        "updatedAt": "2026-10-07T18:16:58.589Z",
-        "labels": [
-          {
-            "name": "category:gitlab cli"
-          },
-          {
-            "name": "cli"
-          },
-          {
-            "name": "devops::create"
-          },
-          {
-            "name": "group::code review"
-          },
-          {
-            "name": "section::dev"
-          },
-          {
-            "name": "severity::4"
-          },
-          {
-            "name": "type::bug"
-          },
-          {
-            "name": "vintage"
-          }
-        ],
-        "commentCount": 13,
+        "commentCount": 5,
         "reactions": {
           "total": 0,
           "counts": {}
@@ -3275,12 +3269,12 @@
     ],
     "cursor": {
       "nextUrl": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/issues?id=gitlab-org%2Fcli&in=title%2Cdescription&order_by=updated_at&page=2&per_page=3&search=fix&sort=desc&state=all&with_labels_details=false",
-      "etag": "W/\"9a04827fb3d47c86ece8573ed64bb3af\"",
+      "etag": "W/\"22bd7b6b7a3ecb9488e0ad7a3b3724ab\"",
       "token": "0:"
     },
     "rateLimit": {
       "limit": 500,
-      "remaining": 464,
+      "remaining": 461,
       "resetAt": "<now>"
     }
   },
@@ -3290,9 +3284,9 @@
         "ref": {
           "forge": "gitlab",
           "instance": "gitlab.com",
-          "owner": "bsrvdental",
-          "name": "dentalclinicinscarborough",
-          "externalId": "87397304"
+          "owner": "linkfast/oss",
+          "name": "exengine-cli",
+          "externalId": "87407341"
         },
         "defaultBranch": "main",
         "visibility": "public",
@@ -3300,13 +3294,13 @@
         "isFork": false,
         "isArchived": false,
         "topics": [],
-        "url": "https://gitlab.com/bsrvdental/dentalclinicinscarborough",
+        "url": "https://gitlab.com/linkfast/oss/exengine-cli",
         "cloneUrls": {
-          "https": "https://gitlab.com/bsrvdental/dentalclinicinscarborough.git",
-          "ssh": "git@gitlab.com:bsrvdental/dentalclinicinscarborough.git"
+          "https": "https://gitlab.com/linkfast/oss/exengine-cli.git",
+          "ssh": "git@gitlab.com:linkfast/oss/exengine-cli.git"
         },
-        "createdAt": "<now>",
-        "updatedAt": "<now>",
+        "createdAt": "2026-10-08T20:43:55.840Z",
+        "updatedAt": "2026-10-08T20:43:55.760Z",
         "stars": 0,
         "forks": 0
       },
@@ -3314,23 +3308,35 @@
         "ref": {
           "forge": "gitlab",
           "instance": "gitlab.com",
-          "owner": "marmota",
-          "name": "poweramp-radio-cli",
-          "externalId": "87397109"
+          "owner": "zaccesss",
+          "name": "linux-bootstrap",
+          "externalId": "87406095"
         },
+        "description": "One-command Ubuntu 24.04 and 26.04 development setup for ARM64 and x86_64 desktops, WSL2, servers and VMs: toolchains, embedded and cloud tools, CLI tools and optional dotfiles.",
         "defaultBranch": "main",
         "visibility": "public",
         "visibilityRaw": "public",
         "isFork": false,
         "isArchived": false,
-        "topics": [],
-        "url": "https://gitlab.com/marmota/poweramp-radio-cli",
+        "topics": [
+          "ARM64",
+          "WSL2",
+          "bootstrap",
+          "development-environment",
+          "devops",
+          "dual-boot",
+          "embedded-systems",
+          "linux",
+          "ubuntu",
+          "x86-64"
+        ],
+        "url": "https://gitlab.com/zaccesss/linux-bootstrap",
         "cloneUrls": {
-          "https": "https://gitlab.com/marmota/poweramp-radio-cli.git",
-          "ssh": "git@gitlab.com:marmota/poweramp-radio-cli.git"
+          "https": "https://gitlab.com/zaccesss/linux-bootstrap.git",
+          "ssh": "git@gitlab.com:zaccesss/linux-bootstrap.git"
         },
-        "createdAt": "<now>",
-        "updatedAt": "<now>",
+        "createdAt": "2026-10-08T20:14:32.455Z",
+        "updatedAt": "2026-10-08T20:14:34.525Z",
         "stars": 0,
         "forks": 0
       },
@@ -3338,35 +3344,34 @@
         "ref": {
           "forge": "gitlab",
           "instance": "gitlab.com",
-          "owner": "KotlinJS5",
-          "name": "pulsestream",
-          "externalId": "87396069"
+          "owner": "dsakk4450",
+          "name": "sketchclip",
+          "externalId": "87404274"
         },
-        "description": "Pulse Stream — open-source Android streaming app: Stremio-addon client with built-in ExoPlayer, Material 3 dark UI.",
         "defaultBranch": "main",
         "visibility": "public",
         "visibilityRaw": "public",
         "isFork": false,
         "isArchived": false,
         "topics": [],
-        "url": "https://gitlab.com/KotlinJS5/pulsestream",
+        "url": "https://gitlab.com/dsakk4450/sketchclip",
         "cloneUrls": {
-          "https": "https://gitlab.com/KotlinJS5/pulsestream.git",
-          "ssh": "git@gitlab.com:KotlinJS5/pulsestream.git"
+          "https": "https://gitlab.com/dsakk4450/sketchclip.git",
+          "ssh": "git@gitlab.com:dsakk4450/sketchclip.git"
         },
-        "createdAt": "2026-10-08T15:29:04.588Z",
-        "updatedAt": "<now>",
+        "createdAt": "2026-10-08T19:15:54.707Z",
+        "updatedAt": "2026-10-08T19:15:54.602Z",
         "stars": 0,
         "forks": 0
       }
     ],
     "cursor": {
       "nextUrl": "https://gitlab.com/api/v4/projects?imported=false&include_hidden=false&membership=false&order_by=created_at&owned=false&page=2&per_page=3&repository_checksum_failed=false&search=cli&simple=false&sort=desc&starred=false&statistics=false&wiki_checksum_failed=false&with_custom_attributes=false&with_issues_enabled=false&with_merge_requests_enabled=false",
-      "etag": "W/\"28bb5ae0cd401d0dd7b9f6ea6f23c27d\""
+      "etag": "W/\"2a60628b1ce1c8f469fa7ba6f0e39bef\""
     },
     "rateLimit": {
       "limit": 500,
-      "remaining": 463,
+      "remaining": 460,
       "resetAt": "<now>"
     }
   }

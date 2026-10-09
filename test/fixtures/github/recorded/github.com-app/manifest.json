@@ -1,0 +1,133 @@
+{
+  "baseUrl": "https://api.github.com",
+  "repo": {
+    "forge": "github",
+    "instance": "github.com",
+    "owner": "h3js",
+    "name": "h3"
+  },
+  "pull": {
+    "forge": "github",
+    "instance": "github.com",
+    "repo": {
+      "forge": "github",
+      "instance": "github.com",
+      "owner": "h3js",
+      "name": "h3"
+    },
+    "kind": "pull_request",
+    "number": "1000"
+  },
+  "issue": {
+    "forge": "github",
+    "instance": "github.com",
+    "repo": {
+      "forge": "github",
+      "instance": "github.com",
+      "owner": "h3js",
+      "name": "h3"
+    },
+    "kind": "issue",
+    "number": "1558"
+  },
+  "discussion": {
+    "forge": "github",
+    "instance": "github.com",
+    "repo": {
+      "forge": "github",
+      "instance": "github.com",
+      "owner": "nuxt",
+      "name": "nuxt"
+    },
+    "kind": "discussion",
+    "number": "9303"
+  },
+  "installation": "169572689",
+  "scratch": {
+    "forge": "github",
+    "instance": "github.com",
+    "owner": "forges-fixtures",
+    "name": "forges-fixtures"
+  },
+  "alerts": {
+    "forge": "github",
+    "instance": "github.com",
+    "owner": "forges-fixtures",
+    "name": "forges-fixtures"
+  },
+  "transfer": {
+    "forge": "github",
+    "instance": "github.com",
+    "owner": "forges-fixtures",
+    "name": "forges-fixtures-transfer"
+  },
+  "recordedAt": "2026-10-09T13:14:15.987Z",
+  "steps": [
+    "repo",
+    "labels",
+    "milestones",
+    "collaborators",
+    "assignable users",
+    "pull",
+    "pull list",
+    "pull getMany",
+    "pull events",
+    "pull comments",
+    "pull reactions",
+    "pull subscription",
+    "pull reviews",
+    "pull checks",
+    "pull files",
+    "pull commits",
+    "issue",
+    "issue list",
+    "issue getMany",
+    "issue events",
+    "issue comments",
+    "issue reactions",
+    "issue subscription",
+    "discussion",
+    "discussion list",
+    "discussion getMany",
+    "discussion events",
+    "discussion comments",
+    "discussion reactions",
+    "discussion subscription",
+    "commit thread",
+    "commit events",
+    "commit comments",
+    "permission",
+    "user",
+    "own repos",
+    "installations",
+    "installation",
+    "installation repos",
+    "installation token",
+    "checks",
+    "ci runs",
+    "ci run",
+    "ci jobs",
+    "ci log",
+    "readme",
+    "tree",
+    "branches",
+    "tags",
+    "resolve default branch",
+    "commits",
+    "commit",
+    "compare",
+    "releases",
+    "latest release",
+    "release",
+    "release by tag",
+    "release asset",
+    "search threads",
+    "search repos",
+    "search commits",
+    "webhooks",
+    "webhook deliveries",
+    "dependency alerts",
+    "code scanning alerts",
+    "secret alerts"
+  ]
+}

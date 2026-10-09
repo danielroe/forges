@@ -1,0 +1,54 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://dev.azure.com/forges/forges-fixtures/_apis/wit/wiql?api-version=7.1"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "queryType": "flat",
+      "queryResultType": "workItem",
+      "asOf": "2026-10-09T13:52:33.403Z",
+      "columns": [
+        {
+          "referenceName": "System.Id",
+          "name": "ID",
+          "url": "https://dev.azure.com/forges/_apis/wit/fields/System.Id"
+        }
+      ],
+      "sortColumns": [
+        {
+          "field": {
+            "referenceName": "System.ChangedDate",
+            "name": "Changed Date",
+            "url": "https://dev.azure.com/forges/_apis/wit/fields/System.ChangedDate"
+          },
+          "descending": true
+        }
+      ],
+      "workItems": [
+        {
+          "id": 4,
+          "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/wit/workItems/4"
+        },
+        {
+          "id": 5,
+          "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/wit/workItems/5"
+        },
+        {
+          "id": 2,
+          "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/wit/workItems/2"
+        },
+        {
+          "id": 3,
+          "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/wit/workItems/3"
+        },
+        {
+          "id": 1,
+          "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/wit/workItems/1"
+        }
+      ]
+    }
+  }
+}

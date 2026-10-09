@@ -6,25 +6,192 @@
     "variables": {
       "o0": "h3js",
       "n0": "h3",
-      "k0": 1575,
+      "k0": 1576,
       "o1": "h3js",
       "n1": "h3",
-      "k1": 1557,
+      "k1": 1575,
       "o2": "h3js",
       "n2": "h3",
-      "k2": 1502
+      "k2": 1557
     }
   },
   "response": {
     "status": 200,
     "headers": {
       "x-ratelimit-limit": "5000",
-      "x-ratelimit-remaining": "4835",
-      "x-ratelimit-reset": "1791488075"
+      "x-ratelimit-remaining": "4784",
+      "x-ratelimit-reset": "1791553060"
     },
     "body": {
       "data": {
         "t0": {
+          "issueOrPullRequest": {
+            "__typename": "PullRequest",
+            "id": "PR_kwDOErHI988AAAABHeLZ7g",
+            "number": 1576,
+            "title": "fix(tracing): mount nested apps passed to `use()`",
+            "body": "`tracingPlugin` breaks mounting nested apps with `use()`. The plugin's `use()` override wraps its argument with `wrapMiddleware()` before the original `use()` gets to inspect it. `use()` dispatches non-function inputs (an H3 app or any other mountable object) to `mount()` — but after the wrapper, the input is a function, so:\n\n- the nested app is never mounted: its routes silently 404,\n- a middleware that calls the wrapped app as a function is registered instead, so hitting the base path exactly (e.g. `/api`) throws a `TypeError` (500).\n\n`use(route, handler: Middleware | H3, opts?)` is a public documented signature, and the plugin's `mount()` override already propagates tracing to mounted apps — so `app.use(\"/api\", app2)` should behave exactly like `app.mount(\"/api\", app2)`. The existing tracing tests cover `.mount()` and function middlewares but never the mountable `use()` shape, which is how this slipped through.\n\nThe fix passes non-function inputs through to the original `use()` unwrapped, in both call shapes. The `mount()` override then takes over and the nested app is traced like any other mount.\n\nTests: new regression test `mounts a nested app passed to `use()`\"` mounts a nested app with `t.app.use(\"/api\", nestedApp)` on the tracing-enabled matrix app and asserts the route responds 200 with the right body and shows up in the traced route events. It fails on `main` (404) and passes with this change. `test/tracing.test.ts` is 54/54 on both web and node targets; `tsc --noEmit`, `oxlint` and `oxfmt --check` are clean. Full suite: 3 failures (`test/utils.test.ts`, `test/unit/event.test.ts`, `test/unit/route-normalize.test.ts`) — all three also fail on unmodified `main`, unrelated to this change.\n\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n\n## Summary by CodeRabbit\n\n* **Bug Fixes**\n  * Nested H3 apps mounted with `use()` now remain mountable, and tracing events include the mounted route’s full path.\n\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
+            "state": "OPEN",
+            "isDraft": false,
+            "createdAt": "2026-10-09T05:25:13Z",
+            "updatedAt": "2026-10-09T05:26:53Z",
+            "closedAt": null,
+            "mergedAt": null,
+            "url": "https://github.com/h3js/h3/pull/1576",
+            "locked": false,
+            "author": {
+              "__typename": "User",
+              "login": "Mihir-Rabari",
+              "avatarUrl": "https://avatars.githubusercontent.com/u/169349389?v=4",
+              "url": "https://github.com/Mihir-Rabari",
+              "databaseId": 169349389,
+              "name": "Rabari Mihir"
+            },
+            "assignees": {
+              "nodes": []
+            },
+            "labels": {
+              "nodes": []
+            },
+            "comments": {
+              "totalCount": 1
+            },
+            "participants": {
+              "nodes": [
+                {
+                  "__typename": "User",
+                  "login": "Mihir-Rabari",
+                  "avatarUrl": "https://avatars.githubusercontent.com/u/169349389?v=4",
+                  "url": "https://github.com/Mihir-Rabari",
+                  "databaseId": 169349389,
+                  "name": "Rabari Mihir"
+                }
+              ]
+            },
+            "milestone": null,
+            "viewerSubscription": "UNSUBSCRIBED",
+            "headRefName": "fix/tracing-use-mount",
+            "headRefOid": "0a4b48c7a55f6f8432d719c537dfac0791215c9e",
+            "baseRefName": "main",
+            "baseRefOid": "66cfb8a357b6285451bad498c2c40002601fae98",
+            "headRepository": {
+              "databaseId": 1411306210,
+              "name": "h3",
+              "owner": {
+                "login": "Mihir-Rabari"
+              }
+            },
+            "mergeCommit": null,
+            "commits": {
+              "nodes": [
+                {
+                  "commit": {
+                    "statusCheckRollup": {
+                      "state": "SUCCESS",
+                      "contexts": {
+                        "totalCount": 3,
+                        "checkRunCountsByState": [
+                          {
+                            "state": "ACTION_REQUIRED",
+                            "count": 0
+                          },
+                          {
+                            "state": "CANCELLED",
+                            "count": 0
+                          },
+                          {
+                            "state": "COMPLETED",
+                            "count": 0
+                          },
+                          {
+                            "state": "FAILURE",
+                            "count": 0
+                          },
+                          {
+                            "state": "IN_PROGRESS",
+                            "count": 0
+                          },
+                          {
+                            "state": "NEUTRAL",
+                            "count": 0
+                          },
+                          {
+                            "state": "PENDING",
+                            "count": 0
+                          },
+                          {
+                            "state": "QUEUED",
+                            "count": 0
+                          },
+                          {
+                            "state": "SKIPPED",
+                            "count": 0
+                          },
+                          {
+                            "state": "STALE",
+                            "count": 0
+                          },
+                          {
+                            "state": "STARTUP_FAILURE",
+                            "count": 0
+                          },
+                          {
+                            "state": "SUCCESS",
+                            "count": 2
+                          },
+                          {
+                            "state": "TIMED_OUT",
+                            "count": 0
+                          },
+                          {
+                            "state": "WAITING",
+                            "count": 0
+                          }
+                        ],
+                        "statusContextCountsByState": [
+                          {
+                            "state": "EXPECTED",
+                            "count": 0
+                          },
+                          {
+                            "state": "ERROR",
+                            "count": 0
+                          },
+                          {
+                            "state": "FAILURE",
+                            "count": 0
+                          },
+                          {
+                            "state": "PENDING",
+                            "count": 0
+                          },
+                          {
+                            "state": "SUCCESS",
+                            "count": 1
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              ]
+            },
+            "reviewRequests": {
+              "nodes": [
+                {
+                  "requestedReviewer": {
+                    "__typename": "User",
+                    "login": "pi0",
+                    "databaseId": 5158436,
+                    "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?u=3609b2822870b982f2b93c432569ee017e970148&v=4",
+                    "url": "https://github.com/pi0"
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "t1": {
           "issueOrPullRequest": {
             "__typename": "PullRequest",
             "id": "PR_kwDOErHI988AAAABHJjnRQ",
@@ -191,7 +358,7 @@
             }
           }
         },
-        "t1": {
+        "t2": {
           "issueOrPullRequest": {
             "__typename": "PullRequest",
             "id": "PR_kwDOErHI988AAAABFO055g",
@@ -363,171 +530,6 @@
                   }
                 }
               ]
-            }
-          }
-        },
-        "t2": {
-          "issueOrPullRequest": {
-            "__typename": "PullRequest",
-            "id": "PR_kwDOErHI98708j6H",
-            "number": 1502,
-            "title": "feat(context): per-event typed H3EventContext",
-            "body": "Draft based on exploration of #1501 (includes those commits, as I still have to git good). Also proposed in https://github.com/h3js/h3/issues/1437#issuecomment-5025050049\r\n\r\nCommit ad5fcba essentially adds a second param to H3Event that consists in a typed H3EventContext, as well as adds a type argument to the latter for customizing internals.\r\n\r\nOne such use case is properly typing `params` in something like `defineValidatedHandler`, which might have also coerced its data (eg: an id being number instead) keeping the parity between runtime and types.\r\n\r\nThis also adds room of improvements for other validated data for `defineValidatedHandler` such as headers and queries which they currently simply gets mutaded in place, going back to their string form instead. A clear followup for this would be to introduce also `event.context.{headers,query}` with the coerced data and type output of the validation schemas (also reducing the number of operations performed by the forward and back mutation).\r\n\r\nLeaving as draft till #1501 is merged and this concept is approved, @pi0 no further work is needed in this PR other than your own changes or if you want me to also add the `event.context.{headers,query}` logic or defer to next PR",
-            "state": "OPEN",
-            "isDraft": true,
-            "createdAt": "2026-07-22T15:32:17Z",
-            "updatedAt": "2026-07-23T14:15:00Z",
-            "closedAt": null,
-            "mergedAt": null,
-            "url": "https://github.com/h3js/h3/pull/1502",
-            "locked": false,
-            "author": {
-              "__typename": "User",
-              "login": "sandros94",
-              "avatarUrl": "https://avatars.githubusercontent.com/u/13056429?u=37da263a037d4051ba41dc01eb3cae656191e7ca&v=4",
-              "url": "https://github.com/sandros94",
-              "databaseId": 13056429,
-              "name": "Sandro Circi"
-            },
-            "assignees": {
-              "nodes": []
-            },
-            "labels": {
-              "nodes": []
-            },
-            "comments": {
-              "totalCount": 5
-            },
-            "participants": {
-              "nodes": [
-                {
-                  "__typename": "User",
-                  "login": "sandros94",
-                  "avatarUrl": "https://avatars.githubusercontent.com/u/13056429?u=37da263a037d4051ba41dc01eb3cae656191e7ca&v=4",
-                  "url": "https://github.com/sandros94",
-                  "databaseId": 13056429,
-                  "name": "Sandro Circi"
-                },
-                {
-                  "__typename": "User",
-                  "login": "gulshan",
-                  "avatarUrl": "https://avatars.githubusercontent.com/u/751732?v=4",
-                  "url": "https://github.com/gulshan",
-                  "databaseId": 751732,
-                  "name": "Gulshan"
-                }
-              ]
-            },
-            "milestone": null,
-            "viewerSubscription": "UNSUBSCRIBED",
-            "headRefName": "feat/context-typing",
-            "headRefOid": "bc756c55f117055d68a48a444f822a6ce601190e",
-            "baseRefName": "main",
-            "baseRefOid": "4a32c1b75528f881cd85c89ee626c136b7026958",
-            "headRepository": {
-              "databaseId": 923619984,
-              "name": "h3",
-              "owner": {
-                "login": "sandros94"
-              }
-            },
-            "mergeCommit": null,
-            "commits": {
-              "nodes": [
-                {
-                  "commit": {
-                    "statusCheckRollup": {
-                      "state": "SUCCESS",
-                      "contexts": {
-                        "totalCount": 7,
-                        "checkRunCountsByState": [
-                          {
-                            "state": "ACTION_REQUIRED",
-                            "count": 0
-                          },
-                          {
-                            "state": "CANCELLED",
-                            "count": 0
-                          },
-                          {
-                            "state": "COMPLETED",
-                            "count": 0
-                          },
-                          {
-                            "state": "FAILURE",
-                            "count": 0
-                          },
-                          {
-                            "state": "IN_PROGRESS",
-                            "count": 0
-                          },
-                          {
-                            "state": "NEUTRAL",
-                            "count": 0
-                          },
-                          {
-                            "state": "PENDING",
-                            "count": 0
-                          },
-                          {
-                            "state": "QUEUED",
-                            "count": 0
-                          },
-                          {
-                            "state": "SKIPPED",
-                            "count": 1
-                          },
-                          {
-                            "state": "STALE",
-                            "count": 0
-                          },
-                          {
-                            "state": "STARTUP_FAILURE",
-                            "count": 0
-                          },
-                          {
-                            "state": "SUCCESS",
-                            "count": 5
-                          },
-                          {
-                            "state": "TIMED_OUT",
-                            "count": 0
-                          },
-                          {
-                            "state": "WAITING",
-                            "count": 0
-                          }
-                        ],
-                        "statusContextCountsByState": [
-                          {
-                            "state": "EXPECTED",
-                            "count": 0
-                          },
-                          {
-                            "state": "ERROR",
-                            "count": 0
-                          },
-                          {
-                            "state": "FAILURE",
-                            "count": 0
-                          },
-                          {
-                            "state": "PENDING",
-                            "count": 0
-                          },
-                          {
-                            "state": "SUCCESS",
-                            "count": 1
-                          }
-                        ]
-                      }
-                    }
-                  }
-                }
-              ]
-            },
-            "reviewRequests": {
-              "nodes": []
             }
           }
         }

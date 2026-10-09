@@ -1,0 +1,68 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.github.com/app/installations?per_page=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"2fa8250f2796f9440d2f35b5fe79de6db994271311f125fbaad5419e04380176\""
+    },
+    "body": [
+      {
+        "id": 169572689,
+        "client_id": "Iv23liKMkcSycL2DQCgM",
+        "account": {
+          "login": "forges-fixtures",
+          "id": 340092031,
+          "node_id": "REDACTED",
+          "avatar_url": "https://avatars.githubusercontent.com/u/340092031?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/forges-fixtures",
+          "html_url": "https://github.com/forges-fixtures",
+          "followers_url": "https://api.github.com/users/forges-fixtures/followers",
+          "following_url": "https://api.github.com/users/forges-fixtures/following{/other_user}",
+          "gists_url": "https://api.github.com/users/forges-fixtures/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/forges-fixtures/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/forges-fixtures/subscriptions",
+          "organizations_url": "https://api.github.com/users/forges-fixtures/orgs",
+          "repos_url": "https://api.github.com/users/forges-fixtures/repos",
+          "events_url": "https://api.github.com/users/forges-fixtures/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/forges-fixtures/received_events",
+          "type": "Organization",
+          "user_view_type": "public",
+          "site_admin": false
+        },
+        "repository_selection": "selected",
+        "access_tokens_url": "https://api.github.com/app/installations/169572689/access_tokens",
+        "repositories_url": "https://api.github.com/installation/repositories",
+        "html_url": "https://github.com/organizations/forges-fixtures/settings/installations/169572689",
+        "app_id": 5249652,
+        "app_slug": "forges-fixtures-recorder",
+        "target_id": 340092031,
+        "target_type": "Organization",
+        "permissions": {
+          "checks": "read",
+          "issues": "read",
+          "actions": "read",
+          "contents": "read",
+          "metadata": "read",
+          "statuses": "read",
+          "pull_requests": "read",
+          "security_events": "read",
+          "repository_hooks": "read",
+          "vulnerability_alerts": "read",
+          "secret_scanning_alerts": "REDACTED"
+        },
+        "events": [],
+        "created_at": "2026-10-09T11:08:07.000Z",
+        "updated_at": "2026-10-09T11:10:39.000Z",
+        "single_file_name": null,
+        "has_multiple_single_files": false,
+        "single_file_paths": [],
+        "suspended_by": null,
+        "suspended_at": null
+      }
+    ]
+  }
+}

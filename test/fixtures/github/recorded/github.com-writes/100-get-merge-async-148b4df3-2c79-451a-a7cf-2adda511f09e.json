@@ -1,0 +1,22 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/pulls/36/merge-async/148b4df3-2c79-451a-a7cf-2adda511f09e"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"6261c9dad9f6de9fc65cd59c2f6d9ebbbef43a692920f0cd9424277328ca30a5\"",
+      "x-ratelimit-limit": "5000",
+      "x-ratelimit-remaining": "4943",
+      "x-ratelimit-reset": "1791559256"
+    },
+    "body": {
+      "status": "merged",
+      "details": {
+        "message": "Pull request was merged.",
+        "sha": "2d67f3056a69dcd31bb4c1bfc1b66a188e32290c"
+      }
+    }
+  }
+}

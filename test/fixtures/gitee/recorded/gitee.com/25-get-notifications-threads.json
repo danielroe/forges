@@ -1,0 +1,19 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitee.com/api/v5/notifications/threads?unread=true&page=1&per_page=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "<https://gitee.com/api/v5/notifications/threads?page=0&participating=false&per_page=3&type=all&unread=true>; rel='last'",
+      "etag": "W/\"1cf50ac924356e0ba2f9c5b42106be4d\"",
+      "total_page": "0",
+      "total_count": "0"
+    },
+    "body": {
+      "total_count": 0,
+      "list": []
+    }
+  }
+}

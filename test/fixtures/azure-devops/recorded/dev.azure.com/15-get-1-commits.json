@@ -1,0 +1,30 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://dev.azure.com/forges/forges-fixtures/_apis/git/repositories/forges-fixtures/pullRequests/1/commits?%24top=3&api-version=7.1"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "count": 1,
+      "value": [
+        {
+          "commitId": "0f7fea462ab8103e55ca8aa0288ba85443f0e8f2",
+          "author": {
+            "name": "danielroe",
+            "email": "redacted@example.invalid",
+            "date": "2026-10-09T12:28:50Z"
+          },
+          "committer": {
+            "name": "danielroe",
+            "email": "redacted@example.invalid",
+            "date": "2026-10-09T12:28:50Z"
+          },
+          "comment": "edit",
+          "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/commits/0f7fea462ab8103e55ca8aa0288ba85443f0e8f2"
+        }
+      ]
+    }
+  }
+}

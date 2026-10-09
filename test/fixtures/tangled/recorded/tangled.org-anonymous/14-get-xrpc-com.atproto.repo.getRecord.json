@@ -1,0 +1,28 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://oysterling.us-west.host.bsky.network/xrpc/com.atproto.repo.getRecord?repo=did%3Aplc%3Awshs7t2adsemcrrd4snkeqli&collection=sh.tangled.repo&rkey=3ljbiayluee22"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"189-JT7AJA6qYzA7Q809voNR81BUlPU\"",
+      "ratelimit-limit": "3000",
+      "ratelimit-remaining": "2997",
+      "ratelimit-reset": "1791496589"
+    },
+    "body": {
+      "uri": "at://did:plc:wshs7t2adsemcrrd4snkeqli/sh.tangled.repo/3ljbiayluee22",
+      "cid": "bafyreibrnxyofye6mqmmo22c3espwcy53ydyhqz5evbovqoeze447dqy6y",
+      "value": {
+        "knot": "knot1.tangled.sh",
+        "name": "site",
+        "$type": "sh.tangled.repo",
+        "repoDid": "did:plc:g66xej5jct643d6bgukldn77",
+        "spindle": "spindle.tangled.sh",
+        "createdAt": "2025-02-28T22:44:51Z",
+        "description": "engineering blog at https://blog.tangled.org"
+      }
+    }
+  }
+}

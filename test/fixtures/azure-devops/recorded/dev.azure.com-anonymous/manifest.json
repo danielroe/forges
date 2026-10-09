@@ -19,7 +19,13 @@
     "kind": "pull_request",
     "number": "5"
   },
-  "recordedAt": "2026-10-08T16:34:03.718Z",
+  "scratch": {
+    "forge": "azure-devops",
+    "instance": "dev.azure.com",
+    "owner": "dnceng-public/forges-fixtures",
+    "name": "forges-fixtures"
+  },
+  "recordedAt": "2026-10-09T13:17:51.284Z",
   "steps": [
     "repo",
     "pull",
@@ -36,6 +42,7 @@
     "tags",
     "resolve default branch",
     "commits",
-    "commit"
+    "commit",
+    "compare"
   ]
 }

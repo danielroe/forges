@@ -1,0 +1,36 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://api.github.com/graphql",
+    "operationName": "AddReaction",
+    "variables": {
+      "id": "D_kwDOVCTdtM4Ap5qt",
+      "content": "THUMBS_UP"
+    },
+    "body": {
+      "query": "mutation AddReaction($id: ID!, $content: ReactionContent!) {\n  addReaction(input: { subjectId: $id, content: $content }) { reaction { content } }\n}",
+      "variables": {
+        "id": "D_kwDOVCTdtM4Ap5qt",
+        "content": "THUMBS_UP"
+      },
+      "operationName": "AddReaction"
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "x-ratelimit-limit": "5000",
+      "x-ratelimit-remaining": "4982",
+      "x-ratelimit-reset": "1791559276"
+    },
+    "body": {
+      "data": {
+        "addReaction": {
+          "reaction": {
+            "content": "THUMBS_UP"
+          }
+        }
+      }
+    }
+  }
+}

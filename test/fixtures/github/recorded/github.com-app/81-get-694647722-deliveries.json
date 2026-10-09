@@ -1,0 +1,62 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/hooks/694647722/deliveries?per_page=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"b1ece64e118a0c7287bbfb29d445037657392224d1d811e24c1c9421879173b5\"",
+      "x-ratelimit-limit": "500",
+      "x-ratelimit-remaining": "498",
+      "x-ratelimit-reset": "1791551748"
+    },
+    "body": [
+      {
+        "id": 3847311080409841700,
+        "guid": "1b20c670-c3d1-11f1-8453-605a3e0f1891",
+        "delivered_at": "2026-10-09T11:03:50.39Z",
+        "redelivery": false,
+        "duration": 0,
+        "status": "failed to connect to host",
+        "status_code": 502,
+        "event": "issues",
+        "action": "closed",
+        "installation_id": null,
+        "repository_id": 1411702196,
+        "url": "",
+        "throttled_at": null
+      },
+      {
+        "id": 3847311077039726600,
+        "guid": "1a2e5d22-c3d1-11f1-8d70-6416d27ef80f",
+        "delivered_at": "2026-10-09T11:03:48.833Z",
+        "redelivery": false,
+        "duration": 0,
+        "status": "failed to connect to host",
+        "status_code": 502,
+        "event": "issues",
+        "action": "opened",
+        "installation_id": null,
+        "repository_id": 1411702196,
+        "url": "",
+        "throttled_at": null
+      },
+      {
+        "id": 3847310848498336000,
+        "guid": "dad207f0-c3d0-11f1-9ec2-4c4a58fefe9e",
+        "delivered_at": "2026-10-09T11:02:02.366Z",
+        "redelivery": false,
+        "duration": 0,
+        "status": "failed to connect to host",
+        "status_code": 502,
+        "event": "ping",
+        "action": null,
+        "installation_id": null,
+        "repository_id": 1411702196,
+        "url": "",
+        "throttled_at": null
+      }
+    ]
+  }
+}

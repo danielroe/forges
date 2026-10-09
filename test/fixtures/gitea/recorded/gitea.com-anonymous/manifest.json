@@ -17,7 +17,7 @@
       "name": "tea"
     },
     "kind": "pull_request",
-    "number": "1"
+    "number": "1099"
   },
   "issue": {
     "forge": "gitea",
@@ -31,7 +31,13 @@
     "kind": "issue",
     "number": "1095"
   },
-  "recordedAt": "2026-10-08T16:23:50.998Z",
+  "scratch": {
+    "forge": "gitea",
+    "instance": "gitea.com",
+    "owner": "forges-fixtures",
+    "name": "forges-fixtures"
+  },
+  "recordedAt": "2026-10-09T14:22:38.262Z",
   "steps": [
     "repo",
     "labels",
@@ -52,6 +58,8 @@
     "issue events",
     "issue comments",
     "issue reactions",
+    "commit thread",
+    "commit events",
     "user",
     "checks",
     "readme",
@@ -61,10 +69,12 @@
     "resolve default branch",
     "commits",
     "commit",
+    "compare",
     "releases",
     "latest release",
     "release",
     "release by tag",
+    "release asset",
     "search threads",
     "search repos"
   ]

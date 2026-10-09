@@ -1,0 +1,14 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/collaborators/forgejo-renovate-action/permission"
+  },
+  "response": {
+    "status": 403,
+    "headers": {},
+    "body": {
+      "message": "Only admins can query all permissions, repo admins can query all repo permissions, collaborators can query only their own",
+      "url": "https://codeberg.org/api/swagger"
+    }
+  }
+}

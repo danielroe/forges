@@ -7,10 +7,11 @@
     "status": 200,
     "headers": {
       "link": "<https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/issues?id=gitlab-org%2Fcli&order_by=created_at&page=2&per_page=3&sort=desc&state=opened&with_labels_details=false>; rel=\"next\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/issues?id=gitlab-org%2Fcli&order_by=created_at&page=1&per_page=3&sort=desc&state=opened&with_labels_details=false>; rel=\"first\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/issues?id=gitlab-org%2Fcli&order_by=created_at&page=88&per_page=3&sort=desc&state=opened&with_labels_details=false>; rel=\"last\"",
-      "etag": "W/\"11da3025eb35ff212dc91ae1b2a44cdc\"",
+      "etag": "W/\"538a060dd8971196e4e97dc290f9a67d\"",
+      "ratelimit-limit": "2000",
       "ratelimit-remaining": "1980",
-      "ratelimit-reset": "1791375060",
-      "x-total": "263",
+      "ratelimit-reset": "1791551760",
+      "x-total": "262",
       "x-total-pages": "88",
       "x-next-page": "2",
       "x-page": "1",
@@ -18,14 +19,112 @@
     },
     "body": [
       {
-        "id": 205689627,
-        "iid": 8591,
+        "id": 205923362,
+        "iid": 8598,
         "project_id": 34675721,
-        "title": "`glab iteration list` header shows the page count as the total",
-        "description": "### Checklist\n\n- [x] I'm using the latest version of the extension (Run `glab --version`)\n  - Extension version: `glab 1.114.0 (4d7c6cd)`, and confirmed with a build of `main` at 48512c0d (newer than v1.120.0)\n- [x] Operating system and version: Linux 6.18.54 x86_64 (NixOS)\n- [x] Gitlab.com or self-managed instance? self-managed instance\n- [x] GitLab version (if self-managed) 19.3.3-ee\n- [x] I have performed `glab auth status` to check for authentication issues\n- [x] Run the command in debug mode (like `GLAB_DEBUG=true glab mr list`) and attach any useful output\n  (debug mode logs only the Git calls; the request itself succeeds)\n\n### Summary\n\n`glab iteration list` has the same header bug as `glab label list` (#8573): it\nprints the number of iterations on the current page as both the count and the\ntotal, so the header never shows the real total. With more iterations than one\npage, the header reads `Showing iteration 30 of 30`, which looks like a\ncomplete list. This was pointed out in the review of !3991.\n\n### Environment\n\n- OS: Linux 6.18.54 x86_64\n- SHELL: /run/current-system/sw/bin/zsh\n- TERM: xterm-256color\n- GLAB: glab 1.114.0 (4d7c6cd)\n\nOther: also checked with `glab DEV ()` built from `main` at 48512c0d.\n\nMy instance has no iterations, so live I could only observe the empty-list\nheader (`Showing iteration 0 of 0 ...` on both 1.114.0 and `main`). The\npaginated case is confirmed from the source below and with unit tests that\nmock a response with `TotalItems: 25`.\n\n### Steps to reproduce\n\n1. Use a project (or group) with more iterations than one page, or pass a\n   small `--per-page`.\n2. Run `glab iteration list -P 1`, or `glab iteration list -g <group> -P 1`.\n\n### What is the current _bug_ behavior?\n\nThe second number always equals the first one, for example\n`Showing iteration 1 of 1 on OWNER/REPO.` regardless of how many iterations\nexist. An empty list prints `Showing iteration 0 of 0 on OWNER/REPO.`\n\n### What is the expected _correct_ behavior?\n\nThe total comes from the API, as in the other list commands, for example\n`Showing 1 of 25 iterations on OWNER/REPO. (Page 1)`.\n\n### Relevant logs and/or screenshots\n\nThe JSON output (`-F json`) is correct. Only the header line is affected.\n\n### Possible fixes\n\n`internal/commands/iteration/list/iteration_list.go` passes `len(iterations)`\ntwice and discards the API response:\n\n- https://gitlab.com/gitlab-org/cli/-/blob/48512c0d/internal/commands/iteration/list/iteration_list.go#L128\n- https://gitlab.com/gitlab-org/cli/-/blob/48512c0d/internal/commands/iteration/list/iteration_list.go#L148\n\nBuild the header with `utils.NewListTitle` and `resp.TotalItems`, the same way\n!3991 fixed `label list`. I have a fix with tests ready and will open a merge\nrequest.",
+        "title": "glab govern audit sync --all reports an error on every run for projects that can't be found",
+        "description": "## Summary\n\n`glab govern audit sync --all` records an error on every run for a session whose project doesn't exist or that the user can't access, and `glab govern doctor` fails because of it. For Codex sessions this never stops, because Codex never deletes its rollouts.\n\n## Impact\n\n- `doctor` reports `x Fallback periodic sync: … the last run synced nothing` whenever these are a run's only results, which is the normal case when the hooks are working.\n- A user can't clear it: the session is retried until its transcript is deleted.\n  - Claude Code deletes transcripts after `cleanupPeriodDays` (30 days by default).\n  - Codex never does, so the error is permanent.\n- Each run also repeats the project lookup.\n\nCommon causes: the project was deleted or renamed, the user lost access, or the repository's `origin` points at a project the user never had access to.\n\n## Steps to reproduce\n\nFound while manually testing https://gitlab.com/gitlab-org/cli/-/merge_requests/4051, in a sandbox:\n\n1. Create a repository whose `origin` is a gitlab.com project that doesn't exist, e.g. `https://gitlab.com/gitlab-org/cli-docs-test-nonexistent.git`.\n1. Record a session for it: a Cursor or Codex session discovered with `--agents`, or a Claude Code session recorded by the hooks.\n1. Run `glab govern audit sync --all` twice.\n\n## What happens\n\nEvery run records:\n\n```plaintext\nsession <id>: could not resolve project gitlab-org/cli-docs-test-nonexistent on gitlab.com: 404 Not Found\n```\n\n## What should happen\n\nA project that can't be found is expected for a user who works in many repositories, the same as a project without governance enabled. It shouldn't make `doctor` fail, and it shouldn't be retried on every run.\n\n## Possible fix\n\nEither:\n\n- Treat a 404 from the project lookup like \"governance not enabled\": record it in the status file without counting it as an error.\n- Or forget the session, or stop retrying it, after it has failed for some number of runs or days.\n\nThe governance-not-enabled handling in `syncAllSessions` (`internal/commands/govern/audit/sync/sync.go`) is the closest existing pattern.",
         "state": "opened",
-        "created_at": "2026-10-07T06:18:56.579Z",
-        "updated_at": "2026-10-07T07:15:00.696Z",
+        "created_at": "2026-10-09T05:38:34.463Z",
+        "updated_at": "2026-10-09T07:55:56.655Z",
+        "closed_at": null,
+        "closed_by": null,
+        "labels": [
+          "category:gitlab cli",
+          "devops::ai coding",
+          "group::code review",
+          "section::ai",
+          "type::bug"
+        ],
+        "milestone": null,
+        "assignees": [
+          {
+            "id": 27487407,
+            "username": "jeanvdw",
+            "public_email": "redacted@example.invalid",
+            "name": "Jean van der Walt",
+            "state": "active",
+            "locked": false,
+            "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/27487407/avatar.png?v=1791536039",
+            "web_url": "https://gitlab.com/jeanvdw"
+          }
+        ],
+        "author": {
+          "id": 11809982,
+          "username": "jay_mccure",
+          "public_email": "",
+          "name": "Jay McCure",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1791524742",
+          "web_url": "https://gitlab.com/jay_mccure"
+        },
+        "type": "ISSUE",
+        "assignee": {
+          "id": 27487407,
+          "username": "jeanvdw",
+          "public_email": "redacted@example.invalid",
+          "name": "Jean van der Walt",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/27487407/avatar.png?v=1791536039",
+          "web_url": "https://gitlab.com/jeanvdw"
+        },
+        "user_notes_count": 1,
+        "merge_requests_count": 0,
+        "upvotes": 0,
+        "downvotes": 0,
+        "start_date": null,
+        "due_date": null,
+        "confidential": false,
+        "discussion_locked": null,
+        "issue_type": "issue",
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/work_items/8598",
+        "time_stats": {
+          "time_estimate": 0,
+          "total_time_spent": 0,
+          "human_time_estimate": null,
+          "human_total_time_spent": null
+        },
+        "task_completion_status": {
+          "count": 0,
+          "completed_count": 0
+        },
+        "weight": null,
+        "blocking_issues_count": 0,
+        "has_tasks": true,
+        "task_status": "0 of 0 checklist items completed",
+        "_links": {
+          "self": "https://gitlab.com/api/v4/projects/34675721/issues/8598",
+          "notes": "https://gitlab.com/api/v4/projects/34675721/issues/8598/notes",
+          "award_emoji": "https://gitlab.com/api/v4/projects/34675721/issues/8598/award_emoji",
+          "project": "https://gitlab.com/api/v4/projects/34675721",
+          "closed_as_duplicate_of": null
+        },
+        "references": {
+          "short": "#8598",
+          "relative": "#8598",
+          "full": "gitlab-org/cli#8598"
+        },
+        "severity": "UNKNOWN",
+        "moved_to_id": null,
+        "imported": false,
+        "imported_from": "none",
+        "service_desk_reply_to": null,
+        "epic_iid": null,
+        "epic": null,
+        "iteration": null,
+        "health_status": null
+      },
+      {
+        "id": 205878365,
+        "iid": 8595,
+        "project_id": 34675721,
+        "title": "`host` config key / GITLAB_HOST overrides repo remotes instead of acting as a fallback",
+        "description": "### Checklist\n\n- [x] I'm using the latest version of the extension (Run `glab --version`)\n  - Extension version: glab 1.120.0 (78790114c)\n  - Also reproduced from source at main (`glab DEV`)\n- [x] Operating system and version: Linux 7.2.8-200.fc44.x86_64 x86_64\n- [x] Gitlab.com or self-managed instance? _both_\n- [x] GitLab version (if self-managed) _v19.3.3_\n- [x] I have performed `glab auth status` to check for authentication issues\n- [x] Run the command in debug mode (like `GLAB_DEBUG=true glab mr list`) and attach any useful output\n\n### Summary\n\nThe top-level `host:` key in `config.yml` (or the `GITLAB_HOST` / `GITLAB_URI` / `GL_HOST` environment variables) is treated as an **override when inside a Git repository** instead of as a default for when no host can be resolved. When the key differs from the repo's remote host, glab filters the remotes down to the configured host and fails all repo-bound commands. The key is documented as \"Default GitLab instance, outside Git repositories\", so it should only apply when the remote (or a URL argument) doesn't determine the host.\n\n### Environment\n\n- OS: Linux 7.2.8-200.fc44.x86_64 x86_64\n- SHELL: /bin/bash\n- TERM: xterm-256color\n- GLAB: glab 1.120.0 (78790114c)\n\n### Steps to reproduce\n\nWith no network required (the failure happens before any API call):\n\n```sh\ngit init /tmp/repro && cd /tmp/repro\ngit remote add origin https://gitlab.com/gitlab-org/cli.git\nmkdir -p /tmp/cfg && cat > /tmp/cfg/config.yml <<'EOF'\ngit_protocol: https\nhost: gitlab.tuwien.ac.at\nhosts:\n  gitlab.tuwien.ac.at:\n    token: fake\n    api_protocol: https\n    git_protocol: https\nEOF\nchmod 600 /tmp/cfg/config.yml\nGLAB_CONFIG_DIR=/tmp/cfg glab issue list\n```\n\nSetting `host:` to anything other than `gitlab.com` (or setting `GITLAB_HOST`) triggers the filter in any repo whose remote points to a different instance.\n\n### What is the current _bug_ behavior?\n\n1. The command fails with `None of the git remotes configured for this repository correspond to the GITLAB_HOST environment variable` even when **no** environment variable is set and the value came from the `host:` key — the error message is misleading.\n2. With `-R OWNER/REPO` (no host in the argument), the request silently goes to the configured instance instead of the repo's remote host, targeting the wrong instance and token.\n\n### What is the expected _correct_ behavior?\n\n- Inside a Git repository, the remote (or a URL argument) determines the host; the `host:` key / `GITLAB_HOST` are only fallbacks when the host cannot be resolved (e.g. outside a repo).\n- The error message should say which source set the override (config key vs. env var).\n\n### Relevant logs and/or screenshots\n\n```\n$ GLAB_CONFIG_DIR=/tmp/cfg GLAB_DEBUG=true glab issue list\n2026/10/08 19:04:51 [Could not determine base repo in telemetry hook:  none of the git remotes\nconfigured for this repository correspond to the GITLAB_HOST environment variable. Try adding\na matching remote or unsetting the variable.\n\nGITLAB_HOST is currently set to gitlab.tuwien.ac.at\n\nConfigured remotes: gitlab.com]\n\n   ERROR\n\n  None of the git remotes configured for this repository correspond to the GITLAB_HOST\n  environment variable. Try adding a matching remote or unsetting the variable.\n\n  GITLAB_HOST is currently set to gitlab.tuwien.ac.at\n\n  Configured remotes: gitlab.com.\n```\n\n(Note: in the debug log line, the trailing `]` closes the `GLAB_DEBUG` log entry, which wraps the message in brackets; it is not part of the error text.)\n\n### Possible fixes\n\n- `internal/cmdutils/factory.go`: `defaultHostname` is set from `cfg.Get(\"\", \"host\")` before `BaseRepo()` resolves; `Remotes()` then sets `hostOverride` whenever the default differs from `gitlab.com` (\\~line 192).\n- `internal/cmdutils/remote_resolver.go`: the `hostOverride` block (\\~lines 103-127) drops all non-matching remotes, then errors out.\n- `RepoOverride` (`factory.go`) resolves `-R OWNER/REPO` against `defaultHostname` instead of the repo's remote host.\n- Note: `remote_resolver_test.go` (\\~line 428) locks in the current override behavior, so this needs a decision on intended semantics (env var as hard override vs. fallback), not just a test change.\n- Related: #8084 covers the URL-host case of the same host-resolution model.",
+        "state": "opened",
+        "created_at": "2026-10-08T17:19:18.480Z",
+        "updated_at": "2026-10-08T18:11:44.343Z",
         "closed_at": null,
         "closed_by": null,
         "labels": [
@@ -37,19 +136,19 @@
         "milestone": null,
         "assignees": [],
         "author": {
-          "id": 33478343,
-          "username": "unstable-code",
-          "public_email": "",
-          "name": "unstable-code",
+          "id": 156252,
+          "username": "ziegenberg",
+          "public_email": "redacted@example.invalid",
+          "name": "Daniel Ziegenberg",
           "state": "active",
           "locked": false,
-          "avatar_url": "https://secure.gravatar.com/avatar/6c3a3abe3d13ba47a851063d0f411d5a864d8686a0f478065e83fe7b1f4a21a7?s=80&d=identicon",
-          "web_url": "https://gitlab.com/unstable-code"
+          "avatar_url": "https://secure.gravatar.com/avatar/6c9be80c9e1b23ec1c54f0f3e81bc4d58e034e2bf83b8a186b8f82aa347d564c?s=80&d=identicon",
+          "web_url": "https://gitlab.com/ziegenberg"
         },
         "type": "ISSUE",
         "assignee": null,
-        "user_notes_count": 2,
-        "merge_requests_count": 1,
+        "user_notes_count": 1,
+        "merge_requests_count": 0,
         "upvotes": 0,
         "downvotes": 0,
         "start_date": null,
@@ -57,7 +156,7 @@
         "confidential": false,
         "discussion_locked": null,
         "issue_type": "issue",
-        "web_url": "https://gitlab.com/gitlab-org/cli/-/work_items/8591",
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/work_items/8595",
         "time_stats": {
           "time_estimate": 0,
           "total_time_spent": 0,
@@ -72,16 +171,16 @@
         "blocking_issues_count": 0,
         "has_tasks": false,
         "_links": {
-          "self": "https://gitlab.com/api/v4/projects/34675721/issues/8591",
-          "notes": "https://gitlab.com/api/v4/projects/34675721/issues/8591/notes",
-          "award_emoji": "https://gitlab.com/api/v4/projects/34675721/issues/8591/award_emoji",
+          "self": "https://gitlab.com/api/v4/projects/34675721/issues/8595",
+          "notes": "https://gitlab.com/api/v4/projects/34675721/issues/8595/notes",
+          "award_emoji": "https://gitlab.com/api/v4/projects/34675721/issues/8595/award_emoji",
           "project": "https://gitlab.com/api/v4/projects/34675721",
           "closed_as_duplicate_of": null
         },
         "references": {
-          "short": "#8591",
-          "relative": "#8591",
-          "full": "gitlab-org/cli#8591"
+          "short": "#8595",
+          "relative": "#8595",
+          "full": "gitlab-org/cli#8595"
         },
         "severity": "UNKNOWN",
         "moved_to_id": null,
@@ -94,33 +193,33 @@
         "health_status": null
       },
       {
-        "id": 205664469,
-        "iid": 8589,
+        "id": 205785669,
+        "iid": 8593,
         "project_id": 34675721,
-        "title": "1.5 Show specific error messages in work-items-experimental",
-        "description": "Item 1.5 in the epic https://gitlab.com/groups/gitlab-org/-/work_items/23916\n\n## Problem\n\nItem 1.1 shows one generic message for any failed request. Users need to know what went wrong and what to do about it. The difficulty is that the REST API returns 404 for three different reasons, deliberately: the work item doesn't exist, the user can't see it, or the `work_item_rest_api` feature flag is off. Experimental endpoints return 404 rather than 403 while the flag is off, so glab can't tell those cases apart.\n\n## Scope\n\nA shared error helper for all `work-items-experimental` commands, as agreed on https://gitlab.com/gitlab-org/cli/-/work_items/8582 (decision 6):\n\n| Response | Message |\n|---|---|\n| 404 | Names the work item and project or group, and lists all three possible causes, including the feature flag. The PoC's `note get` already does this. |\n| 401 | Not authenticated: suggest `glab auth login` or checking the token. |\n| 403 | No permission. Mention that granular tokens may not cover every endpoint. |\n| 400 or 422 | Show the API's message, which explains the invalid input. |\n| Network errors | Unchanged from the rest of glab. |\n\n- Keep glab's existing exit codes. Don't add new ones.\n- Use the helper in `get` now, and in every later command.\n\n## Out of scope\n\n- Detecting whether the feature flag is on. The API gives no reliable signal. If the backend adds one, for example a distinct response or header, open a follow-up issue to use it.\n\n## Done when\n\n- [ ] `get` shows the messages above for each response type.\n- [ ] Tests cover 400, 401, 403, 404 and 422 responses.\n- [ ] The helper is shared, so later commands can use it.\n- [ ] The epic's shared checklist is met.\n\nSuggested weight: 2.\n\n<!-- implementation plan added during 2026-09 backlog triage -->\n\n## Implementation plan\n\n> **Note:** This plan was drafted during an AI-assisted triage of the backlog and has not been validated by a maintainer. Treat it as a starting point: file paths, line numbers, and the approach may need adjusting.\n\nDepends on !4010 (item 1.1, `work-items-experimental get`) landing first.\n\n1. Add a helper in a shared package under `internal/commands/workitemsexperimental/` (for example `utils/errors.go`), such as `func APIError(err error, what, scope string) error`. Use `errors.As(err, *gitlab.ErrorResponse)` to read `Response.StatusCode`, following `Is404` in `internal/api/client.go:540`.\n2. Map statuses: 404 names the work item and project or group and lists all three causes (missing, no access, `work_item_rest_api` flag off); 401 suggests `glab auth login` or checking the token; 403 says no permission and that granular tokens may not cover every endpoint; 400 and 422 surface the API's `Message`. Return any other error (including network errors) unchanged.\n3. Keep existing exit codes: wrap with `cmdutils.WrapError` (`internal/cmdutils/errors.go:76`) rather than adding new codes.\n4. Replace the single `fmt.Errorf` wrap after `GetWorkItem` (which currently applies the feature flag message to every error) in `internal/commands/workitemsexperimental/get/get.go` with the helper.\n5. Add table-driven tests for the helper (400, 401, 403, 404, 422, and a non-HTTP error), and extend `internal/commands/workitemsexperimental/get/get_test.go` with one case per status using the client-go mock.\n6. The command is hidden, so `make gen-docs` should produce no changes; run it to confirm.",
+        "title": "Accept relative dates (-7d, 2w) in list date filters, and add date filters to issue list",
+        "description": "### Problem to solve\n\nDate filters in glab only take absolute timestamps, and each command parses them differently:\n\n- `glab mr list --created-after/--created-before/--deployed-after/--deployed-before` take RFC3339 only (added in #8124).\n- `glab ci list --updated-after/--updated-before` take only the exact layout `2019-03-15T08:00:00Z`.\n- `glab issue list` has no date filters at all, even though the REST API supports `created_after`, `created_before`, `updated_after` and `updated_before`.\n\nSo everyday questions like \"issues updated in the last week\" or \"MRs created in the last 30 days\" need a date computed in the shell, which is awkward in scripts and aliases (`date -d` vs. BSD `date -v`).\n\n### Proposal\n\n1. Add one shared date flag type that accepts:\n   - absolute dates: `2026-10-01` and RFC3339 (`2026-10-01T08:00:00Z`)\n   - relative dates in the [GLQL syntax](https://docs.gitlab.com/user/glql/#values): an optional sign, a number and a unit (`d`, `w`, `m`, `y`). `-7d` is 7 days ago, `2w` is 2 weeks from now.\n2. Resolve relative values on the client to the start of that day in the local time zone, then send an absolute timestamp. This works with every GitLab version, with no API change.\n3. Use it for the existing `mr list` and `ci list` date flags (backwards compatible, since current inputs keep working).\n4. Add `--created-after`, `--created-before`, `--updated-after` and `--updated-before` to `glab issue list`.\n\nExample:\n\n    glab issue list --updated-after -7d\n    glab mr list --created-after -1m --created-before -1w\n\n### Further details\n\n- Values that start with `-` look like flags. pflag accepts both `--flag=-7d` and `--flag -7d`, but both forms deserve a test and a help-text example.\n- Using GLQL's syntax keeps glab consistent with what GitLab already documents for GLQL queries.\n- Related discussion about relative dates in GitLab's GraphQL filters: https://gitlab.com/gitlab-org/gitlab/-/merge_requests/260072#note_3973533253\n\n### Links / references\n\n- #8124 (absolute before/after filters for `mr list`)\n- GLQL relative dates: https://docs.gitlab.com/user/glql/#values\n- REST issues API filters: https://docs.gitlab.com/api/issues/#list-issues",
         "state": "opened",
-        "created_at": "2026-10-06T21:38:41.777Z",
-        "updated_at": "2026-10-06T22:16:39.244Z",
+        "created_at": "2026-10-07T21:41:42.833Z",
+        "updated_at": "2026-10-07T23:15:03.131Z",
         "closed_at": null,
         "closed_by": null,
         "labels": [
           "automation:ml",
-          "automation:quick-win-judged",
+          "backend",
           "feature::enhancement",
           "type::feature"
         ],
         "milestone": null,
         "assignees": [],
         "author": {
-          "id": 42451371,
-          "username": "phil-wong",
-          "public_email": "redacted@example.invalid",
-          "name": "Phil Wong",
+          "id": 241647,
+          "username": "rantoniuk",
+          "public_email": "",
+          "name": "Radek Antoniuk",
           "state": "active",
           "locked": false,
-          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/42451371/avatar.png?v=1791348234",
-          "web_url": "https://gitlab.com/phil-wong"
+          "avatar_url": "https://secure.gravatar.com/avatar/6038a5e5dcb22639c7b07f7fb3515bb99b1a7d699ac2376f16d96b2fdb0094f1?s=80&d=identicon",
+          "web_url": "https://gitlab.com/rantoniuk"
         },
         "type": "ISSUE",
         "assignee": null,
@@ -133,7 +232,7 @@
         "confidential": false,
         "discussion_locked": null,
         "issue_type": "issue",
-        "web_url": "https://gitlab.com/gitlab-org/cli/-/work_items/8589",
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/work_items/8593",
         "time_stats": {
           "time_estimate": 0,
           "total_time_spent": 0,
@@ -141,119 +240,32 @@
           "human_total_time_spent": null
         },
         "task_completion_status": {
-          "count": 4,
+          "count": 0,
           "completed_count": 0
         },
         "weight": null,
         "blocking_issues_count": 0,
-        "has_tasks": false,
+        "has_tasks": true,
+        "task_status": "0 of 0 checklist items completed",
         "_links": {
-          "self": "https://gitlab.com/api/v4/projects/34675721/issues/8589",
-          "notes": "https://gitlab.com/api/v4/projects/34675721/issues/8589/notes",
-          "award_emoji": "https://gitlab.com/api/v4/projects/34675721/issues/8589/award_emoji",
+          "self": "https://gitlab.com/api/v4/projects/34675721/issues/8593",
+          "notes": "https://gitlab.com/api/v4/projects/34675721/issues/8593/notes",
+          "award_emoji": "https://gitlab.com/api/v4/projects/34675721/issues/8593/award_emoji",
           "project": "https://gitlab.com/api/v4/projects/34675721",
           "closed_as_duplicate_of": null
         },
         "references": {
-          "short": "#8589",
-          "relative": "#8589",
-          "full": "gitlab-org/cli#8589"
+          "short": "#8593",
+          "relative": "#8593",
+          "full": "gitlab-org/cli#8593"
         },
         "severity": "UNKNOWN",
         "moved_to_id": null,
         "imported": false,
         "imported_from": "none",
         "service_desk_reply_to": null,
-        "epic_iid": 23916,
-        "epic": {
-          "id": 5337728,
-          "iid": 23916,
-          "title": "Work Items REST API in glab",
-          "url": "/groups/gitlab-org/-/epics/23916",
-          "group_id": 9970
-        },
-        "iteration": null,
-        "health_status": null
-      },
-      {
-        "id": 205664465,
-        "iid": 8588,
-        "project_id": 34675721,
-        "title": "1.4 Add --features to work-items-experimental get",
-        "description": "Item 1.4 in the epic https://gitlab.com/groups/gitlab-org/-/work_items/23916\n\n## Problem\n\nThe REST API only returns a work item's widgets (REST \"features\") when they're requested by name. Item 1.1 requests a fixed set for the text output. Users need to choose which widgets to see, especially in JSON, and to see any of the 22 widgets the API can return.\n\n## Scope\n\n- **`--features`** on `get`, as agreed on https://gitlab.com/gitlab-org/cli/-/work_items/8582 (decision 4):\n  - A comma-separated list, for example `--features labels,milestone`.\n  - `all` to request every readable widget.\n  - Without the flag, request the widgets the text output shows.\n- **The 22 readable widgets:** `assignees`, `award_emoji`, `color`, `custom_fields`, `description`, `designs`, `development`, `error_tracking`, `health_status`, `hierarchy`, `iteration`, `labels`, `linked_items`, `milestone`, `notifications`, `progress`, `requirement_legacy`, `start_and_due_date`, `status`, `time_tracking`, `verification_status`, `weight`.\n- **Validate names before sending.** The API ignores unknown values, so a typo would silently return nothing. Reject unknown names with a list of valid ones.\n- **Widgets the type doesn't support:** the API leaves them out of the response. In text output, show \"not available for this type\" only for widgets the user requested explicitly. In JSON, leave them out, as the API does.\n- **Text output:** decide how each requested widget appears. Simple widgets such as weight or health status can be one line. Complex ones such as time tracking, development or custom fields need a short summary.\n\n## Out of scope\n\n- `--features` on `list`, `child list` and `link list`: items in iterations 2 and 5.\n\n## Notes\n\n- Premium and Ultimate widgets are left out of the response on Free, the same as unsupported widgets. Make sure the message doesn't suggest the widget is missing for another reason.\n- If text output for all 22 widgets is too much for one MR, split it: support every widget in JSON first, then add text output for the rest in a follow-up.\n\n## Done when\n\n- [ ] `get --features <list>` and `get --features all` request the right widgets.\n- [ ] Unknown names are rejected with the list of valid names.\n- [ ] Unsupported widgets show \"not available for this type\" in text output when requested.\n- [ ] Each widget has a text representation, or a follow-up issue exists for the remainder.\n- [ ] The tester guide (item 1.2) is updated.\n- [ ] The epic's shared checklist is met.\n\nSuggested weight: 3.",
-        "state": "opened",
-        "created_at": "2026-10-06T21:38:37.684Z",
-        "updated_at": "2026-10-06T22:15:17.406Z",
-        "closed_at": null,
-        "closed_by": null,
-        "labels": [
-          "automation:ml",
-          "automation:quick-win-judged",
-          "feature::addition",
-          "type::feature"
-        ],
-        "milestone": null,
-        "assignees": [],
-        "author": {
-          "id": 42451371,
-          "username": "phil-wong",
-          "public_email": "redacted@example.invalid",
-          "name": "Phil Wong",
-          "state": "active",
-          "locked": false,
-          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/42451371/avatar.png?v=1791348234",
-          "web_url": "https://gitlab.com/phil-wong"
-        },
-        "type": "ISSUE",
-        "assignee": null,
-        "user_notes_count": 2,
-        "merge_requests_count": 0,
-        "upvotes": 0,
-        "downvotes": 0,
-        "start_date": null,
-        "due_date": null,
-        "confidential": false,
-        "discussion_locked": null,
-        "issue_type": "issue",
-        "web_url": "https://gitlab.com/gitlab-org/cli/-/work_items/8588",
-        "time_stats": {
-          "time_estimate": 0,
-          "total_time_spent": 0,
-          "human_time_estimate": null,
-          "human_total_time_spent": null
-        },
-        "task_completion_status": {
-          "count": 6,
-          "completed_count": 0
-        },
-        "weight": null,
-        "blocking_issues_count": 0,
-        "has_tasks": false,
-        "_links": {
-          "self": "https://gitlab.com/api/v4/projects/34675721/issues/8588",
-          "notes": "https://gitlab.com/api/v4/projects/34675721/issues/8588/notes",
-          "award_emoji": "https://gitlab.com/api/v4/projects/34675721/issues/8588/award_emoji",
-          "project": "https://gitlab.com/api/v4/projects/34675721",
-          "closed_as_duplicate_of": null
-        },
-        "references": {
-          "short": "#8588",
-          "relative": "#8588",
-          "full": "gitlab-org/cli#8588"
-        },
-        "severity": "UNKNOWN",
-        "moved_to_id": null,
-        "imported": false,
-        "imported_from": "none",
-        "service_desk_reply_to": null,
-        "epic_iid": 23916,
-        "epic": {
-          "id": 5337728,
-          "iid": 23916,
-          "title": "Work Items REST API in glab",
-          "url": "/groups/gitlab-org/-/epics/23916",
-          "group_id": 9970
-        },
+        "epic_iid": null,
+        "epic": null,
         "iteration": null,
         "health_status": null
       }

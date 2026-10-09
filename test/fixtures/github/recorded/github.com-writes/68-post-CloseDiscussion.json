@@ -1,0 +1,36 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://api.github.com/graphql",
+    "operationName": "CloseDiscussion",
+    "variables": {
+      "id": "D_kwDOVCTdtM4Ap5qt",
+      "reason": "RESOLVED"
+    },
+    "body": {
+      "query": "mutation CloseDiscussion($id: ID!, $reason: DiscussionCloseReason) {\n  closeDiscussion(input: { discussionId: $id, reason: $reason }) { discussion { id } }\n}",
+      "variables": {
+        "id": "D_kwDOVCTdtM4Ap5qt",
+        "reason": "RESOLVED"
+      },
+      "operationName": "CloseDiscussion"
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "x-ratelimit-limit": "5000",
+      "x-ratelimit-remaining": "4975",
+      "x-ratelimit-reset": "1791559276"
+    },
+    "body": {
+      "data": {
+        "closeDiscussion": {
+          "discussion": {
+            "id": "D_kwDOVCTdtM4Ap5qt"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://dev.azure.com/forges/forges-fixtures/_apis/git/repositories/forges-fixtures/commits/c722b0f7aa03a4fd722b58da8571862ac98b03f5/statuses?api-version=7.1",
+    "body": {
+      "state": "succeeded",
+      "description": "Reported by run 20261009142428",
+      "context": {
+        "name": "forges fixture",
+        "genre": "forges"
+      }
+    }
+  },
+  "response": {
+    "status": 201,
+    "headers": {},
+    "body": {
+      "id": 4826407,
+      "state": "succeeded",
+      "description": "Reported by run 20261009142428",
+      "context": {
+        "name": "forges fixture",
+        "genre": "forges"
+      },
+      "creationDate": "2026-10-09T14:24:37.373Z",
+      "createdBy": {
+        "displayName": "danielroebot outlook.com",
+        "url": "https://spsprodweu6.vssps.visualstudio.com/Ad6317e89-50cc-469c-b506-66b9601cf085/_apis/Identities/567dfc49-0db7-43e6-83c1-d91d91db58b1",
+        "_links": {
+          "avatar": {
+            "href": "https://dev.azure.com/forges/_apis/GraphProfile/MemberAvatars/aad.MzE2OTUzNzAtY2RlZS03NzVkLWEwYjctMzUwYTkyZTJhMjc5"
+          }
+        },
+        "id": "567dfc49-0db7-43e6-83c1-d91d91db58b1",
+        "uniqueName": "redacted@example.invalid",
+        "imageUrl": "https://dev.azure.com/forges/_api/_common/identityImage?id=567dfc49-0db7-43e6-83c1-d91d91db58b1",
+        "descriptor": "aad.MzE2OTUzNzAtY2RlZS03NzVkLWEwYjctMzUwYTkyZTJhMjc5"
+      }
+    }
+  }
+}

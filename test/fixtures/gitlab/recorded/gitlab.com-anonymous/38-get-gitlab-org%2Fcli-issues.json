@@ -1,0 +1,301 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/issues?search=fix&in=title%2Cdescription&order_by=updated_at&sort=desc&per_page=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "<https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/issues?id=gitlab-org%2Fcli&in=title%2Cdescription&order_by=updated_at&page=2&per_page=3&search=fix&sort=desc&state=all&with_labels_details=false>; rel=\"next\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/issues?id=gitlab-org%2Fcli&in=title%2Cdescription&order_by=updated_at&page=1&per_page=3&search=fix&sort=desc&state=all&with_labels_details=false>; rel=\"first\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/issues?id=gitlab-org%2Fcli&in=title%2Cdescription&order_by=updated_at&page=215&per_page=3&search=fix&sort=desc&state=all&with_labels_details=false>; rel=\"last\"",
+      "etag": "W/\"22bd7b6b7a3ecb9488e0ad7a3b3724ab\"",
+      "ratelimit-limit": "500",
+      "ratelimit-remaining": "461",
+      "ratelimit-reset": "1791495900",
+      "x-total": "644",
+      "x-total-pages": "215",
+      "x-next-page": "2",
+      "x-page": "1",
+      "x-per-page": "3"
+    },
+    "body": [
+      {
+        "id": 178818838,
+        "iid": 8095,
+        "project_id": 34675721,
+        "title": "[Gitlab-ci] Release error in CI/CD",
+        "description": "<!---\nPlease read this!\n\nBefore opening a new issue, make sure to search for keywords in the issues\nfiltered by the \"bug\" label:\n\n- https://gitlab.com/gitlab-org/cli/-/issues/?label_name%5B%5D=type%3A%3Abug\n\nand verify the issue you're about to submit isn't a duplicate.\n--->\n\n### Checklist\n\n<!-- Please test the latest versions, that will remove the possibility that you see a bug that is fixed in a newer version. -->\n\n- [X] I'm using the latest version of the extension (Run `glab --version`)\n  - Extension version: _Put your extension version here_\n- [X] Operating system and version: Docker image `registry.gitlab.com/gitlab-org/cli:latest`\n- [X] Gitlab.com or self-managed instance? Self managed instance\n- [X] GitLab version (if self-managed) 18.6.2 (`gitlab/gitlab-ce:18.6.2-ce.0`)\n  (Use the `version` endpoint, like this: gitlab.my-company.com/api/v4/version) \n- [ ] I have performed `glab auth status` to check for authentication issues\n- [ ] Run the command in debug mode (like `DEBUG=true glab mr list`) and attach any useful output\n\n### Summary\n\n<!-- Summarize the bug encountered concisely -->\n\nI use the docker image at `registry.gitlab.com/gitlab-org/cli:latest` to run my release job, however I keep getting error.\n\n### Environment\n\nAs mentioned earlier, I'm running a self-hosted Gitlab Community Docker instance (`gitlab/gitlab-ce:18.6.2-ce.0`), using a runner with Docker executor (other jobs with docker run ok).\n\nMy Gitlab instance is behind a reverse proxy (using Nginx Proxy Manager) for both Gitlab and Gitlab registry (`gitlab.my-domain-name` and `registry.my-domain-name` respectively).\n\nHere is my omnibus config for gitlab:\n```yaml\n      GITLAB_OMNIBUS_CONFIG: |\n        registry_external_url \"${EXTERNAL_URL}\"\n        gitlab_rails['gitlab_shell_ssh_port'] = \"${HOST_SSH_PORT}\"\n        nginx['listen_port'] = \"${CONTAINER_HTTP_PORT}\"\n        nginx['listen_https'] = false\n        registry_nginx['listen_port'] = \"${CONTAINER_REGISTRY_PORT}\"\n        registry_nginx['listen_https'] = false\n        registry_nginx['proxy_http_version'] = 1.1\n        registry_nginx['proxy_set_headers'] = {\n          \"X-Forwarded-Proto\" => \"https\",\n          \"X-Forwarded-Ssl\" => \"on\"\n        }\n        gitlab_rails['smtp_enable'] = true\n        gitlab_rails['smtp_address'] = \"smtp.gmail.com\"\n        gitlab_rails['smtp_port'] = 587\n        gitlab_rails['smtp_user_name'] = \"${USERNAME}\"\n        gitlab_rails['smtp_password'] = \"${PASSWORD}\"\n        gitlab_rails['smtp_domain'] = \"smtp.gmail.com\"\n        gitlab_rails['smtp_authentication'] = \"login\"\n        gitlab_rails['smtp_enable_starttls_auto'] = true\n        gitlab_rails['smtp_tls'] = false\n        gitlab_rails['smtp_openssl_verify_mode'] = 'peer'\n```\n\n<details>\n<summary>\nThough I haven't done any particular config on my external Nginx, here is my setup\n</summary>\n![image](/uploads/c8fee8d1b8484e1d80c1aec1d9c4dc72/image.png){width=495 height=544}\n![image](/uploads/433185104faca004f375f32bdf65d5c3/image.png){width=395 height=600}\n![image](/uploads/bfe11a026aff29be66efd0be06afac8f/image.png){width=498 height=381}\n![image](/uploads/f827959e4d10e579878f463a6b81ad8e/image.png){width=498 height=599}\n</details>\n\n<!--\nPlease include any other information that you believe might be relevant\nin debugging. For example, you may include a shell framework like oh-my-zsh\nor other customizations like editing the prompt (PS1, PS2, and others).\n-->\n\n### Steps to reproduce\n\n<!-- How one can reproduce the issue - this is very important -->\n\nBoth build and package jobs run successfully, and package registry has the file. Here is my release job:\n\n```yaml\nrelease:\n  stage: release\n  image: registry.gitlab.com/gitlab-org/cli:latest\n  rules:\n    - if: ${CI_COMMIT_TAG}\n  script:\n    - echo \"Running the release job.\"\n  release:\n    tag_name: ${CI_COMMIT_TAG}\n    name: 'Release ${CI_COMMIT_TAG}'\n    description: \"Release ${CI_COMMIT_TAG} at ${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/generic/${PACKAGE_NAME}/${CI_COMMIT_TAG}/${PACKAGE_NAME}.exe\"\n```\nNote that I first ran with assets instead of linking the package in the description, but that fails as well.\n\n### What is the current _bug_ behavior?\n\nThe release job fails, no release created.\n\n### What is the expected _correct_ behavior?\n\nThe release job should be successful and the release is created.\n\n### Relevant logs and/or screenshots\n\nI got the following error:\n```\nExecuting \"step_script\" stage of the job script 00:00\nUsing docker image sha256:54b05805f30401108ba5c40adfb1f056e7733554874958c3cabfa219b69db8e7 for registry.gitlab.com/gitlab-org/cli:latest with digest registry.gitlab.com/gitlab-org/cli@sha256:3015164b5a7d16288d3ac7c48d6685e30071603b3b519a8fb3cc177ba22ef40f ...\n$ echo \"Running the release job.\"\nRunning the release job.\nExecuting \"step_release\" stage of the job script 00:02\n$ if command -v glab &> /dev/null; then # collapsed multi-line command\n• Creating or updating release repo=###/############# tag=########\n          \n   ERROR  \n          \n  Json: cannot unmarshal array into Go value of type gitlab.Release.                                                  \nCleaning up project directory and file based variables 00:01\nERROR: Job failed: exit code 1\n```\nI saw this behaviour similar to another issue in `release-cli`, but I don't know if it is related to my Nginx: https://gitlab.com/gitlab-org/release-cli/-/issues?sort=created_date&state=closed&search=cannot+unmarshal&first_page_size=20&show=eyJpaWQiOiIxMzYiLCJmdWxsX3BhdGgiOiJnaXRsYWItb3JnL3JlbGVhc2UtY2xpIiwiaWQiOjEwMDM4MzAzMX0%3D\n\nI can't seem to see any workaround on that issue, however. Using `release-cli` also creates a similar bug.\n\n### Possible fixes\n\n<!-- If you can, link to the line of code that might be responsible for the problem -->",
+        "state": "opened",
+        "created_at": "2025-12-16T15:23:13.089Z",
+        "updated_at": "2026-10-08T19:35:39.702Z",
+        "closed_at": null,
+        "closed_by": null,
+        "labels": [
+          "Category:Continuous Integration",
+          "automation:ml",
+          "backend",
+          "bug::functional",
+          "category:gitlab cli",
+          "devops::ai coding",
+          "group::code review",
+          "section::ai",
+          "type::bug"
+        ],
+        "milestone": null,
+        "assignees": [
+          {
+            "id": 15767218,
+            "username": "jmrp",
+            "public_email": "",
+            "name": "José M. Requena Plens",
+            "state": "active",
+            "locked": false,
+            "avatar_url": "https://secure.gravatar.com/avatar/c5d10bf280469d6655142b8b82c29bf87dde9ccf0184ac928f0e9738b229ef49?s=80&d=identicon",
+            "web_url": "https://gitlab.com/jmrp"
+          }
+        ],
+        "author": {
+          "id": 9804282,
+          "username": "AFKBETO",
+          "public_email": "",
+          "name": "Quang Viet NGUYEN",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://secure.gravatar.com/avatar/d8317778eae037e220d4df1f4cd6b8064b33b86cadd6b8d9da0856e418fb851a?s=80&d=identicon",
+          "web_url": "https://gitlab.com/AFKBETO"
+        },
+        "type": "ISSUE",
+        "assignee": {
+          "id": 15767218,
+          "username": "jmrp",
+          "public_email": "",
+          "name": "José M. Requena Plens",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://secure.gravatar.com/avatar/c5d10bf280469d6655142b8b82c29bf87dde9ccf0184ac928f0e9738b229ef49?s=80&d=identicon",
+          "web_url": "https://gitlab.com/jmrp"
+        },
+        "user_notes_count": 5,
+        "merge_requests_count": 1,
+        "upvotes": 0,
+        "downvotes": 0,
+        "start_date": null,
+        "due_date": null,
+        "confidential": false,
+        "discussion_locked": null,
+        "issue_type": "issue",
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/work_items/8095",
+        "time_stats": {
+          "time_estimate": 0,
+          "total_time_spent": 0,
+          "human_time_estimate": null,
+          "human_total_time_spent": null
+        },
+        "task_completion_status": {
+          "count": 6,
+          "completed_count": 4
+        },
+        "weight": null,
+        "blocking_issues_count": 0,
+        "has_tasks": false,
+        "_links": {
+          "self": "https://gitlab.com/api/v4/projects/34675721/issues/8095",
+          "notes": "https://gitlab.com/api/v4/projects/34675721/issues/8095/notes",
+          "award_emoji": "https://gitlab.com/api/v4/projects/34675721/issues/8095/award_emoji",
+          "project": "https://gitlab.com/api/v4/projects/34675721",
+          "closed_as_duplicate_of": null
+        },
+        "references": {
+          "short": "#8095",
+          "relative": "#8095",
+          "full": "gitlab-org/cli#8095"
+        },
+        "severity": "UNKNOWN",
+        "moved_to_id": null,
+        "imported": false,
+        "imported_from": "none",
+        "service_desk_reply_to": null,
+        "epic_iid": null,
+        "epic": null,
+        "iteration": null,
+        "health_status": null
+      },
+      {
+        "id": 205878365,
+        "iid": 8595,
+        "project_id": 34675721,
+        "title": "`host` config key / GITLAB_HOST overrides repo remotes instead of acting as a fallback",
+        "description": "### Checklist\n\n- [x] I'm using the latest version of the extension (Run `glab --version`)\n  - Extension version: glab 1.120.0 (78790114c)\n  - Also reproduced from source at main (`glab DEV`)\n- [x] Operating system and version: Linux 7.2.8-200.fc44.x86_64 x86_64\n- [x] Gitlab.com or self-managed instance? _both_\n- [x] GitLab version (if self-managed) _v19.3.3_\n- [x] I have performed `glab auth status` to check for authentication issues\n- [x] Run the command in debug mode (like `GLAB_DEBUG=true glab mr list`) and attach any useful output\n\n### Summary\n\nThe top-level `host:` key in `config.yml` (or the `GITLAB_HOST` / `GITLAB_URI` / `GL_HOST` environment variables) is treated as an **override when inside a Git repository** instead of as a default for when no host can be resolved. When the key differs from the repo's remote host, glab filters the remotes down to the configured host and fails all repo-bound commands. The key is documented as \"Default GitLab instance, outside Git repositories\", so it should only apply when the remote (or a URL argument) doesn't determine the host.\n\n### Environment\n\n- OS: Linux 7.2.8-200.fc44.x86_64 x86_64\n- SHELL: /bin/bash\n- TERM: xterm-256color\n- GLAB: glab 1.120.0 (78790114c)\n\n### Steps to reproduce\n\nWith no network required (the failure happens before any API call):\n\n```sh\ngit init /tmp/repro && cd /tmp/repro\ngit remote add origin https://gitlab.com/gitlab-org/cli.git\nmkdir -p /tmp/cfg && cat > /tmp/cfg/config.yml <<'EOF'\ngit_protocol: https\nhost: gitlab.tuwien.ac.at\nhosts:\n  gitlab.tuwien.ac.at:\n    token: fake\n    api_protocol: https\n    git_protocol: https\nEOF\nchmod 600 /tmp/cfg/config.yml\nGLAB_CONFIG_DIR=/tmp/cfg glab issue list\n```\n\nSetting `host:` to anything other than `gitlab.com` (or setting `GITLAB_HOST`) triggers the filter in any repo whose remote points to a different instance.\n\n### What is the current _bug_ behavior?\n\n1. The command fails with `None of the git remotes configured for this repository correspond to the GITLAB_HOST environment variable` even when **no** environment variable is set and the value came from the `host:` key — the error message is misleading.\n2. With `-R OWNER/REPO` (no host in the argument), the request silently goes to the configured instance instead of the repo's remote host, targeting the wrong instance and token.\n\n### What is the expected _correct_ behavior?\n\n- Inside a Git repository, the remote (or a URL argument) determines the host; the `host:` key / `GITLAB_HOST` are only fallbacks when the host cannot be resolved (e.g. outside a repo).\n- The error message should say which source set the override (config key vs. env var).\n\n### Relevant logs and/or screenshots\n\n```\n$ GLAB_CONFIG_DIR=/tmp/cfg GLAB_DEBUG=true glab issue list\n2026/10/08 19:04:51 [Could not determine base repo in telemetry hook:  none of the git remotes\nconfigured for this repository correspond to the GITLAB_HOST environment variable. Try adding\na matching remote or unsetting the variable.\n\nGITLAB_HOST is currently set to gitlab.tuwien.ac.at\n\nConfigured remotes: gitlab.com]\n\n   ERROR\n\n  None of the git remotes configured for this repository correspond to the GITLAB_HOST\n  environment variable. Try adding a matching remote or unsetting the variable.\n\n  GITLAB_HOST is currently set to gitlab.tuwien.ac.at\n\n  Configured remotes: gitlab.com.\n```\n\n(Note: in the debug log line, the trailing `]` closes the `GLAB_DEBUG` log entry, which wraps the message in brackets; it is not part of the error text.)\n\n### Possible fixes\n\n- `internal/cmdutils/factory.go`: `defaultHostname` is set from `cfg.Get(\"\", \"host\")` before `BaseRepo()` resolves; `Remotes()` then sets `hostOverride` whenever the default differs from `gitlab.com` (\\~line 192).\n- `internal/cmdutils/remote_resolver.go`: the `hostOverride` block (\\~lines 103-127) drops all non-matching remotes, then errors out.\n- `RepoOverride` (`factory.go`) resolves `-R OWNER/REPO` against `defaultHostname` instead of the repo's remote host.\n- Note: `remote_resolver_test.go` (\\~line 428) locks in the current override behavior, so this needs a decision on intended semantics (env var as hard override vs. fallback), not just a test change.\n- Related: #8084 covers the URL-host case of the same host-resolution model.",
+        "state": "opened",
+        "created_at": "2026-10-08T17:19:18.480Z",
+        "updated_at": "2026-10-08T18:11:44.343Z",
+        "closed_at": null,
+        "closed_by": null,
+        "labels": [
+          "automation:ml",
+          "backend",
+          "bug::functional",
+          "type::bug"
+        ],
+        "milestone": null,
+        "assignees": [],
+        "author": {
+          "id": 156252,
+          "username": "ziegenberg",
+          "public_email": "redacted@example.invalid",
+          "name": "Daniel Ziegenberg",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://secure.gravatar.com/avatar/6c9be80c9e1b23ec1c54f0f3e81bc4d58e034e2bf83b8a186b8f82aa347d564c?s=80&d=identicon",
+          "web_url": "https://gitlab.com/ziegenberg"
+        },
+        "type": "ISSUE",
+        "assignee": null,
+        "user_notes_count": 1,
+        "merge_requests_count": 0,
+        "upvotes": 0,
+        "downvotes": 0,
+        "start_date": null,
+        "due_date": null,
+        "confidential": false,
+        "discussion_locked": null,
+        "issue_type": "issue",
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/work_items/8595",
+        "time_stats": {
+          "time_estimate": 0,
+          "total_time_spent": 0,
+          "human_time_estimate": null,
+          "human_total_time_spent": null
+        },
+        "task_completion_status": {
+          "count": 6,
+          "completed_count": 6
+        },
+        "weight": null,
+        "blocking_issues_count": 0,
+        "has_tasks": false,
+        "_links": {
+          "self": "https://gitlab.com/api/v4/projects/34675721/issues/8595",
+          "notes": "https://gitlab.com/api/v4/projects/34675721/issues/8595/notes",
+          "award_emoji": "https://gitlab.com/api/v4/projects/34675721/issues/8595/award_emoji",
+          "project": "https://gitlab.com/api/v4/projects/34675721",
+          "closed_as_duplicate_of": null
+        },
+        "references": {
+          "short": "#8595",
+          "relative": "#8595",
+          "full": "gitlab-org/cli#8595"
+        },
+        "severity": "UNKNOWN",
+        "moved_to_id": null,
+        "imported": false,
+        "imported_from": "none",
+        "service_desk_reply_to": null,
+        "epic_iid": null,
+        "epic": null,
+        "iteration": null,
+        "health_status": null
+      },
+      {
+        "id": 171307244,
+        "iid": 7943,
+        "project_id": 34675721,
+        "title": "Impossible to configure_docker, since container_registry_domains is not stored when --use-keyring is supplied and also not checked",
+        "description": "### Checklist\n\n<!-- Please test the latest versions, that will remove the possibility that you see a bug that is fixed in a newer version. -->\n\n- [x] I'm using the latest version of the extension (Run `glab --version`)\n  - Extension version: 1.65.0\n- [x] Operating system and version: Fedora 42\n- [x] Gitlab.com or self-managed instance? self-managed instance\n- [x] GitLab version (if self-managed) 18.05\n- [x] I have performed `glab auth status` to check for authentication issues\n- [ ] Run the command in debug mode (like `DEBUG=true glab mr list`) and attach any useful output\n\n### Summary\n\nUsing `glab auth login` with `--use-keyring` does not store the survey answer to supplied container registry domains.\n\nAdditionally `glab auth status` does not check for validity of container registry credentials.\n\n### Steps to reproduce\n\n1. Login with `glab auth login --use-keyring` and provide container registry domains\n2. Try to do `glab auth configure-docker`\n3. See the error\n\n### What is the current _bug_ behavior?\n\nThe error is thrown:\n\n```\nERROR: no hosts were configured - ensure you've logged in via oauth2 and configured at least one container registry domain for a host\n```\n\n### What is the expected _correct_ behavior?\n\n`configure_docker` succeeds and container registry domains are retained when using the keyring, as without using `--use-keyring`.\n\nElse the error could also be more understandable, such as \"no container registries found in configuration retrieved from keyring/configuration file at path …\".",
+        "state": "opened",
+        "created_at": "2025-07-30T13:42:40.813Z",
+        "updated_at": "2026-10-08T17:49:30.805Z",
+        "closed_at": null,
+        "closed_by": null,
+        "labels": [
+          "UI text",
+          "category:gitlab cli",
+          "devops::ai coding",
+          "documentation",
+          "group::code review",
+          "section::ai",
+          "tw::triaged",
+          "type::bug",
+          "vintage"
+        ],
+        "milestone": null,
+        "assignees": [
+          {
+            "id": 39330700,
+            "username": "jhahimanshu653",
+            "public_email": null,
+            "name": "Himanshu Jha",
+            "state": "active",
+            "locked": false,
+            "avatar_url": "https://secure.gravatar.com/avatar/7256804a9e07d4093a122ab52809413f75645caf9a676ecb9c6a5bd7cf8e3ba3?s=80&d=identicon",
+            "web_url": "https://gitlab.com/jhahimanshu653"
+          }
+        ],
+        "author": {
+          "id": 287902,
+          "username": "almereyda",
+          "public_email": "",
+          "name": "jon r",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://secure.gravatar.com/avatar/ad39b9365c973d6987beb07b1f856a879302d359cdfdbe1325e449714dc59cf9?s=80&d=identicon",
+          "web_url": "https://gitlab.com/almereyda"
+        },
+        "type": "ISSUE",
+        "assignee": {
+          "id": 39330700,
+          "username": "jhahimanshu653",
+          "public_email": null,
+          "name": "Himanshu Jha",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://secure.gravatar.com/avatar/7256804a9e07d4093a122ab52809413f75645caf9a676ecb9c6a5bd7cf8e3ba3?s=80&d=identicon",
+          "web_url": "https://gitlab.com/jhahimanshu653"
+        },
+        "user_notes_count": 5,
+        "merge_requests_count": 1,
+        "upvotes": 0,
+        "downvotes": 0,
+        "start_date": null,
+        "due_date": null,
+        "confidential": false,
+        "discussion_locked": null,
+        "issue_type": "issue",
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/work_items/7943",
+        "time_stats": {
+          "time_estimate": 0,
+          "total_time_spent": 0,
+          "human_time_estimate": null,
+          "human_total_time_spent": null
+        },
+        "task_completion_status": {
+          "count": 6,
+          "completed_count": 5
+        },
+        "weight": null,
+        "blocking_issues_count": 0,
+        "has_tasks": false,
+        "_links": {
+          "self": "https://gitlab.com/api/v4/projects/34675721/issues/7943",
+          "notes": "https://gitlab.com/api/v4/projects/34675721/issues/7943/notes",
+          "award_emoji": "https://gitlab.com/api/v4/projects/34675721/issues/7943/award_emoji",
+          "project": "https://gitlab.com/api/v4/projects/34675721",
+          "closed_as_duplicate_of": null
+        },
+        "references": {
+          "short": "#7943",
+          "relative": "#7943",
+          "full": "gitlab-org/cli#7943"
+        },
+        "severity": "UNKNOWN",
+        "moved_to_id": null,
+        "imported": false,
+        "imported_from": "none",
+        "service_desk_reply_to": null,
+        "epic_iid": null,
+        "epic": null,
+        "iteration": null,
+        "health_status": null
+      }
+    ]
+  }
+}

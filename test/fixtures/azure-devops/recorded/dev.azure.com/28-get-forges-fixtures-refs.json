@@ -1,0 +1,51 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://dev.azure.com/forges/forges-fixtures/_apis/git/repositories/forges-fixtures/refs?filter=heads%2F&api-version=7.1"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "value": [
+        {
+          "name": "refs/heads/fixture-pr",
+          "objectId": "0f7fea462ab8103e55ca8aa0288ba85443f0e8f2",
+          "creator": {
+            "displayName": "danielroe",
+            "url": "https://spsprodweu6.vssps.visualstudio.com/Ad6317e89-50cc-469c-b506-66b9601cf085/_apis/Identities/48261c0d-8a6e-6a10-a9cb-c76b44ce18ce",
+            "_links": {
+              "avatar": {
+                "href": "https://dev.azure.com/forges/_apis/GraphProfile/MemberAvatars/aad.NDgyNjFjMGQtOGE2ZS03YTEwLWE5Y2ItYzc2YjQ0Y2UxOGNl"
+              }
+            },
+            "id": "48261c0d-8a6e-6a10-a9cb-c76b44ce18ce",
+            "uniqueName": "redacted@example.invalid",
+            "imageUrl": "https://dev.azure.com/forges/_api/_common/identityImage?id=48261c0d-8a6e-6a10-a9cb-c76b44ce18ce",
+            "descriptor": "aad.NDgyNjFjMGQtOGE2ZS03YTEwLWE5Y2ItYzc2YjQ0Y2UxOGNl"
+          },
+          "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/refs?filter=heads%2Ffixture-pr"
+        },
+        {
+          "name": "refs/heads/main",
+          "objectId": "148352c9756cd600dbe4a6a09856388e4c72b17b",
+          "creator": {
+            "displayName": "danielroe",
+            "url": "https://spsprodweu6.vssps.visualstudio.com/Ad6317e89-50cc-469c-b506-66b9601cf085/_apis/Identities/48261c0d-8a6e-6a10-a9cb-c76b44ce18ce",
+            "_links": {
+              "avatar": {
+                "href": "https://dev.azure.com/forges/_apis/GraphProfile/MemberAvatars/aad.NDgyNjFjMGQtOGE2ZS03YTEwLWE5Y2ItYzc2YjQ0Y2UxOGNl"
+              }
+            },
+            "id": "48261c0d-8a6e-6a10-a9cb-c76b44ce18ce",
+            "uniqueName": "redacted@example.invalid",
+            "imageUrl": "https://dev.azure.com/forges/_api/_common/identityImage?id=48261c0d-8a6e-6a10-a9cb-c76b44ce18ce",
+            "descriptor": "aad.NDgyNjFjMGQtOGE2ZS03YTEwLWE5Y2ItYzc2YjQ0Y2UxOGNl"
+          },
+          "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/refs?filter=heads%2Fmain"
+        }
+      ],
+      "count": 2
+    }
+  }
+}

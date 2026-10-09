@@ -4,8 +4,7 @@
     "forge": "tangled",
     "instance": "tangled.org",
     "owner": "did:plc:wshs7t2adsemcrrd4snkeqli",
-    "name": "core",
-    "externalId": "did:plc:j5hmlfdrwkvtxm7cjmu7j2is"
+    "name": "3ljbiayluee22"
   },
   "pull": {
     "forge": "tangled",
@@ -14,13 +13,12 @@
       "forge": "tangled",
       "instance": "tangled.org",
       "owner": "did:plc:wshs7t2adsemcrrd4snkeqli",
-      "name": "core",
-      "externalId": "did:plc:j5hmlfdrwkvtxm7cjmu7j2is"
+      "name": "3ljbiayluee22"
     },
     "kind": "pull_request",
     "typeRaw": "sh.tangled.repo.pull",
-    "number": "at://did:plc:pzywyr3ji56pinuglmm4t7xj/sh.tangled.repo.pull/3mwq55xakxq22",
-    "externalId": "at://did:plc:pzywyr3ji56pinuglmm4t7xj/sh.tangled.repo.pull/3mwq55xakxq22"
+    "number": "at://did:plc:laqygfbyvnkyuhsuaxmp6ez3/sh.tangled.repo.pull/3m7lfz7dl5z22",
+    "externalId": "at://did:plc:laqygfbyvnkyuhsuaxmp6ez3/sh.tangled.repo.pull/3m7lfz7dl5z22"
   },
   "issue": {
     "forge": "tangled",
@@ -29,24 +27,30 @@
       "forge": "tangled",
       "instance": "tangled.org",
       "owner": "did:plc:wshs7t2adsemcrrd4snkeqli",
-      "name": "core",
-      "externalId": "did:plc:j5hmlfdrwkvtxm7cjmu7j2is"
+      "name": "3ljbiayluee22"
     },
     "kind": "issue",
     "typeRaw": "sh.tangled.repo.issue",
-    "number": "at://did:plc:cnx5rmsyvousaqjfbbzzllbi/sh.tangled.repo.issue/3mwqhyckjiz22",
-    "externalId": "at://did:plc:cnx5rmsyvousaqjfbbzzllbi/sh.tangled.repo.issue/3mwqhyckjiz22"
+    "number": "at://did:plc:qfpnj4og54vl56wngdriaxug/sh.tangled.repo.issue/3ljnffy24un22",
+    "externalId": "at://did:plc:qfpnj4og54vl56wngdriaxug/sh.tangled.repo.issue/3ljnffy24un22"
   },
+  "account": "did:plc:jbeaa5kdaladzwq3r7f5xgwe",
+  "recordedAt": "2026-10-09T13:15:05.993Z",
   "steps": [
     "repo",
     "pull",
+    "pull list",
     "pull getMany",
     "pull events",
     "pull comments",
+    "pull subscription",
     "issue",
+    "issue list",
     "issue getMany",
     "issue events",
-    "issue comments"
-  ],
-  "recordedAt": "2026-10-02T12:30:17.000Z"
+    "issue comments",
+    "issue subscription",
+    "me",
+    "own repos"
+  ]
 }

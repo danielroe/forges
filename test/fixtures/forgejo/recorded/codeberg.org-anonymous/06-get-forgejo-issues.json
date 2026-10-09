@@ -6,161 +6,15 @@
   "response": {
     "status": 200,
     "headers": {
-      "link": "<https://codeberg.org/api/v1/repos/forgejo/forgejo/issues?limit=3&page=2&state=open&type=pulls>; rel=\"next\",<https://codeberg.org/api/v1/repos/forgejo/forgejo/issues?limit=3&page=53&state=open&type=pulls>; rel=\"last\"",
-      "x-total-count": "157"
+      "link": "<https://codeberg.org/api/v1/repos/forgejo/forgejo/issues?limit=3&page=2&state=open&type=pulls>; rel=\"next\",<https://codeberg.org/api/v1/repos/forgejo/forgejo/issues?limit=3&page=50&state=open&type=pulls>; rel=\"last\"",
+      "x-total-count": "150"
     },
     "body": [
       {
-        "id": 7639926,
-        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/pulls/14759",
-        "html_url": "https://codeberg.org/forgejo/forgejo/pulls/14759",
-        "number": 14759,
-        "user": {
-          "id": 55597,
-          "login": "mahlzahn",
-          "source_id": 0,
-          "full_name": "Robert Wolff",
-          "email": "redacted@example.invalid",
-          "avatar_url": "https://codeberg.org/avatars/38aaf335c256be75baad14a954801bfeb7aea344f7dadc3e699a683f535fab6a",
-          "html_url": "https://codeberg.org/mahlzahn",
-          "active": false,
-          "location": "",
-          "pronouns": "",
-          "website": "",
-          "description": "[⁂](https://symbol.fediverse.info) <a rel=\"me\" href=\"https://nerdculture.de/@mahlzahn\">@mahlzahn@nerdculture.de</a>",
-          "followers_count": 22,
-          "following_count": 3,
-          "starred_repos_count": 44,
-          "username": "mahlzahn"
-        },
-        "original_author": "",
-        "original_author_id": 0,
-        "title": "[v17.0/forgejo] fix(ui): proper use of modern components in org teams ui",
-        "body": "**Backport**: #14752\r\n\r\nFixes forgejo/forgejo#14750.\r\n\r\nRegression as result of combining #14281 with #13943 and #13630.\r\n\r\nStyles in modern `button.css` were never supposed to act as overrides of Fomantic styles, but in a few places during v17 devcycle they ended up doing that before they broke.\r\n\r\nAs currently `button.css` does not offer alternative to Fomantic's `tiny` buttons those were just reverted to be fully Fomantic governed.\r\n\r\n|Change|Before|After|\r\n|-|-|-|\r\n|Fixed classes|![1abef](/attachments/6e7121d2-3b42-4010-b7b5-3d832dd9dc50)|![1aft](/attachments/7279c52f-9d59-4ae7-bbd5-18e533d013e7)|\r\n|Reverted|![2abef](/attachments/f807bd12-96a1-40bf-b928-712162b2c696)|![2aft](/attachments/46f52e0b-71e6-4a82-897b-e1d8694bb078)|\r\n\r\nNot needed, no stable v17 versions were published.\r\n\r\n<!--[x] I confirm that I make this contribution in accordance with [Forgejo''s AI Agreement]-->\r\n\r\nReviewed-on: https://codeberg.org/forgejo/forgejo/pulls/14752\r\nReviewed-by: Andreas Ahlenstorf <redacted@example.invalid>\r\n(cherry picked from commit d915e5a5abb92527ac7fd0d60997b5fc57cf8467)",
-        "ref": "",
-        "assets": [],
-        "labels": [
-          {
-            "id": 201023,
-            "name": "bug/confirmed",
-            "exclusive": true,
-            "is_archived": false,
-            "color": "e11d21",
-            "description": "it can be reproduced",
-            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/201023"
-          },
-          {
-            "id": 87703,
-            "name": "forgejo/ui",
-            "exclusive": false,
-            "is_archived": false,
-            "color": "eb6420",
-            "description": "User interface",
-            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/87703"
-          },
-          {
-            "id": 201028,
-            "name": "test/manual",
-            "exclusive": true,
-            "is_archived": false,
-            "color": "5319e7",
-            "description": "manual testing has been documented",
-            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/201028"
-          }
-        ],
-        "milestone": null,
-        "assignee": null,
-        "assignees": null,
-        "state": "open",
-        "is_locked": false,
-        "comments": 1,
-        "created_at": "2026-10-08T16:20:09+02:00",
-        "updated_at": "2026-10-08T17:42:12+02:00",
-        "closed_at": null,
-        "due_date": null,
-        "pull_request": {
-          "merged": false,
-          "merged_at": null,
-          "draft": false,
-          "html_url": "https://codeberg.org/forgejo/forgejo/pulls/14759"
-        },
-        "repository": {
-          "id": 73144,
-          "name": "forgejo",
-          "owner": "forgejo",
-          "full_name": "forgejo/forgejo"
-        },
-        "pin_order": 0
-      },
-      {
-        "id": 7637577,
-        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/pulls/14754",
-        "html_url": "https://codeberg.org/forgejo/forgejo/pulls/14754",
-        "number": 14754,
-        "user": {
-          "id": 1003461,
-          "login": "0xdeafbeef",
-          "source_id": 0,
-          "full_name": "",
-          "email": "redacted@example.invalid",
-          "avatar_url": "https://codeberg.org/avatars/2cf24bcb44605b08abd3bbca77b4de29",
-          "html_url": "https://codeberg.org/0xdeafbeef",
-          "active": false,
-          "location": "",
-          "pronouns": "",
-          "website": "",
-          "description": "",
-          "followers_count": 0,
-          "following_count": 0,
-          "starred_repos_count": 1,
-          "username": "0xdeafbeef"
-        },
-        "original_author": "",
-        "original_author_id": 0,
-        "title": "fix(api): delete the repository when a migration fails",
-        "body": "POST /api/v1/repos/migrate creates the repository with status \"being\r\nmigrated\" before it migrates. A deferred function was supposed to delete\r\nit when the migration failed, but it checked `repo != nil`, and\r\n`repo, err = migrations.MigrateRepository(...)` had already set `repo` to\r\nnil on failure. The repository stayed behind, empty and stuck in \"being\r\nmigrated\", and a retry with the same name failed until someone deleted it.\r\n\r\nThe same deferred function also read `err` after `updateRepoUnits`\r\nassigned it, so a failure there deleted a repository that had migrated\r\nsuccessfully while the API still answered 201.\r\n\r\nThe deferred function now only handles a panic; a failed migration\r\ndeletes the repository at the place it fails. The API also passes\r\nOriginalURL, so the system notice for a failed migration names the\r\nsource instead of \"Migrate repository from  failed\".\r\n\r\n\r\n## Checklist\r\n\r\nThe [contributor guide](https://forgejo.org/docs/next/contributor/) contains information that will be helpful to first time contributors. All work and communication must conform to Forgejo's [AI Agreement](https://codeberg.org/forgejo/governance/src/branch/main/AIAgreement.md). There also are a few [conditions for merging Pull Requests in Forgejo repositories](https://codeberg.org/forgejo/governance/src/branch/main/PullRequestsAgreement.md). You are also welcome to join the [Forgejo development chatroom](https://matrix.to/#/#forgejo-development:matrix.org).\r\n\r\n### Compliance\r\n\r\n- [x] I confirm that I make this contribution in accordance with [Forgejo's AI Agreement](https://codeberg.org/forgejo/governance/src/commit/9084720dc6a7fbf1d3f358919d46bd6adfb55287/AIAgreement.md).\r\n\r\n### Tests for Go changes\r\n\r\n(can be removed for JavaScript changes)\r\n\r\n- I added test coverage for Go changes...\r\n  - [x] in their respective `*_test.go` for unit tests.\r\n  - [ ] in the `tests/integration` directory if it involves interactions with a live Forgejo server.\r\n- I ran...\r\n  - [x] `make pr-go` before pushing\r\n\r\n### Tests for JavaScript changes\r\n\r\n(can be removed for Go changes)\r\n\r\n- I added test coverage for JavaScript changes...\r\n  - [ ] in `web_src/js/*.test.js` if it can be unit tested.\r\n  - [ ] in `tests/e2e/*.test.e2e.js` if it requires interactions with a live Forgejo server (see also the [developer guide for JavaScript testing](https://codeberg.org/forgejo/forgejo/src/branch/forgejo/tests/e2e/README.md#end-to-end-tests)).\r\n\r\n### Documentation\r\n\r\n- [ ] I created a pull request [to the documentation](https://codeberg.org/forgejo/docs) to explain to Forgejo users how to use this change.\r\n- [ ] I did not document these changes and I do not expect someone else to do it.\r\n\r\n### Release notes\r\n\r\n- [x] This change will be noticed by a Forgejo user or admin (feature, bug fix, performance, etc.). I suggest to include a release note for this change.\r\n- [ ] This change is not visible to a Forgejo user or admin (refactor, dependency upgrade, etc.). I think there is no need to add a release note for this change.\r\n\r\n*The decision if the pull request will be shown in the release notes is up to the mergers / release team.*\r\n\r\nThe content of the `release-notes/<pull request number>.md` file will serve as the basis for the release notes. If the file does not exist, the title of the pull request will be used instead.\r\n",
-        "ref": "",
-        "assets": [],
-        "labels": [
-          {
-            "id": 201027,
-            "name": "test/needed",
-            "exclusive": true,
-            "is_archived": false,
-            "color": "5319e7",
-            "description": "test should be added",
-            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/201027"
-          }
-        ],
-        "milestone": null,
-        "assignee": null,
-        "assignees": null,
-        "state": "open",
-        "is_locked": false,
-        "comments": 1,
-        "created_at": "2026-10-08T12:07:36+02:00",
-        "updated_at": "2026-10-08T17:12:35+02:00",
-        "closed_at": null,
-        "due_date": null,
-        "pull_request": {
-          "merged": false,
-          "merged_at": null,
-          "draft": false,
-          "html_url": "https://codeberg.org/forgejo/forgejo/pulls/14754"
-        },
-        "repository": {
-          "id": 73144,
-          "name": "forgejo",
-          "owner": "forgejo",
-          "full_name": "forgejo/forgejo"
-        },
-        "pin_order": 0
-      },
-      {
-        "id": 7636587,
-        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/pulls/14751",
-        "html_url": "https://codeberg.org/forgejo/forgejo/pulls/14751",
-        "number": 14751,
+        "id": 7642737,
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/pulls/14765",
+        "html_url": "https://codeberg.org/forgejo/forgejo/pulls/14765",
+        "number": 14765,
         "user": {
           "id": 141082,
           "login": "viceice-bot",
@@ -181,8 +35,8 @@
         },
         "original_author": "",
         "original_author_id": 0,
-        "title": "Update https://codeberg.org/clouds666/unkai action to v0.2.17 (forgejo)",
-        "body": "This PR contains the following updates:\n\n| Package | Type | Update | Change |\n|---|---|---|---|\n| [https://codeberg.org/clouds666/unkai](https://codeberg.org/clouds666/unkai) | action | patch | `v0.2.15` → `v0.2.17` |\n\n---\n\n### Release Notes\n\n<details>\n<summary>clouds666/unkai (https://codeberg.org/clouds666/unkai)</summary>\n\n### [`v0.2.17`](https://codeberg.org/clouds666/unkai/releases/tag/v0.2.17)\n\n[Compare Source](https://codeberg.org/clouds666/unkai/compare/v0.2.16...v0.2.17)\n\n<!--start release-notes-assistant-->\n\n<!--URL:https://codeberg.org/clouds666/unkai-->\n\n- bug fixes\n  - [PR](https://codeberg.org/clouds666/unkai/pulls/196): <!--number 196 --><!--line 0 --><!--description Zml4KGFjdGlvbik6IHByaW9yaXRpemUgYGFjdGlvbl9yZXBvc2l0b3J5YCBhbmQgYGFjdGlvbl9yZWZgIGZvciBkeW5hbWljLXVzZXMgYWN0aW9uIHdvcmthcm91bmQ=-->fix(action): prioritize `action_repository` and `action_ref` for dynamic-uses action workaround<!--description-->\n- other\n  - [PR](https://codeberg.org/clouds666/unkai/pulls/197): <!--number 197 --><!--line 0 --><!--description ZW5oOiBhZGQgdW5rYWkgbmFtZSB0byBjb21tZW50IChpbiBhZGRpdGlvbiB0byB2ZXJzaW9uKQ==-->enh: add unkai name to comment (in addition to version)<!--description-->\n\n<!--end release-notes-assistant-->\n\n### [`v0.2.16`](https://codeberg.org/clouds666/unkai/releases/tag/v0.2.16)\n\n[Compare Source](https://codeberg.org/clouds666/unkai/compare/v0.2.15...v0.2.16)\n\n<!--start release-notes-assistant-->\n\n<!--URL:https://codeberg.org/clouds666/unkai-->\n\n- bug fixes\n  - [PR](https://codeberg.org/clouds666/unkai/pulls/180): <!--number 180 --><!--line 0 --><!--description Zml4KGFjdGlvbik6IHVzZSBuZXN0ZWQgYWN0aW9uLXJ1biBhY3Rpb24gYXQgdGhlIHNhbWUgcmVmZXJlbmNlIGFzIHRoZSBjb21wb3NpdGUgYWN0aW9u-->fix(action): use nested action-run action at the same reference as the composite action<!--description-->\n  - [PR](https://codeberg.org/clouds666/unkai/pulls/184): <!--number 184 --><!--line 0 --><!--description Zml4KGFjdGlvbik6IHVzZSBgZm9yZ2UuaGVhZF9yZWZgIGluc3RlYWQgb2YgYGZvcmdlLnJlZmAgd2hlbiBhdmFpbGFibGU=-->fix(action): use `forge.head_ref` instead of `forge.ref` when available<!--description-->\n- other\n  - [PR](https://codeberg.org/clouds666/unkai/pulls/195): <!--number 195 --><!--line 0 --><!--description Y2hvcmUoY2kpOiBmaXggcmVub3ZhdGUgd29ya2Zsb3c=-->chore(ci): fix renovate workflow<!--description-->\n  - [PR](https://codeberg.org/clouds666/unkai/pulls/194): <!--number 194 --><!--line 0 --><!--description ZW5oOiBza2lwIGh1bmtzIHRoYXQgY29udGFpbiBubyBjb3ZlcmVkIGFkZGVkIGxpbmVz-->enh: skip hunks that contain no covered added lines<!--description-->\n  - [PR](https://codeberg.org/clouds666/unkai/pulls/193): <!--number 193 --><!--line 0 --><!--description Y2hvcmUoY2kpOiBlbnN1cmUgdGVzdCBnb2xkZW4gb3V0cHV0IGZpbGVzIGFyZSBnZW5lcmF0ZWQgYnkgdGhlIGN1cnJlbnQgdmVyc2lvbiBvZiB1bmthaQ==-->chore(ci): ensure test golden output files are generated by the current version of unkai<!--description-->\n  - [PR](https://codeberg.org/clouds666/unkai/pulls/185): <!--number 185 --><!--line 0 --><!--description ZW5oOiBpbXByb3ZlIGNvbG9yIGNvZGluZyBvZiBkaWZmZXJlbnQgY291bnRz-->enh: improve color coding of different counts<!--description-->\n  - [PR](https://codeberg.org/clouds666/unkai/pulls/192): <!--number 192 --><!--line 0 --><!--description ZW5oOiBhbGxvdyB1c2VyIHRvIHNwZWNpZnkgY3VzdG9tIGNvbW1lbnQgaWQ=-->enh: allow user to specify custom comment id<!--description-->\n  - [PR](https://codeberg.org/clouds666/unkai/pulls/190): <!--number 190 --><!--line 0 --><!--description Y2hvcmU6IHNob3J0ZW4gbGljZW5zZSB0ZXh0IGluIGZpbGVz-->chore: shorten license text in files<!--description-->\n  - [PR](https://codeberg.org/clouds666/unkai/pulls/189): <!--number 189 --><!--line 0 --><!--description Y2hvcmU6IHVwZGF0ZSBkYWdnZXIgZGVwZW5kZW5jaWVz-->chore: update dagger dependencies<!--description-->\n  - [PR](https://codeberg.org/clouds666/unkai/pulls/188): <!--number 188 --><!--line 0 --><!--description ZW5oOiBhZGQgaWRzIHRvIGNyZWF0ZS1vci11cGRhdGUtY29tbWVudCBhY3Rpb24gY2FsbHM=-->enh: add ids to create-or-update-comment action calls<!--description-->\n  - [PR](https://codeberg.org/clouds666/unkai/pulls/187): <!--number 187 --><!--line 0 --><!--description VXBkYXRlIGh0dHBzOi8vY29kZS5mb3JnZWpvLm9yZy9mb3JnZWpvL2NyZWF0ZS1vci11cGRhdGUtY29tbWVudCBhY3Rpb24gdG8gdjAuMC4z-->Update <https://code.forgejo.org/forgejo/create-or-update-comment> action to v0.0.3<!--description-->\n  - [PR](https://codeberg.org/clouds666/unkai/pulls/186): <!--number 186 --><!--line 0 --><!--description Y2hvcmU6IGRlZmluZSB2ZXJzaW9uIG9mIGRhZ2dlciByZW5vdmF0ZSBtb2R1bGUgaW4gYGRhZ2dlci5qc29uYA==-->chore: define version of dagger renovate module in `dagger.json`<!--description-->\n  - [PR](https://codeberg.org/clouds666/unkai/pulls/183): <!--number 183 --><!--line 0 --><!--description UGluIGh0dHBzOi8vZ2l0aHViLmNvbS9qZW5zZW5nL2R5bmFtaWMtdXNlcyBhY3Rpb24gdG8gOGJjMjRmMA==-->Pin <https://github.com/jenseng/dynamic-uses> action to [`8bc24f0`](https://github.com/clouds666/unkai/commit/8bc24f0)<!--description-->\n  - [PR](https://codeberg.org/clouds666/unkai/pulls/182): <!--number 182 --><!--line 0 --><!--description VXBkYXRlIG1vZHVsZSBnb2xhbmcub3JnL3gvdG9vbHMgdG8gdjAuNTEuMA==-->Update module golang.org/x/tools to v0.51.0<!--description-->\n  - [PR](https://codeberg.org/clouds666/unkai/pulls/181): <!--number 181 --><!--line 0 --><!--description Y2hvcmUoY2kpOiBlbmFibGUgd29ya2Zsb3cgZGlzcGF0Y2ggZm9yIHVwZGF0ZSB3b3JrZmxvdw==-->chore(ci): enable workflow dispatch for update workflow<!--description-->\n  - [PR](https://codeberg.org/clouds666/unkai/pulls/163): <!--number 163 --><!--line 0 --><!--description Y2hvcmU6IG5vIGNvbnRleHQgaW50ZXJwb2xhdGlvbiBpbiBydW4gYmxvY2tz-->chore: no context interpolation in run blocks<!--description-->\n  - [PR](https://codeberg.org/clouds666/unkai/pulls/178): <!--number 178 --><!--line 0 --><!--description Y2hvcmUoY2kpOiBkaXNhYmxlIHdvcmtmbG93IGRpc3BhdGNoIGZvciB1cGRhdGUgYWN0aW9u-->chore(ci): disable workflow dispatch for update action<!--description-->\n  - [PR](https://codeberg.org/clouds666/unkai/pulls/177): <!--number 177 --><!--line 0 --><!--description VXBkYXRlIC4vYWN0aW9uLXJ1biBpbiBjb21wb3NpdGUgYWN0aW9u-->Update ./action-run in composite action<!--description-->\n\n<!--end release-notes-assistant-->\n\n</details>\n\n---\n\n### Configuration\n\n📅 **Schedule**: (UTC)\n\n- Branch creation\n  - Between 12:00 AM and 03:59 AM (`* 0-3 * * *`)\n- Automerge\n  - Between 12:00 AM and 03:59 AM (`* 0-3 * * *`)\n\n🚦 **Automerge**: Disabled by config. Please merge this manually once you are satisfied.\n\n♻ **Rebasing**: Whenever PR becomes conflicted, or you tick the rebase/retry checkbox.\n\n🔕 **Ignore**: Close this PR and you won't be reminded about this update again.\n\n---\n\n - [ ] <!-- rebase-check -->If you want to rebase/retry this PR, check this box\n\n---\n\nThis PR has been generated by [Mend Renovate CLI](https://github.com/renovatebot/renovate).\n<!--renovate-debug:eyJjcmVhdGVkSW5WZXIiOiI0NC4xMzMuMCIsInVwZGF0ZWRJblZlciI6IjQ0LjEzMy4wIiwidGFyZ2V0QnJhbmNoIjoiZm9yZ2VqbyIsImxhYmVscyI6WyJkZXBlbmRlbmN5LXVwZ3JhZGUiLCJ0ZXN0L25vdC1uZWVkZWQiXX0=-->\n",
+        "title": "Update dependency katex to v0.18.2 [SECURITY] (v16.0/forgejo)",
+        "body": "This PR contains the following updates:\n\n| Package | Change | [Age](https://docs.renovatebot.com/merge-confidence/) | [Confidence](https://docs.renovatebot.com/merge-confidence/) |\n|---|---|---|---|\n| [katex](https://katex.org) ([source](https://github.com/KaTeX/KaTeX)) | [`0.17.0` → `0.18.2`](https://renovatebot.com/diffs/npm/katex/0.17.0/0.18.2) | ![age](https://developer.mend.io/api/mc/badges/age/npm/katex/0.18.2?slim=true) | ![confidence](https://developer.mend.io/api/mc/badges/confidence/npm/katex/0.17.0/0.18.2?slim=true) |\n\n---\n\n### KaTeX: Existing prototype pollution can bypass trust restrictions\n[CVE-2026-103923](https://nvd.nist.gov/vuln/detail/CVE-2026-103923) / [GHSA-238p-pmpm-9mq7](https://github.com/advisories/GHSA-238p-pmpm-9mq7)\n\n<details>\n<summary>More information</summary>\n\n#### Details\n##### Impact\n\nKaTeX can act as a read-side prototype pollution gadget in applications where `Object.prototype` has already been polluted, or where an attacker can influence the prototype of the renderer options object. (KaTeX does not enable said prototype pollution. This advisory applies when combining KaTeX with other vulnerable software that allows for prototype pollution.)\n\nAffected versions may treat inherited properties from `Object.prototype` as renderer options, internal setting metadata, or namespace entries. In particular, an inherited `trust` value will be treated as though the application explicitly enabled trusted rendering, rather than using the documented default of `false`.\n\nWith attacker-controlled mathematical expressions, this can produce links capable of user-interaction cross-site scripting or load attacker-selected external resources. Exploitation requires the consuming application to insert KaTeX output into a web page without a separate sanitizer. (KaTeX does not execute scripts merely by rendering an expression.)\n\nOther inherited settings can alter rendering behavior or resource limits. Inherited setting metadata can affect how defaults and supplied options are processed, while inherited namespace properties can be mistaken for defined macros or other internal values.\n\n##### Patches\n\nUpgrade to KaTeX v0.18.2 to remove this vulnerability.\n\n##### Workarounds\n\n- Address any prototype-pollution vulnerability in the application or its dependencies.\n- `delete Object.prototype.trust`, `delete Object.prototype.default`, and `delete Object.prototype.processor` before calling KaTeX\n- Do not allow untrusted input to control the renderer options object or its prototype.\n- Sanitize KaTeX-generated HTML before inserting it into a document.\n\n##### Details\n\nKaTeX previously used ordinary JavaScript property access in the following contexts:\n\n- Renderer settings could be inherited from the prototype of the options object.\n- Internal `default` and `processor` setting metadata could be inherited from `Object.prototype`.\n- Namespace lookup could treat inherited properties as built-in definitions.\n- Namespace group restoration could preserve an inherited property as though it had been an explicitly defined value.\n\nThe fix adds own-property checks to each of these paths. Inherited properties are no longer accepted as renderer settings, setting metadata, namespace definitions, or values to be restored after a group ends.\n\n##### For more information\n\nIf you have any questions or comments about this advisory:\n\n- Open an issue or security advisory in the [KaTeX repository](https://github.com/KaTeX/KaTeX/)\n- Email us at [katex-security@mit.edu](mailto:katex-security@mit.edu)\n\n#### Severity\n- CVSS Score: 2.1 / 10 (Low)\n- Vector String: `CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:A/VC:N/VI:N/VA:N/SC:L/SI:L/SA:N`\n\n#### References\n- [https://github.com/KaTeX/KaTeX/security/advisories/GHSA-238p-pmpm-9mq7](https://github.com/KaTeX/KaTeX/security/advisories/GHSA-238p-pmpm-9mq7)\n- [https://nvd.nist.gov/vuln/detail/CVE-2026-103923](https://nvd.nist.gov/vuln/detail/CVE-2026-103923)\n- [https://github.com/KaTeX/KaTeX/pull/4260](https://github.com/KaTeX/KaTeX/pull/4260)\n- [https://github.com/KaTeX/KaTeX/commit/0adf7e77db6915d991803b29699f82b1ccf8d4f4](https://github.com/KaTeX/KaTeX/commit/0adf7e77db6915d991803b29699f82b1ccf8d4f4)\n- [https://github.com/KaTeX/KaTeX](https://github.com/KaTeX/KaTeX)\n- [https://github.com/KaTeX/KaTeX/releases/tag/v0.18.2](https://github.com/KaTeX/KaTeX/releases/tag/v0.18.2)\n\nThis data is provided by [OSV](https://osv.dev/vulnerability/GHSA-238p-pmpm-9mq7) and the [GitHub Advisory Database](https://github.com/github/advisory-database) ([CC-BY 4.0](https://github.com/github/advisory-database/blob/main/LICENSE.md)).\n</details>\n\n---\n\n### Release Notes\n\n<details>\n<summary>KaTeX/KaTeX (katex)</summary>\n\n### [`v0.18.2`](https://github.com/KaTeX/KaTeX/blob/HEAD/CHANGELOG.md#0182-2026-08-08)\n\n[Compare Source](https://github.com/KaTeX/KaTeX/compare/v0.18.1...v0.18.2)\n\n##### Bug Fixes\n\n- prevent prototype pollution in settings ([#&#8203;4260](https://github.com/KaTeX/KaTeX/issues/4260)) ([0adf7e7](https://github.com/KaTeX/KaTeX/commit/0adf7e77db6915d991803b29699f82b1ccf8d4f4))\n\n### [`v0.18.1`](https://github.com/KaTeX/KaTeX/blob/HEAD/CHANGELOG.md#01811-2026-10-01)\n\n[Compare Source](https://github.com/KaTeX/KaTeX/compare/v0.18.0...v0.18.1)\n\n##### Features\n\n- handle character metrics warnings via `strict` ([#&#8203;4243](https://github.com/KaTeX/KaTeX/issues/4243)) ([4237070](https://github.com/KaTeX/KaTeX/commit/423707055a37803acafef4c1533832273192ea0e))\n\n### [`v0.18.0`](https://github.com/KaTeX/KaTeX/blob/HEAD/CHANGELOG.md#0180-2026-07-17)\n\n[Compare Source](https://github.com/KaTeX/KaTeX/compare/v0.17.0...v0.18.0)\n\n##### Features\n\n- prefix css classes ([#&#8203;4229](https://github.com/KaTeX/KaTeX/issues/4229)) ([6f5c44f](https://github.com/KaTeX/KaTeX/commit/6f5c44f69bae0703877a3a8d934e20c47bbbbc32))\n\n##### BREAKING CHANGES\n\n- users who apply custom styles or have allowlists targeting KaTeX's internal classes must update their selectors.\n\n</details>\n\n---\n\n### Configuration\n\n📅 **Schedule**: (UTC)\n\n- Branch creation\n  - At any time (no schedule defined)\n- Automerge\n  - Between 12:00 AM and 03:59 AM (`* 0-3 * * *`)\n\n🚦 **Automerge**: Disabled by config. Please merge this manually once you are satisfied.\n\n♻ **Rebasing**: Whenever PR becomes conflicted, or you tick the rebase/retry checkbox.\n\n🔕 **Ignore**: Close this PR and you won't be reminded about this update again.\n\n---\n\n - [ ] <!-- rebase-check -->If you want to rebase/retry this PR, check this box\n\n---\n\nThis PR has been generated by [Mend Renovate CLI](https://github.com/renovatebot/renovate).\n<!--renovate-debug:eyJjcmVhdGVkSW5WZXIiOiI0NC4xMzMuMCIsInVwZGF0ZWRJblZlciI6IjQ0LjEzMy4wIiwidGFyZ2V0QnJhbmNoIjoidjE2LjAvZm9yZ2VqbyIsImxhYmVscyI6WyJkZXBlbmRlbmN5LXVwZ3JhZGUiLCJ0ZXN0L25vdC1uZWVkZWQiXX0=-->\n",
         "ref": "",
         "assets": [],
         "labels": [
@@ -211,15 +65,161 @@
         "state": "open",
         "is_locked": false,
         "comments": 0,
-        "created_at": "2026-10-08T10:44:34+02:00",
-        "updated_at": "2026-10-08T11:02:42+02:00",
+        "created_at": "2026-10-08T23:27:47+02:00",
+        "updated_at": "2026-10-08T23:28:03+02:00",
         "closed_at": null,
         "due_date": null,
         "pull_request": {
           "merged": false,
           "merged_at": null,
           "draft": false,
-          "html_url": "https://codeberg.org/forgejo/forgejo/pulls/14751"
+          "html_url": "https://codeberg.org/forgejo/forgejo/pulls/14765"
+        },
+        "repository": {
+          "id": 73144,
+          "name": "forgejo",
+          "owner": "forgejo",
+          "full_name": "forgejo/forgejo"
+        },
+        "pin_order": 0
+      },
+      {
+        "id": 7642296,
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/pulls/14764",
+        "html_url": "https://codeberg.org/forgejo/forgejo/pulls/14764",
+        "number": 14764,
+        "user": {
+          "id": 141082,
+          "login": "viceice-bot",
+          "source_id": 0,
+          "full_name": "",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://codeberg.org/avatars/b25a3a294c6f5514eb9f56b9c808425d05578e5f414b0d36ac88ade50e166d02",
+          "html_url": "https://codeberg.org/viceice-bot",
+          "active": false,
+          "location": "",
+          "pronouns": "",
+          "website": "",
+          "description": "I'm a bot from @viceice",
+          "followers_count": 6,
+          "following_count": 1,
+          "starred_repos_count": 2,
+          "username": "viceice-bot"
+        },
+        "original_author": "",
+        "original_author_id": 0,
+        "title": "Update dependency katex to v0.18.2 [SECURITY] (v15.0/forgejo)",
+        "body": "This PR contains the following updates:\n\n| Package | Change | [Age](https://docs.renovatebot.com/merge-confidence/) | [Confidence](https://docs.renovatebot.com/merge-confidence/) |\n|---|---|---|---|\n| [katex](https://katex.org) ([source](https://github.com/KaTeX/KaTeX)) | [`0.16.38` → `0.18.2`](https://renovatebot.com/diffs/npm/katex/0.16.38/0.18.2) | ![age](https://developer.mend.io/api/mc/badges/age/npm/katex/0.18.2?slim=true) | ![confidence](https://developer.mend.io/api/mc/badges/confidence/npm/katex/0.16.38/0.18.2?slim=true) |\n\n---\n\n### KaTeX: Existing prototype pollution can bypass trust restrictions\n[CVE-2026-103923](https://nvd.nist.gov/vuln/detail/CVE-2026-103923) / [GHSA-238p-pmpm-9mq7](https://github.com/advisories/GHSA-238p-pmpm-9mq7)\n\n<details>\n<summary>More information</summary>\n\n#### Details\n##### Impact\n\nKaTeX can act as a read-side prototype pollution gadget in applications where `Object.prototype` has already been polluted, or where an attacker can influence the prototype of the renderer options object. (KaTeX does not enable said prototype pollution. This advisory applies when combining KaTeX with other vulnerable software that allows for prototype pollution.)\n\nAffected versions may treat inherited properties from `Object.prototype` as renderer options, internal setting metadata, or namespace entries. In particular, an inherited `trust` value will be treated as though the application explicitly enabled trusted rendering, rather than using the documented default of `false`.\n\nWith attacker-controlled mathematical expressions, this can produce links capable of user-interaction cross-site scripting or load attacker-selected external resources. Exploitation requires the consuming application to insert KaTeX output into a web page without a separate sanitizer. (KaTeX does not execute scripts merely by rendering an expression.)\n\nOther inherited settings can alter rendering behavior or resource limits. Inherited setting metadata can affect how defaults and supplied options are processed, while inherited namespace properties can be mistaken for defined macros or other internal values.\n\n##### Patches\n\nUpgrade to KaTeX v0.18.2 to remove this vulnerability.\n\n##### Workarounds\n\n- Address any prototype-pollution vulnerability in the application or its dependencies.\n- `delete Object.prototype.trust`, `delete Object.prototype.default`, and `delete Object.prototype.processor` before calling KaTeX\n- Do not allow untrusted input to control the renderer options object or its prototype.\n- Sanitize KaTeX-generated HTML before inserting it into a document.\n\n##### Details\n\nKaTeX previously used ordinary JavaScript property access in the following contexts:\n\n- Renderer settings could be inherited from the prototype of the options object.\n- Internal `default` and `processor` setting metadata could be inherited from `Object.prototype`.\n- Namespace lookup could treat inherited properties as built-in definitions.\n- Namespace group restoration could preserve an inherited property as though it had been an explicitly defined value.\n\nThe fix adds own-property checks to each of these paths. Inherited properties are no longer accepted as renderer settings, setting metadata, namespace definitions, or values to be restored after a group ends.\n\n##### For more information\n\nIf you have any questions or comments about this advisory:\n\n- Open an issue or security advisory in the [KaTeX repository](https://github.com/KaTeX/KaTeX/)\n- Email us at [katex-security@mit.edu](mailto:katex-security@mit.edu)\n\n#### Severity\n- CVSS Score: 2.1 / 10 (Low)\n- Vector String: `CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:A/VC:N/VI:N/VA:N/SC:L/SI:L/SA:N`\n\n#### References\n- [https://github.com/KaTeX/KaTeX/security/advisories/GHSA-238p-pmpm-9mq7](https://github.com/KaTeX/KaTeX/security/advisories/GHSA-238p-pmpm-9mq7)\n- [https://nvd.nist.gov/vuln/detail/CVE-2026-103923](https://nvd.nist.gov/vuln/detail/CVE-2026-103923)\n- [https://github.com/KaTeX/KaTeX/pull/4260](https://github.com/KaTeX/KaTeX/pull/4260)\n- [https://github.com/KaTeX/KaTeX/commit/0adf7e77db6915d991803b29699f82b1ccf8d4f4](https://github.com/KaTeX/KaTeX/commit/0adf7e77db6915d991803b29699f82b1ccf8d4f4)\n- [https://github.com/KaTeX/KaTeX](https://github.com/KaTeX/KaTeX)\n- [https://github.com/KaTeX/KaTeX/releases/tag/v0.18.2](https://github.com/KaTeX/KaTeX/releases/tag/v0.18.2)\n\nThis data is provided by [OSV](https://osv.dev/vulnerability/GHSA-238p-pmpm-9mq7) and the [GitHub Advisory Database](https://github.com/github/advisory-database) ([CC-BY 4.0](https://github.com/github/advisory-database/blob/main/LICENSE.md)).\n</details>\n\n---\n\n### Release Notes\n\n<details>\n<summary>KaTeX/KaTeX (katex)</summary>\n\n### [`v0.18.2`](https://github.com/KaTeX/KaTeX/blob/HEAD/CHANGELOG.md#0182-2026-08-08)\n\n[Compare Source](https://github.com/KaTeX/KaTeX/compare/v0.18.1...v0.18.2)\n\n##### Bug Fixes\n\n- prevent prototype pollution in settings ([#&#8203;4260](https://github.com/KaTeX/KaTeX/issues/4260)) ([0adf7e7](https://github.com/KaTeX/KaTeX/commit/0adf7e77db6915d991803b29699f82b1ccf8d4f4))\n\n### [`v0.18.1`](https://github.com/KaTeX/KaTeX/blob/HEAD/CHANGELOG.md#01811-2026-10-01)\n\n[Compare Source](https://github.com/KaTeX/KaTeX/compare/v0.18.0...v0.18.1)\n\n##### Features\n\n- handle character metrics warnings via `strict` ([#&#8203;4243](https://github.com/KaTeX/KaTeX/issues/4243)) ([4237070](https://github.com/KaTeX/KaTeX/commit/423707055a37803acafef4c1533832273192ea0e))\n\n### [`v0.18.0`](https://github.com/KaTeX/KaTeX/blob/HEAD/CHANGELOG.md#0180-2026-07-17)\n\n[Compare Source](https://github.com/KaTeX/KaTeX/compare/v0.17.0...v0.18.0)\n\n##### Features\n\n- prefix css classes ([#&#8203;4229](https://github.com/KaTeX/KaTeX/issues/4229)) ([6f5c44f](https://github.com/KaTeX/KaTeX/commit/6f5c44f69bae0703877a3a8d934e20c47bbbbc32))\n\n##### BREAKING CHANGES\n\n- users who apply custom styles or have allowlists targeting KaTeX's internal classes must update their selectors.\n\n### [`v0.17.0`](https://github.com/KaTeX/KaTeX/blob/HEAD/CHANGELOG.md#0170-2026-05-22)\n\n[Compare Source](https://github.com/KaTeX/KaTeX/compare/v0.16.47...v0.17.0)\n\n##### Performance Improvements\n\n- simplify `defineFunction` to avoid destructuring, improve typing ([#&#8203;4222](https://github.com/KaTeX/KaTeX/issues/4222)) ([fb604e6](https://github.com/KaTeX/KaTeX/commit/fb604e6ba63e99809e242d37f9c8359209d55431))\n\n##### BREAKING CHANGES\n\n- The internal API for `__defineFunction` changed: you should no longer wrap properties in `props`.\n\n#### [0.16.47](https://github.com/KaTeX/KaTeX/compare/v0.16.46...v0.16.47) (2026-05-16)\n\n##### Bug Fixes\n\n- correct size of `[` big delimiter ([#&#8203;4217](https://github.com/KaTeX/KaTeX/issues/4217)) ([7ba0027](https://github.com/KaTeX/KaTeX/commit/7ba0027d2f04abddd3b215362f867ab8260b09d7)), closes [#&#8203;4215](https://github.com/KaTeX/KaTeX/issues/4215)\n\n#### [0.16.46](https://github.com/KaTeX/KaTeX/compare/v0.16.45...v0.16.46) (2026-05-13)\n\n##### Bug Fixes\n\n- preserve math font in some styling commands ([#&#8203;4214](https://github.com/KaTeX/KaTeX/issues/4214)) ([e9ee046](https://github.com/KaTeX/KaTeX/commit/e9ee0464ddb31da9bf9649eeb70e52236e7a974a)), closes [#&#8203;4213](https://github.com/KaTeX/KaTeX/issues/4213)\n\n#### [0.16.45](https://github.com/KaTeX/KaTeX/compare/v0.16.44...v0.16.45) (2026-04-05)\n\n##### Bug Fixes\n\n- wrap vcenter mpadded in mrow for valid MathML ([#&#8203;4193](https://github.com/KaTeX/KaTeX/issues/4193)) ([ee66b78](https://github.com/KaTeX/KaTeX/commit/ee66b78d24340edbbd05b08a4a429ce9ed158b25)), closes [#&#8203;4078](https://github.com/KaTeX/KaTeX/issues/4078)\n\n#### [0.16.44](https://github.com/KaTeX/KaTeX/compare/v0.16.43...v0.16.44) (2026-03-27)\n\n##### Bug Fixes\n\n- remove extra \\jot space at bottom of align/gather/etc. ([#&#8203;4184](https://github.com/KaTeX/KaTeX/issues/4184)) ([3870ee9](https://github.com/KaTeX/KaTeX/commit/3870ee913e27fdde7bce244e4c6c5d63e2b28a62))\n\n#### [0.16.43](https://github.com/KaTeX/KaTeX/compare/v0.16.42...v0.16.43) (2026-03-26)\n\n##### Bug Fixes\n\n- use makeEm() consistently to truncate long CSS decimals ([#&#8203;4181](https://github.com/KaTeX/KaTeX/issues/4181)) ([0967dcc](https://github.com/KaTeX/KaTeX/commit/0967dcc0278f20d4501a93f01c7343c70abb3fcd))\n\n#### [0.16.42](https://github.com/KaTeX/KaTeX/compare/v0.16.41...v0.16.42) (2026-03-24)\n\n##### Features\n\n- \\underbracket and \\overbracket ([#&#8203;4147](https://github.com/KaTeX/KaTeX/issues/4147)) ([5be9abb](https://github.com/KaTeX/KaTeX/commit/5be9abb0b4d687a2a196b8adf9b5b9deeb60f7bc))\n\n#### [0.16.41](https://github.com/KaTeX/KaTeX/compare/v0.16.40...v0.16.41) (2026-03-24)\n\n##### Bug Fixes\n\n- \\sout in text mode ([#&#8203;4173](https://github.com/KaTeX/KaTeX/issues/4173)) ([e748578](https://github.com/KaTeX/KaTeX/commit/e748578b63e07ad30d5e404e60b04e5e794c0a5a))\n\n#### [0.16.40](https://github.com/KaTeX/KaTeX/compare/v0.16.39...v0.16.40) (2026-03-20)\n\n##### Bug Fixes\n\n- **css:** specify position: relative for .katex ([#&#8203;4170](https://github.com/KaTeX/KaTeX/issues/4170)) ([020f0d8](https://github.com/KaTeX/KaTeX/commit/020f0d89567d59229bac5fc8d8f5832a9508a85f))\n\n#### [0.16.39](https://github.com/KaTeX/KaTeX/compare/v0.16.38...v0.16.39) (2026-03-19)\n\n##### Bug Fixes\n\n- middle dot in text mode ([#&#8203;4169](https://github.com/KaTeX/KaTeX/issues/4169)) ([edb45b0](https://github.com/KaTeX/KaTeX/commit/edb45b0b17c7b33349ce5142fe39156da05cb4d8)), closes [#&#8203;3641](https://github.com/KaTeX/KaTeX/issues/3641)\n\n#### [0.16.38](https://github.com/KaTeX/KaTeX/compare/v0.16.37...v0.16.38) (2026-03-08)\n\n##### Bug Fixes\n\n- accent skew mixed with font specifiers ([#&#8203;4159](https://github.com/KaTeX/KaTeX/issues/4159)) ([aea3375](https://github.com/KaTeX/KaTeX/commit/aea33758d6c98896017007d0244885301773856a)), closes [#&#8203;4121](https://github.com/KaTeX/KaTeX/issues/4121)\n\n#### [0.16.37](https://github.com/KaTeX/KaTeX/compare/v0.16.36...v0.16.37) (2026-03-06)\n\n##### Bug Fixes\n\n- negative-width `\\hphantom` and symmetric `\\smash` ([#&#8203;4153](https://github.com/KaTeX/KaTeX/issues/4153)) ([d4799ca](https://github.com/KaTeX/KaTeX/commit/d4799cae585d909e2a4e3dedbebdc2f142998ca9))\n\n#### [0.16.36](https://github.com/KaTeX/KaTeX/compare/v0.16.35...v0.16.36) (2026-03-06)\n\n##### Bug Fixes\n\n- contrib esm bloat ([#&#8203;4157](https://github.com/KaTeX/KaTeX/issues/4157)) ([2bde1ad](https://github.com/KaTeX/KaTeX/commit/2bde1adab2a23f61519145923329c915b04d4778))\n\n#### [0.16.35](https://github.com/KaTeX/KaTeX/compare/v0.16.34...v0.16.35) (2026-03-05)\n\n##### Bug Fixes\n\n- version number regression ([#&#8203;4155](https://github.com/KaTeX/KaTeX/issues/4155)) ([db26b73](https://github.com/KaTeX/KaTeX/commit/db26b733805f2d0d71e82596475b313c8706557e))\n\n#### [0.16.34](https://github.com/KaTeX/KaTeX/compare/v0.16.33...v0.16.34) (2026-03-05)\n\n##### Bug Fixes\n\n- emoji with variation selector ([#&#8203;4151](https://github.com/KaTeX/KaTeX/issues/4151)) ([c2606e5](https://github.com/KaTeX/KaTeX/commit/c2606e5db91ae199ee1ff0c8c2f7f9f70fcf589b))\n\n#### [0.16.33](https://github.com/KaTeX/KaTeX/compare/v0.16.32...v0.16.33) (2026-02-23)\n\n##### Bug Fixes\n\n- **scss:** forward variables to fonts module ([#&#8203;4146](https://github.com/KaTeX/KaTeX/issues/4146)) ([9349a64](https://github.com/KaTeX/KaTeX/commit/9349a64a051ca408da713baf061e32ade80ed22a))\n\n#### [0.16.32](https://github.com/KaTeX/KaTeX/compare/v0.16.31...v0.16.32) (2026-02-22)\n\n##### Bug Fixes\n\n- italic separation in \\mathnormal ([#&#8203;4143](https://github.com/KaTeX/KaTeX/issues/4143)) ([71305a0](https://github.com/KaTeX/KaTeX/commit/71305a05140ca6203092bfdc14f689168b26ab8c))\n\n#### [0.16.31](https://github.com/KaTeX/KaTeX/compare/v0.16.30...v0.16.31) (2026-02-22)\n\n##### Bug Fixes\n\n- `\\*frac` sizing ([#&#8203;4137](https://github.com/KaTeX/KaTeX/issues/4137)) ([ef51f18](https://github.com/KaTeX/KaTeX/commit/ef51f18ded4ab9ba54ba750f2866241c4676c41c))\n\n#### [0.16.30](https://github.com/KaTeX/KaTeX/compare/v0.16.29...v0.16.30) (2026-02-22)\n\n##### Bug Fixes\n\n- no line breaks after `\\not` ([#&#8203;4140](https://github.com/KaTeX/KaTeX/issues/4140)) ([2d1ba86](https://github.com/KaTeX/KaTeX/commit/2d1ba86143bd45540d5a773cfa456081318f3f33))\n\n#### [0.16.29](https://github.com/KaTeX/KaTeX/compare/v0.16.28...v0.16.29) (2026-02-22)\n\n##### Bug Fixes\n\n- `\\imath` and other `\\html@mathml` macros in arguments ([#&#8203;4139](https://github.com/KaTeX/KaTeX/issues/4139)) ([a850cce](https://github.com/KaTeX/KaTeX/commit/a850cce7ccbf95a0b187313d1e54d8d40dfc7273))\n\n#### [0.16.28](https://github.com/KaTeX/KaTeX/compare/v0.16.27...v0.16.28) (2026-01-25)\n\n##### Bug Fixes\n\n- **type:** add missing types definition path to package.json ([#&#8203;4125](https://github.com/KaTeX/KaTeX/issues/4125)) ([0ef8921](https://github.com/KaTeX/KaTeX/commit/0ef8921d189346b0ff8f84a77f7f552349b76893))\n\n#### [0.16.27](https://github.com/KaTeX/KaTeX/compare/v0.16.26...v0.16.27) (2025-12-07)\n\n##### Features\n\n- support equals sign and surrounding whitespace in \\htmlData attribute values ([#&#8203;4112](https://github.com/KaTeX/KaTeX/issues/4112)) ([c77aaec](https://github.com/KaTeX/KaTeX/commit/c77aaec00c766f5bb02e332a1dc416b82a65fe8f))\n\n#### [0.16.26](https://github.com/KaTeX/KaTeX/compare/v0.16.25...v0.16.26) (2025-12-07)\n\n##### Bug Fixes\n\n- \\mathop followed by integral symbol ([6fbad18](https://github.com/KaTeX/KaTeX/commit/6fbad18857351e4d2a88ed3e3348bd76caad9be3))\n\n#### [0.16.25](https://github.com/KaTeX/KaTeX/compare/v0.16.24...v0.16.25) (2025-10-13)\n\n##### Features\n\n- **css:** provide `katex-swap.css` that uses `font-display: swap` ([#&#8203;3940](https://github.com/KaTeX/KaTeX/issues/3940)) ([b3f9ce6](https://github.com/KaTeX/KaTeX/commit/b3f9ce691e89a52dea7ec8f10cc6ed4ddc8fc161)), closes [#&#8203;2242](https://github.com/KaTeX/KaTeX/issues/2242)\n\n#### [0.16.24](https://github.com/KaTeX/KaTeX/compare/v0.16.23...v0.16.24) (2025-10-12)\n\n##### Features\n\n- support hex colors with alpha ([#&#8203;4090](https://github.com/KaTeX/KaTeX/issues/4090)) ([8c9b306](https://github.com/KaTeX/KaTeX/commit/8c9b3063965acc0d6e6a0b6df4d051169de9e1a9)), closes [#&#8203;4067](https://github.com/KaTeX/KaTeX/issues/4067) [#fA6](https://github.com/KaTeX/KaTeX/issues/fA6) [#fA6f1](https://github.com/KaTeX/KaTeX/issues/fA6f1)\n\n#### [0.16.23](https://github.com/KaTeX/KaTeX/compare/v0.16.22...v0.16.23) (2025-10-03)\n\n##### Bug Fixes\n\n- Support `\\def` with arguments via `macros` option ([#&#8203;4087](https://github.com/KaTeX/KaTeX/issues/4087)) ([80a8158](https://github.com/KaTeX/KaTeX/commit/80a815856a8c26d78b3669e9c05fff00efe82247))\n\n#### [0.16.22](https://github.com/KaTeX/KaTeX/compare/v0.16.21...v0.16.22) (2025-04-09)\n\n##### Bug Fixes\n\n- \\relax in base or exponent of super/subscript ([#&#8203;4045](https://github.com/KaTeX/KaTeX/issues/4045)) ([1f43c84](https://github.com/KaTeX/KaTeX/commit/1f43c84a175fb689f8c8d1d72b1e8b896a8b43d1))\n\n#### [0.16.21](https://github.com/KaTeX/KaTeX/compare/v0.16.20...v0.16.21) (2025-01-17)\n\n##### Bug Fixes\n\n- escape \\htmlData attribute name ([57914ad](https://github.com/KaTeX/KaTeX/commit/57914ad91eff401357f44bf364b136d37eba04f8))\n\n#### [0.16.20](https://github.com/KaTeX/KaTeX/compare/v0.16.19...v0.16.20) (2025-01-12)\n\n##### Bug Fixes\n\n- \\providecommand does not overwrite existing macro ([#&#8203;4000](https://github.com/KaTeX/KaTeX/issues/4000)) ([6d30fe4](https://github.com/KaTeX/KaTeX/commit/6d30fe47b06f9da9b836fe518d5cbbecf6a6a3a1)), closes [#&#8203;3928](https://github.com/KaTeX/KaTeX/issues/3928)\n\n#### [0.16.19](https://github.com/KaTeX/KaTeX/compare/v0.16.18...v0.16.19) (2024-12-29)\n\n##### Bug Fixes\n\n- **types:** improve `strict` function type ([#&#8203;4009](https://github.com/KaTeX/KaTeX/issues/4009)) ([4228b4e](https://github.com/KaTeX/KaTeX/commit/4228b4eb529b8e35def66cc6e4fa467383b98c86))\n\n#### [0.16.18](https://github.com/KaTeX/KaTeX/compare/v0.16.17...v0.16.18) (2024-12-18)\n\n##### Bug Fixes\n\n- Actually publish TypeScript type definitions ([#&#8203;4008](https://github.com/KaTeX/KaTeX/issues/4008)) ([629b873](https://github.com/KaTeX/KaTeX/commit/629b87354fdfc04a3769f09b69f6bbadebcb9ae8))\n\n#### [0.16.17](https://github.com/KaTeX/KaTeX/compare/v0.16.16...v0.16.17) (2024-12-17)\n\n##### Bug Fixes\n\n- MathML combines multidigit numbers with sup/subscript, comma separators, and multicharacter text when outputting to DOM ([#&#8203;3999](https://github.com/KaTeX/KaTeX/issues/3999)) ([7d79e22](https://github.com/KaTeX/KaTeX/commit/7d79e220f465c42d4334dc95f1c41e333667e168)), closes [#&#8203;3995](https://github.com/KaTeX/KaTeX/issues/3995)\n\n#### [0.16.16](https://github.com/KaTeX/KaTeX/compare/v0.16.15...v0.16.16) (2024-12-17)\n\n##### Features\n\n- ESM exports, TypeScript types ([#&#8203;3992](https://github.com/KaTeX/KaTeX/issues/3992)) ([ea9c173](https://github.com/KaTeX/KaTeX/commit/ea9c173a0de953b49b2ce5d131e88b785f5dffa1))\n\n#### [0.16.15](https://github.com/KaTeX/KaTeX/compare/v0.16.14...v0.16.15) (2024-12-09)\n\n##### Features\n\n- italic sans-serif in math mode via `\\mathsfit` command ([#&#8203;3998](https://github.com/KaTeX/KaTeX/issues/3998)) ([2218901](https://github.com/KaTeX/KaTeX/commit/22189018b63c9312ec4ad126804514a7390d60b5))\n\n#### [0.16.14](https://github.com/KaTeX/KaTeX/compare/v0.16.13...v0.16.14) (2024-12-08)\n\n##### Features\n\n- \\dddot and \\ddddot support ([#&#8203;3834](https://github.com/KaTeX/KaTeX/issues/3834)) ([bda35cd](https://github.com/KaTeX/KaTeX/commit/bda35cdb0a6bbbc52dd27c79e4d984688be3b745)), closes [#&#8203;2744](https://github.com/KaTeX/KaTeX/issues/2744)\n\n#### [0.16.13](https://github.com/KaTeX/KaTeX/compare/v0.16.12...v0.16.13) (2024-12-08)\n\n##### Bug Fixes\n\n- `\\vdots` and `\\rule` support in text mode ([#&#8203;3997](https://github.com/KaTeX/KaTeX/issues/3997)) ([0e08352](https://github.com/KaTeX/KaTeX/commit/0e0835262345d991df61a435800a16b069a4d5c7)), closes [#&#8203;3990](https://github.com/KaTeX/KaTeX/issues/3990)\n\n#### [0.16.12](https://github.com/KaTeX/KaTeX/compare/v0.16.11...v0.16.12) (2024-12-08)\n\n##### Features\n\n- **css:** configurable margin for display math ([#&#8203;3638](https://github.com/KaTeX/KaTeX/issues/3638)) ([3405001](https://github.com/KaTeX/KaTeX/commit/3405001225b8ee0cf8b35b2e3a6c1fa2191e5fef))\n\n#### [0.16.11](https://github.com/KaTeX/KaTeX/compare/v0.16.10...v0.16.11) (2024-07-02)\n\n##### Features\n\n- add \\emph ([#&#8203;3963](https://github.com/KaTeX/KaTeX/issues/3963)) ([9f34da4](https://github.com/KaTeX/KaTeX/commit/9f34da4b3cf228a7af8134c394394d780a089f2b)), closes [#&#8203;3566](https://github.com/KaTeX/KaTeX/issues/3566)\n\n#### [0.16.10](https://github.com/KaTeX/KaTeX/compare/v0.16.9...v0.16.10) (2024-03-24)\n\n##### Bug Fixes\n\n- \\edef bypassing maxExpand via exponential blowup ([e88b4c3](https://github.com/KaTeX/KaTeX/commit/e88b4c357f978b1bca8edfe3297f0aa309bcbe34))\n- escape \\includegraphics src and alt ([c5897fc](https://github.com/KaTeX/KaTeX/commit/c5897fcd1f73da9612a53e6b5544f1d776e17770))\n- force protocol to be lowercase for better protocol filtering ([fc5af64](https://github.com/KaTeX/KaTeX/commit/fc5af64183a3ceb9be9d1c23a275999a728593de)), closes [/datatracker.ietf.org/doc/html/rfc3986#section-3](https://github.com//datatracker.ietf.org/doc/html/rfc3986/issues/section-3)\n- maxExpand limit with Unicode sub/superscripts ([085e21b](https://github.com/KaTeX/KaTeX/commit/085e21b5da05414efefa932570e7201a7c70e5b2))\n\n#### [0.16.9](https://github.com/KaTeX/KaTeX/compare/v0.16.8...v0.16.9) (2023-10-02)\n\n##### Features\n\n- Support bold Fraktur ([#&#8203;3777](https://github.com/KaTeX/KaTeX/issues/3777)) ([240d5ae](https://github.com/KaTeX/KaTeX/commit/240d5aede915e0303929a9328745b1060e12004a))\n\n#### [0.16.8](https://github.com/KaTeX/KaTeX/compare/v0.16.7...v0.16.8) (2023-06-24)\n\n##### Features\n\n- expose error length and raw error message on ParseError ([#&#8203;3820](https://github.com/KaTeX/KaTeX/issues/3820)) ([710774a](https://github.com/KaTeX/KaTeX/commit/710774aaebb38f43b1ec51c159fe9b9520c91424))\n\n#### [0.16.7](https://github.com/KaTeX/KaTeX/compare/v0.16.6...v0.16.7) (2023-04-28)\n\n##### Bug Fixes\n\n- **docs/support\\_table.md:** delete redundant \"varPsi\" ([#&#8203;3814](https://github.com/KaTeX/KaTeX/issues/3814)) ([33a1b98](https://github.com/KaTeX/KaTeX/commit/33a1b98710c880d2d4a67aa0048f027a94b85702))\n\n#### [0.16.6](https://github.com/KaTeX/KaTeX/compare/v0.16.5...v0.16.6) (2023-04-17)\n\n##### Bug Fixes\n\n- Support `\\let` via `macros` option ([#&#8203;3738](https://github.com/KaTeX/KaTeX/issues/3738)) ([bdb0be2](https://github.com/KaTeX/KaTeX/commit/bdb0be201794d22adaee05438b07a2830efea9da)), closes [#&#8203;3737](https://github.com/KaTeX/KaTeX/issues/3737) [#&#8203;3737](https://github.com/KaTeX/KaTeX/issues/3737)\n\n#### [0.16.5](https://github.com/KaTeX/KaTeX/compare/v0.16.4...v0.16.5) (2023-04-17)\n\n##### Features\n\n- \\_\\_defineFunction API exposing internal defineFunction ([#&#8203;3805](https://github.com/KaTeX/KaTeX/issues/3805)) ([c7b1f84](https://github.com/KaTeX/KaTeX/commit/c7b1f84b7801a29dffdfa3db0ff35de289db80c0)), closes [#&#8203;3756](https://github.com/KaTeX/KaTeX/issues/3756)\n\n#### [0.16.4](https://github.com/KaTeX/KaTeX/compare/v0.16.3...v0.16.4) (2022-12-07)\n\n##### Bug Fixes\n\n- space should prevent optional argument to \\ ([#&#8203;3746](https://github.com/KaTeX/KaTeX/issues/3746)) ([a0deb34](https://github.com/KaTeX/KaTeX/commit/a0deb3410fd92340556fc4c9edb8ab586077e5bf)), closes [#&#8203;3745](https://github.com/KaTeX/KaTeX/issues/3745)\n\n#### [0.16.3](https://github.com/KaTeX/KaTeX/compare/v0.16.2...v0.16.3) (2022-10-22)\n\n##### Bug Fixes\n\n- \\hline after \\cr ([#&#8203;3735](https://github.com/KaTeX/KaTeX/issues/3735)) ([ebf6bf5](https://github.com/KaTeX/KaTeX/commit/ebf6bf5b50a98ac6c5aca1896c0a6ba985c1c91c)), closes [#&#8203;3734](https://github.com/KaTeX/KaTeX/issues/3734)\n\n#### [0.16.2](https://github.com/KaTeX/KaTeX/compare/v0.16.1...v0.16.2) (2022-08-29)\n\n##### Bug Fixes\n\n- **auto-render:** concatenate content of successive text nodes ([#&#8203;3422](https://github.com/KaTeX/KaTeX/issues/3422)) ([4d3fdd8](https://github.com/KaTeX/KaTeX/commit/4d3fdd8647a1c320dc7bcb9c9ea2af81379f700d))\n- Implement \\pmb via CSS text-shadow ([#&#8203;3505](https://github.com/KaTeX/KaTeX/issues/3505)) ([176552a](https://github.com/KaTeX/KaTeX/commit/176552a69183d71425b491d4cc2fa1d462a1246a))\n\n#### [0.16.1](https://github.com/KaTeX/KaTeX/compare/v0.16.0...v0.16.1) (2022-08-28)\n\n##### Bug Fixes\n\n- Use SVGs for some stacked delims ([#&#8203;3686](https://github.com/KaTeX/KaTeX/issues/3686)) ([8a65a2e](https://github.com/KaTeX/KaTeX/commit/8a65a2e1fd69ffeee2fac62229f9f05ebf6afd45))\n\n### [`v0.16.47`](https://github.com/KaTeX/KaTeX/blob/HEAD/CHANGELOG.md#01647-2026-05-16)\n\n[Compare Source](https://github.com/KaTeX/KaTeX/compare/v0.16.46...v0.16.47)\n\n##### Bug Fixes\n\n- correct size of `[` big delimiter ([#&#8203;4217](https://github.com/KaTeX/KaTeX/issues/4217)) ([7ba0027](https://github.com/KaTeX/KaTeX/commit/7ba0027d2f04abddd3b215362f867ab8260b09d7)), closes [#&#8203;4215](https://github.com/KaTeX/KaTeX/issues/4215)\n\n### [`v0.16.46`](https://github.com/KaTeX/KaTeX/blob/HEAD/CHANGELOG.md#01646-2026-05-13)\n\n[Compare Source](https://github.com/KaTeX/KaTeX/compare/v0.16.45...v0.16.46)\n\n##### Bug Fixes\n\n- preserve math font in some styling commands ([#&#8203;4214](https://github.com/KaTeX/KaTeX/issues/4214)) ([e9ee046](https://github.com/KaTeX/KaTeX/commit/e9ee0464ddb31da9bf9649eeb70e52236e7a974a)), closes [#&#8203;4213](https://github.com/KaTeX/KaTeX/issues/4213)\n\n### [`v0.16.45`](https://github.com/KaTeX/KaTeX/blob/HEAD/CHANGELOG.md#01645-2026-04-05)\n\n[Compare Source](https://github.com/KaTeX/KaTeX/compare/v0.16.44...v0.16.45)\n\n##### Bug Fixes\n\n- wrap vcenter mpadded in mrow for valid MathML ([#&#8203;4193](https://github.com/KaTeX/KaTeX/issues/4193)) ([ee66b78](https://github.com/KaTeX/KaTeX/commit/ee66b78d24340edbbd05b08a4a429ce9ed158b25)), closes [#&#8203;4078](https://github.com/KaTeX/KaTeX/issues/4078)\n\n### [`v0.16.44`](https://github.com/KaTeX/KaTeX/blob/HEAD/CHANGELOG.md#01644-2026-03-27)\n\n[Compare Source](https://github.com/KaTeX/KaTeX/compare/v0.16.43...v0.16.44)\n\n##### Bug Fixes\n\n- remove extra \\jot space at bottom of align/gather/etc. ([#&#8203;4184](https://github.com/KaTeX/KaTeX/issues/4184)) ([3870ee9](https://github.com/KaTeX/KaTeX/commit/3870ee913e27fdde7bce244e4c6c5d63e2b28a62))\n\n### [`v0.16.43`](https://github.com/KaTeX/KaTeX/blob/HEAD/CHANGELOG.md#01643-2026-03-26)\n\n[Compare Source](https://github.com/KaTeX/KaTeX/compare/v0.16.42...v0.16.43)\n\n##### Bug Fixes\n\n- use makeEm() consistently to truncate long CSS decimals ([#&#8203;4181](https://github.com/KaTeX/KaTeX/issues/4181)) ([0967dcc](https://github.com/KaTeX/KaTeX/commit/0967dcc0278f20d4501a93f01c7343c70abb3fcd))\n\n### [`v0.16.42`](https://github.com/KaTeX/KaTeX/blob/HEAD/CHANGELOG.md#01642-2026-03-24)\n\n[Compare Source](https://github.com/KaTeX/KaTeX/compare/v0.16.41...v0.16.42)\n\n##### Features\n\n- \\underbracket and \\overbracket ([#&#8203;4147](https://github.com/KaTeX/KaTeX/issues/4147)) ([5be9abb](https://github.com/KaTeX/KaTeX/commit/5be9abb0b4d687a2a196b8adf9b5b9deeb60f7bc))\n\n### [`v0.16.41`](https://github.com/KaTeX/KaTeX/blob/HEAD/CHANGELOG.md#01641-2026-03-24)\n\n[Compare Source](https://github.com/KaTeX/KaTeX/compare/v0.16.40...v0.16.41)\n\n##### Bug Fixes\n\n- \\sout in text mode ([#&#8203;4173](https://github.com/KaTeX/KaTeX/issues/4173)) ([e748578](https://github.com/KaTeX/KaTeX/commit/e748578b63e07ad30d5e404e60b04e5e794c0a5a))\n\n### [`v0.16.40`](https://github.com/KaTeX/KaTeX/blob/HEAD/CHANGELOG.md#01640-2026-03-20)\n\n[Compare Source](https://github.com/KaTeX/KaTeX/compare/v0.16.39...v0.16.40)\n\n##### Bug Fixes\n\n- **css:** specify position: relative for .katex ([#&#8203;4170](https://github.com/KaTeX/KaTeX/issues/4170)) ([020f0d8](https://github.com/KaTeX/KaTeX/commit/020f0d89567d59229bac5fc8d8f5832a9508a85f))\n\n### [`v0.16.39`](https://github.com/KaTeX/KaTeX/blob/HEAD/CHANGELOG.md#01639-2026-03-19)\n\n[Compare Source](https://github.com/KaTeX/KaTeX/compare/v0.16.38...v0.16.39)\n\n##### Bug Fixes\n\n- middle dot in text mode ([#&#8203;4169](https://github.com/KaTeX/KaTeX/issues/4169)) ([edb45b0](https://github.com/KaTeX/KaTeX/commit/edb45b0b17c7b33349ce5142fe39156da05cb4d8)), closes [#&#8203;3641](https://github.com/KaTeX/KaTeX/issues/3641)\n\n</details>\n\n---\n\n### Configuration\n\n📅 **Schedule**: (UTC)\n\n- Branch creation\n  - At any time (no schedule defined)\n- Automerge\n  - Between 12:00 AM and 03:59 AM (`* 0-3 * * *`)\n\n🚦 **Automerge**: Disabled by config. Please merge this manually once you are satisfied.\n\n♻ **Rebasing**: Whenever PR becomes conflicted, or you tick the rebase/retry checkbox.\n\n🔕 **Ignore**: Close this PR and you won't be reminded about this update again.\n\n---\n\n - [ ] <!-- rebase-check -->If you want to rebase/retry this PR, check this box\n\n---\n\nThis PR has been generated by [Mend Renovate CLI](https://github.com/renovatebot/renovate).\n<!--renovate-debug:eyJjcmVhdGVkSW5WZXIiOiI0NC4xMzMuMCIsInVwZGF0ZWRJblZlciI6IjQ0LjEzMy4wIiwidGFyZ2V0QnJhbmNoIjoidjE1LjAvZm9yZ2VqbyIsImxhYmVscyI6WyJkZXBlbmRlbmN5LXVwZ3JhZGUiLCJ0ZXN0L25vdC1uZWVkZWQiXX0=-->\n",
+        "ref": "",
+        "assets": [],
+        "labels": [
+          {
+            "id": 223008,
+            "name": "dependency-upgrade",
+            "exclusive": false,
+            "is_archived": false,
+            "color": "0052cc",
+            "description": "https://codeberg.org/forgejo/forgejo/issues/2779",
+            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/223008"
+          },
+          {
+            "id": 201029,
+            "name": "test/not-needed",
+            "exclusive": true,
+            "is_archived": false,
+            "color": "5319e7",
+            "description": "no additional test is needed",
+            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/201029"
+          }
+        ],
+        "milestone": null,
+        "assignee": null,
+        "assignees": null,
+        "state": "open",
+        "is_locked": false,
+        "comments": 0,
+        "created_at": "2026-10-08T22:11:17+02:00",
+        "updated_at": "2026-10-08T22:44:24+02:00",
+        "closed_at": null,
+        "due_date": null,
+        "pull_request": {
+          "merged": false,
+          "merged_at": null,
+          "draft": false,
+          "html_url": "https://codeberg.org/forgejo/forgejo/pulls/14764"
+        },
+        "repository": {
+          "id": 73144,
+          "name": "forgejo",
+          "owner": "forgejo",
+          "full_name": "forgejo/forgejo"
+        },
+        "pin_order": 0
+      },
+      {
+        "id": 7642284,
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/pulls/14762",
+        "html_url": "https://codeberg.org/forgejo/forgejo/pulls/14762",
+        "number": 14762,
+        "user": {
+          "id": 141082,
+          "login": "viceice-bot",
+          "source_id": 0,
+          "full_name": "",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://codeberg.org/avatars/b25a3a294c6f5514eb9f56b9c808425d05578e5f414b0d36ac88ade50e166d02",
+          "html_url": "https://codeberg.org/viceice-bot",
+          "active": false,
+          "location": "",
+          "pronouns": "",
+          "website": "",
+          "description": "I'm a bot from @viceice",
+          "followers_count": 6,
+          "following_count": 1,
+          "starred_repos_count": 2,
+          "username": "viceice-bot"
+        },
+        "original_author": "",
+        "original_author_id": 0,
+        "title": "Update dependency katex to v0.19.0 (forgejo)",
+        "body": "This PR contains the following updates:\n\n| Package | Change | [Age](https://docs.renovatebot.com/merge-confidence/) | [Confidence](https://docs.renovatebot.com/merge-confidence/) |\n|---|---|---|---|\n| [katex](https://katex.org) ([source](https://github.com/KaTeX/KaTeX)) | [`0.18.10` → `0.19.0`](https://renovatebot.com/diffs/npm/katex/0.18.10/0.19.0) | ![age](https://developer.mend.io/api/mc/badges/age/npm/katex/0.19.0?slim=true) | ![confidence](https://developer.mend.io/api/mc/badges/confidence/npm/katex/0.18.10/0.19.0?slim=true) |\n\n---\n\n### Release Notes\n\n<details>\n<summary>KaTeX/KaTeX (katex)</summary>\n\n### [`v0.19.0`](https://github.com/KaTeX/KaTeX/blob/HEAD/CHANGELOG.md#0190-2026-10-01)\n\n[Compare Source](https://github.com/KaTeX/KaTeX/compare/v0.18.11...v0.19.0)\n\n##### Documentation\n\n- note strict changes shipped in 0.18.11 ([#&#8203;4300](https://github.com/KaTeX/KaTeX/issues/4300)) ([cbb1fce](https://github.com/KaTeX/KaTeX/commit/cbb1fce7e8facb728e735cd9c231ed28cbfaa6fa))\n\n##### BREAKING CHANGES\n\n- Missing character metrics now reported via strict with error code symbolNotInFont, changing warning formatting, calling any strict callbacks, and producing errors in strict: \"error\" mode. Also, strict callbacks returning undefined or null now warn instead of ignoring the issue (and no longer typecheck); return false or \"ignore\" to suppress warnings.\n\n#### [0.18.11](https://github.com/KaTeX/KaTeX/compare/v0.18.10...v0.18.11) (2026-10-01)\n\n##### Features\n\n- handle character metrics warnings via `strict` ([#&#8203;4243](https://github.com/KaTeX/KaTeX/issues/4243)) ([4237070](https://github.com/KaTeX/KaTeX/commit/423707055a37803acafef4c1533832273192ea0e))\n\n#### [0.18.10](https://github.com/KaTeX/KaTeX/compare/v0.18.9...v0.18.10) (2026-09-30)\n\n##### Features\n\n- make KaTeX fallback to browsr math font before Times New Roman ([#&#8203;4298](https://github.com/KaTeX/KaTeX/issues/4298)) ([a477b2e](https://github.com/KaTeX/KaTeX/commit/a477b2e1c30e38e1ada785d5766b1e57211b793e))\n\n#### [0.18.9](https://github.com/KaTeX/KaTeX/compare/v0.18.8...v0.18.9) (2026-09-23)\n\n##### Features\n\n- **types:** add contrib module declarations ([#&#8203;4250](https://github.com/KaTeX/KaTeX/issues/4250)) ([aafa187](https://github.com/KaTeX/KaTeX/commit/aafa1874d720a7ffc74be705b9f4f4b13d1fe758))\n\n#### [0.18.8](https://github.com/KaTeX/KaTeX/compare/v0.18.7...v0.18.8) (2026-09-23)\n\n##### Bug Fixes\n\n- **array:** preserve trailing rows in align ([#&#8203;4283](https://github.com/KaTeX/KaTeX/issues/4283)) ([ddfcc29](https://github.com/KaTeX/KaTeX/commit/ddfcc29825a35194e8de7490acea20d96ca05477))\n\n#### [0.18.7](https://github.com/KaTeX/KaTeX/compare/v0.18.6...v0.18.7) (2026-09-06)\n\n##### Features\n\n- add \\reflectbox and \\mapsfrom support ([#&#8203;4262](https://github.com/KaTeX/KaTeX/issues/4262)) ([ab509fd](https://github.com/KaTeX/KaTeX/commit/ab509fde2026a355d3c80965213c05a10bf144cb))\n\n#### [0.18.6](https://github.com/KaTeX/KaTeX/compare/v0.18.5...v0.18.6) (2026-09-05)\n\n##### Bug Fixes\n\n- **array:** preserve tags on empty final rows ([#&#8203;4277](https://github.com/KaTeX/KaTeX/issues/4277)) ([02d552c](https://github.com/KaTeX/KaTeX/commit/02d552ca2198e91fb24cf32fb0a35cf7610a66aa))\n\n#### [0.18.5](https://github.com/KaTeX/KaTeX/compare/v0.18.4...v0.18.5) (2026-08-31)\n\n##### Bug Fixes\n\n- **char:** accept U+10FFFF ([#&#8203;4265](https://github.com/KaTeX/KaTeX/issues/4265)) ([6805538](https://github.com/KaTeX/KaTeX/commit/680553898e23c55fa6cb66052b4b9396cbe857ce)), closes [#&#8203;2549](https://github.com/KaTeX/KaTeX/issues/2549)\n\n#### [0.18.4](https://github.com/KaTeX/KaTeX/compare/v0.18.3...v0.18.4) (2026-08-10)\n\n##### Bug Fixes\n\n- **environment:** report invalid environment names as ParseError ([#&#8203;4256](https://github.com/KaTeX/KaTeX/issues/4256)) ([e507f75](https://github.com/KaTeX/KaTeX/commit/e507f759f067ad3b9e279837027d4cfb2314915b)), closes [#&#8203;3760](https://github.com/KaTeX/KaTeX/issues/3760) [#&#8203;3760](https://github.com/KaTeX/KaTeX/issues/3760)\n\n#### [0.18.3](https://github.com/KaTeX/KaTeX/compare/v0.18.2...v0.18.3) (2026-08-09)\n\n##### Bug Fixes\n\n- allow braced arguments for delimsizing ([#&#8203;4255](https://github.com/KaTeX/KaTeX/issues/4255)) ([1c973ae](https://github.com/KaTeX/KaTeX/commit/1c973ae2e2416d3943d78606c90b2a9e8e578243))\n\n#### [0.18.2](https://github.com/KaTeX/KaTeX/compare/v0.18.1...v0.18.2) (2026-08-08)\n\n##### Bug Fixes\n\n- prevent prototype pollution in settings ([#&#8203;4260](https://github.com/KaTeX/KaTeX/issues/4260)) ([0adf7e7](https://github.com/KaTeX/KaTeX/commit/0adf7e77db6915d991803b29699f82b1ccf8d4f4))\n\n#### [0.18.1](https://github.com/KaTeX/KaTeX/compare/v0.18.0...v0.18.1) (2026-07-19)\n\n##### Bug Fixes\n\n- **htmlData:** allow escaped commas in \\htmlData ([#&#8203;4236](https://github.com/KaTeX/KaTeX/issues/4236)) ([87a2b30](https://github.com/KaTeX/KaTeX/commit/87a2b304aff601ad1c3d930d47d6833d123ad210)), closes [#&#8203;4204](https://github.com/KaTeX/KaTeX/issues/4204) [#&#8203;4218](https://github.com/KaTeX/KaTeX/issues/4218)\n\n### [`v0.18.11`](https://github.com/KaTeX/KaTeX/blob/HEAD/CHANGELOG.md#01811-2026-10-01)\n\n[Compare Source](https://github.com/KaTeX/KaTeX/compare/v0.18.10...v0.18.11)\n\n##### Features\n\n- handle character metrics warnings via `strict` ([#&#8203;4243](https://github.com/KaTeX/KaTeX/issues/4243)) ([4237070](https://github.com/KaTeX/KaTeX/commit/423707055a37803acafef4c1533832273192ea0e))\n\n</details>\n\n---\n\n### Configuration\n\n📅 **Schedule**: (UTC)\n\n- Branch creation\n  - Between 12:00 AM and 03:59 AM (`* 0-3 * * *`)\n- Automerge\n  - Between 12:00 AM and 03:59 AM (`* 0-3 * * *`)\n\n🚦 **Automerge**: Disabled by config. Please merge this manually once you are satisfied.\n\n♻ **Rebasing**: Whenever PR becomes conflicted, or you tick the rebase/retry checkbox.\n\n🔕 **Ignore**: Close this PR and you won't be reminded about this update again.\n\n---\n\n - [ ] <!-- rebase-check -->If you want to rebase/retry this PR, check this box\n\n---\n\nThis PR has been generated by [Mend Renovate CLI](https://github.com/renovatebot/renovate).\n<!--renovate-debug:eyJjcmVhdGVkSW5WZXIiOiI0NC4xMzMuMCIsInVwZGF0ZWRJblZlciI6IjQ0LjEzMy4wIiwidGFyZ2V0QnJhbmNoIjoiZm9yZ2VqbyIsImxhYmVscyI6WyJkZXBlbmRlbmN5LXVwZ3JhZGUiLCJ0ZXN0L25vdC1uZWVkZWQiXX0=-->\n",
+        "ref": "",
+        "assets": [],
+        "labels": [
+          {
+            "id": 223008,
+            "name": "dependency-upgrade",
+            "exclusive": false,
+            "is_archived": false,
+            "color": "0052cc",
+            "description": "https://codeberg.org/forgejo/forgejo/issues/2779",
+            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/223008"
+          },
+          {
+            "id": 201029,
+            "name": "test/not-needed",
+            "exclusive": true,
+            "is_archived": false,
+            "color": "5319e7",
+            "description": "no additional test is needed",
+            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/201029"
+          }
+        ],
+        "milestone": null,
+        "assignee": null,
+        "assignees": null,
+        "state": "open",
+        "is_locked": false,
+        "comments": 0,
+        "created_at": "2026-10-08T22:09:58+02:00",
+        "updated_at": "2026-10-08T22:44:19+02:00",
+        "closed_at": null,
+        "due_date": null,
+        "pull_request": {
+          "merged": false,
+          "merged_at": null,
+          "draft": false,
+          "html_url": "https://codeberg.org/forgejo/forgejo/pulls/14762"
         },
         "repository": {
           "id": 73144,

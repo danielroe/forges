@@ -1,0 +1,38 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://plc.directory/did:plc:zw7ju6mdaizij4zdccnkpfwv"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"214-aRRw6ZkrLj5DUgYbMGynfVVOjNs\""
+    },
+    "body": {
+      "@context": [
+        "https://www.w3.org/ns/did/v1",
+        "https://w3id.org/security/multikey/v1",
+        "https://w3id.org/security/suites/secp256k1-2019/v1"
+      ],
+      "id": "did:plc:zw7ju6mdaizij4zdccnkpfwv",
+      "alsoKnownAs": [
+        "at://lancy.tngl.sh"
+      ],
+      "verificationMethod": [
+        {
+          "id": "did:plc:zw7ju6mdaizij4zdccnkpfwv#atproto",
+          "type": "Multikey",
+          "controller": "did:plc:zw7ju6mdaizij4zdccnkpfwv",
+          "publicKeyMultibase": "zQ3shYvMsAMnEXaDYdGjHj3idovwsYZeD93ebPnA45XnJfqqu"
+        }
+      ],
+      "service": [
+        {
+          "id": "#atproto_pds",
+          "type": "AtprotoPersonalDataServer",
+          "serviceEndpoint": "https://tngl.sh"
+        }
+      ]
+    }
+  }
+}

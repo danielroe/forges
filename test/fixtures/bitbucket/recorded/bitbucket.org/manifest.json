@@ -18,7 +18,13 @@
     "kind": "pull_request",
     "number": "37"
   },
-  "recordedAt": "2026-10-07T12:35:28.381Z",
+  "scratch": {
+    "forge": "bitbucket",
+    "instance": "bitbucket.org",
+    "owner": "danielroe",
+    "name": "forges-fixtures"
+  },
+  "recordedAt": "2026-10-09T13:15:05.916Z",
   "steps": [
     "repo",
     "pull",
@@ -30,6 +36,9 @@
     "pull checks",
     "pull files",
     "pull commits",
+    "commit thread",
+    "commit events",
+    "commit comments",
     "me",
     "own repos",
     "checks",
@@ -42,6 +51,7 @@
     "commit",
     "compare",
     "search threads",
-    "search repos"
+    "search repos",
+    "webhooks"
   ]
 }

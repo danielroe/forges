@@ -2,6 +2,9 @@ import type { FetchLike } from '../src/fetch.ts'
 import type { ForgeEvent, Notification, NotificationReason, Page, Repo, Thread } from '../src/model.ts'
 import type { ForgeProvider } from '../src/provider.ts'
 import type { RecordingManifest, StepContext } from './recording/steps.ts'
+import type { WriteContext, WriteManifest } from './recording/write-steps.ts'
+import type { FixtureCall } from './utils/fixtures.ts'
+import { generateKeyPairSync } from 'node:crypto'
 import { existsSync, readdirSync, readFileSync } from 'node:fs'
 import { beforeAll, describe, expect, it, vi } from 'vitest'
 import { azureDevOps } from '../src/azure-devops/index.ts'
@@ -14,8 +17,10 @@ import { gitlab } from '../src/gitlab/index.ts'
 import { notificationThread, repoKey } from '../src/model.ts'
 import { pushin } from '../src/pushin/index.ts'
 import { tangled } from '../src/tangled/index.ts'
+import { redact } from './recording/redact.ts'
 import { STEPS } from './recording/steps.ts'
-import { fixtureDirectory, fixtureFetch } from './utils/fixtures.ts'
+import { WRITE_STEPS } from './recording/write-steps.ts'
+import { fixtureDirectory, fixtureFetch, loadFixtures as recordedFixtures } from './utils/fixtures.ts'
 import { FakeWebSocket } from './utils/websocket.ts'
 
 type Manifest = RecordingManifest
@@ -46,8 +51,10 @@ type Create = (fetch: FetchLike, manifest: Manifest, messages?: unknown[]) => Fo
 
 const token = { type: 'token', token: 't' } as const
 const authFor = ({ anonymous }: Manifest) => anonymous ? undefined : token
+const { privateKey } = generateKeyPairSync('rsa', { modulusLength: 2048, privateKeyEncoding: { type: 'pkcs8', format: 'pem' }, publicKeyEncoding: { type: 'spki', format: 'pem' } })
+const githubAuthFor = (manifest: Manifest) => manifest.installation ? { type: 'app', appId: 1, privateKey, installationId: manifest.installation } as const : authFor(manifest)
 const providers: Array<{ name: string, create: Create }> = [
-  { name: 'github', create: (fetch, manifest) => github({ auth: authFor(manifest), baseUrl: manifest.baseUrl, fetch }).create() },
+  { name: 'github', create: (fetch, manifest) => github({ auth: githubAuthFor(manifest), baseUrl: manifest.baseUrl, fetch }).create() },
   { name: 'forgejo', create: (fetch, manifest) => forgejo({ auth: authFor(manifest), baseUrl: manifest.baseUrl, instanceVersion: manifest.instanceVersion, fetch }).create() },
   { name: 'gitea', create: (fetch, manifest) => gitea({ auth: authFor(manifest), baseUrl: manifest.baseUrl, fetch }).create() },
   { name: 'gitlab', create: (fetch, manifest) => gitlab({ auth: authFor(manifest), baseUrl: manifest.baseUrl, fetch }).create() },
@@ -60,12 +67,27 @@ const providers: Array<{ name: string, create: Create }> = [
     create: (fetch, manifest, messages = []) => tangled({
       fetch,
       recordsUrl: manifest.recordsUrl,
+      ...manifest.account && { auth: { type: 'app_password', identifier: manifest.account, password: 'p', pds: manifest.pds }, notificationsUrl: manifest.notificationsUrl },
       webSocket: url => new FakeWebSocket(url, messages),
     }).create(),
   },
 ]
 
 const RECENT = 60 * 60 * 1000
+
+/** Replaces timestamps a write stamps when it is sent, which a replay at a fixed instant cannot reproduce. */
+function withoutTimes(value: unknown): unknown {
+  return JSON.parse(JSON.stringify(value).replace(/\d{4}-\d\d-\d\dT\d\d:\d\d:\d\d(?:\.\d+)?Z/g, '<time>'))
+}
+
+function parsed(text: string): unknown {
+  try {
+    return JSON.parse(text)
+  }
+  catch {
+    return text
+  }
+}
 
 /** Normalised output as stable JSON: no verbatim forge data, and fallback "now" timestamps masked. */
 function golden(value: unknown, now: number): string {
@@ -101,9 +123,23 @@ for (const { name, create } of providers) {
       const has = (name: string) => manifest!.steps.includes(name)
       const items = <T>(name: string) => (output[name] as Page<T> | undefined)?.items ?? []
 
+      const writes = manifest && 'run' in manifest ? manifest as WriteManifest : undefined
+      let calls: FixtureCall[] = []
+
       beforeAll(async () => {
         vi.useFakeTimers({ now: new Date(manifest!.recordedAt), toFake: ['Date'] })
         try {
+          if (writes) {
+            const replay = fixtureFetch(directory, {}, { sequential: true })
+            calls = replay.calls
+            const author = create(replay.fetch, writes)
+            const reviewer = create(replay.fetch, writes)
+            const context: WriteContext = { pulls: [], comments: {}, wait: async () => {} }
+            for (const step of WRITE_STEPS.filter(step => has(step.name))) {
+              output[step.name] = await step.run(step.as === 'reviewer' ? reviewer : author, writes, context)
+            }
+            return
+          }
           const instance = create(fixtureFetch(directory).fetch, manifest!, jetstream?.messages)
           const context: StepContext = {}
           for (const step of STEPS.filter(step => has(step.name))) {
@@ -113,6 +149,13 @@ for (const { name, create } of providers) {
         finally {
           vi.useRealTimers()
         }
+      })
+
+      it.skipIf(!writes)('sends the request bodies it recorded', () => {
+        const sent = calls.filter(call => call.body !== undefined).map(call => redact(parsed(call.body!)))
+        const recorded = recordedFixtures(directory).filter(fixture => fixture.request.body !== undefined).map(fixture => fixture.request.body)
+
+        expect(withoutTimes(sent)).toEqual(withoutTimes(recorded))
       })
 
       it('matches the committed golden output (regenerate with `vitest -u`)', async () => {

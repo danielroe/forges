@@ -1,0 +1,67 @@
+{
+  "baseUrl": "https://dev.azure.com",
+  "repo": {
+    "forge": "azure-devops",
+    "instance": "dev.azure.com",
+    "owner": "forges/forges-fixtures",
+    "name": "forges-fixtures"
+  },
+  "pull": {
+    "forge": "azure-devops",
+    "instance": "dev.azure.com",
+    "repo": {
+      "forge": "azure-devops",
+      "instance": "dev.azure.com",
+      "owner": "forges/forges-fixtures",
+      "name": "forges-fixtures"
+    },
+    "kind": "pull_request",
+    "number": "1"
+  },
+  "issue": {
+    "forge": "azure-devops",
+    "instance": "dev.azure.com",
+    "repo": {
+      "forge": "azure-devops",
+      "instance": "dev.azure.com",
+      "owner": "forges/forges-fixtures",
+      "name": "forges-fixtures"
+    },
+    "kind": "issue",
+    "number": "1"
+  },
+  "scratch": {
+    "forge": "azure-devops",
+    "instance": "dev.azure.com",
+    "owner": "forges/forges-fixtures",
+    "name": "forges-fixtures"
+  },
+  "recordedAt": "2026-10-09T13:52:28.391Z",
+  "steps": [
+    "repo",
+    "pull",
+    "pull list",
+    "pull getMany",
+    "pull events",
+    "pull comments",
+    "pull reviews",
+    "pull checks",
+    "pull commits",
+    "issue",
+    "issue list",
+    "issue getMany",
+    "issue events",
+    "issue comments",
+    "own repos",
+    "checks",
+    "readme",
+    "tree",
+    "branches",
+    "tags",
+    "resolve default branch",
+    "commits",
+    "commit",
+    "compare",
+    "search threads"
+  ]
+}

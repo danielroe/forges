@@ -1,0 +1,38 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://plc.directory/did:plc:7qksav5io2s4qfg67pe7iqqk"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"215-zQrskZtCC6kJZ4i6R7/qeCbuh9I\""
+    },
+    "body": {
+      "@context": [
+        "https://www.w3.org/ns/did/v1",
+        "https://w3id.org/security/multikey/v1",
+        "https://w3id.org/security/suites/secp256k1-2019/v1"
+      ],
+      "id": "did:plc:7qksav5io2s4qfg67pe7iqqk",
+      "alsoKnownAs": [
+        "at://roebot.tngl.sh"
+      ],
+      "verificationMethod": [
+        {
+          "id": "did:plc:7qksav5io2s4qfg67pe7iqqk#atproto",
+          "type": "Multikey",
+          "controller": "did:plc:7qksav5io2s4qfg67pe7iqqk",
+          "publicKeyMultibase": "zQ3shVikfhJ2W1T64q5eqGZ3RKwoUwirCwjghYcXqTLf3e3zu"
+        }
+      ],
+      "service": [
+        {
+          "id": "#atproto_pds",
+          "type": "AtprotoPersonalDataServer",
+          "serviceEndpoint": "https://tngl.sh"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.bitbucket.org/2.0/user"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"bc218a6968585781d7734d28fa157a02\""
+    },
+    "body": {
+      "display_name": "Daniel Roe",
+      "links": {
+        "self": {
+          "href": "https://api.bitbucket.org/2.0/users/%7Bd980eb54-27c4-4887-bb4f-785d5f485d1c%7D"
+        },
+        "avatar": {
+          "href": "https://secure.gravatar.com/avatar/f366ee6556b7307a1a2a253c8fb842ca?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FDR-4.png"
+        },
+        "repositories": {
+          "href": "https://api.bitbucket.org/2.0/repositories/%7Bd980eb54-27c4-4887-bb4f-785d5f485d1c%7D"
+        },
+        "snippets": {
+          "href": "https://api.bitbucket.org/2.0/snippets/%7Bd980eb54-27c4-4887-bb4f-785d5f485d1c%7D"
+        },
+        "html": {
+          "href": "https://bitbucket.org/%7Bd980eb54-27c4-4887-bb4f-785d5f485d1c%7D/"
+        },
+        "hooks": {
+          "href": "https://api.bitbucket.org/2.0/workspaces/{d980eb54-27c4-4887-bb4f-785d5f485d1c}/hooks"
+        }
+      },
+      "created_on": "2018-05-29T10:52:54.057543+00:00",
+      "type": "user",
+      "uuid": "{d980eb54-27c4-4887-bb4f-785d5f485d1c}",
+      "username": "danielroe",
+      "is_staff": false,
+      "account_id": "59fb7b9c1c0767667b2cea37",
+      "nickname": "danielroe",
+      "location": null
+    }
+  }
+}

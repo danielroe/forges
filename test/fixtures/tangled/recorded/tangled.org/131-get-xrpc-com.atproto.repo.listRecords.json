@@ -1,0 +1,1512 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://npmx.social/xrpc/com.atproto.repo.listRecords?repo=did%3Aplc%3Ajbeaa5kdaladzwq3r7f5xgwe&collection=sh.tangled.repo&limit=100"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"b7a5-BFllwY+K8335qIWoxFonuCpCQxQ\"",
+      "ratelimit-limit": "3000",
+      "ratelimit-remaining": "2990",
+      "ratelimit-reset": "1791551855"
+    },
+    "body": {
+      "records": [
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo/synchub.to",
+          "cid": "bafyreifq5r5v7jprvjvusay7jk7x2r6fpx6n47r5wlczafhcurvrvbmtmy",
+          "value": {
+            "knot": "knot1.tangled.sh",
+            "$type": "sh.tangled.repo",
+            "labels": [
+              "at://did:plc:wshs7t2adsemcrrd4snkeqli/sh.tangled.label.definition/assignee",
+              "at://did:plc:wshs7t2adsemcrrd4snkeqli/sh.tangled.label.definition/documentation",
+              "at://did:plc:wshs7t2adsemcrrd4snkeqli/sh.tangled.label.definition/duplicate",
+              "at://did:plc:wshs7t2adsemcrrd4snkeqli/sh.tangled.label.definition/good-first-issue",
+              "at://did:plc:wshs7t2adsemcrrd4snkeqli/sh.tangled.label.definition/wontfix"
+            ],
+            "topics": [
+              "mirror",
+              "sync",
+              "tangled",
+              "github",
+              "git"
+            ],
+            "repoDid": "did:plc:g4lh56ouiwlcyhukzkjvy75g",
+            "spindle": "spindle.tangled.sh",
+            "website": "https://synchub.to",
+            "createdAt": "2026-06-25T17:27:03Z",
+            "description": "mirror your GitHub repos to tangled.org automatically"
+          }
+        },
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo/3mruor4aiisqe",
+          "cid": "bafyreifbezaiex277egdisyfg2y5mubk7sexlnlr2e7xezsct4ajy72b3i",
+          "value": {
+            "knot": "knot1.tangled.sh",
+            "name": "empathy",
+            "$type": "sh.tangled.repo",
+            "topics": [
+              "agent",
+              "kindness",
+              "skill"
+            ],
+            "repoDid": "did:plc:ma5dtiiirjtu7kbdtgz2jipn",
+            "createdAt": "2026-07-30T14:49:35.201Z",
+            "description": "[READ-ONLY] Mirror of https://github.com/danielroe/empathy. A skill that helps AI agents talk to humans."
+          }
+        },
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo/3mrkownrrx2oa",
+          "cid": "bafyreigfjx7ozpi5oftiih6gssuxkg6fmkmuqqibmk2we2jeluev4aqkrm",
+          "value": {
+            "knot": "knot1.tangled.sh",
+            "name": "clickable-path",
+            "$type": "sh.tangled.repo",
+            "topics": [
+              "cli",
+              "osc8"
+            ],
+            "repoDid": "did:plc:vglgfdr3j2sqjdwgb5uvsyff",
+            "createdAt": "2026-07-26T15:26:04.680Z",
+            "description": "[READ-ONLY] Mirror of https://github.com/danielroe/clickable-path. Zero-dependency package to print paths as OSC 8 hyperlinks."
+          }
+        },
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo/3mqokfeg7xcko",
+          "cid": "bafyreib6tc2h3y22jlpincskyanudepftrux5vu4b6mkctf53pjbaffhme",
+          "value": {
+            "knot": "knot1.tangled.sh",
+            "name": "fnv1a-64",
+            "$type": "sh.tangled.repo",
+            "topics": [
+              "64-bit",
+              "fnv",
+              "fnv-1a",
+              "fnv1a",
+              "hash",
+              "non-cryptographic"
+            ],
+            "repoDid": "did:plc:zpw5i3bh2ytz7flu7wsgiwtx",
+            "createdAt": "2026-07-15T10:50:16.628Z",
+            "description": "[READ-ONLY] Mirror of https://github.com/danielroe/fnv1a-64. Tiny, fast, dependency-free 64-bit FNV-1a string hash for Node and the browser."
+          }
+        },
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo/3mqcfskr42ssc",
+          "cid": "bafyreieemubcbujuj3dmk7wzjplehoart7rdpsr6m4nem7mrov3ep3agoi",
+          "value": {
+            "knot": "knot1.tangled.sh",
+            "name": "unsight.dev",
+            "$type": "sh.tangled.repo",
+            "topics": [
+              "ai",
+              "clustering",
+              "github",
+              "machine-learning"
+            ],
+            "repoDid": "did:plc:ef4dxsomy6f3g3mf6jk3d62m",
+            "website": "https://unsight.dev",
+            "createdAt": "2026-07-10T14:56:12.270Z",
+            "description": "[READ-ONLY] Mirror of https://github.com/danielroe/unsight.dev. Detect duplicate GitHub issues, areas of concern and more across related repositories."
+          }
+        },
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo/3mqcfskomxkei",
+          "cid": "bafyreibpekluvkqqu6zeqynqjzzaekl3nsg4o76xxkn7qfpb25onykdxbe",
+          "value": {
+            "knot": "knot1.tangled.sh",
+            "name": "uppt",
+            "$type": "sh.tangled.repo",
+            "topics": [
+              "github-action",
+              "npm",
+              "npmjs",
+              "oidc",
+              "staged-publish",
+              "trusted-publishing"
+            ],
+            "repoDid": "did:plc:alsvq6fatm4fox4s7fjw7xvi",
+            "createdAt": "2026-07-10T14:56:12.182Z",
+            "description": "[READ-ONLY] Mirror of https://github.com/danielroe/uppt. A composite GitHub Action that turns conventional commits into a draft release PR, tags the PR on merge, and stages publishing to npm via OIDC trusted publishing."
+          }
+        },
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo/3mqcfsir47kfy",
+          "cid": "bafyreifj6ltemreilqveuwtsyqgovnjruuac3dalti3q7un3afgy5gaw7m",
+          "value": {
+            "knot": "knot1.tangled.sh",
+            "name": "zero-vue",
+            "$type": "sh.tangled.repo",
+            "topics": [
+              "sync",
+              "vue",
+              "zero"
+            ],
+            "repoDid": "did:plc:55nydp3zzdiqly2hbr7yqyfp",
+            "createdAt": "2026-07-10T14:56:10.880Z",
+            "description": "[READ-ONLY] Mirror of https://github.com/danielroe/zero-vue. Vue bindings for Zero"
+          }
+        },
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo/3mqcfsiom524w",
+          "cid": "bafyreihpayuggvgcfvsutk5gnkwohais44jbecvk5wlwhbz7gts2x44cpq",
+          "value": {
+            "knot": "knot1.tangled.sh",
+            "name": "cross-origin-storage",
+            "$type": "sh.tangled.repo",
+            "topics": [
+              "cross-origin-storage",
+              "experimental",
+              "nuxt",
+              "vite",
+              "vite-plugin"
+            ],
+            "repoDid": "did:plc:ijkxcqq3oihvjibkontpwdjz",
+            "createdAt": "2026-07-10T14:56:10.882Z",
+            "description": "[READ-ONLY] Mirror of https://github.com/danielroe/cross-origin-storage. Load shared dependencies from Cross-Origin Storage (COS)."
+          }
+        },
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo/3mqc5jtalzsbw",
+          "cid": "bafyreihna7arxakrr2cqmtgxxb5rf3n7t3woq6y43i6iydbveqg37s7fiu",
+          "value": {
+            "knot": "knot1.tangled.sh",
+            "name": "beasties",
+            "$type": "sh.tangled.repo",
+            "topics": [
+              "critical-css",
+              "css",
+              "inlining-critical-fonts",
+              "vite",
+              "vite-plugin",
+              "webpack",
+              "webpack-plugin"
+            ],
+            "repoDid": "did:plc:tlnq6meclcfkqpsptghuu5uz",
+            "website": "https://npmx.dev/beasties",
+            "createdAt": "2026-07-10T12:28:09.649Z",
+            "description": "[READ-ONLY] Mirror of https://github.com/danielroe/beasties. A library to inline your app's critical CSS and lazy-load the rest."
+          }
+        },
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo/3mpwa4lduosmh",
+          "cid": "bafyreiafuhk6imx5hngrojvrqe4p3lzspk7oujz6bbln3ypt7mlrhgbyk4",
+          "value": {
+            "knot": "knot1.tangled.sh",
+            "name": "cross-origin-storage",
+            "$type": "sh.tangled.repo",
+            "topics": [
+              "cross-origin-storage",
+              "experimental",
+              "nuxt",
+              "vite",
+              "vite-plugin"
+            ],
+            "repoDid": "did:plc:ijkxcqq3oihvjibkontpwdjz",
+            "createdAt": "2026-07-05T18:42:29.209Z",
+            "description": "[READ-ONLY] Mirror of https://github.com/danielroe/cross-origin-storage. Load shared dependencies from Cross-Origin Storage (COS)."
+          }
+        },
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo/3mpwa4k4to2z3",
+          "cid": "bafyreiat3dms5vvf33ojnbrpk6mozrfl6tycpl7u2y545v7ilh4plsz4ae",
+          "value": {
+            "knot": "knot1.tangled.sh",
+            "name": "nuxt-components-ts",
+            "$type": "sh.tangled.repo",
+            "topics": [],
+            "repoDid": "did:plc:gqw5xe32rfbq6bg6tw73kqxl",
+            "createdAt": "2026-07-05T18:42:27.950Z",
+            "description": "[READ-ONLY] Mirror of https://github.com/danielroe/nuxt-components-ts."
+          }
+        },
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo/3mp4uwkxrtcsw",
+          "cid": "bafyreiccjoop4ktyx2qjenhmcdmlxmd2iwcnndcvcq2fg2kh4p22udcoci",
+          "value": {
+            "knot": "knot1.tangled.sh",
+            "name": "cross-origin-storage",
+            "$type": "sh.tangled.repo",
+            "topics": [
+              "cross-origin-storage",
+              "experimental",
+              "nuxt",
+              "vite",
+              "vite-plugin"
+            ],
+            "repoDid": "did:plc:ijkxcqq3oihvjibkontpwdjz",
+            "createdAt": "2026-06-25T16:45:44.047Z",
+            "description": "[READ-ONLY] Mirror of https://github.com/danielroe/cross-origin-storage. Load shared dependencies from Cross-Origin Storage (COS)."
+          }
+        },
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo/3modhs3kxx2ud",
+          "cid": "bafyreiag5khgh4ww7n2b27xn6lfbe2tfr2zsrw3vgcakxsefvs2zwie6lm",
+          "value": {
+            "knot": "knot1.tangled.sh",
+            "name": "nuxt-site-template",
+            "$type": "sh.tangled.repo",
+            "topics": [],
+            "repoDid": "did:plc:steyaxvxsb4yidovcnvjiiqc",
+            "createdAt": "2026-06-15T14:14:01.166Z",
+            "description": "[READ-ONLY] Mirror of https://github.com/danielroe/nuxt-site-template."
+          }
+        },
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo/3modhs3i73chm",
+          "cid": "bafyreiaxvd7wydvfvqlbxddykj4hkpcpckd5e4rdfvh22adp4w5mo4x2qa",
+          "value": {
+            "knot": "knot1.tangled.sh",
+            "name": "nuxt-ui-vue",
+            "$type": "sh.tangled.repo",
+            "topics": [],
+            "repoDid": "did:plc:oryjjdbjpcwkqjfk3cwzldzf",
+            "createdAt": "2026-06-15T14:14:00.790Z",
+            "description": "[READ-ONLY] Mirror of https://github.com/danielroe/nuxt-ui-vue."
+          }
+        },
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo/3modhs2nreswa",
+          "cid": "bafyreifyykmsonzwoda6k3yup3sygwmcsiaeatvrlnbcm7oxwalzplt4su",
+          "value": {
+            "knot": "knot1.tangled.sh",
+            "name": "nuxt-rebundle",
+            "$type": "sh.tangled.repo",
+            "topics": [],
+            "repoDid": "did:plc:ti4ywba74dtcez2jtogrwqpr",
+            "createdAt": "2026-06-15T14:14:00.320Z",
+            "description": "[READ-ONLY] Mirror of https://github.com/danielroe/nuxt-rebundle. Bundler optimisations for Nuxt"
+          }
+        },
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo/3modhs2fzdc25",
+          "cid": "bafyreihf6jhnxgflo5t6ucs5r6tkn7ap3rkgdpb7ggowup6oqdvftvotei",
+          "value": {
+            "knot": "knot1.tangled.sh",
+            "name": "pinia-ssr-repro",
+            "$type": "sh.tangled.repo",
+            "topics": [],
+            "repoDid": "did:plc:b34damknr5em3ejxneinyjwj",
+            "createdAt": "2026-06-15T14:13:59.828Z",
+            "description": "[READ-ONLY] Mirror of https://github.com/danielroe/pinia-ssr-repro."
+          }
+        },
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo/3modhs2atcsqe",
+          "cid": "bafyreielxctkb2avqq2k53r6szt7izfi6wadjuza27zx4j6tvgdjbv32ry",
+          "value": {
+            "knot": "knot1.tangled.sh",
+            "name": "nuxt-rspack-starter",
+            "$type": "sh.tangled.repo",
+            "topics": [],
+            "repoDid": "did:plc:gjncleylyvvopca73wgbjtn2",
+            "createdAt": "2026-06-15T14:13:59.728Z",
+            "description": "[READ-ONLY] Mirror of https://github.com/danielroe/nuxt-rspack-starter."
+          }
+        },
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo/3modhr6trv25k",
+          "cid": "bafyreia5ybtp7twyg4kpofaxfnck5f34tdixyruslp4rwkc2yiqjzj454m",
+          "value": {
+            "knot": "knot1.tangled.sh",
+            "name": "nuxt-fonts-demo",
+            "$type": "sh.tangled.repo",
+            "topics": [],
+            "repoDid": "did:plc:srocqhawf3s2k2rlwxeczffy",
+            "createdAt": "2026-06-15T14:13:30.786Z",
+            "description": "[READ-ONLY] Mirror of https://github.com/danielroe/nuxt-fonts-demo."
+          }
+        },
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo/3modhr4yejc46",
+          "cid": "bafyreialzmnhowocc2gl526mhvcwmqshkzb74nayfiwz2kbs22nmsxh424",
+          "value": {
+            "knot": "knot1.tangled.sh",
+            "name": "xiao-e-yun-steamTools",
+            "$type": "sh.tangled.repo",
+            "topics": [],
+            "repoDid": "did:plc:oyukauvym6coiay46jzilkgk",
+            "createdAt": "2026-06-15T14:13:28.950Z",
+            "description": "[READ-ONLY] Mirror of https://github.com/danielroe/xiao-e-yun-steamTools."
+          }
+        },
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo/3modhr33s225v",
+          "cid": "bafyreifphprpkhcefv5dhek45v5r5kctlfxtu6huiegcnurjumji5diwfy",
+          "value": {
+            "knot": "knot1.tangled.sh",
+            "name": "CodeRunnerD-VueTypescript",
+            "$type": "sh.tangled.repo",
+            "topics": [],
+            "repoDid": "did:plc:t757nad7cavsdkwylarforye",
+            "createdAt": "2026-06-15T14:13:26.912Z",
+            "description": "[READ-ONLY] Mirror of https://github.com/danielroe/CodeRunnerD-VueTypescript."
+          }
+        },
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo/3modhqysidkue",
+          "cid": "bafyreicz5g6gim3rmxyejanr7wsi2qocg52oyzigi2hxfqtjdtyea2be6y",
+          "value": {
+            "knot": "knot1.tangled.sh",
+            "name": "nuxt-workers",
+            "$type": "sh.tangled.repo",
+            "topics": [],
+            "repoDid": "did:plc:hlhclzmnlm4leef6xsbi5bvo",
+            "createdAt": "2026-06-15T14:13:25.019Z",
+            "description": "[READ-ONLY] Mirror of https://github.com/danielroe/nuxt-workers. SSR-safe, zero-config Web Workers integration for Nuxt."
+          }
+        },
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo/3modhqwxmkchs",
+          "cid": "bafyreidbjhmevbpbyvrmfi547lrp3vc7ugh4alqr4ri2h6kckabk4zsfum",
+          "value": {
+            "knot": "knot1.tangled.sh",
+            "name": "gdg-portlaoise-2024",
+            "$type": "sh.tangled.repo",
+            "topics": [],
+            "repoDid": "did:plc:zjr2ibksdzjtnv2ublb4yv6z",
+            "createdAt": "2026-06-15T14:13:22.576Z",
+            "description": "[READ-ONLY] Mirror of https://github.com/danielroe/gdg-portlaoise-2024."
+          }
+        },
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo/3modhqv6nck6r",
+          "cid": "bafyreiawzpdbmhxmsr7kwgpyan5g6wi5wqma7s27637anknefkwkgqknaa",
+          "value": {
+            "knot": "knot1.tangled.sh",
+            "name": "glob-native",
+            "$type": "sh.tangled.repo",
+            "topics": [],
+            "repoDid": "did:plc:scamfrmhgvyjqftet6ppfdsb",
+            "createdAt": "2026-06-15T14:13:20.697Z",
+            "description": "[READ-ONLY] Mirror of https://github.com/danielroe/glob-native."
+          }
+        },
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo/3modhqtfha2yd",
+          "cid": "bafyreidvzquxuzq66wnte2xxkxrrgniwq5rm3b32l7ubdzgighig6nr42m",
+          "value": {
+            "knot": "knot1.tangled.sh",
+            "name": "errx",
+            "$type": "sh.tangled.repo",
+            "topics": [
+              "error",
+              "stack-trace"
+            ],
+            "repoDid": "did:plc:36bt3stkskrwv5mic4qyo3rb",
+            "createdAt": "2026-06-15T14:13:18.834Z",
+            "description": "[READ-ONLY] Mirror of https://github.com/danielroe/errx. Zero dependency library to capture and parse stack traces in Node, Bun, Deno and more."
+          }
+        },
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo/3modhqrfak2xp",
+          "cid": "bafyreicyzwib3pkityek2xatwmmuwpkezecqvstj5q7bx53vdn3s23wg7q",
+          "value": {
+            "knot": "knot1.tangled.sh",
+            "name": "unplugin-purge-polyfills",
+            "$type": "sh.tangled.repo",
+            "topics": [],
+            "repoDid": "did:plc:2uy2mml4ka65li2etr365g7n",
+            "createdAt": "2026-06-15T14:13:16.910Z",
+            "description": "[READ-ONLY] Mirror of https://github.com/danielroe/unplugin-purge-polyfills. A tiny plugin to replace package imports with better native code."
+          }
+        },
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo/3modhqpo2w27v",
+          "cid": "bafyreidh4xr33ohnf5gw2zhnujsgrq4ttmz7eko4ksp52vn3qw66fh2pj4",
+          "value": {
+            "knot": "knot1.tangled.sh",
+            "name": "_productivity_app",
+            "$type": "sh.tangled.repo",
+            "topics": [],
+            "repoDid": "did:plc:eq3qeronr75vjlviwa2xqw2l",
+            "createdAt": "2026-06-15T14:13:14.844Z",
+            "description": "[READ-ONLY] Mirror of https://github.com/danielroe/_productivity_app."
+          }
+        },
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo/3modhqnuzpsha",
+          "cid": "bafyreiga7hm35g2xsklg3op3tgeubvrhy4rojmzhp5gyscfcng2mj4nu5m",
+          "value": {
+            "knot": "knot1.tangled.sh",
+            "name": "nuxt-3-vercel-baseurl-test",
+            "$type": "sh.tangled.repo",
+            "topics": [],
+            "repoDid": "did:plc:2c5g4wvuneq6emfjuawqzbjw",
+            "website": "https://nuxt-3-vercel-baseurl-test-tan.vercel.app/subdir/",
+            "createdAt": "2026-06-15T14:13:12.983Z",
+            "description": "[READ-ONLY] Mirror of https://github.com/danielroe/nuxt-3-vercel-baseurl-test."
+          }
+        },
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo/3modhqlwrjsdn",
+          "cid": "bafyreihwflcyut3dsir5rzbawl76lgc5piqt7g3y3423y2yqd5ryto5nfq",
+          "value": {
+            "knot": "knot1.tangled.sh",
+            "name": "frontend-nation-2024",
+            "$type": "sh.tangled.repo",
+            "topics": [],
+            "repoDid": "did:plc:pqqjy6qnftr373vwi4mo32kr",
+            "createdAt": "2026-06-15T14:13:11.155Z",
+            "description": "[READ-ONLY] Mirror of https://github.com/danielroe/frontend-nation-2024. Tiny Nuxt multiplayer app built for a live-coding session at Frontend Nation 2024."
+          }
+        },
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo/3modhqkagbkcy",
+          "cid": "bafyreihcabazq4ja4tk2pfwxqu23uof3dt2myhwkgt7jhuikbwaktgc45q",
+          "value": {
+            "knot": "knot1.tangled.sh",
+            "name": "devhub-north-2024",
+            "$type": "sh.tangled.repo",
+            "topics": [],
+            "repoDid": "did:plc:e6mk4rs5eufyiote4ifj56y4",
+            "createdAt": "2026-06-15T14:13:09.162Z",
+            "description": "[READ-ONLY] Mirror of https://github.com/danielroe/devhub-north-2024."
+          }
+        },
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo/3modhqhm32kdh",
+          "cid": "bafyreifuv2zp7s5zepkljgpq7dj6fltyg6qgnbslffhve6e6baj54tpmja",
+          "value": {
+            "knot": "knot1.tangled.sh",
+            "name": "nuxt-vscode-template",
+            "$type": "sh.tangled.repo",
+            "topics": [],
+            "repoDid": "did:plc:wkvvbgetbb3eg7wifxyrorur",
+            "createdAt": "2026-06-15T14:13:07.386Z",
+            "description": "[READ-ONLY] Mirror of https://github.com/danielroe/nuxt-vscode-template."
+          }
+        },
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo/3modhpdyty23t",
+          "cid": "bafyreigjxzctlae6ngl7arvkvqg6kpiy5udlrfdw7mtdznh5qd5tnqzxju",
+          "value": {
+            "knot": "knot1.tangled.sh",
+            "name": "rollup-hash-repro-2",
+            "$type": "sh.tangled.repo",
+            "topics": [],
+            "repoDid": "did:plc:rrz5igl6rpt5vfw6swbaaqbr",
+            "createdAt": "2026-06-15T14:12:29.034Z",
+            "description": "[READ-ONLY] Mirror of https://github.com/danielroe/rollup-hash-repro-2."
+          }
+        },
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo/3modhp7fn22ud",
+          "cid": "bafyreiganivx2f2wvtbygoqlbjqpxu5a2eaqrhxxhy2zaq2laypjm4wxnu",
+          "value": {
+            "knot": "knot1.tangled.sh",
+            "name": "nitro-vite-repros",
+            "$type": "sh.tangled.repo",
+            "topics": [],
+            "repoDid": "did:plc:bp6rhhr363vzbat66dmxqi7g",
+            "createdAt": "2026-06-15T14:12:24.326Z",
+            "description": "[READ-ONLY] Mirror of https://github.com/danielroe/nitro-vite-repros."
+          }
+        },
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo/3modhp4yszs6q",
+          "cid": "bafyreibeyvy7gupd3pvuy72sg3l7ewfgsrblorv6oxao7holcyotn33jb4",
+          "value": {
+            "knot": "knot1.tangled.sh",
+            "name": "nuxt.fyi",
+            "$type": "sh.tangled.repo",
+            "topics": [
+              "bluesky",
+              "jetstream",
+              "nuxt"
+            ],
+            "repoDid": "did:plc:dc7ktut7zgt2qw4uvz2a3fa5",
+            "website": "https://nuxt.fyi",
+            "createdAt": "2026-06-15T14:12:21.756Z",
+            "description": "[READ-ONLY] Mirror of https://github.com/danielroe/nuxt.fyi. Celebrating sites built with Nuxt in the wild."
+          }
+        },
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo/3modhozzztc34",
+          "cid": "bafyreibcaowbkwlvu4pf3z5lg3howctvpfzdke7afjgjud6jqkuypufx4m",
+          "value": {
+            "knot": "knot1.tangled.sh",
+            "name": "vp-cycle-repro",
+            "$type": "sh.tangled.repo",
+            "topics": [],
+            "repoDid": "did:plc:fl37lv6gfpryttublw2m6x2j",
+            "createdAt": "2026-06-15T14:12:18.672Z",
+            "description": "[READ-ONLY] Mirror of https://github.com/danielroe/vp-cycle-repro."
+          }
+        },
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo/3modhots7cclu",
+          "cid": "bafyreigc6f32mpn3ctykdqfisyerh6nxxzcb55o4hhikgw3i2kj6j5xu4e",
+          "value": {
+            "knot": "knot1.tangled.sh",
+            "name": "discal.dev",
+            "$type": "sh.tangled.repo",
+            "topics": [
+              "atproto",
+              "calendar",
+              "discord"
+            ],
+            "repoDid": "did:plc:kmmtyklm6xmm5oc3nu2cfkwu",
+            "website": "https://discal.dev",
+            "createdAt": "2026-06-15T14:12:12.663Z",
+            "description": "[READ-ONLY] Mirror of https://github.com/danielroe/discal.dev. your Discord events, everywhere. subscribe once, sync to any calendar app – or the atmosphere."
+          }
+        },
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo/3modhnjozwcgq",
+          "cid": "bafyreifzwwe6scbgxj4fmxxsk75eptnhqjzn3xz6hvp7x5y4qmudgabdau",
+          "value": {
+            "knot": "knot1.tangled.sh",
+            "name": "repro-400",
+            "$type": "sh.tangled.repo",
+            "topics": [],
+            "repoDid": "did:plc:h7ulms4rn3e2ixntknougg2x",
+            "createdAt": "2026-06-15T14:11:27.951Z",
+            "description": "[READ-ONLY] Mirror of https://github.com/danielroe/repro-400."
+          }
+        },
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo/3modhnh2fw2tq",
+          "cid": "bafyreicmeghlqrs6zt2alzwasyqp23xt4ivxm7r3ymgrqpyinyqqhqedyq",
+          "value": {
+            "knot": "knot1.tangled.sh",
+            "name": "pangrum",
+            "$type": "sh.tangled.repo",
+            "topics": [
+              "game",
+              "nitro",
+              "nuxt",
+              "spelling",
+              "word-puzzle"
+            ],
+            "repoDid": "did:plc:m2i2tolvspj2spsn2ceunbeq",
+            "website": "https://pangrum.com",
+            "createdAt": "2026-06-15T14:11:25.370Z",
+            "description": "[READ-ONLY] Mirror of https://github.com/danielroe/pangrum. A daily word puzzle game."
+          }
+        },
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo/3modhnfdf6c6m",
+          "cid": "bafyreifakduuu5domqistzffwstn4ojo2cuhivqdn3zq325oeww3sc373i",
+          "value": {
+            "knot": "knot1.tangled.sh",
+            "name": "repros",
+            "$type": "sh.tangled.repo",
+            "topics": [],
+            "repoDid": "did:plc:g6rrs32qkytnki7s6f3els74",
+            "createdAt": "2026-06-15T14:11:23.384Z",
+            "description": "[READ-ONLY] Mirror of https://github.com/danielroe/repros."
+          }
+        },
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo/3modhnch7xcmq",
+          "cid": "bafyreifcjdgakgkbpdcadsbvqn5emlltkjxttf2t7k3ccus47wkzexweoa",
+          "value": {
+            "knot": "knot1.tangled.sh",
+            "name": "react-summit-2025",
+            "$type": "sh.tangled.repo",
+            "topics": [],
+            "repoDid": "did:plc:zxgaq3ig4ziuqfvmi7lm54xw",
+            "website": "https://react-summit-2025.vercel.app",
+            "createdAt": "2026-06-15T14:11:20.356Z",
+            "description": "[READ-ONLY] Mirror of https://github.com/danielroe/react-summit-2025."
+          }
+        },
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo/3modhnans2swx",
+          "cid": "bafyreibs77avy7xgneohovfzzu5hahdg7k75ioux5xrohqypfjlznfacu4",
+          "value": {
+            "knot": "knot1.tangled.sh",
+            "name": "oidc-test",
+            "$type": "sh.tangled.repo",
+            "topics": [],
+            "repoDid": "did:plc:gkngwdy6q5ks4evrt4izujhh",
+            "createdAt": "2026-06-15T14:11:18.548Z",
+            "description": "[READ-ONLY] Mirror of https://github.com/danielroe/oidc-test."
+          }
+        },
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo/3modhn3drn2k5",
+          "cid": "bafyreianlndyt23moxyndepwbdnpeqx25og3datoz4zhkqf5ihjxsvupdq",
+          "value": {
+            "knot": "knot1.tangled.sh",
+            "name": "provenance-action-test",
+            "$type": "sh.tangled.repo",
+            "topics": [],
+            "repoDid": "did:plc:ohocyokkxfytlnovbjpcjbfp",
+            "website": "https://github.com/danielroe/provenance-action",
+            "createdAt": "2026-06-15T14:11:12.940Z",
+            "description": "[READ-ONLY] Mirror of https://github.com/danielroe/provenance-action-test. Test repo for danielroe/provenance-action"
+          }
+        },
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo/3modhmzel6coq",
+          "cid": "bafyreiazzlvcawtaspg3lsncoqisjeuxh3axrnrrjrtwekmzhptdye7jeq",
+          "value": {
+            "knot": "knot1.tangled.sh",
+            "name": "provenance-action",
+            "$type": "sh.tangled.repo",
+            "topics": [
+              "github-actions",
+              "provenance",
+              "security",
+              "trusted-publishing"
+            ],
+            "repoDid": "did:plc:aajtkb2jz4w6fz3pkx3xyx3g",
+            "createdAt": "2026-06-15T14:11:11.107Z",
+            "description": "[READ-ONLY] Mirror of https://github.com/danielroe/provenance-action. Fail CI when dependencies in your lockfile lose npm provenance or trusted publisher status"
+          }
+        },
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo/3modhmwn2fcv2",
+          "cid": "bafyreiczdmbieemsxg6n2qnbrr726dbjqmakpdiiyxmxu377o2p2772x74",
+          "value": {
+            "knot": "knot1.tangled.sh",
+            "name": "vercel-fs-repro",
+            "$type": "sh.tangled.repo",
+            "topics": [],
+            "repoDid": "did:plc:aeapcl23r4egzyn6mlnmot3d",
+            "createdAt": "2026-06-15T14:11:08.387Z",
+            "description": "[READ-ONLY] Mirror of https://github.com/danielroe/vercel-fs-repro."
+          }
+        },
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo/3modhlrurrcn3",
+          "cid": "bafyreiavt5igsrmqemtvbfpfw2shyxs3w2eafp3k3ounf7fwre5t3ckq4e",
+          "value": {
+            "knot": "knot1.tangled.sh",
+            "name": "uppt",
+            "$type": "sh.tangled.repo",
+            "topics": [
+              "github-action",
+              "npm",
+              "npmjs",
+              "oidc",
+              "staged-publish",
+              "trusted-publishing"
+            ],
+            "repoDid": "did:plc:alsvq6fatm4fox4s7fjw7xvi",
+            "createdAt": "2026-06-15T14:10:29.465Z",
+            "description": "[READ-ONLY] Mirror of https://github.com/danielroe/uppt. A composite GitHub Action that turns conventional commits into a draft release PR, tags the PR on merge, and stages publishing to npm via OIDC trusted publishing."
+          }
+        },
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo/3modhlq6u6k7b",
+          "cid": "bafyreifxbzwp6k62go6wpnm2qzc4zd2idlp6bi46j2n4ssy3e7h3fodd6u",
+          "value": {
+            "knot": "knot1.tangled.sh",
+            "name": "dgqear44",
+            "$type": "sh.tangled.repo",
+            "topics": [],
+            "repoDid": "did:plc:nosewybzwf4ugutzpaacczt6",
+            "createdAt": "2026-06-15T14:10:27.626Z",
+            "description": "[READ-ONLY] Mirror of https://github.com/danielroe/dgqear44."
+          }
+        },
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo/3modhlmvttcjn",
+          "cid": "bafyreibdc3gtjzchkbzodivywjysz3jxlwkydgx5f5y2qkzlq4awr52sjq",
+          "value": {
+            "knot": "knot1.tangled.sh",
+            "name": "nuxt-vapor-demo",
+            "$type": "sh.tangled.repo",
+            "topics": [
+              "demo",
+              "nuxt",
+              "vapor",
+              "vue"
+            ],
+            "repoDid": "did:plc:zm4pb6pckgdgdotb5gcvmjzw",
+            "website": "https://nuxt-vapor-demo.vercel.app",
+            "createdAt": "2026-06-15T14:10:24.294Z",
+            "description": "[READ-ONLY] Mirror of https://github.com/danielroe/nuxt-vapor-demo. A demo showcasing Vue's new Vapor Mode compilation with benchmark tests inspired by js-framework-benchmark."
+          }
+        },
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo/3modhl7xc7ccw",
+          "cid": "bafyreibn2slrpbkyllq24wdw2rbarkuen4eeyjtcfzjqjnmz5nn42cjeoi",
+          "value": {
+            "knot": "knot1.tangled.sh",
+            "name": "dwaring87-webdev-wedding",
+            "$type": "sh.tangled.repo",
+            "topics": [],
+            "repoDid": "did:plc:r45i7enh3txlfpi62yyfq7cl",
+            "createdAt": "2026-06-15T14:10:11.470Z",
+            "description": "[READ-ONLY] Mirror of https://github.com/danielroe/dwaring87-webdev-wedding. Marissa & David's Wedding Website!"
+          }
+        },
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo/3modhjzescc7m",
+          "cid": "bafyreidak5jx5ev7mundtcjk75rvxs4xjd3gbfi2p5y6flm4s3p6dteqnm",
+          "value": {
+            "knot": "knot1.tangled.sh",
+            "name": "advanced-apps-vueconf",
+            "$type": "sh.tangled.repo",
+            "topics": [],
+            "repoDid": "did:plc:w77jlg3gnqn7wdfppm5tzpg7",
+            "createdAt": "2026-06-15T14:09:30.200Z",
+            "description": "[READ-ONLY] Mirror of https://github.com/danielroe/advanced-apps-vueconf."
+          }
+        },
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo/3modhjwypq2aa",
+          "cid": "bafyreifaurogo3ah2anrvrqmsexnzbkhnafyzk3i7mp2vuchz6ty65xaxu",
+          "value": {
+            "knot": "knot1.tangled.sh",
+            "name": "advanced-apps-vueconf-2025",
+            "$type": "sh.tangled.repo",
+            "topics": [],
+            "repoDid": "did:plc:u7y3p3icxcqculd2jjbgq2q3",
+            "createdAt": "2026-06-15T14:09:27.790Z",
+            "description": "[READ-ONLY] Mirror of https://github.com/danielroe/advanced-apps-vueconf-2025."
+          }
+        },
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo/3modhjvaa4cc5",
+          "cid": "bafyreif2d3pzr5dpjcxafyb634ovduo5rqml5hyue77fwpjeisjrco33pa",
+          "value": {
+            "knot": "knot1.tangled.sh",
+            "name": "skills-introduction-to-secret-scanning",
+            "$type": "sh.tangled.repo",
+            "topics": [],
+            "repoDid": "did:plc:dbefbythjktx67jw472yumhu",
+            "createdAt": "2026-06-15T14:09:25.840Z",
+            "description": "[READ-ONLY] Mirror of https://github.com/danielroe/skills-introduction-to-secret-scanning. GitHub Skills: Introduction to Secret Scanning"
+          }
+        },
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo/3modhjtcz4sde",
+          "cid": "bafyreibbgyqricjv47ngyo6phdtct4a4svtu5wjvkhp7ylhrn7p24bgjne",
+          "value": {
+            "knot": "knot1.tangled.sh",
+            "name": "skills-secure-repository-supply-chain",
+            "$type": "sh.tangled.repo",
+            "topics": [],
+            "repoDid": "did:plc:xn4lh3g3rwvzjqd36jg43edf",
+            "createdAt": "2026-06-15T14:09:23.843Z",
+            "description": "[READ-ONLY] Mirror of https://github.com/danielroe/skills-secure-repository-supply-chain. Exercise: Secure your Repository Supply Chain"
+          }
+        },
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo/3modhjriznssl",
+          "cid": "bafyreigkokpnjtltsicv66ikdwqryltnpvv3q7pyk3koby7hujjcvwhvxq",
+          "value": {
+            "knot": "knot1.tangled.sh",
+            "name": "skills-introduction-to-repository-management",
+            "$type": "sh.tangled.repo",
+            "topics": [],
+            "repoDid": "did:plc:325jdoyyee5binne6myfsnza",
+            "createdAt": "2026-06-15T14:09:21.936Z",
+            "description": "[READ-ONLY] Mirror of https://github.com/danielroe/skills-introduction-to-repository-management. Exercise: introduction to repository management"
+          }
+        },
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo/3modhjoz4zcjs",
+          "cid": "bafyreibsjmnv6jxg4ost5l4bspufigwjybwp5l65ldpdakgglovlwlpaka",
+          "value": {
+            "knot": "knot1.tangled.sh",
+            "name": "dev-mode.dev",
+            "$type": "sh.tangled.repo",
+            "topics": [
+              "dev-mode",
+              "developer",
+              "dx"
+            ],
+            "repoDid": "did:plc:7tplqxg5np2mttwu53ogzdfe",
+            "website": "https://dev-mode.dev",
+            "createdAt": "2026-06-15T14:09:19.428Z",
+            "description": "[READ-ONLY] Mirror of https://github.com/danielroe/dev-mode.dev. A site to toggle your developer mode on and off with ONE CLICK!"
+          }
+        },
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo/3modhjmmzhsa4",
+          "cid": "bafyreiey555o32sr3q3zcjvzhryksnp2fxe2idlrhlqgmelhajjm4lynly",
+          "value": {
+            "knot": "knot1.tangled.sh",
+            "name": "web-dev-challenge",
+            "$type": "sh.tangled.repo",
+            "topics": [],
+            "repoDid": "did:plc:yb3mjeosfxlt4hex4p337tql",
+            "website": "https://quickrecipes.co",
+            "createdAt": "2026-06-15T14:09:17.512Z",
+            "description": "[READ-ONLY] Mirror of https://github.com/danielroe/web-dev-challenge."
+          }
+        },
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo/3modhjeivasa7",
+          "cid": "bafyreiglqpuwfvtohnmihnopjq6mgnhd7wtdmi6munm2yp3n3gxult56ii",
+          "value": {
+            "knot": "knot1.tangled.sh",
+            "name": "fusion-2025",
+            "$type": "sh.tangled.repo",
+            "topics": [],
+            "repoDid": "did:plc:ntjzzl4rohrdfkxtuc3mkydd",
+            "createdAt": "2026-06-15T14:09:08.787Z",
+            "description": "[READ-ONLY] Mirror of https://github.com/danielroe/fusion-2025."
+          }
+        },
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo/3modhhywfa2vb",
+          "cid": "bafyreifbzvv3sy2txe5wfanannlioqursc7kssauw4hm57ebjwlzwpgj5e",
+          "value": {
+            "knot": "knot1.tangled.sh",
+            "name": "nitro-reproductions",
+            "$type": "sh.tangled.repo",
+            "topics": [],
+            "repoDid": "did:plc:r7kn6xrotiwkzesib74vxklc",
+            "createdAt": "2026-06-15T14:08:22.637Z",
+            "description": "[READ-ONLY] Mirror of https://github.com/danielroe/nitro-reproductions."
+          }
+        },
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo/3modhhxanislp",
+          "cid": "bafyreiaiygy3jgsin3v577jbsoqsrxujgdoxf3bebqbjlfj5vc56r6ijvi",
+          "value": {
+            "knot": "knot1.tangled.sh",
+            "name": "windows-reproductions",
+            "$type": "sh.tangled.repo",
+            "topics": [],
+            "repoDid": "did:plc:xext3gg5iwtjvvop6h4opgzl",
+            "createdAt": "2026-06-15T14:08:20.809Z",
+            "description": "[READ-ONLY] Mirror of https://github.com/danielroe/windows-reproductions."
+          }
+        },
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo/3modhhumj4k7o",
+          "cid": "bafyreiayyi7dlwiobjoepvgtlaq3uqaoutsjqiutw6q7ozbcsx6whmdjjm",
+          "value": {
+            "knot": "knot1.tangled.sh",
+            "name": "zero-vue",
+            "$type": "sh.tangled.repo",
+            "topics": [
+              "sync",
+              "vue",
+              "zero"
+            ],
+            "repoDid": "did:plc:55nydp3zzdiqly2hbr7yqyfp",
+            "createdAt": "2026-06-15T14:08:18.289Z",
+            "description": "[READ-ONLY] Mirror of https://github.com/danielroe/zero-vue. Vue bindings for Zero"
+          }
+        },
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo/3modhhree4ctu",
+          "cid": "bafyreiakn5am5u4y4eldyrwmyplegt3nao2ilhr4vqutfjpoawi22gkgpe",
+          "value": {
+            "knot": "knot1.tangled.sh",
+            "name": "hello-zero-nuxt",
+            "$type": "sh.tangled.repo",
+            "topics": [],
+            "repoDid": "did:plc:bxnfkr6follrzphpf7jmcizu",
+            "createdAt": "2026-06-15T14:08:14.784Z",
+            "description": "[READ-ONLY] Mirror of https://github.com/danielroe/hello-zero-nuxt."
+          }
+        },
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo/3modhhorxfc6z",
+          "cid": "bafyreihdzqzwzy3dy4x3o2uz7gz6yvdhg7u4heh5zagmbyol6sv47rvuuy",
+          "value": {
+            "knot": "knot1.tangled.sh",
+            "name": "nuxtpressus",
+            "$type": "sh.tangled.repo",
+            "topics": [
+              "directus",
+              "nuxt",
+              "nuxt-template",
+              "template"
+            ],
+            "repoDid": "did:plc:iqwfxaj32gyq5qbfr6qea6ex",
+            "website": "https://nuxtpressus.netlify.app",
+            "createdAt": "2026-06-15T14:08:12.119Z",
+            "description": "[READ-ONLY] Mirror of https://github.com/danielroe/nuxtpressus. A site template built with Nuxt and Directus"
+          }
+        },
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo/3modhhjdfhcwo",
+          "cid": "bafyreigrhgzhnlz2f7siba3j6cnijubfwxtapatvg5fkshhcdafdmfa3zi",
+          "value": {
+            "knot": "knot1.tangled.sh",
+            "name": "unsight.dev",
+            "$type": "sh.tangled.repo",
+            "topics": [
+              "ai",
+              "clustering",
+              "github",
+              "machine-learning"
+            ],
+            "repoDid": "did:plc:ef4dxsomy6f3g3mf6jk3d62m",
+            "website": "https://unsight.dev",
+            "createdAt": "2026-06-15T14:08:07.256Z",
+            "description": "[READ-ONLY] Mirror of https://github.com/danielroe/unsight.dev. Detect duplicate GitHub issues, areas of concern and more across related repositories."
+          }
+        },
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo/3modhggqy6kvk",
+          "cid": "bafyreia4yqkwt4jde3tazi5gcnkwegkopxx76dwxen2iyyq6oa3lgt4m6u",
+          "value": {
+            "knot": "knot1.tangled.sh",
+            "name": "nuxtpressable",
+            "$type": "sh.tangled.repo",
+            "topics": [],
+            "repoDid": "did:plc:obd7oaaiknzrkf7e6grcwp25",
+            "createdAt": "2026-06-15T14:07:30.041Z",
+            "description": "[READ-ONLY] Mirror of https://github.com/danielroe/nuxtpressable."
+          }
+        },
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo/3modhgbjayke2",
+          "cid": "bafyreid6fff3pk5vha5vrt3czpsoanshjqaphjgx4h6egp37xewpqfyek4",
+          "value": {
+            "knot": "knot1.tangled.sh",
+            "name": "beasties",
+            "$type": "sh.tangled.repo",
+            "topics": [
+              "critical-css",
+              "css",
+              "inlining-critical-fonts",
+              "vite",
+              "vite-plugin",
+              "webpack",
+              "webpack-plugin"
+            ],
+            "repoDid": "did:plc:tlnq6meclcfkqpsptghuu5uz",
+            "website": "https://npmx.dev/beasties",
+            "createdAt": "2026-06-15T14:07:25.503Z",
+            "description": "[READ-ONLY] Mirror of https://github.com/danielroe/beasties. A library to inline your app's critical CSS and lazy-load the rest."
+          }
+        },
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo/3modham26t2zj",
+          "cid": "bafyreihtytj2t36ly4skshfvfisa7cjpxszxkqigjsiu72myhflx7xcfg4",
+          "value": {
+            "knot": "knot1.tangled.sh",
+            "name": "nuxt-emoji-blast",
+            "$type": "sh.tangled.repo",
+            "topics": [],
+            "repoDid": "did:plc:7xojurfg4yuvo7zsaonkcxz5",
+            "createdAt": "2026-06-15T14:04:14.649Z",
+            "description": "[READ-ONLY] Mirror of https://github.com/danielroe/nuxt-emoji-blast."
+          }
+        },
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo/3modh6z2ixcpj",
+          "cid": "bafyreign4kqewtg6cncp3kmxelhxb7h4qhaqj5rqbaf57kydncdt5tqhze",
+          "value": {
+            "knot": "knot1.tangled.sh",
+            "name": "carpenter",
+            "$type": "sh.tangled.repo",
+            "topics": [
+              "bot",
+              "cloudflare-pages",
+              "llm",
+              "webhook"
+            ],
+            "repoDid": "did:plc:vrsjpmm3wyulm33qjw322nob",
+            "website": "https://github.com/nuxt/nuxt",
+            "createdAt": "2026-06-15T14:03:20.921Z",
+            "description": "[READ-ONLY] Mirror of https://github.com/danielroe/carpenter. LLM-powered automations for triaging Nuxt issues"
+          }
+        },
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo/3modh6wlin2sx",
+          "cid": "bafyreic7rjowapvjkt46t53dyh3grqqhk5b4bmqf3p7kk6iiwpi7qjgxjq",
+          "value": {
+            "knot": "knot1.tangled.sh",
+            "name": "goff",
+            "$type": "sh.tangled.repo",
+            "topics": [],
+            "repoDid": "did:plc:3hd3rbsbzb3vwu2fs6lyn5j4",
+            "createdAt": "2026-06-15T14:03:18.224Z",
+            "description": "[READ-ONLY] Mirror of https://github.com/danielroe/goff. Sync GitHub issues offline into a local folder"
+          }
+        },
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo/3modh6u7ymkwv",
+          "cid": "bafyreiad75xiloy75oodheom5lnxlv4t6u5jgpn7vabhnevw5jmidhpaya",
+          "value": {
+            "knot": "knot1.tangled.sh",
+            "name": "vuejs-athens-2024",
+            "$type": "sh.tangled.repo",
+            "topics": [],
+            "repoDid": "did:plc:plc5bboufoft3rpwdwacpa4o",
+            "createdAt": "2026-06-15T14:03:16.356Z",
+            "description": "[READ-ONLY] Mirror of https://github.com/danielroe/vuejs-athens-2024."
+          }
+        },
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo/3modgwaqpqsmk",
+          "cid": "bafyreibujzbcozq7e5knn6yc2trcxwle4gin2uzw42gbjoebqumfrcdlia",
+          "value": {
+            "knot": "knot1.tangled.sh",
+            "name": "formkit-init",
+            "$type": "sh.tangled.repo",
+            "topics": [],
+            "repoDid": "did:plc:qybaylktruw3kuf3a3hwlffo",
+            "createdAt": "2026-06-15T13:58:26.763Z",
+            "description": "[READ-ONLY] Mirror of https://github.com/danielroe/formkit-init."
+          }
+        },
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo/3modgw73tekou",
+          "cid": "bafyreihecxdsxcpgcsdp4ooliqyspqnug2oqjpxfq4yd3gusm5nvdrrzny",
+          "value": {
+            "knot": "knot1.tangled.sh",
+            "name": "iodigital-2024",
+            "$type": "sh.tangled.repo",
+            "topics": [],
+            "repoDid": "did:plc:vfciyhcv7m4wssnss5hnz4mb",
+            "createdAt": "2026-06-15T13:58:25.039Z",
+            "description": "[READ-ONLY] Mirror of https://github.com/danielroe/iodigital-2024."
+          }
+        },
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo/3modgw3igycgw",
+          "cid": "bafyreidmto3cvor5rfirsekbgggh7rrq62ih4tj5crl7vxjisi6c44u63a",
+          "value": {
+            "knot": "knot1.tangled.sh",
+            "name": "css-flash-repro",
+            "$type": "sh.tangled.repo",
+            "topics": [],
+            "repoDid": "did:plc:sztbcatra3jxl2g725cl3omc",
+            "createdAt": "2026-06-15T13:58:21.256Z",
+            "description": "[READ-ONLY] Mirror of https://github.com/danielroe/css-flash-repro."
+          }
+        },
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo/3modgvxru2s6t",
+          "cid": "bafyreiatcnxr7vuzpq47s7o4yjchl3ekimpqwlikgzas6aww6ubxo2rdsy",
+          "value": {
+            "knot": "knot1.tangled.sh",
+            "name": "flowers",
+            "$type": "sh.tangled.repo",
+            "topics": [],
+            "repoDid": "did:plc:up3m26ntjqweddceh4g7zuif",
+            "createdAt": "2026-06-15T13:58:17.378Z",
+            "description": "[READ-ONLY] Mirror of https://github.com/danielroe/flowers."
+          }
+        },
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo/3modgvvez3c7u",
+          "cid": "bafyreiebx3y3wsah3kvhw7z7r2ltnu7hh33uqp3dhmwtcaclmrmo2jp2zu",
+          "value": {
+            "knot": "knot1.tangled.sh",
+            "name": "future-of-coding-2024",
+            "$type": "sh.tangled.repo",
+            "topics": [],
+            "repoDid": "did:plc:hgfkwvaiioomy6yg3big7cqi",
+            "createdAt": "2026-06-15T13:58:14.947Z",
+            "description": "[READ-ONLY] Mirror of https://github.com/danielroe/future-of-coding-2024."
+          }
+        },
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo/3modgvrxgakw4",
+          "cid": "bafyreibvcqeasfhnn3y5nefoqhiqzwwbkyil66kp7jwatlq4lls2agreai",
+          "value": {
+            "knot": "knot1.tangled.sh",
+            "name": "spooon",
+            "$type": "sh.tangled.repo",
+            "topics": [],
+            "repoDid": "did:plc:wyathdp6jmvvj5weqxuzgwvp",
+            "website": "https://nuxt-spooon.vercel.app",
+            "createdAt": "2026-06-15T13:58:11.872Z",
+            "description": "[READ-ONLY] Mirror of https://github.com/danielroe/spooon. This is a tiny recipe app built in Nuxt for a live-coding session at Vue.js Nation 2024."
+          }
+        },
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo/3modgvpekus6t",
+          "cid": "bafyreibw2rzdgk3kw23bvc4q32kakxey4ng7uy47ng5npz2bgg3jevsfou",
+          "value": {
+            "knot": "knot1.tangled.sh",
+            "name": "page-speed.dev",
+            "$type": "sh.tangled.repo",
+            "topics": [
+              "core-web-vitals",
+              "pagespeed",
+              "performance"
+            ],
+            "repoDid": "did:plc:rpfwf6kfraiej7nljkxbyicn",
+            "website": "https://page-speed.dev",
+            "createdAt": "2026-06-15T13:58:08.851Z",
+            "description": "[READ-ONLY] Mirror of https://github.com/danielroe/page-speed.dev. See and share Core Web Vitals and PageSpeed Insights results simply and easily."
+          }
+        },
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo/3modgvn6ufsx2",
+          "cid": "bafyreigqklxhrzsb752edbg5ius3e74riwl35m2otex36u5veltjbsnbhq",
+          "value": {
+            "knot": "knot1.tangled.sh",
+            "name": "werewolves-assistant-web-next",
+            "$type": "sh.tangled.repo",
+            "topics": [],
+            "repoDid": "did:plc:7y2juyxwqd5xbsoxumbsfghn",
+            "createdAt": "2026-06-15T13:58:06.795Z",
+            "description": "[READ-ONLY] Mirror of https://github.com/danielroe/werewolves-assistant-web-next."
+          }
+        },
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo/3modgujufm2bl",
+          "cid": "bafyreiddi4x4c676tyd6et27oy6ihlirfu26f6k44qmmff7hllub6jx2bi",
+          "value": {
+            "knot": "knot1.tangled.sh",
+            "name": "botornot",
+            "$type": "sh.tangled.repo",
+            "topics": [],
+            "repoDid": "did:plc:sem7i75usezk5d3d3z46b46c",
+            "website": "https://botornot.vercel.app",
+            "createdAt": "2026-06-15T13:57:29.389Z",
+            "description": "[READ-ONLY] Mirror of https://github.com/danielroe/botornot."
+          }
+        },
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo/3modguhbszk5n",
+          "cid": "bafyreif65lyjqdblmqv72cbh6ojh7owg77icmoaebwvjgaymlekf24um5y",
+          "value": {
+            "knot": "knot1.tangled.sh",
+            "name": "vue-subpath-conditions",
+            "$type": "sh.tangled.repo",
+            "topics": [],
+            "repoDid": "did:plc:wnjctziezrq6xt5aafov4q5j",
+            "createdAt": "2026-06-15T13:57:27.470Z",
+            "description": "[READ-ONLY] Mirror of https://github.com/danielroe/vue-subpath-conditions."
+          }
+        },
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo/3modgqkjmzks4",
+          "cid": "bafyreihdcywvi4q74sjcgxneibcajbh7sbme7irz2gbchwxvtnjpmf3szq",
+          "value": {
+            "knot": "knot1.tangled.sh",
+            "name": "nuxt-nightly-action",
+            "$type": "sh.tangled.repo",
+            "topics": [],
+            "repoDid": "did:plc:slhff5ve5phoglfq3bl6kldg",
+            "createdAt": "2026-06-15T13:55:16.392Z",
+            "description": "[READ-ONLY] Mirror of https://github.com/danielroe/nuxt-nightly-action."
+          }
+        },
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo/3modgmp3iq2zz",
+          "cid": "bafyreie3ls2sgq3u5mry4jwhg527expd4s2gile7b3zhyh276hud4tiuqe",
+          "value": {
+            "knot": "knot1.tangled.sh",
+            "name": "jetbrains-2023",
+            "$type": "sh.tangled.repo",
+            "topics": [],
+            "repoDid": "did:plc:c66vjbyr4x6avwdglnkndfci",
+            "createdAt": "2026-06-15T13:53:06.440Z",
+            "description": "[READ-ONLY] Mirror of https://github.com/danielroe/jetbrains-2023."
+          }
+        },
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo/3modgll3w5cpz",
+          "cid": "bafyreibmulyok7xfejhnlxg3jk4cogbkwf366nd75ae2i6lin4fqsy2i7i",
+          "value": {
+            "knot": "knot1.tangled.sh",
+            "name": "nuxt",
+            "$type": "sh.tangled.repo",
+            "topics": [],
+            "repoDid": "did:plc:22xyyqj32osfxtlyfygadw5y",
+            "createdAt": "2026-06-15T13:52:28.605Z",
+            "description": "[READ-ONLY] Mirror of https://github.com/danielroe/nuxt. Ampt Nuxt adapter"
+          }
+        },
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo/3modglhhkj2mq",
+          "cid": "bafyreibczqwjylmnmnemucqhodughcuthakxywwcgc7ierzvo2pridqms4",
+          "value": {
+            "knot": "knot1.tangled.sh",
+            "name": "hanko-demo",
+            "$type": "sh.tangled.repo",
+            "topics": [],
+            "repoDid": "did:plc:bnunvdkjgh2yo7byffvxlv6f",
+            "createdAt": "2026-06-15T13:52:24.756Z",
+            "description": "[READ-ONLY] Mirror of https://github.com/danielroe/hanko-demo."
+          }
+        },
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo/3modglfqrlclh",
+          "cid": "bafyreihkfazl6y4h7oczundvmngcoapjssw63niblpspsyrftz63aipv7a",
+          "value": {
+            "knot": "knot1.tangled.sh",
+            "name": "armada-js",
+            "$type": "sh.tangled.repo",
+            "topics": [],
+            "repoDid": "did:plc:hokw7koho5mmovwvs6nec2gc",
+            "website": "https://armada-js.vercel.app",
+            "createdAt": "2026-06-15T13:52:22.970Z",
+            "description": "[READ-ONLY] Mirror of https://github.com/danielroe/armada-js."
+          }
+        },
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo/3modgle2p4cmv",
+          "cid": "bafyreib7bgibylgvncknljjlvwnl622nqymgd554of6hn7ja3t4nrley4m",
+          "value": {
+            "knot": "knot1.tangled.sh",
+            "name": "digital-labin",
+            "$type": "sh.tangled.repo",
+            "topics": [],
+            "repoDid": "did:plc:yrdllc63bjxesvqhmbbvlvpa",
+            "website": "https://digital-labin.vercel.app",
+            "createdAt": "2026-06-15T13:52:21.159Z",
+            "description": "[READ-ONLY] Mirror of https://github.com/danielroe/digital-labin."
+          }
+        },
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo/3modglbyvncxs",
+          "cid": "bafyreidizwe744cfgrsncpxvrdbvdeqo3d7oltknzshsyo2rk6d66jbzbi",
+          "value": {
+            "knot": "knot1.tangled.sh",
+            "name": "viteconf",
+            "$type": "sh.tangled.repo",
+            "topics": [],
+            "repoDid": "did:plc:g45ytqvah7wkcqcaxzpce77i",
+            "createdAt": "2026-06-15T13:52:19.423Z",
+            "description": "[READ-ONLY] Mirror of https://github.com/danielroe/viteconf."
+          }
+        },
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo/3modgkxwp3slh",
+          "cid": "bafyreifsuvdulamd23qv5nji4znvv6gtl5keodpy5uo7quvtiefhp3iw4y",
+          "value": {
+            "knot": "knot1.tangled.sh",
+            "name": "firstcommit.is",
+            "$type": "sh.tangled.repo",
+            "topics": [
+              "api",
+              "commit",
+              "github",
+              "nuxt",
+              "oauth"
+            ],
+            "repoDid": "did:plc:uh4vrfxa6rrggaylul27c76j",
+            "website": "https://firstcommit.is",
+            "createdAt": "2026-06-15T13:52:09.242Z",
+            "description": "[READ-ONLY] Mirror of https://github.com/danielroe/firstcommit.is. Find your first open-source commit on GitHub"
+          }
+        },
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo/3modgjr7aycsi",
+          "cid": "bafyreih23bzf5mpkeqsmvk2xx3hp4kx2meaf4rj3h335i2ntckhakjagbe",
+          "value": {
+            "knot": "knot1.tangled.sh",
+            "name": "i18n-memory-leak",
+            "$type": "sh.tangled.repo",
+            "topics": [],
+            "repoDid": "did:plc:ihcnjenijfeh53u3lsccdghc",
+            "createdAt": "2026-06-15T13:51:27.835Z",
+            "description": "[READ-ONLY] Mirror of https://github.com/danielroe/i18n-memory-leak."
+          }
+        },
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo/3modgjo4ewcqw",
+          "cid": "bafyreiexotqit7z7qngxejvlnratyvu46bs52ylezfm7pf7xs2l7btt7na",
+          "value": {
+            "knot": "knot1.tangled.sh",
+            "name": "wearedevs",
+            "$type": "sh.tangled.repo",
+            "topics": [],
+            "repoDid": "did:plc:l2kutxubtsdf7wdu7baj3tbp",
+            "website": "https://wearedevs-nine.vercel.app",
+            "createdAt": "2026-06-15T13:51:24.700Z",
+            "description": "[READ-ONLY] Mirror of https://github.com/danielroe/wearedevs."
+          }
+        },
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo/3modgje6c7kxq",
+          "cid": "bafyreidhu4iyutlarmxwz32qt6qno34m7ldgaj4gmfpa56olcuggjawqre",
+          "value": {
+            "knot": "knot1.tangled.sh",
+            "name": "domain-sync",
+            "$type": "sh.tangled.repo",
+            "topics": [
+              "cloudflare",
+              "dns",
+              "gandi",
+              "script"
+            ],
+            "repoDid": "did:plc:7dufkutwc6hdikj5qgdwpuqu",
+            "createdAt": "2026-06-15T13:51:14.381Z",
+            "description": "[READ-ONLY] Mirror of https://github.com/danielroe/domain-sync. A tiny script that migrates all my Gandi domains to use Cloudflare DNS."
+          }
+        },
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo/3modgj5tlv2lk",
+          "cid": "bafyreihkqjfxhjzzo3phschvu4hhse2izv7j7ceqzcowxidyb3bgtlmeie",
+          "value": {
+            "knot": "knot1.tangled.sh",
+            "name": "desktop",
+            "$type": "sh.tangled.repo",
+            "topics": [],
+            "repoDid": "did:plc:tvqbzjibco52y2ew4vysrmgg",
+            "website": "https://desktop.roe.dev",
+            "createdAt": "2026-06-15T13:51:08.072Z",
+            "description": "[READ-ONLY] Mirror of https://github.com/danielroe/desktop."
+          }
+        },
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo/3modgi2niq2xy",
+          "cid": "bafyreibqjv5jgznjjhktia7z7555vwt3rhyjomqg7wobnwdmx5kj52oie4",
+          "value": {
+            "knot": "knot1.tangled.sh",
+            "name": "nuxt-capo",
+            "$type": "sh.tangled.repo",
+            "topics": [
+              "nuxt-module"
+            ],
+            "repoDid": "did:plc:zwhvghweippfcbwaeyds5y6z",
+            "createdAt": "2026-06-15T13:50:30.949Z",
+            "description": "[READ-ONLY] Mirror of https://github.com/danielroe/nuxt-capo. `capo.js` implementation for Nuxt 3"
+          }
+        },
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo/3modghwv2acbk",
+          "cid": "bafyreifaiompqam5nchgqhk6defsdhyu22evfhjmg6shyl34wilx7o3mgi",
+          "value": {
+            "knot": "knot1.tangled.sh",
+            "name": "vuejslive",
+            "$type": "sh.tangled.repo",
+            "topics": [],
+            "repoDid": "did:plc:zkrdwp72g26tqlphe4k7a7d6",
+            "website": "https://vuejslive.vercel.app",
+            "createdAt": "2026-06-15T13:50:26.678Z",
+            "description": "[READ-ONLY] Mirror of https://github.com/danielroe/vuejslive. A demo of integrating Vue, Vite and Nitro for Vue.js Live London 2023."
+          }
+        },
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo/3modghtnomkjd",
+          "cid": "bafyreiddfx4i5nnbc2uycfdqe5igo6jkttbmbbsm4vfl4iie3c6qjlibxm",
+          "value": {
+            "knot": "knot1.tangled.sh",
+            "name": "vercel-kv",
+            "$type": "sh.tangled.repo",
+            "topics": [],
+            "repoDid": "did:plc:ghkcppllzymtpw5ghuqg7ixz",
+            "website": "https://vercel-kv.vercel.app",
+            "createdAt": "2026-06-15T13:50:23.563Z",
+            "description": "[READ-ONLY] Mirror of https://github.com/danielroe/vercel-kv."
+          }
+        },
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo/3modghmv2y2zf",
+          "cid": "bafyreiftaa6ztz6diafia25ljk2qk2o5jqj4d5xl6ujbsg3dhvqvmyrlue",
+          "value": {
+            "knot": "knot1.tangled.sh",
+            "name": "ripple-framework",
+            "$type": "sh.tangled.repo",
+            "topics": [],
+            "repoDid": "did:plc:lxil4ofnhvacb5azh42wcwub",
+            "createdAt": "2026-06-15T13:50:18.658Z",
+            "description": "[READ-ONLY] Mirror of https://github.com/danielroe/ripple-framework. Ripple is the presentation layer for building websites on the DPC Single Digital Presence platform."
+          }
+        },
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo/3modggao6mcgw",
+          "cid": "bafyreieovxh4ugaoxcppppeldr2khwk7ggyjp3qr2pawrwvpkmbkmdha7e",
+          "value": {
+            "knot": "knot1.tangled.sh",
+            "name": "agent-conf-2023",
+            "$type": "sh.tangled.repo",
+            "topics": [],
+            "repoDid": "did:plc:quq7qj7nt7xevxokbbshedwh",
+            "website": "https://agent-conf.vercel.app/",
+            "createdAt": "2026-06-15T13:49:29.865Z",
+            "description": "[READ-ONLY] Mirror of https://github.com/danielroe/agent-conf-2023. A demo of integrating React, Vite and Nitro for AgentConf 2023."
+          }
+        },
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo/3modgg65qfcww",
+          "cid": "bafyreifwi5dej4gu744cxikaw32j3h7tbwc7mfhyaa2fx27ayk4n2ch3bu",
+          "value": {
+            "knot": "knot1.tangled.sh",
+            "name": "rollup-plugin-pure",
+            "$type": "sh.tangled.repo",
+            "topics": [],
+            "repoDid": "did:plc:sxookp5d26knimna63juv36j",
+            "createdAt": "2026-06-15T13:49:27.433Z",
+            "description": "[READ-ONLY] Mirror of https://github.com/danielroe/rollup-plugin-pure. Annotate functions as pure for Rollup"
+          }
+        },
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo/3modgg4ejdket",
+          "cid": "bafyreihbzj777bwkeyzfq76zq4rtzyu7zwo6bck77f7ep7k32ledfhxnem",
+          "value": {
+            "knot": "knot1.tangled.sh",
+            "name": "nuxt-vercel-isr",
+            "$type": "sh.tangled.repo",
+            "topics": [
+              "isg",
+              "isr",
+              "nuxt",
+              "ssg",
+              "static",
+              "vercel"
+            ],
+            "repoDid": "did:plc:6dgcbttohogkedorv22dipgv",
+            "website": "https://nuxt-vercel-isr.vercel.app",
+            "createdAt": "2026-06-15T13:49:25.442Z",
+            "description": "[READ-ONLY] Mirror of https://github.com/danielroe/nuxt-vercel-isr. A tiny demo to show off Nuxt's route rules integration with Vercel."
+          }
+        },
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo/3modgfzwztsst",
+          "cid": "bafyreif3nozh5lmmnl6axtb2tzzfbej3agrngj6q3lyhtoyhqovkghdtzu",
+          "value": {
+            "knot": "knot1.tangled.sh",
+            "name": "nuxt-pre-hydrate",
+            "$type": "sh.tangled.repo",
+            "topics": [],
+            "repoDid": "did:plc:sghyi4ee64hm2qnaezle7kho",
+            "createdAt": "2026-06-15T13:49:22.880Z",
+            "description": "[READ-ONLY] Mirror of https://github.com/danielroe/nuxt-pre-hydrate."
+          }
+        },
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo/3modgfxub4s3z",
+          "cid": "bafyreidfmls3vlrh232uchbdcdaeuix2yr3duggwuiiangqjijnef6uawe",
+          "value": {
+            "knot": "knot1.tangled.sh",
+            "name": "nuxt-time",
+            "$type": "sh.tangled.repo",
+            "topics": [
+              "date",
+              "nuxt",
+              "nuxt-module",
+              "server",
+              "ssr"
+            ],
+            "repoDid": "did:plc:n76s36qb5zpfayjlygml66zv",
+            "createdAt": "2026-06-15T13:49:21.018Z",
+            "description": "[READ-ONLY] Mirror of https://github.com/danielroe/nuxt-time. ⏰ SSR-safe time element for Nuxt 3"
+          }
+        },
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo/3modgfqgiq27m",
+          "cid": "bafyreicvvm6f4fwrpwfosdr4wdsfvjt3kkgvn7f6645sgrsof75v5eqdwm",
+          "value": {
+            "knot": "knot1.tangled.sh",
+            "name": "partytown-example",
+            "$type": "sh.tangled.repo",
+            "topics": [],
+            "repoDid": "did:plc:gnvnwgs5gdyu7xqszjugx6lc",
+            "createdAt": "2026-06-15T13:49:12.925Z",
+            "description": "[READ-ONLY] Mirror of https://github.com/danielroe/partytown-example."
+          }
+        },
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo/3modgfo6wosox",
+          "cid": "bafyreiaeyea7phchlg2zswrum5ekrbywe7fkfkisiy2odw2aw6uzqzvybe",
+          "value": {
+            "knot": "knot1.tangled.sh",
+            "name": "rollup-hash-repro",
+            "$type": "sh.tangled.repo",
+            "topics": [],
+            "repoDid": "did:plc:z7lwtpprerqf5grg6sfqhf5f",
+            "createdAt": "2026-06-15T13:49:10.888Z",
+            "description": "[READ-ONLY] Mirror of https://github.com/danielroe/rollup-hash-repro."
+          }
+        }
+      ],
+      "cursor": "3modgfo6wosox"
+    }
+  }
+}

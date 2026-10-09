@@ -1,0 +1,13 @@
+{
+  "request": {
+    "method": "DELETE",
+    "url": "https://gitea.com/api/v1/repos/forges-fixtures/forges-fixtures/issues/12/reactions",
+    "body": {
+      "content": "+1"
+    }
+  },
+  "response": {
+    "status": 204,
+    "headers": {}
+  }
+}

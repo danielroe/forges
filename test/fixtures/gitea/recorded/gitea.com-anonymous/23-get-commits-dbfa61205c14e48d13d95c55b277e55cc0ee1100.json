@@ -1,0 +1,149 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitea.com/api/v1/repos/gitea/tea/git/commits/dbfa61205c14e48d13d95c55b277e55cc0ee1100"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "url": "https://gitea.com/api/v1/repos/gitea/tea/git/commits/dbfa61205c14e48d13d95c55b277e55cc0ee1100",
+      "sha": "dbfa61205c14e48d13d95c55b277e55cc0ee1100",
+      "created": "2026-09-30T17:40:41Z",
+      "html_url": "https://gitea.com/gitea/tea/commit/dbfa61205c14e48d13d95c55b277e55cc0ee1100",
+      "commit": {
+        "url": "https://gitea.com/api/v1/repos/gitea/tea/git/commits/dbfa61205c14e48d13d95c55b277e55cc0ee1100",
+        "author": {
+          "name": "Lunny Xiao",
+          "email": "redacted@example.invalid",
+          "date": "2026-09-30T17:40:41Z"
+        },
+        "committer": {
+          "name": "Lunny Xiao",
+          "email": "redacted@example.invalid",
+          "date": "2026-09-30T17:40:41Z"
+        },
+        "message": "Merge branch 'main' into issue-1089-locale-independent-git\n",
+        "tree": {
+          "url": "https://gitea.com/api/v1/repos/gitea/tea/git/trees/aa2df782d55bceabf2e37d323166325fb051bfb0",
+          "sha": "aa2df782d55bceabf2e37d323166325fb051bfb0",
+          "created": "2026-09-30T17:40:41Z"
+        },
+        "verification": {
+          "verified": false,
+          "reason": "gpg.error.not_signed_commit",
+          "signature": "",
+          "signer": null,
+          "payload": ""
+        }
+      },
+      "author": {
+        "id": 1,
+        "login": "lunny",
+        "type": "User",
+        "source_id": 0,
+        "full_name": "Lunny Xiao",
+        "email": "redacted@example.invalid",
+        "avatar_url": "https://seccdn.libravatar.org/avatar/b897d40dc87fdba4a024827c3967597434681a8f4f0f4eb5d73e0f8b1a0a9274?d=identicon",
+        "html_url": "https://gitea.com/lunny",
+        "active": false,
+        "location": "Silicon Valley",
+        "website": "https://gitea.com",
+        "description": "",
+        "followers_count": 114,
+        "following_count": 95,
+        "starred_repos_count": 366,
+        "username": "lunny"
+      },
+      "committer": {
+        "id": 1,
+        "login": "lunny",
+        "type": "User",
+        "source_id": 0,
+        "full_name": "Lunny Xiao",
+        "email": "redacted@example.invalid",
+        "avatar_url": "https://seccdn.libravatar.org/avatar/b897d40dc87fdba4a024827c3967597434681a8f4f0f4eb5d73e0f8b1a0a9274?d=identicon",
+        "html_url": "https://gitea.com/lunny",
+        "active": false,
+        "location": "Silicon Valley",
+        "website": "https://gitea.com",
+        "description": "",
+        "followers_count": 114,
+        "following_count": 95,
+        "starred_repos_count": 366,
+        "username": "lunny"
+      },
+      "parents": [
+        {
+          "url": "https://gitea.com/api/v1/repos/gitea/tea/git/commits/d98dd96cd86bd56539aa8fdad5c14e06abd4d2f1",
+          "sha": "d98dd96cd86bd56539aa8fdad5c14e06abd4d2f1",
+          "created": "0001-01-01T00:00:00Z"
+        },
+        {
+          "url": "https://gitea.com/api/v1/repos/gitea/tea/git/commits/9c12138d6273ba8feb6e7578833cc330c0cd6461",
+          "sha": "9c12138d6273ba8feb6e7578833cc330c0cd6461",
+          "created": "0001-01-01T00:00:00Z"
+        }
+      ],
+      "files": [
+        {
+          "filename": "cmd/issues/create_test.go",
+          "status": "added"
+        },
+        {
+          "filename": "cmd/pulls/create_app_test.go",
+          "status": "added"
+        },
+        {
+          "filename": "cmd/pulls/create_test.go",
+          "status": "added"
+        },
+        {
+          "filename": "modules/task/pull_merge_test.go",
+          "status": "added"
+        },
+        {
+          "filename": "cmd/issues/create.go",
+          "status": "modified"
+        },
+        {
+          "filename": "cmd/pulls/create.go",
+          "status": "modified"
+        },
+        {
+          "filename": "go.mod",
+          "status": "modified"
+        },
+        {
+          "filename": "go.sum",
+          "status": "modified"
+        },
+        {
+          "filename": "modules/interact/issue_create.go",
+          "status": "modified"
+        },
+        {
+          "filename": "modules/interact/pull_create.go",
+          "status": "modified"
+        },
+        {
+          "filename": "modules/task/issue_create.go",
+          "status": "modified"
+        },
+        {
+          "filename": "modules/task/pull_create.go",
+          "status": "modified"
+        },
+        {
+          "filename": "modules/task/pull_merge.go",
+          "status": "modified"
+        }
+      ],
+      "stats": {
+        "total": 500,
+        "additions": 454,
+        "deletions": 46
+      }
+    }
+  }
+}

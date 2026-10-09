@@ -1,0 +1,38 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://dev.azure.com/forges/forges-fixtures/_apis/git/repositories/forges-fixtures/items?scopePath=%2F&recursionLevel=oneLevel&api-version=7.1"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "count": 3,
+      "value": [
+        {
+          "objectId": "8738204f7649d93a38d68abde16de2b03dcdf9d4",
+          "gitObjectType": "tree",
+          "commitId": "148352c9756cd600dbe4a6a09856388e4c72b17b",
+          "path": "/",
+          "isFolder": true,
+          "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/items?path=%2F&versionType=Branch&versionOptions=None"
+        },
+        {
+          "objectId": "32cfc454c565b24c3e82ad901cf5cdb26516e1da",
+          "gitObjectType": "blob",
+          "commitId": "148352c9756cd600dbe4a6a09856388e4c72b17b",
+          "path": "/README.md",
+          "url": "https://dev.azure.com/forges/forges-fixtures/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/items//README.md?versionType=Branch&versionOptions=None"
+        },
+        {
+          "objectId": "c1dba5970aebe27e99b288954f36bc01441d32f1",
+          "gitObjectType": "tree",
+          "commitId": "148352c9756cd600dbe4a6a09856388e4c72b17b",
+          "path": "/forges-fixtures",
+          "isFolder": true,
+          "url": "https://dev.azure.com/forges/forges-fixtures/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/items//forges-fixtures?versionType=Branch&versionOptions=None"
+        }
+      ]
+    }
+  }
+}

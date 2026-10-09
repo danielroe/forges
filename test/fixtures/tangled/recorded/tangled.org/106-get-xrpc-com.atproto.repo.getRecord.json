@@ -1,0 +1,27 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://magic.us-west.host.bsky.network/xrpc/com.atproto.repo.getRecord?repo=did%3Aplc%3Afxnw2wkzf23zya6shq4pxvh6&collection=sh.tangled.repo.issue&rkey=3ll4rirll2h22"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"1a8-sUbGh833yxfOY+J7FE2hLJ2bdCY\"",
+      "ratelimit-limit": "3000",
+      "ratelimit-remaining": "2999",
+      "ratelimit-reset": "1791552017"
+    },
+    "body": {
+      "uri": "at://did:plc:fxnw2wkzf23zya6shq4pxvh6/sh.tangled.repo.issue/3ll4rirll2h22",
+      "cid": "bafyreiayiqn3vah6dh7iw5rhxl54wlz6yauodfalxskihfq6dtf5veagh4",
+      "value": {
+        "body": "wonder what happens when you send an issuen with a duplicate id",
+        "repo": "at://did:plc:wshs7t2adsemcrrd4snkeqli/sh.tangled.repo/3ljbiayluee22",
+        "$type": "sh.tangled.repo.issue",
+        "owner": "did:plc:fxnw2wkzf23zya6shq4pxvh6",
+        "title": "duplicate issue",
+        "issueId": 1
+      }
+    }
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://plc.directory/did:plc:7opjnfmb6gtbgjrsr3777ujx"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"228-x2B9puWLL5xT+/Qqjm1vWZjppVc\""
+    },
+    "body": {
+      "@context": [
+        "https://www.w3.org/ns/did/v1",
+        "https://w3id.org/security/multikey/v1",
+        "https://w3id.org/security/suites/secp256k1-2019/v1"
+      ],
+      "id": "did:plc:7opjnfmb6gtbgjrsr3777ujx",
+      "alsoKnownAs": [
+        "at://oops.wtf"
+      ],
+      "verificationMethod": [
+        {
+          "id": "did:plc:7opjnfmb6gtbgjrsr3777ujx#atproto",
+          "type": "Multikey",
+          "controller": "did:plc:7opjnfmb6gtbgjrsr3777ujx",
+          "publicKeyMultibase": "zQ3shXbzZABktXGGYiLWYQkjuqmCLQmcBjLepHTGrYPCDjVrg"
+        }
+      ],
+      "service": [
+        {
+          "id": "#atproto_pds",
+          "type": "AtprotoPersonalDataServer",
+          "serviceEndpoint": "https://inkcap.us-east.host.bsky.network"
+        }
+      ]
+    }
+  }
+}

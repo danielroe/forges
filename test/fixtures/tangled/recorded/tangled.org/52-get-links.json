@@ -1,0 +1,21 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://constellation.microcosm.blue/links?target=at%3A%2F%2Fdid%3Aplc%3Amzoihimijwyheeqok2qm5zxx%2Fsh.tangled.repo.pull%2F3m4cefmvguj22&collection=sh.tangled.repo.pull.status&path=.pull&limit=100"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "total": 1,
+      "linking_records": [
+        {
+          "did": "did:plc:wshs7t2adsemcrrd4snkeqli",
+          "collection": "sh.tangled.repo.pull.status",
+          "rkey": "3m4cefmvguj22"
+        }
+      ],
+      "cursor": null
+    }
+  }
+}

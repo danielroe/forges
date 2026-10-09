@@ -1,0 +1,414 @@
+{
+  "author": {
+    "forge": "tangled",
+    "instance": "tangled.org",
+    "login": "roebot.tngl.sh",
+    "id": "did:plc:7qksav5io2s4qfg67pe7iqqk",
+    "url": "https://tangled.org/roebot.tngl.sh",
+    "isBotHint": false
+  },
+  "create issue": {
+    "ref": {
+      "forge": "tangled",
+      "instance": "tangled.org",
+      "repo": {
+        "forge": "tangled",
+        "instance": "tangled.org",
+        "owner": "did:plc:7qksav5io2s4qfg67pe7iqqk",
+        "name": "forges-fixtures",
+        "externalId": "did:plc:t73o44q7fppgagkrevtztyok"
+      },
+      "kind": "issue",
+      "typeRaw": "sh.tangled.repo.issue",
+      "number": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.issue/3mxhongxted2y",
+      "externalId": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.issue/3mxhongxted2y"
+    },
+    "kind": "issue",
+    "title": "forges fixture 20261009191401: issue",
+    "body": "Opened by run 20261009191401.",
+    "state": "open",
+    "stateRaw": "open",
+    "isDraft": false,
+    "author": {
+      "forge": "tangled",
+      "instance": "tangled.org",
+      "login": "roebot.tngl.sh",
+      "id": "did:plc:7qksav5io2s4qfg67pe7iqqk",
+      "url": "https://tangled.org/roebot.tngl.sh",
+      "isBotHint": false
+    },
+    "assignees": [],
+    "reviewers": [],
+    "createdAt": "<now>",
+    "updatedAt": "<now>",
+    "lastActivityAt": "<now>",
+    "labels": [],
+    "commentCount": 0
+  },
+  "issue comment": {
+    "ref": {
+      "forge": "tangled",
+      "instance": "tangled.org",
+      "thread": {
+        "forge": "tangled",
+        "instance": "tangled.org",
+        "repo": {
+          "forge": "tangled",
+          "instance": "tangled.org",
+          "owner": "did:plc:7qksav5io2s4qfg67pe7iqqk",
+          "name": "forges-fixtures",
+          "externalId": "did:plc:t73o44q7fppgagkrevtztyok"
+        },
+        "kind": "issue",
+        "typeRaw": "sh.tangled.repo.issue",
+        "number": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.issue/3mxhongxted2y",
+        "externalId": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.issue/3mxhongxted2y"
+      },
+      "id": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.feed.comment/3mxhonh73rt2y"
+    },
+    "body": "A comment from run 20261009191401.",
+    "author": {
+      "forge": "tangled",
+      "instance": "tangled.org",
+      "login": "roebot.tngl.sh",
+      "id": "did:plc:7qksav5io2s4qfg67pe7iqqk",
+      "url": "https://tangled.org/roebot.tngl.sh",
+      "isBotHint": false
+    },
+    "createdAt": "<now>"
+  },
+  "issue edit comment": {
+    "ref": {
+      "forge": "tangled",
+      "instance": "tangled.org",
+      "thread": {
+        "forge": "tangled",
+        "instance": "tangled.org",
+        "repo": {
+          "forge": "tangled",
+          "instance": "tangled.org",
+          "owner": "did:plc:7qksav5io2s4qfg67pe7iqqk",
+          "name": "forges-fixtures",
+          "externalId": "did:plc:t73o44q7fppgagkrevtztyok"
+        },
+        "kind": "issue",
+        "typeRaw": "sh.tangled.repo.issue",
+        "number": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.issue/3mxhongxted2y",
+        "externalId": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.issue/3mxhongxted2y"
+      },
+      "id": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.feed.comment/3mxhonh73rt2y"
+    },
+    "body": "An edited comment from run 20261009191401.",
+    "author": {
+      "forge": "tangled",
+      "instance": "tangled.org",
+      "login": "roebot.tngl.sh",
+      "id": "did:plc:7qksav5io2s4qfg67pe7iqqk",
+      "url": "https://tangled.org/roebot.tngl.sh",
+      "isBotHint": false
+    },
+    "createdAt": "<now>"
+  },
+  "issue upsert comment": {
+    "comment": {
+      "ref": {
+        "forge": "tangled",
+        "instance": "tangled.org",
+        "thread": {
+          "forge": "tangled",
+          "instance": "tangled.org",
+          "repo": {
+            "forge": "tangled",
+            "instance": "tangled.org",
+            "owner": "did:plc:7qksav5io2s4qfg67pe7iqqk",
+            "name": "forges-fixtures",
+            "externalId": "did:plc:t73o44q7fppgagkrevtztyok"
+          },
+          "kind": "issue",
+          "typeRaw": "sh.tangled.repo.issue",
+          "number": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.issue/3mxhongxted2y",
+          "externalId": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.issue/3mxhongxted2y"
+        },
+        "id": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.feed.comment/3mxhoniadb32y"
+      },
+      "body": "An upserted comment from run 20261009191401.\n\n<!-- forges:key=forges-fixture -->",
+      "author": {
+        "forge": "tangled",
+        "instance": "tangled.org",
+        "login": "roebot.tngl.sh",
+        "id": "did:plc:7qksav5io2s4qfg67pe7iqqk",
+        "url": "https://tangled.org/roebot.tngl.sh",
+        "isBotHint": false
+      },
+      "createdAt": "<now>"
+    },
+    "created": true
+  },
+  "issue update": {
+    "ref": {
+      "forge": "tangled",
+      "instance": "tangled.org",
+      "repo": {
+        "forge": "tangled",
+        "instance": "tangled.org",
+        "owner": "did:plc:7qksav5io2s4qfg67pe7iqqk",
+        "name": "forges-fixtures",
+        "externalId": "did:plc:t73o44q7fppgagkrevtztyok"
+      },
+      "kind": "issue",
+      "typeRaw": "sh.tangled.repo.issue",
+      "number": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.issue/3mxhongxted2y",
+      "externalId": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.issue/3mxhongxted2y"
+    },
+    "kind": "issue",
+    "title": "forges fixture 20261009191401: issue, edited",
+    "body": "Edited by run 20261009191401.",
+    "state": "open",
+    "stateRaw": "open",
+    "isDraft": false,
+    "author": {
+      "forge": "tangled",
+      "instance": "tangled.org",
+      "login": "roebot.tngl.sh",
+      "id": "did:plc:7qksav5io2s4qfg67pe7iqqk",
+      "url": "https://tangled.org/roebot.tngl.sh",
+      "isBotHint": false
+    },
+    "assignees": [],
+    "reviewers": [],
+    "createdAt": "<now>",
+    "updatedAt": "<now>",
+    "lastActivityAt": "<now>",
+    "labels": [],
+    "commentCount": 0
+  },
+  "create duplicate issue": {
+    "ref": {
+      "forge": "tangled",
+      "instance": "tangled.org",
+      "repo": {
+        "forge": "tangled",
+        "instance": "tangled.org",
+        "owner": "did:plc:7qksav5io2s4qfg67pe7iqqk",
+        "name": "forges-fixtures",
+        "externalId": "did:plc:t73o44q7fppgagkrevtztyok"
+      },
+      "kind": "issue",
+      "typeRaw": "sh.tangled.repo.issue",
+      "number": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.issue/3mxhonj45v32y",
+      "externalId": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.issue/3mxhonj45v32y"
+    },
+    "kind": "issue",
+    "title": "forges fixture 20261009191401: duplicate",
+    "body": "Opened by run 20261009191401.",
+    "state": "open",
+    "stateRaw": "open",
+    "isDraft": false,
+    "author": {
+      "forge": "tangled",
+      "instance": "tangled.org",
+      "login": "roebot.tngl.sh",
+      "id": "did:plc:7qksav5io2s4qfg67pe7iqqk",
+      "url": "https://tangled.org/roebot.tngl.sh",
+      "isBotHint": false
+    },
+    "assignees": [],
+    "reviewers": [],
+    "createdAt": "<now>",
+    "updatedAt": "<now>",
+    "lastActivityAt": "<now>",
+    "labels": [],
+    "commentCount": 0
+  },
+  "existing pull": {
+    "ref": {
+      "forge": "tangled",
+      "instance": "tangled.org",
+      "repo": {
+        "forge": "tangled",
+        "instance": "tangled.org",
+        "owner": "did:plc:7qksav5io2s4qfg67pe7iqqk",
+        "name": "forges-fixtures",
+        "externalId": "did:plc:t73o44q7fppgagkrevtztyok"
+      },
+      "kind": "pull_request",
+      "typeRaw": "sh.tangled.repo.pull",
+      "number": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.pull/3mxhm5yldov22",
+      "externalId": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.pull/3mxhm5yldov22"
+    },
+    "kind": "pull_request",
+    "title": "forges fixture 20261009183352: pull, edited",
+    "body": "Edited by run 20261009183352.",
+    "state": "open",
+    "stateRaw": "open",
+    "isDraft": false,
+    "author": {
+      "forge": "tangled",
+      "instance": "tangled.org",
+      "login": "roebot.tngl.sh",
+      "id": "did:plc:7qksav5io2s4qfg67pe7iqqk",
+      "url": "https://tangled.org/roebot.tngl.sh",
+      "isBotHint": false
+    },
+    "assignees": [],
+    "reviewers": [],
+    "createdAt": "<now>",
+    "updatedAt": "<now>",
+    "lastActivityAt": "<now>",
+    "labels": [],
+    "commentCount": 2,
+    "branches": {
+      "head": {
+        "ref": "bo"
+      },
+      "base": {
+        "ref": "main"
+      }
+    }
+  },
+  "pull comment": {
+    "ref": {
+      "forge": "tangled",
+      "instance": "tangled.org",
+      "thread": {
+        "forge": "tangled",
+        "instance": "tangled.org",
+        "repo": {
+          "forge": "tangled",
+          "instance": "tangled.org",
+          "owner": "did:plc:7qksav5io2s4qfg67pe7iqqk",
+          "name": "forges-fixtures",
+          "externalId": "did:plc:t73o44q7fppgagkrevtztyok"
+        },
+        "kind": "pull_request",
+        "typeRaw": "sh.tangled.repo.pull",
+        "number": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.pull/3mxhm5yldov22",
+        "externalId": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.pull/3mxhm5yldov22"
+      },
+      "id": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.feed.comment/3mxhonkuudl2y"
+    },
+    "body": "A comment from run 20261009191401.",
+    "author": {
+      "forge": "tangled",
+      "instance": "tangled.org",
+      "login": "roebot.tngl.sh",
+      "id": "did:plc:7qksav5io2s4qfg67pe7iqqk",
+      "url": "https://tangled.org/roebot.tngl.sh",
+      "isBotHint": false
+    },
+    "createdAt": "<now>"
+  },
+  "pull edit comment": {
+    "ref": {
+      "forge": "tangled",
+      "instance": "tangled.org",
+      "thread": {
+        "forge": "tangled",
+        "instance": "tangled.org",
+        "repo": {
+          "forge": "tangled",
+          "instance": "tangled.org",
+          "owner": "did:plc:7qksav5io2s4qfg67pe7iqqk",
+          "name": "forges-fixtures",
+          "externalId": "did:plc:t73o44q7fppgagkrevtztyok"
+        },
+        "kind": "pull_request",
+        "typeRaw": "sh.tangled.repo.pull",
+        "number": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.pull/3mxhm5yldov22",
+        "externalId": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.pull/3mxhm5yldov22"
+      },
+      "id": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.feed.comment/3mxhonkuudl2y"
+    },
+    "body": "An edited comment from run 20261009191401.",
+    "author": {
+      "forge": "tangled",
+      "instance": "tangled.org",
+      "login": "roebot.tngl.sh",
+      "id": "did:plc:7qksav5io2s4qfg67pe7iqqk",
+      "url": "https://tangled.org/roebot.tngl.sh",
+      "isBotHint": false
+    },
+    "createdAt": "<now>"
+  },
+  "pull upsert comment": {
+    "comment": {
+      "ref": {
+        "forge": "tangled",
+        "instance": "tangled.org",
+        "thread": {
+          "forge": "tangled",
+          "instance": "tangled.org",
+          "repo": {
+            "forge": "tangled",
+            "instance": "tangled.org",
+            "owner": "did:plc:7qksav5io2s4qfg67pe7iqqk",
+            "name": "forges-fixtures",
+            "externalId": "did:plc:t73o44q7fppgagkrevtztyok"
+          },
+          "kind": "pull_request",
+          "typeRaw": "sh.tangled.repo.pull",
+          "number": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.pull/3mxhm5yldov22",
+          "externalId": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.pull/3mxhm5yldov22"
+        },
+        "id": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.feed.comment/3mxhmcvpgl32y"
+      },
+      "body": "An upserted comment from run 20261009191401.\n\n<!-- forges:key=forges-fixture -->",
+      "author": {
+        "forge": "tangled",
+        "instance": "tangled.org",
+        "login": "roebot.tngl.sh",
+        "id": "did:plc:7qksav5io2s4qfg67pe7iqqk",
+        "url": "https://tangled.org/roebot.tngl.sh",
+        "isBotHint": false
+      },
+      "createdAt": "<now>"
+    },
+    "created": false
+  },
+  "pull update": {
+    "ref": {
+      "forge": "tangled",
+      "instance": "tangled.org",
+      "repo": {
+        "forge": "tangled",
+        "instance": "tangled.org",
+        "owner": "did:plc:7qksav5io2s4qfg67pe7iqqk",
+        "name": "forges-fixtures",
+        "externalId": "did:plc:t73o44q7fppgagkrevtztyok"
+      },
+      "kind": "pull_request",
+      "typeRaw": "sh.tangled.repo.pull",
+      "number": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.pull/3mxhm5yldov22",
+      "externalId": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.pull/3mxhm5yldov22"
+    },
+    "kind": "pull_request",
+    "title": "forges fixture 20261009191401: pull, edited",
+    "body": "Edited by run 20261009191401.",
+    "state": "open",
+    "stateRaw": "open",
+    "isDraft": false,
+    "author": {
+      "forge": "tangled",
+      "instance": "tangled.org",
+      "login": "roebot.tngl.sh",
+      "id": "did:plc:7qksav5io2s4qfg67pe7iqqk",
+      "url": "https://tangled.org/roebot.tngl.sh",
+      "isBotHint": false
+    },
+    "assignees": [],
+    "reviewers": [],
+    "createdAt": "<now>",
+    "updatedAt": "<now>",
+    "lastActivityAt": "<now>",
+    "labels": [],
+    "commentCount": 0,
+    "branches": {
+      "head": {
+        "ref": "bo"
+      },
+      "base": {
+        "ref": "main"
+      }
+    }
+  }
+}

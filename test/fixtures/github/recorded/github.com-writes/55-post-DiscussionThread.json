@@ -1,0 +1,62 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://api.github.com/graphql",
+    "operationName": "DiscussionThread",
+    "variables": {
+      "owner": "forges-fixtures",
+      "name": "forges-fixtures",
+      "number": 33
+    },
+    "body": {
+      "query": "query DiscussionThread($owner: String!, $name: String!, $number: Int!) {\n  repository(owner: $owner, name: $name) {\n    discussion(number: $number) {\n      id number title body closed stateReason url createdAt updatedAt closedAt locked\n      author { __typename login avatarUrl url ... on User { databaseId name } ... on Bot { databaseId } }\n      labels(first: 50) { nodes { name color description } }\n      comments { totalCount }\n    }\n  }\n}",
+      "variables": {
+        "owner": "forges-fixtures",
+        "name": "forges-fixtures",
+        "number": 33
+      },
+      "operationName": "DiscussionThread"
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "x-ratelimit-limit": "5000",
+      "x-ratelimit-remaining": "4988",
+      "x-ratelimit-reset": "1791559276"
+    },
+    "body": {
+      "data": {
+        "repository": {
+          "discussion": {
+            "id": "D_kwDOVCTdtM4Ap5qt",
+            "number": 33,
+            "title": "a discussion",
+            "body": "a discussion body",
+            "closed": false,
+            "stateReason": null,
+            "url": "https://github.com/forges-fixtures/forges-fixtures/discussions/33",
+            "createdAt": "2026-10-09T14:18:08Z",
+            "updatedAt": "2026-10-09T14:18:14Z",
+            "closedAt": null,
+            "locked": false,
+            "author": {
+              "__typename": "User",
+              "login": "danielroe-bot",
+              "avatarUrl": "https://avatars.githubusercontent.com/u/57801166?v=4",
+              "url": "https://github.com/danielroe-bot",
+              "databaseId": 57801166,
+              "name": null
+            },
+            "labels": {
+              "nodes": []
+            },
+            "comments": {
+              "totalCount": 1
+            }
+          }
+        }
+      }
+    }
+  }
+}

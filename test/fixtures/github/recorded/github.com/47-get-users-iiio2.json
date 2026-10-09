@@ -1,0 +1,50 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.github.com/users/iiio2"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"1346415b35bb762ebf027b9959c0067443037c2305c9320b6cdae18868313d82\"",
+      "x-ratelimit-limit": "5000",
+      "x-ratelimit-remaining": "4881",
+      "x-ratelimit-reset": "1791554625"
+    },
+    "body": {
+      "login": "iiio2",
+      "id": 47961062,
+      "node_id": "REDACTED",
+      "avatar_url": "https://avatars.githubusercontent.com/u/47961062?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/iiio2",
+      "html_url": "https://github.com/iiio2",
+      "followers_url": "https://api.github.com/users/iiio2/followers",
+      "following_url": "https://api.github.com/users/iiio2/following{/other_user}",
+      "gists_url": "https://api.github.com/users/iiio2/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/iiio2/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/iiio2/subscriptions",
+      "organizations_url": "https://api.github.com/users/iiio2/orgs",
+      "repos_url": "https://api.github.com/users/iiio2/repos",
+      "events_url": "https://api.github.com/users/iiio2/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/iiio2/received_events",
+      "type": "User",
+      "user_view_type": "public",
+      "site_admin": false,
+      "name": "abeer0",
+      "company": null,
+      "blog": "",
+      "location": null,
+      "email": null,
+      "hireable": null,
+      "bio": null,
+      "twitter_username": null,
+      "public_repos": 96,
+      "public_gists": 0,
+      "followers": 17,
+      "following": 0,
+      "created_at": "2019-02-25T03:44:43Z",
+      "updated_at": "2026-06-28T04:57:44Z"
+    }
+  }
+}

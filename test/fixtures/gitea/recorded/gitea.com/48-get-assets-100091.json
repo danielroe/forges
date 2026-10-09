@@ -1,0 +1,19 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitea.com/api/v1/repos/gitea/tea/releases/945508/assets/100091"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "id": 100091,
+      "name": "tea-0.16.0-linux-amd64.xz.sha256",
+      "size": 91,
+      "download_count": 1213,
+      "created_at": "2026-09-10T11:35:53Z",
+      "uuid": "5721f3c8-6563-4f6f-8bd7-5aa88bfb43d2",
+      "browser_download_url": "https://gitea.com/attachments/5721f3c8-6563-4f6f-8bd7-5aa88bfb43d2"
+    }
+  }
+}

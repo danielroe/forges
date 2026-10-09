@@ -1,0 +1,146 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.bitbucket.org/2.0/repositories/danielroe?role=member&pagelen=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"3c770ada2f19352f96cd8ffc72c1ba03\""
+    },
+    "body": {
+      "values": [
+        {
+          "type": "repository",
+          "full_name": "danielroe/forges-fixtures",
+          "links": {
+            "self": {
+              "href": "https://api.bitbucket.org/2.0/repositories/danielroe/forges-fixtures"
+            },
+            "html": {
+              "href": "https://bitbucket.org/danielroe/forges-fixtures"
+            },
+            "avatar": {
+              "href": "https://bytebucket.org/ravatar/%7B245afeb9-21de-4a8c-81c0-d45efbf52a8c%7D?ts=default"
+            },
+            "pullrequests": {
+              "href": "https://api.bitbucket.org/2.0/repositories/danielroe/forges-fixtures/pullrequests"
+            },
+            "commits": {
+              "href": "https://api.bitbucket.org/2.0/repositories/danielroe/forges-fixtures/commits"
+            },
+            "forks": {
+              "href": "https://api.bitbucket.org/2.0/repositories/danielroe/forges-fixtures/forks"
+            },
+            "watchers": {
+              "href": "https://api.bitbucket.org/2.0/repositories/danielroe/forges-fixtures/watchers"
+            },
+            "branches": {
+              "href": "https://api.bitbucket.org/2.0/repositories/danielroe/forges-fixtures/refs/branches"
+            },
+            "tags": {
+              "href": "https://api.bitbucket.org/2.0/repositories/danielroe/forges-fixtures/refs/tags"
+            },
+            "downloads": {
+              "href": "https://api.bitbucket.org/2.0/repositories/danielroe/forges-fixtures/downloads"
+            },
+            "source": {
+              "href": "https://api.bitbucket.org/2.0/repositories/danielroe/forges-fixtures/src"
+            },
+            "clone": [
+              {
+                "name": "https",
+                "href": "https://bitbucket.org/danielroe/forges-fixtures.git"
+              },
+              {
+                "name": "ssh",
+                "href": "git@bitbucket.org:danielroe/forges-fixtures.git"
+              }
+            ],
+            "hooks": {
+              "href": "https://api.bitbucket.org/2.0/repositories/danielroe/forges-fixtures/hooks"
+            }
+          },
+          "name": "forges-fixtures",
+          "slug": "forges-fixtures",
+          "description": "",
+          "scm": "git",
+          "website": null,
+          "owner": {
+            "display_name": "Daniel Roe",
+            "links": {
+              "self": {
+                "href": "https://api.bitbucket.org/2.0/workspaces/%7Bd980eb54-27c4-4887-bb4f-785d5f485d1c%7D"
+              },
+              "avatar": {
+                "href": "https://bitbucket.org/account/danielroe-team/avatar/"
+              },
+              "html": {
+                "href": "https://bitbucket.org/%7B764a1587-8648-414a-8d9d-5464a9241047%7D/"
+              }
+            },
+            "type": "team",
+            "uuid": "{764a1587-8648-414a-8d9d-5464a9241047}",
+            "username": "danielroe-team"
+          },
+          "workspace": {
+            "type": "workspace",
+            "uuid": "{d980eb54-27c4-4887-bb4f-785d5f485d1c}",
+            "name": "Daniel Roe",
+            "slug": "danielroe",
+            "links": {
+              "avatar": {
+                "href": "https://bitbucket.org/workspaces/danielroe/avatar/?ts=1543741294"
+              },
+              "html": {
+                "href": "https://bitbucket.org/danielroe/"
+              },
+              "self": {
+                "href": "https://api.bitbucket.org/2.0/workspaces/danielroe"
+              }
+            }
+          },
+          "is_private": false,
+          "project": {
+            "type": "project",
+            "key": "FOR",
+            "uuid": "{7ce2bec3-f8e2-4768-9bb2-c42ef769568e}",
+            "name": "forges-fixtures",
+            "links": {
+              "self": {
+                "href": "https://api.bitbucket.org/2.0/workspaces/danielroe/projects/FOR"
+              },
+              "html": {
+                "href": "https://bitbucket.org/danielroe/workspace/projects/FOR"
+              },
+              "avatar": {
+                "href": "https://bitbucket.org/danielroe/workspace/projects/FOR/avatar/32?ts=1791546778"
+              }
+            }
+          },
+          "fork_policy": "allow_forks",
+          "created_on": "2026-10-09T11:53:36.202424+00:00",
+          "updated_on": "2026-10-09T11:57:06.317531+00:00",
+          "size": 3375692,
+          "language": "",
+          "uuid": "{245afeb9-21de-4a8c-81c0-d45efbf52a8c}",
+          "mainbranch": {
+            "name": "main",
+            "type": "branch"
+          },
+          "override_settings": {
+            "default_merge_strategy": true,
+            "branching_model": true
+          },
+          "parent": null,
+          "enforced_signed_commits": null,
+          "has_issues": false,
+          "has_wiki": false
+        }
+      ],
+      "pagelen": 3,
+      "size": 2,
+      "page": 1
+    }
+  }
+}

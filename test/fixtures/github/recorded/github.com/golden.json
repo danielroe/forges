@@ -20,7 +20,7 @@
       "ssh": "git@github.com:h3js/h3.git"
     },
     "createdAt": "2020-11-17T14:15:44.000Z",
-    "updatedAt": "2026-10-08T17:07:53.000Z",
+    "updatedAt": "2026-10-09T00:25:59.000Z",
     "pushedAt": "2026-10-07T12:37:26.000Z",
     "owner": {
       "forge": "github",
@@ -35,8 +35,8 @@
     "language": "TypeScript",
     "homepage": "https://h3.dev",
     "licence": "MIT",
-    "stars": 5448,
-    "forks": 368,
+    "stars": 5449,
+    "forks": 369,
     "watchers": 17,
     "mergeMethods": [
       "merge",
@@ -83,7 +83,7 @@
     },
     "rateLimit": {
       "limit": 5000,
-      "remaining": 4952,
+      "remaining": 4910,
       "resetAt": "<now>"
     }
   },
@@ -91,7 +91,7 @@
     "items": [],
     "rateLimit": {
       "limit": 5000,
-      "remaining": 4951,
+      "remaining": 4909,
       "resetAt": "<now>"
     }
   },
@@ -142,7 +142,7 @@
     ],
     "rateLimit": {
       "limit": 5000,
-      "remaining": 4935,
+      "remaining": 4893,
       "resetAt": "<now>"
     }
   },
@@ -181,7 +181,7 @@
     ],
     "rateLimit": {
       "limit": 5000,
-      "remaining": 4949,
+      "remaining": 4907,
       "resetAt": "<now>"
     }
   },
@@ -267,6 +267,86 @@
   },
   "pull list": {
     "items": [
+      {
+        "ref": {
+          "forge": "github",
+          "instance": "github.com",
+          "repo": {
+            "forge": "github",
+            "instance": "github.com",
+            "owner": "h3js",
+            "name": "h3"
+          },
+          "kind": "pull_request",
+          "number": "1576",
+          "externalId": "PR_kwDOErHI988AAAABHeLZ7g"
+        },
+        "kind": "pull_request",
+        "title": "fix(tracing): mount nested apps passed to `use()`",
+        "body": "`tracingPlugin` breaks mounting nested apps with `use()`. The plugin's `use()` override wraps its argument with `wrapMiddleware()` before the original `use()` gets to inspect it. `use()` dispatches non-function inputs (an H3 app or any other mountable object) to `mount()` — but after the wrapper, the input is a function, so:\n\n- the nested app is never mounted: its routes silently 404,\n- a middleware that calls the wrapped app as a function is registered instead, so hitting the base path exactly (e.g. `/api`) throws a `TypeError` (500).\n\n`use(route, handler: Middleware | H3, opts?)` is a public documented signature, and the plugin's `mount()` override already propagates tracing to mounted apps — so `app.use(\"/api\", app2)` should behave exactly like `app.mount(\"/api\", app2)`. The existing tracing tests cover `.mount()` and function middlewares but never the mountable `use()` shape, which is how this slipped through.\n\nThe fix passes non-function inputs through to the original `use()` unwrapped, in both call shapes. The `mount()` override then takes over and the nested app is traced like any other mount.\n\nTests: new regression test `mounts a nested app passed to `use()`\"` mounts a nested app with `t.app.use(\"/api\", nestedApp)` on the tracing-enabled matrix app and asserts the route responds 200 with the right body and shows up in the traced route events. It fails on `main` (404) and passes with this change. `test/tracing.test.ts` is 54/54 on both web and node targets; `tsc --noEmit`, `oxlint` and `oxfmt --check` are clean. Full suite: 3 failures (`test/utils.test.ts`, `test/unit/event.test.ts`, `test/unit/route-normalize.test.ts`) — all three also fail on unmodified `main`, unrelated to this change.\n\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n\n## Summary by CodeRabbit\n\n* **Bug Fixes**\n  * Nested H3 apps mounted with `use()` now remain mountable, and tracing events include the mounted route’s full path.\n\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
+        "state": "open",
+        "stateRaw": "open",
+        "isDraft": false,
+        "author": {
+          "forge": "github",
+          "instance": "github.com",
+          "login": "Mihir-Rabari",
+          "id": "169349389",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/169349389?v=4",
+          "url": "https://github.com/Mihir-Rabari",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "assignees": [],
+        "reviewers": [
+          {
+            "actor": {
+              "forge": "github",
+              "instance": "github.com",
+              "login": "pi0",
+              "id": "5158436",
+              "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?v=4",
+              "url": "https://github.com/pi0",
+              "typeRaw": "User",
+              "isBotHint": false
+            },
+            "state": "pending",
+            "stateRaw": "requested"
+          }
+        ],
+        "labels": [],
+        "url": "https://github.com/h3js/h3/pull/1576",
+        "createdAt": "2026-10-09T05:25:13.000Z",
+        "updatedAt": "2026-10-09T05:26:53.000Z",
+        "lastActivityAt": "2026-10-09T05:26:53.000Z",
+        "locked": false,
+        "commentCount": 1,
+        "branches": {
+          "head": {
+            "ref": "fix/tracing-use-mount",
+            "sha": "0a4b48c7a55f6f8432d719c537dfac0791215c9e",
+            "repo": {
+              "forge": "github",
+              "instance": "github.com",
+              "owner": "Mihir-Rabari",
+              "name": "h3",
+              "externalId": "1411306210"
+            }
+          },
+          "base": {
+            "ref": "main",
+            "sha": "66cfb8a357b6285451bad498c2c40002601fae98"
+          },
+          "mergeCommitSha": "0ae2239720d26d8c4caae939ff0b55536a6b8e51"
+        },
+        "checks": {
+          "state": "success",
+          "stateRaw": "success",
+          "total": 3,
+          "failed": 0,
+          "url": "https://github.com/h3js/h3/pull/1576/checks"
+        }
+      },
       {
         "ref": {
           "forge": "github",
@@ -425,79 +505,15 @@
           "failed": 0,
           "url": "https://github.com/h3js/h3/pull/1557/checks"
         }
-      },
-      {
-        "ref": {
-          "forge": "github",
-          "instance": "github.com",
-          "repo": {
-            "forge": "github",
-            "instance": "github.com",
-            "owner": "h3js",
-            "name": "h3"
-          },
-          "kind": "pull_request",
-          "number": "1502",
-          "externalId": "PR_kwDOErHI98708j6H"
-        },
-        "kind": "pull_request",
-        "title": "feat(context): per-event typed H3EventContext",
-        "body": "Draft based on exploration of #1501 (includes those commits, as I still have to git good). Also proposed in https://github.com/h3js/h3/issues/1437#issuecomment-5025050049\r\n\r\nCommit ad5fcba essentially adds a second param to H3Event that consists in a typed H3EventContext, as well as adds a type argument to the latter for customizing internals.\r\n\r\nOne such use case is properly typing `params` in something like `defineValidatedHandler`, which might have also coerced its data (eg: an id being number instead) keeping the parity between runtime and types.\r\n\r\nThis also adds room of improvements for other validated data for `defineValidatedHandler` such as headers and queries which they currently simply gets mutaded in place, going back to their string form instead. A clear followup for this would be to introduce also `event.context.{headers,query}` with the coerced data and type output of the validation schemas (also reducing the number of operations performed by the forward and back mutation).\r\n\r\nLeaving as draft till #1501 is merged and this concept is approved, @pi0 no further work is needed in this PR other than your own changes or if you want me to also add the `event.context.{headers,query}` logic or defer to next PR",
-        "state": "open",
-        "stateRaw": "open",
-        "isDraft": true,
-        "author": {
-          "forge": "github",
-          "instance": "github.com",
-          "login": "sandros94",
-          "id": "13056429",
-          "avatarUrl": "https://avatars.githubusercontent.com/u/13056429?v=4",
-          "url": "https://github.com/sandros94",
-          "typeRaw": "User",
-          "isBotHint": false
-        },
-        "assignees": [],
-        "reviewers": [],
-        "labels": [],
-        "url": "https://github.com/h3js/h3/pull/1502",
-        "createdAt": "2026-07-22T15:32:17.000Z",
-        "updatedAt": "2026-07-23T14:15:00.000Z",
-        "lastActivityAt": "2026-07-23T14:15:00.000Z",
-        "locked": false,
-        "commentCount": 5,
-        "branches": {
-          "head": {
-            "ref": "feat/context-typing",
-            "sha": "bc756c55f117055d68a48a444f822a6ce601190e",
-            "repo": {
-              "forge": "github",
-              "instance": "github.com",
-              "owner": "sandros94",
-              "name": "h3",
-              "externalId": "923619984"
-            }
-          },
-          "base": {
-            "ref": "main",
-            "sha": "4a32c1b75528f881cd85c89ee626c136b7026958"
-          }
-        },
-        "checks": {
-          "state": "success",
-          "stateRaw": "success",
-          "total": 7,
-          "failed": 0,
-          "url": "https://github.com/h3js/h3/pull/1502/checks"
-        }
       }
     ],
     "cursor": {
       "nextUrl": "https://api.github.com/repositories/313641207/pulls?state=open&sort=created&direction=desc&per_page=3&page=2",
-      "etag": "W/\"2dce549633b0aae1a9503c58ffa25ca2487cf7c324c147bc711923f6d210554e\""
+      "etag": "W/\"32d141e8435f6361ac1655034f698298a1d8d4f901d2955b66a5cf9f0dfa9932\""
     },
     "rateLimit": {
       "limit": 5000,
-      "remaining": 4945,
+      "remaining": 4903,
       "resetAt": "<now>"
     }
   },
@@ -770,7 +786,7 @@
     },
     "rateLimit": {
       "limit": 5000,
-      "remaining": 4944,
+      "remaining": 4902,
       "resetAt": "<now>"
     }
   },
@@ -895,7 +911,7 @@
     ],
     "rateLimit": {
       "limit": 5000,
-      "remaining": 4943,
+      "remaining": 4901,
       "resetAt": "<now>"
     }
   },
@@ -903,7 +919,7 @@
     "items": [],
     "rateLimit": {
       "limit": 5000,
-      "remaining": 4978,
+      "remaining": 4991,
       "resetAt": "<now>"
     }
   },
@@ -912,7 +928,7 @@
     "items": [],
     "rateLimit": {
       "limit": 5000,
-      "remaining": 4942,
+      "remaining": 4900,
       "resetAt": "<now>"
     }
   },
@@ -934,7 +950,7 @@
     ],
     "rateLimit": {
       "limit": 5000,
-      "remaining": 4937,
+      "remaining": 4895,
       "resetAt": "<now>"
     }
   },
@@ -992,7 +1008,7 @@
     ],
     "rateLimit": {
       "limit": 5000,
-      "remaining": 4936,
+      "remaining": 4894,
       "resetAt": "<now>"
     }
   },
@@ -1031,7 +1047,7 @@
     ],
     "rateLimit": {
       "limit": 5000,
-      "remaining": 4935,
+      "remaining": 4893,
       "resetAt": "<now>"
     }
   },
@@ -1135,12 +1151,12 @@
       }
     ],
     "cursor": {
-      "nextUrl": "https://api.github.com/repositories/313641207/issues?state=open&sort=created&direction=desc&per_page=3&after=Y3Vyc29yOnYyOpLPAAABoNzvuIjPAAAAAU1aceU%3D&page=2",
-      "etag": "W/\"3546f9834ea7a58e7f2ba7b2dc06ec2b69816326280e7ad1e914c081d2d6d24f\""
+      "nextUrl": "https://api.github.com/repositories/313641207/issues?state=open&sort=created&direction=desc&per_page=3&after=Y3Vyc29yOnYyOpLPAAABoPeCj-DPAAAAAVGBZrI%3D&page=2",
+      "etag": "W/\"29ce3f129a611a486a0715dbb20aa5d15344bc609b245534830031d34f80c2f3\""
     },
     "rateLimit": {
       "limit": 5000,
-      "remaining": 4930,
+      "remaining": 4888,
       "resetAt": "<now>"
     }
   },
@@ -1328,7 +1344,7 @@
     ],
     "rateLimit": {
       "limit": 5000,
-      "remaining": 4929,
+      "remaining": 4887,
       "resetAt": "<now>"
     }
   },
@@ -1336,7 +1352,7 @@
     "items": [],
     "rateLimit": {
       "limit": 5000,
-      "remaining": 4928,
+      "remaining": 4886,
       "resetAt": "<now>"
     }
   },
@@ -1344,7 +1360,7 @@
     "items": [],
     "rateLimit": {
       "limit": 5000,
-      "remaining": 4977,
+      "remaining": 4990,
       "resetAt": "<now>"
     }
   },
@@ -3393,6 +3409,44 @@
     "items": []
   },
   "discussion subscription": "subscribed",
+  "commit thread": {
+    "ref": {
+      "forge": "github",
+      "instance": "github.com",
+      "repo": {
+        "forge": "github",
+        "instance": "github.com",
+        "owner": "h3js",
+        "name": "h3"
+      },
+      "kind": "commit",
+      "number": "adbc974043a83820a5ae388265b5ee1465926561",
+      "externalId": "C_kwDOErHI99oAKGFkYmM5NzQwNDNhODM4MjBhNWFlMzg4MjY1YjVlZTE0NjU5MjY1NjE"
+    },
+    "kind": "commit",
+    "state": "unknown",
+    "isDraft": false,
+    "assignees": [],
+    "reviewers": [],
+    "labels": [],
+    "url": "https://github.com/h3js/h3/commit/adbc974043a83820a5ae388265b5ee1465926561"
+  },
+  "commit events": {
+    "items": [],
+    "rateLimit": {
+      "limit": 5000,
+      "remaining": 4883,
+      "resetAt": "<now>"
+    }
+  },
+  "commit comments": {
+    "items": [],
+    "rateLimit": {
+      "limit": 5000,
+      "remaining": 4883,
+      "resetAt": "<now>"
+    }
+  },
   "permission": "read",
   "user": {
     "forge": "github",
@@ -3423,7 +3477,7 @@
     "location": "Edinburgh, UK",
     "websiteUrl": "https://roe.dev",
     "createdAt": "2017-05-15T12:06:30.000Z",
-    "followers": 6131,
+    "followers": 6132,
     "following": 173,
     "publicRepos": 904
   },
@@ -3450,8 +3504,8 @@
           "ssh": "git@github.com:43081j/ai-policy.git"
         },
         "createdAt": "2026-09-16T13:01:04.000Z",
-        "updatedAt": "2026-10-08T13:38:02.000Z",
-        "pushedAt": "2026-10-02T08:30:07.000Z",
+        "updatedAt": "2026-10-09T08:44:40.000Z",
+        "pushedAt": "2026-10-09T08:44:35.000Z",
         "owner": {
           "forge": "github",
           "instance": "github.com",
@@ -3486,11 +3540,11 @@
     ],
     "cursor": {
       "nextUrl": "https://api.github.com/user/repos?per_page=3&page=2",
-      "etag": "W/\"bec3d141c797574b8f14a7de60f2a1102b85ffa503f8b11b16b3fd61f843a523\""
+      "etag": "W/\"36153040d386530726dc044ac834ef12a0d84fa6f40f05d9fb9bea83cecb4372\""
     },
     "rateLimit": {
       "limit": 5000,
-      "remaining": 4924,
+      "remaining": 4879,
       "resetAt": "<now>"
     }
   },
@@ -3500,7 +3554,40 @@
         "ref": {
           "forge": "github",
           "instance": "github.com",
-          "id": "25865367213"
+          "id": "24792880488"
+        },
+        "subject": {
+          "type": "thread",
+          "thread": {
+            "forge": "github",
+            "instance": "github.com",
+            "repo": {
+              "forge": "github",
+              "instance": "github.com",
+              "owner": "nuxt-modules",
+              "name": "i18n",
+              "externalId": "110467581"
+            },
+            "kind": "pull_request",
+            "typeRaw": "PullRequest",
+            "number": "4088"
+          }
+        },
+        "subjectTypeRaw": "PullRequest",
+        "reason": "mention",
+        "reasonRaw": "mention",
+        "unread": true,
+        "title": "fix(nitro): support Nuxt 5 runtime APIs",
+        "subjectState": "unknown",
+        "updatedAt": "<now>",
+        "lastReadAt": "2026-08-14T16:49:31.000Z",
+        "url": "https://api.github.com/repos/nuxt-modules/i18n/pulls/4088"
+      },
+      {
+        "ref": {
+          "forge": "github",
+          "instance": "github.com",
+          "id": "24777394658"
         },
         "subject": {
           "type": "thread",
@@ -3511,96 +3598,30 @@
               "forge": "github",
               "instance": "github.com",
               "owner": "nuxt",
-              "name": "fonts",
-              "externalId": "760091517"
+              "name": "nuxt",
+              "externalId": "71995937"
             },
             "kind": "pull_request",
             "typeRaw": "PullRequest",
-            "number": "923"
+            "number": "35838"
           }
         },
         "subjectTypeRaw": "PullRequest",
-        "reason": "state_change",
-        "reasonRaw": "state_change",
+        "reason": "review_requested",
+        "reasonRaw": "review_requested",
         "unread": true,
-        "title": "chore(deps): update dependency cal-sans to v2",
+        "title": "docs(nuxt): document runtime config env name workarounds",
         "subjectState": "unknown",
         "updatedAt": "<now>",
-        "lastReadAt": "<now>",
-        "url": "https://api.github.com/repos/nuxt/fonts/pulls/923"
-      },
-      {
-        "ref": {
-          "forge": "github",
-          "instance": "github.com",
-          "id": "26168717541"
-        },
-        "subject": {
-          "type": "thread",
-          "thread": {
-            "forge": "github",
-            "instance": "github.com",
-            "repo": {
-              "forge": "github",
-              "instance": "github.com",
-              "owner": "danielroe",
-              "name": "forges",
-              "externalId": "1403631860"
-            },
-            "kind": "pull_request",
-            "typeRaw": "PullRequest",
-            "number": "33"
-          }
-        },
-        "subjectTypeRaw": "PullRequest",
-        "reason": "mention",
-        "reasonRaw": "mention",
-        "unread": true,
-        "title": "v0.1.0",
-        "subjectState": "unknown",
-        "updatedAt": "2026-10-08T17:45:11.000Z",
-        "lastReadAt": "2026-10-08T10:44:07.000Z",
-        "url": "https://api.github.com/repos/danielroe/forges/pulls/33"
-      },
-      {
-        "ref": {
-          "forge": "github",
-          "instance": "github.com",
-          "id": "25931891253"
-        },
-        "subject": {
-          "type": "thread",
-          "thread": {
-            "forge": "github",
-            "instance": "github.com",
-            "repo": {
-              "forge": "github",
-              "instance": "github.com",
-              "owner": "danielroe",
-              "name": "firstcommit.is",
-              "externalId": "682162565"
-            },
-            "kind": "pull_request",
-            "typeRaw": "PullRequest",
-            "number": "345"
-          }
-        },
-        "subjectTypeRaw": "PullRequest",
-        "reason": "subscribed",
-        "reasonRaw": "subscribed",
-        "unread": true,
-        "title": "chore(deps): update dependency cal-sans to v2",
-        "subjectState": "unknown",
-        "updatedAt": "2026-10-08T17:39:16.000Z",
-        "lastReadAt": "2026-09-28T07:04:01.000Z",
-        "url": "https://api.github.com/repos/danielroe/firstcommit.is/pulls/345"
+        "lastReadAt": "2026-07-26T12:20:45.000Z",
+        "url": "https://api.github.com/repos/nuxt/nuxt/pulls/35838"
       }
     ],
     "cursor": {
       "nextUrl": "https://api.github.com/notifications?all=false&per_page=3&page=2",
-      "etag": "W/\"adcbc88d028ca239c893843257abe2d762a2315625f07033c63192981be9eb7e\""
+      "etag": "W/\"f12e50e06b28ddec3b166a0c1a76b6f0b560a41be1d8c62e793e55b8ce0db010\""
     },
-    "etag": "W/\"adcbc88d028ca239c893843257abe2d762a2315625f07033c63192981be9eb7e\"",
+    "etag": "W/\"f12e50e06b28ddec3b166a0c1a76b6f0b560a41be1d8c62e793e55b8ce0db010\"",
     "notModified": false
   },
   "checks": {
@@ -3609,6 +3630,74 @@
   },
   "ci runs": {
     "items": [
+      {
+        "ref": {
+          "forge": "github",
+          "instance": "github.com",
+          "repo": {
+            "forge": "github",
+            "instance": "github.com",
+            "owner": "h3js",
+            "name": "h3"
+          },
+          "id": "37888487900"
+        },
+        "name": "autofix.ci",
+        "state": "failure",
+        "stateRaw": "completed",
+        "number": "4251",
+        "eventRaw": "pull_request",
+        "branch": "fix/tracing-use-mount",
+        "sha": "0a4b48c7a55f6f8432d719c537dfac0791215c9e",
+        "url": "https://github.com/h3js/h3/actions/runs/37888487900",
+        "actor": {
+          "forge": "github",
+          "instance": "github.com",
+          "login": "Mihir-Rabari",
+          "id": "169349389",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/169349389?v=4",
+          "url": "https://github.com/Mihir-Rabari",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "createdAt": "2026-10-09T05:25:18.000Z",
+        "startedAt": "2026-10-09T05:25:18.000Z",
+        "completedAt": "2026-10-09T05:25:18.000Z"
+      },
+      {
+        "ref": {
+          "forge": "github",
+          "instance": "github.com",
+          "repo": {
+            "forge": "github",
+            "instance": "github.com",
+            "owner": "h3js",
+            "name": "h3"
+          },
+          "id": "37888487521"
+        },
+        "name": "ci",
+        "state": "failure",
+        "stateRaw": "completed",
+        "number": "4744",
+        "eventRaw": "pull_request",
+        "branch": "fix/tracing-use-mount",
+        "sha": "0a4b48c7a55f6f8432d719c537dfac0791215c9e",
+        "url": "https://github.com/h3js/h3/actions/runs/37888487521",
+        "actor": {
+          "forge": "github",
+          "instance": "github.com",
+          "login": "Mihir-Rabari",
+          "id": "169349389",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/169349389?v=4",
+          "url": "https://github.com/Mihir-Rabari",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "createdAt": "2026-10-09T05:25:17.000Z",
+        "startedAt": "2026-10-09T05:25:17.000Z",
+        "completedAt": "2026-10-09T05:25:17.000Z"
+      },
       {
         "ref": {
           "forge": "github",
@@ -3642,83 +3731,15 @@
         "createdAt": "2026-10-07T15:25:23.000Z",
         "startedAt": "2026-10-07T15:25:23.000Z",
         "completedAt": "2026-10-07T15:25:23.000Z"
-      },
-      {
-        "ref": {
-          "forge": "github",
-          "instance": "github.com",
-          "repo": {
-            "forge": "github",
-            "instance": "github.com",
-            "owner": "h3js",
-            "name": "h3"
-          },
-          "id": "37643783367"
-        },
-        "name": "ci",
-        "state": "failure",
-        "stateRaw": "completed",
-        "number": "4743",
-        "eventRaw": "pull_request",
-        "branch": "docs/add-h3-prometheus-community",
-        "sha": "a0a405d6441c4a9c66ac30c3adc0d11d3acea53f",
-        "url": "https://github.com/h3js/h3/actions/runs/37643783367",
-        "actor": {
-          "forge": "github",
-          "instance": "github.com",
-          "login": "s00d",
-          "id": "2684895",
-          "avatarUrl": "https://avatars.githubusercontent.com/u/2684895?v=4",
-          "url": "https://github.com/s00d",
-          "typeRaw": "User",
-          "isBotHint": false
-        },
-        "createdAt": "2026-10-07T15:25:23.000Z",
-        "startedAt": "2026-10-07T15:25:23.000Z",
-        "completedAt": "2026-10-07T15:25:23.000Z"
-      },
-      {
-        "ref": {
-          "forge": "github",
-          "instance": "github.com",
-          "repo": {
-            "forge": "github",
-            "instance": "github.com",
-            "owner": "h3js",
-            "name": "h3"
-          },
-          "id": "37622425333"
-        },
-        "name": "publish",
-        "state": "failure",
-        "stateRaw": "completed",
-        "number": "76",
-        "eventRaw": "workflow_run",
-        "branch": "main",
-        "sha": "66cfb8a357b6285451bad498c2c40002601fae98",
-        "url": "https://github.com/h3js/h3/actions/runs/37622425333",
-        "actor": {
-          "forge": "github",
-          "instance": "github.com",
-          "login": "pi0",
-          "id": "5158436",
-          "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?v=4",
-          "url": "https://github.com/pi0",
-          "typeRaw": "User",
-          "isBotHint": false
-        },
-        "createdAt": "2026-10-07T12:38:14.000Z",
-        "startedAt": "2026-10-07T12:38:14.000Z",
-        "completedAt": "2026-10-07T12:38:45.000Z"
       }
     ],
     "cursor": {
       "nextUrl": "https://api.github.com/repositories/313641207/actions/runs?per_page=3&page=2",
-      "etag": "W/\"36b6dc3b8792a686fcd27a5a6586201197a90ce53154980f9e35a91dedf75867\""
+      "etag": "W/\"328a0fcf25ac03c3fc21d8e4f5615027deb8f9812769df7304234e65dd262e33\""
     },
     "rateLimit": {
       "limit": 5000,
-      "remaining": 4920,
+      "remaining": 4875,
       "resetAt": "<now>"
     }
   },
@@ -3732,37 +3753,93 @@
         "owner": "h3js",
         "name": "h3"
       },
-      "id": "37643783539"
+      "id": "37888487900"
     },
     "name": "autofix.ci",
     "state": "failure",
     "stateRaw": "completed",
-    "number": "4250",
+    "number": "4251",
     "eventRaw": "pull_request",
-    "branch": "docs/add-h3-prometheus-community",
-    "sha": "a0a405d6441c4a9c66ac30c3adc0d11d3acea53f",
-    "url": "https://github.com/h3js/h3/actions/runs/37643783539",
+    "branch": "fix/tracing-use-mount",
+    "sha": "0a4b48c7a55f6f8432d719c537dfac0791215c9e",
+    "url": "https://github.com/h3js/h3/actions/runs/37888487900",
     "actor": {
       "forge": "github",
       "instance": "github.com",
-      "login": "s00d",
-      "id": "2684895",
-      "avatarUrl": "https://avatars.githubusercontent.com/u/2684895?v=4",
-      "url": "https://github.com/s00d",
+      "login": "Mihir-Rabari",
+      "id": "169349389",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/169349389?v=4",
+      "url": "https://github.com/Mihir-Rabari",
       "typeRaw": "User",
       "isBotHint": false
     },
-    "createdAt": "2026-10-07T15:25:23.000Z",
-    "startedAt": "2026-10-07T15:25:23.000Z",
-    "completedAt": "2026-10-07T15:25:23.000Z"
+    "createdAt": "2026-10-09T05:25:18.000Z",
+    "startedAt": "2026-10-09T05:25:18.000Z",
+    "completedAt": "2026-10-09T05:25:18.000Z"
   },
   "ci jobs": {
-    "items": [],
+    "items": [
+      {
+        "ref": {
+          "forge": "github",
+          "instance": "github.com",
+          "repo": {
+            "forge": "github",
+            "instance": "github.com",
+            "owner": "forges-fixtures",
+            "name": "forges-fixtures"
+          },
+          "id": "113794275340",
+          "run": {
+            "forge": "github",
+            "instance": "github.com",
+            "repo": {
+              "forge": "github",
+              "instance": "github.com",
+              "owner": "forges-fixtures",
+              "name": "forges-fixtures"
+            },
+            "id": "37922724302"
+          }
+        },
+        "name": "check",
+        "state": "success",
+        "stateRaw": "completed",
+        "url": "https://github.com/forges-fixtures/forges-fixtures/actions/runs/37922724302/job/113794275340",
+        "startedAt": "2026-10-09T11:16:38.000Z",
+        "completedAt": "2026-10-09T11:16:40.000Z"
+      }
+    ],
     "rateLimit": {
       "limit": 5000,
-      "remaining": 4919,
+      "remaining": 4870,
       "resetAt": "<now>"
     }
+  },
+  "ci log": {
+    "length": 2035,
+    "head": [
+      "2026-10-09T11:16:38.8932427Z Current runner version: '2.337.0'",
+      "2026-10-09T11:16:38.8952094Z ##[group]Runner Image Provisioner",
+      "2026-10-09T11:16:38.8952844Z Hosted Compute Agent",
+      "2026-10-09T11:16:38.8953205Z Version: 20261002.596",
+      "2026-10-09T11:16:38.8953612Z Commit: c3d12f3313a95f25162a1503be624f3b0617f8c0",
+      "2026-10-09T11:16:38.8954121Z Build Date: 2026-10-02T22:28:27Z",
+      "2026-10-09T11:16:38.8954543Z Worker ID: {0b3fc26c-2fb4-4ee9-ad33-ace6137b7130}",
+      "2026-10-09T11:16:38.8955007Z Region: centralus",
+      "2026-10-09T11:16:38.8955349Z Cloud: Azure",
+      "2026-10-09T11:16:38.8955699Z ##[endgroup]",
+      "2026-10-09T11:16:38.8956653Z ##[group]Operating System",
+      "2026-10-09T11:16:38.8957027Z Ubuntu",
+      "2026-10-09T11:16:38.8957379Z 24.04.5",
+      "2026-10-09T11:16:38.8957708Z LTS",
+      "2026-10-09T11:16:38.8958056Z ##[endgroup]",
+      "2026-10-09T11:16:38.8958453Z ##[group]Runner Image",
+      "2026-10-09T11:16:38.8958811Z Image: ubuntu-24.04",
+      "2026-10-09T11:16:38.8959189Z Version: 20261004.327.1",
+      "2026-10-09T11:16:38.8960207Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20261004.327/images/ubuntu/Ubuntu2404-Readme.md",
+      "2026-10-09T11:16:38.8961122Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20261004.327"
+    ]
   },
   "readme": {
     "path": "README.md",
@@ -3944,7 +4021,7 @@
     ],
     "rateLimit": {
       "limit": 5000,
-      "remaining": 4917,
+      "remaining": 4868,
       "resetAt": "<now>"
     }
   },
@@ -3972,7 +4049,7 @@
     },
     "rateLimit": {
       "limit": 5000,
-      "remaining": 4916,
+      "remaining": 4867,
       "resetAt": "<now>"
     }
   },
@@ -3997,7 +4074,7 @@
     },
     "rateLimit": {
       "limit": 5000,
-      "remaining": 4915,
+      "remaining": 4866,
       "resetAt": "<now>"
     }
   },
@@ -4158,7 +4235,7 @@
     },
     "rateLimit": {
       "limit": 5000,
-      "remaining": 4913,
+      "remaining": 4864,
       "resetAt": "<now>"
     }
   },
@@ -4404,7 +4481,7 @@
     },
     "rateLimit": {
       "limit": 5000,
-      "remaining": 4910,
+      "remaining": 4861,
       "resetAt": "<now>"
     }
   },
@@ -4507,8 +4584,57 @@
     "url": "https://github.com/h3js/h3/releases/tag/v2.0.2",
     "assets": []
   },
+  "release asset": {
+    "name": "fixture.txt",
+    "size": 47,
+    "sha256": "4b3d278361040a9b56be04636cfb74a96746dd8005dcb901bddeaf5f7790acfb"
+  },
   "search threads": {
     "items": [
+      {
+        "ref": {
+          "forge": "github",
+          "instance": "github.com",
+          "repo": {
+            "forge": "github",
+            "instance": "github.com",
+            "owner": "h3js",
+            "name": "h3"
+          },
+          "kind": "pull_request",
+          "number": "1576",
+          "externalId": "PR_kwDOErHI988AAAABHeLZ7g"
+        },
+        "kind": "pull_request",
+        "title": "fix(tracing): mount nested apps passed to `use()`",
+        "body": "`tracingPlugin` breaks mounting nested apps with `use()`. The plugin's `use()` override wraps its argument with `wrapMiddleware()` before the original `use()` gets to inspect it. `use()` dispatches non-function inputs (an H3 app or any other mountable object) to `mount()` — but after the wrapper, the input is a function, so:\n\n- the nested app is never mounted: its routes silently 404,\n- a middleware that calls the wrapped app as a function is registered instead, so hitting the base path exactly (e.g. `/api`) throws a `TypeError` (500).\n\n`use(route, handler: Middleware | H3, opts?)` is a public documented signature, and the plugin's `mount()` override already propagates tracing to mounted apps — so `app.use(\"/api\", app2)` should behave exactly like `app.mount(\"/api\", app2)`. The existing tracing tests cover `.mount()` and function middlewares but never the mountable `use()` shape, which is how this slipped through.\n\nThe fix passes non-function inputs through to the original `use()` unwrapped, in both call shapes. The `mount()` override then takes over and the nested app is traced like any other mount.\n\nTests: new regression test `mounts a nested app passed to `use()`\"` mounts a nested app with `t.app.use(\"/api\", nestedApp)` on the tracing-enabled matrix app and asserts the route responds 200 with the right body and shows up in the traced route events. It fails on `main` (404) and passes with this change. `test/tracing.test.ts` is 54/54 on both web and node targets; `tsc --noEmit`, `oxlint` and `oxfmt --check` are clean. Full suite: 3 failures (`test/utils.test.ts`, `test/unit/event.test.ts`, `test/unit/route-normalize.test.ts`) — all three also fail on unmodified `main`, unrelated to this change.\n\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n\n## Summary by CodeRabbit\n\n* **Bug Fixes**\n  * Nested H3 apps mounted with `use()` now remain mountable, and tracing events include the mounted route’s full path.\n\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
+        "state": "open",
+        "stateRaw": "open",
+        "isDraft": false,
+        "author": {
+          "forge": "github",
+          "instance": "github.com",
+          "login": "Mihir-Rabari",
+          "id": "169349389",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/169349389?v=4",
+          "url": "https://github.com/Mihir-Rabari",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "assignees": [],
+        "reviewers": [],
+        "labels": [],
+        "url": "https://github.com/h3js/h3/pull/1576",
+        "createdAt": "2026-10-09T05:25:13.000Z",
+        "updatedAt": "2026-10-09T05:26:53.000Z",
+        "lastActivityAt": "2026-10-09T05:26:53.000Z",
+        "locked": false,
+        "commentCount": 1,
+        "reactions": {
+          "total": 0,
+          "counts": {}
+        }
+      },
       {
         "ref": {
           "forge": "github",
@@ -4598,56 +4724,6 @@
         "lastActivityAt": "2026-09-14T14:34:57.000Z",
         "locked": false,
         "commentCount": 2,
-        "reactions": {
-          "total": 0,
-          "counts": {}
-        }
-      },
-      {
-        "ref": {
-          "forge": "github",
-          "instance": "github.com",
-          "repo": {
-            "forge": "github",
-            "instance": "github.com",
-            "owner": "h3js",
-            "name": "h3"
-          },
-          "kind": "issue",
-          "number": "1567",
-          "externalId": "I_kwDOErHI988AAAABUYFmsg"
-        },
-        "kind": "issue",
-        "title": "getValidatedQuery should account for ambiguous data",
-        "body": "### Describe the feature\n\n## Premise\n\nreadQuery() as it is currently only works if you either\n\n1. have extremely simple data - basically exclusively strings.\n2. make a custom schema with coercing (assuming the validation library supports everything needed) for every API endpoint, not really being able to reuse existing schemas\n3. send all data as body payload (this wouldn't be a problem if GET and DELETE were allowed to have bodies)\n4. send all data as stringified JSON\n5. or (like me) make a shim that tries its best at adjusting the data to better fit a schema\n\nnone of these options are particularly enticing, so (imo) there should be a system to somehow fix this in h3.\n\n## My shim/workaround\n\nwithout posting code, I basically crawl through the zod type definition alongside the passed data and adjust the data where it can't be unambiguously represented by query parameters.\n\nI'm not sure how viable this is for h3 considering it's supposed to be somewhat validator-agnostic… But then again, having this feature for a limited amount of libraries would be better than having it for none at all.\n\n## Additional notes\n\nzod has already declined to implement a version of this on their side: https://github.com/colinhacks/zod/issues/2873\n\n### Additional information\n\n- [ ] Would you be willing to help implement this feature?",
-        "state": "open",
-        "stateRaw": "open",
-        "isDraft": false,
-        "author": {
-          "forge": "github",
-          "instance": "github.com",
-          "login": "LMR-eitea",
-          "id": "332368094",
-          "avatarUrl": "https://avatars.githubusercontent.com/u/332368094?v=4",
-          "url": "https://github.com/LMR-eitea",
-          "typeRaw": "User",
-          "isBotHint": false
-        },
-        "assignees": [],
-        "reviewers": [],
-        "labels": [
-          {
-            "name": "enhancement",
-            "colour": "a2eeef",
-            "description": "New feature or request"
-          }
-        ],
-        "url": "https://github.com/h3js/h3/issues/1567",
-        "createdAt": "2026-10-01T12:48:44.000Z",
-        "updatedAt": "2026-10-01T12:48:44.000Z",
-        "lastActivityAt": "2026-10-01T12:48:44.000Z",
-        "locked": false,
-        "commentCount": 0,
         "reactions": {
           "total": 0,
           "counts": {}
@@ -4746,7 +4822,7 @@
           "ssh": "git@github.com:h3js/h3.git"
         },
         "createdAt": "2020-11-17T14:15:44.000Z",
-        "updatedAt": "2026-10-08T17:07:53.000Z",
+        "updatedAt": "2026-10-09T00:25:59.000Z",
         "pushedAt": "2026-10-07T12:37:26.000Z",
         "owner": {
           "forge": "github",
@@ -4761,8 +4837,8 @@
         "language": "TypeScript",
         "homepage": "https://h3.dev",
         "licence": "MIT",
-        "stars": 5448,
-        "forks": 368,
+        "stars": 5449,
+        "forks": 369,
         "features": {
           "issues": true,
           "pullRequests": true,
@@ -4801,7 +4877,7 @@
         },
         "createdAt": "2026-08-04T04:20:36.000Z",
         "updatedAt": "<now>",
-        "pushedAt": "2026-09-30T10:23:49.000Z",
+        "pushedAt": "2026-10-09T02:48:01.000Z",
         "owner": {
           "forge": "github",
           "instance": "github.com",
@@ -4814,8 +4890,8 @@
         },
         "language": "JavaScript",
         "licence": "Apache-2.0",
-        "stars": 2230,
-        "forks": 262,
+        "stars": 2252,
+        "forks": 266,
         "features": {
           "issues": true,
           "pullRequests": true,
@@ -5001,22 +5077,271 @@
       "resetAt": "<now>"
     }
   },
-  "security alerts": {
-    "items": [],
-    "warnings": [
+  "webhooks": {
+    "items": [
       {
-        "code": "insufficient_scope",
-        "message": "Credentials lack the scope or permission for this request",
-        "subject": "dependency",
-        "cause": {
-          "name": "InsufficientScopeError",
-          "message": "Credentials lack the scope or permission for this request",
-          "status": 403
-        }
+        "ref": {
+          "forge": "github",
+          "instance": "github.com",
+          "target": {
+            "forge": "github",
+            "instance": "github.com",
+            "owner": "forges-fixtures",
+            "name": "forges-fixtures"
+          },
+          "id": "694647722"
+        },
+        "url": "https://example.com/hook",
+        "events": [
+          "comment",
+          "state_change",
+          "label",
+          "assignment"
+        ],
+        "nativeEvents": [
+          "issues",
+          "issue_comment"
+        ],
+        "active": true,
+        "contentType": "json",
+        "createdAt": "2026-10-09T11:02:01.000Z",
+        "updatedAt": "2026-10-09T11:02:01.000Z"
+      }
+    ],
+    "rateLimit": {
+      "limit": 500,
+      "remaining": 499,
+      "resetAt": "<now>"
+    }
+  },
+  "webhook deliveries": {
+    "items": [
+      {
+        "ref": {
+          "forge": "github",
+          "instance": "github.com",
+          "hook": {
+            "forge": "github",
+            "instance": "github.com",
+            "target": {
+              "forge": "github",
+              "instance": "github.com",
+              "owner": "forges-fixtures",
+              "name": "forges-fixtures"
+            },
+            "id": "694647722"
+          },
+          "id": "3847311080409841700",
+          "guid": "1b20c670-c3d1-11f1-8453-605a3e0f1891"
+        },
+        "event": "issues.closed",
+        "status": 502,
+        "ok": false,
+        "deliveredAt": "2026-10-09T11:03:50.390Z",
+        "duration": 0
+      },
+      {
+        "ref": {
+          "forge": "github",
+          "instance": "github.com",
+          "hook": {
+            "forge": "github",
+            "instance": "github.com",
+            "target": {
+              "forge": "github",
+              "instance": "github.com",
+              "owner": "forges-fixtures",
+              "name": "forges-fixtures"
+            },
+            "id": "694647722"
+          },
+          "id": "3847311077039726600",
+          "guid": "1a2e5d22-c3d1-11f1-8d70-6416d27ef80f"
+        },
+        "event": "issues.opened",
+        "status": 502,
+        "ok": false,
+        "deliveredAt": "2026-10-09T11:03:48.833Z",
+        "duration": 0
+      },
+      {
+        "ref": {
+          "forge": "github",
+          "instance": "github.com",
+          "hook": {
+            "forge": "github",
+            "instance": "github.com",
+            "target": {
+              "forge": "github",
+              "instance": "github.com",
+              "owner": "forges-fixtures",
+              "name": "forges-fixtures"
+            },
+            "id": "694647722"
+          },
+          "id": "3847310848498336000",
+          "guid": "dad207f0-c3d0-11f1-9ec2-4c4a58fefe9e"
+        },
+        "event": "ping",
+        "status": 502,
+        "ok": false,
+        "deliveredAt": "2026-10-09T11:02:02.366Z",
+        "duration": 0
+      }
+    ],
+    "rateLimit": {
+      "limit": 500,
+      "remaining": 498,
+      "resetAt": "<now>"
+    }
+  },
+  "dependency alerts": {
+    "items": [
+      {
+        "ref": {
+          "forge": "github",
+          "instance": "github.com",
+          "repo": {
+            "forge": "github",
+            "instance": "github.com",
+            "owner": "forges-fixtures",
+            "name": "forges-fixtures"
+          },
+          "id": "6",
+          "kind": "dependency",
+          "severityRaw": "high"
+        },
+        "kind": "dependency",
+        "kindRaw": "dependabot",
+        "severity": "high",
+        "severityRaw": "high",
+        "state": "open",
+        "stateRaw": "open",
+        "title": "lodash vulnerable to Code Injection via `_.template` imports key names",
+        "package": {
+          "ecosystem": "npm",
+          "name": "lodash",
+          "vulnerableRange": ">= 4.0.0, <= 4.17.23",
+          "fixedIn": "4.18.0"
+        },
+        "url": "https://github.com/forges-fixtures/forges-fixtures/security/dependabot/6",
+        "createdAt": "2026-10-09T11:16:40.000Z",
+        "updatedAt": "2026-10-09T11:16:40.000Z"
+      },
+      {
+        "ref": {
+          "forge": "github",
+          "instance": "github.com",
+          "repo": {
+            "forge": "github",
+            "instance": "github.com",
+            "owner": "forges-fixtures",
+            "name": "forges-fixtures"
+          },
+          "id": "5",
+          "kind": "dependency",
+          "severityRaw": "medium"
+        },
+        "kind": "dependency",
+        "kindRaw": "dependabot",
+        "severity": "medium",
+        "severityRaw": "medium",
+        "state": "open",
+        "stateRaw": "open",
+        "title": "lodash vulnerable to Prototype Pollution via array path bypass in `_.unset` and `_.omit`",
+        "package": {
+          "ecosystem": "npm",
+          "name": "lodash",
+          "vulnerableRange": "<= 4.17.23",
+          "fixedIn": "4.18.0"
+        },
+        "url": "https://github.com/forges-fixtures/forges-fixtures/security/dependabot/5",
+        "createdAt": "2026-10-09T11:16:40.000Z",
+        "updatedAt": "2026-10-09T11:16:40.000Z"
+      },
+      {
+        "ref": {
+          "forge": "github",
+          "instance": "github.com",
+          "repo": {
+            "forge": "github",
+            "instance": "github.com",
+            "owner": "forges-fixtures",
+            "name": "forges-fixtures"
+          },
+          "id": "4",
+          "kind": "dependency",
+          "severityRaw": "medium"
+        },
+        "kind": "dependency",
+        "kindRaw": "dependabot",
+        "severity": "medium",
+        "severityRaw": "medium",
+        "state": "open",
+        "stateRaw": "open",
+        "title": "Lodash has Prototype Pollution Vulnerability in `_.unset` and `_.omit` functions",
+        "package": {
+          "ecosystem": "npm",
+          "name": "lodash",
+          "vulnerableRange": ">= 4.0.0, <= 4.17.22",
+          "fixedIn": "4.17.23"
+        },
+        "url": "https://github.com/forges-fixtures/forges-fixtures/security/dependabot/4",
+        "createdAt": "2026-10-09T11:16:39.000Z",
+        "updatedAt": "2026-10-09T11:16:39.000Z"
       }
     ],
     "cursor": {
-      "token": "1:"
+      "nextUrl": "https://api.github.com/repositories/1411702196/dependabot/alerts?per_page=3&after=Y3Vyc29yOnYyOpPPAAABoSBhJR7LQAGAAAAAAADPAAAAAc59BOc%3D",
+      "etag": "W/\"71f68f16064553817db8d314fbc4f37ddeb7e7fd63505f94354299e60202a1f4\"",
+      "token": "0:"
+    },
+    "rateLimit": {
+      "limit": 5000,
+      "remaining": 4984,
+      "resetAt": "<now>"
+    }
+  },
+  "code scanning alerts": {
+    "items": [
+      {
+        "ref": {
+          "forge": "github",
+          "instance": "github.com",
+          "repo": {
+            "forge": "github",
+            "instance": "github.com",
+            "owner": "forges-fixtures",
+            "name": "forges-fixtures"
+          },
+          "id": "1",
+          "kind": "code_scanning",
+          "severityRaw": "high"
+        },
+        "kind": "code_scanning",
+        "kindRaw": "CodeQL",
+        "severity": "high",
+        "severityRaw": "high",
+        "state": "open",
+        "stateRaw": "open",
+        "title": "Incomplete string escaping or encoding",
+        "url": "https://github.com/forges-fixtures/forges-fixtures/security/code-scanning/1",
+        "createdAt": "2026-10-09T11:04:38.000Z",
+        "updatedAt": "2026-10-09T11:04:38.000Z"
+      }
+    ],
+    "rateLimit": {
+      "limit": 5000,
+      "remaining": 4983,
+      "resetAt": "<now>"
+    }
+  },
+  "secret alerts": {
+    "items": [],
+    "rateLimit": {
+      "limit": 5000,
+      "remaining": 4858,
+      "resetAt": "<now>"
     }
   }
 }

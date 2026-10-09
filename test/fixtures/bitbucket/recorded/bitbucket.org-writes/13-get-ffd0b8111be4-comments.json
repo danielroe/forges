@@ -1,0 +1,67 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.bitbucket.org/2.0/repositories/danielroe/forges-fixtures/commit/ffd0b8111be4/comments?pagelen=50"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"f790367671b15796eb882f8fab1fcdf2\"",
+      "x-ratelimit-limit": "1000"
+    },
+    "body": {
+      "values": [
+        {
+          "id": 21141357,
+          "created_on": "2026-10-09T14:01:05.615818+00:00",
+          "updated_on": "2026-10-09T14:01:06.158163+00:00",
+          "content": {
+            "type": "rendered",
+            "raw": "An edited commit comment from run 20261009140046.",
+            "markup": "markdown",
+            "html": "<p>An edited commit comment from run <a href=\"https://bitbucket.org/danielroe/forges-fixtures/commits/20261009140046\" rel=\"nofollow\" class=\"ap-connect-link\">20261009140046</a>.</p>"
+          },
+          "user": {
+            "type": "app_user",
+            "links": {
+              "avatar": {
+                "href": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/712020:9d3c7e45-eeca-4000-83c8-1687e1f37a88/fd4dd39c-24a8-4ef0-9d69-e68a0806b45f/128"
+              }
+            },
+            "created_on": "2026-10-09T11:58:47.794123+00:00",
+            "display_name": "roebot",
+            "uuid": "{6cfdba34-c97e-4f75-b163-0f801a227ce8}",
+            "account_id": "712020:9d3c7e45-eeca-4000-83c8-1687e1f37a88",
+            "account_status": "active",
+            "kind": "repository_access_token"
+          },
+          "deleted": false,
+          "type": "commit_comment",
+          "links": {
+            "self": {
+              "href": "https://api.bitbucket.org/2.0/repositories/danielroe/forges-fixtures/commit/ffd0b8111be44559053712cdd3eb6dc662b9e97d/comments/21141357"
+            },
+            "html": {
+              "href": "https://bitbucket.org/danielroe/forges-fixtures/commits/ffd0b8111be44559053712cdd3eb6dc662b9e97d#comment-21141357"
+            }
+          },
+          "commit": {
+            "hash": "ffd0b8111be44559053712cdd3eb6dc662b9e97d",
+            "links": {
+              "self": {
+                "href": "https://api.bitbucket.org/2.0/repositories/danielroe/forges-fixtures/commit/ffd0b8111be44559053712cdd3eb6dc662b9e97d"
+              },
+              "html": {
+                "href": "https://bitbucket.org/danielroe/forges-fixtures/commits/ffd0b8111be44559053712cdd3eb6dc662b9e97d"
+              }
+            },
+            "type": "commit"
+          }
+        }
+      ],
+      "pagelen": 50,
+      "size": 1,
+      "page": 1
+    }
+  }
+}

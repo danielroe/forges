@@ -1,0 +1,938 @@
+{
+  "author": {
+    "forge": "gitea",
+    "instance": "gitea.com",
+    "login": "roebot",
+    "id": "253592",
+    "avatarUrl": "https://seccdn.libravatar.org/avatar/7d0af08687f4da31dc47abdda8e558689d65a48bf3eb795bc032a553a4b0572b?d=identicon",
+    "url": "https://gitea.com/roebot",
+    "isBotHint": false,
+    "bio": "Machine account operated by @danielroe",
+    "followers": 0,
+    "following": 0
+  },
+  "reviewer": {
+    "forge": "gitea",
+    "instance": "gitea.com",
+    "login": "danielroe",
+    "id": "250665",
+    "name": "Daniel Roe",
+    "avatarUrl": "https://seccdn.libravatar.org/avatar/82a8f6237bb263bac46d7cc8ec3054d715ce6a55a8626d6e977769d57d2c94e6?d=identicon",
+    "url": "https://gitea.com/danielroe",
+    "isBotHint": false,
+    "followers": 0,
+    "following": 0
+  },
+  "create label": {
+    "name": "forges-fixture-20261009142055",
+    "colour": "0e8a16",
+    "description": "Created by run 20261009142055"
+  },
+  "milestones": {
+    "items": [
+      {
+        "id": "6495",
+        "title": "Fixture milestone",
+        "state": "open",
+        "description": "Open milestone for forges fixture recordings."
+      }
+    ]
+  },
+  "create issue": {
+    "ref": {
+      "forge": "gitea",
+      "instance": "gitea.com",
+      "repo": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "owner": "forges-fixtures",
+        "name": "forges-fixtures"
+      },
+      "kind": "issue",
+      "number": "12",
+      "externalId": "508961"
+    },
+    "kind": "issue",
+    "title": "forges fixture 20261009142055: issue",
+    "body": "Opened by run 20261009142055.",
+    "state": "open",
+    "stateRaw": "open",
+    "isDraft": false,
+    "author": {
+      "forge": "gitea",
+      "instance": "gitea.com",
+      "login": "roebot",
+      "id": "253592",
+      "avatarUrl": "https://seccdn.libravatar.org/avatar/7d0af08687f4da31dc47abdda8e558689d65a48bf3eb795bc032a553a4b0572b?d=identicon",
+      "url": "https://gitea.com/roebot",
+      "isBotHint": false
+    },
+    "assignees": [],
+    "reviewers": [],
+    "labels": [],
+    "url": "https://gitea.com/forges-fixtures/forges-fixtures/issues/12",
+    "createdAt": "<now>",
+    "updatedAt": "<now>",
+    "lastActivityAt": "<now>",
+    "locked": false,
+    "commentCount": 0
+  },
+  "issue comment": {
+    "ref": {
+      "forge": "gitea",
+      "instance": "gitea.com",
+      "thread": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "repo": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "owner": "forges-fixtures",
+          "name": "forges-fixtures"
+        },
+        "kind": "issue",
+        "number": "12",
+        "externalId": "508961"
+      },
+      "id": "1750509"
+    },
+    "body": "A comment from run 20261009142055.",
+    "author": {
+      "forge": "gitea",
+      "instance": "gitea.com",
+      "login": "roebot",
+      "id": "253592",
+      "avatarUrl": "https://seccdn.libravatar.org/avatar/7d0af08687f4da31dc47abdda8e558689d65a48bf3eb795bc032a553a4b0572b?d=identicon",
+      "url": "https://gitea.com/roebot",
+      "isBotHint": false
+    },
+    "createdAt": "<now>",
+    "updatedAt": "<now>",
+    "url": "https://gitea.com/forges-fixtures/forges-fixtures/issues/12#issuecomment-1750509"
+  },
+  "issue edit comment": {
+    "ref": {
+      "forge": "gitea",
+      "instance": "gitea.com",
+      "thread": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "repo": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "owner": "forges-fixtures",
+          "name": "forges-fixtures"
+        },
+        "kind": "issue",
+        "number": "12",
+        "externalId": "508961"
+      },
+      "id": "1750509"
+    },
+    "body": "An edited comment from run 20261009142055.",
+    "author": {
+      "forge": "gitea",
+      "instance": "gitea.com",
+      "login": "roebot",
+      "id": "253592",
+      "avatarUrl": "https://seccdn.libravatar.org/avatar/7d0af08687f4da31dc47abdda8e558689d65a48bf3eb795bc032a553a4b0572b?d=identicon",
+      "url": "https://gitea.com/roebot",
+      "isBotHint": false
+    },
+    "createdAt": "<now>",
+    "updatedAt": "<now>",
+    "url": "https://gitea.com/forges-fixtures/forges-fixtures/issues/12#issuecomment-1750509"
+  },
+  "issue upsert comment": {
+    "comment": {
+      "ref": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "thread": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "repo": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "owner": "forges-fixtures",
+            "name": "forges-fixtures"
+          },
+          "kind": "issue",
+          "number": "12",
+          "externalId": "508961"
+        },
+        "id": "1750510"
+      },
+      "body": "An upserted comment from run 20261009142055.\n\n<!-- forges:key=forges-fixture -->",
+      "author": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "login": "roebot",
+        "id": "253592",
+        "avatarUrl": "https://seccdn.libravatar.org/avatar/7d0af08687f4da31dc47abdda8e558689d65a48bf3eb795bc032a553a4b0572b?d=identicon",
+        "url": "https://gitea.com/roebot",
+        "isBotHint": false
+      },
+      "createdAt": "<now>",
+      "updatedAt": "<now>",
+      "url": "https://gitea.com/forges-fixtures/forges-fixtures/issues/12#issuecomment-1750510"
+    },
+    "created": true
+  },
+  "issue update": {
+    "ref": {
+      "forge": "gitea",
+      "instance": "gitea.com",
+      "repo": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "owner": "forges-fixtures",
+        "name": "forges-fixtures"
+      },
+      "kind": "issue",
+      "number": "12",
+      "externalId": "508961"
+    },
+    "kind": "issue",
+    "title": "forges fixture 20261009142055: issue, edited",
+    "body": "Edited by run 20261009142055.",
+    "state": "open",
+    "stateRaw": "open",
+    "isDraft": false,
+    "author": {
+      "forge": "gitea",
+      "instance": "gitea.com",
+      "login": "roebot",
+      "id": "253592",
+      "avatarUrl": "https://seccdn.libravatar.org/avatar/7d0af08687f4da31dc47abdda8e558689d65a48bf3eb795bc032a553a4b0572b?d=identicon",
+      "url": "https://gitea.com/roebot",
+      "isBotHint": false
+    },
+    "assignees": [
+      {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "login": "roebot",
+        "id": "253592",
+        "avatarUrl": "https://seccdn.libravatar.org/avatar/7d0af08687f4da31dc47abdda8e558689d65a48bf3eb795bc032a553a4b0572b?d=identicon",
+        "url": "https://gitea.com/roebot",
+        "isBotHint": false
+      }
+    ],
+    "reviewers": [],
+    "labels": [
+      {
+        "name": "forges-fixture-20261009142055",
+        "colour": "0e8a16",
+        "description": "Created by run 20261009142055"
+      }
+    ],
+    "url": "https://gitea.com/forges-fixtures/forges-fixtures/issues/12",
+    "createdAt": "<now>",
+    "updatedAt": "<now>",
+    "lastActivityAt": "<now>",
+    "locked": false,
+    "commentCount": 1
+  },
+  "create duplicate issue": {
+    "ref": {
+      "forge": "gitea",
+      "instance": "gitea.com",
+      "repo": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "owner": "forges-fixtures",
+        "name": "forges-fixtures"
+      },
+      "kind": "issue",
+      "number": "13",
+      "externalId": "508962"
+    },
+    "kind": "issue",
+    "title": "forges fixture 20261009142055: duplicate",
+    "body": "Opened by run 20261009142055.",
+    "state": "open",
+    "stateRaw": "open",
+    "isDraft": false,
+    "author": {
+      "forge": "gitea",
+      "instance": "gitea.com",
+      "login": "roebot",
+      "id": "253592",
+      "avatarUrl": "https://seccdn.libravatar.org/avatar/7d0af08687f4da31dc47abdda8e558689d65a48bf3eb795bc032a553a4b0572b?d=identicon",
+      "url": "https://gitea.com/roebot",
+      "isBotHint": false
+    },
+    "assignees": [],
+    "reviewers": [],
+    "labels": [],
+    "url": "https://gitea.com/forges-fixtures/forges-fixtures/issues/13",
+    "createdAt": "<now>",
+    "updatedAt": "<now>",
+    "lastActivityAt": "<now>",
+    "locked": false,
+    "commentCount": 0
+  },
+  "create pull": {
+    "ref": {
+      "forge": "gitea",
+      "instance": "gitea.com",
+      "repo": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "owner": "forges-fixtures",
+        "name": "forges-fixtures"
+      },
+      "kind": "pull_request",
+      "number": "14",
+      "externalId": "204701"
+    },
+    "kind": "pull_request",
+    "title": "forges fixture 20261009142055: pull 1",
+    "body": "Opened by run 20261009142055.",
+    "state": "open",
+    "stateRaw": "open",
+    "isDraft": false,
+    "author": {
+      "forge": "gitea",
+      "instance": "gitea.com",
+      "login": "roebot",
+      "id": "253592",
+      "avatarUrl": "https://seccdn.libravatar.org/avatar/7d0af08687f4da31dc47abdda8e558689d65a48bf3eb795bc032a553a4b0572b?d=identicon",
+      "url": "https://gitea.com/roebot",
+      "isBotHint": false
+    },
+    "assignees": [],
+    "reviewers": [],
+    "labels": [],
+    "url": "https://gitea.com/forges-fixtures/forges-fixtures/pulls/14",
+    "createdAt": "<now>",
+    "updatedAt": "<now>",
+    "lastActivityAt": "<now>",
+    "locked": false,
+    "commentCount": 0,
+    "branches": {
+      "head": {
+        "ref": "forges-fixtures/20261009142055-1",
+        "sha": "942d7ed33b4d40d9b83ef4f0c0c5774017b7661d",
+        "repo": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "owner": "forges-fixtures",
+          "name": "forges-fixtures",
+          "externalId": "146918"
+        }
+      },
+      "base": {
+        "ref": "main",
+        "sha": "349906c24759e27fb48293a67a31f973b9da59d3"
+      }
+    }
+  },
+  "create second pull": {
+    "ref": {
+      "forge": "gitea",
+      "instance": "gitea.com",
+      "repo": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "owner": "forges-fixtures",
+        "name": "forges-fixtures"
+      },
+      "kind": "pull_request",
+      "number": "15",
+      "externalId": "204702"
+    },
+    "kind": "pull_request",
+    "title": "forges fixture 20261009142055: pull 2",
+    "body": "Opened by run 20261009142055.",
+    "state": "open",
+    "stateRaw": "open",
+    "isDraft": false,
+    "author": {
+      "forge": "gitea",
+      "instance": "gitea.com",
+      "login": "roebot",
+      "id": "253592",
+      "avatarUrl": "https://seccdn.libravatar.org/avatar/7d0af08687f4da31dc47abdda8e558689d65a48bf3eb795bc032a553a4b0572b?d=identicon",
+      "url": "https://gitea.com/roebot",
+      "isBotHint": false
+    },
+    "assignees": [],
+    "reviewers": [],
+    "labels": [],
+    "url": "https://gitea.com/forges-fixtures/forges-fixtures/pulls/15",
+    "createdAt": "<now>",
+    "updatedAt": "<now>",
+    "lastActivityAt": "<now>",
+    "locked": false,
+    "commentCount": 0,
+    "branches": {
+      "head": {
+        "ref": "forges-fixtures/20261009142055-2",
+        "sha": "09d119b099e20b5fdd3becbef11f98e4c8373061",
+        "repo": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "owner": "forges-fixtures",
+          "name": "forges-fixtures",
+          "externalId": "146918"
+        }
+      },
+      "base": {
+        "ref": "main",
+        "sha": "349906c24759e27fb48293a67a31f973b9da59d3"
+      }
+    }
+  },
+  "create third pull": {
+    "ref": {
+      "forge": "gitea",
+      "instance": "gitea.com",
+      "repo": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "owner": "forges-fixtures",
+        "name": "forges-fixtures"
+      },
+      "kind": "pull_request",
+      "number": "16",
+      "externalId": "204703"
+    },
+    "kind": "pull_request",
+    "title": "forges fixture 20261009142055: pull 3",
+    "body": "Opened by run 20261009142055.",
+    "state": "open",
+    "stateRaw": "open",
+    "isDraft": false,
+    "author": {
+      "forge": "gitea",
+      "instance": "gitea.com",
+      "login": "roebot",
+      "id": "253592",
+      "avatarUrl": "https://seccdn.libravatar.org/avatar/7d0af08687f4da31dc47abdda8e558689d65a48bf3eb795bc032a553a4b0572b?d=identicon",
+      "url": "https://gitea.com/roebot",
+      "isBotHint": false
+    },
+    "assignees": [],
+    "reviewers": [],
+    "labels": [],
+    "url": "https://gitea.com/forges-fixtures/forges-fixtures/pulls/16",
+    "createdAt": "<now>",
+    "updatedAt": "<now>",
+    "lastActivityAt": "<now>",
+    "locked": false,
+    "commentCount": 0,
+    "branches": {
+      "head": {
+        "ref": "forges-fixtures/20261009142055-3",
+        "sha": "a56bc407b04de4e594213c4b7f19f58495d8bf80",
+        "repo": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "owner": "forges-fixtures",
+          "name": "forges-fixtures",
+          "externalId": "146918"
+        }
+      },
+      "base": {
+        "ref": "main",
+        "sha": "349906c24759e27fb48293a67a31f973b9da59d3"
+      }
+    }
+  },
+  "pull comment": {
+    "ref": {
+      "forge": "gitea",
+      "instance": "gitea.com",
+      "thread": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "repo": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "owner": "forges-fixtures",
+          "name": "forges-fixtures"
+        },
+        "kind": "pull_request",
+        "number": "14",
+        "externalId": "204701"
+      },
+      "id": "1750524"
+    },
+    "body": "A comment from run 20261009142055.",
+    "author": {
+      "forge": "gitea",
+      "instance": "gitea.com",
+      "login": "roebot",
+      "id": "253592",
+      "avatarUrl": "https://seccdn.libravatar.org/avatar/7d0af08687f4da31dc47abdda8e558689d65a48bf3eb795bc032a553a4b0572b?d=identicon",
+      "url": "https://gitea.com/roebot",
+      "isBotHint": false
+    },
+    "createdAt": "<now>",
+    "updatedAt": "<now>",
+    "url": "https://gitea.com/forges-fixtures/forges-fixtures/pulls/14#issuecomment-1750524"
+  },
+  "pull edit comment": {
+    "ref": {
+      "forge": "gitea",
+      "instance": "gitea.com",
+      "thread": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "repo": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "owner": "forges-fixtures",
+          "name": "forges-fixtures"
+        },
+        "kind": "pull_request",
+        "number": "14",
+        "externalId": "204701"
+      },
+      "id": "1750524"
+    },
+    "body": "An edited comment from run 20261009142055.",
+    "author": {
+      "forge": "gitea",
+      "instance": "gitea.com",
+      "login": "roebot",
+      "id": "253592",
+      "avatarUrl": "https://seccdn.libravatar.org/avatar/7d0af08687f4da31dc47abdda8e558689d65a48bf3eb795bc032a553a4b0572b?d=identicon",
+      "url": "https://gitea.com/roebot",
+      "isBotHint": false
+    },
+    "createdAt": "<now>",
+    "updatedAt": "<now>",
+    "url": "https://gitea.com/forges-fixtures/forges-fixtures/pulls/14#issuecomment-1750524"
+  },
+  "pull upsert comment": {
+    "comment": {
+      "ref": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "thread": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "repo": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "owner": "forges-fixtures",
+            "name": "forges-fixtures"
+          },
+          "kind": "pull_request",
+          "number": "14",
+          "externalId": "204701"
+        },
+        "id": "1750525"
+      },
+      "body": "An upserted comment from run 20261009142055.\n\n<!-- forges:key=forges-fixture -->",
+      "author": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "login": "roebot",
+        "id": "253592",
+        "avatarUrl": "https://seccdn.libravatar.org/avatar/7d0af08687f4da31dc47abdda8e558689d65a48bf3eb795bc032a553a4b0572b?d=identicon",
+        "url": "https://gitea.com/roebot",
+        "isBotHint": false
+      },
+      "createdAt": "<now>",
+      "updatedAt": "<now>",
+      "url": "https://gitea.com/forges-fixtures/forges-fixtures/pulls/14#issuecomment-1750525"
+    },
+    "created": true
+  },
+  "pull update": {
+    "ref": {
+      "forge": "gitea",
+      "instance": "gitea.com",
+      "repo": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "owner": "forges-fixtures",
+        "name": "forges-fixtures"
+      },
+      "kind": "pull_request",
+      "number": "14",
+      "externalId": "204701"
+    },
+    "kind": "pull_request",
+    "title": "forges fixture 20261009142055: pull, edited",
+    "body": "Edited by run 20261009142055.",
+    "state": "open",
+    "stateRaw": "open",
+    "isDraft": false,
+    "author": {
+      "forge": "gitea",
+      "instance": "gitea.com",
+      "login": "roebot",
+      "id": "253592",
+      "avatarUrl": "https://seccdn.libravatar.org/avatar/7d0af08687f4da31dc47abdda8e558689d65a48bf3eb795bc032a553a4b0572b?d=identicon",
+      "url": "https://gitea.com/roebot",
+      "isBotHint": false
+    },
+    "assignees": [
+      {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "login": "roebot",
+        "id": "253592",
+        "avatarUrl": "https://seccdn.libravatar.org/avatar/7d0af08687f4da31dc47abdda8e558689d65a48bf3eb795bc032a553a4b0572b?d=identicon",
+        "url": "https://gitea.com/roebot",
+        "isBotHint": false
+      }
+    ],
+    "reviewers": [],
+    "labels": [
+      {
+        "name": "forges-fixture-20261009142055",
+        "colour": "0e8a16",
+        "description": "Created by run 20261009142055"
+      }
+    ],
+    "url": "https://gitea.com/forges-fixtures/forges-fixtures/pulls/14",
+    "createdAt": "<now>",
+    "updatedAt": "<now>",
+    "lastActivityAt": "<now>",
+    "locked": false,
+    "commentCount": 1,
+    "branches": {
+      "head": {
+        "ref": "forges-fixtures/20261009142055-1",
+        "sha": "942d7ed33b4d40d9b83ef4f0c0c5774017b7661d",
+        "repo": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "owner": "forges-fixtures",
+          "name": "forges-fixtures",
+          "externalId": "146918"
+        }
+      },
+      "base": {
+        "ref": "main",
+        "sha": "349906c24759e27fb48293a67a31f973b9da59d3"
+      }
+    }
+  },
+  "pending review": {
+    "ref": {
+      "forge": "gitea",
+      "instance": "gitea.com",
+      "thread": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "repo": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "owner": "forges-fixtures",
+          "name": "forges-fixtures"
+        },
+        "kind": "pull_request",
+        "number": "14",
+        "externalId": "204701"
+      },
+      "id": "383420"
+    },
+    "author": {
+      "forge": "gitea",
+      "instance": "gitea.com",
+      "repo": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "owner": "forges-fixtures",
+        "name": "forges-fixtures"
+      },
+      "kind": "pull_request",
+      "number": "14",
+      "externalId": "204701",
+      "login": "danielroe",
+      "id": "250665",
+      "name": "Daniel Roe",
+      "avatarUrl": "https://seccdn.libravatar.org/avatar/82a8f6237bb263bac46d7cc8ec3054d715ce6a55a8626d6e977769d57d2c94e6?d=identicon",
+      "url": "https://gitea.com/danielroe",
+      "isBotHint": false
+    },
+    "state": "pending",
+    "stateRaw": "PENDING",
+    "body": "A review from run 20261009142055.",
+    "submittedAt": "<now>",
+    "comments": [],
+    "url": ""
+  },
+  "submit review": {
+    "ref": {
+      "forge": "gitea",
+      "instance": "gitea.com",
+      "thread": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "repo": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "owner": "forges-fixtures",
+          "name": "forges-fixtures"
+        },
+        "kind": "pull_request",
+        "number": "14",
+        "externalId": "204701"
+      },
+      "id": "383420"
+    },
+    "author": {
+      "forge": "gitea",
+      "instance": "gitea.com",
+      "repo": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "owner": "forges-fixtures",
+        "name": "forges-fixtures"
+      },
+      "kind": "pull_request",
+      "number": "14",
+      "externalId": "204701",
+      "login": "danielroe",
+      "id": "250665",
+      "name": "Daniel Roe",
+      "avatarUrl": "https://seccdn.libravatar.org/avatar/82a8f6237bb263bac46d7cc8ec3054d715ce6a55a8626d6e977769d57d2c94e6?d=identicon",
+      "url": "https://gitea.com/danielroe",
+      "isBotHint": false
+    },
+    "state": "commented",
+    "stateRaw": "COMMENT",
+    "body": "A submitted review from run 20261009142055.",
+    "submittedAt": "<now>",
+    "comments": [],
+    "url": "https://gitea.com/forges-fixtures/forges-fixtures/pulls/14#pullrequestreview-383420"
+  },
+  "report check": {
+    "ref": {
+      "forge": "gitea",
+      "instance": "gitea.com",
+      "repo": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "owner": "forges-fixtures",
+        "name": "forges-fixtures"
+      },
+      "id": "1",
+      "type": "status"
+    },
+    "name": "forges fixture",
+    "state": "success",
+    "stateRaw": "success",
+    "startedAt": "<now>",
+    "completedAt": "<now>"
+  },
+  "create webhook": {
+    "ref": {
+      "forge": "gitea",
+      "instance": "gitea.com",
+      "target": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "owner": "forges-fixtures",
+        "name": "forges-fixtures"
+      },
+      "id": "48073"
+    },
+    "url": "https://example.com/hook",
+    "events": [
+      "comment"
+    ],
+    "nativeEvents": [
+      "issue_comment",
+      "pull_request_comment"
+    ],
+    "active": true,
+    "contentType": "json",
+    "createdAt": "<now>",
+    "updatedAt": "<now>"
+  },
+  "update webhook": {
+    "ref": {
+      "forge": "gitea",
+      "instance": "gitea.com",
+      "target": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "owner": "forges-fixtures",
+        "name": "forges-fixtures"
+      },
+      "id": "48073"
+    },
+    "url": "https://example.com/hook",
+    "events": [
+      "comment",
+      "push"
+    ],
+    "nativeEvents": [
+      "push",
+      "issue_comment",
+      "pull_request_comment"
+    ],
+    "active": true,
+    "contentType": "json",
+    "createdAt": "<now>",
+    "updatedAt": "<now>"
+  },
+  "rotate webhook secret": {
+    "ref": {
+      "forge": "gitea",
+      "instance": "gitea.com",
+      "target": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "owner": "forges-fixtures",
+        "name": "forges-fixtures"
+      },
+      "id": "48073"
+    },
+    "url": "https://example.com/hook",
+    "events": [
+      "push"
+    ],
+    "nativeEvents": [
+      "push"
+    ],
+    "active": true,
+    "contentType": "json",
+    "createdAt": "<now>",
+    "updatedAt": "<now>"
+  },
+  "mention author": {
+    "ref": {
+      "forge": "gitea",
+      "instance": "gitea.com",
+      "thread": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "repo": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "owner": "forges-fixtures",
+          "name": "forges-fixtures"
+        },
+        "kind": "issue",
+        "number": "12",
+        "externalId": "508961"
+      },
+      "id": "1750543"
+    },
+    "body": "@roebot a mention from run 20261009142055.",
+    "author": {
+      "forge": "gitea",
+      "instance": "gitea.com",
+      "login": "danielroe",
+      "id": "250665",
+      "name": "Daniel Roe",
+      "avatarUrl": "https://seccdn.libravatar.org/avatar/82a8f6237bb263bac46d7cc8ec3054d715ce6a55a8626d6e977769d57d2c94e6?d=identicon",
+      "url": "https://gitea.com/danielroe",
+      "isBotHint": false
+    },
+    "createdAt": "<now>",
+    "updatedAt": "<now>",
+    "url": "https://gitea.com/forges-fixtures/forges-fixtures/issues/12#issuecomment-1750543"
+  },
+  "author notifications": {
+    "items": [
+      {
+        "ref": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "id": "559296"
+        },
+        "subject": {
+          "type": "thread",
+          "thread": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "repo": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "owner": "forges-fixtures",
+              "name": "forges-fixtures",
+              "externalId": "146918"
+            },
+            "kind": "issue",
+            "typeRaw": "Issue",
+            "number": "12"
+          }
+        },
+        "subjectTypeRaw": "Issue",
+        "reason": "unknown",
+        "unread": true,
+        "title": "forges fixture 20261009142055: issue, edited",
+        "subjectState": "open",
+        "subjectStateRaw": "open",
+        "updatedAt": "<now>",
+        "url": "https://gitea.com/api/v1/repos/forges-fixtures/forges-fixtures/issues/12"
+      },
+      {
+        "ref": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "id": "559295"
+        },
+        "subject": {
+          "type": "thread",
+          "thread": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "repo": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "owner": "forges-fixtures",
+              "name": "forges-fixtures",
+              "externalId": "146918"
+            },
+            "kind": "pull_request",
+            "typeRaw": "Pull",
+            "number": "15"
+          }
+        },
+        "subjectTypeRaw": "Pull",
+        "reason": "unknown",
+        "unread": true,
+        "title": "forges fixture 20261009142055: pull 2",
+        "subjectState": "merged",
+        "subjectStateRaw": "merged",
+        "updatedAt": "<now>",
+        "url": "https://gitea.com/api/v1/repos/forges-fixtures/forges-fixtures/issues/15"
+      },
+      {
+        "ref": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "id": "559294"
+        },
+        "subject": {
+          "type": "thread",
+          "thread": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "repo": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "owner": "forges-fixtures",
+              "name": "forges-fixtures",
+              "externalId": "146918"
+            },
+            "kind": "pull_request",
+            "typeRaw": "Pull",
+            "number": "14"
+          }
+        },
+        "subjectTypeRaw": "Pull",
+        "reason": "unknown",
+        "unread": false,
+        "title": "forges fixture 20261009142055: pull, edited",
+        "subjectState": "merged",
+        "subjectStateRaw": "merged",
+        "updatedAt": "<now>",
+        "url": "https://gitea.com/api/v1/repos/forges-fixtures/forges-fixtures/issues/14"
+      }
+    ],
+    "notModified": false
+  }
+}

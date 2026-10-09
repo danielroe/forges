@@ -1,0 +1,21 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://constellation.microcosm.blue/links?target=did%3Aplc%3At73o44q7fppgagkrevtztyok&collection=sh.tangled.repo&path=.repoDid&limit=100"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "total": 1,
+      "linking_records": [
+        {
+          "did": "did:plc:7qksav5io2s4qfg67pe7iqqk",
+          "collection": "sh.tangled.repo",
+          "rkey": "forges-fixtures"
+        }
+      ],
+      "cursor": null
+    }
+  }
+}

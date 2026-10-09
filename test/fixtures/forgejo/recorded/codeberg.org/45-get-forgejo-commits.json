@@ -1,0 +1,103 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/commits?sha=forgejo&limit=1&stat=false"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "<https://codeberg.org/api/v1/repos/forgejo/forgejo/commits?limit=1&page=2&sha=forgejo&stat=false>; rel=\"next\",<https://codeberg.org/api/v1/repos/forgejo/forgejo/commits?limit=1&page=25940&sha=forgejo&stat=false>; rel=\"last\"",
+      "x-total": "25940",
+      "x-total-count": "25940",
+      "x-page": "1"
+    },
+    "body": [
+      {
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/4ea182cb141c5ff76a4e1ff64ce274e1f9e60b6b",
+        "sha": "4ea182cb141c5ff76a4e1ff64ce274e1f9e60b6b",
+        "created": "2026-10-09T14:51:15+02:00",
+        "html_url": "https://codeberg.org/forgejo/forgejo/commit/4ea182cb141c5ff76a4e1ff64ce274e1f9e60b6b",
+        "commit": {
+          "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/4ea182cb141c5ff76a4e1ff64ce274e1f9e60b6b",
+          "author": {
+            "name": "srikanth-iyengar",
+            "email": "redacted@example.invalid",
+            "date": "2026-10-09T14:51:15+02:00"
+          },
+          "committer": {
+            "name": "Gusted",
+            "email": "redacted@example.invalid",
+            "date": "2026-10-09T14:51:15+02:00"
+          },
+          "message": "fix: add clone error enricher to make errors less technical (#14569)\n\nFix #14127\n\nCo-authored-by: Srikanth Iyengar <redacted@example.invalid>\nReviewed-on: https://codeberg.org/forgejo/forgejo/pulls/14569\nReviewed-by: Mathieu Fenniak <redacted@example.invalid>\nReviewed-by: Gusted <redacted@example.invalid>\n",
+          "tree": {
+            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/trees/4ea182cb141c5ff76a4e1ff64ce274e1f9e60b6b",
+            "sha": "4ea182cb141c5ff76a4e1ff64ce274e1f9e60b6b",
+            "created": "2026-10-09T14:51:15+02:00"
+          },
+          "verification": {
+            "verified": false,
+            "reason": "gpg.error.not_signed_commit",
+            "signature": "",
+            "signer": null,
+            "payload": ""
+          }
+        },
+        "author": {
+          "id": 574019,
+          "login": "srikanth-iyengar",
+          "source_id": 0,
+          "full_name": "",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://codeberg.org/avatars/f33fe22c20272fc3268964ed6bcb4286",
+          "html_url": "https://codeberg.org/srikanth-iyengar",
+          "active": false,
+          "location": "",
+          "pronouns": "",
+          "website": "",
+          "description": "",
+          "followers_count": 0,
+          "following_count": 1,
+          "starred_repos_count": 2,
+          "username": "srikanth-iyengar"
+        },
+        "committer": {
+          "id": 26734,
+          "login": "Gusted",
+          "source_id": 0,
+          "full_name": "",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://codeberg.org/avatars/44a59264e976fa585ed9f0a92abad9d7",
+          "html_url": "https://codeberg.org/Gusted",
+          "active": false,
+          "location": "Error 451",
+          "pronouns": "",
+          "website": "https://gusted.xyz",
+          "description": "I’m aware (and the NSA is), that I’m pretty 🌈.\r\n\r\nForgejo contributor  \r\nCodeberg executive board member 2025-2026  \r\nCodeberg presidium member 2025-2027  \r\n\r\nFor more interesting repositories: https://git.gusted.xyz/Gusted",
+          "followers_count": 162,
+          "following_count": 30,
+          "starred_repos_count": 104,
+          "username": "Gusted"
+        },
+        "parents": [
+          {
+            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/42e6a4bb1dc37de92778e28aa57bc6c9aabd3e02",
+            "sha": "42e6a4bb1dc37de92778e28aa57bc6c9aabd3e02",
+            "created": "0001-01-01T00:00:00Z"
+          }
+        ],
+        "files": [
+          {
+            "filename": "modules/git/repo.go",
+            "status": "modified"
+          },
+          {
+            "filename": "modules/git/repo_test.go",
+            "status": "modified"
+          }
+        ],
+        "stats": null
+      }
+    ]
+  }
+}

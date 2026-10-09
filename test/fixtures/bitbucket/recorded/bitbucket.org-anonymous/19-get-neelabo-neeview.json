@@ -7,8 +7,9 @@
     "status": 200,
     "headers": {
       "etag": "W/\"dc389133741ebf25e664fa095a3f62d3\"",
-      "x-ratelimit-remaining": "59",
-      "x-ratelimit-reset": "2164"
+      "x-ratelimit-limit": "60, 60;w=3600",
+      "x-ratelimit-remaining": "50",
+      "x-ratelimit-reset": "860"
     },
     "body": {
       "type": "repository",

@@ -1,0 +1,79 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://dev.azure.com/forges/forges-fixtures/_apis/git/repositories/forges-fixtures/commits/0f7fea462ab8103e55ca8aa0288ba85443f0e8f2?changeCount=100&api-version=7.1"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "treeId": "c587f8d082fa29ee68229f4fc93edd8234c96be1",
+      "commitId": "0f7fea462ab8103e55ca8aa0288ba85443f0e8f2",
+      "author": {
+        "name": "danielroe",
+        "email": "redacted@example.invalid",
+        "date": "2026-10-09T12:28:50Z",
+        "imageUrl": "https://dev.azure.com/forges/_apis/GraphProfile/MemberAvatars/aad.NDgyNjFjMGQtOGE2ZS03YTEwLWE5Y2ItYzc2YjQ0Y2UxOGNl"
+      },
+      "committer": {
+        "name": "danielroe",
+        "email": "redacted@example.invalid",
+        "date": "2026-10-09T12:28:50Z",
+        "imageUrl": "https://dev.azure.com/forges/_apis/GraphProfile/MemberAvatars/aad.NDgyNjFjMGQtOGE2ZS03YTEwLWE5Y2ItYzc2YjQ0Y2UxOGNl"
+      },
+      "comment": "edit",
+      "changeCounts": {
+        "Edit": 1
+      },
+      "changes": [
+        {
+          "item": {
+            "objectId": "bb0fcbb759e7573593d731012c1cb42c3c574cce",
+            "originalObjectId": "32cfc454c565b24c3e82ad901cf5cdb26516e1da",
+            "gitObjectType": "blob",
+            "commitId": "0f7fea462ab8103e55ca8aa0288ba85443f0e8f2",
+            "path": "/README.md",
+            "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/items/README.md?versionType=Commit&version=0f7fea462ab8103e55ca8aa0288ba85443f0e8f2"
+          },
+          "changeType": "edit"
+        }
+      ],
+      "parents": [
+        "d4461dd886445dfbd9cf59fbb00bbfc97f8e3688"
+      ],
+      "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/commits/0f7fea462ab8103e55ca8aa0288ba85443f0e8f2",
+      "remoteUrl": "https://dev.azure.com/forges/forges-fixtures/_git/forges-fixtures/commit/0f7fea462ab8103e55ca8aa0288ba85443f0e8f2",
+      "_links": {
+        "self": {
+          "href": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/commits/0f7fea462ab8103e55ca8aa0288ba85443f0e8f2"
+        },
+        "repository": {
+          "href": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7"
+        },
+        "web": {
+          "href": "https://dev.azure.com/forges/forges-fixtures/_git/forges-fixtures/commit/0f7fea462ab8103e55ca8aa0288ba85443f0e8f2"
+        },
+        "changes": {
+          "href": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/commits/0f7fea462ab8103e55ca8aa0288ba85443f0e8f2/changes"
+        }
+      },
+      "push": {
+        "pushedBy": {
+          "displayName": "danielroe",
+          "url": "https://spsprodweu6.vssps.visualstudio.com/Ad6317e89-50cc-469c-b506-66b9601cf085/_apis/Identities/48261c0d-8a6e-6a10-a9cb-c76b44ce18ce",
+          "_links": {
+            "avatar": {
+              "href": "https://dev.azure.com/forges/_apis/GraphProfile/MemberAvatars/aad.NDgyNjFjMGQtOGE2ZS03YTEwLWE5Y2ItYzc2YjQ0Y2UxOGNl"
+            }
+          },
+          "id": "48261c0d-8a6e-6a10-a9cb-c76b44ce18ce",
+          "uniqueName": "redacted@example.invalid",
+          "imageUrl": "https://dev.azure.com/forges/_api/_common/identityImage?id=48261c0d-8a6e-6a10-a9cb-c76b44ce18ce",
+          "descriptor": "aad.NDgyNjFjMGQtOGE2ZS03YTEwLWE5Y2ItYzc2YjQ0Y2UxOGNl"
+        },
+        "pushId": 4,
+        "date": "2026-10-09T12:28:50.7809007Z"
+      }
+    }
+  }
+}

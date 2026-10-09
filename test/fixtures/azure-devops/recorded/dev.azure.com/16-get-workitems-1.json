@@ -1,0 +1,79 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://dev.azure.com/forges/forges-fixtures/_apis/wit/workitems/1?%24expand=links&api-version=7.1"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "id": 1,
+      "rev": 1,
+      "fields": {
+        "System.AreaPath": "forges-fixtures",
+        "System.TeamProject": "forges-fixtures",
+        "System.IterationPath": "forges-fixtures",
+        "System.WorkItemType": "Issue",
+        "System.State": "To Do",
+        "System.Reason": "Added to backlog",
+        "System.CreatedDate": "2026-10-09T12:28:06.347Z",
+        "System.CreatedBy": {
+          "displayName": "danielroe",
+          "url": "https://spsprodweu6.vssps.visualstudio.com/Ad6317e89-50cc-469c-b506-66b9601cf085/_apis/Identities/48261c0d-8a6e-6a10-a9cb-c76b44ce18ce",
+          "_links": {
+            "avatar": {
+              "href": "https://dev.azure.com/forges/_apis/GraphProfile/MemberAvatars/aad.NDgyNjFjMGQtOGE2ZS03YTEwLWE5Y2ItYzc2YjQ0Y2UxOGNl"
+            }
+          },
+          "id": "48261c0d-8a6e-6a10-a9cb-c76b44ce18ce",
+          "uniqueName": "redacted@example.invalid",
+          "imageUrl": "https://dev.azure.com/forges/_apis/GraphProfile/MemberAvatars/aad.NDgyNjFjMGQtOGE2ZS03YTEwLWE5Y2ItYzc2YjQ0Y2UxOGNl",
+          "descriptor": "aad.NDgyNjFjMGQtOGE2ZS03YTEwLWE5Y2ItYzc2YjQ0Y2UxOGNl"
+        },
+        "System.ChangedDate": "2026-10-09T12:28:06.347Z",
+        "System.ChangedBy": {
+          "displayName": "danielroe",
+          "url": "https://spsprodweu6.vssps.visualstudio.com/Ad6317e89-50cc-469c-b506-66b9601cf085/_apis/Identities/48261c0d-8a6e-6a10-a9cb-c76b44ce18ce",
+          "_links": {
+            "avatar": {
+              "href": "https://dev.azure.com/forges/_apis/GraphProfile/MemberAvatars/aad.NDgyNjFjMGQtOGE2ZS03YTEwLWE5Y2ItYzc2YjQ0Y2UxOGNl"
+            }
+          },
+          "id": "48261c0d-8a6e-6a10-a9cb-c76b44ce18ce",
+          "uniqueName": "redacted@example.invalid",
+          "imageUrl": "https://dev.azure.com/forges/_apis/GraphProfile/MemberAvatars/aad.NDgyNjFjMGQtOGE2ZS03YTEwLWE5Y2ItYzc2YjQ0Y2UxOGNl",
+          "descriptor": "aad.NDgyNjFjMGQtOGE2ZS03YTEwLWE5Y2ItYzc2YjQ0Y2UxOGNl"
+        },
+        "System.CommentCount": 0,
+        "System.Title": "Fixture work item",
+        "Microsoft.VSTS.Common.Priority": 2,
+        "Microsoft.VSTS.Common.StateChangeDate": "2026-10-09T12:28:06.347Z"
+      },
+      "multilineFieldsFormat": {},
+      "_links": {
+        "self": {
+          "href": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/wit/workItems/1"
+        },
+        "workItemUpdates": {
+          "href": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/wit/workItems/1/updates"
+        },
+        "workItemRevisions": {
+          "href": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/wit/workItems/1/revisions"
+        },
+        "workItemComments": {
+          "href": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/wit/workItems/1/comments"
+        },
+        "html": {
+          "href": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_workitems/edit/1"
+        },
+        "workItemType": {
+          "href": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/wit/workItemTypes/Issue"
+        },
+        "fields": {
+          "href": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/wit/fields"
+        }
+      },
+      "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/wit/workItems/1"
+    }
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://tngl.sh/xrpc/com.atproto.repo.getRecord?repo=did%3Aplc%3A7qksav5io2s4qfg67pe7iqqk&collection=sh.tangled.repo&rkey=forges-fixtures"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"2bf-D44NqOyqGrmp9++fjNTxIxWtEXw\"",
+      "ratelimit-limit": "3000",
+      "ratelimit-remaining": "2997",
+      "ratelimit-reset": "1791573543"
+    },
+    "body": {
+      "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo/forges-fixtures",
+      "cid": "bafyreibpiwqpoww6eovdouf2trc7wdlkrruq7mhabgedf4xzk3zf5orr4m",
+      "value": {
+        "knot": "knot1.tangled.sh",
+        "$type": "sh.tangled.repo",
+        "labels": [
+          "at://did:plc:wshs7t2adsemcrrd4snkeqli/sh.tangled.label.definition/wontfix",
+          "at://did:plc:wshs7t2adsemcrrd4snkeqli/sh.tangled.label.definition/good-first-issue",
+          "at://did:plc:wshs7t2adsemcrrd4snkeqli/sh.tangled.label.definition/duplicate",
+          "at://did:plc:wshs7t2adsemcrrd4snkeqli/sh.tangled.label.definition/documentation",
+          "at://did:plc:wshs7t2adsemcrrd4snkeqli/sh.tangled.label.definition/assignee"
+        ],
+        "repoDid": "did:plc:t73o44q7fppgagkrevtztyok",
+        "createdAt": "2026-10-09T20:02:20+03:00"
+      }
+    }
+  }
+}

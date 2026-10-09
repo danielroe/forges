@@ -1,0 +1,339 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/pipelines/2928235639/jobs?per_page=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "<https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/pipelines/2928235639/jobs?id=gitlab-org%2Fcli&include_retried=false&page=2&per_page=3&pipeline_id=2928235639>; rel=\"next\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/pipelines/2928235639/jobs?id=gitlab-org%2Fcli&include_retried=false&page=1&per_page=3&pipeline_id=2928235639>; rel=\"first\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/pipelines/2928235639/jobs?id=gitlab-org%2Fcli&include_retried=false&page=6&per_page=3&pipeline_id=2928235639>; rel=\"last\"",
+      "etag": "W/\"2c8edc4d8e56d3fc5bee92d77ec1a6b2\"",
+      "ratelimit-limit": "500",
+      "ratelimit-remaining": "477",
+      "ratelimit-reset": "1791495900",
+      "x-total": "18",
+      "x-total-pages": "6",
+      "x-next-page": "2",
+      "x-page": "1",
+      "x-per-page": "3"
+    },
+    "body": [
+      {
+        "id": 17044196344,
+        "status": "manual",
+        "stage": "review",
+        "name": "review-docs-cleanup",
+        "ref": "refs/merge-requests/4013/merge",
+        "tag": false,
+        "coverage": null,
+        "allow_failure": true,
+        "created_at": "2026-10-08T21:25:55.994Z",
+        "started_at": null,
+        "finished_at": null,
+        "erased_at": null,
+        "duration": null,
+        "queued_duration": null,
+        "user": {
+          "id": 27487407,
+          "username": "jeanvdw",
+          "public_email": "redacted@example.invalid",
+          "name": "Jean van der Walt",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/27487407/avatar.png?v=1791494440",
+          "web_url": "https://gitlab.com/jeanvdw",
+          "created_at": "2025-04-27T20:04:06.395Z",
+          "bio": "",
+          "location": "New Zealand",
+          "linkedin": "",
+          "twitter": "",
+          "discord": "",
+          "website_url": "",
+          "github": "",
+          "job_title": "Staff Backend Engineer",
+          "pronouns": "",
+          "organization": "Gitlab",
+          "bot": false,
+          "work_information": "Staff Backend Engineer at Gitlab",
+          "followers": 1,
+          "following": 0,
+          "local_time": "10:44 AM"
+        },
+        "commit": {
+          "id": "7b4f36348b668315fcf478e47a3cabd319c00c26",
+          "short_id": "7b4f3634",
+          "created_at": "2026-10-09T10:25:53.000+13:00",
+          "parent_ids": [
+            "679b88d982d21f3e18c0eb9e4f7bcadb11ef1791",
+            "43ecad10b57a260d093be295cca7cdab6994e8c8"
+          ],
+          "title": "Merge branch '632450-fallback-cron' into 'main'",
+          "message": "Merge branch '632450-fallback-cron' into 'main'\n\nfeat: add fallback periodic sync via launchd/systemd\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4013\n\nMerged-by: Jean van der Walt <redacted@example.invalid>\nReviewed-by: GitLab Duo <redacted@example.invalid>\n",
+          "author_name": "Jean van der Walt",
+          "author_email": "redacted@example.invalid",
+          "authored_date": "2026-10-09T10:25:53.000+13:00",
+          "committer_name": "GitLab",
+          "committer_email": "redacted@example.invalid",
+          "committed_date": "2026-10-09T10:25:53.000+13:00",
+          "trailers": {},
+          "extended_trailers": {},
+          "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/7b4f36348b668315fcf478e47a3cabd319c00c26"
+        },
+        "pipeline": {
+          "id": 2928235639,
+          "iid": 14953,
+          "project_id": 34675721,
+          "sha": "7b4f36348b668315fcf478e47a3cabd319c00c26",
+          "ref": "refs/merge-requests/4013/merge",
+          "status": "success",
+          "source": "merge_request_event",
+          "created_at": "2026-10-08T21:25:55.861Z",
+          "updated_at": "2026-10-08T21:38:52.802Z",
+          "web_url": "https://gitlab.com/gitlab-org/cli/-/pipelines/2928235639"
+        },
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/jobs/17044196344",
+        "project": {
+          "ci_job_token_scope_enabled": false
+        },
+        "artifacts": [],
+        "runner": null,
+        "runner_manager": null,
+        "artifacts_expire_at": null,
+        "archived": false,
+        "tag_list": [
+          "saas-linux-medium-amd64"
+        ]
+      },
+      {
+        "id": 17044196343,
+        "status": "manual",
+        "stage": "review",
+        "name": "review-docs-deploy",
+        "ref": "refs/merge-requests/4013/merge",
+        "tag": false,
+        "coverage": null,
+        "allow_failure": true,
+        "created_at": "2026-10-08T21:25:55.994Z",
+        "started_at": null,
+        "finished_at": null,
+        "erased_at": null,
+        "duration": null,
+        "queued_duration": null,
+        "user": {
+          "id": 27487407,
+          "username": "jeanvdw",
+          "public_email": "redacted@example.invalid",
+          "name": "Jean van der Walt",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/27487407/avatar.png?v=1791494440",
+          "web_url": "https://gitlab.com/jeanvdw",
+          "created_at": "2025-04-27T20:04:06.395Z",
+          "bio": "",
+          "location": "New Zealand",
+          "linkedin": "",
+          "twitter": "",
+          "discord": "",
+          "website_url": "",
+          "github": "",
+          "job_title": "Staff Backend Engineer",
+          "pronouns": "",
+          "organization": "Gitlab",
+          "bot": false,
+          "work_information": "Staff Backend Engineer at Gitlab",
+          "followers": 1,
+          "following": 0,
+          "local_time": "10:44 AM"
+        },
+        "commit": {
+          "id": "7b4f36348b668315fcf478e47a3cabd319c00c26",
+          "short_id": "7b4f3634",
+          "created_at": "2026-10-09T10:25:53.000+13:00",
+          "parent_ids": [
+            "679b88d982d21f3e18c0eb9e4f7bcadb11ef1791",
+            "43ecad10b57a260d093be295cca7cdab6994e8c8"
+          ],
+          "title": "Merge branch '632450-fallback-cron' into 'main'",
+          "message": "Merge branch '632450-fallback-cron' into 'main'\n\nfeat: add fallback periodic sync via launchd/systemd\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4013\n\nMerged-by: Jean van der Walt <redacted@example.invalid>\nReviewed-by: GitLab Duo <redacted@example.invalid>\n",
+          "author_name": "Jean van der Walt",
+          "author_email": "redacted@example.invalid",
+          "authored_date": "2026-10-09T10:25:53.000+13:00",
+          "committer_name": "GitLab",
+          "committer_email": "redacted@example.invalid",
+          "committed_date": "2026-10-09T10:25:53.000+13:00",
+          "trailers": {},
+          "extended_trailers": {},
+          "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/7b4f36348b668315fcf478e47a3cabd319c00c26"
+        },
+        "pipeline": {
+          "id": 2928235639,
+          "iid": 14953,
+          "project_id": 34675721,
+          "sha": "7b4f36348b668315fcf478e47a3cabd319c00c26",
+          "ref": "refs/merge-requests/4013/merge",
+          "status": "success",
+          "source": "merge_request_event",
+          "created_at": "2026-10-08T21:25:55.861Z",
+          "updated_at": "2026-10-08T21:38:52.802Z",
+          "web_url": "https://gitlab.com/gitlab-org/cli/-/pipelines/2928235639"
+        },
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/jobs/17044196343",
+        "project": {
+          "ci_job_token_scope_enabled": false
+        },
+        "artifacts": [],
+        "runner": null,
+        "runner_manager": null,
+        "artifacts_expire_at": null,
+        "archived": false,
+        "tag_list": [
+          "saas-linux-medium-amd64"
+        ]
+      },
+      {
+        "id": 17044196342,
+        "status": "success",
+        "stage": "test",
+        "name": "tests:coverage",
+        "ref": "refs/merge-requests/4013/merge",
+        "tag": false,
+        "coverage": 73.2,
+        "allow_failure": false,
+        "created_at": "2026-10-08T21:25:55.994Z",
+        "started_at": "2026-10-08T21:38:07.214Z",
+        "finished_at": "2026-10-08T21:38:51.403Z",
+        "erased_at": null,
+        "duration": 44.18856,
+        "queued_duration": 0.387607,
+        "user": {
+          "id": 27487407,
+          "username": "jeanvdw",
+          "public_email": "redacted@example.invalid",
+          "name": "Jean van der Walt",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/27487407/avatar.png?v=1791494440",
+          "web_url": "https://gitlab.com/jeanvdw",
+          "created_at": "2025-04-27T20:04:06.395Z",
+          "bio": "",
+          "location": "New Zealand",
+          "linkedin": "",
+          "twitter": "",
+          "discord": "",
+          "website_url": "",
+          "github": "",
+          "job_title": "Staff Backend Engineer",
+          "pronouns": "",
+          "organization": "Gitlab",
+          "bot": false,
+          "work_information": "Staff Backend Engineer at Gitlab",
+          "followers": 1,
+          "following": 0,
+          "local_time": "10:44 AM"
+        },
+        "commit": {
+          "id": "7b4f36348b668315fcf478e47a3cabd319c00c26",
+          "short_id": "7b4f3634",
+          "created_at": "2026-10-09T10:25:53.000+13:00",
+          "parent_ids": [
+            "679b88d982d21f3e18c0eb9e4f7bcadb11ef1791",
+            "43ecad10b57a260d093be295cca7cdab6994e8c8"
+          ],
+          "title": "Merge branch '632450-fallback-cron' into 'main'",
+          "message": "Merge branch '632450-fallback-cron' into 'main'\n\nfeat: add fallback periodic sync via launchd/systemd\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4013\n\nMerged-by: Jean van der Walt <redacted@example.invalid>\nReviewed-by: GitLab Duo <redacted@example.invalid>\n",
+          "author_name": "Jean van der Walt",
+          "author_email": "redacted@example.invalid",
+          "authored_date": "2026-10-09T10:25:53.000+13:00",
+          "committer_name": "GitLab",
+          "committer_email": "redacted@example.invalid",
+          "committed_date": "2026-10-09T10:25:53.000+13:00",
+          "trailers": {},
+          "extended_trailers": {},
+          "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/7b4f36348b668315fcf478e47a3cabd319c00c26"
+        },
+        "pipeline": {
+          "id": 2928235639,
+          "iid": 14953,
+          "project_id": 34675721,
+          "sha": "7b4f36348b668315fcf478e47a3cabd319c00c26",
+          "ref": "refs/merge-requests/4013/merge",
+          "status": "success",
+          "source": "merge_request_event",
+          "created_at": "2026-10-08T21:25:55.861Z",
+          "updated_at": "2026-10-08T21:38:52.802Z",
+          "web_url": "https://gitlab.com/gitlab-org/cli/-/pipelines/2928235639"
+        },
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/jobs/17044196342",
+        "project": {
+          "ci_job_token_scope_enabled": false
+        },
+        "artifacts_file": {
+          "filename": "artifacts.zip",
+          "size": 181973
+        },
+        "artifacts": [
+          {
+            "file_type": "archive",
+            "size": 181973,
+            "filename": "artifacts.zip",
+            "file_format": "zip"
+          },
+          {
+            "file_type": "metadata",
+            "size": 161,
+            "filename": "metadata.gz",
+            "file_format": "gzip"
+          },
+          {
+            "file_type": "trace",
+            "size": 359879,
+            "filename": "job.log",
+            "file_format": null
+          }
+        ],
+        "runner": {
+          "id": 55314121,
+          "description": "k8s.saas-linux-medium-amd64.runners-manager.gitlab.com/default",
+          "ip_address": null,
+          "active": true,
+          "paused": false,
+          "is_shared": true,
+          "runner_type": "instance_type",
+          "name": null,
+          "online": true,
+          "created_by": {
+            "id": 5372863,
+            "username": "igorwwwwwwwwwwwwwwwwwwww-admin",
+            "public_email": "",
+            "name": "Igor Wiedler",
+            "state": "active",
+            "locked": false,
+            "avatar_url": "https://secure.gravatar.com/avatar/509321df9ad78093586110676a0f3e0517e2744bce4c1963fac9ad5acd19f4f0?s=80&d=identicon",
+            "web_url": "https://gitlab.com/igorwwwwwwwwwwwwwwwwwwww-admin"
+          },
+          "created_at": "2026-08-19T15:31:33.905Z",
+          "status": "online",
+          "job_execution_status": "active"
+        },
+        "runner_manager": {
+          "id": 161412354,
+          "system_id": "r_S7XRh7Na4NYp",
+          "version": "19.5.0~pre.2249.g29703ea1",
+          "revision": "29703ea1",
+          "platform": "linux",
+          "architecture": "amd64",
+          "created_at": "2026-10-08T15:00:50.488Z",
+          "contacted_at": "2026-10-08T21:44:32.810Z",
+          "ip_address": "10.218.11.3",
+          "status": "online",
+          "job_execution_status": "active"
+        },
+        "artifacts_expire_at": "2026-10-15T21:38:50.021Z",
+        "archived": false,
+        "tag_list": [
+          "saas-linux-medium-amd64"
+        ]
+      }
+    ]
+  }
+}

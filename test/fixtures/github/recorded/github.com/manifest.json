@@ -42,7 +42,25 @@
     "kind": "discussion",
     "number": "9303"
   },
-  "recordedAt": "2026-10-08T18:58:22.218Z",
+  "scratch": {
+    "forge": "github",
+    "instance": "github.com",
+    "owner": "forges-fixtures",
+    "name": "forges-fixtures"
+  },
+  "alerts": {
+    "forge": "github",
+    "instance": "github.com",
+    "owner": "forges-fixtures",
+    "name": "forges-fixtures"
+  },
+  "transfer": {
+    "forge": "github",
+    "instance": "github.com",
+    "owner": "forges-fixtures",
+    "name": "forges-fixtures-transfer"
+  },
+  "recordedAt": "2026-10-09T13:13:33.743Z",
   "steps": [
     "repo",
     "labels",
@@ -75,6 +93,9 @@
     "discussion comments",
     "discussion reactions",
     "discussion subscription",
+    "commit thread",
+    "commit events",
+    "commit comments",
     "permission",
     "user",
     "me",
@@ -84,6 +105,7 @@
     "ci runs",
     "ci run",
     "ci jobs",
+    "ci log",
     "readme",
     "tree",
     "branches",
@@ -96,9 +118,14 @@
     "latest release",
     "release",
     "release by tag",
+    "release asset",
     "search threads",
     "search repos",
     "search commits",
-    "security alerts"
+    "webhooks",
+    "webhook deliveries",
+    "dependency alerts",
+    "code scanning alerts",
+    "secret alerts"
   ]
 }

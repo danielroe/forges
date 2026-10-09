@@ -1,0 +1,30 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://api.github.com/app/installations/169572689/access_tokens"
+  },
+  "response": {
+    "status": 201,
+    "headers": {
+      "etag": "\"ae5e77060a63e50ccc9f8c0fe9b005e7ec2f607eb61a77e8f910643f24d0d454\""
+    },
+    "body": {
+      "token": "REDACTED",
+      "expires_at": "2026-10-09T14:14:16Z",
+      "permissions": {
+        "actions": "read",
+        "checks": "read",
+        "contents": "read",
+        "issues": "read",
+        "metadata": "read",
+        "pull_requests": "read",
+        "repository_hooks": "read",
+        "secret_scanning_alerts": "REDACTED",
+        "security_events": "read",
+        "statuses": "read",
+        "vulnerability_alerts": "read"
+      },
+      "repository_selection": "selected"
+    }
+  }
+}

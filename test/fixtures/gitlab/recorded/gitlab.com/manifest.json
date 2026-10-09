@@ -30,7 +30,19 @@
     "kind": "issue",
     "number": "8572"
   },
-  "recordedAt": "2026-10-07T12:10:05.516Z",
+  "scratch": {
+    "forge": "gitlab",
+    "instance": "gitlab.com",
+    "owner": "forges-fixtures",
+    "name": "forges-fixtures"
+  },
+  "transfer": {
+    "forge": "gitlab",
+    "instance": "gitlab.com",
+    "owner": "forges-fixtures",
+    "name": "forges-fixtures-transfer"
+  },
+  "recordedAt": "2026-10-09T13:15:05.998Z",
   "steps": [
     "repo",
     "labels",
@@ -56,6 +68,9 @@
     "issue comments",
     "issue reactions",
     "issue subscription",
+    "commit thread",
+    "commit events",
+    "commit comments",
     "permission",
     "user",
     "me",
@@ -66,6 +81,7 @@
     "ci runs",
     "ci run",
     "ci jobs",
+    "ci log",
     "readme",
     "tree",
     "branches",
@@ -81,6 +97,9 @@
     "search threads",
     "search repos",
     "search commits",
-    "security alerts"
+    "webhooks",
+    "dependency alerts",
+    "code scanning alerts",
+    "secret alerts"
   ]
 }

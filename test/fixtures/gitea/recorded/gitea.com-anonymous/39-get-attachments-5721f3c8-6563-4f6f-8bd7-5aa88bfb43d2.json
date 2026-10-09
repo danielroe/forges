@@ -1,0 +1,12 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitea.com/attachments/5721f3c8-6563-4f6f-8bd7-5aa88bfb43d2"
+  },
+  "response": {
+    "status": 303,
+    "headers": {
+      "location": "https://4d3e0f26919f429c2b0092fb846c818a.r2.cloudflarestorage.com/gitea-com-prod/attachments/5/7/5721f3c8-6563-4f6f-8bd7-5aa88bfb43d2?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=REDACTED&X-Amz-Date=20261009T142250Z&X-Amz-Expires=300&X-Amz-SignedHeaders=host&response-content-disposition=inline%3B+filename%3Dtea-0.16.0-linux-amd64.xz.sha256&X-Amz-Signature=REDACTED"
+    }
+  }
+}

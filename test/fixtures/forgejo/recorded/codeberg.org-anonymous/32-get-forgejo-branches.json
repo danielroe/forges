@@ -1,0 +1,141 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/branches?limit=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "<https://codeberg.org/api/v1/repos/forgejo/forgejo/branches?limit=3&page=2>; rel=\"next\",<https://codeberg.org/api/v1/repos/forgejo/forgejo/branches?limit=3&page=12>; rel=\"last\"",
+      "x-total-count": "35"
+    },
+    "body": [
+      {
+        "name": "renovate/forgejo-patch-golang-packages",
+        "commit": {
+          "id": "b6f1bc7a1cc10641439c817575c4194f7d400149",
+          "message": "Update go toolchain directive to v1.27.2\n",
+          "url": "https://codeberg.org/forgejo/forgejo/commit/b6f1bc7a1cc10641439c817575c4194f7d400149",
+          "author": {
+            "name": "Renovate Bot",
+            "email": "redacted@example.invalid",
+            "username": "viceice-bot"
+          },
+          "committer": {
+            "name": "Renovate Bot",
+            "email": "redacted@example.invalid",
+            "username": "viceice-bot"
+          },
+          "verification": {
+            "verified": true,
+            "reason": "viceice-bot / 8AC4BEEB5900F976",
+            "signature": "-----BEGIN PGP SIGNATURE-----\n\niHUEABYKAB0WIQT3nQW3uNw+hzJoFlCKxL7rWQD5dgUCasgKxwAKCRCKxL7rWQD5\ndu0kAQDSD5zV3mzWwFZSlHZcj+7xuIvNyrrlvxEewhP8i7kUlwEA0MDWfqYz/SI/\nja2hMgyLRZkQLRc5FOAWtW0G9LQtlQQ=\n=TEaX\n-----END PGP SIGNATURE-----\n",
+            "signer": {
+              "name": "viceice-bot",
+              "email": "redacted@example.invalid",
+              "username": ""
+            },
+            "payload": "tree 1ba64e9d2ce005bd9a1b72d9da6e35bb60c39f09\nparent 78f2bbc19c9cec2afb26ea99fd54b7d10f48ba3c\nauthor Renovate Bot <redacted@example.invalid> 1791494855 +0000\ncommitter Renovate Bot <redacted@example.invalid> 1791494855 +0000\n\nUpdate go toolchain directive to v1.27.2\n"
+          },
+          "timestamp": "2026-10-08T21:27:35Z",
+          "added": null,
+          "removed": null,
+          "modified": null
+        },
+        "protected": false,
+        "required_approvals": 0,
+        "enable_status_check": false,
+        "status_check_contexts": [],
+        "user_can_push": false,
+        "user_can_merge": false,
+        "effective_branch_protection_name": ""
+      },
+      {
+        "name": "forgejo",
+        "commit": {
+          "id": "78f2bbc19c9cec2afb26ea99fd54b7d10f48ba3c",
+          "message": "refactor: migrate url modules to Typescript (#14719)\n\nThis PR converts our `url.js` module and `origin-url` webcomponent to Typescript, adding appropriate types along the way. This continues !14508's scoped approach to tightening our frontend type-checks, in line with @JakobDev's assessment in https://codeberg.org/forgejo/forgejo/pulls/5859#issuecomment-2560264.\n\nReviewed-on: https://codeberg.org/forgejo/forgejo/pulls/14719\nReviewed-by: Gusted <redacted@example.invalid>\n",
+          "url": "https://codeberg.org/forgejo/forgejo/commit/78f2bbc19c9cec2afb26ea99fd54b7d10f48ba3c",
+          "author": {
+            "name": "AverageHelper",
+            "email": "redacted@example.invalid",
+            "username": "AverageHelper"
+          },
+          "committer": {
+            "name": "Gusted",
+            "email": "redacted@example.invalid",
+            "username": "Gusted"
+          },
+          "verification": {
+            "verified": false,
+            "reason": "gpg.error.not_signed_commit",
+            "signature": "",
+            "signer": null,
+            "payload": ""
+          },
+          "timestamp": "2026-10-08T23:22:51+02:00",
+          "added": null,
+          "removed": null,
+          "modified": null
+        },
+        "protected": true,
+        "required_approvals": 1,
+        "enable_status_check": true,
+        "status_check_contexts": [
+          "testing / frontend-checks (pull_request)",
+          "testing / backend-checks (pull_request)",
+          "testing / test-unit (pull_request)",
+          "testing / test-pgsql (pull_request)",
+          "testing / test-sqlite (pull_request)",
+          "testing / test-mysql (pull_request)"
+        ],
+        "user_can_push": false,
+        "user_can_merge": false,
+        "effective_branch_protection_name": ""
+      },
+      {
+        "name": "v17.0/forgejo",
+        "commit": {
+          "id": "174aeb820702562d6fb364a33a5727b593d6eb17",
+          "message": "[v17.0/forgejo] fix(ui): proper use of modern components in org teams ui (#14759)\n\n**Backport**: #14752\n\nFixes forgejo/forgejo#14750.\n\nRegression as result of combining #14281 with #13943 and #13630.\n\nStyles in modern `button.css` were never supposed to act as overrides of Fomantic styles, but in a few places during v17 devcycle they ended up doing that before they broke.\n\nAs currently `button.css` does not offer alternative to Fomantic's `tiny` buttons those were just reverted to be fully Fomantic governed.\n\n|Change|Before|After|\n|-|-|-|\n|Fixed classes|![1abef](/attachments/6e7121d2-3b42-4010-b7b5-3d832dd9dc50)|![1aft](/attachments/7279c52f-9d59-4ae7-bbd5-18e533d013e7)|\n|Reverted|![2abef](/attachments/f807bd12-96a1-40bf-b928-712162b2c696)|![2aft](/attachments/46f52e0b-71e6-4a82-897b-e1d8694bb078)|\n\nNot needed, no stable v17 versions were published.\n\n<!--[x] I confirm that I make this contribution in accordance with [Forgejo''s AI Agreement]-->\n\nReviewed-on: https://codeberg.org/forgejo/forgejo/pulls/14752\nReviewed-by: Andreas Ahlenstorf <redacted@example.invalid>\n(cherry picked from commit d915e5a5abb92527ac7fd0d60997b5fc57cf8467)\n\nCo-authored-by: 0ko <redacted@example.invalid>\nReviewed-on: https://codeberg.org/forgejo/forgejo/pulls/14759\nReviewed-by: 0ko <redacted@example.invalid>\nReviewed-by: Gusted <redacted@example.invalid>\n",
+          "url": "https://codeberg.org/forgejo/forgejo/commit/174aeb820702562d6fb364a33a5727b593d6eb17",
+          "author": {
+            "name": "Robert Wolff",
+            "email": "redacted@example.invalid",
+            "username": "mahlzahn"
+          },
+          "committer": {
+            "name": "Gusted",
+            "email": "redacted@example.invalid",
+            "username": "Gusted"
+          },
+          "verification": {
+            "verified": false,
+            "reason": "gpg.error.not_signed_commit",
+            "signature": "",
+            "signer": null,
+            "payload": ""
+          },
+          "timestamp": "2026-10-08T22:48:27+02:00",
+          "added": null,
+          "removed": null,
+          "modified": null
+        },
+        "protected": true,
+        "required_approvals": 1,
+        "enable_status_check": true,
+        "status_check_contexts": [
+          "testing / frontend-checks (pull_request)",
+          "testing / backend-checks (pull_request)",
+          "testing / test-unit (pull_request)",
+          "testing / test-pgsql (pull_request)",
+          "testing / test-sqlite (pull_request)",
+          "testing / test-mysql (pull_request)"
+        ],
+        "user_can_push": false,
+        "user_can_merge": false,
+        "effective_branch_protection_name": ""
+      }
+    ]
+  }
+}

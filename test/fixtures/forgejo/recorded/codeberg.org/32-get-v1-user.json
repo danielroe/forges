@@ -1,0 +1,28 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://codeberg.org/api/v1/user"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "id": 86052,
+      "login": "danielroe",
+      "source_id": 0,
+      "full_name": "Daniel Roe",
+      "email": "redacted@example.invalid",
+      "avatar_url": "https://codeberg.org/avatars/a0f09b705dcd4afd1d54b6e7c8f08e323a97921b70569acc891a2617d2d04125",
+      "html_url": "https://codeberg.org/danielroe",
+      "active": true,
+      "location": "",
+      "pronouns": "he/him",
+      "website": "",
+      "description": "",
+      "followers_count": 1,
+      "following_count": 2,
+      "starred_repos_count": 3,
+      "username": "danielroe"
+    }
+  }
+}

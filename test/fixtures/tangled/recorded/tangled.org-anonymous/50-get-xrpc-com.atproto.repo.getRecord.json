@@ -1,0 +1,25 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://oysterling.us-west.host.bsky.network/xrpc/com.atproto.repo.getRecord?repo=did%3Aplc%3Awshs7t2adsemcrrd4snkeqli&collection=sh.tangled.repo.pull.status&rkey=3mc7q22ebgn22"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"170-Gz0SiF0GvOlr0DxMAkA0OQ+CEvs\"",
+      "ratelimit-limit": "3000",
+      "ratelimit-remaining": "2993",
+      "ratelimit-reset": "1791496589"
+    },
+    "body": {
+      "uri": "at://did:plc:wshs7t2adsemcrrd4snkeqli/sh.tangled.repo.pull.status/3mc7q22ebgn22",
+      "cid": "bafyreihddisi4o74qvvecvfvmdcs762zfrzg6zhxpldmgcwe4ixmrzo37i",
+      "value": {
+        "pull": "at://did:plc:qfpnj4og54vl56wngdriaxug/sh.tangled.repo.pull/3mc7q22ebgn22",
+        "$type": "sh.tangled.repo.pull.status",
+        "status": "sh.tangled.repo.pull.status.merged",
+        "createdAt": "2026-01-12T09:28:43Z"
+      }
+    }
+  }
+}

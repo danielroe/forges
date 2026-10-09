@@ -1,0 +1,27 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://fibercap.us-west.host.bsky.network/xrpc/com.atproto.repo.getRecord?repo=did%3Aplc%3Af4w2l3ceqeu7fggr2s5hw3wm&collection=sh.tangled.repo.issue&rkey=3lkmubls7ib22"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"244-z854ZgkE/eUNpAa3m0+Pcq3NB+Y\"",
+      "ratelimit-limit": "3000",
+      "ratelimit-remaining": "2999",
+      "ratelimit-reset": "1791496597"
+    },
+    "body": {
+      "uri": "at://did:plc:f4w2l3ceqeu7fggr2s5hw3wm/sh.tangled.repo.issue/3lkmubls7ib22",
+      "cid": "bafyreie4l7yi2ez5hdwlafprlaowtnnd453rzq6jois2tckpwlcodnnb5m",
+      "value": {
+        "body": "```\ntheo@macbookpro:~/src/bevy-os$ git clone https://tangled.sh/@tangled.sh/core --ipv6\nCloning into 'core'...\nfatal: unable to access 'https://tangled.sh/@tangled.sh/core/': Could not resolve host: tangled.sh\n```",
+        "repo": "at://did:plc:wshs7t2adsemcrrd4snkeqli/sh.tangled.repo/3ljbiayluee22",
+        "$type": "sh.tangled.repo.issue",
+        "title": "IPV6 support",
+        "repoDid": "did:plc:g66xej5jct643d6bgukldn77",
+        "createdAt": ""
+      }
+    }
+  }
+}

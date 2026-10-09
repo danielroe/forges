@@ -4,22 +4,22 @@
       "forge": "pushin",
       "instance": "pushin.eu",
       "owner": "pjullrich",
-      "name": "pushin",
-      "externalId": "repo_033njmWmzIFsMhzbVEe4Kh"
+      "name": "pushin-cli",
+      "externalId": "repo_033o8EKVVoQNFqACnKgHgy"
     },
-    "description": "Leave your comments and feedback for Pushin.eu in this repo!",
+    "description": "The CLI to work with the Forgit API",
     "defaultBranch": "main",
     "visibility": "public",
     "visibilityRaw": "public",
     "isFork": false,
     "isArchived": false,
     "topics": [],
-    "url": "https://pushin.eu/pjullrich/pushin",
+    "url": "https://pushin.eu/pjullrich/pushin-cli",
     "cloneUrls": {
-      "https": "https://git.pushin.eu/pjullrich/pushin.git"
+      "https": "https://git.pushin.eu/pjullrich/pushin-cli.git"
     },
-    "createdAt": "2026-07-11T17:16:01.893Z",
-    "updatedAt": "2026-10-08T12:38:03.217Z",
+    "createdAt": "2026-07-12T09:52:15.550Z",
+    "updatedAt": "2026-10-08T13:50:59.900Z",
     "owner": {
       "forge": "pushin",
       "instance": "pushin.eu",
@@ -29,18 +29,149 @@
       "typeRaw": "User",
       "isBotHint": false
     },
-    "stars": 25,
-    "forks": 0
+    "stars": 6,
+    "forks": 2
   },
   "labels": {
-    "items": [
-      {
-        "name": "Future",
-        "colour": "8250df"
-      }
-    ],
+    "items": [],
     "rateLimit": {
-      "remaining": 88,
+      "limit": 90,
+      "remaining": 87,
+      "resetAt": "<now>"
+    }
+  },
+  "pull": {
+    "ref": {
+      "forge": "pushin",
+      "instance": "pushin.eu",
+      "repo": {
+        "forge": "pushin",
+        "instance": "pushin.eu",
+        "owner": "pjullrich",
+        "name": "pushin-cli"
+      },
+      "kind": "pull_request",
+      "number": "5",
+      "externalId": "iss_034ZTM5UfoQQW1pj2ilPgX"
+    },
+    "kind": "pull_request",
+    "title": "Nix Packaging and Nix dev shell",
+    "body": "This PR adds\n- Nix packaging for Pushin CLI\n- Nix flake development env for developing the Pushin CLI",
+    "state": "merged",
+    "stateRaw": "merged",
+    "isDraft": false,
+    "author": {
+      "forge": "pushin",
+      "instance": "pushin.eu",
+      "login": "pmarquez",
+      "id": "578",
+      "avatarUrl": "https://cdn.pushin.eu/-/avatars/u_034YEw7oIPyWrOzEh2xryn",
+      "url": "https://pushin.eu/pmarquez",
+      "typeRaw": "User",
+      "isBotHint": false
+    },
+    "assignees": [],
+    "reviewers": [],
+    "labels": [],
+    "url": "https://pushin.eu/pjullrich/pushin-cli/pulls/5",
+    "createdAt": "2026-10-03T11:13:09.393Z",
+    "updatedAt": "2026-10-03T12:39:25.042Z",
+    "lastActivityAt": "2026-10-03T12:39:25.042Z",
+    "branches": {
+      "head": {
+        "ref": "main",
+        "sha": "226c1102d4f287fb92b3153334bbeb1b09771cfd"
+      },
+      "base": {
+        "ref": "main"
+      }
+    }
+  },
+  "pull list": {
+    "items": [],
+    "rateLimit": {
+      "limit": 90,
+      "remaining": 84,
+      "resetAt": "<now>"
+    }
+  },
+  "pull getMany": [
+    {
+      "ok": true,
+      "ref": {
+        "forge": "pushin",
+        "instance": "pushin.eu",
+        "repo": {
+          "forge": "pushin",
+          "instance": "pushin.eu",
+          "owner": "pjullrich",
+          "name": "pushin-cli"
+        },
+        "kind": "pull_request",
+        "number": "5"
+      },
+      "thread": {
+        "ref": {
+          "forge": "pushin",
+          "instance": "pushin.eu",
+          "repo": {
+            "forge": "pushin",
+            "instance": "pushin.eu",
+            "owner": "pjullrich",
+            "name": "pushin-cli"
+          },
+          "kind": "pull_request",
+          "number": "5",
+          "externalId": "iss_034ZTM5UfoQQW1pj2ilPgX"
+        },
+        "kind": "pull_request",
+        "title": "Nix Packaging and Nix dev shell",
+        "body": "This PR adds\n- Nix packaging for Pushin CLI\n- Nix flake development env for developing the Pushin CLI",
+        "state": "merged",
+        "stateRaw": "merged",
+        "isDraft": false,
+        "author": {
+          "forge": "pushin",
+          "instance": "pushin.eu",
+          "login": "pmarquez",
+          "id": "578",
+          "avatarUrl": "https://cdn.pushin.eu/-/avatars/u_034YEw7oIPyWrOzEh2xryn",
+          "url": "https://pushin.eu/pmarquez",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "assignees": [],
+        "reviewers": [],
+        "labels": [],
+        "url": "https://pushin.eu/pjullrich/pushin-cli/pulls/5",
+        "createdAt": "2026-10-03T11:13:09.393Z",
+        "updatedAt": "2026-10-03T12:39:25.042Z",
+        "lastActivityAt": "2026-10-03T12:39:25.042Z",
+        "branches": {
+          "head": {
+            "ref": "main",
+            "sha": "226c1102d4f287fb92b3153334bbeb1b09771cfd"
+          },
+          "base": {
+            "ref": "main"
+          }
+        }
+      }
+    }
+  ],
+  "pull events": {
+    "items": [],
+    "rateLimit": {
+      "limit": 90,
+      "remaining": 81,
+      "resetAt": "<now>"
+    }
+  },
+  "pull comments": {
+    "items": [],
+    "rateLimit": {
+      "limit": 90,
+      "remaining": 81,
       "resetAt": "<now>"
     }
   },
@@ -52,163 +183,42 @@
         "forge": "pushin",
         "instance": "pushin.eu",
         "owner": "pjullrich",
-        "name": "pushin"
+        "name": "pushin-cli"
       },
       "kind": "issue",
-      "number": "31",
-      "externalId": "iss_034MXkKugnsXKXVjgfZAN1"
+      "number": "2",
+      "externalId": "iss_034IFPiDrdcetiyRXm30FR"
     },
     "kind": "issue",
-    "title": "Dependabot replacement",
-    "body": "Hi, \n\nThanks for creating pushin. I moved most of my repo's over from GitHub. But what keeps me from migrating my production repo's is dependabot. I'm addicted to it :D I understand this might not be so easy, but still like to mention it. Also, I wouldn't mind if this was part of a paid plan.\n\nKind regards,\nWouter",
-    "state": "open",
-    "stateRaw": "open",
+    "title": "Error installing CLI on Linux",
+    "body": "Hey Peter, thanks for building Pushin!\n\nI tried to use the install script on my Fedora Linux on `bash`, and got the following error:\n\n```sh\n$ PUN_VERSION=0.2.7\n\ncase \"$(uname -m)\" in\n  x86_64)        PUN_PLATFORM=linux-x86_64 ;;\n  aarch64|arm64) PUN_PLATFORM=linux-arm64 ;;\n  *) echo \"unsupported CPU architecture: $(uname -m)\" >&2; exit 1 ;;\nesac\n\nPUN_TMP_DIR=\"$(mktemp -d)\"\nPUN_ARCHIVE=\"pushin-cli-v${PUN_VERSION}/dist/${PUN_PLATFORM}/pun\"\n\ncurl -fsSL \\\n  \"https://pushin.eu/pjullrich/pushin-cli/archive/v${PUN_VERSION}.tar.gz\" \\\n  -o \"$PUN_TMP_DIR/pushin-cli.tar.gz\"\ntar -xzf \"$PUN_TMP_DIR/pushin-cli.tar.gz\" \\\n  -C \"$PUN_TMP_DIR\" --strip-components=3 \"$PUN_ARCHIVE\"\nsudo install -m 0755 \"$PUN_TMP_DIR/pun\" /usr/local/bin/pun\nrm -r \"$PUN_TMP_DIR\"\n\npun --version\ncurl: (22) The requested URL returned error: 404\ntar (child): /tmp/tmp.l0M7Dn5HBF/pushin-cli.tar.gz: Cannot open: No such file or directory\ntar (child): Error is not recoverable: exiting now\ntar: Child returned status 2\ntar: Error is not recoverable: exiting now\ninstall: cannot stat '/tmp/tmp.l0M7Dn5HBF/pun': No such file or directory\nbash: pun: command not found...\n```\n\nThe root cause seems to be the invalid `PUN_VERSION=0.2.7` version.\n\nLooking at https://pushin.eu/pjullrich/pushin-cli-tap/blob/main/Formula/pun.rb I can see the version distributed there is `0.2.6`.\n\nBut changing the `PUN_VERSION` to `0.2.6` still has an issue:\n\n```sh\n$ PUN_VERSION=0.2.6\ncase \"$(uname -m)\" in\n  x86_64)        PUN_PLATFORM=linux-x86_64 ;;\n  aarch64|arm64) PUN_PLATFORM=linux-arm64 ;;\n  *) echo \"Unsupported CPU architecture: $(uname -m)\" >&2; exit 1 ;;\nesac\n\nPUN_TMP_DIR=\"$(mktemp -d)\"\ncurl -fsSL \"https://pushin.eu/pjullrich/pushin-cli/archive/v${PUN_VERSION}.tar.gz\" -o \"$PUN_TMP_DIR/pun.tar.gz\"\ntar -xzf \"$PUN_TMP_DIR/pun.tar.gz\" -C \"$PUN_TMP_DIR\" --strip-components=3 \"pushin-cli-v${PUN_VERSION}/dist/${PUN_PLATFORM}/pun\"\nsudo install -m 0755 \"$PUN_TMP_DIR/pun\" /usr/local/bin/pun\nrm -r \"$PUN_TMP_DIR\"\npun --version\ntar: pushin-cli-v0.2.6/dist/linux-x86_64/pun: Not found in archive\ntar: Exiting with failure status due to previous errors\nPlace your finger on the fingerprint reader\ninstall: cannot stat '/tmp/tmp.iulCLKfGhl/pun': No such file or directory\nbash: pun: command not found...\n```\n\nLooking at the Tar file I don't see the required `pushin-cli-v0.2.6/dist/linux-x86_64/pun` path the script expects (only MacOS binaries there):\n\n```sh\n$ tar zxvf pun.tar.gz\npushin-cli-v0.2.6/\npushin-cli-v0.2.6/.gitignore\npushin-cli-v0.2.6/.tool-versions\npushin-cli-v0.2.6/Cargo.lock\npushin-cli-v0.2.6/Cargo.toml\npushin-cli-v0.2.6/README.md\npushin-cli-v0.2.6/dist/\npushin-cli-v0.2.6/dist/macos-universal/\npushin-cli-v0.2.6/dist/macos-universal/pun\npushin-cli-v0.2.6/scripts/\npushin-cli-v0.2.6/scripts/release\npushin-cli-v0.2.6/src/\npushin-cli-v0.2.6/src/alias.rs\npushin-cli-v0.2.6/src/api.rs\npushin-cli-v0.2.6/src/commands.rs\npushin-cli-v0.2.6/src/config.rs\npushin-cli-v0.2.6/src/github.rs\npushin-cli-v0.2.6/src/import.rs\npushin-cli-v0.2.6/src/main.rs\npushin-cli-v0.2.6/src/org.rs\npushin-cli-v0.2.6/src/origin.rs\npushin-cli-v0.2.6/src/output.rs\npushin-cli-v0.2.6/src/repo.rs\npushin-cli-v0.2.6/src/repo_create.rs\npushin-cli-v0.2.6/src/update.rs\npushin-cli-v0.2.6/tests/\npushin-cli-v0.2.6/tests/alias.rs\npushin-cli-v0.2.6/tests/auth.rs\npushin-cli-v0.2.6/tests/cli.rs\npushin-cli-v0.2.6/tests/fixtures/\npushin-cli-v0.2.6/tests/fixtures/conversation.json\npushin-cli-v0.2.6/tests/fixtures/labels.json\npushin-cli-v0.2.6/tests/fixtures/pull.json\npushin-cli-v0.2.6/tests/fixtures/pulls.json\npushin-cli-v0.2.6/tests/fixtures/repo.json\npushin-cli-v0.2.6/tests/fixtures/review.json\npushin-cli-v0.2.6/tests/fixtures/review_comments.json\npushin-cli-v0.2.6/tests/fixtures/reviews.json\npushin-cli-v0.2.6/tests/fixtures/user.json\npushin-cli-v0.2.6/tests/gh_parity.rs\npushin-cli-v0.2.6/tests/http.rs\npushin-cli-v0.2.6/tests/import.rs\npushin-cli-v0.2.6/tests/org.rs\npushin-cli-v0.2.6/tests/set_origin.rs\npushin-cli-v0.2.6/tests/update.rs\n```\n\nSo it seems that there's two problems: the `pun` CLI `v0.2.7` isn't available via the `archives` URL, and it isn't being distributed to MacOS users via Homebrew :)",
+    "state": "closed",
+    "stateRaw": "closed",
     "isDraft": false,
     "author": {
       "forge": "pushin",
       "instance": "pushin.eu",
-      "login": "woutor",
-      "id": "207",
-      "avatarUrl": "https://cdn.pushin.eu/-/avatars/u_034JlTWNDVWjH6SVRWjBXp/b4c80fd1",
-      "url": "https://pushin.eu/woutor",
+      "login": "runlevel0",
+      "id": "28",
+      "avatarUrl": "https://cdn.pushin.eu/-/avatars/u_034HkSDylEuQn7QC6cObik/29407ab1",
+      "url": "https://pushin.eu/runlevel0",
       "typeRaw": "User",
       "isBotHint": false
     },
     "assignees": [],
     "reviewers": [],
-    "labels": [
-      {
-        "name": "Future",
-        "colour": "8250df"
-      }
-    ],
-    "url": "https://pushin.eu/pjullrich/pushin/issues/31",
-    "createdAt": "2026-09-10T18:49:04.985Z",
-    "updatedAt": "2026-09-10T18:50:47.132Z",
-    "lastActivityAt": "2026-09-10T18:50:47.132Z"
+    "labels": [],
+    "url": "https://pushin.eu/pjullrich/pushin-cli/issues/2",
+    "createdAt": "2026-09-03T05:56:31.345Z",
+    "updatedAt": "2026-09-04T06:33:18.934Z",
+    "closedAt": "2026-09-04T06:33:18.924Z",
+    "lastActivityAt": "2026-09-04T06:33:18.934Z"
   },
   "issue list": {
-    "items": [
-      {
-        "ref": {
-          "forge": "pushin",
-          "instance": "pushin.eu",
-          "repo": {
-            "forge": "pushin",
-            "instance": "pushin.eu",
-            "owner": "pjullrich",
-            "name": "pushin"
-          },
-          "kind": "issue",
-          "number": "49",
-          "externalId": "iss_034cPuXvy8o4tpN1yn6vEg"
-        },
-        "kind": "issue",
-        "title": "Mermaid diagram viewer",
-        "body": "It would be nice to have a builtin mermaid diagram viewer in the readme or code docs.\nThanks",
-        "state": "open",
-        "stateRaw": "open",
-        "isDraft": false,
-        "author": {
-          "forge": "pushin",
-          "instance": "pushin.eu",
-          "login": "tamimi",
-          "id": "111",
-          "avatarUrl": "https://cdn.pushin.eu/-/avatars/u_034JbKhWukdCUuTCxN8n0l",
-          "url": "https://pushin.eu/tamimi",
-          "typeRaw": "User",
-          "isBotHint": false
-        },
-        "assignees": [],
-        "reviewers": [],
-        "labels": [],
-        "url": "https://pushin.eu/pjullrich/pushin/issues/49",
-        "createdAt": "2026-10-08T15:11:57.946Z",
-        "updatedAt": "2026-10-08T15:11:57.946Z",
-        "lastActivityAt": "2026-10-08T15:11:57.946Z"
-      },
-      {
-        "ref": {
-          "forge": "pushin",
-          "instance": "pushin.eu",
-          "repo": {
-            "forge": "pushin",
-            "instance": "pushin.eu",
-            "owner": "pjullrich",
-            "name": "pushin"
-          },
-          "kind": "issue",
-          "number": "48",
-          "externalId": "iss_034WGDJ8wkKGtAJ7MfmM2T"
-        },
-        "kind": "issue",
-        "title": "Releases with downloadable assets",
-        "body": "We publish our open-source CLI with goreleaser. On every tag it creates a release and uploads the binaries and a checksums file.\n\nWhat we need:\n - Releases tied to tags, with notes, and a release page in the UI.\n - An API for creating a release and uploading assets. If it follows GitHub's Releases API, goreleaser works unchanged through its github_urls setting.\n - Stable download URLs for assets.",
-        "state": "open",
-        "stateRaw": "open",
-        "isDraft": false,
-        "author": {
-          "forge": "pushin",
-          "instance": "pushin.eu",
-          "login": "antoine",
-          "id": "462",
-          "avatarUrl": "https://cdn.pushin.eu/-/avatars/u_034NWUr8cxFmBRn6njSdYT",
-          "url": "https://pushin.eu/antoine",
-          "typeRaw": "User",
-          "isBotHint": false
-        },
-        "assignees": [],
-        "reviewers": [],
-        "labels": [],
-        "url": "https://pushin.eu/pjullrich/pushin/issues/48",
-        "createdAt": "2026-09-27T19:58:30.348Z",
-        "updatedAt": "2026-09-29T22:35:45.189Z",
-        "lastActivityAt": "2026-09-29T22:35:45.189Z"
-      },
-      {
-        "ref": {
-          "forge": "pushin",
-          "instance": "pushin.eu",
-          "repo": {
-            "forge": "pushin",
-            "instance": "pushin.eu",
-            "owner": "pjullrich",
-            "name": "pushin"
-          },
-          "kind": "issue",
-          "number": "47",
-          "externalId": "iss_034WGCE66WJmQ6lSSwXkoh"
-        },
-        "kind": "issue",
-        "title": "Webhooks for push, tag and pull request events",
-        "body": "We'd like to run CI (Woodpecker) and automatic deploys from Pushin repositories. Both learn about changes from forge webhooks, so without them a push or a tag builds nothing.\n\nWhat we need:\n - Per-repository webhooks, configurable in the UI and the API.\n - Events: push (with branch and before/after SHA), tag created, and pull request opened, updated or closed.\n - Payloads in the GitHub or Gitea shape, since the API already follows GitHub.\n - A signature header (HMAC-SHA256 with a shared secret).\n - A delivery log with redelivery, so a missed delivery can be seen and fixed.\n\nThanks for the nice product!",
-        "state": "open",
-        "stateRaw": "open",
-        "isDraft": false,
-        "author": {
-          "forge": "pushin",
-          "instance": "pushin.eu",
-          "login": "antoine",
-          "id": "462",
-          "avatarUrl": "https://cdn.pushin.eu/-/avatars/u_034NWUr8cxFmBRn6njSdYT",
-          "url": "https://pushin.eu/antoine",
-          "typeRaw": "User",
-          "isBotHint": false
-        },
-        "assignees": [],
-        "reviewers": [],
-        "labels": [],
-        "url": "https://pushin.eu/pjullrich/pushin/issues/47",
-        "createdAt": "2026-09-27T19:57:47.705Z",
-        "updatedAt": "2026-09-28T13:36:29.402Z",
-        "lastActivityAt": "2026-09-28T13:36:29.402Z"
-      }
-    ],
-    "cursor": {
-      "nextUrl": "https://pushin.eu/api/v1/repos/pjullrich/pushin/issues?page=2&per_page=3"
-    },
+    "items": [],
     "rateLimit": {
-      "remaining": 85,
+      "limit": 90,
+      "remaining": 79,
       "resetAt": "<now>"
     }
   },
@@ -222,10 +232,10 @@
           "forge": "pushin",
           "instance": "pushin.eu",
           "owner": "pjullrich",
-          "name": "pushin"
+          "name": "pushin-cli"
         },
         "kind": "issue",
-        "number": "31"
+        "number": "2"
       },
       "thread": {
         "ref": {
@@ -235,40 +245,36 @@
             "forge": "pushin",
             "instance": "pushin.eu",
             "owner": "pjullrich",
-            "name": "pushin"
+            "name": "pushin-cli"
           },
           "kind": "issue",
-          "number": "31",
-          "externalId": "iss_034MXkKugnsXKXVjgfZAN1"
+          "number": "2",
+          "externalId": "iss_034IFPiDrdcetiyRXm30FR"
         },
         "kind": "issue",
-        "title": "Dependabot replacement",
-        "body": "Hi, \n\nThanks for creating pushin. I moved most of my repo's over from GitHub. But what keeps me from migrating my production repo's is dependabot. I'm addicted to it :D I understand this might not be so easy, but still like to mention it. Also, I wouldn't mind if this was part of a paid plan.\n\nKind regards,\nWouter",
-        "state": "open",
-        "stateRaw": "open",
+        "title": "Error installing CLI on Linux",
+        "body": "Hey Peter, thanks for building Pushin!\n\nI tried to use the install script on my Fedora Linux on `bash`, and got the following error:\n\n```sh\n$ PUN_VERSION=0.2.7\n\ncase \"$(uname -m)\" in\n  x86_64)        PUN_PLATFORM=linux-x86_64 ;;\n  aarch64|arm64) PUN_PLATFORM=linux-arm64 ;;\n  *) echo \"unsupported CPU architecture: $(uname -m)\" >&2; exit 1 ;;\nesac\n\nPUN_TMP_DIR=\"$(mktemp -d)\"\nPUN_ARCHIVE=\"pushin-cli-v${PUN_VERSION}/dist/${PUN_PLATFORM}/pun\"\n\ncurl -fsSL \\\n  \"https://pushin.eu/pjullrich/pushin-cli/archive/v${PUN_VERSION}.tar.gz\" \\\n  -o \"$PUN_TMP_DIR/pushin-cli.tar.gz\"\ntar -xzf \"$PUN_TMP_DIR/pushin-cli.tar.gz\" \\\n  -C \"$PUN_TMP_DIR\" --strip-components=3 \"$PUN_ARCHIVE\"\nsudo install -m 0755 \"$PUN_TMP_DIR/pun\" /usr/local/bin/pun\nrm -r \"$PUN_TMP_DIR\"\n\npun --version\ncurl: (22) The requested URL returned error: 404\ntar (child): /tmp/tmp.l0M7Dn5HBF/pushin-cli.tar.gz: Cannot open: No such file or directory\ntar (child): Error is not recoverable: exiting now\ntar: Child returned status 2\ntar: Error is not recoverable: exiting now\ninstall: cannot stat '/tmp/tmp.l0M7Dn5HBF/pun': No such file or directory\nbash: pun: command not found...\n```\n\nThe root cause seems to be the invalid `PUN_VERSION=0.2.7` version.\n\nLooking at https://pushin.eu/pjullrich/pushin-cli-tap/blob/main/Formula/pun.rb I can see the version distributed there is `0.2.6`.\n\nBut changing the `PUN_VERSION` to `0.2.6` still has an issue:\n\n```sh\n$ PUN_VERSION=0.2.6\ncase \"$(uname -m)\" in\n  x86_64)        PUN_PLATFORM=linux-x86_64 ;;\n  aarch64|arm64) PUN_PLATFORM=linux-arm64 ;;\n  *) echo \"Unsupported CPU architecture: $(uname -m)\" >&2; exit 1 ;;\nesac\n\nPUN_TMP_DIR=\"$(mktemp -d)\"\ncurl -fsSL \"https://pushin.eu/pjullrich/pushin-cli/archive/v${PUN_VERSION}.tar.gz\" -o \"$PUN_TMP_DIR/pun.tar.gz\"\ntar -xzf \"$PUN_TMP_DIR/pun.tar.gz\" -C \"$PUN_TMP_DIR\" --strip-components=3 \"pushin-cli-v${PUN_VERSION}/dist/${PUN_PLATFORM}/pun\"\nsudo install -m 0755 \"$PUN_TMP_DIR/pun\" /usr/local/bin/pun\nrm -r \"$PUN_TMP_DIR\"\npun --version\ntar: pushin-cli-v0.2.6/dist/linux-x86_64/pun: Not found in archive\ntar: Exiting with failure status due to previous errors\nPlace your finger on the fingerprint reader\ninstall: cannot stat '/tmp/tmp.iulCLKfGhl/pun': No such file or directory\nbash: pun: command not found...\n```\n\nLooking at the Tar file I don't see the required `pushin-cli-v0.2.6/dist/linux-x86_64/pun` path the script expects (only MacOS binaries there):\n\n```sh\n$ tar zxvf pun.tar.gz\npushin-cli-v0.2.6/\npushin-cli-v0.2.6/.gitignore\npushin-cli-v0.2.6/.tool-versions\npushin-cli-v0.2.6/Cargo.lock\npushin-cli-v0.2.6/Cargo.toml\npushin-cli-v0.2.6/README.md\npushin-cli-v0.2.6/dist/\npushin-cli-v0.2.6/dist/macos-universal/\npushin-cli-v0.2.6/dist/macos-universal/pun\npushin-cli-v0.2.6/scripts/\npushin-cli-v0.2.6/scripts/release\npushin-cli-v0.2.6/src/\npushin-cli-v0.2.6/src/alias.rs\npushin-cli-v0.2.6/src/api.rs\npushin-cli-v0.2.6/src/commands.rs\npushin-cli-v0.2.6/src/config.rs\npushin-cli-v0.2.6/src/github.rs\npushin-cli-v0.2.6/src/import.rs\npushin-cli-v0.2.6/src/main.rs\npushin-cli-v0.2.6/src/org.rs\npushin-cli-v0.2.6/src/origin.rs\npushin-cli-v0.2.6/src/output.rs\npushin-cli-v0.2.6/src/repo.rs\npushin-cli-v0.2.6/src/repo_create.rs\npushin-cli-v0.2.6/src/update.rs\npushin-cli-v0.2.6/tests/\npushin-cli-v0.2.6/tests/alias.rs\npushin-cli-v0.2.6/tests/auth.rs\npushin-cli-v0.2.6/tests/cli.rs\npushin-cli-v0.2.6/tests/fixtures/\npushin-cli-v0.2.6/tests/fixtures/conversation.json\npushin-cli-v0.2.6/tests/fixtures/labels.json\npushin-cli-v0.2.6/tests/fixtures/pull.json\npushin-cli-v0.2.6/tests/fixtures/pulls.json\npushin-cli-v0.2.6/tests/fixtures/repo.json\npushin-cli-v0.2.6/tests/fixtures/review.json\npushin-cli-v0.2.6/tests/fixtures/review_comments.json\npushin-cli-v0.2.6/tests/fixtures/reviews.json\npushin-cli-v0.2.6/tests/fixtures/user.json\npushin-cli-v0.2.6/tests/gh_parity.rs\npushin-cli-v0.2.6/tests/http.rs\npushin-cli-v0.2.6/tests/import.rs\npushin-cli-v0.2.6/tests/org.rs\npushin-cli-v0.2.6/tests/set_origin.rs\npushin-cli-v0.2.6/tests/update.rs\n```\n\nSo it seems that there's two problems: the `pun` CLI `v0.2.7` isn't available via the `archives` URL, and it isn't being distributed to MacOS users via Homebrew :)",
+        "state": "closed",
+        "stateRaw": "closed",
         "isDraft": false,
         "author": {
           "forge": "pushin",
           "instance": "pushin.eu",
-          "login": "woutor",
-          "id": "207",
-          "avatarUrl": "https://cdn.pushin.eu/-/avatars/u_034JlTWNDVWjH6SVRWjBXp/b4c80fd1",
-          "url": "https://pushin.eu/woutor",
+          "login": "runlevel0",
+          "id": "28",
+          "avatarUrl": "https://cdn.pushin.eu/-/avatars/u_034HkSDylEuQn7QC6cObik/29407ab1",
+          "url": "https://pushin.eu/runlevel0",
           "typeRaw": "User",
           "isBotHint": false
         },
         "assignees": [],
         "reviewers": [],
-        "labels": [
-          {
-            "name": "Future",
-            "colour": "8250df"
-          }
-        ],
-        "url": "https://pushin.eu/pjullrich/pushin/issues/31",
-        "createdAt": "2026-09-10T18:49:04.985Z",
-        "updatedAt": "2026-09-10T18:50:47.132Z",
-        "lastActivityAt": "2026-09-10T18:50:47.132Z"
+        "labels": [],
+        "url": "https://pushin.eu/pjullrich/pushin-cli/issues/2",
+        "createdAt": "2026-09-03T05:56:31.345Z",
+        "updatedAt": "2026-09-04T06:33:18.934Z",
+        "closedAt": "2026-09-04T06:33:18.924Z",
+        "lastActivityAt": "2026-09-04T06:33:18.934Z"
       }
     }
   ],
@@ -277,11 +283,11 @@
       {
         "forge": "pushin",
         "instance": "pushin.eu",
-        "id": "1723",
+        "id": "1609",
         "kind": "comment",
         "kindRaw": "comment",
         "summary": "pjullrich commented",
-        "occurredAt": "2026-09-10T19:35:19.796Z",
+        "occurredAt": "2026-09-03T07:42:21.893Z",
         "actor": {
           "forge": "pushin",
           "instance": "pushin.eu",
@@ -296,7 +302,7 @@
           "forge": "pushin",
           "instance": "pushin.eu",
           "owner": "pjullrich",
-          "name": "pushin"
+          "name": "pushin-cli"
         },
         "thread": {
           "forge": "pushin",
@@ -305,10 +311,10 @@
             "forge": "pushin",
             "instance": "pushin.eu",
             "owner": "pjullrich",
-            "name": "pushin"
+            "name": "pushin-cli"
           },
           "kind": "issue",
-          "number": "31"
+          "number": "2"
         },
         "source": "poll",
         "detail": {
@@ -323,32 +329,32 @@
                 "forge": "pushin",
                 "instance": "pushin.eu",
                 "owner": "pjullrich",
-                "name": "pushin"
+                "name": "pushin-cli"
               },
               "kind": "issue",
-              "number": "31"
+              "number": "2"
             },
-            "id": "1723"
+            "id": "1609"
           },
-          "body": "Uh that’s would be very interesting but there are so many languages and package managers I’d need to monitor 🤔 which language support would you need?"
+          "body": "@runlevel0 aaaah, i'm sorry I forgot to hit `git push` on the new version `0.2.7`. Sorry about that! I've now pushed it. Could you retry the Linux script, please? To be honest with you I haven't tested the Linux or the Windows setup instructions because I have neither system running here. So, I'm asking humbly for a bit of patience if it doesn't work right away :)"
         },
         "action": "created"
       },
       {
         "forge": "pushin",
         "instance": "pushin.eu",
-        "id": "1729",
+        "id": "1612",
         "kind": "comment",
         "kindRaw": "comment",
-        "summary": "woutor commented",
-        "occurredAt": "2026-09-11T09:54:29.783Z",
+        "summary": "runlevel0 commented",
+        "occurredAt": "2026-09-03T15:41:59.874Z",
         "actor": {
           "forge": "pushin",
           "instance": "pushin.eu",
-          "login": "woutor",
-          "id": "207",
-          "avatarUrl": "https://cdn.pushin.eu/-/avatars/u_034JlTWNDVWjH6SVRWjBXp/b4c80fd1",
-          "url": "https://pushin.eu/woutor",
+          "login": "runlevel0",
+          "id": "28",
+          "avatarUrl": "https://cdn.pushin.eu/-/avatars/u_034HkSDylEuQn7QC6cObik/29407ab1",
+          "url": "https://pushin.eu/runlevel0",
           "typeRaw": "User",
           "isBotHint": false
         },
@@ -356,7 +362,7 @@
           "forge": "pushin",
           "instance": "pushin.eu",
           "owner": "pjullrich",
-          "name": "pushin"
+          "name": "pushin-cli"
         },
         "thread": {
           "forge": "pushin",
@@ -365,10 +371,10 @@
             "forge": "pushin",
             "instance": "pushin.eu",
             "owner": "pjullrich",
-            "name": "pushin"
+            "name": "pushin-cli"
           },
           "kind": "issue",
-          "number": "31"
+          "number": "2"
         },
         "source": "poll",
         "detail": {
@@ -383,32 +389,32 @@
                 "forge": "pushin",
                 "instance": "pushin.eu",
                 "owner": "pjullrich",
-                "name": "pushin"
+                "name": "pushin-cli"
               },
               "kind": "issue",
-              "number": "31"
+              "number": "2"
             },
-            "id": "1729"
+            "id": "1612"
           },
-          "body": "Yes, I understand it's a longshot. Currently my stack is based on Python (uv) and Docker, with some golang on the side. I've also seen alternatives like https://www.mend.io/renovate/. I'll have a look into those soon."
+          "body": "Sure, no problem! Will test it and let you know :)"
         },
         "action": "created"
       },
       {
         "forge": "pushin",
         "instance": "pushin.eu",
-        "id": "1956",
+        "id": "1616",
         "kind": "comment",
         "kindRaw": "comment",
-        "summary": "asgeirn commented",
-        "occurredAt": "2026-09-21T08:53:49.022Z",
+        "summary": "runlevel0 commented",
+        "occurredAt": "2026-09-04T06:33:22.317Z",
         "actor": {
           "forge": "pushin",
           "instance": "pushin.eu",
-          "login": "asgeirn",
-          "id": "335",
-          "avatarUrl": "https://cdn.pushin.eu/-/avatars/u_034L7K1lsejurUtw96HCS7",
-          "url": "https://pushin.eu/asgeirn",
+          "login": "runlevel0",
+          "id": "28",
+          "avatarUrl": "https://cdn.pushin.eu/-/avatars/u_034HkSDylEuQn7QC6cObik/29407ab1",
+          "url": "https://pushin.eu/runlevel0",
           "typeRaw": "User",
           "isBotHint": false
         },
@@ -416,7 +422,7 @@
           "forge": "pushin",
           "instance": "pushin.eu",
           "owner": "pjullrich",
-          "name": "pushin"
+          "name": "pushin-cli"
         },
         "thread": {
           "forge": "pushin",
@@ -425,10 +431,10 @@
             "forge": "pushin",
             "instance": "pushin.eu",
             "owner": "pjullrich",
-            "name": "pushin"
+            "name": "pushin-cli"
           },
           "kind": "issue",
-          "number": "31"
+          "number": "2"
         },
         "source": "poll",
         "detail": {
@@ -443,20 +449,24 @@
                 "forge": "pushin",
                 "instance": "pushin.eu",
                 "owner": "pjullrich",
-                "name": "pushin"
+                "name": "pushin-cli"
               },
               "kind": "issue",
-              "number": "31"
+              "number": "2"
             },
-            "id": "1956"
+            "id": "1616"
           },
-          "body": "The most likely candidate in my view would be Renovate, this one supports a large number of package managers and already has support for Forgejo / Gitea in addition to GitHub."
+          "body": "@pjullrich I've just tested and it worked like a charm on Linux now!\n\nThanks for the fix, and happy to support your project!"
         },
         "action": "created"
       }
     ],
+    "cursor": {
+      "nextUrl": "https://pushin.eu/api/v1/repos/pjullrich/pushin-cli/issues/2/comments?page=2&per_page=3"
+    },
     "rateLimit": {
-      "remaining": 82,
+      "limit": 90,
+      "remaining": 76,
       "resetAt": "<now>"
     }
   },
@@ -473,14 +483,14 @@
               "forge": "pushin",
               "instance": "pushin.eu",
               "owner": "pjullrich",
-              "name": "pushin"
+              "name": "pushin-cli"
             },
             "kind": "issue",
-            "number": "31"
+            "number": "2"
           },
-          "id": "1723"
+          "id": "1609"
         },
-        "body": "Uh that’s would be very interesting but there are so many languages and package managers I’d need to monitor 🤔 which language support would you need?",
+        "body": "@runlevel0 aaaah, i'm sorry I forgot to hit `git push` on the new version `0.2.7`. Sorry about that! I've now pushed it. Could you retry the Linux script, please? To be honest with you I haven't tested the Linux or the Windows setup instructions because I have neither system running here. So, I'm asking humbly for a bit of patience if it doesn't work right away :)",
         "author": {
           "forge": "pushin",
           "instance": "pushin.eu",
@@ -491,8 +501,8 @@
           "typeRaw": "User",
           "isBotHint": false
         },
-        "createdAt": "2026-09-10T19:35:19.796Z",
-        "updatedAt": "2026-09-11T08:48:49.232Z"
+        "createdAt": "2026-09-03T07:42:21.893Z",
+        "updatedAt": "2026-09-03T07:42:21.893Z"
       },
       {
         "ref": {
@@ -505,26 +515,26 @@
               "forge": "pushin",
               "instance": "pushin.eu",
               "owner": "pjullrich",
-              "name": "pushin"
+              "name": "pushin-cli"
             },
             "kind": "issue",
-            "number": "31"
+            "number": "2"
           },
-          "id": "1729"
+          "id": "1612"
         },
-        "body": "Yes, I understand it's a longshot. Currently my stack is based on Python (uv) and Docker, with some golang on the side. I've also seen alternatives like https://www.mend.io/renovate/. I'll have a look into those soon.",
+        "body": "Sure, no problem! Will test it and let you know :)",
         "author": {
           "forge": "pushin",
           "instance": "pushin.eu",
-          "login": "woutor",
-          "id": "207",
-          "avatarUrl": "https://cdn.pushin.eu/-/avatars/u_034JlTWNDVWjH6SVRWjBXp/b4c80fd1",
-          "url": "https://pushin.eu/woutor",
+          "login": "runlevel0",
+          "id": "28",
+          "avatarUrl": "https://cdn.pushin.eu/-/avatars/u_034HkSDylEuQn7QC6cObik/29407ab1",
+          "url": "https://pushin.eu/runlevel0",
           "typeRaw": "User",
           "isBotHint": false
         },
-        "createdAt": "2026-09-11T09:54:29.783Z",
-        "updatedAt": "2026-09-11T10:08:47.760Z"
+        "createdAt": "2026-09-03T15:41:59.874Z",
+        "updatedAt": "2026-09-03T15:58:29.819Z"
       },
       {
         "ref": {
@@ -537,30 +547,34 @@
               "forge": "pushin",
               "instance": "pushin.eu",
               "owner": "pjullrich",
-              "name": "pushin"
+              "name": "pushin-cli"
             },
             "kind": "issue",
-            "number": "31"
+            "number": "2"
           },
-          "id": "1956"
+          "id": "1616"
         },
-        "body": "The most likely candidate in my view would be Renovate, this one supports a large number of package managers and already has support for Forgejo / Gitea in addition to GitHub.",
+        "body": "@pjullrich I've just tested and it worked like a charm on Linux now!\n\nThanks for the fix, and happy to support your project!",
         "author": {
           "forge": "pushin",
           "instance": "pushin.eu",
-          "login": "asgeirn",
-          "id": "335",
-          "avatarUrl": "https://cdn.pushin.eu/-/avatars/u_034L7K1lsejurUtw96HCS7",
-          "url": "https://pushin.eu/asgeirn",
+          "login": "runlevel0",
+          "id": "28",
+          "avatarUrl": "https://cdn.pushin.eu/-/avatars/u_034HkSDylEuQn7QC6cObik/29407ab1",
+          "url": "https://pushin.eu/runlevel0",
           "typeRaw": "User",
           "isBotHint": false
         },
-        "createdAt": "2026-09-21T08:53:49.022Z",
-        "updatedAt": "2026-09-25T20:51:38.356Z"
+        "createdAt": "2026-09-04T06:33:22.317Z",
+        "updatedAt": "2026-09-04T07:26:40.261Z"
       }
     ],
+    "cursor": {
+      "nextUrl": "https://pushin.eu/api/v1/repos/pjullrich/pushin-cli/issues/2/comments?page=2&per_page=3"
+    },
     "rateLimit": {
-      "remaining": 82,
+      "limit": 90,
+      "remaining": 76,
       "resetAt": "<now>"
     }
   }

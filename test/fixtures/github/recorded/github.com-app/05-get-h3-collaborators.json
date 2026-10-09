@@ -1,0 +1,19 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.github.com/repos/h3js/h3/collaborators?per_page=3"
+  },
+  "response": {
+    "status": 403,
+    "headers": {
+      "x-ratelimit-limit": "5000",
+      "x-ratelimit-remaining": "4994",
+      "x-ratelimit-reset": "1791554636"
+    },
+    "body": {
+      "message": "Resource not accessible by integration",
+      "documentation_url": "https://docs.github.com/rest/collaborators/collaborators#list-repository-collaborators",
+      "status": "403"
+    }
+  }
+}

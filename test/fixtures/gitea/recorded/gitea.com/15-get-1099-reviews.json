@@ -1,0 +1,47 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitea.com/api/v1/repos/gitea/tea/pulls/1099/reviews?limit=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "x-total-count": "1"
+    },
+    "body": [
+      {
+        "id": 383047,
+        "user": {
+          "id": 39446,
+          "login": "Zettat123",
+          "type": "User",
+          "source_id": 0,
+          "full_name": "",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://gitea.com/avatars/230ac7fa09681a12ecc1dd575f5ffe91003739cb181ab1cd9f670ab2e90eaab8",
+          "html_url": "https://gitea.com/Zettat123",
+          "active": false,
+          "location": "",
+          "website": "",
+          "description": "",
+          "followers_count": 3,
+          "following_count": 0,
+          "starred_repos_count": 0,
+          "username": "Zettat123"
+        },
+        "team": null,
+        "state": "APPROVED",
+        "body": "",
+        "commit_id": "dbfa61205c14e48d13d95c55b277e55cc0ee1100",
+        "stale": false,
+        "official": true,
+        "dismissed": false,
+        "comments_count": 0,
+        "submitted_at": "2026-09-30T17:42:34Z",
+        "updated_at": "2026-09-30T17:42:34Z",
+        "html_url": "https://gitea.com/gitea/tea/pulls/1099#pullrequestreview-383047",
+        "pull_request_url": "https://gitea.com/gitea/tea/pulls/1099"
+      }
+    ]
+  }
+}

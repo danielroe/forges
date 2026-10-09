@@ -1,0 +1,42 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://grisette.us-west.host.bsky.network/xrpc/com.atproto.repo.getRecord?repo=did%3Aplc%3Aqfpnj4og54vl56wngdriaxug&collection=sh.tangled.repo.pull&rkey=3mc7q22ebmd22"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"2bd-5awcaSHaKXmEKb+Kycx4rC73Qxo\"",
+      "ratelimit-limit": "3000",
+      "ratelimit-remaining": "2996",
+      "ratelimit-reset": "1791552007"
+    },
+    "body": {
+      "uri": "at://did:plc:qfpnj4og54vl56wngdriaxug/sh.tangled.repo.pull/3mc7q22ebmd22",
+      "cid": "bafyreicayuhnxlqsaum2lmxuroyqjtzvd563tnoyrmiofnvqr3vmjxnpf4",
+      "value": {
+        "body": "Signed-off-by: oppiliappan <redacted@example.invalid>",
+        "$type": "sh.tangled.repo.pull",
+        "title": "input.css: use latest css from core",
+        "source": {
+          "sha": "41c9e107d31c20e34d2b26ecb68e63189b66e439",
+          "branch": "op/tupssoolqvus"
+        },
+        "target": {
+          "repo": "at://did:plc:wshs7t2adsemcrrd4snkeqli/sh.tangled.repo/3ljbiayluee22",
+          "branch": "master",
+          "repoDid": "did:plc:g66xej5jct643d6bgukldn77"
+        },
+        "createdAt": "2026-01-12T11:28:38+02:00",
+        "patchBlob": {
+          "ref": {
+            "$link": "bafkreiaju6qr55cv6bxyqnhmonxkcfkvupbf6qapjsfxsba5zzu2uqfqfm"
+          },
+          "size": 21290,
+          "$type": "blob",
+          "mimeType": "*/*"
+        }
+      }
+    }
+  }
+}

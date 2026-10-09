@@ -1,0 +1,27 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/actions/runs/7575888/jobs"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": [
+      {
+        "id": 13891680,
+        "run_id": 7575888,
+        "attempt": 1,
+        "handle": "c1833b0b-28b7-464b-a055-b54c85d0c4ca",
+        "repo_id": 73144,
+        "owner_id": 70422,
+        "name": "merge-conditions",
+        "needs": null,
+        "runs_on": [
+          "docker"
+        ],
+        "task_id": 10250124,
+        "status": "success"
+      }
+    ]
+  }
+}

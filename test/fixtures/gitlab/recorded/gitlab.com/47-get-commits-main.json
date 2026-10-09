@@ -1,0 +1,54 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/repository/commits/main"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"636984b2c0479810c6efeb73732b6d64\"",
+      "ratelimit-limit": "2000",
+      "ratelimit-remaining": "1953",
+      "ratelimit-reset": "1791551760"
+    },
+    "body": {
+      "id": "89d0008af1df78a62f5b446fb9b1bfc479771279",
+      "short_id": "89d0008a",
+      "created_at": "2026-10-09T16:06:30.000+10:00",
+      "parent_ids": [
+        "8dc3967821c8e6d52e7146b5ee13dbf1b83caec1",
+        "172280be29d9ca0ccaa797fb30bdf9e8da66496e"
+      ],
+      "title": "Merge branch 'govern-codex-cursor-sync' into 'main'",
+      "message": "Merge branch 'govern-codex-cursor-sync' into 'main'\n\nfeat(govern): sync Codex and Cursor sessions through the fallback job\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4051\n\nMerged-by: Jay McCure <redacted@example.invalid>\nApproved-by: GitLab Duo <redacted@example.invalid>\nApproved-by: Jay McCure <redacted@example.invalid>\nReviewed-by: GitLab Duo <redacted@example.invalid>\nCo-authored-by: Jean van der Walt <redacted@example.invalid>",
+      "author_name": "Jay McCure",
+      "author_email": "redacted@example.invalid",
+      "authored_date": "2026-10-09T16:06:30.000+10:00",
+      "committer_name": "GitLab",
+      "committer_email": "redacted@example.invalid",
+      "committed_date": "2026-10-09T16:06:30.000+10:00",
+      "trailers": {},
+      "extended_trailers": {},
+      "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/89d0008af1df78a62f5b446fb9b1bfc479771279",
+      "stats": {
+        "additions": 2603,
+        "deletions": 80,
+        "total": 2683
+      },
+      "status": "success",
+      "project_id": 34675721,
+      "last_pipeline": {
+        "id": 2929289256,
+        "iid": 15034,
+        "project_id": 34675721,
+        "sha": "89d0008af1df78a62f5b446fb9b1bfc479771279",
+        "ref": "v1.122.0",
+        "status": "success",
+        "source": "push",
+        "created_at": "2026-10-09T06:30:57.907Z",
+        "updated_at": "2026-10-09T06:51:27.670Z",
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/pipelines/2929289256"
+      }
+    }
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://dev.azure.com/forges/forges-fixtures/_apis/git/repositories/forges-fixtures/diffs/commits?baseVersion=main&baseVersionType=branch&targetVersion=0f7fea462ab8103e55ca8aa0288ba85443f0e8f2&targetVersionType=commit&%24top=1000&api-version=7.1"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "allChangesIncluded": true,
+      "changeCounts": {
+        "Edit": 1
+      },
+      "changes": [
+        {
+          "item": {
+            "objectId": "bb0fcbb759e7573593d731012c1cb42c3c574cce",
+            "originalObjectId": "32cfc454c565b24c3e82ad901cf5cdb26516e1da",
+            "gitObjectType": "blob",
+            "commitId": "0f7fea462ab8103e55ca8aa0288ba85443f0e8f2",
+            "path": "/README.md",
+            "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/items/README.md?versionType=Commit&version=0f7fea462ab8103e55ca8aa0288ba85443f0e8f2"
+          },
+          "changeType": "edit"
+        }
+      ],
+      "commonCommit": "d4461dd886445dfbd9cf59fbb00bbfc97f8e3688",
+      "baseCommit": "148352c9756cd600dbe4a6a09856388e4c72b17b",
+      "targetCommit": "0f7fea462ab8103e55ca8aa0288ba85443f0e8f2",
+      "aheadCount": 1,
+      "behindCount": 2
+    }
+  }
+}
