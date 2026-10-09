@@ -1226,7 +1226,16 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
         if (ref.type !== 'check_run') {
           throw new UnsupportedOperationError(`GitHub cannot re-run a ${ref.type}; only check runs can be re-requested`, context)
         }
-        await fetcher.raw(`${repoPath(ref.repo)}/check-runs/${encodeURIComponent(ref.id)}/rerequest`, { method: 'POST' })
+        try {
+          await fetcher.raw(`${repoPath(ref.repo)}/check-runs/${encodeURIComponent(ref.id)}/rerequest`, { method: 'POST' })
+        }
+        catch (error) {
+          // Only the app that created a check run can re-request it; an Actions check run is re-run as its job.
+          if (!(error instanceof ForgeApiError) || error.status !== 422) {
+            throw error
+          }
+          await fetcher.raw(`${repoPath(ref.repo)}/actions/jobs/${encodeURIComponent(ref.id)}/rerun`, { method: 'POST' })
+        }
       }),
     },
     ci: {

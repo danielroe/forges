@@ -409,7 +409,7 @@ export const TRANSFER_ISSUE = `mutation TransferIssue($issue: ID!, $repo: ID!) {
 }`
 
 export const MARK_DUPLICATE = `mutation MarkDuplicate($canonical: ID!, $duplicate: ID!) {
-  markIssueAsDuplicate(input: { canonicalId: $canonical, duplicateId: $duplicate }) { duplicate { __typename } }
+  closeIssue(input: { issueId: $duplicate, stateReason: DUPLICATE, duplicateIssueId: $canonical }) { issue { __typename } }
 }`
 
 export const NODE_REACTIONS = `query NodeReactions($id: ID!, $after: String) {
