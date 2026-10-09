@@ -6,7 +6,7 @@ export interface RenderContext {
   resolve: LinkResolver
   /** A sentence about the capability that a verb such as `threads.comment` belongs to. */
   capability: (verb: string) => string | undefined
-  /** The block that runs a verb in the browser, when the docs can. */
+  /** The block that shows the explorer for a verb, when the docs have one. */
   explorer?: (verb: string) => string | undefined
   /** Writes a heading. The page records it, so that a link to `target` can point at it. */
   heading: (level: number, text: string, target?: ApiSymbol | ApiMember) => string

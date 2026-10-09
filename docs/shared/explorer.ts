@@ -79,65 +79,66 @@ export const EXPLORER_FIELDS: Record<ExplorerField, ExplorerFieldConfig> = {
 /** Values for the fields that samples leave out. Writes never run, so these only fill the code. */
 const DEFAULTS = Object.fromEntries(Object.entries(EXPLORER_FIELDS).map(([field, config]) => [field, config.default ?? ''])) as ExplorerInput
 
-/** A forge in the explorer. Every one gets the code builder; those whose API answers CORS requests can also run. */
+/** A forge in the explorer. Every one gets the code builder; those whose API accepts CORS requests can also run. */
 export interface ExplorerForge {
   name: string
-  icon: string
   /** The factory, Lite where there is one, and the subpath it is imported from. */
   factory: string
   module: string
   /**
-   * Imports `module`, which holds `factory`, for the explorer's own provider. Written out per forge, so that the bundler
-   * splits each provider into a chunk of its own. Absent for a forge whose provider can't be created without credentials.
+   * Imports `module`, which holds `factory`, for the explorer's own providers. Written out per forge, so that the bundler
+   * splits each provider into a chunk of its own.
    */
-  load?: () => Promise<object>
+  load: () => Promise<object>
   /** The forge kind, which also keys the forge in the explorer and in links, such as `?forge=forgejo`. */
   forge: string
   instance: string
-  /** Credentials as code, for writes and for reads that need an account. */
-  auth: string
-  /** Every call needs `auth`, reads too. */
-  authRequired?: boolean
-  /** Factory options besides `auth`, passed to the explorer's provider and printed in the code. */
+  /** Credentials for calls that need an account, read from `env` in the code. */
+  auth: ExplorerAuth
+  /** Factory options besides `auth`, passed to the explorer's providers and printed in the code. */
   options?: (input: ExplorerInput) => Record<string, string>
   /** Why calls can't run from a browser, when they can't. */
   blocked?: string
   sample: ExplorerInput
 }
 
-const token = (env: string) => `{ type: 'token', token: process.env.${env}! }`
+export type ExplorerAuth
+  = | { type: 'token', env: string }
+    | { type: 'app_password', identifier: string, env: string }
+
+/** `auth` as code, with the secret read from the environment. */
+export function authCode(auth: ExplorerAuth): string {
+  return auth.type === 'token'
+    ? `{ type: 'token', token: process.env.${auth.env}! }`
+    : `{ type: 'app_password', identifier: '${auth.identifier}', password: process.env.${auth.env}! }`
+}
+
+/** `auth` with a placeholder secret, for a provider that reports what calls with credentials support. */
+export function placeholderAuth(auth: ExplorerAuth) {
+  return auth.type === 'token'
+    ? { type: auth.type, token: 'placeholder' }
+    : { type: auth.type, identifier: auth.identifier, password: 'placeholder' }
+}
+
+const token = (env: string): ExplorerAuth => ({ type: 'token', env })
 
 function sample(values: Partial<ExplorerInput>): ExplorerInput {
   const merged = { ...DEFAULTS, ...values }
   return { ...merged, base: merged.base || merged.tag || merged.sha, head: merged.head || 'main' }
 }
 
-// Runnable samples are public repositories that answer anonymous requests: a merged pull request, its author,
+// Runnable samples are public repositories that respond to anonymous requests: a merged pull request, its author,
 // the latest release, a commit and its parent (a small diff to compare), and a CI run, where the forge has them.
+// The forges are in the order of the capability matrix.
 export const EXPLORER_FORGES: ExplorerForge[] = [
-  { name: 'GitHub', icon: 'i-simple-icons-github', factory: 'githubLite', module: 'github', load: () => import('forges/github'), forge: 'github', instance: 'github.com', auth: token('GITHUB_TOKEN'), sample: sample({ owner: 'nuxt', name: 'nuxt', number: '36493', login: 'danielroe', tag: 'v4.6.0', releaseId: '404130846', sha: '0296ca413dc7ab2e29555e7109f35581b81d5c41', base: '85b8d54f6ce49f4d0f199e90513b1e5d5fa22196', head: 'main', runId: '37772560463' }) },
-  { name: 'GitLab', icon: 'i-simple-icons-gitlab', factory: 'gitlabLite', module: 'gitlab', load: () => import('forges/gitlab'), forge: 'gitlab', instance: 'gitlab.com', auth: token('GITLAB_TOKEN'), sample: sample({ owner: 'inkscape', name: 'inkscape', number: '8209', login: 'guillaume.turri', tag: 'INKSCAPE_1_4', releaseId: 'INKSCAPE_1_4', sha: '10b831ed45817ecb05f7c6239fe97d56c196c9cc', base: '41d0bb9160ba8c4e8b31d07c301f83b4e43771e3', head: 'master', runId: '2926543070' }) },
-  { name: 'Codeberg', icon: 'i-simple-icons-forgejo', factory: 'forgejoLite', module: 'forgejo', load: () => import('forges/forgejo'), forge: 'forgejo', instance: 'codeberg.org', auth: token('CODEBERG_TOKEN'), sample: sample({ owner: 'forgejo', name: 'forgejo', number: '14752', login: '0ko', tag: 'v16.0.5', releaseId: '12250357', sha: 'd915e5a5abb92527ac7fd0d60997b5fc57cf8467', base: 'adfdb1a53298d953669fcf49d61393a32b256fb5', head: 'forgejo' }) },
-  { name: 'Gitea', icon: 'i-simple-icons-gitea', factory: 'giteaLite', module: 'gitea', load: () => import('forges/gitea'), forge: 'gitea', instance: 'gitea.com', auth: token('GITEA_TOKEN'), sample: sample({ owner: 'gitea', name: 'tea', number: '1114', login: 'ongolk', tag: 'v0.16.0', releaseId: '945508', sha: 'bcd62a1fb2ce6fdd51ebea91cc33ddbcae000b68', base: '6daaa7c05e7883d4468fc7b40c2f71e0ea75562a', head: 'main' }) },
-  { name: 'Bitbucket', icon: 'i-simple-icons-bitbucket', factory: 'bitbucketLite', module: 'bitbucket', load: () => import('forges/bitbucket'), forge: 'bitbucket', instance: 'bitbucket.org', auth: token('BITBUCKET_TOKEN'), sample: sample({ owner: 'tutorials', name: 'markdowndemo', number: '80', login: 'brennan', sha: '5b6c39df3196eeeb8a36684beb9a3df854a0b5f3', base: '59a1e452abc40869b12cf13f476531bf5774d0d0', head: 'master' }) },
-  { name: 'Gitee', icon: 'i-simple-icons-gitee', factory: 'giteeLite', module: 'gitee', load: () => import('forges/gitee'), forge: 'gitee', instance: 'gitee.com', auth: token('GITEE_TOKEN'), sample: sample({ owner: 'mindspore', name: 'mindspore', number: '91608', login: 'liangchenghui', tag: 'v2.7.2', releaseId: '569215', sha: '0487e01a5e79464fcaf8ac90d9121f9f7a679a24', base: '6de371cd62ddc66dcf20e1843dfe15f31998342c', head: 'master' }) },
-  {
-    name: 'Tangled',
-    icon: 'i-lucide-spool',
-    factory: 'tangledLite',
-    module: 'tangled',
-    load: () => import('forges/tangled'),
-    forge: 'tangled',
-    instance: 'tangled.org',
-    auth: `{ type: 'app_password', identifier: 'alice.example.com', password: process.env.TANGLED_APP_PASSWORD! }`,
-    // Reading through the index and a records cache takes a few requests, rather than one to each author's server.
-    options: () => ({ listSource: 'index', recordsUrl: 'https://slingshot.microcosm.blue' }),
-    // A Tangled thread's number is the AT-URI of its record.
-    sample: sample({ owner: 'tangled.org', name: 'core', number: 'at://did:plc:xasnlahkri4ewmbuzly2rlc5/sh.tangled.repo.pull/3mwqc5pt6dc5d', login: 'boltless.me' }),
-  },
+  { name: 'GitHub', factory: 'githubLite', module: 'github', load: () => import('forges/github'), forge: 'github', instance: 'github.com', auth: token('GITHUB_TOKEN'), sample: sample({ owner: 'nuxt', name: 'nuxt', number: '36506', login: 'atinux', tag: 'v4.6.0', releaseId: '404130846', sha: '0296ca413dc7ab2e29555e7109f35581b81d5c41', base: '85b8d54f6ce49f4d0f199e90513b1e5d5fa22196', head: 'main', runId: '37772560463' }) },
+  { name: 'GitLab', factory: 'gitlabLite', module: 'gitlab', load: () => import('forges/gitlab'), forge: 'gitlab', instance: 'gitlab.com', auth: token('GITLAB_TOKEN'), sample: sample({ owner: 'inkscape', name: 'inkscape', number: '8209', login: 'guillaume.turri', tag: 'INKSCAPE_1_4', releaseId: 'INKSCAPE_1_4', sha: '10b831ed45817ecb05f7c6239fe97d56c196c9cc', base: '41d0bb9160ba8c4e8b31d07c301f83b4e43771e3', head: 'master', runId: '2926543070' }) },
+  { name: 'Bitbucket', factory: 'bitbucketLite', module: 'bitbucket', load: () => import('forges/bitbucket'), forge: 'bitbucket', instance: 'bitbucket.org', auth: token('BITBUCKET_TOKEN'), sample: sample({ owner: 'tutorials', name: 'markdowndemo', number: '80', login: 'brennan', sha: '5b6c39df3196eeeb8a36684beb9a3df854a0b5f3', base: '59a1e452abc40869b12cf13f476531bf5774d0d0', head: 'master' }) },
+  { name: 'Codeberg', factory: 'forgejoLite', module: 'forgejo', load: () => import('forges/forgejo'), forge: 'forgejo', instance: 'codeberg.org', auth: token('CODEBERG_TOKEN'), sample: sample({ owner: 'forgejo', name: 'forgejo', number: '14752', login: '0ko', tag: 'v16.0.5', releaseId: '12250357', sha: 'd915e5a5abb92527ac7fd0d60997b5fc57cf8467', base: 'adfdb1a53298d953669fcf49d61393a32b256fb5', head: 'forgejo', runId: '7600293' }) },
+  { name: 'Gitea', factory: 'giteaLite', module: 'gitea', load: () => import('forges/gitea'), forge: 'gitea', instance: 'gitea.com', auth: token('GITEA_TOKEN'), sample: sample({ owner: 'gitea', name: 'tea', number: '1081', login: 'appleboy', tag: 'v0.16.0', releaseId: '945508', sha: 'bcd62a1fb2ce6fdd51ebea91cc33ddbcae000b68', base: '6daaa7c05e7883d4468fc7b40c2f71e0ea75562a', head: 'main' }) },
+  { name: 'Gitee', factory: 'giteeLite', module: 'gitee', load: () => import('forges/gitee'), forge: 'gitee', instance: 'gitee.com', auth: token('GITEE_TOKEN'), sample: sample({ owner: 'mindspore', name: 'mindspore', number: '91608', login: 'liangchenghui', tag: 'v2.7.2', releaseId: '569215', sha: '0487e01a5e79464fcaf8ac90d9121f9f7a679a24', base: '6de371cd62ddc66dcf20e1843dfe15f31998342c', head: 'master' }) },
   {
     name: 'Azure DevOps',
-    icon: 'i-simple-icons-azuredevops',
     factory: 'azureDevOpsLite',
     module: 'azure-devops',
     load: () => import('forges/azure-devops'),
@@ -145,11 +146,24 @@ export const EXPLORER_FORGES: ExplorerForge[] = [
     instance: 'dev.azure.com',
     auth: token('AZURE_DEVOPS_TOKEN'),
     options: input => ({ organization: input.owner.split('/')[0]! }),
-    blocked: 'Azure DevOps answers few anonymous requests, even for public projects.',
+    blocked: 'Azure DevOps rejects most anonymous requests, even for public projects.',
     sample: sample({ owner: 'acme/Widgets', name: 'widgets', number: '42', login: 'alice', sha: 'main', tag: 'v1.0.0', releaseId: '1', runId: '1' }),
   },
-  { name: 'Cursor Origin', icon: 'i-simple-icons-cursor', factory: 'cursorOriginLite', module: 'cursor-origin', forge: 'cursor-origin', instance: 'origin.cursor.com', auth: token('CURSOR_AUTH_TOKEN'), authRequired: true, blocked: 'Cursor Origin needs a token for every request.', sample: sample({ owner: 'acme', name: 'api', number: '42', login: 'alice', sha: 'main', tag: 'v1.0.0', releaseId: '1', runId: '1' }) },
-  { name: 'pushin.eu', icon: 'i-lucide-send', factory: 'pushin', module: 'pushin', load: () => import('forges/pushin'), forge: 'pushin', instance: 'pushin.eu', auth: token('PUSHIN_TOKEN'), blocked: 'The pushin.eu API doesn\'t allow requests from browsers.', sample: sample({ owner: 'pjullrich', name: 'pushin', number: '1', login: 'pjullrich', sha: 'main', tag: 'v1.0.0', releaseId: '1', runId: '1' }) },
+  { name: 'Cursor Origin', factory: 'cursorOriginLite', module: 'cursor-origin', load: () => import('forges/cursor-origin'), forge: 'cursor-origin', instance: 'origin.cursor.com', auth: token('CURSOR_AUTH_TOKEN'), sample: sample({ owner: 'acme', name: 'api', number: '42', login: 'alice', sha: 'main', tag: 'v1.0.0', releaseId: '1', runId: '1' }) },
+  { name: 'pushin.eu', factory: 'pushin', module: 'pushin', load: () => import('forges/pushin'), forge: 'pushin', instance: 'pushin.eu', auth: token('PUSHIN_TOKEN'), blocked: 'The pushin.eu API doesn\'t allow requests from browsers.', sample: sample({ owner: 'pjullrich', name: 'pushin', number: '1', login: 'pjullrich', sha: 'main', tag: 'v1.0.0', releaseId: '1', runId: '1' }) },
+  {
+    name: 'Tangled',
+    factory: 'tangledLite',
+    module: 'tangled',
+    load: () => import('forges/tangled'),
+    forge: 'tangled',
+    instance: 'tangled.org',
+    auth: { type: 'app_password', identifier: 'alice.example.com', env: 'TANGLED_APP_PASSWORD' },
+    // Reading through the index and a records cache takes a few requests, rather than one to each author's server.
+    options: () => ({ listSource: 'index', recordsUrl: 'https://slingshot.microcosm.blue' }),
+    // A Tangled thread's number is the AT-URI of its record.
+    sample: sample({ owner: 'tangled.org', name: 'core', number: 'at://did:plc:xasnlahkri4ewmbuzly2rlc5/sh.tangled.repo.pull/3mwqc5pt6dc5d', login: 'boltless.me' }),
+  },
 ]
 
 /** The refs a call takes, built from the form. */
@@ -173,7 +187,7 @@ export interface ExplorerOperation {
   verb: ForgeVerb
   /** The method the code calls, which can be the `...Page` variant of the verb. */
   method: string
-  /** The model type it resolves to, such as `Thread` or `Page<Thread>`, for the hovers on the result; `void` when it resolves to nothing. */
+  /** The type it resolves to, such as `Thread`, `Page<Thread>` or `Release | undefined`, for the hovers on the result; `void` when it resolves to nothing. */
   returns: string
   /** The refs the code declares before the call. */
   uses: 'none' | 'repo' | 'thread'
@@ -181,9 +195,12 @@ export interface ExplorerOperation {
   /** The thread kind that support depends on, if any. */
   kind?: (input: ExplorerInput) => ThreadKind
   args: (context: CodeContext) => string
-  /** Present when the explorer can make the call. Writes, reads that need an account and streams can't, yet. */
+  /**
+   * Present when the explorer can make the call: a read that some forge supports without credentials.
+   * Writes, reads that need an account and streams can't run, yet.
+   */
   run?: (provider: ForgeProvider, input: ExplorerInput, refs: Refs) => Promise<unknown>
-  /** Needs credentials, so the code passes `auth`, and the call never runs here. Derived from the capability table. */
+  /** A write or a read of the account, so the code always passes `auth`, and the call never runs here. */
   auth: boolean
 }
 
@@ -192,14 +209,8 @@ const fields = (...names: ExplorerField[]) => () => names
 const threadKind = (input: ExplorerInput) => input.kind as ThreadKind
 const perPage = { perPage: 5 }
 
-/** Verbs that need credentials: the capability table's writes and account reads. */
-const SIGNED_IN = new Set([
-  ...CAPABILITY_TABLE.flatMap(entry => entry.write || entry.account ? entry.verbs ?? [] : []),
-  // Reads the table lets an anonymous provider try, but that every forge refuses without signing in.
-  'repos.collaborators',
-  'repos.permissionFor',
-  'repos.reviewerCandidates',
-])
+/** Verbs that need credentials on every forge: the capability table's writes and account reads. */
+const SIGNED_IN = new Set(CAPABILITY_TABLE.flatMap(entry => entry.write || entry.account ? entry.verbs ?? [] : []))
 
 type Spec = Omit<ExplorerOperation, 'verb' | 'method' | 'fields' | 'uses' | 'returns' | 'auth'> & Partial<Pick<ExplorerOperation, 'method' | 'fields' | 'uses' | 'returns'>>
 
@@ -234,11 +245,10 @@ export const EXPLORER_OPERATIONS: ExplorerOperation[] = [
   operation('repos.list', { method: 'repos.listPage', returns: 'Page<Repo>', uses: 'none', args: () => '{ perPage: 5 }' }),
   repoRead('repos.labels', 'Page<Label>', (p, _, { repo }) => p.repos.labelsPage(repo, perPage)),
   repoRead('repos.milestones', 'Page<Milestone>', (p, _, { repo }) => p.repos.milestonesPage(repo, perPage)),
-  // Forges only show who can push to a repository to someone signed in.
-  operation('repos.collaborators', { method: 'repos.collaboratorsPage', returns: 'Page<Collaborator>', args: () => 'repo, { perPage: 5 }' }),
+  repoRead('repos.collaborators', 'Page<Collaborator>', (p, _, { repo }) => p.repos.collaboratorsPage(repo, perPage)),
   operation('repos.permissionFor', { returns: 'RepoRole', fields: fields('login'), args: ({ value }) => `repo, ${value('login')}` }),
   repoRead('repos.assignableUsers', 'Page<Actor>', (p, _, { repo }) => p.repos.assignableUsersPage(repo, perPage)),
-  operation('repos.reviewerCandidates', { method: 'repos.reviewerCandidatesPage', returns: 'Page<Actor>', uses: 'thread', fields: fields('kind', 'number'), kind: threadKind, args: () => 'thread, { perPage: 5 }' }),
+  operation('repos.reviewerCandidates', { method: 'repos.reviewerCandidatesPage', returns: 'Page<Actor>', uses: 'thread', fields: fields('kind', 'number'), kind: threadKind, args: () => 'thread, { perPage: 5 }', run: (p, _, { thread }) => p.repos.reviewerCandidatesPage(thread, perPage) }),
   operation('repos.createLabel', { returns: 'Label', fields: fields('labelName', 'colour'), args: ({ value }) => `repo, { name: ${value('labelName')}, colour: ${value('colour')} }` }),
   operation('repos.addCollaborator', { fields: fields('login', 'role'), args: ({ value }) => `repo, ${value('login')}, ${value('role')}` }),
 
@@ -291,7 +301,7 @@ export const EXPLORER_OPERATIONS: ExplorerOperation[] = [
   repoRead('releases.list', 'Page<Release>', (p, _, { repo }) => p.releases.listPage(repo, perPage)),
   operation('releases.get', { returns: 'Release', fields: fields('releaseId'), args: repoChild('repo', 'releaseId'), run: (p, input, { origin, repo }) => p.releases.get({ ...origin, repo, id: input.releaseId }) }),
   operation('releases.getByTag', { returns: 'Release', fields: fields('tag'), args: ({ value }) => `repo, ${value('tag')}`, run: (p, input, { repo }) => p.releases.getByTag(repo, input.tag) }),
-  repoRead('releases.latest', 'Release', (p, _, { repo }) => p.releases.latest(repo)),
+  repoRead('releases.latest', 'Release | undefined', (p, _, { repo }) => p.releases.latest(repo)),
   operation('releases.downloadAsset', { returns: 'ReadableStream<Uint8Array>', fields: fields('releaseId'), args: ({ origin, value }) => `{ ${origin}, repo, release: { ${origin}, repo, id: ${value('releaseId')} }, id: '1' }` }),
 
   // Contents
@@ -312,7 +322,7 @@ export const EXPLORER_OPERATIONS: ExplorerOperation[] = [
   operation('ci.run', { returns: 'CiRun', fields: fields('runId'), args: repoChild('repo', 'runId'), run: (p, input, { origin, repo }) => p.ci.run({ ...origin, repo, id: input.runId }) }),
   operation('ci.jobs', { method: 'ci.jobsPage', returns: 'Page<CiJob>', fields: fields('runId'), args: context => `${repoChild('repo', 'runId')(context)}, { perPage: 5 }`, run: (p, input, { origin, repo }) => p.ci.jobsPage({ ...origin, repo, id: input.runId }, perPage) }),
   operation('ci.log', { returns: 'ReadableStream<Uint8Array>', fields: fields('runId'), args: ({ origin, value }) => `{ ${origin}, repo, run: { ${origin}, repo, id: ${value('runId')} }, id: '1' }` }),
-  repoRead('securityAlerts.list', 'Page<SecurityAlert>', (p, _, { repo }) => p.securityAlerts.listPage(repo, perPage)),
+  operation('securityAlerts.list', { method: 'securityAlerts.listPage', returns: 'Page<SecurityAlert>', args: () => 'repo, { perPage: 5 }' }),
 
   // Notifications
   operation('notifications.list', { method: 'notifications.listPage', returns: 'Page<Notification>', uses: 'none', args: () => '{ perPage: 5 }' }),
@@ -340,6 +350,11 @@ export const EXPLORER_OPERATIONS: ExplorerOperation[] = [
   operation('search.commits', { method: 'search.commitsPage', returns: 'Page<Commit>', fields: fields('query'), args: ({ value }) => `{ repo, text: ${value('query')}, perPage: 5 }`, run: (p, input, { repo }) => p.search.commitsPage({ repo, text: input.query, perPage: 5 }) }),
 ]
 
+/** Whether the explorer has an operation for `verb`. */
+export function explorable(verb: string): boolean {
+  return EXPLORER_OPERATIONS.some(operation => operation.verb === verb)
+}
+
 /** The fields an operation shows: the repository's owner and name first, when the call takes the repository. */
 export function explorerFields(operation: ExplorerOperation, input: ExplorerInput): ExplorerField[] {
   return [...operation.uses === 'none' ? [] : ['owner', 'name'] as const, ...operation.fields(input)]
@@ -352,13 +367,17 @@ export function explorerRefs(provider: ForgeProvider, input: ExplorerInput): Ref
   return { origin, repo, thread: { ...origin, repo, kind: threadKind(input), number: input.number } }
 }
 
-// Private-use characters, which `literal()` strips from the text, delimit the form values in the code.
+// Private-use characters, which `literal()` escapes in the text, delimit the form values in the code.
 const START = '\uE000'
 const SEPARATOR = '\uE001'
 const END = '\uE002'
 
 function literal(text: string): string {
-  return `'${text.replace(/[\uE000\uE001\uE002]/g, '').replace(/\\/g, '\\\\').replace(/'/g, '\\\'')}'`
+  const escaped = text
+    .replace(/\\/g, '\\\\')
+    .replace(/'/g, '\\\'')
+    .replace(/[\uE000-\uE002]/g, char => `\\u${char.charCodeAt(0).toString(16).toUpperCase()}`)
+  return `'${escaped}'`
 }
 
 /** Marks a form value, or with an `@` key, a name the page can show a hover for. */
@@ -461,8 +480,11 @@ function wrap(line: string): string {
   return call && call[1] > call[0] + 1 ? expand(line, call, indent) : line
 }
 
-/** The code that makes the same call, and where the form values appear in it. */
-export function explorerCode(operation: ExplorerOperation, forge: ExplorerForge, input: ExplorerInput): ExplorerCode {
+/**
+ * The code that makes the same call, and where the form values appear in it. The code passes `auth` when
+ * `auth` is set: by default for writes and reads of the account, which need credentials on every forge.
+ */
+export function explorerCode(operation: ExplorerOperation, forge: ExplorerForge, input: ExplorerInput, auth = operation.auth): ExplorerCode {
   const context: CodeContext = {
     input,
     origin: '...origin',
@@ -475,7 +497,7 @@ export function explorerCode(operation: ExplorerOperation, forge: ExplorerForge,
   const factory = symbol(`factory:${forge.factory}`, forge.factory)
   const factoryOptions = [
     ...Object.entries(forge.options?.(input) ?? {}).map(([key, value]) => `${key}: ${literal(value)}`),
-    ...operation.auth || forge.authRequired ? [`auth: ${forge.auth}`] : [],
+    ...auth ? [`auth: ${authCode(forge.auth)}`] : [],
   ]
     .map(entry => entry.replace(/^(\w+):/, (_, key: string) => `${symbol(`option:${forge.factory}:${key}`, key)}:`))
 

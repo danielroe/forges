@@ -2,7 +2,6 @@ import type { CapabilityInfo, GeneratedFile } from './pages.ts'
 import type { ApiModel } from './types.ts'
 import { existsSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
-import { EXPLORER_OPERATIONS } from '../../docs/shared/explorer.ts'
 import { CAPABILITY_TABLE } from '../../src/capability-table.ts'
 import { ENTRIES, GENERATED_DIRECTORIES, HIDDEN_MEMBERS, OVERVIEW_INTRO, OVERVIEW_OUTRO, OVERVIEW_PAGES, PAGES, REFERENCE_DIRECTORY } from './config.ts'
 import { extractApi } from './extract.ts'
@@ -15,6 +14,8 @@ export interface GenerateOptions {
   contentDir: string
   /** URL the pages are served under. */
   basePath?: string
+  /** Whether the docs have an explorer for a verb, which its section then shows. */
+  explorable?: (verb: string) => boolean
 }
 
 export interface GenerateResult {
@@ -31,7 +32,7 @@ export interface GenerateResult {
 const BANNER_RE = /^---\n(?:(?!---\n)[\s\S])*?---\n\n<!-- Do not edit by hand: `[^`]+` writes this page/
 
 /** Builds the API reference from the source and writes it to `outDir`. */
-export function generateApiDocs({ root, contentDir, basePath = '/reference' }: GenerateOptions): GenerateResult {
+export function generateApiDocs({ root, contentDir, basePath = '/reference', explorable }: GenerateOptions): GenerateResult {
   const model = extractApi({ root, entries: ENTRIES })
   const { files, unplaced } = buildFiles(model, {
     basePath,
@@ -44,7 +45,7 @@ export function generateApiDocs({ root, contentDir, basePath = '/reference' }: G
     overviewPages: OVERVIEW_PAGES,
     hiddenMembers: HIDDEN_MEMBERS,
     capability: capabilityOf,
-    explorable: verb => EXPLORER_OPERATIONS.some(operation => operation.verb === verb),
+    explorable,
     command: 'pnpm docs:api',
   })
   writeFiles(contentDir, files)

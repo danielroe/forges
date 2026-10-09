@@ -4,6 +4,7 @@ import { addTemplate, addTypeTemplate, defineNuxtModule } from 'nuxt/kit'
 import { generateApiDocs } from '../../scripts/api-docs/generate.ts'
 import { docsSections, withSection } from '../../scripts/docs-sections.ts'
 import { explorerHovers, explorerPageMembers } from '../shared/explorer-hovers.ts'
+import { explorable } from '../shared/explorer.ts'
 
 const root = fileURLToPath(new URL('../../', import.meta.url))
 const contentDir = fileURLToPath(new URL('../content/', import.meta.url))
@@ -29,7 +30,7 @@ export default defineNuxtModule({
     if (nuxt.options._prepare) {
       return
     }
-    const { model } = generateApiDocs({ root, contentDir })
+    const { model } = generateApiDocs({ root, contentDir, explorable })
     const hovers = explorerHovers(model)
     const page = explorerPageMembers(model)
     // The explorer imports this as `#build/explorer-hovers.js` on first use, so its hovers stay out of the page bundle.

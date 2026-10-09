@@ -8,15 +8,19 @@ import { afterAll, describe, expect, it } from 'vitest'
 import { annotateJson, pageSchema } from '../../docs/app/utils/explorer-json.ts'
 import { explorerHovers, explorerPageMembers } from '../../docs/shared/explorer-hovers.ts'
 import {
+  explorable,
   EXPLORER_FORGES,
   EXPLORER_OPERATIONS,
   explorerCode,
   explorerRefs,
+  placeholderAuth,
 } from '../../docs/shared/explorer.ts'
 import { ENTRIES } from '../../scripts/api-docs/config.ts'
 import { extractApi } from '../../scripts/api-docs/extract.ts'
 import { generateApiDocs } from '../../scripts/api-docs/generate.ts'
+import { matrixProviders } from '../../scripts/capabilities.ts'
 import { github } from '../../src/github/index.ts'
+import * as forges from '../../src/index.ts'
 import { schemas } from '../../src/schema/index.ts'
 
 const root = fileURLToPath(new URL('../../', import.meta.url))
@@ -50,20 +54,31 @@ describe('explorer operations', () => {
       const [namespace, name] = method.split('.') as [string, string]
       const api = symbols.find(symbol => symbol.name === namespaces.find(member => member.name === namespace)?.reference)
       const declared = api?.members.find(member => member.name === name)?.signatures[0]?.returns.type
-      // A missing result is no type of its own: the result shows nothing then.
-      expect(declared?.replace(/^Promise<(.+)>$/, '$1').replace(/ \| undefined$/, ''), method).toBe(returns)
+      expect(declared?.replace(/^Promise<(.+)>$/, '$1'), method).toBe(returns)
     }
   })
 
-  it('load the factory of every forge that has a provider here', async () => {
+  it('create a provider with and without credentials for every forge', async () => {
     for (const forge of EXPLORER_FORGES) {
-      if (!forge.load) {
-        // Only a forge whose provider needs credentials to be created goes without one.
-        expect(forge.authRequired, forge.forge).toBe(true)
-        continue
-      }
-      const module = await forge.load() as Record<string, unknown>
-      expect(typeof module[forge.factory], forge.forge).toBe('function')
+      const factory = (await forge.load() as Record<string, (options: object) => forges.ForgeProviderFactory>)[forge.factory]!
+      const options = forge.options?.(forge.sample) ?? {}
+      expect(factory(options).create().authKind, forge.forge).toBe('anonymous')
+      expect(factory({ ...options, auth: placeholderAuth(forge.auth) }).create().authKind, forge.forge).toBe(forge.auth.type)
+    }
+  })
+
+  it('list the forges in the order of the capability matrix', () => {
+    expect(EXPLORER_FORGES.map(forge => forge.forge)).toEqual(matrixProviders(forges).map(provider => provider.slug))
+  })
+
+  it('run only calls that some forge supports here without credentials', async () => {
+    const anonymous = await Promise.all(EXPLORER_FORGES.filter(forge => !forge.blocked).map(async (forge) => {
+      const factory = (await forge.load() as Record<string, (options: object) => forges.ForgeProviderFactory>)[forge.factory]!
+      return factory(forge.options?.(forge.sample) ?? {}).create()
+    }))
+    for (const operation of EXPLORER_OPERATIONS.filter(entry => entry.run)) {
+      const supported = anonymous.some(provider => (['issue', 'pull_request'] as const).some(kind => provider.can(operation.verb, kind)))
+      expect(supported, operation.verb).toBe(true)
     }
   })
 
@@ -71,7 +86,7 @@ describe('explorer operations', () => {
     const provider = github().create()
     const { repo, thread } = explorerRefs(provider, EXPLORER_FORGES[0]!.sample)
     expect(repo).toEqual({ forge: 'github', instance: 'github.com', owner: 'nuxt', name: 'nuxt' })
-    expect(thread).toMatchObject({ repo, kind: 'pull_request', number: '36493' })
+    expect(thread).toMatchObject({ repo, kind: 'pull_request', number: '36506' })
   })
 })
 
@@ -81,7 +96,7 @@ describe('explorer code', () => {
       for (const operation of EXPLORER_OPERATIONS) {
         const { text, values, symbols } = explorerCode(operation, forge, input)
         const label = `${forge.forge} ${operation.verb}`
-        expect(text, label).not.toMatch(/[]/)
+        expect(text, label).not.toMatch(/[\uE000-\uE002]/)
         for (const { field, start, end } of values) {
           expect(text.slice(start, end), `${label} ${field}`).toMatch(/^['[]/)
         }
@@ -91,6 +106,22 @@ describe('explorer code', () => {
         }
       }
     }
+  })
+
+  it('escapes the characters that delimit form values', () => {
+    const forge = EXPLORER_FORGES[0]!
+    const operation = EXPLORER_OPERATIONS.find(entry => entry.verb === 'search.repos')!
+    const query = 'a\uE000b\uE001c\uE002\'d\\'
+    const { text, values } = explorerCode(operation, forge, { ...forge.sample, query })
+    const literal = values.find(value => value.field === 'query')!
+    expect(text.slice(literal.start, literal.end)).toBe(`'a\\uE000b\\uE001c\\uE002\\'d\\\\'`)
+  })
+
+  it('passes credentials only when the call needs them', () => {
+    const forge = EXPLORER_FORGES[0]!
+    const operation = EXPLORER_OPERATIONS.find(entry => entry.verb === 'repos.collaborators')!
+    expect(explorerCode(operation, forge, forge.sample).text).not.toContain('auth:')
+    expect(explorerCode(operation, forge, forge.sample, true).text).toContain(`auth: { type: 'token', token: process.env.GITHUB_TOKEN! }`)
   })
 
   it('keeps lines to 80 characters, except around a long string', () => {
@@ -111,7 +142,8 @@ describe('explorer code', () => {
       for (const operation of EXPLORER_OPERATIONS) {
         files.set(
           join(root, `test/.explorer/${forge.forge}-${operation.verb}-${input.kind}.ts`),
-          `${explorerCode(operation, forge, input).text}\nexport {}\n`,
+          // Issues cover the code with credentials, and pull requests the code without.
+          `${explorerCode(operation, forge, input, input.kind === 'issue').text}\nexport {}\n`,
         )
       }
     }
@@ -224,6 +256,7 @@ describe('explorer hovers', () => {
           const key = id.startsWith('const:')
             ? `type:${id
               .split(':')[2]!
+              .replace(/ \| undefined$/, '')
               .replace(/^Page<.+>$/, 'Page')
               .replace(/\[\]$/, '')}`
             : id
@@ -242,7 +275,7 @@ describe('reference pages', () => {
   afterAll(() => rmSync(directory, { recursive: true, force: true }))
 
   it('show an explorer for every operation', () => {
-    const { files } = generateApiDocs({ root, contentDir: directory })
+    const { files } = generateApiDocs({ root, contentDir: directory, explorable })
     const shown = new Set(
       files.flatMap(file =>
         [...file.content.matchAll(/::api-explorer\{verb="([^"]+)"\}/g)].map(match => match[1]),

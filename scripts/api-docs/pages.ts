@@ -67,7 +67,7 @@ export interface PagesOptions {
   /** Members to leave out of the pages, because a page describes them once for all. */
   hiddenMembers?: (symbol: ApiSymbol, member: ApiMember) => boolean
   capability: (verb: string) => CapabilityInfo | undefined
-  /** Whether the docs can run a verb in the browser, so its section gets an explorer. */
+  /** Whether the docs have an explorer for a verb, which its section then shows. */
   explorable?: (verb: string) => boolean
   /** The command that regenerates the pages, for the banner. */
   command: string
