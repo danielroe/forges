@@ -27,6 +27,7 @@ export const COMMANDS: Command[] = [
   { commands: ['pnpm capability-matrix'], scripts: ['capability-matrix'], description: 'Updates the capability matrix and the other tables of the docs' },
   { commands: ['pnpm docs:api'], scripts: ['docs:api'], description: 'Updates the API reference. `--list` shows what lacks a description, and `--check` fails for it' },
   { commands: ['pnpm record-fixtures <forge>'], scripts: ['record-fixtures'], description: 'Records responses from a live forge' },
+  { commands: ['pnpm recorded-coverage'], scripts: ['recorded-coverage'], description: 'Lists the capabilities that no recording of a live forge exercises' },
   { commands: ['pnpm dev:docs'], scripts: ['dev:docs'], description: 'Starts the docs site' },
   { commands: ['pnpm dev:playground'], scripts: ['dev:playground'], description: 'Starts the playground' },
   { commands: ['pnpm check:all'], scripts: ['check:all'], description: 'Runs lint, tests, the engines check, a build and the size check' },

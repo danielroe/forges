@@ -2,10 +2,11 @@ import type { ForgeProvider } from '../../src/provider.ts'
 import { mkdirSync, writeFileSync } from 'node:fs'
 import process from 'node:process'
 import { afterAll, vi } from 'vitest'
+import { verbsDirectory } from './verbs-directory.ts'
 
 /**
  * Records every provider verb a test file calls successfully, per forge and
- * thread kind, into `test/.verbs/`. Calls on anonymous providers are recorded
+ * thread kind, into `test/.verbs/` (or `FORGES_VERBS_DIR`). Calls on anonymous providers are recorded
  * under `<forge>:anonymous` as well. `scripts/check-capabilities.ts` reads the
  * files after the run and fails for any capability declared `true` that no
  * test reached.
@@ -117,8 +118,7 @@ afterAll(() => {
   if (!exercised.size) {
     return
   }
-  const directory = new URL('../.verbs/', import.meta.url)
-  mkdirSync(directory, { recursive: true })
+  mkdirSync(verbsDirectory, { recursive: true })
   const file = `${process.pid}-${Math.random().toString(36).slice(2)}.json`
-  writeFileSync(new URL(file, directory), JSON.stringify(Object.fromEntries([...exercised].map(([forge, verbs]) => [forge, [...verbs].sort()]))))
+  writeFileSync(new URL(file, verbsDirectory), JSON.stringify(Object.fromEntries([...exercised].map(([forge, verbs]) => [forge, [...verbs].sort()]))))
 })
