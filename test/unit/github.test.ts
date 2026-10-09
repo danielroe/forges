@@ -504,6 +504,16 @@ describe('github checks and CI', () => {
       .toBeInstanceOf(UnsupportedOperationError)
   })
 
+  it('reports why the job of a check run cannot be re-run, unless the check run has no job', async () => {
+    const rerun = (status: number) => github({
+      auth: { type: 'token', token: 't' },
+      fetch: async url => new Response('{"message":"x"}', { status: url.endsWith('/rerequest') ? 422 : status }),
+    }).create().checks.rerun({ forge: 'github', instance: 'github.com', repo, id: '1', type: 'check_run' })
+
+    await expect(rerun(403)).rejects.toMatchObject({ status: 403 })
+    await expect(rerun(404)).rejects.toMatchObject({ status: 422 })
+  })
+
   it('reads workflow runs, their jobs and a job log', async () => {
     const { provider } = tokenProvider()
 

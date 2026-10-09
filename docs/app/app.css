@@ -115,6 +115,7 @@ h2,
 }
 
 .capability-swatch[data-level='unverified'] {
+  background: color-mix(in oklab, var(--ui-primary) 12%, transparent);
   outline: 1px dashed var(--ui-primary);
   outline-offset: -1px;
 }

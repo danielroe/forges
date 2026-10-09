@@ -278,7 +278,11 @@ function limits(values?: Record<string, number>) {
                     :style="{ height: `${summaryFor(provider, anonymous)[level] / total * 100}%` }"
                   />
                 </span>
-                <span class="mt-1.5 block font-mono text-[11px] text-muted tabular-nums">{{ summaryFor(provider, anonymous).native }}</span>
+                <span
+                  class="mt-1.5 block font-mono text-[11px] text-muted tabular-nums"
+                  aria-hidden="true"
+                >{{ summaryFor(provider, anonymous).native }}</span>
+                <span class="sr-only">{{ describeSummary(summaryFor(provider, anonymous)) }}</span>
               </td>
             </tr>
           </tfoot>
