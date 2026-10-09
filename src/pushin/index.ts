@@ -25,7 +25,8 @@ export interface PushinOptions extends ForgeOptionsBase {
   baseUrl?: string
 }
 
-function setupPushin({ instance, origin: context, fetcher, baseUrl }: ProviderContext<PushinOptions, undefined>): ProviderSpec {
+function setupPushin({ options, instance, origin: context, fetcher, baseUrl }: ProviderContext<PushinOptions, undefined>): ProviderSpec {
+  const anonymous = options.auth?.type === 'anonymous'
   const list = createListing(fetcher, 'per_page')
   const repoPath = (repo: RepoRef) => `/repos/${encodeURIComponent(repo.owner)}/${encodeURIComponent(repo.name)}`
 
@@ -103,7 +104,7 @@ function setupPushin({ instance, origin: context, fetcher, baseUrl }: ProviderCo
       get: verb(true, async repo => toRepo({ forge: FORGE, instance }, (await fetcher.json<PushinRepository>(repoPath(repo))).data)),
       listPage: verb('experimental', (listOptions = {}) => list('/user/repos', listOptions, (raw: PushinRepository) => toRepo({ forge: FORGE, instance }, raw))),
       labelsPage: verb(true, (repo, listOptions = {}) => list(`${repoPath(repo)}/labels`, listOptions, (raw: PushinLabel) => toLabel(raw))),
-      collaboratorsPage: verb('experimental', (repo, listOptions = {}) => list(`${repoPath(repo)}/collaborators`, listOptions, (raw: PushinCollaborator) => toCollaborator({ forge: FORGE, instance }, raw))),
+      collaboratorsPage: verb(!anonymous && 'experimental', (repo, listOptions = {}) => list(`${repoPath(repo)}/collaborators`, listOptions, (raw: PushinCollaborator) => toCollaborator({ forge: FORGE, instance }, raw))),
     },
     threads: {
       get: perKind({ issue: true, pull_request: 'experimental' }, get),
