@@ -616,7 +616,10 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
       listPage: verb(true, releasesPage),
       get: verb(true, async ref => toRelease(ref.repo, (await fetcher.json<ForgejoRelease>(`${repoPath(ref.repo)}/releases/${encodeURIComponent(ref.id)}`)).data)),
       getByTag: verb(true, async (repo, tag) => toRelease(repo, (await fetcher.json<ForgejoRelease>(`${repoPath(repo)}/releases/tags/${encodeURIComponent(tag)}`)).data)),
-      downloadAsset: verb('experimental', async (ref, downloadOptions = {}) => (await fetcher.stream(`${repoPath(ref.repo)}/releases/${encodeURIComponent(ref.release.id)}/assets/${encodeURIComponent(ref.id)}`, { signal: downloadOptions.signal })).body),
+      downloadAsset: verb('experimental', async (ref, downloadOptions = {}) => {
+        const { data } = await fetcher.json<{ browser_download_url: string }>(`${repoPath(ref.repo)}/releases/${encodeURIComponent(ref.release.id)}/assets/${encodeURIComponent(ref.id)}`, { signal: downloadOptions.signal })
+        return (await fetcher.stream(data.browser_download_url, { signal: downloadOptions.signal })).body
+      }),
       latest: verb(true, async (repo) => {
         try {
           return toRelease(repo, (await fetcher.json<ForgejoRelease>(`${repoPath(repo)}/releases/latest`)).data)
@@ -666,6 +669,9 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
       listPage: perKind(ISSUE_AND_PULL, listPage),
       eventsPage: verb(true, async (thread: ThreadRef, listOptions: ListOptions = {}): Promise<Page<ForgeEventInput>> => {
         const ref = requireThread(thread, context)
+        if (ref.kind === 'commit') {
+          return { items: [] }
+        }
         return list(`${issuePath(ref)}/timeline`, { perPage: TIMELINE_PAGE_SIZE, ...listOptions }, (entry: ForgejoTimelineEntry) => toEvent(ref, entry))
       }),
       commentsPage: perKind(ISSUE_AND_PULL, async (thread: ThreadRef, listOptions: ListOptions = {}): Promise<Page<Comment>> => {
