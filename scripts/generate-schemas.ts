@@ -81,6 +81,22 @@ function replaceByteArrays(value: unknown): unknown {
   return Object.fromEntries(Object.entries(value).map(([key, item]) => [key, replaceByteArrays(item)]))
 }
 
+/** ts-json-schema-generator pads `{@link X}` with spaces and keeps the indentation of wrapped doc lines. */
+function tidyDescriptions(value: unknown): unknown {
+  if (Array.isArray(value)) {
+    return value.map(tidyDescriptions)
+  }
+  if (!value || typeof value !== 'object') {
+    return value
+  }
+  return Object.fromEntries(Object.entries(value).map(([key, item]) => [
+    key,
+    key === 'description' && typeof item === 'string'
+      ? item.replace(/\{@link\s+([^\s}]+)\s*\}/g, '{@link $1}').replace(/ {2,}/g, ' ').replace(/(\{@link [^}]+\}) ([.,:;])/g, '$1$2')
+      : tidyDescriptions(item),
+  ]))
+}
+
 /** `name` and every schema it references, directly or through another. */
 function dependenciesOf(name: string, schemas: Record<string, Schema>): string[] {
   const found = new Set<string>()
@@ -115,7 +131,7 @@ export function generateSchemas(): Record<string, Schema> {
   }
   return Object.fromEntries(Object.keys(definitions).sort().map(name => [
     name,
-    { ...rewriteRefs(replaceByteArrays(definitions[name]), '#/components/schemas/') as Schema, 'x-forges-type': name },
+    { ...rewriteRefs(tidyDescriptions(replaceByteArrays(definitions[name])), '#/components/schemas/') as Schema, 'x-forges-type': name },
   ]))
 }
 

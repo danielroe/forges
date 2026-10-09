@@ -1219,7 +1219,7 @@
           "webhook",
           "subscribe"
         ],
-        "description": "`subscribe` is a long-lived push stream; see  {@link  SourcesApi } ."
+        "description": "`subscribe` is a long-lived push stream; see {@link SourcesApi}."
       },
       "repos": {
         "type": "object",
@@ -2246,7 +2246,7 @@
       "id",
       "instance"
     ],
-    "description": "Reference to a notification. Distinct from  {@link  ThreadRef } : a notification is a per-user delivery record whose lifetime and identity are independent of the thread it points at.",
+    "description": "Reference to a notification. Distinct from {@link ThreadRef}: a notification is a per-user delivery record whose lifetime and identity are independent of the thread it points at.",
     "x-forges-type": "NotificationRef"
   },
   "NotificationSubject": {
@@ -2468,7 +2468,7 @@
             "const": "other"
           }
         ],
-        "description": "`'other'` where the forge's name has no entry in  {@link  ReactionContent } ."
+        "description": "`'other'` where the forge's name has no entry in {@link ReactionContent}."
       },
       "contentRaw": {
         "type": "string",
@@ -2929,7 +2929,7 @@
       },
       "externalId": {
         "type": "string",
-        "description": "Stable forge-native identifier that survives renames and transfers: a GitHub, Forgejo or Gitea numeric id, a GitLab project or group id, a Bitbucket UUID or a Tangled repo DID.  {@link  repoKey }  prefers it over `owner` and `name`."
+        "description": "Stable forge-native identifier that survives renames and transfers: a GitHub, Forgejo or Gitea numeric id, a GitLab project or group id, a Bitbucket UUID or a Tangled repo DID. {@link repoKey} prefers it over `owner` and `name`."
       }
     },
     "required": [
@@ -3350,7 +3350,7 @@
         "const": "experimental"
       }
     ],
-    "description": "Capability flag. Every value other than `false` means the operation is available:\n\n- `true`: native, and verified against a recording of the forge's responses.\n- `'emulated'`: composed from other calls, so the result is approximate.\n- `'experimental'`: native, but either unverified against the live forge or   built on an API the forge marks unstable.",
+    "description": "Capability flag. Every value other than `false` means the operation is available:\n\n- `true`: native, and verified against a recording of the forge's responses.\n- `'emulated'`: composed from other calls, so the result is approximate.\n- `'experimental'`: native, but either unverified against the live forge or built on an API the forge marks unstable.",
     "x-forges-type": "Support"
   },
   "Tag": {
