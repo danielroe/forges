@@ -19,7 +19,7 @@ describe('model schemas', () => {
 
   it('emits standalone documents with only the definitions they reference', () => {
     for (const name of Object.keys(schemas)) {
-      const document = standaloneSchema(name, schemas)
+      const document = standaloneSchema(name, schemas as Parameters<typeof standaloneSchema>[1])
       const refs = new Set([...JSON.stringify(document).matchAll(/"\$ref":"#\/definitions\/([^"]+)"/g)].map(([, ref]) => ref!))
 
       expect([...refs].sort()).toEqual(Object.keys(document.definitions as object).sort())

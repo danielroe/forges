@@ -49,11 +49,9 @@ export const ROOT_TYPES = [
   'WebhookDeliveryRecord',
 ]
 
-type Schema = Record<string, unknown>
-
 const root = fileURLToPath(new URL('..', import.meta.url))
 
-function rewriteRefs(value: unknown, prefix: string): unknown {
+function rewriteRefs(value: Json, prefix: string): Json {
   if (Array.isArray(value)) {
     return value.map(item => rewriteRefs(item, prefix))
   }
@@ -68,21 +66,22 @@ function rewriteRefs(value: unknown, prefix: string): unknown {
 
 const BYTES_SCHEMA: Schema = { 'description': 'Bytes, as a `Uint8Array`. JSON cannot carry them.', 'x-forges-type': 'Uint8Array' }
 
-function replaceByteArrays(value: unknown): unknown {
+function replaceByteArrays(value: Json): Json {
   if (Array.isArray(value)) {
     return value.map(replaceByteArrays)
   }
   if (!value || typeof value !== 'object') {
     return value
   }
-  if ('BYTES_PER_ELEMENT' in ((value as { properties?: object }).properties ?? {})) {
+  const { properties } = value as Schema
+  if (properties && typeof properties === 'object' && 'BYTES_PER_ELEMENT' in properties) {
     return BYTES_SCHEMA
   }
   return Object.fromEntries(Object.entries(value).map(([key, item]) => [key, replaceByteArrays(item)]))
 }
 
 /** ts-json-schema-generator pads `{@link X}` with spaces and keeps the indentation of wrapped doc lines. */
-function tidyDescriptions(value: unknown): unknown {
+function tidyDescriptions(value: Json): Json {
   if (Array.isArray(value)) {
     return value.map(tidyDescriptions)
   }
@@ -131,7 +130,7 @@ export function generateSchemas(): Record<string, Schema> {
   }
   return Object.fromEntries(Object.keys(definitions).sort().map(name => [
     name,
-    { ...rewriteRefs(tidyDescriptions(replaceByteArrays(definitions[name])), '#/components/schemas/') as Schema, 'x-forges-type': name },
+    { ...rewriteRefs(tidyDescriptions(replaceByteArrays(definitions[name]!)), '#/components/schemas/') as Schema, 'x-forges-type': name },
   ]))
 }
 
@@ -139,8 +138,8 @@ export function generateSchemas(): Record<string, Schema> {
 export function standaloneSchema(name: string, schemas: Record<string, Schema>): Schema {
   return {
     $schema: 'http://json-schema.org/draft-07/schema#',
-    ...rewriteRefs(schemas[name], '#/definitions/') as Schema,
-    definitions: Object.fromEntries(dependenciesOf(name, schemas).map(other => [other, rewriteRefs(schemas[other], '#/definitions/')])),
+    ...rewriteRefs(schemas[name]!, '#/definitions/') as Schema,
+    definitions: Object.fromEntries(dependenciesOf(name, schemas).map(other => [other, rewriteRefs(schemas[other]!, '#/definitions/')])),
   }
 }
 
@@ -171,3 +170,9 @@ function main(): void {
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
   main()
 }
+
+interface Schema {
+  [key: string]: Json
+}
+
+type Json = null | boolean | number | string | Json[] | Schema
