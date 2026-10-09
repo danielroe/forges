@@ -564,10 +564,13 @@ async function recordWebhooks(): Promise<void> {
   const branch = `forges-fixtures/${id}-webhooks`
   let deliveries: HookDelivery[] = []
   try {
-    const issue = await plain.threads.create(scratch, { kind: 'issue', title: `${FIXTURE_TITLE} ${id}: webhooks`, body: `Opened by run ${id}.` })
-    await plain.threads.comment(issue.ref, `A comment from run ${id}.`)
-    await plain.threads.close(issue.ref)
     await harness.createBranch?.(base, branch, `forges-fixtures/${id}-webhooks.md`)
+    // Forges without issues, such as Bitbucket, get a pull request from the pushed branch instead.
+    const thread = plain.can('threads.create', 'issue')
+      ? await plain.threads.create(scratch, { kind: 'issue', title: `${FIXTURE_TITLE} ${id}: webhooks`, body: `Opened by run ${id}.` })
+      : await plain.threads.create(scratch, { kind: 'pull_request', title: `${FIXTURE_TITLE} ${id}: webhooks`, body: `Opened by run ${id}.`, head: branch, base })
+    await plain.threads.comment(thread.ref, `A comment from run ${id}.`)
+    await plain.threads.close(thread.ref)
     for (let attempt = 0; attempt < 12 && deliveries.length < 5; attempt++) {
       await new Promise(resolve => setTimeout(resolve, 5_000))
       deliveries = await relayed.deliveries(hook.ref.id)

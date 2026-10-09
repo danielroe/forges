@@ -1,0 +1,200 @@
+{
+  "01-pullrequest-created": [
+    {
+      "forge": "bitbucket",
+      "instance": "bitbucket.org",
+      "id": "1cbf57a7-9e5d-4055-a2a0-2db57487d725",
+      "kind": "state_change",
+      "kindRaw": "pullrequest:created",
+      "summary": "roebot created",
+      "occurredAt": "<now>",
+      "actor": {
+        "forge": "bitbucket",
+        "instance": "bitbucket.org",
+        "login": "roebot",
+        "id": "{6cfdba34-c97e-4f75-b163-0f801a227ce8}",
+        "name": "roebot",
+        "avatarUrl": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/712020:9d3c7e45-eeca-4000-83c8-1687e1f37a88/fd4dd39c-24a8-4ef0-9d69-e68a0806b45f/128",
+        "typeRaw": "app_user",
+        "isBotHint": true
+      },
+      "repo": {
+        "forge": "bitbucket",
+        "instance": "bitbucket.org",
+        "owner": "danielroe",
+        "name": "forges-fixtures",
+        "externalId": "{245afeb9-21de-4a8c-81c0-d45efbf52a8c}"
+      },
+      "thread": {
+        "forge": "bitbucket",
+        "instance": "bitbucket.org",
+        "repo": {
+          "forge": "bitbucket",
+          "instance": "bitbucket.org",
+          "owner": "danielroe",
+          "name": "forges-fixtures",
+          "externalId": "{245afeb9-21de-4a8c-81c0-d45efbf52a8c}"
+        },
+        "kind": "pull_request",
+        "number": "10"
+      },
+      "source": "webhook",
+      "action": "created"
+    }
+  ],
+  "02-repo-push": [
+    {
+      "forge": "bitbucket",
+      "instance": "bitbucket.org",
+      "id": "cb6e90f7-a067-4af8-af4e-cbc5025cd456:0",
+      "kindRaw": "repo:push",
+      "actor": {
+        "forge": "bitbucket",
+        "instance": "bitbucket.org",
+        "login": "roebot",
+        "id": "{6cfdba34-c97e-4f75-b163-0f801a227ce8}",
+        "name": "roebot",
+        "avatarUrl": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/712020:9d3c7e45-eeca-4000-83c8-1687e1f37a88/fd4dd39c-24a8-4ef0-9d69-e68a0806b45f/128",
+        "typeRaw": "app_user",
+        "isBotHint": true
+      },
+      "repo": {
+        "forge": "bitbucket",
+        "instance": "bitbucket.org",
+        "owner": "danielroe",
+        "name": "forges-fixtures",
+        "externalId": "{245afeb9-21de-4a8c-81c0-d45efbf52a8c}"
+      },
+      "source": "webhook",
+      "kind": "push",
+      "detail": {
+        "type": "push",
+        "ref": "forges-fixtures/20261009201205-webhooks",
+        "after": "4c211e80f93bd05bc12fb206e76d2e442a560904",
+        "commitCount": 5,
+        "forced": false,
+        "commits": [
+          {
+            "sha": "4c211e80f93bd05bc12fb206e76d2e442a560904",
+            "message": "test: add forges-fixtures/20261009201205-webhooks.md\n",
+            "author": "roebot <redacted@example.invalid>",
+            "url": "https://bitbucket.org/danielroe/forges-fixtures/commits/4c211e80f93bd05bc12fb206e76d2e442a560904"
+          },
+          {
+            "sha": "f33cda6b2d8f7eef7420f0bff303d745fcaf3ff0",
+            "message": "Merged by run 20261009140046\n",
+            "author": "roebot <redacted@example.invalid>",
+            "url": "https://bitbucket.org/danielroe/forges-fixtures/commits/f33cda6b2d8f7eef7420f0bff303d745fcaf3ff0"
+          },
+          {
+            "sha": "848ebb3839cb323e800ce5d2822610b9b7cfa9f7",
+            "message": "Merged by run 20261009140046\n",
+            "author": "roebot <redacted@example.invalid>",
+            "url": "https://bitbucket.org/danielroe/forges-fixtures/commits/848ebb3839cb323e800ce5d2822610b9b7cfa9f7"
+          },
+          {
+            "sha": "a392811a18c32c58967324f06755876da53f7281",
+            "message": "test: add forges-fixtures/20261009140046-2.md\n",
+            "author": "roebot <redacted@example.invalid>",
+            "url": "https://bitbucket.org/danielroe/forges-fixtures/commits/a392811a18c32c58967324f06755876da53f7281"
+          },
+          {
+            "sha": "ffd0b8111be44559053712cdd3eb6dc662b9e97d",
+            "message": "test: add forges-fixtures/20261009140046-1.md\n",
+            "author": "roebot <redacted@example.invalid>",
+            "url": "https://bitbucket.org/danielroe/forges-fixtures/commits/ffd0b8111be44559053712cdd3eb6dc662b9e97d"
+          }
+        ]
+      },
+      "summary": "roebot pushed 5 commit(s) to forges-fixtures/20261009201205-webhooks",
+      "occurredAt": "<now>",
+      "action": "other"
+    }
+  ],
+  "03-pullrequest-comment_created": [
+    {
+      "forge": "bitbucket",
+      "instance": "bitbucket.org",
+      "id": "ad167c84-fad6-4d4b-afa5-f789d43c0778",
+      "kind": "comment",
+      "kindRaw": "pullrequest:comment_created",
+      "summary": "roebot comment created",
+      "occurredAt": "<now>",
+      "actor": {
+        "forge": "bitbucket",
+        "instance": "bitbucket.org",
+        "login": "roebot",
+        "id": "{6cfdba34-c97e-4f75-b163-0f801a227ce8}",
+        "name": "roebot",
+        "avatarUrl": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/712020:9d3c7e45-eeca-4000-83c8-1687e1f37a88/fd4dd39c-24a8-4ef0-9d69-e68a0806b45f/128",
+        "typeRaw": "app_user",
+        "isBotHint": true
+      },
+      "repo": {
+        "forge": "bitbucket",
+        "instance": "bitbucket.org",
+        "owner": "danielroe",
+        "name": "forges-fixtures",
+        "externalId": "{245afeb9-21de-4a8c-81c0-d45efbf52a8c}"
+      },
+      "thread": {
+        "forge": "bitbucket",
+        "instance": "bitbucket.org",
+        "repo": {
+          "forge": "bitbucket",
+          "instance": "bitbucket.org",
+          "owner": "danielroe",
+          "name": "forges-fixtures",
+          "externalId": "{245afeb9-21de-4a8c-81c0-d45efbf52a8c}"
+        },
+        "kind": "pull_request",
+        "number": "10"
+      },
+      "source": "webhook",
+      "action": "created"
+    }
+  ],
+  "04-pullrequest-rejected": [
+    {
+      "forge": "bitbucket",
+      "instance": "bitbucket.org",
+      "id": "363b42aa-7f8b-4d13-9e27-e9845af07557",
+      "kind": "state_change",
+      "kindRaw": "pullrequest:rejected",
+      "summary": "roebot rejected",
+      "occurredAt": "<now>",
+      "actor": {
+        "forge": "bitbucket",
+        "instance": "bitbucket.org",
+        "login": "roebot",
+        "id": "{6cfdba34-c97e-4f75-b163-0f801a227ce8}",
+        "name": "roebot",
+        "avatarUrl": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/712020:9d3c7e45-eeca-4000-83c8-1687e1f37a88/fd4dd39c-24a8-4ef0-9d69-e68a0806b45f/128",
+        "typeRaw": "app_user",
+        "isBotHint": true
+      },
+      "repo": {
+        "forge": "bitbucket",
+        "instance": "bitbucket.org",
+        "owner": "danielroe",
+        "name": "forges-fixtures",
+        "externalId": "{245afeb9-21de-4a8c-81c0-d45efbf52a8c}"
+      },
+      "thread": {
+        "forge": "bitbucket",
+        "instance": "bitbucket.org",
+        "repo": {
+          "forge": "bitbucket",
+          "instance": "bitbucket.org",
+          "owner": "danielroe",
+          "name": "forges-fixtures",
+          "externalId": "{245afeb9-21de-4a8c-81c0-d45efbf52a8c}"
+        },
+        "kind": "pull_request",
+        "number": "10"
+      },
+      "source": "webhook",
+      "action": "other"
+    }
+  ]
+}

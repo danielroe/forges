@@ -1,0 +1,206 @@
+{
+  "01-issues": [
+    {
+      "forge": "gitea",
+      "instance": "gitea.com",
+      "id": "d3fa3690-e9ab-45a9-95a9-ee6c5f5c9c3e",
+      "kind": "state_change",
+      "kindRaw": "issues.opened",
+      "action": "opened",
+      "actionRaw": "opened",
+      "detail": {
+        "type": "state_change",
+        "state": "open"
+      },
+      "summary": "roebot opened issues",
+      "occurredAt": "<now>",
+      "actor": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "login": "roebot",
+        "id": "253592",
+        "avatarUrl": "https://seccdn.libravatar.org/avatar/7d0af08687f4da31dc47abdda8e558689d65a48bf3eb795bc032a553a4b0572b?d=identicon",
+        "url": "https://gitea.com/roebot",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "owner": "forges-fixtures",
+        "name": "forges-fixtures",
+        "externalId": "146918"
+      },
+      "thread": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "repo": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "owner": "forges-fixtures",
+          "name": "forges-fixtures",
+          "externalId": "146918"
+        },
+        "kind": "issue",
+        "number": "17"
+      },
+      "source": "webhook"
+    }
+  ],
+  "02-issue_comment": [
+    {
+      "forge": "gitea",
+      "instance": "gitea.com",
+      "id": "889899bd-c702-47c4-82a8-72c93dda2165",
+      "kind": "comment",
+      "kindRaw": "issue_comment.created",
+      "action": "created",
+      "actionRaw": "created",
+      "detail": {
+        "type": "comment",
+        "comment": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "thread": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "repo": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "owner": "forges-fixtures",
+              "name": "forges-fixtures",
+              "externalId": "146918"
+            },
+            "kind": "issue",
+            "number": "17"
+          },
+          "id": "1750832"
+        },
+        "body": "A comment from run 20261009200820."
+      },
+      "summary": "roebot created issue_comment",
+      "occurredAt": "<now>",
+      "actor": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "login": "roebot",
+        "id": "253592",
+        "avatarUrl": "https://seccdn.libravatar.org/avatar/7d0af08687f4da31dc47abdda8e558689d65a48bf3eb795bc032a553a4b0572b?d=identicon",
+        "url": "https://gitea.com/roebot",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "owner": "forges-fixtures",
+        "name": "forges-fixtures",
+        "externalId": "146918"
+      },
+      "thread": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "repo": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "owner": "forges-fixtures",
+          "name": "forges-fixtures",
+          "externalId": "146918"
+        },
+        "kind": "issue",
+        "number": "17"
+      },
+      "source": "webhook"
+    }
+  ],
+  "03-issues": [
+    {
+      "forge": "gitea",
+      "instance": "gitea.com",
+      "id": "4ef6d2da-f8df-40bb-867f-d62b1b5156ff",
+      "kind": "state_change",
+      "kindRaw": "issues.closed",
+      "action": "closed",
+      "actionRaw": "closed",
+      "detail": {
+        "type": "state_change",
+        "state": "closed"
+      },
+      "summary": "roebot closed issues",
+      "occurredAt": "<now>",
+      "actor": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "login": "roebot",
+        "id": "253592",
+        "avatarUrl": "https://seccdn.libravatar.org/avatar/7d0af08687f4da31dc47abdda8e558689d65a48bf3eb795bc032a553a4b0572b?d=identicon",
+        "url": "https://gitea.com/roebot",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "owner": "forges-fixtures",
+        "name": "forges-fixtures",
+        "externalId": "146918"
+      },
+      "thread": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "repo": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "owner": "forges-fixtures",
+          "name": "forges-fixtures",
+          "externalId": "146918"
+        },
+        "kind": "issue",
+        "number": "17"
+      },
+      "source": "webhook"
+    }
+  ],
+  "04-push": [
+    {
+      "forge": "gitea",
+      "instance": "gitea.com",
+      "id": "21a4ccfd-b717-454d-beb7-b4821303b75b",
+      "kind": "push",
+      "action": "other",
+      "kindRaw": "push",
+      "summary": "roebot pushed 1 commit(s) to forges-fixtures/20261009200820-webhooks",
+      "occurredAt": "<now>",
+      "actor": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "login": "roebot",
+        "id": "253592",
+        "avatarUrl": "https://seccdn.libravatar.org/avatar/7d0af08687f4da31dc47abdda8e558689d65a48bf3eb795bc032a553a4b0572b?d=identicon",
+        "url": "https://gitea.com/roebot",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "owner": "forges-fixtures",
+        "name": "forges-fixtures",
+        "externalId": "146918"
+      },
+      "detail": {
+        "type": "push",
+        "ref": "refs/heads/forges-fixtures/20261009200820-webhooks",
+        "before": "0000000000000000000000000000000000000000",
+        "after": "8f0696e5da6aeffbd00cef9af50027189dc1aabe",
+        "commitCount": 1,
+        "forced": false,
+        "commits": [
+          {
+            "sha": "8f0696e5da6aeffbd00cef9af50027189dc1aabe",
+            "message": "test: add forges-fixtures/20261009200820-webhooks.md\n",
+            "author": "roebot",
+            "url": "https://gitea.com/forges-fixtures/forges-fixtures/commit/8f0696e5da6aeffbd00cef9af50027189dc1aabe"
+          }
+        ]
+      },
+      "source": "webhook"
+    }
+  ]
+}
