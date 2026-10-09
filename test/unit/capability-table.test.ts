@@ -161,6 +161,14 @@ describe('capability table', () => {
     expect(github({}).create().support('ci.log')).toBe(false)
   })
 
+  it('reports a composed capability as unverified when a part is', () => {
+    const { capabilities } = gitee({ auth }).create()
+
+    expect(capabilities.writes.upsertComment.issue).toBe('unverified')
+    expect(capabilities.writes.upsertComment.pull_request).toBe('unverified')
+    expect(github({ auth }).create().capabilities.writes.upsertComment.issue).toBe('emulated')
+  })
+
   it('reports the strongest level across kinds without a kind', () => {
     expect(cursorOrigin({ auth }).create().support('threads.get')).toBe('experimental')
     expect(gitee({ auth }).create().support('threads.comment')).toBe(true)
