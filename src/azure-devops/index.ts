@@ -47,6 +47,10 @@ const PER_PAGE = 50
 const NOT_ISSUES = ['Test Case', 'Test Plan', 'Test Suite', 'Shared Steps', 'Shared Parameter', 'Code Review Request', 'Code Review Response', 'Feedback Request', 'Feedback Response']
 const MERGE_STRATEGIES = { merge: 'noFastForward', squash: 'squash', rebase: 'rebase', rebase_merge: 'rebaseMerge' } as const
 
+function versionType(ref: string): 'commit' | 'branch' {
+  return /^[0-9a-f]{40}$/i.test(ref) ? 'commit' : 'branch'
+}
+
 function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: ProviderContext<AzureDevOpsOptions, undefined>): ProviderSpec {
   const enc = encodeURIComponent
   /** Pull request statuses, policy evaluations and WIQL queries redirect a request without credentials to sign in. */
@@ -98,9 +102,7 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
   async function pullChecks(ref: ResolvedThreadRef, pull: AzurePullRequest): Promise<Check[]> {
     const [statuses, evaluations] = await Promise.all([
       fetcher.json<{ value: AzureStatus[] }>(`${pullPath(ref)}/statuses`),
-      pull.artifactId
-        ? fetcher.json<{ value: AzurePolicyEvaluation[] }>(`${projectPath(ref.repo)}/policy/evaluations`, { query: { 'artifactId': pull.artifactId, 'api-version': POLICY_API_VERSION } })
-        : Promise.resolve({ data: { value: [] as AzurePolicyEvaluation[] } }),
+      fetcher.json<{ value: AzurePolicyEvaluation[] }>(`${projectPath(ref.repo)}/policy/evaluations`, { query: { 'artifactId': `vstfs:///CodeReview/CodeReviewId/${pull.repository.project.id}/${pull.pullRequestId}`, 'api-version': POLICY_API_VERSION } }),
     ])
     return [...statuses.data.value.map(raw => toStatusCheck(ref.repo, raw)), ...evaluations.data.value.map(raw => toPolicyCheck(ref.repo, raw))]
   }
@@ -357,7 +359,7 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
           path,
           download: 'true',
           $format: 'octetStream',
-          ...fileOptions.ref ? { 'versionDescriptor.version': fileOptions.ref, 'versionDescriptor.versionType': /^[0-9a-f]{40}$/i.test(fileOptions.ref) ? 'commit' : 'branch' } : {},
+          ...fileOptions.ref ? { 'versionDescriptor.version': fileOptions.ref, 'versionDescriptor.versionType': versionType(fileOptions.ref) } : {},
         }
         const response = await fetcher.raw(`${repoPath(repo)}/items`, { query, signal: fileOptions.signal })
         return toFileContent(new Uint8Array(await response.arrayBuffer()), { path: path.replace(/^\//, '') }, fileOptions, context)
@@ -367,7 +369,7 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
           query: {
             scopePath: treeOptions.path ? `/${treeOptions.path.replace(/^\//, '')}` : '/',
             recursionLevel: treeOptions.recursive ? 'full' : 'oneLevel',
-            ...treeOptions.ref ? { 'versionDescriptor.version': treeOptions.ref } : {},
+            ...treeOptions.ref ? { 'versionDescriptor.version': treeOptions.ref, 'versionDescriptor.versionType': versionType(treeOptions.ref) } : {},
           },
           signal: treeOptions.signal,
         })
@@ -411,7 +413,7 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
       }),
       compare: verb('experimental', async (repo, base, head) => {
         const { data } = await fetcher.json<AzureCommitDiffs>(`${repoPath(repo)}/diffs/commits`, {
-          query: { baseVersion: base, targetVersion: head, $top: 1000 },
+          query: { baseVersion: base, baseVersionType: versionType(base), targetVersion: head, targetVersionType: versionType(head), $top: 1000 },
         })
         return {
           base,
