@@ -11,4 +11,5 @@ project.
 
 Values are deliberately distinct: to-do ids are `1029384xx`, merge request and
 issue iids are `23` and `11`, the epic iid is `4`, note ids are `55500xx`,
-and the project id is `278964`.
+and the project id is `278964`. `278965` is a second project in the same group,
+`acme/platform/storefront`, which a code search across the group finds.

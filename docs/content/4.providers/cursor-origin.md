@@ -188,6 +188,7 @@ Deliveries of `installation.*` events become `installation` events. You register
 | `search.threads` | ❌ | ❌ |
 | `search.repos` | ❌ | ❌ |
 | `search.commits` | ❌ | ❌ |
+| `search.code` | ❌ | ❌ |
 | `securityAlerts` | ❌ | ❌ |
 | `eventKinds` | native | native |
 | `authKinds` | `token`, `app`, `anonymous` | `token`, `app`, `anonymous` |

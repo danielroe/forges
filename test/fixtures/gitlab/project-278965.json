@@ -1,0 +1,20 @@
+{
+  "handAuthored": true,
+  "request": {
+    "method": "GET",
+    "url": "https://gitlab.com/api/v4/projects/278965"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "id": 278965,
+      "name": "storefront",
+      "path": "storefront",
+      "path_with_namespace": "acme/platform/storefront",
+      "default_branch": "develop",
+      "visibility": "public",
+      "web_url": "https://gitlab.com/acme/platform/storefront"
+    }
+  }
+}

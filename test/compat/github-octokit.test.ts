@@ -435,6 +435,13 @@ describe('request compatibility with Octokit', () => {
     )
   })
 
+  it('searches code', async () => {
+    await compare(
+      provider => provider.search.codePage({ text: 'useFetch', repo }),
+      octokit => octokit.rest.search.code({ q: 'useFetch repo:acme/widgets' }),
+    )
+  })
+
   it('creates an issue', async () => {
     await compare(
       provider => provider.threads.create!(repo, { kind: 'issue', title: 'New issue', body: 'Details' }),

@@ -2,6 +2,8 @@ import type { MergeHooks, ProviderDefinition, ProviderFactoryFunction } from '..
 import type {
   Actor,
   CheckState,
+  CodeMatch,
+  CodeSearchQuery,
   Comment,
   CommentRef,
   Commit,
@@ -48,6 +50,7 @@ import type { ForgeVerb } from '../supports.ts'
 import type {
   GitLabApprovals,
   GitLabAwardEmoji,
+  GitLabBlob,
   GitLabCommit,
   GitLabCommitComment,
   GitLabCommitDetail,
@@ -66,6 +69,7 @@ import type {
   GitLabNote,
   GitLabNoteDetail,
   GitLabPipeline,
+  GitLabProject,
   GitLabProjectDetail,
   GitLabProjectSettings,
   GitLabRelease,
@@ -77,7 +81,8 @@ import { fromBase64, toFileContent } from '../contents.ts'
 import { defineForgeProvider, perKind, verb } from '../define.ts'
 import { AuthenticationRequiredError, InsufficientScopeError, NotFoundError, soleMergeMethod, TokenRevokedError, toMergeError, UnresolvedThreadError, UnsupportedOperationError } from '../errors.ts'
 import { isNamespaceRef, reactionContent } from '../model.ts'
-import { createListing, getManyConcurrently, hexColour, memo, memoBy, milestoneId, phased, requireIssueOrPull, requireThread, resolveToken, syntheticReview, toDate, toPage, toWarning, versionAtLeast } from '../utils.ts'
+import { createListing, degradesToWarning, getManyConcurrently, hexColour, mapConcurrent, memo, memoBy, milestoneId, phased, requireIssueOrPull, requireThread, resolveToken, syntheticReview, toDate, toPage, toWarning, versionAtLeast } from '../utils.ts'
+import { webUrlFor } from '../web.ts'
 import { nativeEventsFor } from '../webhooks.ts'
 import {
   FORGE,
@@ -102,6 +107,7 @@ import {
   toPipelineSummary,
   toRelease,
   toRepo,
+  toRepoRef,
   toRole,
   toStatusCheck,
   toTag,
@@ -187,8 +193,9 @@ const GITLAB: ProviderDefinition<GitLabOptions> = {
   headers: { accept: 'application/json' },
   authHeaders: ({ options: { auth } }) => auth?.type === 'token' ? async () => ({ authorization: `Bearer ${await resolveToken(auth)}` }) : undefined,
   setup({ options, instance, baseUrl, origin: context, fetcher }) {
-    /** GitLab serves notes, labels, milestones, members, commit statuses, commit search and vulnerabilities only to signed-in users. */
+    /** GitLab serves notes, labels, milestones, members, commit statuses, commit and code search and vulnerabilities only to signed-in users. */
     const anonymous = options.auth?.type === 'anonymous'
+    const web = gitlabWeb(baseUrl.replace(/\/api\/v4$/, ''))
     /**
      * GitLab lists pending and done to-dos separately. With `all`, pending
      * pages are followed by done pages; `cursor.token` marks the switch.
@@ -451,6 +458,44 @@ const GITLAB: ProviderDefinition<GitLabOptions> = {
       return toPage(result, raw => repo && toCommit(repo, raw), warnings)
     }
 
+    /** Projects that group and instance code searches named by id, kept so later pages skip the lookup. */
+    const projectRefs = new Map<number, RepoRef>()
+
+    /** An unreadable project costs its blobs and a warning, not the page. */
+    async function resolveProject(id: number, signal: AbortSignal | undefined, warnings: ForgeWarning[]): Promise<void> {
+      try {
+        const { data } = await fetcher.json<GitLabProject>(`/projects/${id}`, { signal })
+        projectRefs.set(id, toRepoRef(instance, data.path_with_namespace, data.id))
+      }
+      catch (error) {
+        if (!degradesToWarning(error)) {
+          throw error
+        }
+        warnings.push(toWarning('record_unreachable', error, `project ${id}`))
+      }
+    }
+
+    /** Any tier searches a project; a group or the instance needs Advanced Search or exact code search. */
+    async function searchCodePage(query: CodeSearchQuery): Promise<Page<CodeMatch>> {
+      const path = query.repo ? `${projectPath(query.repo)}/search` : query.owner ? `/groups/${encodeURIComponent(query.owner)}/search` : '/search'
+      const result = await fetcher.page<GitLabBlob>(path, {
+        query: { scope: 'blobs', search: query.text ?? '', per_page: query.perPage },
+        cursor: query.cursor,
+        signal: query.signal,
+      })
+      const warnings: ForgeWarning[] = []
+      const ids = query.repo ? [] : [...new Set((result.data ?? []).map(raw => raw.project_id))].filter(id => !projectRefs.has(id))
+      await mapConcurrent(ids, 4, id => resolveProject(id, query.signal, warnings))
+      return toPage(result, (raw) => {
+        const repo = query.repo ?? projectRefs.get(raw.project_id)
+        if (!repo) {
+          return undefined
+        }
+        const url = webUrlFor(web, { file: { repo, path: raw.path, at: raw.ref, line: raw.startline } })
+        return { repo, path: raw.path, ref: raw.ref, fragments: [{ text: raw.data, line: raw.startline }], url, raw }
+      }, warnings)
+    }
+
     async function setSubscribed(thread: ThreadRef, subscribed: boolean): Promise<void> {
       const ref = requireIssueOrPull(thread, context, subscribed ? 'subscribe to' : 'unsubscribe from')
       await fetcher.raw(`${threadPath(ref)}/${subscribed ? 'subscribe' : 'unsubscribe'}`, { method: 'POST' })
@@ -540,7 +585,7 @@ const GITLAB: ProviderDefinition<GitLabOptions> = {
     return {
       traits: { eventKinds: 'heuristic', authKinds: ['token', 'anonymous'], limits: { bodyLength: 1_048_576, commentLength: 1_000_000, labelLength: 255 } },
       probeVersion: async () => (await fetcher.json<{ version?: string }>('/version')).data.version,
-      web: gitlabWeb(baseUrl.replace(/\/api\/v4$/, '')),
+      web,
       webhooks: {
         listPage: verb(true, (target, listOptions = {}) => list(hooksPath(target), listOptions, (raw: GitLabHook) => toWebhook(target, raw))),
         create: verb(true, async (target, input) => toWebhook(target, (await fetcher.json<GitLabHook>(hooksPath(target), {
@@ -682,6 +727,7 @@ const GITLAB: ProviderDefinition<GitLabOptions> = {
         threadsPage: verb(true, searchThreadsPage),
         reposPage: verb(true, searchReposPage),
         commitsPage: verb(!anonymous && 'experimental', searchCommitsPage),
+        codePage: verb(!anonymous, searchCodePage),
       },
       checks: {
         list: verb(!anonymous, async (repo, sha) => ({

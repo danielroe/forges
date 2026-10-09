@@ -668,6 +668,22 @@ describe('github search', () => {
     expect(page.items[0]!.ref.name).toBe('widgets')
     expect(page.warnings).toBeUndefined()
   })
+
+  it('asks code search for text matches and keeps the ones from file contents', async () => {
+    const { provider, calls } = tokenProvider()
+
+    const { items } = await provider.search.codePage({ text: 'useFetch', repo })
+
+    expect(calls[0]!.headers.get('accept')).toBe('application/vnd.github.text-match+json')
+    expect(items).toEqual([{
+      repo,
+      path: 'src/useFetch.ts',
+      ref: '6dcb09b5b57875f334f61aebed695e2e4193db5e',
+      fragments: [{ text: 'export function useFetch(url: string) {\n  return fetch(url)\n}' }],
+      url: 'https://github.com/acme/widgets/blob/6dcb09b5b57875f334f61aebed695e2e4193db5e/src/useFetch.ts',
+      raw: expect.objectContaining({ path: 'src/useFetch.ts' }),
+    }])
+  })
 })
 
 describe('github webhook management', () => {

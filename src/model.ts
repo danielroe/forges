@@ -781,6 +781,25 @@ export interface Comparison {
   raw: unknown
 }
 
+/** A file that a code search found. GitLab returns one for each excerpt, so a file can come back more than once. */
+export interface CodeMatch {
+  repo: RepoRef
+  path: string
+  /** The branch, tag or sha the forge searched, where it reports one. */
+  ref?: string
+  /** The excerpts of the file that matched. */
+  fragments: CodeFragment[]
+  url?: string
+  raw: unknown
+}
+
+/** An excerpt of a file that matched a code search. */
+export interface CodeFragment {
+  text: string
+  /** The line the excerpt starts on, where the forge reports it. */
+  line?: number
+}
+
 /** A release asset, addressable for download with `releases.downloadAsset`. */
 export interface ReleaseAssetRef extends ForgeOrigin {
   repo: RepoRef
@@ -1304,6 +1323,18 @@ export interface RepoSearchQuery extends PageOptions {
    * @default desc
    */
   direction?: 'asc' | 'desc'
+}
+
+/** A search for code. */
+export interface CodeSearchQuery extends PageOptions {
+  /** Free text, matched against the contents of files. */
+  text?: string
+  /** Forge-native query syntax; see {@link SearchQuery.queryRaw}. */
+  queryRaw?: string
+  /** Limit to one repository. */
+  repo?: RepoRef
+  /** Limit to one account or namespace. */
+  owner?: string
 }
 
 /** Options for listings that take no filters: releases, installations, labels. */

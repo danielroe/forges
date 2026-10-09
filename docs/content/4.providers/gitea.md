@@ -178,6 +178,7 @@ A label delivery doesn't say which labels were added or removed. When the set of
 | `search.threads` | ✅ | ✅ |
 | `search.repos` | ✅ | ✅ |
 | `search.commits` | ❌ | ❌ |
+| `search.code` | ❌ | ❌ |
 | `securityAlerts` | ❌ | ❌ |
 | `eventKinds` | native | native |
 | `authKinds` | `token`, `anonymous` | `token`, `anonymous` |

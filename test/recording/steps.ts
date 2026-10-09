@@ -233,6 +233,7 @@ export const STEPS: Step[] = [
   { name: 'search threads', verb: 'search.threadsPage', run: (provider, manifest) => provider.search.threadsPage({ text: 'fix', repo: manifest.repo, ...page }) },
   { name: 'search repos', verb: 'search.reposPage', run: (provider, manifest) => provider.search.reposPage({ text: manifest.repo.name, ...page }) },
   { name: 'search commits', verb: 'search.commitsPage', run: (provider, manifest) => provider.search.commitsPage({ text: 'fix', repo: manifest.repo, ...page }) },
+  { name: 'search code', verb: 'search.codePage', run: (provider, manifest) => provider.search.codePage({ text: 'import', repo: manifest.repo, ...page }) },
   { name: 'webhooks', verb: 'webhooks.listPage', run: async (provider, manifest, context) => {
     const result = await provider.webhooks.listPage(manifest.scratch ?? manifest.repo, page)
     context.webhook = result.items[0]

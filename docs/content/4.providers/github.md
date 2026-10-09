@@ -40,7 +40,7 @@ const app = github({
 
 For app authentication, `privateKey` is the PEM key of the app, in PKCS#1 or PKCS#8 format. If you pass an `installationId` as well, the provider acts as that installation, and it creates and caches installation tokens whenever it needs one. If you leave it out, the provider authenticates as the app itself. In that case, `installations.list()` lists the installations of the app, and `installations.provider(installation)` gives you a provider for one of them.
 
-If you leave out `auth` altogether, the provider makes anonymous reads of public data. GitHub serves job logs only to authenticated requests, so `ci.log` isn't supported without `auth`.
+If you leave out `auth` altogether, the provider makes anonymous reads of public data. GitHub serves job logs and code search only to authenticated requests, so `ci.log` and `search.code` aren't supported without `auth`.
 
 `users.me()` needs a token. The token of an app installation doesn't belong to any account, so the capability table at the end of this page, which assumes app authentication, shows `users.me` as unsupported.
 
@@ -99,6 +99,8 @@ When you call `search.threads()` without a `kind`, it uses GitHub's advanced sea
 ```ts
 const page = await gh.search.threadsPage({ kind: 'pull_request', queryRaw: 'review-requested:@me' })
 ```
+
+`search.code()` gets the tightest limit of all: 10 requests a minute, in a pool of its own. It only sees the default branch, and only files under 384 KB. Each result is a file, with `ref` set to the commit that GitHub indexed. `fragments` holds the excerpts that GitHub highlighted. They have no line numbers, because GitHub doesn't send any.
 
 ## Webhook management
 
@@ -227,6 +229,7 @@ Deliveries of the `installation` and `installation_repositories` events become `
 | `search.threads` | ✅ | ✅ |
 | `search.repos` | ✅ | ✅ |
 | `search.commits` | ✅ | ✅ |
+| `search.code` | ✅ | ❌ |
 | `securityAlerts` | dependency, code scanning, secret | ❌ |
 | `eventKinds` | native | native |
 | `authKinds` | `token`, `app`, `anonymous` | `token`, `app`, `anonymous` |

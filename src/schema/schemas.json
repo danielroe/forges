@@ -448,6 +448,57 @@
     "description": "A CI run: a workflow run, a pipeline, or a build.",
     "x-forges-type": "CiRunRef"
   },
+  "CodeFragment": {
+    "type": "object",
+    "properties": {
+      "text": {
+        "type": "string"
+      },
+      "line": {
+        "type": "number",
+        "description": "The line the excerpt starts on, where the forge reports it."
+      }
+    },
+    "required": [
+      "text"
+    ],
+    "description": "An excerpt of a file that matched a code search.",
+    "x-forges-type": "CodeFragment"
+  },
+  "CodeMatch": {
+    "type": "object",
+    "properties": {
+      "repo": {
+        "$ref": "#/components/schemas/RepoRef"
+      },
+      "path": {
+        "type": "string"
+      },
+      "ref": {
+        "type": "string",
+        "description": "The branch, tag or sha the forge searched, where it reports one."
+      },
+      "fragments": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/CodeFragment"
+        },
+        "description": "The excerpts of the file that matched."
+      },
+      "url": {
+        "type": "string"
+      },
+      "raw": {}
+    },
+    "required": [
+      "repo",
+      "path",
+      "fragments",
+      "raw"
+    ],
+    "description": "A file that a code search found. GitLab returns one for each excerpt, so a file can come back more than once.",
+    "x-forges-type": "CodeMatch"
+  },
   "Collaborator": {
     "type": "object",
     "properties": {
@@ -1762,14 +1813,19 @@
           "commits": {
             "$ref": "#/components/schemas/Support",
             "description": "Support for `search.commits()` and `search.commitsPage()`."
+          },
+          "code": {
+            "$ref": "#/components/schemas/Support",
+            "description": "Support for `search.code()` and `search.codePage()`."
           }
         },
         "required": [
           "threads",
           "repos",
-          "commits"
+          "commits",
+          "code"
         ],
-        "description": "Cross-repository search of issues and pull requests, repositories and commits. No code search."
+        "description": "Cross-repository search of issues and pull requests, repositories, commits and code."
       },
       "securityAlerts": {
         "$ref": "#/components/schemas/AlertSupport",

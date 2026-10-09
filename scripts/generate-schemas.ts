@@ -16,6 +16,7 @@ export const ROOT_TYPES = [
   'Check',
   'CiJob',
   'CiRun',
+  'CodeMatch',
   'Collaborator',
   'Comment',
   'Commit',

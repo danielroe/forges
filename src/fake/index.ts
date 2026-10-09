@@ -8,6 +8,7 @@ import type {
   CiJob,
   CiRun,
   CiRunRef,
+  CodeMatch,
   Comment,
   CommentRef,
   Commit,
@@ -260,6 +261,12 @@ function pageOf<T>(items: T[], options: { cursor?: { token?: string }, perPage?:
 function splitRepo(slug: string): { owner: string, name: string } {
   const index = slug.lastIndexOf('/')
   return { owner: slug.slice(0, index), name: slug.slice(index + 1) }
+}
+
+/** Reads a stored file key, `<ref>:<path>`, where the ref `*` stands for every ref. */
+function splitFileKey(key: string): { ref: string, path: string } {
+  const index = key.indexOf(':')
+  return { ref: key.slice(0, index), path: key.slice(index + 1) }
 }
 
 /**
@@ -671,6 +678,22 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
               && (!query.committer || commit.committer?.name === query.committer))
           return pageOf(query.direction === 'asc' ? items : items.toReversed(), query)
         }),
+        codePage: verb(support('search.code', true), async (query = {}) => {
+          const text = query.text?.toLowerCase()
+          if (!text) {
+            return pageOf([], query)
+          }
+          const decoder = new TextDecoder()
+          const items = [...store.repos.values()]
+            .filter(entry => (!query.repo || slugOf(entry.repo.ref) === slugOf(query.repo)) && (!query.owner || entry.repo.ref.owner === query.owner))
+            .flatMap(entry => [...entry.files].flatMap(([key, bytes]): CodeMatch[] => {
+              const { ref, path } = splitFileKey(key)
+              const lines = decoder.decode(bytes).split('\n')
+              const fragments = lines.flatMap((line, index) => line.toLowerCase().includes(text) ? [{ text: line, line: index + 1 }] : [])
+              return fragments.length ? [{ repo: entry.repo.ref, path, ref: ref === '*' ? undefined : ref, fragments, raw: undefined }] : []
+            }))
+          return pageOf(items, query)
+        }),
       },
       threads: {
         get: perKind(kinds('threads.get', ALL_KINDS), async ref => threadState(ref).thread),
@@ -856,9 +879,7 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
           const prefix = treeOptions.path?.replace(/^\/|\/$/g, '')
           const paths = [...repoState(repo).files.keys()]
             .flatMap((key) => {
-              const separator = key.indexOf(':')
-              const ref = key.slice(0, separator)
-              const path = key.slice(separator + 1)
+              const { ref, path } = splitFileKey(key)
               return ref === '*' || ref === treeOptions.ref ? [path] : []
             })
             .filter(path => !prefix || path.startsWith(`${prefix}/`))

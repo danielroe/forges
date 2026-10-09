@@ -2,7 +2,7 @@ import type { ForgeErrorContext } from './errors.ts'
 import type { Fetcher, FetchResult, PaginateOptions } from './fetch.ts'
 import type { Actor, ChecksSummary, CheckState, Cursor, FileStatus, ForgeWarning, GetManyResult, ListOptions, Milestone, Page, PageOptions, RateLimit, ResolvedThreadRef, Review, ReviewState, Thread, ThreadRef } from './model.ts'
 import type { ForgeIterable, MilestoneListOptions, TokenAuth } from './provider.ts'
-import { ForgeApiError, UnresolvedThreadError, UnsupportedOperationError } from './errors.ts'
+import { ForgeApiError, ForgeError, RateLimitedError, TokenRevokedError, UnresolvedThreadError, UnsupportedOperationError } from './errors.ts'
 import { rateLimitOf } from './fetch.ts'
 import { isResolvedThread } from './model.ts'
 
@@ -46,6 +46,11 @@ export function toWarning(code: string, error: unknown, subject?: string): Forge
     subject,
     cause: { name: err.name, message: err.message, status: err instanceof ForgeApiError ? err.status : undefined },
   }
+}
+
+/** Whether a failed side read may become a warning; rate limits, revoked tokens and errors from outside forges still stop the read. */
+export function degradesToWarning(error: unknown): boolean {
+  return error instanceof ForgeError && !(error instanceof RateLimitedError) && !(error instanceof TokenRevokedError)
 }
 
 /** Maps with at most `limit` calls in flight, preserving order. */

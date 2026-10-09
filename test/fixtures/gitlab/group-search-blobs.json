@@ -1,0 +1,43 @@
+{
+  "handAuthored": true,
+  "request": {
+    "method": "GET",
+    "url": "https://gitlab.com/api/v4/groups/acme%2Fplatform/search?scope=blobs&search=useFetch"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": [
+      {
+        "basename": "src/useFetch",
+        "data": "export function useFetch(url: string) {\n  return fetch(url)\n}\n",
+        "path": "src/useFetch.ts",
+        "filename": "src/useFetch.ts",
+        "id": null,
+        "ref": "main",
+        "startline": 12,
+        "project_id": 278964
+      },
+      {
+        "basename": "src/useFetch",
+        "data": "export default useFetch\n",
+        "path": "src/useFetch.ts",
+        "filename": "src/useFetch.ts",
+        "id": null,
+        "ref": "main",
+        "startline": 40,
+        "project_id": 278964
+      },
+      {
+        "basename": "app/pages/index",
+        "data": "const { data } = await useFetch('/api/widgets')\n",
+        "path": "app/pages/index.vue",
+        "filename": "app/pages/index.vue",
+        "id": null,
+        "ref": "develop",
+        "startline": 3,
+        "project_id": 278965
+      }
+    ]
+  }
+}

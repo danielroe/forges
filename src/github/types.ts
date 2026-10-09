@@ -397,6 +397,14 @@ export interface GitHubCommitSearchItem extends GitHubCommit {
   repository?: GitHubRepository
 }
 
+export interface GitHubCodeSearchItem {
+  path: string
+  url: string
+  html_url: string
+  repository: GitHubRepository
+  text_matches?: Array<{ property: string, fragment: string }>
+}
+
 export interface GitHubComparison {
   ahead_by?: number
   behind_by?: number

@@ -190,6 +190,7 @@ Bitbucket doesn't keep a delivery log, so `webhooks.deliveries()` and `webhooks.
 | `search.threads` | ✅ | ✅ |
 | `search.repos` | ✅ | ❌ |
 | `search.commits` | ❌ | ❌ |
+| `search.code` | ❌ | ❌ |
 | `securityAlerts` | ❌ | ❌ |
 | `eventKinds` | native | native |
 | `authKinds` | `token`, `basic`, `anonymous` | `token`, `basic`, `anonymous` |

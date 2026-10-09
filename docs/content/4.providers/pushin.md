@@ -163,6 +163,7 @@ Since `pushin()` contains no webhook code, there is no `pushinLite()` factory fo
 | `search.threads` | ❌ | ❌ |
 | `search.repos` | ❌ | ❌ |
 | `search.commits` | ❌ | ❌ |
+| `search.code` | ❌ | ❌ |
 | `securityAlerts` | ❌ | ❌ |
 | `eventKinds` | native | native |
 | `authKinds` | `token`, `anonymous` | `token`, `anonymous` |

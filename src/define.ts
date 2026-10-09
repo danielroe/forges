@@ -207,6 +207,8 @@ export interface ProviderSpec {
     reposPage?: Verb<SearchApi['reposPage']>
     /** The implementation of `provider.search.commits()` and `provider.search.commitsPage()`. */
     commitsPage?: Verb<SearchApi['commitsPage']>
+    /** The implementation of `provider.search.code()` and `provider.search.codePage()`. */
+    codePage?: Verb<SearchApi['codePage']>
     /** The searches pass `queryRaw` on; without this, core drops it with a warning. */
     queryRaw?: boolean
   }
@@ -335,7 +337,7 @@ export type WebhookHandlers<TOptions> = (ctx: Omit<ProviderContext<TOptions, unk
 }
 
 /** Iterables whose page takes only options, with no target before them. */
-const UNTARGETED = new Set(['repos.list', 'notifications.list', 'installations.list', 'search.threads', 'search.repos', 'search.commits'])
+const UNTARGETED = new Set(['repos.list', 'notifications.list', 'installations.list', 'search.threads', 'search.repos', 'search.commits', 'search.code'])
 
 /** The thread kind a per-kind verb is called for, read from its arguments. */
 function kindOf(name: string, args: unknown[]): string | undefined {
@@ -485,7 +487,7 @@ function createProvider<TOptions extends ForgeOptionsBase, TState>(
   const listThreads = kindGate('threads.listPage', spec.threads.listPage.kinds, spec.threads.listPage.run)
   const listEvents = kindGate('threads.eventsPage', Object.fromEntries(KINDS.map(kind => [kind, (kindEnv: CapabilityEnv) => threadEventKinds(spec, kindEnv)[kind]])), spec.threads.eventsPage.run)
   const native = spec.search?.queryRaw
-  const search = (name: 'threadsPage' | 'reposPage' | 'commitsPage') => {
+  const search = (name: 'threadsPage' | 'reposPage' | 'commitsPage' | 'codePage') => {
     const run = gate(`search.${name}`, spec.search?.[name]?.support, spec.search?.[name]?.run)
     return async ({ queryRaw, ...query }: { queryRaw?: string, cursor?: unknown } = {}) => {
       const page = await run(native ? { queryRaw, ...query } : query) as Page<unknown>
@@ -496,6 +498,7 @@ function createProvider<TOptions extends ForgeOptionsBase, TState>(
     'search.threadsPage': search('threadsPage'),
     'search.reposPage': search('reposPage'),
     'search.commitsPage': search('commitsPage'),
+    'search.codePage': search('codePage'),
     'threads.listPage': async (repo: RepoRef, query: ThreadQuery = {}) => {
       if (query.state === 'merged' && query.kind && query.kind !== 'pull_request') {
         return { items: [] }

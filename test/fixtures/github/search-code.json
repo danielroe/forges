@@ -1,0 +1,68 @@
+{
+  "handAuthored": true,
+  "request": {
+    "method": "GET",
+    "url": "https://api.github.com/search/code?q=useFetch+repo%3Aacme%2Fwidgets"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "total_count": 1,
+      "incomplete_results": false,
+      "items": [
+        {
+          "name": "useFetch.ts",
+          "path": "src/useFetch.ts",
+          "sha": "d7212f9dee2dcc18f084d7df8f417b80846ded5a",
+          "url": "https://api.github.com/repositories/31337/contents/src/useFetch.ts?ref=6dcb09b5b57875f334f61aebed695e2e4193db5e",
+          "git_url": "https://api.github.com/repositories/31337/git/blobs/d7212f9dee2dcc18f084d7df8f417b80846ded5a",
+          "html_url": "https://github.com/acme/widgets/blob/6dcb09b5b57875f334f61aebed695e2e4193db5e/src/useFetch.ts",
+          "repository": {
+            "id": 31337,
+            "node_id": "MDEwOlJlcG9zaXRvcnkzMTMzNw==",
+            "name": "widgets",
+            "full_name": "acme/widgets",
+            "owner": {
+              "login": "acme",
+              "id": 5150,
+              "type": "Organization"
+            },
+            "private": false,
+            "html_url": "https://github.com/acme/widgets",
+            "description": "Widgets for everyone",
+            "fork": false,
+            "url": "https://api.github.com/repos/acme/widgets"
+          },
+          "score": 1,
+          "text_matches": [
+            {
+              "object_url": "https://api.github.com/repositories/31337/contents/src/useFetch.ts?ref=6dcb09b5b57875f334f61aebed695e2e4193db5e",
+              "object_type": "FileContent",
+              "property": "content",
+              "fragment": "export function useFetch(url: string) {\n  return fetch(url)\n}",
+              "matches": [
+                {
+                  "text": "useFetch",
+                  "indices": [16, 24]
+                }
+              ]
+            },
+            {
+              "object_url": "https://api.github.com/repositories/31337/contents/src/useFetch.ts?ref=6dcb09b5b57875f334f61aebed695e2e4193db5e",
+              "object_type": "FileContent",
+              "property": "path",
+              "fragment": "src/useFetch.ts",
+              "matches": [
+                {
+                  "text": "useFetch",
+                  "indices": [4, 12]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

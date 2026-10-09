@@ -238,6 +238,7 @@ A `push` delivery becomes a `push` or `ref` event. Tangled has no API to registe
 | `search.threads` | ❌ | ❌ |
 | `search.repos` | ❌ | ❌ |
 | `search.commits` | ❌ | ❌ |
+| `search.code` | ❌ | ❌ |
 | `securityAlerts` | ❌ | ❌ |
 | `eventKinds` | native | native |
 | `authKinds` | `anonymous`, `app_password`, `oauth` | `anonymous`, `app_password`, `oauth` |

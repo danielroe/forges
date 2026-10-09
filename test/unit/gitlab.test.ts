@@ -336,6 +336,85 @@ describe('gitlab release webhooks', () => {
   })
 })
 
+describe('gitlab code search', () => {
+  it('links each excerpt to the line it starts on', async () => {
+    const { instance } = provider()
+
+    const { items } = await instance.search.codePage({ text: 'useFetch', repo })
+
+    expect(items).toEqual([{
+      repo,
+      path: 'src/useFetch.ts',
+      ref: 'main',
+      fragments: [{ text: 'export function useFetch(url: string) {\n  return fetch(url)\n}\n', line: 12 }],
+      url: 'https://gitlab.com/acme/platform/widgets/-/blob/main/src/useFetch.ts#L12',
+      raw: expect.objectContaining({ project_id: 278964 }),
+    }])
+  })
+
+  it('names the projects of a group search, reading each one once', async () => {
+    const { instance, calls } = provider()
+
+    const { items } = await instance.search.codePage({ text: 'useFetch', owner: 'acme/platform' })
+    await instance.search.codePage({ text: 'useFetch', owner: 'acme/platform' })
+
+    expect(items.map(item => item.url)).toEqual([
+      'https://gitlab.com/acme/platform/widgets/-/blob/main/src/useFetch.ts#L12',
+      'https://gitlab.com/acme/platform/widgets/-/blob/main/src/useFetch.ts#L40',
+      'https://gitlab.com/acme/platform/storefront/-/blob/develop/app/pages/index.vue#L3',
+    ])
+    expect(calls.map(call => new URL(call.url).pathname).filter(path => /\/projects\/\d+$/.test(path))).toEqual(['/api/v4/projects/278964', '/api/v4/projects/278965'])
+  })
+
+  it('searches a project, a group or the whole instance', async () => {
+    const paths: string[] = []
+    const instance = gitlab({
+      auth: { type: 'token', token: 't' },
+      fetch: async (url) => {
+        paths.push(new URL(url).pathname)
+        return Response.json([])
+      },
+    }).create()
+
+    await instance.search.codePage({ text: 'useFetch', repo })
+    await instance.search.codePage({ text: 'useFetch', owner: 'acme/platform' })
+    await instance.search.codePage({ text: 'useFetch' })
+
+    expect(paths).toEqual(['/api/v4/projects/acme%2Fplatform%2Fwidgets/search', '/api/v4/groups/acme%2Fplatform/search', '/api/v4/search'])
+  })
+
+  it('keeps the rest of the page when one project of a group search cannot be read', async () => {
+    const { instance } = provider({ 'GET https://gitlab.com/api/v4/projects/278965': { status: 404, headers: {}, body: { message: '404 Project Not Found' } } })
+
+    const page = await instance.search.codePage({ text: 'useFetch', owner: 'acme/platform' })
+
+    expect(page.items.map(item => item.repo.name)).toEqual(['widgets', 'widgets'])
+    expect(page.warnings).toEqual([expect.objectContaining({ code: 'record_unreachable', subject: 'project 278965' })])
+  })
+
+  it('stops a group search when reading a project is rate limited', async () => {
+    const { instance } = provider({ 'GET https://gitlab.com/api/v4/projects/278965': { status: 429, headers: { 'ratelimit-remaining': '0', 'ratelimit-reset': '1800000000' }, body: { message: 'Retry later' } } })
+
+    await expect(instance.search.codePage({ text: 'useFetch', owner: 'acme/platform' })).rejects.toBeInstanceOf(RateLimitedError)
+  })
+
+  it('lets the caller abort a group search while it reads the projects', async () => {
+    const controller = new AbortController()
+    const instance = gitlab({
+      auth: { type: 'token', token: 't' },
+      fetch: async (url, init) => {
+        if (String(url).includes('/groups/')) {
+          return Response.json([{ data: 'useFetch', path: 'src/useFetch.ts', ref: 'main', startline: 1, project_id: 278964 }])
+        }
+        controller.abort()
+        throw init!.signal!.reason
+      },
+    }).create()
+
+    await expect(instance.search.codePage({ text: 'useFetch', owner: 'acme/platform', signal: controller.signal })).rejects.toMatchObject({ name: 'AbortError' })
+  })
+})
+
 describe('gitlab path safety', () => {
   it('refuses a comment id that would climb out of the thread, before any request', async () => {
     const urls: string[] = []
