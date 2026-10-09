@@ -43,6 +43,30 @@ describe('explorer operations', () => {
     expect(new Set(verbs).size).toBe(verbs.length)
   })
 
+  it('declare the type that the method they call resolves to', () => {
+    const symbols = model.entries.flatMap(entry => entry.symbols)
+    const namespaces = symbols.find(symbol => symbol.name === 'ForgeProvider')!.members
+    for (const { method, returns } of EXPLORER_OPERATIONS) {
+      const [namespace, name] = method.split('.') as [string, string]
+      const api = symbols.find(symbol => symbol.name === namespaces.find(member => member.name === namespace)?.reference)
+      const declared = api?.members.find(member => member.name === name)?.signatures[0]?.returns.type
+      // A missing result is no type of its own: the result shows nothing then.
+      expect(declared?.replace(/^Promise<(.+)>$/, '$1').replace(/ \| undefined$/, ''), method).toBe(returns)
+    }
+  })
+
+  it('load the factory of every forge that has a provider here', async () => {
+    for (const forge of EXPLORER_FORGES) {
+      if (!forge.load) {
+        // Only a forge whose provider needs credentials to be created goes without one.
+        expect(forge.authRequired, forge.forge).toBe(true)
+        continue
+      }
+      const module = await forge.load() as Record<string, unknown>
+      expect(typeof module[forge.factory], forge.forge).toBe('function')
+    }
+  })
+
   it('build refs for the forge of the provider', () => {
     const provider = github().create()
     const { repo, thread } = explorerRefs(provider, EXPLORER_FORGES[0]!.sample)
@@ -204,7 +228,7 @@ describe('explorer hovers', () => {
               .replace(/\[\]$/, '')}`
             : id
           // Results that are no model type, such as `string`, have nothing to describe.
-          if (!/^type:[a-z]/.test(key) && key !== 'type:ReadableStream' && key !== 'type:void') {
+          if (!/^type:[a-z]/.test(key) && !key.startsWith('type:ReadableStream') && key !== 'type:void') {
             expect(hovers[key], `${forge.forge} ${operation.verb} ${id}`).toBeDefined()
           }
         }

@@ -1,4 +1,5 @@
 import type { ForgeProvider, ForgeVerb, RepoRef, ThreadKind, ThreadRef } from 'forges'
+import { CAPABILITY_TABLE } from '../../src/capability-table.ts'
 
 /** A form field. Each operation shows the ones it reads, after the repository's owner and name. */
 export type ExplorerField
@@ -85,6 +86,11 @@ export interface ExplorerForge {
   /** The factory, Lite where there is one, and the subpath it is imported from. */
   factory: string
   module: string
+  /**
+   * Imports `module`, which holds `factory`, for the explorer's own provider. Written out per forge, so that the bundler
+   * splits each provider into a chunk of its own. Absent for a forge whose provider can't be created without credentials.
+   */
+  load?: () => Promise<object>
   /** The forge kind, which also keys the forge in the explorer and in links, such as `?forge=forgejo`. */
   forge: string
   instance: string
@@ -109,17 +115,18 @@ function sample(values: Partial<ExplorerInput>): ExplorerInput {
 // Runnable samples are public repositories that answer anonymous requests: a merged pull request, its author,
 // the latest release, a commit and its parent (a small diff to compare), and a CI run, where the forge has them.
 export const EXPLORER_FORGES: ExplorerForge[] = [
-  { name: 'GitHub', icon: 'i-simple-icons-github', factory: 'githubLite', module: 'github', forge: 'github', instance: 'github.com', auth: token('GITHUB_TOKEN'), sample: sample({ owner: 'nuxt', name: 'nuxt', number: '36493', login: 'danielroe', tag: 'v4.6.0', releaseId: '404130846', sha: '0296ca413dc7ab2e29555e7109f35581b81d5c41', base: '85b8d54f6ce49f4d0f199e90513b1e5d5fa22196', head: 'main', runId: '37772560463' }) },
-  { name: 'GitLab', icon: 'i-simple-icons-gitlab', factory: 'gitlabLite', module: 'gitlab', forge: 'gitlab', instance: 'gitlab.com', auth: token('GITLAB_TOKEN'), sample: sample({ owner: 'inkscape', name: 'inkscape', number: '8209', login: 'guillaume.turri', tag: 'INKSCAPE_1_4', releaseId: 'INKSCAPE_1_4', sha: '10b831ed45817ecb05f7c6239fe97d56c196c9cc', base: '41d0bb9160ba8c4e8b31d07c301f83b4e43771e3', head: 'master', runId: '2926543070' }) },
-  { name: 'Codeberg', icon: 'i-simple-icons-forgejo', factory: 'forgejoLite', module: 'forgejo', forge: 'forgejo', instance: 'codeberg.org', auth: token('CODEBERG_TOKEN'), sample: sample({ owner: 'forgejo', name: 'forgejo', number: '14752', login: '0ko', tag: 'v16.0.5', releaseId: '12250357', sha: 'd915e5a5abb92527ac7fd0d60997b5fc57cf8467', base: 'adfdb1a53298d953669fcf49d61393a32b256fb5', head: 'forgejo' }) },
-  { name: 'Gitea', icon: 'i-simple-icons-gitea', factory: 'giteaLite', module: 'gitea', forge: 'gitea', instance: 'gitea.com', auth: token('GITEA_TOKEN'), sample: sample({ owner: 'gitea', name: 'tea', number: '1114', login: 'ongolk', tag: 'v0.16.0', releaseId: '945508', sha: 'bcd62a1fb2ce6fdd51ebea91cc33ddbcae000b68', base: '6daaa7c05e7883d4468fc7b40c2f71e0ea75562a', head: 'main' }) },
-  { name: 'Bitbucket', icon: 'i-simple-icons-bitbucket', factory: 'bitbucketLite', module: 'bitbucket', forge: 'bitbucket', instance: 'bitbucket.org', auth: token('BITBUCKET_TOKEN'), sample: sample({ owner: 'tutorials', name: 'markdowndemo', number: '80', login: 'brennan', sha: '5b6c39df3196eeeb8a36684beb9a3df854a0b5f3', base: '59a1e452abc40869b12cf13f476531bf5774d0d0', head: 'master' }) },
-  { name: 'Gitee', icon: 'i-simple-icons-gitee', factory: 'giteeLite', module: 'gitee', forge: 'gitee', instance: 'gitee.com', auth: token('GITEE_TOKEN'), sample: sample({ owner: 'mindspore', name: 'mindspore', number: '91608', login: 'liangchenghui', tag: 'v2.7.2', releaseId: '569215', sha: '0487e01a5e79464fcaf8ac90d9121f9f7a679a24', base: '6de371cd62ddc66dcf20e1843dfe15f31998342c', head: 'master' }) },
+  { name: 'GitHub', icon: 'i-simple-icons-github', factory: 'githubLite', module: 'github', load: () => import('forges/github'), forge: 'github', instance: 'github.com', auth: token('GITHUB_TOKEN'), sample: sample({ owner: 'nuxt', name: 'nuxt', number: '36493', login: 'danielroe', tag: 'v4.6.0', releaseId: '404130846', sha: '0296ca413dc7ab2e29555e7109f35581b81d5c41', base: '85b8d54f6ce49f4d0f199e90513b1e5d5fa22196', head: 'main', runId: '37772560463' }) },
+  { name: 'GitLab', icon: 'i-simple-icons-gitlab', factory: 'gitlabLite', module: 'gitlab', load: () => import('forges/gitlab'), forge: 'gitlab', instance: 'gitlab.com', auth: token('GITLAB_TOKEN'), sample: sample({ owner: 'inkscape', name: 'inkscape', number: '8209', login: 'guillaume.turri', tag: 'INKSCAPE_1_4', releaseId: 'INKSCAPE_1_4', sha: '10b831ed45817ecb05f7c6239fe97d56c196c9cc', base: '41d0bb9160ba8c4e8b31d07c301f83b4e43771e3', head: 'master', runId: '2926543070' }) },
+  { name: 'Codeberg', icon: 'i-simple-icons-forgejo', factory: 'forgejoLite', module: 'forgejo', load: () => import('forges/forgejo'), forge: 'forgejo', instance: 'codeberg.org', auth: token('CODEBERG_TOKEN'), sample: sample({ owner: 'forgejo', name: 'forgejo', number: '14752', login: '0ko', tag: 'v16.0.5', releaseId: '12250357', sha: 'd915e5a5abb92527ac7fd0d60997b5fc57cf8467', base: 'adfdb1a53298d953669fcf49d61393a32b256fb5', head: 'forgejo' }) },
+  { name: 'Gitea', icon: 'i-simple-icons-gitea', factory: 'giteaLite', module: 'gitea', load: () => import('forges/gitea'), forge: 'gitea', instance: 'gitea.com', auth: token('GITEA_TOKEN'), sample: sample({ owner: 'gitea', name: 'tea', number: '1114', login: 'ongolk', tag: 'v0.16.0', releaseId: '945508', sha: 'bcd62a1fb2ce6fdd51ebea91cc33ddbcae000b68', base: '6daaa7c05e7883d4468fc7b40c2f71e0ea75562a', head: 'main' }) },
+  { name: 'Bitbucket', icon: 'i-simple-icons-bitbucket', factory: 'bitbucketLite', module: 'bitbucket', load: () => import('forges/bitbucket'), forge: 'bitbucket', instance: 'bitbucket.org', auth: token('BITBUCKET_TOKEN'), sample: sample({ owner: 'tutorials', name: 'markdowndemo', number: '80', login: 'brennan', sha: '5b6c39df3196eeeb8a36684beb9a3df854a0b5f3', base: '59a1e452abc40869b12cf13f476531bf5774d0d0', head: 'master' }) },
+  { name: 'Gitee', icon: 'i-simple-icons-gitee', factory: 'giteeLite', module: 'gitee', load: () => import('forges/gitee'), forge: 'gitee', instance: 'gitee.com', auth: token('GITEE_TOKEN'), sample: sample({ owner: 'mindspore', name: 'mindspore', number: '91608', login: 'liangchenghui', tag: 'v2.7.2', releaseId: '569215', sha: '0487e01a5e79464fcaf8ac90d9121f9f7a679a24', base: '6de371cd62ddc66dcf20e1843dfe15f31998342c', head: 'master' }) },
   {
     name: 'Tangled',
     icon: 'i-lucide-spool',
     factory: 'tangledLite',
     module: 'tangled',
+    load: () => import('forges/tangled'),
     forge: 'tangled',
     instance: 'tangled.org',
     auth: `{ type: 'app_password', identifier: 'alice.example.com', password: process.env.TANGLED_APP_PASSWORD! }`,
@@ -133,6 +140,7 @@ export const EXPLORER_FORGES: ExplorerForge[] = [
     icon: 'i-simple-icons-azuredevops',
     factory: 'azureDevOpsLite',
     module: 'azure-devops',
+    load: () => import('forges/azure-devops'),
     forge: 'azure-devops',
     instance: 'dev.azure.com',
     auth: token('AZURE_DEVOPS_TOKEN'),
@@ -141,7 +149,7 @@ export const EXPLORER_FORGES: ExplorerForge[] = [
     sample: sample({ owner: 'acme/Widgets', name: 'widgets', number: '42', login: 'alice', sha: 'main', tag: 'v1.0.0', releaseId: '1', runId: '1' }),
   },
   { name: 'Cursor Origin', icon: 'i-simple-icons-cursor', factory: 'cursorOriginLite', module: 'cursor-origin', forge: 'cursor-origin', instance: 'origin.cursor.com', auth: token('CURSOR_AUTH_TOKEN'), authRequired: true, blocked: 'Cursor Origin needs a token for every request.', sample: sample({ owner: 'acme', name: 'api', number: '42', login: 'alice', sha: 'main', tag: 'v1.0.0', releaseId: '1', runId: '1' }) },
-  { name: 'pushin.eu', icon: 'i-lucide-send', factory: 'pushin', module: 'pushin', forge: 'pushin', instance: 'pushin.eu', auth: token('PUSHIN_TOKEN'), blocked: 'The pushin.eu API doesn\'t allow requests from browsers.', sample: sample({ owner: 'pjullrich', name: 'pushin', number: '1', login: 'pjullrich', sha: 'main', tag: 'v1.0.0', releaseId: '1', runId: '1' }) },
+  { name: 'pushin.eu', icon: 'i-lucide-send', factory: 'pushin', module: 'pushin', load: () => import('forges/pushin'), forge: 'pushin', instance: 'pushin.eu', auth: token('PUSHIN_TOKEN'), blocked: 'The pushin.eu API doesn\'t allow requests from browsers.', sample: sample({ owner: 'pjullrich', name: 'pushin', number: '1', login: 'pjullrich', sha: 'main', tag: 'v1.0.0', releaseId: '1', runId: '1' }) },
 ]
 
 /** The refs a call takes, built from the form. */
@@ -175,8 +183,8 @@ export interface ExplorerOperation {
   args: (context: CodeContext) => string
   /** Present when the explorer can make the call. Writes, reads that need an account and streams can't, yet. */
   run?: (provider: ForgeProvider, input: ExplorerInput, refs: Refs) => Promise<unknown>
-  /** Needs credentials, so the code passes `auth`, and support is read from an authenticated provider. */
-  auth?: boolean
+  /** Needs credentials, so the code passes `auth`, and the call never runs here. Derived from the capability table. */
+  auth: boolean
 }
 
 const listOf = (text: string) => text.split(',').map(item => item.trim()).filter(Boolean)
@@ -184,10 +192,20 @@ const fields = (...names: ExplorerField[]) => () => names
 const threadKind = (input: ExplorerInput) => input.kind as ThreadKind
 const perPage = { perPage: 5 }
 
-type Spec = Omit<ExplorerOperation, 'verb' | 'method' | 'fields' | 'uses' | 'returns'> & Partial<Pick<ExplorerOperation, 'method' | 'fields' | 'uses' | 'returns'>>
+/** Verbs that need credentials: the capability table's writes and account reads. */
+const SIGNED_IN = new Set([
+  ...CAPABILITY_TABLE.flatMap(entry => entry.write || entry.account ? entry.verbs ?? [] : []),
+  // Reads the table lets an anonymous provider try, but that every forge refuses without signing in.
+  'repos.collaborators',
+  'repos.permissionFor',
+  'repos.reviewerCandidates',
+])
+
+type Spec = Omit<ExplorerOperation, 'verb' | 'method' | 'fields' | 'uses' | 'returns' | 'auth'> & Partial<Pick<ExplorerOperation, 'method' | 'fields' | 'uses' | 'returns'>>
 
 function operation(verb: string, spec: Spec): ExplorerOperation {
-  return { verb: verb as ForgeVerb, method: verb, uses: 'repo', fields: fields(), returns: 'void', ...spec }
+  const auth = SIGNED_IN.has(verb)
+  return { verb: verb as ForgeVerb, method: verb, uses: 'repo', fields: fields(), returns: 'void', ...spec, auth, run: auth ? undefined : spec.run }
 }
 
 /** A read on a repository, through the `...Page` variant for listings. */
@@ -202,13 +220,9 @@ function threadRead(verb: string, returns: string, run: NonNullable<Spec['run']>
   return operation(verb, { method: page ? `${verb}Page` : verb, returns, uses: 'thread', fields: fields('kind', 'number'), kind: threadKind, args: () => page ? 'thread, { perPage: 5 }' : 'thread', run })
 }
 
-/** A write. It never runs here; it only fills the code. */
-function write(verb: string, spec: Omit<Spec, 'auth' | 'run'>): ExplorerOperation {
-  return operation(verb, { auth: true, ...spec })
-}
-
+/** A write on a thread. */
 function threadWrite(verb: string, returns: string, extra: ExplorerField[], args: Spec['args']): ExplorerOperation {
-  return write(verb, { returns, uses: 'thread', fields: () => ['kind', 'number', ...extra], kind: threadKind, args })
+  return operation(verb, { returns, uses: 'thread', fields: () => ['kind', 'number', ...extra], kind: threadKind, args })
 }
 
 /** A ref to something on the repository, such as a webhook, written out in full. */
@@ -217,16 +231,16 @@ const repoChild = (key: string, field: ExplorerField) => ({ origin, value }: Cod
 export const EXPLORER_OPERATIONS: ExplorerOperation[] = [
   // Repositories
   repoRead('repos.get', 'Repo', (p, _, { repo }) => p.repos.get(repo)),
-  operation('repos.list', { method: 'repos.listPage', returns: 'Page<Repo>', uses: 'none', auth: true, args: () => '{ perPage: 5 }' }),
+  operation('repos.list', { method: 'repos.listPage', returns: 'Page<Repo>', uses: 'none', args: () => '{ perPage: 5 }' }),
   repoRead('repos.labels', 'Page<Label>', (p, _, { repo }) => p.repos.labelsPage(repo, perPage)),
   repoRead('repos.milestones', 'Page<Milestone>', (p, _, { repo }) => p.repos.milestonesPage(repo, perPage)),
   // Forges only show who can push to a repository to someone signed in.
-  operation('repos.collaborators', { method: 'repos.collaboratorsPage', returns: 'Page<Collaborator>', auth: true, args: () => 'repo, { perPage: 5 }' }),
-  operation('repos.permissionFor', { returns: 'RepoRole', auth: true, fields: fields('login'), args: ({ value }) => `repo, ${value('login')}` }),
+  operation('repos.collaborators', { method: 'repos.collaboratorsPage', returns: 'Page<Collaborator>', args: () => 'repo, { perPage: 5 }' }),
+  operation('repos.permissionFor', { returns: 'RepoRole', fields: fields('login'), args: ({ value }) => `repo, ${value('login')}` }),
   repoRead('repos.assignableUsers', 'Page<Actor>', (p, _, { repo }) => p.repos.assignableUsersPage(repo, perPage)),
-  operation('repos.reviewerCandidates', { method: 'repos.reviewerCandidatesPage', returns: 'Page<Actor>', uses: 'thread', auth: true, fields: fields('kind', 'number'), kind: threadKind, args: () => 'thread, { perPage: 5 }' }),
-  write('repos.createLabel', { returns: 'Label', fields: fields('labelName', 'colour'), args: ({ value }) => `repo, { name: ${value('labelName')}, colour: ${value('colour')} }` }),
-  write('repos.addCollaborator', { fields: fields('login', 'role'), args: ({ value }) => `repo, ${value('login')}, ${value('role')}` }),
+  operation('repos.reviewerCandidates', { method: 'repos.reviewerCandidatesPage', returns: 'Page<Actor>', uses: 'thread', fields: fields('kind', 'number'), kind: threadKind, args: () => 'thread, { perPage: 5 }' }),
+  operation('repos.createLabel', { returns: 'Label', fields: fields('labelName', 'colour'), args: ({ value }) => `repo, { name: ${value('labelName')}, colour: ${value('colour')} }` }),
+  operation('repos.addCollaborator', { fields: fields('login', 'role'), args: ({ value }) => `repo, ${value('login')}, ${value('role')}` }),
 
   // Threads
   threadRead('threads.get', 'Thread', (p, _, { thread }) => p.threads.get(thread)),
@@ -235,12 +249,12 @@ export const EXPLORER_OPERATIONS: ExplorerOperation[] = [
   threadRead('threads.events', 'Page<ForgeEvent>', (p, _, { thread }) => p.threads.eventsPage(thread, perPage)),
   threadRead('threads.comments', 'Page<Comment>', (p, _, { thread }) => p.threads.commentsPage(thread, perPage)),
   threadRead('threads.reactions', 'Page<Reaction>', (p, _, { thread }) => p.threads.reactionsPage(thread, perPage)),
-  operation('threads.subscription', { returns: 'SubscriptionState', uses: 'thread', auth: true, fields: fields('kind', 'number'), kind: threadKind, args: () => 'thread' }),
+  operation('threads.subscription', { returns: 'SubscriptionState', uses: 'thread', fields: fields('kind', 'number'), kind: threadKind, args: () => 'thread' }),
   operation('threads.checks', { returns: 'Page<Check>', uses: 'thread', fields: fields('kind', 'number'), kind: threadKind, args: () => 'thread', run: (p, _, { thread }) => p.threads.checks(thread) }),
   threadRead('threads.reviews', 'Page<Review>', (p, _, { thread }) => p.threads.reviewsPage(thread, perPage)),
   threadRead('threads.files', 'Page<ChangedFile>', (p, _, { thread }) => p.threads.filesPage(thread, perPage)),
   threadRead('threads.commits', 'Page<Commit>', (p, _, { thread }) => p.threads.commitsPage(thread, perPage)),
-  write('threads.create', {
+  operation('threads.create', {
     returns: 'Thread',
     fields: input => input.kind === 'pull_request' ? ['kind', 'title', 'body', 'head', 'base'] : ['kind', 'title', 'body', 'labels'],
     kind: threadKind,
@@ -278,7 +292,7 @@ export const EXPLORER_OPERATIONS: ExplorerOperation[] = [
   operation('releases.get', { returns: 'Release', fields: fields('releaseId'), args: repoChild('repo', 'releaseId'), run: (p, input, { origin, repo }) => p.releases.get({ ...origin, repo, id: input.releaseId }) }),
   operation('releases.getByTag', { returns: 'Release', fields: fields('tag'), args: ({ value }) => `repo, ${value('tag')}`, run: (p, input, { repo }) => p.releases.getByTag(repo, input.tag) }),
   repoRead('releases.latest', 'Release', (p, _, { repo }) => p.releases.latest(repo)),
-  operation('releases.downloadAsset', { returns: 'ReadableStream', fields: fields('releaseId'), args: ({ origin, value }) => `{ ${origin}, repo, release: { ${origin}, repo, id: ${value('releaseId')} }, id: '1' }` }),
+  operation('releases.downloadAsset', { returns: 'ReadableStream<Uint8Array>', fields: fields('releaseId'), args: ({ origin, value }) => `{ ${origin}, repo, release: { ${origin}, repo, id: ${value('releaseId')} }, id: '1' }` }),
 
   // Contents
   operation('contents.file', { returns: 'FileContent', fields: fields('path', 'ref'), args: ({ value, input }) => `repo, ${value('path')}, { ${input.ref ? `ref: ${value('ref')}, ` : ''}as: 'text' }`, run: (p, input, { repo }) => p.contents.file(repo, input.path, { ref: input.ref || undefined, as: 'text' }) }),
@@ -292,35 +306,35 @@ export const EXPLORER_OPERATIONS: ExplorerOperation[] = [
 
   // Checks and CI
   operation('checks.list', { returns: 'Page<Check>', fields: fields('sha'), args: ({ value }) => `repo, ${value('sha')}`, run: (p, input, { repo }) => p.checks.list(repo, input.sha) }),
-  write('checks.report', { returns: 'Check', fields: fields('sha', 'checkName', 'checkState'), args: ({ value }) => `repo, ${value('sha')}, { name: ${value('checkName')}, state: ${value('checkState')} }` }),
-  write('checks.rerun', { fields: fields('checkId'), args: ({ origin, value }) => `{ ${origin}, repo, id: ${value('checkId')}, type: 'check_run' }` }),
+  operation('checks.report', { returns: 'Check', fields: fields('sha', 'checkName', 'checkState'), args: ({ value }) => `repo, ${value('sha')}, { name: ${value('checkName')}, state: ${value('checkState')} }` }),
+  operation('checks.rerun', { fields: fields('checkId'), args: ({ origin, value }) => `{ ${origin}, repo, id: ${value('checkId')}, type: 'check_run' }` }),
   repoRead('ci.runs', 'Page<CiRun>', (p, _, { repo }) => p.ci.runsPage(repo, perPage)),
   operation('ci.run', { returns: 'CiRun', fields: fields('runId'), args: repoChild('repo', 'runId'), run: (p, input, { origin, repo }) => p.ci.run({ ...origin, repo, id: input.runId }) }),
   operation('ci.jobs', { method: 'ci.jobsPage', returns: 'Page<CiJob>', fields: fields('runId'), args: context => `${repoChild('repo', 'runId')(context)}, { perPage: 5 }`, run: (p, input, { origin, repo }) => p.ci.jobsPage({ ...origin, repo, id: input.runId }, perPage) }),
-  operation('ci.log', { returns: 'ReadableStream', fields: fields('runId'), args: ({ origin, value }) => `{ ${origin}, repo, run: { ${origin}, repo, id: ${value('runId')} }, id: '1' }` }),
+  operation('ci.log', { returns: 'ReadableStream<Uint8Array>', fields: fields('runId'), args: ({ origin, value }) => `{ ${origin}, repo, run: { ${origin}, repo, id: ${value('runId')} }, id: '1' }` }),
   repoRead('securityAlerts.list', 'Page<SecurityAlert>', (p, _, { repo }) => p.securityAlerts.listPage(repo, perPage)),
 
   // Notifications
-  operation('notifications.list', { method: 'notifications.listPage', returns: 'Page<Notification>', uses: 'none', auth: true, args: () => '{ perPage: 5 }' }),
-  operation('notifications.unreadCount', { returns: 'number', uses: 'none', auth: true, args: () => '' }),
-  write('notifications.markRead', { uses: 'none', fields: fields('notificationId'), args: ({ origin, value }) => `{ ${origin}, id: ${value('notificationId')} }` }),
-  write('notifications.markDone', { uses: 'none', fields: fields('notificationId'), args: ({ origin, value }) => `{ ${origin}, id: ${value('notificationId')} }` }),
-  write('notifications.unsubscribe', { uses: 'none', fields: fields('notificationId'), args: ({ origin, value }) => `{ ${origin}, id: ${value('notificationId')} }` }),
-  write('notifications.markAllRead', { args: () => '{ repo }' }),
-  write('notifications.markAllDone', { args: () => '{ repo }' }),
+  operation('notifications.list', { method: 'notifications.listPage', returns: 'Page<Notification>', uses: 'none', args: () => '{ perPage: 5 }' }),
+  operation('notifications.unreadCount', { returns: 'number', uses: 'none', args: () => '' }),
+  operation('notifications.markRead', { uses: 'none', fields: fields('notificationId'), args: ({ origin, value }) => `{ ${origin}, id: ${value('notificationId')} }` }),
+  operation('notifications.markDone', { uses: 'none', fields: fields('notificationId'), args: ({ origin, value }) => `{ ${origin}, id: ${value('notificationId')} }` }),
+  operation('notifications.unsubscribe', { uses: 'none', fields: fields('notificationId'), args: ({ origin, value }) => `{ ${origin}, id: ${value('notificationId')} }` }),
+  operation('notifications.markAllRead', { args: () => '{ repo }' }),
+  operation('notifications.markAllDone', { args: () => '{ repo }' }),
 
   // Webhooks
-  operation('webhooks.list', { method: 'webhooks.listPage', returns: 'Page<Webhook>', auth: true, args: () => 'repo, { perPage: 5 }' }),
-  operation('webhooks.deliveries', { method: 'webhooks.deliveriesPage', returns: 'Page<WebhookDeliveryRecord>', auth: true, fields: fields('webhookId'), args: context => `${repoChild('target', 'webhookId')(context)}, { perPage: 5 }` }),
-  write('webhooks.create', { returns: 'Webhook', fields: fields('webhookUrl', 'secret'), args: ({ value }) => `repo, { url: ${value('webhookUrl')}, secret: ${value('secret')}, events: ['comment', 'state_change'] }` }),
-  write('webhooks.update', { returns: 'Webhook', fields: fields('webhookId', 'webhookUrl'), args: context => `${repoChild('target', 'webhookId')(context)}, { url: ${context.value('webhookUrl')} }` }),
-  write('webhooks.delete', { fields: fields('webhookId'), args: repoChild('target', 'webhookId') }),
-  write('webhooks.rotateSecret', { returns: 'Webhook', fields: fields('webhookId', 'secret'), args: context => `${repoChild('target', 'webhookId')(context)}, ${context.value('secret')}` }),
-  write('webhooks.redeliver', { fields: fields('webhookId', 'deliveryId'), args: context => `{ ${context.origin}, hook: ${repoChild('target', 'webhookId')(context)}, id: ${context.value('deliveryId')} }` }),
+  operation('webhooks.list', { method: 'webhooks.listPage', returns: 'Page<Webhook>', args: () => 'repo, { perPage: 5 }' }),
+  operation('webhooks.deliveries', { method: 'webhooks.deliveriesPage', returns: 'Page<WebhookDeliveryRecord>', fields: fields('webhookId'), args: context => `${repoChild('target', 'webhookId')(context)}, { perPage: 5 }` }),
+  operation('webhooks.create', { returns: 'Webhook', fields: fields('webhookUrl', 'secret'), args: ({ value }) => `repo, { url: ${value('webhookUrl')}, secret: ${value('secret')}, events: ['comment', 'state_change'] }` }),
+  operation('webhooks.update', { returns: 'Webhook', fields: fields('webhookId', 'webhookUrl'), args: context => `${repoChild('target', 'webhookId')(context)}, { url: ${context.value('webhookUrl')} }` }),
+  operation('webhooks.delete', { fields: fields('webhookId'), args: repoChild('target', 'webhookId') }),
+  operation('webhooks.rotateSecret', { returns: 'Webhook', fields: fields('webhookId', 'secret'), args: context => `${repoChild('target', 'webhookId')(context)}, ${context.value('secret')}` }),
+  operation('webhooks.redeliver', { fields: fields('webhookId', 'deliveryId'), args: context => `{ ${context.origin}, hook: ${repoChild('target', 'webhookId')(context)}, id: ${context.value('deliveryId')} }` }),
 
   // Accounts and search
   operation('users.get', { returns: 'User', uses: 'none', fields: fields('login'), args: ({ value }) => value('login'), run: (p, input) => p.users.get(input.login) }),
-  operation('users.me', { returns: 'User', uses: 'none', auth: true, args: () => '' }),
+  operation('users.me', { returns: 'User', uses: 'none', args: () => '' }),
   operation('search.threads', { method: 'search.threadsPage', returns: 'Page<Thread>', fields: fields('query'), args: ({ value }) => `{ repo, text: ${value('query')}, perPage: 5 }`, run: (p, input, { repo }) => p.search.threadsPage({ repo, text: input.query, perPage: 5 }) }),
   operation('search.repos', { method: 'search.reposPage', returns: 'Page<Repo>', uses: 'none', fields: fields('query'), args: ({ value }) => `{ text: ${value('query')}, perPage: 5 }`, run: (p, input) => p.search.reposPage({ text: input.query, perPage: 5 }) }),
   operation('search.commits', { method: 'search.commitsPage', returns: 'Page<Commit>', fields: fields('query'), args: ({ value }) => `{ repo, text: ${value('query')}, perPage: 5 }`, run: (p, input, { repo }) => p.search.commitsPage({ repo, text: input.query, perPage: 5 }) }),
