@@ -1,0 +1,97 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/issues",
+    "body": {
+      "title": "forges fixture 20261009142055: issue",
+      "body": "Opened by run 20261009142055."
+    }
+  },
+  "response": {
+    "status": 201,
+    "headers": {
+      "link": "<https://docs.github.com/en/rest/about-the-rest-api/api-versions>; rel=\"deprecation\"; type=\"text/html\"",
+      "etag": "\"c393c9a86911f7c4eeaa813a1f3b5923439ddc714853ea6016d29cb1a4304ef3\"",
+      "location": "https://api.github.com/repos/forges-fixtures/forges-fixtures/issues/34",
+      "x-ratelimit-limit": "5000",
+      "x-ratelimit-remaining": "4990",
+      "x-ratelimit-reset": "1791559256"
+    },
+    "body": {
+      "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/issues/34",
+      "repository_url": "https://api.github.com/repos/forges-fixtures/forges-fixtures",
+      "labels_url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/issues/34/labels{/name}",
+      "comments_url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/issues/34/comments",
+      "events_url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/issues/34/events",
+      "html_url": "https://github.com/forges-fixtures/forges-fixtures/issues/34",
+      "id": 5779646766,
+      "node_id": "I_kwDOVCTdtM8AAAABWH5pLg",
+      "number": 34,
+      "title": "forges fixture 20261009142055: issue",
+      "user": {
+        "login": "danielroe-bot",
+        "id": 57801166,
+        "node_id": "REDACTED",
+        "avatar_url": "https://avatars.githubusercontent.com/u/57801166?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/danielroe-bot",
+        "html_url": "https://github.com/danielroe-bot",
+        "followers_url": "https://api.github.com/users/danielroe-bot/followers",
+        "following_url": "https://api.github.com/users/danielroe-bot/following{/other_user}",
+        "gists_url": "https://api.github.com/users/danielroe-bot/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/danielroe-bot/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/danielroe-bot/subscriptions",
+        "organizations_url": "https://api.github.com/users/danielroe-bot/orgs",
+        "repos_url": "https://api.github.com/users/danielroe-bot/repos",
+        "events_url": "https://api.github.com/users/danielroe-bot/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/danielroe-bot/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "labels": [],
+      "state": "open",
+      "locked": false,
+      "assignees": [],
+      "milestone": null,
+      "comments": 0,
+      "created_at": "2026-10-09T14:21:05Z",
+      "updated_at": "2026-10-09T14:21:05Z",
+      "closed_at": null,
+      "assignee": null,
+      "author_association": "MEMBER",
+      "issue_field_values": [],
+      "type": null,
+      "active_lock_reason": null,
+      "sub_issues_summary": {
+        "total": 0,
+        "completed": 0,
+        "percent_completed": 0
+      },
+      "issue_dependencies_summary": {
+        "blocked_by": 0,
+        "total_blocked_by": 0,
+        "blocking": 0,
+        "total_blocking": 0
+      },
+      "body": "Opened by run 20261009142055.",
+      "closed_by": null,
+      "reactions": {
+        "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/issues/34/reactions",
+        "total_count": 0,
+        "+1": 0,
+        "-1": 0,
+        "laugh": 0,
+        "hooray": 0,
+        "confused": 0,
+        "heart": 0,
+        "rocket": 0,
+        "eyes": 0
+      },
+      "timeline_url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/issues/34/timeline",
+      "performed_via_github_app": null,
+      "state_reason": null,
+      "pinned_comment": null
+    }
+  }
+}

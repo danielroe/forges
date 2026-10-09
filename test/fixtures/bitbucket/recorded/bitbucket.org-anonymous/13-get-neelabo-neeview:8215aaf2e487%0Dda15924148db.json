@@ -7,8 +7,9 @@
     "status": 200,
     "headers": {
       "etag": "\"452150e1f2cee00185afa24a0f3cd4a49f9ac546de9ef4e321bc12a79e746b7a\"",
-      "x-ratelimit-remaining": "59",
-      "x-ratelimit-reset": "2165"
+      "x-ratelimit-limit": "60, 60;w=3600",
+      "x-ratelimit-remaining": "52",
+      "x-ratelimit-reset": "862"
     },
     "body": {
       "values": [

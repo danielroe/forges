@@ -5,7 +5,7 @@
     "forge": "pushin",
     "instance": "pushin.eu",
     "owner": "pjullrich",
-    "name": "pushin"
+    "name": "pushin-cli"
   },
   "issue": {
     "forge": "pushin",
@@ -14,15 +14,32 @@
       "forge": "pushin",
       "instance": "pushin.eu",
       "owner": "pjullrich",
-      "name": "pushin"
+      "name": "pushin-cli"
     },
     "kind": "issue",
-    "number": "31"
+    "number": "2"
   },
-  "recordedAt": "2026-10-08T16:23:50.972Z",
+  "pull": {
+    "forge": "pushin",
+    "instance": "pushin.eu",
+    "repo": {
+      "forge": "pushin",
+      "instance": "pushin.eu",
+      "owner": "pjullrich",
+      "name": "pushin-cli"
+    },
+    "kind": "pull_request",
+    "number": "5"
+  },
+  "recordedAt": "2026-10-08T22:01:54.938Z",
   "steps": [
     "repo",
     "labels",
+    "pull",
+    "pull list",
+    "pull getMany",
+    "pull events",
+    "pull comments",
     "issue",
     "issue list",
     "issue getMany",

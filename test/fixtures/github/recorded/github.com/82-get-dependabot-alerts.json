@@ -1,0 +1,448 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/dependabot/alerts?per_page=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "<https://api.github.com/repositories/1411702196/dependabot/alerts?per_page=3&after=Y3Vyc29yOnYyOpPPAAABoSBhJR7LQAGAAAAAAADPAAAAAc59BOc%3D>; rel=\"next\"",
+      "etag": "W/\"71f68f16064553817db8d314fbc4f37ddeb7e7fd63505f94354299e60202a1f4\"",
+      "x-ratelimit-limit": "5000",
+      "x-ratelimit-remaining": "4984",
+      "x-ratelimit-reset": "1791555151"
+    },
+    "body": [
+      {
+        "number": 6,
+        "state": "open",
+        "dependency": {
+          "package": {
+            "ecosystem": "npm",
+            "name": "lodash"
+          },
+          "manifest_path": "package-lock.json",
+          "scope": "runtime",
+          "relationship": "direct"
+        },
+        "security_advisory": {
+          "ghsa_id": "GHSA-r5fr-rjxr-66jc",
+          "cve_id": "CVE-2026-4800",
+          "summary": "lodash vulnerable to Code Injection via `_.template` imports key names",
+          "description": "### Impact\n\nThe fix for [CVE-2021-23337](https://github.com/advisories/GHSA-35jh-r3h4-6jhm) added validation for the `variable` option in `_.template` but did not apply the same validation to `options.imports` key names. Both paths flow into the same `Function()` constructor sink.\n\nWhen an application passes untrusted input as `options.imports` key names, an attacker can inject default-parameter expressions that execute arbitrary code at template compilation time.\n\nAdditionally, `_.template` uses `assignInWith` to merge imports, which enumerates inherited properties via `for..in`. If `Object.prototype` has been polluted by any other vector, the polluted keys are copied into the imports object and passed to `Function()`.\n\n### Patches\n\nUsers should upgrade to version 4.18.0.\n\nThe fix applies two changes:\n1. Validate `importsKeys` against the existing `reForbiddenIdentifierChars` regex (same check already used for the `variable` option)\n2. Replace `assignInWith` with `assignWith` when merging imports, so only own properties are enumerated\n\n### Workarounds\n\nDo not pass untrusted input as key names in `options.imports`. Only use developer-controlled, static key names.",
+          "severity": "high",
+          "identifiers": [
+            {
+              "value": "GHSA-r5fr-rjxr-66jc",
+              "type": "GHSA"
+            },
+            {
+              "value": "CVE-2026-4800",
+              "type": "CVE"
+            }
+          ],
+          "references": [
+            {
+              "url": "https://github.com/lodash/lodash/security/advisories/GHSA-r5fr-rjxr-66jc"
+            },
+            {
+              "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-4800"
+            },
+            {
+              "url": "https://github.com/lodash/lodash/commit/3469357cff396a26c363f8c1b5a91dde28ba4b1c"
+            },
+            {
+              "url": "https://cna.openjsf.org/security-advisories.html"
+            },
+            {
+              "url": "https://github.com/advisories/GHSA-35jh-r3h4-6jhm"
+            },
+            {
+              "url": "https://github.com/advisories/GHSA-r5fr-rjxr-66jc"
+            }
+          ],
+          "published_at": "2026-04-01T23:51:12Z",
+          "updated_at": "2026-04-01T23:51:13Z",
+          "withdrawn_at": null,
+          "vulnerabilities": [
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "lodash"
+              },
+              "severity": "high",
+              "vulnerable_version_range": ">= 4.0.0, <= 4.17.23",
+              "first_patched_version": {
+                "identifier": "4.18.0"
+              }
+            },
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "lodash-es"
+              },
+              "severity": "high",
+              "vulnerable_version_range": ">= 4.0.0, <= 4.17.23",
+              "first_patched_version": {
+                "identifier": "4.18.0"
+              }
+            },
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "lodash-amd"
+              },
+              "severity": "high",
+              "vulnerable_version_range": ">= 4.0.0, <= 4.17.23",
+              "first_patched_version": {
+                "identifier": "4.18.0"
+              }
+            },
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "lodash.template"
+              },
+              "severity": "high",
+              "vulnerable_version_range": ">= 4.0.0, < 4.18.0",
+              "first_patched_version": {
+                "identifier": "4.18.0"
+              }
+            }
+          ],
+          "cvss_severities": {
+            "cvss_v3": {
+              "vector_string": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:H",
+              "score": 8.1
+            },
+            "cvss_v4": {
+              "vector_string": null,
+              "score": 0
+            }
+          },
+          "epss": {
+            "percentage": 0.02618,
+            "percentile": 0.84794
+          },
+          "cvss": {
+            "vector_string": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:H",
+            "score": 8.1
+          },
+          "cwes": [
+            {
+              "cwe_id": "CWE-94",
+              "name": "Improper Control of Generation of Code ('Code Injection')"
+            }
+          ],
+          "classification": "general"
+        },
+        "security_vulnerability": {
+          "package": {
+            "ecosystem": "npm",
+            "name": "lodash"
+          },
+          "severity": "high",
+          "vulnerable_version_range": ">= 4.0.0, <= 4.17.23",
+          "first_patched_version": {
+            "identifier": "4.18.0"
+          }
+        },
+        "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/dependabot/alerts/6",
+        "html_url": "https://github.com/forges-fixtures/forges-fixtures/security/dependabot/6",
+        "created_at": "2026-10-09T11:16:40Z",
+        "updated_at": "2026-10-09T11:16:40Z",
+        "dismissal_request": null,
+        "assignees": [],
+        "dismissed_at": null,
+        "dismissed_by": null,
+        "dismissed_reason": null,
+        "dismissed_comment": null,
+        "fixed_at": null,
+        "auto_dismissed_at": null
+      },
+      {
+        "number": 5,
+        "state": "open",
+        "dependency": {
+          "package": {
+            "ecosystem": "npm",
+            "name": "lodash"
+          },
+          "manifest_path": "package-lock.json",
+          "scope": "runtime",
+          "relationship": "direct"
+        },
+        "security_advisory": {
+          "ghsa_id": "GHSA-f23m-r3pf-42rh",
+          "cve_id": "CVE-2026-2950",
+          "summary": "lodash vulnerable to Prototype Pollution via array path bypass in `_.unset` and `_.omit`",
+          "description": "### Impact\n\nLodash versions 4.17.23 and earlier are vulnerable to prototype pollution in the `_.unset` and `_.omit` functions. The fix for [CVE-2025-13465](https://github.com/lodash/lodash/security/advisories/GHSA-xxjr-mmjv-4gpg) only guards against string key members, so an attacker can bypass the check by passing array-wrapped path segments. This allows deletion of properties from built-in prototypes such as `Object.prototype`, `Number.prototype`, and `String.prototype`.\n\nThe issue permits deletion of prototype properties but does not allow overwriting their original behavior.\n\n### Patches\n\nThis issue is patched in 4.18.0.\n\n### Workarounds\n\nNone. Upgrade to the patched version.",
+          "severity": "medium",
+          "identifiers": [
+            {
+              "value": "GHSA-f23m-r3pf-42rh",
+              "type": "GHSA"
+            },
+            {
+              "value": "CVE-2026-2950",
+              "type": "CVE"
+            }
+          ],
+          "references": [
+            {
+              "url": "https://github.com/lodash/lodash/security/advisories/GHSA-f23m-r3pf-42rh"
+            },
+            {
+              "url": "https://github.com/lodash/lodash/security/advisories/GHSA-xxjr-mmjv-4gpg"
+            },
+            {
+              "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-2950"
+            },
+            {
+              "url": "https://github.com/advisories/GHSA-f23m-r3pf-42rh"
+            }
+          ],
+          "published_at": "2026-04-01T23:50:27Z",
+          "updated_at": "2026-04-01T23:50:28Z",
+          "withdrawn_at": null,
+          "vulnerabilities": [
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "lodash"
+              },
+              "severity": "medium",
+              "vulnerable_version_range": "<= 4.17.23",
+              "first_patched_version": {
+                "identifier": "4.18.0"
+              }
+            },
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "lodash-es"
+              },
+              "severity": "medium",
+              "vulnerable_version_range": "<= 4.17.23",
+              "first_patched_version": {
+                "identifier": "4.18.0"
+              }
+            },
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "lodash-amd"
+              },
+              "severity": "medium",
+              "vulnerable_version_range": "<= 4.17.23",
+              "first_patched_version": {
+                "identifier": "4.18.0"
+              }
+            },
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "lodash.unset"
+              },
+              "severity": "medium",
+              "vulnerable_version_range": ">= 4.0.0, < 4.18.0",
+              "first_patched_version": {
+                "identifier": "4.18.0"
+              }
+            }
+          ],
+          "cvss_severities": {
+            "cvss_v3": {
+              "vector_string": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:L",
+              "score": 6.5
+            },
+            "cvss_v4": {
+              "vector_string": null,
+              "score": 0
+            }
+          },
+          "epss": {
+            "percentage": 0.00377,
+            "percentile": 0.29561
+          },
+          "cvss": {
+            "vector_string": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:L",
+            "score": 6.5
+          },
+          "cwes": [
+            {
+              "cwe_id": "CWE-1321",
+              "name": "Improperly Controlled Modification of Object Prototype Attributes ('Prototype Pollution')"
+            }
+          ],
+          "classification": "general"
+        },
+        "security_vulnerability": {
+          "package": {
+            "ecosystem": "npm",
+            "name": "lodash"
+          },
+          "severity": "medium",
+          "vulnerable_version_range": "<= 4.17.23",
+          "first_patched_version": {
+            "identifier": "4.18.0"
+          }
+        },
+        "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/dependabot/alerts/5",
+        "html_url": "https://github.com/forges-fixtures/forges-fixtures/security/dependabot/5",
+        "created_at": "2026-10-09T11:16:40Z",
+        "updated_at": "2026-10-09T11:16:40Z",
+        "dismissal_request": null,
+        "assignees": [],
+        "dismissed_at": null,
+        "dismissed_by": null,
+        "dismissed_reason": null,
+        "dismissed_comment": null,
+        "fixed_at": null,
+        "auto_dismissed_at": null
+      },
+      {
+        "number": 4,
+        "state": "open",
+        "dependency": {
+          "package": {
+            "ecosystem": "npm",
+            "name": "lodash"
+          },
+          "manifest_path": "package-lock.json",
+          "scope": "runtime",
+          "relationship": "direct"
+        },
+        "security_advisory": {
+          "ghsa_id": "GHSA-xxjr-mmjv-4gpg",
+          "cve_id": "CVE-2025-13465",
+          "summary": "Lodash has Prototype Pollution Vulnerability in `_.unset` and `_.omit` functions",
+          "description": "### Impact\n\nLodash versions 4.0.0 through 4.17.22 are vulnerable to prototype pollution in the `_.unset` and `_.omit` functions. An attacker can pass crafted paths which cause Lodash to delete methods from global prototypes. \n\nThe issue permits deletion of properties but does not allow overwriting their original behavior.  \n\n### Patches\n\nThis issue is patched on 4.17.23.",
+          "severity": "medium",
+          "identifiers": [
+            {
+              "value": "GHSA-xxjr-mmjv-4gpg",
+              "type": "GHSA"
+            },
+            {
+              "value": "CVE-2025-13465",
+              "type": "CVE"
+            }
+          ],
+          "references": [
+            {
+              "url": "https://github.com/lodash/lodash/security/advisories/GHSA-xxjr-mmjv-4gpg"
+            },
+            {
+              "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-13465"
+            },
+            {
+              "url": "https://github.com/lodash/lodash/commit/edadd452146f7e4bad4ea684e955708931d84d81"
+            },
+            {
+              "url": "https://cert-portal.siemens.com/productcert/html/ssa-253495.html"
+            },
+            {
+              "url": "https://github.com/advisories/GHSA-xxjr-mmjv-4gpg"
+            }
+          ],
+          "published_at": "2026-01-21T23:01:22Z",
+          "updated_at": "2026-06-09T10:56:35Z",
+          "withdrawn_at": null,
+          "vulnerabilities": [
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "lodash"
+              },
+              "severity": "medium",
+              "vulnerable_version_range": ">= 4.0.0, <= 4.17.22",
+              "first_patched_version": {
+                "identifier": "4.17.23"
+              }
+            },
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "lodash.unset"
+              },
+              "severity": "medium",
+              "vulnerable_version_range": ">= 4.0.0, <= 4.5.2",
+              "first_patched_version": null
+            },
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "lodash-es"
+              },
+              "severity": "medium",
+              "vulnerable_version_range": ">= 4.0.0, <= 4.17.22",
+              "first_patched_version": {
+                "identifier": "4.17.23"
+              }
+            },
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "lodash-amd"
+              },
+              "severity": "medium",
+              "vulnerable_version_range": ">= 4.0.0, <= 4.17.22",
+              "first_patched_version": {
+                "identifier": "4.17.23"
+              }
+            }
+          ],
+          "cvss_severities": {
+            "cvss_v3": {
+              "vector_string": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:L",
+              "score": 6.5
+            },
+            "cvss_v4": {
+              "vector_string": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:L/VA:L/SC:H/SI:H/SA:H/E:P",
+              "score": 6.9
+            }
+          },
+          "epss": {
+            "percentage": 0.0185,
+            "percentile": 0.78172
+          },
+          "cvss": {
+            "vector_string": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:L",
+            "score": 6.5
+          },
+          "cwes": [
+            {
+              "cwe_id": "CWE-1321",
+              "name": "Improperly Controlled Modification of Object Prototype Attributes ('Prototype Pollution')"
+            }
+          ],
+          "classification": "general"
+        },
+        "security_vulnerability": {
+          "package": {
+            "ecosystem": "npm",
+            "name": "lodash"
+          },
+          "severity": "medium",
+          "vulnerable_version_range": ">= 4.0.0, <= 4.17.22",
+          "first_patched_version": {
+            "identifier": "4.17.23"
+          }
+        },
+        "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/dependabot/alerts/4",
+        "html_url": "https://github.com/forges-fixtures/forges-fixtures/security/dependabot/4",
+        "created_at": "2026-10-09T11:16:39Z",
+        "updated_at": "2026-10-09T11:16:39Z",
+        "dismissal_request": null,
+        "assignees": [],
+        "dismissed_at": null,
+        "dismissed_by": null,
+        "dismissed_reason": null,
+        "dismissed_comment": null,
+        "fixed_at": null,
+        "auto_dismissed_at": null
+      }
+    ]
+  }
+}

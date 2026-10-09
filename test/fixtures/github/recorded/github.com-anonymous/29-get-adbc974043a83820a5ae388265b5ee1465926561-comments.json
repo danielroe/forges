@@ -1,0 +1,16 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.github.com/repos/h3js/h3/commits/adbc974043a83820a5ae388265b5ee1465926561/comments?per_page=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "\"74d1db57f0fec3481bb6b4d9bcdc020d656635ec6c53ee589d27a8831cbbe280\"",
+      "x-ratelimit-limit": "60",
+      "x-ratelimit-remaining": "31",
+      "x-ratelimit-reset": "1791555471"
+    },
+    "body": []
+  }
+}

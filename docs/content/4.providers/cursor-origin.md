@@ -103,10 +103,10 @@ Deliveries of `installation.*` events become `installation` events. You register
 | `sources.poll` | ❌ | ❌ |
 | `sources.webhook` | ✅ | ✅ |
 | `sources.subscribe` | ❌ | ❌ |
-| `repos.get` | ✅ | ❌ |
+| `repos.get` | experimental | ❌ |
 | `users.get` | ❌ | ❌ |
 | `users.me` | ❌ | ❌ |
-| `repos.list` | experimental | ❌ |
+| `repos.list` | unverified | ❌ |
 | `repos.labels` | ❌ | ❌ |
 | `repos.createLabel` | ❌ | ❌ |
 | `repos.milestones` | ❌ | ❌ |
@@ -115,13 +115,13 @@ Deliveries of `installation.*` events become `installation` events. You register
 | `repos.addCollaborator` | ❌ | ❌ |
 | `repos.assignableUsers` | ❌ | ❌ |
 | `repos.reviewerCandidates` | ❌ | ❌ |
-| `threads.get` | PR | ❌ |
-| `threads.list` | PR | ❌ |
-| `threads.getMany` | ✅ | ❌ |
-| `threads.events` | PR | ❌ |
-| `comments.list` | PR | ❌ |
-| `comments.edit` | PR (experimental) | ❌ |
-| `comments.delete` | PR (experimental) | ❌ |
+| `threads.get` | PR (experimental) | ❌ |
+| `threads.list` | PR (experimental) | ❌ |
+| `threads.getMany` | experimental | ❌ |
+| `threads.events` | PR (experimental) | ❌ |
+| `comments.list` | PR (experimental) | ❌ |
+| `comments.edit` | PR (unverified) | ❌ |
+| `comments.delete` | PR (unverified) | ❌ |
 | `reactions.list` | ❌ | ❌ |
 | `notifications.list` | ❌ | ❌ |
 | `notifications.markRead` | ❌ | ❌ |
@@ -130,49 +130,49 @@ Deliveries of `installation.*` events become `installation` events. You register
 | `notifications.markAllRead` | ❌ | ❌ |
 | `notifications.markAllDone` | ❌ | ❌ |
 | `notifications.unreadCount` | ❌ | ❌ |
-| `writes.comment` | PR | ❌ |
-| `writes.upsertComment` | PR (emulated) | ❌ |
-| `writes.close` | PR | ❌ |
-| `writes.reopen` | PR | ❌ |
-| `writes.create` | PR (experimental) | ❌ |
-| `writes.update` | PR (experimental) | ❌ |
-| `writes.setLabels` | PR (experimental) | ❌ |
+| `writes.comment` | PR (experimental) | ❌ |
+| `writes.upsertComment` | PR (unverified) | ❌ |
+| `writes.close` | PR (experimental) | ❌ |
+| `writes.reopen` | PR (experimental) | ❌ |
+| `writes.create` | PR (unverified) | ❌ |
+| `writes.update` | PR (unverified) | ❌ |
+| `writes.setLabels` | PR (unverified) | ❌ |
 | `writes.addLabels` | ❌ | ❌ |
 | `writes.removeLabels` | ❌ | ❌ |
 | `writes.setMilestone` | ❌ | ❌ |
 | `writes.react` | ❌ | ❌ |
 | `writes.setAssignees` | ❌ | ❌ |
-| `writes.requestReview` | PR (experimental) | ❌ |
-| `writes.merge` | ✅ | ❌ |
-| `writes.approveAndMerge` | ✅ | ❌ |
+| `writes.requestReview` | PR (unverified) | ❌ |
+| `writes.merge` | experimental | ❌ |
+| `writes.approveAndMerge` | unverified | ❌ |
 | `writes.transfer` | ❌ | ❌ |
 | `writes.markDuplicate` | ❌ | ❌ |
 | `subscriptions.get` | ❌ | ❌ |
 | `subscriptions.set` | ❌ | ❌ |
 | `installations` | ❌ | ❌ |
-| `checks.thread` | PR | ❌ |
-| `checks.list` | experimental | ❌ |
+| `checks.thread` | PR (experimental) | ❌ |
+| `checks.list` | unverified | ❌ |
 | `checks.report` | ❌ | ❌ |
 | `checks.rerun` | ❌ | ❌ |
 | `ci.runs` | ❌ | ❌ |
 | `ci.run` | ❌ | ❌ |
 | `ci.jobs` | ❌ | ❌ |
 | `ci.log` | ❌ | ❌ |
-| `contents.file` | experimental | ❌ |
-| `contents.tree` | experimental | ❌ |
-| `contents.branches` | experimental | ❌ |
-| `contents.tags` | experimental | ❌ |
-| `contents.resolveRef` | experimental | ❌ |
-| `contents.commits` | experimental | ❌ |
-| `contents.commit` | experimental | ❌ |
-| `contents.compare` | experimental | ❌ |
-| `contents.threadFiles` | experimental | ❌ |
-| `contents.threadCommits` | experimental | ❌ |
-| `reviews.list` | ✅ | ❌ |
-| `reviews.create` | experimental | ❌ |
+| `contents.file` | unverified | ❌ |
+| `contents.tree` | unverified | ❌ |
+| `contents.branches` | unverified | ❌ |
+| `contents.tags` | unverified | ❌ |
+| `contents.resolveRef` | unverified | ❌ |
+| `contents.commits` | unverified | ❌ |
+| `contents.commit` | unverified | ❌ |
+| `contents.compare` | unverified | ❌ |
+| `contents.threadFiles` | unverified | ❌ |
+| `contents.threadCommits` | unverified | ❌ |
+| `reviews.list` | experimental | ❌ |
+| `reviews.create` | unverified | ❌ |
 | `reviews.submit` | ❌ | ❌ |
-| `reviews.approve` | experimental | ❌ |
-| `reviews.resolveThread` | experimental | ❌ |
+| `reviews.approve` | unverified | ❌ |
+| `reviews.resolveThread` | unverified | ❌ |
 | `releases.list` | ❌ | ❌ |
 | `releases.get` | ❌ | ❌ |
 | `releases.latest` | ❌ | ❌ |

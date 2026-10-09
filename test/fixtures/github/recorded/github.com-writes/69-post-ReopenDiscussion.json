@@ -1,0 +1,34 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://api.github.com/graphql",
+    "operationName": "ReopenDiscussion",
+    "variables": {
+      "id": "D_kwDOVCTdtM4Ap5qt"
+    },
+    "body": {
+      "query": "mutation ReopenDiscussion($id: ID!) {\n  reopenDiscussion(input: { discussionId: $id }) { discussion { id } }\n}",
+      "variables": {
+        "id": "D_kwDOVCTdtM4Ap5qt"
+      },
+      "operationName": "ReopenDiscussion"
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "x-ratelimit-limit": "5000",
+      "x-ratelimit-remaining": "4974",
+      "x-ratelimit-reset": "1791559276"
+    },
+    "body": {
+      "data": {
+        "reopenDiscussion": {
+          "discussion": {
+            "id": "D_kwDOVCTdtM4Ap5qt"
+          }
+        }
+      }
+    }
+  }
+}

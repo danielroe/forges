@@ -1,0 +1,26 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitea.com/api/v1/repos/forges-fixtures/forges-fixtures/milestones?state=open&limit=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "x-total-count": "1"
+    },
+    "body": [
+      {
+        "id": 6495,
+        "title": "Fixture milestone",
+        "description": "Open milestone for forges fixture recordings.",
+        "state": "open",
+        "open_issues": 0,
+        "closed_issues": 0,
+        "created_at": "2026-10-09T11:48:36Z",
+        "updated_at": "2026-10-09T13:47:36Z",
+        "closed_at": null,
+        "due_on": null
+      }
+    ]
+  }
+}

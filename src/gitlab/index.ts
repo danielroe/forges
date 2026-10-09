@@ -541,19 +541,19 @@ const GITLAB: ProviderDefinition<GitLabOptions> = {
       probeVersion: async () => (await fetcher.json<{ version?: string }>('/version')).data.version,
       web: gitlabWeb(baseUrl.replace(/\/api\/v4$/, '')),
       webhooks: {
-        listPage: verb('experimental', (target, listOptions = {}) => list(hooksPath(target), listOptions, (raw: GitLabHook) => toWebhook(target, raw))),
-        create: verb('experimental', async (target, input) => toWebhook(target, (await fetcher.json<GitLabHook>(hooksPath(target), {
+        listPage: verb(true, (target, listOptions = {}) => list(hooksPath(target), listOptions, (raw: GitLabHook) => toWebhook(target, raw))),
+        create: verb(true, async (target, input) => toWebhook(target, (await fetcher.json<GitLabHook>(hooksPath(target), {
           method: 'POST',
           json: { url: input.url, token: input.secret, ...hookFlags(input) },
         })).data)),
-        update: verb('experimental', async (ref, update) => toWebhook(ref.target, (await fetcher.json<GitLabHook>(`${hooksPath(ref.target)}/${ref.id}`, {
+        update: verb(true, async (ref, update) => toWebhook(ref.target, (await fetcher.json<GitLabHook>(`${hooksPath(ref.target)}/${ref.id}`, {
           method: 'PUT',
           json: { ...update.url ? { url: update.url } : {}, ...update.secret ? { token: update.secret } : {}, ...hookFlags(update) },
         })).data)),
-        delete: verb('experimental', async (ref) => {
+        delete: verb(true, async (ref) => {
           await fetcher.raw(`${hooksPath(ref.target)}/${ref.id}`, { method: 'DELETE' })
         }),
-        rotateSecret: verb('experimental', async (ref, secret) => toWebhook(ref.target, (await fetcher.json<GitLabHook>(`${hooksPath(ref.target)}/${ref.id}`, {
+        rotateSecret: verb(true, async (ref, secret) => toWebhook(ref.target, (await fetcher.json<GitLabHook>(`${hooksPath(ref.target)}/${ref.id}`, {
           method: 'PUT',
           json: { token: secret },
         })).data)),
@@ -589,7 +589,7 @@ const GITLAB: ProviderDefinition<GitLabOptions> = {
         }),
         listPage: verb(true, (listOptions = {}) => list('/projects', listOptions, (raw: GitLabProjectDetail) => toRepo(instance, raw), { query: { membership: true } })),
         labelsPage: verb(!anonymous, (repo, listOptions = {}) => list(`${projectPath(repo)}/labels`, listOptions, toLabel)),
-        createLabel: verb('experimental', async (repo, label) => toLabel((await fetcher.json<GitLabLabel>(`${projectPath(repo)}/labels`, {
+        createLabel: verb(true, async (repo, label) => toLabel((await fetcher.json<GitLabLabel>(`${projectPath(repo)}/labels`, {
           method: 'POST',
           json: { name: label.name, color: hexColour(label.colour, '#'), description: label.description },
         })).data)),
@@ -607,7 +607,7 @@ const GITLAB: ProviderDefinition<GitLabOptions> = {
             throw error
           }
         }),
-        addCollaborator: verb('experimental', async (repo, actor, role) => {
+        addCollaborator: verb('unverified', async (repo, actor, role) => {
           await fetcher.raw(`${projectPath(repo)}/members`, { method: 'POST', json: { user_id: await userId(actor), access_level: ACCESS_LEVELS[role] } })
         }),
         assignableUsersPage: verb(true, (repo, listOptions = {}) => list(`${projectPath(repo)}/users`, listOptions, (raw: GitLabUser) => toActor(instance, raw)!)),
@@ -619,7 +619,7 @@ const GITLAB: ProviderDefinition<GitLabOptions> = {
           await fetcher.raw(`/todos/${ref.id}/mark_as_done`, { method: 'POST' })
         }),
         unsubscribe: verb(true, unsubscribe),
-        markAllDone: verb('experimental', async (bulk: BulkNotificationOptions = {}) => {
+        markAllDone: verb(true, async (bulk: BulkNotificationOptions = {}) => {
           if (bulk.repo || bulk.before) {
             throw new UnsupportedOperationError('GitLab marks every to-do done at once; repo and before filters are not supported', context)
           }
@@ -689,7 +689,7 @@ const GITLAB: ProviderDefinition<GitLabOptions> = {
             raw => toStatusCheck(repo, raw),
           ),
         })),
-        report: verb('experimental', async (repo, sha, input) => toStatusCheck(repo, (await fetcher.json<GitLabCommitStatus>(`${projectPath(repo)}/statuses/${sha}`, {
+        report: verb(true, async (repo, sha, input) => toStatusCheck(repo, (await fetcher.json<GitLabCommitStatus>(`${projectPath(repo)}/statuses/${sha}`, {
           method: 'POST',
           json: {
             state: STATUS_STATES[input.state],
@@ -698,7 +698,7 @@ const GITLAB: ProviderDefinition<GitLabOptions> = {
             target_url: input.url,
           },
         })).data)),
-        rerun: verb('experimental', async (ref) => {
+        rerun: verb(true, async (ref) => {
           if (ref.type !== 'job' && ref.type !== 'status') {
             throw new UnsupportedOperationError(`GitLab cannot re-run a ${ref.type}`, context)
           }
@@ -709,10 +709,10 @@ const GITLAB: ProviderDefinition<GitLabOptions> = {
         runsPage: verb(true, (repo, query = {}) => list(`${projectPath(repo)}/pipelines`, query, (raw: GitLabPipeline) => toPipeline(repo, raw), { query: { ref: query.branch, status: PIPELINE_STATES[query.state ?? 'unknown'] } })),
         run: verb(true, async ref => toPipeline(ref.repo, (await fetcher.json<GitLabPipeline>(`${projectPath(ref.repo)}/pipelines/${ref.id}`)).data)),
         jobsPage: verb(true, (ref, listOptions = {}) => list(`${projectPath(ref.repo)}/pipelines/${ref.id}/jobs`, listOptions, (raw: GitLabJob) => toCiJob(ref, raw))),
-        log: verb('experimental', async ref => (await fetcher.stream(`${projectPath(ref.repo)}/jobs/${encodeURIComponent(ref.id)}/trace`)).body),
+        log: verb(!anonymous, async ref => (await fetcher.stream(`${projectPath(ref.repo)}/jobs/${encodeURIComponent(ref.id)}/trace`)).body),
       },
       securityAlerts: {
-        kinds: { dependency: !anonymous && 'experimental', code_scanning: !anonymous && 'experimental', secret: !anonymous && 'experimental' },
+        kinds: { dependency: !anonymous, code_scanning: !anonymous, secret: !anonymous },
         listPage: vulnerabilitiesPage,
       },
       threads: {
@@ -748,7 +748,7 @@ const GITLAB: ProviderDefinition<GitLabOptions> = {
             raw: approvals,
           }
         }),
-        reviewThreads: verb('experimental', {
+        reviewThreads: verb('unverified', {
           resolveReviewThread: (thread, id) => setDiscussionResolved(thread, id, true),
           unresolveReviewThread: (thread, id) => setDiscussionResolved(thread, id, false),
         }),
@@ -762,7 +762,7 @@ const GITLAB: ProviderDefinition<GitLabOptions> = {
           const project = pipelineProject === undefined || pipelineProject === data.target_project_id ? projectPath(ref.repo) : `/projects/${pipelineProject}`
           return { items: await Array.fromAsync(fetcher.items<GitLabJob>(`${project}/pipelines/${data.head_pipeline.id}/jobs`, { query: { per_page: 100 } }), job => toJobCheck(ref.repo, job)) }
         }),
-        get: perKind({ issue: true, pull_request: true, commit: 'experimental' }, get),
+        get: perKind({ issue: true, pull_request: true, commit: true }, get),
         getMany: verb(true, refs => getManyConcurrently(refs, get)),
         listPage: perKind(ISSUE_LIKE, listPage),
         eventsPage: verb(!anonymous, async (thread: ThreadRef, listOptions: ListOptions = {}): Promise<Page<ForgeEventInput>> => {
@@ -776,14 +776,14 @@ const GITLAB: ProviderDefinition<GitLabOptions> = {
           }
           return list(`${threadPath(ref)}/notes`, listOptions, (note: GitLabNote) => toNoteEvent(ref, note), { query: { sort: 'asc', order_by: 'created_at' } })
         }),
-        commentsPage: perKind({ issue: !anonymous, pull_request: !anonymous, commit: 'experimental' }, async (thread: ThreadRef, listOptions: ListOptions = {}): Promise<Page<Comment>> => {
+        commentsPage: perKind({ issue: !anonymous, pull_request: !anonymous, commit: true }, async (thread: ThreadRef, listOptions: ListOptions = {}): Promise<Page<Comment>> => {
           const ref = requireThread(thread, context)
           if (ref.kind === 'commit') {
             return list(`${threadPath(ref)}/comments`, listOptions, (comment: GitLabCommitComment) => toCommitComment(ref, comment))
           }
           return list(`${threadPath(requireIssueOrPull(ref, context, 'list comments on'))}/notes`, listOptions, (note: GitLabNoteDetail) => note.system ? undefined : toNoteComment(ref, note), { query: { sort: 'asc', order_by: 'created_at' } })
         }),
-        comment: perKind({ issue: 'experimental', pull_request: true, commit: 'experimental' }, async (thread, body) => {
+        comment: perKind({ issue: true, pull_request: true, commit: true }, async (thread, body) => {
           const ref = requireThread(thread, context)
           if (ref.kind === 'commit') {
             const { data } = await fetcher.json<GitLabCommitComment>(`${threadPath(ref)}/comments`, { method: 'POST', json: { note: body } })
@@ -795,16 +795,16 @@ const GITLAB: ProviderDefinition<GitLabOptions> = {
           })
           return toNoteComment(ref, data)
         }),
-        editComment: perKind({ issue: 'experimental', pull_request: 'experimental' }, async (ref, body) => {
+        editComment: perKind({ issue: true, pull_request: true }, async (ref, body) => {
           const thread = requireIssueOrPull(ref.thread, context, 'edit comments on')
           const { data } = await fetcher.json<GitLabNoteDetail>(`${threadPath(thread)}/notes/${ref.id}`, { method: 'PUT', json: { body } })
           return toNoteComment(thread, data)
         }),
-        deleteComment: perKind({ issue: 'experimental', pull_request: 'experimental' }, async (ref) => {
+        deleteComment: perKind({ issue: true, pull_request: true }, async (ref) => {
           const thread = requireIssueOrPull(ref.thread, context, 'delete comments on')
           await fetcher.raw(`${threadPath(thread)}/notes/${ref.id}`, { method: 'DELETE' })
         }),
-        create: perKind({ issue: 'experimental', pull_request: 'experimental' }, async (repo, input) => {
+        create: perKind({ issue: true, pull_request: true }, async (repo, input) => {
           if (input.kind === 'discussion') {
             throw new UnsupportedOperationError('GitLab has no discussion threads', context)
           }
@@ -833,7 +833,7 @@ const GITLAB: ProviderDefinition<GitLabOptions> = {
           })
           return toThread({ forge: FORGE, instance, repo, kind: 'pull_request', number: String(data.iid) }, data)
         }),
-        update: perKind({ issue: 'experimental', pull_request: 'experimental' }, async (thread, input) => {
+        update: perKind({ issue: true, pull_request: true }, async (thread, input) => {
           const ref = requireIssueOrPull(thread, context, 'update')
           const { data } = await fetcher.json<GitLabIssue>(threadPath(ref), {
             method: 'PUT',
@@ -841,15 +841,15 @@ const GITLAB: ProviderDefinition<GitLabOptions> = {
           })
           return toThread(ref, data)
         }),
-        addLabels: perKind({ issue: 'experimental', pull_request: 'experimental' }, async (thread, labels) => {
+        addLabels: perKind({ issue: true, pull_request: true }, async (thread, labels) => {
           const ref = requireIssueOrPull(thread, context, 'label')
           await fetcher.raw(threadPath(ref), { method: 'PUT', json: { add_labels: labels.join(',') } })
         }),
-        removeLabels: perKind({ issue: 'experimental', pull_request: 'experimental' }, async (thread, labels) => {
+        removeLabels: perKind({ issue: true, pull_request: true }, async (thread, labels) => {
           const ref = requireIssueOrPull(thread, context, 'label')
           await fetcher.raw(threadPath(ref), { method: 'PUT', json: { remove_labels: labels.join(',') } })
         }),
-        setMilestone: perKind({ issue: 'experimental', pull_request: 'experimental' }, async (thread, milestone) => {
+        setMilestone: perKind({ issue: true, pull_request: true }, async (thread, milestone) => {
           const ref = requireIssueOrPull(thread, context, 'set the milestone of')
           await fetcher.raw(threadPath(ref), { method: 'PUT', json: { milestone_id: milestone === undefined ? 0 : await milestoneId(milestone, page => milestonesPage(ref.repo, page, true), context) } })
         }),
@@ -864,7 +864,7 @@ const GITLAB: ProviderDefinition<GitLabOptions> = {
             return reactor && { content: reactionContent(REACTION_NAMES[raw.name] ?? raw.name), contentRaw: raw.name, actor: reactor, createdAt: toDate(raw.created_at), raw }
           })
         }),
-        reactions: perKind({ issue: 'experimental', pull_request: 'experimental' }, {
+        reactions: perKind({ issue: true, pull_request: true }, {
           async react(target, reaction) {
             await fetcher.raw(`${awardPath(target)}/award_emoji`, { method: 'POST', json: { name: AWARD_EMOJI[reaction] } })
           },
@@ -878,7 +878,7 @@ const GITLAB: ProviderDefinition<GitLabOptions> = {
             }
           },
         }),
-        transfer: verb('experimental', async (thread, repo) => {
+        transfer: verb(true, async (thread, repo) => {
           const ref = requireIssueOrPull(thread, context, 'transfer')
           if (ref.kind !== 'issue') {
             throw new UnsupportedOperationError('GitLab moves issues only', context)
@@ -894,15 +894,15 @@ const GITLAB: ProviderDefinition<GitLabOptions> = {
             : `${canonical.repo.owner}/${canonical.repo.name}#${canonical.number}`
           await fetcher.raw(`${threadPath(ref)}/notes`, { method: 'POST', json: { body: `/duplicate ${reference}` } })
         }),
-        setLabels: perKind({ issue: 'experimental', pull_request: 'experimental' }, async (thread, labels) => {
+        setLabels: perKind({ issue: true, pull_request: true }, async (thread, labels) => {
           const ref = requireIssueOrPull(thread, context, 'label')
           await fetcher.raw(threadPath(ref), { method: 'PUT', json: { labels: labels.join(',') } })
         }),
-        setAssignees: perKind({ issue: 'experimental', pull_request: 'experimental' }, async (thread, assignees) => {
+        setAssignees: perKind({ issue: true, pull_request: true }, async (thread, assignees) => {
           const ref = requireIssueOrPull(thread, context, 'assign')
           await fetcher.raw(threadPath(ref), { method: 'PUT', json: { assignee_ids: await Promise.all(assignees.map(userId)) } })
         }),
-        requestReview: perKind({ pull_request: 'experimental' }, async (thread, reviewers) => {
+        requestReview: perKind({ pull_request: true }, async (thread, reviewers) => {
           const ref = requireThread(thread, context)
           if (ref.kind !== 'pull_request') {
             throw new UnsupportedOperationError('Only merge requests have reviewers', context)
@@ -911,8 +911,8 @@ const GITLAB: ProviderDefinition<GitLabOptions> = {
           const ids = new Set([...(data.reviewers ?? []).map(user => user.id), ...await Promise.all(reviewers.map(userId))])
           await fetcher.raw(threadPath(ref), { method: 'PUT', json: { reviewer_ids: [...ids] } })
         }),
-        close: perKind({ issue: 'experimental', pull_request: true }, ref => setState(ref, 'close')),
-        reopen: perKind({ issue: 'experimental', pull_request: true }, ref => setState(ref, 'reopen')),
+        close: perKind({ issue: true, pull_request: true }, ref => setState(ref, 'close')),
+        reopen: perKind({ issue: true, pull_request: true }, ref => setState(ref, 'reopen')),
         merge: verb(true, merge),
         subscriptions: perKind(ISSUE_LIKE, {
           subscription: async (thread): Promise<SubscriptionState> => {

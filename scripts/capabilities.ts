@@ -39,7 +39,7 @@ export function matrixProviders(forges: typeof Forges): MatrixProvider[] {
 const KINDS: Record<string, string> = { issue: 'issue', pull_request: 'PR', discussion: 'discussion', commit: 'commit', dependency: 'dependency', code_scanning: 'code scanning', secret: 'secret', advisory: 'advisory' }
 
 /** How far a provider supports a capability, as the docs show it. */
-export type SupportLevel = 'native' | 'experimental' | 'emulated' | 'none'
+export type SupportLevel = 'native' | 'experimental' | 'emulated' | 'unverified' | 'none'
 
 export interface SupportCell {
   level: SupportLevel
@@ -47,10 +47,10 @@ export interface SupportCell {
   kinds?: Array<{ kind: string, label: string, level: SupportLevel }>
 }
 
-const LEVEL_RANK: SupportLevel[] = ['native', 'experimental', 'emulated', 'none']
+const LEVEL_RANK: SupportLevel[] = ['native', 'experimental', 'emulated', 'unverified', 'none']
 
 function levelOf(value: unknown): SupportLevel {
-  return value === true ? 'native' : value === 'experimental' || value === 'emulated' ? value : 'none'
+  return value === true ? 'native' : value === 'experimental' || value === 'emulated' || value === 'unverified' ? value : 'none'
 }
 
 /** A capability value as a level, with the level of each kind for per-kind values. */
@@ -67,7 +67,7 @@ function cell(value: unknown): string {
   if (Array.isArray(value)) {
     return value.map(item => `\`${item}\``).join(', ')
   }
-  if (typeof value === 'string' && value !== 'experimental' && value !== 'emulated') {
+  if (typeof value === 'string' && value !== 'experimental' && value !== 'emulated' && value !== 'unverified') {
     return value
   }
   const { level, kinds } = supportCell(value)
@@ -152,7 +152,7 @@ export function capabilityData(forges: typeof Forges): { providers: CapabilityPr
   }
   const all = groups.flatMap(group => group.rows)
   const summarise = (cells: SupportCell[]) => {
-    const summary: Record<SupportLevel, number> = { native: 0, experimental: 0, emulated: 0, none: 0 }
+    const summary: Record<SupportLevel, number> = { native: 0, experimental: 0, emulated: 0, unverified: 0, none: 0 }
     for (const { level } of cells) {
       summary[level]++
     }

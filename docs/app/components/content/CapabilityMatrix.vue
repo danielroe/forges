@@ -113,7 +113,7 @@ function limits(values?: Record<string, number>) {
           Experimental provider
         </dt>
         <dd class="text-muted max-sm:mb-1.5">
-          The whole provider is experimental: its tests use hand-written fixtures only, or the forge's API is unstable.
+          The forge's API as a whole is unstable, so the provider can change with it.
         </dd>
       </template>
     </CapabilityLegend>
@@ -271,7 +271,7 @@ function limits(values?: Record<string, number>) {
                   aria-hidden="true"
                 >
                   <span
-                    v-for="level of (['native', 'experimental', 'emulated'] as const)"
+                    v-for="level of (['native', 'experimental', 'emulated', 'unverified'] as const)"
                     :key="level"
                     class="capability-swatch block w-full"
                     :data-level="level"

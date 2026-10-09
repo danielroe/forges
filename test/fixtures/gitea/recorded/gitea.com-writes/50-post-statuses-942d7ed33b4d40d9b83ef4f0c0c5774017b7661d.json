@@ -1,0 +1,43 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://gitea.com/api/v1/repos/forges-fixtures/forges-fixtures/statuses/942d7ed33b4d40d9b83ef4f0c0c5774017b7661d",
+    "body": {
+      "state": "success",
+      "context": "forges fixture",
+      "description": "Reported by run 20261009142055"
+    }
+  },
+  "response": {
+    "status": 201,
+    "headers": {},
+    "body": {
+      "id": 1,
+      "status": "success",
+      "target_url": "",
+      "description": "Reported by run 20261009142055",
+      "url": "https://gitea.com/api/v1/repos/forges-fixtures/forges-fixtures/statuses/942d7ed33b4d40d9b83ef4f0c0c5774017b7661d",
+      "context": "forges fixture",
+      "creator": {
+        "id": 253592,
+        "login": "roebot",
+        "type": "User",
+        "source_id": 0,
+        "full_name": "",
+        "email": "redacted@example.invalid",
+        "avatar_url": "https://seccdn.libravatar.org/avatar/7d0af08687f4da31dc47abdda8e558689d65a48bf3eb795bc032a553a4b0572b?d=identicon",
+        "html_url": "https://gitea.com/roebot",
+        "active": false,
+        "location": "",
+        "website": "",
+        "description": "Machine account operated by @danielroe",
+        "followers_count": 0,
+        "following_count": 0,
+        "starred_repos_count": 0,
+        "username": "roebot"
+      },
+      "created_at": "2026-10-09T14:21:22Z",
+      "updated_at": "2026-10-09T14:21:22Z"
+    }
+  }
+}

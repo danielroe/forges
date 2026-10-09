@@ -1,0 +1,56 @@
+{
+  "baseUrl": "https://tangled.org",
+  "account": "roebot.tngl.sh",
+  "repo": {
+    "forge": "tangled",
+    "instance": "tangled.org",
+    "owner": "roebot.tngl.sh",
+    "name": "forges-fixtures"
+  },
+  "scratch": {
+    "forge": "tangled",
+    "instance": "tangled.org",
+    "owner": "roebot.tngl.sh",
+    "name": "forges-fixtures"
+  },
+  "run": {
+    "id": "20261009191401",
+    "base": "",
+    "branches": [
+      "forges-fixtures/20261009191401-1",
+      "forges-fixtures/20261009191401-2",
+      "forges-fixtures/20261009191401-3"
+    ],
+    "files": [
+      "forges-fixtures/20261009191401-1.md",
+      "forges-fixtures/20261009191401-2.md",
+      "forges-fixtures/20261009191401-3.md"
+    ],
+    "pull": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.pull/3mxhm5yldov22"
+  },
+  "recordedAt": "2026-10-09T19:14:03.403Z",
+  "steps": [
+    "author",
+    "create issue",
+    "issue comment",
+    "issue edit comment",
+    "issue upsert comment",
+    "issue delete comment",
+    "issue unsubscribe",
+    "issue subscribe",
+    "issue update",
+    "create duplicate issue",
+    "issue close",
+    "issue reopen",
+    "existing pull",
+    "pull comment",
+    "pull edit comment",
+    "pull upsert comment",
+    "pull delete comment",
+    "pull unsubscribe",
+    "pull subscribe",
+    "pull update",
+    "pull close",
+    "pull reopen"
+  ]
+}

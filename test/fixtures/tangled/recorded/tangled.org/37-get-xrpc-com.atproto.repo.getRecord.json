@@ -1,0 +1,42 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://grisette.us-west.host.bsky.network/xrpc/com.atproto.repo.getRecord?repo=did%3Aplc%3Aqfpnj4og54vl56wngdriaxug&collection=sh.tangled.repo.pull&rkey=3mc7q22ebgn22"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"2c2-+owZZXkcJA3ChJGyrvKoM4fJNjI\"",
+      "ratelimit-limit": "3000",
+      "ratelimit-remaining": "2997",
+      "ratelimit-reset": "1791552007"
+    },
+    "body": {
+      "uri": "at://did:plc:qfpnj4og54vl56wngdriaxug/sh.tangled.repo.pull/3mc7q22ebgn22",
+      "cid": "bafyreidlyqcqt4loyf2brwfdgnumwn6pnw6xxaopsbmrr2l77mzsooxd5i",
+      "value": {
+        "body": "Signed-off-by: oppiliappan <redacted@example.invalid>",
+        "$type": "sh.tangled.repo.pull",
+        "title": "nix: use fork of vite with chroma support",
+        "source": {
+          "sha": "854dcfee320ee6a47e2091fbfd8a13f92fc114eb",
+          "branch": "op/tupssoolqvus"
+        },
+        "target": {
+          "repo": "at://did:plc:wshs7t2adsemcrrd4snkeqli/sh.tangled.repo/3ljbiayluee22",
+          "branch": "master",
+          "repoDid": "did:plc:g66xej5jct643d6bgukldn77"
+        },
+        "createdAt": "2026-01-12T11:28:38+02:00",
+        "patchBlob": {
+          "ref": {
+            "$link": "bafkreiaouu4m3mwsym2v5o3ui7qiwad574rh24t3dht7qrpvrpgysexusm"
+          },
+          "size": 1670,
+          "$type": "blob",
+          "mimeType": "*/*"
+        }
+      }
+    }
+  }
+}

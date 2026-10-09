@@ -1,0 +1,54 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/repository/commits/main"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"bb9d4a70d61b983a1167301def6aff39\"",
+      "ratelimit-limit": "500",
+      "ratelimit-remaining": "470",
+      "ratelimit-reset": "1791495900"
+    },
+    "body": {
+      "id": "679b88d982d21f3e18c0eb9e4f7bcadb11ef1791",
+      "short_id": "679b88d9",
+      "created_at": "2026-10-08T14:36:23.000-05:00",
+      "parent_ids": [
+        "4b92278fc1a467d97e5d3ca4955bb6a01252f1e8",
+        "daecf6fcc1c82d58f4352007356e5f6b8a3da365"
+      ],
+      "title": "Merge branch '8303-api-custom-placeholders' into 'main'",
+      "message": "Merge branch '8303-api-custom-placeholders' into 'main'\n\nfeat(api): support custom placeholder values\n\nCloses #8303\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4029\n\nMerged-by: Kai Armstrong <redacted@example.invalid>\nApproved-by: GitLab Duo <redacted@example.invalid>\nApproved-by: Dmitry Gruzd <redacted@example.invalid>\nApproved-by: Kai Armstrong <redacted@example.invalid>\nReviewed-by: Kai Armstrong <redacted@example.invalid>\nReviewed-by: Dmitry Gruzd <redacted@example.invalid>\nCo-authored-by: Radek Antoniuk <redacted@example.invalid>",
+      "author_name": "Kai Armstrong",
+      "author_email": "redacted@example.invalid",
+      "authored_date": "2026-10-08T14:36:23.000-05:00",
+      "committer_name": "GitLab",
+      "committer_email": "redacted@example.invalid",
+      "committed_date": "2026-10-08T14:36:23.000-05:00",
+      "trailers": {},
+      "extended_trailers": {},
+      "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/679b88d982d21f3e18c0eb9e4f7bcadb11ef1791",
+      "stats": {
+        "additions": 184,
+        "deletions": 16,
+        "total": 200
+      },
+      "status": "success",
+      "project_id": 34675721,
+      "last_pipeline": {
+        "id": 2927933697,
+        "iid": 14949,
+        "project_id": 34675721,
+        "sha": "679b88d982d21f3e18c0eb9e4f7bcadb11ef1791",
+        "ref": "main",
+        "status": "success",
+        "source": "push",
+        "created_at": "2026-10-08T19:36:26.293Z",
+        "updated_at": "2026-10-08T19:49:47.939Z",
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/pipelines/2927933697"
+      }
+    }
+  }
+}

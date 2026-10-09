@@ -1,0 +1,46 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://auriporia.us-west.host.bsky.network/xrpc/com.atproto.repo.getRecord?repo=did%3Aplc%3Aqfngkejlw4ghji2myc73hbdh&collection=sh.tangled.repo.pull&rkey=3mxgqnprw5422"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"168b-5K7BhPVMsX1kGxrprgu1Jm6UjnY\"",
+      "ratelimit-limit": "3000",
+      "ratelimit-remaining": "2999",
+      "ratelimit-reset": "1791552023"
+    },
+    "body": {
+      "uri": "at://did:plc:qfngkejlw4ghji2myc73hbdh/sh.tangled.repo.pull/3mxgqnprw5422",
+      "cid": "bafyreigjxr3f3wfebpct3kwpfukqa6anhugovt4uzbigaquqkagoclb4ra",
+      "value": {
+        "body": "SANDBOX-UNIFY U1 (product). Plan: `machine-docs/plans/SANDBOX-UNIFY-2026-10-09.md`; design `machine-docs/plans/SANDBOX-UNIFY-U0-DESIGN-2026-10-09.md` (checked: `reviews/SANDBOX-UNIFY-U0-DESIGN-CHECK-2026-10-09.md`, with the §10 answers D-ctor-1/2 and D-spec-1/2). Tests: the linked tests PR.\n\nRust: yes. API contract: unchanged.\n\n## What changes\n\nEvery external program lichen starts (git, `git-http-backend`, Hugo, `cp`, `dig`, `wisp-cli`, `date`, `git --exec-path`) is now a child of lichen's own executable in its `sandbox` mode: `/proc/self/exe sandbox -- <program> <args…>`. The child restricts itself, then `exec`s the program. There is no `pre_exec` path left for these children.\n\n- **`lichen_flat_file::sandbox` (new):**\n  - `Spec` (paths, filesystem on or off, network, rlimits, the Landlock ABI), written by the runner as the one variable `LICHEN_SANDBOX_SPEC`;\n  - a `#[ctor]` pre-main hook that acts only when `argv[1]` is `sandbox` (std's arguments, or `/proc/self/cmdline` where std has none before `main`);\n  - `restrict_self`, in this order:\n    - refuse unless single-threaded (D-ctor-1);\n    - `no_new_privs`;\n    - rlimits;\n    - subreaper;\n    - `close_range(3..)`;\n    - one Landlock ruleset (filesystem, TCP from ABI 4 unless the network is the host's, scopes from ABI 6; hard requirement, fully enforced);\n    - the seccomp filters.\n  - Then `exec` without the spec (D-spec-1). A missing, empty or unreadable spec refuses with 126 (D-spec-2).\n- **`command` / `tokio_command`** build a child; **`prepare`**:\n  - refuses a command not built by them, or an executable without the hook;\n  - clears the environment (CHILD-ENV-CLEAR);\n  - finds the program as the child's `exec` will. A missing program is still a spawn `NotFound`, as before, so \"git is not installed\" and the like are unchanged.\n- **`confine_command` / `confine_tokio_command` and their two `pre_exec` blocks are deleted.** The runners (`run`, `run_async`, `spawn_async`, `CommandRunner`, the txn's `run_async`/`spawn_async`) build the spec from their `ConfinePolicy`:\n  - ordinary calls: **Unix sockets only** (new seccomp `Sockets::UnixOnly`, plus Landlock TCP with no port where the ABI has it);\n  - `*_with_network` calls: **the host's network**.\n- **94 production call sites converted** to `sandbox::command` / `tokio_command`, across lichen-cms, lichen-server and lichen-iroh (via a `lichen_cms::sandbox::tokio_command` facade, since lichen-iroh does not depend on lichen-flat-file).\n- **`clippy.toml` disallows** `std::process::Command::new`, `tokio::process::Command::new` and `CommandExt::pre_exec`.\n  - The deny is the existing `cfg_attr(not(test), deny(clippy::disallowed_methods))` in lichen-cms, lichen-server and lichen-iroh.\n  - lichen-flat-file is the module itself. lichen-shell (the terminal) is U3, and lichen-cli's user tools run as the user.\n  - U4's structural test is the one that pins `Command::new` to the module.\n  - `shortcodes/python.rs` carries a narrow allow: it is started by `spawn_script_child`, which U2 moves onto the sandbox mode.\n- **Existing tests this forces to change** are in this PR (s/164 precedent):\n  - tests that hand a runner a command now build it with `sandbox::command`;\n  - test setup that runs git or `mkfifo` directly builds a plain command;\n  - lichen-cms's two certificate tests run their client as a network child, and kill their TLS server however they end. A server left running held the planted run's output open, so a failure there hung the whole suite.\n\n## Differences from the U0 design, for the review\n\n- **Profiles by runner, not by named constructor.** The design's §4 sketches `Profile::git_local()`, `git_remote()`, `hugo()`, `copy()`, `publish_net()`. U1 keeps the existing runners and picks the network by method: ordinary calls get Unix sockets only, `*_with_network` gets the host's network.\n  - C4 is enforced by a listing test (tests PR) of the 8 `*_with_network` call sites: the frontend's remote git, git push and fetches, the deploy-remote push, `dig` and `wisp-cli` (the accepted `publish-net`, 8.2).\n  - U4's single builder is where named profiles would land, if you want them.\n- **Hugo and `cp` get git-local's rule (Unix sockets only), not \"no socket\".** They cannot reach any network either way; the tests PR has a Hugo test and its arm.\n- **A sandbox child cannot start another sandbox child.** The thread check reads `/proc/self/task`, and no profile grants `/proc`, so a nested `lichen sandbox` refuses. Nothing in U1 nests. U2's runners will need this settled if mdBook's commands run lichen.\n- **Linux only** (8.5). Elsewhere, `command` is the program itself and `prepare` only clears the environment.\n\n## Verification\n\n- `just gate --base 7fd3b1a6` at ce1f85c7: rust and frontends/builtin RAN, FAILED none; RUST SELECTED passed=1431 failed=0; WARNINGS 0; GATE rc=0 (run notify-d1c688cf).\n- The arms (the tests PR):\n  - skipping `restrict_self`;\n  - not clearing the environment;\n  - Hugo given the host's network;\n  - `cp` granted `/`.",
+        "$type": "sh.tangled.repo.pull",
+        "title": "sandbox: every external program is a lichen sandbox child (SANDBOX-UNIFY U1, product)",
+        "rounds": [
+          {
+            "createdAt": "2026-10-09T13:17:23+03:00",
+            "patchBlob": {
+              "ref": {
+                "$link": "bafkreicwrgczokmy4lwjxiaag3wz25bu4svferh5mqm4m6fqbkm2yvraim"
+              },
+              "size": 30017,
+              "$type": "blob",
+              "mimeType": "application/gzip"
+            }
+          }
+        ],
+        "source": {
+          "branch": "s/171-sandbox-u1-product"
+        },
+        "target": {
+          "repo": "did:plc:wj53zt2oo653zr3wgnvn4llg",
+          "branch": "stack",
+          "repoDid": "did:plc:wj53zt2oo653zr3wgnvn4llg"
+        },
+        "createdAt": "2026-10-09T13:17:23+03:00"
+      }
+    }
+  }
+}

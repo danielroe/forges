@@ -1,0 +1,48 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://npmx.social/xrpc/com.atproto.repo.getRecord?repo=did%3Aplc%3Alaqygfbyvnkyuhsuaxmp6ez3&collection=sh.tangled.repo.pull&rkey=3mriliksgjw22"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"357-+5W04wyZrtTy7tYaq1YLgs89ar4\"",
+      "ratelimit-limit": "3000",
+      "ratelimit-remaining": "2996",
+      "ratelimit-reset": "1791496477"
+    },
+    "body": {
+      "uri": "at://did:plc:laqygfbyvnkyuhsuaxmp6ez3/sh.tangled.repo.pull/3mriliksgjw22",
+      "cid": "bafyreiccqmua2tnw52ryebpq4ujag3kkbgw2tnwnuulonbfssfyr4wc6zy",
+      "value": {
+        "body": "I was reading the CI post and noticed two simple typos.\n\nSigned-off-by: Jens Rømer Hesselbjerg <redacted@example.invalid>",
+        "$type": "sh.tangled.repo.pull",
+        "title": "pages/blog: fix typos in ci post",
+        "rounds": [
+          {
+            "createdAt": "2026-07-25T22:19:09+03:00",
+            "patchBlob": {
+              "ref": {
+                "$link": "bafkreibsc7xj6im2v42tkh6p7diphwqkvmhkuysmp42bcji5oppo6gfbuu"
+              },
+              "size": 807,
+              "$type": "blob",
+              "mimeType": "application/gzip"
+            }
+          }
+        ],
+        "source": {
+          "repo": "did:plc:bxcczy2pcr7g56xmwkmyxgem",
+          "branch": "fix-typos-in-spindle-post",
+          "repoDid": "did:plc:bxcczy2pcr7g56xmwkmyxgem"
+        },
+        "target": {
+          "repo": "did:plc:g66xej5jct643d6bgukldn77",
+          "branch": "master",
+          "repoDid": "did:plc:g66xej5jct643d6bgukldn77"
+        },
+        "createdAt": "2026-07-25T22:19:09+03:00"
+      }
+    }
+  }
+}

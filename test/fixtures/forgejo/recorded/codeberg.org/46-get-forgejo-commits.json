@@ -1,0 +1,471 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/commits?limit=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "<https://codeberg.org/api/v1/repos/forgejo/forgejo/commits?limit=3&page=2>; rel=\"next\",<https://codeberg.org/api/v1/repos/forgejo/forgejo/commits?limit=3&page=8647>; rel=\"last\"",
+      "x-total": "25940",
+      "x-total-count": "25940",
+      "x-page": "1"
+    },
+    "body": [
+      {
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/4ea182cb141c5ff76a4e1ff64ce274e1f9e60b6b",
+        "sha": "4ea182cb141c5ff76a4e1ff64ce274e1f9e60b6b",
+        "created": "2026-10-09T14:51:15+02:00",
+        "html_url": "https://codeberg.org/forgejo/forgejo/commit/4ea182cb141c5ff76a4e1ff64ce274e1f9e60b6b",
+        "commit": {
+          "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/4ea182cb141c5ff76a4e1ff64ce274e1f9e60b6b",
+          "author": {
+            "name": "srikanth-iyengar",
+            "email": "redacted@example.invalid",
+            "date": "2026-10-09T14:51:15+02:00"
+          },
+          "committer": {
+            "name": "Gusted",
+            "email": "redacted@example.invalid",
+            "date": "2026-10-09T14:51:15+02:00"
+          },
+          "message": "fix: add clone error enricher to make errors less technical (#14569)\n\nFix #14127\n\nCo-authored-by: Srikanth Iyengar <redacted@example.invalid>\nReviewed-on: https://codeberg.org/forgejo/forgejo/pulls/14569\nReviewed-by: Mathieu Fenniak <redacted@example.invalid>\nReviewed-by: Gusted <redacted@example.invalid>\n",
+          "tree": {
+            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/trees/4ea182cb141c5ff76a4e1ff64ce274e1f9e60b6b",
+            "sha": "4ea182cb141c5ff76a4e1ff64ce274e1f9e60b6b",
+            "created": "2026-10-09T14:51:15+02:00"
+          },
+          "verification": {
+            "verified": false,
+            "reason": "gpg.error.not_signed_commit",
+            "signature": "",
+            "signer": null,
+            "payload": ""
+          }
+        },
+        "author": {
+          "id": 574019,
+          "login": "srikanth-iyengar",
+          "source_id": 0,
+          "full_name": "",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://codeberg.org/avatars/f33fe22c20272fc3268964ed6bcb4286",
+          "html_url": "https://codeberg.org/srikanth-iyengar",
+          "active": false,
+          "location": "",
+          "pronouns": "",
+          "website": "",
+          "description": "",
+          "followers_count": 0,
+          "following_count": 1,
+          "starred_repos_count": 2,
+          "username": "srikanth-iyengar"
+        },
+        "committer": {
+          "id": 26734,
+          "login": "Gusted",
+          "source_id": 0,
+          "full_name": "",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://codeberg.org/avatars/44a59264e976fa585ed9f0a92abad9d7",
+          "html_url": "https://codeberg.org/Gusted",
+          "active": false,
+          "location": "Error 451",
+          "pronouns": "",
+          "website": "https://gusted.xyz",
+          "description": "I’m aware (and the NSA is), that I’m pretty 🌈.\r\n\r\nForgejo contributor  \r\nCodeberg executive board member 2025-2026  \r\nCodeberg presidium member 2025-2027  \r\n\r\nFor more interesting repositories: https://git.gusted.xyz/Gusted",
+          "followers_count": 162,
+          "following_count": 30,
+          "starred_repos_count": 104,
+          "username": "Gusted"
+        },
+        "parents": [
+          {
+            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/42e6a4bb1dc37de92778e28aa57bc6c9aabd3e02",
+            "sha": "42e6a4bb1dc37de92778e28aa57bc6c9aabd3e02",
+            "created": "0001-01-01T00:00:00Z"
+          }
+        ],
+        "files": [
+          {
+            "filename": "modules/git/repo.go",
+            "status": "modified"
+          },
+          {
+            "filename": "modules/git/repo_test.go",
+            "status": "modified"
+          }
+        ],
+        "stats": {
+          "total": 27,
+          "additions": 26,
+          "deletions": 1
+        }
+      },
+      {
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/42e6a4bb1dc37de92778e28aa57bc6c9aabd3e02",
+        "sha": "42e6a4bb1dc37de92778e28aa57bc6c9aabd3e02",
+        "created": "2026-10-09T08:23:52+02:00",
+        "html_url": "https://codeberg.org/forgejo/forgejo/commit/42e6a4bb1dc37de92778e28aa57bc6c9aabd3e02",
+        "commit": {
+          "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/42e6a4bb1dc37de92778e28aa57bc6c9aabd3e02",
+          "author": {
+            "name": "Renovate Bot",
+            "email": "redacted@example.invalid",
+            "date": "2026-10-09T08:23:52+02:00"
+          },
+          "committer": {
+            "name": "Gusted",
+            "email": "redacted@example.invalid",
+            "date": "2026-10-09T08:23:52+02:00"
+          },
+          "message": "Update dependency postcss-nesting to v14.0.3 (forgejo) (#14766)\n\nReviewed-on: https://codeberg.org/forgejo/forgejo/pulls/14766\nReviewed-by: Gusted <redacted@example.invalid>\n",
+          "tree": {
+            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/trees/42e6a4bb1dc37de92778e28aa57bc6c9aabd3e02",
+            "sha": "42e6a4bb1dc37de92778e28aa57bc6c9aabd3e02",
+            "created": "2026-10-09T08:23:52+02:00"
+          },
+          "verification": {
+            "verified": false,
+            "reason": "gpg.error.not_signed_commit",
+            "signature": "",
+            "signer": null,
+            "payload": ""
+          }
+        },
+        "author": {
+          "id": 141082,
+          "login": "viceice-bot",
+          "source_id": 0,
+          "full_name": "",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://codeberg.org/avatars/b25a3a294c6f5514eb9f56b9c808425d05578e5f414b0d36ac88ade50e166d02",
+          "html_url": "https://codeberg.org/viceice-bot",
+          "active": false,
+          "location": "",
+          "pronouns": "",
+          "website": "",
+          "description": "I'm a bot from @viceice",
+          "followers_count": 6,
+          "following_count": 1,
+          "starred_repos_count": 2,
+          "username": "viceice-bot"
+        },
+        "committer": {
+          "id": 26734,
+          "login": "Gusted",
+          "source_id": 0,
+          "full_name": "",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://codeberg.org/avatars/44a59264e976fa585ed9f0a92abad9d7",
+          "html_url": "https://codeberg.org/Gusted",
+          "active": false,
+          "location": "Error 451",
+          "pronouns": "",
+          "website": "https://gusted.xyz",
+          "description": "I’m aware (and the NSA is), that I’m pretty 🌈.\r\n\r\nForgejo contributor  \r\nCodeberg executive board member 2025-2026  \r\nCodeberg presidium member 2025-2027  \r\n\r\nFor more interesting repositories: https://git.gusted.xyz/Gusted",
+          "followers_count": 162,
+          "following_count": 30,
+          "starred_repos_count": 104,
+          "username": "Gusted"
+        },
+        "parents": [
+          {
+            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/3a7f257f531ea2e4bc74532ebc9c37d0bb966217",
+            "sha": "3a7f257f531ea2e4bc74532ebc9c37d0bb966217",
+            "created": "0001-01-01T00:00:00Z"
+          }
+        ],
+        "files": [
+          {
+            "filename": "package-lock.json",
+            "status": "modified"
+          },
+          {
+            "filename": "package.json",
+            "status": "modified"
+          }
+        ],
+        "stats": {
+          "total": 18,
+          "additions": 9,
+          "deletions": 9
+        }
+      },
+      {
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/3a7f257f531ea2e4bc74532ebc9c37d0bb966217",
+        "sha": "3a7f257f531ea2e4bc74532ebc9c37d0bb966217",
+        "created": "2026-10-09T08:21:21+02:00",
+        "html_url": "https://codeberg.org/forgejo/forgejo/commit/3a7f257f531ea2e4bc74532ebc9c37d0bb966217",
+        "commit": {
+          "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/3a7f257f531ea2e4bc74532ebc9c37d0bb966217",
+          "author": {
+            "name": "AverageHelper",
+            "email": "redacted@example.invalid",
+            "date": "2026-10-09T08:21:21+02:00"
+          },
+          "committer": {
+            "name": "Gusted",
+            "email": "redacted@example.invalid",
+            "date": "2026-10-09T08:21:21+02:00"
+          },
+          "message": "chore: migrate fetch and htmx modules to Typescript (#14705)\n\nThis PR converts our `fetch.js` module and HTMX configurator to Typescript, adding appropriate types along the way. This continues the work from !14508, a scoped approach to tightening our frontend type-checking, in line with @JakobDev's assessment in https://codeberg.org/forgejo/forgejo/pulls/5859#issuecomment-2560264.\n\nI also changed one instance of `innerHTML = ''` to assign `textContent` instead. We only ever set it to an empty string here, which is safe enough, but `textContent` never bothers about any HTML parsing machinery, and it's good practice to avoid directly assigning `innerHTML` wherever possible. This is also in line with [MDN's recommendation](https://developer.mozilla.org/docs/Web/API/Node/textContent#differences_from_innerhtml) on the subject.\n\nUnfortunately, adding these types altered enough lines that Git doesn't see `fetch.ts` as a file rename, which would affect the blame readout. I'm not sure there's a good way around that.\n\nReviewed-on: https://codeberg.org/forgejo/forgejo/pulls/14705\nReviewed-by: Gusted <redacted@example.invalid>\n",
+          "tree": {
+            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/trees/3a7f257f531ea2e4bc74532ebc9c37d0bb966217",
+            "sha": "3a7f257f531ea2e4bc74532ebc9c37d0bb966217",
+            "created": "2026-10-09T08:21:21+02:00"
+          },
+          "verification": {
+            "verified": false,
+            "reason": "gpg.error.not_signed_commit",
+            "signature": "",
+            "signer": null,
+            "payload": ""
+          }
+        },
+        "author": {
+          "id": 135189,
+          "login": "AverageHelper",
+          "source_id": 0,
+          "full_name": "",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://codeberg.org/avatars/7e98b9e83fc5cb7de518d81b4143260fa6a042913e28e59342e9debe55293189",
+          "html_url": "https://codeberg.org/AverageHelper",
+          "active": false,
+          "location": "on your left",
+          "pronouns": "she/her",
+          "website": "https://average.name",
+          "description": "",
+          "followers_count": 2,
+          "following_count": 2,
+          "starred_repos_count": 32,
+          "username": "AverageHelper"
+        },
+        "committer": {
+          "id": 26734,
+          "login": "Gusted",
+          "source_id": 0,
+          "full_name": "",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://codeberg.org/avatars/44a59264e976fa585ed9f0a92abad9d7",
+          "html_url": "https://codeberg.org/Gusted",
+          "active": false,
+          "location": "Error 451",
+          "pronouns": "",
+          "website": "https://gusted.xyz",
+          "description": "I’m aware (and the NSA is), that I’m pretty 🌈.\r\n\r\nForgejo contributor  \r\nCodeberg executive board member 2025-2026  \r\nCodeberg presidium member 2025-2027  \r\n\r\nFor more interesting repositories: https://git.gusted.xyz/Gusted",
+          "followers_count": 162,
+          "following_count": 30,
+          "starred_repos_count": 104,
+          "username": "Gusted"
+        },
+        "parents": [
+          {
+            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/ced96223ce8b984d8fc4a11e0fbcf0bdb9fc37f9",
+            "sha": "ced96223ce8b984d8fc4a11e0fbcf0bdb9fc37f9",
+            "created": "0001-01-01T00:00:00Z"
+          }
+        ],
+        "files": [
+          {
+            "filename": "eslint.config.ts",
+            "status": "modified"
+          },
+          {
+            "filename": "web_src/js/components/ContextPopup.vue",
+            "status": "modified"
+          },
+          {
+            "filename": "web_src/js/components/DashboardRepoList.vue",
+            "status": "modified"
+          },
+          {
+            "filename": "web_src/js/components/DiffCommitSelector.vue",
+            "status": "modified"
+          },
+          {
+            "filename": "web_src/js/components/RepoActionView.vue",
+            "status": "modified"
+          },
+          {
+            "filename": "web_src/js/components/RepoBranchTagSelector.vue",
+            "status": "modified"
+          },
+          {
+            "filename": "web_src/js/components/RepoCodeFrequency.vue",
+            "status": "modified"
+          },
+          {
+            "filename": "web_src/js/components/RepoContributors.vue",
+            "status": "modified"
+          },
+          {
+            "filename": "web_src/js/components/RepoRecentCommits.vue",
+            "status": "modified"
+          },
+          {
+            "filename": "web_src/js/features/admin/common.js",
+            "status": "modified"
+          },
+          {
+            "filename": "web_src/js/features/admin/config.js",
+            "status": "modified"
+          },
+          {
+            "filename": "web_src/js/features/common-global.js",
+            "status": "modified"
+          },
+          {
+            "filename": "web_src/js/features/common-issue-list.js",
+            "status": "modified"
+          },
+          {
+            "filename": "web_src/js/features/comp/ComboMarkdownEditor.js",
+            "status": "modified"
+          },
+          {
+            "filename": "web_src/js/features/comp/Paste.js",
+            "status": "modified"
+          },
+          {
+            "filename": "web_src/js/features/comp/ReactionSelector.js",
+            "status": "modified"
+          },
+          {
+            "filename": "web_src/js/features/comp/WebHookEditor.js",
+            "status": "modified"
+          },
+          {
+            "filename": "web_src/js/features/copycontent.js",
+            "status": "modified"
+          },
+          {
+            "filename": "web_src/js/features/imagediff.js",
+            "status": "modified"
+          },
+          {
+            "filename": "web_src/js/features/install.js",
+            "status": "modified"
+          },
+          {
+            "filename": "web_src/js/features/notification.js",
+            "status": "modified"
+          },
+          {
+            "filename": "web_src/js/features/pull-view-file.js",
+            "status": "modified"
+          },
+          {
+            "filename": "web_src/js/features/repo-common.js",
+            "status": "modified"
+          },
+          {
+            "filename": "web_src/js/features/repo-diff-commit.js",
+            "status": "modified"
+          },
+          {
+            "filename": "web_src/js/features/repo-diff.js",
+            "status": "modified"
+          },
+          {
+            "filename": "web_src/js/features/repo-editor.js",
+            "status": "modified"
+          },
+          {
+            "filename": "web_src/js/features/repo-findfile.js",
+            "status": "modified"
+          },
+          {
+            "filename": "web_src/js/features/repo-graph.js",
+            "status": "modified"
+          },
+          {
+            "filename": "web_src/js/features/repo-home.js",
+            "status": "modified"
+          },
+          {
+            "filename": "web_src/js/features/repo-issue-content.js",
+            "status": "modified"
+          },
+          {
+            "filename": "web_src/js/features/repo-issue-list.js",
+            "status": "modified"
+          },
+          {
+            "filename": "web_src/js/features/repo-issue.js",
+            "status": "modified"
+          },
+          {
+            "filename": "web_src/js/features/repo-legacy.js",
+            "status": "modified"
+          },
+          {
+            "filename": "web_src/js/features/repo-migrate.js",
+            "status": "modified"
+          },
+          {
+            "filename": "web_src/js/features/repo-projects.js",
+            "status": "modified"
+          },
+          {
+            "filename": "web_src/js/features/repo-settings.js",
+            "status": "modified"
+          },
+          {
+            "filename": "web_src/js/features/repo-suggestion.js",
+            "status": "modified"
+          },
+          {
+            "filename": "web_src/js/features/repo-wiki.js",
+            "status": "modified"
+          },
+          {
+            "filename": "web_src/js/features/stopwatch.js",
+            "status": "modified"
+          },
+          {
+            "filename": "web_src/js/features/user-auth-webauthn.js",
+            "status": "modified"
+          },
+          {
+            "filename": "web_src/js/markup/tasklist.js",
+            "status": "modified"
+          },
+          {
+            "filename": "web_src/js/utils/match.js",
+            "status": "modified"
+          },
+          {
+            "filename": "web_src/js/htmx.ts",
+            "status": "added"
+          },
+          {
+            "filename": "web_src/js/modules/fetch.test.ts",
+            "status": "added"
+          },
+          {
+            "filename": "web_src/js/modules/fetch.ts",
+            "status": "added"
+          },
+          {
+            "filename": "web_src/js/htmx.js",
+            "status": "removed"
+          },
+          {
+            "filename": "web_src/js/modules/fetch.js",
+            "status": "removed"
+          },
+          {
+            "filename": "web_src/js/modules/fetch.test.js",
+            "status": "removed"
+          }
+        ],
+        "stats": {
+          "total": 175,
+          "additions": 91,
+          "deletions": 84
+        }
+      }
+    ]
+  }
+}

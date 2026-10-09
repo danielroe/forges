@@ -1,0 +1,147 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/commits?sha=forgejo&limit=1&stat=false"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "<https://codeberg.org/api/v1/repos/forgejo/forgejo/commits?limit=1&page=2&sha=forgejo&stat=false>; rel=\"next\",<https://codeberg.org/api/v1/repos/forgejo/forgejo/commits?limit=1&page=25931&sha=forgejo&stat=false>; rel=\"last\"",
+      "x-total": "25931",
+      "x-total-count": "25931",
+      "x-page": "1"
+    },
+    "body": [
+      {
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/78f2bbc19c9cec2afb26ea99fd54b7d10f48ba3c",
+        "sha": "78f2bbc19c9cec2afb26ea99fd54b7d10f48ba3c",
+        "created": "2026-10-08T23:22:51+02:00",
+        "html_url": "https://codeberg.org/forgejo/forgejo/commit/78f2bbc19c9cec2afb26ea99fd54b7d10f48ba3c",
+        "commit": {
+          "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/78f2bbc19c9cec2afb26ea99fd54b7d10f48ba3c",
+          "author": {
+            "name": "AverageHelper",
+            "email": "redacted@example.invalid",
+            "date": "2026-10-08T23:22:51+02:00"
+          },
+          "committer": {
+            "name": "Gusted",
+            "email": "redacted@example.invalid",
+            "date": "2026-10-08T23:22:51+02:00"
+          },
+          "message": "refactor: migrate url modules to Typescript (#14719)\n\nThis PR converts our `url.js` module and `origin-url` webcomponent to Typescript, adding appropriate types along the way. This continues !14508's scoped approach to tightening our frontend type-checks, in line with @JakobDev's assessment in https://codeberg.org/forgejo/forgejo/pulls/5859#issuecomment-2560264.\n\nReviewed-on: https://codeberg.org/forgejo/forgejo/pulls/14719\nReviewed-by: Gusted <redacted@example.invalid>\n",
+          "tree": {
+            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/trees/78f2bbc19c9cec2afb26ea99fd54b7d10f48ba3c",
+            "sha": "78f2bbc19c9cec2afb26ea99fd54b7d10f48ba3c",
+            "created": "2026-10-08T23:22:51+02:00"
+          },
+          "verification": {
+            "verified": false,
+            "reason": "gpg.error.not_signed_commit",
+            "signature": "",
+            "signer": null,
+            "payload": ""
+          }
+        },
+        "author": {
+          "id": 135189,
+          "login": "AverageHelper",
+          "source_id": 0,
+          "full_name": "",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://codeberg.org/avatars/7e98b9e83fc5cb7de518d81b4143260fa6a042913e28e59342e9debe55293189",
+          "html_url": "https://codeberg.org/AverageHelper",
+          "active": false,
+          "location": "on your left",
+          "pronouns": "she/her",
+          "website": "https://average.name",
+          "description": "",
+          "followers_count": 2,
+          "following_count": 2,
+          "starred_repos_count": 32,
+          "username": "AverageHelper"
+        },
+        "committer": {
+          "id": 26734,
+          "login": "Gusted",
+          "source_id": 0,
+          "full_name": "",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://codeberg.org/avatars/44a59264e976fa585ed9f0a92abad9d7",
+          "html_url": "https://codeberg.org/Gusted",
+          "active": false,
+          "location": "Error 451",
+          "pronouns": "",
+          "website": "https://gusted.xyz",
+          "description": "I’m aware (and the NSA is), that I’m pretty 🌈.\r\n\r\nForgejo contributor  \r\nCodeberg executive board member 2025-2026  \r\nCodeberg presidium member 2025-2027  \r\n\r\nFor more interesting repositories: https://git.gusted.xyz/Gusted",
+          "followers_count": 162,
+          "following_count": 30,
+          "starred_repos_count": 104,
+          "username": "Gusted"
+        },
+        "parents": [
+          {
+            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/a219298a20532b27489dcb3197ce12071a461603",
+            "sha": "a219298a20532b27489dcb3197ce12071a461603",
+            "created": "0001-01-01T00:00:00Z"
+          }
+        ],
+        "files": [
+          {
+            "filename": "web_src/js/utils/url.test.ts",
+            "status": "added"
+          },
+          {
+            "filename": "web_src/js/utils/url.ts",
+            "status": "added"
+          },
+          {
+            "filename": "web_src/js/webcomponents/origin-url.test.ts",
+            "status": "added"
+          },
+          {
+            "filename": "web_src/js/webcomponents/origin-url.ts",
+            "status": "added"
+          },
+          {
+            "filename": "web_src/js/utils/url.js",
+            "status": "removed"
+          },
+          {
+            "filename": "web_src/js/utils/url.test.js",
+            "status": "removed"
+          },
+          {
+            "filename": "web_src/js/webcomponents/origin-url.js",
+            "status": "removed"
+          },
+          {
+            "filename": "web_src/js/webcomponents/origin-url.test.js",
+            "status": "removed"
+          },
+          {
+            "filename": "web_src/js/components/RepoBranchTagSelector.vue",
+            "status": "modified"
+          },
+          {
+            "filename": "web_src/js/components/RepoContributors.vue",
+            "status": "modified"
+          },
+          {
+            "filename": "web_src/js/features/comp/Paste.js",
+            "status": "modified"
+          },
+          {
+            "filename": "web_src/js/features/repo-findfile.js",
+            "status": "modified"
+          },
+          {
+            "filename": "web_src/js/webcomponents/index.ts",
+            "status": "modified"
+          }
+        ],
+        "stats": null
+      }
+    ]
+  }
+}

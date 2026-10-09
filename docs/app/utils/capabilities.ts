@@ -10,19 +10,21 @@ export function summaryFor(provider: CapabilityProvider, anonymous: boolean): Re
   return anonymous ? provider.anonymousSummary : provider.summary
 }
 
-export const supportLevels: SupportLevel[] = ['native', 'experimental', 'emulated', 'none']
+export const supportLevels: SupportLevel[] = ['native', 'experimental', 'emulated', 'unverified', 'none']
 
 export const supportLabels: Record<SupportLevel, string> = {
   native: 'Native and verified',
   experimental: 'Experimental',
   emulated: 'Emulated',
+  unverified: 'Unverified',
   none: 'Not available',
 }
 
 export const supportDescriptions: Record<SupportLevel, string> = {
-  native: 'A test exercises the operation.',
-  experimental: 'Native, but not verified against a recording of the live forge, or built on an API that the forge marks unstable.',
+  native: 'A test verifies the operation against the forge\'s own responses.',
+  experimental: 'Verified, but built on an API that the forge marks unstable or in preview.',
   emulated: 'Composed from other calls, so its behaviour can differ from a native operation.',
+  unverified: 'Implemented, but not yet verified against the forge\'s responses, so it may not work.',
   none: 'Calling it rejects with UnsupportedOperationError.',
 }
 
@@ -35,6 +37,7 @@ export const shortSupportLabels: Record<SupportLevel, string> = {
   native: 'Native',
   experimental: 'Experimental',
   emulated: 'Emulated',
+  unverified: 'Unverified',
   none: 'Not available',
 }
 

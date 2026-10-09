@@ -1,0 +1,38 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://plc.directory/did:plc:fs3xpvrweneqrjgr7v2oow62"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"21e-9xY/KqvrYi3lFdciqL8e2nnYQzA\""
+    },
+    "body": {
+      "@context": [
+        "https://www.w3.org/ns/did/v1",
+        "https://w3id.org/security/multikey/v1",
+        "https://w3id.org/security/suites/secp256k1-2019/v1"
+      ],
+      "id": "did:plc:fs3xpvrweneqrjgr7v2oow62",
+      "alsoKnownAs": [
+        "at://sucrettae.boo"
+      ],
+      "verificationMethod": [
+        {
+          "id": "did:plc:fs3xpvrweneqrjgr7v2oow62#atproto",
+          "type": "Multikey",
+          "controller": "did:plc:fs3xpvrweneqrjgr7v2oow62",
+          "publicKeyMultibase": "zQ3shvqCuLqzotBCRdL3im8aF8H9bQppgAoBDuusADEhobruk"
+        }
+      ],
+      "service": [
+        {
+          "id": "#atproto_pds",
+          "type": "AtprotoPersonalDataServer",
+          "serviceEndpoint": "https://pds.dreamteam.boo"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,283 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://code.forgejo.org/api/v1/repos/forgejo/runner/commits?limit=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "<https://code.forgejo.org/api/v1/repos/forgejo/runner/commits?limit=3&page=2>; rel=\"next\",<https://code.forgejo.org/api/v1/repos/forgejo/runner/commits?limit=3&page=832>; rel=\"last\"",
+      "x-total": "2495",
+      "x-total-count": "2495",
+      "x-page": "1"
+    },
+    "body": [
+      {
+        "url": "https://code.forgejo.org/api/v1/repos/forgejo/runner/git/commits/c4a92ffa5e3a400ae7e9c40a2914e649eb338ad7",
+        "sha": "c4a92ffa5e3a400ae7e9c40a2914e649eb338ad7",
+        "created": "2026-10-02T02:59:29Z",
+        "html_url": "https://code.forgejo.org/forgejo/runner/commit/c4a92ffa5e3a400ae7e9c40a2914e649eb338ad7",
+        "commit": {
+          "url": "https://code.forgejo.org/api/v1/repos/forgejo/runner/git/commits/c4a92ffa5e3a400ae7e9c40a2914e649eb338ad7",
+          "author": {
+            "name": "Renovate Bot",
+            "email": "redacted@example.invalid",
+            "date": "2026-10-02T02:59:29Z"
+          },
+          "committer": {
+            "name": "Mathieu Fenniak",
+            "email": "redacted@example.invalid",
+            "date": "2026-10-02T02:59:29Z"
+          },
+          "message": "Update dependency buildx to v0.37.2 (#1765)\n\nReviewed-on: https://code.forgejo.org/forgejo/runner/pulls/1765\nReviewed-by: Mathieu Fenniak <redacted@example.invalid>\n",
+          "tree": {
+            "url": "https://code.forgejo.org/api/v1/repos/forgejo/runner/git/trees/c4a92ffa5e3a400ae7e9c40a2914e649eb338ad7",
+            "sha": "c4a92ffa5e3a400ae7e9c40a2914e649eb338ad7",
+            "created": "2026-10-02T02:59:29Z"
+          },
+          "verification": {
+            "verified": false,
+            "reason": "gpg.error.not_signed_commit",
+            "signature": "",
+            "signer": null,
+            "payload": ""
+          }
+        },
+        "author": {
+          "id": 163,
+          "login": "viceice-bot",
+          "source_id": 0,
+          "full_name": "",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://code.forgejo.org/avatars/75f41dd71d2dc37a9932ce7c713016d30823076e66b85f6e3a8a8c0a68fc979b",
+          "html_url": "https://code.forgejo.org/viceice-bot",
+          "active": false,
+          "location": "",
+          "pronouns": "",
+          "website": "",
+          "description": "I'm a bot from @viceice",
+          "followers_count": 2,
+          "following_count": 1,
+          "starred_repos_count": 2,
+          "username": "viceice-bot"
+        },
+        "committer": {
+          "id": 1324,
+          "login": "mfenniak",
+          "source_id": 0,
+          "full_name": "Mathieu Fenniak",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://code.forgejo.org/avatars/02690dbc4a237b1617d46226d6132729cd0a2534d161edd6f7788708b68654c8",
+          "html_url": "https://code.forgejo.org/mfenniak",
+          "active": false,
+          "location": "Calgary, Alberta, Canada",
+          "pronouns": "he/him",
+          "website": "https://mathieu.fenniak.net/",
+          "description": "Open Source Software Developer. My hobbies include poorly maintaining too many bicycles, running distances that are too far, GM-ing TTRPGs, and, well, more software development obviously.",
+          "followers_count": 0,
+          "following_count": 0,
+          "starred_repos_count": 0,
+          "username": "mfenniak"
+        },
+        "parents": [
+          {
+            "url": "https://code.forgejo.org/api/v1/repos/forgejo/runner/git/commits/7529f1e2e451aa09cfa7721d0a4d0f0cae2a0558",
+            "sha": "7529f1e2e451aa09cfa7721d0a4d0f0cae2a0558",
+            "created": "0001-01-01T00:00:00Z"
+          }
+        ],
+        "files": [
+          {
+            "filename": ".forgejo/workflows/docker-build-push-action-in-lxc.yml",
+            "status": "modified"
+          }
+        ],
+        "stats": {
+          "total": 2,
+          "additions": 1,
+          "deletions": 1
+        }
+      },
+      {
+        "url": "https://code.forgejo.org/api/v1/repos/forgejo/runner/git/commits/7529f1e2e451aa09cfa7721d0a4d0f0cae2a0558",
+        "sha": "7529f1e2e451aa09cfa7721d0a4d0f0cae2a0558",
+        "created": "2026-10-02T00:51:16Z",
+        "html_url": "https://code.forgejo.org/forgejo/runner/commit/7529f1e2e451aa09cfa7721d0a4d0f0cae2a0558",
+        "commit": {
+          "url": "https://code.forgejo.org/api/v1/repos/forgejo/runner/git/commits/7529f1e2e451aa09cfa7721d0a4d0f0cae2a0558",
+          "author": {
+            "name": "Renovate Bot",
+            "email": "redacted@example.invalid",
+            "date": "2026-10-02T00:51:16Z"
+          },
+          "committer": {
+            "name": "Mathieu Fenniak",
+            "email": "redacted@example.invalid",
+            "date": "2026-10-02T00:51:16Z"
+          },
+          "message": "Update module github.com/moby/moby/client to v0.6.1 (#1768)\n\nReviewed-on: https://code.forgejo.org/forgejo/runner/pulls/1768\nReviewed-by: Mathieu Fenniak <redacted@example.invalid>\n",
+          "tree": {
+            "url": "https://code.forgejo.org/api/v1/repos/forgejo/runner/git/trees/7529f1e2e451aa09cfa7721d0a4d0f0cae2a0558",
+            "sha": "7529f1e2e451aa09cfa7721d0a4d0f0cae2a0558",
+            "created": "2026-10-02T00:51:16Z"
+          },
+          "verification": {
+            "verified": false,
+            "reason": "gpg.error.not_signed_commit",
+            "signature": "",
+            "signer": null,
+            "payload": ""
+          }
+        },
+        "author": {
+          "id": 163,
+          "login": "viceice-bot",
+          "source_id": 0,
+          "full_name": "",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://code.forgejo.org/avatars/75f41dd71d2dc37a9932ce7c713016d30823076e66b85f6e3a8a8c0a68fc979b",
+          "html_url": "https://code.forgejo.org/viceice-bot",
+          "active": false,
+          "location": "",
+          "pronouns": "",
+          "website": "",
+          "description": "I'm a bot from @viceice",
+          "followers_count": 2,
+          "following_count": 1,
+          "starred_repos_count": 2,
+          "username": "viceice-bot"
+        },
+        "committer": {
+          "id": 1324,
+          "login": "mfenniak",
+          "source_id": 0,
+          "full_name": "Mathieu Fenniak",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://code.forgejo.org/avatars/02690dbc4a237b1617d46226d6132729cd0a2534d161edd6f7788708b68654c8",
+          "html_url": "https://code.forgejo.org/mfenniak",
+          "active": false,
+          "location": "Calgary, Alberta, Canada",
+          "pronouns": "he/him",
+          "website": "https://mathieu.fenniak.net/",
+          "description": "Open Source Software Developer. My hobbies include poorly maintaining too many bicycles, running distances that are too far, GM-ing TTRPGs, and, well, more software development obviously.",
+          "followers_count": 0,
+          "following_count": 0,
+          "starred_repos_count": 0,
+          "username": "mfenniak"
+        },
+        "parents": [
+          {
+            "url": "https://code.forgejo.org/api/v1/repos/forgejo/runner/git/commits/67b065da410fa56d3c803b8bc7b460ace8ebd256",
+            "sha": "67b065da410fa56d3c803b8bc7b460ace8ebd256",
+            "created": "0001-01-01T00:00:00Z"
+          }
+        ],
+        "files": [
+          {
+            "filename": "go.mod",
+            "status": "modified"
+          },
+          {
+            "filename": "go.sum",
+            "status": "modified"
+          }
+        ],
+        "stats": {
+          "total": 12,
+          "additions": 6,
+          "deletions": 6
+        }
+      },
+      {
+        "url": "https://code.forgejo.org/api/v1/repos/forgejo/runner/git/commits/67b065da410fa56d3c803b8bc7b460ace8ebd256",
+        "sha": "67b065da410fa56d3c803b8bc7b460ace8ebd256",
+        "created": "2026-10-01T00:45:34Z",
+        "html_url": "https://code.forgejo.org/forgejo/runner/commit/67b065da410fa56d3c803b8bc7b460ace8ebd256",
+        "commit": {
+          "url": "https://code.forgejo.org/api/v1/repos/forgejo/runner/git/commits/67b065da410fa56d3c803b8bc7b460ace8ebd256",
+          "author": {
+            "name": "Renovate Bot",
+            "email": "redacted@example.invalid",
+            "date": "2026-10-01T00:45:34Z"
+          },
+          "committer": {
+            "name": "Mathieu Fenniak",
+            "email": "redacted@example.invalid",
+            "date": "2026-10-01T00:45:34Z"
+          },
+          "message": "Update module github.com/docker/cli to v29.8.2+incompatible (#1766)\n\nReviewed-on: https://code.forgejo.org/forgejo/runner/pulls/1766\n",
+          "tree": {
+            "url": "https://code.forgejo.org/api/v1/repos/forgejo/runner/git/trees/67b065da410fa56d3c803b8bc7b460ace8ebd256",
+            "sha": "67b065da410fa56d3c803b8bc7b460ace8ebd256",
+            "created": "2026-10-01T00:45:34Z"
+          },
+          "verification": {
+            "verified": false,
+            "reason": "gpg.error.not_signed_commit",
+            "signature": "",
+            "signer": null,
+            "payload": ""
+          }
+        },
+        "author": {
+          "id": 163,
+          "login": "viceice-bot",
+          "source_id": 0,
+          "full_name": "",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://code.forgejo.org/avatars/75f41dd71d2dc37a9932ce7c713016d30823076e66b85f6e3a8a8c0a68fc979b",
+          "html_url": "https://code.forgejo.org/viceice-bot",
+          "active": false,
+          "location": "",
+          "pronouns": "",
+          "website": "",
+          "description": "I'm a bot from @viceice",
+          "followers_count": 2,
+          "following_count": 1,
+          "starred_repos_count": 2,
+          "username": "viceice-bot"
+        },
+        "committer": {
+          "id": 1324,
+          "login": "mfenniak",
+          "source_id": 0,
+          "full_name": "Mathieu Fenniak",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://code.forgejo.org/avatars/02690dbc4a237b1617d46226d6132729cd0a2534d161edd6f7788708b68654c8",
+          "html_url": "https://code.forgejo.org/mfenniak",
+          "active": false,
+          "location": "Calgary, Alberta, Canada",
+          "pronouns": "he/him",
+          "website": "https://mathieu.fenniak.net/",
+          "description": "Open Source Software Developer. My hobbies include poorly maintaining too many bicycles, running distances that are too far, GM-ing TTRPGs, and, well, more software development obviously.",
+          "followers_count": 0,
+          "following_count": 0,
+          "starred_repos_count": 0,
+          "username": "mfenniak"
+        },
+        "parents": [
+          {
+            "url": "https://code.forgejo.org/api/v1/repos/forgejo/runner/git/commits/3cfcf5b674d1f8bf69b1215f7ba6283202299633",
+            "sha": "3cfcf5b674d1f8bf69b1215f7ba6283202299633",
+            "created": "0001-01-01T00:00:00Z"
+          }
+        ],
+        "files": [
+          {
+            "filename": "go.mod",
+            "status": "modified"
+          },
+          {
+            "filename": "go.sum",
+            "status": "modified"
+          }
+        ],
+        "stats": {
+          "total": 6,
+          "additions": 3,
+          "deletions": 3
+        }
+      }
+    ]
+  }
+}

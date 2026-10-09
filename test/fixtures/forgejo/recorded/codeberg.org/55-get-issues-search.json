@@ -1,0 +1,236 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://codeberg.org/api/v1/repos/issues/search?q=fix&state=all&owner=forgejo&limit=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "<https://codeberg.org/api/v1/repos/issues/search?limit=3&owner=forgejo&page=2&q=fix&state=all>; rel=\"next\",<https://codeberg.org/api/v1/repos/issues/search?limit=3&owner=forgejo&page=2183&q=fix&state=all>; rel=\"last\"",
+      "x-total-count": "6548"
+    },
+    "body": [
+      {
+        "id": 7648155,
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/pulls/14778",
+        "html_url": "https://codeberg.org/forgejo/forgejo/pulls/14778",
+        "number": 14778,
+        "user": {
+          "id": 381495,
+          "login": "slink",
+          "source_id": 0,
+          "full_name": "Nils Goroll",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://codeberg.org/avatars/b5d63dc33281a8f89f64eed46eee13a2777e9d8944872537ba94ed13495e4c6b",
+          "html_url": "https://codeberg.org/slink",
+          "active": false,
+          "location": "Germany",
+          "pronouns": "he/him",
+          "website": "https://uplex.de",
+          "description": "Vinyl Cache (ex Varnish Cache) co-maintainer\r\nCurrently working towards moving our repos to Forgejo on https://code.vinyl-cache.org/",
+          "followers_count": 0,
+          "following_count": 0,
+          "starred_repos_count": 1,
+          "username": "slink"
+        },
+        "original_author": "",
+        "original_author_id": 0,
+        "title": "WIP: Add loadKeyCfgTransition / ARTIFACTSV4_SECRET* ARTIFACTSV4_KEYS_ACCEPTED",
+        "body": "Pursuing the goal of retiring the generalSigningSecret (previous changes toward that goal in #11194 #12307 #14385 and likely others), we add ini directives to configure the actions actifacts url signing secret using the now established generic signing and verification key methods:\r\n\r\n```\r\n[actions]\r\n;; Signing keys for artifacts URLS.\r\n;; _SECRET will be automatically added unless present\r\n;; Algorithm is always HS256\r\n;ARTIFACTSV4_SECRET =\r\n;ARTIFACTSV4_SECRET_URI =\r\n;ARTIFACTSV4_KEYS_ACCEPTED =\r\n```\r\n\r\nUnless `ARTIFACTSV4_SECRET` or `ARTIFACTSV4_SECRET_URI` are present, `ARTIFACTSV4_SECRET` will be automatically added as with other secrets, but it will be initialized with the generalSigningSecret to keep existing URLs valid.\r\n\r\nThe main improvements are that now the artifacts signing secret can be configured independently at all, and through `ARTIFACTSV4_KEYS_ACCEPTED` seamless key transitions as explained in https://forgejo.org/docs/next/admin/advanced/jwt-key-management-and-rotation/ become possible (I should probably add that the configuration directives are not only used for JWTs).\r\n\r\nThe transition method is implemented by `setting.loadKeyCfgTransition()`\r\n\r\nNote that this requires forgejo to write the configuration, and if this fails, user intervention is required. The error message looks similar to:\r\n\r\n```\r\n  ...s/setting/setting.go:160:LoadCommonSettings() [F] Unable to load\r\n  settings from config: save actions.ARTIFACTSV4_SECRET failed: failed\r\n  to save \"/etc/forgejo/app.ini\": open /etc/forgejo/app.ini: permission denied\r\n```\r\n\r\nAfter enough of a transition phase (when the last release still using generalSigningSecret goes end of support), we can remove\r\nloadKeyCfgTransition(), but until then, we need to touch the other places where GetGeneralTokenSigningSecret() is still used.\r\n\r\n## Checklist\r\n\r\n### Compliance\r\n\r\n- [X] I confirm that I make this contribution in accordance with [Forgejo's AI Agreement](https://codeberg.org/forgejo/governance/src/commit/9084720dc6a7fbf1d3f358919d46bd6adfb55287/AIAgreement.md).\r\n\r\n### Tests for Go changes\r\n\r\n(can be removed for JavaScript changes)\r\n\r\n- I added test coverage for Go changes...\r\n  - [X] in their respective `*_test.go` for unit tests.\r\n  - [ ] in the `tests/integration` directory if it involves interactions with a live Forgejo server.\r\n- I ran...\r\n  - [X] `make pr-go` before pushing\r\n\r\n### Documentation\r\n\r\n- [X] I will create a pull request [to the documentation](https://codeberg.org/forgejo/docs) to explain to Forgejo users how to use this change.\r\n- [ ] I did not document these changes and I do not expect someone else to do it.\r\n\r\n### Release notes\r\n\r\n- [X] This change will be noticed by a Forgejo user or admin (feature, bug fix, performance, etc.). I suggest to include a release note for this change.\r\n- [ ] This change is not visible to a Forgejo user or admin (refactor, dependency upgrade, etc.). I think there is no need to add a release note for this change.\r\n\r\nThe release notes text will be coming in a separate commit when I have the PR ID",
+        "ref": "",
+        "assets": [],
+        "labels": [
+          {
+            "id": 201030,
+            "name": "test/present",
+            "exclusive": true,
+            "is_archived": false,
+            "color": "5319e7",
+            "description": "test has been added",
+            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/201030"
+          }
+        ],
+        "milestone": null,
+        "assignee": null,
+        "assignees": null,
+        "state": "open",
+        "is_locked": false,
+        "comments": 1,
+        "created_at": "2026-10-09T11:35:12+02:00",
+        "updated_at": "2026-10-09T11:58:58+02:00",
+        "closed_at": null,
+        "due_date": null,
+        "pull_request": {
+          "merged": false,
+          "merged_at": null,
+          "draft": true,
+          "html_url": "https://codeberg.org/forgejo/forgejo/pulls/14778"
+        },
+        "repository": {
+          "id": 73144,
+          "name": "forgejo",
+          "owner": "forgejo",
+          "full_name": "forgejo/forgejo"
+        },
+        "pin_order": 0
+      },
+      {
+        "id": 7644486,
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/pulls/14776",
+        "html_url": "https://codeberg.org/forgejo/forgejo/pulls/14776",
+        "number": 14776,
+        "user": {
+          "id": 165271,
+          "login": "forgejo-backport-action",
+          "source_id": 0,
+          "full_name": "",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://codeberg.org/avatars/e81deed440bbd430374b346c305a3d791ccc11dcfb89269840bbdcaa13887e88",
+          "html_url": "https://codeberg.org/forgejo-backport-action",
+          "active": false,
+          "location": "",
+          "pronouns": "",
+          "website": "",
+          "description": "",
+          "followers_count": 1,
+          "following_count": 0,
+          "starred_repos_count": 0,
+          "username": "forgejo-backport-action"
+        },
+        "original_author": "",
+        "original_author_id": 0,
+        "title": "[v17.0/forgejo] fix: report errors to users when evaluating 'if' from actions",
+        "body": "**Backport:** https://codeberg.org/forgejo/forgejo/pulls/14729\r\n\r\nFixes #14684.\n\nWhen an error occurs evaluating `if: ...` on the server-side (a capability added in #13030), the implementation previously returned the error and interrupted the current workflow (inserting a job, emitting follow-up jobs, etc.).  This was not a great choice as it ends up with unexpected server-side errors, and the problem is not properly surfaced to the end-user who created the action.\n\nThis PR changes the behaviour so that those jobs are dispatched to runners, where `if` can be evaluated again.  The same error is expected to occur, but, that error will appear in the job logs and be reported to the user.\n\nThe downside to this change is that if server-side evaluation of `if` was ever 100% broken in some edge case -- where it *should* be able to be evaluated server-side, but instead was always sent to a runner -- that problem would be hidden as the jobs would be sent to runners and work successfully.  However, that outcome is OK; it's not performance optimal, but it's functional for users.\n\n**Alternative:**  I considered reporting this error as a pre-execution error, instead.  There are two problems with this: fundamentally it turns into a run-ending error, rather than a job ending-error; and because of that, it's quite messy in the code as jobs would still need to be inserted into the database, *and* an error raised to a higher-level to mark the run as failed.  This simpler logic of dispatching the job to a runner seemed preferable to tackling these issues.\n\n## Manual testing\n\nVerified that all three conditions in #14684's table of expected conditions is accomplished.  The second row, \"runs and then prints an error about the bad JSON\", appears as this:\n\n![image](/attachments/46c4fe38-507c-4dec-8f89-33aaf2be9b42)\n\n### Compliance\n\n- [x] I confirm that I make this contribution in accordance with [Forgejo's AI Agreement](https://codeberg.org/forgejo/governance/src/commit/9084720dc6a7fbf1d3f358919d46bd6adfb55287/AIAgreement.md).\n\n### Tests for Go changes\n\n- I added test coverage for Go changes...\n  - [ ] in their respective `*_test.go` for unit tests.\n  - [x] in the `tests/integration` directory if it involves interactions with a live Forgejo server.\n- I ran...\n  - [x] `make pr-go` before pushing\n\n### Documentation\n\n- [ ] I created a pull request [to the documentation](https://codeberg.org/forgejo/docs) to explain to Forgejo users how to use this change.\n- [x] I did not document these changes and I do not expect someone else to do it.\n\n### Release notes\n\n- [x] This change will be noticed by a Forgejo user or admin (feature, bug fix, performance, etc.). I suggest to include a release note for this change.\n- [ ] This change is not visible to a Forgejo user or admin (refactor, dependency upgrade, etc.). I think there is no need to add a release note for this change.\n\n<!--start release-notes-assistant-->\n\n## Release notes\n<!--URL:https://codeberg.org/forgejo/forgejo-->\n- Bug fixes\n  - [PR](https://codeberg.org/forgejo/forgejo/pulls/14729): <!--number 14729 --><!--line 0 --><!--description cmVwb3J0IGVycm9ycyB0byB1c2VycyB3aGVuIGV2YWx1YXRpbmcgJ2lmJyBmcm9tIGFjdGlvbnM=-->report errors to users when evaluating 'if' from actions<!--description-->\n<!--end release-notes-assistant-->\n",
+        "ref": "",
+        "assets": [],
+        "labels": [
+          {
+            "id": 201023,
+            "name": "bug/confirmed",
+            "exclusive": true,
+            "is_archived": false,
+            "color": "e11d21",
+            "description": "it can be reproduced",
+            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/201023"
+          },
+          {
+            "id": 201030,
+            "name": "test/present",
+            "exclusive": true,
+            "is_archived": false,
+            "color": "5319e7",
+            "description": "test has been added",
+            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/201030"
+          }
+        ],
+        "milestone": null,
+        "assignee": null,
+        "assignees": null,
+        "state": "open",
+        "is_locked": false,
+        "comments": 0,
+        "created_at": "2026-10-09T05:42:27+02:00",
+        "updated_at": "2026-10-09T08:21:41+02:00",
+        "closed_at": null,
+        "due_date": null,
+        "pull_request": {
+          "merged": false,
+          "merged_at": null,
+          "draft": false,
+          "html_url": "https://codeberg.org/forgejo/forgejo/pulls/14776"
+        },
+        "repository": {
+          "id": 73144,
+          "name": "forgejo",
+          "owner": "forgejo",
+          "full_name": "forgejo/forgejo"
+        },
+        "pin_order": 0
+      },
+      {
+        "id": 7642737,
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/pulls/14765",
+        "html_url": "https://codeberg.org/forgejo/forgejo/pulls/14765",
+        "number": 14765,
+        "user": {
+          "id": 141082,
+          "login": "viceice-bot",
+          "source_id": 0,
+          "full_name": "",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://codeberg.org/avatars/b25a3a294c6f5514eb9f56b9c808425d05578e5f414b0d36ac88ade50e166d02",
+          "html_url": "https://codeberg.org/viceice-bot",
+          "active": false,
+          "location": "",
+          "pronouns": "",
+          "website": "",
+          "description": "I'm a bot from @viceice",
+          "followers_count": 6,
+          "following_count": 1,
+          "starred_repos_count": 2,
+          "username": "viceice-bot"
+        },
+        "original_author": "",
+        "original_author_id": 0,
+        "title": "Update dependency katex to v0.18.2 [SECURITY] (v16.0/forgejo)",
+        "body": "This PR contains the following updates:\n\n| Package | Change | [Age](https://docs.renovatebot.com/merge-confidence/) | [Confidence](https://docs.renovatebot.com/merge-confidence/) |\n|---|---|---|---|\n| [katex](https://katex.org) ([source](https://github.com/KaTeX/KaTeX)) | [`0.17.0` → `0.18.2`](https://renovatebot.com/diffs/npm/katex/0.17.0/0.18.2) | ![age](https://developer.mend.io/api/mc/badges/age/npm/katex/0.18.2?slim=true) | ![confidence](https://developer.mend.io/api/mc/badges/confidence/npm/katex/0.17.0/0.18.2?slim=true) |\n\n---\n\n### KaTeX: Existing prototype pollution can bypass trust restrictions\n[CVE-2026-103923](https://nvd.nist.gov/vuln/detail/CVE-2026-103923) / [GHSA-238p-pmpm-9mq7](https://github.com/advisories/GHSA-238p-pmpm-9mq7)\n\n<details>\n<summary>More information</summary>\n\n#### Details\n##### Impact\n\nKaTeX can act as a read-side prototype pollution gadget in applications where `Object.prototype` has already been polluted, or where an attacker can influence the prototype of the renderer options object. (KaTeX does not enable said prototype pollution. This advisory applies when combining KaTeX with other vulnerable software that allows for prototype pollution.)\n\nAffected versions may treat inherited properties from `Object.prototype` as renderer options, internal setting metadata, or namespace entries. In particular, an inherited `trust` value will be treated as though the application explicitly enabled trusted rendering, rather than using the documented default of `false`.\n\nWith attacker-controlled mathematical expressions, this can produce links capable of user-interaction cross-site scripting or load attacker-selected external resources. Exploitation requires the consuming application to insert KaTeX output into a web page without a separate sanitizer. (KaTeX does not execute scripts merely by rendering an expression.)\n\nOther inherited settings can alter rendering behavior or resource limits. Inherited setting metadata can affect how defaults and supplied options are processed, while inherited namespace properties can be mistaken for defined macros or other internal values.\n\n##### Patches\n\nUpgrade to KaTeX v0.18.2 to remove this vulnerability.\n\n##### Workarounds\n\n- Address any prototype-pollution vulnerability in the application or its dependencies.\n- `delete Object.prototype.trust`, `delete Object.prototype.default`, and `delete Object.prototype.processor` before calling KaTeX\n- Do not allow untrusted input to control the renderer options object or its prototype.\n- Sanitize KaTeX-generated HTML before inserting it into a document.\n\n##### Details\n\nKaTeX previously used ordinary JavaScript property access in the following contexts:\n\n- Renderer settings could be inherited from the prototype of the options object.\n- Internal `default` and `processor` setting metadata could be inherited from `Object.prototype`.\n- Namespace lookup could treat inherited properties as built-in definitions.\n- Namespace group restoration could preserve an inherited property as though it had been an explicitly defined value.\n\nThe fix adds own-property checks to each of these paths. Inherited properties are no longer accepted as renderer settings, setting metadata, namespace definitions, or values to be restored after a group ends.\n\n##### For more information\n\nIf you have any questions or comments about this advisory:\n\n- Open an issue or security advisory in the [KaTeX repository](https://github.com/KaTeX/KaTeX/)\n- Email us at [katex-security@mit.edu](mailto:katex-security@mit.edu)\n\n#### Severity\n- CVSS Score: 2.1 / 10 (Low)\n- Vector String: `CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:A/VC:N/VI:N/VA:N/SC:L/SI:L/SA:N`\n\n#### References\n- [https://github.com/KaTeX/KaTeX/security/advisories/GHSA-238p-pmpm-9mq7](https://github.com/KaTeX/KaTeX/security/advisories/GHSA-238p-pmpm-9mq7)\n- [https://nvd.nist.gov/vuln/detail/CVE-2026-103923](https://nvd.nist.gov/vuln/detail/CVE-2026-103923)\n- [https://github.com/KaTeX/KaTeX/pull/4260](https://github.com/KaTeX/KaTeX/pull/4260)\n- [https://github.com/KaTeX/KaTeX/commit/0adf7e77db6915d991803b29699f82b1ccf8d4f4](https://github.com/KaTeX/KaTeX/commit/0adf7e77db6915d991803b29699f82b1ccf8d4f4)\n- [https://github.com/KaTeX/KaTeX](https://github.com/KaTeX/KaTeX)\n- [https://github.com/KaTeX/KaTeX/releases/tag/v0.18.2](https://github.com/KaTeX/KaTeX/releases/tag/v0.18.2)\n\nThis data is provided by [OSV](https://osv.dev/vulnerability/GHSA-238p-pmpm-9mq7) and the [GitHub Advisory Database](https://github.com/github/advisory-database) ([CC-BY 4.0](https://github.com/github/advisory-database/blob/main/LICENSE.md)).\n</details>\n\n---\n\n### Release Notes\n\n<details>\n<summary>KaTeX/KaTeX (katex)</summary>\n\n### [`v0.18.2`](https://github.com/KaTeX/KaTeX/blob/HEAD/CHANGELOG.md#0182-2026-08-08)\n\n[Compare Source](https://github.com/KaTeX/KaTeX/compare/v0.18.1...v0.18.2)\n\n##### Bug Fixes\n\n- prevent prototype pollution in settings ([#&#8203;4260](https://github.com/KaTeX/KaTeX/issues/4260)) ([0adf7e7](https://github.com/KaTeX/KaTeX/commit/0adf7e77db6915d991803b29699f82b1ccf8d4f4))\n\n### [`v0.18.1`](https://github.com/KaTeX/KaTeX/blob/HEAD/CHANGELOG.md#01811-2026-10-01)\n\n[Compare Source](https://github.com/KaTeX/KaTeX/compare/v0.18.0...v0.18.1)\n\n##### Features\n\n- handle character metrics warnings via `strict` ([#&#8203;4243](https://github.com/KaTeX/KaTeX/issues/4243)) ([4237070](https://github.com/KaTeX/KaTeX/commit/423707055a37803acafef4c1533832273192ea0e))\n\n### [`v0.18.0`](https://github.com/KaTeX/KaTeX/blob/HEAD/CHANGELOG.md#0180-2026-07-17)\n\n[Compare Source](https://github.com/KaTeX/KaTeX/compare/v0.17.0...v0.18.0)\n\n##### Features\n\n- prefix css classes ([#&#8203;4229](https://github.com/KaTeX/KaTeX/issues/4229)) ([6f5c44f](https://github.com/KaTeX/KaTeX/commit/6f5c44f69bae0703877a3a8d934e20c47bbbbc32))\n\n##### BREAKING CHANGES\n\n- users who apply custom styles or have allowlists targeting KaTeX's internal classes must update their selectors.\n\n</details>\n\n---\n\n### Configuration\n\n📅 **Schedule**: (UTC)\n\n- Branch creation\n  - At any time (no schedule defined)\n- Automerge\n  - Between 12:00 AM and 03:59 AM (`* 0-3 * * *`)\n\n🚦 **Automerge**: Disabled by config. Please merge this manually once you are satisfied.\n\n♻ **Rebasing**: Whenever PR becomes conflicted, or you tick the rebase/retry checkbox.\n\n🔕 **Ignore**: Close this PR and you won't be reminded about this update again.\n\n---\n\n - [ ] <!-- rebase-check -->If you want to rebase/retry this PR, check this box\n\n---\n\nThis PR has been generated by [Mend Renovate CLI](https://github.com/renovatebot/renovate).\n<!--renovate-debug:eyJjcmVhdGVkSW5WZXIiOiI0NC4xMzMuMCIsInVwZGF0ZWRJblZlciI6IjQ0LjEzMy4wIiwidGFyZ2V0QnJhbmNoIjoidjE2LjAvZm9yZ2VqbyIsImxhYmVscyI6WyJkZXBlbmRlbmN5LXVwZ3JhZGUiLCJ0ZXN0L25vdC1uZWVkZWQiXX0=-->\n",
+        "ref": "",
+        "assets": [],
+        "labels": [
+          {
+            "id": 223008,
+            "name": "dependency-upgrade",
+            "exclusive": false,
+            "is_archived": false,
+            "color": "0052cc",
+            "description": "https://codeberg.org/forgejo/forgejo/issues/2779",
+            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/223008"
+          },
+          {
+            "id": 201029,
+            "name": "test/not-needed",
+            "exclusive": true,
+            "is_archived": false,
+            "color": "5319e7",
+            "description": "no additional test is needed",
+            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/201029"
+          }
+        ],
+        "milestone": {
+          "id": 142897,
+          "title": "Forgejo v16.0.6",
+          "description": "\n\n<!--start release-notes-assistant-->\n\n## Release notes\n<!--URL:https://codeberg.org/forgejo/forgejo-->\n- User Interface bug fixes\n  - [PR](https://codeberg.org/forgejo/forgejo/pulls/14704) ([backported](https://codeberg.org/forgejo/forgejo/pulls/14711)): <!--number 14711 --><!--line 0 --><!--description Zml4OiByZW1vdmUgcmVzeW5jX2FsbF9ob29rcyB0YXNrIGZyb20gYWRtaW4gVUk=-->fix: remove resync_all_hooks task from admin UI<!--description-->\n- Bug fixes\n  - [PR](https://codeberg.org/forgejo/forgejo/pulls/14644) ([backported](https://codeberg.org/forgejo/forgejo/pulls/14693)): <!--number 14693 --><!--line 0 --><!--description Zml4KGF1dGgvYmFzaWMpOiByZXR1cm4gaW5jb3JyZWN0IGNyZWRlbnRpYWwgZXJyb3Igb24gbm9uIGV4aXN0ZW50IGVtYWls-->fix(auth/basic): return incorrect credential error on non existent email<!--description-->\n  - [PR](https://codeberg.org/forgejo/forgejo/pulls/14647) ([backported](https://codeberg.org/forgejo/forgejo/pulls/14655)): <!--number 14655 --><!--line 0 --><!--description Zml4OiByZWR1Y2UgbWVtb3J5IHVzYWdlIGR1cmluZyBBY3Rpb25zIGxvZyAmIGFydGlmYWN0cyB1cGxvYWRz-->fix: reduce memory usage during Actions log & artifacts uploads<!--description-->\n  - [PR](https://codeberg.org/forgejo/forgejo/pulls/14614) ([backported](https://codeberg.org/forgejo/forgejo/pulls/14618)): <!--number 14618 --><!--line 0 --><!--description Zml4KGFwaSk6IHdvcmtmbG93IGRpc3BhdGNoIHJldHVybnMgNHh4IGVycm9ycyBvbiB1bmtub3duIHJlZiBhbmQgd29ya2Zsb3c=-->fix(api): workflow dispatch returns 4xx errors on unknown ref and workflow<!--description-->\n  - [PR](https://codeberg.org/forgejo/forgejo/pulls/14487) ([backported](https://codeberg.org/forgejo/forgejo/pulls/14506)): <!--number 14506 --><!--line 0 --><!--description Zml4OiBvbmx5IGRpc2FibGUgc2NoZWR1bGVkIHdvcmtmbG93cyBpZiBwZXJzaXN0ZW50IHBhcnNpbmcgZXJyb3JzIG9jY3Vy-->fix: only disable scheduled workflows if persistent parsing errors occur<!--description-->\n  - [PR](https://codeberg.org/forgejo/forgejo/pulls/14491) ([backported](https://codeberg.org/forgejo/forgejo/pulls/14503)): <!--number 14503 --><!--line 0 --><!--description Zml4OiBhdXRvbWVyZ2UgUFJzIGRvbid0IG1lcmdlIHdoZW4gb3JpZ2luYXRpbmcgZnJvbSBvdGhlciB1c2VyJ3MgZm9yayByZXBvcw==-->fix: automerge PRs don't merge when originating from other user's fork repos<!--description-->\n  - [PR](https://codeberg.org/forgejo/forgejo/pulls/14396) ([backported](https://codeberg.org/forgejo/forgejo/pulls/14399)): <!--number 14399 --><!--line 0 --><!--description Zml4OiBwZXJtaXQgYmFzaWMgYXV0aCB3LyBhdXRob3JpemVkIGludGVncmF0aW9uIHRvIGFjY2VzcyBQeVBJIHBhY2thZ2Vz-->fix: permit basic auth w/ authorized integration to access PyPI packages<!--description-->\n- Other changes without a feature or bug label\n  - [PR](https://codeberg.org/forgejo/forgejo/pulls/14621) ([backported](https://codeberg.org/forgejo/forgejo/pulls/14623)): <!--number 14623 --><!--line 0 --><!--description Zml4OiBkZWxldGluZyBhIHVzZXIgdy8gcmVwby1zcGVjaWZpYyBhY2Nlc3MgdG9rZW5zIG9yIGF1dGhvcml6ZWQgaW50ZWdyYXRpb25zIGNhdXNlcyBmb3JlaWduLWtleSB2aW9sYXRpb24=-->fix: deleting a user w/ repo-specific access tokens or authorized integrations causes foreign-key violation<!--description-->\n- Included for completeness but not user-facing (chores, etc.)\n  - [PR](https://codeberg.org/forgejo/forgejo/pulls/14732): <!--number 14732 --><!--line 0 --><!--description VXBkYXRlIGRlcGVuZGVuY3kgc2hhcnAgdG8gdjAuMzUuNSBbU0VDVVJJVFldICh2MTYuMC9mb3JnZWpvKQ==-->Update dependency sharp to v0.35.5 [SECURITY] (v16.0/forgejo)<!--description-->\n  - [PR](https://codeberg.org/forgejo/forgejo/pulls/14352) ([backported](https://codeberg.org/forgejo/forgejo/pulls/14747)): <!--number 14747 --><!--line 0 --><!--description Zml4OiBkb24ndCBmYWlsIHdoZW4gYSB1c2VyIGlzIGludml0ZWQgdG8gYW4gb3JnYW5pemF0aW9uIGFnYWluICgjMTQzNTIp-->fix: don't fail when a user is invited to an organization again (#14352)<!--description-->\n  - [PR](https://codeberg.org/forgejo/forgejo/pulls/14628) ([backported](https://codeberg.org/forgejo/forgejo/pulls/14681)): <!--number 14681 --><!--line 0 --><!--description Zml4OiBwcmV2ZW50IGluLWRiIGJyYW5jaCBzdGF0ZSByb2xsYmFjayBmcm9tIGNvbmN1cnJlbnQgcHVzaGVz-->fix: prevent in-db branch state rollback from concurrent pushes<!--description-->\n  - [PR](https://codeberg.org/forgejo/forgejo/pulls/14629) ([backported](https://codeberg.org/forgejo/forgejo/pulls/14638)): <!--number 14638 --><!--line 0 --><!--description Zml4OiBhY2NlcHQgQXJjaCBMaW51eCBwYWNrYWdlcyB3aXRoIG5vbi16ZXJvIGVwb2No-->fix: accept Arch Linux packages with non-zero epoch<!--description-->\n  - [PR](https://codeberg.org/forgejo/forgejo/pulls/14630): <!--number 14630 --><!--line 0 --><!--description cmVmYWN0b3IodGVzdHMpOiBjaGFuZ2UgYWxsIHJlbWFpbmluZyBgdGVzdHMuQ3JlYXRlRGVjbGFyYXRpdmVSZXBvYCB0byBgZm9yZ2VyeS5DcmVhdGVSZXBvc2l0b3J5YA==-->refactor(tests): change all remaining `tests.CreateDeclarativeRepo` to `forgery.CreateRepository`<!--description-->\n  - [PR](https://codeberg.org/forgejo/forgejo/pulls/14515) ([backported](https://codeberg.org/forgejo/forgejo/pulls/14527)): <!--number 14527 --><!--line 0 --><!--description Zml4OiBpbXByb3ZlIHBlcmZvcm1hbmNlIHdoZW4gdXNpbmcgQVBJIGFjY2VzcyB0b2tlbnMgd2l0aCByZWFsIHVzZXJuYW1lcyBpbiBIVFRQIGJhc2lj-->fix: improve performance when using API access tokens with real usernames in HTTP basic<!--description-->\n  - [PR](https://codeberg.org/forgejo/forgejo/pulls/14039) ([backported](https://codeberg.org/forgejo/forgejo/pulls/14539)): <!--number 14539 --><!--line 0 --><!--description Zml4OiBSZWdlbmVyYXRlIGNvZGVDaGFsbGVuZ2UgYWZ0ZXIgUmVzZXRPQXV0aDIgaW4gUEtDRSBmbG93-->fix: Regenerate codeChallenge after ResetOAuth2 in PKCE flow<!--description-->\n  - [PR](https://codeberg.org/forgejo/forgejo/pulls/14347) ([backported](https://codeberg.org/forgejo/forgejo/pulls/14490)): <!--number 14490 --><!--line 0 --><!--description Zml4KHNlcnZpY2VzL2lzc3VlL2Fzc2lnbmVlKTogaGFuZGxlIHRlYW0tb25seS1hY2Nlc3M=-->fix(services/issue/assignee): handle team-only-access<!--description-->\n  - [PR](https://codeberg.org/forgejo/forgejo/pulls/14389) ([backported](https://codeberg.org/forgejo/forgejo/pulls/14398)): <!--number 14398 --><!--line 0 --><!--description Y2k6IGFsbG93IHRvIHJlcnVuIHNsb3cgcGFydHMgb2Ygb2YgYnVpbGQtcmVsZWFzZSB3b3JrZmxvdw==-->ci: allow to rerun slow parts of of build-release workflow<!--description-->\n<!--end release-notes-assistant-->\n",
+          "state": "open",
+          "open_issues": 0,
+          "closed_issues": 20,
+          "created_at": "2026-09-17T17:47:24+02:00",
+          "updated_at": "2026-10-09T08:25:35+02:00",
+          "closed_at": null,
+          "due_on": null
+        },
+        "assignee": null,
+        "assignees": null,
+        "state": "closed",
+        "is_locked": false,
+        "comments": 0,
+        "created_at": "2026-10-08T23:27:47+02:00",
+        "updated_at": "2026-10-09T08:25:34+02:00",
+        "closed_at": "2026-10-09T08:23:40+02:00",
+        "due_date": null,
+        "pull_request": {
+          "merged": true,
+          "merged_at": "2026-10-09T08:23:40+02:00",
+          "draft": false,
+          "html_url": "https://codeberg.org/forgejo/forgejo/pulls/14765"
+        },
+        "repository": {
+          "id": 73144,
+          "name": "forgejo",
+          "owner": "forgejo",
+          "full_name": "forgejo/forgejo"
+        },
+        "pin_order": 0
+      }
+    ]
+  }
+}

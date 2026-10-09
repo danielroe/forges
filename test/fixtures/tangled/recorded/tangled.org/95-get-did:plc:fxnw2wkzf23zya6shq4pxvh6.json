@@ -1,0 +1,38 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://plc.directory/did:plc:fxnw2wkzf23zya6shq4pxvh6"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"23a-JdAVQCYq9sNvrxaIIN+MUyjR1Xo\""
+    },
+    "body": {
+      "@context": [
+        "https://www.w3.org/ns/did/v1",
+        "https://w3id.org/security/multikey/v1",
+        "https://w3id.org/security/suites/secp256k1-2019/v1"
+      ],
+      "id": "did:plc:fxnw2wkzf23zya6shq4pxvh6",
+      "alsoKnownAs": [
+        "at://aeshna-cyanea.neocities.org"
+      ],
+      "verificationMethod": [
+        {
+          "id": "did:plc:fxnw2wkzf23zya6shq4pxvh6#atproto",
+          "type": "Multikey",
+          "controller": "did:plc:fxnw2wkzf23zya6shq4pxvh6",
+          "publicKeyMultibase": "zQ3shs29edr4ipeHeAcvWrZGTEiqEc7QCSSQSUH6VdWtEBJvo"
+        }
+      ],
+      "service": [
+        {
+          "id": "#atproto_pds",
+          "type": "AtprotoPersonalDataServer",
+          "serviceEndpoint": "https://magic.us-west.host.bsky.network"
+        }
+      ]
+    }
+  }
+}

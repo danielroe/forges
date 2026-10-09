@@ -1,0 +1,56 @@
+{
+  "baseUrl": "https://api.bitbucket.org/2.0",
+  "repo": {
+    "forge": "bitbucket",
+    "instance": "bitbucket.org",
+    "owner": "danielroe",
+    "name": "forges-fixtures"
+  },
+  "scratch": {
+    "forge": "bitbucket",
+    "instance": "bitbucket.org",
+    "owner": "danielroe",
+    "name": "forges-fixtures"
+  },
+  "run": {
+    "id": "20261009140046",
+    "base": "main",
+    "branches": [
+      "forges-fixtures/20261009140046-1",
+      "forges-fixtures/20261009140046-2",
+      "forges-fixtures/20261009140046-3"
+    ],
+    "files": [
+      "forges-fixtures/20261009140046-1.md",
+      "forges-fixtures/20261009140046-2.md",
+      "forges-fixtures/20261009140046-3.md"
+    ]
+  },
+  "recordedAt": "2026-10-09T14:00:58.074Z",
+  "steps": [
+    "reviewer",
+    "create pull",
+    "create second pull",
+    "create third pull",
+    "pull comment",
+    "pull edit comment",
+    "pull upsert comment",
+    "pull delete comment",
+    "pull update",
+    "commit comment",
+    "commit edit comment",
+    "commit upsert comment",
+    "commit delete comment",
+    "request review",
+    "pending review",
+    "report check",
+    "approve",
+    "merge",
+    "pull close",
+    "approve and merge",
+    "create webhook",
+    "update webhook",
+    "rotate webhook secret",
+    "delete webhook"
+  ]
+}

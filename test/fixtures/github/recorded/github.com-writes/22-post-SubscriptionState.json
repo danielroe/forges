@@ -1,0 +1,41 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://api.github.com/graphql",
+    "operationName": "SubscriptionState",
+    "variables": {
+      "owner": "forges-fixtures",
+      "name": "forges-fixtures",
+      "number": 34,
+      "discussion": false
+    },
+    "body": {
+      "query": "query SubscriptionState($owner: String!, $name: String!, $number: Int!, $discussion: Boolean!) {\n  repository(owner: $owner, name: $name) {\n    issueOrPullRequest(number: $number) @skip(if: $discussion) {\n      ... on Issue { id viewerSubscription }\n      ... on PullRequest { id viewerSubscription }\n    }\n    discussion(number: $number) @include(if: $discussion) { id viewerSubscription }\n  }\n}",
+      "variables": {
+        "owner": "forges-fixtures",
+        "name": "forges-fixtures",
+        "number": 34,
+        "discussion": false
+      },
+      "operationName": "SubscriptionState"
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "x-ratelimit-limit": "5000",
+      "x-ratelimit-remaining": "4999",
+      "x-ratelimit-reset": "1791559276"
+    },
+    "body": {
+      "data": {
+        "repository": {
+          "issueOrPullRequest": {
+            "id": "I_kwDOVCTdtM8AAAABWH5pLg",
+            "viewerSubscription": "SUBSCRIBED"
+          }
+        }
+      }
+    }
+  }
+}

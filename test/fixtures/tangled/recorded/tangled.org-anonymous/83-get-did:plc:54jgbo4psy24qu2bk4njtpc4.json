@@ -1,0 +1,38 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://plc.directory/did:plc:54jgbo4psy24qu2bk4njtpc4"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"221-i7JVSLi1owv1n+8KvPi8xLHtGws\""
+    },
+    "body": {
+      "@context": [
+        "https://www.w3.org/ns/did/v1",
+        "https://w3id.org/security/multikey/v1",
+        "https://w3id.org/security/suites/secp256k1-2019/v1"
+      ],
+      "id": "did:plc:54jgbo4psy24qu2bk4njtpc4",
+      "alsoKnownAs": [
+        "at://inkreas.ing"
+      ],
+      "verificationMethod": [
+        {
+          "id": "did:plc:54jgbo4psy24qu2bk4njtpc4#atproto",
+          "type": "Multikey",
+          "controller": "did:plc:54jgbo4psy24qu2bk4njtpc4",
+          "publicKeyMultibase": "zQ3shp9acxArMjMfRc1UDzmxr2eTgCozBatCxSoG2uuf3rjnj"
+        }
+      ],
+      "service": [
+        {
+          "id": "#atproto_pds",
+          "type": "AtprotoPersonalDataServer",
+          "serviceEndpoint": "https://pds.witchcraft.systems"
+        }
+      ]
+    }
+  }
+}

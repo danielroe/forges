@@ -1,0 +1,30 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://dev.azure.com/forges/forges-fixtures/_apis/wit/workitemtypes/Issue/states?api-version=7.1"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "count": 3,
+      "value": [
+        {
+          "name": "To Do",
+          "color": "b2b2b2",
+          "category": "Proposed"
+        },
+        {
+          "name": "Doing",
+          "color": "007acc",
+          "category": "InProgress"
+        },
+        {
+          "name": "Done",
+          "color": "339933",
+          "category": "Completed"
+        }
+      ]
+    }
+  }
+}

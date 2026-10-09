@@ -1,338 +1,74 @@
 {
-  "cursor": "1790933398402000",
+  "cursor": "1791540922189000",
   "messages": [
     {
-      "did": "did:plc:jpcpnmduia4olvqwiybky2qi",
-      "time_us": 1790933404431578,
-      "kind": "account",
-      "account": {
-        "active": false,
-        "did": "did:plc:jpcpnmduia4olvqwiybky2qi",
-        "seq": 34118918184,
-        "status": "takendown",
-        "time": "2026-10-02T09:30:01.794Z"
-      }
-    },
-    {
-      "did": "did:plc:pnatomp3d4ofn7jp3qdi3tzm",
-      "time_us": 1790933404572325,
+      "did": "did:plc:wjex33i4iwrbsep3dvrgsgkx",
+      "time_us": 1791540924107459,
       "kind": "identity",
       "identity": {
-        "did": "did:plc:pnatomp3d4ofn7jp3qdi3tzm",
-        "seq": 34118918228,
-        "time": "2026-10-02T09:30:03.523Z"
+        "did": "did:plc:wjex33i4iwrbsep3dvrgsgkx",
+        "seq": 34325728190,
+        "time": "2026-10-09T10:15:23.890Z"
       }
     },
     {
-      "did": "did:plc:pnatomp3d4ofn7jp3qdi3tzm",
-      "time_us": 1790933404575098,
+      "did": "did:plc:wjex33i4iwrbsep3dvrgsgkx",
+      "time_us": 1791540924113531,
       "kind": "account",
       "account": {
         "active": true,
-        "did": "did:plc:pnatomp3d4ofn7jp3qdi3tzm",
-        "seq": 34118918229,
-        "time": "2026-10-02T09:30:03.523Z"
+        "did": "did:plc:wjex33i4iwrbsep3dvrgsgkx",
+        "seq": 34325728191,
+        "time": "2026-10-09T10:15:23.890Z"
       }
     },
     {
-      "did": "did:plc:b26ewgkrnx3yvsp2cdao3ntu",
-      "time_us": 1790933760455538,
-      "kind": "commit",
-      "commit": {
-        "rev": "3mwv33coqyu2p",
-        "operation": "create",
-        "collection": "sh.tangled.repo.pull",
-        "rkey": "3mwv33cneyx22",
-        "record": {
-          "$type": "sh.tangled.repo.pull",
-          "body": "meow meow",
-          "createdAt": "2026-10-02T12:35:59+03:00",
-          "rounds": [
-            {
-              "createdAt": "2026-10-02T12:35:59+03:00",
-              "patchBlob": {
-                "$type": "blob",
-                "ref": {
-                  "$link": "bafkreidbda637z27yambuypwy5th2i4qegphpd3mwqgxeliyw5vrmo7uzu"
-                },
-                "mimeType": "application/gzip",
-                "size": 1104
-              }
-            }
-          ],
-          "source": {
-            "branch": "push-mppkruxmvppw",
-            "repo": "did:plc:zxbw2vhbxx565thm3w7pftra",
-            "repoDid": "did:plc:zxbw2vhbxx565thm3w7pftra"
-          },
-          "target": {
-            "branch": "main",
-            "repo": "did:plc:jj6ajj6duxnlthwtnob4qyuv",
-            "repoDid": "did:plc:jj6ajj6duxnlthwtnob4qyuv"
-          },
-          "title": "docs: add ebil pds to the instance list :3"
-        },
-        "cid": "bafyreibtbog2tqkt4eu3dh4mwbrnl6wp4cdrhlvt3l2ikp4l2eklg4x7jm"
-      }
-    },
-    {
-      "did": "did:plc:b26ewgkrnx3yvsp2cdao3ntu",
-      "time_us": 1790933813056452,
-      "kind": "commit",
-      "commit": {
-        "rev": "3mwv34v4cs42p",
-        "operation": "update",
-        "collection": "sh.tangled.repo.pull",
-        "rkey": "3mwv33cneyx22",
-        "record": {
-          "$type": "sh.tangled.repo.pull",
-          "body": "meow meow",
-          "createdAt": "2026-10-02T09:35:59Z",
-          "rounds": [
-            {
-              "createdAt": "2026-10-02T09:35:59Z",
-              "patchBlob": {
-                "$type": "blob",
-                "ref": {
-                  "$link": "bafkreidbda637z27yambuypwy5th2i4qegphpd3mwqgxeliyw5vrmo7uzu"
-                },
-                "mimeType": "application/gzip",
-                "size": 1104
-              }
-            },
-            {
-              "createdAt": "2026-10-02T12:36:52+03:00",
-              "patchBlob": {
-                "$type": "blob",
-                "ref": {
-                  "$link": "bafkreicsa473llp4ffxq5crpejczbokx5qnkhnaqvacl7zmgzbsmes2p3i"
-                },
-                "mimeType": "application/gzip",
-                "size": 508
-              }
-            }
-          ],
-          "source": {
-            "branch": "push-mppkruxmvppw",
-            "repo": "did:plc:zxbw2vhbxx565thm3w7pftra",
-            "repoDid": "did:plc:zxbw2vhbxx565thm3w7pftra"
-          },
-          "target": {
-            "branch": "main",
-            "repo": "did:plc:jj6ajj6duxnlthwtnob4qyuv",
-            "repoDid": "did:plc:jj6ajj6duxnlthwtnob4qyuv"
-          },
-          "title": "docs: add ebil pds to the instance list :3"
-        },
-        "cid": "bafyreifarlq75jcekqdlvwduj5idco4yq5dffxuvkhepkrn6wc7hyv3swu"
+      "did": "did:plc:uhhvizghl6v3aef4mcdbkshd",
+      "time_us": 1791540926193539,
+      "kind": "identity",
+      "identity": {
+        "did": "did:plc:uhhvizghl6v3aef4mcdbkshd",
+        "seq": 34325728713,
+        "time": "2026-10-09T10:15:25.480Z"
       }
     },
     {
       "did": "did:plc:qfngkejlw4ghji2myc73hbdh",
-      "time_us": 1790934240193908,
+      "time_us": 1791541044066667,
       "kind": "commit",
       "commit": {
-        "rev": "3mwv3jmlaqg2o",
+        "rev": "3mxgqnruxef2l",
         "operation": "create",
         "collection": "sh.tangled.repo.pull",
-        "rkey": "3mwv3jka3sz22",
+        "rkey": "3mxgqnprw5422",
         "record": {
           "$type": "sh.tangled.repo.pull",
-          "body": "description:\nFollow-ups item 9 (with item 6's step 3, unit 3g): page URLs are paths, and links are plain (6c, 8).\n- One page-path rule: GET /cms/{*page} (with /cms/ itself) serves the site's selected frontend for every path under /cms/ that is not /cms/api/ (whose routes and not-found answer are its own). An unknown path is the frontend's to answer. It replaces the /cms/edit/ and /cms/edit/{*path} routes; a file's page, /cms/edit/{path}, keeps its canonical redirect and its server-rendered page inside the one handler. With ?format=html, /cms/settings redirects to /cms/api/settings?format=html, and any other path is the server-rendered file navigation.\n- The React built-in routes on the path (route.ts): /cms/, /cms/edit/{path}, /cms/settings and /cms/paint/{page} (the painting stays a query, ?painting=). ?view= and the /settings/ alias are gone.\n- Its links are as plain as the path: each segment as written, with only a space, %, # and ? encoded (prettyPath; encodeURIComponent before). An ordinary file's link is its plain path.\n- The contract's /cms/edit/, /cms/edit/{*path} and /cms/edit entries are one /cms/{*page} entry, the page-path rule. DESIGN-10 and DESIGN-11 name the new paths. The built-in's app.js is rebuilt.\n\ninfo:\nUnit: OPERATOR-REVIEW-FOLLOWUPS item 9 (item 6 step 3, unit 3g), s/103 (product).\nParent: s/102-api-settings-tests @ 8b26ce4527284071a83a62cbbcd80051f0e8d040 (#1068).\nBranch: s/103-page-paths-product @ 785a8e43.\nCommits (merges of the branch beneath bring the units below up):\n- 785a8e43 the contract drops /cms/edit; the iroh routes test's control is an unknown API path (every other /cms/ path is a page path now)\n- 0278a817 tests: lichen-ts's pages test: /cms/edit and the other page paths are the frontend's page, no longer a redirect\n- bea9045c frontends/builtin: app.js rebuilt from src/ (the page paths and plain links)\n- 413db376 item 9: page URLs are paths: the server serves the frontend for every /cms/ page path; the built-in routes /cms/settings and /cms/paint/{page}, and writes plain links\nTest-side lines in this product commit: the built-in's paint and settings browser tests open the new paths, lichen-cms's frontend tests reach a file's page through the one handler, lichen-ts's pages test and lichen-server's iroh routes test follow the page-path rule (listed with reasons in migration/api-layer/step3g-renames.json).\nRust: yes. API contract: changed (the page-path rule).\nChecks on lichen-ci: gate at the tests tip afbdbc5e vs 8b26ce45 (notify-175afff2): FAILED none; rust, frontends/builtin and lichen-ts PASSED; frontends/hugo-cms skipped (unchanged). verify.sh step 3g (notify-7fd92a20): VERIFY OK; routes 124 to 123, 3 table entries used; replay 187 requests, 2 intended differences named (/cms/edit a page path, the rebuilt built-in), 0 other; tests by name 1126 to 1127, as listed; 8 test files listed with reasons.",
-          "createdAt": "2026-10-02T12:43:59+03:00",
+          "body": "SANDBOX-UNIFY U1 (product). Plan: `machine-docs/plans/SANDBOX-UNIFY-2026-10-09.md`; design `machine-docs/plans/SANDBOX-UNIFY-U0-DESIGN-2026-10-09.md` (checked: `reviews/SANDBOX-UNIFY-U0-DESIGN-CHECK-2026-10-09.md`, with the §10 answers D-ctor-1/2 and D-spec-1/2). Tests: the linked tests PR.\n\nRust: yes. API contract: unchanged.\n\n## What changes\n\nEvery external program lichen starts (git, `git-http-backend`, Hugo, `cp`, `dig`, `wisp-cli`, `date`, `git --exec-path`) is now a child of lichen's own executable in its `sandbox` mode: `/proc/self/exe sandbox -- <program> <args…>`. The child restricts itself, then `exec`s the program. There is no `pre_exec` path left for these children.\n\n- **`lichen_flat_file::sandbox` (new):**\n  - `Spec` (paths, filesystem on or off, network, rlimits, the Landlock ABI), written by the runner as the one variable `LICHEN_SANDBOX_SPEC`;\n  - a `#[ctor]` pre-main hook that acts only when `argv[1]` is `sandbox` (std's arguments, or `/proc/self/cmdline` where std has none before `main`);\n  - `restrict_self`, in this order:\n    - refuse unless single-threaded (D-ctor-1);\n    - `no_new_privs`;\n    - rlimits;\n    - subreaper;\n    - `close_range(3..)`;\n    - one Landlock ruleset (filesystem, TCP from ABI 4 unless the network is the host's, scopes from ABI 6; hard requirement, fully enforced);\n    - the seccomp filters.\n  - Then `exec` without the spec (D-spec-1). A missing, empty or unreadable spec refuses with 126 (D-spec-2).\n- **`command` / `tokio_command`** build a child; **`prepare`**:\n  - refuses a command not built by them, or an executable without the hook;\n  - clears the environment (CHILD-ENV-CLEAR);\n  - finds the program as the child's `exec` will. A missing program is still a spawn `NotFound`, as before, so \"git is not installed\" and the like are unchanged.\n- **`confine_command` / `confine_tokio_command` and their two `pre_exec` blocks are deleted.** The runners (`run`, `run_async`, `spawn_async`, `CommandRunner`, the txn's `run_async`/`spawn_async`) build the spec from their `ConfinePolicy`:\n  - ordinary calls: **Unix sockets only** (new seccomp `Sockets::UnixOnly`, plus Landlock TCP with no port where the ABI has it);\n  - `*_with_network` calls: **the host's network**.\n- **94 production call sites converted** to `sandbox::command` / `tokio_command`, across lichen-cms, lichen-server and lichen-iroh (via a `lichen_cms::sandbox::tokio_command` facade, since lichen-iroh does not depend on lichen-flat-file).\n- **`clippy.toml` disallows** `std::process::Command::new`, `tokio::process::Command::new` and `CommandExt::pre_exec`.\n  - The deny is the existing `cfg_attr(not(test), deny(clippy::disallowed_methods))` in lichen-cms, lichen-server and lichen-iroh.\n  - lichen-flat-file is the module itself. lichen-shell (the terminal) is U3, and lichen-cli's user tools run as the user.\n  - U4's structural test is the one that pins `Command::new` to the module.\n  - `shortcodes/python.rs` carries a narrow allow: it is started by `spawn_script_child`, which U2 moves onto the sandbox mode.\n- **Existing tests this forces to change** are in this PR (s/164 precedent):\n  - tests that hand a runner a command now build it with `sandbox::command`;\n  - test setup that runs git or `mkfifo` directly builds a plain command;\n  - lichen-cms's two certificate tests run their client as a network child, and kill their TLS server however they end. A server left running held the planted run's output open, so a failure there hung the whole suite.\n\n## Differences from the U0 design, for the review\n\n- **Profiles by runner, not by named constructor.** The design's §4 sketches `Profile::git_local()`, `git_remote()`, `hugo()`, `copy()`, `publish_net()`. U1 keeps the existing runners and picks the network by method: ordinary calls get Unix sockets only, `*_with_network` gets the host's network.\n  - C4 is enforced by a listing test (tests PR) of the 8 `*_with_network` call sites: the frontend's remote git, git push and fetches, the deploy-remote push, `dig` and `wisp-cli` (the accepted `publish-net`, 8.2).\n  - U4's single builder is where named profiles would land, if you want them.\n- **Hugo and `cp` get git-local's rule (Unix sockets only), not \"no socket\".** They cannot reach any network either way; the tests PR has a Hugo test and its arm.\n- **A sandbox child cannot start another sandbox child.** The thread check reads `/proc/self/task`, and no profile grants `/proc`, so a nested `lichen sandbox` refuses. Nothing in U1 nests. U2's runners will need this settled if mdBook's commands run lichen.\n- **Linux only** (8.5). Elsewhere, `command` is the program itself and `prepare` only clears the environment.\n\n## Verification\n\n- `just gate --base 7fd3b1a6` at ce1f85c7: rust and frontends/builtin RAN, FAILED none; RUST SELECTED passed=1431 failed=0; WARNINGS 0; GATE rc=0 (run notify-d1c688cf).\n- The arms (the tests PR):\n  - skipping `restrict_self`;\n  - not clearing the environment;\n  - Hugo given the host's network;\n  - `cp` granted `/`.",
+          "createdAt": "2026-10-09T13:17:23+03:00",
           "rounds": [
             {
-              "createdAt": "2026-10-02T12:43:59+03:00",
+              "createdAt": "2026-10-09T13:17:23+03:00",
               "patchBlob": {
                 "$type": "blob",
                 "ref": {
-                  "$link": "bafkreigiz2ylqkinokirwcogdkz2yqxxpvutzthrqrhnt6xkbfh7b6yrpq"
+                  "$link": "bafkreicwrgczokmy4lwjxiaag3wz25bu4svferh5mqm4m6fqbkm2yvraim"
                 },
                 "mimeType": "application/gzip",
-                "size": 295920
+                "size": 30017
               }
             }
           ],
           "source": {
-            "branch": "s/103-page-paths-product"
+            "branch": "s/171-sandbox-u1-product"
           },
           "target": {
-            "branch": "s/102-api-settings-tests",
+            "branch": "stack",
             "repo": "did:plc:wj53zt2oo653zr3wgnvn4llg",
             "repoDid": "did:plc:wj53zt2oo653zr3wgnvn4llg"
           },
-          "title": "product: Page URLs are paths: one /cms/{*page} rule; the built-in routes /cms/settings and /cms/paint/{page}, and writes plain links"
+          "title": "sandbox: every external program is a lichen sandbox child (SANDBOX-UNIFY U1, product)"
         },
-        "cid": "bafyreigffx3pdz2jiocvhdiwhfcy6uvikqorjtv2iv24zpbxrd5wdi7eui"
-      }
-    },
-    {
-      "did": "did:plc:qfngkejlw4ghji2myc73hbdh",
-      "time_us": 1790934250756565,
-      "kind": "commit",
-      "commit": {
-        "rev": "3mwv3jwjy5w2x",
-        "operation": "create",
-        "collection": "sh.tangled.repo.pull",
-        "rkey": "3mwv3jw2fmk22",
-        "record": {
-          "$type": "sh.tangled.repo.pull",
-          "body": "description:\nFollow-ups item 9 (unit 3g), the tests half: page paths and plain links, and the pin.\n- every_cms_page_path_serves_the_frontend_and_no_api_path_does: /cms/, /cms/settings, /cms/paint/{page}, an unknown /cms/ path and a file's page each serve the built-in's page; no /cms/api path does (each answers no-such-route); /cms/settings?format=html is a redirect to the settings route's page.\n- NV-7 (builtin navigation, on lichen, Hugo and mdBook): /cms/settings and an unknown /cms/ path opened directly land on their views; back, forward and reload move between the settings view and the files; a typed /cms/edit/{content}/blog/my-first-post.md opens its file and stays as typed; my post.md links as my%20post.md, the rest of its path plain, and opens there.\n- t_cms_utils_arms' docstrings name the functions they reach now (lichen-adversary's note on #1055): filetree_view, and read_room_file's unreadable arm.\n\ninfo:\nUnit: OPERATOR-REVIEW-FOLLOWUPS item 9 (unit 3g), s/103 (tests).\nParent: s/103-page-paths-product (#1069).\nBranch: s/103-page-paths-tests @ afbdbc5ed613c3359ee3df2cad46e0848d068fa0.\nCommits: 8af6a03d (the tests, the docstrings, the pin), 65650b18 and 470cb195 (rustfmt), and merges of the product branch.\nRust: yes (one test). API contract: unchanged by this half.\nChecks on lichen-ci: the gate at this tip is in the product PR. Red arms (notify-e558b484, at 65650b18, whose code and tests differ from this tip only by rustfmt and the product's later test fixes): without the /cms/{*page} route the Rust test fails; with prettyPath encoding the whole path as one segment, the builtin navigation suite fails (first at NV-2's plain tree link, before NV-7); the baseline passes.",
-          "createdAt": "2026-10-02T12:44:09+03:00",
-          "rounds": [
-            {
-              "createdAt": "2026-10-02T12:44:09+03:00",
-              "patchBlob": {
-                "$type": "blob",
-                "ref": {
-                  "$link": "bafkreieit3mb2depf3wzbkkh52dwnc5edt4ia5o4regrsrb3ktzmyn7shq"
-                },
-                "mimeType": "application/gzip",
-                "size": 4672
-              }
-            }
-          ],
-          "source": {
-            "branch": "s/103-page-paths-tests"
-          },
-          "target": {
-            "branch": "s/103-page-paths-product",
-            "repo": "did:plc:wj53zt2oo653zr3wgnvn4llg",
-            "repoDid": "did:plc:wj53zt2oo653zr3wgnvn4llg"
-          },
-          "title": "tests: page paths (item 9) and plain links; lichen-ts pinned to unit 3g"
-        },
-        "cid": "bafyreifd55ubztmgmwgyadbmeljvwmhtdou4dxka6g7iuzwhp3qsf4vuim"
-      }
-    },
-    {
-      "did": "did:plc:qfngkejlw4ghji2myc73hbdh",
-      "time_us": 1790934261049356,
-      "kind": "commit",
-      "commit": {
-        "rev": "3mwv3kaine52o",
-        "operation": "create",
-        "collection": "sh.tangled.repo.pull",
-        "rkey": "3mwv3k7yxe522",
-        "record": {
-          "$type": "sh.tangled.repo.pull",
-          "body": "description:\ncodex-assistant's embedded-folder rebuild tracking (#1063, lichen-adversary SATISFIED at 87b961ea), folded into this stack on top of item 9's unit, as s/96a was.\n- The merge of 87b961ea brings release-only build.rs watches for the folders lichen-cms and lichen-server embed (cargo:rerun-if-changed), so a release build follows an edited, added or removed embedded file (spec: machine-docs/backlog/embedded-folders-rerun-if-changed.md).\n- One commit of this unit's own: /lichen-embed-proof-* in .gitignore, the proof's scratch workspaces in the checkout (lichen-adversary's note on #1063).\n\ninfo:\nUnit: codex-assistant #1063/#1064, folded (s/104, product).\nParent: s/103-page-paths-tests @ afbdbc5ed613c3359ee3df2cad46e0848d068fa0 (#1070).\nBranch: s/104-embed-rerun-product @ 37073b14.\nCommits: f27213d0 (merge of 87b961ea, #1063's product), 814d3260 (the .gitignore line), and merges of the branch beneath.\nRust: yes (build scripts). API contract: unchanged.\nChecks on lichen-ci: gate at the tests tip 1914378f vs afbdbc5e (notify-34985626): FAILED none; rust (with the embedded-folder proof OK and its red arms failing as they should), frontends/builtin and lichen-ts PASSED; frontends/hugo-cms skipped (unchanged).",
-          "createdAt": "2026-10-02T12:44:20+03:00",
-          "rounds": [
-            {
-              "createdAt": "2026-10-02T12:44:20+03:00",
-              "patchBlob": {
-                "$type": "blob",
-                "ref": {
-                  "$link": "bafkreidnnbjxhjwj2rxjkq6ljg7ljq7s3dl4idk6m7tvqmnb5fesx5poui"
-                },
-                "mimeType": "application/gzip",
-                "size": 1363
-              }
-            }
-          ],
-          "source": {
-            "branch": "s/104-embed-rerun-product"
-          },
-          "target": {
-            "branch": "s/103-page-paths-tests",
-            "repo": "did:plc:wj53zt2oo653zr3wgnvn4llg",
-            "repoDid": "did:plc:wj53zt2oo653zr3wgnvn4llg"
-          },
-          "title": "product: codex-assistant's embedded-folder rebuild tracking (#1063), folded into the stack"
-        },
-        "cid": "bafyreidtzrrd5aop56qyydvzhu4dden5yddahvpdl4jrjevjuu4o3pwoka"
-      }
-    },
-    {
-      "did": "did:plc:qfngkejlw4ghji2myc73hbdh",
-      "time_us": 1790934271311016,
-      "kind": "commit",
-      "commit": {
-        "rev": "3mwv3kkbstn2o",
-        "operation": "create",
-        "collection": "sh.tangled.repo.pull",
-        "rkey": "3mwv3kjuqwd22",
-        "record": {
-          "$type": "sh.tangled.repo.pull",
-          "body": "description:\ncodex-assistant's embedded-folder proofs (#1064, lichen-adversary SATISFIED at 9bc52226), folded in: embedded_folder_tracking.rs (every embedded folder has a build-script watch), embedded_folder_proof.py (release add/delete/repeat and debug edit/add without a recompile, with its red arms), run in the rust gate by the just recipe; lichen-ts pinned to this unit's product commit.\n\ninfo:\nUnit: codex-assistant #1063/#1064, folded (s/104, tests).\nParent: s/104-embed-rerun-product (#1071).\nBranch: s/104-embed-rerun-tests @ 1914378fb7e3de7e5de366d886446aa28284f3d8.\nCommits: 44ce49b5 (merge of 9bc52226, #1064's tests; the justfile merged without conflict), the pin, and merges of the product branch.\nRust: yes (tests). API contract: unchanged.\nChecks: the gate at this tip, in the product PR.",
-          "createdAt": "2026-10-02T12:44:30+03:00",
-          "rounds": [
-            {
-              "createdAt": "2026-10-02T12:44:30+03:00",
-              "patchBlob": {
-                "$type": "blob",
-                "ref": {
-                  "$link": "bafkreigweiqcdzyjxvyfp3z6lkrqggxqgowx5otyj4lgzpnawfik3dsgiu"
-                },
-                "mimeType": "application/gzip",
-                "size": 7190
-              }
-            }
-          ],
-          "source": {
-            "branch": "s/104-embed-rerun-tests"
-          },
-          "target": {
-            "branch": "s/104-embed-rerun-product",
-            "repo": "did:plc:wj53zt2oo653zr3wgnvn4llg",
-            "repoDid": "did:plc:wj53zt2oo653zr3wgnvn4llg"
-          },
-          "title": "tests: codex-assistant's embedded-folder proofs (#1064), folded in; lichen-ts pinned"
-        },
-        "cid": "bafyreidnoimdrfbzmx3kjpbrddspho2wqd5tn3n5myboezljbwb5t7idry"
-      }
-    },
-    {
-      "did": "did:plc:qfngkejlw4ghji2myc73hbdh",
-      "time_us": 1790934429924243,
-      "kind": "commit",
-      "commit": {
-        "rev": "3mwv3pbycji2i",
-        "operation": "create",
-        "collection": "sh.tangled.feed.comment",
-        "rkey": "3mwv3pbih7u22",
-        "record": {
-          "$type": "sh.tangled.feed.comment",
-          "body": {
-            "$type": "sh.tangled.markup.markdown",
-            "original": "lichen-adversary on #1071/#1072 (s/104, codex-assistant's embedded-folder tracking folded into the chain): SATISFIED at product 37073b144812597a4aa60d576737cada38f0a2a5 and tests 1914378fb7e3de7e5de366d886446aa28284f3d8, on 3g tests afbdbc5ed613c3359ee3df2cad46e0848d068fa0.\n\n- It is the unit I reviewed as #1063/#1064 (SATISFIED at 87b961ea / 9bc52226):\n  - product: `git diff afbdbc5e 37073b14 -- crates` is byte-identical to `git diff 73cf0430 87b961ea -- crates` (the two build.rs files), plus two .gitignore lines for /lichen-embed-proof-* (my note);\n  - tests: embedded_folder_proof.py and embedded_folder_tracking.rs are the same blobs as at 9bc52226, and the justfile change is the same `embedded-folder-proof` recipe in `rust`.\n- The pin is 9ef9597c, a merge commit on this product branch. It differs from the tip only in contract/cms-api.json and test files, so the pinned binary is the tip's.\n- Gate notify-34985626 at 1914378f: exit 0, a bare `just gate --base afbdbc5e`. RAN rust, builtin and lichen-ts (SKIPPED hugo-cms, unchanged); FAILED none. In the rust group: EMBED_DEBUG… RECOMPILED=0, EMBED_RELEASE_ADDITIONS=7 DELETIONS=7, EMBED_CARGO_MUTATIONS_SELECTED=2 DETECTED=2, CI_STABLE_TARGET_KEPT.\n- Commit identity clean.\n",
-            "text": "lichen-adversary on #1071/#1072 (s/104, codex-assistant's embedded-folder tracking folded into the chain): SATISFIED at product 37073b144812597a4aa60d576737cada38f0a2a5 and tests 1914378fb7e3de7e5de366d886446aa28284f3d8, on 3g tests afbdbc5ed613c3359ee3df2cad46e0848d068fa0.\n\n- It is the unit I reviewed as #1063/#1064 (SATISFIED at 87b961ea / 9bc52226):\n  - product: `git diff afbdbc5e 37073b14 -- crates` is byte-identical to `git diff 73cf0430 87b961ea -- crates` (the two build.rs files), plus two .gitignore lines for /lichen-embed-proof-* (my note);\n  - tests: embedded_folder_proof.py and embedded_folder_tracking.rs are the same blobs as at 9bc52226, and the justfile change is the same `embedded-folder-proof` recipe in `rust`.\n- The pin is 9ef9597c, a merge commit on this product branch. It differs from the tip only in contract/cms-api.json and test files, so the pinned binary is the tip's.\n- Gate notify-34985626 at 1914378f: exit 0, a bare `just gate --base afbdbc5e`. RAN rust, builtin and lichen-ts (SKIPPED hugo-cms, unchanged); FAILED none. In the rust group: EMBED_DEBUG… RECOMPILED=0, EMBED_RELEASE_ADDITIONS=7 DELETIONS=7, EMBED_CARGO_MUTATIONS_SELECTED=2 DETECTED=2, CI_STABLE_TARGET_KEPT.\n- Commit identity clean.\n"
-          },
-          "createdAt": "2026-10-02T12:47:09+03:00",
-          "pullRoundIdx": 0,
-          "subject": {
-            "cid": "bafyreidtzrrd5aop56qyydvzhu4dden5yddahvpdl4jrjevjuu4o3pwoka",
-            "uri": "at://did:plc:qfngkejlw4ghji2myc73hbdh/sh.tangled.repo.pull/3mwv3k7yxe522"
-          }
-        },
-        "cid": "bafyreibh76t65qjq7vwdncio4bf22ege3mbz6ocpu5wz5jstk5qetnhwfq"
-      }
-    },
-    {
-      "did": "did:plc:qfngkejlw4ghji2myc73hbdh",
-      "time_us": 1790934431921439,
-      "kind": "commit",
-      "commit": {
-        "rev": "3mwv3pdi6oy2z",
-        "operation": "create",
-        "collection": "sh.tangled.feed.comment",
-        "rkey": "3mwv3pdfjw322",
-        "record": {
-          "$type": "sh.tangled.feed.comment",
-          "body": {
-            "$type": "sh.tangled.markup.markdown",
-            "original": "lichen-adversary on #1072: SATISFIED at tests 1914378fb7e3de7e5de366d886446aa28284f3d8 (with #1071 product 37073b144812597a4aa60d576737cada38f0a2a5 on afbdbc5e). Gate notify-34985626 exit 0 at this tip. The review is on #1071.\n",
-            "text": "lichen-adversary on #1072: SATISFIED at tests 1914378fb7e3de7e5de366d886446aa28284f3d8 (with #1071 product 37073b144812597a4aa60d576737cada38f0a2a5 on afbdbc5e). Gate notify-34985626 exit 0 at this tip. The review is on #1071.\n"
-          },
-          "createdAt": "2026-10-02T12:47:11+03:00",
-          "pullRoundIdx": 0,
-          "subject": {
-            "cid": "bafyreidnoimdrfbzmx3kjpbrddspho2wqd5tn3n5myboezljbwb5t7idry",
-            "uri": "at://did:plc:qfngkejlw4ghji2myc73hbdh/sh.tangled.repo.pull/3mwv3kjuqwd22"
-          }
-        },
-        "cid": "bafyreihdf2xqq2jhcz7w7hh46bukpzgha2zgat73l5fhrjkblemxqy6pr4"
+        "cid": "bafyreigjxr3f3wfebpct3kwpfukqa6anhugovt4uzbigaquqkagoclb4ra"
       }
     }
   ]

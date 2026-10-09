@@ -1,0 +1,46 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://auriporia.us-west.host.bsky.network/xrpc/com.atproto.repo.getRecord?repo=did%3Aplc%3Aqfngkejlw4ghji2myc73hbdh&collection=sh.tangled.repo.pull&rkey=3mxf3xpqiy722"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"13bf-KYoCGRG02nsNv5TE5Olhf1TOmWw\"",
+      "ratelimit-limit": "3000",
+      "ratelimit-remaining": "2995",
+      "ratelimit-reset": "1791496603"
+    },
+    "body": {
+      "uri": "at://did:plc:qfngkejlw4ghji2myc73hbdh/sh.tangled.repo.pull/3mxf3xpqiy722",
+      "cid": "bafyreiayajjccnhiznvhssnby2nrj3q3swzagcuxmwkztqac66roihmloi",
+      "value": {
+        "body": "Tests for SCRIPT-RUNTIMES-OUT-OF-PROCESS unit O1 (product: #1166). Parent: s/162-script-runner-product a8397539d6e9e501c4b28a85fd76cf6771b77c77. Tip 48e26f8e9ab1a643e893848b09e5c5231e8b42c6.\n\n**`crates/lichen-cms/src/shortcodes/tests/shortcodes.rs`:**\n\n| Test | What it asserts | Red arm |\n|---|---|---|\n| `scripts_run_under_the_full_sandbox` | The operator's positive test. With every restriction on, a Python and a Lua shortcode each read a site file, write one, import a `shortcodes/` helper and do string work. Python also uses `json`, `datetime`, `re`, `pathlib` and a short subprocess. Both render their expected HTML. | `clone` without namespace flags denied; separately, `openat` denied. |\n| `a_python_script_cannot_leave_its_group_and_what_it_forks_ends_with_its_build` | SC-ESC1, the adversary's probe: `setsid` answers `refused:1`. The forked counter stops when the build drops its runners, and no process with the site as its working directory is left. | No filter. |\n| `what_a_python_script_forks_ends_when_its_call_is_killed` | The same after a timeout kill, with the build still open. | No filter. |\n| `a_group_that_keeps_forking_is_emptied_by_the_kill` | A fork chain is emptied by the kill. | A single kill. **It stays green:** one group-directed SIGKILL already reaches a forking group, so the loop is recorded as not separable. |\n| `under_public_a_script_reaches_only_the_proxy` | `connect:13 udp:1 unix:1 netlink:1 proxy:http-403` (R2-D2). | The Landlock connect rule unrestricted; separately, the socket allowlist removed. |\n| `with_the_network_off_the_filter_refuses_the_sockets_themselves` (in the product PR) | Every socket is refused. | The off rule removed. |\n| `what_no_script_needs_is_refused` | `unshare:1 keyctl:1 ptrace:1 clone:1`. | No filter. |\n| `a_script_cannot_signal_the_server` | `os.kill(getppid(), 0)` answers `refused:1` at ABI 7 (R2-D1). | No scopes. |\n| `below_landlock_abi_6_scripts_run_and_the_report_warns` | At a forced ABI 5, both shortcodes render and the report warns once, naming ABI 5. At the kernel's own ABI, no warning. | The warning removed. |\n| `a_runner_killed_mid_call_fails_only_that_call_and_the_next_runs_in_a_fresh_one` | O1-D1: SIGKILL by pid ends the runner mid-call, \"killed by signal 9\"; the next call starts a fresh runner. | The dead child kept. |\n| `a_child_without_this_servers_handshake_is_refused` | Protocol 2, or no handshake, is refused. | No check. |\n| `the_lua_runner_is_this_executable_in_its_runner_mode` | The runner's `/proc/<pid>/exe` is this executable. | The Landlock file rule removed. |\n\n**Elsewhere:**\n- **`crates/lichen-cms/src/tests/lichen_env.rs`:** after `init`, a planted run's Lua runner holds only the keep-list and the site's home names. Red arm: `init` removing nothing, with both clears removed.\n- **`crates/lichen-cli/tests/script_runner_tests.rs`:**\n  - `lichen script-runner lua` hands back the handshake and an answer, with one thread and a peak of 104 MiB (under half the 256 MiB baseline);\n  - every `main` enters the runner mode first, and those are all the workspace's binaries.\n  - Red arms: a runtime started before the runner; lichen-tauri without the runner.\n- **`e2e/integration/test_script_shortcodes.py`:** in the real binary's runner mode, Lua answers and Python's `setsid` is `refused:1`. The S4 network test is unchanged.\n- **`e2e/plain-docker/script_shortcodes.sh`:** the operator's plain-Docker check (product PR body).\n\n**Arms** (lichen-ci notify-b2c496ba, at ecf5b3c6; that tip differs from this one only in comments):\n- every listed test is green at the tip: 14 targets;\n- each arm above is red on its tests: 16 of 17;\n- `one-kill-no-loop` stays green, as the table says.\n\n**Integration** (`e2e/run.sh integration loopback` at ecf5b3c6): 195 passed (notify-4a936e15).\n\n**Earlier check** at 2b7b793e (notify-c748b3a7): clippy clean, lichen-cms 185 passed, lichen-server `features` 29, the CLI's runner tests 2, plain Docker PASSED.\n\nChecks: `just gate --base a8397539` at 48e26f8e: RAN rust (1403 tests passed, 0 failed), frontends/builtin; SKIPPED lichen-ts, frontends/hugo-cms (unchanged); FAILED none; 0 warnings (notify-66a4cd93).\n\nRust: yes (tests). API contract: unchanged.",
+        "$type": "sh.tangled.repo.pull",
+        "title": "Tests: script runtimes O1 — the full sandbox, setsid refused, the kill, the network allowlist, the denylist, the signal scope, older kernels warned, the runner, plain Docker",
+        "rounds": [
+          {
+            "createdAt": "2026-10-08T21:34:29+03:00",
+            "patchBlob": {
+              "ref": {
+                "$link": "bafkreidf6x5hadmethrvdqm4j7isav5wlx2ngs2ydrdh6dwgpcrrbyjp6y"
+              },
+              "size": 20103,
+              "$type": "blob",
+              "mimeType": "application/gzip"
+            }
+          }
+        ],
+        "source": {
+          "branch": "s/162-script-runner-tests"
+        },
+        "target": {
+          "repo": "did:plc:wj53zt2oo653zr3wgnvn4llg",
+          "branch": "s/162-script-runner-product",
+          "repoDid": "did:plc:wj53zt2oo653zr3wgnvn4llg"
+        },
+        "createdAt": "2026-10-08T21:34:29+03:00"
+      }
+    }
+  }
+}

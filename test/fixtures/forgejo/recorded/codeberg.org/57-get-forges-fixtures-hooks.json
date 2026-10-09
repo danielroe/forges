@@ -1,0 +1,37 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/hooks?limit=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "x-total-count": "1"
+    },
+    "body": [
+      {
+        "id": 124905,
+        "type": "forgejo",
+        "branch_filter": "",
+        "url": "https://example.com/hook",
+        "config": {
+          "content_type": "json",
+          "url": "https://example.com/hook"
+        },
+        "events": [
+          "issues",
+          "issue_assign",
+          "issue_label",
+          "issue_milestone",
+          "issue_comment"
+        ],
+        "authorization_header": "",
+        "content_type": "json",
+        "metadata": null,
+        "active": true,
+        "updated_at": "2026-10-09T13:40:57+02:00",
+        "created_at": "2026-10-09T13:40:54+02:00"
+      }
+    ]
+  }
+}

@@ -1,0 +1,118 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://api.github.com/graphql",
+    "operationName": "DiscussionsList",
+    "variables": {
+      "owner": "h3js",
+      "name": "h3",
+      "first": 3,
+      "after": null,
+      "field": "CREATED_AT",
+      "direction": "DESC"
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "x-ratelimit-limit": "5000",
+      "x-ratelimit-remaining": "4992",
+      "x-ratelimit-reset": "1791555260"
+    },
+    "body": {
+      "data": {
+        "repository": {
+          "discussions": {
+            "pageInfo": {
+              "hasNextPage": true,
+              "endCursor": "Y3Vyc29yOnYyOpK0MjAyNi0wNC0yMVQwODo1NDowMlrOAJdnag=="
+            },
+            "nodes": [
+              {
+                "id": "D_kwDOErHI984Anmkd",
+                "number": 1440,
+                "title": "Why `public` is always returned as default `Cache-Control` value?",
+                "body": "#### Where it is Implemented\r\nhttps://github.com/h3js/h3/blob/main/src/utils/cache.ts\r\n\r\nAlso at line 12 it is stated that:\r\n```ts\r\n// * Note: `public` cache control will be added by default\r\n```\r\n\r\nAs stated at the comment we see in the implementation:\r\n```ts\r\nexport function handleCacheHeaders(event: H3Event, opts: CacheConditions): boolean {\r\n  const cacheControls = [\"public\", ...(opts.cacheControls || [])];\r\n  // further codes\r\n  }\r\n```\r\n\r\nWas this default `public` behavior intentional? This way it is impossible to return a `private` cache with `handleCacheHeaders(event, opts)` therefore nitro's `defineCachedHandler` as well.\r\n\r\n> -  `defineCachedHandler` → builds `EventHandler` (one of it's property is `handleCacheHeaders`) → passes those settings into ocache's function → ocache is the one that actually calls `handleCacheHeaders` internally, whenever it decides to.\r\n\r\n\r\nThough in nitro using `defineCachedFunction` omits this \"add these default headers\" completely but that outputs a json which is not exactly what we always want.\r\n\r\nSo does h3 (or Nitro on top of it) give you any other way to manually overwrite the cache-control header afterward, outside this function?\r\nAs far as I looked around there is no proven or mentioned way.\r\n\r\n_at least one person has reported this doesn't work [#1945](https://github.com/nitrojs/nitro/discussions/1945), and I couldn't find any documented override method_",
+                "closed": true,
+                "stateReason": "RESOLVED",
+                "url": "https://github.com/orgs/h3js/discussions/1440",
+                "createdAt": "2026-07-06T18:42:02Z",
+                "updatedAt": "2026-07-09T15:13:25Z",
+                "closedAt": "2026-07-09T15:13:25Z",
+                "locked": false,
+                "author": {
+                  "__typename": "User",
+                  "login": "Nayeem-4-You",
+                  "avatarUrl": "https://avatars.githubusercontent.com/u/224257367?u=7f55444aa6f940eab1b87233aba3a11e89cb0d54&v=4",
+                  "url": "https://github.com/Nayeem-4-You",
+                  "databaseId": 224257367,
+                  "name": "Nayeem (Nym)"
+                },
+                "labels": {
+                  "nodes": []
+                },
+                "comments": {
+                  "totalCount": 1
+                }
+              },
+              {
+                "id": "D_kwDOErHI984Al4mI",
+                "number": 1373,
+                "title": "Idiomatic way to create a reusable auth middleware that supports both app.use() and per-route handler wrapping in H3 v2",
+                "body": "I'm building a reusable middleware library with H3 v2 and want to support two usage patterns from a single function:\r\n\r\n```ts\r\n// Pattern A: app-wide via app.use()\r\napp.use(withAuth({ role: 'user' }))\r\n\r\n// Pattern B: per-route handler wrapping (e.g. Nitro/Nuxt file routes)\r\nexport default withAuth({ role: 'user' }, async (event) => {\r\n  return event.context.authCtx\r\n})\r\n```\r\n\r\nMy current implementation returns `defineMiddleware(...)` for pattern A and `defineEventHandler({ middleware: [m], handler })` for pattern B.\r\n\r\nTwo questions:\r\n\r\n1. For pattern B, is `defineEventHandler({ middleware, handler })` the right approach, or is there a more idiomatic way to compose a pre-handler middleware with a route handler?\r\n\r\n2. For Nuxt's `server/middleware/` files, the convention is `export default defineEventHandler(...)` but pattern A returns a `Middleware` type. Is it safe/correct to export a `Middleware` directly from a Nitro server middleware file, or should it always be wrapped in `defineEventHandler`?\r\n\r\nThanks!",
+                "closed": false,
+                "stateReason": null,
+                "url": "https://github.com/orgs/h3js/discussions/1373",
+                "createdAt": "2026-04-22T15:24:06Z",
+                "updatedAt": "2026-04-23T06:47:56Z",
+                "closedAt": null,
+                "locked": false,
+                "author": {
+                  "__typename": "User",
+                  "login": "targetlucked69",
+                  "avatarUrl": "https://avatars.githubusercontent.com/u/72330740?u=50fa4d4b7b6cc08c5a815c56a1e1144249dfbeb7&v=4",
+                  "url": "https://github.com/targetlucked69",
+                  "databaseId": 72330740,
+                  "name": "Alfred Trask"
+                },
+                "labels": {
+                  "nodes": []
+                },
+                "comments": {
+                  "totalCount": 1
+                }
+              },
+              {
+                "id": "D_kwDOErHI984Al2dq",
+                "number": 1371,
+                "title": "Shorthand for throwing HTTP errors",
+                "body": "Hi, not sure if this has been discussed before, but wanted to share an idea.\r\n\r\nRight now when I want to return a 404 from a handler I write:\r\n\r\n```ts\r\nthrow createError({ statusCode: 404 })\r\n```\r\n\r\nIt would be nice if h3 accepted a simpler shorthand like:\r\n\r\n```ts\r\nthrow 404\r\n```\r\n\r\nBasically: let the thrown value map to an HTTP error directly, without the `createError({ statusCode: ... })` wrapper.\r\n\r\n`createError` / `new HTTPError({ ... })` would still be there for the richer cases (custom `data`, headers, message, etc.).\r\n\r\nPR: #1372\r\n\r\n## Custom strings\r\n\r\nWe could also tried supporting a string form to carry a message:\r\n\r\n```ts\r\nthrow \"404 Lesson not found\"\r\n```\r\n\r\nBut parsing the status out of the string needs a regex and bumps the bundle size a bit, so I left it out of the PR. For messages, sticking with `new HTTPError({ status: 404, message: \"Lesson not found\" })` feels cleaner.",
+                "closed": false,
+                "stateReason": null,
+                "url": "https://github.com/orgs/h3js/discussions/1371",
+                "createdAt": "2026-04-21T08:54:02Z",
+                "updatedAt": "2026-04-21T18:49:23Z",
+                "closedAt": null,
+                "locked": false,
+                "author": {
+                  "__typename": "User",
+                  "login": "onmax",
+                  "avatarUrl": "https://avatars.githubusercontent.com/u/22072217?u=5cd9a530f8cd1669cff4f085b71096f3372b6e1e&v=4",
+                  "url": "https://github.com/onmax",
+                  "databaseId": 22072217,
+                  "name": "Max"
+                },
+                "labels": {
+                  "nodes": []
+                },
+                "comments": {
+                  "totalCount": 1
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  }
+}

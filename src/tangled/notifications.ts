@@ -119,12 +119,12 @@ export function createTangledNotifications(url: string, { instance, context, fet
         json: { uri: ref.id, read: true },
       })
     }),
-    markAllRead: verb('experimental', async (bulk = {}) => {
+    markAllRead: verb('unverified', async (bulk = {}) => {
       if (bulk.repo || bulk.before) {
         throw new UnsupportedOperationError('Tangled marks every notification read at once; repo and before filters are not supported', context)
       }
       await call(NOTIFICATION_NSID.markAllRead, { method: 'POST' })
     }),
-    unreadCount: verb('experimental', async () => (await call<{ count: number }>(NOTIFICATION_NSID.unreadCount)).count),
+    unreadCount: verb('unverified', async () => (await call<{ count: number }>(NOTIFICATION_NSID.unreadCount)).count),
   }
 }

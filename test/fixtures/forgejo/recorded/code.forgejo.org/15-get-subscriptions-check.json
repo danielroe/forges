@@ -1,0 +1,18 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://code.forgejo.org/api/v1/repos/forgejo/runner/issues/1765/subscriptions/check"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "subscribed": false,
+      "ignored": true,
+      "reason": null,
+      "created_at": "2026-09-30T22:03:00Z",
+      "url": "https://code.forgejo.org/api/v1/repos/forgejo/runner/pulls/1765/subscriptions",
+      "repository_url": "https://code.forgejo.org/api/v1/repos/forgejo/runner"
+    }
+  }
+}

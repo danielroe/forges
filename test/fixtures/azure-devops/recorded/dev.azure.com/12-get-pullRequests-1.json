@@ -1,0 +1,115 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://dev.azure.com/forges/forges-fixtures/_apis/git/repositories/forges-fixtures/pullRequests/1?api-version=7.1"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "repository": {
+        "id": "c67c02dd-cbca-45aa-a679-021bd4d2c4a7",
+        "name": "forges-fixtures",
+        "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7",
+        "project": {
+          "id": "b2332e32-1afe-4c85-9407-12e7af2bf24c",
+          "name": "forges-fixtures",
+          "url": "https://dev.azure.com/forges/_apis/projects/b2332e32-1afe-4c85-9407-12e7af2bf24c",
+          "state": "wellFormed",
+          "revision": 11,
+          "visibility": "private",
+          "lastUpdateTime": "2026-10-09T12:22:47.88Z"
+        },
+        "size": 717,
+        "remoteUrl": "https://dev.azure.com/forges/forges-fixtures/_git/forges-fixtures",
+        "sshUrl": "git@ssh.dev.azure.com:v3/forges/forges-fixtures/forges-fixtures",
+        "webUrl": "https://dev.azure.com/forges/forges-fixtures/_git/forges-fixtures",
+        "isDisabled": false,
+        "isInMaintenance": false
+      },
+      "pullRequestId": 1,
+      "codeReviewId": 1,
+      "status": "active",
+      "createdBy": {
+        "displayName": "danielroe",
+        "url": "https://spsprodweu6.vssps.visualstudio.com/Ad6317e89-50cc-469c-b506-66b9601cf085/_apis/Identities/48261c0d-8a6e-6a10-a9cb-c76b44ce18ce",
+        "_links": {
+          "avatar": {
+            "href": "https://dev.azure.com/forges/_apis/GraphProfile/MemberAvatars/aad.NDgyNjFjMGQtOGE2ZS03YTEwLWE5Y2ItYzc2YjQ0Y2UxOGNl"
+          }
+        },
+        "id": "48261c0d-8a6e-6a10-a9cb-c76b44ce18ce",
+        "uniqueName": "redacted@example.invalid",
+        "imageUrl": "https://dev.azure.com/forges/_api/_common/identityImage?id=48261c0d-8a6e-6a10-a9cb-c76b44ce18ce",
+        "descriptor": "aad.NDgyNjFjMGQtOGE2ZS03YTEwLWE5Y2ItYzc2YjQ0Y2UxOGNl"
+      },
+      "creationDate": "2026-10-09T12:29:05.0227134Z",
+      "title": "edit",
+      "description": "edit",
+      "sourceRefName": "refs/heads/fixture-pr",
+      "targetRefName": "refs/heads/main",
+      "mergeStatus": "succeeded",
+      "isDraft": false,
+      "mergeId": "11b013a0-0f87-401f-bee5-403d74914cd3",
+      "lastMergeSourceCommit": {
+        "commitId": "0f7fea462ab8103e55ca8aa0288ba85443f0e8f2",
+        "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/commits/0f7fea462ab8103e55ca8aa0288ba85443f0e8f2"
+      },
+      "lastMergeTargetCommit": {
+        "commitId": "d4461dd886445dfbd9cf59fbb00bbfc97f8e3688",
+        "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/commits/d4461dd886445dfbd9cf59fbb00bbfc97f8e3688"
+      },
+      "lastMergeCommit": {
+        "commitId": "8b2bd69f79ec2fd81031a8cf1a4070eec6f9ab25",
+        "author": {
+          "name": "danielroe",
+          "email": "redacted@example.invalid",
+          "date": "2026-10-09T12:29:05Z"
+        },
+        "committer": {
+          "name": "danielroe",
+          "email": "redacted@example.invalid",
+          "date": "2026-10-09T12:29:05Z"
+        },
+        "comment": "Merge pull request 1 from fixture-pr into main",
+        "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/commits/8b2bd69f79ec2fd81031a8cf1a4070eec6f9ab25"
+      },
+      "reviewers": [],
+      "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/pullRequests/1",
+      "_links": {
+        "self": {
+          "href": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/pullRequests/1"
+        },
+        "repository": {
+          "href": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7"
+        },
+        "workItems": {
+          "href": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/pullRequests/1/workitems"
+        },
+        "sourceBranch": {
+          "href": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/refs/heads/fixture-pr"
+        },
+        "targetBranch": {
+          "href": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/refs/heads/main"
+        },
+        "statuses": {
+          "href": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/pullRequests/1/statuses"
+        },
+        "sourceCommit": {
+          "href": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/commits/0f7fea462ab8103e55ca8aa0288ba85443f0e8f2"
+        },
+        "targetCommit": {
+          "href": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/commits/d4461dd886445dfbd9cf59fbb00bbfc97f8e3688"
+        },
+        "createdBy": {
+          "href": "https://spsprodweu6.vssps.visualstudio.com/Ad6317e89-50cc-469c-b506-66b9601cf085/_apis/Identities/48261c0d-8a6e-6a10-a9cb-c76b44ce18ce"
+        },
+        "iterations": {
+          "href": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/pullRequests/1/iterations"
+        }
+      },
+      "supportsIterations": true,
+      "artifactId": "vstfs:///Git/PullRequestId/b2332e32-1afe-4c85-9407-12e7af2bf24c%2fc67c02dd-cbca-45aa-a679-021bd4d2c4a7%2f1"
+    }
+  }
+}

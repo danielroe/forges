@@ -1,6 +1,6 @@
 <script setup lang="ts">
 defineProps<{
-  level: 'native' | 'experimental' | 'emulated' | 'none'
+  level: 'native' | 'experimental' | 'emulated' | 'unverified' | 'none'
 }>()
 </script>
 

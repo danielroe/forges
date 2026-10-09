@@ -1,0 +1,51 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.github.com/repos/h3js/h3/labels?per_page=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "<https://api.github.com/repositories/313641207/labels?per_page=3&page=2>; rel=\"next\", <https://api.github.com/repositories/313641207/labels?per_page=3&page=14>; rel=\"last\"",
+      "etag": "W/\"0324c348b6b102b23f0093457528b1fad34b547ed70fb2c8759250cbc47fd402\"",
+      "x-ratelimit-limit": "5000",
+      "x-ratelimit-remaining": "4996",
+      "x-ratelimit-reset": "1791554636"
+    },
+    "body": [
+      {
+        "id": 5793779354,
+        "node_id": "LA_kwDOErHI988AAAABWVYOmg",
+        "url": "https://api.github.com/repos/h3js/h3/labels/breaking%20change",
+        "name": "breaking change",
+        "color": "DF8359",
+        "default": false,
+        "description": "",
+        "archived_at": null,
+        "archived_by": null
+      },
+      {
+        "id": 2512662026,
+        "node_id": "MDU6TGFiZWwyNTEyNjYyMDI2",
+        "url": "https://api.github.com/repos/h3js/h3/labels/bug",
+        "name": "bug",
+        "color": "d73a4a",
+        "default": true,
+        "description": "Something isn't working",
+        "archived_at": null,
+        "archived_by": null
+      },
+      {
+        "id": 8937778092,
+        "node_id": "LA_kwDOErHI988AAAACFLurrA",
+        "url": "https://api.github.com/repos/h3js/h3/labels/bun",
+        "name": "bun",
+        "color": "abb080",
+        "default": false,
+        "description": "",
+        "archived_at": null,
+        "archived_by": null
+      }
+    ]
+  }
+}

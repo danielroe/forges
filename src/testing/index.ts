@@ -14,13 +14,17 @@ export interface Fixture {
     operationName?: string
     /** The GraphQL variables, for a GraphQL request. */
     variables?: Record<string, unknown>
+    /** The JSON or text the request sent, when recorded with `requestBodies`. Replay does not match on it. */
+    body?: unknown
   }
-  /** A JSON body, or the text of a response that is not JSON. */
+  /** A JSON body, the text of a response that is not JSON, or the base64 of one that is not text. */
   response: {
     status: number
     headers?: Record<string, string>
-    /** The response body: parsed JSON, or the text of a response that is not JSON. */
+    /** The response body: parsed JSON, the text of a response that is not JSON, or base64 when `encoding` is set. */
     body?: unknown
+    /** Set when `body` holds the base64 of a binary response. */
+    encoding?: 'base64'
   }
 }
 
@@ -37,6 +41,18 @@ export interface FixtureCall {
   authorization?: string
   /** All the request headers. */
   headers: Headers
+  /** The fixture that answered, or `undefined` where an override did. */
+  fixture?: Fixture
+}
+
+/** Options for {@link fixtureFetch}. */
+export interface FixtureFetchOptions {
+  /**
+   * Serve the fixtures that share a request in the order they were recorded,
+   * repeating the last, instead of always serving the last. Use it to replay
+   * a recording that reads the same URL before and after a write.
+   */
+  sequential?: boolean
 }
 
 /** A `fetch` that answers from fixtures, and records the calls it received. */
@@ -89,6 +105,7 @@ function callOf(input: string, init: RequestInit | undefined): FixtureCall {
  * request throws.
  * @param fixtures The recorded or hand-written requests and responses to serve.
  * @param overrides Responses that replace or add to the fixtures.
+ * @param options How to serve fixtures that share a request.
  * @example
  * ```ts
  * import { github } from 'forges'
@@ -98,27 +115,51 @@ function callOf(input: string, init: RequestInit | undefined): FixtureCall {
  * const provider = github({ fetch }).create()
  * ```
  */
-export function fixtureFetch(fixtures: Iterable<Fixture>, overrides: Record<string, Fixture['response']> = {}): FixtureFetch {
-  const responses = new Map<string, Fixture['response']>()
+export function fixtureFetch(fixtures: Iterable<Fixture>, overrides: Record<string, Fixture['response']> = {}, options: FixtureFetchOptions = {}): FixtureFetch {
+  const responses = new Map<string, Array<{ response: Fixture['response'], fixture?: Fixture }>>()
   for (const fixture of fixtures) {
-    responses.set(fixtureKey(fixture.request.method, fixture.request.url, fixture.request.operationName, fixture.request.variables), fixture.response)
+    const key = fixtureKey(fixture.request.method, fixture.request.url, fixture.request.operationName, fixture.request.variables)
+    const queue = options.sequential ? responses.get(key) : undefined
+    if (queue) {
+      queue.push({ response: fixture.response, fixture })
+    }
+    else {
+      responses.set(key, [{ response: fixture.response, fixture }])
+    }
   }
   for (const [override, response] of Object.entries(overrides)) {
     const [method = 'GET', url = '', operationName] = override.split(' ')
-    responses.set(fixtureKey(method, url, operationName), response)
+    responses.set(fixtureKey(method, url, operationName), [{ response }])
+  }
+  const served = new Map<string, number>()
+  const take = (key: string) => {
+    const queue = responses.get(key)
+    if (!queue) {
+      return undefined
+    }
+    const index = served.get(key) ?? 0
+    served.set(key, index + 1)
+    return queue[Math.min(index, queue.length - 1)]
   }
   const calls: FixtureCall[] = []
   const fetch: FetchLike = async (input, init) => {
     const call = callOf(input, init)
     calls.push(call)
-    const response = responses.get(fixtureKey(call.method, input, call.operationName, call.variables)) ?? responses.get(fixtureKey(call.method, input, call.operationName))
-    if (!response) {
+    const match = take(fixtureKey(call.method, input, call.operationName, call.variables)) ?? take(fixtureKey(call.method, input, call.operationName))
+    if (!match) {
       throw new Error(`No fixture for ${call.method} ${input}${call.operationName ? ` (${call.operationName})` : ''}`)
     }
+    const { response } = match
+    call.fixture = match.fixture
     const headers = new Headers(response.headers)
-    const body = response.body === undefined ? null : typeof response.body === 'string' ? response.body : JSON.stringify(response.body)
+    const binary = response.encoding === 'base64' && typeof response.body === 'string'
+    const body = response.body === undefined
+      ? null
+      : binary
+        ? Uint8Array.from(atob(response.body as string), char => char.charCodeAt(0))
+        : typeof response.body === 'string' ? response.body : JSON.stringify(response.body)
     if (body !== null && !headers.has('content-type')) {
-      headers.set('content-type', typeof response.body === 'string' ? 'text/plain' : 'application/json')
+      headers.set('content-type', binary ? 'application/octet-stream' : typeof response.body === 'string' ? 'text/plain' : 'application/json')
     }
     const result = new Response(body, { status: response.status, headers })
     Object.defineProperty(result, 'url', { value: input })
@@ -137,31 +178,63 @@ export interface RecordingFetch {
 
 const RECORDED_HEADERS = ['link', 'etag', 'location', 'retry-after', 'x-ratelimit-limit', 'ratelimit-limit', 'x-ratelimit-remaining', 'x-ratelimit-reset', 'ratelimit-remaining', 'ratelimit-reset', 'x-total', 'x-total-count', 'x-total-pages', 'x-next-page', 'x-page', 'x-per-page', 'total_page', 'total_count']
 
+/** Options for {@link recordingFetch}. */
+export interface RecordingFetchOptions {
+  /**
+   * Record the body of each request that sends a string, parsed as JSON where
+   * it is JSON. A request body can hold a secret (a password, a webhook
+   * secret), so redact it too.
+   */
+  requestBodies?: boolean
+}
+
+/** Parsed JSON, or the text as is where it is not JSON or parsing would round an integer beyond `Number.MAX_SAFE_INTEGER`. */
+function parsed(text: string): unknown {
+  try {
+    let lossy = false
+    const value: unknown = JSON.parse(text, (_key, item: unknown) => {
+      lossy ||= typeof item === 'number' && Number.isInteger(item) && !Number.isSafeInteger(item)
+      return item
+    })
+    return lossy ? text : value
+  }
+  catch {
+    return text
+  }
+}
+
+function utf8(bytes: Uint8Array): string | undefined {
+  try {
+    return new TextDecoder('utf-8', { fatal: true }).decode(bytes)
+  }
+  catch {
+    return undefined
+  }
+}
+
 /**
  * Wraps `fetch` (the global one by default) and records every response as a
  * {@link Fixture}. Request headers are never recorded, but URLs and response
  * bodies are, and either can hold a secret (an installation token, a query
- * token). Use `redact` to rewrite each fixture before it is kept.
+ * token). Use `redact` to rewrite each fixture before it is kept. A body that
+ * is not UTF-8 text is kept as base64.
  * @param fetch The `fetch` to record. Defaults to the global one.
  * @param redact Rewrites each fixture before it is kept, to remove secrets.
+ * @param options What else to record.
  */
-export function recordingFetch(fetch: FetchLike = globalThis.fetch, redact: (fixture: Fixture) => Fixture = fixture => fixture): RecordingFetch {
+export function recordingFetch(fetch: FetchLike = globalThis.fetch, redact: (fixture: Fixture) => Fixture = fixture => fixture, options: RecordingFetchOptions = {}): RecordingFetch {
   const fixtures: Fixture[] = []
   const recording: FetchLike = async (input, init) => {
     const call = callOf(input, init)
+    const sent = options.requestBodies && call.body !== undefined ? parsed(call.body) : undefined
     const response = await fetch(input, init)
-    const text = await response.clone().text()
-    let body: unknown
-    try {
-      body = text ? JSON.parse(text) : undefined
-    }
-    catch {
-      body = text
-    }
+    const bytes = new Uint8Array(await response.clone().arrayBuffer())
+    const text = utf8(bytes)
+    const body = text ? parsed(text) : undefined
     const headers = Object.fromEntries(RECORDED_HEADERS.flatMap(name => response.headers.has(name) ? [[name, response.headers.get(name)!]] : []))
     fixtures.push(redact({
-      request: { method: call.method, url: input, ...call.operationName ? { operationName: call.operationName, variables: call.variables } : {} },
-      response: { status: response.status, headers, ...body === undefined ? {} : { body } },
+      request: { method: call.method, url: input, ...call.operationName ? { operationName: call.operationName, variables: call.variables } : {}, ...sent === undefined ? {} : { body: sent } },
+      response: { status: response.status, headers, ...text === undefined ? { body: toBase64(bytes), encoding: 'base64' as const } : body === undefined ? {} : { body } },
     }))
     return response
   }

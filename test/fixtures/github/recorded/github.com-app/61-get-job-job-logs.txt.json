@@ -1,0 +1,13 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://productionresultssa0.blob.core.windows.net/actions-results/56d87952-88be-8414-9fae-c8fa46994489/workflow-job-run-59ad1209-d8d7-5e2f-b1a5-18963b59c06f/logs/job/job-logs.txt?rsct=text%2Fplain&se=2026-10-09T13%3A24%3A41Z&sig=REDACTED&ske=2026-10-09T16%3A52%3A06Z&skoid=REDACTED&sks=b&skt=2026-10-09T12%3A52%3A06Z&sktid=REDACTED&skv=2025-11-05&sp=r&spr=https&sr=b&st=2026-10-09T13%3A14%3A36Z&sv=2025-11-05"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "\"0x8DF25F6CAEE770A\""
+    },
+    "body": "2026-10-09T11:16:38.8932427Z Current runner version: '2.337.0'\n2026-10-09T11:16:38.8952094Z ##[group]Runner Image Provisioner\n2026-10-09T11:16:38.8952844Z Hosted Compute Agent\n2026-10-09T11:16:38.8953205Z Version: 20261002.596\n2026-10-09T11:16:38.8953612Z Commit: c3d12f3313a95f25162a1503be624f3b0617f8c0\n2026-10-09T11:16:38.8954121Z Build Date: 2026-10-02T22:28:27Z\n2026-10-09T11:16:38.8954543Z Worker ID: {0b3fc26c-2fb4-4ee9-ad33-ace6137b7130}\n2026-10-09T11:16:38.8955007Z Region: centralus\n2026-10-09T11:16:38.8955349Z Cloud: Azure\n2026-10-09T11:16:38.8955699Z ##[endgroup]\n2026-10-09T11:16:38.8956653Z ##[group]Operating System\n2026-10-09T11:16:38.8957027Z Ubuntu\n2026-10-09T11:16:38.8957379Z 24.04.5\n2026-10-09T11:16:38.8957708Z LTS\n2026-10-09T11:16:38.8958056Z ##[endgroup]\n2026-10-09T11:16:38.8958453Z ##[group]Runner Image\n2026-10-09T11:16:38.8958811Z Image: ubuntu-24.04\n2026-10-09T11:16:38.8959189Z Version: 20261004.327.1\n2026-10-09T11:16:38.8960207Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20261004.327/images/ubuntu/Ubuntu2404-Readme.md\n2026-10-09T11:16:38.8961122Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20261004.327\n2026-10-09T11:16:38.8961688Z ##[endgroup]\n2026-10-09T11:16:38.8962386Z ##[group]GITHUB_TOKEN Permissions\n2026-10-09T11:16:38.8963888Z Contents: read\n2026-10-09T11:16:38.8964282Z Metadata: read\n2026-10-09T11:16:38.8964632Z ##[endgroup]\n2026-10-09T11:16:38.8966065Z Secret source: Actions\n2026-10-09T11:16:38.8966720Z Cache mode: write\n2026-10-09T11:16:38.8967152Z Prepare workflow directory\n2026-10-09T11:16:38.9188842Z Prepare all required actions\n2026-10-09T11:16:38.9282849Z Complete job name: check\n2026-10-09T11:16:38.9856549Z ##[group]Run echo \"forges fixture\"\n2026-10-09T11:16:38.9857323Z \u001b[36;1mecho \"forges fixture\"\u001b[0m\n2026-10-09T11:16:39.1049401Z shell: /usr/bin/bash -e {0}\n2026-10-09T11:16:39.1050552Z ##[endgroup]\n2026-10-09T11:16:39.1231625Z forges fixture\n2026-10-09T11:16:39.1346519Z Cleaning up orphan processes\n"
+  }
+}

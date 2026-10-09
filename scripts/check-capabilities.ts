@@ -1,15 +1,22 @@
 /**
- * Fails for every capability a provider declares `true` that no test
- * exercised, and for every capability an anonymous provider declares `true`
- * that no test exercised without credentials. Reads `test/.verbs/`, written by
- * `test/setup/verbs.ts` during `vitest run`; pass `--report` to print without
- * failing.
+ * Checks every capability a provider declares against the forge data the
+ * tests used, read from `test/.verbs/` (written by `test/setup/verbs.ts`
+ * during `vitest run`):
+ *
+ * - `true`, `'experimental'` and `'emulated'` need a call that used a
+ *   recording of the live forge or a fixture hand-authored from its
+ *   documentation, or that sends no request;
+ * - `'unverified'` fails once such a call exists, so that it is promoted.
+ *
+ * Anonymous providers are checked against calls made without credentials.
+ * Pass `--report` to print without failing, and `--documented` to list the
+ * capabilities that only documentation fixtures verify, which are still to
+ * be recorded.
  */
-import type { ForgeCapabilities, ForgeProvider } from '../src/index.ts'
-import { existsSync, readdirSync, readFileSync } from 'node:fs'
+import { existsSync } from 'node:fs'
 import process from 'node:process'
 import { CAPABILITY_TABLE } from '../src/capability-table.ts'
-import { azureDevOps, bitbucket, cursorOrigin, forgejo, gitea, gitee, github, gitlab, pushin, tangled } from '../src/index.ts'
+import { capabilityAt, CHECKED_PROVIDERS, readExercised } from './exercised.ts'
 
 const directory = new URL('../test/.verbs/', import.meta.url)
 if (!existsSync(directory)) {
@@ -17,17 +24,7 @@ if (!existsSync(directory)) {
   process.exit(1)
 }
 
-const exercised = new Map<string, Set<string>>()
-for (const file of readdirSync(directory)) {
-  const data = JSON.parse(readFileSync(new URL(file, directory), 'utf8')) as Record<string, string[]>
-  for (const [forge, verbs] of Object.entries(data)) {
-    const set = exercised.get(forge) ?? new Set<string>()
-    exercised.set(forge, set)
-    for (const verb of verbs) {
-      set.add(verb)
-    }
-  }
-}
+const exercised = readExercised(directory)
 
 /** Forges sharing one implementation, so a test on either exercises both. */
 for (const [left, right] of [['forgejo', 'gitea'], ['forgejo:anonymous', 'gitea:anonymous']]) {
@@ -36,65 +33,49 @@ for (const [left, right] of [['forgejo', 'gitea'], ['forgejo:anonymous', 'gitea:
   exercised.set(right!, merged)
 }
 
-const auth = { type: 'token', token: 't' } as const
-const providers: Array<[string, ForgeProvider]> = [
-  ['github', github({ auth }).create()],
-  ['github', github({ auth: { type: 'app', appId: 1, privateKey: '', installationId: 1 } }).create()],
-  ['gitlab', gitlab({ auth }).create()],
-  ['bitbucket', bitbucket({ auth }).create()],
-  ['forgejo', forgejo({ auth }).create()],
-  ['gitea', gitea({ auth }).create()],
-  ['gitee', gitee({ auth }).create()],
-  ['azure-devops', azureDevOps({ auth, organization: 'acme' }).create()],
-  ['cursor-origin', cursorOrigin({ auth }).create()],
-  ['tangled', tangled({ auth: { type: 'app_password', identifier: 'h', password: 'p' }, notificationsUrl: 'https://notifications.example' }).create()],
-  ['pushin', pushin({ auth }).create()],
-  ['github:anonymous', github({}).create()],
-  ['gitlab:anonymous', gitlab({}).create()],
-  ['bitbucket:anonymous', bitbucket({}).create()],
-  ['forgejo:anonymous', forgejo({}).create()],
-  ['gitea:anonymous', gitea({}).create()],
-  ['gitee:anonymous', gitee({}).create()],
-  ['azure-devops:anonymous', azureDevOps({ organization: 'acme' }).create()],
-  ['cursor-origin:anonymous', cursorOrigin({}).create()],
-  ['tangled:anonymous', tangled({}).create()],
-  ['pushin:anonymous', pushin({}).create()],
-]
-
-function read(capabilities: ForgeCapabilities, path: string): unknown {
-  return path.split('.').reduce<unknown>((value, key) => (value as Record<string, unknown> | undefined)?.[key], capabilities)
-}
-
-const untested: string[] = []
-for (const [forge, provider] of providers) {
+const unverified: string[] = []
+const promotable: string[] = []
+const documented: string[] = []
+for (const [forge, provider] of CHECKED_PROVIDERS) {
   const seen = exercised.get(forge) ?? new Set<string>()
   for (const entry of CAPABILITY_TABLE) {
     // Verifying and translating a webhook delivery sends no request, so credentials make no difference to it.
     if (!entry.verbs?.length || (provider.authKind === 'anonymous' && entry.derived === 'webhook')) {
       continue
     }
-    const value = read(provider.capabilities, entry.capability)
-    const covered = (kind?: string) => entry.verbs!.some(verb => seen.has(kind ? `${verb}:${kind}` : verb))
-    if (value === true && !covered()) {
-      untested.push(`${forge}: ${entry.capability}`)
-    }
-    else if (value && typeof value === 'object') {
-      for (const [kind, support] of Object.entries(value)) {
-        if (support === true && !covered(kind)) {
-          untested.push(`${forge}: ${entry.capability} (${kind})`)
-        }
+    const value = capabilityAt(provider.capabilities, entry.capability)
+    const cells = value && typeof value === 'object' ? Object.entries(value) : [['', value] as const]
+    for (const [kind, support] of cells) {
+      const name = `${forge}: ${entry.capability}${kind ? ` (${kind})` : ''}`
+      const has = (provenance: string) => entry.verbs!.some(verb => seen.has(`${kind ? `${verb}:${kind}` : verb}#${provenance}`))
+      const verified = has('recorded') || has('documented') || has('offline')
+      if (support === 'unverified' && verified && !entry.derived) {
+        promotable.push(name)
+      }
+      else if (support !== false && support !== 'unverified' && !verified) {
+        unverified.push(`${name} is ${support === true ? 'true' : `'${support}'`}`)
+      }
+      else if (verified && !has('recorded') && !has('offline')) {
+        documented.push(name)
       }
     }
   }
 }
 
-const unique = [...new Set(untested)]
-if (unique.length) {
-  console.error(`${unique.length} capabilities are declared true without a test exercising them:\n  ${unique.join('\n  ')}`)
+const failures = [
+  ...[...new Set(unverified)].map(line => `${line}, but no test verifies it against a recording or documentation; declare it 'unverified'`),
+  ...[...new Set(promotable)].map(line => `${line} is 'unverified', but a recording or documentation verifies it; declare it true, 'experimental' or 'emulated'`),
+]
+const onlyDocumented = [...new Set(documented)]
+console.info(process.argv.includes('--documented')
+  ? `${onlyDocumented.length} capabilities are verified only by fixtures written from documentation:\n  ${onlyDocumented.join('\n  ')}`
+  : `${onlyDocumented.length} capabilities are verified only by fixtures written from documentation, and are still to be recorded; pass --documented to list them.`)
+if (failures.length) {
+  console.error(`${failures.length} capabilities do not match what the tests verify:\n  ${failures.join('\n  ')}`)
   if (!process.argv.includes('--report')) {
     process.exit(1)
   }
 }
 else {
-  console.info('Every capability declared true is exercised by a test.')
+  console.info('Every declared capability matches what the tests verify.')
 }

@@ -1,0 +1,14 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitea.com/api/v1/repos/gitea/tea/collaborators/lunny/permission"
+  },
+  "response": {
+    "status": 403,
+    "headers": {},
+    "body": {
+      "message": "Only admins can query all permissions, repo admins can query all repo permissions, collaborators can query only their own",
+      "url": "https://gitea.com/api/swagger"
+    }
+  }
+}

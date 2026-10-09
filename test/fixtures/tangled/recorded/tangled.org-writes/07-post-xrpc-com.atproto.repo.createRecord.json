@@ -1,0 +1,41 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://tngl.sh/xrpc/com.atproto.repo.createRecord",
+    "body": {
+      "repo": "did:plc:7qksav5io2s4qfg67pe7iqqk",
+      "collection": "sh.tangled.feed.comment",
+      "record": {
+        "$type": "sh.tangled.feed.comment",
+        "body": {
+          "$type": "sh.tangled.markup.markdown",
+          "text": "A comment from run 20261009191401.",
+          "original": "A comment from run 20261009191401."
+        },
+        "subject": {
+          "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.issue/3mxhongxted2y",
+          "cid": "bafyreicoydw363o6laobi46kqeynrmego5la3qovmfbgtuhehuufok6gje"
+        },
+        "createdAt": "2026-10-09T19:14:04.385Z"
+      }
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"11b-63JEJwD72DvGgnfoRxhQDmvHYKI\"",
+      "ratelimit-limit": "3000",
+      "ratelimit-remaining": "2994",
+      "ratelimit-reset": "1791573543"
+    },
+    "body": {
+      "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.feed.comment/3mxhonh73rt2y",
+      "cid": "bafyreifermhmeh3w6cxqgxzhoctryci7jr7rfp7dxcljz2li3rm4qoeehu",
+      "commit": {
+        "cid": "bafyreiamjmlkkcokeg57liy32omw6qa4ngfcugwkptnjkxbasqid3bppae",
+        "rev": "3mxhonh7dlt2y"
+      },
+      "validationStatus": "unknown"
+    }
+  }
+}

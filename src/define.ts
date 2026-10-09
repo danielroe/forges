@@ -1,5 +1,5 @@
 import type { Fetcher, FetcherOptions } from './fetch.ts'
-import type { ApproveAndMergeOptions, Check, Comment, Cursor, ForgeEventInput, ForgeInstance, ForgeKind, Installation, ListOptions, MergeOptions, Notification, NotificationListOptions, Page, RepoRef, SecurityAlertKind, SecurityAlertListOptions, TextLimits, ThreadKind, ThreadQuery, ThreadRef, UpsertCommentInput, UpsertCommentResult, WebhookEventType } from './model.ts'
+import type { ApproveAndMergeOptions, Check, Comment, Cursor, ForgeEventInput, ForgeInstance, ForgeKind, Installation, ListOptions, MergeOptions, Notification, NotificationListOptions, Page, RepoRef, SecurityAlertKind, SecurityAlertListOptions, Support, TextLimits, ThreadKind, ThreadQuery, ThreadRef, UpsertCommentInput, UpsertCommentResult, WebhookEventType } from './model.ts'
 import type {
   AuthKind,
   ChecksApi,
@@ -44,7 +44,7 @@ export interface CapabilityEnv {
 }
 
 /** A fixed support level, or one computed from the instance version. */
-export type SupportInput = boolean | 'emulated' | 'experimental' | ((env: CapabilityEnv) => boolean | 'emulated' | 'experimental')
+export type SupportInput = Support | ((env: CapabilityEnv) => Support)
 
 /** The thread kinds that verbs can differ by. */
 export type VerbKind = Exclude<ThreadKind, 'other'>
@@ -297,7 +297,7 @@ export interface ProviderContext<TOptions, TState> extends ProviderBase<TOptions
 /** The defaults, the authentication and the `setup()` of a forge. */
 export interface ProviderDefinition<TOptions extends ForgeOptionsBase, TState = undefined> {
   forge: ForgeKind
-  /** The provider has not reached parity yet. */
+  /** The forge's API as a whole is unstable, so the provider can change with it. */
   experimental?: true
   /**
    * Accepts a missing `auth` as `{ type: 'anonymous' }`: core then sends no

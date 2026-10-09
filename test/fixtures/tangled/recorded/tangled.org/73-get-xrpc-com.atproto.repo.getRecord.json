@@ -1,45 +1,19 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://auriporia.us-west.host.bsky.network/xrpc/com.atproto.repo.getRecord?repo=did%3Aplc%3Aqfngkejlw4ghji2myc73hbdh&collection=sh.tangled.repo.pull&rkey=3mwv3k7yxe522"
+    "url": "https://eurosky.social/xrpc/com.atproto.repo.getRecord?repo=did%3Aplc%3Ahwevmowznbiukdf6uk5dwrrq&collection=sh.tangled.repo.pull.comment&rkey=3m7rqi342lu22"
   },
   "response": {
-    "status": 200,
+    "status": 400,
     "headers": {
-      "etag": "W/\"7ac-PEoslApaompLYuyKMxKm/pJsNzM\"",
-      "ratelimit-remaining": "2997",
-      "ratelimit-reset": "1790944503"
+      "etag": "W/\"90-ZM/UPFZ6M3Oli5GcBwLReIXVCP4\"",
+      "ratelimit-limit": "3000",
+      "ratelimit-remaining": "2996",
+      "ratelimit-reset": "1791552012"
     },
     "body": {
-      "uri": "at://did:plc:qfngkejlw4ghji2myc73hbdh/sh.tangled.repo.pull/3mwv3k7yxe522",
-      "cid": "bafyreidtzrrd5aop56qyydvzhu4dden5yddahvpdl4jrjevjuu4o3pwoka",
-      "value": {
-        "body": "description:\ncodex-assistant's embedded-folder rebuild tracking (#1063, lichen-adversary SATISFIED at 87b961ea), folded into this stack on top of item 9's unit, as s/96a was.\n- The merge of 87b961ea brings release-only build.rs watches for the folders lichen-cms and lichen-server embed (cargo:rerun-if-changed), so a release build follows an edited, added or removed embedded file (spec: machine-docs/backlog/embedded-folders-rerun-if-changed.md).\n- One commit of this unit's own: /lichen-embed-proof-* in .gitignore, the proof's scratch workspaces in the checkout (lichen-adversary's note on #1063).\n\ninfo:\nUnit: codex-assistant #1063/#1064, folded (s/104, product).\nParent: s/103-page-paths-tests @ afbdbc5ed613c3359ee3df2cad46e0848d068fa0 (#1070).\nBranch: s/104-embed-rerun-product @ 37073b14.\nCommits: f27213d0 (merge of 87b961ea, #1063's product), 814d3260 (the .gitignore line), and merges of the branch beneath.\nRust: yes (build scripts). API contract: unchanged.\nChecks on lichen-ci: gate at the tests tip 1914378f vs afbdbc5e (notify-34985626): FAILED none; rust (with the embedded-folder proof OK and its red arms failing as they should), frontends/builtin and lichen-ts PASSED; frontends/hugo-cms skipped (unchanged).",
-        "$type": "sh.tangled.repo.pull",
-        "title": "product: codex-assistant's embedded-folder rebuild tracking (#1063), folded into the stack",
-        "rounds": [
-          {
-            "createdAt": "2026-10-02T12:44:20+03:00",
-            "patchBlob": {
-              "ref": {
-                "$link": "bafkreidnnbjxhjwj2rxjkq6ljg7ljq7s3dl4idk6m7tvqmnb5fesx5poui"
-              },
-              "size": 1363,
-              "$type": "blob",
-              "mimeType": "application/gzip"
-            }
-          }
-        ],
-        "source": {
-          "branch": "s/104-embed-rerun-product"
-        },
-        "target": {
-          "repo": "did:plc:wj53zt2oo653zr3wgnvn4llg",
-          "branch": "s/103-page-paths-tests",
-          "repoDid": "did:plc:wj53zt2oo653zr3wgnvn4llg"
-        },
-        "createdAt": "2026-10-02T12:44:20+03:00"
-      }
+      "error": "RecordNotFound",
+      "message": "Could not locate record: at://did:plc:hwevmowznbiukdf6uk5dwrrq/sh.tangled.repo.pull.comment/3m7rqi342lu22"
     }
   }
 }

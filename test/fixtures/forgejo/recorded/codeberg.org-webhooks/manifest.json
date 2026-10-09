@@ -1,0 +1,24 @@
+{
+  "baseUrl": "https://codeberg.org/api/v1",
+  "repo": {
+    "forge": "forgejo",
+    "instance": "codeberg.org",
+    "owner": "forges-fixtures",
+    "name": "forges-fixtures"
+  },
+  "scratch": {
+    "forge": "forgejo",
+    "instance": "codeberg.org",
+    "owner": "forges-fixtures",
+    "name": "forges-fixtures"
+  },
+  "webhookSecret": "forges-fixture-secret",
+  "recordedAt": "2026-10-09T20:11:18.128Z",
+  "steps": [],
+  "deliveries": [
+    "01-issues",
+    "02-issue_comment",
+    "03-issues",
+    "04-push"
+  ]
+}

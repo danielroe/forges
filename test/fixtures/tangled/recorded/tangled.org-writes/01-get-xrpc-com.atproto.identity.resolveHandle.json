@@ -1,0 +1,13 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://public.api.bsky.app/xrpc/com.atproto.identity.resolveHandle?handle=roebot.tngl.sh"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "did": "did:plc:7qksav5io2s4qfg67pe7iqqk"
+    }
+  }
+}

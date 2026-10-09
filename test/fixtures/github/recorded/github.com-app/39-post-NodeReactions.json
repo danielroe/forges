@@ -1,0 +1,45 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://api.github.com/graphql",
+    "operationName": "NodeReactions",
+    "variables": {
+      "id": "MDEwOkRpc2N1c3Npb24zMzY5MjU2",
+      "after": null
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "x-ratelimit-limit": "5000",
+      "x-ratelimit-remaining": "4987",
+      "x-ratelimit-reset": "1791555260"
+    },
+    "body": {
+      "data": {
+        "node": {
+          "reactions": {
+            "pageInfo": {
+              "hasNextPage": false,
+              "endCursor": null
+            },
+            "nodes": []
+          }
+        }
+      },
+      "extensions": {
+        "warnings": [
+          {
+            "type": "DEPRECATION",
+            "message": "The id MDEwOkRpc2N1c3Npb24zMzY5MjU2 is deprecated. Update your cache to use the next_global_id from the data payload.",
+            "data": {
+              "legacy_global_id": "MDEwOkRpc2N1c3Npb24zMzY5MjU2",
+              "next_global_id": "D_kwDOBEqSIc4AM2ko"
+            },
+            "link": "https://docs.github.com"
+          }
+        ]
+      }
+    }
+  }
+}

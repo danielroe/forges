@@ -1,0 +1,36 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://api.github.com/graphql",
+    "operationName": "RemoveReaction",
+    "variables": {
+      "id": "D_kwDOVCTdtM4Ap5qt",
+      "content": "THUMBS_UP"
+    },
+    "body": {
+      "query": "mutation RemoveReaction($id: ID!, $content: ReactionContent!) {\n  removeReaction(input: { subjectId: $id, content: $content }) { reaction { content } }\n}",
+      "variables": {
+        "id": "D_kwDOVCTdtM4Ap5qt",
+        "content": "THUMBS_UP"
+      },
+      "operationName": "RemoveReaction"
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "x-ratelimit-limit": "5000",
+      "x-ratelimit-remaining": "4981",
+      "x-ratelimit-reset": "1791559276"
+    },
+    "body": {
+      "data": {
+        "removeReaction": {
+          "reaction": {
+            "content": "THUMBS_UP"
+          }
+        }
+      }
+    }
+  }
+}

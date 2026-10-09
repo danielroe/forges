@@ -13,12 +13,12 @@ import { rolldown } from 'rolldown'
 /** `absent` is a string only the webhook code contains; a Lite bundle must not carry it. */
 const BUDGETS: Array<{ name: string, source: string, imports: string, minified: number, gzipped: number, absent?: string }> = [
   { name: 'forges', source: 'index.mjs', imports: 'createForges', minified: 9_000, gzipped: 2_650 },
-  { name: 'forges/github', source: 'github/index.mjs', imports: 'github', minified: 99_750, gzipped: 30_600 },
-  { name: 'github lite', source: 'github/index.mjs', imports: 'githubLite', minified: 91_700, gzipped: 28_400, absent: 'x-hub-signature-256' },
-  { name: 'forges/gitlab', source: 'gitlab/index.mjs', imports: 'gitlab', minified: 76_750, gzipped: 24_100 },
-  { name: 'gitlab lite', source: 'gitlab/index.mjs', imports: 'gitlabLite', minified: 69_850, gzipped: 22_050, absent: 'x-gitlab-token' },
-  { name: 'forges/tangled', source: 'tangled/index.mjs', imports: 'tangled', minified: 59_700, gzipped: 19_750 },
-  { name: 'tangled lite', source: 'tangled/index.mjs', imports: 'tangledLite', minified: 55_950, gzipped: 18_500, absent: 'x-tangled-signature-256' },
+  { name: 'forges/github', source: 'github/index.mjs', imports: 'github', minified: 100_000, gzipped: 30_650 },
+  { name: 'github lite', source: 'github/index.mjs', imports: 'githubLite', minified: 92_000, gzipped: 28_450, absent: 'x-hub-signature-256' },
+  { name: 'forges/gitlab', source: 'gitlab/index.mjs', imports: 'gitlab', minified: 76_900, gzipped: 24_150 },
+  { name: 'gitlab lite', source: 'gitlab/index.mjs', imports: 'gitlabLite', minified: 70_000, gzipped: 22_100, absent: 'x-gitlab-token' },
+  { name: 'forges/tangled', source: 'tangled/index.mjs', imports: 'tangled', minified: 59_900, gzipped: 19_800 },
+  { name: 'tangled lite', source: 'tangled/index.mjs', imports: 'tangledLite', minified: 56_200, gzipped: 18_600, absent: 'x-tangled-signature-256' },
 ]
 
 async function measure(source: string, imports: string): Promise<{ minified: number, gzipped: number, lazy: number, code: string }> {

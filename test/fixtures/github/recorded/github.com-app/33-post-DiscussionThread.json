@@ -1,0 +1,59 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://api.github.com/graphql",
+    "operationName": "DiscussionThread",
+    "variables": {
+      "owner": "nuxt",
+      "name": "nuxt",
+      "number": 9303
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "x-ratelimit-limit": "5000",
+      "x-ratelimit-remaining": "4993",
+      "x-ratelimit-reset": "1791555260"
+    },
+    "body": {
+      "data": {
+        "repository": {
+          "discussion": {
+            "id": "MDEwOkRpc2N1c3Npb24zMzY5MjU2",
+            "number": 9303,
+            "title": "How to use Nuxt with newrelic node agent",
+            "body": "### What problem does this feature solve?\n\nNewrelic's node agent has a requirement that it's the first line of your main module in order to properly bootstrap. https://docs.newrelic.com/docs/agents/nodejs-agent/installation-configuration/install-nodejs-agent#installing\n\nCurrently there's no way to do this in Nuxt's setup.\n\nThere may also be other use-cases outside of analytics modules, but I can't think of any right now.\n\n### What does the proposed changes look like?\n\nSupport some way of requiring modules as the first line of the main js entrypoint, perhaps from a hook or something that will be injected in the build step? I would provide code examples but I'm not that familiar with Nuxt internals yet.\n\n<!--cmty--><!--cmty_prevent_hook-->\n<div align=\"right\"><sub><em>This feature request is available on <a href=\"https://cmty.app/nuxt\">Nuxt</a> community (<a href=\"https://cmty.app/nuxt/nuxt.js/issues/c9646\">#c9646</a>)</em></sub></div>",
+            "closed": false,
+            "stateReason": null,
+            "url": "https://github.com/nuxt/nuxt/discussions/9303",
+            "createdAt": "2019-08-15T17:32:21Z",
+            "updatedAt": "2024-08-19T14:19:08Z",
+            "closedAt": null,
+            "locked": false,
+            "author": {
+              "__typename": "User",
+              "login": "theomjones",
+              "avatarUrl": "https://avatars.githubusercontent.com/u/11282659?u=2c80e3884bfe507c247af6608f8320d42c2c4322&v=4",
+              "url": "https://github.com/theomjones",
+              "databaseId": 11282659,
+              "name": "Theo M Jones"
+            },
+            "labels": {
+              "nodes": [
+                {
+                  "name": "2.x",
+                  "color": "d4c5f9",
+                  "description": ""
+                }
+              ]
+            },
+            "comments": {
+              "totalCount": 24
+            }
+          }
+        }
+      }
+    }
+  }
+}

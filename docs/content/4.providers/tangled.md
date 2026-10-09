@@ -17,6 +17,10 @@ The Tangled provider works with [Tangled](https://tangled.org), a forge built on
 ::
 <!-- header:end -->
 
+::note
+The Tangled provider is experimental, because Tangled's lexicons are young and can still change. To learn what that means, see [Capabilities](/concepts/capabilities).
+::
+
 ## Authentication
 
 Reading is public and needs no credentials. Writing requires an atproto session, which you get from an app password or from an OAuth client:
@@ -145,14 +149,14 @@ A `push` delivery becomes a `push` or `ref` event. Tangled has no API to registe
 ::provider-capabilities{provider="tangled"}
 | Capability | Support | Without credentials |
 | --- | --- | --- |
-| `experimental` | ❌ | ❌ |
+| `experimental` | ✅ | ✅ |
 | `sources.poll` | experimental | ❌ |
 | `sources.webhook` | ✅ | ✅ |
 | `sources.subscribe` | ✅ | ✅ |
 | `repos.get` | ✅ | ✅ |
 | `users.get` | ❌ | ❌ |
-| `users.me` | experimental | ❌ |
-| `repos.list` | experimental | ❌ |
+| `users.me` | ✅ | ❌ |
+| `repos.list` | ✅ | ❌ |
 | `repos.labels` | ❌ | ❌ |
 | `repos.createLabel` | ❌ | ❌ |
 | `repos.milestones` | ❌ | ❌ |
@@ -162,26 +166,26 @@ A `push` delivery becomes a `push` or `ref` event. Tangled has no API to registe
 | `repos.assignableUsers` | ❌ | ❌ |
 | `repos.reviewerCandidates` | ❌ | ❌ |
 | `threads.get` | issue, PR | issue, PR |
-| `threads.list` | issue (experimental), PR | issue (experimental), PR |
+| `threads.list` | issue, PR | issue, PR |
 | `threads.getMany` | ✅ | ✅ |
 | `threads.events` | issue, PR | issue, PR |
 | `comments.list` | issue, PR | issue, PR |
-| `comments.edit` | issue (experimental), PR (experimental) | ❌ |
-| `comments.delete` | issue (experimental), PR (experimental) | ❌ |
+| `comments.edit` | issue, PR | ❌ |
+| `comments.delete` | issue, PR | ❌ |
 | `reactions.list` | ❌ | ❌ |
 | `notifications.list` | experimental | ❌ |
 | `notifications.markRead` | experimental | ❌ |
 | `notifications.markDone` | ❌ | ❌ |
 | `notifications.unsubscribe` | ❌ | ❌ |
-| `notifications.markAllRead` | experimental | ❌ |
+| `notifications.markAllRead` | unverified | ❌ |
 | `notifications.markAllDone` | ❌ | ❌ |
-| `notifications.unreadCount` | experimental | ❌ |
-| `writes.comment` | issue (experimental), PR | ❌ |
+| `notifications.unreadCount` | unverified | ❌ |
+| `writes.comment` | issue, PR | ❌ |
 | `writes.upsertComment` | issue (emulated), PR (emulated) | ❌ |
-| `writes.close` | issue (experimental), PR | ❌ |
-| `writes.reopen` | issue (experimental), PR | ❌ |
-| `writes.create` | issue (experimental) | ❌ |
-| `writes.update` | issue (experimental), PR (experimental) | ❌ |
+| `writes.close` | issue, PR | ❌ |
+| `writes.reopen` | issue, PR | ❌ |
+| `writes.create` | issue | ❌ |
+| `writes.update` | issue, PR | ❌ |
 | `writes.setLabels` | ❌ | ❌ |
 | `writes.addLabels` | ❌ | ❌ |
 | `writes.removeLabels` | ❌ | ❌ |
@@ -193,8 +197,8 @@ A `push` delivery becomes a `push` or `ref` event. Tangled has no API to registe
 | `writes.approveAndMerge` | ❌ | ❌ |
 | `writes.transfer` | ❌ | ❌ |
 | `writes.markDuplicate` | ❌ | ❌ |
-| `subscriptions.get` | issue (experimental), PR (experimental) | ❌ |
-| `subscriptions.set` | issue (experimental), PR (experimental) | ❌ |
+| `subscriptions.get` | issue, PR | ❌ |
+| `subscriptions.set` | issue, PR | ❌ |
 | `installations` | ❌ | ❌ |
 | `checks.thread` | ❌ | ❌ |
 | `checks.list` | ❌ | ❌ |

@@ -706,5 +706,21 @@
         "sha": "2e53db551b5289fde97df23188a309d10347d869"
       }
     ]
+  },
+  "compare": {
+    "base": "main",
+    "head": "3aae318f1661c50c34effbbf6882119ed161f2d6",
+    "aheadBy": 1,
+    "behindBy": 1,
+    "mergeBaseSha": "2adc745e20d7a07fb7f177853d3e78a95b007aef",
+    "commits": [],
+    "files": [
+      {
+        "path": "es-metadata.yml",
+        "status": "added",
+        "statusRaw": "add",
+        "sha": "2e53db551b5289fde97df23188a309d10347d869"
+      }
+    ]
   }
 }

@@ -1,0 +1,38 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://plc.directory/did:plc:qfngkejlw4ghji2myc73hbdh"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"23c-yHpXyb7jiX4/ViuBrmYzfzXtUyM\""
+    },
+    "body": {
+      "@context": [
+        "https://www.w3.org/ns/did/v1",
+        "https://w3id.org/security/multikey/v1",
+        "https://w3id.org/security/suites/secp256k1-2019/v1"
+      ],
+      "id": "did:plc:qfngkejlw4ghji2myc73hbdh",
+      "alsoKnownAs": [
+        "at://notplants-bot.bsky.social"
+      ],
+      "verificationMethod": [
+        {
+          "id": "did:plc:qfngkejlw4ghji2myc73hbdh#atproto",
+          "type": "Multikey",
+          "controller": "did:plc:qfngkejlw4ghji2myc73hbdh",
+          "publicKeyMultibase": "zQ3shb6swrpKBAKRCgtqL2vkFmEHgAR5Vm4ABSa5hcQHSmdEx"
+        }
+      ],
+      "service": [
+        {
+          "id": "#atproto_pds",
+          "type": "AtprotoPersonalDataServer",
+          "serviceEndpoint": "https://auriporia.us-west.host.bsky.network"
+        }
+      ]
+    }
+  }
+}

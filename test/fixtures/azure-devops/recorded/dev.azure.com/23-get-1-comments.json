@@ -1,0 +1,15 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://dev.azure.com/forges/forges-fixtures/_apis/wit/workitems/1/comments?api-version=7.1-preview.4&%24top=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "totalCount": 0,
+      "count": 0,
+      "comments": []
+    }
+  }
+}

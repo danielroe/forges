@@ -1,79 +1,47 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://meadow.us-east.host.bsky.network/xrpc/com.atproto.repo.getRecord?repo=did%3Aplc%3Apzywyr3ji56pinuglmm4t7xj&collection=sh.tangled.repo.pull&rkey=3mwq55xakxq22"
+    "url": "https://npmx.social/xrpc/com.atproto.repo.getRecord?repo=did%3Aplc%3Alaqygfbyvnkyuhsuaxmp6ez3&collection=sh.tangled.repo.pull&rkey=3mriliksgjw22"
   },
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"7f1-fV57m3156ejsM4+uyA4RIU8mWeE\"",
-      "ratelimit-remaining": "2997",
-      "ratelimit-reset": "1790944488"
+      "etag": "W/\"357-+5W04wyZrtTy7tYaq1YLgs89ar4\"",
+      "ratelimit-limit": "3000",
+      "ratelimit-remaining": "2996",
+      "ratelimit-reset": "1791551855"
     },
     "body": {
-      "uri": "at://did:plc:pzywyr3ji56pinuglmm4t7xj/sh.tangled.repo.pull/3mwq55xakxq22",
-      "cid": "bafyreiavaoyc74x26w6ygujqxztvyba66h6cqjhtykdlygw6hb7mfi2fve",
+      "uri": "at://did:plc:laqygfbyvnkyuhsuaxmp6ez3/sh.tangled.repo.pull/3mriliksgjw22",
+      "cid": "bafyreiccqmua2tnw52ryebpq4ujag3kkbgw2tnwnuulonbfssfyr4wc6zy",
       "value": {
-        "body": "A fetch from a client that announced shallow boundaries treated the\nclient's haves as complete history: the send set excluded everything\nreachable from the haves, including ancestors the client does not\nhold. A want that peels to such an ancestor (an annotated tag on an\nolder commit) then produced a pack that failed the client's\nconnectivity check. This broke every GOPROXY=direct go get, since the\ngo tool fetches shallowly first.\n\nRoute client-side shallow boundaries into pack selection and stop the\nhave-closure ascent at them: the client has a shallow commit and its\ntree, but nothing above it. Server grafts already cut the ascent the\nsame way.\n\nFixes #769\n\nSigned-off-by: Mads R. Havmand <mads@v42.dk>",
+        "body": "I was reading the CI post and noticed two simple typos.\n\nSigned-off-by: Jens Rømer Hesselbjerg <redacted@example.invalid>",
         "$type": "sh.tangled.repo.pull",
-        "title": "knot2: pack objects behind client shallow boundaries",
+        "title": "pages/blog: fix typos in ci post",
         "rounds": [
           {
-            "createdAt": "2026-09-30T10:29:57Z",
+            "createdAt": "2026-07-25T22:19:09+03:00",
             "patchBlob": {
               "ref": {
-                "$link": "bafkreihvos4nlfoaak3w47d34g33kkevt45rn5dvum4lrppi3yvtwwifze"
+                "$link": "bafkreibsc7xj6im2v42tkh6p7diphwqkvmhkuysmp42bcji5oppo6gfbuu"
               },
-              "size": 3632,
-              "$type": "blob",
-              "mimeType": "application/gzip"
-            }
-          },
-          {
-            "createdAt": "2026-10-01T06:51:42Z",
-            "patchBlob": {
-              "ref": {
-                "$link": "bafkreicpho47eic7k4ffjw6a7bxrmieftso3q3fkt5ztneeonppnu3ou6m"
-              },
-              "size": 3632,
-              "$type": "blob",
-              "mimeType": "application/gzip"
-            }
-          },
-          {
-            "createdAt": "2026-10-01T06:57:25Z",
-            "patchBlob": {
-              "ref": {
-                "$link": "bafkreiebjxqzpnb26ndz3dftu7gfbbh4dpt3haliwdntxygaozbqeh2bua"
-              },
-              "size": 3100,
-              "$type": "blob",
-              "mimeType": "application/gzip"
-            }
-          },
-          {
-            "createdAt": "2026-10-01T09:58:57+03:00",
-            "patchBlob": {
-              "ref": {
-                "$link": "bafkreihqg4vy5k4pg5tsbnb7s6i3wcxhiljmkfh3c55idjg7cv2li7n4ey"
-              },
-              "size": 3066,
+              "size": 807,
               "$type": "blob",
               "mimeType": "application/gzip"
             }
           }
         ],
         "source": {
-          "repo": "did:plc:lra3pvdgknyttshim7w2i76y",
-          "branch": "shallow-client-pack-fix",
-          "repoDid": "did:plc:lra3pvdgknyttshim7w2i76y"
+          "repo": "did:plc:bxcczy2pcr7g56xmwkmyxgem",
+          "branch": "fix-typos-in-spindle-post",
+          "repoDid": "did:plc:bxcczy2pcr7g56xmwkmyxgem"
         },
         "target": {
-          "repo": "did:plc:j5hmlfdrwkvtxm7cjmu7j2is",
+          "repo": "did:plc:g66xej5jct643d6bgukldn77",
           "branch": "master",
-          "repoDid": "did:plc:j5hmlfdrwkvtxm7cjmu7j2is"
+          "repoDid": "did:plc:g66xej5jct643d6bgukldn77"
         },
-        "createdAt": "2026-09-30T10:29:57Z"
+        "createdAt": "2026-07-25T22:19:09+03:00"
       }
     }
   }

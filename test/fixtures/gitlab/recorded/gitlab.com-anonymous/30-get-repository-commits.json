@@ -1,0 +1,80 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/repository/commits?per_page=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "<https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/repository/commits?id=gitlab-org%2Fcli&order=default&page=2&pagination=legacy&per_page=3&trailers=false>; rel=\"next\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/repository/commits?id=gitlab-org%2Fcli&order=default&page=1&pagination=legacy&per_page=3&trailers=false>; rel=\"first\"",
+      "etag": "W/\"1e4471c02ce8027c95fb5e4e1123c672\"",
+      "ratelimit-limit": "500",
+      "ratelimit-remaining": "469",
+      "ratelimit-reset": "1791495900",
+      "x-next-page": "2",
+      "x-page": "1",
+      "x-per-page": "3"
+    },
+    "body": [
+      {
+        "id": "679b88d982d21f3e18c0eb9e4f7bcadb11ef1791",
+        "short_id": "679b88d9",
+        "created_at": "2026-10-08T14:36:23.000-05:00",
+        "parent_ids": [
+          "4b92278fc1a467d97e5d3ca4955bb6a01252f1e8",
+          "daecf6fcc1c82d58f4352007356e5f6b8a3da365"
+        ],
+        "title": "Merge branch '8303-api-custom-placeholders' into 'main'",
+        "message": "Merge branch '8303-api-custom-placeholders' into 'main'\n\nfeat(api): support custom placeholder values\n\nCloses #8303\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4029\n\nMerged-by: Kai Armstrong <redacted@example.invalid>\nApproved-by: GitLab Duo <redacted@example.invalid>\nApproved-by: Dmitry Gruzd <redacted@example.invalid>\nApproved-by: Kai Armstrong <redacted@example.invalid>\nReviewed-by: Kai Armstrong <redacted@example.invalid>\nReviewed-by: Dmitry Gruzd <redacted@example.invalid>\nCo-authored-by: Radek Antoniuk <redacted@example.invalid>",
+        "author_name": "Kai Armstrong",
+        "author_email": "redacted@example.invalid",
+        "authored_date": "2026-10-08T14:36:23.000-05:00",
+        "committer_name": "GitLab",
+        "committer_email": "redacted@example.invalid",
+        "committed_date": "2026-10-08T14:36:23.000-05:00",
+        "trailers": {},
+        "extended_trailers": {},
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/679b88d982d21f3e18c0eb9e4f7bcadb11ef1791"
+      },
+      {
+        "id": "daecf6fcc1c82d58f4352007356e5f6b8a3da365",
+        "short_id": "daecf6fc",
+        "created_at": "2026-10-08T14:36:23.000-05:00",
+        "parent_ids": [
+          "01934ad48a6757214bd8c73e2203fac03ff1a4d7"
+        ],
+        "title": "feat(api): support custom placeholder values",
+        "message": "feat(api): support custom placeholder values\n",
+        "author_name": "Radek Antoniuk",
+        "author_email": "redacted@example.invalid",
+        "authored_date": "2026-10-08T21:36:23.000+02:00",
+        "committer_name": "GitLab",
+        "committer_email": "redacted@example.invalid",
+        "committed_date": "2026-10-08T14:36:23.000-05:00",
+        "trailers": {},
+        "extended_trailers": {},
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/daecf6fcc1c82d58f4352007356e5f6b8a3da365"
+      },
+      {
+        "id": "4b92278fc1a467d97e5d3ca4955bb6a01252f1e8",
+        "short_id": "4b92278f",
+        "created_at": "2026-10-08T14:22:53.000-05:00",
+        "parent_ids": [
+          "8c93a9f3aba575d7dd67181ef392badff83dd705",
+          "b479524ad74dcfc2c8c59bb8727ab249e7f0c424"
+        ],
+        "title": "Merge branch '8576-auth-status-json' into 'main'",
+        "message": "Merge branch '8576-auth-status-json' into 'main'\n\nfeat(auth): add JSON output to auth status\n\nCloses #8576\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4028\n\nMerged-by: Kai Armstrong <redacted@example.invalid>\nApproved-by: GitLab Duo <redacted@example.invalid>\nApproved-by: Kai Armstrong <redacted@example.invalid>\nReviewed-by: Kai Armstrong <redacted@example.invalid>\nCo-authored-by: Radek Antoniuk <redacted@example.invalid>",
+        "author_name": "Kai Armstrong",
+        "author_email": "redacted@example.invalid",
+        "authored_date": "2026-10-08T14:22:53.000-05:00",
+        "committer_name": "GitLab",
+        "committer_email": "redacted@example.invalid",
+        "committed_date": "2026-10-08T14:22:53.000-05:00",
+        "trailers": {},
+        "extended_trailers": {},
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/4b92278fc1a467d97e5d3ca4955bb6a01252f1e8"
+      }
+    ]
+  }
+}

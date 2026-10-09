@@ -1,5 +1,6 @@
 import { rmSync } from 'node:fs'
+import { verbsDirectory } from './verbs-directory.ts'
 
 export function setup(): void {
-  rmSync(new URL('../.verbs/', import.meta.url), { recursive: true, force: true })
+  rmSync(verbsDirectory, { recursive: true, force: true })
 }

@@ -1,0 +1,38 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://plc.directory/did:plc:qfpnj4og54vl56wngdriaxug"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"229-DIE5nDVN8RT+ELBiQidYwYUDeSE\""
+    },
+    "body": {
+      "@context": [
+        "https://www.w3.org/ns/did/v1",
+        "https://w3id.org/security/multikey/v1",
+        "https://w3id.org/security/suites/secp256k1-2019/v1"
+      ],
+      "id": "did:plc:qfpnj4og54vl56wngdriaxug",
+      "alsoKnownAs": [
+        "at://oppi.li"
+      ],
+      "verificationMethod": [
+        {
+          "id": "did:plc:qfpnj4og54vl56wngdriaxug#atproto",
+          "type": "Multikey",
+          "controller": "did:plc:qfpnj4og54vl56wngdriaxug",
+          "publicKeyMultibase": "zQ3shuYaK7GJ5KxNQwjhgxEy8JM6Zf9pvSr8vPHU3Y48DwZJH"
+        }
+      ],
+      "service": [
+        {
+          "id": "#atproto_pds",
+          "type": "AtprotoPersonalDataServer",
+          "serviceEndpoint": "https://grisette.us-west.host.bsky.network"
+        }
+      ]
+    }
+  }
+}

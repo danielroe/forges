@@ -1,0 +1,15 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/releases/assets/624719919"
+  },
+  "response": {
+    "status": 302,
+    "headers": {
+      "location": "https://release-assets.githubusercontent.com/github-production-release-asset/1411702196/f38f99e0-82b0-43d0-8239-c3bbc0bfd70f?sp=r&sv=2018-11-09&sr=b&spr=https&se=2026-10-09T14%3A07%3A55Z&rscd=attachment%3B+filename%3Dfixture.txt&rsct=application%2Foctet-stream&skoid=REDACTED&sktid=REDACTED&skt=2026-10-09T13%3A07%3A19Z&ske=2026-10-09T14%3A07%3A55Z&sks=b&skv=2018-11-09&sig=REDACTED&jwt=REDACTED&response-content-disposition=attachment%3B+filename%3Dfixture.txt&response-content-type=application%2Foctet-stream",
+      "x-ratelimit-limit": "5000",
+      "x-ratelimit-remaining": "4984",
+      "x-ratelimit-reset": "1791554636"
+    }
+  }
+}

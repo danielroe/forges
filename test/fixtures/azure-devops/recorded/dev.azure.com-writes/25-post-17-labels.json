@@ -1,0 +1,19 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://dev.azure.com/forges/forges-fixtures/_apis/git/repositories/forges-fixtures/pullRequests/17/labels?api-version=7.1",
+    "body": {
+      "name": "forges-fixture-20261009142428"
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "id": "baee750c-8bcc-4105-8816-b41b8974f25f",
+      "name": "forges-fixture-20261009142428",
+      "active": true,
+      "url": "https://dev.azure.com/forges/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/pullRequests/17/labels/baee750c-8bcc-4105-8816-b41b8974f25f"
+    }
+  }
+}

@@ -1,5 +1,7 @@
-import type { Branch, CiRun, Release, Repo, RepoRef, Thread, ThreadRef } from '../../src/model.ts'
+import type { Branch, CiJob, CiRun, Page, Release, Repo, RepoRef, SecurityAlertKind, Thread, ThreadRef, Webhook } from '../../src/model.ts'
 import type { ForgeProvider, ForgeVerb } from '../../src/provider.ts'
+import { sha256Hex } from '../../src/crypto.ts'
+import { ForbiddenError, InsufficientScopeError, NotFoundError } from '../../src/errors.ts'
 
 /** What one recording covers: the repository and the threads read from it. */
 export interface RecordingManifest {
@@ -9,11 +11,29 @@ export interface RecordingManifest {
   instanceVersion?: string
   /** Recorded without credentials, so replay creates the provider without them. */
   anonymous?: boolean
+  /** The GitHub App installation the recording authenticated as, so replay authenticates as an app too. */
+  installation?: string
   repo: RepoRef
   pull?: ThreadRef
   issue?: ThreadRef
   discussion?: ThreadRef
+  /** A repository the credential administers, for webhooks and, when the recorded repository has none, a release asset. */
+  scratch?: RepoRef
+  /** Where security alerts are read, when not from `repo`. */
+  alerts?: RepoRef
+  /** Where a write recording transfers an issue to. */
+  transfer?: RepoRef
+  /** The secret recorded webhook deliveries are signed with. */
+  webhookSecret?: string
+  /** Names of the recorded webhook deliveries, each in `<name>.delivery.json`. */
+  deliveries?: string[]
   recordsUrl?: string
+  /** The Tangled account the recording signed in as, a handle or DID. */
+  account?: string
+  /** The account's PDS, when the recording named it rather than resolving it from the account. */
+  pds?: string
+  /** The Tangled notification service the recording read. */
+  notificationsUrl?: string
   /** When the recording was made; replay runs at this instant so fallback timestamps match. */
   recordedAt: string
   /** Names of the steps that recorded successfully, in order. */
@@ -29,16 +49,39 @@ export interface StepContext {
   branches?: Branch[]
   releases?: Release[]
   runs?: CiRun[]
+  job?: CiJob
+  webhook?: Webhook
 }
 
 export interface Step {
   name: string
   verb: ForgeVerb
-  kind?: 'issue' | 'pull_request' | 'discussion'
+  kind?: 'issue' | 'pull_request' | 'discussion' | 'commit' | Exclude<SecurityAlertKind, 'other'>
   run: (provider: ForgeProvider, manifest: RecordingManifest, context: StepContext) => Promise<unknown>
 }
 
 const page = { perPage: 3 }
+
+/** The largest log, in characters, a step keeps, and the largest release asset, in bytes, it downloads. */
+export const LOG_LIMIT = 16_384
+const ASSET_LIMIT = 65_536
+
+/** Reads from the recorded repository, or from the scratch repository when only a collaborator may read it. */
+async function orScratch<T>(manifest: RecordingManifest, read: (repo: RepoRef) => Promise<T>): Promise<T> {
+  try {
+    return await read(manifest.repo)
+  }
+  catch (error) {
+    if (!manifest.scratch || !(error instanceof ForbiddenError || error instanceof InsufficientScopeError || error instanceof NotFoundError)) {
+      throw error
+    }
+    return read(manifest.scratch)
+  }
+}
+
+async function text(stream: ReadableStream<Uint8Array>): Promise<string> {
+  return new Response(stream).text()
+}
 
 function need<T>(value: T | undefined, what: string): T {
   if (value === undefined) {
@@ -85,6 +128,19 @@ function threadSteps(kind: 'issue' | 'pull_request' | 'discussion', key: 'issue'
   return steps
 }
 
+/** Reads of the pull request's head commit as a thread. */
+function commitSteps(): Step[] {
+  const ref = (manifest: RecordingManifest, context: StepContext): ThreadRef => {
+    const repo = context.pull?.ref.repo ?? manifest.repo
+    return { forge: repo.forge, instance: repo.instance, repo, kind: 'commit', number: need(context.headSha, 'the pull head sha') }
+  }
+  return [
+    { name: 'commit thread', verb: 'threads.get', kind: 'commit', run: (provider, manifest, context) => provider.threads.get(ref(manifest, context)) },
+    { name: 'commit events', verb: 'threads.eventsPage', kind: 'commit', run: (provider, manifest, context) => provider.threads.eventsPage(ref(manifest, context), page) },
+    { name: 'commit comments', verb: 'threads.commentsPage', kind: 'commit', run: (provider, manifest, context) => provider.threads.commentsPage(ref(manifest, context), page) },
+  ]
+}
+
 /**
  * Every read a recording covers, in the order it runs. The recorder runs each
  * step the provider supports against the live forge; the replay test runs the
@@ -97,15 +153,23 @@ export const STEPS: Step[] = [
   } },
   { name: 'labels', verb: 'repos.labelsPage', run: (provider, manifest) => provider.repos.labelsPage(manifest.repo, page) },
   { name: 'milestones', verb: 'repos.milestonesPage', run: (provider, manifest) => provider.repos.milestonesPage(manifest.repo, page) },
-  { name: 'collaborators', verb: 'repos.collaboratorsPage', run: (provider, manifest) => provider.repos.collaboratorsPage(manifest.repo, page) },
+  { name: 'collaborators', verb: 'repos.collaboratorsPage', run: (provider, manifest) => orScratch(manifest, repo => provider.repos.collaboratorsPage(repo, page)) },
   { name: 'assignable users', verb: 'repos.assignableUsersPage', run: (provider, manifest) => provider.repos.assignableUsersPage(manifest.repo, page) },
   ...threadSteps('pull_request', 'pull'),
   ...threadSteps('issue', 'issue'),
   ...threadSteps('discussion', 'discussion'),
-  { name: 'permission', verb: 'repos.permissionFor', run: (provider, manifest, context) => provider.repos.permissionFor(manifest.repo, need(context.login, 'a login')) },
+  ...commitSteps(),
+  { name: 'permission', verb: 'repos.permissionFor', run: (provider, manifest, context) => orScratch(manifest, repo => provider.repos.permissionFor(repo, need(context.login, 'a login'))) },
   { name: 'user', verb: 'users.get', run: (provider, _manifest, context) => provider.users.get(need(context.login, 'a login')) },
   { name: 'me', verb: 'users.me', run: provider => provider.users.me() },
   { name: 'own repos', verb: 'repos.listPage', run: provider => provider.repos.listPage(page) },
+  { name: 'installations', verb: 'installations.listPage', run: provider => provider.installations.listPage(page) },
+  { name: 'installation', verb: 'installations.get', run: (provider, manifest) => provider.installations.get(need(manifest.installation, 'manifest.installation')) },
+  { name: 'installation repos', verb: 'installations.reposPage', run: (provider, manifest) => provider.installations.reposPage(need(manifest.installation, 'manifest.installation'), page) },
+  { name: 'installation token', verb: 'installations.token', run: async (provider, manifest) => {
+    const { token: _, ...details } = await provider.installations.token(need(manifest.installation, 'manifest.installation'))
+    return details
+  } },
   { name: 'notifications', verb: 'notifications.listPage', run: provider => provider.notifications.listPage(page) },
   { name: 'unread count', verb: 'notifications.unreadCount', run: provider => provider.notifications.unreadCount() },
   { name: 'checks', verb: 'checks.list', run: (provider, manifest, context) => provider.checks.list(manifest.repo, need(context.headSha, 'the pull head sha')) },
@@ -115,7 +179,29 @@ export const STEPS: Step[] = [
     return result
   } },
   { name: 'ci run', verb: 'ci.run', run: (provider, _manifest, context) => provider.ci.run(need(context.runs?.[0], 'a CI run').ref) },
-  { name: 'ci jobs', verb: 'ci.jobsPage', run: (provider, _manifest, context) => provider.ci.jobsPage(need(context.runs?.[0], 'a CI run').ref, page) },
+  { name: 'ci jobs', verb: 'ci.jobsPage', run: async (provider, manifest, context) => {
+    const runs = need(context.runs?.length ? context.runs : undefined, 'a CI run')
+    const firstWithJobs = async (candidates: CiRun[]) => {
+      let result: Page<CiJob> | undefined
+      for (const run of candidates) {
+        result = await provider.ci.jobsPage(run.ref, page)
+        if (result.items.length) {
+          break
+        }
+      }
+      return result
+    }
+    let result = await firstWithJobs(runs)
+    if (!result?.items.length && manifest.scratch) {
+      result = await firstWithJobs((await provider.ci.runsPage(manifest.scratch, page)).items)
+    }
+    context.job = result?.items[0]
+    return result
+  } },
+  { name: 'ci log', verb: 'ci.log', run: async (provider, _manifest, context) => {
+    const log = await text(await provider.ci.log(need(context.job, 'a CI job').ref))
+    return { length: log.length, head: log.slice(0, 2_000).split('\n').slice(0, 20) }
+  } },
   { name: 'readme', verb: 'contents.file', run: (provider, manifest) => provider.contents.file(manifest.repo, 'README.md', { as: 'text' }) },
   { name: 'tree', verb: 'contents.treePage', run: (provider, manifest) => provider.contents.treePage(manifest.repo, page) },
   { name: 'branches', verb: 'contents.branchesPage', run: async (provider, manifest, context) => {
@@ -136,9 +222,25 @@ export const STEPS: Step[] = [
   { name: 'latest release', verb: 'releases.latest', run: (provider, manifest) => provider.releases.latest(manifest.repo) },
   { name: 'release', verb: 'releases.get', run: (provider, _manifest, context) => provider.releases.get(need(context.releases?.[0], 'a release').ref) },
   { name: 'release by tag', verb: 'releases.getByTag', run: (provider, manifest, context) => provider.releases.getByTag(manifest.repo, need(context.releases?.[0], 'a release').tag) },
+  { name: 'release asset', verb: 'releases.downloadAsset', run: async (provider, manifest, context) => {
+    const small = (releases: Release[]) => releases.flatMap(release => release.assets ?? []).filter(asset => asset.ref && asset.size !== undefined && asset.size <= ASSET_LIMIT).sort((a, b) => a.size! - b.size!)[0]
+    const asset = need(small(context.releases ?? []) ?? (manifest.scratch && small((await provider.releases.listPage(manifest.scratch, page)).items)), 'a small release asset')
+    const bytes = new Uint8Array(await new Response(await provider.releases.downloadAsset(asset.ref!)).arrayBuffer())
+    return { name: asset.name, size: bytes.length, sha256: await sha256Hex(bytes) }
+  } },
   { name: 'search threads', verb: 'search.threadsPage', run: (provider, manifest) => provider.search.threadsPage({ text: 'fix', repo: manifest.repo, ...page }) },
   { name: 'search repos', verb: 'search.reposPage', run: (provider, manifest) => provider.search.reposPage({ text: manifest.repo.name, ...page }) },
   { name: 'search commits', verb: 'search.commitsPage', run: (provider, manifest) => provider.search.commitsPage({ text: 'fix', repo: manifest.repo, ...page }) },
-  { name: 'webhooks', verb: 'webhooks.listPage', run: (provider, manifest) => provider.webhooks.listPage(manifest.repo, page) },
-  { name: 'security alerts', verb: 'securityAlerts.listPage', run: (provider, manifest) => provider.securityAlerts.listPage(manifest.repo, page) },
+  { name: 'webhooks', verb: 'webhooks.listPage', run: async (provider, manifest, context) => {
+    const result = await provider.webhooks.listPage(manifest.scratch ?? manifest.repo, page)
+    context.webhook = result.items[0]
+    return result
+  } },
+  { name: 'webhook deliveries', verb: 'webhooks.deliveriesPage', run: (provider, _manifest, context) => provider.webhooks.deliveriesPage(need(context.webhook, 'a webhook').ref, page) },
+  ...(['dependency', 'code_scanning', 'secret', 'advisory'] as const).map((kind): Step => ({
+    name: `${kind.replace('_', ' ')} alerts`,
+    verb: 'securityAlerts.listPage',
+    kind,
+    run: (provider, manifest) => provider.securityAlerts.listPage(manifest.alerts ?? manifest.repo, { kind, state: 'all', ...page }),
+  })),
 ]

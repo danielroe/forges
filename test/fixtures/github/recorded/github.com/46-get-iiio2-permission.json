@@ -1,0 +1,48 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.github.com/repos/h3js/h3/collaborators/iiio2/permission"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"b80e58835698e0de057f75849e666bb1dad23e624616348b8f130c845722e2e0\"",
+      "x-ratelimit-limit": "5000",
+      "x-ratelimit-remaining": "4882",
+      "x-ratelimit-reset": "1791554625"
+    },
+    "body": {
+      "permission": "read",
+      "user": {
+        "login": "iiio2",
+        "id": 47961062,
+        "node_id": "REDACTED",
+        "avatar_url": "https://avatars.githubusercontent.com/u/47961062?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/iiio2",
+        "html_url": "https://github.com/iiio2",
+        "followers_url": "https://api.github.com/users/iiio2/followers",
+        "following_url": "https://api.github.com/users/iiio2/following{/other_user}",
+        "gists_url": "https://api.github.com/users/iiio2/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/iiio2/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/iiio2/subscriptions",
+        "organizations_url": "https://api.github.com/users/iiio2/orgs",
+        "repos_url": "https://api.github.com/users/iiio2/repos",
+        "events_url": "https://api.github.com/users/iiio2/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/iiio2/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false,
+        "permissions": {
+          "admin": false,
+          "maintain": false,
+          "push": false,
+          "triage": false,
+          "pull": true
+        },
+        "role_name": "read"
+      },
+      "role_name": "read"
+    }
+  }
+}

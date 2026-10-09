@@ -1,0 +1,24 @@
+{
+  "baseUrl": "https://api.bitbucket.org/2.0",
+  "repo": {
+    "forge": "bitbucket",
+    "instance": "bitbucket.org",
+    "owner": "danielroe",
+    "name": "forges-fixtures"
+  },
+  "scratch": {
+    "forge": "bitbucket",
+    "instance": "bitbucket.org",
+    "owner": "danielroe",
+    "name": "forges-fixtures"
+  },
+  "webhookSecret": "forges-fixture-secret",
+  "recordedAt": "2026-10-09T20:13:39.375Z",
+  "steps": [],
+  "deliveries": [
+    "01-pullrequest-created",
+    "02-repo-push",
+    "03-pullrequest-comment_created",
+    "04-pullrequest-rejected"
+  ]
+}

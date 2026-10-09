@@ -1,0 +1,206 @@
+{
+  "01-issues": [
+    {
+      "forge": "forgejo",
+      "instance": "codeberg.org",
+      "id": "71b53f83-9ace-478b-8ea6-d72eb5a54c07",
+      "kind": "state_change",
+      "kindRaw": "issues.opened",
+      "action": "opened",
+      "actionRaw": "opened",
+      "detail": {
+        "type": "state_change",
+        "state": "open"
+      },
+      "summary": "roebot opened issues",
+      "occurredAt": "<now>",
+      "actor": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "login": "roebot",
+        "id": "1540800",
+        "avatarUrl": "https://codeberg.org/avatars/278913be448f1cbee39f7fbfb40634a9",
+        "url": "https://codeberg.org/roebot",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "owner": "forges-fixtures",
+        "name": "forges-fixtures",
+        "externalId": "2702328"
+      },
+      "thread": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "repo": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "owner": "forges-fixtures",
+          "name": "forges-fixtures",
+          "externalId": "2702328"
+        },
+        "kind": "issue",
+        "number": "11"
+      },
+      "source": "webhook"
+    }
+  ],
+  "02-issue_comment": [
+    {
+      "forge": "forgejo",
+      "instance": "codeberg.org",
+      "id": "2b9c62c2-dc85-4326-a5eb-f992381020ad",
+      "kind": "comment",
+      "kindRaw": "issue_comment.created",
+      "action": "created",
+      "actionRaw": "created",
+      "detail": {
+        "type": "comment",
+        "comment": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "thread": {
+            "forge": "forgejo",
+            "instance": "codeberg.org",
+            "repo": {
+              "forge": "forgejo",
+              "instance": "codeberg.org",
+              "owner": "forges-fixtures",
+              "name": "forges-fixtures",
+              "externalId": "2702328"
+            },
+            "kind": "issue",
+            "number": "11"
+          },
+          "id": "24995865"
+        },
+        "body": "A comment from run 20261009200949."
+      },
+      "summary": "roebot created issue_comment",
+      "occurredAt": "<now>",
+      "actor": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "login": "roebot",
+        "id": "1540800",
+        "avatarUrl": "https://codeberg.org/avatars/278913be448f1cbee39f7fbfb40634a9",
+        "url": "https://codeberg.org/roebot",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "owner": "forges-fixtures",
+        "name": "forges-fixtures",
+        "externalId": "2702328"
+      },
+      "thread": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "repo": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "owner": "forges-fixtures",
+          "name": "forges-fixtures",
+          "externalId": "2702328"
+        },
+        "kind": "issue",
+        "number": "11"
+      },
+      "source": "webhook"
+    }
+  ],
+  "03-issues": [
+    {
+      "forge": "forgejo",
+      "instance": "codeberg.org",
+      "id": "b15ba1f1-726e-4e99-aa85-fca083a0fbbd",
+      "kind": "state_change",
+      "kindRaw": "issues.closed",
+      "action": "closed",
+      "actionRaw": "closed",
+      "detail": {
+        "type": "state_change",
+        "state": "closed"
+      },
+      "summary": "roebot closed issues",
+      "occurredAt": "<now>",
+      "actor": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "login": "roebot",
+        "id": "1540800",
+        "avatarUrl": "https://codeberg.org/avatars/278913be448f1cbee39f7fbfb40634a9",
+        "url": "https://codeberg.org/roebot",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "owner": "forges-fixtures",
+        "name": "forges-fixtures",
+        "externalId": "2702328"
+      },
+      "thread": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "repo": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "owner": "forges-fixtures",
+          "name": "forges-fixtures",
+          "externalId": "2702328"
+        },
+        "kind": "issue",
+        "number": "11"
+      },
+      "source": "webhook"
+    }
+  ],
+  "04-push": [
+    {
+      "forge": "forgejo",
+      "instance": "codeberg.org",
+      "id": "544286b8-b1a6-4678-8d31-3ba8b764173c",
+      "kind": "push",
+      "action": "other",
+      "kindRaw": "push",
+      "summary": "roebot pushed 1 commit(s) to forges-fixtures/20261009200949-webhooks",
+      "occurredAt": "<now>",
+      "actor": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "login": "roebot",
+        "id": "1540800",
+        "avatarUrl": "https://codeberg.org/avatars/278913be448f1cbee39f7fbfb40634a9",
+        "url": "https://codeberg.org/roebot",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "owner": "forges-fixtures",
+        "name": "forges-fixtures",
+        "externalId": "2702328"
+      },
+      "detail": {
+        "type": "push",
+        "ref": "refs/heads/forges-fixtures/20261009200949-webhooks",
+        "before": "0000000000000000000000000000000000000000",
+        "after": "022a3ee097a67c341a6ee5df56aabad1e6cf1ed1",
+        "commitCount": 1,
+        "forced": false,
+        "commits": [
+          {
+            "sha": "022a3ee097a67c341a6ee5df56aabad1e6cf1ed1",
+            "message": "test: add forges-fixtures/20261009200949-webhooks.md\n",
+            "author": "roebot",
+            "url": "https://codeberg.org/forges-fixtures/forges-fixtures/commit/022a3ee097a67c341a6ee5df56aabad1e6cf1ed1"
+          }
+        ]
+      },
+      "source": "webhook"
+    }
+  ]
+}

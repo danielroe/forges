@@ -1,0 +1,15 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://pushin.eu/api/v1/repos/pjullrich/pushin-cli/pulls?per_page=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "x-ratelimit-limit": "90",
+      "x-ratelimit-remaining": "84",
+      "x-ratelimit-reset": "1791500400"
+    },
+    "body": []
+  }
+}

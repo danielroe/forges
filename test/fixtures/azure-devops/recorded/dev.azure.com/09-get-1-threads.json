@@ -1,0 +1,82 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://dev.azure.com/forges/forges-fixtures/_apis/git/repositories/forges-fixtures/pullRequests/1/threads?api-version=7.1"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "value": [
+        {
+          "pullRequestThreadContext": null,
+          "id": 1,
+          "publishedDate": "2026-10-09T12:29:10.473Z",
+          "lastUpdatedDate": "2026-10-09T12:29:10.473Z",
+          "comments": [
+            {
+              "id": 1,
+              "parentCommentId": 0,
+              "author": {
+                "displayName": "danielroe",
+                "url": "https://spsprodweu6.vssps.visualstudio.com/Ad6317e89-50cc-469c-b506-66b9601cf085/_apis/Identities/48261c0d-8a6e-6a10-a9cb-c76b44ce18ce",
+                "_links": {
+                  "avatar": {
+                    "href": "https://dev.azure.com/forges/_apis/GraphProfile/MemberAvatars/aad.NDgyNjFjMGQtOGE2ZS03YTEwLWE5Y2ItYzc2YjQ0Y2UxOGNl"
+                  }
+                },
+                "id": "48261c0d-8a6e-6a10-a9cb-c76b44ce18ce",
+                "uniqueName": "redacted@example.invalid",
+                "imageUrl": "https://dev.azure.com/forges/_apis/GraphProfile/MemberAvatars/aad.NDgyNjFjMGQtOGE2ZS03YTEwLWE5Y2ItYzc2YjQ0Y2UxOGNl",
+                "descriptor": "aad.NDgyNjFjMGQtOGE2ZS03YTEwLWE5Y2ItYzc2YjQ0Y2UxOGNl"
+              },
+              "content": "a comment",
+              "publishedDate": "2026-10-09T12:29:10.473Z",
+              "lastUpdatedDate": "2026-10-09T12:29:10.473Z",
+              "lastContentUpdatedDate": "2026-10-09T12:29:10.473Z",
+              "commentType": "text",
+              "usersLiked": [],
+              "_links": {
+                "self": {
+                  "href": "https://dev.azure.com/forges/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/pullRequests/1/threads/1/comments/1"
+                },
+                "repository": {
+                  "href": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7"
+                },
+                "threads": {
+                  "href": "https://dev.azure.com/forges/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/pullRequests/1/threads/1"
+                },
+                "pullRequests": {
+                  "href": "https://dev.azure.com/forges/_apis/git/pullRequests/1"
+                }
+              }
+            }
+          ],
+          "status": "active",
+          "threadContext": null,
+          "properties": {
+            "Microsoft.TeamFoundation.Discussion.SupportsMarkdown": {
+              "$type": "System.Int32",
+              "$value": 1
+            },
+            "Microsoft.TeamFoundation.Discussion.UniqueID": {
+              "$type": "System.String",
+              "$value": "03819120-6e52-46f6-abc1-91515be21a81"
+            }
+          },
+          "identities": null,
+          "isDeleted": false,
+          "_links": {
+            "self": {
+              "href": "https://dev.azure.com/forges/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/pullRequests/1/threads/1"
+            },
+            "repository": {
+              "href": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7"
+            }
+          }
+        }
+      ],
+      "count": 1
+    }
+  }
+}

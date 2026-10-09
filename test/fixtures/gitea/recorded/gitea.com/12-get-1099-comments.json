@@ -1,0 +1,44 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitea.com/api/v1/repos/gitea/tea/issues/1099/comments?limit=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "x-total-count": "1"
+    },
+    "body": [
+      {
+        "id": 1718952,
+        "html_url": "https://gitea.com/gitea/tea/pulls/1099#issuecomment-1718952",
+        "pull_request_url": "https://gitea.com/gitea/tea/pulls/1099",
+        "issue_url": "",
+        "user": {
+          "id": 248969,
+          "login": "qube132132",
+          "type": "User",
+          "source_id": 0,
+          "full_name": "",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://seccdn.libravatar.org/avatar/baf09f1e3dc46046832e5f27018d130f516dee0b2be8a59b205028905f7a8b7b?d=identicon",
+          "html_url": "https://gitea.com/qube132132",
+          "active": false,
+          "location": "",
+          "website": "",
+          "description": "",
+          "followers_count": 0,
+          "following_count": 0,
+          "starred_repos_count": 0,
+          "username": "qube132132"
+        },
+        "original_author": "",
+        "original_author_id": 0,
+        "body": "Context : git localized in french, gitea running normally. \n`tea clone [my repo] `\nfails with error \n`Error: git rev-parse --show-toplevel: fatal: ni ceci ni aucun de ses répertoires parents n'est un dépôt git : .git`\n..meanwhile \n`LANG=en_GB LC_ALL=en_GB LANGUAGE=en_GB tea clone [my repo]`\nworks as appropriate. \nI can't confirm the fix, but the analysis and the diff look good. \nSince pretty much any work starts with a tea clone, this bug prevents any non-english localized git user to start working right away...  ",
+        "assets": [],
+        "created_at": "2026-09-27T21:20:53Z",
+        "updated_at": "2026-09-27T21:22:05Z"
+      }
+    ]
+  }
+}

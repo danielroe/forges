@@ -1,0 +1,34 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://tngl.sh/xrpc/com.atproto.repo.getRecord?repo=did%3Aplc%3Amzoihimijwyheeqok2qm5zxx&collection=sh.tangled.repo.pull&rkey=3m4cefmvguj22"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"512-xwZfaxYdUGhWjX9jYb4MdYkCAVE\"",
+      "ratelimit-limit": "3000",
+      "ratelimit-remaining": "2999",
+      "ratelimit-reset": "1791552010"
+    },
+    "body": {
+      "uri": "at://did:plc:mzoihimijwyheeqok2qm5zxx/sh.tangled.repo.pull/3m4cefmvguj22",
+      "cid": "bafyreihfvpy6qmai55l25uvmxupqktcjtx6sgpnwrezrsxwq4a6u3525ry",
+      "value": {
+        "$type": "sh.tangled.repo.pull",
+        "patch": "From 3515438f9496813f73ad72e411c0bfbbbd56f2ab Mon Sep 17 00:00:00 2001\nFrom: Cosmic Horror <redacted@example.invalid>\nDate: Tue, 28 Oct 2025 19:52:48 -0600\nSubject: [PATCH] fix ci docker example\n\n---\n pages/blog/ci.md | 2 +-\n 1 file changed, 1 insertion(+), 1 deletion(-)\n\ndiff --git a/pages/blog/ci.md b/pages/blog/ci.md\nindex 60a9898..a1157b5 100644\n--- a/pages/blog/ci.md\n+++ b/pages/blog/ci.md\n@@ -119,7 +119,7 @@ an OCI image with each package in a separate layer. Try this\n in your terminal if you've got Docker installed:\n \n ```\n-docker run nixery.dev/bash/hello-go hello\n+docker run nixery.dev/bash/hello-go hello-go\n ```\n \n This should output `Hello, world!`. This is running the\n-- \n2.43.0\n\n\n",
+        "title": "fix docker nixery example in the introducing spindle blog post",
+        "source": {
+          "sha": "3515438f9496813f73ad72e411c0bfbbbd56f2ab",
+          "repo": "at://did:plc:mzoihimijwyheeqok2qm5zxx/sh.tangled.repo/3m4cdhc5oty22",
+          "branch": "hello-go"
+        },
+        "target": {
+          "repo": "at://did:plc:wshs7t2adsemcrrd4snkeqli/sh.tangled.repo/3ljbiayluee22",
+          "branch": "master"
+        },
+        "createdAt": "2025-10-29T02:07:11Z"
+      }
+    }
+  }
+}

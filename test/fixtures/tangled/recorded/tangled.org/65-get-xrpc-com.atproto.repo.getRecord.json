@@ -1,0 +1,19 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://eurosky.social/xrpc/com.atproto.repo.getRecord?repo=did%3Aplc%3Ahwevmowznbiukdf6uk5dwrrq&collection=sh.tangled.repo.pull.comment&rkey=3m7rqi342lu22"
+  },
+  "response": {
+    "status": 400,
+    "headers": {
+      "etag": "W/\"90-ZM/UPFZ6M3Oli5GcBwLReIXVCP4\"",
+      "ratelimit-limit": "3000",
+      "ratelimit-remaining": "2998",
+      "ratelimit-reset": "1791552012"
+    },
+    "body": {
+      "error": "RecordNotFound",
+      "message": "Could not locate record: at://did:plc:hwevmowznbiukdf6uk5dwrrq/sh.tangled.repo.pull.comment/3m7rqi342lu22"
+    }
+  }
+}

@@ -20,7 +20,7 @@
       "ssh": "git@github.com:h3js/h3.git"
     },
     "createdAt": "2020-11-17T14:15:44.000Z",
-    "updatedAt": "2026-10-08T17:07:53.000Z",
+    "updatedAt": "2026-10-09T00:25:59.000Z",
     "pushedAt": "2026-10-07T12:37:26.000Z",
     "owner": {
       "forge": "github",
@@ -35,8 +35,8 @@
     "language": "TypeScript",
     "homepage": "https://h3.dev",
     "licence": "MIT",
-    "stars": 5448,
-    "forks": 368,
+    "stars": 5449,
+    "forks": 369,
     "watchers": 17,
     "features": {
       "issues": true,
@@ -215,6 +215,78 @@
             "name": "h3"
           },
           "kind": "pull_request",
+          "number": "1576",
+          "externalId": "PR_kwDOErHI988AAAABHeLZ7g"
+        },
+        "kind": "pull_request",
+        "title": "fix(tracing): mount nested apps passed to `use()`",
+        "body": "`tracingPlugin` breaks mounting nested apps with `use()`. The plugin's `use()` override wraps its argument with `wrapMiddleware()` before the original `use()` gets to inspect it. `use()` dispatches non-function inputs (an H3 app or any other mountable object) to `mount()` — but after the wrapper, the input is a function, so:\n\n- the nested app is never mounted: its routes silently 404,\n- a middleware that calls the wrapped app as a function is registered instead, so hitting the base path exactly (e.g. `/api`) throws a `TypeError` (500).\n\n`use(route, handler: Middleware | H3, opts?)` is a public documented signature, and the plugin's `mount()` override already propagates tracing to mounted apps — so `app.use(\"/api\", app2)` should behave exactly like `app.mount(\"/api\", app2)`. The existing tracing tests cover `.mount()` and function middlewares but never the mountable `use()` shape, which is how this slipped through.\n\nThe fix passes non-function inputs through to the original `use()` unwrapped, in both call shapes. The `mount()` override then takes over and the nested app is traced like any other mount.\n\nTests: new regression test `mounts a nested app passed to `use()`\"` mounts a nested app with `t.app.use(\"/api\", nestedApp)` on the tracing-enabled matrix app and asserts the route responds 200 with the right body and shows up in the traced route events. It fails on `main` (404) and passes with this change. `test/tracing.test.ts` is 54/54 on both web and node targets; `tsc --noEmit`, `oxlint` and `oxfmt --check` are clean. Full suite: 3 failures (`test/utils.test.ts`, `test/unit/event.test.ts`, `test/unit/route-normalize.test.ts`) — all three also fail on unmodified `main`, unrelated to this change.\n\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n\n## Summary by CodeRabbit\n\n* **Bug Fixes**\n  * Nested H3 apps mounted with `use()` now remain mountable, and tracing events include the mounted route’s full path.\n\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
+        "state": "open",
+        "stateRaw": "open",
+        "isDraft": false,
+        "author": {
+          "forge": "github",
+          "instance": "github.com",
+          "login": "Mihir-Rabari",
+          "id": "169349389",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/169349389?v=4",
+          "url": "https://github.com/Mihir-Rabari",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "assignees": [],
+        "reviewers": [
+          {
+            "actor": {
+              "forge": "github",
+              "instance": "github.com",
+              "login": "pi0",
+              "id": "5158436",
+              "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?v=4",
+              "url": "https://github.com/pi0",
+              "typeRaw": "User",
+              "isBotHint": false
+            },
+            "state": "pending",
+            "stateRaw": "requested"
+          }
+        ],
+        "labels": [],
+        "url": "https://github.com/h3js/h3/pull/1576",
+        "createdAt": "2026-10-09T05:25:13.000Z",
+        "updatedAt": "2026-10-09T05:26:53.000Z",
+        "lastActivityAt": "2026-10-09T05:26:53.000Z",
+        "locked": false,
+        "branches": {
+          "head": {
+            "ref": "fix/tracing-use-mount",
+            "sha": "0a4b48c7a55f6f8432d719c537dfac0791215c9e",
+            "repo": {
+              "forge": "github",
+              "instance": "github.com",
+              "owner": "Mihir-Rabari",
+              "name": "h3",
+              "externalId": "1411306210"
+            }
+          },
+          "base": {
+            "ref": "main",
+            "sha": "66cfb8a357b6285451bad498c2c40002601fae98"
+          },
+          "mergeCommitSha": "0ae2239720d26d8c4caae939ff0b55536a6b8e51"
+        }
+      },
+      {
+        "ref": {
+          "forge": "github",
+          "instance": "github.com",
+          "repo": {
+            "forge": "github",
+            "instance": "github.com",
+            "owner": "h3js",
+            "name": "h3"
+          },
+          "kind": "pull_request",
           "number": "1575",
           "externalId": "PR_kwDOErHI988AAAABHJjnRQ"
         },
@@ -346,67 +418,11 @@
             "sha": "75c68e2200d56f5d8c05ecd9bd38ac7ca31df17f"
           }
         }
-      },
-      {
-        "ref": {
-          "forge": "github",
-          "instance": "github.com",
-          "repo": {
-            "forge": "github",
-            "instance": "github.com",
-            "owner": "h3js",
-            "name": "h3"
-          },
-          "kind": "pull_request",
-          "number": "1502",
-          "externalId": "PR_kwDOErHI98708j6H"
-        },
-        "kind": "pull_request",
-        "title": "feat(context): per-event typed H3EventContext",
-        "body": "Draft based on exploration of #1501 (includes those commits, as I still have to git good). Also proposed in https://github.com/h3js/h3/issues/1437#issuecomment-5025050049\r\n\r\nCommit ad5fcba essentially adds a second param to H3Event that consists in a typed H3EventContext, as well as adds a type argument to the latter for customizing internals.\r\n\r\nOne such use case is properly typing `params` in something like `defineValidatedHandler`, which might have also coerced its data (eg: an id being number instead) keeping the parity between runtime and types.\r\n\r\nThis also adds room of improvements for other validated data for `defineValidatedHandler` such as headers and queries which they currently simply gets mutaded in place, going back to their string form instead. A clear followup for this would be to introduce also `event.context.{headers,query}` with the coerced data and type output of the validation schemas (also reducing the number of operations performed by the forward and back mutation).\r\n\r\nLeaving as draft till #1501 is merged and this concept is approved, @pi0 no further work is needed in this PR other than your own changes or if you want me to also add the `event.context.{headers,query}` logic or defer to next PR",
-        "state": "open",
-        "stateRaw": "open",
-        "isDraft": true,
-        "author": {
-          "forge": "github",
-          "instance": "github.com",
-          "login": "sandros94",
-          "id": "13056429",
-          "avatarUrl": "https://avatars.githubusercontent.com/u/13056429?v=4",
-          "url": "https://github.com/sandros94",
-          "typeRaw": "User",
-          "isBotHint": false
-        },
-        "assignees": [],
-        "reviewers": [],
-        "labels": [],
-        "url": "https://github.com/h3js/h3/pull/1502",
-        "createdAt": "2026-07-22T15:32:17.000Z",
-        "updatedAt": "2026-07-23T14:15:00.000Z",
-        "lastActivityAt": "2026-07-23T14:15:00.000Z",
-        "locked": false,
-        "branches": {
-          "head": {
-            "ref": "feat/context-typing",
-            "sha": "bc756c55f117055d68a48a444f822a6ce601190e",
-            "repo": {
-              "forge": "github",
-              "instance": "github.com",
-              "owner": "sandros94",
-              "name": "h3",
-              "externalId": "923619984"
-            }
-          },
-          "base": {
-            "ref": "main",
-            "sha": "4a32c1b75528f881cd85c89ee626c136b7026958"
-          }
-        }
       }
     ],
     "cursor": {
       "nextUrl": "https://api.github.com/repositories/313641207/pulls?state=open&sort=created&direction=desc&per_page=3&page=2",
-      "etag": "W/\"2f8561a8f84d39cb2ccff4967fb765a8ca493b828b08d1402674034819dbf91d\""
+      "etag": "W/\"169904e5e5360f98fe68682ea8c222e53f5ea1fe32c378fc182dc4bb25694148\""
     },
     "rateLimit": {
       "limit": 60,
@@ -989,8 +1005,8 @@
       }
     ],
     "cursor": {
-      "nextUrl": "https://api.github.com/repositories/313641207/issues?state=open&sort=created&direction=desc&per_page=3&after=Y3Vyc29yOnYyOpLPAAABoNzvuIjPAAAAAU1aceU%3D&page=2",
-      "etag": "W/\"b796a260f018bae8d6f3f022eeacd9acf342651bf35057404d62901051dd09e4\""
+      "nextUrl": "https://api.github.com/repositories/313641207/issues?state=open&sort=created&direction=desc&per_page=3&after=Y3Vyc29yOnYyOpLPAAABoPeCj-DPAAAAAVGBZrI%3D&page=2",
+      "etag": "W/\"5c0b15eecfbb6342a64952704c0b74680ab17f5702515bfa1649751cb5100268\""
     },
     "rateLimit": {
       "limit": 60,
@@ -1191,6 +1207,44 @@
       "resetAt": "<now>"
     }
   },
+  "commit thread": {
+    "ref": {
+      "forge": "github",
+      "instance": "github.com",
+      "repo": {
+        "forge": "github",
+        "instance": "github.com",
+        "owner": "h3js",
+        "name": "h3"
+      },
+      "kind": "commit",
+      "number": "adbc974043a83820a5ae388265b5ee1465926561",
+      "externalId": "C_kwDOErHI99oAKGFkYmM5NzQwNDNhODM4MjBhNWFlMzg4MjY1YjVlZTE0NjU5MjY1NjE"
+    },
+    "kind": "commit",
+    "state": "unknown",
+    "isDraft": false,
+    "assignees": [],
+    "reviewers": [],
+    "labels": [],
+    "url": "https://github.com/h3js/h3/commit/adbc974043a83820a5ae388265b5ee1465926561"
+  },
+  "commit events": {
+    "items": [],
+    "rateLimit": {
+      "limit": 60,
+      "remaining": 30,
+      "resetAt": "<now>"
+    }
+  },
+  "commit comments": {
+    "items": [],
+    "rateLimit": {
+      "limit": 60,
+      "remaining": 30,
+      "resetAt": "<now>"
+    }
+  },
   "user": {
     "forge": "github",
     "instance": "github.com",
@@ -1212,6 +1266,74 @@
   },
   "ci runs": {
     "items": [
+      {
+        "ref": {
+          "forge": "github",
+          "instance": "github.com",
+          "repo": {
+            "forge": "github",
+            "instance": "github.com",
+            "owner": "h3js",
+            "name": "h3"
+          },
+          "id": "37888487900"
+        },
+        "name": "autofix.ci",
+        "state": "failure",
+        "stateRaw": "completed",
+        "number": "4251",
+        "eventRaw": "pull_request",
+        "branch": "fix/tracing-use-mount",
+        "sha": "0a4b48c7a55f6f8432d719c537dfac0791215c9e",
+        "url": "https://github.com/h3js/h3/actions/runs/37888487900",
+        "actor": {
+          "forge": "github",
+          "instance": "github.com",
+          "login": "Mihir-Rabari",
+          "id": "169349389",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/169349389?v=4",
+          "url": "https://github.com/Mihir-Rabari",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "createdAt": "2026-10-09T05:25:18.000Z",
+        "startedAt": "2026-10-09T05:25:18.000Z",
+        "completedAt": "2026-10-09T05:25:18.000Z"
+      },
+      {
+        "ref": {
+          "forge": "github",
+          "instance": "github.com",
+          "repo": {
+            "forge": "github",
+            "instance": "github.com",
+            "owner": "h3js",
+            "name": "h3"
+          },
+          "id": "37888487521"
+        },
+        "name": "ci",
+        "state": "failure",
+        "stateRaw": "completed",
+        "number": "4744",
+        "eventRaw": "pull_request",
+        "branch": "fix/tracing-use-mount",
+        "sha": "0a4b48c7a55f6f8432d719c537dfac0791215c9e",
+        "url": "https://github.com/h3js/h3/actions/runs/37888487521",
+        "actor": {
+          "forge": "github",
+          "instance": "github.com",
+          "login": "Mihir-Rabari",
+          "id": "169349389",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/169349389?v=4",
+          "url": "https://github.com/Mihir-Rabari",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "createdAt": "2026-10-09T05:25:17.000Z",
+        "startedAt": "2026-10-09T05:25:17.000Z",
+        "completedAt": "2026-10-09T05:25:17.000Z"
+      },
       {
         "ref": {
           "forge": "github",
@@ -1245,83 +1367,15 @@
         "createdAt": "2026-10-07T15:25:23.000Z",
         "startedAt": "2026-10-07T15:25:23.000Z",
         "completedAt": "2026-10-07T15:25:23.000Z"
-      },
-      {
-        "ref": {
-          "forge": "github",
-          "instance": "github.com",
-          "repo": {
-            "forge": "github",
-            "instance": "github.com",
-            "owner": "h3js",
-            "name": "h3"
-          },
-          "id": "37643783367"
-        },
-        "name": "ci",
-        "state": "failure",
-        "stateRaw": "completed",
-        "number": "4743",
-        "eventRaw": "pull_request",
-        "branch": "docs/add-h3-prometheus-community",
-        "sha": "a0a405d6441c4a9c66ac30c3adc0d11d3acea53f",
-        "url": "https://github.com/h3js/h3/actions/runs/37643783367",
-        "actor": {
-          "forge": "github",
-          "instance": "github.com",
-          "login": "s00d",
-          "id": "2684895",
-          "avatarUrl": "https://avatars.githubusercontent.com/u/2684895?v=4",
-          "url": "https://github.com/s00d",
-          "typeRaw": "User",
-          "isBotHint": false
-        },
-        "createdAt": "2026-10-07T15:25:23.000Z",
-        "startedAt": "2026-10-07T15:25:23.000Z",
-        "completedAt": "2026-10-07T15:25:23.000Z"
-      },
-      {
-        "ref": {
-          "forge": "github",
-          "instance": "github.com",
-          "repo": {
-            "forge": "github",
-            "instance": "github.com",
-            "owner": "h3js",
-            "name": "h3"
-          },
-          "id": "37622425333"
-        },
-        "name": "publish",
-        "state": "failure",
-        "stateRaw": "completed",
-        "number": "76",
-        "eventRaw": "workflow_run",
-        "branch": "main",
-        "sha": "66cfb8a357b6285451bad498c2c40002601fae98",
-        "url": "https://github.com/h3js/h3/actions/runs/37622425333",
-        "actor": {
-          "forge": "github",
-          "instance": "github.com",
-          "login": "pi0",
-          "id": "5158436",
-          "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?v=4",
-          "url": "https://github.com/pi0",
-          "typeRaw": "User",
-          "isBotHint": false
-        },
-        "createdAt": "2026-10-07T12:38:14.000Z",
-        "startedAt": "2026-10-07T12:38:14.000Z",
-        "completedAt": "2026-10-07T12:38:45.000Z"
       }
     ],
     "cursor": {
       "nextUrl": "https://api.github.com/repositories/313641207/actions/runs?per_page=3&page=2",
-      "etag": "W/\"694ffe5e3410aa1d17dea9806c4dadb2070eea8b3567e66f8e135b38d5f072d7\""
+      "etag": "W/\"7974009add45c1f29ce7ad99f5c295b968e2a68d7cd9cb48e70f0dc0571f43e3\""
     },
     "rateLimit": {
       "limit": 60,
-      "remaining": 29,
+      "remaining": 26,
       "resetAt": "<now>"
     }
   },
@@ -1335,35 +1389,66 @@
         "owner": "h3js",
         "name": "h3"
       },
-      "id": "37643783539"
+      "id": "37888487900"
     },
     "name": "autofix.ci",
     "state": "failure",
     "stateRaw": "completed",
-    "number": "4250",
+    "number": "4251",
     "eventRaw": "pull_request",
-    "branch": "docs/add-h3-prometheus-community",
-    "sha": "a0a405d6441c4a9c66ac30c3adc0d11d3acea53f",
-    "url": "https://github.com/h3js/h3/actions/runs/37643783539",
+    "branch": "fix/tracing-use-mount",
+    "sha": "0a4b48c7a55f6f8432d719c537dfac0791215c9e",
+    "url": "https://github.com/h3js/h3/actions/runs/37888487900",
     "actor": {
       "forge": "github",
       "instance": "github.com",
-      "login": "s00d",
-      "id": "2684895",
-      "avatarUrl": "https://avatars.githubusercontent.com/u/2684895?v=4",
-      "url": "https://github.com/s00d",
+      "login": "Mihir-Rabari",
+      "id": "169349389",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/169349389?v=4",
+      "url": "https://github.com/Mihir-Rabari",
       "typeRaw": "User",
       "isBotHint": false
     },
-    "createdAt": "2026-10-07T15:25:23.000Z",
-    "startedAt": "2026-10-07T15:25:23.000Z",
-    "completedAt": "2026-10-07T15:25:23.000Z"
+    "createdAt": "2026-10-09T05:25:18.000Z",
+    "startedAt": "2026-10-09T05:25:18.000Z",
+    "completedAt": "2026-10-09T05:25:18.000Z"
   },
   "ci jobs": {
-    "items": [],
+    "items": [
+      {
+        "ref": {
+          "forge": "github",
+          "instance": "github.com",
+          "repo": {
+            "forge": "github",
+            "instance": "github.com",
+            "owner": "forges-fixtures",
+            "name": "forges-fixtures"
+          },
+          "id": "113794275340",
+          "run": {
+            "forge": "github",
+            "instance": "github.com",
+            "repo": {
+              "forge": "github",
+              "instance": "github.com",
+              "owner": "forges-fixtures",
+              "name": "forges-fixtures"
+            },
+            "id": "37922724302"
+          }
+        },
+        "name": "check",
+        "state": "success",
+        "stateRaw": "completed",
+        "url": "https://github.com/forges-fixtures/forges-fixtures/actions/runs/37922724302/job/113794275340",
+        "startedAt": "2026-10-09T11:16:38.000Z",
+        "completedAt": "2026-10-09T11:16:40.000Z"
+      }
+    ],
     "rateLimit": {
       "limit": 60,
-      "remaining": 27,
+      "remaining": 20,
       "resetAt": "<now>"
     }
   },
@@ -1547,7 +1632,7 @@
     ],
     "rateLimit": {
       "limit": 60,
-      "remaining": 25,
+      "remaining": 18,
       "resetAt": "<now>"
     }
   },
@@ -1575,7 +1660,7 @@
     },
     "rateLimit": {
       "limit": 60,
-      "remaining": 24,
+      "remaining": 17,
       "resetAt": "<now>"
     }
   },
@@ -1600,7 +1685,7 @@
     },
     "rateLimit": {
       "limit": 60,
-      "remaining": 23,
+      "remaining": 16,
       "resetAt": "<now>"
     }
   },
@@ -1761,7 +1846,7 @@
     },
     "rateLimit": {
       "limit": 60,
-      "remaining": 21,
+      "remaining": 14,
       "resetAt": "<now>"
     }
   },
@@ -2007,7 +2092,7 @@
     },
     "rateLimit": {
       "limit": 60,
-      "remaining": 18,
+      "remaining": 11,
       "resetAt": "<now>"
     }
   },
@@ -2110,8 +2195,57 @@
     "url": "https://github.com/h3js/h3/releases/tag/v2.0.2",
     "assets": []
   },
+  "release asset": {
+    "name": "fixture.txt",
+    "size": 47,
+    "sha256": "4b3d278361040a9b56be04636cfb74a96746dd8005dcb901bddeaf5f7790acfb"
+  },
   "search threads": {
     "items": [
+      {
+        "ref": {
+          "forge": "github",
+          "instance": "github.com",
+          "repo": {
+            "forge": "github",
+            "instance": "github.com",
+            "owner": "h3js",
+            "name": "h3"
+          },
+          "kind": "pull_request",
+          "number": "1576",
+          "externalId": "PR_kwDOErHI988AAAABHeLZ7g"
+        },
+        "kind": "pull_request",
+        "title": "fix(tracing): mount nested apps passed to `use()`",
+        "body": "`tracingPlugin` breaks mounting nested apps with `use()`. The plugin's `use()` override wraps its argument with `wrapMiddleware()` before the original `use()` gets to inspect it. `use()` dispatches non-function inputs (an H3 app or any other mountable object) to `mount()` — but after the wrapper, the input is a function, so:\n\n- the nested app is never mounted: its routes silently 404,\n- a middleware that calls the wrapped app as a function is registered instead, so hitting the base path exactly (e.g. `/api`) throws a `TypeError` (500).\n\n`use(route, handler: Middleware | H3, opts?)` is a public documented signature, and the plugin's `mount()` override already propagates tracing to mounted apps — so `app.use(\"/api\", app2)` should behave exactly like `app.mount(\"/api\", app2)`. The existing tracing tests cover `.mount()` and function middlewares but never the mountable `use()` shape, which is how this slipped through.\n\nThe fix passes non-function inputs through to the original `use()` unwrapped, in both call shapes. The `mount()` override then takes over and the nested app is traced like any other mount.\n\nTests: new regression test `mounts a nested app passed to `use()`\"` mounts a nested app with `t.app.use(\"/api\", nestedApp)` on the tracing-enabled matrix app and asserts the route responds 200 with the right body and shows up in the traced route events. It fails on `main` (404) and passes with this change. `test/tracing.test.ts` is 54/54 on both web and node targets; `tsc --noEmit`, `oxlint` and `oxfmt --check` are clean. Full suite: 3 failures (`test/utils.test.ts`, `test/unit/event.test.ts`, `test/unit/route-normalize.test.ts`) — all three also fail on unmodified `main`, unrelated to this change.\n\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n\n## Summary by CodeRabbit\n\n* **Bug Fixes**\n  * Nested H3 apps mounted with `use()` now remain mountable, and tracing events include the mounted route’s full path.\n\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
+        "state": "open",
+        "stateRaw": "open",
+        "isDraft": false,
+        "author": {
+          "forge": "github",
+          "instance": "github.com",
+          "login": "Mihir-Rabari",
+          "id": "169349389",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/169349389?v=4",
+          "url": "https://github.com/Mihir-Rabari",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "assignees": [],
+        "reviewers": [],
+        "labels": [],
+        "url": "https://github.com/h3js/h3/pull/1576",
+        "createdAt": "2026-10-09T05:25:13.000Z",
+        "updatedAt": "2026-10-09T05:26:53.000Z",
+        "lastActivityAt": "2026-10-09T05:26:53.000Z",
+        "locked": false,
+        "commentCount": 1,
+        "reactions": {
+          "total": 0,
+          "counts": {}
+        }
+      },
       {
         "ref": {
           "forge": "github",
@@ -2205,56 +2339,6 @@
           "total": 0,
           "counts": {}
         }
-      },
-      {
-        "ref": {
-          "forge": "github",
-          "instance": "github.com",
-          "repo": {
-            "forge": "github",
-            "instance": "github.com",
-            "owner": "h3js",
-            "name": "h3"
-          },
-          "kind": "issue",
-          "number": "1567",
-          "externalId": "I_kwDOErHI988AAAABUYFmsg"
-        },
-        "kind": "issue",
-        "title": "getValidatedQuery should account for ambiguous data",
-        "body": "### Describe the feature\n\n## Premise\n\nreadQuery() as it is currently only works if you either\n\n1. have extremely simple data - basically exclusively strings.\n2. make a custom schema with coercing (assuming the validation library supports everything needed) for every API endpoint, not really being able to reuse existing schemas\n3. send all data as body payload (this wouldn't be a problem if GET and DELETE were allowed to have bodies)\n4. send all data as stringified JSON\n5. or (like me) make a shim that tries its best at adjusting the data to better fit a schema\n\nnone of these options are particularly enticing, so (imo) there should be a system to somehow fix this in h3.\n\n## My shim/workaround\n\nwithout posting code, I basically crawl through the zod type definition alongside the passed data and adjust the data where it can't be unambiguously represented by query parameters.\n\nI'm not sure how viable this is for h3 considering it's supposed to be somewhat validator-agnostic… But then again, having this feature for a limited amount of libraries would be better than having it for none at all.\n\n## Additional notes\n\nzod has already declined to implement a version of this on their side: https://github.com/colinhacks/zod/issues/2873\n\n### Additional information\n\n- [ ] Would you be willing to help implement this feature?",
-        "state": "open",
-        "stateRaw": "open",
-        "isDraft": false,
-        "author": {
-          "forge": "github",
-          "instance": "github.com",
-          "login": "LMR-eitea",
-          "id": "332368094",
-          "avatarUrl": "https://avatars.githubusercontent.com/u/332368094?v=4",
-          "url": "https://github.com/LMR-eitea",
-          "typeRaw": "User",
-          "isBotHint": false
-        },
-        "assignees": [],
-        "reviewers": [],
-        "labels": [
-          {
-            "name": "enhancement",
-            "colour": "a2eeef",
-            "description": "New feature or request"
-          }
-        ],
-        "url": "https://github.com/h3js/h3/issues/1567",
-        "createdAt": "2026-10-01T12:48:44.000Z",
-        "updatedAt": "2026-10-01T12:48:44.000Z",
-        "lastActivityAt": "2026-10-01T12:48:44.000Z",
-        "locked": false,
-        "commentCount": 0,
-        "reactions": {
-          "total": 0,
-          "counts": {}
-        }
       }
     ],
     "cursor": {
@@ -2342,7 +2426,7 @@
           "ssh": "git@github.com:h3js/h3.git"
         },
         "createdAt": "2020-11-17T14:15:44.000Z",
-        "updatedAt": "2026-10-08T17:07:53.000Z",
+        "updatedAt": "2026-10-09T00:25:59.000Z",
         "pushedAt": "2026-10-07T12:37:26.000Z",
         "owner": {
           "forge": "github",
@@ -2357,8 +2441,8 @@
         "language": "TypeScript",
         "homepage": "https://h3.dev",
         "licence": "MIT",
-        "stars": 5448,
-        "forks": 368,
+        "stars": 5449,
+        "forks": 369,
         "features": {
           "issues": true,
           "pullRequests": true,
@@ -2390,7 +2474,7 @@
         },
         "createdAt": "2026-08-04T04:20:36.000Z",
         "updatedAt": "<now>",
-        "pushedAt": "2026-09-30T10:23:49.000Z",
+        "pushedAt": "2026-10-09T02:48:01.000Z",
         "owner": {
           "forge": "github",
           "instance": "github.com",
@@ -2403,8 +2487,8 @@
         },
         "language": "JavaScript",
         "licence": "Apache-2.0",
-        "stars": 2230,
-        "forks": 262,
+        "stars": 2252,
+        "forks": 266,
         "features": {
           "issues": true,
           "pullRequests": true,

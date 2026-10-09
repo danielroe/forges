@@ -1,0 +1,53 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://dev.azure.com/forges/_apis/connectionData?api-version=7.1-preview.1"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "authenticatedUser": {
+        "id": "48261c0d-8a6e-6a10-a9cb-c76b44ce18ce",
+        "descriptor": "redacted@example.invalid",
+        "subjectDescriptor": "aad.NDgyNjFjMGQtOGE2ZS03YTEwLWE5Y2ItYzc2YjQ0Y2UxOGNl",
+        "providerDisplayName": "redacted@example.invalid",
+        "customDisplayName": "danielroe",
+        "isActive": true,
+        "properties": {
+          "Account": {
+            "$type": "System.String",
+            "$value": "redacted@example.invalid"
+          }
+        },
+        "resourceVersion": 2,
+        "metaTypeId": 0
+      },
+      "authorizedUser": {
+        "id": "48261c0d-8a6e-6a10-a9cb-c76b44ce18ce",
+        "descriptor": "redacted@example.invalid",
+        "subjectDescriptor": "aad.NDgyNjFjMGQtOGE2ZS03YTEwLWE5Y2ItYzc2YjQ0Y2UxOGNl",
+        "providerDisplayName": "redacted@example.invalid",
+        "customDisplayName": "danielroe",
+        "isActive": true,
+        "properties": {
+          "Account": {
+            "$type": "System.String",
+            "$value": "redacted@example.invalid"
+          }
+        },
+        "resourceVersion": 2,
+        "metaTypeId": 0
+      },
+      "instanceId": "56288c69-7786-4db4-bfaa-cf22b3150da2",
+      "deploymentId": "c9d3e66a-916d-7997-3c87-461b0996bbdb",
+      "deploymentType": "hosted",
+      "locationServiceData": {
+        "serviceOwner": "00025394-6065-48ca-87d9-7f5672854ef7",
+        "defaultAccessMappingMoniker": "PublicAccessMapping",
+        "lastChangeId": 114425880,
+        "lastChangeId64": 114425880
+      }
+    }
+  }
+}

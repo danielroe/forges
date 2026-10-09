@@ -1,79 +1,26 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://meadow.us-east.host.bsky.network/xrpc/com.atproto.repo.getRecord?repo=did%3Aplc%3Apzywyr3ji56pinuglmm4t7xj&collection=sh.tangled.repo.pull&rkey=3mwq55xakxq22"
+    "url": "https://grisette.us-west.host.bsky.network/xrpc/com.atproto.repo.getRecord?repo=did%3Aplc%3Aqfpnj4og54vl56wngdriaxug&collection=sh.tangled.repo.issue&rkey=3ljnffy24un22"
   },
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"7f1-fV57m3156ejsM4+uyA4RIU8mWeE\"",
+      "etag": "W/\"161-UJClbmZS/2F6nt6ZE9v99xfFyKA\"",
+      "ratelimit-limit": "3000",
       "ratelimit-remaining": "2999",
-      "ratelimit-reset": "1790944488"
+      "ratelimit-reset": "1791552007"
     },
     "body": {
-      "uri": "at://did:plc:pzywyr3ji56pinuglmm4t7xj/sh.tangled.repo.pull/3mwq55xakxq22",
-      "cid": "bafyreiavaoyc74x26w6ygujqxztvyba66h6cqjhtykdlygw6hb7mfi2fve",
+      "uri": "at://did:plc:qfpnj4og54vl56wngdriaxug/sh.tangled.repo.issue/3ljnffy24un22",
+      "cid": "bafyreibi4x2jvhyny7zmuezxia2wvw6djwalpwj3gb3wegedcxipxzeeo4",
       "value": {
-        "body": "A fetch from a client that announced shallow boundaries treated the\nclient's haves as complete history: the send set excluded everything\nreachable from the haves, including ancestors the client does not\nhold. A want that peels to such an ancestor (an annotated tag on an\nolder commit) then produced a pack that failed the client's\nconnectivity check. This broke every GOPROXY=direct go get, since the\ngo tool fetches shallowly first.\n\nRoute client-side shallow boundaries into pack selection and stop the\nhave-closure ascent at them: the client has a shallow commit and its\ntree, but nothing above it. Server grafts already cut the ascent the\nsame way.\n\nFixes #769\n\nSigned-off-by: Mads R. Havmand <mads@v42.dk>",
-        "$type": "sh.tangled.repo.pull",
-        "title": "knot2: pack objects behind client shallow boundaries",
-        "rounds": [
-          {
-            "createdAt": "2026-09-30T10:29:57Z",
-            "patchBlob": {
-              "ref": {
-                "$link": "bafkreihvos4nlfoaak3w47d34g33kkevt45rn5dvum4lrppi3yvtwwifze"
-              },
-              "size": 3632,
-              "$type": "blob",
-              "mimeType": "application/gzip"
-            }
-          },
-          {
-            "createdAt": "2026-10-01T06:51:42Z",
-            "patchBlob": {
-              "ref": {
-                "$link": "bafkreicpho47eic7k4ffjw6a7bxrmieftso3q3fkt5ztneeonppnu3ou6m"
-              },
-              "size": 3632,
-              "$type": "blob",
-              "mimeType": "application/gzip"
-            }
-          },
-          {
-            "createdAt": "2026-10-01T06:57:25Z",
-            "patchBlob": {
-              "ref": {
-                "$link": "bafkreiebjxqzpnb26ndz3dftu7gfbbh4dpt3haliwdntxygaozbqeh2bua"
-              },
-              "size": 3100,
-              "$type": "blob",
-              "mimeType": "application/gzip"
-            }
-          },
-          {
-            "createdAt": "2026-10-01T09:58:57+03:00",
-            "patchBlob": {
-              "ref": {
-                "$link": "bafkreihqg4vy5k4pg5tsbnb7s6i3wcxhiljmkfh3c55idjg7cv2li7n4ey"
-              },
-              "size": 3066,
-              "$type": "blob",
-              "mimeType": "application/gzip"
-            }
-          }
-        ],
-        "source": {
-          "repo": "did:plc:lra3pvdgknyttshim7w2i76y",
-          "branch": "shallow-client-pack-fix",
-          "repoDid": "did:plc:lra3pvdgknyttshim7w2i76y"
-        },
-        "target": {
-          "repo": "did:plc:j5hmlfdrwkvtxm7cjmu7j2is",
-          "branch": "master",
-          "repoDid": "did:plc:j5hmlfdrwkvtxm7cjmu7j2is"
-        },
-        "createdAt": "2026-09-30T10:29:57Z"
+        "body": "x",
+        "repo": "at://did:plc:wshs7t2adsemcrrd4snkeqli/sh.tangled.repo/3ljbiayluee22",
+        "$type": "sh.tangled.repo.issue",
+        "title": "x",
+        "repoDid": "did:plc:g66xej5jct643d6bgukldn77",
+        "createdAt": ""
       }
     }
   }

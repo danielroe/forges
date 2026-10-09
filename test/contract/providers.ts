@@ -2,8 +2,6 @@ import type { FetchLike } from '../../src/fetch.ts'
 import type { EventKind, MergeMethod } from '../../src/model.ts'
 import type { ForgeProvider, ForgeProviderFactory } from '../../src/provider.ts'
 import type { WebSocketFactory } from '../../src/tangled/index.ts'
-import { readFileSync } from 'node:fs'
-import { fileURLToPath } from 'node:url'
 import { azureDevOps } from '../../src/azure-devops/index.ts'
 import { bitbucket } from '../../src/bitbucket/index.ts'
 import { hmacSha256Hex, sha256Hex } from '../../src/crypto.ts'
@@ -14,12 +12,11 @@ import { github } from '../../src/github/index.ts'
 import { gitlab } from '../../src/gitlab/index.ts'
 import { tangled } from '../../src/tangled/index.ts'
 import { signDelivery } from '../../src/testing/index.ts'
+import { payloadFixture } from '../utils/fixtures.ts'
 
 export const WEBHOOK_SECRET = 'contract-suite-secret'
 
-function fixture(provider: string, name: string): string {
-  return readFileSync(fileURLToPath(new URL(`../fixtures/${provider}/${name}.json`, import.meta.url)), 'utf8').trim()
-}
+const fixture = payloadFixture
 
 interface Call { method: string, url: string }
 

@@ -449,11 +449,11 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
   }
 
   /** Codeberg runs the latest Forgejo, so only a self-hosted instance waits for its version. Gitea's Actions API has another shape. */
-  function actions(minimum: string, support: true | 'experimental' = true): SupportInput {
+  function actions(minimum: string): SupportInput {
     if (profile.forge !== 'forgejo') {
       return false
     }
-    return hostOf(baseUrl) === hostOf(profile.defaultBaseUrl) ? support : ({ version }) => versionAtLeast(version, minimum) && support
+    return hostOf(baseUrl) === hostOf(profile.defaultBaseUrl) ? true : ({ version }) => versionAtLeast(version, minimum)
   }
 
   async function runsPage(repo: RepoRef, query: CiRunQuery = {}): Promise<Page<CiRun>> {
@@ -508,24 +508,24 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
       get: verb(true, async ref => toRepo(origin, (await fetcher.json<ForgejoRepositoryDetail>(repoPath(ref))).data)),
       listPage: verb(true, (listOptions = {}) => list('/user/repos', listOptions, (raw: ForgejoRepositoryDetail) => toRepo(origin, raw))),
       labelsPage: verb(true, (repo, listOptions = {}) => list(`${repoPath(repo)}/labels`, listOptions, toLabel)),
-      createLabel: verb('experimental', async (repo, label) => toLabel((await fetcher.json<ForgejoLabel>(`${repoPath(repo)}/labels`, {
+      createLabel: verb(true, async (repo, label) => toLabel((await fetcher.json<ForgejoLabel>(`${repoPath(repo)}/labels`, {
         method: 'POST',
         json: { name: label.name, color: hexColour(label.colour, '#'), description: label.description },
       })).data)),
       milestonesPage: verb(true, milestonesPage),
       collaboratorsPage: verb(!anonymous, (repo, listOptions = {}) => list(`${repoPath(repo)}/collaborators`, listOptions, (raw: ForgejoUser) => ({ actor: toActor(origin, raw)!, role: 'read' as const, raw }))),
-      permissionFor: verb(!anonymous && 'experimental', async (repo, actor) => {
+      permissionFor: verb(!anonymous, async (repo, actor) => {
         const { data } = await fetcher.json<{ permission?: string, role_name?: string }>(`${repoPath(repo)}/collaborators/${encodeURIComponent(actorLogin(actor))}/permission`)
         return toRole(data.role_name ?? data.permission)
       }),
-      addCollaborator: verb('experimental', async (repo, actor, role) => {
+      addCollaborator: verb(true, async (repo, actor, role) => {
         await fetcher.raw(`${repoPath(repo)}/collaborators/${encodeURIComponent(actorLogin(actor))}`, {
           method: 'PUT',
           json: { permission: role === 'admin' ? 'admin' : role === 'read' || role === 'triage' ? 'read' : 'write' },
         })
       }),
       assignableUsersPage: verb(!anonymous, (repo, listOptions = {}) => list(`${repoPath(repo)}/assignees`, listOptions, (raw: ForgejoUser) => toActor(origin, raw)!)),
-      reviewerCandidatesPage: verb(!anonymous && 'experimental', (thread, listOptions = {}) => list(`${repoPath(requireThread(thread, context).repo)}/reviewers`, listOptions, (raw: ForgejoUser) => toActor(origin, raw)!)),
+      reviewerCandidatesPage: verb(!anonymous, (thread, listOptions = {}) => list(`${repoPath(requireThread(thread, context).repo)}/reviewers`, listOptions, (raw: ForgejoUser) => toActor(origin, raw)!)),
     },
     notifications: {
       listPage: verb(true, notificationPage),
@@ -545,7 +545,7 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
     },
     checks: {
       list: verb(true, async (repo, sha) => ({ items: await statusChecks(repo, sha) })),
-      report: verb('experimental', async (repo, sha, input) => toStatusCheck(repo, (await fetcher.json<ForgejoCommitStatus>(`${repoPath(repo)}/statuses/${sha}`, {
+      report: verb(true, async (repo, sha, input) => toStatusCheck(repo, (await fetcher.json<ForgejoCommitStatus>(`${repoPath(repo)}/statuses/${sha}`, {
         method: 'POST',
         json: { state: STATUS_STATES[input.state], context: input.name, description: input.description, target_url: input.url },
       })).data)),
@@ -558,7 +558,7 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
         const { data } = await fetcher.json<ForgejoActionRunJob[] | null>(`${repoPath(ref.repo)}/actions/runs/${encodeURIComponent(ref.id)}/jobs`, { signal: listOptions.signal })
         return { items: (data ?? []).map(raw => toActionJob(ref, raw)) }
       }),
-      log: verb(actions(FORGEJO_ACTION_JOBS, 'experimental'), async ref => (await fetcher.stream(`${repoPath(ref.repo)}/actions/jobs/${encodeURIComponent(ref.id)}/logs`)).body),
+      log: verb(actions(FORGEJO_ACTION_JOBS), async ref => (await fetcher.stream(`${repoPath(ref.repo)}/actions/jobs/${encodeURIComponent(ref.id)}/logs`)).body),
     },
     contents: {
       file: verb(true, async (repo, path, fileOptions = {}) => {
@@ -616,7 +616,10 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
       listPage: verb(true, releasesPage),
       get: verb(true, async ref => toRelease(ref.repo, (await fetcher.json<ForgejoRelease>(`${repoPath(ref.repo)}/releases/${encodeURIComponent(ref.id)}`)).data)),
       getByTag: verb(true, async (repo, tag) => toRelease(repo, (await fetcher.json<ForgejoRelease>(`${repoPath(repo)}/releases/tags/${encodeURIComponent(tag)}`)).data)),
-      downloadAsset: verb('experimental', async (ref, downloadOptions = {}) => (await fetcher.stream(`${repoPath(ref.repo)}/releases/${encodeURIComponent(ref.release.id)}/assets/${encodeURIComponent(ref.id)}`, { signal: downloadOptions.signal })).body),
+      downloadAsset: verb(true, async (ref, downloadOptions = {}) => {
+        const { data } = await fetcher.json<{ browser_download_url: string }>(`${repoPath(ref.repo)}/releases/${encodeURIComponent(ref.release.id)}/assets/${encodeURIComponent(ref.id)}`, { signal: downloadOptions.signal })
+        return (await fetcher.stream(data.browser_download_url, { signal: downloadOptions.signal })).body
+      }),
       latest: verb(true, async (repo) => {
         try {
           return toRelease(repo, (await fetcher.json<ForgejoRelease>(`${repoPath(repo)}/releases/latest`)).data)
@@ -652,8 +655,8 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
       }),
       filesPage: verb(true, (ref, listOptions = {}) => list(`${pullPath(requirePull(ref, 'read for changed files'))}/files`, listOptions, toChangedFile)),
       commitsPage: verb(true, (ref, listOptions = {}) => list(`${pullPath(requirePull(ref, 'read for commits'))}/commits`, listOptions, (raw: ForgejoCommit) => toCommit(ref.repo, raw))),
-      createReview: verb('experimental', createReview),
-      submitReview: verb('experimental', async (ref, event, body) => {
+      createReview: verb(true, createReview),
+      submitReview: verb(true, async (ref, event, body) => {
         const pull = requirePull(ref.thread, 'reviewed')
         const { data } = await fetcher.json<ForgejoReview>(`${pullPath(pull)}/reviews/${encodeURIComponent(ref.id)}`, {
           method: 'POST',
@@ -661,30 +664,33 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
         })
         return toReview(pull, data, [])
       }),
-      get: perKind({ issue: true, pull_request: true, commit: 'experimental' }, get),
+      get: perKind({ issue: true, pull_request: true, commit: true }, get),
       getMany: verb(true, refs => getManyConcurrently(refs, get)),
       listPage: perKind(ISSUE_AND_PULL, listPage),
       eventsPage: verb(true, async (thread: ThreadRef, listOptions: ListOptions = {}): Promise<Page<ForgeEventInput>> => {
         const ref = requireThread(thread, context)
+        if (ref.kind === 'commit') {
+          return { items: [] }
+        }
         return list(`${issuePath(ref)}/timeline`, { perPage: TIMELINE_PAGE_SIZE, ...listOptions }, (entry: ForgejoTimelineEntry) => toEvent(ref, entry))
       }),
       commentsPage: perKind(ISSUE_AND_PULL, async (thread: ThreadRef, listOptions: ListOptions = {}): Promise<Page<Comment>> => {
         const ref = requireIssueOrPull(thread, context, 'list comments on')
         return list(`${issuePath(ref)}/comments`, listOptions, (raw: ForgejoComment) => toComment(ref, raw))
       }),
-      comment: perKind({ issue: 'experimental', pull_request: true }, async (thread, body) => {
+      comment: perKind({ issue: true, pull_request: true }, async (thread, body) => {
         const ref = requireIssueOrPull(thread, context, 'comment on')
         const { data } = await fetcher.json<ForgejoComment>(`${issuePath(ref)}/comments`, { method: 'POST', json: { body } })
         return toComment(ref, data)
       }),
-      editComment: perKind({ issue: 'experimental', pull_request: 'experimental' }, async (ref, body) => {
+      editComment: perKind({ issue: true, pull_request: true }, async (ref, body) => {
         const { data } = await fetcher.json<ForgejoComment>(`${repoPath(ref.thread.repo)}/issues/comments/${encodeURIComponent(ref.id)}`, { method: 'PATCH', json: { body } })
         return toComment(ref.thread, data)
       }),
-      deleteComment: perKind({ issue: 'experimental', pull_request: 'experimental' }, async (ref) => {
+      deleteComment: perKind({ issue: true, pull_request: true }, async (ref) => {
         await fetcher.raw(`${repoPath(ref.thread.repo)}/issues/comments/${encodeURIComponent(ref.id)}`, { method: 'DELETE' })
       }),
-      create: perKind({ issue: 'experimental', pull_request: 'experimental' }, async (repo, input) => {
+      create: perKind({ issue: true, pull_request: true }, async (repo, input) => {
         const labels = input.labels?.length ? await resolveLabels(repo, input.labels) : undefined
         const assignees = input.assignees?.map(actorLogin)
         if (input.kind === 'issue') {
@@ -703,7 +709,7 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
         })
         return toThread({ ...origin, repo, kind: 'pull_request', number: String(data.number) }, data)
       }),
-      update: perKind({ issue: 'experimental', pull_request: 'experimental' }, async (thread, input) => {
+      update: perKind({ issue: true, pull_request: true }, async (thread, input) => {
         const ref = requireIssueOrPull(thread, context, 'update')
         const { data } = await fetcher.json<ForgejoIssue>(ref.kind === 'pull_request' ? threadPath(ref) : issuePath(ref), {
           method: 'PATCH',
@@ -711,17 +717,17 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
         })
         return toThread(ref, data)
       }),
-      addLabels: perKind({ issue: 'experimental', pull_request: 'experimental' }, async (thread, labels) => {
+      addLabels: perKind({ issue: true, pull_request: true }, async (thread, labels) => {
         const ref = requireIssueOrPull(thread, context, 'label')
         await fetcher.raw(`${issuePath(ref)}/labels`, { method: 'POST', json: { labels: await resolveLabels(ref.repo, labels) } })
       }),
-      removeLabels: perKind({ issue: 'experimental', pull_request: 'experimental' }, async (thread, labels) => {
+      removeLabels: perKind({ issue: true, pull_request: true }, async (thread, labels) => {
         const ref = requireIssueOrPull(thread, context, 'label')
         for (const id of await resolveLabels(ref.repo, labels)) {
           await fetcher.raw(`${issuePath(ref)}/labels/${id}`, { method: 'DELETE' })
         }
       }),
-      setMilestone: perKind({ issue: 'experimental', pull_request: 'experimental' }, async (thread, milestone) => {
+      setMilestone: perKind({ issue: true, pull_request: true }, async (thread, milestone) => {
         const ref = requireIssueOrPull(thread, context, 'set the milestone of')
         await fetcher.raw(issuePath(ref), { method: 'PATCH', json: { milestone: milestone === undefined ? 0 : await milestoneId(milestone, page => milestonesPage(ref.repo, page), context) } })
       }),
@@ -736,23 +742,23 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
           return reactor && { content: reactionContent(raw.content), contentRaw: raw.content, actor: reactor, createdAt: toDate(raw.created_at), raw }
         })
       }),
-      reactions: perKind({ issue: 'experimental', pull_request: 'experimental' }, {
+      reactions: perKind({ issue: true, pull_request: true }, {
         react: (target, reaction) => setReaction(target, reaction, 'POST'),
         unreact: (target, reaction) => setReaction(target, reaction, 'DELETE'),
       }),
-      setLabels: perKind({ issue: 'experimental', pull_request: 'experimental' }, async (thread, labels) => {
+      setLabels: perKind({ issue: true, pull_request: true }, async (thread, labels) => {
         const ref = requireIssueOrPull(thread, context, 'label')
         await fetcher.raw(`${issuePath(ref)}/labels`, { method: 'PUT', json: { labels: await resolveLabels(ref.repo, labels) } })
       }),
-      setAssignees: perKind({ issue: 'experimental', pull_request: 'experimental' }, async (thread, assignees) => {
+      setAssignees: perKind({ issue: true, pull_request: true }, async (thread, assignees) => {
         const ref = requireIssueOrPull(thread, context, 'assign')
         await fetcher.raw(issuePath(ref), { method: 'PATCH', json: { assignees: assignees.map(actorLogin) } })
       }),
-      requestReview: perKind({ pull_request: 'experimental' }, async (thread, reviewers) => {
+      requestReview: perKind({ pull_request: true }, async (thread, reviewers) => {
         await fetcher.raw(`${threadPath(requireThread(thread, context))}/requested_reviewers`, { method: 'POST', json: { reviewers: reviewers.map(actorLogin) } })
       }),
-      close: perKind({ issue: 'experimental', pull_request: true }, ref => setState(ref, 'closed')),
-      reopen: perKind({ issue: 'experimental', pull_request: true }, ref => setState(ref, 'open')),
+      close: perKind({ issue: true, pull_request: true }, ref => setState(ref, 'closed')),
+      reopen: perKind({ issue: true, pull_request: true }, ref => setState(ref, 'open')),
       merge: verb(true, merge),
       subscriptions: perKind(ISSUE_AND_PULL, {
         async subscription(thread): Promise<SubscriptionState> {
@@ -772,8 +778,8 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
     },
     web: githubShapedWeb(baseUrl.replace(/\/api\/v1$/, ''), { pull: 'pulls', commentFragment: 'issuecomment-', file: at => /^[0-9a-f]{40}$/.test(at) ? `/src/commit/${at}` : `/src/branch/${encodeURIComponent(at)}`, lineFragment: line => `L${line}`, reserved: FORGEJO_RESERVED_PATHS }),
     webhooks: {
-      listPage: verb('experimental', (target, listOptions = {}) => list(hooksPath(target), listOptions, (raw: ForgejoHook) => toWebhook(target, raw))),
-      create: verb('experimental', async (target, input) => toWebhook(target, (await fetcher.json<ForgejoHook>(hooksPath(target), {
+      listPage: verb(true, (target, listOptions = {}) => list(hooksPath(target), listOptions, (raw: ForgejoHook) => toWebhook(target, raw))),
+      create: verb(true, async (target, input) => toWebhook(target, (await fetcher.json<ForgejoHook>(hooksPath(target), {
         method: 'POST',
         json: {
           type: 'gitea',
@@ -782,7 +788,7 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
           config: { url: input.url, content_type: input.contentType ?? 'json', ...input.secret ? { secret: input.secret } : {} },
         },
       })).data)),
-      update: verb('experimental', async (ref, update) => toWebhook(ref.target, (await fetcher.json<ForgejoHook>(`${hooksPath(ref.target)}/${encodeURIComponent(ref.id)}`, {
+      update: verb(true, async (ref, update) => toWebhook(ref.target, (await fetcher.json<ForgejoHook>(`${hooksPath(ref.target)}/${encodeURIComponent(ref.id)}`, {
         method: 'PATCH',
         json: {
           ...update.active === undefined ? {} : { active: update.active },
@@ -792,10 +798,10 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
             : {},
         },
       })).data)),
-      delete: verb('experimental', async (ref) => {
+      delete: verb(true, async (ref) => {
         await fetcher.raw(`${hooksPath(ref.target)}/${encodeURIComponent(ref.id)}`, { method: 'DELETE' })
       }),
-      rotateSecret: verb('experimental', async (ref, secret) => {
+      rotateSecret: verb(true, async (ref, secret) => {
         const current = toWebhook(ref.target, (await fetcher.json<ForgejoHook>(`${hooksPath(ref.target)}/${encodeURIComponent(ref.id)}`)).data)
         const { data } = await fetcher.json<ForgejoHook>(`${hooksPath(ref.target)}/${encodeURIComponent(ref.id)}`, {
           method: 'PATCH',

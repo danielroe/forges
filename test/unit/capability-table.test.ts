@@ -149,22 +149,23 @@ describe('capability table', () => {
   })
 
   it('reports the support level of a verb by its provider path', () => {
-    const provider = github({ auth }).create()
+    const provider = azureDevOps({ auth, organization: 'acme' }).create()
 
-    expect(provider.support('threads.addLabels', 'issue')).toBe('experimental')
-    expect(provider.support('threads.addLabels', 'pull_request')).toBe(true)
-    expect(provider.support('threads.addLabels')).toBe(true)
-    expect(provider.support('threads.addLabels', 'discussion')).toBe(false)
-    expect(provider.support('repos.reviewerCandidates')).toBe('emulated')
-    expect(provider.support('repos.reviewerCandidatesPage')).toBe('emulated')
+    expect(provider.support('threads.comment', 'issue')).toBe('experimental')
+    expect(provider.support('threads.comment', 'pull_request')).toBe(true)
+    expect(provider.support('threads.comment')).toBe(true)
+    expect(provider.support('threads.comment', 'discussion')).toBe(false)
+    expect(github({ auth }).create().support('repos.reviewerCandidates')).toBe('emulated')
+    expect(github({ auth }).create().support('repos.reviewerCandidatesPage')).toBe('emulated')
+    expect(gitee({ auth }).create().support('threads.comment', 'issue')).toBe('unverified')
     expect(github({}).create().support('ci.log')).toBe(false)
   })
 
   it('reports the strongest level across kinds without a kind', () => {
-    const provider = github({ auth }).create()
-
-    expect(provider.support('threads.setMilestone')).toBe('experimental')
-    expect(provider.can('threads.setMilestone')).toBe(true)
+    expect(cursorOrigin({ auth }).create().support('threads.get')).toBe('experimental')
+    expect(gitee({ auth }).create().support('threads.comment')).toBe(true)
+    expect(gitee({ auth }).create().support('threads.editComment')).toBe('unverified')
+    expect(gitee({ auth }).create().can('threads.editComment')).toBe(true)
   })
 
   it('names the problem when asked about an unknown verb', () => {

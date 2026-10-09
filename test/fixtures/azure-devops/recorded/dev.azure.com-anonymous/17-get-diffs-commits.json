@@ -1,0 +1,33 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://dev.azure.com/dnceng-public/public/_apis/git/repositories/dotnet-public-wiki/diffs/commits?baseVersion=main&baseVersionType=branch&targetVersion=3aae318f1661c50c34effbbf6882119ed161f2d6&targetVersionType=commit&%24top=1000&api-version=7.1"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "allChangesIncluded": true,
+      "changeCounts": {
+        "Add": 1
+      },
+      "changes": [
+        {
+          "item": {
+            "objectId": "2e53db551b5289fde97df23188a309d10347d869",
+            "gitObjectType": "blob",
+            "commitId": "3aae318f1661c50c34effbbf6882119ed161f2d6",
+            "path": "/es-metadata.yml",
+            "url": "https://dev.azure.com/dnceng-public/cbb18261-c48f-4abb-8651-8cdcb5474649/_apis/git/repositories/2459d599-fdb2-4d28-9810-daeec061cf90/items/es-metadata.yml?versionType=Commit&version=3aae318f1661c50c34effbbf6882119ed161f2d6"
+          },
+          "changeType": "add"
+        }
+      ],
+      "commonCommit": "2adc745e20d7a07fb7f177853d3e78a95b007aef",
+      "baseCommit": "af56d96fdbd7c26e9fc94336b6f50dcc6ceff484",
+      "targetCommit": "3aae318f1661c50c34effbbf6882119ed161f2d6",
+      "aheadCount": 1,
+      "behindCount": 1
+    }
+  }
+}

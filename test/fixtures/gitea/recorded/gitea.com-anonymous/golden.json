@@ -37,7 +37,7 @@
     },
     "language": "Go",
     "licence": "MIT",
-    "stars": 275,
+    "stars": 276,
     "forks": 145,
     "watchers": 74,
     "mergeMethods": [
@@ -92,12 +92,12 @@
         "name": "tea"
       },
       "kind": "pull_request",
-      "number": "1",
-      "externalId": "115"
+      "number": "1099",
+      "externalId": "189782"
     },
     "kind": "pull_request",
-    "title": "Add release create",
-    "body": "Author: @lunny \n\n",
+    "title": "Fix locale-dependent git repo detection",
+    "body": "Fixes #1089\n\n## Root cause\n`tea clone` initializes the command context by probing the current directory with `git rev-parse --show-toplevel`. `classifyRepoError` recognizes the \"not a git repository\" case by matching the English stderr text. When git emits localized errors (for example with `LANG=de_DE.UTF-8`), that match fails, and the otherwise harmless \"no repo here\" error is returned as fatal before cloning.\n\n## Fix\nPin the locale of git subprocesses to `C` by overriding `LC_ALL`, `LANG`, and `LANGUAGE` in `runGitCommand`. This keeps all git output stable for parsing while leaving the parent process locale untouched.\n\n## Tests\nAdded a regression test using a fake git executable that emits a German \"not a repository\" error unless the locale is forced to `C`, and verifies `ErrRepositoryNotExists` is returned.",
     "state": "merged",
     "stateRaw": "closed",
     "isDraft": false,
@@ -112,36 +112,50 @@
       "isBotHint": false
     },
     "assignees": [],
-    "reviewers": [],
+    "reviewers": [
+      {
+        "actor": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "login": "Zettat123",
+          "id": "39446",
+          "avatarUrl": "https://gitea.com/avatars/230ac7fa09681a12ecc1dd575f5ffe91003739cb181ab1cd9f670ab2e90eaab8",
+          "url": "https://gitea.com/Zettat123",
+          "isBotHint": false
+        },
+        "state": "pending",
+        "stateRaw": "requested"
+      }
+    ],
     "labels": [],
-    "url": "https://gitea.com/gitea/tea/pulls/1",
-    "createdAt": "2018-10-12T15:02:55.000Z",
-    "updatedAt": "2026-05-31T22:20:52.000Z",
-    "closedAt": "2018-10-21T18:52:58.000Z",
-    "lastActivityAt": "2026-05-31T22:20:52.000Z",
+    "url": "https://gitea.com/gitea/tea/pulls/1099",
+    "createdAt": "2026-08-22T06:42:24.000Z",
+    "updatedAt": "2026-09-30T17:48:20.000Z",
+    "closedAt": "2026-09-30T17:48:19.000Z",
+    "lastActivityAt": "2026-09-30T17:48:20.000Z",
     "locked": false,
-    "commentCount": 0,
+    "commentCount": 1,
     "branches": {
       "head": {
-        "ref": "refs/pull/1/head",
-        "sha": "4f714bf67af9e03198b076f8d71aeb9512e7129a",
+        "ref": "refs/pull/1099/head",
+        "sha": "dbfa61205c14e48d13d95c55b277e55cc0ee1100",
         "repo": {
           "forge": "gitea",
           "instance": "gitea.com",
-          "owner": "gitea",
+          "owner": "lunny",
           "name": "tea",
-          "externalId": "550"
+          "externalId": "593"
         }
       },
       "base": {
-        "ref": "master",
-        "sha": ""
+        "ref": "main",
+        "sha": "bcd62a1fb2ce6fdd51ebea91cc33ddbcae000b68"
       },
-      "mergeCommitSha": "b9b653dec35798eaedcd15a61d671618f7d68cd8"
+      "mergeCommitSha": "6daaa7c05e7883d4468fc7b40c2f71e0ea75562a"
     },
     "checks": {
-      "state": "unknown",
-      "total": 0,
+      "state": "success",
+      "total": 2,
       "failed": 0
     }
   },
@@ -300,7 +314,7 @@
           "name": "tea"
         },
         "kind": "pull_request",
-        "number": "1"
+        "number": "1099"
       },
       "thread": {
         "ref": {
@@ -313,12 +327,12 @@
             "name": "tea"
           },
           "kind": "pull_request",
-          "number": "1",
-          "externalId": "115"
+          "number": "1099",
+          "externalId": "189782"
         },
         "kind": "pull_request",
-        "title": "Add release create",
-        "body": "Author: @lunny \n\n",
+        "title": "Fix locale-dependent git repo detection",
+        "body": "Fixes #1089\n\n## Root cause\n`tea clone` initializes the command context by probing the current directory with `git rev-parse --show-toplevel`. `classifyRepoError` recognizes the \"not a git repository\" case by matching the English stderr text. When git emits localized errors (for example with `LANG=de_DE.UTF-8`), that match fails, and the otherwise harmless \"no repo here\" error is returned as fatal before cloning.\n\n## Fix\nPin the locale of git subprocesses to `C` by overriding `LC_ALL`, `LANG`, and `LANGUAGE` in `runGitCommand`. This keeps all git output stable for parsing while leaving the parent process locale untouched.\n\n## Tests\nAdded a regression test using a fake git executable that emits a German \"not a repository\" error unless the locale is forced to `C`, and verifies `ErrRepositoryNotExists` is returned.",
         "state": "merged",
         "stateRaw": "closed",
         "isDraft": false,
@@ -333,36 +347,50 @@
           "isBotHint": false
         },
         "assignees": [],
-        "reviewers": [],
+        "reviewers": [
+          {
+            "actor": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "login": "Zettat123",
+              "id": "39446",
+              "avatarUrl": "https://gitea.com/avatars/230ac7fa09681a12ecc1dd575f5ffe91003739cb181ab1cd9f670ab2e90eaab8",
+              "url": "https://gitea.com/Zettat123",
+              "isBotHint": false
+            },
+            "state": "pending",
+            "stateRaw": "requested"
+          }
+        ],
         "labels": [],
-        "url": "https://gitea.com/gitea/tea/pulls/1",
-        "createdAt": "2018-10-12T15:02:55.000Z",
-        "updatedAt": "2026-05-31T22:20:52.000Z",
-        "closedAt": "2018-10-21T18:52:58.000Z",
-        "lastActivityAt": "2026-05-31T22:20:52.000Z",
+        "url": "https://gitea.com/gitea/tea/pulls/1099",
+        "createdAt": "2026-08-22T06:42:24.000Z",
+        "updatedAt": "2026-09-30T17:48:20.000Z",
+        "closedAt": "2026-09-30T17:48:19.000Z",
+        "lastActivityAt": "2026-09-30T17:48:20.000Z",
         "locked": false,
-        "commentCount": 0,
+        "commentCount": 1,
         "branches": {
           "head": {
-            "ref": "refs/pull/1/head",
-            "sha": "4f714bf67af9e03198b076f8d71aeb9512e7129a",
+            "ref": "refs/pull/1099/head",
+            "sha": "dbfa61205c14e48d13d95c55b277e55cc0ee1100",
             "repo": {
               "forge": "gitea",
               "instance": "gitea.com",
-              "owner": "gitea",
+              "owner": "lunny",
               "name": "tea",
-              "externalId": "550"
+              "externalId": "593"
             }
           },
           "base": {
-            "ref": "master",
-            "sha": ""
+            "ref": "main",
+            "sha": "bcd62a1fb2ce6fdd51ebea91cc33ddbcae000b68"
           },
-          "mergeCommitSha": "b9b653dec35798eaedcd15a61d671618f7d68cd8"
+          "mergeCommitSha": "6daaa7c05e7883d4468fc7b40c2f71e0ea75562a"
         },
         "checks": {
-          "state": "unknown",
-          "total": 0,
+          "state": "success",
+          "total": 2,
           "failed": 0
         }
       }
@@ -373,11 +401,11 @@
       {
         "forge": "gitea",
         "instance": "gitea.com",
-        "id": "107792",
-        "kind": "referenced",
-        "kindRaw": "issue_ref",
-        "summary": "lunny referenced this from #97",
-        "occurredAt": "2020-02-25T12:24:40.000Z",
+        "id": "1482636",
+        "kind": "commit",
+        "kindRaw": "pull_push",
+        "summary": "lunny referenced a commit",
+        "occurredAt": "2026-08-22T06:42:24.000Z",
         "actor": {
           "forge": "gitea",
           "instance": "gitea.com",
@@ -404,30 +432,7 @@
             "name": "tea"
           },
           "kind": "pull_request",
-          "number": "1"
-        },
-        "detail": {
-          "type": "referenced",
-          "from": {
-            "forge": "gitea",
-            "instance": "gitea.com",
-            "repo": {
-              "forge": "gitea",
-              "instance": "gitea.com",
-              "owner": "gitea",
-              "name": "tea",
-              "externalId": "550"
-            },
-            "kind": "issue",
-            "number": "97"
-          },
-          "fromRepo": {
-            "forge": "gitea",
-            "instance": "gitea.com",
-            "owner": "gitea",
-            "name": "tea",
-            "externalId": "550"
-          }
+          "number": "1099"
         },
         "source": "poll",
         "action": "other"
@@ -435,11 +440,11 @@
       {
         "forge": "gitea",
         "instance": "gitea.com",
-        "id": "122167",
-        "kind": "referenced",
-        "kindRaw": "issue_ref",
-        "summary": "lunny referenced this from #305",
-        "occurredAt": "2020-12-15T05:07:24.000Z",
+        "id": "1505747",
+        "kind": "commit",
+        "kindRaw": "pull_push",
+        "summary": "lunny referenced a commit",
+        "occurredAt": "2026-08-28T23:55:45.000Z",
         "actor": {
           "forge": "gitea",
           "instance": "gitea.com",
@@ -466,30 +471,7 @@
             "name": "tea"
           },
           "kind": "pull_request",
-          "number": "1"
-        },
-        "detail": {
-          "type": "referenced",
-          "from": {
-            "forge": "gitea",
-            "instance": "gitea.com",
-            "repo": {
-              "forge": "gitea",
-              "instance": "gitea.com",
-              "owner": "gitea",
-              "name": "tea",
-              "externalId": "550"
-            },
-            "kind": "issue",
-            "number": "305"
-          },
-          "fromRepo": {
-            "forge": "gitea",
-            "instance": "gitea.com",
-            "owner": "gitea",
-            "name": "tea",
-            "externalId": "550"
-          }
+          "number": "1099"
         },
         "source": "poll",
         "action": "other"
@@ -497,19 +479,18 @@
       {
         "forge": "gitea",
         "instance": "gitea.com",
-        "id": "717594",
-        "kind": "referenced",
-        "kindRaw": "change_issue_ref",
-        "summary": "noerw referenced this",
-        "occurredAt": "2022-09-13T21:03:14.000Z",
+        "id": "1718952",
+        "kind": "comment",
+        "kindRaw": "comment",
+        "summary": "qube132132 commented",
+        "occurredAt": "2026-09-27T21:20:53.000Z",
         "actor": {
           "forge": "gitea",
           "instance": "gitea.com",
-          "login": "noerw",
-          "id": "1012",
-          "name": "Norwin",
-          "avatarUrl": "https://gitea.com/avatars/d900cc6f1cc26cee3e683034c2555fcd",
-          "url": "https://gitea.com/noerw",
+          "login": "qube132132",
+          "id": "248969",
+          "avatarUrl": "https://seccdn.libravatar.org/avatar/baf09f1e3dc46046832e5f27018d130f516dee0b2be8a59b205028905f7a8b7b?d=identicon",
+          "url": "https://gitea.com/qube132132",
           "isBotHint": false
         },
         "repo": {
@@ -528,45 +509,158 @@
             "name": "tea"
           },
           "kind": "pull_request",
-          "number": "1"
-        },
-        "detail": {
-          "type": "referenced"
+          "number": "1099"
         },
         "source": "poll",
-        "action": "other"
+        "action": "created"
       }
     ],
     "cursor": {
-      "nextUrl": "https://gitea.com/api/v1/repos/gitea/tea/issues/1/timeline?limit=3&page=2"
+      "nextUrl": "https://gitea.com/api/v1/repos/gitea/tea/issues/1099/timeline?limit=3&page=2"
     }
   },
   "pull comments": {
-    "items": []
+    "items": [
+      {
+        "ref": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "thread": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "repo": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "owner": "gitea",
+              "name": "tea"
+            },
+            "kind": "pull_request",
+            "number": "1099"
+          },
+          "id": "1718952"
+        },
+        "body": "Context : git localized in french, gitea running normally. \n`tea clone [my repo] `\nfails with error \n`Error: git rev-parse --show-toplevel: fatal: ni ceci ni aucun de ses répertoires parents n'est un dépôt git : .git`\n..meanwhile \n`LANG=en_GB LC_ALL=en_GB LANGUAGE=en_GB tea clone [my repo]`\nworks as appropriate. \nI can't confirm the fix, but the analysis and the diff look good. \nSince pretty much any work starts with a tea clone, this bug prevents any non-english localized git user to start working right away...  ",
+        "author": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "login": "qube132132",
+          "id": "248969",
+          "avatarUrl": "https://seccdn.libravatar.org/avatar/baf09f1e3dc46046832e5f27018d130f516dee0b2be8a59b205028905f7a8b7b?d=identicon",
+          "url": "https://gitea.com/qube132132",
+          "isBotHint": false
+        },
+        "createdAt": "2026-09-27T21:20:53.000Z",
+        "updatedAt": "2026-09-27T21:22:05.000Z",
+        "url": "https://gitea.com/gitea/tea/pulls/1099#issuecomment-1718952"
+      }
+    ]
   },
   "pull reactions": {
     "items": []
   },
   "pull reviews": {
-    "items": []
+    "items": [
+      {
+        "ref": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "thread": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "repo": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "owner": "gitea",
+              "name": "tea"
+            },
+            "kind": "pull_request",
+            "number": "1099"
+          },
+          "id": "383047"
+        },
+        "author": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "repo": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "owner": "gitea",
+            "name": "tea"
+          },
+          "kind": "pull_request",
+          "number": "1099",
+          "login": "Zettat123",
+          "id": "39446",
+          "avatarUrl": "https://gitea.com/avatars/230ac7fa09681a12ecc1dd575f5ffe91003739cb181ab1cd9f670ab2e90eaab8",
+          "url": "https://gitea.com/Zettat123",
+          "isBotHint": false
+        },
+        "state": "approved",
+        "stateRaw": "APPROVED",
+        "submittedAt": "2026-09-30T17:42:34.000Z",
+        "comments": [],
+        "url": "https://gitea.com/gitea/tea/pulls/1099#pullrequestreview-383047"
+      }
+    ]
   },
   "pull checks": {
-    "items": []
+    "items": [
+      {
+        "ref": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "repo": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "owner": "gitea",
+            "name": "tea"
+          },
+          "id": "5",
+          "type": "status"
+        },
+        "name": "check-and-test / Integration Test (pull_request)",
+        "state": "success",
+        "stateRaw": "success",
+        "url": "/gitea/tea/actions/runs/999532/jobs/1355176",
+        "startedAt": "2026-09-30T17:42:10.000Z",
+        "completedAt": "2026-09-30T17:42:10.000Z"
+      },
+      {
+        "ref": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "repo": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "owner": "gitea",
+            "name": "tea"
+          },
+          "id": "6",
+          "type": "status"
+        },
+        "name": "check-and-test / Lint Build And Unit Coverage (pull_request)",
+        "state": "success",
+        "stateRaw": "success",
+        "url": "/gitea/tea/actions/runs/999532/jobs/1355175",
+        "startedAt": "2026-09-30T17:42:15.000Z",
+        "completedAt": "2026-09-30T17:42:15.000Z"
+      }
+    ]
   },
   "pull files": {
     "items": [
       {
-        "path": "README.md",
+        "path": "modules/git/cli_backend.go",
         "status": "changed",
         "statusRaw": "changed",
-        "additions": 1,
-        "deletions": 0
+        "additions": 16,
+        "deletions": 1
       },
       {
-        "path": "cmd/releases.go",
-        "status": "changed",
-        "statusRaw": "changed",
-        "additions": 57,
+        "path": "modules/git/cli_backend_test.go",
+        "status": "added",
+        "statusRaw": "added",
+        "additions": 40,
         "deletions": 0
       }
     ]
@@ -583,10 +677,10 @@
             "owner": "gitea",
             "name": "tea"
           },
-          "sha": "4f714bf67af9e03198b076f8d71aeb9512e7129a"
+          "sha": "dbfa61205c14e48d13d95c55b277e55cc0ee1100"
         },
-        "sha": "4f714bf67af9e03198b076f8d71aeb9512e7129a",
-        "message": "typo\n",
+        "sha": "dbfa61205c14e48d13d95c55b277e55cc0ee1100",
+        "message": "Merge branch 'main' into issue-1089-locale-independent-git\n",
         "author": {
           "actor": {
             "forge": "gitea",
@@ -600,7 +694,7 @@
           },
           "name": "Lunny Xiao",
           "email": "redacted@example.invalid",
-          "date": "2018-10-20T02:55:38.000Z"
+          "date": "2026-09-30T17:40:41.000Z"
         },
         "committer": {
           "actor": {
@@ -615,22 +709,83 @@
           },
           "name": "Lunny Xiao",
           "email": "redacted@example.invalid",
-          "date": "2018-10-20T02:55:38.000Z"
+          "date": "2026-09-30T17:40:41.000Z"
         },
         "parents": [
-          "303911d10f4f2e52182b0b5ba404ed8423f45b32"
+          "d98dd96cd86bd56539aa8fdad5c14e06abd4d2f1",
+          "9c12138d6273ba8feb6e7578833cc330c0cd6461"
         ],
-        "url": "https://gitea.com/gitea/tea/commit/4f714bf67af9e03198b076f8d71aeb9512e7129a",
+        "url": "https://gitea.com/gitea/tea/commit/dbfa61205c14e48d13d95c55b277e55cc0ee1100",
         "stats": {
-          "additions": 2,
-          "deletions": 2,
-          "total": 4
+          "additions": 454,
+          "deletions": 46,
+          "total": 500
         },
         "files": [
           {
-            "path": "cmd/releases.go",
+            "path": "cmd/issues/create.go",
             "status": "modified",
             "statusRaw": "modified"
+          },
+          {
+            "path": "cmd/pulls/create.go",
+            "status": "modified",
+            "statusRaw": "modified"
+          },
+          {
+            "path": "go.mod",
+            "status": "modified",
+            "statusRaw": "modified"
+          },
+          {
+            "path": "go.sum",
+            "status": "modified",
+            "statusRaw": "modified"
+          },
+          {
+            "path": "modules/interact/issue_create.go",
+            "status": "modified",
+            "statusRaw": "modified"
+          },
+          {
+            "path": "modules/interact/pull_create.go",
+            "status": "modified",
+            "statusRaw": "modified"
+          },
+          {
+            "path": "modules/task/issue_create.go",
+            "status": "modified",
+            "statusRaw": "modified"
+          },
+          {
+            "path": "modules/task/pull_create.go",
+            "status": "modified",
+            "statusRaw": "modified"
+          },
+          {
+            "path": "modules/task/pull_merge.go",
+            "status": "modified",
+            "statusRaw": "modified"
+          },
+          {
+            "path": "cmd/issues/create_test.go",
+            "status": "added",
+            "statusRaw": "added"
+          },
+          {
+            "path": "cmd/pulls/create_app_test.go",
+            "status": "added",
+            "statusRaw": "added"
+          },
+          {
+            "path": "cmd/pulls/create_test.go",
+            "status": "added",
+            "statusRaw": "added"
+          },
+          {
+            "path": "modules/task/pull_merge_test.go",
+            "status": "added",
+            "statusRaw": "added"
           }
         ]
       },
@@ -644,10 +799,10 @@
             "owner": "gitea",
             "name": "tea"
           },
-          "sha": "303911d10f4f2e52182b0b5ba404ed8423f45b32"
+          "sha": "d98dd96cd86bd56539aa8fdad5c14e06abd4d2f1"
         },
-        "sha": "303911d10f4f2e52182b0b5ba404ed8423f45b32",
-        "message": "add release create\n",
+        "sha": "d98dd96cd86bd56539aa8fdad5c14e06abd4d2f1",
+        "message": "Merge branch 'main' into issue-1089-locale-independent-git\n",
         "author": {
           "actor": {
             "forge": "gitea",
@@ -661,7 +816,7 @@
           },
           "name": "Lunny Xiao",
           "email": "redacted@example.invalid",
-          "date": "2018-10-12T14:49:47.000Z"
+          "date": "2026-08-28T23:55:42.000Z"
         },
         "committer": {
           "actor": {
@@ -676,31 +831,166 @@
           },
           "name": "Lunny Xiao",
           "email": "redacted@example.invalid",
-          "date": "2018-10-12T14:49:47.000Z"
+          "date": "2026-08-28T23:55:42.000Z"
         },
         "parents": [
-          "9d5cda4bfec2e6e0c09e802cf3bf7dd3de69f504"
+          "67f1b1a8f27b659102fd4d1507dc2ae7a49fec9c",
+          "8bfdec40c6708f8be14d10b05e69aea487e607c1"
         ],
-        "url": "https://gitea.com/gitea/tea/commit/303911d10f4f2e52182b0b5ba404ed8423f45b32",
+        "url": "https://gitea.com/gitea/tea/commit/d98dd96cd86bd56539aa8fdad5c14e06abd4d2f1",
         "stats": {
-          "additions": 58,
-          "deletions": 0,
-          "total": 58
+          "additions": 799,
+          "deletions": 25,
+          "total": 824
         },
         "files": [
           {
-            "path": "README.md",
+            "path": "cmd/flags/issue_pr.go",
             "status": "modified",
             "statusRaw": "modified"
           },
           {
-            "path": "cmd/releases.go",
+            "path": "cmd/login.go",
+            "status": "modified",
+            "statusRaw": "modified"
+          },
+          {
+            "path": "docs/CLI.md",
+            "status": "modified",
+            "statusRaw": "modified"
+          },
+          {
+            "path": "go.mod",
+            "status": "modified",
+            "statusRaw": "modified"
+          },
+          {
+            "path": "modules/config/login.go",
+            "status": "modified",
+            "statusRaw": "modified"
+          },
+          {
+            "path": "modules/interact/login.go",
+            "status": "modified",
+            "statusRaw": "modified"
+          },
+          {
+            "path": "modules/task/login_create.go",
+            "status": "modified",
+            "statusRaw": "modified"
+          },
+          {
+            "path": "cmd/flags/body.go",
+            "status": "added",
+            "statusRaw": "added"
+          },
+          {
+            "path": "cmd/flags/body_test.go",
+            "status": "added",
+            "statusRaw": "added"
+          },
+          {
+            "path": "cmd/login/status.go",
+            "status": "added",
+            "statusRaw": "added"
+          },
+          {
+            "path": "modules/interact/login_test.go",
+            "status": "added",
+            "statusRaw": "added"
+          },
+          {
+            "path": "modules/print/login_status.go",
+            "status": "added",
+            "statusRaw": "added"
+          },
+          {
+            "path": "modules/print/login_status_test.go",
+            "status": "added",
+            "statusRaw": "added"
+          },
+          {
+            "path": "modules/task/login_status.go",
+            "status": "added",
+            "statusRaw": "added"
+          },
+          {
+            "path": "modules/task/login_status_test.go",
+            "status": "added",
+            "statusRaw": "added"
+          }
+        ]
+      },
+      {
+        "ref": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "repo": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "owner": "gitea",
+            "name": "tea"
+          },
+          "sha": "67f1b1a8f27b659102fd4d1507dc2ae7a49fec9c"
+        },
+        "sha": "67f1b1a8f27b659102fd4d1507dc2ae7a49fec9c",
+        "message": "Fix locale-dependent git error handling (#1089)\n\nForce the C locale for git subprocesses so git output used for error classification remains stable and parseable regardless of the user shell language.\n\nAdd a regression test that simulates a localized git \"not a repository\" error and verifies it is classified as ErrRepositoryNotExists.\n\nSigned-off-by: Lunny Xiao <redacted@example.invalid>\n",
+        "author": {
+          "actor": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "login": "lunny",
+            "id": "1",
+            "name": "Lunny Xiao",
+            "avatarUrl": "https://seccdn.libravatar.org/avatar/b897d40dc87fdba4a024827c3967597434681a8f4f0f4eb5d73e0f8b1a0a9274?d=identicon",
+            "url": "https://gitea.com/lunny",
+            "isBotHint": false
+          },
+          "name": "Lunny Xiao",
+          "email": "redacted@example.invalid",
+          "date": "2026-08-22T06:41:58.000Z"
+        },
+        "committer": {
+          "actor": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "login": "lunny",
+            "id": "1",
+            "name": "Lunny Xiao",
+            "avatarUrl": "https://seccdn.libravatar.org/avatar/b897d40dc87fdba4a024827c3967597434681a8f4f0f4eb5d73e0f8b1a0a9274?d=identicon",
+            "url": "https://gitea.com/lunny",
+            "isBotHint": false
+          },
+          "name": "Lunny Xiao",
+          "email": "redacted@example.invalid",
+          "date": "2026-08-22T06:41:58.000Z"
+        },
+        "parents": [
+          "ee531914cd107a6c4239013f979e65835d4815f7"
+        ],
+        "url": "https://gitea.com/gitea/tea/commit/67f1b1a8f27b659102fd4d1507dc2ae7a49fec9c",
+        "stats": {
+          "additions": 56,
+          "deletions": 1,
+          "total": 57
+        },
+        "files": [
+          {
+            "path": "modules/git/cli_backend_test.go",
+            "status": "added",
+            "statusRaw": "added"
+          },
+          {
+            "path": "modules/git/cli_backend.go",
             "status": "modified",
             "statusRaw": "modified"
           }
         ]
       }
-    ]
+    ],
+    "cursor": {
+      "nextUrl": "https://gitea.com/api/v1/repos/gitea/tea/pulls/1099/commits?limit=3&page=2"
+    }
   },
   "issue": {
     "ref": {
@@ -1093,6 +1383,30 @@
   "issue reactions": {
     "items": []
   },
+  "commit thread": {
+    "ref": {
+      "forge": "gitea",
+      "instance": "gitea.com",
+      "repo": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "owner": "gitea",
+        "name": "tea"
+      },
+      "kind": "commit",
+      "number": "dbfa61205c14e48d13d95c55b277e55cc0ee1100"
+    },
+    "kind": "commit",
+    "state": "unknown",
+    "isDraft": false,
+    "assignees": [],
+    "reviewers": [],
+    "labels": [],
+    "url": "https://gitea.com/gitea/tea/commit/dbfa61205c14e48d13d95c55b277e55cc0ee1100"
+  },
+  "commit events": {
+    "items": []
+  },
   "user": {
     "forge": "gitea",
     "instance": "gitea.com",
@@ -1108,7 +1422,48 @@
     "following": 95
   },
   "checks": {
-    "items": []
+    "items": [
+      {
+        "ref": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "repo": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "owner": "gitea",
+            "name": "tea"
+          },
+          "id": "5",
+          "type": "status"
+        },
+        "name": "check-and-test / Integration Test (pull_request)",
+        "state": "success",
+        "stateRaw": "success",
+        "url": "/gitea/tea/actions/runs/999532/jobs/1355176",
+        "startedAt": "2026-09-30T17:42:10.000Z",
+        "completedAt": "2026-09-30T17:42:10.000Z"
+      },
+      {
+        "ref": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "repo": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "owner": "gitea",
+            "name": "tea"
+          },
+          "id": "6",
+          "type": "status"
+        },
+        "name": "check-and-test / Lint Build And Unit Coverage (pull_request)",
+        "state": "success",
+        "stateRaw": "success",
+        "url": "/gitea/tea/actions/runs/999532/jobs/1355175",
+        "startedAt": "2026-09-30T17:42:15.000Z",
+        "completedAt": "2026-09-30T17:42:15.000Z"
+      }
+    ]
   },
   "readme": {
     "path": "README.md",
@@ -1447,10 +1802,10 @@
         "owner": "gitea",
         "name": "tea"
       },
-      "sha": "4f714bf67af9e03198b076f8d71aeb9512e7129a"
+      "sha": "dbfa61205c14e48d13d95c55b277e55cc0ee1100"
     },
-    "sha": "4f714bf67af9e03198b076f8d71aeb9512e7129a",
-    "message": "typo\n",
+    "sha": "dbfa61205c14e48d13d95c55b277e55cc0ee1100",
+    "message": "Merge branch 'main' into issue-1089-locale-independent-git\n",
     "author": {
       "actor": {
         "forge": "gitea",
@@ -1464,7 +1819,7 @@
       },
       "name": "Lunny Xiao",
       "email": "redacted@example.invalid",
-      "date": "2018-10-20T02:55:38.000Z"
+      "date": "2026-09-30T17:40:41.000Z"
     },
     "committer": {
       "actor": {
@@ -1479,24 +1834,413 @@
       },
       "name": "Lunny Xiao",
       "email": "redacted@example.invalid",
-      "date": "2018-10-20T02:55:38.000Z"
+      "date": "2026-09-30T17:40:41.000Z"
     },
     "parents": [
-      "303911d10f4f2e52182b0b5ba404ed8423f45b32"
+      "d98dd96cd86bd56539aa8fdad5c14e06abd4d2f1",
+      "9c12138d6273ba8feb6e7578833cc330c0cd6461"
     ],
-    "url": "https://gitea.com/gitea/tea/commit/4f714bf67af9e03198b076f8d71aeb9512e7129a",
+    "url": "https://gitea.com/gitea/tea/commit/dbfa61205c14e48d13d95c55b277e55cc0ee1100",
     "stats": {
-      "additions": 2,
-      "deletions": 2,
-      "total": 4
+      "additions": 454,
+      "deletions": 46,
+      "total": 500
     },
     "files": [
       {
-        "path": "cmd/releases.go",
+        "path": "cmd/issues/create_test.go",
+        "status": "added",
+        "statusRaw": "added"
+      },
+      {
+        "path": "cmd/pulls/create_app_test.go",
+        "status": "added",
+        "statusRaw": "added"
+      },
+      {
+        "path": "cmd/pulls/create_test.go",
+        "status": "added",
+        "statusRaw": "added"
+      },
+      {
+        "path": "modules/task/pull_merge_test.go",
+        "status": "added",
+        "statusRaw": "added"
+      },
+      {
+        "path": "cmd/issues/create.go",
+        "status": "modified",
+        "statusRaw": "modified"
+      },
+      {
+        "path": "cmd/pulls/create.go",
+        "status": "modified",
+        "statusRaw": "modified"
+      },
+      {
+        "path": "go.mod",
+        "status": "modified",
+        "statusRaw": "modified"
+      },
+      {
+        "path": "go.sum",
+        "status": "modified",
+        "statusRaw": "modified"
+      },
+      {
+        "path": "modules/interact/issue_create.go",
+        "status": "modified",
+        "statusRaw": "modified"
+      },
+      {
+        "path": "modules/interact/pull_create.go",
+        "status": "modified",
+        "statusRaw": "modified"
+      },
+      {
+        "path": "modules/task/issue_create.go",
+        "status": "modified",
+        "statusRaw": "modified"
+      },
+      {
+        "path": "modules/task/pull_create.go",
+        "status": "modified",
+        "statusRaw": "modified"
+      },
+      {
+        "path": "modules/task/pull_merge.go",
         "status": "modified",
         "statusRaw": "modified"
       }
     ]
+  },
+  "compare": {
+    "base": "main",
+    "head": "dbfa61205c14e48d13d95c55b277e55cc0ee1100",
+    "aheadBy": 3,
+    "commits": [
+      {
+        "ref": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "repo": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "owner": "gitea",
+            "name": "tea"
+          },
+          "sha": "dbfa61205c14e48d13d95c55b277e55cc0ee1100"
+        },
+        "sha": "dbfa61205c14e48d13d95c55b277e55cc0ee1100",
+        "message": "Merge branch 'main' into issue-1089-locale-independent-git\n",
+        "author": {
+          "actor": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "login": "lunny",
+            "id": "1",
+            "name": "Lunny Xiao",
+            "avatarUrl": "https://seccdn.libravatar.org/avatar/b897d40dc87fdba4a024827c3967597434681a8f4f0f4eb5d73e0f8b1a0a9274?d=identicon",
+            "url": "https://gitea.com/lunny",
+            "isBotHint": false
+          },
+          "name": "Lunny Xiao",
+          "email": "redacted@example.invalid",
+          "date": "2026-09-30T17:40:41.000Z"
+        },
+        "committer": {
+          "actor": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "login": "lunny",
+            "id": "1",
+            "name": "Lunny Xiao",
+            "avatarUrl": "https://seccdn.libravatar.org/avatar/b897d40dc87fdba4a024827c3967597434681a8f4f0f4eb5d73e0f8b1a0a9274?d=identicon",
+            "url": "https://gitea.com/lunny",
+            "isBotHint": false
+          },
+          "name": "Lunny Xiao",
+          "email": "redacted@example.invalid",
+          "date": "2026-09-30T17:40:41.000Z"
+        },
+        "parents": [
+          "d98dd96cd86bd56539aa8fdad5c14e06abd4d2f1",
+          "9c12138d6273ba8feb6e7578833cc330c0cd6461"
+        ],
+        "url": "https://gitea.com/gitea/tea/commit/dbfa61205c14e48d13d95c55b277e55cc0ee1100",
+        "stats": {
+          "additions": 454,
+          "deletions": 46,
+          "total": 500
+        },
+        "files": [
+          {
+            "path": "cmd/issues/create_test.go",
+            "status": "added",
+            "statusRaw": "added"
+          },
+          {
+            "path": "cmd/pulls/create_app_test.go",
+            "status": "added",
+            "statusRaw": "added"
+          },
+          {
+            "path": "cmd/pulls/create_test.go",
+            "status": "added",
+            "statusRaw": "added"
+          },
+          {
+            "path": "modules/task/pull_merge_test.go",
+            "status": "added",
+            "statusRaw": "added"
+          },
+          {
+            "path": "cmd/issues/create.go",
+            "status": "modified",
+            "statusRaw": "modified"
+          },
+          {
+            "path": "cmd/pulls/create.go",
+            "status": "modified",
+            "statusRaw": "modified"
+          },
+          {
+            "path": "go.mod",
+            "status": "modified",
+            "statusRaw": "modified"
+          },
+          {
+            "path": "go.sum",
+            "status": "modified",
+            "statusRaw": "modified"
+          },
+          {
+            "path": "modules/interact/issue_create.go",
+            "status": "modified",
+            "statusRaw": "modified"
+          },
+          {
+            "path": "modules/interact/pull_create.go",
+            "status": "modified",
+            "statusRaw": "modified"
+          },
+          {
+            "path": "modules/task/issue_create.go",
+            "status": "modified",
+            "statusRaw": "modified"
+          },
+          {
+            "path": "modules/task/pull_create.go",
+            "status": "modified",
+            "statusRaw": "modified"
+          },
+          {
+            "path": "modules/task/pull_merge.go",
+            "status": "modified",
+            "statusRaw": "modified"
+          }
+        ]
+      },
+      {
+        "ref": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "repo": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "owner": "gitea",
+            "name": "tea"
+          },
+          "sha": "d98dd96cd86bd56539aa8fdad5c14e06abd4d2f1"
+        },
+        "sha": "d98dd96cd86bd56539aa8fdad5c14e06abd4d2f1",
+        "message": "Merge branch 'main' into issue-1089-locale-independent-git\n",
+        "author": {
+          "actor": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "login": "lunny",
+            "id": "1",
+            "name": "Lunny Xiao",
+            "avatarUrl": "https://seccdn.libravatar.org/avatar/b897d40dc87fdba4a024827c3967597434681a8f4f0f4eb5d73e0f8b1a0a9274?d=identicon",
+            "url": "https://gitea.com/lunny",
+            "isBotHint": false
+          },
+          "name": "Lunny Xiao",
+          "email": "redacted@example.invalid",
+          "date": "2026-08-28T23:55:42.000Z"
+        },
+        "committer": {
+          "actor": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "login": "lunny",
+            "id": "1",
+            "name": "Lunny Xiao",
+            "avatarUrl": "https://seccdn.libravatar.org/avatar/b897d40dc87fdba4a024827c3967597434681a8f4f0f4eb5d73e0f8b1a0a9274?d=identicon",
+            "url": "https://gitea.com/lunny",
+            "isBotHint": false
+          },
+          "name": "Lunny Xiao",
+          "email": "redacted@example.invalid",
+          "date": "2026-08-28T23:55:42.000Z"
+        },
+        "parents": [
+          "67f1b1a8f27b659102fd4d1507dc2ae7a49fec9c",
+          "8bfdec40c6708f8be14d10b05e69aea487e607c1"
+        ],
+        "url": "https://gitea.com/gitea/tea/commit/d98dd96cd86bd56539aa8fdad5c14e06abd4d2f1",
+        "stats": {
+          "additions": 799,
+          "deletions": 25,
+          "total": 824
+        },
+        "files": [
+          {
+            "path": "cmd/flags/body.go",
+            "status": "added",
+            "statusRaw": "added"
+          },
+          {
+            "path": "cmd/flags/body_test.go",
+            "status": "added",
+            "statusRaw": "added"
+          },
+          {
+            "path": "cmd/login/status.go",
+            "status": "added",
+            "statusRaw": "added"
+          },
+          {
+            "path": "modules/interact/login_test.go",
+            "status": "added",
+            "statusRaw": "added"
+          },
+          {
+            "path": "modules/print/login_status.go",
+            "status": "added",
+            "statusRaw": "added"
+          },
+          {
+            "path": "modules/print/login_status_test.go",
+            "status": "added",
+            "statusRaw": "added"
+          },
+          {
+            "path": "modules/task/login_status.go",
+            "status": "added",
+            "statusRaw": "added"
+          },
+          {
+            "path": "modules/task/login_status_test.go",
+            "status": "added",
+            "statusRaw": "added"
+          },
+          {
+            "path": "cmd/flags/issue_pr.go",
+            "status": "modified",
+            "statusRaw": "modified"
+          },
+          {
+            "path": "cmd/login.go",
+            "status": "modified",
+            "statusRaw": "modified"
+          },
+          {
+            "path": "docs/CLI.md",
+            "status": "modified",
+            "statusRaw": "modified"
+          },
+          {
+            "path": "go.mod",
+            "status": "modified",
+            "statusRaw": "modified"
+          },
+          {
+            "path": "modules/config/login.go",
+            "status": "modified",
+            "statusRaw": "modified"
+          },
+          {
+            "path": "modules/interact/login.go",
+            "status": "modified",
+            "statusRaw": "modified"
+          },
+          {
+            "path": "modules/task/login_create.go",
+            "status": "modified",
+            "statusRaw": "modified"
+          }
+        ]
+      },
+      {
+        "ref": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "repo": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "owner": "gitea",
+            "name": "tea"
+          },
+          "sha": "67f1b1a8f27b659102fd4d1507dc2ae7a49fec9c"
+        },
+        "sha": "67f1b1a8f27b659102fd4d1507dc2ae7a49fec9c",
+        "message": "Fix locale-dependent git error handling (#1089)\n\nForce the C locale for git subprocesses so git output used for error classification remains stable and parseable regardless of the user shell language.\n\nAdd a regression test that simulates a localized git \"not a repository\" error and verifies it is classified as ErrRepositoryNotExists.\n\nSigned-off-by: Lunny Xiao <redacted@example.invalid>\n",
+        "author": {
+          "actor": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "login": "lunny",
+            "id": "1",
+            "name": "Lunny Xiao",
+            "avatarUrl": "https://seccdn.libravatar.org/avatar/b897d40dc87fdba4a024827c3967597434681a8f4f0f4eb5d73e0f8b1a0a9274?d=identicon",
+            "url": "https://gitea.com/lunny",
+            "isBotHint": false
+          },
+          "name": "Lunny Xiao",
+          "email": "redacted@example.invalid",
+          "date": "2026-08-22T06:41:58.000Z"
+        },
+        "committer": {
+          "actor": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "login": "lunny",
+            "id": "1",
+            "name": "Lunny Xiao",
+            "avatarUrl": "https://seccdn.libravatar.org/avatar/b897d40dc87fdba4a024827c3967597434681a8f4f0f4eb5d73e0f8b1a0a9274?d=identicon",
+            "url": "https://gitea.com/lunny",
+            "isBotHint": false
+          },
+          "name": "Lunny Xiao",
+          "email": "redacted@example.invalid",
+          "date": "2026-08-22T06:41:58.000Z"
+        },
+        "parents": [
+          "ee531914cd107a6c4239013f979e65835d4815f7"
+        ],
+        "url": "https://gitea.com/gitea/tea/commit/67f1b1a8f27b659102fd4d1507dc2ae7a49fec9c",
+        "stats": {
+          "additions": 56,
+          "deletions": 1,
+          "total": 57
+        },
+        "files": [
+          {
+            "path": "modules/git/cli_backend_test.go",
+            "status": "added",
+            "statusRaw": "added"
+          },
+          {
+            "path": "modules/git/cli_backend.go",
+            "status": "modified",
+            "statusRaw": "modified"
+          }
+        ]
+      }
+    ],
+    "files": []
   },
   "releases": {
     "items": [
@@ -1560,7 +2304,7 @@
             "name": "checksums.txt",
             "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/checksums.txt",
             "size": 1842,
-            "downloadCount": 3795
+            "downloadCount": 3920
           },
           {
             "ref": {
@@ -1589,7 +2333,7 @@
             "name": "checksums.txt.sig",
             "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/checksums.txt.sig",
             "size": 566,
-            "downloadCount": 527
+            "downloadCount": 533
           },
           {
             "ref": {
@@ -1618,7 +2362,7 @@
             "name": "tea-0.16.0-darwin-amd64",
             "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-darwin-amd64",
             "size": 29379792,
-            "downloadCount": 99
+            "downloadCount": 100
           },
           {
             "ref": {
@@ -1647,7 +2391,7 @@
             "name": "tea-0.16.0-darwin-amd64.xz",
             "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-darwin-amd64.xz",
             "size": 6612532,
-            "downloadCount": 67
+            "downloadCount": 70
           },
           {
             "ref": {
@@ -1676,7 +2420,7 @@
             "name": "tea-0.16.0-darwin-amd64.xz.sha256",
             "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-darwin-amd64.xz.sha256",
             "size": 92,
-            "downloadCount": 72
+            "downloadCount": 74
           },
           {
             "ref": {
@@ -1705,7 +2449,7 @@
             "name": "tea-0.16.0-darwin-arm64",
             "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-darwin-arm64",
             "size": 27243698,
-            "downloadCount": 246
+            "downloadCount": 253
           },
           {
             "ref": {
@@ -1734,7 +2478,7 @@
             "name": "tea-0.16.0-darwin-arm64.xz",
             "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-darwin-arm64.xz",
             "size": 5916884,
-            "downloadCount": 152
+            "downloadCount": 159
           },
           {
             "ref": {
@@ -1763,7 +2507,7 @@
             "name": "tea-0.16.0-darwin-arm64.xz.sha256",
             "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-darwin-arm64.xz.sha256",
             "size": 92,
-            "downloadCount": 106
+            "downloadCount": 112
           },
           {
             "ref": {
@@ -1792,7 +2536,7 @@
             "name": "tea-0.16.0-freebsd-amd64",
             "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-freebsd-amd64",
             "size": 28786860,
-            "downloadCount": 49
+            "downloadCount": 50
           },
           {
             "ref": {
@@ -1879,7 +2623,7 @@
             "name": "tea-0.16.0-linux-amd64",
             "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-linux-amd64",
             "size": 29229218,
-            "downloadCount": 5847
+            "downloadCount": 6100
           },
           {
             "ref": {
@@ -1908,7 +2652,7 @@
             "name": "tea-0.16.0-linux-amd64.xz",
             "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-linux-amd64.xz",
             "size": 6647460,
-            "downloadCount": 1985
+            "downloadCount": 2082
           },
           {
             "ref": {
@@ -1937,7 +2681,7 @@
             "name": "tea-0.16.0-linux-amd64.xz.sha256",
             "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-linux-amd64.xz.sha256",
             "size": 91,
-            "downloadCount": 1156
+            "downloadCount": 1214
           },
           {
             "ref": {
@@ -2024,7 +2768,7 @@
             "name": "tea-0.16.0-linux-arm-5.xz.sha256",
             "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-linux-arm-5.xz.sha256",
             "size": 91,
-            "downloadCount": 54
+            "downloadCount": 56
           },
           {
             "ref": {
@@ -2053,7 +2797,7 @@
             "name": "tea-0.16.0-linux-arm-6",
             "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-linux-arm-6",
             "size": 27590818,
-            "downloadCount": 43
+            "downloadCount": 44
           },
           {
             "ref": {
@@ -2111,7 +2855,7 @@
             "name": "tea-0.16.0-linux-arm-6.xz.sha256",
             "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-linux-arm-6.xz.sha256",
             "size": 91,
-            "downloadCount": 53
+            "downloadCount": 55
           },
           {
             "ref": {
@@ -2140,7 +2884,7 @@
             "name": "tea-0.16.0-linux-arm-7",
             "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-linux-arm-7",
             "size": 27590818,
-            "downloadCount": 60
+            "downloadCount": 62
           },
           {
             "ref": {
@@ -2198,7 +2942,7 @@
             "name": "tea-0.16.0-linux-arm-7.xz.sha256",
             "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-linux-arm-7.xz.sha256",
             "size": 91,
-            "downloadCount": 59
+            "downloadCount": 60
           },
           {
             "ref": {
@@ -2227,7 +2971,7 @@
             "name": "tea-0.16.0-linux-arm64",
             "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-linux-arm64",
             "size": 26935458,
-            "downloadCount": 653
+            "downloadCount": 669
           },
           {
             "ref": {
@@ -2256,7 +3000,7 @@
             "name": "tea-0.16.0-linux-arm64.xz",
             "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-linux-arm64.xz",
             "size": 5724112,
-            "downloadCount": 3142
+            "downloadCount": 3166
           },
           {
             "ref": {
@@ -2285,7 +3029,7 @@
             "name": "tea-0.16.0-linux-arm64.xz.sha256",
             "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-linux-arm64.xz.sha256",
             "size": 91,
-            "downloadCount": 467
+            "downloadCount": 478
           },
           {
             "ref": {
@@ -2314,7 +3058,7 @@
             "name": "tea-0.16.0-windows-amd64.exe",
             "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-windows-amd64.exe",
             "size": 29696000,
-            "downloadCount": 1048
+            "downloadCount": 1084
           },
           {
             "ref": {
@@ -2343,7 +3087,7 @@
             "name": "tea-0.16.0-windows-amd64.exe.xz",
             "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-windows-amd64.exe.xz",
             "size": 6729704,
-            "downloadCount": 968
+            "downloadCount": 979
           },
           {
             "ref": {
@@ -2372,7 +3116,7 @@
             "name": "tea-0.16.0-windows-amd64.exe.xz.sha256",
             "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-windows-amd64.exe.xz.sha256",
             "size": 97,
-            "downloadCount": 641
+            "downloadCount": 643
           },
           {
             "ref": {
@@ -2401,7 +3145,7 @@
             "name": "tea-0.16.0-windows-arm64.exe",
             "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-windows-arm64.exe",
             "size": 27001856,
-            "downloadCount": 200
+            "downloadCount": 205
           },
           {
             "ref": {
@@ -2430,7 +3174,7 @@
             "name": "tea-0.16.0-windows-arm64.exe.xz",
             "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-windows-arm64.exe.xz",
             "size": 5715720,
-            "downloadCount": 61
+            "downloadCount": 62
           },
           {
             "ref": {
@@ -2523,7 +3267,7 @@
             "name": "checksums.txt",
             "url": "https://gitea.com/gitea/tea/releases/download/v0.15.1/checksums.txt",
             "size": 1842,
-            "downloadCount": 1689
+            "downloadCount": 1691
           },
           {
             "ref": {
@@ -2581,7 +3325,7 @@
             "name": "tea-0.15.1-darwin-amd64",
             "url": "https://gitea.com/gitea/tea/releases/download/v0.15.1/tea-0.15.1-darwin-amd64",
             "size": 29207280,
-            "downloadCount": 97
+            "downloadCount": 98
           },
           {
             "ref": {
@@ -2639,7 +3383,7 @@
             "name": "tea-0.15.1-darwin-amd64.xz.sha256",
             "url": "https://gitea.com/gitea/tea/releases/download/v0.15.1/tea-0.15.1-darwin-amd64.xz.sha256",
             "size": 92,
-            "downloadCount": 54
+            "downloadCount": 57
           },
           {
             "ref": {
@@ -2668,7 +3412,7 @@
             "name": "tea-0.15.1-darwin-arm64",
             "url": "https://gitea.com/gitea/tea/releases/download/v0.15.1/tea-0.15.1-darwin-arm64",
             "size": 27045058,
-            "downloadCount": 330
+            "downloadCount": 331
           },
           {
             "ref": {
@@ -2726,7 +3470,7 @@
             "name": "tea-0.15.1-darwin-arm64.xz.sha256",
             "url": "https://gitea.com/gitea/tea/releases/download/v0.15.1/tea-0.15.1-darwin-arm64.xz.sha256",
             "size": 92,
-            "downloadCount": 90
+            "downloadCount": 91
           },
           {
             "ref": {
@@ -2755,7 +3499,7 @@
             "name": "tea-0.15.1-freebsd-amd64",
             "url": "https://gitea.com/gitea/tea/releases/download/v0.15.1/tea-0.15.1-freebsd-amd64",
             "size": 28614828,
-            "downloadCount": 49
+            "downloadCount": 51
           },
           {
             "ref": {
@@ -2813,7 +3557,7 @@
             "name": "tea-0.15.1-freebsd-amd64.xz.sha256",
             "url": "https://gitea.com/gitea/tea/releases/download/v0.15.1/tea-0.15.1-freebsd-amd64.xz.sha256",
             "size": 93,
-            "downloadCount": 54
+            "downloadCount": 56
           },
           {
             "ref": {
@@ -2842,7 +3586,7 @@
             "name": "tea-0.15.1-linux-amd64",
             "url": "https://gitea.com/gitea/tea/releases/download/v0.15.1/tea-0.15.1-linux-amd64",
             "size": 29061282,
-            "downloadCount": 6903
+            "downloadCount": 6948
           },
           {
             "ref": {
@@ -2871,7 +3615,7 @@
             "name": "tea-0.15.1-linux-amd64.xz",
             "url": "https://gitea.com/gitea/tea/releases/download/v0.15.1/tea-0.15.1-linux-amd64.xz",
             "size": 6632616,
-            "downloadCount": 1611
+            "downloadCount": 1619
           },
           {
             "ref": {
@@ -2929,7 +3673,7 @@
             "name": "tea-0.15.1-linux-arm-5",
             "url": "https://gitea.com/gitea/tea/releases/download/v0.15.1/tea-0.15.1-linux-arm-5",
             "size": 27394210,
-            "downloadCount": 61
+            "downloadCount": 62
           },
           {
             "ref": {
@@ -2987,7 +3731,7 @@
             "name": "tea-0.15.1-linux-arm-5.xz.sha256",
             "url": "https://gitea.com/gitea/tea/releases/download/v0.15.1/tea-0.15.1-linux-arm-5.xz.sha256",
             "size": 91,
-            "downloadCount": 53
+            "downloadCount": 55
           },
           {
             "ref": {
@@ -3016,7 +3760,7 @@
             "name": "tea-0.15.1-linux-arm-6",
             "url": "https://gitea.com/gitea/tea/releases/download/v0.15.1/tea-0.15.1-linux-arm-6",
             "size": 27328674,
-            "downloadCount": 60
+            "downloadCount": 62
           },
           {
             "ref": {
@@ -3103,7 +3847,7 @@
             "name": "tea-0.15.1-linux-arm-7",
             "url": "https://gitea.com/gitea/tea/releases/download/v0.15.1/tea-0.15.1-linux-arm-7",
             "size": 27263138,
-            "downloadCount": 73
+            "downloadCount": 75
           },
           {
             "ref": {
@@ -3161,7 +3905,7 @@
             "name": "tea-0.15.1-linux-arm-7.xz.sha256",
             "url": "https://gitea.com/gitea/tea/releases/download/v0.15.1/tea-0.15.1-linux-arm-7.xz.sha256",
             "size": 91,
-            "downloadCount": 37
+            "downloadCount": 38
           },
           {
             "ref": {
@@ -3190,7 +3934,7 @@
             "name": "tea-0.15.1-linux-arm64",
             "url": "https://gitea.com/gitea/tea/releases/download/v0.15.1/tea-0.15.1-linux-arm64",
             "size": 26738850,
-            "downloadCount": 729
+            "downloadCount": 730
           },
           {
             "ref": {
@@ -3248,7 +3992,7 @@
             "name": "tea-0.15.1-linux-arm64.xz.sha256",
             "url": "https://gitea.com/gitea/tea/releases/download/v0.15.1/tea-0.15.1-linux-arm64.xz.sha256",
             "size": 91,
-            "downloadCount": 117
+            "downloadCount": 118
           },
           {
             "ref": {
@@ -3277,7 +4021,7 @@
             "name": "tea-0.15.1-windows-amd64.exe",
             "url": "https://gitea.com/gitea/tea/releases/download/v0.15.1/tea-0.15.1-windows-amd64.exe",
             "size": 29525504,
-            "downloadCount": 952
+            "downloadCount": 953
           },
           {
             "ref": {
@@ -3306,7 +4050,7 @@
             "name": "tea-0.15.1-windows-amd64.exe.xz",
             "url": "https://gitea.com/gitea/tea/releases/download/v0.15.1/tea-0.15.1-windows-amd64.exe.xz",
             "size": 6710896,
-            "downloadCount": 409
+            "downloadCount": 411
           },
           {
             "ref": {
@@ -3335,7 +4079,7 @@
             "name": "tea-0.15.1-windows-amd64.exe.xz.sha256",
             "url": "https://gitea.com/gitea/tea/releases/download/v0.15.1/tea-0.15.1-windows-amd64.exe.xz.sha256",
             "size": 97,
-            "downloadCount": 105
+            "downloadCount": 108
           },
           {
             "ref": {
@@ -3422,7 +4166,7 @@
             "name": "tea-0.15.1-windows-arm64.exe.xz.sha256",
             "url": "https://gitea.com/gitea/tea/releases/download/v0.15.1/tea-0.15.1-windows-arm64.exe.xz.sha256",
             "size": 97,
-            "downloadCount": 61
+            "downloadCount": 62
           }
         ]
       },
@@ -3486,7 +4230,7 @@
             "name": "checksums.txt",
             "url": "https://gitea.com/gitea/tea/releases/download/v0.15.0/checksums.txt",
             "size": 1842,
-            "downloadCount": 307
+            "downloadCount": 308
           },
           {
             "ref": {
@@ -3544,7 +4288,7 @@
             "name": "tea-0.15.0-darwin-amd64",
             "url": "https://gitea.com/gitea/tea/releases/download/v0.15.0/tea-0.15.0-darwin-amd64",
             "size": 29207280,
-            "downloadCount": 81
+            "downloadCount": 82
           },
           {
             "ref": {
@@ -3573,7 +4317,7 @@
             "name": "tea-0.15.0-darwin-amd64.xz",
             "url": "https://gitea.com/gitea/tea/releases/download/v0.15.0/tea-0.15.0-darwin-amd64.xz",
             "size": 6591644,
-            "downloadCount": 39
+            "downloadCount": 40
           },
           {
             "ref": {
@@ -3602,7 +4346,7 @@
             "name": "tea-0.15.0-darwin-amd64.xz.sha256",
             "url": "https://gitea.com/gitea/tea/releases/download/v0.15.0/tea-0.15.0-darwin-amd64.xz.sha256",
             "size": 92,
-            "downloadCount": 48
+            "downloadCount": 50
           },
           {
             "ref": {
@@ -3689,7 +4433,7 @@
             "name": "tea-0.15.0-darwin-arm64.xz.sha256",
             "url": "https://gitea.com/gitea/tea/releases/download/v0.15.0/tea-0.15.0-darwin-arm64.xz.sha256",
             "size": 92,
-            "downloadCount": 69
+            "downloadCount": 70
           },
           {
             "ref": {
@@ -3718,7 +4462,7 @@
             "name": "tea-0.15.0-freebsd-amd64",
             "url": "https://gitea.com/gitea/tea/releases/download/v0.15.0/tea-0.15.0-freebsd-amd64",
             "size": 28614828,
-            "downloadCount": 63
+            "downloadCount": 64
           },
           {
             "ref": {
@@ -3776,7 +4520,7 @@
             "name": "tea-0.15.0-freebsd-amd64.xz.sha256",
             "url": "https://gitea.com/gitea/tea/releases/download/v0.15.0/tea-0.15.0-freebsd-amd64.xz.sha256",
             "size": 93,
-            "downloadCount": 64
+            "downloadCount": 65
           },
           {
             "ref": {
@@ -3805,7 +4549,7 @@
             "name": "tea-0.15.0-linux-amd64",
             "url": "https://gitea.com/gitea/tea/releases/download/v0.15.0/tea-0.15.0-linux-amd64",
             "size": 29061282,
-            "downloadCount": 2714
+            "downloadCount": 2743
           },
           {
             "ref": {
@@ -3834,7 +4578,7 @@
             "name": "tea-0.15.0-linux-amd64.xz",
             "url": "https://gitea.com/gitea/tea/releases/download/v0.15.0/tea-0.15.0-linux-amd64.xz",
             "size": 6633868,
-            "downloadCount": 173
+            "downloadCount": 176
           },
           {
             "ref": {
@@ -3863,7 +4607,7 @@
             "name": "tea-0.15.0-linux-amd64.xz.sha256",
             "url": "https://gitea.com/gitea/tea/releases/download/v0.15.0/tea-0.15.0-linux-amd64.xz.sha256",
             "size": 91,
-            "downloadCount": 157
+            "downloadCount": 158
           },
           {
             "ref": {
@@ -3950,7 +4694,7 @@
             "name": "tea-0.15.0-linux-arm-5.xz.sha256",
             "url": "https://gitea.com/gitea/tea/releases/download/v0.15.0/tea-0.15.0-linux-arm-5.xz.sha256",
             "size": 91,
-            "downloadCount": 59
+            "downloadCount": 60
           },
           {
             "ref": {
@@ -3979,7 +4723,7 @@
             "name": "tea-0.15.0-linux-arm-6",
             "url": "https://gitea.com/gitea/tea/releases/download/v0.15.0/tea-0.15.0-linux-arm-6",
             "size": 27328674,
-            "downloadCount": 49
+            "downloadCount": 50
           },
           {
             "ref": {
@@ -4066,7 +4810,7 @@
             "name": "tea-0.15.0-linux-arm-7",
             "url": "https://gitea.com/gitea/tea/releases/download/v0.15.0/tea-0.15.0-linux-arm-7",
             "size": 27328674,
-            "downloadCount": 63
+            "downloadCount": 66
           },
           {
             "ref": {
@@ -4124,7 +4868,7 @@
             "name": "tea-0.15.0-linux-arm-7.xz.sha256",
             "url": "https://gitea.com/gitea/tea/releases/download/v0.15.0/tea-0.15.0-linux-arm-7.xz.sha256",
             "size": 91,
-            "downloadCount": 59
+            "downloadCount": 60
           },
           {
             "ref": {
@@ -4153,7 +4897,7 @@
             "name": "tea-0.15.0-linux-arm64",
             "url": "https://gitea.com/gitea/tea/releases/download/v0.15.0/tea-0.15.0-linux-arm64",
             "size": 26738850,
-            "downloadCount": 233
+            "downloadCount": 236
           },
           {
             "ref": {
@@ -4211,7 +4955,7 @@
             "name": "tea-0.15.0-linux-arm64.xz.sha256",
             "url": "https://gitea.com/gitea/tea/releases/download/v0.15.0/tea-0.15.0-linux-arm64.xz.sha256",
             "size": 91,
-            "downloadCount": 68
+            "downloadCount": 69
           },
           {
             "ref": {
@@ -4298,7 +5042,7 @@
             "name": "tea-0.15.0-windows-amd64.exe.xz.sha256",
             "url": "https://gitea.com/gitea/tea/releases/download/v0.15.0/tea-0.15.0-windows-amd64.exe.xz.sha256",
             "size": 97,
-            "downloadCount": 61
+            "downloadCount": 62
           },
           {
             "ref": {
@@ -4385,7 +5129,7 @@
             "name": "tea-0.15.0-windows-arm64.exe.xz.sha256",
             "url": "https://gitea.com/gitea/tea/releases/download/v0.15.0/tea-0.15.0-windows-arm64.exe.xz.sha256",
             "size": 97,
-            "downloadCount": 60
+            "downloadCount": 62
           }
         ]
       }
@@ -4454,7 +5198,7 @@
         "name": "checksums.txt",
         "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/checksums.txt",
         "size": 1842,
-        "downloadCount": 3795
+        "downloadCount": 3920
       },
       {
         "ref": {
@@ -4483,7 +5227,7 @@
         "name": "checksums.txt.sig",
         "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/checksums.txt.sig",
         "size": 566,
-        "downloadCount": 527
+        "downloadCount": 533
       },
       {
         "ref": {
@@ -4512,7 +5256,7 @@
         "name": "tea-0.16.0-darwin-amd64",
         "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-darwin-amd64",
         "size": 29379792,
-        "downloadCount": 99
+        "downloadCount": 100
       },
       {
         "ref": {
@@ -4541,7 +5285,7 @@
         "name": "tea-0.16.0-darwin-amd64.xz",
         "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-darwin-amd64.xz",
         "size": 6612532,
-        "downloadCount": 67
+        "downloadCount": 70
       },
       {
         "ref": {
@@ -4570,7 +5314,7 @@
         "name": "tea-0.16.0-darwin-amd64.xz.sha256",
         "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-darwin-amd64.xz.sha256",
         "size": 92,
-        "downloadCount": 72
+        "downloadCount": 74
       },
       {
         "ref": {
@@ -4599,7 +5343,7 @@
         "name": "tea-0.16.0-darwin-arm64",
         "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-darwin-arm64",
         "size": 27243698,
-        "downloadCount": 246
+        "downloadCount": 253
       },
       {
         "ref": {
@@ -4628,7 +5372,7 @@
         "name": "tea-0.16.0-darwin-arm64.xz",
         "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-darwin-arm64.xz",
         "size": 5916884,
-        "downloadCount": 152
+        "downloadCount": 159
       },
       {
         "ref": {
@@ -4657,7 +5401,7 @@
         "name": "tea-0.16.0-darwin-arm64.xz.sha256",
         "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-darwin-arm64.xz.sha256",
         "size": 92,
-        "downloadCount": 106
+        "downloadCount": 112
       },
       {
         "ref": {
@@ -4686,7 +5430,7 @@
         "name": "tea-0.16.0-freebsd-amd64",
         "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-freebsd-amd64",
         "size": 28786860,
-        "downloadCount": 49
+        "downloadCount": 50
       },
       {
         "ref": {
@@ -4773,7 +5517,7 @@
         "name": "tea-0.16.0-linux-amd64",
         "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-linux-amd64",
         "size": 29229218,
-        "downloadCount": 5847
+        "downloadCount": 6100
       },
       {
         "ref": {
@@ -4802,7 +5546,7 @@
         "name": "tea-0.16.0-linux-amd64.xz",
         "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-linux-amd64.xz",
         "size": 6647460,
-        "downloadCount": 1985
+        "downloadCount": 2082
       },
       {
         "ref": {
@@ -4831,7 +5575,7 @@
         "name": "tea-0.16.0-linux-amd64.xz.sha256",
         "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-linux-amd64.xz.sha256",
         "size": 91,
-        "downloadCount": 1156
+        "downloadCount": 1214
       },
       {
         "ref": {
@@ -4918,7 +5662,7 @@
         "name": "tea-0.16.0-linux-arm-5.xz.sha256",
         "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-linux-arm-5.xz.sha256",
         "size": 91,
-        "downloadCount": 54
+        "downloadCount": 56
       },
       {
         "ref": {
@@ -4947,7 +5691,7 @@
         "name": "tea-0.16.0-linux-arm-6",
         "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-linux-arm-6",
         "size": 27590818,
-        "downloadCount": 43
+        "downloadCount": 44
       },
       {
         "ref": {
@@ -5005,7 +5749,7 @@
         "name": "tea-0.16.0-linux-arm-6.xz.sha256",
         "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-linux-arm-6.xz.sha256",
         "size": 91,
-        "downloadCount": 53
+        "downloadCount": 55
       },
       {
         "ref": {
@@ -5034,7 +5778,7 @@
         "name": "tea-0.16.0-linux-arm-7",
         "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-linux-arm-7",
         "size": 27590818,
-        "downloadCount": 60
+        "downloadCount": 62
       },
       {
         "ref": {
@@ -5092,7 +5836,7 @@
         "name": "tea-0.16.0-linux-arm-7.xz.sha256",
         "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-linux-arm-7.xz.sha256",
         "size": 91,
-        "downloadCount": 59
+        "downloadCount": 60
       },
       {
         "ref": {
@@ -5121,7 +5865,7 @@
         "name": "tea-0.16.0-linux-arm64",
         "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-linux-arm64",
         "size": 26935458,
-        "downloadCount": 653
+        "downloadCount": 669
       },
       {
         "ref": {
@@ -5150,7 +5894,7 @@
         "name": "tea-0.16.0-linux-arm64.xz",
         "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-linux-arm64.xz",
         "size": 5724112,
-        "downloadCount": 3142
+        "downloadCount": 3166
       },
       {
         "ref": {
@@ -5179,7 +5923,7 @@
         "name": "tea-0.16.0-linux-arm64.xz.sha256",
         "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-linux-arm64.xz.sha256",
         "size": 91,
-        "downloadCount": 467
+        "downloadCount": 478
       },
       {
         "ref": {
@@ -5208,7 +5952,7 @@
         "name": "tea-0.16.0-windows-amd64.exe",
         "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-windows-amd64.exe",
         "size": 29696000,
-        "downloadCount": 1048
+        "downloadCount": 1084
       },
       {
         "ref": {
@@ -5237,7 +5981,7 @@
         "name": "tea-0.16.0-windows-amd64.exe.xz",
         "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-windows-amd64.exe.xz",
         "size": 6729704,
-        "downloadCount": 968
+        "downloadCount": 979
       },
       {
         "ref": {
@@ -5266,7 +6010,7 @@
         "name": "tea-0.16.0-windows-amd64.exe.xz.sha256",
         "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-windows-amd64.exe.xz.sha256",
         "size": 97,
-        "downloadCount": 641
+        "downloadCount": 643
       },
       {
         "ref": {
@@ -5295,7 +6039,7 @@
         "name": "tea-0.16.0-windows-arm64.exe",
         "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-windows-arm64.exe",
         "size": 27001856,
-        "downloadCount": 200
+        "downloadCount": 205
       },
       {
         "ref": {
@@ -5324,7 +6068,7 @@
         "name": "tea-0.16.0-windows-arm64.exe.xz",
         "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-windows-arm64.exe.xz",
         "size": 5715720,
-        "downloadCount": 61
+        "downloadCount": 62
       },
       {
         "ref": {
@@ -5417,7 +6161,7 @@
         "name": "checksums.txt",
         "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/checksums.txt",
         "size": 1842,
-        "downloadCount": 3795
+        "downloadCount": 3920
       },
       {
         "ref": {
@@ -5446,7 +6190,7 @@
         "name": "checksums.txt.sig",
         "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/checksums.txt.sig",
         "size": 566,
-        "downloadCount": 527
+        "downloadCount": 533
       },
       {
         "ref": {
@@ -5475,7 +6219,7 @@
         "name": "tea-0.16.0-darwin-amd64",
         "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-darwin-amd64",
         "size": 29379792,
-        "downloadCount": 99
+        "downloadCount": 100
       },
       {
         "ref": {
@@ -5504,7 +6248,7 @@
         "name": "tea-0.16.0-darwin-amd64.xz",
         "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-darwin-amd64.xz",
         "size": 6612532,
-        "downloadCount": 67
+        "downloadCount": 70
       },
       {
         "ref": {
@@ -5533,7 +6277,7 @@
         "name": "tea-0.16.0-darwin-amd64.xz.sha256",
         "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-darwin-amd64.xz.sha256",
         "size": 92,
-        "downloadCount": 72
+        "downloadCount": 74
       },
       {
         "ref": {
@@ -5562,7 +6306,7 @@
         "name": "tea-0.16.0-darwin-arm64",
         "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-darwin-arm64",
         "size": 27243698,
-        "downloadCount": 246
+        "downloadCount": 253
       },
       {
         "ref": {
@@ -5591,7 +6335,7 @@
         "name": "tea-0.16.0-darwin-arm64.xz",
         "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-darwin-arm64.xz",
         "size": 5916884,
-        "downloadCount": 152
+        "downloadCount": 159
       },
       {
         "ref": {
@@ -5620,7 +6364,7 @@
         "name": "tea-0.16.0-darwin-arm64.xz.sha256",
         "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-darwin-arm64.xz.sha256",
         "size": 92,
-        "downloadCount": 106
+        "downloadCount": 112
       },
       {
         "ref": {
@@ -5649,7 +6393,7 @@
         "name": "tea-0.16.0-freebsd-amd64",
         "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-freebsd-amd64",
         "size": 28786860,
-        "downloadCount": 49
+        "downloadCount": 50
       },
       {
         "ref": {
@@ -5736,7 +6480,7 @@
         "name": "tea-0.16.0-linux-amd64",
         "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-linux-amd64",
         "size": 29229218,
-        "downloadCount": 5847
+        "downloadCount": 6100
       },
       {
         "ref": {
@@ -5765,7 +6509,7 @@
         "name": "tea-0.16.0-linux-amd64.xz",
         "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-linux-amd64.xz",
         "size": 6647460,
-        "downloadCount": 1985
+        "downloadCount": 2082
       },
       {
         "ref": {
@@ -5794,7 +6538,7 @@
         "name": "tea-0.16.0-linux-amd64.xz.sha256",
         "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-linux-amd64.xz.sha256",
         "size": 91,
-        "downloadCount": 1156
+        "downloadCount": 1214
       },
       {
         "ref": {
@@ -5881,7 +6625,7 @@
         "name": "tea-0.16.0-linux-arm-5.xz.sha256",
         "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-linux-arm-5.xz.sha256",
         "size": 91,
-        "downloadCount": 54
+        "downloadCount": 56
       },
       {
         "ref": {
@@ -5910,7 +6654,7 @@
         "name": "tea-0.16.0-linux-arm-6",
         "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-linux-arm-6",
         "size": 27590818,
-        "downloadCount": 43
+        "downloadCount": 44
       },
       {
         "ref": {
@@ -5968,7 +6712,7 @@
         "name": "tea-0.16.0-linux-arm-6.xz.sha256",
         "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-linux-arm-6.xz.sha256",
         "size": 91,
-        "downloadCount": 53
+        "downloadCount": 55
       },
       {
         "ref": {
@@ -5997,7 +6741,7 @@
         "name": "tea-0.16.0-linux-arm-7",
         "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-linux-arm-7",
         "size": 27590818,
-        "downloadCount": 60
+        "downloadCount": 62
       },
       {
         "ref": {
@@ -6055,7 +6799,7 @@
         "name": "tea-0.16.0-linux-arm-7.xz.sha256",
         "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-linux-arm-7.xz.sha256",
         "size": 91,
-        "downloadCount": 59
+        "downloadCount": 60
       },
       {
         "ref": {
@@ -6084,7 +6828,7 @@
         "name": "tea-0.16.0-linux-arm64",
         "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-linux-arm64",
         "size": 26935458,
-        "downloadCount": 653
+        "downloadCount": 669
       },
       {
         "ref": {
@@ -6113,7 +6857,7 @@
         "name": "tea-0.16.0-linux-arm64.xz",
         "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-linux-arm64.xz",
         "size": 5724112,
-        "downloadCount": 3142
+        "downloadCount": 3166
       },
       {
         "ref": {
@@ -6142,7 +6886,7 @@
         "name": "tea-0.16.0-linux-arm64.xz.sha256",
         "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-linux-arm64.xz.sha256",
         "size": 91,
-        "downloadCount": 467
+        "downloadCount": 478
       },
       {
         "ref": {
@@ -6171,7 +6915,7 @@
         "name": "tea-0.16.0-windows-amd64.exe",
         "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-windows-amd64.exe",
         "size": 29696000,
-        "downloadCount": 1048
+        "downloadCount": 1084
       },
       {
         "ref": {
@@ -6200,7 +6944,7 @@
         "name": "tea-0.16.0-windows-amd64.exe.xz",
         "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-windows-amd64.exe.xz",
         "size": 6729704,
-        "downloadCount": 968
+        "downloadCount": 979
       },
       {
         "ref": {
@@ -6229,7 +6973,7 @@
         "name": "tea-0.16.0-windows-amd64.exe.xz.sha256",
         "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-windows-amd64.exe.xz.sha256",
         "size": 97,
-        "downloadCount": 641
+        "downloadCount": 643
       },
       {
         "ref": {
@@ -6258,7 +7002,7 @@
         "name": "tea-0.16.0-windows-arm64.exe",
         "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-windows-arm64.exe",
         "size": 27001856,
-        "downloadCount": 200
+        "downloadCount": 205
       },
       {
         "ref": {
@@ -6287,7 +7031,7 @@
         "name": "tea-0.16.0-windows-arm64.exe.xz",
         "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-windows-arm64.exe.xz",
         "size": 5715720,
-        "downloadCount": 61
+        "downloadCount": 62
       },
       {
         "ref": {
@@ -6380,7 +7124,7 @@
         "name": "checksums.txt",
         "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/checksums.txt",
         "size": 1842,
-        "downloadCount": 3795
+        "downloadCount": 3920
       },
       {
         "ref": {
@@ -6409,7 +7153,7 @@
         "name": "checksums.txt.sig",
         "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/checksums.txt.sig",
         "size": 566,
-        "downloadCount": 527
+        "downloadCount": 533
       },
       {
         "ref": {
@@ -6438,7 +7182,7 @@
         "name": "tea-0.16.0-darwin-amd64",
         "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-darwin-amd64",
         "size": 29379792,
-        "downloadCount": 99
+        "downloadCount": 100
       },
       {
         "ref": {
@@ -6467,7 +7211,7 @@
         "name": "tea-0.16.0-darwin-amd64.xz",
         "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-darwin-amd64.xz",
         "size": 6612532,
-        "downloadCount": 67
+        "downloadCount": 70
       },
       {
         "ref": {
@@ -6496,7 +7240,7 @@
         "name": "tea-0.16.0-darwin-amd64.xz.sha256",
         "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-darwin-amd64.xz.sha256",
         "size": 92,
-        "downloadCount": 72
+        "downloadCount": 74
       },
       {
         "ref": {
@@ -6525,7 +7269,7 @@
         "name": "tea-0.16.0-darwin-arm64",
         "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-darwin-arm64",
         "size": 27243698,
-        "downloadCount": 246
+        "downloadCount": 253
       },
       {
         "ref": {
@@ -6554,7 +7298,7 @@
         "name": "tea-0.16.0-darwin-arm64.xz",
         "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-darwin-arm64.xz",
         "size": 5916884,
-        "downloadCount": 152
+        "downloadCount": 159
       },
       {
         "ref": {
@@ -6583,7 +7327,7 @@
         "name": "tea-0.16.0-darwin-arm64.xz.sha256",
         "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-darwin-arm64.xz.sha256",
         "size": 92,
-        "downloadCount": 106
+        "downloadCount": 112
       },
       {
         "ref": {
@@ -6612,7 +7356,7 @@
         "name": "tea-0.16.0-freebsd-amd64",
         "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-freebsd-amd64",
         "size": 28786860,
-        "downloadCount": 49
+        "downloadCount": 50
       },
       {
         "ref": {
@@ -6699,7 +7443,7 @@
         "name": "tea-0.16.0-linux-amd64",
         "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-linux-amd64",
         "size": 29229218,
-        "downloadCount": 5847
+        "downloadCount": 6100
       },
       {
         "ref": {
@@ -6728,7 +7472,7 @@
         "name": "tea-0.16.0-linux-amd64.xz",
         "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-linux-amd64.xz",
         "size": 6647460,
-        "downloadCount": 1985
+        "downloadCount": 2082
       },
       {
         "ref": {
@@ -6757,7 +7501,7 @@
         "name": "tea-0.16.0-linux-amd64.xz.sha256",
         "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-linux-amd64.xz.sha256",
         "size": 91,
-        "downloadCount": 1156
+        "downloadCount": 1214
       },
       {
         "ref": {
@@ -6844,7 +7588,7 @@
         "name": "tea-0.16.0-linux-arm-5.xz.sha256",
         "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-linux-arm-5.xz.sha256",
         "size": 91,
-        "downloadCount": 54
+        "downloadCount": 56
       },
       {
         "ref": {
@@ -6873,7 +7617,7 @@
         "name": "tea-0.16.0-linux-arm-6",
         "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-linux-arm-6",
         "size": 27590818,
-        "downloadCount": 43
+        "downloadCount": 44
       },
       {
         "ref": {
@@ -6931,7 +7675,7 @@
         "name": "tea-0.16.0-linux-arm-6.xz.sha256",
         "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-linux-arm-6.xz.sha256",
         "size": 91,
-        "downloadCount": 53
+        "downloadCount": 55
       },
       {
         "ref": {
@@ -6960,7 +7704,7 @@
         "name": "tea-0.16.0-linux-arm-7",
         "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-linux-arm-7",
         "size": 27590818,
-        "downloadCount": 60
+        "downloadCount": 62
       },
       {
         "ref": {
@@ -7018,7 +7762,7 @@
         "name": "tea-0.16.0-linux-arm-7.xz.sha256",
         "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-linux-arm-7.xz.sha256",
         "size": 91,
-        "downloadCount": 59
+        "downloadCount": 60
       },
       {
         "ref": {
@@ -7047,7 +7791,7 @@
         "name": "tea-0.16.0-linux-arm64",
         "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-linux-arm64",
         "size": 26935458,
-        "downloadCount": 653
+        "downloadCount": 669
       },
       {
         "ref": {
@@ -7076,7 +7820,7 @@
         "name": "tea-0.16.0-linux-arm64.xz",
         "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-linux-arm64.xz",
         "size": 5724112,
-        "downloadCount": 3142
+        "downloadCount": 3166
       },
       {
         "ref": {
@@ -7105,7 +7849,7 @@
         "name": "tea-0.16.0-linux-arm64.xz.sha256",
         "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-linux-arm64.xz.sha256",
         "size": 91,
-        "downloadCount": 467
+        "downloadCount": 478
       },
       {
         "ref": {
@@ -7134,7 +7878,7 @@
         "name": "tea-0.16.0-windows-amd64.exe",
         "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-windows-amd64.exe",
         "size": 29696000,
-        "downloadCount": 1048
+        "downloadCount": 1084
       },
       {
         "ref": {
@@ -7163,7 +7907,7 @@
         "name": "tea-0.16.0-windows-amd64.exe.xz",
         "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-windows-amd64.exe.xz",
         "size": 6729704,
-        "downloadCount": 968
+        "downloadCount": 979
       },
       {
         "ref": {
@@ -7192,7 +7936,7 @@
         "name": "tea-0.16.0-windows-amd64.exe.xz.sha256",
         "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-windows-amd64.exe.xz.sha256",
         "size": 97,
-        "downloadCount": 641
+        "downloadCount": 643
       },
       {
         "ref": {
@@ -7221,7 +7965,7 @@
         "name": "tea-0.16.0-windows-arm64.exe",
         "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-windows-arm64.exe",
         "size": 27001856,
-        "downloadCount": 200
+        "downloadCount": 205
       },
       {
         "ref": {
@@ -7250,7 +7994,7 @@
         "name": "tea-0.16.0-windows-arm64.exe.xz",
         "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-windows-arm64.exe.xz",
         "size": 5715720,
-        "downloadCount": 61
+        "downloadCount": 62
       },
       {
         "ref": {
@@ -7282,6 +8026,11 @@
         "downloadCount": 54
       }
     ]
+  },
+  "release asset": {
+    "name": "tea-0.16.0-linux-amd64.xz.sha256",
+    "size": 91,
+    "sha256": "ebfd4ea2ac4674df6fb389e7b8773d1414001f9849d29d839d634a141acc8400"
   },
   "search threads": {
     "items": [],

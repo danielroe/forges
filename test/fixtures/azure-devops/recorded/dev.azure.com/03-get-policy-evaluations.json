@@ -1,0 +1,14 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://dev.azure.com/forges/forges-fixtures/_apis/policy/evaluations?artifactId=vstfs%3A%2F%2F%2FCodeReview%2FCodeReviewId%2Fb2332e32-1afe-4c85-9407-12e7af2bf24c%2F1&api-version=7.1-preview.1"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "value": [],
+      "count": 0
+    }
+  }
+}

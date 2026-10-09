@@ -114,20 +114,20 @@ A label delivery doesn't say which labels were added or removed. When the set of
 | `users.me` | ✅ | ❌ |
 | `repos.list` | ✅ | ❌ |
 | `repos.labels` | ✅ | ✅ |
-| `repos.createLabel` | experimental | ❌ |
+| `repos.createLabel` | ✅ | ❌ |
 | `repos.milestones` | ✅ | ✅ |
 | `repos.collaborators` | ✅ | ❌ |
-| `repos.permissionFor` | experimental | ❌ |
-| `repos.addCollaborator` | experimental | ❌ |
+| `repos.permissionFor` | ✅ | ❌ |
+| `repos.addCollaborator` | ✅ | ❌ |
 | `repos.assignableUsers` | ✅ | ❌ |
-| `repos.reviewerCandidates` | experimental | ❌ |
-| `threads.get` | issue, PR, commit (experimental) | issue, PR, commit (experimental) |
+| `repos.reviewerCandidates` | ✅ | ❌ |
+| `threads.get` | issue, PR, commit | issue, PR, commit |
 | `threads.list` | issue, PR | issue, PR |
 | `threads.getMany` | ✅ | ✅ |
-| `threads.events` | issue, PR, commit (experimental) | issue, PR, commit (experimental) |
+| `threads.events` | issue, PR, commit | issue, PR, commit |
 | `comments.list` | issue, PR | issue, PR |
-| `comments.edit` | issue (experimental), PR (experimental) | ❌ |
-| `comments.delete` | issue (experimental), PR (experimental) | ❌ |
+| `comments.edit` | issue, PR | ❌ |
+| `comments.delete` | issue, PR | ❌ |
 | `reactions.list` | issue, PR | issue, PR |
 | `notifications.list` | ✅ | ❌ |
 | `notifications.markRead` | ✅ | ❌ |
@@ -136,19 +136,19 @@ A label delivery doesn't say which labels were added or removed. When the set of
 | `notifications.markAllRead` | ✅ | ❌ |
 | `notifications.markAllDone` | ❌ | ❌ |
 | `notifications.unreadCount` | ✅ | ❌ |
-| `writes.comment` | issue (experimental), PR | ❌ |
+| `writes.comment` | issue, PR | ❌ |
 | `writes.upsertComment` | issue (emulated), PR (emulated) | ❌ |
-| `writes.close` | issue (experimental), PR | ❌ |
-| `writes.reopen` | issue (experimental), PR | ❌ |
-| `writes.create` | issue (experimental), PR (experimental) | ❌ |
-| `writes.update` | issue (experimental), PR (experimental) | ❌ |
-| `writes.setLabels` | issue (experimental), PR (experimental) | ❌ |
-| `writes.addLabels` | issue (experimental), PR (experimental) | ❌ |
-| `writes.removeLabels` | issue (experimental), PR (experimental) | ❌ |
-| `writes.setMilestone` | issue (experimental), PR (experimental) | ❌ |
-| `writes.react` | issue (experimental), PR (experimental) | ❌ |
-| `writes.setAssignees` | issue (experimental), PR (experimental) | ❌ |
-| `writes.requestReview` | PR (experimental) | ❌ |
+| `writes.close` | issue, PR | ❌ |
+| `writes.reopen` | issue, PR | ❌ |
+| `writes.create` | issue, PR | ❌ |
+| `writes.update` | issue, PR | ❌ |
+| `writes.setLabels` | issue, PR | ❌ |
+| `writes.addLabels` | issue, PR | ❌ |
+| `writes.removeLabels` | issue, PR | ❌ |
+| `writes.setMilestone` | issue, PR | ❌ |
+| `writes.react` | issue, PR | ❌ |
+| `writes.setAssignees` | issue, PR | ❌ |
+| `writes.requestReview` | PR | ❌ |
 | `writes.merge` | ✅ | ❌ |
 | `writes.approveAndMerge` | ✅ | ❌ |
 | `writes.transfer` | ❌ | ❌ |
@@ -158,12 +158,12 @@ A label delivery doesn't say which labels were added or removed. When the set of
 | `installations` | ❌ | ❌ |
 | `checks.thread` | PR | PR |
 | `checks.list` | ✅ | ✅ |
-| `checks.report` | experimental | ❌ |
+| `checks.report` | ✅ | ❌ |
 | `checks.rerun` | ❌ | ❌ |
 | `ci.runs` | ✅ | ✅ |
 | `ci.run` | ✅ | ✅ |
 | `ci.jobs` | ✅ | ✅ |
-| `ci.log` | experimental | experimental |
+| `ci.log` | ✅ | ✅ |
 | `contents.file` | ✅ | ✅ |
 | `contents.tree` | ✅ | ✅ |
 | `contents.branches` | ✅ | ✅ |
@@ -175,20 +175,20 @@ A label delivery doesn't say which labels were added or removed. When the set of
 | `contents.threadFiles` | ✅ | ✅ |
 | `contents.threadCommits` | ✅ | ✅ |
 | `reviews.list` | ✅ | ✅ |
-| `reviews.create` | experimental | ❌ |
-| `reviews.submit` | experimental | ❌ |
-| `reviews.approve` | experimental | ❌ |
+| `reviews.create` | ✅ | ❌ |
+| `reviews.submit` | ✅ | ❌ |
+| `reviews.approve` | ✅ | ❌ |
 | `reviews.resolveThread` | ❌ | ❌ |
 | `releases.list` | ✅ | ✅ |
 | `releases.get` | ✅ | ✅ |
 | `releases.latest` | ✅ | ✅ |
 | `releases.getByTag` | ✅ | ✅ |
-| `releases.downloadAsset` | experimental | experimental |
-| `webhooks.list` | experimental | ❌ |
-| `webhooks.create` | experimental | ❌ |
-| `webhooks.update` | experimental | ❌ |
-| `webhooks.delete` | experimental | ❌ |
-| `webhooks.rotateSecret` | experimental | ❌ |
+| `releases.downloadAsset` | ✅ | ✅ |
+| `webhooks.list` | ✅ | ❌ |
+| `webhooks.create` | ✅ | ❌ |
+| `webhooks.update` | ✅ | ❌ |
+| `webhooks.delete` | ✅ | ❌ |
+| `webhooks.rotateSecret` | ✅ | ❌ |
 | `webhooks.deliveries` | ❌ | ❌ |
 | `webhooks.redeliver` | ❌ | ❌ |
 | `search.threads` | ✅ | ✅ |

@@ -1,0 +1,26 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://amanita.us-east.host.bsky.network/xrpc/com.atproto.repo.getRecord?repo=did%3Aplc%3Ao3bh4ov7x4ypfz4xg5redtki&collection=sh.tangled.repo.issue&rkey=3lkkrh3wgy422"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"1dc-bZqLzkLE7+Sp43Gz+J6yu7dXVzY\"",
+      "ratelimit-limit": "3000",
+      "ratelimit-remaining": "2999",
+      "ratelimit-reset": "1791552016"
+    },
+    "body": {
+      "uri": "at://did:plc:o3bh4ov7x4ypfz4xg5redtki/sh.tangled.repo.issue/3lkkrh3wgy422",
+      "cid": "bafyreifc3bwm6cshvevjrltnyhoverzbpvofknivmnpo7p3mmihjjvnzce",
+      "value": {
+        "body": "It would be nice to have https://tangled.sh/@… pages have a link to the users’ bluesky profile.\n\nwould be glad to make a PR if there’s consensus ",
+        "repo": "did:plc:g66xej5jct643d6bgukldn77",
+        "$type": "sh.tangled.repo.issue",
+        "title": "Link user profiles to bsky pages",
+        "createdAt": "2026-06-30T08:43:15Z"
+      }
+    }
+  }
+}

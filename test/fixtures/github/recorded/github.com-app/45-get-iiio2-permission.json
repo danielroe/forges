@@ -1,0 +1,48 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/collaborators/iiio2/permission"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"9b6805136cd8a5eb3a4c04b80ee99a864b3aa8ccb31f608e0acb0b4fc4444ba8\"",
+      "x-ratelimit-limit": "5000",
+      "x-ratelimit-remaining": "4978",
+      "x-ratelimit-reset": "1791555259"
+    },
+    "body": {
+      "permission": "read",
+      "user": {
+        "login": "iiio2",
+        "id": 47961062,
+        "node_id": "REDACTED",
+        "avatar_url": "https://avatars.githubusercontent.com/u/47961062?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/iiio2",
+        "html_url": "https://github.com/iiio2",
+        "followers_url": "https://api.github.com/users/iiio2/followers",
+        "following_url": "https://api.github.com/users/iiio2/following{/other_user}",
+        "gists_url": "https://api.github.com/users/iiio2/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/iiio2/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/iiio2/subscriptions",
+        "organizations_url": "https://api.github.com/users/iiio2/orgs",
+        "repos_url": "https://api.github.com/users/iiio2/repos",
+        "events_url": "https://api.github.com/users/iiio2/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/iiio2/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false,
+        "permissions": {
+          "admin": false,
+          "maintain": false,
+          "push": false,
+          "triage": false,
+          "pull": true
+        },
+        "role_name": "read"
+      },
+      "role_name": "read"
+    }
+  }
+}

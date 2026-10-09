@@ -5,7 +5,9 @@
   },
   "response": {
     "status": 200,
-    "headers": {},
+    "headers": {
+      "x-total-count": "1"
+    },
     "body": [
       {
         "id": 2181409,

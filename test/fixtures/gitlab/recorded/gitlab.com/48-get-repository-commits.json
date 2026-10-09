@@ -1,0 +1,80 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/repository/commits?per_page=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "<https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/repository/commits?id=gitlab-org%2Fcli&order=default&page=2&pagination=legacy&per_page=3&trailers=false>; rel=\"next\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/repository/commits?id=gitlab-org%2Fcli&order=default&page=1&pagination=legacy&per_page=3&trailers=false>; rel=\"first\"",
+      "etag": "W/\"c4734846453855972c7e855c6c142d6e\"",
+      "ratelimit-limit": "2000",
+      "ratelimit-remaining": "1952",
+      "ratelimit-reset": "1791551760",
+      "x-next-page": "2",
+      "x-page": "1",
+      "x-per-page": "3"
+    },
+    "body": [
+      {
+        "id": "89d0008af1df78a62f5b446fb9b1bfc479771279",
+        "short_id": "89d0008a",
+        "created_at": "2026-10-09T16:06:30.000+10:00",
+        "parent_ids": [
+          "8dc3967821c8e6d52e7146b5ee13dbf1b83caec1",
+          "172280be29d9ca0ccaa797fb30bdf9e8da66496e"
+        ],
+        "title": "Merge branch 'govern-codex-cursor-sync' into 'main'",
+        "message": "Merge branch 'govern-codex-cursor-sync' into 'main'\n\nfeat(govern): sync Codex and Cursor sessions through the fallback job\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4051\n\nMerged-by: Jay McCure <redacted@example.invalid>\nApproved-by: GitLab Duo <redacted@example.invalid>\nApproved-by: Jay McCure <redacted@example.invalid>\nReviewed-by: GitLab Duo <redacted@example.invalid>\nCo-authored-by: Jean van der Walt <redacted@example.invalid>",
+        "author_name": "Jay McCure",
+        "author_email": "redacted@example.invalid",
+        "authored_date": "2026-10-09T16:06:30.000+10:00",
+        "committer_name": "GitLab",
+        "committer_email": "redacted@example.invalid",
+        "committed_date": "2026-10-09T16:06:30.000+10:00",
+        "trailers": {},
+        "extended_trailers": {},
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/89d0008af1df78a62f5b446fb9b1bfc479771279"
+      },
+      {
+        "id": "172280be29d9ca0ccaa797fb30bdf9e8da66496e",
+        "short_id": "172280be",
+        "created_at": "2026-10-09T16:06:30.000+10:00",
+        "parent_ids": [
+          "8dc3967821c8e6d52e7146b5ee13dbf1b83caec1"
+        ],
+        "title": "feat(govern): sync Codex and Cursor sessions through the fallback job",
+        "message": "feat(govern): sync Codex and Cursor sessions through the fallback job\n",
+        "author_name": "Jean van der Walt",
+        "author_email": "redacted@example.invalid",
+        "authored_date": "2026-10-09T19:06:30.000+13:00",
+        "committer_name": "GitLab",
+        "committer_email": "redacted@example.invalid",
+        "committed_date": "2026-10-09T16:06:30.000+10:00",
+        "trailers": {},
+        "extended_trailers": {},
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/172280be29d9ca0ccaa797fb30bdf9e8da66496e"
+      },
+      {
+        "id": "8dc3967821c8e6d52e7146b5ee13dbf1b83caec1",
+        "short_id": "8dc39678",
+        "created_at": "2026-10-09T14:56:07.000+10:00",
+        "parent_ids": [
+          "75297de1f762a691ed91b2bd311952743ca042eb",
+          "16e2204b01d76f87065769a579fa69cd393f0ff7"
+        ],
+        "title": "Merge branch 'jmc-go-1.27.2-vuln-bump' into 'main'",
+        "message": "Merge branch 'jmc-go-1.27.2-vuln-bump' into 'main'\n\nfix(deps): bump Go to 1.27.2 and golang.org/x/net to v0.60.0\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4048\n\nMerged-by: Jay McCure <redacted@example.invalid>\nApproved-by: GitLab Duo <redacted@example.invalid>\nApproved-by: Kai Armstrong <redacted@example.invalid>\nReviewed-by: GitLab Duo <redacted@example.invalid>\n",
+        "author_name": "Jay McCure",
+        "author_email": "redacted@example.invalid",
+        "authored_date": "2026-10-09T14:56:07.000+10:00",
+        "committer_name": "GitLab",
+        "committer_email": "redacted@example.invalid",
+        "committed_date": "2026-10-09T14:56:07.000+10:00",
+        "trailers": {},
+        "extended_trailers": {},
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/8dc3967821c8e6d52e7146b5ee13dbf1b83caec1"
+      }
+    ]
+  }
+}

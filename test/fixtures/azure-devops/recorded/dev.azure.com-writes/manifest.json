@@ -1,0 +1,61 @@
+{
+  "baseUrl": "https://dev.azure.com",
+  "repo": {
+    "forge": "azure-devops",
+    "instance": "dev.azure.com",
+    "owner": "forges/forges-fixtures",
+    "name": "forges-fixtures"
+  },
+  "scratch": {
+    "forge": "azure-devops",
+    "instance": "dev.azure.com",
+    "owner": "forges/forges-fixtures",
+    "name": "forges-fixtures"
+  },
+  "run": {
+    "id": "20261009142428",
+    "base": "main",
+    "branches": [
+      "forges-fixtures/20261009142428-1",
+      "forges-fixtures/20261009142428-2",
+      "forges-fixtures/20261009142428-3"
+    ],
+    "files": [
+      "forges-fixtures/20261009142428-1.md",
+      "forges-fixtures/20261009142428-2.md",
+      "forges-fixtures/20261009142428-3.md"
+    ],
+    "reviewer": "48261c0d-8a6e-6a10-a9cb-c76b44ce18ce"
+  },
+  "recordedAt": "2026-10-09T14:24:31.400Z",
+  "steps": [
+    "create issue",
+    "issue comment",
+    "issue edit comment",
+    "issue upsert comment",
+    "issue delete comment",
+    "issue set labels",
+    "issue assign",
+    "issue update",
+    "create duplicate issue",
+    "issue close",
+    "issue reopen",
+    "create pull",
+    "create second pull",
+    "create third pull",
+    "pull comment",
+    "pull edit comment",
+    "pull upsert comment",
+    "pull delete comment",
+    "pull set labels",
+    "pull update",
+    "request review",
+    "pending review",
+    "report check",
+    "approve",
+    "merge",
+    "pull close",
+    "pull reopen",
+    "approve and merge"
+  ]
+}

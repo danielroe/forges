@@ -1,0 +1,96 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/releases?per_page=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"45c4d8330edd64fb98bb7c7460173fbf74b04e3eccb2547b27cdf4d17d876748\"",
+      "x-ratelimit-limit": "5000",
+      "x-ratelimit-remaining": "4955",
+      "x-ratelimit-reset": "1791555259"
+    },
+    "body": [
+      {
+        "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/releases/407830846",
+        "assets_url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/releases/407830846/assets",
+        "upload_url": "https://uploads.github.com/repos/forges-fixtures/forges-fixtures/releases/407830846/assets{?name,label}",
+        "html_url": "https://github.com/forges-fixtures/forges-fixtures/releases/tag/v0.0.1",
+        "id": 407830846,
+        "author": {
+          "login": "danielroe",
+          "id": 28706372,
+          "node_id": "REDACTED",
+          "avatar_url": "https://avatars.githubusercontent.com/u/28706372?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/danielroe",
+          "html_url": "https://github.com/danielroe",
+          "followers_url": "https://api.github.com/users/danielroe/followers",
+          "following_url": "https://api.github.com/users/danielroe/following{/other_user}",
+          "gists_url": "https://api.github.com/users/danielroe/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/danielroe/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/danielroe/subscriptions",
+          "organizations_url": "https://api.github.com/users/danielroe/orgs",
+          "repos_url": "https://api.github.com/users/danielroe/repos",
+          "events_url": "https://api.github.com/users/danielroe/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/danielroe/received_events",
+          "type": "User",
+          "user_view_type": "public",
+          "site_admin": false
+        },
+        "node_id": "RE_kwDOVCTdtM4YTwE-",
+        "tag_name": "v0.0.1",
+        "target_commitish": "main",
+        "name": "v0.0.1",
+        "draft": false,
+        "immutable": false,
+        "prerelease": false,
+        "created_at": "2026-10-09T11:01:14Z",
+        "updated_at": "2026-10-09T11:03:45Z",
+        "published_at": "2026-10-09T11:03:45Z",
+        "assets": [
+          {
+            "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/releases/assets/624719919",
+            "id": 624719919,
+            "node_id": "RA_kwDOVCTdtM4lPHgv",
+            "name": "fixture.txt",
+            "label": "",
+            "uploader": {
+              "login": "danielroe",
+              "id": 28706372,
+              "node_id": "REDACTED",
+              "avatar_url": "https://avatars.githubusercontent.com/u/28706372?v=4",
+              "gravatar_id": "",
+              "url": "https://api.github.com/users/danielroe",
+              "html_url": "https://github.com/danielroe",
+              "followers_url": "https://api.github.com/users/danielroe/followers",
+              "following_url": "https://api.github.com/users/danielroe/following{/other_user}",
+              "gists_url": "https://api.github.com/users/danielroe/gists{/gist_id}",
+              "starred_url": "https://api.github.com/users/danielroe/starred{/owner}{/repo}",
+              "subscriptions_url": "https://api.github.com/users/danielroe/subscriptions",
+              "organizations_url": "https://api.github.com/users/danielroe/orgs",
+              "repos_url": "https://api.github.com/users/danielroe/repos",
+              "events_url": "https://api.github.com/users/danielroe/events{/privacy}",
+              "received_events_url": "https://api.github.com/users/danielroe/received_events",
+              "type": "User",
+              "user_view_type": "public",
+              "site_admin": false
+            },
+            "content_type": "text/plain; charset=utf-8",
+            "state": "uploaded",
+            "size": 47,
+            "digest": "sha256:4b3d278361040a9b56be04636cfb74a96746dd8005dcb901bddeaf5f7790acfb",
+            "download_count": 0,
+            "created_at": "2026-10-09T11:03:43Z",
+            "updated_at": "2026-10-09T11:03:44Z",
+            "browser_download_url": "https://github.com/forges-fixtures/forges-fixtures/releases/download/v0.0.1/fixture.txt"
+          }
+        ],
+        "tarball_url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/tarball/v0.0.1",
+        "zipball_url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/zipball/v0.0.1",
+        "body": "A release for forges fixture recordings."
+      }
+    ]
+  }
+}

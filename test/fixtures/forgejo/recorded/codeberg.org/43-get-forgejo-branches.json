@@ -1,0 +1,144 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/branches?limit=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "<https://codeberg.org/api/v1/repos/forgejo/forgejo/branches?limit=3&page=2>; rel=\"next\",<https://codeberg.org/api/v1/repos/forgejo/forgejo/branches?limit=3&page=11>; rel=\"last\"",
+      "x-total-count": "33"
+    },
+    "body": [
+      {
+        "name": "forgejo",
+        "commit": {
+          "id": "4ea182cb141c5ff76a4e1ff64ce274e1f9e60b6b",
+          "message": "fix: add clone error enricher to make errors less technical (#14569)\n\nFix #14127\n\nCo-authored-by: Srikanth Iyengar <redacted@example.invalid>\nReviewed-on: https://codeberg.org/forgejo/forgejo/pulls/14569\nReviewed-by: Mathieu Fenniak <redacted@example.invalid>\nReviewed-by: Gusted <redacted@example.invalid>\n",
+          "url": "https://codeberg.org/forgejo/forgejo/commit/4ea182cb141c5ff76a4e1ff64ce274e1f9e60b6b",
+          "author": {
+            "name": "srikanth-iyengar",
+            "email": "redacted@example.invalid",
+            "username": "srikanth-iyengar"
+          },
+          "committer": {
+            "name": "Gusted",
+            "email": "redacted@example.invalid",
+            "username": "Gusted"
+          },
+          "verification": {
+            "verified": false,
+            "reason": "gpg.error.not_signed_commit",
+            "signature": "",
+            "signer": null,
+            "payload": ""
+          },
+          "timestamp": "2026-10-09T14:51:15+02:00",
+          "added": null,
+          "removed": null,
+          "modified": null
+        },
+        "protected": true,
+        "required_approvals": 1,
+        "enable_status_check": true,
+        "status_check_contexts": [
+          "testing / frontend-checks (pull_request)",
+          "testing / backend-checks (pull_request)",
+          "testing / test-unit (pull_request)",
+          "testing / test-pgsql (pull_request)",
+          "testing / test-sqlite (pull_request)",
+          "testing / test-mysql (pull_request)"
+        ],
+        "user_can_push": false,
+        "user_can_merge": false,
+        "effective_branch_protection_name": ""
+      },
+      {
+        "name": "v17.0/forgejo",
+        "commit": {
+          "id": "22565f644c003a7de9f4fcee4fd966deef0be11a",
+          "message": "Update module golang.org/x/net to v0.60.0 [SECURITY] (v17.0/forgejo) (#14775)\n\nReviewed-on: https://codeberg.org/forgejo/forgejo/pulls/14775\nReviewed-by: Mathieu Fenniak <redacted@example.invalid>\n",
+          "url": "https://codeberg.org/forgejo/forgejo/commit/22565f644c003a7de9f4fcee4fd966deef0be11a",
+          "author": {
+            "name": "Renovate Bot",
+            "email": "redacted@example.invalid",
+            "username": "viceice-bot"
+          },
+          "committer": {
+            "name": "Gusted",
+            "email": "redacted@example.invalid",
+            "username": "Gusted"
+          },
+          "verification": {
+            "verified": false,
+            "reason": "gpg.error.not_signed_commit",
+            "signature": "",
+            "signer": null,
+            "payload": ""
+          },
+          "timestamp": "2026-10-09T14:43:44+02:00",
+          "added": null,
+          "removed": null,
+          "modified": null
+        },
+        "protected": true,
+        "required_approvals": 1,
+        "enable_status_check": true,
+        "status_check_contexts": [
+          "testing / frontend-checks (pull_request)",
+          "testing / backend-checks (pull_request)",
+          "testing / test-unit (pull_request)",
+          "testing / test-pgsql (pull_request)",
+          "testing / test-sqlite (pull_request)",
+          "testing / test-mysql (pull_request)"
+        ],
+        "user_can_push": false,
+        "user_can_merge": false,
+        "effective_branch_protection_name": ""
+      },
+      {
+        "name": "v16.0/forgejo",
+        "commit": {
+          "id": "89767854e410ae7a26ffb0c71d08050eee62216e",
+          "message": "Update dependency katex to v0.18.2 [SECURITY] (v16.0/forgejo) (#14765)\n\nReviewed-on: https://codeberg.org/forgejo/forgejo/pulls/14765\nReviewed-by: Gusted <redacted@example.invalid>\n",
+          "url": "https://codeberg.org/forgejo/forgejo/commit/89767854e410ae7a26ffb0c71d08050eee62216e",
+          "author": {
+            "name": "Renovate Bot",
+            "email": "redacted@example.invalid",
+            "username": "viceice-bot"
+          },
+          "committer": {
+            "name": "Gusted",
+            "email": "redacted@example.invalid",
+            "username": "Gusted"
+          },
+          "verification": {
+            "verified": false,
+            "reason": "gpg.error.not_signed_commit",
+            "signature": "",
+            "signer": null,
+            "payload": ""
+          },
+          "timestamp": "2026-10-09T08:23:37+02:00",
+          "added": null,
+          "removed": null,
+          "modified": null
+        },
+        "protected": true,
+        "required_approvals": 1,
+        "enable_status_check": true,
+        "status_check_contexts": [
+          "testing / frontend-checks (pull_request)",
+          "testing / backend-checks (pull_request)",
+          "testing / test-unit (pull_request)",
+          "testing / test-pgsql (pull_request)",
+          "testing / test-sqlite (pull_request)",
+          "testing / test-mysql (pull_request)"
+        ],
+        "user_can_push": false,
+        "user_can_merge": false,
+        "effective_branch_protection_name": ""
+      }
+    ]
+  }
+}

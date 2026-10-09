@@ -1,0 +1,41 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://gitlab.com/api/graphql",
+    "operationName": "ProjectVulnerabilities",
+    "variables": {
+      "fullPath": "gitlab-org/cli",
+      "first": 3,
+      "after": null,
+      "state": null,
+      "reportType": [
+        "SECRET_DETECTION"
+      ]
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"217b492f8977b8ef43f540480e00df92\"",
+      "ratelimit-limit": "2000",
+      "ratelimit-remaining": "1938",
+      "ratelimit-reset": "1791551760"
+    },
+    "body": {
+      "data": {
+        "project": {
+          "vulnerabilities": {
+            "pageInfo": {
+              "hasNextPage": true,
+              "endCursor": "eyJzZXZlcml0eSI6ImNyaXRpY2FsIiwidnVsbmVyYWJpbGl0eV9pZCI6IjI3OTIyMzkxNSJ9"
+            },
+            "nodes": []
+          }
+        }
+      },
+      "extensions": {
+        "disabled_filters": []
+      }
+    }
+  }
+}

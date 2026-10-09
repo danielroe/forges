@@ -6,7 +6,8 @@
   "response": {
     "status": 200,
     "headers": {
-      "link": "<https://gitea.com/api/v1/repos/gitea/tea/issues?limit=3&page=2&state=open&type=issues>; rel=\"next\",<https://gitea.com/api/v1/repos/gitea/tea/issues?limit=3&page=38&state=open&type=issues>; rel=\"last\""
+      "link": "<https://gitea.com/api/v1/repos/gitea/tea/issues?limit=3&page=2&state=open&type=issues>; rel=\"next\",<https://gitea.com/api/v1/repos/gitea/tea/issues?limit=3&page=38&state=open&type=issues>; rel=\"last\"",
+      "x-total-count": "113"
     },
     "body": [
       {

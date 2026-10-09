@@ -1,0 +1,43 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://tngl.sh/xrpc/com.atproto.repo.putRecord",
+    "body": {
+      "repo": "did:plc:7qksav5io2s4qfg67pe7iqqk",
+      "collection": "sh.tangled.feed.comment",
+      "rkey": "3mxhmcvpgl32y",
+      "record": {
+        "body": {
+          "$type": "sh.tangled.markup.markdown",
+          "text": "An upserted comment from run 20261009191401.\n\n<!-- forges:key=forges-fixture -->",
+          "original": "An upserted comment from run 20261009191401.\n\n<!-- forges:key=forges-fixture -->"
+        },
+        "$type": "sh.tangled.feed.comment",
+        "subject": {
+          "cid": "bafyreihynkvmewo7cy5hwipkrxez64wwwg52sbseit2yps5h3asz2jtge4",
+          "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.pull/3mxhm5yldov22"
+        },
+        "createdAt": "2026-10-09T18:32:23.024Z"
+      },
+      "swapRecord": "bafyreigiufaduxu4zie5lgbj5yiwesqpixpnq33fs3hqgzunp374cpxvim"
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"11b-jhGIpMs7trRVdfjcMUN1pD5Izog\"",
+      "ratelimit-limit": "3000",
+      "ratelimit-remaining": "2962",
+      "ratelimit-reset": "1791573543"
+    },
+    "body": {
+      "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.feed.comment/3mxhmcvpgl32y",
+      "cid": "bafyreibusdoap5k7qdu7zopbkq2d5ynj4bxzdpd3mtjiiyy2pfy4osnyae",
+      "commit": {
+        "cid": "bafyreiduavnijsivogebbhduzfqz576fscesohvfyvykrk65mdji3atzfq",
+        "rev": "3mxhonnittl2y"
+      },
+      "validationStatus": "unknown"
+    }
+  }
+}

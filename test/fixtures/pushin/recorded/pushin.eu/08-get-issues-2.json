@@ -1,0 +1,37 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://pushin.eu/api/v1/repos/pjullrich/pushin-cli/issues/2"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "x-ratelimit-limit": "5000",
+      "x-ratelimit-remaining": "4985",
+      "x-ratelimit-reset": "1791554400"
+    },
+    "body": {
+      "id": 5153,
+      "state": "closed",
+      "user": {
+        "id": 28,
+        "type": "User",
+        "avatar_url": "https://cdn.pushin.eu/-/avatars/u_034HkSDylEuQn7QC6cObik/29407ab1",
+        "html_url": "https://pushin.eu/runlevel0",
+        "login": "runlevel0",
+        "node_id": "REDACTED"
+      },
+      "number": 2,
+      "title": "Error installing CLI on Linux",
+      "body": "Hey Peter, thanks for building Pushin!\n\nI tried to use the install script on my Fedora Linux on `bash`, and got the following error:\n\n```sh\n$ PUN_VERSION=0.2.7\n\ncase \"$(uname -m)\" in\n  x86_64)        PUN_PLATFORM=linux-x86_64 ;;\n  aarch64|arm64) PUN_PLATFORM=linux-arm64 ;;\n  *) echo \"unsupported CPU architecture: $(uname -m)\" >&2; exit 1 ;;\nesac\n\nPUN_TMP_DIR=\"$(mktemp -d)\"\nPUN_ARCHIVE=\"pushin-cli-v${PUN_VERSION}/dist/${PUN_PLATFORM}/pun\"\n\ncurl -fsSL \\\n  \"https://pushin.eu/pjullrich/pushin-cli/archive/v${PUN_VERSION}.tar.gz\" \\\n  -o \"$PUN_TMP_DIR/pushin-cli.tar.gz\"\ntar -xzf \"$PUN_TMP_DIR/pushin-cli.tar.gz\" \\\n  -C \"$PUN_TMP_DIR\" --strip-components=3 \"$PUN_ARCHIVE\"\nsudo install -m 0755 \"$PUN_TMP_DIR/pun\" /usr/local/bin/pun\nrm -r \"$PUN_TMP_DIR\"\n\npun --version\ncurl: (22) The requested URL returned error: 404\ntar (child): /tmp/tmp.l0M7Dn5HBF/pushin-cli.tar.gz: Cannot open: No such file or directory\ntar (child): Error is not recoverable: exiting now\ntar: Child returned status 2\ntar: Error is not recoverable: exiting now\ninstall: cannot stat '/tmp/tmp.l0M7Dn5HBF/pun': No such file or directory\nbash: pun: command not found...\n```\n\nThe root cause seems to be the invalid `PUN_VERSION=0.2.7` version.\n\nLooking at https://pushin.eu/pjullrich/pushin-cli-tap/blob/main/Formula/pun.rb I can see the version distributed there is `0.2.6`.\n\nBut changing the `PUN_VERSION` to `0.2.6` still has an issue:\n\n```sh\n$ PUN_VERSION=0.2.6\ncase \"$(uname -m)\" in\n  x86_64)        PUN_PLATFORM=linux-x86_64 ;;\n  aarch64|arm64) PUN_PLATFORM=linux-arm64 ;;\n  *) echo \"Unsupported CPU architecture: $(uname -m)\" >&2; exit 1 ;;\nesac\n\nPUN_TMP_DIR=\"$(mktemp -d)\"\ncurl -fsSL \"https://pushin.eu/pjullrich/pushin-cli/archive/v${PUN_VERSION}.tar.gz\" -o \"$PUN_TMP_DIR/pun.tar.gz\"\ntar -xzf \"$PUN_TMP_DIR/pun.tar.gz\" -C \"$PUN_TMP_DIR\" --strip-components=3 \"pushin-cli-v${PUN_VERSION}/dist/${PUN_PLATFORM}/pun\"\nsudo install -m 0755 \"$PUN_TMP_DIR/pun\" /usr/local/bin/pun\nrm -r \"$PUN_TMP_DIR\"\npun --version\ntar: pushin-cli-v0.2.6/dist/linux-x86_64/pun: Not found in archive\ntar: Exiting with failure status due to previous errors\nPlace your finger on the fingerprint reader\ninstall: cannot stat '/tmp/tmp.iulCLKfGhl/pun': No such file or directory\nbash: pun: command not found...\n```\n\nLooking at the Tar file I don't see the required `pushin-cli-v0.2.6/dist/linux-x86_64/pun` path the script expects (only MacOS binaries there):\n\n```sh\n$ tar zxvf pun.tar.gz\npushin-cli-v0.2.6/\npushin-cli-v0.2.6/.gitignore\npushin-cli-v0.2.6/.tool-versions\npushin-cli-v0.2.6/Cargo.lock\npushin-cli-v0.2.6/Cargo.toml\npushin-cli-v0.2.6/README.md\npushin-cli-v0.2.6/dist/\npushin-cli-v0.2.6/dist/macos-universal/\npushin-cli-v0.2.6/dist/macos-universal/pun\npushin-cli-v0.2.6/scripts/\npushin-cli-v0.2.6/scripts/release\npushin-cli-v0.2.6/src/\npushin-cli-v0.2.6/src/alias.rs\npushin-cli-v0.2.6/src/api.rs\npushin-cli-v0.2.6/src/commands.rs\npushin-cli-v0.2.6/src/config.rs\npushin-cli-v0.2.6/src/github.rs\npushin-cli-v0.2.6/src/import.rs\npushin-cli-v0.2.6/src/main.rs\npushin-cli-v0.2.6/src/org.rs\npushin-cli-v0.2.6/src/origin.rs\npushin-cli-v0.2.6/src/output.rs\npushin-cli-v0.2.6/src/repo.rs\npushin-cli-v0.2.6/src/repo_create.rs\npushin-cli-v0.2.6/src/update.rs\npushin-cli-v0.2.6/tests/\npushin-cli-v0.2.6/tests/alias.rs\npushin-cli-v0.2.6/tests/auth.rs\npushin-cli-v0.2.6/tests/cli.rs\npushin-cli-v0.2.6/tests/fixtures/\npushin-cli-v0.2.6/tests/fixtures/conversation.json\npushin-cli-v0.2.6/tests/fixtures/labels.json\npushin-cli-v0.2.6/tests/fixtures/pull.json\npushin-cli-v0.2.6/tests/fixtures/pulls.json\npushin-cli-v0.2.6/tests/fixtures/repo.json\npushin-cli-v0.2.6/tests/fixtures/review.json\npushin-cli-v0.2.6/tests/fixtures/review_comments.json\npushin-cli-v0.2.6/tests/fixtures/reviews.json\npushin-cli-v0.2.6/tests/fixtures/user.json\npushin-cli-v0.2.6/tests/gh_parity.rs\npushin-cli-v0.2.6/tests/http.rs\npushin-cli-v0.2.6/tests/import.rs\npushin-cli-v0.2.6/tests/org.rs\npushin-cli-v0.2.6/tests/set_origin.rs\npushin-cli-v0.2.6/tests/update.rs\n```\n\nSo it seems that there's two problems: the `pun` CLI `v0.2.7` isn't available via the `archives` URL, and it isn't being distributed to MacOS users via Homebrew :)",
+      "labels": [],
+      "url": "https://pushin.eu/api/v1/repos/pjullrich/pushin-cli/issues/2",
+      "updated_at": "2026-09-04T06:33:18.934437Z",
+      "created_at": "2026-09-03T05:56:31.345069Z",
+      "closed_at": "2026-09-04T06:33:18.924427Z",
+      "html_url": "https://pushin.eu/pjullrich/pushin-cli/issues/2",
+      "node_id": "iss_034IFPiDrdcetiyRXm30FR",
+      "repository_url": "https://pushin.eu/api/v1/repos/pjullrich/pushin-cli"
+    }
+  }
+}

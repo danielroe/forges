@@ -1,0 +1,25 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://tngl.sh/xrpc/com.atproto.repo.getRecord?repo=did%3Aplc%3A7qksav5io2s4qfg67pe7iqqk&collection=sh.tangled.repo.pull.status&rkey=3mxhmcwer6t2y"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"174-gM8fUn8Skl63UAWny7AM7eKD84A\"",
+      "ratelimit-limit": "3000",
+      "ratelimit-remaining": "2970",
+      "ratelimit-reset": "1791573543"
+    },
+    "body": {
+      "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.pull.status/3mxhmcwer6t2y",
+      "cid": "bafyreiaqtpwora4vzz45wes2r7vnzlck6h2cinzaply5g7hf7kndcym4qy",
+      "value": {
+        "pull": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.pull/3mxhm5yldov22",
+        "$type": "sh.tangled.repo.pull.status",
+        "status": "sh.tangled.repo.pull.status.closed",
+        "createdAt": "2026-10-09T18:32:23.727Z"
+      }
+    }
+  }
+}

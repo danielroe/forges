@@ -1,0 +1,15 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://constellation.microcosm.blue/links?target=at%3A%2F%2Fdid%3Aplc%3Afxnw2wkzf23zya6shq4pxvh6%2Fsh.tangled.repo.issue%2F3ll4rirll2h22&collection=sh.tangled.feed.comment&path=.subject.uri&limit=100"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "total": 0,
+      "linking_records": [],
+      "cursor": null
+    }
+  }
+}

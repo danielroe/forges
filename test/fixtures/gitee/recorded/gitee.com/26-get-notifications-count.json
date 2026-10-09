@@ -1,0 +1,17 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitee.com/api/v5/notifications/count?unread=true"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"c369cfda3d8fe2f629729efb0f24e975\""
+    },
+    "body": {
+      "total_count": 0,
+      "notification_count": 0,
+      "message_count": 0
+    }
+  }
+}

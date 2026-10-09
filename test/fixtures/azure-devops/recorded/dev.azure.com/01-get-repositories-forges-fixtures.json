@@ -1,0 +1,60 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://dev.azure.com/forges/forges-fixtures/_apis/git/repositories/forges-fixtures?api-version=7.1"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "id": "c67c02dd-cbca-45aa-a679-021bd4d2c4a7",
+      "name": "forges-fixtures",
+      "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7",
+      "project": {
+        "id": "b2332e32-1afe-4c85-9407-12e7af2bf24c",
+        "name": "forges-fixtures",
+        "url": "https://dev.azure.com/forges/_apis/projects/b2332e32-1afe-4c85-9407-12e7af2bf24c",
+        "state": "wellFormed",
+        "revision": 11,
+        "visibility": "private",
+        "lastUpdateTime": "2026-10-09T12:22:47.88Z"
+      },
+      "defaultBranch": "refs/heads/main",
+      "size": 717,
+      "remoteUrl": "https://dev.azure.com/forges/forges-fixtures/_git/forges-fixtures",
+      "sshUrl": "git@ssh.dev.azure.com:v3/forges/forges-fixtures/forges-fixtures",
+      "webUrl": "https://dev.azure.com/forges/forges-fixtures/_git/forges-fixtures",
+      "_links": {
+        "self": {
+          "href": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7"
+        },
+        "project": {
+          "href": "vstfs:///Classification/TeamProject/b2332e32-1afe-4c85-9407-12e7af2bf24c"
+        },
+        "web": {
+          "href": "https://dev.azure.com/forges/forges-fixtures/_git/forges-fixtures"
+        },
+        "ssh": {
+          "href": "git@ssh.dev.azure.com:v3/forges/forges-fixtures/forges-fixtures"
+        },
+        "commits": {
+          "href": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/commits"
+        },
+        "refs": {
+          "href": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/refs"
+        },
+        "pullRequests": {
+          "href": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/pullRequests"
+        },
+        "items": {
+          "href": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/items"
+        },
+        "pushes": {
+          "href": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/pushes"
+        }
+      },
+      "isDisabled": false,
+      "isInMaintenance": false
+    }
+  }
+}

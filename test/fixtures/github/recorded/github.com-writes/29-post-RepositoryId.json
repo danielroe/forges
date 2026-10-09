@@ -1,0 +1,34 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://api.github.com/graphql",
+    "operationName": "RepositoryId",
+    "variables": {
+      "owner": "forges-fixtures",
+      "name": "forges-fixtures-transfer"
+    },
+    "body": {
+      "query": "query RepositoryId($owner: String!, $name: String!) {\n  repository(owner: $owner, name: $name) { id }\n}",
+      "variables": {
+        "owner": "forges-fixtures",
+        "name": "forges-fixtures-transfer"
+      },
+      "operationName": "RepositoryId"
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "x-ratelimit-limit": "5000",
+      "x-ratelimit-remaining": "4994",
+      "x-ratelimit-reset": "1791559276"
+    },
+    "body": {
+      "data": {
+        "repository": {
+          "id": "R_kgDOVCTeSg"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://gitlab.com/api/v4/projects/forges-fixtures%2Fforges-fixtures/statuses/de23ee32b14214fd4be39045eb20f10409229c21",
+    "body": {
+      "state": "success",
+      "name": "forges fixture",
+      "description": "Reported by run 20261009140046"
+    }
+  },
+  "response": {
+    "status": 201,
+    "headers": {
+      "etag": "W/\"3247c6ad78689da2c927ac8f317c07f4\"",
+      "ratelimit-limit": "2000",
+      "ratelimit-remaining": "1936",
+      "ratelimit-reset": "1791554520"
+    },
+    "body": {
+      "id": 17062626959,
+      "sha": "de23ee32b14214fd4be39045eb20f10409229c21",
+      "ref": "refs/merge-requests/9/head",
+      "status": "success",
+      "name": "forges fixture",
+      "target_url": null,
+      "description": "Reported by run 20261009140046",
+      "created_at": "2026-10-09T14:01:33.305Z",
+      "started_at": null,
+      "finished_at": "2026-10-09T14:01:33.303Z",
+      "allow_failure": false,
+      "coverage": null,
+      "pipeline_id": 2930867506,
+      "author": {
+        "id": 43193323,
+        "username": "roebot",
+        "public_email": "",
+        "name": "Daniel Roe",
+        "state": "active",
+        "locked": false,
+        "avatar_url": "https://secure.gravatar.com/avatar/14ceebcfdc10030d76768a65e9d7978b914694cebcbb6ab609b3a0e8243f0eb8?s=80&d=identicon",
+        "web_url": "https://gitlab.com/roebot"
+      }
+    }
+  }
+}

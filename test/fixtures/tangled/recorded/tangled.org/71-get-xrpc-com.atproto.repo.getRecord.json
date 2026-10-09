@@ -1,0 +1,32 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://eurosky.social/xrpc/com.atproto.repo.getRecord?repo=did%3Aplc%3Ahwevmowznbiukdf6uk5dwrrq&collection=sh.tangled.feed.comment&rkey=3m7rqi342lu22"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"1ea-E7hyzcDOh9IEGSp4nGZgDOqreMo\"",
+      "ratelimit-limit": "3000",
+      "ratelimit-remaining": "2997",
+      "ratelimit-reset": "1791552012"
+    },
+    "body": {
+      "uri": "at://did:plc:hwevmowznbiukdf6uk5dwrrq/sh.tangled.feed.comment/3m7rqi342lu22",
+      "cid": "bafyreihhrsmztqu7bopzpcuaw7sb2ml6pebijcdlwtcekhob3xdh54rrmm",
+      "value": {
+        "body": {
+          "text": "Thanks, this looks good!",
+          "$type": "sh.tangled.markup.markdown"
+        },
+        "$type": "sh.tangled.feed.comment",
+        "subject": {
+          "cid": "bafyreidwwztxrb7xfxuaow3wv53rr757hqe6biwufmcppbwuktj2g2w4si",
+          "uri": "at://did:plc:laqygfbyvnkyuhsuaxmp6ez3/sh.tangled.repo.pull/3m7lfz7dl5z22"
+        },
+        "createdAt": "2025-12-12T09:08:49Z",
+        "pullRoundIdx": 0
+      }
+    }
+  }
+}

@@ -18,7 +18,7 @@ The Azure DevOps provider works with Azure Repos pull requests and with Azure Bo
 <!-- header:end -->
 
 ::note
-The Azure DevOps provider is experimental. Its behaviour has only been verified against an anonymous recording of the live forge, so most of its capabilities are `'experimental'`. To learn what that means, see [Capabilities](/concepts/capabilities).
+Work item comments and pull request policies use preview APIs of Azure DevOps, which can change, so the capabilities built on them are `'experimental'`. To learn what that means, see [Capabilities](/concepts/capabilities).
 ::
 
 ## Authentication
@@ -108,14 +108,14 @@ You manage service hook subscriptions at the level of the organization and not o
 ::provider-capabilities{provider="azure-devops"}
 | Capability | Support | Without credentials |
 | --- | --- | --- |
-| `experimental` | ✅ | ✅ |
+| `experimental` | ❌ | ❌ |
 | `sources.poll` | ❌ | ❌ |
 | `sources.webhook` | ✅ | ✅ |
 | `sources.subscribe` | ❌ | ❌ |
 | `repos.get` | ✅ | ✅ |
 | `users.get` | ❌ | ❌ |
 | `users.me` | ❌ | ❌ |
-| `repos.list` | experimental | ❌ |
+| `repos.list` | ✅ | ❌ |
 | `repos.labels` | ❌ | ❌ |
 | `repos.createLabel` | ❌ | ❌ |
 | `repos.milestones` | ❌ | ❌ |
@@ -124,13 +124,13 @@ You manage service hook subscriptions at the level of the organization and not o
 | `repos.addCollaborator` | ❌ | ❌ |
 | `repos.assignableUsers` | ❌ | ❌ |
 | `repos.reviewerCandidates` | ❌ | ❌ |
-| `threads.get` | issue (experimental), PR | issue (experimental), PR |
+| `threads.get` | issue, PR | issue (unverified), PR |
 | `threads.list` | issue, PR | PR |
 | `threads.getMany` | ✅ | ✅ |
-| `threads.events` | issue (experimental), PR | issue (experimental), PR |
-| `comments.list` | issue (experimental), PR | issue (experimental), PR |
-| `comments.edit` | issue (experimental), PR (experimental) | ❌ |
-| `comments.delete` | issue (experimental), PR (experimental) | ❌ |
+| `threads.events` | issue, PR | issue (unverified), PR |
+| `comments.list` | issue (experimental), PR | issue (unverified), PR |
+| `comments.edit` | issue (experimental), PR | ❌ |
+| `comments.delete` | issue (experimental), PR | ❌ |
 | `reactions.list` | ❌ | ❌ |
 | `notifications.list` | ❌ | ❌ |
 | `notifications.markRead` | ❌ | ❌ |
@@ -142,16 +142,16 @@ You manage service hook subscriptions at the level of the organization and not o
 | `writes.comment` | issue (experimental), PR | ❌ |
 | `writes.upsertComment` | issue (emulated), PR (emulated) | ❌ |
 | `writes.close` | issue, PR | ❌ |
-| `writes.reopen` | issue (experimental), PR | ❌ |
-| `writes.create` | issue (experimental), PR (experimental) | ❌ |
-| `writes.update` | issue (experimental), PR (experimental) | ❌ |
-| `writes.setLabels` | issue (experimental), PR (experimental) | ❌ |
+| `writes.reopen` | issue, PR | ❌ |
+| `writes.create` | issue, PR | ❌ |
+| `writes.update` | issue, PR | ❌ |
+| `writes.setLabels` | issue, PR | ❌ |
 | `writes.addLabels` | ❌ | ❌ |
 | `writes.removeLabels` | ❌ | ❌ |
 | `writes.setMilestone` | ❌ | ❌ |
 | `writes.react` | ❌ | ❌ |
-| `writes.setAssignees` | issue (experimental) | ❌ |
-| `writes.requestReview` | PR (experimental) | ❌ |
+| `writes.setAssignees` | issue | ❌ |
+| `writes.requestReview` | PR | ❌ |
 | `writes.merge` | ✅ | ❌ |
 | `writes.approveAndMerge` | ✅ | ❌ |
 | `writes.transfer` | ❌ | ❌ |
@@ -159,29 +159,29 @@ You manage service hook subscriptions at the level of the organization and not o
 | `subscriptions.get` | ❌ | ❌ |
 | `subscriptions.set` | ❌ | ❌ |
 | `installations` | ❌ | ❌ |
-| `checks.thread` | PR | ❌ |
-| `checks.list` | experimental | experimental |
-| `checks.report` | experimental | ❌ |
+| `checks.thread` | PR (experimental) | ❌ |
+| `checks.list` | ✅ | ✅ |
+| `checks.report` | ✅ | ❌ |
 | `checks.rerun` | ❌ | ❌ |
 | `ci.runs` | ❌ | ❌ |
 | `ci.run` | ❌ | ❌ |
 | `ci.jobs` | ❌ | ❌ |
 | `ci.log` | ❌ | ❌ |
-| `contents.file` | experimental | experimental |
-| `contents.tree` | experimental | experimental |
-| `contents.branches` | experimental | experimental |
-| `contents.tags` | experimental | experimental |
-| `contents.resolveRef` | experimental | experimental |
-| `contents.commits` | experimental | experimental |
-| `contents.commit` | experimental | experimental |
-| `contents.compare` | experimental | experimental |
+| `contents.file` | ✅ | ✅ |
+| `contents.tree` | ✅ | ✅ |
+| `contents.branches` | ✅ | ✅ |
+| `contents.tags` | ✅ | ✅ |
+| `contents.resolveRef` | ✅ | ✅ |
+| `contents.commits` | ✅ | ✅ |
+| `contents.commit` | ✅ | ✅ |
+| `contents.compare` | ✅ | ✅ |
 | `contents.threadFiles` | ❌ | ❌ |
-| `contents.threadCommits` | experimental | experimental |
+| `contents.threadCommits` | ✅ | ✅ |
 | `reviews.list` | emulated | emulated |
 | `reviews.create` | emulated | ❌ |
 | `reviews.submit` | ❌ | ❌ |
 | `reviews.approve` | emulated | ❌ |
-| `reviews.resolveThread` | experimental | ❌ |
+| `reviews.resolveThread` | unverified | ❌ |
 | `releases.list` | ❌ | ❌ |
 | `releases.get` | ❌ | ❌ |
 | `releases.latest` | ❌ | ❌ |
@@ -194,7 +194,7 @@ You manage service hook subscriptions at the level of the organization and not o
 | `webhooks.rotateSecret` | ❌ | ❌ |
 | `webhooks.deliveries` | ❌ | ❌ |
 | `webhooks.redeliver` | ❌ | ❌ |
-| `search.threads` | experimental | ❌ |
+| `search.threads` | ✅ | ❌ |
 | `search.repos` | ❌ | ❌ |
 | `search.commits` | ❌ | ❌ |
 | `securityAlerts` | ❌ | ❌ |

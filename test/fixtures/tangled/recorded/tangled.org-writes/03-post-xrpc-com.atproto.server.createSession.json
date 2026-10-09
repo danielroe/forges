@@ -1,0 +1,28 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://tngl.sh/xrpc/com.atproto.server.createSession",
+    "body": {
+      "identifier": "roebot.tngl.sh",
+      "password": "REDACTED"
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"2f3-h7ADmibP78019yNP5go9cX+6J9A\"",
+      "ratelimit-limit": "30",
+      "ratelimit-remaining": "29",
+      "ratelimit-reset": "1791573543"
+    },
+    "body": {
+      "accessJwt": "REDACTED",
+      "refreshJwt": "REDACTED",
+      "did": "did:plc:7qksav5io2s4qfg67pe7iqqk",
+      "handle": "roebot.tngl.sh",
+      "email": "redacted@example.invalid",
+      "emailConfirmed": false,
+      "active": true
+    }
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://plc.directory/did:plc:o3bh4ov7x4ypfz4xg5redtki"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"22a-vgOj2MAQHtZfxAUP+OKzuZjbYgk\""
+    },
+    "body": {
+      "@context": [
+        "https://www.w3.org/ns/did/v1",
+        "https://w3id.org/security/multikey/v1",
+        "https://w3id.org/security/suites/secp256k1-2019/v1"
+      ],
+      "id": "did:plc:o3bh4ov7x4ypfz4xg5redtki",
+      "alsoKnownAs": [
+        "at://rishav.io"
+      ],
+      "verificationMethod": [
+        {
+          "id": "did:plc:o3bh4ov7x4ypfz4xg5redtki#atproto",
+          "type": "Multikey",
+          "controller": "did:plc:o3bh4ov7x4ypfz4xg5redtki",
+          "publicKeyMultibase": "zQ3shkTUxq7mZvm4ma3qHD1oJNS9dhVWoaQGy8gac4MEKMSuq"
+        }
+      ],
+      "service": [
+        {
+          "id": "#atproto_pds",
+          "type": "AtprotoPersonalDataServer",
+          "serviceEndpoint": "https://amanita.us-east.host.bsky.network"
+        }
+      ]
+    }
+  }
+}

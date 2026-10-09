@@ -1,0 +1,35 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://api.bitbucket.org/2.0/repositories/danielroe/forges-fixtures/pullrequests/8/approve"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "type": "participant",
+      "user": {
+        "display_name": "Daniel Roe",
+        "links": {
+          "self": {
+            "href": "https://api.bitbucket.org/2.0/users/%7Bd980eb54-27c4-4887-bb4f-785d5f485d1c%7D"
+          },
+          "avatar": {
+            "href": "https://secure.gravatar.com/avatar/f366ee6556b7307a1a2a253c8fb842ca?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FDR-4.png"
+          },
+          "html": {
+            "href": "https://bitbucket.org/%7Bd980eb54-27c4-4887-bb4f-785d5f485d1c%7D/"
+          }
+        },
+        "type": "user",
+        "uuid": "{d980eb54-27c4-4887-bb4f-785d5f485d1c}",
+        "account_id": "59fb7b9c1c0767667b2cea37",
+        "nickname": "danielroe"
+      },
+      "role": "PARTICIPANT",
+      "approved": true,
+      "state": "approved",
+      "participated_on": "2026-10-09T14:01:16.665551+00:00"
+    }
+  }
+}

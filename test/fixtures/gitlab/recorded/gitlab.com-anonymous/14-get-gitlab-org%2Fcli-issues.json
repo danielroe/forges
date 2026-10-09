@@ -6,18 +6,94 @@
   "response": {
     "status": 200,
     "headers": {
-      "link": "<https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/issues?id=gitlab-org%2Fcli&order_by=created_at&page=2&per_page=3&sort=desc&state=opened&with_labels_details=false>; rel=\"next\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/issues?id=gitlab-org%2Fcli&order_by=created_at&page=1&per_page=3&sort=desc&state=opened&with_labels_details=false>; rel=\"first\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/issues?id=gitlab-org%2Fcli&order_by=created_at&page=88&per_page=3&sort=desc&state=opened&with_labels_details=false>; rel=\"last\"",
-      "etag": "W/\"8e6788712866ce615f814fe4f909f095\"",
+      "link": "<https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/issues?id=gitlab-org%2Fcli&order_by=created_at&page=2&per_page=3&sort=desc&state=opened&with_labels_details=false>; rel=\"next\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/issues?id=gitlab-org%2Fcli&order_by=created_at&page=1&per_page=3&sort=desc&state=opened&with_labels_details=false>; rel=\"first\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/issues?id=gitlab-org%2Fcli&order_by=created_at&page=87&per_page=3&sort=desc&state=opened&with_labels_details=false>; rel=\"last\"",
+      "etag": "W/\"a5a370225bafe9f99ac5c9cf02e95c26\"",
       "ratelimit-limit": "500",
       "ratelimit-remaining": "486",
-      "ratelimit-reset": "1791477420",
-      "x-total": "264",
-      "x-total-pages": "88",
+      "ratelimit-reset": "1791495900",
+      "x-total": "261",
+      "x-total-pages": "87",
       "x-next-page": "2",
       "x-page": "1",
       "x-per-page": "3"
     },
     "body": [
+      {
+        "id": 205878365,
+        "iid": 8595,
+        "project_id": 34675721,
+        "title": "`host` config key / GITLAB_HOST overrides repo remotes instead of acting as a fallback",
+        "description": "### Checklist\n\n- [x] I'm using the latest version of the extension (Run `glab --version`)\n  - Extension version: glab 1.120.0 (78790114c)\n  - Also reproduced from source at main (`glab DEV`)\n- [x] Operating system and version: Linux 7.2.8-200.fc44.x86_64 x86_64\n- [x] Gitlab.com or self-managed instance? _both_\n- [x] GitLab version (if self-managed) _v19.3.3_\n- [x] I have performed `glab auth status` to check for authentication issues\n- [x] Run the command in debug mode (like `GLAB_DEBUG=true glab mr list`) and attach any useful output\n\n### Summary\n\nThe top-level `host:` key in `config.yml` (or the `GITLAB_HOST` / `GITLAB_URI` / `GL_HOST` environment variables) is treated as an **override when inside a Git repository** instead of as a default for when no host can be resolved. When the key differs from the repo's remote host, glab filters the remotes down to the configured host and fails all repo-bound commands. The key is documented as \"Default GitLab instance, outside Git repositories\", so it should only apply when the remote (or a URL argument) doesn't determine the host.\n\n### Environment\n\n- OS: Linux 7.2.8-200.fc44.x86_64 x86_64\n- SHELL: /bin/bash\n- TERM: xterm-256color\n- GLAB: glab 1.120.0 (78790114c)\n\n### Steps to reproduce\n\nWith no network required (the failure happens before any API call):\n\n```sh\ngit init /tmp/repro && cd /tmp/repro\ngit remote add origin https://gitlab.com/gitlab-org/cli.git\nmkdir -p /tmp/cfg && cat > /tmp/cfg/config.yml <<'EOF'\ngit_protocol: https\nhost: gitlab.tuwien.ac.at\nhosts:\n  gitlab.tuwien.ac.at:\n    token: fake\n    api_protocol: https\n    git_protocol: https\nEOF\nchmod 600 /tmp/cfg/config.yml\nGLAB_CONFIG_DIR=/tmp/cfg glab issue list\n```\n\nSetting `host:` to anything other than `gitlab.com` (or setting `GITLAB_HOST`) triggers the filter in any repo whose remote points to a different instance.\n\n### What is the current _bug_ behavior?\n\n1. The command fails with `None of the git remotes configured for this repository correspond to the GITLAB_HOST environment variable` even when **no** environment variable is set and the value came from the `host:` key — the error message is misleading.\n2. With `-R OWNER/REPO` (no host in the argument), the request silently goes to the configured instance instead of the repo's remote host, targeting the wrong instance and token.\n\n### What is the expected _correct_ behavior?\n\n- Inside a Git repository, the remote (or a URL argument) determines the host; the `host:` key / `GITLAB_HOST` are only fallbacks when the host cannot be resolved (e.g. outside a repo).\n- The error message should say which source set the override (config key vs. env var).\n\n### Relevant logs and/or screenshots\n\n```\n$ GLAB_CONFIG_DIR=/tmp/cfg GLAB_DEBUG=true glab issue list\n2026/10/08 19:04:51 [Could not determine base repo in telemetry hook:  none of the git remotes\nconfigured for this repository correspond to the GITLAB_HOST environment variable. Try adding\na matching remote or unsetting the variable.\n\nGITLAB_HOST is currently set to gitlab.tuwien.ac.at\n\nConfigured remotes: gitlab.com]\n\n   ERROR\n\n  None of the git remotes configured for this repository correspond to the GITLAB_HOST\n  environment variable. Try adding a matching remote or unsetting the variable.\n\n  GITLAB_HOST is currently set to gitlab.tuwien.ac.at\n\n  Configured remotes: gitlab.com.\n```\n\n(Note: in the debug log line, the trailing `]` closes the `GLAB_DEBUG` log entry, which wraps the message in brackets; it is not part of the error text.)\n\n### Possible fixes\n\n- `internal/cmdutils/factory.go`: `defaultHostname` is set from `cfg.Get(\"\", \"host\")` before `BaseRepo()` resolves; `Remotes()` then sets `hostOverride` whenever the default differs from `gitlab.com` (\\~line 192).\n- `internal/cmdutils/remote_resolver.go`: the `hostOverride` block (\\~lines 103-127) drops all non-matching remotes, then errors out.\n- `RepoOverride` (`factory.go`) resolves `-R OWNER/REPO` against `defaultHostname` instead of the repo's remote host.\n- Note: `remote_resolver_test.go` (\\~line 428) locks in the current override behavior, so this needs a decision on intended semantics (env var as hard override vs. fallback), not just a test change.\n- Related: #8084 covers the URL-host case of the same host-resolution model.",
+        "state": "opened",
+        "created_at": "2026-10-08T17:19:18.480Z",
+        "updated_at": "2026-10-08T18:11:44.343Z",
+        "closed_at": null,
+        "closed_by": null,
+        "labels": [
+          "automation:ml",
+          "backend",
+          "bug::functional",
+          "type::bug"
+        ],
+        "milestone": null,
+        "assignees": [],
+        "author": {
+          "id": 156252,
+          "username": "ziegenberg",
+          "public_email": "redacted@example.invalid",
+          "name": "Daniel Ziegenberg",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://secure.gravatar.com/avatar/6c9be80c9e1b23ec1c54f0f3e81bc4d58e034e2bf83b8a186b8f82aa347d564c?s=80&d=identicon",
+          "web_url": "https://gitlab.com/ziegenberg"
+        },
+        "type": "ISSUE",
+        "assignee": null,
+        "user_notes_count": 1,
+        "merge_requests_count": 0,
+        "upvotes": 0,
+        "downvotes": 0,
+        "start_date": null,
+        "due_date": null,
+        "confidential": false,
+        "discussion_locked": null,
+        "issue_type": "issue",
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/work_items/8595",
+        "time_stats": {
+          "time_estimate": 0,
+          "total_time_spent": 0,
+          "human_time_estimate": null,
+          "human_total_time_spent": null
+        },
+        "task_completion_status": {
+          "count": 6,
+          "completed_count": 6
+        },
+        "weight": null,
+        "blocking_issues_count": 0,
+        "has_tasks": false,
+        "_links": {
+          "self": "https://gitlab.com/api/v4/projects/34675721/issues/8595",
+          "notes": "https://gitlab.com/api/v4/projects/34675721/issues/8595/notes",
+          "award_emoji": "https://gitlab.com/api/v4/projects/34675721/issues/8595/award_emoji",
+          "project": "https://gitlab.com/api/v4/projects/34675721",
+          "closed_as_duplicate_of": null
+        },
+        "references": {
+          "short": "#8595",
+          "relative": "#8595",
+          "full": "gitlab-org/cli#8595"
+        },
+        "severity": "UNKNOWN",
+        "moved_to_id": null,
+        "imported": false,
+        "imported_from": "none",
+        "service_desk_reply_to": null,
+        "epic_iid": null,
+        "epic": null,
+        "iteration": null,
+        "health_status": null
+      },
       {
         "id": 205785669,
         "iid": 8593,
@@ -125,7 +201,7 @@
             "name": "Jeston Singh",
             "state": "active",
             "locked": false,
-            "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/42048126/avatar.png?v=1791469043",
+            "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/42048126/avatar.png?v=1791489833",
             "web_url": "https://gitlab.com/sjestonsingh"
           }
         ],
@@ -147,7 +223,7 @@
           "name": "Jeston Singh",
           "state": "active",
           "locked": false,
-          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/42048126/avatar.png?v=1791469043",
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/42048126/avatar.png?v=1791489833",
           "web_url": "https://gitlab.com/sjestonsingh"
         },
         "user_notes_count": 3,
@@ -192,88 +268,6 @@
         "service_desk_reply_to": null,
         "epic_iid": null,
         "epic": null,
-        "iteration": null,
-        "health_status": null
-      },
-      {
-        "id": 205664469,
-        "iid": 8589,
-        "project_id": 34675721,
-        "title": "1.5 Show specific error messages in work-items-experimental",
-        "description": "Item 1.5 in the epic https://gitlab.com/groups/gitlab-org/-/work_items/23916\n\n## Problem\n\nItem 1.1 shows one generic message for any failed request. Users need to know what went wrong and what to do about it. The difficulty is that the REST API returns 404 for three different reasons, deliberately: the work item doesn't exist, the user can't see it, or the `work_item_rest_api` feature flag is off. Experimental endpoints return 404 rather than 403 while the flag is off, so glab can't tell those cases apart.\n\n## Scope\n\nA shared error helper for all `work-items-experimental` commands, as agreed on https://gitlab.com/gitlab-org/cli/-/work_items/8582 (decision 6):\n\n| Response | Message |\n|---|---|\n| 404 | Names the work item and project or group, and lists all three possible causes, including the feature flag. The PoC's `note get` already does this. |\n| 401 | Not authenticated: suggest `glab auth login` or checking the token. |\n| 403 | No permission. Mention that granular tokens may not cover every endpoint. |\n| 400 or 422 | Show the API's message, which explains the invalid input. |\n| Network errors | Unchanged from the rest of glab. |\n\n- Keep glab's existing exit codes. Don't add new ones.\n- Use the helper in `get` now, and in every later command.\n\n## Out of scope\n\n- Detecting whether the feature flag is on. The API gives no reliable signal. If the backend adds one, for example a distinct response or header, open a follow-up issue to use it.\n\n## Done when\n\n- [ ] `get` shows the messages above for each response type.\n- [ ] Tests cover 400, 401, 403, 404 and 422 responses.\n- [ ] The helper is shared, so later commands can use it.\n- [ ] The epic's shared checklist is met.\n\nSuggested weight: 2.\n\n<!-- implementation plan added during 2026-09 backlog triage -->\n\n## Implementation plan\n\n> **Note:** This plan was drafted during an AI-assisted triage of the backlog and has not been validated by a maintainer. Treat it as a starting point: file paths, line numbers, and the approach may need adjusting.\n\nDepends on !4010 (item 1.1, `work-items-experimental get`) landing first.\n\n1. Add a helper in a shared package under `internal/commands/workitemsexperimental/` (for example `utils/errors.go`), such as `func APIError(err error, what, scope string) error`. Use `errors.As(err, *gitlab.ErrorResponse)` to read `Response.StatusCode`, following `Is404` in `internal/api/client.go:540`.\n2. Map statuses: 404 names the work item and project or group and lists all three causes (missing, no access, `work_item_rest_api` flag off); 401 suggests `glab auth login` or checking the token; 403 says no permission and that granular tokens may not cover every endpoint; 400 and 422 surface the API's `Message`. Return any other error (including network errors) unchanged.\n3. Keep existing exit codes: wrap with `cmdutils.WrapError` (`internal/cmdutils/errors.go:76`) rather than adding new codes.\n4. Replace the single `fmt.Errorf` wrap after `GetWorkItem` (which currently applies the feature flag message to every error) in `internal/commands/workitemsexperimental/get/get.go` with the helper.\n5. Add table-driven tests for the helper (400, 401, 403, 404, 422, and a non-HTTP error), and extend `internal/commands/workitemsexperimental/get/get_test.go` with one case per status using the client-go mock.\n6. The command is hidden, so `make gen-docs` should produce no changes; run it to confirm.",
-        "state": "opened",
-        "created_at": "2026-10-06T21:38:41.777Z",
-        "updated_at": "2026-10-06T22:16:39.244Z",
-        "closed_at": null,
-        "closed_by": null,
-        "labels": [
-          "automation:ml",
-          "automation:quick-win-judged",
-          "feature::enhancement",
-          "type::feature"
-        ],
-        "milestone": null,
-        "assignees": [],
-        "author": {
-          "id": 42451371,
-          "username": "phil-wong",
-          "public_email": "redacted@example.invalid",
-          "name": "Phil Wong",
-          "state": "active",
-          "locked": false,
-          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/42451371/avatar.png?v=1791437984",
-          "web_url": "https://gitlab.com/phil-wong"
-        },
-        "type": "ISSUE",
-        "assignee": null,
-        "user_notes_count": 2,
-        "merge_requests_count": 0,
-        "upvotes": 0,
-        "downvotes": 0,
-        "start_date": null,
-        "due_date": null,
-        "confidential": false,
-        "discussion_locked": null,
-        "issue_type": "issue",
-        "web_url": "https://gitlab.com/gitlab-org/cli/-/work_items/8589",
-        "time_stats": {
-          "time_estimate": 0,
-          "total_time_spent": 0,
-          "human_time_estimate": null,
-          "human_total_time_spent": null
-        },
-        "task_completion_status": {
-          "count": 4,
-          "completed_count": 0
-        },
-        "weight": null,
-        "blocking_issues_count": 0,
-        "has_tasks": false,
-        "_links": {
-          "self": "https://gitlab.com/api/v4/projects/34675721/issues/8589",
-          "notes": "https://gitlab.com/api/v4/projects/34675721/issues/8589/notes",
-          "award_emoji": "https://gitlab.com/api/v4/projects/34675721/issues/8589/award_emoji",
-          "project": "https://gitlab.com/api/v4/projects/34675721",
-          "closed_as_duplicate_of": null
-        },
-        "references": {
-          "short": "#8589",
-          "relative": "#8589",
-          "full": "gitlab-org/cli#8589"
-        },
-        "severity": "UNKNOWN",
-        "moved_to_id": null,
-        "imported": false,
-        "imported_from": "none",
-        "service_desk_reply_to": null,
-        "epic_iid": 23916,
-        "epic": {
-          "id": 5337728,
-          "iid": 23916,
-          "title": "Work Items REST API in glab",
-          "url": "/groups/gitlab-org/-/epics/23916",
-          "group_id": 9970
-        },
         "iteration": null,
         "health_status": null
       }

@@ -1,7 +1,7 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://gitea.com/api/v1/repos/gitea/tea/issues/1/subscriptions/check"
+    "url": "https://gitea.com/api/v1/repos/gitea/tea/issues/1099/subscriptions/check"
   },
   "response": {
     "status": 200,
@@ -10,8 +10,8 @@
       "subscribed": false,
       "ignored": true,
       "reason": null,
-      "created_at": "2018-10-12T15:02:55Z",
-      "url": "https://gitea.com/api/v1/repos/gitea/tea/issues/1/subscriptions",
+      "created_at": "2026-08-22T06:42:24Z",
+      "url": "https://gitea.com/api/v1/repos/gitea/tea/issues/1099/subscriptions",
       "repository_url": "https://gitea.com/api/v1/repos/gitea/tea"
     }
   }

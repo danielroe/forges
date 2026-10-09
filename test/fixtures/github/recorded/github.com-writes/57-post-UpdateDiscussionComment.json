@@ -1,0 +1,49 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://api.github.com/graphql",
+    "operationName": "UpdateDiscussionComment",
+    "variables": {
+      "id": "DC_kwDOVCTdtM4BH24y",
+      "body": "An edited comment from run 20261009142055."
+    },
+    "body": {
+      "query": "mutation UpdateDiscussionComment($id: ID!, $body: String!) {\n  updateDiscussionComment(input: { commentId: $id, body: $body }) { comment { id databaseId body createdAt updatedAt url author { __typename login avatarUrl url ... on User { databaseId name } ... on Bot { databaseId } } } }\n}",
+      "variables": {
+        "id": "DC_kwDOVCTdtM4BH24y",
+        "body": "An edited comment from run 20261009142055."
+      },
+      "operationName": "UpdateDiscussionComment"
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "x-ratelimit-limit": "5000",
+      "x-ratelimit-remaining": "4986",
+      "x-ratelimit-reset": "1791559276"
+    },
+    "body": {
+      "data": {
+        "updateDiscussionComment": {
+          "comment": {
+            "id": "DC_kwDOVCTdtM4BH24y",
+            "databaseId": 18837042,
+            "body": "An edited comment from run 20261009142055.",
+            "createdAt": "2026-10-09T14:21:45Z",
+            "updatedAt": "2026-10-09T14:21:46Z",
+            "url": "https://github.com/forges-fixtures/forges-fixtures/discussions/33#discussioncomment-18837042",
+            "author": {
+              "__typename": "User",
+              "login": "danielroe-bot",
+              "avatarUrl": "https://avatars.githubusercontent.com/u/57801166?v=4",
+              "url": "https://github.com/danielroe-bot",
+              "databaseId": 57801166,
+              "name": null
+            }
+          }
+        }
+      }
+    }
+  }
+}

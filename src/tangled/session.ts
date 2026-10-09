@@ -28,9 +28,8 @@ export function createTangledSession({ options, fetcher, atproto, context }: { o
   async function createSession(refresh?: Session): Promise<Session> {
     const auth = options.auth as Extract<TangledAuth, { type: 'app_password' }>
     if (!pdsUrl) {
-      pdsUrl = auth.pds
-        ?? (auth.identifier.startsWith('did:') ? (await atproto.resolveDid(auth.identifier)).pds : undefined)
-        ?? 'https://bsky.social'
+      const did = auth.pds ? undefined : auth.identifier.startsWith('did:') ? auth.identifier : await atproto.resolveHandle(auth.identifier).catch(() => undefined)
+      pdsUrl = auth.pds ?? (did ? (await atproto.resolveDid(did)).pds : undefined) ?? 'https://bsky.social'
     }
     const { data } = await fetcher.json<Session>(
       `${pdsUrl}/xrpc/com.atproto.server.${refresh ? 'refreshSession' : 'createSession'}`,

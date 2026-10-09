@@ -1,0 +1,18 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://tngl.sh/xrpc/com.atproto.repo.listRecords?repo=did%3Aplc%3A7qksav5io2s4qfg67pe7iqqk&collection=sh.tangled.feed.subscription&limit=100&cursor=3mxhmctkjil2y"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"e-Ie9BMcnPw/lLTv0zffrNa5YPoAs\"",
+      "ratelimit-limit": "3000",
+      "ratelimit-remaining": "2957",
+      "ratelimit-reset": "1791573543"
+    },
+    "body": {
+      "records": []
+    }
+  }
+}

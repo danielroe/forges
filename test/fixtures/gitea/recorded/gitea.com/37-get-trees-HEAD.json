@@ -1,0 +1,45 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitea.com/api/v1/repos/gitea/tea/git/trees/HEAD?per_page=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "x-total-count": "32"
+    },
+    "body": {
+      "sha": "0c539a5c8cce2ddb0d3fbbaf75c655ea96d999f2",
+      "url": "https://gitea.com/api/v1/repos/gitea/tea/git/trees/0c539a5c8cce2ddb0d3fbbaf75c655ea96d999f2",
+      "tree": [
+        {
+          "path": ".changelog.yml",
+          "mode": "100755",
+          "type": "blob",
+          "size": 918,
+          "sha": "e1d6907b7aba9781666f793e13b488363fd1fd22",
+          "url": "https://gitea.com/api/v1/repos/gitea/tea/git/blobs/e1d6907b7aba9781666f793e13b488363fd1fd22"
+        },
+        {
+          "path": ".devcontainer",
+          "mode": "040000",
+          "type": "tree",
+          "size": 0,
+          "sha": "e6afddd3fe2b44ce0bd68e2e0178912523c5bf92",
+          "url": "https://gitea.com/api/v1/repos/gitea/tea/git/trees/e6afddd3fe2b44ce0bd68e2e0178912523c5bf92"
+        },
+        {
+          "path": ".dockerignore",
+          "mode": "100644",
+          "type": "blob",
+          "size": 15,
+          "sha": "d586e98b5abce19e9bd24bd509af35cddbac7743",
+          "url": "https://gitea.com/api/v1/repos/gitea/tea/git/blobs/d586e98b5abce19e9bd24bd509af35cddbac7743"
+        }
+      ],
+      "truncated": true,
+      "page": 1,
+      "total_count": 32
+    }
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://auriporia.us-west.host.bsky.network/xrpc/com.atproto.repo.getRecord?repo=did%3Aplc%3Aqfngkejlw4ghji2myc73hbdh&collection=sh.tangled.repo.pull&rkey=3mxf3x7ivft22"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"1aff-3j1o+jg5V3fjGInKytZsLKslQ4k\"",
+      "ratelimit-limit": "3000",
+      "ratelimit-remaining": "2999",
+      "ratelimit-reset": "1791496603"
+    },
+    "body": {
+      "uri": "at://did:plc:qfngkejlw4ghji2myc73hbdh/sh.tangled.repo.pull/3mxf3x7ivft22",
+      "cid": "bafyreihg4sgypud7sqwojifvsyu7x5hlspkfssngg5nemrip4cxqredhci",
+      "value": {
+        "body": "SCRIPT-RUNTIMES-OUT-OF-PROCESS unit O1 (product; tests: #1167). Parent: `stack` s/161-lichen-env-tests2 65015486340270e6259535eeb9055786f472dda5 (CHILD-ENV-CLEAR closed). Tip a8397539d6e9e501c4b28a85fd76cf6771b77c77.\n\n- **Design:** lichen-orchestrator `machine-docs/plans/SCRIPT-RUNTIMES-O1-DESIGN-2026-10-08.md`, revision 2. It follows the operator's containment decision (`4bf1987a`) and positive-test decision (`157c5101`).\n- **Checked:** OK to build, with R2-D1 and R2-D2 (`machine-docs/reviews/SCRIPT-RUNTIMES-O1-DESIGN-CHECK-REV2-2026-10-08.md`). Both are in this PR.\n\n**Lua runs in a child process, lichen's own `script-runner` mode. Every script child (Python and Lua now) is contained by unprivileged mechanisms only, the same on every host and in a plain Docker container. There are no namespaces of any kind.**\n\n**Containment** (`lichen_flat_file::script_child`):\n- **Landlock files:** inherited from the site's confined worker, as before.\n- **Landlock network and scopes,** a second ruleset applied in `pre_exec`, with every right it asks for required:\n  - with ABI 6, no abstract Unix sockets and no signals outside the child's domain;\n  - from ABI 4, TCP per `script_network`, below.\n- **The empty environment** (CHILD-ENV-CLEAR).\n- **rlimits:** `RLIMIT_AS`, and an `RLIMIT_CPU` backstop of 10 CPU-minutes per child.\n- **`PR_SET_CHILD_SUBREAPER`** on the child. The Lua runner reaps what comes back to it after each call.\n- **A seccomp filter,** built with seccompiler 0.5 (which needs only `libc`) and installed last in `pre_exec` under `no_new_privs`. It is inherited by everything the script starts.\n  - **`EPERM`:**\n    - `setsid` and `setpgid`, which closes SC-ESC1;\n    - `unshare`, `setns`, and `clone` with any `CLONE_NEW*` flag;\n    - `ptrace` and `process_vm_*`;\n    - `mount`, `umount2` and `pivot_root`;\n    - `bpf`, `perf_event_open` and `userfaultfd`;\n    - `kexec_*` and the module calls;\n    - the keyring calls.\n  - **Sockets, as an allowlist (R2-D2):** under `public`, only an `AF_INET`/`AF_INET6` stream socket; under `off`, none. `socketpair` stays.\n  - **`ENOSYS`:** `clone3` (libc falls back to `clone`, whose flags the filter reads) and io_uring.\n- **The process group killed in a loop:** SIGKILL to the group until it answers `ESRCH`, reaping the leader as it dies. The group's id cannot be reused while any member holds it, so the loop never reaches another group. Only SIGKILL stops a child (O1-D1).\n\n**The network:**\n- **`public`:** the parent serves lichen's proxy (S4's guard) on the host's loopback, on a port of its own. Landlock lets the child connect to that port only, and bind nothing. Where Landlock has no TCP rules (ABI < 4), the network is off, and the report's warning says so.\n- **`off`:** no socket at all, through the filter, whatever Landlock offers.\n- **`all`:** the host's network.\n- **The network namespace is gone,** with its in-namespace listener.\n\n**Older kernels (R2-D1; the operator's decision, revised):**\n- Landlock's signal scope (ABI 6, Linux 6.12) is the only thing that stops a script signalling the server.\n- Below it, scripts run as on a newer kernel, and lichen warns: once at startup in the log, and in each build's report as one warning line. `build/check` stays ok.\n- The Landlock layers follow the kernel's ABI: scopes from 6, TCP rules from 4. Below 4 the proxy's network is off, and the line says so.\n- `SECURITY-DEBT` `SC-SIG1` is accepted with a warning.\n- lichen-ci is ABI 7.\n- The requirement is documented in the lichen-mod skill and in lichen-flat-file's README.\n\n**The runner** (O-C3):\n- **Which executable:** `/proc/self/exe script-runner lua`. The worker's Landlock policy gains read and execute on that inode.\n- **Entry:** `lichen_cms::script_runner::run_if_asked()` is the first statement of `main` in `lichen` and lichen-tauri. It reads only the arguments, and in runner mode starts nothing of the server.\n- **Handshake:** protocol 1, refused otherwise.\n- **Tests:** a test binary names its runner entry (`script_runner_test_entry!`, `set_script_runner`).\n- **Memory:** the address-space cap is the heap limit plus `RUNNER_BASELINE` (256 MiB). The debug runner's measured peak is 104 MiB.\n\n**One parent driver,** `shortcodes/child.rs`, for Python and Lua:\n- Lua's state runs in the runner, and its answers keep Python's shape. So the error, trace and cache contract is unchanged.\n- A call past its limit and grace (2 s for Lua, whose own limit answers first) has its child killed, and the next call starts a fresh one.\n- The abandoned-worker code is now reachable only from JavaScript; O2 deletes it.\n\n**Tests this change breaks, fixed here:**\n- The in-process \"abandoned\" Lua test becomes `a_call_stuck_in_one_library_call_is_killed_and_the_next_call_runs_at_once`.\n- The pane test told Pythons apart by PID; it now uses a per-process token.\n- The namespace-off network test becomes `with_the_network_off_the_filter_refuses_the_sockets_themselves`.\n- lichen-server's `features` tests register their runner entry.\n\n**Plain Docker** (the operator's named check). `e2e/plain-docker/script_shortcodes.sh` (tests PR) passes at the tests tip.\n- **How it runs:** `docker run --init` with Docker's built-in seccomp profile, no `--cap-add`, no `--security-opt`, as uid 1000, and with `use_sandbox = true`.\n- **What it builds:** a site with the full-sandbox Python and Lua shortcodes and the `setsid` probe.\n- **What the published page shows:**\n  - `<p id=py>HELLO! {\"n\": 3} 2026-10-08 child</p>`\n  - `<p id=lua>HELLO! 3 1970</p>`\n  - `<p id=setsid>refused:1</p>`\n- **Evidence:** notify-0252420e and notify-c748b3a7. The product code there is this tip's, apart from comments.\n\n**Not in O1:**\n- **O2:** JavaScript.\n- **O3:** the restored library, and SC-ESC1 and O-C4 for Lua.\n- **O4:** the timings.\n- **O5:** mdBook.\n\nChecks: `just gate --base 65015486` at a8397539: RAN rust (1389 tests passed, 0 failed), frontends/builtin; SKIPPED lichen-ts, frontends/hugo-cms (unchanged); FAILED none; 0 warnings (notify-6ef099bd). Clippy clean at both tips.\n\nRust: yes. API contract: unchanged.\n",
+        "$type": "sh.tangled.repo.pull",
+        "title": "Script runtimes O1: Lua runs in lichen's script-runner child; every script child contained by unprivileged means (seccomp, group kill loop, subreaper, Landlock to the proxy port)",
+        "rounds": [
+          {
+            "createdAt": "2026-10-08T18:34:15Z",
+            "patchBlob": {
+              "ref": {
+                "$link": "bafkreiex6y46qn2oejqc5hjzcklzoxukwejtxvopx5fwvpaafjayoedowm"
+              },
+              "size": 49339,
+              "$type": "blob",
+              "mimeType": "application/gzip"
+            }
+          }
+        ],
+        "source": {
+          "branch": "s/162-script-runner-product"
+        },
+        "target": {
+          "repo": "did:plc:wj53zt2oo653zr3wgnvn4llg",
+          "branch": "s/161-lichen-env-tests2"
+        },
+        "createdAt": "2026-10-08T18:34:15Z"
+      }
+    }
+  }
+}
