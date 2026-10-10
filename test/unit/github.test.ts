@@ -7,7 +7,7 @@ import { graphqlUrl } from '../../src/github/graphql-client.ts'
 import { github } from '../../src/github/index.ts'
 import { toEvent, toNotification, toReason, toRepo } from '../../src/github/normalise.ts'
 import { notificationThread } from '../../src/model.ts'
-import { fixtureFetch } from '../utils/fixtures.ts'
+import { fixtureFetch, loadFixtures } from '../utils/fixtures.ts'
 
 const { privateKey } = generateKeyPairSync('rsa', {
   modulusLength: 2048,
@@ -669,28 +669,36 @@ describe('github search', () => {
     expect(page.warnings).toBeUndefined()
   })
 
-  it('asks code search for text matches and keeps the ones from file contents', async () => {
-    const { provider, calls } = tokenProvider()
+  describe('code', () => {
+    const h3 = { forge: 'github', instance: 'github.com', owner: 'h3js', name: 'h3' } as const
+    const search = 'https://api.github.com/search/code?q=import+repo%3Ah3js%2Fh3&per_page=3'
 
-    const { items } = await provider.search.codePage({ text: 'useFetch', repo })
+    it('asks for text matches, and reads the indexed commit from each file', async () => {
+      const { fetch, calls } = fixtureFetch('github/recorded/github.com')
+      const provider = github({ auth: { type: 'token', token: 't' }, fetch }).create()
 
-    expect(calls[0]!.headers.get('accept')).toBe('application/vnd.github.text-match+json')
-    expect(items).toEqual([{
-      repo,
-      path: 'src/useFetch.ts',
-      ref: '6dcb09b5b57875f334f61aebed695e2e4193db5e',
-      fragments: [{ text: 'export function useFetch(url: string) {\n  return fetch(url)\n}' }],
-      url: 'https://github.com/acme/widgets/blob/6dcb09b5b57875f334f61aebed695e2e4193db5e/src/useFetch.ts',
-      raw: expect.objectContaining({ path: 'src/useFetch.ts' }),
-    }])
-  })
+      const { items } = await provider.search.codePage({ text: 'import', repo: h3, perPage: 3 })
 
-  it('warns when GitHub stops a code search before it finishes', async () => {
-    const provider = github({ auth: { type: 'token', token: 't' }, fetch: async () => Response.json({ total_count: 0, incomplete_results: true, items: [] }) }).create()
+      expect(calls[0]!.headers.get('accept')).toBe('application/vnd.github.text-match+json')
+      expect(items[1]).toMatchObject({
+        repo: h3,
+        path: 'docs/99.blog/3.v2.md',
+        ref: '66cfb8a357b6285451bad498c2c40002601fae98',
+        fragments: [{ text: '```js\nimport { H3, serve } from "h3";\n' }, { text: '```js\nimport { defineHandler } from "h3";\n' }],
+        url: 'https://github.com/h3js/h3/blob/66cfb8a357b6285451bad498c2c40002601fae98/docs/99.blog/3.v2.md',
+      })
+    })
 
-    const page = await provider.search.codePage({ text: 'useFetch', repo })
+    it('warns when GitHub stops the search before it finishes', async () => {
+      const recorded = loadFixtures('github/recorded/github.com').find(fixture => fixture.request.url === search)!.response
+      const { fetch } = fixtureFetch('github/recorded/github.com', { [`GET ${search}`]: { ...recorded, body: { ...recorded.body as object, incomplete_results: true } } })
+      const provider = github({ auth: { type: 'token', token: 't' }, fetch }).create()
 
-    expect(page.warnings).toEqual([expect.objectContaining({ code: 'search_incomplete' })])
+      const page = await provider.search.codePage({ text: 'import', repo: h3, perPage: 3 })
+
+      expect(page.items).toHaveLength(3)
+      expect(page.warnings).toEqual([expect.objectContaining({ code: 'search_incomplete' })])
+    })
   })
 })
 

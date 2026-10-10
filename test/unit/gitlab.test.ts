@@ -1,4 +1,5 @@
 import type { ResolvedThreadRef } from '../../src/model.ts'
+import type { FixtureFetch } from '../utils/fixtures.ts'
 import { readFileSync } from 'node:fs'
 import { describe, expect, it } from 'vitest'
 import {
@@ -337,41 +338,37 @@ describe('gitlab release webhooks', () => {
 })
 
 describe('gitlab code search', () => {
-  it('links each excerpt to the line it starts on', async () => {
-    const { instance } = provider()
+  const cli = { forge: 'gitlab', instance: 'gitlab.com', owner: 'gitlab-org', name: 'cli' } as const
+  const project = 'gid://gitlab/Project/80045070'
 
-    const { items } = await instance.search.codePage({ text: 'useFetch', repo })
+  function recordedSearch(graphql?: (init: Parameters<FixtureFetch['fetch']>[1]) => Response) {
+    const recorded = fixtureFetch('gitlab/recorded/gitlab.com')
+    const instance = gitlab({
+      auth: { type: 'token', token: 't' },
+      fetch: async (input, init) => graphql && String(input).endsWith('/graphql') ? graphql(init) : recorded.fetch(input, init),
+    }).create()
+    return { instance, calls: recorded.calls }
+  }
 
-    expect(items).toEqual([{
-      repo,
-      path: 'src/useFetch.ts',
-      ref: 'main',
-      fragments: [{ text: 'export function useFetch(url: string) {\n  return fetch(url)\n}\n', line: 12 }],
-      url: 'https://gitlab.com/acme/platform/widgets/-/blob/main/src/useFetch.ts#L12',
-      raw: [expect.objectContaining({ project_id: 278964 })],
-    }])
+  it('merges the excerpts of a file into one match, linked to the line of the first', async () => {
+    const { instance } = recordedSearch()
+
+    const { items } = await instance.search.codePage({ text: 'import', repo: cli, perPage: 3 })
+
+    expect(items).toHaveLength(1)
+    expect(items[0]).toMatchObject({ repo: cli, path: 'internal/commands/variable/import/import.go', ref: 'main', url: 'https://gitlab.com/gitlab-org/cli/-/blob/main/internal/commands/variable/import/import.go#L27' })
+    expect(items[0]!.fragments.map(fragment => fragment.line)).toEqual([27, 1, 2])
+    expect(items[0]!.raw).toHaveLength(3)
   })
 
   it('names the projects of a group search in one request, and remembers them', async () => {
-    const { instance, calls } = provider()
+    const { instance, calls } = recordedSearch()
 
-    const { items } = await instance.search.codePage({ text: 'useFetch', owner: 'acme/platform' })
-    await instance.search.codePage({ text: 'useFetch', owner: 'acme/platform' })
+    const { items } = await instance.search.codePage({ text: 'import', owner: 'gitlab-org', perPage: 3 })
+    await instance.search.codePage({ text: 'import', owner: 'gitlab-org', perPage: 3 })
 
-    expect(items.map(item => item.url)).toEqual([
-      'https://gitlab.com/acme/platform/widgets/-/blob/main/src/useFetch.ts#L12',
-      'https://gitlab.com/acme/platform/storefront/-/blob/develop/app/pages/index.vue#L3',
-    ])
-    expect(calls.filter(call => call.operationName === 'CodeSearchProjects').map(call => call.variables)).toEqual([{ ids: ['gid://gitlab/Project/278964', 'gid://gitlab/Project/278965'] }])
-  })
-
-  it('merges consecutive excerpts of a file into one match', async () => {
-    const { instance } = provider()
-
-    const { items } = await instance.search.codePage({ text: 'useFetch', owner: 'acme/platform' })
-
-    expect(items[0]!.fragments.map(fragment => fragment.line)).toEqual([12, 40])
-    expect(items[0]!.raw).toHaveLength(2)
+    expect(items.map(item => item.repo)).toEqual([expect.objectContaining({ owner: 'gitlab-org/ai-engineering/agent-foundations', name: 'agentic-productivity', externalId: '80045070' })])
+    expect(calls.filter(call => call.operationName === 'CodeSearchProjects').map(call => call.variables)).toEqual([{ ids: [project] }])
   })
 
   it('asks only for a read scope to search code', () => {
@@ -398,35 +395,29 @@ describe('gitlab code search', () => {
     expect(paths).toEqual(['/api/v4/projects/acme%2Fplatform%2Fwidgets/search', '/api/v4/groups/acme%2Fplatform/search', '/api/v4/search'])
   })
 
-  it('keeps the rest of the page when one project of a group search cannot be read', async () => {
-    const { instance } = provider({ 'POST https://gitlab.com/api/graphql CodeSearchProjects': { status: 200, headers: {}, body: { data: { projects: { nodes: [{ id: 'gid://gitlab/Project/278964', fullPath: 'acme/platform/widgets' }] } } } } })
+  it('leaves out the results of a project the token cannot read, with a warning', async () => {
+    const { instance } = recordedSearch(() => Response.json({ data: { projects: { nodes: [] } } }))
 
-    const page = await instance.search.codePage({ text: 'useFetch', owner: 'acme/platform' })
+    const page = await instance.search.codePage({ text: 'import', owner: 'gitlab-org', perPage: 3 })
 
-    expect(page.items.map(item => item.repo.name)).toEqual(['widgets'])
-    expect(page.warnings).toEqual([expect.objectContaining({ code: 'record_unreachable', subject: 'project 278965' })])
+    expect(page.items).toEqual([])
+    expect(page.warnings).toEqual([expect.objectContaining({ code: 'record_unreachable', subject: 'project 80045070' })])
   })
 
-  it('stops a group search when reading a project is rate limited', async () => {
-    const { instance } = provider({ 'POST https://gitlab.com/api/graphql CodeSearchProjects': { status: 429, headers: { 'ratelimit-remaining': '0', 'ratelimit-reset': '1800000000' }, body: { message: 'Retry later' } } })
+  it('stops a group search when reading its projects is rate limited', async () => {
+    const { instance } = recordedSearch(() => Response.json({ message: 'Retry later' }, { status: 429, headers: { 'ratelimit-remaining': '0', 'ratelimit-reset': '1800000000' } }))
 
-    await expect(instance.search.codePage({ text: 'useFetch', owner: 'acme/platform' })).rejects.toBeInstanceOf(RateLimitedError)
+    await expect(instance.search.codePage({ text: 'import', owner: 'gitlab-org', perPage: 3 })).rejects.toBeInstanceOf(RateLimitedError)
   })
 
   it('lets the caller abort a group search while it reads the projects', async () => {
     const controller = new AbortController()
-    const instance = gitlab({
-      auth: { type: 'token', token: 't' },
-      fetch: async (url, init) => {
-        if (String(url).includes('/groups/')) {
-          return Response.json([{ data: 'useFetch', path: 'src/useFetch.ts', ref: 'main', startline: 1, project_id: 278964 }])
-        }
-        controller.abort()
-        throw init!.signal!.reason
-      },
-    }).create()
+    const { instance } = recordedSearch((init) => {
+      controller.abort()
+      throw init!.signal!.reason
+    })
 
-    await expect(instance.search.codePage({ text: 'useFetch', owner: 'acme/platform', signal: controller.signal })).rejects.toMatchObject({ name: 'AbortError' })
+    await expect(instance.search.codePage({ text: 'import', owner: 'gitlab-org', perPage: 3, signal: controller.signal })).rejects.toMatchObject({ name: 'AbortError' })
   })
 })
 

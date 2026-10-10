@@ -1,0 +1,33 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://gitlab.com/api/graphql",
+    "operationName": "CodeSearchProjects",
+    "variables": {
+      "ids": [
+        "gid://gitlab/Project/80045070"
+      ]
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"b4c614d61a923c4e8549993ecb85c9bc\"",
+      "ratelimit-limit": "2000",
+      "ratelimit-remaining": "1939",
+      "ratelimit-reset": "1791621120"
+    },
+    "body": {
+      "data": {
+        "projects": {
+          "nodes": [
+            {
+              "id": "gid://gitlab/Project/80045070",
+              "fullPath": "gitlab-org/ai-engineering/agent-foundations/agentic-productivity"
+            }
+          ]
+        }
+      }
+    }
+  }
+}
