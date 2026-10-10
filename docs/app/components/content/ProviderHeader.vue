@@ -22,7 +22,7 @@ const { copied, copy, message } = useCopyToClipboard(() => statement)
 </script>
 
 <template>
-  <div class="not-prose my-6 overflow-hidden rounded-lg border border-default">
+  <div class="not-prose @container my-6 overflow-hidden rounded-lg border border-default">
     <div class="flex items-center gap-3 border-b border-default bg-elevated/40 py-2 pr-2 pl-4">
       <UIcon
         :name="provider.icon"
@@ -52,7 +52,7 @@ const { copied, copy, message } = useCopyToClipboard(() => statement)
       >{{ message }}</span>
     </div>
 
-    <dl class="grid gap-px bg-(--ui-border) text-xs sm:grid-cols-2 lg:grid-cols-4">
+    <dl class="grid gap-px bg-(--ui-border) text-xs @min-[32rem]:grid-cols-2 @min-[44rem]:grid-cols-[1.5fr_1fr_1fr_1fr]">
       <div class="bg-default p-4">
         <dt class="text-muted">
           Factories
@@ -62,10 +62,10 @@ const { copied, copy, message } = useCopyToClipboard(() => statement)
             v-for="factory of provider.factories"
             :key="factory"
             :to="factory.endsWith('Lite') ? '/concepts/providers#lite-factories' : '/concepts/providers#factories'"
-            class="flex items-baseline justify-between gap-2 hover:text-primary"
+            class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 hover:text-primary"
           >
-            <code class="font-mono text-highlighted">{{ factory }}()</code>
-            <span class="text-muted">{{ factory.endsWith('Lite') ? 'No webhooks' : 'Full' }}</span>
+            <code class="font-mono whitespace-nowrap text-highlighted">{{ factory }}()</code>
+            <span class="text-muted whitespace-nowrap">{{ factory.endsWith('Lite') ? 'No webhooks' : 'Full' }}</span>
           </NuxtLink>
         </dd>
       </div>
