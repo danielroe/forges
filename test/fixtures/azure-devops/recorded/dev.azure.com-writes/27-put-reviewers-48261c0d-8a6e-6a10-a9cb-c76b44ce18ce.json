@@ -1,7 +1,7 @@
 {
   "request": {
     "method": "PUT",
-    "url": "https://dev.azure.com/forges/forges-fixtures/_apis/git/repositories/forges-fixtures/pullRequests/17/reviewers/48261c0d-8a6e-6a10-a9cb-c76b44ce18ce?api-version=7.1",
+    "url": "https://dev.azure.com/forges/forges-fixtures/_apis/git/repositories/forges-fixtures/pullRequests/23/reviewers/48261c0d-8a6e-6a10-a9cb-c76b44ce18ce?api-version=7.1",
     "body": {
       "vote": 0
     }
@@ -10,7 +10,7 @@
     "status": 200,
     "headers": {},
     "body": {
-      "reviewerUrl": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/pullRequests/17/reviewers/48261c0d-8a6e-6a10-a9cb-c76b44ce18ce",
+      "reviewerUrl": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/pullRequests/23/reviewers/48261c0d-8a6e-6a10-a9cb-c76b44ce18ce",
       "vote": 0,
       "hasDeclined": false,
       "isFlagged": false,

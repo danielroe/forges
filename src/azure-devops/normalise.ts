@@ -130,6 +130,7 @@ export function toPullComment(ref: ThreadRef, thread: AzureThread, raw: AzureCom
     author: toActor(ref.instance, raw.author),
     createdAt: toDate(raw.publishedDate),
     updatedAt: toDate(raw.lastUpdatedDate),
+    ...thread.status && { thread: { id: String(thread.id), resolved: thread.status !== 'active' && thread.status !== 'pending' } },
     raw,
   }
 }

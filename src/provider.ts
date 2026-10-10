@@ -597,9 +597,9 @@ export interface ThreadsApi {
   commits: (ref: ThreadRef, options?: PageOptions) => ForgeIterable<Commit>
   /** One page of `commits()`. */
   commitsPage: (ref: ThreadRef, options?: PageOptions) => Promise<Page<Commit>>
-  /** Resolves a review conversation, by the id on {@link ReviewComment.thread}. */
+  /** Resolves a review conversation, by the id on {@link ReviewComment.thread} or {@link Comment.thread}. */
   resolveReviewThread: (ref: ThreadRef, id: string) => Promise<void>
-  /** Reopens a resolved review conversation, by the id on `ReviewComment.thread`. */
+  /** Reopens a resolved review conversation, by the id on `ReviewComment.thread` or `Comment.thread`. */
   unresolveReviewThread: (ref: ThreadRef, id: string) => Promise<void>
 }
 

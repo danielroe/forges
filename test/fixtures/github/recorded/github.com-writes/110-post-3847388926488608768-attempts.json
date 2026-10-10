@@ -1,0 +1,15 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/hooks/694951035/deliveries/3847388926488608768/attempts"
+  },
+  "response": {
+    "status": 202,
+    "headers": {
+      "x-ratelimit-limit": "500",
+      "x-ratelimit-remaining": "494",
+      "x-ratelimit-reset": "1791580139"
+    },
+    "body": {}
+  }
+}

@@ -37,7 +37,7 @@ import type {
   WebhookDeliveryRecord,
   WebhookRef,
 } from '../model.ts'
-import type { GitLabBranch, GitLabCommit, GitLabCommitComment, GitLabCommitDetail, GitLabCommitStatus, GitLabDiff, GitLabHook, GitLabHookEvent, GitLabIssue, GitLabJob, GitLabLabel, GitLabMilestone, GitLabNote, GitLabNoteDetail, GitLabPipeline, GitLabProjectDetail, GitLabRelease, GitLabTag, GitLabTodo, GitLabTreeEntry, GitLabUser, GitLabVulnerability } from './types.ts'
+import type { GitLabBranch, GitLabCommit, GitLabCommitComment, GitLabCommitDetail, GitLabCommitStatus, GitLabDiff, GitLabDiscussion, GitLabHook, GitLabHookEvent, GitLabIssue, GitLabJob, GitLabLabel, GitLabMilestone, GitLabNote, GitLabNoteDetail, GitLabPipeline, GitLabProjectDetail, GitLabRelease, GitLabTag, GitLabTodo, GitLabTreeEntry, GitLabUser, GitLabVulnerability } from './types.ts'
 import { toDate } from '../utils.ts'
 import { eventKindsOf } from '../webhooks.ts'
 import { GITLAB_NATIVE_EVENTS } from './webhook-events.ts'
@@ -414,13 +414,14 @@ export function toCommitCommentEvent(ref: ResolvedThreadRef, comment: GitLabComm
   }
 }
 
-export function toNoteComment(thread: ThreadRef, note: GitLabNoteDetail): Comment {
+export function toNoteComment(thread: ThreadRef, note: GitLabNoteDetail, discussion?: GitLabDiscussion): Comment {
   return {
     ref: { forge: FORGE, instance: thread.instance, thread, id: String(note.id) },
     body: note.body,
     author: toActor(thread.instance, note.author),
     createdAt: toDate(note.created_at),
     updatedAt: toDate(note.updated_at),
+    ...discussion && note.resolvable && { thread: { id: discussion.id, resolved: Boolean(note.resolved) } },
     raw: note,
   }
 }

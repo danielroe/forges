@@ -3,31 +3,31 @@
     "method": "POST",
     "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/issues",
     "body": {
-      "title": "forges fixture 20261009142055: duplicate",
-      "body": "Opened by run 20261009142055."
+      "title": "forges fixture 20261009210636: duplicate",
+      "body": "Opened by run 20261009210636."
     }
   },
   "response": {
     "status": 201,
     "headers": {
       "link": "<https://docs.github.com/en/rest/about-the-rest-api/api-versions>; rel=\"deprecation\"; type=\"text/html\"",
-      "etag": "\"f9fb908f658b33016d6b9d6f7cd179c101a54a2a4b9cc75bb315e3a44c7c311a\"",
-      "location": "https://api.github.com/repos/forges-fixtures/forges-fixtures/issues/35",
+      "etag": "\"1136369ab4b7f0bd258c9053cbd9bf67e3f478fe670514630b5d7d3789e96f26\"",
+      "location": "https://api.github.com/repos/forges-fixtures/forges-fixtures/issues/41",
       "x-ratelimit-limit": "5000",
       "x-ratelimit-remaining": "4973",
-      "x-ratelimit-reset": "1791559256"
+      "x-ratelimit-reset": "1791583597"
     },
     "body": {
-      "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/issues/35",
+      "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/issues/41",
       "repository_url": "https://api.github.com/repos/forges-fixtures/forges-fixtures",
-      "labels_url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/issues/35/labels{/name}",
-      "comments_url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/issues/35/comments",
-      "events_url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/issues/35/events",
-      "html_url": "https://github.com/forges-fixtures/forges-fixtures/issues/35",
-      "id": 5779650088,
-      "node_id": "I_kwDOVCTdtM8AAAABWH52KA",
-      "number": 35,
-      "title": "forges fixture 20261009142055: duplicate",
+      "labels_url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/issues/41/labels{/name}",
+      "comments_url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/issues/41/comments",
+      "events_url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/issues/41/events",
+      "html_url": "https://github.com/forges-fixtures/forges-fixtures/issues/41",
+      "id": 5784656653,
+      "node_id": "I_kwDOVCTdtM8AAAABWMrbDQ",
+      "number": 41,
+      "title": "forges fixture 20261009210636: duplicate",
       "user": {
         "login": "danielroe-bot",
         "id": 57801166,
@@ -55,8 +55,8 @@
       "assignees": [],
       "milestone": null,
       "comments": 0,
-      "created_at": "2026-10-09T14:21:19Z",
-      "updated_at": "2026-10-09T14:21:19Z",
+      "created_at": "2026-10-09T21:07:00Z",
+      "updated_at": "2026-10-09T21:07:00Z",
       "closed_at": null,
       "assignee": null,
       "author_association": "MEMBER",
@@ -74,10 +74,10 @@
         "blocking": 0,
         "total_blocking": 0
       },
-      "body": "Opened by run 20261009142055.",
+      "body": "Opened by run 20261009210636.",
       "closed_by": null,
       "reactions": {
-        "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/issues/35/reactions",
+        "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/issues/41/reactions",
         "total_count": 0,
         "+1": 0,
         "-1": 0,
@@ -88,7 +88,7 @@
         "rocket": 0,
         "eyes": 0
       },
-      "timeline_url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/issues/35/timeline",
+      "timeline_url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/issues/41/timeline",
       "performed_via_github_app": null,
       "state_reason": null,
       "pinned_comment": null

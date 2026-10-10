@@ -43,7 +43,15 @@
     "items": [],
     "rateLimit": {
       "limit": 5000,
-      "remaining": 4992,
+      "remaining": 4998,
+      "resetAt": "<now>"
+    }
+  },
+  "collaborators": {
+    "items": [],
+    "rateLimit": {
+      "limit": 5000,
+      "remaining": 4996,
       "resetAt": "<now>"
     }
   },
@@ -98,7 +106,7 @@
     "items": [],
     "rateLimit": {
       "limit": 5000,
-      "remaining": 4989,
+      "remaining": 4994,
       "resetAt": "<now>"
     }
   },
@@ -170,7 +178,7 @@
     "items": [],
     "rateLimit": {
       "limit": 5000,
-      "remaining": 4986,
+      "remaining": 4991,
       "resetAt": "<now>"
     }
   },
@@ -178,7 +186,7 @@
     "items": [],
     "rateLimit": {
       "limit": 5000,
-      "remaining": 4986,
+      "remaining": 4991,
       "resetAt": "<now>"
     }
   },
@@ -225,7 +233,7 @@
     "items": [],
     "rateLimit": {
       "limit": 5000,
-      "remaining": 4984,
+      "remaining": 4989,
       "resetAt": "<now>"
     }
   },
@@ -473,7 +481,7 @@
     },
     "rateLimit": {
       "limit": 5000,
-      "remaining": 4981,
+      "remaining": 4986,
       "resetAt": "<now>"
     }
   },
@@ -581,7 +589,7 @@
     },
     "rateLimit": {
       "limit": 5000,
-      "remaining": 4981,
+      "remaining": 4986,
       "resetAt": "<now>"
     }
   },
@@ -617,7 +625,7 @@
           "https": "https://git.pushin.eu/danielroe/roe.dev.git"
         },
         "createdAt": "2026-09-06T19:13:09.398Z",
-        "updatedAt": "2026-10-08T18:15:04.154Z",
+        "updatedAt": "<now>",
         "owner": {
           "forge": "pushin",
           "instance": "pushin.eu",
@@ -640,7 +648,7 @@
     ],
     "rateLimit": {
       "limit": 5000,
-      "remaining": 4979,
+      "remaining": 4984,
       "resetAt": "<now>"
     }
   },
@@ -648,7 +656,7 @@
     "items": [],
     "rateLimit": {
       "limit": 5000,
-      "remaining": 4978,
+      "remaining": 4983,
       "resetAt": "<now>"
     }
   }

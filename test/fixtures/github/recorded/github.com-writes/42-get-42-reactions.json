@@ -1,0 +1,44 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/issues/42/reactions?content=%2B1&per_page=100"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"a8fcbcba818b6b34f0bafbf02d69ec57bfd408c62b58696fbf741e75dac0858f\"",
+      "x-ratelimit-limit": "5000",
+      "x-ratelimit-remaining": "4961",
+      "x-ratelimit-reset": "1791583597"
+    },
+    "body": [
+      {
+        "id": 557655466,
+        "node_id": "REA_lAHOVCTdtM8AAAABWMreV84hPSWq",
+        "user": {
+          "login": "danielroe-bot",
+          "id": 57801166,
+          "node_id": "REDACTED",
+          "avatar_url": "https://avatars.githubusercontent.com/u/57801166?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/danielroe-bot",
+          "html_url": "https://github.com/danielroe-bot",
+          "followers_url": "https://api.github.com/users/danielroe-bot/followers",
+          "following_url": "https://api.github.com/users/danielroe-bot/following{/other_user}",
+          "gists_url": "https://api.github.com/users/danielroe-bot/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/danielroe-bot/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/danielroe-bot/subscriptions",
+          "organizations_url": "https://api.github.com/users/danielroe-bot/orgs",
+          "repos_url": "https://api.github.com/users/danielroe-bot/repos",
+          "events_url": "https://api.github.com/users/danielroe-bot/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/danielroe-bot/received_events",
+          "type": "User",
+          "user_view_type": "public",
+          "site_admin": false
+        },
+        "content": "+1",
+        "created_at": "2026-10-09T21:07:13Z"
+      }
+    ]
+  }
+}

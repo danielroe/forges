@@ -1,0 +1,128 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/merge_requests/3988/discussions?per_page=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "<https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/merge_requests/3988/discussions?id=gitlab-org%2Fcli&noteable_id=3988&page=2&per_page=3>; rel=\"next\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/merge_requests/3988/discussions?id=gitlab-org%2Fcli&noteable_id=3988&page=1&per_page=3>; rel=\"first\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/merge_requests/3988/discussions?id=gitlab-org%2Fcli&noteable_id=3988&page=3&per_page=3>; rel=\"last\"",
+      "etag": "W/\"19289db9368806a5ede10b09ea4965ac\"",
+      "ratelimit-limit": "2000",
+      "ratelimit-remaining": "1989",
+      "ratelimit-reset": "1791581760",
+      "x-total": "7",
+      "x-total-pages": "3",
+      "x-next-page": "2",
+      "x-page": "1",
+      "x-per-page": "3"
+    },
+    "body": [
+      {
+        "id": "a34c5142138c3c9f925e482609255d4d8a7321e8",
+        "individual_note": true,
+        "resolvable": false,
+        "notes": [
+          {
+            "id": 3937819667,
+            "type": null,
+            "body": "### Renovate Comment\n\n\n## What are the next steps?\n\nIf you have been assigned as a reviewer to this Merge Request,\nplease review this Merge Request with the same scrutiny as any community contribution:\n\n1.  Ensure that the dependencies updated meet our standards:\n    - _Security_: Dependencies do not contain malicious code\n    - _Performance_: Dependencies do not bloat the application code or prolong CI times unnecessarily\n    - _Stability_: Pipelines are passing\n\n2.  Review the changes introduced by the version upgrade. Consider using https://my.diffend.io to compare the two versions in case the updated dependency is either a Ruby Gem or a Node.js package, for example to [compare `pg_query` `2.1.0` and `2.1.4`](https://my.diffend.io/gems/pg_query/2.1.0/2.1.4).\n\n3.  Check if `bundle install` works locally, in the context of GDK.\n\n4.  If tests are passing and you've reviewed the updated dependencies, execute pipelines in the [context of the main project][main_context]\n\n    This MR is created from a fork, therefore not _all_ jobs (e.g. Danger) might have been executed.\n    Instead of hitting MWPS right away, you might want to wait until the pipeline you've just triggered finished.\n\n    _Note_: This might not be available in projects, in that case merging right away is an option\n\n5.  Assign the current milestone to the MR\n\n6.  Merge away!\n\n## Troubleshooting\n\nWe have assembled some [FAQs] to help reviewers of these kind of merge requests.\n\n<small>\n\n[Improve this message][message_source] – The JSON comment below is for [automation purposes][process].\n\n</small>\n\n[renovate-gitlab-bot]: https://gitlab.com/gitlab-org/frontend/renovate-gitlab-bot\n[main_context]: https://docs.gitlab.com/ee/ci/pipelines/merge_request_pipelines.html#run-pipelines-in-the-parent-project\n[message_source]: https://gitlab.com/gitlab-org/frontend/renovate-gitlab-bot/-/blob/main/renovate/comment_templates/default.md\n[process]: https://gitlab.com/gitlab-org/frontend/renovate-gitlab-bot/-/blob/main/docs/process.md\n[FAQs]: https://gitlab.com/gitlab-org/frontend/renovate-gitlab-bot/-/blob/main/docs/faq.md\n\n\n```json\n{\"labels\":[\"maintenance::dependency\",\"type::maintenance\",\"automation:bot-authored\",\"group::code review\",\"devops::create\",\"section::dev\",\"Category:GitLab CLI\"],\"assignees\":[\"gitlab-dependency-update-bot\"],\"reviewers\":[\"ahmed.hemdan\",\"jay_mccure\",\"jhebden\"]}\n```",
+            "author": {
+              "id": 8420142,
+              "username": "gitlab-dependency-update-bot",
+              "public_email": "",
+              "name": "GitLab Dependency Bot",
+              "state": "active",
+              "locked": false,
+              "avatar_url": "https://secure.gravatar.com/avatar/3d0463f813f54718127bf38acba616ef6bc5160fea8111c47dd4088fcacdb91a?s=80&d=identicon",
+              "web_url": "https://gitlab.com/gitlab-dependency-update-bot"
+            },
+            "created_at": "2026-10-01T13:13:42.551Z",
+            "updated_at": "2026-10-01T13:13:42.551Z",
+            "system": false,
+            "noteable_id": 541465719,
+            "noteable_type": "MergeRequest",
+            "project_id": 34675721,
+            "resolvable": false,
+            "confidential": false,
+            "internal": false,
+            "imported": false,
+            "imported_from": "none",
+            "noteable_iid": 3988,
+            "commands_changes": {}
+          }
+        ]
+      },
+      {
+        "id": "477520e99341ff4554040d8ead8dde3d7541ab4f",
+        "individual_note": true,
+        "resolvable": false,
+        "notes": [
+          {
+            "id": 3937820583,
+            "type": null,
+            "body": "requested review from @jay_mccure",
+            "author": {
+              "id": 1786152,
+              "username": "gitlab-bot",
+              "public_email": "",
+              "name": "🤖 GitLab Bot 🤖",
+              "state": "active",
+              "locked": false,
+              "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/1786152/avatar.png?v=1791578417",
+              "web_url": "https://gitlab.com/gitlab-bot"
+            },
+            "created_at": "2026-10-01T13:13:50.970Z",
+            "updated_at": "2026-10-01T13:13:50.972Z",
+            "system": true,
+            "noteable_id": 541465719,
+            "noteable_type": "MergeRequest",
+            "project_id": 34675721,
+            "resolvable": false,
+            "confidential": false,
+            "internal": false,
+            "imported": false,
+            "imported_from": "none",
+            "noteable_iid": 3988,
+            "commands_changes": {}
+          }
+        ]
+      },
+      {
+        "id": "32d6541105b9e1a994611fb9a7043033caf5c96f",
+        "individual_note": true,
+        "resolvable": false,
+        "notes": [
+          {
+            "id": 3937820589,
+            "type": null,
+            "body": "assigned to @gitlab-dependency-update-bot",
+            "author": {
+              "id": 1786152,
+              "username": "gitlab-bot",
+              "public_email": "",
+              "name": "🤖 GitLab Bot 🤖",
+              "state": "active",
+              "locked": false,
+              "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/1786152/avatar.png?v=1791578417",
+              "web_url": "https://gitlab.com/gitlab-bot"
+            },
+            "created_at": "2026-10-01T13:13:51.006Z",
+            "updated_at": "2026-10-01T13:13:51.008Z",
+            "system": true,
+            "noteable_id": 541465719,
+            "noteable_type": "MergeRequest",
+            "project_id": 34675721,
+            "resolvable": false,
+            "confidential": false,
+            "internal": false,
+            "imported": false,
+            "imported_from": "none",
+            "noteable_iid": 3988,
+            "commands_changes": {}
+          }
+        ]
+      }
+    ]
+  }
+}

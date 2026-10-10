@@ -43,6 +43,7 @@ export interface WriteContext {
   comments: Partial<Record<WriteKind | 'commit', Comment>>
   milestone?: Milestone
   review?: Review
+  reviewThread?: string
   webhook?: Webhook
   delivery?: WebhookDeliveryRecord
   notification?: Notification
@@ -158,7 +159,7 @@ export const WRITE_STEPS: WriteStep[] = [
     context.milestone = result.items.find(milestone => milestone.state === 'open')
     return result
   } },
-  { name: 'add collaborator', verb: 'repos.addCollaborator', run: (provider, manifest, context) => provider.repos.addCollaborator(manifest.scratch, need(context.reviewer, 'the reviewer'), 'write') },
+  { name: 'add collaborator', verb: 'repos.addCollaborator', run: (provider, manifest, context) => provider.repos.addCollaborator(manifest.collaborators ?? manifest.scratch, need(context.reviewer, 'the reviewer'), 'write') },
 
   { name: 'create issue', verb: 'threads.create', kind: 'issue', run: async (provider, manifest, context) => {
     context.issue = await provider.threads.create(manifest.scratch, { kind: 'issue', title: `${FIXTURE_TITLE} ${manifest.run.id}: issue`, body: `Opened by run ${manifest.run.id}.` })
@@ -216,21 +217,22 @@ export const WRITE_STEPS: WriteStep[] = [
       : await provider.threads.createReview(need(context.pulls[2], 'the third pull request').ref, { event: 'approve' })
     return context.review
   } },
+  { name: 'comment review', verb: 'threads.createReview', kind: 'pull_request', as: 'reviewer', when: provider => !provider.can('threads.submitReview'), run: (provider, manifest, context) => provider.threads.createReview(threadOf(context, 'pull_request'), { event: 'comment', body: `A review comment from run ${manifest.run.id}.` }) },
   { name: 'submit review', verb: 'threads.submitReview', kind: 'pull_request', as: 'reviewer', run: async (provider, manifest, context) => {
     context.review = await provider.threads.submitReview(need(context.review, 'a pending review').ref, 'comment', `A submitted review from run ${manifest.run.id}.`)
     return context.review
   } },
   { name: 'resolve review thread', verb: 'threads.resolveReviewThread', kind: 'pull_request', run: async (provider, _manifest, context) => {
-    const reviews = await provider.threads.reviewsPage(threadOf(context, 'pull_request'))
-    const id = need(reviews.items.flatMap(review => review.comments || []).find(comment => comment.thread)?.thread?.id, 'a review thread')
-    await provider.threads.resolveReviewThread(threadOf(context, 'pull_request'), id)
-    return { reviews, id }
+    const pull = threadOf(context, 'pull_request')
+    const reviews = await provider.threads.reviewsPage(pull)
+    let id = reviews.items.flatMap(review => review.comments || []).find(comment => comment.thread)?.thread?.id
+    const comments = id ? undefined : await provider.threads.commentsPage(pull)
+    id ??= comments?.items.find(comment => comment.thread)?.thread?.id
+    context.reviewThread = need(id, 'a review thread')
+    await provider.threads.resolveReviewThread(pull, context.reviewThread)
+    return { reviews, comments, id }
   } },
-  { name: 'unresolve review thread', verb: 'threads.unresolveReviewThread', kind: 'pull_request', run: async (provider, _manifest, context) => {
-    const reviews = await provider.threads.reviewsPage(threadOf(context, 'pull_request'))
-    const id = need(reviews.items.flatMap(review => review.comments || []).find(comment => comment.thread)?.thread?.id, 'a review thread')
-    return provider.threads.unresolveReviewThread(threadOf(context, 'pull_request'), id)
-  } },
+  { name: 'unresolve review thread', verb: 'threads.unresolveReviewThread', kind: 'pull_request', run: (provider, _manifest, context) => provider.threads.unresolveReviewThread(threadOf(context, 'pull_request'), need(context.reviewThread, 'a resolved review thread')) },
   { name: 'report check', verb: 'checks.report', run: (provider, manifest, context) => provider.checks.report(manifest.scratch, need(context.pulls[0]?.branches?.head.sha, 'the pull head sha'), { name: 'forges fixture', state: 'success', description: `Reported by run ${manifest.run.id}` }) },
   { name: 'rerun check', verb: 'checks.rerun', as: 'reviewer', run: async (provider, manifest) => {
     const head = await provider.contents.resolveRef(manifest.scratch, manifest.run.base)

@@ -1,0 +1,14 @@
+{
+  "request": {
+    "method": "PUT",
+    "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/notifications"
+  },
+  "response": {
+    "status": 205,
+    "headers": {
+      "x-ratelimit-limit": "5000",
+      "x-ratelimit-remaining": "4935",
+      "x-ratelimit-reset": "1791583597"
+    }
+  }
+}

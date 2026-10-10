@@ -7,10 +7,10 @@
     "status": 200,
     "headers": {
       "link": "<https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/issues?id=gitlab-org%2Fcli&in=title%2Cdescription&order_by=updated_at&page=2&per_page=3&search=fix&sort=desc&state=all&with_labels_details=false>; rel=\"next\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/issues?id=gitlab-org%2Fcli&in=title%2Cdescription&order_by=updated_at&page=1&per_page=3&search=fix&sort=desc&state=all&with_labels_details=false>; rel=\"first\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/issues?id=gitlab-org%2Fcli&in=title%2Cdescription&order_by=updated_at&page=216&per_page=3&search=fix&sort=desc&state=all&with_labels_details=false>; rel=\"last\"",
-      "etag": "W/\"6ccc25aec4f832f4f4f1253c6f4f953b\"",
+      "etag": "W/\"aea1fb40e6f73e13bf574d5db74bbb3b\"",
       "ratelimit-limit": "2000",
-      "ratelimit-remaining": "1944",
-      "ratelimit-reset": "1791551760",
+      "ratelimit-remaining": "1943",
+      "ratelimit-reset": "1791581760",
       "x-total": "646",
       "x-total-pages": "216",
       "x-next-page": "2",
@@ -19,6 +19,116 @@
     },
     "body": [
       {
+        "id": 203048763,
+        "iid": 8550,
+        "project_id": 34675721,
+        "title": "Follow-up from \"fix(orbit): forward --help to the Orbit binary once it is installed\"",
+        "description": "The following discussions from !3892 should be addressed:\n\n- [ ] @phikai started a [discussion](https://gitlab.com/gitlab-org/cli/-/merge_requests/3892#note_3831356299): \n\n    > Non-blocking, but worth recording: the shared `InstalledBinary` also tightens duo. `Installed` now requires a non-empty `duo_cli_binary_version` for a managed install, where `main` only stat-ed the path. With the managed binary on disk and no recorded version, I get `installed=false` here against `installed=true` on `main`, so the footer flips to \"not installed yet\" plus the three install steps.\n    > \n    > That is the more accurate answer, since `EnsureInstalled` would re-download in that state, and `binarymgr` covers it in \"managed binary without a recorded version is not installed\". Two follow-ups:\n    > \n    > - The duo suite only exercises the custom-path branch (`TestBinaryStatus` sets `GLAB_DUO_CLI_BINARY_PATH`), so nothing in `internal/commands/duo/cli` pins the managed-path behavior. A managed-path case next to the existing \"unknown version\" one would lock it in.\n    > - The description says duo just reuses the moved check. Calling out the footer change would help whoever bisects it later.\n\n- [ ] @phikai started a [discussion](https://gitlab.com/gitlab-org/cli/-/merge_requests/3892#note_3831356502): \n\n    > Optional: `InstallStatus.Version` now carries display text. `\"unknown version\"` is what the duo footer prints, and it means a consumer cannot tell \"no version recorded\" from a real version string. Orbit does not read `Version` at all.\n    > \n    > Returning `\"\"` and keeping the fallback in `AppendBinaryStatusFooter` would keep `binarymgr` free of user-facing strings. It also removes the mild oddity in the new tests, where `InstallStatus{Version: \"unknown version\", Installed: true}` is the expected value for a binary whose version is genuinely unknown.\n\n- [ ] @phikai started a [discussion](https://gitlab.com/gitlab-org/cli/-/merge_requests/3892#note_3831435650): \n\n    > Version 3 addresses everything I raised, and I verified the behavior rather than just the diff: help renders instead of erroring with a stale managed binary in CI, no consent prompt or update check on the help path, and the duo footer matches `main` again when a config key cannot be read. Docs regenerate with no drift.\n    > \n    > The two threads I left today are not blocking. Would be good to see them in a follow-up:\n    > \n    > - a managed-path case in the duo `TestBinaryStatus` set, so nothing in `internal/commands/duo/cli` can silently flip the footer\n    > - moving the `unknown version` fallback out of `binarymgr` and into the footer, ideally with wording that fits custom-path users, who are now the main audience for that string\n    > \n    > Approving from my side.\n\n<!-- implementation plan added during 2026-09 backlog triage -->\n\n## Implementation plan\n\n> **Note:** This plan was drafted during an AI-assisted triage of the backlog and has not been validated by a maintainer. Treat it as a starting point: file paths, line numbers, and the approach may need adjusting.\n\nTwo independent changes from !3892. They can land together or separately.\n\n1. **Return an empty version from `binarymgr`.** In `internal/binarymgr/runner.go`, delete the `if status.Version == \"\" { status.Version = \"unknown version\" }` block at lines 241-243 so `InstallStatus.Version` carries only a real recorded version. `internal/commands/orbit/orbit.go:134` reads only `Path` and `Installed`, so it needs no change.\n\n2. **Move the display fallback into the duo footer.** In `internal/commands/duo/cli/cli.go`, handle the empty version where the footer is rendered (`binaryStatus` at line 129, or the installed branch at lines 109-113). Because a managed binary with no recorded version now reports `Installed: false`, the only way to reach this line is a custom `duo_cli_binary_path`, where glab never records a version. Print `Installed: <path>` with no parenthetical in that case, rather than carrying \"unknown version\" forward; if the maintainer prefers to keep a parenthetical, \"version not recorded\" reads better than \"unknown version\" for a user-supplied binary.\n\n3. **Update the `binarymgr` expectations.** In `internal/binarymgr/runner_test.go`, change the two assertions that expect `Version: \"unknown version\"` (lines 144 and 190) to expect `Version: \"\"`.\n\n4. **Add a managed-path case to the duo suite.** In `internal/commands/duo/cli/cli_test.go`, add a subtest to `TestBinaryStatus` (line 278) that does not set `GLAB_DUO_CLI_BINARY_PATH`. Follow `managedSetup` in `internal/binarymgr/runner_test.go:116`: `t.Setenv(\"GLAB_CONFIG_DIR\", t.TempDir())`, resolve `binarymgr.ManagedBinaryPath(Spec())`, write an executable file there, set `duo_cli_binary_version` on a blank config, and assert `installed` is true with that version. Add a sibling case with the version key unset that asserts `installed` is false, which is the footer flip !3892 introduced.\n\n5. **Cover the footer wording.** Extend `internal/commands/duo/cli/cli_test.go` next to `TestAppendBinaryStatusFooter_ShowsSetupStepsWhenNotInstalled` (line 316) with an installed case that asserts the exact line the footer prints for a custom path with no recorded version.\n\n6. **Verify.** `go test ./internal/binarymgr/... ./internal/commands/duo/... ./internal/commands/orbit/...`. No cobra `Short`, `Long`, `Example`, or flag text changes, so `make gen-docs` is not needed.",
+        "state": "closed",
+        "created_at": "2026-09-14T16:05:51.171Z",
+        "updated_at": "2026-10-09T19:37:19.227Z",
+        "closed_at": "2026-10-09T19:37:19.214Z",
+        "closed_by": {
+          "id": 2935693,
+          "username": "phikai",
+          "public_email": "redacted@example.invalid",
+          "name": "Kai Armstrong",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/2935693/avatar.png?v=1791580974",
+          "web_url": "https://gitlab.com/phikai"
+        },
+        "labels": [
+          "automation:ml",
+          "automation:quick-win-judged",
+          "backend",
+          "category:gitlab cli",
+          "devops::ai coding",
+          "group::code review",
+          "section::ai",
+          "type::maintenance",
+          "workflow::complete"
+        ],
+        "milestone": null,
+        "assignees": [
+          {
+            "id": 39330700,
+            "username": "jhahimanshu653",
+            "public_email": null,
+            "name": "Himanshu Jha",
+            "state": "active",
+            "locked": false,
+            "avatar_url": "https://secure.gravatar.com/avatar/7256804a9e07d4093a122ab52809413f75645caf9a676ecb9c6a5bd7cf8e3ba3?s=80&d=identicon",
+            "web_url": "https://gitlab.com/jhahimanshu653"
+          }
+        ],
+        "author": {
+          "id": 2935693,
+          "username": "phikai",
+          "public_email": "redacted@example.invalid",
+          "name": "Kai Armstrong",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/2935693/avatar.png?v=1791580974",
+          "web_url": "https://gitlab.com/phikai"
+        },
+        "type": "ISSUE",
+        "assignee": {
+          "id": 39330700,
+          "username": "jhahimanshu653",
+          "public_email": null,
+          "name": "Himanshu Jha",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://secure.gravatar.com/avatar/7256804a9e07d4093a122ab52809413f75645caf9a676ecb9c6a5bd7cf8e3ba3?s=80&d=identicon",
+          "web_url": "https://gitlab.com/jhahimanshu653"
+        },
+        "user_notes_count": 4,
+        "merge_requests_count": 1,
+        "upvotes": 0,
+        "downvotes": 0,
+        "start_date": null,
+        "due_date": null,
+        "confidential": false,
+        "discussion_locked": null,
+        "issue_type": "issue",
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/work_items/8550",
+        "time_stats": {
+          "time_estimate": 0,
+          "total_time_spent": 0,
+          "human_time_estimate": null,
+          "human_total_time_spent": null
+        },
+        "task_completion_status": {
+          "count": 3,
+          "completed_count": 0
+        },
+        "weight": null,
+        "blocking_issues_count": 0,
+        "has_tasks": false,
+        "_links": {
+          "self": "https://gitlab.com/api/v4/projects/34675721/issues/8550",
+          "notes": "https://gitlab.com/api/v4/projects/34675721/issues/8550/notes",
+          "award_emoji": "https://gitlab.com/api/v4/projects/34675721/issues/8550/award_emoji",
+          "project": "https://gitlab.com/api/v4/projects/34675721",
+          "closed_as_duplicate_of": null
+        },
+        "references": {
+          "short": "#8550",
+          "relative": "#8550",
+          "full": "gitlab-org/cli#8550"
+        },
+        "severity": "UNKNOWN",
+        "moved_to_id": null,
+        "imported": false,
+        "imported_from": "none",
+        "service_desk_reply_to": null,
+        "epic_iid": null,
+        "epic": null,
+        "iteration": null,
+        "health_status": null
+      },
+      {
         "id": 140169392,
         "iid": 7436,
         "project_id": 34675721,
@@ -26,7 +136,7 @@
         "description": "<!---\nPlease read this!\n\nBefore opening a new issue, make sure to search for keywords in the issues\nfiltered by the \"feature\" label:\n\n - https://gitlab.com/gitlab-org/cli/-/issues/?label_name%5B%5D=type%3A%3Afeature\n\nand verify the issue you're about to submit isn't a duplicate.\n--->\n\n### Problem to solve\n\n<!-- What problem do we solve? Try to define the who/what/why of the opportunity as a user story. For example, \"As a (who), I want (what), so I can (why/value).\" -->\n\nAs a user of gitlab with multiple repositories under a single group, I want to set a ci/cd file variable containing aws credentials at the group level with certain environment scope so that this variable can be used by deployments script in the child git repositories\n\n### Proposal\n\nRun command like this: `cat creds.bash | glab var update -p --scope prod -g theGroup -t file THE_VAR`\n\n### Further details\n\nWe used to set these at the repository level repeatedly but prefer to set it once at the top level and have it become visible in the child repositories.\n\n### Links / references\n\n<!-- implementation plan added during 2026-09 backlog triage -->\n\n## Implementation plan\n\n> **Note:** This plan was drafted during an AI-assisted triage of the backlog and has not been validated by a maintainer. Treat it as a starting point: file paths, line numbers, and the approach may need adjusting.\n\n1. `internal/commands/variable/update/update.go`: in `options.validate`, delete the group guard at update.go:102 that returns \"scope is not required for group variables\". Fix the `Long` text at update.go:49 that says the `--scope` flag does not apply to group variables, and add a scoped group line to `Example` (for example `glab variable update GROUP_TOKEN -g mygroup -s prod -v \"some value\"`).\n2. In the same file's `options.run`, add `Filter: &gitlab.VariableFilter{EnvironmentScope: o.scope}` to the `gitlab.UpdateGroupVariableOptions` literal at update.go:139, mirroring the project path at update.go:171. Without the filter the API matches on key alone, so a key that exists in several scopes returns 409 and a single non-`*` variable gets rewritten to `environment_scope: \"*\"`. Also include the scope in the group success message at update.go:154, as the project message at update.go:179 already does.\n3. `internal/commands/variable/delete/delete.go`: delete the same guard at delete.go:80, then replace the `nil` options on `client.GroupVariables.RemoveVariable` at delete.go:120 with `&gitlab.RemoveGroupVariableOptions{Filter: &gitlab.VariableFilter{EnvironmentScope: o.scope}}`, mirroring the project call at delete.go:110. Add the scope to the group message at delete.go:125 and a `glab variable delete VARNAME -g mygroup --scope=prod` example.\n4. Tests, update: extend `internal/commands/variable/update/update_test.go`. Add a `Test_NewCmdUpdate` case `cool_secret --group coolGroup --scope prod -v\"cool\"` with `wantsErr: false`, and add a `Test_updateRun_group_with_scope` alongside `Test_updateRun_group` (update_test.go:218) that sets `scope: \"prod\"` on `options` and replaces the `gomock.Any()` third argument on `MockGroupVariables.EXPECT().UpdateVariable` with a matcher asserting `opt.Filter.EnvironmentScope == \"prod\"`. Assert the new output string.\n5. Tests, delete: in `internal/commands/variable/delete/delete_test.go`, flip the existing `Test_NewCmdDelete` case \"delete scoped group var\" (`cool_secret -g mygroup --scope prod`, delete_test.go:45) from `wantsErr: true` to `wantsErr: false`, and add a `Test_deleteRun` case \"delete group variable with stage scope\" whose `MockGroupVariables.EXPECT().RemoveVariable(\"testGroup\", \"TEST_VAR\", ...)` asserts `Filter.EnvironmentScope == \"stage\"`. No client library bump is needed: `UpdateGroupVariableOptions.Filter` and `RemoveGroupVariableOptions.Filter` are both present in client-go v3.13.0 (go.mod:49).\n6. Run `go test ./internal/commands/variable/...`, then `make gen-docs` and commit the regenerated `docs/source/variable/update.md` and `docs/source/variable/delete.md` in the same commit, since the help text and examples change.",
         "state": "opened",
         "created_at": "2023-12-27T03:34:11.745Z",
-        "updated_at": "2026-10-09T08:16:24.194Z",
+        "updated_at": "2026-10-09T15:34:46.249Z",
         "closed_at": null,
         "closed_by": null,
         "labels": [
@@ -42,18 +152,7 @@
           "type::feature"
         ],
         "milestone": null,
-        "assignees": [
-          {
-            "id": 39012371,
-            "username": "vivekyarra567",
-            "public_email": "",
-            "name": "Yarra Vivek",
-            "state": "active",
-            "locked": false,
-            "avatar_url": "https://secure.gravatar.com/avatar/2e76193c97431532a49acc6f40e4aa54d6f460f91da23202bad1a76ab610ff43?s=80&d=identicon",
-            "web_url": "https://gitlab.com/vivekyarra567"
-          }
-        ],
+        "assignees": [],
         "author": {
           "id": 3549346,
           "username": "mo.ali",
@@ -65,17 +164,8 @@
           "web_url": "https://gitlab.com/mo.ali"
         },
         "type": "ISSUE",
-        "assignee": {
-          "id": 39012371,
-          "username": "vivekyarra567",
-          "public_email": "",
-          "name": "Yarra Vivek",
-          "state": "active",
-          "locked": false,
-          "avatar_url": "https://secure.gravatar.com/avatar/2e76193c97431532a49acc6f40e4aa54d6f460f91da23202bad1a76ab610ff43?s=80&d=identicon",
-          "web_url": "https://gitlab.com/vivekyarra567"
-        },
-        "user_notes_count": 11,
+        "assignee": null,
+        "user_notes_count": 12,
         "merge_requests_count": 0,
         "upvotes": 0,
         "downvotes": 0,
@@ -208,114 +298,6 @@
           "short": "#8598",
           "relative": "#8598",
           "full": "gitlab-org/cli#8598"
-        },
-        "severity": "UNKNOWN",
-        "moved_to_id": null,
-        "imported": false,
-        "imported_from": "none",
-        "service_desk_reply_to": null,
-        "epic_iid": null,
-        "epic": null,
-        "iteration": null,
-        "health_status": null
-      },
-      {
-        "id": 205905989,
-        "iid": 8597,
-        "project_id": 34675721,
-        "title": "glab govern setup drops unknown fields from existing Claude Code hooks",
-        "description": "## Summary\n\n`glab govern setup` silently removes fields from the user's existing Claude Code hooks when it adds its own hooks to `~/.claude/settings.json`. This can change what those hooks do.\n\n## Impact\n\nAny field on an existing hook entry other than `type`, `command`, and `timeout` is dropped. Claude Code supports more fields than that, for example `if` and `statusMessage`.\n\nDropping `if` widens the hook's scope: a hook meant to run only for some tool calls starts running for all of them. The user isn't told that anything changed.\n\n## Steps to reproduce\n\n1. Add a hook with extra fields to `~/.claude/settings.json`:\n\n   ```json\n   {\n     \"hooks\": {\n       \"PostToolUse\": [\n         {\n           \"matcher\": \"Bash\",\n           \"hooks\": [\n             {\n               \"type\": \"command\",\n               \"command\": \"~/.claude/hooks/print-mr-link.sh\",\n               \"if\": \"Bash(git push*)\",\n               \"statusMessage\": \"Checking for MR link\"\n             }\n           ]\n         }\n       ]\n     }\n   }\n   ```\n\n1. Run `glab govern setup` and confirm.\n1. Look at `~/.claude/settings.json` again.\n\n## What happens\n\nThe `PostToolUse` entry has lost `if` and `statusMessage`:\n\n```json\n{\n  \"matcher\": \"Bash\",\n  \"hooks\": [\n    {\n      \"type\": \"command\",\n      \"command\": \"~/.claude/hooks/print-mr-link.sh\"\n    }\n  ]\n}\n```\n\nThe hook now runs after every Bash call instead of only after `git push`.\n\n## What should happen\n\nSetup adds its own `Stop` and `SessionEnd` entries and leaves every other part of the file exactly as it was, including fields glab doesn't know about.\n\n## Cause\n\n`installClaudeHooks` (`internal/commands/govern/setup/setup.go`) decodes the whole `hooks` object into `claudehooks.HookGroup` / `claudehooks.HookEntry`, adds glab's entries, then writes all of it back. `HookEntry` only has `Type`, `Command`, and `Timeout` (`internal/commands/govern/internal/claudehooks/claudehooks.go`), so any other field is lost when it's written back.\n\nTop-level settings keys are already kept through `json.RawMessage`, and `HookGroup` keeps `matcher` for the same reason (its comment says dropping it \"would widen hook scope\"). Fields on the hook entries themselves have no such protection.\n\nThis has been the case since the hooks were introduced in 9cba09ff7, so it's on `main` today. It affects every `glab govern setup` run, including with the fallback sync in https://gitlab.com/gitlab-org/cli/-/merge_requests/4013.\n\n## Possible fix\n\nKeep unknown fields when hooks are written back. For example:\n\n- Keep each event's existing groups as `json.RawMessage` and only append glab's group.\n- Or give `HookEntry` and `HookGroup` a catch-all map for unknown fields that is marshalled back out.\n\nAdd a test with an entry that has `if` and `statusMessage`, next to `TestInstallClaudeHooks_PreservesAllSettingsKeys`.\n\nFound while manually testing https://gitlab.com/gitlab-org/cli/-/merge_requests/4013.",
-        "state": "closed",
-        "created_at": "2026-10-08T23:53:45.912Z",
-        "updated_at": "2026-10-09T06:41:09.484Z",
-        "closed_at": "2026-10-09T03:41:37.037Z",
-        "closed_by": {
-          "id": 11809982,
-          "username": "jay_mccure",
-          "public_email": "",
-          "name": "Jay McCure",
-          "state": "active",
-          "locked": false,
-          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1791524742",
-          "web_url": "https://gitlab.com/jay_mccure"
-        },
-        "labels": [
-          "category:gitlab cli",
-          "devops::ai coding",
-          "group::code review",
-          "section::ai",
-          "type::bug",
-          "workflow::complete"
-        ],
-        "milestone": null,
-        "assignees": [
-          {
-            "id": 27487407,
-            "username": "jeanvdw",
-            "public_email": "redacted@example.invalid",
-            "name": "Jean van der Walt",
-            "state": "active",
-            "locked": false,
-            "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/27487407/avatar.png?v=1791536039",
-            "web_url": "https://gitlab.com/jeanvdw"
-          }
-        ],
-        "author": {
-          "id": 11809982,
-          "username": "jay_mccure",
-          "public_email": "",
-          "name": "Jay McCure",
-          "state": "active",
-          "locked": false,
-          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1791524742",
-          "web_url": "https://gitlab.com/jay_mccure"
-        },
-        "type": "ISSUE",
-        "assignee": {
-          "id": 27487407,
-          "username": "jeanvdw",
-          "public_email": "redacted@example.invalid",
-          "name": "Jean van der Walt",
-          "state": "active",
-          "locked": false,
-          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/27487407/avatar.png?v=1791536039",
-          "web_url": "https://gitlab.com/jeanvdw"
-        },
-        "user_notes_count": 1,
-        "merge_requests_count": 2,
-        "upvotes": 0,
-        "downvotes": 0,
-        "start_date": null,
-        "due_date": null,
-        "confidential": false,
-        "discussion_locked": null,
-        "issue_type": "issue",
-        "web_url": "https://gitlab.com/gitlab-org/cli/-/work_items/8597",
-        "time_stats": {
-          "time_estimate": 0,
-          "total_time_spent": 0,
-          "human_time_estimate": null,
-          "human_total_time_spent": null
-        },
-        "task_completion_status": {
-          "count": 0,
-          "completed_count": 0
-        },
-        "weight": null,
-        "blocking_issues_count": 0,
-        "has_tasks": true,
-        "task_status": "0 of 0 checklist items completed",
-        "_links": {
-          "self": "https://gitlab.com/api/v4/projects/34675721/issues/8597",
-          "notes": "https://gitlab.com/api/v4/projects/34675721/issues/8597/notes",
-          "award_emoji": "https://gitlab.com/api/v4/projects/34675721/issues/8597/award_emoji",
-          "project": "https://gitlab.com/api/v4/projects/34675721",
-          "closed_as_duplicate_of": null
-        },
-        "references": {
-          "short": "#8597",
-          "relative": "#8597",
-          "full": "gitlab-org/cli#8597"
         },
         "severity": "UNKNOWN",
         "moved_to_id": null,

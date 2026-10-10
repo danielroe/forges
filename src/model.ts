@@ -957,6 +957,11 @@ export interface Comment {
   updatedAt?: Date
   url?: string
   reactions?: ReactionSummary
+  /** The resolvable conversation the comment belongs to, where the forge has one; `resolveReviewThread()` takes its id. */
+  thread?: {
+    id: string
+    resolved: boolean
+  }
   raw: unknown
 }
 

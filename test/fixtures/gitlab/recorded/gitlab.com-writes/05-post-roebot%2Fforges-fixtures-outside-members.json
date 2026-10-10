@@ -1,0 +1,43 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://gitlab.com/api/v4/projects/roebot%2Fforges-fixtures-outside/members",
+    "body": {
+      "user_id": 2179675,
+      "access_level": 30
+    }
+  },
+  "response": {
+    "status": 201,
+    "headers": {
+      "etag": "W/\"83ba3be6f110b45d8b0cbd70fb62c266\"",
+      "ratelimit-limit": "2000",
+      "ratelimit-remaining": "1987",
+      "ratelimit-reset": "1791581760"
+    },
+    "body": {
+      "id": 2179675,
+      "username": "danielroe",
+      "public_email": "",
+      "name": "Daniel Roe",
+      "state": "active",
+      "locked": false,
+      "avatar_url": "https://secure.gravatar.com/avatar/82a8f6237bb263bac46d7cc8ec3054d715ce6a55a8626d6e977769d57d2c94e6?s=80&d=identicon",
+      "web_url": "https://gitlab.com/danielroe",
+      "access_level": 30,
+      "created_at": "2026-10-09T21:35:32.984Z",
+      "created_by": {
+        "id": 43193323,
+        "username": "roebot",
+        "public_email": "",
+        "name": "Daniel Roe",
+        "state": "active",
+        "locked": false,
+        "avatar_url": "https://secure.gravatar.com/avatar/14ceebcfdc10030d76768a65e9d7978b914694cebcbb6ab609b3a0e8243f0eb8?s=80&d=identicon",
+        "web_url": "https://gitlab.com/roebot"
+      },
+      "expires_at": null,
+      "membership_state": "active"
+    }
+  }
+}

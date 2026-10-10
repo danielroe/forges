@@ -21,6 +21,8 @@ export interface WriteHarness {
   createBranch?: (base: string, branch: string, path: string) => Promise<void>
   /** Closes open threads a fixture run opened, and deletes `branches`, `label` and the run's `hooks`. Best effort. */
   cleanUp: (branches: string[], label: string | undefined, hooks: string[]) => Promise<void>
+  /** Removes the account `id` from `repo` again, so the next run can add it. */
+  removeCollaborator?: (repo: RepoRef, id: string) => Promise<void>
   /** The deliveries `hook` sent, oldest first, for forges whose API returns their headers and payloads. */
   payloads?: (hook: string) => Promise<HookDelivery[]>
 }
@@ -39,8 +41,12 @@ export interface HarnessOptions {
   forge: string
   baseUrl: string
   authorization: string
+  /** The repository the run writes to; every write must stay inside it, or inside `transfer` and `collaborators`. */
   scratch: RepoRef
+  /** Where the run transfers an issue to. */
   transfer?: RepoRef
+  /** Where the run adds a collaborator, when not the scratch repository. */
+  collaborators?: RepoRef
   /** Reads the scratch repository without recording, for forges whose writes name it by an id. */
   read?: ForgeProvider
   /** Threads in the scratch repository that writes may name, beyond those the run creates. */
@@ -142,12 +148,15 @@ function forgejo({ baseUrl, authorization, scratch }: HarnessOptions): WriteHarn
   }
 }
 
-function gitlab({ baseUrl, authorization, scratch, transfer }: HarnessOptions): WriteHarness {
+function gitlab({ baseUrl, authorization, scratch, transfer, collaborators }: HarnessOptions): WriteHarness {
   const call = client(baseUrl, authorization)
   const project = `/projects/${enc(`${scratch.owner}/${scratch.name}`)}`
-  const scope = [scratch, transfer].filter(Boolean).map(target => `${baseUrl}/projects/${enc(`${target!.owner}/${target!.name}`)}`)
+  const scope = [scratch, transfer, collaborators].filter(Boolean).map(target => `${baseUrl}/projects/${enc(`${target!.owner}/${target!.name}`)}`)
   return {
     scope,
+    async removeCollaborator(repo, id) {
+      await call(`/projects/${enc(`${repo.owner}/${repo.name}`)}/members/${enc(id)}`, { method: 'DELETE' }).catch((error: Error) => console.warn(`cleanup: ${error.message}`))
+    },
     async prepare() {
       const data = await call<{ id: number, default_branch: string, permissions?: { project_access?: { access_level: number } | null, group_access?: { access_level: number } | null } }>(project)
       const level = Math.max(data.permissions?.project_access?.access_level ?? 0, data.permissions?.group_access?.access_level ?? 0)

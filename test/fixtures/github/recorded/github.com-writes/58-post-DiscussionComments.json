@@ -25,7 +25,7 @@
     "headers": {
       "x-ratelimit-limit": "5000",
       "x-ratelimit-remaining": "4985",
-      "x-ratelimit-reset": "1791559276"
+      "x-ratelimit-reset": "1791583617"
     },
     "body": {
       "data": {
@@ -34,7 +34,7 @@
             "comments": {
               "pageInfo": {
                 "hasNextPage": false,
-                "endCursor": "Y3Vyc29yOnYyOpK0MjAyNi0xMC0wOVQxNDoyMTo0NVrOAR9uMg=="
+                "endCursor": "Y3Vyc29yOnYyOpK0MjAyNi0xMC0wOVQyMTowNzoyNFrOAR-FfQ=="
               },
               "nodes": [
                 {
@@ -56,11 +56,29 @@
                   }
                 },
                 {
-                  "id": "DC_kwDOVCTdtM4BH24y",
-                  "databaseId": 18837042,
-                  "body": "An edited comment from run 20261009142055.",
-                  "createdAt": "2026-10-09T14:21:45Z",
-                  "url": "https://github.com/forges-fixtures/forges-fixtures/discussions/33#discussioncomment-18837042",
+                  "id": "DC_kwDOVCTdtM4BH241",
+                  "databaseId": 18837045,
+                  "body": "An upserted comment from run 20261009142055.\n\n<!-- forges:key=forges-fixture -->",
+                  "createdAt": "2026-10-09T14:21:47Z",
+                  "url": "https://github.com/forges-fixtures/forges-fixtures/discussions/33#discussioncomment-18837045",
+                  "author": {
+                    "__typename": "User",
+                    "login": "danielroe-bot",
+                    "avatarUrl": "https://avatars.githubusercontent.com/u/57801166?v=4",
+                    "url": "https://github.com/danielroe-bot",
+                    "databaseId": 57801166,
+                    "name": null
+                  },
+                  "replies": {
+                    "nodes": []
+                  }
+                },
+                {
+                  "id": "DC_kwDOVCTdtM4BH4V9",
+                  "databaseId": 18843005,
+                  "body": "An edited comment from run 20261009210636.",
+                  "createdAt": "2026-10-09T21:07:24Z",
+                  "url": "https://github.com/forges-fixtures/forges-fixtures/discussions/33#discussioncomment-18843005",
                   "author": {
                     "__typename": "User",
                     "login": "danielroe-bot",

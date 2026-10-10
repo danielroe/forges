@@ -82,14 +82,7 @@ function unsign(url: string): string {
 
 const recorder = recordingFetch(async (input, init) => {
   const method = (init?.method ?? 'GET').toUpperCase()
-  let response = await fetch(input, init)
-  // Codeberg rate limits new accounts creating threads; a write recording waits rather than recording the refusal.
-  for (let attempt = 1; flags.writes && response.status === 429 && attempt <= 10; attempt++) {
-    const wait = Number(response.headers.get('retry-after') ?? 60) * 1000
-    console.info(`waiting ${wait / 1000}s ${response.status} ${method} ${unsign(input)}`)
-    await new Promise(resolve => setTimeout(resolve, wait))
-    response = await fetch(input, init)
-  }
+  const response = await fetch(input, init)
   console.info(`${response.status < 400 ? 'recorded' : 'error   '} ${response.status} ${method} ${unsign(input)}`)
   return response
 }, ({ request, response }) => {
@@ -183,17 +176,16 @@ function repoRef(forge: string, instance: string, slug: string): Forges.RepoRef 
 }
 
 /**
- * The repositories in `FIXTURE_<FORGE>_SCRATCH_REPO`, `FIXTURE_<FORGE>_ALERTS_REPO`
- * and `FIXTURE_<FORGE>_TRANSFER_REPO`, for reads that need setup the recorded
- * repository lacks and for write recordings.
+ * The repositories in `FIXTURE_<FORGE>_SCRATCH_REPO`, `FIXTURE_<FORGE>_ALERTS_REPO`,
+ * `FIXTURE_<FORGE>_TRANSFER_REPO` and `FIXTURE_<FORGE>_COLLABORATOR_REPO`, for
+ * reads that need setup the recorded repository lacks and for write recordings.
  */
-function setupRepos(prefix: string, toRef: (slug: string) => Forges.RepoRef): Pick<RecordingManifest, 'scratch' | 'alerts' | 'transfer'> {
-  const [scratch, alerts, transfer] = ['SCRATCH', 'ALERTS', 'TRANSFER'].map(kind => env[`FIXTURE_${prefix}_${kind}_REPO`])
-  return { ...scratch && { scratch: toRef(scratch) }, ...alerts && { alerts: toRef(alerts) }, ...transfer && { transfer: toRef(transfer) } }
+function setupRepos(prefix: string, toRef: (slug: string) => Forges.RepoRef): Pick<RecordingManifest, 'scratch' | 'alerts' | 'transfer' | 'collaborators'> {
+  const [scratch, alerts, transfer, collaborators] = ['SCRATCH', 'ALERTS', 'TRANSFER', 'COLLABORATOR'].map(kind => env[`FIXTURE_${prefix}_${kind}_REPO`])
+  return { ...scratch && { scratch: toRef(scratch) }, ...alerts && { alerts: toRef(alerts) }, ...transfer && { transfer: toRef(transfer) }, ...collaborators && { collaborators: toRef(collaborators) } }
 }
 
-/** Long enough in a write recording to wait out a rate limit. */
-const timeout = flags.writes ? 900_000 : 30_000
+const timeout = 30_000
 
 /** What a provider signs in with: a token, Basic credentials, GitHub App credentials, or a Tangled app password with its account. */
 interface Credentials {
@@ -400,18 +392,6 @@ function targetFor(credentials: Credentials, fetch: FetchLike): Target {
   }
 }
 
-/** Spaces out writes by at least `interval` milliseconds, for forges that rate limit bursts of them. */
-function paced(fetch: FetchLike, interval: number): FetchLike {
-  let last = 0
-  return async (input, init) => {
-    if (interval && !['GET', 'HEAD'].includes((init?.method ?? 'GET').toUpperCase())) {
-      await new Promise(resolve => setTimeout(resolve, Math.max(0, last + interval - Date.now())))
-      last = Date.now()
-    }
-    return fetch(input, init)
-  }
-}
-
 /** The `Authorization` header the harness sends with `token`, as each forge expects it. */
 function authorizationFor(token: string): string {
   switch (target) {
@@ -437,25 +417,25 @@ function scratchSetup(mode: string) {
   const prefix = target!.toUpperCase().replace('-', '_')
   const botToken = env[botVariable]
   const { provider: probe, manifest: repos } = targetFor({ token: botToken }, recordLive)
-  const { scratch, transfer } = repos
+  const { scratch, transfer, collaborators } = repos
   if (!botToken || !scratch) {
     console.error(`${mode} needs ${botVariable} and FIXTURE_${prefix}_SCRATCH_REPO.`)
     exit(1)
   }
-  if (![scratch, transfer].every(repo => !repo || repo.name.includes('forges-fixtures'))) {
+  if (![scratch, transfer, collaborators].every(repo => !repo || repo.name.includes('forges-fixtures'))) {
     console.error('Write recordings only write to repositories whose names include `forges-fixtures`.')
     exit(1)
   }
-  const harness = writeHarness({ forge: target!, baseUrl: probe.baseUrl, authorization: authorizationFor(botToken), scratch, transfer, read: target === 'tangled' ? tangled({}).create() : undefined, threads: [env[`FIXTURE_${prefix}_SCRATCH_PULL`] ?? ''].filter(Boolean) })
+  const harness = writeHarness({ forge: target!, baseUrl: probe.baseUrl, authorization: authorizationFor(botToken), scratch, transfer, collaborators, read: target === 'tangled' ? tangled({}).create() : undefined, threads: [env[`FIXTURE_${prefix}_SCRATCH_PULL`] ?? ''].filter(Boolean) })
   if (!harness) {
     console.error(`${target} has no write recording setup.`)
     exit(1)
   }
-  return { prefix, botToken, probe, scratch, transfer, harness }
+  return { prefix, botToken, probe, scratch, transfer, collaborators, harness }
 }
 
 async function recordWrites(): Promise<void> {
-  const { prefix, botToken, probe, scratch, transfer, harness } = scratchSetup('--writes')
+  const { prefix, botToken, probe, scratch, transfer, collaborators, harness } = scratchSetup('--writes')
   const id = new Date().toISOString().replace(/\D/g, '').slice(0, 14)
   const run: WriteRun = {
     id,
@@ -471,14 +451,13 @@ async function recordWrites(): Promise<void> {
     await harness.createBranch!(run.base, branch, run.files[index]!)
   }
 
-  const guard = { scope: harness.scope, allows: harness.allows, repos: [scratch, transfer].filter(repo => repo !== undefined) }
-  const live = paced(recordLive, Number(env.FIXTURE_WRITE_INTERVAL ?? 0) * 1000)
-  const author = targetFor({ token: botToken, identifier: env.TANGLED_BOT_IDENTIFIER, pds: env.TANGLED_BOT_PDS }, guardedFetch(live, { ...guard, account: [`${probe.baseUrl}/notifications`, `${probe.baseUrl}/todos`] }))
+  const guard = { scope: harness.scope, allows: harness.allows, repos: [scratch, transfer, collaborators].filter(repo => repo !== undefined) }
+  const author = targetFor({ token: botToken, identifier: env.TANGLED_BOT_IDENTIFIER, pds: env.TANGLED_BOT_PDS }, guardedFetch(recordLive, { ...guard, account: [`${probe.baseUrl}/notifications`, `${probe.baseUrl}/todos`] }))
   // A Tangled reviewer would write records into a personal account, so Tangled runs without one.
-  const reviewer = target !== 'tangled' && (readCredentials.token || readCredentials.basic) ? targetFor(readCredentials, guardedFetch(live, guard)).provider : undefined
+  const reviewer = target !== 'tangled' && (readCredentials.token || readCredentials.basic) ? targetFor(readCredentials, guardedFetch(recordLive, guard)).provider : undefined
   useInstance(author.provider)
   const { baseUrl, instanceVersion, account, pds, notificationsUrl, recordsUrl } = { baseUrl: author.provider.baseUrl, ...author.manifest }
-  const manifest: WriteManifest = { baseUrl, instanceVersion, account, pds, notificationsUrl, recordsUrl, repo: scratch, scratch, transfer, run, recordedAt: new Date().toISOString(), steps: [] }
+  const manifest: WriteManifest = { baseUrl, instanceVersion, account, pds, notificationsUrl, recordsUrl, repo: scratch, scratch, transfer, collaborators, run, recordedAt: new Date().toISOString(), steps: [] }
   const context: WriteContext = { pulls: [], comments: {}, wait: ms => new Promise(resolve => setTimeout(resolve, ms)) }
   try {
     for (const item of WRITE_STEPS) {
@@ -493,6 +472,9 @@ async function recordWrites(): Promise<void> {
   }
   finally {
     await harness.cleanUp(run.branches, fixtureLabel(run), context.webhook && !manifest.steps.includes('delete webhook') ? [context.webhook.ref.id] : [])
+    if (collaborators && context.reviewer && manifest.steps.includes('add collaborator')) {
+      await harness.removeCollaborator?.(collaborators, context.reviewer.id)
+    }
   }
   writeFixtures()
   writeFileSync(`${out}manifest.json`, `${JSON.stringify(manifest, null, 2)}\n`)

@@ -1,0 +1,57 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://gitlab.com/api/v4/projects/forges-fixtures%2Fforges-fixtures/merge_requests/12/discussions",
+    "body": {
+      "body": "A review comment from run 20261009213525."
+    }
+  },
+  "response": {
+    "status": 201,
+    "headers": {
+      "etag": "W/\"3d2b4d199ab3a32f0144040a7f51ba53\"",
+      "ratelimit-limit": "2000",
+      "ratelimit-remaining": "1935",
+      "ratelimit-reset": "1791581820"
+    },
+    "body": {
+      "id": "ac0f18cac848ae1391d2a3a2af0f6feeceb846cc",
+      "individual_note": false,
+      "resolvable": true,
+      "resolved": false,
+      "notes": [
+        {
+          "id": 3987600787,
+          "type": "DiscussionNote",
+          "body": "A review comment from run 20261009213525.",
+          "author": {
+            "id": 2179675,
+            "username": "danielroe",
+            "public_email": "",
+            "name": "Daniel Roe",
+            "state": "active",
+            "locked": false,
+            "avatar_url": "https://secure.gravatar.com/avatar/82a8f6237bb263bac46d7cc8ec3054d715ce6a55a8626d6e977769d57d2c94e6?s=80&d=identicon",
+            "web_url": "https://gitlab.com/danielroe"
+          },
+          "created_at": "2026-10-09T21:36:03.195Z",
+          "updated_at": "2026-10-09T21:36:03.195Z",
+          "system": false,
+          "noteable_id": 546097726,
+          "noteable_type": "MergeRequest",
+          "project_id": 87428720,
+          "resolvable": true,
+          "resolved": false,
+          "resolved_by": null,
+          "resolved_at": null,
+          "confidential": false,
+          "internal": false,
+          "imported": false,
+          "imported_from": "none",
+          "noteable_iid": 12,
+          "commands_changes": {}
+        }
+      ]
+    }
+  }
+}

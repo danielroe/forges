@@ -61,7 +61,9 @@ GitLab reports changes to labels, states and assignments as English text in syst
 
 ## Approvals as reviews
 
-GitLab has approvals instead of reviews, so the provider presents them as reviews. `threads.reviews()` returns one review for each approver, with the ID `approval:<username>`. `createReview({ event: 'approve' })` approves the merge request. If you pass a body, inline comments or any other event, it rejects with `UnsupportedOperationError`.
+GitLab has approvals instead of reviews, so the provider presents them as reviews. `threads.reviews()` returns one review for each approver, with the ID `approval:<username>`. `createReview({ event: 'approve' })` approves the merge request. `createReview({ event: 'comment', body })` opens a resolvable discussion on it instead, and the comment of the review it returns carries the discussion as its `thread`. For any other input, such as inline comments, it rejects with `UnsupportedOperationError`.
+
+Comments on a merge request are read by discussion, so a comment in a resolvable discussion has a `thread` whose ID `resolveReviewThread()` takes. A page holds whole discussions, so it can hold more comments than `perPage`.
 
 When the user isn't allowed to approve, GitLab responds with `401`. The provider raises this response as `InsufficientScopeError`.
 
@@ -116,7 +118,7 @@ If you create a hook with `webhooks.create()`, `nativeEvents` takes the names of
 | `repos.milestones` | ✅ | ❌ |
 | `repos.collaborators` | ✅ | ❌ |
 | `repos.permissionFor` | ✅ | ❌ |
-| `repos.addCollaborator` | unverified | ❌ |
+| `repos.addCollaborator` | ✅ | ❌ |
 | `repos.assignableUsers` | ✅ | ✅ |
 | `repos.reviewerCandidates` | emulated | emulated |
 | `threads.get` | issue, PR, commit | issue, PR, commit |
@@ -176,7 +178,7 @@ If you create a hook with `webhooks.create()`, `nativeEvents` takes the names of
 | `reviews.create` | emulated | ❌ |
 | `reviews.submit` | ❌ | ❌ |
 | `reviews.approve` | ✅ | ❌ |
-| `reviews.resolveThread` | unverified | ❌ |
+| `reviews.resolveThread` | ✅ | ❌ |
 | `releases.list` | ✅ | ✅ |
 | `releases.get` | ✅ | ✅ |
 | `releases.latest` | ✅ | ✅ |

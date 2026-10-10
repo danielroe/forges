@@ -25,6 +25,23 @@ function provider(overrides = {}) {
 }
 
 describe('gitlab provider', () => {
+  it('gives a merge request comment the discussion that resolves it', async () => {
+    const { instance } = provider()
+    const { items } = await instance.threads.commentsPage(mr)
+
+    expect(items.map(comment => comment.thread)).toEqual([{ id: '6a9c1750b37d513a43987b574953fceb50b03ce7', resolved: false }])
+  })
+
+  it('opens a resolvable discussion for a comment review', async () => {
+    const discussion = { id: 'd1', individual_note: false, notes: [{ id: 7, body: 'Looks off', system: false, created_at: '2025-09-16T09:00:00.000Z', resolvable: true, resolved: false }] }
+    const { instance, calls } = provider({ 'POST https://gitlab.com/api/v4/projects/acme%2Fplatform%2Fwidgets/merge_requests/23/discussions': { status: 201, body: discussion } })
+    const review = await instance.threads.createReview(mr, { event: 'comment', body: 'Looks off' })
+
+    expect(JSON.parse(calls.at(-1)!.body!)).toEqual({ body: 'Looks off' })
+    expect(review.state).toBe('commented')
+    expect(review.comments && review.comments[0]!.thread).toEqual({ id: 'd1', resolved: false })
+  })
+
   it('falls back to the user search when the profile needs credentials', async () => {
     const { fetch } = fixtureFetch('gitlab/recorded/gitlab.com', {
       'GET https://gitlab.com/api/v4/users/8420142': { status: 403, headers: {}, body: { message: '403 Forbidden - Not authorized!' } },
