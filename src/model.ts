@@ -830,6 +830,14 @@ export interface Release {
   body?: string
   isDraft: boolean
   isPrerelease: boolean
+  /**
+   * The release is immutable: its tag and assets are locked. `true` where the
+   * forge supports immutable releases and this one is published as immutable
+   * (GitHub). The name, notes, prerelease and latest flags stay editable; a tag
+   * or target change is refused with a `ForbiddenError` (reason
+   * `immutable_release`).
+   */
+  immutable?: boolean
   author?: Actor
   publishedAt?: Date
   createdAt?: Date

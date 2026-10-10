@@ -227,6 +227,7 @@ export interface GitHubRelease {
   body?: string | null
   draft: boolean
   prerelease: boolean
+  immutable?: boolean
   author?: GitHubUser | null
   created_at?: string | null
   published_at?: string | null

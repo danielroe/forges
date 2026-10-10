@@ -565,6 +565,7 @@ export function toRelease(repo: RepoRef, raw: GitHubRelease): Release {
     body: raw.body ?? undefined,
     isDraft: raw.draft,
     isPrerelease: raw.prerelease,
+    immutable: raw.immutable,
     author: toActor(repo.instance, raw.author),
     publishedAt: toDate(raw.published_at),
     createdAt: toDate(raw.created_at),
