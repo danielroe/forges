@@ -234,6 +234,7 @@ export function toRepo(instance: string, raw: GitLabProjectDetail): Repo {
     updatedAt: toDate(raw.last_activity_at),
     openIssueCount: raw.open_issues_count,
     owner: toActor(instance, raw.owner),
+    licence: raw.license?.key && raw.license.key !== 'other' ? raw.license.key : undefined,
     stars: raw.star_count,
     forks: raw.forks_count,
     mergeMethods: raw.merge_method === undefined

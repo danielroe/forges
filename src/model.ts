@@ -140,7 +140,10 @@ export interface Repo {
   language?: string
   /** Project website, apart from the repository's own `url`. */
   homepage?: string
-  /** SPDX identifier of the licence the forge detects, for example `MIT`. */
+  /**
+   * SPDX identifier of the licence the forge detects, for example `MIT`. SPDX identifiers are case-insensitive, and
+   * GitLab reports them in lower case, such as `mit`.
+   */
   licence?: string
   stars?: number
   forks?: number

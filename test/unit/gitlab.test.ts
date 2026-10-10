@@ -205,6 +205,50 @@ describe('gitlab provider', () => {
   })
 })
 
+describe('gitlab repository licence', () => {
+  const cli = { forge: 'gitlab', instance: 'gitlab.com', owner: 'gitlab-org', name: 'cli' } as const
+  const project = 'https://gitlab.com/api/v4/projects/gitlab-org%2Fcli'
+
+  function recorded(overrides = {}) {
+    const { fetch, calls } = fixtureFetch('gitlab/recorded/gitlab.com', overrides)
+    return { instance: gitlab({ fetch }).create(), calls }
+  }
+
+  it('asks for the licence and maps the key GitLab reports', async () => {
+    const { instance, calls } = recorded()
+    const result = await instance.repos.get(cli, { licence: true })
+
+    expect(calls.at(-1)!.url).toBe(`${project}?license=true`)
+    expect(result.licence).toBe('mit')
+  })
+
+  it('does not request the licence unless asked', async () => {
+    const { instance, calls } = recorded()
+    const result = await instance.repos.get(cli)
+
+    expect(calls.at(-1)!.url).toBe(project)
+    expect(result.licence).toBeUndefined()
+  })
+
+  it('leaves licence undefined when GitLab cannot identify the licence', async () => {
+    const { instance } = provider({
+      [`GET ${P}?license=true`]: { status: 200, body: { id: 278964, path_with_namespace: 'acme/platform/widgets', license: { key: 'other', name: 'Other', nickname: 'LICENSE', html_url: null, source_url: null } } },
+    })
+    const result = await instance.repos.get(repo, { licence: true })
+
+    expect(result.licence).toBeUndefined()
+  })
+
+  it('leaves licence undefined when GitLab reports no licence', async () => {
+    const { instance } = provider({
+      [`GET ${P}?license=true`]: { status: 200, body: { id: 278964, path_with_namespace: 'acme/platform/widgets', license: null } },
+    })
+    const result = await instance.repos.get(repo, { licence: true })
+
+    expect(result.licence).toBeUndefined()
+  })
+})
+
 describe('gitlab merge methods', () => {
   it('rejects a method the project is not configured for', async () => {
     const { instance, calls } = provider()

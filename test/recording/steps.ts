@@ -153,6 +153,7 @@ export const STEPS: Step[] = [
     context.repo = await provider.repos.get(manifest.repo)
     return context.repo
   } },
+  { name: 'repo licence', verb: 'repos.get', run: (provider, manifest) => provider.repos.get(manifest.repo, { licence: true }) },
   { name: 'labels', verb: 'repos.labelsPage', run: (provider, manifest) => provider.repos.labelsPage(manifest.repo, page) },
   { name: 'milestones', verb: 'repos.milestonesPage', run: (provider, manifest) => provider.repos.milestonesPage(manifest.repo, page) },
   { name: 'collaborators', verb: 'repos.collaboratorsPage', run: (provider, manifest) => orScratch(manifest, repo => provider.repos.collaboratorsPage(repo, page)) },
