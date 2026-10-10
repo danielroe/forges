@@ -343,8 +343,8 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
     traits: { eventKinds: 'native', authKinds: ['token', 'basic', 'anonymous'] },
     search: { threadsPage: verb(!anonymous, searchThreadsPage) },
     repos: {
-      get: verb(true, async (ref) => {
-        const { data } = await fetcher.json<AzureRepository>(repoPath(ref))
+      get: verb(true, async (ref, options) => {
+        const { data } = await fetcher.json<AzureRepository>(repoPath(ref), { signal: options?.signal })
         return toRepo(instance, scope(ref).org, data)
       }),
       listPage: verb(true, async () => {

@@ -273,13 +273,13 @@ export function createTangledRecords({ options, instance, webUrl, context, atpro
   const canonical = new Map<string, Promise<{ ref: RepoRef, record: RecordResponse<RepoRecord> }>>()
 
   /** The repo record `repo` names, where `owner` may be a handle and `name` the record's name rather than its key. */
-  function canonicalRepo(repo: RepoRef): Promise<{ ref: RepoRef, record: RecordResponse<RepoRecord> }> {
+  function canonicalRepo(repo: RepoRef, signal?: AbortSignal): Promise<{ ref: RepoRef, record: RecordResponse<RepoRecord> }> {
     const key = `${repo.owner}/${repo.name}`
     let found = canonical.get(key)
     if (!found) {
       found = (async () => {
-        const did = repo.owner.startsWith('did:') ? repo.owner : await atproto.resolveHandle(repo.owner.replace(/^@/, ''))
-        const record = await atproto.getRecord<RepoRecord>(atUri(did, COLLECTIONS.repo, repo.name)).catch((error: unknown) => {
+        const did = repo.owner.startsWith('did:') ? repo.owner : await atproto.resolveHandle(repo.owner.replace(/^@/, ''), signal)
+        const record = await atproto.getRecord<RepoRecord>(atUri(did, COLLECTIONS.repo, repo.name), signal).catch((error: unknown) => {
           if (error instanceof NotFoundError) {
             return undefined
           }
@@ -288,7 +288,7 @@ export function createTangledRecords({ options, instance, webUrl, context, atpro
         if (record) {
           return { ref: { ...repo, owner: did }, record }
         }
-        for await (const candidate of atproto.listRecords<RepoRecord>(did, COLLECTIONS.repo)) {
+        for await (const candidate of atproto.listRecords<RepoRecord>(did, COLLECTIONS.repo, signal)) {
           if (candidate.value.name === repo.name) {
             return { ref: { ...repo, owner: did, name: parseAtUri(candidate.uri)!.rkey }, record: candidate }
           }
@@ -302,15 +302,15 @@ export function createTangledRecords({ options, instance, webUrl, context, atpro
   }
 
   /** `repo` with a DID owner and the record key as `name`; refs this provider returned already are. */
-  async function canonicalRef(repo: RepoRef): Promise<RepoRef> {
-    return repo.externalId && repo.owner.startsWith('did:') ? repo : (await canonicalRepo(repo)).ref
+  async function canonicalRef(repo: RepoRef, signal?: AbortSignal): Promise<RepoRef> {
+    return repo.externalId && repo.owner.startsWith('did:') ? repo : (await canonicalRepo(repo, signal)).ref
   }
 
-  async function repoDidOf(repo: RepoRef): Promise<string> {
+  async function repoDidOf(repo: RepoRef, signal?: AbortSignal): Promise<string> {
     if (repo.externalId) {
       return repo.externalId
     }
-    const { record: { value } } = await canonicalRepo(repo)
+    const { record: { value } } = await canonicalRepo(repo, signal)
     if (!value.repoDid) {
       throw new UnresolvedThreadError(`${repo.owner}/${repo.name} has no repo DID`, context)
     }

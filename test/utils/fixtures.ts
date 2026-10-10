@@ -54,3 +54,29 @@ export function stubFetch(
 ): FetchLike {
   return async () => new Response(JSON.stringify(body), { status, headers })
 }
+
+/**
+ * Builds a `fetch` that stays pending until its request is aborted, then rejects
+ * with the caller's reason. `started` resolves once the first request arrives, so
+ * a test can abort deterministically instead of racing the provider's setup.
+ */
+export function hangingFetch(): { fetch: FetchLike, started: Promise<void> } {
+  let markStarted!: () => void
+  const started = new Promise<void>((resolve) => {
+    markStarted = resolve
+  })
+  const fetch: FetchLike = (_input, init) => {
+    markStarted()
+    return new Promise<Response>((_resolve, reject) => {
+      const signal = init!.signal!
+      const onAbort = () => reject(signal.reason)
+      if (signal.aborted) {
+        onAbort()
+      }
+      else {
+        signal.addEventListener('abort', onAbort, { once: true })
+      }
+    })
+  }
+  return { fetch, started }
+}

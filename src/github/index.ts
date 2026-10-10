@@ -1324,15 +1324,15 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
     },
     releases: {
       listPage: verb(true, releasesPage),
-      get: verb(true, async ref => toRelease(ref.repo, (await fetcher.json<GitHubRelease>(`${repoPath(ref.repo)}/releases/${encodeURIComponent(ref.id)}`)).data)),
-      getByTag: verb(true, async (repo, tag) => toRelease(repo, (await fetcher.json<GitHubRelease>(`${repoPath(repo)}/releases/tags/${encodeURIComponent(tag)}`)).data)),
+      get: verb(true, async (ref, options) => toRelease(ref.repo, (await fetcher.json<GitHubRelease>(`${repoPath(ref.repo)}/releases/${encodeURIComponent(ref.id)}`, { signal: options?.signal })).data)),
+      getByTag: verb(true, async (repo, tag, options) => toRelease(repo, (await fetcher.json<GitHubRelease>(`${repoPath(repo)}/releases/tags/${encodeURIComponent(tag)}`, { signal: options?.signal })).data)),
       downloadAsset: verb(true, async (ref, downloadOptions = {}) => (await fetcher.stream(`${repoPath(ref.repo)}/releases/assets/${encodeURIComponent(ref.id)}`, {
         headers: { accept: 'application/octet-stream' },
         signal: downloadOptions.signal,
       })).body),
-      latest: verb(true, async (repo) => {
+      latest: verb(true, async (repo, options) => {
         try {
-          return toRelease(repo, (await fetcher.json<GitHubRelease>(`${repoPath(repo)}/releases/latest`)).data)
+          return toRelease(repo, (await fetcher.json<GitHubRelease>(`${repoPath(repo)}/releases/latest`, { signal: options?.signal })).data)
         }
         catch (error) {
           if (error instanceof NotFoundError) {
@@ -1400,8 +1400,8 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
       me: verb(auth.type === 'token', async () => toUser(instance, (await fetcher.json<GitHubUserDetail>('/user')).data)),
     },
     repos: {
-      get: verb(true, async (ref) => {
-        return toRepo(instance, (await fetcher.json<GitHubRepositoryDetail>(repoPath(ref))).data)
+      get: verb(true, async (ref, options) => {
+        return toRepo(instance, (await fetcher.json<GitHubRepositoryDetail>(repoPath(ref), { signal: options?.signal })).data)
       }),
       listPage: verb(auth.type === 'token' || (auth.type === 'app' && auth.installationId !== undefined), async (listOptions = {}) => {
         if (auth.type === 'app') {

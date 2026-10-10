@@ -687,16 +687,16 @@ export interface ReleasesApi {
   /** One page of `list()`. */
   listPage: (repo: RepoRef, options?: PageOptions) => Promise<Page<Release>>
   /** Reads a release by its ref. */
-  get: (ref: ReleaseRef) => Promise<Release>
+  get: (ref: ReleaseRef, options?: { signal?: AbortSignal }) => Promise<Release>
   /** The release for a tag name. */
-  getByTag: (repo: RepoRef, tag: string) => Promise<Release>
+  getByTag: (repo: RepoRef, tag: string, options?: { signal?: AbortSignal }) => Promise<Release>
   /**
    * The asset's bytes as they arrive. A redirect to a CDN host is followed
    * without the `Authorization` header, which those hosts reject.
    */
   downloadAsset: (ref: ReleaseAssetRef, options?: { signal?: AbortSignal }) => Promise<ReadableStream<Uint8Array>>
   /** The most recent published release that is not a draft or prerelease, if any. */
-  latest: (repo: RepoRef) => Promise<Release | undefined>
+  latest: (repo: RepoRef, options?: { signal?: AbortSignal }) => Promise<Release | undefined>
   /**
    * Creates a release, and its tag from `target` when the tag does not exist yet.
    * @param repo The repository to release.
@@ -752,7 +752,7 @@ export interface ReposApi {
    * Reads a repository by its ref. Rejects with `NotFoundError` when it does not exist or the credential cannot see
    * it.
    */
-  get: (ref: RepoRef) => Promise<Repo>
+  get: (ref: RepoRef, options?: { signal?: AbortSignal }) => Promise<Repo>
   /** The authenticated account's repositories, or the installation's under app auth. */
   list: (options?: RepoQuery) => ForgeIterable<Repo>
   /** One page of `list()`. */
@@ -1027,7 +1027,7 @@ export interface Forges {
   /** Reads routed to the provider each ref belongs to; an unregistered origin throws `UnknownForgeError`. */
   repos: {
     /** Reads a repository from the provider it belongs to. */
-    get: (ref: RepoRef) => Promise<Repo>
+    get: (ref: RepoRef, options?: { signal?: AbortSignal }) => Promise<Repo>
   }
   threads: {
     /** Reads a thread from the provider it belongs to. */
@@ -1039,7 +1039,7 @@ export interface Forges {
     /** Lists the releases of a repository. */
     list: (repo: RepoRef, options?: PageOptions) => ForgeIterable<Release>
     /** The latest release of a repository, if any. */
-    latest: (repo: RepoRef) => Promise<Release | undefined>
+    latest: (repo: RepoRef, options?: { signal?: AbortSignal }) => Promise<Release | undefined>
   }
   securityAlerts: {
     list: SecurityAlertsApi['list']
@@ -1178,7 +1178,7 @@ export function createForges(factories: Array<ForgeProviderFactory | ForgeProvid
     for: find,
     forUrl: url => parseUrl(url)?.provider,
     parseUrl,
-    repos: { get: ref => route(ref).repos.get(ref) },
+    repos: { get: (ref, options) => route(ref).repos.get(ref, options) },
     threads: {
       get: ref => route(ref).threads.get(ref),
       async getMany(refs) {
@@ -1204,7 +1204,7 @@ export function createForges(factories: Array<ForgeProviderFactory | ForgeProvid
     },
     releases: {
       list: (repo, options) => route(repo).releases.list(repo, options),
-      latest: repo => route(repo).releases.latest(repo),
+      latest: (repo, options) => route(repo).releases.latest(repo, options),
     },
     securityAlerts: { list: (repo, options) => route(repo).securityAlerts.list(repo, options) },
     search: {

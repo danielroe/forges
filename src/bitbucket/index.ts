@@ -449,8 +449,8 @@ const BITBUCKET: ProviderDefinition<BitbucketOptions> = {
       },
       scopes: bitbucketScopesFor,
       repos: {
-        get: verb(true, async (ref) => {
-          return toRepo(instance, (await fetcher.json<BitbucketRepositoryDetail>(repoPathOf(ref))).data)
+        get: verb(true, async (ref, options) => {
+          return toRepo(instance, (await fetcher.json<BitbucketRepositoryDetail>(repoPathOf(ref), { signal: options?.signal })).data)
         }),
         listPage: verb(true, (listOptions = {}) => memberRepos(listOptions)),
       },

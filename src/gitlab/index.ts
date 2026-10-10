@@ -672,8 +672,8 @@ const GITLAB: ProviderDefinition<GitLabOptions> = {
         me: verb(true, () => readUser('/user')),
       },
       repos: {
-        get: verb(true, async (ref) => {
-          return toRepo(instance, (await fetcher.json<GitLabProjectDetail>(projectPath(ref))).data)
+        get: verb(true, async (ref, options) => {
+          return toRepo(instance, (await fetcher.json<GitLabProjectDetail>(projectPath(ref), { signal: options?.signal })).data)
         }),
         listPage: verb(true, (listOptions = {}) => list('/projects', listOptions, (raw: GitLabProjectDetail) => toRepo(instance, raw), { query: { membership: true } })),
         labelsPage: verb(!anonymous, (repo, listOptions = {}) => list(`${projectPath(repo)}/labels`, listOptions, toLabel)),
@@ -758,10 +758,10 @@ const GITLAB: ProviderDefinition<GitLabOptions> = {
       },
       releases: {
         listPage: verb(true, releasesPage),
-        get: verb(true, async ref => toRelease(ref.repo, (await fetcher.json<GitLabRelease>(`${projectPath(ref.repo)}/releases/${encodeURIComponent(ref.tag ?? ref.id)}`)).data)),
-        getByTag: verb(true, async (repo, tag) => toRelease(repo, (await fetcher.json<GitLabRelease>(`${projectPath(repo)}/releases/${encodeURIComponent(tag)}`)).data)),
-        latest: verb(true, async (repo) => {
-          const { items } = await releasesPage(repo, { perPage: 20 })
+        get: verb(true, async (ref, options) => toRelease(ref.repo, (await fetcher.json<GitLabRelease>(`${projectPath(ref.repo)}/releases/${encodeURIComponent(ref.tag ?? ref.id)}`, { signal: options?.signal })).data)),
+        getByTag: verb(true, async (repo, tag, options) => toRelease(repo, (await fetcher.json<GitLabRelease>(`${projectPath(repo)}/releases/${encodeURIComponent(tag)}`, { signal: options?.signal })).data)),
+        latest: verb(true, async (repo, options) => {
+          const { items } = await releasesPage(repo, { perPage: 20, signal: options?.signal })
           return items.find(release => release.publishedAt)
         }),
         create: verb(true, async (repo, input) => {

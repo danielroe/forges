@@ -15,7 +15,7 @@ import {
   WebhookVerificationError,
 } from '../../src/errors.ts'
 import { isResolvedThread, notificationThread, repoKey, threadKey } from '../../src/model.ts'
-import { fixtureFetch, stubFetch } from '../utils/fixtures.ts'
+import { fixtureFetch, hangingFetch, stubFetch } from '../utils/fixtures.ts'
 import { FakeWebSocket } from '../utils/websocket.ts'
 import { contracts, WEBHOOK_SECRET } from './providers.ts'
 
@@ -366,6 +366,60 @@ describe.each(contracts)('contract: $name', (contract) => {
       expect(release.ref.id).toBe(contract.releases!.get.id)
       expect(latest?.tag).toBe(contract.releases!.latest)
       expect(latest?.publishedAt).toBeInstanceOf(Date)
+    })
+  })
+
+  describe('caller cancellation', () => {
+    const reason = new Error('cancelled')
+
+    function abortable() {
+      const controller = new AbortController()
+      const { fetch, started } = hangingFetch()
+      return { controller, instance: contract.create(fetch), started }
+    }
+
+    it('aborts a repository read with the caller\'s reason', async () => {
+      const { controller, instance, started } = abortable()
+
+      const pending = instance.repos.get(threadRef().repo, { signal: controller.signal })
+      await started
+      controller.abort(reason)
+
+      await expect(pending).rejects.toBe(reason)
+    })
+
+    describe.runIf(contract.releases)('releases', () => {
+      const repo = () => ({ forge: contract.name, instance: contract.instance, ...contract.repo })
+
+      it('aborts a release read by ref with the caller\'s reason', async () => {
+        const { controller, instance, started } = abortable()
+
+        const pending = instance.releases!.get({ forge: contract.name, instance: contract.instance, repo: repo(), id: contract.releases!.get.id }, { signal: controller.signal })
+        await started
+        controller.abort(reason)
+
+        await expect(pending).rejects.toBe(reason)
+      })
+
+      it('aborts a release read by tag with the caller\'s reason', async () => {
+        const { controller, instance, started } = abortable()
+
+        const pending = instance.releases!.getByTag(repo(), contract.releases!.get.tag, { signal: controller.signal })
+        await started
+        controller.abort(reason)
+
+        await expect(pending).rejects.toBe(reason)
+      })
+
+      it('aborts the latest release read with the caller\'s reason', async () => {
+        const { controller, instance, started } = abortable()
+
+        const pending = instance.releases!.latest(repo(), { signal: controller.signal })
+        await started
+        controller.abort(reason)
+
+        await expect(pending).rejects.toBe(reason)
+      })
     })
   })
 

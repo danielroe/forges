@@ -24,14 +24,14 @@ export interface Identity {
 }
 
 export interface AtprotoClient {
-  resolveDid: (did: string) => Promise<Identity>
+  resolveDid: (did: string, signal?: AbortSignal) => Promise<Identity>
   /** The DID a handle names, checked against the handle the DID document claims. */
-  resolveHandle: (handle: string) => Promise<string>
-  getRecord: <T extends TangledRecord = TangledRecord>(uri: string) => Promise<RecordResponse<T>>
+  resolveHandle: (handle: string, signal?: AbortSignal) => Promise<string>
+  getRecord: <T extends TangledRecord = TangledRecord>(uri: string, signal?: AbortSignal) => Promise<RecordResponse<T>>
   /** Every record in one collection of an account's repository, from its PDS. */
-  listRecords: <T extends TangledRecord = TangledRecord>(did: string, collection: string) => AsyncGenerator<RecordResponse<T>>
+  listRecords: <T extends TangledRecord = TangledRecord>(did: string, collection: string, signal?: AbortSignal) => AsyncGenerator<RecordResponse<T>>
   /** Every record in `collection` whose `path` field points at `target`. */
-  backlinks: (target: string, collection: string, path: string) => AsyncGenerator<AtUri>
+  backlinks: (target: string, collection: string, path: string, signal?: AbortSignal) => AsyncGenerator<AtUri>
 }
 
 export interface AtprotoClientOptions {
@@ -53,13 +53,13 @@ export interface AtprotoClientOptions {
 export function createAtprotoClient(options: AtprotoClientOptions): AtprotoClient {
   const identities = new Map<string, Promise<Identity>>()
 
-  function resolveDid(did: string): Promise<Identity> {
+  function resolveDid(did: string, signal?: AbortSignal): Promise<Identity> {
     let identity = identities.get(did)
     if (!identity) {
       const url = did.startsWith('did:web:')
         ? `https://${decodeURIComponent(did.slice('did:web:'.length))}/.well-known/did.json`
         : `${options.plcUrl}/${did}`
-      identity = options.fetcher.json<DidDocument>(url).then(({ data }) => ({
+      identity = options.fetcher.json<DidDocument>(url, { signal }).then(({ data }) => ({
         did,
         pds: data.service?.find(service => service.id.endsWith('#atproto_pds'))?.serviceEndpoint,
         handle: data.alsoKnownAs?.find(alias => alias.startsWith('at://'))?.slice('at://'.length),
@@ -72,13 +72,13 @@ export function createAtprotoClient(options: AtprotoClientOptions): AtprotoClien
 
   const handles = new Map<string, Promise<string>>()
 
-  function resolveHandle(handle: string): Promise<string> {
+  function resolveHandle(handle: string, signal?: AbortSignal): Promise<string> {
     const key = handle.toLowerCase()
     let did = handles.get(key)
     if (!did) {
       did = (async () => {
-        const { data } = await options.fetcher.json<{ did: string }>(`${options.handleResolverUrl}/xrpc/com.atproto.identity.resolveHandle`, { query: { handle: key } })
-        if ((await resolveDid(data.did)).handle?.toLowerCase() !== key) {
+        const { data } = await options.fetcher.json<{ did: string }>(`${options.handleResolverUrl}/xrpc/com.atproto.identity.resolveHandle`, { query: { handle: key }, signal })
+        if ((await resolveDid(data.did, signal)).handle?.toLowerCase() !== key) {
           throw new NotFoundError(`${data.did} does not claim the handle ${handle}`, 404, '', options.context)
         }
         return data.did
@@ -89,46 +89,49 @@ export function createAtprotoClient(options: AtprotoClientOptions): AtprotoClien
     return did
   }
 
-  async function pdsOf(did: string): Promise<string> {
-    const host = (await resolveDid(did)).pds
+  async function pdsOf(did: string, signal?: AbortSignal): Promise<string> {
+    const host = (await resolveDid(did, signal)).pds
     if (!host) {
       throw new ForgeError(`No PDS in the DID document for ${did}`, options.context)
     }
     return host.replace(/\/$/, '')
   }
 
-  async function* listRecords<T extends TangledRecord>(did: string, collection: string): AsyncGenerator<RecordResponse<T>> {
-    const host = await pdsOf(did)
+  async function* listRecords<T extends TangledRecord>(did: string, collection: string, signal?: AbortSignal): AsyncGenerator<RecordResponse<T>> {
+    const host = await pdsOf(did, signal)
     let cursor: string | undefined
     do {
       const { data }: { data: { records: Array<RecordResponse<T>>, cursor?: string } } = await options.fetcher.json(`${host}/xrpc/com.atproto.repo.listRecords`, {
         query: { repo: did, collection, limit: 100, cursor },
+        signal,
       })
       yield* data.records
       cursor = data.records.length ? data.cursor : undefined
     } while (cursor)
   }
 
-  async function getRecord<T extends TangledRecord>(uri: string): Promise<RecordResponse<T>> {
+  async function getRecord<T extends TangledRecord>(uri: string, signal?: AbortSignal): Promise<RecordResponse<T>> {
     const parsed = parseAtUri(uri)
     if (!parsed) {
       throw new ForgeError(`Not an AT-URI: ${uri}`, options.context)
     }
-    const host = options.recordsUrl ?? await pdsOf(parsed.did)
+    const host = options.recordsUrl ?? await pdsOf(parsed.did, signal)
     const { data } = await options.fetcher.json<RecordResponse<T>>(`${host.replace(/\/$/, '')}/xrpc/com.atproto.repo.getRecord`, {
       query: { repo: parsed.did, collection: parsed.collection, rkey: parsed.rkey },
       // A PDS responds 400 `RecordNotFound` for a missing record.
       mapError: error => error instanceof ForgeApiError && error.status === 400 ? new NotFoundError(`No record at ${uri}`, 400, error.body, options.context) : error,
+      signal,
     })
     return data
   }
 
-  async function* backlinks(target: string, collection: string, path: string): AsyncGenerator<AtUri> {
+  async function* backlinks(target: string, collection: string, path: string, signal?: AbortSignal): AsyncGenerator<AtUri> {
     let cursor: string | undefined
     do {
       const { data }: { data: BacklinksResponse } = await options.fetcher.json<BacklinksResponse>(`${options.backlinksUrl}/links`, {
         query: { target, collection, path, limit: 100, cursor },
         headers: { accept: 'application/json' },
+        signal,
       })
       for (const link of data.linking_records) {
         yield { did: link.did, collection: link.collection, rkey: link.rkey }

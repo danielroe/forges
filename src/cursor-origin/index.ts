@@ -275,7 +275,7 @@ function setupOrigin({ options, baseUrl, instance, origin: context, fetcher, cre
     },
     traits: { eventKinds: 'native', authKinds: ['token', 'app', 'anonymous'] },
     repos: {
-      get: verb('experimental', async ref => toRepo(instance, (await fetcher.json<OriginRepo>(repoPath(ref))).data)),
+      get: verb('experimental', async (ref, options) => toRepo(instance, (await fetcher.json<OriginRepo>(repoPath(ref), { signal: options?.signal })).data)),
       listPage: verb(repoAccess && 'unverified', async (listOptions = {}) => {
         if (auth?.type === 'app') {
           if (auth.installationId === undefined) {

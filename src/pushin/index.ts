@@ -101,7 +101,7 @@ function setupPushin({ options, instance, origin: context, fetcher, baseUrl }: P
       }),
     },
     repos: {
-      get: verb(true, async repo => toRepo({ forge: FORGE, instance }, (await fetcher.json<PushinRepository>(repoPath(repo))).data)),
+      get: verb(true, async (repo, options) => toRepo({ forge: FORGE, instance }, (await fetcher.json<PushinRepository>(repoPath(repo), { signal: options?.signal })).data)),
       listPage: verb(true, (listOptions = {}) => list('/user/repos', listOptions, (raw: PushinRepository) => toRepo({ forge: FORGE, instance }, raw))),
       labelsPage: verb(true, (repo, listOptions = {}) => list(`${repoPath(repo)}/labels`, listOptions, (raw: PushinLabel) => toLabel(raw))),
       collaboratorsPage: verb(!anonymous, (repo, listOptions = {}) => list(`${repoPath(repo)}/collaborators`, listOptions, (raw: PushinCollaborator) => toCollaborator({ forge: FORGE, instance }, raw))),

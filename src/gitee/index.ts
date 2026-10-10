@@ -280,7 +280,7 @@ function setupGitee({ instance, origin: context, fetcher, baseUrl }: ProviderCon
       me: verb(true, () => readUser('/user')),
     },
     repos: {
-      get: verb(true, async ref => toRepo(instance, (await fetcher.json<GiteeRepository>(repoPath(ref))).data)),
+      get: verb(true, async (ref, options) => toRepo(instance, (await fetcher.json<GiteeRepository>(repoPath(ref), { signal: options?.signal })).data)),
       listPage: verb(true, async (listOptions = {}) => {
         const page = await numberedPage<GiteeRepository>('/user/repos', {}, listOptions)
         return { items: page.items.map(raw => toRepo(instance, raw)), cursor: page.cursor }
@@ -381,11 +381,11 @@ function setupGitee({ instance, origin: context, fetcher, baseUrl }: ProviderCon
     },
     releases: {
       listPage: verb(true, releasesPage),
-      get: verb(true, async ref => toRelease(ref.repo, (await fetcher.json<GiteeRelease>(`${repoPath(ref.repo)}/releases/${ref.id}`)).data)),
-      getByTag: verb(true, async (repo, tag) => toRelease(repo, (await fetcher.json<GiteeRelease>(`${repoPath(repo)}/releases/tags/${encodeURIComponent(tag)}`)).data)),
-      latest: verb(true, async (repo) => {
+      get: verb(true, async (ref, options) => toRelease(ref.repo, (await fetcher.json<GiteeRelease>(`${repoPath(ref.repo)}/releases/${ref.id}`, { signal: options?.signal })).data)),
+      getByTag: verb(true, async (repo, tag, options) => toRelease(repo, (await fetcher.json<GiteeRelease>(`${repoPath(repo)}/releases/tags/${encodeURIComponent(tag)}`, { signal: options?.signal })).data)),
+      latest: verb(true, async (repo, options) => {
         try {
-          const latest = toRelease(repo, (await fetcher.json<GiteeRelease>(`${repoPath(repo)}/releases/latest`)).data)
+          const latest = toRelease(repo, (await fetcher.json<GiteeRelease>(`${repoPath(repo)}/releases/latest`, { signal: options?.signal })).data)
           if (!latest.isPrerelease) {
             return latest
           }
@@ -396,7 +396,7 @@ function setupGitee({ instance, origin: context, fetcher, baseUrl }: ProviderCon
           }
           return undefined
         }
-        return (await releasesPage(repo, { perPage: 20 })).items.find(release => !release.isPrerelease)
+        return (await releasesPage(repo, { perPage: 20, signal: options?.signal })).items.find(release => !release.isPrerelease)
       }),
     },
     threads: {

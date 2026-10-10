@@ -241,8 +241,8 @@ const TANGLED: ProviderDefinition<TangledOptions> = {
       traits: { eventKinds: 'native', authKinds: ['anonymous', 'app_password', 'oauth'] },
       request: api,
       repos: {
-        get: verb(true, async (ref) => {
-          const { ref: found, record } = await canonicalRepo(ref)
+        get: verb(true, async (ref, options) => {
+          const { ref: found, record } = await canonicalRepo(ref, options?.signal)
           return toRepo(found, record.value, record)
         }),
         listPage: verb(writable, async (): Promise<Page<Repo>> => {

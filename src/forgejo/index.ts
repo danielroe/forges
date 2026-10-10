@@ -515,7 +515,7 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
       me: verb(true, () => readUser('/user')),
     },
     repos: {
-      get: verb(true, async ref => toRepo(origin, (await fetcher.json<ForgejoRepositoryDetail>(repoPath(ref))).data)),
+      get: verb(true, async (ref, options) => toRepo(origin, (await fetcher.json<ForgejoRepositoryDetail>(repoPath(ref), { signal: options?.signal })).data)),
       listPage: verb(true, (listOptions = {}) => list('/user/repos', listOptions, (raw: ForgejoRepositoryDetail) => toRepo(origin, raw))),
       labelsPage: verb(true, (repo, listOptions = {}) => list(`${repoPath(repo)}/labels`, listOptions, toLabel)),
       createLabel: verb(true, async (repo, label) => toLabel((await fetcher.json<ForgejoLabel>(`${repoPath(repo)}/labels`, {
@@ -624,15 +624,15 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
     },
     releases: {
       listPage: verb(true, releasesPage),
-      get: verb(true, async ref => toRelease(ref.repo, (await fetcher.json<ForgejoRelease>(`${repoPath(ref.repo)}/releases/${encodeURIComponent(ref.id)}`)).data)),
-      getByTag: verb(true, async (repo, tag) => toRelease(repo, (await fetcher.json<ForgejoRelease>(`${repoPath(repo)}/releases/tags/${encodeURIComponent(tag)}`)).data)),
+      get: verb(true, async (ref, options) => toRelease(ref.repo, (await fetcher.json<ForgejoRelease>(`${repoPath(ref.repo)}/releases/${encodeURIComponent(ref.id)}`, { signal: options?.signal })).data)),
+      getByTag: verb(true, async (repo, tag, options) => toRelease(repo, (await fetcher.json<ForgejoRelease>(`${repoPath(repo)}/releases/tags/${encodeURIComponent(tag)}`, { signal: options?.signal })).data)),
       downloadAsset: verb(true, async (ref, downloadOptions = {}) => {
         const { data } = await fetcher.json<{ browser_download_url: string }>(`${repoPath(ref.repo)}/releases/${encodeURIComponent(ref.release.id)}/assets/${encodeURIComponent(ref.id)}`, { signal: downloadOptions.signal })
         return (await fetcher.stream(data.browser_download_url, { signal: downloadOptions.signal })).body
       }),
-      latest: verb(true, async (repo) => {
+      latest: verb(true, async (repo, options) => {
         try {
-          return toRelease(repo, (await fetcher.json<ForgejoRelease>(`${repoPath(repo)}/releases/latest`)).data)
+          return toRelease(repo, (await fetcher.json<ForgejoRelease>(`${repoPath(repo)}/releases/latest`, { signal: options?.signal })).data)
         }
         catch (error) {
           if (error instanceof NotFoundError) {
