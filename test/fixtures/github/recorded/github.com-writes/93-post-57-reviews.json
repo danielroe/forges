@@ -1,0 +1,58 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/pulls/57/reviews",
+    "body": {
+      "event": "APPROVE"
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"b425d04693c643919d596637867111d9a6267a43c68f411e992f21a36d64c118\"",
+      "x-ratelimit-limit": "5000",
+      "x-ratelimit-remaining": "4992",
+      "x-ratelimit-reset": "1791673187"
+    },
+    "body": {
+      "id": 5481049263,
+      "node_id": "PRR_kwDOVCTdtM8AAAABRrIsrw",
+      "user": {
+        "login": "danielroe",
+        "id": 28706372,
+        "node_id": "REDACTED",
+        "avatar_url": "https://avatars.githubusercontent.com/u/28706372?u=c4a5aa5232c09c3248533366d5c93a138d7e8987&v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/danielroe",
+        "html_url": "https://github.com/danielroe",
+        "followers_url": "https://api.github.com/users/danielroe/followers",
+        "following_url": "https://api.github.com/users/danielroe/following{/other_user}",
+        "gists_url": "https://api.github.com/users/danielroe/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/danielroe/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/danielroe/subscriptions",
+        "organizations_url": "https://api.github.com/users/danielroe/orgs",
+        "repos_url": "https://api.github.com/users/danielroe/repos",
+        "events_url": "https://api.github.com/users/danielroe/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/danielroe/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "body": "",
+      "state": "APPROVED",
+      "html_url": "https://github.com/forges-fixtures/forges-fixtures/pull/57#pullrequestreview-5481049263",
+      "pull_request_url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/pulls/57",
+      "author_association": "MEMBER",
+      "_links": {
+        "html": {
+          "href": "https://github.com/forges-fixtures/forges-fixtures/pull/57#pullrequestreview-5481049263"
+        },
+        "pull_request": {
+          "href": "https://api.github.com/repos/forges-fixtures/forges-fixtures/pulls/57"
+        }
+      },
+      "submitted_at": "2026-10-10T22:33:36Z",
+      "commit_id": "83fcfeba622f31ae90f92207f5427f71b4bf855d"
+    }
+  }
+}

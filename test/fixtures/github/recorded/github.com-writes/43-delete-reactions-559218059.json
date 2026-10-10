@@ -1,0 +1,14 @@
+{
+  "request": {
+    "method": "DELETE",
+    "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/issues/57/reactions/559218059"
+  },
+  "response": {
+    "status": 204,
+    "headers": {
+      "x-ratelimit-limit": "5000",
+      "x-ratelimit-remaining": "4941",
+      "x-ratelimit-reset": "1791674984"
+    }
+  }
+}

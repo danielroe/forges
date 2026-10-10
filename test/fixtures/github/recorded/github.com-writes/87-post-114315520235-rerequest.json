@@ -1,0 +1,19 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/check-runs/114315520235/rerequest"
+  },
+  "response": {
+    "status": 422,
+    "headers": {
+      "x-ratelimit-limit": "5000",
+      "x-ratelimit-remaining": "4996",
+      "x-ratelimit-reset": "1791673187"
+    },
+    "body": {
+      "message": "This check run is not rerequestable",
+      "documentation_url": "https://docs.github.com/rest/checks/runs#rerequest-a-check-run",
+      "status": "422"
+    }
+  }
+}

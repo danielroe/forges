@@ -798,11 +798,11 @@ describe('github release writes', () => {
 
   it('normalises a refused write to an immutable release as a forbidden error', async () => {
     const { fetch, calls } = fixtureFetch('github', {
-      'PATCH https://api.github.com/repos/acme/widgets/releases/9001': { status: 403, body: { message: 'Cannot modify an immutable release' } },
+      'PATCH https://api.github.com/repos/acme/widgets/releases/9001': { status: 422, body: { message: 'Validation Failed', errors: [{ resource: 'Release', code: 'custom', field: 'tag_name', message: 'tag_name cannot be changed when release is immutable' }] } },
     })
     const provider = github({ auth: { type: 'token', token: 't' }, fetch }).create()
 
-    await expect(provider.releases.update(releaseRef, { tag: 'v2.0.0' })).rejects.toMatchObject({ name: 'ForbiddenError', reason: 'immutable_release' })
+    await expect(provider.releases.update(releaseRef, { tag: 'v2.0.0' })).rejects.toMatchObject({ name: 'ForbiddenError', status: 422, reason: 'immutable_release', reasonRaw: 'tag_name cannot be changed when release is immutable' })
     expect(calls.map(call => call.method)).toEqual(['PATCH'])
   })
 

@@ -115,10 +115,6 @@ const FORBIDDEN_PATTERNS: Array<[ForbiddenReason, RegExp]> = [
   ['org_restriction', /third[- ]party application|OAuth App access restrictions|organization has enabled OAuth|not authorized by the organization|blocked by the organization/i],
   ['sso_required', /SAML|single sign[- ]on|\bSSO\b|must be granted .* organization/i],
   ['rate_limit_abuse', /abuse detection|secondary rate limit/i],
-  // GitHub documents no error for a write to an immutable release, so match only
-  // bodies that name immutability alongside a release, and before `resource_protected`
-  // so a body that also says "read-only" is still attributed to immutability.
-  ['immutable_release', /immutable[^.]*release|release[^.]*immutable/i],
   ['resource_protected', /archived|read[- ]only|protected branch|repository has been disabled|is disabled/i],
 ]
 

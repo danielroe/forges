@@ -1037,8 +1037,8 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
         }),
         update: verb(support('releases.update', true), async (ref, update) => {
           const release = releaseState(ref)
-          if (release.immutable && ((update.tag !== undefined && update.tag !== release.tag) || update.target !== undefined)) {
-            throw new ForbiddenError(`Release ${release.tag} is immutable; its tag and target are locked`, 403, '', 'immutable_release', origin)
+          if (release.immutable && ((update.tag !== undefined && update.tag !== release.tag) || update.target !== undefined || (update.draft !== undefined && update.draft !== release.isDraft))) {
+            throw new ForbiddenError(`Release ${release.tag} is immutable; its tag, target and draft state are locked`, 422, '', 'immutable_release', origin)
           }
           if (update.tag !== undefined && update.tag !== release.tag) {
             requireFreeTag(repoState(ref.repo).releases, update.tag)

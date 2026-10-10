@@ -1,0 +1,61 @@
+{
+  "request": {
+    "method": "PATCH",
+    "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/releases/409246249",
+    "body": {
+      "name": "forges fixture 20261010223231: release, edited",
+      "body": "Edited by run 20261010223231."
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"8b4287cd0c51e47a1bda76af6d103e8196faecdbd863752419ef70b2cb2b63ee\"",
+      "x-ratelimit-limit": "5000",
+      "x-ratelimit-remaining": "4916",
+      "x-ratelimit-reset": "1791674984"
+    },
+    "body": {
+      "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/releases/409246249",
+      "assets_url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/releases/409246249/assets",
+      "upload_url": "https://uploads.github.com/repos/forges-fixtures/forges-fixtures/releases/409246249/assets{?name,label}",
+      "html_url": "https://github.com/forges-fixtures/forges-fixtures/releases/tag/forges-fixture-20261010223231",
+      "id": 409246249,
+      "author": {
+        "login": "danielroe-bot",
+        "id": 57801166,
+        "node_id": "REDACTED",
+        "avatar_url": "https://avatars.githubusercontent.com/u/57801166?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/danielroe-bot",
+        "html_url": "https://github.com/danielroe-bot",
+        "followers_url": "https://api.github.com/users/danielroe-bot/followers",
+        "following_url": "https://api.github.com/users/danielroe-bot/following{/other_user}",
+        "gists_url": "https://api.github.com/users/danielroe-bot/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/danielroe-bot/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/danielroe-bot/subscriptions",
+        "organizations_url": "https://api.github.com/users/danielroe-bot/orgs",
+        "repos_url": "https://api.github.com/users/danielroe-bot/repos",
+        "events_url": "https://api.github.com/users/danielroe-bot/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/danielroe-bot/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "node_id": "RE_kwDOVCTdtM4YZJop",
+      "tag_name": "forges-fixture-20261010223231",
+      "target_commitish": "main",
+      "name": "forges fixture 20261010223231: release, edited",
+      "draft": false,
+      "immutable": true,
+      "prerelease": false,
+      "created_at": "2026-10-10T22:33:45Z",
+      "updated_at": "2026-10-10T22:33:50Z",
+      "published_at": "2026-10-10T22:33:50Z",
+      "assets": [],
+      "tarball_url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/tarball/forges-fixture-20261010223231",
+      "zipball_url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/zipball/forges-fixture-20261010223231",
+      "body": "Edited by run 20261010223231."
+    }
+  }
+}

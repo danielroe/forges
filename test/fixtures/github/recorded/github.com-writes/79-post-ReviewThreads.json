@@ -6,14 +6,14 @@
     "variables": {
       "owner": "forges-fixtures",
       "name": "forges-fixtures",
-      "number": 52
+      "number": 57
     },
     "body": {
       "query": "query ReviewThreads($owner: String!, $name: String!, $number: Int!) {\n  repository(owner: $owner, name: $name) {\n    pullRequest(number: $number) {\n      reviewThreads(first: 100) {\n        nodes { id isResolved comments(first: 100) { nodes { databaseId } } }\n      }\n    }\n  }\n}",
       "variables": {
         "owner": "forges-fixtures",
         "name": "forges-fixtures",
-        "number": 52
+        "number": 57
       },
       "operationName": "ReviewThreads"
     }
@@ -22,8 +22,8 @@
     "status": 200,
     "headers": {
       "x-ratelimit-limit": "5000",
-      "x-ratelimit-remaining": "4973",
-      "x-ratelimit-reset": "1791670557"
+      "x-ratelimit-remaining": "4971",
+      "x-ratelimit-reset": "1791675002"
     },
     "body": {
       "data": {
@@ -32,12 +32,12 @@
             "reviewThreads": {
               "nodes": [
                 {
-                  "id": "PRRT_kwDOVCTdtM6rH17F",
+                  "id": "PRRT_kwDOVCTdtM6rIVs1",
                   "isResolved": false,
                   "comments": {
                     "nodes": [
                       {
-                        "databaseId": 4239232226
+                        "databaseId": 4239441679
                       }
                     ]
                   }

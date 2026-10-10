@@ -5,13 +5,13 @@
     "operationName": "UpdateDiscussionComment",
     "variables": {
       "id": "DC_kwDOVCTdtM4BH241",
-      "body": "An upserted comment from run 20261010211537.\n\n<!-- forges:key=forges-fixture -->"
+      "body": "An upserted comment from run 20261010223231.\n\n<!-- forges:key=forges-fixture -->"
     },
     "body": {
       "query": "mutation UpdateDiscussionComment($id: ID!, $body: String!) {\n  updateDiscussionComment(input: { commentId: $id, body: $body }) { comment { id databaseId body createdAt updatedAt url author { __typename login avatarUrl url ... on User { databaseId name } ... on Bot { databaseId } } } }\n}",
       "variables": {
         "id": "DC_kwDOVCTdtM4BH241",
-        "body": "An upserted comment from run 20261010211537.\n\n<!-- forges:key=forges-fixture -->"
+        "body": "An upserted comment from run 20261010223231.\n\n<!-- forges:key=forges-fixture -->"
       },
       "operationName": "UpdateDiscussionComment"
     }
@@ -20,8 +20,8 @@
     "status": 200,
     "headers": {
       "x-ratelimit-limit": "5000",
-      "x-ratelimit-remaining": "4984",
-      "x-ratelimit-reset": "1791670557"
+      "x-ratelimit-remaining": "4982",
+      "x-ratelimit-reset": "1791675002"
     },
     "body": {
       "data": {
@@ -29,9 +29,9 @@
           "comment": {
             "id": "DC_kwDOVCTdtM4BH241",
             "databaseId": 18837045,
-            "body": "An upserted comment from run 20261010211537.\n\n<!-- forges:key=forges-fixture -->",
+            "body": "An upserted comment from run 20261010223231.\n\n<!-- forges:key=forges-fixture -->",
             "createdAt": "2026-10-09T14:21:47Z",
-            "updatedAt": "2026-10-10T21:16:26Z",
+            "updatedAt": "2026-10-10T22:33:17Z",
             "url": "https://github.com/forges-fixtures/forges-fixtures/discussions/33#discussioncomment-18837045",
             "author": {
               "__typename": "User",

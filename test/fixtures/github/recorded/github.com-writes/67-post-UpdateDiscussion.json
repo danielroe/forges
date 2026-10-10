@@ -5,15 +5,15 @@
     "operationName": "UpdateDiscussion",
     "variables": {
       "id": "D_kwDOVCTdtM4Ap5qt",
-      "title": "forges fixture 20261010211537: discussion, edited",
-      "body": "Edited by run 20261010211537."
+      "title": "forges fixture 20261010223231: discussion, edited",
+      "body": "Edited by run 20261010223231."
     },
     "body": {
       "query": "mutation UpdateDiscussion($id: ID!, $title: String, $body: String) {\n  updateDiscussion(input: { discussionId: $id, title: $title, body: $body }) { discussion { id number title body closed stateReason url createdAt updatedAt closedAt locked\n      author { __typename login avatarUrl url ... on User { databaseId name } ... on Bot { databaseId } }\n      labels(first: 50) { nodes { name color description } }\n      comments { totalCount } } }\n}",
       "variables": {
         "id": "D_kwDOVCTdtM4Ap5qt",
-        "title": "forges fixture 20261010211537: discussion, edited",
-        "body": "Edited by run 20261010211537."
+        "title": "forges fixture 20261010223231: discussion, edited",
+        "body": "Edited by run 20261010223231."
       },
       "operationName": "UpdateDiscussion"
     }
@@ -22,8 +22,8 @@
     "status": 200,
     "headers": {
       "x-ratelimit-limit": "5000",
-      "x-ratelimit-remaining": "4976",
-      "x-ratelimit-reset": "1791670557"
+      "x-ratelimit-remaining": "4974",
+      "x-ratelimit-reset": "1791675002"
     },
     "body": {
       "data": {
@@ -31,13 +31,13 @@
           "discussion": {
             "id": "D_kwDOVCTdtM4Ap5qt",
             "number": 33,
-            "title": "forges fixture 20261010211537: discussion, edited",
-            "body": "Edited by run 20261010211537.",
+            "title": "forges fixture 20261010223231: discussion, edited",
+            "body": "Edited by run 20261010223231.",
             "closed": false,
             "stateReason": "REOPENED",
             "url": "https://github.com/forges-fixtures/forges-fixtures/discussions/33",
             "createdAt": "2026-10-09T14:18:08Z",
-            "updatedAt": "2026-10-10T21:16:30Z",
+            "updatedAt": "2026-10-10T22:33:22Z",
             "closedAt": null,
             "locked": false,
             "author": {
