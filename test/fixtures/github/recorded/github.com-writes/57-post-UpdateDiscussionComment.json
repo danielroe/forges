@@ -4,14 +4,14 @@
     "url": "https://api.github.com/graphql",
     "operationName": "UpdateDiscussionComment",
     "variables": {
-      "id": "DC_kwDOVCTdtM4BH7cB",
-      "body": "An edited comment from run 20261010211537."
+      "id": "DC_kwDOVCTdtM4BH7js",
+      "body": "An edited comment from run 20261010223231."
     },
     "body": {
       "query": "mutation UpdateDiscussionComment($id: ID!, $body: String!) {\n  updateDiscussionComment(input: { commentId: $id, body: $body }) { comment { id databaseId body createdAt updatedAt url author { __typename login avatarUrl url ... on User { databaseId name } ... on Bot { databaseId } } } }\n}",
       "variables": {
-        "id": "DC_kwDOVCTdtM4BH7cB",
-        "body": "An edited comment from run 20261010211537."
+        "id": "DC_kwDOVCTdtM4BH7js",
+        "body": "An edited comment from run 20261010223231."
       },
       "operationName": "UpdateDiscussionComment"
     }
@@ -20,19 +20,19 @@
     "status": 200,
     "headers": {
       "x-ratelimit-limit": "5000",
-      "x-ratelimit-remaining": "4986",
-      "x-ratelimit-reset": "1791670557"
+      "x-ratelimit-remaining": "4984",
+      "x-ratelimit-reset": "1791675002"
     },
     "body": {
       "data": {
         "updateDiscussionComment": {
           "comment": {
-            "id": "DC_kwDOVCTdtM4BH7cB",
-            "databaseId": 18855681,
-            "body": "An edited comment from run 20261010211537.",
-            "createdAt": "2026-10-10T21:16:24Z",
-            "updatedAt": "2026-10-10T21:16:25Z",
-            "url": "https://github.com/forges-fixtures/forges-fixtures/discussions/33#discussioncomment-18855681",
+            "id": "DC_kwDOVCTdtM4BH7js",
+            "databaseId": 18856172,
+            "body": "An edited comment from run 20261010223231.",
+            "createdAt": "2026-10-10T22:33:15Z",
+            "updatedAt": "2026-10-10T22:33:16Z",
+            "url": "https://github.com/forges-fixtures/forges-fixtures/discussions/33#discussioncomment-18856172",
             "author": {
               "__typename": "User",
               "login": "danielroe-bot",

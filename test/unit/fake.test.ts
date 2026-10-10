@@ -256,6 +256,18 @@ describe('fake forge', () => {
     await expect(forge.releases.create(repo, { tag: 'v1.0.0' })).rejects.toThrow('A release tagged v1.0.0 already exists')
     await expect(forge.releases.update(draft.ref, { tag: 'v1.0.0' })).rejects.toThrow('A release tagged v1.0.0 already exists')
   })
+
+  it('refuses a tag, target or draft change on an immutable release but edits its notes', async () => {
+    const forge = fake({ seed: { releases: [{ repo: 'acme/widgets', tag: 'v1.0.0', body: 'old', immutable: true }] } }).create()
+    const repo = { forge: 'fake', instance: 'fake.test', owner: 'acme', name: 'widgets' }
+    const release = await forge.releases.getByTag(repo, 'v1.0.0')
+
+    expect(release.immutable).toBe(true)
+    await expect(forge.releases.update(release.ref, { tag: 'v2.0.0' })).rejects.toMatchObject({ name: 'ForbiddenError', reason: 'immutable_release' })
+    await expect(forge.releases.update(release.ref, { target: 'main' })).rejects.toThrow('is immutable')
+    await expect(forge.releases.update(release.ref, { draft: true })).rejects.toThrow('is immutable')
+    expect((await forge.releases.update(release.ref, { body: 'new' })).body).toBe('new')
+  })
 })
 
 describe('fake webhook management', () => {

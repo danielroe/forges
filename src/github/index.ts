@@ -868,6 +868,18 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
     return error
   }
 
+  /** GitHub responds with `422` to a change of the tag, target or draft state of an immutable release. */
+  function immutableReleaseIs422(error: unknown): unknown {
+    if (!(error instanceof ForgeApiError) || error.constructor !== ForgeApiError || error.status !== 422) {
+      return error
+    }
+    const reasonRaw = error.body.match(/\w+ cannot be changed when release is immutable/)?.[0]
+    if (!reasonRaw) {
+      return error
+    }
+    return new ForbiddenError('GitHub refused the change because the release is immutable', error.status, error.body, 'immutable_release', { forge: error.forge, instance: error.instance, url: error.url, method: error.method, reasonRaw }, { cause: error })
+  }
+
   /** GitHub search qualifiers, in the order the docs list them. */
   function searchQualifiers(query: SearchQuery): string[] {
     const qualifiers: string[] = []
@@ -1110,6 +1122,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
     const { data } = await fetcher.json<GitHubRelease>(path, {
       method,
       json: { tag_name: input.tag, target_commitish: input.target, name: input.name, body: input.body, draft: input.draft, prerelease: input.prerelease },
+      mapError: immutableReleaseIs422,
       signal: options?.signal,
     })
     return toRelease(repo, data)

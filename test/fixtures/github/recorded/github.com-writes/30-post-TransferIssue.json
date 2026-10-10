@@ -4,13 +4,13 @@
     "url": "https://api.github.com/graphql",
     "operationName": "TransferIssue",
     "variables": {
-      "issue": "I_kwDOVCTdtM8AAAABWW34Cg",
+      "issue": "I_kwDOVCTdtM8AAAABWXYSQg",
       "repo": "R_kgDOVCTeSg"
     },
     "body": {
       "query": "mutation TransferIssue($issue: ID!, $repo: ID!) {\n  transferIssue(input: { issueId: $issue, repositoryId: $repo }) { issue { id number } }\n}",
       "variables": {
-        "issue": "I_kwDOVCTdtM8AAAABWW34Cg",
+        "issue": "I_kwDOVCTdtM8AAAABWXYSQg",
         "repo": "R_kgDOVCTeSg"
       },
       "operationName": "TransferIssue"
@@ -20,15 +20,15 @@
     "status": 200,
     "headers": {
       "x-ratelimit-limit": "5000",
-      "x-ratelimit-remaining": "4993",
-      "x-ratelimit-reset": "1791670557"
+      "x-ratelimit-remaining": "4991",
+      "x-ratelimit-reset": "1791675002"
     },
     "body": {
       "data": {
         "transferIssue": {
           "issue": {
-            "id": "I_kwDOVCTeSs8AAAABWW346w",
-            "number": 11
+            "id": "I_kwDOVCTeSs8AAAABWXYTEw",
+            "number": 12
           }
         }
       }

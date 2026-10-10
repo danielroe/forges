@@ -4,14 +4,14 @@
     "url": "https://api.github.com/graphql",
     "operationName": "MarkDuplicate",
     "variables": {
-      "canonical": "I_kwDOVCTdtM8AAAABWW3yIQ",
-      "duplicate": "I_kwDOVCTdtM8AAAABWW34Cg"
+      "canonical": "I_kwDOVCTdtM8AAAABWXYMeg",
+      "duplicate": "I_kwDOVCTdtM8AAAABWXYSQg"
     },
     "body": {
       "query": "mutation MarkDuplicate($canonical: ID!, $duplicate: ID!) {\n  closeIssue(input: { issueId: $duplicate, stateReason: DUPLICATE, duplicateIssueId: $canonical }) { issue { __typename } }\n}",
       "variables": {
-        "canonical": "I_kwDOVCTdtM8AAAABWW3yIQ",
-        "duplicate": "I_kwDOVCTdtM8AAAABWW34Cg"
+        "canonical": "I_kwDOVCTdtM8AAAABWXYMeg",
+        "duplicate": "I_kwDOVCTdtM8AAAABWXYSQg"
       },
       "operationName": "MarkDuplicate"
     }
@@ -20,8 +20,8 @@
     "status": 200,
     "headers": {
       "x-ratelimit-limit": "5000",
-      "x-ratelimit-remaining": "4995",
-      "x-ratelimit-reset": "1791670557"
+      "x-ratelimit-remaining": "4993",
+      "x-ratelimit-reset": "1791675002"
     },
     "body": {
       "data": {

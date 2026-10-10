@@ -1,7 +1,7 @@
 import type { Actor, Comment, Milestone, Notification, Release, RepoRef, Review, Thread, ThreadRef, Webhook, WebhookDeliveryRecord } from '../../src/model.ts'
 import type { ForgeProvider, ForgeVerb } from '../../src/provider.ts'
 import type { RecordingManifest } from './steps.ts'
-import { ForgeError } from '../../src/errors.ts'
+import { ForbiddenError, ForgeError } from '../../src/errors.ts'
 import { notificationThread } from '../../src/model.ts'
 
 /** What a write recording created before its steps ran, and the names its steps write. */
@@ -279,6 +279,22 @@ export const WRITE_STEPS: WriteStep[] = [
     return context.release
   } },
   { name: 'update release', verb: 'releases.update', run: (provider, manifest, context) => provider.releases.update(need(context.release, 'a release').ref, { name: `${FIXTURE_TITLE} ${manifest.run.id}: release, edited`, body: `Edited by run ${manifest.run.id}.` }) },
+  { name: 'retag immutable release', verb: 'releases.update', when: provider => provider.forge === 'github', run: async (provider, manifest, context) => {
+    const release = need(context.release, 'a release')
+    if (!release.immutable) {
+      throw new Error('The scratch repository does not make releases immutable')
+    }
+    try {
+      await provider.releases.update(release.ref, { tag: fixtureTag(manifest.run, 'retagged') })
+    }
+    catch (error) {
+      if (error instanceof ForbiddenError && error.reason === 'immutable_release') {
+        return { name: error.name, status: error.status, reason: error.reason, reasonRaw: error.reasonRaw }
+      }
+      throw error
+    }
+    throw new Error('The forge retagged an immutable release')
+  } },
 
   { name: 'create webhook', verb: 'webhooks.create', run: async (provider, manifest, context) => {
     context.webhook = await provider.webhooks.create(manifest.scratch, { url: FIXTURE_HOOK_URL, events: ['comment'], secret: HOOK_SECRETS[0], contentType: 'json' })

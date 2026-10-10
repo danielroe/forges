@@ -1,0 +1,30 @@
+{
+  "request": {
+    "method": "PATCH",
+    "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/releases/409246249",
+    "body": {
+      "tag_name": "forges-fixture-20261010223231-retagged"
+    }
+  },
+  "response": {
+    "status": 422,
+    "headers": {
+      "x-ratelimit-limit": "5000",
+      "x-ratelimit-remaining": "4915",
+      "x-ratelimit-reset": "1791674984"
+    },
+    "body": {
+      "message": "Validation Failed",
+      "errors": [
+        {
+          "resource": "Release",
+          "code": "custom",
+          "field": "tag_name",
+          "message": "tag_name cannot be changed when release is immutable"
+        }
+      ],
+      "documentation_url": "https://docs.github.com/rest/releases/releases#update-a-release",
+      "status": "422"
+    }
+  }
+}

@@ -88,12 +88,13 @@ export class InsufficientScopeError extends ForgeApiError {
  * Why the forge refused a request the credential is otherwise valid for.
  * `unknown` is a 403 whose body matched nothing recognised.
  */
-export type ForbiddenReason = 'org_restriction' | 'sso_required' | 'rate_limit_abuse' | 'resource_protected' | 'unknown'
+export type ForbiddenReason = 'org_restriction' | 'sso_required' | 'rate_limit_abuse' | 'immutable_release' | 'resource_protected' | 'unknown'
 
 /**
  * The forge refused the request for a reason other than a missing scope: an
- * organisation policy, an SSO requirement, an abuse limit, or a protected
- * resource. A missing scope is {@link InsufficientScopeError}.
+ * organisation policy, an SSO requirement, an abuse limit, a protected
+ * resource, or a release the forge has marked immutable. A missing scope is
+ * {@link InsufficientScopeError}.
  */
 export class ForbiddenError extends ForgeApiError {
   override name = 'ForbiddenError'

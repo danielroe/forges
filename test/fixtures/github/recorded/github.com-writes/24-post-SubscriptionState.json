@@ -6,7 +6,7 @@
     "variables": {
       "owner": "forges-fixtures",
       "name": "forges-fixtures",
-      "number": 50,
+      "number": 55,
       "discussion": false
     },
     "body": {
@@ -14,7 +14,7 @@
       "variables": {
         "owner": "forges-fixtures",
         "name": "forges-fixtures",
-        "number": 50,
+        "number": 55,
         "discussion": false
       },
       "operationName": "SubscriptionState"
@@ -24,14 +24,14 @@
     "status": 200,
     "headers": {
       "x-ratelimit-limit": "5000",
-      "x-ratelimit-remaining": "4997",
-      "x-ratelimit-reset": "1791670557"
+      "x-ratelimit-remaining": "4995",
+      "x-ratelimit-reset": "1791675002"
     },
     "body": {
       "data": {
         "repository": {
           "issueOrPullRequest": {
-            "id": "I_kwDOVCTdtM8AAAABWW3yIQ",
+            "id": "I_kwDOVCTdtM8AAAABWXYMeg",
             "viewerSubscription": "UNSUBSCRIBED"
           }
         }
