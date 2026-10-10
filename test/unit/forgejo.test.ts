@@ -266,7 +266,7 @@ describe('forgejo actions', () => {
     expect(ci({ baseUrl: 'https://git.example.org' })).toEqual({ runs: false, run: false, jobs: false, log: false })
     expect(ci({ baseUrl: 'https://git.example.org', instanceVersion: '15.0.2+gitea-1.22.0' })).toEqual({ runs: true, run: true, jobs: false, log: false })
     expect(ci({ baseUrl: 'https://git.example.org', instanceVersion: '16.0.0+gitea-1.22.0' })).toEqual({ runs: true, run: true, jobs: true, log: true })
-    expect(gitea({ auth }).create().capabilities.ci).toEqual({ runs: false, run: false, jobs: false, log: false })
+    expect(forgejo({ auth: { type: 'anonymous' } }).create().capabilities.ci).toEqual({ runs: true, run: true, jobs: true, log: true })
   })
 
   it('pages runs explicitly and keeps the branch where Forgejo ignores `ref`', async () => {
@@ -309,5 +309,66 @@ describe('forgejo actions', () => {
     const log = await provider.ci.log({ forge: 'forgejo', instance: 'git.example.org', repo, id: '404013' })
 
     expect(await new Response(log).text()).toBe('workflow prepared\n')
+  })
+})
+
+describe('gitea actions', () => {
+  const auth = { type: 'token', token: 't' } as const
+  const repo = { forge: 'gitea', instance: 'git.example.org', owner: 'acme', name: 'widgets' } as const
+  const zero = '1970-01-01T00:00:00Z'
+  const run = (id: number, status: string, conclusion = '') => ({ id, path: 'ci.yml@refs/heads/main', display_title: 'Fix the build', run_number: id, event: 'push', head_branch: 'main', head_sha: 'c4a92ff', status, conclusion, started_at: zero, completed_at: zero })
+
+  function serve(responses: Map<string, unknown>) {
+    const urls: string[] = []
+    const provider = gitea({ auth, baseUrl: 'https://git.example.org', instanceVersion: '1.25.0', fetch: async (url) => {
+      urls.push(String(url))
+      return responses.has(String(url)) ? Response.json(responses.get(String(url))) : Response.json({ message: 'not found' }, { status: 404 })
+    } }).create()
+    return { provider, urls }
+  }
+
+  it('reads Actions on gitea.com and gates a self-hosted instance on its version', () => {
+    const ci = (options: { auth?: typeof auth | { type: 'anonymous' }, baseUrl?: string, instanceVersion?: string }) => gitea(options).create().capabilities.ci
+
+    expect(ci({ auth })).toEqual({ runs: true, run: true, jobs: true, log: true })
+    expect(ci({ auth: { type: 'anonymous' } })).toEqual({ runs: false, run: true, jobs: true, log: false })
+    expect(ci({ auth, baseUrl: 'https://git.example.org' })).toEqual({ runs: false, run: false, jobs: false, log: false })
+    expect(ci({ auth, baseUrl: 'https://git.example.org', instanceVersion: '1.24.7' })).toEqual({ runs: false, run: false, jobs: false, log: true })
+    expect(ci({ auth, baseUrl: 'https://git.example.org', instanceVersion: '1.25.0' })).toEqual({ runs: true, run: true, jobs: true, log: true })
+  })
+
+  it('filters runs on `branch` and on the statuses Gitea accepts', async () => {
+    const { provider, urls } = serve(new Map([
+      ['https://git.example.org/api/v1/repos/acme/widgets/actions/runs?status=queued&status=waiting&status=in_progress&branch=main&page=1&limit=50', { total_count: 2, workflow_runs: [run(2, 'queued'), run(1, 'waiting')] }],
+    ]))
+
+    const page = await provider.ci.runsPage(repo, { branch: 'main', state: 'pending' })
+
+    expect(urls).toHaveLength(1)
+    expect(page.items).toMatchObject([
+      { name: 'ci.yml', number: '2', branch: 'main', sha: 'c4a92ff', state: 'pending', stateRaw: 'queued', startedAt: undefined, completedAt: undefined },
+      { number: '1', state: 'pending', stateRaw: 'waiting' },
+    ])
+  })
+
+  it('reads the result of a finished run from its conclusion', async () => {
+    const pull = { ...run(7, 'completed', 'cancelled'), path: undefined, head_branch: undefined, started_at: '2026-10-02T03:40:00Z', completed_at: '2026-10-02T03:42:02Z' }
+    const { provider } = serve(new Map([['https://git.example.org/api/v1/repos/acme/widgets/actions/runs/7', pull]]))
+
+    const read = await provider.ci.run({ forge: 'gitea', instance: 'git.example.org', repo, id: '7' })
+
+    expect(read).toMatchObject({ name: 'Fix the build', branch: undefined, state: 'failure', stateRaw: 'completed', completedAt: new Date('2026-10-02T03:42:02Z') })
+  })
+
+  it('continues jobs from `total_count`, which Gitea 1.25 sends without a `Link` header', async () => {
+    const job = (id: number) => ({ id, run_id: 7, name: `job ${id}`, status: 'completed', conclusion: 'skipped', started_at: zero, completed_at: zero })
+    const { provider } = serve(new Map([
+      ['https://git.example.org/api/v1/repos/acme/widgets/actions/runs/7/jobs?page=1&limit=2', { total_count: 3, jobs: [job(1), job(2)] }],
+    ]))
+
+    const page = await provider.ci.jobsPage({ forge: 'gitea', instance: 'git.example.org', repo, id: '7' }, { perPage: 2 })
+
+    expect(page.items).toMatchObject([{ name: 'job 1', state: 'neutral', startedAt: undefined }, { name: 'job 2' }])
+    expect(page.cursor?.nextUrl).toBe('https://git.example.org/api/v1/repos/acme/widgets/actions/runs/7/jobs?page=2&limit=2')
   })
 })

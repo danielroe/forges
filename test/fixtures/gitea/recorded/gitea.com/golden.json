@@ -2228,6 +2228,343 @@
       }
     ]
   },
+  "ci runs": {
+    "items": [
+      {
+        "ref": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "repo": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "owner": "gitea",
+            "name": "tea"
+          },
+          "id": "1047078"
+        },
+        "name": "test-pr.yml",
+        "state": "failure",
+        "stateRaw": "completed",
+        "number": "1716",
+        "eventRaw": "pull_request",
+        "sha": "a989fc5a3ecdea700f23e7ac12e2713bd51280a6",
+        "url": "https://gitea.com/gitea/tea/actions/runs/1047078",
+        "actor": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "login": "renovate-bot",
+          "id": "44044",
+          "name": "Renovate Bot",
+          "avatarUrl": "https://gitea.com/avatars/a7012524a51bf2c579579dca81161ad6d64bc1cc3ea8e16098d9cbec42a84216",
+          "url": "https://gitea.com/renovate-bot",
+          "isBotHint": false
+        },
+        "createdAt": "2026-10-10T00:11:23.000Z",
+        "startedAt": "2026-10-10T00:11:54.000Z",
+        "completedAt": "2026-10-10T00:13:37.000Z"
+      },
+      {
+        "ref": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "repo": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "owner": "gitea",
+            "name": "tea"
+          },
+          "id": "1047073"
+        },
+        "name": "test-pr.yml",
+        "state": "success",
+        "stateRaw": "completed",
+        "number": "1715",
+        "eventRaw": "pull_request",
+        "sha": "b1b66ebf10e8f5b07e37bfc59e73c46f9b850bf2",
+        "url": "https://gitea.com/gitea/tea/actions/runs/1047073",
+        "actor": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "login": "renovate-bot",
+          "id": "44044",
+          "name": "Renovate Bot",
+          "avatarUrl": "https://gitea.com/avatars/a7012524a51bf2c579579dca81161ad6d64bc1cc3ea8e16098d9cbec42a84216",
+          "url": "https://gitea.com/renovate-bot",
+          "isBotHint": false
+        },
+        "createdAt": "2026-10-10T00:11:07.000Z",
+        "startedAt": "2026-10-10T00:11:12.000Z",
+        "completedAt": "2026-10-10T00:12:34.000Z"
+      },
+      {
+        "ref": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "repo": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "owner": "gitea",
+            "name": "tea"
+          },
+          "id": "1047072"
+        },
+        "name": "test-pr.yml",
+        "state": "failure",
+        "stateRaw": "completed",
+        "number": "1714",
+        "eventRaw": "pull_request",
+        "sha": "676ab1afcbcaa3d08762637ec6c501c045111069",
+        "url": "https://gitea.com/gitea/tea/actions/runs/1047072",
+        "actor": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "login": "renovate-bot",
+          "id": "44044",
+          "name": "Renovate Bot",
+          "avatarUrl": "https://gitea.com/avatars/a7012524a51bf2c579579dca81161ad6d64bc1cc3ea8e16098d9cbec42a84216",
+          "url": "https://gitea.com/renovate-bot",
+          "isBotHint": false
+        },
+        "createdAt": "2026-10-10T00:10:51.000Z",
+        "startedAt": "2026-10-10T00:10:51.000Z",
+        "completedAt": "2026-10-10T00:22:09.000Z"
+      }
+    ],
+    "cursor": {
+      "nextUrl": "https://gitea.com/api/v1/repos/gitea/tea/actions/runs?limit=3&page=2"
+    }
+  },
+  "ci runs by branch and state": {
+    "items": [
+      {
+        "ref": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "repo": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "owner": "gitea",
+            "name": "tea"
+          },
+          "id": "815263"
+        },
+        "name": "release-nightly.yml",
+        "state": "failure",
+        "stateRaw": "completed",
+        "number": "1611",
+        "eventRaw": "push",
+        "branch": "main",
+        "sha": "dfe89dfb6bf22dcbd2a6203bef8aa262e65ea085",
+        "url": "https://gitea.com/gitea/tea/actions/runs/815263",
+        "actor": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "login": "bircni",
+          "id": "173651",
+          "name": "bircni",
+          "avatarUrl": "https://seccdn.libravatar.org/avatar/345fd80f2a069177c27dd0de27c99672940cce0923fca8de847119c573aab745?d=identicon",
+          "url": "https://gitea.com/bircni",
+          "isBotHint": false
+        },
+        "createdAt": "2026-08-23T12:44:54.000Z",
+        "startedAt": "2026-08-23T12:44:54.000Z",
+        "completedAt": "2026-08-23T13:00:58.000Z"
+      },
+      {
+        "ref": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "repo": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "owner": "gitea",
+            "name": "tea"
+          },
+          "id": "800649"
+        },
+        "name": "release-nightly.yml",
+        "state": "failure",
+        "stateRaw": "completed",
+        "number": "1600",
+        "eventRaw": "push",
+        "branch": "main",
+        "sha": "ee531914cd107a6c4239013f979e65835d4815f7",
+        "url": "https://gitea.com/gitea/tea/actions/runs/800649",
+        "actor": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "login": "bircni",
+          "id": "173651",
+          "name": "bircni",
+          "avatarUrl": "https://seccdn.libravatar.org/avatar/345fd80f2a069177c27dd0de27c99672940cce0923fca8de847119c573aab745?d=identicon",
+          "url": "https://gitea.com/bircni",
+          "isBotHint": false
+        },
+        "createdAt": "2026-08-16T13:01:16.000Z",
+        "startedAt": "2026-08-16T13:01:17.000Z",
+        "completedAt": "2026-08-16T13:14:57.000Z"
+      },
+      {
+        "ref": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "repo": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "owner": "gitea",
+            "name": "tea"
+          },
+          "id": "727180"
+        },
+        "name": "release-nightly.yml",
+        "state": "failure",
+        "stateRaw": "completed",
+        "number": "1550",
+        "eventRaw": "push",
+        "branch": "main",
+        "sha": "73b6bf3e23780a13ff6df6ed29c7beae7a2cc8e4",
+        "url": "https://gitea.com/gitea/tea/actions/runs/727180",
+        "actor": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "login": "lunny",
+          "id": "1",
+          "name": "Lunny Xiao",
+          "avatarUrl": "https://seccdn.libravatar.org/avatar/b897d40dc87fdba4a024827c3967597434681a8f4f0f4eb5d73e0f8b1a0a9274?d=identicon",
+          "url": "https://gitea.com/lunny",
+          "isBotHint": false
+        },
+        "createdAt": "2026-07-26T01:38:12.000Z",
+        "startedAt": "2026-07-26T01:39:15.000Z",
+        "completedAt": "2026-07-26T01:52:27.000Z"
+      }
+    ],
+    "cursor": {
+      "nextUrl": "https://gitea.com/api/v1/repos/gitea/tea/actions/runs?branch=main&limit=3&page=2&status=failure&status=cancelled"
+    }
+  },
+  "ci run": {
+    "ref": {
+      "forge": "gitea",
+      "instance": "gitea.com",
+      "repo": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "owner": "gitea",
+        "name": "tea"
+      },
+      "id": "1047078"
+    },
+    "name": "test-pr.yml",
+    "state": "failure",
+    "stateRaw": "completed",
+    "number": "1716",
+    "eventRaw": "pull_request",
+    "sha": "a989fc5a3ecdea700f23e7ac12e2713bd51280a6",
+    "url": "https://gitea.com/gitea/tea/actions/runs/1047078",
+    "actor": {
+      "forge": "gitea",
+      "instance": "gitea.com",
+      "login": "renovate-bot",
+      "id": "44044",
+      "name": "Renovate Bot",
+      "avatarUrl": "https://gitea.com/avatars/a7012524a51bf2c579579dca81161ad6d64bc1cc3ea8e16098d9cbec42a84216",
+      "url": "https://gitea.com/renovate-bot",
+      "isBotHint": false
+    },
+    "createdAt": "2026-10-10T00:11:23.000Z",
+    "startedAt": "2026-10-10T00:11:54.000Z",
+    "completedAt": "2026-10-10T00:13:37.000Z"
+  },
+  "ci jobs": {
+    "items": [
+      {
+        "ref": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "repo": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "owner": "gitea",
+            "name": "tea"
+          },
+          "id": "1418489",
+          "run": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "repo": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "owner": "gitea",
+              "name": "tea"
+            },
+            "id": "1047078"
+          }
+        },
+        "name": "Lint Build And Unit Coverage",
+        "state": "failure",
+        "stateRaw": "completed",
+        "url": "https://gitea.com/gitea/tea/actions/runs/1047078/jobs/1418489",
+        "startedAt": "2026-10-10T00:11:54.000Z",
+        "completedAt": "2026-10-10T00:13:37.000Z"
+      },
+      {
+        "ref": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "repo": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "owner": "gitea",
+            "name": "tea"
+          },
+          "id": "1418490",
+          "run": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "repo": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "owner": "gitea",
+              "name": "tea"
+            },
+            "id": "1047078"
+          }
+        },
+        "name": "Integration Test",
+        "state": "failure",
+        "stateRaw": "completed",
+        "url": "https://gitea.com/gitea/tea/actions/runs/1047078/jobs/1418490",
+        "startedAt": "2026-10-10T00:11:59.000Z",
+        "completedAt": "2026-10-10T00:12:49.000Z"
+      }
+    ]
+  },
+  "ci log": {
+    "length": 16384,
+    "head": [
+      "2026-10-10T00:11:54.6942814Z gitea-com-gitea-0010(version:v3.3.0)",
+      "2026-10-10T00:11:54.6944081Z ::group::Runner Information",
+      "2026-10-10T00:11:54.6944095Z Runner labels: ubuntu-latest, ubuntu-24.04, ubuntu-22.04, ubuntu-20.04",
+      "2026-10-10T00:11:54.6944114Z Task: 372922",
+      "2026-10-10T00:11:54.6944122Z Job: check-and-unit",
+      "2026-10-10T00:11:54.6944130Z Repository: gitea/tea",
+      "2026-10-10T00:11:54.6944138Z Triggered by event: pull_request",
+      "2026-10-10T00:11:54.6944148Z ::endgroup::",
+      "2026-10-10T00:11:54.6944154Z ::group::Operating System",
+      "2026-10-10T00:11:54.6944165Z Alpine Linux v3.24",
+      "2026-10-10T00:11:54.6944172Z linux/amd64",
+      "2026-10-10T00:11:54.6944179Z ::endgroup::",
+      "2026-10-10T00:11:54.6968947Z workflow prepared",
+      "2026-10-10T00:11:54.7059190Z ::group::Starting job container",
+      "2026-10-10T00:11:54.7059451Z image: gitea/runner-images:ubuntu-latest",
+      "2026-10-10T00:11:54.7059557Z name: GITEA-ACTIONS-TASK-372922-WORKFLOW-check-and-test-JOB-Lint-Buil-b55d2ee9764dfec30788d5fecbc728b3b33896bf8ef68109a711c3c78581001e",
+      "2026-10-10T00:11:54.7059769Z network: GITEA-ACTIONS-TASK-372922-WORKFLOW-check-and-test-JOB-Lint-Buil-b55d2ee9764dfec30788d5fecbc728b3b33896bf8ef68109a711c3c78581001e-check-and-unit-network",
+      "2026-10-10T00:11:54.7060017Z docker pull image=gitea/runner-images:ubuntu-latest platform= username= forcePull=false",
+      "2026-10-10T00:11:54.7477181Z Cleaning up network for job Lint Build And Unit Coverage, and network name is: GITEA-ACTIONS-TASK-372922-WORKFLOW-check-and-test-JOB-Lint-Buil-b55d2ee9764dfec30788d5fecbc728b3b33896bf8ef68109a711c3c78581001e-check-and-unit-network",
+      "2026-10-10T00:11:54.7723863Z docker create image=gitea/runner-images:ubuntu-latest platform= entrypoint=[\"/bin/sleep\" \"10800\"] cmd=[] network=\"GITEA-ACTIONS-TASK-372922-WORKFLOW-check-and-test-JOB-Lint-Buil-b55d2ee9764dfec30788d5fecbc728b3b33896bf8ef68109a711c3c78581001e-check-and-unit-network\""
+    ]
+  },
   "readme": {
     "path": "README.md",
     "sha": "2293b841bcbd31dcbf64da19c7866f14f40f03df",
