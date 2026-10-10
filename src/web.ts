@@ -87,41 +87,24 @@ export function webUrlFor(web: WebLinks, target: UrlTarget): string | undefined 
   return path === undefined ? undefined : `${web.origin}${path}`
 }
 
-/** `ssh://user@host:port/path` with the host in group 1, or `user@host:path` with it in group 2; the path is group 3. */
-const SSH_URL_RE = /^(?:(?:git\+)?ssh:\/\/(?:[^@/]+@)?([^:/]+)(?::\d+)?\/|(?:[^@/\s]+@)?([^:/\s]+):(?!\/))(.+)$/i
+/** `ssh://user@host:port/path` or `git://host:port/path` with the host in group 1, or `user@host:path` with it in group 2; the path is group 3. */
+const CLONE_URL_RE = /^(?:(?:ssh|git):\/\/(?:[^@/]+@)?([^:/]+)(?::\d+)?\/|(?:[^@/\s]+@)?([^:/\s]+):(?!\/))(.+)$/i
 
-/** A leading `git+`, which npm's `repository` field writes before the transport scheme. */
-const GIT_PLUS_RE = /^git\+/i
+/** The `git+` that npm's `repository` field writes before a transport scheme. */
+const GIT_PLUS_RE = /^git\+(?=[a-z]+:\/\/)/i
 
-/** The anonymous `git://` protocol, which reads the same repository as its HTTPS equivalent. */
-const GIT_PROTOCOL_RE = /^git:\/\//i
+/** The npm `repository` shorthand, https://docs.npmjs.com/cli/configuring-npm/package-json#repository */
+const SHORTHAND_RE = /^(github|gitlab|bitbucket):(?!\/)/i
+const SHORTHAND_HOSTS: Record<string, string> = { github: 'github.com', gitlab: 'gitlab.com', bitbucket: 'bitbucket.org' }
 
-/**
- * The npm `repository` shorthand prefixes that name a forge this library supports.
- * See https://docs.npmjs.com/cli/v12/configuring-npm/package-json#repository}
- */
-const SHORTHAND_FORGES = new Set<string>(['github', 'gitlab', 'bitbucket'])
-
-/**
- * Reads a web or clone URL that belongs to `web.origin`. Accepts `https://` and
- * `http://` URLs on the same host (the port must match too), the anonymous
- * `git://` protocol, a leading `git+` as npm's `repository` field writes it, and
- * the npm `repository` shorthand such as `github:acme/widgets`. The SSH forms in
- * `SSH_URL_RE` are read when their host is `web.origin`'s.
- * Returns `undefined` for another host, a URL that carries credentials or a URL
- * that does not parse.
- */
 export function parseWebUrl(web: WebLinks, input: string | URL, origin: ForgeOrigin): ParsedForgeUrl | undefined {
   const base = new URL(web.origin)
   const prefix = base.pathname.replace(/\/$/, '')
-  let source = String(input).replace(GIT_PLUS_RE, '').replace(GIT_PROTOCOL_RE, 'https://')
-  if (SHORTHAND_FORGES.has(origin.forge) && source.toLowerCase().startsWith(`${origin.forge}:`)) {
-    source = `${base.origin}${prefix}/${source.slice(origin.forge.length + 1)}`
-  }
-  const ssh = SSH_URL_RE.exec(source)
+  const source = String(input).replace(GIT_PLUS_RE, '').replace(SHORTHAND_RE, (_, forge: string) => `https://${SHORTHAND_HOSTS[forge.toLowerCase()]}/`)
+  const clone = CLONE_URL_RE.exec(source)
   let url: URL
   try {
-    url = new URL(ssh && (ssh[1] ?? ssh[2])!.toLowerCase() === base.hostname ? `${base.origin}${prefix}/${ssh[3]}` : source)
+    url = new URL(clone && (clone[1] ?? clone[2])!.toLowerCase() === base.hostname ? `${base.origin}${prefix}/${clone[3]}` : source)
   }
   catch {
     return undefined

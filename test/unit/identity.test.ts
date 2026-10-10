@@ -86,6 +86,8 @@ describe('web links', () => {
     'git+https://github.com/acme/widgets.git',
     'git+http://github.com/acme/widgets.git',
     'git://github.com/acme/widgets.git',
+    'git://github.com:9418/acme/widgets.git',
+    'git+git://github.com/acme/widgets.git',
   ])('parses the npm repository URL %s', (url) => {
     expect(gh.parseUrl(url)?.repo).toMatchObject({ owner: 'acme', name: 'widgets' })
   })
@@ -93,7 +95,18 @@ describe('web links', () => {
   it('parses the npm repository shorthand such as github:acme/widgets', () => {
     expect(gh.parseUrl('github:acme/widgets')?.repo).toMatchObject({ owner: 'acme', name: 'widgets' })
     expect(gl.parseUrl('gitlab:acme/platform/widgets')?.repo).toMatchObject({ owner: 'acme/platform', name: 'widgets' })
+    expect(bb.parseUrl('bitbucket:acme/widgets')?.repo).toMatchObject({ owner: 'acme', name: 'widgets' })
     expect(gh.parseUrl('gitlab:acme/widgets')).toBeUndefined()
+    expect(gh.parseUrl('github://acme/widgets')).toBeUndefined()
+    expect(gh.parseUrl('git+github:acme/widgets')).toBeUndefined()
+  })
+
+  it('reads the npm repository shorthand as the public instance only', () => {
+    const ghes = github({ auth, baseUrl: 'https://ghe.example.com/api/v3' }).create()
+    const glSelf = gitlab({ auth, baseUrl: 'https://git.example.com' }).create()
+    expect(ghes.parseUrl('github:acme/widgets')).toBeUndefined()
+    expect(glSelf.parseUrl('gitlab:acme/widgets')).toBeUndefined()
+    expect(createForges([github({ auth, baseUrl: 'https://ghe.example.com/api/v3' }), github({ auth })]).parseUrl('github:acme/widgets')?.repo.instance).toBe('github.com')
   })
 
   it('parses clone URLs on its own instance only', () => {
@@ -101,6 +114,7 @@ describe('web links', () => {
     expect(gh.parseUrl('git@gitlab.com:acme/widgets.git')).toBeUndefined()
     expect(gh.parseUrl('git+https://gitlab.com/acme/widgets.git')).toBeUndefined()
     expect(gh.parseUrl('git://gitlab.com/acme/widgets.git')).toBeUndefined()
+    expect(gh.parseUrl('git://github.com.evil.example/acme/widgets.git')).toBeUndefined()
     expect(gh.parseUrl('http://gitlab.com/acme/widgets')).toBeUndefined()
   })
 
