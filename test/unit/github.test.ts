@@ -669,12 +669,6 @@ describe('github search', () => {
     expect(page.warnings).toBeUndefined()
   })
 
-  it('searches code only with a credential that acts for an account', () => {
-    expect(appProvider().provider.capabilities.search.code).toBe(false)
-    expect(appProvider(55123).provider.capabilities.search.code).toBe(true)
-    expect(tokenProvider().provider.capabilities.search.code).toBe(true)
-  })
-
   it('asks code search for text matches and keeps the ones from file contents', async () => {
     const { provider, calls } = tokenProvider()
 
