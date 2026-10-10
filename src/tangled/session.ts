@@ -13,11 +13,11 @@ export interface TangledSession {
   viewerDid: () => Promise<string>
   /** Calls an XRPC method on the authenticated account's PDS, refreshing an expired session once. */
   pdsCall: <T>(nsid: string, init?: RequestOptions) => Promise<T>
-  createRecord: (collection: string, record: Record<string, unknown>) => Promise<{ uri: string, cid: string }>
+  createRecord: (collection: string, record: Record<string, unknown>, signal?: AbortSignal) => Promise<{ uri: string, cid: string }>
   /** Rewrites one of the account's own records, refusing records it does not own. */
-  putOwnRecord: (uri: string, update: (record: TangledRecord) => TangledRecord) => Promise<TangledRecord>
-  deleteOwnRecord: (uri: string) => Promise<void>
-  ownRecords: <T>(collection: string) => AsyncGenerator<{ uri: string, value: T }>
+  putOwnRecord: (uri: string, update: (record: TangledRecord) => TangledRecord, signal?: AbortSignal) => Promise<TangledRecord>
+  deleteOwnRecord: (uri: string, signal?: AbortSignal) => Promise<void>
+  ownRecords: <T>(collection: string, signal?: AbortSignal) => AsyncGenerator<{ uri: string, value: T }>
 }
 
 export function createTangledSession({ options, fetcher, atproto, context }: { options: TangledOptions, fetcher: Fetcher, atproto: AtprotoClient, context: ForgeErrorContext }): TangledSession {
@@ -77,30 +77,32 @@ export function createTangledSession({ options, fetcher, atproto, context }: { o
     }
   }
 
-  async function createRecord(collection: string, record: Record<string, unknown>): Promise<{ uri: string, cid: string }> {
+  async function createRecord(collection: string, record: Record<string, unknown>, signal?: AbortSignal): Promise<{ uri: string, cid: string }> {
     return pdsCall<{ uri: string, cid: string }>('com.atproto.repo.createRecord', {
       method: 'POST',
       json: { repo: await viewerDid(), collection, record: { $type: collection, ...record } },
+      signal,
     })
   }
 
   /** Rewrites one of the account's own records, refusing records it does not own. */
-  async function putOwnRecord(uri: string, update: (record: TangledRecord) => TangledRecord): Promise<TangledRecord> {
+  async function putOwnRecord(uri: string, update: (record: TangledRecord) => TangledRecord, signal?: AbortSignal): Promise<TangledRecord> {
     const parsed = parseAtUri(uri)
     const viewer = await viewerDid()
     if (!parsed || parsed.did !== viewer) {
       throw new InsufficientScopeError('Records can only be edited by the account that wrote them', 403, '', context)
     }
-    const current = await atproto.getRecord(uri)
+    const current = await atproto.getRecord(uri, signal)
     const record = update(current.value)
     await pdsCall('com.atproto.repo.putRecord', {
       method: 'POST',
       json: { repo: viewer, collection: parsed.collection, rkey: parsed.rkey, record, swapRecord: current.cid },
+      signal,
     })
     return record
   }
 
-  async function deleteOwnRecord(uri: string): Promise<void> {
+  async function deleteOwnRecord(uri: string, signal?: AbortSignal): Promise<void> {
     const parsed = parseAtUri(uri)
     const viewer = await viewerDid()
     if (!parsed || parsed.did !== viewer) {
@@ -109,15 +111,17 @@ export function createTangledSession({ options, fetcher, atproto, context }: { o
     await pdsCall('com.atproto.repo.deleteRecord', {
       method: 'POST',
       json: { repo: viewer, collection: parsed.collection, rkey: parsed.rkey },
+      signal,
     })
   }
 
-  async function* ownRecords<T>(collection: string): AsyncGenerator<{ uri: string, value: T }> {
+  async function* ownRecords<T>(collection: string, signal?: AbortSignal): AsyncGenerator<{ uri: string, value: T }> {
     const repo = await viewerDid()
     let cursor: string | undefined
     do {
       const data: { records: Array<{ uri: string, value: T }>, cursor?: string } = await pdsCall('com.atproto.repo.listRecords', {
         query: { repo, collection, limit: 100, cursor },
+        signal,
       })
       yield* data.records
       cursor = data.records.length ? data.cursor : undefined

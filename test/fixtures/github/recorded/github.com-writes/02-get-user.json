@@ -6,10 +6,10 @@
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"d1eadcb6ef6af657158b9322f1af079f505ecf839b1ca8e60607a36df5747f05\"",
+      "etag": "W/\"b1af319087966c32de9a89e60258f19c3c9ba068ff1c67977b6e488297b4b2e5\"",
       "x-ratelimit-limit": "5000",
-      "x-ratelimit-remaining": "4983",
-      "x-ratelimit-reset": "1791632793"
+      "x-ratelimit-remaining": "4971",
+      "x-ratelimit-reset": "1791668879"
     },
     "body": {
       "login": "danielroe",
@@ -40,9 +40,9 @@
       "bio": "@nuxt • @npmx-dev • @unjs • @vuejs • @elk-zone",
       "twitter_username": null,
       "notification_email": "redacted@example.invalid",
-      "public_repos": 904,
+      "public_repos": 905,
       "public_gists": 13,
-      "followers": 6139,
+      "followers": 6138,
       "following": 173,
       "created_at": "2017-05-15T12:06:30Z",
       "updated_at": "2026-10-09T10:48:09Z"

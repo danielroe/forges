@@ -43,6 +43,7 @@ export { commentMarker, DATE_FIELDS, hasCommentMarker, isNamespaceRef, isResolve
 export type {
   Actor,
   ApproveAndMergeOptions,
+  BaseOptions,
   Branch,
   ChangedFile,
   Check,

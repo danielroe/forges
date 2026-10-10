@@ -3,6 +3,7 @@ import { UnsupportedOperationError } from '../../src/errors.ts'
 import { pushin } from '../../src/pushin/index.ts'
 import { toComment, toLabel, toNotification, toRepo, toThread } from '../../src/pushin/normalise.ts'
 import { fixtureFetch } from '../../src/testing/index.ts'
+import { hangingFetch } from '../utils/fixtures.ts'
 
 const origin = { forge: 'pushin', instance: 'pushin.eu' } as const
 const repo = { ...origin, owner: 'acme', name: 'widgets' }
@@ -17,6 +18,19 @@ function provider(overrides: Parameters<typeof fixtureFetch>[1]) {
 }
 
 describe('pushin', () => {
+  it('aborts reading the account with the caller\'s reason', async () => {
+    const controller = new AbortController()
+    const reason = new Error('cancelled')
+    const { fetch, started } = hangingFetch()
+    const forge = pushin({ auth: { type: 'token', token: 't' }, fetch }).create()
+
+    const pending = forge.users.me({ signal: controller.signal })
+    await started
+    controller.abort(reason)
+
+    await expect(pending).rejects.toBe(reason)
+  })
+
   it('reads issues and pull requests through their own endpoints', async () => {
     const { forge } = provider({
       [`GET ${base}/repos/acme/widgets/issues/31`]: { status: 200, body: raw },

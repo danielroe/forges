@@ -1,0 +1,16 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/hooks/695439771/deliveries?per_page=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"1112313a79e086e06875c1f3fa228813945ecd7d42837ee7a56e4e6c0b495cad\"",
+      "x-ratelimit-limit": "500",
+      "x-ratelimit-remaining": "495",
+      "x-ratelimit-reset": "1791667079"
+    },
+    "body": "[{\"id\":3847575628561776640,\"guid\":\"ee0439f4-c4ef-11f1-8828-4aa222d5e9bb\",\"delivered_at\":\"2026-10-10T21:17:00.195Z\",\"redelivery\":false,\"duration\":0,\"status\":\"failed to connect to host\",\"status_code\":502,\"event\":\"ping\",\"action\":null,\"installation_id\":null,\"repository_id\":1411702196,\"url\":\"\",\"throttled_at\":null}]"
+  }
+}

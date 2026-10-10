@@ -504,6 +504,33 @@ describe('github checks and CI', () => {
       .toBeInstanceOf(UnsupportedOperationError)
   })
 
+  it('rejects a checks read aborted after one of its two sources has answered', async () => {
+    const controller = new AbortController()
+    const reason = new Error('cancelled')
+    let markStatusStarted!: () => void
+    const statusStarted = new Promise<void>((resolve) => {
+      markStatusStarted = resolve
+    })
+    const provider = github({
+      auth: { type: 'token', token: 't' },
+      fetch: async (url, init) => {
+        if (url.includes('/check-runs')) {
+          return Response.json({ check_runs: [] })
+        }
+        markStatusStarted()
+        return new Promise<Response>((_resolve, reject) => {
+          init!.signal!.addEventListener('abort', () => reject(init!.signal!.reason), { once: true })
+        })
+      },
+    }).create()
+
+    const pending = provider.checks.list(repo, sha, { signal: controller.signal })
+    await statusStarted
+    controller.abort(reason)
+
+    await expect(pending).rejects.toBe(reason)
+  })
+
   it('reports why the job of a check run cannot be re-run, unless the check run has no job', async () => {
     const rerun = (status: number) => github({
       auth: { type: 'token', token: 't' },

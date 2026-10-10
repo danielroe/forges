@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { azureDevOps } from '../../src/azure-devops/index.ts'
-import { fixtureFetch } from '../utils/fixtures.ts'
+import { fixtureFetch, hangingFetch } from '../utils/fixtures.ts'
 
 const repo = { forge: 'azure-devops', instance: 'dev.azure.com', owner: 'acme/Widgets', name: 'widgets' } as const
 const pull = { forge: 'azure-devops', instance: 'dev.azure.com', repo, kind: 'pull_request', number: '42' } as const
@@ -56,6 +56,19 @@ describe('azure devops', () => {
 
     expect(patch.headers.get('content-type')).toBe('application/json-patch+json')
     expect(JSON.parse(patch.body!)).toEqual([{ op: 'add', path: '/fields/System.State', value: 'Done' }])
+  })
+
+  it('aborts closing a work item while its state is read with the caller\'s reason', async () => {
+    const controller = new AbortController()
+    const reason = new Error('cancelled')
+    const { fetch, started } = hangingFetch()
+    const instance = azureDevOps({ auth: { type: 'token', token: 'pat' }, organization: 'acme', fetch }).create()
+
+    const pending = instance.threads.close({ ...pull, kind: 'issue', number: '101' }, { signal: controller.signal })
+    await started
+    controller.abort(reason)
+
+    await expect(pending).rejects.toBe(reason)
   })
 
   it('approves with a vote of 10 and sets auto-complete for whenChecksPass', async () => {

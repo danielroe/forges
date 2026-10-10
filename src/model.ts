@@ -641,7 +641,7 @@ export type FileContent
     | FileMetadata & { encoding: 'binary', content: Uint8Array }
 
 /** Options for `contents.file()`. */
-export interface FileOptions {
+export interface FileOptions extends BaseOptions {
   /** Branch, tag or sha. Defaults to the repository's default branch. */
   ref?: string
   /**
@@ -649,7 +649,6 @@ export interface FileOptions {
    * @default 'binary'
    */
   as?: 'text' | 'binary'
-  signal?: AbortSignal
 }
 
 /** What a tree entry is. */
@@ -1366,13 +1365,21 @@ export interface CodeSearchQuery extends PageOptions {
   owner?: string
 }
 
+/** Options accepted by every operation that sends requests; the other options types extend it. */
+export interface BaseOptions {
+  /**
+   * Aborts the operation's requests, and the operation rejects with the signal's reason.
+   * Writes the forge has already received are not undone.
+   */
+  signal?: AbortSignal
+}
+
 /** Options for listings that take no filters: releases, installations, labels. */
-export interface PageOptions {
+export interface PageOptions extends BaseOptions {
   /** How many items to ask for. The forge may return fewer. */
   perPage?: number
   /** Resume after the page that returned this cursor. */
   cursor?: Cursor
-  signal?: AbortSignal
 }
 
 /** How the account is attached to the repositories it lists. */
@@ -1603,7 +1610,7 @@ export function notificationThread(notification: Notification): ThreadRef | unde
 export type MergeMethod = 'merge' | 'squash' | 'rebase' | 'rebase_merge' | 'fast_forward_only'
 
 /** Options for `threads.merge()`. */
-export interface MergeOptions {
+export interface MergeOptions extends BaseOptions {
   /** Defaults to the repository's only allowed method. */
   method?: MergeMethod
   /** Expected head sha; the merge is refused if the branch has moved. */

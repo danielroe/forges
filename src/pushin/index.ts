@@ -1,5 +1,5 @@
 import type { ProviderContext, ProviderDefinition, ProviderFactoryFunction, ProviderSpec } from '../define.ts'
-import type { Comment, ForgeEventInput, ListOptions, Page, RepoRef, ResolvedThreadRef, Thread, ThreadQuery, ThreadRef } from '../model.ts'
+import type { BaseOptions, Comment, ForgeEventInput, ListOptions, Page, RepoRef, ResolvedThreadRef, Thread, ThreadQuery, ThreadRef } from '../model.ts'
 import type { AnonymousAuth, ForgeOptionsBase, TokenAuth, VerbScopes } from '../provider.ts'
 import type { ForgeVerb } from '../supports.ts'
 import type { PushinCollaborator, PushinComment, PushinLabel, PushinNotification, PushinRepository, PushinThread, PushinUser } from './types.ts'
@@ -34,9 +34,9 @@ function setupPushin({ options, instance, origin: context, fetcher, baseUrl }: P
     return `${repoPath(ref.repo)}/${ref.kind === 'pull_request' ? 'pulls' : 'issues'}/${encodeURIComponent(ref.number)}`
   }
 
-  async function get(thread: ThreadRef): Promise<Thread> {
+  async function get(thread: ThreadRef, options?: BaseOptions): Promise<Thread> {
     const ref = requireIssueOrPull(thread, context, 'read')
-    const { data } = await fetcher.json<PushinThread>(threadPath(ref))
+    const { data } = await fetcher.json<PushinThread>(threadPath(ref), { signal: options?.signal })
     return toThread(ref, data)
   }
 
@@ -95,13 +95,13 @@ function setupPushin({ options, instance, origin: context, fetcher, baseUrl }: P
       authKinds: ['token', 'anonymous'],
     },
     users: {
-      me: verb(true, async () => {
-        const { data } = await fetcher.json<PushinUser>('/user')
+      me: verb(true, async (options) => {
+        const { data } = await fetcher.json<PushinUser>('/user', { signal: options?.signal })
         return { ...toActor({ forge: FORGE, instance }, data)!, company: data.company ?? undefined, raw: data }
       }),
     },
     repos: {
-      get: verb(true, async repo => toRepo({ forge: FORGE, instance }, (await fetcher.json<PushinRepository>(repoPath(repo))).data)),
+      get: verb(true, async (repo, options) => toRepo({ forge: FORGE, instance }, (await fetcher.json<PushinRepository>(repoPath(repo), { signal: options?.signal })).data)),
       listPage: verb(true, (listOptions = {}) => list('/user/repos', listOptions, (raw: PushinRepository) => toRepo({ forge: FORGE, instance }, raw))),
       labelsPage: verb(true, (repo, listOptions = {}) => list(`${repoPath(repo)}/labels`, listOptions, (raw: PushinLabel) => toLabel(raw))),
       collaboratorsPage: verb(!anonymous, (repo, listOptions = {}) => list(`${repoPath(repo)}/collaborators`, listOptions, (raw: PushinCollaborator) => toCollaborator({ forge: FORGE, instance }, raw))),
@@ -109,7 +109,7 @@ function setupPushin({ options, instance, origin: context, fetcher, baseUrl }: P
     threads: {
       get: perKind({ issue: true, pull_request: true }, get),
       listPage: perKind({ issue: true, pull_request: true }, listPage),
-      getMany: verb(true, refs => getManyConcurrently(refs, get)),
+      getMany: verb(true, (refs, options) => getManyConcurrently(refs, get, options)),
       eventsPage: verb('emulated', eventsPage),
       commentsPage: perKind({ issue: true, pull_request: true }, commentsPage),
     },

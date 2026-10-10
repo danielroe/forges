@@ -1,5 +1,5 @@
 import type { Fetcher, FetcherOptions } from './fetch.ts'
-import type { ApproveAndMergeOptions, Check, Comment, Cursor, ForgeEventInput, ForgeInstance, ForgeKind, Installation, ListOptions, MergeOptions, Notification, NotificationListOptions, Page, RepoRef, SecurityAlertKind, SecurityAlertListOptions, Support, TextLimits, ThreadKind, ThreadQuery, ThreadRef, UpsertCommentInput, UpsertCommentResult, WebhookEventType } from './model.ts'
+import type { ApproveAndMergeOptions, BaseOptions, Check, Comment, Cursor, ForgeEventInput, ForgeInstance, ForgeKind, Installation, ListOptions, MergeOptions, Notification, NotificationListOptions, Page, RepoRef, SecurityAlertKind, SecurityAlertListOptions, Support, TextLimits, ThreadKind, ThreadQuery, ThreadRef, UpsertCommentInput, UpsertCommentResult, WebhookEventType } from './model.ts'
 import type {
   AuthKind,
   ChecksApi,
@@ -149,7 +149,7 @@ export interface ProviderSpec {
     approveAndMerge?: { support: SupportInput }
     /** One capability covers reading and changing the subscription. */
     subscriptions?: KindVerb<{ [K in 'subscription' | 'subscribe' | 'unsubscribe']: NonNullable<ThreadsApi[K]> }>
-    checks?: KindVerb<(ref: ThreadRef) => Promise<Page<Check>>>
+    checks?: KindVerb<(ref: ThreadRef, options?: BaseOptions) => Promise<Page<Check>>>
     reviewsPage?: Verb<ThreadsApi['reviewsPage']>
     createReview?: Verb<ThreadsApi['createReview']>
     submitReview?: Verb<ThreadsApi['submitReview']>
@@ -479,8 +479,8 @@ function createProvider<TOptions extends ForgeOptionsBase, TState>(
   const createReview = spec.threads.createReview
   const approve = spec.threads.approve ?? (createReview && {
     support: createReview.support,
-    run: async (ref: ThreadRef, body?: string) => {
-      await createReview.run(ref, { event: 'approve', body })
+    run: async (ref: ThreadRef, body?: string, options?: BaseOptions) => {
+      await createReview.run(ref, { event: 'approve', body }, options)
     },
   })
   const declaredSubscribe = spec.sources?.subscribe
@@ -523,11 +523,11 @@ function createProvider<TOptions extends ForgeOptionsBase, TState>(
     'threads.unsubscribe': kindGate('threads.unsubscribe', subscriptions?.kinds, subscriptions?.run.unsubscribe),
     'threads.approve': gate('threads.approve', approve?.support, approve?.run),
     'threads.approveAndMerge': gate('threads.approveAndMerge', (mergeEnv: CapabilityEnv) => approveAndMergeSupport(spec, mergeEnv), async (ref: ThreadRef, { body, ...mergeOptions }: ApproveAndMergeOptions = {}) => {
-      await spec.threads.merge!.run(ref, mergeOptions, { beforeMerge: () => call('threads.approve')(ref, body) })
+      await spec.threads.merge!.run(ref, mergeOptions, { beforeMerge: () => call('threads.approve')(ref, body, { signal: mergeOptions.signal }) })
     }),
-    'contents.resolveRef': (repo: RepoRef, ref: string) => isSha(ref)
+    'contents.resolveRef': (repo: RepoRef, ref: string, options?: BaseOptions) => isSha(ref)
       ? Promise.resolve(ref.toLowerCase())
-      : gate('contents.resolveRef', spec.contents?.resolveRef?.support, spec.contents?.resolveRef?.run)(repo, ref),
+      : gate('contents.resolveRef', spec.contents?.resolveRef?.support, spec.contents?.resolveRef?.run)(repo, ref, options),
     'webhooks.verify': handlers ? handlers.verify : () => Promise.reject(unsupported('webhooks.verify')),
     'webhooks.ingest': async (delivery: WebhookDelivery) => {
       if (!handlers) {
@@ -582,17 +582,17 @@ function createProvider<TOptions extends ForgeOptionsBase, TState>(
 
   const threads = api.threads as unknown as ThreadsApi
 
-  async function upsertComment(ref: ThreadRef, input: UpsertCommentInput): Promise<UpsertCommentResult> {
+  async function upsertComment(ref: ThreadRef, input: UpsertCommentInput, options?: BaseOptions): Promise<UpsertCommentResult> {
     const body = hasCommentMarker(input.body, input.key) ? input.body : `${input.body}\n\n${commentMarker(input.key)}`
     let existing: Comment | undefined
-    for await (const candidate of threads.comments(ref)) {
+    for await (const candidate of threads.comments(ref, options)) {
       if (hasCommentMarker(candidate.body, input.key)) {
         existing = candidate
       }
     }
     return existing
-      ? { comment: await threads.editComment(existing.ref, body), created: false }
-      : { comment: await threads.comment(ref, body), created: true }
+      ? { comment: await threads.editComment(existing.ref, body, options), created: false }
+      : { comment: await threads.comment(ref, body, options), created: true }
   }
 
   return {

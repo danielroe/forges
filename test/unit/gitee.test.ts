@@ -1,3 +1,4 @@
+import type { FetchLike } from '../../src/fetch.ts'
 import { describe, expect, it } from 'vitest'
 import { MergeMethodRequiredError, UnsupportedOperationError } from '../../src/errors.ts'
 import { gitee } from '../../src/gitee/index.ts'
@@ -43,6 +44,34 @@ describe('gitee', () => {
 
     expect(calls[0]!.authorization).toBe('token gitee-token')
     expect(calls[0]!.url).not.toContain('access_token')
+  })
+
+  it('passes the caller\'s signal to the fallback list when the flagged release is a prerelease', async () => {
+    const controller = new AbortController()
+    const reason = new Error('cancelled')
+    const urls: string[] = []
+    let markListStarted!: () => void
+    const listStarted = new Promise<void>((resolve) => {
+      markListStarted = resolve
+    })
+    const fetch: FetchLike = async (url, init) => {
+      urls.push(url)
+      if (url.endsWith('/releases/latest')) {
+        return Response.json({ id: 2, tag_name: 'v2.0.0-beta', prerelease: true, created_at: '2025-01-02T00:00:00Z' })
+      }
+      markListStarted()
+      return new Promise<Response>((_resolve, reject) => {
+        init!.signal!.addEventListener('abort', () => reject(init!.signal!.reason), { once: true })
+      })
+    }
+    const provider = gitee({ auth: { type: 'token', token: 't' }, fetch }).create()
+
+    const pending = provider.releases.latest(repo, { signal: controller.signal })
+    await listStarted
+    controller.abort(reason)
+
+    await expect(pending).rejects.toBe(reason)
+    expect(urls.at(-1)).toContain('/releases?')
   })
 
   it('verifies signed webhooks as well as passwords', async () => {

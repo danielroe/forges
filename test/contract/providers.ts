@@ -74,7 +74,7 @@ export interface ProviderContract {
   /** Present when the forge reports reviews, or synthesises them from approvals. */
   reviews?: { states: string[], comments: boolean }
   /** Present when the forge has releases. */
-  releases?: { count: number, get: { id: string, tag: string }, latest: string }
+  releases?: { count: number, get: { id: string, tag: string }, latest: string, writes?: true }
   /** Present when the forge reports security alerts. */
   securityAlerts?: { kinds: string[], severities: string[] }
   /** Present when the forge supports `sources.subscribe`. */
@@ -109,7 +109,7 @@ export const contracts: ProviderContract[] = [
     name: 'github',
     checks: { summary: { state: 'failure', total: 3, failed: 1 }, names: ['test (ubuntu-latest)', 'lint', 'ci/netlify'] },
     reviews: { states: ['changes_requested', 'approved'], comments: true },
-    releases: { count: 2, get: { id: '9001', tag: 'v1.2.0' }, latest: 'v1.2.0' },
+    releases: { count: 2, get: { id: '9001', tag: 'v1.2.0' }, latest: 'v1.2.0', writes: true },
     securityAlerts: { kinds: ['dependency', 'code_scanning', 'secret'], severities: ['high', 'critical', 'unknown'] },
     fixtures: 'github',
     instance: 'github.com',
@@ -157,7 +157,7 @@ export const contracts: ProviderContract[] = [
     name: 'forgejo',
     checks: { summary: { state: 'failure', total: 2, failed: 1 }, names: ['ci/woodpecker/push/test', 'ci/woodpecker/push/lint'] },
     reviews: { states: ['approved'], comments: true },
-    releases: { count: 2, get: { id: '31001', tag: 'v0.4.0' }, latest: 'v0.4.0' },
+    releases: { count: 2, get: { id: '31001', tag: 'v0.4.0' }, latest: 'v0.4.0', writes: true },
     fixtures: 'forgejo',
     instance: 'codeberg.org',
     repo: { owner: 'acme', name: 'widgets' },
@@ -203,7 +203,7 @@ export const contracts: ProviderContract[] = [
     name: 'gitlab',
     checks: { summary: { state: 'failure' }, names: ['test: test', 'test: lint', 'deploy: deploy'] },
     reviews: { states: ['approved'], comments: false },
-    releases: { count: 2, get: { id: 'v2.0.0', tag: 'v2.0.0' }, latest: 'v2.0.0' },
+    releases: { count: 2, get: { id: 'v2.0.0', tag: 'v2.0.0' }, latest: 'v2.0.0', writes: true },
     securityAlerts: { kinds: ['dependency', 'code_scanning'], severities: ['high', 'critical'] },
     fixtures: 'gitlab',
     instance: 'gitlab.com',
