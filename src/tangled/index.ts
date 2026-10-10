@@ -149,70 +149,70 @@ const TANGLED: ProviderDefinition<TangledOptions> = {
       commentsPage: perKind(ISSUE_AND_PULL, (thread: ThreadRef) => wholePage(listComments(thread))),
     }
 
-    const comment: ThreadsApi['comment'] = async (thread, body) => {
+    const comment: ThreadsApi['comment'] = async (thread, body, options) => {
       const { ref, uri } = subjectUri(thread)
       const target = atUri(uri.did, uri.collection, uri.rkey)
-      const { cid } = await atproto.getRecord(target)
+      const { cid } = await atproto.getRecord(target, options?.signal)
       const record: FeedCommentRecord = {
         body: { $type: 'sh.tangled.markup.markdown', text: body, original: body },
         subject: { uri: target, cid: cid ?? '' },
         createdAt: new Date().toISOString(),
       }
-      const created = await createRecord(COLLECTIONS.comment, { ...record })
-      return toRecordComment(ref, created.uri, record, await actorFor(await viewerDid()))
+      const created = await createRecord(COLLECTIONS.comment, { ...record }, options?.signal)
+      return toRecordComment(ref, created.uri, record, await actorFor(await viewerDid(), options?.signal))
     }
-    const editComment: ThreadsApi['editComment'] = async (ref, body) => {
+    const editComment: ThreadsApi['editComment'] = async (ref, body, options) => {
       const record = await putOwnRecord(ref.id, current => ({
         ...current,
         body: typeof (current as FeedCommentRecord).body === 'string' ? body : { $type: 'sh.tangled.markup.markdown', text: body, original: body },
-      }))
-      return toRecordComment(ref.thread, ref.id, record as FeedCommentRecord, await actorFor(await viewerDid()))
+      }), options?.signal)
+      return toRecordComment(ref.thread, ref.id, record as FeedCommentRecord, await actorFor(await viewerDid(), options?.signal))
     }
-    const deleteComment: ThreadsApi['deleteComment'] = ref => deleteOwnRecord(ref.id)
-    const create: ThreadsApi['create'] = async (repo, input) => {
+    const deleteComment: ThreadsApi['deleteComment'] = (ref, options) => deleteOwnRecord(ref.id, options?.signal)
+    const create: ThreadsApi['create'] = async (repo, input, options) => {
       if (input.kind !== 'issue') {
         throw new UnsupportedOperationError('Tangled pull requests are patches; only issues can be created', context)
       }
       if (input.labels?.length || input.assignees?.length) {
         throw new UnsupportedOperationError('Tangled labels and assignees are not written yet', context)
       }
-      const [address, repoDid] = await Promise.all([canonicalRef(repo), repoDidOf(repo)])
+      const [address, repoDid] = await Promise.all([canonicalRef(repo, options?.signal), repoDidOf(repo, options?.signal)])
       const record: IssueRecord = { repo: repoDid, title: input.title, body: input.body, createdAt: new Date().toISOString() }
-      const created = await createRecord(COLLECTIONS.issue, { ...record })
+      const created = await createRecord(COLLECTIONS.issue, { ...record }, options?.signal)
       const ref = toThreadRef(instance, { ...address, externalId: repoDid }, parseAtUri(created.uri)!)
-      return toThread(ref, record, await actorFor(await viewerDid()), {}, 0)
+      return toThread(ref, record, await actorFor(await viewerDid(), options?.signal), {}, 0)
     }
-    const update: ThreadsApi['update'] = async (thread, input) => {
+    const update: ThreadsApi['update'] = async (thread, input, options) => {
       const { ref, uri } = subjectUri(thread)
       const record = await putOwnRecord(atUri(uri.did, uri.collection, uri.rkey), current => ({
         ...current,
         ...input.title === undefined ? {} : { title: input.title },
         ...input.body === undefined ? {} : { body: input.body },
-      }))
-      return toThread(ref, record as IssueRecord | PullRecord, await actorFor(uri.did), {}, 0)
+      }), options?.signal)
+      return toThread(ref, record as IssueRecord | PullRecord, await actorFor(uri.did, options?.signal), {}, 0)
     }
-    const subscription: ThreadsApi['subscription'] = async thread => await findSubscription(thread) ? 'subscribed' : 'none'
-    const subscribe: ThreadsApi['subscribe'] = async (thread) => {
-      if (await findSubscription(thread)) {
+    const subscription: ThreadsApi['subscription'] = async (thread, options) => await findSubscription(thread, options?.signal) ? 'subscribed' : 'none'
+    const subscribe: ThreadsApi['subscribe'] = async (thread, options) => {
+      if (await findSubscription(thread, options?.signal)) {
         return
       }
       const { uri } = subjectUri(thread)
       await createRecord(COLLECTIONS.subscription, {
         subject: { $type: `${COLLECTIONS.subscription}#uri`, uri: atUri(uri.did, uri.collection, uri.rkey) },
         createdAt: new Date().toISOString(),
-      })
+      }, options?.signal)
     }
-    const unsubscribe: ThreadsApi['unsubscribe'] = async (thread) => {
-      const existing = await findSubscription(thread)
+    const unsubscribe: ThreadsApi['unsubscribe'] = async (thread, options) => {
+      const existing = await findSubscription(thread, options?.signal)
       if (existing) {
-        await deleteOwnRecord(existing)
+        await deleteOwnRecord(existing, options?.signal)
       }
     }
-    const setState = async (thread: ThreadRef, state: 'open' | 'closed') => {
+    const setState = async (thread: ThreadRef, state: 'open' | 'closed', signal?: AbortSignal) => {
       const { uri, kind } = subjectUri(thread)
       const target = atUri(uri.did, uri.collection, uri.rkey)
-      const { ref } = await threadFor(target)
-      const [viewer, allowed] = await Promise.all([viewerDid(), stateAuthors(uri.did, ref.repo)])
+      const { ref } = await threadFor(target, signal)
+      const [viewer, allowed] = await Promise.all([viewerDid(), stateAuthors(uri.did, ref.repo, undefined, signal)])
       if (!allowed.has(viewer)) {
         throw new InsufficientScopeError(
           'Only the author, the repo owner or a collaborator can change this state; the appview would ignore the record',
@@ -223,10 +223,10 @@ const TANGLED: ProviderDefinition<TangledOptions> = {
       }
       await createRecord(STATE_COLLECTION[kind].collection, kind === 'issue'
         ? { issue: target, state: `${COLLECTIONS.issueState}.${state}`, createdAt: new Date().toISOString() }
-        : { pull: target, status: `${COLLECTIONS.pullStatus}.${state}`, createdAt: new Date().toISOString() })
+        : { pull: target, status: `${COLLECTIONS.pullStatus}.${state}`, createdAt: new Date().toISOString() }, signal)
     }
-    const close: ThreadsApi['close'] = thread => setState(thread, 'closed')
-    const reopen: ThreadsApi['reopen'] = thread => setState(thread, 'open')
+    const close: ThreadsApi['close'] = (thread, options) => setState(thread, 'closed', options?.signal)
+    const reopen: ThreadsApi['reopen'] = (thread, options) => setState(thread, 'open', options?.signal)
 
     const notificationsUrl = options.notificationsUrl?.replace(/\/$/, '')
     const notifications = writable && notificationsUrl

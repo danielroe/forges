@@ -76,7 +76,7 @@ function setupGitee({ instance, origin: context, fetcher, baseUrl }: ProviderCon
   }
 
   /** Gitee records an approval, with no review object to read back. */
-  async function createReview(thread: ThreadRef, input: ReviewInput): Promise<Review> {
+  async function createReview(thread: ThreadRef, input: ReviewInput, options?: { signal?: AbortSignal }): Promise<Review> {
     const ref = requireThread(thread, context)
     if (ref.kind !== 'pull_request') {
       throw new UnsupportedOperationError('Only pull requests can be reviewed', context)
@@ -87,7 +87,7 @@ function setupGitee({ instance, origin: context, fetcher, baseUrl }: ProviderCon
     if (input.comments?.length) {
       throw new UnsupportedOperationError('Gitee approvals carry no inline comments', context)
     }
-    const { data } = await fetcher.json<{ id?: number }>(`${threadPath(ref)}/review`, { method: 'POST', json: input.body ? { body: input.body } : {} })
+    const { data } = await fetcher.json<{ id?: number }>(`${threadPath(ref)}/review`, { method: 'POST', json: input.body ? { body: input.body } : {}, signal: options?.signal })
     return {
       ref: { forge: FORGE, instance, thread: ref, id: String(data?.id ?? 'approval') },
       state: 'approved',
@@ -239,17 +239,17 @@ function setupGitee({ instance, origin: context, fetcher, baseUrl }: ProviderCon
   }
 
   /** Issue writes are addressed by owner, with the repository in the body. */
-  function issueWrite(ref: ResolvedThreadRef, json: Record<string, unknown>) {
-    return fetcher.json<GiteeIssue>(`/repos/${encodeURIComponent(ref.repo.owner)}/issues/${encodeURIComponent(ref.number)}`, { method: 'PATCH', json: { repo: ref.repo.name, ...json } })
+  function issueWrite(ref: ResolvedThreadRef, json: Record<string, unknown>, signal?: AbortSignal) {
+    return fetcher.json<GiteeIssue>(`/repos/${encodeURIComponent(ref.repo.owner)}/issues/${encodeURIComponent(ref.number)}`, { method: 'PATCH', json: { repo: ref.repo.name, ...json }, signal })
   }
 
-  async function setState(thread: ThreadRef, state: 'open' | 'closed'): Promise<void> {
+  async function setState(thread: ThreadRef, state: 'open' | 'closed', options?: { signal?: AbortSignal }): Promise<void> {
     const ref = requireIssueOrPull(thread, context, state === 'open' ? 'reopen' : 'close')
     if (ref.kind === 'issue') {
-      await issueWrite(ref, { state })
+      await issueWrite(ref, { state }, options?.signal)
       return
     }
-    await fetcher.raw(threadPath(ref), { method: 'PATCH', json: { state } })
+    await fetcher.raw(threadPath(ref), { method: 'PATCH', json: { state }, signal: options?.signal })
   }
 
   async function notificationPage(listOptions: NotificationListOptions = {}): Promise<Page<Notification>> {
@@ -289,10 +289,11 @@ function setupGitee({ instance, origin: context, fetcher, baseUrl }: ProviderCon
         const page = await numberedPage<GiteeLabel>(`${repoPath(repo)}/labels`, {}, listOptions)
         return { items: page.items.map(raw => ({ name: raw.name, colour: raw.color ?? undefined })), cursor: page.cursor }
       }),
-      createLabel: verb('unverified', async (repo, label) => {
+      createLabel: verb('unverified', async (repo, label, options) => {
         const { data } = await fetcher.json<GiteeLabel>(`${repoPath(repo)}/labels`, {
           method: 'POST',
           json: { name: label.name, color: hexColour(label.colour) },
+          signal: options?.signal,
         })
         return { name: data.name, colour: data.color ?? undefined }
       }),
@@ -310,14 +311,14 @@ function setupGitee({ instance, origin: context, fetcher, baseUrl }: ProviderCon
     },
     notifications: {
       listPage: verb(true, notificationPage),
-      markRead: verb(true, async (ref) => {
-        await fetcher.raw(`/notifications/threads/${ref.id}`, { method: 'PATCH' })
+      markRead: verb(true, async (ref, options) => {
+        await fetcher.raw(`/notifications/threads/${ref.id}`, { method: 'PATCH', signal: options?.signal })
       }),
       markAllRead: verb('unverified', async (bulk: BulkNotificationOptions = {}) => {
         if (bulk.before) {
           throw new UnsupportedOperationError('Gitee marks notifications read without a time bound', context)
         }
-        await fetcher.raw(bulk.repo ? `${repoPath(bulk.repo)}/notifications` : '/notifications/threads', { method: 'PUT' })
+        await fetcher.raw(bulk.repo ? `${repoPath(bulk.repo)}/notifications` : '/notifications/threads', { method: 'PUT', signal: bulk.signal })
       }),
       unreadCount: verb(true, async options => (await fetcher.json<{ notification_count?: number, total_count?: number }>('/notifications/count', { query: { unread: true }, signal: options?.signal })).data.notification_count ?? 0),
     },
@@ -415,19 +416,19 @@ function setupGitee({ instance, origin: context, fetcher, baseUrl }: ProviderCon
         return { items: (data ?? []).map(raw => toCommit(thread.repo, raw)) }
       }),
       commentsPage: perKind({ issue: true, pull_request: true }, commentsPage),
-      comment: perKind({ issue: 'unverified', pull_request: true }, async (thread, body) => {
+      comment: perKind({ issue: 'unverified', pull_request: true }, async (thread, body, options) => {
         const ref = requireIssueOrPull(thread, context, 'comment on')
-        return toComment(ref, (await fetcher.json<GiteeComment>(`${threadPath(ref)}/comments`, { method: 'POST', json: { body } })).data)
+        return toComment(ref, (await fetcher.json<GiteeComment>(`${threadPath(ref)}/comments`, { method: 'POST', json: { body }, signal: options?.signal })).data)
       }),
-      editComment: perKind({ issue: 'unverified', pull_request: 'unverified' }, async (ref, body) => {
+      editComment: perKind({ issue: 'unverified', pull_request: 'unverified' }, async (ref, body, options) => {
         const kind = ref.thread.kind === 'pull_request' ? 'pulls' : 'issues'
-        return toComment(ref.thread, (await fetcher.json<GiteeComment>(`${repoPath(ref.thread.repo)}/${kind}/comments/${ref.id}`, { method: 'PATCH', json: { body } })).data)
+        return toComment(ref.thread, (await fetcher.json<GiteeComment>(`${repoPath(ref.thread.repo)}/${kind}/comments/${ref.id}`, { method: 'PATCH', json: { body }, signal: options?.signal })).data)
       }),
-      deleteComment: perKind({ issue: 'unverified', pull_request: 'unverified' }, async (ref) => {
+      deleteComment: perKind({ issue: 'unverified', pull_request: 'unverified' }, async (ref, options) => {
         const kind = ref.thread.kind === 'pull_request' ? 'pulls' : 'issues'
-        await fetcher.raw(`${repoPath(ref.thread.repo)}/${kind}/comments/${ref.id}`, { method: 'DELETE' })
+        await fetcher.raw(`${repoPath(ref.thread.repo)}/${kind}/comments/${ref.id}`, { method: 'DELETE', signal: options?.signal })
       }),
-      create: perKind({ issue: 'unverified', pull_request: 'unverified' }, async (repo, input) => {
+      create: perKind({ issue: 'unverified', pull_request: 'unverified' }, async (repo, input, options) => {
         const labels = input.labels?.join(',')
         if (input.kind === 'issue') {
           if ((input.assignees?.length ?? 0) > 1) {
@@ -436,6 +437,7 @@ function setupGitee({ instance, origin: context, fetcher, baseUrl }: ProviderCon
           const { data } = await fetcher.json<GiteeIssue>(`/repos/${encodeURIComponent(repo.owner)}/issues`, {
             method: 'POST',
             json: { repo: repo.name, title: input.title, body: input.body, labels, assignee: input.assignees?.[0] ? actorLogin(input.assignees[0]) : undefined },
+            signal: options?.signal,
           })
           return toIssueThread({ forge: FORGE, instance, repo, kind: 'issue', number: data.number }, data)
         }
@@ -445,37 +447,38 @@ function setupGitee({ instance, origin: context, fetcher, baseUrl }: ProviderCon
         const { data } = await fetcher.json<GiteePullRequest>(`${repoPath(repo)}/pulls`, {
           method: 'POST',
           json: { title: input.title, body: input.body, head: input.head, base: input.base, labels, draft: input.draft, assignees: input.assignees?.map(actorLogin).join(',') },
+          signal: options?.signal,
         })
         return toPullThread({ forge: FORGE, instance, repo, kind: 'pull_request', number: String(data.number) }, data)
       }),
-      update: perKind({ issue: 'unverified', pull_request: 'unverified' }, async (thread, input) => {
+      update: perKind({ issue: 'unverified', pull_request: 'unverified' }, async (thread, input, options) => {
         const ref = requireIssueOrPull(thread, context, 'update')
         return ref.kind === 'issue'
-          ? toIssueThread(ref, (await issueWrite(ref, { ...input })).data)
-          : toPullThread(ref, (await fetcher.json<GiteePullRequest>(threadPath(ref), { method: 'PATCH', json: input })).data)
+          ? toIssueThread(ref, (await issueWrite(ref, { ...input }, options?.signal)).data)
+          : toPullThread(ref, (await fetcher.json<GiteePullRequest>(threadPath(ref), { method: 'PATCH', json: input, signal: options?.signal })).data)
       }),
-      close: perKind({ issue: 'unverified', pull_request: true }, ref => setState(ref, 'closed')),
-      reopen: perKind({ issue: 'unverified', pull_request: true }, ref => setState(ref, 'open')),
-      addLabels: perKind({ issue: 'unverified', pull_request: 'unverified' }, async (thread, labels) => {
-        await fetcher.raw(`${threadPath(requireIssueOrPull(thread, context, 'label'))}/labels`, { method: 'POST', json: labels })
+      close: perKind({ issue: 'unverified', pull_request: true }, (ref, options) => setState(ref, 'closed', options)),
+      reopen: perKind({ issue: 'unverified', pull_request: true }, (ref, options) => setState(ref, 'open', options)),
+      addLabels: perKind({ issue: 'unverified', pull_request: 'unverified' }, async (thread, labels, options) => {
+        await fetcher.raw(`${threadPath(requireIssueOrPull(thread, context, 'label'))}/labels`, { method: 'POST', json: labels, signal: options?.signal })
       }),
-      removeLabels: perKind({ issue: 'unverified', pull_request: 'unverified' }, async (thread, labels) => {
+      removeLabels: perKind({ issue: 'unverified', pull_request: 'unverified' }, async (thread, labels, options) => {
         const ref = requireIssueOrPull(thread, context, 'label')
         for (const label of labels) {
-          await fetcher.raw(`${threadPath(ref)}/labels/${encodeURIComponent(label)}`, { method: 'DELETE' })
+          await fetcher.raw(`${threadPath(ref)}/labels/${encodeURIComponent(label)}`, { method: 'DELETE', signal: options?.signal })
         }
       }),
-      setLabels: perKind({ issue: 'unverified', pull_request: 'unverified' }, async (thread, labels) => {
-        await fetcher.raw(`${threadPath(requireIssueOrPull(thread, context, 'label'))}/labels`, { method: 'PUT', json: labels })
+      setLabels: perKind({ issue: 'unverified', pull_request: 'unverified' }, async (thread, labels, options) => {
+        await fetcher.raw(`${threadPath(requireIssueOrPull(thread, context, 'label'))}/labels`, { method: 'PUT', json: labels, signal: options?.signal })
       }),
-      setAssignees: perKind({ issue: 'unverified' }, async (thread, assignees) => {
+      setAssignees: perKind({ issue: 'unverified' }, async (thread, assignees, options) => {
         if (assignees.length > 1) {
           throw new UnsupportedOperationError('Gitee issues take a single assignee', context)
         }
-        await issueWrite(requireIssueOrPull(thread, context, 'assign'), { assignee: assignees[0] ? actorLogin(assignees[0]) : '' })
+        await issueWrite(requireIssueOrPull(thread, context, 'assign'), { assignee: assignees[0] ? actorLogin(assignees[0]) : '' }, options?.signal)
       }),
-      requestReview: perKind({ pull_request: 'unverified' }, async (thread, reviewers) => {
-        await fetcher.raw(`${threadPath(requireThread(thread, context))}/assignees`, { method: 'POST', json: { assignees: reviewers.map(actorLogin).join(',') } })
+      requestReview: perKind({ pull_request: 'unverified' }, async (thread, reviewers, options) => {
+        await fetcher.raw(`${threadPath(requireThread(thread, context))}/assignees`, { method: 'POST', json: { assignees: reviewers.map(actorLogin).join(',') }, signal: options?.signal })
       }),
       merge: verb(true, async (thread, mergeOptions = {}, hooks = {}) => {
         const ref = requireThread(thread, context)
@@ -492,7 +495,7 @@ function setupGitee({ instance, origin: context, fetcher, baseUrl }: ProviderCon
           throw new UnsupportedOperationError(`Gitee does not support the ${mergeOptions.method} merge method`, context)
         }
         await hooks.beforeMerge?.()
-        await fetcher.raw(`${threadPath(ref)}/merge`, { method: 'PUT', json: { merge_method: mergeOptions.method, description: mergeOptions.message }, mapError: toMergeError })
+        await fetcher.raw(`${threadPath(ref)}/merge`, { method: 'PUT', json: { merge_method: mergeOptions.method, description: mergeOptions.message }, mapError: toMergeError, signal: mergeOptions.signal })
       }),
       checks: perKind(PULL, async (thread, options) => {
         const ref = requireThread(thread, context)
@@ -507,20 +510,23 @@ function setupGitee({ instance, origin: context, fetcher, baseUrl }: ProviderCon
         const page = await numberedPage<GiteeHook>(`${repoPath(target)}/hooks`, {}, listOptions)
         return { items: page.items.map(raw => toWebhook(target, raw)), cursor: page.cursor }
       }),
-      create: verb('unverified', async (target, input) => toWebhook(target, (await fetcher.json<GiteeHook>(`${repoPath(target)}/hooks`, {
+      create: verb('unverified', async (target, input, options) => toWebhook(target, (await fetcher.json<GiteeHook>(`${repoPath(target)}/hooks`, {
         method: 'POST',
         json: { url: input.url, password: input.secret, ...hookFlags(input) },
+        signal: options?.signal,
       })).data)),
-      update: verb('unverified', async (ref, update) => toWebhook(ref.target, (await fetcher.json<GiteeHook>(`${repoPath(ref.target)}/hooks/${ref.id}`, {
+      update: verb('unverified', async (ref, update, options) => toWebhook(ref.target, (await fetcher.json<GiteeHook>(`${repoPath(ref.target)}/hooks/${ref.id}`, {
         method: 'PATCH',
         json: { ...update.url ? { url: update.url } : {}, ...update.secret ? { password: update.secret } : {}, ...hookFlags(update) },
+        signal: options?.signal,
       })).data)),
-      delete: verb('unverified', async (ref) => {
-        await fetcher.raw(`${repoPath(ref.target)}/hooks/${ref.id}`, { method: 'DELETE' })
+      delete: verb('unverified', async (ref, options) => {
+        await fetcher.raw(`${repoPath(ref.target)}/hooks/${ref.id}`, { method: 'DELETE', signal: options?.signal })
       }),
-      rotateSecret: verb('unverified', async (ref, secret) => toWebhook(ref.target, (await fetcher.json<GiteeHook>(`${repoPath(ref.target)}/hooks/${ref.id}`, {
+      rotateSecret: verb('unverified', async (ref, secret, options) => toWebhook(ref.target, (await fetcher.json<GiteeHook>(`${repoPath(ref.target)}/hooks/${ref.id}`, {
         method: 'PATCH',
         json: { password: secret },
+        signal: options?.signal,
       })).data)),
     },
     scopes: giteeScopesFor,

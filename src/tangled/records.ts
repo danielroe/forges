@@ -478,10 +478,10 @@ export function createTangledRecords({ options, instance, webUrl, context, atpro
     })
   }
 
-  async function findSubscription(thread: ThreadRef): Promise<string | undefined> {
+  async function findSubscription(thread: ThreadRef, signal?: AbortSignal): Promise<string | undefined> {
     const { uri } = subjectUri(thread)
     const target = atUri(uri.did, uri.collection, uri.rkey)
-    for await (const record of ownRecords<SubscriptionRecord>(COLLECTIONS.subscription)) {
+    for await (const record of ownRecords<SubscriptionRecord>(COLLECTIONS.subscription, signal)) {
       if (record.value.subject.uri === target) {
         return record.uri
       }

@@ -80,7 +80,7 @@ function setupOrigin({ options, baseUrl, instance, origin: context, fetcher, cre
 
   const VERDICTS: Record<ReviewEvent, OriginReview['verdict']> = { approve: 'approve', request_changes: 'request_changes', comment: 'comment' }
 
-  async function createReview(thread: ThreadRef, input: ReviewInput): Promise<Review> {
+  async function createReview(thread: ThreadRef, input: ReviewInput, options?: { signal?: AbortSignal }): Promise<Review> {
     const ref = requireThread(thread, context)
     if (!input.event) {
       throw new UnsupportedOperationError('Cursor Origin has no pending reviews; pass an event', context)
@@ -91,12 +91,13 @@ function setupOrigin({ options, baseUrl, instance, origin: context, fetcher, cre
     const { data } = await fetcher.json<OriginReview>(`${pullPath(ref)}/reviews`, {
       method: 'POST',
       json: { verdict: VERDICTS[input.event], body: input.body ?? '' },
+      signal: options?.signal,
     })
     return toReview(ref, data)
   }
 
-  async function setThreadResolved(id: string, resolved: boolean): Promise<void> {
-    await fetcher.raw(`/pulls/threads/${encodeURIComponent(id)}`, { method: 'PATCH', json: { resolved } })
+  async function setThreadResolved(id: string, resolved: boolean, options?: { signal?: AbortSignal }): Promise<void> {
+    await fetcher.raw(`/pulls/threads/${encodeURIComponent(id)}`, { method: 'PATCH', json: { resolved }, signal: options?.signal })
   }
 
   async function listPage(repo: RepoRef, query: ThreadQuery = {}): Promise<Page<Thread>> {
@@ -301,15 +302,15 @@ function setupOrigin({ options, baseUrl, instance, origin: context, fetcher, cre
         return { items: page.items.map(raw => toCommit(thread.repo, raw)), cursor: page.cursor }
       }),
       commentsPage: perKind(PULL, commentsPage),
-      comment: perKind(PULL, async (thread, body) => {
+      comment: perKind(PULL, async (thread, body, options) => {
         const ref = requireThread(thread, context)
-        return toComment(ref, (await fetcher.json<OriginComment>(`${pullPath(ref)}/comments`, { method: 'POST', json: { body } })).data)
+        return toComment(ref, (await fetcher.json<OriginComment>(`${pullPath(ref)}/comments`, { method: 'POST', json: { body }, signal: options?.signal })).data)
       }),
-      editComment: perKind(UNVERIFIED, async (ref, body) => toComment(ref.thread, (await fetcher.json<OriginComment>(`${repoPath(ref.thread.repo)}/pulls/comments/${ref.id}`, { method: 'PATCH', json: { body } })).data)),
-      deleteComment: perKind(UNVERIFIED, async (ref) => {
-        await fetcher.raw(`${repoPath(ref.thread.repo)}/pulls/comments/${ref.id}`, { method: 'DELETE' })
+      editComment: perKind(UNVERIFIED, async (ref, body, options) => toComment(ref.thread, (await fetcher.json<OriginComment>(`${repoPath(ref.thread.repo)}/pulls/comments/${ref.id}`, { method: 'PATCH', json: { body }, signal: options?.signal })).data)),
+      deleteComment: perKind(UNVERIFIED, async (ref, options) => {
+        await fetcher.raw(`${repoPath(ref.thread.repo)}/pulls/comments/${ref.id}`, { method: 'DELETE', signal: options?.signal })
       }),
-      create: perKind(UNVERIFIED, async (repo, input) => {
+      create: perKind(UNVERIFIED, async (repo, input, options) => {
         if (input.assignees?.length) {
           throw new UnsupportedOperationError('Cursor Origin pull requests have no assignees', context)
         }
@@ -319,29 +320,30 @@ function setupOrigin({ options, baseUrl, instance, origin: context, fetcher, cre
         const { data } = await fetcher.json<OriginPullRequest>(`${repoPath(repo)}/pulls`, {
           method: 'POST',
           json: { title: input.title, body: input.body ?? '', head: input.head, base: input.base, draft: input.draft ?? false },
+          signal: options?.signal,
         })
         const ref: ResolvedThreadRef = { forge: FORGE, instance, repo, kind: 'pull_request', number: data.number }
         if (input.labels?.length) {
-          await fetcher.raw(`${pullPath(ref)}/labels`, { method: 'PUT', json: { labels: input.labels } })
+          await fetcher.raw(`${pullPath(ref)}/labels`, { method: 'PUT', json: { labels: input.labels }, signal: options?.signal })
         }
         return toThread(ref, data)
       }),
-      update: perKind(UNVERIFIED, async (thread, input) => {
+      update: perKind(UNVERIFIED, async (thread, input, options) => {
         const ref = requireThread(thread, context)
-        return toThread(ref, (await fetcher.json<OriginPullRequest>(pullPath(ref), { method: 'PATCH', json: input })).data)
+        return toThread(ref, (await fetcher.json<OriginPullRequest>(pullPath(ref), { method: 'PATCH', json: input, signal: options?.signal })).data)
       }),
-      close: perKind(PULL, async (thread) => {
-        await fetcher.raw(pullPath(requireThread(thread, context)), { method: 'PATCH', json: { state: 'closed' } })
+      close: perKind(PULL, async (thread, options) => {
+        await fetcher.raw(pullPath(requireThread(thread, context)), { method: 'PATCH', json: { state: 'closed' }, signal: options?.signal })
       }),
-      reopen: perKind(PULL, async (thread) => {
-        await fetcher.raw(pullPath(requireThread(thread, context)), { method: 'PATCH', json: { state: 'open' } })
+      reopen: perKind(PULL, async (thread, options) => {
+        await fetcher.raw(pullPath(requireThread(thread, context)), { method: 'PATCH', json: { state: 'open' }, signal: options?.signal })
       }),
-      setLabels: perKind(UNVERIFIED, async (thread, labels) => {
-        await fetcher.raw(`${pullPath(requireThread(thread, context))}/labels`, { method: 'PUT', json: { labels } })
+      setLabels: perKind(UNVERIFIED, async (thread, labels, options) => {
+        await fetcher.raw(`${pullPath(requireThread(thread, context))}/labels`, { method: 'PUT', json: { labels }, signal: options?.signal })
       }),
-      requestReview: perKind(UNVERIFIED, async (thread, reviewers) => {
+      requestReview: perKind(UNVERIFIED, async (thread, reviewers, options) => {
         const users = reviewers.map(reviewer => typeof reviewer === 'string' ? reviewer : reviewer.id)
-        await fetcher.raw(`${pullPath(requireThread(thread, context))}/requested_reviewers`, { method: 'POST', json: { users } })
+        await fetcher.raw(`${pullPath(requireThread(thread, context))}/requested_reviewers`, { method: 'POST', json: { users }, signal: options?.signal })
       }),
       merge: verb('experimental', async (thread, mergeOptions = {}, hooks = {}) => {
         const ref = requireThread(thread, context)
@@ -356,11 +358,11 @@ function setupOrigin({ options, baseUrl, instance, origin: context, fetcher, cre
         }
         let method: MergeMethod | undefined = mergeOptions.method
         if (!method) {
-          const { data: repo } = await fetcher.json<OriginRepo>(repoPath(ref.repo))
+          const { data: repo } = await fetcher.json<OriginRepo>(repoPath(ref.repo), { signal: mergeOptions.signal })
           method = soleMergeMethod({ merge: repo.allowMergeCommit, squash: repo.allowSquashMerge }, context)
         }
         await hooks.beforeMerge?.()
-        await fetcher.raw(`${pullPath(ref)}/merge`, { method: 'POST', json: { mergeMethod: method, expectedHeadSha: mergeOptions.sha }, mapError: toMergeError })
+        await fetcher.raw(`${pullPath(ref)}/merge`, { method: 'POST', json: { mergeMethod: method, expectedHeadSha: mergeOptions.sha }, mapError: toMergeError, signal: mergeOptions.signal })
       }),
       reviewsPage: verb('experimental', async (thread, listOptions: PageOptions = {}) => {
         const ref = requireThread(thread, context)
@@ -369,8 +371,8 @@ function setupOrigin({ options, baseUrl, instance, origin: context, fetcher, cre
       }),
       createReview: verb('unverified', createReview),
       reviewThreads: verb('unverified', {
-        resolveReviewThread: (_thread, id) => setThreadResolved(id, true),
-        unresolveReviewThread: (_thread, id) => setThreadResolved(id, false),
+        resolveReviewThread: (_thread, id, options) => setThreadResolved(id, true, options),
+        unresolveReviewThread: (_thread, id, options) => setThreadResolved(id, false, options),
       }),
       checks: perKind(PULL, async (thread, options) => {
         const ref = requireThread(thread, context)
