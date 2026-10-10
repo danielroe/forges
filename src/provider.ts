@@ -752,9 +752,8 @@ export interface SecurityAlertsApi {
  */
 export interface RepoGetOptions extends BaseOptions {
   /**
-   * Ask the forge to include the repository's licence. Forges that report it in the
-   * repository payload anyway (GitHub, Forgejo, Gitea, Gitee) ignore this; GitLab only
-   * returns it when asked, because detecting a licence scans the repository.
+   * Includes the repository's licence in `Repo.licence`. GitLab reports it only on request, because detecting it
+   * scans the repository; other forges ignore this option.
    */
   licence?: boolean
 }

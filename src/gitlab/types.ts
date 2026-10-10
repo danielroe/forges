@@ -43,7 +43,7 @@ export interface GitLabProjectDetail extends GitLabProject {
   /** Set for projects in a user's namespace, not a group's. */
   owner?: GitLabUser | null
   /** Returned only when the request asks for `license=true`. */
-  license?: { key?: string, name?: string, spdx_identifier?: string } | null
+  license?: { key: string, name: string, nickname?: string | null, html_url?: string | null, source_url?: string | null } | null
 }
 
 export interface GitLabLabel {

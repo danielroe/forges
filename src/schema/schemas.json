@@ -2887,7 +2887,7 @@
       },
       "licence": {
         "type": "string",
-        "description": "SPDX identifier of the licence the forge detects, for example `MIT`."
+        "description": "SPDX identifier of the licence the forge detects, for example `MIT`. SPDX identifiers are case-insensitive, and GitLab reports them in lower case, such as `mit`."
       },
       "stars": {
         "type": "number"

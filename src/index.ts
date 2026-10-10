@@ -188,6 +188,7 @@ export type {
   NotificationWriteOptions,
   PerKind,
   ReleasesApi,
+  RepoGetOptions,
   ReposApi,
   SearchApi,
   SecurityAlertsApi,

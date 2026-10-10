@@ -230,13 +230,13 @@ describe('gitlab repository licence', () => {
     expect(result.licence).toBeUndefined()
   })
 
-  it('prefers the SPDX identifier over the key when GitLab reports one', async () => {
+  it('leaves licence undefined when GitLab cannot identify the licence', async () => {
     const { instance } = provider({
-      [`GET ${P}?license=true`]: { status: 200, body: { id: 278964, path_with_namespace: 'acme/platform/widgets', license: { key: 'lgpl-2.1', spdx_identifier: 'LGPL-2.1-only' } } },
+      [`GET ${P}?license=true`]: { status: 200, body: { id: 278964, path_with_namespace: 'acme/platform/widgets', license: { key: 'other', name: 'Other', nickname: 'LICENSE', html_url: null, source_url: null } } },
     })
     const result = await instance.repos.get(repo, { licence: true })
 
-    expect(result.licence).toBe('LGPL-2.1-only')
+    expect(result.licence).toBeUndefined()
   })
 
   it('leaves licence undefined when GitLab reports no licence', async () => {
