@@ -59,7 +59,7 @@ The `ci` methods read Gitea Actions. Runs and their jobs need Gitea 1.25 or late
 
 Gitea 1.25 is stricter about the list of runs: it shows it only to the owners of the repository and to site admins, and responds with `403` to anyone else. From 1.26, everyone who can read the repository can list its runs. Without a token, Gitea responds with `401` to the list of runs and to job logs, so an anonymous provider can read a run and its jobs, but not list runs or read logs.
 
-Released versions of Gitea don't say when a run was created, so `createdAt` is only set on newer builds, such as the one on gitea.com.
+Gitea before 28 doesn't say when a run was created, so `createdAt` is unset there.
 
 ## Webhooks
 

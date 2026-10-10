@@ -421,10 +421,9 @@ export function toStatusChecks(repo: RepoRef, raw: ForgejoCombinedStatus): Check
 /** Every Actions run and job status behind each normalised state, as the repeated `status` filter takes them. */
 export const ACTION_STATES: Record<Exclude<CheckState, 'unknown'>, string[]> = { pending: ['waiting', 'running', 'blocked'], success: ['success'], failure: ['failure', 'cancelled'], neutral: ['skipped'] }
 
-/** Gitea's statuses and conclusions behind each normalised state, as its repeated `status` filter takes them. It refuses `running` and `blocked`. */
+/** Gitea's statuses and conclusions behind each normalised state, as its repeated `status` filter takes them. */
 export const GITEA_ACTION_STATES: Record<Exclude<CheckState, 'unknown'>, string[]> = { pending: ['queued', 'waiting', 'in_progress'], success: ['success'], failure: ['failure', 'cancelled'], neutral: ['skipped'] }
 
-/** The normalised state of each raw status in `states`, read from the same table the filter sends. */
 function stateOf(states: Record<Exclude<CheckState, 'unknown'>, string[]>): Map<string, CheckState> {
   return new Map(Object.entries(states).flatMap(([state, raws]) => raws.map(raw => [raw, state as CheckState])))
 }
@@ -487,7 +486,6 @@ export function toGiteaActionRun(repo: RepoRef, raw: GiteaActionRun): CiRun {
   const state = giteaActionState(raw)
   return {
     ref: { forge: repo.forge, instance: repo.instance, repo, id: String(raw.id) },
-    // The workflow file, as Forgejo's `workflow_id` names it.
     name: raw.path?.split('@refs/')[0] || raw.display_title || String(raw.id),
     state,
     stateRaw: raw.status,
