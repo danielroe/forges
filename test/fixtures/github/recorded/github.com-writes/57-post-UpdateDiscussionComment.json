@@ -4,14 +4,14 @@
     "url": "https://api.github.com/graphql",
     "operationName": "UpdateDiscussionComment",
     "variables": {
-      "id": "DC_kwDOVCTdtM4BH4V9",
-      "body": "An edited comment from run 20261009210636."
+      "id": "DC_kwDOVCTdtM4BH6BD",
+      "body": "An edited comment from run 20261010111530."
     },
     "body": {
       "query": "mutation UpdateDiscussionComment($id: ID!, $body: String!) {\n  updateDiscussionComment(input: { commentId: $id, body: $body }) { comment { id databaseId body createdAt updatedAt url author { __typename login avatarUrl url ... on User { databaseId name } ... on Bot { databaseId } } } }\n}",
       "variables": {
-        "id": "DC_kwDOVCTdtM4BH4V9",
-        "body": "An edited comment from run 20261009210636."
+        "id": "DC_kwDOVCTdtM4BH6BD",
+        "body": "An edited comment from run 20261010111530."
       },
       "operationName": "UpdateDiscussionComment"
     }
@@ -21,18 +21,18 @@
     "headers": {
       "x-ratelimit-limit": "5000",
       "x-ratelimit-remaining": "4986",
-      "x-ratelimit-reset": "1791583617"
+      "x-ratelimit-reset": "1791634549"
     },
     "body": {
       "data": {
         "updateDiscussionComment": {
           "comment": {
-            "id": "DC_kwDOVCTdtM4BH4V9",
-            "databaseId": 18843005,
-            "body": "An edited comment from run 20261009210636.",
-            "createdAt": "2026-10-09T21:07:24Z",
-            "updatedAt": "2026-10-09T21:07:25Z",
-            "url": "https://github.com/forges-fixtures/forges-fixtures/discussions/33#discussioncomment-18843005",
+            "id": "DC_kwDOVCTdtM4BH6BD",
+            "databaseId": 18849859,
+            "body": "An edited comment from run 20261010111530.",
+            "createdAt": "2026-10-10T11:16:13Z",
+            "updatedAt": "2026-10-10T11:16:14Z",
+            "url": "https://github.com/forges-fixtures/forges-fixtures/discussions/33#discussioncomment-18849859",
             "author": {
               "__typename": "User",
               "login": "danielroe-bot",

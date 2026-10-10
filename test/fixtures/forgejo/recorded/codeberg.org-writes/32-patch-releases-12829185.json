@@ -1,0 +1,55 @@
+{
+  "request": {
+    "method": "PATCH",
+    "url": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/releases/12829185",
+    "body": {
+      "body": "Published by run 20261010111718.",
+      "draft": false,
+      "prerelease": false
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "id": 12829185,
+      "tag_name": "forges-fixture-20261010111718-draft",
+      "target_commitish": "main",
+      "name": "forges fixture 20261010111718: draft",
+      "body": "Published by run 20261010111718.",
+      "url": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/releases/12829185",
+      "html_url": "https://codeberg.org/forges-fixtures/forges-fixtures/releases/tag/forges-fixture-20261010111718-draft",
+      "tarball_url": "https://codeberg.org/forges-fixtures/forges-fixtures/archive/forges-fixture-20261010111718-draft.tar.gz",
+      "zipball_url": "https://codeberg.org/forges-fixtures/forges-fixtures/archive/forges-fixture-20261010111718-draft.zip",
+      "hide_archive_links": false,
+      "upload_url": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/releases/12829185/assets",
+      "draft": false,
+      "prerelease": false,
+      "created_at": "2026-10-10T13:17:43+02:00",
+      "published_at": "2026-10-10T13:17:43+02:00",
+      "author": {
+        "id": 1540800,
+        "login": "roebot",
+        "source_id": 0,
+        "full_name": "",
+        "email": "redacted@example.invalid",
+        "avatar_url": "https://codeberg.org/avatars/278913be448f1cbee39f7fbfb40634a9",
+        "html_url": "https://codeberg.org/roebot",
+        "active": false,
+        "location": "",
+        "pronouns": "",
+        "website": "",
+        "description": "Machine account operated by @danielroe",
+        "followers_count": 0,
+        "following_count": 0,
+        "starred_repos_count": 0,
+        "username": "roebot"
+      },
+      "assets": [],
+      "archive_download_count": {
+        "zip": 0,
+        "tar_gz": 0
+      }
+    }
+  }
+}

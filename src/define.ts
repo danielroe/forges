@@ -223,6 +223,10 @@ export interface ProviderSpec {
     getByTag?: Verb<ReleasesApi['getByTag']>
     /** The implementation of `provider.releases.downloadAsset()`. */
     downloadAsset?: Verb<ReleasesApi['downloadAsset']>
+    /** The implementation of `provider.releases.create()`. */
+    create?: Verb<ReleasesApi['create']>
+    /** The implementation of `provider.releases.update()`. */
+    update?: Verb<ReleasesApi['update']>
   }
   /** Support per alert kind; `listPage` is called with `kind` unset to list every supported kind. */
   securityAlerts?: {

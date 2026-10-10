@@ -1,0 +1,14 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://gitea.com/api/v1/repos/forges-fixtures/forges-fixtures/pulls/21/merge",
+    "body": {
+      "Do": "merge",
+      "MergeMessageField": "Merged by run 20261010111304"
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {}
+  }
+}

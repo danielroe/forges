@@ -2,7 +2,7 @@ import type { GitHubNotification } from '../../src/github/types.ts'
 import type { ThreadRef } from '../../src/model.ts'
 import { generateKeyPairSync } from 'node:crypto'
 import { describe, expect, it, vi } from 'vitest'
-import { ContentNotTextError, ForbiddenError, InsufficientScopeError, UnresolvedThreadError, UnsupportedOperationError } from '../../src/errors.ts'
+import { ContentNotTextError, ForbiddenError, InsufficientScopeError, ReadOnlyError, UnresolvedThreadError, UnsupportedOperationError } from '../../src/errors.ts'
 import { graphqlUrl } from '../../src/github/graphql-client.ts'
 import { github } from '../../src/github/index.ts'
 import { toEvent, toNotification, toReason, toRepo } from '../../src/github/normalise.ts'
@@ -753,6 +753,17 @@ describe('github webhook management', () => {
 
     expect(provider.scopesFor('webhooks.create')).toEqual({ token: ['admin:repo_hook', 'admin:org_hook'], permissions: { webhooks: 'admin' } })
     expect(provider.scopesFor('threads.close').permissions).toMatchObject({ issues: 'write' })
+  })
+})
+
+describe('github release writes', () => {
+  it('rejects release writes on a read-only provider without sending them', async () => {
+    const { fetch, calls } = fixtureFetch('github')
+    const provider = github({ auth: { type: 'token', token: 't' }, fetch, readOnly: true }).create()
+
+    await expect(provider.releases.create(repo, { tag: 'v1.3.0' })).rejects.toThrow(ReadOnlyError)
+    expect(provider.can('releases.update')).toBe(false)
+    expect(calls).toEqual([])
   })
 })
 

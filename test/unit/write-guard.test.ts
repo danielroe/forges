@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest'
+import { afterEach, describe, expect, it, vi } from 'vitest'
 import { guardedFetch } from '../../scripts/write-guard.ts'
 import { writeHarness } from '../../scripts/write-harness.ts'
 
@@ -67,5 +67,36 @@ describe('write recording guard', () => {
     await graphql('query Viewer { viewer { id } }', {})
 
     await expect(graphql('mutation React($id: ID!) { x }', { id: 'I_kwDOscratch1' })).rejects.toThrow(/did not come from the scratch repository/)
+  })
+})
+
+describe('write recording cleanup', () => {
+  afterEach(() => {
+    vi.unstubAllGlobals()
+  })
+
+  const tag = 'forges-fixture-20261010120000'
+
+  it.each([
+    ['github', 'https://api.github.com', '/repos/bot/forges-fixtures', [`/releases/2`, `/git/refs/tags/${tag}`]],
+    ['forgejo', 'https://codeberg.org/api/v1', '/repos/bot/forges-fixtures', [`/releases/2`, `/tags/${tag}`]],
+    ['gitlab', 'https://gitlab.com/api/v4', '/projects/bot%2Fforges-fixtures', [`/releases/${tag}`, `/repository/tags/${tag}`]],
+  ])('deletes only the fixture releases and tags on %s, releases first', async (forge, baseUrl, repo, deleted) => {
+    const sent: string[] = []
+    vi.stubGlobal('fetch', async (input: string, init?: RequestInit) => {
+      sent.push(`${init?.method ?? 'GET'} ${input}`)
+      const path = new URL(input).pathname
+      const body = path.endsWith('/releases')
+        ? [{ id: 1, tag_name: 'v0.0.1' }, { id: 2, tag_name: tag }]
+        : path.endsWith('/tags')
+          ? [{ name: 'v0.0.1' }, { name: tag }]
+          : path.includes('/matching-refs/') ? [{ ref: `refs/tags/${tag}` }] : []
+      return new Response(JSON.stringify(body))
+    })
+    const harness = writeHarness({ forge, baseUrl, authorization: '', scratch: { forge, instance: new URL(baseUrl).host, owner: 'bot', name: 'forges-fixtures' } })!
+
+    await harness.cleanUp([], undefined, [])
+
+    expect(sent.filter(line => line.startsWith('DELETE'))).toEqual(deleted.map(path => `DELETE ${baseUrl}${repo}${path}`))
   })
 })

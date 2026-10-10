@@ -22,6 +22,7 @@ import type {
   PageOptions,
   ReactionContent,
   Release,
+  ReleaseUpdate,
   Repo,
   RepoRef,
   RepoRole,
@@ -356,6 +357,15 @@ const GITLAB: ProviderDefinition<GitLabOptions> = {
 
     async function releasesPage(repo: RepoRef, listOptions: PageOptions = {}): Promise<Page<Release>> {
       return list(`${projectPath(repo)}/releases`, listOptions, (raw: GitLabRelease) => toRelease(repo, raw))
+    }
+
+    function requirePublishedRelease(input: ReleaseUpdate): void {
+      if (input.draft) {
+        throw new UnsupportedOperationError('GitLab has no draft releases', context)
+      }
+      if (input.prerelease) {
+        throw new UnsupportedOperationError('GitLab has no prereleases', context)
+      }
     }
 
     async function listPage(repo: RepoRef, query: ThreadQuery = {}): Promise<Page<Thread>> {
@@ -753,6 +763,29 @@ const GITLAB: ProviderDefinition<GitLabOptions> = {
         latest: verb(true, async (repo) => {
           const { items } = await releasesPage(repo, { perPage: 20 })
           return items.find(release => release.publishedAt)
+        }),
+        create: verb(true, async (repo, input) => {
+          requirePublishedRelease(input)
+          const { data } = await fetcher.json<GitLabRelease>(`${projectPath(repo)}/releases`, {
+            method: 'POST',
+            json: { tag_name: input.tag, ref: input.target, name: input.name, description: input.body },
+          })
+          return toRelease(repo, data)
+        }),
+        update: verb(true, async (ref, update) => {
+          requirePublishedRelease(update)
+          const tag = ref.tag ?? ref.id
+          if (update.tag !== undefined && update.tag !== tag) {
+            throw new UnsupportedOperationError('GitLab keys a release by its tag, so the tag cannot change', context)
+          }
+          if (update.target !== undefined) {
+            throw new UnsupportedOperationError('GitLab cannot change the commit a release points to', context)
+          }
+          const { data } = await fetcher.json<GitLabRelease>(`${projectPath(ref.repo)}/releases/${encodeURIComponent(tag)}`, {
+            method: 'PUT',
+            json: { name: update.name, description: update.body },
+          })
+          return toRelease(ref.repo, data)
         }),
       },
       search: {

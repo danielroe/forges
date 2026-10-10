@@ -1,0 +1,47 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://gitea.com/api/v1/repos/forges-fixtures/forges-fixtures/pulls/20/reviews/383440",
+    "body": {
+      "event": "COMMENT",
+      "body": "A submitted review from run 20261010111304."
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "id": 383440,
+      "user": {
+        "id": 250665,
+        "login": "danielroe",
+        "type": "User",
+        "source_id": 1,
+        "full_name": "Daniel Roe",
+        "email": "redacted@example.invalid",
+        "avatar_url": "https://seccdn.libravatar.org/avatar/82a8f6237bb263bac46d7cc8ec3054d715ce6a55a8626d6e977769d57d2c94e6?d=identicon",
+        "html_url": "https://gitea.com/danielroe",
+        "active": true,
+        "location": "",
+        "website": "",
+        "description": "",
+        "followers_count": 0,
+        "following_count": 0,
+        "starred_repos_count": 0,
+        "username": "danielroe"
+      },
+      "team": null,
+      "state": "COMMENT",
+      "body": "A submitted review from run 20261010111304.",
+      "commit_id": "8d545941e4dd92916200946d667f89fdd4367496",
+      "stale": false,
+      "official": false,
+      "dismissed": false,
+      "comments_count": 1,
+      "submitted_at": "2026-10-10T11:13:26Z",
+      "updated_at": "2026-10-10T11:13:26Z",
+      "html_url": "https://gitea.com/forges-fixtures/forges-fixtures/pulls/20#pullrequestreview-383440",
+      "pull_request_url": "https://gitea.com/forges-fixtures/forges-fixtures/pulls/20"
+    }
+  }
+}

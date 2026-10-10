@@ -1,0 +1,51 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://gitea.com/api/v1/repos/forges-fixtures/forges-fixtures/releases",
+    "body": {
+      "tag_name": "forges-fixture-20261010111304",
+      "target_commitish": "main",
+      "name": "forges fixture 20261010111304: release",
+      "body": "Released by run 20261010111304."
+    }
+  },
+  "response": {
+    "status": 201,
+    "headers": {},
+    "body": {
+      "id": 971791,
+      "tag_name": "forges-fixture-20261010111304",
+      "target_commitish": "main",
+      "name": "forges fixture 20261010111304: release",
+      "body": "Released by run 20261010111304.",
+      "url": "https://gitea.com/api/v1/repos/forges-fixtures/forges-fixtures/releases/971791",
+      "html_url": "https://gitea.com/forges-fixtures/forges-fixtures/releases/tag/forges-fixture-20261010111304",
+      "tarball_url": "https://gitea.com/forges-fixtures/forges-fixtures/archive/forges-fixture-20261010111304.tar.gz",
+      "zipball_url": "https://gitea.com/forges-fixtures/forges-fixtures/archive/forges-fixture-20261010111304.zip",
+      "upload_url": "https://gitea.com/api/v1/repos/forges-fixtures/forges-fixtures/releases/971791/assets",
+      "draft": false,
+      "prerelease": false,
+      "created_at": "2026-10-10T11:13:30Z",
+      "published_at": "2026-10-10T11:13:39Z",
+      "author": {
+        "id": 253592,
+        "login": "roebot",
+        "type": "User",
+        "source_id": 0,
+        "full_name": "",
+        "email": "redacted@example.invalid",
+        "avatar_url": "https://seccdn.libravatar.org/avatar/7d0af08687f4da31dc47abdda8e558689d65a48bf3eb795bc032a553a4b0572b?d=identicon",
+        "html_url": "https://gitea.com/roebot",
+        "active": false,
+        "location": "",
+        "website": "",
+        "description": "Machine account operated by @danielroe",
+        "followers_count": 0,
+        "following_count": 0,
+        "starred_repos_count": 0,
+        "username": "roebot"
+      },
+      "assets": []
+    }
+  }
+}

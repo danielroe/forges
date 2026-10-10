@@ -1,0 +1,16 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/hooks/695209316/deliveries?per_page=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "\"16a19f434d2c8e44c0d4a79654833954e15557cb9ea20d06c68eb1461786ffa2\"",
+      "x-ratelimit-limit": "500",
+      "x-ratelimit-remaining": "494",
+      "x-ratelimit-reset": "1791631068"
+    },
+    "body": []
+  }
+}

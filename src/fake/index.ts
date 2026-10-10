@@ -26,6 +26,7 @@ import type {
   Page,
   Reaction,
   Release,
+  ReleaseRef,
   Repo,
   RepoRef,
   Review,
@@ -47,7 +48,7 @@ import type { ForgeCapabilities, ForgeOptionsBase, ForgeProvider, ForgeProviderF
 import { toFileContent } from '../contents.ts'
 import { bodyText, headerValue } from '../crypto.ts'
 import { defineForgeProvider, perKind, verb } from '../define.ts'
-import { NotFoundError } from '../errors.ts'
+import { ForgeApiError, NotFoundError } from '../errors.ts'
 import { completeEvent } from '../events.ts'
 import { capabilityOf } from '../supports.ts'
 import { getManyConcurrently } from '../utils.ts'
@@ -336,6 +337,20 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
       commits: [],
       assets: new Map(),
     })
+  }
+
+  function releaseState(ref: ReleaseRef): Release {
+    const release = repoState(ref.repo).releases.find(item => item.ref.id === ref.id || (ref.tag && item.tag === ref.tag))
+    if (!release) {
+      throw notFound(`No release ${ref.tag ?? ref.id}`)
+    }
+    return release
+  }
+
+  function requireFreeTag(releases: Release[], tag: string): void {
+    if (releases.some(release => release.tag === tag)) {
+      throw new ForgeApiError(`A release tagged ${tag} already exists`, 422, '', origin)
+    }
   }
 
   function webhookState(ref: WebhookRef): Webhook {
@@ -981,13 +996,7 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
       },
       releases: {
         listPage: verb(support('releases.list', true), async (repo, listOptions = {}) => pageOf(repoState(repo).releases.toReversed(), listOptions)),
-        get: verb(support('releases.get', true), async (ref) => {
-          const release = repoState(ref.repo).releases.find(item => item.ref.id === ref.id || (ref.tag && item.tag === ref.tag))
-          if (!release) {
-            throw notFound(`No release ${ref.tag ?? ref.id}`)
-          }
-          return release
-        }),
+        get: verb(support('releases.get', true), async ref => releaseState(ref)),
         getByTag: verb(support('releases.getByTag', true), async (repo, tag) => {
           const release = repoState(repo).releases.find(item => item.tag === tag)
           if (!release) {
@@ -1003,6 +1012,40 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
           return new Blob([bytes as Uint8Array<ArrayBuffer>]).stream()
         }),
         latest: verb(support('releases.latest', true), async repo => repoState(repo).releases.findLast(release => !release.isDraft && !release.isPrerelease)),
+        create: verb(support('releases.create', true), async (repo, input) => {
+          const state = repoState(repo)
+          requireFreeTag(state.releases, input.tag)
+          const now = new Date()
+          const release: Release = {
+            ref: { ...origin, repo: state.repo.ref, id: String(state.releases.length + 1), tag: input.tag },
+            tag: input.tag,
+            name: input.name,
+            body: input.body,
+            isDraft: input.draft ?? false,
+            isPrerelease: input.prerelease ?? false,
+            author: actor(viewerLogin),
+            createdAt: now,
+            publishedAt: input.draft ? undefined : now,
+            assets: [],
+            raw: input,
+          }
+          state.releases.push(release)
+          return release
+        }),
+        update: verb(support('releases.update', true), async (ref, update) => {
+          const release = releaseState(ref)
+          if (update.tag !== undefined && update.tag !== release.tag) {
+            requireFreeTag(repoState(ref.repo).releases, update.tag)
+            release.tag = update.tag
+            release.ref = { ...release.ref, tag: update.tag }
+          }
+          release.name = update.name ?? release.name
+          release.body = update.body ?? release.body
+          release.isDraft = update.draft ?? release.isDraft
+          release.isPrerelease = update.prerelease ?? release.isPrerelease
+          release.publishedAt = release.isDraft ? undefined : release.publishedAt ?? new Date()
+          return release
+        }),
       },
       notifications: {
         listPage: verb(support('notifications.list', true), async (listOptions = {}) => pageOf(store.notifications.filter(item => listOptions.all || item.unread), listOptions)),

@@ -1,0 +1,95 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://gitlab.com/api/v4/projects/forges-fixtures%2Fforges-fixtures/issues/15/move",
+    "body": {
+      "to_project_id": 87428779
+    }
+  },
+  "response": {
+    "status": 201,
+    "headers": {
+      "etag": "W/\"ebc83cc5332978ef843b7bd781be4769\"",
+      "ratelimit-limit": "2000",
+      "ratelimit-remaining": "1962",
+      "ratelimit-reset": "1791630900"
+    },
+    "body": {
+      "id": 206051971,
+      "iid": 6,
+      "project_id": 87428779,
+      "title": "forges fixture 20261010111419: duplicate",
+      "description": "Opened by run 20261010111419.",
+      "state": "closed",
+      "created_at": "2026-10-10T11:14:35.721Z",
+      "updated_at": "2026-10-10T11:14:36.426Z",
+      "closed_at": "2026-10-10T11:14:36.422Z",
+      "closed_by": {
+        "id": 43193323,
+        "username": "roebot",
+        "public_email": "",
+        "name": "Daniel Roe",
+        "state": "active",
+        "locked": false,
+        "avatar_url": "https://secure.gravatar.com/avatar/14ceebcfdc10030d76768a65e9d7978b914694cebcbb6ab609b3a0e8243f0eb8?s=80&d=identicon",
+        "web_url": "https://gitlab.com/roebot"
+      },
+      "labels": [],
+      "milestone": null,
+      "assignees": [],
+      "author": {
+        "id": 43193323,
+        "username": "roebot",
+        "public_email": "",
+        "name": "Daniel Roe",
+        "state": "active",
+        "locked": false,
+        "avatar_url": "https://secure.gravatar.com/avatar/14ceebcfdc10030d76768a65e9d7978b914694cebcbb6ab609b3a0e8243f0eb8?s=80&d=identicon",
+        "web_url": "https://gitlab.com/roebot"
+      },
+      "type": "ISSUE",
+      "assignee": null,
+      "user_notes_count": 0,
+      "merge_requests_count": 0,
+      "upvotes": 0,
+      "downvotes": 0,
+      "start_date": null,
+      "due_date": null,
+      "confidential": false,
+      "discussion_locked": null,
+      "issue_type": "issue",
+      "web_url": "https://gitlab.com/forges-fixtures/forges-fixtures-transfer/-/work_items/6",
+      "time_stats": {
+        "time_estimate": 0,
+        "total_time_spent": 0,
+        "human_time_estimate": null,
+        "human_total_time_spent": null
+      },
+      "task_completion_status": {
+        "count": 0,
+        "completed_count": 0
+      },
+      "blocking_issues_count": null,
+      "has_tasks": true,
+      "task_status": "0 of 0 checklist items completed",
+      "_links": {
+        "self": "https://gitlab.com/api/v4/projects/87428779/issues/6",
+        "notes": "https://gitlab.com/api/v4/projects/87428779/issues/6/notes",
+        "award_emoji": "https://gitlab.com/api/v4/projects/87428779/issues/6/award_emoji",
+        "project": "https://gitlab.com/api/v4/projects/87428779",
+        "closed_as_duplicate_of": "https://gitlab.com/api/v4/projects/87428720/issues/14"
+      },
+      "references": {
+        "short": "#6",
+        "relative": "#6",
+        "full": "forges-fixtures/forges-fixtures-transfer#6"
+      },
+      "severity": "UNKNOWN",
+      "subscribed": true,
+      "moved_to_id": null,
+      "imported": false,
+      "imported_from": "none",
+      "service_desk_reply_to": null
+    }
+  }
+}

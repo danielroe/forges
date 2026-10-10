@@ -19,21 +19,21 @@
     "name": "forges-fixtures-transfer"
   },
   "run": {
-    "id": "20261009210636",
+    "id": "20261010111530",
     "base": "main",
     "branches": [
-      "forges-fixtures/20261009210636-1",
-      "forges-fixtures/20261009210636-2",
-      "forges-fixtures/20261009210636-3"
+      "forges-fixtures/20261010111530-1",
+      "forges-fixtures/20261010111530-2",
+      "forges-fixtures/20261010111530-3"
     ],
     "files": [
-      "forges-fixtures/20261009210636-1.md",
-      "forges-fixtures/20261009210636-2.md",
-      "forges-fixtures/20261009210636-3.md"
+      "forges-fixtures/20261010111530-1.md",
+      "forges-fixtures/20261010111530-2.md",
+      "forges-fixtures/20261010111530-3.md"
     ],
     "discussion": "33"
   },
-  "recordedAt": "2026-10-09T21:06:43.777Z",
+  "recordedAt": "2026-10-10T11:15:37.434Z",
   "steps": [
     "author",
     "reviewer",
@@ -107,6 +107,10 @@
     "pull close",
     "pull reopen",
     "approve and merge",
+    "create draft release",
+    "publish release",
+    "create release",
+    "update release",
     "create webhook",
     "update webhook",
     "rotate webhook secret",

@@ -1,4 +1,4 @@
-import type { Actor, Comment, Milestone, Notification, RepoRef, Review, Thread, ThreadRef, Webhook, WebhookDeliveryRecord } from '../../src/model.ts'
+import type { Actor, Comment, Milestone, Notification, Release, RepoRef, Review, Thread, ThreadRef, Webhook, WebhookDeliveryRecord } from '../../src/model.ts'
 import type { ForgeProvider, ForgeVerb } from '../../src/provider.ts'
 import type { RecordingManifest } from './steps.ts'
 import { ForgeError } from '../../src/errors.ts'
@@ -32,6 +32,14 @@ export function fixtureLabel(run: WriteRun): string {
   return `forges-fixture-${run.id}`
 }
 
+/** The prefix of every tag a write recording releases, so a later run can find leftovers. */
+export const FIXTURE_TAG = 'forges-fixture-'
+
+/** The tag a write recording releases, with `suffix` for a second release. */
+export function fixtureTag(run: WriteRun, suffix?: string): string {
+  return `${FIXTURE_TAG}${run.id}${suffix ? `-${suffix}` : ''}`
+}
+
 /** Values earlier write steps created, for later steps to use. */
 export interface WriteContext {
   author?: Actor
@@ -44,6 +52,8 @@ export interface WriteContext {
   milestone?: Milestone
   review?: Review
   reviewThread?: string
+  draft?: Release
+  release?: Release
   webhook?: Webhook
   delivery?: WebhookDeliveryRecord
   notification?: Notification
@@ -257,6 +267,18 @@ export const WRITE_STEPS: WriteStep[] = [
   { name: 'pull close', verb: 'threads.close', kind: 'pull_request', run: (provider, _manifest, context) => provider.threads.close(need(context.pulls[2], 'the third pull request').ref) },
   { name: 'pull reopen', verb: 'threads.reopen', kind: 'pull_request', run: (provider, _manifest, context) => provider.threads.reopen(need(context.pulls[2], 'the third pull request').ref) },
   { name: 'approve and merge', verb: 'threads.approveAndMerge', kind: 'pull_request', as: 'reviewer', run: (provider, manifest, context) => provider.threads.approveAndMerge(need(context.pulls[1], 'the second pull request').ref, { method: 'merge', message: `Merged by run ${manifest.run.id}` }) },
+
+  // GitLab has no draft releases or prereleases.
+  { name: 'create draft release', verb: 'releases.create', when: provider => provider.forge !== 'gitlab', run: async (provider, manifest, context) => {
+    context.draft = await provider.releases.create(manifest.scratch, { tag: fixtureTag(manifest.run, 'draft'), target: manifest.run.base, name: `${FIXTURE_TITLE} ${manifest.run.id}: draft`, body: `Drafted by run ${manifest.run.id}.`, draft: true, prerelease: true })
+    return context.draft
+  } },
+  { name: 'publish release', verb: 'releases.update', when: provider => provider.forge !== 'gitlab', run: (provider, manifest, context) => provider.releases.update(need(context.draft, 'a draft release').ref, { body: `Published by run ${manifest.run.id}.`, draft: false, prerelease: false }) },
+  { name: 'create release', verb: 'releases.create', run: async (provider, manifest, context) => {
+    context.release = await provider.releases.create(manifest.scratch, { tag: fixtureTag(manifest.run), target: manifest.run.base, name: `${FIXTURE_TITLE} ${manifest.run.id}: release`, body: `Released by run ${manifest.run.id}.` })
+    return context.release
+  } },
+  { name: 'update release', verb: 'releases.update', run: (provider, manifest, context) => provider.releases.update(need(context.release, 'a release').ref, { name: `${FIXTURE_TITLE} ${manifest.run.id}: release, edited`, body: `Edited by run ${manifest.run.id}.` }) },
 
   { name: 'create webhook', verb: 'webhooks.create', run: async (provider, manifest, context) => {
     context.webhook = await provider.webhooks.create(manifest.scratch, { url: FIXTURE_HOOK_URL, events: ['comment'], secret: HOOK_SECRETS[0], contentType: 'json' })

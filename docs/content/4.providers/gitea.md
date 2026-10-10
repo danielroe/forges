@@ -168,6 +168,8 @@ A label delivery doesn't say which labels were added or removed. When the set of
 | `releases.latest` | ✅ | ✅ |
 | `releases.getByTag` | ✅ | ✅ |
 | `releases.downloadAsset` | ✅ | ✅ |
+| `releases.create` | ✅ | ❌ |
+| `releases.update` | ✅ | ❌ |
 | `webhooks.list` | ✅ | ❌ |
 | `webhooks.create` | ✅ | ❌ |
 | `webhooks.update` | ✅ | ❌ |

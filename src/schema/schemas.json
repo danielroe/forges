@@ -1789,6 +1789,14 @@
           "downloadAsset": {
             "$ref": "#/components/schemas/Support",
             "description": "Support for `releases.downloadAsset()`."
+          },
+          "create": {
+            "$ref": "#/components/schemas/Support",
+            "description": "Support for `releases.create()`."
+          },
+          "update": {
+            "$ref": "#/components/schemas/Support",
+            "description": "Support for `releases.update()`."
           }
         },
         "required": [
@@ -1796,7 +1804,9 @@
           "get",
           "latest",
           "getByTag",
-          "downloadAsset"
+          "downloadAsset",
+          "create",
+          "update"
         ]
       },
       "search": {

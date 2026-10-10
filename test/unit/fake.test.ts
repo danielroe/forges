@@ -242,6 +242,20 @@ describe('fake forge', () => {
     expect(asset).toMatchObject({ name: 'widgets.tgz', size: 7, contentType: 'application/gzip' })
     expect(body).toBe('tarball')
   })
+
+  it('creates a draft release, publishes it and refuses a second release of its tag', async () => {
+    const forge = fake({ seed: { releases: [{ repo: 'acme/widgets', tag: 'v1.0.0' }] } }).create()
+    const repo = { forge: 'fake', instance: 'fake.test', owner: 'acme', name: 'widgets' }
+
+    const draft = await forge.releases.create(repo, { tag: 'v1.1.0', body: 'Notes', draft: true })
+
+    expect(draft).toMatchObject({ ref: { id: '2', tag: 'v1.1.0' }, isDraft: true, publishedAt: undefined, author: { login: 'fake-user' } })
+    expect((await forge.releases.latest(repo))?.tag).toBe('v1.0.0')
+    await forge.releases.update(draft.ref, { draft: false })
+    expect(await forge.releases.latest(repo)).toMatchObject({ tag: 'v1.1.0', body: 'Notes', isDraft: false, publishedAt: expect.any(Date) })
+    await expect(forge.releases.create(repo, { tag: 'v1.0.0' })).rejects.toThrow('A release tagged v1.0.0 already exists')
+    await expect(forge.releases.update(draft.ref, { tag: 'v1.0.0' })).rejects.toThrow('A release tagged v1.0.0 already exists')
+  })
 })
 
 describe('fake webhook management', () => {

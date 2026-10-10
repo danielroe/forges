@@ -25,7 +25,7 @@
     "headers": {
       "x-ratelimit-limit": "5000",
       "x-ratelimit-remaining": "4985",
-      "x-ratelimit-reset": "1791583617"
+      "x-ratelimit-reset": "1791634549"
     },
     "body": {
       "data": {
@@ -34,7 +34,7 @@
             "comments": {
               "pageInfo": {
                 "hasNextPage": false,
-                "endCursor": "Y3Vyc29yOnYyOpK0MjAyNi0xMC0wOVQyMTowNzoyNFrOAR-FfQ=="
+                "endCursor": "Y3Vyc29yOnYyOpK0MjAyNi0xMC0xMFQxMToxNjoxM1rOAR-gQw=="
               },
               "nodes": [
                 {
@@ -58,7 +58,7 @@
                 {
                   "id": "DC_kwDOVCTdtM4BH241",
                   "databaseId": 18837045,
-                  "body": "An upserted comment from run 20261009142055.\n\n<!-- forges:key=forges-fixture -->",
+                  "body": "An upserted comment from run 20261009210636.\n\n<!-- forges:key=forges-fixture -->",
                   "createdAt": "2026-10-09T14:21:47Z",
                   "url": "https://github.com/forges-fixtures/forges-fixtures/discussions/33#discussioncomment-18837045",
                   "author": {
@@ -74,11 +74,11 @@
                   }
                 },
                 {
-                  "id": "DC_kwDOVCTdtM4BH4V9",
-                  "databaseId": 18843005,
-                  "body": "An edited comment from run 20261009210636.",
-                  "createdAt": "2026-10-09T21:07:24Z",
-                  "url": "https://github.com/forges-fixtures/forges-fixtures/discussions/33#discussioncomment-18843005",
+                  "id": "DC_kwDOVCTdtM4BH6BD",
+                  "databaseId": 18849859,
+                  "body": "An edited comment from run 20261010111530.",
+                  "createdAt": "2026-10-10T11:16:13Z",
+                  "url": "https://github.com/forges-fixtures/forges-fixtures/discussions/33#discussioncomment-18849859",
                   "author": {
                     "__typename": "User",
                     "login": "danielroe-bot",

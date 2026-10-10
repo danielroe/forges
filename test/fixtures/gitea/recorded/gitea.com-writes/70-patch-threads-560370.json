@@ -1,0 +1,10 @@
+{
+  "request": {
+    "method": "PATCH",
+    "url": "https://gitea.com/api/v1/notifications/threads/560370?to-status=read"
+  },
+  "response": {
+    "status": 205,
+    "headers": {}
+  }
+}

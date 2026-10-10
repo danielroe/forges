@@ -219,6 +219,8 @@ Deliveries of the `installation` and `installation_repositories` events become `
 | `releases.latest` | ✅ | ✅ |
 | `releases.getByTag` | ✅ | ✅ |
 | `releases.downloadAsset` | ✅ | ✅ |
+| `releases.create` | ✅ | ❌ |
+| `releases.update` | ✅ | ❌ |
 | `webhooks.list` | ✅ | ❌ |
 | `webhooks.create` | ✅ | ❌ |
 | `webhooks.update` | ✅ | ❌ |
