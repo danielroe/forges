@@ -80,9 +80,28 @@ describe('web links', () => {
     expect(gh.parseUrl(url)?.repo).toMatchObject({ owner: 'acme', name: 'widgets' })
   })
 
+  it.each([
+    'https://github.com/acme/widgets.git',
+    'http://github.com/acme/widgets',
+    'git+https://github.com/acme/widgets.git',
+    'git+http://github.com/acme/widgets.git',
+    'git://github.com/acme/widgets.git',
+  ])('parses the npm repository URL %s', (url) => {
+    expect(gh.parseUrl(url)?.repo).toMatchObject({ owner: 'acme', name: 'widgets' })
+  })
+
   it('parses clone URLs on its own instance only', () => {
     expect(gl.parseUrl('git@gitlab.com:acme/platform/widgets.git')?.repo).toMatchObject({ owner: 'acme/platform', name: 'widgets' })
     expect(gh.parseUrl('git@gitlab.com:acme/widgets.git')).toBeUndefined()
+    expect(gh.parseUrl('git+https://gitlab.com/acme/widgets.git')).toBeUndefined()
+    expect(gh.parseUrl('git://gitlab.com/acme/widgets.git')).toBeUndefined()
+    expect(gh.parseUrl('http://gitlab.com/acme/widgets')).toBeUndefined()
+  })
+
+  it('refuses clone URLs that carry credentials', () => {
+    expect(gh.parseUrl('https://user:password@github.com/acme/widgets')).toBeUndefined()
+    expect(gh.parseUrl('git+https://user:password@github.com/acme/widgets.git')).toBeUndefined()
+    expect(gh.parseUrl('http://user@github.com/acme/widgets')).toBeUndefined()
   })
 
   it('writes each forge\'s cross-reference syntax', () => {

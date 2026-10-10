@@ -155,9 +155,10 @@ describe('transport security', () => {
     expect(fetch).toHaveBeenCalledTimes(1)
   })
 
-  it('requires the configured web origin and no embedded credentials when parsing', () => {
+  it('requires the configured web host and no embedded credentials when parsing', () => {
     const provider = github({}).create()
-    expect(provider.parseUrl('http://github.com/acme/widgets')).toBeUndefined()
+    expect(provider.parseUrl('https://gitlab.com/acme/widgets')).toBeUndefined()
+    expect(provider.parseUrl('https://github.com:8443/acme/widgets')).toBeUndefined()
     expect(provider.parseUrl('https://user:password@github.com/acme/widgets')).toBeUndefined()
     expect(provider.parseUrl('https://github.com/acme/widgets')?.repo.name).toBe('widgets')
   })

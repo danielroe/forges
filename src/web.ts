@@ -90,18 +90,33 @@ export function webUrlFor(web: WebLinks, target: UrlTarget): string | undefined 
 /** `ssh://user@host:port/path` with the host in group 1, or `user@host:path` with it in group 2; the path is group 3. */
 const SSH_URL_RE = /^(?:(?:git\+)?ssh:\/\/(?:[^@/]+@)?([^:/]+)(?::\d+)?\/|(?:[^@/\s]+@)?([^:/\s]+):(?!\/))(.+)$/i
 
+/** A leading `git+`, which npm's `repository` field writes before the transport scheme. */
+const GIT_PLUS_RE = /^git\+/i
+
+/** The anonymous `git://` protocol, which reads the same repository as its HTTPS equivalent. */
+const GIT_PROTOCOL_RE = /^git:\/\//i
+
+/**
+ * Reads a web or clone URL that belongs to `web.origin`. Accepts `https://` and
+ * `http://` URLs on the same host (the port must match too), the anonymous
+ * `git://` protocol, and a leading `git+` as npm's `repository` field writes it.
+ * The SSH forms in `SSH_URL_RE` are read when their host is `web.origin`'s.
+ * Returns `undefined` for another host, a URL that carries credentials or a URL
+ * that does not parse.
+ */
 export function parseWebUrl(web: WebLinks, input: string | URL, origin: ForgeOrigin): ParsedForgeUrl | undefined {
   const base = new URL(web.origin)
   const prefix = base.pathname.replace(/\/$/, '')
-  const ssh = SSH_URL_RE.exec(String(input))
+  const source = String(input).replace(GIT_PLUS_RE, '').replace(GIT_PROTOCOL_RE, 'https://')
+  const ssh = SSH_URL_RE.exec(source)
   let url: URL
   try {
-    url = new URL(ssh && (ssh[1] ?? ssh[2])!.toLowerCase() === base.hostname ? `${base.origin}${prefix}/${ssh[3]}` : input)
+    url = new URL(ssh && (ssh[1] ?? ssh[2])!.toLowerCase() === base.hostname ? `${base.origin}${prefix}/${ssh[3]}` : source)
   }
   catch {
     return undefined
   }
-  if (url.origin !== base.origin || url.username || url.password) {
+  if ((url.protocol !== 'http:' && url.protocol !== 'https:') || url.host !== base.host || url.username || url.password) {
     return undefined
   }
   if (prefix && !url.pathname.startsWith(`${prefix}/`)) {
