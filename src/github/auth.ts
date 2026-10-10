@@ -1,5 +1,5 @@
 import type { FetchLike } from '../fetch.ts'
-import type { InstallationToken } from '../model.ts'
+import type { BaseOptions, InstallationToken } from '../model.ts'
 import type { AnonymousAuth, AppAuth, TokenAuth } from '../provider.ts'
 import type { GitHubInstallationToken } from './types.ts'
 import { signRs256Jwt } from '../crypto.ts'
@@ -22,9 +22,9 @@ export interface AuthContext {
  */
 export interface AppCredentials {
   appJwt: () => Promise<string>
-  installationToken: (installationId: string) => Promise<string>
+  installationToken: (installationId: string, options?: BaseOptions) => Promise<string>
   /** The full token response, cached alongside the token. */
-  installationTokenDetails: (installationId: string) => Promise<InstallationToken>
+  installationTokenDetails: (installationId: string, options?: BaseOptions) => Promise<InstallationToken>
 }
 
 const JWT_LIFETIME_SECONDS = 540
@@ -56,14 +56,14 @@ export function createAppCredentials(auth: AppAuth, context: AuthContext): AppCr
     authHeaders: async () => ({ authorization: `Bearer ${await appJwt()}` }),
   })
 
-  async function installationTokenDetails(installationId: string): Promise<InstallationToken> {
+  async function installationTokenDetails(installationId: string, options?: BaseOptions): Promise<InstallationToken> {
     const cached = tokens.get(installationId)
     if (cached && cached.expiresAt.getTime() > Date.now() + REFRESH_MARGIN_MS) {
       return cached
     }
     const { data } = await fetcher.json<GitHubInstallationToken>(
       `/app/installations/${installationId}/access_tokens`,
-      { method: 'POST' },
+      { method: 'POST', signal: options?.signal },
     )
     const token: InstallationToken = {
       token: data.token,
@@ -78,7 +78,7 @@ export function createAppCredentials(auth: AppAuth, context: AuthContext): AppCr
   return {
     appJwt,
     installationTokenDetails,
-    installationToken: async installationId => (await installationTokenDetails(installationId)).token,
+    installationToken: async (installationId, options) => (await installationTokenDetails(installationId, options)).token,
   }
 }
 

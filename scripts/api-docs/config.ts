@@ -166,7 +166,7 @@ export const PAGES: PageConfig[] = [
     overview: 'Pages and cursors for lists, `request()` for endpoints that the model does not cover, and the helpers that turn web URLs into refs.',
     intro: 'See [Page through results](/guides/pagination) for a walkthrough.',
     sections: [
-      { title: 'Pagination', names: ['Page', 'PageOptions', 'ListOptions', 'Cursor', 'ForgeIterable', 'ForgeWarning', 'ForgeWarningCode', 'RateLimit'] },
+      { title: 'Pagination', names: ['Page', 'BaseOptions', 'PageOptions', 'ListOptions', 'Cursor', 'ForgeIterable', 'ForgeWarning', 'ForgeWarningCode', 'RateLimit'] },
       { title: 'Raw requests', names: ['ForgeRequest', 'ForgeRequestOptions', 'ForgeRawRequestOptions', 'ForgeResponse', 'RawResponse', 'FetchLike'] },
       { title: 'URLs and references', source: /^src\/web\.ts$/ },
     ],

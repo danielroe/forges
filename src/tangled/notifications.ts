@@ -49,7 +49,7 @@ export function createTangledNotifications(url: string, { instance, context, fet
   const titles = new Map<string, Promise<string | undefined>>()
 
   async function call<T>(nsid: string, init: RequestOptions = {}): Promise<T> {
-    const { token } = await pdsCall<{ token: string }>('com.atproto.server.getServiceAuth', { query: { aud: audience, lxm: nsid } })
+    const { token } = await pdsCall<{ token: string }>('com.atproto.server.getServiceAuth', { query: { aud: audience, lxm: nsid }, signal: init.signal })
     const { data } = await fetcher.json<T>(`${url}/xrpc/${nsid}`, {
       ...init,
       headers: { ...init.headers as Record<string, string>, authorization: `Bearer ${token}` },
@@ -113,17 +113,18 @@ export function createTangledNotifications(url: string, { instance, context, fet
 
   return {
     listPage: verb('experimental', page),
-    markRead: verb('experimental', async (ref) => {
+    markRead: verb('experimental', async (ref, options) => {
       await call(NOTIFICATION_NSID.updateSeen, {
         method: 'POST',
         json: { uri: ref.id, read: true },
+        signal: options?.signal,
       })
     }),
     markAllRead: verb('unverified', async (bulk = {}) => {
       if (bulk.repo || bulk.before) {
         throw new UnsupportedOperationError('Tangled marks every notification read at once; repo and before filters are not supported', context)
       }
-      await call(NOTIFICATION_NSID.markAllRead, { method: 'POST' })
+      await call(NOTIFICATION_NSID.markAllRead, { method: 'POST', signal: bulk.signal })
     }),
     unreadCount: verb('unverified', async () => (await call<{ count: number }>(NOTIFICATION_NSID.unreadCount)).count),
   }
