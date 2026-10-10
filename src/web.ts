@@ -97,17 +97,27 @@ const GIT_PLUS_RE = /^git\+/i
 const GIT_PROTOCOL_RE = /^git:\/\//i
 
 /**
+ * The npm `repository` shorthand prefixes that name a forge this library supports.
+ * See https://docs.npmjs.com/cli/v12/configuring-npm/package-json#repository}
+ */
+const SHORTHAND_FORGES = new Set<string>(['github', 'gitlab', 'bitbucket'])
+
+/**
  * Reads a web or clone URL that belongs to `web.origin`. Accepts `https://` and
  * `http://` URLs on the same host (the port must match too), the anonymous
- * `git://` protocol, and a leading `git+` as npm's `repository` field writes it.
- * The SSH forms in `SSH_URL_RE` are read when their host is `web.origin`'s.
+ * `git://` protocol, a leading `git+` as npm's `repository` field writes it, and
+ * the npm `repository` shorthand such as `github:acme/widgets`. The SSH forms in
+ * `SSH_URL_RE` are read when their host is `web.origin`'s.
  * Returns `undefined` for another host, a URL that carries credentials or a URL
  * that does not parse.
  */
 export function parseWebUrl(web: WebLinks, input: string | URL, origin: ForgeOrigin): ParsedForgeUrl | undefined {
   const base = new URL(web.origin)
   const prefix = base.pathname.replace(/\/$/, '')
-  const source = String(input).replace(GIT_PLUS_RE, '').replace(GIT_PROTOCOL_RE, 'https://')
+  let source = String(input).replace(GIT_PLUS_RE, '').replace(GIT_PROTOCOL_RE, 'https://')
+  if (SHORTHAND_FORGES.has(origin.forge) && source.toLowerCase().startsWith(`${origin.forge}:`)) {
+    source = `${base.origin}${prefix}/${source.slice(origin.forge.length + 1)}`
+  }
   const ssh = SSH_URL_RE.exec(source)
   let url: URL
   try {

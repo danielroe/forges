@@ -90,6 +90,12 @@ describe('web links', () => {
     expect(gh.parseUrl(url)?.repo).toMatchObject({ owner: 'acme', name: 'widgets' })
   })
 
+  it('parses the npm repository shorthand such as github:acme/widgets', () => {
+    expect(gh.parseUrl('github:acme/widgets')?.repo).toMatchObject({ owner: 'acme', name: 'widgets' })
+    expect(gl.parseUrl('gitlab:acme/platform/widgets')?.repo).toMatchObject({ owner: 'acme/platform', name: 'widgets' })
+    expect(gh.parseUrl('gitlab:acme/widgets')).toBeUndefined()
+  })
+
   it('parses clone URLs on its own instance only', () => {
     expect(gl.parseUrl('git@gitlab.com:acme/platform/widgets.git')?.repo).toMatchObject({ owner: 'acme/platform', name: 'widgets' })
     expect(gh.parseUrl('git@gitlab.com:acme/widgets.git')).toBeUndefined()
