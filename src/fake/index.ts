@@ -155,6 +155,8 @@ export interface FakeReleaseSeed {
   body?: string
   isDraft?: boolean
   isPrerelease?: boolean
+  /** The release is immutable, so its tag and target cannot change. */
+  immutable?: boolean
   publishedAt?: Date
   assets?: Array<{ name: string, content: string | Uint8Array, contentType?: string }>
 }
@@ -483,6 +485,7 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
       body: seed.body,
       isDraft: seed.isDraft ?? false,
       isPrerelease: seed.isPrerelease ?? false,
+      immutable: seed.immutable,
       publishedAt: seed.publishedAt ?? new Date(),
       raw: seed,
     })

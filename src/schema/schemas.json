@@ -2668,6 +2668,10 @@
       "isPrerelease": {
         "type": "boolean"
       },
+      "immutable": {
+        "type": "boolean",
+        "description": "The release is immutable: its tag and assets are locked. `true` where the forge supports immutable releases and this one is published as immutable (GitHub). The name, notes, prerelease and latest flags stay editable."
+      },
       "author": {
         "$ref": "#/components/schemas/Actor"
       },
