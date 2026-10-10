@@ -1615,6 +1615,8 @@ export interface MergeOptions extends BaseOptions {
   method?: MergeMethod
   /** Expected head sha; the merge is refused if the branch has moved. */
   sha?: string
+  /** Merge commit title, put above `message` where the forge takes a single message. */
+  title?: string
   /** Merge commit message, where the forge takes one. */
   message?: string
   /** Queue the merge until required checks pass, where the forge supports it. */

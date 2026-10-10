@@ -71,6 +71,13 @@ describe('bitbucket provider', () => {
 
     expect(calls.at(-1)!.url).toMatch(/\/merge$/)
   })
+
+  it('puts the merge commit title before the message', async () => {
+    const { instance, calls } = provider()
+    await instance.threads.merge!(pull, { method: 'squash', title: 'Release widgets (#31)', message: 'Ships the widgets' })
+
+    expect(JSON.parse(calls.at(-1)!.body!)).toEqual({ merge_strategy: 'squash', message: 'Release widgets (#31)\n\nShips the widgets' })
+  })
 })
 
 describe('bitbucket webhooks', () => {

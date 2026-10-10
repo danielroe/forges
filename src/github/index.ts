@@ -605,8 +605,8 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
 
   async function directMerge(ref: ResolvedThreadRef, method: MergeMethod, mergeOptions: MergeOptions): Promise<void> {
     const path = `${threadPath(ref)}/merge`
-    const { sha, message } = mergeOptions
-    const body = { merge_method: method, sha, commit_message: message }
+    const { sha, title, message } = mergeOptions
+    const body = { merge_method: method, sha, commit_title: title, commit_message: message }
     const timeout = options.timeout ?? 30_000
     const budget = new AbortController()
     const signal = mergeOptions.signal ? anySignal([budget.signal, mergeOptions.signal]) : budget.signal
@@ -639,7 +639,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
           await fetcher.raw(path, { method: 'PUT', json: body, mapError: toMergeError, signal })
           return
         }
-        state = pendingMergeFrom(error, method, sha, message)
+        state = pendingMergeFrom(error, method, sha, title, message)
         status = 409
       }
       for (let attempt = 0; state.status === 'pending'; attempt++) {
@@ -676,7 +676,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
     }
   }
 
-  function pendingMergeFrom(error: unknown, method: MergeMethod, sha: string | undefined, message: string | undefined): GitHubAsyncMerge {
+  function pendingMergeFrom(error: unknown, method: MergeMethod, sha: string | undefined, title: string | undefined, message: string | undefined): GitHubAsyncMerge {
     if (!(error instanceof ForgeApiError)) {
       throw error
     }
@@ -695,7 +695,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
     if (!details?.uuid) {
       throw toMergeError(error)
     }
-    if (message !== undefined || details.merge_action !== 'direct_merge' || details.merge_method !== method || details.bypass_rules || (sha !== undefined && details.expected_head_sha !== sha)) {
+    if (title !== undefined || message !== undefined || details.merge_action !== 'direct_merge' || details.merge_method !== method || details.bypass_rules || (sha !== undefined && details.expected_head_sha !== sha)) {
       throw new MergeBlockedError('Another merge request is pending whose options do not match or cannot be verified', 409, error.body, { ...context, url: error.url, method: error.method }, { cause: error })
     }
     return { status: 'pending', details }

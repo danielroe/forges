@@ -57,7 +57,7 @@ import { toBase64 } from '../crypto.ts'
 import { defineForgeProvider, perKind, verb } from '../define.ts'
 import { ForgeError, MergeConflictError, soleMergeMethod, toMergeError, UnsupportedOperationError } from '../errors.ts'
 import { isNamespaceRef } from '../model.ts'
-import { createListing, getManyConcurrently, hostOf, phased, requireThread, resolveToken, summariseChecks, syntheticReview, toPage, toWarning } from '../utils.ts'
+import { createListing, getManyConcurrently, hostOf, mergeCommitMessage, phased, requireThread, resolveToken, summariseChecks, syntheticReview, toPage, toWarning } from '../utils.ts'
 import { nativeEventsFor } from '../webhooks.ts'
 import {
   FORGE,
@@ -198,7 +198,7 @@ const BITBUCKET: ProviderDefinition<BitbucketOptions> = {
       await hooks.beforeMerge?.()
       await fetcher.raw(`${threadPath(ref)}/merge`, {
         method: 'POST',
-        json: { merge_strategy: toStrategy(method), message: mergeOptions.message },
+        json: { merge_strategy: toStrategy(method), message: mergeCommitMessage(mergeOptions) },
         mapError: toMergeError,
         signal: mergeOptions.signal,
       })

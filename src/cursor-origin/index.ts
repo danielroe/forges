@@ -350,6 +350,9 @@ function setupOrigin({ options, baseUrl, instance, origin: context, fetcher, cre
         if (mergeOptions.whenChecksPass) {
           throw new UnsupportedOperationError('Cursor Origin has no merge queue or auto-merge', context)
         }
+        if (mergeOptions.title) {
+          throw new UnsupportedOperationError('Cursor Origin does not take a merge commit title', context)
+        }
         if (mergeOptions.message) {
           throw new UnsupportedOperationError('Cursor Origin does not take a merge commit message', context)
         }

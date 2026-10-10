@@ -76,6 +76,20 @@ describe('forgejo provider', () => {
     }, 'hi')).rejects.toThrow('forgejo does not support threads.comment for a commit')
     expect(instance.capabilities.writes.comment.commit).toBe(false)
   })
+
+  it('sends the merge commit title and message as separate fields', async () => {
+    const { instance, calls } = provider()
+    await instance.threads.merge!({
+      forge: 'forgejo',
+      instance: 'codeberg.org',
+      repo: { forge: 'forgejo', instance: 'codeberg.org', owner: 'acme', name: 'widgets' },
+      kind: 'pull_request',
+      number: '7',
+    }, { method: 'squash', title: 'Release widgets (#7)', message: 'Ships the widgets' })
+
+    expect(calls.map(call => `${call.method} ${call.url}`)).toEqual(['POST https://codeberg.org/api/v1/repos/acme/widgets/pulls/7/merge'])
+    expect(JSON.parse(calls[0]!.body!)).toEqual({ Do: 'squash', MergeTitleField: 'Release widgets (#7)', MergeMessageField: 'Ships the widgets' })
+  })
 })
 
 describe('forgejo release webhooks', () => {

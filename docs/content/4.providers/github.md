@@ -72,7 +72,7 @@ Both `merge()` and `approveAndMerge()` request a direct merge through GitHub's a
 - `MergeConflictError` when GitHub responds with a conflict status that doesn't name a pending merge request.
 - `ForgeTimeoutError` when the merge is still pending after `timeout`. The message includes the UUID of the merge request. GitHub can still complete the merge after this error, so read the state of the pull request before you try again.
 
-If a direct merge with the same method is already pending, and it expects the same head sha when you pass `sha`, the operation waits for that request instead of starting a new one. A pending request with different options rejects with `MergeBlockedError`. Passing a `message` also prevents the provider from adopting a pending request, because GitHub doesn't return the commit message of a request.
+If a direct merge with the same method is already pending, and it expects the same head sha when you pass `sha`, the operation waits for that request instead of starting a new one. A pending request with different options rejects with `MergeBlockedError`. Passing a `title` or a `message` also prevents the provider from adopting a pending request, because GitHub doesn't return the commit title or message of a request.
 
 When the pull request is part of a stack, GitHub also merges every open pull request below it in the stack. `approveAndMerge()` still approves only the pull request that you pass. GitHub Enterprise Server releases without the asynchronous merge API use the synchronous merge endpoint instead, and that endpoint doesn't support stacked pull requests.
 

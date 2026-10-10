@@ -88,4 +88,11 @@ describe('azure devops', () => {
 
     expect(JSON.parse(calls.at(-1)!.body!)).toEqual({ status: 'completed', lastMergeSourceCommit: { commitId: '9e8d7c6b5a4f3e2d1c0b9a8f7e6d5c4b3a2f1e0d' }, completionOptions: { mergeStrategy: 'rebaseMerge' } })
   })
+
+  it('puts the merge commit title before the message', async () => {
+    const { instance, calls } = provider(me)
+    await instance.threads.merge!(pull, { method: 'squash', title: 'Release widgets', message: 'Ships the widgets' })
+
+    expect(JSON.parse(calls.at(-1)!.body!).completionOptions).toEqual({ mergeStrategy: 'squash', mergeCommitMessage: 'Release widgets\n\nShips the widgets' })
+  })
 })

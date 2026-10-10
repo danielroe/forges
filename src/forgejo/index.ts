@@ -314,6 +314,7 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
       method: 'POST',
       json: {
         Do: method.replaceAll('_', '-'),
+        MergeTitleField: mergeOptions.title,
         MergeMessageField: mergeOptions.message,
         head_commit_id: mergeOptions.sha,
         merge_when_checks_succeed: mergeOptions.whenChecksPass,

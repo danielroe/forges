@@ -5,7 +5,7 @@ import type { AzureCommit, AzureCommitDiffs, AzureIdentity, AzureItem, AzurePoli
 import { toFileContent } from '../contents.ts'
 import { defineForgeProvider, perKind, verb } from '../define.ts'
 import { ForgeError, MergeMethodRequiredError, NotFoundError, toMergeError, UnsupportedOperationError } from '../errors.ts'
-import { getManyConcurrently, memo, phased, requireIssueOrPull, requireThread, resolveToken, summariseChecks, syntheticReview, toWarning } from '../utils.ts'
+import { getManyConcurrently, memo, mergeCommitMessage, phased, requireIssueOrPull, requireThread, resolveToken, summariseChecks, syntheticReview, toWarning } from '../utils.ts'
 import { FORGE, isConversationThread, projectRef, toActor, toBranch, toChangedFile, toCommit, toPolicyCheck, toPullComment, toPullThread, toRepo, toRepoRef, toStatusCheck, toTag, toThreadEvents, toTreeEntry, toWorkItemComment, toWorkItemEvents, toWorkItemThread } from './normalise.ts'
 import { azureWeb } from './web.ts'
 import { azureDevOpsWebhooks } from './webhooks.ts'
@@ -585,9 +585,10 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
         if (mergeOptions.method === 'fast_forward_only') {
           throw new UnsupportedOperationError('Azure DevOps does not support fast-forward-only completion', context)
         }
+        const message = mergeCommitMessage(mergeOptions)
         const completionOptions = {
           mergeStrategy: MERGE_STRATEGIES[mergeOptions.method],
-          ...mergeOptions.message ? { mergeCommitMessage: mergeOptions.message } : {},
+          ...message ? { mergeCommitMessage: message } : {},
         }
         const id = await myId()
         await hooks.beforeMerge?.()
