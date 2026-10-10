@@ -44,6 +44,52 @@
       "pull": false
     }
   },
+  "repo licence": {
+    "ref": {
+      "forge": "gitlab",
+      "instance": "gitlab.com",
+      "owner": "gitlab-org",
+      "name": "cli",
+      "externalId": "34675721"
+    },
+    "description": "A GitLab CLI tool bringing GitLab to your command line",
+    "defaultBranch": "main",
+    "visibility": "public",
+    "visibilityRaw": "public",
+    "isFork": false,
+    "isArchived": false,
+    "topics": [],
+    "url": "https://gitlab.com/gitlab-org/cli",
+    "cloneUrls": {
+      "https": "https://gitlab.com/gitlab-org/cli.git",
+      "ssh": "git@gitlab.com:gitlab-org/cli.git"
+    },
+    "createdAt": "2022-03-21T18:49:22.691Z",
+    "updatedAt": "2026-10-10T20:59:12.076Z",
+    "openIssueCount": 261,
+    "licence": "mit",
+    "stars": 1105,
+    "forks": 485,
+    "mergeMethods": [
+      "merge",
+      "squash"
+    ],
+    "features": {
+      "issues": true,
+      "pullRequests": true,
+      "discussions": false,
+      "wiki": true,
+      "projects": false,
+      "releases": true
+    },
+    "permissions": {
+      "admin": false,
+      "maintain": false,
+      "push": false,
+      "triage": false,
+      "pull": false
+    }
+  },
   "labels": {
     "items": [
       {

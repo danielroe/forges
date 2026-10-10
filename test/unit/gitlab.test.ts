@@ -206,19 +206,27 @@ describe('gitlab provider', () => {
 })
 
 describe('gitlab repository licence', () => {
-  it('asks for the licence and maps the key GitLab reports', async () => {
-    const { instance, calls } = provider()
-    const result = await instance.repos.get(repo, { licence: true })
+  const cli = { forge: 'gitlab', instance: 'gitlab.com', owner: 'gitlab-org', name: 'cli' } as const
+  const project = 'https://gitlab.com/api/v4/projects/gitlab-org%2Fcli'
 
-    expect(calls.at(-1)!.url).toBe(`${P}?license=true`)
+  function recorded(overrides = {}) {
+    const { fetch, calls } = fixtureFetch('gitlab/recorded/gitlab.com', overrides)
+    return { instance: gitlab({ fetch }).create(), calls }
+  }
+
+  it('asks for the licence and maps the key GitLab reports', async () => {
+    const { instance, calls } = recorded()
+    const result = await instance.repos.get(cli, { licence: true })
+
+    expect(calls.at(-1)!.url).toBe(`${project}?license=true`)
     expect(result.licence).toBe('mit')
   })
 
   it('does not request the licence unless asked', async () => {
-    const { instance, calls } = provider()
-    const result = await instance.repos.get(repo)
+    const { instance, calls } = recorded()
+    const result = await instance.repos.get(cli)
 
-    expect(calls.at(-1)!.url).toBe(P)
+    expect(calls.at(-1)!.url).toBe(project)
     expect(result.licence).toBeUndefined()
   })
 
