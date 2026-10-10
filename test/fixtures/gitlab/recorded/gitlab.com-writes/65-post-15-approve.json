@@ -1,0 +1,55 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://gitlab.com/api/v4/projects/forges-fixtures%2Fforges-fixtures/merge_requests/15/approve"
+  },
+  "response": {
+    "status": 201,
+    "headers": {
+      "etag": "W/\"7832d6c0cf24076b2d7a8733296062f1\"",
+      "ratelimit-limit": "2000",
+      "ratelimit-remaining": "1992",
+      "ratelimit-reset": "1791630900"
+    },
+    "body": {
+      "id": 546244243,
+      "iid": 15,
+      "project_id": 87428720,
+      "title": "forges fixture 20261010111419: pull, edited",
+      "description": "Edited by run 20261010111419.",
+      "state": "opened",
+      "created_at": "2026-10-10T11:14:39.765Z",
+      "updated_at": "2026-10-10T11:14:48.930Z",
+      "merge_status": "can_be_merged",
+      "approved": true,
+      "approvals_required": 0,
+      "approvals_left": 0,
+      "require_password_to_approve": false,
+      "approved_by": [
+        {
+          "user": {
+            "id": 2179675,
+            "username": "danielroe",
+            "public_email": "",
+            "name": "Daniel Roe",
+            "state": "active",
+            "locked": false,
+            "avatar_url": "https://secure.gravatar.com/avatar/82a8f6237bb263bac46d7cc8ec3054d715ce6a55a8626d6e977769d57d2c94e6?s=80&d=identicon",
+            "web_url": "https://gitlab.com/danielroe"
+          },
+          "approved_at": "2026-10-10T11:14:56.007Z"
+        }
+      ],
+      "suggested_approvers": [],
+      "approvers": [],
+      "approver_groups": [],
+      "user_has_approved": true,
+      "user_can_approve": false,
+      "approval_rules_left": [],
+      "has_approval_rules": false,
+      "merge_request_approvers_available": false,
+      "multiple_approval_rules_available": false,
+      "invalid_approvers_rules": []
+    }
+  }
+}

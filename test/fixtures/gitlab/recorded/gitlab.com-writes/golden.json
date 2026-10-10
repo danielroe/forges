@@ -26,9 +26,9 @@
     "createdAt": "2018-04-03T19:17:02.700Z"
   },
   "create label": {
-    "name": "forges-fixture-20261009213525",
+    "name": "forges-fixture-20261010111419",
     "colour": "0e8a16",
-    "description": "Created by run 20261009213525"
+    "description": "Created by run 20261010111419"
   },
   "milestones": {
     "items": [
@@ -42,7 +42,7 @@
     ],
     "rateLimit": {
       "limit": 2000,
-      "remaining": 1988,
+      "remaining": 1986,
       "resetAt": "<now>"
     }
   },
@@ -57,12 +57,12 @@
         "name": "forges-fixtures"
       },
       "kind": "issue",
-      "number": "12",
-      "externalId": "206011840"
+      "number": "14",
+      "externalId": "206051956"
     },
     "kind": "issue",
-    "title": "forges fixture 20261009213525: issue",
-    "body": "Opened by run 20261009213525.",
+    "title": "forges fixture 20261010111419: issue",
+    "body": "Opened by run 20261010111419.",
     "state": "open",
     "stateRaw": "opened",
     "isDraft": false,
@@ -79,7 +79,7 @@
       "url": "https://gitlab.com/roebot",
       "isBotHint": false
     },
-    "url": "https://gitlab.com/forges-fixtures/forges-fixtures/-/work_items/12",
+    "url": "https://gitlab.com/forges-fixtures/forges-fixtures/-/work_items/14",
     "createdAt": "<now>",
     "updatedAt": "<now>",
     "labels": [],
@@ -103,12 +103,12 @@
           "name": "forges-fixtures"
         },
         "kind": "issue",
-        "number": "12",
-        "externalId": "206011840"
+        "number": "14",
+        "externalId": "206051956"
       },
-      "id": "3987599427"
+      "id": "3989190859"
     },
-    "body": "A comment from run 20261009213525.",
+    "body": "A comment from run 20261010111419.",
     "author": {
       "forge": "gitlab",
       "instance": "gitlab.com",
@@ -136,12 +136,12 @@
           "name": "forges-fixtures"
         },
         "kind": "issue",
-        "number": "12",
-        "externalId": "206011840"
+        "number": "14",
+        "externalId": "206051956"
       },
-      "id": "3987599427"
+      "id": "3989190859"
     },
-    "body": "An edited comment from run 20261009213525.",
+    "body": "An edited comment from run 20261010111419.",
     "author": {
       "forge": "gitlab",
       "instance": "gitlab.com",
@@ -170,12 +170,12 @@
             "name": "forges-fixtures"
           },
           "kind": "issue",
-          "number": "12",
-          "externalId": "206011840"
+          "number": "14",
+          "externalId": "206051956"
         },
-        "id": "3987599494"
+        "id": "3989190882"
       },
-      "body": "An upserted comment from run 20261009213525.\n\n<!-- forges:key=forges-fixture -->",
+      "body": "An upserted comment from run 20261010111419.\n\n<!-- forges:key=forges-fixture -->",
       "author": {
         "forge": "gitlab",
         "instance": "gitlab.com",
@@ -202,12 +202,12 @@
         "name": "forges-fixtures"
       },
       "kind": "issue",
-      "number": "12",
-      "externalId": "206011840"
+      "number": "14",
+      "externalId": "206051956"
     },
     "kind": "issue",
-    "title": "forges fixture 20261009213525: issue, edited",
-    "body": "Edited by run 20261009213525.",
+    "title": "forges fixture 20261010111419: issue, edited",
+    "body": "Edited by run 20261010111419.",
     "state": "open",
     "stateRaw": "opened",
     "isDraft": false,
@@ -235,12 +235,12 @@
       "url": "https://gitlab.com/roebot",
       "isBotHint": false
     },
-    "url": "https://gitlab.com/forges-fixtures/forges-fixtures/-/work_items/12",
+    "url": "https://gitlab.com/forges-fixtures/forges-fixtures/-/work_items/14",
     "createdAt": "<now>",
     "updatedAt": "<now>",
     "labels": [
       {
-        "name": "forges-fixture-20261009213525"
+        "name": "forges-fixture-20261010111419"
       }
     ],
     "commentCount": 1,
@@ -260,12 +260,12 @@
         "name": "forges-fixtures"
       },
       "kind": "issue",
-      "number": "13",
-      "externalId": "206011852"
+      "number": "15",
+      "externalId": "206051968"
     },
     "kind": "issue",
-    "title": "forges fixture 20261009213525: duplicate",
-    "body": "Opened by run 20261009213525.",
+    "title": "forges fixture 20261010111419: duplicate",
+    "body": "Opened by run 20261010111419.",
     "state": "open",
     "stateRaw": "opened",
     "isDraft": false,
@@ -282,7 +282,7 @@
       "url": "https://gitlab.com/roebot",
       "isBotHint": false
     },
-    "url": "https://gitlab.com/forges-fixtures/forges-fixtures/-/work_items/13",
+    "url": "https://gitlab.com/forges-fixtures/forges-fixtures/-/work_items/15",
     "createdAt": "<now>",
     "updatedAt": "<now>",
     "labels": [],
@@ -302,8 +302,8 @@
       "name": "forges-fixtures-transfer"
     },
     "kind": "issue",
-    "number": "5",
-    "externalId": "206011853"
+    "number": "6",
+    "externalId": "206051971"
   },
   "create pull": {
     "ref": {
@@ -316,12 +316,12 @@
         "name": "forges-fixtures"
       },
       "kind": "pull_request",
-      "number": "12",
-      "externalId": "546097726"
+      "number": "15",
+      "externalId": "546244243"
     },
     "kind": "pull_request",
-    "title": "forges fixture 20261009213525: pull 1",
-    "body": "Opened by run 20261009213525.",
+    "title": "forges fixture 20261010111419: pull 1",
+    "body": "Opened by run 20261010111419.",
     "state": "open",
     "stateRaw": "opened",
     "isDraft": false,
@@ -330,8 +330,8 @@
     "lastActivityAt": "<now>",
     "branches": {
       "head": {
-        "ref": "forges-fixtures/20261009213525-1",
-        "sha": "f4f583132a9775d86fa926794c665e295692705c",
+        "ref": "forges-fixtures/20261010111419-1",
+        "sha": "a53138e79562d6a52f4329dac2829a8a263576eb",
         "repo": {
           "forge": "gitlab",
           "instance": "gitlab.com",
@@ -354,7 +354,7 @@
       "typeRaw": "user",
       "isBotHint": false
     },
-    "url": "https://gitlab.com/forges-fixtures/forges-fixtures/-/merge_requests/12",
+    "url": "https://gitlab.com/forges-fixtures/forges-fixtures/-/merge_requests/15",
     "createdAt": "<now>",
     "updatedAt": "<now>",
     "labels": [],
@@ -375,12 +375,12 @@
         "name": "forges-fixtures"
       },
       "kind": "pull_request",
-      "number": "13",
-      "externalId": "546097730"
+      "number": "16",
+      "externalId": "546244245"
     },
     "kind": "pull_request",
-    "title": "forges fixture 20261009213525: pull 2",
-    "body": "Opened by run 20261009213525.",
+    "title": "forges fixture 20261010111419: pull 2",
+    "body": "Opened by run 20261010111419.",
     "state": "open",
     "stateRaw": "opened",
     "isDraft": false,
@@ -389,8 +389,8 @@
     "lastActivityAt": "<now>",
     "branches": {
       "head": {
-        "ref": "forges-fixtures/20261009213525-2",
-        "sha": "22407d69a86eecfa0a8e7f6304e114e9a7e53f23",
+        "ref": "forges-fixtures/20261010111419-2",
+        "sha": "8a11c29a08ac99aad6f639d42f11acc034c37330",
         "repo": {
           "forge": "gitlab",
           "instance": "gitlab.com",
@@ -413,7 +413,7 @@
       "typeRaw": "user",
       "isBotHint": false
     },
-    "url": "https://gitlab.com/forges-fixtures/forges-fixtures/-/merge_requests/13",
+    "url": "https://gitlab.com/forges-fixtures/forges-fixtures/-/merge_requests/16",
     "createdAt": "<now>",
     "updatedAt": "<now>",
     "labels": [],
@@ -434,12 +434,12 @@
         "name": "forges-fixtures"
       },
       "kind": "pull_request",
-      "number": "14",
-      "externalId": "546097732"
+      "number": "17",
+      "externalId": "546244249"
     },
     "kind": "pull_request",
-    "title": "forges fixture 20261009213525: pull 3",
-    "body": "Opened by run 20261009213525.",
+    "title": "forges fixture 20261010111419: pull 3",
+    "body": "Opened by run 20261010111419.",
     "state": "open",
     "stateRaw": "opened",
     "isDraft": false,
@@ -448,8 +448,8 @@
     "lastActivityAt": "<now>",
     "branches": {
       "head": {
-        "ref": "forges-fixtures/20261009213525-3",
-        "sha": "12c33cf593e21d36329449485db1e7d301d653e7",
+        "ref": "forges-fixtures/20261010111419-3",
+        "sha": "38575ec0e8fa520f0347ca54b231cd222cabc353",
         "repo": {
           "forge": "gitlab",
           "instance": "gitlab.com",
@@ -472,7 +472,7 @@
       "typeRaw": "user",
       "isBotHint": false
     },
-    "url": "https://gitlab.com/forges-fixtures/forges-fixtures/-/merge_requests/14",
+    "url": "https://gitlab.com/forges-fixtures/forges-fixtures/-/merge_requests/17",
     "createdAt": "<now>",
     "updatedAt": "<now>",
     "labels": [],
@@ -496,12 +496,12 @@
           "name": "forges-fixtures"
         },
         "kind": "pull_request",
-        "number": "12",
-        "externalId": "546097726"
+        "number": "15",
+        "externalId": "546244243"
       },
-      "id": "3987600182"
+      "id": "3989191161"
     },
-    "body": "A comment from run 20261009213525.",
+    "body": "A comment from run 20261010111419.",
     "author": {
       "forge": "gitlab",
       "instance": "gitlab.com",
@@ -529,12 +529,12 @@
           "name": "forges-fixtures"
         },
         "kind": "pull_request",
-        "number": "12",
-        "externalId": "546097726"
+        "number": "15",
+        "externalId": "546244243"
       },
-      "id": "3987600182"
+      "id": "3989191161"
     },
-    "body": "An edited comment from run 20261009213525.",
+    "body": "An edited comment from run 20261010111419.",
     "author": {
       "forge": "gitlab",
       "instance": "gitlab.com",
@@ -563,12 +563,12 @@
             "name": "forges-fixtures"
           },
           "kind": "pull_request",
-          "number": "12",
-          "externalId": "546097726"
+          "number": "15",
+          "externalId": "546244243"
         },
-        "id": "3987600291"
+        "id": "3989191185"
       },
-      "body": "An upserted comment from run 20261009213525.\n\n<!-- forges:key=forges-fixture -->",
+      "body": "An upserted comment from run 20261010111419.\n\n<!-- forges:key=forges-fixture -->",
       "author": {
         "forge": "gitlab",
         "instance": "gitlab.com",
@@ -595,12 +595,12 @@
         "name": "forges-fixtures"
       },
       "kind": "pull_request",
-      "number": "12",
-      "externalId": "546097726"
+      "number": "15",
+      "externalId": "546244243"
     },
     "kind": "pull_request",
-    "title": "forges fixture 20261009213525: pull, edited",
-    "body": "Edited by run 20261009213525.",
+    "title": "forges fixture 20261010111419: pull, edited",
+    "body": "Edited by run 20261010111419.",
     "state": "open",
     "stateRaw": "opened",
     "isDraft": false,
@@ -620,8 +620,8 @@
     "lastActivityAt": "<now>",
     "branches": {
       "head": {
-        "ref": "forges-fixtures/20261009213525-1",
-        "sha": "f4f583132a9775d86fa926794c665e295692705c",
+        "ref": "forges-fixtures/20261010111419-1",
+        "sha": "a53138e79562d6a52f4329dac2829a8a263576eb",
         "repo": {
           "forge": "gitlab",
           "instance": "gitlab.com",
@@ -631,7 +631,7 @@
       },
       "base": {
         "ref": "main",
-        "sha": "a6725ef9ae6acc9c5060e6e11d70250b602afc9e"
+        "sha": "cd9549889472ef59406412e8a7247616d874af96"
       }
     },
     "author": {
@@ -645,12 +645,12 @@
       "typeRaw": "user",
       "isBotHint": false
     },
-    "url": "https://gitlab.com/forges-fixtures/forges-fixtures/-/merge_requests/12",
+    "url": "https://gitlab.com/forges-fixtures/forges-fixtures/-/merge_requests/15",
     "createdAt": "<now>",
     "updatedAt": "<now>",
     "labels": [
       {
-        "name": "forges-fixture-20261009213525"
+        "name": "forges-fixture-20261010111419"
       }
     ],
     "commentCount": 1,
@@ -673,11 +673,11 @@
           "name": "forges-fixtures"
         },
         "kind": "commit",
-        "number": "f4f583132a9775d86fa926794c665e295692705c"
+        "number": "a53138e79562d6a52f4329dac2829a8a263576eb"
       },
-      "id": "2026-10-09T21:36:00.288Z:43193323"
+      "id": "2026-10-10T11:14:49.775Z:43193323"
     },
-    "body": "A commit comment from run 20261009213525.",
+    "body": "A commit comment from run 20261010111419.",
     "author": {
       "forge": "gitlab",
       "instance": "gitlab.com",
@@ -704,8 +704,8 @@
           "name": "forges-fixtures"
         },
         "kind": "pull_request",
-        "number": "14",
-        "externalId": "546097732"
+        "number": "17",
+        "externalId": "546244249"
       },
       "id": "approval:danielroe"
     },
@@ -737,10 +737,10 @@
           "name": "forges-fixtures"
         },
         "kind": "pull_request",
-        "number": "12",
-        "externalId": "546097726"
+        "number": "15",
+        "externalId": "546244243"
       },
-      "id": "discussion:ac0f18cac848ae1391d2a3a2af0f6feeceb846cc"
+      "id": "discussion:547173da2f673f9bf0d599cd7c91e1d1e41822b1"
     },
     "author": {
       "forge": "gitlab",
@@ -770,12 +770,12 @@
               "name": "forges-fixtures"
             },
             "kind": "pull_request",
-            "number": "12",
-            "externalId": "546097726"
+            "number": "15",
+            "externalId": "546244243"
           },
-          "id": "3987600787"
+          "id": "3989191378"
         },
-        "body": "A review comment from run 20261009213525.",
+        "body": "A review comment from run 20261010111419.",
         "author": {
           "forge": "gitlab",
           "instance": "gitlab.com",
@@ -789,12 +789,12 @@
         "createdAt": "<now>",
         "updatedAt": "<now>",
         "thread": {
-          "id": "ac0f18cac848ae1391d2a3a2af0f6feeceb846cc",
+          "id": "547173da2f673f9bf0d599cd7c91e1d1e41822b1",
           "resolved": false
         }
       }
     ],
-    "body": "A review comment from run 20261009213525."
+    "body": "A review comment from run 20261010111419."
   },
   "resolve review thread": {
     "reviews": {
@@ -816,12 +816,12 @@
                 "name": "forges-fixtures"
               },
               "kind": "pull_request",
-              "number": "12",
-              "externalId": "546097726"
+              "number": "15",
+              "externalId": "546244243"
             },
-            "id": "3987600291"
+            "id": "3989191185"
           },
-          "body": "An upserted comment from run 20261009213525.\n\n<!-- forges:key=forges-fixture -->",
+          "body": "An upserted comment from run 20261010111419.\n\n<!-- forges:key=forges-fixture -->",
           "author": {
             "forge": "gitlab",
             "instance": "gitlab.com",
@@ -849,12 +849,12 @@
                 "name": "forges-fixtures"
               },
               "kind": "pull_request",
-              "number": "12",
-              "externalId": "546097726"
+              "number": "15",
+              "externalId": "546244243"
             },
-            "id": "3987600787"
+            "id": "3989191378"
           },
-          "body": "A review comment from run 20261009213525.",
+          "body": "A review comment from run 20261010111419.",
           "author": {
             "forge": "gitlab",
             "instance": "gitlab.com",
@@ -868,18 +868,18 @@
           "createdAt": "<now>",
           "updatedAt": "<now>",
           "thread": {
-            "id": "ac0f18cac848ae1391d2a3a2af0f6feeceb846cc",
+            "id": "547173da2f673f9bf0d599cd7c91e1d1e41822b1",
             "resolved": false
           }
         }
       ],
       "rateLimit": {
         "limit": 2000,
-        "remaining": 1937,
+        "remaining": 1935,
         "resetAt": "<now>"
       }
     },
-    "id": "ac0f18cac848ae1391d2a3a2af0f6feeceb846cc"
+    "id": "547173da2f673f9bf0d599cd7c91e1d1e41822b1"
   },
   "report check": {
     "ref": {
@@ -891,7 +891,7 @@
         "owner": "forges-fixtures",
         "name": "forges-fixtures"
       },
-      "id": "17072992244",
+      "id": "17079803487",
       "type": "status"
     },
     "name": "forges fixture",
@@ -901,7 +901,7 @@
     "completedAt": "<now>"
   },
   "rerun check": {
-    "head": "a6725ef9ae6acc9c5060e6e11d70250b602afc9e",
+    "head": "cd9549889472ef59406412e8a7247616d874af96",
     "check": {
       "forge": "gitlab",
       "instance": "gitlab.com",
@@ -911,9 +911,75 @@
         "owner": "forges-fixtures",
         "name": "forges-fixtures"
       },
-      "id": "17062635849",
+      "id": "17072995060",
       "type": "status"
     }
+  },
+  "create release": {
+    "ref": {
+      "forge": "gitlab",
+      "instance": "gitlab.com",
+      "repo": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "owner": "forges-fixtures",
+        "name": "forges-fixtures"
+      },
+      "id": "forges-fixture-20261010111419",
+      "tag": "forges-fixture-20261010111419"
+    },
+    "name": "forges fixture 20261010111419: release",
+    "tag": "forges-fixture-20261010111419",
+    "body": "Released by run 20261010111419.",
+    "isDraft": false,
+    "isPrerelease": false,
+    "author": {
+      "forge": "gitlab",
+      "instance": "gitlab.com",
+      "login": "roebot",
+      "id": "43193323",
+      "name": "Daniel Roe",
+      "avatarUrl": "https://secure.gravatar.com/avatar/14ceebcfdc10030d76768a65e9d7978b914694cebcbb6ab609b3a0e8243f0eb8?s=80&d=identicon",
+      "url": "https://gitlab.com/roebot",
+      "isBotHint": false
+    },
+    "publishedAt": "<now>",
+    "createdAt": "<now>",
+    "url": "https://gitlab.com/forges-fixtures/forges-fixtures/-/releases/forges-fixture-20261010111419",
+    "assets": []
+  },
+  "update release": {
+    "ref": {
+      "forge": "gitlab",
+      "instance": "gitlab.com",
+      "repo": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "owner": "forges-fixtures",
+        "name": "forges-fixtures"
+      },
+      "id": "forges-fixture-20261010111419",
+      "tag": "forges-fixture-20261010111419"
+    },
+    "name": "forges fixture 20261010111419: release, edited",
+    "tag": "forges-fixture-20261010111419",
+    "body": "Edited by run 20261010111419.",
+    "isDraft": false,
+    "isPrerelease": false,
+    "author": {
+      "forge": "gitlab",
+      "instance": "gitlab.com",
+      "login": "roebot",
+      "id": "43193323",
+      "name": "Daniel Roe",
+      "avatarUrl": "https://secure.gravatar.com/avatar/14ceebcfdc10030d76768a65e9d7978b914694cebcbb6ab609b3a0e8243f0eb8?s=80&d=identicon",
+      "url": "https://gitlab.com/roebot",
+      "isBotHint": false
+    },
+    "publishedAt": "<now>",
+    "createdAt": "<now>",
+    "url": "https://gitlab.com/forges-fixtures/forges-fixtures/-/releases/forges-fixture-20261010111419",
+    "assets": []
   },
   "create webhook": {
     "ref": {
@@ -925,7 +991,7 @@
         "owner": "forges-fixtures",
         "name": "forges-fixtures"
       },
-      "id": "91147410"
+      "id": "91188298"
     },
     "url": "https://example.com/hook",
     "events": [
@@ -952,7 +1018,7 @@
         "owner": "forges-fixtures",
         "name": "forges-fixtures"
       },
-      "id": "91147410"
+      "id": "91188298"
     },
     "url": "https://example.com/hook",
     "events": [
@@ -979,7 +1045,7 @@
         "owner": "forges-fixtures",
         "name": "forges-fixtures"
       },
-      "id": "91147410"
+      "id": "91188298"
     },
     "url": "https://example.com/hook",
     "events": [
@@ -1010,12 +1076,12 @@
           "name": "forges-fixtures"
         },
         "kind": "issue",
-        "number": "12",
-        "externalId": "206011840"
+        "number": "14",
+        "externalId": "206051956"
       },
-      "id": "3987601490"
+      "id": "3989191739"
     },
-    "body": "@roebot a mention from run 20261009213525.",
+    "body": "@roebot a mention from run 20261010111419.",
     "author": {
       "forge": "gitlab",
       "instance": "gitlab.com",
@@ -1035,7 +1101,7 @@
         "ref": {
           "forge": "gitlab",
           "instance": "gitlab.com",
-          "id": "782023513"
+          "id": "782171692"
         },
         "subject": {
           "type": "thread",
@@ -1051,18 +1117,18 @@
             },
             "kind": "issue",
             "typeRaw": "Issue",
-            "number": "12"
+            "number": "14"
           }
         },
         "subjectTypeRaw": "Issue",
         "reason": "mention",
         "reasonRaw": "directly_addressed",
         "unread": true,
-        "title": "forges fixture 20261009213525: issue, edited",
+        "title": "forges fixture 20261010111419: issue, edited",
         "subjectState": "open",
         "subjectStateRaw": "opened",
         "updatedAt": "<now>",
-        "url": "https://gitlab.com/forges-fixtures/forges-fixtures/-/work_items/12#note_3987601490"
+        "url": "https://gitlab.com/forges-fixtures/forges-fixtures/-/work_items/14#note_3989191739"
       }
     ],
     "cursor": {

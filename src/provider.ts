@@ -46,7 +46,9 @@ import type {
   ReactionContent,
   Release,
   ReleaseAssetRef,
+  ReleaseInput,
   ReleaseRef,
+  ReleaseUpdate,
   Repo,
   RepoQuery,
   RepoRef,
@@ -382,6 +384,10 @@ export interface ForgeCapabilities {
     getByTag: Support
     /** Support for `releases.downloadAsset()`. */
     downloadAsset: Support
+    /** Support for `releases.create()`. */
+    create: Support
+    /** Support for `releases.update()`. */
+    update: Support
   }
   /** Cross-repository search of issues and pull requests, repositories, commits and code. */
   search: {
@@ -674,7 +680,7 @@ export interface ContentsApi {
   compare: (repo: RepoRef, base: string, head: string) => Promise<Comparison>
 }
 
-/** Reading the releases of a repository and downloading their assets. */
+/** Reading, creating and updating the releases of a repository, and downloading their assets. */
 export interface ReleasesApi {
   /** Lists the releases of a repository, including drafts and pre-releases where the credential can see them. */
   list: (repo: RepoRef, options?: PageOptions) => ForgeIterable<Release>
@@ -691,6 +697,22 @@ export interface ReleasesApi {
   downloadAsset: (ref: ReleaseAssetRef, options?: { signal?: AbortSignal }) => Promise<ReadableStream<Uint8Array>>
   /** The most recent published release that is not a draft or prerelease, if any. */
   latest: (repo: RepoRef) => Promise<Release | undefined>
+  /**
+   * Creates a release, and its tag from `target` when the tag does not exist yet.
+   * @param repo The repository to release.
+   * @param input The tag, the name, the notes and whether the release is a draft or a prerelease.
+   * @throws `UnsupportedOperationError` for `draft: true` or `prerelease: true` on a forge without drafts or prereleases.
+   * @example
+   * ```ts
+   * const release = await provider.releases.create(repo, { tag: 'v1.2.0', body: notes, draft: true })
+   * ```
+   */
+  create: (repo: RepoRef, input: ReleaseInput) => Promise<Release>
+  /**
+   * Changes a release. Fields left out stay as they are, so `{ draft: false }` publishes a draft.
+   * @throws `UnsupportedOperationError` for a change the forge cannot make, such as a new tag on GitLab.
+   */
+  update: (ref: ReleaseRef, update: ReleaseUpdate) => Promise<Release>
 }
 
 /** Searching issues and pull requests, repositories, commits and code across the forge. */

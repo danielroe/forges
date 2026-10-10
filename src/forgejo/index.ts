@@ -18,6 +18,7 @@ import type {
   PageOptions,
   ReactionContent,
   Release,
+  ReleaseUpdate,
   Repo,
   RepoRef,
   RepoSearchQuery,
@@ -378,6 +379,15 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
     return list(`${repoPath(repo)}/releases`, listOptions, (raw: ForgejoRelease) => toRelease(repo, raw))
   }
 
+  async function writeRelease(repo: RepoRef, path: string, method: 'POST' | 'PATCH', input: ReleaseUpdate): Promise<Release> {
+    const { data } = await fetcher.json<ForgejoRelease>(path, {
+      method,
+      json: { tag_name: input.tag, target_commitish: input.target, name: input.name, body: input.body, draft: input.draft, prerelease: input.prerelease },
+    })
+    // A new release has no assets, but a new draft can come back with some that belong elsewhere.
+    return toRelease(repo, method === 'POST' ? { ...data, assets: [] } : data)
+  }
+
   async function listPage(repo: RepoRef, query: ThreadQuery = {}): Promise<Page<Thread>> {
     const warnings: ForgeWarning[] = []
     if (query.kind === 'discussion') {
@@ -631,6 +641,8 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
           throw error
         }
       }),
+      create: verb(true, (repo, input) => writeRelease(repo, `${repoPath(repo)}/releases`, 'POST', input)),
+      update: verb(true, (ref, update) => writeRelease(ref.repo, `${repoPath(ref.repo)}/releases/${encodeURIComponent(ref.id)}`, 'PATCH', update)),
     },
     threads: {
       checks: perKind({ pull_request: true }, async (thread) => {

@@ -1,0 +1,14 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://gitlab.com/api/v4/todos/mark_as_done"
+  },
+  "response": {
+    "status": 204,
+    "headers": {
+      "ratelimit-limit": "2000",
+      "ratelimit-remaining": "1918",
+      "ratelimit-reset": "1791630960"
+    }
+  }
+}

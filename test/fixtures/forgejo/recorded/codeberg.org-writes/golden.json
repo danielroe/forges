@@ -24,9 +24,9 @@
     "following": 2
   },
   "create label": {
-    "name": "forges-fixture-20261009183645",
+    "name": "forges-fixture-20261010111718",
     "colour": "0e8a16",
-    "description": "Created by run 20261009183645"
+    "description": "Created by run 20261010111718"
   },
   "milestones": {
     "items": [
@@ -38,7 +38,7 @@
       }
     ]
   },
-  "create issue": {
+  "create pull": {
     "ref": {
       "forge": "forgejo",
       "instance": "codeberg.org",
@@ -48,13 +48,13 @@
         "owner": "forges-fixtures",
         "name": "forges-fixtures"
       },
-      "kind": "issue",
-      "number": "9",
-      "externalId": "7652445"
+      "kind": "pull_request",
+      "number": "14",
+      "externalId": "3345261"
     },
-    "kind": "issue",
-    "title": "forges fixture 20261009183645: issue",
-    "body": "Opened by run 20261009183645.",
+    "kind": "pull_request",
+    "title": "forges fixture 20261010111718: pull 1",
+    "body": "Opened by run 20261010111718.",
     "state": "open",
     "stateRaw": "open",
     "isDraft": false,
@@ -70,14 +70,31 @@
     "assignees": [],
     "reviewers": [],
     "labels": [],
-    "url": "https://codeberg.org/forges-fixtures/forges-fixtures/issues/9",
+    "url": "https://codeberg.org/forges-fixtures/forges-fixtures/pulls/14",
     "createdAt": "<now>",
     "updatedAt": "<now>",
     "lastActivityAt": "<now>",
     "locked": false,
-    "commentCount": 0
+    "commentCount": 0,
+    "branches": {
+      "head": {
+        "ref": "forges-fixtures/20261010111718-1",
+        "sha": "0608cb5fbe08be58d8626e46161e23a6453c915e",
+        "repo": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "owner": "forges-fixtures",
+          "name": "forges-fixtures",
+          "externalId": "2702328"
+        }
+      },
+      "base": {
+        "ref": "main",
+        "sha": "81ff8cfd6c483ee8ab077e516a28c8ab52f92a26"
+      }
+    }
   },
-  "issue comment": {
+  "pull comment": {
     "ref": {
       "forge": "forgejo",
       "instance": "codeberg.org",
@@ -90,13 +107,13 @@
           "owner": "forges-fixtures",
           "name": "forges-fixtures"
         },
-        "kind": "issue",
-        "number": "9",
-        "externalId": "7652445"
+        "kind": "pull_request",
+        "number": "14",
+        "externalId": "3345261"
       },
-      "id": "24991368"
+      "id": "25034742"
     },
-    "body": "A comment from run 20261009183645.",
+    "body": "A comment from run 20261010111718.",
     "author": {
       "forge": "forgejo",
       "instance": "codeberg.org",
@@ -108,9 +125,9 @@
     },
     "createdAt": "<now>",
     "updatedAt": "<now>",
-    "url": "https://codeberg.org/forges-fixtures/forges-fixtures/issues/9#issuecomment-24991368"
+    "url": "https://codeberg.org/forges-fixtures/forges-fixtures/pulls/14#issuecomment-25034742"
   },
-  "issue edit comment": {
+  "pull edit comment": {
     "ref": {
       "forge": "forgejo",
       "instance": "codeberg.org",
@@ -123,13 +140,13 @@
           "owner": "forges-fixtures",
           "name": "forges-fixtures"
         },
-        "kind": "issue",
-        "number": "9",
-        "externalId": "7652445"
+        "kind": "pull_request",
+        "number": "14",
+        "externalId": "3345261"
       },
-      "id": "24991368"
+      "id": "25034742"
     },
-    "body": "An edited comment from run 20261009183645.",
+    "body": "An edited comment from run 20261010111718.",
     "author": {
       "forge": "forgejo",
       "instance": "codeberg.org",
@@ -141,9 +158,9 @@
     },
     "createdAt": "<now>",
     "updatedAt": "<now>",
-    "url": "https://codeberg.org/forges-fixtures/forges-fixtures/issues/9#issuecomment-24991368"
+    "url": "https://codeberg.org/forges-fixtures/forges-fixtures/pulls/14#issuecomment-25034742"
   },
-  "issue upsert comment": {
+  "pull upsert comment": {
     "comment": {
       "ref": {
         "forge": "forgejo",
@@ -157,13 +174,13 @@
             "owner": "forges-fixtures",
             "name": "forges-fixtures"
           },
-          "kind": "issue",
-          "number": "9",
-          "externalId": "7652445"
+          "kind": "pull_request",
+          "number": "14",
+          "externalId": "3345261"
         },
-        "id": "24991371"
+        "id": "25034745"
       },
-      "body": "An upserted comment from run 20261009183645.\n\n<!-- forges:key=forges-fixture -->",
+      "body": "An upserted comment from run 20261010111718.\n\n<!-- forges:key=forges-fixture -->",
       "author": {
         "forge": "forgejo",
         "instance": "codeberg.org",
@@ -175,11 +192,11 @@
       },
       "createdAt": "<now>",
       "updatedAt": "<now>",
-      "url": "https://codeberg.org/forges-fixtures/forges-fixtures/issues/9#issuecomment-24991371"
+      "url": "https://codeberg.org/forges-fixtures/forges-fixtures/pulls/14#issuecomment-25034745"
     },
     "created": true
   },
-  "issue update": {
+  "pull update": {
     "ref": {
       "forge": "forgejo",
       "instance": "codeberg.org",
@@ -189,13 +206,13 @@
         "owner": "forges-fixtures",
         "name": "forges-fixtures"
       },
-      "kind": "issue",
-      "number": "9",
-      "externalId": "7652445"
+      "kind": "pull_request",
+      "number": "14",
+      "externalId": "3345261"
     },
-    "kind": "issue",
-    "title": "forges fixture 20261009183645: issue, edited",
-    "body": "Edited by run 20261009183645.",
+    "kind": "pull_request",
+    "title": "forges fixture 20261010111718: pull, edited",
+    "body": "Edited by run 20261010111718.",
     "state": "open",
     "stateRaw": "open",
     "isDraft": false,
@@ -222,19 +239,126 @@
     "reviewers": [],
     "labels": [
       {
-        "name": "forges-fixture-20261009183645",
+        "name": "forges-fixture-20261010111718",
         "colour": "0e8a16",
-        "description": "Created by run 20261009183645"
+        "description": "Created by run 20261010111718"
       }
     ],
-    "url": "https://codeberg.org/forges-fixtures/forges-fixtures/issues/9",
+    "url": "https://codeberg.org/forges-fixtures/forges-fixtures/pulls/14",
     "createdAt": "<now>",
     "updatedAt": "<now>",
     "lastActivityAt": "<now>",
     "locked": false,
-    "commentCount": 1
+    "commentCount": 1,
+    "branches": {
+      "head": {
+        "ref": "forges-fixtures/20261010111718-1",
+        "sha": "0608cb5fbe08be58d8626e46161e23a6453c915e",
+        "repo": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "owner": "forges-fixtures",
+          "name": "forges-fixtures",
+          "externalId": "2702328"
+        }
+      },
+      "base": {
+        "ref": "main",
+        "sha": "81ff8cfd6c483ee8ab077e516a28c8ab52f92a26"
+      }
+    }
   },
-  "create duplicate issue": {
+  "pending review": {
+    "ref": {
+      "forge": "forgejo",
+      "instance": "codeberg.org",
+      "thread": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "repo": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "owner": "forges-fixtures",
+          "name": "forges-fixtures"
+        },
+        "kind": "pull_request",
+        "number": "14",
+        "externalId": "3345261"
+      },
+      "id": "2094198"
+    },
+    "author": {
+      "forge": "forgejo",
+      "instance": "codeberg.org",
+      "repo": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "owner": "forges-fixtures",
+        "name": "forges-fixtures"
+      },
+      "kind": "pull_request",
+      "number": "14",
+      "externalId": "3345261",
+      "login": "danielroe",
+      "id": "86052",
+      "name": "Daniel Roe",
+      "avatarUrl": "https://codeberg.org/avatars/a0f09b705dcd4afd1d54b6e7c8f08e323a97921b70569acc891a2617d2d04125",
+      "url": "https://codeberg.org/danielroe",
+      "isBotHint": false
+    },
+    "state": "pending",
+    "stateRaw": "PENDING",
+    "body": "A review from run 20261010111718.",
+    "submittedAt": "<now>",
+    "comments": [],
+    "url": "https://codeberg.org/forges-fixtures/forges-fixtures/pulls/14#issuecomment-25034793"
+  },
+  "submit review": {
+    "ref": {
+      "forge": "forgejo",
+      "instance": "codeberg.org",
+      "thread": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "repo": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "owner": "forges-fixtures",
+          "name": "forges-fixtures"
+        },
+        "kind": "pull_request",
+        "number": "14",
+        "externalId": "3345261"
+      },
+      "id": "2094198"
+    },
+    "author": {
+      "forge": "forgejo",
+      "instance": "codeberg.org",
+      "repo": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "owner": "forges-fixtures",
+        "name": "forges-fixtures"
+      },
+      "kind": "pull_request",
+      "number": "14",
+      "externalId": "3345261",
+      "login": "danielroe",
+      "id": "86052",
+      "name": "Daniel Roe",
+      "avatarUrl": "https://codeberg.org/avatars/a0f09b705dcd4afd1d54b6e7c8f08e323a97921b70569acc891a2617d2d04125",
+      "url": "https://codeberg.org/danielroe",
+      "isBotHint": false
+    },
+    "state": "commented",
+    "stateRaw": "COMMENT",
+    "body": "A submitted review from run 20261010111718.",
+    "submittedAt": "<now>",
+    "comments": [],
+    "url": "https://codeberg.org/forges-fixtures/forges-fixtures/pulls/14#issuecomment-25034793"
+  },
+  "report check": {
     "ref": {
       "forge": "forgejo",
       "instance": "codeberg.org",
@@ -244,34 +368,145 @@
         "owner": "forges-fixtures",
         "name": "forges-fixtures"
       },
-      "kind": "issue",
-      "number": "10",
-      "externalId": "7652448"
+      "id": "1",
+      "type": "status"
     },
-    "kind": "issue",
-    "title": "forges fixture 20261009183645: duplicate",
-    "body": "Opened by run 20261009183645.",
-    "state": "open",
-    "stateRaw": "open",
-    "isDraft": false,
+    "name": "forges fixture",
+    "state": "success",
+    "stateRaw": "success",
+    "startedAt": "<now>",
+    "completedAt": "<now>"
+  },
+  "create draft release": {
+    "ref": {
+      "forge": "forgejo",
+      "instance": "codeberg.org",
+      "repo": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "owner": "forges-fixtures",
+        "name": "forges-fixtures"
+      },
+      "id": "12829185",
+      "tag": "forges-fixture-20261010111718-draft"
+    },
+    "name": "forges fixture 20261010111718: draft",
+    "tag": "forges-fixture-20261010111718-draft",
+    "body": "Drafted by run 20261010111718.",
+    "isDraft": true,
+    "isPrerelease": true,
     "author": {
       "forge": "forgejo",
       "instance": "codeberg.org",
+      "owner": "forges-fixtures",
       "login": "roebot",
       "id": "1540800",
       "avatarUrl": "https://codeberg.org/avatars/278913be448f1cbee39f7fbfb40634a9",
       "url": "https://codeberg.org/roebot",
       "isBotHint": false
     },
-    "assignees": [],
-    "reviewers": [],
-    "labels": [],
-    "url": "https://codeberg.org/forges-fixtures/forges-fixtures/issues/10",
     "createdAt": "<now>",
-    "updatedAt": "<now>",
-    "lastActivityAt": "<now>",
-    "locked": false,
-    "commentCount": 0
+    "url": "https://codeberg.org/forges-fixtures/forges-fixtures/releases/tag/forges-fixture-20261010111718-draft",
+    "assets": []
+  },
+  "publish release": {
+    "ref": {
+      "forge": "forgejo",
+      "instance": "codeberg.org",
+      "repo": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "owner": "forges-fixtures",
+        "name": "forges-fixtures"
+      },
+      "id": "12829185",
+      "tag": "forges-fixture-20261010111718-draft"
+    },
+    "name": "forges fixture 20261010111718: draft",
+    "tag": "forges-fixture-20261010111718-draft",
+    "body": "Published by run 20261010111718.",
+    "isDraft": false,
+    "isPrerelease": false,
+    "author": {
+      "forge": "forgejo",
+      "instance": "codeberg.org",
+      "owner": "forges-fixtures",
+      "login": "roebot",
+      "id": "1540800",
+      "avatarUrl": "https://codeberg.org/avatars/278913be448f1cbee39f7fbfb40634a9",
+      "url": "https://codeberg.org/roebot",
+      "isBotHint": false
+    },
+    "publishedAt": "<now>",
+    "createdAt": "<now>",
+    "url": "https://codeberg.org/forges-fixtures/forges-fixtures/releases/tag/forges-fixture-20261010111718-draft",
+    "assets": []
+  },
+  "create release": {
+    "ref": {
+      "forge": "forgejo",
+      "instance": "codeberg.org",
+      "repo": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "owner": "forges-fixtures",
+        "name": "forges-fixtures"
+      },
+      "id": "12829188",
+      "tag": "forges-fixture-20261010111718"
+    },
+    "name": "forges fixture 20261010111718: release",
+    "tag": "forges-fixture-20261010111718",
+    "body": "Released by run 20261010111718.",
+    "isDraft": false,
+    "isPrerelease": false,
+    "author": {
+      "forge": "forgejo",
+      "instance": "codeberg.org",
+      "owner": "forges-fixtures",
+      "login": "roebot",
+      "id": "1540800",
+      "avatarUrl": "https://codeberg.org/avatars/278913be448f1cbee39f7fbfb40634a9",
+      "url": "https://codeberg.org/roebot",
+      "isBotHint": false
+    },
+    "publishedAt": "<now>",
+    "createdAt": "<now>",
+    "url": "https://codeberg.org/forges-fixtures/forges-fixtures/releases/tag/forges-fixture-20261010111718",
+    "assets": []
+  },
+  "update release": {
+    "ref": {
+      "forge": "forgejo",
+      "instance": "codeberg.org",
+      "repo": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "owner": "forges-fixtures",
+        "name": "forges-fixtures"
+      },
+      "id": "12829188",
+      "tag": "forges-fixture-20261010111718"
+    },
+    "name": "forges fixture 20261010111718: release, edited",
+    "tag": "forges-fixture-20261010111718",
+    "body": "Edited by run 20261010111718.",
+    "isDraft": false,
+    "isPrerelease": false,
+    "author": {
+      "forge": "forgejo",
+      "instance": "codeberg.org",
+      "owner": "forges-fixtures",
+      "login": "roebot",
+      "id": "1540800",
+      "avatarUrl": "https://codeberg.org/avatars/278913be448f1cbee39f7fbfb40634a9",
+      "url": "https://codeberg.org/roebot",
+      "isBotHint": false
+    },
+    "publishedAt": "<now>",
+    "createdAt": "<now>",
+    "url": "https://codeberg.org/forges-fixtures/forges-fixtures/releases/tag/forges-fixture-20261010111718",
+    "assets": []
   },
   "create webhook": {
     "ref": {
@@ -283,7 +518,7 @@
         "owner": "forges-fixtures",
         "name": "forges-fixtures"
       },
-      "id": "125097"
+      "id": "125307"
     },
     "url": "https://example.com/hook",
     "events": [
@@ -311,7 +546,7 @@
         "owner": "forges-fixtures",
         "name": "forges-fixtures"
       },
-      "id": "125097"
+      "id": "125307"
     },
     "url": "https://example.com/hook",
     "events": [
@@ -341,7 +576,7 @@
         "owner": "forges-fixtures",
         "name": "forges-fixtures"
       },
-      "id": "125097"
+      "id": "125307"
     },
     "url": "https://example.com/hook",
     "events": [
@@ -355,42 +590,104 @@
     "createdAt": "<now>",
     "updatedAt": "<now>"
   },
-  "mention author": {
-    "ref": {
-      "forge": "forgejo",
-      "instance": "codeberg.org",
-      "thread": {
-        "forge": "forgejo",
-        "instance": "codeberg.org",
-        "repo": {
-          "forge": "forgejo",
-          "instance": "codeberg.org",
-          "owner": "forges-fixtures",
-          "name": "forges-fixtures"
-        },
-        "kind": "issue",
-        "number": "9",
-        "externalId": "7652445"
-      },
-      "id": "24992739"
-    },
-    "body": "@roebot a mention from run 20261009183645.",
-    "author": {
-      "forge": "forgejo",
-      "instance": "codeberg.org",
-      "login": "danielroe",
-      "id": "86052",
-      "name": "Daniel Roe",
-      "avatarUrl": "https://codeberg.org/avatars/a0f09b705dcd4afd1d54b6e7c8f08e323a97921b70569acc891a2617d2d04125",
-      "url": "https://codeberg.org/danielroe",
-      "isBotHint": false
-    },
-    "createdAt": "<now>",
-    "updatedAt": "<now>",
-    "url": "https://codeberg.org/forges-fixtures/forges-fixtures/issues/9#issuecomment-24992739"
-  },
   "author notifications": {
     "items": [
+      {
+        "ref": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "id": "19560633"
+        },
+        "subject": {
+          "type": "thread",
+          "thread": {
+            "forge": "forgejo",
+            "instance": "codeberg.org",
+            "repo": {
+              "forge": "forgejo",
+              "instance": "codeberg.org",
+              "owner": "forges-fixtures",
+              "name": "forges-fixtures",
+              "externalId": "2702328"
+            },
+            "kind": "pull_request",
+            "typeRaw": "Pull",
+            "number": "14"
+          }
+        },
+        "subjectTypeRaw": "Pull",
+        "reason": "unknown",
+        "unread": true,
+        "title": "forges fixture 20261010111718: pull, edited",
+        "subjectState": "merged",
+        "subjectStateRaw": "merged",
+        "updatedAt": "<now>",
+        "url": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/pulls/14"
+      },
+      {
+        "ref": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "id": "19560465"
+        },
+        "subject": {
+          "type": "thread",
+          "thread": {
+            "forge": "forgejo",
+            "instance": "codeberg.org",
+            "repo": {
+              "forge": "forgejo",
+              "instance": "codeberg.org",
+              "owner": "forges-fixtures",
+              "name": "forges-fixtures",
+              "externalId": "2702328"
+            },
+            "kind": "issue",
+            "typeRaw": "Issue",
+            "number": "12"
+          }
+        },
+        "subjectTypeRaw": "Issue",
+        "reason": "unknown",
+        "unread": false,
+        "title": "forges fixture 20261010111034: issue, edited",
+        "subjectState": "closed",
+        "subjectStateRaw": "closed",
+        "updatedAt": "<now>",
+        "url": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/issues/12"
+      },
+      {
+        "ref": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "id": "19529400"
+        },
+        "subject": {
+          "type": "thread",
+          "thread": {
+            "forge": "forgejo",
+            "instance": "codeberg.org",
+            "repo": {
+              "forge": "forgejo",
+              "instance": "codeberg.org",
+              "owner": "forges-fixtures",
+              "name": "forges-fixtures",
+              "externalId": "2702328"
+            },
+            "kind": "issue",
+            "typeRaw": "Issue",
+            "number": "9"
+          }
+        },
+        "subjectTypeRaw": "Issue",
+        "reason": "unknown",
+        "unread": false,
+        "title": "forges fixture 20261009183645: issue, edited",
+        "subjectState": "closed",
+        "subjectStateRaw": "closed",
+        "updatedAt": "<now>",
+        "url": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/issues/9"
+      },
       {
         "ref": {
           "forge": "forgejo",
@@ -420,7 +717,7 @@
         "title": "forges fixture 20261009144651: pull, edited",
         "subjectState": "merged",
         "subjectStateRaw": "merged",
-        "updatedAt": "2026-10-09T15:44:11.000Z",
+        "updatedAt": "2026-10-09T19:07:28.000Z",
         "url": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/pulls/7"
       },
       {

@@ -107,6 +107,8 @@ const TABLE = [
   { capability: 'releases.latest' },
   { capability: 'releases.getByTag' },
   { capability: 'releases.downloadAsset' },
+  { capability: 'releases.create', write: true },
+  { capability: 'releases.update', write: true },
   { capability: 'webhooks.list', account: true, listing: true },
   { capability: 'webhooks.create', write: true },
   { capability: 'webhooks.update', write: true },

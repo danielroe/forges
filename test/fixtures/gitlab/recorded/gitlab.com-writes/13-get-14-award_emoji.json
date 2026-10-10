@@ -1,0 +1,42 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitlab.com/api/v4/projects/forges-fixtures%2Fforges-fixtures/issues/14/award_emoji?per_page=100"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "<https://gitlab.com/api/v4/projects/forges-fixtures%2Fforges-fixtures/issues/14/award_emoji?id=forges-fixtures%2Fforges-fixtures&issue_iid=14&page=1&per_page=100>; rel=\"first\", <https://gitlab.com/api/v4/projects/forges-fixtures%2Fforges-fixtures/issues/14/award_emoji?id=forges-fixtures%2Fforges-fixtures&issue_iid=14&page=1&per_page=100>; rel=\"last\"",
+      "etag": "W/\"f7d0c96414fca3baa1fd8113362775c8\"",
+      "ratelimit-limit": "2000",
+      "ratelimit-remaining": "1977",
+      "ratelimit-reset": "1791630900",
+      "x-total": "1",
+      "x-total-pages": "1",
+      "x-next-page": "",
+      "x-page": "1",
+      "x-per-page": "100"
+    },
+    "body": [
+      {
+        "id": 59049717,
+        "name": "thumbsup",
+        "user": {
+          "id": 43193323,
+          "username": "roebot",
+          "public_email": "",
+          "name": "Daniel Roe",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://secure.gravatar.com/avatar/14ceebcfdc10030d76768a65e9d7978b914694cebcbb6ab609b3a0e8243f0eb8?s=80&d=identicon",
+          "web_url": "https://gitlab.com/roebot"
+        },
+        "created_at": "2026-10-10T11:14:29.310Z",
+        "updated_at": "2026-10-10T11:14:29.310Z",
+        "awardable_id": 206051956,
+        "awardable_type": "Issue",
+        "url": null
+      }
+    ]
+  }
+}

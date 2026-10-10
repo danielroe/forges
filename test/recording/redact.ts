@@ -37,6 +37,19 @@ const USER_KEYS_TO_DROP = new Set([
 const TOKEN_PATTERN = /\b(?:gh[pousr]_\w{20,}|github_pat_\w{20,}|pun_pat_\w{20,}|eyJ[\w-]+\.eyJ[\w-]+\.[\w-]+)/g
 const SECRET_KEY = /password|secret|^(?:token|access_token|refresh_token|accessJwt|refreshJwt)$/i
 
+const UNATTACHED_UPLOAD = /\/attachments\/[\da-f-]{36}$/
+
+/** Keeps one upload that a release lists but does not own, with nothing that identifies it, and drops the rest. */
+function withoutUnattachedUploads(assets: unknown[]): unknown[] {
+  const isUpload = (asset: unknown) => UNATTACHED_UPLOAD.test(String((asset as { browser_download_url?: unknown } | null)?.browser_download_url))
+  const upload = assets.find(isUpload) as Record<string, unknown> | undefined
+  const uuid = '00000000-0000-0000-0000-000000000000'
+  return [
+    ...assets.filter(asset => !isUpload(asset)),
+    ...upload ? [{ ...upload, id: 0, name: 'redacted', uuid, size: 0, download_count: 0, browser_download_url: String(upload.browser_download_url).replace(UNATTACHED_UPLOAD, `/attachments/${uuid}`) }] : [],
+  ]
+}
+
 function isPrivate(value: unknown): boolean {
   const item = value as { private?: boolean, visibility?: string, is_private?: boolean } | null | undefined
   return Boolean(item && typeof item === 'object' && (item.private || item.is_private || item.visibility === 'private'))
@@ -84,6 +97,9 @@ export function redact(value: unknown): unknown {
     // A Forgejo Actions run repeats its whole webhook delivery, commit messages and all, and nothing reads it.
     else if (key === 'event_payload') {
       continue
+    }
+    else if (key === 'assets' && 'tag_name' in value && Array.isArray(entry)) {
+      result[key] = redact(withoutUnattachedUploads(entry))
     }
     else {
       result[key] = redact(entry)

@@ -178,6 +178,8 @@ Deliveries of `installation.*` events become `installation` events. You register
 | `releases.latest` | ❌ | ❌ |
 | `releases.getByTag` | ❌ | ❌ |
 | `releases.downloadAsset` | ❌ | ❌ |
+| `releases.create` | ❌ | ❌ |
+| `releases.update` | ❌ | ❌ |
 | `webhooks.list` | ❌ | ❌ |
 | `webhooks.create` | ❌ | ❌ |
 | `webhooks.update` | ❌ | ❌ |

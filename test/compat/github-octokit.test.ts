@@ -174,6 +174,19 @@ describe('request compatibility with Octokit', () => {
     )
   })
 
+  it('creates a draft release and publishes it', async () => {
+    await compare(
+      async (provider) => {
+        await provider.releases.create(repo, { tag: 'v1.3.0', target: 'main', name: 'Widgets v1.3.0', body: 'Notes', draft: true, prerelease: false }).catch(() => undefined)
+        await provider.releases.update({ forge: 'github', instance: 'github.com', repo, id: '9003' }, { draft: false }).catch(() => undefined)
+      },
+      async (octokit) => {
+        await octokit.rest.repos.createRelease({ owner, repo: name, tag_name: 'v1.3.0', target_commitish: 'main', name: 'Widgets v1.3.0', body: 'Notes', draft: true, prerelease: false }).catch(() => undefined)
+        await octokit.rest.repos.updateRelease({ owner, repo: name, release_id: 9003, draft: false }).catch(() => undefined)
+      },
+    )
+  })
+
   it('lists open Dependabot, code scanning and secret scanning alerts', async () => {
     await compare(
       provider => drain(provider.securityAlerts!.list(repo)),

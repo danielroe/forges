@@ -187,6 +187,8 @@ You manage service hook subscriptions at the level of the organization and not o
 | `releases.latest` | ❌ | ❌ |
 | `releases.getByTag` | ❌ | ❌ |
 | `releases.downloadAsset` | ❌ | ❌ |
+| `releases.create` | ❌ | ❌ |
+| `releases.update` | ❌ | ❌ |
 | `webhooks.list` | ❌ | ❌ |
 | `webhooks.create` | ❌ | ❌ |
 | `webhooks.update` | ❌ | ❌ |

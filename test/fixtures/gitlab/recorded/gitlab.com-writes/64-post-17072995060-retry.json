@@ -1,0 +1,134 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://gitlab.com/api/v4/projects/forges-fixtures%2Fforges-fixtures/jobs/17072995060/retry"
+  },
+  "response": {
+    "status": 201,
+    "headers": {
+      "etag": "W/\"fec774e8f1d25c9dae97cde333efe656\"",
+      "ratelimit-limit": "2000",
+      "ratelimit-remaining": "1993",
+      "ratelimit-reset": "1791630900"
+    },
+    "body": {
+      "id": 17079803656,
+      "status": "running",
+      "stage": "test",
+      "name": "check",
+      "ref": "main",
+      "tag": false,
+      "coverage": null,
+      "allow_failure": false,
+      "created_at": "2026-10-10T11:14:55.147Z",
+      "started_at": "2026-10-10T11:14:55.451Z",
+      "finished_at": null,
+      "erased_at": null,
+      "duration": 0.219714904,
+      "queued_duration": 0.12831,
+      "user": {
+        "id": 2179675,
+        "username": "danielroe",
+        "public_email": "",
+        "name": "Daniel Roe",
+        "state": "active",
+        "locked": false,
+        "avatar_url": "https://secure.gravatar.com/avatar/82a8f6237bb263bac46d7cc8ec3054d715ce6a55a8626d6e977769d57d2c94e6?s=80&d=identicon",
+        "web_url": "https://gitlab.com/danielroe",
+        "created_at": "2018-04-03T19:17:02.700Z",
+        "bio": "",
+        "location": "",
+        "linkedin": "daniel-roe",
+        "twitter": "",
+        "discord": "448776407863001090",
+        "website_url": "https://roe.dev/",
+        "github": "danielroe",
+        "job_title": "",
+        "pronouns": "he/him",
+        "organization": "",
+        "bot": false,
+        "work_information": null,
+        "followers": 0,
+        "following": 0,
+        "local_time": "11:14 AM"
+      },
+      "commit": {
+        "id": "cd9549889472ef59406412e8a7247616d874af96",
+        "short_id": "cd954988",
+        "created_at": "2026-10-09T21:36:15.000+00:00",
+        "parent_ids": [
+          "43c4101b7704a8b8910d5a1030575906b1e9919f",
+          "22407d69a86eecfa0a8e7f6304e114e9a7e53f23"
+        ],
+        "title": "Merged by run 20261009213525",
+        "message": "Merged by run 20261009213525",
+        "author_name": "Daniel Roe",
+        "author_email": "redacted@example.invalid",
+        "authored_date": "2026-10-09T21:36:15.000+00:00",
+        "committer_name": "Daniel Roe",
+        "committer_email": "redacted@example.invalid",
+        "committed_date": "2026-10-09T21:36:15.000+00:00",
+        "trailers": {},
+        "extended_trailers": {},
+        "web_url": "https://gitlab.com/forges-fixtures/forges-fixtures/-/commit/cd9549889472ef59406412e8a7247616d874af96"
+      },
+      "pipeline": {
+        "id": 2932196445,
+        "iid": 41,
+        "project_id": 87428720,
+        "sha": "cd9549889472ef59406412e8a7247616d874af96",
+        "ref": "main",
+        "status": "running",
+        "source": "push",
+        "created_at": "2026-10-09T21:36:17.034Z",
+        "updated_at": "2026-10-10T11:14:55.486Z",
+        "web_url": "https://gitlab.com/forges-fixtures/forges-fixtures/-/pipelines/2932196445"
+      },
+      "web_url": "https://gitlab.com/forges-fixtures/forges-fixtures/-/jobs/17079803656",
+      "project": {
+        "ci_job_token_scope_enabled": false
+      },
+      "artifacts": [],
+      "runner": {
+        "id": 54907241,
+        "description": "k8s.saas-linux-small-amd64.runners-manager.gitlab.com/default ",
+        "ip_address": null,
+        "active": true,
+        "paused": false,
+        "is_shared": true,
+        "runner_type": "instance_type",
+        "name": null,
+        "online": true,
+        "created_by": {
+          "id": 6515150,
+          "username": "rhassanein-admin",
+          "public_email": "",
+          "name": "Rehab Hassanein",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://secure.gravatar.com/avatar/f666d7b03304319b77d3e0eef49a7ea0f3f97f813536109786338b6468d7d34f?s=80&d=identicon",
+          "web_url": "https://gitlab.com/rhassanein-admin"
+        },
+        "created_at": "2026-08-06T11:12:30.404Z",
+        "status": "online",
+        "job_execution_status": "active"
+      },
+      "runner_manager": {
+        "id": 161631958,
+        "system_id": "r_gsgO4kdwXdPB",
+        "version": "19.5.0~pre.2272.g28a18501",
+        "revision": "28a18501",
+        "platform": "linux",
+        "architecture": "amd64",
+        "created_at": "2026-10-09T13:49:44.553Z",
+        "contacted_at": "2026-10-10T11:14:55.443Z",
+        "ip_address": "10.218.11.3",
+        "status": "online",
+        "job_execution_status": "active"
+      },
+      "artifacts_expire_at": null,
+      "archived": false,
+      "tag_list": []
+    }
+  }
+}

@@ -1,14 +1,14 @@
 /**
  * Setup and teardown for write recordings, through each forge's own API
  * rather than the providers: forges has no verb that pushes a commit or
- * deletes a branch, label or leftover thread. None of these requests is
+ * deletes a branch, label, release, tag or leftover thread. None of these requests is
  * recorded, and every one of them stays inside the scratch repository.
  */
 import type { RepoRef } from '../src/model.ts'
 import type { ForgeProvider } from '../src/provider.ts'
 import { Buffer } from 'node:buffer'
 import { parseJson } from '../src/fetch.ts'
-import { FIXTURE_TITLE } from '../test/recording/write-steps.ts'
+import { FIXTURE_TAG, FIXTURE_TITLE } from '../test/recording/write-steps.ts'
 
 export interface WriteHarness {
   /** URL prefixes that writes may target: the scratch repository and, when given, the transfer repository. */
@@ -19,7 +19,7 @@ export interface WriteHarness {
   prepare: () => Promise<string>
   /** Creates `branch` from `base` with one commit adding `path`; absent where pull requests are not opened from branches. */
   createBranch?: (base: string, branch: string, path: string) => Promise<void>
-  /** Closes open threads a fixture run opened, and deletes `branches`, `label` and the run's `hooks`. Best effort. */
+  /** Closes open threads a fixture run opened, and deletes `branches`, `label`, the run's `hooks` and every fixture release and tag. Best effort. */
   cleanUp: (branches: string[], label: string | undefined, hooks: string[]) => Promise<void>
   /** Removes the account `id` from `repo` again, so the next run can add it. */
   removeCollaborator?: (repo: RepoRef, id: string) => Promise<void>
@@ -105,11 +105,15 @@ function github({ baseUrl, authorization, scratch, transfer }: HarnessOptions): 
     },
     async cleanUp(branches, label, hooks) {
       const open = await call<Array<{ number: number, title: string }>>(`${repo}/issues?state=open&per_page=100`).catch(() => [])
+      const releases = await call<Array<{ id: number, tag_name: string }>>(`${repo}/releases?per_page=100`).catch(() => [])
+      const tags = await call<Array<{ ref: string }>>(`${repo}/git/matching-refs/tags/${enc(FIXTURE_TAG)}`).catch(() => [])
       await settle([
         ...open.filter(item => item.title.startsWith(FIXTURE_TITLE)).map(item => () => call(`${repo}/issues/${item.number}`, { method: 'PATCH', json: { state: 'closed' } })),
         ...branches.map(branch => () => call(`${repo}/git/refs/heads/${enc(branch)}`, { method: 'DELETE' })),
         ...label ? [() => call(`${repo}/labels/${enc(label)}`, { method: 'DELETE' })] : [],
         ...hooks.map(hook => () => call(`${repo}/hooks/${enc(hook)}`, { method: 'DELETE' })),
+        ...releases.filter(item => item.tag_name.startsWith(FIXTURE_TAG)).map(item => () => call(`${repo}/releases/${item.id}`, { method: 'DELETE' })),
+        ...tags.map(item => () => call(`${repo}/git/${item.ref.split('/').map(enc).join('/')}`, { method: 'DELETE' })),
       ])
     },
     async payloads(hook) {
@@ -138,11 +142,16 @@ function forgejo({ baseUrl, authorization, scratch }: HarnessOptions): WriteHarn
     async cleanUp(branches, label, hooks) {
       const open = await call<Array<{ number: number, title: string }>>(`${repo}/issues?state=open&limit=50`).catch(() => [])
       const labels = await call<Array<{ id: number, name: string }>>(`${repo}/labels?limit=50`).catch(() => [])
+      const releases = await call<Array<{ id: number, tag_name: string }>>(`${repo}/releases?limit=50`).catch(() => [])
+      const tags = await call<Array<{ name: string }>>(`${repo}/tags?limit=50`).catch(() => [])
+      // A tag that a release points to cannot be deleted, so the releases go first.
       await settle([
         ...open.filter(item => item.title.startsWith(FIXTURE_TITLE)).map(item => () => call(`${repo}/issues/${item.number}`, { method: 'PATCH', json: { state: 'closed' } })),
         ...branches.map(branch => () => call(`${repo}/branches/${enc(branch)}`, { method: 'DELETE' })),
         ...labels.filter(item => item.name === label).map(item => () => call(`${repo}/labels/${item.id}`, { method: 'DELETE' })),
         ...hooks.map(hook => () => call(`${repo}/hooks/${enc(hook)}`, { method: 'DELETE' })),
+        ...releases.filter(item => item.tag_name.startsWith(FIXTURE_TAG)).map(item => () => call(`${repo}/releases/${item.id}`, { method: 'DELETE' })),
+        ...tags.filter(item => item.name.startsWith(FIXTURE_TAG)).map(item => () => call(`${repo}/tags/${enc(item.name)}`, { method: 'DELETE' })),
       ])
     },
   }
@@ -172,12 +181,16 @@ function gitlab({ baseUrl, authorization, scratch, transfer, collaborators }: Ha
     async cleanUp(branches, label, hooks) {
       const issues = await call<Array<{ iid: number, title: string }>>(`${project}/issues?state=opened&per_page=100`).catch(() => [])
       const merges = await call<Array<{ iid: number, title: string }>>(`${project}/merge_requests?state=opened&per_page=100`).catch(() => [])
+      const releases = await call<Array<{ tag_name: string }>>(`${project}/releases?per_page=100`).catch(() => [])
+      const tags = await call<Array<{ name: string }>>(`${project}/repository/tags?search=${enc(`^${FIXTURE_TAG}`)}&per_page=100`).catch(() => [])
       await settle([
         ...issues.filter(item => item.title.startsWith(FIXTURE_TITLE)).map(item => () => call(`${project}/issues/${item.iid}`, { method: 'PUT', json: { state_event: 'close' } })),
         ...merges.filter(item => item.title.startsWith(FIXTURE_TITLE)).map(item => () => call(`${project}/merge_requests/${item.iid}`, { method: 'PUT', json: { state_event: 'close' } })),
         ...branches.map(branch => () => call(`${project}/repository/branches/${enc(branch)}`, { method: 'DELETE' })),
         ...label ? [() => call(`${project}/labels/${enc(label)}`, { method: 'DELETE' })] : [],
         ...hooks.map(hook => () => call(`${project}/hooks/${enc(hook)}`, { method: 'DELETE' })),
+        ...releases.filter(item => item.tag_name.startsWith(FIXTURE_TAG)).map(item => () => call(`${project}/releases/${enc(item.tag_name)}`, { method: 'DELETE' })),
+        ...tags.filter(item => item.name.startsWith(FIXTURE_TAG)).map(item => () => call(`${project}/repository/tags/${enc(item.name)}`, { method: 'DELETE' })),
       ])
     },
     async payloads(hook) {

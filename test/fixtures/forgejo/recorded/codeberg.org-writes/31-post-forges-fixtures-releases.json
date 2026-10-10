@@ -1,0 +1,69 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/releases",
+    "body": {
+      "tag_name": "forges-fixture-20261010111718-draft",
+      "target_commitish": "main",
+      "name": "forges fixture 20261010111718: draft",
+      "body": "Drafted by run 20261010111718.",
+      "draft": true,
+      "prerelease": true
+    }
+  },
+  "response": {
+    "status": 201,
+    "headers": {},
+    "body": {
+      "id": 12829185,
+      "tag_name": "forges-fixture-20261010111718-draft",
+      "target_commitish": "main",
+      "name": "forges fixture 20261010111718: draft",
+      "body": "Drafted by run 20261010111718.",
+      "url": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/releases/12829185",
+      "html_url": "https://codeberg.org/forges-fixtures/forges-fixtures/releases/tag/forges-fixture-20261010111718-draft",
+      "tarball_url": "https://codeberg.org/forges-fixtures/forges-fixtures/archive/forges-fixture-20261010111718-draft.tar.gz",
+      "zipball_url": "https://codeberg.org/forges-fixtures/forges-fixtures/archive/forges-fixture-20261010111718-draft.zip",
+      "hide_archive_links": false,
+      "upload_url": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/releases/12829185/assets",
+      "draft": true,
+      "prerelease": true,
+      "created_at": "2026-10-10T13:17:39+02:00",
+      "published_at": "2026-10-10T13:17:39+02:00",
+      "author": {
+        "id": 1540800,
+        "login": "roebot",
+        "source_id": 0,
+        "full_name": "",
+        "email": "redacted@example.invalid",
+        "avatar_url": "https://codeberg.org/avatars/278913be448f1cbee39f7fbfb40634a9",
+        "html_url": "https://codeberg.org/roebot",
+        "active": false,
+        "location": "",
+        "pronouns": "",
+        "website": "",
+        "description": "Machine account operated by @danielroe",
+        "followers_count": 0,
+        "following_count": 0,
+        "starred_repos_count": 0,
+        "username": "roebot"
+      },
+      "assets": [
+        {
+          "id": 0,
+          "name": "redacted",
+          "size": 0,
+          "download_count": 0,
+          "created_at": "2026-03-06T10:13:38+01:00",
+          "uuid": "00000000-0000-0000-0000-000000000000",
+          "browser_download_url": "https://codeberg.org/attachments/00000000-0000-0000-0000-000000000000",
+          "type": "attachment"
+        }
+      ],
+      "archive_download_count": {
+        "zip": 0,
+        "tar_gz": 0
+      }
+    }
+  }
+}

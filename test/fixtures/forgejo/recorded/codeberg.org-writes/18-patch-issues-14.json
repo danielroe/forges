@@ -1,0 +1,88 @@
+{
+  "request": {
+    "method": "PATCH",
+    "url": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/issues/14",
+    "body": {
+      "milestone": 154389
+    }
+  },
+  "response": {
+    "status": 201,
+    "headers": {},
+    "body": {
+      "id": 7657698,
+      "url": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/pulls/14",
+      "html_url": "https://codeberg.org/forges-fixtures/forges-fixtures/pulls/14",
+      "number": 14,
+      "user": {
+        "id": 1540800,
+        "login": "roebot",
+        "source_id": 0,
+        "full_name": "",
+        "email": "redacted@example.invalid",
+        "avatar_url": "https://codeberg.org/avatars/278913be448f1cbee39f7fbfb40634a9",
+        "html_url": "https://codeberg.org/roebot",
+        "active": true,
+        "location": "",
+        "pronouns": "",
+        "website": "",
+        "description": "Machine account operated by @danielroe",
+        "followers_count": 0,
+        "following_count": 0,
+        "starred_repos_count": 0,
+        "username": "roebot"
+      },
+      "original_author": "",
+      "original_author_id": 0,
+      "title": "forges fixture 20261010111718: pull 1",
+      "body": "Opened by run 20261010111718.",
+      "ref": "",
+      "assets": [],
+      "labels": [
+        {
+          "id": 2237874,
+          "name": "forges-fixture-20261010111718",
+          "exclusive": false,
+          "is_archived": false,
+          "color": "0e8a16",
+          "description": "Created by run 20261010111718",
+          "url": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/labels/2237874"
+        }
+      ],
+      "milestone": {
+        "id": 154389,
+        "title": "Fixture milestone",
+        "description": "Open milestone for forges fixture recordings.",
+        "state": "open",
+        "open_issues": 0,
+        "closed_issues": 0,
+        "created_at": "2026-10-09T13:40:54+02:00",
+        "updated_at": "2026-10-10T13:10:47+02:00",
+        "closed_at": null,
+        "due_on": null
+      },
+      "assignee": null,
+      "assignees": null,
+      "state": "open",
+      "is_locked": false,
+      "comments": 1,
+      "created_at": "2026-10-10T13:17:24+02:00",
+      "updated_at": "2026-10-10T13:17:28+02:00",
+      "closed_at": null,
+      "due_date": null,
+      "pull_request": {
+        "merged": false,
+        "merged_at": null,
+        "draft": false,
+        "html_url": "https://codeberg.org/forges-fixtures/forges-fixtures/pulls/14"
+      },
+      "repository": {
+        "id": 2702328,
+        "name": "forges-fixtures",
+        "owner": "forges-fixtures",
+        "full_name": "forges-fixtures/forges-fixtures"
+      },
+      "pin_order": 0
+    }
+  }
+}

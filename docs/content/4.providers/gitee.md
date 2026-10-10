@@ -173,6 +173,8 @@ You can manage webhooks on repositories only. Gitee doesn't keep a delivery log,
 | `releases.latest` | ✅ | ✅ |
 | `releases.getByTag` | ✅ | ✅ |
 | `releases.downloadAsset` | ❌ | ❌ |
+| `releases.create` | ❌ | ❌ |
+| `releases.update` | ❌ | ❌ |
 | `webhooks.list` | unverified | ❌ |
 | `webhooks.create` | unverified | ❌ |
 | `webhooks.update` | unverified | ❌ |

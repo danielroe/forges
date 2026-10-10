@@ -337,6 +337,20 @@ describe('gitlab release webhooks', () => {
   })
 })
 
+describe('gitlab release writes', () => {
+  it('rejects what a GitLab release cannot be, without sending a request', async () => {
+    const { instance, calls } = provider()
+    const ref = { forge: 'gitlab', instance: 'gitlab.com', repo, id: 'v2.0.0', tag: 'v2.0.0' } as const
+
+    await expect(instance.releases.create(repo, { tag: 'v2.2.0', draft: true })).rejects.toThrow(UnsupportedOperationError)
+    await expect(instance.releases.create(repo, { tag: 'v2.2.0', prerelease: true })).rejects.toThrow('GitLab has no prereleases')
+    await expect(instance.releases.update(ref, { draft: true })).rejects.toThrow('GitLab has no draft releases')
+    await expect(instance.releases.update(ref, { tag: 'v2.0.1' })).rejects.toThrow('GitLab keys a release by its tag, so the tag cannot change')
+    await expect(instance.releases.update(ref, { target: 'main' })).rejects.toThrow('GitLab cannot change the commit a release points to')
+    expect(calls).toEqual([])
+  })
+})
+
 describe('gitlab code search', () => {
   const cli = { forge: 'gitlab', instance: 'gitlab.com', owner: 'gitlab-org', name: 'cli' } as const
   const project = 'gid://gitlab/Project/80045070'

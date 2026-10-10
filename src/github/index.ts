@@ -30,6 +30,7 @@ import type {
   Reaction,
   ReactionContent,
   Release,
+  ReleaseUpdate,
   Repo,
   RepoRef,
   RepoSearchQuery,
@@ -1096,6 +1097,14 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
     return list(`${repoPath(repo)}/releases`, listOptions, (raw: GitHubRelease) => toRelease(repo, raw))
   }
 
+  async function writeRelease(repo: RepoRef, path: string, method: 'POST' | 'PATCH', input: ReleaseUpdate): Promise<Release> {
+    const { data } = await fetcher.json<GitHubRelease>(path, {
+      method,
+      json: { tag_name: input.tag, target_commitish: input.target, name: input.name, body: input.body, draft: input.draft, prerelease: input.prerelease },
+    })
+    return toRelease(repo, data)
+  }
+
   const ALERT_SOURCES = {
     dependency: {
       path: 'dependabot/alerts',
@@ -1332,6 +1341,8 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
           throw error
         }
       }),
+      create: verb(true, (repo, input) => writeRelease(repo, `${repoPath(repo)}/releases`, 'POST', input)),
+      update: verb(true, (ref, update) => writeRelease(ref.repo, `${repoPath(ref.repo)}/releases/${encodeURIComponent(ref.id)}`, 'PATCH', update)),
     },
     securityAlerts: {
       kinds: {

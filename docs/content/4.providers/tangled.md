@@ -228,6 +228,8 @@ A `push` delivery becomes a `push` or `ref` event. Tangled has no API to registe
 | `releases.latest` | ❌ | ❌ |
 | `releases.getByTag` | ❌ | ❌ |
 | `releases.downloadAsset` | ❌ | ❌ |
+| `releases.create` | ❌ | ❌ |
+| `releases.update` | ❌ | ❌ |
 | `webhooks.list` | ❌ | ❌ |
 | `webhooks.create` | ❌ | ❌ |
 | `webhooks.update` | ❌ | ❌ |

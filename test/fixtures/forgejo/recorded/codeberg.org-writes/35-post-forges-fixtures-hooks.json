@@ -1,0 +1,44 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/hooks",
+    "body": {
+      "type": "gitea",
+      "active": true,
+      "events": [
+        "issue_comment",
+        "pull_request_comment"
+      ],
+      "config": {
+        "url": "https://example.com/hook",
+        "content_type": "json",
+        "secret": "REDACTED"
+      }
+    }
+  },
+  "response": {
+    "status": 201,
+    "headers": {},
+    "body": {
+      "id": 125307,
+      "type": "gitea",
+      "branch_filter": "",
+      "url": "https://example.com/hook",
+      "config": {
+        "content_type": "json",
+        "url": "https://example.com/hook"
+      },
+      "events": [
+        "issue_comment",
+        "pull_request_comment",
+        "pull_request_review_comment"
+      ],
+      "authorization_header": "",
+      "content_type": "json",
+      "metadata": null,
+      "active": true,
+      "updated_at": "2026-10-10T13:17:57+02:00",
+      "created_at": "2026-10-10T13:17:57+02:00"
+    }
+  }
+}

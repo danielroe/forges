@@ -838,6 +838,27 @@ export interface Release {
   raw: unknown
 }
 
+/** The fields that `releases.create()` sets. */
+export interface ReleaseInput {
+  /** The tag to release. The forge creates it from `target` when it does not exist yet. */
+  tag: string
+  name?: string
+  /** The release notes. */
+  body?: string
+  /** Saves the release unpublished. `true` rejects with `UnsupportedOperationError` on a forge without drafts. */
+  draft?: boolean
+  /** Marks the release as a prerelease. `true` rejects with `UnsupportedOperationError` on a forge without prereleases. */
+  prerelease?: boolean
+  /**
+   * The branch or commit sha to create the tag from when it does not exist yet. GitHub, Forgejo and Gitea
+   * default to the default branch; GitLab requires it for a new tag.
+   */
+  target?: string
+}
+
+/** The fields that `releases.update()` changes. Fields left out stay as they are. */
+export type ReleaseUpdate = Partial<ReleaseInput>
+
 /** How severe an alert is. `unknown` is a level that the model does not name. */
 export type SecuritySeverity = 'critical' | 'high' | 'medium' | 'low' | 'unknown'
 

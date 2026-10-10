@@ -153,6 +153,8 @@ Since `pushin()` contains no webhook code, there is no `pushinLite()` factory fo
 | `releases.latest` | ❌ | ❌ |
 | `releases.getByTag` | ❌ | ❌ |
 | `releases.downloadAsset` | ❌ | ❌ |
+| `releases.create` | ❌ | ❌ |
+| `releases.update` | ❌ | ❌ |
 | `webhooks.list` | ❌ | ❌ |
 | `webhooks.create` | ❌ | ❌ |
 | `webhooks.update` | ❌ | ❌ |

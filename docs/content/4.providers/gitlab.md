@@ -67,7 +67,11 @@ Comments on a merge request are read by discussion, so a comment in a resolvable
 
 When the user isn't allowed to approve, GitLab responds with `401`. The provider raises this response as `InsufficientScopeError`.
 
-## Release assets
+## Releases
+
+GitLab releases have no draft or prerelease state, so every release is published as soon as you create it. `releases.create()` and `releases.update()` reject `draft: true` and `prerelease: true` with `UnsupportedOperationError` before they send a request. If the tag doesn't exist yet, `releases.create()` needs `target`, the branch or commit to tag.
+
+GitLab keys a release by its tag, so `releases.update()` can't change the tag or the commit of a release. It rejects a different `tag`, or any `target`, with `UnsupportedOperationError`.
 
 The assets of a GitLab release are links to arbitrary URLs and not files that GitLab hosts, so `releases.downloadAsset()` isn't available. To download an asset, fetch `asset.url` yourself.
 
@@ -188,6 +192,8 @@ If you create a hook with `webhooks.create()`, `nativeEvents` takes the names of
 | `releases.latest` | ✅ | ✅ |
 | `releases.getByTag` | ✅ | ✅ |
 | `releases.downloadAsset` | ❌ | ❌ |
+| `releases.create` | ✅ | ❌ |
+| `releases.update` | ✅ | ❌ |
 | `webhooks.list` | ✅ | ❌ |
 | `webhooks.create` | ✅ | ❌ |
 | `webhooks.update` | ✅ | ❌ |

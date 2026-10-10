@@ -1,0 +1,14 @@
+{
+  "request": {
+    "method": "DELETE",
+    "url": "https://gitlab.com/api/v4/projects/forges-fixtures%2Fforges-fixtures/hooks/91188298"
+  },
+  "response": {
+    "status": 204,
+    "headers": {
+      "ratelimit-limit": "2000",
+      "ratelimit-remaining": "1922",
+      "ratelimit-reset": "1791630960"
+    }
+  }
+}

@@ -25,20 +25,20 @@
     "name": "forges-fixtures-outside"
   },
   "run": {
-    "id": "20261009213525",
+    "id": "20261010111419",
     "base": "main",
     "branches": [
-      "forges-fixtures/20261009213525-1",
-      "forges-fixtures/20261009213525-2",
-      "forges-fixtures/20261009213525-3"
+      "forges-fixtures/20261010111419-1",
+      "forges-fixtures/20261010111419-2",
+      "forges-fixtures/20261010111419-3"
     ],
     "files": [
-      "forges-fixtures/20261009213525-1.md",
-      "forges-fixtures/20261009213525-2.md",
-      "forges-fixtures/20261009213525-3.md"
+      "forges-fixtures/20261010111419-1.md",
+      "forges-fixtures/20261010111419-2.md",
+      "forges-fixtures/20261010111419-3.md"
     ]
   },
-  "recordedAt": "2026-10-09T21:35:31.112Z",
+  "recordedAt": "2026-10-10T11:14:24.596Z",
   "steps": [
     "author",
     "reviewer",
@@ -97,6 +97,8 @@
     "pull close",
     "pull reopen",
     "approve and merge",
+    "create release",
+    "update release",
     "create webhook",
     "update webhook",
     "rotate webhook secret",

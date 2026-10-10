@@ -1,0 +1,46 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://gitlab.com/api/v4/projects/forges-fixtures%2Fforges-fixtures/issues/14/notes",
+    "body": {
+      "body": "A comment from run 20261010111419."
+    }
+  },
+  "response": {
+    "status": 201,
+    "headers": {
+      "etag": "W/\"abe4313487576b748c1c56f42252386b\"",
+      "ratelimit-limit": "2000",
+      "ratelimit-remaining": "1983",
+      "ratelimit-reset": "1791630900"
+    },
+    "body": {
+      "id": 3989190859,
+      "type": null,
+      "body": "A comment from run 20261010111419.",
+      "author": {
+        "id": 43193323,
+        "username": "roebot",
+        "public_email": "",
+        "name": "Daniel Roe",
+        "state": "active",
+        "locked": false,
+        "avatar_url": "https://secure.gravatar.com/avatar/14ceebcfdc10030d76768a65e9d7978b914694cebcbb6ab609b3a0e8243f0eb8?s=80&d=identicon",
+        "web_url": "https://gitlab.com/roebot"
+      },
+      "created_at": "2026-10-10T11:14:27.464Z",
+      "updated_at": "2026-10-10T11:14:27.464Z",
+      "system": false,
+      "noteable_id": 206051956,
+      "noteable_type": "Issue",
+      "project_id": 87428720,
+      "resolvable": false,
+      "confidential": false,
+      "internal": false,
+      "imported": false,
+      "imported_from": "none",
+      "noteable_iid": 14,
+      "commands_changes": {}
+    }
+  }
+}
