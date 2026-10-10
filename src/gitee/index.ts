@@ -71,8 +71,8 @@ function setupGitee({ instance, origin: context, fetcher, baseUrl }: ProviderCon
     return next.toString()
   }
 
-  function all<T>(path: string, query: Record<string, string | number | undefined> = {}): Promise<T[]> {
-    return Array.fromAsync(iteratePages(page => numberedPage<T>(path, query, page)))
+  function all<T>(path: string, options: BaseOptions = {}): Promise<T[]> {
+    return Array.fromAsync(iteratePages<T, PageOptions>(page => numberedPage<T>(path, {}, page), { signal: options.signal }))
   }
 
   /** Gitee records an approval, with no review object to read back. */
@@ -225,14 +225,14 @@ function setupGitee({ instance, origin: context, fetcher, baseUrl }: ProviderCon
   }
 
   /** Comments and the operation log, merged and ordered by time, so one complete page. */
-  async function eventsPage(thread: ThreadRef): Promise<Page<ForgeEventInput>> {
+  async function eventsPage(thread: ThreadRef, listOptions: ListOptions = {}): Promise<Page<ForgeEventInput>> {
     const ref = requireIssueOrPull(thread, context, 'list events on')
     const logsPath = ref.kind === 'pull_request'
       ? `${threadPath(ref)}/operate_logs`
       : `/repos/${encodeURIComponent(ref.repo.owner)}/issues/${encodeURIComponent(ref.number)}/operate_logs`
     const [comments, { data: logs }] = await Promise.all([
-      all<GiteeComment>(`${threadPath(ref)}/comments`),
-      fetcher.json<GiteeOperateLog[]>(logsPath, { query: ref.kind === 'issue' ? { repo: ref.repo.name } : { sort: 'asc' } }),
+      all<GiteeComment>(`${threadPath(ref)}/comments`, listOptions),
+      fetcher.json<GiteeOperateLog[]>(logsPath, { query: ref.kind === 'issue' ? { repo: ref.repo.name } : { sort: 'asc' }, signal: listOptions.signal }),
     ])
     const events = [...comments.map(raw => toCommentEvent(ref, raw)), ...(logs ?? []).map(raw => toLogEvent(ref, raw))]
     return { items: events.sort((a, b) => a.occurredAt.getTime() - b.occurredAt.getTime()) }
@@ -332,7 +332,7 @@ function setupGitee({ instance, origin: context, fetcher, baseUrl }: ProviderCon
         return toFileContent(fromBase64(data.content ?? ''), file, fileOptions, context)
       }),
       treePage: verb(true, async (repo, treeOptions = {}) => {
-        const ref = treeOptions.ref ?? (await fetcher.json<GiteeRepository>(repoPath(repo))).data.default_branch ?? 'master'
+        const ref = treeOptions.ref ?? (await fetcher.json<GiteeRepository>(repoPath(repo), { signal: treeOptions.signal })).data.default_branch ?? 'master'
         const { data } = await fetcher.json<GiteeTree>(`${repoPath(repo)}/git/trees/${encodeURIComponent(ref)}`, {
           query: { recursive: treeOptions.recursive ? 1 : undefined },
           signal: treeOptions.signal,

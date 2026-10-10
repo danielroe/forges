@@ -294,8 +294,8 @@ const GITLAB: ProviderDefinition<GitLabOptions> = {
     }
 
     /** GitLab's file endpoint needs an explicit ref, so the project's default branch stands in. */
-    async function defaultBranch(repo: RepoRef): Promise<string> {
-      const { data } = await fetcher.json<GitLabProjectDetail>(projectPath(repo))
+    async function defaultBranch(repo: RepoRef, options?: BaseOptions): Promise<string> {
+      const { data } = await fetcher.json<GitLabProjectDetail>(projectPath(repo), { signal: options?.signal })
       return data.default_branch ?? 'HEAD'
     }
 
@@ -732,7 +732,7 @@ const GITLAB: ProviderDefinition<GitLabOptions> = {
       },
       contents: {
         file: verb(true, async (repo, path, fileOptions = {}) => {
-          const ref = fileOptions.ref ?? await defaultBranch(repo)
+          const ref = fileOptions.ref ?? await defaultBranch(repo, fileOptions)
           const { data } = await fetcher.json<GitLabFile>(`${projectPath(repo)}/repository/files/${encodeURIComponent(path.replace(/^\//, ''))}`, {
             query: { ref },
             signal: fileOptions.signal,
@@ -841,12 +841,12 @@ const GITLAB: ProviderDefinition<GitLabOptions> = {
       threads: {
         filesPage: verb(true, (thread, listOptions = {}) => list(`${threadPath(requireMerge(thread, 'read for changed files'))}/diffs`, listOptions, toChangedFile)),
         commitsPage: verb(true, (thread, listOptions = {}) => list(`${threadPath(requireMerge(thread, 'read for commits'))}/commits`, listOptions, (raw: GitLabCommitDetail) => toCommit(thread.repo, raw))),
-        reviewsPage: verb('emulated', async (thread) => {
+        reviewsPage: verb('emulated', async (thread, listOptions) => {
           const ref = requireThread(thread, context)
           if (ref.kind !== 'pull_request') {
             throw new UnsupportedOperationError('Only merge requests have approvals', context)
           }
-          const { data } = await fetcher.json<GitLabApprovals>(`${threadPath(ref)}/approvals`)
+          const { data } = await fetcher.json<GitLabApprovals>(`${threadPath(ref)}/approvals`, { signal: listOptions?.signal })
           return { items: toApprovalReviews(ref, data) }
         }),
         approve: verb(true, async (thread, body, options) => {

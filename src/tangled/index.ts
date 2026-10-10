@@ -3,7 +3,9 @@ import type { FetchLike } from '../fetch.ts'
 import type {
   BaseOptions,
   ForgeEventInput,
+  ListOptions,
   Page,
+  PageOptions,
   Repo,
   RepoRef,
   ThreadKind,
@@ -135,19 +137,19 @@ const TANGLED: ProviderDefinition<TangledOptions> = {
       get: perKind(ISSUE_AND_PULL, readThread),
       getMany: verb(true, (refs: ThreadRef[], options?: BaseOptions) => getManyConcurrently(refs, readThread, options)),
       listPage: perKind({ issue: true, pull_request: true }, listPage),
-      eventsPage: verb(true, async (thread: ThreadRef): Promise<Page<ForgeEventInput>> => {
+      eventsPage: verb(true, async (thread: ThreadRef, listOptions: ListOptions = {}): Promise<Page<ForgeEventInput>> => {
         const { ref, uri, kind } = subjectUri(thread)
         const target = atUri(uri.did, uri.collection, uri.rkey)
         return wholePage(forgeIterable(async function* (warn) {
           const events: ForgeEventInput[] = []
-          for await (const item of activity(target, kind, await stateAuthors(uri.did, ref.repo, warn), warn)) {
+          for await (const item of activity(target, kind, await stateAuthors(uri.did, ref.repo, warn, listOptions.signal), warn, listOptions)) {
             const author = parseAtUri(item.uri)!.did
-            events.push(toActivityEvent(instance, { ...item, operation: 'create' }, await actorFor(author), ref, 'poll', new Date(0)))
+            events.push(toActivityEvent(instance, { ...item, operation: 'create' }, await actorFor(author, listOptions.signal), ref, 'poll', new Date(0)))
           }
           yield* events.sort((a, b) => a.occurredAt.getTime() - b.occurredAt.getTime())
         }))
       }),
-      commentsPage: perKind(ISSUE_AND_PULL, (thread: ThreadRef) => wholePage(listComments(thread))),
+      commentsPage: perKind(ISSUE_AND_PULL, (thread: ThreadRef, listOptions?: ListOptions) => wholePage(listComments(thread, listOptions))),
     }
 
     const comment: ThreadsApi['comment'] = async (thread, body, options) => {
@@ -246,13 +248,13 @@ const TANGLED: ProviderDefinition<TangledOptions> = {
           const { ref: found, record } = await canonicalRepo(ref, options?.signal)
           return toRepo(found, record.value, record)
         }),
-        listPage: verb(writable, async (): Promise<Page<Repo>> => {
+        listPage: verb(writable, async (listOptions: PageOptions = {}): Promise<Page<Repo>> => {
           if (!writable) {
             throw new UnsupportedOperationError('Listing your repositories needs auth', context)
           }
           return wholePage(forgeIterable(async function* () {
             const owner = await viewerDid()
-            for await (const record of ownRecords<RepoRecord>(COLLECTIONS.repo)) {
+            for await (const record of ownRecords<RepoRecord>(COLLECTIONS.repo, listOptions.signal)) {
               const rkey = parseAtUri(record.uri)!.rkey
               yield toRepo({ forge: FORGE, instance, owner, name: rkey }, record.value, record)
             }

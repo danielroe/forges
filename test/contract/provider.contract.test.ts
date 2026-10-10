@@ -408,6 +408,36 @@ describe.each(contracts)('contract: $name', (contract) => {
       await expect(pending).rejects.toBe(reason)
     })
 
+    it('aborts an events page read with the caller\'s reason', async () => {
+      const { controller, instance, started } = abortable()
+
+      const pending = instance.threads.eventsPage(threadRef(), { signal: controller.signal })
+      await started
+      controller.abort(reason)
+
+      await expect(pending).rejects.toBe(reason)
+    })
+
+    it('aborts a comments page read with the caller\'s reason', async () => {
+      const { controller, instance, started } = abortable()
+
+      const pending = instance.threads.commentsPage(threadRef(), { signal: controller.signal })
+      await started
+      controller.abort(reason)
+
+      await expect(pending).rejects.toBe(reason)
+    })
+
+    it.runIf(contract.reviews)('aborts a reviews page read with the caller\'s reason', async () => {
+      const { controller, instance, started } = abortable()
+
+      const pending = instance.threads.reviewsPage(threadRef(), { signal: controller.signal })
+      await started
+      controller.abort(reason)
+
+      await expect(pending).rejects.toBe(reason)
+    })
+
     it('aborts a comment write with the caller\'s reason', async () => {
       const { controller, instance, started } = abortable()
 

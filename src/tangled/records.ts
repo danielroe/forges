@@ -214,15 +214,15 @@ export function createTangledRecords({ options, instance, webUrl, context, atpro
     kind: 'issue' | 'pull_request',
     allowedState: Set<string>,
     warn: (warning: ForgeWarning) => void,
-    sources = ACTIVITY_SOURCES(kind),
+    { sources = ACTIVITY_SOURCES(kind), signal }: BaseOptions & { sources?: Array<{ collection: string, path: string }> } = {},
   ): AsyncGenerator<{ uri: string, collection: string, record: TangledRecord }> {
     for (const source of sources) {
-      for await (const link of atproto.backlinks(target, source.collection, source.path)) {
+      for await (const link of atproto.backlinks(target, source.collection, source.path, signal)) {
         if (source === STATE_COLLECTION[kind] && !allowedState.has(link.did)) {
           continue
         }
         const uri = atUri(link.did, link.collection, link.rkey)
-        const record = await readLinked(uri, warn)
+        const record = await readLinked(uri, warn, signal)
         if (record) {
           yield { uri, collection: link.collection, record }
         }
@@ -370,7 +370,7 @@ export function createTangledRecords({ options, instance, webUrl, context, atpro
         warnings.push({ code: 'sort_unsupported', message: 'The index sorts by creation time only' })
       }
     }
-    const repoDid = await repoDidOf(repo)
+    const repoDid = await repoDidOf(repo, query.signal)
     const state = query.state ?? 'open'
     const kinds = query.kind ? [query.kind] : ['issue', 'pull_request'] as const
     const page = await phased(kinds.map(kind => async (cursor?: Cursor): Promise<Page<Thread>> => {
@@ -395,7 +395,7 @@ export function createTangledRecords({ options, instance, webUrl, context, atpro
         if (!uri || (state === 'closed' && item.state === 'open')) {
           continue
         }
-        const author = await actorFor(uri.did)
+        const author = await actorFor(uri.did, query.signal)
         if (query.author && author.login !== query.author && author.id !== query.author) {
           continue
         }
@@ -431,14 +431,14 @@ export function createTangledRecords({ options, instance, webUrl, context, atpro
       if (query.labels?.length || query.assignee) {
         warn({ code: 'filter_unsupported', message: 'Tangled labels and assignees are not read yet; those filters were ignored' })
       }
-      const address = await canonicalRef(repo)
-      const repoDid = await repoDidOf(repo)
+      const address = await canonicalRef(repo, query.signal)
+      const repoDid = await repoDidOf(repo, query.signal)
       const targets = [repoDid, atUri(address.owner, COLLECTIONS.repo, address.name)]
       const uris: string[] = []
       for (const kind of query.kind ? [query.kind] : ['issue', 'pull_request'] as const) {
         const collection = kind === 'issue' ? COLLECTIONS.issue : COLLECTIONS.pull
         for (const target of targets) {
-          for await (const link of atproto.backlinks(target, collection, kind === 'issue' ? '.repo' : '.target.repo')) {
+          for await (const link of atproto.backlinks(target, collection, kind === 'issue' ? '.repo' : '.target.repo', query.signal)) {
             uris.push(atUri(link.did, link.collection, link.rkey))
           }
         }
@@ -446,7 +446,7 @@ export function createTangledRecords({ options, instance, webUrl, context, atpro
       const threadsRead = await mapConcurrent([...new Set(uris)], 4, async (uri) => {
         const parsed = parseAtUri(uri)!
         try {
-          const thread = await readThread({ forge: FORGE, instance, repo, kind: threadKindOf(parsed.collection)!, number: uri })
+          const thread = await readThread({ forge: FORGE, instance, repo, kind: threadKindOf(parsed.collection)!, number: uri }, query)
           thread.warnings?.forEach(warn)
           return thread
         }
@@ -473,13 +473,13 @@ export function createTangledRecords({ options, instance, webUrl, context, atpro
     })
   }
 
-  function listComments(thread: ThreadRef): ForgeIterable<Comment> {
+  function listComments(thread: ThreadRef, options: BaseOptions = {}): ForgeIterable<Comment> {
     const { ref, uri, kind } = subjectUri(thread)
     const target = atUri(uri.did, uri.collection, uri.rkey)
     return forgeIterable(async function* (warn) {
       const comments: Comment[] = []
-      for await (const item of activity(target, kind, new Set(), warn, COMMENT_SOURCES[kind])) {
-        comments.push(toRecordComment(ref, item.uri, item.record as FeedCommentRecord, await actorFor(parseAtUri(item.uri)!.did)))
+      for await (const item of activity(target, kind, new Set(), warn, { sources: COMMENT_SOURCES[kind], signal: options.signal })) {
+        comments.push(toRecordComment(ref, item.uri, item.record as FeedCommentRecord, await actorFor(parseAtUri(item.uri)!.did, options.signal)))
       }
       yield* comments.sort((a, b) => (a.createdAt?.getTime() ?? 0) - (b.createdAt?.getTime() ?? 0))
     })

@@ -219,8 +219,8 @@ const BITBUCKET: ProviderDefinition<BitbucketOptions> = {
     }
 
     /** Bitbucket's source endpoints need an explicit commit or branch, so the main branch stands in. */
-    async function mainBranch(repo: RepoRef): Promise<string> {
-      const { data } = await fetcher.json<BitbucketRepositoryDetail>(repoPathOf(repo))
+    async function mainBranch(repo: RepoRef, options?: BaseOptions): Promise<string> {
+      const { data } = await fetcher.json<BitbucketRepositoryDetail>(repoPathOf(repo), { signal: options?.signal })
       return data.mainbranch?.name ?? 'HEAD'
     }
 
@@ -464,7 +464,7 @@ const BITBUCKET: ProviderDefinition<BitbucketOptions> = {
       },
       contents: {
         file: verb(true, async (repo, path, fileOptions = {}) => {
-          const ref = fileOptions.ref ?? await mainBranch(repo)
+          const ref = fileOptions.ref ?? await mainBranch(repo, fileOptions)
           const target = `${repoPathOf(repo)}/src/${encodeURIComponent(ref)}/${path.split('/').map(encodeURIComponent).join('/')}`
           const [meta, raw] = await Promise.all([
             fetcher.json<BitbucketSrcEntry>(target, { query: { format: 'meta' }, signal: fileOptions.signal }),
@@ -474,7 +474,7 @@ const BITBUCKET: ProviderDefinition<BitbucketOptions> = {
           return toFileContent(new Uint8Array(await raw.arrayBuffer()), file, fileOptions, context)
         }),
         treePage: verb(true, async (repo, treeOptions = {}) => {
-          const ref = treeOptions.ref ?? await mainBranch(repo)
+          const ref = treeOptions.ref ?? await mainBranch(repo, treeOptions)
           const path = treeOptions.path?.replace(/^\/|\/$/g, '') ?? ''
           return list(`${repoPathOf(repo)}/src/${encodeURIComponent(ref)}/${path.split('/').map(encodeURIComponent).join('/')}`, treeOptions, toTreeEntry, { query: { max_depth: treeOptions.recursive ? 100 : undefined }, select: page<BitbucketSrcEntry> })
         }),
@@ -523,12 +523,12 @@ const BITBUCKET: ProviderDefinition<BitbucketOptions> = {
         filesPage: verb(true, (thread, listOptions = {}) => list(`${threadPath(requirePull(thread, 'read for changed files'))}/diffstat`, listOptions, toChangedFile, { select: page<BitbucketDiffStat> })),
         commitsPage: verb(true, (thread, listOptions = {}) => list(`${threadPath(requirePull(thread, 'read for commits'))}/commits`, listOptions, (raw: BitbucketCommitDetail) => toCommit(thread.repo, raw), { select: page<BitbucketCommitDetail> })),
         checks: perKind({ pull_request: true }, async (thread, options) => ({ items: await pullChecks(requireThread(thread, context), options?.signal) })),
-        reviewsPage: verb('emulated', async (thread) => {
+        reviewsPage: verb('emulated', async (thread, listOptions) => {
           const ref = requireThread(thread, context)
           if (ref.kind !== 'pull_request') {
             throw new UnsupportedOperationError('Only pull requests have participants', context)
           }
-          return { items: toParticipantReviews(ref, (await fetcher.json<BitbucketPullRequest>(threadPath(ref))).data) }
+          return { items: toParticipantReviews(ref, (await fetcher.json<BitbucketPullRequest>(threadPath(ref), { signal: listOptions?.signal })).data) }
         }),
         createReview: verb('emulated', createReview),
         get: perKind({ pull_request: true, commit: true }, get),

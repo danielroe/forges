@@ -51,12 +51,12 @@ function setupOrigin({ options, baseUrl, instance, origin: context, fetcher, cre
     return { items: (data[field] ?? []) as T[], cursor: next ? { token: next } : undefined }
   }
 
-  function all<T>(path: string, field: string, query?: Record<string, string>, signal?: AbortSignal): Promise<T[]> {
-    return Array.fromAsync(iteratePages(page => tokenPage<T>(path, field, { ...page, query, signal })))
+  function all<T>(path: string, field: string, options: BaseOptions = {}): Promise<T[]> {
+    return Array.fromAsync(iteratePages(page => tokenPage<T>(path, field, { ...page, signal: options.signal })))
   }
 
   async function headChecks(repo: RepoRef, sha: string, signal?: AbortSignal): Promise<Check[]> {
-    return (await all<OriginCheckRun>(`${repoPath(repo)}/commits/${sha}/check-runs`, 'checkRuns', undefined, signal)).map(raw => toCheck(repo, raw))
+    return (await all<OriginCheckRun>(`${repoPath(repo)}/commits/${sha}/check-runs`, 'checkRuns', { signal })).map(raw => toCheck(repo, raw))
   }
 
   async function get(thread: ThreadRef, options?: BaseOptions): Promise<Thread> {
@@ -139,11 +139,11 @@ function setupOrigin({ options, baseUrl, instance, origin: context, fetcher, cre
     return { items: page.items.filter(isConversationComment).map(raw => toComment(ref, raw)), cursor: page.cursor }
   }
 
-  async function eventsPage(thread: ThreadRef): Promise<Page<ForgeEventInput>> {
+  async function eventsPage(thread: ThreadRef, listOptions: ListOptions = {}): Promise<Page<ForgeEventInput>> {
     const ref = requireThread(thread, context)
     const [comments, reviews] = await Promise.all([
-      all<OriginComment>(`${pullPath(ref)}/comments`, 'comments'),
-      all<OriginReview>(`${pullPath(ref)}/reviews`, 'reviews'),
+      all<OriginComment>(`${pullPath(ref)}/comments`, 'comments', listOptions),
+      all<OriginReview>(`${pullPath(ref)}/reviews`, 'reviews', listOptions),
     ])
     const events = [...comments.map(raw => toCommentEvent(ref, raw)), ...reviews.filter(review => review.submittedAt).map(raw => toReviewEvent(ref, raw))]
     return { items: events.sort((a, b) => a.occurredAt.getTime() - b.occurredAt.getTime()) }
@@ -156,7 +156,7 @@ function setupOrigin({ options, baseUrl, instance, origin: context, fetcher, cre
 
   /** A user token has no single repository listing, so each namespace the user belongs to is listed in turn. */
   async function userReposPage(listOptions: PageOptions = {}): Promise<Page<Repo>> {
-    const namespaces = await all<{ slug: string }>('/namespaces', 'namespaces')
+    const namespaces = await all<{ slug: string }>('/namespaces', 'namespaces', listOptions)
     if (!namespaces.length) {
       return { items: [] }
     }
@@ -252,7 +252,7 @@ function setupOrigin({ options, baseUrl, instance, origin: context, fetcher, cre
       commit: verb('unverified', async (repo, sha, options) => {
         const [commit, files] = await Promise.all([
           fetcher.json<OriginCommit>(`${repoPath(repo)}/commits/${sha}`, { signal: options?.signal }),
-          all<OriginCommitFile>(`${repoPath(repo)}/commits/${sha}/files`, 'files', undefined, options?.signal),
+          all<OriginCommitFile>(`${repoPath(repo)}/commits/${sha}/files`, 'files', options),
         ])
         return toCommit(repo, commit.data, files.map(toChangedFile))
       }),
@@ -260,7 +260,7 @@ function setupOrigin({ options, baseUrl, instance, origin: context, fetcher, cre
         const basehead = encodeURIComponent(`${base}...${head}`)
         const [comparison, files] = await Promise.all([
           fetcher.json<OriginComparison>(`${repoPath(repo)}/compare/${basehead}`, { signal: options?.signal }),
-          all<OriginCommitFile>(`${repoPath(repo)}/compare/${basehead}/files`, 'files', undefined, options?.signal),
+          all<OriginCommitFile>(`${repoPath(repo)}/compare/${basehead}/files`, 'files', options),
         ])
         return {
           base,

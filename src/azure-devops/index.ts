@@ -247,8 +247,8 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
     return warnings.length ? { ...page, warnings: [...warnings, ...page.warnings ?? []] } : page
   }
 
-  async function threads(ref: ResolvedThreadRef): Promise<AzureThread[]> {
-    return (await fetcher.json<{ value: AzureThread[] }>(`${pullPath(ref)}/threads`)).data.value.filter(thread => !thread.isDeleted)
+  async function threads(ref: ResolvedThreadRef, options?: BaseOptions): Promise<AzureThread[]> {
+    return (await fetcher.json<{ value: AzureThread[] }>(`${pullPath(ref)}/threads`, { signal: options?.signal })).data.value.filter(thread => !thread.isDeleted)
   }
 
   /** Pull request threads come unpaged, so comments are one complete page; work item comments page by continuation token. */
@@ -256,26 +256,27 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
     const ref = requireIssueOrPull(thread, context, 'list comments on')
     if (ref.kind === 'pull_request') {
       return {
-        items: (await threads(ref)).filter(isConversationThread).flatMap(item => item.comments.filter(comment => !comment.isDeleted && comment.commentType !== 'system').map(comment => toPullComment(ref, item, comment))),
+        items: (await threads(ref, listOptions)).filter(isConversationThread).flatMap(item => item.comments.filter(comment => !comment.isDeleted && comment.commentType !== 'system').map(comment => toPullComment(ref, item, comment))),
       }
     }
     const issue = issueRef(ref.repo, ref.number)
     const { data } = await fetcher.json<{ comments: AzureWorkItemComment[], continuationToken?: string }>(`${workItemPath(ref)}/comments`, {
       query: { 'api-version': COMMENTS_API_VERSION, '$top': listOptions.perPage ?? PER_PAGE, 'continuationToken': listOptions.cursor?.token },
+      signal: listOptions.signal,
     })
     return { items: data.comments.filter(comment => !comment.isDeleted).map(raw => toWorkItemComment(issue, raw)), cursor: data.continuationToken ? { token: data.continuationToken } : undefined }
   }
 
-  async function eventsPage(thread: ThreadRef): Promise<Page<ForgeEventInput>> {
+  async function eventsPage(thread: ThreadRef, listOptions: ListOptions = {}): Promise<Page<ForgeEventInput>> {
     const ref = requireIssueOrPull(thread, context, 'list events on')
     if (ref.kind === 'pull_request') {
-      const events = (await threads(ref)).flatMap(item => toThreadEvents(ref, item))
+      const events = (await threads(ref, listOptions)).flatMap(item => toThreadEvents(ref, item))
       return { items: events.sort((a, b) => a.occurredAt.getTime() - b.occurredAt.getTime()) }
     }
     const issue = issueRef(ref.repo, ref.number)
     const [{ data: updates }, { data: comments }] = await Promise.all([
-      fetcher.json<{ value: AzureWorkItemUpdate[] }>(`${workItemPath(ref)}/updates`),
-      fetcher.json<{ comments: AzureWorkItemComment[] }>(`${workItemPath(ref)}/comments`, { query: { 'api-version': COMMENTS_API_VERSION } }),
+      fetcher.json<{ value: AzureWorkItemUpdate[] }>(`${workItemPath(ref)}/updates`, { signal: listOptions.signal }),
+      fetcher.json<{ comments: AzureWorkItemComment[] }>(`${workItemPath(ref)}/comments`, { query: { 'api-version': COMMENTS_API_VERSION }, signal: listOptions.signal }),
     ])
     return { items: toWorkItemEvents(issue, updates.value, comments.comments.filter(comment => !comment.isDeleted)) }
   }
@@ -349,8 +350,8 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
         const { data } = await fetcher.json<AzureRepository>(repoPath(ref), { signal: options?.signal })
         return toRepo(instance, scope(ref).org, data)
       }),
-      listPage: verb(true, async () => {
-        const { data } = await fetcher.json<{ value: AzureRepository[] }>(`/${enc(options.organization)}/_apis/git/repositories`)
+      listPage: verb(true, async (listOptions) => {
+        const { data } = await fetcher.json<{ value: AzureRepository[] }>(`/${enc(options.organization)}/_apis/git/repositories`, { signal: listOptions?.signal })
         return { items: data.value.map(raw => toRepo(instance, options.organization, raw)) }
       }),
     },
@@ -602,9 +603,9 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
         const ref = requireThread(thread, context)
         return { items: await pullChecks(ref, (await fetcher.json<AzurePullRequest>(pullPath(ref), { signal: options?.signal })).data, options?.signal) }
       }),
-      reviewsPage: verb('emulated', async (thread) => {
+      reviewsPage: verb('emulated', async (thread, listOptions) => {
         const ref = requireThread(thread, context)
-        const { data } = await fetcher.json<AzurePullRequest>(pullPath(ref))
+        const { data } = await fetcher.json<AzurePullRequest>(pullPath(ref), { signal: listOptions?.signal })
         return { items: (data.reviewers ?? []).filter(reviewer => reviewer.vote !== 0).map(reviewer => toVoteReview(ref, reviewer)) }
       }),
       createReview: verb('emulated', createReview),

@@ -701,7 +701,7 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
         const reviews = await Promise.all((result.data ?? []).map(async (raw) => {
           const comments = raw.comments_count === 0
             ? []
-            : (await fetcher.json<ForgejoReviewComment[]>(`${pullPath(ref)}/reviews/${encodeURIComponent(raw.id)}/comments`)).data ?? []
+            : (await fetcher.json<ForgejoReviewComment[]>(`${pullPath(ref)}/reviews/${encodeURIComponent(raw.id)}/comments`, { signal: listOptions.signal })).data ?? []
           return toReview(ref, raw, comments.map(comment => toReviewComment(ref, comment)))
         }))
         return { items: reviews, cursor: result.cursor }

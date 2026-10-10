@@ -305,13 +305,13 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
     return (await import('./graphql.ts')).toDiscussionThread(ref, discussion)
   }
 
-  async function discussionCommentPage(ref: ResolvedThreadRef, cursor?: Cursor): Promise<Page<{ comment: GraphQLComment, isReply: boolean }>> {
+  async function discussionCommentPage(ref: ResolvedThreadRef, listOptions: PageOptions): Promise<Page<{ comment: GraphQLComment, isReply: boolean }>> {
     const data: DiscussionCommentsResult = await graphql<DiscussionCommentsResult>('DISCUSSION_COMMENTS', {
       owner: ref.repo.owner,
       name: ref.repo.name,
       number: Number(ref.number),
-      after: cursor?.token ?? null,
-    })
+      after: listOptions.cursor?.token ?? null,
+    }, listOptions)
     const comments = data.repository?.discussion?.comments
     return {
       items: (comments?.nodes ?? []).flatMap(comment => [{ comment, isReply: false }, ...(comment.replies?.nodes ?? []).map(reply => ({ comment: reply, isReply: true }))]),
@@ -450,7 +450,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
         after: query.cursor?.token ?? null,
         field: query.sort === 'created' || !query.sort ? 'CREATED_AT' : 'UPDATED_AT',
         direction: direction.toUpperCase(),
-      })
+      }, query)
       const { toDiscussionThread } = await import('./graphql.ts')
       const discussions = data.repository?.discussions
       const items = (discussions?.nodes ?? [])
@@ -482,7 +482,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
         cursor: query.cursor,
         signal: query.signal,
       })
-      await withPullChecks(page)
+      await withPullChecks(page, query)
       return page
     }
     // `/pulls` returns full pages but has no label, author, assignee or since filter.
@@ -510,18 +510,18 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
       return toThread({ forge: FORGE, instance, repo, kind: isPull ? 'pull_request' : 'issue', number: String(raw.number) }, raw)
     })
     const ordered = (query.sort ?? 'created') === 'created' && direction === 'desc'
-    await withPullChecks(page)
+    await withPullChecks(page, query)
     return ordered && (result.data ?? []).some(older) ? { ...page, cursor: undefined } : page
   }
 
   /** Fills `checks`, and a missing `commentCount`, on every pull in the page with one batched read. */
-  async function withPullChecks(page: Page<Thread>): Promise<void> {
+  async function withPullChecks(page: Page<Thread>, options: BaseOptions): Promise<void> {
     const pulls = page.items.filter(thread => thread.kind === 'pull_request')
     if (!pulls.length || anonymous) {
       return
     }
     try {
-      const results = await getMany(pulls.map(thread => thread.ref))
+      const results = await getMany(pulls.map(thread => thread.ref), options)
       for (const [index, result] of results.entries()) {
         if (result.ok) {
           pulls[index]!.checks = result.thread.checks ?? pulls[index]!.checks
@@ -540,7 +540,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
   async function commentsPage(thread: ThreadRef, listOptions: ListOptions = {}): Promise<Page<Comment>> {
     const ref = requireThread(thread, context)
     if (ref.kind === 'discussion') {
-      const [page, { toDiscussionComment }] = await Promise.all([discussionCommentPage(ref, listOptions.cursor), import('./graphql.ts')])
+      const [page, { toDiscussionComment }] = await Promise.all([discussionCommentPage(ref, listOptions), import('./graphql.ts')])
       return { ...page, items: page.items.map(({ comment }) => toDiscussionComment(ref, comment)) }
     }
     const path = ref.kind === 'commit'
@@ -726,14 +726,14 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
   }
 
   /** Resolvable conversations, by the id of each comment in them; empty when GraphQL is unreachable. */
-  async function reviewThreadsByComment(ref: ResolvedThreadRef): Promise<Map<string, { id: string, resolved: boolean }>> {
+  async function reviewThreadsByComment(ref: ResolvedThreadRef, options?: BaseOptions): Promise<Map<string, { id: string, resolved: boolean }>> {
     const byComment = new Map<string, { id: string, resolved: boolean }>()
     if (anonymous) {
       return byComment
     }
     let data: ReviewThreadsResult
     try {
-      data = await graphql<ReviewThreadsResult>('REVIEW_THREADS', { owner: ref.repo.owner, name: ref.repo.name, number: Number(ref.number) })
+      data = await graphql<ReviewThreadsResult>('REVIEW_THREADS', { owner: ref.repo.owner, name: ref.repo.name, number: Number(ref.number) }, options)
     }
     catch (error) {
       if (error instanceof ForgeError) {
@@ -771,8 +771,8 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
     const kept = (listOptions.cursor && reviewContext.get(key)) || {
       at: now,
       read: Promise.all([
-        Array.fromAsync(fetcher.items<GitHubReviewComment>(`${key}/comments`, { query: { per_page: 100 } })),
-        reviewThreadsByComment(ref),
+        Array.fromAsync(fetcher.items<GitHubReviewComment>(`${key}/comments`, { query: { per_page: 100 }, signal: listOptions.signal })),
+        reviewThreadsByComment(ref, listOptions),
       ]),
     }
     reviewContext.delete(key)
@@ -1177,8 +1177,8 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
   async function reactionsPage(target: ThreadRef | CommentRef, listOptions: ListOptions = {}): Promise<Page<Reaction>> {
     const thread = 'thread' in target ? target.thread : target
     if (thread.kind === 'discussion') {
-      const id = 'thread' in target ? target.id : await nodeId(thread)
-      const [data, { toGraphQLActor, GRAPHQL_REACTIONS }] = await Promise.all([graphql<NodeReactionsResult>('NODE_REACTIONS', { id, after: listOptions.cursor?.token ?? null }), import('./graphql.ts')])
+      const id = 'thread' in target ? target.id : await nodeId(thread, listOptions)
+      const [data, { toGraphQLActor, GRAPHQL_REACTIONS }] = await Promise.all([graphql<NodeReactionsResult>('NODE_REACTIONS', { id, after: listOptions.cursor?.token ?? null }, listOptions), import('./graphql.ts')])
       const reactions = data.node?.reactions
       return {
         items: (reactions?.nodes ?? []).flatMap((raw) => {
@@ -1453,7 +1453,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
           cursor: listOptions.cursor,
           signal: listOptions.signal,
         })
-        const author = (await get(ref)).author?.login
+        const author = (await get(ref, listOptions)).author?.login
         return toPage(page, raw => raw.login === author ? undefined : toActor(instance, raw)!)
       }),
     },
@@ -1483,7 +1483,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
       eventsPage: verb(true, async (thread: ThreadRef, listOptions: ListOptions = {}): Promise<Page<ForgeEventInput>> => {
         const ref = requireThread(thread, context)
         if (ref.kind === 'discussion') {
-          const [page, { toDiscussionCommentEvent }] = await Promise.all([discussionCommentPage(ref, listOptions.cursor), import('./graphql.ts')])
+          const [page, { toDiscussionCommentEvent }] = await Promise.all([discussionCommentPage(ref, listOptions), import('./graphql.ts')])
           return { ...page, items: page.items.map(({ comment, isReply }) => toDiscussionCommentEvent(ref, comment, isReply)) }
         }
         if (ref.kind === 'commit') {
