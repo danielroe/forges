@@ -60,6 +60,11 @@ export function describeCell(cell: SupportCell): string {
     : shortSupportLabels.none
 }
 
+/** A provider's coverage as text, for the bars that only show the native count. */
+export function describeSummary(summary: Record<SupportLevel, number>): string {
+  return supportLevels.filter(level => summary[level]).map(level => `${summary[level]} ${shortSupportLabels[level].toLowerCase()}`).join(', ')
+}
+
 /** Text for what a row does, for screen readers. */
 export function describeRow(row: CapabilityRow): string {
   return [

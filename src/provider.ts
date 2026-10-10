@@ -168,7 +168,7 @@ export type AlertSupport = Record<'dependency' | 'code_scanning' | 'secret' | 'a
 export interface ForgeCapabilities {
   /** Instance version the capabilities were computed for, when known. */
   version?: string
-  /** The provider as a whole has not reached parity: hand-authored fixtures only, or an unstable upstream. */
+  /** The forge's API as a whole is unstable, so the provider can change with it. */
   experimental?: true
   /** `subscribe` is a long-lived push stream; see {@link SourcesApi}. */
   sources: Record<'poll' | 'webhook' | 'subscribe', Support>

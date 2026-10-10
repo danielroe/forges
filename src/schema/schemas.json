@@ -1215,7 +1215,7 @@
       "experimental": {
         "type": "boolean",
         "const": true,
-        "description": "The provider as a whole has not reached parity: hand-authored fixtures only, or an unstable upstream."
+        "description": "The forge's API as a whole is unstable, so the provider can change with it."
       },
       "sources": {
         "type": "object",

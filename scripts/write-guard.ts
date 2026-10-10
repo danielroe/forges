@@ -54,8 +54,8 @@ function strings(value: unknown, into: Set<string>): void {
  */
 export function guardedFetch(fetch: FetchLike, options: GuardOptions): FetchLike {
   const seen = new Set<string>()
-  const named = (variables: Record<string, unknown>) => !('owner' in variables || 'name' in variables)
-    || options.repos.some(repo => variables.owner === repo.owner && variables.name === repo.name)
+  const scoped = (variables: Record<string, unknown>) => 'owner' in variables || 'name' in variables
+  const named = (variables: Record<string, unknown>) => options.repos.some(repo => variables.owner === repo.owner && variables.name === repo.name)
   return async (input, init) => {
     const method = (init?.method ?? 'GET').toUpperCase()
     const body = parse(typeof init?.body === 'string' ? init.body : undefined)
@@ -63,11 +63,13 @@ export function guardedFetch(fetch: FetchLike, options: GuardOptions): FetchLike
     let trusted = within(input, options.scope)
     if (graphql) {
       const { query = '', variables = {}, operationName } = (body ?? {}) as { query?: string, variables?: Record<string, unknown>, operationName?: string }
-      const known = ids(variables).every(id => seen.has(id))
-      if (/^\s*mutation\b/.test(query) && (!known || !ids(variables).length)) {
+      const namedIds = ids(variables)
+      const known = namedIds.every(id => seen.has(id))
+      if (/^\s*mutation\b/.test(query) && (!known || !namedIds.length)) {
         throw new Error(`Refused the GraphQL mutation ${operationName ?? ''}: it names an id that did not come from the scratch repository`)
       }
-      trusted = known && named(variables)
+      // A query that names neither a repository nor an id is not tied to the scratch repository, so its ids stay untrusted.
+      trusted = known && (scoped(variables) ? named(variables) : namedIds.length > 0)
     }
     else if (method !== 'GET' && method !== 'HEAD' && !trusted && !within(input, options.account ?? [])) {
       if (!options.allows?.(input, body)) {

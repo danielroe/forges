@@ -3,6 +3,7 @@ import { groups, providers } from '#capabilities'
 
 const featured = ['writes.merge', 'notifications.list', 'releases.list', 'checks.list', 'search.threads', 'webhooks.create', 'ci.runs']
 const rows = groups.flatMap(group => group.rows).filter(row => featured.includes(row.capability))
+const levels = supportLevels.filter(level => rows.some(row => row.cells.some(cell => cell.level === level)))
 </script>
 
 <template>
@@ -61,7 +62,7 @@ const rows = groups.flatMap(group => group.rows).filter(row => featured.includes
     </div>
 
     <CapabilityLegend
-      :levels="['native', 'experimental', 'none']"
+      :levels="levels"
       class="mt-6 [&>ul]:justify-center"
     />
   </div>

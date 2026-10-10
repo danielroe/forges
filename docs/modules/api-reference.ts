@@ -1,8 +1,10 @@
 import { readFileSync, writeFileSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
-import { defineNuxtModule } from 'nuxt/kit'
+import { addTemplate, addTypeTemplate, defineNuxtModule } from 'nuxt/kit'
 import { generateApiDocs } from '../../scripts/api-docs/generate.ts'
 import { docsSections, withSection } from '../../scripts/docs-sections.ts'
+import { explorerHovers, explorerPageMembers } from '../shared/explorer-hovers.ts'
+import { explorable } from '../shared/explorer.ts'
 
 const root = fileURLToPath(new URL('../../', import.meta.url))
 const contentDir = fileURLToPath(new URL('../content/', import.meta.url))
@@ -15,10 +17,29 @@ const contentDir = fileURLToPath(new URL('../content/', import.meta.url))
 export default defineNuxtModule({
   meta: { name: 'api-reference' },
   async setup(_options, nuxt) {
+    addTypeTemplate({
+      filename: 'explorer-hovers.d.ts',
+      getContents: () => [
+        `declare const hovers: Record<string, { signature: string, description?: string }>`,
+        `export default hovers`,
+        `export declare const page: Array<{ name: string, type: string, optional: boolean, description: string }>`,
+      ].join('\n'),
+    })
+
+    // Preparing only writes types. Writing the hovers there too would replace a running dev server's with empty ones.
     if (nuxt.options._prepare) {
       return
     }
-    generateApiDocs({ root, contentDir })
+    const { model } = generateApiDocs({ root, contentDir, explorable })
+    const hovers = explorerHovers(model)
+    const page = explorerPageMembers(model)
+    // The explorer imports this as `#build/explorer-hovers.js` on first use, so its hovers stay out of the page bundle.
+    addTemplate({
+      filename: 'explorer-hovers.js',
+      // Written to disk, so that `#build/` resolves it in the browser as well as on the server.
+      write: true,
+      getContents: () => `export default ${JSON.stringify(hovers)}\nexport const page = ${JSON.stringify(page)}`,
+    })
     await refreshSections()
 
     // The pages come from `src/`, so a change there restarts the dev server to regenerate them.

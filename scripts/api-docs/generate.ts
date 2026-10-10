@@ -1,4 +1,5 @@
 import type { CapabilityInfo, GeneratedFile } from './pages.ts'
+import type { ApiModel } from './types.ts'
 import { existsSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { CAPABILITY_TABLE } from '../../src/capability-table.ts'
@@ -13,6 +14,8 @@ export interface GenerateOptions {
   contentDir: string
   /** URL the pages are served under. */
   basePath?: string
+  /** Whether the docs have an explorer for a verb, which its section then shows. */
+  explorable?: (verb: string) => boolean
 }
 
 export interface GenerateResult {
@@ -21,13 +24,15 @@ export interface GenerateResult {
   undocumented: string[]
   /** Exports that no page selects. */
   unplaced: string[]
+  /** What the pages were written from, for other generated content. */
+  model: ApiModel
 }
 
 /** The banner that every generated page carries right after its front matter. A page with it was written by this generator. */
 const BANNER_RE = /^---\n(?:(?!---\n)[\s\S])*?---\n\n<!-- Do not edit by hand: `[^`]+` writes this page/
 
 /** Builds the API reference from the source and writes it to `outDir`. */
-export function generateApiDocs({ root, contentDir, basePath = '/reference' }: GenerateOptions): GenerateResult {
+export function generateApiDocs({ root, contentDir, basePath = '/reference', explorable }: GenerateOptions): GenerateResult {
   const model = extractApi({ root, entries: ENTRIES })
   const { files, unplaced } = buildFiles(model, {
     basePath,
@@ -40,10 +45,11 @@ export function generateApiDocs({ root, contentDir, basePath = '/reference' }: G
     overviewPages: OVERVIEW_PAGES,
     hiddenMembers: HIDDEN_MEMBERS,
     capability: capabilityOf,
+    explorable,
     command: 'pnpm docs:api',
   })
   writeFiles(contentDir, files)
-  return { files, undocumented: undocumented(withoutHiddenMembers(model, HIDDEN_MEMBERS)), unplaced }
+  return { files, undocumented: undocumented(withoutHiddenMembers(model, HIDDEN_MEMBERS)), unplaced, model }
 }
 
 /** Replaces the pages of the previous run, and refuses to overwrite a file that it did not write. */
