@@ -1,5 +1,5 @@
 import type { ProviderContext, ProviderDefinition, ProviderFactoryFunction, ProviderSpec } from '../define.ts'
-import type { Check, CheckState, Comment, CommentRef, Cursor, ForgeEventInput, ForgeWarning, ListOptions, MergeMethod, Page, RepoRef, ResolvedThreadRef, Review, ReviewInput, SearchQuery, Thread, ThreadQuery, ThreadRef } from '../model.ts'
+import type { BaseOptions, Check, CheckState, Comment, CommentRef, Cursor, ForgeEventInput, ForgeWarning, ListOptions, MergeMethod, Page, RepoRef, ResolvedThreadRef, Review, ReviewInput, SearchQuery, Thread, ThreadQuery, ThreadRef } from '../model.ts'
 import type { AnonymousAuth, BasicAuth, ForgeOptionsBase, TokenAuth } from '../provider.ts'
 import type { AzureCommit, AzureCommitDiffs, AzureIdentity, AzureItem, AzurePolicyEvaluation, AzurePullRequest, AzureRef, AzureRepository, AzureReviewer, AzureStatus, AzureThread, AzureWorkItem, AzureWorkItemComment, AzureWorkItemUpdate } from './types.ts'
 import { toFileContent } from '../contents.ts'
@@ -113,7 +113,7 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
     return syntheticReview(ref, `vote:${reviewer.id}`, state, { author: toActor(instance, reviewer), stateRaw: `vote:${reviewer.vote}`, raw: reviewer })
   }
 
-  async function createReview(thread: ThreadRef, input: ReviewInput, options?: { signal?: AbortSignal }): Promise<Review> {
+  async function createReview(thread: ThreadRef, input: ReviewInput, options?: BaseOptions): Promise<Review> {
     const ref = requireThread(thread, context)
     if (ref.kind !== 'pull_request') {
       throw new UnsupportedOperationError('Only pull requests can be reviewed', context)
@@ -130,7 +130,7 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
     return toVoteReview(ref, { ...data, id: data.id ?? id, vote: data.vote ?? vote })
   }
 
-  async function setThreadStatus(thread: ThreadRef, id: string, status: 'closed' | 'active', options?: { signal?: AbortSignal }): Promise<void> {
+  async function setThreadStatus(thread: ThreadRef, id: string, status: 'closed' | 'active', options?: BaseOptions): Promise<void> {
     const ref = requireThread(thread, context)
     await fetcher.raw(`${pullPath(ref)}/threads/${enc(id)}`, {
       method: 'PATCH',
@@ -139,7 +139,7 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
     })
   }
 
-  async function get(thread: ThreadRef, options?: { signal?: AbortSignal }): Promise<Thread> {
+  async function get(thread: ThreadRef, options?: BaseOptions): Promise<Thread> {
     const ref = requireIssueOrPull(thread, context, 'read')
     if (ref.kind === 'issue') {
       return workItemThread(issueRef(ref.repo, ref.number), (await fetcher.json<AzureWorkItem>(workItemPath(ref), { query: { $expand: 'links' }, signal: options?.signal })).data)
@@ -301,7 +301,7 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
     throw new UnsupportedOperationError(`The ${type} work item type has no ${wanted.join(' or ')} state`, context)
   }
 
-  async function setState(thread: ThreadRef, state: 'open' | 'closed', options?: { signal?: AbortSignal }): Promise<void> {
+  async function setState(thread: ThreadRef, state: 'open' | 'closed', options?: BaseOptions): Promise<void> {
     const ref = requireIssueOrPull(thread, context, state === 'open' ? 'reopen' : 'close')
     if (ref.kind === 'pull_request') {
       await fetcher.raw(pullPath(ref), { method: 'PATCH', json: { status: state === 'open' ? 'active' : 'abandoned' }, signal: options?.signal })

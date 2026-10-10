@@ -1,5 +1,5 @@
 import type { ProviderContext, ProviderDefinition, ProviderFactoryFunction, ProviderSpec } from '../define.ts'
-import type { Check, Comment, Cursor, EventKind, ForgeEventInput, ForgeWarning, ListOptions, Notification, NotificationListOptions, Page, Release, Repo, RepoRef, RepoSearchQuery, ResolvedThreadRef, Review, ReviewInput, SearchQuery, Thread, ThreadQuery, ThreadRef, User } from '../model.ts'
+import type { BaseOptions, Check, Comment, Cursor, EventKind, ForgeEventInput, ForgeWarning, ListOptions, Notification, NotificationListOptions, Page, PageOptions, Release, Repo, RepoRef, RepoSearchQuery, ResolvedThreadRef, Review, ReviewInput, SearchQuery, Thread, ThreadQuery, ThreadRef, User } from '../model.ts'
 import type { AnonymousAuth, BulkNotificationOptions, ForgeOptionsBase, TokenAuth, VerbScopes } from '../provider.ts'
 import type { ForgeVerb } from '../supports.ts'
 import type { GiteeBranch, GiteeCheckRun, GiteeComment, GiteeCommit, GiteeCommitFile, GiteeCompare, GiteeContentFile, GiteeHook, GiteeIssue, GiteeLabel, GiteeNotification, GiteeOperateLog, GiteePullRequest, GiteeRelease, GiteeRepository, GiteeTag, GiteeTree, GiteeUser } from './types.ts'
@@ -54,7 +54,7 @@ function setupGitee({ instance, origin: context, fetcher, baseUrl }: ProviderCon
    * Gitee pages by number and reports the page count in `total_page`. The
    * cursor carries the next page's URL, with the same filters.
    */
-  async function numberedPage<T>(path: string, query: Record<string, string | number | boolean | undefined>, listOptions: { perPage?: number, cursor?: Cursor, signal?: AbortSignal }): Promise<{ items: T[], cursor?: Cursor }> {
+  async function numberedPage<T>(path: string, query: Record<string, string | number | boolean | undefined>, listOptions: PageOptions): Promise<{ items: T[], cursor?: Cursor }> {
     const perPage = Math.min(listOptions.perPage ?? PER_PAGE, 100)
     const url = listOptions.cursor?.nextUrl ?? fetcher.resolve(path, { ...query, page: 1, per_page: perPage })
     const page = Number(new URL(url).searchParams.get('page') ?? 1)
@@ -76,7 +76,7 @@ function setupGitee({ instance, origin: context, fetcher, baseUrl }: ProviderCon
   }
 
   /** Gitee records an approval, with no review object to read back. */
-  async function createReview(thread: ThreadRef, input: ReviewInput, options?: { signal?: AbortSignal }): Promise<Review> {
+  async function createReview(thread: ThreadRef, input: ReviewInput, options?: BaseOptions): Promise<Review> {
     const ref = requireThread(thread, context)
     if (ref.kind !== 'pull_request') {
       throw new UnsupportedOperationError('Only pull requests can be reviewed', context)
@@ -103,7 +103,7 @@ function setupGitee({ instance, origin: context, fetcher, baseUrl }: ProviderCon
     return (Array.isArray(data) ? data : data.check_runs ?? []).map(raw => toCheck(repo, raw))
   }
 
-  async function get(thread: ThreadRef, options?: { signal?: AbortSignal }): Promise<Thread> {
+  async function get(thread: ThreadRef, options?: BaseOptions): Promise<Thread> {
     const ref = requireIssueOrPull(thread, context, 'read')
     if (ref.kind === 'issue') {
       return toIssueThread(ref, (await fetcher.json<GiteeIssue>(threadPath(ref), { signal: options?.signal })).data)
@@ -243,7 +243,7 @@ function setupGitee({ instance, origin: context, fetcher, baseUrl }: ProviderCon
     return fetcher.json<GiteeIssue>(`/repos/${encodeURIComponent(ref.repo.owner)}/issues/${encodeURIComponent(ref.number)}`, { method: 'PATCH', json: { repo: ref.repo.name, ...json }, signal })
   }
 
-  async function setState(thread: ThreadRef, state: 'open' | 'closed', options?: { signal?: AbortSignal }): Promise<void> {
+  async function setState(thread: ThreadRef, state: 'open' | 'closed', options?: BaseOptions): Promise<void> {
     const ref = requireIssueOrPull(thread, context, state === 'open' ? 'reopen' : 'close')
     if (ref.kind === 'issue') {
       await issueWrite(ref, { state }, options?.signal)
@@ -265,7 +265,7 @@ function setupGitee({ instance, origin: context, fetcher, baseUrl }: ProviderCon
     return { items: items.map(raw => toNotification(instance, raw)), cursor: more ? { nextUrl: nextPage(url, page) } : undefined }
   }
 
-  async function releasesPage(repo: RepoRef, listOptions: { perPage?: number, cursor?: Cursor, signal?: AbortSignal } = {}): Promise<Page<Release>> {
+  async function releasesPage(repo: RepoRef, listOptions: PageOptions = {}): Promise<Page<Release>> {
     const page = await numberedPage<GiteeRelease>(`${repoPath(repo)}/releases`, {}, listOptions)
     return { items: page.items.map(raw => toRelease(repo, raw)), cursor: page.cursor }
   }

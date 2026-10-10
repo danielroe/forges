@@ -1,5 +1,5 @@
 import type { ProviderContext, ProviderDefinition, ProviderFactoryFunction, ProviderSpec } from '../define.ts'
-import type { Check, Comment, Cursor, ForgeEventInput, ForgeWarning, Installation, ListOptions, MergeMethod, Page, PageOptions, Repo, RepoRef, ResolvedThreadRef, Review, ReviewEvent, ReviewInput, Thread, ThreadQuery, ThreadRef } from '../model.ts'
+import type { BaseOptions, Check, Comment, Cursor, ForgeEventInput, ForgeWarning, Installation, ListOptions, MergeMethod, Page, PageOptions, Repo, RepoRef, ResolvedThreadRef, Review, ReviewEvent, ReviewInput, Thread, ThreadQuery, ThreadRef } from '../model.ts'
 import type { AnonymousAuth, ForgeOptionsBase, InstallationsApi } from '../provider.ts'
 import type { CursorOriginAuth, OriginAppCredentials } from './auth.ts'
 import type { OriginBlob, OriginBranch, OriginCheckRun, OriginComment, OriginCommit, OriginCommitFile, OriginComparison, OriginContent, OriginGitRef, OriginInstallation, OriginPullRequest, OriginRepo, OriginReview, OriginTree } from './types.ts'
@@ -42,7 +42,7 @@ function setupOrigin({ options, baseUrl, instance, origin: context, fetcher, cre
   const repoPath = (repo: RepoRef) => `/repos/${encodeURIComponent(repo.owner)}/${encodeURIComponent(repo.name)}`
   const pullPath = (ref: ResolvedThreadRef) => `${repoPath(ref.repo)}/pulls/${ref.number}`
 
-  async function tokenPage<T>(path: string, field: string, listOptions: { perPage?: number, cursor?: Cursor, signal?: AbortSignal, query?: Record<string, string | number | boolean | undefined> }, from = fetcher): Promise<{ items: T[], cursor?: Cursor }> {
+  async function tokenPage<T>(path: string, field: string, listOptions: PageOptions & { query?: Record<string, string | number | boolean | undefined> }, from = fetcher): Promise<{ items: T[], cursor?: Cursor }> {
     const { data } = await from.json<Record<string, unknown>>(path, {
       query: { ...listOptions.query, pageSize: Math.min(listOptions.perPage ?? PAGE_SIZE, 100), pageToken: listOptions.cursor?.token },
       signal: listOptions.signal,
@@ -59,7 +59,7 @@ function setupOrigin({ options, baseUrl, instance, origin: context, fetcher, cre
     return (await all<OriginCheckRun>(`${repoPath(repo)}/commits/${sha}/check-runs`, 'checkRuns', undefined, signal)).map(raw => toCheck(repo, raw))
   }
 
-  async function get(thread: ThreadRef, options?: { signal?: AbortSignal }): Promise<Thread> {
+  async function get(thread: ThreadRef, options?: BaseOptions): Promise<Thread> {
     const ref = requireThread(thread, context)
     const { data } = await fetcher.json<OriginPullRequest>(pullPath(ref), { signal: options?.signal })
     const result = toThread(ref, data)
@@ -80,7 +80,7 @@ function setupOrigin({ options, baseUrl, instance, origin: context, fetcher, cre
 
   const VERDICTS: Record<ReviewEvent, OriginReview['verdict']> = { approve: 'approve', request_changes: 'request_changes', comment: 'comment' }
 
-  async function createReview(thread: ThreadRef, input: ReviewInput, options?: { signal?: AbortSignal }): Promise<Review> {
+  async function createReview(thread: ThreadRef, input: ReviewInput, options?: BaseOptions): Promise<Review> {
     const ref = requireThread(thread, context)
     if (!input.event) {
       throw new UnsupportedOperationError('Cursor Origin has no pending reviews; pass an event', context)
@@ -96,7 +96,7 @@ function setupOrigin({ options, baseUrl, instance, origin: context, fetcher, cre
     return toReview(ref, data)
   }
 
-  async function setThreadResolved(id: string, resolved: boolean, options?: { signal?: AbortSignal }): Promise<void> {
+  async function setThreadResolved(id: string, resolved: boolean, options?: BaseOptions): Promise<void> {
     await fetcher.raw(`/pulls/threads/${encodeURIComponent(id)}`, { method: 'PATCH', json: { resolved }, signal: options?.signal })
   }
 
@@ -149,13 +149,13 @@ function setupOrigin({ options, baseUrl, instance, origin: context, fetcher, cre
     return { items: events.sort((a, b) => a.occurredAt.getTime() - b.occurredAt.getTime()) }
   }
 
-  async function reposPage(listOptions: { perPage?: number, cursor?: Cursor, signal?: AbortSignal } = {}, from = fetcher): Promise<Page<Repo>> {
+  async function reposPage(listOptions: PageOptions = {}, from = fetcher): Promise<Page<Repo>> {
     const page = await tokenPage<OriginRepo>('/installation/repos', 'repositories', listOptions, from)
     return { items: page.items.map(raw => toRepo(instance, raw)), cursor: page.cursor }
   }
 
   /** A user token has no single repository listing, so each namespace the user belongs to is listed in turn. */
-  async function userReposPage(listOptions: { perPage?: number, cursor?: Cursor, signal?: AbortSignal } = {}): Promise<Page<Repo>> {
+  async function userReposPage(listOptions: PageOptions = {}): Promise<Page<Repo>> {
     const namespaces = await all<{ slug: string }>('/namespaces', 'namespaces')
     if (!namespaces.length) {
       return { items: [] }

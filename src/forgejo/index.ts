@@ -185,7 +185,7 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
       : `${issuePath(requireIssueOrPull(target, context, 'react to'))}/reactions`
   }
 
-  async function setReaction(target: ThreadRef | CommentRef, reaction: ReactionContent, method: 'POST' | 'DELETE', options?: { signal?: AbortSignal }): Promise<void> {
+  async function setReaction(target: ThreadRef | CommentRef, reaction: ReactionContent, method: 'POST' | 'DELETE', options?: BaseOptions): Promise<void> {
     await fetcher.raw(reactionPath(target), { method, json: { content: reaction }, signal: options?.signal })
   }
 
@@ -240,7 +240,7 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
     }
   }
 
-  async function setStatus(ref: NotificationRef, status: 'read' | 'unread' | 'pinned', options?: { signal?: AbortSignal }): Promise<void> {
+  async function setStatus(ref: NotificationRef, status: 'read' | 'unread' | 'pinned', options?: BaseOptions): Promise<void> {
     await fetcher.raw(`/notifications/threads/${encodeURIComponent(ref.id)}`, {
       method: 'PATCH',
       query: { 'to-status': status },
@@ -278,7 +278,7 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
     return `${repoPath(ref.repo)}/issues/${encodeURIComponent(ref.number)}`
   }
 
-  async function setState(thread: ThreadRef, state: 'open' | 'closed', options?: { signal?: AbortSignal }): Promise<void> {
+  async function setState(thread: ThreadRef, state: 'open' | 'closed', options?: BaseOptions): Promise<void> {
     await fetcher.raw(issuePath(requireIssueOrPull(thread, context, state === 'open' ? 'reopen' : 'close')), {
       method: 'PATCH',
       json: { state },
@@ -345,7 +345,7 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
     }))
   }
 
-  async function createReview(thread: ThreadRef, input: ReviewInput, options?: { signal?: AbortSignal }): Promise<Review> {
+  async function createReview(thread: ThreadRef, input: ReviewInput, options?: BaseOptions): Promise<Review> {
     const ref = requirePull(thread, 'reviewed')
     const { data } = await fetcher.json<ForgejoReview>(`${pullPath(ref)}/reviews`, {
       method: 'POST',
@@ -359,7 +359,7 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
     return toReview(ref, data, [])
   }
 
-  async function get(thread: ThreadRef, options?: { signal?: AbortSignal }): Promise<Thread> {
+  async function get(thread: ThreadRef, options?: BaseOptions): Promise<Thread> {
     const ref = requireThread(thread, context)
     const { data } = await fetcher.json<ForgejoIssue>(threadPath(ref), { signal: options?.signal })
     const result = toThread(ref, data)

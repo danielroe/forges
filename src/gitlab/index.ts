@@ -1,6 +1,7 @@
 import type { MergeHooks, ProviderDefinition, ProviderFactoryFunction } from '../define.ts'
 import type {
   Actor,
+  BaseOptions,
   CheckState,
   CodeMatch,
   CodeSearchQuery,
@@ -252,7 +253,7 @@ const GITLAB: ProviderDefinition<GitLabOptions> = {
     const STATUS_STATES: Record<CheckState, string> = { pending: 'pending', success: 'success', failure: 'failed', neutral: 'success', unknown: 'pending' }
     const PIPELINE_STATES: Record<CheckState, string | undefined> = { pending: 'running', success: 'success', failure: 'failed', neutral: 'manual', unknown: undefined }
 
-    async function setDiscussionResolved(thread: ThreadRef, id: string, resolved: boolean, options?: { signal?: AbortSignal }): Promise<void> {
+    async function setDiscussionResolved(thread: ThreadRef, id: string, resolved: boolean, options?: BaseOptions): Promise<void> {
       const ref = requireThread(thread, context)
       await fetcher.raw(`${threadPath(ref)}/discussions/${encodeURIComponent(id)}`, { method: 'PUT', query: { resolved }, signal: options?.signal })
     }
@@ -298,7 +299,7 @@ const GITLAB: ProviderDefinition<GitLabOptions> = {
       return data.default_branch ?? 'HEAD'
     }
 
-    async function get(thread: ThreadRef, options?: { signal?: AbortSignal }): Promise<Thread> {
+    async function get(thread: ThreadRef, options?: BaseOptions): Promise<Thread> {
       const ref = requireThread(thread, context)
       if (ref.kind === 'discussion') {
         throw new UnsupportedOperationError('GitLab has no discussion threads', context)
@@ -538,7 +539,7 @@ const GITLAB: ProviderDefinition<GitLabOptions> = {
       }, warnings)
     }
 
-    async function setSubscribed(thread: ThreadRef, subscribed: boolean, options?: { signal?: AbortSignal }): Promise<void> {
+    async function setSubscribed(thread: ThreadRef, subscribed: boolean, options?: BaseOptions): Promise<void> {
       const ref = requireIssueOrPull(thread, context, subscribed ? 'subscribe to' : 'unsubscribe from')
       await fetcher.raw(`${threadPath(ref)}/${subscribed ? 'subscribe' : 'unsubscribe'}`, { method: 'POST', signal: options?.signal })
     }
@@ -557,7 +558,7 @@ const GITLAB: ProviderDefinition<GitLabOptions> = {
       await fetcher.raw(`${threadPath(thread)}/unsubscribe`, { method: 'POST', signal: writeOptions.signal })
     }
 
-    async function setState(thread: ThreadRef, stateEvent: 'close' | 'reopen', options?: { signal?: AbortSignal }): Promise<void> {
+    async function setState(thread: ThreadRef, stateEvent: 'close' | 'reopen', options?: BaseOptions): Promise<void> {
       await fetcher.raw(threadPath(requireIssueOrPull(thread, context, stateEvent)), {
         method: 'PUT',
         json: { state_event: stateEvent },
@@ -589,7 +590,7 @@ const GITLAB: ProviderDefinition<GitLabOptions> = {
       return (approvals.approved_by ?? []).map(({ user }) => syntheticReview(ref, `approval:${user?.username ?? user?.id ?? ''}`, 'approved', { author: toActor(instance, user), stateRaw: 'approved', raw: user }))
     }
 
-    async function approve(thread: ThreadRef, body?: string, options?: { signal?: AbortSignal }): Promise<GitLabApprovals> {
+    async function approve(thread: ThreadRef, body?: string, options?: BaseOptions): Promise<GitLabApprovals> {
       const ref = requireThread(thread, context)
       if (ref.kind !== 'pull_request') {
         throw new UnsupportedOperationError('Only merge requests can be approved', context)

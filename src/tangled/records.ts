@@ -1,6 +1,7 @@
 import type { ForgeErrorContext } from '../errors.ts'
 import type { Fetcher } from '../fetch.ts'
 import type {
+  BaseOptions,
   Comment,
   Cursor,
   ForgeEventInput,
@@ -341,7 +342,7 @@ export function createTangledRecords({ options, instance, webUrl, context, atpro
     }
   }
 
-  async function readThread(thread: ThreadRef, options?: { signal?: AbortSignal }): Promise<Thread> {
+  async function readThread(thread: ThreadRef, options?: BaseOptions): Promise<Thread> {
     const { uri, kind } = subjectUri(thread)
     const target = atUri(uri.did, uri.collection, uri.rkey)
     const { ref, record } = await threadFor(target, options?.signal)

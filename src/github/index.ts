@@ -285,14 +285,14 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
     }
   }
 
-  async function discussionId(ref: ResolvedThreadRef, options?: { signal?: AbortSignal }): Promise<string> {
+  async function discussionId(ref: ResolvedThreadRef, options?: BaseOptions): Promise<string> {
     if (ref.externalId) {
       return ref.externalId
     }
     return (await getDiscussion(ref, options)).ref.externalId!
   }
 
-  async function getDiscussion(ref: ResolvedThreadRef, options?: { signal?: AbortSignal }): Promise<Thread> {
+  async function getDiscussion(ref: ResolvedThreadRef, options?: BaseOptions): Promise<Thread> {
     const data = await graphql<DiscussionThreadResult>('DISCUSSION_THREAD', {
       owner: ref.repo.owner,
       name: ref.repo.name,
@@ -319,7 +319,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
     }
   }
 
-  async function get(thread: ThreadRef, options?: { signal?: AbortSignal }): Promise<Thread> {
+  async function get(thread: ThreadRef, options?: BaseOptions): Promise<Thread> {
     const ref = requireThread(thread, context)
     if (ref.kind === 'discussion') {
       return getDiscussion(ref, options)
@@ -368,7 +368,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
     }
   }
 
-  async function getMany(refs: ThreadRef[], options?: { signal?: AbortSignal }): Promise<GetManyResult[]> {
+  async function getMany(refs: ThreadRef[], options?: BaseOptions): Promise<GetManyResult[]> {
     if (anonymous) {
       return getManyConcurrently(refs, ref => ref.kind === 'discussion'
         ? Promise.reject(new UnsupportedOperationError('github does not read discussions without credentials', context))
@@ -785,7 +785,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
     ))
   }
 
-  async function createReview(thread: ThreadRef, input: ReviewInput, options?: { signal?: AbortSignal }): Promise<Review> {
+  async function createReview(thread: ThreadRef, input: ReviewInput, options?: BaseOptions): Promise<Review> {
     const ref = requirePull(thread, 'reviewed')
     const { data } = await fetcher.json<GitHubReview>(`${threadPath(ref)}/reviews`, {
       method: 'POST',
@@ -799,7 +799,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
     return toReview(ref, data, [])
   }
 
-  async function subscriptionNode(thread: ThreadRef, options?: { signal?: AbortSignal }): Promise<{ id: string, state: string }> {
+  async function subscriptionNode(thread: ThreadRef, options?: BaseOptions): Promise<{ id: string, state: string }> {
     const ref = requireThread(thread, context)
     if (ref.kind !== 'issue' && ref.kind !== 'pull_request' && ref.kind !== 'discussion') {
       throw new UnsupportedOperationError(`GitHub has no subscription for a ${ref.kind}`, context)
@@ -817,12 +817,12 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
     return { id: node.id, state: node.viewerSubscription }
   }
 
-  async function setSubscription(thread: ThreadRef, state: 'SUBSCRIBED' | 'UNSUBSCRIBED', options?: { signal?: AbortSignal }): Promise<void> {
+  async function setSubscription(thread: ThreadRef, state: 'SUBSCRIBED' | 'UNSUBSCRIBED', options?: BaseOptions): Promise<void> {
     const { id } = await subscriptionNode(thread, options)
     await graphql('UPDATE_SUBSCRIPTION', { id, state }, options)
   }
 
-  async function reposPage(repoFetcher: typeof fetcher, path: string, wrapped: boolean, listOptions: { perPage?: number, cursor?: Cursor, signal?: AbortSignal } = {}): Promise<Page<Repo>> {
+  async function reposPage(repoFetcher: typeof fetcher, path: string, wrapped: boolean, listOptions: PageOptions = {}): Promise<Page<Repo>> {
     return toPage(
       await repoFetcher.page<GitHubRepositoryDetail>(path, {
         query: { per_page: listOptions.perPage },
@@ -1196,7 +1196,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
     })
   }
 
-  async function react(target: ThreadRef | CommentRef, reaction: ReactionContent, options?: { signal?: AbortSignal }): Promise<void> {
+  async function react(target: ThreadRef | CommentRef, reaction: ReactionContent, options?: BaseOptions): Promise<void> {
     const thread = 'thread' in target ? target.thread : target
     if (thread.kind === 'discussion') {
       await graphql('ADD_REACTION', { id: 'thread' in target ? target.id : await nodeId(thread), content: (await import('./graphql.ts')).REACTION_CONTENT[reaction] }, options)
@@ -1205,7 +1205,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
     await fetcher.raw(reactionPath(target), { method: 'POST', json: { content: reaction }, signal: options?.signal })
   }
 
-  async function unreact(target: ThreadRef | CommentRef, reaction: ReactionContent, options?: { signal?: AbortSignal }): Promise<void> {
+  async function unreact(target: ThreadRef | CommentRef, reaction: ReactionContent, options?: BaseOptions): Promise<void> {
     const thread = 'thread' in target ? target.thread : target
     if (thread.kind === 'discussion') {
       await graphql('REMOVE_REACTION', { id: 'thread' in target ? target.id : await nodeId(thread), content: (await import('./graphql.ts')).REACTION_CONTENT[reaction] }, options)
@@ -1231,7 +1231,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
   const STATUS_STATES: Record<CheckState, string> = { pending: 'pending', success: 'success', failure: 'failure', neutral: 'success', unknown: 'pending' }
   const CHECK_RUN_CONCLUSIONS: Partial<Record<CheckState, string>> = { success: 'success', failure: 'failure', neutral: 'neutral' }
 
-  async function report(repo: RepoRef, sha: string, input: CheckReportInput, options?: { signal?: AbortSignal }): Promise<Check> {
+  async function report(repo: RepoRef, sha: string, input: CheckReportInput, options?: BaseOptions): Promise<Check> {
     if (canWriteCheckRuns) {
       const conclusion = CHECK_RUN_CONCLUSIONS[input.state]
       const { data } = await fetcher.json<GitHubCheckRun>(`${repoPath(repo)}/check-runs`, {

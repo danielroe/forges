@@ -1,6 +1,7 @@
 import type { MergeHooks, ProviderDefinition, ProviderFactoryFunction } from '../define.ts'
 import type {
   Actor,
+  BaseOptions,
   Check,
   CheckState,
   Comment,
@@ -223,7 +224,7 @@ const BITBUCKET: ProviderDefinition<BitbucketOptions> = {
       return data.mainbranch?.name ?? 'HEAD'
     }
 
-    async function get(thread: ThreadRef, options?: { signal?: AbortSignal }): Promise<Thread> {
+    async function get(thread: ThreadRef, options?: BaseOptions): Promise<Thread> {
       const ref = requireThread(thread, context)
       switch (ref.kind) {
         case 'pull_request': {
@@ -292,7 +293,7 @@ const BITBUCKET: ProviderDefinition<BitbucketOptions> = {
     }
 
     /** Bitbucket replaces a hook whole, so a change is merged into the hook as it is. */
-    async function putHook(ref: WebhookRef, changes: Partial<BitbucketHook> & { secret?: string }, options?: { signal?: AbortSignal }): Promise<Webhook> {
+    async function putHook(ref: WebhookRef, changes: Partial<BitbucketHook> & { secret?: string }, options?: BaseOptions): Promise<Webhook> {
       const path = `${hooksPath(ref.target)}/${ref.id}`
       const { data: current } = await fetcher.json<BitbucketHook>(path, { signal: options?.signal })
       const { data } = await fetcher.json<BitbucketHook>(path, {
@@ -385,7 +386,7 @@ const BITBUCKET: ProviderDefinition<BitbucketOptions> = {
       })
     }
 
-    async function createReview(thread: ThreadRef, input: ReviewInput, options?: { signal?: AbortSignal }): Promise<Review> {
+    async function createReview(thread: ThreadRef, input: ReviewInput, options?: BaseOptions): Promise<Review> {
       const ref = requireThread(thread, context)
       if (ref.kind !== 'pull_request') {
         throw new UnsupportedOperationError('Only pull requests can be reviewed', context)

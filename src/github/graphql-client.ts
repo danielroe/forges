@@ -1,4 +1,5 @@
 import type { Fetcher } from '../fetch.ts'
+import type { BaseOptions } from '../model.ts'
 import { ForgeApiError, InsufficientScopeError } from '../errors.ts'
 import { FORGE } from './normalise.ts'
 
@@ -35,10 +36,10 @@ export function graphqlError(operationName: string | undefined, errors: GraphQLE
 }
 
 /** Runs a named document from `./graphql`, or a query built at the call site. The module loads on first use. */
-export type GraphQLClient = <T>(query: DocumentName | { query: string }, variables: Record<string, unknown>, options?: { signal?: AbortSignal }) => Promise<T>
+export type GraphQLClient = <T>(query: DocumentName | { query: string }, variables: Record<string, unknown>, options?: BaseOptions) => Promise<T>
 
 export function createGraphQLClient(fetcher: Fetcher, url: string, context: { instance: string }): GraphQLClient {
-  return async <T>(document: DocumentName | { query: string }, variables: Record<string, unknown>, options?: { signal?: AbortSignal }): Promise<T> => {
+  return async <T>(document: DocumentName | { query: string }, variables: Record<string, unknown>, options?: BaseOptions): Promise<T> => {
     const query = typeof document === 'string' ? (await import('./graphql.ts'))[document] : document.query
     const operationName = /(?:query|mutation)\s+(\w+)/.exec(query)?.[1]
     const { data } = await fetcher.json<GraphQLResponse<T>>(url, {
