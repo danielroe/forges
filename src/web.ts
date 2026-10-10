@@ -87,21 +87,29 @@ export function webUrlFor(web: WebLinks, target: UrlTarget): string | undefined 
   return path === undefined ? undefined : `${web.origin}${path}`
 }
 
-/** `ssh://user@host:port/path` with the host in group 1, or `user@host:path` with it in group 2; the path is group 3. */
-const SSH_URL_RE = /^(?:(?:git\+)?ssh:\/\/(?:[^@/]+@)?([^:/]+)(?::\d+)?\/|(?:[^@/\s]+@)?([^:/\s]+):(?!\/))(.+)$/i
+/** `ssh://user@host:port/path` or `git://host:port/path` with the host in group 1, or `user@host:path` with it in group 2; the path is group 3. */
+const CLONE_URL_RE = /^(?:(?:ssh|git):\/\/(?:[^@/]+@)?([^:/]+)(?::\d+)?\/|(?:[^@/\s]+@)?([^:/\s]+):(?!\/))(.+)$/i
+
+/** The `git+` that npm's `repository` field writes before a transport scheme. */
+const GIT_PLUS_RE = /^git\+(?=[a-z]+:\/\/)/i
+
+/** The npm `repository` shorthand, https://docs.npmjs.com/cli/configuring-npm/package-json#repository */
+const SHORTHAND_RE = /^(github|gitlab|bitbucket):(?!\/)/i
+const SHORTHAND_HOSTS: Record<string, string> = { github: 'github.com', gitlab: 'gitlab.com', bitbucket: 'bitbucket.org' }
 
 export function parseWebUrl(web: WebLinks, input: string | URL, origin: ForgeOrigin): ParsedForgeUrl | undefined {
   const base = new URL(web.origin)
   const prefix = base.pathname.replace(/\/$/, '')
-  const ssh = SSH_URL_RE.exec(String(input))
+  const source = String(input).replace(GIT_PLUS_RE, '').replace(SHORTHAND_RE, (_, forge: string) => `https://${SHORTHAND_HOSTS[forge.toLowerCase()]}/`)
+  const clone = CLONE_URL_RE.exec(source)
   let url: URL
   try {
-    url = new URL(ssh && (ssh[1] ?? ssh[2])!.toLowerCase() === base.hostname ? `${base.origin}${prefix}/${ssh[3]}` : input)
+    url = new URL(clone && (clone[1] ?? clone[2])!.toLowerCase() === base.hostname ? `${base.origin}${prefix}/${clone[3]}` : source)
   }
   catch {
     return undefined
   }
-  if (url.origin !== base.origin || url.username || url.password) {
+  if ((url.protocol !== 'http:' && url.protocol !== 'https:') || url.host !== base.host || url.username || url.password) {
     return undefined
   }
   if (prefix && !url.pathname.startsWith(`${prefix}/`)) {
