@@ -1,3 +1,4 @@
+import { readFile } from 'node:fs/promises'
 import { request } from 'node:http'
 import { describe, expect, inject, it } from 'vitest'
 
@@ -154,13 +155,23 @@ describe('generated reference', () => {
 })
 
 describe('developer portal', () => {
+  it('prerenders and serves the full documentation', async () => {
+    const body = await readFile(new URL('../.output/public/llms-full.txt', import.meta.url), 'utf8')
+    expect(body).toContain('# Introduction')
+    expect(body).toContain('# Quick start')
+
+    const response = await get('/llms-full.txt')
+    expect(response.status).toBe(200)
+    expect(await response.text()).toBe(body)
+  })
+
   it('serves /developers', async () => {
     const response = await get('/developers')
     expect(response.status).toBe(200)
     expect(response.headers.get('content-type')).toMatch(/^text\/html/)
     const html = await response.text()
     expect(html).toContain('<title>Developers - forges</title>')
-    for (const path of ['/getting-started/quick-start', '/guides/authentication', '/guides/testing', '/reference/overview', '/llms.txt']) {
+    for (const path of ['/getting-started/quick-start', '/guides/authentication', '/guides/testing', '/reference/overview', '/llms.txt', '/llms-full.txt']) {
       expect(html).toContain(`href="${path}"`)
     }
   })
