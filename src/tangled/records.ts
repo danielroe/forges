@@ -138,7 +138,12 @@ export function createTangledRecords({ options, instance, webUrl, context, atpro
   }
 
   async function actorFor(did: string, signal?: AbortSignal) {
-    const identity = await atproto.resolveDid(did, signal).catch(() => ({ did }))
+    const identity = await atproto.resolveDid(did, signal).catch((error: unknown) => {
+      if (signal?.aborted) {
+        throw error
+      }
+      return { did }
+    })
     return toActor(instance, identity, webUrl)
   }
 

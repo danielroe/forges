@@ -353,6 +353,9 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
       }), raw => toCheckRun(repo, raw)),
       fetcher.json<GitHubCombinedStatus>(`${repoPath(repo)}/commits/${sha}/status`, { query: { per_page: 100 }, signal }),
     ])
+    if (signal?.aborted) {
+      throw signal.reason
+    }
     if (runs.status === 'rejected' && status.status === 'rejected') {
       throw runs.reason
     }

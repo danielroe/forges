@@ -186,6 +186,18 @@ describe('tangled cancellation', () => {
     expect((await instance.threads.get(pull)).state).toBe('open')
   })
 
+  it('rejects a comment aborted while its author resolved', async () => {
+    const { instance, reached } = heldProvider(new RegExp(`plc\\.directory/${OWNER}`))
+    const controller = new AbortController()
+    const reason = new Error('cancelled')
+
+    const pending = instance.threads.comment(pull, 'Thanks!', { signal: controller.signal })
+    await reached
+    controller.abort(reason)
+
+    await expect(pending).rejects.toBe(reason)
+  })
+
   it('does not reject a concurrent read when another caller aborts a shared lookup', async () => {
     const { instance, reached, release } = heldProvider(/plc\.directory/)
     const controller = new AbortController()
