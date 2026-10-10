@@ -79,7 +79,7 @@ Commit search accepts free text only. If you pass `author`, `committer`, `since`
 
 `search.code()` with a `repo` works on every GitLab tier. Pass `owner` instead to search a group, or neither to search the whole instance. Those two need Advanced Search or exact code search, so Premium or Ultimate. Without either, GitLab responds with `400`. GitLab.com has instance-wide code search switched off, so there it's a `403`. A personal namespace isn't a group, so an `owner` that names a user gets a `404`. A group or instance result names its project only by ID, so the provider looks up the projects of each page in one GraphQL request and remembers them. A project the token can't read leaves its results out of the page, with a `record_unreachable` warning.
 
-GitLab returns one result per excerpt, not per file. The provider merges the excerpts of a file into one match, so `fragments` can hold several, each with the line it starts on, and `raw` is the list of GitLab results. When the excerpts of a file span two pages, the file comes back on both.
+GitLab returns one result per excerpt, not per file, and without Advanced Search it lists a file again when its name matches as well as its contents. The provider merges the results for a file in a page into one match and drops repeated excerpts, so `fragments` can hold several, each with the line it starts on, and `raw` is the list of GitLab results that the match keeps. When the excerpts of a file span two pages, the file comes back on both.
 
 ## Webhooks
 

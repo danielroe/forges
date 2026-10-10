@@ -505,18 +505,19 @@ const GITLAB: ProviderDefinition<GitLabOptions> = {
       const warnings: ForgeWarning[] = []
       const ids = query.repo ? [] : [...new Set((result.data ?? []).map(raw => raw.project_id))].filter(id => !projectRefs.has(id))
       await resolveProjects(ids, query.signal, warnings)
-      /** GitLab returns one blob per excerpt, with the excerpts of a file next to each other. */
-      const files: GitLabBlob[][] = []
+      /** GitLab returns one blob per excerpt; basic search lists a file again, with the same first excerpt, when its name matches too. */
+      const files = new Map<string, GitLabBlob[]>()
       for (const blob of result.data ?? []) {
-        const last = files.at(-1)
-        if (last && last[0]!.project_id === blob.project_id && last[0]!.path === blob.path && last[0]!.ref === blob.ref) {
-          last.push(blob)
+        const key = `${blob.project_id}:${blob.ref}:${blob.path}`
+        const excerpts = files.get(key)
+        if (!excerpts) {
+          files.set(key, [blob])
         }
-        else {
-          files.push([blob])
+        else if (!excerpts.some(seen => seen.startline === blob.startline && seen.data === blob.data)) {
+          excerpts.push(blob)
         }
       }
-      return toPage({ ...result, data: files }, (excerpts) => {
+      return toPage({ ...result, data: [...files.values()] }, (excerpts) => {
         const [first] = excerpts as [GitLabBlob]
         const repo = query.repo ?? projectRefs.get(first.project_id)
         if (!repo) {

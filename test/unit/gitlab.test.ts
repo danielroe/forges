@@ -361,6 +361,17 @@ describe('gitlab code search', () => {
     expect(items[0]!.raw).toHaveLength(3)
   })
 
+  it('merges a file that basic search lists once for its name and again for its contents', async () => {
+    const { instance } = recordedSearch()
+    const scratch = { forge: 'gitlab', instance: 'gitlab.com', owner: 'forges-fixtures', name: 'forges-fixtures' } as const
+
+    const { items } = await instance.search.codePage({ text: 'forges-fixtures', repo: scratch, perPage: 20 })
+
+    expect(items).toHaveLength(10)
+    expect(new Set(items.map(item => item.path)).size).toBe(10)
+    expect(items.every(item => item.fragments.length === 1)).toBe(true)
+  })
+
   it('names the projects of a group search in one request, and remembers them', async () => {
     const { instance, calls } = recordedSearch()
 

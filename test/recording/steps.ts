@@ -235,6 +235,12 @@ export const STEPS: Step[] = [
   { name: 'search commits', verb: 'search.commitsPage', run: (provider, manifest) => provider.search.commitsPage({ text: 'fix', repo: manifest.repo, ...page }) },
   { name: 'search code', verb: 'search.codePage', run: (provider, manifest) => provider.search.codePage({ text: 'import', repo: manifest.repo, ...page }) },
   { name: 'search code in owner', verb: 'search.codePage', run: (provider, manifest) => provider.search.codePage({ text: 'import', owner: manifest.repo.owner, ...page }) },
+  { name: 'search code in scratch', verb: 'search.codePage', run: (provider, manifest) => {
+    if (!manifest.scratch) {
+      throw new Error('No scratch repository to search')
+    }
+    return provider.search.codePage({ text: manifest.scratch.name, repo: manifest.scratch, perPage: 20 })
+  } },
   { name: 'webhooks', verb: 'webhooks.listPage', run: async (provider, manifest, context) => {
     const result = await provider.webhooks.listPage(manifest.scratch ?? manifest.repo, page)
     context.webhook = result.items[0]
