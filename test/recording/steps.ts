@@ -17,7 +17,7 @@ export interface RecordingManifest {
   pull?: ThreadRef
   issue?: ThreadRef
   discussion?: ThreadRef
-  /** A repository the credential administers, for webhooks and, when the recorded repository has none, a release asset. */
+  /** A repository the credential administers: write recordings write to it, and reads use it for webhooks, and for collaborators, permissions or a release asset that the recorded repository refuses or lacks. */
   scratch?: RepoRef
   /** Where security alerts are read, when not from `repo`. */
   alerts?: RepoRef

@@ -40,7 +40,9 @@ export interface HarnessOptions {
   forge: string
   baseUrl: string
   authorization: string
+  /** The repository the run writes to; every write must stay inside it, or inside `transfer` and `collaborators`. */
   scratch: RepoRef
+  /** Where the run transfers an issue to. */
   transfer?: RepoRef
   /** Where the run adds a collaborator, when not the scratch repository. */
   collaborators?: RepoRef
