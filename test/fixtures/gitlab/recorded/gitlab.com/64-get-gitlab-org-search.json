@@ -1,0 +1,53 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitlab.com/api/v4/groups/gitlab-org/search?scope=blobs&search=import&per_page=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "<https://gitlab.com/api/v4/groups/gitlab-org/search?id=gitlab-org&include_archived=false&page=2&per_page=3&scope=blobs&search=import>; rel=\"next\", <https://gitlab.com/api/v4/groups/gitlab-org/search?id=gitlab-org&include_archived=false&page=1&per_page=3&scope=blobs&search=import>; rel=\"first\", <https://gitlab.com/api/v4/groups/gitlab-org/search?id=gitlab-org&include_archived=false&page=941&per_page=3&scope=blobs&search=import>; rel=\"last\"",
+      "etag": "W/\"3296e800e124f86e31673ce9a12cc61b\"",
+      "ratelimit-limit": "2000",
+      "ratelimit-remaining": "1940",
+      "ratelimit-reset": "1791621120",
+      "x-total": "2823",
+      "x-total-pages": "941",
+      "x-next-page": "2",
+      "x-page": "1",
+      "x-per-page": "3"
+    },
+    "body": [
+      {
+        "basename": "angusryer/harnex/framework/verification/import_extractors",
+        "data": "@dataclass(frozen=True)\nclass Import:\n    specifier: str\n",
+        "path": "angusryer/harnex/framework/verification/import_extractors.py",
+        "filename": "angusryer/harnex/framework/verification/import_extractors.py",
+        "id": null,
+        "ref": "main",
+        "startline": 47,
+        "project_id": 80045070
+      },
+      {
+        "basename": "angusryer/harnex/framework/verification/import_extractors",
+        "data": "\ndef extract_imports(file_path: Path) -> list[Import]:\n    \"\"\"Return the imports in file_path as Import(specifier, kind, line).\n",
+        "path": "angusryer/harnex/framework/verification/import_extractors.py",
+        "filename": "angusryer/harnex/framework/verification/import_extractors.py",
+        "id": null,
+        "ref": "main",
+        "startline": 53,
+        "project_id": 80045070
+      },
+      {
+        "basename": "angusryer/harnex/framework/verification/import_extractors",
+        "data": "\"\"\"Import extractor for the boundary check (#127, INV-BOUNDARY-001).\n\n",
+        "path": "angusryer/harnex/framework/verification/import_extractors.py",
+        "filename": "angusryer/harnex/framework/verification/import_extractors.py",
+        "id": null,
+        "ref": "main",
+        "startline": 1,
+        "project_id": 80045070
+      }
+    ]
+  }
+}

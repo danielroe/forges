@@ -435,6 +435,14 @@ describe('request compatibility with Octokit', () => {
     )
   })
 
+  it('searches code', async () => {
+    const h = harness({ 'GET https://api.github.com/search/code?q=useFetch+repo%3Aacme%2Fwidgets': { status: 200, headers: {}, body: { total_count: 0, incomplete_results: false, items: [] } } })
+    await h.provider.search.codePage({ text: 'useFetch', repo })
+    await h.octokit.rest.search.code({ q: 'useFetch repo:acme/widgets' })
+
+    expect(h.ours.map(comparable)).toEqual(h.theirs.map(comparable))
+  })
+
   it('creates an issue', async () => {
     await compare(
       provider => provider.threads.create!(repo, { kind: 'issue', title: 'New issue', body: 'Details' }),

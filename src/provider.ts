@@ -12,6 +12,8 @@ import type {
   CiRun,
   CiRunQuery,
   CiRunRef,
+  CodeMatch,
+  CodeSearchQuery,
   Collaborator,
   Comment,
   CommentRef,
@@ -381,7 +383,7 @@ export interface ForgeCapabilities {
     /** Support for `releases.downloadAsset()`. */
     downloadAsset: Support
   }
-  /** Cross-repository search of issues and pull requests, repositories and commits. No code search. */
+  /** Cross-repository search of issues and pull requests, repositories, commits and code. */
   search: {
     /** Support for `search.threads()` and `search.threadsPage()`. */
     threads: Support
@@ -389,6 +391,8 @@ export interface ForgeCapabilities {
     repos: Support
     /** Support for `search.commits()` and `search.commitsPage()`. */
     commits: Support
+    /** Support for `search.code()` and `search.codePage()`. */
+    code: Support
   }
   /** Per alert kind, since each needs its own token scope on GitHub. */
   securityAlerts: AlertSupport
@@ -689,7 +693,7 @@ export interface ReleasesApi {
   latest: (repo: RepoRef) => Promise<Release | undefined>
 }
 
-/** Searching issues and pull requests, repositories and commits across the forge. */
+/** Searching issues and pull requests, repositories, commits and code across the forge. */
 export interface SearchApi {
   /**
    * Issues and pull requests across repositories. Fields the forge cannot
@@ -706,6 +710,10 @@ export interface SearchApi {
   commits: (query: CommitSearchQuery) => ForgeIterable<Commit>
   /** One page of `commits()`. */
   commitsPage: (query: CommitSearchQuery) => Promise<Page<Commit>>
+  /** Searches the contents of files, where the forge indexes them. */
+  code: (query: CodeSearchQuery) => ForgeIterable<CodeMatch>
+  /** One page of `code()`. */
+  codePage: (query: CodeSearchQuery) => Promise<Page<CodeMatch>>
 }
 
 /** Reading the security alerts of a repository. */

@@ -197,6 +197,7 @@ You manage service hook subscriptions at the level of the organization and not o
 | `search.threads` | ✅ | ❌ |
 | `search.repos` | ❌ | ❌ |
 | `search.commits` | ❌ | ❌ |
+| `search.code` | ❌ | ❌ |
 | `securityAlerts` | ❌ | ❌ |
 | `eventKinds` | native | native |
 | `authKinds` | `token`, `basic`, `anonymous` | `token`, `basic`, `anonymous` |

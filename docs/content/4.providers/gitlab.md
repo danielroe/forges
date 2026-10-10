@@ -31,7 +31,7 @@ const forge = gitlab({
 
 Project and group access tokens act as bot users, so they are the right choice when you need a credential that isn't tied to a person.
 
-If you leave out `auth`, the provider makes anonymous reads of public data. GitLab serves notes, labels, milestones, members, commit statuses, commit search and vulnerabilities only to signed-in users, even on public projects. An anonymous provider therefore reports comments and events, `repos.labels`, `repos.milestones`, `repos.collaborators`, `repos.permissionFor`, `checks.list`, `search.commits` and `securityAlerts` as unsupported. GitLab.com also shows full profiles only to signed-in users, so an anonymous `users.get()` returns the login, ID, name, avatar and URL, without `bio`, `createdAt` or follower counts.
+If you leave out `auth`, the provider makes anonymous reads of public data. GitLab serves notes, labels, milestones, members, commit statuses, commit and code search and vulnerabilities only to signed-in users, even on public projects. An anonymous provider therefore reports comments and events, `repos.labels`, `repos.milestones`, `repos.collaborators`, `repos.permissionFor`, `checks.list`, `search.commits`, `search.code` and `securityAlerts` as unsupported. GitLab.com also shows full profiles only to signed-in users, so an anonymous `users.get()` returns the login, ID, name, avatar and URL, without `bio`, `createdAt` or follower counts.
 
 ## Self-managed instances
 
@@ -76,6 +76,10 @@ The assets of a GitLab release are links to arbitrary URLs and not files that Gi
 `search.commits()` uses GitLab's Advanced Search. GitLab doesn't report whether an instance has Advanced Search enabled, so the capability is `'experimental'`. On an instance without it, the search returns an empty page.
 
 Commit search accepts free text only. If you pass `author`, `committer`, `since`, `until` or `sort`, the result has a `filter_unsupported` warning. `search.threads()` has no `involves` filter, and it adds the same warning when you pass one.
+
+`search.code()` with a `repo` works on every GitLab tier. Pass `owner` instead to search a group, or neither to search the whole instance. Those two need Advanced Search or exact code search, so Premium or Ultimate. Without either, GitLab responds with `400`. GitLab.com has instance-wide code search switched off, so there it's a `403`. A personal namespace isn't a group, so an `owner` that names a user gets a `404`. A group or instance result names its project only by ID, so the provider looks up the projects of each page in one GraphQL request and remembers them. A project the token can't read leaves its results out of the page, with a `record_unreachable` warning.
+
+GitLab returns one result per excerpt, not per file, and without Advanced Search it lists a file again when its name matches as well as its contents. The provider merges the results for a file in a page into one match and drops repeated excerpts, so `fragments` can hold several, each with the line it starts on, and `raw` is the list of GitLab results that the match keeps. When the excerpts of a file span two pages, the file comes back on both.
 
 ## Webhooks
 
@@ -194,6 +198,7 @@ If you create a hook with `webhooks.create()`, `nativeEvents` takes the names of
 | `search.threads` | ✅ | ✅ |
 | `search.repos` | ✅ | ✅ |
 | `search.commits` | experimental | ❌ |
+| `search.code` | ✅ | ❌ |
 | `securityAlerts` | dependency, code scanning, secret | ❌ |
 | `eventKinds` | heuristic | heuristic |
 | `authKinds` | `token`, `anonymous` | `token`, `anonymous` |

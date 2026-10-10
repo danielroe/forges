@@ -211,7 +211,7 @@ const TASKS: CredentialTask[] = [
   { id: 'code', group: 'Read', label: 'Code and history', capabilities: ['contents.file', 'contents.tree', 'contents.branches', 'contents.tags', 'contents.resolveRef', 'contents.commits', 'contents.commit', 'contents.compare'] },
   { id: 'releases', group: 'Read', label: 'Releases', capabilities: ['releases.list', 'releases.get', 'releases.latest', 'releases.getByTag', 'releases.downloadAsset'] },
   { id: 'ci', group: 'Read', label: 'Checks and CI', capabilities: ['checks.thread', 'checks.list', 'ci.runs', 'ci.run', 'ci.jobs', 'ci.log'] },
-  { id: 'search', group: 'Read', label: 'Search', capabilities: ['search.threads', 'search.repos', 'search.commits'] },
+  { id: 'search', group: 'Read', label: 'Search', capabilities: ['search.threads', 'search.repos', 'search.commits', 'search.code'] },
   { id: 'security', group: 'Read', label: 'Security alerts', capabilities: ['securityAlerts'] },
   { id: 'notifications', group: 'Read', label: 'Notifications', capabilities: ['notifications.list', 'notifications.unreadCount', 'subscriptions.get'] },
   { id: 'comment', group: 'Write', label: 'Comment and react', capabilities: ['writes.comment', 'writes.upsertComment', 'comments.edit', 'comments.delete', 'writes.react'] },

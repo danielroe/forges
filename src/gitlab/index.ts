@@ -2,6 +2,8 @@ import type { MergeHooks, ProviderDefinition, ProviderFactoryFunction } from '..
 import type {
   Actor,
   CheckState,
+  CodeMatch,
+  CodeSearchQuery,
   Comment,
   CommentRef,
   Commit,
@@ -48,6 +50,7 @@ import type { ForgeVerb } from '../supports.ts'
 import type {
   GitLabApprovals,
   GitLabAwardEmoji,
+  GitLabBlob,
   GitLabCommit,
   GitLabCommitComment,
   GitLabCommitDetail,
@@ -77,7 +80,8 @@ import { fromBase64, toFileContent } from '../contents.ts'
 import { defineForgeProvider, perKind, verb } from '../define.ts'
 import { AuthenticationRequiredError, InsufficientScopeError, NotFoundError, soleMergeMethod, TokenRevokedError, toMergeError, UnresolvedThreadError, UnsupportedOperationError } from '../errors.ts'
 import { isNamespaceRef, reactionContent } from '../model.ts'
-import { createListing, getManyConcurrently, hexColour, memo, memoBy, milestoneId, phased, requireIssueOrPull, requireThread, resolveToken, syntheticReview, toDate, toPage, toWarning, versionAtLeast } from '../utils.ts'
+import { createListing, degradesToWarning, getManyConcurrently, hexColour, memo, memoBy, milestoneId, phased, requireIssueOrPull, requireThread, resolveToken, syntheticReview, toDate, toPage, toWarning, versionAtLeast } from '../utils.ts'
+import { webUrlFor } from '../web.ts'
 import { nativeEventsFor } from '../webhooks.ts'
 import {
   FORGE,
@@ -102,6 +106,7 @@ import {
   toPipelineSummary,
   toRelease,
   toRepo,
+  toRepoRef,
   toRole,
   toStatusCheck,
   toTag,
@@ -161,6 +166,12 @@ const VULNERABILITIES_QUERY = `query ProjectVulnerabilities($fullPath: ID!, $fir
   }
 }`
 
+const PROJECTS_QUERY = `query CodeSearchProjects($ids: [ID!]) {
+  projects(ids: $ids) {
+    nodes { id fullPath }
+  }
+}`
+
 const BASE_METHODS: Record<NonNullable<GitLabProjectSettings['merge_method']>, MergeMethod> = {
   merge: 'merge',
   rebase_merge: 'rebase_merge',
@@ -187,8 +198,9 @@ const GITLAB: ProviderDefinition<GitLabOptions> = {
   headers: { accept: 'application/json' },
   authHeaders: ({ options: { auth } }) => auth?.type === 'token' ? async () => ({ authorization: `Bearer ${await resolveToken(auth)}` }) : undefined,
   setup({ options, instance, baseUrl, origin: context, fetcher }) {
-    /** GitLab serves notes, labels, milestones, members, commit statuses, commit search and vulnerabilities only to signed-in users. */
+    /** GitLab serves notes, labels, milestones, members, commit statuses, commit and code search and vulnerabilities only to signed-in users. */
     const anonymous = options.auth?.type === 'anonymous'
+    const web = gitlabWeb(baseUrl.replace(/\/api\/v4$/, ''))
     /**
      * GitLab lists pending and done to-dos separately. With `all`, pending
      * pages are followed by done pages; `cursor.token` marks the switch.
@@ -451,6 +463,71 @@ const GITLAB: ProviderDefinition<GitLabOptions> = {
       return toPage(result, raw => repo && toCommit(repo, raw), warnings)
     }
 
+    /** Projects that group and instance code searches named by id, kept so later pages skip the lookup. */
+    const projectRefs = new Map<number, RepoRef>()
+
+    /** A project the token cannot read costs its blobs and a warning, not the page. */
+    async function resolveProjects(ids: number[], signal: AbortSignal | undefined, warnings: ForgeWarning[]): Promise<void> {
+      if (!ids.length) {
+        return
+      }
+      try {
+        const { data } = await fetcher.json<{ data?: { projects?: { nodes: Array<{ id: string, fullPath: string }> } | null } }>(graphqlUrl, {
+          method: 'POST',
+          json: { operationName: 'CodeSearchProjects', query: PROJECTS_QUERY, variables: { ids: ids.map(id => `gid://gitlab/Project/${id}`) } },
+          signal,
+        })
+        for (const node of data.data?.projects?.nodes ?? []) {
+          const id = Number(node.id.slice(node.id.lastIndexOf('/') + 1))
+          projectRefs.set(id, toRepoRef(instance, node.fullPath, id))
+        }
+      }
+      catch (error) {
+        if (!degradesToWarning(error)) {
+          throw error
+        }
+        warnings.push(...ids.map(id => toWarning('record_unreachable', error, `project ${id}`)))
+        return
+      }
+      for (const id of ids.filter(id => !projectRefs.has(id))) {
+        warnings.push({ code: 'record_unreachable', message: 'GitLab returned no project for this id', subject: `project ${id}` })
+      }
+    }
+
+    /** Any tier searches a project; a group or the instance needs Advanced Search or exact code search. */
+    async function searchCodePage(query: CodeSearchQuery): Promise<Page<CodeMatch>> {
+      const path = query.repo ? `${projectPath(query.repo)}/search` : query.owner ? `/groups/${encodeURIComponent(query.owner)}/search` : '/search'
+      const result = await fetcher.page<GitLabBlob>(path, {
+        query: { scope: 'blobs', search: query.text ?? '', per_page: query.perPage },
+        cursor: query.cursor,
+        signal: query.signal,
+      })
+      const warnings: ForgeWarning[] = []
+      const ids = query.repo ? [] : [...new Set((result.data ?? []).map(raw => raw.project_id))].filter(id => !projectRefs.has(id))
+      await resolveProjects(ids, query.signal, warnings)
+      /** GitLab returns one blob per excerpt; basic search lists a file again, with the same first excerpt, when its name matches too. */
+      const files = new Map<string, GitLabBlob[]>()
+      for (const blob of result.data ?? []) {
+        const key = `${blob.project_id}:${blob.ref}:${blob.path}`
+        const excerpts = files.get(key)
+        if (!excerpts) {
+          files.set(key, [blob])
+        }
+        else if (!excerpts.some(seen => seen.startline === blob.startline && seen.data === blob.data)) {
+          excerpts.push(blob)
+        }
+      }
+      return toPage({ ...result, data: [...files.values()] }, (excerpts) => {
+        const [first] = excerpts as [GitLabBlob]
+        const repo = query.repo ?? projectRefs.get(first.project_id)
+        if (!repo) {
+          return undefined
+        }
+        const url = webUrlFor(web, { file: { repo, path: first.path, at: first.ref, line: first.startline } })
+        return { repo, path: first.path, ref: first.ref, fragments: excerpts.map(raw => ({ text: raw.data, line: raw.startline })), url, raw: excerpts }
+      }, warnings)
+    }
+
     async function setSubscribed(thread: ThreadRef, subscribed: boolean): Promise<void> {
       const ref = requireIssueOrPull(thread, context, subscribed ? 'subscribe to' : 'unsubscribe from')
       await fetcher.raw(`${threadPath(ref)}/${subscribed ? 'subscribe' : 'unsubscribe'}`, { method: 'POST' })
@@ -540,7 +617,7 @@ const GITLAB: ProviderDefinition<GitLabOptions> = {
     return {
       traits: { eventKinds: 'heuristic', authKinds: ['token', 'anonymous'], limits: { bodyLength: 1_048_576, commentLength: 1_000_000, labelLength: 255 } },
       probeVersion: async () => (await fetcher.json<{ version?: string }>('/version')).data.version,
-      web: gitlabWeb(baseUrl.replace(/\/api\/v4$/, '')),
+      web,
       webhooks: {
         listPage: verb(true, (target, listOptions = {}) => list(hooksPath(target), listOptions, (raw: GitLabHook) => toWebhook(target, raw))),
         create: verb(true, async (target, input) => toWebhook(target, (await fetcher.json<GitLabHook>(hooksPath(target), {
@@ -682,6 +759,7 @@ const GITLAB: ProviderDefinition<GitLabOptions> = {
         threadsPage: verb(true, searchThreadsPage),
         reposPage: verb(true, searchReposPage),
         commitsPage: verb(!anonymous && 'experimental', searchCommitsPage),
+        codePage: verb(!anonymous, searchCodePage),
       },
       checks: {
         list: verb(!anonymous, async (repo, sha) => ({
@@ -951,6 +1029,6 @@ export function gitlabScopesFor(verb: ForgeVerb): VerbScopes {
   if (group === 'webhooks') {
     return name === 'verify' || name === 'ingest' ? {} : { token: ['api'], note: 'Maintainer on the project, or Owner on the group' }
   }
-  const reads = new Set(['get', 'list', 'listPage', 'page', 'events', 'eventsPage', 'comments', 'commentsPage', 'getMany', 'reviews', 'reviewsPage', 'checks', 'files', 'filesPage', 'commits', 'commitsPage', 'subscription', 'unreadCount', 'threads', 'threadsPage', 'repos', 'reposPage', 'tree', 'treePage', 'branches', 'branchesPage', 'tags', 'tagsPage', 'file', 'compare', 'resolveRef', 'commit', 'latest', 'getByTag', 'downloadAsset', 'runs', 'runsPage', 'run', 'jobs', 'jobsPage', 'log', 'permissionFor', 'labels', 'labelsPage', 'milestones', 'milestonesPage', 'collaborators', 'collaboratorsPage', 'assignableUsers', 'assignableUsersPage', 'reviewerCandidates', 'reviewerCandidatesPage'])
+  const reads = new Set(['get', 'list', 'listPage', 'page', 'events', 'eventsPage', 'comments', 'commentsPage', 'getMany', 'reviews', 'reviewsPage', 'checks', 'files', 'filesPage', 'commits', 'commitsPage', 'code', 'codePage', 'subscription', 'unreadCount', 'threads', 'threadsPage', 'repos', 'reposPage', 'tree', 'treePage', 'branches', 'branchesPage', 'tags', 'tagsPage', 'file', 'compare', 'resolveRef', 'commit', 'latest', 'getByTag', 'downloadAsset', 'runs', 'runsPage', 'run', 'jobs', 'jobsPage', 'log', 'permissionFor', 'labels', 'labelsPage', 'milestones', 'milestonesPage', 'collaborators', 'collaboratorsPage', 'assignableUsers', 'assignableUsersPage', 'reviewerCandidates', 'reviewerCandidatesPage'])
   return { token: [reads.has(name) ? 'read_api' : 'api'] }
 }

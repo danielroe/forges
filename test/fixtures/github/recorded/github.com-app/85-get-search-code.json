@@ -1,0 +1,364 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.github.com/search/code?q=import+repo%3Ah3js%2Fh3&per_page=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "<https://api.github.com/search/code?q=import%20repo%3Ah3js%2Fh3&page=2&per_page=3>; rel=\"next\", <https://api.github.com/search/code?q=import%20repo%3Ah3js%2Fh3&page=1&per_page=3>; rel=\"first\", <https://api.github.com/search/code?q=import%20repo%3Ah3js%2Fh3&page=70&per_page=3>; rel=\"last\"",
+      "x-ratelimit-limit": "10",
+      "x-ratelimit-remaining": "9",
+      "x-ratelimit-reset": "1791621148"
+    },
+    "body": {
+      "total_count": 208,
+      "incomplete_results": false,
+      "items": [
+        {
+          "name": "h3.ts",
+          "path": "src/h3.ts",
+          "sha": "4e9d459fe23a2ad3b1ad4a2790a4de4a04963153",
+          "url": "https://api.github.com/repositories/313641207/contents/src/h3.ts?ref=66cfb8a357b6285451bad498c2c40002601fae98",
+          "git_url": "https://api.github.com/repositories/313641207/git/blobs/4e9d459fe23a2ad3b1ad4a2790a4de4a04963153",
+          "html_url": "https://github.com/h3js/h3/blob/66cfb8a357b6285451bad498c2c40002601fae98/src/h3.ts",
+          "repository": {
+            "id": 313641207,
+            "node_id": "MDEwOlJlcG9zaXRvcnkzMTM2NDEyMDc=",
+            "name": "h3",
+            "full_name": "h3js/h3",
+            "owner": {
+              "id": 208435796,
+              "node_id": "REDACTED",
+              "login": "h3js",
+              "avatar_url": "https://avatars.githubusercontent.com/u/208435796?v=4",
+              "gravatar_id": "",
+              "url": "https://api.github.com/users/h3js",
+              "html_url": "https://github.com/h3js",
+              "type": "Organization",
+              "site_admin": false,
+              "followers_url": "https://api.github.com/users/h3js/followers",
+              "following_url": "https://api.github.com/users/h3js/following{/other_user}",
+              "gists_url": "https://api.github.com/users/h3js/gists{/gist_id}",
+              "starred_url": "https://api.github.com/users/h3js/starred{/owner}{/repo}",
+              "subscriptions_url": "https://api.github.com/users/h3js/subscriptions",
+              "organizations_url": "https://api.github.com/users/h3js/orgs",
+              "repos_url": "https://api.github.com/users/h3js/repos",
+              "events_url": "https://api.github.com/users/h3js/events{/privacy}",
+              "received_events_url": "https://api.github.com/users/h3js/received_events"
+            },
+            "private": false,
+            "html_url": "https://github.com/h3js/h3",
+            "description": "⚡️ Minimal H(TTP) framework built for high performance and portability ",
+            "fork": false,
+            "url": "https://api.github.com/repos/h3js/h3",
+            "archive_url": "https://api.github.com/repos/h3js/h3/{archive_format}{/ref}",
+            "assignees_url": "https://api.github.com/repos/h3js/h3/assignees{/user}",
+            "blobs_url": "https://api.github.com/repos/h3js/h3/git/blobs{/sha}",
+            "branches_url": "https://api.github.com/repos/h3js/h3/branches{/branch}",
+            "collaborators_url": "https://api.github.com/repos/h3js/h3/collaborators{/collaborator}",
+            "comments_url": "https://api.github.com/repos/h3js/h3/comments{/number}",
+            "commits_url": "https://api.github.com/repos/h3js/h3/commits{/sha}",
+            "compare_url": "https://api.github.com/repos/h3js/h3/compare/{base}...{head}",
+            "contents_url": "https://api.github.com/repos/h3js/h3/contents/{+path}",
+            "contributors_url": "https://api.github.com/repos/h3js/h3/contributors",
+            "deployments_url": "https://api.github.com/repos/h3js/h3/deployments",
+            "downloads_url": "https://api.github.com/repos/h3js/h3/downloads",
+            "events_url": "https://api.github.com/repos/h3js/h3/events",
+            "forks_url": "https://api.github.com/repos/h3js/h3/forks",
+            "git_commits_url": "https://api.github.com/repos/h3js/h3/git/commits{/sha}",
+            "git_refs_url": "https://api.github.com/repos/h3js/h3/git/refs{/sha}",
+            "git_tags_url": "https://api.github.com/repos/h3js/h3/git/tags{/sha}",
+            "hooks_url": "https://api.github.com/repos/h3js/h3/hooks",
+            "issue_comment_url": "https://api.github.com/repos/h3js/h3/issues/comments{/number}",
+            "issue_events_url": "https://api.github.com/repos/h3js/h3/issues/events{/number}",
+            "issues_url": "https://api.github.com/repos/h3js/h3/issues{/number}",
+            "keys_url": "https://api.github.com/repos/h3js/h3/keys{/key_id}",
+            "labels_url": "https://api.github.com/repos/h3js/h3/labels{/name}",
+            "languages_url": "https://api.github.com/repos/h3js/h3/languages",
+            "merges_url": "https://api.github.com/repos/h3js/h3/merges",
+            "milestones_url": "https://api.github.com/repos/h3js/h3/milestones{/number}",
+            "notifications_url": "https://api.github.com/repos/h3js/h3/notifications{?since,all,participating}",
+            "pulls_url": "https://api.github.com/repos/h3js/h3/pulls{/number}",
+            "releases_url": "https://api.github.com/repos/h3js/h3/releases{/id}",
+            "stargazers_url": "https://api.github.com/repos/h3js/h3/stargazers",
+            "statuses_url": "https://api.github.com/repos/h3js/h3/statuses/{sha}",
+            "subscribers_url": "https://api.github.com/repos/h3js/h3/subscribers",
+            "subscription_url": "https://api.github.com/repos/h3js/h3/subscription",
+            "tags_url": "https://api.github.com/repos/h3js/h3/tags",
+            "teams_url": "https://api.github.com/repos/h3js/h3/teams",
+            "trees_url": "https://api.github.com/repos/h3js/h3/git/trees{/sha}"
+          },
+          "score": 1,
+          "text_matches": [
+            {
+              "object_url": "https://api.github.com/repositories/313641207/contents/src/h3.ts?ref=66cfb8a357b6285451bad498c2c40002601fae98",
+              "object_type": "FileContent",
+              "property": "content",
+              "fragment": "import { createRouter, addRoute, findRoute } from \"rou3\";\nimport { H3Event, kMalformedURL } from \"./event.ts\";\nimport { HTTPError } from \"./error.ts\";\nimport { toResponse, kNotFound } from \"./response.ts\";\nimport {\n  callMiddleware,\n  composeHandler,",
+              "matches": [
+                {
+                  "text": "import",
+                  "indices": [
+                    0,
+                    6
+                  ]
+                },
+                {
+                  "text": "import",
+                  "indices": [
+                    58,
+                    64
+                  ]
+                },
+                {
+                  "text": "import",
+                  "indices": [
+                    111,
+                    117
+                  ]
+                },
+                {
+                  "text": "import",
+                  "indices": [
+                    151,
+                    157
+                  ]
+                },
+                {
+                  "text": "import",
+                  "indices": [
+                    206,
+                    212
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "3.v2.md",
+          "path": "docs/99.blog/3.v2.md",
+          "sha": "8b6b090ca28dd58f79d1f753ee50688377be7332",
+          "url": "https://api.github.com/repositories/313641207/contents/docs/99.blog/3.v2.md?ref=66cfb8a357b6285451bad498c2c40002601fae98",
+          "git_url": "https://api.github.com/repositories/313641207/git/blobs/8b6b090ca28dd58f79d1f753ee50688377be7332",
+          "html_url": "https://github.com/h3js/h3/blob/66cfb8a357b6285451bad498c2c40002601fae98/docs/99.blog/3.v2.md",
+          "repository": {
+            "id": 313641207,
+            "node_id": "MDEwOlJlcG9zaXRvcnkzMTM2NDEyMDc=",
+            "name": "h3",
+            "full_name": "h3js/h3",
+            "owner": {
+              "id": 208435796,
+              "node_id": "REDACTED",
+              "login": "h3js",
+              "avatar_url": "https://avatars.githubusercontent.com/u/208435796?v=4",
+              "gravatar_id": "",
+              "url": "https://api.github.com/users/h3js",
+              "html_url": "https://github.com/h3js",
+              "type": "Organization",
+              "site_admin": false,
+              "followers_url": "https://api.github.com/users/h3js/followers",
+              "following_url": "https://api.github.com/users/h3js/following{/other_user}",
+              "gists_url": "https://api.github.com/users/h3js/gists{/gist_id}",
+              "starred_url": "https://api.github.com/users/h3js/starred{/owner}{/repo}",
+              "subscriptions_url": "https://api.github.com/users/h3js/subscriptions",
+              "organizations_url": "https://api.github.com/users/h3js/orgs",
+              "repos_url": "https://api.github.com/users/h3js/repos",
+              "events_url": "https://api.github.com/users/h3js/events{/privacy}",
+              "received_events_url": "https://api.github.com/users/h3js/received_events"
+            },
+            "private": false,
+            "html_url": "https://github.com/h3js/h3",
+            "description": "⚡️ Minimal H(TTP) framework built for high performance and portability ",
+            "fork": false,
+            "url": "https://api.github.com/repos/h3js/h3",
+            "archive_url": "https://api.github.com/repos/h3js/h3/{archive_format}{/ref}",
+            "assignees_url": "https://api.github.com/repos/h3js/h3/assignees{/user}",
+            "blobs_url": "https://api.github.com/repos/h3js/h3/git/blobs{/sha}",
+            "branches_url": "https://api.github.com/repos/h3js/h3/branches{/branch}",
+            "collaborators_url": "https://api.github.com/repos/h3js/h3/collaborators{/collaborator}",
+            "comments_url": "https://api.github.com/repos/h3js/h3/comments{/number}",
+            "commits_url": "https://api.github.com/repos/h3js/h3/commits{/sha}",
+            "compare_url": "https://api.github.com/repos/h3js/h3/compare/{base}...{head}",
+            "contents_url": "https://api.github.com/repos/h3js/h3/contents/{+path}",
+            "contributors_url": "https://api.github.com/repos/h3js/h3/contributors",
+            "deployments_url": "https://api.github.com/repos/h3js/h3/deployments",
+            "downloads_url": "https://api.github.com/repos/h3js/h3/downloads",
+            "events_url": "https://api.github.com/repos/h3js/h3/events",
+            "forks_url": "https://api.github.com/repos/h3js/h3/forks",
+            "git_commits_url": "https://api.github.com/repos/h3js/h3/git/commits{/sha}",
+            "git_refs_url": "https://api.github.com/repos/h3js/h3/git/refs{/sha}",
+            "git_tags_url": "https://api.github.com/repos/h3js/h3/git/tags{/sha}",
+            "hooks_url": "https://api.github.com/repos/h3js/h3/hooks",
+            "issue_comment_url": "https://api.github.com/repos/h3js/h3/issues/comments{/number}",
+            "issue_events_url": "https://api.github.com/repos/h3js/h3/issues/events{/number}",
+            "issues_url": "https://api.github.com/repos/h3js/h3/issues{/number}",
+            "keys_url": "https://api.github.com/repos/h3js/h3/keys{/key_id}",
+            "labels_url": "https://api.github.com/repos/h3js/h3/labels{/name}",
+            "languages_url": "https://api.github.com/repos/h3js/h3/languages",
+            "merges_url": "https://api.github.com/repos/h3js/h3/merges",
+            "milestones_url": "https://api.github.com/repos/h3js/h3/milestones{/number}",
+            "notifications_url": "https://api.github.com/repos/h3js/h3/notifications{?since,all,participating}",
+            "pulls_url": "https://api.github.com/repos/h3js/h3/pulls{/number}",
+            "releases_url": "https://api.github.com/repos/h3js/h3/releases{/id}",
+            "stargazers_url": "https://api.github.com/repos/h3js/h3/stargazers",
+            "statuses_url": "https://api.github.com/repos/h3js/h3/statuses/{sha}",
+            "subscribers_url": "https://api.github.com/repos/h3js/h3/subscribers",
+            "subscription_url": "https://api.github.com/repos/h3js/h3/subscription",
+            "tags_url": "https://api.github.com/repos/h3js/h3/tags",
+            "teams_url": "https://api.github.com/repos/h3js/h3/teams",
+            "trees_url": "https://api.github.com/repos/h3js/h3/git/trees{/sha}"
+          },
+          "score": 1,
+          "text_matches": [
+            {
+              "object_url": "https://api.github.com/repositories/313641207/contents/docs/99.blog/3.v2.md?ref=66cfb8a357b6285451bad498c2c40002601fae98",
+              "object_type": "FileContent",
+              "property": "content",
+              "fragment": "```js\nimport { H3, serve } from \"h3\";\n",
+              "matches": [
+                {
+                  "text": "import",
+                  "indices": [
+                    6,
+                    12
+                  ]
+                }
+              ]
+            },
+            {
+              "object_url": "https://api.github.com/repositories/313641207/contents/docs/99.blog/3.v2.md?ref=66cfb8a357b6285451bad498c2c40002601fae98",
+              "object_type": "FileContent",
+              "property": "content",
+              "fragment": "```js\nimport { defineHandler } from \"h3\";\n",
+              "matches": [
+                {
+                  "text": "import",
+                  "indices": [
+                    6,
+                    12
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "h3.mjs",
+          "path": "bin/h3.mjs",
+          "sha": "cfea8543d2d77d5e7d82c1a3ced885277c2a8458",
+          "url": "https://api.github.com/repositories/313641207/contents/bin/h3.mjs?ref=66cfb8a357b6285451bad498c2c40002601fae98",
+          "git_url": "https://api.github.com/repositories/313641207/git/blobs/cfea8543d2d77d5e7d82c1a3ced885277c2a8458",
+          "html_url": "https://github.com/h3js/h3/blob/66cfb8a357b6285451bad498c2c40002601fae98/bin/h3.mjs",
+          "repository": {
+            "id": 313641207,
+            "node_id": "MDEwOlJlcG9zaXRvcnkzMTM2NDEyMDc=",
+            "name": "h3",
+            "full_name": "h3js/h3",
+            "owner": {
+              "id": 208435796,
+              "node_id": "REDACTED",
+              "login": "h3js",
+              "avatar_url": "https://avatars.githubusercontent.com/u/208435796?v=4",
+              "gravatar_id": "",
+              "url": "https://api.github.com/users/h3js",
+              "html_url": "https://github.com/h3js",
+              "type": "Organization",
+              "site_admin": false,
+              "followers_url": "https://api.github.com/users/h3js/followers",
+              "following_url": "https://api.github.com/users/h3js/following{/other_user}",
+              "gists_url": "https://api.github.com/users/h3js/gists{/gist_id}",
+              "starred_url": "https://api.github.com/users/h3js/starred{/owner}{/repo}",
+              "subscriptions_url": "https://api.github.com/users/h3js/subscriptions",
+              "organizations_url": "https://api.github.com/users/h3js/orgs",
+              "repos_url": "https://api.github.com/users/h3js/repos",
+              "events_url": "https://api.github.com/users/h3js/events{/privacy}",
+              "received_events_url": "https://api.github.com/users/h3js/received_events"
+            },
+            "private": false,
+            "html_url": "https://github.com/h3js/h3",
+            "description": "⚡️ Minimal H(TTP) framework built for high performance and portability ",
+            "fork": false,
+            "url": "https://api.github.com/repos/h3js/h3",
+            "archive_url": "https://api.github.com/repos/h3js/h3/{archive_format}{/ref}",
+            "assignees_url": "https://api.github.com/repos/h3js/h3/assignees{/user}",
+            "blobs_url": "https://api.github.com/repos/h3js/h3/git/blobs{/sha}",
+            "branches_url": "https://api.github.com/repos/h3js/h3/branches{/branch}",
+            "collaborators_url": "https://api.github.com/repos/h3js/h3/collaborators{/collaborator}",
+            "comments_url": "https://api.github.com/repos/h3js/h3/comments{/number}",
+            "commits_url": "https://api.github.com/repos/h3js/h3/commits{/sha}",
+            "compare_url": "https://api.github.com/repos/h3js/h3/compare/{base}...{head}",
+            "contents_url": "https://api.github.com/repos/h3js/h3/contents/{+path}",
+            "contributors_url": "https://api.github.com/repos/h3js/h3/contributors",
+            "deployments_url": "https://api.github.com/repos/h3js/h3/deployments",
+            "downloads_url": "https://api.github.com/repos/h3js/h3/downloads",
+            "events_url": "https://api.github.com/repos/h3js/h3/events",
+            "forks_url": "https://api.github.com/repos/h3js/h3/forks",
+            "git_commits_url": "https://api.github.com/repos/h3js/h3/git/commits{/sha}",
+            "git_refs_url": "https://api.github.com/repos/h3js/h3/git/refs{/sha}",
+            "git_tags_url": "https://api.github.com/repos/h3js/h3/git/tags{/sha}",
+            "hooks_url": "https://api.github.com/repos/h3js/h3/hooks",
+            "issue_comment_url": "https://api.github.com/repos/h3js/h3/issues/comments{/number}",
+            "issue_events_url": "https://api.github.com/repos/h3js/h3/issues/events{/number}",
+            "issues_url": "https://api.github.com/repos/h3js/h3/issues{/number}",
+            "keys_url": "https://api.github.com/repos/h3js/h3/keys{/key_id}",
+            "labels_url": "https://api.github.com/repos/h3js/h3/labels{/name}",
+            "languages_url": "https://api.github.com/repos/h3js/h3/languages",
+            "merges_url": "https://api.github.com/repos/h3js/h3/merges",
+            "milestones_url": "https://api.github.com/repos/h3js/h3/milestones{/number}",
+            "notifications_url": "https://api.github.com/repos/h3js/h3/notifications{?since,all,participating}",
+            "pulls_url": "https://api.github.com/repos/h3js/h3/pulls{/number}",
+            "releases_url": "https://api.github.com/repos/h3js/h3/releases{/id}",
+            "stargazers_url": "https://api.github.com/repos/h3js/h3/stargazers",
+            "statuses_url": "https://api.github.com/repos/h3js/h3/statuses/{sha}",
+            "subscribers_url": "https://api.github.com/repos/h3js/h3/subscribers",
+            "subscription_url": "https://api.github.com/repos/h3js/h3/subscription",
+            "tags_url": "https://api.github.com/repos/h3js/h3/tags",
+            "teams_url": "https://api.github.com/repos/h3js/h3/teams",
+            "trees_url": "https://api.github.com/repos/h3js/h3/git/trees{/sha}"
+          },
+          "score": 1,
+          "text_matches": [
+            {
+              "object_url": "https://api.github.com/repositories/313641207/contents/bin/h3.mjs?ref=66cfb8a357b6285451bad498c2c40002601fae98",
+              "object_type": "FileContent",
+              "property": "content",
+              "fragment": "#!/usr/bin/env node\nimport { execFileSync, execSync } from \"node:child_process\";\nimport { fileURLToPath } from \"node:url\";\nimport { main } from \"srvx/cli\";\nimport meta from \"../package.json\" with { type: \"json\" };\n\n// Docs",
+              "matches": [
+                {
+                  "text": "import",
+                  "indices": [
+                    20,
+                    26
+                  ]
+                },
+                {
+                  "text": "import",
+                  "indices": [
+                    81,
+                    87
+                  ]
+                },
+                {
+                  "text": "import",
+                  "indices": [
+                    123,
+                    129
+                  ]
+                },
+                {
+                  "text": "import",
+                  "indices": [
+                    156,
+                    162
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

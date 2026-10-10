@@ -5,6 +5,8 @@ import type {
   CheckState,
   CiRun,
   CiRunQuery,
+  CodeMatch,
+  CodeSearchQuery,
   Comment,
   CommentRef,
   Commit,
@@ -73,6 +75,7 @@ import type {
   GitHubBlob,
   GitHubBranch,
   GitHubCheckRun,
+  GitHubCodeSearchItem,
   GitHubCollaborator,
   GitHubCombinedStatus,
   GitHubComment,
@@ -978,6 +981,38 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
     })
   }
 
+  /** The excerpts only come with the text match media type. */
+  async function searchCodePage(query: CodeSearchQuery): Promise<Page<CodeMatch>> {
+    const qualifiers = [
+      query.text,
+      query.repo ? `repo:${query.repo.owner}/${query.repo.name}` : query.owner && `user:${query.owner}`,
+      query.queryRaw,
+    ].filter(Boolean)
+    let incomplete = false
+    const result = await fetcher.page<GitHubCodeSearchItem>('/search/code', {
+      query: { q: qualifiers.join(' '), per_page: query.perPage },
+      headers: { accept: 'application/vnd.github.text-match+json' },
+      cursor: query.cursor,
+      signal: query.signal,
+      select: (body, next) => {
+        const { items, incomplete_results } = body as { items: GitHubCodeSearchItem[], incomplete_results?: boolean }
+        incomplete = incomplete_results === true
+        return { items, next }
+      },
+    })
+    const warnings: ForgeWarning[] = incomplete
+      ? [{ code: 'search_incomplete', message: 'GitHub stopped the search before it finished; the page may be missing matches' }]
+      : []
+    return toPage(result, raw => ({
+      repo: query.repo ?? toRepoRef(instance, raw.repository),
+      path: raw.path,
+      ref: new URL(raw.url).searchParams.get('ref') ?? undefined,
+      fragments: (raw.text_matches ?? []).filter(match => match.property === 'content').map(match => ({ text: match.fragment })),
+      url: raw.html_url,
+      raw,
+    }), warnings)
+  }
+
   function createInstallationsApi(app: AppCredentials): Omit<InstallationsApi, 'list' | 'repos'> {
     const appFetcher = createFetcher({ baseUrl, authHeaders: async () => ({ authorization: `Bearer ${await app.appJwt()}` }) })
     const auth = options.auth as Extract<GitHubAuth, { type: 'app' }>
@@ -1275,6 +1310,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
       threadsPage: verb(true, searchThreadsPage),
       reposPage: verb(true, searchReposPage),
       commitsPage: verb(true, searchCommitsPage),
+      codePage: verb(!anonymous, searchCodePage),
       queryRaw: true,
     },
     releases: {

@@ -5008,6 +5008,135 @@
       "resetAt": "<now>"
     }
   },
+  "search code": {
+    "items": [
+      {
+        "repo": {
+          "forge": "github",
+          "instance": "github.com",
+          "owner": "h3js",
+          "name": "h3"
+        },
+        "path": "src/h3.ts",
+        "ref": "66cfb8a357b6285451bad498c2c40002601fae98",
+        "fragments": [
+          {
+            "text": "import { createRouter, addRoute, findRoute } from \"rou3\";\nimport { H3Event, kMalformedURL } from \"./event.ts\";\nimport { HTTPError } from \"./error.ts\";\nimport { toResponse, kNotFound } from \"./response.ts\";\nimport {\n  callMiddleware,\n  composeHandler,"
+          }
+        ],
+        "url": "https://github.com/h3js/h3/blob/66cfb8a357b6285451bad498c2c40002601fae98/src/h3.ts"
+      },
+      {
+        "repo": {
+          "forge": "github",
+          "instance": "github.com",
+          "owner": "h3js",
+          "name": "h3"
+        },
+        "path": "docs/99.blog/3.v2.md",
+        "ref": "66cfb8a357b6285451bad498c2c40002601fae98",
+        "fragments": [
+          {
+            "text": "```js\nimport { H3, serve } from \"h3\";\n"
+          },
+          {
+            "text": "```js\nimport { defineHandler } from \"h3\";\n"
+          }
+        ],
+        "url": "https://github.com/h3js/h3/blob/66cfb8a357b6285451bad498c2c40002601fae98/docs/99.blog/3.v2.md"
+      },
+      {
+        "repo": {
+          "forge": "github",
+          "instance": "github.com",
+          "owner": "h3js",
+          "name": "h3"
+        },
+        "path": "bin/h3.mjs",
+        "ref": "66cfb8a357b6285451bad498c2c40002601fae98",
+        "fragments": [
+          {
+            "text": "#!/usr/bin/env node\nimport { execFileSync, execSync } from \"node:child_process\";\nimport { fileURLToPath } from \"node:url\";\nimport { main } from \"srvx/cli\";\nimport meta from \"../package.json\" with { type: \"json\" };\n\n// Docs"
+          }
+        ],
+        "url": "https://github.com/h3js/h3/blob/66cfb8a357b6285451bad498c2c40002601fae98/bin/h3.mjs"
+      }
+    ],
+    "cursor": {
+      "nextUrl": "https://api.github.com/search/code?q=import%20repo%3Ah3js%2Fh3&page=2&per_page=3"
+    },
+    "rateLimit": {
+      "limit": 10,
+      "remaining": 9,
+      "resetAt": "2026-10-10T08:32:28.000Z"
+    }
+  },
+  "search code in owner": {
+    "items": [
+      {
+        "repo": {
+          "forge": "github",
+          "instance": "github.com",
+          "owner": "h3js",
+          "name": "h3",
+          "externalId": "313641207"
+        },
+        "path": "src/h3.ts",
+        "ref": "66cfb8a357b6285451bad498c2c40002601fae98",
+        "fragments": [
+          {
+            "text": "import { createRouter, addRoute, findRoute } from \"rou3\";\nimport { H3Event, kMalformedURL } from \"./event.ts\";\nimport { HTTPError } from \"./error.ts\";\nimport { toResponse, kNotFound } from \"./response.ts\";\nimport {\n  callMiddleware,\n  composeHandler,"
+          }
+        ],
+        "url": "https://github.com/h3js/h3/blob/66cfb8a357b6285451bad498c2c40002601fae98/src/h3.ts"
+      },
+      {
+        "repo": {
+          "forge": "github",
+          "instance": "github.com",
+          "owner": "h3js",
+          "name": "h3",
+          "externalId": "313641207"
+        },
+        "path": "docs/99.blog/3.v2.md",
+        "ref": "66cfb8a357b6285451bad498c2c40002601fae98",
+        "fragments": [
+          {
+            "text": "```js\nimport { H3, serve } from \"h3\";\n"
+          },
+          {
+            "text": "```js\nimport { defineHandler } from \"h3\";\n"
+          }
+        ],
+        "url": "https://github.com/h3js/h3/blob/66cfb8a357b6285451bad498c2c40002601fae98/docs/99.blog/3.v2.md"
+      },
+      {
+        "repo": {
+          "forge": "github",
+          "instance": "github.com",
+          "owner": "h3js",
+          "name": "h3",
+          "externalId": "313641207"
+        },
+        "path": "bin/h3.mjs",
+        "ref": "66cfb8a357b6285451bad498c2c40002601fae98",
+        "fragments": [
+          {
+            "text": "#!/usr/bin/env node\nimport { execFileSync, execSync } from \"node:child_process\";\nimport { fileURLToPath } from \"node:url\";\nimport { main } from \"srvx/cli\";\nimport meta from \"../package.json\" with { type: \"json\" };\n\n// Docs"
+          }
+        ],
+        "url": "https://github.com/h3js/h3/blob/66cfb8a357b6285451bad498c2c40002601fae98/bin/h3.mjs"
+      }
+    ],
+    "cursor": {
+      "nextUrl": "https://api.github.com/search/code?q=import%20user%3Ah3js&page=2&per_page=3"
+    },
+    "rateLimit": {
+      "limit": 10,
+      "remaining": 8,
+      "resetAt": "2026-10-10T08:32:28.000Z"
+    }
+  },
   "webhooks": {
     "items": [
       {

@@ -1,0 +1,53 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/search?scope=blobs&search=import&per_page=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "<https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/search?id=gitlab-org%2Fcli&page=2&per_page=3&scope=blobs&search=import>; rel=\"next\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/search?id=gitlab-org%2Fcli&page=1&per_page=3&scope=blobs&search=import>; rel=\"first\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/search?id=gitlab-org%2Fcli&page=401&per_page=3&scope=blobs&search=import>; rel=\"last\"",
+      "etag": "W/\"b4a2a0661912cf5aaaaf63ae886dbb7f\"",
+      "ratelimit-limit": "2000",
+      "ratelimit-remaining": "1941",
+      "ratelimit-reset": "1791621120",
+      "x-total": "1202",
+      "x-total-pages": "401",
+      "x-next-page": "2",
+      "x-page": "1",
+      "x-per-page": "3"
+    },
+    "body": [
+      {
+        "basename": "internal/commands/variable/import/import",
+        "data": "// emitted by `glab variable export --output json`. Importing reads this back.\ntype importedVariable struct {\n\tKey              string `json:\"key\"`\n",
+        "path": "internal/commands/variable/import/import.go",
+        "filename": "internal/commands/variable/import/import.go",
+        "id": null,
+        "ref": "main",
+        "startline": 27,
+        "project_id": 34675721
+      },
+      {
+        "basename": "internal/commands/variable/import/import",
+        "data": "package importcmd\n\n",
+        "path": "internal/commands/variable/import/import.go",
+        "filename": "internal/commands/variable/import/import.go",
+        "id": null,
+        "ref": "main",
+        "startline": 1,
+        "project_id": 34675721
+      },
+      {
+        "basename": "internal/commands/variable/import/import",
+        "data": "\nimport (\n\t\"context\"\n",
+        "path": "internal/commands/variable/import/import.go",
+        "filename": "internal/commands/variable/import/import.go",
+        "id": null,
+        "ref": "main",
+        "startline": 2,
+        "project_id": 34675721
+      }
+    ]
+  }
+}

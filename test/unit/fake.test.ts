@@ -218,6 +218,14 @@ describe('fake forge', () => {
     expect(repos.map(repo => repo.ref.name)).toEqual(['widgets'])
   })
 
+  it('searches the lines of seeded files', async () => {
+    const forge = fake({ seed: { files: [{ repo: 'acme/widgets', path: 'src/useFetch.ts', content: 'import { ofetch } from \'ofetch\'\nexport const useFetch = ofetch\n' }] } }).create()
+
+    const matches = await Array.fromAsync(forge.search.code({ text: 'usefetch', owner: 'acme' }))
+
+    expect(matches).toMatchObject([{ repo: { owner: 'acme', name: 'widgets' }, path: 'src/useFetch.ts', fragments: [{ text: 'export const useFetch = ofetch', line: 2 }] }])
+  })
+
   it('serves a release by tag and streams its asset', async () => {
     const forge = fake({
       seed: {

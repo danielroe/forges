@@ -6,6 +6,7 @@ describe('queryRaw', () => {
   it('adds forge-native syntax to every GitHub search', async () => {
     const queries: string[] = []
     const provider = github({
+      auth: { type: 'token', token: 't' },
       fetch: async (url) => {
         queries.push(new URL(url).searchParams.get('q') ?? '')
         return Response.json({ items: [] })
@@ -15,8 +16,9 @@ describe('queryRaw', () => {
     await provider.search.threadsPage({ text: 'crash', kind: 'issue', queryRaw: 'review-requested:octocat' })
     await provider.search.reposPage({ owner: 'acme', queryRaw: 'stars:>100' })
     await provider.search.commitsPage({ text: 'fix', queryRaw: 'merge:false' })
+    await provider.search.codePage({ text: 'useFetch', owner: 'acme', queryRaw: 'language:typescript' })
 
-    expect(queries).toEqual(['crash is:issue review-requested:octocat', 'user:acme stars:>100', 'fix merge:false'])
+    expect(queries).toEqual(['crash is:issue review-requested:octocat', 'user:acme stars:>100', 'fix merge:false', 'useFetch user:acme language:typescript'])
   })
 
   it('searches issues and pull requests in one advanced search when no kind is given', async () => {

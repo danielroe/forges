@@ -18,8 +18,8 @@ import type { AtprotoClient, AtUri } from './atproto.ts'
 import type { TangledOptions } from './index.ts'
 import type { TangledSession } from './session.ts'
 import type { FeedCommentRecord, IssueRecord, JetstreamCommitEvent, PullRecord, RecordResponse, RepoRecord, StateRecord, SubscriptionRecord, TangledRecord } from './types.ts'
-import { ForgeApiError, ForgeError, NotFoundError, RateLimitedError, TokenRevokedError, UnresolvedThreadError } from '../errors.ts'
-import { forgeIterable, mapConcurrent, phased, requireThread, toDate, toWarning } from '../utils.ts'
+import { ForgeApiError, ForgeError, NotFoundError, RateLimitedError, UnresolvedThreadError } from '../errors.ts'
+import { degradesToWarning, forgeIterable, mapConcurrent, phased, requireThread, toDate, toWarning } from '../utils.ts'
 import { atUri, parseAtUri } from './atproto.ts'
 import {
   COLLECTIONS,
@@ -194,7 +194,7 @@ export function createTangledRecords({ options, instance, webUrl, context, atpro
       if (error instanceof NotFoundError) {
         return undefined
       }
-      if (error instanceof RateLimitedError || error instanceof TokenRevokedError || !(error instanceof ForgeError)) {
+      if (!degradesToWarning(error)) {
         throw error
       }
       warn(toWarning('record_unreachable', error, uri))
@@ -444,7 +444,7 @@ export function createTangledRecords({ options, instance, webUrl, context, atpro
           return thread
         }
         catch (error) {
-          if (error instanceof RateLimitedError || error instanceof TokenRevokedError || !(error instanceof ForgeError)) {
+          if (!degradesToWarning(error)) {
             throw error
           }
           warn(toWarning('thread_unreadable', error, uri))

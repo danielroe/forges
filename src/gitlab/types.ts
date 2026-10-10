@@ -173,6 +173,14 @@ export interface GitLabVulnerability {
   webUrl?: string | null
 }
 
+export interface GitLabBlob {
+  data: string
+  path: string
+  ref: string
+  startline: number
+  project_id: number
+}
+
 export interface GitLabCommit {
   id: string
   title: string

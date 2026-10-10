@@ -117,6 +117,7 @@ const TABLE = [
   { capability: 'search.threads', listing: true },
   { capability: 'search.repos', listing: true },
   { capability: 'search.commits', listing: true },
+  { capability: 'search.code', listing: true },
   { capability: 'securityAlerts', derived: 'alertKinds', verbs: ['securityAlerts.list', 'securityAlerts.listPage'] },
   { capability: 'eventKinds', derived: 'eventKinds' },
   { capability: 'authKinds', derived: 'authKinds' },
