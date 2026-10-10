@@ -57,6 +57,8 @@ import type {
   ForgejoTimelineEntry,
   ForgejoTreeEntry,
   ForgejoUser,
+  GiteaActionJob,
+  GiteaActionRun,
 } from './types.ts'
 import { reviewState } from '../events.ts'
 import { toDate, toFileStatus } from '../utils.ts'
@@ -419,11 +421,25 @@ export function toStatusChecks(repo: RepoRef, raw: ForgejoCombinedStatus): Check
 /** Every Actions run and job status behind each normalised state, as the repeated `status` filter takes them. */
 export const ACTION_STATES: Record<Exclude<CheckState, 'unknown'>, string[]> = { pending: ['waiting', 'running', 'blocked'], success: ['success'], failure: ['failure', 'cancelled'], neutral: ['skipped'] }
 
-function actionState(status: string): CheckState {
-  return (Object.keys(ACTION_STATES) as Array<keyof typeof ACTION_STATES>).find(state => ACTION_STATES[state].includes(status)) ?? 'unknown'
+/** Gitea's statuses and conclusions behind each normalised state, as its repeated `status` filter takes them. */
+export const GITEA_ACTION_STATES: Record<Exclude<CheckState, 'unknown'>, string[]> = { pending: ['queued', 'waiting', 'in_progress'], success: ['success'], failure: ['failure', 'cancelled'], neutral: ['skipped'] }
+
+function stateOf(states: Record<Exclude<CheckState, 'unknown'>, string[]>): Map<string, CheckState> {
+  return new Map(Object.entries(states).flatMap(([state, raws]) => raws.map(raw => [raw, state as CheckState])))
 }
 
-/** Forgejo writes the zero Unix time for a run that never started or stopped. */
+const ACTION_STATE_OF = /* @__PURE__ */ stateOf(ACTION_STATES)
+const GITEA_ACTION_STATE_OF = /* @__PURE__ */ stateOf(GITEA_ACTION_STATES)
+
+function actionState(status: string): CheckState {
+  return ACTION_STATE_OF.get(status) ?? 'unknown'
+}
+
+function giteaActionState(raw: GiteaActionRun | GiteaActionJob): CheckState {
+  return GITEA_ACTION_STATE_OF.get(raw.status === 'completed' ? raw.conclusion ?? '' : raw.status) ?? 'unknown'
+}
+
+/** Forgejo and Gitea write the zero Unix time for a run or job that never started or stopped. */
 function actionTime(value: string | undefined): Date | undefined {
   const date = toDate(value)
   return date && date.getTime() > 0 ? date : undefined
@@ -462,6 +478,40 @@ export function toActionJob(run: CiRunRef, raw: ForgejoActionRunJob): CiJob {
     state: actionState(raw.status),
     stateRaw: raw.status,
     url: raw.html_url || undefined,
+    raw,
+  }
+}
+
+export function toGiteaActionRun(repo: RepoRef, raw: GiteaActionRun): CiRun {
+  const state = giteaActionState(raw)
+  return {
+    ref: { forge: repo.forge, instance: repo.instance, repo, id: String(raw.id) },
+    name: raw.path?.split('@refs/')[0] || raw.display_title || String(raw.id),
+    state,
+    stateRaw: raw.status,
+    number: raw.run_number === undefined ? undefined : String(raw.run_number),
+    eventRaw: raw.event,
+    branch: raw.head_branch || undefined,
+    sha: raw.head_sha || undefined,
+    url: raw.html_url || undefined,
+    actor: toActor({ forge: repo.forge, instance: repo.instance }, raw.actor),
+    createdAt: toDate(raw.created_at),
+    startedAt: actionTime(raw.started_at),
+    completedAt: state === 'pending' ? undefined : actionTime(raw.completed_at),
+    raw,
+  }
+}
+
+export function toGiteaActionJob(run: CiRunRef, raw: GiteaActionJob): CiJob {
+  const state = giteaActionState(raw)
+  return {
+    ref: { forge: run.forge, instance: run.instance, repo: run.repo, id: String(raw.id), run },
+    name: raw.name,
+    state,
+    stateRaw: raw.status,
+    url: raw.html_url || undefined,
+    startedAt: actionTime(raw.started_at),
+    completedAt: state === 'pending' ? undefined : actionTime(raw.completed_at),
     raw,
   }
 }

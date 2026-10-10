@@ -980,7 +980,7 @@ export interface ForgeProvider {
    */
   scopesFor: (verb: ForgeVerb) => VerbScopes
   /**
-   * Reads a web or SSH clone URL on this provider's instance into refs; `undefined` for anything else.
+   * Reads a web URL, clone URL or npm `repository` value (`git+https://`, `github:owner/name`) on this provider's instance into refs; `undefined` for anything else.
    * @param url The URL to read.
    */
   parseUrl: (url: string | URL) => ParsedForgeUrl | undefined
@@ -1017,7 +1017,7 @@ export interface Forges {
   for: (ref: ForgeOrigin) => ForgeProvider | undefined
   /** The provider whose instance serves `url`. */
   forUrl: (url: string | URL) => ForgeProvider | undefined
-  /** Reads a web or SSH clone URL on any registered instance. */
+  /** Reads a web URL, clone URL or npm `repository` value on any registered instance. */
   parseUrl: (url: string | URL) => (ParsedForgeUrl & { provider: ForgeProvider }) | undefined
   /** Notifications from every registered provider, provider by provider. */
   notifications: {

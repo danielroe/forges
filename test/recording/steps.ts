@@ -180,6 +180,7 @@ export const STEPS: Step[] = [
     context.runs = result.items
     return result
   } },
+  { name: 'ci runs by branch and state', verb: 'ci.runsPage', run: (provider, manifest, context) => provider.ci.runsPage(manifest.repo, { ...page, branch: need(context.repo?.defaultBranch, 'the default branch'), state: 'failure' }) },
   { name: 'ci run', verb: 'ci.run', run: (provider, _manifest, context) => provider.ci.run(need(context.runs?.[0], 'a CI run').ref) },
   { name: 'ci jobs', verb: 'ci.jobsPage', run: async (provider, manifest, context) => {
     const runs = need(context.runs?.length ? context.runs : undefined, 'a CI run')
