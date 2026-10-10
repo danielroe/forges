@@ -757,6 +757,9 @@ describe('github webhook management', () => {
 })
 
 describe('github release writes', () => {
+  const releaseRef = { forge: 'github', instance: 'github.com', repo, id: '9001', tag: 'v1.2.0' } as const
+  const immutable = { id: 9001, tag_name: 'v1.2.0', draft: false, prerelease: false, immutable: true }
+
   it('rejects release writes on a read-only provider without sending them', async () => {
     const { fetch, calls } = fixtureFetch('github')
     const provider = github({ auth: { type: 'token', token: 't' }, fetch, readOnly: true }).create()
@@ -764,6 +767,28 @@ describe('github release writes', () => {
     await expect(provider.releases.create(repo, { tag: 'v1.3.0' })).rejects.toThrow(ReadOnlyError)
     expect(provider.can('releases.update')).toBe(false)
     expect(calls).toEqual([])
+  })
+
+  it('normalises a refused write to an immutable release as a forbidden error', async () => {
+    const { fetch, calls } = fixtureFetch('github', {
+      'PATCH https://api.github.com/repos/acme/widgets/releases/9001': { status: 403, body: { message: 'Cannot modify an immutable release' } },
+    })
+    const provider = github({ auth: { type: 'token', token: 't' }, fetch }).create()
+
+    await expect(provider.releases.update(releaseRef, { tag: 'v2.0.0' })).rejects.toMatchObject({ name: 'ForbiddenError', reason: 'immutable_release' })
+    expect(calls.map(call => call.method)).toEqual(['PATCH'])
+  })
+
+  it('still edits the name and notes of an immutable release', async () => {
+    const { fetch, calls } = fixtureFetch('github', {
+      'PATCH https://api.github.com/repos/acme/widgets/releases/9001': { status: 200, body: { ...immutable, name: 'Edited' } },
+    })
+    const provider = github({ auth: { type: 'token', token: 't' }, fetch }).create()
+
+    const updated = await provider.releases.update(releaseRef, { name: 'Edited', body: 'Notes' })
+
+    expect(updated).toMatchObject({ name: 'Edited', immutable: true })
+    expect(calls.map(call => call.method)).toEqual(['PATCH'])
   })
 })
 

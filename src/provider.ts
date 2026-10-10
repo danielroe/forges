@@ -711,6 +711,8 @@ export interface ReleasesApi {
   /**
    * Changes a release. Fields left out stay as they are, so `{ draft: false }` publishes a draft.
    * @throws `UnsupportedOperationError` for a change the forge cannot make, such as a new tag on GitLab.
+   * @throws `ForbiddenError` with reason `immutable_release` when the forge refuses the write because the
+   * release is immutable (GitHub); its name, notes, prerelease and `latest` flags stay editable.
    */
   update: (ref: ReleaseRef, update: ReleaseUpdate) => Promise<Release>
 }

@@ -88,12 +88,13 @@ export class InsufficientScopeError extends ForgeApiError {
  * Why the forge refused a request the credential is otherwise valid for.
  * `unknown` is a 403 whose body matched nothing recognised.
  */
-export type ForbiddenReason = 'org_restriction' | 'sso_required' | 'rate_limit_abuse' | 'resource_protected' | 'unknown'
+export type ForbiddenReason = 'org_restriction' | 'sso_required' | 'rate_limit_abuse' | 'immutable_release' | 'resource_protected' | 'unknown'
 
 /**
  * The forge refused the request for a reason other than a missing scope: an
- * organisation policy, an SSO requirement, an abuse limit, or a protected
- * resource. A missing scope is {@link InsufficientScopeError}.
+ * organisation policy, an SSO requirement, an abuse limit, a protected
+ * resource, or a release the forge has marked immutable. A missing scope is
+ * {@link InsufficientScopeError}.
  */
 export class ForbiddenError extends ForgeApiError {
   override name = 'ForbiddenError'
@@ -114,6 +115,10 @@ const FORBIDDEN_PATTERNS: Array<[ForbiddenReason, RegExp]> = [
   ['org_restriction', /third[- ]party application|OAuth App access restrictions|organization has enabled OAuth|not authorized by the organization|blocked by the organization/i],
   ['sso_required', /SAML|single sign[- ]on|\bSSO\b|must be granted .* organization/i],
   ['rate_limit_abuse', /abuse detection|secondary rate limit/i],
+  // GitHub documents no error for a write to an immutable release, so match only
+  // bodies that name immutability alongside a release, and before `resource_protected`
+  // so a body that also says "read-only" is still attributed to immutability.
+  ['immutable_release', /immutable[^.]*release|release[^.]*immutable/i],
   ['resource_protected', /archived|read[- ]only|protected branch|repository has been disabled|is disabled/i],
 ]
 

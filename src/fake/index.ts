@@ -48,7 +48,7 @@ import type { ForgeCapabilities, ForgeOptionsBase, ForgeProvider, ForgeProviderF
 import { toFileContent } from '../contents.ts'
 import { bodyText, headerValue } from '../crypto.ts'
 import { defineForgeProvider, perKind, verb } from '../define.ts'
-import { ForgeApiError, NotFoundError } from '../errors.ts'
+import { ForbiddenError, ForgeApiError, NotFoundError } from '../errors.ts'
 import { completeEvent } from '../events.ts'
 import { capabilityOf } from '../supports.ts'
 import { getManyConcurrently } from '../utils.ts'
@@ -1037,6 +1037,9 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
         }),
         update: verb(support('releases.update', true), async (ref, update) => {
           const release = releaseState(ref)
+          if (release.immutable && ((update.tag !== undefined && update.tag !== release.tag) || update.target !== undefined)) {
+            throw new ForbiddenError(`Release ${release.tag} is immutable; its tag and target are locked`, 403, '', 'immutable_release', origin)
+          }
           if (update.tag !== undefined && update.tag !== release.tag) {
             requireFreeTag(repoState(ref.repo).releases, update.tag)
             release.tag = update.tag

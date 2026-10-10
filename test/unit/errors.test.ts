@@ -53,4 +53,9 @@ describe('forbiddenReason', () => {
     expect(forbiddenReason('Resource protected by SSO enforcement')).toMatchObject({ reason: 'sso_required' })
     expect(forbiddenReason('Lasso is not allowed here')).toBeUndefined()
   })
+
+  it('attributes a body that names an immutable release to immutability', () => {
+    expect(forbiddenReason('Cannot modify an immutable release')).toMatchObject({ reason: 'immutable_release' })
+    expect(forbiddenReason('This immutable release is read-only')).toMatchObject({ reason: 'immutable_release' })
+  })
 })
