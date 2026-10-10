@@ -988,13 +988,21 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
       query.repo ? `repo:${query.repo.owner}/${query.repo.name}` : query.owner && `user:${query.owner}`,
       query.queryRaw,
     ].filter(Boolean)
+    let incomplete = false
     const result = await fetcher.page<GitHubCodeSearchItem>('/search/code', {
       query: { q: qualifiers.join(' '), per_page: query.perPage },
       headers: { accept: 'application/vnd.github.text-match+json' },
       cursor: query.cursor,
       signal: query.signal,
-      select: (body, next) => ({ items: (body as { items: GitHubCodeSearchItem[] }).items, next }),
+      select: (body, next) => {
+        const { items, incomplete_results } = body as { items: GitHubCodeSearchItem[], incomplete_results?: boolean }
+        incomplete = incomplete_results === true
+        return { items, next }
+      },
     })
+    const warnings: ForgeWarning[] = incomplete
+      ? [{ code: 'search_incomplete', message: 'GitHub stopped the search before it finished; the page may be missing matches' }]
+      : []
     return toPage(result, raw => ({
       repo: query.repo ?? toRepoRef(instance, raw.repository),
       path: raw.path,
@@ -1002,7 +1010,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
       fragments: (raw.text_matches ?? []).filter(match => match.property === 'content').map(match => ({ text: match.fragment })),
       url: raw.html_url,
       raw,
-    }))
+    }), warnings)
   }
 
   function createInstallationsApi(app: AppCredentials): Omit<InstallationsApi, 'list' | 'repos'> {

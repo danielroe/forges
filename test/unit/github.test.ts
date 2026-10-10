@@ -684,6 +684,14 @@ describe('github search', () => {
       raw: expect.objectContaining({ path: 'src/useFetch.ts' }),
     }])
   })
+
+  it('warns when GitHub stops a code search before it finishes', async () => {
+    const provider = github({ auth: { type: 'token', token: 't' }, fetch: async () => Response.json({ total_count: 0, incomplete_results: true, items: [] }) }).create()
+
+    const page = await provider.search.codePage({ text: 'useFetch', repo })
+
+    expect(page.warnings).toEqual([expect.objectContaining({ code: 'search_incomplete' })])
+  })
 })
 
 describe('github webhook management', () => {

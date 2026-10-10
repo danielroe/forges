@@ -100,7 +100,7 @@ When you call `search.threads()` without a `kind`, it uses GitHub's advanced sea
 const page = await gh.search.threadsPage({ kind: 'pull_request', queryRaw: 'review-requested:@me' })
 ```
 
-`search.code()` gets the tightest limit of all: 10 requests a minute, in a pool of its own. It only sees the default branch, and only files under 384 KB. Each result is a file, with `ref` set to the commit that GitHub indexed. `fragments` holds the excerpts that GitHub highlighted. They have no line numbers, because GitHub doesn't send any.
+`search.code()` gets the tightest limit of all: 10 requests a minute, in a pool of its own. It only sees the default branch, and only files under 384 KB. Each result is a file, with `ref` set to the commit that GitHub indexed. `fragments` holds the excerpts that GitHub highlighted. They have no line numbers, because GitHub doesn't send any. When GitHub stops a search before it finishes, the page has a `search_incomplete` warning.
 
 ## Webhook management
 

@@ -889,6 +889,7 @@ export type ForgeWarningCode
     | 'record_unreachable'
     | 'recursive_unsupported'
     | 'search_failed'
+    | 'search_incomplete'
     | 'sort_unsupported'
     | 'state_record_unreachable'
     | 'thread_unreadable'
