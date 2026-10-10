@@ -359,7 +359,8 @@ export const REACTION_CONTENTS = ['+1', '-1', 'laugh', 'confused', 'heart', 'hoo
 
 /**
  * The reactions every forge with reactions has in common, named as GitHub
- * names them. A forge-native name with no entry here is not reported.
+ * names them. A {@link Reaction} whose forge-native name has no entry here
+ * has `content: 'other'`, with the forge-native name in `contentRaw`.
  */
 export type ReactionContent = (typeof REACTION_CONTENTS)[number]
 
@@ -383,7 +384,7 @@ export interface Reaction {
 export interface ReactionSummary {
   /** The number of reactions of every kind. */
   total: number
-  /** The number of reactions of each kind. */
+  /** The number of reactions of each kind. A reaction with no {@link ReactionContent} entry has no key here. */
   counts: Partial<Record<ReactionContent, number>>
   /** Reactions the authenticated account has left. Absent when the forge does not report them. */
   viewerReacted?: ReactionContent[]

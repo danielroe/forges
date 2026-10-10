@@ -2581,7 +2581,7 @@
       "rocket",
       "eyes"
     ],
-    "description": "The reactions every forge with reactions has in common, named as GitHub names them. A forge-native name with no entry here is not reported.",
+    "description": "The reactions every forge with reactions has in common, named as GitHub names them. A {@link Reaction} whose forge-native name has no entry here has `content: 'other'`, with the forge-native name in `contentRaw`.",
     "x-forges-type": "ReactionContent"
   },
   "ReactionSummary": {
@@ -2619,7 +2619,7 @@
             "type": "number"
           }
         },
-        "description": "The number of reactions of each kind."
+        "description": "The number of reactions of each kind. A reaction with no {@link ReactionContent} entry has no key here."
       },
       "viewerReacted": {
         "type": "array",
