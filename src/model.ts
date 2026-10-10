@@ -781,7 +781,7 @@ export interface Comparison {
   raw: unknown
 }
 
-/** A file that a code search found. GitLab returns one for each excerpt, so a file can come back more than once. */
+/** A file that a code search found. A file whose excerpts span two pages comes back on both. */
 export interface CodeMatch {
   repo: RepoRef
   path: string

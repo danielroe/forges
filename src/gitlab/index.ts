@@ -486,13 +486,25 @@ const GITLAB: ProviderDefinition<GitLabOptions> = {
       const warnings: ForgeWarning[] = []
       const ids = query.repo ? [] : [...new Set((result.data ?? []).map(raw => raw.project_id))].filter(id => !projectRefs.has(id))
       await mapConcurrent(ids, 4, id => resolveProject(id, query.signal, warnings))
-      return toPage(result, (raw) => {
-        const repo = query.repo ?? projectRefs.get(raw.project_id)
+      /** GitLab returns one blob per excerpt, with the excerpts of a file next to each other. */
+      const files: GitLabBlob[][] = []
+      for (const blob of result.data ?? []) {
+        const last = files.at(-1)
+        if (last && last[0]!.project_id === blob.project_id && last[0]!.path === blob.path && last[0]!.ref === blob.ref) {
+          last.push(blob)
+        }
+        else {
+          files.push([blob])
+        }
+      }
+      return toPage({ ...result, data: files }, (excerpts) => {
+        const [first] = excerpts as [GitLabBlob]
+        const repo = query.repo ?? projectRefs.get(first.project_id)
         if (!repo) {
           return undefined
         }
-        const url = webUrlFor(web, { file: { repo, path: raw.path, at: raw.ref, line: raw.startline } })
-        return { repo, path: raw.path, ref: raw.ref, fragments: [{ text: raw.data, line: raw.startline }], url, raw }
+        const url = webUrlFor(web, { file: { repo, path: first.path, at: first.ref, line: first.startline } })
+        return { repo, path: first.path, ref: first.ref, fragments: excerpts.map(raw => ({ text: raw.data, line: raw.startline })), url, raw: excerpts }
       }, warnings)
     }
 

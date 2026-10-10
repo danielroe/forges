@@ -348,7 +348,7 @@ describe('gitlab code search', () => {
       ref: 'main',
       fragments: [{ text: 'export function useFetch(url: string) {\n  return fetch(url)\n}\n', line: 12 }],
       url: 'https://gitlab.com/acme/platform/widgets/-/blob/main/src/useFetch.ts#L12',
-      raw: expect.objectContaining({ project_id: 278964 }),
+      raw: [expect.objectContaining({ project_id: 278964 })],
     }])
   })
 
@@ -360,10 +360,18 @@ describe('gitlab code search', () => {
 
     expect(items.map(item => item.url)).toEqual([
       'https://gitlab.com/acme/platform/widgets/-/blob/main/src/useFetch.ts#L12',
-      'https://gitlab.com/acme/platform/widgets/-/blob/main/src/useFetch.ts#L40',
       'https://gitlab.com/acme/platform/storefront/-/blob/develop/app/pages/index.vue#L3',
     ])
     expect(calls.map(call => new URL(call.url).pathname).filter(path => /\/projects\/\d+$/.test(path))).toEqual(['/api/v4/projects/278964', '/api/v4/projects/278965'])
+  })
+
+  it('merges consecutive excerpts of a file into one match', async () => {
+    const { instance } = provider()
+
+    const { items } = await instance.search.codePage({ text: 'useFetch', owner: 'acme/platform' })
+
+    expect(items[0]!.fragments.map(fragment => fragment.line)).toEqual([12, 40])
+    expect(items[0]!.raw).toHaveLength(2)
   })
 
   it('asks only for a read scope to search code', () => {
@@ -395,7 +403,7 @@ describe('gitlab code search', () => {
 
     const page = await instance.search.codePage({ text: 'useFetch', owner: 'acme/platform' })
 
-    expect(page.items.map(item => item.repo.name)).toEqual(['widgets', 'widgets'])
+    expect(page.items.map(item => item.repo.name)).toEqual(['widgets'])
     expect(page.warnings).toEqual([expect.objectContaining({ code: 'record_unreachable', subject: 'project 278965' })])
   })
 

@@ -79,7 +79,7 @@ Commit search accepts free text only. If you pass `author`, `committer`, `since`
 
 `search.code()` with a `repo` works on every GitLab tier. Pass `owner` instead to search a group, or neither to search the whole instance. Those two need Advanced Search or exact code search, so Premium or Ultimate. Without either, GitLab answers `400`. GitLab.com has instance-wide code search switched off, so there it's a `403`. A group or instance result names its project only by ID, so the provider looks each project up once and remembers it.
 
-GitLab returns one result per excerpt, not per file. A file can show up several times, each with the line its excerpt starts on. Want one entry per file? Group the results by `repo` and `path`.
+GitLab returns one result per excerpt, not per file. The provider merges the excerpts of a file into one match, so `fragments` can hold several, each with the line it starts on, and `raw` is the list of GitLab results. When the excerpts of a file span two pages, the file comes back on both.
 
 ## Webhooks
 

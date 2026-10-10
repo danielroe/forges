@@ -496,7 +496,7 @@
       "fragments",
       "raw"
     ],
-    "description": "A file that a code search found. GitLab returns one for each excerpt, so a file can come back more than once.",
+    "description": "A file that a code search found. A file whose excerpts span two pages comes back on both.",
     "x-forges-type": "CodeMatch"
   },
   "Collaborator": {
