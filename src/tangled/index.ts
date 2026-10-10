@@ -133,7 +133,7 @@ const TANGLED: ProviderDefinition<TangledOptions> = {
 
     const threads = {
       get: perKind(ISSUE_AND_PULL, readThread),
-      getMany: verb(true, (refs: ThreadRef[], options?: BaseOptions) => getManyConcurrently(refs, ref => readThread(ref, options))),
+      getMany: verb(true, (refs: ThreadRef[], options?: BaseOptions) => getManyConcurrently(refs, readThread, options)),
       listPage: perKind({ issue: true, pull_request: true }, listPage),
       eventsPage: verb(true, async (thread: ThreadRef): Promise<Page<ForgeEventInput>> => {
         const { ref, uri, kind } = subjectUri(thread)

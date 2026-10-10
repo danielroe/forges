@@ -109,7 +109,7 @@ function setupPushin({ options, instance, origin: context, fetcher, baseUrl }: P
     threads: {
       get: perKind({ issue: true, pull_request: true }, get),
       listPage: perKind({ issue: true, pull_request: true }, listPage),
-      getMany: verb(true, (refs, options) => getManyConcurrently(refs, ref => get(ref, options))),
+      getMany: verb(true, (refs, options) => getManyConcurrently(refs, get, options)),
       eventsPage: verb('emulated', eventsPage),
       commentsPage: perKind({ issue: true, pull_request: true }, commentsPage),
     },

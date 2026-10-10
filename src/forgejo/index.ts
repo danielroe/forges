@@ -719,7 +719,7 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
         return toReview(pull, data, [])
       }),
       get: perKind({ issue: true, pull_request: true, commit: true }, get),
-      getMany: verb(true, (refs, options) => getManyConcurrently(refs, ref => get(ref, options))),
+      getMany: verb(true, (refs, options) => getManyConcurrently(refs, get, options)),
       listPage: perKind(ISSUE_AND_PULL, listPage),
       eventsPage: verb(true, async (thread: ThreadRef, listOptions: ListOptions = {}): Promise<Page<ForgeEventInput>> => {
         const ref = requireThread(thread, context)

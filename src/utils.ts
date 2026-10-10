@@ -1,6 +1,6 @@
 import type { ForgeErrorContext } from './errors.ts'
 import type { Fetcher, FetchResult, PaginateOptions } from './fetch.ts'
-import type { Actor, ChecksSummary, CheckState, Cursor, FileStatus, ForgeWarning, GetManyResult, ListOptions, Milestone, Page, PageOptions, RateLimit, ResolvedThreadRef, Review, ReviewState, Thread, ThreadRef } from './model.ts'
+import type { Actor, BaseOptions, ChecksSummary, CheckState, Cursor, FileStatus, ForgeWarning, GetManyResult, ListOptions, Milestone, Page, PageOptions, RateLimit, ResolvedThreadRef, Review, ReviewState, Thread, ThreadRef } from './model.ts'
 import type { ForgeIterable, MilestoneListOptions, TokenAuth } from './provider.ts'
 import { ForgeApiError, ForgeError, RateLimitedError, TokenRevokedError, UnresolvedThreadError, UnsupportedOperationError } from './errors.ts'
 import { rateLimitOf } from './fetch.ts'
@@ -69,12 +69,17 @@ export async function mapConcurrent<T, R>(items: readonly T[], limit: number, fn
 /** `threads.getMany` for forges without a batch endpoint. */
 export function getManyConcurrently(
   refs: ThreadRef[],
-  get: (ref: ThreadRef) => Promise<Thread>,
-  limit = 4,
+  get: (ref: ThreadRef, options?: BaseOptions) => Promise<Thread>,
+  options: BaseOptions = {},
 ): Promise<GetManyResult[]> {
-  return mapConcurrent(refs, limit, ref => get(ref).then(
+  return mapConcurrent(refs, 4, ref => get(ref, options).then(
     thread => ({ ok: true, ref, thread }),
-    (error: unknown) => ({ ok: false, ref, warning: toWarning(error instanceof UnresolvedThreadError ? 'thread_unresolved' : 'thread_unreadable', error, ref.number) }),
+    (error: unknown) => {
+      if (options.signal?.aborted) {
+        throw options.signal.reason
+      }
+      return { ok: false, ref, warning: toWarning(error instanceof UnresolvedThreadError ? 'thread_unresolved' : 'thread_unreadable', error, ref.number) }
+    },
   ))
 }
 

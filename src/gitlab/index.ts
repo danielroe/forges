@@ -895,7 +895,7 @@ const GITLAB: ProviderDefinition<GitLabOptions> = {
           return { items: await Array.fromAsync(fetcher.items<GitLabJob>(`${project}/pipelines/${data.head_pipeline.id}/jobs`, { query: { per_page: 100 }, signal: options?.signal }), job => toJobCheck(ref.repo, job)) }
         }),
         get: perKind({ issue: true, pull_request: true, commit: true }, get),
-        getMany: verb(true, (refs, options) => getManyConcurrently(refs, ref => get(ref, options))),
+        getMany: verb(true, (refs, options) => getManyConcurrently(refs, get, options)),
         listPage: perKind(ISSUE_LIKE, listPage),
         eventsPage: verb(!anonymous, async (thread: ThreadRef, listOptions: ListOptions = {}): Promise<Page<ForgeEventInput>> => {
           const ref = requireThread(thread, context)

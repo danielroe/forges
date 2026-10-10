@@ -532,7 +532,7 @@ const BITBUCKET: ProviderDefinition<BitbucketOptions> = {
         }),
         createReview: verb('emulated', createReview),
         get: perKind({ pull_request: true, commit: true }, get),
-        getMany: verb(true, (refs, options) => getManyConcurrently(refs, ref => get(ref, options))),
+        getMany: verb(true, (refs, options) => getManyConcurrently(refs, get, options)),
         listPage: perKind({ pull_request: true }, listPage),
         eventsPage: verb(true, async (thread: ThreadRef, listOptions: ListOptions = {}): Promise<Page<ForgeEventInput>> => {
           const ref = requireThread(thread, context)

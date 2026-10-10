@@ -290,7 +290,7 @@ function setupOrigin({ options, baseUrl, instance, origin: context, fetcher, cre
     installations: credentials && auth?.type === 'app' && auth.installationId === undefined ? verb('unverified', createInstallationsApi(credentials)) : undefined,
     threads: {
       get: perKind(PULL, get),
-      getMany: verb('experimental', (refs, options) => getManyConcurrently(refs, ref => get(ref, options))),
+      getMany: verb('experimental', (refs, options) => getManyConcurrently(refs, get, options)),
       listPage: perKind(PULL, listPage),
       eventsPage: verb('experimental', eventsPage),
       filesPage: verb('unverified', async (thread, listOptions = {}) => {

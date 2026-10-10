@@ -445,7 +445,7 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
     },
     threads: {
       get: perKind({ issue: anonymous ? 'unverified' : true, pull_request: true }, get),
-      getMany: verb(true, (refs, options) => getManyConcurrently(refs, ref => get(ref, options))),
+      getMany: verb(true, (refs, options) => getManyConcurrently(refs, get, options)),
       listPage: perKind({ issue: !anonymous, pull_request: true }, listPage),
       eventsPage: verb(true, eventsPage),
       commitsPage: verb(true, async (thread, listOptions = {}) => {

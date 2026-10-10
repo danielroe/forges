@@ -370,9 +370,9 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
 
   async function getMany(refs: ThreadRef[], options?: BaseOptions): Promise<GetManyResult[]> {
     if (anonymous) {
-      return getManyConcurrently(refs, ref => ref.kind === 'discussion'
+      return getManyConcurrently(refs, (ref, getOptions) => ref.kind === 'discussion'
         ? Promise.reject(new UnsupportedOperationError('github does not read discussions without credentials', context))
-        : get(ref, options))
+        : get(ref, getOptions), options)
     }
     const results: GetManyResult[] = Array.from({ length: refs.length })
     const batchable: Array<{ index: number, ref: ResolvedThreadRef }> = []
@@ -388,7 +388,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
         batchable.push({ index, ref })
       }
     }
-    const read = await getManyConcurrently(commits.map(index => refs[index]!), ref => get(ref, options))
+    const read = await getManyConcurrently(commits.map(index => refs[index]!), get, options)
     commits.forEach((index, position) => {
       results[index] = read[position]!
     })

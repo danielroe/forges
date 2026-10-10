@@ -402,7 +402,7 @@ function setupGitee({ instance, origin: context, fetcher, baseUrl }: ProviderCon
     },
     threads: {
       get: perKind({ issue: true, pull_request: true }, get),
-      getMany: verb(true, (refs, options) => getManyConcurrently(refs, ref => get(ref, options))),
+      getMany: verb(true, (refs, options) => getManyConcurrently(refs, get, options)),
       listPage: perKind({ issue: true, pull_request: true }, listPage),
       eventsPage: verb(true, eventsPage),
       filesPage: verb(true, async (thread, listOptions = {}) => {
