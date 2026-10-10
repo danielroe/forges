@@ -3621,7 +3621,7 @@
       "commit",
       "other"
     ],
-    "description": "Kind of thread. `'other'` holds forge-specific subjects with no shared kind (check suites, epics); `typeRaw` names them.",
+    "description": "Kind of thread. `'other'` holds forge-specific subjects with no shared kind (check suites, epics); `ThreadRef.typeRaw` names them.",
     "x-forges-type": "ThreadKind"
   },
   "ThreadRef": {
