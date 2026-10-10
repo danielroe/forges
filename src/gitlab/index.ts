@@ -69,7 +69,6 @@ import type {
   GitLabNote,
   GitLabNoteDetail,
   GitLabPipeline,
-  GitLabProject,
   GitLabProjectDetail,
   GitLabProjectSettings,
   GitLabRelease,
@@ -81,7 +80,7 @@ import { fromBase64, toFileContent } from '../contents.ts'
 import { defineForgeProvider, perKind, verb } from '../define.ts'
 import { AuthenticationRequiredError, InsufficientScopeError, NotFoundError, soleMergeMethod, TokenRevokedError, toMergeError, UnresolvedThreadError, UnsupportedOperationError } from '../errors.ts'
 import { isNamespaceRef, reactionContent } from '../model.ts'
-import { createListing, degradesToWarning, getManyConcurrently, hexColour, mapConcurrent, memo, memoBy, milestoneId, phased, requireIssueOrPull, requireThread, resolveToken, syntheticReview, toDate, toPage, toWarning, versionAtLeast } from '../utils.ts'
+import { createListing, degradesToWarning, getManyConcurrently, hexColour, memo, memoBy, milestoneId, phased, requireIssueOrPull, requireThread, resolveToken, syntheticReview, toDate, toPage, toWarning, versionAtLeast } from '../utils.ts'
 import { webUrlFor } from '../web.ts'
 import { nativeEventsFor } from '../webhooks.ts'
 import {
@@ -164,6 +163,12 @@ const VULNERABILITIES_QUERY = `query ProjectVulnerabilities($fullPath: ID!, $fir
       pageInfo { hasNextPage endCursor }
       nodes { id title severity state reportType detectedAt updatedAt dismissedAt resolvedAt webUrl }
     }
+  }
+}`
+
+const PROJECTS_QUERY = `query CodeSearchProjects($ids: [ID!]) {
+  projects(ids: $ids) {
+    nodes { id fullPath }
   }
 }`
 
@@ -461,17 +466,31 @@ const GITLAB: ProviderDefinition<GitLabOptions> = {
     /** Projects that group and instance code searches named by id, kept so later pages skip the lookup. */
     const projectRefs = new Map<number, RepoRef>()
 
-    /** An unreadable project costs its blobs and a warning, not the page. */
-    async function resolveProject(id: number, signal: AbortSignal | undefined, warnings: ForgeWarning[]): Promise<void> {
+    /** A project the token cannot read costs its blobs and a warning, not the page. */
+    async function resolveProjects(ids: number[], signal: AbortSignal | undefined, warnings: ForgeWarning[]): Promise<void> {
+      if (!ids.length) {
+        return
+      }
       try {
-        const { data } = await fetcher.json<GitLabProject>(`/projects/${id}`, { signal })
-        projectRefs.set(id, toRepoRef(instance, data.path_with_namespace, data.id))
+        const { data } = await fetcher.json<{ data?: { projects?: { nodes: Array<{ id: string, fullPath: string }> } | null } }>(graphqlUrl, {
+          method: 'POST',
+          json: { operationName: 'CodeSearchProjects', query: PROJECTS_QUERY, variables: { ids: ids.map(id => `gid://gitlab/Project/${id}`) } },
+          signal,
+        })
+        for (const node of data.data?.projects?.nodes ?? []) {
+          const id = Number(node.id.slice(node.id.lastIndexOf('/') + 1))
+          projectRefs.set(id, toRepoRef(instance, node.fullPath, id))
+        }
       }
       catch (error) {
         if (!degradesToWarning(error)) {
           throw error
         }
-        warnings.push(toWarning('record_unreachable', error, `project ${id}`))
+        warnings.push(...ids.map(id => toWarning('record_unreachable', error, `project ${id}`)))
+        return
+      }
+      for (const id of ids.filter(id => !projectRefs.has(id))) {
+        warnings.push({ code: 'record_unreachable', message: 'GitLab returned no project for this id', subject: `project ${id}` })
       }
     }
 
@@ -485,7 +504,7 @@ const GITLAB: ProviderDefinition<GitLabOptions> = {
       })
       const warnings: ForgeWarning[] = []
       const ids = query.repo ? [] : [...new Set((result.data ?? []).map(raw => raw.project_id))].filter(id => !projectRefs.has(id))
-      await mapConcurrent(ids, 4, id => resolveProject(id, query.signal, warnings))
+      await resolveProjects(ids, query.signal, warnings)
       /** GitLab returns one blob per excerpt, with the excerpts of a file next to each other. */
       const files: GitLabBlob[][] = []
       for (const blob of result.data ?? []) {

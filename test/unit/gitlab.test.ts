@@ -352,7 +352,7 @@ describe('gitlab code search', () => {
     }])
   })
 
-  it('names the projects of a group search, reading each one once', async () => {
+  it('names the projects of a group search in one request, and remembers them', async () => {
     const { instance, calls } = provider()
 
     const { items } = await instance.search.codePage({ text: 'useFetch', owner: 'acme/platform' })
@@ -362,7 +362,7 @@ describe('gitlab code search', () => {
       'https://gitlab.com/acme/platform/widgets/-/blob/main/src/useFetch.ts#L12',
       'https://gitlab.com/acme/platform/storefront/-/blob/develop/app/pages/index.vue#L3',
     ])
-    expect(calls.map(call => new URL(call.url).pathname).filter(path => /\/projects\/\d+$/.test(path))).toEqual(['/api/v4/projects/278964', '/api/v4/projects/278965'])
+    expect(calls.filter(call => call.operationName === 'CodeSearchProjects').map(call => call.variables)).toEqual([{ ids: ['gid://gitlab/Project/278964', 'gid://gitlab/Project/278965'] }])
   })
 
   it('merges consecutive excerpts of a file into one match', async () => {
@@ -399,7 +399,7 @@ describe('gitlab code search', () => {
   })
 
   it('keeps the rest of the page when one project of a group search cannot be read', async () => {
-    const { instance } = provider({ 'GET https://gitlab.com/api/v4/projects/278965': { status: 404, headers: {}, body: { message: '404 Project Not Found' } } })
+    const { instance } = provider({ 'POST https://gitlab.com/api/graphql CodeSearchProjects': { status: 200, headers: {}, body: { data: { projects: { nodes: [{ id: 'gid://gitlab/Project/278964', fullPath: 'acme/platform/widgets' }] } } } } })
 
     const page = await instance.search.codePage({ text: 'useFetch', owner: 'acme/platform' })
 
@@ -408,7 +408,7 @@ describe('gitlab code search', () => {
   })
 
   it('stops a group search when reading a project is rate limited', async () => {
-    const { instance } = provider({ 'GET https://gitlab.com/api/v4/projects/278965': { status: 429, headers: { 'ratelimit-remaining': '0', 'ratelimit-reset': '1800000000' }, body: { message: 'Retry later' } } })
+    const { instance } = provider({ 'POST https://gitlab.com/api/graphql CodeSearchProjects': { status: 429, headers: { 'ratelimit-remaining': '0', 'ratelimit-reset': '1800000000' }, body: { message: 'Retry later' } } })
 
     await expect(instance.search.codePage({ text: 'useFetch', owner: 'acme/platform' })).rejects.toBeInstanceOf(RateLimitedError)
   })

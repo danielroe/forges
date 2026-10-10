@@ -77,7 +77,7 @@ The assets of a GitLab release are links to arbitrary URLs and not files that Gi
 
 Commit search accepts free text only. If you pass `author`, `committer`, `since`, `until` or `sort`, the result has a `filter_unsupported` warning. `search.threads()` has no `involves` filter, and it adds the same warning when you pass one.
 
-`search.code()` with a `repo` works on every GitLab tier. Pass `owner` instead to search a group, or neither to search the whole instance. Those two need Advanced Search or exact code search, so Premium or Ultimate. Without either, GitLab answers `400`. GitLab.com has instance-wide code search switched off, so there it's a `403`. A group or instance result names its project only by ID, so the provider looks each project up once and remembers it.
+`search.code()` with a `repo` works on every GitLab tier. Pass `owner` instead to search a group, or neither to search the whole instance. Those two need Advanced Search or exact code search, so Premium or Ultimate. Without either, GitLab answers `400`. GitLab.com has instance-wide code search switched off, so there it's a `403`. A group or instance result names its project only by ID, so the provider looks up the projects of each page in one GraphQL request and remembers them. A project the token can't read leaves its results out of the page, with a `record_unreachable` warning.
 
 GitLab returns one result per excerpt, not per file. The provider merges the excerpts of a file into one match, so `fragments` can hold several, each with the line it starts on, and `raw` is the list of GitLab results. When the excerpts of a file span two pages, the file comes back on both.
 
