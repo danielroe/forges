@@ -1,9 +1,12 @@
 import type { MergeHooks, ProviderContext, ProviderDefinition, ProviderFactoryFunction, ProviderSpec, SupportInput } from '../define.ts'
+import type { FetchResult } from '../fetch.ts'
 import type {
   Check,
   CheckState,
+  CiJob,
   CiRun,
   CiRunQuery,
+  CiRunRef,
   Comment,
   CommentRef,
   ForgeEventInput,
@@ -64,6 +67,8 @@ import type {
   ForgejoTimelineEntry,
   ForgejoTree,
   ForgejoUser,
+  GiteaActionJob,
+  GiteaActionRun,
 } from './types.ts'
 import type { WebhookHeaderNames } from './webhook-events.ts'
 import { fromBase64, toFileContent } from '../contents.ts'
@@ -73,7 +78,7 @@ import { isNamespaceRef, reactionContent } from '../model.ts'
 import { actorLogin, createListing, getManyConcurrently, hasEveryLabel, hexColour, hostOf, memo, memoBy, milestoneId, requireIssueOrPull, requireThread, resolveToken, summariseChecks, toDate, toPage, toWarning, versionAtLeast } from '../utils.ts'
 import { githubShapedWeb } from '../web.ts'
 import { nativeEventsFor } from '../webhooks.ts'
-import { ACTION_STATES, actionBranch, numberFromUrl, toActionJob, toActionRun, toActor, toBranch, toChangedFile, toComment, toCommit, toEvent, toLabel, toMilestone, toNotification, toRelease, toRepo, toReview, toReviewComment, toRole, toStatusCheck, toStatusChecks, toTag, toThread, toThreadKind, toTreeEntry, toWebhook } from './normalise.ts'
+import { ACTION_STATES, actionBranch, GITEA_ACTION_STATES, numberFromUrl, toActionJob, toActionRun, toActor, toBranch, toChangedFile, toComment, toCommit, toEvent, toGiteaActionJob, toGiteaActionRun, toLabel, toMilestone, toNotification, toRelease, toRepo, toReview, toReviewComment, toRole, toStatusCheck, toStatusChecks, toTag, toThread, toThreadKind, toTreeEntry, toWebhook } from './normalise.ts'
 import { countedNextUrl, countedPages } from './pages.ts'
 import { FORGEJO_HEADERS, FORGEJO_NATIVE_EVENTS } from './webhook-events.ts'
 import { forgejoWebhooks } from './webhooks.ts'
@@ -110,6 +115,10 @@ const ISSUE_AND_PULL = { issue: true, pull_request: true } as const
 /** Forgejo versions with the Actions runs API, and with run jobs and job logs. */
 const FORGEJO_ACTION_RUNS = '12.0'
 const FORGEJO_ACTION_JOBS = '16.0'
+
+/** Gitea versions with runs and their jobs, and with job logs. Before 1.26, Gitea lists runs only to repository owners and site admins. */
+const GITEA_ACTION_RUNS = '1.25'
+const GITEA_ACTION_LOGS = '1.24'
 
 /** Timelines send no usable count, so only a full page of an explicit size shows that another follows. */
 const TIMELINE_PAGE_SIZE = 50
@@ -448,33 +457,52 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
     }, warnings)
   }
 
-  /** Codeberg runs the latest Forgejo, so only a self-hosted instance waits for its version. Gitea's Actions API has another shape. */
-  function actions(minimum: string): SupportInput {
-    if (profile.forge !== 'forgejo') {
-      return false
-    }
+  /** Codeberg and gitea.com run a current release, so only a self-hosted instance waits for its version. */
+  function actions(forgejoMinimum: string, giteaMinimum: string): SupportInput {
+    const minimum = profile.forge === 'forgejo' ? forgejoMinimum : giteaMinimum
     return hostOf(baseUrl) === hostOf(profile.defaultBaseUrl) ? true : ({ version }) => versionAtLeast(version, minimum)
   }
 
-  async function runsPage(repo: RepoRef, query: CiRunQuery = {}): Promise<Page<CiRun>> {
-    const statuses = query.state ? `?${ACTION_STATES[query.state].map(status => `status=${status}`).join('&')}` : ''
-    const path = `${repoPath(repo)}/actions/runs${statuses}`
-    // Without `page`, Forgejo ignores `limit` and sends the whole run history.
-    const pageQuery = { ref: query.branch ? `refs/heads/${query.branch}` : undefined, page: 1, limit: query.perPage ?? 50 }
-    const url = query.cursor?.nextUrl ? fetcher.resolve(query.cursor.nextUrl) : fetcher.resolve(path, pageQuery)
-    const result = await fetcher.page<ForgejoActionRun>(path, {
-      query: pageQuery,
-      cursor: query.cursor,
-      signal: query.signal,
-      // Forgejo caps `limit` at its maximum page size and reports the total only in the body.
+  /** Gitea lists runs and serves job logs only with a token. */
+  const giteaAnonymous = profile.forge === 'gitea' && anonymous
+
+  /** One page of an Actions listing, whose items sit under `key` beside the `total_count` that Forgejo and Gitea before 1.26 send instead of a `Link` header. */
+  async function actionsPage<T>(path: string, key: 'workflow_runs' | 'jobs', query: Record<string, string | number | undefined>, options: PageOptions): Promise<FetchResult<T[]>> {
+    const url = options.cursor?.nextUrl ? fetcher.resolve(options.cursor.nextUrl) : fetcher.resolve(path, query)
+    return fetcher.page<T>(path, {
+      query,
+      cursor: options.cursor,
+      signal: options.signal,
+      // Both cap `limit` at their maximum page size.
       select: (body, next) => {
-        const { workflow_runs, total_count } = body as { workflow_runs: ForgejoActionRun[] | null, total_count?: number }
-        const items = workflow_runs ?? []
-        return { items, next: next ?? countedNextUrl(url, items.length, total_count === undefined ? null : String(total_count)) }
+        const listing = body as Record<string, unknown>
+        const items = (listing[key] ?? []) as T[]
+        return { items, next: next ?? countedNextUrl(url, items.length, listing.total_count === undefined ? null : String(listing.total_count)) }
       },
     })
+  }
+
+  async function runsPage(repo: RepoRef, query: CiRunQuery = {}): Promise<Page<CiRun>> {
+    const states = profile.forge === 'gitea' ? GITEA_ACTION_STATES : ACTION_STATES
+    const statuses = query.state ? `?${states[query.state].map(status => `status=${status}`).join('&')}` : ''
+    const path = `${repoPath(repo)}/actions/runs${statuses}`
+    if (profile.forge === 'gitea') {
+      return toPage(await actionsPage<GiteaActionRun>(path, 'workflow_runs', { branch: query.branch, page: 1, limit: query.perPage ?? 50 }, query), raw => toGiteaActionRun(repo, raw))
+    }
+    // Without `page`, Forgejo ignores `limit` and sends the whole run history.
+    const result = await actionsPage<ForgejoActionRun>(path, 'workflow_runs', { ref: query.branch ? `refs/heads/${query.branch}` : undefined, page: 1, limit: query.perPage ?? 50 }, query)
     // Forgejo before 15.0 ignores `ref`, so the branch is checked here too.
     return toPage(result, raw => query.branch && actionBranch(raw) !== query.branch ? undefined : toActionRun(repo, raw))
+  }
+
+  async function jobsPage(ref: CiRunRef, listOptions: PageOptions = {}): Promise<Page<CiJob>> {
+    const path = `${repoPath(ref.repo)}/actions/runs/${encodeURIComponent(ref.id)}/jobs`
+    if (profile.forge === 'gitea') {
+      return toPage(await actionsPage<GiteaActionJob>(path, 'jobs', { page: 1, limit: listOptions.perPage ?? 50 }, listOptions), raw => toGiteaActionJob(ref, raw))
+    }
+    // Forgejo sends the jobs of a run in one response, whatever the page size.
+    const { data } = await fetcher.json<ForgejoActionRunJob[] | null>(path, { signal: listOptions.signal })
+    return { items: (data ?? []).map(raw => toActionJob(ref, raw)) }
   }
 
   async function searchReposPage(query: RepoSearchQuery): Promise<Page<Repo>> {
@@ -551,14 +579,15 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
       })).data)),
     },
     ci: {
-      runsPage: verb(actions(FORGEJO_ACTION_RUNS), runsPage),
-      run: verb(actions(FORGEJO_ACTION_RUNS), async ref => toActionRun(ref.repo, (await fetcher.json<ForgejoActionRun>(`${repoPath(ref.repo)}/actions/runs/${encodeURIComponent(ref.id)}`)).data)),
-      // The jobs of a run come back in one response, whatever the page size.
-      jobsPage: verb(actions(FORGEJO_ACTION_JOBS), async (ref, listOptions = {}) => {
-        const { data } = await fetcher.json<ForgejoActionRunJob[] | null>(`${repoPath(ref.repo)}/actions/runs/${encodeURIComponent(ref.id)}/jobs`, { signal: listOptions.signal })
-        return { items: (data ?? []).map(raw => toActionJob(ref, raw)) }
+      runsPage: verb(giteaAnonymous ? false : actions(FORGEJO_ACTION_RUNS, GITEA_ACTION_RUNS), runsPage),
+      run: verb(actions(FORGEJO_ACTION_RUNS, GITEA_ACTION_RUNS), async (ref) => {
+        const path = `${repoPath(ref.repo)}/actions/runs/${encodeURIComponent(ref.id)}`
+        return profile.forge === 'gitea'
+          ? toGiteaActionRun(ref.repo, (await fetcher.json<GiteaActionRun>(path)).data)
+          : toActionRun(ref.repo, (await fetcher.json<ForgejoActionRun>(path)).data)
       }),
-      log: verb(actions(FORGEJO_ACTION_JOBS), async ref => (await fetcher.stream(`${repoPath(ref.repo)}/actions/jobs/${encodeURIComponent(ref.id)}/logs`)).body),
+      jobsPage: verb(actions(FORGEJO_ACTION_JOBS, GITEA_ACTION_RUNS), jobsPage),
+      log: verb(giteaAnonymous ? false : actions(FORGEJO_ACTION_JOBS, GITEA_ACTION_LOGS), async ref => (await fetcher.stream(`${repoPath(ref.repo)}/actions/jobs/${encodeURIComponent(ref.id)}/logs`)).body),
     },
     contents: {
       file: verb(true, async (repo, path, fileOptions = {}) => {

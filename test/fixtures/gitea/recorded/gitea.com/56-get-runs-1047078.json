@@ -1,0 +1,192 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitea.com/api/v1/repos/gitea/tea/actions/runs/1047078"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "id": 1047078,
+      "url": "https://gitea.com/api/v1/repos/gitea/tea/actions/runs/1047078",
+      "previous_attempt_url": null,
+      "html_url": "https://gitea.com/gitea/tea/actions/runs/1047078",
+      "jobs_url": "https://gitea.com/api/v1/repos/gitea/tea/actions/runs/1047078/jobs",
+      "logs_url": "https://gitea.com/api/v1/repos/gitea/tea/actions/runs/1047078/logs",
+      "artifacts_url": "https://gitea.com/api/v1/repos/gitea/tea/actions/runs/1047078/artifacts",
+      "cancel_url": "https://gitea.com/api/v1/repos/gitea/tea/actions/runs/1047078/cancel",
+      "rerun_url": "https://gitea.com/api/v1/repos/gitea/tea/actions/runs/1047078/rerun",
+      "display_title": "chore(deps): update dependencies",
+      "path": "test-pr.yml@refs/pull/1104/head",
+      "event": "pull_request",
+      "run_attempt": 1,
+      "run_number": 1716,
+      "repository_id": 0,
+      "head_sha": "a989fc5a3ecdea700f23e7ac12e2713bd51280a6",
+      "status": "completed",
+      "actor": {
+        "id": 44044,
+        "login": "renovate-bot",
+        "type": "User",
+        "source_id": 0,
+        "full_name": "Renovate Bot",
+        "email": "redacted@example.invalid",
+        "avatar_url": "https://gitea.com/avatars/a7012524a51bf2c579579dca81161ad6d64bc1cc3ea8e16098d9cbec42a84216",
+        "html_url": "https://gitea.com/renovate-bot",
+        "active": false,
+        "location": "",
+        "website": "https://renovatebot.com/",
+        "description": "",
+        "followers_count": 1,
+        "following_count": 0,
+        "starred_repos_count": 0,
+        "username": "renovate-bot"
+      },
+      "trigger_actor": {
+        "id": 44044,
+        "login": "renovate-bot",
+        "type": "User",
+        "source_id": 0,
+        "full_name": "Renovate Bot",
+        "email": "redacted@example.invalid",
+        "avatar_url": "https://gitea.com/avatars/a7012524a51bf2c579579dca81161ad6d64bc1cc3ea8e16098d9cbec42a84216",
+        "html_url": "https://gitea.com/renovate-bot",
+        "active": false,
+        "location": "",
+        "website": "https://renovatebot.com/",
+        "description": "",
+        "followers_count": 1,
+        "following_count": 0,
+        "starred_repos_count": 0,
+        "username": "renovate-bot"
+      },
+      "repository": {
+        "id": 550,
+        "owner": {
+          "id": 3,
+          "login": "gitea",
+          "type": "Organization",
+          "source_id": 0,
+          "full_name": "",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://gitea.com/avatars/35dea380390772b3130aafbac7ca49e6",
+          "html_url": "https://gitea.com/gitea",
+          "active": false,
+          "location": "Git Universe",
+          "website": "https://gitea.com",
+          "description": "Git with a cup of tea",
+          "followers_count": 136,
+          "following_count": 0,
+          "starred_repos_count": 0,
+          "username": "gitea"
+        },
+        "name": "tea",
+        "full_name": "gitea/tea",
+        "description": "A command line tool to interact with Gitea servers",
+        "empty": false,
+        "private": false,
+        "fork": false,
+        "template": false,
+        "mirror": false,
+        "size": 77949,
+        "language": "Go",
+        "languages_url": "https://gitea.com/api/v1/repos/gitea/tea/languages",
+        "html_url": "https://gitea.com/gitea/tea",
+        "url": "https://gitea.com/api/v1/repos/gitea/tea",
+        "link": "",
+        "ssh_url": "git@gitea.com:gitea/tea.git",
+        "clone_url": "https://gitea.com/gitea/tea.git",
+        "original_url": "",
+        "website": "",
+        "stars_count": 276,
+        "forks_count": 146,
+        "watchers_count": 74,
+        "branch_count": 11,
+        "open_issues_count": 114,
+        "open_pr_counter": 39,
+        "release_counter": 27,
+        "default_branch": "main",
+        "archived": false,
+        "created_at": "2019-05-19T11:37:14Z",
+        "updated_at": "2026-10-10T00:11:23Z",
+        "archived_at": "1970-01-01T00:00:00Z",
+        "permissions": {
+          "admin": false,
+          "push": false,
+          "pull": false
+        },
+        "has_code": true,
+        "has_issues": true,
+        "internal_tracker": {
+          "enable_time_tracker": true,
+          "allow_only_contributors_to_track_time": false,
+          "enable_issue_dependencies": true
+        },
+        "has_wiki": true,
+        "has_pull_requests": true,
+        "has_projects": false,
+        "projects_mode": "all",
+        "has_releases": true,
+        "has_packages": false,
+        "has_actions": true,
+        "ignore_whitespace_conflicts": false,
+        "allow_merge_commits": false,
+        "allow_rebase": false,
+        "allow_rebase_explicit": false,
+        "allow_squash_merge": true,
+        "allow_fast_forward_only_merge": false,
+        "allow_merge_update": true,
+        "allow_rebase_update": true,
+        "allow_manual_merge": false,
+        "autodetect_manual_merge": false,
+        "default_delete_branch_after_merge": true,
+        "default_merge_style": "squash",
+        "default_update_style": "merge",
+        "default_allow_maintainer_edit": true,
+        "avatar_url": "https://gitea.com/repo-avatars/550-80a3a8c2ab0e2c2d69f296b7f8582485",
+        "internal": false,
+        "mirror_interval": "",
+        "object_format_name": "sha1",
+        "mirror_updated": "0001-01-01T00:00:00Z",
+        "mirror_last_sync_at": "0001-01-01T00:00:00Z",
+        "topics": [
+          "gitea",
+          "cli"
+        ],
+        "licenses": [
+          "MIT"
+        ]
+      },
+      "conclusion": "failure",
+      "pull_requests": [
+        {
+          "id": 189944,
+          "number": 1104,
+          "url": "https://gitea.com/api/v1/repos/gitea/tea/pulls/1104",
+          "head": {
+            "ref": "renovate/dependencies",
+            "sha": "a989fc5a3ecdea700f23e7ac12e2713bd51280a6",
+            "repo": {
+              "id": 550,
+              "url": "https://gitea.com/api/v1/repos/gitea/tea",
+              "name": "tea"
+            }
+          },
+          "base": {
+            "ref": "main",
+            "sha": "bcd62a1fb2ce6fdd51ebea91cc33ddbcae000b68",
+            "repo": {
+              "id": 550,
+              "url": "https://gitea.com/api/v1/repos/gitea/tea",
+              "name": "tea"
+            }
+          }
+        }
+      ],
+      "created_at": "2026-10-10T00:11:23Z",
+      "updated_at": "2026-10-10T00:13:37Z",
+      "started_at": "2026-10-10T00:11:54Z",
+      "completed_at": "2026-10-10T00:13:37Z"
+    }
+  }
+}
