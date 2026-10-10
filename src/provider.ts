@@ -708,12 +708,12 @@ export interface ReleasesApi {
    * const release = await provider.releases.create(repo, { tag: 'v1.2.0', body: notes, draft: true })
    * ```
    */
-  create: (repo: RepoRef, input: ReleaseInput) => Promise<Release>
+  create: (repo: RepoRef, input: ReleaseInput, options?: BaseOptions) => Promise<Release>
   /**
    * Changes a release. Fields left out stay as they are, so `{ draft: false }` publishes a draft.
    * @throws `UnsupportedOperationError` for a change the forge cannot make, such as a new tag on GitLab.
    */
-  update: (ref: ReleaseRef, update: ReleaseUpdate) => Promise<Release>
+  update: (ref: ReleaseRef, update: ReleaseUpdate, options?: BaseOptions) => Promise<Release>
 }
 
 /** Searching issues and pull requests, repositories, commits and code across the forge. */

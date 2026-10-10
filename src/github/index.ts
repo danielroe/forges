@@ -1,5 +1,6 @@
 import type { MergeHooks, ProviderContext, ProviderDefinition, ProviderFactoryFunction, ProviderSpec } from '../define.ts'
 import type {
+  BaseOptions,
   Check,
   CheckReportInput,
   CheckState,
@@ -1102,10 +1103,11 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
     return list(`${repoPath(repo)}/releases`, listOptions, (raw: GitHubRelease) => toRelease(repo, raw))
   }
 
-  async function writeRelease(repo: RepoRef, path: string, method: 'POST' | 'PATCH', input: ReleaseUpdate): Promise<Release> {
+  async function writeRelease(repo: RepoRef, path: string, method: 'POST' | 'PATCH', input: ReleaseUpdate, options?: BaseOptions): Promise<Release> {
     const { data } = await fetcher.json<GitHubRelease>(path, {
       method,
       json: { tag_name: input.tag, target_commitish: input.target, name: input.name, body: input.body, draft: input.draft, prerelease: input.prerelease },
+      signal: options?.signal,
     })
     return toRelease(repo, data)
   }
@@ -1348,8 +1350,8 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
           throw error
         }
       }),
-      create: verb(true, (repo, input) => writeRelease(repo, `${repoPath(repo)}/releases`, 'POST', input)),
-      update: verb(true, (ref, update) => writeRelease(ref.repo, `${repoPath(ref.repo)}/releases/${encodeURIComponent(ref.id)}`, 'PATCH', update)),
+      create: verb(true, (repo, input, options) => writeRelease(repo, `${repoPath(repo)}/releases`, 'POST', input, options)),
+      update: verb(true, (ref, update, options) => writeRelease(ref.repo, `${repoPath(ref.repo)}/releases/${encodeURIComponent(ref.id)}`, 'PATCH', update, options)),
     },
     securityAlerts: {
       kinds: {

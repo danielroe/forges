@@ -453,6 +453,31 @@ describe.each(contracts)('contract: $name', (contract) => {
         await expect(pending).rejects.toBe(reason)
       })
     })
+
+    describe.runIf(contract.releases?.writes)('release writes', () => {
+      const repo = () => ({ forge: contract.name, instance: contract.instance, ...contract.repo })
+
+      it('aborts a release create with the caller\'s reason', async () => {
+        const { controller, instance, started } = abortable()
+
+        const pending = instance.releases!.create(repo(), { tag: 'v9.9.9' }, { signal: controller.signal })
+        await started
+        controller.abort(reason)
+
+        await expect(pending).rejects.toBe(reason)
+      })
+
+      it('aborts a release update with the caller\'s reason', async () => {
+        const { controller, instance, started } = abortable()
+
+        const ref = { forge: contract.name, instance: contract.instance, repo: repo(), id: contract.releases!.get.id, tag: contract.releases!.get.tag }
+        const pending = instance.releases!.update(ref, { name: 'Renamed' }, { signal: controller.signal })
+        await started
+        controller.abort(reason)
+
+        await expect(pending).rejects.toBe(reason)
+      })
+    })
   })
 
   describe.runIf(contract.securityAlerts)('security alerts', () => {

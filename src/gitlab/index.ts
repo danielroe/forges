@@ -771,15 +771,16 @@ const GITLAB: ProviderDefinition<GitLabOptions> = {
           const { items } = await releasesPage(repo, { perPage: 20, signal: options?.signal })
           return items.find(release => release.publishedAt)
         }),
-        create: verb(true, async (repo, input) => {
+        create: verb(true, async (repo, input, options) => {
           requirePublishedRelease(input)
           const { data } = await fetcher.json<GitLabRelease>(`${projectPath(repo)}/releases`, {
             method: 'POST',
             json: { tag_name: input.tag, ref: input.target, name: input.name, description: input.body },
+            signal: options?.signal,
           })
           return toRelease(repo, data)
         }),
-        update: verb(true, async (ref, update) => {
+        update: verb(true, async (ref, update, options) => {
           requirePublishedRelease(update)
           const tag = ref.tag ?? ref.id
           if (update.tag !== undefined && update.tag !== tag) {
@@ -791,6 +792,7 @@ const GITLAB: ProviderDefinition<GitLabOptions> = {
           const { data } = await fetcher.json<GitLabRelease>(`${projectPath(ref.repo)}/releases/${encodeURIComponent(tag)}`, {
             method: 'PUT',
             json: { name: update.name, description: update.body },
+            signal: options?.signal,
           })
           return toRelease(ref.repo, data)
         }),
