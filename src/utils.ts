@@ -151,12 +151,13 @@ export async function milestoneId(
   milestone: Milestone | string,
   page: (options: MilestoneListOptions) => Promise<Page<Milestone>>,
   context: ForgeErrorContext,
+  options: BaseOptions = {},
 ): Promise<number> {
   const value = typeof milestone === 'string' ? milestone : milestone.id
   if (/^\d+$/.test(value)) {
     return Number(value)
   }
-  for await (const candidate of iteratePages(page, { state: 'all' })) {
+  for await (const candidate of iteratePages(page, { state: 'all', signal: options.signal })) {
     if (candidate.title === value) {
       return Number(candidate.id)
     }

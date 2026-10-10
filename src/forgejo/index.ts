@@ -248,7 +248,7 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
     })
   }
 
-  async function issueTarget(ref: NotificationRef, thread?: ThreadRef): Promise<{ owner: string, name: string, number: string }> {
+  async function issueTarget(ref: NotificationRef, { thread, signal }: NotificationWriteOptions): Promise<{ owner: string, name: string, number: string }> {
     if (thread) {
       const resolved = requireThread(thread, context)
       if (resolved.kind !== 'issue' && resolved.kind !== 'pull_request') {
@@ -256,7 +256,7 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
       }
       return { owner: resolved.repo.owner, name: resolved.repo.name, number: resolved.number }
     }
-    const { data } = await fetcher.json<ForgejoNotification>(`/notifications/threads/${encodeURIComponent(ref.id)}`)
+    const { data } = await fetcher.json<ForgejoNotification>(`/notifications/threads/${encodeURIComponent(ref.id)}`, { signal })
     const number = numberFromUrl(data.subject.url)
     if (!number || toThreadKind(data.subject.type) === 'commit') {
       throw new UnsupportedOperationError('Only issue and pull request threads can be unsubscribed from', context)
@@ -271,7 +271,7 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
   }
 
   async function unsubscribe(ref: NotificationRef, writeOptions: NotificationWriteOptions = {}): Promise<void> {
-    await fetcher.raw(await subscriptionPath(await issueTarget(ref, writeOptions.thread)), { method: 'DELETE', signal: writeOptions.signal })
+    await fetcher.raw(await subscriptionPath(await issueTarget(ref, writeOptions)), { method: 'DELETE', signal: writeOptions.signal })
   }
 
   function issuePath(ref: ResolvedThreadRef): string {
@@ -786,7 +786,7 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
       }),
       setMilestone: perKind({ issue: true, pull_request: true }, async (thread, milestone, options) => {
         const ref = requireIssueOrPull(thread, context, 'set the milestone of')
-        await fetcher.raw(issuePath(ref), { method: 'PATCH', json: { milestone: milestone === undefined ? 0 : await milestoneId(milestone, page => milestonesPage(ref.repo, page), context) }, signal: options?.signal })
+        await fetcher.raw(issuePath(ref), { method: 'PATCH', json: { milestone: milestone === undefined ? 0 : await milestoneId(milestone, page => milestonesPage(ref.repo, page), context, options) }, signal: options?.signal })
       }),
       reactionsPage: perKind(ISSUE_AND_PULL, async (target, listOptions = {}) => {
         const result = await fetcher.page<ForgejoReaction>(reactionPath(target), {

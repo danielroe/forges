@@ -989,7 +989,7 @@ const GITLAB: ProviderDefinition<GitLabOptions> = {
         }),
         setMilestone: perKind({ issue: true, pull_request: true }, async (thread, milestone, options) => {
           const ref = requireIssueOrPull(thread, context, 'set the milestone of')
-          await fetcher.raw(threadPath(ref), { method: 'PUT', json: { milestone_id: milestone === undefined ? 0 : await milestoneId(milestone, page => milestonesPage(ref.repo, page, true), context) }, signal: options?.signal })
+          await fetcher.raw(threadPath(ref), { method: 'PUT', json: { milestone_id: milestone === undefined ? 0 : await milestoneId(milestone, page => milestonesPage(ref.repo, page, true), context, options) }, signal: options?.signal })
         }),
         reactionsPage: perKind(ISSUE_LIKE, async (target, listOptions = {}) => {
           const result = await fetcher.page<GitLabAwardEmoji & { created_at?: string }>(`${awardPath(target)}/award_emoji`, {

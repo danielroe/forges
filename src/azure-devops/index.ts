@@ -290,8 +290,8 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
     return data
   }
 
-  async function stateIn(ref: ResolvedThreadRef, wanted: string[]): Promise<string> {
-    const { data } = await fetcher.json<AzureWorkItem>(workItemPath(ref))
+  async function stateIn(ref: ResolvedThreadRef, wanted: string[], options?: BaseOptions): Promise<string> {
+    const { data } = await fetcher.json<AzureWorkItem>(workItemPath(ref), { signal: options?.signal })
     const type = data.fields['System.WorkItemType'] as string
     for (const [name, category] of await stateCategories(ref.repo, type)) {
       if (wanted.includes(category)) {
@@ -307,7 +307,7 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
       await fetcher.raw(pullPath(ref), { method: 'PATCH', json: { status: state === 'open' ? 'active' : 'abandoned' }, signal: options?.signal })
       return
     }
-    await patchWorkItem(ref, { 'System.State': await stateIn(ref, state === 'open' ? ['Proposed', 'InProgress'] : ['Completed']) }, options?.signal)
+    await patchWorkItem(ref, { 'System.State': await stateIn(ref, state === 'open' ? ['Proposed', 'InProgress'] : ['Completed'], options) }, options?.signal)
   }
 
   function splitCommentId(ref: CommentRef): { thread: string, comment: string } {
@@ -598,9 +598,9 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
         await fetcher.raw(pullPath(ref), { method: 'PATCH', json: { status: 'completed', lastMergeSourceCommit: { commitId: sha }, completionOptions }, mapError: toMergeError, signal: mergeOptions.signal })
       }),
       // Policy evaluations are a preview API.
-      checks: perKind({ pull_request: !anonymous && 'experimental' }, async (thread) => {
+      checks: perKind({ pull_request: !anonymous && 'experimental' }, async (thread, options) => {
         const ref = requireThread(thread, context)
-        return { items: await pullChecks(ref, (await fetcher.json<AzurePullRequest>(pullPath(ref))).data) }
+        return { items: await pullChecks(ref, (await fetcher.json<AzurePullRequest>(pullPath(ref), { signal: options?.signal })).data, options?.signal) }
       }),
       reviewsPage: verb('emulated', async (thread) => {
         const ref = requireThread(thread, context)

@@ -418,7 +418,40 @@ describe.each(contracts)('contract: $name', (contract) => {
       await expect(pending).rejects.toBe(reason)
     })
 
+    const capable = contract.create(stubFetch(500))
+    const issueRef = () => ({ ...threadRef(), kind: 'issue' as const })
+
+    it.runIf(capable.can('threads.setMilestone', 'issue'))('aborts a milestone change by title with the caller\'s reason', async () => {
+      const { controller, instance, started } = abortable()
+
+      const pending = instance.threads.setMilestone(issueRef(), 'Some milestone', { signal: controller.signal })
+      await started
+      controller.abort(reason)
+
+      await expect(pending).rejects.toBe(reason)
+    })
+
+    it.runIf(capable.can('threads.markDuplicate'))('aborts marking a duplicate with the caller\'s reason', async () => {
+      const { controller, instance, started } = abortable()
+
+      const pending = instance.threads.markDuplicate(issueRef(), { ...issueRef(), number: '1' }, { signal: controller.signal })
+      await started
+      controller.abort(reason)
+
+      await expect(pending).rejects.toBe(reason)
+    })
+
     describe.runIf(contract.checks)('checks', () => {
+      it('aborts a pull request\'s checks read with the caller\'s reason', async () => {
+        const { controller, instance, started } = abortable()
+
+        const pending = instance.threads.checks(threadRef(), { signal: controller.signal })
+        await started
+        controller.abort(reason)
+
+        await expect(pending).rejects.toBe(reason)
+      })
+
       it('aborts a checks read with the caller\'s reason', async () => {
         const { controller, instance, started } = abortable()
 

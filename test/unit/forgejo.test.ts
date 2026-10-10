@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { forgejo } from '../../src/forgejo/index.ts'
 import { gitea } from '../../src/gitea/index.ts'
-import { fixtureFetch } from '../utils/fixtures.ts'
+import { fixtureFetch, hangingFetch } from '../utils/fixtures.ts'
 
 function provider() {
   const { fetch, calls } = fixtureFetch('forgejo')
@@ -29,6 +29,19 @@ describe('forgejo provider', () => {
       'GET https://codeberg.org/api/v1/user',
       'DELETE https://codeberg.org/api/v1/repos/acme/widgets/issues/7/subscriptions/testuser',
     ])
+  })
+
+  it('aborts the notification lookup of an unsubscribe with the caller\'s reason', async () => {
+    const controller = new AbortController()
+    const reason = new Error('cancelled')
+    const { fetch, started } = hangingFetch()
+    const instance = forgejo({ auth: { type: 'token', token: 't' }, fetch }).create()
+
+    const pending = instance.notifications.unsubscribe({ forge: 'forgejo', instance: 'codeberg.org', id: '5512' }, { signal: controller.signal })
+    await started
+    controller.abort(reason)
+
+    await expect(pending).rejects.toBe(reason)
   })
 
   it('skips the thread and lookups it can when the caller passes the thread', async () => {

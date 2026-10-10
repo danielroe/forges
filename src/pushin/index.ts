@@ -95,8 +95,8 @@ function setupPushin({ options, instance, origin: context, fetcher, baseUrl }: P
       authKinds: ['token', 'anonymous'],
     },
     users: {
-      me: verb(true, async () => {
-        const { data } = await fetcher.json<PushinUser>('/user')
+      me: verb(true, async (options) => {
+        const { data } = await fetcher.json<PushinUser>('/user', { signal: options?.signal })
         return { ...toActor({ forge: FORGE, instance }, data)!, company: data.company ?? undefined, raw: data }
       }),
     },

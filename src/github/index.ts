@@ -1156,9 +1156,9 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
   }
 
   /** The GraphQL node id of an issue, pull request or discussion. */
-  async function nodeId(thread: ThreadRef): Promise<string> {
+  async function nodeId(thread: ThreadRef, options?: BaseOptions): Promise<string> {
     const ref = requireThread(thread, context)
-    return ref.externalId ?? (await subscriptionNode(ref)).id
+    return ref.externalId ?? (await subscriptionNode(ref, options)).id
   }
 
   function reactionPath(target: ThreadRef | CommentRef): string {
@@ -1202,7 +1202,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
   async function react(target: ThreadRef | CommentRef, reaction: ReactionContent, options?: BaseOptions): Promise<void> {
     const thread = 'thread' in target ? target.thread : target
     if (thread.kind === 'discussion') {
-      await graphql('ADD_REACTION', { id: 'thread' in target ? target.id : await nodeId(thread), content: (await import('./graphql.ts')).REACTION_CONTENT[reaction] }, options)
+      await graphql('ADD_REACTION', { id: 'thread' in target ? target.id : await nodeId(thread, options), content: (await import('./graphql.ts')).REACTION_CONTENT[reaction] }, options)
       return
     }
     await fetcher.raw(reactionPath(target), { method: 'POST', json: { content: reaction }, signal: options?.signal })
@@ -1211,7 +1211,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
   async function unreact(target: ThreadRef | CommentRef, reaction: ReactionContent, options?: BaseOptions): Promise<void> {
     const thread = 'thread' in target ? target.thread : target
     if (thread.kind === 'discussion') {
-      await graphql('REMOVE_REACTION', { id: 'thread' in target ? target.id : await nodeId(thread), content: (await import('./graphql.ts')).REACTION_CONTENT[reaction] }, options)
+      await graphql('REMOVE_REACTION', { id: 'thread' in target ? target.id : await nodeId(thread, options), content: (await import('./graphql.ts')).REACTION_CONTENT[reaction] }, options)
       return
     }
     const path = reactionPath(target)
@@ -1599,7 +1599,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
       }),
       setMilestone: perKind({ issue: true, pull_request: true }, async (thread, milestone, options) => issuePatch(
         thread,
-        { milestone: milestone === undefined ? null : await milestoneId(milestone, page => milestonesPage(requireThread(thread, context).repo, page), context) },
+        { milestone: milestone === undefined ? null : await milestoneId(milestone, page => milestonesPage(requireThread(thread, context).repo, page), context, options) },
         'set the milestone of',
         options?.signal,
       )),
@@ -1614,11 +1614,11 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
         if (!target.repository) {
           throw new NotFoundError(`Repository ${repo.owner}/${repo.name} not found`, 404, '', context)
         }
-        const data = await graphql<{ transferIssue: { issue: { id: string, number: number } } }>('TRANSFER_ISSUE', { issue: await nodeId(ref), repo: target.repository.id }, options)
+        const data = await graphql<{ transferIssue: { issue: { id: string, number: number } } }>('TRANSFER_ISSUE', { issue: await nodeId(ref, options), repo: target.repository.id }, options)
         return { forge: FORGE, instance, repo, kind: 'issue', number: String(data.transferIssue.issue.number), externalId: data.transferIssue.issue.id }
       }),
       markDuplicate: verb(true, async (thread, canonical, options) => {
-        await graphql('MARK_DUPLICATE', { canonical: await nodeId(canonical), duplicate: await nodeId(thread) }, options)
+        await graphql('MARK_DUPLICATE', { canonical: await nodeId(canonical, options), duplicate: await nodeId(thread, options) }, options)
       }),
       setLabels: perKind({ issue: true, pull_request: true }, async (thread, labels, options) => {
         const ref = requireIssueOrPull(thread, context, 'label')
