@@ -263,8 +263,8 @@ const GITLAB: ProviderDefinition<GitLabOptions> = {
       return list(`${projectPath(repo)}/milestones`, listOptions, (raw: GitLabMilestone) => toMilestone(raw)!, { query: { state: (listOptions.state ?? 'open') === 'all' ? undefined : listOptions.state === 'closed' ? 'closed' : 'active', include_ancestors: includeAncestors } })
     }
 
-    async function readUser(path: string): Promise<User> {
-      const { data } = await fetcher.json<GitLabUser & { bio?: string, organization?: string, location?: string, website_url?: string, created_at?: string, followers?: number, following?: number }>(path)
+    async function readUser(path: string, signal?: AbortSignal): Promise<User> {
+      const { data } = await fetcher.json<GitLabUser & { bio?: string, organization?: string, location?: string, website_url?: string, created_at?: string, followers?: number, following?: number }>(path, { signal })
       return { ...toActor(instance, data)!, bio: data.bio || undefined, company: data.organization || undefined, location: data.location || undefined, websiteUrl: data.website_url || undefined, createdAt: toDate(data.created_at), followers: data.followers, following: data.following, raw: data }
     }
 
@@ -298,15 +298,15 @@ const GITLAB: ProviderDefinition<GitLabOptions> = {
       return data.default_branch ?? 'HEAD'
     }
 
-    async function get(thread: ThreadRef): Promise<Thread> {
+    async function get(thread: ThreadRef, options?: { signal?: AbortSignal }): Promise<Thread> {
       const ref = requireThread(thread, context)
       if (ref.kind === 'discussion') {
         throw new UnsupportedOperationError('GitLab has no discussion threads', context)
       }
       if (ref.kind === 'commit') {
-        return toCommitThread(ref, (await fetcher.json<GitLabCommit>(threadPath(ref))).data)
+        return toCommitThread(ref, (await fetcher.json<GitLabCommit>(threadPath(ref), { signal: options?.signal })).data)
       }
-      const { data } = await fetcher.json<GitLabIssue>(threadPath(ref))
+      const { data } = await fetcher.json<GitLabIssue>(threadPath(ref), { signal: options?.signal })
       const result = toThread(ref, data)
       if (data.head_pipeline) {
         result.checks = toPipelineSummary(data.head_pipeline)
@@ -652,14 +652,14 @@ const GITLAB: ProviderDefinition<GitLabOptions> = {
       },
       scopes: gitlabScopesFor,
       users: {
-        get: verb(true, async (login) => {
-          const { data: matches } = await fetcher.json<GitLabUser[]>('/users', { query: { username: login } })
+        get: verb(true, async (login, options) => {
+          const { data: matches } = await fetcher.json<GitLabUser[]>('/users', { query: { username: login }, signal: options?.signal })
           const [match] = matches ?? []
           if (!match) {
             throw new NotFoundError(`No GitLab user named ${login}`, 404, '', context)
           }
           try {
-            return await readUser(`/users/${match.id}`)
+            return await readUser(`/users/${match.id}`, options?.signal)
           }
           catch (error) {
             // GitLab.com shows a full profile only to someone signed in; the search result still has the basics.
@@ -669,7 +669,7 @@ const GITLAB: ProviderDefinition<GitLabOptions> = {
             throw error
           }
         }),
-        me: verb(true, () => readUser('/user')),
+        me: verb(true, options => readUser('/user', options?.signal)),
       },
       repos: {
         get: verb(true, async (ref, options) => {
@@ -683,9 +683,9 @@ const GITLAB: ProviderDefinition<GitLabOptions> = {
         })).data)),
         milestonesPage: verb(!anonymous, milestonesPage),
         collaboratorsPage: verb(!anonymous, (repo, listOptions = {}) => list(`${projectPath(repo)}/members/all`, listOptions, (raw: GitLabMember) => ({ actor: toActor(instance, raw)!, role: toRole(raw.access_level), roleRaw: String(raw.access_level), raw }))),
-        permissionFor: verb(!anonymous, async (repo, actor) => {
+        permissionFor: verb(!anonymous, async (repo, actor, options) => {
           try {
-            const { data } = await fetcher.json<GitLabMember>(`${projectPath(repo)}/members/all/${await userId(actor)}`)
+            const { data } = await fetcher.json<GitLabMember>(`${projectPath(repo)}/members/all/${await userId(actor)}`, { signal: options?.signal })
             return toRole(data.access_level)
           }
           catch (error) {
@@ -713,8 +713,8 @@ const GITLAB: ProviderDefinition<GitLabOptions> = {
           }
           await fetcher.raw('/todos/mark_as_done', { method: 'POST' })
         }),
-        unreadCount: verb(true, async () => {
-          const response = await fetcher.raw('/todos', { query: { state: 'pending', per_page: 1 } })
+        unreadCount: verb(true, async (options) => {
+          const response = await fetcher.raw('/todos', { query: { state: 'pending', per_page: 1 }, signal: options?.signal })
           const total = response.headers.get('x-total')
           if (total === null) {
             throw new UnsupportedOperationError('GitLab omitted X-Total; the to-do count is too large to report', context)
@@ -735,17 +735,17 @@ const GITLAB: ProviderDefinition<GitLabOptions> = {
         treePage: verb(true, (repo, treeOptions = {}) => list(`${projectPath(repo)}/repository/tree`, treeOptions, toTreeEntry, { query: { ref: treeOptions.ref, path: treeOptions.path, recursive: treeOptions.recursive ? 'true' : undefined } })),
         branchesPage: verb(true, (repo, listOptions = {}) => list(`${projectPath(repo)}/repository/branches`, listOptions, toBranch)),
         tagsPage: verb(true, (repo, listOptions = {}) => list(`${projectPath(repo)}/repository/tags`, listOptions, toTag)),
-        resolveRef: verb(true, async (repo, ref) => (await fetcher.json<GitLabCommitDetail>(`${projectPath(repo)}/repository/commits/${encodeURIComponent(ref)}`)).data.id),
+        resolveRef: verb(true, async (repo, ref, options) => (await fetcher.json<GitLabCommitDetail>(`${projectPath(repo)}/repository/commits/${encodeURIComponent(ref)}`, { signal: options?.signal })).data.id),
         commitsPage: verb(true, (repo, query = {}) => list(`${projectPath(repo)}/repository/commits`, query, (raw: GitLabCommitDetail) => toCommit(repo, raw), { query: { ref_name: query.ref, path: query.path, author: query.author, since: query.since?.toISOString(), until: query.until?.toISOString() } })),
-        commit: verb(true, async (repo, sha) => {
+        commit: verb(true, async (repo, sha, options) => {
           const [commit, diffs] = await Promise.all([
-            fetcher.json<GitLabCommitDetail>(`${projectPath(repo)}/repository/commits/${sha}`, { query: { stats: 'true' } }),
-            fetcher.json<GitLabDiff[]>(`${projectPath(repo)}/repository/commits/${sha}/diff`),
+            fetcher.json<GitLabCommitDetail>(`${projectPath(repo)}/repository/commits/${sha}`, { query: { stats: 'true' }, signal: options?.signal }),
+            fetcher.json<GitLabDiff[]>(`${projectPath(repo)}/repository/commits/${sha}/diff`, { signal: options?.signal }),
           ])
           return toCommit(repo, commit.data, (diffs.data ?? []).map(toChangedFile))
         }),
-        compare: verb(true, async (repo, base, head) => {
-          const { data } = await fetcher.json<GitLabCompare>(`${projectPath(repo)}/repository/compare`, { query: { from: base, to: head } })
+        compare: verb(true, async (repo, base, head, options) => {
+          const { data } = await fetcher.json<GitLabCompare>(`${projectPath(repo)}/repository/compare`, { query: { from: base, to: head }, signal: options?.signal })
           return {
             base,
             head,
@@ -795,9 +795,9 @@ const GITLAB: ProviderDefinition<GitLabOptions> = {
         codePage: verb(!anonymous, searchCodePage),
       },
       checks: {
-        list: verb(!anonymous, async (repo, sha) => ({
+        list: verb(!anonymous, async (repo, sha, options) => ({
           items: await Array.fromAsync(
-            fetcher.items<GitLabCommitStatus>(`${projectPath(repo)}/repository/commits/${sha}/statuses`, { query: { per_page: 100 } }),
+            fetcher.items<GitLabCommitStatus>(`${projectPath(repo)}/repository/commits/${sha}/statuses`, { query: { per_page: 100 }, signal: options?.signal }),
             raw => toStatusCheck(repo, raw),
           ),
         })),
@@ -819,9 +819,9 @@ const GITLAB: ProviderDefinition<GitLabOptions> = {
       },
       ci: {
         runsPage: verb(true, (repo, query = {}) => list(`${projectPath(repo)}/pipelines`, query, (raw: GitLabPipeline) => toPipeline(repo, raw), { query: { ref: query.branch, status: PIPELINE_STATES[query.state ?? 'unknown'] } })),
-        run: verb(true, async ref => toPipeline(ref.repo, (await fetcher.json<GitLabPipeline>(`${projectPath(ref.repo)}/pipelines/${ref.id}`)).data)),
+        run: verb(true, async (ref, options) => toPipeline(ref.repo, (await fetcher.json<GitLabPipeline>(`${projectPath(ref.repo)}/pipelines/${ref.id}`, { signal: options?.signal })).data)),
         jobsPage: verb(true, (ref, listOptions = {}) => list(`${projectPath(ref.repo)}/pipelines/${ref.id}/jobs`, listOptions, (raw: GitLabJob) => toCiJob(ref, raw))),
-        log: verb(!anonymous, async ref => (await fetcher.stream(`${projectPath(ref.repo)}/jobs/${encodeURIComponent(ref.id)}/trace`)).body),
+        log: verb(!anonymous, async (ref, options) => (await fetcher.stream(`${projectPath(ref.repo)}/jobs/${encodeURIComponent(ref.id)}/trace`, { signal: options?.signal })).body),
       },
       securityAlerts: {
         kinds: { dependency: !anonymous, code_scanning: !anonymous, secret: !anonymous },
@@ -873,18 +873,18 @@ const GITLAB: ProviderDefinition<GitLabOptions> = {
           resolveReviewThread: (thread, id) => setDiscussionResolved(thread, id, true),
           unresolveReviewThread: (thread, id) => setDiscussionResolved(thread, id, false),
         }),
-        checks: perKind({ pull_request: true }, async (thread) => {
+        checks: perKind({ pull_request: true }, async (thread, options) => {
           const ref = requireThread(thread, context)
-          const { data } = await fetcher.json<GitLabIssue>(threadPath(ref))
+          const { data } = await fetcher.json<GitLabIssue>(threadPath(ref), { signal: options?.signal })
           if (!data.head_pipeline) {
             return { items: [] }
           }
           const pipelineProject = data.head_pipeline.project_id
           const project = pipelineProject === undefined || pipelineProject === data.target_project_id ? projectPath(ref.repo) : `/projects/${pipelineProject}`
-          return { items: await Array.fromAsync(fetcher.items<GitLabJob>(`${project}/pipelines/${data.head_pipeline.id}/jobs`, { query: { per_page: 100 } }), job => toJobCheck(ref.repo, job)) }
+          return { items: await Array.fromAsync(fetcher.items<GitLabJob>(`${project}/pipelines/${data.head_pipeline.id}/jobs`, { query: { per_page: 100 }, signal: options?.signal }), job => toJobCheck(ref.repo, job)) }
         }),
         get: perKind({ issue: true, pull_request: true, commit: true }, get),
-        getMany: verb(true, refs => getManyConcurrently(refs, get)),
+        getMany: verb(true, (refs, options) => getManyConcurrently(refs, ref => get(ref, options))),
         listPage: perKind(ISSUE_LIKE, listPage),
         eventsPage: verb(!anonymous, async (thread: ThreadRef, listOptions: ListOptions = {}): Promise<Page<ForgeEventInput>> => {
           const ref = requireThread(thread, context)
@@ -1038,9 +1038,9 @@ const GITLAB: ProviderDefinition<GitLabOptions> = {
         reopen: perKind({ issue: true, pull_request: true }, ref => setState(ref, 'reopen')),
         merge: verb(true, merge),
         subscriptions: perKind(ISSUE_LIKE, {
-          subscription: async (thread): Promise<SubscriptionState> => {
+          subscription: async (thread, options): Promise<SubscriptionState> => {
             const ref = requireIssueOrPull(thread, context, 'read the subscription of')
-            return (await fetcher.json<GitLabIssue>(threadPath(ref))).data.subscribed ? 'subscribed' : 'none'
+            return (await fetcher.json<GitLabIssue>(threadPath(ref), { signal: options?.signal })).data.subscribed ? 'subscribed' : 'none'
           },
           subscribe: thread => setSubscribed(thread, true),
           unsubscribe: thread => setSubscribed(thread, false),

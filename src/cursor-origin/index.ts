@@ -51,22 +51,22 @@ function setupOrigin({ options, baseUrl, instance, origin: context, fetcher, cre
     return { items: (data[field] ?? []) as T[], cursor: next ? { token: next } : undefined }
   }
 
-  function all<T>(path: string, field: string, query?: Record<string, string>): Promise<T[]> {
-    return Array.fromAsync(iteratePages(page => tokenPage<T>(path, field, { ...page, query })))
+  function all<T>(path: string, field: string, query?: Record<string, string>, signal?: AbortSignal): Promise<T[]> {
+    return Array.fromAsync(iteratePages(page => tokenPage<T>(path, field, { ...page, query, signal })))
   }
 
-  async function headChecks(repo: RepoRef, sha: string): Promise<Check[]> {
-    return (await all<OriginCheckRun>(`${repoPath(repo)}/commits/${sha}/check-runs`, 'checkRuns')).map(raw => toCheck(repo, raw))
+  async function headChecks(repo: RepoRef, sha: string, signal?: AbortSignal): Promise<Check[]> {
+    return (await all<OriginCheckRun>(`${repoPath(repo)}/commits/${sha}/check-runs`, 'checkRuns', undefined, signal)).map(raw => toCheck(repo, raw))
   }
 
-  async function get(thread: ThreadRef): Promise<Thread> {
+  async function get(thread: ThreadRef, options?: { signal?: AbortSignal }): Promise<Thread> {
     const ref = requireThread(thread, context)
-    const { data } = await fetcher.json<OriginPullRequest>(pullPath(ref))
+    const { data } = await fetcher.json<OriginPullRequest>(pullPath(ref), { signal: options?.signal })
     const result = toThread(ref, data)
     const sha = data.version?.headSha ?? data.head?.sha
     if (sha) {
       try {
-        result.checks = summariseChecks((await headChecks(ref.repo, sha)).map(check => check.state))
+        result.checks = summariseChecks((await headChecks(ref.repo, sha, options?.signal)).map(check => check.state))
       }
       catch (error) {
         if (!(error instanceof ForgeError)) {
@@ -184,8 +184,8 @@ function setupOrigin({ options, baseUrl, instance, origin: context, fetcher, cre
     }
     return {
       listPage,
-      get: async installation => toInstallation((await appFetcher.json<OriginInstallation>(`/app/installations/${installationId(installation)}`)).data),
-      token: installation => app.installationTokenDetails(installationId(installation)),
+      get: async (installation, options) => toInstallation((await appFetcher.json<OriginInstallation>(`/app/installations/${installationId(installation)}`, { signal: options?.signal })).data),
+      token: (installation, options) => app.installationTokenDetails(installationId(installation), options),
       reposPage(installation, listOptions) {
         const id = installationId(installation)
         return reposPage(listOptions, createFetcher({ baseUrl, authHeaders: async () => ({ authorization: `Bearer ${await app.installationToken(id)}` }) }))
@@ -204,7 +204,7 @@ function setupOrigin({ options, baseUrl, instance, origin: context, fetcher, cre
 
   return {
     checks: {
-      list: verb('unverified', async (repo, sha) => ({ items: await headChecks(repo, sha) })),
+      list: verb('unverified', async (repo, sha, options) => ({ items: await headChecks(repo, sha, options?.signal) })),
     },
     contents: {
       file: verb('unverified', async (repo, path, fileOptions = {}) => {
@@ -240,7 +240,7 @@ function setupOrigin({ options, baseUrl, instance, origin: context, fetcher, cre
         const { data } = await fetcher.json<OriginGitRef[]>(`${repoPath(repo)}/git/matching-refs`, { query: { ref: 'tags/' }, signal: listOptions.signal })
         return { items: (data ?? []).map(toTag) }
       }),
-      resolveRef: verb('unverified', async (repo, ref) => (await fetcher.json<OriginCommit>(`${repoPath(repo)}/commits/${encodeURIComponent(ref)}`)).data.sha),
+      resolveRef: verb('unverified', async (repo, ref, options) => (await fetcher.json<OriginCommit>(`${repoPath(repo)}/commits/${encodeURIComponent(ref)}`, { signal: options?.signal })).data.sha),
       commitsPage: verb('unverified', async (repo, query = {}) => {
         const page = await tokenPage<OriginCommit>(`${repoPath(repo)}/commits`, 'commits', {
           ...query,
@@ -248,18 +248,18 @@ function setupOrigin({ options, baseUrl, instance, origin: context, fetcher, cre
         })
         return { items: page.items.map(raw => toCommit(repo, raw)), cursor: page.cursor }
       }),
-      commit: verb('unverified', async (repo, sha) => {
+      commit: verb('unverified', async (repo, sha, options) => {
         const [commit, files] = await Promise.all([
-          fetcher.json<OriginCommit>(`${repoPath(repo)}/commits/${sha}`),
-          all<OriginCommitFile>(`${repoPath(repo)}/commits/${sha}/files`, 'files'),
+          fetcher.json<OriginCommit>(`${repoPath(repo)}/commits/${sha}`, { signal: options?.signal }),
+          all<OriginCommitFile>(`${repoPath(repo)}/commits/${sha}/files`, 'files', undefined, options?.signal),
         ])
         return toCommit(repo, commit.data, files.map(toChangedFile))
       }),
-      compare: verb('unverified', async (repo, base, head) => {
+      compare: verb('unverified', async (repo, base, head, options) => {
         const basehead = encodeURIComponent(`${base}...${head}`)
         const [comparison, files] = await Promise.all([
-          fetcher.json<OriginComparison>(`${repoPath(repo)}/compare/${basehead}`),
-          all<OriginCommitFile>(`${repoPath(repo)}/compare/${basehead}/files`, 'files'),
+          fetcher.json<OriginComparison>(`${repoPath(repo)}/compare/${basehead}`, { signal: options?.signal }),
+          all<OriginCommitFile>(`${repoPath(repo)}/compare/${basehead}/files`, 'files', undefined, options?.signal),
         ])
         return {
           base,
@@ -289,7 +289,7 @@ function setupOrigin({ options, baseUrl, instance, origin: context, fetcher, cre
     installations: credentials && auth?.type === 'app' && auth.installationId === undefined ? verb('unverified', createInstallationsApi(credentials)) : undefined,
     threads: {
       get: perKind(PULL, get),
-      getMany: verb('experimental', refs => getManyConcurrently(refs, get)),
+      getMany: verb('experimental', (refs, options) => getManyConcurrently(refs, ref => get(ref, options))),
       listPage: perKind(PULL, listPage),
       eventsPage: verb('experimental', eventsPage),
       filesPage: verb('unverified', async (thread, listOptions = {}) => {
@@ -372,11 +372,11 @@ function setupOrigin({ options, baseUrl, instance, origin: context, fetcher, cre
         resolveReviewThread: (_thread, id) => setThreadResolved(id, true),
         unresolveReviewThread: (_thread, id) => setThreadResolved(id, false),
       }),
-      checks: perKind(PULL, async (thread) => {
+      checks: perKind(PULL, async (thread, options) => {
         const ref = requireThread(thread, context)
-        const { data } = await fetcher.json<OriginPullRequest>(pullPath(ref))
+        const { data } = await fetcher.json<OriginPullRequest>(pullPath(ref), { signal: options?.signal })
         const sha = data.version?.headSha ?? data.head?.sha
-        return { items: sha ? await headChecks(ref.repo, sha) : [] }
+        return { items: sha ? await headChecks(ref.repo, sha, options?.signal) : [] }
       }),
     },
     webhooks: {

@@ -143,8 +143,8 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
 
   const list = createListing(fetcher, 'limit')
 
-  async function readUser(path: string): Promise<User> {
-    const { data } = await fetcher.json<ForgejoUser & { description?: string, location?: string, website?: string, created?: string, followers_count?: number, following_count?: number }>(path)
+  async function readUser(path: string, signal?: AbortSignal): Promise<User> {
+    const { data } = await fetcher.json<ForgejoUser & { description?: string, location?: string, website?: string, created?: string, followers_count?: number, following_count?: number }>(path, { signal })
     return { ...toActor(origin, data)!, bio: data.description || undefined, location: data.location || undefined, websiteUrl: data.website || undefined, createdAt: toDate(data.created), followers: data.followers_count, following: data.following_count, raw: data }
   }
 
@@ -345,13 +345,13 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
     return toReview(ref, data, [])
   }
 
-  async function get(thread: ThreadRef): Promise<Thread> {
+  async function get(thread: ThreadRef, options?: { signal?: AbortSignal }): Promise<Thread> {
     const ref = requireThread(thread, context)
-    const { data } = await fetcher.json<ForgejoIssue>(threadPath(ref))
+    const { data } = await fetcher.json<ForgejoIssue>(threadPath(ref), { signal: options?.signal })
     const result = toThread(ref, data)
     if (ref.kind === 'pull_request' && data.head?.sha) {
       try {
-        const checks = await statusChecks(ref.repo, data.head.sha)
+        const checks = await statusChecks(ref.repo, data.head.sha, options?.signal)
         result.checks = summariseChecks(checks.map(check => check.state))
       }
       catch (error) {
@@ -366,8 +366,8 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
 
   const STATUS_STATES: Record<CheckState, string> = { pending: 'pending', success: 'success', failure: 'failure', neutral: 'success', unknown: 'pending' }
 
-  async function statusChecks(repo: RepoRef, sha: string): Promise<Check[]> {
-    const { data } = await fetcher.json<ForgejoCombinedStatus>(`${repoPath(repo)}/commits/${sha}/status`)
+  async function statusChecks(repo: RepoRef, sha: string, signal?: AbortSignal): Promise<Check[]> {
+    const { data } = await fetcher.json<ForgejoCombinedStatus>(`${repoPath(repo)}/commits/${sha}/status`, { signal })
     return toStatusChecks(repo, data)
   }
 
@@ -511,8 +511,8 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
     },
     probeVersion: async () => (await fetcher.json<{ version?: string }>('/version')).data.version,
     users: {
-      get: verb(true, login => readUser(`/users/${encodeURIComponent(login)}`)),
-      me: verb(true, () => readUser('/user')),
+      get: verb(true, (login, options) => readUser(`/users/${encodeURIComponent(login)}`, options?.signal)),
+      me: verb(true, options => readUser('/user', options?.signal)),
     },
     repos: {
       get: verb(true, async (ref, options) => toRepo(origin, (await fetcher.json<ForgejoRepositoryDetail>(repoPath(ref), { signal: options?.signal })).data)),
@@ -524,8 +524,8 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
       })).data)),
       milestonesPage: verb(true, milestonesPage),
       collaboratorsPage: verb(!anonymous, (repo, listOptions = {}) => list(`${repoPath(repo)}/collaborators`, listOptions, (raw: ForgejoUser) => ({ actor: toActor(origin, raw)!, role: 'read' as const, raw }))),
-      permissionFor: verb(!anonymous, async (repo, actor) => {
-        const { data } = await fetcher.json<{ permission?: string, role_name?: string }>(`${repoPath(repo)}/collaborators/${encodeURIComponent(actorLogin(actor))}/permission`)
+      permissionFor: verb(!anonymous, async (repo, actor, options) => {
+        const { data } = await fetcher.json<{ permission?: string, role_name?: string }>(`${repoPath(repo)}/collaborators/${encodeURIComponent(actorLogin(actor))}/permission`, { signal: options?.signal })
         return toRole(data.role_name ?? data.permission)
       }),
       addCollaborator: verb(true, async (repo, actor, role) => {
@@ -551,10 +551,10 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
           query: { 'last_read_at': bulk.before?.toISOString(), 'to-status': 'read' },
         })
       }),
-      unreadCount: verb(true, async () => (await fetcher.json<{ new: number }>('/notifications/new')).data.new),
+      unreadCount: verb(true, async options => (await fetcher.json<{ new: number }>('/notifications/new', { signal: options?.signal })).data.new),
     },
     checks: {
-      list: verb(true, async (repo, sha) => ({ items: await statusChecks(repo, sha) })),
+      list: verb(true, async (repo, sha, options) => ({ items: await statusChecks(repo, sha, options?.signal) })),
       report: verb(true, async (repo, sha, input) => toStatusCheck(repo, (await fetcher.json<ForgejoCommitStatus>(`${repoPath(repo)}/statuses/${sha}`, {
         method: 'POST',
         json: { state: STATUS_STATES[input.state], context: input.name, description: input.description, target_url: input.url },
@@ -562,13 +562,13 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
     },
     ci: {
       runsPage: verb(actions(FORGEJO_ACTION_RUNS), runsPage),
-      run: verb(actions(FORGEJO_ACTION_RUNS), async ref => toActionRun(ref.repo, (await fetcher.json<ForgejoActionRun>(`${repoPath(ref.repo)}/actions/runs/${encodeURIComponent(ref.id)}`)).data)),
+      run: verb(actions(FORGEJO_ACTION_RUNS), async (ref, options) => toActionRun(ref.repo, (await fetcher.json<ForgejoActionRun>(`${repoPath(ref.repo)}/actions/runs/${encodeURIComponent(ref.id)}`, { signal: options?.signal })).data)),
       // The jobs of a run come back in one response, whatever the page size.
       jobsPage: verb(actions(FORGEJO_ACTION_JOBS), async (ref, listOptions = {}) => {
         const { data } = await fetcher.json<ForgejoActionRunJob[] | null>(`${repoPath(ref.repo)}/actions/runs/${encodeURIComponent(ref.id)}/jobs`, { signal: listOptions.signal })
         return { items: (data ?? []).map(raw => toActionJob(ref, raw)) }
       }),
-      log: verb(actions(FORGEJO_ACTION_JOBS), async ref => (await fetcher.stream(`${repoPath(ref.repo)}/actions/jobs/${encodeURIComponent(ref.id)}/logs`)).body),
+      log: verb(actions(FORGEJO_ACTION_JOBS), async (ref, options) => (await fetcher.stream(`${repoPath(ref.repo)}/actions/jobs/${encodeURIComponent(ref.id)}/logs`, { signal: options?.signal })).body),
     },
     contents: {
       file: verb(true, async (repo, path, fileOptions = {}) => {
@@ -600,8 +600,8 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
       }),
       branchesPage: verb(true, (repo, listOptions = {}) => list(`${repoPath(repo)}/branches`, listOptions, toBranch)),
       tagsPage: verb(true, (repo, listOptions = {}) => list(`${repoPath(repo)}/tags`, listOptions, toTag)),
-      resolveRef: verb(true, async (repo, ref) => {
-        const { data } = await fetcher.json<ForgejoCommit[]>(`${repoPath(repo)}/commits`, { query: { sha: ref, limit: 1, stat: 'false' } })
+      resolveRef: verb(true, async (repo, ref, options) => {
+        const { data } = await fetcher.json<ForgejoCommit[]>(`${repoPath(repo)}/commits`, { query: { sha: ref, limit: 1, stat: 'false' }, signal: options?.signal })
         const sha = data[0]?.sha
         if (!sha) {
           throw new NotFoundError(`${profile.forge} has no commit for ${ref}`, 404, '', context)
@@ -609,9 +609,9 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
         return sha
       }),
       commitsPage: verb(true, (repo, query = {}) => list(`${repoPath(repo)}/commits`, query, (raw: ForgejoCommit) => toCommit(repo, raw), { query: { sha: query.ref, path: query.path, since: query.since?.toISOString(), until: query.until?.toISOString() } })),
-      commit: verb(true, async (repo, sha) => toCommit(repo, (await fetcher.json<ForgejoCommit>(`${repoPath(repo)}/git/commits/${sha}`, { query: { stat: 'true', files: 'true' } })).data)),
-      compare: verb(true, async (repo, base, head) => {
-        const { data } = await fetcher.json<ForgejoCompare>(`${repoPath(repo)}/compare/${encodeURIComponent(base)}...${encodeURIComponent(head)}`)
+      commit: verb(true, async (repo, sha, options) => toCommit(repo, (await fetcher.json<ForgejoCommit>(`${repoPath(repo)}/git/commits/${sha}`, { query: { stat: 'true', files: 'true' }, signal: options?.signal })).data)),
+      compare: verb(true, async (repo, base, head, options) => {
+        const { data } = await fetcher.json<ForgejoCompare>(`${repoPath(repo)}/compare/${encodeURIComponent(base)}...${encodeURIComponent(head)}`, { signal: options?.signal })
         return {
           base,
           head,
@@ -645,10 +645,10 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
       update: verb(true, (ref, update) => writeRelease(ref.repo, `${repoPath(ref.repo)}/releases/${encodeURIComponent(ref.id)}`, 'PATCH', update)),
     },
     threads: {
-      checks: perKind({ pull_request: true }, async (thread) => {
+      checks: perKind({ pull_request: true }, async (thread, options) => {
         const ref = requireThread(thread, context)
-        const { data } = await fetcher.json<ForgejoIssue>(threadPath(ref))
-        return { items: data.head?.sha ? await statusChecks(ref.repo, data.head.sha) : [] }
+        const { data } = await fetcher.json<ForgejoIssue>(threadPath(ref), { signal: options?.signal })
+        return { items: data.head?.sha ? await statusChecks(ref.repo, data.head.sha, options?.signal) : [] }
       }),
       reviewsPage: verb(true, async (thread, listOptions: PageOptions = {}) => {
         const ref = requirePull(thread, 'reviewed')
@@ -677,7 +677,7 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
         return toReview(pull, data, [])
       }),
       get: perKind({ issue: true, pull_request: true, commit: true }, get),
-      getMany: verb(true, refs => getManyConcurrently(refs, get)),
+      getMany: verb(true, (refs, options) => getManyConcurrently(refs, ref => get(ref, options))),
       listPage: perKind(ISSUE_AND_PULL, listPage),
       eventsPage: verb(true, async (thread: ThreadRef, listOptions: ListOptions = {}): Promise<Page<ForgeEventInput>> => {
         const ref = requireThread(thread, context)
@@ -773,9 +773,9 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
       reopen: perKind({ issue: true, pull_request: true }, ref => setState(ref, 'open')),
       merge: verb(true, merge),
       subscriptions: perKind(ISSUE_AND_PULL, {
-        async subscription(thread): Promise<SubscriptionState> {
+        async subscription(thread, options): Promise<SubscriptionState> {
           const ref = requireIssueOrPull(thread, context, 'read the subscription of')
-          const { data } = await fetcher.json<{ subscribed: boolean, ignored: boolean }>(`${issuePath(ref)}/subscriptions/check`)
+          const { data } = await fetcher.json<{ subscribed: boolean, ignored: boolean }>(`${issuePath(ref)}/subscriptions/check`, { signal: options?.signal })
           return data.ignored ? 'ignored' : data.subscribed ? 'subscribed' : 'none'
         },
         async subscribe(thread) {

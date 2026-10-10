@@ -84,7 +84,7 @@ export function createTangledRecords({ options, instance, webUrl, context, atpro
    * Repo collaborators, from the knot that hosts the repo DID. Knots older
    * than v1.15 do not serve this, and an empty set is returned.
    */
-  function collaboratorsOf(repo: RepoRef): Promise<{ dids: Set<string>, warning?: ForgeWarning }> {
+  function collaboratorsOf(repo: RepoRef, signal?: AbortSignal): Promise<{ dids: Set<string>, warning?: ForgeWarning }> {
     const repoDid = repo.externalId
     if (!repoDid) {
       return Promise.resolve({ dids: new Set<string>() })
@@ -92,7 +92,7 @@ export function createTangledRecords({ options, instance, webUrl, context, atpro
     let found = collaborators.get(repoDid)
     if (!found) {
       found = (async () => {
-        const { pds: knot } = await atproto.resolveDid(repoDid)
+        const { pds: knot } = await atproto.resolveDid(repoDid, signal)
         const dids = new Set<string>()
         if (!knot) {
           return { dids }
@@ -101,7 +101,7 @@ export function createTangledRecords({ options, instance, webUrl, context, atpro
         do {
           const { data }: { data: { items: Array<{ subject: string }>, cursor?: string } } = await fetcher.json(
             `${knot.replace(/\/$/, '')}/xrpc/sh.tangled.repo.listCollaborators`,
-            { query: { subject: repoDid, limit: 1000, cursor } },
+            { query: { subject: repoDid, limit: 1000, cursor }, signal },
           )
           for (const item of data.items) {
             dids.add(item.subject)
@@ -127,21 +127,21 @@ export function createTangledRecords({ options, instance, webUrl, context, atpro
    * Accounts whose state records the appview accepts: the thread author, the
    * repo owner, collaborators with push access, and Tangled's own account.
    */
-  async function stateAuthors(authorDid: string, repo: RepoRef, warn?: (warning: ForgeWarning) => void): Promise<Set<string>> {
-    const { dids, warning } = await collaboratorsOf(repo)
+  async function stateAuthors(authorDid: string, repo: RepoRef, warn?: (warning: ForgeWarning) => void, signal?: AbortSignal): Promise<Set<string>> {
+    const { dids, warning } = await collaboratorsOf(repo, signal)
     if (warning) {
       warn?.(warning)
     }
     return new Set([authorDid, repo.owner, TANGLED_DID, ...dids])
   }
 
-  async function actorFor(did: string) {
-    const identity = await atproto.resolveDid(did).catch(() => ({ did }))
+  async function actorFor(did: string, signal?: AbortSignal) {
+    const identity = await atproto.resolveDid(did, signal).catch(() => ({ did }))
     return toActor(instance, identity, webUrl)
   }
 
   /** Resolves a record's `repo` field, a repo DID or, in older records, an `sh.tangled.repo` AT-URI. */
-  function resolveRepo(field: string): Promise<RepoRef> {
+  function resolveRepo(field: string, signal?: AbortSignal): Promise<RepoRef> {
     let repo = repos.get(field)
     if (!repo) {
       repo = (async () => {
@@ -149,7 +149,7 @@ export function createTangledRecords({ options, instance, webUrl, context, atpro
         if (legacy) {
           return { forge: FORGE, instance, owner: legacy.did, name: legacy.rkey }
         }
-        const { value: link } = await atproto.backlinks(field, COLLECTIONS.repo, '.repoDid').next()
+        const { value: link } = await atproto.backlinks(field, COLLECTIONS.repo, '.repoDid', signal).next()
         if (!link) {
           throw new UnresolvedThreadError(`No sh.tangled.repo record declares ${field}`, context)
         }
@@ -161,14 +161,14 @@ export function createTangledRecords({ options, instance, webUrl, context, atpro
     return repo
   }
 
-  async function threadFor(subject: string): Promise<{ ref: ResolvedThreadRef, record: IssueRecord | PullRecord, cid?: string }> {
+  async function threadFor(subject: string, signal?: AbortSignal): Promise<{ ref: ResolvedThreadRef, record: IssueRecord | PullRecord, cid?: string }> {
     const uri = parseAtUri(subject)
     if (!uri || !threadKindOf(uri.collection)) {
       throw new UnresolvedThreadError(`${subject} is not an issue or pull request`, context)
     }
-    const { value, cid } = await atproto.getRecord<IssueRecord | PullRecord>(subject)
+    const { value, cid } = await atproto.getRecord<IssueRecord | PullRecord>(subject, signal)
     const repoField = 'target' in value ? value.target.repo : value.repo
-    return { ref: toThreadRef(instance, await resolveRepo(repoField), uri), record: value, cid }
+    return { ref: toThreadRef(instance, await resolveRepo(repoField, signal), uri), record: value, cid }
   }
 
   function subjectUri(thread: ThreadRef): { ref: ResolvedThreadRef, uri: AtUri, kind: 'issue' | 'pull_request' } {
@@ -186,9 +186,9 @@ export function createTangledRecords({ options, instance, webUrl, context, atpro
    * participant must not fail the whole read. Deleted records are skipped
    * silently.
    */
-  async function readLinked<T extends TangledRecord>(uri: string, warn: (warning: ForgeWarning) => void): Promise<T | undefined> {
+  async function readLinked<T extends TangledRecord>(uri: string, warn: (warning: ForgeWarning) => void, signal?: AbortSignal): Promise<T | undefined> {
     try {
-      return (await atproto.getRecord<T>(uri)).value
+      return (await atproto.getRecord<T>(uri, signal)).value
     }
     catch (error) {
       if (error instanceof NotFoundError) {
@@ -223,16 +223,16 @@ export function createTangledRecords({ options, instance, webUrl, context, atpro
     }
   }
 
-  async function stateOf(target: string, kind: 'issue' | 'pull_request', allowed: Set<string>, warn: (warning: ForgeWarning) => void): Promise<{ token?: string, at?: string }> {
+  async function stateOf(target: string, kind: 'issue' | 'pull_request', allowed: Set<string>, warn: (warning: ForgeWarning) => void, signal?: AbortSignal): Promise<{ token?: string, at?: string }> {
     let latest: { token?: string, at?: string } = {}
     const source = STATE_COLLECTION[kind]
-    for await (const link of atproto.backlinks(target, source.collection, source.path)) {
+    for await (const link of atproto.backlinks(target, source.collection, source.path, signal)) {
       if (!allowed.has(link.did)) {
         continue
       }
       const value = await readLinked<StateRecord>(atUri(link.did, link.collection, link.rkey), (warning) => {
         warn({ ...warning, code: 'state_record_unreachable', message: `State may be stale: ${warning.message}` })
-      })
+      }, signal)
       if (!value) {
         continue
       }
@@ -243,10 +243,10 @@ export function createTangledRecords({ options, instance, webUrl, context, atpro
     return latest
   }
 
-  async function countComments(target: string, kind: 'issue' | 'pull_request'): Promise<number> {
+  async function countComments(target: string, kind: 'issue' | 'pull_request', signal?: AbortSignal): Promise<number> {
     let count = 0
     for (const source of COMMENT_SOURCES[kind]) {
-      for await (const _ of atproto.backlinks(target, source.collection, source.path)) {
+      for await (const _ of atproto.backlinks(target, source.collection, source.path, signal)) {
         count++
       }
     }
@@ -341,16 +341,16 @@ export function createTangledRecords({ options, instance, webUrl, context, atpro
     }
   }
 
-  async function readThread(thread: ThreadRef): Promise<Thread> {
+  async function readThread(thread: ThreadRef, options?: { signal?: AbortSignal }): Promise<Thread> {
     const { uri, kind } = subjectUri(thread)
     const target = atUri(uri.did, uri.collection, uri.rkey)
-    const { ref, record } = await threadFor(target)
+    const { ref, record } = await threadFor(target, options?.signal)
     const warnings: ForgeWarning[] = []
     const warn = (warning: ForgeWarning) => warnings.push(warning)
     const [author, state, comments] = await Promise.all([
-      actorFor(uri.did),
-      stateAuthors(uri.did, ref.repo, warn).then(allowed => stateOf(target, kind, allowed, warn)),
-      countComments(target, kind),
+      actorFor(uri.did, options?.signal),
+      stateAuthors(uri.did, ref.repo, warn, options?.signal).then(allowed => stateOf(target, kind, allowed, warn, options?.signal)),
+      countComments(target, kind, options?.signal),
     ])
     return toThread(ref, record, author, state, comments, warnings)
   }

@@ -34,9 +34,9 @@ function setupPushin({ options, instance, origin: context, fetcher, baseUrl }: P
     return `${repoPath(ref.repo)}/${ref.kind === 'pull_request' ? 'pulls' : 'issues'}/${encodeURIComponent(ref.number)}`
   }
 
-  async function get(thread: ThreadRef): Promise<Thread> {
+  async function get(thread: ThreadRef, options?: { signal?: AbortSignal }): Promise<Thread> {
     const ref = requireIssueOrPull(thread, context, 'read')
-    const { data } = await fetcher.json<PushinThread>(threadPath(ref))
+    const { data } = await fetcher.json<PushinThread>(threadPath(ref), { signal: options?.signal })
     return toThread(ref, data)
   }
 
@@ -109,7 +109,7 @@ function setupPushin({ options, instance, origin: context, fetcher, baseUrl }: P
     threads: {
       get: perKind({ issue: true, pull_request: true }, get),
       listPage: perKind({ issue: true, pull_request: true }, listPage),
-      getMany: verb(true, refs => getManyConcurrently(refs, get)),
+      getMany: verb(true, (refs, options) => getManyConcurrently(refs, ref => get(ref, options))),
       eventsPage: verb('emulated', eventsPage),
       commentsPage: perKind({ issue: true, pull_request: true }, commentsPage),
     },

@@ -388,6 +388,28 @@ describe.each(contracts)('contract: $name', (contract) => {
       await expect(pending).rejects.toBe(reason)
     })
 
+    it('aborts a thread read with the caller\'s reason', async () => {
+      const { controller, instance, started } = abortable()
+
+      const pending = instance.threads.get(threadRef(), { signal: controller.signal })
+      await started
+      controller.abort(reason)
+
+      await expect(pending).rejects.toBe(reason)
+    })
+
+    describe.runIf(contract.checks)('checks', () => {
+      it('aborts a checks read with the caller\'s reason', async () => {
+        const { controller, instance, started } = abortable()
+
+        const pending = instance.checks.list(threadRef().repo, 'HEAD', { signal: controller.signal })
+        await started
+        controller.abort(reason)
+
+        await expect(pending).rejects.toBe(reason)
+      })
+    })
+
     describe.runIf(contract.releases)('releases', () => {
       const repo = () => ({ forge: contract.name, instance: contract.instance, ...contract.repo })
 

@@ -35,8 +35,8 @@ const PER_PAGE = 50
 
 function setupGitee({ instance, origin: context, fetcher, baseUrl }: ProviderContext<GiteeOptions, undefined>): ProviderSpec {
   const repoPath = (repo: RepoRef) => `/repos/${encodeURIComponent(repo.owner)}/${encodeURIComponent(repo.name)}`
-  async function readUser(path: string): Promise<User> {
-    const { data } = await fetcher.json<GiteeUser & { bio?: string | null, company?: string | null, blog?: string | null, created_at?: string, followers?: number, following?: number, public_repos?: number }>(path)
+  async function readUser(path: string, signal?: AbortSignal): Promise<User> {
+    const { data } = await fetcher.json<GiteeUser & { bio?: string | null, company?: string | null, blog?: string | null, created_at?: string, followers?: number, following?: number, public_repos?: number }>(path, { signal })
     return { ...toActor(instance, data)!, bio: data.bio ?? undefined, company: data.company ?? undefined, websiteUrl: data.blog || undefined, createdAt: toDate(data.created_at), followers: data.followers, following: data.following, publicRepos: data.public_repos, raw: data }
   }
 
@@ -98,21 +98,21 @@ function setupGitee({ instance, origin: context, fetcher, baseUrl }: ProviderCon
     }
   }
 
-  async function headChecks(repo: RepoRef, sha: string): Promise<Check[]> {
-    const { data } = await fetcher.json<GiteeCheckRun[] | { check_runs?: GiteeCheckRun[] }>(`${repoPath(repo)}/commits/${sha}/check-runs`)
+  async function headChecks(repo: RepoRef, sha: string, signal?: AbortSignal): Promise<Check[]> {
+    const { data } = await fetcher.json<GiteeCheckRun[] | { check_runs?: GiteeCheckRun[] }>(`${repoPath(repo)}/commits/${sha}/check-runs`, { signal })
     return (Array.isArray(data) ? data : data.check_runs ?? []).map(raw => toCheck(repo, raw))
   }
 
-  async function get(thread: ThreadRef): Promise<Thread> {
+  async function get(thread: ThreadRef, options?: { signal?: AbortSignal }): Promise<Thread> {
     const ref = requireIssueOrPull(thread, context, 'read')
     if (ref.kind === 'issue') {
-      return toIssueThread(ref, (await fetcher.json<GiteeIssue>(threadPath(ref))).data)
+      return toIssueThread(ref, (await fetcher.json<GiteeIssue>(threadPath(ref), { signal: options?.signal })).data)
     }
-    const { data } = await fetcher.json<GiteePullRequest>(threadPath(ref))
+    const { data } = await fetcher.json<GiteePullRequest>(threadPath(ref), { signal: options?.signal })
     const result = toPullThread(ref, data)
     if (data.head?.sha) {
       try {
-        result.checks = summariseChecks((await headChecks(ref.repo, data.head.sha)).map(check => check.state))
+        result.checks = summariseChecks((await headChecks(ref.repo, data.head.sha, options?.signal)).map(check => check.state))
       }
       catch (error) {
         if (!(error instanceof ForgeError)) {
@@ -272,12 +272,12 @@ function setupGitee({ instance, origin: context, fetcher, baseUrl }: ProviderCon
 
   return {
     checks: {
-      list: verb(true, async (repo, sha) => ({ items: await headChecks(repo, sha) })),
+      list: verb(true, async (repo, sha, options) => ({ items: await headChecks(repo, sha, options?.signal) })),
     },
     traits: { eventKinds: 'native', authKinds: ['token', 'anonymous'] },
     users: {
-      get: verb(true, login => readUser(`/users/${encodeURIComponent(login)}`)),
-      me: verb(true, () => readUser('/user')),
+      get: verb(true, (login, options) => readUser(`/users/${encodeURIComponent(login)}`, options?.signal)),
+      me: verb(true, options => readUser('/user', options?.signal)),
     },
     repos: {
       get: verb(true, async (ref, options) => toRepo(instance, (await fetcher.json<GiteeRepository>(repoPath(ref), { signal: options?.signal })).data)),
@@ -319,7 +319,7 @@ function setupGitee({ instance, origin: context, fetcher, baseUrl }: ProviderCon
         }
         await fetcher.raw(bulk.repo ? `${repoPath(bulk.repo)}/notifications` : '/notifications/threads', { method: 'PUT' })
       }),
-      unreadCount: verb(true, async () => (await fetcher.json<{ notification_count?: number, total_count?: number }>('/notifications/count', { query: { unread: true } })).data.notification_count ?? 0),
+      unreadCount: verb(true, async options => (await fetcher.json<{ notification_count?: number, total_count?: number }>('/notifications/count', { query: { unread: true }, signal: options?.signal })).data.notification_count ?? 0),
     },
     contents: {
       file: verb(true, async (repo, path, fileOptions = {}) => {
@@ -351,7 +351,7 @@ function setupGitee({ instance, origin: context, fetcher, baseUrl }: ProviderCon
         const { data } = await fetcher.json<GiteeTag[]>(`${repoPath(repo)}/tags`, { signal: listOptions.signal })
         return { items: (data ?? []).map(toTag) }
       }),
-      resolveRef: verb(true, async (repo, ref) => (await fetcher.json<GiteeCommit>(`${repoPath(repo)}/commits/${encodeURIComponent(ref)}`)).data.sha),
+      resolveRef: verb(true, async (repo, ref, options) => (await fetcher.json<GiteeCommit>(`${repoPath(repo)}/commits/${encodeURIComponent(ref)}`, { signal: options?.signal })).data.sha),
       commitsPage: verb(true, async (repo, query = {}) => {
         const page = await numberedPage<GiteeCommit>(`${repoPath(repo)}/commits`, {
           sha: query.ref,
@@ -362,9 +362,9 @@ function setupGitee({ instance, origin: context, fetcher, baseUrl }: ProviderCon
         }, query)
         return { items: page.items.map(raw => toCommit(repo, raw)), cursor: page.cursor }
       }),
-      commit: verb(true, async (repo, sha) => toCommit(repo, (await fetcher.json<GiteeCommit>(`${repoPath(repo)}/commits/${sha}`)).data)),
-      compare: verb(true, async (repo, base, head) => {
-        const { data } = await fetcher.json<GiteeCompare>(`${repoPath(repo)}/compare/${encodeURIComponent(base)}...${encodeURIComponent(head)}`)
+      commit: verb(true, async (repo, sha, options) => toCommit(repo, (await fetcher.json<GiteeCommit>(`${repoPath(repo)}/commits/${sha}`, { signal: options?.signal })).data)),
+      compare: verb(true, async (repo, base, head, options) => {
+        const { data } = await fetcher.json<GiteeCompare>(`${repoPath(repo)}/compare/${encodeURIComponent(base)}...${encodeURIComponent(head)}`, { signal: options?.signal })
         return {
           base,
           head,
@@ -401,7 +401,7 @@ function setupGitee({ instance, origin: context, fetcher, baseUrl }: ProviderCon
     },
     threads: {
       get: perKind({ issue: true, pull_request: true }, get),
-      getMany: verb(true, refs => getManyConcurrently(refs, get)),
+      getMany: verb(true, (refs, options) => getManyConcurrently(refs, ref => get(ref, options))),
       listPage: perKind({ issue: true, pull_request: true }, listPage),
       eventsPage: verb(true, eventsPage),
       filesPage: verb(true, async (thread, listOptions = {}) => {
@@ -494,10 +494,10 @@ function setupGitee({ instance, origin: context, fetcher, baseUrl }: ProviderCon
         await hooks.beforeMerge?.()
         await fetcher.raw(`${threadPath(ref)}/merge`, { method: 'PUT', json: { merge_method: mergeOptions.method, description: mergeOptions.message }, mapError: toMergeError })
       }),
-      checks: perKind(PULL, async (thread) => {
+      checks: perKind(PULL, async (thread, options) => {
         const ref = requireThread(thread, context)
-        const { data } = await fetcher.json<GiteePullRequest>(threadPath(ref))
-        return { items: data.head?.sha ? await headChecks(ref.repo, data.head.sha) : [] }
+        const { data } = await fetcher.json<GiteePullRequest>(threadPath(ref), { signal: options?.signal })
+        return { items: data.head?.sha ? await headChecks(ref.repo, data.head.sha, options?.signal) : [] }
       }),
       createReview: verb('unverified', createReview),
     },

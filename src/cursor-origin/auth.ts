@@ -13,8 +13,8 @@ export type CursorOriginAuth = TokenAuth | AppAuth
 
 export interface OriginAppCredentials {
   appJwt: () => Promise<string>
-  installationTokenDetails: (installationId: string) => Promise<InstallationToken>
-  installationToken: (installationId: string) => Promise<string>
+  installationTokenDetails: (installationId: string, options?: { signal?: AbortSignal }) => Promise<InstallationToken>
+  installationToken: (installationId: string, options?: { signal?: AbortSignal }) => Promise<string>
 }
 
 /** Origin caps installation tokens at the lifetime of the JWT that minted them. */
@@ -38,12 +38,12 @@ export function createOriginAppCredentials(auth: AppAuth, createFetcher: (authHe
 
   const fetcher = createFetcher(async () => ({ authorization: `Bearer ${await appJwt()}` }))
 
-  async function installationTokenDetails(installationId: string): Promise<InstallationToken> {
+  async function installationTokenDetails(installationId: string, options?: { signal?: AbortSignal }): Promise<InstallationToken> {
     const cached = tokens.get(installationId)
     if (cached && cached.expiresAt.getTime() > Date.now() + REFRESH_MARGIN_MS) {
       return cached
     }
-    const { data } = await fetcher.json<{ token: string, expiresAt: string }>(`/app/installations/${installationId}/access_tokens`, { method: 'POST', json: {} })
+    const { data } = await fetcher.json<{ token: string, expiresAt: string }>(`/app/installations/${installationId}/access_tokens`, { method: 'POST', json: {}, signal: options?.signal })
     const token: InstallationToken = { token: data.token, expiresAt: new Date(data.expiresAt), permissions: {} }
     tokens.set(installationId, token)
     return token
@@ -52,6 +52,6 @@ export function createOriginAppCredentials(auth: AppAuth, createFetcher: (authHe
   return {
     appJwt,
     installationTokenDetails,
-    installationToken: async installationId => (await installationTokenDetails(installationId)).token,
+    installationToken: async (installationId, options) => (await installationTokenDetails(installationId, options)).token,
   }
 }

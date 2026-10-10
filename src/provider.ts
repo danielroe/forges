@@ -2,6 +2,7 @@ import type { FetcherOptions, FetchLike, ForgeRequest } from './fetch.ts'
 import type {
   Actor,
   ApproveAndMergeOptions,
+  BaseOptions,
   Branch,
   ChangedFile,
   Check,
@@ -436,7 +437,7 @@ export interface WebhookDelivery {
 }
 
 /** Options for `markAllRead()` and `markAllDone()`. */
-export interface BulkNotificationOptions {
+export interface BulkNotificationOptions extends BaseOptions {
   /** Limit to one repository. */
   repo?: RepoRef
   /** Only notifications updated before this time. */
@@ -450,7 +451,7 @@ export interface NotificationsApi {
   /** One page of `list()`. Pass the `cursor` of the previous page to read the next. */
   listPage: (options?: NotificationListOptions) => Promise<Page<Notification>>
   /** Marks a notification as read. */
-  markRead: (ref: NotificationRef) => Promise<void>
+  markRead: (ref: NotificationRef, options?: BaseOptions) => Promise<void>
   /** Marks a notification as done, which clears it from the inbox where the forge has that state. */
   markDone: (ref: NotificationRef, options?: NotificationWriteOptions) => Promise<void>
   /** Stops notifications for the notification's thread, and on some forges also clears the notification. */
@@ -460,11 +461,11 @@ export interface NotificationsApi {
   /** Marks every notification as done, or those of one repository. */
   markAllDone: (options?: BulkNotificationOptions) => Promise<void>
   /** The number of unread notifications. */
-  unreadCount: () => Promise<number>
+  unreadCount: (options?: BaseOptions) => Promise<number>
 }
 
 /** Options for changing one notification. */
-export interface NotificationWriteOptions {
+export interface NotificationWriteOptions extends BaseOptions {
   /**
    * The thread the notification points at, when the caller already holds it.
    * Providers that would otherwise look it up skip that request.
@@ -476,7 +477,7 @@ export interface NotificationWriteOptions {
 export type CloseReason = 'completed' | 'not_planned' | 'duplicate'
 
 /** Options for `threads.close()`. */
-export interface CloseOptions {
+export interface CloseOptions extends BaseOptions {
   /**
    * Mapped to the forge's own reason where it has one; forges without close
    * reasons close the thread without one.
@@ -495,9 +496,9 @@ export interface ThreadsApi {
    * Reads an issue, pull request or discussion by its ref. Rejects with `NotFoundError` when it does not exist or the
    * credential cannot see it.
    */
-  get: (ref: ThreadRef) => Promise<Thread>
+  get: (ref: ThreadRef, options?: BaseOptions) => Promise<Thread>
   /** Reads several threads, batched where the forge allows. Failures become per-item warnings. */
-  getMany: (refs: ThreadRef[]) => Promise<GetManyResult[]>
+  getMany: (refs: ThreadRef[], options?: BaseOptions) => Promise<GetManyResult[]>
   /** Lists the threads of a repository. */
   list: (repo: RepoRef, query?: ThreadQuery) => ForgeIterable<Thread>
   /** One page of `list`; pass `cursor` back in `query` to read the next. */
@@ -511,7 +512,7 @@ export interface ThreadsApi {
   /** One page of `comments()`. */
   commentsPage: (ref: ThreadRef, options?: ListOptions) => Promise<Page<Comment>>
   /** Adds a comment to a thread. */
-  comment: (ref: ThreadRef, body: string) => Promise<Comment>
+  comment: (ref: ThreadRef, body: string, options?: BaseOptions) => Promise<Comment>
   /**
    * Creates the comment, or edits the one an earlier call with the same `key`
    * left behind. The key is carried in the body as a hidden marker; see
@@ -524,23 +525,23 @@ export interface ThreadsApi {
    * await provider.threads.upsertComment(ref, { key: 'preview', body: 'Preview: https://pr-42.example.com' })
    * ```
    */
-  upsertComment: (ref: ThreadRef, input: UpsertCommentInput) => Promise<UpsertCommentResult>
+  upsertComment: (ref: ThreadRef, input: UpsertCommentInput, options?: BaseOptions) => Promise<UpsertCommentResult>
   /** Replaces the body of a comment. */
-  editComment: (ref: CommentRef, body: string) => Promise<Comment>
+  editComment: (ref: CommentRef, body: string, options?: BaseOptions) => Promise<Comment>
   /** Deletes a comment. */
-  deleteComment: (ref: CommentRef) => Promise<void>
+  deleteComment: (ref: CommentRef, options?: BaseOptions) => Promise<void>
   /** Creates an issue, pull request or discussion. A pull request needs `head` and `base`. */
-  create: (repo: RepoRef, input: ThreadCreateInput) => Promise<Thread>
+  create: (repo: RepoRef, input: ThreadCreateInput, options?: BaseOptions) => Promise<Thread>
   /** Changes the title, body or other fields of a thread. Fields left out stay as they are. */
-  update: (ref: ThreadRef, input: ThreadUpdateInput) => Promise<Thread>
+  update: (ref: ThreadRef, input: ThreadUpdateInput, options?: BaseOptions) => Promise<Thread>
   /** Replaces the thread's labels. */
-  setLabels: (ref: ThreadRef, labels: string[]) => Promise<void>
+  setLabels: (ref: ThreadRef, labels: string[], options?: BaseOptions) => Promise<void>
   /** Adds labels, leaving the rest in place. */
-  addLabels: (ref: ThreadRef, labels: string[]) => Promise<void>
+  addLabels: (ref: ThreadRef, labels: string[], options?: BaseOptions) => Promise<void>
   /** Removes labels, leaving the rest in place. Labels the thread does not carry are ignored. */
-  removeLabels: (ref: ThreadRef, labels: string[]) => Promise<void>
+  removeLabels: (ref: ThreadRef, labels: string[], options?: BaseOptions) => Promise<void>
   /** Sets the thread's milestone, by milestone, id or title, or clears it with `undefined`. */
-  setMilestone: (ref: ThreadRef, milestone: Milestone | string | undefined) => Promise<void>
+  setMilestone: (ref: ThreadRef, milestone: Milestone | string | undefined, options?: BaseOptions) => Promise<void>
   /** Reactions left on the thread or on one of its comments. */
   reactions: (target: ThreadRef | CommentRef, options?: ListOptions) => ForgeIterable<Reaction>
   /** One page of `reactions()`. */
@@ -550,21 +551,21 @@ export interface ThreadsApi {
    * @param target The thread or comment to react to.
    * @param reaction The reaction to leave.
    */
-  react: (target: ThreadRef | CommentRef, reaction: ReactionContent) => Promise<void>
+  react: (target: ThreadRef | CommentRef, reaction: ReactionContent, options?: BaseOptions) => Promise<void>
   /** Removes the account's reaction from the thread or comment. */
-  unreact: (target: ThreadRef | CommentRef, reaction: ReactionContent) => Promise<void>
+  unreact: (target: ThreadRef | CommentRef, reaction: ReactionContent, options?: BaseOptions) => Promise<void>
   /** Moves the thread to another repository, and returns its ref there. */
-  transfer: (ref: ThreadRef, repo: RepoRef) => Promise<ThreadRef>
+  transfer: (ref: ThreadRef, repo: RepoRef, options?: BaseOptions) => Promise<ThreadRef>
   /** Marks the thread a duplicate of `canonical`, which must be in the same repository on most forges. */
-  markDuplicate: (ref: ThreadRef, canonical: ThreadRef) => Promise<void>
+  markDuplicate: (ref: ThreadRef, canonical: ThreadRef, options?: BaseOptions) => Promise<void>
   /** Replaces the thread's assignees. */
-  setAssignees: (ref: ThreadRef, assignees: Array<string | Actor>) => Promise<void>
+  setAssignees: (ref: ThreadRef, assignees: Array<string | Actor>, options?: BaseOptions) => Promise<void>
   /** Adds reviewers to a pull request. */
-  requestReview: (ref: ThreadRef, reviewers: Array<string | Actor>) => Promise<void>
+  requestReview: (ref: ThreadRef, reviewers: Array<string | Actor>, options?: BaseOptions) => Promise<void>
   /** Closes a thread, optionally with a reason. */
   close: (ref: ThreadRef, options?: CloseOptions) => Promise<void>
   /** Reopens a closed thread. */
-  reopen: (ref: ThreadRef) => Promise<void>
+  reopen: (ref: ThreadRef, options?: BaseOptions) => Promise<void>
   /**
    * Merges a pull request. Without a merge method, the repository must allow exactly one.
    * @param ref The pull request to merge.
@@ -578,13 +579,13 @@ export interface ThreadsApi {
   /** Approves, then merges. The merge method is checked before the approval is sent. */
   approveAndMerge: (ref: ThreadRef, options?: ApproveAndMergeOptions) => Promise<void>
   /** The authenticated account's subscription to the thread. */
-  subscription: (ref: ThreadRef) => Promise<SubscriptionState>
+  subscription: (ref: ThreadRef, options?: BaseOptions) => Promise<SubscriptionState>
   /** Subscribes the account to the notifications of a thread. */
-  subscribe: (ref: ThreadRef) => Promise<void>
+  subscribe: (ref: ThreadRef, options?: BaseOptions) => Promise<void>
   /** Stops the account's notifications for a thread, leaving existing notifications alone. */
-  unsubscribe: (ref: ThreadRef) => Promise<void>
+  unsubscribe: (ref: ThreadRef, options?: BaseOptions) => Promise<void>
   /** Every check on the pull's head, in one page; `warnings` names the sources that could not be read. */
-  checks: (ref: ThreadRef) => Promise<Page<Check>>
+  checks: (ref: ThreadRef, options?: BaseOptions) => Promise<Page<Check>>
   /**
    * Reviews on a pull request. Forges with approvals but no review objects
    * (GitLab approvals, Azure DevOps votes, Bitbucket participants) synthesise
@@ -594,11 +595,11 @@ export interface ThreadsApi {
   /** One page of `reviews()`. */
   reviewsPage: (ref: ThreadRef, options?: PageOptions) => Promise<Page<Review>>
   /** Creates a review. Without `event` the review is pending where the forge has pending reviews. */
-  createReview: (ref: ThreadRef, input: ReviewInput) => Promise<Review>
+  createReview: (ref: ThreadRef, input: ReviewInput, options?: BaseOptions) => Promise<Review>
   /** Submits a pending review. */
-  submitReview: (ref: ReviewRef, event: ReviewEvent, body?: string) => Promise<Review>
+  submitReview: (ref: ReviewRef, event: ReviewEvent, body?: string, options?: BaseOptions) => Promise<Review>
   /** Approves without merging; `createReview({ event: 'approve' })` with nothing else to say. */
-  approve: (ref: ThreadRef, body?: string) => Promise<void>
+  approve: (ref: ThreadRef, body?: string, options?: BaseOptions) => Promise<void>
   /** Files a pull request changes, with a per-file `patch` where the forge returns one. */
   files: (ref: ThreadRef, options?: PageOptions) => ForgeIterable<ChangedFile>
   /** One page of `files()`. */
@@ -608,19 +609,19 @@ export interface ThreadsApi {
   /** One page of `commits()`. */
   commitsPage: (ref: ThreadRef, options?: PageOptions) => Promise<Page<Commit>>
   /** Resolves a review conversation, by the id on {@link ReviewComment.thread} or {@link Comment.thread}. */
-  resolveReviewThread: (ref: ThreadRef, id: string) => Promise<void>
+  resolveReviewThread: (ref: ThreadRef, id: string, options?: BaseOptions) => Promise<void>
   /** Reopens a resolved review conversation, by the id on `ReviewComment.thread` or `Comment.thread`. */
-  unresolveReviewThread: (ref: ThreadRef, id: string) => Promise<void>
+  unresolveReviewThread: (ref: ThreadRef, id: string, options?: BaseOptions) => Promise<void>
 }
 
 /** Reading and reporting the checks on a commit. */
 export interface ChecksApi {
   /** Every check on a commit: check runs, commit statuses, jobs or policy evaluations. */
-  list: (repo: RepoRef, sha: string) => Promise<Page<Check>>
+  list: (repo: RepoRef, sha: string, options?: BaseOptions) => Promise<Page<Check>>
   /** Writes a commit status, or a check run where the credential can (GitHub app auth). */
-  report: (repo: RepoRef, sha: string, input: CheckReportInput) => Promise<Check>
+  report: (repo: RepoRef, sha: string, input: CheckReportInput, options?: BaseOptions) => Promise<Check>
   /** Re-runs a check. Rejects for a `CheckRef.type` the forge cannot re-run. */
-  rerun: (ref: CheckRef) => Promise<void>
+  rerun: (ref: CheckRef, options?: BaseOptions) => Promise<void>
 }
 
 /** Reading CI runs and their jobs. CI is read-only. */
@@ -630,13 +631,13 @@ export interface CiApi {
   /** One page of `runs()`. */
   runsPage: (repo: RepoRef, query?: CiRunQuery) => Promise<Page<CiRun>>
   /** Reads one CI run. */
-  run: (ref: CiRunRef) => Promise<CiRun>
+  run: (ref: CiRunRef, options?: BaseOptions) => Promise<CiRun>
   /** Lists the jobs of a CI run. */
   jobs: (ref: CiRunRef, options?: PageOptions) => ForgeIterable<CiJob>
   /** One page of `jobs()`. */
   jobsPage: (ref: CiRunRef, options?: PageOptions) => Promise<Page<CiJob>>
   /** The job's log as it arrives. There is no workflow dispatch: CI is read-only here. */
-  log: (ref: CiJobRef) => Promise<ReadableStream<Uint8Array>>
+  log: (ref: CiJobRef, options?: BaseOptions) => Promise<ReadableStream<Uint8Array>>
 }
 
 /** Files, trees, branches, tags and commits of a repository. */
@@ -669,15 +670,15 @@ export interface ContentsApi {
   /** One page of `tags()`. */
   tagsPage: (repo: RepoRef, options?: PageOptions) => Promise<Page<Tag>>
   /** Resolves a branch, tag or sha to a full commit sha; a full sha is returned as is. */
-  resolveRef: (repo: RepoRef, ref: string) => Promise<string>
+  resolveRef: (repo: RepoRef, ref: string, options?: BaseOptions) => Promise<string>
   /** Lists the commits that lead to `ref`, or to the default branch. */
   commits: (repo: RepoRef, query?: CommitQuery) => ForgeIterable<Commit>
   /** One page of `commits()`. */
   commitsPage: (repo: RepoRef, query?: CommitQuery) => Promise<Page<Commit>>
   /** One commit, with its files and stats. */
-  commit: (repo: RepoRef, sha: string) => Promise<Commit>
+  commit: (repo: RepoRef, sha: string, options?: BaseOptions) => Promise<Commit>
   /** Commits and files between two refs. */
-  compare: (repo: RepoRef, base: string, head: string) => Promise<Comparison>
+  compare: (repo: RepoRef, base: string, head: string, options?: BaseOptions) => Promise<Comparison>
 }
 
 /** Reading, creating and updating the releases of a repository, and downloading their assets. */
@@ -687,16 +688,16 @@ export interface ReleasesApi {
   /** One page of `list()`. */
   listPage: (repo: RepoRef, options?: PageOptions) => Promise<Page<Release>>
   /** Reads a release by its ref. */
-  get: (ref: ReleaseRef, options?: { signal?: AbortSignal }) => Promise<Release>
+  get: (ref: ReleaseRef, options?: BaseOptions) => Promise<Release>
   /** The release for a tag name. */
-  getByTag: (repo: RepoRef, tag: string, options?: { signal?: AbortSignal }) => Promise<Release>
+  getByTag: (repo: RepoRef, tag: string, options?: BaseOptions) => Promise<Release>
   /**
    * The asset's bytes as they arrive. A redirect to a CDN host is followed
    * without the `Authorization` header, which those hosts reject.
    */
-  downloadAsset: (ref: ReleaseAssetRef, options?: { signal?: AbortSignal }) => Promise<ReadableStream<Uint8Array>>
+  downloadAsset: (ref: ReleaseAssetRef, options?: BaseOptions) => Promise<ReadableStream<Uint8Array>>
   /** The most recent published release that is not a draft or prerelease, if any. */
-  latest: (repo: RepoRef, options?: { signal?: AbortSignal }) => Promise<Release | undefined>
+  latest: (repo: RepoRef, options?: BaseOptions) => Promise<Release | undefined>
   /**
    * Creates a release, and its tag from `target` when the tag does not exist yet.
    * @param repo The repository to release.
@@ -752,7 +753,7 @@ export interface ReposApi {
    * Reads a repository by its ref. Rejects with `NotFoundError` when it does not exist or the credential cannot see
    * it.
    */
-  get: (ref: RepoRef, options?: { signal?: AbortSignal }) => Promise<Repo>
+  get: (ref: RepoRef, options?: BaseOptions) => Promise<Repo>
   /** The authenticated account's repositories, or the installation's under app auth. */
   list: (options?: RepoQuery) => ForgeIterable<Repo>
   /** One page of `list()`. */
@@ -762,7 +763,7 @@ export interface ReposApi {
   /** One page of `labels()`. */
   labelsPage: (repo: RepoRef, options?: PageOptions) => Promise<Page<Label>>
   /** Creates a label in a repository. */
-  createLabel: (repo: RepoRef, label: LabelInput) => Promise<Label>
+  createLabel: (repo: RepoRef, label: LabelInput, options?: BaseOptions) => Promise<Label>
   /** Lists the milestones of a repository. */
   milestones: (repo: RepoRef, options?: MilestoneListOptions) => ForgeIterable<Milestone>
   /** One page of `milestones()`. */
@@ -772,9 +773,9 @@ export interface ReposApi {
   /** One page of `collaborators()`. */
   collaboratorsPage: (repo: RepoRef, options?: PageOptions) => Promise<Page<Collaborator>>
   /** One account's role on the repository; `'none'` when it has no access. */
-  permissionFor: (repo: RepoRef, actor: string | Actor) => Promise<RepoRole>
+  permissionFor: (repo: RepoRef, actor: string | Actor, options?: BaseOptions) => Promise<RepoRole>
   /** Gives an account a role on a repository. */
-  addCollaborator: (repo: RepoRef, actor: string | Actor, role: RepoRole) => Promise<void>
+  addCollaborator: (repo: RepoRef, actor: string | Actor, role: RepoRole, options?: BaseOptions) => Promise<void>
   /** Accounts that can be assigned to a thread in the repository. */
   assignableUsers: (repo: RepoRef, options?: PageOptions) => ForgeIterable<Actor>
   /** One page of `assignableUsers()`. */
@@ -800,9 +801,9 @@ export interface InstallationsApi {
   /** One page of `list()`. */
   listPage: (options?: PageOptions) => Promise<Page<Installation>>
   /** Reads one installation. */
-  get: (installation: Installation | string) => Promise<Installation>
+  get: (installation: Installation | string, options?: BaseOptions) => Promise<Installation>
   /** Mints (or reuses a cached) installation token. */
-  token: (installation: Installation | string) => Promise<InstallationToken>
+  token: (installation: Installation | string, options?: BaseOptions) => Promise<InstallationToken>
   /** Lists the repositories that an installation can access. */
   repos: (installation: Installation | string, options?: PageOptions) => ForgeIterable<Repo>
   /** One page of `repos()`. */
@@ -836,19 +837,19 @@ export interface WebhooksApi {
   /** One page of `list()`. */
   listPage: (target: RepoRef, options?: PageOptions) => Promise<Page<Webhook>>
   /** Registers a webhook. */
-  create: (target: RepoRef, input: WebhookInput) => Promise<Webhook>
+  create: (target: RepoRef, input: WebhookInput, options?: BaseOptions) => Promise<Webhook>
   /** Changes a webhook. */
-  update: (ref: WebhookRef, update: WebhookUpdate) => Promise<Webhook>
+  update: (ref: WebhookRef, update: WebhookUpdate, options?: BaseOptions) => Promise<Webhook>
   /** Deletes a webhook. */
-  delete: (ref: WebhookRef) => Promise<void>
+  delete: (ref: WebhookRef, options?: BaseOptions) => Promise<void>
   /** Replaces the signing secret in place. `false` where the forge can only do it by recreating the hook. */
-  rotateSecret: (ref: WebhookRef, secret: string) => Promise<Webhook>
+  rotateSecret: (ref: WebhookRef, secret: string, options?: BaseOptions) => Promise<Webhook>
   /** Lists the recent deliveries of a webhook. */
   deliveries: (ref: WebhookRef, options?: PageOptions) => ForgeIterable<WebhookDeliveryRecord>
   /** One page of `deliveries()`. */
   deliveriesPage: (ref: WebhookRef, options?: PageOptions) => Promise<Page<WebhookDeliveryRecord>>
   /** Sends a past delivery again. */
-  redeliver: (ref: WebhookDeliveryRef) => Promise<void>
+  redeliver: (ref: WebhookDeliveryRef, options?: BaseOptions) => Promise<void>
 }
 
 /**
@@ -882,7 +883,7 @@ export interface SubscriptionItem {
 /** Reading accounts. */
 export interface UsersApi {
   /** Reads an account by login, without needing a credential where the forge allows it. */
-  get: (login: string) => Promise<User>
+  get: (login: string, options?: BaseOptions) => Promise<User>
   /**
    * The account the provider's credential belongs to.
    * @example
@@ -891,7 +892,7 @@ export interface UsersApi {
    * console.log(me.login)
    * ```
    */
-  me: () => Promise<User>
+  me: (options?: BaseOptions) => Promise<User>
 }
 
 /** Ways to receive events: polling, webhooks and push subscriptions. */
@@ -1027,19 +1028,19 @@ export interface Forges {
   /** Reads routed to the provider each ref belongs to; an unregistered origin throws `UnknownForgeError`. */
   repos: {
     /** Reads a repository from the provider it belongs to. */
-    get: (ref: RepoRef, options?: { signal?: AbortSignal }) => Promise<Repo>
+    get: (ref: RepoRef, options?: BaseOptions) => Promise<Repo>
   }
   threads: {
     /** Reads a thread from the provider it belongs to. */
-    get: (ref: ThreadRef) => Promise<Thread>
+    get: (ref: ThreadRef, options?: BaseOptions) => Promise<Thread>
     /** Grouped per provider, results in input order. An unregistered origin is a per-item warning. */
-    getMany: (refs: ThreadRef[]) => Promise<GetManyResult[]>
+    getMany: (refs: ThreadRef[], options?: BaseOptions) => Promise<GetManyResult[]>
   }
   releases: {
     /** Lists the releases of a repository. */
     list: (repo: RepoRef, options?: PageOptions) => ForgeIterable<Release>
     /** The latest release of a repository, if any. */
-    latest: (repo: RepoRef, options?: { signal?: AbortSignal }) => Promise<Release | undefined>
+    latest: (repo: RepoRef, options?: BaseOptions) => Promise<Release | undefined>
   }
   securityAlerts: {
     list: SecurityAlertsApi['list']
@@ -1180,8 +1181,8 @@ export function createForges(factories: Array<ForgeProviderFactory | ForgeProvid
     parseUrl,
     repos: { get: (ref, options) => route(ref).repos.get(ref, options) },
     threads: {
-      get: ref => route(ref).threads.get(ref),
-      async getMany(refs) {
+      get: (ref, options) => route(ref).threads.get(ref, options),
+      async getMany(refs, options) {
         const groups = new Map<ForgeProvider, number[]>()
         const results: GetManyResult[] = Array.from({ length: refs.length })
         for (const [index, ref] of refs.entries()) {
@@ -1194,7 +1195,7 @@ export function createForges(factories: Array<ForgeProviderFactory | ForgeProvid
           groups.set(provider, [...groups.get(provider) ?? [], index])
         }
         await Promise.all([...groups].map(async ([provider, indexes]) => {
-          const batch = await provider.threads.getMany(indexes.map(index => refs[index]!))
+          const batch = await provider.threads.getMany(indexes.map(index => refs[index]!), options)
           for (const [position, index] of indexes.entries()) {
             results[index] = batch[position]!
           }

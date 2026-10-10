@@ -291,12 +291,12 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
     return (await getDiscussion(ref)).ref.externalId!
   }
 
-  async function getDiscussion(ref: ResolvedThreadRef): Promise<Thread> {
+  async function getDiscussion(ref: ResolvedThreadRef, options?: { signal?: AbortSignal }): Promise<Thread> {
     const data = await graphql<DiscussionThreadResult>('DISCUSSION_THREAD', {
       owner: ref.repo.owner,
       name: ref.repo.name,
       number: Number(ref.number),
-    })
+    }, options)
     const discussion = data.repository?.discussion
     if (!discussion) {
       throw new NotFoundError(`Discussion ${ref.number} not found`, 404, '', context)
@@ -318,16 +318,16 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
     }
   }
 
-  async function get(thread: ThreadRef): Promise<Thread> {
+  async function get(thread: ThreadRef, options?: { signal?: AbortSignal }): Promise<Thread> {
     const ref = requireThread(thread, context)
     if (ref.kind === 'discussion') {
-      return getDiscussion(ref)
+      return getDiscussion(ref, options)
     }
-    const { data } = await fetcher.json<GitHubIssue>(threadPath(ref))
+    const { data } = await fetcher.json<GitHubIssue>(threadPath(ref), { signal: options?.signal })
     const result = toThread(ref, data)
     if (ref.kind === 'pull_request' && data.head?.sha) {
       try {
-        const checks = await headChecks(ref.repo, data.head.sha)
+        const checks = await headChecks(ref.repo, data.head.sha, options?.signal)
         result.checks = summariseChecks(checks.items.map(check => check.state), data.html_url ? `${data.html_url}/checks` : undefined)
         if (checks.warnings?.length) {
           result.warnings = [...result.warnings ?? [], ...checks.warnings]
@@ -343,13 +343,14 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
     return result
   }
 
-  async function headChecks(repo: RepoRef, sha: string): Promise<Page<Check>> {
+  async function headChecks(repo: RepoRef, sha: string, signal?: AbortSignal): Promise<Page<Check>> {
     const [runs, status] = await Promise.allSettled([
       Array.fromAsync(fetcher.items<GitHubCheckRun>(`${repoPath(repo)}/commits/${sha}/check-runs`, {
         query: { per_page: 100 },
         select: (body, next) => ({ items: (body as { check_runs: GitHubCheckRun[] }).check_runs, next }),
+        signal,
       }), raw => toCheckRun(repo, raw)),
-      fetcher.json<GitHubCombinedStatus>(`${repoPath(repo)}/commits/${sha}/status`, { query: { per_page: 100 } }),
+      fetcher.json<GitHubCombinedStatus>(`${repoPath(repo)}/commits/${sha}/status`, { query: { per_page: 100 }, signal }),
     ])
     if (runs.status === 'rejected' && status.status === 'rejected') {
       throw runs.reason
@@ -366,11 +367,11 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
     }
   }
 
-  async function getMany(refs: ThreadRef[]): Promise<GetManyResult[]> {
+  async function getMany(refs: ThreadRef[], options?: { signal?: AbortSignal }): Promise<GetManyResult[]> {
     if (anonymous) {
       return getManyConcurrently(refs, ref => ref.kind === 'discussion'
         ? Promise.reject(new UnsupportedOperationError('github does not read discussions without credentials', context))
-        : get(ref))
+        : get(ref, options))
     }
     const results: GetManyResult[] = Array.from({ length: refs.length })
     const batchable: Array<{ index: number, ref: ResolvedThreadRef }> = []
@@ -386,7 +387,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
         batchable.push({ index, ref })
       }
     }
-    const read = await getManyConcurrently(commits.map(index => refs[index]!), get)
+    const read = await getManyConcurrently(commits.map(index => refs[index]!), ref => get(ref, options))
     commits.forEach((index, position) => {
       results[index] = read[position]!
     })
@@ -401,6 +402,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
       const { data } = await fetcher.json<{ data?: ThreadsBatchResult, errors?: Array<{ message: string, type?: string, path?: Array<string | number> }> }>(url, {
         method: 'POST',
         json: { query, variables, operationName: 'ThreadsBatch' },
+        signal: options?.signal,
       })
       const failure = data.data ? undefined : graphqlError('ThreadsBatch', data.errors, url, { instance })
       chunk.forEach(({ index, ref }, offset) => {
@@ -793,7 +795,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
     return toReview(ref, data, [])
   }
 
-  async function subscriptionNode(thread: ThreadRef): Promise<{ id: string, state: string }> {
+  async function subscriptionNode(thread: ThreadRef, options?: { signal?: AbortSignal }): Promise<{ id: string, state: string }> {
     const ref = requireThread(thread, context)
     if (ref.kind !== 'issue' && ref.kind !== 'pull_request' && ref.kind !== 'discussion') {
       throw new UnsupportedOperationError(`GitHub has no subscription for a ${ref.kind}`, context)
@@ -803,7 +805,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
       name: ref.repo.name,
       number: Number(ref.number),
       discussion: ref.kind === 'discussion',
-    })
+    }, options)
     const node = ref.kind === 'discussion' ? data.repository?.discussion : data.repository?.issueOrPullRequest
     if (!node) {
       throw new NotFoundError(`Thread ${ref.number} not found`, 404, '', context)
@@ -1043,10 +1045,10 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
 
     return {
       listPage,
-      async get(installation) {
-        return toInstallation((await appFetcher.json<GitHubInstallation>(`/app/installations/${installationId(installation)}`)).data)
+      async get(installation, options) {
+        return toInstallation((await appFetcher.json<GitHubInstallation>(`/app/installations/${installationId(installation)}`, { signal: options?.signal })).data)
       },
-      token: installation => app.installationTokenDetails(installationId(installation)),
+      token: (installation, options) => app.installationTokenDetails(installationId(installation), options),
       reposPage(installation, listOptions) {
         const id = installationId(installation)
         const installationFetcher = createFetcher({ baseUrl, authHeaders: async () => ({ authorization: `Bearer ${await app.installationToken(id)}` }) })
@@ -1264,7 +1266,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
 
   return {
     checks: {
-      list: verb(true, (repo, sha) => headChecks(repo, sha)),
+      list: verb(true, (repo, sha, options) => headChecks(repo, sha, options?.signal)),
       report: verb(true, report),
       rerun: verb(true, async (ref) => {
         if (ref.type !== 'check_run') {
@@ -1289,20 +1291,20 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
     },
     ci: {
       runsPage: verb(true, runsPage),
-      run: verb(true, async ref => toWorkflowRun(ref.repo, (await fetcher.json<GitHubWorkflowRun>(`${repoPath(ref.repo)}/actions/runs/${encodeURIComponent(ref.id)}`)).data)),
+      run: verb(true, async (ref, options) => toWorkflowRun(ref.repo, (await fetcher.json<GitHubWorkflowRun>(`${repoPath(ref.repo)}/actions/runs/${encodeURIComponent(ref.id)}`, { signal: options?.signal })).data)),
       jobsPage: verb(true, (ref, listOptions = {}) => list(`${repoPath(ref.repo)}/actions/runs/${encodeURIComponent(ref.id)}/jobs`, listOptions, (raw: GitHubWorkflowJob) => toWorkflowJob(ref, raw), { select: (body, next) => ({ items: (body as { jobs: GitHubWorkflowJob[] }).jobs, next }) })),
-      log: verb(!anonymous, async ref => (await fetcher.stream(`${repoPath(ref.repo)}/actions/jobs/${encodeURIComponent(ref.id)}/logs`)).body),
+      log: verb(!anonymous, async (ref, options) => (await fetcher.stream(`${repoPath(ref.repo)}/actions/jobs/${encodeURIComponent(ref.id)}/logs`, { signal: options?.signal })).body),
     },
     contents: {
       file: verb(true, readFile),
       treePage: verb(true, treePage),
       branchesPage: verb(true, (repo, listOptions = {}) => list(`${repoPath(repo)}/branches`, listOptions, (raw: GitHubBranch) => toBranch(raw))),
       tagsPage: verb(true, (repo, listOptions = {}) => list(`${repoPath(repo)}/tags`, listOptions, toTag)),
-      resolveRef: verb(true, async (repo, ref) => (await fetcher.json<GitHubCommit>(`${repoPath(repo)}/commits/${encodeURIComponent(ref)}`)).data.sha),
+      resolveRef: verb(true, async (repo, ref, options) => (await fetcher.json<GitHubCommit>(`${repoPath(repo)}/commits/${encodeURIComponent(ref)}`, { signal: options?.signal })).data.sha),
       commitsPage: verb(true, commitsPage),
-      commit: verb(true, async (repo, sha) => toCommit(repo, (await fetcher.json<GitHubCommit>(`${repoPath(repo)}/commits/${sha}`)).data)),
-      compare: verb(true, async (repo, base, head) => {
-        const { data } = await fetcher.json<GitHubComparison>(`${repoPath(repo)}/compare/${encodeURIComponent(base)}...${encodeURIComponent(head)}`)
+      commit: verb(true, async (repo, sha, options) => toCommit(repo, (await fetcher.json<GitHubCommit>(`${repoPath(repo)}/commits/${sha}`, { signal: options?.signal })).data)),
+      compare: verb(true, async (repo, base, head, options) => {
+        const { data } = await fetcher.json<GitHubComparison>(`${repoPath(repo)}/compare/${encodeURIComponent(base)}...${encodeURIComponent(head)}`, { signal: options?.signal })
         return {
           base,
           head,
@@ -1396,8 +1398,8 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
     },
     scopes: githubScopesFor,
     users: {
-      get: verb(true, async login => toUser(instance, (await fetcher.json<GitHubUserDetail>(`/users/${encodeURIComponent(login)}`)).data)),
-      me: verb(auth.type === 'token', async () => toUser(instance, (await fetcher.json<GitHubUserDetail>('/user')).data)),
+      get: verb(true, async (login, options) => toUser(instance, (await fetcher.json<GitHubUserDetail>(`/users/${encodeURIComponent(login)}`, { signal: options?.signal })).data)),
+      me: verb(auth.type === 'token', async options => toUser(instance, (await fetcher.json<GitHubUserDetail>('/user', { signal: options?.signal })).data)),
     },
     repos: {
       get: verb(true, async (ref, options) => {
@@ -1419,9 +1421,10 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
       })).data)),
       milestonesPage: verb(true, milestonesPage),
       collaboratorsPage: verb(!anonymous, (repo, listOptions = {}) => list(`${repoPath(repo)}/collaborators`, listOptions, (raw: GitHubCollaborator) => toCollaborator(instance, raw))),
-      permissionFor: verb(!anonymous, async (repo, actor) => {
+      permissionFor: verb(!anonymous, async (repo, actor, options) => {
         const { data } = await fetcher.json<{ permission?: string, role_name?: string, user?: GitHubCollaborator }>(
           `${repoPath(repo)}/collaborators/${encodeURIComponent(actorLogin(actor))}/permission`,
+          { signal: options?.signal },
         )
         return toRole({ role_name: data.role_name ?? (data.permission === 'none' ? undefined : data.permission), permissions: data.user?.permissions })
       }),
@@ -1494,10 +1497,10 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
           await graphql('UNRESOLVE_REVIEW_THREAD', { id })
         },
       }),
-      checks: perKind({ pull_request: true }, async (thread) => {
+      checks: perKind({ pull_request: true }, async (thread, options) => {
         const ref = requireThread(thread, context)
-        const { data } = await fetcher.json<GitHubIssue>(threadPath(ref))
-        return data.head?.sha ? headChecks(ref.repo, data.head.sha) : { items: [] }
+        const { data } = await fetcher.json<GitHubIssue>(threadPath(ref), { signal: options?.signal })
+        return data.head?.sha ? headChecks(ref.repo, data.head.sha, options?.signal) : { items: [] }
       }),
       comment: perKind({ issue: true, pull_request: true, discussion: true, commit: true }, async (thread, body) => {
         const ref = requireThread(thread, context)
@@ -1621,8 +1624,8 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
       reopen: perKind({ issue: true, pull_request: true, discussion: true }, ref => setState(ref, 'open')),
       merge: verb(true, merge),
       subscriptions: perKind(ISSUE_LIKE, {
-        subscription: async (thread): Promise<SubscriptionState> => {
-          const { state } = await subscriptionNode(thread)
+        subscription: async (thread, options): Promise<SubscriptionState> => {
+          const { state } = await subscriptionNode(thread, options)
           return state === 'SUBSCRIBED' ? 'subscribed' : state === 'IGNORED' ? 'ignored' : 'none'
         },
         subscribe: thread => setSubscription(thread, 'SUBSCRIBED'),

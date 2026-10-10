@@ -99,10 +99,10 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
   const myId = memo(() => fetcher.json<{ authenticatedUser: AzureIdentity }>(`/${enc(options.organization)}/_apis/connectionData`, { query: { 'api-version': '7.1-preview.1' } })
     .then(({ data }) => data.authenticatedUser.id))
 
-  async function pullChecks(ref: ResolvedThreadRef, pull: AzurePullRequest): Promise<Check[]> {
+  async function pullChecks(ref: ResolvedThreadRef, pull: AzurePullRequest, signal?: AbortSignal): Promise<Check[]> {
     const [statuses, evaluations] = await Promise.all([
-      fetcher.json<{ value: AzureStatus[] }>(`${pullPath(ref)}/statuses`),
-      fetcher.json<{ value: AzurePolicyEvaluation[] }>(`${projectPath(ref.repo)}/policy/evaluations`, { query: { 'artifactId': `vstfs:///CodeReview/CodeReviewId/${pull.repository.project.id}/${pull.pullRequestId}`, 'api-version': POLICY_API_VERSION } }),
+      fetcher.json<{ value: AzureStatus[] }>(`${pullPath(ref)}/statuses`, { signal }),
+      fetcher.json<{ value: AzurePolicyEvaluation[] }>(`${projectPath(ref.repo)}/policy/evaluations`, { query: { 'artifactId': `vstfs:///CodeReview/CodeReviewId/${pull.repository.project.id}/${pull.pullRequestId}`, 'api-version': POLICY_API_VERSION }, signal }),
     ])
     return [...statuses.data.value.map(raw => toStatusCheck(ref.repo, raw)), ...evaluations.data.value.map(raw => toPolicyCheck(ref.repo, raw))]
   }
@@ -138,18 +138,18 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
     })
   }
 
-  async function get(thread: ThreadRef): Promise<Thread> {
+  async function get(thread: ThreadRef, options?: { signal?: AbortSignal }): Promise<Thread> {
     const ref = requireIssueOrPull(thread, context, 'read')
     if (ref.kind === 'issue') {
-      return workItemThread(issueRef(ref.repo, ref.number), (await fetcher.json<AzureWorkItem>(workItemPath(ref), { query: { $expand: 'links' } })).data)
+      return workItemThread(issueRef(ref.repo, ref.number), (await fetcher.json<AzureWorkItem>(workItemPath(ref), { query: { $expand: 'links' }, signal: options?.signal })).data)
     }
-    const { data } = await fetcher.json<AzurePullRequest>(pullPath(ref))
+    const { data } = await fetcher.json<AzurePullRequest>(pullPath(ref), { signal: options?.signal })
     const result = toPullThread({ ...ref, repo: toRepoRef(instance, scope(ref.repo).org, data.repository) }, data)
     if (anonymous) {
       return result
     }
     try {
-      result.checks = summariseChecks((await pullChecks(ref, data)).map(check => check.state))
+      result.checks = summariseChecks((await pullChecks(ref, data, options?.signal)).map(check => check.state))
     }
     catch (error) {
       if (!(error instanceof ForgeError)) {
@@ -382,9 +382,10 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
         const { data } = await fetcher.json<{ value: AzureRef[] }>(`${repoPath(repo)}/refs`, { query: { filter: 'tags/', peelTags: 'true' }, signal: listOptions.signal })
         return { items: data.value.map(toTag) }
       }),
-      resolveRef: verb(true, async (repo, ref) => {
+      resolveRef: verb(true, async (repo, ref, options) => {
         const { data } = await fetcher.json<{ value: AzureCommit[] }>(`${repoPath(repo)}/commits`, {
           query: { 'searchCriteria.itemVersion.version': ref, '$top': 1 },
+          signal: options?.signal,
         })
         const sha = data.value[0]?.commitId
         if (!sha) {
@@ -406,13 +407,14 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
         })
         return { items: data.value.map(raw => toCommit(repo, raw)) }
       }),
-      commit: verb(true, async (repo, sha) => {
-        const { data } = await fetcher.json<AzureCommit>(`${repoPath(repo)}/commits/${sha}`, { query: { changeCount: 100 } })
+      commit: verb(true, async (repo, sha, options) => {
+        const { data } = await fetcher.json<AzureCommit>(`${repoPath(repo)}/commits/${sha}`, { query: { changeCount: 100 }, signal: options?.signal })
         return toCommit(repo, data, (data.changes ?? []).filter(change => !change.item?.isFolder).map(toChangedFile))
       }),
-      compare: verb(true, async (repo, base, head) => {
+      compare: verb(true, async (repo, base, head, options) => {
         const { data } = await fetcher.json<AzureCommitDiffs>(`${repoPath(repo)}/diffs/commits`, {
           query: { baseVersion: base, baseVersionType: versionType(base), targetVersion: head, targetVersionType: versionType(head), $top: 1000 },
+          signal: options?.signal,
         })
         return {
           base,
@@ -427,7 +429,7 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
       }),
     },
     checks: {
-      list: verb(true, async (repo, sha) => ({ items: (await fetcher.json<{ value: AzureStatus[] }>(`${repoPath(repo)}/commits/${sha}/statuses`)).data.value.map(raw => toStatusCheck(repo, raw)) })),
+      list: verb(true, async (repo, sha, options) => ({ items: (await fetcher.json<{ value: AzureStatus[] }>(`${repoPath(repo)}/commits/${sha}/statuses`, { signal: options?.signal })).data.value.map(raw => toStatusCheck(repo, raw)) })),
       report: verb(true, async (repo, sha, input) => toStatusCheck(repo, (await fetcher.json<AzureStatus>(`${repoPath(repo)}/commits/${sha}/statuses`, {
         method: 'POST',
         json: {
@@ -440,7 +442,7 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
     },
     threads: {
       get: perKind({ issue: anonymous ? 'unverified' : true, pull_request: true }, get),
-      getMany: verb(true, refs => getManyConcurrently(refs, get)),
+      getMany: verb(true, (refs, options) => getManyConcurrently(refs, ref => get(ref, options))),
       listPage: perKind({ issue: !anonymous, pull_request: true }, listPage),
       eventsPage: verb(true, eventsPage),
       commitsPage: verb(true, async (thread, listOptions = {}) => {

@@ -132,7 +132,7 @@ const TANGLED: ProviderDefinition<TangledOptions> = {
 
     const threads = {
       get: perKind(ISSUE_AND_PULL, readThread),
-      getMany: verb(true, (refs: ThreadRef[]) => getManyConcurrently(refs, readThread)),
+      getMany: verb(true, (refs: ThreadRef[], options?: { signal?: AbortSignal }) => getManyConcurrently(refs, ref => readThread(ref, options))),
       listPage: perKind({ issue: true, pull_request: true }, listPage),
       eventsPage: verb(true, async (thread: ThreadRef): Promise<Page<ForgeEventInput>> => {
         const { ref, uri, kind } = subjectUri(thread)
@@ -260,7 +260,7 @@ const TANGLED: ProviderDefinition<TangledOptions> = {
       },
       notifications,
       users: {
-        me: verb(writable, async () => ({ ...await actorFor(await viewerDid()), raw: undefined })),
+        me: verb(writable, async (options?: { signal?: AbortSignal }) => ({ ...await actorFor(await viewerDid(), options?.signal), raw: undefined })),
       },
       threads: {
         ...threads,

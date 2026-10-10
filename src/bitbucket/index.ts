@@ -222,13 +222,13 @@ const BITBUCKET: ProviderDefinition<BitbucketOptions> = {
       return data.mainbranch?.name ?? 'HEAD'
     }
 
-    async function get(thread: ThreadRef): Promise<Thread> {
+    async function get(thread: ThreadRef, options?: { signal?: AbortSignal }): Promise<Thread> {
       const ref = requireThread(thread, context)
       switch (ref.kind) {
         case 'pull_request': {
-          const result = toPullThread(ref, (await fetcher.json<BitbucketPullRequest>(threadPath(ref))).data)
+          const result = toPullThread(ref, (await fetcher.json<BitbucketPullRequest>(threadPath(ref), { signal: options?.signal })).data)
           try {
-            result.checks = summariseChecks((await pullChecks(ref)).map(check => check.state))
+            result.checks = summariseChecks((await pullChecks(ref, options?.signal)).map(check => check.state))
           }
           catch (error) {
             if (!(error instanceof ForgeError)) {
@@ -239,7 +239,7 @@ const BITBUCKET: ProviderDefinition<BitbucketOptions> = {
           return result
         }
         case 'commit':
-          return toCommitThread(ref, (await fetcher.json<BitbucketCommit>(threadPath(ref))).data)
+          return toCommitThread(ref, (await fetcher.json<BitbucketCommit>(threadPath(ref), { signal: options?.signal })).data)
         default:
           throw new UnsupportedOperationError(`Bitbucket has no ${ref.kind} threads`, context)
       }
@@ -402,8 +402,8 @@ const BITBUCKET: ProviderDefinition<BitbucketOptions> = {
         ?? { ref: { forge: FORGE, instance, thread: ref, id: 'participant:' }, state: 'unknown', comments: false, raw: data }
     }
 
-    function pullChecks(ref: ResolvedThreadRef): Promise<Check[]> {
-      return Array.fromAsync(all<BitbucketCommitStatus>(`${threadPath(ref)}/statuses`), status => toStatusCheck(ref.repo, status))
+    function pullChecks(ref: ResolvedThreadRef, signal?: AbortSignal): Promise<Check[]> {
+      return Array.fromAsync(all<BitbucketCommitStatus>(`${threadPath(ref)}/statuses`, { signal }), status => toStatusCheck(ref.repo, status))
     }
 
     function commentsPath(ref: ResolvedThreadRef): string {
@@ -418,8 +418,8 @@ const BITBUCKET: ProviderDefinition<BitbucketOptions> = {
       traits: { eventKinds: 'native', authKinds: ['token', 'basic', 'anonymous'] },
       normaliseMarkdown,
       users: {
-        me: verb(true, async () => {
-          const { data } = await fetcher.json<BitbucketUser>('/user')
+        me: verb(true, async (options) => {
+          const { data } = await fetcher.json<BitbucketUser>('/user', { signal: options?.signal })
           return { ...toActor(instance, data)!, raw: data }
         }),
       },
@@ -476,22 +476,23 @@ const BITBUCKET: ProviderDefinition<BitbucketOptions> = {
         }),
         branchesPage: verb(true, (repo, listOptions = {}) => list(`${repoPathOf(repo)}/refs/branches`, listOptions, (raw: BitbucketRef) => toBranch(raw), { select: page<BitbucketRef> })),
         tagsPage: verb(true, (repo, listOptions = {}) => list(`${repoPathOf(repo)}/refs/tags`, listOptions, toTag, { select: page<BitbucketRef> })),
-        resolveRef: verb(true, async (repo, ref) => (await fetcher.json<BitbucketCommitDetail>(`${repoPathOf(repo)}/commit/${encodeURIComponent(ref)}`)).data.hash),
+        resolveRef: verb(true, async (repo, ref, options) => (await fetcher.json<BitbucketCommitDetail>(`${repoPathOf(repo)}/commit/${encodeURIComponent(ref)}`, { signal: options?.signal })).data.hash),
         commitsPage: verb(true, (repo, query = {}) => list(`${repoPathOf(repo)}/commits${query.ref ? `/${encodeURIComponent(query.ref)}` : ''}`, query, (raw: BitbucketCommitDetail) => toCommit(repo, raw), { query: { path: query.path }, select: page<BitbucketCommitDetail> })),
-        commit: verb(true, async (repo, sha) => {
+        commit: verb(true, async (repo, sha, options) => {
           const [commit, files] = await Promise.all([
-            fetcher.json<BitbucketCommitDetail>(`${repoPathOf(repo)}/commit/${sha}`),
-            Array.fromAsync(all<BitbucketDiffStat>(`${repoPathOf(repo)}/diffstat/${sha}`), toChangedFile),
+            fetcher.json<BitbucketCommitDetail>(`${repoPathOf(repo)}/commit/${sha}`, { signal: options?.signal }),
+            Array.fromAsync(all<BitbucketDiffStat>(`${repoPathOf(repo)}/diffstat/${sha}`, { signal: options?.signal }), toChangedFile),
           ])
           return toCommit(repo, commit.data, files)
         }),
-        compare: verb(true, async (repo, base, head) => {
+        compare: verb(true, async (repo, base, head, options) => {
           const [files, commits] = await Promise.all([
-            Array.fromAsync(all<BitbucketDiffStat>(`${repoPathOf(repo)}/diffstat/${encodeURIComponent(head)}..${encodeURIComponent(base)}`), toChangedFile),
+            Array.fromAsync(all<BitbucketDiffStat>(`${repoPathOf(repo)}/diffstat/${encodeURIComponent(head)}..${encodeURIComponent(base)}`, { signal: options?.signal }), toChangedFile),
             Array.fromAsync(
               fetcher.items<BitbucketCommitDetail>(`${repoPathOf(repo)}/commits`, {
                 query: { include: head, exclude: base, pagelen: 50 },
                 select: page<BitbucketCommitDetail>,
+                signal: options?.signal,
               }),
               raw => toCommit(repo, raw),
             ),
@@ -500,7 +501,7 @@ const BITBUCKET: ProviderDefinition<BitbucketOptions> = {
         }),
       },
       checks: {
-        list: verb(true, async (repo, sha) => ({ items: await Array.fromAsync(all<BitbucketCommitStatus>(`${repoPathOf(repo)}/commit/${sha}/statuses`), raw => toStatusCheck(repo, raw)) })),
+        list: verb(true, async (repo, sha, options) => ({ items: await Array.fromAsync(all<BitbucketCommitStatus>(`${repoPathOf(repo)}/commit/${sha}/statuses`, { signal: options?.signal }), raw => toStatusCheck(repo, raw)) })),
         report: verb(true, async (repo, sha, input) => toStatusCheck(repo, (await fetcher.json<BitbucketCommitStatus>(`${repoPathOf(repo)}/commit/${sha}/statuses/build`, {
           method: 'POST',
           json: {
@@ -516,7 +517,7 @@ const BITBUCKET: ProviderDefinition<BitbucketOptions> = {
       threads: {
         filesPage: verb(true, (thread, listOptions = {}) => list(`${threadPath(requirePull(thread, 'read for changed files'))}/diffstat`, listOptions, toChangedFile, { select: page<BitbucketDiffStat> })),
         commitsPage: verb(true, (thread, listOptions = {}) => list(`${threadPath(requirePull(thread, 'read for commits'))}/commits`, listOptions, (raw: BitbucketCommitDetail) => toCommit(thread.repo, raw), { select: page<BitbucketCommitDetail> })),
-        checks: perKind({ pull_request: true }, async thread => ({ items: await pullChecks(requireThread(thread, context)) })),
+        checks: perKind({ pull_request: true }, async (thread, options) => ({ items: await pullChecks(requireThread(thread, context), options?.signal) })),
         reviewsPage: verb('emulated', async (thread) => {
           const ref = requireThread(thread, context)
           if (ref.kind !== 'pull_request') {
@@ -526,7 +527,7 @@ const BITBUCKET: ProviderDefinition<BitbucketOptions> = {
         }),
         createReview: verb('emulated', createReview),
         get: perKind({ pull_request: true, commit: true }, get),
-        getMany: verb(true, refs => getManyConcurrently(refs, get)),
+        getMany: verb(true, (refs, options) => getManyConcurrently(refs, ref => get(ref, options))),
         listPage: perKind({ pull_request: true }, listPage),
         eventsPage: verb(true, async (thread: ThreadRef, listOptions: ListOptions = {}): Promise<Page<ForgeEventInput>> => {
           const ref = requireThread(thread, context)
