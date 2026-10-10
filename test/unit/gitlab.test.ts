@@ -205,6 +205,39 @@ describe('gitlab provider', () => {
   })
 })
 
+describe('gitlab latest release', () => {
+  it('reads the permalink endpoint, which redirects to the latest release', async () => {
+    const { instance, calls } = provider()
+    const latest = await instance.releases.latest(repo)
+
+    expect(latest?.tag).toBe('v2.0.0')
+    expect(latest?.publishedAt).toEqual(new Date('2025-09-10T12:00:00Z'))
+    expect(calls.at(-1)!.url).toBe(`${P}/releases/permalink/latest`)
+  })
+
+  it('returns no release when the permalink is not found', async () => {
+    const { instance } = provider({
+      [`GET ${P}/releases/permalink/latest`]: { status: 404, body: { message: '404 Not Found' } },
+    })
+
+    await expect(instance.releases.latest(repo)).resolves.toBeUndefined()
+  })
+
+  it('reads the list for the newest published release when the permalink points at an upcoming one', async () => {
+    const upcoming = { tag_name: 'v3.0.0', released_at: '2030-01-01T00:00:00Z', upcoming_release: true }
+    const published = { tag_name: 'v2.9.0', released_at: '2025-09-10T12:00:00Z', upcoming_release: false }
+    const { instance, calls } = provider({
+      [`GET ${P}/releases/permalink/latest`]: { status: 200, body: upcoming },
+      [`GET ${P}/releases?per_page=20`]: { status: 200, body: [upcoming, published] },
+    })
+
+    const latest = await instance.releases.latest(repo)
+
+    expect(latest?.tag).toBe('v2.9.0')
+    expect(calls.map(call => call.url)).toEqual([`${P}/releases/permalink/latest`, `${P}/releases?per_page=20`])
+  })
+})
+
 describe('gitlab merge methods', () => {
   it('rejects a method the project is not configured for', async () => {
     const { instance, calls } = provider()

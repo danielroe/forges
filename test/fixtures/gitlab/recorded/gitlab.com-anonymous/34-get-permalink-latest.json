@@ -1,0 +1,15 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/releases/permalink/latest"
+  },
+  "response": {
+    "status": 302,
+    "headers": {
+      "location": "https://gitlab.com/api/v4/projects/34675721/releases/v1.122.0",
+      "ratelimit-limit": "500",
+      "ratelimit-remaining": "466",
+      "ratelimit-reset": "1791665100"
+    }
+  }
+}
