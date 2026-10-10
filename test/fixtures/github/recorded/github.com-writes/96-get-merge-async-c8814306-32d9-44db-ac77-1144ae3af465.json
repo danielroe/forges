@@ -1,0 +1,26 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/pulls/52/merge-async/c8814306-32d9-44db-ac77-1144ae3af465"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"fd05620d23bf2db52a4ec0d77ea47c2ad701958a68d47b1a53aa2b7d6fe1253a\"",
+      "x-ratelimit-limit": "5000",
+      "x-ratelimit-remaining": "4942",
+      "x-ratelimit-reset": "1791670539"
+    },
+    "body": {
+      "status": "pending",
+      "details": {
+        "message": "Merge request is in progress.",
+        "uuid": "c8814306-32d9-44db-ac77-1144ae3af465",
+        "merge_method": "merge",
+        "merge_action": "direct_merge",
+        "expected_head_sha": "29a7c9ecb27e3f5a31aea5e0557fa2c381b8fd67",
+        "bypass_rules": false
+      }
+    }
+  }
+}
