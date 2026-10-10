@@ -1,5 +1,5 @@
 import type { ForgeErrorContext } from './errors.ts'
-import type { Cursor, RateLimit } from './model.ts'
+import type { BaseOptions, Cursor, RateLimit } from './model.ts'
 import { AuthenticationRequiredError, ForbiddenError, forbiddenReason, ForgeApiError, ForgeNetworkError, ForgeTimeoutError, InsufficientScopeError, NotFoundError, RateLimitedError, TokenRevokedError } from './errors.ts'
 
 /** The subset of `fetch` that forges needs, so a test or a runtime without a global `fetch` can supply its own. */
@@ -565,14 +565,13 @@ function emptyStream(): ReadableStream<Uint8Array> {
 }
 
 /** Options for `provider.request()`. */
-export interface ForgeRequestOptions {
+export interface ForgeRequestOptions extends BaseOptions {
   /** Query parameters. Parameters that are `undefined` are left out. */
   query?: RequestOptions['query']
   /** Native fetch bodies and strings are sent as-is; other values are sent as JSON. */
   body?: unknown
   /** Headers to send. They add to the provider's default headers. */
   headers?: Record<string, string>
-  signal?: AbortSignal
   /** Caller-declared mutation. Defaults to `false` for GET/HEAD/OPTIONS, otherwise `true`. */
   mutates?: boolean
 }

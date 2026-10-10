@@ -1359,13 +1359,12 @@ export interface CodeSearchQuery extends PageOptions {
   owner?: string
 }
 
-/**
- * Options that every operation which performs a request accepts. Most options
- * types extend it, so `{ signal }` is available wherever an operation can be
- * cancelled.
- */
+/** Options accepted by every operation that sends requests; the other options types extend it. */
 export interface BaseOptions {
-  /** Aborts the request; the operation rejects with the signal's reason. */
+  /**
+   * Aborts the operation's requests, and the operation rejects with the signal's reason.
+   * Writes the forge has already received are not undone.
+   */
   signal?: AbortSignal
 }
 

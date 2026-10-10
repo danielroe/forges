@@ -161,6 +161,11 @@ describe('exported types', () => {
     expectTypeOf<root.FileMetadata>().toEqualTypeOf<Omit<root.FileContent, 'encoding' | 'content'>>()
   })
 
+  it('exports the options every operation accepts from the package root', () => {
+    expectTypeOf<root.BaseOptions>().toEqualTypeOf<NonNullable<Parameters<ForgeProvider['threads']['get']>[1]>>()
+    expectTypeOf<root.PageOptions>().toExtend<root.BaseOptions>()
+  })
+
   it('declares every verb as present on the provider surface', () => {
     expectTypeOf<ForgeProvider['threads']['comment']>().not.toBeNullable()
     expectTypeOf<ForgeProvider['notifications']['markRead']>().not.toBeNullable()
