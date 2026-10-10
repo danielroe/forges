@@ -1,6 +1,7 @@
 import type { Fetcher } from '../fetch.ts'
 import type { BacklinksResponse, DidDocument, RecordResponse, TangledRecord } from './types.ts'
 import { ForgeApiError, ForgeError, NotFoundError } from '../errors.ts'
+import { abortable } from '../fetch.ts'
 
 export interface AtUri {
   did: string
@@ -59,7 +60,7 @@ export function createAtprotoClient(options: AtprotoClientOptions): AtprotoClien
       const url = did.startsWith('did:web:')
         ? `https://${decodeURIComponent(did.slice('did:web:'.length))}/.well-known/did.json`
         : `${options.plcUrl}/${did}`
-      identity = options.fetcher.json<DidDocument>(url, { signal }).then(({ data }) => ({
+      identity = options.fetcher.json<DidDocument>(url).then(({ data }) => ({
         did,
         pds: data.service?.find(service => service.id.endsWith('#atproto_pds'))?.serviceEndpoint,
         handle: data.alsoKnownAs?.find(alias => alias.startsWith('at://'))?.slice('at://'.length),
@@ -67,7 +68,7 @@ export function createAtprotoClient(options: AtprotoClientOptions): AtprotoClien
       identity.catch(() => identities.delete(did))
       identities.set(did, identity)
     }
-    return identity
+    return abortable(identity, signal)
   }
 
   const handles = new Map<string, Promise<string>>()
@@ -77,8 +78,8 @@ export function createAtprotoClient(options: AtprotoClientOptions): AtprotoClien
     let did = handles.get(key)
     if (!did) {
       did = (async () => {
-        const { data } = await options.fetcher.json<{ did: string }>(`${options.handleResolverUrl}/xrpc/com.atproto.identity.resolveHandle`, { query: { handle: key }, signal })
-        if ((await resolveDid(data.did, signal)).handle?.toLowerCase() !== key) {
+        const { data } = await options.fetcher.json<{ did: string }>(`${options.handleResolverUrl}/xrpc/com.atproto.identity.resolveHandle`, { query: { handle: key } })
+        if ((await resolveDid(data.did)).handle?.toLowerCase() !== key) {
           throw new NotFoundError(`${data.did} does not claim the handle ${handle}`, 404, '', options.context)
         }
         return data.did
@@ -86,7 +87,7 @@ export function createAtprotoClient(options: AtprotoClientOptions): AtprotoClien
       did.catch(() => handles.delete(key))
       handles.set(key, did)
     }
-    return did
+    return abortable(did, signal)
   }
 
   async function pdsOf(did: string, signal?: AbortSignal): Promise<string> {

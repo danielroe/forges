@@ -1,3 +1,4 @@
+import type { FetchLike } from '../../src/fetch.ts'
 import type { ResolvedThreadRef } from '../../src/model.ts'
 import { describe, expect, it } from 'vitest'
 import { InsufficientScopeError, SubscriptionClosedError, TokenRevokedError, UnresolvedThreadError, UnsupportedOperationError } from '../../src/errors.ts'
@@ -135,6 +136,69 @@ describe('tangled state', () => {
 
     expect(thread).toMatchObject({ state: 'merged', stateRaw: 'merged' })
     expect(thread.closedAt?.toISOString()).toBe('2025-09-19T00:00:00.000Z')
+  })
+})
+
+describe('tangled cancellation', () => {
+  function heldProvider(held: RegExp) {
+    const { fetch: served } = fixtureFetch('tangled')
+    let holding = true
+    let markHeld!: () => void
+    const reached = new Promise<void>((resolve) => {
+      markHeld = resolve
+    })
+    let release!: () => void
+    const released = new Promise<void>((resolve) => {
+      release = resolve
+    })
+    const fetch: FetchLike = async (input, init) => {
+      if (holding && held.test(input)) {
+        markHeld()
+        await new Promise<void>((resolve, reject) => {
+          init?.signal?.addEventListener('abort', () => reject(init.signal!.reason), { once: true })
+          void released.then(resolve)
+        })
+      }
+      return served(input, init)
+    }
+    const instance = tangled({ auth: { type: 'app_password', identifier: 'acme.example.com', password: 'pw', pds: PDS }, fetch }).create()
+    return {
+      instance,
+      reached,
+      release: () => {
+        holding = false
+        release()
+      },
+    }
+  }
+
+  it('reads a thread after an earlier read was aborted while collaborators loaded', async () => {
+    const { instance, reached, release } = heldProvider(/listCollaborators/)
+    const controller = new AbortController()
+    const reason = new Error('cancelled')
+
+    const aborted = instance.threads.get(pull, { signal: controller.signal })
+    await reached
+    controller.abort(reason)
+    await expect(aborted).rejects.toBe(reason)
+    release()
+
+    expect((await instance.threads.get(pull)).state).toBe('open')
+  })
+
+  it('does not reject a concurrent read when another caller aborts a shared lookup', async () => {
+    const { instance, reached, release } = heldProvider(/plc\.directory/)
+    const controller = new AbortController()
+    const reason = new Error('cancelled')
+
+    const aborted = instance.threads.get(pull, { signal: controller.signal })
+    await reached
+    const concurrent = instance.threads.get(pull)
+    controller.abort(reason)
+    release()
+
+    await expect(aborted).rejects.toBe(reason)
+    expect((await concurrent).state).toBe('open')
   })
 })
 

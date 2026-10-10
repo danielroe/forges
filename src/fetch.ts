@@ -278,6 +278,21 @@ export function sleep(ms: number, signal: AbortSignal | undefined): Promise<void
   })
 }
 
+/** Settles as `promise` does, or rejects with the signal's reason once it aborts, leaving `promise` running. */
+export function abortable<T>(promise: Promise<T>, signal: AbortSignal | undefined): Promise<T> {
+  if (!signal) {
+    return promise
+  }
+  if (signal.aborted) {
+    return Promise.reject(signal.reason)
+  }
+  return new Promise<T>((resolve, reject) => {
+    const onAbort = () => reject(signal.reason)
+    signal.addEventListener('abort', onAbort, { once: true })
+    promise.then(resolve, reject).finally(() => signal.removeEventListener('abort', onAbort))
+  })
+}
+
 /**
  * Creates a fetcher for one forge API.
  * @param options The base URL and the credentials, timeout and error context of every request.

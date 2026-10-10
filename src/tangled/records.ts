@@ -20,6 +20,7 @@ import type { TangledOptions } from './index.ts'
 import type { TangledSession } from './session.ts'
 import type { FeedCommentRecord, IssueRecord, JetstreamCommitEvent, PullRecord, RecordResponse, RepoRecord, StateRecord, SubscriptionRecord, TangledRecord } from './types.ts'
 import { ForgeApiError, ForgeError, NotFoundError, RateLimitedError, UnresolvedThreadError } from '../errors.ts'
+import { abortable } from '../fetch.ts'
 import { degradesToWarning, forgeIterable, mapConcurrent, phased, requireThread, toDate, toWarning } from '../utils.ts'
 import { atUri, parseAtUri } from './atproto.ts'
 import {
@@ -93,7 +94,7 @@ export function createTangledRecords({ options, instance, webUrl, context, atpro
     let found = collaborators.get(repoDid)
     if (!found) {
       found = (async () => {
-        const { pds: knot } = await atproto.resolveDid(repoDid, signal)
+        const { pds: knot } = await atproto.resolveDid(repoDid)
         const dids = new Set<string>()
         if (!knot) {
           return { dids }
@@ -102,7 +103,7 @@ export function createTangledRecords({ options, instance, webUrl, context, atpro
         do {
           const { data }: { data: { items: Array<{ subject: string }>, cursor?: string } } = await fetcher.json(
             `${knot.replace(/\/$/, '')}/xrpc/sh.tangled.repo.listCollaborators`,
-            { query: { subject: repoDid, limit: 1000, cursor }, signal },
+            { query: { subject: repoDid, limit: 1000, cursor } },
           )
           for (const item of data.items) {
             dids.add(item.subject)
@@ -121,7 +122,7 @@ export function createTangledRecords({ options, instance, webUrl, context, atpro
       })
       collaborators.set(repoDid, found)
     }
-    return found
+    return abortable(found, signal)
   }
 
   /**
@@ -150,7 +151,7 @@ export function createTangledRecords({ options, instance, webUrl, context, atpro
         if (legacy) {
           return { forge: FORGE, instance, owner: legacy.did, name: legacy.rkey }
         }
-        const { value: link } = await atproto.backlinks(field, COLLECTIONS.repo, '.repoDid', signal).next()
+        const { value: link } = await atproto.backlinks(field, COLLECTIONS.repo, '.repoDid').next()
         if (!link) {
           throw new UnresolvedThreadError(`No sh.tangled.repo record declares ${field}`, context)
         }
@@ -159,7 +160,7 @@ export function createTangledRecords({ options, instance, webUrl, context, atpro
       repo.catch(() => repos.delete(field))
       repos.set(field, repo)
     }
-    return repo
+    return abortable(repo, signal)
   }
 
   async function threadFor(subject: string, signal?: AbortSignal): Promise<{ ref: ResolvedThreadRef, record: IssueRecord | PullRecord, cid?: string }> {
@@ -279,8 +280,8 @@ export function createTangledRecords({ options, instance, webUrl, context, atpro
     let found = canonical.get(key)
     if (!found) {
       found = (async () => {
-        const did = repo.owner.startsWith('did:') ? repo.owner : await atproto.resolveHandle(repo.owner.replace(/^@/, ''), signal)
-        const record = await atproto.getRecord<RepoRecord>(atUri(did, COLLECTIONS.repo, repo.name), signal).catch((error: unknown) => {
+        const did = repo.owner.startsWith('did:') ? repo.owner : await atproto.resolveHandle(repo.owner.replace(/^@/, ''))
+        const record = await atproto.getRecord<RepoRecord>(atUri(did, COLLECTIONS.repo, repo.name)).catch((error: unknown) => {
           if (error instanceof NotFoundError) {
             return undefined
           }
@@ -289,7 +290,7 @@ export function createTangledRecords({ options, instance, webUrl, context, atpro
         if (record) {
           return { ref: { ...repo, owner: did }, record }
         }
-        for await (const candidate of atproto.listRecords<RepoRecord>(did, COLLECTIONS.repo, signal)) {
+        for await (const candidate of atproto.listRecords<RepoRecord>(did, COLLECTIONS.repo)) {
           if (candidate.value.name === repo.name) {
             return { ref: { ...repo, owner: did, name: parseAtUri(candidate.uri)!.rkey }, record: candidate }
           }
@@ -299,7 +300,7 @@ export function createTangledRecords({ options, instance, webUrl, context, atpro
       found.catch(() => canonical.delete(key))
       canonical.set(key, found)
     }
-    return found
+    return abortable(found, signal)
   }
 
   /** `repo` with a DID owner and the record key as `name`; refs this provider returned already are. */
