@@ -6,6 +6,8 @@ export interface RenderContext {
   resolve: LinkResolver
   /** A sentence about the capability that a verb such as `threads.comment` belongs to. */
   capability: (verb: string) => string | undefined
+  /** The block that shows the explorer for a verb, when the docs have one. */
+  explorer?: (verb: string) => string | undefined
   /** Writes a heading. The page records it, so that a link to `target` can point at it. */
   heading: (level: number, text: string, target?: ApiSymbol | ApiMember) => string
 }
@@ -67,6 +69,10 @@ export function renderMember(member: ApiMember, level: number, context: RenderCo
   }
   if (member.inheritedFrom) {
     blocks.push(`Inherited from ${typeToMarkdown(member.inheritedFrom, context.resolve)}.`)
+  }
+  const explorer = verb && context.explorer?.(verb)
+  if (explorer) {
+    blocks.push(explorer)
   }
   return blocks.join('\n\n')
 }

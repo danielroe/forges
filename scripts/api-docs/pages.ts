@@ -67,6 +67,8 @@ export interface PagesOptions {
   /** Members to leave out of the pages, because a page describes them once for all. */
   hiddenMembers?: (symbol: ApiSymbol, member: ApiMember) => boolean
   capability: (verb: string) => CapabilityInfo | undefined
+  /** Whether the docs have an explorer for a verb, which its section then shows. */
+  explorable?: (verb: string) => boolean
   /** The command that regenerates the pages, for the banner. */
   command: string
 }
@@ -292,6 +294,7 @@ function renderPage(page: Page, pages: Page[], resolve: (name: string) => string
   const context: RenderContext = {
     resolve,
     capability: verb => describeCapability(options.capability(verb)),
+    explorer: verb => options.explorable?.(verb) ? `::api-explorer{verb="${verb}"}\n::` : undefined,
     heading: (level, text, target) => {
       headings.push({ text, target })
       return `${'#'.repeat(level)} ${text}`
