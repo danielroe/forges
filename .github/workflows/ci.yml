@@ -93,6 +93,8 @@ jobs:
 
   links:
     runs-on: ubuntu-latest
+    env:
+      LYCHEE_ARGS: --config lychee.toml --cache --cache-exclude-status '429, 500..' --remap 'https://github\.com/danielroe/forges/(?:blob|tree)/main/(.*) file://${{ github.workspace }}/$1' --include-fragments docs/.output/public README.md CONTRIBUTING.md CODE_OF_CONDUCT.md docs/README.md docs/content examples test/fixtures
 
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
@@ -113,10 +115,26 @@ jobs:
         run: pnpm build:docs
 
       - name: 🔗 Check links
+        id: lychee
         uses: lycheeverse/lychee-action@e7477775783ea5526144ba13e8db5eec57747ce8 # v2.9.0
         with:
           lycheeVersion: v0.24.2
-          args: --config lychee.toml --include-fragments docs/.output/public README.md CONTRIBUTING.md CODE_OF_CONDUCT.md docs/README.md docs/content examples test/fixtures
+          args: ${{ env.LYCHEE_ARGS }}
+          fail: false
+          jobSummary: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: ⏳ Wait before retrying links
+        if: steps.lychee.outputs.exit_code != 0
+        run: sleep 30
+
+      - name: 🔗 Retry failed links
+        if: steps.lychee.outputs.exit_code != 0
+        uses: lycheeverse/lychee-action@e7477775783ea5526144ba13e8db5eec57747ce8 # v2.9.0
+        with:
+          lycheeVersion: v0.24.2
+          args: ${{ env.LYCHEE_ARGS }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
