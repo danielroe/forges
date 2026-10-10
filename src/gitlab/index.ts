@@ -82,7 +82,7 @@ import { fromBase64, toFileContent } from '../contents.ts'
 import { defineForgeProvider, perKind, verb } from '../define.ts'
 import { AuthenticationRequiredError, InsufficientScopeError, NotFoundError, soleMergeMethod, TokenRevokedError, toMergeError, UnresolvedThreadError, UnsupportedOperationError } from '../errors.ts'
 import { isNamespaceRef, reactionContent } from '../model.ts'
-import { createListing, degradesToWarning, getManyConcurrently, hexColour, memo, memoBy, milestoneId, phased, requireIssueOrPull, requireThread, resolveToken, syntheticReview, toDate, toPage, toWarning, versionAtLeast } from '../utils.ts'
+import { createListing, degradesToWarning, getManyConcurrently, hexColour, memo, memoBy, mergeCommitMessage, milestoneId, phased, requireIssueOrPull, requireThread, resolveToken, syntheticReview, toDate, toPage, toWarning, versionAtLeast } from '../utils.ts'
 import { webUrlFor } from '../web.ts'
 import { nativeEventsFor } from '../webhooks.ts'
 import {
@@ -614,12 +614,13 @@ const GITLAB: ProviderDefinition<GitLabOptions> = {
         throw new UnsupportedOperationError('Only merge requests can be merged', context)
       }
       const method = await resolveMergeMethod(ref, mergeOptions.method, mergeOptions.signal)
+      const message = mergeCommitMessage(mergeOptions)
       await hooks.beforeMerge?.()
       await fetcher.raw(`${threadPath(ref)}/merge`, {
         method: 'PUT',
         json: {
           sha: mergeOptions.sha,
-          ...mergeOptions.message ? { [method === 'squash' ? 'squash_commit_message' : 'merge_commit_message']: mergeOptions.message } : {},
+          ...message ? { [method === 'squash' ? 'squash_commit_message' : 'merge_commit_message']: message } : {},
           squash: method === 'squash',
           merge_when_pipeline_succeeds: mergeOptions.whenChecksPass ?? false,
         },

@@ -30,4 +30,12 @@ describe('cursor origin merge', () => {
     await expect(instance.threads.approveAndMerge(pull, { method: 'squash', message: 'Ship it' })).rejects.toThrow(UnsupportedOperationError)
     expect(calls).toEqual([])
   })
+
+  it('rejects a merge commit title before sending anything', async () => {
+    const { fetch, calls } = fixtureFetch('cursor-origin')
+    const instance = cursorOrigin({ auth: { type: 'token', token: 't' }, fetch }).create()
+
+    await expect(instance.threads.merge(pull, { method: 'squash', title: 'Release widgets' })).rejects.toThrow('Cursor Origin does not take a merge commit title')
+    expect(calls).toEqual([])
+  })
 })

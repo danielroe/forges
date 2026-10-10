@@ -103,6 +103,13 @@ describe('gitee', () => {
     expect(JSON.parse(calls[0]!.body!)).toEqual({ merge_method: 'merge', description: 'Ship it' })
   })
 
+  it('sends `title` as the merge title', async () => {
+    const { fetch, calls } = fixtureFetch('gitee')
+    await gitee({ auth: { type: 'token', token: 't' }, fetch }).create().threads.merge!(pull, { method: 'squash', title: 'Release widgets (!7)', message: 'Ship it' })
+
+    expect(JSON.parse(calls[0]!.body!)).toEqual({ merge_method: 'squash', title: 'Release widgets (!7)', description: 'Ship it' })
+  })
+
   it('writes issues through the owner-scoped endpoint and refuses several assignees', async () => {
     const { fetch, calls } = fixtureFetch('gitee', {
       'PATCH https://gitee.com/api/v5/repos/acme/issues/I8ABCD': { status: 200, body: { id: 7001, number: 'I8ABCD', state: 'closed', title: 'x' } },

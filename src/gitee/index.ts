@@ -495,7 +495,7 @@ function setupGitee({ instance, origin: context, fetcher, baseUrl }: ProviderCon
           throw new UnsupportedOperationError(`Gitee does not support the ${mergeOptions.method} merge method`, context)
         }
         await hooks.beforeMerge?.()
-        await fetcher.raw(`${threadPath(ref)}/merge`, { method: 'PUT', json: { merge_method: mergeOptions.method, description: mergeOptions.message }, mapError: toMergeError, signal: mergeOptions.signal })
+        await fetcher.raw(`${threadPath(ref)}/merge`, { method: 'PUT', json: { merge_method: mergeOptions.method, title: mergeOptions.title, description: mergeOptions.message }, mapError: toMergeError, signal: mergeOptions.signal })
       }),
       checks: perKind(PULL, async (thread, options) => {
         const ref = requireThread(thread, context)

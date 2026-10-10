@@ -252,6 +252,17 @@ describe('gitlab merge methods', () => {
 
     expect(calls[0]!.body).toBe('{"squash":true,"merge_when_pipeline_succeeds":true}')
   })
+
+  it.each([
+    ['squash', { title: 'Release widgets (!23)', message: 'Ships the widgets' }, { squash_commit_message: 'Release widgets (!23)\n\nShips the widgets' }],
+    ['merge', { title: 'Release widgets (!23)' }, { merge_commit_message: 'Release widgets (!23)' }],
+    ['merge', { message: 'Ships the widgets' }, { merge_commit_message: 'Ships the widgets' }],
+  ] as const)('puts the merge commit title before the message for a %s with %j', async (method, text, expected) => {
+    const { instance, calls } = provider()
+    await instance.threads.merge!(mr, { method, ...text })
+
+    expect(JSON.parse(calls.at(-1)!.body!)).toEqual({ ...expected, squash: method === 'squash', merge_when_pipeline_succeeds: false })
+  })
 })
 
 describe('gitlab webhooks', () => {

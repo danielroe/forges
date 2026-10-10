@@ -1,6 +1,6 @@
 import type { ForgeErrorContext } from './errors.ts'
 import type { Fetcher, FetchResult, PaginateOptions } from './fetch.ts'
-import type { Actor, BaseOptions, ChecksSummary, CheckState, Cursor, FileStatus, ForgeWarning, GetManyResult, ListOptions, Milestone, Page, PageOptions, RateLimit, ResolvedThreadRef, Review, ReviewState, Thread, ThreadRef } from './model.ts'
+import type { Actor, BaseOptions, ChecksSummary, CheckState, Cursor, FileStatus, ForgeWarning, GetManyResult, ListOptions, MergeOptions, Milestone, Page, PageOptions, RateLimit, ResolvedThreadRef, Review, ReviewState, Thread, ThreadRef } from './model.ts'
 import type { ForgeIterable, MilestoneListOptions, TokenAuth } from './provider.ts'
 import { ForgeApiError, ForgeError, RateLimitedError, TokenRevokedError, UnresolvedThreadError, UnsupportedOperationError } from './errors.ts'
 import { rateLimitOf } from './fetch.ts'
@@ -163,6 +163,11 @@ export async function milestoneId(
     }
   }
   throw new UnsupportedOperationError(`No milestone titled ${value}`, context)
+}
+
+/** Joins the merge commit title and message for a forge that takes them as one string. */
+export function mergeCommitMessage({ title, message }: MergeOptions): string | undefined {
+  return title && message ? `${title}\n\n${message}` : title || message
 }
 
 /** A login from either a login string or an actor. */

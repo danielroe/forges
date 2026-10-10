@@ -119,6 +119,13 @@ describe('github merging', () => {
     expect(calls[0]!.body).toEqual({ merge_method: 'squash', merge_action: 'direct_merge', commit_message: 'Release widgets' })
   })
 
+  it('sends the merge commit title next to the message', async () => {
+    const { merge, calls } = forge({ [`PUT ${ASYNC}`]: { status: 200, body: merged } })
+
+    expect(await merge({ method: 'squash', title: 'Release widgets (#42)', message: 'Ships the widgets', approve: false })).toBeUndefined()
+    expect(calls[0]!.body).toEqual({ merge_method: 'squash', merge_action: 'direct_merge', commit_title: 'Release widgets (#42)', commit_message: 'Ships the widgets' })
+  })
+
   it('resolves without polling when the pull request is already merged', async () => {
     const { merge, calls } = forge({ [`PUT ${ASYNC}`]: { status: 200, body: merged } })
 
@@ -236,6 +243,13 @@ describe('github merging', () => {
     const { merge, calls } = forge({ [`PUT ${ASYNC}`]: { status: 409, body: pending() } })
 
     expect(await merge({ method: 'squash', sha: SHA, message, approve: false })).toBeInstanceOf(MergeBlockedError)
+    expect(calls.map(call => call.method)).toEqual(['PUT'])
+  })
+
+  it.each(['Release widgets (#42)', ''])('refuses to adopt a pending request when a commit title is supplied (%j)', async (title) => {
+    const { merge, calls } = forge({ [`PUT ${ASYNC}`]: { status: 409, body: pending() } })
+
+    expect(await merge({ method: 'squash', sha: SHA, title, approve: false })).toBeInstanceOf(MergeBlockedError)
     expect(calls.map(call => call.method)).toEqual(['PUT'])
   })
 
