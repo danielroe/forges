@@ -205,6 +205,42 @@ describe('gitlab provider', () => {
   })
 })
 
+describe('gitlab repository licence', () => {
+  it('asks for the licence and maps the key GitLab reports', async () => {
+    const { instance, calls } = provider()
+    const result = await instance.repos.get(repo, { licence: true })
+
+    expect(calls.at(-1)!.url).toBe(`${P}?license=true`)
+    expect(result.licence).toBe('mit')
+  })
+
+  it('does not request the licence unless asked', async () => {
+    const { instance, calls } = provider()
+    const result = await instance.repos.get(repo)
+
+    expect(calls.at(-1)!.url).toBe(P)
+    expect(result.licence).toBeUndefined()
+  })
+
+  it('prefers the SPDX identifier over the key when GitLab reports one', async () => {
+    const { instance } = provider({
+      [`GET ${P}?license=true`]: { status: 200, body: { id: 278964, path_with_namespace: 'acme/platform/widgets', license: { key: 'lgpl-2.1', spdx_identifier: 'LGPL-2.1-only' } } },
+    })
+    const result = await instance.repos.get(repo, { licence: true })
+
+    expect(result.licence).toBe('LGPL-2.1-only')
+  })
+
+  it('leaves licence undefined when GitLab reports no licence', async () => {
+    const { instance } = provider({
+      [`GET ${P}?license=true`]: { status: 200, body: { id: 278964, path_with_namespace: 'acme/platform/widgets', license: null } },
+    })
+    const result = await instance.repos.get(repo, { licence: true })
+
+    expect(result.licence).toBeUndefined()
+  })
+})
+
 describe('gitlab merge methods', () => {
   it('rejects a method the project is not configured for', async () => {
     const { instance, calls } = provider()

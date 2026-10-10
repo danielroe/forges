@@ -680,7 +680,8 @@ const GITLAB: ProviderDefinition<GitLabOptions> = {
       },
       repos: {
         get: verb(true, async (ref, options) => {
-          return toRepo(instance, (await fetcher.json<GitLabProjectDetail>(projectPath(ref), { signal: options?.signal })).data)
+          const query = options?.licence ? { license: true } : undefined
+          return toRepo(instance, (await fetcher.json<GitLabProjectDetail>(projectPath(ref), { query, signal: options?.signal })).data)
         }),
         listPage: verb(true, (listOptions = {}) => list('/projects', listOptions, (raw: GitLabProjectDetail) => toRepo(instance, raw), { query: { membership: true } })),
         labelsPage: verb(!anonymous, (repo, listOptions = {}) => list(`${projectPath(repo)}/labels`, listOptions, toLabel)),

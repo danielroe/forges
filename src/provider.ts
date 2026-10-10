@@ -747,13 +747,25 @@ export interface SecurityAlertsApi {
   listPage: (repo: RepoRef, options?: SecurityAlertListOptions) => Promise<Page<SecurityAlert>>
 }
 
+/**
+ * Options for `repos.get()`.
+ */
+export interface RepoGetOptions extends BaseOptions {
+  /**
+   * Ask the forge to include the repository's licence. Forges that report it in the
+   * repository payload anyway (GitHub, Forgejo, Gitea, Gitee) ignore this; GitLab only
+   * returns it when asked, because detecting a licence scans the repository.
+   */
+  licence?: boolean
+}
+
 /** Repositories, and the labels, milestones and collaborators that belong to them. */
 export interface ReposApi {
   /**
    * Reads a repository by its ref. Rejects with `NotFoundError` when it does not exist or the credential cannot see
    * it.
    */
-  get: (ref: RepoRef, options?: BaseOptions) => Promise<Repo>
+  get: (ref: RepoRef, options?: RepoGetOptions) => Promise<Repo>
   /** The authenticated account's repositories, or the installation's under app auth. */
   list: (options?: RepoQuery) => ForgeIterable<Repo>
   /** One page of `list()`. */
@@ -1028,7 +1040,7 @@ export interface Forges {
   /** Reads routed to the provider each ref belongs to; an unregistered origin throws `UnknownForgeError`. */
   repos: {
     /** Reads a repository from the provider it belongs to. */
-    get: (ref: RepoRef, options?: BaseOptions) => Promise<Repo>
+    get: (ref: RepoRef, options?: RepoGetOptions) => Promise<Repo>
   }
   threads: {
     /** Reads a thread from the provider it belongs to. */
