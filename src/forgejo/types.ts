@@ -173,6 +173,36 @@ export interface ForgejoActionRunJob {
   html_url?: string
 }
 
+/** Gitea's Actions API follows GitHub's: a finished run is `completed`, with its result in `conclusion`. */
+export interface GiteaActionRun {
+  id: number
+  display_title?: string
+  /** `<workflow file>@<ref>`. */
+  path?: string
+  event?: string
+  run_number?: number
+  head_branch?: string
+  head_sha?: string
+  status: string
+  conclusion?: string
+  html_url?: string
+  actor?: ForgejoUser | null
+  created_at?: string
+  started_at?: string
+  completed_at?: string
+}
+
+export interface GiteaActionJob {
+  id: number
+  run_id?: number
+  name: string
+  status: string
+  conclusion?: string
+  html_url?: string
+  started_at?: string
+  completed_at?: string
+}
+
 export interface ForgejoRelease {
   id: number
   tag_name: string
