@@ -3735,6 +3735,60 @@
           "forge": "github",
           "instance": "github.com",
           "owner": "h3js",
+          "name": "srvx",
+          "externalId": "858394625"
+        },
+        "description": "λ Universal Server based on web standards.",
+        "defaultBranch": "main",
+        "visibility": "public",
+        "visibilityRaw": "public",
+        "isFork": false,
+        "isArchived": false,
+        "topics": [],
+        "url": "https://github.com/h3js/srvx",
+        "cloneUrls": {
+          "https": "https://github.com/h3js/srvx.git",
+          "ssh": "git@github.com:h3js/srvx.git"
+        },
+        "createdAt": "2024-09-16T20:20:41.000Z",
+        "updatedAt": "2026-10-11T13:22:36.000Z",
+        "pushedAt": "2026-09-14T18:00:26.000Z",
+        "owner": {
+          "forge": "github",
+          "instance": "github.com",
+          "login": "h3js",
+          "id": "208435796",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/208435796?v=4",
+          "url": "https://github.com/h3js",
+          "typeRaw": "Organization",
+          "isBotHint": false
+        },
+        "language": "TypeScript",
+        "homepage": "https://srvx.h3.dev",
+        "licence": "MIT",
+        "stars": 874,
+        "forks": 59,
+        "features": {
+          "issues": true,
+          "pullRequests": true,
+          "discussions": false,
+          "wiki": false,
+          "projects": true,
+          "releases": true
+        },
+        "permissions": {
+          "admin": false,
+          "maintain": false,
+          "push": false,
+          "triage": false,
+          "pull": true
+        }
+      },
+      {
+        "ref": {
+          "forge": "github",
+          "instance": "github.com",
+          "owner": "h3js",
           "name": "h3",
           "externalId": "313641207"
         },
@@ -3767,7 +3821,7 @@
         "homepage": "https://h3.dev",
         "licence": "MIT",
         "stars": 5455,
-        "forks": 372,
+        "forks": 374,
         "features": {
           "issues": true,
           "pullRequests": true,
@@ -3781,60 +3835,6 @@
           "maintain": false,
           "push": true,
           "triage": true,
-          "pull": true
-        }
-      },
-      {
-        "ref": {
-          "forge": "github",
-          "instance": "github.com",
-          "owner": "h3js",
-          "name": "srvx",
-          "externalId": "858394625"
-        },
-        "description": "λ Universal Server based on web standards.",
-        "defaultBranch": "main",
-        "visibility": "public",
-        "visibilityRaw": "public",
-        "isFork": false,
-        "isArchived": false,
-        "topics": [],
-        "url": "https://github.com/h3js/srvx",
-        "cloneUrls": {
-          "https": "https://github.com/h3js/srvx.git",
-          "ssh": "git@github.com:h3js/srvx.git"
-        },
-        "createdAt": "2024-09-16T20:20:41.000Z",
-        "updatedAt": "2026-10-10T16:19:05.000Z",
-        "pushedAt": "2026-09-14T18:00:26.000Z",
-        "owner": {
-          "forge": "github",
-          "instance": "github.com",
-          "login": "h3js",
-          "id": "208435796",
-          "avatarUrl": "https://avatars.githubusercontent.com/u/208435796?v=4",
-          "url": "https://github.com/h3js",
-          "typeRaw": "Organization",
-          "isBotHint": false
-        },
-        "language": "TypeScript",
-        "homepage": "https://srvx.h3.dev",
-        "licence": "MIT",
-        "stars": 873,
-        "forks": 59,
-        "features": {
-          "issues": true,
-          "pullRequests": true,
-          "discussions": false,
-          "wiki": false,
-          "projects": true,
-          "releases": true
-        },
-        "permissions": {
-          "admin": false,
-          "maintain": false,
-          "push": false,
-          "triage": false,
           "pull": true
         }
       },
@@ -3892,13 +3892,13 @@
       }
     ],
     "cursor": {
-      "nextUrl": "https://api.github.com/organizations/208435796/repos?type=public&sort=updated&per_page=3&page=2",
-      "etag": "W/\"667d0cb87e3fae53ce9429ab329e070152cb9ca86c8db6dd16ed22398be5b5f7\""
+      "nextUrl": "https://api.github.com/user/208435796/repos?type=owner&sort=updated&per_page=3&page=2",
+      "etag": "W/\"7431480f921f0abb57d05ac003e985e430b2dedce013dce1b72c955c1d9017a6\""
     },
     "rateLimit": {
       "limit": 5000,
-      "remaining": 4958,
-      "resetAt": "2026-10-11T13:08:21.000Z"
+      "remaining": 4991,
+      "resetAt": "2026-10-11T19:45:54.000Z"
     }
   },
   "user repos": {

@@ -64,7 +64,7 @@ GitHub lists pull requests in full pages. When you filter by label, author, assi
 
 ## Listing an owner's repositories
 
-`repos.byOwner()` reads the repositories of an organisation first. When no organisation has that name, it reads the repositories of the user instead, so listing a user's repositories costs one more request. GitHub lists only the public repositories of a user, so for a user, `visibility: 'private'` or `'internal'` returns an empty page with a `filter_unsupported` warning.
+With `visibility: 'public'`, `repos.byOwner()` lists the repositories of a user or an organisation in a single request. For any other visibility, it reads the repositories of an organisation first. When no organisation has that name, it reads the repositories of the user instead, so listing a user's repositories costs one more request. For the authenticated user, that includes private repositories. GitHub lists only the public repositories of other users, so for them, `visibility: 'private'` or `'internal'` returns an empty page with a `filter_unsupported` warning.
 
 ## Merging
 

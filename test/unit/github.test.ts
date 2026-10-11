@@ -54,18 +54,55 @@ describe('github provider', () => {
     expect(graphqlUrl('https://ghe.example.com/api/v3')).toBe('https://ghe.example.com/api/graphql')
   })
 
-  it('lists no private repositories of a user, since GitHub lists only their public ones', async () => {
-    const urls: string[] = []
-    const provider = github({ auth: { type: 'token', token: 't' }, fetch: async (url) => {
-      urls.push(url)
-      return Response.json({ message: 'Not Found' }, { status: 404 })
-    } }).create()
+  describe('repositories of a user', () => {
+    function userProvider() {
+      const urls: string[] = []
+      const provider = github({ auth: { type: 'token', token: 't' }, fetch: async (url) => {
+        urls.push(url)
+        if (url === 'https://api.github.com/user') {
+          return Response.json({ login: 'Octocat', id: 1 })
+        }
+        if (url.startsWith('https://api.github.com/user/repos')) {
+          return Response.json([{ id: 2, name: 'vault', full_name: 'octocat/vault', private: true, visibility: 'private', owner: { login: 'octocat' } }])
+        }
+        if (url.startsWith('https://api.github.com/users/')) {
+          return Response.json([])
+        }
+        return Response.json({ message: 'Not Found' }, { status: 404 })
+      } }).create()
+      return { provider, urls }
+    }
 
-    const page = await provider.repos.byOwnerPage({ ...repo, owner: 'octocat', name: '', kind: 'namespace' }, { visibility: 'private' })
+    it('lists the private repositories of the authenticated user', async () => {
+      const { provider, urls } = userProvider()
 
-    expect(urls).toEqual(['https://api.github.com/orgs/octocat/repos?type=private'])
-    expect(page.items).toEqual([])
-    expect(page.warnings).toContainEqual(expect.objectContaining({ code: 'filter_unsupported' }))
+      const page = await provider.repos.byOwnerPage({ ...repo, owner: 'octocat', name: '', kind: 'namespace' }, { visibility: 'private' })
+
+      expect(page.items.map(item => item.ref.name)).toEqual(['vault'])
+      expect(urls).toEqual([
+        'https://api.github.com/orgs/octocat/repos?type=private',
+        'https://api.github.com/user',
+        'https://api.github.com/user/repos?affiliation=owner&visibility=private',
+      ])
+    })
+
+    it('lists no private repositories of another user, since GitHub lists only their public ones', async () => {
+      const { provider, urls } = userProvider()
+
+      const page = await provider.repos.byOwnerPage({ ...repo, owner: 'hubot', name: '', kind: 'namespace' }, { visibility: 'private' })
+
+      expect(urls).toEqual(['https://api.github.com/orgs/hubot/repos?type=private', 'https://api.github.com/user'])
+      expect(page.items).toEqual([])
+      expect(page.warnings).toContainEqual(expect.objectContaining({ code: 'filter_unsupported' }))
+    })
+
+    it('lists public repositories of a user or an organisation in one request', async () => {
+      const { provider, urls } = userProvider()
+
+      await provider.repos.byOwnerPage({ ...repo, owner: 'hubot', name: '', kind: 'namespace' }, { visibility: 'public' })
+
+      expect(urls).toEqual(['https://api.github.com/users/hubot/repos?type=owner'])
+    })
   })
 
   it('marks done with DELETE on the thread, not the subscription', async () => {

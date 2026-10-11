@@ -882,24 +882,34 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
     )
   }
 
-  /** Organisations first, since `/users/{owner}/repos` lists only public repositories. */
+  /** The authenticated login, read once and reused; reactions are deleted by id, so removing one needs it. */
+  const viewerLogin = memo(async () => (await fetcher.json<GitHubUserDetail>('/user')).data.login)
+
+  /** `/users/{owner}/repos` serves organisations too, but lists only public repositories. */
   async function ownerReposPage(owner: RepoRef, query: OwnerRepoQuery = {}): Promise<Page<Repo>> {
     const visibility = query.visibility === 'all' ? undefined : query.visibility
-    const read = (path: string, type: string | undefined) => list(path, query, (raw: GitHubRepositoryDetail) => toRepo(instance, raw), {
-      query: { type, sort: query.sort === 'name' ? 'full_name' : query.sort, direction: query.direction },
+    const read = (path: string, params: Record<string, string | undefined>) => list(path, query, (raw: GitHubRepositoryDetail) => toRepo(instance, raw), {
+      query: { ...params, sort: query.sort === 'name' ? 'full_name' : query.sort, direction: query.direction },
     })
+    const userRepos = () => read(`/users/${encodeURIComponent(owner.owner)}/repos`, { type: 'owner' })
+    if (visibility === 'public') {
+      return userRepos()
+    }
     try {
-      return await read(`/orgs/${encodeURIComponent(owner.owner)}/repos`, visibility === 'internal' ? undefined : visibility)
+      return await read(`/orgs/${encodeURIComponent(owner.owner)}/repos`, { type: visibility === 'internal' ? undefined : visibility })
     }
     catch (error) {
       if (!(error instanceof NotFoundError) || query.cursor) {
         throw error
       }
     }
-    if (visibility && visibility !== 'public') {
-      return { items: [], warnings: [{ code: 'filter_unsupported', message: 'GitHub lists only the public repositories of a user' }] }
+    if (auth.type === 'token' && (await viewerLogin()).toLowerCase() === owner.owner.toLowerCase()) {
+      return read('/user/repos', { affiliation: 'owner', visibility: visibility === 'internal' ? undefined : visibility })
     }
-    return read(`/users/${encodeURIComponent(owner.owner)}/repos`, 'owner')
+    if (visibility) {
+      return { items: [], warnings: [{ code: 'filter_unsupported', message: 'GitHub lists only the public repositories of another user' }] }
+    }
+    return userRepos()
   }
 
   /** Repository hooks, or organisation hooks for a namespace ref. */
@@ -1248,9 +1258,6 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
     const ref = requireIssueOrPull(target, context, 'react to')
     return `${repoPath(ref.repo)}/issues/${encodeURIComponent(ref.number)}/reactions`
   }
-
-  /** The authenticated login, read once and reused; reactions are deleted by id, so removing one needs it. */
-  const viewerLogin = memo(async () => (await fetcher.json<GitHubUserDetail>('/user')).data.login)
 
   async function reactionsPage(target: ThreadRef | CommentRef, listOptions: ListOptions = {}): Promise<Page<Reaction>> {
     const thread = 'thread' in target ? target.thread : target
