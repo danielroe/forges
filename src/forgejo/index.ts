@@ -750,7 +750,10 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
         return list(`${issuePath(ref)}/comments`, listOptions, (raw: ForgejoComment) => toComment(ref, raw))
       }),
       getComment: perKind(ISSUE_AND_PULL, async (ref, options) => {
-        const { data } = await fetcher.json<ForgejoComment>(`${repoPath(ref.thread.repo)}/issues/comments/${encodeURIComponent(ref.id)}`, { signal: options?.signal })
+        const { data } = await fetcher.json<ForgejoComment | undefined>(`${repoPath(ref.thread.repo)}/issues/comments/${encodeURIComponent(ref.id)}`, { signal: options?.signal })
+        if (!data) {
+          throw new NotFoundError(`Comment ${ref.id} not found`, 404, '', context)
+        }
         return toComment(ref.thread, data)
       }),
       comment: perKind({ issue: true, pull_request: true }, async (thread, body, options) => {

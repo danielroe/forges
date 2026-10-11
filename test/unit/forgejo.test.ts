@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { UnsupportedOperationError } from '../../src/errors.ts'
+import { NotFoundError, UnsupportedOperationError } from '../../src/errors.ts'
 import { forgejo } from '../../src/forgejo/index.ts'
 import { gitea } from '../../src/gitea/index.ts'
 import { fixtureFetch, hangingFetch } from '../utils/fixtures.ts'
@@ -416,5 +416,15 @@ describe('gitea actions', () => {
 
     expect(page.items).toMatchObject([{ name: 'job 1', state: 'neutral', startedAt: undefined }, { name: 'job 2' }])
     expect(page.cursor?.nextUrl).toBe('https://git.example.org/api/v1/repos/acme/widgets/actions/runs/7/jobs?page=2&limit=2')
+  })
+})
+
+describe('gitea single-item reads', () => {
+  it('reports a comment read that returns no content as not found', async () => {
+    const repo = { forge: 'gitea', instance: 'gitea.com', owner: 'acme', name: 'widgets' }
+    const provider = gitea({ auth: { type: 'token', token: 't' }, fetch: async () => new Response(null, { status: 204 }) }).create()
+    const thread = { forge: 'gitea', instance: 'gitea.com', repo, kind: 'pull_request', number: '3' } as const
+
+    await expect(provider.threads.getComment({ forge: 'gitea', instance: 'gitea.com', thread, id: '9' })).rejects.toThrow(NotFoundError)
   })
 })
