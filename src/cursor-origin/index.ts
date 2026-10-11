@@ -302,7 +302,7 @@ function setupOrigin({ options, baseUrl, instance, origin: context, fetcher, cre
         return { items: page.items.map(raw => toCommit(thread.repo, raw)), cursor: page.cursor }
       }),
       commentsPage: perKind(PULL, commentsPage),
-      getComment: perKind(UNVERIFIED, async (ref, options) => toComment(ref.thread, (await fetcher.json<OriginComment>(`${repoPath(ref.thread.repo)}/pulls/comments/${ref.id}`, { signal: options?.signal })).data)),
+      getComment: perKind(UNVERIFIED, async (ref, options) => toComment(ref.thread, (await fetcher.json<OriginComment>(`${repoPath(ref.thread.repo)}/pulls/comments/${encodeURIComponent(ref.id)}`, { signal: options?.signal })).data)),
       comment: perKind(PULL, async (thread, body, options) => {
         const ref = requireThread(thread, context)
         return toComment(ref, (await fetcher.json<OriginComment>(`${pullPath(ref)}/comments`, { method: 'POST', json: { body }, signal: options?.signal })).data)
