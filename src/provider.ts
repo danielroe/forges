@@ -41,6 +41,7 @@ import type {
   Notification,
   NotificationListOptions,
   NotificationRef,
+  OwnerRepoQuery,
   Page,
   PageOptions,
   Reaction,
@@ -182,6 +183,8 @@ export interface ForgeCapabilities {
     get: Support
     /** Support for `repos.list()` and `repos.listPage()`. */
     list: Support
+    /** Support for `repos.byOwner()` and `repos.byOwnerPage()`. */
+    byOwner: Support
     /** Support for `repos.labels()` and `repos.labelsPage()`. */
     labels: Support
     /** Support for `repos.createLabel()`. */
@@ -790,6 +793,13 @@ export interface ReposApi {
   list: (options?: RepoQuery) => ForgeIterable<Repo>
   /** One page of `list()`. */
   listPage: (options?: RepoQuery) => Promise<Page<Repo>>
+  /**
+   * The repositories of a user, organisation, group, workspace or project that the credential can see.
+   * @param owner A namespace ref, such as `{ forge, instance, owner: 'acme', name: '', kind: 'namespace' }`.
+   */
+  byOwner: (owner: RepoRef, query?: OwnerRepoQuery) => ForgeIterable<Repo>
+  /** One page of `byOwner()`. */
+  byOwnerPage: (owner: RepoRef, query?: OwnerRepoQuery) => Promise<Page<Repo>>
   /** Every label defined on the repository, whether or not a thread carries it. */
   labels: (repo: RepoRef, options?: PageOptions) => ForgeIterable<Label>
   /** One page of `labels()`. */
@@ -1061,6 +1071,8 @@ export interface Forges {
   repos: {
     /** Reads a repository from the provider it belongs to. */
     get: (ref: RepoRef, options?: RepoGetOptions) => Promise<Repo>
+    /** Lists the repositories of an owner from the provider it belongs to. */
+    byOwner: (owner: RepoRef, query?: OwnerRepoQuery) => ForgeIterable<Repo>
   }
   threads: {
     /** Reads a thread from the provider it belongs to. */
@@ -1211,7 +1223,10 @@ export function createForges(factories: Array<ForgeProviderFactory | ForgeProvid
     for: find,
     forUrl: url => parseUrl(url)?.provider,
     parseUrl,
-    repos: { get: (ref, options) => route(ref).repos.get(ref, options) },
+    repos: {
+      get: (ref, options) => route(ref).repos.get(ref, options),
+      byOwner: (owner, query) => route(owner).repos.byOwner(owner, query),
+    },
     threads: {
       get: (ref, options) => route(ref).threads.get(ref, options),
       async getMany(refs, options) {

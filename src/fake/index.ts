@@ -659,6 +659,10 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
       repos: {
         get: verb(support('repos.get', true), async repo => repoState(repo).repo),
         listPage: verb(support('repos.list', true), async (listOptions: ListOptions = {}) => pageOf([...store.repos.values()].map(state => state.repo), listOptions)),
+        byOwnerPage: verb(support('repos.byOwner', true), async (owner, query = {}) => pageOf([...store.repos.values()]
+          .map(state => state.repo)
+          .filter(repo => (repo.ref.owner === owner.owner || (query.subgroups && repo.ref.owner.startsWith(`${owner.owner}/`)))
+            && (!query.visibility || query.visibility === 'all' || repo.visibility === query.visibility)), query)),
       },
       search: {
         threadsPage: verb(support('search.threads', true), async (query = {}) => {

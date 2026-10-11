@@ -61,6 +61,10 @@ Gitee records an approval, but it has no endpoint to read reviews. As a result, 
 
 The release that Gitee marks as the latest can be a prerelease. To avoid surprises, `releases.latest()` returns the newest release that isn't a prerelease.
 
+## Listing an owner's repositories
+
+`repos.byOwner()` reads the repositories of an organisation first. When no organisation has that name, it reads the personal repositories of the user instead. Gitee can't sort the repositories of an organisation, so if you pass `sort` for one, you get a `sort_unsupported` warning.
+
 ## Search
 
 `search.threads()` only searches issues. If you search with `kind: 'pull_request'`, you get an empty page with a `kind_unsupported` warning.
@@ -102,6 +106,7 @@ You can manage webhooks on repositories only. Gitee doesn't keep a delivery log,
 | `users.get` | ✅ | ✅ |
 | `users.me` | ✅ | ❌ |
 | `repos.list` | ✅ | ❌ |
+| `repos.byOwner` | ✅ | unverified |
 | `repos.labels` | ✅ | ✅ |
 | `repos.createLabel` | unverified | ❌ |
 | `repos.milestones` | ❌ | ❌ |

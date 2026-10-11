@@ -1,5 +1,5 @@
 import type { Fetcher, FetcherOptions } from './fetch.ts'
-import type { ApproveAndMergeOptions, BaseOptions, Check, CiJobRef, Comment, CommentRef, Cursor, ForgeEventInput, ForgeInstance, ForgeKind, Installation, ListOptions, MergeOptions, Notification, NotificationListOptions, Page, RepoRef, ReviewRef, SecurityAlertKind, SecurityAlertListOptions, Support, TextLimits, ThreadKind, ThreadQuery, ThreadRef, UpsertCommentInput, UpsertCommentResult, WebhookEventType } from './model.ts'
+import type { ApproveAndMergeOptions, BaseOptions, Check, CiJobRef, Comment, CommentRef, Cursor, ForgeEventInput, ForgeInstance, ForgeKind, Installation, ListOptions, MergeOptions, Notification, NotificationListOptions, OwnerRepoQuery, Page, Repo, RepoRef, ReviewRef, SecurityAlertKind, SecurityAlertListOptions, Support, TextLimits, ThreadKind, ThreadQuery, ThreadRef, UpsertCommentInput, UpsertCommentResult, WebhookEventType } from './model.ts'
 import type {
   AuthKind,
   ChecksApi,
@@ -107,6 +107,7 @@ export interface ProviderSpec {
   repos: {
     get: Verb<ReposApi['get']>
     listPage: Verb<ReposApi['listPage']>
+    byOwnerPage?: Verb<ReposApi['byOwnerPage']>
     labelsPage?: Verb<ReposApi['labelsPage']>
     createLabel?: Verb<ReposApi['createLabel']>
     milestonesPage?: Verb<ReposApi['milestonesPage']>
@@ -504,6 +505,7 @@ function createProvider<TOptions extends ForgeOptionsBase, TState>(
   const installationsSupported = () => Boolean(declaredInstallations && resolve(declaredInstallations.support, env))
 
   const listThreads = kindGate('threads.listPage', spec.threads.listPage.kinds, spec.threads.listPage.run)
+  const listOwnerRepos = gate('repos.byOwnerPage', spec.repos.byOwnerPage?.support, spec.repos.byOwnerPage?.run)
   const listEvents = kindGate('threads.eventsPage', Object.fromEntries(KINDS.map(kind => [kind, (kindEnv: CapabilityEnv) => threadEventKinds(spec, kindEnv)[kind]])), spec.threads.eventsPage.run)
   const native = spec.search?.queryRaw
   const search = (name: 'threadsPage' | 'reposPage' | 'commitsPage' | 'codePage') => {
@@ -525,6 +527,10 @@ function createProvider<TOptions extends ForgeOptionsBase, TState>(
       const run = (cursor: Cursor | undefined) => listThreads(repo, { ...query, ...query.state === 'merged' ? { kind: 'pull_request' } : {}, cursor })
       return nonEmptyPage(run, query.cursor)
     },
+    'repos.byOwnerPage': (owner: RepoRef, query: OwnerRepoQuery = {}) => nonEmptyPage(async (cursor) => {
+      const page: Page<Repo> = await listOwnerRepos(owner, { ...query, cursor })
+      return !query.visibility || query.visibility === 'all' ? page : { ...page, items: page.items.filter(repo => repo.visibility === query.visibility) }
+    }, query.cursor),
     'threads.eventsPage': async (ref: ThreadRef, listOptions?: ListOptions) => {
       const page = await listEvents(ref, listOptions) as Page<ForgeEventInput>
       return { ...page, items: page.items.map(completeEvent) }

@@ -1,0 +1,13 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://codeberg.org/api/v1/users/forgejo-renovate-action/repos?limit=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "x-total-count": "0"
+    },
+    "body": []
+  }
+}

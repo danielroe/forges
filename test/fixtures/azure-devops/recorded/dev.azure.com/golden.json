@@ -652,6 +652,15 @@
       }
     ]
   },
+  "owner repos": {
+    "items": [],
+    "warnings": [
+      {
+        "code": "sort_unsupported",
+        "message": "Azure DevOps lists the repositories of a project in its own order"
+      }
+    ]
+  },
   "checks": {
     "items": []
   },

@@ -107,6 +107,7 @@ Deliveries of `installation.*` events become `installation` events. You register
 | `users.get` | ❌ | ❌ |
 | `users.me` | ❌ | ❌ |
 | `repos.list` | unverified | ❌ |
+| `repos.byOwner` | ❌ | ❌ |
 | `repos.labels` | ❌ | ❌ |
 | `repos.createLabel` | ❌ | ❌ |
 | `repos.milestones` | ❌ | ❌ |

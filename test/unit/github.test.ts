@@ -54,6 +54,20 @@ describe('github provider', () => {
     expect(graphqlUrl('https://ghe.example.com/api/v3')).toBe('https://ghe.example.com/api/graphql')
   })
 
+  it('lists no private repositories of a user, since GitHub lists only their public ones', async () => {
+    const urls: string[] = []
+    const provider = github({ auth: { type: 'token', token: 't' }, fetch: async (url) => {
+      urls.push(url)
+      return Response.json({ message: 'Not Found' }, { status: 404 })
+    } }).create()
+
+    const page = await provider.repos.byOwnerPage({ ...repo, owner: 'octocat', name: '', kind: 'namespace' }, { visibility: 'private' })
+
+    expect(urls).toEqual(['https://api.github.com/orgs/octocat/repos?type=private'])
+    expect(page.items).toEqual([])
+    expect(page.warnings).toContainEqual(expect.objectContaining({ code: 'filter_unsupported' }))
+  })
+
   it('marks done with DELETE on the thread, not the subscription', async () => {
     const { provider, calls } = tokenProvider()
 

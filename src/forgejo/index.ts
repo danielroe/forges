@@ -18,6 +18,7 @@ import type {
   Notification,
   NotificationListOptions,
   NotificationRef,
+  OwnerRepoQuery,
   Page,
   PageOptions,
   ReactionContent,
@@ -152,6 +153,11 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
   const fetcher = countedPages(baseFetcher)
 
   const list = createListing(fetcher, 'limit')
+
+  /** Organisations are accounts too, so `/users/{owner}/repos` serves both. */
+  function ownerReposPage(owner: RepoRef, query: OwnerRepoQuery = {}): Promise<Page<Repo>> {
+    return list(`/users/${encodeURIComponent(owner.owner)}/repos`, query, (raw: ForgejoRepositoryDetail) => toRepo(origin, raw), { warnings: !query.cursor && ((query.sort ?? 'created') !== 'created' || query.direction === 'desc') ? [{ code: 'sort_unsupported', message: `${profile.forge} lists the repositories of an owner oldest first only` }] : undefined })
+  }
 
   async function readUser(path: string, signal?: AbortSignal): Promise<User> {
     const { data } = await fetcher.json<ForgejoUser & { description?: string, location?: string, website?: string, created?: string, followers_count?: number, following_count?: number }>(path, { signal })
@@ -554,6 +560,7 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
     repos: {
       get: verb(true, async (ref, options) => toRepo(origin, (await fetcher.json<ForgejoRepositoryDetail>(repoPath(ref), { signal: options?.signal })).data)),
       listPage: verb(true, (listOptions = {}) => list('/user/repos', listOptions, (raw: ForgejoRepositoryDetail) => toRepo(origin, raw))),
+      byOwnerPage: verb(true, ownerReposPage),
       labelsPage: verb(true, (repo, listOptions = {}) => list(`${repoPath(repo)}/labels`, listOptions, toLabel)),
       createLabel: verb(true, async (repo, label, options) => toLabel((await fetcher.json<ForgejoLabel>(`${repoPath(repo)}/labels`, {
         method: 'POST',

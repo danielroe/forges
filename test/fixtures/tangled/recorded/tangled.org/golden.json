@@ -4726,5 +4726,421 @@
         "createdAt": "2026-05-04T12:59:34.186Z"
       }
     ]
+  },
+  "owner repos": {
+    "items": [
+      {
+        "ref": {
+          "forge": "tangled",
+          "instance": "tangled.org",
+          "owner": "did:plc:wshs7t2adsemcrrd4snkeqli",
+          "name": "core",
+          "externalId": "did:plc:j5hmlfdrwkvtxm7cjmu7j2is"
+        },
+        "description": "Monorepo for Tangled",
+        "visibility": "public",
+        "isFork": false,
+        "isArchived": false,
+        "topics": [],
+        "url": "https://tangled.org/did:plc:wshs7t2adsemcrrd4snkeqli/core",
+        "cloneUrls": {
+          "https": "https://tangled.org/did:plc:wshs7t2adsemcrrd4snkeqli/core",
+          "ssh": "ssh://git@tangled.org/did:plc:wshs7t2adsemcrrd4snkeqli/core"
+        },
+        "createdAt": "2025-02-23T18:43:18.000Z",
+        "homepage": "https://tangled.org"
+      },
+      {
+        "ref": {
+          "forge": "tangled",
+          "instance": "tangled.org",
+          "owner": "did:plc:wshs7t2adsemcrrd4snkeqli",
+          "name": "3lzg6enurmo22"
+        },
+        "displayName": "test",
+        "visibility": "public",
+        "isFork": false,
+        "isArchived": false,
+        "topics": [],
+        "url": "https://tangled.org/did:plc:wshs7t2adsemcrrd4snkeqli/3lzg6enurmo22",
+        "cloneUrls": {
+          "https": "https://tangled.org/did:plc:wshs7t2adsemcrrd4snkeqli/3lzg6enurmo22",
+          "ssh": "ssh://git@localhost:5555/did:plc:wshs7t2adsemcrrd4snkeqli/3lzg6enurmo22"
+        },
+        "createdAt": "2025-09-22T10:14:23.000Z"
+      },
+      {
+        "ref": {
+          "forge": "tangled",
+          "instance": "tangled.org",
+          "owner": "did:plc:wshs7t2adsemcrrd4snkeqli",
+          "name": "3ls4b2hlwut22",
+          "externalId": "did:plc:lyuzyoi42mf2driipmsiemsl"
+        },
+        "displayName": "infra",
+        "visibility": "public",
+        "isFork": false,
+        "isArchived": false,
+        "topics": [],
+        "url": "https://tangled.org/did:plc:wshs7t2adsemcrrd4snkeqli/3ls4b2hlwut22",
+        "cloneUrls": {
+          "https": "https://tangled.org/did:plc:wshs7t2adsemcrrd4snkeqli/3ls4b2hlwut22",
+          "ssh": "ssh://git@tangled.org/did:plc:wshs7t2adsemcrrd4snkeqli/3ls4b2hlwut22"
+        },
+        "createdAt": "2025-06-21T09:39:21.000Z"
+      },
+      {
+        "ref": {
+          "forge": "tangled",
+          "instance": "tangled.org",
+          "owner": "did:plc:wshs7t2adsemcrrd4snkeqli",
+          "name": "3lqs6zdi4nt22",
+          "externalId": "did:plc:f5s5la5wlofsxidb3zemdune"
+        },
+        "displayName": "knot-docker",
+        "description": "Community maintained Docker config for the knot server ",
+        "visibility": "public",
+        "isFork": false,
+        "isArchived": false,
+        "topics": [],
+        "url": "https://tangled.org/did:plc:wshs7t2adsemcrrd4snkeqli/3lqs6zdi4nt22",
+        "cloneUrls": {
+          "https": "https://tangled.org/did:plc:wshs7t2adsemcrrd4snkeqli/3lqs6zdi4nt22",
+          "ssh": "ssh://git@tangled.org/did:plc:wshs7t2adsemcrrd4snkeqli/3lqs6zdi4nt22"
+        },
+        "createdAt": "2025-06-04T16:11:08.000Z"
+      },
+      {
+        "ref": {
+          "forge": "tangled",
+          "instance": "tangled.org",
+          "owner": "did:plc:wshs7t2adsemcrrd4snkeqli",
+          "name": "3ljsaqcujmc22"
+        },
+        "displayName": "myown",
+        "visibility": "public",
+        "isFork": false,
+        "isArchived": false,
+        "topics": [],
+        "url": "https://tangled.org/did:plc:wshs7t2adsemcrrd4snkeqli/3ljsaqcujmc22",
+        "cloneUrls": {
+          "https": "https://tangled.org/did:plc:wshs7t2adsemcrrd4snkeqli/3ljsaqcujmc22",
+          "ssh": "ssh://git@localhost:5555/did:plc:wshs7t2adsemcrrd4snkeqli/3ljsaqcujmc22"
+        }
+      },
+      {
+        "ref": {
+          "forge": "tangled",
+          "instance": "tangled.org",
+          "owner": "did:plc:wshs7t2adsemcrrd4snkeqli",
+          "name": "3ljbiayluee22",
+          "externalId": "did:plc:g66xej5jct643d6bgukldn77"
+        },
+        "displayName": "site",
+        "description": "engineering blog at https://blog.tangled.org",
+        "visibility": "public",
+        "isFork": false,
+        "isArchived": false,
+        "topics": [],
+        "url": "https://tangled.org/did:plc:wshs7t2adsemcrrd4snkeqli/3ljbiayluee22",
+        "cloneUrls": {
+          "https": "https://tangled.org/did:plc:wshs7t2adsemcrrd4snkeqli/3ljbiayluee22",
+          "ssh": "ssh://git@tangled.org/did:plc:wshs7t2adsemcrrd4snkeqli/3ljbiayluee22"
+        },
+        "createdAt": "2025-02-28T22:44:51.000Z"
+      },
+      {
+        "ref": {
+          "forge": "tangled",
+          "instance": "tangled.org",
+          "owner": "did:plc:wshs7t2adsemcrrd4snkeqli",
+          "name": "3liuighjy2h22",
+          "externalId": "did:plc:j5hmlfdrwkvtxm7cjmu7j2is"
+        },
+        "displayName": "core",
+        "description": "Monorepo for Tangled ",
+        "visibility": "public",
+        "isFork": false,
+        "isArchived": false,
+        "topics": [],
+        "url": "https://tangled.org/did:plc:wshs7t2adsemcrrd4snkeqli/3liuighjy2h22",
+        "cloneUrls": {
+          "https": "https://tangled.org/did:plc:wshs7t2adsemcrrd4snkeqli/3liuighjy2h22",
+          "ssh": "ssh://git@tangled.org/did:plc:wshs7t2adsemcrrd4snkeqli/3liuighjy2h22"
+        },
+        "createdAt": "2025-02-23T18:43:18.000Z",
+        "homepage": "https://tangled.org"
+      }
+    ],
+    "warnings": [
+      {
+        "code": "sort_unsupported",
+        "message": "Tangled lists repositories in the order of their records"
+      }
+    ]
+  },
+  "user repos": {
+    "items": [
+      {
+        "ref": {
+          "forge": "tangled",
+          "instance": "tangled.org",
+          "owner": "did:plc:laqygfbyvnkyuhsuaxmp6ez3",
+          "name": "test2",
+          "externalId": "did:plc:5x276pwbdvdxi3zfhlkxds2f"
+        },
+        "visibility": "public",
+        "isFork": false,
+        "isArchived": false,
+        "topics": [],
+        "url": "https://tangled.org/did:plc:laqygfbyvnkyuhsuaxmp6ez3/test2",
+        "cloneUrls": {
+          "https": "https://tangled.org/did:plc:laqygfbyvnkyuhsuaxmp6ez3/test2",
+          "ssh": "ssh://git@localhost:6444/did:plc:laqygfbyvnkyuhsuaxmp6ez3/test2"
+        },
+        "createdAt": "2026-06-15T16:00:51.000Z"
+      },
+      {
+        "ref": {
+          "forge": "tangled",
+          "instance": "tangled.org",
+          "owner": "did:plc:laqygfbyvnkyuhsuaxmp6ez3",
+          "name": "test",
+          "externalId": "did:plc:r4ft46mvemcsnjsgrsr2qxlz"
+        },
+        "visibility": "public",
+        "isFork": false,
+        "isArchived": false,
+        "topics": [],
+        "url": "https://tangled.org/did:plc:laqygfbyvnkyuhsuaxmp6ez3/test",
+        "cloneUrls": {
+          "https": "https://tangled.org/did:plc:laqygfbyvnkyuhsuaxmp6ez3/test",
+          "ssh": "ssh://git@localhost:6444/did:plc:laqygfbyvnkyuhsuaxmp6ez3/test"
+        },
+        "createdAt": "2026-06-15T15:59:55.000Z"
+      },
+      {
+        "ref": {
+          "forge": "tangled",
+          "instance": "tangled.org",
+          "owner": "did:plc:laqygfbyvnkyuhsuaxmp6ez3",
+          "name": "tangleflow-coverage",
+          "externalId": "did:plc:55qlk6j7odqr7f4unsjwrlbr"
+        },
+        "description": "Small repo for scanning Tangled for repos with github workflows, but no tangled workflows, and whether the workflows currently can be converted with https://github.com/43081j/tangleflow or not.",
+        "visibility": "public",
+        "isFork": false,
+        "isArchived": false,
+        "topics": [],
+        "url": "https://tangled.org/did:plc:laqygfbyvnkyuhsuaxmp6ez3/tangleflow-coverage",
+        "cloneUrls": {
+          "https": "https://tangled.org/did:plc:laqygfbyvnkyuhsuaxmp6ez3/tangleflow-coverage",
+          "ssh": "ssh://git@tangled.org/did:plc:laqygfbyvnkyuhsuaxmp6ez3/tangleflow-coverage"
+        },
+        "createdAt": "2026-09-21T15:18:26.000Z"
+      },
+      {
+        "ref": {
+          "forge": "tangled",
+          "instance": "tangled.org",
+          "owner": "did:plc:laqygfbyvnkyuhsuaxmp6ez3",
+          "name": "site",
+          "externalId": "did:plc:bxcczy2pcr7g56xmwkmyxgem"
+        },
+        "description": "engineering blog at https://blog.tangled.org",
+        "visibility": "public",
+        "isFork": true,
+        "isArchived": false,
+        "topics": [],
+        "url": "https://tangled.org/did:plc:laqygfbyvnkyuhsuaxmp6ez3/site",
+        "cloneUrls": {
+          "https": "https://tangled.org/did:plc:laqygfbyvnkyuhsuaxmp6ez3/site",
+          "ssh": "ssh://git@tangled.org/did:plc:laqygfbyvnkyuhsuaxmp6ez3/site"
+        },
+        "createdAt": "2026-07-25T19:16:19.000Z"
+      },
+      {
+        "ref": {
+          "forge": "tangled",
+          "instance": "tangled.org",
+          "owner": "did:plc:laqygfbyvnkyuhsuaxmp6ez3",
+          "name": "core",
+          "externalId": "did:plc:y2gm6dfghzdkghgc5avbtr3n"
+        },
+        "description": "Monorepo for Tangled",
+        "visibility": "public",
+        "isFork": true,
+        "isArchived": false,
+        "topics": [],
+        "url": "https://tangled.org/did:plc:laqygfbyvnkyuhsuaxmp6ez3/core",
+        "cloneUrls": {
+          "https": "https://tangled.org/did:plc:laqygfbyvnkyuhsuaxmp6ez3/core",
+          "ssh": "ssh://git@tangled.org/did:plc:laqygfbyvnkyuhsuaxmp6ez3/core"
+        },
+        "createdAt": "2026-06-22T07:03:56.000Z"
+      },
+      {
+        "ref": {
+          "forge": "tangled",
+          "instance": "tangled.org",
+          "owner": "did:plc:laqygfbyvnkyuhsuaxmp6ez3",
+          "name": "3mrg5hqckuksg",
+          "externalId": "did:plc:5k5pfejn45jtv65hqbaqla5l"
+        },
+        "displayName": "jhroemer.github.io",
+        "description": "[READ-ONLY] Mirror of https://github.com/jhroemer/jhroemer.github.io. My personal website",
+        "visibility": "public",
+        "isFork": false,
+        "isArchived": false,
+        "topics": [],
+        "url": "https://tangled.org/did:plc:laqygfbyvnkyuhsuaxmp6ez3/3mrg5hqckuksg",
+        "cloneUrls": {
+          "https": "https://tangled.org/did:plc:laqygfbyvnkyuhsuaxmp6ez3/3mrg5hqckuksg",
+          "ssh": "ssh://git@tangled.org/did:plc:laqygfbyvnkyuhsuaxmp6ez3/3mrg5hqckuksg"
+        },
+        "createdAt": "2026-07-24T20:02:53.000Z",
+        "homepage": "https://jensroemer.com/"
+      },
+      {
+        "ref": {
+          "forge": "tangled",
+          "instance": "tangled.org",
+          "owner": "did:plc:laqygfbyvnkyuhsuaxmp6ez3",
+          "name": "3m7gcyn73tx22",
+          "externalId": "did:plc:se5ewnccppsrql2gkzhutuwt"
+        },
+        "displayName": "language-list",
+        "description": "Local repo to test languages list",
+        "visibility": "public",
+        "isFork": false,
+        "isArchived": false,
+        "topics": [],
+        "url": "https://tangled.org/did:plc:laqygfbyvnkyuhsuaxmp6ez3/3m7gcyn73tx22",
+        "cloneUrls": {
+          "https": "https://tangled.org/did:plc:laqygfbyvnkyuhsuaxmp6ez3/3m7gcyn73tx22",
+          "ssh": "ssh://git@localhost:6444/did:plc:laqygfbyvnkyuhsuaxmp6ez3/3m7gcyn73tx22"
+        },
+        "createdAt": "2025-12-07T20:08:16.000Z"
+      },
+      {
+        "ref": {
+          "forge": "tangled",
+          "instance": "tangled.org",
+          "owner": "did:plc:laqygfbyvnkyuhsuaxmp6ez3",
+          "name": "3m6zpzzkht222"
+        },
+        "displayName": "languages",
+        "description": "Test repo for the languages bar",
+        "visibility": "public",
+        "isFork": false,
+        "isArchived": false,
+        "topics": [],
+        "url": "https://tangled.org/did:plc:laqygfbyvnkyuhsuaxmp6ez3/3m6zpzzkht222",
+        "cloneUrls": {
+          "https": "https://tangled.org/did:plc:laqygfbyvnkyuhsuaxmp6ez3/3m6zpzzkht222",
+          "ssh": "ssh://git@localhost:6000/did:plc:laqygfbyvnkyuhsuaxmp6ez3/3m6zpzzkht222"
+        },
+        "createdAt": "2025-12-02T19:57:04.000Z"
+      },
+      {
+        "ref": {
+          "forge": "tangled",
+          "instance": "tangled.org",
+          "owner": "did:plc:laqygfbyvnkyuhsuaxmp6ez3",
+          "name": "3m55dxa6acn22"
+        },
+        "displayName": "pipeline-description-test",
+        "visibility": "public",
+        "isFork": false,
+        "isArchived": false,
+        "topics": [],
+        "url": "https://tangled.org/did:plc:laqygfbyvnkyuhsuaxmp6ez3/3m55dxa6acn22",
+        "cloneUrls": {
+          "https": "https://tangled.org/did:plc:laqygfbyvnkyuhsuaxmp6ez3/3m55dxa6acn22",
+          "ssh": "ssh://git@localhost:6000/did:plc:laqygfbyvnkyuhsuaxmp6ez3/3m55dxa6acn22"
+        },
+        "createdAt": "2025-11-08T19:41:01.000Z"
+      },
+      {
+        "ref": {
+          "forge": "tangled",
+          "instance": "tangled.org",
+          "owner": "did:plc:laqygfbyvnkyuhsuaxmp6ez3",
+          "name": "3m4uo36i3fy22"
+        },
+        "displayName": "test-2",
+        "visibility": "public",
+        "isFork": false,
+        "isArchived": false,
+        "topics": [],
+        "url": "https://tangled.org/did:plc:laqygfbyvnkyuhsuaxmp6ez3/3m4uo36i3fy22",
+        "cloneUrls": {
+          "https": "https://tangled.org/did:plc:laqygfbyvnkyuhsuaxmp6ez3/3m4uo36i3fy22",
+          "ssh": "ssh://git@localhost:6000/did:plc:laqygfbyvnkyuhsuaxmp6ez3/3m4uo36i3fy22"
+        },
+        "createdAt": "2025-11-05T08:48:13.000Z"
+      },
+      {
+        "ref": {
+          "forge": "tangled",
+          "instance": "tangled.org",
+          "owner": "did:plc:laqygfbyvnkyuhsuaxmp6ez3",
+          "name": "3m4pkcpjkvf22",
+          "externalId": "did:plc:rhm7ochv4dnax4c2jijnse53"
+        },
+        "displayName": "vite-test-project",
+        "description": "Test project for testing out tangled core",
+        "visibility": "public",
+        "isFork": false,
+        "isArchived": false,
+        "topics": [],
+        "url": "https://tangled.org/did:plc:laqygfbyvnkyuhsuaxmp6ez3/3m4pkcpjkvf22",
+        "cloneUrls": {
+          "https": "https://tangled.org/did:plc:laqygfbyvnkyuhsuaxmp6ez3/3m4pkcpjkvf22",
+          "ssh": "ssh://git@tangled.org/did:plc:laqygfbyvnkyuhsuaxmp6ez3/3m4pkcpjkvf22"
+        },
+        "createdAt": "2025-11-03T07:57:35.000Z"
+      },
+      {
+        "ref": {
+          "forge": "tangled",
+          "instance": "tangled.org",
+          "owner": "did:plc:laqygfbyvnkyuhsuaxmp6ez3",
+          "name": "3m4is2v6p7t22"
+        },
+        "displayName": "test",
+        "description": "test repo",
+        "visibility": "public",
+        "isFork": false,
+        "isArchived": false,
+        "topics": [],
+        "url": "https://tangled.org/did:plc:laqygfbyvnkyuhsuaxmp6ez3/3m4is2v6p7t22",
+        "cloneUrls": {
+          "https": "https://tangled.org/did:plc:laqygfbyvnkyuhsuaxmp6ez3/3m4is2v6p7t22",
+          "ssh": "ssh://git@localhost:6000/did:plc:laqygfbyvnkyuhsuaxmp6ez3/3m4is2v6p7t22"
+        },
+        "createdAt": "2025-10-31T15:27:44.000Z"
+      },
+      {
+        "ref": {
+          "forge": "tangled",
+          "instance": "tangled.org",
+          "owner": "did:plc:laqygfbyvnkyuhsuaxmp6ez3",
+          "name": "1779658262331630",
+          "externalId": "did:plc:ttq3o3zg62khnhlcjn7e3o5k"
+        },
+        "displayName": "cli-test-1",
+        "visibility": "public",
+        "isFork": false,
+        "isArchived": false,
+        "topics": [],
+        "url": "https://tangled.org/did:plc:laqygfbyvnkyuhsuaxmp6ez3/1779658262331630",
+        "cloneUrls": {
+          "https": "https://tangled.org/did:plc:laqygfbyvnkyuhsuaxmp6ez3/1779658262331630",
+          "ssh": "ssh://git@tangled.org/did:plc:laqygfbyvnkyuhsuaxmp6ez3/1779658262331630"
+        },
+        "createdAt": "2026-05-24T21:31:02.000Z"
+      }
+    ]
   }
 }

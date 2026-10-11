@@ -29,6 +29,7 @@ import type {
   Notification,
   NotificationListOptions,
   NotificationRef,
+  OwnerRepoQuery,
   Page,
   PageOptions,
   Reaction,
@@ -881,6 +882,26 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
     )
   }
 
+  /** Organisations first, since `/users/{owner}/repos` lists only public repositories. */
+  async function ownerReposPage(owner: RepoRef, query: OwnerRepoQuery = {}): Promise<Page<Repo>> {
+    const visibility = query.visibility === 'all' ? undefined : query.visibility
+    const read = (path: string, type: string | undefined) => list(path, query, (raw: GitHubRepositoryDetail) => toRepo(instance, raw), {
+      query: { type, sort: query.sort === 'name' ? 'full_name' : query.sort, direction: query.direction },
+    })
+    try {
+      return await read(`/orgs/${encodeURIComponent(owner.owner)}/repos`, visibility === 'internal' ? undefined : visibility)
+    }
+    catch (error) {
+      if (!(error instanceof NotFoundError) || query.cursor) {
+        throw error
+      }
+    }
+    if (visibility && visibility !== 'public') {
+      return { items: [], warnings: [{ code: 'filter_unsupported', message: 'GitHub lists only the public repositories of a user' }] }
+    }
+    return read(`/users/${encodeURIComponent(owner.owner)}/repos`, 'owner')
+  }
+
   /** Repository hooks, or organisation hooks for a namespace ref. */
   function hooksPath(target: RepoRef): string {
     return isNamespaceRef(target) ? `/orgs/${encodeURIComponent(target.owner)}/hooks` : `${repoPath(target)}/hooks`
@@ -1486,6 +1507,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
         }
         return reposPage(fetcher, '/user/repos', false, listOptions)
       }),
+      byOwnerPage: verb(true, ownerReposPage),
       labelsPage: verb(true, (repo, listOptions = {}) => list(`${repoPath(repo)}/labels`, listOptions, toLabel)),
       createLabel: verb(true, async (repo, label, options) => toLabel((await fetcher.json<GitHubLabel>(`${repoPath(repo)}/labels`, {
         method: 'POST',

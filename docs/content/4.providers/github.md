@@ -62,6 +62,10 @@ Two capabilities depend on the version of the server. Marking notifications as d
 
 GitHub lists pull requests in full pages. When you filter by label, author, assignee or `since`, though, the provider can't use that listing and reads the pull requests from GitHub's issues listing instead, which mixes issues and pull requests. The provider drops the issues, so a page can contain fewer items than `perPage`. To list merged pull requests, the provider uses GitHub's search API, which has a lower rate limit and can lag a little behind the repository. See [Page through results](/guides/pagination) for how to deal with short pages.
 
+## Listing an owner's repositories
+
+`repos.byOwner()` reads the repositories of an organisation first. When no organisation has that name, it reads the repositories of the user instead, so listing a user's repositories costs one more request. GitHub lists only the public repositories of a user, so for a user, `visibility: 'private'` or `'internal'` returns an empty page with a `filter_unsupported` warning.
+
 ## Merging
 
 If you call `merge()` without a `method`, the provider asks GitHub which merge methods the repository allows. When exactly one method is allowed, it uses that one. When several are allowed, it can't choose for you and throws `MergeMethodRequiredError`.
@@ -148,6 +152,7 @@ Deliveries of the `installation` and `installation_repositories` events become `
 | `users.get` | ✅ | ✅ |
 | `users.me` | ❌ | ❌ |
 | `repos.list` | ✅ | ❌ |
+| `repos.byOwner` | ✅ | ✅ |
 | `repos.labels` | ✅ | ✅ |
 | `repos.createLabel` | ✅ | ❌ |
 | `repos.milestones` | ✅ | ✅ |

@@ -47,6 +47,8 @@ Webhook delivery logs and redelivery require GitLab 17.0 or later. If you know t
 
 GitLab projects can live in nested groups, so `RepoRef.owner` holds the full namespace path. A project in a subgroup has `owner: 'acme/platform'` and `name: 'widgets'`.
 
+`repos.byOwner()` lists the projects of a group, or of a user when no group has that path. It leaves out projects that other groups share with the group, and it includes the projects of subgroups when you pass `subgroups: true`.
+
 ## Notifications are to-dos
 
 On GitLab, `notifications.list()` reads the to-dos of the user. A to-do is either pending or done, and there is no separate read state, which affects how the notification operations behave:
@@ -125,6 +127,7 @@ If you create a hook with `webhooks.create()`, `nativeEvents` takes the names of
 | `users.get` | ✅ | ✅ |
 | `users.me` | ✅ | ❌ |
 | `repos.list` | ✅ | ❌ |
+| `repos.byOwner` | ✅ | ✅ |
 | `repos.labels` | ✅ | ❌ |
 | `repos.createLabel` | ✅ | ❌ |
 | `repos.milestones` | ✅ | ❌ |

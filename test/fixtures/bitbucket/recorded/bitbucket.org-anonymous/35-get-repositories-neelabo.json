@@ -1,0 +1,407 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.bitbucket.org/2.0/repositories/neelabo?q=is_private+%3D+false&sort=updated_on&pagelen=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"d13b109ba8aea8fe3525091fc66cd394\"",
+      "x-ratelimit-limit": "60, 60;w=3600",
+      "x-ratelimit-remaining": "59",
+      "x-ratelimit-reset": "897"
+    },
+    "body": {
+      "values": [
+        {
+          "type": "repository",
+          "full_name": "neelabo/svg2xaml",
+          "links": {
+            "self": {
+              "href": "https://api.bitbucket.org/2.0/repositories/neelabo/svg2xaml"
+            },
+            "html": {
+              "href": "https://bitbucket.org/neelabo/svg2xaml"
+            },
+            "avatar": {
+              "href": "https://bytebucket.org/ravatar/%7B8c94e927-a974-4973-a23c-57a68ac1d966%7D?ts=c_sharp"
+            },
+            "pullrequests": {
+              "href": "https://api.bitbucket.org/2.0/repositories/neelabo/svg2xaml/pullrequests"
+            },
+            "commits": {
+              "href": "https://api.bitbucket.org/2.0/repositories/neelabo/svg2xaml/commits"
+            },
+            "forks": {
+              "href": "https://api.bitbucket.org/2.0/repositories/neelabo/svg2xaml/forks"
+            },
+            "watchers": {
+              "href": "https://api.bitbucket.org/2.0/repositories/neelabo/svg2xaml/watchers"
+            },
+            "branches": {
+              "href": "https://api.bitbucket.org/2.0/repositories/neelabo/svg2xaml/refs/branches"
+            },
+            "tags": {
+              "href": "https://api.bitbucket.org/2.0/repositories/neelabo/svg2xaml/refs/tags"
+            },
+            "downloads": {
+              "href": "https://api.bitbucket.org/2.0/repositories/neelabo/svg2xaml/downloads"
+            },
+            "source": {
+              "href": "https://api.bitbucket.org/2.0/repositories/neelabo/svg2xaml/src"
+            },
+            "clone": [
+              {
+                "name": "https",
+                "href": "https://bitbucket.org/neelabo/svg2xaml.git"
+              },
+              {
+                "name": "ssh",
+                "href": "git@bitbucket.org:neelabo/svg2xaml.git"
+              }
+            ],
+            "hooks": {
+              "href": "https://api.bitbucket.org/2.0/repositories/neelabo/svg2xaml/hooks"
+            }
+          },
+          "name": "Svg2Xaml",
+          "slug": "svg2xaml",
+          "description": "SVG to XAML converter",
+          "scm": "git",
+          "website": "",
+          "owner": {
+            "display_name": "Ito Mitsuhiro",
+            "links": {
+              "self": {
+                "href": "https://api.bitbucket.org/2.0/workspaces/%7B7247b96a-9628-4fa3-b0ed-06bd83dc23a1%7D"
+              },
+              "avatar": {
+                "href": "https://bitbucket.org/account/neelabo-team/avatar/"
+              },
+              "html": {
+                "href": "https://bitbucket.org/%7B04a60307-bfb6-4dfc-9b19-e862ceab584f%7D/"
+              }
+            },
+            "type": "team",
+            "uuid": "{04a60307-bfb6-4dfc-9b19-e862ceab584f}",
+            "username": "neelabo-team"
+          },
+          "workspace": {
+            "type": "workspace",
+            "uuid": "{7247b96a-9628-4fa3-b0ed-06bd83dc23a1}",
+            "name": "Ito Mitsuhiro",
+            "slug": "neelabo",
+            "links": {
+              "avatar": {
+                "href": "https://bitbucket.org/workspaces/neelabo/avatar/?ts=1543459268"
+              },
+              "html": {
+                "href": "https://bitbucket.org/neelabo/"
+              },
+              "self": {
+                "href": "https://api.bitbucket.org/2.0/workspaces/neelabo"
+              }
+            }
+          },
+          "is_private": false,
+          "project": {
+            "type": "project",
+            "key": "PROJ",
+            "uuid": "{d0decb8f-f5c6-4c2b-85a0-09fc666dafde}",
+            "name": "Untitled project",
+            "links": {
+              "self": {
+                "href": "https://api.bitbucket.org/2.0/workspaces/neelabo/projects/PROJ"
+              },
+              "html": {
+                "href": "https://bitbucket.org/neelabo/workspace/projects/PROJ"
+              },
+              "avatar": {
+                "href": "https://bitbucket.org/neelabo/workspace/projects/PROJ/avatar/32?ts=1543459268"
+              }
+            }
+          },
+          "fork_policy": "allow_forks",
+          "created_on": "2016-07-19T02:11:56.008371+00:00",
+          "updated_on": "2017-06-14T03:31:33.059532+00:00",
+          "size": 1376739,
+          "language": "c#",
+          "uuid": "{8c94e927-a974-4973-a23c-57a68ac1d966}",
+          "mainbranch": {
+            "name": "master",
+            "type": "branch"
+          },
+          "override_settings": {
+            "default_merge_strategy": false,
+            "branching_model": false
+          },
+          "parent": null,
+          "enforced_signed_commits": null,
+          "has_issues": false,
+          "has_wiki": false
+        },
+        {
+          "type": "repository",
+          "full_name": "neelabo/resxxlsxconv",
+          "links": {
+            "self": {
+              "href": "https://api.bitbucket.org/2.0/repositories/neelabo/resxxlsxconv"
+            },
+            "html": {
+              "href": "https://bitbucket.org/neelabo/resxxlsxconv"
+            },
+            "avatar": {
+              "href": "https://bytebucket.org/ravatar/%7Be6b99fd6-3045-4be1-8508-f1a418db6bf4%7D?ts=c_sharp"
+            },
+            "pullrequests": {
+              "href": "https://api.bitbucket.org/2.0/repositories/neelabo/resxxlsxconv/pullrequests"
+            },
+            "commits": {
+              "href": "https://api.bitbucket.org/2.0/repositories/neelabo/resxxlsxconv/commits"
+            },
+            "forks": {
+              "href": "https://api.bitbucket.org/2.0/repositories/neelabo/resxxlsxconv/forks"
+            },
+            "watchers": {
+              "href": "https://api.bitbucket.org/2.0/repositories/neelabo/resxxlsxconv/watchers"
+            },
+            "branches": {
+              "href": "https://api.bitbucket.org/2.0/repositories/neelabo/resxxlsxconv/refs/branches"
+            },
+            "tags": {
+              "href": "https://api.bitbucket.org/2.0/repositories/neelabo/resxxlsxconv/refs/tags"
+            },
+            "downloads": {
+              "href": "https://api.bitbucket.org/2.0/repositories/neelabo/resxxlsxconv/downloads"
+            },
+            "source": {
+              "href": "https://api.bitbucket.org/2.0/repositories/neelabo/resxxlsxconv/src"
+            },
+            "clone": [
+              {
+                "name": "https",
+                "href": "https://bitbucket.org/neelabo/resxxlsxconv.git"
+              },
+              {
+                "name": "ssh",
+                "href": "git@bitbucket.org:neelabo/resxxlsxconv.git"
+              }
+            ],
+            "hooks": {
+              "href": "https://api.bitbucket.org/2.0/repositories/neelabo/resxxlsxconv/hooks"
+            }
+          },
+          "name": "ResxXlsxConv",
+          "slug": "resxxlsxconv",
+          "description": "Multi Language ResX string to XLSX converter",
+          "scm": "git",
+          "website": "",
+          "owner": {
+            "display_name": "Ito Mitsuhiro",
+            "links": {
+              "self": {
+                "href": "https://api.bitbucket.org/2.0/workspaces/%7B7247b96a-9628-4fa3-b0ed-06bd83dc23a1%7D"
+              },
+              "avatar": {
+                "href": "https://bitbucket.org/account/neelabo-team/avatar/"
+              },
+              "html": {
+                "href": "https://bitbucket.org/%7B04a60307-bfb6-4dfc-9b19-e862ceab584f%7D/"
+              }
+            },
+            "type": "team",
+            "uuid": "{04a60307-bfb6-4dfc-9b19-e862ceab584f}",
+            "username": "neelabo-team"
+          },
+          "workspace": {
+            "type": "workspace",
+            "uuid": "{7247b96a-9628-4fa3-b0ed-06bd83dc23a1}",
+            "name": "Ito Mitsuhiro",
+            "slug": "neelabo",
+            "links": {
+              "avatar": {
+                "href": "https://bitbucket.org/workspaces/neelabo/avatar/?ts=1543459268"
+              },
+              "html": {
+                "href": "https://bitbucket.org/neelabo/"
+              },
+              "self": {
+                "href": "https://api.bitbucket.org/2.0/workspaces/neelabo"
+              }
+            }
+          },
+          "is_private": false,
+          "project": {
+            "type": "project",
+            "key": "PROJ",
+            "uuid": "{d0decb8f-f5c6-4c2b-85a0-09fc666dafde}",
+            "name": "Untitled project",
+            "links": {
+              "self": {
+                "href": "https://api.bitbucket.org/2.0/workspaces/neelabo/projects/PROJ"
+              },
+              "html": {
+                "href": "https://bitbucket.org/neelabo/workspace/projects/PROJ"
+              },
+              "avatar": {
+                "href": "https://bitbucket.org/neelabo/workspace/projects/PROJ/avatar/32?ts=1543459268"
+              }
+            }
+          },
+          "fork_policy": "allow_forks",
+          "created_on": "2017-06-13T09:51:12.165725+00:00",
+          "updated_on": "2021-05-29T12:01:54.438113+00:00",
+          "size": 194882,
+          "language": "c#",
+          "uuid": "{e6b99fd6-3045-4be1-8508-f1a418db6bf4}",
+          "mainbranch": {
+            "name": "master",
+            "type": "branch"
+          },
+          "override_settings": {
+            "default_merge_strategy": false,
+            "branching_model": false
+          },
+          "parent": null,
+          "enforced_signed_commits": null,
+          "has_issues": false,
+          "has_wiki": false
+        },
+        {
+          "type": "repository",
+          "full_name": "neelabo/iconmaker",
+          "links": {
+            "self": {
+              "href": "https://api.bitbucket.org/2.0/repositories/neelabo/iconmaker"
+            },
+            "html": {
+              "href": "https://bitbucket.org/neelabo/iconmaker"
+            },
+            "avatar": {
+              "href": "https://bytebucket.org/ravatar/%7B608074f1-2d3e-448f-a448-ecec2320ed9e%7D?ts=c_sharp"
+            },
+            "pullrequests": {
+              "href": "https://api.bitbucket.org/2.0/repositories/neelabo/iconmaker/pullrequests"
+            },
+            "commits": {
+              "href": "https://api.bitbucket.org/2.0/repositories/neelabo/iconmaker/commits"
+            },
+            "forks": {
+              "href": "https://api.bitbucket.org/2.0/repositories/neelabo/iconmaker/forks"
+            },
+            "watchers": {
+              "href": "https://api.bitbucket.org/2.0/repositories/neelabo/iconmaker/watchers"
+            },
+            "branches": {
+              "href": "https://api.bitbucket.org/2.0/repositories/neelabo/iconmaker/refs/branches"
+            },
+            "tags": {
+              "href": "https://api.bitbucket.org/2.0/repositories/neelabo/iconmaker/refs/tags"
+            },
+            "downloads": {
+              "href": "https://api.bitbucket.org/2.0/repositories/neelabo/iconmaker/downloads"
+            },
+            "source": {
+              "href": "https://api.bitbucket.org/2.0/repositories/neelabo/iconmaker/src"
+            },
+            "clone": [
+              {
+                "name": "https",
+                "href": "https://bitbucket.org/neelabo/iconmaker.git"
+              },
+              {
+                "name": "ssh",
+                "href": "git@bitbucket.org:neelabo/iconmaker.git"
+              }
+            ],
+            "issues": {
+              "href": "https://api.bitbucket.org/2.0/repositories/neelabo/iconmaker/issues"
+            },
+            "hooks": {
+              "href": "https://api.bitbucket.org/2.0/repositories/neelabo/iconmaker/hooks"
+            }
+          },
+          "name": "IconMaker",
+          "slug": "iconmaker",
+          "description": "WPFのレンダリング機能を利用してWindows用アプリアイコンを作成します。",
+          "scm": "git",
+          "website": "",
+          "owner": {
+            "display_name": "Ito Mitsuhiro",
+            "links": {
+              "self": {
+                "href": "https://api.bitbucket.org/2.0/workspaces/%7B7247b96a-9628-4fa3-b0ed-06bd83dc23a1%7D"
+              },
+              "avatar": {
+                "href": "https://bitbucket.org/account/neelabo-team/avatar/"
+              },
+              "html": {
+                "href": "https://bitbucket.org/%7B04a60307-bfb6-4dfc-9b19-e862ceab584f%7D/"
+              }
+            },
+            "type": "team",
+            "uuid": "{04a60307-bfb6-4dfc-9b19-e862ceab584f}",
+            "username": "neelabo-team"
+          },
+          "workspace": {
+            "type": "workspace",
+            "uuid": "{7247b96a-9628-4fa3-b0ed-06bd83dc23a1}",
+            "name": "Ito Mitsuhiro",
+            "slug": "neelabo",
+            "links": {
+              "avatar": {
+                "href": "https://bitbucket.org/workspaces/neelabo/avatar/?ts=1543459268"
+              },
+              "html": {
+                "href": "https://bitbucket.org/neelabo/"
+              },
+              "self": {
+                "href": "https://api.bitbucket.org/2.0/workspaces/neelabo"
+              }
+            }
+          },
+          "is_private": false,
+          "project": {
+            "type": "project",
+            "key": "PROJ",
+            "uuid": "{d0decb8f-f5c6-4c2b-85a0-09fc666dafde}",
+            "name": "Untitled project",
+            "links": {
+              "self": {
+                "href": "https://api.bitbucket.org/2.0/workspaces/neelabo/projects/PROJ"
+              },
+              "html": {
+                "href": "https://bitbucket.org/neelabo/workspace/projects/PROJ"
+              },
+              "avatar": {
+                "href": "https://bitbucket.org/neelabo/workspace/projects/PROJ/avatar/32?ts=1543459268"
+              }
+            }
+          },
+          "fork_policy": "allow_forks",
+          "created_on": "2015-11-06T01:28:36.178217+00:00",
+          "updated_on": "2023-03-18T07:13:27.432203+00:00",
+          "size": 2940624,
+          "language": "c#",
+          "uuid": "{608074f1-2d3e-448f-a448-ecec2320ed9e}",
+          "mainbranch": {
+            "name": "master",
+            "type": "branch"
+          },
+          "override_settings": {
+            "default_merge_strategy": false,
+            "branching_model": false
+          },
+          "parent": null,
+          "enforced_signed_commits": null,
+          "has_issues": true,
+          "has_wiki": true
+        }
+      ],
+      "pagelen": 3,
+      "size": 4,
+      "page": 1,
+      "next": "https://api.bitbucket.org/2.0/repositories/neelabo?q=is_private+%3D+false&sort=updated_on&pagelen=3&page=2"
+    }
+  }
+}

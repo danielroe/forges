@@ -1,0 +1,13 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitee.com/api/v5/orgs/cmiot-zhangyong/repos?type=all&page=1&per_page=3"
+  },
+  "response": {
+    "status": 404,
+    "headers": {},
+    "body": {
+      "message": "Group"
+    }
+  }
+}

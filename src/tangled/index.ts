@@ -260,6 +260,15 @@ const TANGLED: ProviderDefinition<TangledOptions> = {
             }
           }))
         }),
+        byOwnerPage: verb(true, (owner, query = {}) => wholePage(forgeIterable(async function* (warn) {
+          if (query.sort) {
+            warn({ code: 'sort_unsupported', message: 'Tangled lists repositories in the order of their records' })
+          }
+          const did = owner.owner.startsWith('did:') ? owner.owner : await atproto.resolveHandle(owner.owner.replace(/^@/, ''), query.signal)
+          for await (const record of atproto.listRecords<RepoRecord>(did, COLLECTIONS.repo, query.signal)) {
+            yield toRepo({ forge: FORGE, instance, owner: did, name: parseAtUri(record.uri)!.rkey }, record.value, record)
+          }
+        }))),
       },
       notifications,
       users: {

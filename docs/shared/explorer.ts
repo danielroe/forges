@@ -243,6 +243,7 @@ export const EXPLORER_OPERATIONS: ExplorerOperation[] = [
   // Repositories
   repoRead('repos.get', 'Repo', (p, _, { repo }) => p.repos.get(repo)),
   operation('repos.list', { method: 'repos.listPage', returns: 'Page<Repo>', uses: 'none', args: () => '{ perPage: 5 }' }),
+  operation('repos.byOwner', { method: 'repos.byOwnerPage', returns: 'Page<Repo>', uses: 'none', fields: fields('owner'), args: ({ origin, value }) => `{ ${origin}, owner: ${value('owner')}, name: '', kind: 'namespace' }, { perPage: 5 }`, run: (p, input, { origin }) => p.repos.byOwnerPage({ ...origin, owner: input.owner, name: '', kind: 'namespace' }, perPage) }),
   repoRead('repos.labels', 'Page<Label>', (p, _, { repo }) => p.repos.labelsPage(repo, perPage)),
   repoRead('repos.milestones', 'Page<Milestone>', (p, _, { repo }) => p.repos.milestonesPage(repo, perPage)),
   repoRead('repos.collaborators', 'Page<Collaborator>', (p, _, { repo }) => p.repos.collaboratorsPage(repo, perPage)),

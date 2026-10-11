@@ -1299,6 +1299,10 @@
             "$ref": "#/components/schemas/Support",
             "description": "Support for `repos.list()` and `repos.listPage()`."
           },
+          "byOwner": {
+            "$ref": "#/components/schemas/Support",
+            "description": "Support for `repos.byOwner()` and `repos.byOwnerPage()`."
+          },
           "labels": {
             "$ref": "#/components/schemas/Support",
             "description": "Support for `repos.labels()` and `repos.labelsPage()`."
@@ -1335,6 +1339,7 @@
         "required": [
           "get",
           "list",
+          "byOwner",
           "labels",
           "createLabel",
           "milestones",

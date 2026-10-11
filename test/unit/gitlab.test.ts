@@ -217,6 +217,17 @@ describe('gitlab provider', () => {
 
     expect((await instance.threads.get(mr)).stats).toEqual(stats)
   })
+
+  it('reads a missing nested group as missing rather than as a user', async () => {
+    const urls: string[] = []
+    const instance = gitlab({ fetch: async (url) => {
+      urls.push(url)
+      return Response.json({ message: '404 Group Not Found' }, { status: 404 })
+    } }).create()
+
+    await expect(instance.repos.byOwnerPage({ ...repo, name: '', kind: 'namespace' })).rejects.toThrow(NotFoundError)
+    expect(urls).toEqual(['https://gitlab.com/api/v4/groups/acme%2Fplatform/projects?with_shared=false'])
+  })
 })
 
 describe('gitlab repository licence', () => {

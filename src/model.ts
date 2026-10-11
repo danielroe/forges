@@ -1423,6 +1423,21 @@ export interface RepoQuery extends PageOptions {
   direction?: 'asc' | 'desc'
 }
 
+/** Filters for `repos.byOwner()`. */
+export interface OwnerRepoQuery extends PageOptions {
+  /** Only repositories with this visibility. */
+  visibility?: RepoVisibility | 'all'
+  /**
+   * Includes the repositories of nested groups, on forges that have them (GitLab).
+   * @default false
+   */
+  subgroups?: boolean
+  /** Defaults to the forge's own order. Unsupported orders produce a `sort_unsupported` warning. */
+  sort?: 'created' | 'updated' | 'pushed' | 'name'
+  /** Defaults to the forge's own direction. */
+  direction?: 'asc' | 'desc'
+}
+
 /** What `threads.upsertComment()` needs. */
 export interface UpsertCommentInput {
   /**

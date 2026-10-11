@@ -1,0 +1,17 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitlab.com/api/v4/groups/gitlab-dependency-update-bot/projects?with_shared=false&per_page=3"
+  },
+  "response": {
+    "status": 404,
+    "headers": {
+      "ratelimit-limit": "2000",
+      "ratelimit-remaining": "1998",
+      "ratelimit-reset": "1791722700"
+    },
+    "body": {
+      "message": "404 Group Not Found"
+    }
+  }
+}

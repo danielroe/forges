@@ -79,6 +79,8 @@ Issues and pulls are atproto records, and they are identified by their AT-URI. I
 
 In the refs that the provider returns, the `name` of a repo is the key of its repo record. For newer repos, that key differs from the name that people see, which `Repo.displayName` holds. You can also pass a ref that has a handle as `owner` and the visible name as `name`, which is what `parseUrl()` returns for a URL such as `https://tangled.org/@acme.example.com/widgets`. The provider resolves the handle and finds the record by its name, so the ref that it returns can differ from the one you passed.
 
+`repos.byOwner()` reads the repo records of an account, which you name by its handle or DID. Every Tangled repo is public, and the records come back in their own order, so if you pass `sort`, you get a `sort_unsupported` warning.
+
 The numbers that you see in the Tangled UI and in webhooks come from the appview, because the records themselves don't store them. The provider reports them as `displayNumber`.
 
 A ref from a webhook has no `number` until it is matched to a record. To fill in `number` during `webhooks.ingest()`, pass a `resolveDisplayNumber(repo, kind, displayNumber)` function that returns the AT-URI.
@@ -157,6 +159,7 @@ A `push` delivery becomes a `push` or `ref` event. Tangled has no API to registe
 | `users.get` | ❌ | ❌ |
 | `users.me` | ✅ | ❌ |
 | `repos.list` | ✅ | ❌ |
+| `repos.byOwner` | ✅ | ✅ |
 | `repos.labels` | ❌ | ❌ |
 | `repos.createLabel` | ❌ | ❌ |
 | `repos.milestones` | ❌ | ❌ |

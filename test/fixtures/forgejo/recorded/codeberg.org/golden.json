@@ -4902,6 +4902,221 @@
       "nextUrl": "https://codeberg.org/api/v1/user/repos?limit=3&page=2"
     }
   },
+  "owner repos": {
+    "items": [
+      {
+        "ref": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "owner": "forgejo",
+          "name": "gitea-open-letter",
+          "externalId": "70845"
+        },
+        "description": "An Open Letter from the Gitea Community to the Project Owners.",
+        "defaultBranch": "main",
+        "visibility": "public",
+        "visibilityRaw": "public",
+        "isFork": false,
+        "isArchived": true,
+        "topics": [
+          "gitea",
+          "community",
+          "open-letter"
+        ],
+        "url": "https://codeberg.org/forgejo/gitea-open-letter",
+        "cloneUrls": {
+          "https": "https://codeberg.org/forgejo/gitea-open-letter.git",
+          "ssh": "ssh://git@codeberg.org/forgejo/gitea-open-letter.git"
+        },
+        "createdAt": "2022-10-27T11:41:44.000Z",
+        "updatedAt": "2025-04-17T22:08:20.000Z",
+        "openIssueCount": 0,
+        "openPullCount": 0,
+        "owner": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "login": "forgejo",
+          "id": "70422",
+          "name": "Forgejo",
+          "avatarUrl": "https://codeberg.org/avatars/dae8ab126a96f6fbd6942cf08ab92382",
+          "url": "https://codeberg.org/forgejo",
+          "isBotHint": false
+        },
+        "language": "Shell",
+        "homepage": "https://gitea-open-letter.coding.social/",
+        "stars": 16,
+        "forks": 28,
+        "watchers": 14,
+        "mergeMethods": [
+          "merge",
+          "squash",
+          "rebase",
+          "rebase_merge"
+        ],
+        "defaultMergeMethod": "rebase",
+        "deleteBranchOnMerge": false,
+        "features": {
+          "issues": true,
+          "pullRequests": true,
+          "discussions": false,
+          "wiki": false,
+          "projects": false,
+          "releases": false
+        },
+        "permissions": {
+          "admin": false,
+          "maintain": false,
+          "push": false,
+          "triage": false,
+          "pull": true
+        }
+      },
+      {
+        "ref": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "owner": "forgejo",
+          "name": "forgejo",
+          "externalId": "73144"
+        },
+        "description": "Beyond coding. We forge.",
+        "defaultBranch": "forgejo",
+        "visibility": "public",
+        "visibilityRaw": "public",
+        "isFork": false,
+        "isArchived": false,
+        "topics": [
+          "forge",
+          "forgejo",
+          "git",
+          "self-hosted"
+        ],
+        "url": "https://codeberg.org/forgejo/forgejo",
+        "cloneUrls": {
+          "https": "https://codeberg.org/forgejo/forgejo.git",
+          "ssh": "ssh://git@codeberg.org/forgejo/forgejo.git"
+        },
+        "createdAt": "2022-11-06T06:24:57.000Z",
+        "updatedAt": "2026-10-11T10:37:31.000Z",
+        "openIssueCount": 1553,
+        "openPullCount": 145,
+        "owner": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "login": "forgejo",
+          "id": "70422",
+          "name": "Forgejo",
+          "avatarUrl": "https://codeberg.org/avatars/dae8ab126a96f6fbd6942cf08ab92382",
+          "url": "https://codeberg.org/forgejo",
+          "isBotHint": false
+        },
+        "language": "Go",
+        "homepage": "https://forgejo.org",
+        "stars": 5622,
+        "forks": 989,
+        "watchers": 315,
+        "mergeMethods": [
+          "merge",
+          "squash",
+          "rebase",
+          "rebase_merge"
+        ],
+        "defaultMergeMethod": "squash",
+        "deleteBranchOnMerge": true,
+        "features": {
+          "issues": true,
+          "pullRequests": true,
+          "discussions": false,
+          "wiki": false,
+          "projects": true,
+          "releases": true
+        },
+        "permissions": {
+          "admin": false,
+          "maintain": false,
+          "push": false,
+          "triage": false,
+          "pull": true
+        }
+      },
+      {
+        "ref": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "owner": "forgejo",
+          "name": "website",
+          "externalId": "73168"
+        },
+        "description": "Forgejo website content",
+        "defaultBranch": "main",
+        "visibility": "public",
+        "visibilityRaw": "public",
+        "isFork": false,
+        "isArchived": false,
+        "topics": [],
+        "url": "https://codeberg.org/forgejo/website",
+        "cloneUrls": {
+          "https": "https://codeberg.org/forgejo/website.git",
+          "ssh": "ssh://git@codeberg.org/forgejo/website.git"
+        },
+        "createdAt": "2022-11-06T09:52:25.000Z",
+        "updatedAt": "2026-10-11T10:15:38.000Z",
+        "openIssueCount": 27,
+        "openPullCount": 6,
+        "owner": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "login": "forgejo",
+          "id": "70422",
+          "name": "Forgejo",
+          "avatarUrl": "https://codeberg.org/avatars/dae8ab126a96f6fbd6942cf08ab92382",
+          "url": "https://codeberg.org/forgejo",
+          "isBotHint": false
+        },
+        "language": "Astro",
+        "homepage": "https://forgejo.org",
+        "stars": 43,
+        "forks": 56,
+        "watchers": 26,
+        "mergeMethods": [
+          "merge",
+          "squash",
+          "rebase",
+          "rebase_merge",
+          "fast_forward_only"
+        ],
+        "defaultMergeMethod": "merge",
+        "deleteBranchOnMerge": true,
+        "features": {
+          "issues": true,
+          "pullRequests": true,
+          "discussions": false,
+          "wiki": false,
+          "projects": false,
+          "releases": false
+        },
+        "permissions": {
+          "admin": false,
+          "maintain": false,
+          "push": false,
+          "triage": false,
+          "pull": true
+        }
+      }
+    ],
+    "cursor": {
+      "nextUrl": "https://codeberg.org/api/v1/users/forgejo/repos?limit=3&page=2"
+    },
+    "warnings": [
+      {
+        "code": "sort_unsupported",
+        "message": "forgejo lists the repositories of an owner oldest first only"
+      }
+    ]
+  },
+  "user repos": {
+    "items": []
+  },
   "notifications": {
     "items": [
       {

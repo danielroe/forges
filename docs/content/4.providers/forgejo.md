@@ -67,6 +67,10 @@ Forgejo before 15 ignores the branch filter, so `ci.runs()` drops the runs of ot
 
 `threads.files()` and `contents.compare()` return line counts for each file, but they don't return a `patch`. Forgejo serves diffs only for a whole pull request.
 
+## Listing an owner's repositories
+
+`repos.byOwner()` reads the repositories of a user or an organisation from the same listing, oldest first. Forgejo can't filter or sort that listing, so the provider filters by `visibility` itself, and if you ask for any other order, you get a `sort_unsupported` warning.
+
 ## Search
 
 `search.threads()` searches across repositories. It has no `involves` filter, and it returns the results newest first, whatever `sort` or `direction` you pass. If you pass `involves`, you get a `filter_unsupported` warning, and if you pass a `sort` other than `relevance`, you get a `sort_unsupported` warning.
@@ -115,6 +119,7 @@ A label delivery doesn't say which labels were added or removed. When the set of
 | `users.get` | ✅ | ✅ |
 | `users.me` | ✅ | ❌ |
 | `repos.list` | ✅ | ❌ |
+| `repos.byOwner` | ✅ | ✅ |
 | `repos.labels` | ✅ | ✅ |
 | `repos.createLabel` | ✅ | ❌ |
 | `repos.milestones` | ✅ | ✅ |

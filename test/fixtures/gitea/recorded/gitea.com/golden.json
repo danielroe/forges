@@ -2197,6 +2197,343 @@
       }
     ]
   },
+  "owner repos": {
+    "items": [
+      {
+        "ref": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "owner": "gitea",
+          "name": "migrator",
+          "externalId": "42"
+        },
+        "description": "Migrator is a library and a command line tool, which allow to migrate all repositories data from github/gitlab/gitea/bitbucket to gitea",
+        "defaultBranch": "master",
+        "visibility": "public",
+        "visibilityRaw": "public",
+        "isFork": false,
+        "isArchived": true,
+        "topics": [],
+        "url": "https://gitea.com/gitea/migrator",
+        "cloneUrls": {
+          "https": "https://gitea.com/gitea/migrator.git",
+          "ssh": "git@gitea.com:gitea/migrator.git"
+        },
+        "createdAt": "2019-02-23T10:58:04.000Z",
+        "updatedAt": "2024-06-05T18:14:52.000Z",
+        "openIssueCount": 3,
+        "openPullCount": 0,
+        "owner": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "login": "gitea",
+          "id": "3",
+          "avatarUrl": "https://gitea.com/avatars/35dea380390772b3130aafbac7ca49e6",
+          "url": "https://gitea.com/gitea",
+          "isBotHint": false
+        },
+        "language": "Go",
+        "stars": 8,
+        "forks": 4,
+        "watchers": 52,
+        "mergeMethods": [
+          "merge",
+          "squash",
+          "rebase",
+          "rebase_merge"
+        ],
+        "defaultMergeMethod": "merge",
+        "deleteBranchOnMerge": false,
+        "features": {
+          "issues": true,
+          "pullRequests": true,
+          "discussions": false,
+          "wiki": false,
+          "projects": false,
+          "releases": true
+        },
+        "permissions": {
+          "admin": false,
+          "maintain": false,
+          "push": false,
+          "triage": false,
+          "pull": true
+        }
+      },
+      {
+        "ref": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "owner": "gitea",
+          "name": "log",
+          "externalId": "336"
+        },
+        "description": "Logger package for gitea repositories",
+        "defaultBranch": "master",
+        "visibility": "public",
+        "visibilityRaw": "public",
+        "isFork": false,
+        "isArchived": true,
+        "topics": [],
+        "url": "https://gitea.com/gitea/log",
+        "cloneUrls": {
+          "https": "https://gitea.com/gitea/log.git",
+          "ssh": "git@gitea.com:gitea/log.git"
+        },
+        "createdAt": "2019-04-03T14:15:50.000Z",
+        "updatedAt": "2025-05-15T20:24:16.000Z",
+        "openIssueCount": 5,
+        "openPullCount": 4,
+        "owner": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "login": "gitea",
+          "id": "3",
+          "avatarUrl": "https://gitea.com/avatars/35dea380390772b3130aafbac7ca49e6",
+          "url": "https://gitea.com/gitea",
+          "isBotHint": false
+        },
+        "language": "Go",
+        "stars": 4,
+        "forks": 7,
+        "watchers": 50,
+        "mergeMethods": [
+          "squash",
+          "fast_forward_only"
+        ],
+        "defaultMergeMethod": "merge",
+        "deleteBranchOnMerge": false,
+        "features": {
+          "issues": true,
+          "pullRequests": true,
+          "discussions": false,
+          "wiki": true,
+          "projects": false,
+          "releases": true
+        },
+        "permissions": {
+          "admin": false,
+          "maintain": false,
+          "push": false,
+          "triage": false,
+          "pull": true
+        }
+      }
+    ],
+    "cursor": {
+      "nextUrl": "https://gitea.com/api/v1/users/gitea/repos?limit=3&page=2"
+    },
+    "warnings": [
+      {
+        "code": "sort_unsupported",
+        "message": "gitea lists the repositories of an owner oldest first only"
+      }
+    ]
+  },
+  "user repos": {
+    "items": [
+      {
+        "ref": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "owner": "lunny",
+          "name": "levelqueue",
+          "externalId": "35"
+        },
+        "description": "A golang queue library based on go-leveldb",
+        "defaultBranch": "master",
+        "visibility": "public",
+        "visibilityRaw": "public",
+        "isFork": false,
+        "isArchived": false,
+        "topics": [
+          "golang",
+          "library",
+          "queue"
+        ],
+        "url": "https://gitea.com/lunny/levelqueue",
+        "cloneUrls": {
+          "https": "https://gitea.com/lunny/levelqueue.git",
+          "ssh": "git@gitea.com:lunny/levelqueue.git"
+        },
+        "createdAt": "2019-02-22T07:38:57.000Z",
+        "updatedAt": "2023-04-14T02:33:59.000Z",
+        "openIssueCount": 0,
+        "openPullCount": 0,
+        "owner": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "login": "lunny",
+          "id": "1",
+          "name": "Lunny Xiao",
+          "avatarUrl": "https://seccdn.libravatar.org/avatar/b897d40dc87fdba4a024827c3967597434681a8f4f0f4eb5d73e0f8b1a0a9274?d=identicon",
+          "url": "https://gitea.com/lunny",
+          "isBotHint": false
+        },
+        "language": "Go",
+        "stars": 4,
+        "forks": 4,
+        "watchers": 1,
+        "mergeMethods": [
+          "squash",
+          "fast_forward_only"
+        ],
+        "defaultMergeMethod": "merge",
+        "deleteBranchOnMerge": false,
+        "features": {
+          "issues": true,
+          "pullRequests": true,
+          "discussions": false,
+          "wiki": false,
+          "projects": false,
+          "releases": true
+        },
+        "permissions": {
+          "admin": false,
+          "maintain": false,
+          "push": false,
+          "triage": false,
+          "pull": true
+        }
+      },
+      {
+        "ref": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "owner": "lunny",
+          "name": "timestamp",
+          "externalId": "37"
+        },
+        "description": "Golang package to operate time as timestamp",
+        "defaultBranch": "master",
+        "visibility": "public",
+        "visibilityRaw": "public",
+        "isFork": false,
+        "isArchived": false,
+        "topics": [
+          "golang",
+          "time"
+        ],
+        "url": "https://gitea.com/lunny/timestamp",
+        "cloneUrls": {
+          "https": "https://gitea.com/lunny/timestamp.git",
+          "ssh": "git@gitea.com:lunny/timestamp.git"
+        },
+        "createdAt": "2019-02-22T07:58:44.000Z",
+        "updatedAt": "2019-07-12T12:53:41.000Z",
+        "openIssueCount": 0,
+        "openPullCount": 0,
+        "owner": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "login": "lunny",
+          "id": "1",
+          "name": "Lunny Xiao",
+          "avatarUrl": "https://seccdn.libravatar.org/avatar/b897d40dc87fdba4a024827c3967597434681a8f4f0f4eb5d73e0f8b1a0a9274?d=identicon",
+          "url": "https://gitea.com/lunny",
+          "isBotHint": false
+        },
+        "language": "Go",
+        "stars": 1,
+        "forks": 0,
+        "watchers": 1,
+        "mergeMethods": [
+          "merge",
+          "squash",
+          "rebase",
+          "rebase_merge",
+          "fast_forward_only"
+        ],
+        "defaultMergeMethod": "merge",
+        "deleteBranchOnMerge": false,
+        "features": {
+          "issues": true,
+          "pullRequests": true,
+          "discussions": false,
+          "wiki": true,
+          "projects": false,
+          "releases": true
+        },
+        "permissions": {
+          "admin": false,
+          "maintain": false,
+          "push": false,
+          "triage": false,
+          "pull": true
+        }
+      },
+      {
+        "ref": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "owner": "lunny",
+          "name": "chapinyin",
+          "externalId": "39"
+        },
+        "description": "A command line to to convert hans to pinyin",
+        "defaultBranch": "master",
+        "visibility": "public",
+        "visibilityRaw": "public",
+        "isFork": false,
+        "isArchived": false,
+        "topics": [
+          "golang",
+          "pinyin",
+          "hans"
+        ],
+        "url": "https://gitea.com/lunny/chapinyin",
+        "cloneUrls": {
+          "https": "https://gitea.com/lunny/chapinyin.git",
+          "ssh": "git@gitea.com:lunny/chapinyin.git"
+        },
+        "createdAt": "2019-02-22T08:41:12.000Z",
+        "updatedAt": "2019-07-12T12:54:08.000Z",
+        "openIssueCount": 0,
+        "openPullCount": 0,
+        "owner": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "login": "lunny",
+          "id": "1",
+          "name": "Lunny Xiao",
+          "avatarUrl": "https://seccdn.libravatar.org/avatar/b897d40dc87fdba4a024827c3967597434681a8f4f0f4eb5d73e0f8b1a0a9274?d=identicon",
+          "url": "https://gitea.com/lunny",
+          "isBotHint": false
+        },
+        "language": "Go",
+        "stars": 1,
+        "forks": 0,
+        "watchers": 1,
+        "mergeMethods": [
+          "merge",
+          "squash",
+          "rebase",
+          "rebase_merge",
+          "fast_forward_only"
+        ],
+        "defaultMergeMethod": "merge",
+        "deleteBranchOnMerge": false,
+        "features": {
+          "issues": true,
+          "pullRequests": true,
+          "discussions": false,
+          "wiki": true,
+          "projects": false,
+          "releases": true
+        },
+        "permissions": {
+          "admin": false,
+          "maintain": false,
+          "push": false,
+          "triage": false,
+          "pull": true
+        }
+      }
+    ],
+    "cursor": {
+      "nextUrl": "https://gitea.com/api/v1/users/lunny/repos?limit=3&page=2"
+    }
+  },
   "notifications": {
     "items": [
       {

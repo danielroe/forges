@@ -61,7 +61,7 @@ const repo = {
 } as const
 ```
 
-Work items belong to a project and not to a repository, so their refs use a namespace ref: `{ owner: 'acme/Widgets', name: '', kind: 'namespace' }`.
+Work items belong to a project and not to a repository, so their refs use a namespace ref: `{ owner: 'acme/Widgets', name: '', kind: 'namespace' }`. `repos.byOwner()` takes the same namespace ref and lists the repositories of the project. Azure DevOps doesn't sort them, so if you pass `sort`, you get a `sort_unsupported` warning.
 
 ## Work items as issues
 
@@ -116,6 +116,7 @@ You manage service hook subscriptions at the level of the organization and not o
 | `users.get` | ❌ | ❌ |
 | `users.me` | ❌ | ❌ |
 | `repos.list` | ✅ | ❌ |
+| `repos.byOwner` | ✅ | ✅ |
 | `repos.labels` | ❌ | ❌ |
 | `repos.createLabel` | ❌ | ❌ |
 | `repos.milestones` | ❌ | ❌ |

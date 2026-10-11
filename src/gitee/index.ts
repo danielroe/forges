@@ -1,5 +1,5 @@
 import type { ProviderContext, ProviderDefinition, ProviderFactoryFunction, ProviderSpec } from '../define.ts'
-import type { BaseOptions, Check, Comment, Cursor, EventKind, ForgeEventInput, ForgeWarning, ListOptions, Notification, NotificationListOptions, Page, PageOptions, Release, Repo, RepoRef, RepoSearchQuery, ResolvedThreadRef, Review, ReviewInput, SearchQuery, Thread, ThreadQuery, ThreadRef, User } from '../model.ts'
+import type { BaseOptions, Check, Comment, Cursor, EventKind, ForgeEventInput, ForgeWarning, ListOptions, Notification, NotificationListOptions, OwnerRepoQuery, Page, PageOptions, Release, Repo, RepoRef, RepoSearchQuery, ResolvedThreadRef, Review, ReviewInput, SearchQuery, Thread, ThreadQuery, ThreadRef, User } from '../model.ts'
 import type { AnonymousAuth, BulkNotificationOptions, ForgeOptionsBase, TokenAuth, VerbScopes } from '../provider.ts'
 import type { ForgeVerb } from '../supports.ts'
 import type { GiteeBranch, GiteeCheckRun, GiteeComment, GiteeCommit, GiteeCommitFile, GiteeCompare, GiteeContentFile, GiteeHook, GiteeIssue, GiteeLabel, GiteeNotification, GiteeOperateLog, GiteePullRequest, GiteeRelease, GiteeRepository, GiteeTag, GiteeTree, GiteeUser } from './types.ts'
@@ -33,7 +33,8 @@ export interface GiteeOptions extends ForgeOptionsBase {
 const PULL = { pull_request: true } as const
 const PER_PAGE = 50
 
-function setupGitee({ instance, origin: context, fetcher, baseUrl }: ProviderContext<GiteeOptions, undefined>): ProviderSpec {
+function setupGitee({ options, instance, origin: context, fetcher, baseUrl }: ProviderContext<GiteeOptions, undefined>): ProviderSpec {
+  const anonymous = options.auth?.type === 'anonymous'
   const repoPath = (repo: RepoRef) => `/repos/${encodeURIComponent(repo.owner)}/${encodeURIComponent(repo.name)}`
   async function readUser(path: string, signal?: AbortSignal): Promise<User> {
     const { data } = await fetcher.json<GiteeUser & { bio?: string | null, company?: string | null, blog?: string | null, created_at?: string, followers?: number, following?: number, public_repos?: number }>(path, { signal })
@@ -73,6 +74,23 @@ function setupGitee({ instance, origin: context, fetcher, baseUrl }: ProviderCon
 
   function all<T>(path: string, options: BaseOptions = {}): Promise<T[]> {
     return Array.fromAsync(iteratePages<T, PageOptions>(page => numberedPage<T>(path, {}, page), { signal: options.signal }))
+  }
+
+  async function ownerReposPage(owner: RepoRef, query: OwnerRepoQuery = {}): Promise<Page<Repo>> {
+    const visibility = query.visibility === 'all' ? undefined : query.visibility
+    const read = async (path: string, params: Record<string, string | undefined>, warnings?: ForgeWarning[]): Promise<Page<Repo>> => {
+      const page = await numberedPage<GiteeRepository>(path, params, query)
+      return { items: page.items.map(raw => toRepo(instance, raw)), cursor: page.cursor, ...warnings?.length ? { warnings } : {} }
+    }
+    try {
+      return await read(`/orgs/${encodeURIComponent(owner.owner)}/repos`, { type: visibility === 'public' || visibility === 'private' ? visibility : 'all' }, query.sort && !query.cursor ? [{ code: 'sort_unsupported', message: 'Gitee cannot sort the repositories of an organisation' }] : undefined)
+    }
+    catch (error) {
+      if (!(error instanceof NotFoundError) || query.cursor) {
+        throw error
+      }
+    }
+    return read(`/users/${encodeURIComponent(owner.owner)}/repos`, { type: 'personal', sort: query.sort === 'name' ? 'full_name' : query.sort, direction: query.direction })
   }
 
   /** Gitee records an approval, with no review object to read back. */
@@ -285,6 +303,7 @@ function setupGitee({ instance, origin: context, fetcher, baseUrl }: ProviderCon
         const page = await numberedPage<GiteeRepository>('/user/repos', {}, listOptions)
         return { items: page.items.map(raw => toRepo(instance, raw)), cursor: page.cursor }
       }),
+      byOwnerPage: verb(anonymous ? 'unverified' : true, ownerReposPage),
       labelsPage: verb(true, async (repo, listOptions = {}) => {
         const page = await numberedPage<GiteeLabel>(`${repoPath(repo)}/labels`, {}, listOptions)
         return { items: page.items.map(raw => ({ name: raw.name, colour: raw.color ?? undefined })), cursor: page.cursor }

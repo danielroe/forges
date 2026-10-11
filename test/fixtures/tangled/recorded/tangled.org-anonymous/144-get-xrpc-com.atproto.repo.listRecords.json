@@ -1,0 +1,18 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://oysterling.us-west.host.bsky.network/xrpc/com.atproto.repo.listRecords?repo=did%3Aplc%3Awshs7t2adsemcrrd4snkeqli&collection=sh.tangled.repo&limit=100&cursor=3liuighjy2h22"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"e-Ie9BMcnPw/lLTv0zffrNa5YPoAs\"",
+      "ratelimit-limit": "3000",
+      "ratelimit-remaining": "2996",
+      "ratelimit-reset": "1791723007"
+    },
+    "body": {
+      "records": []
+    }
+  }
+}

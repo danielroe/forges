@@ -354,6 +354,11 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
         const { data } = await fetcher.json<{ value: AzureRepository[] }>(`/${enc(options.organization)}/_apis/git/repositories`, { signal: listOptions?.signal })
         return { items: data.value.map(raw => toRepo(instance, options.organization, raw)) }
       }),
+      byOwnerPage: verb(true, async (owner, query = {}) => {
+        const { data } = await fetcher.json<{ value: AzureRepository[] }>(`${projectPath(owner)}/git/repositories`, { signal: query.signal })
+        const items = data.value.map(raw => toRepo(instance, scope(owner).org, raw))
+        return query.sort ? { items, warnings: [{ code: 'sort_unsupported', message: 'Azure DevOps lists the repositories of a project in its own order' }] } : { items }
+      }),
     },
     contents: {
       file: verb(true, async (repo, path, fileOptions = {}) => {

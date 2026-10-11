@@ -49,6 +49,7 @@ Because Gitea and Forgejo share an implementation, the following sections of the
 - [Merging](/providers/forgejo#merging)
 - [Reviews](/providers/forgejo#reviews)
 - [Changed files](/providers/forgejo#changed-files)
+- [Listing an owner's repositories](/providers/forgejo#listing-an-owners-repositories)
 - [Search](/providers/forgejo#search)
 
 ## Checks and CI
@@ -103,6 +104,7 @@ A label delivery doesn't say which labels were added or removed. When the set of
 | `users.get` | ✅ | ✅ |
 | `users.me` | ✅ | ❌ |
 | `repos.list` | ✅ | ❌ |
+| `repos.byOwner` | ✅ | ✅ |
 | `repos.labels` | ✅ | ✅ |
 | `repos.createLabel` | ✅ | ❌ |
 | `repos.milestones` | ✅ | ✅ |

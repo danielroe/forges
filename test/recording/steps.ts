@@ -102,6 +102,10 @@ async function text(stream: ReadableStream<Uint8Array>): Promise<string> {
   return new Response(stream).text()
 }
 
+function namespaceOf(repo: RepoRef, owner: string): RepoRef {
+  return { forge: repo.forge, instance: repo.instance, owner, name: '', kind: 'namespace' }
+}
+
 function need<T>(value: T | undefined, what: string): T {
   if (value === undefined) {
     throw new Error(`${what} was not found by an earlier step`)
@@ -218,6 +222,8 @@ export const STEPS: Step[] = [
   { name: 'user', verb: 'users.get', run: (provider, _manifest, context) => provider.users.get(need(context.login, 'a login')) },
   { name: 'me', verb: 'users.me', run: provider => provider.users.me() },
   { name: 'own repos', verb: 'repos.listPage', run: provider => provider.repos.listPage(page) },
+  { name: 'owner repos', verb: 'repos.byOwnerPage', run: (provider, manifest) => provider.repos.byOwnerPage(namespaceOf(manifest.repo, manifest.repo.owner), { visibility: 'public', sort: 'updated', subgroups: true, ...page }) },
+  { name: 'user repos', verb: 'repos.byOwnerPage', run: (provider, manifest, context) => provider.repos.byOwnerPage(namespaceOf(manifest.repo, need(context.login, 'a login')), page) },
   { name: 'installations', verb: 'installations.listPage', run: provider => provider.installations.listPage(page) },
   { name: 'installation', verb: 'installations.get', run: (provider, manifest) => provider.installations.get(need(manifest.installation, 'manifest.installation')) },
   { name: 'installation repos', verb: 'installations.reposPage', run: (provider, manifest) => provider.installations.reposPage(need(manifest.installation, 'manifest.installation'), page) },

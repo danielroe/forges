@@ -1560,6 +1560,157 @@
     "url": "https://gitlab.com/gitlab-dependency-update-bot",
     "isBotHint": false
   },
+  "owner repos": {
+    "items": [
+      {
+        "ref": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "owner": "gitlab-org",
+          "name": "customers-gitlab-com",
+          "externalId": "2670515"
+        },
+        "description": "",
+        "visibility": "public",
+        "visibilityRaw": "public",
+        "isFork": false,
+        "isArchived": false,
+        "topics": [],
+        "url": "https://gitlab.com/gitlab-org/customers-gitlab-com",
+        "cloneUrls": {
+          "https": "https://gitlab.com/gitlab-org/customers-gitlab-com.git",
+          "ssh": "git@gitlab.com:gitlab-org/customers-gitlab-com.git"
+        },
+        "createdAt": "2017-02-09T18:59:13.690Z",
+        "updatedAt": "2026-10-11T12:44:32.644Z",
+        "openIssueCount": 994,
+        "stars": 67,
+        "mergeMethods": [
+          "merge",
+          "squash"
+        ],
+        "defaultMergeMethod": "squash",
+        "deleteBranchOnMerge": true,
+        "mergeCommit": {
+          "merge": {
+            "template": "Merge branch '%{source_branch}' into '%{target_branch}'\r\n\r\n%{title}\r\n\r\n%{issues}\r\n\r\nSee merge request %{url}\r\n\r\nMerged-by: %{merged_by}\r\n%{approved_by}\r\n%{reviewed_by}\r\n%{co_authored_by}"
+          },
+          "squash": {
+            "template": "%{title}\r\n\r\nSee merge request %{url}"
+          }
+        },
+        "features": {
+          "issues": true,
+          "pullRequests": false,
+          "discussions": false,
+          "wiki": false,
+          "projects": false,
+          "releases": true
+        }
+      },
+      {
+        "ref": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "owner": "gitlab-org/quality",
+          "name": "component-performance-testing",
+          "externalId": "65906441"
+        },
+        "description": "",
+        "defaultBranch": "main",
+        "visibility": "public",
+        "visibilityRaw": "public",
+        "isFork": false,
+        "isArchived": false,
+        "topics": [],
+        "url": "https://gitlab.com/gitlab-org/quality/component-performance-testing",
+        "cloneUrls": {
+          "https": "https://gitlab.com/gitlab-org/quality/component-performance-testing.git",
+          "ssh": "git@gitlab.com:gitlab-org/quality/component-performance-testing.git"
+        },
+        "createdAt": "2025-01-06T21:21:50.974Z",
+        "updatedAt": "2026-10-11T12:41:24.762Z",
+        "openIssueCount": 92,
+        "stars": 1,
+        "forks": 2,
+        "mergeMethods": [
+          "merge",
+          "squash"
+        ],
+        "defaultMergeMethod": "merge",
+        "deleteBranchOnMerge": true,
+        "features": {
+          "issues": true,
+          "pullRequests": true,
+          "discussions": false,
+          "wiki": true,
+          "projects": false,
+          "releases": true
+        }
+      },
+      {
+        "ref": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "owner": "gitlab-org/analytics-section",
+          "name": "siphon",
+          "externalId": "63106760"
+        },
+        "description": "Siphon is an application written in `golang` which can be used to synchronize data from a PostgreSQL database to other data stores by reading the PostgreSQL logical replication stream.",
+        "defaultBranch": "main",
+        "visibility": "public",
+        "visibilityRaw": "public",
+        "isFork": false,
+        "isArchived": false,
+        "topics": [
+          "databases",
+          "gitlab",
+          "go"
+        ],
+        "url": "https://gitlab.com/gitlab-org/analytics-section/siphon",
+        "cloneUrls": {
+          "https": "https://gitlab.com/gitlab-org/analytics-section/siphon.git",
+          "ssh": "git@gitlab.com:gitlab-org/analytics-section/siphon.git"
+        },
+        "createdAt": "2024-10-30T16:35:39.215Z",
+        "updatedAt": "2026-10-11T12:41:17.620Z",
+        "openIssueCount": 64,
+        "stars": 10,
+        "forks": 5,
+        "mergeMethods": [
+          "merge",
+          "squash"
+        ],
+        "defaultMergeMethod": "squash",
+        "deleteBranchOnMerge": true,
+        "features": {
+          "issues": true,
+          "pullRequests": true,
+          "discussions": false,
+          "wiki": false,
+          "projects": false,
+          "releases": true
+        }
+      }
+    ],
+    "cursor": {
+      "nextUrl": "https://gitlab.com/api/v4/groups/gitlab-org/projects?id=gitlab-org&include_ancestor_groups=false&include_subgroups=true&order_by=updated_at&owned=false&page=2&per_page=3&simple=false&sort=desc&starred=false&visibility=public&with_custom_attributes=false&with_issues_enabled=false&with_merge_requests_enabled=false&with_security_reports=false&with_shared=false",
+      "etag": "W/\"c47f6f697c2e9d166c061f6b5deed067\""
+    },
+    "rateLimit": {
+      "limit": 500,
+      "remaining": 499,
+      "resetAt": "2026-10-11T12:45:00.000Z"
+    }
+  },
+  "user repos": {
+    "items": [],
+    "rateLimit": {
+      "limit": 500,
+      "remaining": 497,
+      "resetAt": "2026-10-11T12:45:00.000Z"
+    }
+  },
   "ci runs": {
     "items": [
       {

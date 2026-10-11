@@ -12,6 +12,7 @@ import type {
   ListOptions,
   MergeMethod,
   MergeOptions,
+  OwnerRepoQuery,
   Page,
   PageOptions,
   Repo,
@@ -359,6 +360,21 @@ const BITBUCKET: ProviderDefinition<BitbucketOptions> = {
         : memberRepos(query, extras)
     }
 
+    async function ownerReposPage(owner: RepoRef, query: OwnerRepoQuery = {}): Promise<Page<Repo>> {
+      if (query.visibility === 'internal') {
+        return { items: [] }
+      }
+      const field = query.sort === 'created' ? 'created_on' : query.sort === 'name' ? 'name' : query.sort && 'updated_on'
+      return list(`/repositories/${encodeURIComponent(owner.owner)}`, query, (raw: BitbucketRepositoryDetail) => toRepo(instance, raw), {
+        query: {
+          q: query.visibility === 'public' || query.visibility === 'private' ? `is_private = ${query.visibility === 'private'}` : undefined,
+          sort: field && `${query.direction === 'desc' ? '-' : ''}${field}`,
+        },
+        warnings: query.sort === 'pushed' && !query.cursor ? [{ code: 'sort_unsupported', message: 'Bitbucket does not report pushes; sorted by update time' }] : undefined,
+        select: page<BitbucketRepositoryDetail>,
+      })
+    }
+
     /** One phase per workspace the account belongs to; Bitbucket lists repositories by workspace only. */
     async function memberRepos(listOptions: PageOptions, extras: ListingExtras = {}): Promise<Page<Repo>> {
       const workspaces = await Array.fromAsync(fetcher.items<{ workspace: { slug: string } }>('/user/workspaces', { query: { pagelen: 100 }, select: page, signal: listOptions.signal }))
@@ -457,6 +473,7 @@ const BITBUCKET: ProviderDefinition<BitbucketOptions> = {
           return toRepo(instance, (await fetcher.json<BitbucketRepositoryDetail>(repoPathOf(ref), { signal: options?.signal })).data)
         }),
         listPage: verb(true, (listOptions = {}) => memberRepos(listOptions)),
+        byOwnerPage: verb(true, ownerReposPage),
       },
       search: {
         threadsPage: verb(true, searchThreadsPage),

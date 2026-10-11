@@ -91,6 +91,18 @@ describe('forgejo provider', () => {
     expect(calls.map(call => `${call.method} ${call.url}`)).toEqual(['POST https://codeberg.org/api/v1/repos/acme/widgets/pulls/7/merge'])
     expect(JSON.parse(calls[0]!.body!)).toEqual({ Do: 'squash', MergeTitleField: 'Release widgets (#7)', MergeMessageField: 'Ships the widgets' })
   })
+
+  it('reads on past a page of repositories that the visibility filter empties', async () => {
+    const first = 'https://codeberg.org/api/v1/users/acme/repos?limit=1'
+    const second = 'https://codeberg.org/api/v1/users/acme/repos?limit=1&page=2'
+    const instance = forgejo({ fetch: async url => url === first
+      ? Response.json([{ id: 1, name: 'site', full_name: 'acme/site', private: false, owner: { login: 'acme' } }], { headers: { link: `<${second}>; rel="next"` } })
+      : Response.json([{ id: 2, name: 'vault', full_name: 'acme/vault', private: true, owner: { login: 'acme' } }]) }).create()
+
+    const page = await instance.repos.byOwnerPage({ forge: 'forgejo', instance: 'codeberg.org', owner: 'acme', name: '', kind: 'namespace' }, { visibility: 'private', perPage: 1 })
+
+    expect(page.items.map(repo => repo.ref.name)).toEqual(['vault'])
+  })
 })
 
 describe('forgejo release webhooks', () => {

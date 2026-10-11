@@ -19,6 +19,7 @@ import type {
   Notification,
   NotificationListOptions,
   NotificationRef,
+  OwnerRepoQuery,
   Page,
   PageOptions,
   ReactionContent,
@@ -122,6 +123,8 @@ import {
 import { gitlabWeb } from './web.ts'
 import { GITLAB_NATIVE_EVENTS } from './webhook-events.ts'
 import { gitlabWebhooks } from './webhooks.ts'
+
+const PROJECT_ORDER = { created: 'created_at', updated: 'updated_at', pushed: 'last_activity_at', name: 'name' } as const
 
 /** Personal, project, group or OAuth access token. */
 export type GitLabAuth = TokenAuth | AnonymousAuth
@@ -266,6 +269,21 @@ const GITLAB: ProviderDefinition<GitLabOptions> = {
 
     function projectPath(repo: RepoRef): string {
       return `/projects/${projectId(repo)}`
+    }
+
+    async function ownerReposPage(owner: RepoRef, query: OwnerRepoQuery = {}): Promise<Page<Repo>> {
+      const read = (path: string, extra: Record<string, unknown>) => list(path, query, (raw: GitLabProjectDetail) => toRepo(instance, raw), {
+        query: { visibility: query.visibility === 'all' ? undefined : query.visibility, order_by: query.sort && PROJECT_ORDER[query.sort], sort: query.direction, ...extra },
+      })
+      try {
+        return await read(`/groups/${encodeURIComponent(owner.externalId ?? owner.owner)}/projects`, { include_subgroups: query.subgroups || undefined, with_shared: false })
+      }
+      catch (error) {
+        if (!(error instanceof NotFoundError) || query.cursor || !owner.owner || owner.owner.includes('/')) {
+          throw error
+        }
+      }
+      return read(`/users/${encodeURIComponent(owner.owner)}/projects`, {})
     }
 
     /** Project hooks, or group hooks for a namespace ref. */
@@ -680,6 +698,7 @@ const GITLAB: ProviderDefinition<GitLabOptions> = {
           return toRepo(instance, (await fetcher.json<GitLabProjectDetail>(projectPath(ref), { query, signal: options?.signal })).data)
         }),
         listPage: verb(true, (listOptions = {}) => list('/projects', listOptions, (raw: GitLabProjectDetail) => toRepo(instance, raw), { query: { membership: true } })),
+        byOwnerPage: verb(true, ownerReposPage),
         labelsPage: verb(!anonymous, (repo, listOptions = {}) => list(`${projectPath(repo)}/labels`, listOptions, toLabel)),
         createLabel: verb(true, async (repo, label, options) => toLabel((await fetcher.json<GitLabLabel>(`${projectPath(repo)}/labels`, {
           method: 'POST',
@@ -1102,6 +1121,6 @@ export function gitlabScopesFor(verb: ForgeVerb): VerbScopes {
   if (group === 'webhooks') {
     return name === 'verify' || name === 'ingest' ? {} : { token: ['api'], note: 'Maintainer on the project, or Owner on the group' }
   }
-  const reads = new Set(['get', 'list', 'listPage', 'page', 'events', 'eventsPage', 'comments', 'commentsPage', 'getMany', 'reviews', 'reviewsPage', 'checks', 'files', 'filesPage', 'commits', 'commitsPage', 'code', 'codePage', 'subscription', 'unreadCount', 'threads', 'threadsPage', 'repos', 'reposPage', 'tree', 'treePage', 'branches', 'branchesPage', 'tags', 'tagsPage', 'file', 'compare', 'resolveRef', 'commit', 'latest', 'getByTag', 'downloadAsset', 'runs', 'runsPage', 'run', 'jobs', 'jobsPage', 'log', 'permissionFor', 'labels', 'labelsPage', 'milestones', 'milestonesPage', 'collaborators', 'collaboratorsPage', 'assignableUsers', 'assignableUsersPage', 'reviewerCandidates', 'reviewerCandidatesPage'])
+  const reads = new Set(['get', 'list', 'listPage', 'byOwner', 'byOwnerPage', 'page', 'events', 'eventsPage', 'comments', 'commentsPage', 'getMany', 'reviews', 'reviewsPage', 'checks', 'files', 'filesPage', 'commits', 'commitsPage', 'code', 'codePage', 'subscription', 'unreadCount', 'threads', 'threadsPage', 'repos', 'reposPage', 'tree', 'treePage', 'branches', 'branchesPage', 'tags', 'tagsPage', 'file', 'compare', 'resolveRef', 'commit', 'latest', 'getByTag', 'downloadAsset', 'runs', 'runsPage', 'run', 'jobs', 'jobsPage', 'log', 'permissionFor', 'labels', 'labelsPage', 'milestones', 'milestonesPage', 'collaborators', 'collaboratorsPage', 'assignableUsers', 'assignableUsersPage', 'reviewerCandidates', 'reviewerCandidatesPage'])
   return { token: [reads.has(name) ? 'read_api' : 'api'] }
 }

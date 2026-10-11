@@ -122,6 +122,18 @@ describe('createForges', () => {
     await expect(pending).rejects.toBe(reason)
   })
 
+  it('lists the repositories of an owner from the provider it routes to', async () => {
+    const urls: string[] = []
+    const forges = createForges([github({ fetch: async (url) => {
+      urls.push(url)
+      return Response.json([])
+    } })])
+
+    await Array.fromAsync(forges.repos.byOwner({ ...repo, name: '', kind: 'namespace' }))
+
+    expect(urls).toEqual(['https://api.github.com/orgs/acme/repos'])
+  })
+
   it('passes a latest release read\'s options through to the provider it routes to', async () => {
     const controller = new AbortController()
     const reason = new Error('cancelled')
