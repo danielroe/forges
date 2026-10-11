@@ -165,7 +165,7 @@ A label delivery doesn't say which labels were added or removed. When the set of
 | `ci.runs` | ✅ | ✅ |
 | `ci.run` | ✅ | ✅ |
 | `ci.jobs` | ✅ | ✅ |
-| `ci.job` | ❌ | ❌ |
+| `ci.job` | emulated | emulated |
 | `ci.log` | ✅ | ✅ |
 | `contents.file` | ✅ | ✅ |
 | `contents.tree` | ✅ | ✅ |

@@ -36,9 +36,10 @@
     "owner": "danielroe",
     "name": "roe.dev"
   },
-  "recordedAt": "2026-10-09T21:06:36.515Z",
+  "recordedAt": "2026-10-11T12:01:42.847Z",
   "steps": [
     "repo",
+    "repo licence",
     "labels",
     "collaborators",
     "pull",
@@ -51,6 +52,7 @@
     "issue getMany",
     "issue events",
     "issue comments",
+    "issue getComment",
     "me",
     "own repos",
     "notifications"

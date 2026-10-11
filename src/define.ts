@@ -1,5 +1,5 @@
 import type { Fetcher, FetcherOptions } from './fetch.ts'
-import type { ApproveAndMergeOptions, BaseOptions, Check, Comment, Cursor, ForgeEventInput, ForgeInstance, ForgeKind, Installation, ListOptions, MergeOptions, Notification, NotificationListOptions, Page, RepoRef, SecurityAlertKind, SecurityAlertListOptions, Support, TextLimits, ThreadKind, ThreadQuery, ThreadRef, UpsertCommentInput, UpsertCommentResult, WebhookEventType } from './model.ts'
+import type { ApproveAndMergeOptions, BaseOptions, Check, CiJobRef, Comment, CommentRef, Cursor, ForgeEventInput, ForgeInstance, ForgeKind, Installation, ListOptions, MergeOptions, Notification, NotificationListOptions, Page, RepoRef, ReviewRef, SecurityAlertKind, SecurityAlertListOptions, Support, TextLimits, ThreadKind, ThreadQuery, ThreadRef, UpsertCommentInput, UpsertCommentResult, WebhookEventType } from './model.ts'
 import type {
   AuthKind,
   ChecksApi,
@@ -26,10 +26,10 @@ import type {
 } from './provider.ts'
 import type { ForgeVerb } from './supports.ts'
 import type { WebLinks } from './web.ts'
-import { ALERT_KINDS, approveAndMergeSupport, capabilitiesOf, KINDS, resolve, restrict, threadEventKinds, upsertKinds, WRITE_VERBS } from './capabilities.ts'
+import { ALERT_KINDS, approveAndMergeSupport, capabilitiesOf, ciJobSupport, getCommentKinds, getReviewSupport, KINDS, resolve, restrict, threadEventKinds, upsertKinds, WRITE_VERBS } from './capabilities.ts'
 import { CAPABILITY_TABLE } from './capability-table.ts'
 import { isSha } from './contents.ts'
-import { ReadOnlyError, UnsupportedOperationError, WebhookVerificationError } from './errors.ts'
+import { NotFoundError, ReadOnlyError, UnsupportedOperationError, WebhookVerificationError } from './errors.ts'
 import { completeEvent } from './events.ts'
 import { createFetcher, createRequest } from './fetch.ts'
 import { commentMarker, hasCommentMarker } from './model.ts'
@@ -161,6 +161,15 @@ export interface ProviderSpec {
     commitsPage?: Verb<ThreadsApi['commitsPage']>
     /** One capability covers resolving and unresolving. */
     reviewThreads?: Verb<Pick<ThreadsApi, 'resolveReviewThread' | 'unresolveReviewThread'>>
+  }
+  /**
+   * Support for the single-item reads core emulates from their listings where the spec declares no endpoint.
+   * Each defaults to `'emulated'`, capped by the listing's own support.
+   */
+  emulated?: {
+    getComment?: Partial<Record<VerbKind, SupportInput>>
+    getReview?: SupportInput
+    job?: SupportInput
   }
   /** Commit-level checks, beside the pull-level `threads.checks`. */
   checks?: {
@@ -525,6 +534,25 @@ function createProvider<TOptions extends ForgeOptionsBase, TState>(
       Object.fromEntries(KINDS.map(kind => [kind, (kindEnv: CapabilityEnv) => upsertKinds(spec, kindEnv)[kind]])),
       upsertComment,
     ),
+    'threads.getComment': kindGate(
+      'threads.getComment',
+      Object.fromEntries(KINDS.map(kind => [kind, (kindEnv: CapabilityEnv) => getCommentKinds(spec, kindEnv)[kind]])),
+      (ref: CommentRef, options?: BaseOptions) => resolve(spec.threads.getComment?.kinds[ref.thread.kind as VerbKind], env)
+        ? spec.threads.getComment!.run(ref, options)
+        : listed(call('threads.comments')(ref.thread, options), ref.id, 'Comment'),
+    ),
+    'threads.getReview': gate('threads.getReview', (reviewEnv: CapabilityEnv) => getReviewSupport(spec, reviewEnv), (ref: ReviewRef, options?: BaseOptions) => resolve(spec.threads.getReview?.support, env)
+      ? spec.threads.getReview!.run(ref, options)
+      : listed(call('threads.reviews')(ref.thread, options), ref.id, 'Review')),
+    'ci.job': gate('ci.job', (jobEnv: CapabilityEnv) => ciJobSupport(spec, jobEnv), (ref: CiJobRef, options?: BaseOptions) => {
+      if (resolve(spec.ci?.job?.support, env)) {
+        return spec.ci!.job!.run(ref, options)
+      }
+      if (!ref.run) {
+        return Promise.reject(new UnsupportedOperationError(`${definition.forge} reads a CI job from its run's jobs, and this ref names no run`, origin))
+      }
+      return listed(call('ci.jobs')(ref.run, options), ref.id, 'CI job')
+    }),
     'threads.subscribe': kindGate('threads.subscribe', subscriptions?.kinds, subscriptions?.run.subscribe),
     'threads.unsubscribe': kindGate('threads.unsubscribe', subscriptions?.kinds, subscriptions?.run.unsubscribe),
     'threads.approve': gate('threads.approve', approve?.support, approve?.run),
@@ -587,6 +615,15 @@ function createProvider<TOptions extends ForgeOptionsBase, TState>(
   api.webhooks!.events = handlers?.events ?? []
 
   const threads = api.threads as unknown as ThreadsApi
+
+  async function listed<T extends { ref: { id: string } }>(items: AsyncIterable<T>, id: string, what: string): Promise<T> {
+    for await (const item of items) {
+      if (item.ref.id === id) {
+        return item
+      }
+    }
+    throw new NotFoundError(`${what} ${id} not found`, 404, '', origin)
+  }
 
   async function upsertComment(ref: ThreadRef, input: UpsertCommentInput, options?: BaseOptions): Promise<UpsertCommentResult> {
     const body = hasCommentMarker(input.body, input.key) ? input.body : `${input.body}\n\n${commentMarker(input.key)}`

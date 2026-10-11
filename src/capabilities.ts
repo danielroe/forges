@@ -37,6 +37,28 @@ export function upsertKinds(spec: ProviderSpec, env: CapabilityEnv): Record<Verb
   ])) as Record<VerbKind, Support>
 }
 
+/** A single-item read the spec does not declare is emulated by walking its listing. */
+function readOrEmulated(read: Support, listing: Support, emulated: SupportInput | undefined, env: CapabilityEnv): Support {
+  return read === false ? composed([listing], emulated === undefined ? 'emulated' : resolve(emulated, env)) : read
+}
+
+/** `threads.getComment`, per kind: declared, or emulated from `threads.commentsPage`. */
+export function getCommentKinds(spec: ProviderSpec, env: CapabilityEnv): Record<VerbKind, Support> {
+  const read = resolveKinds(spec.threads.getComment?.kinds, env)
+  const listing = resolveKinds(spec.threads.commentsPage.kinds, env)
+  return Object.fromEntries(KINDS.map(kind => [kind, readOrEmulated(read[kind], listing[kind], spec.emulated?.getComment?.[kind], env)])) as Record<VerbKind, Support>
+}
+
+/** `threads.getReview`: declared, or emulated from `threads.reviewsPage`. */
+export function getReviewSupport(spec: ProviderSpec, env: CapabilityEnv): Support {
+  return readOrEmulated(resolve(spec.threads.getReview?.support, env), resolve(spec.threads.reviewsPage?.support, env), spec.emulated?.getReview, env)
+}
+
+/** `ci.job`: declared, or emulated from `ci.jobsPage` for a job ref that names its run. */
+export function ciJobSupport(spec: ProviderSpec, env: CapabilityEnv): Support {
+  return readOrEmulated(resolve(spec.ci?.job?.support, env), resolve(spec.ci?.jobsPage?.support, env), spec.emulated?.job, env)
+}
+
 /** Support for the composed verb, requiring both approval and merging. */
 export function approveAndMergeSupport(spec: ProviderSpec, env: CapabilityEnv): Support {
   const merge = resolve(spec.threads.merge?.support, env)
@@ -68,6 +90,12 @@ function valueFor(entry: CapabilityEntry, spec: ProviderSpec, env: CapabilityEnv
       return threadEventKinds(spec, env)
     case 'upsertComment':
       return upsertKinds(spec, env)
+    case 'getComment':
+      return getCommentKinds(spec, env)
+    case 'getReview':
+      return getReviewSupport(spec, env)
+    case 'ciJob':
+      return ciJobSupport(spec, env)
     case 'subscriptionSet':
       return resolveKinds(flags.readOnly ? undefined : spec.threads.subscriptions?.kinds, env)
     case 'approve':

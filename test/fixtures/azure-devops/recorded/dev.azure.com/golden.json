@@ -417,6 +417,103 @@
             "kind": "namespace"
           },
           "kind": "issue",
+          "number": "20",
+          "typeRaw": "Issue"
+        },
+        "kind": "issue",
+        "title": "forges fixture 20261011113416: issue, edited",
+        "body": "Edited by run 20261011113416.",
+        "state": "open",
+        "stateRaw": "To Do",
+        "stateReason": "Reactivated",
+        "isDraft": false,
+        "author": {
+          "forge": "azure-devops",
+          "instance": "dev.azure.com",
+          "login": "redacted@example.invalid",
+          "id": "567dfc49-0db7-43e6-83c1-d91d91db58b1",
+          "name": "danielroebot outlook.com",
+          "avatarUrl": "https://dev.azure.com/forges/_apis/GraphProfile/MemberAvatars/aad.MzE2OTUzNzAtY2RlZS03NzVkLWEwYjctMzUwYTkyZTJhMjc5",
+          "typeRaw": "user",
+          "isBotHint": false
+        },
+        "assignees": [
+          {
+            "forge": "azure-devops",
+            "instance": "dev.azure.com",
+            "login": "redacted@example.invalid",
+            "id": "567dfc49-0db7-43e6-83c1-d91d91db58b1",
+            "name": "danielroebot outlook.com",
+            "avatarUrl": "https://dev.azure.com/forges/_apis/GraphProfile/MemberAvatars/aad.MzE2OTUzNzAtY2RlZS03NzVkLWEwYjctMzUwYTkyZTJhMjc5",
+            "typeRaw": "user",
+            "isBotHint": false
+          }
+        ],
+        "reviewers": [],
+        "labels": [
+          {
+            "name": "forges-fixture-20261011113416"
+          }
+        ],
+        "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_workitems/edit/20",
+        "createdAt": "<now>",
+        "updatedAt": "<now>",
+        "lastActivityAt": "<now>",
+        "commentCount": 1
+      },
+      {
+        "ref": {
+          "forge": "azure-devops",
+          "instance": "dev.azure.com",
+          "repo": {
+            "forge": "azure-devops",
+            "instance": "dev.azure.com",
+            "owner": "forges/forges-fixtures",
+            "name": "",
+            "kind": "namespace"
+          },
+          "kind": "issue",
+          "number": "21",
+          "typeRaw": "Issue"
+        },
+        "kind": "issue",
+        "title": "forges fixture 20261011113416: duplicate",
+        "body": "Opened by run 20261011113416.",
+        "state": "open",
+        "stateRaw": "To Do",
+        "stateReason": "Added to backlog",
+        "isDraft": false,
+        "author": {
+          "forge": "azure-devops",
+          "instance": "dev.azure.com",
+          "login": "redacted@example.invalid",
+          "id": "567dfc49-0db7-43e6-83c1-d91d91db58b1",
+          "name": "danielroebot outlook.com",
+          "avatarUrl": "https://dev.azure.com/forges/_apis/GraphProfile/MemberAvatars/aad.MzE2OTUzNzAtY2RlZS03NzVkLWEwYjctMzUwYTkyZTJhMjc5",
+          "typeRaw": "user",
+          "isBotHint": false
+        },
+        "assignees": [],
+        "reviewers": [],
+        "labels": [],
+        "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_workitems/edit/21",
+        "createdAt": "<now>",
+        "updatedAt": "<now>",
+        "lastActivityAt": "<now>",
+        "commentCount": 0
+      },
+      {
+        "ref": {
+          "forge": "azure-devops",
+          "instance": "dev.azure.com",
+          "repo": {
+            "forge": "azure-devops",
+            "instance": "dev.azure.com",
+            "owner": "forges/forges-fixtures",
+            "name": "",
+            "kind": "namespace"
+          },
+          "kind": "issue",
           "number": "18",
           "typeRaw": "Issue"
         },
@@ -459,103 +556,6 @@
         "createdAt": "2026-10-10T23:23:34.560Z",
         "updatedAt": "2026-10-10T23:23:35.987Z",
         "lastActivityAt": "2026-10-10T23:23:35.987Z",
-        "commentCount": 1
-      },
-      {
-        "ref": {
-          "forge": "azure-devops",
-          "instance": "dev.azure.com",
-          "repo": {
-            "forge": "azure-devops",
-            "instance": "dev.azure.com",
-            "owner": "forges/forges-fixtures",
-            "name": "",
-            "kind": "namespace"
-          },
-          "kind": "issue",
-          "number": "19",
-          "typeRaw": "Issue"
-        },
-        "kind": "issue",
-        "title": "forges fixture 20261010232329: duplicate",
-        "body": "Opened by run 20261010232329.",
-        "state": "open",
-        "stateRaw": "To Do",
-        "stateReason": "Added to backlog",
-        "isDraft": false,
-        "author": {
-          "forge": "azure-devops",
-          "instance": "dev.azure.com",
-          "login": "redacted@example.invalid",
-          "id": "567dfc49-0db7-43e6-83c1-d91d91db58b1",
-          "name": "danielroebot outlook.com",
-          "avatarUrl": "https://dev.azure.com/forges/_apis/GraphProfile/MemberAvatars/aad.MzE2OTUzNzAtY2RlZS03NzVkLWEwYjctMzUwYTkyZTJhMjc5",
-          "typeRaw": "user",
-          "isBotHint": false
-        },
-        "assignees": [],
-        "reviewers": [],
-        "labels": [],
-        "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_workitems/edit/19",
-        "createdAt": "2026-10-10T23:23:35.687Z",
-        "updatedAt": "2026-10-10T23:23:35.687Z",
-        "lastActivityAt": "2026-10-10T23:23:35.687Z",
-        "commentCount": 0
-      },
-      {
-        "ref": {
-          "forge": "azure-devops",
-          "instance": "dev.azure.com",
-          "repo": {
-            "forge": "azure-devops",
-            "instance": "dev.azure.com",
-            "owner": "forges/forges-fixtures",
-            "name": "",
-            "kind": "namespace"
-          },
-          "kind": "issue",
-          "number": "16",
-          "typeRaw": "Issue"
-        },
-        "kind": "issue",
-        "title": "forges fixture 20261009210843: issue, edited",
-        "body": "Edited by run 20261009210843.",
-        "state": "open",
-        "stateRaw": "To Do",
-        "stateReason": "Reactivated",
-        "isDraft": false,
-        "author": {
-          "forge": "azure-devops",
-          "instance": "dev.azure.com",
-          "login": "redacted@example.invalid",
-          "id": "567dfc49-0db7-43e6-83c1-d91d91db58b1",
-          "name": "danielroebot outlook.com",
-          "avatarUrl": "https://dev.azure.com/forges/_apis/GraphProfile/MemberAvatars/aad.MzE2OTUzNzAtY2RlZS03NzVkLWEwYjctMzUwYTkyZTJhMjc5",
-          "typeRaw": "user",
-          "isBotHint": false
-        },
-        "assignees": [
-          {
-            "forge": "azure-devops",
-            "instance": "dev.azure.com",
-            "login": "redacted@example.invalid",
-            "id": "567dfc49-0db7-43e6-83c1-d91d91db58b1",
-            "name": "danielroebot outlook.com",
-            "avatarUrl": "https://dev.azure.com/forges/_apis/GraphProfile/MemberAvatars/aad.MzE2OTUzNzAtY2RlZS03NzVkLWEwYjctMzUwYTkyZTJhMjc5",
-            "typeRaw": "user",
-            "isBotHint": false
-          }
-        ],
-        "reviewers": [],
-        "labels": [
-          {
-            "name": "forges-fixture-20261009210843"
-          }
-        ],
-        "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_workitems/edit/16",
-        "createdAt": "2026-10-09T21:08:46.817Z",
-        "updatedAt": "2026-10-09T21:08:48.963Z",
-        "lastActivityAt": "2026-10-09T21:08:48.963Z",
         "commentCount": 1
       }
     ],
@@ -667,7 +667,7 @@
       {
         "path": "forges-fixtures",
         "type": "directory",
-        "sha": "ad88f6ac8e62289ecf2b4a682d6da16a9032b06f"
+        "sha": "ba6f8e1e8b0721eac9d098456f77287a6a928504"
       }
     ]
   },
@@ -680,7 +680,7 @@
       },
       {
         "name": "main",
-        "sha": "2ba27ee22ad566e85c2e14a3b77b07b68761ff1e",
+        "sha": "88cc1bb3d399bbdaa63e354f0c2b8517f7b22ba8",
         "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/refs?filter=heads%2Fmain"
       }
     ]
@@ -688,7 +688,7 @@
   "tags": {
     "items": []
   },
-  "resolve default branch": "2ba27ee22ad566e85c2e14a3b77b07b68761ff1e",
+  "resolve default branch": "88cc1bb3d399bbdaa63e354f0c2b8517f7b22ba8",
   "commits": {
     "items": [
       {
@@ -701,22 +701,22 @@
             "owner": "forges/forges-fixtures",
             "name": "forges-fixtures"
           },
-          "sha": "1d65340138b97dcbd32b0bff8e40676163fb07d0"
+          "sha": "88cc1bb3d399bbdaa63e354f0c2b8517f7b22ba8"
         },
-        "sha": "1d65340138b97dcbd32b0bff8e40676163fb07d0",
-        "message": "Merge pull request 28 from forges-fixtures/20261010232329-3 into main",
+        "sha": "88cc1bb3d399bbdaa63e354f0c2b8517f7b22ba8",
+        "message": "Merge run 20261011113416",
         "author": {
           "name": "danielroebot outlook.com",
           "email": "redacted@example.invalid",
-          "date": "2026-10-10T23:23:40.000Z"
+          "date": "<now>"
         },
         "committer": {
           "name": "danielroebot outlook.com",
           "email": "redacted@example.invalid",
-          "date": "2026-10-10T23:23:40.000Z"
+          "date": "<now>"
         },
         "parents": [],
-        "url": "https://dev.azure.com/forges/forges-fixtures/_git/forges-fixtures/commit/1d65340138b97dcbd32b0bff8e40676163fb07d0",
+        "url": "https://dev.azure.com/forges/forges-fixtures/_git/forges-fixtures/commit/88cc1bb3d399bbdaa63e354f0c2b8517f7b22ba8",
         "stats": {
           "additions": 1,
           "deletions": 0
@@ -732,22 +732,22 @@
             "owner": "forges/forges-fixtures",
             "name": "forges-fixtures"
           },
-          "sha": "2ba27ee22ad566e85c2e14a3b77b07b68761ff1e"
+          "sha": "93e8e4aacf20e699441ebe515f9f122c15b5445a"
         },
-        "sha": "2ba27ee22ad566e85c2e14a3b77b07b68761ff1e",
-        "message": "Merge run 20261010232329",
+        "sha": "93e8e4aacf20e699441ebe515f9f122c15b5445a",
+        "message": "Merge pull request 31 from forges-fixtures/20261011113416-3 into main",
         "author": {
           "name": "danielroebot outlook.com",
           "email": "redacted@example.invalid",
-          "date": "2026-10-10T23:23:39.000Z"
+          "date": "<now>"
         },
         "committer": {
           "name": "danielroebot outlook.com",
           "email": "redacted@example.invalid",
-          "date": "2026-10-10T23:23:39.000Z"
+          "date": "<now>"
         },
         "parents": [],
-        "url": "https://dev.azure.com/forges/forges-fixtures/_git/forges-fixtures/commit/2ba27ee22ad566e85c2e14a3b77b07b68761ff1e",
+        "url": "https://dev.azure.com/forges/forges-fixtures/_git/forges-fixtures/commit/93e8e4aacf20e699441ebe515f9f122c15b5445a",
         "stats": {
           "additions": 1,
           "deletions": 0
@@ -763,22 +763,22 @@
             "owner": "forges/forges-fixtures",
             "name": "forges-fixtures"
           },
-          "sha": "558d78cfff88a0a828dfc9d9d00de5f798e3f0db"
+          "sha": "6392eadc540cf28449fa2962dd8e70665cf813e3"
         },
-        "sha": "558d78cfff88a0a828dfc9d9d00de5f798e3f0db",
-        "message": "Merge pull request 26 from forges-fixtures/20261010232329-1 into main",
+        "sha": "6392eadc540cf28449fa2962dd8e70665cf813e3",
+        "message": "Merge pull request 30 from forges-fixtures/20261011113416-2 into main",
         "author": {
           "name": "danielroebot outlook.com",
           "email": "redacted@example.invalid",
-          "date": "2026-10-10T23:23:36.000Z"
+          "date": "<now>"
         },
         "committer": {
           "name": "danielroebot outlook.com",
           "email": "redacted@example.invalid",
-          "date": "2026-10-10T23:23:36.000Z"
+          "date": "<now>"
         },
         "parents": [],
-        "url": "https://dev.azure.com/forges/forges-fixtures/_git/forges-fixtures/commit/558d78cfff88a0a828dfc9d9d00de5f798e3f0db",
+        "url": "https://dev.azure.com/forges/forges-fixtures/_git/forges-fixtures/commit/6392eadc540cf28449fa2962dd8e70665cf813e3",
         "stats": {
           "additions": 1,
           "deletions": 0
@@ -831,7 +831,7 @@
     "base": "main",
     "head": "0f7fea462ab8103e55ca8aa0288ba85443f0e8f2",
     "aheadBy": 1,
-    "behindBy": 20,
+    "behindBy": 22,
     "mergeBaseSha": "d4461dd886445dfbd9cf59fbb00bbfc97f8e3688",
     "commits": [],
     "files": [
@@ -845,6 +845,103 @@
   },
   "search threads": {
     "items": [
+      {
+        "ref": {
+          "forge": "azure-devops",
+          "instance": "dev.azure.com",
+          "repo": {
+            "forge": "azure-devops",
+            "instance": "dev.azure.com",
+            "owner": "forges/forges-fixtures",
+            "name": "",
+            "kind": "namespace"
+          },
+          "kind": "issue",
+          "number": "20",
+          "typeRaw": "Issue"
+        },
+        "kind": "issue",
+        "title": "forges fixture 20261011113416: issue, edited",
+        "body": "Edited by run 20261011113416.",
+        "state": "open",
+        "stateRaw": "To Do",
+        "stateReason": "Reactivated",
+        "isDraft": false,
+        "author": {
+          "forge": "azure-devops",
+          "instance": "dev.azure.com",
+          "login": "redacted@example.invalid",
+          "id": "567dfc49-0db7-43e6-83c1-d91d91db58b1",
+          "name": "danielroebot outlook.com",
+          "avatarUrl": "https://dev.azure.com/forges/_apis/GraphProfile/MemberAvatars/aad.MzE2OTUzNzAtY2RlZS03NzVkLWEwYjctMzUwYTkyZTJhMjc5",
+          "typeRaw": "user",
+          "isBotHint": false
+        },
+        "assignees": [
+          {
+            "forge": "azure-devops",
+            "instance": "dev.azure.com",
+            "login": "redacted@example.invalid",
+            "id": "567dfc49-0db7-43e6-83c1-d91d91db58b1",
+            "name": "danielroebot outlook.com",
+            "avatarUrl": "https://dev.azure.com/forges/_apis/GraphProfile/MemberAvatars/aad.MzE2OTUzNzAtY2RlZS03NzVkLWEwYjctMzUwYTkyZTJhMjc5",
+            "typeRaw": "user",
+            "isBotHint": false
+          }
+        ],
+        "reviewers": [],
+        "labels": [
+          {
+            "name": "forges-fixture-20261011113416"
+          }
+        ],
+        "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_workitems/edit/20",
+        "createdAt": "<now>",
+        "updatedAt": "<now>",
+        "lastActivityAt": "<now>",
+        "commentCount": 1
+      },
+      {
+        "ref": {
+          "forge": "azure-devops",
+          "instance": "dev.azure.com",
+          "repo": {
+            "forge": "azure-devops",
+            "instance": "dev.azure.com",
+            "owner": "forges/forges-fixtures",
+            "name": "",
+            "kind": "namespace"
+          },
+          "kind": "issue",
+          "number": "21",
+          "typeRaw": "Issue"
+        },
+        "kind": "issue",
+        "title": "forges fixture 20261011113416: duplicate",
+        "body": "Opened by run 20261011113416.",
+        "state": "open",
+        "stateRaw": "To Do",
+        "stateReason": "Added to backlog",
+        "isDraft": false,
+        "author": {
+          "forge": "azure-devops",
+          "instance": "dev.azure.com",
+          "login": "redacted@example.invalid",
+          "id": "567dfc49-0db7-43e6-83c1-d91d91db58b1",
+          "name": "danielroebot outlook.com",
+          "avatarUrl": "https://dev.azure.com/forges/_apis/GraphProfile/MemberAvatars/aad.MzE2OTUzNzAtY2RlZS03NzVkLWEwYjctMzUwYTkyZTJhMjc5",
+          "typeRaw": "user",
+          "isBotHint": false
+        },
+        "assignees": [],
+        "reviewers": [],
+        "labels": [],
+        "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_workitems/edit/21",
+        "createdAt": "<now>",
+        "updatedAt": "<now>",
+        "lastActivityAt": "<now>",
+        "commentCount": 0
+      },
       {
         "ref": {
           "forge": "azure-devops",
@@ -899,103 +996,6 @@
         "createdAt": "2026-10-10T23:23:34.560Z",
         "updatedAt": "2026-10-10T23:23:35.987Z",
         "lastActivityAt": "2026-10-10T23:23:35.987Z",
-        "commentCount": 1
-      },
-      {
-        "ref": {
-          "forge": "azure-devops",
-          "instance": "dev.azure.com",
-          "repo": {
-            "forge": "azure-devops",
-            "instance": "dev.azure.com",
-            "owner": "forges/forges-fixtures",
-            "name": "",
-            "kind": "namespace"
-          },
-          "kind": "issue",
-          "number": "19",
-          "typeRaw": "Issue"
-        },
-        "kind": "issue",
-        "title": "forges fixture 20261010232329: duplicate",
-        "body": "Opened by run 20261010232329.",
-        "state": "open",
-        "stateRaw": "To Do",
-        "stateReason": "Added to backlog",
-        "isDraft": false,
-        "author": {
-          "forge": "azure-devops",
-          "instance": "dev.azure.com",
-          "login": "redacted@example.invalid",
-          "id": "567dfc49-0db7-43e6-83c1-d91d91db58b1",
-          "name": "danielroebot outlook.com",
-          "avatarUrl": "https://dev.azure.com/forges/_apis/GraphProfile/MemberAvatars/aad.MzE2OTUzNzAtY2RlZS03NzVkLWEwYjctMzUwYTkyZTJhMjc5",
-          "typeRaw": "user",
-          "isBotHint": false
-        },
-        "assignees": [],
-        "reviewers": [],
-        "labels": [],
-        "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_workitems/edit/19",
-        "createdAt": "2026-10-10T23:23:35.687Z",
-        "updatedAt": "2026-10-10T23:23:35.687Z",
-        "lastActivityAt": "2026-10-10T23:23:35.687Z",
-        "commentCount": 0
-      },
-      {
-        "ref": {
-          "forge": "azure-devops",
-          "instance": "dev.azure.com",
-          "repo": {
-            "forge": "azure-devops",
-            "instance": "dev.azure.com",
-            "owner": "forges/forges-fixtures",
-            "name": "",
-            "kind": "namespace"
-          },
-          "kind": "issue",
-          "number": "16",
-          "typeRaw": "Issue"
-        },
-        "kind": "issue",
-        "title": "forges fixture 20261009210843: issue, edited",
-        "body": "Edited by run 20261009210843.",
-        "state": "open",
-        "stateRaw": "To Do",
-        "stateReason": "Reactivated",
-        "isDraft": false,
-        "author": {
-          "forge": "azure-devops",
-          "instance": "dev.azure.com",
-          "login": "redacted@example.invalid",
-          "id": "567dfc49-0db7-43e6-83c1-d91d91db58b1",
-          "name": "danielroebot outlook.com",
-          "avatarUrl": "https://dev.azure.com/forges/_apis/GraphProfile/MemberAvatars/aad.MzE2OTUzNzAtY2RlZS03NzVkLWEwYjctMzUwYTkyZTJhMjc5",
-          "typeRaw": "user",
-          "isBotHint": false
-        },
-        "assignees": [
-          {
-            "forge": "azure-devops",
-            "instance": "dev.azure.com",
-            "login": "redacted@example.invalid",
-            "id": "567dfc49-0db7-43e6-83c1-d91d91db58b1",
-            "name": "danielroebot outlook.com",
-            "avatarUrl": "https://dev.azure.com/forges/_apis/GraphProfile/MemberAvatars/aad.MzE2OTUzNzAtY2RlZS03NzVkLWEwYjctMzUwYTkyZTJhMjc5",
-            "typeRaw": "user",
-            "isBotHint": false
-          }
-        ],
-        "reviewers": [],
-        "labels": [
-          {
-            "name": "forges-fixture-20261009210843"
-          }
-        ],
-        "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_workitems/edit/16",
-        "createdAt": "2026-10-09T21:08:46.817Z",
-        "updatedAt": "2026-10-09T21:08:48.963Z",
-        "lastActivityAt": "2026-10-09T21:08:48.963Z",
         "commentCount": 1
       }
     ],

@@ -9,7 +9,7 @@
     "body": {
       "queryType": "flat",
       "queryResultType": "workItem",
-      "asOf": "2026-10-11T11:22:36.827Z",
+      "asOf": "2026-10-11T12:01:46.297Z",
       "columns": [
         {
           "referenceName": "System.Id",
@@ -28,6 +28,14 @@
         }
       ],
       "workItems": [
+        {
+          "id": 20,
+          "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/wit/workItems/20"
+        },
+        {
+          "id": 21,
+          "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/wit/workItems/21"
+        },
         {
           "id": 18,
           "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/wit/workItems/18"

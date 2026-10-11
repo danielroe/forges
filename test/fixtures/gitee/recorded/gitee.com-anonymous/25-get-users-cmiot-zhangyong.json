@@ -1,0 +1,50 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitee.com/api/v5/users/cmiot-zhangyong"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"3a6a9855b1ae8fc9064a70d7b8980bda\"",
+      "x-ratelimit-limit": "60",
+      "x-ratelimit-remaining": "31"
+    },
+    "body": {
+      "id": 8273364,
+      "login": "cmiot-zhangyong",
+      "name": "JohnYoung",
+      "avatar_url": "https://gitee.com/assets/no_portrait.png",
+      "url": "https://gitee.com/api/v5/users/cmiot-zhangyong",
+      "html_url": "https://gitee.com/cmiot-zhangyong",
+      "remark": "",
+      "followers_url": "https://gitee.com/api/v5/users/cmiot-zhangyong/followers",
+      "following_url": "https://gitee.com/api/v5/users/cmiot-zhangyong/following_url{/other_user}",
+      "gists_url": "https://gitee.com/api/v5/users/cmiot-zhangyong/gists{/gist_id}",
+      "starred_url": "https://gitee.com/api/v5/users/cmiot-zhangyong/starred{/owner}{/repo}",
+      "subscriptions_url": "https://gitee.com/api/v5/users/cmiot-zhangyong/subscriptions",
+      "organizations_url": "https://gitee.com/api/v5/users/cmiot-zhangyong/orgs",
+      "repos_url": "https://gitee.com/api/v5/users/cmiot-zhangyong/repos",
+      "events_url": "https://gitee.com/api/v5/users/cmiot-zhangyong/events{/privacy}",
+      "received_events_url": "https://gitee.com/api/v5/users/cmiot-zhangyong/received_events",
+      "type": "User",
+      "blog": null,
+      "weibo": null,
+      "bio": "",
+      "public_repos": 7,
+      "public_gists": 0,
+      "followers": 0,
+      "following": 2,
+      "stared": 2,
+      "watched": 10,
+      "created_at": "2020-11-05T11:47:11+08:00",
+      "updated_at": "2025-09-09T16:16:03+08:00",
+      "company": null,
+      "profession": null,
+      "wechat": null,
+      "qq": null,
+      "linkedin": null,
+      "email": null
+    }
+  }
+}

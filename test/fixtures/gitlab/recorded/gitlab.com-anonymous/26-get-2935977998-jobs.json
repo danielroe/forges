@@ -1,0 +1,151 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/pipelines/2935977998/jobs?per_page=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "<https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/pipelines/2935977998/jobs?id=gitlab-org%2Fcli&include_retried=false&page=1&per_page=3&pipeline_id=2935977998>; rel=\"first\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/pipelines/2935977998/jobs?id=gitlab-org%2Fcli&include_retried=false&page=1&per_page=3&pipeline_id=2935977998>; rel=\"last\"",
+      "etag": "W/\"bdae47779a63647449fccd44261e2a96\"",
+      "ratelimit-limit": "500",
+      "ratelimit-remaining": "472",
+      "ratelimit-reset": "1791731100",
+      "x-total": "1",
+      "x-total-pages": "1",
+      "x-next-page": "",
+      "x-page": "1",
+      "x-per-page": "3"
+    },
+    "body": [
+      {
+        "id": 17094149986,
+        "status": "success",
+        "stage": "build",
+        "name": "workload",
+        "ref": "refs/workloads/e129edfe7b5",
+        "tag": false,
+        "coverage": null,
+        "allow_failure": false,
+        "created_at": "2026-10-11T14:44:30.288Z",
+        "started_at": "2026-10-11T14:44:30.715Z",
+        "finished_at": "2026-10-11T14:45:41.024Z",
+        "erased_at": null,
+        "duration": 70.30904,
+        "queued_duration": 0.066944,
+        "user": {
+          "id": 32742181,
+          "username": "duo-code-review-gitlab-org",
+          "public_email": null,
+          "name": "Duo Code Review",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/32742181/code-review-flow.png?v=1791676816",
+          "web_url": "https://gitlab.com/duo-code-review-gitlab-org",
+          "created_at": "2026-01-07T09:48:25.291Z",
+          "bio": "",
+          "location": "",
+          "linkedin": "",
+          "twitter": "",
+          "discord": "",
+          "website_url": "",
+          "github": "",
+          "job_title": "",
+          "pronouns": null,
+          "organization": "",
+          "bot": true,
+          "work_information": null,
+          "followers": 0,
+          "following": 0,
+          "local_time": null
+        },
+        "commit": {
+          "id": "9a7963a1f19651973a02d75b8a7ae16ba81e27e5",
+          "short_id": "9a7963a1",
+          "created_at": "2026-10-09T17:32:13.000-05:00",
+          "parent_ids": [
+            "fa3b8d6792a8063eb03a5a8784517019d15829be",
+            "392ad277d67c1d64b3b1e32e1d93d520628d5895"
+          ],
+          "title": "Merge branch 'chore/redundant-make-fix' into 'main'",
+          "message": "Merge branch 'chore/redundant-make-fix' into 'main'\n\nchore: remove redundant \"make fix\" tools\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4009\n\nMerged-by: Kai Armstrong <redacted@example.invalid>\nApproved-by: Kai Armstrong <redacted@example.invalid>\nReviewed-by: Kai Armstrong <redacted@example.invalid>\nCo-authored-by: Ville Skyttä <redacted@example.invalid>",
+          "author_name": "Kai Armstrong",
+          "author_email": "redacted@example.invalid",
+          "authored_date": "2026-10-09T17:32:13.000-05:00",
+          "committer_name": "GitLab",
+          "committer_email": "redacted@example.invalid",
+          "committed_date": "2026-10-09T17:32:13.000-05:00",
+          "trailers": {},
+          "extended_trailers": {},
+          "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/9a7963a1f19651973a02d75b8a7ae16ba81e27e5"
+        },
+        "pipeline": {
+          "id": 2935977998,
+          "iid": 15082,
+          "project_id": 34675721,
+          "sha": "9a7963a1f19651973a02d75b8a7ae16ba81e27e5",
+          "ref": "refs/workloads/e129edfe7b5",
+          "status": "success",
+          "source": "duo_workflow",
+          "created_at": "2026-10-11T14:44:30.213Z",
+          "updated_at": "2026-10-11T14:45:42.631Z",
+          "web_url": "https://gitlab.com/gitlab-org/cli/-/pipelines/2935977998"
+        },
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/jobs/17094149986",
+        "project": {
+          "ci_job_token_scope_enabled": false
+        },
+        "artifacts": [
+          {
+            "file_type": "trace",
+            "size": 111841,
+            "filename": "job.log",
+            "file_format": null
+          }
+        ],
+        "runner": {
+          "id": 54907241,
+          "description": "k8s.saas-linux-small-amd64.runners-manager.gitlab.com/default ",
+          "ip_address": null,
+          "active": true,
+          "paused": false,
+          "is_shared": true,
+          "runner_type": "instance_type",
+          "name": null,
+          "online": true,
+          "created_by": {
+            "id": 6515150,
+            "username": "rhassanein-admin",
+            "public_email": "",
+            "name": "Rehab Hassanein",
+            "state": "active",
+            "locked": false,
+            "avatar_url": "https://secure.gravatar.com/avatar/f666d7b03304319b77d3e0eef49a7ea0f3f97f813536109786338b6468d7d34f?s=80&d=identicon",
+            "web_url": "https://gitlab.com/rhassanein-admin"
+          },
+          "created_at": "2026-08-06T11:12:30.404Z",
+          "status": "online",
+          "job_execution_status": "active"
+        },
+        "runner_manager": {
+          "id": 161631943,
+          "system_id": "r_K6sSRu7ahwMA",
+          "version": "19.5.0~pre.2272.g28a18501",
+          "revision": "28a18501",
+          "platform": "linux",
+          "architecture": "amd64",
+          "created_at": "2026-10-09T13:49:41.106Z",
+          "contacted_at": "2026-10-11T15:04:51.511Z",
+          "ip_address": "10.218.11.3",
+          "status": "online",
+          "job_execution_status": "active"
+        },
+        "artifacts_expire_at": null,
+        "archived": false,
+        "tag_list": [
+          "gitlab--duo"
+        ]
+      }
+    ]
+  }
+}

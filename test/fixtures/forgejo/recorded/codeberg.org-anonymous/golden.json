@@ -26,7 +26,7 @@
     },
     "createdAt": "2022-11-06T06:24:57.000Z",
     "updatedAt": "<now>",
-    "openIssueCount": 1554,
+    "openIssueCount": 1555,
     "openPullCount": 145,
     "owner": {
       "forge": "forgejo",
@@ -92,7 +92,7 @@
     },
     "createdAt": "2022-11-06T06:24:57.000Z",
     "updatedAt": "<now>",
-    "openIssueCount": 1554,
+    "openIssueCount": 1555,
     "openPullCount": 145,
     "owner": {
       "forge": "forgejo",
@@ -1732,6 +1732,56 @@
             "name": "forgejo"
           },
           "kind": "issue",
+          "number": "14810",
+          "externalId": "7667313"
+        },
+        "kind": "issue",
+        "title": "problem: Mirroring many repos clutters user accounts",
+        "body": "### Does your problem still exist on the latest Forgejo version?\n\nYes, the problem still exists (tested locally with the latest development version)\n\n### About your usage of Forgejo\n\nI have a self-hosted instance to store my own code locally and also create sync'd mirrors of remote repos as a local archive.\n\n### Problem description\n\nThis is more of a feature request.\r\n\r\nMigrating repos assigns them to your user account by default, which can clutter up your repos and leave them unorganized. Although you can create custom organizations, that requires manual intervention, to first create a copy of an existing remote organization/user, then in Forgejo when you migrate you have to manually assign the migrated repo to the new organization.\r\n\r\nIt would be nice if all of that could be automated, such that a new migration could automatically create a new organization with the details sync'd from the remote source. This way if you mirror, e.g. 4 repos from SomeGithubOrgOrUser then in your local Forgejo instance, you would have an organization for that SomeGithubOrgOrUser with all 4 repos associated to it.\r\n\r\nIt may even be beneficial to allow organizations to be marked as mirrors, like repos are, to keep them read-only and sync automatically as they change (image, description, etc.).\n\n### Potential workarounds\n\n_No response_\n\n### Forgejo Version\n\n7699483827b24e958772d10b363e087e1f4173c4\n\n### Other details about your environment (software names and versions)\n\n7699483827b24e958772d10b363e087e1f4173c4\n\n### Solutions\n\n*Accepted solutions to address this problem will go here*\n\n\n",
+        "state": "open",
+        "stateRaw": "open",
+        "isDraft": false,
+        "author": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "login": "deadmeu",
+          "id": "110305",
+          "avatarUrl": "https://codeberg.org/avatars/edb2a686e3b3e566c5df860737761ba9",
+          "url": "https://codeberg.org/deadmeu",
+          "isBotHint": false
+        },
+        "assignees": [],
+        "reviewers": [],
+        "labels": [
+          {
+            "name": "impact/unknown",
+            "colour": "545454",
+            "description": "Report was not yet triaged to assess impact."
+          },
+          {
+            "name": "problem",
+            "colour": "fbca04",
+            "description": "A user report about a problem. Needs to be triaged to find potential solutions."
+          }
+        ],
+        "url": "https://codeberg.org/forgejo/forgejo/issues/14810",
+        "createdAt": "<now>",
+        "updatedAt": "<now>",
+        "lastActivityAt": "<now>",
+        "locked": false,
+        "commentCount": 0
+      },
+      {
+        "ref": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "repo": {
+            "forge": "forgejo",
+            "instance": "codeberg.org",
+            "owner": "forgejo",
+            "name": "forgejo"
+          },
+          "kind": "issue",
           "number": "14807",
           "externalId": "7666635"
         },
@@ -1825,56 +1875,6 @@
         "createdAt": "2026-10-10T21:36:31.000Z",
         "updatedAt": "2026-10-10T22:12:34.000Z",
         "lastActivityAt": "2026-10-10T22:12:34.000Z",
-        "locked": false,
-        "commentCount": 0
-      },
-      {
-        "ref": {
-          "forge": "forgejo",
-          "instance": "codeberg.org",
-          "repo": {
-            "forge": "forgejo",
-            "instance": "codeberg.org",
-            "owner": "forgejo",
-            "name": "forgejo"
-          },
-          "kind": "issue",
-          "number": "14800",
-          "externalId": "7662087"
-        },
-        "kind": "issue",
-        "title": "bug: Scheduled workflow run skipped when a push lands just after its cron time",
-        "body": "### Can you reproduce the bug on the Forgejo test instance?\n\nYes, I've linked the repository below\n\n### Description\n\nRepro: https://v17.next.forgejo.org/realies/schedule-skip/actions\r\nSteps: scheduled a `*/2 * * * *` workflow; pushed a commit at 21:08:13Z (runs fire at :59 past each even minute)\r\nExpected: a run for the 21:08 slot\r\nActual: no 21:08 run; runs at 21:06:59 and 21:10:59 only\r\nSuspected cause:\r\n- https://codeberg.org/forgejo/forgejo/src/tag/v16.0.5/services/actions/notifier_helper.go#L556-L563\r\n- https://codeberg.org/forgejo/forgejo/src/tag/v16.0.5/services/actions/notifier_helper.go#L593-L596\r\n- https://codeberg.org/forgejo/forgejo/src/tag/v16.0.5/models/actions/schedule_spec.go#L49-L51\r\n\r\nAnalysis was AI assisted.\n\n### Forgejo Version\n\n16.0.5, also reproduced on v17 next (17.0.0-dev-600)\n\n### How are you running Forgejo?\n\nThe official container image, codeberg.org/forgejo/forgejo:16, in Docker.\n\n### Logs\n\n_No response_\n\n### Database\n\n_No response_\n\n",
-        "state": "open",
-        "stateRaw": "open",
-        "isDraft": false,
-        "author": {
-          "forge": "forgejo",
-          "instance": "codeberg.org",
-          "login": "realies",
-          "id": "1544184",
-          "avatarUrl": "https://codeberg.org/avatars/32db02a8a9757cd15b8896ebed6f6fb0",
-          "url": "https://codeberg.org/realies",
-          "isBotHint": false
-        },
-        "assignees": [],
-        "reviewers": [],
-        "labels": [
-          {
-            "name": "bug/new-report",
-            "colour": "e11d21",
-            "description": "bug has just been reported and need triage (default label on issue creation)"
-          },
-          {
-            "name": "code/actions",
-            "colour": "eb6420",
-            "description": "Forgejo Actions feature"
-          }
-        ],
-        "url": "https://codeberg.org/forgejo/forgejo/issues/14800",
-        "createdAt": "2026-10-10T21:21:26.000Z",
-        "updatedAt": "2026-10-10T22:12:59.000Z",
-        "lastActivityAt": "2026-10-10T22:12:59.000Z",
         "locked": false,
         "commentCount": 0
       }
@@ -3647,6 +3647,33 @@
       }
     ]
   },
+  "ci job": {
+    "ref": {
+      "forge": "forgejo",
+      "instance": "codeberg.org",
+      "repo": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "owner": "forgejo",
+        "name": "forgejo"
+      },
+      "id": "14025669",
+      "run": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "repo": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "owner": "forgejo",
+          "name": "forgejo"
+        },
+        "id": "7644000"
+      }
+    },
+    "name": "backend-checks",
+    "state": "success",
+    "stateRaw": "success"
+  },
   "ci log": {
     "length": 16384,
     "head": [
@@ -4412,7 +4439,7 @@
             "name": "forgejo-16.0.5-linux-amd64",
             "url": "https://codeberg.org/forgejo/forgejo/releases/download/v16.0.5/forgejo-16.0.5-linux-amd64",
             "size": 122204040,
-            "downloadCount": 8455
+            "downloadCount": 8459
           },
           {
             "ref": {
@@ -4470,7 +4497,7 @@
             "name": "forgejo-16.0.5-linux-amd64.sha256",
             "url": "https://codeberg.org/forgejo/forgejo/releases/download/v16.0.5/forgejo-16.0.5-linux-amd64.sha256",
             "size": 93,
-            "downloadCount": 10185
+            "downloadCount": 10190
           },
           {
             "ref": {
@@ -4760,7 +4787,7 @@
             "name": "forgejo-16.0.5-linux-arm64",
             "url": "https://codeberg.org/forgejo/forgejo/releases/download/v16.0.5/forgejo-16.0.5-linux-arm64",
             "size": 113875936,
-            "downloadCount": 1255
+            "downloadCount": 1256
           },
           {
             "ref": {
@@ -4818,7 +4845,7 @@
             "name": "forgejo-16.0.5-linux-arm64.sha256",
             "url": "https://codeberg.org/forgejo/forgejo/releases/download/v16.0.5/forgejo-16.0.5-linux-arm64.sha256",
             "size": 93,
-            "downloadCount": 491
+            "downloadCount": 492
           },
           {
             "ref": {
@@ -4992,7 +5019,7 @@
             "name": "forgejo-src-16.0.5.tar.gz.sha256",
             "url": "https://codeberg.org/forgejo/forgejo/releases/download/v16.0.5/forgejo-src-16.0.5.tar.gz.sha256",
             "size": 92,
-            "downloadCount": 89
+            "downloadCount": 91
           }
         ]
       },
@@ -5056,7 +5083,7 @@
             "name": "forgejo-15.0.9-linux-amd64",
             "url": "https://codeberg.org/forgejo/forgejo/releases/download/v15.0.9/forgejo-15.0.9-linux-amd64",
             "size": 116526600,
-            "downloadCount": 3161
+            "downloadCount": 3163
           },
           {
             "ref": {
@@ -5085,7 +5112,7 @@
             "name": "forgejo-15.0.9-linux-amd64.asc",
             "url": "https://codeberg.org/forgejo/forgejo/releases/download/v15.0.9/forgejo-15.0.9-linux-amd64.asc",
             "size": 228,
-            "downloadCount": 1142
+            "downloadCount": 1143
           },
           {
             "ref": {
@@ -5114,7 +5141,7 @@
             "name": "forgejo-15.0.9-linux-amd64.sha256",
             "url": "https://codeberg.org/forgejo/forgejo/releases/download/v15.0.9/forgejo-15.0.9-linux-amd64.sha256",
             "size": 93,
-            "downloadCount": 1512
+            "downloadCount": 1513
           },
           {
             "ref": {
@@ -5578,7 +5605,7 @@
             "name": "forgejo-src-15.0.9.tar.gz",
             "url": "https://codeberg.org/forgejo/forgejo/releases/download/v15.0.9/forgejo-src-15.0.9.tar.gz",
             "size": 53360870,
-            "downloadCount": 173
+            "downloadCount": 174
           },
           {
             "ref": {
@@ -6349,7 +6376,7 @@
         "name": "forgejo-16.0.5-linux-amd64",
         "url": "https://codeberg.org/forgejo/forgejo/releases/download/v16.0.5/forgejo-16.0.5-linux-amd64",
         "size": 122204040,
-        "downloadCount": 8455
+        "downloadCount": 8459
       },
       {
         "ref": {
@@ -6407,7 +6434,7 @@
         "name": "forgejo-16.0.5-linux-amd64.sha256",
         "url": "https://codeberg.org/forgejo/forgejo/releases/download/v16.0.5/forgejo-16.0.5-linux-amd64.sha256",
         "size": 93,
-        "downloadCount": 10185
+        "downloadCount": 10190
       },
       {
         "ref": {
@@ -6697,7 +6724,7 @@
         "name": "forgejo-16.0.5-linux-arm64",
         "url": "https://codeberg.org/forgejo/forgejo/releases/download/v16.0.5/forgejo-16.0.5-linux-arm64",
         "size": 113875936,
-        "downloadCount": 1255
+        "downloadCount": 1256
       },
       {
         "ref": {
@@ -6755,7 +6782,7 @@
         "name": "forgejo-16.0.5-linux-arm64.sha256",
         "url": "https://codeberg.org/forgejo/forgejo/releases/download/v16.0.5/forgejo-16.0.5-linux-arm64.sha256",
         "size": 93,
-        "downloadCount": 491
+        "downloadCount": 492
       },
       {
         "ref": {
@@ -6929,7 +6956,7 @@
         "name": "forgejo-src-16.0.5.tar.gz.sha256",
         "url": "https://codeberg.org/forgejo/forgejo/releases/download/v16.0.5/forgejo-src-16.0.5.tar.gz.sha256",
         "size": 92,
-        "downloadCount": 89
+        "downloadCount": 91
       }
     ]
   },
@@ -6993,7 +7020,7 @@
         "name": "forgejo-16.0.5-linux-amd64",
         "url": "https://codeberg.org/forgejo/forgejo/releases/download/v16.0.5/forgejo-16.0.5-linux-amd64",
         "size": 122204040,
-        "downloadCount": 8455
+        "downloadCount": 8459
       },
       {
         "ref": {
@@ -7051,7 +7078,7 @@
         "name": "forgejo-16.0.5-linux-amd64.sha256",
         "url": "https://codeberg.org/forgejo/forgejo/releases/download/v16.0.5/forgejo-16.0.5-linux-amd64.sha256",
         "size": 93,
-        "downloadCount": 10185
+        "downloadCount": 10190
       },
       {
         "ref": {
@@ -7341,7 +7368,7 @@
         "name": "forgejo-16.0.5-linux-arm64",
         "url": "https://codeberg.org/forgejo/forgejo/releases/download/v16.0.5/forgejo-16.0.5-linux-arm64",
         "size": 113875936,
-        "downloadCount": 1255
+        "downloadCount": 1256
       },
       {
         "ref": {
@@ -7399,7 +7426,7 @@
         "name": "forgejo-16.0.5-linux-arm64.sha256",
         "url": "https://codeberg.org/forgejo/forgejo/releases/download/v16.0.5/forgejo-16.0.5-linux-arm64.sha256",
         "size": 93,
-        "downloadCount": 491
+        "downloadCount": 492
       },
       {
         "ref": {
@@ -7573,7 +7600,7 @@
         "name": "forgejo-src-16.0.5.tar.gz.sha256",
         "url": "https://codeberg.org/forgejo/forgejo/releases/download/v16.0.5/forgejo-src-16.0.5.tar.gz.sha256",
         "size": 92,
-        "downloadCount": 89
+        "downloadCount": 91
       }
     ]
   },
@@ -7637,7 +7664,7 @@
         "name": "forgejo-16.0.5-linux-amd64",
         "url": "https://codeberg.org/forgejo/forgejo/releases/download/v16.0.5/forgejo-16.0.5-linux-amd64",
         "size": 122204040,
-        "downloadCount": 8455
+        "downloadCount": 8459
       },
       {
         "ref": {
@@ -7695,7 +7722,7 @@
         "name": "forgejo-16.0.5-linux-amd64.sha256",
         "url": "https://codeberg.org/forgejo/forgejo/releases/download/v16.0.5/forgejo-16.0.5-linux-amd64.sha256",
         "size": 93,
-        "downloadCount": 10185
+        "downloadCount": 10190
       },
       {
         "ref": {
@@ -7985,7 +8012,7 @@
         "name": "forgejo-16.0.5-linux-arm64",
         "url": "https://codeberg.org/forgejo/forgejo/releases/download/v16.0.5/forgejo-16.0.5-linux-arm64",
         "size": 113875936,
-        "downloadCount": 1255
+        "downloadCount": 1256
       },
       {
         "ref": {
@@ -8043,7 +8070,7 @@
         "name": "forgejo-16.0.5-linux-arm64.sha256",
         "url": "https://codeberg.org/forgejo/forgejo/releases/download/v16.0.5/forgejo-16.0.5-linux-arm64.sha256",
         "size": 93,
-        "downloadCount": 491
+        "downloadCount": 492
       },
       {
         "ref": {
@@ -8217,7 +8244,7 @@
         "name": "forgejo-src-16.0.5.tar.gz.sha256",
         "url": "https://codeberg.org/forgejo/forgejo/releases/download/v16.0.5/forgejo-src-16.0.5.tar.gz.sha256",
         "size": 92,
-        "downloadCount": 89
+        "downloadCount": 91
       }
     ]
   },

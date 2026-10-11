@@ -1,0 +1,178 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://eurosky.social/xrpc/com.atproto.repo.getRecord?repo=did%3Aplc%3Ai7tqil44pba6cqddxqijtyhb&collection=sh.tangled.repo.pull&rkey=3movhrh2uof22"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"b2a-0J8YHQ7JMbm9V0mmWlvAs9TqL3Y\"",
+      "ratelimit-limit": "3000",
+      "ratelimit-remaining": "2984",
+      "ratelimit-reset": "1791720408"
+    },
+    "body": {
+      "uri": "at://did:plc:i7tqil44pba6cqddxqijtyhb/sh.tangled.repo.pull/3movhrh2uof22",
+      "cid": "bafyreiempf4hn7vaxjm5pxfvgqfumz6kqfkinb2eo2ylp4m5lyahs4qwny",
+      "value": {
+        "body": "",
+        "$type": "sh.tangled.repo.pull",
+        "title": "tangled: Add tangled CI workflows",
+        "rounds": [
+          {
+            "createdAt": "2026-06-22T18:01:35Z",
+            "patchBlob": {
+              "ref": {
+                "$link": "bafkreibwlwrss7hpdztqraoqyt7scudm3e4c62526bcipke2bjk54ekhii"
+              },
+              "size": 748,
+              "$type": "blob",
+              "mimeType": "application/gzip"
+            }
+          },
+          {
+            "createdAt": "2026-06-22T18:03:18Z",
+            "patchBlob": {
+              "ref": {
+                "$link": "bafkreihtxb3olxb47qi3pia4s2hdvp6hp4w4mqvxdic5cdxn5akuqdvzk4"
+              },
+              "size": 747,
+              "$type": "blob",
+              "mimeType": "application/gzip"
+            }
+          },
+          {
+            "createdAt": "2026-06-22T18:06:42Z",
+            "patchBlob": {
+              "ref": {
+                "$link": "bafkreihn7iekbrullnfm6xilxzpimhkjlbxsfow7jx76lvjunf4necumwq"
+              },
+              "size": 741,
+              "$type": "blob",
+              "mimeType": "application/gzip"
+            }
+          },
+          {
+            "createdAt": "2026-06-22T19:54:13Z",
+            "patchBlob": {
+              "ref": {
+                "$link": "bafkreidtf3gdbzvq53fedbzgjxlpiilq453wgh3au6u4xslkf33l6lbk5y"
+              },
+              "size": 733,
+              "$type": "blob",
+              "mimeType": "application/gzip"
+            }
+          },
+          {
+            "createdAt": "2026-06-22T20:07:55Z",
+            "patchBlob": {
+              "ref": {
+                "$link": "bafkreib5r3rd5psxwuwn2ighaodu3mmyya556lcia5ulr2acfahjyqpjyu"
+              },
+              "size": 727,
+              "$type": "blob",
+              "mimeType": "application/gzip"
+            }
+          },
+          {
+            "createdAt": "2026-06-22T20:19:36Z",
+            "patchBlob": {
+              "ref": {
+                "$link": "bafkreieyndy4vxdi6mkwbt7wawupt5wopetmauh3gu3or5ldrmujnbflfy"
+              },
+              "size": 743,
+              "$type": "blob",
+              "mimeType": "application/gzip"
+            }
+          },
+          {
+            "createdAt": "2026-06-22T20:21:23Z",
+            "patchBlob": {
+              "ref": {
+                "$link": "bafkreid6booc36rvwm7fweuz3riyxnnixnynrmbgkhnjtoxb77sodslp3m"
+              },
+              "size": 739,
+              "$type": "blob",
+              "mimeType": "application/gzip"
+            }
+          },
+          {
+            "createdAt": "2026-06-22T20:28:48Z",
+            "patchBlob": {
+              "ref": {
+                "$link": "bafkreidmlmtiuaplotqpohk4ennf7mjyog26ofblbykbjhvscsvqluhkeq"
+              },
+              "size": 782,
+              "$type": "blob",
+              "mimeType": "application/gzip"
+            }
+          },
+          {
+            "createdAt": "2026-10-11T08:47:33Z",
+            "patchBlob": {
+              "ref": {
+                "$link": "bafkreie4vkudon5w2obmkzwhhd7fk6gfhb4bb2yfzgvvklb7xxm5wkuaee"
+              },
+              "size": 899,
+              "$type": "blob",
+              "mimeType": "application/gzip"
+            }
+          },
+          {
+            "createdAt": "2026-10-11T09:00:52Z",
+            "patchBlob": {
+              "ref": {
+                "$link": "bafkreief36orzsrdrxi2swkp3qcpsmps35ywdsxvsbb4qx5o2zzgpomgbq"
+              },
+              "size": 933,
+              "$type": "blob",
+              "mimeType": "application/gzip"
+            }
+          },
+          {
+            "createdAt": "2026-10-11T09:05:21Z",
+            "patchBlob": {
+              "ref": {
+                "$link": "bafkreiczljwitk47aa7isjzawt4dj4xzde26q2rj7tduled2radggpat3a"
+              },
+              "size": 893,
+              "$type": "blob",
+              "mimeType": "application/gzip"
+            }
+          },
+          {
+            "createdAt": "2026-10-11T09:06:34Z",
+            "patchBlob": {
+              "ref": {
+                "$link": "bafkreieuyhgmnizg5efq6wky7le5oicdvj2peb6uyavvquptgipaqivs2u"
+              },
+              "size": 891,
+              "$type": "blob",
+              "mimeType": "application/gzip"
+            }
+          },
+          {
+            "createdAt": "2026-10-11T12:20:02+03:00",
+            "patchBlob": {
+              "ref": {
+                "$link": "bafkreiertsrh6mqotxg3eqyusnzjiohsggmd6x3merpdrzgzqexsehegwi"
+              },
+              "size": 1156,
+              "$type": "blob",
+              "mimeType": "application/gzip"
+            }
+          }
+        ],
+        "source": {
+          "branch": "tinger/xnspnpolkorp"
+        },
+        "target": {
+          "repo": "did:plc:6et3lzwpz6wm7urvu2a7ua5i",
+          "branch": "main",
+          "repoDid": "did:plc:6et3lzwpz6wm7urvu2a7ua5i"
+        },
+        "createdAt": "2026-06-22T18:01:35Z"
+      }
+    }
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://gitlab.com/api/v4/projects/forges-fixtures%2Fforges-fixtures/merge_requests/30/notes",
+    "body": {
+      "body": "An upserted comment from run 20261011150500.\n\n<!-- forges:key=forges-fixture -->"
+    }
+  },
+  "response": {
+    "status": 201,
+    "headers": {
+      "etag": "W/\"5f1836be182d4063a5ce7c3f296d3a1c\"",
+      "ratelimit-limit": "2000",
+      "ratelimit-remaining": "1951",
+      "ratelimit-reset": "1791731160"
+    },
+    "body": {
+      "id": 3993396779,
+      "type": null,
+      "body": "An upserted comment from run 20261011150500.\n\n<!-- forges:key=forges-fixture -->",
+      "author": {
+        "id": 43193323,
+        "username": "roebot",
+        "public_email": "",
+        "name": "Daniel Roe",
+        "state": "active",
+        "locked": false,
+        "avatar_url": "https://secure.gravatar.com/avatar/14ceebcfdc10030d76768a65e9d7978b914694cebcbb6ab609b3a0e8243f0eb8?s=80&d=identicon",
+        "web_url": "https://gitlab.com/roebot"
+      },
+      "created_at": "2026-10-11T15:05:29.879Z",
+      "updated_at": "2026-10-11T15:05:29.879Z",
+      "system": false,
+      "noteable_id": 546663665,
+      "noteable_type": "MergeRequest",
+      "project_id": 87428720,
+      "resolvable": false,
+      "confidential": false,
+      "internal": false,
+      "imported": false,
+      "imported_from": "none",
+      "noteable_iid": 30,
+      "commands_changes": {}
+    }
+  }
+}

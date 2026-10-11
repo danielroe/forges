@@ -519,7 +519,7 @@ export interface ThreadsApi {
   comments: (ref: ThreadRef, options?: ListOptions) => ForgeIterable<Comment>
   /** One page of `comments()`. */
   commentsPage: (ref: ThreadRef, options?: ListOptions) => Promise<Page<Comment>>
-  /** Reads one comment by its ref. */
+  /** Reads one comment by its ref. Where the forge has no endpoint for it, walks `comments()` until the id matches. */
   getComment: (ref: CommentRef, options?: BaseOptions) => Promise<Comment>
   /** Adds a comment to a thread. */
   comment: (ref: ThreadRef, body: string, options?: BaseOptions) => Promise<Comment>
@@ -604,7 +604,7 @@ export interface ThreadsApi {
   reviews: (ref: ThreadRef, options?: PageOptions) => ForgeIterable<Review>
   /** One page of `reviews()`. */
   reviewsPage: (ref: ThreadRef, options?: PageOptions) => Promise<Page<Review>>
-  /** Reads one review by its ref. */
+  /** Reads one review by its ref. Where the forge has no endpoint for it, walks `reviews()` until the id matches. */
   getReview: (ref: ReviewRef, options?: BaseOptions) => Promise<Review>
   /** Creates a review. Without `event` the review is pending where the forge has pending reviews. */
   createReview: (ref: ThreadRef, input: ReviewInput, options?: BaseOptions) => Promise<Review>
@@ -650,7 +650,7 @@ export interface CiApi {
   jobs: (ref: CiRunRef, options?: PageOptions) => ForgeIterable<CiJob>
   /** One page of `jobs()`. */
   jobsPage: (ref: CiRunRef, options?: PageOptions) => Promise<Page<CiJob>>
-  /** Reads one CI job. */
+  /** Reads one CI job. Where the forge has no endpoint for it, walks `jobs()` of the ref's `run`, so the ref must name one. */
   job: (ref: CiJobRef, options?: BaseOptions) => Promise<CiJob>
   /** The job's log as it arrives. There is no workflow dispatch: CI is read-only here. */
   log: (ref: CiJobRef, options?: BaseOptions) => Promise<ReadableStream<Uint8Array>>

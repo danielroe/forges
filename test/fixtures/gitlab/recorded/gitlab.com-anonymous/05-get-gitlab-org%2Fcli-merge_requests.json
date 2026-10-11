@@ -1,0 +1,347 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/merge_requests?state=opened&order_by=created_at&sort=desc&per_page=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "<https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/merge_requests?id=gitlab-org%2Fcli&order_by=created_at&page=2&per_page=3&sort=desc&state=opened&with_labels_details=false&with_merge_status_recheck=false>; rel=\"next\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/merge_requests?id=gitlab-org%2Fcli&order_by=created_at&page=1&per_page=3&sort=desc&state=opened&with_labels_details=false&with_merge_status_recheck=false>; rel=\"first\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/merge_requests?id=gitlab-org%2Fcli&order_by=created_at&page=31&per_page=3&sort=desc&state=opened&with_labels_details=false&with_merge_status_recheck=false>; rel=\"last\"",
+      "etag": "W/\"211bacb2bb40a805649ab9513c00b7e6\"",
+      "ratelimit-limit": "500",
+      "ratelimit-remaining": "493",
+      "ratelimit-reset": "1791731100",
+      "x-total": "93",
+      "x-total-pages": "31",
+      "x-next-page": "2",
+      "x-page": "1",
+      "x-per-page": "3"
+    },
+    "body": [
+      {
+        "id": 546605753,
+        "iid": 4074,
+        "project_id": 34675721,
+        "title": "feat(variable): add --inherited to look up parent groups",
+        "description": "## Problem\n\n`glab variable get MY_VAR` reads one level only: the project, or the group passed with `--group`. If the key is not defined there, the command fails, even though a pipeline running in that project would resolve the value from a parent group or from instance variables.\n\nThe workaround in the issue is a chain of calls, closest first:\n\n```shell\nglab variable get MY_VAR \\\n  || glab variable get -g acme/platform MY_VAR \\\n  || glab variable get -g acme MY_VAR\n```\n\n@phikai sized this in the issue and listed what a fix needs. This follows that list.\n\n## What this changes\n\n`--inherited` continues past a missing key, in the order CI resolves a variable:\n\n1. the project\n2. each parent group, closest first\n3. instance variables\n\n```shell\nglab variable get --inherited MY_VAR\n```\n\nThe default is unchanged, so no existing script behaves differently.\n\nDetails worth checking:\n\n- **`--scope` applies at every group level.** Instance variables have no `environment_scope` field, so `--scope` does not filter them.\n- **A level the user cannot read is skipped, not fatal.** Instance variables need administrator access, so a normal user gets 403 there. 401, 403 and 404 all mean \"keep looking\".\n- **Any other failure still surfaces.** A 500 or a network error ends the lookup and is reported, rather than being hidden behind the next level.\n- **When no level defines the key, the original project error is returned**, so the output matches a run without the flag.\n- **The value stays alone on stdout.** The note saying where an inherited value came from goes to stderr, so `VALUE=$(glab variable get --inherited MY_VAR)` still captures only the value.\n- **`--group` chooses the starting level.** With `--inherited`, the lookup continues above that group and then to instance variables.\n\n`GroupChain` and `ParentNamespace` live in `variableutils` rather than in the `get` package, because #7939 asks for the same inheritance in `glab variable list` and can reuse them.\n\n## Testing\n\n45 subtests pass. The new ones cover the fallback to a subgroup, the walk to a top-level group, the fallback to instance variables, a 403 part-way up, nothing defining the key anywhere, an unexpected 500, a run without the flag, and `--group` as the starting level. `variableutils` has table tests for both path helpers.\n\n```shell\ngo test ./internal/commands/variable/... -count=1 -race   # all ok\ngo build ./...                                            # ok\ngofmt -l <changed files>                                  # no output\ngo run ./cmd/gen-docs/docs.go                             # docs/source/variable/get.md updated\n```\n\nOne thing I would like your opinion on: a project in a user namespace has no group above it, so the walk asks for a group with that path and gets 404, then moves to instance variables. That is harmless but it does cost one API call. I can skip it if you prefer, though telling a user namespace from a group apart needs an extra lookup.\n\nCloses #7290",
+        "state": "opened",
+        "created_at": "2026-10-11T11:48:42.066Z",
+        "updated_at": "2026-10-11T12:29:01.405Z",
+        "merged_by": null,
+        "merge_user": null,
+        "merged_at": null,
+        "closed_by": null,
+        "closed_at": null,
+        "target_branch": "main",
+        "source_branch": "feat-7290-variable-get-inherited",
+        "user_notes_count": 2,
+        "upvotes": 0,
+        "downvotes": 0,
+        "author": {
+          "id": 39012371,
+          "username": "vivekyarra567",
+          "public_email": "redacted@example.invalid",
+          "name": "Yarra Vivek",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://secure.gravatar.com/avatar/2e76193c97431532a49acc6f40e4aa54d6f460f91da23202bad1a76ab610ff43?s=80&d=identicon",
+          "web_url": "https://gitlab.com/vivekyarra567",
+          "bot": false
+        },
+        "assignees": [
+          {
+            "id": 39012371,
+            "username": "vivekyarra567",
+            "public_email": "redacted@example.invalid",
+            "name": "Yarra Vivek",
+            "state": "active",
+            "locked": false,
+            "avatar_url": "https://secure.gravatar.com/avatar/2e76193c97431532a49acc6f40e4aa54d6f460f91da23202bad1a76ab610ff43?s=80&d=identicon",
+            "web_url": "https://gitlab.com/vivekyarra567"
+          }
+        ],
+        "assignee": {
+          "id": 39012371,
+          "username": "vivekyarra567",
+          "public_email": "redacted@example.invalid",
+          "name": "Yarra Vivek",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://secure.gravatar.com/avatar/2e76193c97431532a49acc6f40e4aa54d6f460f91da23202bad1a76ab610ff43?s=80&d=identicon",
+          "web_url": "https://gitlab.com/vivekyarra567"
+        },
+        "reviewers": [],
+        "source_project_id": 84770277,
+        "target_project_id": 34675721,
+        "labels": [
+          "Community contribution",
+          "Hackathon",
+          "devops::ai coding",
+          "group::code review",
+          "linked-issue",
+          "section::ai",
+          "type::feature",
+          "workflow::in dev"
+        ],
+        "draft": false,
+        "imported": false,
+        "imported_from": "none",
+        "work_in_progress": false,
+        "milestone": null,
+        "merge_when_pipeline_succeeds": false,
+        "merge_status": "can_be_merged",
+        "detailed_merge_status": "not_approved",
+        "merge_after": null,
+        "sha": "6cb4611d9818a3422490201e2220b3bf0bac0c3b",
+        "merge_commit_sha": null,
+        "squash_commit_sha": null,
+        "discussion_locked": null,
+        "should_remove_source_branch": null,
+        "force_remove_source_branch": true,
+        "prepared_at": "2026-10-11T11:48:44.583Z",
+        "allow_collaboration": true,
+        "allow_maintainer_to_push": true,
+        "reference": "!4074",
+        "references": {
+          "short": "!4074",
+          "relative": "!4074",
+          "full": "gitlab-org/cli!4074"
+        },
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/merge_requests/4074",
+        "time_stats": {
+          "time_estimate": 0,
+          "total_time_spent": 0,
+          "human_time_estimate": null,
+          "human_total_time_spent": null
+        },
+        "squash": true,
+        "squash_on_merge": true,
+        "task_completion_status": {
+          "count": 0,
+          "completed_count": 0
+        },
+        "has_conflicts": false,
+        "blocking_discussions_resolved": true,
+        "approvals_before_merge": null
+      },
+      {
+        "id": 546602649,
+        "iid": 4073,
+        "project_id": 34675721,
+        "title": "fix(release): download Markdown upload assets through the API",
+        "description": "## Problem\n\n`glab release download` fails with `404 Not Found` on a private project, while the same link downloads fine in a browser. The issue has been open since 2022 and was reported again in #8136.\n\n`glab release create` stores an uploaded file as a project Markdown upload. The link it saves is a web route:\n\n```plaintext\n/-/project/<project_id>/uploads/<secret>/<filename>\n```\n\nOnly a browser session authenticates that route. `glab release download` sends the token instead, so GitLab redirects the request to the sign-in page, which answers 404 for a private project.\n\nThis follows the root cause and the fix that @phikai proposed in the issue.\n\n## What this changes\n\n`downloadAsset` now recognizes a same-host Markdown upload link and reads the file through the [project Markdown uploads API](https://docs.gitlab.com/api/project_markdown_uploads/), which accepts the token:\n\n```plaintext\nGET /projects/:id/uploads/:secret/:filename\n```\n\nBoth link shapes are handled, because GitLab changed the format in 17.0:\n\n| Link | Source |\n| --- | --- |\n| `/-/project/<id>/uploads/<secret>/<file>` | GitLab 17.0 and later |\n| `/<namespace>/<project>/uploads/<secret>/<file>` | earlier versions |\n\nAn instance served from a subfolder is handled too, since the prefix comes from the client base URL.\n\nEvery other link keeps its existing download path. That covers package registry assets, release evidence, source archives, and links on another host.\n\n## Testing\n\n`Test_downloadAsset_MarkdownUpload_UsesUploadsAPI` reproduces the report. The test server answers 404 on the web route and serves the file on the API route, which is how a private project behaves.\n\nWith the three-line fix removed, the test fails with the reported symptom:\n\n```plaintext\n--- FAIL: Test_downloadAsset_MarkdownUpload_UsesUploadsAPI\n    Error: Received unexpected error: 404 Not Found\n```\n\nWith the fix it passes, and the assertions confirm the API route was used and the web route was never requested.\n\n`Test_parseMarkdownUploadRef` covers nine cases: both link shapes, a subgroup, a subfolder install, an escaped file name, and four links that must not be rewritten.\n\n```shell\ngo test ./internal/commands/release/download/... -count=1 -race   # ok\ngo build ./...                                                    # ok\ngofmt -l <changed files>                                          # no output\n```\n\nTwo notes on my local run, both present on a clean `main` checkout and unrelated to this change:\n\n- `internal/commands/release/create` fails `TestReleaseCreate_ExperimentalNotes/when_experimental_notes_points_to_existing_file`.\n- `internal/commands/auth/docker` fails with `operating system \"windows\" is not supported`.\n\n## What I could not verify\n\nI have no self-managed instance, so I did not reproduce the original 404 against a live GitLab. The test reproduces the behavior the issue describes, and the API route matches the one the documentation specifies. The uploads API needs GitLab 17.4 or later, as noted in the issue.\n\nCloses #1301",
+        "state": "opened",
+        "created_at": "2026-10-11T11:37:18.222Z",
+        "updated_at": "2026-10-11T12:29:02.300Z",
+        "merged_by": null,
+        "merge_user": null,
+        "merged_at": null,
+        "closed_by": null,
+        "closed_at": null,
+        "target_branch": "main",
+        "source_branch": "fix-1301-generic-asset-download",
+        "user_notes_count": 2,
+        "upvotes": 0,
+        "downvotes": 0,
+        "author": {
+          "id": 39012371,
+          "username": "vivekyarra567",
+          "public_email": "redacted@example.invalid",
+          "name": "Yarra Vivek",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://secure.gravatar.com/avatar/2e76193c97431532a49acc6f40e4aa54d6f460f91da23202bad1a76ab610ff43?s=80&d=identicon",
+          "web_url": "https://gitlab.com/vivekyarra567",
+          "bot": false
+        },
+        "assignees": [
+          {
+            "id": 39012371,
+            "username": "vivekyarra567",
+            "public_email": "redacted@example.invalid",
+            "name": "Yarra Vivek",
+            "state": "active",
+            "locked": false,
+            "avatar_url": "https://secure.gravatar.com/avatar/2e76193c97431532a49acc6f40e4aa54d6f460f91da23202bad1a76ab610ff43?s=80&d=identicon",
+            "web_url": "https://gitlab.com/vivekyarra567"
+          }
+        ],
+        "assignee": {
+          "id": 39012371,
+          "username": "vivekyarra567",
+          "public_email": "redacted@example.invalid",
+          "name": "Yarra Vivek",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://secure.gravatar.com/avatar/2e76193c97431532a49acc6f40e4aa54d6f460f91da23202bad1a76ab610ff43?s=80&d=identicon",
+          "web_url": "https://gitlab.com/vivekyarra567"
+        },
+        "reviewers": [],
+        "source_project_id": 84770277,
+        "target_project_id": 34675721,
+        "labels": [
+          "Community contribution",
+          "Hackathon",
+          "devops::ai coding",
+          "group::code review",
+          "linked-issue",
+          "section::ai",
+          "type::bug",
+          "workflow::in dev"
+        ],
+        "draft": false,
+        "imported": false,
+        "imported_from": "none",
+        "work_in_progress": false,
+        "milestone": null,
+        "merge_when_pipeline_succeeds": false,
+        "merge_status": "can_be_merged",
+        "detailed_merge_status": "not_approved",
+        "merge_after": null,
+        "sha": "0c43d3498cf64cebbe195acbaefb4038d4a0fec6",
+        "merge_commit_sha": null,
+        "squash_commit_sha": null,
+        "discussion_locked": null,
+        "should_remove_source_branch": null,
+        "force_remove_source_branch": true,
+        "prepared_at": "2026-10-11T11:37:20.637Z",
+        "allow_collaboration": true,
+        "allow_maintainer_to_push": true,
+        "reference": "!4073",
+        "references": {
+          "short": "!4073",
+          "relative": "!4073",
+          "full": "gitlab-org/cli!4073"
+        },
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/merge_requests/4073",
+        "time_stats": {
+          "time_estimate": 0,
+          "total_time_spent": 0,
+          "human_time_estimate": null,
+          "human_total_time_spent": null
+        },
+        "squash": true,
+        "squash_on_merge": true,
+        "task_completion_status": {
+          "count": 0,
+          "completed_count": 0
+        },
+        "has_conflicts": false,
+        "blocking_discussions_resolved": true,
+        "approvals_before_merge": null
+      },
+      {
+        "id": 546602458,
+        "iid": 4072,
+        "project_id": 34675721,
+        "title": "docs(orbit): point agents to the Orbit skill in help",
+        "description": "## Description\n\nCoding agents prompted with just \"use Orbit\" don't know it maps to `glab orbit`. The `orbit` row in `glab --help` now says Orbit queries the GitLab Knowledge Graph for code intelligence. The help shown before the binary is downloaded points agents to the skill command, including the `--yes` form for a non-interactive first install.\n\n## Related Issues\n\nNo project issue; this is a small follow-up to the Orbit CLI help text.\n\n## How has this been tested?\n\n`go test ./internal/commands/orbit/...`, with the help test extended to check both pointers. Docs regenerated with `make gen-docs`.\n\n<details>\n<summary>Agent context</summary>\n\n- Changed `Short` and `Long` in `internal/commands/orbit/orbit.go`; `README.md` and `docs/source/orbit/_index.md` regenerated.\n- The pre-install fallback help prints `Long`, so no separate code path was needed.\n- Labels come from the default MR template plus `type::maintenance`; no milestone.\n\n</details>\n\n## Before and after\n\n`glab --help` row:\n\n```plaintext\nbefore: Run the GitLab Orbit CLI. (EXPERIMENTAL)\nafter:  Query the GitLab Knowledge Graph for code intelligence. (EXPERIMENTAL)\n```\n\nNew paragraph in `glab orbit --help` before the binary is installed:\n\n```plaintext\nOrbit is the GitLab Knowledge Graph, a code intelligence service. Coding agents: run `glab orbit skills get orbit`\nfirst to load the Orbit skill. Use `glab orbit --yes skills get orbit` for a non-interactive first install.\n```",
+        "state": "opened",
+        "created_at": "2026-10-11T11:36:32.802Z",
+        "updated_at": "2026-10-11T14:43:16.514Z",
+        "merged_by": null,
+        "merge_user": null,
+        "merged_at": null,
+        "closed_by": null,
+        "closed_at": null,
+        "target_branch": "main",
+        "source_branch": "orbit-help-skill-pointer",
+        "user_notes_count": 6,
+        "upvotes": 0,
+        "downvotes": 0,
+        "author": {
+          "id": 5054237,
+          "username": "dgruzd",
+          "public_email": "redacted@example.invalid",
+          "name": "Dmitry Gruzd",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/5054237/avatar.png?v=1791727311",
+          "web_url": "https://gitlab.com/dgruzd",
+          "bot": false
+        },
+        "assignees": [
+          {
+            "id": 5054237,
+            "username": "dgruzd",
+            "public_email": "redacted@example.invalid",
+            "name": "Dmitry Gruzd",
+            "state": "active",
+            "locked": false,
+            "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/5054237/avatar.png?v=1791727311",
+            "web_url": "https://gitlab.com/dgruzd"
+          }
+        ],
+        "assignee": {
+          "id": 5054237,
+          "username": "dgruzd",
+          "public_email": "redacted@example.invalid",
+          "name": "Dmitry Gruzd",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/5054237/avatar.png?v=1791727311",
+          "web_url": "https://gitlab.com/dgruzd"
+        },
+        "reviewers": [
+          {
+            "id": 21826781,
+            "username": "GitLabDuo",
+            "public_email": null,
+            "name": "GitLab Duo",
+            "state": "active",
+            "locked": false,
+            "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/21826781/duo-bot.png?v=1781708173",
+            "web_url": "https://gitlab.com/GitLabDuo"
+          }
+        ],
+        "source_project_id": 34675721,
+        "target_project_id": 34675721,
+        "labels": [
+          "category:gitlab cli",
+          "devops::ai coding",
+          "group::code review",
+          "section::ai",
+          "type::maintenance"
+        ],
+        "draft": false,
+        "imported": false,
+        "imported_from": "none",
+        "work_in_progress": false,
+        "milestone": null,
+        "merge_when_pipeline_succeeds": false,
+        "merge_status": "can_be_merged",
+        "detailed_merge_status": "not_approved",
+        "merge_after": null,
+        "sha": "6e818f5dd79f566d698d4e92615623598157f26e",
+        "merge_commit_sha": null,
+        "squash_commit_sha": null,
+        "discussion_locked": null,
+        "should_remove_source_branch": null,
+        "force_remove_source_branch": true,
+        "prepared_at": "2026-10-11T11:36:34.714Z",
+        "reference": "!4072",
+        "references": {
+          "short": "!4072",
+          "relative": "!4072",
+          "full": "gitlab-org/cli!4072"
+        },
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/merge_requests/4072",
+        "time_stats": {
+          "time_estimate": 0,
+          "total_time_spent": 0,
+          "human_time_estimate": null,
+          "human_total_time_spent": null
+        },
+        "squash": true,
+        "squash_on_merge": true,
+        "task_completion_status": {
+          "count": 0,
+          "completed_count": 0
+        },
+        "has_conflicts": false,
+        "blocking_discussions_resolved": true,
+        "approvals_before_merge": null
+      }
+    ]
+  }
+}

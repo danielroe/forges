@@ -1,74 +1,567 @@
 {
-  "cursor": "1791540922189000",
+  "cursor": "1791709317479000",
   "messages": [
     {
-      "did": "did:plc:wjex33i4iwrbsep3dvrgsgkx",
-      "time_us": 1791540924107459,
-      "kind": "identity",
-      "identity": {
-        "did": "did:plc:wjex33i4iwrbsep3dvrgsgkx",
-        "seq": 34325728190,
-        "time": "2026-10-09T10:15:23.890Z"
+      "did": "did:plc:qr22yyo4chmuzfhhhokuwkr4",
+      "time_us": 1791709321253551,
+      "kind": "account",
+      "account": {
+        "active": false,
+        "did": "did:plc:qr22yyo4chmuzfhhhokuwkr4",
+        "seq": 34382803365,
+        "status": "deleted",
+        "time": "2026-10-11T09:02:01.018Z"
       }
     },
     {
-      "did": "did:plc:wjex33i4iwrbsep3dvrgsgkx",
-      "time_us": 1791540924113531,
+      "did": "did:plc:vxmam3xhaybo42tlwh3jo4zx",
+      "time_us": 1791709325770748,
+      "kind": "identity",
+      "identity": {
+        "did": "did:plc:vxmam3xhaybo42tlwh3jo4zx",
+        "seq": 34382804348,
+        "time": "2026-10-11T09:02:05.213Z"
+      }
+    },
+    {
+      "did": "did:plc:vxmam3xhaybo42tlwh3jo4zx",
+      "time_us": 1791709325781199,
       "kind": "account",
       "account": {
         "active": true,
-        "did": "did:plc:wjex33i4iwrbsep3dvrgsgkx",
-        "seq": 34325728191,
-        "time": "2026-10-09T10:15:23.890Z"
+        "did": "did:plc:vxmam3xhaybo42tlwh3jo4zx",
+        "seq": 34382804349,
+        "time": "2026-10-11T09:02:05.213Z"
       }
     },
     {
-      "did": "did:plc:uhhvizghl6v3aef4mcdbkshd",
-      "time_us": 1791540926193539,
-      "kind": "identity",
-      "identity": {
-        "did": "did:plc:uhhvizghl6v3aef4mcdbkshd",
-        "seq": 34325728713,
-        "time": "2026-10-09T10:15:25.480Z"
-      }
-    },
-    {
-      "did": "did:plc:qfngkejlw4ghji2myc73hbdh",
-      "time_us": 1791541044066667,
+      "did": "did:plc:i7tqil44pba6cqddxqijtyhb",
+      "time_us": 1791709521699162,
       "kind": "commit",
       "commit": {
-        "rev": "3mxgqnruxef2l",
-        "operation": "create",
+        "rev": "3mxlnksho3u2b",
+        "operation": "update",
         "collection": "sh.tangled.repo.pull",
-        "rkey": "3mxgqnprw5422",
+        "rkey": "3movhrh2uof22",
         "record": {
           "$type": "sh.tangled.repo.pull",
-          "body": "SANDBOX-UNIFY U1 (product). Plan: `machine-docs/plans/SANDBOX-UNIFY-2026-10-09.md`; design `machine-docs/plans/SANDBOX-UNIFY-U0-DESIGN-2026-10-09.md` (checked: `reviews/SANDBOX-UNIFY-U0-DESIGN-CHECK-2026-10-09.md`, with the §10 answers D-ctor-1/2 and D-spec-1/2). Tests: the linked tests PR.\n\nRust: yes. API contract: unchanged.\n\n## What changes\n\nEvery external program lichen starts (git, `git-http-backend`, Hugo, `cp`, `dig`, `wisp-cli`, `date`, `git --exec-path`) is now a child of lichen's own executable in its `sandbox` mode: `/proc/self/exe sandbox -- <program> <args…>`. The child restricts itself, then `exec`s the program. There is no `pre_exec` path left for these children.\n\n- **`lichen_flat_file::sandbox` (new):**\n  - `Spec` (paths, filesystem on or off, network, rlimits, the Landlock ABI), written by the runner as the one variable `LICHEN_SANDBOX_SPEC`;\n  - a `#[ctor]` pre-main hook that acts only when `argv[1]` is `sandbox` (std's arguments, or `/proc/self/cmdline` where std has none before `main`);\n  - `restrict_self`, in this order:\n    - refuse unless single-threaded (D-ctor-1);\n    - `no_new_privs`;\n    - rlimits;\n    - subreaper;\n    - `close_range(3..)`;\n    - one Landlock ruleset (filesystem, TCP from ABI 4 unless the network is the host's, scopes from ABI 6; hard requirement, fully enforced);\n    - the seccomp filters.\n  - Then `exec` without the spec (D-spec-1). A missing, empty or unreadable spec refuses with 126 (D-spec-2).\n- **`command` / `tokio_command`** build a child; **`prepare`**:\n  - refuses a command not built by them, or an executable without the hook;\n  - clears the environment (CHILD-ENV-CLEAR);\n  - finds the program as the child's `exec` will. A missing program is still a spawn `NotFound`, as before, so \"git is not installed\" and the like are unchanged.\n- **`confine_command` / `confine_tokio_command` and their two `pre_exec` blocks are deleted.** The runners (`run`, `run_async`, `spawn_async`, `CommandRunner`, the txn's `run_async`/`spawn_async`) build the spec from their `ConfinePolicy`:\n  - ordinary calls: **Unix sockets only** (new seccomp `Sockets::UnixOnly`, plus Landlock TCP with no port where the ABI has it);\n  - `*_with_network` calls: **the host's network**.\n- **94 production call sites converted** to `sandbox::command` / `tokio_command`, across lichen-cms, lichen-server and lichen-iroh (via a `lichen_cms::sandbox::tokio_command` facade, since lichen-iroh does not depend on lichen-flat-file).\n- **`clippy.toml` disallows** `std::process::Command::new`, `tokio::process::Command::new` and `CommandExt::pre_exec`.\n  - The deny is the existing `cfg_attr(not(test), deny(clippy::disallowed_methods))` in lichen-cms, lichen-server and lichen-iroh.\n  - lichen-flat-file is the module itself. lichen-shell (the terminal) is U3, and lichen-cli's user tools run as the user.\n  - U4's structural test is the one that pins `Command::new` to the module.\n  - `shortcodes/python.rs` carries a narrow allow: it is started by `spawn_script_child`, which U2 moves onto the sandbox mode.\n- **Existing tests this forces to change** are in this PR (s/164 precedent):\n  - tests that hand a runner a command now build it with `sandbox::command`;\n  - test setup that runs git or `mkfifo` directly builds a plain command;\n  - lichen-cms's two certificate tests run their client as a network child, and kill their TLS server however they end. A server left running held the planted run's output open, so a failure there hung the whole suite.\n\n## Differences from the U0 design, for the review\n\n- **Profiles by runner, not by named constructor.** The design's §4 sketches `Profile::git_local()`, `git_remote()`, `hugo()`, `copy()`, `publish_net()`. U1 keeps the existing runners and picks the network by method: ordinary calls get Unix sockets only, `*_with_network` gets the host's network.\n  - C4 is enforced by a listing test (tests PR) of the 8 `*_with_network` call sites: the frontend's remote git, git push and fetches, the deploy-remote push, `dig` and `wisp-cli` (the accepted `publish-net`, 8.2).\n  - U4's single builder is where named profiles would land, if you want them.\n- **Hugo and `cp` get git-local's rule (Unix sockets only), not \"no socket\".** They cannot reach any network either way; the tests PR has a Hugo test and its arm.\n- **A sandbox child cannot start another sandbox child.** The thread check reads `/proc/self/task`, and no profile grants `/proc`, so a nested `lichen sandbox` refuses. Nothing in U1 nests. U2's runners will need this settled if mdBook's commands run lichen.\n- **Linux only** (8.5). Elsewhere, `command` is the program itself and `prepare` only clears the environment.\n\n## Verification\n\n- `just gate --base 7fd3b1a6` at ce1f85c7: rust and frontends/builtin RAN, FAILED none; RUST SELECTED passed=1431 failed=0; WARNINGS 0; GATE rc=0 (run notify-d1c688cf).\n- The arms (the tests PR):\n  - skipping `restrict_self`;\n  - not clearing the environment;\n  - Hugo given the host's network;\n  - `cp` granted `/`.",
-          "createdAt": "2026-10-09T13:17:23+03:00",
+          "body": "",
+          "createdAt": "2026-06-22T18:01:35Z",
           "rounds": [
             {
-              "createdAt": "2026-10-09T13:17:23+03:00",
+              "createdAt": "2026-06-22T18:01:35Z",
               "patchBlob": {
                 "$type": "blob",
                 "ref": {
-                  "$link": "bafkreicwrgczokmy4lwjxiaag3wz25bu4svferh5mqm4m6fqbkm2yvraim"
+                  "$link": "bafkreibwlwrss7hpdztqraoqyt7scudm3e4c62526bcipke2bjk54ekhii"
                 },
                 "mimeType": "application/gzip",
-                "size": 30017
+                "size": 748
+              }
+            },
+            {
+              "createdAt": "2026-06-22T18:03:18Z",
+              "patchBlob": {
+                "$type": "blob",
+                "ref": {
+                  "$link": "bafkreihtxb3olxb47qi3pia4s2hdvp6hp4w4mqvxdic5cdxn5akuqdvzk4"
+                },
+                "mimeType": "application/gzip",
+                "size": 747
+              }
+            },
+            {
+              "createdAt": "2026-06-22T18:06:42Z",
+              "patchBlob": {
+                "$type": "blob",
+                "ref": {
+                  "$link": "bafkreihn7iekbrullnfm6xilxzpimhkjlbxsfow7jx76lvjunf4necumwq"
+                },
+                "mimeType": "application/gzip",
+                "size": 741
+              }
+            },
+            {
+              "createdAt": "2026-06-22T19:54:13Z",
+              "patchBlob": {
+                "$type": "blob",
+                "ref": {
+                  "$link": "bafkreidtf3gdbzvq53fedbzgjxlpiilq453wgh3au6u4xslkf33l6lbk5y"
+                },
+                "mimeType": "application/gzip",
+                "size": 733
+              }
+            },
+            {
+              "createdAt": "2026-06-22T20:07:55Z",
+              "patchBlob": {
+                "$type": "blob",
+                "ref": {
+                  "$link": "bafkreib5r3rd5psxwuwn2ighaodu3mmyya556lcia5ulr2acfahjyqpjyu"
+                },
+                "mimeType": "application/gzip",
+                "size": 727
+              }
+            },
+            {
+              "createdAt": "2026-06-22T20:19:36Z",
+              "patchBlob": {
+                "$type": "blob",
+                "ref": {
+                  "$link": "bafkreieyndy4vxdi6mkwbt7wawupt5wopetmauh3gu3or5ldrmujnbflfy"
+                },
+                "mimeType": "application/gzip",
+                "size": 743
+              }
+            },
+            {
+              "createdAt": "2026-06-22T20:21:23Z",
+              "patchBlob": {
+                "$type": "blob",
+                "ref": {
+                  "$link": "bafkreid6booc36rvwm7fweuz3riyxnnixnynrmbgkhnjtoxb77sodslp3m"
+                },
+                "mimeType": "application/gzip",
+                "size": 739
+              }
+            },
+            {
+              "createdAt": "2026-06-22T20:28:48Z",
+              "patchBlob": {
+                "$type": "blob",
+                "ref": {
+                  "$link": "bafkreidmlmtiuaplotqpohk4ennf7mjyog26ofblbykbjhvscsvqluhkeq"
+                },
+                "mimeType": "application/gzip",
+                "size": 782
+              }
+            },
+            {
+              "createdAt": "2026-10-11T08:47:33Z",
+              "patchBlob": {
+                "$type": "blob",
+                "ref": {
+                  "$link": "bafkreie4vkudon5w2obmkzwhhd7fk6gfhb4bb2yfzgvvklb7xxm5wkuaee"
+                },
+                "mimeType": "application/gzip",
+                "size": 899
+              }
+            },
+            {
+              "createdAt": "2026-10-11T09:00:52Z",
+              "patchBlob": {
+                "$type": "blob",
+                "ref": {
+                  "$link": "bafkreief36orzsrdrxi2swkp3qcpsmps35ywdsxvsbb4qx5o2zzgpomgbq"
+                },
+                "mimeType": "application/gzip",
+                "size": 933
+              }
+            },
+            {
+              "createdAt": "2026-10-11T12:05:20+03:00",
+              "patchBlob": {
+                "$type": "blob",
+                "ref": {
+                  "$link": "bafkreiczljwitk47aa7isjzawt4dj4xzde26q2rj7tduled2radggpat3a"
+                },
+                "mimeType": "application/gzip",
+                "size": 893
               }
             }
           ],
           "source": {
-            "branch": "s/171-sandbox-u1-product"
+            "branch": "tinger/xnspnpolkorp"
           },
           "target": {
-            "branch": "stack",
+            "branch": "main",
+            "repo": "did:plc:6et3lzwpz6wm7urvu2a7ua5i",
+            "repoDid": "did:plc:6et3lzwpz6wm7urvu2a7ua5i"
+          },
+          "title": "tangled: Add tangled CI workflows"
+        },
+        "cid": "bafyreig7y7iljn2reqmlvvxt2uu4lnwwi5nsf3tzxez6zre2ctb7uayo64"
+      }
+    },
+    {
+      "did": "did:plc:i7tqil44pba6cqddxqijtyhb",
+      "time_us": 1791709594581127,
+      "kind": "commit",
+      "commit": {
+        "rev": "3mxlnmy6zjv2t",
+        "operation": "update",
+        "collection": "sh.tangled.repo.pull",
+        "rkey": "3movhrh2uof22",
+        "record": {
+          "$type": "sh.tangled.repo.pull",
+          "body": "",
+          "createdAt": "2026-06-22T18:01:35Z",
+          "rounds": [
+            {
+              "createdAt": "2026-06-22T18:01:35Z",
+              "patchBlob": {
+                "$type": "blob",
+                "ref": {
+                  "$link": "bafkreibwlwrss7hpdztqraoqyt7scudm3e4c62526bcipke2bjk54ekhii"
+                },
+                "mimeType": "application/gzip",
+                "size": 748
+              }
+            },
+            {
+              "createdAt": "2026-06-22T18:03:18Z",
+              "patchBlob": {
+                "$type": "blob",
+                "ref": {
+                  "$link": "bafkreihtxb3olxb47qi3pia4s2hdvp6hp4w4mqvxdic5cdxn5akuqdvzk4"
+                },
+                "mimeType": "application/gzip",
+                "size": 747
+              }
+            },
+            {
+              "createdAt": "2026-06-22T18:06:42Z",
+              "patchBlob": {
+                "$type": "blob",
+                "ref": {
+                  "$link": "bafkreihn7iekbrullnfm6xilxzpimhkjlbxsfow7jx76lvjunf4necumwq"
+                },
+                "mimeType": "application/gzip",
+                "size": 741
+              }
+            },
+            {
+              "createdAt": "2026-06-22T19:54:13Z",
+              "patchBlob": {
+                "$type": "blob",
+                "ref": {
+                  "$link": "bafkreidtf3gdbzvq53fedbzgjxlpiilq453wgh3au6u4xslkf33l6lbk5y"
+                },
+                "mimeType": "application/gzip",
+                "size": 733
+              }
+            },
+            {
+              "createdAt": "2026-06-22T20:07:55Z",
+              "patchBlob": {
+                "$type": "blob",
+                "ref": {
+                  "$link": "bafkreib5r3rd5psxwuwn2ighaodu3mmyya556lcia5ulr2acfahjyqpjyu"
+                },
+                "mimeType": "application/gzip",
+                "size": 727
+              }
+            },
+            {
+              "createdAt": "2026-06-22T20:19:36Z",
+              "patchBlob": {
+                "$type": "blob",
+                "ref": {
+                  "$link": "bafkreieyndy4vxdi6mkwbt7wawupt5wopetmauh3gu3or5ldrmujnbflfy"
+                },
+                "mimeType": "application/gzip",
+                "size": 743
+              }
+            },
+            {
+              "createdAt": "2026-06-22T20:21:23Z",
+              "patchBlob": {
+                "$type": "blob",
+                "ref": {
+                  "$link": "bafkreid6booc36rvwm7fweuz3riyxnnixnynrmbgkhnjtoxb77sodslp3m"
+                },
+                "mimeType": "application/gzip",
+                "size": 739
+              }
+            },
+            {
+              "createdAt": "2026-06-22T20:28:48Z",
+              "patchBlob": {
+                "$type": "blob",
+                "ref": {
+                  "$link": "bafkreidmlmtiuaplotqpohk4ennf7mjyog26ofblbykbjhvscsvqluhkeq"
+                },
+                "mimeType": "application/gzip",
+                "size": 782
+              }
+            },
+            {
+              "createdAt": "2026-10-11T08:47:33Z",
+              "patchBlob": {
+                "$type": "blob",
+                "ref": {
+                  "$link": "bafkreie4vkudon5w2obmkzwhhd7fk6gfhb4bb2yfzgvvklb7xxm5wkuaee"
+                },
+                "mimeType": "application/gzip",
+                "size": 899
+              }
+            },
+            {
+              "createdAt": "2026-10-11T09:00:52Z",
+              "patchBlob": {
+                "$type": "blob",
+                "ref": {
+                  "$link": "bafkreief36orzsrdrxi2swkp3qcpsmps35ywdsxvsbb4qx5o2zzgpomgbq"
+                },
+                "mimeType": "application/gzip",
+                "size": 933
+              }
+            },
+            {
+              "createdAt": "2026-10-11T09:05:21Z",
+              "patchBlob": {
+                "$type": "blob",
+                "ref": {
+                  "$link": "bafkreiczljwitk47aa7isjzawt4dj4xzde26q2rj7tduled2radggpat3a"
+                },
+                "mimeType": "application/gzip",
+                "size": 893
+              }
+            },
+            {
+              "createdAt": "2026-10-11T12:06:33+03:00",
+              "patchBlob": {
+                "$type": "blob",
+                "ref": {
+                  "$link": "bafkreieuyhgmnizg5efq6wky7le5oicdvj2peb6uyavvquptgipaqivs2u"
+                },
+                "mimeType": "application/gzip",
+                "size": 891
+              }
+            }
+          ],
+          "source": {
+            "branch": "tinger/xnspnpolkorp"
+          },
+          "target": {
+            "branch": "main",
+            "repo": "did:plc:6et3lzwpz6wm7urvu2a7ua5i",
+            "repoDid": "did:plc:6et3lzwpz6wm7urvu2a7ua5i"
+          },
+          "title": "tangled: Add tangled CI workflows"
+        },
+        "cid": "bafyreiemhgfwrkpgps5tlu5t5yhvbjj54swhkvyjxexapea7xcbgdbzzta"
+      }
+    },
+    {
+      "did": "did:plc:i7tqil44pba6cqddxqijtyhb",
+      "time_us": 1791710403008064,
+      "kind": "commit",
+      "commit": {
+        "rev": "3mxlof3cdue2h",
+        "operation": "update",
+        "collection": "sh.tangled.repo.pull",
+        "rkey": "3movhrh2uof22",
+        "record": {
+          "$type": "sh.tangled.repo.pull",
+          "body": "",
+          "createdAt": "2026-06-22T18:01:35Z",
+          "rounds": [
+            {
+              "createdAt": "2026-06-22T18:01:35Z",
+              "patchBlob": {
+                "$type": "blob",
+                "ref": {
+                  "$link": "bafkreibwlwrss7hpdztqraoqyt7scudm3e4c62526bcipke2bjk54ekhii"
+                },
+                "mimeType": "application/gzip",
+                "size": 748
+              }
+            },
+            {
+              "createdAt": "2026-06-22T18:03:18Z",
+              "patchBlob": {
+                "$type": "blob",
+                "ref": {
+                  "$link": "bafkreihtxb3olxb47qi3pia4s2hdvp6hp4w4mqvxdic5cdxn5akuqdvzk4"
+                },
+                "mimeType": "application/gzip",
+                "size": 747
+              }
+            },
+            {
+              "createdAt": "2026-06-22T18:06:42Z",
+              "patchBlob": {
+                "$type": "blob",
+                "ref": {
+                  "$link": "bafkreihn7iekbrullnfm6xilxzpimhkjlbxsfow7jx76lvjunf4necumwq"
+                },
+                "mimeType": "application/gzip",
+                "size": 741
+              }
+            },
+            {
+              "createdAt": "2026-06-22T19:54:13Z",
+              "patchBlob": {
+                "$type": "blob",
+                "ref": {
+                  "$link": "bafkreidtf3gdbzvq53fedbzgjxlpiilq453wgh3au6u4xslkf33l6lbk5y"
+                },
+                "mimeType": "application/gzip",
+                "size": 733
+              }
+            },
+            {
+              "createdAt": "2026-06-22T20:07:55Z",
+              "patchBlob": {
+                "$type": "blob",
+                "ref": {
+                  "$link": "bafkreib5r3rd5psxwuwn2ighaodu3mmyya556lcia5ulr2acfahjyqpjyu"
+                },
+                "mimeType": "application/gzip",
+                "size": 727
+              }
+            },
+            {
+              "createdAt": "2026-06-22T20:19:36Z",
+              "patchBlob": {
+                "$type": "blob",
+                "ref": {
+                  "$link": "bafkreieyndy4vxdi6mkwbt7wawupt5wopetmauh3gu3or5ldrmujnbflfy"
+                },
+                "mimeType": "application/gzip",
+                "size": 743
+              }
+            },
+            {
+              "createdAt": "2026-06-22T20:21:23Z",
+              "patchBlob": {
+                "$type": "blob",
+                "ref": {
+                  "$link": "bafkreid6booc36rvwm7fweuz3riyxnnixnynrmbgkhnjtoxb77sodslp3m"
+                },
+                "mimeType": "application/gzip",
+                "size": 739
+              }
+            },
+            {
+              "createdAt": "2026-06-22T20:28:48Z",
+              "patchBlob": {
+                "$type": "blob",
+                "ref": {
+                  "$link": "bafkreidmlmtiuaplotqpohk4ennf7mjyog26ofblbykbjhvscsvqluhkeq"
+                },
+                "mimeType": "application/gzip",
+                "size": 782
+              }
+            },
+            {
+              "createdAt": "2026-10-11T08:47:33Z",
+              "patchBlob": {
+                "$type": "blob",
+                "ref": {
+                  "$link": "bafkreie4vkudon5w2obmkzwhhd7fk6gfhb4bb2yfzgvvklb7xxm5wkuaee"
+                },
+                "mimeType": "application/gzip",
+                "size": 899
+              }
+            },
+            {
+              "createdAt": "2026-10-11T09:00:52Z",
+              "patchBlob": {
+                "$type": "blob",
+                "ref": {
+                  "$link": "bafkreief36orzsrdrxi2swkp3qcpsmps35ywdsxvsbb4qx5o2zzgpomgbq"
+                },
+                "mimeType": "application/gzip",
+                "size": 933
+              }
+            },
+            {
+              "createdAt": "2026-10-11T09:05:21Z",
+              "patchBlob": {
+                "$type": "blob",
+                "ref": {
+                  "$link": "bafkreiczljwitk47aa7isjzawt4dj4xzde26q2rj7tduled2radggpat3a"
+                },
+                "mimeType": "application/gzip",
+                "size": 893
+              }
+            },
+            {
+              "createdAt": "2026-10-11T09:06:34Z",
+              "patchBlob": {
+                "$type": "blob",
+                "ref": {
+                  "$link": "bafkreieuyhgmnizg5efq6wky7le5oicdvj2peb6uyavvquptgipaqivs2u"
+                },
+                "mimeType": "application/gzip",
+                "size": 891
+              }
+            },
+            {
+              "createdAt": "2026-10-11T12:20:02+03:00",
+              "patchBlob": {
+                "$type": "blob",
+                "ref": {
+                  "$link": "bafkreiertsrh6mqotxg3eqyusnzjiohsggmd6x3merpdrzgzqexsehegwi"
+                },
+                "mimeType": "application/gzip",
+                "size": 1156
+              }
+            }
+          ],
+          "source": {
+            "branch": "tinger/xnspnpolkorp"
+          },
+          "target": {
+            "branch": "main",
+            "repo": "did:plc:6et3lzwpz6wm7urvu2a7ua5i",
+            "repoDid": "did:plc:6et3lzwpz6wm7urvu2a7ua5i"
+          },
+          "title": "tangled: Add tangled CI workflows"
+        },
+        "cid": "bafyreiempf4hn7vaxjm5pxfvgqfumz6kqfkinb2eo2ylp4m5lyahs4qwny"
+      }
+    },
+    {
+      "did": "did:plc:qfngkejlw4ghji2myc73hbdh",
+      "time_us": 1791710495875912,
+      "kind": "commit",
+      "commit": {
+        "rev": "3mxlohtksu32o",
+        "operation": "update",
+        "collection": "sh.tangled.repo.pull",
+        "rkey": "3mxlllwtlrd22",
+        "record": {
+          "$type": "sh.tangled.repo.pull",
+          "body": "Two harness findings from hourly review 5, both reproducing at stack and at patch alike: the model counted the scaffold folders (content, templates) as present forever, and allowed only 404 for a rename with no source onto an existing target, where lichen checks the target first and answers 409. A gone set for scaffold folders taken away; 404 or 409 in that one rename case, 404 only otherwise.",
+          "createdAt": "2026-10-11T08:30:13Z",
+          "rounds": [
+            {
+              "createdAt": "2026-10-11T08:30:13Z",
+              "patchBlob": {
+                "$type": "blob",
+                "ref": {
+                  "$link": "bafkreifabpoozsmxzx6zdkp765j3dklj54sliffqc5b4z5rbfouddfopna"
+                },
+                "mimeType": "application/gzip",
+                "size": 1607
+              }
+            },
+            {
+              "createdAt": "2026-10-11T12:21:34+03:00",
+              "patchBlob": {
+                "$type": "blob",
+                "ref": {
+                  "$link": "bafkreie6ct6wtrih3tgxe6uapsamhez52dy7qo7sauabvjqsggx3ungls4"
+                },
+                "mimeType": "application/gzip",
+                "size": 33123
+              }
+            }
+          ],
+          "source": {
+            "branch": "s/238-fuzz-c1-model-product"
+          },
+          "target": {
+            "branch": "s/234-fuzz-git-trusted-tests",
             "repo": "did:plc:wj53zt2oo653zr3wgnvn4llg",
             "repoDid": "did:plc:wj53zt2oo653zr3wgnvn4llg"
           },
-          "title": "sandbox: every external program is a lichen sandbox child (SANDBOX-UNIFY U1, product)"
+          "title": "fuzz C1: a gone scaffold folder; a rename with no source onto a target may answer 409"
         },
-        "cid": "bafyreigjxr3f3wfebpct3kwpfukqa6anhugovt4uzbigaquqkagoclb4ra"
+        "cid": "bafyreicpl7327b4lvqejadrn4t2s4tlp7iiz66i43otj25g77qj625bazm"
       }
     }
   ]

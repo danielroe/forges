@@ -42,6 +42,49 @@
       "releases": false
     }
   },
+  "repo licence": {
+    "ref": {
+      "forge": "bitbucket",
+      "instance": "bitbucket.org",
+      "owner": "neelabo",
+      "name": "neeview",
+      "externalId": "{6b283030-4828-41db-b559-8b120365f356}"
+    },
+    "description": "Image viewer",
+    "defaultBranch": "master",
+    "visibility": "public",
+    "visibilityRaw": "public",
+    "isFork": false,
+    "isArchived": false,
+    "topics": [],
+    "url": "https://bitbucket.org/neelabo/neeview",
+    "cloneUrls": {
+      "https": "https://bitbucket.org/neelabo/neeview.git",
+      "ssh": "git@bitbucket.org:neelabo/neeview.git"
+    },
+    "createdAt": "2015-12-26T05:41:19.222Z",
+    "updatedAt": "2025-01-17T15:05:15.976Z",
+    "owner": {
+      "forge": "bitbucket",
+      "instance": "bitbucket.org",
+      "login": "neelabo-team",
+      "id": "{04a60307-bfb6-4dfc-9b19-e862ceab584f}",
+      "name": "Ito Mitsuhiro",
+      "avatarUrl": "https://bitbucket.org/account/neelabo-team/avatar/",
+      "url": "https://bitbucket.org/%7B04a60307-bfb6-4dfc-9b19-e862ceab584f%7D/",
+      "typeRaw": "team",
+      "isBotHint": false
+    },
+    "language": "c#",
+    "features": {
+      "issues": true,
+      "pullRequests": true,
+      "discussions": false,
+      "wiki": true,
+      "projects": false,
+      "releases": false
+    }
+  },
   "pull": {
     "ref": {
       "forge": "bitbucket",
@@ -109,8 +152,8 @@
   "pull list": {
     "items": [],
     "rateLimit": {
-      "remaining": 59,
-      "resetAt": "1970-01-01T00:14:25.000Z"
+      "remaining": 58,
+      "resetAt": "1970-01-01T00:58:02.000Z"
     }
   },
   "pull getMany": [
@@ -361,8 +404,8 @@
   "pull comments": {
     "items": [],
     "rateLimit": {
-      "remaining": 59,
-      "resetAt": "1970-01-01T00:14:23.000Z"
+      "remaining": 54,
+      "resetAt": "1970-01-01T00:58:01.000Z"
     }
   },
   "pull reviews": {
@@ -402,6 +445,39 @@
       }
     ]
   },
+  "pull getReview": {
+    "ref": {
+      "forge": "bitbucket",
+      "instance": "bitbucket.org",
+      "thread": {
+        "forge": "bitbucket",
+        "instance": "bitbucket.org",
+        "repo": {
+          "forge": "bitbucket",
+          "instance": "bitbucket.org",
+          "owner": "neelabo",
+          "name": "neeview"
+        },
+        "kind": "pull_request",
+        "number": "37"
+      },
+      "id": "participant:{7247b96a-9628-4fa3-b0ed-06bd83dc23a1}"
+    },
+    "author": {
+      "forge": "bitbucket",
+      "instance": "bitbucket.org",
+      "login": "neelabo",
+      "id": "{7247b96a-9628-4fa3-b0ed-06bd83dc23a1}",
+      "name": "Ito Mitsuhiro",
+      "avatarUrl": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/557058:1c074cc5-5f7e-4f74-a716-6ade7135e7bd/4281deb6-857a-4a03-a588-29cb13085c34/128",
+      "url": "https://bitbucket.org/%7B7247b96a-9628-4fa3-b0ed-06bd83dc23a1%7D/",
+      "typeRaw": "user",
+      "isBotHint": false
+    },
+    "state": "approved",
+    "stateRaw": "approved",
+    "comments": false
+  },
   "pull checks": {
     "items": []
   },
@@ -416,8 +492,8 @@
       }
     ],
     "rateLimit": {
-      "remaining": 52,
-      "resetAt": "1970-01-01T00:14:22.000Z"
+      "remaining": 54,
+      "resetAt": "1970-01-01T00:57:59.000Z"
     }
   },
   "pull commits": {
@@ -495,8 +571,8 @@
       }
     ],
     "rateLimit": {
-      "remaining": 57,
-      "resetAt": "1970-01-01T00:14:22.000Z"
+      "remaining": 59,
+      "resetAt": "1970-01-01T00:57:59.000Z"
     }
   },
   "commit thread": {
@@ -542,8 +618,8 @@
   "commit comments": {
     "items": [],
     "rateLimit": {
-      "remaining": 51,
-      "resetAt": "1970-01-01T00:14:20.000Z"
+      "remaining": 59,
+      "resetAt": "1970-01-01T00:57:57.000Z"
     }
   },
   "checks": {
@@ -579,8 +655,8 @@
       "etag": "W/\"f2b870d7bb844a34494dace84771789e\""
     },
     "rateLimit": {
-      "remaining": 58,
-      "resetAt": "1970-01-01T00:14:19.000Z"
+      "remaining": 50,
+      "resetAt": "1970-01-01T00:57:56.000Z"
     }
   },
   "branches": {
@@ -606,8 +682,8 @@
       "etag": "W/\"9ddd0149fcc6c781d8da6bbbe84d041f\""
     },
     "rateLimit": {
-      "remaining": 59,
-      "resetAt": "1970-01-01T00:14:18.000Z"
+      "remaining": 49,
+      "resetAt": "1970-01-01T00:57:55.000Z"
     }
   },
   "tags": {
@@ -632,8 +708,8 @@
       "nextUrl": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/refs/tags?pagelen=3&page=2"
     },
     "rateLimit": {
-      "remaining": 44,
-      "resetAt": "1970-01-01T00:14:18.000Z"
+      "remaining": 48,
+      "resetAt": "1970-01-01T00:57:55.000Z"
     }
   },
   "resolve default branch": "6f202224c3c938d01c46892ed305df6e385ce13f",
@@ -750,8 +826,8 @@
       "etag": "W/\"482388cbcf6f99511c9a085ac18b8327\""
     },
     "rateLimit": {
-      "remaining": 39,
-      "resetAt": "1970-01-01T00:14:17.000Z"
+      "remaining": 41,
+      "resetAt": "1970-01-01T00:57:54.000Z"
     }
   },
   "commit": {
@@ -811,8 +887,8 @@
       "nextUrl": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/pullrequests?sort=-updated_on&pagelen=3&state=OPEN&state=MERGED&state=DECLINED&state=SUPERSEDED&page=2"
     },
     "rateLimit": {
-      "remaining": 33,
-      "resetAt": "1970-01-01T00:14:15.000Z"
+      "remaining": 59,
+      "resetAt": "1970-01-01T00:57:53.000Z"
     }
   }
 }

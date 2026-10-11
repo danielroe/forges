@@ -2790,6 +2790,34 @@
       }
     ]
   },
+  "ci job": {
+    "ref": {
+      "forge": "forgejo",
+      "instance": "code.forgejo.org",
+      "repo": {
+        "forge": "forgejo",
+        "instance": "code.forgejo.org",
+        "owner": "forgejo",
+        "name": "runner"
+      },
+      "id": "407308",
+      "run": {
+        "forge": "forgejo",
+        "instance": "code.forgejo.org",
+        "repo": {
+          "forge": "forgejo",
+          "instance": "code.forgejo.org",
+          "owner": "forgejo",
+          "name": "runner"
+        },
+        "id": "196211"
+      }
+    },
+    "name": "arm64",
+    "state": "failure",
+    "stateRaw": "failure",
+    "url": "https://code.forgejo.org/forgejo/runner/actions/runs/23966/jobs/0/attempt/1"
+  },
   "readme": {
     "path": "README.md",
     "sha": "6b8a5b80c876d97996f761454672cb519416f2ab",
@@ -3262,7 +3290,7 @@
             "name": "forgejo-runner-13.2.0-linux-amd64",
             "url": "https://code.forgejo.org/forgejo/runner/releases/download/v13.2.0/forgejo-runner-13.2.0-linux-amd64",
             "size": 22290594,
-            "downloadCount": 17696
+            "downloadCount": 17700
           },
           {
             "ref": {
@@ -3291,7 +3319,7 @@
             "name": "forgejo-runner-13.2.0-linux-amd64.asc",
             "url": "https://code.forgejo.org/forgejo/runner/releases/download/v13.2.0/forgejo-runner-13.2.0-linux-amd64.asc",
             "size": 228,
-            "downloadCount": 3108
+            "downloadCount": 3109
           },
           {
             "ref": {
@@ -3320,7 +3348,7 @@
             "name": "forgejo-runner-13.2.0-linux-amd64.sha256",
             "url": "https://code.forgejo.org/forgejo/runner/releases/download/v13.2.0/forgejo-runner-13.2.0-linux-amd64.sha256",
             "size": 100,
-            "downloadCount": 7478
+            "downloadCount": 7481
           },
           {
             "ref": {
@@ -3407,7 +3435,7 @@
             "name": "forgejo-runner-13.2.0-linux-amd64.xz.sha256",
             "url": "https://code.forgejo.org/forgejo/runner/releases/download/v13.2.0/forgejo-runner-13.2.0-linux-amd64.xz.sha256",
             "size": 103,
-            "downloadCount": 181
+            "downloadCount": 182
           },
           {
             "ref": {
@@ -3644,7 +3672,7 @@
             "name": "forgejo-runner-13.1.0-linux-amd64",
             "url": "https://code.forgejo.org/forgejo/runner/releases/download/v13.1.0/forgejo-runner-13.1.0-linux-amd64",
             "size": 21516450,
-            "downloadCount": 16852
+            "downloadCount": 16855
           },
           {
             "ref": {
@@ -3673,7 +3701,7 @@
             "name": "forgejo-runner-13.1.0-linux-amd64.asc",
             "url": "https://code.forgejo.org/forgejo/runner/releases/download/v13.1.0/forgejo-runner-13.1.0-linux-amd64.asc",
             "size": 228,
-            "downloadCount": 2354
+            "downloadCount": 2356
           },
           {
             "ref": {
@@ -4026,7 +4054,7 @@
             "name": "forgejo-runner-13.0.0-linux-amd64",
             "url": "https://code.forgejo.org/forgejo/runner/releases/download/v13.0.0/forgejo-runner-13.0.0-linux-amd64",
             "size": 18809016,
-            "downloadCount": 21740
+            "downloadCount": 21741
           },
           {
             "ref": {
@@ -4413,7 +4441,7 @@
         "name": "forgejo-runner-13.2.0-linux-amd64",
         "url": "https://code.forgejo.org/forgejo/runner/releases/download/v13.2.0/forgejo-runner-13.2.0-linux-amd64",
         "size": 22290594,
-        "downloadCount": 17696
+        "downloadCount": 17700
       },
       {
         "ref": {
@@ -4442,7 +4470,7 @@
         "name": "forgejo-runner-13.2.0-linux-amd64.asc",
         "url": "https://code.forgejo.org/forgejo/runner/releases/download/v13.2.0/forgejo-runner-13.2.0-linux-amd64.asc",
         "size": 228,
-        "downloadCount": 3108
+        "downloadCount": 3109
       },
       {
         "ref": {
@@ -4471,7 +4499,7 @@
         "name": "forgejo-runner-13.2.0-linux-amd64.sha256",
         "url": "https://code.forgejo.org/forgejo/runner/releases/download/v13.2.0/forgejo-runner-13.2.0-linux-amd64.sha256",
         "size": 100,
-        "downloadCount": 7478
+        "downloadCount": 7481
       },
       {
         "ref": {
@@ -4558,7 +4586,7 @@
         "name": "forgejo-runner-13.2.0-linux-amd64.xz.sha256",
         "url": "https://code.forgejo.org/forgejo/runner/releases/download/v13.2.0/forgejo-runner-13.2.0-linux-amd64.xz.sha256",
         "size": 103,
-        "downloadCount": 181
+        "downloadCount": 182
       },
       {
         "ref": {
@@ -4795,7 +4823,7 @@
         "name": "forgejo-runner-13.2.0-linux-amd64",
         "url": "https://code.forgejo.org/forgejo/runner/releases/download/v13.2.0/forgejo-runner-13.2.0-linux-amd64",
         "size": 22290594,
-        "downloadCount": 17696
+        "downloadCount": 17700
       },
       {
         "ref": {
@@ -4824,7 +4852,7 @@
         "name": "forgejo-runner-13.2.0-linux-amd64.asc",
         "url": "https://code.forgejo.org/forgejo/runner/releases/download/v13.2.0/forgejo-runner-13.2.0-linux-amd64.asc",
         "size": 228,
-        "downloadCount": 3108
+        "downloadCount": 3109
       },
       {
         "ref": {
@@ -4853,7 +4881,7 @@
         "name": "forgejo-runner-13.2.0-linux-amd64.sha256",
         "url": "https://code.forgejo.org/forgejo/runner/releases/download/v13.2.0/forgejo-runner-13.2.0-linux-amd64.sha256",
         "size": 100,
-        "downloadCount": 7478
+        "downloadCount": 7481
       },
       {
         "ref": {
@@ -4940,7 +4968,7 @@
         "name": "forgejo-runner-13.2.0-linux-amd64.xz.sha256",
         "url": "https://code.forgejo.org/forgejo/runner/releases/download/v13.2.0/forgejo-runner-13.2.0-linux-amd64.xz.sha256",
         "size": 103,
-        "downloadCount": 181
+        "downloadCount": 182
       },
       {
         "ref": {
@@ -5177,7 +5205,7 @@
         "name": "forgejo-runner-13.2.0-linux-amd64",
         "url": "https://code.forgejo.org/forgejo/runner/releases/download/v13.2.0/forgejo-runner-13.2.0-linux-amd64",
         "size": 22290594,
-        "downloadCount": 17696
+        "downloadCount": 17700
       },
       {
         "ref": {
@@ -5206,7 +5234,7 @@
         "name": "forgejo-runner-13.2.0-linux-amd64.asc",
         "url": "https://code.forgejo.org/forgejo/runner/releases/download/v13.2.0/forgejo-runner-13.2.0-linux-amd64.asc",
         "size": 228,
-        "downloadCount": 3108
+        "downloadCount": 3109
       },
       {
         "ref": {
@@ -5235,7 +5263,7 @@
         "name": "forgejo-runner-13.2.0-linux-amd64.sha256",
         "url": "https://code.forgejo.org/forgejo/runner/releases/download/v13.2.0/forgejo-runner-13.2.0-linux-amd64.sha256",
         "size": 100,
-        "downloadCount": 7478
+        "downloadCount": 7481
       },
       {
         "ref": {
@@ -5322,7 +5350,7 @@
         "name": "forgejo-runner-13.2.0-linux-amd64.xz.sha256",
         "url": "https://code.forgejo.org/forgejo/runner/releases/download/v13.2.0/forgejo-runner-13.2.0-linux-amd64.xz.sha256",
         "size": 103,
-        "downloadCount": 181
+        "downloadCount": 182
       },
       {
         "ref": {

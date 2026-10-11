@@ -319,7 +319,7 @@ function targetFor(credentials: Credentials, fetch: FetchLike): Target {
       const slug = env.FIXTURE_GITEE_REPO ?? 'cmcc-oneos/OneOS'
       return { provider, manifest: {
         repo: repoRef('gitee', provider.instance, slug),
-        pull: ref('gitee', provider.instance, slug, 'pull_request', env.FIXTURE_GITEE_PULL ?? '550'),
+        pull: ref('gitee', provider.instance, slug, 'pull_request', env.FIXTURE_GITEE_PULL ?? '540'),
         issue: ref('gitee', provider.instance, slug, 'issue', env.FIXTURE_GITEE_ISSUE ?? 'I8NUPF'),
         ...setupRepos('GITEE', slug => repoRef('gitee', provider.instance, slug)),
       } }

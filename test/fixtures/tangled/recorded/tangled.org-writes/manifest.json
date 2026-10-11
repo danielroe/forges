@@ -14,26 +14,27 @@
     "name": "forges-fixtures"
   },
   "run": {
-    "id": "20261009191401",
+    "id": "20261011120226",
     "base": "",
     "branches": [
-      "forges-fixtures/20261009191401-1",
-      "forges-fixtures/20261009191401-2",
-      "forges-fixtures/20261009191401-3"
+      "forges-fixtures/20261011120226-1",
+      "forges-fixtures/20261011120226-2",
+      "forges-fixtures/20261011120226-3"
     ],
     "files": [
-      "forges-fixtures/20261009191401-1.md",
-      "forges-fixtures/20261009191401-2.md",
-      "forges-fixtures/20261009191401-3.md"
+      "forges-fixtures/20261011120226-1.md",
+      "forges-fixtures/20261011120226-2.md",
+      "forges-fixtures/20261011120226-3.md"
     ],
     "pull": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.pull/3mxhm5yldov22"
   },
-  "recordedAt": "2026-10-09T19:14:03.403Z",
+  "recordedAt": "2026-10-11T12:02:28.551Z",
   "steps": [
     "author",
     "create issue",
     "issue comment",
     "issue edit comment",
+    "issue get comment",
     "issue upsert comment",
     "issue delete comment",
     "issue unsubscribe",

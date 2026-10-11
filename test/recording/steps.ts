@@ -166,7 +166,12 @@ function commitSteps(): Step[] {
   return [
     { name: 'commit thread', verb: 'threads.get', kind: 'commit', run: (provider, manifest, context) => provider.threads.get(ref(manifest, context)) },
     { name: 'commit events', verb: 'threads.eventsPage', kind: 'commit', run: (provider, manifest, context) => provider.threads.eventsPage(ref(manifest, context), page) },
-    { name: 'commit comments', verb: 'threads.commentsPage', kind: 'commit', run: (provider, manifest, context) => provider.threads.commentsPage(ref(manifest, context), page) },
+    { name: 'commit comments', verb: 'threads.commentsPage', kind: 'commit', run: async (provider, manifest, context) => {
+      const result = await provider.threads.commentsPage(ref(manifest, context), page)
+      context.comment = result.items[0]
+      return result
+    } },
+    { name: 'commit getComment', verb: 'threads.getComment', kind: 'commit', run: (provider, _manifest, context) => provider.threads.getComment(need(context.comment, 'a commit comment').ref) },
   ]
 }
 

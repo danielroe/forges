@@ -1,0 +1,63 @@
+{
+  "request": {
+    "method": "PUT",
+    "url": "https://api.bitbucket.org/2.0/repositories/danielroe/forges-fixtures/hooks/%7B185569fa-16d7-442e-97dc-8a871d2b2f4f%7D",
+    "body": {
+      "url": "https://example.com/hook",
+      "description": "forges",
+      "active": true,
+      "events": [
+        "pullrequest:comment_created",
+        "pullrequest:comment_deleted",
+        "repo:push",
+        "pullrequest:comment_updated"
+      ],
+      "secret": "REDACTED"
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "description": "forges",
+      "uuid": "{185569fa-16d7-442e-97dc-8a871d2b2f4f}",
+      "url": "https://example.com/hook",
+      "subject": {
+        "type": "repository",
+        "full_name": "danielroe/forges-fixtures",
+        "links": {
+          "self": {
+            "href": "https://api.bitbucket.org/2.0/repositories/danielroe/forges-fixtures"
+          },
+          "html": {
+            "href": "https://bitbucket.org/danielroe/forges-fixtures"
+          },
+          "avatar": {
+            "href": "https://bytebucket.org/ravatar/%7B245afeb9-21de-4a8c-81c0-d45efbf52a8c%7D?ts=default"
+          }
+        },
+        "name": "forges-fixtures",
+        "uuid": "{245afeb9-21de-4a8c-81c0-d45efbf52a8c}"
+      },
+      "active": true,
+      "skip_cert_verification": false,
+      "created_at": "2026-10-11T12:02:40.785865146Z",
+      "events": [
+        "pullrequest:comment_created",
+        "pullrequest:comment_deleted",
+        "repo:push",
+        "pullrequest:comment_updated"
+      ],
+      "links": {
+        "self": {
+          "href": "https://api.bitbucket.org/2.0/repositories/danielroe/forges-fixtures/hooks/%7B185569fa-16d7-442e-97dc-8a871d2b2f4f%7D"
+        }
+      },
+      "secret_set": true,
+      "type": "webhook_subscription",
+      "source": null,
+      "history_enabled": false,
+      "read_only": false
+    }
+  }
+}

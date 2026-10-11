@@ -95,7 +95,7 @@ Since `pushin()` contains no webhook code, there is no `pushinLite()` factory fo
 | `threads.getMany` | ✅ | ✅ |
 | `threads.events` | issue (emulated), PR (emulated) | issue (emulated), PR (emulated) |
 | `comments.list` | issue, PR | issue, PR |
-| `comments.get` | ❌ | ❌ |
+| `comments.get` | issue (emulated), PR (unverified) | issue (emulated), PR (unverified) |
 | `comments.edit` | ❌ | ❌ |
 | `comments.delete` | ❌ | ❌ |
 | `reactions.list` | ❌ | ❌ |

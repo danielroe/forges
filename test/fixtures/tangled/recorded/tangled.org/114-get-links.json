@@ -1,20 +1,14 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://constellation.microcosm.blue/links?target=at%3A%2F%2Fdid%3Aplc%3Aqfpnj4og54vl56wngdriaxug%2Fsh.tangled.repo.issue%2F3ljnffy24un22&collection=sh.tangled.repo.issue.state&path=.issue&limit=100"
+    "url": "https://constellation.microcosm.blue/links?target=at%3A%2F%2Fdid%3Aplc%3Afxnw2wkzf23zya6shq4pxvh6%2Fsh.tangled.repo.issue%2F3ll4rirll2h22&collection=sh.tangled.repo.issue.comment&path=.issue&limit=100"
   },
   "response": {
     "status": 200,
     "headers": {},
     "body": {
-      "total": 1,
-      "linking_records": [
-        {
-          "did": "did:plc:wshs7t2adsemcrrd4snkeqli",
-          "collection": "sh.tangled.repo.issue.state",
-          "rkey": "3ljnffy24un22"
-        }
-      ],
+      "total": 0,
+      "linking_records": [],
       "cursor": null
     }
   }

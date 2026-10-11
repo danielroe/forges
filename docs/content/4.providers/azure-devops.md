@@ -181,7 +181,7 @@ You manage service hook subscriptions at the level of the organization and not o
 | `contents.threadFiles` | ❌ | ❌ |
 | `contents.threadCommits` | ✅ | ✅ |
 | `reviews.list` | emulated | emulated |
-| `reviews.get` | ❌ | ❌ |
+| `reviews.get` | emulated | unverified |
 | `reviews.create` | emulated | ❌ |
 | `reviews.submit` | ❌ | ❌ |
 | `reviews.approve` | emulated | ❌ |

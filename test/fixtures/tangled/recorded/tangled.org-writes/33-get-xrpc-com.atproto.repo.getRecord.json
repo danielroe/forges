@@ -1,24 +1,45 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://tngl.sh/xrpc/com.atproto.repo.getRecord?repo=did%3Aplc%3A7qksav5io2s4qfg67pe7iqqk&collection=sh.tangled.repo.pull.status&rkey=3mxhmfspmu32y"
+    "url": "https://tngl.sh/xrpc/com.atproto.repo.getRecord?repo=did%3Aplc%3A7qksav5io2s4qfg67pe7iqqk&collection=sh.tangled.repo.pull&rkey=3mxhm5yldov22"
   },
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"172-QS8CgziQ3m8S5up+D266H4dqS4Q\"",
+      "etag": "W/\"298-b5i+SiOzXvT6a8u+Nhr1h/9XOQU\"",
       "ratelimit-limit": "3000",
-      "ratelimit-remaining": "2975",
-      "ratelimit-reset": "1791573543"
+      "ratelimit-remaining": "2970",
+      "ratelimit-reset": "1791720407"
     },
     "body": {
-      "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.pull.status/3mxhmfspmu32y",
-      "cid": "bafyreihjwjt3imc2zcphgmahukzgl5g2z3pbh7g3tgjvtpfa6vdt2fyrje",
+      "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.pull/3mxhm5yldov22",
+      "cid": "bafyreibffw4umdhlw4utwgou5ihxi7e26wd3jafuzayoix5cxfrxktkc6e",
       "value": {
-        "pull": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.pull/3mxhm5yldov22",
-        "$type": "sh.tangled.repo.pull.status",
-        "status": "sh.tangled.repo.pull.status.open",
-        "createdAt": "2026-10-09T18:34:00.554Z"
+        "body": "Edited by run 20261009191401.",
+        "$type": "sh.tangled.repo.pull",
+        "title": "forges fixture 20261009191401: pull, edited",
+        "rounds": [
+          {
+            "createdAt": "2026-10-09T21:29:38+03:00",
+            "patchBlob": {
+              "ref": {
+                "$link": "bafkreicqsnafmjdy22szssmis2jf56igucmyxsrc6demlbs6nmi2bgd6ci"
+              },
+              "size": 422,
+              "$type": "blob",
+              "mimeType": "application/gzip"
+            }
+          }
+        ],
+        "source": {
+          "branch": "bo"
+        },
+        "target": {
+          "repo": "did:plc:t73o44q7fppgagkrevtztyok",
+          "branch": "main",
+          "repoDid": "did:plc:t73o44q7fppgagkrevtztyok"
+        },
+        "createdAt": "2026-10-09T21:29:38+03:00"
       }
     }
   }

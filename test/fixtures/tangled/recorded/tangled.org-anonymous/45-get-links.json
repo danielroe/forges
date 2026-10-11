@@ -1,7 +1,7 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://constellation.microcosm.blue/links?target=at%3A%2F%2Fdid%3Aplc%3Aqfpnj4og54vl56wngdriaxug%2Fsh.tangled.repo.pull%2F3mc7q22ebgn22&collection=sh.tangled.repo.pull.status&path=.pull&limit=100"
+    "url": "https://constellation.microcosm.blue/links?target=at%3A%2F%2Fdid%3Aplc%3Aqfpnj4og54vl56wngdriaxug%2Fsh.tangled.repo.pull%2F3mc7q22ebmd22&collection=sh.tangled.repo.pull.status&path=.pull&limit=100"
   },
   "response": {
     "status": 200,
@@ -12,7 +12,7 @@
         {
           "did": "did:plc:wshs7t2adsemcrrd4snkeqli",
           "collection": "sh.tangled.repo.pull.status",
-          "rkey": "3mc7q22ebgn22"
+          "rkey": "3mc7q22ebmd22"
         }
       ],
       "cursor": null

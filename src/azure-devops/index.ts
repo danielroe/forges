@@ -444,6 +444,7 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
         signal: options?.signal,
       })).data)),
     },
+    emulated: { getReview: anonymous ? 'unverified' : 'emulated' },
     threads: {
       get: perKind({ issue: anonymous ? 'unverified' : true, pull_request: true }, get),
       getMany: verb(true, (refs, options) => getManyConcurrently(refs, get, options)),

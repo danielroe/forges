@@ -12,13 +12,13 @@ import { rolldown } from 'rolldown'
 
 /** `absent` is a string only the webhook code contains; a Lite bundle must not carry it. */
 const BUDGETS: Array<{ name: string, source: string, imports: string, minified: number, gzipped: number, absent?: string }> = [
-  { name: 'forges', source: 'index.mjs', imports: 'createForges', minified: 9_100, gzipped: 2_700 },
-  { name: 'forges/github', source: 'github/index.mjs', imports: 'github', minified: 104_900, gzipped: 31_900 },
-  { name: 'github lite', source: 'github/index.mjs', imports: 'githubLite', minified: 96_900, gzipped: 29_700, absent: 'x-hub-signature-256' },
-  { name: 'forges/gitlab', source: 'gitlab/index.mjs', imports: 'gitlab', minified: 82_100, gzipped: 25_600 },
-  { name: 'gitlab lite', source: 'gitlab/index.mjs', imports: 'gitlabLite', minified: 75_100, gzipped: 23_500, absent: 'x-gitlab-token' },
-  { name: 'forges/tangled', source: 'tangled/index.mjs', imports: 'tangled', minified: 61_400, gzipped: 20_300 },
-  { name: 'tangled lite', source: 'tangled/index.mjs', imports: 'tangledLite', minified: 57_700, gzipped: 19_100, absent: 'x-tangled-signature-256' },
+  { name: 'forges', source: 'index.mjs', imports: 'createForges', minified: 9_200, gzipped: 2_700 },
+  { name: 'forges/github', source: 'github/index.mjs', imports: 'github', minified: 106_200, gzipped: 32_300 },
+  { name: 'github lite', source: 'github/index.mjs', imports: 'githubLite', minified: 98_200, gzipped: 30_100, absent: 'x-hub-signature-256' },
+  { name: 'forges/gitlab', source: 'gitlab/index.mjs', imports: 'gitlab', minified: 83_300, gzipped: 26_000 },
+  { name: 'gitlab lite', source: 'gitlab/index.mjs', imports: 'gitlabLite', minified: 76_400, gzipped: 23_900, absent: 'x-gitlab-token' },
+  { name: 'forges/tangled', source: 'tangled/index.mjs', imports: 'tangled', minified: 62_800, gzipped: 20_600 },
+  { name: 'tangled lite', source: 'tangled/index.mjs', imports: 'tangledLite', minified: 59_100, gzipped: 19_400, absent: 'x-tangled-signature-256' },
 ]
 
 async function measure(source: string, imports: string): Promise<{ minified: number, gzipped: number, lazy: number, code: string }> {

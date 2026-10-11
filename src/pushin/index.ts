@@ -106,6 +106,7 @@ function setupPushin({ options, instance, origin: context, fetcher, baseUrl }: P
       labelsPage: verb(true, (repo, listOptions = {}) => list(`${repoPath(repo)}/labels`, listOptions, (raw: PushinLabel) => toLabel(raw))),
       collaboratorsPage: verb(!anonymous, (repo, listOptions = {}) => list(`${repoPath(repo)}/collaborators`, listOptions, (raw: PushinCollaborator) => toCollaborator({ forge: FORGE, instance }, raw))),
     },
+    emulated: { getComment: { pull_request: 'unverified' } },
     threads: {
       get: perKind({ issue: true, pull_request: true }, get),
       listPage: perKind({ issue: true, pull_request: true }, listPage),

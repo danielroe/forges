@@ -39,6 +39,46 @@
     "forks": 285,
     "watchers": 120
   },
+  "repo licence": {
+    "ref": {
+      "forge": "gitee",
+      "instance": "gitee.com",
+      "owner": "cmcc-oneos",
+      "name": "OneOS",
+      "externalId": "11463759"
+    },
+    "description": "OneOS是中国移动针对物联网领域推出的轻量级操作系统，具有可裁剪、跨平台、低功耗、高安全等特点，支持ARM Cortex-M/R/A、MIPS、RISC-V等主流CPU架构，兼容POSIX、CMSIS等标准接口，支持Micropython语言开发，提供图形化开发工具，能够有效提高开发效率并降低开发成本，帮助客户开发稳定可靠、安全易用的物联网应用。 \r\n官网地址：https://os.iot.10086.cn/",
+    "defaultBranch": "dev",
+    "visibility": "public",
+    "isFork": false,
+    "isArchived": false,
+    "topics": [],
+    "url": "https://gitee.com/cmcc-oneos/OneOS.git",
+    "cloneUrls": {
+      "https": "https://gitee.com/cmcc-oneos/OneOS.git.git",
+      "ssh": "git@gitee.com:cmcc-oneos/OneOS.git"
+    },
+    "createdAt": "2020-09-11T02:57:26.000Z",
+    "updatedAt": "2026-10-08T01:13:51.000Z",
+    "pushedAt": "2025-06-12T06:42:27.000Z",
+    "openIssueCount": 35,
+    "owner": {
+      "forge": "gitee",
+      "instance": "gitee.com",
+      "login": "cmcc-oneos-admin",
+      "id": "7894055",
+      "name": "CMCC-OneOS",
+      "avatarUrl": "https://foruda.gitee.com/avatar/1670466967165594212/7894055_cmcc-oneos-admin_1670466966.png",
+      "url": "https://gitee.com/cmcc-oneos-admin",
+      "typeRaw": "User",
+      "isBotHint": false
+    },
+    "language": "C",
+    "licence": "Apache-2.0",
+    "stars": 529,
+    "forks": 285,
+    "watchers": 120
+  },
   "labels": {
     "items": [
       {
@@ -175,23 +215,23 @@
         "name": "OneOS"
       },
       "kind": "pull_request",
-      "number": "550",
-      "externalId": "14461987"
+      "number": "540",
+      "externalId": "12295976"
     },
     "kind": "pull_request",
-    "title": "delete Kconfig menu of semidrive",
-    "body": "1. delete Kconfig menu of semidrive\r\n---\r\n### 提交PR原因\r\n\r\n\r\n\r\n### 描述说明（配置修改、注意事项等说明）\r\n\r\n\r\n\r\n\r\n\r\n",
+    "title": "删除cms组件，将其放到ability仓库中",
+    "body": "### 提交PR原因\r\n由于OneOS修改了组件pull方式，cms需要跟着统一修改，将cms放到ability仓库中,同时由于机制原因，需要删除cms文件夹。\r\n\r\n\r\n### 描述说明（配置修改、注意事项等说明）\r\n删除cms组件的文件夹。\r\n\r\n\r\n\r\n\r\n",
     "state": "merged",
     "stateRaw": "merged",
     "isDraft": false,
     "author": {
       "forge": "gitee",
       "instance": "gitee.com",
-      "login": "pc-courage",
-      "id": "8078236",
-      "name": "chao",
+      "login": "cmiot-zhangyong",
+      "id": "8273364",
+      "name": "JohnYoung",
       "avatarUrl": "https://gitee.com/assets/no_portrait.png",
-      "url": "https://gitee.com/pc-courage",
+      "url": "https://gitee.com/cmiot-zhangyong",
       "typeRaw": "User",
       "isBotHint": false
     },
@@ -209,8 +249,8 @@
           "typeRaw": "User",
           "isBotHint": false
         },
-        "state": "approved",
-        "stateRaw": "accepted"
+        "state": "pending",
+        "stateRaw": "requested"
       },
       {
         "actor": {
@@ -221,21 +261,6 @@
           "name": "yuanwai",
           "avatarUrl": "https://gitee.com/assets/no_portrait.png",
           "url": "https://gitee.com/yeslulin",
-          "typeRaw": "User",
-          "isBotHint": false
-        },
-        "state": "approved",
-        "stateRaw": "accepted"
-      },
-      {
-        "actor": {
-          "forge": "gitee",
-          "instance": "gitee.com",
-          "login": "cmcc-oneos-admin",
-          "id": "7894055",
-          "name": "CMCC-OneOS",
-          "avatarUrl": "https://foruda.gitee.com/avatar/1670466967165594212/7894055_cmcc-oneos-admin_1670466966.png",
-          "url": "https://gitee.com/cmcc-oneos-admin",
           "typeRaw": "User",
           "isBotHint": false
         },
@@ -269,8 +294,8 @@
           "typeRaw": "User",
           "isBotHint": false
         },
-        "state": "approved",
-        "stateRaw": "accepted"
+        "state": "pending",
+        "stateRaw": "requested"
       },
       {
         "actor": {
@@ -284,32 +309,45 @@
           "typeRaw": "User",
           "isBotHint": false
         },
-        "state": "approved",
-        "stateRaw": "accepted"
+        "state": "pending",
+        "stateRaw": "requested"
       }
     ],
-    "labels": [],
-    "url": "https://gitee.com/cmcc-oneos/OneOS/pulls/550",
-    "createdAt": "2025-06-12T03:27:06.000Z",
-    "updatedAt": "2025-06-12T06:33:45.000Z",
-    "closedAt": "2025-06-12T06:33:46.000Z",
-    "lastActivityAt": "2025-06-12T06:33:45.000Z",
+    "labels": [
+      {
+        "name": "ci_smoke_success",
+        "colour": "20c22e"
+      },
+      {
+        "name": "ci_compile_warning",
+        "colour": "febc08"
+      },
+      {
+        "name": "ci_scan_success",
+        "colour": "20c22e"
+      }
+    ],
+    "url": "https://gitee.com/cmcc-oneos/OneOS/pulls/540",
+    "createdAt": "2024-08-22T01:39:20.000Z",
+    "updatedAt": "2024-11-21T07:26:46.000Z",
+    "closedAt": "2024-11-21T07:26:46.000Z",
+    "lastActivityAt": "2024-11-21T07:26:46.000Z",
     "locked": false,
     "branches": {
       "head": {
         "ref": "dev",
-        "sha": "63e44b69ea1af37d309cce490c59cda5d190c8a1",
+        "sha": "4335303c9a57ffcf13225dcf39dfd23b8237e03b",
         "repo": {
           "forge": "gitee",
           "instance": "gitee.com",
-          "owner": "pc-courage",
+          "owner": "cmiot-zhangyong",
           "name": "OneOS",
-          "externalId": "34019295"
+          "externalId": "22634517"
         }
       },
       "base": {
         "ref": "dev",
-        "sha": "2fa826a00e1c4f42113d878d198584360e180eb0"
+        "sha": "7e3cd0d302f25794197b2c76855cc18b1dace36b"
       }
     },
     "checks": {
@@ -334,7 +372,7 @@
           "name": "OneOS"
         },
         "kind": "pull_request",
-        "number": "550"
+        "number": "540"
       },
       "thread": {
         "ref": {
@@ -347,23 +385,23 @@
             "name": "OneOS"
           },
           "kind": "pull_request",
-          "number": "550",
-          "externalId": "14461987"
+          "number": "540",
+          "externalId": "12295976"
         },
         "kind": "pull_request",
-        "title": "delete Kconfig menu of semidrive",
-        "body": "1. delete Kconfig menu of semidrive\r\n---\r\n### 提交PR原因\r\n\r\n\r\n\r\n### 描述说明（配置修改、注意事项等说明）\r\n\r\n\r\n\r\n\r\n\r\n",
+        "title": "删除cms组件，将其放到ability仓库中",
+        "body": "### 提交PR原因\r\n由于OneOS修改了组件pull方式，cms需要跟着统一修改，将cms放到ability仓库中,同时由于机制原因，需要删除cms文件夹。\r\n\r\n\r\n### 描述说明（配置修改、注意事项等说明）\r\n删除cms组件的文件夹。\r\n\r\n\r\n\r\n\r\n",
         "state": "merged",
         "stateRaw": "merged",
         "isDraft": false,
         "author": {
           "forge": "gitee",
           "instance": "gitee.com",
-          "login": "pc-courage",
-          "id": "8078236",
-          "name": "chao",
+          "login": "cmiot-zhangyong",
+          "id": "8273364",
+          "name": "JohnYoung",
           "avatarUrl": "https://gitee.com/assets/no_portrait.png",
-          "url": "https://gitee.com/pc-courage",
+          "url": "https://gitee.com/cmiot-zhangyong",
           "typeRaw": "User",
           "isBotHint": false
         },
@@ -381,8 +419,8 @@
               "typeRaw": "User",
               "isBotHint": false
             },
-            "state": "approved",
-            "stateRaw": "accepted"
+            "state": "pending",
+            "stateRaw": "requested"
           },
           {
             "actor": {
@@ -393,21 +431,6 @@
               "name": "yuanwai",
               "avatarUrl": "https://gitee.com/assets/no_portrait.png",
               "url": "https://gitee.com/yeslulin",
-              "typeRaw": "User",
-              "isBotHint": false
-            },
-            "state": "approved",
-            "stateRaw": "accepted"
-          },
-          {
-            "actor": {
-              "forge": "gitee",
-              "instance": "gitee.com",
-              "login": "cmcc-oneos-admin",
-              "id": "7894055",
-              "name": "CMCC-OneOS",
-              "avatarUrl": "https://foruda.gitee.com/avatar/1670466967165594212/7894055_cmcc-oneos-admin_1670466966.png",
-              "url": "https://gitee.com/cmcc-oneos-admin",
               "typeRaw": "User",
               "isBotHint": false
             },
@@ -441,8 +464,8 @@
               "typeRaw": "User",
               "isBotHint": false
             },
-            "state": "approved",
-            "stateRaw": "accepted"
+            "state": "pending",
+            "stateRaw": "requested"
           },
           {
             "actor": {
@@ -456,32 +479,45 @@
               "typeRaw": "User",
               "isBotHint": false
             },
-            "state": "approved",
-            "stateRaw": "accepted"
+            "state": "pending",
+            "stateRaw": "requested"
           }
         ],
-        "labels": [],
-        "url": "https://gitee.com/cmcc-oneos/OneOS/pulls/550",
-        "createdAt": "2025-06-12T03:27:06.000Z",
-        "updatedAt": "2025-06-12T06:33:45.000Z",
-        "closedAt": "2025-06-12T06:33:46.000Z",
-        "lastActivityAt": "2025-06-12T06:33:45.000Z",
+        "labels": [
+          {
+            "name": "ci_smoke_success",
+            "colour": "20c22e"
+          },
+          {
+            "name": "ci_compile_warning",
+            "colour": "febc08"
+          },
+          {
+            "name": "ci_scan_success",
+            "colour": "20c22e"
+          }
+        ],
+        "url": "https://gitee.com/cmcc-oneos/OneOS/pulls/540",
+        "createdAt": "2024-08-22T01:39:20.000Z",
+        "updatedAt": "2024-11-21T07:26:46.000Z",
+        "closedAt": "2024-11-21T07:26:46.000Z",
+        "lastActivityAt": "2024-11-21T07:26:46.000Z",
         "locked": false,
         "branches": {
           "head": {
             "ref": "dev",
-            "sha": "63e44b69ea1af37d309cce490c59cda5d190c8a1",
+            "sha": "4335303c9a57ffcf13225dcf39dfd23b8237e03b",
             "repo": {
               "forge": "gitee",
               "instance": "gitee.com",
-              "owner": "pc-courage",
+              "owner": "cmiot-zhangyong",
               "name": "OneOS",
-              "externalId": "34019295"
+              "externalId": "22634517"
             }
           },
           "base": {
             "ref": "dev",
-            "sha": "2fa826a00e1c4f42113d878d198584360e180eb0"
+            "sha": "7e3cd0d302f25794197b2c76855cc18b1dace36b"
           }
         },
         "checks": {
@@ -497,19 +533,19 @@
       {
         "forge": "gitee",
         "instance": "gitee.com",
-        "id": "log:221198632",
+        "id": "log:179273503",
         "kind": "assignment",
         "kindRaw": "set_assignee",
-        "summary": "pc-courage 指派了 ZD 参与评审",
-        "occurredAt": "2025-06-12T03:27:08.000Z",
+        "summary": "cmiot-zhangyong 指派了 ZD 参与评审",
+        "occurredAt": "2024-08-22T01:39:21.000Z",
         "actor": {
           "forge": "gitee",
           "instance": "gitee.com",
-          "login": "pc-courage",
-          "id": "8078236",
-          "name": "chao",
+          "login": "cmiot-zhangyong",
+          "id": "8273364",
+          "name": "JohnYoung",
           "avatarUrl": "https://gitee.com/assets/no_portrait.png",
-          "url": "https://gitee.com/pc-courage",
+          "url": "https://gitee.com/cmiot-zhangyong",
           "typeRaw": "User",
           "isBotHint": false
         },
@@ -529,7 +565,7 @@
             "name": "OneOS"
           },
           "kind": "pull_request",
-          "number": "550"
+          "number": "540"
         },
         "source": "poll",
         "action": "other"
@@ -537,19 +573,19 @@
       {
         "forge": "gitee",
         "instance": "gitee.com",
-        "id": "log:221198633",
+        "id": "log:179273505",
         "kind": "assignment",
         "kindRaw": "set_assignee",
-        "summary": "pc-courage 指派了 yuanwai 参与评审",
-        "occurredAt": "2025-06-12T03:27:08.000Z",
+        "summary": "cmiot-zhangyong 指派了 yuanwai 参与评审",
+        "occurredAt": "2024-08-22T01:39:21.000Z",
         "actor": {
           "forge": "gitee",
           "instance": "gitee.com",
-          "login": "pc-courage",
-          "id": "8078236",
-          "name": "chao",
+          "login": "cmiot-zhangyong",
+          "id": "8273364",
+          "name": "JohnYoung",
           "avatarUrl": "https://gitee.com/assets/no_portrait.png",
-          "url": "https://gitee.com/pc-courage",
+          "url": "https://gitee.com/cmiot-zhangyong",
           "typeRaw": "User",
           "isBotHint": false
         },
@@ -569,7 +605,7 @@
             "name": "OneOS"
           },
           "kind": "pull_request",
-          "number": "550"
+          "number": "540"
         },
         "source": "poll",
         "action": "other"
@@ -577,19 +613,19 @@
       {
         "forge": "gitee",
         "instance": "gitee.com",
-        "id": "log:221198635",
+        "id": "log:179273506",
         "kind": "assignment",
         "kindRaw": "set_assignee",
-        "summary": "pc-courage 指派了 chao 参与评审",
-        "occurredAt": "2025-06-12T03:27:08.000Z",
+        "summary": "cmiot-zhangyong 指派了 chao 参与评审",
+        "occurredAt": "2024-08-22T01:39:22.000Z",
         "actor": {
           "forge": "gitee",
           "instance": "gitee.com",
-          "login": "pc-courage",
-          "id": "8078236",
-          "name": "chao",
+          "login": "cmiot-zhangyong",
+          "id": "8273364",
+          "name": "JohnYoung",
           "avatarUrl": "https://gitee.com/assets/no_portrait.png",
-          "url": "https://gitee.com/pc-courage",
+          "url": "https://gitee.com/cmiot-zhangyong",
           "typeRaw": "User",
           "isBotHint": false
         },
@@ -609,7 +645,7 @@
             "name": "OneOS"
           },
           "kind": "pull_request",
-          "number": "550"
+          "number": "540"
         },
         "source": "poll",
         "action": "other"
@@ -617,19 +653,19 @@
       {
         "forge": "gitee",
         "instance": "gitee.com",
-        "id": "log:221198636",
+        "id": "log:179273508",
         "kind": "assignment",
         "kindRaw": "set_assignee",
-        "summary": "pc-courage 指派了 zhanghongwei 参与评审",
-        "occurredAt": "2025-06-12T03:27:08.000Z",
+        "summary": "cmiot-zhangyong 指派了 zhanghongwei 参与评审",
+        "occurredAt": "2024-08-22T01:39:22.000Z",
         "actor": {
           "forge": "gitee",
           "instance": "gitee.com",
-          "login": "pc-courage",
-          "id": "8078236",
-          "name": "chao",
+          "login": "cmiot-zhangyong",
+          "id": "8273364",
+          "name": "JohnYoung",
           "avatarUrl": "https://gitee.com/assets/no_portrait.png",
-          "url": "https://gitee.com/pc-courage",
+          "url": "https://gitee.com/cmiot-zhangyong",
           "typeRaw": "User",
           "isBotHint": false
         },
@@ -649,7 +685,7 @@
             "name": "OneOS"
           },
           "kind": "pull_request",
-          "number": "550"
+          "number": "540"
         },
         "source": "poll",
         "action": "other"
@@ -657,19 +693,19 @@
       {
         "forge": "gitee",
         "instance": "gitee.com",
-        "id": "log:221198637",
+        "id": "log:179273511",
         "kind": "assignment",
         "kindRaw": "set_assignee",
-        "summary": "pc-courage 指派了 jixiaowei 参与评审",
-        "occurredAt": "2025-06-12T03:27:08.000Z",
+        "summary": "cmiot-zhangyong 指派了 jixiaowei 参与评审",
+        "occurredAt": "2024-08-22T01:39:22.000Z",
         "actor": {
           "forge": "gitee",
           "instance": "gitee.com",
-          "login": "pc-courage",
-          "id": "8078236",
-          "name": "chao",
+          "login": "cmiot-zhangyong",
+          "id": "8273364",
+          "name": "JohnYoung",
           "avatarUrl": "https://gitee.com/assets/no_portrait.png",
-          "url": "https://gitee.com/pc-courage",
+          "url": "https://gitee.com/cmiot-zhangyong",
           "typeRaw": "User",
           "isBotHint": false
         },
@@ -689,7 +725,7 @@
             "name": "OneOS"
           },
           "kind": "pull_request",
-          "number": "550"
+          "number": "540"
         },
         "source": "poll",
         "action": "other"
@@ -697,19 +733,19 @@
       {
         "forge": "gitee",
         "instance": "gitee.com",
-        "id": "log:221198638",
+        "id": "log:179273512",
         "kind": "other",
         "kindRaw": "set_tester",
-        "summary": "pc-courage 指派了测试人OneOS-CI",
-        "occurredAt": "2025-06-12T03:27:08.000Z",
+        "summary": "cmiot-zhangyong 指派了测试人OneOS-CI",
+        "occurredAt": "2024-08-22T01:39:22.000Z",
         "actor": {
           "forge": "gitee",
           "instance": "gitee.com",
-          "login": "pc-courage",
-          "id": "8078236",
-          "name": "chao",
+          "login": "cmiot-zhangyong",
+          "id": "8273364",
+          "name": "JohnYoung",
           "avatarUrl": "https://gitee.com/assets/no_portrait.png",
-          "url": "https://gitee.com/pc-courage",
+          "url": "https://gitee.com/cmiot-zhangyong",
           "typeRaw": "User",
           "isBotHint": false
         },
@@ -729,7 +765,7 @@
             "name": "OneOS"
           },
           "kind": "pull_request",
-          "number": "550"
+          "number": "540"
         },
         "source": "poll",
         "action": "other"
@@ -737,59 +773,19 @@
       {
         "forge": "gitee",
         "instance": "gitee.com",
-        "id": "log:221235041",
-        "kind": "assignment",
-        "kindRaw": "set_assignee",
-        "summary": "cmcc-oneos-admin 指派了 CMCC-OneOS 参与评审",
-        "occurredAt": "2025-06-12T06:33:35.000Z",
-        "actor": {
-          "forge": "gitee",
-          "instance": "gitee.com",
-          "login": "cmcc-oneos-admin",
-          "id": "7894055",
-          "name": "CMCC-OneOS",
-          "avatarUrl": "https://foruda.gitee.com/avatar/1670466967165594212/7894055_cmcc-oneos-admin_1670466966.png",
-          "url": "https://gitee.com/cmcc-oneos-admin",
-          "typeRaw": "User",
-          "isBotHint": false
-        },
-        "repo": {
-          "forge": "gitee",
-          "instance": "gitee.com",
-          "owner": "cmcc-oneos",
-          "name": "OneOS"
-        },
-        "thread": {
-          "forge": "gitee",
-          "instance": "gitee.com",
-          "repo": {
-            "forge": "gitee",
-            "instance": "gitee.com",
-            "owner": "cmcc-oneos",
-            "name": "OneOS"
-          },
-          "kind": "pull_request",
-          "number": "550"
-        },
-        "source": "poll",
-        "action": "other"
-      },
-      {
-        "forge": "gitee",
-        "instance": "gitee.com",
-        "id": "log:221235042",
+        "id": "log:179274369",
         "kind": "other",
         "kindRaw": "check_pass",
-        "summary": "cmcc-oneos-admin 审查通过",
-        "occurredAt": "2025-06-12T06:33:35.000Z",
+        "summary": "yeslulin 审查通过",
+        "occurredAt": "2024-08-22T01:41:53.000Z",
         "actor": {
           "forge": "gitee",
           "instance": "gitee.com",
-          "login": "cmcc-oneos-admin",
-          "id": "7894055",
-          "name": "CMCC-OneOS",
-          "avatarUrl": "https://foruda.gitee.com/avatar/1670466967165594212/7894055_cmcc-oneos-admin_1670466966.png",
-          "url": "https://gitee.com/cmcc-oneos-admin",
+          "login": "yeslulin",
+          "id": "7762062",
+          "name": "yuanwai",
+          "avatarUrl": "https://gitee.com/assets/no_portrait.png",
+          "url": "https://gitee.com/yeslulin",
           "typeRaw": "User",
           "isBotHint": false
         },
@@ -809,7 +805,7 @@
             "name": "OneOS"
           },
           "kind": "pull_request",
-          "number": "550"
+          "number": "540"
         },
         "source": "poll",
         "action": "other"
@@ -817,11 +813,211 @@
       {
         "forge": "gitee",
         "instance": "gitee.com",
-        "id": "log:221235043",
+        "id": "log:179274479",
         "kind": "other",
-        "kindRaw": "force_check_pass",
-        "summary": "cmcc-oneos-admin 审查通过(所有)",
-        "occurredAt": "2025-06-12T06:33:35.000Z",
+        "kindRaw": "check_pass",
+        "summary": "pc-courage 审查通过",
+        "occurredAt": "2024-08-22T01:42:03.000Z",
+        "actor": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "login": "pc-courage",
+          "id": "8078236",
+          "name": "chao",
+          "avatarUrl": "https://gitee.com/assets/no_portrait.png",
+          "url": "https://gitee.com/pc-courage",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "repo": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "owner": "cmcc-oneos",
+          "name": "OneOS"
+        },
+        "thread": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "repo": {
+            "forge": "gitee",
+            "instance": "gitee.com",
+            "owner": "cmcc-oneos",
+            "name": "OneOS"
+          },
+          "kind": "pull_request",
+          "number": "540"
+        },
+        "source": "poll",
+        "action": "other"
+      },
+      {
+        "forge": "gitee",
+        "instance": "gitee.com",
+        "id": "comment:31008545",
+        "kind": "comment",
+        "kindRaw": "pr_comment",
+        "summary": "pc-courage commented",
+        "occurredAt": "2024-08-22T02:14:49.000Z",
+        "actor": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "login": "pc-courage",
+          "id": "8078236",
+          "name": "chao",
+          "avatarUrl": "https://gitee.com/assets/no_portrait.png",
+          "url": "https://gitee.com/pc-courage",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "repo": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "owner": "cmcc-oneos",
+          "name": "OneOS"
+        },
+        "thread": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "repo": {
+            "forge": "gitee",
+            "instance": "gitee.com",
+            "owner": "cmcc-oneos",
+            "name": "OneOS"
+          },
+          "kind": "pull_request",
+          "number": "540"
+        },
+        "source": "poll",
+        "action": "created"
+      },
+      {
+        "forge": "gitee",
+        "instance": "gitee.com",
+        "id": "log:179301084",
+        "kind": "other",
+        "kindRaw": "reset_assign_result",
+        "summary": "pc-courage 取消审查",
+        "occurredAt": "2024-08-22T03:05:56.000Z",
+        "actor": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "login": "pc-courage",
+          "id": "8078236",
+          "name": "chao",
+          "avatarUrl": "https://gitee.com/assets/no_portrait.png",
+          "url": "https://gitee.com/pc-courage",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "repo": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "owner": "cmcc-oneos",
+          "name": "OneOS"
+        },
+        "thread": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "repo": {
+            "forge": "gitee",
+            "instance": "gitee.com",
+            "owner": "cmcc-oneos",
+            "name": "OneOS"
+          },
+          "kind": "pull_request",
+          "number": "540"
+        },
+        "source": "poll",
+        "action": "other"
+      },
+      {
+        "forge": "gitee",
+        "instance": "gitee.com",
+        "id": "log:179301113",
+        "kind": "other",
+        "kindRaw": "check_pass",
+        "summary": "pc-courage 审查通过",
+        "occurredAt": "2024-08-22T03:06:00.000Z",
+        "actor": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "login": "pc-courage",
+          "id": "8078236",
+          "name": "chao",
+          "avatarUrl": "https://gitee.com/assets/no_portrait.png",
+          "url": "https://gitee.com/pc-courage",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "repo": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "owner": "cmcc-oneos",
+          "name": "OneOS"
+        },
+        "thread": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "repo": {
+            "forge": "gitee",
+            "instance": "gitee.com",
+            "owner": "cmcc-oneos",
+            "name": "OneOS"
+          },
+          "kind": "pull_request",
+          "number": "540"
+        },
+        "source": "poll",
+        "action": "other"
+      },
+      {
+        "forge": "gitee",
+        "instance": "gitee.com",
+        "id": "comment:31012682",
+        "kind": "comment",
+        "kindRaw": "pr_comment",
+        "summary": "pc-courage commented",
+        "occurredAt": "2024-08-22T03:06:35.000Z",
+        "actor": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "login": "pc-courage",
+          "id": "8078236",
+          "name": "chao",
+          "avatarUrl": "https://gitee.com/assets/no_portrait.png",
+          "url": "https://gitee.com/pc-courage",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "repo": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "owner": "cmcc-oneos",
+          "name": "OneOS"
+        },
+        "thread": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "repo": {
+            "forge": "gitee",
+            "instance": "gitee.com",
+            "owner": "cmcc-oneos",
+            "name": "OneOS"
+          },
+          "kind": "pull_request",
+          "number": "540"
+        },
+        "source": "poll",
+        "action": "created"
+      },
+      {
+        "forge": "gitee",
+        "instance": "gitee.com",
+        "id": "log:179365060",
+        "kind": "other",
+        "kindRaw": "unset_tester",
+        "summary": "cmcc-oneos-admin 取消了测试人OneOS-CI",
+        "occurredAt": "2024-08-22T07:55:08.000Z",
         "actor": {
           "forge": "gitee",
           "instance": "gitee.com",
@@ -849,7 +1045,7 @@
             "name": "OneOS"
           },
           "kind": "pull_request",
-          "number": "550"
+          "number": "540"
         },
         "source": "poll",
         "action": "other"
@@ -857,11 +1053,11 @@
       {
         "forge": "gitee",
         "instance": "gitee.com",
-        "id": "log:221235057",
+        "id": "log:179372770",
         "kind": "other",
         "kindRaw": "set_tester",
-        "summary": "cmcc-oneos-admin 指派了测试人CMCC-OneOS",
-        "occurredAt": "2025-06-12T06:33:39.000Z",
+        "summary": "cmcc-oneos-admin 指派了测试人chao",
+        "occurredAt": "2024-08-22T08:16:24.000Z",
         "actor": {
           "forge": "gitee",
           "instance": "gitee.com",
@@ -889,7 +1085,7 @@
             "name": "OneOS"
           },
           "kind": "pull_request",
-          "number": "550"
+          "number": "540"
         },
         "source": "poll",
         "action": "other"
@@ -897,19 +1093,339 @@
       {
         "forge": "gitee",
         "instance": "gitee.com",
-        "id": "log:221235058",
+        "id": "log:179372777",
+        "kind": "other",
+        "kindRaw": "unset_tester",
+        "summary": "cmcc-oneos-admin 取消了测试人chao",
+        "occurredAt": "2024-08-22T08:16:26.000Z",
+        "actor": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "login": "cmcc-oneos-admin",
+          "id": "7894055",
+          "name": "CMCC-OneOS",
+          "avatarUrl": "https://foruda.gitee.com/avatar/1670466967165594212/7894055_cmcc-oneos-admin_1670466966.png",
+          "url": "https://gitee.com/cmcc-oneos-admin",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "repo": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "owner": "cmcc-oneos",
+          "name": "OneOS"
+        },
+        "thread": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "repo": {
+            "forge": "gitee",
+            "instance": "gitee.com",
+            "owner": "cmcc-oneos",
+            "name": "OneOS"
+          },
+          "kind": "pull_request",
+          "number": "540"
+        },
+        "source": "poll",
+        "action": "other"
+      },
+      {
+        "forge": "gitee",
+        "instance": "gitee.com",
+        "id": "log:179372780",
+        "kind": "other",
+        "kindRaw": "set_tester",
+        "summary": "cmcc-oneos-admin 指派了测试人OneOS-CI",
+        "occurredAt": "2024-08-22T08:16:27.000Z",
+        "actor": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "login": "cmcc-oneos-admin",
+          "id": "7894055",
+          "name": "CMCC-OneOS",
+          "avatarUrl": "https://foruda.gitee.com/avatar/1670466967165594212/7894055_cmcc-oneos-admin_1670466966.png",
+          "url": "https://gitee.com/cmcc-oneos-admin",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "repo": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "owner": "cmcc-oneos",
+          "name": "OneOS"
+        },
+        "thread": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "repo": {
+            "forge": "gitee",
+            "instance": "gitee.com",
+            "owner": "cmcc-oneos",
+            "name": "OneOS"
+          },
+          "kind": "pull_request",
+          "number": "540"
+        },
+        "source": "poll",
+        "action": "other"
+      },
+      {
+        "forge": "gitee",
+        "instance": "gitee.com",
+        "id": "comment:33257524",
+        "kind": "comment",
+        "kindRaw": "pr_comment",
+        "summary": "yanzhiqiang610 commented",
+        "occurredAt": "2024-10-23T11:02:19.000Z",
+        "actor": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "login": "yanzhiqiang610",
+          "id": "10825695",
+          "name": "yanzhiqiang",
+          "avatarUrl": "https://gitee.com/assets/no_portrait.png",
+          "url": "https://gitee.com/yanzhiqiang610",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "repo": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "owner": "cmcc-oneos",
+          "name": "OneOS"
+        },
+        "thread": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "repo": {
+            "forge": "gitee",
+            "instance": "gitee.com",
+            "owner": "cmcc-oneos",
+            "name": "OneOS"
+          },
+          "kind": "pull_request",
+          "number": "540"
+        },
+        "source": "poll",
+        "action": "created"
+      },
+      {
+        "forge": "gitee",
+        "instance": "gitee.com",
+        "id": "comment:33257531",
+        "kind": "comment",
+        "kindRaw": "pr_comment",
+        "summary": "oneos-ci commented",
+        "occurredAt": "2024-10-23T11:02:22.000Z",
+        "actor": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "login": "oneos-ci",
+          "id": "8319022",
+          "name": "OneOS-CI",
+          "avatarUrl": "https://gitee.com/assets/no_portrait.png",
+          "url": "https://gitee.com/oneos-ci",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "repo": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "owner": "cmcc-oneos",
+          "name": "OneOS"
+        },
+        "thread": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "repo": {
+            "forge": "gitee",
+            "instance": "gitee.com",
+            "owner": "cmcc-oneos",
+            "name": "OneOS"
+          },
+          "kind": "pull_request",
+          "number": "540"
+        },
+        "source": "poll",
+        "action": "created"
+      },
+      {
+        "forge": "gitee",
+        "instance": "gitee.com",
+        "id": "comment:33259354",
+        "kind": "comment",
+        "kindRaw": "pr_comment",
+        "summary": "oneos-ci commented",
+        "occurredAt": "2024-10-23T11:57:17.000Z",
+        "actor": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "login": "oneos-ci",
+          "id": "8319022",
+          "name": "OneOS-CI",
+          "avatarUrl": "https://gitee.com/assets/no_portrait.png",
+          "url": "https://gitee.com/oneos-ci",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "repo": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "owner": "cmcc-oneos",
+          "name": "OneOS"
+        },
+        "thread": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "repo": {
+            "forge": "gitee",
+            "instance": "gitee.com",
+            "owner": "cmcc-oneos",
+            "name": "OneOS"
+          },
+          "kind": "pull_request",
+          "number": "540"
+        },
+        "source": "poll",
+        "action": "created"
+      },
+      {
+        "forge": "gitee",
+        "instance": "gitee.com",
+        "id": "log:188089586",
+        "kind": "label",
+        "kindRaw": "add_label",
+        "summary": "oneos-ci 添加了      \n        &nbsp;\n        ci_compile_warning\n      \n标签",
+        "occurredAt": "2024-10-23T11:57:18.000Z",
+        "actor": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "login": "oneos-ci",
+          "id": "8319022",
+          "name": "OneOS-CI",
+          "avatarUrl": "https://gitee.com/assets/no_portrait.png",
+          "url": "https://gitee.com/oneos-ci",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "repo": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "owner": "cmcc-oneos",
+          "name": "OneOS"
+        },
+        "thread": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "repo": {
+            "forge": "gitee",
+            "instance": "gitee.com",
+            "owner": "cmcc-oneos",
+            "name": "OneOS"
+          },
+          "kind": "pull_request",
+          "number": "540"
+        },
+        "source": "poll",
+        "action": "other"
+      },
+      {
+        "forge": "gitee",
+        "instance": "gitee.com",
+        "id": "log:188089587",
+        "kind": "label",
+        "kindRaw": "add_label",
+        "summary": "oneos-ci 添加了      \n        &nbsp;\n        ci_scan_success\n      \n标签",
+        "occurredAt": "2024-10-23T11:57:18.000Z",
+        "actor": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "login": "oneos-ci",
+          "id": "8319022",
+          "name": "OneOS-CI",
+          "avatarUrl": "https://gitee.com/assets/no_portrait.png",
+          "url": "https://gitee.com/oneos-ci",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "repo": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "owner": "cmcc-oneos",
+          "name": "OneOS"
+        },
+        "thread": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "repo": {
+            "forge": "gitee",
+            "instance": "gitee.com",
+            "owner": "cmcc-oneos",
+            "name": "OneOS"
+          },
+          "kind": "pull_request",
+          "number": "540"
+        },
+        "source": "poll",
+        "action": "other"
+      },
+      {
+        "forge": "gitee",
+        "instance": "gitee.com",
+        "id": "log:188089588",
+        "kind": "label",
+        "kindRaw": "add_label",
+        "summary": "oneos-ci 添加了      \n        &nbsp;\n        ci_smoke_success\n      \n标签",
+        "occurredAt": "2024-10-23T11:57:18.000Z",
+        "actor": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "login": "oneos-ci",
+          "id": "8319022",
+          "name": "OneOS-CI",
+          "avatarUrl": "https://gitee.com/assets/no_portrait.png",
+          "url": "https://gitee.com/oneos-ci",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "repo": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "owner": "cmcc-oneos",
+          "name": "OneOS"
+        },
+        "thread": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "repo": {
+            "forge": "gitee",
+            "instance": "gitee.com",
+            "owner": "cmcc-oneos",
+            "name": "OneOS"
+          },
+          "kind": "pull_request",
+          "number": "540"
+        },
+        "source": "poll",
+        "action": "other"
+      },
+      {
+        "forge": "gitee",
+        "instance": "gitee.com",
+        "id": "log:188089590",
         "kind": "other",
         "kindRaw": "test_pass",
-        "summary": "cmcc-oneos-admin 测试通过",
-        "occurredAt": "2025-06-12T06:33:39.000Z",
+        "summary": "oneos-ci 测试通过",
+        "occurredAt": "2024-10-23T11:57:20.000Z",
         "actor": {
           "forge": "gitee",
           "instance": "gitee.com",
-          "login": "cmcc-oneos-admin",
-          "id": "7894055",
-          "name": "CMCC-OneOS",
-          "avatarUrl": "https://foruda.gitee.com/avatar/1670466967165594212/7894055_cmcc-oneos-admin_1670466966.png",
-          "url": "https://gitee.com/cmcc-oneos-admin",
+          "login": "oneos-ci",
+          "id": "8319022",
+          "name": "OneOS-CI",
+          "avatarUrl": "https://gitee.com/assets/no_portrait.png",
+          "url": "https://gitee.com/oneos-ci",
           "typeRaw": "User",
           "isBotHint": false
         },
@@ -929,7 +1445,7 @@
             "name": "OneOS"
           },
           "kind": "pull_request",
-          "number": "550"
+          "number": "540"
         },
         "source": "poll",
         "action": "other"
@@ -937,51 +1453,11 @@
       {
         "forge": "gitee",
         "instance": "gitee.com",
-        "id": "log:221235059",
-        "kind": "other",
-        "kindRaw": "force_test_pass",
-        "summary": "cmcc-oneos-admin 测试通过(所有)",
-        "occurredAt": "2025-06-12T06:33:39.000Z",
-        "actor": {
-          "forge": "gitee",
-          "instance": "gitee.com",
-          "login": "cmcc-oneos-admin",
-          "id": "7894055",
-          "name": "CMCC-OneOS",
-          "avatarUrl": "https://foruda.gitee.com/avatar/1670466967165594212/7894055_cmcc-oneos-admin_1670466966.png",
-          "url": "https://gitee.com/cmcc-oneos-admin",
-          "typeRaw": "User",
-          "isBotHint": false
-        },
-        "repo": {
-          "forge": "gitee",
-          "instance": "gitee.com",
-          "owner": "cmcc-oneos",
-          "name": "OneOS"
-        },
-        "thread": {
-          "forge": "gitee",
-          "instance": "gitee.com",
-          "repo": {
-            "forge": "gitee",
-            "instance": "gitee.com",
-            "owner": "cmcc-oneos",
-            "name": "OneOS"
-          },
-          "kind": "pull_request",
-          "number": "550"
-        },
-        "source": "poll",
-        "action": "other"
-      },
-      {
-        "forge": "gitee",
-        "instance": "gitee.com",
-        "id": "log:221235091",
+        "id": "log:192335804",
         "kind": "other",
         "kindRaw": "merged_pr",
         "summary": "cmcc-oneos-admin 合并了Pull Request（通过 Web 合并）",
-        "occurredAt": "2025-06-12T06:33:45.000Z",
+        "occurredAt": "2024-11-21T07:26:46.000Z",
         "actor": {
           "forge": "gitee",
           "instance": "gitee.com",
@@ -1009,7 +1485,7 @@
             "name": "OneOS"
           },
           "kind": "pull_request",
-          "number": "550"
+          "number": "540"
         },
         "source": "poll",
         "action": "other"
@@ -1017,7 +1493,147 @@
     ]
   },
   "pull comments": {
-    "items": []
+    "items": [
+      {
+        "ref": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "thread": {
+            "forge": "gitee",
+            "instance": "gitee.com",
+            "repo": {
+              "forge": "gitee",
+              "instance": "gitee.com",
+              "owner": "cmcc-oneos",
+              "name": "OneOS"
+            },
+            "kind": "pull_request",
+            "number": "540"
+          },
+          "id": "31008545"
+        },
+        "body": "autotest",
+        "author": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "login": "pc-courage",
+          "id": "8078236",
+          "name": "chao",
+          "avatarUrl": "https://gitee.com/assets/no_portrait.png",
+          "url": "https://gitee.com/pc-courage",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "createdAt": "2024-08-22T02:14:49.000Z",
+        "updatedAt": "2024-08-22T02:14:49.000Z",
+        "url": "https://gitee.com/cmcc-oneos/OneOS/pulls/540#note_31008545"
+      },
+      {
+        "ref": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "thread": {
+            "forge": "gitee",
+            "instance": "gitee.com",
+            "repo": {
+              "forge": "gitee",
+              "instance": "gitee.com",
+              "owner": "cmcc-oneos",
+              "name": "OneOS"
+            },
+            "kind": "pull_request",
+            "number": "540"
+          },
+          "id": "31012682"
+        },
+        "body": "autotest",
+        "author": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "login": "pc-courage",
+          "id": "8078236",
+          "name": "chao",
+          "avatarUrl": "https://gitee.com/assets/no_portrait.png",
+          "url": "https://gitee.com/pc-courage",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "createdAt": "2024-08-22T03:06:35.000Z",
+        "updatedAt": "2024-08-22T03:06:35.000Z",
+        "url": "https://gitee.com/cmcc-oneos/OneOS/pulls/540#note_31012682"
+      },
+      {
+        "ref": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "thread": {
+            "forge": "gitee",
+            "instance": "gitee.com",
+            "repo": {
+              "forge": "gitee",
+              "instance": "gitee.com",
+              "owner": "cmcc-oneos",
+              "name": "OneOS"
+            },
+            "kind": "pull_request",
+            "number": "540"
+          },
+          "id": "33257524"
+        },
+        "body": "autotest",
+        "author": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "login": "yanzhiqiang610",
+          "id": "10825695",
+          "name": "yanzhiqiang",
+          "avatarUrl": "https://gitee.com/assets/no_portrait.png",
+          "url": "https://gitee.com/yanzhiqiang610",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "createdAt": "2024-10-23T11:02:19.000Z",
+        "updatedAt": "2024-10-23T11:02:19.000Z",
+        "url": "https://gitee.com/cmcc-oneos/OneOS/pulls/540#note_33257524"
+      }
+    ],
+    "cursor": {
+      "nextUrl": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/pulls/540/comments?page=2&per_page=3"
+    }
+  },
+  "pull getComment": {
+    "ref": {
+      "forge": "gitee",
+      "instance": "gitee.com",
+      "thread": {
+        "forge": "gitee",
+        "instance": "gitee.com",
+        "repo": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "owner": "cmcc-oneos",
+          "name": "OneOS"
+        },
+        "kind": "pull_request",
+        "number": "540"
+      },
+      "id": "31008545"
+    },
+    "body": "autotest",
+    "author": {
+      "forge": "gitee",
+      "instance": "gitee.com",
+      "login": "pc-courage",
+      "id": "8078236",
+      "name": "chao",
+      "avatarUrl": "https://gitee.com/assets/no_portrait.png",
+      "url": "https://gitee.com/pc-courage",
+      "typeRaw": "User",
+      "isBotHint": false
+    },
+    "createdAt": "2024-08-22T02:14:49.000Z",
+    "updatedAt": "2024-08-22T02:14:49.000Z",
+    "url": "https://gitee.com/cmcc-oneos/OneOS/pulls/540#note_31008545"
   },
   "pull checks": {
     "items": []
@@ -1025,13 +1641,247 @@
   "pull files": {
     "items": [
       {
-        "path": "templates/configs/Kconfig",
-        "status": "changed",
-        "statusRaw": null,
+        "path": "components/cms/.gitignore",
+        "status": "removed",
+        "statusRaw": "deleted",
         "additions": "0",
-        "deletions": "7",
-        "patch": "@@ -62,9 +62,6 @@ choice\n     config MANUFACTOR_SAMSUNG\r\n         bool \"SAMSUNG\"\r\n         \r\n-    config MANUFACTOR_SEMIDRIVE\r\n-        bool \"SEMIDRIVE\"\r\n-        \r\n endchoice\r\n \r\n if MANUFACTOR_STM32\r\n@@ -150,7 +147,3 @@ endif\n if MANUFACTOR_SAMSUNG\r\n     source \"$OS_ROOT/templates/configs/samsung/Kconfig\"\r\n endif\r\n-\r\n-if MANUFACTOR_SEMIDRIVE\r\n-    source \"$OS_ROOT/templates/configs/semidrive/Kconfig\"\r\n-endif\r\n",
-        "sha": "63e44b69ea1af37d309cce490c59cda5d190c8a1"
+        "deletions": "2",
+        "patch": "@@ -1,2 +0,0 @@\n-cms\n-source\n\\ No newline at end of file\n",
+        "sha": "7e3cd0d302f25794197b2c76855cc18b1dace36b"
+      },
+      {
+        "path": "components/cms/Kconfig",
+        "status": "removed",
+        "statusRaw": "deleted",
+        "additions": "0",
+        "deletions": "10",
+        "patch": "@@ -1,10 +0,0 @@\n-menu \"CMS\"\n-config USING_CMS\n-    bool \"Using CMS\"\n-    default n\n-    \n-    if USING_CMS\n-        source \"$OS_ROOT/components/cms/*/Kconfig\"\n-    endif\n-endmenu\n-\n",
+        "sha": "7e3cd0d302f25794197b2c76855cc18b1dace36b"
+      },
+      {
+        "path": "components/cms/port/Kconfig",
+        "status": "removed",
+        "statusRaw": "deleted",
+        "additions": "0",
+        "deletions": "0",
+        "patch": "",
+        "sha": "7e3cd0d302f25794197b2c76855cc18b1dace36b"
+      },
+      {
+        "path": "components/cms/port/cms_adapter.h",
+        "status": "removed",
+        "statusRaw": "deleted",
+        "additions": "0",
+        "deletions": "50",
+        "patch": "@@ -1,50 +0,0 @@\n-/**\n- ***********************************************************************************************************************\n- * Copyright (c) 2021, China Mobile Communications Group Co.,Ltd.\n- *\n- * Licensed under the Apache License, Version 2.0 (the \"License\"); you may not use this file except in compliance with\n- * the License. You may obtain a copy of the License at\n- *\n- *     http://www.apache.org/licenses/LICENSE-2.0\n- *\n- * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on\n- * an \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the\n- * specific language governing permissions and limitations under the License.\n- *\n- * @file        cms_clock.h\n- *\n- * @brief       Interface related to OS.\n- *\n- * @revision\n- * Date         Author          Notes\n- * 2021-04-09   OneOS Team      First version.\n- ***********************************************************************************************************************/\n-#ifndef __CMS_ADAPTER_H__\n-#define __CMS_ADAPTER_H__\n-#include <stdio.h>\n-\n-#if defined(__cplusplus)\n-extern \"C\" {\n-#endif\n-\n-#if defined(CMS_STD)\n-#define ASSERT(condition)                                                                                              \\\n-    do                                                                                                                 \\\n-    {                                                                                                                  \\\n-        if (!(condition))                                                                                              \\\n-        {                                                                                                              \\\n-            printf(\"Assert failed. Condition(%s). [%s][%d]\\r\\n\", #condition, __FUNCTION__, __LINE__);                  \\\n-            cms_safety_assert_process();                                                                               \\\n-        }                                                                                                              \\\n-    } while (0)\n-\n-void cms_safety_assert_process(void);\n-#else\n-#define ASSERT(condition)\n-#endif\n-\n-#if defined(__cplusplus)\n-}\n-#endif\n-\n-#endif /* __CMS_ADAPTER_H__ */\n",
+        "sha": "7e3cd0d302f25794197b2c76855cc18b1dace36b"
+      },
+      {
+        "path": "components/cms/port/cms_clock.h",
+        "status": "removed",
+        "statusRaw": "deleted",
+        "additions": "0",
+        "deletions": "43",
+        "patch": "@@ -1,43 +0,0 @@\n-/**\n- ***********************************************************************************************************************\n- * Copyright (c) 2021, China Mobile Communications Group Co.,Ltd.\n- *\n- * Licensed under the Apache License, Version 2.0 (the \"License\"); you may not use this file except in compliance with\n- * the License. You may obtain a copy of the License at\n- *\n- *     http://www.apache.org/licenses/LICENSE-2.0\n- *\n- * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on\n- * an \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the\n- * specific language governing permissions and limitations under the License.\n- *\n- * @file        cms_clock.h\n- *\n- * @brief       Interface related to OS.\n- *\n- * @revision\n- * Date         Author          Notes\n- * 2021-04-09   OneOS Team      First version.\n- ***********************************************************************************************************************/\n-#ifndef __CMS_CLOCK_H__\n-#define __CMS_CLOCK_H__\n-#include <stdint.h>\n-#include <stddef.h>\n-\n-#if defined(__cplusplus)\n-extern \"C\" {\n-#endif\n-\n-size_t get_time_ms(void);\n-\n-size_t get_sys_tick(void);\n-\n-size_t get_tick_from_ms(size_t ms);\n-\n-size_t get_ms_from_tick(size_t tick);\n-\n-#if defined(__cplusplus)\n-}\n-#endif\n-\n-#endif /* __CMS_CLOCK_H__ */\n",
+        "sha": "7e3cd0d302f25794197b2c76855cc18b1dace36b"
+      },
+      {
+        "path": "components/cms/port/cms_memory.h",
+        "status": "removed",
+        "statusRaw": "deleted",
+        "additions": "0",
+        "deletions": "47",
+        "patch": "@@ -1,47 +0,0 @@\n-/**\n- ***********************************************************************************************************************\n- * Copyright (c) 2021, China Mobile Communications Group Co.,Ltd.\n- *\n- * Licensed under the Apache License, Version 2.0 (the \"License\"); you may not use this file except in compliance with\n- * the License. You may obtain a copy of the License at\n- *\n- *     http://www.apache.org/licenses/LICENSE-2.0\n- *\n- * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on\n- * an \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the\n- * specific language governing permissions and limitations under the License.\n- *\n- * @file        cms_memory.h\n- *\n- * @brief       Interface related to OS.\n- *\n- * @revision\n- * Date         Author          Notes\n- * 2021-04-09   OneOS Team      First version.\n- ***********************************************************************************************************************/\n-#ifndef __CMS_MEMORY_H__\n-#define __CMS_MEMORY_H__\n-#include <stdint.h>\n-#include <stddef.h>\n-\n-#if defined(__cplusplus)\n-extern \"C\" {\n-#endif\n-\n-void *cms_malloc(size_t size);\n-\n-void *cms_calloc(size_t count, size_t size);\n-\n-void *cms_realloc(void *ptr, size_t new_size);\n-\n-void cms_free(void *ptr);\n-\n-void cms_memcpy(void *dst, const void *src, size_t size);\n-\n-void cms_memset(void *dst, int ch, size_t size);\n-\n-#if defined(__cplusplus)\n-}\n-#endif\n-\n-#endif /* __CMS_MEMORY_H__ */\n",
+        "sha": "7e3cd0d302f25794197b2c76855cc18b1dace36b"
+      },
+      {
+        "path": "components/cms/port/cms_mutex.h",
+        "status": "removed",
+        "statusRaw": "deleted",
+        "additions": "0",
+        "deletions": "41",
+        "patch": "@@ -1,41 +0,0 @@\n-/**\n- ***********************************************************************************************************************\n- * Copyright (c) 2021, China Mobile Communications Group Co.,Ltd.\n- *\n- * Licensed under the Apache License, Version 2.0 (the \"License\"); you may not use this file except in compliance with\n- * the License. You may obtain a copy of the License at\n- *\n- *     http://www.apache.org/licenses/LICENSE-2.0\n- *\n- * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on\n- * an \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the\n- * specific language governing permissions and limitations under the License.\n- *\n- * @file        cms_mutex.h\n- *\n- * @brief       Interface related to OS.\n- *\n- * @revision\n- * Date         Author          Notes\n- * 2021-04-09   OneOS Team      First version.\n- ***********************************************************************************************************************/\n-#ifndef __CMS_MUTEX_H__\n-#define __CMS_MUTEX_H__\n-\n-#if defined(__cplusplus)\n-extern \"C\" {\n-#endif\n-\n-void *mutex_create(void);\n-\n-void mutex_destroy(void *mutex);\n-\n-void mutex_lock(void *mutex);\n-\n-void mutex_unlock(void *mutex);\n-\n-#if defined(__cplusplus)\n-}\n-#endif\n-\n-#endif /* __CMS_MUTEX_H__ */\n",
+        "sha": "7e3cd0d302f25794197b2c76855cc18b1dace36b"
+      },
+      {
+        "path": "components/cms/port/cms_net.h",
+        "status": "removed",
+        "statusRaw": "deleted",
+        "additions": "0",
+        "deletions": "63",
+        "patch": "@@ -1,63 +0,0 @@\n-/**\n- ***********************************************************************************************************************\n- * Copyright (c) 2021, China Mobile Communications Group Co.,Ltd.\n- *\n- * Licensed under the Apache License, Version 2.0 (the \"License\"); you may not use this file except in compliance with\n- * the License. You may obtain a copy of the License at\n- *\n- *     http://www.apache.org/licenses/LICENSE-2.0\n- *\n- * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on\n- * an \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the\n- * specific language governing permissions and limitations under the License.\n- *\n- * @file        cms_net.h\n- *\n- * @brief       Interface related to OS.\n- *\n- * @revision\n- * Date         Author          Notes\n- * 2021-04-09   OneOS Team      First version.\n- ***********************************************************************************************************************/\n-#ifndef __CMS_NET_H__\n-#define __CMS_NET_H__\n-#include <stdint.h>\n-#include <stddef.h>\n-\n-#if defined(__cplusplus)\n-extern \"C\" {\n-#endif\n-\n-#if !defined(BIG_ENDIAN)\n-#define CMS_NTOHS(x) ((uint16_t)((((x) & (uint16_t)0x00ffU) << 8) | (((x) & (uint16_t)0xff00U) >> 8)))\n-#define CMS_NTOHL(x)                                                                                                   \\\n-    ((((x) & (uint32_t)0x000000ffUL) << 24) | (((x) & (uint32_t)0x0000ff00UL) << 8) |                                  \\\n-     (((x) & (uint32_t)0x00ff0000UL) >> 8) | (((x) & (uint32_t)0xff000000UL) >> 24))\n-#define CMS_HTONS(x) CMS_NTOHS(x)\n-#define CMS_HTONL(x) CMS_NTOHL(x)\n-#else\n-#define CMS_NTOHS(x) ((uint16_t)x)\n-#define CMS_NTOHL(x) ((uint32_t)x)\n-#define CMS_HTONS(x) CMS_NTOHS(x)\n-#define CMS_HTONL(x) CMS_NTOHL(x)\n-#endif\n-\n-enum CMS_TRANS_PROT_TYPE\n-{\n-    CMS_TCP,\n-    CMS_UDP\n-};\n-\n-void *cms_connect(const char *url, const char *port, enum CMS_TRANS_PROT_TYPE type);\n-\n-int cms_send_with_timeout(void *net_handle, const void *data, size_t size, int timeout_ms);\n-\n-int cms_recv_with_timeout(void *net_handle, void *mem, size_t len, int timeout_ms);\n-\n-int cms_closesocket(void *net_handle);\n-\n-#if defined(__cplusplus)\n-}\n-#endif\n-\n-#endif /* __CMS_NET_H__ */\n",
+        "sha": "7e3cd0d302f25794197b2c76855cc18b1dace36b"
+      },
+      {
+        "path": "components/cms/port/cms_ring_buff.h",
+        "status": "removed",
+        "statusRaw": "deleted",
+        "additions": "0",
+        "deletions": "48",
+        "patch": "@@ -1,48 +0,0 @@\n-/**\n- ***********************************************************************************************************************\n- * Copyright (c) 2021, China Mobile Communications Group Co.,Ltd.\n- *\n- * Licensed under the Apache License, Version 2.0 (the \"License\"); you may not use this file except in compliance with\n- * the License. You may obtain a copy of the License at\n- *\n- *     http://www.apache.org/licenses/LICENSE-2.0\n- *\n- * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on\n- * an \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the\n- * specific language governing permissions and limitations under the License.\n- *\n- * @file        cms_ring_buff.h\n- *\n- * @brief       Interface related to OS.\n- *\n- * @revision\n- * Date         Author          Notes\n- * 2021-04-09   OneOS Team      First version.\n- ***********************************************************************************************************************/\n-#ifndef __CMS_RING_BUFF_H__\n-#define __CMS_RING_BUFF_H__\n-#include <stdint.h>\n-#include <os_assert.h>\n-#include <os_errno.h>\n-\n-#if defined(__cplusplus)\n-extern \"C\" {\n-#endif\n-\n-void *cms_con_ring_fifo_init(uint32_t max_length);\n-\n-void cms_con_ring_fifo_deinit(void *ring_fifo);\n-\n-int cms_con_ring_fifo_write(void *ring_fifo, uint8_t *buffer, uint32_t write_length);\n-\n-int cms_con_ring_fifo_read(void *ring_fifo, uint8_t *buffer, uint32_t read_length);\n-\n-uint32_t cms_con_ring_fifo_get_space_length(void *ring_fifo);\n-\n-uint32_t cms_con_ring_fifo_get_data_length(void *ring_fifo);\n-\n-#if defined(__cplusplus)\n-}\n-#endif\n-\n-#endif /* __CMS_RING_BUFF_H__ */\n",
+        "sha": "7e3cd0d302f25794197b2c76855cc18b1dace36b"
+      },
+      {
+        "path": "components/cms/port/cms_sem.h",
+        "status": "removed",
+        "statusRaw": "deleted",
+        "additions": "0",
+        "deletions": "43",
+        "patch": "@@ -1,43 +0,0 @@\n-/**\n- ***********************************************************************************************************************\n- * Copyright (c) 2021, China Mobile Communications Group Co.,Ltd.\n- *\n- * Licensed under the Apache License, Version 2.0 (the \"License\"); you may not use this file except in compliance with\n- * the License. You may obtain a copy of the License at\n- *\n- *     http://www.apache.org/licenses/LICENSE-2.0\n- *\n- * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on\n- * an \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the\n- * specific language governing permissions and limitations under the License.\n- *\n- * @file        cms_sem.h\n- *\n- * @brief       Interface related to OS.\n- *\n- * @revision\n- * Date         Author          Notes\n- * 2021-04-09   OneOS Team      First version.\n- ***********************************************************************************************************************/\n-#ifndef __CMS_SEM_H__\n-#define __CMS_SEM_H__\n-#include <stdint.h>\n-#include <stddef.h>\n-\n-#if defined(__cplusplus)\n-extern \"C\" {\n-#endif\n-\n-void *cms_sem_create(const char *name, uint16_t initial_value, uint16_t max_value);\n-\n-void cms_sem_destroy(void *sem);\n-\n-int cms_sem_wait(void *sem, uint32_t timeout_ms);\n-\n-void cms_sem_post(void *sem);\n-\n-#if defined(__cplusplus)\n-}\n-#endif\n-\n-#endif /* __CMS_SEM_H__ */\n",
+        "sha": "7e3cd0d302f25794197b2c76855cc18b1dace36b"
+      },
+      {
+        "path": "components/cms/port/cms_thread.h",
+        "status": "removed",
+        "statusRaw": "deleted",
+        "additions": "0",
+        "deletions": "46",
+        "patch": "@@ -1,46 +0,0 @@\n-/**\n- ***********************************************************************************************************************\n- * Copyright (c) 2021, China Mobile Communications Group Co.,Ltd.\n- *\n- * Licensed under the Apache License, Version 2.0 (the \"License\"); you may not use this file except in compliance with\n- * the License. You may obtain a copy of the License at\n- *\n- *     http://www.apache.org/licenses/LICENSE-2.0\n- *\n- * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on\n- * an \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the\n- * specific language governing permissions and limitations under the License.\n- *\n- * @file        cms_thread.h\n- *\n- * @brief       Interface related to OS.\n- *\n- * @revision\n- * Date         Author          Notes\n- * 2021-04-09   OneOS Team      First version.\n- ***********************************************************************************************************************/\n-#ifndef __CMS_THREAD_H__\n-#define __CMS_THREAD_H__\n-#include <stdint.h>\n-#include <stddef.h>\n-\n-#if defined(__cplusplus)\n-extern \"C\" {\n-#endif\n-\n-void *task_create(void (*entry)(void *arg), void *arg, uint32_t stack_size, uint8_t priority);\n-\n-void task_destroy(void *mutex);\n-\n-void msleep(uint32_t ms);\n-\n-int task_startup(void *task);\n-\n-void *\n-task_create_with_name(const char *name, void (*entry)(void *arg), void *arg, uint32_t stack_size, uint8_t priority);\n-\n-#if defined(__cplusplus)\n-}\n-#endif\n-\n-#endif /* __CMS_THREAD_H__ */\n",
+        "sha": "7e3cd0d302f25794197b2c76855cc18b1dace36b"
+      },
+      {
+        "path": "components/cms/port/oneos/atest/cms_id_atest.c",
+        "status": "removed",
+        "statusRaw": "deleted",
+        "additions": "0",
+        "deletions": "190",
+        "patch": "@@ -1,190 +0,0 @@\n-/**\n-***********************************************************************************************************************\n-* Copyright (c) 2021, China Mobile Communications Group Co.,Ltd.\n-*\n-* Licensed under the Apache License, Version 2.0 (the \"License\"); you may not use this file except in compliance with\n-* the License. You may obtain a copy of the License at\n-*\n-*     http://www.apache.org/licenses/LICENSE-2.0\n-*\n-* Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on\n-* an \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the\n-* specific language governing permissions and limitations under the License.\n-*\n-* @file        cms_id_atest.c\n-*\n-* @brief       This is mqtt test file based atest.\n-*\n-* @revision\n-* Date         Author          Notes\n-* 2020-10-13   OneOS Team      First Version\n-***********************************************************************************************************************\n-*/\n-#include <shell.h>\n-#include <atest.h>\n-#include <string.h>\n-#include <stdio.h>\n-#include \"oneos_config.h\"\n-\n-#ifdef CMS_USING_ID\n-#include \"cms_id.h\"\n-static void hexdump(const char *tag, size_t width, const unsigned char *buf, size_t size)\n-{\n-    printf(\"%s\\r\\n\", tag);\n-    int i = 0;\n-    for (; i < size;)\n-    {\n-        printf(\"%02x \", buf[i]);\n-        ++i;\n-        if (i % width == 0)\n-            printf(\"\\r\\n\");\n-    }\n-    if (i % width)\n-        printf(\"\\r\\n\");\n-}\n-\n-static void strdump(const char *tag, size_t width, const unsigned char *buf, size_t size)\n-{\n-    printf(\"%s\\r\\n\", tag);\n-    int i = 0;\n-    for (; i < size;)\n-    {\n-        printf(\"%c\", buf[i]);\n-        ++i;\n-        if (i % width == 0)\n-            printf(\"\\r\\n\");\n-    }\n-    if (i % width)\n-        printf(\"\\r\\n\");\n-}\n-\n-static void atest_cms_id_get_id(void)\n-{\n-    size_t     len  = 0;\n-    CMS_TYPE_T TYPE = PID;\n-    char      *name = NULL;\n-    uint8_t    id[128];\n-    for (; TYPE <= CWT_PLATFORM; TYPE++)\n-    {\n-        cms_id_get_id_len(TYPE, &len);\n-        cms_id_get_id(TYPE, id, len);\n-\n-        switch (TYPE)\n-        {\n-        case PID:\n-            name = \"PID\";\n-            break;\n-        case OID:\n-            name = \"OID\";\n-            break;\n-        case DID:\n-            name = \"DID\";\n-            break;\n-        case CTI_DEVICE:\n-            name = \"CTI_DEVICE\";\n-            break;\n-        case CTI_PLATFORM:\n-            name = \"CTI_PLATFORM\";\n-            break;\n-        case CWT_DEVICE:\n-            name = \"CWT_DEVICE\";\n-            break;\n-        case CWT_PLATFORM:\n-            name = \"CWT_PLATFORM\";\n-            break;\n-        default:\n-            break;\n-        }\n-        if (TYPE > DID)\n-            hexdump(name, 16, id, len);\n-        else\n-            strdump(name, 64, id, len);\n-        memset(id, 0, sizeof(id));\n-    }\n-}\n-\n-static void atest_cms_id_regist_check(void)\n-{\n-    int rc = CMS_ERROR_GENERIC_ERROR;\n-    rc     = cms_id_regist_check();\n-    if (rc != CMS_ERROR_SUCCESS)\n-    {\n-        printf(\"Device is don't regist.\\r\\n\");\n-    }\n-    else\n-    {\n-        printf(\"Device has registed.\\r\\n\");\n-    }\n-}\n-\n-static void atest_cms_id_regist(void)\n-{\n-    cms_id_regist();\n-}\n-\n-static void atest_cms_id_auth_check(void)\n-{\n-    int rc = CMS_ERROR_GENERIC_ERROR;\n-    rc     = cms_id_auth_check();\n-    if (rc != CMS_ERROR_SUCCESS)\n-    {\n-        printf(\"Device is don't auth.\\r\\n\");\n-    }\n-    else\n-    {\n-        printf(\"Device was authed.\\r\\n\");\n-    }\n-}\n-\n-static void atest_cms_id_auth(void)\n-{\n-    cms_id_authorize();\n-}\n-\n-static void cms_id_all(void)\n-{\n-    ATEST_UNIT_RUN(atest_cms_id_regist_check);\n-    ATEST_UNIT_RUN(atest_cms_id_auth_check);\n-\n-    ATEST_UNIT_RUN(atest_cms_id_regist);\n-    ATEST_UNIT_RUN(atest_cms_id_regist_check);\n-\n-    ATEST_UNIT_RUN(atest_cms_id_auth);\n-    ATEST_UNIT_RUN(atest_cms_id_auth_check);\n-\n-    ATEST_UNIT_RUN(atest_cms_id_get_id);\n-}\n-\n-ATEST_TC_EXPORT(cms.id.all, cms_id_all, NULL, NULL, TC_PRIORITY_LOW);\n-ATEST_TC_EXPORT(cms.id.getid, atest_cms_id_get_id, NULL, NULL, TC_PRIORITY_LOW);\n-ATEST_TC_EXPORT(cms.id.check.auth, atest_cms_id_auth_check, NULL, NULL, TC_PRIORITY_LOW);\n-ATEST_TC_EXPORT(cms.id.auth, atest_cms_id_auth, NULL, NULL, TC_PRIORITY_LOW);\n-ATEST_TC_EXPORT(cms.id.regist, atest_cms_id_regist, NULL, NULL, TC_PRIORITY_LOW);\n-ATEST_TC_EXPORT(cms.id.check.regist, atest_cms_id_regist_check, NULL, NULL, TC_PRIORITY_LOW);\n-#endif\n-\n-/* just use for debug code. */\n-//#define CMS_ID_DEBUG\n-#ifdef CMS_ID_DEBUG\n-#include \"cms_id_internal.h\"\n-static void cms_id_debug(void)\n-{\n-    uint8_t cti[16] = {0};\n-    memset(cti, 3, 16);\n-    uint8_t oid[] = \"1.2.156.113753.011P9sMHSB1P000000000032\";\n-\n-    cms_id_init();\n-    cms_id_set_value(CTI_PLATFORM, cti, 16);\n-    cms_id_gene_cwt();\n-\n-    cms_id_set_value(OID, oid, sizeof(oid));\n-    atest_cms_id_get_id();\n-\n-    cms_id_kdf_master(cti, 16);\n-    memset(cti, 0, 16);\n-    cms_id_get_value(KEY_MASTER, cti, 16);\n-\n-    hexdump(\"key_diff\", 64, cti, 16);\n-}\n-ATEST_TC_EXPORT(cms.id.debug, cms_id_debug, NULL, NULL, TC_PRIORITY_LOW);\n-#endif\n",
+        "sha": "7e3cd0d302f25794197b2c76855cc18b1dace36b"
+      },
+      {
+        "path": "components/cms/port/oneos/atest/coap_atest.c",
+        "status": "removed",
+        "statusRaw": "deleted",
+        "additions": "0",
+        "deletions": "819",
+        "patch": "",
+        "sha": "7e3cd0d302f25794197b2c76855cc18b1dace36b"
+      },
+      {
+        "path": "components/cms/port/oneos/atest/mqtt_atest.c",
+        "status": "removed",
+        "statusRaw": "deleted",
+        "additions": "0",
+        "deletions": "159",
+        "patch": "@@ -1,159 +0,0 @@\n-/**\n- ***********************************************************************************************************************\n- * Copyright (c) 2021, China Mobile Communications Group Co.,Ltd.\n- *\n- * Licensed under the Apache License, Version 2.0 (the \"License\"); you may not use this file except in compliance with\n- * the License. You may obtain a copy of the License at\n- *\n- *     http://www.apache.org/licenses/LICENSE-2.0\n- *\n- * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on\n- * an \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the\n- * specific language governing permissions and limitations under the License.\n- *\n- * @file        mqtt_atest.c\n- *\n- * @brief       This is mqtt test file based atest.\n- *\n- * @revision\n- * Date         Author          Notes\n- * 2020-10-13   OneOS Team      First Version\n- ***********************************************************************************************************************\n- */\n-#include \"oneos_config.h\"\n-#if defined(CMS_CONNECT_MQTT)\n-#include \"cms_con_mqtt.h\"\n-#include <shell.h>\n-#include <atest.h>\n-#include <os_errno.h>\n-#include <os_assert.h>\n-#include <stdlib.h>\n-#include <string.h>\n-#include <stdio.h>\n-\n-static void *mqtt_handle = NULL;\n-static int   scode       = 300;\n-char         topic_str[] = \"svr/300/req\";\n-\n-#define MQTT_ATEST_BUFF_DEEP 1000\n-static void atest_cms_mqtt_init(void)\n-{\n-    if (mqtt_handle != NULL)\n-        return;\n-    cms_mqtt_param param = {5000, MQTT_ATEST_BUFF_DEEP, MQTT_ATEST_BUFF_DEEP * 2};\n-    mqtt_handle          = cms_mqtt_init(scode, &param);\n-    tp_assert_true(mqtt_handle != NULL);\n-}\n-\n-static void atest_cms_mqtt_deinit(void)\n-{\n-    cms_mqtt_deinit(mqtt_handle);\n-    mqtt_handle = NULL;\n-}\n-\n-static void atest_cms_mqtt_connect(void)\n-{\n-    if (cms_mqtt_get_state(mqtt_handle) == cms_con_state_connect)\n-        return;\n-\n-    cms_mqtt_connect_param param;\n-    memset(&param, 0, sizeof(cms_mqtt_connect_param));\n-    param.client_id    = \"12345678\";\n-    param.username     = \"oneos\";\n-    param.password     = \"123456\";\n-    param.keep_alive_s = 300;\n-    int ret            = cms_mqtt_connect(mqtt_handle, &param);\n-    tp_assert_true(ret == 0);\n-    tp_assert_true(cms_mqtt_get_state(mqtt_handle) == cms_con_state_connect);\n-}\n-\n-static void atest_cms_mqtt_disconnect(void)\n-{\n-    tp_assert_true(cms_mqtt_get_state(mqtt_handle) == cms_con_state_connect);\n-    cms_mqtt_disconnect(mqtt_handle);\n-    tp_assert_true(cms_mqtt_get_state(mqtt_handle) == cms_con_state_disconnect);\n-}\n-\n-static void message_handler(void *handle, const char *topic_name, void *payload, size_t payload_len)\n-{\n-    printf(\"%s\\r\\n\", __func__);\n-    printf(\"topic:%s\\r\\n\", topic_name);\n-    uint8_t *buf = (uint8_t *)payload;\n-    for (int i = 0; i < payload_len; i++)\n-    {\n-        printf(\"%02X \", buf[i]);\n-    }\n-    printf(\"\\r\\n\");\n-}\n-\n-static void atest_cms_mqtt_subscribe(void)\n-{\n-    int rc = cms_mqtt_subscribe(mqtt_handle, topic_str, mqtt_qos1, message_handler);\n-    tp_assert_true(rc == CMS_ERROR_SUCCESS);\n-}\n-\n-static void atest_cms_mqtt_unsubscribe(void)\n-{\n-    int rc = cms_mqtt_unsubscribe(mqtt_handle, topic_str);\n-    tp_assert_true(rc == CMS_ERROR_SUCCESS);\n-}\n-\n-static char long_buf[MQTT_ATEST_BUFF_DEEP] = {0};\n-static void atest_cms_mqtt_publish(void)\n-{\n-    cms_mqtt_message mqtt_message;\n-\n-    memset(long_buf, '0', MQTT_ATEST_BUFF_DEEP - 100);\n-\n-    mqtt_message.qos        = mqtt_qos0;\n-    mqtt_message.payload    = (void *)long_buf;\n-    mqtt_message.payloadlen = MQTT_ATEST_BUFF_DEEP - 100;\n-    int rc                  = cms_mqtt_publish(mqtt_handle, topic_str, &mqtt_message);\n-    tp_assert_true(rc == CMS_ERROR_SUCCESS);\n-\n-    memset(long_buf, '1', MQTT_ATEST_BUFF_DEEP - 100);\n-    mqtt_message.qos        = mqtt_qos1;\n-    mqtt_message.payload    = (void *)long_buf;\n-    mqtt_message.payloadlen = MQTT_ATEST_BUFF_DEEP - 100;\n-    rc                      = cms_mqtt_publish(mqtt_handle, topic_str, &mqtt_message);\n-    tp_assert_true(rc == CMS_ERROR_SUCCESS);\n-}\n-\n-static void atest_cms_mqtt_pingreq(void)\n-{\n-    int rc = cms_mqtt_ping_request(mqtt_handle);\n-    tp_assert_true(rc == CMS_ERROR_SUCCESS);\n-}\n-\n-static void atest_cms_mqtt_get_state(void)\n-{\n-    int rc = cms_mqtt_get_state(mqtt_handle);\n-    if (rc == cms_con_state_connect)\n-        printf(\"mqtt is connected!\\r\\n\");\n-    else\n-        printf(\"mqtt is not connected!\\r\\n\");\n-}\n-\n-static void cms_mqtt_all(void)\n-{\n-    ATEST_UNIT_RUN(atest_cms_mqtt_init);\n-    ATEST_UNIT_RUN(atest_cms_mqtt_connect);\n-    ATEST_UNIT_RUN(atest_cms_mqtt_subscribe);\n-    ATEST_UNIT_RUN(atest_cms_mqtt_publish);\n-    ATEST_UNIT_RUN(atest_cms_mqtt_pingreq);\n-    ATEST_UNIT_RUN(atest_cms_mqtt_unsubscribe);\n-    ATEST_UNIT_RUN(atest_cms_mqtt_disconnect);\n-    ATEST_UNIT_RUN(atest_cms_mqtt_deinit);\n-}\n-\n-ATEST_TC_EXPORT(cms.mqtt.total, cms_mqtt_all, NULL, NULL, TC_PRIORITY_LOW);\n-ATEST_TC_EXPORT(cms.mqtt.init, atest_cms_mqtt_init, NULL, NULL, TC_PRIORITY_LOW);\n-ATEST_TC_EXPORT(cms.mqtt.deinit, atest_cms_mqtt_deinit, NULL, NULL, TC_PRIORITY_LOW);\n-ATEST_TC_EXPORT(cms.mqtt.connect, atest_cms_mqtt_connect, NULL, NULL, TC_PRIORITY_LOW);\n-ATEST_TC_EXPORT(cms.mqtt.disconnect, atest_cms_mqtt_disconnect, NULL, NULL, TC_PRIORITY_LOW);\n-ATEST_TC_EXPORT(cms.mqtt.subscribe, atest_cms_mqtt_subscribe, NULL, NULL, TC_PRIORITY_LOW);\n-ATEST_TC_EXPORT(cms.mqtt.unsubscribe, atest_cms_mqtt_unsubscribe, NULL, NULL, TC_PRIORITY_LOW);\n-ATEST_TC_EXPORT(cms.mqtt.publish, atest_cms_mqtt_publish, NULL, NULL, TC_PRIORITY_LOW);\n-ATEST_TC_EXPORT(cms.mqtt.ping, atest_cms_mqtt_pingreq, NULL, NULL, TC_PRIORITY_LOW);\n-ATEST_TC_EXPORT(cms.mqtt.state, atest_cms_mqtt_get_state, NULL, NULL, TC_PRIORITY_LOW);\n-#endif\n",
+        "sha": "7e3cd0d302f25794197b2c76855cc18b1dace36b"
+      },
+      {
+        "path": "components/cms/port/oneos/atest/tcp_atest.c",
+        "status": "removed",
+        "statusRaw": "deleted",
+        "additions": "0",
+        "deletions": "157",
+        "patch": "@@ -1,157 +0,0 @@\n-/**\n- ***********************************************************************************************************************\n- * Copyright (c) 2021, China Mobile Communications Group Co.,Ltd.\n- *\n- * Licensed under the Apache License, Version 2.0 (the \"License\"); you may not use this file except in compliance with\n- * the License. You may obtain a copy of the License at\n- *\n- *     http://www.apache.org/licenses/LICENSE-2.0\n- *\n- * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on\n- * an \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the\n- * specific language governing permissions and limitations under the License.\n- *\n- * @file        tcp_atest.c\n- *\n- * @brief       This is tcp test file based atest.\n- *\n- * @revision\n- * Date         Author          Notes\n- * 2020-10-13   OneOS Team      First Version\n- ***********************************************************************************************************************\n- */\n-#include \"oneos_config.h\"\n-#if defined(CMS_CONNECT_MQTT) || defined(CMS_CONNECT_TCP)\n-#include \"cms_con_tcp.h\"\n-#include <shell.h>\n-#include <atest.h>\n-#include <os_errno.h>\n-#include <stdlib.h>\n-#include <string.h>\n-#include <stdio.h>\n-#include <os_task.h>\n-#include <os_clock.h>\n-\n-static int        scode      = 301;\n-static void      *tcp_handle = NULL;\n-static os_task_id recv_task  = 0;\n-#define TCP_RX_MAX_LENGTH 5\n-\n-static float get_time_s(void)\n-{\n-    return ((float)os_tick_get_value() / OS_TICK_PER_SECOND);\n-}\n-\n-static uint8_t recv_buff[TCP_RX_MAX_LENGTH];\n-static int     cms_tcp_recv_once(uint32_t timeout)\n-{\n-    int rc = cms_tcp_recv(tcp_handle, recv_buff, sizeof(recv_buff), timeout);\n-    if (rc <= 0)\n-        return rc;\n-    printf(\"%s(time:%02f,len:%d)\", __func__, get_time_s(), rc);\n-    for (int i = 0; i < rc; i++)\n-    {\n-        if (i % 0x10 == 0)\n-            printf(\"\\r\\n\");\n-        printf(\"%02X \", recv_buff[i]);\n-    }\n-    printf(\"\\r\\n\");\n-    return rc;\n-}\n-static void atest_cms_tcp_recv(void)\n-{\n-    int rc = cms_tcp_recv_once(10 * 1000);\n-    tp_assert_true(rc > 0);\n-}\n-\n-static void atest_cms_tcp_recv_process(void *param)\n-{\n-    while (cms_tcp_get_state(tcp_handle) == cms_con_state_connect)\n-    {\n-        os_task_msleep(100);\n-        cms_tcp_recv_once(1);\n-    }\n-    printf(\"exit tcp recv task!\\r\\n\");\n-    recv_task = 0;\n-}\n-\n-static void atest_cms_tcp_recv_task(void)\n-{\n-    if (recv_task)\n-    {\n-        os_task_destroy(recv_task);\n-        recv_task = 0;\n-        return;\n-    }\n-    recv_task = os_task_create(NULL, NULL, 1024, \"tcp_recv_test\", atest_cms_tcp_recv_process, NULL, 22);\n-    os_task_startup(recv_task);\n-}\n-\n-static void atest_cms_tcp_init(void)\n-{\n-    if (tcp_handle != NULL)\n-        return;\n-    tcp_handle = cms_tcp_init(scode, TCP_RX_MAX_LENGTH);\n-    tp_assert_true(tcp_handle != NULL);\n-}\n-\n-static void atest_cms_tcp_deinit(void)\n-{\n-    if (tcp_handle == NULL)\n-        return;\n-    cms_tcp_deinit(tcp_handle);\n-    tcp_handle = NULL;\n-}\n-\n-static void atest_cms_tcp_connect(void)\n-{\n-    int rc;\n-    if (cms_tcp_get_state(tcp_handle) == cms_con_state_connect)\n-        return;\n-    rc = cms_tcp_connect(tcp_handle);\n-    tp_assert_true(rc == CMS_ERROR_SUCCESS);\n-    rc = cms_tcp_get_state(tcp_handle);\n-    tp_assert_true(rc == cms_con_state_connect);\n-}\n-\n-static void atest_cms_tcp_disconnect(void)\n-{\n-    cms_tcp_disconnect(tcp_handle);\n-    tp_assert_true(cms_tcp_get_state(tcp_handle) == cms_con_state_disconnect);\n-}\n-\n-static uint8_t buf[5] = {0x31, 0x32, 0x33, 0x34, 0x35};\n-static void    atest_cms_tcp_send(void)\n-{\n-    int rc = cms_tcp_send(tcp_handle, buf, sizeof(buf));\n-    tp_assert_true(rc == sizeof(buf));\n-}\n-\n-static void atest_cms_mqtt_get_state(void)\n-{\n-    int rc = cms_tcp_get_state(tcp_handle);\n-    if (rc == cms_con_state_connect)\n-        printf(\"tcp is connected!\\r\\n\");\n-    else\n-        printf(\"tcp is not connected!\\r\\n\");\n-}\n-\n-static void cms_tcp_all(void)\n-{\n-    ATEST_UNIT_RUN(atest_cms_tcp_init);\n-    ATEST_UNIT_RUN(atest_cms_tcp_connect);\n-    ATEST_UNIT_RUN(atest_cms_tcp_send);\n-    ATEST_UNIT_RUN(atest_cms_tcp_disconnect);\n-    ATEST_UNIT_RUN(atest_cms_tcp_deinit);\n-}\n-\n-ATEST_TC_EXPORT(cms.tcp.total, cms_tcp_all, NULL, NULL, TC_PRIORITY_LOW);\n-ATEST_TC_EXPORT(cms.tcp.init, atest_cms_tcp_init, NULL, NULL, TC_PRIORITY_LOW);\n-ATEST_TC_EXPORT(cms.tcp.deinit, atest_cms_tcp_deinit, NULL, NULL, TC_PRIORITY_LOW);\n-ATEST_TC_EXPORT(cms.tcp.connect, atest_cms_tcp_connect, NULL, NULL, TC_PRIORITY_LOW);\n-ATEST_TC_EXPORT(cms.tcp.disconnect, atest_cms_tcp_disconnect, NULL, NULL, TC_PRIORITY_LOW);\n-ATEST_TC_EXPORT(cms.tcp.recv.once, atest_cms_tcp_recv, NULL, NULL, TC_PRIORITY_LOW);\n-ATEST_TC_EXPORT(cms.tcp.recv.task, atest_cms_tcp_recv_task, NULL, NULL, TC_PRIORITY_LOW);\n-ATEST_TC_EXPORT(cms.tcp.state, atest_cms_mqtt_get_state, NULL, NULL, TC_PRIORITY_LOW);\n-ATEST_TC_EXPORT(cms.tcp.send, atest_cms_tcp_send, NULL, NULL, TC_PRIORITY_LOW);\n-#endif\n",
+        "sha": "7e3cd0d302f25794197b2c76855cc18b1dace36b"
+      },
+      {
+        "path": "components/cms/port/oneos/atest/udp_atest.c",
+        "status": "removed",
+        "statusRaw": "deleted",
+        "additions": "0",
+        "deletions": "131",
+        "patch": "@@ -1,131 +0,0 @@\n-/**\n- ***********************************************************************************************************************\n- * Copyright (c) 2021, China Mobile Communications Group Co.,Ltd.\n- *\n- * Licensed under the Apache License, Version 2.0 (the \"License\"); you may not use this file except in compliance with\n- * the License. You may obtain a copy of the License at\n- *\n- *     http://www.apache.org/licenses/LICENSE-2.0\n- *\n- * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on\n- * an \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the\n- * specific language governing permissions and limitations under the License.\n- *\n- * @file        udp_atest.c\n- *\n- * @brief       This is udp test file based atest.\n- *\n- * @revision\n- * Date         Author          Notes\n- * 2020-10-13   OneOS Team      First Version\n- ***********************************************************************************************************************\n- */\n-#include \"oneos_config.h\"\n-#if defined(CMS_CONNECT_COAP) || defined(CMS_CONNECT_UDP)\n-#include \"cms_con_udp.h\"\n-#include <shell.h>\n-#include <atest.h>\n-#include <os_errno.h>\n-#include <stdlib.h>\n-#include <string.h>\n-#include <stdio.h>\n-#include <os_task.h>\n-#include <os_clock.h>\n-\n-static int        scode      = 303;\n-static void      *udp_handle = NULL;\n-static os_task_id recv_task  = 0;\n-#define UDP_RX_MAX_LENGTH 5\n-\n-static float get_time_s(void)\n-{\n-    return ((float)os_tick_get_value() / OS_TICK_PER_SECOND);\n-}\n-\n-static uint8_t recv_buff[UDP_RX_MAX_LENGTH];\n-static int     cms_udp_recv_once(uint32_t timeout)\n-{\n-    int rc = cms_udp_recv(udp_handle, recv_buff, sizeof(recv_buff), timeout);\n-    if (rc <= 0)\n-        return rc;\n-    printf(\"%s(time:%02f,len:%d)\", __func__, get_time_s(), rc);\n-    for (int i = 0; i < rc; i++)\n-    {\n-        if (i % 0x10 == 0)\n-            printf(\"\\r\\n\");\n-        printf(\"%02X \", recv_buff[i]);\n-    }\n-    printf(\"\\r\\n\");\n-    return rc;\n-}\n-\n-static void atest_cms_udp_recv(void)\n-{\n-    int rc = cms_udp_recv_once(10 * 1000);\n-    tp_assert_true(rc > 0);\n-}\n-\n-static void atest_cms_udp_recv_process(void *param)\n-{\n-    while (cms_udp_get_state(udp_handle) == cms_con_state_connect)\n-    {\n-        os_task_msleep(100);\n-        cms_udp_recv_once(1);\n-    }\n-    printf(\"exit udp recv task!\\r\\n\");\n-    recv_task = 0;\n-}\n-\n-static void atest_cms_udp_recv_task(void)\n-{\n-    if (recv_task)\n-    {\n-        os_task_destroy(recv_task);\n-        recv_task = 0;\n-        return;\n-    }\n-    recv_task = os_task_create(NULL, NULL, 1024, \"udp_recv_test\", atest_cms_udp_recv_process, NULL, 22);\n-    os_task_startup(recv_task);\n-}\n-\n-static void atest_cms_udp_init(void)\n-{\n-    if (udp_handle != NULL)\n-        return;\n-    udp_handle = cms_udp_init(scode, UDP_RX_MAX_LENGTH);\n-    tp_assert_true(udp_handle != NULL);\n-}\n-\n-static void atest_cms_udp_deinit(void)\n-{\n-    if (udp_handle == NULL)\n-        return;\n-    cms_udp_deinit(udp_handle);\n-    udp_handle = NULL;\n-}\n-\n-static uint8_t buf[5] = {1, 2, 3, 4, 5};\n-static void    atest_cms_udp_send(void)\n-{\n-    // for (int i = 0; i < sizeof(buf); i++)\n-    // {\n-    //     buf[i] = i % 10 + '0';\n-    // }\n-    int rc = cms_udp_send(udp_handle, buf, sizeof(buf));\n-    tp_assert_true(rc == sizeof(buf));\n-}\n-\n-static void cms_udp_all(void)\n-{\n-    ATEST_UNIT_RUN(atest_cms_udp_init);\n-    ATEST_UNIT_RUN(atest_cms_udp_send);\n-    ATEST_UNIT_RUN(atest_cms_udp_deinit);\n-}\n-\n-ATEST_TC_EXPORT(cms.udp.all, cms_udp_all, NULL, NULL, TC_PRIORITY_LOW);\n-ATEST_TC_EXPORT(cms.udp.init, atest_cms_udp_init, NULL, NULL, TC_PRIORITY_LOW);\n-ATEST_TC_EXPORT(cms.udp.deinit, atest_cms_udp_deinit, NULL, NULL, TC_PRIORITY_LOW);\n-ATEST_TC_EXPORT(cms.udp.send, atest_cms_udp_send, NULL, NULL, TC_PRIORITY_LOW);\n-ATEST_TC_EXPORT(cms.udp.recv.once, atest_cms_udp_recv, NULL, NULL, TC_PRIORITY_LOW);\n-ATEST_TC_EXPORT(cms.udp.recv.task, atest_cms_udp_recv_task, NULL, NULL, TC_PRIORITY_LOW);\n-#endif\n",
+        "sha": "7e3cd0d302f25794197b2c76855cc18b1dace36b"
+      },
+      {
+        "path": "components/cms/port/oneos/cms_adapter.c",
+        "status": "removed",
+        "statusRaw": "deleted",
+        "additions": "0",
+        "deletions": "31",
+        "patch": "@@ -1,31 +0,0 @@\n-/**\n- ***********************************************************************************************************************\n- * Copyright (c) 2021, China Mobile Communications Group Co.,Ltd.\n- *\n- * Licensed under the Apache License, Version 2.0 (the \"License\"); you may not use this file except in compliance with\n- * the License. You may obtain a copy of the License at\n- *\n- *     http://www.apache.org/licenses/LICENSE-2.0\n- *\n- * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on\n- * an \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the\n- * specific language governing permissions and limitations under the License.\n- *\n- * @file        cms_adapter.c\n- *\n- * @brief       Interface related to OS.\n- *\n- * @revision\n- * Date         Author          Notes\n- * 2020-10-13   OneOS Team      First Version\n- ***********************************************************************************************************************\n- */\n-#include \"cms_adapter.h\"\n-#include <arch_interrupt.h>\n-\n-void cms_safety_assert_process(void)\n-{\n-    os_irq_disable();\n-    while (1)\n-        ;\n-}\n",
+        "sha": "7e3cd0d302f25794197b2c76855cc18b1dace36b"
+      },
+      {
+        "path": "components/cms/port/oneos/cms_clock.c",
+        "status": "removed",
+        "statusRaw": "deleted",
+        "additions": "0",
+        "deletions": "48",
+        "patch": "@@ -1,48 +0,0 @@\n-/**\n- ***********************************************************************************************************************\n- * Copyright (c) 2021, China Mobile Communications Group Co.,Ltd.\n- *\n- * Licensed under the Apache License, Version 2.0 (the \"License\"); you may not use this file except in compliance with\n- * the License. You may obtain a copy of the License at\n- *\n- *     http://www.apache.org/licenses/LICENSE-2.0\n- *\n- * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on\n- * an \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the\n- * specific language governing permissions and limitations under the License.\n- *\n- * @file        cms_adapter.c\n- *\n- * @brief       Interface related to OS.\n- *\n- * @revision\n- * Date         Author          Notes\n- * 2020-10-13   OneOS Team      First Version\n- ***********************************************************************************************************************\n- */\n-#include \"cms_clock.h\"\n-#include <os_clock.h>\n-\n-size_t get_time_ms(void)\n-{\n-    size_t sys_ms;\n-    if (OS_TICK_PER_SECOND < 1000)\n-        sys_ms = os_tick_get_value() * (1000 / OS_TICK_PER_SECOND);\n-    else\n-        sys_ms = os_tick_get_value() / OS_TICK_PER_SECOND * 1000;        \n-    return sys_ms;\n-}\n-size_t get_sys_tick(void)\n-{\n-    return os_tick_get_value();\n-}\n-\n-size_t get_tick_from_ms(size_t ms)\n-{\n-    return ms * OS_TICK_PER_SECOND / 1000;\n-}\n-\n-size_t get_ms_from_tick(size_t tick)\n-{\n-    return tick * 1000 / OS_TICK_PER_SECOND;\n-}\n",
+        "sha": "7e3cd0d302f25794197b2c76855cc18b1dace36b"
+      },
+      {
+        "path": "components/cms/port/oneos/cms_memory.c",
+        "status": "removed",
+        "statusRaw": "deleted",
+        "additions": "0",
+        "deletions": "55",
+        "patch": "@@ -1,55 +0,0 @@\n-/**\n- ***********************************************************************************************************************\n- * Copyright (c) 2021, China Mobile Communications Group Co.,Ltd.\n- *\n- * Licensed under the Apache License, Version 2.0 (the \"License\"); you may not use this file except in compliance with\n- * the License. You may obtain a copy of the License at\n- *\n- *     http://www.apache.org/licenses/LICENSE-2.0\n- *\n- * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on\n- * an \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the\n- * specific language governing permissions and limitations under the License.\n- *\n- * @file        cms_adapter.c\n- *\n- * @brief       Interface related to OS.\n- *\n- * @revision\n- * Date         Author          Notes\n- * 2020-10-13   OneOS Team      First Version\n- ***********************************************************************************************************************\n- */\n-#include \"cms_memory.h\"\n-#include <os_memory.h>\n-#include <string.h>\n-\n-void *cms_malloc(size_t size)\n-{\n-    return os_malloc(size);\n-}\n-\n-void *cms_calloc(size_t count, size_t size)\n-{\n-    return os_calloc(count, size);\n-}\n-\n-void *cms_realloc(void *ptr, size_t new_size)\n-{\n-    return os_realloc(ptr, new_size);\n-}\n-\n-void cms_free(void *ptr)\n-{\n-    os_free(ptr);\n-}\n-\n-void cms_memcpy(void *dst, const void *src, size_t size)\n-{\n-    memcpy(dst, src, size);\n-}\n-\n-void cms_memset(void *dst, int ch, size_t size)\n-{\n-    memset(dst, ch, size);\n-}\n",
+        "sha": "7e3cd0d302f25794197b2c76855cc18b1dace36b"
+      },
+      {
+        "path": "components/cms/port/oneos/cms_mutex.c",
+        "status": "removed",
+        "statusRaw": "deleted",
+        "additions": "0",
+        "deletions": "67",
+        "patch": "@@ -1,67 +0,0 @@\n-/**\n- ***********************************************************************************************************************\n- * Copyright (c) 2021, China Mobile Communications Group Co.,Ltd.\n- *\n- * Licensed under the Apache License, Version 2.0 (the \"License\"); you may not use this file except in compliance with\n- * the License. You may obtain a copy of the License at\n- *\n- *     http://www.apache.org/licenses/LICENSE-2.0\n- *\n- * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on\n- * an \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the\n- * specific language governing permissions and limitations under the License.\n- *\n- * @file        cms_adapter.c\n- *\n- * @brief       Interface related to OS.\n- *\n- * @revision\n- * Date         Author          Notes\n- * 2020-10-13   OneOS Team      First Version\n- ***********************************************************************************************************************\n- */\n-#include \"cms_mutex.h\"\n-#include \"cms_memory.h\"\n-#include <os_mutex.h>\n-\n-#ifndef FALSE\n-#define FALSE (0)\n-#endif\n-\n-#ifndef TRUE\n-#define TRUE (1)\n-#endif\n-\n-void *mutex_create(void)\n-{\n-    os_mutex_id *mutex = cms_malloc(sizeof(os_mutex_id));\n-    if (mutex == NULL)\n-        return NULL;\n-    *mutex = os_mutex_create(NULL, \"cms\", TRUE);\n-    if (*mutex)\n-        return mutex;    // success\n-    cms_free(mutex);\n-    return NULL;    // fail\n-}\n-\n-void mutex_destroy(void *mutex)\n-{\n-    if (mutex == NULL)\n-        return;\n-    (void)os_mutex_destroy(*(os_mutex_id *)mutex);\n-    cms_free(mutex);\n-}\n-\n-void mutex_lock(void *mutex)\n-{\n-    if (mutex == NULL)\n-        return;\n-    os_mutex_recursive_lock(*(os_mutex_id *)mutex, OS_WAIT_FOREVER);\n-}\n-\n-void mutex_unlock(void *mutex)\n-{\n-    if (mutex == NULL)\n-        return;\n-    os_mutex_recursive_unlock(*(os_mutex_id *)mutex);\n-}\n",
+        "sha": "7e3cd0d302f25794197b2c76855cc18b1dace36b"
+      },
+      {
+        "path": "components/cms/port/oneos/cms_net.c",
+        "status": "removed",
+        "statusRaw": "deleted",
+        "additions": "0",
+        "deletions": "201",
+        "patch": "@@ -1,201 +0,0 @@\n-/**\n- ***********************************************************************************************************************\n- * Copyright (c) 2021, China Mobile Communications Group Co.,Ltd.\n- *\n- * Licensed under the Apache License, Version 2.0 (the \"License\"); you may not use this file except in compliance with\n- * the License. You may obtain a copy of the License at\n- *\n- *     http://www.apache.org/licenses/LICENSE-2.0\n- *\n- * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on\n- * an \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the\n- * specific language governing permissions and limitations under the License.\n- *\n- * @file        cms_adapter.c\n- *\n- * @brief       Interface related to OS.\n- *\n- * @revision\n- * Date         Author          Notes\n- * 2020-10-13   OneOS Team      First Version\n- ***********************************************************************************************************************\n- */\n-#include \"cms_net.h\"\n-#include \"cms_memory.h\"\n-#include <sys/socket.h>\n-#include <sys/select.h>\n-#include <sys/time.h>\n-#include <netdb.h>\n-\n-typedef struct __CMS_NET_HANDEL__\n-{\n-    int             type;\n-    struct sockaddr to_addr;\n-    int             fd;\n-} CMS_NET_HANDEL;\n-\n-void *cms_connect(const char *url, const char *port, enum CMS_TRANS_PROT_TYPE type)\n-{\n-    int              fd = -1;\n-    struct addrinfo *addr_list;\n-    struct addrinfo *addr;\n-    struct addrinfo  addr_info;\n-    struct sockaddr  to_addr;\n-\n-\tcms_memset(&addr_info, 0, sizeof(addr_info));\n-    if (CMS_TCP == type)\n-    {\n-        addr_info.ai_protocol = IPPROTO_TCP;\n-        addr_info.ai_socktype = SOCK_STREAM;\n-    }\n-    else if (CMS_UDP == type)\n-    {\n-        addr_info.ai_protocol = IPPROTO_UDP;\n-        addr_info.ai_socktype = SOCK_DGRAM;\n-    }\n-    else\n-        return NULL;\n-\n-    if (getaddrinfo(url, port, &addr_info, &addr_list))\n-    {\n-        return NULL;\n-    }\n-\n-    for (addr = addr_list; addr != NULL; addr = addr->ai_next)\n-    {\n-        fd = socket(addr->ai_family, addr->ai_socktype, addr->ai_protocol);\n-        if (fd < 0)\n-        {\n-            continue;\n-        }\n-\n-        if (type == CMS_UDP)\n-        {\n-            to_addr = *(addr->ai_addr);\n-            break;\n-        }\n-\n-        if (type == CMS_TCP && connect(fd, addr->ai_addr, addr->ai_addrlen) == 0)\n-        {\n-            break;\n-        }\n-        closesocket(fd);\n-        fd = -1;\n-    }\n-    freeaddrinfo(addr_list);\n-    if (fd < 0)\n-        return NULL;\n-    CMS_NET_HANDEL *handle = cms_malloc(sizeof(CMS_NET_HANDEL));\n-    if (handle == NULL)\n-        return NULL;\n-    handle->type    = type;\n-    handle->to_addr = to_addr;\n-    handle->fd      = fd;\n-    return (void *)handle;\n-}\n-\n-static int cms_tcp_send(int fd, const void *data, size_t size, int timeout_ms)\n-{\n-    if (timeout_ms)\n-    {\n-        struct timeval interval = {timeout_ms / 1000, (timeout_ms % 1000) * 1000};\n-        setsockopt(fd, SOL_SOCKET, SO_SNDTIMEO, (char *)&interval, sizeof(struct timeval));\n-    }\n-    return send(fd, data, size, 0);\n-}\n-\n-static int cms_udp_send(int fd, const void *data, size_t size, int timeout_ms, const struct sockaddr *to, size_t tolen)\n-{\n-    if (timeout_ms)\n-    {\n-        struct timeval interval = {timeout_ms / 1000, (timeout_ms % 1000) * 1000};\n-        setsockopt(fd, SOL_SOCKET, SO_SNDTIMEO, (char *)&interval, sizeof(struct timeval));\n-    }\n-    return sendto(fd, data, size, 0, to, tolen);\n-}\n-\n-static int cms_tcp_recv(int fd, void *data, size_t size, int timeout_ms)\n-{\n-    int            rc;\n-    struct timeval interval;\n-    fd_set         read_fds;\n-\n-    FD_ZERO(&read_fds);\n-    FD_SET(fd, &read_fds);\n-\n-    interval.tv_sec  = timeout_ms / 1000;\n-    interval.tv_usec = (timeout_ms % 1000) * 1000 + 1;\n-\n-    rc = select(fd + 1, &read_fds, NULL, NULL, &interval);\n-    if (rc <= 0)\n-        return rc;\n-\n-    rc = recv(fd, data, size, 0);\n-    if (rc == 0)\n-    {\n-        closesocket(fd);\n-        return -1;\n-    }\n-    return rc;\n-}\n-\n-static int cms_udp_recv(int fd, void *data, size_t size, int timeout_ms, struct sockaddr *from, uint32_t *fromlen)\n-{\n-    int            rc;\n-    struct timeval interval;\n-    fd_set         read_fds;\n-\n-    FD_ZERO(&read_fds);\n-    FD_SET(fd, &read_fds);\n-\n-    interval.tv_sec  = timeout_ms / 1000;\n-    interval.tv_usec = (timeout_ms % 1000) * 1000 + 1;\n-\n-    rc = select(fd + 1, &read_fds, NULL, NULL, &interval);\n-    if (rc <= 0)\n-    {\n-        return rc;\n-    }\n-    return recvfrom(fd, data, size, 0, from, fromlen);\n-}\n-\n-int cms_send_with_timeout(void *net_handle, const void *data, size_t size, int timeout_ms)\n-{\n-    CMS_NET_HANDEL *handle = (CMS_NET_HANDEL *)net_handle;\n-    if (handle == NULL)\n-        return -1;\n-    if (handle->type == CMS_TCP)\n-    {\n-        return cms_tcp_send(handle->fd, data, size, timeout_ms);\n-    }\n-    else\n-    {\n-        return cms_udp_send(handle->fd, data, size, timeout_ms, &(handle->to_addr), sizeof(handle->to_addr));\n-    }\n-}\n-\n-int cms_recv_with_timeout(void *net_handle, void *mem, size_t len, int timeout_ms)\n-{\n-    CMS_NET_HANDEL *handle = (CMS_NET_HANDEL *)net_handle;\n-    if (handle == NULL)\n-        return -1;\n-    if (handle->type == CMS_TCP)\n-    {\n-        return cms_tcp_recv(handle->fd, mem, len, timeout_ms);\n-    }\n-    else\n-    {\n-        uint32_t fromlen = sizeof(handle->to_addr);\n-        return cms_udp_recv(handle->fd, mem, len, timeout_ms, &(handle->to_addr), &fromlen);\n-    }\n-}\n-\n-int cms_closesocket(void *net_handle)\n-{\n-    CMS_NET_HANDEL *handle = (CMS_NET_HANDEL *)net_handle;\n-    if (handle == NULL)\n-        return -1;\n-    int rc = closesocket(handle->fd);\n-    cms_free(handle);\n-    return rc;\n-}\n",
+        "sha": "7e3cd0d302f25794197b2c76855cc18b1dace36b"
+      },
+      {
+        "path": "components/cms/port/oneos/cms_ring_buff.c",
+        "status": "removed",
+        "statusRaw": "deleted",
+        "additions": "0",
+        "deletions": "54",
+        "patch": "@@ -1,54 +0,0 @@\n-/**\n- ***********************************************************************************************************************\n- * Copyright (c) 2021, China Mobile Communications Group Co.,Ltd.\n- *\n- * Licensed under the Apache License, Version 2.0 (the \"License\"); you may not use this file except in compliance with\n- * the License. You may obtain a copy of the License at\n- *\n- *     http://www.apache.org/licenses/LICENSE-2.0\n- *\n- * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on\n- * an \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the\n- * specific language governing permissions and limitations under the License.\n- *\n- * @file        cms_adapter.c\n- *\n- * @brief       Interface related to OS.\n- *\n- * @revision\n- * Date         Author          Notes\n- * 2020-10-13   OneOS Team      First Version\n- ***********************************************************************************************************************\n- */\n-#include \"cms_ring_buff.h\"\n-#include <ring_buff.h>\n-\n-void *cms_con_ring_fifo_init(uint32_t max_length)\n-{\n-    return (void *)rb_ring_buff_create(OS_ALIGN_UP(max_length, OS_ALIGN_SIZE));\n-}\n-\n-void cms_con_ring_fifo_deinit(void *ring_fifo)\n-{\n-    rb_ring_buff_destroy((rb_ring_buff_t *)ring_fifo);\n-}\n-\n-int cms_con_ring_fifo_write(void *ring_fifo, uint8_t *buffer, uint32_t write_length)\n-{\n-    return rb_ring_buff_put((rb_ring_buff_t *)ring_fifo, buffer, write_length);\n-}\n-\n-int cms_con_ring_fifo_read(void *ring_fifo, uint8_t *buffer, uint32_t read_length)\n-{\n-    return rb_ring_buff_get((rb_ring_buff_t *)ring_fifo, buffer, read_length);\n-}\n-\n-uint32_t cms_con_ring_fifo_get_space_length(void *ring_fifo)\n-{\n-    return rb_ring_buff_space_len((rb_ring_buff_t *)ring_fifo);\n-}\n-\n-uint32_t cms_con_ring_fifo_get_data_length(void *ring_fifo)\n-{\n-    return rb_ring_buff_data_len((rb_ring_buff_t *)ring_fifo);\n-}\n",
+        "sha": "7e3cd0d302f25794197b2c76855cc18b1dace36b"
+      },
+      {
+        "path": "components/cms/port/oneos/cms_sem.c",
+        "status": "removed",
+        "statusRaw": "deleted",
+        "additions": "0",
+        "deletions": "55",
+        "patch": "@@ -1,55 +0,0 @@\n-/**\n- ***********************************************************************************************************************\n- * Copyright (c) 2021, China Mobile Communications Group Co.,Ltd.\n- *\n- * Licensed under the Apache License, Version 2.0 (the \"License\"); you may not use this file except in compliance with\n- * the License. You may obtain a copy of the License at\n- *\n- *     http://www.apache.org/licenses/LICENSE-2.0\n- *\n- * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on\n- * an \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the\n- * specific language governing permissions and limitations under the License.\n- *\n- * @file        cms_adapter.c\n- *\n- * @brief       Interface related to OS.\n- *\n- * @revision\n- * Date         Author          Notes\n- * 2020-10-13   OneOS Team      First Version\n- ***********************************************************************************************************************\n- */\n-#include \"cms_sem.h\"\n-#include \"cms_memory.h\"\n-#include <os_sem.h>\n-#include <os_clock.h>\n-\n-void *cms_sem_create(const char *name, uint16_t initial_value, uint16_t max_value)\n-{\n-    os_semaphore_id *sem = cms_malloc(sizeof(os_semaphore_id));\n-    if (sem == NULL)\n-        return NULL;\n-    *sem = os_semaphore_create(NULL, name, initial_value, max_value);\n-    if (*sem)\n-        return sem;    // success\n-    cms_free(sem);\n-    return NULL;    // fail\n-}\n-\n-void cms_sem_destroy(void *sem)\n-{\n-    os_semaphore_destroy(*(os_semaphore_id *)sem);\n-    cms_free(sem);\n-}\n-\n-int cms_sem_wait(void *sem, uint32_t timeout_ms)\n-{\n-    os_tick_t timeout_tick = os_tick_from_ms(timeout_ms);\n-    return os_semaphore_wait(*(os_semaphore_id *)sem, timeout_tick);\n-}\n-\n-void cms_sem_post(void *sem)\n-{\n-    os_semaphore_post(*(os_semaphore_id *)sem);\n-}\n",
+        "sha": "7e3cd0d302f25794197b2c76855cc18b1dace36b"
+      },
+      {
+        "path": "components/cms/port/oneos/cms_thread.c",
+        "status": "removed",
+        "statusRaw": "deleted",
+        "additions": "0",
+        "deletions": "53",
+        "patch": "@@ -1,53 +0,0 @@\n-/**\n- ***********************************************************************************************************************\n- * Copyright (c) 2021, China Mobile Communications Group Co.,Ltd.\n- *\n- * Licensed under the Apache License, Version 2.0 (the \"License\"); you may not use this file except in compliance with\n- * the License. You may obtain a copy of the License at\n- *\n- *     http://www.apache.org/licenses/LICENSE-2.0\n- *\n- * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on\n- * an \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the\n- * specific language governing permissions and limitations under the License.\n- *\n- * @file        cms_adapter.c\n- *\n- * @brief       Interface related to OS.\n- *\n- * @revision\n- * Date         Author          Notes\n- * 2020-10-13   OneOS Team      First Version\n- ***********************************************************************************************************************\n- */\n-#include \"cms_thread.h\"\n-#include \"cms_memory.h\"\n-#include <os_task.h>\n-\n-void *task_create(void (*entry)(void *arg), void *arg, uint32_t stack_size, uint8_t priority)\n-{\n-    return task_create_with_name(NULL, entry, arg, stack_size, priority);\n-}\n-void *\n-task_create_with_name(const char *name, void (*entry)(void *arg), void *arg, uint32_t stack_size, uint8_t priority)\n-{\n-    os_task_id task = os_task_create(NULL, NULL, stack_size, name, entry, arg, priority);\n-    if (task)\n-        return (void *)task;    // success\n-    return NULL;\n-}\n-\n-int task_startup(void *task)\n-{\n-    return os_task_startup((os_task_id)task);\n-}\n-\n-void task_destroy(void *task)\n-{\n-    (void)os_task_destroy((os_task_id)task);\n-}\n-\n-void msleep(uint32_t ms)\n-{\n-    (void)os_task_msleep(ms);\n-}\n",
+        "sha": "7e3cd0d302f25794197b2c76855cc18b1dace36b"
+      },
+      {
+        "path": "components/cms/port/oneos/weave.yaml",
+        "status": "removed",
+        "statusRaw": "deleted",
+        "additions": "0",
+        "deletions": "19",
+        "patch": "@@ -1,19 +0,0 @@\n-# 组名\n-group_name: cms/port\n-\n-# 编译选项（支持条件表达式）\n-build_option:\n-  cpppath:\n-    - ../\n-\n-# 源码（支持条件表达式）\n-source_file:\n-  - cms_clock.c\n-  - cms_memory.c\n-  - cms_mutex.c\n-  - cms_net.c\n-  - cms_ring_buff.c\n-  - cms_sem.c\n-  - cms_thread.c\n-  - cms_adapter.c\n-  \n\\ No newline at end of file\n",
+        "sha": "7e3cd0d302f25794197b2c76855cc18b1dace36b"
+      },
+      {
+        "path": "components/cms/port/weave.yaml",
+        "status": "removed",
+        "statusRaw": "deleted",
+        "additions": "0",
+        "deletions": "3",
+        "patch": "@@ -1,3 +0,0 @@\n-# 子目录（支持条件表达式）\n-add_subdirectory:\n- - oneos\n\\ No newline at end of file\n",
+        "sha": "7e3cd0d302f25794197b2c76855cc18b1dace36b"
+      },
+      {
+        "path": "components/cms/weave.yaml",
+        "status": "removed",
+        "statusRaw": "deleted",
+        "additions": "0",
+        "deletions": "4",
+        "patch": "@@ -1,4 +0,0 @@\n-# 子目录（支持条件表达式）\n-add_subdirectory:\n-  - port?{is_define('USING_CMS_CONNECT') or is_define('CMS_USING_ID')}\n-  - source?{is_define('USING_CMS_CONNECT') or is_define('CMS_USING_ID')}\n\\ No newline at end of file\n",
+        "sha": "7e3cd0d302f25794197b2c76855cc18b1dace36b"
       }
     ]
   },
@@ -1047,14 +1897,14 @@
             "owner": "cmcc-oneos",
             "name": "OneOS"
           },
-          "sha": "63e44b69ea1af37d309cce490c59cda5d190c8a1"
+          "sha": "4335303c9a57ffcf13225dcf39dfd23b8237e03b"
         },
-        "sha": "63e44b69ea1af37d309cce490c59cda5d190c8a1",
-        "message": "delete Kconfig menu of semidrive\n",
+        "sha": "4335303c9a57ffcf13225dcf39dfd23b8237e03b",
+        "message": "fix(cms): delete cms component from oneos.\n",
         "author": {
-          "name": "pangchao",
+          "name": "zhangyong",
           "email": "redacted@example.invalid",
-          "date": "2025-06-12T03:06:45.000Z"
+          "date": "2024-08-22T01:35:18.000Z"
         },
         "committer": {
           "actor": {
@@ -1063,14 +1913,14 @@
             "id": "undefined",
             "isBotHint": false
           },
-          "name": "pangchao",
+          "name": "zhangyong",
           "email": "redacted@example.invalid",
-          "date": "2025-06-12T03:06:45.000Z"
+          "date": "2024-08-22T01:35:18.000Z"
         },
         "parents": [
-          "2fa826a00e1c4f42113d878d198584360e180eb0"
+          "7e3cd0d302f25794197b2c76855cc18b1dace36b"
         ],
-        "url": "https://gitee.com/cmcc-oneos/OneOS/commits/63e44b69ea1af37d309cce490c59cda5d190c8a1"
+        "url": "https://gitee.com/cmcc-oneos/OneOS/commits/4335303c9a57ffcf13225dcf39dfd23b8237e03b"
       }
     ]
   },
@@ -1597,21 +2447,54 @@
       }
     ]
   },
+  "issue getComment": {
+    "ref": {
+      "forge": "gitee",
+      "instance": "gitee.com",
+      "thread": {
+        "forge": "gitee",
+        "instance": "gitee.com",
+        "repo": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "owner": "cmcc-oneos",
+          "name": "OneOS"
+        },
+        "kind": "issue",
+        "number": "I8NUPF"
+      },
+      "id": "23908904"
+    },
+    "body": "现在统一为oos命令集，使用最新的命令，oos project，不清楚的指令可以输入oos，会弹出提示信息。",
+    "author": {
+      "forge": "gitee",
+      "instance": "gitee.com",
+      "login": "pc-courage",
+      "id": "8078236",
+      "name": "chao",
+      "avatarUrl": "https://gitee.com/assets/no_portrait.png",
+      "url": "https://gitee.com/pc-courage",
+      "typeRaw": "User",
+      "isBotHint": false
+    },
+    "createdAt": "2023-12-25T03:41:17.000Z",
+    "updatedAt": "2023-12-25T03:41:17.000Z"
+  },
   "user": {
     "forge": "gitee",
     "instance": "gitee.com",
-    "login": "pc-courage",
-    "id": "8078236",
-    "name": "chao",
+    "login": "cmiot-zhangyong",
+    "id": "8273364",
+    "name": "JohnYoung",
     "avatarUrl": "https://gitee.com/assets/no_portrait.png",
-    "url": "https://gitee.com/pc-courage",
+    "url": "https://gitee.com/cmiot-zhangyong",
     "typeRaw": "User",
     "isBotHint": false,
     "bio": "",
-    "createdAt": "2020-09-16T08:37:14.000Z",
-    "followers": 2,
-    "following": 4,
-    "publicRepos": 66
+    "createdAt": "2020-11-05T03:47:11.000Z",
+    "followers": 0,
+    "following": 2,
+    "publicRepos": 7
   },
   "checks": {
     "items": []
@@ -2019,44 +2902,278 @@
         "owner": "cmcc-oneos",
         "name": "OneOS"
       },
-      "sha": "63e44b69ea1af37d309cce490c59cda5d190c8a1"
+      "sha": "4335303c9a57ffcf13225dcf39dfd23b8237e03b"
     },
-    "sha": "63e44b69ea1af37d309cce490c59cda5d190c8a1",
-    "message": "delete Kconfig menu of semidrive\n",
+    "sha": "4335303c9a57ffcf13225dcf39dfd23b8237e03b",
+    "message": "fix(cms): delete cms component from oneos.\n",
     "author": {
-      "name": "pangchao",
+      "name": "zhangyong",
       "email": "redacted@example.invalid",
-      "date": "2025-06-12T03:06:45.000Z"
+      "date": "2024-08-22T01:35:18.000Z"
     },
     "committer": {
-      "name": "pangchao",
+      "name": "zhangyong",
       "email": "redacted@example.invalid",
-      "date": "2025-06-12T03:06:45.000Z"
+      "date": "2024-08-22T01:35:18.000Z"
     },
     "parents": [
-      "2fa826a00e1c4f42113d878d198584360e180eb0"
+      "7e3cd0d302f25794197b2c76855cc18b1dace36b"
     ],
-    "url": "https://gitee.com/cmcc-oneos/OneOS/commit/63e44b69ea1af37d309cce490c59cda5d190c8a1",
+    "url": "https://gitee.com/cmcc-oneos/OneOS/commit/4335303c9a57ffcf13225dcf39dfd23b8237e03b",
     "stats": {
       "additions": 0,
-      "deletions": 7,
-      "total": 7
+      "deletions": 2439,
+      "total": 2439
     },
     "files": [
       {
-        "path": "templates/configs/Kconfig",
-        "status": "modified",
-        "statusRaw": "modified",
+        "path": "components/cms/.gitignore",
+        "status": "removed",
+        "statusRaw": "removed",
         "additions": 0,
-        "deletions": 7,
-        "patch": "@@ -62,9 +62,6 @@ choice\n     config MANUFACTOR_SAMSUNG\r\n         bool \"SAMSUNG\"\r\n         \r\n-    config MANUFACTOR_SEMIDRIVE\r\n-        bool \"SEMIDRIVE\"\r\n-        \r\n endchoice\r\n \r\n if MANUFACTOR_STM32\r\n@@ -150,7 +147,3 @@ endif\n if MANUFACTOR_SAMSUNG\r\n     source \"$OS_ROOT/templates/configs/samsung/Kconfig\"\r\n endif\r\n-\r\n-if MANUFACTOR_SEMIDRIVE\r\n-    source \"$OS_ROOT/templates/configs/semidrive/Kconfig\"\r\n-endif\r\n",
-        "sha": "7407eb96e104fa5cebd1eff5e04923b4226b2199"
+        "deletions": 2,
+        "patch": "@@ -1,2 +0,0 @@\n-cms\n-source\n\\ No newline at end of file\n",
+        "sha": "cc9ecf6e790adc0267740a3d642fd86adc4dc597"
+      },
+      {
+        "path": "components/cms/Kconfig",
+        "status": "removed",
+        "statusRaw": "removed",
+        "additions": 0,
+        "deletions": 10,
+        "patch": "@@ -1,10 +0,0 @@\n-menu \"CMS\"\n-config USING_CMS\n-    bool \"Using CMS\"\n-    default n\n-    \n-    if USING_CMS\n-        source \"$OS_ROOT/components/cms/*/Kconfig\"\n-    endif\n-endmenu\n-\n",
+        "sha": "57ad372d40d12986c1899924017a83a10d338d56"
+      },
+      {
+        "path": "components/cms/port/Kconfig",
+        "status": "removed",
+        "statusRaw": "removed",
+        "additions": 0,
+        "deletions": 0,
+        "patch": "",
+        "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+      },
+      {
+        "path": "components/cms/port/cms_adapter.h",
+        "status": "removed",
+        "statusRaw": "removed",
+        "additions": 0,
+        "deletions": 50,
+        "patch": "@@ -1,50 +0,0 @@\n-/**\n- ***********************************************************************************************************************\n- * Copyright (c) 2021, China Mobile Communications Group Co.,Ltd.\n- *\n- * Licensed under the Apache License, Version 2.0 (the \"License\"); you may not use this file except in compliance with\n- * the License. You may obtain a copy of the License at\n- *\n- *     http://www.apache.org/licenses/LICENSE-2.0\n- *\n- * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on\n- * an \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the\n- * specific language governing permissions and limitations under the License.\n- *\n- * @file        cms_clock.h\n- *\n- * @brief       Interface related to OS.\n- *\n- * @revision\n- * Date         Author          Notes\n- * 2021-04-09   OneOS Team      First version.\n- ***********************************************************************************************************************/\n-#ifndef __CMS_ADAPTER_H__\n-#define __CMS_ADAPTER_H__\n-#include <stdio.h>\n-\n-#if defined(__cplusplus)\n-extern \"C\" {\n-#endif\n-\n-#if defined(CMS_STD)\n-#define ASSERT(condition)                                                                                              \\\n-    do                                                                                                                 \\\n-    {                                                                                                                  \\\n-        if (!(condition))                                                                                              \\\n-        {                                                                                                              \\\n-            printf(\"Assert failed. Condition(%s). [%s][%d]\\r\\n\", #condition, __FUNCTION__, __LINE__);                  \\\n-            cms_safety_assert_process();                                                                               \\\n-        }                                                                                                              \\\n-    } while (0)\n-\n-void cms_safety_assert_process(void);\n-#else\n-#define ASSERT(condition)\n-#endif\n-\n-#if defined(__cplusplus)\n-}\n-#endif\n-\n-#endif /* __CMS_ADAPTER_H__ */\n",
+        "sha": "38920813f3fcbcd7f7d504781f82a482c190dcc9"
+      },
+      {
+        "path": "components/cms/port/cms_clock.h",
+        "status": "removed",
+        "statusRaw": "removed",
+        "additions": 0,
+        "deletions": 43,
+        "patch": "@@ -1,43 +0,0 @@\n-/**\n- ***********************************************************************************************************************\n- * Copyright (c) 2021, China Mobile Communications Group Co.,Ltd.\n- *\n- * Licensed under the Apache License, Version 2.0 (the \"License\"); you may not use this file except in compliance with\n- * the License. You may obtain a copy of the License at\n- *\n- *     http://www.apache.org/licenses/LICENSE-2.0\n- *\n- * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on\n- * an \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the\n- * specific language governing permissions and limitations under the License.\n- *\n- * @file        cms_clock.h\n- *\n- * @brief       Interface related to OS.\n- *\n- * @revision\n- * Date         Author          Notes\n- * 2021-04-09   OneOS Team      First version.\n- ***********************************************************************************************************************/\n-#ifndef __CMS_CLOCK_H__\n-#define __CMS_CLOCK_H__\n-#include <stdint.h>\n-#include <stddef.h>\n-\n-#if defined(__cplusplus)\n-extern \"C\" {\n-#endif\n-\n-size_t get_time_ms(void);\n-\n-size_t get_sys_tick(void);\n-\n-size_t get_tick_from_ms(size_t ms);\n-\n-size_t get_ms_from_tick(size_t tick);\n-\n-#if defined(__cplusplus)\n-}\n-#endif\n-\n-#endif /* __CMS_CLOCK_H__ */\n",
+        "sha": "b6528991b98b64ecf3580b6cbb20170876186385"
+      },
+      {
+        "path": "components/cms/port/cms_memory.h",
+        "status": "removed",
+        "statusRaw": "removed",
+        "additions": 0,
+        "deletions": 47,
+        "patch": "@@ -1,47 +0,0 @@\n-/**\n- ***********************************************************************************************************************\n- * Copyright (c) 2021, China Mobile Communications Group Co.,Ltd.\n- *\n- * Licensed under the Apache License, Version 2.0 (the \"License\"); you may not use this file except in compliance with\n- * the License. You may obtain a copy of the License at\n- *\n- *     http://www.apache.org/licenses/LICENSE-2.0\n- *\n- * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on\n- * an \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the\n- * specific language governing permissions and limitations under the License.\n- *\n- * @file        cms_memory.h\n- *\n- * @brief       Interface related to OS.\n- *\n- * @revision\n- * Date         Author          Notes\n- * 2021-04-09   OneOS Team      First version.\n- ***********************************************************************************************************************/\n-#ifndef __CMS_MEMORY_H__\n-#define __CMS_MEMORY_H__\n-#include <stdint.h>\n-#include <stddef.h>\n-\n-#if defined(__cplusplus)\n-extern \"C\" {\n-#endif\n-\n-void *cms_malloc(size_t size);\n-\n-void *cms_calloc(size_t count, size_t size);\n-\n-void *cms_realloc(void *ptr, size_t new_size);\n-\n-void cms_free(void *ptr);\n-\n-void cms_memcpy(void *dst, const void *src, size_t size);\n-\n-void cms_memset(void *dst, int ch, size_t size);\n-\n-#if defined(__cplusplus)\n-}\n-#endif\n-\n-#endif /* __CMS_MEMORY_H__ */\n",
+        "sha": "1e3cda93332e78f661e51f2e87164fdb5d37225a"
+      },
+      {
+        "path": "components/cms/port/cms_mutex.h",
+        "status": "removed",
+        "statusRaw": "removed",
+        "additions": 0,
+        "deletions": 41,
+        "patch": "@@ -1,41 +0,0 @@\n-/**\n- ***********************************************************************************************************************\n- * Copyright (c) 2021, China Mobile Communications Group Co.,Ltd.\n- *\n- * Licensed under the Apache License, Version 2.0 (the \"License\"); you may not use this file except in compliance with\n- * the License. You may obtain a copy of the License at\n- *\n- *     http://www.apache.org/licenses/LICENSE-2.0\n- *\n- * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on\n- * an \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the\n- * specific language governing permissions and limitations under the License.\n- *\n- * @file        cms_mutex.h\n- *\n- * @brief       Interface related to OS.\n- *\n- * @revision\n- * Date         Author          Notes\n- * 2021-04-09   OneOS Team      First version.\n- ***********************************************************************************************************************/\n-#ifndef __CMS_MUTEX_H__\n-#define __CMS_MUTEX_H__\n-\n-#if defined(__cplusplus)\n-extern \"C\" {\n-#endif\n-\n-void *mutex_create(void);\n-\n-void mutex_destroy(void *mutex);\n-\n-void mutex_lock(void *mutex);\n-\n-void mutex_unlock(void *mutex);\n-\n-#if defined(__cplusplus)\n-}\n-#endif\n-\n-#endif /* __CMS_MUTEX_H__ */\n",
+        "sha": "a29399415df2afd1ea59ebaef7d0a449d4c0e0aa"
+      },
+      {
+        "path": "components/cms/port/cms_net.h",
+        "status": "removed",
+        "statusRaw": "removed",
+        "additions": 0,
+        "deletions": 63,
+        "patch": "@@ -1,63 +0,0 @@\n-/**\n- ***********************************************************************************************************************\n- * Copyright (c) 2021, China Mobile Communications Group Co.,Ltd.\n- *\n- * Licensed under the Apache License, Version 2.0 (the \"License\"); you may not use this file except in compliance with\n- * the License. You may obtain a copy of the License at\n- *\n- *     http://www.apache.org/licenses/LICENSE-2.0\n- *\n- * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on\n- * an \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the\n- * specific language governing permissions and limitations under the License.\n- *\n- * @file        cms_net.h\n- *\n- * @brief       Interface related to OS.\n- *\n- * @revision\n- * Date         Author          Notes\n- * 2021-04-09   OneOS Team      First version.\n- ***********************************************************************************************************************/\n-#ifndef __CMS_NET_H__\n-#define __CMS_NET_H__\n-#include <stdint.h>\n-#include <stddef.h>\n-\n-#if defined(__cplusplus)\n-extern \"C\" {\n-#endif\n-\n-#if !defined(BIG_ENDIAN)\n-#define CMS_NTOHS(x) ((uint16_t)((((x) & (uint16_t)0x00ffU) << 8) | (((x) & (uint16_t)0xff00U) >> 8)))\n-#define CMS_NTOHL(x)                                                                                                   \\\n-    ((((x) & (uint32_t)0x000000ffUL) << 24) | (((x) & (uint32_t)0x0000ff00UL) << 8) |                                  \\\n-     (((x) & (uint32_t)0x00ff0000UL) >> 8) | (((x) & (uint32_t)0xff000000UL) >> 24))\n-#define CMS_HTONS(x) CMS_NTOHS(x)\n-#define CMS_HTONL(x) CMS_NTOHL(x)\n-#else\n-#define CMS_NTOHS(x) ((uint16_t)x)\n-#define CMS_NTOHL(x) ((uint32_t)x)\n-#define CMS_HTONS(x) CMS_NTOHS(x)\n-#define CMS_HTONL(x) CMS_NTOHL(x)\n-#endif\n-\n-enum CMS_TRANS_PROT_TYPE\n-{\n-    CMS_TCP,\n-    CMS_UDP\n-};\n-\n-void *cms_connect(const char *url, const char *port, enum CMS_TRANS_PROT_TYPE type);\n-\n-int cms_send_with_timeout(void *net_handle, const void *data, size_t size, int timeout_ms);\n-\n-int cms_recv_with_timeout(void *net_handle, void *mem, size_t len, int timeout_ms);\n-\n-int cms_closesocket(void *net_handle);\n-\n-#if defined(__cplusplus)\n-}\n-#endif\n-\n-#endif /* __CMS_NET_H__ */\n",
+        "sha": "d07e7f81cab8d702c87245292810eeda9495b88c"
+      },
+      {
+        "path": "components/cms/port/cms_ring_buff.h",
+        "status": "removed",
+        "statusRaw": "removed",
+        "additions": 0,
+        "deletions": 48,
+        "patch": "@@ -1,48 +0,0 @@\n-/**\n- ***********************************************************************************************************************\n- * Copyright (c) 2021, China Mobile Communications Group Co.,Ltd.\n- *\n- * Licensed under the Apache License, Version 2.0 (the \"License\"); you may not use this file except in compliance with\n- * the License. You may obtain a copy of the License at\n- *\n- *     http://www.apache.org/licenses/LICENSE-2.0\n- *\n- * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on\n- * an \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the\n- * specific language governing permissions and limitations under the License.\n- *\n- * @file        cms_ring_buff.h\n- *\n- * @brief       Interface related to OS.\n- *\n- * @revision\n- * Date         Author          Notes\n- * 2021-04-09   OneOS Team      First version.\n- ***********************************************************************************************************************/\n-#ifndef __CMS_RING_BUFF_H__\n-#define __CMS_RING_BUFF_H__\n-#include <stdint.h>\n-#include <os_assert.h>\n-#include <os_errno.h>\n-\n-#if defined(__cplusplus)\n-extern \"C\" {\n-#endif\n-\n-void *cms_con_ring_fifo_init(uint32_t max_length);\n-\n-void cms_con_ring_fifo_deinit(void *ring_fifo);\n-\n-int cms_con_ring_fifo_write(void *ring_fifo, uint8_t *buffer, uint32_t write_length);\n-\n-int cms_con_ring_fifo_read(void *ring_fifo, uint8_t *buffer, uint32_t read_length);\n-\n-uint32_t cms_con_ring_fifo_get_space_length(void *ring_fifo);\n-\n-uint32_t cms_con_ring_fifo_get_data_length(void *ring_fifo);\n-\n-#if defined(__cplusplus)\n-}\n-#endif\n-\n-#endif /* __CMS_RING_BUFF_H__ */\n",
+        "sha": "7ac731d21b089b2cc2e4005dd7499336845dc8a1"
+      },
+      {
+        "path": "components/cms/port/cms_sem.h",
+        "status": "removed",
+        "statusRaw": "removed",
+        "additions": 0,
+        "deletions": 43,
+        "patch": "@@ -1,43 +0,0 @@\n-/**\n- ***********************************************************************************************************************\n- * Copyright (c) 2021, China Mobile Communications Group Co.,Ltd.\n- *\n- * Licensed under the Apache License, Version 2.0 (the \"License\"); you may not use this file except in compliance with\n- * the License. You may obtain a copy of the License at\n- *\n- *     http://www.apache.org/licenses/LICENSE-2.0\n- *\n- * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on\n- * an \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the\n- * specific language governing permissions and limitations under the License.\n- *\n- * @file        cms_sem.h\n- *\n- * @brief       Interface related to OS.\n- *\n- * @revision\n- * Date         Author          Notes\n- * 2021-04-09   OneOS Team      First version.\n- ***********************************************************************************************************************/\n-#ifndef __CMS_SEM_H__\n-#define __CMS_SEM_H__\n-#include <stdint.h>\n-#include <stddef.h>\n-\n-#if defined(__cplusplus)\n-extern \"C\" {\n-#endif\n-\n-void *cms_sem_create(const char *name, uint16_t initial_value, uint16_t max_value);\n-\n-void cms_sem_destroy(void *sem);\n-\n-int cms_sem_wait(void *sem, uint32_t timeout_ms);\n-\n-void cms_sem_post(void *sem);\n-\n-#if defined(__cplusplus)\n-}\n-#endif\n-\n-#endif /* __CMS_SEM_H__ */\n",
+        "sha": "1fd889f103d4ba4000b9522d3a940ffca3a25885"
+      },
+      {
+        "path": "components/cms/port/cms_thread.h",
+        "status": "removed",
+        "statusRaw": "removed",
+        "additions": 0,
+        "deletions": 46,
+        "patch": "@@ -1,46 +0,0 @@\n-/**\n- ***********************************************************************************************************************\n- * Copyright (c) 2021, China Mobile Communications Group Co.,Ltd.\n- *\n- * Licensed under the Apache License, Version 2.0 (the \"License\"); you may not use this file except in compliance with\n- * the License. You may obtain a copy of the License at\n- *\n- *     http://www.apache.org/licenses/LICENSE-2.0\n- *\n- * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on\n- * an \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the\n- * specific language governing permissions and limitations under the License.\n- *\n- * @file        cms_thread.h\n- *\n- * @brief       Interface related to OS.\n- *\n- * @revision\n- * Date         Author          Notes\n- * 2021-04-09   OneOS Team      First version.\n- ***********************************************************************************************************************/\n-#ifndef __CMS_THREAD_H__\n-#define __CMS_THREAD_H__\n-#include <stdint.h>\n-#include <stddef.h>\n-\n-#if defined(__cplusplus)\n-extern \"C\" {\n-#endif\n-\n-void *task_create(void (*entry)(void *arg), void *arg, uint32_t stack_size, uint8_t priority);\n-\n-void task_destroy(void *mutex);\n-\n-void msleep(uint32_t ms);\n-\n-int task_startup(void *task);\n-\n-void *\n-task_create_with_name(const char *name, void (*entry)(void *arg), void *arg, uint32_t stack_size, uint8_t priority);\n-\n-#if defined(__cplusplus)\n-}\n-#endif\n-\n-#endif /* __CMS_THREAD_H__ */\n",
+        "sha": "9f29d22ff9e5f1040d40c4ca11fc608c36fb0a0f"
+      },
+      {
+        "path": "components/cms/port/oneos/atest/cms_id_atest.c",
+        "status": "removed",
+        "statusRaw": "removed",
+        "additions": 0,
+        "deletions": 190,
+        "patch": "@@ -1,190 +0,0 @@\n-/**\n-***********************************************************************************************************************\n-* Copyright (c) 2021, China Mobile Communications Group Co.,Ltd.\n-*\n-* Licensed under the Apache License, Version 2.0 (the \"License\"); you may not use this file except in compliance with\n-* the License. You may obtain a copy of the License at\n-*\n-*     http://www.apache.org/licenses/LICENSE-2.0\n-*\n-* Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on\n-* an \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the\n-* specific language governing permissions and limitations under the License.\n-*\n-* @file        cms_id_atest.c\n-*\n-* @brief       This is mqtt test file based atest.\n-*\n-* @revision\n-* Date         Author          Notes\n-* 2020-10-13   OneOS Team      First Version\n-***********************************************************************************************************************\n-*/\n-#include <shell.h>\n-#include <atest.h>\n-#include <string.h>\n-#include <stdio.h>\n-#include \"oneos_config.h\"\n-\n-#ifdef CMS_USING_ID\n-#include \"cms_id.h\"\n-static void hexdump(const char *tag, size_t width, const unsigned char *buf, size_t size)\n-{\n-    printf(\"%s\\r\\n\", tag);\n-    int i = 0;\n-    for (; i < size;)\n-    {\n-        printf(\"%02x \", buf[i]);\n-        ++i;\n-        if (i % width == 0)\n-            printf(\"\\r\\n\");\n-    }\n-    if (i % width)\n-        printf(\"\\r\\n\");\n-}\n-\n-static void strdump(const char *tag, size_t width, const unsigned char *buf, size_t size)\n-{\n-    printf(\"%s\\r\\n\", tag);\n-    int i = 0;\n-    for (; i < size;)\n-    {\n-        printf(\"%c\", buf[i]);\n-        ++i;\n-        if (i % width == 0)\n-            printf(\"\\r\\n\");\n-    }\n-    if (i % width)\n-        printf(\"\\r\\n\");\n-}\n-\n-static void atest_cms_id_get_id(void)\n-{\n-    size_t     len  = 0;\n-    CMS_TYPE_T TYPE = PID;\n-    char      *name = NULL;\n-    uint8_t    id[128];\n-    for (; TYPE <= CWT_PLATFORM; TYPE++)\n-    {\n-        cms_id_get_id_len(TYPE, &len);\n-        cms_id_get_id(TYPE, id, len);\n-\n-        switch (TYPE)\n-        {\n-        case PID:\n-            name = \"PID\";\n-            break;\n-        case OID:\n-            name = \"OID\";\n-            break;\n-        case DID:\n-            name = \"DID\";\n-            break;\n-        case CTI_DEVICE:\n-            name = \"CTI_DEVICE\";\n-            break;\n-        case CTI_PLATFORM:\n-            name = \"CTI_PLATFORM\";\n-            break;\n-        case CWT_DEVICE:\n-            name = \"CWT_DEVICE\";\n-            break;\n-        case CWT_PLATFORM:\n-            name = \"CWT_PLATFORM\";\n-            break;\n-        default:\n-            break;\n-        }\n-        if (TYPE > DID)\n-            hexdump(name, 16, id, len);\n-        else\n-            strdump(name, 64, id, len);\n-        memset(id, 0, sizeof(id));\n-    }\n-}\n-\n-static void atest_cms_id_regist_check(void)\n-{\n-    int rc = CMS_ERROR_GENERIC_ERROR;\n-    rc     = cms_id_regist_check();\n-    if (rc != CMS_ERROR_SUCCESS)\n-    {\n-        printf(\"Device is don't regist.\\r\\n\");\n-    }\n-    else\n-    {\n-        printf(\"Device has registed.\\r\\n\");\n-    }\n-}\n-\n-static void atest_cms_id_regist(void)\n-{\n-    cms_id_regist();\n-}\n-\n-static void atest_cms_id_auth_check(void)\n-{\n-    int rc = CMS_ERROR_GENERIC_ERROR;\n-    rc     = cms_id_auth_check();\n-    if (rc != CMS_ERROR_SUCCESS)\n-    {\n-        printf(\"Device is don't auth.\\r\\n\");\n-    }\n-    else\n-    {\n-        printf(\"Device was authed.\\r\\n\");\n-    }\n-}\n-\n-static void atest_cms_id_auth(void)\n-{\n-    cms_id_authorize();\n-}\n-\n-static void cms_id_all(void)\n-{\n-    ATEST_UNIT_RUN(atest_cms_id_regist_check);\n-    ATEST_UNIT_RUN(atest_cms_id_auth_check);\n-\n-    ATEST_UNIT_RUN(atest_cms_id_regist);\n-    ATEST_UNIT_RUN(atest_cms_id_regist_check);\n-\n-    ATEST_UNIT_RUN(atest_cms_id_auth);\n-    ATEST_UNIT_RUN(atest_cms_id_auth_check);\n-\n-    ATEST_UNIT_RUN(atest_cms_id_get_id);\n-}\n-\n-ATEST_TC_EXPORT(cms.id.all, cms_id_all, NULL, NULL, TC_PRIORITY_LOW);\n-ATEST_TC_EXPORT(cms.id.getid, atest_cms_id_get_id, NULL, NULL, TC_PRIORITY_LOW);\n-ATEST_TC_EXPORT(cms.id.check.auth, atest_cms_id_auth_check, NULL, NULL, TC_PRIORITY_LOW);\n-ATEST_TC_EXPORT(cms.id.auth, atest_cms_id_auth, NULL, NULL, TC_PRIORITY_LOW);\n-ATEST_TC_EXPORT(cms.id.regist, atest_cms_id_regist, NULL, NULL, TC_PRIORITY_LOW);\n-ATEST_TC_EXPORT(cms.id.check.regist, atest_cms_id_regist_check, NULL, NULL, TC_PRIORITY_LOW);\n-#endif\n-\n-/* just use for debug code. */\n-//#define CMS_ID_DEBUG\n-#ifdef CMS_ID_DEBUG\n-#include \"cms_id_internal.h\"\n-static void cms_id_debug(void)\n-{\n-    uint8_t cti[16] = {0};\n-    memset(cti, 3, 16);\n-    uint8_t oid[] = \"1.2.156.113753.011P9sMHSB1P000000000032\";\n-\n-    cms_id_init();\n-    cms_id_set_value(CTI_PLATFORM, cti, 16);\n-    cms_id_gene_cwt();\n-\n-    cms_id_set_value(OID, oid, sizeof(oid));\n-    atest_cms_id_get_id();\n-\n-    cms_id_kdf_master(cti, 16);\n-    memset(cti, 0, 16);\n-    cms_id_get_value(KEY_MASTER, cti, 16);\n-\n-    hexdump(\"key_diff\", 64, cti, 16);\n-}\n-ATEST_TC_EXPORT(cms.id.debug, cms_id_debug, NULL, NULL, TC_PRIORITY_LOW);\n-#endif\n",
+        "sha": "6399942563314da8fcd5d3519046c49c5a8b5009"
+      },
+      {
+        "path": "components/cms/port/oneos/atest/coap_atest.c",
+        "status": "removed",
+        "statusRaw": "removed",
+        "additions": 0,
+        "deletions": 819,
+        "patch": "",
+        "sha": "994c85cf84967c291274c782d100aff8472c22c3"
+      },
+      {
+        "path": "components/cms/port/oneos/atest/mqtt_atest.c",
+        "status": "removed",
+        "statusRaw": "removed",
+        "additions": 0,
+        "deletions": 159,
+        "patch": "@@ -1,159 +0,0 @@\n-/**\n- ***********************************************************************************************************************\n- * Copyright (c) 2021, China Mobile Communications Group Co.,Ltd.\n- *\n- * Licensed under the Apache License, Version 2.0 (the \"License\"); you may not use this file except in compliance with\n- * the License. You may obtain a copy of the License at\n- *\n- *     http://www.apache.org/licenses/LICENSE-2.0\n- *\n- * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on\n- * an \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the\n- * specific language governing permissions and limitations under the License.\n- *\n- * @file        mqtt_atest.c\n- *\n- * @brief       This is mqtt test file based atest.\n- *\n- * @revision\n- * Date         Author          Notes\n- * 2020-10-13   OneOS Team      First Version\n- ***********************************************************************************************************************\n- */\n-#include \"oneos_config.h\"\n-#if defined(CMS_CONNECT_MQTT)\n-#include \"cms_con_mqtt.h\"\n-#include <shell.h>\n-#include <atest.h>\n-#include <os_errno.h>\n-#include <os_assert.h>\n-#include <stdlib.h>\n-#include <string.h>\n-#include <stdio.h>\n-\n-static void *mqtt_handle = NULL;\n-static int   scode       = 300;\n-char         topic_str[] = \"svr/300/req\";\n-\n-#define MQTT_ATEST_BUFF_DEEP 1000\n-static void atest_cms_mqtt_init(void)\n-{\n-    if (mqtt_handle != NULL)\n-        return;\n-    cms_mqtt_param param = {5000, MQTT_ATEST_BUFF_DEEP, MQTT_ATEST_BUFF_DEEP * 2};\n-    mqtt_handle          = cms_mqtt_init(scode, &param);\n-    tp_assert_true(mqtt_handle != NULL);\n-}\n-\n-static void atest_cms_mqtt_deinit(void)\n-{\n-    cms_mqtt_deinit(mqtt_handle);\n-    mqtt_handle = NULL;\n-}\n-\n-static void atest_cms_mqtt_connect(void)\n-{\n-    if (cms_mqtt_get_state(mqtt_handle) == cms_con_state_connect)\n-        return;\n-\n-    cms_mqtt_connect_param param;\n-    memset(&param, 0, sizeof(cms_mqtt_connect_param));\n-    param.client_id    = \"12345678\";\n-    param.username     = \"oneos\";\n-    param.password     = \"123456\";\n-    param.keep_alive_s = 300;\n-    int ret            = cms_mqtt_connect(mqtt_handle, &param);\n-    tp_assert_true(ret == 0);\n-    tp_assert_true(cms_mqtt_get_state(mqtt_handle) == cms_con_state_connect);\n-}\n-\n-static void atest_cms_mqtt_disconnect(void)\n-{\n-    tp_assert_true(cms_mqtt_get_state(mqtt_handle) == cms_con_state_connect);\n-    cms_mqtt_disconnect(mqtt_handle);\n-    tp_assert_true(cms_mqtt_get_state(mqtt_handle) == cms_con_state_disconnect);\n-}\n-\n-static void message_handler(void *handle, const char *topic_name, void *payload, size_t payload_len)\n-{\n-    printf(\"%s\\r\\n\", __func__);\n-    printf(\"topic:%s\\r\\n\", topic_name);\n-    uint8_t *buf = (uint8_t *)payload;\n-    for (int i = 0; i < payload_len; i++)\n-    {\n-        printf(\"%02X \", buf[i]);\n-    }\n-    printf(\"\\r\\n\");\n-}\n-\n-static void atest_cms_mqtt_subscribe(void)\n-{\n-    int rc = cms_mqtt_subscribe(mqtt_handle, topic_str, mqtt_qos1, message_handler);\n-    tp_assert_true(rc == CMS_ERROR_SUCCESS);\n-}\n-\n-static void atest_cms_mqtt_unsubscribe(void)\n-{\n-    int rc = cms_mqtt_unsubscribe(mqtt_handle, topic_str);\n-    tp_assert_true(rc == CMS_ERROR_SUCCESS);\n-}\n-\n-static char long_buf[MQTT_ATEST_BUFF_DEEP] = {0};\n-static void atest_cms_mqtt_publish(void)\n-{\n-    cms_mqtt_message mqtt_message;\n-\n-    memset(long_buf, '0', MQTT_ATEST_BUFF_DEEP - 100);\n-\n-    mqtt_message.qos        = mqtt_qos0;\n-    mqtt_message.payload    = (void *)long_buf;\n-    mqtt_message.payloadlen = MQTT_ATEST_BUFF_DEEP - 100;\n-    int rc                  = cms_mqtt_publish(mqtt_handle, topic_str, &mqtt_message);\n-    tp_assert_true(rc == CMS_ERROR_SUCCESS);\n-\n-    memset(long_buf, '1', MQTT_ATEST_BUFF_DEEP - 100);\n-    mqtt_message.qos        = mqtt_qos1;\n-    mqtt_message.payload    = (void *)long_buf;\n-    mqtt_message.payloadlen = MQTT_ATEST_BUFF_DEEP - 100;\n-    rc                      = cms_mqtt_publish(mqtt_handle, topic_str, &mqtt_message);\n-    tp_assert_true(rc == CMS_ERROR_SUCCESS);\n-}\n-\n-static void atest_cms_mqtt_pingreq(void)\n-{\n-    int rc = cms_mqtt_ping_request(mqtt_handle);\n-    tp_assert_true(rc == CMS_ERROR_SUCCESS);\n-}\n-\n-static void atest_cms_mqtt_get_state(void)\n-{\n-    int rc = cms_mqtt_get_state(mqtt_handle);\n-    if (rc == cms_con_state_connect)\n-        printf(\"mqtt is connected!\\r\\n\");\n-    else\n-        printf(\"mqtt is not connected!\\r\\n\");\n-}\n-\n-static void cms_mqtt_all(void)\n-{\n-    ATEST_UNIT_RUN(atest_cms_mqtt_init);\n-    ATEST_UNIT_RUN(atest_cms_mqtt_connect);\n-    ATEST_UNIT_RUN(atest_cms_mqtt_subscribe);\n-    ATEST_UNIT_RUN(atest_cms_mqtt_publish);\n-    ATEST_UNIT_RUN(atest_cms_mqtt_pingreq);\n-    ATEST_UNIT_RUN(atest_cms_mqtt_unsubscribe);\n-    ATEST_UNIT_RUN(atest_cms_mqtt_disconnect);\n-    ATEST_UNIT_RUN(atest_cms_mqtt_deinit);\n-}\n-\n-ATEST_TC_EXPORT(cms.mqtt.total, cms_mqtt_all, NULL, NULL, TC_PRIORITY_LOW);\n-ATEST_TC_EXPORT(cms.mqtt.init, atest_cms_mqtt_init, NULL, NULL, TC_PRIORITY_LOW);\n-ATEST_TC_EXPORT(cms.mqtt.deinit, atest_cms_mqtt_deinit, NULL, NULL, TC_PRIORITY_LOW);\n-ATEST_TC_EXPORT(cms.mqtt.connect, atest_cms_mqtt_connect, NULL, NULL, TC_PRIORITY_LOW);\n-ATEST_TC_EXPORT(cms.mqtt.disconnect, atest_cms_mqtt_disconnect, NULL, NULL, TC_PRIORITY_LOW);\n-ATEST_TC_EXPORT(cms.mqtt.subscribe, atest_cms_mqtt_subscribe, NULL, NULL, TC_PRIORITY_LOW);\n-ATEST_TC_EXPORT(cms.mqtt.unsubscribe, atest_cms_mqtt_unsubscribe, NULL, NULL, TC_PRIORITY_LOW);\n-ATEST_TC_EXPORT(cms.mqtt.publish, atest_cms_mqtt_publish, NULL, NULL, TC_PRIORITY_LOW);\n-ATEST_TC_EXPORT(cms.mqtt.ping, atest_cms_mqtt_pingreq, NULL, NULL, TC_PRIORITY_LOW);\n-ATEST_TC_EXPORT(cms.mqtt.state, atest_cms_mqtt_get_state, NULL, NULL, TC_PRIORITY_LOW);\n-#endif\n",
+        "sha": "c48456d1bdd594bf253847cc1ffc7fd809154ff8"
+      },
+      {
+        "path": "components/cms/port/oneos/atest/tcp_atest.c",
+        "status": "removed",
+        "statusRaw": "removed",
+        "additions": 0,
+        "deletions": 157,
+        "patch": "@@ -1,157 +0,0 @@\n-/**\n- ***********************************************************************************************************************\n- * Copyright (c) 2021, China Mobile Communications Group Co.,Ltd.\n- *\n- * Licensed under the Apache License, Version 2.0 (the \"License\"); you may not use this file except in compliance with\n- * the License. You may obtain a copy of the License at\n- *\n- *     http://www.apache.org/licenses/LICENSE-2.0\n- *\n- * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on\n- * an \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the\n- * specific language governing permissions and limitations under the License.\n- *\n- * @file        tcp_atest.c\n- *\n- * @brief       This is tcp test file based atest.\n- *\n- * @revision\n- * Date         Author          Notes\n- * 2020-10-13   OneOS Team      First Version\n- ***********************************************************************************************************************\n- */\n-#include \"oneos_config.h\"\n-#if defined(CMS_CONNECT_MQTT) || defined(CMS_CONNECT_TCP)\n-#include \"cms_con_tcp.h\"\n-#include <shell.h>\n-#include <atest.h>\n-#include <os_errno.h>\n-#include <stdlib.h>\n-#include <string.h>\n-#include <stdio.h>\n-#include <os_task.h>\n-#include <os_clock.h>\n-\n-static int        scode      = 301;\n-static void      *tcp_handle = NULL;\n-static os_task_id recv_task  = 0;\n-#define TCP_RX_MAX_LENGTH 5\n-\n-static float get_time_s(void)\n-{\n-    return ((float)os_tick_get_value() / OS_TICK_PER_SECOND);\n-}\n-\n-static uint8_t recv_buff[TCP_RX_MAX_LENGTH];\n-static int     cms_tcp_recv_once(uint32_t timeout)\n-{\n-    int rc = cms_tcp_recv(tcp_handle, recv_buff, sizeof(recv_buff), timeout);\n-    if (rc <= 0)\n-        return rc;\n-    printf(\"%s(time:%02f,len:%d)\", __func__, get_time_s(), rc);\n-    for (int i = 0; i < rc; i++)\n-    {\n-        if (i % 0x10 == 0)\n-            printf(\"\\r\\n\");\n-        printf(\"%02X \", recv_buff[i]);\n-    }\n-    printf(\"\\r\\n\");\n-    return rc;\n-}\n-static void atest_cms_tcp_recv(void)\n-{\n-    int rc = cms_tcp_recv_once(10 * 1000);\n-    tp_assert_true(rc > 0);\n-}\n-\n-static void atest_cms_tcp_recv_process(void *param)\n-{\n-    while (cms_tcp_get_state(tcp_handle) == cms_con_state_connect)\n-    {\n-        os_task_msleep(100);\n-        cms_tcp_recv_once(1);\n-    }\n-    printf(\"exit tcp recv task!\\r\\n\");\n-    recv_task = 0;\n-}\n-\n-static void atest_cms_tcp_recv_task(void)\n-{\n-    if (recv_task)\n-    {\n-        os_task_destroy(recv_task);\n-        recv_task = 0;\n-        return;\n-    }\n-    recv_task = os_task_create(NULL, NULL, 1024, \"tcp_recv_test\", atest_cms_tcp_recv_process, NULL, 22);\n-    os_task_startup(recv_task);\n-}\n-\n-static void atest_cms_tcp_init(void)\n-{\n-    if (tcp_handle != NULL)\n-        return;\n-    tcp_handle = cms_tcp_init(scode, TCP_RX_MAX_LENGTH);\n-    tp_assert_true(tcp_handle != NULL);\n-}\n-\n-static void atest_cms_tcp_deinit(void)\n-{\n-    if (tcp_handle == NULL)\n-        return;\n-    cms_tcp_deinit(tcp_handle);\n-    tcp_handle = NULL;\n-}\n-\n-static void atest_cms_tcp_connect(void)\n-{\n-    int rc;\n-    if (cms_tcp_get_state(tcp_handle) == cms_con_state_connect)\n-        return;\n-    rc = cms_tcp_connect(tcp_handle);\n-    tp_assert_true(rc == CMS_ERROR_SUCCESS);\n-    rc = cms_tcp_get_state(tcp_handle);\n-    tp_assert_true(rc == cms_con_state_connect);\n-}\n-\n-static void atest_cms_tcp_disconnect(void)\n-{\n-    cms_tcp_disconnect(tcp_handle);\n-    tp_assert_true(cms_tcp_get_state(tcp_handle) == cms_con_state_disconnect);\n-}\n-\n-static uint8_t buf[5] = {0x31, 0x32, 0x33, 0x34, 0x35};\n-static void    atest_cms_tcp_send(void)\n-{\n-    int rc = cms_tcp_send(tcp_handle, buf, sizeof(buf));\n-    tp_assert_true(rc == sizeof(buf));\n-}\n-\n-static void atest_cms_mqtt_get_state(void)\n-{\n-    int rc = cms_tcp_get_state(tcp_handle);\n-    if (rc == cms_con_state_connect)\n-        printf(\"tcp is connected!\\r\\n\");\n-    else\n-        printf(\"tcp is not connected!\\r\\n\");\n-}\n-\n-static void cms_tcp_all(void)\n-{\n-    ATEST_UNIT_RUN(atest_cms_tcp_init);\n-    ATEST_UNIT_RUN(atest_cms_tcp_connect);\n-    ATEST_UNIT_RUN(atest_cms_tcp_send);\n-    ATEST_UNIT_RUN(atest_cms_tcp_disconnect);\n-    ATEST_UNIT_RUN(atest_cms_tcp_deinit);\n-}\n-\n-ATEST_TC_EXPORT(cms.tcp.total, cms_tcp_all, NULL, NULL, TC_PRIORITY_LOW);\n-ATEST_TC_EXPORT(cms.tcp.init, atest_cms_tcp_init, NULL, NULL, TC_PRIORITY_LOW);\n-ATEST_TC_EXPORT(cms.tcp.deinit, atest_cms_tcp_deinit, NULL, NULL, TC_PRIORITY_LOW);\n-ATEST_TC_EXPORT(cms.tcp.connect, atest_cms_tcp_connect, NULL, NULL, TC_PRIORITY_LOW);\n-ATEST_TC_EXPORT(cms.tcp.disconnect, atest_cms_tcp_disconnect, NULL, NULL, TC_PRIORITY_LOW);\n-ATEST_TC_EXPORT(cms.tcp.recv.once, atest_cms_tcp_recv, NULL, NULL, TC_PRIORITY_LOW);\n-ATEST_TC_EXPORT(cms.tcp.recv.task, atest_cms_tcp_recv_task, NULL, NULL, TC_PRIORITY_LOW);\n-ATEST_TC_EXPORT(cms.tcp.state, atest_cms_mqtt_get_state, NULL, NULL, TC_PRIORITY_LOW);\n-ATEST_TC_EXPORT(cms.tcp.send, atest_cms_tcp_send, NULL, NULL, TC_PRIORITY_LOW);\n-#endif\n",
+        "sha": "f11e25e5ff02aff8dd8a2818b5a8d9983dd77ac7"
+      },
+      {
+        "path": "components/cms/port/oneos/atest/udp_atest.c",
+        "status": "removed",
+        "statusRaw": "removed",
+        "additions": 0,
+        "deletions": 131,
+        "patch": "@@ -1,131 +0,0 @@\n-/**\n- ***********************************************************************************************************************\n- * Copyright (c) 2021, China Mobile Communications Group Co.,Ltd.\n- *\n- * Licensed under the Apache License, Version 2.0 (the \"License\"); you may not use this file except in compliance with\n- * the License. You may obtain a copy of the License at\n- *\n- *     http://www.apache.org/licenses/LICENSE-2.0\n- *\n- * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on\n- * an \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the\n- * specific language governing permissions and limitations under the License.\n- *\n- * @file        udp_atest.c\n- *\n- * @brief       This is udp test file based atest.\n- *\n- * @revision\n- * Date         Author          Notes\n- * 2020-10-13   OneOS Team      First Version\n- ***********************************************************************************************************************\n- */\n-#include \"oneos_config.h\"\n-#if defined(CMS_CONNECT_COAP) || defined(CMS_CONNECT_UDP)\n-#include \"cms_con_udp.h\"\n-#include <shell.h>\n-#include <atest.h>\n-#include <os_errno.h>\n-#include <stdlib.h>\n-#include <string.h>\n-#include <stdio.h>\n-#include <os_task.h>\n-#include <os_clock.h>\n-\n-static int        scode      = 303;\n-static void      *udp_handle = NULL;\n-static os_task_id recv_task  = 0;\n-#define UDP_RX_MAX_LENGTH 5\n-\n-static float get_time_s(void)\n-{\n-    return ((float)os_tick_get_value() / OS_TICK_PER_SECOND);\n-}\n-\n-static uint8_t recv_buff[UDP_RX_MAX_LENGTH];\n-static int     cms_udp_recv_once(uint32_t timeout)\n-{\n-    int rc = cms_udp_recv(udp_handle, recv_buff, sizeof(recv_buff), timeout);\n-    if (rc <= 0)\n-        return rc;\n-    printf(\"%s(time:%02f,len:%d)\", __func__, get_time_s(), rc);\n-    for (int i = 0; i < rc; i++)\n-    {\n-        if (i % 0x10 == 0)\n-            printf(\"\\r\\n\");\n-        printf(\"%02X \", recv_buff[i]);\n-    }\n-    printf(\"\\r\\n\");\n-    return rc;\n-}\n-\n-static void atest_cms_udp_recv(void)\n-{\n-    int rc = cms_udp_recv_once(10 * 1000);\n-    tp_assert_true(rc > 0);\n-}\n-\n-static void atest_cms_udp_recv_process(void *param)\n-{\n-    while (cms_udp_get_state(udp_handle) == cms_con_state_connect)\n-    {\n-        os_task_msleep(100);\n-        cms_udp_recv_once(1);\n-    }\n-    printf(\"exit udp recv task!\\r\\n\");\n-    recv_task = 0;\n-}\n-\n-static void atest_cms_udp_recv_task(void)\n-{\n-    if (recv_task)\n-    {\n-        os_task_destroy(recv_task);\n-        recv_task = 0;\n-        return;\n-    }\n-    recv_task = os_task_create(NULL, NULL, 1024, \"udp_recv_test\", atest_cms_udp_recv_process, NULL, 22);\n-    os_task_startup(recv_task);\n-}\n-\n-static void atest_cms_udp_init(void)\n-{\n-    if (udp_handle != NULL)\n-        return;\n-    udp_handle = cms_udp_init(scode, UDP_RX_MAX_LENGTH);\n-    tp_assert_true(udp_handle != NULL);\n-}\n-\n-static void atest_cms_udp_deinit(void)\n-{\n-    if (udp_handle == NULL)\n-        return;\n-    cms_udp_deinit(udp_handle);\n-    udp_handle = NULL;\n-}\n-\n-static uint8_t buf[5] = {1, 2, 3, 4, 5};\n-static void    atest_cms_udp_send(void)\n-{\n-    // for (int i = 0; i < sizeof(buf); i++)\n-    // {\n-    //     buf[i] = i % 10 + '0';\n-    // }\n-    int rc = cms_udp_send(udp_handle, buf, sizeof(buf));\n-    tp_assert_true(rc == sizeof(buf));\n-}\n-\n-static void cms_udp_all(void)\n-{\n-    ATEST_UNIT_RUN(atest_cms_udp_init);\n-    ATEST_UNIT_RUN(atest_cms_udp_send);\n-    ATEST_UNIT_RUN(atest_cms_udp_deinit);\n-}\n-\n-ATEST_TC_EXPORT(cms.udp.all, cms_udp_all, NULL, NULL, TC_PRIORITY_LOW);\n-ATEST_TC_EXPORT(cms.udp.init, atest_cms_udp_init, NULL, NULL, TC_PRIORITY_LOW);\n-ATEST_TC_EXPORT(cms.udp.deinit, atest_cms_udp_deinit, NULL, NULL, TC_PRIORITY_LOW);\n-ATEST_TC_EXPORT(cms.udp.send, atest_cms_udp_send, NULL, NULL, TC_PRIORITY_LOW);\n-ATEST_TC_EXPORT(cms.udp.recv.once, atest_cms_udp_recv, NULL, NULL, TC_PRIORITY_LOW);\n-ATEST_TC_EXPORT(cms.udp.recv.task, atest_cms_udp_recv_task, NULL, NULL, TC_PRIORITY_LOW);\n-#endif\n",
+        "sha": "ba106ca3e3f2dfb08036f1ceb332ac17de3d07d9"
+      },
+      {
+        "path": "components/cms/port/oneos/cms_adapter.c",
+        "status": "removed",
+        "statusRaw": "removed",
+        "additions": 0,
+        "deletions": 31,
+        "patch": "@@ -1,31 +0,0 @@\n-/**\n- ***********************************************************************************************************************\n- * Copyright (c) 2021, China Mobile Communications Group Co.,Ltd.\n- *\n- * Licensed under the Apache License, Version 2.0 (the \"License\"); you may not use this file except in compliance with\n- * the License. You may obtain a copy of the License at\n- *\n- *     http://www.apache.org/licenses/LICENSE-2.0\n- *\n- * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on\n- * an \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the\n- * specific language governing permissions and limitations under the License.\n- *\n- * @file        cms_adapter.c\n- *\n- * @brief       Interface related to OS.\n- *\n- * @revision\n- * Date         Author          Notes\n- * 2020-10-13   OneOS Team      First Version\n- ***********************************************************************************************************************\n- */\n-#include \"cms_adapter.h\"\n-#include <arch_interrupt.h>\n-\n-void cms_safety_assert_process(void)\n-{\n-    os_irq_disable();\n-    while (1)\n-        ;\n-}\n",
+        "sha": "8d0c979caf6295e94269d1c4a779a163afdf6200"
+      },
+      {
+        "path": "components/cms/port/oneos/cms_clock.c",
+        "status": "removed",
+        "statusRaw": "removed",
+        "additions": 0,
+        "deletions": 48,
+        "patch": "@@ -1,48 +0,0 @@\n-/**\n- ***********************************************************************************************************************\n- * Copyright (c) 2021, China Mobile Communications Group Co.,Ltd.\n- *\n- * Licensed under the Apache License, Version 2.0 (the \"License\"); you may not use this file except in compliance with\n- * the License. You may obtain a copy of the License at\n- *\n- *     http://www.apache.org/licenses/LICENSE-2.0\n- *\n- * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on\n- * an \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the\n- * specific language governing permissions and limitations under the License.\n- *\n- * @file        cms_adapter.c\n- *\n- * @brief       Interface related to OS.\n- *\n- * @revision\n- * Date         Author          Notes\n- * 2020-10-13   OneOS Team      First Version\n- ***********************************************************************************************************************\n- */\n-#include \"cms_clock.h\"\n-#include <os_clock.h>\n-\n-size_t get_time_ms(void)\n-{\n-    size_t sys_ms;\n-    if (OS_TICK_PER_SECOND < 1000)\n-        sys_ms = os_tick_get_value() * (1000 / OS_TICK_PER_SECOND);\n-    else\n-        sys_ms = os_tick_get_value() / OS_TICK_PER_SECOND * 1000;        \n-    return sys_ms;\n-}\n-size_t get_sys_tick(void)\n-{\n-    return os_tick_get_value();\n-}\n-\n-size_t get_tick_from_ms(size_t ms)\n-{\n-    return ms * OS_TICK_PER_SECOND / 1000;\n-}\n-\n-size_t get_ms_from_tick(size_t tick)\n-{\n-    return tick * 1000 / OS_TICK_PER_SECOND;\n-}\n",
+        "sha": "0ef11c8825ea603931bb53eadf083203e32a3d22"
+      },
+      {
+        "path": "components/cms/port/oneos/cms_memory.c",
+        "status": "removed",
+        "statusRaw": "removed",
+        "additions": 0,
+        "deletions": 55,
+        "patch": "@@ -1,55 +0,0 @@\n-/**\n- ***********************************************************************************************************************\n- * Copyright (c) 2021, China Mobile Communications Group Co.,Ltd.\n- *\n- * Licensed under the Apache License, Version 2.0 (the \"License\"); you may not use this file except in compliance with\n- * the License. You may obtain a copy of the License at\n- *\n- *     http://www.apache.org/licenses/LICENSE-2.0\n- *\n- * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on\n- * an \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the\n- * specific language governing permissions and limitations under the License.\n- *\n- * @file        cms_adapter.c\n- *\n- * @brief       Interface related to OS.\n- *\n- * @revision\n- * Date         Author          Notes\n- * 2020-10-13   OneOS Team      First Version\n- ***********************************************************************************************************************\n- */\n-#include \"cms_memory.h\"\n-#include <os_memory.h>\n-#include <string.h>\n-\n-void *cms_malloc(size_t size)\n-{\n-    return os_malloc(size);\n-}\n-\n-void *cms_calloc(size_t count, size_t size)\n-{\n-    return os_calloc(count, size);\n-}\n-\n-void *cms_realloc(void *ptr, size_t new_size)\n-{\n-    return os_realloc(ptr, new_size);\n-}\n-\n-void cms_free(void *ptr)\n-{\n-    os_free(ptr);\n-}\n-\n-void cms_memcpy(void *dst, const void *src, size_t size)\n-{\n-    memcpy(dst, src, size);\n-}\n-\n-void cms_memset(void *dst, int ch, size_t size)\n-{\n-    memset(dst, ch, size);\n-}\n",
+        "sha": "66ab67406186434553aa8bfbd95661031e2eafef"
+      },
+      {
+        "path": "components/cms/port/oneos/cms_mutex.c",
+        "status": "removed",
+        "statusRaw": "removed",
+        "additions": 0,
+        "deletions": 67,
+        "patch": "@@ -1,67 +0,0 @@\n-/**\n- ***********************************************************************************************************************\n- * Copyright (c) 2021, China Mobile Communications Group Co.,Ltd.\n- *\n- * Licensed under the Apache License, Version 2.0 (the \"License\"); you may not use this file except in compliance with\n- * the License. You may obtain a copy of the License at\n- *\n- *     http://www.apache.org/licenses/LICENSE-2.0\n- *\n- * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on\n- * an \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the\n- * specific language governing permissions and limitations under the License.\n- *\n- * @file        cms_adapter.c\n- *\n- * @brief       Interface related to OS.\n- *\n- * @revision\n- * Date         Author          Notes\n- * 2020-10-13   OneOS Team      First Version\n- ***********************************************************************************************************************\n- */\n-#include \"cms_mutex.h\"\n-#include \"cms_memory.h\"\n-#include <os_mutex.h>\n-\n-#ifndef FALSE\n-#define FALSE (0)\n-#endif\n-\n-#ifndef TRUE\n-#define TRUE (1)\n-#endif\n-\n-void *mutex_create(void)\n-{\n-    os_mutex_id *mutex = cms_malloc(sizeof(os_mutex_id));\n-    if (mutex == NULL)\n-        return NULL;\n-    *mutex = os_mutex_create(NULL, \"cms\", TRUE);\n-    if (*mutex)\n-        return mutex;    // success\n-    cms_free(mutex);\n-    return NULL;    // fail\n-}\n-\n-void mutex_destroy(void *mutex)\n-{\n-    if (mutex == NULL)\n-        return;\n-    (void)os_mutex_destroy(*(os_mutex_id *)mutex);\n-    cms_free(mutex);\n-}\n-\n-void mutex_lock(void *mutex)\n-{\n-    if (mutex == NULL)\n-        return;\n-    os_mutex_recursive_lock(*(os_mutex_id *)mutex, OS_WAIT_FOREVER);\n-}\n-\n-void mutex_unlock(void *mutex)\n-{\n-    if (mutex == NULL)\n-        return;\n-    os_mutex_recursive_unlock(*(os_mutex_id *)mutex);\n-}\n",
+        "sha": "394ce8ef1ee96165baea7d64965bb8b4b4daaaa0"
+      },
+      {
+        "path": "components/cms/port/oneos/cms_net.c",
+        "status": "removed",
+        "statusRaw": "removed",
+        "additions": 0,
+        "deletions": 201,
+        "patch": "@@ -1,201 +0,0 @@\n-/**\n- ***********************************************************************************************************************\n- * Copyright (c) 2021, China Mobile Communications Group Co.,Ltd.\n- *\n- * Licensed under the Apache License, Version 2.0 (the \"License\"); you may not use this file except in compliance with\n- * the License. You may obtain a copy of the License at\n- *\n- *     http://www.apache.org/licenses/LICENSE-2.0\n- *\n- * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on\n- * an \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the\n- * specific language governing permissions and limitations under the License.\n- *\n- * @file        cms_adapter.c\n- *\n- * @brief       Interface related to OS.\n- *\n- * @revision\n- * Date         Author          Notes\n- * 2020-10-13   OneOS Team      First Version\n- ***********************************************************************************************************************\n- */\n-#include \"cms_net.h\"\n-#include \"cms_memory.h\"\n-#include <sys/socket.h>\n-#include <sys/select.h>\n-#include <sys/time.h>\n-#include <netdb.h>\n-\n-typedef struct __CMS_NET_HANDEL__\n-{\n-    int             type;\n-    struct sockaddr to_addr;\n-    int             fd;\n-} CMS_NET_HANDEL;\n-\n-void *cms_connect(const char *url, const char *port, enum CMS_TRANS_PROT_TYPE type)\n-{\n-    int              fd = -1;\n-    struct addrinfo *addr_list;\n-    struct addrinfo *addr;\n-    struct addrinfo  addr_info;\n-    struct sockaddr  to_addr;\n-\n-\tcms_memset(&addr_info, 0, sizeof(addr_info));\n-    if (CMS_TCP == type)\n-    {\n-        addr_info.ai_protocol = IPPROTO_TCP;\n-        addr_info.ai_socktype = SOCK_STREAM;\n-    }\n-    else if (CMS_UDP == type)\n-    {\n-        addr_info.ai_protocol = IPPROTO_UDP;\n-        addr_info.ai_socktype = SOCK_DGRAM;\n-    }\n-    else\n-        return NULL;\n-\n-    if (getaddrinfo(url, port, &addr_info, &addr_list))\n-    {\n-        return NULL;\n-    }\n-\n-    for (addr = addr_list; addr != NULL; addr = addr->ai_next)\n-    {\n-        fd = socket(addr->ai_family, addr->ai_socktype, addr->ai_protocol);\n-        if (fd < 0)\n-        {\n-            continue;\n-        }\n-\n-        if (type == CMS_UDP)\n-        {\n-            to_addr = *(addr->ai_addr);\n-            break;\n-        }\n-\n-        if (type == CMS_TCP && connect(fd, addr->ai_addr, addr->ai_addrlen) == 0)\n-        {\n-            break;\n-        }\n-        closesocket(fd);\n-        fd = -1;\n-    }\n-    freeaddrinfo(addr_list);\n-    if (fd < 0)\n-        return NULL;\n-    CMS_NET_HANDEL *handle = cms_malloc(sizeof(CMS_NET_HANDEL));\n-    if (handle == NULL)\n-        return NULL;\n-    handle->type    = type;\n-    handle->to_addr = to_addr;\n-    handle->fd      = fd;\n-    return (void *)handle;\n-}\n-\n-static int cms_tcp_send(int fd, const void *data, size_t size, int timeout_ms)\n-{\n-    if (timeout_ms)\n-    {\n-        struct timeval interval = {timeout_ms / 1000, (timeout_ms % 1000) * 1000};\n-        setsockopt(fd, SOL_SOCKET, SO_SNDTIMEO, (char *)&interval, sizeof(struct timeval));\n-    }\n-    return send(fd, data, size, 0);\n-}\n-\n-static int cms_udp_send(int fd, const void *data, size_t size, int timeout_ms, const struct sockaddr *to, size_t tolen)\n-{\n-    if (timeout_ms)\n-    {\n-        struct timeval interval = {timeout_ms / 1000, (timeout_ms % 1000) * 1000};\n-        setsockopt(fd, SOL_SOCKET, SO_SNDTIMEO, (char *)&interval, sizeof(struct timeval));\n-    }\n-    return sendto(fd, data, size, 0, to, tolen);\n-}\n-\n-static int cms_tcp_recv(int fd, void *data, size_t size, int timeout_ms)\n-{\n-    int            rc;\n-    struct timeval interval;\n-    fd_set         read_fds;\n-\n-    FD_ZERO(&read_fds);\n-    FD_SET(fd, &read_fds);\n-\n-    interval.tv_sec  = timeout_ms / 1000;\n-    interval.tv_usec = (timeout_ms % 1000) * 1000 + 1;\n-\n-    rc = select(fd + 1, &read_fds, NULL, NULL, &interval);\n-    if (rc <= 0)\n-        return rc;\n-\n-    rc = recv(fd, data, size, 0);\n-    if (rc == 0)\n-    {\n-        closesocket(fd);\n-        return -1;\n-    }\n-    return rc;\n-}\n-\n-static int cms_udp_recv(int fd, void *data, size_t size, int timeout_ms, struct sockaddr *from, uint32_t *fromlen)\n-{\n-    int            rc;\n-    struct timeval interval;\n-    fd_set         read_fds;\n-\n-    FD_ZERO(&read_fds);\n-    FD_SET(fd, &read_fds);\n-\n-    interval.tv_sec  = timeout_ms / 1000;\n-    interval.tv_usec = (timeout_ms % 1000) * 1000 + 1;\n-\n-    rc = select(fd + 1, &read_fds, NULL, NULL, &interval);\n-    if (rc <= 0)\n-    {\n-        return rc;\n-    }\n-    return recvfrom(fd, data, size, 0, from, fromlen);\n-}\n-\n-int cms_send_with_timeout(void *net_handle, const void *data, size_t size, int timeout_ms)\n-{\n-    CMS_NET_HANDEL *handle = (CMS_NET_HANDEL *)net_handle;\n-    if (handle == NULL)\n-        return -1;\n-    if (handle->type == CMS_TCP)\n-    {\n-        return cms_tcp_send(handle->fd, data, size, timeout_ms);\n-    }\n-    else\n-    {\n-        return cms_udp_send(handle->fd, data, size, timeout_ms, &(handle->to_addr), sizeof(handle->to_addr));\n-    }\n-}\n-\n-int cms_recv_with_timeout(void *net_handle, void *mem, size_t len, int timeout_ms)\n-{\n-    CMS_NET_HANDEL *handle = (CMS_NET_HANDEL *)net_handle;\n-    if (handle == NULL)\n-        return -1;\n-    if (handle->type == CMS_TCP)\n-    {\n-        return cms_tcp_recv(handle->fd, mem, len, timeout_ms);\n-    }\n-    else\n-    {\n-        uint32_t fromlen = sizeof(handle->to_addr);\n-        return cms_udp_recv(handle->fd, mem, len, timeout_ms, &(handle->to_addr), &fromlen);\n-    }\n-}\n-\n-int cms_closesocket(void *net_handle)\n-{\n-    CMS_NET_HANDEL *handle = (CMS_NET_HANDEL *)net_handle;\n-    if (handle == NULL)\n-        return -1;\n-    int rc = closesocket(handle->fd);\n-    cms_free(handle);\n-    return rc;\n-}\n",
+        "sha": "32ca2b22ed1fbaa2abba1b255c351dd91a7ac238"
+      },
+      {
+        "path": "components/cms/port/oneos/cms_ring_buff.c",
+        "status": "removed",
+        "statusRaw": "removed",
+        "additions": 0,
+        "deletions": 54,
+        "patch": "@@ -1,54 +0,0 @@\n-/**\n- ***********************************************************************************************************************\n- * Copyright (c) 2021, China Mobile Communications Group Co.,Ltd.\n- *\n- * Licensed under the Apache License, Version 2.0 (the \"License\"); you may not use this file except in compliance with\n- * the License. You may obtain a copy of the License at\n- *\n- *     http://www.apache.org/licenses/LICENSE-2.0\n- *\n- * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on\n- * an \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the\n- * specific language governing permissions and limitations under the License.\n- *\n- * @file        cms_adapter.c\n- *\n- * @brief       Interface related to OS.\n- *\n- * @revision\n- * Date         Author          Notes\n- * 2020-10-13   OneOS Team      First Version\n- ***********************************************************************************************************************\n- */\n-#include \"cms_ring_buff.h\"\n-#include <ring_buff.h>\n-\n-void *cms_con_ring_fifo_init(uint32_t max_length)\n-{\n-    return (void *)rb_ring_buff_create(OS_ALIGN_UP(max_length, OS_ALIGN_SIZE));\n-}\n-\n-void cms_con_ring_fifo_deinit(void *ring_fifo)\n-{\n-    rb_ring_buff_destroy((rb_ring_buff_t *)ring_fifo);\n-}\n-\n-int cms_con_ring_fifo_write(void *ring_fifo, uint8_t *buffer, uint32_t write_length)\n-{\n-    return rb_ring_buff_put((rb_ring_buff_t *)ring_fifo, buffer, write_length);\n-}\n-\n-int cms_con_ring_fifo_read(void *ring_fifo, uint8_t *buffer, uint32_t read_length)\n-{\n-    return rb_ring_buff_get((rb_ring_buff_t *)ring_fifo, buffer, read_length);\n-}\n-\n-uint32_t cms_con_ring_fifo_get_space_length(void *ring_fifo)\n-{\n-    return rb_ring_buff_space_len((rb_ring_buff_t *)ring_fifo);\n-}\n-\n-uint32_t cms_con_ring_fifo_get_data_length(void *ring_fifo)\n-{\n-    return rb_ring_buff_data_len((rb_ring_buff_t *)ring_fifo);\n-}\n",
+        "sha": "646a02f7cdac35b602a854cb61b4702b844ec702"
+      },
+      {
+        "path": "components/cms/port/oneos/cms_sem.c",
+        "status": "removed",
+        "statusRaw": "removed",
+        "additions": 0,
+        "deletions": 55,
+        "patch": "@@ -1,55 +0,0 @@\n-/**\n- ***********************************************************************************************************************\n- * Copyright (c) 2021, China Mobile Communications Group Co.,Ltd.\n- *\n- * Licensed under the Apache License, Version 2.0 (the \"License\"); you may not use this file except in compliance with\n- * the License. You may obtain a copy of the License at\n- *\n- *     http://www.apache.org/licenses/LICENSE-2.0\n- *\n- * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on\n- * an \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the\n- * specific language governing permissions and limitations under the License.\n- *\n- * @file        cms_adapter.c\n- *\n- * @brief       Interface related to OS.\n- *\n- * @revision\n- * Date         Author          Notes\n- * 2020-10-13   OneOS Team      First Version\n- ***********************************************************************************************************************\n- */\n-#include \"cms_sem.h\"\n-#include \"cms_memory.h\"\n-#include <os_sem.h>\n-#include <os_clock.h>\n-\n-void *cms_sem_create(const char *name, uint16_t initial_value, uint16_t max_value)\n-{\n-    os_semaphore_id *sem = cms_malloc(sizeof(os_semaphore_id));\n-    if (sem == NULL)\n-        return NULL;\n-    *sem = os_semaphore_create(NULL, name, initial_value, max_value);\n-    if (*sem)\n-        return sem;    // success\n-    cms_free(sem);\n-    return NULL;    // fail\n-}\n-\n-void cms_sem_destroy(void *sem)\n-{\n-    os_semaphore_destroy(*(os_semaphore_id *)sem);\n-    cms_free(sem);\n-}\n-\n-int cms_sem_wait(void *sem, uint32_t timeout_ms)\n-{\n-    os_tick_t timeout_tick = os_tick_from_ms(timeout_ms);\n-    return os_semaphore_wait(*(os_semaphore_id *)sem, timeout_tick);\n-}\n-\n-void cms_sem_post(void *sem)\n-{\n-    os_semaphore_post(*(os_semaphore_id *)sem);\n-}\n",
+        "sha": "4a4a62be613064264e979ed0ce8c61b945a2497e"
+      },
+      {
+        "path": "components/cms/port/oneos/cms_thread.c",
+        "status": "removed",
+        "statusRaw": "removed",
+        "additions": 0,
+        "deletions": 53,
+        "patch": "@@ -1,53 +0,0 @@\n-/**\n- ***********************************************************************************************************************\n- * Copyright (c) 2021, China Mobile Communications Group Co.,Ltd.\n- *\n- * Licensed under the Apache License, Version 2.0 (the \"License\"); you may not use this file except in compliance with\n- * the License. You may obtain a copy of the License at\n- *\n- *     http://www.apache.org/licenses/LICENSE-2.0\n- *\n- * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on\n- * an \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the\n- * specific language governing permissions and limitations under the License.\n- *\n- * @file        cms_adapter.c\n- *\n- * @brief       Interface related to OS.\n- *\n- * @revision\n- * Date         Author          Notes\n- * 2020-10-13   OneOS Team      First Version\n- ***********************************************************************************************************************\n- */\n-#include \"cms_thread.h\"\n-#include \"cms_memory.h\"\n-#include <os_task.h>\n-\n-void *task_create(void (*entry)(void *arg), void *arg, uint32_t stack_size, uint8_t priority)\n-{\n-    return task_create_with_name(NULL, entry, arg, stack_size, priority);\n-}\n-void *\n-task_create_with_name(const char *name, void (*entry)(void *arg), void *arg, uint32_t stack_size, uint8_t priority)\n-{\n-    os_task_id task = os_task_create(NULL, NULL, stack_size, name, entry, arg, priority);\n-    if (task)\n-        return (void *)task;    // success\n-    return NULL;\n-}\n-\n-int task_startup(void *task)\n-{\n-    return os_task_startup((os_task_id)task);\n-}\n-\n-void task_destroy(void *task)\n-{\n-    (void)os_task_destroy((os_task_id)task);\n-}\n-\n-void msleep(uint32_t ms)\n-{\n-    (void)os_task_msleep(ms);\n-}\n",
+        "sha": "ab66b98556785eaa899c5150c3649a1703a7a8c9"
+      },
+      {
+        "path": "components/cms/port/oneos/weave.yaml",
+        "status": "removed",
+        "statusRaw": "removed",
+        "additions": 0,
+        "deletions": 19,
+        "patch": "@@ -1,19 +0,0 @@\n-# 组名\n-group_name: cms/port\n-\n-# 编译选项（支持条件表达式）\n-build_option:\n-  cpppath:\n-    - ../\n-\n-# 源码（支持条件表达式）\n-source_file:\n-  - cms_clock.c\n-  - cms_memory.c\n-  - cms_mutex.c\n-  - cms_net.c\n-  - cms_ring_buff.c\n-  - cms_sem.c\n-  - cms_thread.c\n-  - cms_adapter.c\n-  \n\\ No newline at end of file\n",
+        "sha": "cf259c1a939f041d82e832dee542e18e66b731e2"
+      },
+      {
+        "path": "components/cms/port/weave.yaml",
+        "status": "removed",
+        "statusRaw": "removed",
+        "additions": 0,
+        "deletions": 3,
+        "patch": "@@ -1,3 +0,0 @@\n-# 子目录（支持条件表达式）\n-add_subdirectory:\n- - oneos\n\\ No newline at end of file\n",
+        "sha": "9f0049893dbb8a9162412fb1eddcb10b287c411c"
+      },
+      {
+        "path": "components/cms/weave.yaml",
+        "status": "removed",
+        "statusRaw": "removed",
+        "additions": 0,
+        "deletions": 4,
+        "patch": "@@ -1,4 +0,0 @@\n-# 子目录（支持条件表达式）\n-add_subdirectory:\n-  - port?{is_define('USING_CMS_CONNECT') or is_define('CMS_USING_ID')}\n-  - source?{is_define('USING_CMS_CONNECT') or is_define('CMS_USING_ID')}\n\\ No newline at end of file\n",
+        "sha": "ae25b3ef062745d11ee893d47ae981b24bd434cd"
       }
     ]
   },
   "compare": {
     "base": "dev",
-    "head": "63e44b69ea1af37d309cce490c59cda5d190c8a1",
+    "head": "4335303c9a57ffcf13225dcf39dfd23b8237e03b",
     "aheadBy": 0,
     "commits": [],
     "files": []

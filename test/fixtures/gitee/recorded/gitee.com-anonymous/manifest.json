@@ -17,7 +17,7 @@
       "name": "OneOS"
     },
     "kind": "pull_request",
-    "number": "550"
+    "number": "540"
   },
   "issue": {
     "forge": "gitee",
@@ -31,9 +31,10 @@
     "kind": "issue",
     "number": "I8NUPF"
   },
-  "recordedAt": "2026-10-08T19:11:38.833Z",
+  "recordedAt": "2026-10-11T12:36:16.114Z",
   "steps": [
     "repo",
+    "repo licence",
     "labels",
     "collaborators",
     "pull",
@@ -41,6 +42,7 @@
     "pull getMany",
     "pull events",
     "pull comments",
+    "pull getComment",
     "pull checks",
     "pull files",
     "pull commits",
@@ -49,6 +51,7 @@
     "issue getMany",
     "issue events",
     "issue comments",
+    "issue getComment",
     "user",
     "checks",
     "readme",

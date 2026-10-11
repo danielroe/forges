@@ -1,26 +1,24 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://grisette.us-west.host.bsky.network/xrpc/com.atproto.repo.getRecord?repo=did%3Aplc%3Aqfpnj4og54vl56wngdriaxug&collection=sh.tangled.repo.issue&rkey=3ljnffy24un22"
+    "url": "https://oysterling.us-west.host.bsky.network/xrpc/com.atproto.repo.getRecord?repo=did%3Aplc%3Awshs7t2adsemcrrd4snkeqli&collection=sh.tangled.repo.issue.state&rkey=3lkkrh3wgy422"
   },
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"161-UJClbmZS/2F6nt6ZE9v99xfFyKA\"",
+      "etag": "W/\"171-UsdoyxpPD574B0paaeMoa+hHt14\"",
       "ratelimit-limit": "3000",
-      "ratelimit-remaining": "2993",
-      "ratelimit-reset": "1791496588"
+      "ratelimit-remaining": "2969",
+      "ratelimit-reset": "1791720405"
     },
     "body": {
-      "uri": "at://did:plc:qfpnj4og54vl56wngdriaxug/sh.tangled.repo.issue/3ljnffy24un22",
-      "cid": "bafyreibi4x2jvhyny7zmuezxia2wvw6djwalpwj3gb3wegedcxipxzeeo4",
+      "uri": "at://did:plc:wshs7t2adsemcrrd4snkeqli/sh.tangled.repo.issue.state/3lkkrh3wgy422",
+      "cid": "bafyreihuyxrjcbjgc43cfpossym3bkytzvc5gny575zjfjor4xa7doi2gi",
       "value": {
-        "body": "x",
-        "repo": "at://did:plc:wshs7t2adsemcrrd4snkeqli/sh.tangled.repo/3ljbiayluee22",
-        "$type": "sh.tangled.repo.issue",
-        "title": "x",
-        "repoDid": "did:plc:g66xej5jct643d6bgukldn77",
-        "createdAt": ""
+        "$type": "sh.tangled.repo.issue.state",
+        "issue": "at://did:plc:o3bh4ov7x4ypfz4xg5redtki/sh.tangled.repo.issue/3lkkrh3wgy422",
+        "state": "sh.tangled.repo.issue.state.closed",
+        "createdAt": "2025-03-17T08:48:28Z"
       }
     }
   }

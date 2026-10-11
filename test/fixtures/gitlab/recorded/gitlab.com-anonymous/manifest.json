@@ -31,7 +31,25 @@
     "kind": "issue",
     "number": "8572"
   },
-  "recordedAt": "2026-10-08T21:44:23.752Z",
+  "scratch": {
+    "forge": "gitlab",
+    "instance": "gitlab.com",
+    "owner": "forges-fixtures",
+    "name": "forges-fixtures"
+  },
+  "transfer": {
+    "forge": "gitlab",
+    "instance": "gitlab.com",
+    "owner": "forges-fixtures",
+    "name": "forges-fixtures-transfer"
+  },
+  "collaborators": {
+    "forge": "gitlab",
+    "instance": "gitlab.com",
+    "owner": "roebot",
+    "name": "forges-fixtures-outside"
+  },
+  "recordedAt": "2026-10-11T15:04:42.908Z",
   "steps": [
     "repo",
     "repo licence",
@@ -41,6 +59,7 @@
     "pull getMany",
     "pull reactions",
     "pull reviews",
+    "pull getReview",
     "pull checks",
     "pull files",
     "pull commits",
@@ -53,14 +72,15 @@
     "commit comments",
     "user",
     "ci runs",
+    "ci runs by branch and state",
     "ci run",
     "ci jobs",
+    "ci job",
     "readme",
     "tree",
     "branches",
     "tags",
     "resolve default branch",
-    "commits",
     "commit",
     "compare",
     "releases",

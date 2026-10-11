@@ -35,20 +35,29 @@
     "externalId": "at://did:plc:qfpnj4og54vl56wngdriaxug/sh.tangled.repo.issue/3ljnffy24un22"
   },
   "account": "did:plc:jbeaa5kdaladzwq3r7f5xgwe",
-  "recordedAt": "2026-10-09T13:15:05.993Z",
+  "scratch": {
+    "forge": "tangled",
+    "instance": "tangled.org",
+    "owner": "roebot.tngl.sh",
+    "name": "forges-fixtures"
+  },
+  "recordedAt": "2026-10-11T12:01:42.884Z",
   "steps": [
     "repo",
+    "repo licence",
     "pull",
     "pull list",
     "pull getMany",
     "pull events",
     "pull comments",
+    "pull getComment",
     "pull subscription",
     "issue",
     "issue list",
     "issue getMany",
     "issue events",
     "issue comments",
+    "issue getComment",
     "issue subscription",
     "me",
     "own repos"

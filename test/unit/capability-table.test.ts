@@ -169,6 +169,13 @@ describe('capability table', () => {
     expect(github({ auth }).create().capabilities.writes.upsertComment.issue).toBe('emulated')
   })
 
+  it('emulates a single-item read from its listing, at the level the spec sets', () => {
+    expect(bitbucket({ auth }).create().support('threads.getComment', 'pull_request')).toBe('emulated')
+    expect(bitbucket({}).create().support('threads.getComment', 'pull_request')).toBe('unverified')
+    expect(bitbucket({ auth }).create().support('threads.getComment', 'issue')).toBe(false)
+    expect(github({ auth }).create().support('threads.getComment', 'issue')).toBe(true)
+  })
+
   it('reports the strongest level across kinds without a kind', () => {
     expect(cursorOrigin({ auth }).create().support('threads.get')).toBe('experimental')
     expect(gitee({ auth }).create().support('threads.comment')).toBe(true)

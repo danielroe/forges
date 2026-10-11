@@ -13,7 +13,7 @@ export interface CapabilityEntry {
   /** Support is declared per thread kind. */
   perKind?: boolean
   /** The capability is computed by core rather than read from a declared verb. */
-  derived?: 'experimental' | 'poll' | 'webhook' | 'threadEvents' | 'upsertComment' | 'subscriptionSet' | 'approve' | 'approveAndMerge' | 'alertKinds' | 'eventKinds' | 'authKinds' | 'limits'
+  derived?: 'experimental' | 'poll' | 'webhook' | 'threadEvents' | 'upsertComment' | 'getComment' | 'getReview' | 'ciJob' | 'subscriptionSet' | 'approve' | 'approveAndMerge' | 'alertKinds' | 'eventKinds' | 'authKinds' | 'limits'
   /** The verbs change state, so `readOnly` and anonymous providers reject them. */
   write?: boolean
   /** The verbs need an account, so anonymous providers reject them. */
@@ -49,7 +49,7 @@ const TABLE = [
   { capability: 'threads.getMany' },
   { capability: 'threads.events', spec: 'threads.eventsPage', derived: 'threadEvents' },
   { capability: 'comments.list', spec: 'threads.commentsPage', perKind: true },
-  { capability: 'comments.get', spec: 'threads.getComment', perKind: true },
+  { capability: 'comments.get', spec: 'threads.getComment', derived: 'getComment', perKind: true },
   { capability: 'comments.edit', write: true, spec: 'threads.editComment', perKind: true },
   { capability: 'comments.delete', write: true, spec: 'threads.deleteComment', perKind: true },
   { capability: 'reactions.list', spec: 'threads.reactionsPage', perKind: true },
@@ -88,7 +88,7 @@ const TABLE = [
   { capability: 'ci.runs', listing: true },
   { capability: 'ci.run' },
   { capability: 'ci.jobs', listing: true },
-  { capability: 'ci.job' },
+  { capability: 'ci.job', spec: 'ci.job', derived: 'ciJob' },
   { capability: 'ci.log' },
   { capability: 'contents.file' },
   { capability: 'contents.tree', listing: true },
@@ -101,7 +101,7 @@ const TABLE = [
   { capability: 'contents.threadFiles', spec: 'threads.filesPage' },
   { capability: 'contents.threadCommits', spec: 'threads.commitsPage' },
   { capability: 'reviews.list', spec: 'threads.reviewsPage' },
-  { capability: 'reviews.get', spec: 'threads.getReview' },
+  { capability: 'reviews.get', spec: 'threads.getReview', derived: 'getReview' },
   { capability: 'reviews.create', write: true, spec: 'threads.createReview' },
   { capability: 'reviews.submit', write: true, spec: 'threads.submitReview' },
   { capability: 'reviews.approve', write: true, spec: 'threads.approve', derived: 'approve' },

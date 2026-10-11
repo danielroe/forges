@@ -590,15 +590,6 @@ const GITLAB: ProviderDefinition<GitLabOptions> = {
       return (approvals.approved_by ?? []).map(({ user }) => syntheticReview(ref, `approval:${user?.username ?? user?.id ?? ''}`, 'approved', { author: toActor(instance, user), stateRaw: 'approved', raw: user }))
     }
 
-    async function approvalReviews(thread: ThreadRef, options?: BaseOptions): Promise<Review[]> {
-      const ref = requireThread(thread, context)
-      if (ref.kind !== 'pull_request') {
-        throw new UnsupportedOperationError('Only merge requests have approvals', context)
-      }
-      const { data } = await fetcher.json<GitLabApprovals>(`${threadPath(ref)}/approvals`, { signal: options?.signal })
-      return toApprovalReviews(ref, data)
-    }
-
     async function approve(thread: ThreadRef, body?: string, options?: BaseOptions): Promise<GitLabApprovals> {
       const ref = requireThread(thread, context)
       if (ref.kind !== 'pull_request') {
@@ -755,7 +746,8 @@ const GITLAB: ProviderDefinition<GitLabOptions> = {
         branchesPage: verb(true, (repo, listOptions = {}) => list(`${projectPath(repo)}/repository/branches`, listOptions, toBranch)),
         tagsPage: verb(true, (repo, listOptions = {}) => list(`${projectPath(repo)}/repository/tags`, listOptions, toTag)),
         resolveRef: verb(true, async (repo, ref, options) => (await fetcher.json<GitLabCommitDetail>(`${projectPath(repo)}/repository/commits/${encodeURIComponent(ref)}`, { signal: options?.signal })).data.id),
-        commitsPage: verb(true, (repo, query = {}) => list(`${projectPath(repo)}/repository/commits`, query, (raw: GitLabCommitDetail) => toCommit(repo, raw), { query: { ref_name: query.ref, path: query.path, author: query.author, since: query.since?.toISOString(), until: query.until?.toISOString() } })),
+        // gitlab.com responds to anonymous commit listings with a Cloudflare challenge.
+        commitsPage: verb(anonymous ? 'unverified' : true, (repo, query = {}) => list(`${projectPath(repo)}/repository/commits`, query, (raw: GitLabCommitDetail) => toCommit(repo, raw), { query: { ref_name: query.ref, path: query.path, author: query.author, since: query.since?.toISOString(), until: query.until?.toISOString() } })),
         commit: verb(true, async (repo, sha, options) => {
           const [commit, diffs] = await Promise.all([
             fetcher.json<GitLabCommitDetail>(`${projectPath(repo)}/repository/commits/${sha}`, { query: { stats: 'true' }, signal: options?.signal }),
@@ -853,16 +845,17 @@ const GITLAB: ProviderDefinition<GitLabOptions> = {
         kinds: { dependency: !anonymous, code_scanning: !anonymous, secret: !anonymous },
         listPage: vulnerabilitiesPage,
       },
+      emulated: { getComment: { commit: anonymous ? 'unverified' : 'emulated' } },
       threads: {
         filesPage: verb(true, (thread, listOptions = {}) => list(`${threadPath(requireMerge(thread, 'read for changed files'))}/diffs`, listOptions, toChangedFile)),
         commitsPage: verb(true, (thread, listOptions = {}) => list(`${threadPath(requireMerge(thread, 'read for commits'))}/commits`, listOptions, (raw: GitLabCommitDetail) => toCommit(thread.repo, raw))),
-        reviewsPage: verb('emulated', async (thread, listOptions) => ({ items: await approvalReviews(thread, listOptions) })),
-        getReview: verb(anonymous ? 'unverified' : 'emulated', async (ref, options) => {
-          const review = (await approvalReviews(ref.thread, options)).find(candidate => candidate.ref.id === ref.id)
-          if (!review) {
-            throw new NotFoundError(`Review ${ref.id} not found`, 404, '', context)
+        reviewsPage: verb('emulated', async (thread, listOptions) => {
+          const ref = requireThread(thread, context)
+          if (ref.kind !== 'pull_request') {
+            throw new UnsupportedOperationError('Only merge requests have approvals', context)
           }
-          return review
+          const { data } = await fetcher.json<GitLabApprovals>(`${threadPath(ref)}/approvals`, { signal: listOptions?.signal })
+          return { items: toApprovalReviews(ref, data) }
         }),
         approve: verb(true, async (thread, body, options) => {
           await approve(thread, body, options)

@@ -31,9 +31,16 @@
     "kind": "pull_request",
     "number": "5"
   },
-  "recordedAt": "2026-10-08T22:01:54.938Z",
+  "scratch": {
+    "forge": "pushin",
+    "instance": "pushin.eu",
+    "owner": "danielroe",
+    "name": "roe.dev"
+  },
+  "recordedAt": "2026-10-11T12:01:45.319Z",
   "steps": [
     "repo",
+    "repo licence",
     "labels",
     "pull",
     "pull list",
@@ -44,6 +51,7 @@
     "issue list",
     "issue getMany",
     "issue events",
-    "issue comments"
+    "issue comments",
+    "issue getComment"
   ]
 }

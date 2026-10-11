@@ -138,7 +138,7 @@ If you create a hook with `webhooks.create()`, `nativeEvents` takes the names of
 | `threads.getMany` | ✅ | ✅ |
 | `threads.events` | issue, PR, commit | ❌ |
 | `comments.list` | issue, PR, commit | commit |
-| `comments.get` | issue, PR | ❌ |
+| `comments.get` | issue, PR, commit (emulated) | commit (unverified) |
 | `comments.edit` | issue, PR | ❌ |
 | `comments.delete` | issue, PR | ❌ |
 | `reactions.list` | issue, PR | issue, PR |
@@ -177,20 +177,20 @@ If you create a hook with `webhooks.create()`, `nativeEvents` takes the names of
 | `ci.runs` | ✅ | ✅ |
 | `ci.run` | ✅ | ✅ |
 | `ci.jobs` | ✅ | ✅ |
-| `ci.job` | ✅ | ❌ |
+| `ci.job` | ✅ | emulated |
 | `ci.log` | ✅ | ❌ |
 | `contents.file` | ✅ | ✅ |
 | `contents.tree` | ✅ | ✅ |
 | `contents.branches` | ✅ | ✅ |
 | `contents.tags` | ✅ | ✅ |
 | `contents.resolveRef` | ✅ | ✅ |
-| `contents.commits` | ✅ | ✅ |
+| `contents.commits` | ✅ | unverified |
 | `contents.commit` | ✅ | ✅ |
 | `contents.compare` | ✅ | ✅ |
 | `contents.threadFiles` | ✅ | ✅ |
 | `contents.threadCommits` | ✅ | ✅ |
 | `reviews.list` | emulated | emulated |
-| `reviews.get` | emulated | unverified |
+| `reviews.get` | emulated | emulated |
 | `reviews.create` | emulated | ❌ |
 | `reviews.submit` | ❌ | ❌ |
 | `reviews.approve` | ✅ | ❌ |

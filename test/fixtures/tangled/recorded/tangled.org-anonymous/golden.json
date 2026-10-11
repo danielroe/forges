@@ -20,6 +20,27 @@
     },
     "createdAt": "2025-02-28T22:44:51.000Z"
   },
+  "repo licence": {
+    "ref": {
+      "forge": "tangled",
+      "instance": "tangled.org",
+      "owner": "did:plc:wshs7t2adsemcrrd4snkeqli",
+      "name": "3ljbiayluee22",
+      "externalId": "did:plc:g66xej5jct643d6bgukldn77"
+    },
+    "displayName": "site",
+    "description": "engineering blog at https://blog.tangled.org",
+    "visibility": "public",
+    "isFork": false,
+    "isArchived": false,
+    "topics": [],
+    "url": "https://tangled.org/did:plc:wshs7t2adsemcrrd4snkeqli/3ljbiayluee22",
+    "cloneUrls": {
+      "https": "https://tangled.org/did:plc:wshs7t2adsemcrrd4snkeqli/3ljbiayluee22",
+      "ssh": "ssh://git@tangled.org/did:plc:wshs7t2adsemcrrd4snkeqli/3ljbiayluee22"
+    },
+    "createdAt": "2025-02-28T22:44:51.000Z"
+  },
   "pull": {
     "ref": {
       "forge": "tangled",
@@ -312,6 +333,37 @@
         "createdAt": "2025-12-12T09:08:49.000Z"
       }
     ]
+  },
+  "pull getComment": {
+    "ref": {
+      "forge": "tangled",
+      "instance": "tangled.org",
+      "thread": {
+        "forge": "tangled",
+        "instance": "tangled.org",
+        "repo": {
+          "forge": "tangled",
+          "instance": "tangled.org",
+          "owner": "did:plc:wshs7t2adsemcrrd4snkeqli",
+          "name": "3ljbiayluee22"
+        },
+        "kind": "pull_request",
+        "typeRaw": "sh.tangled.repo.pull",
+        "number": "at://did:plc:laqygfbyvnkyuhsuaxmp6ez3/sh.tangled.repo.pull/3m7lfz7dl5z22",
+        "externalId": "at://did:plc:laqygfbyvnkyuhsuaxmp6ez3/sh.tangled.repo.pull/3m7lfz7dl5z22"
+      },
+      "id": "at://did:plc:hwevmowznbiukdf6uk5dwrrq/sh.tangled.feed.comment/3m7rqi342lu22"
+    },
+    "body": "Thanks, this looks good!",
+    "author": {
+      "forge": "tangled",
+      "instance": "tangled.org",
+      "login": "anirudh.fi",
+      "id": "did:plc:hwevmowznbiukdf6uk5dwrrq",
+      "url": "https://tangled.org/anirudh.fi",
+      "isBotHint": false
+    },
+    "createdAt": "2025-12-12T09:08:49.000Z"
   },
   "issue": {
     "ref": {
@@ -686,5 +738,36 @@
         "createdAt": "2025-03-06T16:53:56.000Z"
       }
     ]
+  },
+  "issue getComment": {
+    "ref": {
+      "forge": "tangled",
+      "instance": "tangled.org",
+      "thread": {
+        "forge": "tangled",
+        "instance": "tangled.org",
+        "repo": {
+          "forge": "tangled",
+          "instance": "tangled.org",
+          "owner": "did:plc:wshs7t2adsemcrrd4snkeqli",
+          "name": "3ljbiayluee22"
+        },
+        "kind": "issue",
+        "typeRaw": "sh.tangled.repo.issue",
+        "number": "at://did:plc:qfpnj4og54vl56wngdriaxug/sh.tangled.repo.issue/3ljnffy24un22",
+        "externalId": "at://did:plc:qfpnj4og54vl56wngdriaxug/sh.tangled.repo.issue/3ljnffy24un22"
+      },
+      "id": "at://did:plc:qfpnj4og54vl56wngdriaxug/sh.tangled.repo.issue.comment/3ljnfg3h3i322"
+    },
+    "body": "x",
+    "author": {
+      "forge": "tangled",
+      "instance": "tangled.org",
+      "login": "oppi.li",
+      "id": "did:plc:qfpnj4og54vl56wngdriaxug",
+      "url": "https://tangled.org/oppi.li",
+      "isBotHint": false
+    },
+    "createdAt": "2025-03-05T16:25:57.000Z"
   }
 }
