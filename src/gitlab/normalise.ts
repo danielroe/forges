@@ -14,6 +14,7 @@ import type {
   EventKind,
   ForgeEventInput,
   Label,
+  MergeMethod,
   Milestone,
   Notification,
   NotificationReason,
@@ -215,11 +216,17 @@ export function toVoteReactions(raw: { upvotes?: number, downvotes?: number }): 
   }
 }
 
+export const BASE_METHODS: Record<NonNullable<GitLabProjectDetail['merge_method']>, MergeMethod> = {
+  merge: 'merge',
+  rebase_merge: 'rebase_merge',
+  ff: 'fast_forward_only',
+}
+
 export function toRepo(instance: string, raw: GitLabProjectDetail): Repo {
   const level = Math.max(raw.permissions?.project_access?.access_level ?? 0, raw.permissions?.group_access?.access_level ?? 0)
   const visibility = raw.visibility === 'internal' ? 'internal' : raw.visibility === 'private' ? 'private' : 'public'
-  const merge = raw.merge_commit_template ? { template: raw.merge_commit_template } : undefined
-  const squash = raw.squash_commit_template ? { template: raw.squash_commit_template } : undefined
+  const merge = raw.merge_commit_template?.trim() ? { template: raw.merge_commit_template } : undefined
+  const squash = raw.squash_commit_template?.trim() ? { template: raw.squash_commit_template } : undefined
   return {
     ref: toRepoRef(instance, raw.path_with_namespace, raw.id),
     description: raw.description ?? undefined,
@@ -247,6 +254,9 @@ export function toRepo(instance: string, raw: GitLabProjectDetail): Repo {
           ...raw.merge_method === 'ff' ? ['fast_forward_only' as const] : [],
           ...raw.squash_option && raw.squash_option !== 'never' ? ['squash' as const] : [],
         ],
+    defaultMergeMethod: raw.merge_method === undefined
+      ? undefined
+      : raw.squash_option === 'always' || raw.squash_option === 'default_on' ? 'squash' : BASE_METHODS[raw.merge_method],
     deleteBranchOnMerge: raw.remove_source_branch_after_merge ?? undefined,
     mergeCommit: merge || squash ? { merge, squash } : undefined,
     features: raw.issues_access_level === undefined && raw.issues_enabled === undefined

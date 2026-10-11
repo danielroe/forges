@@ -28,6 +28,7 @@
       "merge",
       "squash"
     ],
+    "defaultMergeMethod": "squash",
     "deleteBranchOnMerge": true,
     "mergeCommit": {
       "merge": {
@@ -80,6 +81,7 @@
       "merge",
       "squash"
     ],
+    "defaultMergeMethod": "squash",
     "deleteBranchOnMerge": true,
     "mergeCommit": {
       "merge": {
@@ -2070,6 +2072,7 @@
           "merge",
           "squash"
         ],
+        "defaultMergeMethod": "merge",
         "deleteBranchOnMerge": true,
         "features": {
           "issues": true,
@@ -2116,6 +2119,7 @@
           "merge",
           "squash"
         ],
+        "defaultMergeMethod": "merge",
         "deleteBranchOnMerge": true,
         "features": {
           "issues": true,
@@ -2161,6 +2165,7 @@
           "merge",
           "squash"
         ],
+        "defaultMergeMethod": "merge",
         "deleteBranchOnMerge": true,
         "features": {
           "issues": true,
@@ -4124,6 +4129,7 @@
           "merge",
           "squash"
         ],
+        "defaultMergeMethod": "merge",
         "deleteBranchOnMerge": true,
         "features": {
           "issues": true,
@@ -4180,6 +4186,7 @@
           "merge",
           "squash"
         ],
+        "defaultMergeMethod": "merge",
         "deleteBranchOnMerge": true,
         "features": {
           "issues": true,
@@ -4237,6 +4244,7 @@
           "merge",
           "squash"
         ],
+        "defaultMergeMethod": "merge",
         "deleteBranchOnMerge": true,
         "features": {
           "issues": true,

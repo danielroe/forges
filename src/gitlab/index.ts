@@ -86,6 +86,7 @@ import { createListing, degradesToWarning, getManyConcurrently, hexColour, memo,
 import { webUrlFor } from '../web.ts'
 import { nativeEventsFor } from '../webhooks.ts'
 import {
+  BASE_METHODS,
   FORGE,
   projectId,
   repoRefFromWebUrl,
@@ -173,12 +174,6 @@ const PROJECTS_QUERY = `query CodeSearchProjects($ids: [ID!]) {
     nodes { id fullPath }
   }
 }`
-
-const BASE_METHODS: Record<NonNullable<GitLabProjectSettings['merge_method']>, MergeMethod> = {
-  merge: 'merge',
-  rebase_merge: 'rebase_merge',
-  ff: 'fast_forward_only',
-}
 
 function threadPath(ref: ResolvedThreadRef): string {
   const project = `/projects/${projectId(ref.repo)}`
