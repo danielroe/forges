@@ -119,14 +119,14 @@ import type {
 import { WRITE_VERBS } from '../capabilities.ts'
 import { fromBase64, toFileContent } from '../contents.ts'
 import { defineForgeProvider, perKind, verb } from '../define.ts'
-import { ForbiddenError, ForgeApiError, ForgeError, ForgeTimeoutError, InsufficientScopeError, MergeBlockedError, NotFoundError, soleMergeMethod, toMergeError, UnsupportedOperationError } from '../errors.ts'
+import { ForbiddenError, ForgeApiError, ForgeError, ForgeTimeoutError, InsufficientScopeError, MergeBlockedError, NotFoundError, ReadOnlyError, soleMergeMethod, toMergeError, UnsupportedOperationError } from '../errors.ts'
 import { anySignal, sleep } from '../fetch.ts'
 import { isNamespaceRef, isResolvedThread, reactionContent } from '../model.ts'
 import { actorLogin, createListing, forgeIterable, getManyConcurrently, hostOf, iteratePages, memo, milestoneId, phased, requireIssueOrPull, requireThread, resolveToken, summariseChecks, teamOrg, toDate, toPage, toWarning, versionAtLeast } from '../utils.ts'
 import { githubShapedWeb } from '../web.ts'
 import { nativeEventsFor } from '../webhooks.ts'
 import { createAppCredentials, createAuthHeaders } from './auth.ts'
-import { createGraphQLClient, graphqlError, graphqlUrl } from './graphql-client.ts'
+import { createGraphQLClient, graphqlError, graphqlOperations, graphqlUrl } from './graphql-client.ts'
 import {
   FORGE,
   repoRefFromApiUrl,
@@ -179,6 +179,26 @@ export interface GitHubOptions extends ForgeOptionsBase {
    */
   auth?: GitHubAuth
 }
+
+/** A provider that `github()` and `githubLite()` create: every {@link ForgeProvider} member, and GitHub's GraphQL API. */
+export interface GitHubProvider extends ForgeProvider<true> {
+  /**
+   * Runs a GraphQL query or mutation against the provider's GitHub API and returns its `data`. A read-only provider
+   * runs queries and rejects mutations with `ReadOnlyError`.
+   * @param query The GraphQL document.
+   * @param variables The values of the document's variables.
+   * @param options A `signal` to abort the request.
+   * @throws {InsufficientScopeError} When the token lacks a scope that a field needs.
+   * @throws {ForgeApiError} When the response carries errors or no data.
+   * @example
+   * ```ts
+   * const { viewer } = await provider.graphql<{ viewer: { login: string } }>('query { viewer { login } }')
+   * ```
+   */
+  graphql: <T = unknown>(query: string, variables?: Record<string, unknown>, options?: BaseOptions) => Promise<T>
+}
+
+type GitHubExtensions = Pick<GitHubProvider, 'graphql'>
 
 /** GitHub Enterprise Server versions that support marking a notification done. */
 const GHES_MARK_DONE = '3.13'
@@ -234,7 +254,7 @@ function advancedFreeText(text: string): string {
   return parts.map((part, index) => index % 2 ? part : part.replace(/[()\s]+/g, ' ')).join('"').trim()
 }
 
-function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, createFetcher, derive, state: credentials }: ProviderContext<GitHubOptions, AppCredentials | undefined>): ProviderSpec & { web: WebLinks } {
+function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, createFetcher, derive, state: credentials }: ProviderContext<GitHubOptions, AppCredentials | undefined>): ProviderSpec<GitHubExtensions> & { web: WebLinks } {
   const list = createListing(fetcher, 'per_page')
   const auth = options.auth ?? { type: 'anonymous' as const }
   /** GitHub GraphQL needs a credential, so anonymous providers stay on REST. */
@@ -1416,6 +1436,11 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
   }
 
   return {
+    extensions: {
+      graphql: (query, variables = {}, graphqlOptions) => options.readOnly && graphqlOperations(query).some(({ type }) => type === 'mutation')
+        ? Promise.reject(new ReadOnlyError('GraphQL mutations are writes and this github provider is read-only', context))
+        : graphql({ query }, variables, graphqlOptions),
+    },
     checks: {
       list: verb(true, (repo, sha, options) => headChecks(repo, sha, options?.signal)),
       get: verb(true, getCheck),
@@ -1858,7 +1883,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
   }
 }
 
-const GITHUB: ProviderDefinition<GitHubOptions, AppCredentials | undefined, true> = {
+const GITHUB: ProviderDefinition<GitHubOptions, AppCredentials | undefined, true, GitHubExtensions> = {
   forge: FORGE,
   hasWeb: true,
   baseUrl: 'https://api.github.com',
@@ -1873,10 +1898,10 @@ const GITHUB: ProviderDefinition<GitHubOptions, AppCredentials | undefined, true
 }
 
 /** Creates a GitHub provider for github.com or a GitHub Enterprise Server instance. */
-export const github: ProviderFactoryFunction<GitHubOptions, true, 'github', false> = /* @__PURE__ */ defineForgeProvider({ ...GITHUB, webhooks: githubWebhooks })
+export const github: ProviderFactoryFunction<GitHubOptions, true, 'github', false, GitHubProvider> = /* @__PURE__ */ defineForgeProvider({ ...GITHUB, webhooks: githubWebhooks })
 
 /** `github()` without webhook ingestion, for bundles that never receive a delivery. */
-export const githubLite: ProviderFactoryFunction<GitHubOptions, true, 'github', false> = /* @__PURE__ */ defineForgeProvider(GITHUB)
+export const githubLite: ProviderFactoryFunction<GitHubOptions, true, 'github', false, GitHubProvider> = /* @__PURE__ */ defineForgeProvider(GITHUB)
 
 /**
  * Token scopes and fine-grained permissions GitHub documents per endpoint

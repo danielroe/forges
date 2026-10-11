@@ -3,7 +3,7 @@ import type { ThreadRef } from '../../src/model.ts'
 import { generateKeyPairSync } from 'node:crypto'
 import { describe, expect, it, vi } from 'vitest'
 import { ContentNotTextError, ForbiddenError, InsufficientScopeError, NotFoundError, ReadOnlyError, UnresolvedThreadError, UnsupportedOperationError } from '../../src/errors.ts'
-import { graphqlUrl } from '../../src/github/graphql-client.ts'
+import { graphqlOperations, graphqlUrl } from '../../src/github/graphql-client.ts'
 import { github } from '../../src/github/index.ts'
 import { toEvent, toNotification, toReason, toRepo } from '../../src/github/normalise.ts'
 import { notificationThread } from '../../src/model.ts'
@@ -1173,6 +1173,69 @@ describe('github checks, releases and security alerts', () => {
       .toMatchObject({ type: 'security_alert', alert: { id: '3', kind: 'dependency', repo: { name: 'widgets' } } })
     expect(toNotification('github.com', raw('Release', 'https://api.github.com/repos/acme/widgets/releases/9001')).subject)
       .toMatchObject({ type: 'release', release: { id: '9001' } })
+  })
+})
+
+describe('github graphql', () => {
+  const viewer = 'query Viewer { viewer { login } }'
+  const status = 'mutation Status($message: String) { changeUserStatus(input: { message: $message }) { status { message } } }'
+
+  it('returns the data of a query from the GraphQL endpoint of the instance', async () => {
+    const { fetch, calls } = fixtureFetch('github', {
+      'POST https://ghe.example.com/api/graphql Viewer': { status: 200, body: { data: { viewer: { login: 'octocat' } } } },
+    })
+    const provider = github({ baseUrl: 'https://ghe.example.com/api/v3', auth: { type: 'token', token: 't' }, fetch }).create()
+
+    expect(await provider.graphql(viewer)).toEqual({ viewer: { login: 'octocat' } })
+    expect(JSON.parse(calls[0]!.body!)).toEqual({ query: viewer, variables: {}, operationName: 'Viewer' })
+  })
+
+  it('names the operation from the top level of the document', async () => {
+    const search = '{ search(query: "query Foo", type: ISSUE, first: 1) { issueCount } }'
+    const { fetch, calls } = fixtureFetch('github', {
+      'POST https://api.github.com/graphql': { status: 200, body: { data: { search: { issueCount: 0 } } } },
+    })
+    const provider = github({ auth: { type: 'token', token: 't' }, fetch }).create()
+
+    expect(await provider.graphql(search)).toEqual({ search: { issueCount: 0 } })
+    expect(JSON.parse(calls[0]!.body!)).toEqual({ query: search, variables: {} })
+  })
+
+  it('rejects with the errors of the response', async () => {
+    const message = 'Your token has not been granted the required scopes to execute this query.'
+    const provider = github({
+      auth: { type: 'token', token: 't' },
+      fetch: async () => Response.json({ errors: [{ type: 'INSUFFICIENT_SCOPES', message }] }),
+    }).create()
+
+    await expect(provider.graphql(viewer)).rejects.toThrow(InsufficientScopeError)
+    await expect(provider.graphql(viewer)).rejects.toThrow(`GraphQL Viewer failed: ${message}`)
+  })
+
+  it('runs queries on a read-only provider and rejects mutations', async () => {
+    const named = 'query Named($mutation: String) { viewer { login } }'
+    const { fetch, calls } = fixtureFetch('github', {
+      'POST https://api.github.com/graphql Viewer': { status: 200, body: { data: { viewer: { login: 'octocat' } } } },
+      'POST https://api.github.com/graphql Named': { status: 200, body: { data: { viewer: { login: 'octocat' } } } },
+    })
+    const provider = github({ auth: { type: 'token', token: 't' }, fetch, readOnly: true }).create()
+
+    expect(await provider.graphql(viewer)).toEqual({ viewer: { login: 'octocat' } })
+    expect(await provider.graphql(named)).toEqual({ viewer: { login: 'octocat' } })
+    await expect(provider.graphql(status, { message: 'hi' })).rejects.toThrow(ReadOnlyError)
+    expect(calls).toHaveLength(2)
+  })
+
+  it('reads the operations of a document from its top level', () => {
+    expect(graphqlOperations(status)).toEqual([{ type: 'mutation', name: 'Status' }])
+    expect(graphqlOperations('fragment F on User { login }\nmutation { addStar(input: { starrableId: "1" }) { clientMutationId } }')).toEqual([{ type: 'mutation' }])
+    expect(graphqlOperations('{ viewer { login } }')).toEqual([{ type: 'query' }])
+    expect(graphqlOperations('# mutation\nquery { search(query: "mutation } {", type: ISSUE, first: 1) { issueCount } }')).toEqual([{ type: 'query' }])
+    expect(graphqlOperations('{ search(query: "query Foo", type: ISSUE, first: 1) { issueCount } }')).toEqual([{ type: 'query' }])
+    expect(graphqlOperations('query { mutation: viewer { login } }')).toEqual([{ type: 'query' }])
+    expect(graphqlOperations('query Search($query: String!, $mutation: String = """a \\""" mutation X { """) @cached { search(query: $query) { issueCount } }')).toEqual([{ type: 'query', name: 'Search' }])
+    expect(graphqlOperations('# comment\rmutation Star { addStar(input: { starrableId: "1" }) { clientMutationId } }')).toEqual([{ type: 'mutation', name: 'Star' }])
+    expect(graphqlOperations('query A { viewer { login } }\nmutation B { addStar(input: { starrableId: "1" }) { clientMutationId } }')).toEqual([{ type: 'query', name: 'A' }, { type: 'mutation', name: 'B' }])
   })
 })
 

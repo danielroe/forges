@@ -130,6 +130,18 @@ const page = await gh.search.threadsPage({ kind: 'pull_request', queryRaw: 'revi
 
 `search.code()` gets the tightest limit of all: 10 requests a minute, in a pool of its own. It only sees the default branch, and only files under 384 KB. Each result is a file, with `ref` set to the commit that GitHub indexed. `fragments` holds the excerpts that GitHub highlighted. They have no line numbers, because GitHub doesn't send any. When GitHub stops a search before it finishes, the page has a `search_incomplete` warning.
 
+## GraphQL
+
+For what the data model doesn't cover, a GitHub provider has `graphql()`, which sends a query or mutation to the GraphQL API of its instance with the provider's credentials. It resolves with the `data` of the response. When the response carries errors, it rejects with a `ForgeApiError`, or with an `InsufficientScopeError` when the token lacks a scope that a field needs:
+
+```ts
+const { viewer } = await forge.graphql<{ viewer: { login: string } }>(
+  'query { viewer { login } }',
+)
+```
+
+A read-only provider runs queries and rejects mutations with `ReadOnlyError`. GitHub's GraphQL API needs a credential, so an anonymous provider can't use it. Accounts in the data model carry the numeric ID, which GraphQL calls `databaseId`, so select that field to compare them with your results.
+
 ## Webhook management
 
 If the credential lacks `admin:repo_hook` or `admin:org_hook`, GitHub responds with a `404` on its webhook endpoints. The provider raises this response as a `ForbiddenError` with `reason: 'resource_protected'`, so check the scopes of your credential when you see it.

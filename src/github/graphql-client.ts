@@ -35,13 +35,56 @@ export function graphqlError(operationName: string | undefined, errors: GraphQLE
   })
 }
 
+interface GraphQLOperation {
+  type: 'query' | 'mutation' | 'subscription'
+  name?: string
+}
+
+const OPERATION_TYPES = new Set(['query', 'mutation', 'subscription'])
+
+/** The operations a GraphQL document declares, read from its top level so that fields, variables, strings and comments don't count. */
+export function graphqlOperations(document: string): GraphQLOperation[] {
+  const operations: GraphQLOperation[] = []
+  let depth = 0
+  let definitionStart = true
+  let awaitingName: GraphQLOperation | undefined
+  for (const [token] of document.matchAll(/"""(?:\\"""|[\s\S])*?"""|"(?:\\.|[^"\\\n\r])*"|#[^\n\r]*|[{}()]|[$@]?[_a-z]\w*/gi)) {
+    if (token[0] === '"' || token[0] === '#') {
+      continue
+    }
+    if (token === '{' || token === '(') {
+      if (depth === 0 && definitionStart && token === '{') {
+        operations.push({ type: 'query' })
+      }
+      depth++
+      definitionStart = false
+      awaitingName = undefined
+    }
+    else if (token === '}' || token === ')') {
+      depth--
+      definitionStart = depth === 0 && token === '}'
+    }
+    else if (depth === 0) {
+      if (awaitingName && /^[_a-z]/i.test(token)) {
+        awaitingName.name = token
+      }
+      awaitingName = definitionStart && OPERATION_TYPES.has(token) ? { type: token as GraphQLOperation['type'] } : undefined
+      if (awaitingName) {
+        operations.push(awaitingName)
+      }
+      definitionStart = false
+    }
+  }
+  return operations
+}
+
 /** Runs a named document from `./graphql`, or a query built at the call site. The module loads on first use. */
 export type GraphQLClient = <T>(query: DocumentName | { query: string }, variables: Record<string, unknown>, options?: BaseOptions) => Promise<T>
 
 export function createGraphQLClient(fetcher: Fetcher, url: string, context: { instance: string }): GraphQLClient {
   return async <T>(document: DocumentName | { query: string }, variables: Record<string, unknown>, options?: BaseOptions): Promise<T> => {
     const query = typeof document === 'string' ? (await import('./graphql.ts'))[document] : document.query
-    const operationName = /(?:query|mutation)\s+(\w+)/.exec(query)?.[1]
+    const operationName = graphqlOperations(query)[0]?.name
     const { data } = await fetcher.json<GraphQLResponse<T>>(url, {
       method: 'POST',
       json: { query, variables, operationName },
