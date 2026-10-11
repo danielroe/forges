@@ -274,6 +274,7 @@ const GITLAB: ProviderDefinition<GitLabOptions> = {
     async function ownerReposPage(owner: RepoRef, query: OwnerRepoQuery = {}): Promise<Page<Repo>> {
       const read = (path: string, extra: Record<string, unknown>) => list(path, query, (raw: GitLabProjectDetail) => toRepo(instance, raw), {
         query: { visibility: query.visibility === 'all' ? undefined : query.visibility, order_by: query.sort && PROJECT_ORDER[query.sort], sort: query.direction, ...extra },
+        warnings: query.sort === 'pushed' && !query.cursor ? [{ code: 'sort_unsupported', message: 'GitLab does not report pushes; sorted by last activity, which includes issues and merge requests' }] : undefined,
       })
       try {
         return await read(`/groups/${encodeURIComponent(owner.externalId ?? owner.owner)}/projects`, { include_subgroups: query.subgroups || undefined, with_shared: false })

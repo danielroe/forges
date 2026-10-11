@@ -47,7 +47,7 @@ The instance is always `bitbucket.org`, and the base URL of the API defaults to 
 
 Bitbucket Cloud has [no issue tracker](https://developer.atlassian.com/cloud/bitbucket/changelog/#CHANGE-3401), so every issue capability is `false`. As a result, `threads.list()` without a `kind` lists pull requests.
 
-Bitbucket Cloud also lists repositories one workspace at a time. To give you a single list, `repos.list()` and `search.repos()` without an `owner` read the workspaces that the account belongs to, and then the repositories that it is a member of in each of them. `repos.byOwner()` lists the repositories of one workspace, which also covers the personal workspace of a user. Bitbucket doesn't record pushes, so `sort: 'pushed'` sorts by update time and adds a `sort_unsupported` warning.
+Bitbucket Cloud also lists repositories one workspace at a time. To give you a single list, `repos.list()` and `search.repos()` without an `owner` read the workspaces that the account belongs to, and then the repositories that it is a member of in each of them. `repos.byOwner()` lists the repositories of one workspace, which also covers the personal workspace of a user. Bitbucket has no internal repositories, so `visibility: 'internal'` returns an empty page with a `filter_unsupported` warning. Bitbucket doesn't record pushes, so `sort: 'pushed'` sorts by update time and adds a `sort_unsupported` warning.
 
 ## Merging
 

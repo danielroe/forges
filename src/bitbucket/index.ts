@@ -362,7 +362,7 @@ const BITBUCKET: ProviderDefinition<BitbucketOptions> = {
 
     async function ownerReposPage(owner: RepoRef, query: OwnerRepoQuery = {}): Promise<Page<Repo>> {
       if (query.visibility === 'internal') {
-        return { items: [] }
+        return { items: [], warnings: [{ code: 'filter_unsupported', message: 'Bitbucket has no internal repositories' }] }
       }
       const field = query.sort === 'created' ? 'created_on' : query.sort === 'name' ? 'name' : query.sort && 'updated_on'
       return list(`/repositories/${encodeURIComponent(owner.owner)}`, query, (raw: BitbucketRepositoryDetail) => toRepo(instance, raw), {

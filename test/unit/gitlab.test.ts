@@ -218,6 +218,19 @@ describe('gitlab provider', () => {
     expect((await instance.threads.get(mr)).stats).toEqual(stats)
   })
 
+  it('sorts projects by last activity, with a warning, when asked for push order', async () => {
+    const urls: string[] = []
+    const instance = gitlab({ fetch: async (url) => {
+      urls.push(url)
+      return Response.json([])
+    } }).create()
+
+    const page = await instance.repos.byOwnerPage({ ...repo, name: '', kind: 'namespace' }, { sort: 'pushed' })
+
+    expect(new URL(urls[0]!).searchParams.get('order_by')).toBe('last_activity_at')
+    expect(page.warnings).toContainEqual(expect.objectContaining({ code: 'sort_unsupported' }))
+  })
+
   it('reads a missing nested group as missing rather than as a user', async () => {
     const urls: string[] = []
     const instance = gitlab({ fetch: async (url) => {

@@ -78,6 +78,15 @@ describe('bitbucket provider', () => {
 
     expect(JSON.parse(calls.at(-1)!.body!)).toEqual({ merge_strategy: 'squash', message: 'Release widgets (#31)\n\nShips the widgets' })
   })
+
+  it('lists no internal repositories of a workspace, with a warning', async () => {
+    const { instance, calls } = provider()
+    const page = await instance.repos.byOwnerPage({ ...repo, name: '', kind: 'namespace' }, { visibility: 'internal' })
+
+    expect(calls).toEqual([])
+    expect(page.items).toEqual([])
+    expect(page.warnings).toContainEqual(expect.objectContaining({ code: 'filter_unsupported' }))
+  })
 })
 
 describe('bitbucket webhooks', () => {

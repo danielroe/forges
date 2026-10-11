@@ -99,6 +99,7 @@ export type {
   NotificationReason,
   NotificationRef,
   NotificationSubject,
+  OwnerRepoQuery,
   Page,
   PageOptions,
   PullBranches,

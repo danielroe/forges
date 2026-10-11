@@ -47,7 +47,7 @@ Webhook delivery logs and redelivery require GitLab 17.0 or later. If you know t
 
 GitLab projects can live in nested groups, so `RepoRef.owner` holds the full namespace path. A project in a subgroup has `owner: 'acme/platform'` and `name: 'widgets'`.
 
-`repos.byOwner()` lists the projects of a group, or of a user when no group has that path. It leaves out projects that other groups share with the group, and it includes the projects of subgroups when you pass `subgroups: true`.
+`repos.byOwner()` lists the projects of a group, or of a user when no group has that path. It leaves out projects that other groups share with the group, and it includes the projects of subgroups when you pass `subgroups: true`. GitLab doesn't record pushes, so `sort: 'pushed'` sorts by last activity, which also counts new issues and merge requests, and adds a `sort_unsupported` warning.
 
 ## Notifications are to-dos
 
