@@ -28,6 +28,12 @@
       "merge",
       "squash"
     ],
+    "deleteBranchOnMerge": true,
+    "mergeCommit": {
+      "merge": {
+        "template": "Merge branch '%{source_branch}' into '%{target_branch}'\r\n\r\n%{title}\r\n\r\n%{issues}\r\n\r\nSee merge request %{url}\r\n\r\nMerged-by: %{merged_by}\r\n%{approved_by}\r\n%{reviewed_by}\r\n%{co_authored_by}"
+      }
+    },
     "features": {
       "issues": true,
       "pullRequests": true,
@@ -74,6 +80,12 @@
       "merge",
       "squash"
     ],
+    "deleteBranchOnMerge": true,
+    "mergeCommit": {
+      "merge": {
+        "template": "Merge branch '%{source_branch}' into '%{target_branch}'\r\n\r\n%{title}\r\n\r\n%{issues}\r\n\r\nSee merge request %{url}\r\n\r\nMerged-by: %{merged_by}\r\n%{approved_by}\r\n%{reviewed_by}\r\n%{co_authored_by}"
+      }
+    },
     "features": {
       "issues": true,
       "pullRequests": true,
@@ -2058,6 +2070,7 @@
           "merge",
           "squash"
         ],
+        "deleteBranchOnMerge": true,
         "features": {
           "issues": true,
           "pullRequests": true,
@@ -2103,6 +2116,7 @@
           "merge",
           "squash"
         ],
+        "deleteBranchOnMerge": true,
         "features": {
           "issues": true,
           "pullRequests": true,
@@ -2147,6 +2161,7 @@
           "merge",
           "squash"
         ],
+        "deleteBranchOnMerge": true,
         "features": {
           "issues": true,
           "pullRequests": true,
@@ -4109,6 +4124,7 @@
           "merge",
           "squash"
         ],
+        "deleteBranchOnMerge": true,
         "features": {
           "issues": true,
           "pullRequests": true,
@@ -4164,6 +4180,7 @@
           "merge",
           "squash"
         ],
+        "deleteBranchOnMerge": true,
         "features": {
           "issues": true,
           "pullRequests": true,
@@ -4220,6 +4237,7 @@
           "merge",
           "squash"
         ],
+        "deleteBranchOnMerge": true,
         "features": {
           "issues": true,
           "pullRequests": true,

@@ -37,6 +37,8 @@ export interface ForgejoRepositoryDetail extends ForgejoRepository {
   allow_rebase?: boolean
   allow_rebase_explicit?: boolean
   allow_fast_forward_only_merge?: boolean
+  default_merge_style?: string
+  default_delete_branch_after_merge?: boolean
   has_issues?: boolean
   has_wiki?: boolean
   has_projects?: boolean

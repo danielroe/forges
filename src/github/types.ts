@@ -46,6 +46,11 @@ export interface GitHubRepositoryDetail extends GitHubRepository {
   allow_merge_commit?: boolean
   allow_squash_merge?: boolean
   allow_rebase_merge?: boolean
+  delete_branch_on_merge?: boolean
+  merge_commit_title?: string
+  merge_commit_message?: string
+  squash_merge_commit_title?: string
+  squash_merge_commit_message?: string
   has_issues?: boolean
   has_discussions?: boolean
   has_wiki?: boolean

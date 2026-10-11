@@ -14,6 +14,7 @@ import type {
   ForgeEventInput,
   ForgeOrigin,
   Label,
+  MergeMethod,
   Milestone,
   Notification,
   NotificationSubject,
@@ -95,6 +96,14 @@ export function toRepoRef(origin: ForgeOrigin, repo: ForgejoRepository): RepoRef
   }
 }
 
+const MERGE_STYLES: Record<string, MergeMethod> = {
+  'merge': 'merge',
+  'rebase': 'rebase',
+  'rebase-merge': 'rebase_merge',
+  'squash': 'squash',
+  'fast-forward-only': 'fast_forward_only',
+}
+
 export function toRepo(origin: ForgeOrigin, raw: ForgejoRepositoryDetail): Repo {
   return {
     ref: toRepoRef(origin, raw),
@@ -128,6 +137,8 @@ export function toRepo(origin: ForgeOrigin, raw: ForgejoRepositoryDetail): Repo 
           ...raw.allow_rebase_explicit ? ['rebase_merge' as const] : [],
           ...raw.allow_fast_forward_only_merge ? ['fast_forward_only' as const] : [],
         ],
+    defaultMergeMethod: MERGE_STYLES[raw.default_merge_style ?? ''],
+    deleteBranchOnMerge: raw.default_delete_branch_after_merge,
     features: raw.has_issues === undefined
       ? undefined
       : {

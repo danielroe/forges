@@ -209,6 +209,23 @@ describe('forgejo label filters', () => {
   })
 })
 
+describe('forgejo merge settings', () => {
+  const repo = { forge: 'forgejo', instance: 'codeberg.org', owner: 'acme', name: 'widgets' }
+
+  it.each([
+    ['rebase-merge', 'rebase_merge'],
+    ['fast-forward-only', 'fast_forward_only'],
+    ['manually-merged', undefined],
+  ])('reads the default merge style %s', async (style, method) => {
+    const body = { id: 64021, name: 'widgets', full_name: 'acme/widgets', owner: { id: 4001, login: 'acme' }, default_merge_style: style, default_delete_branch_after_merge: true }
+    const provider = forgejo({ auth: { type: 'token', token: 't' }, fetch: async () => Response.json(body) }).create()
+    const result = await provider.repos.get(repo)
+
+    expect(result.defaultMergeMethod).toBe(method)
+    expect(result.deleteBranchOnMerge).toBe(true)
+  })
+})
+
 describe('forgejo label names', () => {
   function serve(owner: string) {
     const calls: Array<{ method: string, url: string, body?: string }> = []

@@ -2175,6 +2175,42 @@
     "description": "A label that a repository defines.",
     "x-forges-type": "Label"
   },
+  "MergeCommitDefaults": {
+    "type": "object",
+    "properties": {
+      "title": {
+        "type": "string",
+        "enum": [
+          "pull_request_title",
+          "commit_or_pull_request_title",
+          "merge_message"
+        ],
+        "description": "The pull request title, the commit's own title when there's just one, or the classic `Merge pull request #1 from acme/fix`."
+      },
+      "titleRaw": {
+        "type": "string"
+      },
+      "message": {
+        "type": "string",
+        "enum": [
+          "pull_request_body",
+          "pull_request_title",
+          "commit_messages",
+          "blank"
+        ],
+        "description": "The pull request body or title, its commit messages, or nothing at all."
+      },
+      "messageRaw": {
+        "type": "string"
+      },
+      "template": {
+        "type": "string",
+        "description": "A template for the whole message, with placeholders such as GitLab's `%{title}`. Absent while the forge sticks to its built-in one."
+      }
+    },
+    "description": "Where the default title and message of a merge or squash commit come from.",
+    "x-forges-type": "MergeCommitDefaults"
+  },
   "MergeMethod": {
     "type": "string",
     "enum": [
@@ -2909,6 +2945,26 @@
           "$ref": "#/components/schemas/MergeMethod"
         },
         "description": "Merge methods the repository allows, where the forge reports them. Empty means the forge reported none."
+      },
+      "defaultMergeMethod": {
+        "$ref": "#/components/schemas/MergeMethod",
+        "description": "The repository's default merge method, where the forge reports one."
+      },
+      "deleteBranchOnMerge": {
+        "type": "boolean",
+        "description": "Whether merging deletes the head branch by default, where the forge reports it. Forgejo and Gitea before 1.25 apply it only in their web UI."
+      },
+      "mergeCommit": {
+        "type": "object",
+        "properties": {
+          "merge": {
+            "$ref": "#/components/schemas/MergeCommitDefaults"
+          },
+          "squash": {
+            "$ref": "#/components/schemas/MergeCommitDefaults"
+          }
+        },
+        "description": "Default text of a merge commit (`merge`) and a squashed one (`squash`) as {@link MergeCommitDefaults}, where the forge reports it."
       },
       "features": {
         "$ref": "#/components/schemas/RepoFeatures"

@@ -563,6 +563,19 @@ describe('github repositories', () => {
     expect(repo.licence).toBeUndefined()
     expect(repo.homepage).toBeUndefined()
   })
+
+  it('keeps a merge commit default it does not know as raw', () => {
+    const repo = toRepo('github.com', { name: 'widgets', full_name: 'acme/widgets', squash_merge_commit_title: 'PR_TITLE', squash_merge_commit_message: 'PR_SUMMARY' })
+
+    expect(repo.mergeCommit).toEqual({ squash: { title: 'pull_request_title', titleRaw: 'PR_TITLE', messageRaw: 'PR_SUMMARY' } })
+  })
+
+  it('leaves the merge commit defaults out where GitHub withholds them', () => {
+    const repo = toRepo('github.com', { name: 'widgets', full_name: 'acme/widgets' })
+
+    expect(repo.mergeCommit).toBeUndefined()
+    expect(repo.deleteBranchOnMerge).toBeUndefined()
+  })
 })
 
 describe('github contents', () => {

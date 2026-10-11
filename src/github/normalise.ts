@@ -14,6 +14,7 @@ import type {
   EventKind,
   ForgeEventInput,
   Label,
+  MergeCommitDefaults,
   Milestone,
   Notification,
   NotificationReason,
@@ -130,6 +131,31 @@ export function repoRefFromApiUrl(instance: string, url: string | undefined): Re
   return owner && name ? { forge: FORGE, instance, owner, name } : undefined
 }
 
+const MERGE_COMMIT_TITLES: Record<string, MergeCommitDefaults['title']> = {
+  PR_TITLE: 'pull_request_title',
+  COMMIT_OR_PR_TITLE: 'commit_or_pull_request_title',
+  MERGE_MESSAGE: 'merge_message',
+}
+
+const MERGE_COMMIT_MESSAGES: Record<string, MergeCommitDefaults['message']> = {
+  PR_BODY: 'pull_request_body',
+  PR_TITLE: 'pull_request_title',
+  COMMIT_MESSAGES: 'commit_messages',
+  BLANK: 'blank',
+}
+
+function toMergeCommitDefaults(title: string | undefined, message: string | undefined): MergeCommitDefaults | undefined {
+  return title || message
+    ? { title: MERGE_COMMIT_TITLES[title ?? ''], titleRaw: title, message: MERGE_COMMIT_MESSAGES[message ?? ''], messageRaw: message }
+    : undefined
+}
+
+function toMergeCommit(raw: GitHubRepositoryDetail): Repo['mergeCommit'] {
+  const merge = toMergeCommitDefaults(raw.merge_commit_title, raw.merge_commit_message)
+  const squash = toMergeCommitDefaults(raw.squash_merge_commit_title, raw.squash_merge_commit_message)
+  return merge || squash ? { merge, squash } : undefined
+}
+
 export function toRepo(instance: string, raw: GitHubRepositoryDetail): Repo {
   const visibility = raw.visibility === 'internal' ? 'internal' : raw.private || raw.visibility === 'private' ? 'private' : 'public'
   return {
@@ -161,6 +187,8 @@ export function toRepo(instance: string, raw: GitHubRepositoryDetail): Repo {
           ...raw.allow_squash_merge ? ['squash' as const] : [],
           ...raw.allow_rebase_merge ? ['rebase' as const] : [],
         ],
+    deleteBranchOnMerge: raw.delete_branch_on_merge,
+    mergeCommit: toMergeCommit(raw),
     features: raw.has_issues === undefined
       ? undefined
       : {

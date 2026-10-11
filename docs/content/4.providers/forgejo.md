@@ -49,6 +49,8 @@ Forgejo notifications have a read state but no done state. To give you `markDone
 
 If you call `merge()` without a `method`, the provider reads the merge styles that the repository allows. When exactly one style is allowed, it uses that one. When several are allowed, it throws `MergeMethodRequiredError`. If you pass `whenChecksPass`, Forgejo merges the pull request after its checks succeed.
 
+The head branch stays after `merge()`, even when `deleteBranchOnMerge` is `true`, because Forgejo applies that setting only in its web interface. Gitea did the same before 1.25.
+
 ## Reviews
 
 Forgejo supports reviews natively. `createReview()` without an `event` creates a pending review, and `submitReview()` submits it. The API doesn't expose whether a review conversation is resolved, so `resolveReviewThread()` isn't available.

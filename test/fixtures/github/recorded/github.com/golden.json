@@ -43,6 +43,21 @@
       "squash",
       "rebase"
     ],
+    "deleteBranchOnMerge": true,
+    "mergeCommit": {
+      "merge": {
+        "title": "merge_message",
+        "titleRaw": "MERGE_MESSAGE",
+        "message": "pull_request_title",
+        "messageRaw": "PR_TITLE"
+      },
+      "squash": {
+        "title": "commit_or_pull_request_title",
+        "titleRaw": "COMMIT_OR_PR_TITLE",
+        "message": "commit_messages",
+        "messageRaw": "COMMIT_MESSAGES"
+      }
+    },
     "features": {
       "issues": true,
       "pullRequests": true,

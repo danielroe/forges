@@ -90,6 +90,7 @@ export type {
   Label,
   LabelInput,
   ListOptions,
+  MergeCommitDefaults,
   MergeMethod,
   MergeOptions,
   Milestone,

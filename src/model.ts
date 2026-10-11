@@ -153,6 +153,15 @@ export interface Repo {
   permissions?: RepoPermissions
   /** Merge methods the repository allows, where the forge reports them. Empty means the forge reported none. */
   mergeMethods?: MergeMethod[]
+  /** The repository's default merge method, where the forge reports one. */
+  defaultMergeMethod?: MergeMethod
+  /** Whether merging deletes the head branch by default, where the forge reports it. Forgejo and Gitea before 1.25 apply it only in their web UI. */
+  deleteBranchOnMerge?: boolean
+  /** Default text of a merge commit (`merge`) and a squashed one (`squash`) as {@link MergeCommitDefaults}, where the forge reports it. */
+  mergeCommit?: {
+    merge?: MergeCommitDefaults
+    squash?: MergeCommitDefaults
+  }
   features?: RepoFeatures
   raw: unknown
 }
@@ -1611,6 +1620,18 @@ export function notificationThread(notification: Notification): ThreadRef | unde
 
 /** How a pull request is merged. */
 export type MergeMethod = 'merge' | 'squash' | 'rebase' | 'rebase_merge' | 'fast_forward_only'
+
+/** Where the default title and message of a merge or squash commit come from. */
+export interface MergeCommitDefaults {
+  /** The pull request title, the commit's own title when there's just one, or the classic `Merge pull request #1 from acme/fix`. */
+  title?: 'pull_request_title' | 'commit_or_pull_request_title' | 'merge_message'
+  titleRaw?: string
+  /** The pull request body or title, its commit messages, or nothing at all. */
+  message?: 'pull_request_body' | 'pull_request_title' | 'commit_messages' | 'blank'
+  messageRaw?: string
+  /** A template for the whole message, with placeholders such as GitLab's `%{title}`. Absent while the forge sticks to its built-in one. */
+  template?: string
+}
 
 /** Options for `threads.merge()`. */
 export interface MergeOptions extends BaseOptions {

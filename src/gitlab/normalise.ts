@@ -218,6 +218,8 @@ export function toVoteReactions(raw: { upvotes?: number, downvotes?: number }): 
 export function toRepo(instance: string, raw: GitLabProjectDetail): Repo {
   const level = Math.max(raw.permissions?.project_access?.access_level ?? 0, raw.permissions?.group_access?.access_level ?? 0)
   const visibility = raw.visibility === 'internal' ? 'internal' : raw.visibility === 'private' ? 'private' : 'public'
+  const merge = raw.merge_commit_template ? { template: raw.merge_commit_template } : undefined
+  const squash = raw.squash_commit_template ? { template: raw.squash_commit_template } : undefined
   return {
     ref: toRepoRef(instance, raw.path_with_namespace, raw.id),
     description: raw.description ?? undefined,
@@ -245,6 +247,8 @@ export function toRepo(instance: string, raw: GitLabProjectDetail): Repo {
           ...raw.merge_method === 'ff' ? ['fast_forward_only' as const] : [],
           ...raw.squash_option && raw.squash_option !== 'never' ? ['squash' as const] : [],
         ],
+    deleteBranchOnMerge: raw.remove_source_branch_after_merge ?? undefined,
+    mergeCommit: merge || squash ? { merge, squash } : undefined,
     features: raw.issues_access_level === undefined && raw.issues_enabled === undefined
       ? undefined
       : {

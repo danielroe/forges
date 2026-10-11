@@ -31,6 +31,9 @@ export interface GitLabProjectDetail extends GitLabProject {
   permissions?: { project_access?: { access_level: number } | null, group_access?: { access_level: number } | null }
   merge_method?: 'merge' | 'rebase_merge' | 'ff'
   squash_option?: 'never' | 'always' | 'default_on' | 'default_off'
+  remove_source_branch_after_merge?: boolean | null
+  merge_commit_template?: string | null
+  squash_commit_template?: string | null
   issues_enabled?: boolean
   merge_requests_enabled?: boolean
   wiki_enabled?: boolean
