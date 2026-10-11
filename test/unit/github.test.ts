@@ -413,6 +413,18 @@ describe('github repository and thread metadata', () => {
     expect(await provider.repos.permissionFor(repo, 'octocat')).toBe('maintain')
   })
 
+  it('adds collaborators with the permission names GitHub accepts', async () => {
+    const url = 'https://api.github.com/repos/acme/widgets/collaborators/octocat'
+    const { fetch, calls } = fixtureFetch('github', { [`PUT ${url}`]: { status: 204 } })
+    const provider = github({ auth: { type: 'token', token: 't' }, fetch }).create()
+
+    for (const role of ['read', 'triage', 'write', 'maintain', 'admin'] as const) {
+      await provider.repos.addCollaborator(repo, 'octocat', role)
+    }
+
+    expect(calls.map(call => JSON.parse(call.body!).permission)).toEqual(['pull', 'triage', 'push', 'maintain', 'admin'])
+  })
+
   it('adds and removes labels without replacing the rest', async () => {
     const { provider, calls } = tokenProvider()
 

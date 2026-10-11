@@ -38,6 +38,7 @@ import type {
   ReleaseUpdate,
   Repo,
   RepoRef,
+  RepoRole,
   RepoSearchQuery,
   ResolvedThreadRef,
   Review,
@@ -156,6 +157,7 @@ import { GITHUB_NATIVE_EVENTS } from './webhook-events.ts'
 import { githubWebhooks } from './webhooks.ts'
 
 const DISCUSSION_CLOSE_REASONS: Partial<Record<CloseReason, string>> = { completed: 'resolved', duplicate: 'duplicate' }
+const COLLABORATOR_PERMISSIONS: Partial<Record<RepoRole, string>> = { read: 'pull', write: 'push' }
 
 export type { GitHubAuth } from './auth.ts'
 
@@ -1531,7 +1533,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
         return toRole({ role_name: data.role_name ?? (data.permission === 'none' ? undefined : data.permission), permissions: data.user?.permissions })
       }),
       addCollaborator: verb(true, async (repo, actor, role, options) => {
-        await fetcher.raw(`${repoPath(repo)}/collaborators/${encodeURIComponent(actorLogin(actor))}`, { method: 'PUT', json: { permission: role }, signal: options?.signal })
+        await fetcher.raw(`${repoPath(repo)}/collaborators/${encodeURIComponent(actorLogin(actor))}`, { method: 'PUT', json: { permission: COLLABORATOR_PERMISSIONS[role] ?? role }, signal: options?.signal })
       }),
       assignableUsersPage: verb(true, (repo, listOptions = {}) => list(`${repoPath(repo)}/assignees`, listOptions, (raw: GitHubUserDetail) => toActor(instance, raw)!)),
       reviewerCandidatesPage: verb(!anonymous && 'emulated', async (thread, listOptions = {}) => {

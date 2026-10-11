@@ -3,7 +3,7 @@
     "method": "PUT",
     "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/collaborators/danielroe",
     "body": {
-      "permission": "write"
+      "permission": "push"
     }
   },
   "response": {
