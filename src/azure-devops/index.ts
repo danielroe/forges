@@ -468,7 +468,9 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
         }
         const ids = splitCommentId(ref)
         const { data } = await fetcher.json<AzureThread>(`${pullPath(thread)}/threads/${ids.thread}`, { signal: options?.signal })
-        const comment = data.comments.find(candidate => String(candidate.id) === ids.comment && !candidate.isDeleted)
+        const comment = isConversationThread(data)
+          ? data.comments.find(candidate => String(candidate.id) === ids.comment && !candidate.isDeleted && candidate.commentType !== 'system')
+          : undefined
         if (!comment) {
           throw new NotFoundError(`Comment ${ref.id} not found`, 404, '', context)
         }
