@@ -128,6 +128,7 @@ A label delivery doesn't say which labels were added or removed. When the set of
 | `threads.getMany` | ✅ | ✅ |
 | `threads.events` | issue, PR, commit | issue, PR, commit |
 | `comments.list` | issue, PR | issue, PR |
+| `comments.get` | issue, PR | issue, PR |
 | `comments.edit` | issue, PR | ❌ |
 | `comments.delete` | issue, PR | ❌ |
 | `reactions.list` | issue, PR | issue, PR |
@@ -160,11 +161,13 @@ A label delivery doesn't say which labels were added or removed. When the set of
 | `installations` | ❌ | ❌ |
 | `checks.thread` | PR | PR |
 | `checks.list` | ✅ | ✅ |
+| `checks.get` | ❌ | ❌ |
 | `checks.report` | ✅ | ❌ |
 | `checks.rerun` | ❌ | ❌ |
 | `ci.runs` | ✅ | ✅ |
 | `ci.run` | ✅ | ✅ |
 | `ci.jobs` | ✅ | ✅ |
+| `ci.job` | emulated | emulated |
 | `ci.log` | ✅ | ✅ |
 | `contents.file` | ✅ | ✅ |
 | `contents.tree` | ✅ | ✅ |
@@ -177,6 +180,7 @@ A label delivery doesn't say which labels were added or removed. When the set of
 | `contents.threadFiles` | ✅ | ✅ |
 | `contents.threadCommits` | ✅ | ✅ |
 | `reviews.list` | ✅ | ✅ |
+| `reviews.get` | ✅ | ✅ |
 | `reviews.create` | ✅ | ❌ |
 | `reviews.submit` | ✅ | ❌ |
 | `reviews.approve` | ✅ | ❌ |

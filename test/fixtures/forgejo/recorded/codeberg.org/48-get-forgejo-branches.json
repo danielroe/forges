@@ -1,0 +1,137 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/branches?limit=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "<https://codeberg.org/api/v1/repos/forgejo/forgejo/branches?limit=3&page=2>; rel=\"next\",<https://codeberg.org/api/v1/repos/forgejo/forgejo/branches?limit=3&page=11>; rel=\"last\"",
+      "x-total-count": "33"
+    },
+    "body": [
+      {
+        "name": "bp-v17.0/forgejo-1b980f3",
+        "commit": {
+          "id": "966fea683032ad0c6c0347c0d9134d854eb1748a",
+          "message": "fix: avoid loading unnecessary data during tag creation (#14785)\n\nI noticed that creating a tag via the web UI of codeberg.org was quite slow (28-30s).\n\nTracing showed a interesting SQL query:\n\n```sql\nSELECT * FROM `attachment` WHERE `release_id` IN (0) ORDER BY `release_id` ASC, `name` ASC\n```\n\nTracing also showed that this SQL query was executed before a\ntime block where Forgejo was doing a lot of application (non git/DB) code.\n\n---\n\n- `release_service.CreateNewTag` is called from the web router to handle creating a new tag, this function prepares a release struct with all the necessary information (every tag is stored as a release in the database).\n- `createTag` is then called which as first thing calls `LoadAttributes`.\n- `LoadAttributes` assumes the given release was loaded from the database and thus assumes the ID is non-zero. Loading 148026 attachments into this release.\n\nReviewed-on: https://codeberg.org/forgejo/forgejo/pulls/14785\nReviewed-by: Andreas Ahlenstorf <redacted@example.invalid>\n(cherry picked from commit 1b980f3558583271691afb2e6d5bfb96a67cc1e0)\n",
+          "url": "https://codeberg.org/forgejo/forgejo/commit/966fea683032ad0c6c0347c0d9134d854eb1748a",
+          "author": {
+            "name": "Gusted",
+            "email": "redacted@example.invalid",
+            "username": "Gusted"
+          },
+          "committer": {
+            "name": "forgejo-backport-action",
+            "email": "redacted@example.invalid",
+            "username": "forgejo-backport-action"
+          },
+          "verification": {
+            "verified": false,
+            "reason": "gpg.error.not_signed_commit",
+            "signature": "",
+            "signer": null,
+            "payload": ""
+          },
+          "timestamp": "2026-10-11T15:37:01+02:00",
+          "added": null,
+          "removed": null,
+          "modified": null
+        },
+        "protected": false,
+        "required_approvals": 0,
+        "enable_status_check": false,
+        "status_check_contexts": [],
+        "user_can_push": false,
+        "user_can_merge": false,
+        "effective_branch_protection_name": ""
+      },
+      {
+        "name": "forgejo",
+        "commit": {
+          "id": "1b980f3558583271691afb2e6d5bfb96a67cc1e0",
+          "message": "fix: avoid loading unnecessary data during tag creation (#14785)\n\nI noticed that creating a tag via the web UI of codeberg.org was quite slow (28-30s).\n\nTracing showed a interesting SQL query:\n\n```sql\nSELECT * FROM `attachment` WHERE `release_id` IN (0) ORDER BY `release_id` ASC, `name` ASC\n```\n\nTracing also showed that this SQL query was executed before a\ntime block where Forgejo was doing a lot of application (non git/DB) code.\n\n---\n\n- `release_service.CreateNewTag` is called from the web router to handle creating a new tag, this function prepares a release struct with all the necessary information (every tag is stored as a release in the database).\n- `createTag` is then called which as first thing calls `LoadAttributes`.\n- `LoadAttributes` assumes the given release was loaded from the database and thus assumes the ID is non-zero. Loading 148026 attachments into this release.\n\nReviewed-on: https://codeberg.org/forgejo/forgejo/pulls/14785\nReviewed-by: Andreas Ahlenstorf <redacted@example.invalid>\n",
+          "url": "https://codeberg.org/forgejo/forgejo/commit/1b980f3558583271691afb2e6d5bfb96a67cc1e0",
+          "author": {
+            "name": "Gusted",
+            "email": "redacted@example.invalid",
+            "username": "Gusted"
+          },
+          "committer": {
+            "name": "Gusted",
+            "email": "redacted@example.invalid",
+            "username": "Gusted"
+          },
+          "verification": {
+            "verified": false,
+            "reason": "gpg.error.not_signed_commit",
+            "signature": "",
+            "signer": null,
+            "payload": ""
+          },
+          "timestamp": "2026-10-11T15:37:01+02:00",
+          "added": null,
+          "removed": null,
+          "modified": null
+        },
+        "protected": true,
+        "required_approvals": 1,
+        "enable_status_check": true,
+        "status_check_contexts": [
+          "testing / frontend-checks (pull_request)",
+          "testing / backend-checks (pull_request)",
+          "testing / test-unit (pull_request)",
+          "testing / test-pgsql (pull_request)",
+          "testing / test-sqlite (pull_request)",
+          "testing / test-mysql (pull_request)"
+        ],
+        "user_can_push": false,
+        "user_can_merge": false,
+        "effective_branch_protection_name": ""
+      },
+      {
+        "name": "v17.0/forgejo",
+        "commit": {
+          "id": "6cb6155db7aae88a2a8d2658243795484564a1b3",
+          "message": "[v17.0/forgejo] fix: pass merge commit messages to git via stdin (#14799)\n\n**Backport:** https://codeberg.org/forgejo/forgejo/pulls/14743\n\nThis PR fixes a bug with merging wherein merges that ended up with a commit message body that exceeded Linux's `MAX_ARG_STRLEN` (128 KB) would fail and return a 500 Internal Server Error response.\n\nMy workflow consists of squash merging pull requests when they're ready, and Renovate-opened PRs that sat un-reviewed by me but continually updated by Renovate would eventually generate a PR large enough to cause the issue to arise.\n\nThe fix involves using Git's `--flag=-` commit argument to pass the commit message to git via stdin rather than passing the potentially-over-128 KB message as an argument to git directly.\n\nFixes #9937\n\nCo-authored-by: Kevin Poitra <redacted@example.invalid>\nReviewed-on: https://codeberg.org/forgejo/forgejo/pulls/14799\nReviewed-by: Gusted <redacted@example.invalid>\n",
+          "url": "https://codeberg.org/forgejo/forgejo/commit/6cb6155db7aae88a2a8d2658243795484564a1b3",
+          "author": {
+            "name": "forgejo-backport-action",
+            "email": "redacted@example.invalid",
+            "username": "forgejo-backport-action"
+          },
+          "committer": {
+            "name": "Gusted",
+            "email": "redacted@example.invalid",
+            "username": "Gusted"
+          },
+          "verification": {
+            "verified": false,
+            "reason": "gpg.error.not_signed_commit",
+            "signature": "",
+            "signer": null,
+            "payload": ""
+          },
+          "timestamp": "2026-10-10T22:39:31+02:00",
+          "added": null,
+          "removed": null,
+          "modified": null
+        },
+        "protected": true,
+        "required_approvals": 1,
+        "enable_status_check": true,
+        "status_check_contexts": [
+          "testing / frontend-checks (pull_request)",
+          "testing / backend-checks (pull_request)",
+          "testing / test-unit (pull_request)",
+          "testing / test-pgsql (pull_request)",
+          "testing / test-sqlite (pull_request)",
+          "testing / test-mysql (pull_request)"
+        ],
+        "user_can_push": false,
+        "user_can_merge": false,
+        "effective_branch_protection_name": ""
+      }
+    ]
+  }
+}

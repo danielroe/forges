@@ -1,0 +1,40 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitlab.com/api/v4/projects/forges-fixtures%2Fforges-fixtures/repository/commits/c3afa28c14c1cf01836182730880a5ac7c269238/comments"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "<https://gitlab.com/api/v4/projects/forges-fixtures%2Fforges-fixtures/repository/commits/c3afa28c14c1cf01836182730880a5ac7c269238/comments?id=forges-fixtures%2Fforges-fixtures&page=1&per_page=20&sha=c3afa28c14c1cf01836182730880a5ac7c269238>; rel=\"first\", <https://gitlab.com/api/v4/projects/forges-fixtures%2Fforges-fixtures/repository/commits/c3afa28c14c1cf01836182730880a5ac7c269238/comments?id=forges-fixtures%2Fforges-fixtures&page=1&per_page=20&sha=c3afa28c14c1cf01836182730880a5ac7c269238>; rel=\"last\"",
+      "etag": "W/\"663f24771807731233c5324ed478c47f\"",
+      "ratelimit-limit": "2000",
+      "ratelimit-remaining": "1936",
+      "ratelimit-reset": "1791734760",
+      "x-total": "1",
+      "x-total-pages": "1",
+      "x-next-page": "",
+      "x-page": "1",
+      "x-per-page": "20"
+    },
+    "body": [
+      {
+        "note": "A commit comment from run 20261011160520.",
+        "path": null,
+        "line": null,
+        "line_type": null,
+        "author": {
+          "id": 43193323,
+          "username": "roebot",
+          "public_email": "",
+          "name": "Daniel Roe",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://secure.gravatar.com/avatar/14ceebcfdc10030d76768a65e9d7978b914694cebcbb6ab609b3a0e8243f0eb8?s=80&d=identicon",
+          "web_url": "https://gitlab.com/roebot"
+        },
+        "created_at": "2026-10-11T16:05:56.079Z"
+      }
+    ]
+  }
+}

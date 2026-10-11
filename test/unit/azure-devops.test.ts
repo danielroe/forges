@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { azureDevOps } from '../../src/azure-devops/index.ts'
+import { NotFoundError } from '../../src/errors.ts'
 import { fixtureFetch, hangingFetch } from '../utils/fixtures.ts'
 
 const repo = { forge: 'azure-devops', instance: 'dev.azure.com', owner: 'acme/Widgets', name: 'widgets' } as const
@@ -94,5 +95,17 @@ describe('azure devops', () => {
     await instance.threads.merge!(pull, { method: 'squash', title: 'Release widgets', message: 'Ships the widgets' })
 
     expect(JSON.parse(calls.at(-1)!.body!).completionOptions).toEqual({ mergeStrategy: 'squash', mergeCommitMessage: 'Release widgets\n\nShips the widgets' })
+  })
+})
+
+describe('azure devops single-item reads', () => {
+  it('does not read a system comment, which the listing leaves out', async () => {
+    const instance = azureDevOps({ auth: { type: 'token', token: 'pat' }, organization: 'acme', fetch: async url => String(url).includes('/pullRequests/42/threads/7')
+      ? Response.json({ id: 7, status: 'active', comments: [{ id: 1, content: 'Looks good', commentType: 'text' }, { id: 2, content: 'Policy updated', commentType: 'system' }] })
+      : Response.json({ message: 'not found' }, { status: 404 }) }).create()
+    const ref = (id: string) => ({ forge: 'azure-devops', instance: 'dev.azure.com', thread: pull, id })
+
+    expect((await instance.threads.getComment(ref('7/1'))).body).toBe('Looks good')
+    await expect(instance.threads.getComment(ref('7/2'))).rejects.toThrow(NotFoundError)
   })
 })

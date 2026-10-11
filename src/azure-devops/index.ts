@@ -444,6 +444,7 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
         signal: options?.signal,
       })).data)),
     },
+    emulated: { getReview: anonymous ? 'unverified' : 'emulated' },
     threads: {
       get: perKind({ issue: anonymous ? 'unverified' : true, pull_request: true }, get),
       getMany: verb(true, (refs, options) => getManyConcurrently(refs, get, options)),
@@ -459,6 +460,22 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
       }),
       // Work item comments are a preview API.
       commentsPage: perKind({ issue: anonymous ? 'unverified' : 'experimental', pull_request: true }, commentsPage),
+      getComment: perKind({ issue: anonymous ? 'unverified' : 'experimental', pull_request: true }, async (ref, options) => {
+        const thread = requireIssueOrPull(ref.thread, context, 'read comments on')
+        if (thread.kind === 'issue') {
+          const { data } = await fetcher.json<AzureWorkItemComment>(`${workItemPath(thread)}/comments/${ref.id}`, { query: { 'api-version': COMMENTS_API_VERSION }, signal: options?.signal })
+          return toWorkItemComment(issueRef(thread.repo, thread.number), data)
+        }
+        const ids = splitCommentId(ref)
+        const { data } = await fetcher.json<AzureThread>(`${pullPath(thread)}/threads/${ids.thread}`, { signal: options?.signal })
+        const comment = isConversationThread(data)
+          ? data.comments.find(candidate => String(candidate.id) === ids.comment && !candidate.isDeleted && candidate.commentType !== 'system')
+          : undefined
+        if (!comment) {
+          throw new NotFoundError(`Comment ${ref.id} not found`, 404, '', context)
+        }
+        return toPullComment(thread, data, comment)
+      }),
       comment: perKind({ issue: 'experimental', pull_request: true }, async (thread, body, options) => {
         const ref = requireIssueOrPull(thread, context, 'comment on')
         if (ref.kind === 'issue') {

@@ -1,0 +1,15 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/actions/jobs/114498454598/logs"
+  },
+  "response": {
+    "status": 302,
+    "headers": {
+      "location": "https://productionresultssa10.blob.core.windows.net/actions-results/99f33277-f90b-48a1-9120-5126e2ec467b/workflow-job-run-73284224-1a95-5015-ae95-1079bceff996/logs/job/job-logs.txt?rsct=text%2Fplain&se=2026-10-11T16%3A15%3A11Z&sig=REDACTED&ske=2026-10-11T19%3A55%3A12Z&skoid=REDACTED&sks=b&skt=2026-10-11T15%3A55%3A12Z&sktid=REDACTED&skv=2025-11-05&sp=r&spr=https&sr=b&st=2026-10-11T16%3A05%3A06Z&sv=2025-11-05",
+      "x-ratelimit-limit": "5000",
+      "x-ratelimit-remaining": "4992",
+      "x-ratelimit-reset": "1791737987"
+    }
+  }
+}

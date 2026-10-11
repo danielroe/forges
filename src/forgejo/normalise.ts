@@ -62,7 +62,7 @@ import type {
   GiteaActionRun,
 } from './types.ts'
 import { reviewState } from '../events.ts'
-import { toDate, toFileStatus } from '../utils.ts'
+import { toDate, toFileStatus, toPullStats } from '../utils.ts'
 import { eventKindsOf } from '../webhooks.ts'
 import { FORGEJO_NATIVE_EVENTS } from './webhook-events.ts'
 
@@ -292,6 +292,7 @@ export function toThread(ref: ThreadRef, raw: ForgejoIssue): Thread {
           mergeCommitSha: raw.merge_commit_sha ?? undefined,
         }
       : undefined,
+    stats: toPullStats({ additions: raw.additions, deletions: raw.deletions, changedFileCount: raw.changed_files }),
     raw,
   }
 }

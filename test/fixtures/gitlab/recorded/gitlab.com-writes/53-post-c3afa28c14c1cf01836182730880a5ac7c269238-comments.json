@@ -1,0 +1,35 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://gitlab.com/api/v4/projects/forges-fixtures%2Fforges-fixtures/repository/commits/c3afa28c14c1cf01836182730880a5ac7c269238/comments",
+    "body": {
+      "note": "A commit comment from run 20261011160520."
+    }
+  },
+  "response": {
+    "status": 201,
+    "headers": {
+      "etag": "W/\"e6700e0e2a239ac4bb598db3581698c3\"",
+      "ratelimit-limit": "2000",
+      "ratelimit-remaining": "1937",
+      "ratelimit-reset": "1791734760"
+    },
+    "body": {
+      "note": "A commit comment from run 20261011160520.",
+      "path": null,
+      "line": null,
+      "line_type": null,
+      "author": {
+        "id": 43193323,
+        "username": "roebot",
+        "public_email": "",
+        "name": "Daniel Roe",
+        "state": "active",
+        "locked": false,
+        "avatar_url": "https://secure.gravatar.com/avatar/14ceebcfdc10030d76768a65e9d7978b914694cebcbb6ab609b3a0e8243f0eb8?s=80&d=identicon",
+        "web_url": "https://gitlab.com/roebot"
+      },
+      "created_at": "2026-10-11T16:05:56.079Z"
+    }
+  }
+}

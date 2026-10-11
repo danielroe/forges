@@ -1,0 +1,54 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/repository/commits/main"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"380c4daea550900021265b4cfa0a29c2\"",
+      "ratelimit-limit": "2000",
+      "ratelimit-remaining": "1942",
+      "ratelimit-reset": "1791734760"
+    },
+    "body": {
+      "id": "9a7963a1f19651973a02d75b8a7ae16ba81e27e5",
+      "short_id": "9a7963a1",
+      "created_at": "2026-10-09T17:32:13.000-05:00",
+      "parent_ids": [
+        "fa3b8d6792a8063eb03a5a8784517019d15829be",
+        "392ad277d67c1d64b3b1e32e1d93d520628d5895"
+      ],
+      "title": "Merge branch 'chore/redundant-make-fix' into 'main'",
+      "message": "Merge branch 'chore/redundant-make-fix' into 'main'\n\nchore: remove redundant \"make fix\" tools\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4009\n\nMerged-by: Kai Armstrong <redacted@example.invalid>\nApproved-by: Kai Armstrong <redacted@example.invalid>\nReviewed-by: Kai Armstrong <redacted@example.invalid>\nCo-authored-by: Ville Skyttä <redacted@example.invalid>",
+      "author_name": "Kai Armstrong",
+      "author_email": "redacted@example.invalid",
+      "authored_date": "2026-10-09T17:32:13.000-05:00",
+      "committer_name": "GitLab",
+      "committer_email": "redacted@example.invalid",
+      "committed_date": "2026-10-09T17:32:13.000-05:00",
+      "trailers": {},
+      "extended_trailers": {},
+      "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/9a7963a1f19651973a02d75b8a7ae16ba81e27e5",
+      "stats": {
+        "additions": 2,
+        "deletions": 3,
+        "total": 5
+      },
+      "status": "success",
+      "project_id": 34675721,
+      "last_pipeline": {
+        "id": 2934933529,
+        "iid": 15072,
+        "project_id": 34675721,
+        "sha": "9a7963a1f19651973a02d75b8a7ae16ba81e27e5",
+        "ref": "main",
+        "status": "success",
+        "source": "schedule",
+        "created_at": "2026-10-11T01:14:06.733Z",
+        "updated_at": "2026-10-11T01:34:56.169Z",
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/pipelines/2934933529"
+      }
+    }
+  }
+}

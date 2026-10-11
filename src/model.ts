@@ -519,6 +519,18 @@ export interface PullBranches {
   mergeCommitSha?: string
 }
 
+/** The size of a pull request's change. Each count is absent where the forge doesn't report it exactly. */
+export interface PullStats {
+  /** Lines added. */
+  additions?: number
+  /** Lines removed. */
+  deletions?: number
+  /** Files changed. */
+  changedFileCount?: number
+  /** Commits on the pull request. */
+  commitCount?: number
+}
+
 /** Where a pull request sits in a stack of pull requests. */
 export interface ThreadStack {
   /** Forge-native stack id, where the forge names stacks. */
@@ -992,6 +1004,8 @@ export interface Thread {
   branches?: PullBranches
   /** Pull requests only. */
   checks?: ChecksSummary
+  /** Pull requests only, where the forge reports counts with the pull request. */
+  stats?: PullStats
   /** Pull requests in a stack: a chain of dependent pull requests, each based on the one before. */
   stack?: ThreadStack
   /** Non-fatal problems hit while reading the thread, for example an unreachable record. */

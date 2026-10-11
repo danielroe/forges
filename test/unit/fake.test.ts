@@ -50,6 +50,25 @@ describe('fake forge', () => {
     expect((await forge.threads.checks(pull)).items.map(check => check.name)).toEqual(['test', 'lint'])
   })
 
+  it('reads one comment, review and CI job by walking their listings', async () => {
+    const forge = fake({ seed: { ...seed, runs: [{ repo: 'acme/widgets', name: 'ci', jobs: [{ name: 'test' }, { name: 'lint' }] }] } }).create()
+    const repo = { forge: 'fake', instance: 'fake.test', owner: 'acme', name: 'widgets' }
+    const pull = { forge: 'fake', instance: 'fake.test', repo, kind: 'pull_request' as const, number: '2' }
+    const comment = await forge.threads.comment(pull, 'Looks good')
+    const review = await forge.threads.createReview(pull, { event: 'approve' })
+    const [run] = (await forge.ci.runsPage(repo)).items
+    const [, job] = (await forge.ci.jobsPage(run!.ref)).items
+
+    expect(forge.support('threads.getComment', 'pull_request')).toBe('emulated')
+    expect(forge.support('threads.getReview')).toBe('emulated')
+    expect(forge.support('ci.job')).toBe('emulated')
+    expect((await forge.threads.getComment(comment.ref)).body).toBe('Looks good')
+    expect((await forge.threads.getReview(review.ref)).state).toBe('approved')
+    expect((await forge.ci.job(job!.ref)).name).toBe('lint')
+    await expect(forge.threads.getComment({ ...comment.ref, id: 'missing' })).rejects.toThrow(NotFoundError)
+    await expect(forge.ci.job({ forge: 'fake', instance: 'fake.test', repo, id: job!.ref.id })).rejects.toThrow(UnsupportedOperationError)
+  })
+
   it('rejects verbs configured as unsupported, per kind where asked', async () => {
     const forge = fake({ seed, support: { 'threads.close': { issue: true }, 'notifications.markDone': false } }).create()
     const pull = { forge: 'fake', instance: 'fake.test', repo: { forge: 'fake', instance: 'fake.test', owner: 'acme', name: 'widgets' }, kind: 'pull_request' as const, number: '2' }

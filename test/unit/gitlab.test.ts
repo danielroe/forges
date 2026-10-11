@@ -5,6 +5,7 @@ import { describe, expect, it } from 'vitest'
 import {
   InsufficientScopeError,
   MergeMethodRequiredError,
+  NotFoundError,
   RateLimitedError,
   TokenRevokedError,
   UnresolvedThreadError,
@@ -202,6 +203,19 @@ describe('gitlab provider', () => {
       `PUT ${P}/merge_requests/23`,
     ])
     expect(JSON.parse(calls.at(-1)!.body!)).toEqual({ milestone_id: 41 })
+  })
+
+  it.each([
+    ['12', { changedFileCount: 12 }],
+    ['1000+', undefined],
+    [null, undefined],
+  ])('reads a changes count of %j as %j', async (count, stats) => {
+    const thread = JSON.parse(readFileSync(`${fixtureDirectory('gitlab')}thread-mr-23.json`, 'utf8')).response.body
+    const { instance } = provider({
+      [`GET ${P}/merge_requests/23`]: { status: 200, body: { ...thread, changes_count: count } },
+    })
+
+    expect((await instance.threads.get(mr)).stats).toEqual(stats)
   })
 })
 
@@ -460,13 +474,13 @@ describe('gitlab code search', () => {
   })
 
   it('merges a file that basic search lists once for its name and again for its contents', async () => {
-    const { instance } = recordedSearch()
     const scratch = { forge: 'gitlab', instance: 'gitlab.com', owner: 'forges-fixtures', name: 'forges-fixtures' } as const
+    const blob = { basename: 'notes', data: 'forges-fixtures\n', path: 'notes.md', filename: 'notes.md', id: 'b1', ref: 'main', startline: 1, project_id: 1 }
+    const instance = gitlab({ auth: { type: 'token', token: 't' }, fetch: async () => Response.json([blob, blob, { ...blob, path: 'other.md', filename: 'other.md' }]) }).create()
 
     const { items } = await instance.search.codePage({ text: 'forges-fixtures', repo: scratch, perPage: 20 })
 
-    expect(items).toHaveLength(10)
-    expect(new Set(items.map(item => item.path)).size).toBe(10)
+    expect(items.map(item => item.path)).toEqual(['notes.md', 'other.md'])
     expect(items.every(item => item.fragments.length === 1)).toBe(true)
   })
 
@@ -542,5 +556,47 @@ describe('gitlab path safety', () => {
 
     await expect(provider.threads.deleteComment({ forge: 'gitlab', instance: 'gitlab.com', thread, id: '../../../../../user' })).rejects.toThrow(TypeError)
     expect(urls).toEqual([])
+  })
+})
+
+describe('gitlab single-item reads', () => {
+  const note = { id: 5, body: 'Looks good', system: false, created_at: '2026-01-01T00:00:00Z' }
+
+  function serve(responses: Record<string, unknown>) {
+    return gitlab({ auth: { type: 'token', token: 't' }, fetch: async (url) => {
+      const key = new URL(String(url)).pathname
+      return key in responses ? Response.json(responses[key]) : Response.json({ message: '404 Not found' }, { status: 404 })
+    } }).create()
+  }
+
+  it('gives a resolvable note the discussion that resolves it, as the listing does', async () => {
+    const provider = serve({
+      '/api/v4/projects/acme%2Fplatform%2Fwidgets/merge_requests/23/notes/5': { ...note, resolvable: true, resolved: false },
+      '/api/v4/projects/acme%2Fplatform%2Fwidgets/merge_requests/23/discussions': [{ id: 'd1', individual_note: false, notes: [{ ...note, resolvable: true, resolved: false }] }],
+    })
+
+    const comment = await provider.threads.getComment({ forge: 'gitlab', instance: 'gitlab.com', thread: mr, id: '5' })
+
+    expect(comment.thread).toEqual({ id: 'd1', resolved: false })
+  })
+
+  it('does not read a system note, which the listing leaves out', async () => {
+    const provider = serve({ '/api/v4/projects/acme%2Fplatform%2Fwidgets/merge_requests/23/notes/5': { ...note, system: true } })
+
+    await expect(provider.threads.getComment({ forge: 'gitlab', instance: 'gitlab.com', thread: mr, id: '5' })).rejects.toThrow(NotFoundError)
+  })
+
+  it('reads a CI job whose ref names no run, and names the run from the job', async () => {
+    const provider = serve({ '/api/v4/projects/acme%2Fplatform%2Fwidgets/jobs/9': { id: 9, name: 'test', status: 'success', stage: 'test', pipeline: { id: 7 } } })
+
+    const job = await provider.ci.job({ forge: 'gitlab', instance: 'gitlab.com', repo, id: '9' })
+
+    expect(job.ref.run).toEqual({ forge: 'gitlab', instance: 'gitlab.com', repo, id: '7' })
+  })
+
+  it('rejects a CI job without its pipeline when its ref names no run', async () => {
+    const provider = serve({ '/api/v4/projects/acme%2Fplatform%2Fwidgets/jobs/9': { id: 9, name: 'test', status: 'success', stage: 'test' } })
+
+    await expect(provider.ci.job({ forge: 'gitlab', instance: 'gitlab.com', repo, id: '9' })).rejects.toThrow(UnsupportedOperationError)
   })
 })

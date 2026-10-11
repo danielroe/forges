@@ -24,11 +24,11 @@
     "repo": {
       "forge": "pushin",
       "instance": "pushin.eu",
-      "owner": "pjullrich",
-      "name": "pushin-cli"
+      "owner": "danielroe",
+      "name": "roe.dev-test"
     },
     "kind": "pull_request",
-    "number": "5"
+    "number": "1"
   },
   "scratch": {
     "forge": "pushin",
@@ -36,9 +36,10 @@
     "owner": "danielroe",
     "name": "roe.dev"
   },
-  "recordedAt": "2026-10-09T21:06:36.515Z",
+  "recordedAt": "2026-10-11T12:54:39.837Z",
   "steps": [
     "repo",
+    "repo licence",
     "labels",
     "collaborators",
     "pull",
@@ -46,11 +47,13 @@
     "pull getMany",
     "pull events",
     "pull comments",
+    "pull getComment",
     "issue",
     "issue list",
     "issue getMany",
     "issue events",
     "issue comments",
+    "issue getComment",
     "me",
     "own repos",
     "notifications"

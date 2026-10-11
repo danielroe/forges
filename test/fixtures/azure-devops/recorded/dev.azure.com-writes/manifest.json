@@ -13,25 +13,26 @@
     "name": "forges-fixtures"
   },
   "run": {
-    "id": "20261010232329",
+    "id": "20261011120150",
     "base": "main",
     "branches": [
-      "forges-fixtures/20261010232329-1",
-      "forges-fixtures/20261010232329-2",
-      "forges-fixtures/20261010232329-3"
+      "forges-fixtures/20261011120150-1",
+      "forges-fixtures/20261011120150-2",
+      "forges-fixtures/20261011120150-3"
     ],
     "files": [
-      "forges-fixtures/20261010232329-1.md",
-      "forges-fixtures/20261010232329-2.md",
-      "forges-fixtures/20261010232329-3.md"
+      "forges-fixtures/20261011120150-1.md",
+      "forges-fixtures/20261011120150-2.md",
+      "forges-fixtures/20261011120150-3.md"
     ],
     "reviewer": "48261c0d-8a6e-6a10-a9cb-c76b44ce18ce"
   },
-  "recordedAt": "2026-10-10T23:23:34.246Z",
+  "recordedAt": "2026-10-11T12:01:53.201Z",
   "steps": [
     "create issue",
     "issue comment",
     "issue edit comment",
+    "issue get comment",
     "issue upsert comment",
     "issue delete comment",
     "issue set labels",
@@ -45,12 +46,14 @@
     "create third pull",
     "pull comment",
     "pull edit comment",
+    "pull get comment",
     "pull upsert comment",
     "pull delete comment",
     "pull set labels",
     "pull update",
     "request review",
     "pending review",
+    "get review",
     "resolve review thread",
     "unresolve review thread",
     "report check",

@@ -170,6 +170,7 @@ A `push` delivery becomes a `push` or `ref` event. Tangled has no API to registe
 | `threads.getMany` | ✅ | ✅ |
 | `threads.events` | issue, PR | issue, PR |
 | `comments.list` | issue, PR | issue, PR |
+| `comments.get` | issue (emulated), PR (emulated) | issue (emulated), PR (emulated) |
 | `comments.edit` | issue, PR | ❌ |
 | `comments.delete` | issue, PR | ❌ |
 | `reactions.list` | ❌ | ❌ |
@@ -202,11 +203,13 @@ A `push` delivery becomes a `push` or `ref` event. Tangled has no API to registe
 | `installations` | ❌ | ❌ |
 | `checks.thread` | ❌ | ❌ |
 | `checks.list` | ❌ | ❌ |
+| `checks.get` | ❌ | ❌ |
 | `checks.report` | ❌ | ❌ |
 | `checks.rerun` | ❌ | ❌ |
 | `ci.runs` | ❌ | ❌ |
 | `ci.run` | ❌ | ❌ |
 | `ci.jobs` | ❌ | ❌ |
+| `ci.job` | ❌ | ❌ |
 | `ci.log` | ❌ | ❌ |
 | `contents.file` | ❌ | ❌ |
 | `contents.tree` | ❌ | ❌ |
@@ -219,6 +222,7 @@ A `push` delivery becomes a `push` or `ref` event. Tangled has no API to registe
 | `contents.threadFiles` | ❌ | ❌ |
 | `contents.threadCommits` | ❌ | ❌ |
 | `reviews.list` | ❌ | ❌ |
+| `reviews.get` | ❌ | ❌ |
 | `reviews.create` | ❌ | ❌ |
 | `reviews.submit` | ❌ | ❌ |
 | `reviews.approve` | ❌ | ❌ |

@@ -1,0 +1,46 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/pulls/540/commits"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"d1c1d0a742cfc36f351702f21062a6b0\"",
+      "x-ratelimit-limit": "60",
+      "x-ratelimit-remaining": "39"
+    },
+    "body": [
+      {
+        "url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/commits/4335303c9a57ffcf13225dcf39dfd23b8237e03b",
+        "sha": "4335303c9a57ffcf13225dcf39dfd23b8237e03b",
+        "html_url": "https://gitee.com/cmcc-oneos/OneOS/commits/4335303c9a57ffcf13225dcf39dfd23b8237e03b",
+        "comments_url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/commits/4335303c9a57ffcf13225dcf39dfd23b8237e03b/comments",
+        "commit": {
+          "url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/commits/4335303c9a57ffcf13225dcf39dfd23b8237e03b",
+          "author": {
+            "name": "zhangyong",
+            "email": "redacted@example.invalid",
+            "date": "2024-08-22T09:35:18+08:00"
+          },
+          "committer": {
+            "name": "zhangyong",
+            "email": "redacted@example.invalid",
+            "date": "2024-08-22T09:35:18+08:00"
+          },
+          "message": "fix(cms): delete cms component from oneos.\n",
+          "comment_count": 5
+        },
+        "author": null,
+        "committer": {},
+        "parents": {
+          "url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/commits/4335303c9a57ffcf13225dcf39dfd23b8237e03b",
+          "sha": "7e3cd0d302f25794197b2c76855cc18b1dace36b",
+          "shas": [
+            "7e3cd0d302f25794197b2c76855cc18b1dace36b"
+          ]
+        }
+      }
+    ]
+  }
+}

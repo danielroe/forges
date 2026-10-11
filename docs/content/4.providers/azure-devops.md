@@ -129,6 +129,7 @@ You manage service hook subscriptions at the level of the organization and not o
 | `threads.getMany` | ✅ | ✅ |
 | `threads.events` | issue, PR | issue (unverified), PR |
 | `comments.list` | issue (experimental), PR | issue (unverified), PR |
+| `comments.get` | issue (experimental), PR | issue (unverified), PR |
 | `comments.edit` | issue (experimental), PR | ❌ |
 | `comments.delete` | issue (experimental), PR | ❌ |
 | `reactions.list` | ❌ | ❌ |
@@ -161,11 +162,13 @@ You manage service hook subscriptions at the level of the organization and not o
 | `installations` | ❌ | ❌ |
 | `checks.thread` | PR (experimental) | ❌ |
 | `checks.list` | ✅ | ✅ |
+| `checks.get` | ❌ | ❌ |
 | `checks.report` | ✅ | ❌ |
 | `checks.rerun` | ❌ | ❌ |
 | `ci.runs` | ❌ | ❌ |
 | `ci.run` | ❌ | ❌ |
 | `ci.jobs` | ❌ | ❌ |
+| `ci.job` | ❌ | ❌ |
 | `ci.log` | ❌ | ❌ |
 | `contents.file` | ✅ | ✅ |
 | `contents.tree` | ✅ | ✅ |
@@ -178,6 +181,7 @@ You manage service hook subscriptions at the level of the organization and not o
 | `contents.threadFiles` | ❌ | ❌ |
 | `contents.threadCommits` | ✅ | ✅ |
 | `reviews.list` | emulated | emulated |
+| `reviews.get` | emulated | unverified |
 | `reviews.create` | emulated | ❌ |
 | `reviews.submit` | ❌ | ❌ |
 | `reviews.approve` | emulated | ❌ |

@@ -37,9 +37,10 @@
     "owner": "forges-fixtures",
     "name": "forges-fixtures"
   },
-  "recordedAt": "2026-10-09T14:22:38.262Z",
+  "recordedAt": "2026-10-11T11:22:49.677Z",
   "steps": [
     "repo",
+    "repo licence",
     "labels",
     "milestones",
     "pull",
@@ -47,8 +48,10 @@
     "pull getMany",
     "pull events",
     "pull comments",
+    "pull getComment",
     "pull reactions",
     "pull reviews",
+    "pull getReview",
     "pull checks",
     "pull files",
     "pull commits",

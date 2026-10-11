@@ -1,0 +1,19 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.github.com/search/code?q=forges-fixtures+repo%3Aforges-fixtures%2Fforges-fixtures&per_page=20"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "x-ratelimit-limit": "10",
+      "x-ratelimit-remaining": "7",
+      "x-ratelimit-reset": "1791734779"
+    },
+    "body": {
+      "total_count": 0,
+      "incomplete_results": true,
+      "items": []
+    }
+  }
+}

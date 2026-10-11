@@ -95,6 +95,7 @@ Since `pushin()` contains no webhook code, there is no `pushinLite()` factory fo
 | `threads.getMany` | ✅ | ✅ |
 | `threads.events` | issue (emulated), PR (emulated) | issue (emulated), PR (emulated) |
 | `comments.list` | issue, PR | issue, PR |
+| `comments.get` | issue (emulated), PR (emulated) | issue (emulated), PR (emulated) |
 | `comments.edit` | ❌ | ❌ |
 | `comments.delete` | ❌ | ❌ |
 | `reactions.list` | ❌ | ❌ |
@@ -127,11 +128,13 @@ Since `pushin()` contains no webhook code, there is no `pushinLite()` factory fo
 | `installations` | ❌ | ❌ |
 | `checks.thread` | ❌ | ❌ |
 | `checks.list` | ❌ | ❌ |
+| `checks.get` | ❌ | ❌ |
 | `checks.report` | ❌ | ❌ |
 | `checks.rerun` | ❌ | ❌ |
 | `ci.runs` | ❌ | ❌ |
 | `ci.run` | ❌ | ❌ |
 | `ci.jobs` | ❌ | ❌ |
+| `ci.job` | ❌ | ❌ |
 | `ci.log` | ❌ | ❌ |
 | `contents.file` | ❌ | ❌ |
 | `contents.tree` | ❌ | ❌ |
@@ -144,6 +147,7 @@ Since `pushin()` contains no webhook code, there is no `pushinLite()` factory fo
 | `contents.threadFiles` | ❌ | ❌ |
 | `contents.threadCommits` | ❌ | ❌ |
 | `reviews.list` | ❌ | ❌ |
+| `reviews.get` | ❌ | ❌ |
 | `reviews.create` | ❌ | ❌ |
 | `reviews.submit` | ❌ | ❌ |
 | `reviews.approve` | ❌ | ❌ |

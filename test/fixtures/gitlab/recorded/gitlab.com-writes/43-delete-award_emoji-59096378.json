@@ -1,0 +1,14 @@
+{
+  "request": {
+    "method": "DELETE",
+    "url": "https://gitlab.com/api/v4/projects/forges-fixtures%2Fforges-fixtures/merge_requests/33/award_emoji/59096378"
+  },
+  "response": {
+    "status": 204,
+    "headers": {
+      "ratelimit-limit": "2000",
+      "ratelimit-remaining": "1947",
+      "ratelimit-reset": "1791734760"
+    }
+  }
+}

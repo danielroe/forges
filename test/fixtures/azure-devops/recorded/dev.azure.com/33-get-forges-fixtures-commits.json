@@ -1,0 +1,81 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://dev.azure.com/forges/forges-fixtures/_apis/git/repositories/forges-fixtures/commits?%24top=3&api-version=7.1"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "<https://dev.azure.com/_apis/git/repositories/forges-fixtures/commits>;rel=\"next\""
+    },
+    "body": {
+      "count": 3,
+      "value": [
+        {
+          "commitId": "88cc1bb3d399bbdaa63e354f0c2b8517f7b22ba8",
+          "author": {
+            "name": "danielroebot outlook.com",
+            "email": "redacted@example.invalid",
+            "date": "2026-10-11T11:34:25Z"
+          },
+          "committer": {
+            "name": "danielroebot outlook.com",
+            "email": "redacted@example.invalid",
+            "date": "2026-10-11T11:34:25Z"
+          },
+          "comment": "Merge run 20261011113416",
+          "commentTruncated": true,
+          "changeCounts": {
+            "Add": 1,
+            "Edit": 0,
+            "Delete": 0
+          },
+          "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/commits/88cc1bb3d399bbdaa63e354f0c2b8517f7b22ba8",
+          "remoteUrl": "https://dev.azure.com/forges/forges-fixtures/_git/forges-fixtures/commit/88cc1bb3d399bbdaa63e354f0c2b8517f7b22ba8"
+        },
+        {
+          "commitId": "93e8e4aacf20e699441ebe515f9f122c15b5445a",
+          "author": {
+            "name": "danielroebot outlook.com",
+            "email": "redacted@example.invalid",
+            "date": "2026-10-11T11:34:25Z"
+          },
+          "committer": {
+            "name": "danielroebot outlook.com",
+            "email": "redacted@example.invalid",
+            "date": "2026-10-11T11:34:25Z"
+          },
+          "comment": "Merge pull request 31 from forges-fixtures/20261011113416-3 into main",
+          "changeCounts": {
+            "Add": 1,
+            "Edit": 0,
+            "Delete": 0
+          },
+          "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/commits/93e8e4aacf20e699441ebe515f9f122c15b5445a",
+          "remoteUrl": "https://dev.azure.com/forges/forges-fixtures/_git/forges-fixtures/commit/93e8e4aacf20e699441ebe515f9f122c15b5445a"
+        },
+        {
+          "commitId": "6392eadc540cf28449fa2962dd8e70665cf813e3",
+          "author": {
+            "name": "danielroebot outlook.com",
+            "email": "redacted@example.invalid",
+            "date": "2026-10-11T11:34:23Z"
+          },
+          "committer": {
+            "name": "danielroebot outlook.com",
+            "email": "redacted@example.invalid",
+            "date": "2026-10-11T11:34:23Z"
+          },
+          "comment": "Merge pull request 30 from forges-fixtures/20261011113416-2 into main",
+          "changeCounts": {
+            "Add": 1,
+            "Edit": 0,
+            "Delete": 0
+          },
+          "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/commits/6392eadc540cf28449fa2962dd8e70665cf813e3",
+          "remoteUrl": "https://dev.azure.com/forges/forges-fixtures/_git/forges-fixtures/commit/6392eadc540cf28449fa2962dd8e70665cf813e3"
+        }
+      ]
+    }
+  }
+}

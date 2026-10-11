@@ -302,13 +302,14 @@ function setupOrigin({ options, baseUrl, instance, origin: context, fetcher, cre
         return { items: page.items.map(raw => toCommit(thread.repo, raw)), cursor: page.cursor }
       }),
       commentsPage: perKind(PULL, commentsPage),
+      getComment: perKind(UNVERIFIED, async (ref, options) => toComment(ref.thread, (await fetcher.json<OriginComment>(`${repoPath(ref.thread.repo)}/pulls/comments/${encodeURIComponent(ref.id)}`, { signal: options?.signal })).data)),
       comment: perKind(PULL, async (thread, body, options) => {
         const ref = requireThread(thread, context)
         return toComment(ref, (await fetcher.json<OriginComment>(`${pullPath(ref)}/comments`, { method: 'POST', json: { body }, signal: options?.signal })).data)
       }),
-      editComment: perKind(UNVERIFIED, async (ref, body, options) => toComment(ref.thread, (await fetcher.json<OriginComment>(`${repoPath(ref.thread.repo)}/pulls/comments/${ref.id}`, { method: 'PATCH', json: { body }, signal: options?.signal })).data)),
+      editComment: perKind(UNVERIFIED, async (ref, body, options) => toComment(ref.thread, (await fetcher.json<OriginComment>(`${repoPath(ref.thread.repo)}/pulls/comments/${encodeURIComponent(ref.id)}`, { method: 'PATCH', json: { body }, signal: options?.signal })).data)),
       deleteComment: perKind(UNVERIFIED, async (ref, options) => {
-        await fetcher.raw(`${repoPath(ref.thread.repo)}/pulls/comments/${ref.id}`, { method: 'DELETE', signal: options?.signal })
+        await fetcher.raw(`${repoPath(ref.thread.repo)}/pulls/comments/${encodeURIComponent(ref.id)}`, { method: 'DELETE', signal: options?.signal })
       }),
       create: perKind(UNVERIFIED, async (repo, input, options) => {
         if (input.assignees?.length) {
@@ -371,6 +372,10 @@ function setupOrigin({ options, baseUrl, instance, origin: context, fetcher, cre
         const ref = requireThread(thread, context)
         const page = await tokenPage<OriginReview>(`${pullPath(ref)}/reviews`, 'reviews', listOptions)
         return { items: page.items.map(raw => toReview(ref, raw)), cursor: page.cursor }
+      }),
+      getReview: verb('unverified', async (ref, options) => {
+        const thread = requireThread(ref.thread, context)
+        return toReview(thread, (await fetcher.json<OriginReview>(`${pullPath(thread)}/reviews/${encodeURIComponent(ref.id)}`, { signal: options?.signal })).data)
       }),
       createReview: verb('unverified', createReview),
       reviewThreads: verb('unverified', {

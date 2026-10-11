@@ -1,4 +1,4 @@
-import type { Branch, CiJob, CiRun, Page, Release, Repo, RepoRef, SecurityAlertKind, Thread, ThreadRef, Webhook } from '../../src/model.ts'
+import type { Branch, Check, CiJob, CiRun, Comment, Page, Release, Repo, RepoRef, Review, SecurityAlertKind, Thread, ThreadRef, Webhook } from '../../src/model.ts'
 import type { ForgeProvider, ForgeVerb } from '../../src/provider.ts'
 import { sha256Hex } from '../../src/crypto.ts'
 import { ForbiddenError, InsufficientScopeError, NotFoundError } from '../../src/errors.ts'
@@ -53,12 +53,18 @@ export interface StepContext {
   runs?: CiRun[]
   job?: CiJob
   webhook?: Webhook
+  comment?: Comment
+  review?: Review
+  checks?: Check[]
+  discussion?: Thread
 }
 
 export interface Step {
   name: string
   verb: ForgeVerb
   kind?: 'issue' | 'pull_request' | 'discussion' | 'commit' | Exclude<SecurityAlertKind, 'other'>
+  /** Whether the step applies, beyond the provider supporting its verb. */
+  when?: (provider: ForgeProvider, manifest: RecordingManifest) => boolean
   run: (provider: ForgeProvider, manifest: RecordingManifest, context: StepContext) => Promise<unknown>
 }
 
@@ -81,6 +87,17 @@ async function orScratch<T>(manifest: RecordingManifest, read: (repo: RepoRef) =
   }
 }
 
+async function firstWithJobs(provider: ForgeProvider, runs: CiRun[]): Promise<Page<CiJob> | undefined> {
+  let result: Page<CiJob> | undefined
+  for (const run of runs) {
+    result = await provider.ci.jobsPage(run.ref, page)
+    if (result.items.length) {
+      break
+    }
+  }
+  return result
+}
+
 async function text(stream: ReadableStream<Uint8Array>): Promise<string> {
   return new Response(stream).text()
 }
@@ -92,6 +109,21 @@ function need<T>(value: T | undefined, what: string): T {
   return value
 }
 
+/** Reads a discussion comment by the discussion's own node id, which must be rejected. */
+const discussionNodeStep: Step = { name: 'discussion getComment of another node', verb: 'threads.getComment', kind: 'discussion', run: async (provider, _manifest, context) => {
+  const id = need(need(context.discussion, 'the discussion').ref.externalId, 'the discussion node id')
+  try {
+    await provider.threads.getComment({ ...need(context.comment, 'a discussion comment').ref, id })
+  }
+  catch (error) {
+    if (error instanceof NotFoundError) {
+      return { rejected: error.name }
+    }
+    throw error
+  }
+  throw new Error('read a discussion comment from a node of another type')
+} }
+
 function threadSteps(kind: 'issue' | 'pull_request' | 'discussion', key: 'issue' | 'pull' | 'discussion'): Step[] {
   const ref = (manifest: RecordingManifest) => need(manifest[key], `manifest.${key}`)
   const steps: Step[] = [
@@ -101,11 +133,15 @@ function threadSteps(kind: 'issue' | 'pull_request' | 'discussion', key: 'issue'
         context.pull = thread
         context.headSha = thread.branches?.head.sha
       }
+      if (key === 'discussion') {
+        context.discussion = thread
+      }
       context.login ??= thread.author?.login
       return thread
     } },
     { name: `${key} list`, verb: 'threads.listPage', kind, run: (provider, manifest) => provider.threads.listPage(manifest.repo, { kind, ...page }) },
-    { name: `${key} getMany`, verb: 'threads.getMany', kind, run: async (provider, manifest) => {
+    // Anonymous GitHub reads share 60 requests an hour, and `issue getMany` covers the same REST fallback.
+    { name: `${key} getMany`, verb: 'threads.getMany', kind, when: (provider, manifest) => key !== 'pull' || provider.forge !== 'github' || !manifest.anonymous, run: async (provider, manifest) => {
       const results = await provider.threads.getMany([ref(manifest)])
       const failed = results.find(result => !result.ok)
       if (failed) {
@@ -114,13 +150,24 @@ function threadSteps(kind: 'issue' | 'pull_request' | 'discussion', key: 'issue'
       return results
     } },
     { name: `${key} events`, verb: 'threads.eventsPage', kind, run: (provider, manifest) => provider.threads.eventsPage(ref(manifest), page) },
-    { name: `${key} comments`, verb: 'threads.commentsPage', kind, run: (provider, manifest) => provider.threads.commentsPage(ref(manifest), page) },
+    { name: `${key} comments`, verb: 'threads.commentsPage', kind, run: async (provider, manifest, context) => {
+      const result = await provider.threads.commentsPage(ref(manifest), page)
+      context.comment = result.items[0]
+      return result
+    } },
+    { name: `${key} getComment`, verb: 'threads.getComment', kind, run: (provider, _manifest, context) => provider.threads.getComment(need(context.comment, 'a comment').ref) },
+    ...kind === 'discussion' ? [discussionNodeStep] : [],
     { name: `${key} reactions`, verb: 'threads.reactionsPage', kind, run: (provider, manifest) => provider.threads.reactionsPage(ref(manifest), page) },
     { name: `${key} subscription`, verb: 'threads.subscription', kind, run: (provider, manifest) => provider.threads.subscription(ref(manifest)) },
   ]
   if (kind === 'pull_request') {
     steps.push(
-      { name: 'pull reviews', verb: 'threads.reviewsPage', kind, run: (provider, manifest) => provider.threads.reviewsPage(ref(manifest), page) },
+      { name: 'pull reviews', verb: 'threads.reviewsPage', kind, run: async (provider, manifest, context) => {
+        const result = await provider.threads.reviewsPage(ref(manifest), page)
+        context.review = result.items[0]
+        return result
+      } },
+      { name: 'pull getReview', verb: 'threads.getReview', kind, run: (provider, _manifest, context) => provider.threads.getReview(need(context.review, 'a review').ref) },
       { name: 'pull checks', verb: 'threads.checks', kind, run: (provider, manifest) => provider.threads.checks(ref(manifest)) },
       { name: 'pull files', verb: 'threads.filesPage', kind, run: (provider, manifest) => provider.threads.filesPage(ref(manifest), page) },
       { name: 'pull commits', verb: 'threads.commitsPage', kind, run: (provider, manifest) => provider.threads.commitsPage(ref(manifest), page) },
@@ -139,7 +186,12 @@ function commitSteps(): Step[] {
   return [
     { name: 'commit thread', verb: 'threads.get', kind: 'commit', run: (provider, manifest, context) => provider.threads.get(ref(manifest, context)) },
     { name: 'commit events', verb: 'threads.eventsPage', kind: 'commit', run: (provider, manifest, context) => provider.threads.eventsPage(ref(manifest, context), page) },
-    { name: 'commit comments', verb: 'threads.commentsPage', kind: 'commit', run: (provider, manifest, context) => provider.threads.commentsPage(ref(manifest, context), page) },
+    { name: 'commit comments', verb: 'threads.commentsPage', kind: 'commit', run: async (provider, manifest, context) => {
+      const result = await provider.threads.commentsPage(ref(manifest, context), page)
+      context.comment = result.items[0]
+      return result
+    } },
+    { name: 'commit getComment', verb: 'threads.getComment', kind: 'commit', run: (provider, _manifest, context) => provider.threads.getComment(need(context.comment, 'a commit comment').ref) },
   ]
 }
 
@@ -175,7 +227,11 @@ export const STEPS: Step[] = [
   } },
   { name: 'notifications', verb: 'notifications.listPage', run: provider => provider.notifications.listPage(page) },
   { name: 'unread count', verb: 'notifications.unreadCount', run: provider => provider.notifications.unreadCount() },
-  { name: 'checks', verb: 'checks.list', run: (provider, manifest, context) => provider.checks.list(manifest.repo, need(context.headSha, 'the pull head sha')) },
+  { name: 'checks', verb: 'checks.list', run: async (provider, manifest, context) => {
+    const result = await provider.checks.list(manifest.repo, need(context.headSha, 'the pull head sha'))
+    context.checks = result.items
+    return result
+  } },
   { name: 'ci runs', verb: 'ci.runsPage', run: async (provider, manifest, context) => {
     const result = await provider.ci.runsPage(manifest.repo, page)
     context.runs = result.items
@@ -183,27 +239,38 @@ export const STEPS: Step[] = [
   } },
   { name: 'ci runs by branch and state', verb: 'ci.runsPage', run: (provider, manifest, context) => provider.ci.runsPage(manifest.repo, { ...page, branch: need(context.repo?.defaultBranch, 'the default branch'), state: 'failure' }) },
   { name: 'ci run', verb: 'ci.run', run: (provider, _manifest, context) => provider.ci.run(need(context.runs?.[0], 'a CI run').ref) },
+  { name: 'check', verb: 'checks.get', run: async (provider, manifest, context) => {
+    const readable = (checks: Check[] = []) => checks.find(check => check.ref.type !== 'status')
+    const check = readable(context.checks) ?? readable((await provider.checks.list(manifest.repo, need(context.runs?.[0]?.sha, 'a CI run sha'))).items)
+    return provider.checks.get(need(check, 'a check other than a commit status').ref)
+  } },
   { name: 'ci jobs', verb: 'ci.jobsPage', run: async (provider, manifest, context) => {
     const runs = need(context.runs?.length ? context.runs : undefined, 'a CI run')
-    const firstWithJobs = async (candidates: CiRun[]) => {
-      let result: Page<CiJob> | undefined
-      for (const run of candidates) {
-        result = await provider.ci.jobsPage(run.ref, page)
-        if (result.items.length) {
-          break
-        }
-      }
-      return result
-    }
-    let result = await firstWithJobs(runs)
+    let result = await firstWithJobs(provider, runs)
     if (!result?.items.length && manifest.scratch) {
-      result = await firstWithJobs((await provider.ci.runsPage(manifest.scratch, page)).items)
+      result = await firstWithJobs(provider, (await provider.ci.runsPage(manifest.scratch, page)).items)
     }
     context.job = result?.items[0]
     return result
   } },
-  { name: 'ci log', verb: 'ci.log', run: async (provider, _manifest, context) => {
-    const log = await text(await provider.ci.log(need(context.job, 'a CI job').ref))
+  { name: 'ci job', verb: 'ci.job', run: (provider, _manifest, context) => provider.ci.job(need(context.job, 'a CI job').ref) },
+  // Anonymous GitHub reads share 60 requests an hour.
+  { name: 'ci job by id', verb: 'ci.job', when: (provider, manifest) => provider.forge !== 'github' || !manifest.anonymous, run: (provider, _manifest, context) => {
+    const { run: _run, ...ref } = need(context.job, 'a CI job').ref
+    return provider.ci.job(ref)
+  } },
+  { name: 'ci log', verb: 'ci.log', run: async (provider, manifest, context) => {
+    const read = async (job: CiJob | undefined) => text(await provider.ci.log(need(job, 'a CI job').ref))
+    let log: string
+    try {
+      log = await read(context.job)
+    }
+    catch (error) {
+      if (!manifest.scratch || !(error instanceof ForbiddenError || error instanceof InsufficientScopeError)) {
+        throw error
+      }
+      log = await read((await firstWithJobs(provider, (await provider.ci.runsPage(manifest.scratch, page)).items))?.items[0])
+    }
     return { length: log.length, head: log.slice(0, 2_000).split('\n').slice(0, 20) }
   } },
   { name: 'readme', verb: 'contents.file', run: (provider, manifest) => provider.contents.file(manifest.repo, 'README.md', { as: 'text' }) },

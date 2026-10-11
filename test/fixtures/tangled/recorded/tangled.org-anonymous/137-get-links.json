@@ -1,0 +1,21 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://constellation.microcosm.blue/links?target=did%3Aplc%3A6et3lzwpz6wm7urvu2a7ua5i&collection=sh.tangled.repo&path=.repoDid&limit=100"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "total": 1,
+      "linking_records": [
+        {
+          "did": "did:plc:i7tqil44pba6cqddxqijtyhb",
+          "collection": "sh.tangled.repo",
+          "rkey": "hydra"
+        }
+      ],
+      "cursor": null
+    }
+  }
+}

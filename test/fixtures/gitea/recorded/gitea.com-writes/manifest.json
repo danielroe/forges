@@ -13,20 +13,20 @@
     "name": "forges-fixtures"
   },
   "run": {
-    "id": "20261010232102",
+    "id": "20261011160505",
     "base": "main",
     "branches": [
-      "forges-fixtures/20261010232102-1",
-      "forges-fixtures/20261010232102-2",
-      "forges-fixtures/20261010232102-3"
+      "forges-fixtures/20261011160505-1",
+      "forges-fixtures/20261011160505-2",
+      "forges-fixtures/20261011160505-3"
     ],
     "files": [
-      "forges-fixtures/20261010232102-1.md",
-      "forges-fixtures/20261010232102-2.md",
-      "forges-fixtures/20261010232102-3.md"
+      "forges-fixtures/20261011160505-1.md",
+      "forges-fixtures/20261011160505-2.md",
+      "forges-fixtures/20261011160505-3.md"
     ]
   },
-  "recordedAt": "2026-10-10T23:21:07.775Z",
+  "recordedAt": "2026-10-11T16:05:10.030Z",
   "steps": [
     "author",
     "reviewer",
@@ -36,6 +36,7 @@
     "create issue",
     "issue comment",
     "issue edit comment",
+    "issue get comment",
     "issue upsert comment",
     "issue delete comment",
     "issue react",
@@ -57,6 +58,7 @@
     "create third pull",
     "pull comment",
     "pull edit comment",
+    "pull get comment",
     "pull upsert comment",
     "pull delete comment",
     "pull react",
@@ -73,6 +75,7 @@
     "request review",
     "pending review",
     "submit review",
+    "get review",
     "report check",
     "approve",
     "merge",

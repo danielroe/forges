@@ -519,6 +519,7 @@ const BITBUCKET: ProviderDefinition<BitbucketOptions> = {
           signal: options?.signal,
         })).data)),
       },
+      emulated: { getComment: { pull_request: anonymous ? 'unverified' : 'emulated', commit: anonymous ? 'unverified' : 'emulated' } },
       threads: {
         filesPage: verb(true, (thread, listOptions = {}) => list(`${threadPath(requirePull(thread, 'read for changed files'))}/diffstat`, listOptions, toChangedFile, { select: page<BitbucketDiffStat> })),
         commitsPage: verb(true, (thread, listOptions = {}) => list(`${threadPath(requirePull(thread, 'read for commits'))}/commits`, listOptions, (raw: BitbucketCommitDetail) => toCommit(thread.repo, raw), { select: page<BitbucketCommitDetail> })),

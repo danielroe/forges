@@ -610,6 +610,14 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
           : toActionRun(ref.repo, (await fetcher.json<ForgejoActionRun>(path, { signal: options?.signal })).data)
       }),
       jobsPage: verb(actions(FORGEJO_ACTION_JOBS, GITEA_ACTION_RUNS), jobsPage),
+      job: verb(isGitea && (anonymous ? 'unverified' : actions(FORGEJO_ACTION_JOBS, GITEA_ACTION_RUNS)), async (ref, options) => {
+        const { data } = await fetcher.json<GiteaActionJob>(`${repoPath(ref.repo)}/actions/jobs/${encodeURIComponent(ref.id)}`, { signal: options?.signal })
+        const run = ref.run ?? (data.run_id === undefined ? undefined : { ...origin, repo: ref.repo, id: String(data.run_id) })
+        if (!run) {
+          throw new UnsupportedOperationError(`Gitea returned job ${ref.id} without its run, and the ref names no run`, context)
+        }
+        return toGiteaActionJob(run, data)
+      }),
       log: verb(giteaAnonymous ? false : actions(FORGEJO_ACTION_JOBS, GITEA_ACTION_LOGS), async (ref, options) => (await fetcher.stream(`${repoPath(ref.repo)}/actions/jobs/${encodeURIComponent(ref.id)}/logs`, { signal: options?.signal })).body),
     },
     contents: {
@@ -707,6 +715,14 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
         }))
         return { items: reviews, cursor: result.cursor }
       }),
+      getReview: verb(true, async (ref, options) => {
+        const pull = requirePull(ref.thread, 'reviewed')
+        const { data } = await fetcher.json<ForgejoReview>(`${pullPath(pull)}/reviews/${encodeURIComponent(ref.id)}`, { signal: options?.signal })
+        const comments = data.comments_count === 0
+          ? []
+          : (await fetcher.json<ForgejoReviewComment[]>(`${pullPath(pull)}/reviews/${encodeURIComponent(ref.id)}/comments`, { signal: options?.signal })).data ?? []
+        return toReview(pull, data, comments.map(comment => toReviewComment(pull, comment)))
+      }),
       filesPage: verb(true, (ref, listOptions = {}) => list(`${pullPath(requirePull(ref, 'read for changed files'))}/files`, listOptions, toChangedFile)),
       commitsPage: verb(true, (ref, listOptions = {}) => list(`${pullPath(requirePull(ref, 'read for commits'))}/commits`, listOptions, (raw: ForgejoCommit) => toCommit(ref.repo, raw))),
       createReview: verb(true, createReview),
@@ -732,6 +748,13 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
       commentsPage: perKind(ISSUE_AND_PULL, async (thread: ThreadRef, listOptions: ListOptions = {}): Promise<Page<Comment>> => {
         const ref = requireIssueOrPull(thread, context, 'list comments on')
         return list(`${issuePath(ref)}/comments`, listOptions, (raw: ForgejoComment) => toComment(ref, raw))
+      }),
+      getComment: perKind(ISSUE_AND_PULL, async (ref, options) => {
+        const { data } = await fetcher.json<ForgejoComment | undefined>(`${repoPath(ref.thread.repo)}/issues/comments/${encodeURIComponent(ref.id)}`, { signal: options?.signal })
+        if (!data) {
+          throw new NotFoundError(`Comment ${ref.id} not found`, 404, '', context)
+        }
+        return toComment(ref.thread, data)
       }),
       comment: perKind({ issue: true, pull_request: true }, async (thread, body, options) => {
         const ref = requireIssueOrPull(thread, context, 'comment on')

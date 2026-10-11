@@ -122,6 +122,7 @@ Bitbucket doesn't keep a delivery log, so `webhooks.deliveries()` and `webhooks.
 | `threads.getMany` | ✅ | ✅ |
 | `threads.events` | PR, commit | PR, commit |
 | `comments.list` | PR, commit | PR, commit |
+| `comments.get` | PR (emulated), commit (emulated) | PR (unverified), commit (unverified) |
 | `comments.edit` | PR, commit | ❌ |
 | `comments.delete` | PR, commit | ❌ |
 | `reactions.list` | ❌ | ❌ |
@@ -154,11 +155,13 @@ Bitbucket doesn't keep a delivery log, so `webhooks.deliveries()` and `webhooks.
 | `installations` | ❌ | ❌ |
 | `checks.thread` | PR | PR |
 | `checks.list` | ✅ | ✅ |
+| `checks.get` | ❌ | ❌ |
 | `checks.report` | ✅ | ❌ |
 | `checks.rerun` | ❌ | ❌ |
 | `ci.runs` | ❌ | ❌ |
 | `ci.run` | ❌ | ❌ |
 | `ci.jobs` | ❌ | ❌ |
+| `ci.job` | ❌ | ❌ |
 | `ci.log` | ❌ | ❌ |
 | `contents.file` | ✅ | ✅ |
 | `contents.tree` | ✅ | ✅ |
@@ -171,6 +174,7 @@ Bitbucket doesn't keep a delivery log, so `webhooks.deliveries()` and `webhooks.
 | `contents.threadFiles` | ✅ | ✅ |
 | `contents.threadCommits` | ✅ | ✅ |
 | `reviews.list` | emulated | emulated |
+| `reviews.get` | emulated | emulated |
 | `reviews.create` | emulated | ❌ |
 | `reviews.submit` | ❌ | ❌ |
 | `reviews.approve` | emulated | ❌ |

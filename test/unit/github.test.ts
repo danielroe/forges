@@ -2,7 +2,7 @@ import type { GitHubNotification } from '../../src/github/types.ts'
 import type { ThreadRef } from '../../src/model.ts'
 import { generateKeyPairSync } from 'node:crypto'
 import { describe, expect, it, vi } from 'vitest'
-import { ContentNotTextError, ForbiddenError, InsufficientScopeError, ReadOnlyError, UnresolvedThreadError, UnsupportedOperationError } from '../../src/errors.ts'
+import { ContentNotTextError, ForbiddenError, InsufficientScopeError, NotFoundError, ReadOnlyError, UnresolvedThreadError, UnsupportedOperationError } from '../../src/errors.ts'
 import { graphqlUrl } from '../../src/github/graphql-client.ts'
 import { github } from '../../src/github/index.ts'
 import { toEvent, toNotification, toReason, toRepo } from '../../src/github/normalise.ts'
@@ -844,6 +844,14 @@ describe('github checks, releases and security alerts', () => {
     expect(result?.ok && result.thread.checks).toEqual({ state: 'failure', stateRaw: 'failure', total: 3, failed: 1, url: 'https://github.com/acme/widgets/pull/42/checks' })
   })
 
+  it('reads diff stats when reading several pull requests', async () => {
+    const { fetch } = fixtureFetch('github')
+    const provider = github({ auth: { type: 'token', token: 't' }, fetch }).create()
+    const [result] = await provider.threads.getMany([{ forge: 'github', instance: 'github.com', repo: widgets, kind: 'pull_request', number: '42' }])
+
+    expect(result?.ok && result.thread.stats).toEqual({ additions: 24, deletions: 3, changedFileCount: 2, commitCount: 2 })
+  })
+
   it('reports a token missing a GraphQL scope on every thread it could not read', async () => {
     const message = 'Your token has not been granted the required scopes to execute this query.'
     const provider = github({
@@ -980,5 +988,35 @@ describe('github path safety', () => {
     await expect(provider.request('DELETE', '/repos/acme/widgets')).rejects.toThrow('is a write and this github provider is read-only')
     await provider.request('GET', '/repos/acme/widgets')
     expect(urls).toEqual(['https://api.github.com/repos/acme/widgets'])
+  })
+})
+
+describe('github single-item reads', () => {
+  function serve(responses: Record<string, unknown>) {
+    return github({ auth: { type: 'token', token: 't' }, fetch: async (url) => {
+      const key = new URL(String(url)).pathname
+      return key in responses ? Response.json(responses[key]) : Response.json({ message: 'Not Found' }, { status: 404 })
+    } }).create()
+  }
+
+  it('rejects a discussion comment id that names a node of another type', async () => {
+    const provider = serve({ '/graphql': { data: { node: {} } } })
+
+    await expect(provider.threads.getComment({ forge: 'github', instance: 'github.com', thread: discussion, id: 'D_kwDOAAB5ac4AAQ1f' })).rejects.toThrow(NotFoundError)
+  })
+
+  it('reads a CI job whose ref names no run, and names the run from the job', async () => {
+    const provider = serve({ '/repos/acme/widgets/actions/jobs/9': { id: 9, run_id: 7, name: 'test', status: 'completed', conclusion: 'success' } })
+
+    const job = await provider.ci.job({ forge: 'github', instance: 'github.com', repo, id: '9' })
+
+    expect(job.name).toBe('test')
+    expect(job.ref.run).toEqual({ forge: 'github', instance: 'github.com', repo, id: '7' })
+  })
+
+  it('rejects a CI job that names no run when its ref names none either', async () => {
+    const provider = serve({ '/repos/acme/widgets/actions/jobs/9': { id: 9, name: 'test', status: 'completed', conclusion: 'success' } })
+
+    await expect(provider.ci.job({ forge: 'github', instance: 'github.com', repo, id: '9' })).rejects.toThrow(UnsupportedOperationError)
   })
 })

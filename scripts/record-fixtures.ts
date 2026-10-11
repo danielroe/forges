@@ -319,7 +319,7 @@ function targetFor(credentials: Credentials, fetch: FetchLike): Target {
       const slug = env.FIXTURE_GITEE_REPO ?? 'cmcc-oneos/OneOS'
       return { provider, manifest: {
         repo: repoRef('gitee', provider.instance, slug),
-        pull: ref('gitee', provider.instance, slug, 'pull_request', env.FIXTURE_GITEE_PULL ?? '550'),
+        pull: ref('gitee', provider.instance, slug, 'pull_request', env.FIXTURE_GITEE_PULL ?? '540'),
         issue: ref('gitee', provider.instance, slug, 'issue', env.FIXTURE_GITEE_ISSUE ?? 'I8NUPF'),
         ...setupRepos('GITEE', slug => repoRef('gitee', provider.instance, slug)),
       } }
@@ -367,7 +367,7 @@ function targetFor(credentials: Credentials, fetch: FetchLike): Target {
       return { provider, manifest: {
         repo: repoRef('pushin', provider.instance, slug),
         issue: ref('pushin', provider.instance, slug, 'issue', env.FIXTURE_PUSHIN_ISSUE ?? '2'),
-        pull: ref('pushin', provider.instance, slug, 'pull_request', env.FIXTURE_PUSHIN_PULL ?? '5'),
+        pull: ref('pushin', provider.instance, env.FIXTURE_PUSHIN_PULL_REPO ?? 'danielroe/roe.dev-test', 'pull_request', env.FIXTURE_PUSHIN_PULL ?? '1'),
         ...setupRepos('PUSHIN', slug => repoRef('pushin', provider.instance, slug)),
       } }
     }
@@ -491,7 +491,7 @@ async function recordReads(): Promise<void> {
   const context: StepContext = {}
   for (const item of STEPS) {
     const thread = item.kind === 'issue' ? recorded.issue : item.kind === 'discussion' ? recorded.discussion : item.kind === 'pull_request' ? recorded.pull : true
-    if (!thread || !provider.can(item.verb, item.kind)) {
+    if (!thread || !provider.can(item.verb, item.kind) || item.when?.(provider, recorded) === false) {
       continue
     }
     if (await step(item.name, () => item.run(provider, recorded, context))) {

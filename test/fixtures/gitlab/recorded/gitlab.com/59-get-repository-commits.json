@@ -1,0 +1,80 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/repository/commits?per_page=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "<https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/repository/commits?id=gitlab-org%2Fcli&order=default&page=2&pagination=legacy&per_page=3&trailers=false>; rel=\"next\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/repository/commits?id=gitlab-org%2Fcli&order=default&page=1&pagination=legacy&per_page=3&trailers=false>; rel=\"first\"",
+      "etag": "W/\"1fe7eed49827b1f86d08815dd584b21a\"",
+      "ratelimit-limit": "2000",
+      "ratelimit-remaining": "1941",
+      "ratelimit-reset": "1791734760",
+      "x-next-page": "2",
+      "x-page": "1",
+      "x-per-page": "3"
+    },
+    "body": [
+      {
+        "id": "9a7963a1f19651973a02d75b8a7ae16ba81e27e5",
+        "short_id": "9a7963a1",
+        "created_at": "2026-10-09T17:32:13.000-05:00",
+        "parent_ids": [
+          "fa3b8d6792a8063eb03a5a8784517019d15829be",
+          "392ad277d67c1d64b3b1e32e1d93d520628d5895"
+        ],
+        "title": "Merge branch 'chore/redundant-make-fix' into 'main'",
+        "message": "Merge branch 'chore/redundant-make-fix' into 'main'\n\nchore: remove redundant \"make fix\" tools\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4009\n\nMerged-by: Kai Armstrong <redacted@example.invalid>\nApproved-by: Kai Armstrong <redacted@example.invalid>\nReviewed-by: Kai Armstrong <redacted@example.invalid>\nCo-authored-by: Ville Skyttä <redacted@example.invalid>",
+        "author_name": "Kai Armstrong",
+        "author_email": "redacted@example.invalid",
+        "authored_date": "2026-10-09T17:32:13.000-05:00",
+        "committer_name": "GitLab",
+        "committer_email": "redacted@example.invalid",
+        "committed_date": "2026-10-09T17:32:13.000-05:00",
+        "trailers": {},
+        "extended_trailers": {},
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/9a7963a1f19651973a02d75b8a7ae16ba81e27e5"
+      },
+      {
+        "id": "392ad277d67c1d64b3b1e32e1d93d520628d5895",
+        "short_id": "392ad277",
+        "created_at": "2026-10-09T17:32:13.000-05:00",
+        "parent_ids": [
+          "fa3b8d6792a8063eb03a5a8784517019d15829be"
+        ],
+        "title": "chore: remove redundant \"make fix\" tools",
+        "message": "chore: remove redundant \"make fix\" tools\n",
+        "author_name": "Ville Skyttä",
+        "author_email": "redacted@example.invalid",
+        "authored_date": "2026-10-10T01:32:13.000+03:00",
+        "committer_name": "GitLab",
+        "committer_email": "redacted@example.invalid",
+        "committed_date": "2026-10-09T17:32:13.000-05:00",
+        "trailers": {},
+        "extended_trailers": {},
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/392ad277d67c1d64b3b1e32e1d93d520628d5895"
+      },
+      {
+        "id": "fa3b8d6792a8063eb03a5a8784517019d15829be",
+        "short_id": "fa3b8d67",
+        "created_at": "2026-10-09T14:38:45.000-05:00",
+        "parent_ids": [
+          "86c6176e8805aaa3b0ea1ff716b26c5a55e7176c",
+          "ba969f532feb4fe697fbdf944a54610358c333d7"
+        ],
+        "title": "Merge branch 'jhahimanshu653/fix-registry-domains-7943' into 'main'",
+        "message": "Merge branch 'jhahimanshu653/fix-registry-domains-7943' into 'main'\n\nfix(auth): persist registry domains for token logins\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4043\n\nMerged-by: Kai Armstrong <redacted@example.invalid>\nApproved-by: GitLab Duo <redacted@example.invalid>\nApproved-by: Kai Armstrong <redacted@example.invalid>\nReviewed-by: Kai Armstrong <redacted@example.invalid>\nCo-authored-by: Himanshu Jha <redacted@example.invalid>",
+        "author_name": "Kai Armstrong",
+        "author_email": "redacted@example.invalid",
+        "authored_date": "2026-10-09T14:38:45.000-05:00",
+        "committer_name": "GitLab",
+        "committer_email": "redacted@example.invalid",
+        "committed_date": "2026-10-09T14:38:45.000-05:00",
+        "trailers": {},
+        "extended_trailers": {},
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/fa3b8d6792a8063eb03a5a8784517019d15829be"
+      }
+    ]
+  }
+}

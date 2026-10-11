@@ -3,9 +3,9 @@
     "method": "POST",
     "url": "https://gitea.com/api/v1/repos/forges-fixtures/forges-fixtures/pulls",
     "body": {
-      "title": "forges fixture 20261010232102: pull 3",
-      "body": "Opened by run 20261010232102.",
-      "head": "forges-fixtures/20261010232102-3",
+      "title": "forges fixture 20261011160505: pull 2",
+      "body": "Opened by run 20261011160505.",
+      "head": "forges-fixtures/20261011160505-2",
       "base": "main"
     }
   },
@@ -13,9 +13,9 @@
     "status": 201,
     "headers": {},
     "body": {
-      "id": 204952,
-      "url": "https://gitea.com/forges-fixtures/forges-fixtures/pulls/27",
-      "number": 27,
+      "id": 205071,
+      "url": "https://gitea.com/forges-fixtures/forges-fixtures/pulls/41",
+      "number": 41,
       "user": {
         "id": 253592,
         "login": "roebot",
@@ -34,8 +34,8 @@
         "starred_repos_count": 0,
         "username": "roebot"
       },
-      "title": "forges fixture 20261010232102: pull 3",
-      "body": "Opened by run 20261010232102.",
+      "title": "forges fixture 20261011160505: pull 2",
+      "body": "Opened by run 20261011160505.",
       "labels": [],
       "milestone": null,
       "assignee": null,
@@ -50,9 +50,9 @@
       "additions": 1,
       "deletions": 0,
       "changed_files": 1,
-      "html_url": "https://gitea.com/forges-fixtures/forges-fixtures/pulls/27",
-      "diff_url": "https://gitea.com/forges-fixtures/forges-fixtures/pulls/27.diff",
-      "patch_url": "https://gitea.com/forges-fixtures/forges-fixtures/pulls/27.patch",
+      "html_url": "https://gitea.com/forges-fixtures/forges-fixtures/pulls/41",
+      "diff_url": "https://gitea.com/forges-fixtures/forges-fixtures/pulls/41.diff",
+      "patch_url": "https://gitea.com/forges-fixtures/forges-fixtures/pulls/41.patch",
       "mergeable": true,
       "merged": false,
       "merged_at": null,
@@ -62,7 +62,7 @@
       "base": {
         "label": "main",
         "ref": "main",
-        "sha": "923860954624eb86805155c4ea4c06697b30d0b8",
+        "sha": "caed395b245dd2c553f750d7baaae90d4b36ea42",
         "repo_id": 146918,
         "repo": {
           "id": 146918,
@@ -92,7 +92,7 @@
           "fork": false,
           "template": false,
           "mirror": false,
-          "size": 46,
+          "size": 61,
           "language": "",
           "languages_url": "https://gitea.com/api/v1/repos/forges-fixtures/forges-fixtures/languages",
           "html_url": "https://gitea.com/forges-fixtures/forges-fixtures",
@@ -107,12 +107,12 @@
           "watchers_count": 2,
           "branch_count": 4,
           "open_issues_count": 2,
-          "open_pr_counter": 2,
+          "open_pr_counter": 1,
           "release_counter": 1,
           "default_branch": "main",
           "archived": false,
           "created_at": "2026-10-09T11:48:32Z",
-          "updated_at": "2026-10-10T23:21:07Z",
+          "updated_at": "2026-10-11T16:05:10Z",
           "archived_at": "1970-01-01T00:00:00Z",
           "permissions": {
             "admin": true,
@@ -160,9 +160,9 @@
         }
       },
       "head": {
-        "label": "forges-fixtures/20261010232102-3",
-        "ref": "forges-fixtures/20261010232102-3",
-        "sha": "2dba77aa3aee6d4eac7290e7e4cf5635e6ee5b1f",
+        "label": "forges-fixtures/20261011160505-2",
+        "ref": "forges-fixtures/20261011160505-2",
+        "sha": "2608535d424a3612b84bb710143b8ee46118f5c9",
         "repo_id": 146918,
         "repo": {
           "id": 146918,
@@ -192,7 +192,7 @@
           "fork": false,
           "template": false,
           "mirror": false,
-          "size": 46,
+          "size": 61,
           "language": "",
           "languages_url": "https://gitea.com/api/v1/repos/forges-fixtures/forges-fixtures/languages",
           "html_url": "https://gitea.com/forges-fixtures/forges-fixtures",
@@ -207,12 +207,12 @@
           "watchers_count": 2,
           "branch_count": 4,
           "open_issues_count": 2,
-          "open_pr_counter": 2,
+          "open_pr_counter": 1,
           "release_counter": 1,
           "default_branch": "main",
           "archived": false,
           "created_at": "2026-10-09T11:48:32Z",
-          "updated_at": "2026-10-10T23:21:07Z",
+          "updated_at": "2026-10-11T16:05:10Z",
           "archived_at": "1970-01-01T00:00:00Z",
           "permissions": {
             "admin": true,
@@ -259,10 +259,10 @@
           ]
         }
       },
-      "merge_base": "923860954624eb86805155c4ea4c06697b30d0b8",
+      "merge_base": "caed395b245dd2c553f750d7baaae90d4b36ea42",
       "due_date": null,
-      "created_at": "2026-10-10T23:21:25Z",
-      "updated_at": "2026-10-10T23:21:25Z",
+      "created_at": "2026-10-11T16:05:21Z",
+      "updated_at": "2026-10-11T16:05:22Z",
       "closed_at": null,
       "pin_order": 0,
       "content_version": 0

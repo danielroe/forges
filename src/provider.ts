@@ -218,6 +218,8 @@ export interface ForgeCapabilities {
   comments: {
     /** Support for `threads.comments()` and `threads.commentsPage()`, per thread kind. */
     list: PerKind
+    /** Support for `threads.getComment()`, per thread kind. */
+    get: PerKind
     /** Support for `threads.editComment()`, per thread kind. */
     edit: PerKind
     /** Support for `threads.deleteComment()`, per thread kind. */
@@ -298,6 +300,8 @@ export interface ForgeCapabilities {
     thread: PerKind
     /** Support for `checks.list()`. */
     list: Support
+    /** Support for `checks.get()`. */
+    get: Support
     /** Support for `checks.report()`. */
     report: Support
     /** Support for `checks.rerun()`. */
@@ -311,6 +315,8 @@ export interface ForgeCapabilities {
     run: Support
     /** Support for `ci.jobs()` and `ci.jobsPage()`. */
     jobs: Support
+    /** Support for `ci.job()`. */
+    job: Support
     /** Support for `ci.log()`. */
     log: Support
   }
@@ -322,6 +328,8 @@ export interface ForgeCapabilities {
   reviews: {
     /** Support for `threads.reviews()` and `threads.reviewsPage()`. */
     list: Support
+    /** Support for `threads.getReview()`. */
+    get: Support
     /** Support for `threads.createReview()`. */
     create: Support
     /** Support for `threads.submitReview()`. */
@@ -511,6 +519,11 @@ export interface ThreadsApi {
   comments: (ref: ThreadRef, options?: ListOptions) => ForgeIterable<Comment>
   /** One page of `comments()`. */
   commentsPage: (ref: ThreadRef, options?: ListOptions) => Promise<Page<Comment>>
+  /**
+   * Reads one conversation comment, as `comments()` lists them, so not an inline review comment. Where the forge has
+   * no endpoint for it, walks `comments()` until the id matches.
+   */
+  getComment: (ref: CommentRef, options?: BaseOptions) => Promise<Comment>
   /** Adds a comment to a thread. */
   comment: (ref: ThreadRef, body: string, options?: BaseOptions) => Promise<Comment>
   /**
@@ -594,6 +607,8 @@ export interface ThreadsApi {
   reviews: (ref: ThreadRef, options?: PageOptions) => ForgeIterable<Review>
   /** One page of `reviews()`. */
   reviewsPage: (ref: ThreadRef, options?: PageOptions) => Promise<Page<Review>>
+  /** Reads one review by its ref. Where the forge has no endpoint for it, walks `reviews()` until the id matches. */
+  getReview: (ref: ReviewRef, options?: BaseOptions) => Promise<Review>
   /** Creates a review. Without `event` the review is pending where the forge has pending reviews. */
   createReview: (ref: ThreadRef, input: ReviewInput, options?: BaseOptions) => Promise<Review>
   /** Submits a pending review. */
@@ -618,6 +633,8 @@ export interface ThreadsApi {
 export interface ChecksApi {
   /** Every check on a commit: check runs, commit statuses, jobs or policy evaluations. */
   list: (repo: RepoRef, sha: string, options?: BaseOptions) => Promise<Page<Check>>
+  /** Reads one check. Rejects for a `CheckRef.type` the forge cannot read on its own. */
+  get: (ref: CheckRef, options?: BaseOptions) => Promise<Check>
   /** Writes a commit status, or a check run where the credential can (GitHub app auth). */
   report: (repo: RepoRef, sha: string, input: CheckReportInput, options?: BaseOptions) => Promise<Check>
   /** Re-runs a check. Rejects for a `CheckRef.type` the forge cannot re-run. */
@@ -636,6 +653,8 @@ export interface CiApi {
   jobs: (ref: CiRunRef, options?: PageOptions) => ForgeIterable<CiJob>
   /** One page of `jobs()`. */
   jobsPage: (ref: CiRunRef, options?: PageOptions) => Promise<Page<CiJob>>
+  /** Reads one CI job. Where the forge has no endpoint for it, walks `jobs()` of the ref's `run`, so the ref must name one. */
+  job: (ref: CiJobRef, options?: BaseOptions) => Promise<CiJob>
   /** The job's log as it arrives. There is no workflow dispatch: CI is read-only here. */
   log: (ref: CiJobRef, options?: BaseOptions) => Promise<ReadableStream<Uint8Array>>
 }

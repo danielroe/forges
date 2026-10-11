@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest'
+import { NotFoundError, UnsupportedOperationError } from '../../src/errors.ts'
 import { forgejo } from '../../src/forgejo/index.ts'
 import { gitea } from '../../src/gitea/index.ts'
 import { fixtureFetch, hangingFetch } from '../utils/fixtures.ts'
@@ -306,11 +307,11 @@ describe('forgejo actions', () => {
   it('reads Actions on Codeberg and gates a self-hosted instance on its version', () => {
     const ci = (options: { baseUrl?: string, instanceVersion?: string }) => forgejo({ auth, ...options }).create().capabilities.ci
 
-    expect(ci({})).toEqual({ runs: true, run: true, jobs: true, log: true })
-    expect(ci({ baseUrl: 'https://git.example.org' })).toEqual({ runs: false, run: false, jobs: false, log: false })
-    expect(ci({ baseUrl: 'https://git.example.org', instanceVersion: '15.0.2+gitea-1.22.0' })).toEqual({ runs: true, run: true, jobs: false, log: false })
-    expect(ci({ baseUrl: 'https://git.example.org', instanceVersion: '16.0.0+gitea-1.22.0' })).toEqual({ runs: true, run: true, jobs: true, log: true })
-    expect(forgejo({ auth: { type: 'anonymous' } }).create().capabilities.ci).toEqual({ runs: true, run: true, jobs: true, log: true })
+    expect(ci({})).toEqual({ runs: true, run: true, jobs: true, job: 'emulated', log: true })
+    expect(ci({ baseUrl: 'https://git.example.org' })).toEqual({ runs: false, run: false, jobs: false, job: false, log: false })
+    expect(ci({ baseUrl: 'https://git.example.org', instanceVersion: '15.0.2+gitea-1.22.0' })).toEqual({ runs: true, run: true, jobs: false, job: false, log: false })
+    expect(ci({ baseUrl: 'https://git.example.org', instanceVersion: '16.0.0+gitea-1.22.0' })).toEqual({ runs: true, run: true, jobs: true, job: 'emulated', log: true })
+    expect(forgejo({ auth: { type: 'anonymous' } }).create().capabilities.ci).toEqual({ runs: true, run: true, jobs: true, job: 'emulated', log: true })
   })
 
   it('pages runs explicitly and keeps the branch where Forgejo ignores `ref`', async () => {
@@ -374,11 +375,29 @@ describe('gitea actions', () => {
   it('reads Actions on gitea.com and gates a self-hosted instance on its version', () => {
     const ci = (options: { auth?: typeof auth | { type: 'anonymous' }, baseUrl?: string, instanceVersion?: string }) => gitea(options).create().capabilities.ci
 
-    expect(ci({ auth })).toEqual({ runs: true, run: true, jobs: true, log: true })
-    expect(ci({ auth: { type: 'anonymous' } })).toEqual({ runs: false, run: true, jobs: true, log: false })
-    expect(ci({ auth, baseUrl: 'https://git.example.org' })).toEqual({ runs: false, run: false, jobs: false, log: false })
-    expect(ci({ auth, baseUrl: 'https://git.example.org', instanceVersion: '1.24.7' })).toEqual({ runs: false, run: false, jobs: false, log: true })
-    expect(ci({ auth, baseUrl: 'https://git.example.org', instanceVersion: '1.25.0' })).toEqual({ runs: true, run: true, jobs: true, log: true })
+    expect(ci({ auth })).toEqual({ runs: true, run: true, jobs: true, job: true, log: true })
+    expect(ci({ auth: { type: 'anonymous' } })).toEqual({ runs: false, run: true, jobs: true, job: 'unverified', log: false })
+    expect(ci({ auth, baseUrl: 'https://git.example.org' })).toEqual({ runs: false, run: false, jobs: false, job: false, log: false })
+    expect(ci({ auth, baseUrl: 'https://git.example.org', instanceVersion: '1.24.7' })).toEqual({ runs: false, run: false, jobs: false, job: false, log: true })
+    expect(ci({ auth, baseUrl: 'https://git.example.org', instanceVersion: '1.25.0' })).toEqual({ runs: true, run: true, jobs: true, job: true, log: true })
+  })
+
+  it('reads a job whose ref names no run, and names the run from the job', async () => {
+    const { provider } = serve(new Map([
+      ['https://git.example.org/api/v1/repos/acme/widgets/actions/jobs/9', { id: 9, run_id: 7, name: 'test', status: 'completed', conclusion: 'success', started_at: zero, completed_at: zero }],
+    ]))
+
+    const job = await provider.ci.job({ forge: 'gitea', instance: 'git.example.org', repo, id: '9' })
+
+    expect(job.ref.run).toEqual({ forge: 'gitea', instance: 'git.example.org', repo, id: '7' })
+  })
+
+  it('rejects a job that names no run when its ref names none either', async () => {
+    const { provider } = serve(new Map([
+      ['https://git.example.org/api/v1/repos/acme/widgets/actions/jobs/9', { id: 9, name: 'test', status: 'completed', conclusion: 'success', started_at: zero, completed_at: zero }],
+    ]))
+
+    await expect(provider.ci.job({ forge: 'gitea', instance: 'git.example.org', repo, id: '9' })).rejects.toThrow(UnsupportedOperationError)
   })
 
   it('filters runs on `branch` and on the statuses Gitea accepts', async () => {
@@ -414,5 +433,15 @@ describe('gitea actions', () => {
 
     expect(page.items).toMatchObject([{ name: 'job 1', state: 'neutral', startedAt: undefined }, { name: 'job 2' }])
     expect(page.cursor?.nextUrl).toBe('https://git.example.org/api/v1/repos/acme/widgets/actions/runs/7/jobs?page=2&limit=2')
+  })
+})
+
+describe('gitea single-item reads', () => {
+  it('reports a comment read that returns no content as not found', async () => {
+    const repo = { forge: 'gitea', instance: 'gitea.com', owner: 'acme', name: 'widgets' }
+    const provider = gitea({ auth: { type: 'token', token: 't' }, fetch: async () => new Response(null, { status: 204 }) }).create()
+    const thread = { forge: 'gitea', instance: 'gitea.com', repo, kind: 'pull_request', number: '3' } as const
+
+    await expect(provider.threads.getComment({ forge: 'gitea', instance: 'gitea.com', thread, id: '9' })).rejects.toThrow(NotFoundError)
   })
 })

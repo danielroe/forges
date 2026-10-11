@@ -22,6 +22,23 @@ describe('cursor origin without credentials', () => {
   })
 })
 
+describe('cursor origin comments', () => {
+  it('encodes the comment id when reading, editing and deleting a comment', async () => {
+    const urls: string[] = []
+    const instance = cursorOrigin({ auth: { type: 'token', token: 't' }, fetch: async (url, init) => {
+      urls.push(`${init?.method ?? 'GET'} ${new URL(String(url)).pathname}`)
+      return init?.method === 'DELETE' ? new Response(null, { status: 204 }) : Response.json({ id: 'c/1', body: 'Looks good' })
+    } }).create()
+    const ref = { forge: 'cursor-origin', instance: 'origin.cursor.com', thread: pull, id: 'c/1' }
+
+    await instance.threads.getComment(ref)
+    await instance.threads.editComment(ref, 'Edited')
+    await instance.threads.deleteComment(ref)
+
+    expect(urls.map(url => url.replace(/^(\w+) .*\/pulls\/comments\//, '$1 '))).toEqual(['GET c%2F1', 'PATCH c%2F1', 'DELETE c%2F1'])
+  })
+})
+
 describe('cursor origin merge', () => {
   it('rejects a merge commit message before sending anything', async () => {
     const { fetch, calls } = fixtureFetch('cursor-origin')

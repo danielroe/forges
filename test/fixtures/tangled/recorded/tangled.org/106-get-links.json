@@ -1,0 +1,21 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://constellation.microcosm.blue/links?target=at%3A%2F%2Fdid%3Aplc%3Af4w2l3ceqeu7fggr2s5hw3wm%2Fsh.tangled.repo.issue%2F3lkmubls7ib22&collection=sh.tangled.feed.comment&path=.subject.uri&limit=100"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "total": 1,
+      "linking_records": [
+        {
+          "did": "did:plc:qfpnj4og54vl56wngdriaxug",
+          "collection": "sh.tangled.feed.comment",
+          "rkey": "3lm3susvivu22"
+        }
+      ],
+      "cursor": null
+    }
+  }
+}

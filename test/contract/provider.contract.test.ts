@@ -184,6 +184,13 @@ describe.each(contracts)('contract: $name', (contract) => {
     expect(thread.lastActivityAt).toBeInstanceOf(Date)
   })
 
+  it('gives pull requests the diff stats the forge reports with them', async () => {
+    const { instance } = provider()
+    const thread = await instance.threads.get(threadRef())
+
+    expect(thread.stats).toEqual(contract.thread.stats)
+  })
+
   it('lists conversation comments with identity', async () => {
     const { instance } = provider()
     const comments = await collect(instance.threads.comments(threadRef()))

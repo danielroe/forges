@@ -1,41 +1,35 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://grisette.us-west.host.bsky.network/xrpc/com.atproto.repo.getRecord?repo=did%3Aplc%3Aqfpnj4og54vl56wngdriaxug&collection=sh.tangled.repo.pull&rkey=3mc7q22ebo622"
+    "url": "https://npmx.social/xrpc/com.atproto.repo.getRecord?repo=did%3Aplc%3Alaqygfbyvnkyuhsuaxmp6ez3&collection=sh.tangled.repo.pull&rkey=3m7lfz7dl5z22"
   },
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"2af-le14/WR4C/7An27J2xhNQxwnLmI\"",
+      "etag": "W/\"7b3-bQO9Ph6hcG94ectcTlbvFFVRiIg\"",
       "ratelimit-limit": "3000",
-      "ratelimit-remaining": "2998",
-      "ratelimit-reset": "1791552007"
+      "ratelimit-remaining": "2993",
+      "ratelimit-reset": "1791720405"
     },
     "body": {
-      "uri": "at://did:plc:qfpnj4og54vl56wngdriaxug/sh.tangled.repo.pull/3mc7q22ebo622",
-      "cid": "bafyreif4sdlavomb4qpu4l7wiukdylv2jn6hvoyn2iz7uzpjt7uc7ro6gq",
+      "uri": "at://did:plc:laqygfbyvnkyuhsuaxmp6ez3/sh.tangled.repo.pull/3m7lfz7dl5z22",
+      "cid": "bafyreidwwztxrb7xfxuaow3wv53rr757hqe6biwufmcppbwuktj2g2w4si",
       "value": {
-        "body": "Signed-off-by: oppiliappan <redacted@example.invalid>",
         "$type": "sh.tangled.repo.pull",
-        "title": "blog: docs site post",
+        "patch": "From d5f77144825658a6192cee5bf4967f2ec93c37a8 Mon Sep 17 00:00:00 2001\nFrom: =?UTF-8?q?Jens=20R=C3=B8mer=20Hesselbjerg?= <redacted@example.invalid>\nDate: Tue, 9 Dec 2025 21:40:54 +0100\nSubject: [PATCH] Templates/nav: match the style used in core\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\n\nSigned-off-by: Jens Rømer Hesselbjerg <redacted@example.invalid>\n---\n templates/partials/nav.html | 14 +++++---------\n 1 file changed, 5 insertions(+), 9 deletions(-)\n\ndiff --git a/templates/partials/nav.html b/templates/partials/nav.html\nindex eb06949..c92d7e6 100644\n--- a/templates/partials/nav.html\n+++ b/templates/partials/nav.html\n@@ -1,9 +1,5 @@\n-<div class=\"w-full\">\n-  <div class=\"container mx-auto max-w-7xl px-4\">\n-    <div class=\"flex justify-start py-4 mb-8\">\n-      <a href=\"/\" class=\"text-2xl no-underline hover:no-underline\">\n-        {{ template \"fragments/logotypeSmall\" }}\n-      </a>\n-    </div>\n-  </div>\n-</div>\n\\ No newline at end of file\n+<nav class=\"w-full flex items-center dark:text-white drop-shadow-sm bg-white dark:bg-gray-800 px-6 py-2 h-[44px]\">\n+  <a href=\"/\" class=\"text-2xl no-underline hover:no-underline\">\n+    {{ template \"fragments/logotypeSmall\" }}\n+  </a>\n+</nav>\n\\ No newline at end of file\n-- \n2.43.0\n\n\n",
+        "title": "Templates/nav: match the style used in core",
         "source": {
-          "sha": "d0ea9bfb5014502ebf3355f22a9a008d70abdb98",
-          "branch": "op/tupssoolqvus"
+          "sha": "d5f77144825658a6192cee5bf4967f2ec93c37a8",
+          "repo": "at://did:plc:laqygfbyvnkyuhsuaxmp6ez3/sh.tangled.repo/3m6zcadxrj322",
+          "branch": "template-nav-match-core-style"
         },
         "target": {
           "repo": "at://did:plc:wshs7t2adsemcrrd4snkeqli/sh.tangled.repo/3ljbiayluee22",
           "branch": "master",
           "repoDid": "did:plc:g66xej5jct643d6bgukldn77"
         },
-        "createdAt": "2026-01-12T11:28:38+02:00",
-        "patchBlob": {
-          "ref": {
-            "$link": "bafkreieuglzstzcq6d57j3rgcd4wrhhltkwtcs7ptx6254i4gyansujwsm"
-          },
-          "size": 434558,
-          "$type": "blob",
-          "mimeType": "*/*"
-        }
+        "createdAt": "2025-12-09T20:45:35Z",
+        "patchBlob": null
       }
     }
   }

@@ -25,14 +25,16 @@
     "owner": "dnceng-public/forges-fixtures",
     "name": "forges-fixtures"
   },
-  "recordedAt": "2026-10-09T13:17:51.284Z",
+  "recordedAt": "2026-10-11T12:01:46.639Z",
   "steps": [
     "repo",
+    "repo licence",
     "pull",
     "pull list",
     "pull getMany",
     "pull events",
     "pull comments",
+    "pull getComment",
     "pull reviews",
     "pull commits",
     "checks",

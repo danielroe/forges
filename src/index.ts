@@ -102,6 +102,7 @@ export type {
   Page,
   PageOptions,
   PullBranches,
+  PullStats,
   PushCommit,
   RateLimit,
   Reaction,

@@ -1,0 +1,51 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://api.github.com/graphql",
+    "operationName": "GetDiscussionComment",
+    "variables": {
+      "id": "MDE3OkRpc2N1c3Npb25Db21tZW50NzQ3ODk3"
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "x-ratelimit-limit": "5000",
+      "x-ratelimit-remaining": "4989",
+      "x-ratelimit-reset": "1791738331"
+    },
+    "body": {
+      "data": {
+        "node": {
+          "id": "MDE3OkRpc2N1c3Npb25Db21tZW50NzQ3ODk3",
+          "databaseId": 747897,
+          "body": "Hi. I suggest 3 approaches to try:\r\n\r\n## 1. Config\r\n\r\nWe can try to add `import 'newrelic'` to the top of `nuxt.config.js`? This should partially work as this is almost the topmost entry-point. \r\n\r\n## 2. CLI Wrapper\r\n\r\nWe may create a custom cli wrapper in the root of the project:\r\n\r\n`~/nuxt.js`:\r\n\r\n```js\r\nrequire('newrelic')\r\nrequire('nuxt/bin/nuxt')\r\n````\r\n\r\nAnd then inside `package.json`:\r\n\r\n```diff\r\nscripts: {\r\n-- \"start\": \"nuxt start\",\r\n++ \"start\": \"node ./nuxt start\",\r\n}\r\n```\r\n\r\n## 3. Module (best)\r\n\r\nIf newrelic is similar to sentry, this is not **required** to be the first import, we can do this via a nuxt module and it globally should register itself to the entire process:\r\n\r\n`modules/newrelic.js`\r\n\r\n```js\r\nexport default async function() {\r\n  await import('newrelic')\r\n}\r\n```\r\n\r\n`nuxt.config.js`\r\n\r\n```js\r\nexport default {\r\n    modules: [\r\n        '~/modules/newrelic'\r\n    ]\r\n}\r\n```\r\n\r\n\r\n",
+          "createdAt": "2019-08-15T17:39:22Z",
+          "updatedAt": "2022-06-13T06:48:02Z",
+          "url": "https://github.com/nuxt/nuxt/discussions/9303#discussioncomment-747897",
+          "author": {
+            "__typename": "User",
+            "login": "pi0",
+            "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?u=3609b2822870b982f2b93c432569ee017e970148&v=4",
+            "url": "https://github.com/pi0",
+            "databaseId": 5158436,
+            "name": "Pooya Parsa"
+          }
+        }
+      },
+      "extensions": {
+        "warnings": [
+          {
+            "type": "DEPRECATION",
+            "message": "The id MDE3OkRpc2N1c3Npb25Db21tZW50NzQ3ODk3 is deprecated. Update your cache to use the next_global_id from the data payload.",
+            "data": {
+              "legacy_global_id": "MDE3OkRpc2N1c3Npb25Db21tZW50NzQ3ODk3",
+              "next_global_id": "DC_kwDOBEqSIc4AC2l5"
+            },
+            "link": "https://docs.github.com"
+          }
+        ]
+      }
+    }
+  }
+}

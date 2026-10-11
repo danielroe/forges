@@ -24,15 +24,17 @@
     "owner": "danielroe",
     "name": "forges-fixtures"
   },
-  "recordedAt": "2026-10-09T13:15:05.916Z",
+  "recordedAt": "2026-10-11T12:01:42.881Z",
   "steps": [
     "repo",
+    "repo licence",
     "pull",
     "pull list",
     "pull getMany",
     "pull events",
     "pull comments",
     "pull reviews",
+    "pull getReview",
     "pull checks",
     "pull files",
     "pull commits",

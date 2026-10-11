@@ -30,7 +30,47 @@
       "isBotHint": false
     },
     "stars": 6,
-    "forks": 2,
+    "forks": 3,
+    "permissions": {
+      "admin": false,
+      "maintain": false,
+      "push": false,
+      "triage": false,
+      "pull": true
+    }
+  },
+  "repo licence": {
+    "ref": {
+      "forge": "pushin",
+      "instance": "pushin.eu",
+      "owner": "pjullrich",
+      "name": "pushin-cli",
+      "externalId": "repo_033o8EKVVoQNFqACnKgHgy"
+    },
+    "description": "The CLI to work with the Forgit API",
+    "defaultBranch": "main",
+    "visibility": "public",
+    "visibilityRaw": "public",
+    "isFork": false,
+    "isArchived": false,
+    "topics": [],
+    "url": "https://pushin.eu/pjullrich/pushin-cli",
+    "cloneUrls": {
+      "https": "https://git.pushin.eu/pjullrich/pushin-cli.git"
+    },
+    "createdAt": "2026-07-12T09:52:15.550Z",
+    "updatedAt": "2026-10-09T09:25:47.848Z",
+    "owner": {
+      "forge": "pushin",
+      "instance": "pushin.eu",
+      "login": "pjullrich",
+      "id": "pjullrich",
+      "url": "https://pushin.eu/pjullrich",
+      "typeRaw": "User",
+      "isBotHint": false
+    },
+    "stars": 6,
+    "forks": 3,
     "permissions": {
       "admin": false,
       "maintain": false,
@@ -43,7 +83,7 @@
     "items": [],
     "rateLimit": {
       "limit": 5000,
-      "remaining": 4998,
+      "remaining": 4968,
       "resetAt": "<now>"
     }
   },
@@ -51,7 +91,7 @@
     "items": [],
     "rateLimit": {
       "limit": 5000,
-      "remaining": 4996,
+      "remaining": 4966,
       "resetAt": "<now>"
     }
   },
@@ -62,40 +102,39 @@
       "repo": {
         "forge": "pushin",
         "instance": "pushin.eu",
-        "owner": "pjullrich",
-        "name": "pushin-cli"
+        "owner": "danielroe",
+        "name": "roe.dev-test"
       },
       "kind": "pull_request",
-      "number": "5",
-      "externalId": "iss_034ZTM5UfoQQW1pj2ilPgX"
+      "number": "1",
+      "externalId": "iss_034e44ro1buT7RXhslfKfW"
     },
     "kind": "pull_request",
-    "title": "Nix Packaging and Nix dev shell",
-    "body": "This PR adds\n- Nix packaging for Pushin CLI\n- Nix flake development env for developing the Pushin CLI",
-    "state": "merged",
-    "stateRaw": "merged",
+    "title": "test pr",
+    "body": "here we go",
+    "state": "open",
+    "stateRaw": "open",
     "isDraft": false,
     "author": {
       "forge": "pushin",
       "instance": "pushin.eu",
-      "login": "pmarquez",
-      "id": "578",
-      "avatarUrl": "https://cdn.pushin.eu/-/avatars/u_034YEw7oIPyWrOzEh2xryn",
-      "url": "https://pushin.eu/pmarquez",
+      "login": "danielroe",
+      "id": "277",
+      "avatarUrl": "https://cdn.pushin.eu/-/avatars/u_034KGcbXmCJviF1JfQCAWY/0a945a3b",
+      "url": "https://pushin.eu/danielroe",
       "typeRaw": "User",
       "isBotHint": false
     },
     "assignees": [],
     "reviewers": [],
     "labels": [],
-    "url": "https://pushin.eu/pjullrich/pushin-cli/pulls/5",
-    "createdAt": "2026-10-03T11:13:09.393Z",
-    "updatedAt": "2026-10-03T12:39:25.042Z",
-    "lastActivityAt": "2026-10-03T12:39:25.042Z",
+    "url": "https://pushin.eu/danielroe/roe.dev-test/pulls/1",
+    "createdAt": "<now>",
+    "updatedAt": "<now>",
+    "lastActivityAt": "<now>",
     "branches": {
       "head": {
-        "ref": "main",
-        "sha": "226c1102d4f287fb92b3153334bbeb1b09771cfd"
+        "ref": "test/pr"
       },
       "base": {
         "ref": "main"
@@ -103,10 +142,57 @@
     }
   },
   "pull list": {
-    "items": [],
+    "items": [
+      {
+        "ref": {
+          "forge": "pushin",
+          "instance": "pushin.eu",
+          "repo": {
+            "forge": "pushin",
+            "instance": "pushin.eu",
+            "owner": "pjullrich",
+            "name": "pushin-cli"
+          },
+          "kind": "pull_request",
+          "number": "12",
+          "externalId": "iss_034dd7ODMKhicicj6iPzoi"
+        },
+        "kind": "pull_request",
+        "title": "add aarch64-darwin package to nix flake",
+        "body": "closes issue #11",
+        "state": "open",
+        "stateRaw": "open",
+        "isDraft": false,
+        "author": {
+          "forge": "pushin",
+          "instance": "pushin.eu",
+          "login": "ellyse",
+          "id": "18",
+          "avatarUrl": "https://cdn.pushin.eu/-/avatars/u_033wC4SN6kvz561iIRQhvV",
+          "url": "https://pushin.eu/ellyse",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "assignees": [],
+        "reviewers": [],
+        "labels": [],
+        "url": "https://pushin.eu/pjullrich/pushin-cli/pulls/12",
+        "createdAt": "2026-10-10T18:16:31.043Z",
+        "updatedAt": "2026-10-10T18:16:31.043Z",
+        "lastActivityAt": "2026-10-10T18:16:31.043Z",
+        "branches": {
+          "head": {
+            "ref": "aarch64-darwin"
+          },
+          "base": {
+            "ref": "main"
+          }
+        }
+      }
+    ],
     "rateLimit": {
       "limit": 5000,
-      "remaining": 4994,
+      "remaining": 4964,
       "resetAt": "<now>"
     }
   },
@@ -119,11 +205,11 @@
         "repo": {
           "forge": "pushin",
           "instance": "pushin.eu",
-          "owner": "pjullrich",
-          "name": "pushin-cli"
+          "owner": "danielroe",
+          "name": "roe.dev-test"
         },
         "kind": "pull_request",
-        "number": "5"
+        "number": "1"
       },
       "thread": {
         "ref": {
@@ -132,40 +218,39 @@
           "repo": {
             "forge": "pushin",
             "instance": "pushin.eu",
-            "owner": "pjullrich",
-            "name": "pushin-cli"
+            "owner": "danielroe",
+            "name": "roe.dev-test"
           },
           "kind": "pull_request",
-          "number": "5",
-          "externalId": "iss_034ZTM5UfoQQW1pj2ilPgX"
+          "number": "1",
+          "externalId": "iss_034e44ro1buT7RXhslfKfW"
         },
         "kind": "pull_request",
-        "title": "Nix Packaging and Nix dev shell",
-        "body": "This PR adds\n- Nix packaging for Pushin CLI\n- Nix flake development env for developing the Pushin CLI",
-        "state": "merged",
-        "stateRaw": "merged",
+        "title": "test pr",
+        "body": "here we go",
+        "state": "open",
+        "stateRaw": "open",
         "isDraft": false,
         "author": {
           "forge": "pushin",
           "instance": "pushin.eu",
-          "login": "pmarquez",
-          "id": "578",
-          "avatarUrl": "https://cdn.pushin.eu/-/avatars/u_034YEw7oIPyWrOzEh2xryn",
-          "url": "https://pushin.eu/pmarquez",
+          "login": "danielroe",
+          "id": "277",
+          "avatarUrl": "https://cdn.pushin.eu/-/avatars/u_034KGcbXmCJviF1JfQCAWY/0a945a3b",
+          "url": "https://pushin.eu/danielroe",
           "typeRaw": "User",
           "isBotHint": false
         },
         "assignees": [],
         "reviewers": [],
         "labels": [],
-        "url": "https://pushin.eu/pjullrich/pushin-cli/pulls/5",
-        "createdAt": "2026-10-03T11:13:09.393Z",
-        "updatedAt": "2026-10-03T12:39:25.042Z",
-        "lastActivityAt": "2026-10-03T12:39:25.042Z",
+        "url": "https://pushin.eu/danielroe/roe.dev-test/pulls/1",
+        "createdAt": "<now>",
+        "updatedAt": "<now>",
+        "lastActivityAt": "<now>",
         "branches": {
           "head": {
-            "ref": "main",
-            "sha": "226c1102d4f287fb92b3153334bbeb1b09771cfd"
+            "ref": "test/pr"
           },
           "base": {
             "ref": "main"
@@ -175,20 +260,146 @@
     }
   ],
   "pull events": {
-    "items": [],
+    "items": [
+      {
+        "forge": "pushin",
+        "instance": "pushin.eu",
+        "id": "2137",
+        "kind": "comment",
+        "kindRaw": "comment",
+        "summary": "danielroe commented",
+        "occurredAt": "<now>",
+        "actor": {
+          "forge": "pushin",
+          "instance": "pushin.eu",
+          "login": "danielroe",
+          "id": "277",
+          "avatarUrl": "https://cdn.pushin.eu/-/avatars/u_034KGcbXmCJviF1JfQCAWY/0a945a3b",
+          "url": "https://pushin.eu/danielroe",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "repo": {
+          "forge": "pushin",
+          "instance": "pushin.eu",
+          "owner": "danielroe",
+          "name": "roe.dev-test"
+        },
+        "thread": {
+          "forge": "pushin",
+          "instance": "pushin.eu",
+          "repo": {
+            "forge": "pushin",
+            "instance": "pushin.eu",
+            "owner": "danielroe",
+            "name": "roe.dev-test"
+          },
+          "kind": "pull_request",
+          "number": "1"
+        },
+        "source": "poll",
+        "detail": {
+          "type": "comment",
+          "comment": {
+            "forge": "pushin",
+            "instance": "pushin.eu",
+            "thread": {
+              "forge": "pushin",
+              "instance": "pushin.eu",
+              "repo": {
+                "forge": "pushin",
+                "instance": "pushin.eu",
+                "owner": "danielroe",
+                "name": "roe.dev-test"
+              },
+              "kind": "pull_request",
+              "number": "1"
+            },
+            "id": "2137"
+          },
+          "body": "here's a comment"
+        },
+        "action": "created"
+      }
+    ],
     "rateLimit": {
       "limit": 5000,
-      "remaining": 4991,
+      "remaining": 4961,
       "resetAt": "<now>"
     }
   },
   "pull comments": {
-    "items": [],
+    "items": [
+      {
+        "ref": {
+          "forge": "pushin",
+          "instance": "pushin.eu",
+          "thread": {
+            "forge": "pushin",
+            "instance": "pushin.eu",
+            "repo": {
+              "forge": "pushin",
+              "instance": "pushin.eu",
+              "owner": "danielroe",
+              "name": "roe.dev-test"
+            },
+            "kind": "pull_request",
+            "number": "1"
+          },
+          "id": "2137"
+        },
+        "body": "here's a comment",
+        "author": {
+          "forge": "pushin",
+          "instance": "pushin.eu",
+          "login": "danielroe",
+          "id": "277",
+          "avatarUrl": "https://cdn.pushin.eu/-/avatars/u_034KGcbXmCJviF1JfQCAWY/0a945a3b",
+          "url": "https://pushin.eu/danielroe",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "createdAt": "<now>",
+        "updatedAt": "<now>"
+      }
+    ],
     "rateLimit": {
       "limit": 5000,
-      "remaining": 4991,
+      "remaining": 4961,
       "resetAt": "<now>"
     }
+  },
+  "pull getComment": {
+    "ref": {
+      "forge": "pushin",
+      "instance": "pushin.eu",
+      "thread": {
+        "forge": "pushin",
+        "instance": "pushin.eu",
+        "repo": {
+          "forge": "pushin",
+          "instance": "pushin.eu",
+          "owner": "danielroe",
+          "name": "roe.dev-test"
+        },
+        "kind": "pull_request",
+        "number": "1"
+      },
+      "id": "2137"
+    },
+    "body": "here's a comment",
+    "author": {
+      "forge": "pushin",
+      "instance": "pushin.eu",
+      "login": "danielroe",
+      "id": "277",
+      "avatarUrl": "https://cdn.pushin.eu/-/avatars/u_034KGcbXmCJviF1JfQCAWY/0a945a3b",
+      "url": "https://pushin.eu/danielroe",
+      "typeRaw": "User",
+      "isBotHint": false
+    },
+    "createdAt": "<now>",
+    "updatedAt": "<now>"
   },
   "issue": {
     "ref": {
@@ -230,10 +441,49 @@
     "lastActivityAt": "2026-09-04T06:33:18.934Z"
   },
   "issue list": {
-    "items": [],
+    "items": [
+      {
+        "ref": {
+          "forge": "pushin",
+          "instance": "pushin.eu",
+          "repo": {
+            "forge": "pushin",
+            "instance": "pushin.eu",
+            "owner": "pjullrich",
+            "name": "pushin-cli"
+          },
+          "kind": "issue",
+          "number": "11",
+          "externalId": "iss_034dZWA51E0Js5gQaeOWt8"
+        },
+        "kind": "issue",
+        "title": "﻿nix flake doesnt have an aarch64-darwin package so doesnt work on my mac",
+        "body": "the repo actually has a mac binary but the flake doesnt include it. \n\nproposed fix:\n```diff\ndiff --git a/.github/workflows/nix.yml b/.github/workflows/nix.yml\n--- a/.github/workflows/nix.yml\n+++ b/.github/workflows/nix.yml\n@@ -21,4 +21,5 @@ jobs:\n         run: |\n           nix eval --raw .#packages.x86_64-linux.pun.drvPath\n           nix eval --raw .#packages.aarch64-linux.pun.drvPath\n+          nix eval --raw .#packages.aarch64-darwin.pun.drvPath\n           nix flake check --no-build --all-systems\ndiff --git a/README.md b/README.md\n--- a/README.md\n+++ b/README.md\n@@ -50,7 +50,8 @@ yay -S pushin-cli-bin\n #### Nix / NixOS\n\n The flake packages the checked-in, static Linux binary for `x86_64-linux` or\n-`aarch64-linux` (no Rust compilation). To run it once without installing:\n+`aarch64-linux`, and macOS binary for `aarch64-darwin` (no Rust\n+compilation). To run it once without installing:\n\n ```sh\n nix run 'git+https://git.pushin.eu/pjullrich/pushin-cli.git#pun' -- --version\ndiff --git a/flake.nix b/flake.nix\n--- a/flake.nix\n+++ b/flake.nix\n@@ -24,6 +24,7 @@\n       systems = [\n         \"x86_64-linux\"\n         \"aarch64-linux\"\n+        \"aarch64-darwin\"\n       ];\n       lib = nixpkgs.lib;\n       toolVersions = builtins.listToAttrs (\ndiff --git a/nix/package.nix b/nix/package.nix\n--- a/nix/package.nix\n+++ b/nix/package.nix\n@@ -9,6 +9,7 @@ let\n     {\n       x86_64-linux = \"linux-x86_64\";\n       aarch64-linux = \"linux-arm64\";\n+      aarch64-darwin = \"macos-universal\";\n     }\n     .${stdenvNoCC.hostPlatform.system}\n       or (throw \"pun: unsupported platform ${stdenvNoCC.hostPlatform.system}\");\n@@ -46,6 +47,7 @@ stdenvNoCC.mkDerivation {\n     platforms = [\n       \"x86_64-linux\"\n       \"aarch64-linux\"\n+      \"aarch64-darwin\"\n     ];\n     sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];\n   };\n```\n\njust fyi, cant do intel mac support because nixpkgs dropped support for that. just in case you were wondering.\n\ncant open PR for this because of issue #10 i filed. happy to submit once i can fork.",
+        "state": "open",
+        "stateRaw": "open",
+        "isDraft": false,
+        "author": {
+          "forge": "pushin",
+          "instance": "pushin.eu",
+          "login": "ellyse",
+          "id": "18",
+          "avatarUrl": "https://cdn.pushin.eu/-/avatars/u_033wC4SN6kvz561iIRQhvV",
+          "url": "https://pushin.eu/ellyse",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "assignees": [],
+        "reviewers": [],
+        "labels": [],
+        "url": "https://pushin.eu/pjullrich/pushin-cli/issues/11",
+        "createdAt": "2026-10-10T15:49:48.341Z",
+        "updatedAt": "2026-10-10T15:49:48.341Z",
+        "lastActivityAt": "2026-10-10T15:49:48.341Z"
+      }
+    ],
     "rateLimit": {
       "limit": 5000,
-      "remaining": 4989,
+      "remaining": 4958,
       "resetAt": "<now>"
     }
   },
@@ -481,7 +731,7 @@
     },
     "rateLimit": {
       "limit": 5000,
-      "remaining": 4986,
+      "remaining": 4955,
       "resetAt": "<now>"
     }
   },
@@ -589,9 +839,41 @@
     },
     "rateLimit": {
       "limit": 5000,
-      "remaining": 4986,
+      "remaining": 4955,
       "resetAt": "<now>"
     }
+  },
+  "issue getComment": {
+    "ref": {
+      "forge": "pushin",
+      "instance": "pushin.eu",
+      "thread": {
+        "forge": "pushin",
+        "instance": "pushin.eu",
+        "repo": {
+          "forge": "pushin",
+          "instance": "pushin.eu",
+          "owner": "pjullrich",
+          "name": "pushin-cli"
+        },
+        "kind": "issue",
+        "number": "2"
+      },
+      "id": "1609"
+    },
+    "body": "@runlevel0 aaaah, i'm sorry I forgot to hit `git push` on the new version `0.2.7`. Sorry about that! I've now pushed it. Could you retry the Linux script, please? To be honest with you I haven't tested the Linux or the Windows setup instructions because I have neither system running here. So, I'm asking humbly for a bit of patience if it doesn't work right away :)",
+    "author": {
+      "forge": "pushin",
+      "instance": "pushin.eu",
+      "login": "pjullrich",
+      "id": "2",
+      "avatarUrl": "https://cdn.pushin.eu/-/avatars/u_033jgKZKCNGC2kCrD0IBBG/72d51f75",
+      "url": "https://pushin.eu/pjullrich",
+      "typeRaw": "User",
+      "isBotHint": false
+    },
+    "createdAt": "2026-09-03T07:42:21.893Z",
+    "updatedAt": "2026-09-03T07:42:21.893Z"
   },
   "me": {
     "forge": "pushin",
@@ -606,6 +888,45 @@
   },
   "own repos": {
     "items": [
+      {
+        "ref": {
+          "forge": "pushin",
+          "instance": "pushin.eu",
+          "owner": "danielroe",
+          "name": "roe.dev-test",
+          "externalId": "repo_034e425vVEmZmkNAzd6RQB"
+        },
+        "defaultBranch": "main",
+        "visibility": "public",
+        "visibilityRaw": "public",
+        "isFork": false,
+        "isArchived": false,
+        "topics": [],
+        "url": "https://pushin.eu/danielroe/roe.dev-test",
+        "cloneUrls": {
+          "https": "https://git.pushin.eu/danielroe/roe.dev-test.git"
+        },
+        "createdAt": "<now>",
+        "updatedAt": "<now>",
+        "owner": {
+          "forge": "pushin",
+          "instance": "pushin.eu",
+          "login": "danielroe",
+          "id": "danielroe",
+          "url": "https://pushin.eu/danielroe",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "stars": 0,
+        "forks": 0,
+        "permissions": {
+          "admin": true,
+          "maintain": true,
+          "push": true,
+          "triage": true,
+          "pull": true
+        }
+      },
       {
         "ref": {
           "forge": "pushin",
@@ -635,7 +956,7 @@
           "typeRaw": "User",
           "isBotHint": false
         },
-        "stars": 0,
+        "stars": 1,
         "forks": 0,
         "permissions": {
           "admin": true,
@@ -648,7 +969,7 @@
     ],
     "rateLimit": {
       "limit": 5000,
-      "remaining": 4984,
+      "remaining": 4952,
       "resetAt": "<now>"
     }
   },
@@ -656,7 +977,7 @@
     "items": [],
     "rateLimit": {
       "limit": 5000,
-      "remaining": 4983,
+      "remaining": 4951,
       "resetAt": "<now>"
     }
   }

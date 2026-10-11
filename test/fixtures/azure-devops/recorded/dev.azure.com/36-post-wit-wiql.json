@@ -1,0 +1,118 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://dev.azure.com/forges/forges-fixtures/_apis/wit/wiql?api-version=7.1"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "queryType": "flat",
+      "queryResultType": "workItem",
+      "asOf": "2026-10-11T12:01:46.297Z",
+      "columns": [
+        {
+          "referenceName": "System.Id",
+          "name": "ID",
+          "url": "https://dev.azure.com/forges/_apis/wit/fields/System.Id"
+        }
+      ],
+      "sortColumns": [
+        {
+          "field": {
+            "referenceName": "System.ChangedDate",
+            "name": "Changed Date",
+            "url": "https://dev.azure.com/forges/_apis/wit/fields/System.ChangedDate"
+          },
+          "descending": true
+        }
+      ],
+      "workItems": [
+        {
+          "id": 20,
+          "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/wit/workItems/20"
+        },
+        {
+          "id": 21,
+          "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/wit/workItems/21"
+        },
+        {
+          "id": 18,
+          "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/wit/workItems/18"
+        },
+        {
+          "id": 19,
+          "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/wit/workItems/19"
+        },
+        {
+          "id": 16,
+          "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/wit/workItems/16"
+        },
+        {
+          "id": 17,
+          "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/wit/workItems/17"
+        },
+        {
+          "id": 14,
+          "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/wit/workItems/14"
+        },
+        {
+          "id": 15,
+          "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/wit/workItems/15"
+        },
+        {
+          "id": 12,
+          "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/wit/workItems/12"
+        },
+        {
+          "id": 13,
+          "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/wit/workItems/13"
+        },
+        {
+          "id": 10,
+          "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/wit/workItems/10"
+        },
+        {
+          "id": 11,
+          "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/wit/workItems/11"
+        },
+        {
+          "id": 8,
+          "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/wit/workItems/8"
+        },
+        {
+          "id": 9,
+          "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/wit/workItems/9"
+        },
+        {
+          "id": 6,
+          "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/wit/workItems/6"
+        },
+        {
+          "id": 7,
+          "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/wit/workItems/7"
+        },
+        {
+          "id": 4,
+          "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/wit/workItems/4"
+        },
+        {
+          "id": 5,
+          "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/wit/workItems/5"
+        },
+        {
+          "id": 2,
+          "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/wit/workItems/2"
+        },
+        {
+          "id": 3,
+          "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/wit/workItems/3"
+        },
+        {
+          "id": 1,
+          "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/wit/workItems/1"
+        }
+      ]
+    }
+  }
+}

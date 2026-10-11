@@ -741,7 +741,8 @@ const GITLAB: ProviderDefinition<GitLabOptions> = {
         branchesPage: verb(true, (repo, listOptions = {}) => list(`${projectPath(repo)}/repository/branches`, listOptions, toBranch)),
         tagsPage: verb(true, (repo, listOptions = {}) => list(`${projectPath(repo)}/repository/tags`, listOptions, toTag)),
         resolveRef: verb(true, async (repo, ref, options) => (await fetcher.json<GitLabCommitDetail>(`${projectPath(repo)}/repository/commits/${encodeURIComponent(ref)}`, { signal: options?.signal })).data.id),
-        commitsPage: verb(true, (repo, query = {}) => list(`${projectPath(repo)}/repository/commits`, query, (raw: GitLabCommitDetail) => toCommit(repo, raw), { query: { ref_name: query.ref, path: query.path, author: query.author, since: query.since?.toISOString(), until: query.until?.toISOString() } })),
+        // gitlab.com responds to anonymous commit listings with a Cloudflare challenge.
+        commitsPage: verb(anonymous ? 'unverified' : true, (repo, query = {}) => list(`${projectPath(repo)}/repository/commits`, query, (raw: GitLabCommitDetail) => toCommit(repo, raw), { query: { ref_name: query.ref, path: query.path, author: query.author, since: query.since?.toISOString(), until: query.until?.toISOString() } })),
         commit: verb(true, async (repo, sha, options) => {
           const [commit, diffs] = await Promise.all([
             fetcher.json<GitLabCommitDetail>(`${projectPath(repo)}/repository/commits/${sha}`, { query: { stats: 'true' }, signal: options?.signal }),
@@ -829,12 +830,21 @@ const GITLAB: ProviderDefinition<GitLabOptions> = {
         runsPage: verb(true, (repo, query = {}) => list(`${projectPath(repo)}/pipelines`, query, (raw: GitLabPipeline) => toPipeline(repo, raw), { query: { ref: query.branch, status: PIPELINE_STATES[query.state ?? 'unknown'] } })),
         run: verb(true, async (ref, options) => toPipeline(ref.repo, (await fetcher.json<GitLabPipeline>(`${projectPath(ref.repo)}/pipelines/${ref.id}`, { signal: options?.signal })).data)),
         jobsPage: verb(true, (ref, listOptions = {}) => list(`${projectPath(ref.repo)}/pipelines/${ref.id}/jobs`, listOptions, (raw: GitLabJob) => toCiJob(ref, raw))),
+        job: verb(!anonymous, async (ref, options) => {
+          const { data } = await fetcher.json<GitLabJob>(`${projectPath(ref.repo)}/jobs/${encodeURIComponent(ref.id)}`, { signal: options?.signal })
+          const run = ref.run ?? (data.pipeline && { forge: FORGE, instance, repo: ref.repo, id: String(data.pipeline.id) })
+          if (!run) {
+            throw new UnsupportedOperationError(`GitLab returned job ${ref.id} without its pipeline, and the ref names no run`, context)
+          }
+          return toCiJob(run, data)
+        }),
         log: verb(!anonymous, async (ref, options) => (await fetcher.stream(`${projectPath(ref.repo)}/jobs/${encodeURIComponent(ref.id)}/trace`, { signal: options?.signal })).body),
       },
       securityAlerts: {
         kinds: { dependency: !anonymous, code_scanning: !anonymous, secret: !anonymous },
         listPage: vulnerabilitiesPage,
       },
+      emulated: { getComment: { commit: anonymous ? 'unverified' : 'emulated' } },
       threads: {
         filesPage: verb(true, (thread, listOptions = {}) => list(`${threadPath(requireMerge(thread, 'read for changed files'))}/diffs`, listOptions, toChangedFile)),
         commitsPage: verb(true, (thread, listOptions = {}) => list(`${threadPath(requireMerge(thread, 'read for commits'))}/commits`, listOptions, (raw: GitLabCommitDetail) => toCommit(thread.repo, raw))),
@@ -913,6 +923,24 @@ const GITLAB: ProviderDefinition<GitLabOptions> = {
           // Notes carry no discussion id, so comments are read by discussion; a page holds whole discussions.
           const page = await list(`${threadPath(requireIssueOrPull(ref, context, 'list comments on'))}/discussions`, listOptions, (discussion: GitLabDiscussion) => discussion)
           return { ...page, items: page.items.flatMap(discussion => discussion.notes.filter(note => !note.system).map(note => toNoteComment(ref, note, discussion))) }
+        }),
+        getComment: perKind({ issue: !anonymous, pull_request: !anonymous }, async (ref, options) => {
+          const thread = requireIssueOrPull(ref.thread, context, 'read comments on')
+          const { data } = await fetcher.json<GitLabNoteDetail>(`${threadPath(thread)}/notes/${ref.id}`, { signal: options?.signal })
+          if (data.system) {
+            throw new NotFoundError(`Comment ${ref.id} not found`, 404, '', context)
+          }
+          if (!data.resolvable) {
+            return toNoteComment(thread, data)
+          }
+          // A note carries no discussion id, which a resolvable note's `thread` needs, so it is read from its discussion.
+          for await (const discussion of fetcher.items<GitLabDiscussion>(`${threadPath(thread)}/discussions`, { query: { per_page: 100 }, signal: options?.signal })) {
+            const note = discussion.notes.find(candidate => String(candidate.id) === ref.id)
+            if (note) {
+              return toNoteComment(thread, note, discussion)
+            }
+          }
+          return toNoteComment(thread, data)
         }),
         comment: perKind({ issue: true, pull_request: true, commit: true }, async (thread, body, options) => {
           const ref = requireThread(thread, context)

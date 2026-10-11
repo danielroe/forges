@@ -2,8 +2,11 @@ import type { MergeHooks, ProviderContext, ProviderDefinition, ProviderFactoryFu
 import type {
   BaseOptions,
   Check,
+  CheckRef,
   CheckReportInput,
   CheckState,
+  CiJob,
+  CiJobRef,
   CiRun,
   CiRunQuery,
   CodeMatch,
@@ -39,6 +42,7 @@ import type {
   Review,
   ReviewEvent,
   ReviewInput,
+  ReviewRef,
   SearchQuery,
   SecurityAlert,
   SecurityAlertListOptions,
@@ -802,6 +806,46 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
     return toReview(ref, data, [])
   }
 
+  async function getComment(ref: CommentRef, options?: BaseOptions): Promise<Comment> {
+    if (ref.thread.kind === 'discussion') {
+      const data = await graphql<{ node: GraphQLComment | null }>('GET_DISCUSSION_COMMENT', { id: ref.id }, options)
+      if (!data.node?.id) {
+        throw new NotFoundError(`Comment ${ref.id} not found`, 404, '', context)
+      }
+      return (await import('./graphql.ts')).toDiscussionComment(ref.thread, data.node)
+    }
+    const { data } = await fetcher.json<GitHubComment>(commentPath(ref), { signal: options?.signal })
+    return toComment(ref.thread, data)
+  }
+
+  async function getReview(ref: ReviewRef, options?: BaseOptions): Promise<Review> {
+    const pull = requirePull(ref.thread, 'reviewed')
+    const path = `${threadPath(pull)}/reviews/${encodeURIComponent(ref.id)}`
+    const [{ data }, comments, byComment] = await Promise.all([
+      fetcher.json<GitHubReview>(path, { signal: options?.signal }),
+      Array.fromAsync(fetcher.items<GitHubReviewComment>(`${path}/comments`, { query: { per_page: 100 }, signal: options?.signal })),
+      reviewThreadsByComment(pull, options),
+    ])
+    return toReview(pull, data, comments.map(comment => toReviewComment(pull, comment, byComment.get(String(comment.id)))))
+  }
+
+  async function getCheck(ref: CheckRef, options?: BaseOptions): Promise<Check> {
+    if (ref.type !== 'check_run') {
+      throw new UnsupportedOperationError(`GitHub cannot read a ${ref.type} by id; only check runs can be read on their own`, context)
+    }
+    const { data } = await fetcher.json<GitHubCheckRun>(`${repoPath(ref.repo)}/check-runs/${encodeURIComponent(ref.id)}`, { signal: options?.signal })
+    return toCheckRun(ref.repo, data)
+  }
+
+  async function getJob(ref: CiJobRef, options?: BaseOptions): Promise<CiJob> {
+    const { data } = await fetcher.json<GitHubWorkflowJob>(`${repoPath(ref.repo)}/actions/jobs/${encodeURIComponent(ref.id)}`, { signal: options?.signal })
+    const run = ref.run ?? (data.run_id === undefined ? undefined : { forge: FORGE, instance, repo: ref.repo, id: String(data.run_id) })
+    if (!run) {
+      throw new UnsupportedOperationError(`GitHub returned job ${ref.id} without its run, and the ref names no run`, context)
+    }
+    return toWorkflowJob(run, data)
+  }
+
   async function subscriptionNode(thread: ThreadRef, options?: BaseOptions): Promise<{ id: string, state: string }> {
     const ref = requireThread(thread, context)
     if (ref.kind !== 'issue' && ref.kind !== 'pull_request' && ref.kind !== 'discussion') {
@@ -1290,6 +1334,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
   return {
     checks: {
       list: verb(true, (repo, sha, options) => headChecks(repo, sha, options?.signal)),
+      get: verb(true, getCheck),
       report: verb(true, report),
       rerun: verb(true, async (ref, options) => {
         if (ref.type !== 'check_run') {
@@ -1316,6 +1361,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
       runsPage: verb(true, runsPage),
       run: verb(true, async (ref, options) => toWorkflowRun(ref.repo, (await fetcher.json<GitHubWorkflowRun>(`${repoPath(ref.repo)}/actions/runs/${encodeURIComponent(ref.id)}`, { signal: options?.signal })).data)),
       jobsPage: verb(true, (ref, listOptions = {}) => list(`${repoPath(ref.repo)}/actions/runs/${encodeURIComponent(ref.id)}/jobs`, listOptions, (raw: GitHubWorkflowJob) => toWorkflowJob(ref, raw), { select: (body, next) => ({ items: (body as { jobs: GitHubWorkflowJob[] }).jobs, next }) })),
+      job: verb(true, getJob),
       log: verb(!anonymous, async (ref, options) => (await fetcher.stream(`${repoPath(ref.repo)}/actions/jobs/${encodeURIComponent(ref.id)}/logs`, { signal: options?.signal })).body),
     },
     contents: {
@@ -1505,7 +1551,9 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
         return list(`${repoPath(ref.repo)}/issues/${encodeURIComponent(ref.number)}/timeline`, listOptions, (entry: GitHubTimelineEntry) => toEvent(instance, ref, entry))
       }),
       commentsPage: perKind({ issue: true, pull_request: true, discussion: !anonymous, commit: true }, commentsPage),
+      getComment: perKind({ issue: anonymous ? 'unverified' : true, pull_request: true, discussion: !anonymous, commit: anonymous ? 'unverified' : true }, getComment),
       reviewsPage: verb(true, reviewsPage),
+      getReview: verb(anonymous ? 'unverified' : true, getReview),
       filesPage: verb(true, (ref, listOptions = {}) => list(`${threadPath(requirePull(ref, 'read for changed files'))}/files`, listOptions, toChangedFile)),
       commitsPage: verb(true, (ref, listOptions = {}) => list(`${threadPath(requirePull(ref, 'read for commits'))}/commits`, listOptions, (raw: GitHubCommit) => toCommit(ref.repo, raw))),
       createReview: verb(true, createReview),

@@ -1,4 +1,4 @@
-import type { Actor, Comment, Milestone, Notification, Release, RepoRef, Review, Thread, ThreadRef, Webhook, WebhookDeliveryRecord } from '../../src/model.ts'
+import type { Actor, Comment, CommentRef, Milestone, Notification, Release, RepoRef, Review, Thread, ThreadRef, Webhook, WebhookDeliveryRecord } from '../../src/model.ts'
 import type { ForgeProvider, ForgeVerb } from '../../src/provider.ts'
 import type { RecordingManifest } from './steps.ts'
 import { createHash } from 'node:crypto'
@@ -54,6 +54,8 @@ export interface WriteContext {
   comments: Partial<Record<WriteKind | 'commit', Comment>>
   milestone?: Milestone
   review?: Review
+  /** The first comment of a review the run left, to read back on its own. */
+  reviewComment?: CommentRef
   reviewThread?: string
   draft?: Release
   release?: Release
@@ -123,6 +125,7 @@ function threadWrites(kind: WriteKind): WriteStep[] {
       return context.comments[kind]
     } },
     { name: `${prefix} edit comment`, verb: 'threads.editComment', kind, run: (provider, manifest, context) => provider.threads.editComment(need(context.comments[kind], 'a comment').ref, `An edited comment from run ${manifest.run.id}.`) },
+    { name: `${prefix} get comment`, verb: 'threads.getComment', kind, run: (provider, _manifest, context) => provider.threads.getComment(need(context.comments[kind], 'a comment').ref) },
     { name: `${prefix} upsert comment`, verb: 'threads.upsertComment', kind, run: (provider, manifest, context) => provider.threads.upsertComment(ref(context), { key: 'forges-fixture', body: `An upserted comment from run ${manifest.run.id}.` }) },
     { name: `${prefix} delete comment`, verb: 'threads.deleteComment', kind, run: (provider, _manifest, context) => provider.threads.deleteComment(need(context.comments[kind], 'a comment').ref) },
     { name: `${prefix} react`, verb: 'threads.react', kind, run: (provider, _manifest, context) => provider.threads.react(ref(context), '+1') },
@@ -151,6 +154,7 @@ function commitWrites(): WriteStep[] {
       return context.comments.commit
     } },
     { name: 'commit edit comment', verb: 'threads.editComment', kind: 'commit', run: (provider, manifest, context) => provider.threads.editComment(need(context.comments.commit, 'a commit comment').ref, `An edited commit comment from run ${manifest.run.id}.`) },
+    { name: 'commit get comment', verb: 'threads.getComment', kind: 'commit', run: (provider, _manifest, context) => provider.threads.getComment(need(context.comments.commit, 'a commit comment').ref) },
     { name: 'commit upsert comment', verb: 'threads.upsertComment', kind: 'commit', run: (provider, manifest, context) => provider.threads.upsertComment(ref(context), { key: 'forges-fixture', body: `An upserted commit comment from run ${manifest.run.id}.` }) },
     { name: 'commit delete comment', verb: 'threads.deleteComment', kind: 'commit', run: (provider, _manifest, context) => provider.threads.deleteComment(need(context.comments.commit, 'a commit comment').ref) },
   ]
@@ -236,11 +240,21 @@ export const WRITE_STEPS: WriteStep[] = [
       : await provider.threads.createReview(need(context.pulls[2], 'the third pull request').ref, { event: 'approve' })
     return context.review
   } },
-  { name: 'comment review', verb: 'threads.createReview', kind: 'pull_request', as: 'reviewer', when: provider => !provider.can('threads.submitReview'), run: (provider, manifest, context) => provider.threads.createReview(threadOf(context, 'pull_request'), { event: 'comment', body: `A review comment from run ${manifest.run.id}.` }) },
+  { name: 'comment review', verb: 'threads.createReview', kind: 'pull_request', as: 'reviewer', when: provider => !provider.can('threads.submitReview'), run: async (provider, manifest, context) => {
+    const review = await provider.threads.createReview(threadOf(context, 'pull_request'), { event: 'comment', body: `A review comment from run ${manifest.run.id}.` })
+    context.reviewComment = review.comments ? review.comments[0]?.ref : undefined
+    return review
+  } },
   { name: 'submit review', verb: 'threads.submitReview', kind: 'pull_request', as: 'reviewer', run: async (provider, manifest, context) => {
     context.review = await provider.threads.submitReview(need(context.review, 'a pending review').ref, 'comment', `A submitted review from run ${manifest.run.id}.`)
     return context.review
   } },
+  { name: 'get review', verb: 'threads.getReview', kind: 'pull_request', run: async (provider, _manifest, context) => {
+    const review = await provider.threads.getReview(need(context.review, 'a review').ref)
+    context.reviewComment ??= review.comments ? review.comments[0]?.ref : undefined
+    return review
+  } },
+  { name: 'get review comment', verb: 'threads.getComment', kind: 'pull_request', run: (provider, _manifest, context) => provider.threads.getComment(need(context.reviewComment, 'a review comment')) },
   { name: 'resolve review thread', verb: 'threads.resolveReviewThread', kind: 'pull_request', run: async (provider, _manifest, context) => {
     const pull = threadOf(context, 'pull_request')
     const reviews = await provider.threads.reviewsPage(pull)

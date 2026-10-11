@@ -115,6 +115,7 @@ You can manage webhooks on repositories only. Gitee doesn't keep a delivery log,
 | `threads.getMany` | ✅ | ✅ |
 | `threads.events` | issue, PR | issue, PR |
 | `comments.list` | issue, PR | issue, PR |
+| `comments.get` | issue (emulated), PR (emulated) | issue (emulated), PR (emulated) |
 | `comments.edit` | issue (unverified), PR (unverified) | ❌ |
 | `comments.delete` | issue (unverified), PR (unverified) | ❌ |
 | `reactions.list` | ❌ | ❌ |
@@ -147,11 +148,13 @@ You can manage webhooks on repositories only. Gitee doesn't keep a delivery log,
 | `installations` | ❌ | ❌ |
 | `checks.thread` | PR | PR |
 | `checks.list` | ✅ | ✅ |
+| `checks.get` | ❌ | ❌ |
 | `checks.report` | ❌ | ❌ |
 | `checks.rerun` | ❌ | ❌ |
 | `ci.runs` | ❌ | ❌ |
 | `ci.run` | ❌ | ❌ |
 | `ci.jobs` | ❌ | ❌ |
+| `ci.job` | ❌ | ❌ |
 | `ci.log` | ❌ | ❌ |
 | `contents.file` | ✅ | ✅ |
 | `contents.tree` | ✅ | ✅ |
@@ -164,6 +167,7 @@ You can manage webhooks on repositories only. Gitee doesn't keep a delivery log,
 | `contents.threadFiles` | ✅ | ✅ |
 | `contents.threadCommits` | ✅ | ✅ |
 | `reviews.list` | ❌ | ❌ |
+| `reviews.get` | ❌ | ❌ |
 | `reviews.create` | unverified | ❌ |
 | `reviews.submit` | ❌ | ❌ |
 | `reviews.approve` | unverified | ❌ |

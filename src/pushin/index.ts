@@ -58,7 +58,7 @@ function setupPushin({ options, instance, origin: context, fetcher, baseUrl }: P
 
   async function commentsPage(thread: ThreadRef, listOptions: ListOptions = {}): Promise<Page<Comment>> {
     const ref = requireIssueOrPull(thread, context, 'read comments on')
-    const result = await fetcher.page<PushinComment>(`${threadPath(ref)}/comments`, {
+    const result = await fetcher.page<PushinComment>(`${repoPath(ref.repo)}/issues/${encodeURIComponent(ref.number)}/comments`, {
       query: { per_page: listOptions.perPage },
       cursor: listOptions.cursor,
       signal: listOptions.signal,

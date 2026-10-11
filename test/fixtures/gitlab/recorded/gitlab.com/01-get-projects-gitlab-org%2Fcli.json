@@ -6,10 +6,10 @@
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"5c384a56b61bf33c47abf3a94fabed2e\"",
+      "etag": "W/\"35f825c8cd91ed77bd5f4a66e00639d4\"",
       "ratelimit-limit": "2000",
       "ratelimit-remaining": "1999",
-      "ratelimit-reset": "1791581760"
+      "ratelimit-reset": "1791734700"
     },
     "body": {
       "id": 34675721,
@@ -26,10 +26,10 @@
       "http_url_to_repo": "https://gitlab.com/gitlab-org/cli.git",
       "web_url": "https://gitlab.com/gitlab-org/cli",
       "readme_url": "https://gitlab.com/gitlab-org/cli/-/blob/main/README.md",
-      "forks_count": 483,
-      "avatar_url": "https://gitlab.com/uploads/-/system/project/avatar/34675721/cli-logo.png?v=1791578756",
-      "star_count": 1103,
-      "last_activity_at": "2026-10-09T20:45:56.329Z",
+      "forks_count": 485,
+      "avatar_url": "https://gitlab.com/uploads/-/system/project/avatar/34675721/cli-logo.png?v=1791733204",
+      "star_count": 1105,
+      "last_activity_at": "2026-10-11T15:40:04.771Z",
       "visibility": "public",
       "namespace": {
         "id": 9970,
@@ -104,7 +104,7 @@
       "import_status": "finished",
       "open_issues_count": 261,
       "description_html": "<p data-sourcepos=\"1:1-1:54\" dir=\"auto\">A GitLab CLI tool bringing GitLab to your command line</p>",
-      "updated_at": "2026-10-09T20:45:56.329Z",
+      "updated_at": "2026-10-11T15:40:04.771Z",
       "ci_config_path": "",
       "public_jobs": true,
       "shared_with_groups": [

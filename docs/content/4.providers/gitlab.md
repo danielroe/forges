@@ -67,6 +67,10 @@ Comments on a merge request are read by discussion, so a comment in a resolvable
 
 When the user isn't allowed to approve, GitLab responds with `401`. The provider raises this response as `InsufficientScopeError`.
 
+## Merge request stats
+
+GitLab reports the number of changed files on a single merge request, but not the lines added or removed or the number of commits, so `thread.stats` holds only `changedFileCount`. Past the diff limit of the instance, GitLab reports a capped count such as `1000+` instead of the number, and `thread.stats` is absent.
+
 ## Releases
 
 GitLab releases have no draft or prerelease state, so every release is published as soon as you create it. `releases.create()` and `releases.update()` reject `draft: true` and `prerelease: true` with `UnsupportedOperationError` before they send a request. If the tag doesn't exist yet, `releases.create()` needs `target`, the branch or commit to tag.
@@ -134,6 +138,7 @@ If you create a hook with `webhooks.create()`, `nativeEvents` takes the names of
 | `threads.getMany` | ✅ | ✅ |
 | `threads.events` | issue, PR, commit | ❌ |
 | `comments.list` | issue, PR, commit | commit |
+| `comments.get` | issue, PR, commit (emulated) | commit (unverified) |
 | `comments.edit` | issue, PR | ❌ |
 | `comments.delete` | issue, PR | ❌ |
 | `reactions.list` | issue, PR | issue, PR |
@@ -166,23 +171,26 @@ If you create a hook with `webhooks.create()`, `nativeEvents` takes the names of
 | `installations` | ❌ | ❌ |
 | `checks.thread` | PR | PR |
 | `checks.list` | ✅ | ❌ |
+| `checks.get` | ❌ | ❌ |
 | `checks.report` | ✅ | ❌ |
 | `checks.rerun` | ✅ | ❌ |
 | `ci.runs` | ✅ | ✅ |
 | `ci.run` | ✅ | ✅ |
 | `ci.jobs` | ✅ | ✅ |
+| `ci.job` | ✅ | emulated |
 | `ci.log` | ✅ | ❌ |
 | `contents.file` | ✅ | ✅ |
 | `contents.tree` | ✅ | ✅ |
 | `contents.branches` | ✅ | ✅ |
 | `contents.tags` | ✅ | ✅ |
 | `contents.resolveRef` | ✅ | ✅ |
-| `contents.commits` | ✅ | ✅ |
+| `contents.commits` | ✅ | unverified |
 | `contents.commit` | ✅ | ✅ |
 | `contents.compare` | ✅ | ✅ |
 | `contents.threadFiles` | ✅ | ✅ |
 | `contents.threadCommits` | ✅ | ✅ |
 | `reviews.list` | emulated | emulated |
+| `reviews.get` | emulated | emulated |
 | `reviews.create` | emulated | ❌ |
 | `reviews.submit` | ❌ | ❌ |
 | `reviews.approve` | ✅ | ❌ |
