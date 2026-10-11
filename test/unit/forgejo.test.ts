@@ -364,6 +364,16 @@ describe('gitea actions', () => {
     expect(ci({ auth, baseUrl: 'https://git.example.org', instanceVersion: '1.25.0' })).toEqual({ runs: true, run: true, jobs: true, job: true, log: true })
   })
 
+  it('reads a job whose ref names no run, and names the run from the job', async () => {
+    const { provider } = serve(new Map([
+      ['https://git.example.org/api/v1/repos/acme/widgets/actions/jobs/9', { id: 9, run_id: 7, name: 'test', status: 'completed', conclusion: 'success', started_at: zero, completed_at: zero }],
+    ]))
+
+    const job = await provider.ci.job({ forge: 'gitea', instance: 'git.example.org', repo, id: '9' })
+
+    expect(job.ref.run).toEqual({ forge: 'gitea', instance: 'git.example.org', repo, id: '7' })
+  })
+
   it('filters runs on `branch` and on the statuses Gitea accepts', async () => {
     const { provider, urls } = serve(new Map([
       ['https://git.example.org/api/v1/repos/acme/widgets/actions/runs?status=queued&status=waiting&status=in_progress&branch=main&page=1&limit=50', { total_count: 2, workflow_runs: [run(2, 'queued'), run(1, 'waiting')] }],
