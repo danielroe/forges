@@ -564,4 +564,10 @@ describe('gitlab single-item reads', () => {
 
     expect(job.ref.run).toEqual({ forge: 'gitlab', instance: 'gitlab.com', repo, id: '7' })
   })
+
+  it('rejects a CI job without its pipeline when its ref names no run', async () => {
+    const provider = serve({ '/api/v4/projects/acme%2Fplatform%2Fwidgets/jobs/9': { id: 9, name: 'test', status: 'success', stage: 'test' } })
+
+    await expect(provider.ci.job({ forge: 'gitlab', instance: 'gitlab.com', repo, id: '9' })).rejects.toThrow(UnsupportedOperationError)
+  })
 })
