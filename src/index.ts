@@ -42,6 +42,7 @@ export type { GitLabAuth, GitLabOptions } from './gitlab/index.ts'
 export { commentMarker, DATE_FIELDS, hasCommentMarker, isNamespaceRef, isResolvedThread, namesAreCaseInsensitive, normaliseRepoName, notificationKey, notificationThread, parseNotificationKey, parseRepoKey, parseThreadKey, REACTION_CONTENTS, repoKey, repoSlug, reviveDates, threadKey, threadSlug } from './model.ts'
 export type {
   Actor,
+  AddCollaboratorResult,
   ApproveAndMergeOptions,
   BaseOptions,
   Branch,

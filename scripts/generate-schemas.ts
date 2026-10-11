@@ -11,6 +11,7 @@ import { createGenerator } from 'ts-json-schema-generator'
 
 /** Model types a schema is generated for; their dependencies are included. */
 export const ROOT_TYPES = [
+  'AddCollaboratorResult',
   'Branch',
   'ChangedFile',
   'Check',

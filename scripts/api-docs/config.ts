@@ -51,7 +51,7 @@ function forge(title: string, directory: string, names: RegExp[] = []) {
 
 const DATA_MODEL_SECTIONS: SectionConfig[] = [
   { title: 'Forges and refs', names: ['ForgeKind', 'KnownForgeKind', 'ForgeInstance', 'ForgeOrigin', 'ThreadKind', 'RepoRef', 'ThreadRef', 'ResolvedThreadRef', 'CommentRef', 'NotificationRef', 'repoKey', 'parseRepoKey', 'repoSlug', 'threadKey', 'parseThreadKey', 'threadSlug', 'notificationKey', 'parseNotificationKey', 'notificationThread', 'isNamespaceRef', 'isResolvedThread', 'normaliseRepoName', 'namesAreCaseInsensitive'] },
-  { title: 'Accounts and repositories', names: [/^(?:Actor|User|Collaborator|Repo|Installation)/, 'OwnerRepoQuery', 'TextLimits'] },
+  { title: 'Accounts and repositories', names: [/^(?:Actor|User|Collaborator|Repo|Installation)/, 'OwnerRepoQuery', 'AddCollaboratorResult', 'TextLimits'] },
   { title: 'Threads and comments', names: [/^(?:Thread|SubscriptionState|SubscribeOptions|SubscriptionItem|Close|Upsert|Comment|Milestone|Label|GetMany|SearchQuery|Merge|ApproveAndMerge)/, 'commentMarker', 'hasCommentMarker'] },
   { title: 'Reactions', names: [/^React/, 'REACTION_CONTENTS'] },
   { title: 'Reviews', names: [/^Review/, 'PullBranches', 'PullStats', 'ThreadStack'] },

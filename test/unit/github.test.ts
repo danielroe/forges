@@ -425,6 +425,18 @@ describe('github repository and thread metadata', () => {
     expect(calls.map(call => JSON.parse(call.body!).permission)).toEqual(['pull', 'triage', 'push', 'maintain', 'admin'])
   })
 
+  it('tells an invitation apart from a collaborator who has access', async () => {
+    const url = 'https://api.github.com/repos/acme/widgets/collaborators'
+    const { fetch } = fixtureFetch('github', {
+      [`PUT ${url}/octocat`]: { status: 201, body: { id: 1, permissions: 'write', invitee: { login: 'octocat', id: 583231 } } },
+      [`PUT ${url}/hubot`]: { status: 204 },
+    })
+    const provider = github({ auth: { type: 'token', token: 't' }, fetch }).create()
+
+    expect(await provider.repos.addCollaborator(repo, 'octocat', 'write')).toEqual({ status: 'invited' })
+    expect(await provider.repos.addCollaborator(repo, 'hubot', 'write')).toEqual({ status: 'added' })
+  })
+
   it('adds and removes labels without replacing the rest', async () => {
     const { provider, calls } = tokenProvider()
 

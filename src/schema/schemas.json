@@ -59,6 +59,24 @@
     "description": "An account: a user, an organisation or a bot.",
     "x-forges-type": "Actor"
   },
+  "AddCollaboratorResult": {
+    "type": "object",
+    "properties": {
+      "status": {
+        "type": "string",
+        "enum": [
+          "invited",
+          "added"
+        ],
+        "description": "`'invited'` when the account has to accept an invitation before it has the role, `'added'` when it has the role now, including an account that already had access."
+      }
+    },
+    "required": [
+      "status"
+    ],
+    "description": "What `repos.addCollaborator()` did.",
+    "x-forges-type": "AddCollaboratorResult"
+  },
   "AlertSupport": {
     "type": "object",
     "properties": {

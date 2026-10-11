@@ -1,6 +1,7 @@
 import type { FetcherOptions, FetchLike, ForgeRequest } from './fetch.ts'
 import type {
   Actor,
+  AddCollaboratorResult,
   ApproveAndMergeOptions,
   BaseOptions,
   Branch,
@@ -816,8 +817,8 @@ export interface ReposApi {
   collaboratorsPage: (repo: RepoRef, options?: PageOptions) => Promise<Page<Collaborator>>
   /** One account's role on the repository; `'none'` when it has no access. */
   permissionFor: (repo: RepoRef, actor: string | Actor, options?: BaseOptions) => Promise<RepoRole>
-  /** Gives an account a role on a repository. */
-  addCollaborator: (repo: RepoRef, actor: string | Actor, role: RepoRole, options?: BaseOptions) => Promise<void>
+  /** Gives an account a role on a repository, or invites it where the forge asks the account to accept first. */
+  addCollaborator: (repo: RepoRef, actor: string | Actor, role: RepoRole, options?: BaseOptions) => Promise<AddCollaboratorResult>
   /** Accounts that can be assigned to a thread in the repository. */
   assignableUsers: (repo: RepoRef, options?: PageOptions) => ForgeIterable<Actor>
   /** One page of `assignableUsers()`. */

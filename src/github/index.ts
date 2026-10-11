@@ -1533,7 +1533,8 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
         return toRole({ role_name: data.role_name ?? (data.permission === 'none' ? undefined : data.permission), permissions: data.user?.permissions })
       }),
       addCollaborator: verb(true, async (repo, actor, role, options) => {
-        await fetcher.raw(`${repoPath(repo)}/collaborators/${encodeURIComponent(actorLogin(actor))}`, { method: 'PUT', json: { permission: COLLABORATOR_PERMISSIONS[role] ?? role }, signal: options?.signal })
+        const response = await fetcher.raw(`${repoPath(repo)}/collaborators/${encodeURIComponent(actorLogin(actor))}`, { method: 'PUT', json: { permission: COLLABORATOR_PERMISSIONS[role] ?? role }, signal: options?.signal })
+        return { status: response.status === 201 ? 'invited' : 'added' }
       }),
       assignableUsersPage: verb(true, (repo, listOptions = {}) => list(`${repoPath(repo)}/assignees`, listOptions, (raw: GitHubUserDetail) => toActor(instance, raw)!)),
       reviewerCandidatesPage: verb(!anonymous && 'emulated', async (thread, listOptions = {}) => {

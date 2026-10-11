@@ -100,6 +100,15 @@ export interface Collaborator {
   raw: unknown
 }
 
+/** What `repos.addCollaborator()` did. */
+export interface AddCollaboratorResult {
+  /**
+   * `'invited'` when the account has to accept an invitation before it has the role, `'added'` when it has the
+   * role now, including an account that already had access.
+   */
+  status: 'invited' | 'added'
+}
+
 /** A repository as every forge reports it. Fields that not every forge has, such as `openPullCount`, are optional. */
 export interface Repo {
   ref: RepoRef
