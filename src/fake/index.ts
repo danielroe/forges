@@ -432,6 +432,11 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
     return checks.every(check => check.state === 'success' || check.state === 'neutral') ? 'success' : 'unknown'
   }
 
+  /** The recorded events that `match`, newest first, as a feed reads them. */
+  function feed(match: (event: ForgeEvent) => boolean): ForgeEvent[] {
+    return store.events.filter(match).toReversed().map(event => ({ ...event, source: 'poll' }))
+  }
+
   function record(thread: ThreadRef, kind: EventKind, action: EventAction, summary: string, detail?: EventDetail): void {
     const event = completeEvent({
       ...origin,
@@ -707,6 +712,7 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
       traits: { eventKinds: 'native', authKinds: ['token'] },
       users: {
         me: verb(support('users.me', true), async () => ({ ...actor(viewerLogin), raw: undefined })),
+        eventsPage: verb(support('users.events', true), async (login, listOptions = {}) => pageOf(feed(event => event.actor?.login === login), listOptions)),
       },
       repos: {
         get: verb(support('repos.get', true), async repo => repoState(repo).repo),
@@ -722,6 +728,7 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
           const page = pageOf(repos, query)
           return query.sort && query.sort !== 'name' && !query.cursor ? { ...page, warnings: [{ code: 'sort_unsupported', message: 'The fake forge keeps no repository dates; sorted in seed order' }] } : page
         }),
+        eventsPage: verb(support('repos.events', true), async (repo, listOptions = {}) => pageOf(feed(event => event.repo?.owner === repo.owner && event.repo.name === repo.name), listOptions)),
       },
       search: {
         threadsPage: verb(support('search.threads', true), async (query = {}) => {

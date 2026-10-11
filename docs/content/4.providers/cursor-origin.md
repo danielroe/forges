@@ -107,6 +107,7 @@ Deliveries of `installation.*` events become `installation` events. You register
 | `users.get` | ❌ | ❌ | ❌ | ❌ |
 | `users.me` | ❌ | ❌ | ❌ | ❌ |
 | `users.sponsorable` | ❌ | ❌ | ❌ | ❌ |
+| `users.events` | ❌ | ❌ | ❌ | ❌ |
 | `repos.list` | unverified | unverified | ❌ | ❌ |
 | `repos.byOwner` | ❌ | ❌ | ❌ | ❌ |
 | `repos.labels` | ❌ | ❌ | ❌ | ❌ |
@@ -119,6 +120,7 @@ Deliveries of `installation.*` events become `installation` events. You register
 | `repos.addCollaborator` | ❌ | ❌ | ❌ | ❌ |
 | `repos.assignableUsers` | ❌ | ❌ | ❌ | ❌ |
 | `repos.reviewerCandidates` | ❌ | ❌ | ❌ | ❌ |
+| `repos.events` | ❌ | ❌ | ❌ | ❌ |
 | `orgs.teams` | ❌ | ❌ | ❌ | ❌ |
 | `orgs.teamMembers` | ❌ | ❌ | ❌ | ❌ |
 | `threads.get` | PR (experimental) | PR (experimental) | ❌ | ❌ |

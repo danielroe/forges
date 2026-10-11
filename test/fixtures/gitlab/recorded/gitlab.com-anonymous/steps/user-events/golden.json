@@ -1,0 +1,493 @@
+{
+  "items": [
+    {
+      "forge": "gitlab",
+      "instance": "gitlab.com",
+      "id": "6116803688",
+      "kindRaw": "Project.left",
+      "actionRaw": "left",
+      "kind": "membership",
+      "action": "removed",
+      "detail": {
+        "type": "membership",
+        "actionRaw": "left",
+        "member": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "login": "danielroe",
+          "id": "2179675",
+          "name": "Daniel Roe",
+          "avatarUrl": "https://secure.gravatar.com/avatar/82a8f6237bb263bac46d7cc8ec3054d715ce6a55a8626d6e977769d57d2c94e6?s=80&d=identicon",
+          "url": "https://gitlab.com/danielroe",
+          "isBotHint": false
+        }
+      },
+      "summary": "danielroe left the project",
+      "occurredAt": "2026-10-12T22:04:45.915Z",
+      "actor": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "login": "danielroe",
+        "id": "2179675",
+        "name": "Daniel Roe",
+        "avatarUrl": "https://secure.gravatar.com/avatar/82a8f6237bb263bac46d7cc8ec3054d715ce6a55a8626d6e977769d57d2c94e6?s=80&d=identicon",
+        "url": "https://gitlab.com/danielroe",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "owner": "roebot",
+        "name": "forges-fixtures-outside",
+        "externalId": "87449621"
+      },
+      "source": "poll"
+    },
+    {
+      "forge": "gitlab",
+      "instance": "gitlab.com",
+      "id": "6116803199",
+      "kindRaw": "Note.commented on",
+      "actionRaw": "commented on",
+      "kind": "comment",
+      "action": "created",
+      "thread": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "repo": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "owner": "forges-fixtures",
+          "name": "forges-fixtures",
+          "externalId": "87428720"
+        },
+        "kind": "issue",
+        "number": "34"
+      },
+      "detail": {
+        "type": "comment",
+        "comment": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "thread": {
+            "forge": "gitlab",
+            "instance": "gitlab.com",
+            "repo": {
+              "forge": "gitlab",
+              "instance": "gitlab.com",
+              "owner": "forges-fixtures",
+              "name": "forges-fixtures",
+              "externalId": "87428720"
+            },
+            "kind": "issue",
+            "number": "34"
+          },
+          "id": "4000963265"
+        },
+        "body": "@roebot a mention from run 20261012220341."
+      },
+      "summary": "danielroe commented",
+      "occurredAt": "2026-10-12T22:04:38.086Z",
+      "actor": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "login": "danielroe",
+        "id": "2179675",
+        "name": "Daniel Roe",
+        "avatarUrl": "https://secure.gravatar.com/avatar/82a8f6237bb263bac46d7cc8ec3054d715ce6a55a8626d6e977769d57d2c94e6?s=80&d=identicon",
+        "url": "https://gitlab.com/danielroe",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "owner": "forges-fixtures",
+        "name": "forges-fixtures",
+        "externalId": "87428720"
+      },
+      "source": "poll"
+    },
+    {
+      "forge": "gitlab",
+      "instance": "gitlab.com",
+      "id": "6116803033",
+      "kindRaw": "Project.deleted",
+      "actionRaw": "deleted",
+      "kind": "ref",
+      "action": "deleted",
+      "detail": {
+        "type": "ref",
+        "ref": "refs/heads/forges-fixtures/20261012220341-2",
+        "refType": "branch"
+      },
+      "summary": "danielroe deleted forges-fixtures/20261012220341-2",
+      "occurredAt": "2026-10-12T22:04:35.387Z",
+      "actor": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "login": "danielroe",
+        "id": "2179675",
+        "name": "Daniel Roe",
+        "avatarUrl": "https://secure.gravatar.com/avatar/82a8f6237bb263bac46d7cc8ec3054d715ce6a55a8626d6e977769d57d2c94e6?s=80&d=identicon",
+        "url": "https://gitlab.com/danielroe",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "owner": "forges-fixtures",
+        "name": "forges-fixtures",
+        "externalId": "87428720"
+      },
+      "source": "poll"
+    },
+    {
+      "forge": "gitlab",
+      "instance": "gitlab.com",
+      "id": "6116802969",
+      "kindRaw": "Project.pushed to",
+      "actionRaw": "pushed to",
+      "kind": "push",
+      "detail": {
+        "type": "push",
+        "ref": "refs/heads/main",
+        "before": "35174ee098e0bd6c3561ab7b5e5c9ef4b0065f26",
+        "after": "5cafa2fc236c691776306f6b4e62d5d2747154cb",
+        "commitCount": 2,
+        "forced": false,
+        "commits": [
+          {
+            "sha": "5cafa2fc236c691776306f6b4e62d5d2747154cb",
+            "message": "Merge run 20261012220341"
+          }
+        ]
+      },
+      "summary": "danielroe pushed 2 commit(s) to main",
+      "occurredAt": "2026-10-12T22:04:34.250Z",
+      "actor": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "login": "danielroe",
+        "id": "2179675",
+        "name": "Daniel Roe",
+        "avatarUrl": "https://secure.gravatar.com/avatar/82a8f6237bb263bac46d7cc8ec3054d715ce6a55a8626d6e977769d57d2c94e6?s=80&d=identicon",
+        "url": "https://gitlab.com/danielroe",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "owner": "forges-fixtures",
+        "name": "forges-fixtures",
+        "externalId": "87428720"
+      },
+      "source": "poll",
+      "action": "other"
+    },
+    {
+      "forge": "gitlab",
+      "instance": "gitlab.com",
+      "id": "6116802968",
+      "kindRaw": "MergeRequest.accepted",
+      "actionRaw": "accepted",
+      "kind": "state_change",
+      "action": "merged",
+      "thread": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "repo": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "owner": "forges-fixtures",
+          "name": "forges-fixtures",
+          "externalId": "87428720"
+        },
+        "kind": "pull_request",
+        "number": "43"
+      },
+      "detail": {
+        "type": "state_change",
+        "state": "merged"
+      },
+      "summary": "danielroe merged merge request",
+      "occurredAt": "2026-10-12T22:04:34.243Z",
+      "actor": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "login": "danielroe",
+        "id": "2179675",
+        "name": "Daniel Roe",
+        "avatarUrl": "https://secure.gravatar.com/avatar/82a8f6237bb263bac46d7cc8ec3054d715ce6a55a8626d6e977769d57d2c94e6?s=80&d=identicon",
+        "url": "https://gitlab.com/danielroe",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "owner": "forges-fixtures",
+        "name": "forges-fixtures",
+        "externalId": "87428720"
+      },
+      "source": "poll"
+    },
+    {
+      "forge": "gitlab",
+      "instance": "gitlab.com",
+      "id": "6116802828",
+      "kindRaw": "MergeRequest.approved",
+      "actionRaw": "approved",
+      "kind": "review",
+      "action": "submitted",
+      "thread": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "repo": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "owner": "forges-fixtures",
+          "name": "forges-fixtures",
+          "externalId": "87428720"
+        },
+        "kind": "pull_request",
+        "number": "43"
+      },
+      "detail": {
+        "type": "review",
+        "state": "approved",
+        "stateRaw": "approved"
+      },
+      "summary": "danielroe approved merge request",
+      "occurredAt": "2026-10-12T22:04:32.017Z",
+      "actor": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "login": "danielroe",
+        "id": "2179675",
+        "name": "Daniel Roe",
+        "avatarUrl": "https://secure.gravatar.com/avatar/82a8f6237bb263bac46d7cc8ec3054d715ce6a55a8626d6e977769d57d2c94e6?s=80&d=identicon",
+        "url": "https://gitlab.com/danielroe",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "owner": "forges-fixtures",
+        "name": "forges-fixtures",
+        "externalId": "87428720"
+      },
+      "source": "poll"
+    },
+    {
+      "forge": "gitlab",
+      "instance": "gitlab.com",
+      "id": "6116802603",
+      "kindRaw": "MergeRequest.approved",
+      "actionRaw": "approved",
+      "kind": "review",
+      "action": "submitted",
+      "thread": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "repo": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "owner": "forges-fixtures",
+          "name": "forges-fixtures",
+          "externalId": "87428720"
+        },
+        "kind": "pull_request",
+        "number": "42"
+      },
+      "detail": {
+        "type": "review",
+        "state": "approved",
+        "stateRaw": "approved"
+      },
+      "summary": "danielroe approved merge request",
+      "occurredAt": "2026-10-12T22:04:27.937Z",
+      "actor": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "login": "danielroe",
+        "id": "2179675",
+        "name": "Daniel Roe",
+        "avatarUrl": "https://secure.gravatar.com/avatar/82a8f6237bb263bac46d7cc8ec3054d715ce6a55a8626d6e977769d57d2c94e6?s=80&d=identicon",
+        "url": "https://gitlab.com/danielroe",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "owner": "forges-fixtures",
+        "name": "forges-fixtures",
+        "externalId": "87428720"
+      },
+      "source": "poll"
+    },
+    {
+      "forge": "gitlab",
+      "instance": "gitlab.com",
+      "id": "6116802293",
+      "kindRaw": "DiscussionNote.commented on",
+      "actionRaw": "commented on",
+      "kind": "comment",
+      "action": "created",
+      "thread": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "repo": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "owner": "forges-fixtures",
+          "name": "forges-fixtures",
+          "externalId": "87428720"
+        },
+        "kind": "pull_request",
+        "number": "42"
+      },
+      "detail": {
+        "type": "comment",
+        "comment": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "thread": {
+            "forge": "gitlab",
+            "instance": "gitlab.com",
+            "repo": {
+              "forge": "gitlab",
+              "instance": "gitlab.com",
+              "owner": "forges-fixtures",
+              "name": "forges-fixtures",
+              "externalId": "87428720"
+            },
+            "kind": "pull_request",
+            "number": "42"
+          },
+          "id": "4000962296"
+        },
+        "body": "A review comment from run 20261012220341."
+      },
+      "summary": "danielroe commented",
+      "occurredAt": "2026-10-12T22:04:22.141Z",
+      "actor": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "login": "danielroe",
+        "id": "2179675",
+        "name": "Daniel Roe",
+        "avatarUrl": "https://secure.gravatar.com/avatar/82a8f6237bb263bac46d7cc8ec3054d715ce6a55a8626d6e977769d57d2c94e6?s=80&d=identicon",
+        "url": "https://gitlab.com/danielroe",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "owner": "forges-fixtures",
+        "name": "forges-fixtures",
+        "externalId": "87428720"
+      },
+      "source": "poll"
+    },
+    {
+      "forge": "gitlab",
+      "instance": "gitlab.com",
+      "id": "6116802241",
+      "kindRaw": "MergeRequest.approved",
+      "actionRaw": "approved",
+      "kind": "review",
+      "action": "submitted",
+      "thread": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "repo": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "owner": "forges-fixtures",
+          "name": "forges-fixtures",
+          "externalId": "87428720"
+        },
+        "kind": "pull_request",
+        "number": "44"
+      },
+      "detail": {
+        "type": "review",
+        "state": "approved",
+        "stateRaw": "approved"
+      },
+      "summary": "danielroe approved merge request",
+      "occurredAt": "2026-10-12T22:04:21.406Z",
+      "actor": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "login": "danielroe",
+        "id": "2179675",
+        "name": "Daniel Roe",
+        "avatarUrl": "https://secure.gravatar.com/avatar/82a8f6237bb263bac46d7cc8ec3054d715ce6a55a8626d6e977769d57d2c94e6?s=80&d=identicon",
+        "url": "https://gitlab.com/danielroe",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "owner": "forges-fixtures",
+        "name": "forges-fixtures",
+        "externalId": "87428720"
+      },
+      "source": "poll"
+    },
+    {
+      "forge": "gitlab",
+      "instance": "gitlab.com",
+      "id": "6116800240",
+      "kindRaw": "Project.joined",
+      "actionRaw": "joined",
+      "kind": "membership",
+      "action": "added",
+      "detail": {
+        "type": "membership",
+        "actionRaw": "joined",
+        "member": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "login": "danielroe",
+          "id": "2179675",
+          "name": "Daniel Roe",
+          "avatarUrl": "https://secure.gravatar.com/avatar/82a8f6237bb263bac46d7cc8ec3054d715ce6a55a8626d6e977769d57d2c94e6?s=80&d=identicon",
+          "url": "https://gitlab.com/danielroe",
+          "isBotHint": false
+        }
+      },
+      "summary": "danielroe joined the project",
+      "occurredAt": "2026-10-12T22:03:47.394Z",
+      "actor": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "login": "danielroe",
+        "id": "2179675",
+        "name": "Daniel Roe",
+        "avatarUrl": "https://secure.gravatar.com/avatar/82a8f6237bb263bac46d7cc8ec3054d715ce6a55a8626d6e977769d57d2c94e6?s=80&d=identicon",
+        "url": "https://gitlab.com/danielroe",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "owner": "roebot",
+        "name": "forges-fixtures-outside",
+        "externalId": "87449621"
+      },
+      "source": "poll"
+    }
+  ],
+  "total": 187,
+  "cursor": {
+    "nextUrl": "https://gitlab.com/api/v4/users/danielroe/events?id=danielroe&page=2&per_page=10&sort=desc",
+    "etag": "W/\"82b9a1f3f006c947d50740690faf7368\""
+  },
+  "rateLimit": {
+    "limit": 500,
+    "remaining": 476,
+    "resetAt": "<now>"
+  },
+  "etag": "W/\"82b9a1f3f006c947d50740690faf7368\""
+}

@@ -1447,6 +1447,10 @@
           "reviewerCandidates": {
             "$ref": "#/components/schemas/Support",
             "description": "Support for `repos.reviewerCandidates()` and `repos.reviewerCandidatesPage()`."
+          },
+          "events": {
+            "$ref": "#/components/schemas/Support",
+            "description": "Support for `repos.events()` and `repos.eventsPage()`."
           }
         },
         "required": [
@@ -1462,7 +1466,8 @@
           "permissionFor",
           "addCollaborator",
           "assignableUsers",
-          "reviewerCandidates"
+          "reviewerCandidates",
+          "events"
         ]
       },
       "users": {
@@ -1479,12 +1484,17 @@
           "sponsorable": {
             "$ref": "#/components/schemas/Support",
             "description": "Support for `users.sponsorable()`."
+          },
+          "events": {
+            "$ref": "#/components/schemas/Support",
+            "description": "Support for `users.events()` and `users.eventsPage()`."
           }
         },
         "required": [
           "get",
           "me",
-          "sponsorable"
+          "sponsorable",
+          "events"
         ]
       },
       "orgs": {

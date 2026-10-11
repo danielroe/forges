@@ -52,6 +52,7 @@ import type { WebLinks } from '../web.ts'
 import type {
   ForgejoActionRun,
   ForgejoActionRunJob,
+  ForgejoActivity,
   ForgejoCombinedStatus,
   ForgejoComment,
   ForgejoCommit,
@@ -128,6 +129,9 @@ const GITEA_ACTION_LOGS = '1.24'
 
 /** Gitea version with replies to review comments. */
 const GITEA_REVIEW_REPLIES = '1.27'
+
+/** The Forgejo and Gitea version with activity feeds. */
+const ACTIVITY_FEEDS = '1.20'
 
 /** Timelines send no usable count, so only a full page of an explicit size shows that another follows. */
 const TIMELINE_PAGE_SIZE = 50
@@ -498,6 +502,11 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
     return released(isGitea ? giteaMinimum : forgejoMinimum)
   }
 
+  async function feedPage(path: string, listOptions: PageOptions, query?: Record<string, boolean>): Promise<Page<ForgeEventInput>> {
+    const { toFeedEvent } = await import('./feed.ts')
+    return list(path, listOptions, (raw: ForgejoActivity) => toFeedEvent(origin, raw), { query })
+  }
+
   /** Gitea lists runs and serves job logs only with a token. */
   const giteaAnonymous = isGitea && anonymous
 
@@ -579,6 +588,7 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
     users: {
       get: verb(true, (login, options) => readUser(`/users/${encodeURIComponent(login)}`, options?.signal)),
       me: verb(true, options => readUser('/user', options?.signal)),
+      eventsPage: verb(released(ACTIVITY_FEEDS), (login, listOptions = {}) => feedPage(`/users/${encodeURIComponent(login)}/activities/feeds`, listOptions, { 'only-performed-by': true })),
     },
     repos: {
       get: verb(true, async (ref, options) => toRepo(origin, (await fetcher.json<ForgejoRepositoryDetail>(repoPath(ref), { signal: options?.signal })).data)),
@@ -606,6 +616,7 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
       }),
       assignableUsersPage: verb(!anonymous, (repo, listOptions = {}) => list(`${repoPath(repo)}/assignees`, listOptions, (raw: ForgejoUser) => toActor(origin, raw)!)),
       reviewerCandidatesPage: verb(!anonymous, (thread, listOptions = {}) => list(`${repoPath(requireThread(thread, context).repo)}/reviewers`, listOptions, (raw: ForgejoUser) => toActor(origin, raw)!)),
+      eventsPage: verb(released(ACTIVITY_FEEDS), (repo, listOptions = {}) => feedPage(`${repoPath(repo)}/activities/feeds`, listOptions)),
     },
     orgs: {
       teamsPage: verb(!anonymous, (org, listOptions = {}) => list(

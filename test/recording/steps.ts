@@ -17,6 +17,8 @@ export interface RecordingManifest {
   pull?: ThreadRef
   issue?: ThreadRef
   discussion?: ThreadRef
+  /** The account whose activity feed the recording reads, when not the author of `pull`. */
+  feedUser?: string
   /** A repository the credential administers: write recordings write to it, and reads use it for webhooks, and for collaborators, permissions or a release asset that the recorded repository refuses or lacks. */
   scratch?: RepoRef
   /** Where security alerts are read, when not from `repo`. */
@@ -71,6 +73,8 @@ export interface Step {
 }
 
 const page = { perPage: 3 }
+/** Feeds mix many kinds of event, so a step reads more of one to cover them. */
+const feedPage = { perPage: 10 }
 
 /** The pull's head, else the head of a branch other than the default, else the default branch. */
 const headOf = (context: StepContext) => need(context.headSha ?? context.branches?.find(branch => !branch.isDefault)?.sha ?? context.defaultSha, 'the pull head sha')
@@ -301,6 +305,8 @@ export const STEPS: Step[] = [
     }
     return sponsorable
   } },
+  { name: 'user events', verb: 'users.eventsPage', run: (provider, manifest, context) => provider.users.eventsPage(manifest.feedUser ?? need(context.login, 'a login'), feedPage) },
+  { name: 'repo events', verb: 'repos.eventsPage', run: (provider, manifest) => provider.repos.eventsPage(manifest.repo, feedPage) },
   { name: 'me', verb: 'users.me', run: provider => provider.users.me() },
   { name: 'own repos', verb: 'repos.listPage', run: provider => provider.repos.listPage(page) },
   { name: 'owner repos', verb: 'repos.byOwnerPage', run: (provider, manifest) => provider.repos.byOwnerPage(namespaceOf(manifest.repo, manifest.repo.owner), { visibility: 'public', sort: 'updated', subgroups: true, ...page }) },

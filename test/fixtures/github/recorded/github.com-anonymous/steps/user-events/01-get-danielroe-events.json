@@ -1,0 +1,1424 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.github.com/users/danielroe/events?per_page=10"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "<https://api.github.com/user/28706372/events?per_page=10&page=2>; rel=\"next\", <https://api.github.com/user/28706372/events?per_page=10&page=30>; rel=\"last\"",
+      "etag": "W/\"5c36cfaf0cfd79c5a1ff52cb1423fb163a192d21b401c4c405e8c4b59498195c\"",
+      "x-ratelimit-limit": "60",
+      "x-ratelimit-remaining": "26",
+      "x-ratelimit-reset": "1791895553"
+    },
+    "body": [
+      {
+        "id": "17092403404",
+        "type": "PullRequestReviewEvent",
+        "actor": {
+          "id": 28706372,
+          "login": "danielroe",
+          "display_login": "danielroe",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/danielroe",
+          "avatar_url": "https://avatars.githubusercontent.com/u/28706372?"
+        },
+        "repo": {
+          "id": 290526597,
+          "name": "nuxt/modules",
+          "url": "https://api.github.com/repos/nuxt/modules"
+        },
+        "payload": {
+          "review": {
+            "id": 5500621596,
+            "node_id": "PRR_kwDOEVEVhc8AAAABR9zTHA",
+            "user": {
+              "login": "danielroe",
+              "id": 28706372,
+              "node_id": "REDACTED",
+              "avatar_url": "https://avatars.githubusercontent.com/u/28706372?v=4",
+              "gravatar_id": "",
+              "url": "https://api.github.com/users/danielroe",
+              "html_url": "https://github.com/danielroe",
+              "followers_url": "https://api.github.com/users/danielroe/followers",
+              "following_url": "https://api.github.com/users/danielroe/following{/other_user}",
+              "gists_url": "https://api.github.com/users/danielroe/gists{/gist_id}",
+              "starred_url": "https://api.github.com/users/danielroe/starred{/owner}{/repo}",
+              "subscriptions_url": "https://api.github.com/users/danielroe/subscriptions",
+              "organizations_url": "https://api.github.com/users/danielroe/orgs",
+              "repos_url": "https://api.github.com/users/danielroe/repos",
+              "events_url": "https://api.github.com/users/danielroe/events{/privacy}",
+              "received_events_url": "https://api.github.com/users/danielroe/received_events",
+              "type": "User",
+              "user_view_type": "public",
+              "site_admin": false
+            },
+            "body": null,
+            "commit_id": "1fe0efa3f7f0f7d266c859497d26fae8b778abb7",
+            "state": "commented",
+            "html_url": "https://github.com/nuxt/modules/pull/1607#pullrequestreview-5500621596",
+            "pull_request_url": "https://api.github.com/repos/nuxt/modules/pulls/1607",
+            "_links": {
+              "html": {
+                "href": "https://github.com/nuxt/modules/pull/1607#pullrequestreview-5500621596"
+              },
+              "pull_request": {
+                "href": "https://api.github.com/repos/nuxt/modules/pulls/1607"
+              }
+            },
+            "submitted_at": "2026-10-13T08:12:57Z",
+            "updated_at": "2026-10-13T08:12:58Z"
+          },
+          "pull_request": {
+            "url": "https://api.github.com/repos/nuxt/modules/pulls/1607",
+            "id": 4464083117,
+            "number": 1607,
+            "head": {
+              "ref": "update-nuxt-notify",
+              "sha": "735dcf70d936f5b40a793548dc9bac4be5e0f81f",
+              "repo": {
+                "id": 1119742111,
+                "url": "https://api.github.com/repos/nizaamomer/modules",
+                "name": "modules"
+              }
+            },
+            "base": {
+              "ref": "main",
+              "sha": "884090f8067e4a7c34493ab628f7f6220d24286c",
+              "repo": {
+                "id": 290526597,
+                "url": "https://api.github.com/repos/nuxt/modules",
+                "name": "modules"
+              }
+            }
+          },
+          "action": "created"
+        },
+        "public": true,
+        "created_at": "2026-10-13T11:31:42Z",
+        "org": {
+          "id": 23360933,
+          "login": "nuxt",
+          "gravatar_id": "",
+          "url": "https://api.github.com/orgs/nuxt",
+          "avatar_url": "https://avatars.githubusercontent.com/u/23360933?"
+        }
+      },
+      {
+        "id": "17092227074",
+        "type": "IssueCommentEvent",
+        "actor": {
+          "id": 28706372,
+          "login": "danielroe",
+          "display_login": "danielroe",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/danielroe",
+          "avatar_url": "https://avatars.githubusercontent.com/u/28706372?"
+        },
+        "repo": {
+          "id": 290526597,
+          "name": "nuxt/modules",
+          "url": "https://api.github.com/repos/nuxt/modules"
+        },
+        "payload": {
+          "action": "created",
+          "issue": {
+            "url": "https://api.github.com/repos/nuxt/modules/issues/140",
+            "repository_url": "https://api.github.com/repos/nuxt/modules",
+            "labels_url": "https://api.github.com/repos/nuxt/modules/issues/140/labels{/name}",
+            "comments_url": "https://api.github.com/repos/nuxt/modules/issues/140/comments",
+            "events_url": "https://api.github.com/repos/nuxt/modules/issues/140/events",
+            "html_url": "https://github.com/nuxt/modules/issues/140",
+            "id": 855811060,
+            "node_id": "MDU6SXNzdWU4NTU4MTEwNjA=",
+            "number": 140,
+            "title": "Nuxt GSAP Module",
+            "user": {
+              "login": "giticon",
+              "id": 27739275,
+              "node_id": "REDACTED",
+              "avatar_url": "https://avatars.githubusercontent.com/u/27739275?v=4",
+              "gravatar_id": "",
+              "url": "https://api.github.com/users/giticon",
+              "html_url": "https://github.com/giticon",
+              "followers_url": "https://api.github.com/users/giticon/followers",
+              "following_url": "https://api.github.com/users/giticon/following{/other_user}",
+              "gists_url": "https://api.github.com/users/giticon/gists{/gist_id}",
+              "starred_url": "https://api.github.com/users/giticon/starred{/owner}{/repo}",
+              "subscriptions_url": "https://api.github.com/users/giticon/subscriptions",
+              "organizations_url": "https://api.github.com/users/giticon/orgs",
+              "repos_url": "https://api.github.com/users/giticon/repos",
+              "events_url": "https://api.github.com/users/giticon/events{/privacy}",
+              "received_events_url": "https://api.github.com/users/giticon/received_events",
+              "type": "User",
+              "user_view_type": "public",
+              "site_admin": false
+            },
+            "labels": [
+              {
+                "id": 3568427660,
+                "node_id": "LA_kwDOEVEVhc7UseKM",
+                "url": "https://api.github.com/repos/nuxt/modules/labels/module-request",
+                "name": "module-request",
+                "color": "7CB617",
+                "default": false,
+                "description": "",
+                "archived_at": null,
+                "archived_by": null
+              }
+            ],
+            "state": "closed",
+            "locked": false,
+            "assignees": [],
+            "milestone": null,
+            "comments": 4,
+            "created_at": "2021-04-12T10:14:38Z",
+            "updated_at": "2026-10-13T08:12:11Z",
+            "closed_at": "2026-10-13T08:12:11Z",
+            "assignee": null,
+            "issue_field_values": [],
+            "type": null,
+            "active_lock_reason": null,
+            "sub_issues_summary": {
+              "total": 0,
+              "completed": 0,
+              "percent_completed": 0
+            },
+            "issue_dependencies_summary": {
+              "blocked_by": 0,
+              "total_blocked_by": 0,
+              "blocking": 0,
+              "total_blocking": 0
+            },
+            "body": "https://github.com/ivodolenc/nuxt-gsap-module",
+            "reactions": {
+              "url": "https://api.github.com/repos/nuxt/modules/issues/140/reactions",
+              "total_count": 2,
+              "+1": 2,
+              "-1": 0,
+              "laugh": 0,
+              "hooray": 0,
+              "confused": 0,
+              "heart": 0,
+              "rocket": 0,
+              "eyes": 0
+            },
+            "timeline_url": "https://api.github.com/repos/nuxt/modules/issues/140/timeline",
+            "performed_via_github_app": null,
+            "state_reason": "not_planned",
+            "pinned_comment": null
+          },
+          "comment": {
+            "url": "https://api.github.com/repos/nuxt/modules/issues/comments/6141249959",
+            "html_url": "https://github.com/nuxt/modules/issues/140#issuecomment-6141249959",
+            "issue_url": "https://api.github.com/repos/nuxt/modules/issues/140",
+            "id": 6141249959,
+            "node_id": "IC_kwDOEVEVhc8AAAABbgwJpw",
+            "user": {
+              "login": "danielroe",
+              "id": 28706372,
+              "node_id": "REDACTED",
+              "avatar_url": "https://avatars.githubusercontent.com/u/28706372?v=4",
+              "gravatar_id": "",
+              "url": "https://api.github.com/users/danielroe",
+              "html_url": "https://github.com/danielroe",
+              "followers_url": "https://api.github.com/users/danielroe/followers",
+              "following_url": "https://api.github.com/users/danielroe/following{/other_user}",
+              "gists_url": "https://api.github.com/users/danielroe/gists{/gist_id}",
+              "starred_url": "https://api.github.com/users/danielroe/starred{/owner}{/repo}",
+              "subscriptions_url": "https://api.github.com/users/danielroe/subscriptions",
+              "organizations_url": "https://api.github.com/users/danielroe/orgs",
+              "repos_url": "https://api.github.com/users/danielroe/repos",
+              "events_url": "https://api.github.com/users/danielroe/events{/privacy}",
+              "received_events_url": "https://api.github.com/users/danielroe/received_events",
+              "type": "User",
+              "user_view_type": "public",
+              "site_admin": false
+            },
+            "created_at": "2026-10-13T08:12:10Z",
+            "updated_at": "2026-10-13T08:12:10Z",
+            "body": "thanks for the request, and sorry it's been so long! I'm going to close this as it's been a while, but you're very welcome to open a pull request to list the module directly. please make sure it supports nuxt 4+ first, as nuxt v3 is now EOL.\n\nfrom a fork of this repo:\n\n```bash\npnpm install\npnpm sync gsap hypernym-studio/nuxt-gsap\n```\n\nthat creates the module's `.yml` file in `modules/`. set `category` to one of the values in `lib/categories.ts`, optionally add an icon to `icons/`, and open a PR. more details in the [contribution guide](https://github.com/nuxt/modules#contribution).",
+            "pin": null,
+            "reactions": {
+              "url": "https://api.github.com/repos/nuxt/modules/issues/comments/6141249959/reactions",
+              "total_count": 0,
+              "+1": 0,
+              "-1": 0,
+              "laugh": 0,
+              "hooray": 0,
+              "confused": 0,
+              "heart": 0,
+              "rocket": 0,
+              "eyes": 0
+            },
+            "performed_via_github_app": null,
+            "minimized": null
+          }
+        },
+        "public": true,
+        "created_at": "2026-10-13T08:12:10Z",
+        "org": {
+          "id": 23360933,
+          "login": "nuxt",
+          "gravatar_id": "",
+          "url": "https://api.github.com/orgs/nuxt",
+          "avatar_url": "https://avatars.githubusercontent.com/u/23360933?"
+        }
+      },
+      {
+        "id": "17092082391",
+        "type": "IssueCommentEvent",
+        "actor": {
+          "id": 28706372,
+          "login": "danielroe",
+          "display_login": "danielroe",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/danielroe",
+          "avatar_url": "https://avatars.githubusercontent.com/u/28706372?"
+        },
+        "repo": {
+          "id": 290526597,
+          "name": "nuxt/modules",
+          "url": "https://api.github.com/repos/nuxt/modules"
+        },
+        "payload": {
+          "action": "created",
+          "issue": {
+            "url": "https://api.github.com/repos/nuxt/modules/issues/719",
+            "repository_url": "https://api.github.com/repos/nuxt/modules",
+            "labels_url": "https://api.github.com/repos/nuxt/modules/issues/719/labels{/name}",
+            "comments_url": "https://api.github.com/repos/nuxt/modules/issues/719/comments",
+            "events_url": "https://api.github.com/repos/nuxt/modules/issues/719/events",
+            "html_url": "https://github.com/nuxt/modules/issues/719",
+            "id": 1832177438,
+            "node_id": "I_kwDOEVEVhc5tNM8e",
+            "number": 719,
+            "title": "[Module Listing Request]: nuxt-rate-limit",
+            "user": {
+              "login": "timb-103",
+              "id": 105137815,
+              "node_id": "REDACTED",
+              "avatar_url": "https://avatars.githubusercontent.com/u/105137815?v=4",
+              "gravatar_id": "",
+              "url": "https://api.github.com/users/timb-103",
+              "html_url": "https://github.com/timb-103",
+              "followers_url": "https://api.github.com/users/timb-103/followers",
+              "following_url": "https://api.github.com/users/timb-103/following{/other_user}",
+              "gists_url": "https://api.github.com/users/timb-103/gists{/gist_id}",
+              "starred_url": "https://api.github.com/users/timb-103/starred{/owner}{/repo}",
+              "subscriptions_url": "https://api.github.com/users/timb-103/subscriptions",
+              "organizations_url": "https://api.github.com/users/timb-103/orgs",
+              "repos_url": "https://api.github.com/users/timb-103/repos",
+              "events_url": "https://api.github.com/users/timb-103/events{/privacy}",
+              "received_events_url": "https://api.github.com/users/timb-103/received_events",
+              "type": "User",
+              "user_view_type": "public",
+              "site_admin": false
+            },
+            "labels": [
+              {
+                "id": 3568427660,
+                "node_id": "LA_kwDOEVEVhc7UseKM",
+                "url": "https://api.github.com/repos/nuxt/modules/labels/module-request",
+                "name": "module-request",
+                "color": "7CB617",
+                "default": false,
+                "description": "",
+                "archived_at": null,
+                "archived_by": null
+              }
+            ],
+            "state": "closed",
+            "locked": false,
+            "assignees": [],
+            "milestone": null,
+            "comments": 1,
+            "created_at": "2023-08-01T23:39:36Z",
+            "updated_at": "2026-10-13T08:10:57Z",
+            "closed_at": "2026-10-13T08:10:57Z",
+            "assignee": null,
+            "issue_field_values": [],
+            "type": null,
+            "active_lock_reason": null,
+            "sub_issues_summary": {
+              "total": 0,
+              "completed": 0,
+              "percent_completed": 0
+            },
+            "issue_dependencies_summary": {
+              "blocked_by": 0,
+              "total_blocked_by": 0,
+              "blocking": 0,
+              "total_blocking": 0
+            },
+            "body": "### Description\n\nAdd rate limits to your Nuxt 3 API routes.\n\n### Repository\n\nhttps://github.com/timb-103/nuxt-rate-limit\n\n### npm\n\nhttps://www.npmjs.com/package/nuxt-rate-limit\n\n### Nuxt Compatibility\n\nNuxt 3",
+            "reactions": {
+              "url": "https://api.github.com/repos/nuxt/modules/issues/719/reactions",
+              "total_count": 1,
+              "+1": 1,
+              "-1": 0,
+              "laugh": 0,
+              "hooray": 0,
+              "confused": 0,
+              "heart": 0,
+              "rocket": 0,
+              "eyes": 0
+            },
+            "timeline_url": "https://api.github.com/repos/nuxt/modules/issues/719/timeline",
+            "performed_via_github_app": null,
+            "state_reason": "not_planned",
+            "pinned_comment": null
+          },
+          "comment": {
+            "url": "https://api.github.com/repos/nuxt/modules/issues/comments/6141230174",
+            "html_url": "https://github.com/nuxt/modules/issues/719#issuecomment-6141230174",
+            "issue_url": "https://api.github.com/repos/nuxt/modules/issues/719",
+            "id": 6141230174,
+            "node_id": "IC_kwDOEVEVhc8AAAABbgu8Xg",
+            "user": {
+              "login": "danielroe",
+              "id": 28706372,
+              "node_id": "REDACTED",
+              "avatar_url": "https://avatars.githubusercontent.com/u/28706372?v=4",
+              "gravatar_id": "",
+              "url": "https://api.github.com/users/danielroe",
+              "html_url": "https://github.com/danielroe",
+              "followers_url": "https://api.github.com/users/danielroe/followers",
+              "following_url": "https://api.github.com/users/danielroe/following{/other_user}",
+              "gists_url": "https://api.github.com/users/danielroe/gists{/gist_id}",
+              "starred_url": "https://api.github.com/users/danielroe/starred{/owner}{/repo}",
+              "subscriptions_url": "https://api.github.com/users/danielroe/subscriptions",
+              "organizations_url": "https://api.github.com/users/danielroe/orgs",
+              "repos_url": "https://api.github.com/users/danielroe/repos",
+              "events_url": "https://api.github.com/users/danielroe/events{/privacy}",
+              "received_events_url": "https://api.github.com/users/danielroe/received_events",
+              "type": "User",
+              "user_view_type": "public",
+              "site_admin": false
+            },
+            "created_at": "2026-10-13T08:10:56Z",
+            "updated_at": "2026-10-13T08:10:56Z",
+            "body": "thanks for the request, and sorry it's been so long! I'm going to close this as it's been a while, but you're very welcome to open a pull request to list the module directly. please make sure it supports nuxt 4+ first, as nuxt v3 is now EOL.\n\nfrom a fork of this repo:\n\n```bash\npnpm install\npnpm sync rate-limit timb-103/nuxt-rate-limit#master\n```\n\nthat creates the module's `.yml` file in `modules/`. set `category` to one of the values in `lib/categories.ts`, optionally add an icon to `icons/`, and open a PR. more details in the [contribution guide](https://github.com/nuxt/modules#contribution).",
+            "pin": null,
+            "reactions": {
+              "url": "https://api.github.com/repos/nuxt/modules/issues/comments/6141230174/reactions",
+              "total_count": 0,
+              "+1": 0,
+              "-1": 0,
+              "laugh": 0,
+              "hooray": 0,
+              "confused": 0,
+              "heart": 0,
+              "rocket": 0,
+              "eyes": 0
+            },
+            "performed_via_github_app": null,
+            "minimized": null
+          }
+        },
+        "public": true,
+        "created_at": "2026-10-13T08:10:56Z",
+        "org": {
+          "id": 23360933,
+          "login": "nuxt",
+          "gravatar_id": "",
+          "url": "https://api.github.com/orgs/nuxt",
+          "avatar_url": "https://avatars.githubusercontent.com/u/23360933?"
+        }
+      },
+      {
+        "id": "23867015492",
+        "type": "PushEvent",
+        "actor": {
+          "id": 28706372,
+          "login": "danielroe",
+          "display_login": "danielroe",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/danielroe",
+          "avatar_url": "https://avatars.githubusercontent.com/u/28706372?"
+        },
+        "repo": {
+          "id": 1403631860,
+          "name": "danielroe/forges",
+          "url": "https://api.github.com/repos/danielroe/forges"
+        },
+        "payload": {
+          "repository_id": 1403631860,
+          "push_id": 46336853446,
+          "ref": "refs/heads/main",
+          "head": "21f69c456b3ad49d2a759689b61c34709077dfb7",
+          "before": "724721614c70d914e874d99abefa035a18a3e9ce"
+        },
+        "public": true,
+        "created_at": "2026-10-13T11:21:33Z"
+      },
+      {
+        "id": "17090668098",
+        "type": "IssueCommentEvent",
+        "actor": {
+          "id": 28706372,
+          "login": "danielroe",
+          "display_login": "danielroe",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/danielroe",
+          "avatar_url": "https://avatars.githubusercontent.com/u/28706372?"
+        },
+        "repo": {
+          "id": 290526597,
+          "name": "nuxt/modules",
+          "url": "https://api.github.com/repos/nuxt/modules"
+        },
+        "payload": {
+          "action": "created",
+          "issue": {
+            "url": "https://api.github.com/repos/nuxt/modules/issues/129",
+            "repository_url": "https://api.github.com/repos/nuxt/modules",
+            "labels_url": "https://api.github.com/repos/nuxt/modules/issues/129/labels{/name}",
+            "comments_url": "https://api.github.com/repos/nuxt/modules/issues/129/comments",
+            "events_url": "https://api.github.com/repos/nuxt/modules/issues/129/events",
+            "html_url": "https://github.com/nuxt/modules/issues/129",
+            "id": 827917367,
+            "node_id": "MDU6SXNzdWU4Mjc5MTczNjc=",
+            "number": 129,
+            "title": "Add nuxt-modernizr",
+            "user": {
+              "login": "dword-design",
+              "id": 13484795,
+              "node_id": "REDACTED",
+              "avatar_url": "https://avatars.githubusercontent.com/u/13484795?v=4",
+              "gravatar_id": "",
+              "url": "https://api.github.com/users/dword-design",
+              "html_url": "https://github.com/dword-design",
+              "followers_url": "https://api.github.com/users/dword-design/followers",
+              "following_url": "https://api.github.com/users/dword-design/following{/other_user}",
+              "gists_url": "https://api.github.com/users/dword-design/gists{/gist_id}",
+              "starred_url": "https://api.github.com/users/dword-design/starred{/owner}{/repo}",
+              "subscriptions_url": "https://api.github.com/users/dword-design/subscriptions",
+              "organizations_url": "https://api.github.com/users/dword-design/orgs",
+              "repos_url": "https://api.github.com/users/dword-design/repos",
+              "events_url": "https://api.github.com/users/dword-design/events{/privacy}",
+              "received_events_url": "https://api.github.com/users/dword-design/received_events",
+              "type": "User",
+              "user_view_type": "public",
+              "site_admin": false
+            },
+            "labels": [
+              {
+                "id": 3568427660,
+                "node_id": "LA_kwDOEVEVhc7UseKM",
+                "url": "https://api.github.com/repos/nuxt/modules/labels/module-request",
+                "name": "module-request",
+                "color": "7CB617",
+                "default": false,
+                "description": "",
+                "archived_at": null,
+                "archived_by": null
+              }
+            ],
+            "state": "open",
+            "locked": false,
+            "assignees": [],
+            "milestone": null,
+            "comments": 1,
+            "created_at": "2021-03-10T15:30:50Z",
+            "updated_at": "2026-10-13T08:00:11Z",
+            "closed_at": null,
+            "assignee": null,
+            "issue_field_values": [],
+            "type": null,
+            "active_lock_reason": null,
+            "sub_issues_summary": {
+              "total": 0,
+              "completed": 0,
+              "percent_completed": 0
+            },
+            "issue_dependencies_summary": {
+              "blocked_by": 0,
+              "total_blocked_by": 0,
+              "blocking": 0,
+              "total_blocking": 0
+            },
+            "body": "Hey, I created a module that integrates Modernizr into Nuxt.js:\r\nhttps://github.com/dword-design/nuxt-modernizr\r\n\r\nDescription: Adds a Modernizr build to your Nuxt.js app.",
+            "reactions": {
+              "url": "https://api.github.com/repos/nuxt/modules/issues/129/reactions",
+              "total_count": 0,
+              "+1": 0,
+              "-1": 0,
+              "laugh": 0,
+              "hooray": 0,
+              "confused": 0,
+              "heart": 0,
+              "rocket": 0,
+              "eyes": 0
+            },
+            "timeline_url": "https://api.github.com/repos/nuxt/modules/issues/129/timeline",
+            "performed_via_github_app": null,
+            "state_reason": null,
+            "pinned_comment": null
+          },
+          "comment": {
+            "url": "https://api.github.com/repos/nuxt/modules/issues/comments/6141060629",
+            "html_url": "https://github.com/nuxt/modules/issues/129#issuecomment-6141060629",
+            "issue_url": "https://api.github.com/repos/nuxt/modules/issues/129",
+            "id": 6141060629,
+            "node_id": "IC_kwDOEVEVhc8AAAABbgkmFQ",
+            "user": {
+              "login": "danielroe",
+              "id": 28706372,
+              "node_id": "REDACTED",
+              "avatar_url": "https://avatars.githubusercontent.com/u/28706372?v=4",
+              "gravatar_id": "",
+              "url": "https://api.github.com/users/danielroe",
+              "html_url": "https://github.com/danielroe",
+              "followers_url": "https://api.github.com/users/danielroe/followers",
+              "following_url": "https://api.github.com/users/danielroe/following{/other_user}",
+              "gists_url": "https://api.github.com/users/danielroe/gists{/gist_id}",
+              "starred_url": "https://api.github.com/users/danielroe/starred{/owner}{/repo}",
+              "subscriptions_url": "https://api.github.com/users/danielroe/subscriptions",
+              "organizations_url": "https://api.github.com/users/danielroe/orgs",
+              "repos_url": "https://api.github.com/users/danielroe/repos",
+              "events_url": "https://api.github.com/users/danielroe/events{/privacy}",
+              "received_events_url": "https://api.github.com/users/danielroe/received_events",
+              "type": "User",
+              "user_view_type": "public",
+              "site_admin": false
+            },
+            "created_at": "2026-10-13T08:00:11Z",
+            "updated_at": "2026-10-13T08:00:11Z",
+            "body": "thanks for the request! you're welcome to open a pull request to list this directly; there's no need to wait on this issue.\n\nfrom a fork of this repo, just run:\n\n```bash\npnpm install\npnpm sync modernizr dword-design/nuxt-modernizr#master\n```\n\nthat creates the module's `.yml` file in `modules/`. set `category` to one of the values in `lib/categories.ts`, optionally add an icon to `icons/`, and open a PR with `resolves #129` in the description. you can see more details in the [contribution guide](https://github.com/nuxt/modules#contribution).",
+            "pin": null,
+            "reactions": {
+              "url": "https://api.github.com/repos/nuxt/modules/issues/comments/6141060629/reactions",
+              "total_count": 0,
+              "+1": 0,
+              "-1": 0,
+              "laugh": 0,
+              "hooray": 0,
+              "confused": 0,
+              "heart": 0,
+              "rocket": 0,
+              "eyes": 0
+            },
+            "performed_via_github_app": null,
+            "minimized": null
+          }
+        },
+        "public": true,
+        "created_at": "2026-10-13T08:00:11Z",
+        "org": {
+          "id": 23360933,
+          "login": "nuxt",
+          "gravatar_id": "",
+          "url": "https://api.github.com/orgs/nuxt",
+          "avatar_url": "https://avatars.githubusercontent.com/u/23360933?"
+        }
+      },
+      {
+        "id": "17090644505",
+        "type": "IssueCommentEvent",
+        "actor": {
+          "id": 28706372,
+          "login": "danielroe",
+          "display_login": "danielroe",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/danielroe",
+          "avatar_url": "https://avatars.githubusercontent.com/u/28706372?"
+        },
+        "repo": {
+          "id": 290526597,
+          "name": "nuxt/modules",
+          "url": "https://api.github.com/repos/nuxt/modules"
+        },
+        "payload": {
+          "action": "created",
+          "issue": {
+            "url": "https://api.github.com/repos/nuxt/modules/issues/874",
+            "repository_url": "https://api.github.com/repos/nuxt/modules",
+            "labels_url": "https://api.github.com/repos/nuxt/modules/issues/874/labels{/name}",
+            "comments_url": "https://api.github.com/repos/nuxt/modules/issues/874/comments",
+            "events_url": "https://api.github.com/repos/nuxt/modules/issues/874/events",
+            "html_url": "https://github.com/nuxt/modules/issues/874",
+            "id": 2095553971,
+            "node_id": "I_kwDOEVEVhc58552z",
+            "number": 874,
+            "title": "Nuxt Papa Parse module",
+            "user": {
+              "login": "Jesus-Glez60",
+              "id": 37312964,
+              "node_id": "REDACTED",
+              "avatar_url": "https://avatars.githubusercontent.com/u/37312964?v=4",
+              "gravatar_id": "",
+              "url": "https://api.github.com/users/Jesus-Glez60",
+              "html_url": "https://github.com/Jesus-Glez60",
+              "followers_url": "https://api.github.com/users/Jesus-Glez60/followers",
+              "following_url": "https://api.github.com/users/Jesus-Glez60/following{/other_user}",
+              "gists_url": "https://api.github.com/users/Jesus-Glez60/gists{/gist_id}",
+              "starred_url": "https://api.github.com/users/Jesus-Glez60/starred{/owner}{/repo}",
+              "subscriptions_url": "https://api.github.com/users/Jesus-Glez60/subscriptions",
+              "organizations_url": "https://api.github.com/users/Jesus-Glez60/orgs",
+              "repos_url": "https://api.github.com/users/Jesus-Glez60/repos",
+              "events_url": "https://api.github.com/users/Jesus-Glez60/events{/privacy}",
+              "received_events_url": "https://api.github.com/users/Jesus-Glez60/received_events",
+              "type": "User",
+              "user_view_type": "public",
+              "site_admin": false
+            },
+            "labels": [
+              {
+                "id": 3568427660,
+                "node_id": "LA_kwDOEVEVhc7UseKM",
+                "url": "https://api.github.com/repos/nuxt/modules/labels/module-request",
+                "name": "module-request",
+                "color": "7CB617",
+                "default": false,
+                "description": "",
+                "archived_at": null,
+                "archived_by": null
+              }
+            ],
+            "state": "open",
+            "locked": false,
+            "assignees": [],
+            "milestone": null,
+            "comments": 5,
+            "created_at": "2024-01-23T08:45:38Z",
+            "updated_at": "2026-10-13T07:59:56Z",
+            "closed_at": null,
+            "assignee": null,
+            "issue_field_values": [],
+            "type": null,
+            "active_lock_reason": null,
+            "sub_issues_summary": {
+              "total": 0,
+              "completed": 0,
+              "percent_completed": 0
+            },
+            "issue_dependencies_summary": {
+              "blocked_by": 0,
+              "total_blocked_by": 0,
+              "blocking": 0,
+              "total_blocking": 0
+            },
+            "body": "### Description\n\nUploaded a module to use Papa Parse on Nuxt 3 easy with a composable\n\n### Repository\n\nhttps://github.com/Jesus-Glez60/nuxt-papa-parse/tree/v1.0.2\n\n### npm\n\nhttps://www.npmjs.com/package/nuxt-papa-parse\n\n### Nuxt Compatibility\n\nNuxt 3",
+            "reactions": {
+              "url": "https://api.github.com/repos/nuxt/modules/issues/874/reactions",
+              "total_count": 0,
+              "+1": 0,
+              "-1": 0,
+              "laugh": 0,
+              "hooray": 0,
+              "confused": 0,
+              "heart": 0,
+              "rocket": 0,
+              "eyes": 0
+            },
+            "timeline_url": "https://api.github.com/repos/nuxt/modules/issues/874/timeline",
+            "performed_via_github_app": null,
+            "state_reason": null,
+            "pinned_comment": null
+          },
+          "comment": {
+            "url": "https://api.github.com/repos/nuxt/modules/issues/comments/6141056968",
+            "html_url": "https://github.com/nuxt/modules/issues/874#issuecomment-6141056968",
+            "issue_url": "https://api.github.com/repos/nuxt/modules/issues/874",
+            "id": 6141056968,
+            "node_id": "IC_kwDOEVEVhc8AAAABbgkXyA",
+            "user": {
+              "login": "danielroe",
+              "id": 28706372,
+              "node_id": "REDACTED",
+              "avatar_url": "https://avatars.githubusercontent.com/u/28706372?v=4",
+              "gravatar_id": "",
+              "url": "https://api.github.com/users/danielroe",
+              "html_url": "https://github.com/danielroe",
+              "followers_url": "https://api.github.com/users/danielroe/followers",
+              "following_url": "https://api.github.com/users/danielroe/following{/other_user}",
+              "gists_url": "https://api.github.com/users/danielroe/gists{/gist_id}",
+              "starred_url": "https://api.github.com/users/danielroe/starred{/owner}{/repo}",
+              "subscriptions_url": "https://api.github.com/users/danielroe/subscriptions",
+              "organizations_url": "https://api.github.com/users/danielroe/orgs",
+              "repos_url": "https://api.github.com/users/danielroe/repos",
+              "events_url": "https://api.github.com/users/danielroe/events{/privacy}",
+              "received_events_url": "https://api.github.com/users/danielroe/received_events",
+              "type": "User",
+              "user_view_type": "public",
+              "site_admin": false
+            },
+            "created_at": "2026-10-13T07:59:56Z",
+            "updated_at": "2026-10-13T07:59:56Z",
+            "body": "thanks for the request! you're welcome to open a pull request to list this directly; there's no need to wait on this issue.\n\nfrom a fork of this repo, just run:\n\n```bash\npnpm install\npnpm sync papa-parse Jesus-Glez60/nuxt-papa-parse#master\n```\n\nthat creates the module's `.yml` file in `modules/`. set `category` to one of the values in `lib/categories.ts`, optionally add an icon to `icons/`, and open a PR with `resolves #874` in the description. you can see more details in the [contribution guide](https://github.com/nuxt/modules#contribution).",
+            "pin": null,
+            "reactions": {
+              "url": "https://api.github.com/repos/nuxt/modules/issues/comments/6141056968/reactions",
+              "total_count": 0,
+              "+1": 0,
+              "-1": 0,
+              "laugh": 0,
+              "hooray": 0,
+              "confused": 0,
+              "heart": 0,
+              "rocket": 0,
+              "eyes": 0
+            },
+            "performed_via_github_app": null,
+            "minimized": null
+          }
+        },
+        "public": true,
+        "created_at": "2026-10-13T07:59:56Z",
+        "org": {
+          "id": 23360933,
+          "login": "nuxt",
+          "gravatar_id": "",
+          "url": "https://api.github.com/orgs/nuxt",
+          "avatar_url": "https://avatars.githubusercontent.com/u/23360933?"
+        }
+      },
+      {
+        "id": "17090613843",
+        "type": "IssueCommentEvent",
+        "actor": {
+          "id": 28706372,
+          "login": "danielroe",
+          "display_login": "danielroe",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/danielroe",
+          "avatar_url": "https://avatars.githubusercontent.com/u/28706372?"
+        },
+        "repo": {
+          "id": 290526597,
+          "name": "nuxt/modules",
+          "url": "https://api.github.com/repos/nuxt/modules"
+        },
+        "payload": {
+          "action": "created",
+          "issue": {
+            "url": "https://api.github.com/repos/nuxt/modules/issues/909",
+            "repository_url": "https://api.github.com/repos/nuxt/modules",
+            "labels_url": "https://api.github.com/repos/nuxt/modules/issues/909/labels{/name}",
+            "comments_url": "https://api.github.com/repos/nuxt/modules/issues/909/comments",
+            "events_url": "https://api.github.com/repos/nuxt/modules/issues/909/events",
+            "html_url": "https://github.com/nuxt/modules/issues/909",
+            "id": 2176225839,
+            "node_id": "I_kwDOEVEVhc6BtpIv",
+            "number": 909,
+            "title": "[Module Listing Request]: `nuxt-token-authentication`",
+            "user": {
+              "login": "rrd108",
+              "id": 3147489,
+              "node_id": "REDACTED",
+              "avatar_url": "https://avatars.githubusercontent.com/u/3147489?v=4",
+              "gravatar_id": "",
+              "url": "https://api.github.com/users/rrd108",
+              "html_url": "https://github.com/rrd108",
+              "followers_url": "https://api.github.com/users/rrd108/followers",
+              "following_url": "https://api.github.com/users/rrd108/following{/other_user}",
+              "gists_url": "https://api.github.com/users/rrd108/gists{/gist_id}",
+              "starred_url": "https://api.github.com/users/rrd108/starred{/owner}{/repo}",
+              "subscriptions_url": "https://api.github.com/users/rrd108/subscriptions",
+              "organizations_url": "https://api.github.com/users/rrd108/orgs",
+              "repos_url": "https://api.github.com/users/rrd108/repos",
+              "events_url": "https://api.github.com/users/rrd108/events{/privacy}",
+              "received_events_url": "https://api.github.com/users/rrd108/received_events",
+              "type": "User",
+              "user_view_type": "public",
+              "site_admin": false
+            },
+            "labels": [
+              {
+                "id": 3568427660,
+                "node_id": "LA_kwDOEVEVhc7UseKM",
+                "url": "https://api.github.com/repos/nuxt/modules/labels/module-request",
+                "name": "module-request",
+                "color": "7CB617",
+                "default": false,
+                "description": "",
+                "archived_at": null,
+                "archived_by": null
+              }
+            ],
+            "state": "open",
+            "locked": false,
+            "assignees": [],
+            "milestone": null,
+            "comments": 1,
+            "created_at": "2024-03-08T15:09:48Z",
+            "updated_at": "2026-10-13T07:59:35Z",
+            "closed_at": null,
+            "assignee": null,
+            "issue_field_values": [],
+            "type": null,
+            "active_lock_reason": null,
+            "sub_issues_summary": {
+              "total": 0,
+              "completed": 0,
+              "percent_completed": 0
+            },
+            "issue_dependencies_summary": {
+              "blocked_by": 0,
+              "total_blocked_by": 0,
+              "blocking": 0,
+              "total_blocking": 0
+            },
+            "body": "### Description\n\nThis Nuxt module simplifies user authentication using HTTP headers, streamlining the integration of token-based authorization into your application.\n\n### Repository\n\nhttps://github.com/rrd108/nuxt-token-authentication\n\n### npm\n\nhttps://www.npmjs.com/package/nuxt-token-authentication\n\n### Nuxt Compatibility\n\nNuxt 3",
+            "reactions": {
+              "url": "https://api.github.com/repos/nuxt/modules/issues/909/reactions",
+              "total_count": 0,
+              "+1": 0,
+              "-1": 0,
+              "laugh": 0,
+              "hooray": 0,
+              "confused": 0,
+              "heart": 0,
+              "rocket": 0,
+              "eyes": 0
+            },
+            "timeline_url": "https://api.github.com/repos/nuxt/modules/issues/909/timeline",
+            "performed_via_github_app": null,
+            "state_reason": null,
+            "pinned_comment": null
+          },
+          "comment": {
+            "url": "https://api.github.com/repos/nuxt/modules/issues/comments/6141051687",
+            "html_url": "https://github.com/nuxt/modules/issues/909#issuecomment-6141051687",
+            "issue_url": "https://api.github.com/repos/nuxt/modules/issues/909",
+            "id": 6141051687,
+            "node_id": "IC_kwDOEVEVhc8AAAABbgkDJw",
+            "user": {
+              "login": "danielroe",
+              "id": 28706372,
+              "node_id": "REDACTED",
+              "avatar_url": "https://avatars.githubusercontent.com/u/28706372?v=4",
+              "gravatar_id": "",
+              "url": "https://api.github.com/users/danielroe",
+              "html_url": "https://github.com/danielroe",
+              "followers_url": "https://api.github.com/users/danielroe/followers",
+              "following_url": "https://api.github.com/users/danielroe/following{/other_user}",
+              "gists_url": "https://api.github.com/users/danielroe/gists{/gist_id}",
+              "starred_url": "https://api.github.com/users/danielroe/starred{/owner}{/repo}",
+              "subscriptions_url": "https://api.github.com/users/danielroe/subscriptions",
+              "organizations_url": "https://api.github.com/users/danielroe/orgs",
+              "repos_url": "https://api.github.com/users/danielroe/repos",
+              "events_url": "https://api.github.com/users/danielroe/events{/privacy}",
+              "received_events_url": "https://api.github.com/users/danielroe/received_events",
+              "type": "User",
+              "user_view_type": "public",
+              "site_admin": false
+            },
+            "created_at": "2026-10-13T07:59:35Z",
+            "updated_at": "2026-10-13T07:59:35Z",
+            "body": "thanks for the request! you're welcome to open a pull request to list this directly; there's no need to wait on this issue.\n\nfrom a fork of this repo, just run:\n\n```bash\npnpm install\npnpm sync token-authentication rrd108/nuxt-token-authentication\n```\n\nthat creates the module's `.yml` file in `modules/`. set `category` to one of the values in `lib/categories.ts`, optionally add an icon to `icons/`, and open a PR with `resolves #909` in the description. you can see more details in the [contribution guide](https://github.com/nuxt/modules#contribution).",
+            "pin": null,
+            "reactions": {
+              "url": "https://api.github.com/repos/nuxt/modules/issues/comments/6141051687/reactions",
+              "total_count": 0,
+              "+1": 0,
+              "-1": 0,
+              "laugh": 0,
+              "hooray": 0,
+              "confused": 0,
+              "heart": 0,
+              "rocket": 0,
+              "eyes": 0
+            },
+            "performed_via_github_app": null,
+            "minimized": null
+          }
+        },
+        "public": true,
+        "created_at": "2026-10-13T07:59:35Z",
+        "org": {
+          "id": 23360933,
+          "login": "nuxt",
+          "gravatar_id": "",
+          "url": "https://api.github.com/orgs/nuxt",
+          "avatar_url": "https://avatars.githubusercontent.com/u/23360933?"
+        }
+      },
+      {
+        "id": "17090592885",
+        "type": "IssueCommentEvent",
+        "actor": {
+          "id": 28706372,
+          "login": "danielroe",
+          "display_login": "danielroe",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/danielroe",
+          "avatar_url": "https://avatars.githubusercontent.com/u/28706372?"
+        },
+        "repo": {
+          "id": 290526597,
+          "name": "nuxt/modules",
+          "url": "https://api.github.com/repos/nuxt/modules"
+        },
+        "payload": {
+          "action": "created",
+          "issue": {
+            "url": "https://api.github.com/repos/nuxt/modules/issues/936",
+            "repository_url": "https://api.github.com/repos/nuxt/modules",
+            "labels_url": "https://api.github.com/repos/nuxt/modules/issues/936/labels{/name}",
+            "comments_url": "https://api.github.com/repos/nuxt/modules/issues/936/comments",
+            "events_url": "https://api.github.com/repos/nuxt/modules/issues/936/events",
+            "html_url": "https://github.com/nuxt/modules/issues/936",
+            "id": 2240940124,
+            "node_id": "I_kwDOEVEVhc6Fkghc",
+            "number": 936,
+            "title": "[Module Listing Request]: `notivue`",
+            "user": {
+              "login": "smastrom",
+              "id": 60471784,
+              "node_id": "REDACTED",
+              "avatar_url": "https://avatars.githubusercontent.com/u/60471784?v=4",
+              "gravatar_id": "",
+              "url": "https://api.github.com/users/smastrom",
+              "html_url": "https://github.com/smastrom",
+              "followers_url": "https://api.github.com/users/smastrom/followers",
+              "following_url": "https://api.github.com/users/smastrom/following{/other_user}",
+              "gists_url": "https://api.github.com/users/smastrom/gists{/gist_id}",
+              "starred_url": "https://api.github.com/users/smastrom/starred{/owner}{/repo}",
+              "subscriptions_url": "https://api.github.com/users/smastrom/subscriptions",
+              "organizations_url": "https://api.github.com/users/smastrom/orgs",
+              "repos_url": "https://api.github.com/users/smastrom/repos",
+              "events_url": "https://api.github.com/users/smastrom/events{/privacy}",
+              "received_events_url": "https://api.github.com/users/smastrom/received_events",
+              "type": "User",
+              "user_view_type": "public",
+              "site_admin": false
+            },
+            "labels": [
+              {
+                "id": 3568427660,
+                "node_id": "LA_kwDOEVEVhc7UseKM",
+                "url": "https://api.github.com/repos/nuxt/modules/labels/module-request",
+                "name": "module-request",
+                "color": "7CB617",
+                "default": false,
+                "description": "",
+                "archived_at": null,
+                "archived_by": null
+              }
+            ],
+            "state": "open",
+            "locked": false,
+            "assignees": [],
+            "milestone": null,
+            "comments": 1,
+            "created_at": "2024-04-12T21:21:56Z",
+            "updated_at": "2026-10-13T07:59:22Z",
+            "closed_at": null,
+            "assignee": null,
+            "issue_field_values": [],
+            "type": null,
+            "active_lock_reason": null,
+            "sub_issues_summary": {
+              "total": 0,
+              "completed": 0,
+              "percent_completed": 0
+            },
+            "issue_dependencies_summary": {
+              "blocked_by": 0,
+              "total_blocked_by": 0,
+              "blocking": 0,
+              "total_blocking": 0
+            },
+            "body": "### Description\n\nThis module implements Notivue, a powerful toast notification system for Vue and Nuxt. \r\n\r\n### Live Demo\r\n\r\nhttps://notivue.smastrom.io\n\n### Repository\n\nhttps://github.com/smastrom/notivue\n\n### npm\n\nhttps://www.npmjs.com/package/notivue\n\n### Nuxt Compatibility\n\nNuxt 3",
+            "reactions": {
+              "url": "https://api.github.com/repos/nuxt/modules/issues/936/reactions",
+              "total_count": 0,
+              "+1": 0,
+              "-1": 0,
+              "laugh": 0,
+              "hooray": 0,
+              "confused": 0,
+              "heart": 0,
+              "rocket": 0,
+              "eyes": 0
+            },
+            "timeline_url": "https://api.github.com/repos/nuxt/modules/issues/936/timeline",
+            "performed_via_github_app": null,
+            "state_reason": null,
+            "pinned_comment": null
+          },
+          "comment": {
+            "url": "https://api.github.com/repos/nuxt/modules/issues/comments/6141048436",
+            "html_url": "https://github.com/nuxt/modules/issues/936#issuecomment-6141048436",
+            "issue_url": "https://api.github.com/repos/nuxt/modules/issues/936",
+            "id": 6141048436,
+            "node_id": "IC_kwDOEVEVhc8AAAABbgj2dA",
+            "user": {
+              "login": "danielroe",
+              "id": 28706372,
+              "node_id": "REDACTED",
+              "avatar_url": "https://avatars.githubusercontent.com/u/28706372?v=4",
+              "gravatar_id": "",
+              "url": "https://api.github.com/users/danielroe",
+              "html_url": "https://github.com/danielroe",
+              "followers_url": "https://api.github.com/users/danielroe/followers",
+              "following_url": "https://api.github.com/users/danielroe/following{/other_user}",
+              "gists_url": "https://api.github.com/users/danielroe/gists{/gist_id}",
+              "starred_url": "https://api.github.com/users/danielroe/starred{/owner}{/repo}",
+              "subscriptions_url": "https://api.github.com/users/danielroe/subscriptions",
+              "organizations_url": "https://api.github.com/users/danielroe/orgs",
+              "repos_url": "https://api.github.com/users/danielroe/repos",
+              "events_url": "https://api.github.com/users/danielroe/events{/privacy}",
+              "received_events_url": "https://api.github.com/users/danielroe/received_events",
+              "type": "User",
+              "user_view_type": "public",
+              "site_admin": false
+            },
+            "created_at": "2026-10-13T07:59:22Z",
+            "updated_at": "2026-10-13T07:59:22Z",
+            "body": "thanks for the request! you're welcome to open a pull request to list this directly; there's no need to wait on this issue.\n\nfrom a fork of this repo, just run:\n\n```bash\npnpm install\npnpm sync notivue smastrom/notivue#main/packages/notivue\n```\n\nthat creates the module's `.yml` file in `modules/`. set `category` to one of the values in `lib/categories.ts`, optionally add an icon to `icons/`, and open a PR with `resolves #936` in the description. you can see more details in the [contribution guide](https://github.com/nuxt/modules#contribution).",
+            "pin": null,
+            "reactions": {
+              "url": "https://api.github.com/repos/nuxt/modules/issues/comments/6141048436/reactions",
+              "total_count": 0,
+              "+1": 0,
+              "-1": 0,
+              "laugh": 0,
+              "hooray": 0,
+              "confused": 0,
+              "heart": 0,
+              "rocket": 0,
+              "eyes": 0
+            },
+            "performed_via_github_app": null,
+            "minimized": null
+          }
+        },
+        "public": true,
+        "created_at": "2026-10-13T07:59:22Z",
+        "org": {
+          "id": 23360933,
+          "login": "nuxt",
+          "gravatar_id": "",
+          "url": "https://api.github.com/orgs/nuxt",
+          "avatar_url": "https://avatars.githubusercontent.com/u/23360933?"
+        }
+      },
+      {
+        "id": "17090587846",
+        "type": "IssueCommentEvent",
+        "actor": {
+          "id": 28706372,
+          "login": "danielroe",
+          "display_login": "danielroe",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/danielroe",
+          "avatar_url": "https://avatars.githubusercontent.com/u/28706372?"
+        },
+        "repo": {
+          "id": 290526597,
+          "name": "nuxt/modules",
+          "url": "https://api.github.com/repos/nuxt/modules"
+        },
+        "payload": {
+          "action": "created",
+          "issue": {
+            "url": "https://api.github.com/repos/nuxt/modules/issues/968",
+            "repository_url": "https://api.github.com/repos/nuxt/modules",
+            "labels_url": "https://api.github.com/repos/nuxt/modules/issues/968/labels{/name}",
+            "comments_url": "https://api.github.com/repos/nuxt/modules/issues/968/comments",
+            "events_url": "https://api.github.com/repos/nuxt/modules/issues/968/events",
+            "html_url": "https://github.com/nuxt/modules/issues/968",
+            "id": 2326300751,
+            "node_id": "I_kwDOEVEVhc6KqIhP",
+            "number": 968,
+            "title": "[Module Listing Request]: `nuxt-countries-api`",
+            "user": {
+              "login": "vis97c",
+              "id": 45251845,
+              "node_id": "REDACTED",
+              "avatar_url": "https://avatars.githubusercontent.com/u/45251845?v=4",
+              "gravatar_id": "",
+              "url": "https://api.github.com/users/vis97c",
+              "html_url": "https://github.com/vis97c",
+              "followers_url": "https://api.github.com/users/vis97c/followers",
+              "following_url": "https://api.github.com/users/vis97c/following{/other_user}",
+              "gists_url": "https://api.github.com/users/vis97c/gists{/gist_id}",
+              "starred_url": "https://api.github.com/users/vis97c/starred{/owner}{/repo}",
+              "subscriptions_url": "https://api.github.com/users/vis97c/subscriptions",
+              "organizations_url": "https://api.github.com/users/vis97c/orgs",
+              "repos_url": "https://api.github.com/users/vis97c/repos",
+              "events_url": "https://api.github.com/users/vis97c/events{/privacy}",
+              "received_events_url": "https://api.github.com/users/vis97c/received_events",
+              "type": "User",
+              "user_view_type": "public",
+              "site_admin": false
+            },
+            "labels": [
+              {
+                "id": 3568427660,
+                "node_id": "LA_kwDOEVEVhc7UseKM",
+                "url": "https://api.github.com/repos/nuxt/modules/labels/module-request",
+                "name": "module-request",
+                "color": "7CB617",
+                "default": false,
+                "description": "",
+                "archived_at": null,
+                "archived_by": null
+              }
+            ],
+            "state": "open",
+            "locked": false,
+            "assignees": [],
+            "milestone": null,
+            "comments": 1,
+            "created_at": "2024-05-30T18:29:38Z",
+            "updated_at": "2026-10-13T07:59:18Z",
+            "closed_at": null,
+            "assignee": null,
+            "issue_field_values": [],
+            "type": null,
+            "active_lock_reason": null,
+            "sub_issues_summary": {
+              "total": 0,
+              "completed": 0,
+              "percent_completed": 0
+            },
+            "issue_dependencies_summary": {
+              "blocked_by": 0,
+              "total_blocked_by": 0,
+              "blocking": 0,
+              "total_blocking": 0
+            },
+            "body": "### Description\n\nThis is an open source module that generates server API routes with basic information about countries, its states and cities.\n\nThe project is operating publically at: https://countries.xamu.com.co/ but the module is provided as an alternative to get faster responses. Powered by the data of: https://github.com/dr5hn/countries-states-cities-database\n\nI'm using it myself in my own projects an other modules I'm developing.\n\n### Repository\n\nhttps://github.com/xamu-co/countries-api\n\n### npm\n\nhttps://www.npmjs.com/package/nuxt-countries-api\n\n### Nuxt Compatibility\n\nNuxt 3",
+            "reactions": {
+              "url": "https://api.github.com/repos/nuxt/modules/issues/968/reactions",
+              "total_count": 0,
+              "+1": 0,
+              "-1": 0,
+              "laugh": 0,
+              "hooray": 0,
+              "confused": 0,
+              "heart": 0,
+              "rocket": 0,
+              "eyes": 0
+            },
+            "timeline_url": "https://api.github.com/repos/nuxt/modules/issues/968/timeline",
+            "performed_via_github_app": null,
+            "state_reason": null,
+            "pinned_comment": null
+          },
+          "comment": {
+            "url": "https://api.github.com/repos/nuxt/modules/issues/comments/6141047289",
+            "html_url": "https://github.com/nuxt/modules/issues/968#issuecomment-6141047289",
+            "issue_url": "https://api.github.com/repos/nuxt/modules/issues/968",
+            "id": 6141047289,
+            "node_id": "IC_kwDOEVEVhc8AAAABbgjx-Q",
+            "user": {
+              "login": "danielroe",
+              "id": 28706372,
+              "node_id": "REDACTED",
+              "avatar_url": "https://avatars.githubusercontent.com/u/28706372?v=4",
+              "gravatar_id": "",
+              "url": "https://api.github.com/users/danielroe",
+              "html_url": "https://github.com/danielroe",
+              "followers_url": "https://api.github.com/users/danielroe/followers",
+              "following_url": "https://api.github.com/users/danielroe/following{/other_user}",
+              "gists_url": "https://api.github.com/users/danielroe/gists{/gist_id}",
+              "starred_url": "https://api.github.com/users/danielroe/starred{/owner}{/repo}",
+              "subscriptions_url": "https://api.github.com/users/danielroe/subscriptions",
+              "organizations_url": "https://api.github.com/users/danielroe/orgs",
+              "repos_url": "https://api.github.com/users/danielroe/repos",
+              "events_url": "https://api.github.com/users/danielroe/events{/privacy}",
+              "received_events_url": "https://api.github.com/users/danielroe/received_events",
+              "type": "User",
+              "user_view_type": "public",
+              "site_admin": false
+            },
+            "created_at": "2026-10-13T07:59:18Z",
+            "updated_at": "2026-10-13T07:59:18Z",
+            "body": "thanks for the request! you're welcome to open a pull request to list this directly; there's no need to wait on this issue.\n\nfrom a fork of this repo, just run:\n\n```bash\npnpm install\npnpm sync <name> <org>/<repo>\n```\n\nthat creates the module's `.yml` file in `modules/`. set `category` to one of the values in `lib/categories.ts`, optionally add an icon to `icons/`, and open a PR with `resolves #968` in the description. you can see more details in the [contribution guide](https://github.com/nuxt/modules#contribution).",
+            "pin": null,
+            "reactions": {
+              "url": "https://api.github.com/repos/nuxt/modules/issues/comments/6141047289/reactions",
+              "total_count": 0,
+              "+1": 0,
+              "-1": 0,
+              "laugh": 0,
+              "hooray": 0,
+              "confused": 0,
+              "heart": 0,
+              "rocket": 0,
+              "eyes": 0
+            },
+            "performed_via_github_app": null,
+            "minimized": null
+          }
+        },
+        "public": true,
+        "created_at": "2026-10-13T07:59:18Z",
+        "org": {
+          "id": 23360933,
+          "login": "nuxt",
+          "gravatar_id": "",
+          "url": "https://api.github.com/orgs/nuxt",
+          "avatar_url": "https://avatars.githubusercontent.com/u/23360933?"
+        }
+      },
+      {
+        "id": "17090510489",
+        "type": "IssueCommentEvent",
+        "actor": {
+          "id": 28706372,
+          "login": "danielroe",
+          "display_login": "danielroe",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/danielroe",
+          "avatar_url": "https://avatars.githubusercontent.com/u/28706372?"
+        },
+        "repo": {
+          "id": 290526597,
+          "name": "nuxt/modules",
+          "url": "https://api.github.com/repos/nuxt/modules"
+        },
+        "payload": {
+          "action": "created",
+          "issue": {
+            "url": "https://api.github.com/repos/nuxt/modules/issues/1094",
+            "repository_url": "https://api.github.com/repos/nuxt/modules",
+            "labels_url": "https://api.github.com/repos/nuxt/modules/issues/1094/labels{/name}",
+            "comments_url": "https://api.github.com/repos/nuxt/modules/issues/1094/comments",
+            "events_url": "https://api.github.com/repos/nuxt/modules/issues/1094/events",
+            "html_url": "https://github.com/nuxt/modules/issues/1094",
+            "id": 2599668304,
+            "node_id": "I_kwDOEVEVhc6a88pQ",
+            "number": 1094,
+            "title": "[Module Listing Request]: `Nuxt State Monitor`",
+            "user": {
+              "login": "andrealune",
+              "id": 13441969,
+              "node_id": "REDACTED",
+              "avatar_url": "https://avatars.githubusercontent.com/u/13441969?v=4",
+              "gravatar_id": "",
+              "url": "https://api.github.com/users/andrealune",
+              "html_url": "https://github.com/andrealune",
+              "followers_url": "https://api.github.com/users/andrealune/followers",
+              "following_url": "https://api.github.com/users/andrealune/following{/other_user}",
+              "gists_url": "https://api.github.com/users/andrealune/gists{/gist_id}",
+              "starred_url": "https://api.github.com/users/andrealune/starred{/owner}{/repo}",
+              "subscriptions_url": "https://api.github.com/users/andrealune/subscriptions",
+              "organizations_url": "https://api.github.com/users/andrealune/orgs",
+              "repos_url": "https://api.github.com/users/andrealune/repos",
+              "events_url": "https://api.github.com/users/andrealune/events{/privacy}",
+              "received_events_url": "https://api.github.com/users/andrealune/received_events",
+              "type": "User",
+              "user_view_type": "public",
+              "site_admin": false
+            },
+            "labels": [
+              {
+                "id": 3568427660,
+                "node_id": "LA_kwDOEVEVhc7UseKM",
+                "url": "https://api.github.com/repos/nuxt/modules/labels/module-request",
+                "name": "module-request",
+                "color": "7CB617",
+                "default": false,
+                "description": "",
+                "archived_at": null,
+                "archived_by": null
+              }
+            ],
+            "state": "open",
+            "locked": false,
+            "assignees": [],
+            "milestone": null,
+            "comments": 1,
+            "created_at": "2024-10-19T22:36:32Z",
+            "updated_at": "2026-10-13T07:58:30Z",
+            "closed_at": null,
+            "assignee": null,
+            "issue_field_values": [],
+            "type": null,
+            "active_lock_reason": null,
+            "sub_issues_summary": {
+              "total": 0,
+              "completed": 0,
+              "percent_completed": 0
+            },
+            "issue_dependencies_summary": {
+              "blocked_by": 0,
+              "total_blocked_by": 0,
+              "blocking": 0,
+              "total_blocking": 0
+            },
+            "body": "### Description\n\nNuxt State Monitor is a lightweight Nuxt module that allows you to monitor and edit all variables stored in Nuxt's native state, including custom data of any type. This is useful for debugging, managing state, and keeping track of custom runtime data in a seamless and developer-friendly way.\n\nFeatures\n📊 State Monitoring: Real-time monitoring of all Nuxt native states.\n🔧 State Editing: Dynamically edit the state directly from the UI.\n🔍 Custom Data Monitoring: Watch and manage custom data objects and variables.\n⚡ Zero Configuration: Minimal setup and configuration needed.\n💻 Developer-Friendly UI: A sleek and intuitive UI to track and manage states.\n\n### Repository\n\nhttps://github.com/Laravel42/nuxt-state-monitor\n\n### npm\n\nhttps://www.npmjs.com/package/nuxt-state-monitor\n\n### Nuxt Compatibility\n\nNuxt 3",
+            "reactions": {
+              "url": "https://api.github.com/repos/nuxt/modules/issues/1094/reactions",
+              "total_count": 0,
+              "+1": 0,
+              "-1": 0,
+              "laugh": 0,
+              "hooray": 0,
+              "confused": 0,
+              "heart": 0,
+              "rocket": 0,
+              "eyes": 0
+            },
+            "timeline_url": "https://api.github.com/repos/nuxt/modules/issues/1094/timeline",
+            "performed_via_github_app": null,
+            "state_reason": null,
+            "pinned_comment": null
+          },
+          "comment": {
+            "url": "https://api.github.com/repos/nuxt/modules/issues/comments/6141035256",
+            "html_url": "https://github.com/nuxt/modules/issues/1094#issuecomment-6141035256",
+            "issue_url": "https://api.github.com/repos/nuxt/modules/issues/1094",
+            "id": 6141035256,
+            "node_id": "IC_kwDOEVEVhc8AAAABbgjC-A",
+            "user": {
+              "login": "danielroe",
+              "id": 28706372,
+              "node_id": "REDACTED",
+              "avatar_url": "https://avatars.githubusercontent.com/u/28706372?v=4",
+              "gravatar_id": "",
+              "url": "https://api.github.com/users/danielroe",
+              "html_url": "https://github.com/danielroe",
+              "followers_url": "https://api.github.com/users/danielroe/followers",
+              "following_url": "https://api.github.com/users/danielroe/following{/other_user}",
+              "gists_url": "https://api.github.com/users/danielroe/gists{/gist_id}",
+              "starred_url": "https://api.github.com/users/danielroe/starred{/owner}{/repo}",
+              "subscriptions_url": "https://api.github.com/users/danielroe/subscriptions",
+              "organizations_url": "https://api.github.com/users/danielroe/orgs",
+              "repos_url": "https://api.github.com/users/danielroe/repos",
+              "events_url": "https://api.github.com/users/danielroe/events{/privacy}",
+              "received_events_url": "https://api.github.com/users/danielroe/received_events",
+              "type": "User",
+              "user_view_type": "public",
+              "site_admin": false
+            },
+            "created_at": "2026-10-13T07:58:30Z",
+            "updated_at": "2026-10-13T07:58:30Z",
+            "body": "thanks for the request! you're welcome to open a pull request to list this directly; there's no need to wait on this issue.\n\nfrom a fork of this repo, just run:\n\n```bash\npnpm install\npnpm sync state-monitor laravel42/nuxt-state-monitor\n```\n\nthat creates the module's `.yml` file in `modules/`. set `category` to one of the values in `lib/categories.ts`, optionally add an icon to `icons/`, and open a PR with `resolves #1094` in the description. you can see more details in the [contribution guide](https://github.com/nuxt/modules#contribution).",
+            "pin": null,
+            "reactions": {
+              "url": "https://api.github.com/repos/nuxt/modules/issues/comments/6141035256/reactions",
+              "total_count": 0,
+              "+1": 0,
+              "-1": 0,
+              "laugh": 0,
+              "hooray": 0,
+              "confused": 0,
+              "heart": 0,
+              "rocket": 0,
+              "eyes": 0
+            },
+            "performed_via_github_app": null,
+            "minimized": null
+          }
+        },
+        "public": true,
+        "created_at": "2026-10-13T07:58:30Z",
+        "org": {
+          "id": 23360933,
+          "login": "nuxt",
+          "gravatar_id": "",
+          "url": "https://api.github.com/orgs/nuxt",
+          "avatar_url": "https://avatars.githubusercontent.com/u/23360933?"
+        }
+      }
+    ]
+  }
+}

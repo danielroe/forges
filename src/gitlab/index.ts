@@ -62,6 +62,7 @@ import type {
   GitLabContributor,
   GitLabDiff,
   GitLabDiscussion,
+  GitLabEvent,
   GitLabFile,
   GitLabGroup,
   GitLabHook,
@@ -85,7 +86,7 @@ import { fromBase64, toFileContent } from '../contents.ts'
 import { defineForgeProvider, perKind, verb } from '../define.ts'
 import { AuthenticationRequiredError, InsufficientScopeError, NotFoundError, soleMergeMethod, TokenRevokedError, toMergeError, UnresolvedThreadError, UnsupportedOperationError } from '../errors.ts'
 import { isNamespaceRef, reactionContent } from '../model.ts'
-import { createListing, degradesToWarning, getManyConcurrently, hexColour, memo, memoBy, mergeCommitMessage, milestoneId, phased, requireIssueOrPull, requireThread, resolveToken, syntheticReview, teamOrg, toDate, toPage, toWarning, versionAtLeast } from '../utils.ts'
+import { createListing, degradesToWarning, getManyConcurrently, hexColour, memo, memoBy, mergeCommitMessage, milestoneId, phased, requireIssueOrPull, requireThread, resolveToken, syntheticReview, teamOrg, toDate, toPage, toWarning, versionAtLeast, withEtag } from '../utils.ts'
 import { webUrlFor } from '../web.ts'
 import { nativeEventsFor } from '../webhooks.ts'
 import {
@@ -493,7 +494,7 @@ const GITLAB: ProviderDefinition<GitLabOptions, undefined, true> = {
       return toPage(result, raw => repo && toCommit(repo, raw), warnings)
     }
 
-    /** Projects that group and instance code searches named by id, kept so later pages skip the lookup. */
+    /** Projects that code searches and user events named by id, kept so later pages skip the lookup. */
     const projectRefs = new Map<number, RepoRef>()
 
     /** A project the token cannot read costs its blobs and a warning, not the page. */
@@ -556,6 +557,23 @@ const GITLAB: ProviderDefinition<GitLabOptions, undefined, true> = {
         const url = webUrlFor(web, { file: { repo, path: first.path, at: first.ref, line: first.startline } })
         return { repo, path: first.path, ref: first.ref, fragments: excerpts.map(raw => ({ text: raw.data, line: raw.startline })), url, raw: excerpts }
       }, warnings)
+    }
+
+    /** A user's events name each project by id alone, so the page resolves the ids it has not seen. */
+    async function feedPage(path: string, listOptions: PageOptions, repo?: RepoRef): Promise<Page<ForgeEventInput>> {
+      const result = await fetcher.page<GitLabEvent>(path, {
+        query: { per_page: listOptions.perPage },
+        cursor: listOptions.cursor,
+        etag: listOptions.cursor?.etag,
+        signal: listOptions.signal,
+      })
+      const warnings: ForgeWarning[] = []
+      if (!repo) {
+        const ids = [...new Set((result.data ?? []).flatMap(raw => typeof raw.project_id === 'number' ? [raw.project_id] : []))]
+        await resolveProjects(ids.filter(id => !projectRefs.has(id)), listOptions.signal, warnings)
+      }
+      const { toFeedEvent } = await import('./feed.ts')
+      return withEtag(toPage(result, raw => toFeedEvent(instance, raw, repo ?? (typeof raw.project_id === 'number' ? projectRefs.get(raw.project_id) : undefined)), warnings), result, listOptions.cursor)
     }
 
     async function setSubscribed(thread: ThreadRef, subscribed: boolean, options?: BaseOptions): Promise<void> {
@@ -697,6 +715,7 @@ const GITLAB: ProviderDefinition<GitLabOptions, undefined, true> = {
           }
         }),
         me: verb(true, options => readUser('/user', options?.signal)),
+        eventsPage: verb(true, (login, listOptions = {}) => feedPage(`/users/${encodeURIComponent(login)}/events`, listOptions)),
       },
       repos: {
         get: verb(true, async (ref, options) => {
@@ -732,6 +751,7 @@ const GITLAB: ProviderDefinition<GitLabOptions, undefined, true> = {
         }),
         assignableUsersPage: verb(true, (repo, listOptions = {}) => list(`${projectPath(repo)}/users`, listOptions, (raw: GitLabUser) => toActor(instance, raw)!)),
         reviewerCandidatesPage: verb('emulated', (thread, listOptions = {}) => list(`${projectPath(requireThread(thread, context).repo)}/users`, listOptions, (raw: GitLabUser) => toActor(instance, raw)!)),
+        eventsPage: verb(true, (repo, listOptions = {}) => feedPage(`${projectPath(repo)}/events`, listOptions, repo)),
       },
       orgs: {
         /** GitLab has no teams, so a subgroup stands in for one. With a token, GitLab lists only the account's own subgroups unless `all_available` is set. */

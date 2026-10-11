@@ -212,6 +212,8 @@ export interface ForgeCapabilities {
     assignableUsers: Support
     /** Support for `repos.reviewerCandidates()` and `repos.reviewerCandidatesPage()`. */
     reviewerCandidates: Support
+    /** Support for `repos.events()` and `repos.eventsPage()`. */
+    events: Support
   }
   users: {
     /** Support for `users.get()`. */
@@ -220,6 +222,8 @@ export interface ForgeCapabilities {
     me: Support
     /** Support for `users.sponsorable()`. */
     sponsorable: Support
+    /** Support for `users.events()` and `users.eventsPage()`. */
+    events: Support
   }
   /** An organisation's teams and their members, where the forge has teams. */
   orgs: {
@@ -883,6 +887,24 @@ export interface ReposApi {
   reviewerCandidates: (ref: ThreadRef, options?: PageOptions) => ForgeIterable<Actor>
   /** One page of `reviewerCandidates()`. */
   reviewerCandidatesPage: (ref: ThreadRef, options?: PageOptions) => Promise<Page<Actor>>
+  /**
+   * Lists the activity feed of a repository, newest first: pushes, new branches and tags, and changes to its
+   * threads and releases. Each event has `source: 'poll'`.
+   */
+  events: (repo: RepoRef, options?: PageOptions) => ForgeIterable<ForgeEvent>
+  /**
+   * One page of `events()`. Where the forge supports conditional requests, the first page has an `etag`; pass it
+   * back as `cursor: { etag }` to read the first page again, which has `notModified: true` and no items when the
+   * feed is unchanged.
+   * @example
+   * ```ts
+   * const page = await provider.repos.eventsPage(repo, { cursor: etag ? { etag } : undefined })
+   * if (!page.notModified) {
+   *   etag = page.etag
+   * }
+   * ```
+   */
+  eventsPage: (repo: RepoRef, options?: PageOptions) => Promise<Page<ForgeEvent>>
 }
 
 /** Options for `repos.milestones()`. */
@@ -1027,6 +1049,13 @@ export interface UsersApi {
    * ```
    */
   sponsorable: (login: string, options?: BaseOptions) => Promise<boolean>
+  /**
+   * Lists what an account did, newest first, across the repositories the credential can see. Each event has
+   * `source: 'poll'`.
+   */
+  events: (login: string, options?: PageOptions) => ForgeIterable<ForgeEvent>
+  /** One page of `events()`. Conditional requests work as for {@link ReposApi.eventsPage}. */
+  eventsPage: (login: string, options?: PageOptions) => Promise<Page<ForgeEvent>>
 }
 
 /** Ways to receive events: polling, webhooks and push subscriptions. */

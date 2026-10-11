@@ -197,6 +197,18 @@ export function toPage<R, T>(result: FetchResult<R[]>, map: (raw: R) => T | unde
   }
 }
 
+/**
+ * Adds the validator of a listing's first page to `page`: the response's `etag`, or on a `304` the one
+ * `cursor` sent. Later pages are left as they are.
+ */
+export function withEtag<T>(page: Page<T>, result: FetchResult<unknown>, cursor: Cursor | undefined): Page<T> {
+  if (cursor?.nextUrl || cursor?.token) {
+    return page
+  }
+  const etag = result.response.headers.get('etag') ?? cursor?.etag
+  return etag ? { ...page, etag } : page
+}
+
 /** Extra options for a listing: the query, how to select the items and map errors, and where to collect warnings. */
 export interface ListingExtras extends Pick<PaginateOptions, 'query' | 'select' | 'mapError'> {
   /** Collects the non-fatal warnings of the listing. */

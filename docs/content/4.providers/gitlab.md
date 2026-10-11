@@ -95,6 +95,12 @@ Commit search accepts free text only. If you pass `author`, `committer`, `since`
 
 GitLab returns one result per excerpt, not per file, and without Advanced Search it lists a file again when its name matches as well as its contents. The provider merges the results for a file in a page into one match and drops repeated excerpts, so `fragments` can hold several, each with the line it starts on, and `raw` is the list of GitLab results that the match keeps. When the excerpts of a file span two pages, the file comes back on both.
 
+## Activity feeds
+
+`repos.events()` reads the events of a project, and `users.events()` the events of a user. A user's events name each project only by ID, so `users.events()` looks up the projects of each page in one GraphQL request and remembers them, as code search does. An event in a project the credential can't read has no `repo` and no `thread`, and the page has a `record_unreachable` warning.
+
+A push in a feed names only its last commit, so `detail.commits` holds that commit, while `detail.commitCount` counts every commit of the push.
+
 ## Webhooks
 
 GitLab doesn't sign the body of a delivery. Instead, it sends the secret token of the hook unchanged in the `X-Gitlab-Token` header, and the provider compares that header with your `webhookSecret`:
@@ -135,6 +141,7 @@ GitLab has no teams, so a subgroup stands in for one. `orgs.teams()` reads `GET 
 | `users.get` | ✅ | ✅ |
 | `users.me` | ✅ | ❌ |
 | `users.sponsorable` | ❌ | ❌ |
+| `users.events` | ✅ | ✅ |
 | `repos.list` | ✅ | ❌ |
 | `repos.byOwner` | ✅ | ✅ |
 | `repos.labels` | ✅ | ❌ |
@@ -147,6 +154,7 @@ GitLab has no teams, so a subgroup stands in for one. `orgs.teams()` reads `GET 
 | `repos.addCollaborator` | ✅ | ❌ |
 | `repos.assignableUsers` | ✅ | ✅ |
 | `repos.reviewerCandidates` | emulated | emulated |
+| `repos.events` | ✅ | ✅ |
 | `orgs.teams` | ✅ | ✅ |
 | `orgs.teamMembers` | ✅ | ❌ |
 | `threads.get` | issue, PR, commit | issue, PR, commit |

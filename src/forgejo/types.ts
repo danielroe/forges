@@ -133,6 +133,28 @@ export interface ForgejoComment {
   html_url?: string
 }
 
+/** An item of a repository's or a user's activity feed. */
+export interface ForgejoActivity {
+  id: number
+  op_type: string
+  act_user?: ForgejoUser | null
+  repo?: ForgejoRepository | null
+  comment?: ForgejoComment | null
+  ref_name?: string
+  /** `index|text` on Gitea and a JSON `[index, text]` on Forgejo for thread activity, and JSON commits for a push. */
+  content?: string
+  is_private?: boolean
+  created: string
+}
+
+/** The `content` of a push in an activity feed. */
+export interface ForgejoPushContent {
+  Commits?: Array<{ Sha1: string, Message?: string, AuthorName?: string }> | null
+  HeadCommit?: { Sha1: string } | null
+  CompareURL?: string
+  Len?: number
+}
+
 export interface ForgejoTimelineEntry {
   id?: number
   type?: string

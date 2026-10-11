@@ -189,6 +189,12 @@ const { repository } = await forge.graphql(Stars, { owner: 'danielroe', name: 'f
 
 A read-only provider runs queries and rejects mutations with `ReadOnlyError`. GitHub's GraphQL API needs a credential, so an anonymous provider can't use it. Accounts in the data model carry the numeric ID, which GraphQL calls `databaseId`, so select that field to compare them with your results.
 
+## Activity feeds
+
+`repos.events()` and `users.events()` read GitHub's events API. A feed holds up to 300 events from the last 30 days, and GitHub can take from 30 seconds to 6 hours to add an event to it. When the credential belongs to the account you read, `users.events()` includes its private activity too.
+
+Feed items are smaller than webhook deliveries. A push has no commits and no commit count, so its `detail.commitCount` is `0` and its summary leaves the number out. A pull request event has no title, and GitHub reports a merge as the action `merged`, which the provider reads as `kind: 'state_change'` and `action: 'merged'`.
+
 ## Webhook management
 
 If the credential lacks `admin:repo_hook` or `admin:org_hook`, GitHub responds with a `404` on its webhook endpoints. The provider raises this response as a `ForbiddenError` with `reason: 'resource_protected'`, so check the scopes of your credential when you see it.
@@ -239,6 +245,7 @@ Deliveries of the `installation` and `installation_repositories` events become `
 | `users.get` | ✅ | ✅ | ✅ | ❌ | ✅ |
 | `users.me` | ✅ | ✅ | ❌ | ❌ | ❌ |
 | `users.sponsorable` | ✅ | ✅ | ✅ | ❌ | ❌ |
+| `users.events` | ✅ | ✅ | ✅ | ❌ | ✅ |
 | `repos.list` | ✅ | ✅ | ✅ | ❌ | ❌ |
 | `repos.byOwner` | ✅ | ✅ | ✅ | ❌ | ✅ |
 | `repos.labels` | ✅ | ✅ | ✅ | ❌ | ✅ |
@@ -251,6 +258,7 @@ Deliveries of the `installation` and `installation_repositories` events become `
 | `repos.addCollaborator` | ✅ | ✅ | ✅ | ❌ | ❌ |
 | `repos.assignableUsers` | ✅ | ✅ | ✅ | ❌ | ✅ |
 | `repos.reviewerCandidates` | emulated | emulated | emulated | ❌ | ❌ |
+| `repos.events` | ✅ | ✅ | ✅ | ❌ | ✅ |
 | `orgs.teams` | ✅ | ✅ | ✅ | ❌ | ❌ |
 | `orgs.teamMembers` | ✅ | ✅ | ✅ | ❌ | ❌ |
 | `threads.get` | issue, PR, discussion, commit | issue, PR, discussion, commit | issue, PR, discussion, commit | ❌ | issue, PR, commit |

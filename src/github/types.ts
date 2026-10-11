@@ -8,6 +8,16 @@ export interface GitHubUser {
   name?: string | null
 }
 
+export interface GitHubFeedEvent {
+  id: string
+  type: string | null
+  actor: GitHubUser
+  repo?: { id: number, name: string, url?: string }
+  payload?: Record<string, unknown>
+  public?: boolean
+  created_at: string | null
+}
+
 export interface GitHubUserDetail extends GitHubUser {
   bio?: string | null
   company?: string | null

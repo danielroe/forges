@@ -69,6 +69,10 @@ The release that Gitee marks as the latest can be a prerelease. To avoid surpris
 
 `repos.byOwner()` reads the repositories of an organisation first. When no organisation has that name, it reads the personal repositories of the user instead. Gitee can't sort the repositories of an organisation, so if you pass `sort` for one, you get a `sort_unsupported` warning.
 
+## Activity feeds
+
+Without credentials, Gitee returns an empty feed for every account, so `users.events()` needs a token. `repos.events()` works either way.
+
 ## Search
 
 `search.threads()` only searches issues. If you search with `kind: 'pull_request'`, you get an empty page with a `kind_unsupported` warning.
@@ -110,6 +114,7 @@ You can manage webhooks on repositories only. Gitee doesn't keep a delivery log,
 | `users.get` | ✅ | ✅ |
 | `users.me` | ✅ | ❌ |
 | `users.sponsorable` | ❌ | ❌ |
+| `users.events` | unverified | ❌ |
 | `repos.list` | ✅ | ❌ |
 | `repos.byOwner` | ✅ | ✅ |
 | `repos.labels` | ✅ | ✅ |
@@ -122,6 +127,7 @@ You can manage webhooks on repositories only. Gitee doesn't keep a delivery log,
 | `repos.addCollaborator` | ❌ | ❌ |
 | `repos.assignableUsers` | ❌ | ❌ |
 | `repos.reviewerCandidates` | ❌ | ❌ |
+| `repos.events` | ✅ | ✅ |
 | `orgs.teams` | ❌ | ❌ |
 | `orgs.teamMembers` | ❌ | ❌ |
 | `threads.get` | issue, PR | issue, PR |

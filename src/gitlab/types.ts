@@ -8,6 +8,38 @@ export interface GitLabUser {
   state?: string
 }
 
+/** An item of a project's or a user's activity feed. */
+export interface GitLabEvent {
+  id: number
+  project_id?: number | null
+  action_name: string
+  target_id?: number | null
+  target_iid?: number | null
+  target_type?: string | null
+  target_title?: string | null
+  author?: GitLabUser | null
+  author_username?: string
+  created_at: string
+  push_data?: {
+    commit_count: number
+    action: string
+    ref_type: string
+    commit_from?: string | null
+    commit_to?: string | null
+    ref?: string | null
+    commit_title?: string | null
+  } | null
+  note?: {
+    id: number
+    body?: string
+    type?: string | null
+    noteable_type?: string
+    noteable_iid?: number | null
+    commit_id?: string | null
+    position?: unknown
+  } | null
+}
+
 export interface GitLabProject {
   id: number
   name?: string

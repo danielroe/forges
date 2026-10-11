@@ -235,7 +235,7 @@ const TASKS: CredentialTask[] = [
   { id: 'publish', group: 'Write', label: 'Publish releases', capabilities: ['releases.create', 'releases.update'] },
   { id: 'inbox', group: 'Write', label: 'Triage notifications', capabilities: ['notifications.markRead', 'notifications.markDone', 'notifications.unsubscribe', 'notifications.markAllRead', 'notifications.markAllDone', 'subscriptions.set'] },
   { id: 'receive', group: 'Events', label: 'Receive webhooks', capabilities: ['sources.webhook'], fields: ['WEBHOOK_SECRET'] },
-  { id: 'events', group: 'Events', label: 'Poll or stream events', capabilities: ['sources.poll', 'sources.subscribe'] },
+  { id: 'events', group: 'Events', label: 'Poll or stream events', capabilities: ['sources.poll', 'sources.subscribe', 'repos.events', 'users.events'] },
   { id: 'webhooks', group: 'Administer', label: 'Manage webhooks', capabilities: ['webhooks.list', 'webhooks.create', 'webhooks.update', 'webhooks.delete', 'webhooks.rotateSecret', 'webhooks.deliveries', 'webhooks.redeliver'] },
   { id: 'collaborators', group: 'Administer', label: 'Add collaborators', capabilities: ['repos.addCollaborator'] },
   { id: 'installations', group: 'Administer', label: 'App installations', capabilities: ['installations'] },

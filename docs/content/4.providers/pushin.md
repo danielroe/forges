@@ -82,6 +82,7 @@ Since `pushin()` contains no webhook code, there is no `pushinLite()` factory fo
 | `users.get` | ❌ | ❌ |
 | `users.me` | ✅ | ❌ |
 | `users.sponsorable` | ❌ | ❌ |
+| `users.events` | ❌ | ❌ |
 | `repos.list` | ✅ | ❌ |
 | `repos.byOwner` | ❌ | ❌ |
 | `repos.labels` | ✅ | ✅ |
@@ -94,6 +95,7 @@ Since `pushin()` contains no webhook code, there is no `pushinLite()` factory fo
 | `repos.addCollaborator` | ❌ | ❌ |
 | `repos.assignableUsers` | ❌ | ❌ |
 | `repos.reviewerCandidates` | ❌ | ❌ |
+| `repos.events` | ❌ | ❌ |
 | `orgs.teams` | ❌ | ❌ |
 | `orgs.teamMembers` | ❌ | ❌ |
 | `threads.get` | issue, PR | issue, PR |

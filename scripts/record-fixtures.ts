@@ -265,6 +265,15 @@ async function dropPrivateTodos(baseUrl: string): Promise<void> {
   fixture.response.body = kept
 }
 
+/** A GitHub token also reads the private events of its own account, so events not marked public are removed from the recording. */
+function dropPrivateEvents(): void {
+  for (const fixture of recorder.fixtures) {
+    if (new URL(fixture.request.url).pathname.endsWith('/events') && Array.isArray(fixture.response.body)) {
+      fixture.response.body = (fixture.response.body as Array<{ public?: boolean }>).filter(event => event.public !== false)
+    }
+  }
+}
+
 function ref(forge: string, instance: string, slug: string, kind: Forges.ThreadKind, number: string | undefined): Forges.ThreadRef | undefined {
   if (!number) {
     return undefined
@@ -335,9 +344,10 @@ function targetFor(credentials: Credentials, fetch: FetchLike): Target {
         pull: ref('github', provider.instance, slug, 'pull_request', env.FIXTURE_GITHUB_PULL ?? '1000'),
         issue: ref('github', provider.instance, slug, 'issue', env.FIXTURE_GITHUB_ISSUE ?? '1558'),
         discussion: ref('github', provider.instance, discussionSlug, 'discussion', env.FIXTURE_GITHUB_DISCUSSION ?? '9303'),
+        feedUser: env.FIXTURE_GITHUB_FEED_USER ?? 'danielroe',
         ...credentials.app && { installation: credentials.app.installationId },
         ...setupRepos('GITHUB', slug => repoRef('github', provider.instance, slug)),
-      } }
+      }, scrub: async () => dropPrivateEvents() }
     }
     case 'bitbucket': {
       const provider = bitbucket({
@@ -459,6 +469,7 @@ function targetFor(credentials: Credentials, fetch: FetchLike): Target {
           repo,
           pull: { forge: 'gitlab', instance: provider.instance, repo, kind: 'pull_request', number: env.FIXTURE_GITLAB_MR ?? '3988' },
           issue: { forge: 'gitlab', instance: provider.instance, repo, kind: 'issue', number: env.FIXTURE_GITLAB_ISSUE ?? '8572' },
+          feedUser: env.FIXTURE_GITLAB_FEED_USER ?? 'danielroe',
           ...setupRepos('GITLAB', projectRepo),
         },
         scrub: () => dropPrivateTodos(provider.baseUrl),
@@ -471,6 +482,7 @@ function targetFor(credentials: Credentials, fetch: FetchLike): Target {
         repo: repoRef('gitea', provider.instance, slug),
         pull: ref('gitea', provider.instance, slug, 'pull_request', env.FIXTURE_GITEA_PULL ?? '1099'),
         issue: ref('gitea', provider.instance, slug, 'issue', env.FIXTURE_GITEA_ISSUE ?? '1095'),
+        feedUser: env.FIXTURE_GITEA_FEED_USER ?? 'danielroe',
         ...setupRepos('GITEA', slug => repoRef('gitea', provider.instance, slug)),
       } }
     }
@@ -497,6 +509,7 @@ function targetFor(credentials: Credentials, fetch: FetchLike): Target {
           repo: repoRef('forgejo', provider.instance, slug),
           pull: ref('forgejo', provider.instance, slug, 'pull_request', env.FIXTURE_FORGEJO_PULL ?? (codeForgejo ? '1765' : '5000')),
           issue: ref('forgejo', provider.instance, slug, 'issue', env.FIXTURE_FORGEJO_ISSUE ?? (env.CODEBERG_BASE_URL ? undefined : '14613')),
+          feedUser: env.FIXTURE_FORGEJO_FEED_USER ?? (env.CODEBERG_BASE_URL ? undefined : 'danielroe'),
           ...!env.CODEBERG_BASE_URL && setupRepos('FORGEJO', slug => repoRef('forgejo', provider.instance, slug)),
         },
         // A self-hosted instance gates Actions on its version.

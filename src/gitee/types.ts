@@ -13,6 +13,33 @@ export interface GiteeContributor {
   contributions: number
 }
 
+/** An item of a repository's or a user's activity feed. */
+export interface GiteeEvent {
+  id: string | null
+  type: string | null
+  actor?: GiteeUser | null
+  repo?: GiteeRepository | null
+  created_at?: string | null
+  payload?: {
+    action?: string
+    number?: number | string
+    ref?: string | null
+    ref_type?: string
+    before?: string
+    after?: string
+    created?: boolean
+    deleted?: boolean
+    size?: number
+    commits?: Array<{ sha: string, message?: string, url?: string, author?: { name?: string } }>
+    issue?: { number: string }
+    pull_request?: { number: number }
+    comment?: { id: number, body?: string }
+    login?: string
+    id?: number
+    name?: string
+  } | null
+}
+
 export interface GiteeNamespace {
   id?: number
   type?: string

@@ -1,0 +1,571 @@
+{
+  "items": [
+    {
+      "forge": "gitea",
+      "instance": "gitea.com",
+      "id": "7910159",
+      "kindRaw": "comment_issue",
+      "kind": "comment",
+      "action": "created",
+      "thread": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "repo": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "owner": "forges-fixtures",
+          "name": "forges-fixtures",
+          "externalId": "146918"
+        },
+        "kind": "issue",
+        "number": "55"
+      },
+      "detail": {
+        "type": "comment",
+        "comment": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "thread": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "repo": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "owner": "forges-fixtures",
+              "name": "forges-fixtures",
+              "externalId": "146918"
+            },
+            "kind": "issue",
+            "number": "55"
+          },
+          "id": "1759888"
+        },
+        "body": "@roebot a mention from run 20261012220452."
+      },
+      "summary": "danielroe commented on issue 55",
+      "occurredAt": "2026-10-12T22:05:27.000Z",
+      "actor": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "login": "danielroe",
+        "id": "250665",
+        "name": "Daniel Roe",
+        "avatarUrl": "https://gitea.com/avatars/bd278c1af0d9b9480234a82515bf67abe7651f846069ebcee84e76317b2614ab",
+        "url": "https://gitea.com/danielroe",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "owner": "forges-fixtures",
+        "name": "forges-fixtures",
+        "externalId": "146918"
+      },
+      "source": "poll"
+    },
+    {
+      "forge": "gitea",
+      "instance": "gitea.com",
+      "id": "7910144",
+      "kindRaw": "merge_pull_request",
+      "kind": "state_change",
+      "action": "merged",
+      "thread": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "repo": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "owner": "forges-fixtures",
+          "name": "forges-fixtures",
+          "externalId": "146918"
+        },
+        "kind": "pull_request",
+        "number": "59"
+      },
+      "detail": {
+        "type": "state_change",
+        "state": "merged"
+      },
+      "summary": "danielroe merged pull request 59",
+      "occurredAt": "2026-10-12T22:05:23.000Z",
+      "actor": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "login": "danielroe",
+        "id": "250665",
+        "name": "Daniel Roe",
+        "avatarUrl": "https://gitea.com/avatars/bd278c1af0d9b9480234a82515bf67abe7651f846069ebcee84e76317b2614ab",
+        "url": "https://gitea.com/danielroe",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "owner": "forges-fixtures",
+        "name": "forges-fixtures",
+        "externalId": "146918"
+      },
+      "source": "poll"
+    },
+    {
+      "forge": "gitea",
+      "instance": "gitea.com",
+      "id": "7910141",
+      "kindRaw": "commit_repo",
+      "kind": "push",
+      "detail": {
+        "type": "push",
+        "ref": "refs/heads/main",
+        "before": "7c8cbca05dbd6ff5458d5456024fae84cbfba784",
+        "after": "2438db9db31a3a73fd8aa63bea21a4528c4b358b",
+        "commitCount": 2,
+        "forced": false,
+        "commits": [
+          {
+            "sha": "2438db9db31a3a73fd8aa63bea21a4528c4b358b",
+            "message": "Merge run 20261012220452\n\nMerged by run 20261012220452\n",
+            "author": "Daniel Roe"
+          },
+          {
+            "sha": "04a587e7651364be789f1b5604f6c85e381d99e2",
+            "message": "test: add forges-fixtures/20261012220452-2.md\n",
+            "author": "roebot"
+          }
+        ]
+      },
+      "summary": "danielroe pushed 2 commit(s) to main",
+      "occurredAt": "2026-10-12T22:05:23.000Z",
+      "actor": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "login": "danielroe",
+        "id": "250665",
+        "name": "Daniel Roe",
+        "avatarUrl": "https://gitea.com/avatars/bd278c1af0d9b9480234a82515bf67abe7651f846069ebcee84e76317b2614ab",
+        "url": "https://gitea.com/danielroe",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "owner": "forges-fixtures",
+        "name": "forges-fixtures",
+        "externalId": "146918"
+      },
+      "source": "poll",
+      "action": "other"
+    },
+    {
+      "forge": "gitea",
+      "instance": "gitea.com",
+      "id": "7910138",
+      "kindRaw": "approve_pull_request",
+      "kind": "review",
+      "action": "submitted",
+      "thread": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "repo": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "owner": "forges-fixtures",
+          "name": "forges-fixtures",
+          "externalId": "146918"
+        },
+        "kind": "pull_request",
+        "number": "59"
+      },
+      "detail": {
+        "type": "review",
+        "state": "approved",
+        "stateRaw": "approve_pull_request"
+      },
+      "summary": "danielroe reviewed pull request 59 (approved)",
+      "occurredAt": "2026-10-12T22:05:22.000Z",
+      "actor": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "login": "danielroe",
+        "id": "250665",
+        "name": "Daniel Roe",
+        "avatarUrl": "https://gitea.com/avatars/bd278c1af0d9b9480234a82515bf67abe7651f846069ebcee84e76317b2614ab",
+        "url": "https://gitea.com/danielroe",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "owner": "forges-fixtures",
+        "name": "forges-fixtures",
+        "externalId": "146918"
+      },
+      "source": "poll"
+    },
+    {
+      "forge": "gitea",
+      "instance": "gitea.com",
+      "id": "7910123",
+      "kindRaw": "approve_pull_request",
+      "kind": "review",
+      "action": "submitted",
+      "thread": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "repo": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "owner": "forges-fixtures",
+          "name": "forges-fixtures",
+          "externalId": "146918"
+        },
+        "kind": "pull_request",
+        "number": "58"
+      },
+      "detail": {
+        "type": "review",
+        "state": "approved",
+        "stateRaw": "approve_pull_request"
+      },
+      "summary": "danielroe reviewed pull request 58 (approved)",
+      "occurredAt": "2026-10-12T22:05:20.000Z",
+      "actor": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "login": "danielroe",
+        "id": "250665",
+        "name": "Daniel Roe",
+        "avatarUrl": "https://gitea.com/avatars/bd278c1af0d9b9480234a82515bf67abe7651f846069ebcee84e76317b2614ab",
+        "url": "https://gitea.com/danielroe",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "owner": "forges-fixtures",
+        "name": "forges-fixtures",
+        "externalId": "146918"
+      },
+      "source": "poll"
+    },
+    {
+      "forge": "gitea",
+      "instance": "gitea.com",
+      "id": "7910117",
+      "kindRaw": "comment_pull",
+      "kind": "comment",
+      "action": "created",
+      "thread": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "repo": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "owner": "forges-fixtures",
+          "name": "forges-fixtures",
+          "externalId": "146918"
+        },
+        "kind": "pull_request",
+        "number": "58"
+      },
+      "detail": {
+        "type": "comment",
+        "comment": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "thread": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "repo": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "owner": "forges-fixtures",
+              "name": "forges-fixtures",
+              "externalId": "146918"
+            },
+            "kind": "pull_request",
+            "number": "58"
+          },
+          "id": "1759880"
+        },
+        "body": "A submitted review from run 20261012220452."
+      },
+      "summary": "danielroe commented on pull request 58",
+      "occurredAt": "2026-10-12T22:05:18.000Z",
+      "actor": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "login": "danielroe",
+        "id": "250665",
+        "name": "Daniel Roe",
+        "avatarUrl": "https://gitea.com/avatars/bd278c1af0d9b9480234a82515bf67abe7651f846069ebcee84e76317b2614ab",
+        "url": "https://gitea.com/danielroe",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "owner": "forges-fixtures",
+        "name": "forges-fixtures",
+        "externalId": "146918"
+      },
+      "source": "poll"
+    },
+    {
+      "forge": "gitea",
+      "instance": "gitea.com",
+      "id": "7910114",
+      "kindRaw": "comment_pull",
+      "kind": "comment",
+      "action": "created",
+      "thread": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "repo": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "owner": "forges-fixtures",
+          "name": "forges-fixtures",
+          "externalId": "146918"
+        },
+        "kind": "pull_request",
+        "number": "58"
+      },
+      "detail": {
+        "type": "comment",
+        "comment": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "thread": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "repo": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "owner": "forges-fixtures",
+              "name": "forges-fixtures",
+              "externalId": "146918"
+            },
+            "kind": "pull_request",
+            "number": "58"
+          },
+          "id": "1759878"
+        },
+        "body": "A line comment from run 20261012220452."
+      },
+      "summary": "danielroe commented on pull request 58",
+      "occurredAt": "2026-10-12T22:05:18.000Z",
+      "actor": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "login": "danielroe",
+        "id": "250665",
+        "name": "Daniel Roe",
+        "avatarUrl": "https://gitea.com/avatars/bd278c1af0d9b9480234a82515bf67abe7651f846069ebcee84e76317b2614ab",
+        "url": "https://gitea.com/danielroe",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "owner": "forges-fixtures",
+        "name": "forges-fixtures",
+        "externalId": "146918"
+      },
+      "source": "poll"
+    },
+    {
+      "forge": "gitea",
+      "instance": "gitea.com",
+      "id": "7910111",
+      "kindRaw": "comment_pull",
+      "kind": "comment",
+      "action": "created",
+      "thread": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "repo": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "owner": "forges-fixtures",
+          "name": "forges-fixtures",
+          "externalId": "146918"
+        },
+        "kind": "pull_request",
+        "number": "58"
+      },
+      "detail": {
+        "type": "comment",
+        "comment": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "thread": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "repo": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "owner": "forges-fixtures",
+              "name": "forges-fixtures",
+              "externalId": "146918"
+            },
+            "kind": "pull_request",
+            "number": "58"
+          },
+          "id": "1759879"
+        },
+        "body": "A review from run 20261012220452."
+      },
+      "summary": "danielroe commented on pull request 58",
+      "occurredAt": "2026-10-12T22:05:17.000Z",
+      "actor": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "login": "danielroe",
+        "id": "250665",
+        "name": "Daniel Roe",
+        "avatarUrl": "https://gitea.com/avatars/bd278c1af0d9b9480234a82515bf67abe7651f846069ebcee84e76317b2614ab",
+        "url": "https://gitea.com/danielroe",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "owner": "forges-fixtures",
+        "name": "forges-fixtures",
+        "externalId": "146918"
+      },
+      "source": "poll"
+    },
+    {
+      "forge": "gitea",
+      "instance": "gitea.com",
+      "id": "7910108",
+      "kindRaw": "comment_pull",
+      "kind": "comment",
+      "action": "created",
+      "thread": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "repo": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "owner": "forges-fixtures",
+          "name": "forges-fixtures",
+          "externalId": "146918"
+        },
+        "kind": "pull_request",
+        "number": "58"
+      },
+      "detail": {
+        "type": "comment",
+        "comment": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "thread": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "repo": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "owner": "forges-fixtures",
+              "name": "forges-fixtures",
+              "externalId": "146918"
+            },
+            "kind": "pull_request",
+            "number": "58"
+          },
+          "id": "1759878"
+        },
+        "body": "A line comment from run 20261012220452."
+      },
+      "summary": "danielroe commented on pull request 58",
+      "occurredAt": "2026-10-12T22:05:17.000Z",
+      "actor": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "login": "danielroe",
+        "id": "250665",
+        "name": "Daniel Roe",
+        "avatarUrl": "https://gitea.com/avatars/bd278c1af0d9b9480234a82515bf67abe7651f846069ebcee84e76317b2614ab",
+        "url": "https://gitea.com/danielroe",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "owner": "forges-fixtures",
+        "name": "forges-fixtures",
+        "externalId": "146918"
+      },
+      "source": "poll"
+    },
+    {
+      "forge": "gitea",
+      "instance": "gitea.com",
+      "id": "7909725",
+      "kindRaw": "comment_issue",
+      "kind": "comment",
+      "action": "created",
+      "thread": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "repo": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "owner": "forges-fixtures",
+          "name": "forges-fixtures",
+          "externalId": "146918"
+        },
+        "kind": "issue",
+        "number": "49"
+      },
+      "detail": {
+        "type": "comment",
+        "comment": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "thread": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "repo": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "owner": "forges-fixtures",
+              "name": "forges-fixtures",
+              "externalId": "146918"
+            },
+            "kind": "issue",
+            "number": "49"
+          },
+          "id": "1759702"
+        },
+        "body": "@roebot a mention from run 20261012213330."
+      },
+      "summary": "danielroe commented on issue 49",
+      "occurredAt": "2026-10-12T21:34:12.000Z",
+      "actor": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "login": "danielroe",
+        "id": "250665",
+        "name": "Daniel Roe",
+        "avatarUrl": "https://gitea.com/avatars/bd278c1af0d9b9480234a82515bf67abe7651f846069ebcee84e76317b2614ab",
+        "url": "https://gitea.com/danielroe",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "owner": "forges-fixtures",
+        "name": "forges-fixtures",
+        "externalId": "146918"
+      },
+      "source": "poll"
+    }
+  ],
+  "total": 81,
+  "cursor": {
+    "nextUrl": "https://gitea.com/api/v1/users/danielroe/activities/feeds?only-performed-by=true&limit=10&page=2"
+  }
+}

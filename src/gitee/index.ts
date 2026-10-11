@@ -3,11 +3,11 @@ import type { Actor, BaseOptions, Check, Comment, Cursor, EventKind, ForgeEventI
 import type { AnonymousAuth, BulkNotificationOptions, ForgeOptionsBase, TokenAuth, VerbScopes } from '../provider.ts'
 import type { ForgeVerb } from '../supports.ts'
 import type { WebLinks } from '../web.ts'
-import type { GiteeBranch, GiteeCheckRun, GiteeComment, GiteeCommit, GiteeCommitFile, GiteeCompare, GiteeContentFile, GiteeContributor, GiteeHook, GiteeIssue, GiteeLabel, GiteeNotification, GiteeOperateLog, GiteePullRequest, GiteeRelease, GiteeRepository, GiteeTag, GiteeTree, GiteeUser } from './types.ts'
+import type { GiteeBranch, GiteeCheckRun, GiteeComment, GiteeCommit, GiteeCommitFile, GiteeCompare, GiteeContentFile, GiteeContributor, GiteeEvent, GiteeHook, GiteeIssue, GiteeLabel, GiteeNotification, GiteeOperateLog, GiteePullRequest, GiteeRelease, GiteeRepository, GiteeTag, GiteeTree, GiteeUser } from './types.ts'
 import { fromBase64, toFileContent } from '../contents.ts'
 import { defineForgeProvider, perKind, verb } from '../define.ts'
 import { ForgeError, MergeMethodRequiredError, NotFoundError, toMergeError, UnsupportedOperationError } from '../errors.ts'
-import { actorLogin, getManyConcurrently, hasEveryLabel, hexColour, iteratePages, phased, requireIssueOrPull, requireThread, resolveToken, summariseChecks, toDate, toWarning } from '../utils.ts'
+import { actorLogin, getManyConcurrently, hasEveryLabel, hexColour, iteratePages, phased, requireIssueOrPull, requireThread, resolveToken, summariseChecks, toDate, toPage, toWarning, withEtag } from '../utils.ts'
 import { githubShapedWeb } from '../web.ts'
 import { nativeEventsFor } from '../webhooks.ts'
 import { FORGE, isConversationComment, toActor, toBranch, toChangedFile, toCheck, toComment, toCommentEvent, toCommit, toIssueThread, toLogEvent, toNotification, toPullThread, toRelease, toRepo, toRepoRef, toTag, toTreeEntry, toWebhook } from './normalise.ts'
@@ -34,8 +34,10 @@ export interface GiteeOptions extends ForgeOptionsBase {
 const PULL = { pull_request: true } as const
 const PER_PAGE = 50
 
-function setupGitee({ instance, origin: context, fetcher, baseUrl }: ProviderContext<GiteeOptions, undefined>): ProviderSpec & { web: WebLinks } {
+function setupGitee({ options, instance, origin: context, fetcher, baseUrl }: ProviderContext<GiteeOptions, undefined>): ProviderSpec & { web: WebLinks } {
   const repoPath = (repo: RepoRef) => `/repos/${encodeURIComponent(repo.owner)}/${encodeURIComponent(repo.name)}`
+  /** Gitee returns an empty user feed without credentials. */
+  const anonymous = options.auth?.type === 'anonymous'
   async function readUser(path: string, signal?: AbortSignal): Promise<User> {
     const { data } = await fetcher.json<GiteeUser & { bio?: string | null, company?: string | null, blog?: string | null, created_at?: string, followers?: number, following?: number, public_repos?: number }>(path, { signal })
     return { ...toActor(instance, data)!, bio: data.bio ?? undefined, company: data.company ?? undefined, websiteUrl: data.blog || undefined, createdAt: toDate(data.created_at), followers: data.followers, following: data.following, publicRepos: data.public_repos, raw: data }
@@ -84,6 +86,17 @@ function setupGitee({ instance, origin: context, fetcher, baseUrl }: ProviderCon
     }
     const pages = Number(response.headers.get('total_page'))
     return Number.isFinite(pages) && pages > 0 ? { total: pages * perPage } : {}
+  }
+
+  /** Feeds page by the id of the last event read, in `prev_id`. */
+  async function feedPage(path: string, listOptions: PageOptions): Promise<Page<ForgeEventInput>> {
+    const limit = Math.min(listOptions.perPage ?? PER_PAGE, 100)
+    const after = listOptions.cursor?.token
+    const result = await fetcher.json<GiteeEvent[]>(path, { query: { limit, prev_id: after }, etag: after ? undefined : listOptions.cursor?.etag, signal: listOptions.signal })
+    const last = result.data?.at(-1)?.id
+    const cursor = result.data?.length === limit && last ? { token: last } : undefined
+    const { toFeedEvent } = await import('./feed.ts')
+    return withEtag(toPage({ ...result, cursor }, raw => toFeedEvent(instance, raw)), result, listOptions.cursor)
   }
 
   function nextPage(url: string, page: number): string {
@@ -333,6 +346,7 @@ function setupGitee({ instance, origin: context, fetcher, baseUrl }: ProviderCon
     users: {
       get: verb(true, (login, options) => readUser(`/users/${encodeURIComponent(login)}`, options?.signal)),
       me: verb(true, options => readUser('/user', options?.signal)),
+      eventsPage: verb(!anonymous && 'unverified', (login, listOptions = {}) => feedPage(`/users/${encodeURIComponent(login)}/events`, listOptions)),
     },
     repos: {
       get: verb(true, async (ref, options) => toRepo(instance, (await fetcher.json<GiteeRepository>(repoPath(ref), { signal: options?.signal })).data)),
@@ -376,6 +390,7 @@ function setupGitee({ instance, origin: context, fetcher, baseUrl }: ProviderCon
           total: all.length,
         }
       }),
+      eventsPage: verb(true, (repo, listOptions = {}) => feedPage(`${repoPath(repo)}/events`, listOptions)),
     },
     notifications: {
       listPage: verb(true, notificationPage),

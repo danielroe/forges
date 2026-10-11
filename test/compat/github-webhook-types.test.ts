@@ -1,9 +1,9 @@
 import type { components } from '@octokit/openapi-webhooks-types'
-import type { GitHubWebhookPayload } from '../../src/github/webhooks.ts'
+import type { GitHubEventPayload } from '../../src/github/events.ts'
 import { describe, expect, it } from 'vitest'
 
 type Schemas = components['schemas']
-type Accepts<T extends GitHubWebhookPayload> = T
+type Accepts<T extends GitHubEventPayload> = T
 
 export type Translated = [
   Accepts<Schemas['webhook-issue-comment-created']>,

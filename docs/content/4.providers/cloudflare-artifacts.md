@@ -85,6 +85,7 @@ Artifacts sends no webhooks. It publishes [events](https://developers.cloudflare
 | `users.get` | ❌ | ❌ |
 | `users.me` | ❌ | ❌ |
 | `users.sponsorable` | ❌ | ❌ |
+| `users.events` | ❌ | ❌ |
 | `repos.list` | ✅ | ❌ |
 | `repos.byOwner` | ✅ | ❌ |
 | `repos.labels` | ❌ | ❌ |
@@ -97,6 +98,7 @@ Artifacts sends no webhooks. It publishes [events](https://developers.cloudflare
 | `repos.addCollaborator` | ❌ | ❌ |
 | `repos.assignableUsers` | ❌ | ❌ |
 | `repos.reviewerCandidates` | ❌ | ❌ |
+| `repos.events` | ❌ | ❌ |
 | `orgs.teams` | ❌ | ❌ |
 | `orgs.teamMembers` | ❌ | ❌ |
 | `threads.get` | ❌ | ❌ |

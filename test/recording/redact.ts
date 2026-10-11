@@ -98,6 +98,10 @@ export function redact(value: unknown): unknown {
     else if (key === 'event_payload') {
       continue
     }
+    // A Forgejo push activity carries its commits, with their authors' addresses, as JSON in a string.
+    else if (key === 'content' && typeof entry === 'string' && entry.startsWith('{"Commits"')) {
+      result[key] = JSON.stringify(redact(JSON.parse(entry)))
+    }
     else if (key === 'assets' && 'tag_name' in value && Array.isArray(entry)) {
       result[key] = redact(withoutUnattachedUploads(entry))
     }

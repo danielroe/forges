@@ -50,6 +50,7 @@ Because Gitea and Forgejo share an implementation, the following sections of the
 - [Reviews](/providers/forgejo#reviews)
 - [Changed files](/providers/forgejo#changed-files)
 - [Listing an owner's repositories](/providers/forgejo#listing-an-owners-repositories)
+- [Activity feeds](/providers/forgejo#activity-feeds)
 - [Search](/providers/forgejo#search)
 
 ## Review replies
@@ -112,6 +113,7 @@ A label delivery doesn't say which labels were added or removed. When the set of
 | `users.get` | ✅ | ✅ |
 | `users.me` | ✅ | ❌ |
 | `users.sponsorable` | ❌ | ❌ |
+| `users.events` | ✅ | ✅ |
 | `repos.list` | ✅ | ❌ |
 | `repos.byOwner` | ✅ | ✅ |
 | `repos.labels` | ✅ | ✅ |
@@ -124,6 +126,7 @@ A label delivery doesn't say which labels were added or removed. When the set of
 | `repos.addCollaborator` | ✅ | ❌ |
 | `repos.assignableUsers` | ✅ | ❌ |
 | `repos.reviewerCandidates` | ✅ | ❌ |
+| `repos.events` | ✅ | ✅ |
 | `orgs.teams` | ✅ | ❌ |
 | `orgs.teamMembers` | ✅ | ❌ |
 | `threads.get` | issue, PR, commit | issue, PR, commit |

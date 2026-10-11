@@ -130,6 +130,7 @@ for await (const team of provider.orgs.teams(project)) {
 | `users.get` | ❌ | ❌ |
 | `users.me` | ❌ | ❌ |
 | `users.sponsorable` | ❌ | ❌ |
+| `users.events` | ❌ | ❌ |
 | `repos.list` | ✅ | ❌ |
 | `repos.byOwner` | ✅ | ✅ |
 | `repos.labels` | ❌ | ❌ |
@@ -142,6 +143,7 @@ for await (const team of provider.orgs.teams(project)) {
 | `repos.addCollaborator` | ❌ | ❌ |
 | `repos.assignableUsers` | ❌ | ❌ |
 | `repos.reviewerCandidates` | ❌ | ❌ |
+| `repos.events` | ❌ | ❌ |
 | `orgs.teams` | ✅ | ❌ |
 | `orgs.teamMembers` | ✅ | ❌ |
 | `threads.get` | issue, PR | issue (unverified), PR |

@@ -71,6 +71,12 @@ Forgejo before 15 ignores the branch filter, so `ci.runs()` drops the runs of ot
 
 `repos.byOwner()` reads the repositories of a user or an organisation from the same listing, oldest first. Forgejo can't filter or sort that listing, so the provider filters by `visibility` itself, and if you ask for any other order, you get a `sort_unsupported` warning.
 
+## Activity feeds
+
+Forgejo serves activity feeds from version 1.20. `users.events()` lists only what the account did, not what others did in its repositories. Forgejo sends no `etag` with a feed, so polling one always reads the whole page.
+
+A release in a feed has its title but not its ID, so its event has `kind: 'release'` and no `detail`.
+
 ## Search
 
 `search.threads()` searches across repositories. It has no `involves` filter, and it returns the results newest first, whatever `sort` or `direction` you pass. If you pass `involves`, you get a `filter_unsupported` warning, and if you pass a `sort` other than `relevance`, you get a `sort_unsupported` warning.
@@ -123,6 +129,7 @@ A label delivery doesn't say which labels were added or removed. When the set of
 | `users.get` | ✅ | ✅ |
 | `users.me` | ✅ | ❌ |
 | `users.sponsorable` | ❌ | ❌ |
+| `users.events` | ✅ | ✅ |
 | `repos.list` | ✅ | ❌ |
 | `repos.byOwner` | ✅ | ✅ |
 | `repos.labels` | ✅ | ✅ |
@@ -135,6 +142,7 @@ A label delivery doesn't say which labels were added or removed. When the set of
 | `repos.addCollaborator` | ✅ | ❌ |
 | `repos.assignableUsers` | ✅ | ❌ |
 | `repos.reviewerCandidates` | ✅ | ❌ |
+| `repos.events` | ✅ | ✅ |
 | `orgs.teams` | ✅ | ❌ |
 | `orgs.teamMembers` | ✅ | ❌ |
 | `threads.get` | issue, PR, commit | issue, PR, commit |
