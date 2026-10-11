@@ -1,0 +1,14 @@
+{
+  "request": {
+    "method": "PATCH",
+    "url": "https://api.github.com/notifications/threads/26261709633"
+  },
+  "response": {
+    "status": 205,
+    "headers": {
+      "x-ratelimit-limit": "5000",
+      "x-ratelimit-remaining": "4839",
+      "x-ratelimit-reset": "1791738365"
+    }
+  }
+}

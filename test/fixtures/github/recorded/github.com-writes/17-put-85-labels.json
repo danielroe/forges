@@ -1,0 +1,33 @@
+{
+  "request": {
+    "method": "PUT",
+    "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/issues/85/labels",
+    "body": {
+      "labels": [
+        "forges-fixture-20261011164520"
+      ]
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"7ffe96d5a10a8543265844b5000625f9e060e46336e00f9349b7eb1d074c975e\"",
+      "x-ratelimit-limit": "5000",
+      "x-ratelimit-remaining": "4891",
+      "x-ratelimit-reset": "1791738365"
+    },
+    "body": [
+      {
+        "id": 12640256060,
+        "node_id": "LA_kwDOVCTdtM8AAAAC8WsAPA",
+        "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/labels/forges-fixture-20261011164520",
+        "name": "forges-fixture-20261011164520",
+        "color": "0e8a16",
+        "default": false,
+        "description": "Created by run 20261011164520",
+        "archived_at": null,
+        "archived_by": null
+      }
+    ]
+  }
+}

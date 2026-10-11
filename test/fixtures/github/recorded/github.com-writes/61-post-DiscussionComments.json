@@ -24,8 +24,8 @@
     "status": 200,
     "headers": {
       "x-ratelimit-limit": "5000",
-      "x-ratelimit-remaining": "4984",
-      "x-ratelimit-reset": "1791733985"
+      "x-ratelimit-remaining": "4953",
+      "x-ratelimit-reset": "1791738384"
     },
     "body": {
       "data": {
@@ -34,7 +34,7 @@
             "comments": {
               "pageInfo": {
                 "hasNextPage": false,
-                "endCursor": "Y3Vyc29yOnYyOpK0MjAyNi0xMC0xMVQxNDo1MzozMlrOAR_a_g=="
+                "endCursor": "Y3Vyc29yOnYyOpK0MjAyNi0xMC0xMVQxNjo0NjoxMFrOAR_hMw=="
               },
               "nodes": [
                 {
@@ -58,7 +58,7 @@
                 {
                   "id": "DC_kwDOVCTdtM4BH241",
                   "databaseId": 18837045,
-                  "body": "An upserted comment from run 20261011113416.\n\n<!-- forges:key=forges-fixture -->",
+                  "body": "An upserted comment from run 20261011160603.\n\n<!-- forges:key=forges-fixture -->",
                   "createdAt": "2026-10-09T14:21:47Z",
                   "url": "https://github.com/forges-fixtures/forges-fixtures/discussions/33#discussioncomment-18837045",
                   "author": {
@@ -74,11 +74,11 @@
                   }
                 },
                 {
-                  "id": "DC_kwDOVCTdtM4BH9r-",
-                  "databaseId": 18864894,
-                  "body": "An edited comment from run 20261011145244.",
-                  "createdAt": "2026-10-11T14:53:32Z",
-                  "url": "https://github.com/forges-fixtures/forges-fixtures/discussions/33#discussioncomment-18864894",
+                  "id": "DC_kwDOVCTdtM4BH-Ez",
+                  "databaseId": 18866483,
+                  "body": "An edited comment from run 20261011164520.",
+                  "createdAt": "2026-10-11T16:46:10Z",
+                  "url": "https://github.com/forges-fixtures/forges-fixtures/discussions/33#discussioncomment-18866483",
                   "author": {
                     "__typename": "User",
                     "login": "danielroe-bot",

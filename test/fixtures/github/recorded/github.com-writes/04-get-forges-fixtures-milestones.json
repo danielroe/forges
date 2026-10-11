@@ -6,10 +6,10 @@
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"26e7148fced62026b6edf3d1252a4e30cb523d1d1775a2be9c8f6511d49cabf5\"",
+      "etag": "W/\"57fc50505647ce30663c98367758005427803d6c4cd42851f39fd78508452623\"",
       "x-ratelimit-limit": "5000",
-      "x-ratelimit-remaining": "4992",
-      "x-ratelimit-reset": "1791733966"
+      "x-ratelimit-remaining": "4904",
+      "x-ratelimit-reset": "1791738365"
     },
     "body": [
       {
@@ -46,7 +46,7 @@
         "closed_issues": 0,
         "state": "open",
         "created_at": "2026-10-09T11:01:59Z",
-        "updated_at": "2026-10-11T11:34:55Z",
+        "updated_at": "2026-10-11T16:07:14Z",
         "due_on": null,
         "closed_at": null
       }

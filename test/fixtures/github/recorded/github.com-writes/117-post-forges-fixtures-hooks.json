@@ -20,15 +20,15 @@
   "response": {
     "status": 201,
     "headers": {
-      "etag": "\"81ceff0132b8a2c9b7a501c5159263072da5600dbcde3b0f98eb8dc5ae38befc\"",
-      "location": "https://api.github.com/repos/forges-fixtures/forges-fixtures/hooks/695770536",
+      "etag": "\"96a527be2e0479487ec72d66a7adfeb3e94dcbf856f5ba7b6770f099ca4ba762\"",
+      "location": "https://api.github.com/repos/forges-fixtures/forges-fixtures/hooks/695806973",
       "x-ratelimit-limit": "500",
       "x-ratelimit-remaining": "499",
-      "x-ratelimit-reset": "1791730512"
+      "x-ratelimit-reset": "1791737271"
     },
     "body": {
       "type": "Repository",
-      "id": 695770536,
+      "id": 695806973,
       "name": "web",
       "active": true,
       "events": [
@@ -42,12 +42,12 @@
         "secret": "REDACTED",
         "insecure_ssl": "0"
       },
-      "updated_at": "2026-10-11T14:54:12Z",
-      "created_at": "2026-10-11T14:54:12Z",
-      "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/hooks/695770536",
-      "test_url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/hooks/695770536/test",
-      "ping_url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/hooks/695770536/pings",
-      "deliveries_url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/hooks/695770536/deliveries",
+      "updated_at": "2026-10-11T16:46:51Z",
+      "created_at": "2026-10-11T16:46:51Z",
+      "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/hooks/695806973",
+      "test_url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/hooks/695806973/test",
+      "ping_url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/hooks/695806973/pings",
+      "deliveries_url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/hooks/695806973/deliveries",
       "last_response": {
         "code": null,
         "status": "unused",
