@@ -319,6 +319,10 @@ export interface NotificationRef extends ForgeOrigin {
 /** An account: a user, an organisation or a bot. */
 export interface Actor extends ForgeOrigin {
   login: string
+  /**
+   * Forge-native account id: the numeric id on GitHub (`databaseId` in its GraphQL API, not the node id), GitLab,
+   * Forgejo, Gitea and Gitee, the UUID on Bitbucket, the identity id on Azure DevOps and the DID on Tangled.
+   */
   id: string
   name?: string
   avatarUrl?: string
