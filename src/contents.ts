@@ -22,14 +22,18 @@ export function toFileContent(
   options: FileOptions | undefined,
   context?: { forge?: string, instance?: string },
 ): FileContent {
-  if (options?.as !== 'text') {
-    return { ...file, content: bytes, encoding: 'binary' }
-  }
+  return options?.as === 'text'
+    ? { ...file, content: decodeText(bytes, file.path, context), encoding: 'utf-8' }
+    : { ...file, content: bytes, encoding: 'binary' }
+}
+
+/** Decodes UTF-8, rejecting with {@link ContentNotTextError} that names `what` when the bytes are not text. */
+export function decodeText(bytes: Uint8Array, what: string, context?: { forge?: string, instance?: string }): string {
   try {
-    return { ...file, content: new TextDecoder('utf-8', { fatal: true }).decode(bytes), encoding: 'utf-8' }
+    return new TextDecoder('utf-8', { fatal: true }).decode(bytes)
   }
   catch (cause) {
-    throw new ContentNotTextError(`${file.path} is not valid UTF-8 text`, context, { cause })
+    throw new ContentNotTextError(`${what} is not valid UTF-8 text`, context, { cause })
   }
 }
 

@@ -1,5 +1,5 @@
 import type { Fetcher, FetcherOptions } from './fetch.ts'
-import type { ApproveAndMergeOptions, BaseOptions, Check, CiJobRef, Comment, CommentRef, Cursor, ForgeEventInput, ForgeInstance, ForgeKind, Installation, ListOptions, MergeOptions, Notification, NotificationListOptions, OwnerRepoQuery, Page, Repo, RepoRef, ReviewRef, SecurityAlertKind, SecurityAlertListOptions, Support, TextLimits, ThreadKind, ThreadQuery, ThreadRef, UpsertCommentInput, UpsertCommentResult, WebhookEventType } from './model.ts'
+import type { ApproveAndMergeOptions, BaseOptions, Check, CiJobRef, Comment, CommentRef, Cursor, DownloadAssetOptions, ForgeEventInput, ForgeInstance, ForgeKind, Installation, ListOptions, MergeOptions, Notification, NotificationListOptions, OwnerRepoQuery, Page, ReleaseAssetRef, Repo, RepoRef, ReviewRef, SecurityAlertKind, SecurityAlertListOptions, Support, TextLimits, ThreadKind, ThreadQuery, ThreadRef, UpsertCommentInput, UpsertCommentResult, WebhookEventType } from './model.ts'
 import type {
   AuthKind,
   ChecksApi,
@@ -28,7 +28,7 @@ import type { ForgeVerb } from './supports.ts'
 import type { WebLinks } from './web.ts'
 import { ALERT_KINDS, approveAndMergeSupport, capabilitiesOf, ciJobSupport, getCommentKinds, getReviewSupport, KINDS, resolve, restrict, threadEventKinds, upsertKinds, WRITE_VERBS } from './capabilities.ts'
 import { CAPABILITY_TABLE } from './capability-table.ts'
-import { isSha } from './contents.ts'
+import { decodeText, isSha } from './contents.ts'
 import { NotFoundError, ReadOnlyError, UnsupportedOperationError, WebhookVerificationError } from './errors.ts'
 import { completeEvent } from './events.ts'
 import { createFetcher, createRequest } from './fetch.ts'
@@ -238,7 +238,7 @@ export interface ProviderSpec {
     /** The implementation of `provider.releases.getByTag()`. */
     getByTag?: Verb<ReleasesApi['getByTag']>
     /** The implementation of `provider.releases.downloadAsset()`. */
-    downloadAsset?: Verb<ReleasesApi['downloadAsset']>
+    downloadAsset?: Verb<(ref: ReleaseAssetRef, options?: BaseOptions) => Promise<ReadableStream<Uint8Array>>>
     /** The implementation of `provider.releases.create()`. */
     create?: Verb<ReleasesApi['create']>
     /** The implementation of `provider.releases.update()`. */
@@ -565,6 +565,14 @@ function createProvider<TOptions extends ForgeOptionsBase, TState>(
     'threads.approveAndMerge': gate('threads.approveAndMerge', (mergeEnv: CapabilityEnv) => approveAndMergeSupport(spec, mergeEnv), async (ref: ThreadRef, { body, ...mergeOptions }: ApproveAndMergeOptions = {}) => {
       await spec.threads.merge!.run(ref, mergeOptions, { beforeMerge: () => call('threads.approve')(ref, body, { signal: mergeOptions.signal }) })
     }),
+    'releases.downloadAsset': async (ref: ReleaseAssetRef, options?: DownloadAssetOptions) => {
+      const stream: ReadableStream<Uint8Array> = await gate('releases.downloadAsset', spec.releases?.downloadAsset?.support, spec.releases?.downloadAsset?.run)(ref, options)
+      if (!options?.as || options.as === 'stream') {
+        return stream
+      }
+      const bytes = new Uint8Array(await new Response(stream).arrayBuffer())
+      return options.as === 'text' ? decodeText(bytes, `Release asset ${ref.id}`, origin) : bytes
+    },
     'contents.resolveRef': (repo: RepoRef, ref: string, options?: BaseOptions) => isSha(ref)
       ? Promise.resolve(ref.toLowerCase())
       : gate('contents.resolveRef', spec.contents?.resolveRef?.support, spec.contents?.resolveRef?.run)(repo, ref, options),

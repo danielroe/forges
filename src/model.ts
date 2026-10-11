@@ -845,6 +845,16 @@ export interface ReleaseAssetRef extends ForgeOrigin {
   id: string
 }
 
+/** Options for `releases.downloadAsset()`. */
+export interface DownloadAssetOptions extends BaseOptions {
+  /**
+   * `'binary'` reads the whole asset into a `Uint8Array`, and `'text'` decodes it as UTF-8, rejecting with
+   * {@link ContentNotTextError} when the bytes are not text. `'stream'` returns the bytes as they arrive.
+   * @default 'stream'
+   */
+  as?: 'stream' | 'binary' | 'text'
+}
+
 /** A file attached to a release. */
 export interface ReleaseAsset {
   /** Absent where the forge publishes a download URL but nothing to address the asset by. */

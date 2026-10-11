@@ -24,6 +24,7 @@ import type {
   CommitSearchQuery,
   Comparison,
   Cursor,
+  DownloadAssetOptions,
   FileContent,
   FileOptions,
   ForgeEvent,
@@ -715,10 +716,22 @@ export interface ReleasesApi {
   /** The release for a tag name. */
   getByTag: (repo: RepoRef, tag: string, options?: BaseOptions) => Promise<Release>
   /**
-   * The asset's bytes as they arrive. A redirect to a CDN host is followed
-   * without the `Authorization` header, which those hosts reject.
+   * Downloads a release asset, as a stream of its bytes, a `Uint8Array` with `as: 'binary'` or a string with
+   * `as: 'text'`. A redirect to a CDN host is followed without the `Authorization` header, which those hosts reject.
+   * @example
+   * ```ts
+   * const release = await provider.releases.getByTag(repo, 'v1.0.0')
+   * const asset = release.assets?.find(asset => asset.name.endsWith('.pdf'))
+   * if (asset?.ref) {
+   *   const bytes = await provider.releases.downloadAsset(asset.ref, { as: 'binary' })
+   * }
+   * ```
    */
-  downloadAsset: (ref: ReleaseAssetRef, options?: BaseOptions) => Promise<ReadableStream<Uint8Array>>
+  downloadAsset: {
+    (ref: ReleaseAssetRef, options?: DownloadAssetOptions & { as?: 'stream' }): Promise<ReadableStream<Uint8Array>>
+    (ref: ReleaseAssetRef, options: DownloadAssetOptions & { as: 'binary' }): Promise<Uint8Array>
+    (ref: ReleaseAssetRef, options: DownloadAssetOptions & { as: 'text' }): Promise<string>
+  }
   /** The most recent published release that is not a draft or prerelease, if any. */
   latest: (repo: RepoRef, options?: BaseOptions) => Promise<Release | undefined>
   /**

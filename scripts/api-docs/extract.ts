@@ -215,7 +215,7 @@ function membersOf(context: Context, type: ts.Type, owner: string, prefix = ''):
     }
     members.push(member)
 
-    const nested = ts.isPropertySignature(declaration) && declaration.type && ts.isTypeLiteralNode(declaration.type)
+    const nested = member.kind !== 'method' && ts.isPropertySignature(declaration) && declaration.type && ts.isTypeLiteralNode(declaration.type)
     if (nested) {
       member.kind = 'group'
       for (const nestedMember of membersOf(context, context.checker.getTypeOfSymbolAtLocation(property, declaration), owner, `${member.name}.`)) {
@@ -250,6 +250,10 @@ function memberOf(context: Context, declaration: MemberDeclaration, prefix = '')
     : typeNode && ts.isFunctionTypeNode(typeNode) ? typeNode : undefined
   if (signatureNode) {
     return { ...base, kind: 'method', type: squash(signatureNode.getText()), signatures: [signatureOf(context, signatureNode, symbol)] }
+  }
+  const calls = typeNode && ts.isTypeLiteralNode(typeNode) ? typeNode.members.filter(ts.isCallSignatureDeclaration) : []
+  if (calls.length && calls.length === (typeNode as ts.TypeLiteralNode).members.length) {
+    return { ...base, kind: 'method', type: squash(typeNode!.getText()), signatures: calls.map(call => signatureOf(context, call, symbol)) }
   }
 
   const type = typeNode ? squash(typeNode.getText()) : checker.typeToString(checker.getTypeAtLocation(declaration))

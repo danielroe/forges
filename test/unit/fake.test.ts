@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { NotFoundError, UnsupportedOperationError } from '../../src/errors.ts'
+import { ContentNotTextError, NotFoundError, UnsupportedOperationError } from '../../src/errors.ts'
 import { fake } from '../../src/fake/index.ts'
 import { commentMarker } from '../../src/model.ts'
 import { signDelivery } from '../../src/testing/index.ts'
@@ -274,6 +274,21 @@ describe('fake forge', () => {
 
     expect(asset).toMatchObject({ name: 'widgets.tgz', size: 7, contentType: 'application/gzip' })
     expect(body).toBe('tarball')
+  })
+
+  it('reads a whole release asset into bytes or text', async () => {
+    const forge = fake({
+      seed: {
+        repos: [{ repo: 'acme/widgets' }],
+        releases: [{ repo: 'acme/widgets', tag: 'v1.0.0', assets: [{ name: 'SHA256SUMS', content: 'abc  widgets.tgz' }, { name: 'widgets.tgz', content: new Uint8Array([0x1F, 0x8B, 0xFF]) }] }],
+      },
+    }).create()
+    const release = await forge.releases.getByTag({ forge: 'fake', instance: 'fake.test', owner: 'acme', name: 'widgets' }, 'v1.0.0')
+    const [sums, tarball] = release.assets!.map(asset => asset.ref!)
+
+    expect(await forge.releases.downloadAsset(sums!, { as: 'text' })).toBe('abc  widgets.tgz')
+    expect(await forge.releases.downloadAsset(tarball!, { as: 'binary' })).toEqual(new Uint8Array([0x1F, 0x8B, 0xFF]))
+    await expect(forge.releases.downloadAsset(tarball!, { as: 'text' })).rejects.toThrow(ContentNotTextError)
   })
 
   it('creates a draft release, publishes it and refuses a second release of its tag', async () => {
