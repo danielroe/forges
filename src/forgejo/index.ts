@@ -612,7 +612,11 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
       jobsPage: verb(actions(FORGEJO_ACTION_JOBS, GITEA_ACTION_RUNS), jobsPage),
       job: verb(isGitea && (anonymous ? 'unverified' : actions(FORGEJO_ACTION_JOBS, GITEA_ACTION_RUNS)), async (ref, options) => {
         const { data } = await fetcher.json<GiteaActionJob>(`${repoPath(ref.repo)}/actions/jobs/${encodeURIComponent(ref.id)}`, { signal: options?.signal })
-        return toGiteaActionJob(ref.run ?? { ...origin, repo: ref.repo, id: String(data.run_id) }, data)
+        const run = ref.run ?? (data.run_id === undefined ? undefined : { ...origin, repo: ref.repo, id: String(data.run_id) })
+        if (!run) {
+          throw new UnsupportedOperationError(`Gitea returned job ${ref.id} without its run, and the ref names no run`, context)
+        }
+        return toGiteaActionJob(run, data)
       }),
       log: verb(giteaAnonymous ? false : actions(FORGEJO_ACTION_JOBS, GITEA_ACTION_LOGS), async (ref, options) => (await fetcher.stream(`${repoPath(ref.repo)}/actions/jobs/${encodeURIComponent(ref.id)}/logs`, { signal: options?.signal })).body),
     },

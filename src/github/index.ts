@@ -839,7 +839,11 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
 
   async function getJob(ref: CiJobRef, options?: BaseOptions): Promise<CiJob> {
     const { data } = await fetcher.json<GitHubWorkflowJob>(`${repoPath(ref.repo)}/actions/jobs/${encodeURIComponent(ref.id)}`, { signal: options?.signal })
-    return toWorkflowJob(ref.run ?? { forge: FORGE, instance, repo: ref.repo, id: String(data.run_id) }, data)
+    const run = ref.run ?? (data.run_id === undefined ? undefined : { forge: FORGE, instance, repo: ref.repo, id: String(data.run_id) })
+    if (!run) {
+      throw new UnsupportedOperationError(`GitHub returned job ${ref.id} without its run, and the ref names no run`, context)
+    }
+    return toWorkflowJob(run, data)
   }
 
   async function subscriptionNode(thread: ThreadRef, options?: BaseOptions): Promise<{ id: string, state: string }> {

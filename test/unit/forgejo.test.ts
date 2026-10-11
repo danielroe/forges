@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest'
+import { UnsupportedOperationError } from '../../src/errors.ts'
 import { forgejo } from '../../src/forgejo/index.ts'
 import { gitea } from '../../src/gitea/index.ts'
 import { fixtureFetch, hangingFetch } from '../utils/fixtures.ts'
@@ -372,6 +373,14 @@ describe('gitea actions', () => {
     const job = await provider.ci.job({ forge: 'gitea', instance: 'git.example.org', repo, id: '9' })
 
     expect(job.ref.run).toEqual({ forge: 'gitea', instance: 'git.example.org', repo, id: '7' })
+  })
+
+  it('rejects a job that names no run when its ref names none either', async () => {
+    const { provider } = serve(new Map([
+      ['https://git.example.org/api/v1/repos/acme/widgets/actions/jobs/9', { id: 9, name: 'test', status: 'completed', conclusion: 'success', started_at: zero, completed_at: zero }],
+    ]))
+
+    await expect(provider.ci.job({ forge: 'gitea', instance: 'git.example.org', repo, id: '9' })).rejects.toThrow(UnsupportedOperationError)
   })
 
   it('filters runs on `branch` and on the statuses Gitea accepts', async () => {

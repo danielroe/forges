@@ -1000,4 +1000,10 @@ describe('github single-item reads', () => {
     expect(job.name).toBe('test')
     expect(job.ref.run).toEqual({ forge: 'github', instance: 'github.com', repo, id: '7' })
   })
+
+  it('rejects a CI job that names no run when its ref names none either', async () => {
+    const provider = serve({ '/repos/acme/widgets/actions/jobs/9': { id: 9, name: 'test', status: 'completed', conclusion: 'success' } })
+
+    await expect(provider.ci.job({ forge: 'github', instance: 'github.com', repo, id: '9' })).rejects.toThrow(UnsupportedOperationError)
+  })
 })
