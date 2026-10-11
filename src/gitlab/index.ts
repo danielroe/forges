@@ -837,7 +837,11 @@ const GITLAB: ProviderDefinition<GitLabOptions> = {
         jobsPage: verb(true, (ref, listOptions = {}) => list(`${projectPath(ref.repo)}/pipelines/${ref.id}/jobs`, listOptions, (raw: GitLabJob) => toCiJob(ref, raw))),
         job: verb(!anonymous, async (ref, options) => {
           const { data } = await fetcher.json<GitLabJob>(`${projectPath(ref.repo)}/jobs/${encodeURIComponent(ref.id)}`, { signal: options?.signal })
-          return toCiJob(ref.run ?? { forge: FORGE, instance, repo: ref.repo, id: String(data.pipeline?.id) }, data)
+          const run = ref.run ?? (data.pipeline && { forge: FORGE, instance, repo: ref.repo, id: String(data.pipeline.id) })
+          if (!run) {
+            throw new UnsupportedOperationError(`GitLab returned job ${ref.id} without its pipeline, and the ref names no run`, context)
+          }
+          return toCiJob(run, data)
         }),
         log: verb(!anonymous, async (ref, options) => (await fetcher.stream(`${projectPath(ref.repo)}/jobs/${encodeURIComponent(ref.id)}/trace`, { signal: options?.signal })).body),
       },
@@ -928,6 +932,19 @@ const GITLAB: ProviderDefinition<GitLabOptions> = {
         getComment: perKind({ issue: !anonymous, pull_request: !anonymous }, async (ref, options) => {
           const thread = requireIssueOrPull(ref.thread, context, 'read comments on')
           const { data } = await fetcher.json<GitLabNoteDetail>(`${threadPath(thread)}/notes/${ref.id}`, { signal: options?.signal })
+          if (data.system) {
+            throw new NotFoundError(`Comment ${ref.id} not found`, 404, '', context)
+          }
+          if (!data.resolvable) {
+            return toNoteComment(thread, data)
+          }
+          // A note carries no discussion id, which a resolvable note's `thread` needs, so it is read from its discussion.
+          for await (const discussion of fetcher.items<GitLabDiscussion>(`${threadPath(thread)}/discussions`, { query: { per_page: 100 }, signal: options?.signal })) {
+            const note = discussion.notes.find(candidate => String(candidate.id) === ref.id)
+            if (note) {
+              return toNoteComment(thread, note, discussion)
+            }
+          }
           return toNoteComment(thread, data)
         }),
         comment: perKind({ issue: true, pull_request: true, commit: true }, async (thread, body, options) => {

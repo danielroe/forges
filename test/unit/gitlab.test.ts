@@ -5,6 +5,7 @@ import { describe, expect, it } from 'vitest'
 import {
   InsufficientScopeError,
   MergeMethodRequiredError,
+  NotFoundError,
   RateLimitedError,
   TokenRevokedError,
   UnresolvedThreadError,
@@ -526,5 +527,41 @@ describe('gitlab path safety', () => {
 
     await expect(provider.threads.deleteComment({ forge: 'gitlab', instance: 'gitlab.com', thread, id: '../../../../../user' })).rejects.toThrow(TypeError)
     expect(urls).toEqual([])
+  })
+})
+
+describe('gitlab single-item reads', () => {
+  const note = { id: 5, body: 'Looks good', system: false, created_at: '2026-01-01T00:00:00Z' }
+
+  function serve(responses: Record<string, unknown>) {
+    return gitlab({ auth: { type: 'token', token: 't' }, fetch: async (url) => {
+      const key = new URL(String(url)).pathname
+      return key in responses ? Response.json(responses[key]) : Response.json({ message: '404 Not found' }, { status: 404 })
+    } }).create()
+  }
+
+  it('gives a resolvable note the discussion that resolves it, as the listing does', async () => {
+    const provider = serve({
+      '/api/v4/projects/acme%2Fplatform%2Fwidgets/merge_requests/23/notes/5': { ...note, resolvable: true, resolved: false },
+      '/api/v4/projects/acme%2Fplatform%2Fwidgets/merge_requests/23/discussions': [{ id: 'd1', individual_note: false, notes: [{ ...note, resolvable: true, resolved: false }] }],
+    })
+
+    const comment = await provider.threads.getComment({ forge: 'gitlab', instance: 'gitlab.com', thread: mr, id: '5' })
+
+    expect(comment.thread).toEqual({ id: 'd1', resolved: false })
+  })
+
+  it('does not read a system note, which the listing leaves out', async () => {
+    const provider = serve({ '/api/v4/projects/acme%2Fplatform%2Fwidgets/merge_requests/23/notes/5': { ...note, system: true } })
+
+    await expect(provider.threads.getComment({ forge: 'gitlab', instance: 'gitlab.com', thread: mr, id: '5' })).rejects.toThrow(NotFoundError)
+  })
+
+  it('reads a CI job whose ref names no run, and names the run from the job', async () => {
+    const provider = serve({ '/api/v4/projects/acme%2Fplatform%2Fwidgets/jobs/9': { id: 9, name: 'test', status: 'success', stage: 'test', pipeline: { id: 7 } } })
+
+    const job = await provider.ci.job({ forge: 'gitlab', instance: 'gitlab.com', repo, id: '9' })
+
+    expect(job.ref.run).toEqual({ forge: 'gitlab', instance: 'gitlab.com', repo, id: '7' })
   })
 })
