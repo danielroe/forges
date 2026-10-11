@@ -92,6 +92,11 @@ describe('pushin', () => {
     expect(toNotification(origin, { id: 3, repository: { id: 5, name: 'widgets', full_name: 'acme/widgets' }, subject: { title: '', type: 'Issue', url: '' }, reason: 'mention', unread: true, updated_at: '' })).toMatchObject({ ref: { id: '3' }, subject: { repo: { externalId: '5' } } })
   })
 
+  it('maps the star, fork and watcher counts', () => {
+    const repo = toRepo(origin, { id: 5, name: 'widgets', full_name: 'acme/widgets', stargazers_count: 6, forks_count: 3, watchers_count: 0 })
+    expect(repo).toMatchObject({ stars: 6, forks: 3, watchers: 0 })
+  })
+
   it('preserves hex label colours and omits colour names', () => {
     expect(toLabel({ id: 'l', name: 'Future', color: 'aAbB00' }).colour).toBe('aAbB00')
     expect(toLabel({ id: 'l', name: 'Future', color: 'purple' }).colour).toBeUndefined()

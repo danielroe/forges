@@ -49,6 +49,7 @@ export function toRepo(origin: ForgeOrigin, raw: PushinRepository): Repo {
     homepage: raw.homepage || undefined,
     stars: raw.stargazers_count,
     forks: raw.forks_count,
+    watchers: raw.watchers_count,
     permissions: toPermissions(raw.permissions),
     raw,
   }
