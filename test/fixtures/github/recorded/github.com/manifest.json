@@ -60,9 +60,10 @@
     "owner": "forges-fixtures",
     "name": "forges-fixtures-transfer"
   },
-  "recordedAt": "2026-10-09T13:13:33.743Z",
+  "recordedAt": "2026-10-11T13:24:43.975Z",
   "steps": [
     "repo",
+    "repo licence",
     "labels",
     "milestones",
     "collaborators",
@@ -103,6 +104,7 @@
     "notifications",
     "checks",
     "ci runs",
+    "ci runs by branch and state",
     "ci run",
     "ci jobs",
     "ci log",
@@ -124,6 +126,7 @@
     "search commits",
     "search code",
     "search code in owner",
+    "search code in scratch",
     "webhooks",
     "webhook deliveries",
     "dependency alerts",
