@@ -153,11 +153,11 @@ export interface Repo {
   permissions?: RepoPermissions
   /** Merge methods the repository allows, where the forge reports them. Empty means the forge reported none. */
   mergeMethods?: MergeMethod[]
-  /** The repository's default merge method, where the forge reports one. */
+  /** The repository's default merge method, where the forge reports one. On GitLab, a project that squashes by default reports `squash`, not its base method. */
   defaultMergeMethod?: MergeMethod
-  /** Whether merging deletes the head branch by default, where the forge reports it. Forgejo and Gitea before 1.25 apply it only in their web UI. */
+  /** The repository's setting for deleting the head branch after a merge, where the forge reports it. Forgejo and Gitea before 1.25 apply it only in their web UI, so `merge()` keeps the branch there. On GitLab it seeds merge requests when they are opened. */
   deleteBranchOnMerge?: boolean
-  /** Default text of a merge commit (`merge`) and a squashed one (`squash`) as {@link MergeCommitDefaults}, where the forge reports it. */
+  /** Default text of a merge commit (`merge`) and a squashed one (`squash`) as `MergeCommitDefaults`, where the forge reports it. */
   mergeCommit?: {
     merge?: MergeCommitDefaults
     squash?: MergeCommitDefaults
@@ -1639,9 +1639,11 @@ export type MergeMethod = 'merge' | 'squash' | 'rebase' | 'rebase_merge' | 'fast
 export interface MergeCommitDefaults {
   /** The pull request title, the commit's own title when there's just one, or the classic `Merge pull request #1 from acme/fix`. */
   title?: 'pull_request_title' | 'commit_or_pull_request_title' | 'merge_message'
+  /** The forge's own value, which stays set when `title` is a value this library doesn't know. */
   titleRaw?: string
   /** The pull request body or title, its commit messages, or nothing at all. */
   message?: 'pull_request_body' | 'pull_request_title' | 'commit_messages' | 'blank'
+  /** The forge's own value, which stays set when `message` is a value this library doesn't know. */
   messageRaw?: string
   /** A template for the whole message, with placeholders such as GitLab's `%{title}`. Absent while the forge sticks to its built-in one. */
   template?: string
