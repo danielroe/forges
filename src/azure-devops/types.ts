@@ -18,6 +18,7 @@ export interface AzureReviewer extends AzureIdentity {
 export interface AzureProjectRef {
   id: string
   name: string
+  visibility?: 'private' | 'public'
 }
 
 export interface AzureRepository {

@@ -35,7 +35,8 @@ export function toRepo(instance: string, organization: string, raw: AzureReposit
   return {
     ref: toRepoRef(instance, organization, raw),
     defaultBranch: raw.defaultBranch?.replace(/^refs\/heads\//, ''),
-    visibility: 'private',
+    visibility: raw.project.visibility === 'public' ? 'public' : 'private',
+    visibilityRaw: raw.project.visibility,
     isFork: raw.isFork ?? false,
     isArchived: raw.isDisabled ?? false,
     parent: raw.parentRepository?.project ? toRepoRef(instance, organization, { ...raw.parentRepository, project: raw.parentRepository.project }) : undefined,
