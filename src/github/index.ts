@@ -809,7 +809,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
   async function getComment(ref: CommentRef, options?: BaseOptions): Promise<Comment> {
     if (ref.thread.kind === 'discussion') {
       const data = await graphql<{ node: GraphQLComment | null }>('GET_DISCUSSION_COMMENT', { id: ref.id }, options)
-      if (!data.node) {
+      if (!data.node?.id) {
         throw new NotFoundError(`Comment ${ref.id} not found`, 404, '', context)
       }
       return (await import('./graphql.ts')).toDiscussionComment(ref.thread, data.node)
