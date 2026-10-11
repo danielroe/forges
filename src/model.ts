@@ -1596,6 +1596,25 @@ export function repoSlug(repo: RepoRef): string {
   return repo.kind === 'namespace' ? repo.owner : `${repo.owner}/${repo.name}`
 }
 
+/**
+ * The ref of a repository on `origin` from the `owner/name` that people type. The name is what follows the last
+ * slash, so a GitLab subgroup stays in `owner`.
+ * @param origin The forge and instance, such as a provider.
+ * @param slug The repository, such as `acme/widgets` or `acme/platform/widgets`.
+ * @throws {TypeError} When `slug` has no owner or no name.
+ * @example
+ * ```ts
+ * const repo = repoRef(provider, 'acme/widgets')
+ * ```
+ */
+export function repoRef(origin: ForgeOrigin, slug: string): RepoRef {
+  const last = slug.lastIndexOf('/')
+  if (last <= 0 || last === slug.length - 1) {
+    throw new TypeError(`Repository ${JSON.stringify(slug)} is not in the form owner/name`)
+  }
+  return { forge: origin.forge, instance: origin.instance, owner: slug.slice(0, last), name: slug.slice(last + 1) }
+}
+
 /** A thread ref whose number is known, and which can therefore be keyed and fetched. */
 export type ResolvedThreadRef = ThreadRef & { number: string }
 

@@ -5,7 +5,7 @@ import { forgejo } from '../../src/forgejo/index.ts'
 import { github } from '../../src/github/index.ts'
 import * as root from '../../src/index.ts'
 import * as kit from '../../src/kit.ts'
-import { commentMarker, notificationKey, repoKey, threadKey } from '../../src/model.ts'
+import { commentMarker, notificationKey, repoKey, repoRef, threadKey } from '../../src/model.ts'
 import { createForges } from '../../src/provider.ts'
 import { summariseChecks } from '../../src/utils.ts'
 import { sameRepo } from '../../src/web.ts'
@@ -59,6 +59,16 @@ describe('identity keys', () => {
   it('namespaces notification keys away from thread keys', () => {
     const ref: NotificationRef = { forge: 'github', instance: 'github.com', id: '42' }
     expect(notificationKey(ref)).toBe('github:github.com:notification/42')
+  })
+
+  it('builds a repo ref from a provider and the slug people type', () => {
+    const provider = github({ baseUrl: 'https://ghe.example.com/api/v3' }).create()
+
+    expect(repoRef(provider, 'acme/widgets')).toEqual({ forge: 'github', instance: 'ghe.example.com', owner: 'acme', name: 'widgets' })
+    expect(repoRef({ forge: 'gitlab', instance: 'gitlab.com' }, 'acme/platform/widgets')).toEqual({ forge: 'gitlab', instance: 'gitlab.com', owner: 'acme/platform', name: 'widgets' })
+    for (const slug of ['widgets', '/widgets', 'acme/']) {
+      expect(() => repoRef(provider, slug)).toThrow(TypeError)
+    }
   })
 })
 
