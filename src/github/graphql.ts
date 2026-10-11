@@ -44,6 +44,10 @@ export const DELETE_DISCUSSION_COMMENT = `mutation DeleteDiscussionComment($id: 
   deleteDiscussionComment(input: { id: $id }) { comment { id } }
 }`
 
+export const GET_DISCUSSION_COMMENT = `query GetDiscussionComment($id: ID!) {
+  node(id: $id) { ...on DiscussionComment { ${COMMENT_FIELDS} } }
+}`
+
 export const SUBSCRIPTION_STATE = `query SubscriptionState($owner: String!, $name: String!, $number: Int!, $discussion: Boolean!) {
   repository(owner: $owner, name: $name) {
     issueOrPullRequest(number: $number) @skip(if: $discussion) {

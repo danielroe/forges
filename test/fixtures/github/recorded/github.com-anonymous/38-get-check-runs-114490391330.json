@@ -1,0 +1,96 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.github.com/repos/h3js/h3/check-runs/114490391330"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"d8ae7eb6abb44c32890cfb2ddd56db0d1bf12687e594c52e29071dc6fa73230b\"",
+      "x-ratelimit-limit": "60",
+      "x-ratelimit-remaining": "22",
+      "x-ratelimit-reset": "1791733890"
+    },
+    "body": {
+      "id": 114490391330,
+      "name": "Socket Security: Pull Request Alerts",
+      "node_id": "CR_kwDOErHI988AAAAaqCi7Ig",
+      "head_sha": "73f9f488e57746e57de8919ea0358cbe6e5da1a9",
+      "external_id": "184949378",
+      "url": "https://api.github.com/repos/h3js/h3/check-runs/114490391330",
+      "html_url": "https://github.com/h3js/h3/runs/114490391330",
+      "details_url": "https://socket.dev",
+      "status": "completed",
+      "conclusion": "success",
+      "started_at": "2026-10-11T14:13:57Z",
+      "completed_at": "2026-10-11T14:13:59Z",
+      "output": {
+        "title": "Pull Request #1585 Alerts: Skipped",
+        "summary": "|Report|Status|Message|\n|---|---|---|\n|PR #1585 Alerts|✅|Pull request contains no net changes to dependencies|\n\nPull request alerts notify when new issues are detected between the diff of the pull request and it's target branch.",
+        "text": "**No dependency changes detected.** Learn more about [Socket for GitHub](https://socket.dev?utm_medium=gh).\n\n👍 No dependency changes detected in pull request",
+        "annotations_count": 0,
+        "annotations_url": "https://api.github.com/repos/h3js/h3/check-runs/114490391330/annotations"
+      },
+      "check_suite": {
+        "id": 103351164622
+      },
+      "app": {
+        "id": 156372,
+        "client_id": "Iv1.0dc8bfb0ebf2ec17",
+        "slug": "socket-security",
+        "node_id": "A_kwHOBCHXrM4AAmLU",
+        "owner": {
+          "login": "SocketDev",
+          "id": 69326764,
+          "node_id": "REDACTED",
+          "avatar_url": "https://avatars.githubusercontent.com/u/69326764?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/SocketDev",
+          "html_url": "https://github.com/SocketDev",
+          "followers_url": "https://api.github.com/users/SocketDev/followers",
+          "following_url": "https://api.github.com/users/SocketDev/following{/other_user}",
+          "gists_url": "https://api.github.com/users/SocketDev/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/SocketDev/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/SocketDev/subscriptions",
+          "organizations_url": "https://api.github.com/users/SocketDev/orgs",
+          "repos_url": "https://api.github.com/users/SocketDev/repos",
+          "events_url": "https://api.github.com/users/SocketDev/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/SocketDev/received_events",
+          "type": "Organization",
+          "user_view_type": "public",
+          "site_admin": false
+        },
+        "name": "Socket Security",
+        "description": "### Socket protects your app from malicious dependencies lurking in your open source supply chain.\r\n\r\nOpen source code makes up 90% of most codebases. It is critical to manage it effectively to reduce your security risk.\r\n\r\n## Detect and block open source supply chain attacks\r\n\r\nSecurity teams depend on Socket to prevent malicious open source dependencies from infiltrating their apps.\r\n\r\nSocket dramatically improves your open source security posture by _detecting and blocking the attacks you don't expect_ – malware, install scripts, hidden code, typo-squatting, and more – which aren't caught by traditional vulnerability scanners.\r\n\r\n- **Block malware** – Block emerging malware threats\r\n\r\n- **Block typo-squatting** – Block malicious packages that differ in name by only a few characters, and recommend the correct package\r\n\r\n- **Detect hidden code** – Detect obfuscated, minified, or hidden code\r\n\r\n- **Detect privileged API usage** – Report when a dependency update introduces new risky API usage – filesystem, network, child_process, eval()\r\n\r\n- **Detect suspicious updates** – Sudden inclusion of privileged APIs in patch or minor releases\r\n\r\nSocket currently [supports 80+ detections](https://socket.dev/alerts) in 5 categories: supply chain risk, quality, maintenance, known vulnerabilities, and license problems.\r\n\r\n## Take charge of your dependency health\r\n\r\nSocket improves security outcomes and reduces work for security teams by **surfacing actionable security information directly inline in GitHub** so developers are empowered to make better decisions.\r\n\r\n- **Five minute deployment** – The easiest security product you'll ever deploy in your organization. Just install a GitHub app and you're done.\r\n\r\n- **Provide security feedback directly on PRs** – Empower developers to solve security issues before they're deployed into production.\r\n\r\n- **Automated security** – Spend security team resources auditing the highest-impact dependencies, instead of all or nothing.\r\n\r\n## Socket detects what vulnerability scanners can’t\r\n\r\nIt's no longer sufficient to scan for known vulnerabilities (CVEs) and stop there. And yet, that's what the leading \"supply chain security\" products do, leaving you vulnerable.\r\n\r\nIt can take weeks or months for a CVE to be discovered, reported, and detected by tools. But in today's culture of fast development, a malicious dependency can be updated, merged, and running in production in days or even sometimes hours.\r\n\r\nDefenders need a new approach to address emerging threats from malicious dependencies:\r\n\r\n- **Maintainer intentionally added malware** – Rogue maintainer sabotaged his own open source package with 100M downloads/month, affecting companies such as Amazon AWS\r\n\r\n- **Package hijacked and poisoned w/ cryptominers and password-stealing malware** – Deliberate malware introduced into multiple packages with 30M downloads/month each\r\n\r\n- **Package hijacked to add backdoor targeting a specific organization** – Obfuscated malware added to a dependency which targeted a single company, went undetected for over a week, and made it into their production build\r\n\r\n- **NPM package manager allowed anyone to publish new versions of any package** – Attackers could publish new versions of any NPM package without authorization _for multiple years_\r\n\r\nUsing third-party dependencies without proper vetting leaves you open to hacking, breaches, and assorted security misfortune.",
+        "external_url": "https://socket.dev",
+        "html_url": "https://github.com/apps/socket-security",
+        "created_at": "2021-12-04T00:33:05Z",
+        "updated_at": "2026-07-02T15:17:38Z",
+        "permissions": {
+          "checks": "write",
+          "contents": "write",
+          "emails": "redacted@example.invalid",
+          "issues": "read",
+          "members": "read",
+          "merge_queues": "read",
+          "metadata": "read",
+          "pull_requests": "write"
+        },
+        "events": [
+          "check_run",
+          "check_suite",
+          "issue_comment",
+          "member",
+          "merge_group",
+          "merge_queue_entry",
+          "organization",
+          "public",
+          "pull_request",
+          "push",
+          "repository"
+        ]
+      },
+      "pull_requests": []
+    }
+  }
+}

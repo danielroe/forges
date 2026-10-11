@@ -491,7 +491,7 @@ async function recordReads(): Promise<void> {
   const context: StepContext = {}
   for (const item of STEPS) {
     const thread = item.kind === 'issue' ? recorded.issue : item.kind === 'discussion' ? recorded.discussion : item.kind === 'pull_request' ? recorded.pull : true
-    if (!thread || !provider.can(item.verb, item.kind)) {
+    if (!thread || !provider.can(item.verb, item.kind) || item.when?.(provider, recorded) === false) {
       continue
     }
     if (await step(item.name, () => item.run(provider, recorded, context))) {

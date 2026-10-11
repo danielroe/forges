@@ -6,25 +6,196 @@
     "variables": {
       "o0": "h3js",
       "n0": "h3",
-      "k0": 1583,
+      "k0": 1585,
       "o1": "h3js",
       "n1": "h3",
-      "k1": 1582,
+      "k1": 1583,
       "o2": "h3js",
       "n2": "h3",
-      "k2": 1581
+      "k2": 1582
     }
   },
   "response": {
     "status": 200,
     "headers": {
       "x-ratelimit-limit": "5000",
-      "x-ratelimit-remaining": "4999",
-      "x-ratelimit-reset": "1791728732"
+      "x-ratelimit-remaining": "4985",
+      "x-ratelimit-reset": "1791733510"
     },
     "body": {
       "data": {
         "t0": {
+          "issueOrPullRequest": {
+            "__typename": "PullRequest",
+            "id": "PR_kwDOErHI988AAAABH0aNdg",
+            "number": 1585,
+            "title": "fix(static): normalize indexNames joining to prevent double slash at root",
+            "body": "Resolves #1584\n\n### Description\n\nIn `src/utils/static.ts`, `idSearchPaths` currently builds candidate asset IDs with `${id}${suffix}`.\n\nBecause `originalId` for root `GET /` is `\"/\"`:\n- Default `indexNames: [\"/index.html\"]`: Requesting root `GET /` produces candidate ID `\"//index.html\"` (an invalid double-slash path that fails lookups against canonical asset maps or storage systems).\n- Relative `indexNames: [\"index.html\"]`: Requesting a subfolder like `GET /docs` produces `\"/docsindex.html\"` (missing the path separator).\n\nThis patch normalizes the join boundary in `idSearchPaths` so that:\n- Any leading slashes on index names are stripped before joining.\n- If `id` is `\"/\"`, the root index becomes `\"/index.html\"`.\n- If `id` is a subpath like `\"/docs\"`, the directory index becomes `\"/docs/index.html\"`.\n\n### Checklist\n- [x] Code passes `pnpm lint`\n- [x] Code passes `pnpm test`\n- [x] Automated tests added covering root `/`, subpaths, and both leading/non-leading slash `indexNames`\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n\n## Summary by CodeRabbit\n\n* **Bug Fixes**\n  * Fixed static index-file resolution for the site root and subdirectories. Index files are now found whether their configured names include a leading slash or not, and subdirectory requests resolve correctly with or without a trailing slash.\n\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
+            "state": "OPEN",
+            "isDraft": false,
+            "createdAt": "2026-10-11T14:13:38Z",
+            "updatedAt": "2026-10-11T14:15:02Z",
+            "closedAt": null,
+            "mergedAt": null,
+            "url": "https://github.com/h3js/h3/pull/1585",
+            "locked": false,
+            "author": {
+              "__typename": "User",
+              "login": "TalhaHunter101",
+              "avatarUrl": "https://avatars.githubusercontent.com/u/51529912?u=7c266ae6e8c832b5ccd3516d8f71264107f3056c&v=4",
+              "url": "https://github.com/TalhaHunter101",
+              "databaseId": 51529912,
+              "name": "Talha Shafeeq"
+            },
+            "assignees": {
+              "nodes": []
+            },
+            "labels": {
+              "nodes": []
+            },
+            "comments": {
+              "totalCount": 1
+            },
+            "participants": {
+              "nodes": [
+                {
+                  "__typename": "User",
+                  "login": "TalhaHunter101",
+                  "avatarUrl": "https://avatars.githubusercontent.com/u/51529912?u=7c266ae6e8c832b5ccd3516d8f71264107f3056c&v=4",
+                  "url": "https://github.com/TalhaHunter101",
+                  "databaseId": 51529912,
+                  "name": "Talha Shafeeq"
+                }
+              ]
+            },
+            "milestone": null,
+            "viewerSubscription": "UNSUBSCRIBED",
+            "headRefName": "fix/serve-static-index-paths",
+            "headRefOid": "73f9f488e57746e57de8919ea0358cbe6e5da1a9",
+            "baseRefName": "main",
+            "baseRefOid": "66cfb8a357b6285451bad498c2c40002601fae98",
+            "headRepository": {
+              "databaseId": 1414411073,
+              "name": "h3",
+              "owner": {
+                "login": "TalhaHunter101"
+              }
+            },
+            "mergeCommit": null,
+            "additions": 43,
+            "deletions": 1,
+            "changedFiles": 2,
+            "commits": {
+              "totalCount": 1,
+              "nodes": [
+                {
+                  "commit": {
+                    "statusCheckRollup": {
+                      "state": "SUCCESS",
+                      "contexts": {
+                        "totalCount": 3,
+                        "checkRunCountsByState": [
+                          {
+                            "state": "ACTION_REQUIRED",
+                            "count": 0
+                          },
+                          {
+                            "state": "CANCELLED",
+                            "count": 0
+                          },
+                          {
+                            "state": "COMPLETED",
+                            "count": 0
+                          },
+                          {
+                            "state": "FAILURE",
+                            "count": 0
+                          },
+                          {
+                            "state": "IN_PROGRESS",
+                            "count": 0
+                          },
+                          {
+                            "state": "NEUTRAL",
+                            "count": 0
+                          },
+                          {
+                            "state": "PENDING",
+                            "count": 0
+                          },
+                          {
+                            "state": "QUEUED",
+                            "count": 0
+                          },
+                          {
+                            "state": "SKIPPED",
+                            "count": 0
+                          },
+                          {
+                            "state": "STALE",
+                            "count": 0
+                          },
+                          {
+                            "state": "STARTUP_FAILURE",
+                            "count": 0
+                          },
+                          {
+                            "state": "SUCCESS",
+                            "count": 2
+                          },
+                          {
+                            "state": "TIMED_OUT",
+                            "count": 0
+                          },
+                          {
+                            "state": "WAITING",
+                            "count": 0
+                          }
+                        ],
+                        "statusContextCountsByState": [
+                          {
+                            "state": "EXPECTED",
+                            "count": 0
+                          },
+                          {
+                            "state": "ERROR",
+                            "count": 0
+                          },
+                          {
+                            "state": "FAILURE",
+                            "count": 0
+                          },
+                          {
+                            "state": "PENDING",
+                            "count": 0
+                          },
+                          {
+                            "state": "SUCCESS",
+                            "count": 1
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              ]
+            },
+            "reviewRequests": {
+              "nodes": [
+                {
+                  "requestedReviewer": {
+                    "__typename": "User",
+                    "login": "pi0",
+                    "databaseId": 5158436,
+                    "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?u=3609b2822870b982f2b93c432569ee017e970148&v=4",
+                    "url": "https://github.com/pi0"
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "t1": {
           "issueOrPullRequest": {
             "__typename": "PullRequest",
             "id": "PR_kwDOErHI988AAAABHzAV3Q",
@@ -195,7 +366,7 @@
             }
           }
         },
-        "t1": {
+        "t2": {
           "issueOrPullRequest": {
             "__typename": "PullRequest",
             "id": "PR_kwDOErHI988AAAABHvKNzg",
@@ -255,177 +426,6 @@
             "mergeCommit": null,
             "additions": 15,
             "deletions": 2,
-            "changedFiles": 2,
-            "commits": {
-              "totalCount": 1,
-              "nodes": [
-                {
-                  "commit": {
-                    "statusCheckRollup": {
-                      "state": "SUCCESS",
-                      "contexts": {
-                        "totalCount": 3,
-                        "checkRunCountsByState": [
-                          {
-                            "state": "ACTION_REQUIRED",
-                            "count": 0
-                          },
-                          {
-                            "state": "CANCELLED",
-                            "count": 0
-                          },
-                          {
-                            "state": "COMPLETED",
-                            "count": 0
-                          },
-                          {
-                            "state": "FAILURE",
-                            "count": 0
-                          },
-                          {
-                            "state": "IN_PROGRESS",
-                            "count": 0
-                          },
-                          {
-                            "state": "NEUTRAL",
-                            "count": 0
-                          },
-                          {
-                            "state": "PENDING",
-                            "count": 0
-                          },
-                          {
-                            "state": "QUEUED",
-                            "count": 0
-                          },
-                          {
-                            "state": "SKIPPED",
-                            "count": 0
-                          },
-                          {
-                            "state": "STALE",
-                            "count": 0
-                          },
-                          {
-                            "state": "STARTUP_FAILURE",
-                            "count": 0
-                          },
-                          {
-                            "state": "SUCCESS",
-                            "count": 2
-                          },
-                          {
-                            "state": "TIMED_OUT",
-                            "count": 0
-                          },
-                          {
-                            "state": "WAITING",
-                            "count": 0
-                          }
-                        ],
-                        "statusContextCountsByState": [
-                          {
-                            "state": "EXPECTED",
-                            "count": 0
-                          },
-                          {
-                            "state": "ERROR",
-                            "count": 0
-                          },
-                          {
-                            "state": "FAILURE",
-                            "count": 0
-                          },
-                          {
-                            "state": "PENDING",
-                            "count": 0
-                          },
-                          {
-                            "state": "SUCCESS",
-                            "count": 1
-                          }
-                        ]
-                      }
-                    }
-                  }
-                }
-              ]
-            },
-            "reviewRequests": {
-              "nodes": [
-                {
-                  "requestedReviewer": {
-                    "__typename": "User",
-                    "login": "pi0",
-                    "databaseId": 5158436,
-                    "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?u=3609b2822870b982f2b93c432569ee017e970148&v=4",
-                    "url": "https://github.com/pi0"
-                  }
-                }
-              ]
-            }
-          }
-        },
-        "t2": {
-          "issueOrPullRequest": {
-            "__typename": "PullRequest",
-            "id": "PR_kwDOErHI988AAAABHvIO6w",
-            "number": 1581,
-            "title": "fix(mime): serve .wasm as application/wasm",
-            "body": "`.wasm` isn't in `COMMON_MIME_TYPES`, so `serveStatic` sends it as `text/plain; charset=UTF-8` on node and with no content-type on web. `WebAssembly.instantiateStreaming()` requires `application/wasm` and rejects the response otherwise.\n\n`instantiateStreaming(await app.request(\"/module.wasm\"))` on node 22:\n\n```\nmain: TypeError: WebAssembly response has unsupported MIME type 'null'\nthis: ok\n```\n\nadded it to the table, with a test that fails on main for web and node.\n\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n\n## Summary by CodeRabbit\n\n* **Bug Fixes**\n  * `.wasm` files are now served with the `application/wasm` content type.\n\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
-            "state": "OPEN",
-            "isDraft": false,
-            "createdAt": "2026-10-10T20:16:09Z",
-            "updatedAt": "2026-10-10T20:22:59Z",
-            "closedAt": null,
-            "mergedAt": null,
-            "url": "https://github.com/h3js/h3/pull/1581",
-            "locked": false,
-            "author": {
-              "__typename": "User",
-              "login": "harshit-d3v",
-              "avatarUrl": "https://avatars.githubusercontent.com/u/106448130?u=d2482b6352c4e136f3cb863718857fda6dc6575b&v=4",
-              "url": "https://github.com/harshit-d3v",
-              "databaseId": 106448130,
-              "name": "Harshit Prakash"
-            },
-            "assignees": {
-              "nodes": []
-            },
-            "labels": {
-              "nodes": []
-            },
-            "comments": {
-              "totalCount": 1
-            },
-            "participants": {
-              "nodes": [
-                {
-                  "__typename": "User",
-                  "login": "harshit-d3v",
-                  "avatarUrl": "https://avatars.githubusercontent.com/u/106448130?u=d2482b6352c4e136f3cb863718857fda6dc6575b&v=4",
-                  "url": "https://github.com/harshit-d3v",
-                  "databaseId": 106448130,
-                  "name": "Harshit Prakash"
-                }
-              ]
-            },
-            "milestone": null,
-            "viewerSubscription": "UNSUBSCRIBED",
-            "headRefName": "fix/mime-wasm",
-            "headRefOid": "7e183e675d9918bcccf2f7c4249db0baf23dd61e",
-            "baseRefName": "main",
-            "baseRefOid": "66cfb8a357b6285451bad498c2c40002601fae98",
-            "headRepository": {
-              "databaseId": 1413617363,
-              "name": "h3",
-              "owner": {
-                "login": "harshit-d3v"
-              }
-            },
-            "mergeCommit": null,
-            "additions": 8,
-            "deletions": 0,
             "changedFiles": 2,
             "commits": {
               "totalCount": 1,

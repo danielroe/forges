@@ -148,6 +148,7 @@ export interface GitLabJob {
   web_url?: string
   started_at?: string | null
   finished_at?: string | null
+  pipeline?: { id: number }
 }
 
 export interface GitLabRelease {

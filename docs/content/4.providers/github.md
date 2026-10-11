@@ -161,6 +161,7 @@ Deliveries of the `installation` and `installation_repositories` events become `
 | `threads.getMany` | ✅ | ✅ |
 | `threads.events` | issue, PR, discussion, commit | issue, PR, commit |
 | `comments.list` | issue, PR, discussion, commit | issue, PR, commit |
+| `comments.get` | issue, PR, discussion, commit | issue (unverified), PR, commit (unverified) |
 | `comments.edit` | issue, PR, discussion, commit | ❌ |
 | `comments.delete` | issue, PR, discussion, commit | ❌ |
 | `reactions.list` | issue, PR, discussion | issue, PR |
@@ -193,11 +194,13 @@ Deliveries of the `installation` and `installation_repositories` events become `
 | `installations` | ✅ | ❌ |
 | `checks.thread` | PR | PR |
 | `checks.list` | ✅ | ✅ |
+| `checks.get` | ✅ | ✅ |
 | `checks.report` | ✅ | ❌ |
 | `checks.rerun` | ✅ | ❌ |
 | `ci.runs` | ✅ | ✅ |
 | `ci.run` | ✅ | ✅ |
 | `ci.jobs` | ✅ | ✅ |
+| `ci.job` | ✅ | ✅ |
 | `ci.log` | ✅ | ❌ |
 | `contents.file` | ✅ | ✅ |
 | `contents.tree` | ✅ | ✅ |
@@ -210,6 +213,7 @@ Deliveries of the `installation` and `installation_repositories` events become `
 | `contents.threadFiles` | ✅ | ✅ |
 | `contents.threadCommits` | ✅ | ✅ |
 | `reviews.list` | ✅ | ✅ |
+| `reviews.get` | ✅ | unverified |
 | `reviews.create` | ✅ | ❌ |
 | `reviews.submit` | ✅ | ❌ |
 | `reviews.approve` | ✅ | ❌ |

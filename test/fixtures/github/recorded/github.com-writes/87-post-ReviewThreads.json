@@ -1,0 +1,52 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://api.github.com/graphql",
+    "operationName": "ReviewThreads",
+    "variables": {
+      "owner": "forges-fixtures",
+      "name": "forges-fixtures",
+      "number": 77
+    },
+    "body": {
+      "query": "query ReviewThreads($owner: String!, $name: String!, $number: Int!) {\n  repository(owner: $owner, name: $name) {\n    pullRequest(number: $number) {\n      reviewThreads(first: 100) {\n        nodes { id isResolved comments(first: 100) { nodes { databaseId } } }\n      }\n    }\n  }\n}",
+      "variables": {
+        "owner": "forges-fixtures",
+        "name": "forges-fixtures",
+        "number": 77
+      },
+      "operationName": "ReviewThreads"
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "x-ratelimit-limit": "5000",
+      "x-ratelimit-remaining": "4972",
+      "x-ratelimit-reset": "1791733985"
+    },
+    "body": {
+      "data": {
+        "repository": {
+          "pullRequest": {
+            "reviewThreads": {
+              "nodes": [
+                {
+                  "id": "PRRT_kwDOVCTdtM6rOlTe",
+                  "isResolved": false,
+                  "comments": {
+                    "nodes": [
+                      {
+                        "databaseId": 4242009242
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

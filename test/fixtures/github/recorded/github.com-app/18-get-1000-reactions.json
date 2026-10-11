@@ -1,0 +1,16 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.github.com/repos/h3js/h3/issues/1000/reactions?per_page=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "\"a9bef9641a58a69f252857c96e032b35b9830031dd6ab6aa27988c227447f67c\"",
+      "x-ratelimit-limit": "5000",
+      "x-ratelimit-remaining": "4980",
+      "x-ratelimit-reset": "1791733505"
+    },
+    "body": []
+  }
+}

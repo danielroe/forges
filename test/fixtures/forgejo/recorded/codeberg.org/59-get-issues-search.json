@@ -1,0 +1,225 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://codeberg.org/api/v1/repos/issues/search?q=fix&state=all&owner=forgejo&limit=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "<https://codeberg.org/api/v1/repos/issues/search?limit=3&owner=forgejo&page=2&q=fix&state=all>; rel=\"next\",<https://codeberg.org/api/v1/repos/issues/search?limit=3&owner=forgejo&page=2159&q=fix&state=all>; rel=\"last\"",
+      "x-total-count": "6476"
+    },
+    "body": [
+      {
+        "id": 7666911,
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/pulls/14808",
+        "html_url": "https://codeberg.org/forgejo/forgejo/pulls/14808",
+        "number": 14808,
+        "user": {
+          "id": 165271,
+          "login": "forgejo-backport-action",
+          "source_id": 0,
+          "full_name": "",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://codeberg.org/avatars/e81deed440bbd430374b346c305a3d791ccc11dcfb89269840bbdcaa13887e88",
+          "html_url": "https://codeberg.org/forgejo-backport-action",
+          "active": false,
+          "location": "",
+          "pronouns": "",
+          "website": "",
+          "description": "",
+          "followers_count": 1,
+          "following_count": 0,
+          "starred_repos_count": 0,
+          "username": "forgejo-backport-action"
+        },
+        "original_author": "",
+        "original_author_id": 0,
+        "title": "[v17.0/forgejo] fix: avoid loading unnecessary data during tag creation",
+        "body": "**Backport:** https://codeberg.org/forgejo/forgejo/pulls/14785\r\n\r\nI noticed that creating a tag via the web UI of codeberg.org was quite\nslow (28-30s).\n\nTracing showed a interesting SQL query:\n\n```sql\nSELECT * FROM `attachment` WHERE `release_id` IN (0) ORDER BY `release_id` ASC, `name` ASC\n```\n\nJust before tracing showed that Forgejo was doing a lot of\napplication (non git/DB) code.\n\n---\n\n- `release_service.CreateNewTag` is called from the web router to handle\ncreating a new tag, this function prepares a release struct with all the\nnecessary information (every tag is stored as a release in the\ndatabase).\n- `createTag` is then called which as first thing calls\n`LoadAttributes`.\n- `LoadAttributes` assumes the given release was loaded from the\ndatabase and thus assumes the ID is non-zero. Loading 148026 attachments\ninto this release.\n\n\n### Compliance\n\n- [x] I confirm that I make this contribution in accordance with [Forgejo's AI Agreement](https://codeberg.org/forgejo/governance/src/commit/9084720dc6a7fbf1d3f358919d46bd6adfb55287/AIAgreement.md).",
+        "ref": "",
+        "assets": [],
+        "labels": [
+          {
+            "id": 201023,
+            "name": "bug/confirmed",
+            "exclusive": true,
+            "is_archived": false,
+            "color": "e11d21",
+            "description": "it can be reproduced",
+            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/201023"
+          },
+          {
+            "id": 82969,
+            "name": "forgejo/scaling",
+            "exclusive": false,
+            "is_archived": false,
+            "color": "eb6420",
+            "description": "Performance and scaling",
+            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/82969"
+          },
+          {
+            "id": 201030,
+            "name": "test/present",
+            "exclusive": true,
+            "is_archived": false,
+            "color": "5319e7",
+            "description": "test has been added",
+            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/201030"
+          }
+        ],
+        "milestone": null,
+        "assignee": null,
+        "assignees": null,
+        "state": "open",
+        "is_locked": false,
+        "comments": 1,
+        "created_at": "2026-10-11T15:37:49+02:00",
+        "updated_at": "2026-10-11T16:46:09+02:00",
+        "closed_at": null,
+        "due_date": null,
+        "pull_request": {
+          "merged": false,
+          "merged_at": null,
+          "draft": false,
+          "html_url": "https://codeberg.org/forgejo/forgejo/pulls/14808"
+        },
+        "repository": {
+          "id": 73144,
+          "name": "forgejo",
+          "owner": "forgejo",
+          "full_name": "forgejo/forgejo"
+        },
+        "pin_order": 0
+      },
+      {
+        "id": 7665156,
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/pulls/14806",
+        "html_url": "https://codeberg.org/forgejo/forgejo/pulls/14806",
+        "number": 14806,
+        "user": {
+          "id": 1405727,
+          "login": "nanobee",
+          "source_id": 0,
+          "full_name": "",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://codeberg.org/avatars/2fe7b47925e18f9546b1a898e399ae2203b6cc28e4a18ce4cd4f6ae521828bd0",
+          "html_url": "https://codeberg.org/nanobee",
+          "active": false,
+          "location": "",
+          "pronouns": "she/her",
+          "website": "",
+          "description": "",
+          "followers_count": 0,
+          "following_count": 0,
+          "starred_repos_count": 1,
+          "username": "nanobee"
+        },
+        "original_author": "",
+        "original_author_id": 0,
+        "title": "test: Use testify in more tests",
+        "body": "Use `testify` in more tests.\r\n\r\n### Compliance\r\n\r\n- [x] I confirm that I make this contribution in accordance with [Forgejo's AI Agreement](https://codeberg.org/forgejo/governance/src/commit/9084720dc6a7fbf1d3f358919d46bd6adfb55287/AIAgreement.md).\r\n\r\n### Tests for Go changes\r\n\r\n- [x] I ran `make pr-go` before pushing\r\n\r\n### Documentation\r\n\r\n- [ ] I created a pull request [to the documentation](https://codeberg.org/forgejo/docs) to explain to Forgejo users how to use this change.\r\n- [x] I did not document these changes and I do not expect someone else to do it.\r\n\r\n### Release notes\r\n\r\n- [ ] This change will be noticed by a Forgejo user or admin (feature, bug fix, performance, etc.). I suggest to include a release note for this change.\r\n- [x] This change is not visible to a Forgejo user or admin (refactor, dependency upgrade, etc.). I think there is no need to add a release note for this change.",
+        "ref": "",
+        "assets": [],
+        "labels": [
+          {
+            "id": 201029,
+            "name": "test/not-needed",
+            "exclusive": true,
+            "is_archived": false,
+            "color": "5319e7",
+            "description": "no additional test is needed",
+            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/201029"
+          }
+        ],
+        "milestone": null,
+        "assignee": null,
+        "assignees": null,
+        "state": "open",
+        "is_locked": false,
+        "comments": 1,
+        "created_at": "2026-10-11T11:20:35+02:00",
+        "updated_at": "2026-10-11T15:38:13+02:00",
+        "closed_at": null,
+        "due_date": null,
+        "pull_request": {
+          "merged": false,
+          "merged_at": null,
+          "draft": false,
+          "html_url": "https://codeberg.org/forgejo/forgejo/pulls/14806"
+        },
+        "repository": {
+          "id": 73144,
+          "name": "forgejo",
+          "owner": "forgejo",
+          "full_name": "forgejo/forgejo"
+        },
+        "pin_order": 0
+      },
+      {
+        "id": 7664676,
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/pulls/14805",
+        "html_url": "https://codeberg.org/forgejo/forgejo/pulls/14805",
+        "number": 14805,
+        "user": {
+          "id": 381495,
+          "login": "slink",
+          "source_id": 0,
+          "full_name": "Nils Goroll",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://codeberg.org/avatars/b5d63dc33281a8f89f64eed46eee13a2777e9d8944872537ba94ed13495e4c6b",
+          "html_url": "https://codeberg.org/slink",
+          "active": false,
+          "location": "Germany",
+          "pronouns": "he/him",
+          "website": "https://uplex.de",
+          "description": "Vinyl Cache (ex Varnish Cache) co-maintainer\r\nCurrently working towards moving our repos to Forgejo on https://code.vinyl-cache.org/",
+          "followers_count": 1,
+          "following_count": 0,
+          "starred_repos_count": 1,
+          "username": "slink"
+        },
+        "original_author": "",
+        "original_author_id": 0,
+        "title": "testing: Exercise config file path test in temporary directory",
+        "body": "The `CustomConf` test case ran in whatever the current working directory was (likely the source tree), leaving behind an ini file if the configuration happened to be modified by the exercised code.\r\n\r\nWe now change the working directory to a temporary directory momentarily. Note that `t.Chdir()` uses the equivalent of `defer` (`Cleanup`).\r\n\r\nNoticed with a change which adds ini modifications, see https://codeberg.org/forgejo/forgejo/pulls/14778#issuecomment-24963225\r\n\r\n\r\n## Checklist\r\n\r\n### Compliance\r\n\r\n- [X] I confirm that I make this contribution in accordance with [Forgejo's AI Agreement](https://codeberg.org/forgejo/governance/src/commit/9084720dc6a7fbf1d3f358919d46bd6adfb55287/AIAgreement.md).\r\n\r\n### Tests for Go changes\r\n\r\n(can be removed for JavaScript changes)\r\n\r\n- I added test coverage for Go changes...\r\n  - [X] in their respective `*_test.go` for unit tests.\r\n  - [ ] in the `tests/integration` directory if it involves interactions with a live Forgejo server.\r\n- I ran...\r\n  - [X] `make pr-go` before pushing\r\n\r\n### Documentation\r\n\r\n- [ ] I created a pull request [to the documentation](https://codeberg.org/forgejo/docs) to explain to Forgejo users how to use this change.\r\n- [X] I did not document these changes and I do not expect someone else to do it.\r\n\r\n### Release notes\r\n\r\n- [ ] This change will be noticed by a Forgejo user or admin (feature, bug fix, performance, etc.). I suggest to include a release note for this change.\r\n- [X] This change is not visible to a Forgejo user or admin (refactor, dependency upgrade, etc.). I think there is no need to add a release note for this change.",
+        "ref": "",
+        "assets": [],
+        "labels": [
+          {
+            "id": 201030,
+            "name": "test/present",
+            "exclusive": true,
+            "is_archived": false,
+            "color": "5319e7",
+            "description": "test has been added",
+            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/201030"
+          }
+        ],
+        "milestone": null,
+        "assignee": null,
+        "assignees": null,
+        "state": "open",
+        "is_locked": false,
+        "comments": 0,
+        "created_at": "2026-10-11T10:03:09+02:00",
+        "updated_at": "2026-10-11T10:03:51+02:00",
+        "closed_at": null,
+        "due_date": null,
+        "pull_request": {
+          "merged": false,
+          "merged_at": null,
+          "draft": false,
+          "html_url": "https://codeberg.org/forgejo/forgejo/pulls/14805"
+        },
+        "repository": {
+          "id": 73144,
+          "name": "forgejo",
+          "owner": "forgejo",
+          "full_name": "forgejo/forgejo"
+        },
+        "pin_order": 0
+      }
+    ]
+  }
+}

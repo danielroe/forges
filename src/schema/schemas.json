@@ -1396,6 +1396,10 @@
             "$ref": "#/components/schemas/PerKind",
             "description": "Support for `threads.comments()` and `threads.commentsPage()`, per thread kind."
           },
+          "get": {
+            "$ref": "#/components/schemas/PerKind",
+            "description": "Support for `threads.getComment()`, per thread kind."
+          },
           "edit": {
             "$ref": "#/components/schemas/PerKind",
             "description": "Support for `threads.editComment()`, per thread kind."
@@ -1407,6 +1411,7 @@
         },
         "required": [
           "list",
+          "get",
           "edit",
           "delete"
         ]
@@ -1588,6 +1593,10 @@
             "$ref": "#/components/schemas/Support",
             "description": "Support for `checks.list()`."
           },
+          "get": {
+            "$ref": "#/components/schemas/Support",
+            "description": "Support for `checks.get()`."
+          },
           "report": {
             "$ref": "#/components/schemas/Support",
             "description": "Support for `checks.report()`."
@@ -1600,6 +1609,7 @@
         "required": [
           "thread",
           "list",
+          "get",
           "report",
           "rerun"
         ],
@@ -1620,6 +1630,10 @@
             "$ref": "#/components/schemas/Support",
             "description": "Support for `ci.jobs()` and `ci.jobsPage()`."
           },
+          "job": {
+            "$ref": "#/components/schemas/Support",
+            "description": "Support for `ci.job()`."
+          },
           "log": {
             "$ref": "#/components/schemas/Support",
             "description": "Support for `ci.log()`."
@@ -1629,6 +1643,7 @@
           "runs",
           "run",
           "jobs",
+          "job",
           "log"
         ],
         "description": "Read-only CI surface. `log` is `false` where job logs are not reachable over the API."
@@ -1639,6 +1654,10 @@
           "list": {
             "$ref": "#/components/schemas/Support",
             "description": "Support for `threads.reviews()` and `threads.reviewsPage()`."
+          },
+          "get": {
+            "$ref": "#/components/schemas/Support",
+            "description": "Support for `threads.getReview()`."
           },
           "create": {
             "$ref": "#/components/schemas/Support",
@@ -1659,6 +1678,7 @@
         },
         "required": [
           "list",
+          "get",
           "create",
           "submit",
           "approve",

@@ -20,7 +20,7 @@
       "ssh": "git@github.com:h3js/h3.git"
     },
     "createdAt": "2020-11-17T14:15:44.000Z",
-    "updatedAt": "2026-10-09T00:25:59.000Z",
+    "updatedAt": "2026-10-10T19:37:23.000Z",
     "pushedAt": "2026-10-07T12:37:26.000Z",
     "owner": {
       "forge": "github",
@@ -35,8 +35,56 @@
     "language": "TypeScript",
     "homepage": "https://h3.dev",
     "licence": "MIT",
-    "stars": 5449,
-    "forks": 369,
+    "stars": 5455,
+    "forks": 374,
+    "watchers": 17,
+    "features": {
+      "issues": true,
+      "pullRequests": true,
+      "discussions": true,
+      "wiki": false,
+      "projects": true,
+      "releases": true
+    }
+  },
+  "repo licence": {
+    "ref": {
+      "forge": "github",
+      "instance": "github.com",
+      "owner": "h3js",
+      "name": "h3",
+      "externalId": "313641207"
+    },
+    "description": "⚡️ Minimal H(TTP) framework built for high performance and portability ",
+    "defaultBranch": "main",
+    "visibility": "public",
+    "visibilityRaw": "public",
+    "isFork": false,
+    "isArchived": false,
+    "topics": [],
+    "url": "https://github.com/h3js/h3",
+    "cloneUrls": {
+      "https": "https://github.com/h3js/h3.git",
+      "ssh": "git@github.com:h3js/h3.git"
+    },
+    "createdAt": "2020-11-17T14:15:44.000Z",
+    "updatedAt": "2026-10-10T19:37:23.000Z",
+    "pushedAt": "2026-10-07T12:37:26.000Z",
+    "owner": {
+      "forge": "github",
+      "instance": "github.com",
+      "login": "h3js",
+      "id": "208435796",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/208435796?v=4",
+      "url": "https://github.com/h3js",
+      "typeRaw": "Organization",
+      "isBotHint": false
+    },
+    "language": "TypeScript",
+    "homepage": "https://h3.dev",
+    "licence": "MIT",
+    "stars": 5455,
+    "forks": 374,
     "watchers": 17,
     "features": {
       "issues": true,
@@ -71,7 +119,7 @@
     },
     "rateLimit": {
       "limit": 60,
-      "remaining": 58,
+      "remaining": 57,
       "resetAt": "<now>"
     }
   },
@@ -79,7 +127,7 @@
     "items": [],
     "rateLimit": {
       "limit": 60,
-      "remaining": 57,
+      "remaining": 56,
       "resetAt": "<now>"
     }
   },
@@ -118,7 +166,7 @@
     ],
     "rateLimit": {
       "limit": 60,
-      "remaining": 56,
+      "remaining": 55,
       "resetAt": "<now>"
     }
   },
@@ -221,22 +269,22 @@
             "name": "h3"
           },
           "kind": "pull_request",
-          "number": "1576",
-          "externalId": "PR_kwDOErHI988AAAABHeLZ7g"
+          "number": "1585",
+          "externalId": "PR_kwDOErHI988AAAABH0aNdg"
         },
         "kind": "pull_request",
-        "title": "fix(tracing): mount nested apps passed to `use()`",
-        "body": "`tracingPlugin` breaks mounting nested apps with `use()`. The plugin's `use()` override wraps its argument with `wrapMiddleware()` before the original `use()` gets to inspect it. `use()` dispatches non-function inputs (an H3 app or any other mountable object) to `mount()` — but after the wrapper, the input is a function, so:\n\n- the nested app is never mounted: its routes silently 404,\n- a middleware that calls the wrapped app as a function is registered instead, so hitting the base path exactly (e.g. `/api`) throws a `TypeError` (500).\n\n`use(route, handler: Middleware | H3, opts?)` is a public documented signature, and the plugin's `mount()` override already propagates tracing to mounted apps — so `app.use(\"/api\", app2)` should behave exactly like `app.mount(\"/api\", app2)`. The existing tracing tests cover `.mount()` and function middlewares but never the mountable `use()` shape, which is how this slipped through.\n\nThe fix passes non-function inputs through to the original `use()` unwrapped, in both call shapes. The `mount()` override then takes over and the nested app is traced like any other mount.\n\nTests: new regression test `mounts a nested app passed to `use()`\"` mounts a nested app with `t.app.use(\"/api\", nestedApp)` on the tracing-enabled matrix app and asserts the route responds 200 with the right body and shows up in the traced route events. It fails on `main` (404) and passes with this change. `test/tracing.test.ts` is 54/54 on both web and node targets; `tsc --noEmit`, `oxlint` and `oxfmt --check` are clean. Full suite: 3 failures (`test/utils.test.ts`, `test/unit/event.test.ts`, `test/unit/route-normalize.test.ts`) — all three also fail on unmodified `main`, unrelated to this change.\n\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n\n## Summary by CodeRabbit\n\n* **Bug Fixes**\n  * Nested H3 apps mounted with `use()` now remain mountable, and tracing events include the mounted route’s full path.\n\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
+        "title": "fix(static): normalize indexNames joining to prevent double slash at root",
+        "body": "Resolves #1584\n\n### Description\n\nIn `src/utils/static.ts`, `idSearchPaths` currently builds candidate asset IDs with `${id}${suffix}`.\n\nBecause `originalId` for root `GET /` is `\"/\"`:\n- Default `indexNames: [\"/index.html\"]`: Requesting root `GET /` produces candidate ID `\"//index.html\"` (an invalid double-slash path that fails lookups against canonical asset maps or storage systems).\n- Relative `indexNames: [\"index.html\"]`: Requesting a subfolder like `GET /docs` produces `\"/docsindex.html\"` (missing the path separator).\n\nThis patch normalizes the join boundary in `idSearchPaths` so that:\n- Any leading slashes on index names are stripped before joining.\n- If `id` is `\"/\"`, the root index becomes `\"/index.html\"`.\n- If `id` is a subpath like `\"/docs\"`, the directory index becomes `\"/docs/index.html\"`.\n\n### Checklist\n- [x] Code passes `pnpm lint`\n- [x] Code passes `pnpm test`\n- [x] Automated tests added covering root `/`, subpaths, and both leading/non-leading slash `indexNames`\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n\n## Summary by CodeRabbit\n\n* **Bug Fixes**\n  * Fixed static index-file resolution for the site root and subdirectories. Index files are now found whether their configured names include a leading slash or not, and subdirectory requests resolve correctly with or without a trailing slash.\n\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
         "state": "open",
         "stateRaw": "open",
         "isDraft": false,
         "author": {
           "forge": "github",
           "instance": "github.com",
-          "login": "Mihir-Rabari",
-          "id": "169349389",
-          "avatarUrl": "https://avatars.githubusercontent.com/u/169349389?v=4",
-          "url": "https://github.com/Mihir-Rabari",
+          "login": "TalhaHunter101",
+          "id": "51529912",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/51529912?v=4",
+          "url": "https://github.com/TalhaHunter101",
           "typeRaw": "User",
           "isBotHint": false
         },
@@ -258,28 +306,28 @@
           }
         ],
         "labels": [],
-        "url": "https://github.com/h3js/h3/pull/1576",
-        "createdAt": "2026-10-09T05:25:13.000Z",
-        "updatedAt": "2026-10-09T05:26:53.000Z",
-        "lastActivityAt": "2026-10-09T05:26:53.000Z",
+        "url": "https://github.com/h3js/h3/pull/1585",
+        "createdAt": "<now>",
+        "updatedAt": "<now>",
+        "lastActivityAt": "<now>",
         "locked": false,
         "branches": {
           "head": {
-            "ref": "fix/tracing-use-mount",
-            "sha": "0a4b48c7a55f6f8432d719c537dfac0791215c9e",
+            "ref": "fix/serve-static-index-paths",
+            "sha": "73f9f488e57746e57de8919ea0358cbe6e5da1a9",
             "repo": {
               "forge": "github",
               "instance": "github.com",
-              "owner": "Mihir-Rabari",
+              "owner": "TalhaHunter101",
               "name": "h3",
-              "externalId": "1411306210"
+              "externalId": "1414411073"
             }
           },
           "base": {
             "ref": "main",
             "sha": "66cfb8a357b6285451bad498c2c40002601fae98"
           },
-          "mergeCommitSha": "0ae2239720d26d8c4caae939ff0b55536a6b8e51"
+          "mergeCommitSha": "94c5cc7cd0c26d7164970d2f7475972ca369b201"
         }
       },
       {
@@ -293,22 +341,22 @@
             "name": "h3"
           },
           "kind": "pull_request",
-          "number": "1575",
-          "externalId": "PR_kwDOErHI988AAAABHJjnRQ"
+          "number": "1583",
+          "externalId": "PR_kwDOErHI988AAAABHzAV3Q"
         },
         "kind": "pull_request",
-        "title": "docs: add h3-prometheus to community section",
-        "body": "## Summary\n- List [`h3-prometheus`](https://github.com/s00d/h3-prometheus) under Community utils (H3 v2 Prometheus metrics plugin)\n\n## Links\n- Repo: https://github.com/s00d/h3-prometheus\n- npm: https://www.npmjs.com/package/h3-prometheus (when published)\n\n\nMade with [Cursor](https://cursor.com)\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n\n## Summary by CodeRabbit\n\n* **Documentation**\n  * Added a community listing for an H3 metrics plugin, highlighting its Prometheus metrics, configurable signals, scrape endpoint, and Grafana dashboard.\n\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
+        "title": "docs: fix file paths in static assets example",
+        "body": "Resolves #1578\n\nThe \"Read files\" example mounts the handler at `/public/**`, but `serveStatic` passes the full request path as `id` (e.g. `/public/index.html`). So `join(\"public\", id)` looks for `public/public/index.html` and every request returns 404. The text also says to open `http://localhost:3000`, which isn't matched by `/public/**`.\n\nChanges:\n- Strip the `/public` prefix from `id` before joining it with the directory.\n- Point readers to `http://localhost:3000/public/`, after the full example.\n\nI checked both versions against h3 2.0.2 with a `public/index.html` file:\n\n| Path | Before | After |\n| --- | --- | --- |\n| `/` | 404 | 404 (outside the mount, expected) |\n| `/public/` | 404 | 200 |\n| `/public/index.html` | 404 | 200 |\n\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n## Summary by CodeRabbit\n\n* **Documentation**\n  * Updated the static assets example to show creating `public/index.html` before opening `/public/` in a browser.\n  * Clarified that `/public` is removed from request paths before they’re used to read files or look up file metadata.\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
         "state": "open",
         "stateRaw": "open",
         "isDraft": false,
         "author": {
           "forge": "github",
           "instance": "github.com",
-          "login": "s00d",
-          "id": "2684895",
-          "avatarUrl": "https://avatars.githubusercontent.com/u/2684895?v=4",
-          "url": "https://github.com/s00d",
+          "login": "aaronanish-t",
+          "id": "217176403",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/217176403?v=4",
+          "url": "https://github.com/aaronanish-t",
           "typeRaw": "User",
           "isBotHint": false
         },
@@ -330,28 +378,28 @@
           }
         ],
         "labels": [],
-        "url": "https://github.com/h3js/h3/pull/1575",
-        "createdAt": "2026-10-07T15:25:17.000Z",
-        "updatedAt": "2026-10-07T15:27:32.000Z",
-        "lastActivityAt": "2026-10-07T15:27:32.000Z",
+        "url": "https://github.com/h3js/h3/pull/1583",
+        "createdAt": "2026-10-11T09:57:49.000Z",
+        "updatedAt": "2026-10-11T10:11:44.000Z",
+        "lastActivityAt": "2026-10-11T10:11:44.000Z",
         "locked": false,
         "branches": {
           "head": {
-            "ref": "docs/add-h3-prometheus-community",
-            "sha": "a0a405d6441c4a9c66ac30c3adc0d11d3acea53f",
+            "ref": "docs/fix-static-assets-example",
+            "sha": "36270b8a285744ad4dc5af707112523676ebb9f6",
             "repo": {
               "forge": "github",
               "instance": "github.com",
-              "owner": "s00d",
+              "owner": "aaronanish-t",
               "name": "h3",
-              "externalId": "1408996886"
+              "externalId": "1414188488"
             }
           },
           "base": {
             "ref": "main",
             "sha": "66cfb8a357b6285451bad498c2c40002601fae98"
           },
-          "mergeCommitSha": "a198745c67591bdc65cfed963feece4a391de2d9"
+          "mergeCommitSha": "bbf241ae2d30a0c9c362de9a9702b58a5e721f97"
         }
       },
       {
@@ -365,22 +413,22 @@
             "name": "h3"
           },
           "kind": "pull_request",
-          "number": "1557",
-          "externalId": "PR_kwDOErHI988AAAABFO055g"
+          "number": "1582",
+          "externalId": "PR_kwDOErHI988AAAABHvKNzg"
         },
         "kind": "pull_request",
-        "title": "feat(rules): request conditions in rule keys (`GET:MD /path`)",
-        "body": "Route rule keys can now be scoped to a named request condition with `METHOD:NAME /path`. Conditions match request headers and are defined in `routeRules()` options.\n\n```ts\nimport { routeRules } from \"h3/rules\";\n\napp.use(\n  routeRules(\n    {\n      // GET /blog/hello with `Accept: text/markdown` → 307 /blog/hello.md\n      \"GET:MD /blog/**\": { redirect: \"/blog/**.md\" },\n      // Already Markdown: don't redirect again\n      \"GET:MD /blog/*.md\": { redirect: false },\n    },\n    {\n      conditions: {\n        MD: { headers: { accept: /\\btext\\/markdown\\b/ } },\n      },\n    },\n  ),\n);\n```\n\n- A request that satisfies a condition keeps every plain `GET` rule and gets the condition's rules on top. When several conditions are satisfied, all of them apply.\n- Header checks: `true` means present, `false` means absent, a string must match exactly, and a `RegExp` is tested against the value.\n- Rule sets without conditions do no extra work per request.\n- `cache` entries and memoized matches are kept separate per condition.\n- The compiler supports conditions: `compileRouteRules(config, { conditions })` exports `resolveRouteRulesMethod(event, method)` for the compiled matcher.\n\nAlso fixes a `preMerge` bug where a method-scoped rule on a shared route node (`GET /a/:id`) hid an agnostic rule (`/a/*`) for `GET /a`.\n\n🤖 Generated with AI assistant\n\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n## Summary by CodeRabbit\n\n- **New Features**\n  - Added named request conditions for route rules, matching requests by header presence, absence, exact values, or regular expressions.\n  - Requests now combine standard method rules with rules for satisfied conditions. GET conditions also apply to HEAD requests.\n  - Added validation for condition definitions and rule keys, including a limit of six conditions per method.\n  - Cached responses are kept separate across condition variants.\n- **Documentation**\n  - Expanded the Route Rules guide with configuration, matching behavior, precedence, and security considerations.\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
+        "title": "fix(query): decode valid escapes next to a malformed one",
+        "body": "when a query value has one malformed escape, `decodeURIComponent` throws and `parseQuery` keeps the whole value undecoded, so the valid escapes stay encoded too. a stray `%` is enough:\n\n```ts\napp.get(\"/search\", (event) => ({\n  getQuery: getQuery(event).q,\n  searchParams: event.url.searchParams.get(\"q\"),\n}));\n// GET /search?q=caf%C3%A9+50%\n// main: {\"getQuery\":\"caf%C3%A9 50%\",\"searchParams\":\"café 50%\"}\n// this: {\"getQuery\":\"café 50%\",\"searchParams\":\"café 50%\"}\n```\n\n`URLSearchParams` and `node:querystring` both decode the valid escapes and keep the malformed ones as-is. now the catch falls back to that instead of skipping, for keys and values. the happy path doesn't change.\n\nthe test compares `parseQuery` with `URLSearchParams` on a few malformed inputs, it fails on main.\n\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n\n## Summary by CodeRabbit\n\n* **Bug Fixes**\n  * Query strings with malformed percent-encoded keys or values are now decoded more consistently, including when valid and malformed escapes appear together.\n\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
         "state": "open",
         "stateRaw": "open",
         "isDraft": false,
         "author": {
           "forge": "github",
           "instance": "github.com",
-          "login": "pi0x",
-          "id": "286783767",
-          "avatarUrl": "https://avatars.githubusercontent.com/u/286783767?v=4",
-          "url": "https://github.com/pi0x",
+          "login": "harshit-d3v",
+          "id": "106448130",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/106448130?v=4",
+          "url": "https://github.com/harshit-d3v",
           "typeRaw": "User",
           "isBotHint": false
         },
@@ -402,143 +450,41 @@
           }
         ],
         "labels": [],
-        "url": "https://github.com/h3js/h3/pull/1557",
-        "createdAt": "2026-09-26T08:58:13.000Z",
-        "updatedAt": "2026-09-26T10:12:18.000Z",
-        "lastActivityAt": "2026-09-26T10:12:18.000Z",
+        "url": "https://github.com/h3js/h3/pull/1582",
+        "createdAt": "2026-10-10T20:21:27.000Z",
+        "updatedAt": "2026-10-10T20:24:30.000Z",
+        "lastActivityAt": "2026-10-10T20:24:30.000Z",
         "locked": false,
         "branches": {
           "head": {
-            "ref": "feat/route-rule-mods",
-            "sha": "e8b3545344f20a287f83c81a85d8471406a6e5be",
+            "ref": "fix/query-malformed-escape",
+            "sha": "8bd29e3c6d33abaefa0a242decff0f39cf0778a6",
             "repo": {
               "forge": "github",
               "instance": "github.com",
-              "owner": "h3js",
+              "owner": "harshit-d3v",
               "name": "h3",
-              "externalId": "313641207"
+              "externalId": "1413617363"
             }
           },
           "base": {
             "ref": "main",
-            "sha": "75c68e2200d56f5d8c05ecd9bd38ac7ca31df17f"
-          }
+            "sha": "66cfb8a357b6285451bad498c2c40002601fae98"
+          },
+          "mergeCommitSha": "3dca92fa000b4b36b40260443755f747751fdaea"
         }
       }
     ],
     "cursor": {
       "nextUrl": "https://api.github.com/repositories/313641207/pulls?state=open&sort=created&direction=desc&per_page=3&page=2",
-      "etag": "W/\"169904e5e5360f98fe68682ea8c222e53f5ea1fe32c378fc182dc4bb25694148\""
+      "etag": "W/\"cb4466519dcaf577f7dafdf0741c1ddab6adea4fa2f9b580ab4776db5bc320d0\""
     },
     "rateLimit": {
       "limit": 60,
-      "remaining": 52,
+      "remaining": 51,
       "resetAt": "<now>"
     }
   },
-  "pull getMany": [
-    {
-      "ok": true,
-      "ref": {
-        "forge": "github",
-        "instance": "github.com",
-        "repo": {
-          "forge": "github",
-          "instance": "github.com",
-          "owner": "h3js",
-          "name": "h3"
-        },
-        "kind": "pull_request",
-        "number": "1000"
-      },
-      "thread": {
-        "ref": {
-          "forge": "github",
-          "instance": "github.com",
-          "repo": {
-            "forge": "github",
-            "instance": "github.com",
-            "owner": "h3js",
-            "name": "h3"
-          },
-          "kind": "pull_request",
-          "number": "1000",
-          "externalId": "PR_kwDOErHI986Qx98s"
-        },
-        "kind": "pull_request",
-        "title": "chore: include `node_modules` in `.prettierignore`",
-        "body": "<!--\r\nPLEASE DO THIS BEFORE SUBMITTING A PR\r\n\r\n1) Make sure there is an issue covering the problem or idea first. If not, please create one. Reference it in the PR via \"resolves #12312312\" \r\n2) Please keep your changes minimal and split them if you need to.\r\n3) Ensure there is a minimal reproduction attached for bug fixes.\r\n\r\nThis will greatly help speed up the review process.\r\n\r\nThanks for your contribution ❤️\r\n-->\r\n",
-        "state": "closed",
-        "stateRaw": "closed",
-        "isDraft": false,
-        "author": {
-          "forge": "github",
-          "instance": "github.com",
-          "login": "iiio2",
-          "id": "47961062",
-          "avatarUrl": "https://avatars.githubusercontent.com/u/47961062?v=4",
-          "url": "https://github.com/iiio2",
-          "typeRaw": "User",
-          "isBotHint": false
-        },
-        "assignees": [],
-        "reviewers": [
-          {
-            "actor": {
-              "forge": "github",
-              "instance": "github.com",
-              "login": "pi0",
-              "id": "5158436",
-              "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?v=4",
-              "url": "https://github.com/pi0",
-              "typeRaw": "User",
-              "isBotHint": false
-            },
-            "state": "pending",
-            "stateRaw": "requested"
-          }
-        ],
-        "labels": [],
-        "url": "https://github.com/h3js/h3/pull/1000",
-        "createdAt": "2025-03-31T13:49:12.000Z",
-        "updatedAt": "2025-04-05T04:37:13.000Z",
-        "closedAt": "2025-04-01T18:18:21.000Z",
-        "lastActivityAt": "2025-04-05T04:37:13.000Z",
-        "locked": false,
-        "commentCount": 3,
-        "branches": {
-          "head": {
-            "ref": "chore/update-prettierignore",
-            "sha": "adbc974043a83820a5ae388265b5ee1465926561",
-            "repo": {
-              "forge": "github",
-              "instance": "github.com",
-              "owner": "iiio2",
-              "name": "h3",
-              "externalId": "812599578"
-            }
-          },
-          "base": {
-            "ref": "main",
-            "sha": "e5788bb16d62ac64e5fa13b14862ed719f768d04"
-          },
-          "mergeCommitSha": "ecb62300961be17e1f59cb23b4f2d083c83bcbf1"
-        },
-        "stats": {
-          "additions": 1,
-          "deletions": 0,
-          "changedFileCount": 1,
-          "commitCount": 1
-        },
-        "checks": {
-          "state": "unknown",
-          "total": 0,
-          "failed": 0,
-          "url": "https://github.com/h3js/h3/pull/1000/checks"
-        }
-      }
-    }
-  ],
   "pull events": {
     "items": [
       {
@@ -692,7 +638,7 @@
     },
     "rateLimit": {
       "limit": 60,
-      "remaining": 48,
+      "remaining": 50,
       "resetAt": "<now>"
     }
   },
@@ -817,15 +763,55 @@
     ],
     "rateLimit": {
       "limit": 60,
-      "remaining": 47,
+      "remaining": 49,
       "resetAt": "<now>"
+    }
+  },
+  "pull getComment": {
+    "ref": {
+      "forge": "github",
+      "instance": "github.com",
+      "thread": {
+        "forge": "github",
+        "instance": "github.com",
+        "repo": {
+          "forge": "github",
+          "instance": "github.com",
+          "owner": "h3js",
+          "name": "h3"
+        },
+        "kind": "pull_request",
+        "number": "1000"
+      },
+      "id": "2766307610"
+    },
+    "body": "## [Codecov](https://app.codecov.io/gh/unjs/h3/pull/1000?dropdown=coverage&src=pr&el=h1&utm_medium=referral&utm_source=github&utm_content=comment&utm_campaign=pr+comments&utm_term=unjs) Report\nAll modified and coverable lines are covered by tests :white_check_mark:\n> Project coverage is 82.80%. Comparing base [(`a58d7c9`)](https://app.codecov.io/gh/unjs/h3/commit/a58d7c977b30ef1782bb390a38fed3b28f8afca9?dropdown=coverage&el=desc&utm_medium=referral&utm_source=github&utm_content=comment&utm_campaign=pr+comments&utm_term=unjs) to head [(`adbc974`)](https://app.codecov.io/gh/unjs/h3/commit/adbc974043a83820a5ae388265b5ee1465926561?dropdown=coverage&el=desc&utm_medium=referral&utm_source=github&utm_content=comment&utm_campaign=pr+comments&utm_term=unjs).\n> Report is 234 commits behind head on main.\n\n<details><summary>Additional details and impacted files</summary>\n\n\n```diff\n@@            Coverage Diff             @@\n##             main    #1000      +/-   ##\n==========================================\n+ Coverage   77.83%   82.80%   +4.97%     \n==========================================\n  Files          47       35      -12     \n  Lines        4286     2623    -1663     \n  Branches      611      669      +58     \n==========================================\n- Hits         3336     2172    -1164     \n+ Misses        933      449     -484     \n+ Partials       17        2      -15     \n```\n\n</details>\n\n[:umbrella: View full report in Codecov by Sentry](https://app.codecov.io/gh/unjs/h3/pull/1000?dropdown=coverage&src=pr&el=continue&utm_medium=referral&utm_source=github&utm_content=comment&utm_campaign=pr+comments&utm_term=unjs).   \n:loudspeaker: Have feedback on the report? [Share it here](https://about.codecov.io/codecov-pr-comment-feedback/?utm_medium=referral&utm_source=github&utm_content=comment&utm_campaign=pr+comments&utm_term=unjs).\n\n<details><summary> :rocket: New features to boost your workflow: </summary>\n\n- :snowflake: [Test Analytics](https://docs.codecov.com/docs/test-analytics): Detect flaky tests, report on failures, and find test suite problems.\n- :package: [JS Bundle Analysis](https://docs.codecov.com/docs/javascript-bundle-analysis): Save yourself from yourself by tracking and limiting bundle sizes in JS merges.\n</details>",
+    "author": {
+      "forge": "github",
+      "instance": "github.com",
+      "login": "codecov[bot]",
+      "id": "22429695",
+      "avatarUrl": "https://avatars.githubusercontent.com/in/254?v=4",
+      "url": "https://github.com/apps/codecov",
+      "typeRaw": "Bot",
+      "isBotHint": true,
+      "app": {
+        "slug": "codecov"
+      }
+    },
+    "createdAt": "2025-03-31T13:50:31.000Z",
+    "updatedAt": "2025-04-01T18:18:31.000Z",
+    "url": "https://github.com/h3js/h3/pull/1000#issuecomment-2766307610",
+    "reactions": {
+      "total": 0,
+      "counts": {}
     }
   },
   "pull reactions": {
     "items": [],
     "rateLimit": {
       "limit": 60,
-      "remaining": 46,
+      "remaining": 47,
       "resetAt": "<now>"
     }
   },
@@ -833,7 +819,7 @@
     "items": [],
     "rateLimit": {
       "limit": 60,
-      "remaining": 45,
+      "remaining": 46,
       "resetAt": "<now>"
     }
   },
@@ -855,7 +841,7 @@
     ],
     "rateLimit": {
       "limit": 60,
-      "remaining": 40,
+      "remaining": 41,
       "resetAt": "<now>"
     }
   },
@@ -913,7 +899,7 @@
     ],
     "rateLimit": {
       "limit": 60,
-      "remaining": 39,
+      "remaining": 40,
       "resetAt": "<now>"
     }
   },
@@ -976,38 +962,32 @@
             "name": "h3"
           },
           "kind": "issue",
-          "number": "1567",
-          "externalId": "I_kwDOErHI988AAAABUYFmsg"
+          "number": "1584",
+          "externalId": "I_kwDOErHI988AAAABWdEgsQ"
         },
         "kind": "issue",
-        "title": "getValidatedQuery should account for ambiguous data",
-        "body": "### Describe the feature\n\n## Premise\n\nreadQuery() as it is currently only works if you either\n\n1. have extremely simple data - basically exclusively strings.\n2. make a custom schema with coercing (assuming the validation library supports everything needed) for every API endpoint, not really being able to reuse existing schemas\n3. send all data as body payload (this wouldn't be a problem if GET and DELETE were allowed to have bodies)\n4. send all data as stringified JSON\n5. or (like me) make a shim that tries its best at adjusting the data to better fit a schema\n\nnone of these options are particularly enticing, so (imo) there should be a system to somehow fix this in h3.\n\n## My shim/workaround\n\nwithout posting code, I basically crawl through the zod type definition alongside the passed data and adjust the data where it can't be unambiguously represented by query parameters.\n\nI'm not sure how viable this is for h3 considering it's supposed to be somewhat validator-agnostic… But then again, having this feature for a limited amount of libraries would be better than having it for none at all.\n\n## Additional notes\n\nzod has already declined to implement a version of this on their side: https://github.com/colinhacks/zod/issues/2873\n\n### Additional information\n\n- [ ] Would you be willing to help implement this feature?",
+        "title": "fix(static): serveStatic generates invalid double-slash root index path (//index.html) and concatenates subfolder paths without slash when relative indexNames are used",
+        "body": "### Description\n\nIn `src/utils/static.ts`, `idSearchPaths` generates the candidate paths by directly concatenating `id` and `suffix`:\n\n```ts\nfunction idSearchPaths(id: string, encodings: string[], indexNames: string[]) {\n  const ids: { id: string; assetId: string }[] = [];\n\n  for (const suffix of [\"\", ...indexNames]) {\n    const assetId = `${id}${suffix}`;\n    for (const encoding of [...encodings, \"\"]) {\n      ids.push({ id: `${assetId}${encoding}`, assetId });\n    }\n  }\n\n  return ids;\n}\n```\n\nBecause `originalId` for root `GET /` is normalized by `withoutTrailingSlash(\"/\")` which returns `\"/\"`:\n\n1. **Root double slash with default `indexNames: [\"/index.html\"]`: **\n   When requesting root `GET /`, `id` is `\"/\"` and `suffix` is `\"/index.html\"`. The resulting candidate asset ID is:\n   ```\n   \"//index.html\"\n   ```\n   This is a non-canonical leading separator run (which `isCanonicalPath(\"//index.html\")` flags as `false`). For backends keyed by canonical asset paths (such as in-memory stores, maps, or storage drivers expecting `\"/index.html\"`), looking up `\"//index.html\"` fails and returns `404`.\n\n2. **Missing separator for subdirectories when `indexNames` entries lack a leading slash (e.g. `[\"index.html\"]`)**:\n   If an application configures relative index names such as `indexNames: [\"index.html\"]`:\n   - For root `GET /`, `id` is `\"/\"` + `\"index.html\"` = `\"/index.html\"`\n   - For subdirectories like `GET /docs`, `id` is `\"/docs\"` + `\"index.html\"` = `\"/docsindex.html\"`!\n   \nAs a result, there is no configuration of `indexNames` that works for both root and subdirectories.\n\n### Reproduction\n\n```ts\nimport { H3, serveStatic } from \"h3\";\n\nconst app = new H3();\nconst assets = {\n  \"/index.html\": { size: 10, mtime: Date.now() },\n};\n\napp.all(\"/**\", (event) => {\n  return serveStatic(event, {\n    getMeta: (id) => assets[id],\n    getContents: (id) => \"hello\",\n    indexNames: [\"/index.html\"],\n  });\n});\n\nconst res = await app.fetch(new Request(\"http://localhost/\"));\nconsole.log(res.status); // 404 (getMeta was called with \"//index.html\")\n```\n\n### Expected Behavior\n\n`idSearchPaths` should normalize the directory-index join on a single slash boundary regardless of whether `id` is root `\"/\"` or a subdirectory, and regardless of whether `indexNames` entries have a leading slash:\n\n- `GET /` with `\"/index.html\"` or `\"index.html\"` -> `\"/index.html\"`\n- `GET /docs` with `\"/index.html\"` or `\"index.html\"` -> `\"/docs/index.html\"`\n\n### Proposed Fix\n\n```ts\nfunction idSearchPaths(id: string, encodings: string[], indexNames: string[]) {\n  const ids: { id: string; assetId: string }[] = [];\n\n  for (const suffix of [\"\", ...indexNames]) {\n    const assetId = suffix\n      ? `${id === \"/\" ? \"\" : id}/${suffix.replace(/^\\/+/, \"\")}`\n      : id;\n    for (const encoding of [...encodings, \"\"]) {\n      ids.push({ id: `${assetId}${encoding}`, assetId });\n    }\n  }\n\n  return ids;\n}\n```",
         "state": "open",
         "stateRaw": "open",
         "isDraft": false,
         "author": {
           "forge": "github",
           "instance": "github.com",
-          "login": "LMR-eitea",
-          "id": "332368094",
-          "avatarUrl": "https://avatars.githubusercontent.com/u/332368094?v=4",
-          "url": "https://github.com/LMR-eitea",
+          "login": "TalhaHunter101",
+          "id": "51529912",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/51529912?v=4",
+          "url": "https://github.com/TalhaHunter101",
           "typeRaw": "User",
           "isBotHint": false
         },
         "assignees": [],
         "reviewers": [],
-        "labels": [
-          {
-            "name": "enhancement",
-            "colour": "a2eeef",
-            "description": "New feature or request"
-          }
-        ],
-        "url": "https://github.com/h3js/h3/issues/1567",
-        "createdAt": "2026-10-01T12:48:44.000Z",
-        "updatedAt": "2026-10-01T12:48:44.000Z",
-        "lastActivityAt": "2026-10-01T12:48:44.000Z",
+        "labels": [],
+        "url": "https://github.com/h3js/h3/issues/1584",
+        "createdAt": "<now>",
+        "updatedAt": "<now>",
+        "lastActivityAt": "<now>",
         "locked": false,
         "commentCount": 0,
         "reactions": {
@@ -1017,12 +997,12 @@
       }
     ],
     "cursor": {
-      "nextUrl": "https://api.github.com/repositories/313641207/issues?state=open&sort=created&direction=desc&per_page=3&after=Y3Vyc29yOnYyOpLPAAABoPeCj-DPAAAAAVGBZrI%3D&page=2",
-      "etag": "W/\"5c0b15eecfbb6342a64952704c0b74680ab17f5702515bfa1649751cb5100268\""
+      "nextUrl": "https://api.github.com/repositories/313641207/issues?state=open&sort=created&direction=desc&per_page=3&after=Y3Vyc29yOnYyOpLPAAABoSplrUjPAAAAAVm1EII%3D&page=2",
+      "etag": "W/\"f8c1b492a459715218eb94c3a5e7704c194481f184c80c63fbc9704da197c16f\""
     },
     "rateLimit": {
       "limit": 60,
-      "remaining": 37,
+      "remaining": 38,
       "resetAt": "<now>"
     }
   },
@@ -1199,7 +1179,7 @@
     ],
     "rateLimit": {
       "limit": 60,
-      "remaining": 35,
+      "remaining": 36,
       "resetAt": "<now>"
     }
   },
@@ -1207,7 +1187,7 @@
     "items": [],
     "rateLimit": {
       "limit": 60,
-      "remaining": 34,
+      "remaining": 35,
       "resetAt": "<now>"
     }
   },
@@ -1215,7 +1195,7 @@
     "items": [],
     "rateLimit": {
       "limit": 60,
-      "remaining": 33,
+      "remaining": 34,
       "resetAt": "<now>"
     }
   },
@@ -1245,7 +1225,7 @@
     "items": [],
     "rateLimit": {
       "limit": 60,
-      "remaining": 30,
+      "remaining": 31,
       "resetAt": "<now>"
     }
   },
@@ -1253,7 +1233,7 @@
     "items": [],
     "rateLimit": {
       "limit": 60,
-      "remaining": 30,
+      "remaining": 31,
       "resetAt": "<now>"
     }
   },
@@ -1288,29 +1268,29 @@
             "owner": "h3js",
             "name": "h3"
           },
-          "id": "37888487900"
+          "id": "38146323079"
         },
         "name": "autofix.ci",
         "state": "failure",
         "stateRaw": "completed",
-        "number": "4251",
+        "number": "4259",
         "eventRaw": "pull_request",
-        "branch": "fix/tracing-use-mount",
-        "sha": "0a4b48c7a55f6f8432d719c537dfac0791215c9e",
-        "url": "https://github.com/h3js/h3/actions/runs/37888487900",
+        "branch": "fix/serve-static-index-paths",
+        "sha": "73f9f488e57746e57de8919ea0358cbe6e5da1a9",
+        "url": "https://github.com/h3js/h3/actions/runs/38146323079",
         "actor": {
           "forge": "github",
           "instance": "github.com",
-          "login": "Mihir-Rabari",
-          "id": "169349389",
-          "avatarUrl": "https://avatars.githubusercontent.com/u/169349389?v=4",
-          "url": "https://github.com/Mihir-Rabari",
+          "login": "TalhaHunter101",
+          "id": "51529912",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/51529912?v=4",
+          "url": "https://github.com/TalhaHunter101",
           "typeRaw": "User",
           "isBotHint": false
         },
-        "createdAt": "2026-10-09T05:25:18.000Z",
-        "startedAt": "2026-10-09T05:25:18.000Z",
-        "completedAt": "2026-10-09T05:25:18.000Z"
+        "createdAt": "<now>",
+        "startedAt": "<now>",
+        "completedAt": "<now>"
       },
       {
         "ref": {
@@ -1322,29 +1302,29 @@
             "owner": "h3js",
             "name": "h3"
           },
-          "id": "37888487521"
+          "id": "38146323064"
         },
         "name": "ci",
         "state": "failure",
         "stateRaw": "completed",
-        "number": "4744",
+        "number": "4752",
         "eventRaw": "pull_request",
-        "branch": "fix/tracing-use-mount",
-        "sha": "0a4b48c7a55f6f8432d719c537dfac0791215c9e",
-        "url": "https://github.com/h3js/h3/actions/runs/37888487521",
+        "branch": "fix/serve-static-index-paths",
+        "sha": "73f9f488e57746e57de8919ea0358cbe6e5da1a9",
+        "url": "https://github.com/h3js/h3/actions/runs/38146323064",
         "actor": {
           "forge": "github",
           "instance": "github.com",
-          "login": "Mihir-Rabari",
-          "id": "169349389",
-          "avatarUrl": "https://avatars.githubusercontent.com/u/169349389?v=4",
-          "url": "https://github.com/Mihir-Rabari",
+          "login": "TalhaHunter101",
+          "id": "51529912",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/51529912?v=4",
+          "url": "https://github.com/TalhaHunter101",
           "typeRaw": "User",
           "isBotHint": false
         },
-        "createdAt": "2026-10-09T05:25:17.000Z",
-        "startedAt": "2026-10-09T05:25:17.000Z",
-        "completedAt": "2026-10-09T05:25:17.000Z"
+        "createdAt": "<now>",
+        "startedAt": "<now>",
+        "completedAt": "<now>"
       },
       {
         "ref": {
@@ -1356,34 +1336,149 @@
             "owner": "h3js",
             "name": "h3"
           },
-          "id": "37643783539"
+          "id": "38130948426"
         },
         "name": "autofix.ci",
         "state": "failure",
         "stateRaw": "completed",
-        "number": "4250",
+        "number": "4258",
         "eventRaw": "pull_request",
-        "branch": "docs/add-h3-prometheus-community",
-        "sha": "a0a405d6441c4a9c66ac30c3adc0d11d3acea53f",
-        "url": "https://github.com/h3js/h3/actions/runs/37643783539",
+        "branch": "docs/fix-static-assets-example",
+        "sha": "36270b8a285744ad4dc5af707112523676ebb9f6",
+        "url": "https://github.com/h3js/h3/actions/runs/38130948426",
         "actor": {
           "forge": "github",
           "instance": "github.com",
-          "login": "s00d",
-          "id": "2684895",
-          "avatarUrl": "https://avatars.githubusercontent.com/u/2684895?v=4",
-          "url": "https://github.com/s00d",
+          "login": "aaronanish-t",
+          "id": "217176403",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/217176403?v=4",
+          "url": "https://github.com/aaronanish-t",
           "typeRaw": "User",
           "isBotHint": false
         },
-        "createdAt": "2026-10-07T15:25:23.000Z",
-        "startedAt": "2026-10-07T15:25:23.000Z",
-        "completedAt": "2026-10-07T15:25:23.000Z"
+        "createdAt": "2026-10-11T10:09:41.000Z",
+        "startedAt": "2026-10-11T10:09:41.000Z",
+        "completedAt": "2026-10-11T10:09:41.000Z"
       }
     ],
     "cursor": {
       "nextUrl": "https://api.github.com/repositories/313641207/actions/runs?per_page=3&page=2",
-      "etag": "W/\"7974009add45c1f29ce7ad99f5c295b968e2a68d7cd9cb48e70f0dc0571f43e3\""
+      "etag": "W/\"1456673423a03417cd07bd242b5331378aae21d01aa693d4f7fc60ad03e60555\""
+    },
+    "rateLimit": {
+      "limit": 60,
+      "remaining": 27,
+      "resetAt": "<now>"
+    }
+  },
+  "ci runs by branch and state": {
+    "items": [
+      {
+        "ref": {
+          "forge": "github",
+          "instance": "github.com",
+          "repo": {
+            "forge": "github",
+            "instance": "github.com",
+            "owner": "h3js",
+            "name": "h3"
+          },
+          "id": "37622425333"
+        },
+        "name": "publish",
+        "state": "failure",
+        "stateRaw": "completed",
+        "number": "76",
+        "eventRaw": "workflow_run",
+        "branch": "main",
+        "sha": "66cfb8a357b6285451bad498c2c40002601fae98",
+        "url": "https://github.com/h3js/h3/actions/runs/37622425333",
+        "actor": {
+          "forge": "github",
+          "instance": "github.com",
+          "login": "pi0",
+          "id": "5158436",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?v=4",
+          "url": "https://github.com/pi0",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "createdAt": "2026-10-07T12:38:14.000Z",
+        "startedAt": "2026-10-07T12:38:14.000Z",
+        "completedAt": "2026-10-07T12:38:45.000Z"
+      },
+      {
+        "ref": {
+          "forge": "github",
+          "instance": "github.com",
+          "repo": {
+            "forge": "github",
+            "instance": "github.com",
+            "owner": "h3js",
+            "name": "h3"
+          },
+          "id": "37622134335"
+        },
+        "name": "publish",
+        "state": "failure",
+        "stateRaw": "completed",
+        "number": "74",
+        "eventRaw": "workflow_run",
+        "branch": "main",
+        "sha": "ac79e5fcb148e8aa5702f71535fedb84070d0fca",
+        "url": "https://github.com/h3js/h3/actions/runs/37622134335",
+        "actor": {
+          "forge": "github",
+          "instance": "github.com",
+          "login": "pi0x",
+          "id": "286783767",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/286783767?v=4",
+          "url": "https://github.com/pi0x",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "createdAt": "2026-10-07T12:35:48.000Z",
+        "startedAt": "2026-10-07T12:35:48.000Z",
+        "completedAt": "2026-10-07T12:36:15.000Z"
+      },
+      {
+        "ref": {
+          "forge": "github",
+          "instance": "github.com",
+          "repo": {
+            "forge": "github",
+            "instance": "github.com",
+            "owner": "h3js",
+            "name": "h3"
+          },
+          "id": "37621902424"
+        },
+        "name": "publish",
+        "state": "failure",
+        "stateRaw": "completed",
+        "number": "73",
+        "eventRaw": "workflow_run",
+        "branch": "main",
+        "sha": "44dbfb8870d4fbad7f272d5811fdfa033faa8562",
+        "url": "https://github.com/h3js/h3/actions/runs/37621902424",
+        "actor": {
+          "forge": "github",
+          "instance": "github.com",
+          "login": "pi0x",
+          "id": "286783767",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/286783767?v=4",
+          "url": "https://github.com/pi0x",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "createdAt": "2026-10-07T12:33:53.000Z",
+        "startedAt": "2026-10-07T12:33:53.000Z",
+        "completedAt": "2026-10-07T12:34:18.000Z"
+      }
+    ],
+    "cursor": {
+      "nextUrl": "https://api.github.com/repositories/313641207/actions/runs?branch=main&status=failure&per_page=3&page=2",
+      "etag": "W/\"971473db6315b28dc7cc741728f727966f18d964eacbaf29fc3e3ec4c43de66c\""
     },
     "rateLimit": {
       "limit": 60,
@@ -1401,29 +1496,50 @@
         "owner": "h3js",
         "name": "h3"
       },
-      "id": "37888487900"
+      "id": "38146323079"
     },
     "name": "autofix.ci",
     "state": "failure",
     "stateRaw": "completed",
-    "number": "4251",
+    "number": "4259",
     "eventRaw": "pull_request",
-    "branch": "fix/tracing-use-mount",
-    "sha": "0a4b48c7a55f6f8432d719c537dfac0791215c9e",
-    "url": "https://github.com/h3js/h3/actions/runs/37888487900",
+    "branch": "fix/serve-static-index-paths",
+    "sha": "73f9f488e57746e57de8919ea0358cbe6e5da1a9",
+    "url": "https://github.com/h3js/h3/actions/runs/38146323079",
     "actor": {
       "forge": "github",
       "instance": "github.com",
-      "login": "Mihir-Rabari",
-      "id": "169349389",
-      "avatarUrl": "https://avatars.githubusercontent.com/u/169349389?v=4",
-      "url": "https://github.com/Mihir-Rabari",
+      "login": "TalhaHunter101",
+      "id": "51529912",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/51529912?v=4",
+      "url": "https://github.com/TalhaHunter101",
       "typeRaw": "User",
       "isBotHint": false
     },
-    "createdAt": "2026-10-09T05:25:18.000Z",
-    "startedAt": "2026-10-09T05:25:18.000Z",
-    "completedAt": "2026-10-09T05:25:18.000Z"
+    "createdAt": "<now>",
+    "startedAt": "<now>",
+    "completedAt": "<now>"
+  },
+  "check": {
+    "ref": {
+      "forge": "github",
+      "instance": "github.com",
+      "repo": {
+        "forge": "github",
+        "instance": "github.com",
+        "owner": "h3js",
+        "name": "h3"
+      },
+      "id": "114490391330",
+      "type": "check_run"
+    },
+    "name": "Socket Security: Pull Request Alerts",
+    "state": "success",
+    "stateRaw": "completed",
+    "conclusionRaw": "success",
+    "url": "https://github.com/h3js/h3/runs/114490391330",
+    "startedAt": "<now>",
+    "completedAt": "<now>"
   },
   "ci jobs": {
     "items": [
@@ -1437,7 +1553,7 @@
             "owner": "forges-fixtures",
             "name": "forges-fixtures"
           },
-          "id": "113794275340",
+          "id": "114460238060",
           "run": {
             "forge": "github",
             "instance": "github.com",
@@ -1447,22 +1563,52 @@
               "owner": "forges-fixtures",
               "name": "forges-fixtures"
             },
-            "id": "37922724302"
+            "id": "38136126086"
           }
         },
         "name": "check",
         "state": "success",
         "stateRaw": "completed",
-        "url": "https://github.com/forges-fixtures/forges-fixtures/actions/runs/37922724302/job/113794275340",
-        "startedAt": "2026-10-09T11:16:38.000Z",
-        "completedAt": "2026-10-09T11:16:40.000Z"
+        "url": "https://github.com/forges-fixtures/forges-fixtures/actions/runs/38136126086/job/114460238060",
+        "startedAt": "2026-10-11T11:35:34.000Z",
+        "completedAt": "2026-10-11T11:35:38.000Z"
       }
     ],
     "rateLimit": {
       "limit": 60,
-      "remaining": 20,
+      "remaining": 17,
       "resetAt": "<now>"
     }
+  },
+  "ci job": {
+    "ref": {
+      "forge": "github",
+      "instance": "github.com",
+      "repo": {
+        "forge": "github",
+        "instance": "github.com",
+        "owner": "forges-fixtures",
+        "name": "forges-fixtures"
+      },
+      "id": "114460238060",
+      "run": {
+        "forge": "github",
+        "instance": "github.com",
+        "repo": {
+          "forge": "github",
+          "instance": "github.com",
+          "owner": "forges-fixtures",
+          "name": "forges-fixtures"
+        },
+        "id": "38136126086"
+      }
+    },
+    "name": "check",
+    "state": "success",
+    "stateRaw": "completed",
+    "url": "https://github.com/forges-fixtures/forges-fixtures/actions/runs/38136126086/job/114460238060",
+    "startedAt": "2026-10-11T11:35:34.000Z",
+    "completedAt": "2026-10-11T11:35:38.000Z"
   },
   "readme": {
     "path": "README.md",
@@ -1644,7 +1790,7 @@
     ],
     "rateLimit": {
       "limit": 60,
-      "remaining": 18,
+      "remaining": 14,
       "resetAt": "<now>"
     }
   },
@@ -1672,7 +1818,7 @@
     },
     "rateLimit": {
       "limit": 60,
-      "remaining": 17,
+      "remaining": 13,
       "resetAt": "<now>"
     }
   },
@@ -1697,7 +1843,7 @@
     },
     "rateLimit": {
       "limit": 60,
-      "remaining": 16,
+      "remaining": 12,
       "resetAt": "<now>"
     }
   },
@@ -1858,7 +2004,7 @@
     },
     "rateLimit": {
       "limit": 60,
-      "remaining": 14,
+      "remaining": 10,
       "resetAt": "<now>"
     }
   },
@@ -2107,7 +2253,7 @@
     },
     "rateLimit": {
       "limit": 60,
-      "remaining": 11,
+      "remaining": 7,
       "resetAt": "<now>"
     }
   },
@@ -2231,32 +2377,32 @@
             "name": "h3"
           },
           "kind": "pull_request",
-          "number": "1576",
-          "externalId": "PR_kwDOErHI988AAAABHeLZ7g"
+          "number": "1577",
+          "externalId": "PR_kwDOErHI988AAAABHklkKw"
         },
         "kind": "pull_request",
-        "title": "fix(tracing): mount nested apps passed to `use()`",
-        "body": "`tracingPlugin` breaks mounting nested apps with `use()`. The plugin's `use()` override wraps its argument with `wrapMiddleware()` before the original `use()` gets to inspect it. `use()` dispatches non-function inputs (an H3 app or any other mountable object) to `mount()` — but after the wrapper, the input is a function, so:\n\n- the nested app is never mounted: its routes silently 404,\n- a middleware that calls the wrapped app as a function is registered instead, so hitting the base path exactly (e.g. `/api`) throws a `TypeError` (500).\n\n`use(route, handler: Middleware | H3, opts?)` is a public documented signature, and the plugin's `mount()` override already propagates tracing to mounted apps — so `app.use(\"/api\", app2)` should behave exactly like `app.mount(\"/api\", app2)`. The existing tracing tests cover `.mount()` and function middlewares but never the mountable `use()` shape, which is how this slipped through.\n\nThe fix passes non-function inputs through to the original `use()` unwrapped, in both call shapes. The `mount()` override then takes over and the nested app is traced like any other mount.\n\nTests: new regression test `mounts a nested app passed to `use()`\"` mounts a nested app with `t.app.use(\"/api\", nestedApp)` on the tracing-enabled matrix app and asserts the route responds 200 with the right body and shows up in the traced route events. It fails on `main` (404) and passes with this change. `test/tracing.test.ts` is 54/54 on both web and node targets; `tsc --noEmit`, `oxlint` and `oxfmt --check` are clean. Full suite: 3 failures (`test/utils.test.ts`, `test/unit/event.test.ts`, `test/unit/route-normalize.test.ts`) — all three also fail on unmodified `main`, unrelated to this change.\n\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n\n## Summary by CodeRabbit\n\n* **Bug Fixes**\n  * Nested H3 apps mounted with `use()` now remain mountable, and tracing events include the mounted route’s full path.\n\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
+        "title": "docs: fix broken section anchors",
+        "body": "A few docs links point at heading ids that don't exist on h3.dev, so they open the page but don't jump to the section:\n\n- basics/middleware: `lifecycle#\\_3-dispatch-request` → `#3-dispatch-request` (the escaped underscore ends up in the href)\n- basics/response: `h3event#eventres` → `#h3eventres`\n- api/h3event: `request#getrouterparamsevent-opts-decode` → `#getrouterparamsevent-opts--decode-`, and `security#resolvedotsegments` → `#resolvedotsegmentspath-opts` (these are the ids automd generates from the signatures)\n\nI checked every new fragment against the live ids on h3.dev.\n\nNot fixed here: routing.md links `removeRoute` to `/utils/more#removerouteapp-method-route`, but `src/utils/route.ts` (`defineRoute` / `removeRoute`) isn't in any automd block, so that section doesn't exist. Adding a `<!-- automd:jsdocs src=\"../../src/utils/route.ts\" -->` block would cover it. I left that for you to decide.\n\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n\n## Summary by CodeRabbit\n\n* **Documentation**\n  * Updated several guide links to point to the correct sections for request dispatch, response APIs, and pathname encoding.\n\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
         "state": "open",
         "stateRaw": "open",
         "isDraft": false,
         "author": {
           "forge": "github",
           "instance": "github.com",
-          "login": "Mihir-Rabari",
-          "id": "169349389",
-          "avatarUrl": "https://avatars.githubusercontent.com/u/169349389?v=4",
-          "url": "https://github.com/Mihir-Rabari",
+          "login": "SatvikMishra08",
+          "id": "89024979",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/89024979?v=4",
+          "url": "https://github.com/SatvikMishra08",
           "typeRaw": "User",
           "isBotHint": false
         },
         "assignees": [],
         "reviewers": [],
         "labels": [],
-        "url": "https://github.com/h3js/h3/pull/1576",
-        "createdAt": "2026-10-09T05:25:13.000Z",
-        "updatedAt": "2026-10-09T05:26:53.000Z",
-        "lastActivityAt": "2026-10-09T05:26:53.000Z",
+        "url": "https://github.com/h3js/h3/pull/1577",
+        "createdAt": "2026-10-09T16:25:08.000Z",
+        "updatedAt": "2026-10-09T16:29:31.000Z",
+        "lastActivityAt": "2026-10-09T16:29:31.000Z",
         "locked": false,
         "commentCount": 1,
         "reactions": {
@@ -2274,35 +2420,35 @@
             "owner": "h3js",
             "name": "h3"
           },
-          "kind": "pull_request",
-          "number": "1557",
-          "externalId": "PR_kwDOErHI988AAAABFO055g"
+          "kind": "issue",
+          "number": "1584",
+          "externalId": "I_kwDOErHI988AAAABWdEgsQ"
         },
-        "kind": "pull_request",
-        "title": "feat(rules): request conditions in rule keys (`GET:MD /path`)",
-        "body": "Route rule keys can now be scoped to a named request condition with `METHOD:NAME /path`. Conditions match request headers and are defined in `routeRules()` options.\n\n```ts\nimport { routeRules } from \"h3/rules\";\n\napp.use(\n  routeRules(\n    {\n      // GET /blog/hello with `Accept: text/markdown` → 307 /blog/hello.md\n      \"GET:MD /blog/**\": { redirect: \"/blog/**.md\" },\n      // Already Markdown: don't redirect again\n      \"GET:MD /blog/*.md\": { redirect: false },\n    },\n    {\n      conditions: {\n        MD: { headers: { accept: /\\btext\\/markdown\\b/ } },\n      },\n    },\n  ),\n);\n```\n\n- A request that satisfies a condition keeps every plain `GET` rule and gets the condition's rules on top. When several conditions are satisfied, all of them apply.\n- Header checks: `true` means present, `false` means absent, a string must match exactly, and a `RegExp` is tested against the value.\n- Rule sets without conditions do no extra work per request.\n- `cache` entries and memoized matches are kept separate per condition.\n- The compiler supports conditions: `compileRouteRules(config, { conditions })` exports `resolveRouteRulesMethod(event, method)` for the compiled matcher.\n\nAlso fixes a `preMerge` bug where a method-scoped rule on a shared route node (`GET /a/:id`) hid an agnostic rule (`/a/*`) for `GET /a`.\n\n🤖 Generated with AI assistant\n\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n## Summary by CodeRabbit\n\n- **New Features**\n  - Added named request conditions for route rules, matching requests by header presence, absence, exact values, or regular expressions.\n  - Requests now combine standard method rules with rules for satisfied conditions. GET conditions also apply to HEAD requests.\n  - Added validation for condition definitions and rule keys, including a limit of six conditions per method.\n  - Cached responses are kept separate across condition variants.\n- **Documentation**\n  - Expanded the Route Rules guide with configuration, matching behavior, precedence, and security considerations.\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
+        "kind": "issue",
+        "title": "fix(static): serveStatic generates invalid double-slash root index path (//index.html) and concatenates subfolder paths without slash when relative indexNames are used",
+        "body": "### Description\n\nIn `src/utils/static.ts`, `idSearchPaths` generates the candidate paths by directly concatenating `id` and `suffix`:\n\n```ts\nfunction idSearchPaths(id: string, encodings: string[], indexNames: string[]) {\n  const ids: { id: string; assetId: string }[] = [];\n\n  for (const suffix of [\"\", ...indexNames]) {\n    const assetId = `${id}${suffix}`;\n    for (const encoding of [...encodings, \"\"]) {\n      ids.push({ id: `${assetId}${encoding}`, assetId });\n    }\n  }\n\n  return ids;\n}\n```\n\nBecause `originalId` for root `GET /` is normalized by `withoutTrailingSlash(\"/\")` which returns `\"/\"`:\n\n1. **Root double slash with default `indexNames: [\"/index.html\"]`: **\n   When requesting root `GET /`, `id` is `\"/\"` and `suffix` is `\"/index.html\"`. The resulting candidate asset ID is:\n   ```\n   \"//index.html\"\n   ```\n   This is a non-canonical leading separator run (which `isCanonicalPath(\"//index.html\")` flags as `false`). For backends keyed by canonical asset paths (such as in-memory stores, maps, or storage drivers expecting `\"/index.html\"`), looking up `\"//index.html\"` fails and returns `404`.\n\n2. **Missing separator for subdirectories when `indexNames` entries lack a leading slash (e.g. `[\"index.html\"]`)**:\n   If an application configures relative index names such as `indexNames: [\"index.html\"]`:\n   - For root `GET /`, `id` is `\"/\"` + `\"index.html\"` = `\"/index.html\"`\n   - For subdirectories like `GET /docs`, `id` is `\"/docs\"` + `\"index.html\"` = `\"/docsindex.html\"`!\n   \nAs a result, there is no configuration of `indexNames` that works for both root and subdirectories.\n\n### Reproduction\n\n```ts\nimport { H3, serveStatic } from \"h3\";\n\nconst app = new H3();\nconst assets = {\n  \"/index.html\": { size: 10, mtime: Date.now() },\n};\n\napp.all(\"/**\", (event) => {\n  return serveStatic(event, {\n    getMeta: (id) => assets[id],\n    getContents: (id) => \"hello\",\n    indexNames: [\"/index.html\"],\n  });\n});\n\nconst res = await app.fetch(new Request(\"http://localhost/\"));\nconsole.log(res.status); // 404 (getMeta was called with \"//index.html\")\n```\n\n### Expected Behavior\n\n`idSearchPaths` should normalize the directory-index join on a single slash boundary regardless of whether `id` is root `\"/\"` or a subdirectory, and regardless of whether `indexNames` entries have a leading slash:\n\n- `GET /` with `\"/index.html\"` or `\"index.html\"` -> `\"/index.html\"`\n- `GET /docs` with `\"/index.html\"` or `\"index.html\"` -> `\"/docs/index.html\"`\n\n### Proposed Fix\n\n```ts\nfunction idSearchPaths(id: string, encodings: string[], indexNames: string[]) {\n  const ids: { id: string; assetId: string }[] = [];\n\n  for (const suffix of [\"\", ...indexNames]) {\n    const assetId = suffix\n      ? `${id === \"/\" ? \"\" : id}/${suffix.replace(/^\\/+/, \"\")}`\n      : id;\n    for (const encoding of [...encodings, \"\"]) {\n      ids.push({ id: `${assetId}${encoding}`, assetId });\n    }\n  }\n\n  return ids;\n}\n```",
         "state": "open",
         "stateRaw": "open",
         "isDraft": false,
         "author": {
           "forge": "github",
           "instance": "github.com",
-          "login": "pi0x",
-          "id": "286783767",
-          "avatarUrl": "https://avatars.githubusercontent.com/u/286783767?v=4",
-          "url": "https://github.com/pi0x",
+          "login": "TalhaHunter101",
+          "id": "51529912",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/51529912?v=4",
+          "url": "https://github.com/TalhaHunter101",
           "typeRaw": "User",
           "isBotHint": false
         },
         "assignees": [],
         "reviewers": [],
         "labels": [],
-        "url": "https://github.com/h3js/h3/pull/1557",
-        "createdAt": "2026-09-26T08:58:13.000Z",
-        "updatedAt": "2026-09-26T10:12:18.000Z",
-        "lastActivityAt": "2026-09-26T10:12:18.000Z",
+        "url": "https://github.com/h3js/h3/issues/1584",
+        "createdAt": "<now>",
+        "updatedAt": "<now>",
+        "lastActivityAt": "<now>",
         "locked": false,
-        "commentCount": 3,
+        "commentCount": 0,
         "reactions": {
           "total": 0,
           "counts": {}
@@ -2319,40 +2465,34 @@
             "name": "h3"
           },
           "kind": "pull_request",
-          "number": "1422",
-          "externalId": "PR_kwDOErHI987sEw0e"
+          "number": "1581",
+          "externalId": "PR_kwDOErHI988AAAABHvIO6w"
         },
         "kind": "pull_request",
-        "title": "fix(sanitizeStatusCode): return default for non-numeric input instead of NaN",
-        "body": "`sanitizeStatusCode` accepts `string | number` and parses strings with `Number.parseInt`. For a non-numeric string `Number.parseInt` returns `NaN`, and `NaN` slips through the range check because every comparison with `NaN` is `false`:\n\n```ts\nsanitizeStatusCode(\"abc\"); // -> NaN  (expected 200)\n```\n\nSo an invalid code can reach `createError` (`err.statusCode = sanitizeStatusCode(input.statusCode, ...)`) and the response helpers (`event.node.res.statusCode = sanitizeStatusCode(...)`), where a `NaN` status is no longer a valid HTTP status.\n\nThis is the same issue that was fixed for v2 on `main` in #1420; this backports the guard to the v1 line. The `Number.parseInt` behaviour and the `100..999` range are unchanged, I only added the `Number.isNaN` check:\n\n```ts\nif (Number.isNaN(statusCode) || statusCode < 100 || statusCode > 999) {\n  return defaultStatusCode;\n}\n```\n\nAdded a unit test covering valid codes, out-of-range codes and non-numeric strings. It fails before the change (returns `NaN`) and passes after.\n",
+        "title": "fix(mime): serve .wasm as application/wasm",
+        "body": "`.wasm` isn't in `COMMON_MIME_TYPES`, so `serveStatic` sends it as `text/plain; charset=UTF-8` on node and with no content-type on web. `WebAssembly.instantiateStreaming()` requires `application/wasm` and rejects the response otherwise.\n\n`instantiateStreaming(await app.request(\"/module.wasm\"))` on node 22:\n\n```\nmain: TypeError: WebAssembly response has unsupported MIME type 'null'\nthis: ok\n```\n\nadded it to the table, with a test that fails on main for web and node.\n\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n\n## Summary by CodeRabbit\n\n* **Bug Fixes**\n  * `.wasm` files are now served with the `application/wasm` content type.\n\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
         "state": "open",
         "stateRaw": "open",
         "isDraft": false,
         "author": {
           "forge": "github",
           "instance": "github.com",
-          "login": "mahirhir",
-          "id": "246701683",
-          "avatarUrl": "https://avatars.githubusercontent.com/u/246701683?v=4",
-          "url": "https://github.com/mahirhir",
+          "login": "harshit-d3v",
+          "id": "106448130",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/106448130?v=4",
+          "url": "https://github.com/harshit-d3v",
           "typeRaw": "User",
           "isBotHint": false
         },
         "assignees": [],
         "reviewers": [],
-        "labels": [
-          {
-            "name": "v1",
-            "colour": "B42F7D",
-            "description": ""
-          }
-        ],
-        "url": "https://github.com/h3js/h3/pull/1422",
-        "createdAt": "2026-06-30T05:13:40.000Z",
-        "updatedAt": "2026-09-14T14:34:57.000Z",
-        "lastActivityAt": "2026-09-14T14:34:57.000Z",
+        "labels": [],
+        "url": "https://github.com/h3js/h3/pull/1581",
+        "createdAt": "2026-10-10T20:16:09.000Z",
+        "updatedAt": "2026-10-10T20:22:59.000Z",
+        "lastActivityAt": "2026-10-10T20:22:59.000Z",
         "locked": false,
-        "commentCount": 2,
+        "commentCount": 1,
         "reactions": {
           "total": 0,
           "counts": {}
@@ -2397,7 +2537,7 @@
           "ssh": "git@github.com:uber/h3.git"
         },
         "createdAt": "2017-12-21T01:38:35.000Z",
-        "updatedAt": "2026-10-08T08:17:13.000Z",
+        "updatedAt": "2026-10-10T18:21:29.000Z",
         "pushedAt": "2026-10-02T01:00:28.000Z",
         "owner": {
           "forge": "github",
@@ -2412,7 +2552,7 @@
         "language": "C",
         "homepage": "https://h3geo.org",
         "licence": "Apache-2.0",
-        "stars": 6586,
+        "stars": 6585,
         "forks": 630,
         "features": {
           "issues": true,
@@ -2444,7 +2584,7 @@
           "ssh": "git@github.com:h3js/h3.git"
         },
         "createdAt": "2020-11-17T14:15:44.000Z",
-        "updatedAt": "2026-10-09T00:25:59.000Z",
+        "updatedAt": "2026-10-10T19:37:23.000Z",
         "pushedAt": "2026-10-07T12:37:26.000Z",
         "owner": {
           "forge": "github",
@@ -2459,8 +2599,8 @@
         "language": "TypeScript",
         "homepage": "https://h3.dev",
         "licence": "MIT",
-        "stars": 5449,
-        "forks": 369,
+        "stars": 5455,
+        "forks": 374,
         "features": {
           "issues": true,
           "pullRequests": true,
@@ -2492,7 +2632,7 @@
         },
         "createdAt": "2026-08-04T04:20:36.000Z",
         "updatedAt": "<now>",
-        "pushedAt": "2026-10-09T02:48:01.000Z",
+        "pushedAt": "2026-10-10T02:10:37.000Z",
         "owner": {
           "forge": "github",
           "instance": "github.com",
@@ -2505,8 +2645,8 @@
         },
         "language": "JavaScript",
         "licence": "Apache-2.0",
-        "stars": 2252,
-        "forks": 266,
+        "stars": 2286,
+        "forks": 273,
         "features": {
           "issues": true,
           "pullRequests": true,
@@ -2681,7 +2821,7 @@
     },
     "rateLimit": {
       "limit": 10,
-      "remaining": 9,
+      "remaining": 8,
       "resetAt": "<now>"
     }
   }

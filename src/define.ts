@@ -124,6 +124,7 @@ export interface ProviderSpec {
     getMany: Verb<ThreadsApi['getMany']>
     eventsPage: Verb<(ref: ThreadRef, options?: ListOptions) => Promise<Page<ForgeEventInput>>>
     commentsPage: ThreadVerb<'commentsPage'>
+    getComment?: ThreadVerb<'getComment'>
     comment?: ThreadVerb<'comment'>
     editComment?: ThreadVerb<'editComment'>
     deleteComment?: ThreadVerb<'deleteComment'>
@@ -151,6 +152,7 @@ export interface ProviderSpec {
     subscriptions?: KindVerb<{ [K in 'subscription' | 'subscribe' | 'unsubscribe']: NonNullable<ThreadsApi[K]> }>
     checks?: KindVerb<(ref: ThreadRef, options?: BaseOptions) => Promise<Page<Check>>>
     reviewsPage?: Verb<ThreadsApi['reviewsPage']>
+    getReview?: Verb<ThreadsApi['getReview']>
     createReview?: Verb<ThreadsApi['createReview']>
     submitReview?: Verb<ThreadsApi['submitReview']>
     /** Omit to derive approval from `createReview`. */
@@ -164,6 +166,8 @@ export interface ProviderSpec {
   checks?: {
     /** The implementation of `provider.checks.list()`. */
     list?: Verb<ChecksApi['list']>
+    /** The implementation of `provider.checks.get()`. */
+    get?: Verb<ChecksApi['get']>
     /** The implementation of `provider.checks.report()`. */
     report?: Verb<ChecksApi['report']>
     /** The implementation of `provider.checks.rerun()`. */
@@ -177,6 +181,8 @@ export interface ProviderSpec {
     run?: Verb<CiApi['run']>
     /** The implementation of `provider.ci.jobs()` and `provider.ci.jobsPage()`. */
     jobsPage?: Verb<CiApi['jobsPage']>
+    /** The implementation of `provider.ci.job()`. */
+    job?: Verb<CiApi['job']>
     /** The implementation of `provider.ci.log()`. */
     log?: Verb<CiApi['log']>
   }

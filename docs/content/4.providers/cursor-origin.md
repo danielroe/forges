@@ -120,6 +120,7 @@ Deliveries of `installation.*` events become `installation` events. You register
 | `threads.getMany` | experimental | ❌ |
 | `threads.events` | PR (experimental) | ❌ |
 | `comments.list` | PR (experimental) | ❌ |
+| `comments.get` | PR (unverified) | ❌ |
 | `comments.edit` | PR (unverified) | ❌ |
 | `comments.delete` | PR (unverified) | ❌ |
 | `reactions.list` | ❌ | ❌ |
@@ -152,11 +153,13 @@ Deliveries of `installation.*` events become `installation` events. You register
 | `installations` | ❌ | ❌ |
 | `checks.thread` | PR (experimental) | ❌ |
 | `checks.list` | unverified | ❌ |
+| `checks.get` | ❌ | ❌ |
 | `checks.report` | ❌ | ❌ |
 | `checks.rerun` | ❌ | ❌ |
 | `ci.runs` | ❌ | ❌ |
 | `ci.run` | ❌ | ❌ |
 | `ci.jobs` | ❌ | ❌ |
+| `ci.job` | ❌ | ❌ |
 | `ci.log` | ❌ | ❌ |
 | `contents.file` | unverified | ❌ |
 | `contents.tree` | unverified | ❌ |
@@ -169,6 +172,7 @@ Deliveries of `installation.*` events become `installation` events. You register
 | `contents.threadFiles` | unverified | ❌ |
 | `contents.threadCommits` | unverified | ❌ |
 | `reviews.list` | experimental | ❌ |
+| `reviews.get` | unverified | ❌ |
 | `reviews.create` | unverified | ❌ |
 | `reviews.submit` | ❌ | ❌ |
 | `reviews.approve` | unverified | ❌ |

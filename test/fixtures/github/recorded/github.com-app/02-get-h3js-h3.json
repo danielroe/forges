@@ -6,10 +6,10 @@
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"f5eec007ee2d6414d2897df7cb794388d1189504347928db7e6899995a5904bf\"",
+      "etag": "W/\"25dd0a5ba38b5dd166591b4cd387c26ff9843f277f51630647d757d3ead621ab\"",
       "x-ratelimit-limit": "5000",
-      "x-ratelimit-remaining": "4999",
-      "x-ratelimit-reset": "1791728727"
+      "x-ratelimit-remaining": "4949",
+      "x-ratelimit-reset": "1791733509"
     },
     "body": {
       "id": 313641207,
@@ -96,11 +96,11 @@
       "has_wiki": false,
       "has_pages": false,
       "has_discussions": true,
-      "forks_count": 372,
+      "forks_count": 374,
       "mirror_url": null,
       "archived": false,
       "disabled": false,
-      "open_issues_count": 62,
+      "open_issues_count": 64,
       "license": {
         "key": "mit",
         "name": "MIT License",
@@ -115,8 +115,8 @@
       "pull_request_creation_policy": "all",
       "topics": [],
       "visibility": "public",
-      "forks": 372,
-      "open_issues": 62,
+      "forks": 374,
+      "open_issues": 64,
       "watchers": 5455,
       "default_branch": "main",
       "permissions": {
@@ -149,7 +149,7 @@
         "user_view_type": "public",
         "site_admin": false
       },
-      "network_count": 372,
+      "network_count": 374,
       "subscribers_count": 17
     }
   }

@@ -444,13 +444,13 @@ describe('gitlab code search', () => {
   })
 
   it('merges a file that basic search lists once for its name and again for its contents', async () => {
-    const { instance } = recordedSearch()
     const scratch = { forge: 'gitlab', instance: 'gitlab.com', owner: 'forges-fixtures', name: 'forges-fixtures' } as const
+    const blob = { basename: 'notes', data: 'forges-fixtures\n', path: 'notes.md', filename: 'notes.md', id: 'b1', ref: 'main', startline: 1, project_id: 1 }
+    const instance = gitlab({ auth: { type: 'token', token: 't' }, fetch: async () => Response.json([blob, blob, { ...blob, path: 'other.md', filename: 'other.md' }]) }).create()
 
     const { items } = await instance.search.codePage({ text: 'forges-fixtures', repo: scratch, perPage: 20 })
 
-    expect(items).toHaveLength(10)
-    expect(new Set(items.map(item => item.path)).size).toBe(10)
+    expect(items.map(item => item.path)).toEqual(['notes.md', 'other.md'])
     expect(items.every(item => item.fragments.length === 1)).toBe(true)
   })
 

@@ -1,0 +1,46 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitea.com/api/v1/repos/forges-fixtures/forges-fixtures/pulls/35/reviews/383505/comments"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": [
+      {
+        "id": 1754188,
+        "body": "A line comment from run 20261011145130.",
+        "user": {
+          "id": 250665,
+          "login": "danielroe",
+          "type": "User",
+          "source_id": 0,
+          "full_name": "Daniel Roe",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://seccdn.libravatar.org/avatar/82a8f6237bb263bac46d7cc8ec3054d715ce6a55a8626d6e977769d57d2c94e6?d=identicon",
+          "html_url": "https://gitea.com/danielroe",
+          "active": false,
+          "location": "",
+          "website": "",
+          "description": "",
+          "followers_count": 0,
+          "following_count": 0,
+          "starred_repos_count": 0,
+          "username": "danielroe"
+        },
+        "resolver": null,
+        "pull_request_review_id": 383505,
+        "created_at": "2026-10-11T14:51:53Z",
+        "updated_at": "2026-10-11T14:51:53Z",
+        "path": "forges-fixtures/20261011145130-1.md",
+        "commit_id": "b35848c939dce962610b0787f078cb300da03f61",
+        "original_commit_id": "",
+        "diff_hunk": "@@ -0,0 +1 @@\n+Added by the forges write recording on forges-fixtures/20261011145130-1.",
+        "position": 1,
+        "original_position": 0,
+        "html_url": "https://gitea.com/forges-fixtures/forges-fixtures/pulls/35#issuecomment-1754188",
+        "pull_request_url": "https://gitea.com/forges-fixtures/forges-fixtures/pulls/35"
+      }
+    ]
+  }
+}

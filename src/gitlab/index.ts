@@ -590,6 +590,15 @@ const GITLAB: ProviderDefinition<GitLabOptions> = {
       return (approvals.approved_by ?? []).map(({ user }) => syntheticReview(ref, `approval:${user?.username ?? user?.id ?? ''}`, 'approved', { author: toActor(instance, user), stateRaw: 'approved', raw: user }))
     }
 
+    async function approvalReviews(thread: ThreadRef, options?: BaseOptions): Promise<Review[]> {
+      const ref = requireThread(thread, context)
+      if (ref.kind !== 'pull_request') {
+        throw new UnsupportedOperationError('Only merge requests have approvals', context)
+      }
+      const { data } = await fetcher.json<GitLabApprovals>(`${threadPath(ref)}/approvals`, { signal: options?.signal })
+      return toApprovalReviews(ref, data)
+    }
+
     async function approve(thread: ThreadRef, body?: string, options?: BaseOptions): Promise<GitLabApprovals> {
       const ref = requireThread(thread, context)
       if (ref.kind !== 'pull_request') {
@@ -834,6 +843,10 @@ const GITLAB: ProviderDefinition<GitLabOptions> = {
         runsPage: verb(true, (repo, query = {}) => list(`${projectPath(repo)}/pipelines`, query, (raw: GitLabPipeline) => toPipeline(repo, raw), { query: { ref: query.branch, status: PIPELINE_STATES[query.state ?? 'unknown'] } })),
         run: verb(true, async (ref, options) => toPipeline(ref.repo, (await fetcher.json<GitLabPipeline>(`${projectPath(ref.repo)}/pipelines/${ref.id}`, { signal: options?.signal })).data)),
         jobsPage: verb(true, (ref, listOptions = {}) => list(`${projectPath(ref.repo)}/pipelines/${ref.id}/jobs`, listOptions, (raw: GitLabJob) => toCiJob(ref, raw))),
+        job: verb(!anonymous, async (ref, options) => {
+          const { data } = await fetcher.json<GitLabJob>(`${projectPath(ref.repo)}/jobs/${encodeURIComponent(ref.id)}`, { signal: options?.signal })
+          return toCiJob(ref.run ?? { forge: FORGE, instance, repo: ref.repo, id: String(data.pipeline?.id) }, data)
+        }),
         log: verb(!anonymous, async (ref, options) => (await fetcher.stream(`${projectPath(ref.repo)}/jobs/${encodeURIComponent(ref.id)}/trace`, { signal: options?.signal })).body),
       },
       securityAlerts: {
@@ -843,13 +856,13 @@ const GITLAB: ProviderDefinition<GitLabOptions> = {
       threads: {
         filesPage: verb(true, (thread, listOptions = {}) => list(`${threadPath(requireMerge(thread, 'read for changed files'))}/diffs`, listOptions, toChangedFile)),
         commitsPage: verb(true, (thread, listOptions = {}) => list(`${threadPath(requireMerge(thread, 'read for commits'))}/commits`, listOptions, (raw: GitLabCommitDetail) => toCommit(thread.repo, raw))),
-        reviewsPage: verb('emulated', async (thread, listOptions) => {
-          const ref = requireThread(thread, context)
-          if (ref.kind !== 'pull_request') {
-            throw new UnsupportedOperationError('Only merge requests have approvals', context)
+        reviewsPage: verb('emulated', async (thread, listOptions) => ({ items: await approvalReviews(thread, listOptions) })),
+        getReview: verb(anonymous ? 'unverified' : 'emulated', async (ref, options) => {
+          const review = (await approvalReviews(ref.thread, options)).find(candidate => candidate.ref.id === ref.id)
+          if (!review) {
+            throw new NotFoundError(`Review ${ref.id} not found`, 404, '', context)
           }
-          const { data } = await fetcher.json<GitLabApprovals>(`${threadPath(ref)}/approvals`, { signal: listOptions?.signal })
-          return { items: toApprovalReviews(ref, data) }
+          return review
         }),
         approve: verb(true, async (thread, body, options) => {
           await approve(thread, body, options)
@@ -918,6 +931,11 @@ const GITLAB: ProviderDefinition<GitLabOptions> = {
           // Notes carry no discussion id, so comments are read by discussion; a page holds whole discussions.
           const page = await list(`${threadPath(requireIssueOrPull(ref, context, 'list comments on'))}/discussions`, listOptions, (discussion: GitLabDiscussion) => discussion)
           return { ...page, items: page.items.flatMap(discussion => discussion.notes.filter(note => !note.system).map(note => toNoteComment(ref, note, discussion))) }
+        }),
+        getComment: perKind({ issue: !anonymous, pull_request: !anonymous }, async (ref, options) => {
+          const thread = requireIssueOrPull(ref.thread, context, 'read comments on')
+          const { data } = await fetcher.json<GitLabNoteDetail>(`${threadPath(thread)}/notes/${ref.id}`, { signal: options?.signal })
+          return toNoteComment(thread, data)
         }),
         comment: perKind({ issue: true, pull_request: true, commit: true }, async (thread, body, options) => {
           const ref = requireThread(thread, context)

@@ -1,0 +1,125 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitea.com/api/v1/repos/gitea/tea/actions/runs/1051680/jobs?page=1&limit=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "x-total-count": "2"
+    },
+    "body": {
+      "jobs": [
+        {
+          "id": 1424769,
+          "url": "https://gitea.com/api/v1/repos/gitea/tea/actions/jobs/1424769",
+          "html_url": "https://gitea.com/gitea/tea/actions/runs/1051680/jobs/1424769",
+          "run_id": 1051680,
+          "run_url": "https://gitea.com/api/v1/repos/gitea/tea/actions/runs/1051680",
+          "name": "Lint Build And Unit Coverage",
+          "labels": [
+            "ubuntu-latest"
+          ],
+          "run_attempt": 1,
+          "head_sha": "d3ec77f8ea0c2e484f89194dc34fb7986a51a8f9",
+          "status": "completed",
+          "conclusion": "success",
+          "runner_id": 4589,
+          "runner_name": "gitea-com-gitea-0001",
+          "steps": [
+            {
+              "name": "Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+              "number": 0,
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-10-11T04:26:42Z",
+              "completed_at": "2026-10-11T04:26:45Z"
+            },
+            {
+              "name": "Run actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e",
+              "number": 1,
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-10-11T04:26:45Z",
+              "completed_at": "2026-10-11T04:27:05Z"
+            },
+            {
+              "name": "lint and build",
+              "number": 2,
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-10-11T04:27:05Z",
+              "completed_at": "2026-10-11T04:27:32Z"
+            },
+            {
+              "name": "unit test and coverage",
+              "number": 3,
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-10-11T04:27:33Z",
+              "completed_at": "2026-10-11T04:27:42Z"
+            }
+          ],
+          "created_at": "2026-10-10T23:03:39Z",
+          "started_at": "2026-10-11T04:26:37Z",
+          "completed_at": "2026-10-11T04:27:49Z"
+        },
+        {
+          "id": 1424770,
+          "url": "https://gitea.com/api/v1/repos/gitea/tea/actions/jobs/1424770",
+          "html_url": "https://gitea.com/gitea/tea/actions/runs/1051680/jobs/1424770",
+          "run_id": 1051680,
+          "run_url": "https://gitea.com/api/v1/repos/gitea/tea/actions/runs/1051680",
+          "name": "Integration Test",
+          "labels": [
+            "ubuntu-latest"
+          ],
+          "run_attempt": 1,
+          "head_sha": "d3ec77f8ea0c2e484f89194dc34fb7986a51a8f9",
+          "status": "completed",
+          "conclusion": "success",
+          "runner_id": 4589,
+          "runner_name": "gitea-com-gitea-0001",
+          "steps": [
+            {
+              "name": "Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+              "number": 0,
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-10-11T04:27:53Z",
+              "completed_at": "2026-10-11T04:27:56Z"
+            },
+            {
+              "name": "Run actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e",
+              "number": 1,
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-10-11T04:27:56Z",
+              "completed_at": "2026-10-11T04:28:19Z"
+            },
+            {
+              "name": "wait for the gitea instance to be ready",
+              "number": 2,
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-10-11T04:28:19Z",
+              "completed_at": "2026-10-11T04:28:20Z"
+            },
+            {
+              "name": "integration test",
+              "number": 3,
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-10-11T04:28:20Z",
+              "completed_at": "2026-10-11T04:28:56Z"
+            }
+          ],
+          "created_at": "2026-10-10T23:03:39Z",
+          "started_at": "2026-10-11T04:27:50Z",
+          "completed_at": "2026-10-11T04:29:03Z"
+        }
+      ],
+      "total_count": 2
+    }
+  }
+}

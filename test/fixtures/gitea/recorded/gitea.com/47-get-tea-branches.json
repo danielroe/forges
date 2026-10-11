@@ -1,0 +1,123 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitea.com/api/v1/repos/gitea/tea/branches?limit=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "<https://gitea.com/api/v1/repos/gitea/tea/branches?limit=3&page=2>; rel=\"next\",<https://gitea.com/api/v1/repos/gitea/tea/branches?limit=3&page=4>; rel=\"last\"",
+      "x-total-count": "11"
+    },
+    "body": [
+      {
+        "name": "renovate/dependencies",
+        "commit": {
+          "id": "a989fc5a3ecdea700f23e7ac12e2713bd51280a6",
+          "message": "chore(deps): update dependencies\n",
+          "url": "https://gitea.com/gitea/tea/commit/a989fc5a3ecdea700f23e7ac12e2713bd51280a6",
+          "author": {
+            "name": "Renovate Bot",
+            "email": "redacted@example.invalid",
+            "username": "renovate-bot"
+          },
+          "committer": {
+            "name": "Renovate Bot",
+            "email": "redacted@example.invalid",
+            "username": "renovate-bot"
+          },
+          "verification": {
+            "verified": false,
+            "reason": "gpg.error.not_signed_commit",
+            "signature": "",
+            "signer": null,
+            "payload": ""
+          },
+          "timestamp": "2026-10-10T00:11:21Z",
+          "added": null,
+          "removed": null,
+          "modified": null
+        },
+        "protected": false,
+        "required_approvals": 0,
+        "enable_status_check": false,
+        "status_check_contexts": [],
+        "user_can_push": false,
+        "user_can_merge": false,
+        "effective_branch_protection_name": ""
+      },
+      {
+        "name": "renovate/go-golang.org-x-net-vulnerability",
+        "commit": {
+          "id": "b1b66ebf10e8f5b07e37bfc59e73c46f9b850bf2",
+          "message": "fix(deps): update module golang.org/x/net to v0.60.0 [security]\n",
+          "url": "https://gitea.com/gitea/tea/commit/b1b66ebf10e8f5b07e37bfc59e73c46f9b850bf2",
+          "author": {
+            "name": "Renovate Bot",
+            "email": "redacted@example.invalid",
+            "username": "renovate-bot"
+          },
+          "committer": {
+            "name": "Renovate Bot",
+            "email": "redacted@example.invalid",
+            "username": "renovate-bot"
+          },
+          "verification": {
+            "verified": false,
+            "reason": "gpg.error.not_signed_commit",
+            "signature": "",
+            "signer": null,
+            "payload": ""
+          },
+          "timestamp": "2026-10-10T00:11:04Z",
+          "added": null,
+          "removed": null,
+          "modified": null
+        },
+        "protected": false,
+        "required_approvals": 0,
+        "enable_status_check": false,
+        "status_check_contexts": [],
+        "user_can_push": false,
+        "user_can_merge": false,
+        "effective_branch_protection_name": ""
+      },
+      {
+        "name": "renovate/golang-version-go-vulnerability",
+        "commit": {
+          "id": "676ab1afcbcaa3d08762637ec6c501c045111069",
+          "message": "fix(deps): update go toolchain directive to v1.26.9 [security]\n",
+          "url": "https://gitea.com/gitea/tea/commit/676ab1afcbcaa3d08762637ec6c501c045111069",
+          "author": {
+            "name": "Renovate Bot",
+            "email": "redacted@example.invalid",
+            "username": "renovate-bot"
+          },
+          "committer": {
+            "name": "Renovate Bot",
+            "email": "redacted@example.invalid",
+            "username": "renovate-bot"
+          },
+          "verification": {
+            "verified": false,
+            "reason": "gpg.error.not_signed_commit",
+            "signature": "",
+            "signer": null,
+            "payload": ""
+          },
+          "timestamp": "2026-10-10T00:10:46Z",
+          "added": null,
+          "removed": null,
+          "modified": null
+        },
+        "protected": false,
+        "required_approvals": 0,
+        "enable_status_check": false,
+        "status_check_contexts": [],
+        "user_can_push": false,
+        "user_can_merge": false,
+        "effective_branch_protection_name": ""
+      }
+    ]
+  }
+}

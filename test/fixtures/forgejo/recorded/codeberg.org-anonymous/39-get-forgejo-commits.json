@@ -1,0 +1,499 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/commits?limit=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "<https://codeberg.org/api/v1/repos/forgejo/forgejo/commits?limit=3&page=2>; rel=\"next\",<https://codeberg.org/api/v1/repos/forgejo/forgejo/commits?limit=3&page=8652>; rel=\"last\"",
+      "x-total": "25955",
+      "x-total-count": "25955",
+      "x-page": "1"
+    },
+    "body": [
+      {
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/1b980f3558583271691afb2e6d5bfb96a67cc1e0",
+        "sha": "1b980f3558583271691afb2e6d5bfb96a67cc1e0",
+        "created": "2026-10-11T15:37:01+02:00",
+        "html_url": "https://codeberg.org/forgejo/forgejo/commit/1b980f3558583271691afb2e6d5bfb96a67cc1e0",
+        "commit": {
+          "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/1b980f3558583271691afb2e6d5bfb96a67cc1e0",
+          "author": {
+            "name": "Gusted",
+            "email": "redacted@example.invalid",
+            "date": "2026-10-11T15:37:01+02:00"
+          },
+          "committer": {
+            "name": "Gusted",
+            "email": "redacted@example.invalid",
+            "date": "2026-10-11T15:37:01+02:00"
+          },
+          "message": "fix: avoid loading unnecessary data during tag creation (#14785)\n\nI noticed that creating a tag via the web UI of codeberg.org was quite slow (28-30s).\n\nTracing showed a interesting SQL query:\n\n```sql\nSELECT * FROM `attachment` WHERE `release_id` IN (0) ORDER BY `release_id` ASC, `name` ASC\n```\n\nTracing also showed that this SQL query was executed before a\ntime block where Forgejo was doing a lot of application (non git/DB) code.\n\n---\n\n- `release_service.CreateNewTag` is called from the web router to handle creating a new tag, this function prepares a release struct with all the necessary information (every tag is stored as a release in the database).\n- `createTag` is then called which as first thing calls `LoadAttributes`.\n- `LoadAttributes` assumes the given release was loaded from the database and thus assumes the ID is non-zero. Loading 148026 attachments into this release.\n\nReviewed-on: https://codeberg.org/forgejo/forgejo/pulls/14785\nReviewed-by: Andreas Ahlenstorf <redacted@example.invalid>\n",
+          "tree": {
+            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/trees/1b980f3558583271691afb2e6d5bfb96a67cc1e0",
+            "sha": "1b980f3558583271691afb2e6d5bfb96a67cc1e0",
+            "created": "2026-10-11T15:37:01+02:00"
+          },
+          "verification": {
+            "verified": false,
+            "reason": "gpg.error.not_signed_commit",
+            "signature": "",
+            "signer": null,
+            "payload": ""
+          }
+        },
+        "author": {
+          "id": 26734,
+          "login": "Gusted",
+          "source_id": 0,
+          "full_name": "",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://codeberg.org/avatars/44a59264e976fa585ed9f0a92abad9d7",
+          "html_url": "https://codeberg.org/Gusted",
+          "active": false,
+          "location": "Error 451",
+          "pronouns": "",
+          "website": "https://gusted.xyz",
+          "description": "I’m aware (and the NSA is), that I’m pretty 🌈.\r\n\r\nForgejo contributor  \r\nCodeberg executive board member 2025-2026  \r\nCodeberg presidium member 2025-2027  \r\n\r\nFor more interesting repositories: https://git.gusted.xyz/Gusted",
+          "followers_count": 162,
+          "following_count": 30,
+          "starred_repos_count": 103,
+          "username": "Gusted"
+        },
+        "committer": {
+          "id": 26734,
+          "login": "Gusted",
+          "source_id": 0,
+          "full_name": "",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://codeberg.org/avatars/44a59264e976fa585ed9f0a92abad9d7",
+          "html_url": "https://codeberg.org/Gusted",
+          "active": false,
+          "location": "Error 451",
+          "pronouns": "",
+          "website": "https://gusted.xyz",
+          "description": "I’m aware (and the NSA is), that I’m pretty 🌈.\r\n\r\nForgejo contributor  \r\nCodeberg executive board member 2025-2026  \r\nCodeberg presidium member 2025-2027  \r\n\r\nFor more interesting repositories: https://git.gusted.xyz/Gusted",
+          "followers_count": 162,
+          "following_count": 30,
+          "starred_repos_count": 103,
+          "username": "Gusted"
+        },
+        "parents": [
+          {
+            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/0380b6d688eaf1390e4f24c618386737bf9fc6b1",
+            "sha": "0380b6d688eaf1390e4f24c618386737bf9fc6b1",
+            "created": "0001-01-01T00:00:00Z"
+          }
+        ],
+        "files": [
+          {
+            "filename": "models/repo/release.go",
+            "status": "modified"
+          },
+          {
+            "filename": "models/repo/release_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "services/release/release.go",
+            "status": "modified"
+          }
+        ],
+        "stats": {
+          "total": 55,
+          "additions": 50,
+          "deletions": 5
+        }
+      },
+      {
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/0380b6d688eaf1390e4f24c618386737bf9fc6b1",
+        "sha": "0380b6d688eaf1390e4f24c618386737bf9fc6b1",
+        "created": "2026-10-11T12:37:22+02:00",
+        "html_url": "https://codeberg.org/forgejo/forgejo/commit/0380b6d688eaf1390e4f24c618386737bf9fc6b1",
+        "commit": {
+          "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/0380b6d688eaf1390e4f24c618386737bf9fc6b1",
+          "author": {
+            "name": "Renovate Bot",
+            "email": "redacted@example.invalid",
+            "date": "2026-10-11T12:37:22+02:00"
+          },
+          "committer": {
+            "name": "Gusted",
+            "email": "redacted@example.invalid",
+            "date": "2026-10-11T12:37:22+02:00"
+          },
+          "message": "Update module github.com/go-co-op/gocron to v2 (forgejo) (#14803)\n\nReviewed-on: https://codeberg.org/forgejo/forgejo/pulls/14803\nReviewed-by: Gusted <redacted@example.invalid>\n",
+          "tree": {
+            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/trees/0380b6d688eaf1390e4f24c618386737bf9fc6b1",
+            "sha": "0380b6d688eaf1390e4f24c618386737bf9fc6b1",
+            "created": "2026-10-11T12:37:22+02:00"
+          },
+          "verification": {
+            "verified": false,
+            "reason": "gpg.error.not_signed_commit",
+            "signature": "",
+            "signer": null,
+            "payload": ""
+          }
+        },
+        "author": {
+          "id": 141082,
+          "login": "viceice-bot",
+          "source_id": 0,
+          "full_name": "",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://codeberg.org/avatars/b25a3a294c6f5514eb9f56b9c808425d05578e5f414b0d36ac88ade50e166d02",
+          "html_url": "https://codeberg.org/viceice-bot",
+          "active": false,
+          "location": "",
+          "pronouns": "",
+          "website": "",
+          "description": "I'm a bot from @viceice",
+          "followers_count": 6,
+          "following_count": 1,
+          "starred_repos_count": 2,
+          "username": "viceice-bot"
+        },
+        "committer": {
+          "id": 26734,
+          "login": "Gusted",
+          "source_id": 0,
+          "full_name": "",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://codeberg.org/avatars/44a59264e976fa585ed9f0a92abad9d7",
+          "html_url": "https://codeberg.org/Gusted",
+          "active": false,
+          "location": "Error 451",
+          "pronouns": "",
+          "website": "https://gusted.xyz",
+          "description": "I’m aware (and the NSA is), that I’m pretty 🌈.\r\n\r\nForgejo contributor  \r\nCodeberg executive board member 2025-2026  \r\nCodeberg presidium member 2025-2027  \r\n\r\nFor more interesting repositories: https://git.gusted.xyz/Gusted",
+          "followers_count": 162,
+          "following_count": 30,
+          "starred_repos_count": 103,
+          "username": "Gusted"
+        },
+        "parents": [
+          {
+            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/7699483827b24e958772d10b363e087e1f4173c4",
+            "sha": "7699483827b24e958772d10b363e087e1f4173c4",
+            "created": "0001-01-01T00:00:00Z"
+          }
+        ],
+        "files": [
+          {
+            "filename": "assets/go-licenses.json",
+            "status": "modified"
+          },
+          {
+            "filename": "go.mod",
+            "status": "modified"
+          },
+          {
+            "filename": "go.sum",
+            "status": "modified"
+          },
+          {
+            "filename": "services/cron/cron.go",
+            "status": "modified"
+          },
+          {
+            "filename": "services/cron/tasks.go",
+            "status": "modified"
+          },
+          {
+            "filename": "services/cron/tasks_test.go",
+            "status": "modified"
+          }
+        ],
+        "stats": {
+          "total": 110,
+          "additions": 66,
+          "deletions": 44
+        }
+      },
+      {
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/7699483827b24e958772d10b363e087e1f4173c4",
+        "sha": "7699483827b24e958772d10b363e087e1f4173c4",
+        "created": "2026-10-11T10:50:17+02:00",
+        "html_url": "https://codeberg.org/forgejo/forgejo/commit/7699483827b24e958772d10b363e087e1f4173c4",
+        "commit": {
+          "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/7699483827b24e958772d10b363e087e1f4173c4",
+          "author": {
+            "name": "0ko",
+            "email": "redacted@example.invalid",
+            "date": "2026-10-11T10:50:17+02:00"
+          },
+          "committer": {
+            "name": "0ko",
+            "email": "redacted@example.invalid",
+            "date": "2026-10-11T10:50:17+02:00"
+          },
+          "message": "fix(i18n): fix faulty remap of mde tooltips (#14804)\n\nFixes forgejo/forgejo#14357.\n\nFix regression of https://codeberg.org/forgejo/forgejo/pulls/13954.\n\nThis re-remaps strings correctly in all languages as they were of commit f911f069b7fc7f3ed65b8ef3f9b12719c99d0757.\n\nThis rollback is needed because we currently have a mix of languages that were and weren't updated on Weblate.\n\nReviewed-on: https://codeberg.org/forgejo/forgejo/pulls/14804\nReviewed-by: Gusted <redacted@example.invalid>\n",
+          "tree": {
+            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/trees/7699483827b24e958772d10b363e087e1f4173c4",
+            "sha": "7699483827b24e958772d10b363e087e1f4173c4",
+            "created": "2026-10-11T10:50:17+02:00"
+          },
+          "verification": {
+            "verified": false,
+            "reason": "gpg.error.not_signed_commit",
+            "signature": "",
+            "signer": null,
+            "payload": ""
+          }
+        },
+        "author": {
+          "id": 35856,
+          "login": "0ko",
+          "source_id": 0,
+          "full_name": "",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://codeberg.org/avatars/679e72b1ca263a192b488b84af24e10c4f32e2c3f46eb2baa7928c986ba460ef",
+          "html_url": "https://codeberg.org/0ko",
+          "active": false,
+          "location": "",
+          "pronouns": "",
+          "website": "",
+          "description": "Hi! I do things related to Forgejo<br><button><p>⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀<img src=\"0ko/me/raw/f\" height=\"128\"/><pre class=\"code-block is-loading\"></pre>![](0ko/me/raw/g \"Gopher (has ur IP)\")</button><br>[**Contact**](0ko/me/src/c.md) ◦ [**Donate**](0ko/me/src/d.md)",
+          "followers_count": 37,
+          "following_count": 27,
+          "starred_repos_count": 30,
+          "username": "0ko"
+        },
+        "committer": {
+          "id": 35856,
+          "login": "0ko",
+          "source_id": 0,
+          "full_name": "",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://codeberg.org/avatars/679e72b1ca263a192b488b84af24e10c4f32e2c3f46eb2baa7928c986ba460ef",
+          "html_url": "https://codeberg.org/0ko",
+          "active": false,
+          "location": "",
+          "pronouns": "",
+          "website": "",
+          "description": "Hi! I do things related to Forgejo<br><button><p>⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀<img src=\"0ko/me/raw/f\" height=\"128\"/><pre class=\"code-block is-loading\"></pre>![](0ko/me/raw/g \"Gopher (has ur IP)\")</button><br>[**Contact**](0ko/me/src/c.md) ◦ [**Donate**](0ko/me/src/d.md)",
+          "followers_count": 37,
+          "following_count": 27,
+          "starred_repos_count": 30,
+          "username": "0ko"
+        },
+        "parents": [
+          {
+            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/5c9a8a3d0a99aa55ae0db216b04aabba79945b4c",
+            "sha": "5c9a8a3d0a99aa55ae0db216b04aabba79945b4c",
+            "created": "0001-01-01T00:00:00Z"
+          }
+        ],
+        "files": [
+          {
+            "filename": "options/locale_next/locale_ar.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_bg.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_ca.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_cs-CZ.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_da.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_de-DE.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_el-GR.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_en-US.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_eo.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_es-ES.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_et.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_eu.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_fa-IR.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_fi-FI.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_fil.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_fr-FR.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_fr_CA.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_ga.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_gl.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_he.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_hi.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_hr.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_hu-HU.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_id-ID.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_it-IT.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_ja-JP.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_kab.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_ko-KR.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_kw.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_lt.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_lv-LV.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_nb_NO.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_nds.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_nl-NL.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_pl-PL.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_pt-BR.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_pt-PT.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_ro.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_ru-RU.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_sk-SK.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_sl.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_sv-SE.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_ta.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_th.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_tok.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_tr-TR.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_uk-UA.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_vi.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_zh-CN.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_zh-TW.json",
+            "status": "modified"
+          }
+        ],
+        "stats": {
+          "total": 396,
+          "additions": 198,
+          "deletions": 198
+        }
+      }
+    ]
+  }
+}

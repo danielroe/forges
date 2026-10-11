@@ -6,10 +6,10 @@
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"971cc3b7b4d204e6eec6615d0bfc7f2ab9d7b078ac2cfcd43366e471bf008b93\"",
+      "etag": "W/\"fa53756b1f47716787805510481177f216a4eb3310bc30cbe4de03940400e8b0\"",
       "x-ratelimit-limit": "60",
       "x-ratelimit-remaining": "59",
-      "x-ratelimit-reset": "1791555471"
+      "x-ratelimit-reset": "1791733890"
     },
     "body": {
       "id": 313641207,
@@ -79,7 +79,7 @@
       "releases_url": "https://api.github.com/repos/h3js/h3/releases{/id}",
       "deployments_url": "https://api.github.com/repos/h3js/h3/deployments",
       "created_at": "2020-11-17T14:15:44Z",
-      "updated_at": "2026-10-09T00:25:59Z",
+      "updated_at": "2026-10-10T19:37:23Z",
       "pushed_at": "2026-10-07T12:37:26Z",
       "git_url": "git://github.com/h3js/h3.git",
       "ssh_url": "git@github.com:h3js/h3.git",
@@ -87,8 +87,8 @@
       "svn_url": "https://github.com/h3js/h3",
       "homepage": "https://h3.dev",
       "size": 8167,
-      "stargazers_count": 5449,
-      "watchers_count": 5449,
+      "stargazers_count": 5455,
+      "watchers_count": 5455,
       "language": "TypeScript",
       "has_issues": true,
       "has_projects": true,
@@ -96,11 +96,11 @@
       "has_wiki": false,
       "has_pages": false,
       "has_discussions": true,
-      "forks_count": 369,
+      "forks_count": 374,
       "mirror_url": null,
       "archived": false,
       "disabled": false,
-      "open_issues_count": 55,
+      "open_issues_count": 64,
       "license": {
         "key": "mit",
         "name": "MIT License",
@@ -115,9 +115,9 @@
       "pull_request_creation_policy": "all",
       "topics": [],
       "visibility": "public",
-      "forks": 369,
-      "open_issues": 55,
-      "watchers": 5449,
+      "forks": 374,
+      "open_issues": 64,
+      "watchers": 5455,
       "default_branch": "main",
       "temp_clone_token": null,
       "custom_properties": {},
@@ -142,7 +142,7 @@
         "user_view_type": "public",
         "site_admin": false
       },
-      "network_count": 369,
+      "network_count": 374,
       "subscribers_count": 17
     }
   }

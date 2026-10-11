@@ -1,0 +1,243 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/issues?state=open&type=pulls&limit=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "<https://codeberg.org/api/v1/repos/forgejo/forgejo/issues?limit=3&page=2&state=open&type=pulls>; rel=\"next\",<https://codeberg.org/api/v1/repos/forgejo/forgejo/issues?limit=3&page=49&state=open&type=pulls>; rel=\"last\"",
+      "x-total-count": "145"
+    },
+    "body": [
+      {
+        "id": 7666935,
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/pulls/14809",
+        "html_url": "https://codeberg.org/forgejo/forgejo/pulls/14809",
+        "number": 14809,
+        "user": {
+          "id": 26734,
+          "login": "Gusted",
+          "source_id": 0,
+          "full_name": "",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://codeberg.org/avatars/44a59264e976fa585ed9f0a92abad9d7",
+          "html_url": "https://codeberg.org/Gusted",
+          "active": false,
+          "location": "Error 451",
+          "pronouns": "",
+          "website": "https://gusted.xyz",
+          "description": "I’m aware (and the NSA is), that I’m pretty 🌈.\r\n\r\nForgejo contributor  \r\nCodeberg executive board member 2025-2026  \r\nCodeberg presidium member 2025-2027  \r\n\r\nFor more interesting repositories: https://git.gusted.xyz/Gusted",
+          "followers_count": 162,
+          "following_count": 30,
+          "starred_repos_count": 103,
+          "username": "Gusted"
+        },
+        "original_author": "",
+        "original_author_id": 0,
+        "title": "feat: speedup `IsEmpty` check",
+        "body": "## Background\n\n- This command executes in 50ms-300ms on https://codeberg.org/forgejo/forgejo/actions\n- Codeberg has for every repository its references stored in reftable (https://git-scm.com/docs/reftable).\n- The forgejo repository has 13019 references.\n- All git data is stored on CephFS.\n\n## Changes\n\nFrom my understanding of git's source-code, `for-each-ref` is able to\niteratively go over refs (and stop after the first reference found).\nWhile `rev-list` is more feature-rich and goes through more hoops than\njust 'iterate over refs'.\n\n- Use `git-for-each-ref(1)` to detect if there's any reference.\n- Specify a custom format to avoid loading object storage. Mostly a\nnice-to-have as it avoids a few `access` syscalls to object storage, we\ndon't need that information for this function.\n\n## Benchmarks\n\nCodeberg (CephFS):\n\n```\n$ hyperfine -N 'git for-each-ref --count=1 --format=found' 'git for-each-ref --count=1' 'git rev-list -n 1 --all'\nBenchmark 1: git for-each-ref --count=1 --format=found\n  Time (mean ± σ):      12.3 ms ±  10.5 ms    [User: 3.2 ms, System: 3.0 ms]\n  Range (min … max):     4.6 ms …  78.0 ms    142 runs\n\n  Warning: Statistical outliers were detected. Consider re-running this benchmark on a quiet system without any interferences from other programs. It might help to use the '--warmup' or '--prepare' options.\n\nBenchmark 2: git for-each-ref --count=1\n  Time (mean ± σ):      23.2 ms ±  16.5 ms    [User: 3.6 ms, System: 4.1 ms]\n  Range (min … max):     7.9 ms …  87.6 ms    186 runs\n\nBenchmark 3: git rev-list -n 1 --all\n  Time (mean ± σ):     199.4 ms ±  75.4 ms    [User: 67.5 ms, System: 25.9 ms]\n  Range (min … max):   134.4 ms … 438.2 ms    16 runs\n\n  Warning: Statistical outliers were detected. Consider re-running this benchmark on a quiet system without any interferences from other programs. It might help to use the '--warmup' or '--prepare' options.\n\nSummary\n  git for-each-ref --count=1 --format=found ran\n    1.89 ± 2.10 times faster than git for-each-ref --count=1\n   16.24 ± 15.19 times faster than git rev-list -n 1 --all\n\n```\n\nLocally, same amount of refs (ext4):\n\n```\n$ hyperfine -N 'git for-each-ref --count=1 --format=found' 'git for-each-ref --count=1' 'git rev-list -n 1 --all'\nBenchmark 1: git for-each-ref --count=1 --format=found (2155 runs)\n                mean     ±       σ          min     …     max\n  Wall Time      1.1 ms  ±     0.1 ms       1.0 ms  …     1.7 ms\n  Memory         6.6 MiB ±     0.1 MiB      6.2 MiB …     7.0 MiB\n\nBenchmark 2: git for-each-ref --count=1 (2713 runs)\n                mean     ±       σ          min     …     max\n  Wall Time      1.1 ms  ±     0.1 ms       1.0 ms  …     1.8 ms            +4.2%\n  Memory         6.8 MiB ±     0.1 MiB      6.3 MiB …     7.1 MiB           +2.5%\n\nBenchmark 3: git rev-list -n 1 --all (591 runs)\n                mean     ±       σ          min     …     max\n  Wall Time      4.8 ms  ±     0.3 ms       4.3 ms  …     6.6 ms          +339.3%  (4.4x slower)\n  Memory         8.7 MiB ±     0.1 MiB      8.2 MiB …     8.9 MiB          +30.9%  (1.3x more)\n```\n\n### Compliance\n\n- [x] I confirm that I make this contribution in accordance with [Forgejo's AI Agreement](https://codeberg.org/forgejo/governance/src/commit/9084720dc6a7fbf1d3f358919d46bd6adfb55287/AIAgreement.md).",
+        "ref": "",
+        "assets": [],
+        "labels": [
+          {
+            "id": 78139,
+            "name": "enhancement/feature",
+            "exclusive": false,
+            "is_archived": false,
+            "color": "207de5",
+            "description": "New feature",
+            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/78139"
+          },
+          {
+            "id": 82969,
+            "name": "forgejo/scaling",
+            "exclusive": false,
+            "is_archived": false,
+            "color": "eb6420",
+            "description": "Performance and scaling",
+            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/82969"
+          },
+          {
+            "id": 201030,
+            "name": "test/present",
+            "exclusive": true,
+            "is_archived": false,
+            "color": "5319e7",
+            "description": "test has been added",
+            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/201030"
+          }
+        ],
+        "milestone": null,
+        "assignee": null,
+        "assignees": null,
+        "state": "open",
+        "is_locked": false,
+        "comments": 1,
+        "created_at": "2026-10-11T15:42:32+02:00",
+        "updated_at": "2026-10-11T15:49:03+02:00",
+        "closed_at": null,
+        "due_date": null,
+        "pull_request": {
+          "merged": false,
+          "merged_at": null,
+          "draft": false,
+          "html_url": "https://codeberg.org/forgejo/forgejo/pulls/14809"
+        },
+        "repository": {
+          "id": 73144,
+          "name": "forgejo",
+          "owner": "forgejo",
+          "full_name": "forgejo/forgejo"
+        },
+        "pin_order": 0
+      },
+      {
+        "id": 7666911,
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/pulls/14808",
+        "html_url": "https://codeberg.org/forgejo/forgejo/pulls/14808",
+        "number": 14808,
+        "user": {
+          "id": 165271,
+          "login": "forgejo-backport-action",
+          "source_id": 0,
+          "full_name": "",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://codeberg.org/avatars/e81deed440bbd430374b346c305a3d791ccc11dcfb89269840bbdcaa13887e88",
+          "html_url": "https://codeberg.org/forgejo-backport-action",
+          "active": false,
+          "location": "",
+          "pronouns": "",
+          "website": "",
+          "description": "",
+          "followers_count": 1,
+          "following_count": 0,
+          "starred_repos_count": 0,
+          "username": "forgejo-backport-action"
+        },
+        "original_author": "",
+        "original_author_id": 0,
+        "title": "[v17.0/forgejo] fix: avoid loading unnecessary data during tag creation",
+        "body": "**Backport:** https://codeberg.org/forgejo/forgejo/pulls/14785\r\n\r\nI noticed that creating a tag via the web UI of codeberg.org was quite\nslow (28-30s).\n\nTracing showed a interesting SQL query:\n\n```sql\nSELECT * FROM `attachment` WHERE `release_id` IN (0) ORDER BY `release_id` ASC, `name` ASC\n```\n\nJust before tracing showed that Forgejo was doing a lot of\napplication (non git/DB) code.\n\n---\n\n- `release_service.CreateNewTag` is called from the web router to handle\ncreating a new tag, this function prepares a release struct with all the\nnecessary information (every tag is stored as a release in the\ndatabase).\n- `createTag` is then called which as first thing calls\n`LoadAttributes`.\n- `LoadAttributes` assumes the given release was loaded from the\ndatabase and thus assumes the ID is non-zero. Loading 148026 attachments\ninto this release.\n\n\n### Compliance\n\n- [x] I confirm that I make this contribution in accordance with [Forgejo's AI Agreement](https://codeberg.org/forgejo/governance/src/commit/9084720dc6a7fbf1d3f358919d46bd6adfb55287/AIAgreement.md).",
+        "ref": "",
+        "assets": [],
+        "labels": [
+          {
+            "id": 201023,
+            "name": "bug/confirmed",
+            "exclusive": true,
+            "is_archived": false,
+            "color": "e11d21",
+            "description": "it can be reproduced",
+            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/201023"
+          },
+          {
+            "id": 82969,
+            "name": "forgejo/scaling",
+            "exclusive": false,
+            "is_archived": false,
+            "color": "eb6420",
+            "description": "Performance and scaling",
+            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/82969"
+          },
+          {
+            "id": 201030,
+            "name": "test/present",
+            "exclusive": true,
+            "is_archived": false,
+            "color": "5319e7",
+            "description": "test has been added",
+            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/201030"
+          }
+        ],
+        "milestone": null,
+        "assignee": null,
+        "assignees": null,
+        "state": "open",
+        "is_locked": false,
+        "comments": 1,
+        "created_at": "2026-10-11T15:37:49+02:00",
+        "updated_at": "2026-10-11T16:46:09+02:00",
+        "closed_at": null,
+        "due_date": null,
+        "pull_request": {
+          "merged": false,
+          "merged_at": null,
+          "draft": false,
+          "html_url": "https://codeberg.org/forgejo/forgejo/pulls/14808"
+        },
+        "repository": {
+          "id": 73144,
+          "name": "forgejo",
+          "owner": "forgejo",
+          "full_name": "forgejo/forgejo"
+        },
+        "pin_order": 0
+      },
+      {
+        "id": 7665156,
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/pulls/14806",
+        "html_url": "https://codeberg.org/forgejo/forgejo/pulls/14806",
+        "number": 14806,
+        "user": {
+          "id": 1405727,
+          "login": "nanobee",
+          "source_id": 0,
+          "full_name": "",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://codeberg.org/avatars/2fe7b47925e18f9546b1a898e399ae2203b6cc28e4a18ce4cd4f6ae521828bd0",
+          "html_url": "https://codeberg.org/nanobee",
+          "active": false,
+          "location": "",
+          "pronouns": "",
+          "website": "",
+          "description": "",
+          "followers_count": 0,
+          "following_count": 0,
+          "starred_repos_count": 1,
+          "username": "nanobee"
+        },
+        "original_author": "",
+        "original_author_id": 0,
+        "title": "test: Use testify in more tests",
+        "body": "Use `testify` in more tests.\r\n\r\n### Compliance\r\n\r\n- [x] I confirm that I make this contribution in accordance with [Forgejo's AI Agreement](https://codeberg.org/forgejo/governance/src/commit/9084720dc6a7fbf1d3f358919d46bd6adfb55287/AIAgreement.md).\r\n\r\n### Tests for Go changes\r\n\r\n- [x] I ran `make pr-go` before pushing\r\n\r\n### Documentation\r\n\r\n- [ ] I created a pull request [to the documentation](https://codeberg.org/forgejo/docs) to explain to Forgejo users how to use this change.\r\n- [x] I did not document these changes and I do not expect someone else to do it.\r\n\r\n### Release notes\r\n\r\n- [ ] This change will be noticed by a Forgejo user or admin (feature, bug fix, performance, etc.). I suggest to include a release note for this change.\r\n- [x] This change is not visible to a Forgejo user or admin (refactor, dependency upgrade, etc.). I think there is no need to add a release note for this change.",
+        "ref": "",
+        "assets": [],
+        "labels": [
+          {
+            "id": 201029,
+            "name": "test/not-needed",
+            "exclusive": true,
+            "is_archived": false,
+            "color": "5319e7",
+            "description": "no additional test is needed",
+            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/201029"
+          }
+        ],
+        "milestone": null,
+        "assignee": null,
+        "assignees": null,
+        "state": "open",
+        "is_locked": false,
+        "comments": 1,
+        "created_at": "2026-10-11T11:20:35+02:00",
+        "updated_at": "2026-10-11T15:38:13+02:00",
+        "closed_at": null,
+        "due_date": null,
+        "pull_request": {
+          "merged": false,
+          "merged_at": null,
+          "draft": false,
+          "html_url": "https://codeberg.org/forgejo/forgejo/pulls/14806"
+        },
+        "repository": {
+          "id": 73144,
+          "name": "forgejo",
+          "owner": "forgejo",
+          "full_name": "forgejo/forgejo"
+        },
+        "pin_order": 0
+      }
+    ]
+  }
+}

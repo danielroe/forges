@@ -1,0 +1,37 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://gitlab.com/api/v4/projects/forges-fixtures%2Fforges-fixtures/issues/22/award_emoji",
+    "body": {
+      "name": "thumbsup"
+    }
+  },
+  "response": {
+    "status": 201,
+    "headers": {
+      "etag": "W/\"9a8ea5d339922a6c105cec1fbae0fb94\"",
+      "ratelimit-limit": "2000",
+      "ratelimit-remaining": "1977",
+      "ratelimit-reset": "1791730380"
+    },
+    "body": {
+      "id": 59093966,
+      "name": "thumbsup",
+      "user": {
+        "id": 43193323,
+        "username": "roebot",
+        "public_email": "",
+        "name": "Daniel Roe",
+        "state": "active",
+        "locked": false,
+        "avatar_url": "https://secure.gravatar.com/avatar/14ceebcfdc10030d76768a65e9d7978b914694cebcbb6ab609b3a0e8243f0eb8?s=80&d=identicon",
+        "web_url": "https://gitlab.com/roebot"
+      },
+      "created_at": "2026-10-11T14:52:13.951Z",
+      "updated_at": "2026-10-11T14:52:13.951Z",
+      "awardable_id": 206191662,
+      "awardable_type": "Issue",
+      "url": null
+    }
+  }
+}
