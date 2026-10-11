@@ -368,7 +368,7 @@ const BITBUCKET: ProviderDefinition<BitbucketOptions> = {
       return list(`/repositories/${encodeURIComponent(owner.owner)}`, query, (raw: BitbucketRepositoryDetail) => toRepo(instance, raw), {
         query: {
           q: query.visibility === 'public' || query.visibility === 'private' ? `is_private = ${query.visibility === 'private'}` : undefined,
-          sort: field && `${query.direction === 'desc' ? '-' : ''}${field}`,
+          sort: field && `${(query.direction ?? (field === 'name' ? 'asc' : 'desc')) === 'desc' ? '-' : ''}${field}`,
         },
         warnings: query.sort === 'pushed' && !query.cursor ? [{ code: 'sort_unsupported', message: 'Bitbucket does not report pushes; sorted by update time' }] : undefined,
         select: page<BitbucketRepositoryDetail>,

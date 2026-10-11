@@ -79,6 +79,21 @@ describe('bitbucket provider', () => {
     expect(JSON.parse(calls.at(-1)!.body!)).toEqual({ merge_strategy: 'squash', message: 'Release widgets (#31)\n\nShips the widgets' })
   })
 
+  it('sorts the repositories of a workspace newest first, and names A to Z, unless told otherwise', async () => {
+    const urls: string[] = []
+    const instance = bitbucket({ fetch: async (url) => {
+      urls.push(url)
+      return Response.json({ values: [] })
+    } }).create()
+    const workspace = { ...repo, name: '', kind: 'namespace' } as const
+
+    for (const query of [{ sort: 'updated' }, { sort: 'updated', direction: 'asc' }, { sort: 'name' }, { sort: 'name', direction: 'desc' }] as const) {
+      await instance.repos.byOwnerPage(workspace, query)
+    }
+
+    expect(urls.map(url => new URL(url).searchParams.get('sort'))).toEqual(['-updated_on', 'updated_on', 'name', '-name'])
+  })
+
   it('lists no internal repositories of a workspace, with a warning', async () => {
     const { instance, calls } = provider()
     const page = await instance.repos.byOwnerPage({ ...repo, name: '', kind: 'namespace' }, { visibility: 'internal' })
