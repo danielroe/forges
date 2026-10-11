@@ -659,10 +659,17 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
       repos: {
         get: verb(support('repos.get', true), async repo => repoState(repo).repo),
         listPage: verb(support('repos.list', true), async (listOptions: ListOptions = {}) => pageOf([...store.repos.values()].map(state => state.repo), listOptions)),
-        byOwnerPage: verb(support('repos.byOwner', true), async (owner, query = {}) => pageOf([...store.repos.values()]
-          .map(state => state.repo)
-          .filter(repo => (repo.ref.owner === owner.owner || (query.subgroups && repo.ref.owner.startsWith(`${owner.owner}/`)))
-            && (!query.visibility || query.visibility === 'all' || repo.visibility === query.visibility)), query)),
+        byOwnerPage: verb(support('repos.byOwner', true), async (owner, query = {}) => {
+          const repos = [...store.repos.values()]
+            .map(state => state.repo)
+            .filter(repo => (repo.ref.owner === owner.owner || (query.subgroups && repo.ref.owner.startsWith(`${owner.owner}/`)))
+              && (!query.visibility || query.visibility === 'all' || repo.visibility === query.visibility))
+          if (query.sort === 'name') {
+            repos.sort((a, b) => slugOf(a.ref).localeCompare(slugOf(b.ref)) * (query.direction === 'desc' ? -1 : 1))
+          }
+          const page = pageOf(repos, query)
+          return query.sort && query.sort !== 'name' && !query.cursor ? { ...page, warnings: [{ code: 'sort_unsupported', message: 'The fake forge keeps no repository dates; sorted in seed order' }] } : page
+        }),
       },
       search: {
         threadsPage: verb(support('search.threads', true), async (query = {}) => {

@@ -246,6 +246,9 @@ describe('fake forge', () => {
     expect(await names()).toEqual(['acme/widgets'])
     expect(await names({ subgroups: true })).toEqual(['acme/widgets', 'acme/tools/cli'])
     expect(await names({ subgroups: true, visibility: 'private' })).toEqual(['acme/tools/cli'])
+    expect(await names({ subgroups: true, sort: 'name' })).toEqual(['acme/tools/cli', 'acme/widgets'])
+    expect(await names({ subgroups: true, sort: 'name', direction: 'desc' })).toEqual(['acme/widgets', 'acme/tools/cli'])
+    expect((await forge.repos.byOwnerPage(acme, { sort: 'created' })).warnings).toContainEqual(expect.objectContaining({ code: 'sort_unsupported' }))
   })
 
   it('searches the lines of seeded files', async () => {
