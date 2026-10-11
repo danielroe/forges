@@ -61,7 +61,7 @@
     "owner": "forges-fixtures",
     "name": "forges-fixtures-transfer"
   },
-  "recordedAt": "2026-10-11T14:52:07.832Z",
+  "recordedAt": "2026-10-11T16:05:25.420Z",
   "steps": [
     "repo",
     "repo licence",
@@ -94,6 +94,7 @@
     "discussion events",
     "discussion comments",
     "discussion getComment",
+    "discussion getComment of another node",
     "discussion reactions",
     "discussion subscription",
     "commit thread",
@@ -113,6 +114,7 @@
     "check",
     "ci jobs",
     "ci job",
+    "ci job by id",
     "ci log",
     "readme",
     "tree",

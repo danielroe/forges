@@ -143,7 +143,7 @@
     },
     "rateLimit": {
       "limit": 5000,
-      "remaining": 4913,
+      "remaining": 4974,
       "resetAt": "<now>"
     }
   },
@@ -151,7 +151,7 @@
     "items": [],
     "rateLimit": {
       "limit": 5000,
-      "remaining": 4912,
+      "remaining": 4973,
       "resetAt": "<now>"
     }
   },
@@ -202,7 +202,7 @@
     ],
     "rateLimit": {
       "limit": 5000,
-      "remaining": 4890,
+      "remaining": 4956,
       "resetAt": "<now>"
     }
   },
@@ -241,7 +241,7 @@
     ],
     "rateLimit": {
       "limit": 5000,
-      "remaining": 4910,
+      "remaining": 4971,
       "resetAt": "<now>"
     }
   },
@@ -344,6 +344,86 @@
             "name": "h3"
           },
           "kind": "pull_request",
+          "number": "1587",
+          "externalId": "PR_kwDOErHI988AAAABH0yeSg"
+        },
+        "kind": "pull_request",
+        "title": "docs: fix more utils code example",
+        "body": "Resolves #1586\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n\n## Summary by CodeRabbit\n\n* **Documentation**\n  * Updated the `withBase` code example to remove an extra semicolon, keeping the example’s formatting consistent. No behavior or functionality has changed.\n\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
+        "state": "open",
+        "stateRaw": "open",
+        "isDraft": false,
+        "author": {
+          "forge": "github",
+          "instance": "github.com",
+          "login": "otowa1",
+          "id": "90172742",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/90172742?v=4",
+          "url": "https://github.com/otowa1",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "assignees": [],
+        "reviewers": [
+          {
+            "actor": {
+              "forge": "github",
+              "instance": "github.com",
+              "login": "pi0",
+              "id": "5158436",
+              "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?v=4",
+              "url": "https://github.com/pi0",
+              "typeRaw": "User",
+              "isBotHint": false
+            },
+            "state": "pending",
+            "stateRaw": "requested"
+          }
+        ],
+        "labels": [],
+        "url": "https://github.com/h3js/h3/pull/1587",
+        "createdAt": "<now>",
+        "updatedAt": "<now>",
+        "lastActivityAt": "<now>",
+        "locked": false,
+        "commentCount": 1,
+        "branches": {
+          "head": {
+            "ref": "docs-fix-more-utils-code-example",
+            "sha": "d9a7f9259d7d90f78e3602391a2bb6a6ae97ef2a",
+            "repo": {
+              "forge": "github",
+              "instance": "github.com",
+              "owner": "otowa1",
+              "name": "h3",
+              "externalId": "1414464541"
+            }
+          },
+          "base": {
+            "ref": "main",
+            "sha": "66cfb8a357b6285451bad498c2c40002601fae98"
+          },
+          "mergeCommitSha": "a926cbc801965ea45e5c61949f3d3f6f31b353af"
+        },
+        "checks": {
+          "state": "success",
+          "stateRaw": "success",
+          "total": 3,
+          "failed": 0,
+          "url": "https://github.com/h3js/h3/pull/1587/checks"
+        }
+      },
+      {
+        "ref": {
+          "forge": "github",
+          "instance": "github.com",
+          "repo": {
+            "forge": "github",
+            "instance": "github.com",
+            "owner": "h3js",
+            "name": "h3"
+          },
+          "kind": "pull_request",
           "number": "1585",
           "externalId": "PR_kwDOErHI988AAAABH0aNdg"
         },
@@ -382,9 +462,9 @@
         ],
         "labels": [],
         "url": "https://github.com/h3js/h3/pull/1585",
-        "createdAt": "<now>",
-        "updatedAt": "<now>",
-        "lastActivityAt": "<now>",
+        "createdAt": "2026-10-11T14:13:38.000Z",
+        "updatedAt": "2026-10-11T14:15:02.000Z",
+        "lastActivityAt": "2026-10-11T14:15:02.000Z",
         "locked": false,
         "commentCount": 1,
         "branches": {
@@ -492,95 +572,15 @@
           "failed": 0,
           "url": "https://github.com/h3js/h3/pull/1583/checks"
         }
-      },
-      {
-        "ref": {
-          "forge": "github",
-          "instance": "github.com",
-          "repo": {
-            "forge": "github",
-            "instance": "github.com",
-            "owner": "h3js",
-            "name": "h3"
-          },
-          "kind": "pull_request",
-          "number": "1582",
-          "externalId": "PR_kwDOErHI988AAAABHvKNzg"
-        },
-        "kind": "pull_request",
-        "title": "fix(query): decode valid escapes next to a malformed one",
-        "body": "when a query value has one malformed escape, `decodeURIComponent` throws and `parseQuery` keeps the whole value undecoded, so the valid escapes stay encoded too. a stray `%` is enough:\n\n```ts\napp.get(\"/search\", (event) => ({\n  getQuery: getQuery(event).q,\n  searchParams: event.url.searchParams.get(\"q\"),\n}));\n// GET /search?q=caf%C3%A9+50%\n// main: {\"getQuery\":\"caf%C3%A9 50%\",\"searchParams\":\"café 50%\"}\n// this: {\"getQuery\":\"café 50%\",\"searchParams\":\"café 50%\"}\n```\n\n`URLSearchParams` and `node:querystring` both decode the valid escapes and keep the malformed ones as-is. now the catch falls back to that instead of skipping, for keys and values. the happy path doesn't change.\n\nthe test compares `parseQuery` with `URLSearchParams` on a few malformed inputs, it fails on main.\n\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n\n## Summary by CodeRabbit\n\n* **Bug Fixes**\n  * Query strings with malformed percent-encoded keys or values are now decoded more consistently, including when valid and malformed escapes appear together.\n\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
-        "state": "open",
-        "stateRaw": "open",
-        "isDraft": false,
-        "author": {
-          "forge": "github",
-          "instance": "github.com",
-          "login": "harshit-d3v",
-          "id": "106448130",
-          "avatarUrl": "https://avatars.githubusercontent.com/u/106448130?v=4",
-          "url": "https://github.com/harshit-d3v",
-          "typeRaw": "User",
-          "isBotHint": false
-        },
-        "assignees": [],
-        "reviewers": [
-          {
-            "actor": {
-              "forge": "github",
-              "instance": "github.com",
-              "login": "pi0",
-              "id": "5158436",
-              "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?v=4",
-              "url": "https://github.com/pi0",
-              "typeRaw": "User",
-              "isBotHint": false
-            },
-            "state": "pending",
-            "stateRaw": "requested"
-          }
-        ],
-        "labels": [],
-        "url": "https://github.com/h3js/h3/pull/1582",
-        "createdAt": "2026-10-10T20:21:27.000Z",
-        "updatedAt": "2026-10-10T20:24:30.000Z",
-        "lastActivityAt": "2026-10-10T20:24:30.000Z",
-        "locked": false,
-        "commentCount": 1,
-        "branches": {
-          "head": {
-            "ref": "fix/query-malformed-escape",
-            "sha": "8bd29e3c6d33abaefa0a242decff0f39cf0778a6",
-            "repo": {
-              "forge": "github",
-              "instance": "github.com",
-              "owner": "harshit-d3v",
-              "name": "h3",
-              "externalId": "1413617363"
-            }
-          },
-          "base": {
-            "ref": "main",
-            "sha": "66cfb8a357b6285451bad498c2c40002601fae98"
-          },
-          "mergeCommitSha": "3dca92fa000b4b36b40260443755f747751fdaea"
-        },
-        "checks": {
-          "state": "success",
-          "stateRaw": "success",
-          "total": 3,
-          "failed": 0,
-          "url": "https://github.com/h3js/h3/pull/1582/checks"
-        }
       }
     ],
     "cursor": {
       "nextUrl": "https://api.github.com/repositories/313641207/pulls?state=open&sort=created&direction=desc&per_page=3&page=2",
-      "etag": "W/\"a7b946901d5f4b33c932cee072a7661e73abd0c17c1e293df234db6ad621c9e6\""
+      "etag": "W/\"4e1f590651818ebfe3839ace524a269dbfae5541a16c149c297b7342757f0a6f\""
     },
     "rateLimit": {
       "limit": 5000,
-      "remaining": 4906,
+      "remaining": 4967,
       "resetAt": "<now>"
     }
   },
@@ -859,7 +859,7 @@
     },
     "rateLimit": {
       "limit": 5000,
-      "remaining": 4900,
+      "remaining": 4966,
       "resetAt": "<now>"
     }
   },
@@ -984,7 +984,7 @@
     ],
     "rateLimit": {
       "limit": 5000,
-      "remaining": 4899,
+      "remaining": 4965,
       "resetAt": "<now>"
     }
   },
@@ -1032,7 +1032,7 @@
     "items": [],
     "rateLimit": {
       "limit": 5000,
-      "remaining": 4985,
+      "remaining": 4998,
       "resetAt": "<now>"
     }
   },
@@ -1041,7 +1041,7 @@
     "items": [],
     "rateLimit": {
       "limit": 5000,
-      "remaining": 4897,
+      "remaining": 4963,
       "resetAt": "<now>"
     }
   },
@@ -1063,7 +1063,7 @@
     ],
     "rateLimit": {
       "limit": 5000,
-      "remaining": 4892,
+      "remaining": 4958,
       "resetAt": "<now>"
     }
   },
@@ -1121,7 +1121,7 @@
     ],
     "rateLimit": {
       "limit": 5000,
-      "remaining": 4891,
+      "remaining": 4957,
       "resetAt": "<now>"
     }
   },
@@ -1160,7 +1160,7 @@
     ],
     "rateLimit": {
       "limit": 5000,
-      "remaining": 4890,
+      "remaining": 4956,
       "resetAt": "<now>"
     }
   },
@@ -1223,29 +1223,35 @@
             "name": "h3"
           },
           "kind": "issue",
-          "number": "1584",
-          "externalId": "I_kwDOErHI988AAAABWdEgsQ"
+          "number": "1586",
+          "externalId": "I_kwDOErHI988AAAABWdirSA"
         },
         "kind": "issue",
-        "title": "fix(static): serveStatic generates invalid double-slash root index path (//index.html) and concatenates subfolder paths without slash when relative indexNames are used",
-        "body": "### Description\n\nIn `src/utils/static.ts`, `idSearchPaths` generates the candidate paths by directly concatenating `id` and `suffix`:\n\n```ts\nfunction idSearchPaths(id: string, encodings: string[], indexNames: string[]) {\n  const ids: { id: string; assetId: string }[] = [];\n\n  for (const suffix of [\"\", ...indexNames]) {\n    const assetId = `${id}${suffix}`;\n    for (const encoding of [...encodings, \"\"]) {\n      ids.push({ id: `${assetId}${encoding}`, assetId });\n    }\n  }\n\n  return ids;\n}\n```\n\nBecause `originalId` for root `GET /` is normalized by `withoutTrailingSlash(\"/\")` which returns `\"/\"`:\n\n1. **Root double slash with default `indexNames: [\"/index.html\"]`: **\n   When requesting root `GET /`, `id` is `\"/\"` and `suffix` is `\"/index.html\"`. The resulting candidate asset ID is:\n   ```\n   \"//index.html\"\n   ```\n   This is a non-canonical leading separator run (which `isCanonicalPath(\"//index.html\")` flags as `false`). For backends keyed by canonical asset paths (such as in-memory stores, maps, or storage drivers expecting `\"/index.html\"`), looking up `\"//index.html\"` fails and returns `404`.\n\n2. **Missing separator for subdirectories when `indexNames` entries lack a leading slash (e.g. `[\"index.html\"]`)**:\n   If an application configures relative index names such as `indexNames: [\"index.html\"]`:\n   - For root `GET /`, `id` is `\"/\"` + `\"index.html\"` = `\"/index.html\"`\n   - For subdirectories like `GET /docs`, `id` is `\"/docs\"` + `\"index.html\"` = `\"/docsindex.html\"`!\n   \nAs a result, there is no configuration of `indexNames` that works for both root and subdirectories.\n\n### Reproduction\n\n```ts\nimport { H3, serveStatic } from \"h3\";\n\nconst app = new H3();\nconst assets = {\n  \"/index.html\": { size: 10, mtime: Date.now() },\n};\n\napp.all(\"/**\", (event) => {\n  return serveStatic(event, {\n    getMeta: (id) => assets[id],\n    getContents: (id) => \"hello\",\n    indexNames: [\"/index.html\"],\n  });\n});\n\nconst res = await app.fetch(new Request(\"http://localhost/\"));\nconsole.log(res.status); // 404 (getMeta was called with \"//index.html\")\n```\n\n### Expected Behavior\n\n`idSearchPaths` should normalize the directory-index join on a single slash boundary regardless of whether `id` is root `\"/\"` or a subdirectory, and regardless of whether `indexNames` entries have a leading slash:\n\n- `GET /` with `\"/index.html\"` or `\"index.html\"` -> `\"/index.html\"`\n- `GET /docs` with `\"/index.html\"` or `\"index.html\"` -> `\"/docs/index.html\"`\n\n### Proposed Fix\n\n```ts\nfunction idSearchPaths(id: string, encodings: string[], indexNames: string[]) {\n  const ids: { id: string; assetId: string }[] = [];\n\n  for (const suffix of [\"\", ...indexNames]) {\n    const assetId = suffix\n      ? `${id === \"/\" ? \"\" : id}/${suffix.replace(/^\\/+/, \"\")}`\n      : id;\n    for (const encoding of [...encodings, \"\"]) {\n      ids.push({ id: `${assetId}${encoding}`, assetId });\n    }\n  }\n\n  return ids;\n}\n```",
+        "title": "The code example in “More utils” is incorrect.",
+        "body": "### Describe the change\n\nI'm sorry if this sounds like I'm nitpicking, but since I noticed it, I wanted to point it out. It looks like there's an extra semicolon.\n\n```\nconst api = new H3()\n .get(\"/\", () => \"Hello API!\");\nconst app = new H3();\n .use(\"/api/**\", withBase(\"/api\", api.handler));\n```\n\n### URLs\n\nhttps://h3.dev/utils/more#withbasebase-input\n\n### Additional information\n\n- [x] Would you be willing to help?",
         "state": "open",
         "stateRaw": "open",
         "isDraft": false,
         "author": {
           "forge": "github",
           "instance": "github.com",
-          "login": "TalhaHunter101",
-          "id": "51529912",
-          "avatarUrl": "https://avatars.githubusercontent.com/u/51529912?v=4",
-          "url": "https://github.com/TalhaHunter101",
+          "login": "otowa1",
+          "id": "90172742",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/90172742?v=4",
+          "url": "https://github.com/otowa1",
           "typeRaw": "User",
           "isBotHint": false
         },
         "assignees": [],
         "reviewers": [],
-        "labels": [],
-        "url": "https://github.com/h3js/h3/issues/1584",
+        "labels": [
+          {
+            "name": "documentation",
+            "colour": "0075ca",
+            "description": "Improvements or additions to documentation"
+          }
+        ],
+        "url": "https://github.com/h3js/h3/issues/1586",
         "createdAt": "<now>",
         "updatedAt": "<now>",
         "lastActivityAt": "<now>",
@@ -1258,12 +1264,12 @@
       }
     ],
     "cursor": {
-      "nextUrl": "https://api.github.com/repositories/313641207/issues?state=open&sort=created&direction=desc&per_page=3&after=Y3Vyc29yOnYyOpLPAAABoSplrUjPAAAAAVm1EII%3D&page=2",
-      "etag": "W/\"3003269a8b015d68d9499c10cb392f11a1fcb397582741481adf6d87c4aab84f\""
+      "nextUrl": "https://api.github.com/repositories/313641207/issues?state=open&sort=created&direction=desc&per_page=3&after=Y3Vyc29yOnYyOpLPAAABoStP4lDPAAAAAVnRJdg%3D&page=2",
+      "etag": "W/\"c23cc73f3e65c471ef5b2fec93762815d51758fe5e6f55cb282d23f7f505d9f5\""
     },
     "rateLimit": {
       "limit": 5000,
-      "remaining": 4885,
+      "remaining": 4951,
       "resetAt": "<now>"
     }
   },
@@ -1451,7 +1457,7 @@
     ],
     "rateLimit": {
       "limit": 5000,
-      "remaining": 4884,
+      "remaining": 4950,
       "resetAt": "<now>"
     }
   },
@@ -1459,7 +1465,7 @@
     "items": [],
     "rateLimit": {
       "limit": 5000,
-      "remaining": 4883,
+      "remaining": 4949,
       "resetAt": "<now>"
     }
   },
@@ -1467,7 +1473,7 @@
     "items": [],
     "rateLimit": {
       "limit": 5000,
-      "remaining": 4984,
+      "remaining": 4997,
       "resetAt": "<now>"
     }
   },
@@ -3546,6 +3552,9 @@
     "updatedAt": "2022-06-13T06:48:02.000Z",
     "url": "https://github.com/nuxt/nuxt/discussions/9303#discussioncomment-747897"
   },
+  "discussion getComment of another node": {
+    "rejected": "NotFoundError"
+  },
   "discussion reactions": {
     "items": []
   },
@@ -3576,7 +3585,7 @@
     "items": [],
     "rateLimit": {
       "limit": 5000,
-      "remaining": 4880,
+      "remaining": 4946,
       "resetAt": "<now>"
     }
   },
@@ -3584,7 +3593,7 @@
     "items": [],
     "rateLimit": {
       "limit": 5000,
-      "remaining": 4880,
+      "remaining": 4946,
       "resetAt": "<now>"
     }
   },
@@ -3685,7 +3694,7 @@
     },
     "rateLimit": {
       "limit": 5000,
-      "remaining": 4876,
+      "remaining": 4942,
       "resetAt": "<now>"
     }
   },
@@ -3695,39 +3704,7 @@
         "ref": {
           "forge": "github",
           "instance": "github.com",
-          "id": "26260023190"
-        },
-        "subject": {
-          "type": "thread",
-          "thread": {
-            "forge": "github",
-            "instance": "github.com",
-            "repo": {
-              "forge": "github",
-              "instance": "github.com",
-              "owner": "nuxt",
-              "name": "bridge",
-              "externalId": "480382277"
-            },
-            "kind": "pull_request",
-            "typeRaw": "PullRequest",
-            "number": "1928"
-          }
-        },
-        "subjectTypeRaw": "PullRequest",
-        "reason": "subscribed",
-        "reasonRaw": "subscribed",
-        "unread": true,
-        "title": "fix: stop middleware chain when navigation is redirected or aborted",
-        "subjectState": "unknown",
-        "updatedAt": "<now>",
-        "url": "https://api.github.com/repos/nuxt/bridge/pulls/1928"
-      },
-      {
-        "ref": {
-          "forge": "github",
-          "instance": "github.com",
-          "id": "26259920913"
+          "id": "26260697380"
         },
         "subject": {
           "type": "thread",
@@ -3743,50 +3720,89 @@
             },
             "kind": "pull_request",
             "typeRaw": "PullRequest",
-            "number": "36555"
+            "number": "36558"
           }
         },
         "subjectTypeRaw": "PullRequest",
-        "reason": "author",
-        "reasonRaw": "author",
+        "reason": "review_requested",
+        "reasonRaw": "review_requested",
         "unread": true,
-        "title": "fix(webpack): use valid devtool for hidden client sourcemaps in dev",
+        "title": "fix(nuxt): include builder-env types in nitro context when `nitroViteEnvironment` is enabled",
         "subjectState": "unknown",
         "updatedAt": "<now>",
-        "url": "https://api.github.com/repos/nuxt/nuxt/pulls/36555"
+        "url": "https://api.github.com/repos/nuxt/nuxt/pulls/36558"
       },
       {
         "ref": {
           "forge": "github",
           "instance": "github.com",
-          "id": "26259793587"
+          "id": "26260015773"
         },
         "subject": {
-          "type": "other",
-          "typeRaw": "CheckSuite",
-          "repo": {
+          "type": "thread",
+          "thread": {
             "forge": "github",
             "instance": "github.com",
-            "owner": "danielroe",
-            "name": "roe.dev",
-            "externalId": "227208134"
+            "repo": {
+              "forge": "github",
+              "instance": "github.com",
+              "owner": "nuxt",
+              "name": "nuxt",
+              "externalId": "71995937"
+            },
+            "kind": "pull_request",
+            "typeRaw": "PullRequest",
+            "number": "36556"
           }
         },
-        "subjectTypeRaw": "CheckSuite",
-        "reason": "ci_activity",
-        "reasonRaw": "ci_activity",
+        "subjectTypeRaw": "PullRequest",
+        "reason": "review_requested",
+        "reasonRaw": "review_requested",
         "unread": true,
-        "title": "test workflow run failed for refactor/nuxt-fonts branch",
+        "title": "fix(nitro): keep workerd ssr conditions in miniflare dev runner",
         "subjectState": "unknown",
-        "updatedAt": "<now>",
-        "url": "https://api.github.com/notifications/threads/26259793587"
+        "updatedAt": "2026-10-11T14:57:56.000Z",
+        "lastReadAt": "2026-10-11T14:50:53.000Z",
+        "url": "https://api.github.com/repos/nuxt/nuxt/pulls/36556"
+      },
+      {
+        "ref": {
+          "forge": "github",
+          "instance": "github.com",
+          "id": "26260073889"
+        },
+        "subject": {
+          "type": "thread",
+          "thread": {
+            "forge": "github",
+            "instance": "github.com",
+            "repo": {
+              "forge": "github",
+              "instance": "github.com",
+              "owner": "forges-fixtures",
+              "name": "forges-fixtures",
+              "externalId": "1411702196"
+            },
+            "kind": "issue",
+            "typeRaw": "Issue",
+            "number": "75"
+          }
+        },
+        "subjectTypeRaw": "Issue",
+        "reason": "comment",
+        "reasonRaw": "comment",
+        "unread": true,
+        "title": "forges fixture 20261011145244: issue, edited",
+        "subjectState": "unknown",
+        "updatedAt": "2026-10-11T14:54:41.000Z",
+        "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/issues/75"
       }
     ],
     "cursor": {
       "nextUrl": "https://api.github.com/notifications?all=false&per_page=3&page=2",
-      "etag": "W/\"fa11a3d40abaa303afecd82930601261acccec3369de9e6a9b41ca7695e5d36a\""
+      "etag": "W/\"1beb6c9252265c70f38cf7ce786119ba43f54b5924c8cd6ae9919d568f11804a\""
     },
-    "etag": "W/\"fa11a3d40abaa303afecd82930601261acccec3369de9e6a9b41ca7695e5d36a\"",
+    "etag": "W/\"1beb6c9252265c70f38cf7ce786119ba43f54b5924c8cd6ae9919d568f11804a\"",
     "notModified": false
   },
   "checks": {
@@ -3795,6 +3811,74 @@
   },
   "ci runs": {
     "items": [
+      {
+        "ref": {
+          "forge": "github",
+          "instance": "github.com",
+          "repo": {
+            "forge": "github",
+            "instance": "github.com",
+            "owner": "h3js",
+            "name": "h3"
+          },
+          "id": "38150613585"
+        },
+        "name": "ci",
+        "state": "failure",
+        "stateRaw": "completed",
+        "number": "4753",
+        "eventRaw": "pull_request",
+        "branch": "docs-fix-more-utils-code-example",
+        "sha": "d9a7f9259d7d90f78e3602391a2bb6a6ae97ef2a",
+        "url": "https://github.com/h3js/h3/actions/runs/38150613585",
+        "actor": {
+          "forge": "github",
+          "instance": "github.com",
+          "login": "otowa1",
+          "id": "90172742",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/90172742?v=4",
+          "url": "https://github.com/otowa1",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "createdAt": "<now>",
+        "startedAt": "<now>",
+        "completedAt": "<now>"
+      },
+      {
+        "ref": {
+          "forge": "github",
+          "instance": "github.com",
+          "repo": {
+            "forge": "github",
+            "instance": "github.com",
+            "owner": "h3js",
+            "name": "h3"
+          },
+          "id": "38150613568"
+        },
+        "name": "autofix.ci",
+        "state": "failure",
+        "stateRaw": "completed",
+        "number": "4260",
+        "eventRaw": "pull_request",
+        "branch": "docs-fix-more-utils-code-example",
+        "sha": "d9a7f9259d7d90f78e3602391a2bb6a6ae97ef2a",
+        "url": "https://github.com/h3js/h3/actions/runs/38150613568",
+        "actor": {
+          "forge": "github",
+          "instance": "github.com",
+          "login": "otowa1",
+          "id": "90172742",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/90172742?v=4",
+          "url": "https://github.com/otowa1",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "createdAt": "<now>",
+        "startedAt": "<now>",
+        "completedAt": "<now>"
+      },
       {
         "ref": {
           "forge": "github",
@@ -3825,86 +3909,18 @@
           "typeRaw": "User",
           "isBotHint": false
         },
-        "createdAt": "<now>",
-        "startedAt": "<now>",
-        "completedAt": "<now>"
-      },
-      {
-        "ref": {
-          "forge": "github",
-          "instance": "github.com",
-          "repo": {
-            "forge": "github",
-            "instance": "github.com",
-            "owner": "h3js",
-            "name": "h3"
-          },
-          "id": "38146323064"
-        },
-        "name": "ci",
-        "state": "failure",
-        "stateRaw": "completed",
-        "number": "4752",
-        "eventRaw": "pull_request",
-        "branch": "fix/serve-static-index-paths",
-        "sha": "73f9f488e57746e57de8919ea0358cbe6e5da1a9",
-        "url": "https://github.com/h3js/h3/actions/runs/38146323064",
-        "actor": {
-          "forge": "github",
-          "instance": "github.com",
-          "login": "TalhaHunter101",
-          "id": "51529912",
-          "avatarUrl": "https://avatars.githubusercontent.com/u/51529912?v=4",
-          "url": "https://github.com/TalhaHunter101",
-          "typeRaw": "User",
-          "isBotHint": false
-        },
-        "createdAt": "<now>",
-        "startedAt": "<now>",
-        "completedAt": "<now>"
-      },
-      {
-        "ref": {
-          "forge": "github",
-          "instance": "github.com",
-          "repo": {
-            "forge": "github",
-            "instance": "github.com",
-            "owner": "h3js",
-            "name": "h3"
-          },
-          "id": "38130948426"
-        },
-        "name": "autofix.ci",
-        "state": "failure",
-        "stateRaw": "completed",
-        "number": "4258",
-        "eventRaw": "pull_request",
-        "branch": "docs/fix-static-assets-example",
-        "sha": "36270b8a285744ad4dc5af707112523676ebb9f6",
-        "url": "https://github.com/h3js/h3/actions/runs/38130948426",
-        "actor": {
-          "forge": "github",
-          "instance": "github.com",
-          "login": "aaronanish-t",
-          "id": "217176403",
-          "avatarUrl": "https://avatars.githubusercontent.com/u/217176403?v=4",
-          "url": "https://github.com/aaronanish-t",
-          "typeRaw": "User",
-          "isBotHint": false
-        },
-        "createdAt": "2026-10-11T10:09:41.000Z",
-        "startedAt": "2026-10-11T10:09:41.000Z",
-        "completedAt": "2026-10-11T10:09:41.000Z"
+        "createdAt": "2026-10-11T14:13:42.000Z",
+        "startedAt": "2026-10-11T14:13:42.000Z",
+        "completedAt": "2026-10-11T14:13:42.000Z"
       }
     ],
     "cursor": {
       "nextUrl": "https://api.github.com/repositories/313641207/actions/runs?per_page=3&page=2",
-      "etag": "W/\"6a628d5e71c71ed07fb221ff17e658fc57cd8e3ef21f33ace305460ab20038b2\""
+      "etag": "W/\"71a9015f8a54d327ee53d6106cffb389338508ccbc76c1c8d40cc0c24d359ebd\""
     },
     "rateLimit": {
       "limit": 5000,
-      "remaining": 4872,
+      "remaining": 4938,
       "resetAt": "<now>"
     }
   },
@@ -4019,7 +4035,7 @@
     },
     "rateLimit": {
       "limit": 5000,
-      "remaining": 4871,
+      "remaining": 4937,
       "resetAt": "<now>"
     }
   },
@@ -4033,23 +4049,23 @@
         "owner": "h3js",
         "name": "h3"
       },
-      "id": "38146323079"
+      "id": "38150613585"
     },
-    "name": "autofix.ci",
+    "name": "ci",
     "state": "failure",
     "stateRaw": "completed",
-    "number": "4259",
+    "number": "4753",
     "eventRaw": "pull_request",
-    "branch": "fix/serve-static-index-paths",
-    "sha": "73f9f488e57746e57de8919ea0358cbe6e5da1a9",
-    "url": "https://github.com/h3js/h3/actions/runs/38146323079",
+    "branch": "docs-fix-more-utils-code-example",
+    "sha": "d9a7f9259d7d90f78e3602391a2bb6a6ae97ef2a",
+    "url": "https://github.com/h3js/h3/actions/runs/38150613585",
     "actor": {
       "forge": "github",
       "instance": "github.com",
-      "login": "TalhaHunter101",
-      "id": "51529912",
-      "avatarUrl": "https://avatars.githubusercontent.com/u/51529912?v=4",
-      "url": "https://github.com/TalhaHunter101",
+      "login": "otowa1",
+      "id": "90172742",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/90172742?v=4",
+      "url": "https://github.com/otowa1",
       "typeRaw": "User",
       "isBotHint": false
     },
@@ -4067,14 +4083,14 @@
         "owner": "h3js",
         "name": "h3"
       },
-      "id": "114490391330",
+      "id": "114503173137",
       "type": "check_run"
     },
     "name": "Socket Security: Pull Request Alerts",
     "state": "success",
     "stateRaw": "completed",
     "conclusionRaw": "success",
-    "url": "https://github.com/h3js/h3/runs/114490391330",
+    "url": "https://github.com/h3js/h3/runs/114503173137",
     "startedAt": "<now>",
     "completedAt": "<now>"
   },
@@ -4090,7 +4106,7 @@
             "owner": "forges-fixtures",
             "name": "forges-fixtures"
           },
-          "id": "114460238060",
+          "id": "114498454598",
           "run": {
             "forge": "github",
             "instance": "github.com",
@@ -4100,20 +4116,50 @@
               "owner": "forges-fixtures",
               "name": "forges-fixtures"
             },
-            "id": "38136126086"
+            "id": "38149059061"
           }
         },
-        "name": "check",
+        "name": "Analyze (javascript-typescript)",
         "state": "success",
         "stateRaw": "completed",
-        "url": "https://github.com/forges-fixtures/forges-fixtures/actions/runs/38136126086/job/114460238060",
-        "startedAt": "2026-10-11T11:35:34.000Z",
-        "completedAt": "2026-10-11T11:35:38.000Z"
+        "url": "https://github.com/forges-fixtures/forges-fixtures/actions/runs/38149059061/job/114498454598",
+        "startedAt": "2026-10-11T14:54:11.000Z",
+        "completedAt": "2026-10-11T14:55:33.000Z"
+      },
+      {
+        "ref": {
+          "forge": "github",
+          "instance": "github.com",
+          "repo": {
+            "forge": "github",
+            "instance": "github.com",
+            "owner": "forges-fixtures",
+            "name": "forges-fixtures"
+          },
+          "id": "114498454834",
+          "run": {
+            "forge": "github",
+            "instance": "github.com",
+            "repo": {
+              "forge": "github",
+              "instance": "github.com",
+              "owner": "forges-fixtures",
+              "name": "forges-fixtures"
+            },
+            "id": "38149059061"
+          }
+        },
+        "name": "Analyze (actions)",
+        "state": "success",
+        "stateRaw": "completed",
+        "url": "https://github.com/forges-fixtures/forges-fixtures/actions/runs/38149059061/job/114498454834",
+        "startedAt": "2026-10-11T14:54:10.000Z",
+        "completedAt": "2026-10-11T14:54:49.000Z"
       }
     ],
     "rateLimit": {
       "limit": 5000,
-      "remaining": 4864,
+      "remaining": 4930,
       "resetAt": "<now>"
     }
   },
@@ -4127,7 +4173,7 @@
         "owner": "forges-fixtures",
         "name": "forges-fixtures"
       },
-      "id": "114460238060",
+      "id": "114498454598",
       "run": {
         "forge": "github",
         "instance": "github.com",
@@ -4137,39 +4183,69 @@
           "owner": "forges-fixtures",
           "name": "forges-fixtures"
         },
-        "id": "38136126086"
+        "id": "38149059061"
       }
     },
-    "name": "check",
+    "name": "Analyze (javascript-typescript)",
     "state": "success",
     "stateRaw": "completed",
-    "url": "https://github.com/forges-fixtures/forges-fixtures/actions/runs/38136126086/job/114460238060",
-    "startedAt": "2026-10-11T11:35:34.000Z",
-    "completedAt": "2026-10-11T11:35:38.000Z"
+    "url": "https://github.com/forges-fixtures/forges-fixtures/actions/runs/38149059061/job/114498454598",
+    "startedAt": "2026-10-11T14:54:11.000Z",
+    "completedAt": "2026-10-11T14:55:33.000Z"
+  },
+  "ci job by id": {
+    "ref": {
+      "forge": "github",
+      "instance": "github.com",
+      "repo": {
+        "forge": "github",
+        "instance": "github.com",
+        "owner": "forges-fixtures",
+        "name": "forges-fixtures"
+      },
+      "id": "114498454598",
+      "run": {
+        "forge": "github",
+        "instance": "github.com",
+        "repo": {
+          "forge": "github",
+          "instance": "github.com",
+          "owner": "forges-fixtures",
+          "name": "forges-fixtures"
+        },
+        "id": "38149059061"
+      }
+    },
+    "name": "Analyze (javascript-typescript)",
+    "state": "success",
+    "stateRaw": "completed",
+    "url": "https://github.com/forges-fixtures/forges-fixtures/actions/runs/38149059061/job/114498454598",
+    "startedAt": "2026-10-11T14:54:11.000Z",
+    "completedAt": "2026-10-11T14:55:33.000Z"
   },
   "ci log": {
-    "length": 2033,
+    "length": 16384,
     "head": [
-      "2026-10-11T11:35:35.5376194Z Current runner version: '2.337.0'",
-      "2026-10-11T11:35:35.5397068Z ##[group]Runner Image Provisioner",
-      "2026-10-11T11:35:35.5397846Z Hosted Compute Agent",
-      "2026-10-11T11:35:35.5398358Z Version: 20261002.596",
-      "2026-10-11T11:35:35.5398904Z Commit: c3d12f3313a95f25162a1503be624f3b0617f8c0",
-      "2026-10-11T11:35:35.5399576Z Build Date: 2026-10-02T22:28:27Z",
-      "2026-10-11T11:35:35.5400180Z Worker ID: {120e111b-f3ca-482e-a069-ff5be240747c}",
-      "2026-10-11T11:35:35.5400806Z Region: westus3",
-      "2026-10-11T11:35:35.5401383Z Cloud: Azure",
-      "2026-10-11T11:35:35.5401855Z ##[endgroup]",
-      "2026-10-11T11:35:35.5403130Z ##[group]Operating System",
-      "2026-10-11T11:35:35.5403848Z Ubuntu",
-      "2026-10-11T11:35:35.5404350Z 24.04.5",
-      "2026-10-11T11:35:35.5404809Z LTS",
-      "2026-10-11T11:35:35.5405287Z ##[endgroup]",
-      "2026-10-11T11:35:35.5405804Z ##[group]Runner Image",
-      "2026-10-11T11:35:35.5406321Z Image: ubuntu-24.04",
-      "2026-10-11T11:35:35.5406793Z Version: 20261004.327.1",
-      "2026-10-11T11:35:35.5407931Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20261004.327/images/ubuntu/Ubuntu2404-Readme.md",
-      "2026-10-11T11:35:35.5409208Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20261004.327"
+      "2026-10-11T14:54:12.4552264Z Current runner version: '2.337.0'",
+      "2026-10-11T14:54:12.4581097Z ##[group]Runner Image Provisioner",
+      "2026-10-11T14:54:12.4582325Z Hosted Compute Agent",
+      "2026-10-11T14:54:12.4582946Z Version: 20261002.596",
+      "2026-10-11T14:54:12.4583759Z Commit: c3d12f3313a95f25162a1503be624f3b0617f8c0",
+      "2026-10-11T14:54:12.4584526Z Build Date: 2026-10-02T22:28:27Z",
+      "2026-10-11T14:54:12.4585236Z Worker ID: {4e67c312-48b7-4d17-a5d8-ce15bf8f86a7}",
+      "2026-10-11T14:54:12.4586079Z Region: westus",
+      "2026-10-11T14:54:12.4586653Z Cloud: Azure",
+      "2026-10-11T14:54:12.4587324Z ##[endgroup]",
+      "2026-10-11T14:54:12.4589391Z ##[group]Operating System",
+      "2026-10-11T14:54:12.4590093Z Ubuntu",
+      "2026-10-11T14:54:12.4590769Z 24.04.5",
+      "2026-10-11T14:54:12.4591355Z LTS",
+      "2026-10-11T14:54:12.4592025Z ##[endgroup]",
+      "2026-10-11T14:54:12.4592610Z ##[group]Runner Image",
+      "2026-10-11T14:54:12.4593635Z Image: ubuntu-24.04",
+      "2026-10-11T14:54:12.4594348Z Version: 20261004.327.1",
+      "2026-10-11T14:54:12.4595762Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20261004.327/images/ubuntu/Ubuntu2404-Readme.md",
+      "2026-10-11T14:54:12.4597436Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20261004.327"
     ]
   },
   "readme": {
@@ -4352,7 +4428,7 @@
     ],
     "rateLimit": {
       "limit": 5000,
-      "remaining": 4862,
+      "remaining": 4928,
       "resetAt": "<now>"
     }
   },
@@ -4380,7 +4456,7 @@
     },
     "rateLimit": {
       "limit": 5000,
-      "remaining": 4861,
+      "remaining": 4927,
       "resetAt": "<now>"
     }
   },
@@ -4405,7 +4481,7 @@
     },
     "rateLimit": {
       "limit": 5000,
-      "remaining": 4860,
+      "remaining": 4926,
       "resetAt": "<now>"
     }
   },
@@ -4566,7 +4642,7 @@
     },
     "rateLimit": {
       "limit": 5000,
-      "remaining": 4858,
+      "remaining": 4924,
       "resetAt": "<now>"
     }
   },
@@ -4815,7 +4891,7 @@
     },
     "rateLimit": {
       "limit": 5000,
-      "remaining": 4855,
+      "remaining": 4921,
       "resetAt": "<now>"
     }
   },
@@ -4982,6 +5058,50 @@
             "owner": "h3js",
             "name": "h3"
           },
+          "kind": "pull_request",
+          "number": "1587",
+          "externalId": "PR_kwDOErHI988AAAABH0yeSg"
+        },
+        "kind": "pull_request",
+        "title": "docs: fix more utils code example",
+        "body": "Resolves #1586\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n\n## Summary by CodeRabbit\n\n* **Documentation**\n  * Updated the `withBase` code example to remove an extra semicolon, keeping the example’s formatting consistent. No behavior or functionality has changed.\n\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
+        "state": "open",
+        "stateRaw": "open",
+        "isDraft": false,
+        "author": {
+          "forge": "github",
+          "instance": "github.com",
+          "login": "otowa1",
+          "id": "90172742",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/90172742?v=4",
+          "url": "https://github.com/otowa1",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "assignees": [],
+        "reviewers": [],
+        "labels": [],
+        "url": "https://github.com/h3js/h3/pull/1587",
+        "createdAt": "<now>",
+        "updatedAt": "<now>",
+        "lastActivityAt": "<now>",
+        "locked": false,
+        "commentCount": 1,
+        "reactions": {
+          "total": 0,
+          "counts": {}
+        }
+      },
+      {
+        "ref": {
+          "forge": "github",
+          "instance": "github.com",
+          "repo": {
+            "forge": "github",
+            "instance": "github.com",
+            "owner": "h3js",
+            "name": "h3"
+          },
           "kind": "issue",
           "number": "1584",
           "externalId": "I_kwDOErHI988AAAABWdEgsQ"
@@ -5006,55 +5126,11 @@
         "reviewers": [],
         "labels": [],
         "url": "https://github.com/h3js/h3/issues/1584",
-        "createdAt": "<now>",
-        "updatedAt": "<now>",
-        "lastActivityAt": "<now>",
+        "createdAt": "2026-10-11T14:13:28.000Z",
+        "updatedAt": "2026-10-11T14:13:28.000Z",
+        "lastActivityAt": "2026-10-11T14:13:28.000Z",
         "locked": false,
         "commentCount": 0,
-        "reactions": {
-          "total": 0,
-          "counts": {}
-        }
-      },
-      {
-        "ref": {
-          "forge": "github",
-          "instance": "github.com",
-          "repo": {
-            "forge": "github",
-            "instance": "github.com",
-            "owner": "h3js",
-            "name": "h3"
-          },
-          "kind": "pull_request",
-          "number": "1581",
-          "externalId": "PR_kwDOErHI988AAAABHvIO6w"
-        },
-        "kind": "pull_request",
-        "title": "fix(mime): serve .wasm as application/wasm",
-        "body": "`.wasm` isn't in `COMMON_MIME_TYPES`, so `serveStatic` sends it as `text/plain; charset=UTF-8` on node and with no content-type on web. `WebAssembly.instantiateStreaming()` requires `application/wasm` and rejects the response otherwise.\n\n`instantiateStreaming(await app.request(\"/module.wasm\"))` on node 22:\n\n```\nmain: TypeError: WebAssembly response has unsupported MIME type 'null'\nthis: ok\n```\n\nadded it to the table, with a test that fails on main for web and node.\n\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n\n## Summary by CodeRabbit\n\n* **Bug Fixes**\n  * `.wasm` files are now served with the `application/wasm` content type.\n\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
-        "state": "open",
-        "stateRaw": "open",
-        "isDraft": false,
-        "author": {
-          "forge": "github",
-          "instance": "github.com",
-          "login": "harshit-d3v",
-          "id": "106448130",
-          "avatarUrl": "https://avatars.githubusercontent.com/u/106448130?v=4",
-          "url": "https://github.com/harshit-d3v",
-          "typeRaw": "User",
-          "isBotHint": false
-        },
-        "assignees": [],
-        "reviewers": [],
-        "labels": [],
-        "url": "https://github.com/h3js/h3/pull/1581",
-        "createdAt": "2026-10-10T20:16:09.000Z",
-        "updatedAt": "2026-10-10T20:22:59.000Z",
-        "lastActivityAt": "2026-10-10T20:22:59.000Z",
-        "locked": false,
-        "commentCount": 1,
         "reactions": {
           "total": 0,
           "counts": {}
@@ -5221,7 +5297,7 @@
         },
         "language": "JavaScript",
         "licence": "Apache-2.0",
-        "stars": 2286,
+        "stars": 2287,
         "forks": 273,
         "features": {
           "issues": true,
@@ -5605,13 +5681,13 @@
             },
             "id": "694647722"
           },
-          "id": "3847686276035665920",
-          "guid": "e4d936e0-c567-11f1-9442-091724c00fb5"
+          "id": "3847711869341089792",
+          "guid": "a43e4cd0-c583-11f1-9b53-28581a6f157d"
         },
         "event": "issues.closed",
         "status": 502,
         "ok": false,
-        "deliveredAt": "2026-10-11T11:35:44.481Z",
+        "deliveredAt": "2026-10-11T14:54:22.278Z",
         "duration": 0
       },
       {
@@ -5629,13 +5705,13 @@
             },
             "id": "694647722"
           },
-          "id": "3847686268714483712",
-          "guid": "e26e0340-c567-11f1-8351-36bfe1bbecce"
+          "id": "3847711861787099136",
+          "guid": "a1c20230-c583-11f1-86aa-e4cb53fd8038"
         },
         "event": "issue_comment.created",
         "status": 502,
         "ok": false,
-        "deliveredAt": "2026-10-11T11:35:40.487Z",
+        "deliveredAt": "2026-10-11T14:54:17.960Z",
         "duration": 0
       },
       {
@@ -5653,19 +5729,19 @@
             },
             "id": "694647722"
           },
-          "id": "3847686172157427712",
-          "guid": "c7f5bcb0-c567-11f1-97c9-265e592a2db3"
+          "id": "3847711753932636160",
+          "guid": "8465d590-c583-11f1-830f-7aa889d0cd94"
         },
         "event": "issues.demilestoned",
         "status": 502,
         "ok": false,
-        "deliveredAt": "2026-10-11T11:34:56.078Z",
+        "deliveredAt": "2026-10-11T14:53:28.559Z",
         "duration": 0
       }
     ],
     "cursor": {
-      "nextUrl": "https://api.github.com/repositories/1411702196/hooks/694647722/deliveries?per_page=3&cursor=v1_3847686170385317888",
-      "etag": "W/\"35892ed75cf4159e8a3ae6e100fe876257124b20f7d4f58390111f51ff378bb8\""
+      "nextUrl": "https://api.github.com/repositories/1411702196/hooks/694647722/deliveries?per_page=3&cursor=v1_3847711752819081216",
+      "etag": "W/\"ef042f17d8a9ed3ff4f780ebfcee965de6b1e094bdc0d7a7a894b18d753d1567\""
     },
     "rateLimit": {
       "limit": 500,
@@ -5776,7 +5852,7 @@
     },
     "rateLimit": {
       "limit": 5000,
-      "remaining": 4976,
+      "remaining": 4988,
       "resetAt": "<now>"
     }
   },
@@ -5810,7 +5886,7 @@
     ],
     "rateLimit": {
       "limit": 5000,
-      "remaining": 4975,
+      "remaining": 4987,
       "resetAt": "<now>"
     }
   },
@@ -5818,7 +5894,7 @@
     "items": [],
     "rateLimit": {
       "limit": 5000,
-      "remaining": 4852,
+      "remaining": 4918,
       "resetAt": "<now>"
     }
   }

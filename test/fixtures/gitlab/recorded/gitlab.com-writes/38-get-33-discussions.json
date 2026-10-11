@@ -1,0 +1,58 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitlab.com/api/v4/projects/forges-fixtures%2Fforges-fixtures/merge_requests/33/discussions"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "<https://gitlab.com/api/v4/projects/forges-fixtures%2Fforges-fixtures/merge_requests/33/discussions?id=forges-fixtures%2Fforges-fixtures&noteable_id=33&page=1&per_page=20>; rel=\"first\", <https://gitlab.com/api/v4/projects/forges-fixtures%2Fforges-fixtures/merge_requests/33/discussions?id=forges-fixtures%2Fforges-fixtures&noteable_id=33&page=1&per_page=20>; rel=\"last\"",
+      "etag": "W/\"4add97b02e8b1ada44c22d3207062285\"",
+      "ratelimit-limit": "2000",
+      "ratelimit-remaining": "1952",
+      "ratelimit-reset": "1791734760",
+      "x-total": "1",
+      "x-total-pages": "1",
+      "x-next-page": "",
+      "x-page": "1",
+      "x-per-page": "20"
+    },
+    "body": [
+      {
+        "id": "a400fda367fc73572677dff4229f97d447ce10fe",
+        "individual_note": true,
+        "resolvable": false,
+        "notes": [
+          {
+            "id": 3993556545,
+            "type": null,
+            "body": "An edited comment from run 20261011160520.",
+            "author": {
+              "id": 43193323,
+              "username": "roebot",
+              "public_email": "",
+              "name": "Daniel Roe",
+              "state": "active",
+              "locked": false,
+              "avatar_url": "https://secure.gravatar.com/avatar/14ceebcfdc10030d76768a65e9d7978b914694cebcbb6ab609b3a0e8243f0eb8?s=80&d=identicon",
+              "web_url": "https://gitlab.com/roebot"
+            },
+            "created_at": "2026-10-11T16:05:46.563Z",
+            "updated_at": "2026-10-11T16:05:47.242Z",
+            "system": false,
+            "noteable_id": 546693342,
+            "noteable_type": "MergeRequest",
+            "project_id": 87428720,
+            "resolvable": false,
+            "confidential": false,
+            "internal": false,
+            "imported": false,
+            "imported_from": "none",
+            "noteable_iid": 33,
+            "commands_changes": {}
+          }
+        ]
+      }
+    ]
+  }
+}

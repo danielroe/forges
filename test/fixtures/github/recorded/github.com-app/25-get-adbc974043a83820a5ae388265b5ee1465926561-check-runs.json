@@ -1,0 +1,19 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.github.com/repos/h3js/h3/commits/adbc974043a83820a5ae388265b5ee1465926561/check-runs?per_page=100"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"3862ab2b9baf5bc495b3edea9a8b59dad51f269d1ba2560f807dcce1fbca4f52\"",
+      "x-ratelimit-limit": "5000",
+      "x-ratelimit-remaining": "4989",
+      "x-ratelimit-reset": "1791738329"
+    },
+    "body": {
+      "total_count": 0,
+      "check_runs": []
+    }
+  }
+}

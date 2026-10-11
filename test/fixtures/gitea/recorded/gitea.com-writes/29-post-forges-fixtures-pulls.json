@@ -3,9 +3,9 @@
     "method": "POST",
     "url": "https://gitea.com/api/v1/repos/forges-fixtures/forges-fixtures/pulls",
     "body": {
-      "title": "forges fixture 20261011145130: pull 1",
-      "body": "Opened by run 20261011145130.",
-      "head": "forges-fixtures/20261011145130-1",
+      "title": "forges fixture 20261011160505: pull 1",
+      "body": "Opened by run 20261011160505.",
+      "head": "forges-fixtures/20261011160505-1",
       "base": "main"
     }
   },
@@ -13,9 +13,9 @@
     "status": 201,
     "headers": {},
     "body": {
-      "id": 205058,
-      "url": "https://gitea.com/forges-fixtures/forges-fixtures/pulls/35",
-      "number": 35,
+      "id": 205070,
+      "url": "https://gitea.com/forges-fixtures/forges-fixtures/pulls/40",
+      "number": 40,
       "user": {
         "id": 253592,
         "login": "roebot",
@@ -34,8 +34,8 @@
         "starred_repos_count": 0,
         "username": "roebot"
       },
-      "title": "forges fixture 20261011145130: pull 1",
-      "body": "Opened by run 20261011145130.",
+      "title": "forges fixture 20261011160505: pull 1",
+      "body": "Opened by run 20261011160505.",
       "labels": [],
       "milestone": null,
       "assignee": null,
@@ -50,9 +50,9 @@
       "additions": 1,
       "deletions": 0,
       "changed_files": 1,
-      "html_url": "https://gitea.com/forges-fixtures/forges-fixtures/pulls/35",
-      "diff_url": "https://gitea.com/forges-fixtures/forges-fixtures/pulls/35.diff",
-      "patch_url": "https://gitea.com/forges-fixtures/forges-fixtures/pulls/35.patch",
+      "html_url": "https://gitea.com/forges-fixtures/forges-fixtures/pulls/40",
+      "diff_url": "https://gitea.com/forges-fixtures/forges-fixtures/pulls/40.diff",
+      "patch_url": "https://gitea.com/forges-fixtures/forges-fixtures/pulls/40.patch",
       "mergeable": true,
       "merged": false,
       "merged_at": null,
@@ -62,7 +62,7 @@
       "base": {
         "label": "main",
         "ref": "main",
-        "sha": "9ee20f8b35e18387e3508660801d3bc70863b9ff",
+        "sha": "caed395b245dd2c553f750d7baaae90d4b36ea42",
         "repo_id": 146918,
         "repo": {
           "id": 146918,
@@ -92,7 +92,7 @@
           "fork": false,
           "template": false,
           "mirror": false,
-          "size": 56,
+          "size": 61,
           "language": "",
           "languages_url": "https://gitea.com/api/v1/repos/forges-fixtures/forges-fixtures/languages",
           "html_url": "https://gitea.com/forges-fixtures/forges-fixtures",
@@ -112,7 +112,7 @@
           "default_branch": "main",
           "archived": false,
           "created_at": "2026-10-09T11:48:32Z",
-          "updated_at": "2026-10-11T14:51:34Z",
+          "updated_at": "2026-10-11T16:05:10Z",
           "archived_at": "1970-01-01T00:00:00Z",
           "permissions": {
             "admin": true,
@@ -160,9 +160,9 @@
         }
       },
       "head": {
-        "label": "forges-fixtures/20261011145130-1",
-        "ref": "forges-fixtures/20261011145130-1",
-        "sha": "b35848c939dce962610b0787f078cb300da03f61",
+        "label": "forges-fixtures/20261011160505-1",
+        "ref": "forges-fixtures/20261011160505-1",
+        "sha": "132a1fc9a6c5d469da12a10007558153421bc1ee",
         "repo_id": 146918,
         "repo": {
           "id": 146918,
@@ -192,7 +192,7 @@
           "fork": false,
           "template": false,
           "mirror": false,
-          "size": 56,
+          "size": 61,
           "language": "",
           "languages_url": "https://gitea.com/api/v1/repos/forges-fixtures/forges-fixtures/languages",
           "html_url": "https://gitea.com/forges-fixtures/forges-fixtures",
@@ -212,7 +212,7 @@
           "default_branch": "main",
           "archived": false,
           "created_at": "2026-10-09T11:48:32Z",
-          "updated_at": "2026-10-11T14:51:34Z",
+          "updated_at": "2026-10-11T16:05:10Z",
           "archived_at": "1970-01-01T00:00:00Z",
           "permissions": {
             "admin": true,
@@ -259,10 +259,10 @@
           ]
         }
       },
-      "merge_base": "9ee20f8b35e18387e3508660801d3bc70863b9ff",
+      "merge_base": "caed395b245dd2c553f750d7baaae90d4b36ea42",
       "due_date": null,
-      "created_at": "2026-10-11T14:51:44Z",
-      "updated_at": "2026-10-11T14:51:44Z",
+      "created_at": "2026-10-11T16:05:20Z",
+      "updated_at": "2026-10-11T16:05:21Z",
       "closed_at": null,
       "pin_order": 0,
       "content_version": 0

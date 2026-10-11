@@ -1420,6 +1420,26 @@
         },
         "files": [
           {
+            "path": "cmd/issues/create_test.go",
+            "status": "added",
+            "statusRaw": "added"
+          },
+          {
+            "path": "cmd/pulls/create_app_test.go",
+            "status": "added",
+            "statusRaw": "added"
+          },
+          {
+            "path": "cmd/pulls/create_test.go",
+            "status": "added",
+            "statusRaw": "added"
+          },
+          {
+            "path": "modules/task/pull_merge_test.go",
+            "status": "added",
+            "statusRaw": "added"
+          },
+          {
             "path": "cmd/issues/create.go",
             "status": "modified",
             "statusRaw": "modified"
@@ -1463,26 +1483,6 @@
             "path": "modules/task/pull_merge.go",
             "status": "modified",
             "statusRaw": "modified"
-          },
-          {
-            "path": "cmd/issues/create_test.go",
-            "status": "added",
-            "statusRaw": "added"
-          },
-          {
-            "path": "cmd/pulls/create_app_test.go",
-            "status": "added",
-            "statusRaw": "added"
-          },
-          {
-            "path": "cmd/pulls/create_test.go",
-            "status": "added",
-            "statusRaw": "added"
-          },
-          {
-            "path": "modules/task/pull_merge_test.go",
-            "status": "added",
-            "statusRaw": "added"
           }
         ]
       },
@@ -2149,7 +2149,7 @@
           "ssh": "git@gitea.com:forges-fixtures/forges-fixtures.git"
         },
         "createdAt": "2026-10-09T11:48:32.000Z",
-        "updatedAt": "2026-10-10T23:21:51.000Z",
+        "updatedAt": "2026-10-11T14:52:08.000Z",
         "openIssueCount": 0,
         "openPullCount": 0,
         "owner": {
@@ -2197,7 +2197,7 @@
         "ref": {
           "forge": "gitea",
           "instance": "gitea.com",
-          "id": "560604"
+          "id": "561907"
         },
         "subject": {
           "type": "thread",
@@ -2213,55 +2213,23 @@
             },
             "kind": "issue",
             "typeRaw": "Issue",
-            "number": "23"
+            "number": "33"
           }
         },
         "subjectTypeRaw": "Issue",
         "reason": "unknown",
         "unread": true,
-        "title": "forges fixture 20261010232102: issue, edited",
+        "title": "forges fixture 20261011145130: issue, edited",
         "subjectState": "closed",
         "subjectStateRaw": "closed",
-        "updatedAt": "2026-10-10T23:21:50.000Z",
-        "url": "https://gitea.com/api/v1/repos/forges-fixtures/forges-fixtures/issues/23"
+        "updatedAt": "2026-10-11T14:52:07.000Z",
+        "url": "https://gitea.com/api/v1/repos/forges-fixtures/forges-fixtures/issues/33"
       },
       {
         "ref": {
           "forge": "gitea",
           "instance": "gitea.com",
-          "id": "560605"
-        },
-        "subject": {
-          "type": "thread",
-          "thread": {
-            "forge": "gitea",
-            "instance": "gitea.com",
-            "repo": {
-              "forge": "gitea",
-              "instance": "gitea.com",
-              "owner": "forges-fixtures",
-              "name": "forges-fixtures",
-              "externalId": "146918"
-            },
-            "kind": "issue",
-            "typeRaw": "Issue",
-            "number": "24"
-          }
-        },
-        "subjectTypeRaw": "Issue",
-        "reason": "unknown",
-        "unread": true,
-        "title": "forges fixture 20261010232102: duplicate",
-        "subjectState": "closed",
-        "subjectStateRaw": "closed",
-        "updatedAt": "2026-10-10T23:21:49.000Z",
-        "url": "https://gitea.com/api/v1/repos/forges-fixtures/forges-fixtures/issues/24"
-      },
-      {
-        "ref": {
-          "forge": "gitea",
-          "instance": "gitea.com",
-          "id": "560608"
+          "id": "561911"
         },
         "subject": {
           "type": "thread",
@@ -2277,17 +2245,49 @@
             },
             "kind": "pull_request",
             "typeRaw": "Pull",
-            "number": "27"
+            "number": "37"
           }
         },
         "subjectTypeRaw": "Pull",
         "reason": "unknown",
         "unread": true,
-        "title": "forges fixture 20261010232102: pull 3",
+        "title": "forges fixture 20261011145130: pull 3",
         "subjectState": "closed",
         "subjectStateRaw": "closed",
-        "updatedAt": "2026-10-10T23:21:48.000Z",
-        "url": "https://gitea.com/api/v1/repos/forges-fixtures/forges-fixtures/issues/27"
+        "updatedAt": "2026-10-11T14:52:06.000Z",
+        "url": "https://gitea.com/api/v1/repos/forges-fixtures/forges-fixtures/issues/37"
+      },
+      {
+        "ref": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "id": "561908"
+        },
+        "subject": {
+          "type": "thread",
+          "thread": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "repo": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "owner": "forges-fixtures",
+              "name": "forges-fixtures",
+              "externalId": "146918"
+            },
+            "kind": "issue",
+            "typeRaw": "Issue",
+            "number": "34"
+          }
+        },
+        "subjectTypeRaw": "Issue",
+        "reason": "unknown",
+        "unread": true,
+        "title": "forges fixture 20261011145130: duplicate",
+        "subjectState": "closed",
+        "subjectStateRaw": "closed",
+        "updatedAt": "2026-10-11T14:52:06.000Z",
+        "url": "https://gitea.com/api/v1/repos/forges-fixtures/forges-fixtures/issues/34"
       }
     ],
     "cursor": {
@@ -2295,7 +2295,7 @@
     },
     "notModified": false
   },
-  "unread count": 24,
+  "unread count": 32,
   "checks": {
     "items": [
       {
@@ -2653,6 +2653,36 @@
     ]
   },
   "ci job": {
+    "ref": {
+      "forge": "gitea",
+      "instance": "gitea.com",
+      "repo": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "owner": "gitea",
+        "name": "tea"
+      },
+      "id": "1424769",
+      "run": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "repo": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "owner": "gitea",
+          "name": "tea"
+        },
+        "id": "1051680"
+      }
+    },
+    "name": "Lint Build And Unit Coverage",
+    "state": "success",
+    "stateRaw": "completed",
+    "url": "https://gitea.com/gitea/tea/actions/runs/1051680/jobs/1424769",
+    "startedAt": "2026-10-11T04:26:37.000Z",
+    "completedAt": "2026-10-11T04:27:49.000Z"
+  },
+  "ci job by id": {
     "ref": {
       "forge": "gitea",
       "instance": "gitea.com",
@@ -3546,7 +3576,7 @@
             "name": "checksums.txt",
             "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/checksums.txt",
             "size": 1842,
-            "downloadCount": 4149
+            "downloadCount": 4175
           },
           {
             "ref": {
@@ -3575,7 +3605,7 @@
             "name": "checksums.txt.sig",
             "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/checksums.txt.sig",
             "size": 566,
-            "downloadCount": 548
+            "downloadCount": 549
           },
           {
             "ref": {
@@ -3633,7 +3663,7 @@
             "name": "tea-0.16.0-darwin-amd64.xz",
             "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-darwin-amd64.xz",
             "size": 6612532,
-            "downloadCount": 74
+            "downloadCount": 75
           },
           {
             "ref": {
@@ -3691,7 +3721,7 @@
             "name": "tea-0.16.0-darwin-arm64",
             "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-darwin-arm64",
             "size": 27243698,
-            "downloadCount": 266
+            "downloadCount": 271
           },
           {
             "ref": {
@@ -3720,7 +3750,7 @@
             "name": "tea-0.16.0-darwin-arm64.xz",
             "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-darwin-arm64.xz",
             "size": 5916884,
-            "downloadCount": 172
+            "downloadCount": 173
           },
           {
             "ref": {
@@ -3865,7 +3895,7 @@
             "name": "tea-0.16.0-linux-amd64",
             "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-linux-amd64",
             "size": 29229218,
-            "downloadCount": 6628
+            "downloadCount": 6659
           },
           {
             "ref": {
@@ -3894,7 +3924,7 @@
             "name": "tea-0.16.0-linux-amd64.xz",
             "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-linux-amd64.xz",
             "size": 6647460,
-            "downloadCount": 2265
+            "downloadCount": 2293
           },
           {
             "ref": {
@@ -3923,7 +3953,7 @@
             "name": "tea-0.16.0-linux-amd64.xz.sha256",
             "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-linux-amd64.xz.sha256",
             "size": 91,
-            "downloadCount": 1305
+            "downloadCount": 1316
           },
           {
             "ref": {
@@ -4213,7 +4243,7 @@
             "name": "tea-0.16.0-linux-arm64",
             "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-linux-arm64",
             "size": 26935458,
-            "downloadCount": 724
+            "downloadCount": 730
           },
           {
             "ref": {
@@ -4242,7 +4272,7 @@
             "name": "tea-0.16.0-linux-arm64.xz",
             "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-linux-arm64.xz",
             "size": 5724112,
-            "downloadCount": 3245
+            "downloadCount": 3263
           },
           {
             "ref": {
@@ -4271,7 +4301,7 @@
             "name": "tea-0.16.0-linux-arm64.xz.sha256",
             "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-linux-arm64.xz.sha256",
             "size": 91,
-            "downloadCount": 500
+            "downloadCount": 502
           },
           {
             "ref": {
@@ -4300,7 +4330,7 @@
             "name": "tea-0.16.0-windows-amd64.exe",
             "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-windows-amd64.exe",
             "size": 29696000,
-            "downloadCount": 1163
+            "downloadCount": 1170
           },
           {
             "ref": {
@@ -4329,7 +4359,7 @@
             "name": "tea-0.16.0-windows-amd64.exe.xz",
             "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-windows-amd64.exe.xz",
             "size": 6729704,
-            "downloadCount": 999
+            "downloadCount": 1000
           },
           {
             "ref": {
@@ -4387,7 +4417,7 @@
             "name": "tea-0.16.0-windows-arm64.exe",
             "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-windows-arm64.exe",
             "size": 27001856,
-            "downloadCount": 212
+            "downloadCount": 213
           },
           {
             "ref": {
@@ -4416,7 +4446,7 @@
             "name": "tea-0.16.0-windows-arm64.exe.xz",
             "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-windows-arm64.exe.xz",
             "size": 5715720,
-            "downloadCount": 64
+            "downloadCount": 65
           },
           {
             "ref": {
@@ -4445,7 +4475,7 @@
             "name": "tea-0.16.0-windows-arm64.exe.xz.sha256",
             "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-windows-arm64.exe.xz.sha256",
             "size": 97,
-            "downloadCount": 58
+            "downloadCount": 59
           }
         ]
       },
@@ -4828,7 +4858,7 @@
             "name": "tea-0.15.1-linux-amd64",
             "url": "https://gitea.com/gitea/tea/releases/download/v0.15.1/tea-0.15.1-linux-amd64",
             "size": 29061282,
-            "downloadCount": 6999
+            "downloadCount": 7003
           },
           {
             "ref": {
@@ -4857,7 +4887,7 @@
             "name": "tea-0.15.1-linux-amd64.xz",
             "url": "https://gitea.com/gitea/tea/releases/download/v0.15.1/tea-0.15.1-linux-amd64.xz",
             "size": 6632616,
-            "downloadCount": 1659
+            "downloadCount": 1677
           },
           {
             "ref": {
@@ -4886,7 +4916,7 @@
             "name": "tea-0.15.1-linux-amd64.xz.sha256",
             "url": "https://gitea.com/gitea/tea/releases/download/v0.15.1/tea-0.15.1-linux-amd64.xz.sha256",
             "size": 91,
-            "downloadCount": 567
+            "downloadCount": 569
           },
           {
             "ref": {
@@ -5089,7 +5119,7 @@
             "name": "tea-0.15.1-linux-arm-7",
             "url": "https://gitea.com/gitea/tea/releases/download/v0.15.1/tea-0.15.1-linux-arm-7",
             "size": 27263138,
-            "downloadCount": 79
+            "downloadCount": 81
           },
           {
             "ref": {
@@ -5704,7 +5734,7 @@
             "name": "tea-0.15.0-freebsd-amd64",
             "url": "https://gitea.com/gitea/tea/releases/download/v0.15.0/tea-0.15.0-freebsd-amd64",
             "size": 28614828,
-            "downloadCount": 68
+            "downloadCount": 71
           },
           {
             "ref": {
@@ -6440,7 +6470,7 @@
         "name": "checksums.txt",
         "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/checksums.txt",
         "size": 1842,
-        "downloadCount": 4149
+        "downloadCount": 4175
       },
       {
         "ref": {
@@ -6469,7 +6499,7 @@
         "name": "checksums.txt.sig",
         "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/checksums.txt.sig",
         "size": 566,
-        "downloadCount": 548
+        "downloadCount": 549
       },
       {
         "ref": {
@@ -6527,7 +6557,7 @@
         "name": "tea-0.16.0-darwin-amd64.xz",
         "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-darwin-amd64.xz",
         "size": 6612532,
-        "downloadCount": 74
+        "downloadCount": 75
       },
       {
         "ref": {
@@ -6585,7 +6615,7 @@
         "name": "tea-0.16.0-darwin-arm64",
         "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-darwin-arm64",
         "size": 27243698,
-        "downloadCount": 266
+        "downloadCount": 271
       },
       {
         "ref": {
@@ -6614,7 +6644,7 @@
         "name": "tea-0.16.0-darwin-arm64.xz",
         "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-darwin-arm64.xz",
         "size": 5916884,
-        "downloadCount": 172
+        "downloadCount": 173
       },
       {
         "ref": {
@@ -6759,7 +6789,7 @@
         "name": "tea-0.16.0-linux-amd64",
         "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-linux-amd64",
         "size": 29229218,
-        "downloadCount": 6628
+        "downloadCount": 6659
       },
       {
         "ref": {
@@ -6788,7 +6818,7 @@
         "name": "tea-0.16.0-linux-amd64.xz",
         "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-linux-amd64.xz",
         "size": 6647460,
-        "downloadCount": 2265
+        "downloadCount": 2293
       },
       {
         "ref": {
@@ -6817,7 +6847,7 @@
         "name": "tea-0.16.0-linux-amd64.xz.sha256",
         "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-linux-amd64.xz.sha256",
         "size": 91,
-        "downloadCount": 1305
+        "downloadCount": 1316
       },
       {
         "ref": {
@@ -7107,7 +7137,7 @@
         "name": "tea-0.16.0-linux-arm64",
         "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-linux-arm64",
         "size": 26935458,
-        "downloadCount": 724
+        "downloadCount": 730
       },
       {
         "ref": {
@@ -7136,7 +7166,7 @@
         "name": "tea-0.16.0-linux-arm64.xz",
         "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-linux-arm64.xz",
         "size": 5724112,
-        "downloadCount": 3245
+        "downloadCount": 3263
       },
       {
         "ref": {
@@ -7165,7 +7195,7 @@
         "name": "tea-0.16.0-linux-arm64.xz.sha256",
         "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-linux-arm64.xz.sha256",
         "size": 91,
-        "downloadCount": 500
+        "downloadCount": 502
       },
       {
         "ref": {
@@ -7194,7 +7224,7 @@
         "name": "tea-0.16.0-windows-amd64.exe",
         "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-windows-amd64.exe",
         "size": 29696000,
-        "downloadCount": 1163
+        "downloadCount": 1170
       },
       {
         "ref": {
@@ -7223,7 +7253,7 @@
         "name": "tea-0.16.0-windows-amd64.exe.xz",
         "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-windows-amd64.exe.xz",
         "size": 6729704,
-        "downloadCount": 999
+        "downloadCount": 1000
       },
       {
         "ref": {
@@ -7281,7 +7311,7 @@
         "name": "tea-0.16.0-windows-arm64.exe",
         "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-windows-arm64.exe",
         "size": 27001856,
-        "downloadCount": 212
+        "downloadCount": 213
       },
       {
         "ref": {
@@ -7310,7 +7340,7 @@
         "name": "tea-0.16.0-windows-arm64.exe.xz",
         "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-windows-arm64.exe.xz",
         "size": 5715720,
-        "downloadCount": 64
+        "downloadCount": 65
       },
       {
         "ref": {
@@ -7339,7 +7369,7 @@
         "name": "tea-0.16.0-windows-arm64.exe.xz.sha256",
         "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-windows-arm64.exe.xz.sha256",
         "size": 97,
-        "downloadCount": 58
+        "downloadCount": 59
       }
     ]
   },
@@ -7403,7 +7433,7 @@
         "name": "checksums.txt",
         "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/checksums.txt",
         "size": 1842,
-        "downloadCount": 4149
+        "downloadCount": 4175
       },
       {
         "ref": {
@@ -7432,7 +7462,7 @@
         "name": "checksums.txt.sig",
         "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/checksums.txt.sig",
         "size": 566,
-        "downloadCount": 548
+        "downloadCount": 549
       },
       {
         "ref": {
@@ -7490,7 +7520,7 @@
         "name": "tea-0.16.0-darwin-amd64.xz",
         "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-darwin-amd64.xz",
         "size": 6612532,
-        "downloadCount": 74
+        "downloadCount": 75
       },
       {
         "ref": {
@@ -7548,7 +7578,7 @@
         "name": "tea-0.16.0-darwin-arm64",
         "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-darwin-arm64",
         "size": 27243698,
-        "downloadCount": 266
+        "downloadCount": 271
       },
       {
         "ref": {
@@ -7577,7 +7607,7 @@
         "name": "tea-0.16.0-darwin-arm64.xz",
         "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-darwin-arm64.xz",
         "size": 5916884,
-        "downloadCount": 172
+        "downloadCount": 173
       },
       {
         "ref": {
@@ -7722,7 +7752,7 @@
         "name": "tea-0.16.0-linux-amd64",
         "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-linux-amd64",
         "size": 29229218,
-        "downloadCount": 6628
+        "downloadCount": 6659
       },
       {
         "ref": {
@@ -7751,7 +7781,7 @@
         "name": "tea-0.16.0-linux-amd64.xz",
         "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-linux-amd64.xz",
         "size": 6647460,
-        "downloadCount": 2265
+        "downloadCount": 2293
       },
       {
         "ref": {
@@ -7780,7 +7810,7 @@
         "name": "tea-0.16.0-linux-amd64.xz.sha256",
         "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-linux-amd64.xz.sha256",
         "size": 91,
-        "downloadCount": 1305
+        "downloadCount": 1316
       },
       {
         "ref": {
@@ -8070,7 +8100,7 @@
         "name": "tea-0.16.0-linux-arm64",
         "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-linux-arm64",
         "size": 26935458,
-        "downloadCount": 724
+        "downloadCount": 730
       },
       {
         "ref": {
@@ -8099,7 +8129,7 @@
         "name": "tea-0.16.0-linux-arm64.xz",
         "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-linux-arm64.xz",
         "size": 5724112,
-        "downloadCount": 3245
+        "downloadCount": 3263
       },
       {
         "ref": {
@@ -8128,7 +8158,7 @@
         "name": "tea-0.16.0-linux-arm64.xz.sha256",
         "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-linux-arm64.xz.sha256",
         "size": 91,
-        "downloadCount": 500
+        "downloadCount": 502
       },
       {
         "ref": {
@@ -8157,7 +8187,7 @@
         "name": "tea-0.16.0-windows-amd64.exe",
         "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-windows-amd64.exe",
         "size": 29696000,
-        "downloadCount": 1163
+        "downloadCount": 1170
       },
       {
         "ref": {
@@ -8186,7 +8216,7 @@
         "name": "tea-0.16.0-windows-amd64.exe.xz",
         "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-windows-amd64.exe.xz",
         "size": 6729704,
-        "downloadCount": 999
+        "downloadCount": 1000
       },
       {
         "ref": {
@@ -8244,7 +8274,7 @@
         "name": "tea-0.16.0-windows-arm64.exe",
         "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-windows-arm64.exe",
         "size": 27001856,
-        "downloadCount": 212
+        "downloadCount": 213
       },
       {
         "ref": {
@@ -8273,7 +8303,7 @@
         "name": "tea-0.16.0-windows-arm64.exe.xz",
         "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-windows-arm64.exe.xz",
         "size": 5715720,
-        "downloadCount": 64
+        "downloadCount": 65
       },
       {
         "ref": {
@@ -8302,7 +8332,7 @@
         "name": "tea-0.16.0-windows-arm64.exe.xz.sha256",
         "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-windows-arm64.exe.xz.sha256",
         "size": 97,
-        "downloadCount": 58
+        "downloadCount": 59
       }
     ]
   },
@@ -8366,7 +8396,7 @@
         "name": "checksums.txt",
         "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/checksums.txt",
         "size": 1842,
-        "downloadCount": 4149
+        "downloadCount": 4175
       },
       {
         "ref": {
@@ -8395,7 +8425,7 @@
         "name": "checksums.txt.sig",
         "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/checksums.txt.sig",
         "size": 566,
-        "downloadCount": 548
+        "downloadCount": 549
       },
       {
         "ref": {
@@ -8453,7 +8483,7 @@
         "name": "tea-0.16.0-darwin-amd64.xz",
         "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-darwin-amd64.xz",
         "size": 6612532,
-        "downloadCount": 74
+        "downloadCount": 75
       },
       {
         "ref": {
@@ -8511,7 +8541,7 @@
         "name": "tea-0.16.0-darwin-arm64",
         "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-darwin-arm64",
         "size": 27243698,
-        "downloadCount": 266
+        "downloadCount": 271
       },
       {
         "ref": {
@@ -8540,7 +8570,7 @@
         "name": "tea-0.16.0-darwin-arm64.xz",
         "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-darwin-arm64.xz",
         "size": 5916884,
-        "downloadCount": 172
+        "downloadCount": 173
       },
       {
         "ref": {
@@ -8685,7 +8715,7 @@
         "name": "tea-0.16.0-linux-amd64",
         "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-linux-amd64",
         "size": 29229218,
-        "downloadCount": 6628
+        "downloadCount": 6659
       },
       {
         "ref": {
@@ -8714,7 +8744,7 @@
         "name": "tea-0.16.0-linux-amd64.xz",
         "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-linux-amd64.xz",
         "size": 6647460,
-        "downloadCount": 2265
+        "downloadCount": 2293
       },
       {
         "ref": {
@@ -8743,7 +8773,7 @@
         "name": "tea-0.16.0-linux-amd64.xz.sha256",
         "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-linux-amd64.xz.sha256",
         "size": 91,
-        "downloadCount": 1305
+        "downloadCount": 1316
       },
       {
         "ref": {
@@ -9033,7 +9063,7 @@
         "name": "tea-0.16.0-linux-arm64",
         "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-linux-arm64",
         "size": 26935458,
-        "downloadCount": 724
+        "downloadCount": 730
       },
       {
         "ref": {
@@ -9062,7 +9092,7 @@
         "name": "tea-0.16.0-linux-arm64.xz",
         "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-linux-arm64.xz",
         "size": 5724112,
-        "downloadCount": 3245
+        "downloadCount": 3263
       },
       {
         "ref": {
@@ -9091,7 +9121,7 @@
         "name": "tea-0.16.0-linux-arm64.xz.sha256",
         "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-linux-arm64.xz.sha256",
         "size": 91,
-        "downloadCount": 500
+        "downloadCount": 502
       },
       {
         "ref": {
@@ -9120,7 +9150,7 @@
         "name": "tea-0.16.0-windows-amd64.exe",
         "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-windows-amd64.exe",
         "size": 29696000,
-        "downloadCount": 1163
+        "downloadCount": 1170
       },
       {
         "ref": {
@@ -9149,7 +9179,7 @@
         "name": "tea-0.16.0-windows-amd64.exe.xz",
         "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-windows-amd64.exe.xz",
         "size": 6729704,
-        "downloadCount": 999
+        "downloadCount": 1000
       },
       {
         "ref": {
@@ -9207,7 +9237,7 @@
         "name": "tea-0.16.0-windows-arm64.exe",
         "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-windows-arm64.exe",
         "size": 27001856,
-        "downloadCount": 212
+        "downloadCount": 213
       },
       {
         "ref": {
@@ -9236,7 +9266,7 @@
         "name": "tea-0.16.0-windows-arm64.exe.xz",
         "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-windows-arm64.exe.xz",
         "size": 5715720,
-        "downloadCount": 64
+        "downloadCount": 65
       },
       {
         "ref": {
@@ -9265,7 +9295,7 @@
         "name": "tea-0.16.0-windows-arm64.exe.xz.sha256",
         "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-windows-arm64.exe.xz.sha256",
         "size": 97,
-        "downloadCount": 58
+        "downloadCount": 59
       }
     ]
   },
@@ -9539,16 +9569,16 @@
           "assignment"
         ],
         "nativeEvents": [
-          "issue_label",
-          "issues",
-          "issue_milestone",
           "issue_assign",
-          "issue_comment"
+          "issue_milestone",
+          "issue_comment",
+          "issue_label",
+          "issues"
         ],
         "active": true,
         "contentType": "json",
         "createdAt": "2026-10-09T11:48:36.000Z",
-        "updatedAt": "2026-10-10T23:21:50.000Z"
+        "updatedAt": "2026-10-11T14:52:07.000Z"
       }
     ]
   }

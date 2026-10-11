@@ -25,20 +25,20 @@
     "name": "forges-fixtures-outside"
   },
   "run": {
-    "id": "20261011150500",
+    "id": "20261011160520",
     "base": "main",
     "branches": [
-      "forges-fixtures/20261011150500-1",
-      "forges-fixtures/20261011150500-2",
-      "forges-fixtures/20261011150500-3"
+      "forges-fixtures/20261011160520-1",
+      "forges-fixtures/20261011160520-2",
+      "forges-fixtures/20261011160520-3"
     ],
     "files": [
-      "forges-fixtures/20261011150500-1.md",
-      "forges-fixtures/20261011150500-2.md",
-      "forges-fixtures/20261011150500-3.md"
+      "forges-fixtures/20261011160520-1.md",
+      "forges-fixtures/20261011160520-2.md",
+      "forges-fixtures/20261011160520-3.md"
     ]
   },
-  "recordedAt": "2026-10-11T15:05:05.900Z",
+  "recordedAt": "2026-10-11T16:05:26.811Z",
   "steps": [
     "author",
     "reviewer",
@@ -92,6 +92,7 @@
     "pending review",
     "comment review",
     "get review",
+    "get review comment",
     "resolve review thread",
     "unresolve review thread",
     "report check",

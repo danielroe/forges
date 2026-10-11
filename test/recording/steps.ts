@@ -56,6 +56,7 @@ export interface StepContext {
   comment?: Comment
   review?: Review
   checks?: Check[]
+  discussion?: Thread
 }
 
 export interface Step {
@@ -108,6 +109,21 @@ function need<T>(value: T | undefined, what: string): T {
   return value
 }
 
+/** Reads a discussion comment by the discussion's own node id, which must be rejected. */
+const discussionNodeStep: Step = { name: 'discussion getComment of another node', verb: 'threads.getComment', kind: 'discussion', run: async (provider, _manifest, context) => {
+  const id = need(need(context.discussion, 'the discussion').ref.externalId, 'the discussion node id')
+  try {
+    await provider.threads.getComment({ ...need(context.comment, 'a discussion comment').ref, id })
+  }
+  catch (error) {
+    if (error instanceof NotFoundError) {
+      return { rejected: error.name }
+    }
+    throw error
+  }
+  throw new Error('read a discussion comment from a node of another type')
+} }
+
 function threadSteps(kind: 'issue' | 'pull_request' | 'discussion', key: 'issue' | 'pull' | 'discussion'): Step[] {
   const ref = (manifest: RecordingManifest) => need(manifest[key], `manifest.${key}`)
   const steps: Step[] = [
@@ -116,6 +132,9 @@ function threadSteps(kind: 'issue' | 'pull_request' | 'discussion', key: 'issue'
       if (key === 'pull') {
         context.pull = thread
         context.headSha = thread.branches?.head.sha
+      }
+      if (key === 'discussion') {
+        context.discussion = thread
       }
       context.login ??= thread.author?.login
       return thread
@@ -137,6 +156,7 @@ function threadSteps(kind: 'issue' | 'pull_request' | 'discussion', key: 'issue'
       return result
     } },
     { name: `${key} getComment`, verb: 'threads.getComment', kind, run: (provider, _manifest, context) => provider.threads.getComment(need(context.comment, 'a comment').ref) },
+    ...kind === 'discussion' ? [discussionNodeStep] : [],
     { name: `${key} reactions`, verb: 'threads.reactionsPage', kind, run: (provider, manifest) => provider.threads.reactionsPage(ref(manifest), page) },
     { name: `${key} subscription`, verb: 'threads.subscription', kind, run: (provider, manifest) => provider.threads.subscription(ref(manifest)) },
   ]
@@ -234,6 +254,11 @@ export const STEPS: Step[] = [
     return result
   } },
   { name: 'ci job', verb: 'ci.job', run: (provider, _manifest, context) => provider.ci.job(need(context.job, 'a CI job').ref) },
+  // Anonymous GitHub reads share 60 requests an hour.
+  { name: 'ci job by id', verb: 'ci.job', when: (provider, manifest) => provider.forge !== 'github' || !manifest.anonymous, run: (provider, _manifest, context) => {
+    const { run: _run, ...ref } = need(context.job, 'a CI job').ref
+    return provider.ci.job(ref)
+  } },
   { name: 'ci log', verb: 'ci.log', run: async (provider, manifest, context) => {
     const read = async (job: CiJob | undefined) => text(await provider.ci.log(need(job, 'a CI job').ref))
     let log: string

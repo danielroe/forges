@@ -9,17 +9,17 @@
       "after": null,
       "state": null,
       "reportType": [
-        "SECRET_DETECTION"
+        "SAST"
       ]
     }
   },
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"217b492f8977b8ef43f540480e00df92\"",
+      "etag": "W/\"4d407e85f47ca292204b97f9f4e668b0\"",
       "ratelimit-limit": "2000",
       "ratelimit-remaining": "1924",
-      "ratelimit-reset": "1791731100"
+      "ratelimit-reset": "1791734760"
     },
     "body": {
       "data": {
@@ -27,7 +27,7 @@
           "vulnerabilities": {
             "pageInfo": {
               "hasNextPage": true,
-              "endCursor": "eyJzZXZlcml0eSI6ImNyaXRpY2FsIiwidnVsbmVyYWJpbGl0eV9pZCI6IjI3OTIyMzkxNSJ9"
+              "endCursor": "eyJzZXZlcml0eSI6ImxvdyIsInZ1bG5lcmFiaWxpdHlfaWQiOiI0MDMyNzY5MDQifQ"
             },
             "nodes": []
           }

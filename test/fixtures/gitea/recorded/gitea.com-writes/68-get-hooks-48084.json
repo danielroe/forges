@@ -1,0 +1,29 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitea.com/api/v1/repos/forges-fixtures/forges-fixtures/hooks/48084"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "id": 48084,
+      "name": "",
+      "type": "gitea",
+      "branch_filter": "",
+      "config": {
+        "url": "https://example.com/hook",
+        "content_type": "json"
+      },
+      "events": [
+        "push",
+        "pull_request_comment",
+        "issue_comment"
+      ],
+      "authorization_header": "",
+      "active": true,
+      "updated_at": "2026-10-11T16:05:38Z",
+      "created_at": "2026-10-11T16:05:38Z"
+    }
+  }
+}

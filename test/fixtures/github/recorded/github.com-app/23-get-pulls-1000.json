@@ -6,10 +6,10 @@
   "response": {
     "status": 200,
     "headers": {
-      "etag": "\"1936030ece80419b61b549cad4dbd1c1632295df37c2c875da521c669ee3dcaf\"",
+      "etag": "\"de126e4ce83108be6fde2628f916f8c2ed63aa480ea00c18034634320f2f19b4\"",
       "x-ratelimit-limit": "5000",
-      "x-ratelimit-remaining": "4933",
-      "x-ratelimit-reset": "1791733509"
+      "x-ratelimit-remaining": "4991",
+      "x-ratelimit-reset": "1791738329"
     },
     "body": {
       "url": "https://api.github.com/repos/h3js/h3/pulls/1000",
@@ -263,8 +263,8 @@
           "stargazers_count": 5455,
           "watchers_count": 5455,
           "watchers": 5455,
-          "open_issues_count": 64,
-          "open_issues": 64,
+          "open_issues_count": 66,
+          "open_issues": 66,
           "size": 8167,
           "default_branch": "main",
           "has_issues": true,

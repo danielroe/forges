@@ -9,17 +9,19 @@
       "after": null,
       "state": null,
       "reportType": [
-        "SAST"
+        "DEPENDENCY_SCANNING",
+        "CONTAINER_SCANNING",
+        "CLUSTER_IMAGE_SCANNING"
       ]
     }
   },
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"4d407e85f47ca292204b97f9f4e668b0\"",
+      "etag": "W/\"5b056c06539407572bae06c37078b373\"",
       "ratelimit-limit": "2000",
       "ratelimit-remaining": "1925",
-      "ratelimit-reset": "1791731100"
+      "ratelimit-reset": "1791734760"
     },
     "body": {
       "data": {
@@ -27,7 +29,7 @@
           "vulnerabilities": {
             "pageInfo": {
               "hasNextPage": true,
-              "endCursor": "eyJzZXZlcml0eSI6ImxvdyIsInZ1bG5lcmFiaWxpdHlfaWQiOiI0MDMyNzY5MDQifQ"
+              "endCursor": "eyJzZXZlcml0eSI6ImhpZ2giLCJ2dWxuZXJhYmlsaXR5X2lkIjoiMzcwMjY3NzE0In0"
             },
             "nodes": []
           }

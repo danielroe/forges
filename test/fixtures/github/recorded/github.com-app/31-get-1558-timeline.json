@@ -6,10 +6,10 @@
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"613fcf7644a262b328b7462d5101766b561292a773599119993a67dffda49ad3\"",
+      "etag": "W/\"6da5d2b11d9e187d1d44911a7a8c1d5847da293f7d41686134f8c9c5cfd05cfe\"",
       "x-ratelimit-limit": "5000",
-      "x-ratelimit-remaining": "4925",
-      "x-ratelimit-reset": "1791733509"
+      "x-ratelimit-remaining": "4983",
+      "x-ratelimit-reset": "1791738329"
     },
     "body": [
       {
@@ -174,7 +174,7 @@
               "mirror_url": null,
               "archived": false,
               "disabled": false,
-              "open_issues_count": 64,
+              "open_issues_count": 66,
               "license": {
                 "key": "mit",
                 "name": "MIT License",
@@ -190,7 +190,7 @@
               "topics": [],
               "visibility": "public",
               "forks": 374,
-              "open_issues": 64,
+              "open_issues": 66,
               "watchers": 5455,
               "default_branch": "main",
               "permissions": {

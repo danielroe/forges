@@ -1,0 +1,91 @@
+{
+  "request": {
+    "method": "PUT",
+    "url": "https://gitlab.com/api/v4/projects/forges-fixtures%2Fforges-fixtures/releases/forges-fixture-20261011160520",
+    "body": {
+      "name": "forges fixture 20261011160520: release, edited",
+      "description": "Edited by run 20261011160520."
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"cbfa698ae1266d22055ace59c8e02361\"",
+      "ratelimit-limit": "2000",
+      "ratelimit-remaining": "1920",
+      "ratelimit-reset": "1791734820"
+    },
+    "body": {
+      "name": "forges fixture 20261011160520: release, edited",
+      "tag_name": "forges-fixture-20261011160520",
+      "description": "Edited by run 20261011160520.",
+      "created_at": "2026-10-11T16:06:13.734Z",
+      "released_at": "2026-10-11T16:06:13.734Z",
+      "upcoming_release": false,
+      "author": {
+        "id": 43193323,
+        "username": "roebot",
+        "public_email": "",
+        "name": "Daniel Roe",
+        "state": "active",
+        "locked": false,
+        "avatar_url": "https://secure.gravatar.com/avatar/14ceebcfdc10030d76768a65e9d7978b914694cebcbb6ab609b3a0e8243f0eb8?s=80&d=identicon",
+        "web_url": "https://gitlab.com/roebot"
+      },
+      "commit": {
+        "id": "1fbd50f395a26d3af5a89288311d40dbae090f57",
+        "short_id": "1fbd50f3",
+        "created_at": "2026-10-11T16:06:11.000+00:00",
+        "parent_ids": [
+          "67ac4c874df637c29bc708e0c8dadfe1a3380e1b",
+          "319cc65e710c7a33ab65b2f7cafc892813f8059b"
+        ],
+        "title": "Merge run 20261011160520",
+        "message": "Merge run 20261011160520\n\nMerged by run 20261011160520",
+        "author_name": "Daniel Roe",
+        "author_email": "redacted@example.invalid",
+        "authored_date": "2026-10-11T16:06:11.000+00:00",
+        "committer_name": "Daniel Roe",
+        "committer_email": "redacted@example.invalid",
+        "committed_date": "2026-10-11T16:06:11.000+00:00",
+        "trailers": {},
+        "extended_trailers": {},
+        "web_url": "https://gitlab.com/forges-fixtures/forges-fixtures/-/commit/1fbd50f395a26d3af5a89288311d40dbae090f57"
+      },
+      "commit_path": "/forges-fixtures/forges-fixtures/-/commit/1fbd50f395a26d3af5a89288311d40dbae090f57",
+      "tag_path": "/forges-fixtures/forges-fixtures/-/tags/forges-fixture-20261011160520",
+      "assets": {
+        "count": 4,
+        "sources": [
+          {
+            "format": "zip",
+            "url": "https://gitlab.com/forges-fixtures/forges-fixtures/-/archive/forges-fixture-20261011160520/forges-fixtures-forges-fixture-20261011160520.zip"
+          },
+          {
+            "format": "tar.gz",
+            "url": "https://gitlab.com/forges-fixtures/forges-fixtures/-/archive/forges-fixture-20261011160520/forges-fixtures-forges-fixture-20261011160520.tar.gz"
+          },
+          {
+            "format": "tar.bz2",
+            "url": "https://gitlab.com/forges-fixtures/forges-fixtures/-/archive/forges-fixture-20261011160520/forges-fixtures-forges-fixture-20261011160520.tar.bz2"
+          },
+          {
+            "format": "tar",
+            "url": "https://gitlab.com/forges-fixtures/forges-fixtures/-/archive/forges-fixture-20261011160520/forges-fixtures-forges-fixture-20261011160520.tar"
+          }
+        ],
+        "links": []
+      },
+      "evidences": [],
+      "_links": {
+        "closed_issues_url": "https://gitlab.com/forges-fixtures/forges-fixtures/-/issues?release_tag=forges-fixture-20261011160520&scope=all&state=closed",
+        "closed_merge_requests_url": "https://gitlab.com/forges-fixtures/forges-fixtures/-/merge_requests?release_tag=forges-fixture-20261011160520&scope=all&state=closed",
+        "edit_url": "https://gitlab.com/forges-fixtures/forges-fixtures/-/releases/forges-fixture-20261011160520/edit",
+        "merged_merge_requests_url": "https://gitlab.com/forges-fixtures/forges-fixtures/-/merge_requests?release_tag=forges-fixture-20261011160520&scope=all&state=merged",
+        "opened_issues_url": "https://gitlab.com/forges-fixtures/forges-fixtures/-/issues?release_tag=forges-fixture-20261011160520&scope=all&state=opened",
+        "opened_merge_requests_url": "https://gitlab.com/forges-fixtures/forges-fixtures/-/merge_requests?release_tag=forges-fixture-20261011160520&scope=all&state=opened",
+        "self": "https://gitlab.com/forges-fixtures/forges-fixtures/-/releases/forges-fixture-20261011160520"
+      }
+    }
+  }
+}

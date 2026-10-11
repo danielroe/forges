@@ -1,0 +1,48 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitlab.com/api/v4/projects/forges-fixtures%2Fforges-fixtures/repository/commits/184282075242da29f09b81a15b75b5288354d1fe/statuses?per_page=100"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "<https://gitlab.com/api/v4/projects/forges-fixtures%2Fforges-fixtures/repository/commits/184282075242da29f09b81a15b75b5288354d1fe/statuses?id=forges-fixtures%2Fforges-fixtures&order_by=id&page=1&per_page=100&sha=184282075242da29f09b81a15b75b5288354d1fe>; rel=\"first\", <https://gitlab.com/api/v4/projects/forges-fixtures%2Fforges-fixtures/repository/commits/184282075242da29f09b81a15b75b5288354d1fe/statuses?id=forges-fixtures%2Fforges-fixtures&order_by=id&page=1&per_page=100&sha=184282075242da29f09b81a15b75b5288354d1fe>; rel=\"last\"",
+      "etag": "W/\"474446b95df4f413b97f16cc6903a81d\"",
+      "ratelimit-limit": "2000",
+      "ratelimit-remaining": "1995",
+      "ratelimit-reset": "1791734820",
+      "x-total": "1",
+      "x-total-pages": "1",
+      "x-next-page": "",
+      "x-page": "1",
+      "x-per-page": "100"
+    },
+    "body": [
+      {
+        "id": 17094281207,
+        "sha": "184282075242da29f09b81a15b75b5288354d1fe",
+        "ref": "main",
+        "status": "success",
+        "name": "check",
+        "target_url": null,
+        "description": null,
+        "created_at": "2026-10-11T15:05:54.162Z",
+        "started_at": "2026-10-11T15:05:54.570Z",
+        "finished_at": "2026-10-11T15:06:02.840Z",
+        "allow_failure": false,
+        "coverage": null,
+        "pipeline_id": 2936001094,
+        "author": {
+          "id": 2179675,
+          "username": "danielroe",
+          "public_email": "",
+          "name": "Daniel Roe",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://secure.gravatar.com/avatar/82a8f6237bb263bac46d7cc8ec3054d715ce6a55a8626d6e977769d57d2c94e6?s=80&d=identicon",
+          "web_url": "https://gitlab.com/danielroe"
+        }
+      }
+    ]
+  }
+}

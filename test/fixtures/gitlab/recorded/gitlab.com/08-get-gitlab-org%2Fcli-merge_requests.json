@@ -7,10 +7,10 @@
     "status": 200,
     "headers": {
       "link": "<https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/merge_requests?id=gitlab-org%2Fcli&order_by=created_at&page=2&per_page=3&sort=desc&state=opened&with_labels_details=false&with_merge_status_recheck=false>; rel=\"next\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/merge_requests?id=gitlab-org%2Fcli&order_by=created_at&page=1&per_page=3&sort=desc&state=opened&with_labels_details=false&with_merge_status_recheck=false>; rel=\"first\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/merge_requests?id=gitlab-org%2Fcli&order_by=created_at&page=31&per_page=3&sort=desc&state=opened&with_labels_details=false&with_merge_status_recheck=false>; rel=\"last\"",
-      "etag": "W/\"211bacb2bb40a805649ab9513c00b7e6\"",
+      "etag": "W/\"7650de24ab6da580fa956acfb9a86d5d\"",
       "ratelimit-limit": "2000",
       "ratelimit-remaining": "1992",
-      "ratelimit-reset": "1791731100",
+      "ratelimit-reset": "1791734700",
       "x-total": "93",
       "x-total-pages": "31",
       "x-next-page": "2",
@@ -256,7 +256,7 @@
           "name": "Dmitry Gruzd",
           "state": "active",
           "locked": false,
-          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/5054237/avatar.png?v=1791727311",
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/5054237/avatar.png?v=1791734643",
           "web_url": "https://gitlab.com/dgruzd",
           "bot": false
         },
@@ -268,7 +268,7 @@
             "name": "Dmitry Gruzd",
             "state": "active",
             "locked": false,
-            "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/5054237/avatar.png?v=1791727311",
+            "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/5054237/avatar.png?v=1791734643",
             "web_url": "https://gitlab.com/dgruzd"
           }
         ],
@@ -279,7 +279,7 @@
           "name": "Dmitry Gruzd",
           "state": "active",
           "locked": false,
-          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/5054237/avatar.png?v=1791727311",
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/5054237/avatar.png?v=1791734643",
           "web_url": "https://gitlab.com/dgruzd"
         },
         "reviewers": [

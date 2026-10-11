@@ -23,7 +23,7 @@
     "updatedAt": "<now>",
     "openIssueCount": 261,
     "stars": 1105,
-    "forks": 486,
+    "forks": 485,
     "mergeMethods": [
       "merge",
       "squash"
@@ -69,7 +69,7 @@
     "openIssueCount": 261,
     "licence": "mit",
     "stars": 1105,
-    "forks": 486,
+    "forks": 485,
     "mergeMethods": [
       "merge",
       "squash"
@@ -548,7 +548,7 @@
             "login": "dgruzd",
             "id": "5054237",
             "name": "Dmitry Gruzd",
-            "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/5054237/avatar.png?v=1791727311",
+            "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/5054237/avatar.png?v=1791734643",
             "url": "https://gitlab.com/dgruzd",
             "isBotHint": false
           }
@@ -568,7 +568,7 @@
             "state": "unknown"
           }
         ],
-        "lastActivityAt": "<now>",
+        "lastActivityAt": "2026-10-11T14:43:16.514Z",
         "branches": {
           "head": {
             "ref": "orbit-help-skill-pointer",
@@ -590,14 +590,14 @@
           "login": "dgruzd",
           "id": "5054237",
           "name": "Dmitry Gruzd",
-          "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/5054237/avatar.png?v=1791727311",
+          "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/5054237/avatar.png?v=1791734643",
           "url": "https://gitlab.com/dgruzd",
           "typeRaw": "user",
           "isBotHint": false
         },
         "url": "https://gitlab.com/gitlab-org/cli/-/merge_requests/4072",
         "createdAt": "2026-10-11T11:36:32.802Z",
-        "updatedAt": "<now>",
+        "updatedAt": "2026-10-11T14:43:16.514Z",
         "labels": [
           {
             "name": "category:gitlab cli"
@@ -624,7 +624,7 @@
     ],
     "cursor": {
       "nextUrl": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/merge_requests?id=gitlab-org%2Fcli&order_by=created_at&page=2&per_page=3&sort=desc&state=opened&with_labels_details=false&with_merge_status_recheck=false",
-      "etag": "W/\"211bacb2bb40a805649ab9513c00b7e6\"",
+      "etag": "W/\"7650de24ab6da580fa956acfb9a86d5d\"",
       "token": "0:"
     },
     "rateLimit": {
@@ -815,7 +815,7 @@
           "login": "gitlab-bot",
           "id": "1786152",
           "name": "🤖 GitLab Bot 🤖",
-          "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/1786152/avatar.png?v=1791728146",
+          "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/1786152/avatar.png?v=1791731748",
           "url": "https://gitlab.com/gitlab-bot",
           "isBotHint": false
         },
@@ -854,7 +854,7 @@
           "login": "gitlab-bot",
           "id": "1786152",
           "name": "🤖 GitLab Bot 🤖",
-          "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/1786152/avatar.png?v=1791728146",
+          "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/1786152/avatar.png?v=1791731748",
           "url": "https://gitlab.com/gitlab-bot",
           "isBotHint": false
         },
@@ -882,7 +882,7 @@
     ],
     "cursor": {
       "nextUrl": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/merge_requests/3988/notes?activity_filter=all_notes&id=gitlab-org%2Fcli&noteable_id=3988&order_by=created_at&page=2&per_page=3&sort=asc",
-      "etag": "W/\"0854b9d77510ab2f4eabad0108903d48\""
+      "etag": "W/\"66dafc462215e19b795c7fa0e9d6572f\""
     },
     "rateLimit": {
       "limit": 2000,
@@ -927,7 +927,7 @@
     ],
     "cursor": {
       "nextUrl": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/merge_requests/3988/discussions?id=gitlab-org%2Fcli&noteable_id=3988&page=2&per_page=3",
-      "etag": "W/\"eb0e8d360fa6dd7118b5e440d50b61a1\""
+      "etag": "W/\"472a7a5bf3ed37e6feb8b50f73b747d6\""
     },
     "rateLimit": {
       "limit": 2000,
@@ -2165,7 +2165,7 @@
           "ssh": "git@gitlab.com:forges-fixtures/forges-fixtures-transfer.git"
         },
         "createdAt": "2026-10-09T11:33:45.319Z",
-        "updatedAt": "<now>",
+        "updatedAt": "2026-10-11T14:52:23.959Z",
         "openIssueCount": 0,
         "stars": 0,
         "forks": 0,
@@ -2209,7 +2209,7 @@
           "ssh": "git@gitlab.com:forges-fixtures/forges-fixtures.git"
         },
         "createdAt": "2026-10-09T11:31:15.397Z",
-        "updatedAt": "<now>",
+        "updatedAt": "2026-10-11T14:52:06.548Z",
         "openIssueCount": 1,
         "stars": 0,
         "forks": 1,
@@ -2298,7 +2298,7 @@
     ],
     "cursor": {
       "nextUrl": "https://gitlab.com/api/v4/projects?imported=false&include_hidden=false&membership=true&order_by=created_at&owned=false&page=2&per_page=3&repository_checksum_failed=false&simple=false&sort=desc&starred=false&statistics=false&wiki_checksum_failed=false&with_custom_attributes=false&with_issues_enabled=false&with_merge_requests_enabled=false",
-      "etag": "W/\"64e88941e24a74cda8dded6018ce28b2\""
+      "etag": "W/\"e6eb671f6a62dd97e23fcc72f904b887\""
     },
     "rateLimit": {
       "limit": 2000,
@@ -2402,7 +2402,7 @@
     ],
     "cursor": {
       "nextUrl": "https://gitlab.com/api/v4/todos?page=2&per_page=3&state=pending",
-      "etag": "W/\"dedc7ff27fa7f166356bc773d6221f4f\""
+      "etag": "W/\"3ac4c967d7103190c3ed51642f5764eb\""
     },
     "notModified": false
   },
@@ -2432,7 +2432,7 @@
         "branch": "refs/workloads/e129edfe7b5",
         "sha": "9a7963a1f19651973a02d75b8a7ae16ba81e27e5",
         "url": "https://gitlab.com/gitlab-org/cli/-/pipelines/2935977998",
-        "createdAt": "<now>"
+        "createdAt": "2026-10-11T14:44:30.213Z"
       },
       {
         "ref": {
@@ -2454,7 +2454,7 @@
         "branch": "refs/merge-requests/4072/merge",
         "sha": "24eb45ed29f69281153dfb342fdda265bd88616d",
         "url": "https://gitlab.com/gitlab-org/cli/-/pipelines/2935970571",
-        "createdAt": "<now>"
+        "createdAt": "2026-10-11T14:36:37.562Z"
       },
       {
         "ref": {
@@ -2476,7 +2476,7 @@
         "branch": "refs/workloads/488a30f365c",
         "sha": "6e818f5dd79f566d698d4e92615623598157f26e",
         "url": "https://gitlab.com/gitlab-org/cli/-/pipelines/2935970548",
-        "createdAt": "<now>"
+        "createdAt": "2026-10-11T14:36:36.114Z"
       }
     ],
     "cursor": {
@@ -2598,9 +2598,9 @@
       "url": "https://gitlab.com/duo-code-review-gitlab-org",
       "isBotHint": false
     },
-    "createdAt": "<now>",
-    "startedAt": "<now>",
-    "completedAt": "<now>"
+    "createdAt": "2026-10-11T14:44:30.213Z",
+    "startedAt": "2026-10-11T14:44:30.910Z",
+    "completedAt": "2026-10-11T14:45:42.619Z"
   },
   "ci jobs": {
     "items": [
@@ -2632,8 +2632,8 @@
         "stateRaw": "success",
         "stage": "build",
         "url": "https://gitlab.com/gitlab-org/cli/-/jobs/17094149986",
-        "startedAt": "<now>",
-        "completedAt": "<now>"
+        "startedAt": "2026-10-11T14:44:30.715Z",
+        "completedAt": "2026-10-11T14:45:41.024Z"
       }
     ],
     "rateLimit": {
@@ -2670,25 +2670,56 @@
     "stateRaw": "success",
     "stage": "build",
     "url": "https://gitlab.com/gitlab-org/cli/-/jobs/17094149986",
-    "startedAt": "<now>",
-    "completedAt": "<now>"
+    "startedAt": "2026-10-11T14:44:30.715Z",
+    "completedAt": "2026-10-11T14:45:41.024Z"
+  },
+  "ci job by id": {
+    "ref": {
+      "forge": "gitlab",
+      "instance": "gitlab.com",
+      "repo": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "owner": "gitlab-org",
+        "name": "cli"
+      },
+      "id": "17094149986",
+      "run": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "repo": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "owner": "gitlab-org",
+          "name": "cli"
+        },
+        "id": "2935977998"
+      }
+    },
+    "name": "workload",
+    "state": "success",
+    "stateRaw": "success",
+    "stage": "build",
+    "url": "https://gitlab.com/gitlab-org/cli/-/jobs/17094149986",
+    "startedAt": "2026-10-11T14:44:30.715Z",
+    "completedAt": "2026-10-11T14:45:41.024Z"
   },
   "ci log": {
     "length": 6632,
     "head": [
-      "2026-10-11T14:52:52.067717Z 00O \u001b[0KRunning with gitlab-runner 19.5.0~pre.2272.g28a18501 (28a18501)\u001b[0;m",
-      "2026-10-11T14:52:52.067744Z 00O \u001b[0K  on k8s.saas-linux-small-amd64.runners-manager.gitlab.com/default nezyxEJex, system ID: r_JH3BKAkT4ElM\u001b[0;m",
-      "2026-10-11T14:52:52.067748Z 00O \u001b[0K  UUID: 019fd6c6-56c4-78a2-8961-bbb53e204387\u001b[0;m",
-      "2026-10-11T14:52:52.067758Z 00O \u001b[0K  feature flags: FF_USE_GIT_PROACTIVE_AUTH:true, FF_HASH_CACHE_KEYS:true, FF_MACHINE_OPTIONS_EXPAND_ENV:true, FF_DOCKER_MACHINE_JSON_OUTPUT:true\u001b[0;m",
-      "2026-10-11T14:52:52.067808Z 00O section_start:1791730372:prepare_executor\r\u001b[0K",
-      "2026-10-11T14:52:52.067813Z 00O+\u001b[0K\u001b[36;1mPreparing the \"docker+machine\" executor\u001b[0;m\u001b[0;m",
-      "2026-10-11T14:52:52.153546Z 00O \u001b[0KUsing Docker executor with image alpine:latest ...\u001b[0;m",
-      "2026-10-11T14:52:52.153613Z 00O \u001b[0KUsing helper image:  registry.gitlab.com/gitlab-org/gitlab-runner/gitlab-runner-helper:x86_64-28a18501  (overridden, default would be  registry.gitlab.com/gitlab-org/gitlab-runner/gitlab-runner-helper:x86_64-v19.5.0 )\u001b[0;m",
-      "2026-10-11T14:52:52.153624Z 00O \u001b[0KUsing effective pull policy of [always] for container registry.gitlab.com/gitlab-org/gitlab-runner/gitlab-runner-helper:x86_64-28a18501\u001b[0;m",
-      "2026-10-11T14:52:52.154810Z 00O \u001b[0KAuthenticating with credentials from job payload (GitLab Registry)\u001b[0;m",
-      "2026-10-11T14:52:52.154823Z 00O \u001b[0KPulling docker image registry.gitlab.com/gitlab-org/gitlab-runner/gitlab-runner-helper:x86_64-28a18501 ...\u001b[0;m",
-      "2026-10-11T14:52:54.016013Z 00O \u001b[0KUsing docker image sha256:08749606eabcea842cbd189a80b2f3d7670b949f70dfc654d45d8b81554bd837 for registry.gitlab.com/gitlab-org/gitlab-runner/gitlab-runner-helper:x86_64-28a18501 with digest registry.gitlab.com/gitlab-org/gitlab-runner/gitlab-runner-helper@sha256:eea1152121f06d47f94871fef69559be0a87c75212f227e34e7617d1a3bbe6c3 ...\u001b[0;m",
-      "2026-10-11T14:52:55.814949Z 00O \u001b[0KUsing helper image:  registry.gitlab.com/gitlab-org/gitlab-runner/gitlab-runner-helper:x86_64-28a18501  (overridde"
+      "2026-10-11T15:05:55.045673Z 00O \u001b[0KRunning with gitlab-runner 19.5.0~pre.2272.g28a18501 (28a18501)\u001b[0;m",
+      "2026-10-11T15:05:55.045698Z 00O \u001b[0K  on k8s.saas-linux-small-amd64.runners-manager.gitlab.com/default nezyxEJex, system ID: r_GXhryNvSIEg7\u001b[0;m",
+      "2026-10-11T15:05:55.045700Z 00O \u001b[0K  UUID: 019fd6c6-56c4-78a2-8961-bbb53e204387\u001b[0;m",
+      "2026-10-11T15:05:55.045709Z 00O \u001b[0K  feature flags: FF_USE_GIT_PROACTIVE_AUTH:true, FF_HASH_CACHE_KEYS:true, FF_MACHINE_OPTIONS_EXPAND_ENV:true, FF_DOCKER_MACHINE_JSON_OUTPUT:true\u001b[0;m",
+      "2026-10-11T15:05:55.045742Z 00O section_start:1791731155:prepare_executor\r\u001b[0K",
+      "2026-10-11T15:05:55.045745Z 00O+\u001b[0K\u001b[36;1mPreparing the \"docker+machine\" executor\u001b[0;m\u001b[0;m",
+      "2026-10-11T15:05:55.126264Z 00O \u001b[0KUsing Docker executor with image alpine:latest ...\u001b[0;m",
+      "2026-10-11T15:05:55.126308Z 00O \u001b[0KUsing helper image:  registry.gitlab.com/gitlab-org/gitlab-runner/gitlab-runner-helper:x86_64-28a18501  (overridden, default would be  registry.gitlab.com/gitlab-org/gitlab-runner/gitlab-runner-helper:x86_64-v19.5.0 )\u001b[0;m",
+      "2026-10-11T15:05:55.126316Z 00O \u001b[0KUsing effective pull policy of [always] for container registry.gitlab.com/gitlab-org/gitlab-runner/gitlab-runner-helper:x86_64-28a18501\u001b[0;m",
+      "2026-10-11T15:05:55.127933Z 00O \u001b[0KAuthenticating with credentials from job payload (GitLab Registry)\u001b[0;m",
+      "2026-10-11T15:05:55.127941Z 00O \u001b[0KPulling docker image registry.gitlab.com/gitlab-org/gitlab-runner/gitlab-runner-helper:x86_64-28a18501 ...\u001b[0;m",
+      "2026-10-11T15:05:56.955457Z 00O \u001b[0KUsing docker image sha256:08749606eabcea842cbd189a80b2f3d7670b949f70dfc654d45d8b81554bd837 for registry.gitlab.com/gitlab-org/gitlab-runner/gitlab-runner-helper:x86_64-28a18501 with digest registry.gitlab.com/gitlab-org/gitlab-runner/gitlab-runner-helper@sha256:eea1152121f06d47f94871fef69559be0a87c75212f227e34e7617d1a3bbe6c3 ...\u001b[0;m",
+      "2026-10-11T15:05:58.673639Z 00O \u001b[0KUsing helper image:  registry.gitlab.com/gitlab-org/gitlab-runner/gitlab-runner-helper:x86_64-28a18501  (overridde"
     ]
   },
   "readme": {
@@ -2725,7 +2756,7 @@
     },
     "rateLimit": {
       "limit": 2000,
-      "remaining": 1946,
+      "remaining": 1945,
       "resetAt": "<now>"
     }
   },
@@ -2759,7 +2790,7 @@
     },
     "rateLimit": {
       "limit": 2000,
-      "remaining": 1945,
+      "remaining": 1944,
       "resetAt": "<now>"
     }
   },
@@ -2784,7 +2815,7 @@
     },
     "rateLimit": {
       "limit": 2000,
-      "remaining": 1944,
+      "remaining": 1943,
       "resetAt": "<now>"
     }
   },
@@ -2887,7 +2918,7 @@
     },
     "rateLimit": {
       "limit": 2000,
-      "remaining": 1942,
+      "remaining": 1941,
       "resetAt": "<now>"
     }
   },
@@ -3483,7 +3514,7 @@
     },
     "rateLimit": {
       "limit": 2000,
-      "remaining": 1938,
+      "remaining": 1937,
       "resetAt": "<now>"
     }
   },
@@ -4034,6 +4065,79 @@
             "name": "cli"
           },
           "kind": "issue",
+          "number": "8395",
+          "externalId": "194831813"
+        },
+        "kind": "issue",
+        "title": "Follow-up from \"fix(auth): prevent stale config writes from clobbering rotated OAuth tokens\"",
+        "body": "The following discussion from !3501 should be addressed:\n\n- [ ] @phikai started a [discussion](https://gitlab.com/gitlab-org/cli/-/merge_requests/3501#note_3553777507):  (+1 comment)\n\n    > Consider moving this helper next to `unmarshal`/`marshal` in [`internal/oauth2/config.go`](internal/oauth2/config.go) as `MergeFresherCredentialsFromDisk(cfg, dir)` and calling it from `Write()` via a small hook. The logic is OAuth-specific (three named keys, expiry-date semantics, single-use refresh token) — the generic `config` package doesn't otherwise know about OAuth, and this is the layer that'd be extended if another single-use rotating credential ever showed up.\n    > \n    > Not a blocker if you'd rather keep it here for now, but call it out as a followup.",
+        "state": "open",
+        "stateRaw": "opened",
+        "isDraft": false,
+        "assignees": [
+          {
+            "forge": "gitlab",
+            "instance": "gitlab.com",
+            "login": "HamzaHassanain",
+            "id": "30770856",
+            "name": "Hamza Hassanain",
+            "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/30770856/avatar.png?v=1791714951",
+            "url": "https://gitlab.com/HamzaHassanain",
+            "isBotHint": false
+          }
+        ],
+        "reviewers": [],
+        "lastActivityAt": "<now>",
+        "author": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "login": "thiagocsf",
+          "id": "480804",
+          "name": "Thiago Figueiró",
+          "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/480804/avatar.png?v=1791676803",
+          "url": "https://gitlab.com/thiagocsf",
+          "isBotHint": false
+        },
+        "url": "https://gitlab.com/gitlab-org/cli/-/work_items/8395",
+        "createdAt": "2026-07-14T01:38:55.569Z",
+        "updatedAt": "<now>",
+        "labels": [
+          {
+            "name": "automation:ml"
+          },
+          {
+            "name": "automation:quick-win-judged"
+          },
+          {
+            "name": "backend"
+          },
+          {
+            "name": "follow-up"
+          },
+          {
+            "name": "maintenance::refactor"
+          },
+          {
+            "name": "type::maintenance"
+          }
+        ],
+        "commentCount": 5,
+        "reactions": {
+          "total": 0,
+          "counts": {}
+        }
+      },
+      {
+        "ref": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "repo": {
+            "forge": "gitlab",
+            "instance": "gitlab.com",
+            "owner": "gitlab-org",
+            "name": "cli"
+          },
+          "kind": "issue",
           "number": "8565",
           "externalId": "204136821"
         },
@@ -4045,7 +4149,7 @@
         "isDraft": false,
         "assignees": [],
         "reviewers": [],
-        "lastActivityAt": "<now>",
+        "lastActivityAt": "2026-10-11T14:06:45.641Z",
         "author": {
           "forge": "gitlab",
           "instance": "gitlab.com",
@@ -4058,7 +4162,7 @@
         },
         "url": "https://gitlab.com/gitlab-org/cli/-/work_items/8565",
         "createdAt": "2026-09-24T04:41:12.610Z",
-        "updatedAt": "<now>",
+        "updatedAt": "2026-10-11T14:06:45.641Z",
         "labels": [
           {
             "name": "automation:ml"
@@ -4148,89 +4252,16 @@
           "total": 0,
           "counts": {}
         }
-      },
-      {
-        "ref": {
-          "forge": "gitlab",
-          "instance": "gitlab.com",
-          "repo": {
-            "forge": "gitlab",
-            "instance": "gitlab.com",
-            "owner": "gitlab-org",
-            "name": "cli"
-          },
-          "kind": "issue",
-          "number": "8395",
-          "externalId": "194831813"
-        },
-        "kind": "issue",
-        "title": "Follow-up from \"fix(auth): prevent stale config writes from clobbering rotated OAuth tokens\"",
-        "body": "The following discussion from !3501 should be addressed:\n\n- [ ] @phikai started a [discussion](https://gitlab.com/gitlab-org/cli/-/merge_requests/3501#note_3553777507):  (+1 comment)\n\n    > Consider moving this helper next to `unmarshal`/`marshal` in [`internal/oauth2/config.go`](internal/oauth2/config.go) as `MergeFresherCredentialsFromDisk(cfg, dir)` and calling it from `Write()` via a small hook. The logic is OAuth-specific (three named keys, expiry-date semantics, single-use refresh token) — the generic `config` package doesn't otherwise know about OAuth, and this is the layer that'd be extended if another single-use rotating credential ever showed up.\n    > \n    > Not a blocker if you'd rather keep it here for now, but call it out as a followup.",
-        "state": "open",
-        "stateRaw": "opened",
-        "isDraft": false,
-        "assignees": [
-          {
-            "forge": "gitlab",
-            "instance": "gitlab.com",
-            "login": "HamzaHassanain",
-            "id": "30770856",
-            "name": "Hamza Hassanain",
-            "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/30770856/avatar.png?v=1791714951",
-            "url": "https://gitlab.com/HamzaHassanain",
-            "isBotHint": false
-          }
-        ],
-        "reviewers": [],
-        "lastActivityAt": "2026-10-10T12:57:18.193Z",
-        "author": {
-          "forge": "gitlab",
-          "instance": "gitlab.com",
-          "login": "thiagocsf",
-          "id": "480804",
-          "name": "Thiago Figueiró",
-          "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/480804/avatar.png?v=1791676803",
-          "url": "https://gitlab.com/thiagocsf",
-          "isBotHint": false
-        },
-        "url": "https://gitlab.com/gitlab-org/cli/-/work_items/8395",
-        "createdAt": "2026-07-14T01:38:55.569Z",
-        "updatedAt": "2026-10-10T12:57:18.193Z",
-        "labels": [
-          {
-            "name": "automation:ml"
-          },
-          {
-            "name": "automation:quick-win-judged"
-          },
-          {
-            "name": "backend"
-          },
-          {
-            "name": "follow-up"
-          },
-          {
-            "name": "maintenance::refactor"
-          },
-          {
-            "name": "type::maintenance"
-          }
-        ],
-        "commentCount": 4,
-        "reactions": {
-          "total": 0,
-          "counts": {}
-        }
       }
     ],
     "cursor": {
       "nextUrl": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/issues?id=gitlab-org%2Fcli&in=title%2Cdescription&order_by=updated_at&page=2&per_page=3&search=fix&sort=desc&state=all&with_labels_details=false",
-      "etag": "W/\"0d9fef0094904605ea4d070c0e2585b1\"",
+      "etag": "W/\"0fa940c52141a991f8a8bc228fe1fefd\"",
       "token": "0:"
     },
     "rateLimit": {
       "limit": 2000,
-      "remaining": 1934,
+      "remaining": 1933,
       "resetAt": "<now>"
     }
   },
@@ -4255,8 +4286,8 @@
           "https": "https://gitlab.com/Ziwon90/fedcli.git",
           "ssh": "git@gitlab.com:Ziwon90/fedcli.git"
         },
-        "createdAt": "<now>",
-        "updatedAt": "<now>",
+        "createdAt": "2026-10-11T14:54:09.098Z",
+        "updatedAt": "2026-10-11T14:54:09.018Z",
         "openIssueCount": 0,
         "owner": {
           "forge": "gitlab",
@@ -4309,8 +4340,8 @@
           "https": "https://gitlab.com/Ziwon90/fedcli-deletion_scheduled-87492080.git",
           "ssh": "git@gitlab.com:Ziwon90/fedcli-deletion_scheduled-87492080.git"
         },
-        "createdAt": "<now>",
-        "updatedAt": "<now>",
+        "createdAt": "2026-10-11T14:53:09.682Z",
+        "updatedAt": "2026-10-11T14:53:37.773Z",
         "openIssueCount": 0,
         "owner": {
           "forge": "gitlab",
@@ -4363,8 +4394,8 @@
           "https": "https://gitlab.com/Ziwon90/fedcli-deletion_scheduled-87491771.git",
           "ssh": "git@gitlab.com:Ziwon90/fedcli-deletion_scheduled-87491771.git"
         },
-        "createdAt": "<now>",
-        "updatedAt": "<now>",
+        "createdAt": "2026-10-11T14:37:20.782Z",
+        "updatedAt": "2026-10-11T14:52:15.956Z",
         "openIssueCount": 0,
         "owner": {
           "forge": "gitlab",
@@ -4401,11 +4432,11 @@
     ],
     "cursor": {
       "nextUrl": "https://gitlab.com/api/v4/projects?imported=false&include_hidden=false&membership=false&order_by=created_at&owned=false&page=2&per_page=3&repository_checksum_failed=false&search=cli&simple=false&sort=desc&starred=false&statistics=false&wiki_checksum_failed=false&with_custom_attributes=false&with_issues_enabled=false&with_merge_requests_enabled=false",
-      "etag": "W/\"bc66a1a6b0a7796331573a217e57ee3e\""
+      "etag": "W/\"b93c43ff139c2064da2df8df8773aa60\""
     },
     "rateLimit": {
       "limit": 2000,
-      "remaining": 1933,
+      "remaining": 1932,
       "resetAt": "<now>"
     }
   },
@@ -4505,7 +4536,7 @@
     },
     "rateLimit": {
       "limit": 2000,
-      "remaining": 1932,
+      "remaining": 1931,
       "resetAt": "<now>"
     }
   },
@@ -4543,7 +4574,7 @@
     },
     "rateLimit": {
       "limit": 2000,
-      "remaining": 1931,
+      "remaining": 1930,
       "resetAt": "<now>"
     }
   },
@@ -4582,7 +4613,7 @@
     },
     "rateLimit": {
       "limit": 2000,
-      "remaining": 1930,
+      "remaining": 1929,
       "resetAt": "<now>"
     }
   },
@@ -4935,7 +4966,7 @@
     },
     "rateLimit": {
       "limit": 2000,
-      "remaining": 1928,
+      "remaining": 1927,
       "resetAt": "<now>"
     }
   },
@@ -4971,7 +5002,7 @@
     ],
     "rateLimit": {
       "limit": 2000,
-      "remaining": 1927,
+      "remaining": 1926,
       "resetAt": "<now>"
     }
   },

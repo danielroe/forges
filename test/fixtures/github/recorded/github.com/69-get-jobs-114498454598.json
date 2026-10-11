@@ -1,0 +1,123 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/actions/jobs/114498454598"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"c89d9c75b14b39d08f3ec70a4bf2adc40a1a944e5ff4ce4225846bef249b5dfe\"",
+      "x-ratelimit-limit": "5000",
+      "x-ratelimit-remaining": "4993",
+      "x-ratelimit-reset": "1791737987"
+    },
+    "body": {
+      "id": 114498454598,
+      "run_id": 38149059061,
+      "workflow_name": "Push on main",
+      "head_branch": "main",
+      "run_url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/actions/runs/38149059061",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOVCTdtM8AAAAaqKPERg",
+      "head_sha": "9b4cc9f04c645ca64000a2e76b29e7a70a933d13",
+      "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/actions/jobs/114498454598",
+      "html_url": "https://github.com/forges-fixtures/forges-fixtures/actions/runs/38149059061/job/114498454598",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-10-11T14:54:09Z",
+      "started_at": "2026-10-11T14:54:11Z",
+      "completed_at": "2026-10-11T14:55:33Z",
+      "name": "Analyze (javascript-typescript)",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-11T14:54:12Z",
+          "completed_at": "2026-10-11T14:54:13Z"
+        },
+        {
+          "name": "Checkout repository",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-11T14:54:13Z",
+          "completed_at": "2026-10-11T14:54:14Z"
+        },
+        {
+          "name": "Setup proxy for registries",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-11T14:54:14Z",
+          "completed_at": "2026-10-11T14:54:14Z"
+        },
+        {
+          "name": "Initialize CodeQL",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-11T14:54:14Z",
+          "completed_at": "2026-10-11T14:54:33Z"
+        },
+        {
+          "name": "Perform CodeQL Analysis",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-11T14:54:33Z",
+          "completed_at": "2026-10-11T14:55:28Z"
+        },
+        {
+          "name": "Post Perform CodeQL Analysis",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7,
+          "started_at": "2026-10-11T14:55:28Z",
+          "completed_at": "2026-10-11T14:55:28Z"
+        },
+        {
+          "name": "Post Initialize CodeQL",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 8,
+          "started_at": "2026-10-11T14:55:28Z",
+          "completed_at": "2026-10-11T14:55:29Z"
+        },
+        {
+          "name": "Post Setup proxy for registries",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 9,
+          "started_at": "2026-10-11T14:55:29Z",
+          "completed_at": "2026-10-11T14:55:30Z"
+        },
+        {
+          "name": "Post Checkout repository",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 10,
+          "started_at": "2026-10-11T14:55:30Z",
+          "completed_at": "2026-10-11T14:55:30Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 11,
+          "started_at": "2026-10-11T14:55:30Z",
+          "completed_at": "2026-10-11T14:55:30Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/check-runs/114498454598",
+      "labels": [
+        "ubuntu-latest"
+      ],
+      "runner_id": 1000000196,
+      "runner_name": "GitHub Actions 1000000196",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    }
+  }
+}

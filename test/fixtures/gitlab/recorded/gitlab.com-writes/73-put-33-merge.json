@@ -1,0 +1,215 @@
+{
+  "request": {
+    "method": "PUT",
+    "url": "https://gitlab.com/api/v4/projects/forges-fixtures%2Fforges-fixtures/merge_requests/33/merge",
+    "body": {
+      "merge_commit_message": "Merge run 20261011160520\n\nMerged by run 20261011160520",
+      "squash": false,
+      "merge_when_pipeline_succeeds": false
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"99f1dd9c750c74e6d740ddb2745c9d53\"",
+      "ratelimit-limit": "2000",
+      "ratelimit-remaining": "1924",
+      "ratelimit-reset": "1791734820"
+    },
+    "body": {
+      "id": 546693342,
+      "iid": 33,
+      "project_id": 87428720,
+      "title": "forges fixture 20261011160520: pull, edited",
+      "description": "Edited by run 20261011160520.",
+      "state": "merged",
+      "created_at": "2026-10-11T16:05:44.271Z",
+      "updated_at": "2026-10-11T16:06:06.575Z",
+      "merged_by": {
+        "id": 43193323,
+        "username": "roebot",
+        "public_email": "",
+        "name": "Daniel Roe",
+        "state": "active",
+        "locked": false,
+        "avatar_url": "https://secure.gravatar.com/avatar/14ceebcfdc10030d76768a65e9d7978b914694cebcbb6ab609b3a0e8243f0eb8?s=80&d=identicon",
+        "web_url": "https://gitlab.com/roebot"
+      },
+      "merge_user": {
+        "id": 43193323,
+        "username": "roebot",
+        "public_email": "",
+        "name": "Daniel Roe",
+        "state": "active",
+        "locked": false,
+        "avatar_url": "https://secure.gravatar.com/avatar/14ceebcfdc10030d76768a65e9d7978b914694cebcbb6ab609b3a0e8243f0eb8?s=80&d=identicon",
+        "web_url": "https://gitlab.com/roebot"
+      },
+      "merged_at": "2026-10-11T16:06:06.730Z",
+      "closed_by": null,
+      "closed_at": null,
+      "target_branch": "main",
+      "source_branch": "forges-fixtures/20261011160520-1",
+      "user_notes_count": 2,
+      "upvotes": 0,
+      "downvotes": 0,
+      "author": {
+        "id": 43193323,
+        "username": "roebot",
+        "public_email": "",
+        "name": "Daniel Roe",
+        "state": "active",
+        "locked": false,
+        "avatar_url": "https://secure.gravatar.com/avatar/14ceebcfdc10030d76768a65e9d7978b914694cebcbb6ab609b3a0e8243f0eb8?s=80&d=identicon",
+        "web_url": "https://gitlab.com/roebot",
+        "bot": false
+      },
+      "assignees": [
+        {
+          "id": 43193323,
+          "username": "roebot",
+          "public_email": "",
+          "name": "Daniel Roe",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://secure.gravatar.com/avatar/14ceebcfdc10030d76768a65e9d7978b914694cebcbb6ab609b3a0e8243f0eb8?s=80&d=identicon",
+          "web_url": "https://gitlab.com/roebot"
+        }
+      ],
+      "assignee": {
+        "id": 43193323,
+        "username": "roebot",
+        "public_email": "",
+        "name": "Daniel Roe",
+        "state": "active",
+        "locked": false,
+        "avatar_url": "https://secure.gravatar.com/avatar/14ceebcfdc10030d76768a65e9d7978b914694cebcbb6ab609b3a0e8243f0eb8?s=80&d=identicon",
+        "web_url": "https://gitlab.com/roebot"
+      },
+      "reviewers": [
+        {
+          "id": 2179675,
+          "username": "danielroe",
+          "public_email": "",
+          "name": "Daniel Roe",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://secure.gravatar.com/avatar/82a8f6237bb263bac46d7cc8ec3054d715ce6a55a8626d6e977769d57d2c94e6?s=80&d=identicon",
+          "web_url": "https://gitlab.com/danielroe"
+        }
+      ],
+      "source_project_id": 87428720,
+      "target_project_id": 87428720,
+      "labels": [
+        "forges-fixture-20261011160520"
+      ],
+      "draft": false,
+      "imported": false,
+      "imported_from": "none",
+      "work_in_progress": false,
+      "milestone": null,
+      "merge_when_pipeline_succeeds": false,
+      "merge_status": "can_be_merged",
+      "detailed_merge_status": "not_open",
+      "merge_after": null,
+      "sha": "c3afa28c14c1cf01836182730880a5ac7c269238",
+      "merge_commit_sha": "67ac4c874df637c29bc708e0c8dadfe1a3380e1b",
+      "squash_commit_sha": null,
+      "discussion_locked": null,
+      "should_remove_source_branch": null,
+      "force_remove_source_branch": true,
+      "prepared_at": "2026-10-11T16:05:45.241Z",
+      "reference": "!33",
+      "references": {
+        "short": "!33",
+        "relative": "!33",
+        "full": "forges-fixtures/forges-fixtures!33"
+      },
+      "web_url": "https://gitlab.com/forges-fixtures/forges-fixtures/-/merge_requests/33",
+      "time_stats": {
+        "time_estimate": 0,
+        "total_time_spent": 0,
+        "human_time_estimate": null,
+        "human_total_time_spent": null
+      },
+      "squash": false,
+      "squash_on_merge": false,
+      "task_completion_status": {
+        "count": 0,
+        "completed_count": 0
+      },
+      "has_conflicts": false,
+      "blocking_discussions_resolved": true,
+      "approvals_before_merge": null,
+      "subscribed": true,
+      "changes_count": "1",
+      "latest_build_started_at": null,
+      "latest_build_finished_at": "2026-10-11T16:06:02.990Z",
+      "first_deployed_to_production_at": null,
+      "pipeline": {
+        "id": 2936115063,
+        "iid": 99,
+        "project_id": 87428720,
+        "sha": "c3afa28c14c1cf01836182730880a5ac7c269238",
+        "ref": "refs/merge-requests/33/head",
+        "status": "success",
+        "source": "merge_request_event",
+        "created_at": "2026-10-11T16:05:45.287Z",
+        "updated_at": "2026-10-11T16:06:02.994Z",
+        "web_url": "https://gitlab.com/forges-fixtures/forges-fixtures/-/pipelines/2936115063"
+      },
+      "head_pipeline": {
+        "id": 2936115063,
+        "iid": 99,
+        "project_id": 87428720,
+        "sha": "c3afa28c14c1cf01836182730880a5ac7c269238",
+        "ref": "refs/merge-requests/33/head",
+        "status": "success",
+        "source": "merge_request_event",
+        "created_at": "2026-10-11T16:05:45.287Z",
+        "updated_at": "2026-10-11T16:06:02.994Z",
+        "web_url": "https://gitlab.com/forges-fixtures/forges-fixtures/-/pipelines/2936115063",
+        "before_sha": "c3afa28c14c1cf01836182730880a5ac7c269238",
+        "tag": false,
+        "yaml_errors": null,
+        "user": {
+          "id": 43193323,
+          "username": "roebot",
+          "public_email": "",
+          "name": "Daniel Roe",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://secure.gravatar.com/avatar/14ceebcfdc10030d76768a65e9d7978b914694cebcbb6ab609b3a0e8243f0eb8?s=80&d=identicon",
+          "web_url": "https://gitlab.com/roebot"
+        },
+        "started_at": null,
+        "finished_at": "2026-10-11T16:06:02.990Z",
+        "committed_at": null,
+        "duration": null,
+        "queued_duration": 17,
+        "coverage": null,
+        "detailed_status": {
+          "icon": "status_success",
+          "text": "Passed",
+          "label": "passed",
+          "group": "success",
+          "tooltip": "passed",
+          "has_details": true,
+          "details_path": "/forges-fixtures/forges-fixtures/-/pipelines/2936115063",
+          "illustration": null,
+          "favicon": "/assets/ci_favicons/favicon_status_success-8451333011eee8ce9f2ab25dc487fe24a8758c694827a582f17f42b0a90446a2.png"
+        },
+        "archived": false
+      },
+      "diff_refs": {
+        "base_sha": "184282075242da29f09b81a15b75b5288354d1fe",
+        "head_sha": "c3afa28c14c1cf01836182730880a5ac7c269238",
+        "start_sha": "184282075242da29f09b81a15b75b5288354d1fe"
+      },
+      "merge_error": null,
+      "user": {
+        "can_merge": true
+      }
+    }
+  }
+}

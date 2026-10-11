@@ -6,25 +6,196 @@
     "variables": {
       "o0": "h3js",
       "n0": "h3",
-      "k0": 1585,
+      "k0": 1587,
       "o1": "h3js",
       "n1": "h3",
-      "k1": 1583,
+      "k1": 1585,
       "o2": "h3js",
       "n2": "h3",
-      "k2": 1582
+      "k2": 1583
     }
   },
   "response": {
     "status": 200,
     "headers": {
       "x-ratelimit-limit": "5000",
-      "x-ratelimit-remaining": "4985",
-      "x-ratelimit-reset": "1791733510"
+      "x-ratelimit-remaining": "4999",
+      "x-ratelimit-reset": "1791738330"
     },
     "body": {
       "data": {
         "t0": {
+          "issueOrPullRequest": {
+            "__typename": "PullRequest",
+            "id": "PR_kwDOErHI988AAAABH0yeSg",
+            "number": 1587,
+            "title": "docs: fix more utils code example",
+            "body": "Resolves #1586\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n\n## Summary by CodeRabbit\n\n* **Documentation**\n  * Updated the `withBase` code example to remove an extra semicolon, keeping the example’s formatting consistent. No behavior or functionality has changed.\n\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
+            "state": "OPEN",
+            "isDraft": false,
+            "createdAt": "2026-10-11T15:16:44Z",
+            "updatedAt": "2026-10-11T15:17:48Z",
+            "closedAt": null,
+            "mergedAt": null,
+            "url": "https://github.com/h3js/h3/pull/1587",
+            "locked": false,
+            "author": {
+              "__typename": "User",
+              "login": "otowa1",
+              "avatarUrl": "https://avatars.githubusercontent.com/u/90172742?v=4",
+              "url": "https://github.com/otowa1",
+              "databaseId": 90172742,
+              "name": null
+            },
+            "assignees": {
+              "nodes": []
+            },
+            "labels": {
+              "nodes": []
+            },
+            "comments": {
+              "totalCount": 1
+            },
+            "participants": {
+              "nodes": [
+                {
+                  "__typename": "User",
+                  "login": "otowa1",
+                  "avatarUrl": "https://avatars.githubusercontent.com/u/90172742?v=4",
+                  "url": "https://github.com/otowa1",
+                  "databaseId": 90172742,
+                  "name": null
+                }
+              ]
+            },
+            "milestone": null,
+            "viewerSubscription": "UNSUBSCRIBED",
+            "headRefName": "docs-fix-more-utils-code-example",
+            "headRefOid": "d9a7f9259d7d90f78e3602391a2bb6a6ae97ef2a",
+            "baseRefName": "main",
+            "baseRefOid": "66cfb8a357b6285451bad498c2c40002601fae98",
+            "headRepository": {
+              "databaseId": 1414464541,
+              "name": "h3",
+              "owner": {
+                "login": "otowa1"
+              }
+            },
+            "mergeCommit": null,
+            "additions": 1,
+            "deletions": 1,
+            "changedFiles": 1,
+            "commits": {
+              "totalCount": 1,
+              "nodes": [
+                {
+                  "commit": {
+                    "statusCheckRollup": {
+                      "state": "SUCCESS",
+                      "contexts": {
+                        "totalCount": 3,
+                        "checkRunCountsByState": [
+                          {
+                            "state": "ACTION_REQUIRED",
+                            "count": 0
+                          },
+                          {
+                            "state": "CANCELLED",
+                            "count": 0
+                          },
+                          {
+                            "state": "COMPLETED",
+                            "count": 0
+                          },
+                          {
+                            "state": "FAILURE",
+                            "count": 0
+                          },
+                          {
+                            "state": "IN_PROGRESS",
+                            "count": 0
+                          },
+                          {
+                            "state": "NEUTRAL",
+                            "count": 0
+                          },
+                          {
+                            "state": "PENDING",
+                            "count": 0
+                          },
+                          {
+                            "state": "QUEUED",
+                            "count": 0
+                          },
+                          {
+                            "state": "SKIPPED",
+                            "count": 0
+                          },
+                          {
+                            "state": "STALE",
+                            "count": 0
+                          },
+                          {
+                            "state": "STARTUP_FAILURE",
+                            "count": 0
+                          },
+                          {
+                            "state": "SUCCESS",
+                            "count": 2
+                          },
+                          {
+                            "state": "TIMED_OUT",
+                            "count": 0
+                          },
+                          {
+                            "state": "WAITING",
+                            "count": 0
+                          }
+                        ],
+                        "statusContextCountsByState": [
+                          {
+                            "state": "EXPECTED",
+                            "count": 0
+                          },
+                          {
+                            "state": "ERROR",
+                            "count": 0
+                          },
+                          {
+                            "state": "FAILURE",
+                            "count": 0
+                          },
+                          {
+                            "state": "PENDING",
+                            "count": 0
+                          },
+                          {
+                            "state": "SUCCESS",
+                            "count": 1
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              ]
+            },
+            "reviewRequests": {
+              "nodes": [
+                {
+                  "requestedReviewer": {
+                    "__typename": "User",
+                    "login": "pi0",
+                    "databaseId": 5158436,
+                    "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?u=3609b2822870b982f2b93c432569ee017e970148&v=4",
+                    "url": "https://github.com/pi0"
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "t1": {
           "issueOrPullRequest": {
             "__typename": "PullRequest",
             "id": "PR_kwDOErHI988AAAABH0aNdg",
@@ -195,7 +366,7 @@
             }
           }
         },
-        "t1": {
+        "t2": {
           "issueOrPullRequest": {
             "__typename": "PullRequest",
             "id": "PR_kwDOErHI988AAAABHzAV3Q",
@@ -258,177 +429,6 @@
             "changedFiles": 1,
             "commits": {
               "totalCount": 2,
-              "nodes": [
-                {
-                  "commit": {
-                    "statusCheckRollup": {
-                      "state": "SUCCESS",
-                      "contexts": {
-                        "totalCount": 3,
-                        "checkRunCountsByState": [
-                          {
-                            "state": "ACTION_REQUIRED",
-                            "count": 0
-                          },
-                          {
-                            "state": "CANCELLED",
-                            "count": 0
-                          },
-                          {
-                            "state": "COMPLETED",
-                            "count": 0
-                          },
-                          {
-                            "state": "FAILURE",
-                            "count": 0
-                          },
-                          {
-                            "state": "IN_PROGRESS",
-                            "count": 0
-                          },
-                          {
-                            "state": "NEUTRAL",
-                            "count": 0
-                          },
-                          {
-                            "state": "PENDING",
-                            "count": 0
-                          },
-                          {
-                            "state": "QUEUED",
-                            "count": 0
-                          },
-                          {
-                            "state": "SKIPPED",
-                            "count": 0
-                          },
-                          {
-                            "state": "STALE",
-                            "count": 0
-                          },
-                          {
-                            "state": "STARTUP_FAILURE",
-                            "count": 0
-                          },
-                          {
-                            "state": "SUCCESS",
-                            "count": 2
-                          },
-                          {
-                            "state": "TIMED_OUT",
-                            "count": 0
-                          },
-                          {
-                            "state": "WAITING",
-                            "count": 0
-                          }
-                        ],
-                        "statusContextCountsByState": [
-                          {
-                            "state": "EXPECTED",
-                            "count": 0
-                          },
-                          {
-                            "state": "ERROR",
-                            "count": 0
-                          },
-                          {
-                            "state": "FAILURE",
-                            "count": 0
-                          },
-                          {
-                            "state": "PENDING",
-                            "count": 0
-                          },
-                          {
-                            "state": "SUCCESS",
-                            "count": 1
-                          }
-                        ]
-                      }
-                    }
-                  }
-                }
-              ]
-            },
-            "reviewRequests": {
-              "nodes": [
-                {
-                  "requestedReviewer": {
-                    "__typename": "User",
-                    "login": "pi0",
-                    "databaseId": 5158436,
-                    "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?u=3609b2822870b982f2b93c432569ee017e970148&v=4",
-                    "url": "https://github.com/pi0"
-                  }
-                }
-              ]
-            }
-          }
-        },
-        "t2": {
-          "issueOrPullRequest": {
-            "__typename": "PullRequest",
-            "id": "PR_kwDOErHI988AAAABHvKNzg",
-            "number": 1582,
-            "title": "fix(query): decode valid escapes next to a malformed one",
-            "body": "when a query value has one malformed escape, `decodeURIComponent` throws and `parseQuery` keeps the whole value undecoded, so the valid escapes stay encoded too. a stray `%` is enough:\n\n```ts\napp.get(\"/search\", (event) => ({\n  getQuery: getQuery(event).q,\n  searchParams: event.url.searchParams.get(\"q\"),\n}));\n// GET /search?q=caf%C3%A9+50%\n// main: {\"getQuery\":\"caf%C3%A9 50%\",\"searchParams\":\"café 50%\"}\n// this: {\"getQuery\":\"café 50%\",\"searchParams\":\"café 50%\"}\n```\n\n`URLSearchParams` and `node:querystring` both decode the valid escapes and keep the malformed ones as-is. now the catch falls back to that instead of skipping, for keys and values. the happy path doesn't change.\n\nthe test compares `parseQuery` with `URLSearchParams` on a few malformed inputs, it fails on main.\n\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n\n## Summary by CodeRabbit\n\n* **Bug Fixes**\n  * Query strings with malformed percent-encoded keys or values are now decoded more consistently, including when valid and malformed escapes appear together.\n\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
-            "state": "OPEN",
-            "isDraft": false,
-            "createdAt": "2026-10-10T20:21:27Z",
-            "updatedAt": "2026-10-10T20:24:30Z",
-            "closedAt": null,
-            "mergedAt": null,
-            "url": "https://github.com/h3js/h3/pull/1582",
-            "locked": false,
-            "author": {
-              "__typename": "User",
-              "login": "harshit-d3v",
-              "avatarUrl": "https://avatars.githubusercontent.com/u/106448130?u=d2482b6352c4e136f3cb863718857fda6dc6575b&v=4",
-              "url": "https://github.com/harshit-d3v",
-              "databaseId": 106448130,
-              "name": "Harshit Prakash"
-            },
-            "assignees": {
-              "nodes": []
-            },
-            "labels": {
-              "nodes": []
-            },
-            "comments": {
-              "totalCount": 1
-            },
-            "participants": {
-              "nodes": [
-                {
-                  "__typename": "User",
-                  "login": "harshit-d3v",
-                  "avatarUrl": "https://avatars.githubusercontent.com/u/106448130?u=d2482b6352c4e136f3cb863718857fda6dc6575b&v=4",
-                  "url": "https://github.com/harshit-d3v",
-                  "databaseId": 106448130,
-                  "name": "Harshit Prakash"
-                }
-              ]
-            },
-            "milestone": null,
-            "viewerSubscription": "UNSUBSCRIBED",
-            "headRefName": "fix/query-malformed-escape",
-            "headRefOid": "8bd29e3c6d33abaefa0a242decff0f39cf0778a6",
-            "baseRefName": "main",
-            "baseRefOid": "66cfb8a357b6285451bad498c2c40002601fae98",
-            "headRepository": {
-              "databaseId": 1413617363,
-              "name": "h3",
-              "owner": {
-                "login": "harshit-d3v"
-              }
-            },
-            "mergeCommit": null,
-            "additions": 15,
-            "deletions": 2,
-            "changedFiles": 2,
-            "commits": {
-              "totalCount": 1,
               "nodes": [
                 {
                   "commit": {
