@@ -1,6 +1,6 @@
 import type { Actor, Branch, ChangedFile, Check, Comment, Commit, ForgeEventInput, Repo, RepoRef, ResolvedThreadRef, Review, ReviewState, Tag, Thread, ThreadRef, TreeEntry } from '../model.ts'
 import type { OriginActor, OriginBranch, OriginCheckRun, OriginComment, OriginCommit, OriginCommitFile, OriginGitRef, OriginPullRequest, OriginRepo, OriginRepositoryReference, OriginReview, OriginTreeEntry } from './types.ts'
-import { checkRunState, toDate, toFileStatus } from '../utils.ts'
+import { checkRunState, toDate, toFileStatus, toPullStats } from '../utils.ts'
 
 export const FORGE = 'cursor-origin' as const
 
@@ -72,6 +72,7 @@ export function toThread(ref: ResolvedThreadRef, raw: OriginPullRequest): Thread
     branches: raw.head && raw.base
       ? { head: { ref: raw.head.ref, sha: raw.head.sha }, base: { ref: raw.base.ref, sha: raw.base.sha }, mergeCommitSha: raw.mergeCommitSha }
       : undefined,
+    stats: toPullStats({ additions: raw.additions, deletions: raw.deletions, changedFileCount: raw.changedFiles }),
     ...raw.stack
       ? {
           stack: {

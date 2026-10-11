@@ -67,6 +67,10 @@ Comments on a merge request are read by discussion, so a comment in a resolvable
 
 When the user isn't allowed to approve, GitLab responds with `401`. The provider raises this response as `InsufficientScopeError`.
 
+## Merge request stats
+
+GitLab reports the number of changed files on a single merge request, but not the lines added or removed or the number of commits, so `thread.stats` holds only `changedFileCount`. Past the diff limit of the instance, GitLab reports a capped count such as `1000+` instead of the number, and `thread.stats` is absent.
+
 ## Releases
 
 GitLab releases have no draft or prerelease state, so every release is published as soon as you create it. `releases.create()` and `releases.update()` reject `draft: true` and `prerelease: true` with `UnsupportedOperationError` before they send a request. If the tag doesn't exist yet, `releases.create()` needs `target`, the branch or commit to tag.

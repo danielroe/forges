@@ -54,7 +54,7 @@ const DATA_MODEL_SECTIONS: SectionConfig[] = [
   { title: 'Accounts and repositories', names: [/^(?:Actor|User|Collaborator|Repo|Installation)/, 'TextLimits'] },
   { title: 'Threads and comments', names: [/^(?:Thread|SubscriptionState|SubscribeOptions|SubscriptionItem|Close|Upsert|Comment|Milestone|Label|GetMany|SearchQuery|Merge|ApproveAndMerge)/, 'commentMarker', 'hasCommentMarker'] },
   { title: 'Reactions', names: [/^React/, 'REACTION_CONTENTS'] },
-  { title: 'Reviews', names: [/^Review/, 'PullBranches', 'ThreadStack'] },
+  { title: 'Reviews', names: [/^Review/, 'PullBranches', 'PullStats', 'ThreadStack'] },
   { title: 'Checks and CI', names: [/^(?:Check|Ci)/] },
   { title: 'Files and commits', names: [/^(?:Commit|Code|File|Tree|Branch|Tag|ChangedFile|Comparison)/] },
   { title: 'Releases', names: [/^Release/] },

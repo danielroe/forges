@@ -13,10 +13,10 @@ import { rolldown } from 'rolldown'
 /** `absent` is a string only the webhook code contains; a Lite bundle must not carry it. */
 const BUDGETS: Array<{ name: string, source: string, imports: string, minified: number, gzipped: number, absent?: string }> = [
   { name: 'forges', source: 'index.mjs', imports: 'createForges', minified: 9_100, gzipped: 2_700 },
-  { name: 'forges/github', source: 'github/index.mjs', imports: 'github', minified: 103_300, gzipped: 31_600 },
-  { name: 'github lite', source: 'github/index.mjs', imports: 'githubLite', minified: 95_300, gzipped: 29_400, absent: 'x-hub-signature-256' },
-  { name: 'forges/gitlab', source: 'gitlab/index.mjs', imports: 'gitlab', minified: 81_200, gzipped: 25_400 },
-  { name: 'gitlab lite', source: 'gitlab/index.mjs', imports: 'gitlabLite', minified: 74_300, gzipped: 23_300, absent: 'x-gitlab-token' },
+  { name: 'forges/github', source: 'github/index.mjs', imports: 'github', minified: 103_500, gzipped: 31_700 },
+  { name: 'github lite', source: 'github/index.mjs', imports: 'githubLite', minified: 95_500, gzipped: 29_400, absent: 'x-hub-signature-256' },
+  { name: 'forges/gitlab', source: 'gitlab/index.mjs', imports: 'gitlab', minified: 81_300, gzipped: 25_400 },
+  { name: 'gitlab lite', source: 'gitlab/index.mjs', imports: 'gitlabLite', minified: 74_400, gzipped: 23_400, absent: 'x-gitlab-token' },
   { name: 'forges/tangled', source: 'tangled/index.mjs', imports: 'tangled', minified: 61_400, gzipped: 20_300 },
   { name: 'tangled lite', source: 'tangled/index.mjs', imports: 'tangledLite', minified: 57_700, gzipped: 19_100, absent: 'x-tangled-signature-256' },
 ]

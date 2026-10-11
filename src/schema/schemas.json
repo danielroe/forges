@@ -2520,6 +2520,29 @@
     "description": "The branches of a pull request.",
     "x-forges-type": "PullBranches"
   },
+  "PullStats": {
+    "type": "object",
+    "properties": {
+      "additions": {
+        "type": "number",
+        "description": "Lines added."
+      },
+      "deletions": {
+        "type": "number",
+        "description": "Lines removed."
+      },
+      "changedFileCount": {
+        "type": "number",
+        "description": "Files changed."
+      },
+      "commitCount": {
+        "type": "number",
+        "description": "Commits on the pull request."
+      }
+    },
+    "description": "The size of a pull request's change. Each count is absent where the forge doesn't report it exactly.",
+    "x-forges-type": "PullStats"
+  },
   "PushCommit": {
     "type": "object",
     "properties": {
@@ -3596,6 +3619,10 @@
       "checks": {
         "$ref": "#/components/schemas/ChecksSummary",
         "description": "Pull requests only."
+      },
+      "stats": {
+        "$ref": "#/components/schemas/PullStats",
+        "description": "Pull requests only, where the forge reports counts with the pull request."
       },
       "stack": {
         "$ref": "#/components/schemas/ThreadStack",

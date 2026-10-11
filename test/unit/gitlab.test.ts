@@ -203,6 +203,19 @@ describe('gitlab provider', () => {
     ])
     expect(JSON.parse(calls.at(-1)!.body!)).toEqual({ milestone_id: 41 })
   })
+
+  it.each([
+    ['12', { changedFileCount: 12 }],
+    ['1000+', undefined],
+    [null, undefined],
+  ])('reads a changes count of %j as %j', async (count, stats) => {
+    const thread = JSON.parse(readFileSync(`${fixtureDirectory('gitlab')}thread-mr-23.json`, 'utf8')).response.body
+    const { instance } = provider({
+      [`GET ${P}/merge_requests/23`]: { status: 200, body: { ...thread, changes_count: count } },
+    })
+
+    expect((await instance.threads.get(mr)).stats).toEqual(stats)
+  })
 })
 
 describe('gitlab repository licence', () => {

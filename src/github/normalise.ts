@@ -74,7 +74,7 @@ import type {
 } from './types.ts'
 import { reviewState } from '../events.ts'
 import { REACTION_CONTENTS } from '../model.ts'
-import { checkRunState, toDate, toFileStatus } from '../utils.ts'
+import { checkRunState, toDate, toFileStatus, toPullStats } from '../utils.ts'
 import { eventKindsOf } from '../webhooks.ts'
 import { GITHUB_NATIVE_EVENTS } from './webhook-events.ts'
 
@@ -391,6 +391,7 @@ export function toThread(ref: ThreadRef, raw: GitHubIssue): Thread {
           mergeCommitSha: raw.merge_commit_sha ?? undefined,
         }
       : undefined,
+    stats: toPullStats({ additions: raw.additions, deletions: raw.deletions, changedFileCount: raw.changed_files, commitCount: raw.commits }),
     raw,
   }
 }

@@ -74,6 +74,9 @@ export interface OriginPullRequest {
   closedAt?: string
   mergedAt?: string
   mergeCommitSha?: string
+  additions?: number
+  deletions?: number
+  changedFiles?: number
   labels?: OriginLabel[]
   stack?: { id: string, parentPullRequest?: OriginPullRequestReference }
   version?: { number: string, headSha?: string, baseSha?: string }

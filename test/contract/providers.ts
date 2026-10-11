@@ -1,5 +1,5 @@
 import type { FetchLike } from '../../src/fetch.ts'
-import type { EventKind, MergeMethod } from '../../src/model.ts'
+import type { EventKind, MergeMethod, PullStats } from '../../src/model.ts'
 import type { ForgeProvider, ForgeProviderFactory } from '../../src/provider.ts'
 import type { WebSocketFactory } from '../../src/tangled/index.ts'
 import { azureDevOps } from '../../src/azure-devops/index.ts'
@@ -30,7 +30,7 @@ export interface ProviderContract {
   probe?: (instance: ForgeProvider) => Promise<unknown>
   /** `probe` and `request()` send no credential, so a 401 is `AuthenticationRequiredError`. */
   anonymousReads?: boolean
-  thread: { number: string, title: string, label?: string, eventKinds: EventKind[], botActor: boolean }
+  thread: { number: string, title: string, label?: string, eventKinds: EventKind[], botActor: boolean, stats?: PullStats }
   /** A raw path for `request()`, relative to the provider's API base, and a field its body must have. */
   request: { path: string, field: string }
   /** Present when the forge lists notifications. */
@@ -351,7 +351,7 @@ export const contracts: ProviderContract[] = [
     })),
     probe: instance => instance.repos.get({ forge: 'cursor-origin', instance: 'origin.cursor.com', owner: 'acme', name: 'widgets' }),
     request: { path: '/repos/acme/widgets', field: 'allowSquashMerge' },
-    thread: { number: '12', title: 'Add launch telemetry', label: 'enhancement', eventKinds: ['comment', 'review_comment', 'review'], botActor: true },
+    thread: { number: '12', title: 'Add launch telemetry', label: 'enhancement', eventKinds: ['comment', 'review_comment', 'review'], botActor: true, stats: { additions: 40, deletions: 2, changedFileCount: 3 } },
     writes: {
       comment: { method: 'POST', url: 'https://api.cursor.com/v1/origin/repos/acme/widgets/pulls/12/comments' },
       close: { method: 'PATCH', url: 'https://api.cursor.com/v1/origin/repos/acme/widgets/pulls/12', bodyContains: '{"state":"closed"}' },

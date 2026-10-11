@@ -141,6 +141,10 @@ export interface GitHubIssue {
   head?: { ref: string, sha: string, repo?: GitHubRepository | null }
   base?: { ref: string, sha: string }
   merge_commit_sha?: string | null
+  additions?: number
+  deletions?: number
+  changed_files?: number
+  commits?: number
   pull_request?: { url?: string, merged_at?: string | null }
   milestone?: GitHubMilestone | null
   reactions?: GitHubReactions

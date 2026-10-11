@@ -296,6 +296,7 @@ export function toThread(ref: ResolvedThreadRef, raw: GitLabIssue): Thread {
           mergeCommitSha: raw.merge_commit_sha ?? raw.squash_commit_sha ?? undefined,
         }
       : undefined,
+    stats: isMerge && raw.changes_count && /^\d+$/.test(raw.changes_count) ? { changedFileCount: Number(raw.changes_count) } : undefined,
     author: toActor(ref.instance, raw.author),
     url: raw.web_url,
     createdAt: toDate(raw.created_at),

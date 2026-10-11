@@ -1,5 +1,5 @@
 import type { Actor, ChecksSummary, Comment, ForgeEventInput, Milestone, ReactionContent, ResolvedThreadRef, Reviewer, SubscriptionState, Thread, ThreadRef } from '../model.ts'
-import { toDate } from '../utils.ts'
+import { toDate, toPullStats } from '../utils.ts'
 import { FORGE } from './normalise.ts'
 
 const ACTOR_FIELDS = `__typename login avatarUrl url ... on User { databaseId name } ... on Bot { databaseId }`
@@ -78,7 +78,8 @@ const PULL_FIELDS = `id number title body state isDraft createdAt updatedAt clos
       headRefName headRefOid baseRefName baseRefOid
       headRepository { databaseId name owner { login } }
       mergeCommit { oid }
-      commits(last: 1) { nodes { commit { statusCheckRollup { state contexts { totalCount checkRunCountsByState { state count } statusContextCountsByState { state count } } } } } }
+      additions deletions changedFiles
+      commits(last: 1) { totalCount nodes { commit { statusCheckRollup { state contexts { totalCount checkRunCountsByState { state count } statusContextCountsByState { state count } } } } } }
       reviewRequests(first: 20) { nodes { requestedReviewer { __typename ... on User { login databaseId avatarUrl url } ... on Bot { login databaseId avatarUrl url } ... on Team { slug databaseId name url } } } }`
 
 /** One aliased query reading many issues, pull requests and discussions. */
@@ -149,7 +150,10 @@ export interface GraphQLIssueOrPull {
   baseRefOid?: string
   headRepository?: { databaseId?: number, name: string, owner: { login: string } } | null
   mergeCommit?: { oid: string } | null
-  commits?: { nodes: Array<{ commit: { statusCheckRollup?: GraphQLStatusRollup | null } }> }
+  additions?: number
+  deletions?: number
+  changedFiles?: number
+  commits?: { totalCount?: number, nodes: Array<{ commit: { statusCheckRollup?: GraphQLStatusRollup | null } }> }
   reviewRequests?: { nodes: Array<{ requestedReviewer: (GraphQLActor & { slug?: string }) | null }> }
 }
 
@@ -229,6 +233,7 @@ export function toGraphQLThread(ref: ResolvedThreadRef, raw: GraphQLIssueOrPull)
           mergeCommitSha: raw.mergeCommit?.oid,
         }
       : undefined,
+    stats: toPullStats({ additions: raw.additions, deletions: raw.deletions, changedFileCount: raw.changedFiles, commitCount: raw.commits?.totalCount }),
     raw,
   }
 }

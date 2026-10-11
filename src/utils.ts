@@ -1,6 +1,6 @@
 import type { ForgeErrorContext } from './errors.ts'
 import type { Fetcher, FetchResult, PaginateOptions } from './fetch.ts'
-import type { Actor, BaseOptions, ChecksSummary, CheckState, Cursor, FileStatus, ForgeWarning, GetManyResult, ListOptions, MergeOptions, Milestone, Page, PageOptions, RateLimit, ResolvedThreadRef, Review, ReviewState, Thread, ThreadRef } from './model.ts'
+import type { Actor, BaseOptions, ChecksSummary, CheckState, Cursor, FileStatus, ForgeWarning, GetManyResult, ListOptions, MergeOptions, Milestone, Page, PageOptions, PullStats, RateLimit, ResolvedThreadRef, Review, ReviewState, Thread, ThreadRef } from './model.ts'
 import type { ForgeIterable, MilestoneListOptions, TokenAuth } from './provider.ts'
 import { ForgeApiError, ForgeError, RateLimitedError, TokenRevokedError, UnresolvedThreadError, UnsupportedOperationError } from './errors.ts'
 import { rateLimitOf } from './fetch.ts'
@@ -230,6 +230,12 @@ export async function phased<T>(phases: Array<(cursor?: Cursor) => Promise<Page<
 /** Whether `labels` include every name in `wanted`; true when nothing is wanted. */
 export function hasEveryLabel(labels: ReadonlyArray<{ name: string }> | undefined, wanted: readonly string[] | undefined): boolean {
   return !wanted?.length || wanted.every(name => labels?.some(label => label.name === name))
+}
+
+/** The counts that are numbers, or `undefined` when none are. */
+export function toPullStats(counts: { [K in keyof PullStats]?: number | null }): PullStats | undefined {
+  const known = Object.entries(counts).filter(([, count]) => typeof count === 'number')
+  return known.length ? Object.fromEntries(known) : undefined
 }
 
 /** Any failure fails, else any pending is pending, else any unknown (or none at all) is unknown, else success. */

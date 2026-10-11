@@ -691,6 +691,11 @@
         "sha": "78f2bbc19c9cec2afb26ea99fd54b7d10f48ba3c"
       }
     },
+    "stats": {
+      "additions": 6,
+      "deletions": 6,
+      "changedFileCount": 1
+    },
     "checks": {
       "state": "failure",
       "total": 17,
@@ -930,6 +935,11 @@
             "ref": "forgejo",
             "sha": "78f2bbc19c9cec2afb26ea99fd54b7d10f48ba3c"
           }
+        },
+        "stats": {
+          "additions": 6,
+          "deletions": 6,
+          "changedFileCount": 1
         },
         "checks": {
           "state": "failure",

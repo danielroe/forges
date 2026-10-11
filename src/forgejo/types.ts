@@ -103,6 +103,9 @@ export interface ForgejoIssue {
   head?: { ref: string, sha: string, repo?: ForgejoRepository | null }
   base?: { ref: string, sha: string }
   merge_commit_sha?: string | null
+  additions?: number | null
+  deletions?: number | null
+  changed_files?: number | null
   /** Only on the cross-repository issue search, which reports the owner as a string. */
   repository?: { id?: number, name: string, full_name: string, owner?: string }
   pull_request?: { merged?: boolean, draft?: boolean } | null
