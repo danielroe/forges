@@ -4,38 +4,40 @@
     "url": "https://tngl.sh/xrpc/com.atproto.repo.putRecord",
     "body": {
       "repo": "did:plc:7qksav5io2s4qfg67pe7iqqk",
-      "collection": "sh.tangled.feed.comment",
-      "rkey": "3mxlxhkvvau2y",
+      "collection": "sh.tangled.repo",
+      "rkey": "forges-fixtures",
       "record": {
-        "body": {
-          "$type": "sh.tangled.markup.markdown",
-          "text": "An edited comment from run 20261011120226.",
-          "original": "An edited comment from run 20261011120226."
-        },
-        "$type": "sh.tangled.feed.comment",
-        "subject": {
-          "cid": "bafyreiae2anlzn3hdzogtnvladwdriq4pmepjp2ygkhkyr7py4lym6mrbe",
-          "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.issue/3mxlxhknvfe2y"
-        },
-        "createdAt": "2026-10-11T12:02:29.568Z"
+        "knot": "knot1.tangled.sh",
+        "$type": "sh.tangled.repo",
+        "labels": [
+          "at://did:plc:wshs7t2adsemcrrd4snkeqli/sh.tangled.label.definition/wontfix",
+          "at://did:plc:wshs7t2adsemcrrd4snkeqli/sh.tangled.label.definition/good-first-issue",
+          "at://did:plc:wshs7t2adsemcrrd4snkeqli/sh.tangled.label.definition/duplicate",
+          "at://did:plc:wshs7t2adsemcrrd4snkeqli/sh.tangled.label.definition/documentation",
+          "at://did:plc:wshs7t2adsemcrrd4snkeqli/sh.tangled.label.definition/assignee",
+          "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.label.definition/3mxmwnkuvum2y",
+          "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.label.definition/3mxmz6jku6e2y"
+        ],
+        "repoDid": "did:plc:t73o44q7fppgagkrevtztyok",
+        "createdAt": "2026-10-09T20:02:20+03:00"
       },
-      "swapRecord": "bafyreifbt5k46tji4s3ucjthqq44dbxbysb2i7q2nf3p4davme2e7oe4gu"
+      "swapRecord": "bafyreibzxamud5mamb3d4twekoshjbzsnw4fcwx2gftuh243mc4qz56olq"
     }
   },
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"11b-X1IBDU9eGXJyli+4jwELlSFVEIY\"",
+      "etag": "W/\"115-hTOQ/3EPM2cw42bOTy8sAwxykMc\"",
       "ratelimit-limit": "3000",
-      "ratelimit-remaining": "2988",
-      "ratelimit-reset": "1791720407"
+      "ratelimit-remaining": "2968",
+      "ratelimit-reset": "1791756647"
     },
     "body": {
-      "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.feed.comment/3mxlxhkvvau2y",
-      "cid": "bafyreifngqoqcw6upw2zahdmmugg6gh6jtwrj4qzkclnwxhvr6ibyzse4q",
+      "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo/forges-fixtures",
+      "cid": "bafyreihgy2o6xor5lp24k2u2k3gewayilnhj3pa5ocfmnrycsoo7xyzouu",
       "commit": {
-        "cid": "bafyreiermzvkdd5gjxqoddli7r4jxlvfummvug4nets4i5mr6o6kelfxum",
-        "rev": "3mxlxhl6fpm2y"
+        "cid": "bafyreieaarjxeirizvne7qlokfgcedrmjq2bjebzoiavhsu7pve3tpr7mi",
+        "rev": "3mxmz6jq7342y"
       },
       "validationStatus": "unknown"
     }

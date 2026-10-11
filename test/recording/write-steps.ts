@@ -2,7 +2,7 @@ import type { Actor, Comment, CommentRef, Milestone, Notification, Release, Repo
 import type { ForgeProvider, ForgeVerb } from '../../src/provider.ts'
 import type { RecordingManifest } from './steps.ts'
 import { createHash } from 'node:crypto'
-import { ForbiddenError, ForgeError } from '../../src/errors.ts'
+import { ForbiddenError, ForgeError, NotFoundError } from '../../src/errors.ts'
 import { notificationThread } from '../../src/model.ts'
 
 /** What a write recording created before its steps ran, and the names its steps write. */
@@ -28,11 +28,17 @@ export interface WriteRun {
 export interface WriteManifest extends RecordingManifest {
   scratch: RepoRef
   run: WriteRun
+  /** The reviewer's account, where it signs in apart from the author, as a second Tangled bot does. */
+  reviewerAccount?: string
+  reviewerPds?: string
 }
+
+/** The prefix of every label a write recording creates, so a later run can find leftovers. */
+export const FIXTURE_LABEL = 'forges-fixture-'
 
 /** The label a write recording creates and puts on its threads. */
 export function fixtureLabel(run: WriteRun): string {
-  return `forges-fixture-${run.id}`
+  return `${FIXTURE_LABEL}${run.id}`
 }
 
 /** The prefix of every tag a write recording releases, so a later run can find leftovers. */
@@ -125,7 +131,20 @@ function threadWrites(kind: WriteKind): WriteStep[] {
       return context.comments[kind]
     } },
     { name: `${prefix} edit comment`, verb: 'threads.editComment', kind, run: (provider, manifest, context) => provider.threads.editComment(need(context.comments[kind], 'a comment').ref, `An edited comment from run ${manifest.run.id}.`) },
-    { name: `${prefix} get comment`, verb: 'threads.getComment', kind, run: (provider, _manifest, context) => provider.threads.getComment(need(context.comments[kind], 'a comment').ref) },
+    { name: `${prefix} get comment`, verb: 'threads.getComment', kind, run: async (provider, _manifest, context) => {
+      // Comments read through an index, such as Constellation, appear late.
+      for (let attempt = 1; ; attempt++) {
+        try {
+          return await provider.threads.getComment(need(context.comments[kind], 'a comment').ref)
+        }
+        catch (error) {
+          if (!(error instanceof NotFoundError) || attempt === 6) {
+            throw error
+          }
+        }
+        await context.wait(5_000)
+      }
+    } },
     { name: `${prefix} upsert comment`, verb: 'threads.upsertComment', kind, run: (provider, manifest, context) => provider.threads.upsertComment(ref(context), { key: 'forges-fixture', body: `An upserted comment from run ${manifest.run.id}.` }) },
     { name: `${prefix} delete comment`, verb: 'threads.deleteComment', kind, run: (provider, _manifest, context) => provider.threads.deleteComment(need(context.comments[kind], 'a comment').ref) },
     { name: `${prefix} react`, verb: 'threads.react', kind, run: (provider, _manifest, context) => provider.threads.react(ref(context), '+1') },
@@ -190,6 +209,13 @@ export const WRITE_STEPS: WriteStep[] = [
     return context.issue
   } },
   ...threadWrites('issue'),
+  { name: 'create labelled issue', verb: 'threads.create', kind: 'issue', when: provider => provider.can('threads.setLabels', 'issue') && provider.can('threads.setAssignees', 'issue'), run: (provider, manifest, context) => provider.threads.create(manifest.scratch, {
+    kind: 'issue',
+    title: fixtureTitle(manifest.run, 'labelled issue'),
+    body: `Opened by run ${manifest.run.id}.`,
+    labels: [label(manifest)],
+    assignees: [need(context.author, 'the author')],
+  }) },
   { name: 'create duplicate issue', verb: 'threads.create', kind: 'issue', run: async (provider, manifest, context) => {
     context.duplicate = await provider.threads.create(manifest.scratch, { kind: 'issue', title: fixtureTitle(manifest.run, 'duplicate'), body: `Opened by run ${manifest.run.id}.` })
     return context.duplicate
@@ -286,7 +312,8 @@ export const WRITE_STEPS: WriteStep[] = [
     throw new Error('No finished CI check on the base branch')
   } },
   { name: 'approve', verb: 'threads.approve', kind: 'pull_request', as: 'reviewer', run: (provider, _manifest, context) => provider.threads.approve(threadOf(context, 'pull_request')) },
-  { name: 'merge', verb: 'threads.merge', kind: 'pull_request', run: (provider, manifest, context) => provider.threads.merge(threadOf(context, 'pull_request'), { method: 'merge', title: `Merge run ${manifest.run.id}`, message: `Merged by run ${manifest.run.id}` }) },
+  // Tangled applies a pull's commits onto its target branch, so it only rebases.
+  { name: 'merge', verb: 'threads.merge', kind: 'pull_request', run: (provider, manifest, context) => provider.threads.merge(threadOf(context, 'pull_request'), { method: provider.forge === 'tangled' ? 'rebase' : 'merge', title: `Merge run ${manifest.run.id}`, message: `Merged by run ${manifest.run.id}` }) },
   { name: 'pull close', verb: 'threads.close', kind: 'pull_request', run: (provider, _manifest, context) => provider.threads.close(need(context.pulls[2], 'the third pull request').ref) },
   { name: 'pull reopen', verb: 'threads.reopen', kind: 'pull_request', run: (provider, _manifest, context) => provider.threads.reopen(need(context.pulls[2], 'the third pull request').ref) },
   { name: 'approve and merge', verb: 'threads.approveAndMerge', kind: 'pull_request', as: 'reviewer', run: (provider, manifest, context) => provider.threads.approveAndMerge(need(context.pulls[1], 'the second pull request').ref, { method: 'merge', title: `Merge run ${manifest.run.id}`, message: `Merged by run ${manifest.run.id}` }) },

@@ -5,6 +5,7 @@ coverage
 .DS_Store
 .eslintcache
 *.log*
+!test/fixtures/**/*.log.json
 .env*
 *.env
 .nuxt

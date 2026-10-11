@@ -1,0 +1,26 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://tngl.sh/xrpc/com.atproto.repo.getRecord?repo=did%3Aplc%3A7qksav5io2s4qfg67pe7iqqk&collection=sh.tangled.repo.issue&rkey=3mxmz6jxjh42y"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"168-0PD4nXvvWaZz6FLoecdpw3h2y8w\"",
+      "ratelimit-limit": "3000",
+      "ratelimit-remaining": "2944",
+      "ratelimit-reset": "1791756647"
+    },
+    "body": {
+      "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.issue/3mxmz6jxjh42y",
+      "cid": "bafyreibgf7st5e52xsio3ohtus4sjohsyw3c4sqbideo6ef7wwdlrgkmfi",
+      "value": {
+        "body": "Opened by run 20261011220545.",
+        "repo": "did:plc:t73o44q7fppgagkrevtztyok",
+        "$type": "sh.tangled.repo.issue",
+        "title": "forges fixture 20261011220545: issue",
+        "createdAt": "2026-10-11T22:05:53.820Z"
+      }
+    }
+  }
+}

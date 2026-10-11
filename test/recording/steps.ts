@@ -1,4 +1,4 @@
-import type { Branch, Check, CiJob, CiRun, Comment, Page, Release, Repo, RepoRef, Review, SecurityAlertKind, Thread, ThreadRef, Webhook } from '../../src/model.ts'
+import type { Branch, Check, CiJob, CiRun, Comment, Page, Release, Repo, RepoRef, Review, SecurityAlertKind, Thread, ThreadRef, TreeEntry, Webhook } from '../../src/model.ts'
 import type { ForgeProvider, ForgeVerb } from '../../src/provider.ts'
 import { sha256Hex } from '../../src/crypto.ts'
 import { ForbiddenError, InsufficientScopeError, NotFoundError } from '../../src/errors.ts'
@@ -49,6 +49,7 @@ export interface StepContext {
   login?: string
   headSha?: string
   branches?: Branch[]
+  tree?: TreeEntry[]
   releases?: Release[]
   runs?: CiRun[]
   job?: CiJob
@@ -69,6 +70,9 @@ export interface Step {
 }
 
 const page = { perPage: 3 }
+
+/** The pull's head, or for a forge whose pulls are patches without one, the head of a branch other than the default. */
+const headOf = (context: StepContext) => need(context.headSha ?? context.branches?.find(branch => !branch.isDefault)?.sha, 'the pull head sha')
 
 /** The largest log, in characters, a step keeps, and the largest release asset, in bytes, it downloads. */
 export const LOG_LIMIT = 16_384
@@ -280,7 +284,12 @@ export const STEPS: Step[] = [
     return { length: log.length, head: log.slice(0, 2_000).split('\n').slice(0, 20) }
   } },
   { name: 'readme', verb: 'contents.file', run: (provider, manifest) => provider.contents.file(manifest.repo, 'README.md', { as: 'text' }) },
-  { name: 'tree', verb: 'contents.treePage', run: (provider, manifest) => provider.contents.treePage(manifest.repo, page) },
+  { name: 'tree', verb: 'contents.treePage', run: async (provider, manifest, context) => {
+    const result = await provider.contents.treePage(manifest.repo, page)
+    context.tree = result.items
+    return result
+  } },
+  { name: 'tree file', verb: 'contents.file', run: (provider, manifest, context) => provider.contents.file(manifest.repo, need(context.tree?.find(entry => entry.type === 'file'), 'a file in the tree').path, { as: 'text' }) },
   { name: 'branches', verb: 'contents.branchesPage', run: async (provider, manifest, context) => {
     const result = await provider.contents.branchesPage(manifest.repo, page)
     context.branches = result.items
@@ -289,8 +298,8 @@ export const STEPS: Step[] = [
   { name: 'tags', verb: 'contents.tagsPage', run: (provider, manifest) => provider.contents.tagsPage(manifest.repo, page) },
   { name: 'resolve default branch', verb: 'contents.resolveRef', run: (provider, manifest, context) => provider.contents.resolveRef(manifest.repo, need(context.repo?.defaultBranch, 'the default branch')) },
   { name: 'commits', verb: 'contents.commitsPage', run: (provider, manifest) => provider.contents.commitsPage(manifest.repo, page) },
-  { name: 'commit', verb: 'contents.commit', run: (provider, manifest, context) => provider.contents.commit(manifest.repo, need(context.headSha, 'the pull head sha')) },
-  { name: 'compare', verb: 'contents.compare', run: (provider, manifest, context) => provider.contents.compare(manifest.repo, need(context.pull?.branches?.base.ref, 'the pull base'), need(context.headSha, 'the pull head sha')) },
+  { name: 'commit', verb: 'contents.commit', run: (provider, manifest, context) => provider.contents.commit(manifest.repo, headOf(context)) },
+  { name: 'compare', verb: 'contents.compare', run: (provider, manifest, context) => provider.contents.compare(manifest.repo, need(context.pull?.branches?.base.ref, 'the pull base'), headOf(context)) },
   { name: 'releases', verb: 'releases.listPage', run: async (provider, manifest, context) => {
     const result = await provider.releases.listPage(manifest.repo, page)
     context.releases = result.items

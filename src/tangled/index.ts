@@ -1,31 +1,43 @@
 import type { ProviderDefinition, ProviderFactoryFunction } from '../define.ts'
 import type { FetchLike } from '../fetch.ts'
 import type {
+  Actor,
   BaseOptions,
+  ChangedFile,
+  CommentRef,
+  Commit,
   ForgeEventInput,
+  Label,
   ListOptions,
   Page,
   PageOptions,
   Repo,
   RepoRef,
+  ThreadCreateInput,
   ThreadKind,
   ThreadRef,
 } from '../model.ts'
-import type { AnonymousAuth, ForgeOptionsBase, ThreadsApi } from '../provider.ts'
+import type { AnonymousAuth, ForgeOptionsBase, ReposApi, ThreadsApi } from '../provider.ts'
+import type { TangledContents } from './knot.ts'
+import type { TangledLabels } from './records.ts'
 import type { WebSocketFactory, WebSocketLike } from './subscribe.ts'
-import type { FeedCommentRecord, IssueRecord, PullRecord, RepoRecord } from './types.ts'
+import type { FeedCommentRecord, IssueRecord, LabelDefinitionRecord, ProfileRecord, PullRecord, ReactionRecord, RepoRecord } from './types.ts'
 import { defineForgeProvider, perKind, verb } from '../define.ts'
 import {
   InsufficientScopeError,
+  NotFoundError,
   UnsupportedOperationError,
 } from '../errors.ts'
-import { forgeIterable, getManyConcurrently } from '../utils.ts'
+import { degradesToWarning, forgeIterable, getManyConcurrently } from '../utils.ts'
 import { atUri, createAtprotoClient, parseAtUri } from './atproto.ts'
 import {
   COLLECTIONS,
   FORGE,
+  isAssigneeLabel,
+  REACTION_EMOJI,
   THREAD_COLLECTIONS,
   toActivityEvent,
+  toLabel,
   toRecordComment,
   toThread,
   toThreadRef,
@@ -128,10 +140,31 @@ const TANGLED: ProviderDefinition<TangledOptions> = {
       context,
     })
     const api = fetcherFor({ baseUrl: (options.apiUrl ?? 'https://api.tangled.org').replace(/\/$/, '') })
-    const { writable, viewerDid, pdsCall, createRecord, putOwnRecord, deleteOwnRecord, ownRecords } = createTangledSession({ options, fetcher, atproto, context })
+    const { writable, viewerDid, pdsCall, createRecord, putOwnRecord, deleteOwnRecord, ownRecords, serviceAuth, uploadBlob } = createTangledSession({ options, fetcher, atproto, context })
 
     /** The repo DID a thread record must reference, from the ref or the repo record. */
-    const { stateAuthors, actorFor, resolveRepo, threadFor, subjectUri, activity, toStreamEvent, canonicalRepo, canonicalRef, repoDidOf, toRepo, readThread, wholePage, listPage, listComments, findSubscription } = createTangledRecords({ options, instance, webUrl, context, atproto, api, fetcher, ownRecords })
+    const { forgetRepos, forgetCollaborators, labelsOf, repoLabels, threadUri, reactionsPage, collaboratorsPage, permissionFor, stateAuthors, actorFor, resolveRepo, threadFor, subjectUri, activity, toStreamEvent, canonicalRepo, canonicalRef, repoDidOf, toRepo, readThread, wholePage, listPage, listComments, findSubscription } = createTangledRecords({ options, instance, webUrl, context, atproto, api, fetcher, ownRecords })
+
+    let loaded: Promise<TangledContents> | undefined
+    const knot = () => loaded ??= import('./knot.ts').then(({ createTangledContents }) => createTangledContents({ fetcher, instance, webUrl, context, canonicalRepo, serviceAuth }))
+    const contentsVerb = <K extends Exclude<keyof TangledContents, 'defaultBranch'>>(name: K) =>
+      verb(true, (async (...args: unknown[]) => ((await knot())[name] as (...args: unknown[]) => unknown)(...args)) as unknown as TangledContents[K])
+
+    /** The latest round of a pull, from its patch blob or, in older records, its inline patch. */
+    async function pullPatch(thread: ThreadRef, signal?: AbortSignal) {
+      const { uri, kind } = subjectUri(thread)
+      if (kind !== 'pull_request') {
+        throw new UnsupportedOperationError('Only pull requests have changed files and commits', context)
+      }
+      const { ref, record } = await threadFor(atUri(uri.did, uri.collection, uri.rkey), signal)
+      const pull = record as PullRecord
+      const blob = pull.rounds?.at(-1)?.patchBlob
+      const text = blob ? await patchText(await atproto.getBlob(uri.did, blob.ref.$link, signal)) : pull.patch
+      if (text === undefined) {
+        throw new NotFoundError(`${ref.number} has no patch`, 404, '', context)
+      }
+      return { ref, record: pull, text, patch: await import('./patch.ts') }
+    }
 
     const threads = {
       get: perKind(ISSUE_AND_PULL, readThread),
@@ -148,6 +181,14 @@ const TANGLED: ProviderDefinition<TangledOptions> = {
           }
           yield* events.sort((a, b) => a.occurredAt.getTime() - b.occurredAt.getTime())
         }))
+      }),
+      filesPage: verb(true, async (thread: ThreadRef, listOptions?: PageOptions): Promise<Page<ChangedFile>> => {
+        const { text, patch } = await pullPatch(thread, listOptions?.signal)
+        return patch.patchFiles(patch.parsePatch(text))
+      }),
+      commitsPage: verb(true, async (thread: ThreadRef, listOptions?: PageOptions): Promise<Page<Commit>> => {
+        const { ref, text, patch } = await pullPatch(thread, listOptions?.signal)
+        return { items: patch.patchCommits(patch.parsePatch(text), { forge: FORGE, instance, repo: ref.repo }) }
       }),
       commentsPage: perKind(ISSUE_AND_PULL, (thread: ThreadRef, listOptions?: ListOptions) => wholePage(listComments(thread, listOptions))),
     }
@@ -172,19 +213,44 @@ const TANGLED: ProviderDefinition<TangledOptions> = {
       return toRecordComment(ref.thread, ref.id, record as FeedCommentRecord, await actorFor(await viewerDid(), options?.signal))
     }
     const deleteComment: ThreadsApi['deleteComment'] = (ref, options) => deleteOwnRecord(ref.id, options?.signal)
-    const create: ThreadsApi['create'] = async (repo, input, options) => {
-      if (input.kind !== 'issue') {
-        throw new UnsupportedOperationError('Tangled pull requests are patches; only issues can be created', context)
-      }
-      if (input.labels?.length || input.assignees?.length) {
-        throw new UnsupportedOperationError('Tangled labels and assignees are not written yet', context)
-      }
-      const [address, repoDid] = await Promise.all([canonicalRef(repo, options?.signal), repoDidOf(repo, options?.signal)])
-      const record: IssueRecord = { repo: repoDid, title: input.title, body: input.body, createdAt: new Date().toISOString() }
-      const created = await createRecord(COLLECTIONS.issue, { ...record }, options?.signal)
-      const ref = toThreadRef(instance, { ...address, externalId: repoDid }, parseAtUri(created.uri)!)
-      return toThread(ref, record, await actorFor(await viewerDid(), options?.signal), {}, 0)
+    const didOf = async (actor: string | Actor, signal?: AbortSignal) => {
+      const login = typeof actor === 'string' ? actor.replace(/^@/, '') : actor.id
+      return login.startsWith('did:') ? login : atproto.resolveHandle(login, signal)
     }
+    const resolveActor = async (actor: string, signal?: AbortSignal) => actorFor(await didOf(actor, signal), signal)
+
+    /** A pull from `head` to `base` in the same repo, carrying the knot's format-patch of `head` as its first round. */
+    async function pullRecord(repo: RepoRef, repoDid: string, input: ThreadCreateInput, signal?: AbortSignal): Promise<PullRecord> {
+      if (!input.head) {
+        throw new UnsupportedOperationError('A Tangled pull request needs a head branch', context)
+      }
+      if (input.head.includes(':')) {
+        throw new UnsupportedOperationError('Tangled pull requests from forks are not created yet', context)
+      }
+      if (input.draft) {
+        throw new UnsupportedOperationError('Tangled has no draft pull requests', context)
+      }
+      const contents = await knot()
+      const base = input.base ?? await contents.defaultBranch(repo, signal)
+      if (!base) {
+        throw new UnsupportedOperationError('The repo reports no default branch; pass `base`', context)
+      }
+      const patch = await contents.formatPatch(repo, base, input.head, signal)
+      if (!patch.trim()) {
+        throw new UnsupportedOperationError(`${input.head} has no commits that ${base} lacks`, context)
+      }
+      const compressed = new Uint8Array(await new Response(new Blob([patch]).stream().pipeThrough(new CompressionStream('gzip'))).arrayBuffer())
+      const now = new Date().toISOString()
+      return {
+        title: input.title,
+        ...input.body === undefined ? {} : { body: input.body },
+        target: { repo: repoDid, branch: base },
+        source: { branch: input.head },
+        rounds: [{ createdAt: now, patchBlob: await uploadBlob(compressed, 'application/gzip', signal) }],
+        createdAt: now,
+      }
+    }
+
     const update: ThreadsApi['update'] = async (thread, input, options) => {
       const { ref, uri } = subjectUri(thread)
       const record = await putOwnRecord(atUri(uri.did, uri.collection, uri.rkey), current => ({
@@ -211,7 +277,7 @@ const TANGLED: ProviderDefinition<TangledOptions> = {
         await deleteOwnRecord(existing, options?.signal)
       }
     }
-    const setState = async (thread: ThreadRef, state: 'open' | 'closed', signal?: AbortSignal) => {
+    const setState = async (thread: ThreadRef, state: 'open' | 'closed' | 'merged', signal?: AbortSignal) => {
       const { uri, kind } = subjectUri(thread)
       const target = atUri(uri.did, uri.collection, uri.rkey)
       const { ref } = await threadFor(target, signal)
@@ -228,8 +294,171 @@ const TANGLED: ProviderDefinition<TangledOptions> = {
         ? { issue: target, state: `${COLLECTIONS.issueState}.${state}`, createdAt: new Date().toISOString() }
         : { pull: target, status: `${COLLECTIONS.pullStatus}.${state}`, createdAt: new Date().toISOString() }, signal)
     }
+    const merge: ThreadsApi['merge'] = async (thread, options = {}) => {
+      if (options.method && options.method !== 'rebase') {
+        throw new UnsupportedOperationError('Tangled applies the commits of a pull onto its target branch, so only `rebase` merges', context)
+      }
+      if (options.sha || options.whenChecksPass) {
+        throw new UnsupportedOperationError('Tangled cannot check the head sha or wait for checks before merging', context)
+      }
+      const { ref, record, text } = await pullPatch(thread, options.signal)
+      await (await knot()).merge(ref.repo, record.target.branch, text, options.signal)
+      await setState(ref, 'merged', options.signal)
+    }
+    const addCollaborator: ReposApi['addCollaborator'] = async (repo, actor, role, options) => {
+      if (role !== 'write') {
+        throw new UnsupportedOperationError('Tangled collaborators can push; `write` is the only role', context)
+      }
+      await (await knot()).addCollaborator(repo, await didOf(actor, options?.signal), options?.signal)
+      forgetCollaborators()
+      return { status: 'added' }
+    }
     const close: ThreadsApi['close'] = (thread, options) => setState(thread, 'closed', options?.signal)
     const reopen: ThreadsApi['reopen'] = (thread, options) => setState(thread, 'open', options?.signal)
+
+    /** Writes one label op that moves the thread's labels to what `change` returns, given the current values per definition. */
+    async function changeLabels(thread: ThreadRef, signal: AbortSignal | undefined, change: (labels: TangledLabels) => Array<{ key: string, value: string, add: boolean }>) {
+      const { uri } = subjectUri(thread)
+      const target = atUri(uri.did, uri.collection, uri.rkey)
+      const { ref } = await threadFor(target, signal)
+      const warn = () => {}
+      const [viewer, allowed, definitions, { state }] = await Promise.all([
+        viewerDid(),
+        stateAuthors(ref.repo.owner, ref.repo, warn, signal),
+        repoLabels(ref.repo, warn, signal),
+        labelsOf(target, ref.repo, warn, signal),
+      ])
+      if (!allowed.has(viewer)) {
+        throw new InsufficientScopeError('Only the repo owner or a collaborator can change labels; the appview would ignore the record', 403, '', context)
+      }
+      const usable = definitions.filter(({ definition }) => !definition.scope?.length || definition.scope.includes(uri.collection))
+      const operands = change({ definitions: usable, state })
+      if (!operands.length) {
+        return
+      }
+      await createRecord(COLLECTIONS.labelOp, {
+        subject: target,
+        add: operands.filter(operand => operand.add).map(({ key, value }) => ({ key, value })),
+        delete: operands.filter(operand => !operand.add).map(({ key, value }) => ({ key, value })),
+        performedAt: new Date().toISOString(),
+      }, signal)
+    }
+
+    /** The definition and value each label name names: `name` for a label without values, `name:value` otherwise. */
+    function operandsFor({ definitions }: TangledLabels, names: string[]) {
+      return names.map((name) => {
+        const found = definitions.find(({ definition }) => !isAssigneeLabel(definition) && (!definition.valueType || definition.valueType.type === 'null'
+          ? name === definition.name
+          : name.startsWith(`${definition.name}:`)))
+        if (!found) {
+          throw new NotFoundError(`No label named ${name} in this repository`, 404, '', context)
+        }
+        return { key: found.uri, value: name === found.definition.name ? 'null' : name.slice(found.definition.name.length + 1) }
+      })
+    }
+
+    const labelled = ({ definitions, state }: TangledLabels) => definitions
+      .filter(({ definition }) => !isAssigneeLabel(definition))
+      .flatMap(({ uri }) => [...state.get(uri) ?? []].map(value => ({ key: uri, value })))
+    const has = (list: Array<{ key: string, value: string }>, item: { key: string, value: string }) => list.some(other => other.key === item.key && other.value === item.value)
+
+    const setLabels: ThreadsApi['setLabels'] = (thread, names, options) => changeLabels(thread, options?.signal, (labels) => {
+      const wanted = operandsFor(labels, names)
+      const current = labelled(labels)
+      return [
+        ...current.filter(item => !has(wanted, item)).map(item => ({ ...item, add: false })),
+        ...wanted.filter(item => !has(current, item)).map(item => ({ ...item, add: true })),
+      ]
+    })
+    const addLabels: ThreadsApi['addLabels'] = (thread, names, options) => changeLabels(thread, options?.signal, (labels) => {
+      const current = labelled(labels)
+      return operandsFor(labels, names).filter(item => !has(current, item)).map(item => ({ ...item, add: true }))
+    })
+    const removeLabels: ThreadsApi['removeLabels'] = (thread, names, options) => changeLabels(thread, options?.signal, (labels) => {
+      const current = labelled(labels)
+      return current.filter(item => names.includes(toLabel(labels.definitions.find(({ uri }) => uri === item.key)!.definition, item.value).name)).map(item => ({ ...item, add: false }))
+    })
+    const setAssignees: ThreadsApi['setAssignees'] = async (thread, assignees, options) => {
+      const dids = await Promise.all(assignees.map(assignee => didOf(assignee, options?.signal)))
+      await changeLabels(thread, options?.signal, ({ definitions, state }) => {
+        const assignee = definitions.find(({ definition }) => isAssigneeLabel(definition))
+        if (!assignee) {
+          throw new UnsupportedOperationError('This repository has no assignee label', context)
+        }
+        const current = [...state.get(assignee.uri) ?? []]
+        return [
+          ...current.filter(did => !dids.includes(did)).map(value => ({ key: assignee.uri, value, add: false })),
+          ...[...new Set(dids)].filter(did => !current.includes(did)).map(value => ({ key: assignee.uri, value, add: true })),
+        ]
+      })
+    }
+
+    const create: ThreadsApi['create'] = async (repo, input, options) => {
+      if (input.kind === 'discussion') {
+        throw new UnsupportedOperationError('Tangled has no discussions', context)
+      }
+      const [address, repoDid] = await Promise.all([canonicalRef(repo, options?.signal), repoDidOf(repo, options?.signal)])
+      const record: IssueRecord | PullRecord = input.kind === 'issue'
+        ? { repo: repoDid, title: input.title, body: input.body, createdAt: new Date().toISOString() }
+        : await pullRecord(address, repoDid, input, options?.signal)
+      const created = await createRecord(input.kind === 'issue' ? COLLECTIONS.issue : COLLECTIONS.pull, { ...record }, options?.signal)
+      const ref = toThreadRef(instance, { ...address, externalId: repoDid }, parseAtUri(created.uri)!)
+      if (input.labels?.length) {
+        await setLabels(ref, input.labels, options)
+      }
+      if (input.assignees?.length) {
+        await setAssignees(ref, input.assignees, options)
+      }
+      return {
+        ...toThread(ref, record, await actorFor(await viewerDid(), options?.signal), {}, 0),
+        labels: (input.labels ?? []).map(name => ({ name })),
+        assignees: await Promise.all((input.assignees ?? []).map(assignee => typeof assignee === 'string' ? resolveActor(assignee, options?.signal) : assignee)),
+      }
+    }
+
+    const createLabel: ReposApi['createLabel'] = async (repo, input, options) => {
+      const { ref, record } = await canonicalRepo(repo, options?.signal)
+      if (ref.owner !== await viewerDid()) {
+        throw new InsufficientScopeError('Only the repo owner can add a label to its repo record', 403, '', context)
+      }
+      const definition: LabelDefinitionRecord = {
+        name: input.name,
+        ...input.colour ? { color: `#${input.colour}` } : {},
+        valueType: { type: 'null', format: 'any' },
+        scope: [COLLECTIONS.issue, COLLECTIONS.pull],
+        multiple: false,
+        createdAt: new Date().toISOString(),
+      }
+      const created = await createRecord(COLLECTIONS.labelDefinition, { ...definition }, options?.signal)
+      await putOwnRecord(record.uri, current => ({ ...current, labels: [...(current as RepoRecord).labels ?? [], created.uri] }) as RepoRecord, options?.signal)
+      forgetRepos()
+      return { name: input.name, colour: input.colour }
+    }
+
+    /** The account's own reactions on `subject`, as AT-URIs. */
+    async function ownReactions(subject: string, emoji: string, signal?: AbortSignal): Promise<string[]> {
+      const found: string[] = []
+      for await (const record of ownRecords<ReactionRecord>(COLLECTIONS.reaction, signal)) {
+        if (record.value.subject === subject && record.value.reaction === emoji) {
+          found.push(record.uri)
+        }
+      }
+      return found
+    }
+    const reactionSubject = (target: ThreadRef | CommentRef) => 'thread' in target ? target.id : threadUri(target)
+    const react: ThreadsApi['react'] = async (target, reaction, options) => {
+      const subject = reactionSubject(target)
+      const emoji = REACTION_EMOJI[reaction]
+      if ((await ownReactions(subject, emoji, options?.signal)).length) {
+        return
+      }
+      await createRecord(COLLECTIONS.reaction, { subject, reaction: emoji, createdAt: new Date().toISOString() }, options?.signal)
+    }
+    const unreact: ThreadsApi['unreact'] = async (target, reaction, options) => {
+      for (const uri of await ownReactions(reactionSubject(target), REACTION_EMOJI[reaction], options?.signal)) {
+        await deleteOwnRecord(uri, options?.signal)
+      }
+    }
 
     const notificationsUrl = options.notificationsUrl?.replace(/\/$/, '')
     const notifications = writable && notificationsUrl
@@ -246,8 +475,25 @@ const TANGLED: ProviderDefinition<TangledOptions> = {
       repos: {
         get: verb(true, async (ref, options) => {
           const { ref: found, record } = await canonicalRepo(ref, options?.signal)
-          return toRepo(found, record.value, record)
+          const defaultBranch = await (await knot()).defaultBranch(found, options?.signal).catch((error: unknown) => {
+            if (!degradesToWarning(error)) {
+              throw error
+            }
+            return undefined
+          })
+          return { ...toRepo(found, record.value, record), defaultBranch }
         }),
+        collaboratorsPage: verb(true, collaboratorsPage),
+        addCollaborator: verb(writable, addCollaborator),
+        permissionFor: verb(true, permissionFor),
+        labelsPage: verb(true, (repo: RepoRef, listOptions: PageOptions = {}): Promise<Page<Label>> => wholePage(forgeIterable(async function* (warn) {
+          for (const { definition } of await repoLabels(repo, warn, listOptions.signal)) {
+            if (!isAssigneeLabel(definition)) {
+              yield { name: definition.name, colour: definition.color?.replace(/^#/, '') }
+            }
+          }
+        }))),
+        createLabel: verb(writable, createLabel),
         listPage: verb(writable, async (listOptions: PageOptions = {}): Promise<Page<Repo>> => {
           if (!writable) {
             throw new UnsupportedOperationError('Listing your repositories needs auth', context)
@@ -271,7 +517,40 @@ const TANGLED: ProviderDefinition<TangledOptions> = {
         }))),
       },
       notifications,
+      contents: {
+        file: contentsVerb('file'),
+        treePage: contentsVerb('treePage'),
+        branchesPage: contentsVerb('branchesPage'),
+        tagsPage: contentsVerb('tagsPage'),
+        resolveRef: contentsVerb('resolveRef'),
+        commitsPage: contentsVerb('commitsPage'),
+        commit: contentsVerb('commit'),
+        compare: contentsVerb('compare'),
+      },
       users: {
+        get: verb(true, async (login, options) => {
+          const handle = login.replace(/^@/, '')
+          const did = handle.startsWith('did:') ? handle : await atproto.resolveHandle(handle, options?.signal)
+          const [actor, identity, profile] = await Promise.all([
+            actorFor(did, options?.signal),
+            atproto.resolveDid(did, options?.signal),
+            atproto.getRecord<ProfileRecord>(atUri(did, COLLECTIONS.profile, 'self'), options?.signal).then(({ value }) => value, (error: unknown) => {
+              if (error instanceof NotFoundError) {
+                return undefined
+              }
+              throw error
+            }),
+          ])
+          const avatar = profile?.avatar?.ref.$link
+          return {
+            ...actor,
+            bio: profile?.description || undefined,
+            location: profile?.location || undefined,
+            websiteUrl: profile?.links?.find(Boolean),
+            avatarUrl: avatar && identity.pds ? `${identity.pds.replace(/\/$/, '')}/xrpc/com.atproto.sync.getBlob?did=${did}&cid=${avatar}` : undefined,
+            raw: profile ?? identity,
+          }
+        }),
         me: verb(writable, async (options?: BaseOptions) => ({ ...await actorFor(await viewerDid(), options?.signal), raw: undefined })),
       },
       threads: {
@@ -279,11 +558,18 @@ const TANGLED: ProviderDefinition<TangledOptions> = {
         comment: perKind(signedIn, comment),
         editComment: perKind(signedIn, editComment),
         deleteComment: perKind(signedIn, deleteComment),
-        create: perKind({ issue: writable }, create),
+        create: perKind(signedIn, create),
+        merge: verb(writable, merge),
         update: perKind(signedIn, update),
         close: perKind(signedIn, close),
         reopen: perKind(signedIn, reopen),
         subscriptions: perKind(signedIn, { subscription, subscribe, unsubscribe }),
+        reactionsPage: perKind(ISSUE_AND_PULL, reactionsPage),
+        reactions: perKind(signedIn, { react, unreact }),
+        setLabels: perKind(signedIn, setLabels),
+        addLabels: perKind(signedIn, addLabels),
+        removeLabels: perKind(signedIn, removeLabels),
+        setAssignees: perKind(signedIn, setAssignees),
       },
       sources: {
         subscribe: verb(true, subscribeOptions => subscribeJetstream({
@@ -300,6 +586,13 @@ const TANGLED: ProviderDefinition<TangledOptions> = {
       webhooks: {},
     }
   },
+}
+
+async function patchText(bytes: Uint8Array): Promise<string> {
+  if (bytes[0] !== 0x1F || bytes[1] !== 0x8B) {
+    return new TextDecoder().decode(bytes)
+  }
+  return new Response(new Blob([bytes as BlobPart]).stream().pipeThrough(new DecompressionStream('gzip'))).text()
 }
 
 /** Creates a Tangled provider. Records are read from PDSes; pushes arrive through Jetstream. */

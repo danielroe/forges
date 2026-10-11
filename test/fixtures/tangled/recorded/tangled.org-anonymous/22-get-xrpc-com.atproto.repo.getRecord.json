@@ -1,47 +1,34 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://npmx.social/xrpc/com.atproto.repo.getRecord?repo=did%3Aplc%3Alaqygfbyvnkyuhsuaxmp6ez3&collection=sh.tangled.repo.pull&rkey=3mriliksgjw22"
+    "url": "https://tngl.sh/xrpc/com.atproto.repo.getRecord?repo=did%3Aplc%3A7qksav5io2s4qfg67pe7iqqk&collection=sh.tangled.label.op&rkey=3mxmwljw3fu2y"
   },
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"357-+5W04wyZrtTy7tYaq1YLgs89ar4\"",
+      "etag": "W/\"21f-v8c8ckHZIF8JOyNWwZ66Tc//B5s\"",
       "ratelimit-limit": "3000",
-      "ratelimit-remaining": "2983",
-      "ratelimit-reset": "1791720405"
+      "ratelimit-remaining": "2695",
+      "ratelimit-reset": "1791756647"
     },
     "body": {
-      "uri": "at://did:plc:laqygfbyvnkyuhsuaxmp6ez3/sh.tangled.repo.pull/3mriliksgjw22",
-      "cid": "bafyreiccqmua2tnw52ryebpq4ujag3kkbgw2tnwnuulonbfssfyr4wc6zy",
+      "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.label.op/3mxmwljw3fu2y",
+      "cid": "bafyreie47pdkxkseyxk55nkru5y6up6hcq43tczzazjopl7v4t3gt6omti",
       "value": {
-        "body": "I was reading the CI post and noticed two simple typos.\n\nSigned-off-by: Jens Rømer Hesselbjerg <redacted@example.invalid>",
-        "$type": "sh.tangled.repo.pull",
-        "title": "pages/blog: fix typos in ci post",
-        "rounds": [
+        "add": [
           {
-            "createdAt": "2026-07-25T22:19:09+03:00",
-            "patchBlob": {
-              "ref": {
-                "$link": "bafkreibsc7xj6im2v42tkh6p7diphwqkvmhkuysmp42bcji5oppo6gfbuu"
-              },
-              "size": 807,
-              "$type": "blob",
-              "mimeType": "application/gzip"
-            }
+            "key": "at://did:plc:wshs7t2adsemcrrd4snkeqli/sh.tangled.label.definition/wontfix",
+            "value": "null"
+          },
+          {
+            "key": "at://did:plc:wshs7t2adsemcrrd4snkeqli/sh.tangled.label.definition/good-first-issue",
+            "value": "null"
           }
         ],
-        "source": {
-          "repo": "did:plc:bxcczy2pcr7g56xmwkmyxgem",
-          "branch": "fix-typos-in-spindle-post",
-          "repoDid": "did:plc:bxcczy2pcr7g56xmwkmyxgem"
-        },
-        "target": {
-          "repo": "did:plc:g66xej5jct643d6bgukldn77",
-          "branch": "master",
-          "repoDid": "did:plc:g66xej5jct643d6bgukldn77"
-        },
-        "createdAt": "2026-07-25T22:19:09+03:00"
+        "$type": "sh.tangled.label.op",
+        "delete": [],
+        "subject": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.issue/3mxmwlijmkm2y",
+        "performedAt": "2026-10-11T21:19:28.756Z"
       }
     }
   }

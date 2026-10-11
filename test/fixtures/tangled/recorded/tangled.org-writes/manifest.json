@@ -1,6 +1,7 @@
 {
   "baseUrl": "https://tangled.org",
   "account": "roebot.tngl.sh",
+  "reviewerAccount": "did:plc:uxfnwnz5wfwl6tfgqwyfrqyv",
   "repo": {
     "forge": "tangled",
     "instance": "tangled.org",
@@ -14,44 +15,65 @@
     "name": "forges-fixtures"
   },
   "run": {
-    "id": "20261011120226",
-    "base": "",
+    "id": "20261011220545",
+    "base": "main",
     "branches": [
-      "forges-fixtures/20261011120226-1",
-      "forges-fixtures/20261011120226-2",
-      "forges-fixtures/20261011120226-3"
+      "forges-fixtures/20261011220545-1",
+      "forges-fixtures/20261011220545-2",
+      "forges-fixtures/20261011220545-3"
     ],
     "files": [
-      "forges-fixtures/20261011120226-1.md",
-      "forges-fixtures/20261011120226-2.md",
-      "forges-fixtures/20261011120226-3.md"
+      "forges-fixtures/20261011220545-1.md",
+      "forges-fixtures/20261011220545-2.md",
+      "forges-fixtures/20261011220545-3.md"
     ],
     "pull": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.pull/3mxhm5yldov22"
   },
-  "recordedAt": "2026-10-11T12:02:28.551Z",
+  "recordedAt": "2026-10-11T22:05:52.079Z",
   "steps": [
     "author",
+    "reviewer",
+    "create label",
+    "add collaborator",
     "create issue",
     "issue comment",
     "issue edit comment",
     "issue get comment",
     "issue upsert comment",
     "issue delete comment",
+    "issue react",
+    "issue unreact",
+    "issue set labels",
+    "issue remove labels",
+    "issue add labels",
+    "issue assign",
     "issue unsubscribe",
     "issue subscribe",
     "issue update",
+    "create labelled issue",
     "create duplicate issue",
     "issue close",
     "issue reopen",
-    "existing pull",
+    "create pull",
+    "create second pull",
+    "create third pull",
     "pull comment",
     "pull edit comment",
+    "pull get comment",
     "pull upsert comment",
     "pull delete comment",
+    "pull react",
+    "pull unreact",
+    "pull set labels",
+    "pull remove labels",
+    "pull add labels",
+    "pull assign",
     "pull unsubscribe",
     "pull subscribe",
     "pull update",
+    "merge",
     "pull close",
-    "pull reopen"
+    "pull reopen",
+    "mention author"
   ]
 }

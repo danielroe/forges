@@ -1,0 +1,18 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://knot1.tangled.sh/xrpc/sh.tangled.repo.merge",
+    "body": {
+      "did": "did:plc:7qksav5io2s4qfg67pe7iqqk",
+      "name": "forges-fixtures",
+      "repo": "did:plc:t73o44q7fppgagkrevtztyok",
+      "branch": "main",
+      "patch": "From 5fc0ae416fc3f3336f8085486bc2d80fa86cebca Mon Sep 17 00:00:00 2001\nFrom: forges fixtures <redacted@example.invalid>\nDate: Sun, 11 Oct 2026 22:05:50 +0000\nSubject: [PATCH] Add forges-fixtures/20261011220545-1.md\n\n---\n forges-fixtures/20261011220545-1.md | 1 +\n 1 file changed, 1 insertion(+)\n create mode 100644 forges-fixtures/20261011220545-1.md\n\ndiff --git a/forges-fixtures/20261011220545-1.md b/forges-fixtures/20261011220545-1.md\nnew file mode 100644\nindex 0000000000000000000000000000000000000000..0c368c25109ff74c9db4d6279ef0baf54b2d95c7\n--- /dev/null\n+++ b/forges-fixtures/20261011220545-1.md\n@@ -0,0 +1 @@\n+Written by a forges fixture run on forges-fixtures/20261011220545-1.\n-- \nknot\n\n\n"
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {}
+  }
+}

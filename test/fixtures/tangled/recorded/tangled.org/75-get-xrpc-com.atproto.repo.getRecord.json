@@ -1,31 +1,24 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://eurosky.social/xrpc/com.atproto.repo.getRecord?repo=did%3Aplc%3Ahwevmowznbiukdf6uk5dwrrq&collection=sh.tangled.feed.comment&rkey=3m7rqi342lu22"
+    "url": "https://tngl.sh/xrpc/com.atproto.repo.getRecord?repo=did%3Aplc%3A7qksav5io2s4qfg67pe7iqqk&collection=sh.tangled.feed.reaction&rkey=3mxmz7aiuhe2y"
   },
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"1ea-E7hyzcDOh9IEGSp4nGZgDOqreMo\"",
+      "etag": "W/\"155-tfbhTsMA/BPWgUDsHbj4/bJKv7A\"",
       "ratelimit-limit": "3000",
-      "ratelimit-remaining": "2995",
-      "ratelimit-reset": "1791720408"
+      "ratelimit-remaining": "2755",
+      "ratelimit-reset": "1791756647"
     },
     "body": {
-      "uri": "at://did:plc:hwevmowznbiukdf6uk5dwrrq/sh.tangled.feed.comment/3m7rqi342lu22",
-      "cid": "bafyreihhrsmztqu7bopzpcuaw7sb2ml6pebijcdlwtcekhob3xdh54rrmm",
+      "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.feed.reaction/3mxmz7aiuhe2y",
+      "cid": "bafyreiccesokyydkpxciilt6kofzrjsbk4fxmuvrjrkt5ahl5ogpui7nvy",
       "value": {
-        "body": {
-          "text": "Thanks, this looks good!",
-          "$type": "sh.tangled.markup.markdown"
-        },
-        "$type": "sh.tangled.feed.comment",
-        "subject": {
-          "cid": "bafyreidwwztxrb7xfxuaow3wv53rr757hqe6biwufmcppbwuktj2g2w4si",
-          "uri": "at://did:plc:laqygfbyvnkyuhsuaxmp6ez3/sh.tangled.repo.pull/3m7lfz7dl5z22"
-        },
-        "createdAt": "2025-12-12T09:08:49Z",
-        "pullRoundIdx": 0
+        "$type": "sh.tangled.feed.reaction",
+        "subject": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.pull/3mxhm5yldov22",
+        "reaction": "🚀",
+        "createdAt": "2026-10-11T22:06:17.448Z"
       }
     }
   }

@@ -1,24 +1,33 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://tngl.sh/xrpc/com.atproto.repo.getRecord?repo=did%3Aplc%3A7qksav5io2s4qfg67pe7iqqk&collection=sh.tangled.repo.pull.status&rkey=3mxhmcwjx7d2y"
+    "url": "https://oysterling.us-west.host.bsky.network/xrpc/com.atproto.repo.getRecord?repo=did%3Aplc%3Awshs7t2adsemcrrd4snkeqli&collection=sh.tangled.label.definition&rkey=assignee"
   },
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"172-OUWmghl0mFbjZJ+rPRh9LxAi57o\"",
+      "etag": "W/\"18a-69WCMelLh7alpeGWDACzHnEmF6Y\"",
       "ratelimit-limit": "3000",
-      "ratelimit-remaining": "2963",
-      "ratelimit-reset": "1791720407"
+      "ratelimit-remaining": "2998",
+      "ratelimit-reset": "1791756658"
     },
     "body": {
-      "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.pull.status/3mxhmcwjx7d2y",
-      "cid": "bafyreigmu75pfxmz424afsjlveodin47tloomjwvvr5leohauknnhmbize",
+      "uri": "at://did:plc:wshs7t2adsemcrrd4snkeqli/sh.tangled.label.definition/assignee",
+      "cid": "bafyreieo6jwijef4hscjph4qyr2pgre4kdz3smil5ewhmopbizldhgg2iq",
       "value": {
-        "pull": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.pull/3mxhm5yldov22",
-        "$type": "sh.tangled.repo.pull.status",
-        "status": "sh.tangled.repo.pull.status.open",
-        "createdAt": "2026-10-09T18:32:23.897Z"
+        "name": "assignee",
+        "$type": "sh.tangled.label.definition",
+        "color": "#10B981",
+        "scope": [
+          "sh.tangled.repo.issue",
+          "sh.tangled.repo.pull"
+        ],
+        "multiple": true,
+        "createdAt": "2025-09-22T12:47:59+01:00",
+        "valueType": {
+          "type": "string",
+          "format": "did"
+        }
       }
     }
   }

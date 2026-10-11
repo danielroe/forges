@@ -1,0 +1,26 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://tngl.sh/xrpc/com.atproto.repo.getRecord?repo=did%3Aplc%3Awoheeqjgxgrab33jlluffosg&collection=sh.tangled.repo.issue&rkey=3mxmmqheikk22"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"b5d-OhFE0YO+eiWir6PBgWZnQ27RAEQ\"",
+      "ratelimit-limit": "3000",
+      "ratelimit-remaining": "2623",
+      "ratelimit-reset": "1791756647"
+    },
+    "body": {
+      "uri": "at://did:plc:woheeqjgxgrab33jlluffosg/sh.tangled.repo.issue/3mxmmqheikk22",
+      "cid": "bafyreidzxmpqgkjpiqgywd6qldmyznygciwtl54h3ih7e25kqwvaaradki",
+      "value": {
+        "body": "# semantic: local variant-typed values lose `unknown-method`/`unknown-field` (check-green, `go build`-red)\n\n## Summary\n`8724e1fd` made `typeAnnotationToTypeInfo` resolve a local variant annotation to `TypeKindVariant`. `resolveFieldType`/`resolveMethodType` return `(nil, false)` for any kind other than `TypeKindNamed`/`TypeKindStruct`, so a member miss on a locally variant-typed value is no longer diagnosed — `kukicha check` passes and `go build` fails. Introduced by that commit (the parent diagnosed it).\n\n## Reproducer\n```kukicha\npetiole main\n\nenum Shape\n    Circle\n        Radius: int\n    Square\n        Side: int\n\nfunc mk() Shape\n    return Circle{Radius: 3}\n\nfunc run(s: Shape) string\n    return s.nope()\n```\n\n- **`8724e1fd^` (and the v0.85.10 tag):** `[semantic/unknown-method] type Shape has no method nope` (exit 1).\n- **`8724e1fd` and later (incl. HEAD):** `✓ main.kuki type checks successfully` (exit 0).\n- **`kukicha build --skip-build` then `go build`:** `s.nope undefined (type Shape has no field or method nope)` (exit 1).\n\nThe same happens for a missing field (`return s.nope`), and for a variant-typed value arriving as a return or field, not only a parameter. Cross-package (qualified `lib.Shape`) still errors, so the regression is exactly the local spelling this commit newly routes to `TypeKindVariant`.\n\n## Root cause\n`internal/semantic/semantic_types.go:505-507` now returns `TypeInfo{Kind: TypeKindVariant, …}` for a local variant annotation. But `internal/semantic/semantic_calls_methods.go:1774-1776` (`resolveMethodType`) and `:1500-1502` (`resolveFieldType`) short-circuit with `return nil, false` for non-`Named`/`Struct` kinds, so the caller's gate (`methodResolved && !methodExistsOnType`, `:774-776`) never fires. Before the change the annotation was `TypeKindNamed`, the resolver consulted the symbol table, and a miss was final.\n\n## Fix direction\nTeach `resolveMethodType`/`resolveFieldType` (or a small helper) that `TypeKindVariant` is a loaded type: resolve its member tables via the symbol table and return `(nil, true)` for a verified miss. More generally, audit every `(type, resolved)` resolver for the newly-produced kind (see the `compiler-internals` skill's \"Changing a type kind or a resolution path\" section).\n\n## Verification\nAdd a red-first test (fails on the parent, passes after): a local `enum Shape` with `func run(s: Shape): return s.nope()` must emit `semantic/unknown-method`. Confirm the parent commit diagnoses it.\n",
+        "repo": "did:plc:wq67r5lwdn4el5ifmrlk7bpc",
+        "$type": "sh.tangled.repo.issue",
+        "title": "semantic: local variant-typed values lose unknown-method/unknown-field (check-green, go-build-red)",
+        "createdAt": "2026-10-11T18:23:16Z"
+      }
+    }
+  }
+}

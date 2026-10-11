@@ -1,0 +1,46 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://eurosky.social/xrpc/com.atproto.repo.getRecord?repo=did%3Aplc%3Agijpvbkdbr56kazbdjhfvb3d&collection=sh.tangled.repo.pull&rkey=3mxmiywqewp22"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"2ca-h41RjiIr778veHGdTDIiGMkvC/k\"",
+      "ratelimit-limit": "3000",
+      "ratelimit-remaining": "2997",
+      "ratelimit-reset": "1791756699"
+    },
+    "body": {
+      "uri": "at://did:plc:gijpvbkdbr56kazbdjhfvb3d/sh.tangled.repo.pull/3mxmiywqewp22",
+      "cid": "bafyreia7sb6krw6sab2noxgem7ry37dphz3jppimtbobg4pelaapq6vgey",
+      "value": {
+        "body": "Adds a set of contributing guidelines to the homelab repo.",
+        "$type": "sh.tangled.repo.pull",
+        "title": "docs: add contributing guidelines to the project",
+        "rounds": [
+          {
+            "createdAt": "2026-10-11T20:16:26+03:00",
+            "patchBlob": {
+              "ref": {
+                "$link": "bafkreiczs4wlw74m5sobpvq3whfmkt4eevf6vmfapa2dhj2li7olw2qsxu"
+              },
+              "size": 1567,
+              "$type": "blob",
+              "mimeType": "application/gzip"
+            }
+          }
+        ],
+        "source": {
+          "branch": "push-xpllnwompxtr"
+        },
+        "target": {
+          "repo": "did:plc:57nwxij2anpxjommouo5baj7",
+          "branch": "main",
+          "repoDid": "did:plc:57nwxij2anpxjommouo5baj7"
+        },
+        "createdAt": "2026-10-11T20:16:26+03:00"
+      }
+    }
+  }
+}

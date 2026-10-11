@@ -1,0 +1,33 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://oysterling.us-west.host.bsky.network/xrpc/com.atproto.repo.getRecord?repo=did%3Aplc%3Awshs7t2adsemcrrd4snkeqli&collection=sh.tangled.label.definition&rkey=duplicate"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"174-GJfoEsGbR0V+Tg9bTcWBQLOPdHQ\"",
+      "ratelimit-limit": "3000",
+      "ratelimit-remaining": "2986",
+      "ratelimit-reset": "1791756658"
+    },
+    "body": {
+      "uri": "at://did:plc:wshs7t2adsemcrrd4snkeqli/sh.tangled.label.definition/duplicate",
+      "cid": "bafyreihfl7w6kd5furzznbfyn4latxbdcjiolgofwtutgueldhozk6l43i",
+      "value": {
+        "name": "duplicate",
+        "$type": "sh.tangled.label.definition",
+        "color": "#ef4444",
+        "scope": [
+          "sh.tangled.repo.issue"
+        ],
+        "multiple": false,
+        "createdAt": "2025-09-22T11:14:35+01:00",
+        "valueType": {
+          "type": "null",
+          "format": "any"
+        }
+      }
+    }
+  }
+}

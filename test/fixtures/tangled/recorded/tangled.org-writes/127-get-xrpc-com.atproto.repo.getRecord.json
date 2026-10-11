@@ -1,0 +1,45 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://tngl.sh/xrpc/com.atproto.repo.getRecord?repo=did%3Aplc%3A7qksav5io2s4qfg67pe7iqqk&collection=sh.tangled.repo.pull&rkey=3mxmz6ro52e2y"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"281-WUFrPO3bfDHchxjEJKUYhUCCX0Q\"",
+      "ratelimit-limit": "3000",
+      "ratelimit-remaining": "2882",
+      "ratelimit-reset": "1791756647"
+    },
+    "body": {
+      "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.pull/3mxmz6ro52e2y",
+      "cid": "bafyreihqmhmx2y22dz3a6ox4tsvmuotm5yevi6ygxq2bk7mutze3igidbi",
+      "value": {
+        "body": "Opened by run 20261011220545.",
+        "$type": "sh.tangled.repo.pull",
+        "title": "forges fixture 20261011220545: pull 3",
+        "rounds": [
+          {
+            "createdAt": "2026-10-11T22:06:01.830Z",
+            "patchBlob": {
+              "ref": {
+                "$link": "bafkreib27ukebwzbhbbmuptidtdpfptwhsi3xgvcr5qmuxwseymgeogu2u"
+              },
+              "size": 358,
+              "$type": "blob",
+              "mimeType": "application/gzip"
+            }
+          }
+        ],
+        "source": {
+          "branch": "forges-fixtures/20261011220545-3"
+        },
+        "target": {
+          "repo": "did:plc:t73o44q7fppgagkrevtztyok",
+          "branch": "main"
+        },
+        "createdAt": "2026-10-11T22:06:01.830Z"
+      }
+    }
+  }
+}

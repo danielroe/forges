@@ -1,0 +1,36 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://tngl.sh/xrpc/com.atproto.repo.getRecord?repo=did%3Aplc%3A7qksav5io2s4qfg67pe7iqqk&collection=sh.tangled.label.op&rkey=3mxmwnnqpem2y"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"224-pCcmMn0ELTtb5r9lFvVof7dAMZ8\"",
+      "ratelimit-limit": "3000",
+      "ratelimit-remaining": "2749",
+      "ratelimit-reset": "1791756647"
+    },
+    "body": {
+      "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.label.op/3mxmwnnqpem2y",
+      "cid": "bafyreih4erxnohaek65mrlnrmqnzeoryy3tqmqd46wg732inlyraylqwby",
+      "value": {
+        "add": [
+          {
+            "key": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.label.definition/3mxmwnkuvum2y",
+            "value": "null"
+          }
+        ],
+        "$type": "sh.tangled.label.op",
+        "delete": [
+          {
+            "key": "at://did:plc:wshs7t2adsemcrrd4snkeqli/sh.tangled.label.definition/good-first-issue",
+            "value": "null"
+          }
+        ],
+        "subject": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.issue/3mxmwlijmkm2y",
+        "performedAt": "2026-10-11T21:20:39.882Z"
+      }
+    }
+  }
+}

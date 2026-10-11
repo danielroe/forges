@@ -52,7 +52,9 @@ describe('write recording guard', () => {
     expect(create({ subject: { uri: 'at://did:plc:someone/sh.tangled.repo.issue/1' } })).toBe(false)
     expect(write('deleteRecord', { repo: 'did:plc:bot', collection: 'sh.tangled.feed.comment', rkey: 'created' })).toBe(true)
     expect(write('deleteRecord', { repo: 'did:plc:bot', collection: 'app.bsky.feed.post', rkey: 'post' })).toBe(false)
-    expect(write('uploadBlob', { repo: 'did:plc:bot' })).toBe(false)
+    expect(write('createRecord', { repo: 'did:plc:bot', collection: 'sh.tangled.label.definition', record: { name: 'forges-fixture-1' } })).toBe(true)
+    expect(write('createRecord', { repo: 'did:plc:bot', collection: 'sh.tangled.label.definition', record: { name: 'bug' } })).toBe(false)
+    expect(harness.allows!('https://knot.example/xrpc/sh.tangled.repo.merge', { repo: 'did:plc:otherrepo' })).toBe(false)
   })
 
   it('never trusts ids from a GraphQL read of another repository', async () => {

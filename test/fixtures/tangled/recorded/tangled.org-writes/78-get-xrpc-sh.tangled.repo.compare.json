@@ -1,0 +1,81 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://knot1.tangled.sh/xrpc/sh.tangled.repo.compare?repo=did%3Aplc%3At73o44q7fppgagkrevtztyok&rev1=main&rev2=forges-fixtures%2F20261011220545-2"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "rev1": "47894e682901c62f0b643e91bca548a265ba3f7b",
+      "rev2": "2634d0f149e9a8764ca865602db5665337bb2bcf",
+      "merge_base": "47894e682901c62f0b643e91bca548a265ba3f7b",
+      "format_patch": [
+        {
+          "Files": [
+            {
+              "OldName": "",
+              "NewName": "forges-fixtures/20261011220545-2.md",
+              "IsNew": true,
+              "IsDelete": false,
+              "IsCopy": false,
+              "IsRename": false,
+              "OldMode": 0,
+              "NewMode": 33188,
+              "OldOIDPrefix": "0000000000000000000000000000000000000000",
+              "NewOIDPrefix": "b538c16a2e904bba7a30184cf605c08a342ecdbe",
+              "Score": 0,
+              "TextFragments": [
+                {
+                  "Comment": "",
+                  "OldPosition": 0,
+                  "OldLines": 0,
+                  "NewPosition": 1,
+                  "NewLines": 1,
+                  "LinesAdded": 1,
+                  "LinesDeleted": 0,
+                  "LeadingContext": 0,
+                  "TrailingContext": 0,
+                  "Lines": [
+                    {
+                      "Op": 2,
+                      "Line": "Written by a forges fixture run on forges-fixtures/20261011220545-2.\n"
+                    }
+                  ]
+                }
+              ],
+              "IsBinary": false,
+              "BinaryFragment": null,
+              "ReverseBinaryFragment": null
+            }
+          ],
+          "SHA": "2634d0f149e9a8764ca865602db5665337bb2bcf",
+          "Author": {
+            "Name": "forges fixtures",
+            "Email": "redacted@example.invalid"
+          },
+          "AuthorDate": "2026-10-11T22:05:51Z",
+          "Committer": null,
+          "CommitterDate": "0001-01-01T00:00:00Z",
+          "Title": "Add forges-fixtures/20261011220545-2.md",
+          "Body": "",
+          "SubjectPrefix": "[PATCH] ",
+          "BodyAppendix": " forges-fixtures/20261011220545-2.md | 1 +\n 1 file changed, 1 insertion(+)\n create mode 100644 forges-fixtures/20261011220545-2.md",
+          "RawHeaders": {
+            "Date": [
+              "Sun, 11 Oct 2026 22:05:51 +0000"
+            ],
+            "From": [
+              "forges fixtures <redacted@example.invalid>"
+            ],
+            "Subject": [
+              "[PATCH] Add forges-fixtures/20261011220545-2.md"
+            ]
+          },
+          "Raw": "From 2634d0f149e9a8764ca865602db5665337bb2bcf Mon Sep 17 00:00:00 2001\nFrom: forges fixtures <redacted@example.invalid>\nDate: Sun, 11 Oct 2026 22:05:51 +0000\nSubject: [PATCH] Add forges-fixtures/20261011220545-2.md\n\n---\n forges-fixtures/20261011220545-2.md | 1 +\n 1 file changed, 1 insertion(+)\n create mode 100644 forges-fixtures/20261011220545-2.md\n\ndiff --git a/forges-fixtures/20261011220545-2.md b/forges-fixtures/20261011220545-2.md\nnew file mode 100644\nindex 0000000000000000000000000000000000000000..b538c16a2e904bba7a30184cf605c08a342ecdbe\n--- /dev/null\n+++ b/forges-fixtures/20261011220545-2.md\n@@ -0,0 +1 @@\n+Written by a forges fixture run on forges-fixtures/20261011220545-2.\n-- \nknot"
+        }
+      ],
+      "patch": "From 2634d0f149e9a8764ca865602db5665337bb2bcf Mon Sep 17 00:00:00 2001\nFrom: forges fixtures <redacted@example.invalid>\nDate: Sun, 11 Oct 2026 22:05:51 +0000\nSubject: [PATCH] Add forges-fixtures/20261011220545-2.md\n\n---\n forges-fixtures/20261011220545-2.md | 1 +\n 1 file changed, 1 insertion(+)\n create mode 100644 forges-fixtures/20261011220545-2.md\n\ndiff --git a/forges-fixtures/20261011220545-2.md b/forges-fixtures/20261011220545-2.md\nnew file mode 100644\nindex 0000000000000000000000000000000000000000..b538c16a2e904bba7a30184cf605c08a342ecdbe\n--- /dev/null\n+++ b/forges-fixtures/20261011220545-2.md\n@@ -0,0 +1 @@\n+Written by a forges fixture run on forges-fixtures/20261011220545-2.\n-- \nknot\n\n\n"
+    }
+  }
+}

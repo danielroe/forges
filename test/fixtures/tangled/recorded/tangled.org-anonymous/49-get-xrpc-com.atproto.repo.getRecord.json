@@ -1,33 +1,45 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://tngl.sh/xrpc/com.atproto.repo.getRecord?repo=did%3Aplc%3Amzoihimijwyheeqok2qm5zxx&collection=sh.tangled.repo.pull&rkey=3m4cefmvguj22"
+    "url": "https://tngl.sh/xrpc/com.atproto.repo.getRecord?repo=did%3Aplc%3A7qksav5io2s4qfg67pe7iqqk&collection=sh.tangled.repo.pull&rkey=3mxhm5yldov22"
   },
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"512-xwZfaxYdUGhWjX9jYb4MdYkCAVE\"",
+      "etag": "W/\"27e-qToxJvEaWTreYLAlWR/UYd9/Zyg\"",
       "ratelimit-limit": "3000",
-      "ratelimit-remaining": "2997",
-      "ratelimit-reset": "1791720407"
+      "ratelimit-remaining": "2687",
+      "ratelimit-reset": "1791756647"
     },
     "body": {
-      "uri": "at://did:plc:mzoihimijwyheeqok2qm5zxx/sh.tangled.repo.pull/3m4cefmvguj22",
-      "cid": "bafyreihfvpy6qmai55l25uvmxupqktcjtx6sgpnwrezrsxwq4a6u3525ry",
+      "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.pull/3mxhm5yldov22",
+      "cid": "bafyreieko4shqsunw47uvcxa7ycrhwkkcczldd4j3ylmhp62lps5kzu4oi",
       "value": {
+        "body": "Edited by run 20261011212149.",
         "$type": "sh.tangled.repo.pull",
-        "patch": "From 3515438f9496813f73ad72e411c0bfbbbd56f2ab Mon Sep 17 00:00:00 2001\nFrom: Cosmic Horror <redacted@example.invalid>\nDate: Tue, 28 Oct 2025 19:52:48 -0600\nSubject: [PATCH] fix ci docker example\n\n---\n pages/blog/ci.md | 2 +-\n 1 file changed, 1 insertion(+), 1 deletion(-)\n\ndiff --git a/pages/blog/ci.md b/pages/blog/ci.md\nindex 60a9898..a1157b5 100644\n--- a/pages/blog/ci.md\n+++ b/pages/blog/ci.md\n@@ -119,7 +119,7 @@ an OCI image with each package in a separate layer. Try this\n in your terminal if you've got Docker installed:\n \n ```\n-docker run nixery.dev/bash/hello-go hello\n+docker run nixery.dev/bash/hello-go hello-go\n ```\n \n This should output `Hello, world!`. This is running the\n-- \n2.43.0\n\n\n",
-        "title": "fix docker nixery example in the introducing spindle blog post",
+        "title": "forges seed: pull",
+        "rounds": [
+          {
+            "createdAt": "2026-10-09T21:29:38+03:00",
+            "patchBlob": {
+              "ref": {
+                "$link": "bafkreicqsnafmjdy22szssmis2jf56igucmyxsrc6demlbs6nmi2bgd6ci"
+              },
+              "size": 422,
+              "$type": "blob",
+              "mimeType": "application/gzip"
+            }
+          }
+        ],
         "source": {
-          "sha": "3515438f9496813f73ad72e411c0bfbbbd56f2ab",
-          "repo": "at://did:plc:mzoihimijwyheeqok2qm5zxx/sh.tangled.repo/3m4cdhc5oty22",
-          "branch": "hello-go"
+          "branch": "bo"
         },
         "target": {
-          "repo": "at://did:plc:wshs7t2adsemcrrd4snkeqli/sh.tangled.repo/3ljbiayluee22",
-          "branch": "master"
+          "repo": "did:plc:t73o44q7fppgagkrevtztyok",
+          "branch": "main",
+          "repoDid": "did:plc:t73o44q7fppgagkrevtztyok"
         },
-        "createdAt": "2025-10-29T02:07:11Z"
+        "createdAt": "2026-10-09T21:29:38+03:00"
       }
     }
   }

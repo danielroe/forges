@@ -1,27 +1,24 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://inkcap.us-east.host.bsky.network/xrpc/com.atproto.repo.getRecord?repo=did%3Aplc%3A7opjnfmb6gtbgjrsr3777ujx&collection=sh.tangled.repo.issue.comment&rkey=3ljpxh2kvll22"
+    "url": "https://tngl.sh/xrpc/com.atproto.repo.getRecord?repo=did%3Aplc%3Auxfnwnz5wfwl6tfgqwyfrqyv&collection=sh.tangled.feed.reaction&rkey=3mxmxuvsub42y"
   },
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"1e1-/NYFXm3lyRdisVr4zmsoZVBfB7Y\"",
+      "etag": "W/\"156-sm0OZS63tNUL+agWvXNfCM/2gU8\"",
       "ratelimit-limit": "3000",
-      "ratelimit-remaining": "2999",
-      "ratelimit-reset": "1791720414"
+      "ratelimit-remaining": "2727",
+      "ratelimit-reset": "1791756647"
     },
     "body": {
-      "uri": "at://did:plc:7opjnfmb6gtbgjrsr3777ujx/sh.tangled.repo.issue.comment/3ljpxh2kvll22",
-      "cid": "bafyreia424h3yxjbrhownnavcdplxjordkn7uy3q6zgaxwxzqsjwsdofpq",
+      "uri": "at://did:plc:uxfnwnz5wfwl6tfgqwyfrqyv/sh.tangled.feed.reaction/3mxmxuvsub42y",
+      "cid": "bafyreiemost57noqtywi736k53ig52phoongvkuaxx6grzjzutkpgloxcq",
       "value": {
-        "body": "🚀",
-        "repo": "at://did:plc:wshs7t2adsemcrrd4snkeqli/sh.tangled.repo/3ljbiayluee22",
-        "$type": "sh.tangled.repo.issue.comment",
-        "issue": "at://did:plc:qfpnj4og54vl56wngdriaxug/sh.tangled.repo.issue/3ljnffy24un22",
-        "owner": "did:plc:7opjnfmb6gtbgjrsr3777ujx",
-        "commentId": 690146,
-        "createdAt": "2025-03-06T16:53:56Z"
+        "$type": "sh.tangled.feed.reaction",
+        "subject": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.issue/3mxmwlijmkm2y",
+        "reaction": "👀",
+        "createdAt": "2026-10-11T21:42:36.963Z"
       }
     }
   }

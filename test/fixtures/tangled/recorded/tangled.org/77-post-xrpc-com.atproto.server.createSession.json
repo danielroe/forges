@@ -1,0 +1,25 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://npmx.social/xrpc/com.atproto.server.createSession"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"313-Tn1dFLTmOu+RJpQag9TcLWkvdr4\"",
+      "ratelimit-limit": "30",
+      "ratelimit-remaining": "29",
+      "ratelimit-reset": "1791756690"
+    },
+    "body": {
+      "accessJwt": "REDACTED",
+      "refreshJwt": "REDACTED",
+      "did": "did:plc:jbeaa5kdaladzwq3r7f5xgwe",
+      "handle": "danielroe.dev",
+      "email": "redacted@example.invalid",
+      "emailConfirmed": "redacted@example.invalid",
+      "emailAuthFactor": false,
+      "active": true
+    }
+  }
+}

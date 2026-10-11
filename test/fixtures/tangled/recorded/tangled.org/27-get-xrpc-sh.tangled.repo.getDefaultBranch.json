@@ -1,0 +1,15 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://knot1.tangled.sh/xrpc/sh.tangled.repo.getDefaultBranch?repo=did%3Aplc%3At73o44q7fppgagkrevtztyok"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "name": "main",
+      "hash": "",
+      "when": "1970-01-01T00:00:00Z"
+    }
+  }
+}

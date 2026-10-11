@@ -1,0 +1,18 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://tngl.sh/xrpc/com.atproto.server.getServiceAuth?aud=did%3Aweb%3Aknot1.tangled.sh&lxm=sh.tangled.repo.addCollaborator"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"188-bttx2oIHrdwMc8oBmxse0JSjh2E\"",
+      "ratelimit-limit": "3000",
+      "ratelimit-remaining": "2966",
+      "ratelimit-reset": "1791756647"
+    },
+    "body": {
+      "token": "REDACTED"
+    }
+  }
+}

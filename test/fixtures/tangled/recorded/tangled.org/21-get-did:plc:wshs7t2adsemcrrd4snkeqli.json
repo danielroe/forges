@@ -1,0 +1,38 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://plc.directory/did:plc:wshs7t2adsemcrrd4snkeqli"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"22f-SRVrE/5vAA5ac20sP6YooLCDFtc\""
+    },
+    "body": {
+      "@context": [
+        "https://www.w3.org/ns/did/v1",
+        "https://w3id.org/security/multikey/v1",
+        "https://w3id.org/security/suites/secp256k1-2019/v1"
+      ],
+      "id": "did:plc:wshs7t2adsemcrrd4snkeqli",
+      "alsoKnownAs": [
+        "at://tangled.org"
+      ],
+      "verificationMethod": [
+        {
+          "id": "did:plc:wshs7t2adsemcrrd4snkeqli#atproto",
+          "type": "Multikey",
+          "controller": "did:plc:wshs7t2adsemcrrd4snkeqli",
+          "publicKeyMultibase": "zQ3shTJZr94zT5kRPiqScwcmLJmdG4SdFR5c3bPXZRDRsf21W"
+        }
+      ],
+      "service": [
+        {
+          "id": "#atproto_pds",
+          "type": "AtprotoPersonalDataServer",
+          "serviceEndpoint": "https://oysterling.us-west.host.bsky.network"
+        }
+      ]
+    }
+  }
+}

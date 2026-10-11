@@ -1,8 +1,9 @@
-import type { Actor, Comment, EventAction, EventKind, ForgeEventInput, ForgeWarning, NotificationReason, RepoRef, ResolvedThreadRef, SourceKind, Thread, ThreadKind, ThreadRef, ThreadState } from '../model.ts'
+import type { Actor, Comment, EventAction, EventKind, ForgeEventInput, ForgeWarning, Label, NotificationReason, ReactionContent, RepoRef, ResolvedThreadRef, SourceKind, Thread, ThreadKind, ThreadRef, ThreadState } from '../model.ts'
 import type { AtUri, Identity } from './atproto.ts'
 import type {
   FeedCommentRecord,
   IssueRecord,
+  LabelDefinitionRecord,
   LabelOpRecord,
   LegacyCommentRecord,
   PullRecord,
@@ -26,7 +27,9 @@ export const COLLECTIONS = {
   pullStatus: 'sh.tangled.repo.pull.status',
   reaction: 'sh.tangled.feed.reaction',
   labelOp: 'sh.tangled.label.op',
+  labelDefinition: 'sh.tangled.label.definition',
   subscription: 'sh.tangled.feed.subscription',
+  profile: 'sh.tangled.actor.profile',
 } as const
 
 /** Collections that describe activity on an issue or pull request. */
@@ -93,6 +96,22 @@ export function subjectOf(collection: string, record: TangledRecord, uri: string
       return (record as ReactionRecord | LabelOpRecord).subject
     default:
       return undefined
+  }
+}
+
+/** An `assignee` label with DID values, which Tangled shows as the thread's assignees. */
+export function isAssigneeLabel(definition: LabelDefinitionRecord): boolean {
+  return definition.name === 'assignee' && definition.valueType?.format === 'did'
+}
+
+/** The emoji Tangled stores for each reaction. */
+export const REACTION_EMOJI: Record<ReactionContent, string> = { '+1': '👍', '-1': '👎', 'laugh': '😆', 'hooray': '🎉', 'confused': '🫤', 'heart': '❤️', 'rocket': '🚀', 'eyes': '👀' }
+
+/** A label as threads carry it: the definition's name, and for a label with values, `name:value`. */
+export function toLabel(definition: LabelDefinitionRecord, value: string): Label {
+  return {
+    name: !definition.valueType || definition.valueType.type === 'null' ? definition.name : `${definition.name}:${value}`,
+    colour: definition.color?.replace(/^#/, ''),
   }
 }
 

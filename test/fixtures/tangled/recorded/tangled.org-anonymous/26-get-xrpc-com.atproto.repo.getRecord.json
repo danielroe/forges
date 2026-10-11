@@ -1,0 +1,33 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://oysterling.us-west.host.bsky.network/xrpc/com.atproto.repo.getRecord?repo=did%3Aplc%3Awshs7t2adsemcrrd4snkeqli&collection=sh.tangled.label.definition&rkey=wontfix"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"170-wfQfFAEThinQDTvbE9OlVm7GBrA\"",
+      "ratelimit-limit": "3000",
+      "ratelimit-remaining": "2982",
+      "ratelimit-reset": "1791756658"
+    },
+    "body": {
+      "uri": "at://did:plc:wshs7t2adsemcrrd4snkeqli/sh.tangled.label.definition/wontfix",
+      "cid": "bafyreiebo64gaznprwa5dupobn5g6jq4mnkqfpokkyrwnjr3g5c3nv5p4a",
+      "value": {
+        "name": "wontfix",
+        "$type": "sh.tangled.label.definition",
+        "color": "#64748b",
+        "scope": [
+          "sh.tangled.repo.issue"
+        ],
+        "multiple": false,
+        "createdAt": "2025-09-22T11:14:35+01:00",
+        "valueType": {
+          "type": "null",
+          "format": "any"
+        }
+      }
+    }
+  }
+}

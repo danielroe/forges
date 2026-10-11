@@ -1,0 +1,31 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://tngl.sh/xrpc/com.atproto.repo.getRecord?repo=did%3Aplc%3A7qksav5io2s4qfg67pe7iqqk&collection=sh.tangled.label.op&rkey=3mxmz7acwyu2y"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"1cf-nEosqlcBey5Zb82LH0qXv/TD0Vo\"",
+      "ratelimit-limit": "3000",
+      "ratelimit-remaining": "2686",
+      "ratelimit-reset": "1791756647"
+    },
+    "body": {
+      "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.label.op/3mxmz7acwyu2y",
+      "cid": "bafyreigecgin3s5c52ihtb4fyqgcsh445inrkcgxplkxxtdwg6wfgbthoq",
+      "value": {
+        "add": [
+          {
+            "key": "at://did:plc:wshs7t2adsemcrrd4snkeqli/sh.tangled.label.definition/assignee",
+            "value": "did:plc:7qksav5io2s4qfg67pe7iqqk"
+          }
+        ],
+        "$type": "sh.tangled.label.op",
+        "delete": [],
+        "subject": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.pull/3mxhm5yldov22",
+        "performedAt": "2026-10-11T22:06:17.260Z"
+      }
+    }
+  }
+}

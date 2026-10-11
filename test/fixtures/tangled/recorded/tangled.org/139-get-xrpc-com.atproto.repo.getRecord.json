@@ -1,0 +1,32 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://tngl.sh/xrpc/com.atproto.repo.getRecord?repo=did%3Aplc%3A7qksav5io2s4qfg67pe7iqqk&collection=sh.tangled.feed.comment&rkey=3mxmwljizgu2y"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"1f6-aEMT3M/pSV6px58UAqpAMCwUaF8\"",
+      "ratelimit-limit": "3000",
+      "ratelimit-remaining": "2716",
+      "ratelimit-reset": "1791756647"
+    },
+    "body": {
+      "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.feed.comment/3mxmwljizgu2y",
+      "cid": "bafyreidmsj6a57ex47d3vajm42om3h4tkoxpontrzyjtxyvnnhtsdkqnf4",
+      "value": {
+        "body": {
+          "text": "A seeded comment.",
+          "$type": "sh.tangled.markup.markdown",
+          "original": "A seeded comment."
+        },
+        "$type": "sh.tangled.feed.comment",
+        "subject": {
+          "cid": "bafyreieu3ukzwub6wy2xdgrea7pzfwtn646h7yy4vhl3qslbofaky7rpti",
+          "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.issue/3mxmwlijmkm2y"
+        },
+        "createdAt": "2026-10-11T21:19:28.328Z"
+      }
+    }
+  }
+}

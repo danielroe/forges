@@ -1,0 +1,123 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://knot1.tangled.sh/xrpc/sh.tangled.repo.diff?repo=did%3Aplc%3At73o44q7fppgagkrevtztyok&ref=3d45c8062c15a3e747e20cbd14e6092a98aca072"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "ref": "3d45c8062c15a3e747e20cbd14e6092a98aca072",
+      "diff": {
+        "commit": {
+          "hash": [
+            61,
+            69,
+            200,
+            6,
+            44,
+            21,
+            163,
+            231,
+            71,
+            226,
+            12,
+            189,
+            20,
+            230,
+            9,
+            42,
+            152,
+            172,
+            160,
+            114
+          ],
+          "author": {
+            "Name": "Daniel Roe",
+            "Email": "redacted@example.invalid",
+            "When": "2026-10-09T19:29:21+01:00"
+          },
+          "committer": {
+            "Name": "Daniel Roe",
+            "Email": "redacted@example.invalid",
+            "When": "2026-10-09T19:29:21+01:00"
+          },
+          "message": "chore: edit\n",
+          "tree": "c3b27af25241edfaf65d6562e5c73912f2355598",
+          "parent_hashes": [
+            [
+              28,
+              215,
+              106,
+              119,
+              108,
+              192,
+              154,
+              26,
+              204,
+              85,
+              224,
+              191,
+              228,
+              152,
+              179,
+              154,
+              91,
+              183,
+              107,
+              208
+            ]
+          ],
+          "pgp_signature": "-----BEGIN PGP SIGNATURE-----\n\niJEEABYKADkWIQRfSomZE4k/rYDtTKpHxO49RqOifAUCaskygRsUgAAAAAAEAA5t\nYW51MiwyLjUrMS4xMiwwLDMACgkQR8TuPUajonyEpgEA69qbFIUmfOQjAJcwOXYU\nF3gyMEMWpys9U9yvBOlv9EMA/3Mlv3/dthLJHh7k8+WjOE6a0ckgvWtTS+xYITMe\n71kC\n=yQ/S\n-----END PGP SIGNATURE-----\n",
+          "this": "3d45c8062c15a3e747e20cbd14e6092a98aca072",
+          "parent": "1cd76a776cc09a1acc55e0bfe498b39a5bb76bd0"
+        },
+        "stat": {
+          "insertions": 1,
+          "deletions": 0,
+          "files_changed": 1
+        },
+        "diff": [
+          {
+            "name": {
+              "old": "README.md",
+              "new": "README.md"
+            },
+            "text_fragments": [
+              {
+                "Comment": "",
+                "OldPosition": 1,
+                "OldLines": 2,
+                "NewPosition": 1,
+                "NewLines": 3,
+                "LinesAdded": 1,
+                "LinesDeleted": 0,
+                "LeadingContext": 2,
+                "TrailingContext": 0,
+                "Lines": [
+                  {
+                    "Op": 0,
+                    "Line": "An automated fixture target for [`forges`](https://github.com/danielroe/forges). Issues and pull requests here aren't monitored.\n"
+                  },
+                  {
+                    "Op": 0,
+                    "Line": "\n"
+                  },
+                  {
+                    "Op": 2,
+                    "Line": "test edit\n"
+                  }
+                ]
+              }
+            ],
+            "is_binary": false,
+            "is_new": false,
+            "is_delete": false,
+            "is_copy": false,
+            "is_rename": false
+          }
+        ]
+      }
+    }
+  }
+}

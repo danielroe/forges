@@ -1,0 +1,19 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://knot1.tangled.sh/xrpc/sh.tangled.repo.listCollaborators?subject=did%3Aplc%3At73o44q7fppgagkrevtztyok&limit=1000"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "items": [
+        {
+          "subject": "did:plc:uxfnwnz5wfwl6tfgqwyfrqyv",
+          "addedBy": "did:plc:7qksav5io2s4qfg67pe7iqqk",
+          "createdAt": "2026-10-11T21:41:10Z"
+        }
+      ]
+    }
+  }
+}

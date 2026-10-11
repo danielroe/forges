@@ -1,0 +1,28 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://plc.directory/did:plc:t73o44q7fppgagkrevtztyok"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"12b-vwqvRuek97AbBlHSNvUuaMshFsc\""
+    },
+    "body": {
+      "@context": [
+        "https://www.w3.org/ns/did/v1",
+        "https://w3id.org/security/multikey/v1"
+      ],
+      "id": "did:plc:t73o44q7fppgagkrevtztyok",
+      "alsoKnownAs": [],
+      "verificationMethod": [],
+      "service": [
+        {
+          "id": "#tangled_knot",
+          "type": "TangledKnot",
+          "serviceEndpoint": "https://knot1.tangled.sh/repo/7vjxktcthtc22f6kioxezmt62a"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://tngl.sh/xrpc/com.atproto.server.createSession",
+    "body": {
+      "identifier": "did:plc:uxfnwnz5wfwl6tfgqwyfrqyv",
+      "password": "REDACTED"
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"2fc-Abvg7oNyUpentd10wrSIZ2+WpOU\"",
+      "ratelimit-limit": "30",
+      "ratelimit-remaining": "29",
+      "ratelimit-reset": "1791756652"
+    },
+    "body": {
+      "accessJwt": "REDACTED",
+      "refreshJwt": "REDACTED",
+      "did": "did:plc:uxfnwnz5wfwl6tfgqwyfrqyv",
+      "handle": "forges-fixtures.tngl.sh",
+      "email": "redacted@example.invalid",
+      "emailConfirmed": false,
+      "active": true
+    }
+  }
+}

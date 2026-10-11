@@ -21,7 +21,18 @@ export function atUri(did: string, collection: string, rkey: string): string {
 export interface Identity {
   did: string
   pds?: string
+  /** For a repo DID, the origin of the knot that hosts the repo. */
+  knot?: string
   handle?: string
+}
+
+function knotOrigin(endpoint: string | undefined): string | undefined {
+  try {
+    return endpoint ? new URL(endpoint).origin : undefined
+  }
+  catch {
+    return undefined
+  }
 }
 
 export interface AtprotoClient {
@@ -31,6 +42,8 @@ export interface AtprotoClient {
   getRecord: <T extends TangledRecord = TangledRecord>(uri: string, signal?: AbortSignal) => Promise<RecordResponse<T>>
   /** Every record in one collection of an account's repository, from its PDS. */
   listRecords: <T extends TangledRecord = TangledRecord>(did: string, collection: string, signal?: AbortSignal) => AsyncGenerator<RecordResponse<T>>
+  /** A blob's bytes, from its account's PDS. */
+  getBlob: (did: string, cid: string, signal?: AbortSignal) => Promise<Uint8Array>
   /** Every record in `collection` whose `path` field points at `target`. */
   backlinks: (target: string, collection: string, path: string, signal?: AbortSignal) => AsyncGenerator<AtUri>
 }
@@ -63,6 +76,7 @@ export function createAtprotoClient(options: AtprotoClientOptions): AtprotoClien
       identity = options.fetcher.json<DidDocument>(url).then(({ data }) => ({
         did,
         pds: data.service?.find(service => service.id.endsWith('#atproto_pds'))?.serviceEndpoint,
+        knot: knotOrigin(data.service?.find(service => service.id.endsWith('#tangled_knot'))?.serviceEndpoint),
         handle: data.alsoKnownAs?.find(alias => alias.startsWith('at://'))?.slice('at://'.length),
       }))
       identity.catch(() => identities.delete(did))
@@ -126,6 +140,11 @@ export function createAtprotoClient(options: AtprotoClientOptions): AtprotoClien
     return data
   }
 
+  async function getBlob(did: string, cid: string, signal?: AbortSignal): Promise<Uint8Array> {
+    const response = await options.fetcher.raw(`${await pdsOf(did, signal)}/xrpc/com.atproto.sync.getBlob`, { query: { did, cid }, signal })
+    return new Uint8Array(await response.arrayBuffer())
+  }
+
   async function* backlinks(target: string, collection: string, path: string, signal?: AbortSignal): AsyncGenerator<AtUri> {
     let cursor: string | undefined
     do {
@@ -141,5 +160,5 @@ export function createAtprotoClient(options: AtprotoClientOptions): AtprotoClien
     } while (cursor)
   }
 
-  return { resolveDid, resolveHandle, getRecord, listRecords, backlinks }
+  return { resolveDid, resolveHandle, getRecord, listRecords, getBlob, backlinks }
 }

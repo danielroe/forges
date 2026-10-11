@@ -19,8 +19,17 @@ export interface PullRecord {
   body?: string
   target: { repo: string, branch: string }
   source?: { repo?: string, branch: string }
-  rounds?: Array<{ createdAt: string }>
+  rounds?: Array<{ createdAt: string, patchBlob?: BlobRef }>
+  /** The patch, inline, in records written before `rounds` carried blobs. */
+  patch?: string
   createdAt: string
+}
+
+export interface BlobRef {
+  $type?: 'blob'
+  ref: { $link: string }
+  mimeType?: string
+  size?: number
 }
 
 export interface FeedCommentRecord {
@@ -60,6 +69,24 @@ export interface LabelOpRecord {
   performedAt: string
 }
 
+export interface LabelDefinitionRecord {
+  name: string
+  valueType?: { type: 'null' | 'boolean' | 'integer' | 'string', format?: 'any' | 'did' | 'nsid', enum?: string[] }
+  /** Collections the label applies to; every collection when empty. */
+  scope?: string[]
+  color?: string
+  multiple?: boolean
+  createdAt?: string
+}
+
+export interface ProfileRecord {
+  description?: string
+  location?: string
+  links?: string[]
+  avatar?: BlobRef
+  createdAt?: string
+}
+
 export type TangledRecord
   = | IssueRecord
     | PullRecord
@@ -68,6 +95,8 @@ export type TangledRecord
     | StateRecord
     | ReactionRecord
     | LabelOpRecord
+    | LabelDefinitionRecord
+    | ProfileRecord
 
 export interface RecordResponse<T = TangledRecord> {
   uri: string
@@ -124,7 +153,108 @@ export interface RepoRecord {
   source?: string
   website?: string
   repoDid?: string
+  /** The label definitions the repo uses, as AT-URIs. */
+  labels?: string[]
   createdAt: string
+}
+
+/** A go-git signature, as knots serialise it. */
+export interface KnotSignature {
+  Name: string
+  Email: string
+  When: string
+}
+
+/** A go-git hash: 20 bytes as a JSON array, or hex. */
+export type KnotHash = number[] | string
+
+export interface KnotCommit {
+  hash: KnotHash
+  /** The full sha, in hex. */
+  this?: string
+  author?: KnotSignature
+  committer?: KnotSignature
+  message: string
+  parent_hashes?: KnotHash[]
+}
+
+export interface KnotTextFragment {
+  Comment?: string
+  OldPosition: number
+  OldLines: number
+  NewPosition: number
+  NewLines: number
+  LinesAdded: number
+  LinesDeleted: number
+  /** `Op` is 0 for context, 1 for a deletion and 2 for an addition. */
+  Lines?: Array<{ Op: number, Line: string }>
+}
+
+/** A file of a `sh.tangled.repo.diff` response. */
+export interface KnotDiffFile {
+  name: { old: string, new: string }
+  text_fragments?: KnotTextFragment[] | null
+  is_binary: boolean
+  is_new: boolean
+  is_delete: boolean
+  is_copy: boolean
+  is_rename: boolean
+}
+
+/** A file of a `sh.tangled.repo.compare` response, as go-gitdiff serialises it. */
+export interface KnotPatchFile {
+  OldName: string
+  NewName: string
+  IsNew: boolean
+  IsDelete: boolean
+  IsCopy: boolean
+  IsRename: boolean
+  IsBinary: boolean
+  NewOIDPrefix?: string
+  TextFragments?: KnotTextFragment[] | null
+}
+
+export interface KnotPatchHeader {
+  SHA: string
+  Author?: { Name: string, Email: string } | null
+  AuthorDate?: string
+  Committer?: { Name: string, Email: string } | null
+  CommitterDate?: string
+  Title: string
+  Body?: string
+  Files?: KnotPatchFile[] | null
+}
+
+export interface KnotTreeEntry {
+  name: string
+  /** Octal, for example `0100644` or `0040000`. */
+  mode: string
+  size: number
+  last_commit?: { hash: string, message: string, when: string }
+}
+
+export interface KnotBlob {
+  ref: string
+  path: string
+  content?: string
+  encoding?: 'utf-8' | 'base64'
+  size?: number
+  isBinary?: boolean
+  submodule?: { name: string, url: string, branch?: string }
+}
+
+export interface KnotBranch {
+  reference: { name: string, hash: string }
+  commit?: unknown
+  is_default?: boolean
+}
+
+export interface KnotTag {
+  name: string
+  /** The tag object for an annotated tag, else the commit. */
+  hash: string
+  tag?: { Target: KnotHash, Message?: string } | null
+  message?: string
 }
 
 export interface SubscriptionRecord {

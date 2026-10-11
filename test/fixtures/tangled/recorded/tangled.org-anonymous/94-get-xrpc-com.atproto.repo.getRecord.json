@@ -1,26 +1,25 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://grisette.us-west.host.bsky.network/xrpc/com.atproto.repo.getRecord?repo=did%3Aplc%3Aqfpnj4og54vl56wngdriaxug&collection=sh.tangled.repo.issue&rkey=3ljnffy24un22"
+    "url": "https://tngl.sh/xrpc/com.atproto.repo.getRecord?repo=did%3Aplc%3A7qksav5io2s4qfg67pe7iqqk&collection=sh.tangled.repo.issue&rkey=3mxmwlijmkm2y"
   },
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"161-UJClbmZS/2F6nt6ZE9v99xfFyKA\"",
+      "etag": "W/\"15c-o81GNLv7aiwP+6h8BSLE1XAAbIU\"",
       "ratelimit-limit": "3000",
-      "ratelimit-remaining": "2984",
-      "ratelimit-reset": "1791720404"
+      "ratelimit-remaining": "2662",
+      "ratelimit-reset": "1791756647"
     },
     "body": {
-      "uri": "at://did:plc:qfpnj4og54vl56wngdriaxug/sh.tangled.repo.issue/3ljnffy24un22",
-      "cid": "bafyreibi4x2jvhyny7zmuezxia2wvw6djwalpwj3gb3wegedcxipxzeeo4",
+      "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.issue/3mxmwlijmkm2y",
+      "cid": "bafyreieu3ukzwub6wy2xdgrea7pzfwtn646h7yy4vhl3qslbofaky7rpti",
       "value": {
-        "body": "x",
-        "repo": "at://did:plc:wshs7t2adsemcrrd4snkeqli/sh.tangled.repo/3ljbiayluee22",
+        "body": "An issue that read recordings read.",
+        "repo": "did:plc:t73o44q7fppgagkrevtztyok",
         "$type": "sh.tangled.repo.issue",
-        "title": "x",
-        "repoDid": "did:plc:g66xej5jct643d6bgukldn77",
-        "createdAt": ""
+        "title": "forges seed: issue",
+        "createdAt": "2026-10-11T21:19:26.882Z"
       }
     }
   }

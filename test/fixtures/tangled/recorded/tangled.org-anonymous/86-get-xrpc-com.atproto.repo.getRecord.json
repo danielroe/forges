@@ -1,25 +1,24 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://tngl.sh/xrpc/com.atproto.repo.getRecord?repo=did%3Aplc%3Azw7ju6mdaizij4zdccnkpfwv&collection=sh.tangled.repo.issue&rkey=3muhvmzymaz22"
+    "url": "https://tngl.sh/xrpc/com.atproto.repo.getRecord?repo=did%3Aplc%3A7qksav5io2s4qfg67pe7iqqk&collection=sh.tangled.repo.issue.state&rkey=3mxmwlj4f5e2y"
   },
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"36e-B4Gt4p+5zk9PdzLxBhHn7uzdYMM\"",
+      "etag": "W/\"173-fzv67WVmbT1GZmBRaILcVOC/Hm8\"",
       "ratelimit-limit": "3000",
-      "ratelimit-remaining": "2996",
-      "ratelimit-reset": "1791720407"
+      "ratelimit-remaining": "2667",
+      "ratelimit-reset": "1791756647"
     },
     "body": {
-      "uri": "at://did:plc:zw7ju6mdaizij4zdccnkpfwv/sh.tangled.repo.issue/3muhvmzymaz22",
-      "cid": "bafyreifjnvembkryhbugt3crqkbmv2bb74eubshzdfulhuuqaq7vfd52b4",
+      "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.issue.state/3mxmwlj4f5e2y",
+      "cid": "bafyreiflnmji2jnd3ug6iwo7dks4vhh6mh4oegzcdkvpv6s3uld2srluva",
       "value": {
-        "body": "I logged in to [Tangled](https://tangled.org), and clicked into a post under \"Announcements\" block on the right of the page, which took me to [a post on Tangled Blog](https://blog.tangled.org/bobbin). In the top-right corner, however, it shows \"Login or [Join Now ->]\". I clicked \"Login\", and in the following page I tried both clicking my profile card under \"Saved Accounts\" and manually typing my handle, but both just takes me back to Tangled homepage, and if I go to Tangled Blog again, it still shows \"Login or [Join Now ->]\".",
-        "repo": "did:plc:g66xej5jct643d6bgukldn77",
-        "$type": "sh.tangled.repo.issue",
-        "title": "Tangled Blog not recognizing login status",
-        "createdAt": "2026-09-01T20:03:31+03:00"
+        "$type": "sh.tangled.repo.issue.state",
+        "issue": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.issue/3mxmwlijmkm2y",
+        "state": "sh.tangled.repo.issue.state.open",
+        "createdAt": "2026-10-11T21:19:27.906Z"
       }
     }
   }

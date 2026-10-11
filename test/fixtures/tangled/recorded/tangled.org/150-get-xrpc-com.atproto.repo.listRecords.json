@@ -1,142 +1,18 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://oysterling.us-west.host.bsky.network/xrpc/com.atproto.repo.listRecords?repo=did%3Aplc%3Awshs7t2adsemcrrd4snkeqli&collection=sh.tangled.repo&limit=100"
+    "url": "https://npmx.social/xrpc/com.atproto.repo.listRecords?repo=did%3Aplc%3Ajbeaa5kdaladzwq3r7f5xgwe&collection=sh.tangled.repo&limit=100&cursor=3mkzq2bljirwj"
   },
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"1306-CDPrt6/cAIGi90rEVdIIXSR1ueA\"",
+      "etag": "W/\"e-Ie9BMcnPw/lLTv0zffrNa5YPoAs\"",
       "ratelimit-limit": "3000",
-      "ratelimit-remaining": "2999",
-      "ratelimit-reset": "1791723007"
+      "ratelimit-remaining": "2942",
+      "ratelimit-reset": "1791756572"
     },
     "body": {
-      "records": [
-        {
-          "uri": "at://did:plc:wshs7t2adsemcrrd4snkeqli/sh.tangled.repo/core",
-          "cid": "bafyreidehocneckziff4uffajjqyhqgwxxze364qhcaxtfvv46t4avdqku",
-          "value": {
-            "knot": "knot1.tangled.sh",
-            "$type": "sh.tangled.repo",
-            "labels": [
-              "at://did:plc:wshs7t2adsemcrrd4snkeqli/sh.tangled.label.definition/3lzmajxaipo22",
-              "at://did:plc:wshs7t2adsemcrrd4snkeqli/sh.tangled.label.definition/3m2a4se4tf722",
-              "at://did:plc:wshs7t2adsemcrrd4snkeqli/sh.tangled.label.definition/3m2a4spyefs22",
-              "at://did:plc:wshs7t2adsemcrrd4snkeqli/sh.tangled.label.definition/3m2a4wh3yei22",
-              "at://did:plc:wshs7t2adsemcrrd4snkeqli/sh.tangled.label.definition/3m2a4xmru7k22",
-              "at://did:plc:wshs7t2adsemcrrd4snkeqli/sh.tangled.label.definition/assignee",
-              "at://did:plc:wshs7t2adsemcrrd4snkeqli/sh.tangled.label.definition/documentation",
-              "at://did:plc:wshs7t2adsemcrrd4snkeqli/sh.tangled.label.definition/duplicate",
-              "at://did:plc:wshs7t2adsemcrrd4snkeqli/sh.tangled.label.definition/good-first-issue",
-              "at://did:plc:wshs7t2adsemcrrd4snkeqli/sh.tangled.label.definition/wontfix"
-            ],
-            "repoDid": "did:plc:j5hmlfdrwkvtxm7cjmu7j2is",
-            "spindle": "spindle.tangled.sh",
-            "website": "https://tangled.org",
-            "createdAt": "2025-02-23T18:43:18Z",
-            "description": "Monorepo for Tangled"
-          }
-        },
-        {
-          "uri": "at://did:plc:wshs7t2adsemcrrd4snkeqli/sh.tangled.repo/3lzg6enurmo22",
-          "cid": "bafyreidtpfjfq372qlnhwlclsyrdzgmi2rrritlixamrzkfrq4z7le6lba",
-          "value": {
-            "knot": "localhost:5555",
-            "name": "test",
-            "$type": "sh.tangled.repo",
-            "labels": [
-              "at://did:plc:wshs7t2adsemcrrd4snkeqli/sh.tangled.label.definition/3lzgcvk3u3y22",
-              "at://did:plc:wshs7t2adsemcrrd4snkeqli/sh.tangled.label.definition/documentation",
-              "at://did:plc:wshs7t2adsemcrrd4snkeqli/sh.tangled.label.definition/good-first-issue",
-              "at://did:plc:wshs7t2adsemcrrd4snkeqli/sh.tangled.label.definition/assignee"
-            ],
-            "createdAt": "2025-09-22T10:14:23Z"
-          }
-        },
-        {
-          "uri": "at://did:plc:wshs7t2adsemcrrd4snkeqli/sh.tangled.repo/3ls4b2hlwut22",
-          "cid": "bafyreibp62mu5wnopbryugsfr62xbeogbfp75fy7z3tkt7thothtdydqju",
-          "value": {
-            "knot": "knot1.tangled.sh",
-            "name": "infra",
-            "$type": "sh.tangled.repo",
-            "repoDid": "did:plc:lyuzyoi42mf2driipmsiemsl",
-            "createdAt": "2025-06-21T09:39:21Z"
-          }
-        },
-        {
-          "uri": "at://did:plc:wshs7t2adsemcrrd4snkeqli/sh.tangled.repo/3lqs6zdi4nt22",
-          "cid": "bafyreieo4x7bgusarnpeky5spuhca2guni2ad6jvfsh72hg2wgo6nvcx5q",
-          "value": {
-            "knot": "knot1.tangled.sh",
-            "name": "knot-docker",
-            "$type": "sh.tangled.repo",
-            "labels": [
-              "at://did:plc:wshs7t2adsemcrrd4snkeqli/sh.tangled.label.definition/assignee",
-              "at://did:plc:wshs7t2adsemcrrd4snkeqli/sh.tangled.label.definition/documentation",
-              "at://did:plc:wshs7t2adsemcrrd4snkeqli/sh.tangled.label.definition/duplicate",
-              "at://did:plc:wshs7t2adsemcrrd4snkeqli/sh.tangled.label.definition/good-first-issue",
-              "at://did:plc:wshs7t2adsemcrrd4snkeqli/sh.tangled.label.definition/wontfix"
-            ],
-            "repoDid": "did:plc:f5s5la5wlofsxidb3zemdune",
-            "spindle": "spindle.tangled.sh",
-            "createdAt": "2025-06-04T16:11:08Z",
-            "description": "Community maintained Docker config for the knot server "
-          }
-        },
-        {
-          "uri": "at://did:plc:wshs7t2adsemcrrd4snkeqli/sh.tangled.repo/3ljsaqcujmc22",
-          "cid": "bafyreihdswld467ajzaowwlc5zzq2l7kc2vy6hnu5p7zzezcufv7ckhbhu",
-          "value": {
-            "knot": "localhost:5555",
-            "name": "myown",
-            "$type": "sh.tangled.repo",
-            "owner": "did:plc:wshs7t2adsemcrrd4snkeqli",
-            "addedAt": "2025-03-07T16:45:30+02:00"
-          }
-        },
-        {
-          "uri": "at://did:plc:wshs7t2adsemcrrd4snkeqli/sh.tangled.repo/3ljbiayluee22",
-          "cid": "bafyreibrnxyofye6mqmmo22c3espwcy53ydyhqz5evbovqoeze447dqy6y",
-          "value": {
-            "knot": "knot1.tangled.sh",
-            "name": "site",
-            "$type": "sh.tangled.repo",
-            "repoDid": "did:plc:g66xej5jct643d6bgukldn77",
-            "spindle": "spindle.tangled.sh",
-            "createdAt": "2025-02-28T22:44:51Z",
-            "description": "engineering blog at https://blog.tangled.org"
-          }
-        },
-        {
-          "uri": "at://did:plc:wshs7t2adsemcrrd4snkeqli/sh.tangled.repo/3liuighjy2h22",
-          "cid": "bafyreiectpppfyglvauccrsr5xw6yrwayjskipdyu36keoi4v2djntk2t4",
-          "value": {
-            "knot": "knot1.tangled.sh",
-            "name": "core",
-            "$type": "sh.tangled.repo",
-            "labels": [
-              "at://did:plc:wshs7t2adsemcrrd4snkeqli/sh.tangled.label.definition/3lzmajxaipo22",
-              "at://did:plc:wshs7t2adsemcrrd4snkeqli/sh.tangled.label.definition/3m2a4se4tf722",
-              "at://did:plc:wshs7t2adsemcrrd4snkeqli/sh.tangled.label.definition/3m2a4spyefs22",
-              "at://did:plc:wshs7t2adsemcrrd4snkeqli/sh.tangled.label.definition/3m2a4wh3yei22",
-              "at://did:plc:wshs7t2adsemcrrd4snkeqli/sh.tangled.label.definition/3m2a4xmru7k22",
-              "at://did:plc:wshs7t2adsemcrrd4snkeqli/sh.tangled.label.definition/assignee",
-              "at://did:plc:wshs7t2adsemcrrd4snkeqli/sh.tangled.label.definition/documentation",
-              "at://did:plc:wshs7t2adsemcrrd4snkeqli/sh.tangled.label.definition/duplicate",
-              "at://did:plc:wshs7t2adsemcrrd4snkeqli/sh.tangled.label.definition/good-first-issue",
-              "at://did:plc:wshs7t2adsemcrrd4snkeqli/sh.tangled.label.definition/wontfix"
-            ],
-            "repoDid": "did:plc:j5hmlfdrwkvtxm7cjmu7j2is",
-            "spindle": "spindle.tangled.sh",
-            "website": "https://tangled.org",
-            "createdAt": "2025-02-23T18:43:18Z",
-            "description": "Monorepo for Tangled "
-          }
-        }
-      ],
-      "cursor": "3liuighjy2h22"
+      "records": []
     }
   }
 }

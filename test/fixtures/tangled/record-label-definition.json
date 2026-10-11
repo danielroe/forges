@@ -1,0 +1,24 @@
+{
+  "handAuthored": true,
+  "request": {
+    "method": "GET",
+    "url": "https://pds.example.com/xrpc/com.atproto.repo.getRecord?repo=did:plc:acmeowner222222222222222&collection=sh.tangled.label.definition&rkey=enhancement"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "uri": "at://did:plc:acmeowner222222222222222/sh.tangled.label.definition/enhancement",
+      "cid": "bafyreilabeldefinitioncid",
+      "value": {
+        "$type": "sh.tangled.label.definition",
+        "name": "enhancement",
+        "color": "#06B6D4",
+        "multiple": false,
+        "scope": ["sh.tangled.repo.issue", "sh.tangled.repo.pull"],
+        "valueType": { "type": "null", "format": "any" },
+        "createdAt": "2025-09-01T00:00:00Z"
+      }
+    }
+  }
+}

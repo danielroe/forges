@@ -1,0 +1,26 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://tngl.sh/xrpc/com.atproto.repo.getRecord?repo=did%3Aplc%3Awoheeqjgxgrab33jlluffosg&collection=sh.tangled.repo.issue&rkey=3mxmmqian4p22"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"a59-Yi6bKv6giAjQfiv+bL57BfH8FZw\"",
+      "ratelimit-limit": "3000",
+      "ratelimit-remaining": "2622",
+      "ratelimit-reset": "1791756647"
+    },
+    "body": {
+      "uri": "at://did:plc:woheeqjgxgrab33jlluffosg/sh.tangled.repo.issue/3mxmmqian4p22",
+      "cid": "bafyreicdjfxccsg2giagmpfxrwjfnw4yjdkykwlblaoiyqace6nc6crlpy",
+      "value": {
+        "body": "# semantic: alias to a non-`Named` stdlib alias loses `unknown-field` (check-green, `go build`-red)\n\n## Summary\n`e8f04fc3` (cross-package type-alias resolution) changed `resolveTypeSymbol` so the `(type, resolved)` flag is set from the **terminal** symbol of an alias chain instead of the start. When the chain ends at a stdlib alias whose kind is not `TypeKindNamed` (a map/list/function alias such as `mcp.JSONObject`), `resolveTypeSymbol` returns the alias with `resolved=false`, so `resolveFieldType`/`resolveMethodType` stay silent and `kukicha check` passes while `go build` fails. Introduced by that commit (the pre-fix compiler diagnosed it).\n\n## Reproducer\n```kukicha\npetiole main\n\nimport \"stdlib/mcp\"\n\ntype Meta = mcp.JSONObject\n\nfunc Use(m: Meta) any\n    return m.Missing\n```\n\n- **v0.85.10 (pre-fix):** `[semantic/unknown-field] type Meta has no field Missing` (exit 1).\n- **`e8f04fc3` and later (incl. HEAD):** `✓ main.kuki type checks successfully` (exit 0).\n- **`go build` on the emitted Go:** `m.Missing undefined` (exit 1).\n\n## Root cause\n`internal/semantic/semantic_helpers.go:669-728` (`resolveTypeSymbol`): the stdlib-alias branch requires `gt.Kind == TypeKindNamed` (`:701`). For `mcp.JSONObject` (`generatedStdlibTypeAliases[\"mcp.JSONObject\"] = {Kind: TypeKindMap, …}`) the chain breaks, `underSym` remains the alias, and `resolved` stays false. Consumers at `semantic_calls_methods.go:1515` (`resolveFieldType`) / `:1801` (`resolveMethodType`) then suppress the diagnostic. Later tiers (`GetStdlibStructField`, the live loader) all miss a non-struct alias.\n\n## Fix direction\nAfter the alias loop, when the target is a known stdlib alias whose underlying kind is not `Named`/`Struct`, return a value that lets the resolver set `resolved=true` for a genuinely memberless type (a sentinel \"inspected, memberless\"), or have `resolveFieldType`/`resolveMethodType` consult `stdlibAliasUnderlying(underlyingName)` (as `aliasUnderlying` does) and mark resolved when the underlying kind is not `Named`/`Struct`.\n\n## Verification\nAdd a red-first row: `TestCrossPackage_FieldAccessOnStdlibMapAlias` asserting `semantic/unknown-field` on a missing member of a `type X = mcp.JSONObject` value; confirm v0.85.10 is red.\n",
+        "repo": "did:plc:wq67r5lwdn4el5ifmrlk7bpc",
+        "$type": "sh.tangled.repo.issue",
+        "title": "semantic: alias to a non-Named stdlib alias loses unknown-field (check-green, go-build-red)",
+        "createdAt": "2026-10-11T18:23:17Z"
+      }
+    }
+  }
+}

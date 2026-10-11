@@ -1,0 +1,26 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://eurosky.social/xrpc/com.atproto.repo.getRecord?repo=did%3Aplc%3Ahtuxe72j7mxbotleidqgbup4&collection=sh.tangled.repo.issue&rkey=3mxjhfryhij22"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"438-965sMMNN8baywK3qNbRQlb12EMc\"",
+      "ratelimit-limit": "3000",
+      "ratelimit-remaining": "2998",
+      "ratelimit-reset": "1791756699"
+    },
+    "body": {
+      "uri": "at://did:plc:htuxe72j7mxbotleidqgbup4/sh.tangled.repo.issue/3mxjhfryhij22",
+      "cid": "bafyreifbt33eoh6p6ucv76tezujg4dlmbfzr5kkhz4hpn36iwhbwgkapri",
+      "value": {
+        "body": "Hi,\n\nI'm new to tangled/knot and I'm trying to setup a new knot2 instance from scratch (no migration) , adapting the docker-compose example and the atcr.io/tangled.org/knot:2 image to my configuration and reverse proxy (traefik)\n\nEverthing seems to be fine (only one warning \" tls.http3 is set without any TLS certificate, so HTTP/3 won't start. Configure a static cert or ACME to serve h3. \" in the log ) and the knot is verified in my tangled settings.\n\nBut I cannot use my own knot where I want to create a repo, I have this error :\n\n\"XRPC ERROR 401: AuthenticationRequired: did:plc:mydid doesn't have a DID document, the directory answered HTTP 404\"\n\n(and mydid is into the KNOT_SERVER_OWNER env )\n\nThank for you help if you have an idea !\n",
+        "repo": "did:plc:f5s5la5wlofsxidb3zemdune",
+        "$type": "sh.tangled.repo.issue",
+        "title": "Knot v2 authentication error",
+        "createdAt": "2026-10-10T12:09:50Z"
+      }
+    }
+  }
+}

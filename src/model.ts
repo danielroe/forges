@@ -955,6 +955,7 @@ export type ForgeWarningCode
   = | 'checks_unreadable'
     | 'collaborators_unreachable'
     | 'discussion_unresolved'
+    | 'files_approximate'
     | 'filter_unsupported'
     | 'index_possibly_stale'
     | 'insufficient_scope'

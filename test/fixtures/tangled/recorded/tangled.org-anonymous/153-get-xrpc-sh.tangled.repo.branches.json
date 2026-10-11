@@ -1,0 +1,197 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://knot1.tangled.sh/xrpc/sh.tangled.repo.branches?repo=did%3Aplc%3At73o44q7fppgagkrevtztyok&limit=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "branches": [
+        {
+          "reference": {
+            "name": "bo",
+            "hash": "3d45c8062c15a3e747e20cbd14e6092a98aca072"
+          },
+          "commit": {
+            "Hash": [
+              61,
+              69,
+              200,
+              6,
+              44,
+              21,
+              163,
+              231,
+              71,
+              226,
+              12,
+              189,
+              20,
+              230,
+              9,
+              42,
+              152,
+              172,
+              160,
+              114
+            ],
+            "Author": {
+              "Name": "Daniel Roe",
+              "Email": "redacted@example.invalid",
+              "When": "2026-10-09T18:29:21Z"
+            },
+            "Committer": {
+              "Name": "Daniel Roe",
+              "Email": "redacted@example.invalid",
+              "When": "2026-10-09T18:29:21Z"
+            },
+            "MergeTag": "",
+            "PGPSignature": "",
+            "Message": "chore: edit",
+            "TreeHash": [
+              195,
+              178,
+              122,
+              242,
+              82,
+              65,
+              237,
+              250,
+              246,
+              93,
+              101,
+              98,
+              229,
+              199,
+              57,
+              18,
+              242,
+              53,
+              85,
+              152
+            ],
+            "ParentHashes": [
+              [
+                28,
+                215,
+                106,
+                119,
+                108,
+                192,
+                154,
+                26,
+                204,
+                85,
+                224,
+                191,
+                228,
+                152,
+                179,
+                154,
+                91,
+                183,
+                107,
+                208
+              ]
+            ],
+            "Encoding": "",
+            "ExtraHeaders": null
+          }
+        },
+        {
+          "reference": {
+            "name": "main",
+            "hash": "7fe5b29fe4f22d60ea09c5ec20a3d85c3d56e40a"
+          },
+          "commit": {
+            "Hash": [
+              127,
+              229,
+              178,
+              159,
+              228,
+              242,
+              45,
+              96,
+              234,
+              9,
+              197,
+              236,
+              32,
+              163,
+              216,
+              92,
+              61,
+              86,
+              228,
+              10
+            ],
+            "Author": {
+              "Name": "forges fixtures",
+              "Email": "redacted@example.invalid",
+              "When": "2026-10-11T22:05:50Z"
+            },
+            "Committer": {
+              "Name": "Tangled",
+              "Email": "redacted@example.invalid",
+              "When": "2026-10-11T22:06:05Z"
+            },
+            "MergeTag": "",
+            "PGPSignature": "",
+            "Message": "Add forges-fixtures/20261011220545-1.md",
+            "TreeHash": [
+              55,
+              228,
+              29,
+              226,
+              89,
+              143,
+              247,
+              205,
+              84,
+              170,
+              231,
+              198,
+              229,
+              150,
+              79,
+              21,
+              57,
+              75,
+              17,
+              178
+            ],
+            "ParentHashes": [
+              [
+                71,
+                137,
+                78,
+                104,
+                41,
+                1,
+                198,
+                47,
+                11,
+                100,
+                62,
+                145,
+                188,
+                165,
+                72,
+                162,
+                101,
+                186,
+                63,
+                123
+              ]
+            ],
+            "Encoding": "",
+            "ExtraHeaders": null
+          },
+          "is_default": true
+        }
+      ]
+    }
+  }
+}

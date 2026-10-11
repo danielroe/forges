@@ -1,0 +1,29 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://knot1.tangled.sh/xrpc/sh.tangled.repo.blob?repo=did%3Aplc%3At73o44q7fppgagkrevtztyok&path=README.md"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "ref": "",
+      "path": "README.md",
+      "content": "An automated fixture target for [`forges`](https://github.com/danielroe/forges). Issues and pull requests here aren't monitored.\n\n",
+      "encoding": "utf-8",
+      "size": 130,
+      "isBinary": false,
+      "mimeType": "text/plain; charset=utf-8",
+      "lastCommit": {
+        "hash": "1cd76a776cc09a1acc55e0bfe498b39a5bb76bd0",
+        "message": "chore: add readme",
+        "when": "2026-10-09T17:04:18Z",
+        "author": {
+          "name": "Daniel Roe",
+          "email": "redacted@example.invalid",
+          "when": ""
+        }
+      }
+    }
+  }
+}

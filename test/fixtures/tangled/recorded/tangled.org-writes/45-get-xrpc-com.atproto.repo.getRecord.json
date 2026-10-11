@@ -1,45 +1,32 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://tngl.sh/xrpc/com.atproto.repo.getRecord?repo=did%3Aplc%3A7qksav5io2s4qfg67pe7iqqk&collection=sh.tangled.repo.pull&rkey=3mxhm5yldov22"
+    "url": "https://oysterling.us-west.host.bsky.network/xrpc/com.atproto.repo.getRecord?repo=did%3Aplc%3Awshs7t2adsemcrrd4snkeqli&collection=sh.tangled.label.definition&rkey=good-first-issue"
   },
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"298-b5i+SiOzXvT6a8u+Nhr1h/9XOQU\"",
+      "etag": "W/\"182-pDcbWQhqUgQMf9++BeLCXSJK+GY\"",
       "ratelimit-limit": "3000",
-      "ratelimit-remaining": "2961",
-      "ratelimit-reset": "1791720407"
+      "ratelimit-remaining": "2996",
+      "ratelimit-reset": "1791756658"
     },
     "body": {
-      "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.pull/3mxhm5yldov22",
-      "cid": "bafyreibffw4umdhlw4utwgou5ihxi7e26wd3jafuzayoix5cxfrxktkc6e",
+      "uri": "at://did:plc:wshs7t2adsemcrrd4snkeqli/sh.tangled.label.definition/good-first-issue",
+      "cid": "bafyreiavrw3gzde6brpwpv4cvppbhc2oo44oir2qkua2cws5dohvacucie",
       "value": {
-        "body": "Edited by run 20261009191401.",
-        "$type": "sh.tangled.repo.pull",
-        "title": "forges fixture 20261009191401: pull, edited",
-        "rounds": [
-          {
-            "createdAt": "2026-10-09T21:29:38+03:00",
-            "patchBlob": {
-              "ref": {
-                "$link": "bafkreicqsnafmjdy22szssmis2jf56igucmyxsrc6demlbs6nmi2bgd6ci"
-              },
-              "size": 422,
-              "$type": "blob",
-              "mimeType": "application/gzip"
-            }
-          }
+        "name": "good-first-issue",
+        "$type": "sh.tangled.label.definition",
+        "color": "#8B5CF6",
+        "scope": [
+          "sh.tangled.repo.issue"
         ],
-        "source": {
-          "branch": "bo"
-        },
-        "target": {
-          "repo": "did:plc:t73o44q7fppgagkrevtztyok",
-          "branch": "main",
-          "repoDid": "did:plc:t73o44q7fppgagkrevtztyok"
-        },
-        "createdAt": "2026-10-09T21:29:38+03:00"
+        "multiple": false,
+        "createdAt": "2025-09-22T11:14:35+01:00",
+        "valueType": {
+          "type": "null",
+          "format": "any"
+        }
       }
     }
   }

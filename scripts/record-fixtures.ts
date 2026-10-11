@@ -12,16 +12,17 @@ import { parseArgs } from 'node:util'
 import { azureDevOps, bitbucket, cursorOrigin, forgejo, gitea, gitee, github, gitlab, pushin, tangled } from '../src/index.ts'
 import { recordingFetch, signDelivery } from '../src/testing/index.ts'
 import { redact } from '../test/recording/redact.ts'
+import { seedScratch } from '../test/recording/seed.ts'
 import { LOG_LIMIT, STEPS } from '../test/recording/steps.ts'
 import { FIXTURE_HOOK_SECRET, FIXTURE_HOOK_URL, FIXTURE_TITLE, fixtureLabel, WRITE_STEPS } from '../test/recording/write-steps.ts'
 import { guardedFetch } from './write-guard.ts'
 import { writeHarness } from './write-harness.ts'
 
-const { positionals: [target], values: flags } = parseArgs({ allowPositionals: true, options: { anonymous: { type: 'boolean', default: false }, app: { type: 'boolean', default: false }, writes: { type: 'boolean', default: false }, webhooks: { type: 'boolean', default: false } } })
+const { positionals: [target], values: flags } = parseArgs({ allowPositionals: true, options: { anonymous: { type: 'boolean', default: false }, app: { type: 'boolean', default: false }, writes: { type: 'boolean', default: false }, webhooks: { type: 'boolean', default: false }, seed: { type: 'boolean', default: false } } })
 const TOKEN_VARIABLES: Record<string, string> = { 'github': 'GITHUB_TOKEN', 'forgejo': 'CODEBERG_TOKEN', 'gitlab': 'GITLAB_TOKEN', 'bitbucket': 'BITBUCKET_TOKEN', 'cursor-origin': 'CURSOR_AUTH_TOKEN', 'gitee': 'GITEE_TOKEN', 'azure-devops': 'AZURE_DEVOPS_TOKEN', 'gitea': 'GITEA_TOKEN', 'pushin': 'PUSHIN_TOKEN', 'tangled': 'TANGLED_PASSWORD' }
 
 if (!target || !(target in TOKEN_VARIABLES)) {
-  console.error('Usage: pnpm record-fixtures <github|forgejo|gitlab|bitbucket|tangled|cursor-origin|gitee|azure-devops|gitea|pushin> [--anonymous | --app | --writes | --webhooks]')
+  console.error('Usage: pnpm record-fixtures <github|forgejo|gitlab|bitbucket|tangled|cursor-origin|gitee|azure-devops|gitea|pushin> [--anonymous | --app | --writes | --webhooks | --seed]')
   exit(1)
 }
 
@@ -44,7 +45,7 @@ if (!token && target === 'cursor-origin') {
   console.error(flags.anonymous ? `${target} has no anonymous access.` : `No ${TOKEN_VARIABLES[target]} in the environment or .env.`)
   exit(1)
 }
-const anonymous = !token && !bitbucketBasic && !app && !flags.writes && !flags.webhooks
+const anonymous = !token && !bitbucketBasic && !app && !flags.writes && !flags.webhooks && !flags.seed
 if (anonymous) {
   console.info(flags.anonymous ? 'Recording anonymously.' : 'No token; recording anonymously.')
 }
@@ -205,6 +206,11 @@ const readCredentials: Credentials = {
   pds: env.TANGLED_PDS,
 }
 
+/** Who reviews in a write recording. A Tangled reviewer writes records into its own account, so it is a second bot rather than yours. */
+const reviewerCredentials: Credentials | undefined = target === 'tangled'
+  ? env.TANGLED_REVIEWER_PASSWORD ? { token: env.TANGLED_REVIEWER_PASSWORD, identifier: env.TANGLED_REVIEWER_IDENTIFIER, pds: env.TANGLED_REVIEWER_PDS } : undefined
+  : readCredentials.token || readCredentials.basic ? readCredentials : undefined
+
 interface Target {
   provider: Forges.ForgeProvider
   manifest: Omit<RecordingManifest, 'steps' | 'recordedAt'>
@@ -258,8 +264,8 @@ function targetFor(credentials: Credentials, fetch: FetchLike): Target {
         },
       }).create()
       const placeholder = { forge: 'tangled', instance: provider.instance, owner: '', name: '' }
-      const issue: Forges.ThreadRef = { forge: 'tangled', instance: provider.instance, repo: placeholder, kind: 'issue', number: env.FIXTURE_TANGLED_ISSUE ?? 'at://did:plc:qfpnj4og54vl56wngdriaxug/sh.tangled.repo.issue/3ljnffy24un22' }
-      const pull: Forges.ThreadRef = { forge: 'tangled', instance: provider.instance, repo: placeholder, kind: 'pull_request', number: env.FIXTURE_TANGLED_PULL ?? 'at://did:plc:laqygfbyvnkyuhsuaxmp6ez3/sh.tangled.repo.pull/3m7lfz7dl5z22' }
+      const issue: Forges.ThreadRef = { forge: 'tangled', instance: provider.instance, repo: placeholder, kind: 'issue', number: env.FIXTURE_TANGLED_ISSUE ?? 'at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.issue/3mxmwlijmkm2y' }
+      const pull: Forges.ThreadRef = { forge: 'tangled', instance: provider.instance, repo: placeholder, kind: 'pull_request', number: env.FIXTURE_TANGLED_PULL ?? 'at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.pull/3mxhm5yldov22' }
       const manifest: Target['manifest'] = {
         repo: placeholder,
         pull,
@@ -427,7 +433,7 @@ function scratchSetup(mode: string) {
     console.error('Write recordings only write to repositories whose names include `forges-fixtures`.')
     exit(1)
   }
-  const harness = writeHarness({ forge: target!, baseUrl: probe.baseUrl, authorization: authorizationFor(botToken), scratch, transfer, collaborators, read: target === 'tangled' ? tangled({}).create() : undefined, threads: [env[`FIXTURE_${prefix}_SCRATCH_PULL`] ?? ''].filter(Boolean) })
+  const harness = writeHarness({ forge: target!, baseUrl: probe.baseUrl, authorization: authorizationFor(botToken), scratch, transfer, collaborators, read: target === 'tangled' ? tangled({}).create() : undefined, threads: [env[`FIXTURE_${prefix}_SCRATCH_PULL`] ?? ''].filter(Boolean), ...target === 'tangled' && botToken && env.TANGLED_BOT_IDENTIFIER && { account: { identifier: env.TANGLED_BOT_IDENTIFIER, password: botToken, pds: env.TANGLED_BOT_PDS } } })
   if (!harness) {
     console.error(`${target} has no write recording setup.`)
     exit(1)
@@ -456,11 +462,25 @@ async function recordWrites(): Promise<void> {
 
   const guard = { scope: harness.scope, allows: harness.allows, repos: [scratch, transfer, collaborators].filter(repo => repo !== undefined) }
   const author = targetFor({ token: botToken, identifier: env.TANGLED_BOT_IDENTIFIER, pds: env.TANGLED_BOT_PDS }, guardedFetch(recordLive, { ...guard, account: [`${probe.baseUrl}/notifications`, `${probe.baseUrl}/todos`] }))
-  // A Tangled reviewer would write records into a personal account, so Tangled runs without one.
-  const reviewer = target !== 'tangled' && (readCredentials.token || readCredentials.basic) ? targetFor(readCredentials, guardedFetch(recordLive, guard)).provider : undefined
+  const reviewer = reviewerCredentials && targetFor(reviewerCredentials, guardedFetch(recordLive, guard)).provider
   useInstance(author.provider)
   const { baseUrl, instanceVersion, account, pds, notificationsUrl, recordsUrl } = { baseUrl: author.provider.baseUrl, ...author.manifest }
-  const manifest: WriteManifest = { baseUrl, instanceVersion, account, pds, notificationsUrl, recordsUrl, repo: scratch, scratch, transfer, collaborators, run, recordedAt: new Date().toISOString(), steps: [] }
+  const manifest: WriteManifest = {
+    baseUrl,
+    instanceVersion,
+    account,
+    pds,
+    notificationsUrl,
+    recordsUrl,
+    ...target === 'tangled' && reviewerCredentials && { reviewerAccount: reviewerCredentials.identifier, reviewerPds: reviewerCredentials.pds },
+    repo: scratch,
+    scratch,
+    transfer,
+    collaborators,
+    run,
+    recordedAt: new Date().toISOString(),
+    steps: [],
+  }
   const context: WriteContext = { pulls: [], comments: {}, wait: ms => new Promise(resolve => setTimeout(resolve, ms)) }
   try {
     for (const item of WRITE_STEPS) {
@@ -593,7 +613,20 @@ async function recordWebhooks(): Promise<void> {
   writeFileSync(`${out}manifest.json`, `${JSON.stringify(manifest, null, 2)}\n`)
 }
 
-await (flags.writes ? recordWrites() : flags.webhooks ? recordWebhooks() : recordReads())
+/** Writes the scratch repository's seeded threads with the bot account, recording nothing. */
+async function seed(): Promise<void> {
+  const { prefix, botToken, scratch, transfer, collaborators, harness } = scratchSetup('--seed')
+  await harness.prepare()
+  await harness.seed?.()
+  const guard = { scope: harness.scope, allows: harness.allows, repos: [scratch, transfer, collaborators].filter(repo => repo !== undefined) }
+  const { provider } = targetFor({ token: botToken, identifier: env.TANGLED_BOT_IDENTIFIER, pds: env.TANGLED_BOT_PDS }, guardedFetch(globalThis.fetch, guard))
+  const reviewer = reviewerCredentials && targetFor(reviewerCredentials, guardedFetch(globalThis.fetch, guard)).provider
+  const pull = env[`FIXTURE_${prefix}_SCRATCH_PULL`]
+  const seeded = await seedScratch(provider, scratch, pull ? { forge: provider.forge, instance: provider.instance, repo: scratch, kind: 'pull_request', number: pull } : undefined, reviewer)
+  console.info(`seeded issue ${seeded.issue.number}${seeded.pull ? ` and pull ${seeded.pull.number}` : ''}`)
+}
+
+await (flags.seed ? seed() : flags.writes ? recordWrites() : flags.webhooks ? recordWebhooks() : recordReads())
 
 if (failures) {
   console.error(`${failures} step(s) failed; the manifest lists only the steps that succeeded.`)

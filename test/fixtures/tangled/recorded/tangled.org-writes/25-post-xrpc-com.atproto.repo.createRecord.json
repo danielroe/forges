@@ -1,0 +1,41 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://tngl.sh/xrpc/com.atproto.repo.createRecord",
+    "body": {
+      "repo": "did:plc:7qksav5io2s4qfg67pe7iqqk",
+      "collection": "sh.tangled.feed.comment",
+      "record": {
+        "$type": "sh.tangled.feed.comment",
+        "body": {
+          "$type": "sh.tangled.markup.markdown",
+          "text": "An upserted comment from run 20261011220545.\n\n<!-- forges:key=forges-fixture -->",
+          "original": "An upserted comment from run 20261011220545.\n\n<!-- forges:key=forges-fixture -->"
+        },
+        "subject": {
+          "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.issue/3mxmz6jxjh42y",
+          "cid": "bafyreibgf7st5e52xsio3ohtus4sjohsyw3c4sqbideo6ef7wwdlrgkmfi"
+        },
+        "createdAt": "2026-10-11T22:05:56.784Z"
+      }
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"11b-lfIIxJl/VGHBFyGv0LCRM0q58u0\"",
+      "ratelimit-limit": "3000",
+      "ratelimit-remaining": "2957",
+      "ratelimit-reset": "1791756647"
+    },
+    "body": {
+      "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.feed.comment/3mxmz6ms3v42y",
+      "cid": "bafyreihbj4y3wflijzmla5qjjgo6dl2h7637nkmew7fj7wstl5yde5vffm",
+      "commit": {
+        "cid": "bafyreiewmkc3f62pdspwppdgwvpa55yaw2tbcdiwgnn6fsfpaupli67lde",
+        "rev": "3mxmz6mshm42y"
+      },
+      "validationStatus": "unknown"
+    }
+  }
+}

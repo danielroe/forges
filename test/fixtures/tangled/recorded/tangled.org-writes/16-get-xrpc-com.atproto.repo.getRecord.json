@@ -1,25 +1,31 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://tngl.sh/xrpc/com.atproto.repo.getRecord?repo=did%3Aplc%3A7qksav5io2s4qfg67pe7iqqk&collection=sh.tangled.repo.issue&rkey=3mxlxhknvfe2y"
+    "url": "https://tngl.sh/xrpc/com.atproto.repo.getRecord?repo=did%3Aplc%3A7qksav5io2s4qfg67pe7iqqk&collection=sh.tangled.feed.comment&rkey=3mxmz6k4asu2y"
   },
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"168-Dv0psvU4r92iOCkn0uBcRYtEzxk\"",
+      "etag": "W/\"218-AzuJhXSABjCO/jG2oXQ7s/joxkY\"",
       "ratelimit-limit": "3000",
-      "ratelimit-remaining": "2985",
-      "ratelimit-reset": "1791720407"
+      "ratelimit-remaining": "2962",
+      "ratelimit-reset": "1791756647"
     },
     "body": {
-      "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.issue/3mxlxhknvfe2y",
-      "cid": "bafyreiae2anlzn3hdzogtnvladwdriq4pmepjp2ygkhkyr7py4lym6mrbe",
+      "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.feed.comment/3mxmz6k4asu2y",
+      "cid": "bafyreibtigyzg2wpi3ksteapgdxyshsb5xxxc5mdcag4rbmrvjekubuliq",
       "value": {
-        "body": "Opened by run 20261011120226.",
-        "repo": "did:plc:t73o44q7fppgagkrevtztyok",
-        "$type": "sh.tangled.repo.issue",
-        "title": "forges fixture 20261011120226: issue",
-        "createdAt": "2026-10-11T12:02:29.303Z"
+        "body": {
+          "text": "A comment from run 20261011220545.",
+          "$type": "sh.tangled.markup.markdown",
+          "original": "A comment from run 20261011220545."
+        },
+        "$type": "sh.tangled.feed.comment",
+        "subject": {
+          "cid": "bafyreibgf7st5e52xsio3ohtus4sjohsyw3c4sqbideo6ef7wwdlrgkmfi",
+          "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.issue/3mxmz6jxjh42y"
+        },
+        "createdAt": "2026-10-11T22:05:53.975Z"
       }
     }
   }

@@ -1,0 +1,38 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://plc.directory/did:plc:woheeqjgxgrab33jlluffosg"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"21c-P5QZRh7pLTaTyqXIbAGKQhyLWQM\""
+    },
+    "body": {
+      "@context": [
+        "https://www.w3.org/ns/did/v1",
+        "https://w3id.org/security/multikey/v1",
+        "https://w3id.org/security/suites/secp256k1-2019/v1"
+      ],
+      "id": "did:plc:woheeqjgxgrab33jlluffosg",
+      "alsoKnownAs": [
+        "at://naturastudere.tngl.sh"
+      ],
+      "verificationMethod": [
+        {
+          "id": "did:plc:woheeqjgxgrab33jlluffosg#atproto",
+          "type": "Multikey",
+          "controller": "did:plc:woheeqjgxgrab33jlluffosg",
+          "publicKeyMultibase": "zQ3shZk9kRzxe2CY5fN7xEnpvzVpxn3qH2pAQdnB4AVFPvFrt"
+        }
+      ],
+      "service": [
+        {
+          "id": "#atproto_pds",
+          "type": "AtprotoPersonalDataServer",
+          "serviceEndpoint": "https://tngl.sh"
+        }
+      ]
+    }
+  }
+}

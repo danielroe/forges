@@ -1,0 +1,15 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://knot1.tangled.sh/xrpc/sh.tangled.repo.addCollaborator",
+    "body": {
+      "repo": "did:plc:t73o44q7fppgagkrevtztyok",
+      "subject": "did:plc:uxfnwnz5wfwl6tfgqwyfrqyv"
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {}
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://tngl.sh/xrpc/com.atproto.sync.getBlob?did=did%3Aplc%3A7qksav5io2s4qfg67pe7iqqk&cid=bafkreibw2djy2wxfvwquiypwbv5lmxtinbukd4laseag6inhrrjaghdzsi"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "ratelimit-limit": "3000",
+      "ratelimit-remaining": "2886",
+      "ratelimit-reset": "1791756647"
+    },
+    "body": "H4sIAAAAAAAAA42SQWvcMBCF7/oV79ji1e5ItrxeU4pDQuiltLCFHkoPsjTaKrHl4JXTLfTHlyQUSi71MKfHm+Hj8W7naYQJjixXqg6uDGVZ1qGhxlRN3TvtGwq2qR33zuLjlHDkB6g9iNrnhSZS4naexhZhmk98RoiXvMx8xrsXQf4VOr7Y8WHgbUyPdoj+vbixmVscl7SBUvjkMjTpGlq3ZFpDKIiIxHHp79jlFt8+X325/vAdV97j1e/d06EipbQmUxmptqMXQkop1jjxGwqFgEKIA8P9sOnEfgOFmM485zilN8VbATezzYxx8gxFVFfVOg4fQ4CUp5hhd2t4+jUukfjnC/A/QCImzxfQytluyZV147RRdAhhX7mD7ytf6/2BA/U2mKrX/mDc/ilM7Dw/7tIyDKIoipWUXQdJG0Kh0HWi+DrHnDmh/wX7qjKYl4Qp/T9TISXEfZqyEOIPYFiWlMMCAAA=",
+    "encoding": "base64"
+  }
+}

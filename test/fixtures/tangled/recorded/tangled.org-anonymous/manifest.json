@@ -4,8 +4,9 @@
   "repo": {
     "forge": "tangled",
     "instance": "tangled.org",
-    "owner": "did:plc:wshs7t2adsemcrrd4snkeqli",
-    "name": "3ljbiayluee22"
+    "owner": "did:plc:7qksav5io2s4qfg67pe7iqqk",
+    "name": "forges-fixtures",
+    "externalId": "did:plc:t73o44q7fppgagkrevtztyok"
   },
   "pull": {
     "forge": "tangled",
@@ -13,13 +14,14 @@
     "repo": {
       "forge": "tangled",
       "instance": "tangled.org",
-      "owner": "did:plc:wshs7t2adsemcrrd4snkeqli",
-      "name": "3ljbiayluee22"
+      "owner": "did:plc:7qksav5io2s4qfg67pe7iqqk",
+      "name": "forges-fixtures",
+      "externalId": "did:plc:t73o44q7fppgagkrevtztyok"
     },
     "kind": "pull_request",
     "typeRaw": "sh.tangled.repo.pull",
-    "number": "at://did:plc:laqygfbyvnkyuhsuaxmp6ez3/sh.tangled.repo.pull/3m7lfz7dl5z22",
-    "externalId": "at://did:plc:laqygfbyvnkyuhsuaxmp6ez3/sh.tangled.repo.pull/3m7lfz7dl5z22"
+    "number": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.pull/3mxhm5yldov22",
+    "externalId": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.pull/3mxhm5yldov22"
   },
   "issue": {
     "forge": "tangled",
@@ -27,13 +29,14 @@
     "repo": {
       "forge": "tangled",
       "instance": "tangled.org",
-      "owner": "did:plc:wshs7t2adsemcrrd4snkeqli",
-      "name": "3ljbiayluee22"
+      "owner": "did:plc:7qksav5io2s4qfg67pe7iqqk",
+      "name": "forges-fixtures",
+      "externalId": "did:plc:t73o44q7fppgagkrevtztyok"
     },
     "kind": "issue",
     "typeRaw": "sh.tangled.repo.issue",
-    "number": "at://did:plc:qfpnj4og54vl56wngdriaxug/sh.tangled.repo.issue/3ljnffy24un22",
-    "externalId": "at://did:plc:qfpnj4og54vl56wngdriaxug/sh.tangled.repo.issue/3ljnffy24un22"
+    "number": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.issue/3mxmwlijmkm2y",
+    "externalId": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.issue/3mxmwlijmkm2y"
   },
   "scratch": {
     "forge": "tangled",
@@ -41,23 +44,40 @@
     "owner": "roebot.tngl.sh",
     "name": "forges-fixtures"
   },
-  "recordedAt": "2026-10-11T12:02:05.907Z",
+  "recordedAt": "2026-10-11T22:06:45.173Z",
   "steps": [
     "repo",
     "repo licence",
+    "labels",
+    "collaborators",
     "pull",
     "pull list",
     "pull getMany",
     "pull events",
     "pull comments",
     "pull getComment",
+    "pull reactions",
+    "pull files",
+    "pull commits",
     "issue",
     "issue list",
     "issue getMany",
     "issue events",
     "issue comments",
     "issue getComment",
+    "issue reactions",
+    "permission",
+    "user",
     "owner repos",
-    "user repos"
+    "user repos",
+    "readme",
+    "tree",
+    "tree file",
+    "branches",
+    "tags",
+    "resolve default branch",
+    "commits",
+    "commit",
+    "compare"
   ]
 }

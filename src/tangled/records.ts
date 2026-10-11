@@ -1,14 +1,21 @@
 import type { ForgeErrorContext } from '../errors.ts'
 import type { Fetcher } from '../fetch.ts'
 import type {
+  Actor,
   BaseOptions,
+  Collaborator,
   Comment,
+  CommentRef,
   Cursor,
   ForgeEventInput,
   ForgeWarning,
+  Label,
   Page,
+  Reaction,
+  ReactionContent,
   Repo,
   RepoRef,
+  RepoRole,
   ResolvedThreadRef,
   Thread,
   ThreadQuery,
@@ -18,7 +25,7 @@ import type { ForgeIterable } from '../provider.ts'
 import type { AtprotoClient, AtUri } from './atproto.ts'
 import type { TangledOptions } from './index.ts'
 import type { TangledSession } from './session.ts'
-import type { FeedCommentRecord, IssueRecord, JetstreamCommitEvent, PullRecord, RecordResponse, RepoRecord, StateRecord, SubscriptionRecord, TangledRecord } from './types.ts'
+import type { FeedCommentRecord, IssueRecord, JetstreamCommitEvent, LabelDefinitionRecord, LabelOpRecord, PullRecord, ReactionRecord, RecordResponse, RepoRecord, StateRecord, SubscriptionRecord, TangledRecord } from './types.ts'
 import { ForgeApiError, ForgeError, NotFoundError, RateLimitedError, UnresolvedThreadError } from '../errors.ts'
 import { abortable } from '../fetch.ts'
 import { degradesToWarning, forgeIterable, mapConcurrent, phased, requireThread, toDate, toWarning } from '../utils.ts'
@@ -26,11 +33,14 @@ import { atUri, parseAtUri } from './atproto.ts'
 import {
   COLLECTIONS,
   FORGE,
+  isAssigneeLabel,
+  REACTION_EMOJI,
   stateToken,
   subjectOf,
   threadKindOf,
   toActivityEvent,
   toActor,
+  toLabel,
   toRecordComment,
   toThread,
   toThreadRef,
@@ -42,6 +52,17 @@ const TANGLED_DID = 'did:plc:wshs7t2adsemcrrd4snkeqli'
 const DEFAULT_SSH_HOSTS: Record<string, string> = {
   'knot1.tangled.sh': 'tangled.org',
 }
+
+const REACTIONS: Record<string, ReactionContent> = Object.fromEntries(Object.entries(REACTION_EMOJI).map(([name, emoji]) => [emoji, name as ReactionContent]))
+
+/** A repo's label definitions, and the values each definition has on a thread. */
+export interface TangledLabels {
+  definitions: Array<{ uri: string, definition: LabelDefinitionRecord }>
+  state: Map<string, Set<string>>
+}
+
+const OWNER_PERMISSIONS = { admin: true, maintain: true, push: true, triage: true, pull: true }
+const COLLABORATOR_PERMISSIONS = { admin: false, maintain: false, push: true, triage: true, pull: true }
 
 export const STATE_COLLECTION: Record<'issue' | 'pull_request', { collection: string, path: string }> = {
   issue: { collection: COLLECTIONS.issueState, path: '.issue' },
@@ -94,7 +115,8 @@ export function createTangledRecords({ options, instance, webUrl, context, atpro
     let found = collaborators.get(repoDid)
     if (!found) {
       found = (async () => {
-        const { pds: knot } = await atproto.resolveDid(repoDid)
+        const identity = await atproto.resolveDid(repoDid)
+        const knot = identity.knot ?? identity.pds
         const dids = new Set<string>()
         if (!knot) {
           return { dids }
@@ -135,6 +157,69 @@ export function createTangledRecords({ options, instance, webUrl, context, atpro
       warn?.(warning)
     }
     return new Set([authorDid, repo.owner, TANGLED_DID, ...dids])
+  }
+
+  async function reactionsPage(target: ThreadRef | CommentRef, options: BaseOptions = {}): Promise<Page<Reaction>> {
+    const subject = 'thread' in target ? target.id : threadUri(target)
+    return wholePage(forgeIterable(async function* (warn) {
+      const reactions: Reaction[] = []
+      for await (const link of atproto.backlinks(subject, COLLECTIONS.reaction, '.subject', options.signal)) {
+        const record = await readLinked<ReactionRecord>(atUri(link.did, link.collection, link.rkey), warn, options.signal)
+        if (record) {
+          reactions.push({
+            content: REACTIONS[record.reaction] ?? 'other',
+            contentRaw: record.reaction,
+            actor: await actorFor(link.did, options.signal),
+            createdAt: toDate(record.createdAt),
+            raw: record,
+          })
+        }
+      }
+      yield* reactions.sort((a, b) => (a.createdAt?.getTime() ?? 0) - (b.createdAt?.getTime() ?? 0))
+    }))
+  }
+
+  function threadUri(thread: ThreadRef): string {
+    const { uri } = subjectUri(thread)
+    return atUri(uri.did, uri.collection, uri.rkey)
+  }
+
+  async function withRepoDid(repo: RepoRef, signal?: AbortSignal): Promise<RepoRef> {
+    const { ref, record } = await canonicalRepo(repo, signal)
+    return record.value.repoDid ? { ...ref, externalId: record.value.repoDid } : ref
+  }
+
+  /** The repo owner, then the collaborators with push access. */
+  async function collaboratorsPage(repo: RepoRef, options: BaseOptions = {}): Promise<Page<Collaborator>> {
+    const ref = await withRepoDid(repo, options.signal)
+    const { dids, warning } = await collaboratorsOf(ref, options.signal)
+    const items = await Promise.all([ref.owner, ...[...dids].filter(did => did !== ref.owner)].map(async (did): Promise<Collaborator> => {
+      const owner = did === ref.owner
+      return {
+        actor: await actorFor(did, options.signal),
+        role: owner ? 'admin' : 'write',
+        roleRaw: owner ? 'owner' : 'collaborator',
+        permissions: owner ? OWNER_PERMISSIONS : COLLABORATOR_PERMISSIONS,
+        raw: { did },
+      }
+    }))
+    return warning ? { items, warnings: [warning] } : { items }
+  }
+
+  async function permissionFor(repo: RepoRef, actor: string | Actor, options: BaseOptions = {}): Promise<RepoRole> {
+    const login = typeof actor === 'string' ? actor.replace(/^@/, '') : actor.id
+    const [ref, did] = await Promise.all([
+      withRepoDid(repo, options.signal),
+      login.startsWith('did:') ? login : atproto.resolveHandle(login, options.signal),
+    ])
+    if (did === ref.owner) {
+      return 'admin'
+    }
+    const { dids, warning } = await collaboratorsOf(ref, options.signal)
+    if (warning) {
+      throw new ForgeError(warning.message, context)
+    }
+    return dids.has(did) ? 'write' : 'read'
   }
 
   async function actorFor(did: string, signal?: AbortSignal) {
@@ -250,6 +335,98 @@ export function createTangledRecords({ options, instance, webUrl, context, atpro
     return latest
   }
 
+  const definitions = new Map<string, Promise<LabelDefinitionRecord | undefined>>()
+
+  function definitionOf(uri: string, signal?: AbortSignal): Promise<LabelDefinitionRecord | undefined> {
+    let found = definitions.get(uri)
+    if (!found) {
+      found = atproto.getRecord<LabelDefinitionRecord>(uri).then(({ value }) => value, (error: unknown) => {
+        if (error instanceof NotFoundError) {
+          return undefined
+        }
+        definitions.delete(uri)
+        throw error
+      })
+      definitions.set(uri, found)
+    }
+    return abortable(found, signal)
+  }
+
+  /**
+   * The labels a thread's label ops leave: ops from accounts with push access,
+   * in `performedAt` order, deletions before additions within a record. The
+   * values of an `assignee` label with DID values are the assignees instead.
+   */
+  async function labelsOf(target: string, repo: RepoRef, warn: (warning: ForgeWarning) => void, signal?: AbortSignal): Promise<{ labels: Label[], assignees: string[], state: Map<string, Set<string>> }> {
+    const allowed = await stateAuthors(repo.owner, repo, warn, signal)
+    const ops: Array<{ at: number, did: string, rkey: string, add: boolean, key: string, value: string }> = []
+    for await (const link of atproto.backlinks(target, COLLECTIONS.labelOp, '.subject', signal)) {
+      if (!allowed.has(link.did)) {
+        continue
+      }
+      const record = await readLinked<LabelOpRecord>(atUri(link.did, link.collection, link.rkey), warn, signal)
+      const at = toDate(record?.performedAt)?.getTime() ?? 0
+      for (const [add, operands] of [[false, record?.delete], [true, record?.add]] as const) {
+        for (const { key, value } of operands ?? []) {
+          ops.push({ at, did: link.did, rkey: link.rkey, add: add && value !== '', key, value })
+        }
+      }
+    }
+    ops.sort((a, b) => a.at - b.at || a.did.localeCompare(b.did) || a.rkey.localeCompare(b.rkey) || Number(a.add) - Number(b.add) || a.key.localeCompare(b.key) || a.value.localeCompare(b.value))
+    const defs = new Map(await Promise.all([...new Set(ops.map(op => op.key))].map(async key => [key, await reachableDefinition(key, warn, signal)] as const)))
+    const collection = parseAtUri(target)?.collection ?? ''
+    const state = new Map<string, Set<string>>()
+    for (const op of ops) {
+      const def = defs.get(op.key)
+      if (!def || (def.scope?.length && !def.scope.includes(collection))) {
+        continue
+      }
+      const values = state.get(op.key)
+      if (op.add) {
+        state.set(op.key, def.multiple ? new Set([...values ?? [], op.value]) : new Set([op.value]))
+      }
+      else if (values?.has(op.value)) {
+        if (def.multiple) {
+          values.delete(op.value)
+        }
+        else {
+          state.delete(op.key)
+        }
+      }
+    }
+    const labels: Label[] = []
+    const assignees: string[] = []
+    for (const [key, values] of state) {
+      const def = defs.get(key)!
+      if (isAssigneeLabel(def)) {
+        assignees.push(...values)
+        continue
+      }
+      for (const value of values) {
+        labels.push(toLabel(def, value))
+      }
+    }
+    return { labels, assignees, state }
+  }
+
+  function reachableDefinition(uri: string, warn: (warning: ForgeWarning) => void, signal?: AbortSignal): Promise<LabelDefinitionRecord | undefined> {
+    return definitionOf(uri, signal).catch((error: unknown) => {
+      if (!degradesToWarning(error)) {
+        throw error
+      }
+      warn(toWarning('record_unreachable', error, uri))
+      return undefined
+    })
+  }
+
+  /** The label definitions the repo record lists, in its order. */
+  async function repoLabels(repo: RepoRef, warn: (warning: ForgeWarning) => void, signal?: AbortSignal): Promise<Array<{ uri: string, definition: LabelDefinitionRecord }>> {
+    const { record } = await canonicalRepo(repo, signal)
+    const uris = record.value.labels ?? []
+    const definitions = await Promise.all(uris.map(uri => reachableDefinition(uri, warn, signal)))
+    return uris.flatMap((uri, index) => definitions[index] ? [{ uri, definition: definitions[index] }] : [])
+  }
+
   async function countComments(target: string, kind: 'issue' | 'pull_request', signal?: AbortSignal): Promise<number> {
     let count = 0
     for (const source of COMMENT_SOURCES[kind]) {
@@ -344,6 +521,8 @@ export function createTangledRecords({ options, instance, webUrl, context, atpro
       cloneUrls: { https: `${webUrl}/${path}`, ssh: `ssh://git@${sshHost(record.knot)}/${path}` },
       createdAt: toDate(record.createdAt),
       homepage: record.website || undefined,
+      mergeMethods: ['rebase'],
+      defaultMergeMethod: 'rebase',
       raw,
     }
   }
@@ -354,12 +533,17 @@ export function createTangledRecords({ options, instance, webUrl, context, atpro
     const { ref, record } = await threadFor(target, options?.signal)
     const warnings: ForgeWarning[] = []
     const warn = (warning: ForgeWarning) => warnings.push(warning)
-    const [author, state, comments] = await Promise.all([
+    const [author, state, comments, { labels, assignees }] = await Promise.all([
       actorFor(uri.did, options?.signal),
       stateAuthors(uri.did, ref.repo, warn, options?.signal).then(allowed => stateOf(target, kind, allowed, warn, options?.signal)),
       countComments(target, kind, options?.signal),
+      labelsOf(target, ref.repo, warn, options?.signal),
     ])
-    return toThread(ref, record, author, state, comments, warnings)
+    return {
+      ...toThread(ref, record, author, state, comments, warnings),
+      labels,
+      assignees: await Promise.all(assignees.map(did => actorFor(did, options?.signal))),
+    }
   }
 
   async function listFromIndex(repo: RepoRef, query: ThreadQuery): Promise<Page<Thread>> {
@@ -368,6 +552,9 @@ export function createTangledRecords({ options, instance, webUrl, context, atpro
       warnings.push({ code: 'index_possibly_stale', message: 'Listed from the Bobbin index; states may lag behind the records' })
       if (query.sort && query.sort !== 'created') {
         warnings.push({ code: 'sort_unsupported', message: 'The index sorts by creation time only' })
+      }
+      if (query.labels?.length || query.assignee) {
+        warnings.push({ code: 'filter_unsupported', message: 'The index has no labels or assignees; those filters were ignored' })
       }
     }
     const repoDid = await repoDidOf(repo, query.signal)
@@ -428,9 +615,6 @@ export function createTangledRecords({ options, instance, webUrl, context, atpro
         warn({ code: 'kind_unsupported', message: 'Tangled has no discussions' })
         return
       }
-      if (query.labels?.length || query.assignee) {
-        warn({ code: 'filter_unsupported', message: 'Tangled labels and assignees are not read yet; those filters were ignored' })
-      }
       const address = await canonicalRef(repo, query.signal)
       const repoDid = await repoDidOf(repo, query.signal)
       const targets = [repoDid, atUri(address.owner, COLLECTIONS.repo, address.name)]
@@ -467,6 +651,8 @@ export function createTangledRecords({ options, instance, webUrl, context, atpro
         .filter((thread): thread is Thread => Boolean(thread))
         .filter(thread => state === 'all' || (state === 'open' ? thread.state === 'open' : state === 'merged' ? thread.state === 'merged' : thread.state !== 'open'))
         .filter(thread => !query.author || thread.author?.login === query.author || thread.author?.id === query.author)
+        .filter(thread => !query.assignee || thread.assignees.some(assignee => assignee.login === query.assignee || assignee.id === query.assignee))
+        .filter(thread => !query.labels?.length || query.labels.every(name => thread.labels.some(label => label.name === name)))
         .filter(thread => !query.since || (thread.lastActivityAt?.getTime() ?? 0) >= query.since.getTime())
         .filter(thread => !query.createdAfter || (thread.createdAt?.getTime() ?? 0) >= query.createdAfter.getTime())
         .sort((a, b) => (sortKey(a) - sortKey(b)) * direction)
@@ -496,5 +682,15 @@ export function createTangledRecords({ options, instance, webUrl, context, atpro
     return undefined
   }
 
-  return { stateAuthors, actorFor, resolveRepo, threadFor, subjectUri, activity, toStreamEvent, canonicalRepo, canonicalRef, repoDidOf, toRepo, readThread, wholePage, listPage, listComments, findSubscription }
+  /** Drops cached repo records, after a write changes one. */
+  function forgetRepos(): void {
+    canonical.clear()
+  }
+
+  /** Drops cached collaborator lists, after a write changes one. */
+  function forgetCollaborators(): void {
+    collaborators.clear()
+  }
+
+  return { forgetRepos, forgetCollaborators, labelsOf, repoLabels, threadUri, reactionsPage, collaboratorsPage, permissionFor, stateAuthors, actorFor, resolveRepo, threadFor, subjectUri, activity, toStreamEvent, canonicalRepo, canonicalRef, repoDidOf, toRepo, readThread, wholePage, listPage, listComments, findSubscription }
 }

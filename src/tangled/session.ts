@@ -2,7 +2,7 @@ import type { ForgeErrorContext } from '../errors.ts'
 import type { Fetcher, RequestOptions } from '../fetch.ts'
 import type { AtprotoClient } from './atproto.ts'
 import type { TangledAuth, TangledOptions } from './index.ts'
-import type { Session, TangledRecord } from './types.ts'
+import type { BlobRef, Session, TangledRecord } from './types.ts'
 import { AuthenticationRequiredError, ForgeApiError, InsufficientScopeError, TokenRevokedError } from '../errors.ts'
 import { createFetcher } from '../fetch.ts'
 import { parseAtUri } from './atproto.ts'
@@ -18,6 +18,10 @@ export interface TangledSession {
   putOwnRecord: (uri: string, update: (record: TangledRecord) => TangledRecord, signal?: AbortSignal) => Promise<TangledRecord>
   deleteOwnRecord: (uri: string, signal?: AbortSignal) => Promise<void>
   ownRecords: <T>(collection: string, signal?: AbortSignal) => AsyncGenerator<{ uri: string, value: T }>
+  /** A token from the PDS that lets the account call `lxm` on the service `aud`, such as a knot. */
+  serviceAuth: (aud: string, lxm: string, signal?: AbortSignal) => Promise<string>
+  /** Uploads bytes as a blob on the account's PDS. */
+  uploadBlob: (bytes: Uint8Array, mimeType: string, signal?: AbortSignal) => Promise<BlobRef>
 }
 
 export function createTangledSession({ options, fetcher, atproto, context }: { options: TangledOptions, fetcher: Fetcher, atproto: AtprotoClient, context: ForgeErrorContext }): TangledSession {
@@ -128,7 +132,15 @@ export function createTangledSession({ options, fetcher, atproto, context }: { o
     } while (cursor)
   }
 
-  return { writable, viewerDid, pdsCall, createRecord, putOwnRecord, deleteOwnRecord, ownRecords }
+  async function serviceAuth(aud: string, lxm: string, signal?: AbortSignal): Promise<string> {
+    return (await pdsCall<{ token: string }>('com.atproto.server.getServiceAuth', { query: { aud, lxm }, signal })).token
+  }
+
+  async function uploadBlob(bytes: Uint8Array, mimeType: string, signal?: AbortSignal): Promise<BlobRef> {
+    return (await pdsCall<{ blob: BlobRef }>('com.atproto.repo.uploadBlob', { method: 'POST', body: bytes as BodyInit, headers: { 'content-type': mimeType }, signal })).blob
+  }
+
+  return { writable, viewerDid, pdsCall, createRecord, putOwnRecord, deleteOwnRecord, ownRecords, serviceAuth, uploadBlob }
 }
 
 function rejectedPassword(error: unknown): unknown {

@@ -1,0 +1,25 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://tngl.sh/xrpc/com.atproto.repo.uploadBlob"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"90-XQRo0o22jlFQhTjHRa6SNb3TG24\"",
+      "ratelimit-limit": "1000",
+      "ratelimit-remaining": "985",
+      "ratelimit-reset": "1791841038"
+    },
+    "body": {
+      "blob": {
+        "$type": "blob",
+        "ref": {
+          "$link": "bafkreib27ukebwzbhbbmuptidtdpfptwhsi3xgvcr5qmuxwseymgeogu2u"
+        },
+        "mimeType": "application/gzip",
+        "size": 358
+      }
+    }
+  }
+}

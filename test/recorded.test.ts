@@ -134,7 +134,7 @@ for (const { name, create } of providers) {
             const replay = fixtureFetch(directory, {}, { sequential: true })
             calls = replay.calls
             const author = create(replay.fetch, writes)
-            const reviewer = create(replay.fetch, writes)
+            const reviewer = create(replay.fetch, writes.reviewerAccount ? { ...writes, account: writes.reviewerAccount, pds: writes.reviewerPds } : writes)
             const context: WriteContext = { pulls: [], comments: {}, wait: async () => {} }
             for (const step of WRITE_STEPS.filter(step => has(step.name))) {
               output[step.name] = await step.run(step.as === 'reviewer' ? reviewer : author, writes, context)

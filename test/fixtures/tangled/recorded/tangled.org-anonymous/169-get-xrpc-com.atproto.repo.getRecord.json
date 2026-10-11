@@ -1,0 +1,26 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://tngl.sh/xrpc/com.atproto.repo.getRecord?repo=did%3Aplc%3Awoheeqjgxgrab33jlluffosg&collection=sh.tangled.repo.issue&rkey=3mxmmqj7gjp22"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"d7b-KO4RLJNI6YtlQ5lFRQmwZLwWshI\"",
+      "ratelimit-limit": "3000",
+      "ratelimit-remaining": "2621",
+      "ratelimit-reset": "1791756647"
+    },
+    "body": {
+      "uri": "at://did:plc:woheeqjgxgrab33jlluffosg/sh.tangled.repo.issue/3mxmmqj7gjp22",
+      "cid": "bafyreicsswcnq47fyj5qnwkslt3a5uxqfkeonn6slixcqplc6aiqnq7u34",
+      "value": {
+        "body": "# codegen: producer alias dropped when the consumer imports the same dir under another alias -> unbound qualifier (`go build`-red)\n\n## Summary\n`7472ee94` (issue #217) resolves a dependency-spelled type qualifier through `AnalysisResult.QualifierImportPaths`, but that provenance map is keyed by the alias the **consumer's** cross-package loader happened to use (`LoadCrossPackageEnvs` is first-write-wins keyed by `q.alias` and dedups by absolute directory). When the consumer also imports the producing directory directly under a different alias, the producer's alias never becomes a key, and codegen emits the producer's spelling with no import bound to it — `kukicha check` passes, `go build` fails with `undefined: <qualifier>`.\n\n## Reproducer (three-package module)\n- `internal/types`: exports `type TokenID string`.\n- `internal/models`: `import \".../internal/types\" as tk` and exports `type MoveAction` with a field `TokenID: tk.TokenID`.\n- consumer `main.kuki`: imports `models` **and** `import \".../internal/types\" as tokpkg`, then uses `models.MoveAction`.\n\nObserved (HEAD): `kukicha check` is clean, but the emitted Go contains `func() tk.TokenID { … }` with the import block carrying `tokpkg \".../internal/types\"` — no `tk` binding — so `go build` fails `undefined: tk`. Removing the consumer's direct `tokpkg` import makes the same producer-alias case work (via `addImportAliased`).\n\nA second, related shape: when the consumer holds a **bare** import of `path` while the producer aliased the package (`pkgPart != extractPkgName(path)`), `qualifyProvenanceRef`'s `alias == \"\"` arm (`internal/codegen/codegen_types.go:287`) returns `pkgPart + typePart` unbound.\n\n## Root cause\n`internal/project/crosspackage.go:104-132` (BFS dedup) + `internal/semantic/semantic_pass.go:342-354` (provenance keyed by alias) + `internal/codegen/codegen_types.go:236-302`. The provenance map cannot represent \"the producer spelled this path as `tk`\" when the consumer's own alias for that directory won the key.\n\n## Fix direction\nCarry producer-side alias provenance across the BFS dedup — key provenance by `(alias, path)` pairs collected from each dependency's own import table, or additionally record `extractPkgName(path)->path` so the codegen local-binding lookup can match by path. In the bare-import arm, route through `addImportAliased(path, pkgPart)` instead of returning an unbound qualifier.\n\n## Verification\nAdd an end-to-end fixture through `compile()` (`cmd/kukicha/compile_crosspackage_test.go`) with a consumer that imports the producing directory under a second alias, asserting the emitted import block binds the spelling used. The existing `codegen_issue217_test.go` tests inject `QualifierImportPaths` by hand, which the real loader cannot produce for this shape.\n\n## Note\nThe review classified the underlying BFS mechanism as pre-existing (the failing scenario failed before `7472ee94` too), so this does not block that PR; it is filed because the check-green/build-red seam is live at HEAD.\n",
+        "repo": "did:plc:wq67r5lwdn4el5ifmrlk7bpc",
+        "$type": "sh.tangled.repo.issue",
+        "title": "codegen: producer alias dropped when the consumer imports the same dir under another alias -> unbound qualifier",
+        "createdAt": "2026-10-11T18:23:18Z"
+      }
+    }
+  }
+}

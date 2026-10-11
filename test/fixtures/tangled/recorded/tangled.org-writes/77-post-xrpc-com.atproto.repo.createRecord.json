@@ -1,0 +1,54 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://tngl.sh/xrpc/com.atproto.repo.createRecord",
+    "body": {
+      "repo": "did:plc:7qksav5io2s4qfg67pe7iqqk",
+      "collection": "sh.tangled.repo.pull",
+      "record": {
+        "$type": "sh.tangled.repo.pull",
+        "title": "forges fixture 20261011220545: pull 1",
+        "body": "Opened by run 20261011220545.",
+        "target": {
+          "repo": "did:plc:t73o44q7fppgagkrevtztyok",
+          "branch": "main"
+        },
+        "source": {
+          "branch": "forges-fixtures/20261011220545-1"
+        },
+        "rounds": [
+          {
+            "createdAt": "2026-10-11T22:06:01.270Z",
+            "patchBlob": {
+              "$type": "blob",
+              "ref": {
+                "$link": "bafkreibw2djy2wxfvwquiypwbv5lmxtinbukd4laseag6inhrrjaghdzsi"
+              },
+              "mimeType": "application/gzip",
+              "size": 359
+            }
+          }
+        ],
+        "createdAt": "2026-10-11T22:06:01.270Z"
+      }
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"118-1zrqqZn8AhmRJYvl8R8QeipoTIM\"",
+      "ratelimit-limit": "3000",
+      "ratelimit-remaining": "2921",
+      "ratelimit-reset": "1791756647"
+    },
+    "body": {
+      "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.pull/3mxmz6r5rme2y",
+      "cid": "bafyreicyoobt6437hcbheqcbycwon5gslb2amdc6iw475ri7s4zcvcoaai",
+      "commit": {
+        "cid": "bafyreigx6255dwq2yti3l3fbwrxonbqoxyualdg45kebq4ctddbbr3m4ue",
+        "rev": "3mxmz6r6bae2y"
+      },
+      "validationStatus": "unknown"
+    }
+  }
+}

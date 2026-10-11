@@ -1,0 +1,81 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://knot1.tangled.sh/xrpc/sh.tangled.repo.log?repo=did%3Aplc%3At73o44q7fppgagkrevtztyok&ref=main&limit=1"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "commits": [
+        {
+          "hash": [
+            127,
+            229,
+            178,
+            159,
+            228,
+            242,
+            45,
+            96,
+            234,
+            9,
+            197,
+            236,
+            32,
+            163,
+            216,
+            92,
+            61,
+            86,
+            228,
+            10
+          ],
+          "author": {
+            "Name": "forges fixtures",
+            "Email": "redacted@example.invalid",
+            "When": "2026-10-11T22:05:50Z"
+          },
+          "committer": {
+            "Name": "Tangled",
+            "Email": "redacted@example.invalid",
+            "When": "2026-10-11T22:06:05Z"
+          },
+          "message": "Add forges-fixtures/20261011220545-1.md\n",
+          "tree": "37e41de2598ff7cd54aae7c6e5964f15394b11b2",
+          "parent_hashes": [
+            [
+              71,
+              137,
+              78,
+              104,
+              41,
+              1,
+              198,
+              47,
+              11,
+              100,
+              62,
+              145,
+              188,
+              165,
+              72,
+              162,
+              101,
+              186,
+              63,
+              123
+            ]
+          ],
+          "this": "7fe5b29fe4f22d60ea09c5ec20a3d85c3d56e40a",
+          "parent": "47894e682901c62f0b643e91bca548a265ba3f7b"
+        }
+      ],
+      "ref": "main",
+      "log": true,
+      "total": 6,
+      "page": 1,
+      "per_page": 1
+    }
+  }
+}

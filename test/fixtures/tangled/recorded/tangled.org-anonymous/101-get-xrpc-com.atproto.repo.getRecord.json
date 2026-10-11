@@ -1,26 +1,30 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://fibercap.us-west.host.bsky.network/xrpc/com.atproto.repo.getRecord?repo=did%3Aplc%3Af4w2l3ceqeu7fggr2s5hw3wm&collection=sh.tangled.repo.issue&rkey=3lkmubls7ib22"
+    "url": "https://tngl.sh/xrpc/com.atproto.repo.getRecord?repo=did%3Aplc%3A7qksav5io2s4qfg67pe7iqqk&collection=sh.tangled.label.op&rkey=3mxmwlk6gye2y"
   },
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"244-z854ZgkE/eUNpAa3m0+Pcq3NB+Y\"",
+      "etag": "W/\"1d0-5Hxva8bzyJd/SJWqNeLwyP9X920\"",
       "ratelimit-limit": "3000",
-      "ratelimit-remaining": "2998",
-      "ratelimit-reset": "1791720413"
+      "ratelimit-remaining": "2658",
+      "ratelimit-reset": "1791756647"
     },
     "body": {
-      "uri": "at://did:plc:f4w2l3ceqeu7fggr2s5hw3wm/sh.tangled.repo.issue/3lkmubls7ib22",
-      "cid": "bafyreie4l7yi2ez5hdwlafprlaowtnnd453rzq6jois2tckpwlcodnnb5m",
+      "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.label.op/3mxmwlk6gye2y",
+      "cid": "bafyreibfqyzcmujstom2c5gejkgfpj4eqpko2wdhp5mhvdsvj2afr35vmq",
       "value": {
-        "body": "```\ntheo@macbookpro:~/src/bevy-os$ git clone https://tangled.sh/@tangled.sh/core --ipv6\nCloning into 'core'...\nfatal: unable to access 'https://tangled.sh/@tangled.sh/core/': Could not resolve host: tangled.sh\n```",
-        "repo": "at://did:plc:wshs7t2adsemcrrd4snkeqli/sh.tangled.repo/3ljbiayluee22",
-        "$type": "sh.tangled.repo.issue",
-        "title": "IPV6 support",
-        "repoDid": "did:plc:g66xej5jct643d6bgukldn77",
-        "createdAt": ""
+        "add": [
+          {
+            "key": "at://did:plc:wshs7t2adsemcrrd4snkeqli/sh.tangled.label.definition/assignee",
+            "value": "did:plc:7qksav5io2s4qfg67pe7iqqk"
+          }
+        ],
+        "$type": "sh.tangled.label.op",
+        "delete": [],
+        "subject": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.issue/3mxmwlijmkm2y",
+        "performedAt": "2026-10-11T21:19:29.028Z"
       }
     }
   }

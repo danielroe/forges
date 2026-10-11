@@ -1,27 +1,24 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://inkcap.us-east.host.bsky.network/xrpc/com.atproto.repo.getRecord?repo=did%3Aplc%3A7opjnfmb6gtbgjrsr3777ujx&collection=sh.tangled.repo.issue.comment&rkey=3ljpxh2kvll22"
+    "url": "https://tngl.sh/xrpc/com.atproto.repo.getRecord?repo=did%3Aplc%3A7qksav5io2s4qfg67pe7iqqk&collection=sh.tangled.repo.issue.state&rkey=3mxmwliwrhe2y"
   },
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"1e1-/NYFXm3lyRdisVr4zmsoZVBfB7Y\"",
+      "etag": "W/\"175-Q0kxdvPGsJdpjLBy0VxR9YKlJ9w\"",
       "ratelimit-limit": "3000",
-      "ratelimit-remaining": "2996",
-      "ratelimit-reset": "1791720414"
+      "ratelimit-remaining": "2646",
+      "ratelimit-reset": "1791756647"
     },
     "body": {
-      "uri": "at://did:plc:7opjnfmb6gtbgjrsr3777ujx/sh.tangled.repo.issue.comment/3ljpxh2kvll22",
-      "cid": "bafyreia424h3yxjbrhownnavcdplxjordkn7uy3q6zgaxwxzqsjwsdofpq",
+      "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.issue.state/3mxmwliwrhe2y",
+      "cid": "bafyreicuz6b6vpz2rnqoholdduooyyoxzukmtrokldpo4n5aurjtotx6o4",
       "value": {
-        "body": "🚀",
-        "repo": "at://did:plc:wshs7t2adsemcrrd4snkeqli/sh.tangled.repo/3ljbiayluee22",
-        "$type": "sh.tangled.repo.issue.comment",
-        "issue": "at://did:plc:qfpnj4og54vl56wngdriaxug/sh.tangled.repo.issue/3ljnffy24un22",
-        "owner": "did:plc:7opjnfmb6gtbgjrsr3777ujx",
-        "commentId": 690146,
-        "createdAt": "2025-03-06T16:53:56Z"
+        "$type": "sh.tangled.repo.issue.state",
+        "issue": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.issue/3mxmwlijmkm2y",
+        "state": "sh.tangled.repo.issue.state.closed",
+        "createdAt": "2026-10-11T21:19:27.727Z"
       }
     }
   }
