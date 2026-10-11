@@ -519,7 +519,10 @@ export interface ThreadsApi {
   comments: (ref: ThreadRef, options?: ListOptions) => ForgeIterable<Comment>
   /** One page of `comments()`. */
   commentsPage: (ref: ThreadRef, options?: ListOptions) => Promise<Page<Comment>>
-  /** Reads one comment by its ref. Where the forge has no endpoint for it, walks `comments()` until the id matches. */
+  /**
+   * Reads one conversation comment, as `comments()` lists them, so not an inline review comment. Where the forge has
+   * no endpoint for it, walks `comments()` until the id matches.
+   */
   getComment: (ref: CommentRef, options?: BaseOptions) => Promise<Comment>
   /** Adds a comment to a thread. */
   comment: (ref: ThreadRef, body: string, options?: BaseOptions) => Promise<Comment>
