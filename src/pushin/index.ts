@@ -58,7 +58,7 @@ function setupPushin({ options, instance, origin: context, fetcher, baseUrl }: P
 
   async function commentsPage(thread: ThreadRef, listOptions: ListOptions = {}): Promise<Page<Comment>> {
     const ref = requireIssueOrPull(thread, context, 'read comments on')
-    const result = await fetcher.page<PushinComment>(`${threadPath(ref)}/comments`, {
+    const result = await fetcher.page<PushinComment>(`${repoPath(ref.repo)}/issues/${encodeURIComponent(ref.number)}/comments`, {
       query: { per_page: listOptions.perPage },
       cursor: listOptions.cursor,
       signal: listOptions.signal,
@@ -106,7 +106,6 @@ function setupPushin({ options, instance, origin: context, fetcher, baseUrl }: P
       labelsPage: verb(true, (repo, listOptions = {}) => list(`${repoPath(repo)}/labels`, listOptions, (raw: PushinLabel) => toLabel(raw))),
       collaboratorsPage: verb(!anonymous, (repo, listOptions = {}) => list(`${repoPath(repo)}/collaborators`, listOptions, (raw: PushinCollaborator) => toCollaborator({ forge: FORGE, instance }, raw))),
     },
-    emulated: { getComment: { pull_request: 'unverified' } },
     threads: {
       get: perKind({ issue: true, pull_request: true }, get),
       listPage: perKind({ issue: true, pull_request: true }, listPage),

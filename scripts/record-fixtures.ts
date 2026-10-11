@@ -367,7 +367,7 @@ function targetFor(credentials: Credentials, fetch: FetchLike): Target {
       return { provider, manifest: {
         repo: repoRef('pushin', provider.instance, slug),
         issue: ref('pushin', provider.instance, slug, 'issue', env.FIXTURE_PUSHIN_ISSUE ?? '2'),
-        pull: ref('pushin', provider.instance, slug, 'pull_request', env.FIXTURE_PUSHIN_PULL ?? '5'),
+        pull: ref('pushin', provider.instance, env.FIXTURE_PUSHIN_PULL_REPO ?? 'danielroe/roe.dev-test', 'pull_request', env.FIXTURE_PUSHIN_PULL ?? '1'),
         ...setupRepos('PUSHIN', slug => repoRef('pushin', provider.instance, slug)),
       } }
     }

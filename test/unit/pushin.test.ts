@@ -60,6 +60,13 @@ describe('pushin', () => {
     expect(calls.at(-1)?.url).toBe(next)
   })
 
+  it('reads the conversation comments of a pull request, not its review comments', async () => {
+    const { forge } = provider({
+      [`GET ${base}/repos/acme/widgets/issues/31/comments`]: { status: 200, body: [{ id: 1, body: 'Looks good', created_at: '2026-01-01T00:00:00Z' }] },
+    })
+    expect((await forge.threads.commentsPage(pull)).items.map(comment => comment.body)).toEqual(['Looks good'])
+  })
+
   it('passes all states to the pull listing', async () => {
     const { forge } = provider({
       [`GET ${base}/repos/acme/widgets/pulls?state=all&per_page=1`]: { status: 200, body: [raw] },

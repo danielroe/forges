@@ -83,7 +83,7 @@
     "items": [],
     "rateLimit": {
       "limit": 5000,
-      "remaining": 4997,
+      "remaining": 4968,
       "resetAt": "<now>"
     }
   },
@@ -91,7 +91,7 @@
     "items": [],
     "rateLimit": {
       "limit": 5000,
-      "remaining": 4995,
+      "remaining": 4966,
       "resetAt": "<now>"
     }
   },
@@ -102,40 +102,39 @@
       "repo": {
         "forge": "pushin",
         "instance": "pushin.eu",
-        "owner": "pjullrich",
-        "name": "pushin-cli"
+        "owner": "danielroe",
+        "name": "roe.dev-test"
       },
       "kind": "pull_request",
-      "number": "5",
-      "externalId": "iss_034ZTM5UfoQQW1pj2ilPgX"
+      "number": "1",
+      "externalId": "iss_034e44ro1buT7RXhslfKfW"
     },
     "kind": "pull_request",
-    "title": "Nix Packaging and Nix dev shell",
-    "body": "This PR adds\n- Nix packaging for Pushin CLI\n- Nix flake development env for developing the Pushin CLI",
-    "state": "merged",
-    "stateRaw": "merged",
+    "title": "test pr",
+    "body": "here we go",
+    "state": "open",
+    "stateRaw": "open",
     "isDraft": false,
     "author": {
       "forge": "pushin",
       "instance": "pushin.eu",
-      "login": "pmarquez",
-      "id": "578",
-      "avatarUrl": "https://cdn.pushin.eu/-/avatars/u_034YEw7oIPyWrOzEh2xryn",
-      "url": "https://pushin.eu/pmarquez",
+      "login": "danielroe",
+      "id": "277",
+      "avatarUrl": "https://cdn.pushin.eu/-/avatars/u_034KGcbXmCJviF1JfQCAWY/0a945a3b",
+      "url": "https://pushin.eu/danielroe",
       "typeRaw": "User",
       "isBotHint": false
     },
     "assignees": [],
     "reviewers": [],
     "labels": [],
-    "url": "https://pushin.eu/pjullrich/pushin-cli/pulls/5",
-    "createdAt": "2026-10-03T11:13:09.393Z",
-    "updatedAt": "2026-10-03T12:39:25.042Z",
-    "lastActivityAt": "2026-10-03T12:39:25.042Z",
+    "url": "https://pushin.eu/danielroe/roe.dev-test/pulls/1",
+    "createdAt": "<now>",
+    "updatedAt": "<now>",
+    "lastActivityAt": "<now>",
     "branches": {
       "head": {
-        "ref": "main",
-        "sha": "226c1102d4f287fb92b3153334bbeb1b09771cfd"
+        "ref": "test/pr"
       },
       "base": {
         "ref": "main"
@@ -193,7 +192,7 @@
     ],
     "rateLimit": {
       "limit": 5000,
-      "remaining": 4993,
+      "remaining": 4964,
       "resetAt": "<now>"
     }
   },
@@ -206,11 +205,11 @@
         "repo": {
           "forge": "pushin",
           "instance": "pushin.eu",
-          "owner": "pjullrich",
-          "name": "pushin-cli"
+          "owner": "danielroe",
+          "name": "roe.dev-test"
         },
         "kind": "pull_request",
-        "number": "5"
+        "number": "1"
       },
       "thread": {
         "ref": {
@@ -219,40 +218,39 @@
           "repo": {
             "forge": "pushin",
             "instance": "pushin.eu",
-            "owner": "pjullrich",
-            "name": "pushin-cli"
+            "owner": "danielroe",
+            "name": "roe.dev-test"
           },
           "kind": "pull_request",
-          "number": "5",
-          "externalId": "iss_034ZTM5UfoQQW1pj2ilPgX"
+          "number": "1",
+          "externalId": "iss_034e44ro1buT7RXhslfKfW"
         },
         "kind": "pull_request",
-        "title": "Nix Packaging and Nix dev shell",
-        "body": "This PR adds\n- Nix packaging for Pushin CLI\n- Nix flake development env for developing the Pushin CLI",
-        "state": "merged",
-        "stateRaw": "merged",
+        "title": "test pr",
+        "body": "here we go",
+        "state": "open",
+        "stateRaw": "open",
         "isDraft": false,
         "author": {
           "forge": "pushin",
           "instance": "pushin.eu",
-          "login": "pmarquez",
-          "id": "578",
-          "avatarUrl": "https://cdn.pushin.eu/-/avatars/u_034YEw7oIPyWrOzEh2xryn",
-          "url": "https://pushin.eu/pmarquez",
+          "login": "danielroe",
+          "id": "277",
+          "avatarUrl": "https://cdn.pushin.eu/-/avatars/u_034KGcbXmCJviF1JfQCAWY/0a945a3b",
+          "url": "https://pushin.eu/danielroe",
           "typeRaw": "User",
           "isBotHint": false
         },
         "assignees": [],
         "reviewers": [],
         "labels": [],
-        "url": "https://pushin.eu/pjullrich/pushin-cli/pulls/5",
-        "createdAt": "2026-10-03T11:13:09.393Z",
-        "updatedAt": "2026-10-03T12:39:25.042Z",
-        "lastActivityAt": "2026-10-03T12:39:25.042Z",
+        "url": "https://pushin.eu/danielroe/roe.dev-test/pulls/1",
+        "createdAt": "<now>",
+        "updatedAt": "<now>",
+        "lastActivityAt": "<now>",
         "branches": {
           "head": {
-            "ref": "main",
-            "sha": "226c1102d4f287fb92b3153334bbeb1b09771cfd"
+            "ref": "test/pr"
           },
           "base": {
             "ref": "main"
@@ -262,20 +260,146 @@
     }
   ],
   "pull events": {
-    "items": [],
+    "items": [
+      {
+        "forge": "pushin",
+        "instance": "pushin.eu",
+        "id": "2137",
+        "kind": "comment",
+        "kindRaw": "comment",
+        "summary": "danielroe commented",
+        "occurredAt": "<now>",
+        "actor": {
+          "forge": "pushin",
+          "instance": "pushin.eu",
+          "login": "danielroe",
+          "id": "277",
+          "avatarUrl": "https://cdn.pushin.eu/-/avatars/u_034KGcbXmCJviF1JfQCAWY/0a945a3b",
+          "url": "https://pushin.eu/danielroe",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "repo": {
+          "forge": "pushin",
+          "instance": "pushin.eu",
+          "owner": "danielroe",
+          "name": "roe.dev-test"
+        },
+        "thread": {
+          "forge": "pushin",
+          "instance": "pushin.eu",
+          "repo": {
+            "forge": "pushin",
+            "instance": "pushin.eu",
+            "owner": "danielroe",
+            "name": "roe.dev-test"
+          },
+          "kind": "pull_request",
+          "number": "1"
+        },
+        "source": "poll",
+        "detail": {
+          "type": "comment",
+          "comment": {
+            "forge": "pushin",
+            "instance": "pushin.eu",
+            "thread": {
+              "forge": "pushin",
+              "instance": "pushin.eu",
+              "repo": {
+                "forge": "pushin",
+                "instance": "pushin.eu",
+                "owner": "danielroe",
+                "name": "roe.dev-test"
+              },
+              "kind": "pull_request",
+              "number": "1"
+            },
+            "id": "2137"
+          },
+          "body": "here's a comment"
+        },
+        "action": "created"
+      }
+    ],
     "rateLimit": {
       "limit": 5000,
-      "remaining": 4990,
+      "remaining": 4961,
       "resetAt": "<now>"
     }
   },
   "pull comments": {
-    "items": [],
+    "items": [
+      {
+        "ref": {
+          "forge": "pushin",
+          "instance": "pushin.eu",
+          "thread": {
+            "forge": "pushin",
+            "instance": "pushin.eu",
+            "repo": {
+              "forge": "pushin",
+              "instance": "pushin.eu",
+              "owner": "danielroe",
+              "name": "roe.dev-test"
+            },
+            "kind": "pull_request",
+            "number": "1"
+          },
+          "id": "2137"
+        },
+        "body": "here's a comment",
+        "author": {
+          "forge": "pushin",
+          "instance": "pushin.eu",
+          "login": "danielroe",
+          "id": "277",
+          "avatarUrl": "https://cdn.pushin.eu/-/avatars/u_034KGcbXmCJviF1JfQCAWY/0a945a3b",
+          "url": "https://pushin.eu/danielroe",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "createdAt": "<now>",
+        "updatedAt": "<now>"
+      }
+    ],
     "rateLimit": {
       "limit": 5000,
-      "remaining": 4990,
+      "remaining": 4961,
       "resetAt": "<now>"
     }
+  },
+  "pull getComment": {
+    "ref": {
+      "forge": "pushin",
+      "instance": "pushin.eu",
+      "thread": {
+        "forge": "pushin",
+        "instance": "pushin.eu",
+        "repo": {
+          "forge": "pushin",
+          "instance": "pushin.eu",
+          "owner": "danielroe",
+          "name": "roe.dev-test"
+        },
+        "kind": "pull_request",
+        "number": "1"
+      },
+      "id": "2137"
+    },
+    "body": "here's a comment",
+    "author": {
+      "forge": "pushin",
+      "instance": "pushin.eu",
+      "login": "danielroe",
+      "id": "277",
+      "avatarUrl": "https://cdn.pushin.eu/-/avatars/u_034KGcbXmCJviF1JfQCAWY/0a945a3b",
+      "url": "https://pushin.eu/danielroe",
+      "typeRaw": "User",
+      "isBotHint": false
+    },
+    "createdAt": "<now>",
+    "updatedAt": "<now>"
   },
   "issue": {
     "ref": {
@@ -359,7 +483,7 @@
     ],
     "rateLimit": {
       "limit": 5000,
-      "remaining": 4988,
+      "remaining": 4958,
       "resetAt": "<now>"
     }
   },
@@ -607,7 +731,7 @@
     },
     "rateLimit": {
       "limit": 5000,
-      "remaining": 4985,
+      "remaining": 4955,
       "resetAt": "<now>"
     }
   },
@@ -715,7 +839,7 @@
     },
     "rateLimit": {
       "limit": 5000,
-      "remaining": 4985,
+      "remaining": 4955,
       "resetAt": "<now>"
     }
   },
@@ -769,6 +893,45 @@
           "forge": "pushin",
           "instance": "pushin.eu",
           "owner": "danielroe",
+          "name": "roe.dev-test",
+          "externalId": "repo_034e425vVEmZmkNAzd6RQB"
+        },
+        "defaultBranch": "main",
+        "visibility": "public",
+        "visibilityRaw": "public",
+        "isFork": false,
+        "isArchived": false,
+        "topics": [],
+        "url": "https://pushin.eu/danielroe/roe.dev-test",
+        "cloneUrls": {
+          "https": "https://git.pushin.eu/danielroe/roe.dev-test.git"
+        },
+        "createdAt": "<now>",
+        "updatedAt": "<now>",
+        "owner": {
+          "forge": "pushin",
+          "instance": "pushin.eu",
+          "login": "danielroe",
+          "id": "danielroe",
+          "url": "https://pushin.eu/danielroe",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "stars": 0,
+        "forks": 0,
+        "permissions": {
+          "admin": true,
+          "maintain": true,
+          "push": true,
+          "triage": true,
+          "pull": true
+        }
+      },
+      {
+        "ref": {
+          "forge": "pushin",
+          "instance": "pushin.eu",
+          "owner": "danielroe",
           "name": "roe.dev",
           "externalId": "repo_034KGysv7UrbfMN79ro6eN"
         },
@@ -793,7 +956,7 @@
           "typeRaw": "User",
           "isBotHint": false
         },
-        "stars": 0,
+        "stars": 1,
         "forks": 0,
         "permissions": {
           "admin": true,
@@ -806,7 +969,7 @@
     ],
     "rateLimit": {
       "limit": 5000,
-      "remaining": 4982,
+      "remaining": 4952,
       "resetAt": "<now>"
     }
   },
@@ -814,7 +977,7 @@
     "items": [],
     "rateLimit": {
       "limit": 5000,
-      "remaining": 4981,
+      "remaining": 4951,
       "resetAt": "<now>"
     }
   }

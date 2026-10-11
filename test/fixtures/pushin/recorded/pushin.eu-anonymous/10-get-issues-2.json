@@ -6,8 +6,8 @@
   "response": {
     "status": 200,
     "headers": {
-      "x-ratelimit-limit": "5000",
-      "x-ratelimit-remaining": "4989",
+      "x-ratelimit-limit": "90",
+      "x-ratelimit-remaining": "80",
       "x-ratelimit-reset": "1791723600"
     },
     "body": {
