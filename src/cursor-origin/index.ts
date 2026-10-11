@@ -307,9 +307,9 @@ function setupOrigin({ options, baseUrl, instance, origin: context, fetcher, cre
         const ref = requireThread(thread, context)
         return toComment(ref, (await fetcher.json<OriginComment>(`${pullPath(ref)}/comments`, { method: 'POST', json: { body }, signal: options?.signal })).data)
       }),
-      editComment: perKind(UNVERIFIED, async (ref, body, options) => toComment(ref.thread, (await fetcher.json<OriginComment>(`${repoPath(ref.thread.repo)}/pulls/comments/${ref.id}`, { method: 'PATCH', json: { body }, signal: options?.signal })).data)),
+      editComment: perKind(UNVERIFIED, async (ref, body, options) => toComment(ref.thread, (await fetcher.json<OriginComment>(`${repoPath(ref.thread.repo)}/pulls/comments/${encodeURIComponent(ref.id)}`, { method: 'PATCH', json: { body }, signal: options?.signal })).data)),
       deleteComment: perKind(UNVERIFIED, async (ref, options) => {
-        await fetcher.raw(`${repoPath(ref.thread.repo)}/pulls/comments/${ref.id}`, { method: 'DELETE', signal: options?.signal })
+        await fetcher.raw(`${repoPath(ref.thread.repo)}/pulls/comments/${encodeURIComponent(ref.id)}`, { method: 'DELETE', signal: options?.signal })
       }),
       create: perKind(UNVERIFIED, async (repo, input, options) => {
         if (input.assignees?.length) {
