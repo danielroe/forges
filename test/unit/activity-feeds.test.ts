@@ -54,6 +54,7 @@ describe('github activity feeds', () => {
     const push = toGitHubFeedEvent('github.com', feedItem('PushEvent', { ref: 'refs/heads/main', before: 'a', head: 'b' }))
 
     expect(push).toMatchObject({ kind: 'push', summary: 'octocat pushed to main', detail: { type: 'push', ref: 'refs/heads/main', before: 'a', after: 'b', commits: [] } })
+    expect(push.detail).toHaveProperty('commitCount', undefined)
   })
 
   it('reads the first page conditionally and leaves later pages unconditional', async () => {

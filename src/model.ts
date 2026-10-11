@@ -1211,7 +1211,8 @@ export type EventDetail
     | { type: 'state_change', state?: ThreadState, draft?: boolean }
     | { type: 'label', label: string }
     | { type: 'assignment', assignee?: Actor }
-    | { type: 'push', ref: string, before?: string, after?: string, commitCount: number, forced: boolean, commits: PushCommit[] }
+    /** A push. `commitCount` is absent when the forge reports neither the commits nor how many there were. */
+    | { type: 'push', ref: string, before?: string, after?: string, commitCount?: number, forced: boolean, commits: PushCommit[] }
     | { type: 'ref', ref: string, refType: 'branch' | 'tag' | (string & {}) }
     | { type: 'repo_renamed', from: string, to: string }
     | { type: 'repo_transferred', fromOwner?: string, toOwner?: string }

@@ -193,7 +193,7 @@ A read-only provider runs queries and rejects mutations with `ReadOnlyError`. Gi
 
 `repos.events()` and `users.events()` read GitHub's events API. A feed holds up to 300 events from the last 30 days, and GitHub can take from 30 seconds to 6 hours to add an event to it. When the credential belongs to the account you read, `users.events()` includes its private activity too.
 
-Feed items are smaller than webhook deliveries. A push has no commits and no commit count, so its `detail.commitCount` is `0` and its summary leaves the number out. A pull request event has no title, and GitHub reports a merge as the action `merged`, which the provider reads as `kind: 'state_change'` and `action: 'merged'`.
+Feed items are smaller than webhook deliveries. A push has no commits and no commit count, so its `detail` has no `commitCount` and its summary leaves the number out. A pull request event has no title, and GitHub reports a merge as the action `merged`, which the provider reads as `kind: 'state_change'` and `action: 'merged'`.
 
 ## Webhook management
 
