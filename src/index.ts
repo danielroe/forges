@@ -78,6 +78,7 @@ export type {
   DownloadAssetOptions,
   EventAction,
   EventDetail,
+  EventFeedOptions,
   EventKind,
   FileContent,
   FileEncoding,

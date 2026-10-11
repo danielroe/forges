@@ -1,5 +1,5 @@
 import type { Fetcher, FetcherOptions } from './fetch.ts'
-import type { ApproveAndMergeOptions, BaseOptions, Check, CiJobRef, Comment, CommentRef, Cursor, DownloadAssetOptions, ForgeEventInput, ForgeInstance, ForgeKind, Installation, ListOptions, MergeOptions, Notification, NotificationListOptions, OwnerRepoQuery, Page, PageOptions, ReleaseAssetRef, Repo, RepoRef, ReviewRef, SecurityAlertKind, SecurityAlertListOptions, Support, TextLimits, ThreadKind, ThreadQuery, ThreadRef, UpsertCommentInput, UpsertCommentResult, WebhookEventType } from './model.ts'
+import type { ApproveAndMergeOptions, BaseOptions, Check, CiJobRef, Comment, CommentRef, Cursor, DownloadAssetOptions, EventFeedOptions, ForgeEventInput, ForgeInstance, ForgeKind, Installation, ListOptions, MergeOptions, Notification, NotificationListOptions, OwnerRepoQuery, Page, ReleaseAssetRef, Repo, RepoRef, ReviewRef, SecurityAlertKind, SecurityAlertListOptions, Support, TextLimits, ThreadKind, ThreadQuery, ThreadRef, UpsertCommentInput, UpsertCommentResult, WebhookEventType } from './model.ts'
 import type {
   AuthKind,
   ChecksApi,
@@ -124,7 +124,7 @@ export interface ProviderSpec<TExtensions extends object = Record<never, never>>
     assignableUsersPage?: Verb<ReposApi['assignableUsersPage']>
     reviewerCandidatesPage?: Verb<ReposApi['reviewerCandidatesPage']>
     /** The implementation of `provider.repos.events()` and `provider.repos.eventsPage()`. */
-    eventsPage?: Verb<(repo: RepoRef, options?: PageOptions) => Promise<Page<ForgeEventInput>>>
+    eventsPage?: Verb<(repo: RepoRef, options?: EventFeedOptions) => Promise<Page<ForgeEventInput>>>
   }
   /** `get` is omitted when the forge cannot read an account by login. */
   users?: {
@@ -132,7 +132,7 @@ export interface ProviderSpec<TExtensions extends object = Record<never, never>>
     me?: Verb<UsersApi['me']>
     sponsorable?: Verb<UsersApi['sponsorable']>
     /** The implementation of `provider.users.events()` and `provider.users.eventsPage()`. */
-    eventsPage?: Verb<(login: string, options?: PageOptions) => Promise<Page<ForgeEventInput>>>
+    eventsPage?: Verb<(login: string, options?: EventFeedOptions) => Promise<Page<ForgeEventInput>>>
   }
   /** An organisation's teams and their members. Listings are declared as pages; core derives the iterables. */
   orgs?: {
@@ -543,7 +543,7 @@ function createProvider<TOptions extends ForgeOptionsBase, TState, HasWeb extend
   const feed = (verb: 'repos.eventsPage' | 'users.eventsPage') => {
     const declared = readPath(spec, verb) as Verb<AnyFunction> | undefined
     const run = gate(verb, declared?.support, declared?.run)
-    return async (target: unknown, pageOptions?: PageOptions) => {
+    return async (target: unknown, pageOptions?: EventFeedOptions) => {
       const page = await run(target, pageOptions) as Page<ForgeEventInput>
       return { ...page, items: page.items.map(completeEvent) }
     }

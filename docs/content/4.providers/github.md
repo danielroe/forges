@@ -193,6 +193,14 @@ A read-only provider runs queries and rejects mutations with `ReadOnlyError`. Gi
 
 `repos.events()` and `users.events()` read GitHub's events API. A feed holds up to 300 events from the last 30 days, and GitHub can take from 30 seconds to 6 hours to add an event to it. When the credential belongs to the account you read, `users.events()` includes its private activity too.
 
+GitHub asks clients to wait between reads of a feed, usually 60 seconds, in its `X-Poll-Interval` header. The provider remembers that wait for each feed. If you read the first page of a feed again before it's over, you get a page with `throttled: true` and no items, and no request is sent. The page keeps the `etag` you passed. To read anyway, pass `force: true`:
+
+```ts
+const page = await gh.repos.eventsPage(repo, { force: true })
+```
+
+The provider only remembers the wait for as long as it exists, so a job that creates a new provider for every run isn't held back.
+
 Feed items are smaller than webhook deliveries. A push has no commits and no commit count, so its `detail` has no `commitCount` and its summary leaves the number out. A pull request event has no title, and GitHub reports a merge as the action `merged`, which the provider reads as `kind: 'state_change'` and `action: 'merged'`.
 
 ## Webhook management

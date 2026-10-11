@@ -18,6 +18,7 @@ import type {
   CommitSearchQuery,
   ContributorStats,
   Cursor,
+  EventFeedOptions,
   FileContent,
   FileOptions,
   ForgeEventInput,
@@ -1205,13 +1206,24 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
     }), warnings)
   }
 
-  async function feedPage(path: string, listOptions: PageOptions = {}): Promise<Page<ForgeEventInput>> {
+  /** When each feed may be read again, from GitHub's `X-Poll-Interval`. */
+  const nextPoll = new Map<string, number>()
+
+  async function feedPage(path: string, listOptions: EventFeedOptions = {}): Promise<Page<ForgeEventInput>> {
+    const first = !listOptions.cursor?.nextUrl
+    if (first && !listOptions.force && Date.now() < (nextPoll.get(path) ?? 0)) {
+      return { items: [], throttled: true, ...listOptions.cursor?.etag ? { etag: listOptions.cursor.etag } : {} }
+    }
     const result = await fetcher.page<GitHubFeedEvent>(path, {
       query: { per_page: listOptions.perPage },
       cursor: listOptions.cursor,
       etag: listOptions.cursor?.etag,
       signal: listOptions.signal,
     })
+    const interval = Number(result.response.headers.get('x-poll-interval'))
+    if (first && interval > 0) {
+      nextPoll.set(path, Date.now() + interval * 1000)
+    }
     const { toFeedEvent } = await import('./feed.ts')
     return withEtag(toPage(result, raw => toFeedEvent(instance, raw)), result, listOptions.cursor)
   }

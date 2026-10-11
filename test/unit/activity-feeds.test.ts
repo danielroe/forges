@@ -1,5 +1,5 @@
 import type { FetchLike } from '../../src/fetch.ts'
-import { describe, expect, it } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
 import { completeEvent } from '../../src/events.ts'
 import { fake } from '../../src/fake/index.ts'
 import { toFeedEvent as toForgejoFeedEvent } from '../../src/forgejo/feed.ts'
@@ -78,6 +78,33 @@ describe('github activity feeds', () => {
     expect(again).toMatchObject({ notModified: true, items: [], etag: 'W/"first"' })
     expect(next.etag).toBeUndefined()
     expect(conditions).toEqual([null, 'W/"first"', null])
+  })
+
+  it('waits out the poll interval before reading a feed again, unless forced', async () => {
+    vi.useFakeTimers({ now: new Date('2026-01-02T00:00:00Z'), toFake: ['Date'] })
+    try {
+      const urls: string[] = []
+      const provider = github({
+        fetch: async (url) => {
+          urls.push(new URL(url).pathname)
+          return json([feedItem('WatchEvent', { action: 'started' })], { 'etag': 'W/"first"', 'x-poll-interval': '60' })
+        },
+      }).create()
+      const repo = { forge: 'github', instance: 'github.com', owner: 'acme', name: 'widgets' }
+
+      const page = await provider.repos.eventsPage(repo)
+      const soon = await provider.repos.eventsPage(repo, { cursor: { etag: page.etag } })
+      await provider.users.eventsPage('octocat')
+      await provider.repos.eventsPage(repo, { force: true })
+      vi.advanceTimersByTime(60_000)
+      await provider.repos.eventsPage(repo)
+
+      expect(soon).toEqual({ items: [], throttled: true, etag: 'W/"first"' })
+      expect(urls).toEqual(['/repos/acme/widgets/events', '/users/octocat/events', '/repos/acme/widgets/events', '/repos/acme/widgets/events'])
+    }
+    finally {
+      vi.useRealTimers()
+    }
   })
 })
 

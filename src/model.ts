@@ -1358,6 +1358,11 @@ export interface Page<T> {
   etag?: string
   /** True when the forge reported no change since `cursor.etag`. */
   notModified?: boolean
+  /**
+   * True when the provider sent no request, because the forge asked to wait longer between reads of this feed. The
+   * page has no items; read it again later, or pass `force: true`.
+   */
+  throttled?: boolean
   /** The non-fatal problems that came up while reading the page. */
   warnings?: ForgeWarning[]
 }
@@ -1366,6 +1371,16 @@ export interface Page<T> {
 export interface ListOptions extends PageOptions {
   /** Only items updated at or after this time. */
   since?: Date
+}
+
+/** Options for `repos.events()` and `users.events()`. */
+export interface EventFeedOptions extends PageOptions {
+  /**
+   * Read the first page even when the forge asked to wait longer between reads, as GitHub does with
+   * `X-Poll-Interval`. Without it, such a read returns a `throttled` page.
+   * @default false
+   */
+  force?: boolean
 }
 
 /** Options for `notifications.list()`. */

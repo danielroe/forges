@@ -27,6 +27,7 @@ import type {
   ContributorStats,
   Cursor,
   DownloadAssetOptions,
+  EventFeedOptions,
   FileContent,
   FileOptions,
   ForgeEvent,
@@ -891,11 +892,12 @@ export interface ReposApi {
    * Lists the activity feed of a repository, newest first: pushes, new branches and tags, and changes to its
    * threads and releases. Each event has `source: 'poll'`.
    */
-  events: (repo: RepoRef, options?: PageOptions) => ForgeIterable<ForgeEvent>
+  events: (repo: RepoRef, options?: EventFeedOptions) => ForgeIterable<ForgeEvent>
   /**
    * One page of `events()`. Where the forge supports conditional requests, the first page has an `etag`; pass it
    * back as `cursor: { etag }` to read the first page again, which has `notModified: true` and no items when the
-   * feed is unchanged.
+   * feed is unchanged. Where the forge sets a minimum wait between reads, reading the first page again sooner
+   * sends no request and returns a `throttled` page, unless you pass `force: true`.
    * @example
    * ```ts
    * const page = await provider.repos.eventsPage(repo, { cursor: etag ? { etag } : undefined })
@@ -904,7 +906,7 @@ export interface ReposApi {
    * }
    * ```
    */
-  eventsPage: (repo: RepoRef, options?: PageOptions) => Promise<Page<ForgeEvent>>
+  eventsPage: (repo: RepoRef, options?: EventFeedOptions) => Promise<Page<ForgeEvent>>
 }
 
 /** Options for `repos.milestones()`. */
@@ -1053,9 +1055,9 @@ export interface UsersApi {
    * Lists what an account did, newest first, across the repositories the credential can see. Each event has
    * `source: 'poll'`.
    */
-  events: (login: string, options?: PageOptions) => ForgeIterable<ForgeEvent>
-  /** One page of `events()`. Conditional requests work as for {@link ReposApi.eventsPage}. */
-  eventsPage: (login: string, options?: PageOptions) => Promise<Page<ForgeEvent>>
+  events: (login: string, options?: EventFeedOptions) => ForgeIterable<ForgeEvent>
+  /** One page of `events()`. Conditional requests and throttling work as for {@link ReposApi.eventsPage}. */
+  eventsPage: (login: string, options?: EventFeedOptions) => Promise<Page<ForgeEvent>>
 }
 
 /** Ways to receive events: polling, webhooks and push subscriptions. */
