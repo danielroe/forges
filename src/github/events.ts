@@ -1,9 +1,15 @@
 import type { Actor, EventAction, EventDetail, EventKind, ForgeEventInput, RepoRef, SourceKind, ThreadKind, ThreadRef } from '../model.ts'
-import type { GitHubRepository, GitHubUser } from './types.ts'
+import type { WebhookDelivery } from '../provider.ts'
+import type { GitHubFeedEvent, GitHubRepository, GitHubUser } from './types.ts'
+import { bodyText, headerValue } from '../crypto.ts'
+import { WebhookVerificationError } from '../errors.ts'
 import { eventAction, reviewState } from '../events.ts'
 import { toDate } from '../utils.ts'
 import { refEvent } from '../webhooks.ts'
 import { FORGE, toActor, toRepoRef } from './normalise.ts'
+
+const EVENT_HEADER = 'x-github-event'
+const DELIVERY_HEADER = 'x-github-delivery'
 
 export interface GitHubEventPayload {
   action?: string
@@ -41,7 +47,7 @@ export interface GitHubEventPayload {
 }
 
 /** Where an event came from and what identifies it, beside what its payload says. */
-export interface GitHubEventContext {
+interface GitHubEventContext {
   id: string
   kindRaw: string
   actionRaw?: string
@@ -244,7 +250,7 @@ function detailOf(kind: EventKind, thread: ThreadRef | undefined, instance: stri
 }
 
 /** Normalises a GitHub event, named as a webhook names it, from a webhook delivery or an activity feed. */
-export function toGitHubEvent(instance: string, event: string, payload: GitHubEventPayload, context: GitHubEventContext): ForgeEventInput {
+function toGitHubEvent(instance: string, event: string, payload: GitHubEventPayload, context: GitHubEventContext): ForgeEventInput {
   const { actor, repo } = context
   const level = repoLevel(instance, event, payload, actor?.login ?? 'someone', repo)
   if (level) {
@@ -285,4 +291,81 @@ export function toGitHubEvent(instance: string, event: string, payload: GitHubEv
     source: context.source,
     payload: context.payload ?? payload,
   }
+}
+
+export function translateGitHubWebhook(instance: string, delivery: WebhookDelivery): ForgeEventInput[] {
+  const event = headerValue(delivery.headers, EVENT_HEADER)
+  if (!event) {
+    throw new WebhookVerificationError(`Missing ${EVENT_HEADER} header`, { forge: FORGE, instance })
+  }
+  const payload = JSON.parse(bodyText(delivery.body)) as GitHubEventPayload
+  return [toGitHubEvent(instance, event, payload, {
+    id: headerValue(delivery.headers, DELIVERY_HEADER) ?? crypto.randomUUID(),
+    kindRaw: payload.action ? `${event}.${payload.action}` : event,
+    actionRaw: payload.action,
+    source: 'webhook',
+    actor: toActor(instance, payload.sender),
+    repo: payload.repository ? toRepoRef(instance, payload.repository) : undefined,
+    installationId: payload.installation ? String(payload.installation.id) : undefined,
+  })]
+}
+
+/** Activity feed event types and the webhook events they correspond to. */
+const FEED_EVENTS: Record<string, string> = {
+  CommitCommentEvent: 'commit_comment',
+  CreateEvent: 'create',
+  DeleteEvent: 'delete',
+  DiscussionEvent: 'discussion',
+  IssueCommentEvent: 'issue_comment',
+  IssuesEvent: 'issues',
+  MemberEvent: 'member',
+  PullRequestEvent: 'pull_request',
+  PullRequestReviewCommentEvent: 'pull_request_review_comment',
+  PullRequestReviewEvent: 'pull_request_review',
+  PushEvent: 'push',
+  ReleaseEvent: 'release',
+}
+
+/** Summaries of the feed event types that have no shared kind. */
+const FEED_SUMMARIES: Record<string, string> = {
+  ForkEvent: 'forked the repository',
+  GollumEvent: 'edited the wiki',
+  PublicEvent: 'made the repository public',
+  SponsorshipEvent: 'changed a sponsorship',
+  WatchEvent: 'starred the repository',
+}
+
+/** Normalises an item of a repository's or an account's activity feed. */
+export function toFeedEvent(instance: string, raw: GitHubFeedEvent): ForgeEventInput {
+  const type = raw.type ?? 'Event'
+  const payload = (raw.payload ?? {}) as GitHubEventPayload
+  const [owner = '', name = ''] = raw.repo?.name.split('/') ?? []
+  const repo: RepoRef | undefined = raw.repo ? { forge: FORGE, instance, owner, name, externalId: String(raw.repo.id) } : undefined
+  const actor = toActor(instance, raw.actor)
+  const context: GitHubEventContext = {
+    id: raw.id,
+    kindRaw: payload.action ? `${type}.${payload.action}` : type,
+    actionRaw: payload.action,
+    source: 'poll',
+    actor,
+    repo,
+    occurredAt: toDate(raw.created_at),
+    payload: raw,
+  }
+  const event = FEED_EVENTS[type]
+  if (!event) {
+    return {
+      forge: FORGE,
+      instance,
+      ...context,
+      kind: 'other',
+      summary: `${actor?.login ?? 'someone'} ${FEED_SUMMARIES[type] ?? type}`,
+      occurredAt: context.occurredAt ?? new Date(),
+      payload: raw,
+    }
+  }
+  if (type === 'PullRequestReviewEvent' && payload.action === 'created') {
+    return toGitHubEvent(instance, event, { ...payload, action: 'submitted' }, context)
+  }
+  return toGitHubEvent(instance, event, payload, context)
 }

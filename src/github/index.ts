@@ -1224,7 +1224,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
     if (first && interval > 0) {
       nextPoll.set(path, Date.now() + interval * 1000)
     }
-    const { toFeedEvent } = await import('./feed.ts')
+    const { toFeedEvent } = await import('./events.ts')
     return withEtag(toPage(result, raw => toFeedEvent(instance, raw)), result, listOptions.cursor)
   }
 

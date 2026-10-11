@@ -1,6 +1,8 @@
 import type { Actor, ChecksSummary, Comment, ForgeEventInput, Milestone, ReactionContent, ResolvedThreadRef, Reviewer, SubscriptionState, Thread, ThreadRef } from '../model.ts'
 import { toDate, toPullStats } from '../utils.ts'
-import { FORGE } from './normalise.ts'
+
+// Not imported from normalise.ts: when two lazy chunks of a provider import from its main chunk, rolldown keeps the provider in bundles that never use it.
+const FORGE = 'github'
 
 const ACTOR_FIELDS = `__typename login avatarUrl url ... on User { databaseId name } ... on Bot { databaseId }`
 

@@ -1,8 +1,8 @@
 import type { WebhookDelivery } from '../../src/index.ts'
 import { describe, expect, it } from 'vitest'
 import { completeEvent, eventAction } from '../../src/events.ts'
+import { translateGitHubWebhook } from '../../src/github/events.ts'
 import { toEvent as toGitHubEvent } from '../../src/github/normalise.ts'
-import { translateGitHubWebhook } from '../../src/github/webhooks.ts'
 import { reviewState } from '../../src/kit.ts'
 
 const repository = { id: 1, name: 'widgets', full_name: 'acme/widgets', owner: { login: 'acme', id: 2 } }
