@@ -220,8 +220,9 @@ export const STEPS: Step[] = [
   { name: 'ci runs by branch and state', verb: 'ci.runsPage', run: (provider, manifest, context) => provider.ci.runsPage(manifest.repo, { ...page, branch: need(context.repo?.defaultBranch, 'the default branch'), state: 'failure' }) },
   { name: 'ci run', verb: 'ci.run', run: (provider, _manifest, context) => provider.ci.run(need(context.runs?.[0], 'a CI run').ref) },
   { name: 'check', verb: 'checks.get', run: async (provider, manifest, context) => {
-    const checks = context.checks?.length ? context.checks : (await provider.checks.list(manifest.repo, need(context.runs?.[0]?.sha, 'a CI run sha'))).items
-    return provider.checks.get(need(checks.find(check => check.ref.type !== 'status'), 'a check other than a commit status').ref)
+    const readable = (checks: Check[] = []) => checks.find(check => check.ref.type !== 'status')
+    const check = readable(context.checks) ?? readable((await provider.checks.list(manifest.repo, need(context.runs?.[0]?.sha, 'a CI run sha'))).items)
+    return provider.checks.get(need(check, 'a check other than a commit status').ref)
   } },
   { name: 'ci jobs', verb: 'ci.jobsPage', run: async (provider, manifest, context) => {
     const runs = need(context.runs?.length ? context.runs : undefined, 'a CI run')
