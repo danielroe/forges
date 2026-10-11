@@ -21,6 +21,16 @@ describe('azure devops', () => {
     expect(new URL(calls[0]!.url).searchParams.get('api-version')).toBe('7.1')
   })
 
+  it('reads the visibility of a repository from its project', async () => {
+    const raw = (name: string, visibility?: 'public' | 'private') => ({ id: name, name, project: { id: 'p', name: 'Widgets', visibility } })
+    const instance = azureDevOps({ auth: { type: 'token', token: 'pat' }, organization: 'acme', fetch: async url => new URL(url).pathname.endsWith('/repositories')
+      ? Response.json({ value: [raw('site', 'public'), raw('vault', 'private'), raw('legacy')] })
+      : Response.json(raw('widgets', 'public')) }).create()
+
+    expect((await instance.repos.get(repo)).visibility).toBe('public')
+    expect((await instance.repos.listPage()).items.map(item => item.visibility)).toEqual(['public', 'private', 'private'])
+  })
+
   it('lists work items through WIQL with state from the type\'s categories, scoped to the project', async () => {
     const { instance, calls } = provider()
     const page = await instance.threads.listPage(repo, { kind: 'issue' })
