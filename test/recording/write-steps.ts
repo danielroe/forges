@@ -121,6 +121,15 @@ function threadOf(context: WriteContext, kind: WriteKind): ThreadRef {
   return need(thread, `the ${kind.replace('_', ' ')}`).ref
 }
 
+/** The thread a state change goes to; for pulls, the third, which no step merges. */
+function stateRef(context: WriteContext, kind: WriteKind): ThreadRef {
+  return kind === 'pull_request' ? need(context.pulls[2], 'the third pull request').ref : threadOf(context, kind)
+}
+
+function updatesEverything(kind: WriteKind): (provider: ForgeProvider) => boolean {
+  return provider => (['threads.close', 'threads.reopen', 'threads.setLabels', 'threads.setAssignees'] as const).every(verb => provider.can(verb, kind))
+}
+
 /** Comment, react, label, assign, subscribe and edit steps, the same for an issue and a pull request. */
 function threadWrites(kind: WriteKind): WriteStep[] {
   const prefix = kind === 'pull_request' ? 'pull' : kind
@@ -158,6 +167,8 @@ function threadWrites(kind: WriteKind): WriteStep[] {
     { name: `${prefix} unsubscribe`, verb: 'threads.unsubscribe', kind, run: (provider, _manifest, context) => provider.threads.unsubscribe(ref(context)) },
     { name: `${prefix} subscribe`, verb: 'threads.subscribe', kind, run: (provider, _manifest, context) => provider.threads.subscribe(ref(context)) },
     { name: `${prefix} update`, verb: 'threads.update', kind, run: (provider, manifest, context) => provider.threads.update(ref(context), { title: `${FIXTURE_TITLE} ${manifest.run.id}: ${prefix}, edited`, body: `Edited by run ${manifest.run.id}.` }) },
+    { name: `${prefix} update to closed`, verb: 'threads.update', kind, when: updatesEverything(kind), run: (provider, manifest, context) => provider.threads.update(stateRef(context, kind), { state: 'closed', labels: [label(manifest)], assignees: [need(context.author, 'the author')] }) },
+    { name: `${prefix} update to open`, verb: 'threads.update', kind, when: updatesEverything(kind), run: (provider, _manifest, context) => provider.threads.update(stateRef(context, kind), { state: 'open', labels: [], assignees: [] }) },
   ]
 }
 
