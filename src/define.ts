@@ -654,12 +654,6 @@ function createProvider<TOptions extends ForgeOptionsBase, TState, HasWeb extend
       : { comment: await threads.comment(ref, body, options), created: true }
   }
 
-  function urlFor(target: { repo: RepoRef, section?: undefined }): string
-  function urlFor(target: UrlTarget): string | undefined
-  function urlFor(target: UrlTarget): string | undefined {
-    return spec.web ? webUrlFor(spec.web, target) : undefined
-  }
-
   return {
     ...api as unknown as Pick<ForgeProvider, 'repos' | 'notifications' | 'threads' | 'webhooks' | 'releases' | 'contents' | 'checks' | 'ci' | 'users' | 'search' | 'securityAlerts' | 'sources' | 'installations'>,
     forge: definition.forge,
@@ -683,7 +677,7 @@ function createProvider<TOptions extends ForgeOptionsBase, TState, HasWeb extend
     scopesFor: verb => spec.scopes?.(verb) ?? {},
     can: (verb, kind) => supports(capabilities, verb, kind),
     support: (verb, kind) => supportOf(capabilities, verb, kind),
-    urlFor,
+    urlFor: ((target: UrlTarget) => spec.web ? webUrlFor(spec.web, target) : undefined) as ForgeProvider<HasWeb>['urlFor'],
     webOrigin: (spec.web ? new URL(spec.web.origin).origin : undefined) as HasWeb extends true ? string : string | undefined,
     parseUrl: url => spec.web ? parseWebUrl(spec.web, url, origin) : undefined,
     referenceTo: (ref, referenceOptions) => referenceFor(spec.web, ref, referenceOptions),
