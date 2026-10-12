@@ -1,0 +1,237 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitlab.com/api/v4/projects/forges-fixtures%2Fforges-fixtures/merge_requests/36/discussions"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "<https://gitlab.com/api/v4/projects/forges-fixtures%2Fforges-fixtures/merge_requests/36/discussions?id=forges-fixtures%2Fforges-fixtures&noteable_id=36&page=1&per_page=20>; rel=\"first\", <https://gitlab.com/api/v4/projects/forges-fixtures%2Fforges-fixtures/merge_requests/36/discussions?id=forges-fixtures%2Fforges-fixtures&noteable_id=36&page=1&per_page=20>; rel=\"last\"",
+      "etag": "W/\"81826f7d32fae438d44bf272182bf321\"",
+      "ratelimit-limit": "2000",
+      "ratelimit-remaining": "1928",
+      "ratelimit-reset": "1791840900",
+      "x-total": "6",
+      "x-total-pages": "1",
+      "x-next-page": "",
+      "x-page": "1",
+      "x-per-page": "20"
+    },
+    "body": [
+      {
+        "id": "81ee239c530589b58c0a3d5e8a0c0121fbd841a5",
+        "individual_note": true,
+        "resolvable": false,
+        "notes": [
+          {
+            "id": 3997719905,
+            "type": null,
+            "body": "An upserted comment from run 20261012113957.\n\n<!-- forges:key=forges-fixture -->",
+            "author": {
+              "id": 43193323,
+              "username": "roebot",
+              "public_email": "",
+              "name": "Daniel Roe",
+              "state": "active",
+              "locked": false,
+              "avatar_url": "https://secure.gravatar.com/avatar/14ceebcfdc10030d76768a65e9d7978b914694cebcbb6ab609b3a0e8243f0eb8?s=80&d=identicon",
+              "web_url": "https://gitlab.com/roebot"
+            },
+            "created_at": "2026-10-12T21:33:55.919Z",
+            "updated_at": "2026-10-12T21:33:55.919Z",
+            "system": false,
+            "noteable_id": 547090208,
+            "noteable_type": "MergeRequest",
+            "project_id": 87428720,
+            "resolvable": false,
+            "confidential": false,
+            "internal": false,
+            "imported": false,
+            "imported_from": "none",
+            "noteable_iid": 36,
+            "commands_changes": {}
+          }
+        ]
+      },
+      {
+        "id": "5895fbec5509e5aa21acd089b5f845dd616d2754",
+        "individual_note": true,
+        "resolvable": false,
+        "notes": [
+          {
+            "id": 3997720621,
+            "type": null,
+            "body": "assigned to @roebot",
+            "author": {
+              "id": 43193323,
+              "username": "roebot",
+              "public_email": "",
+              "name": "Daniel Roe",
+              "state": "active",
+              "locked": false,
+              "avatar_url": "https://secure.gravatar.com/avatar/14ceebcfdc10030d76768a65e9d7978b914694cebcbb6ab609b3a0e8243f0eb8?s=80&d=identicon",
+              "web_url": "https://gitlab.com/roebot"
+            },
+            "created_at": "2026-10-12T21:34:00.492Z",
+            "updated_at": "2026-10-12T21:34:00.494Z",
+            "system": true,
+            "noteable_id": 547090208,
+            "noteable_type": "MergeRequest",
+            "project_id": 87428720,
+            "resolvable": false,
+            "confidential": false,
+            "internal": false,
+            "imported": false,
+            "imported_from": "none",
+            "noteable_iid": 36,
+            "commands_changes": {}
+          }
+        ]
+      },
+      {
+        "id": "a43c4fd8339e373617b02d27d98f2a3d75f006d2",
+        "individual_note": true,
+        "resolvable": false,
+        "notes": [
+          {
+            "id": 3997720782,
+            "type": null,
+            "body": "<p>changed title from <code class=\"idiff\">forges fixture 20261012113957: pull<span class=\"idiff left right deletion\"> 1</span></code> to <code class=\"idiff\">forges fixture 20261012113957: pull<span class=\"idiff left right addition\">, edited</span></code></p>",
+            "author": {
+              "id": 43193323,
+              "username": "roebot",
+              "public_email": "",
+              "name": "Daniel Roe",
+              "state": "active",
+              "locked": false,
+              "avatar_url": "https://secure.gravatar.com/avatar/14ceebcfdc10030d76768a65e9d7978b914694cebcbb6ab609b3a0e8243f0eb8?s=80&d=identicon",
+              "web_url": "https://gitlab.com/roebot"
+            },
+            "created_at": "2026-10-12T21:34:01.969Z",
+            "updated_at": "2026-10-12T21:34:01.971Z",
+            "system": true,
+            "noteable_id": 547090208,
+            "noteable_type": "MergeRequest",
+            "project_id": 87428720,
+            "resolvable": false,
+            "confidential": false,
+            "internal": false,
+            "imported": false,
+            "imported_from": "none",
+            "noteable_iid": 36,
+            "commands_changes": {}
+          }
+        ]
+      },
+      {
+        "id": "00448264c51cc668da42112463c91d44ae70c2fb",
+        "individual_note": true,
+        "resolvable": false,
+        "notes": [
+          {
+            "id": 3997720786,
+            "type": null,
+            "body": "changed the description",
+            "author": {
+              "id": 43193323,
+              "username": "roebot",
+              "public_email": "",
+              "name": "Daniel Roe",
+              "state": "active",
+              "locked": false,
+              "avatar_url": "https://secure.gravatar.com/avatar/14ceebcfdc10030d76768a65e9d7978b914694cebcbb6ab609b3a0e8243f0eb8?s=80&d=identicon",
+              "web_url": "https://gitlab.com/roebot"
+            },
+            "created_at": "2026-10-12T21:34:02.001Z",
+            "updated_at": "2026-10-12T21:34:02.003Z",
+            "system": true,
+            "noteable_id": 547090208,
+            "noteable_type": "MergeRequest",
+            "project_id": 87428720,
+            "resolvable": false,
+            "confidential": false,
+            "internal": false,
+            "imported": false,
+            "imported_from": "none",
+            "noteable_iid": 36,
+            "commands_changes": {}
+          }
+        ]
+      },
+      {
+        "id": "253beb1e4d57ab6f51e50c132f520435dfff3c5c",
+        "individual_note": true,
+        "resolvable": false,
+        "notes": [
+          {
+            "id": 3997721060,
+            "type": null,
+            "body": "requested review from @danielroe",
+            "author": {
+              "id": 43193323,
+              "username": "roebot",
+              "public_email": "",
+              "name": "Daniel Roe",
+              "state": "active",
+              "locked": false,
+              "avatar_url": "https://secure.gravatar.com/avatar/14ceebcfdc10030d76768a65e9d7978b914694cebcbb6ab609b3a0e8243f0eb8?s=80&d=identicon",
+              "web_url": "https://gitlab.com/roebot"
+            },
+            "created_at": "2026-10-12T21:34:03.563Z",
+            "updated_at": "2026-10-12T21:34:03.565Z",
+            "system": true,
+            "noteable_id": 547090208,
+            "noteable_type": "MergeRequest",
+            "project_id": 87428720,
+            "resolvable": false,
+            "confidential": false,
+            "internal": false,
+            "imported": false,
+            "imported_from": "none",
+            "noteable_iid": 36,
+            "commands_changes": {}
+          }
+        ]
+      },
+      {
+        "id": "cc946452121469c1f72107e1c9f41e768d2fd2b0",
+        "individual_note": false,
+        "resolvable": true,
+        "resolved": false,
+        "notes": [
+          {
+            "id": 3997721268,
+            "type": "DiscussionNote",
+            "body": "A review comment from run 20261012113957.",
+            "author": {
+              "id": 2179675,
+              "username": "danielroe",
+              "public_email": "",
+              "name": "Daniel Roe",
+              "state": "active",
+              "locked": false,
+              "avatar_url": "https://secure.gravatar.com/avatar/82a8f6237bb263bac46d7cc8ec3054d715ce6a55a8626d6e977769d57d2c94e6?s=80&d=identicon",
+              "web_url": "https://gitlab.com/danielroe"
+            },
+            "created_at": "2026-10-12T21:34:05.098Z",
+            "updated_at": "2026-10-12T21:34:05.098Z",
+            "system": false,
+            "noteable_id": 547090208,
+            "noteable_type": "MergeRequest",
+            "project_id": 87428720,
+            "resolvable": true,
+            "resolved": false,
+            "resolved_by": null,
+            "resolved_at": null,
+            "confidential": false,
+            "internal": false,
+            "imported": false,
+            "imported_from": "none",
+            "noteable_iid": 36,
+            "commands_changes": {}
+          }
+        ]
+      }
+    ]
+  }
+}

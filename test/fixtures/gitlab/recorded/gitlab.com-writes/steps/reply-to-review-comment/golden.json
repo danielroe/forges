@@ -1,0 +1,121 @@
+{
+  "reviews": {
+    "items": []
+  },
+  "comments": {
+    "items": [
+      {
+        "ref": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "thread": {
+            "forge": "gitlab",
+            "instance": "gitlab.com",
+            "repo": {
+              "forge": "gitlab",
+              "instance": "gitlab.com",
+              "owner": "forges-fixtures",
+              "name": "forges-fixtures"
+            },
+            "kind": "pull_request",
+            "number": "36",
+            "externalId": "547090208"
+          },
+          "id": "3997719905"
+        },
+        "body": "An upserted comment from run 20261012113957.\n\n<!-- forges:key=forges-fixture -->",
+        "author": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "login": "roebot",
+          "id": "43193323",
+          "name": "Daniel Roe",
+          "avatarUrl": "https://secure.gravatar.com/avatar/14ceebcfdc10030d76768a65e9d7978b914694cebcbb6ab609b3a0e8243f0eb8?s=80&d=identicon",
+          "url": "https://gitlab.com/roebot",
+          "isBotHint": false
+        },
+        "createdAt": "<now>",
+        "updatedAt": "<now>"
+      },
+      {
+        "ref": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "thread": {
+            "forge": "gitlab",
+            "instance": "gitlab.com",
+            "repo": {
+              "forge": "gitlab",
+              "instance": "gitlab.com",
+              "owner": "forges-fixtures",
+              "name": "forges-fixtures"
+            },
+            "kind": "pull_request",
+            "number": "36",
+            "externalId": "547090208"
+          },
+          "id": "3997721268"
+        },
+        "body": "A review comment from run 20261012113957.",
+        "author": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "login": "danielroe",
+          "id": "2179675",
+          "name": "Daniel Roe",
+          "avatarUrl": "https://secure.gravatar.com/avatar/82a8f6237bb263bac46d7cc8ec3054d715ce6a55a8626d6e977769d57d2c94e6?s=80&d=identicon",
+          "url": "https://gitlab.com/danielroe",
+          "isBotHint": false
+        },
+        "createdAt": "<now>",
+        "updatedAt": "<now>",
+        "thread": {
+          "id": "cc946452121469c1f72107e1c9f41e768d2fd2b0",
+          "resolved": false
+        }
+      }
+    ],
+    "rateLimit": {
+      "limit": 2000,
+      "remaining": 1928,
+      "resetAt": "<now>"
+    }
+  },
+  "reply": {
+    "ref": {
+      "forge": "gitlab",
+      "instance": "gitlab.com",
+      "thread": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "repo": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "owner": "forges-fixtures",
+          "name": "forges-fixtures"
+        },
+        "kind": "pull_request",
+        "number": "36",
+        "externalId": "547090208"
+      },
+      "id": "4000855936"
+    },
+    "body": "A reply from run 20261012113957.",
+    "author": {
+      "forge": "gitlab",
+      "instance": "gitlab.com",
+      "login": "roebot",
+      "id": "43193323",
+      "name": "Daniel Roe",
+      "avatarUrl": "https://secure.gravatar.com/avatar/14ceebcfdc10030d76768a65e9d7978b914694cebcbb6ab609b3a0e8243f0eb8?s=80&d=identicon",
+      "url": "https://gitlab.com/roebot",
+      "isBotHint": false
+    },
+    "createdAt": "<now>",
+    "updatedAt": "<now>",
+    "thread": {
+      "id": "cc946452121469c1f72107e1c9f41e768d2fd2b0",
+      "resolved": false
+    }
+  }
+}

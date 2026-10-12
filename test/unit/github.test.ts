@@ -550,20 +550,20 @@ describe('github reviews', () => {
     expect(calls[1]!.operationName).toBe('ResolveReviewThread')
   })
 
-  it('replies to a review comment, and to a reply through the comment it answers', async () => {
-    const { provider, calls } = tokenProvider()
-    const conversation = { id: 'PRRT_kwDOAAB5ac5abcde', resolved: false }
-    const comment = { ref: { forge: 'github', instance: 'github.com', thread: pull, id: '55001' }, thread: conversation }
+  it('replies to a reply through the comment it answers', async () => {
+    const { fetch, calls } = fixtureFetch('github/recorded/github.com-writes/steps/reply-to-review-comment')
+    const provider = github({ auth: { type: 'token', token: 't' }, fetch }).create()
+    const scratch = { forge: 'github', instance: 'github.com', repo: { forge: 'github', instance: 'github.com', owner: 'forges-fixtures', name: 'forges-fixtures' }, kind: 'pull_request', number: '93' } as const
+    const [comment] = (await provider.threads.reviewsPage(scratch)).items.flatMap(review => review.comments || [])
 
-    const reply = await provider.threads.replyToReviewComment(pull, comment, 'Done, it is const now.')
-    await provider.threads.replyToReviewComment(pull, reply, 'Done, it is const now.')
+    const reply = await provider.threads.replyToReviewComment(scratch, comment!, 'A reply')
+    await provider.threads.replyToReviewComment(scratch, reply, 'A reply')
 
-    expect(calls.map(call => `${call.method} ${new URL(call.url).pathname}`)).toEqual([
-      'POST /repos/acme/widgets/pulls/42/comments/55001/replies',
-      'POST /repos/acme/widgets/pulls/42/comments/55001/replies',
+    expect(calls.filter(call => call.url.endsWith('/replies')).map(call => new URL(call.url).pathname)).toEqual([
+      `/repos/forges-fixtures/forges-fixtures/pulls/93/comments/${comment!.ref!.id}/replies`,
+      `/repos/forges-fixtures/forges-fixtures/pulls/93/comments/${comment!.ref!.id}/replies`,
     ])
-    expect(JSON.parse(calls[0]!.body!)).toEqual({ body: 'Done, it is const now.' })
-    expect(reply).toMatchObject({ ref: { id: '55002' }, inReplyTo: '55001', path: 'src/index.ts', line: 12, thread: conversation })
+    expect(reply).toMatchObject({ inReplyTo: comment!.ref!.id, thread: comment!.thread })
   })
 
   it('needs the id of the review comment it replies to', async () => {

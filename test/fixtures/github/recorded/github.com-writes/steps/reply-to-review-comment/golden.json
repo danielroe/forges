@@ -1,0 +1,129 @@
+{
+  "reviews": {
+    "items": [
+      {
+        "ref": {
+          "forge": "github",
+          "instance": "github.com",
+          "thread": {
+            "forge": "github",
+            "instance": "github.com",
+            "repo": {
+              "forge": "github",
+              "instance": "github.com",
+              "owner": "forges-fixtures",
+              "name": "forges-fixtures"
+            },
+            "kind": "pull_request",
+            "number": "93",
+            "externalId": "PR_kwDOVCTdtM8AAAABH9Hj-Q"
+          },
+          "id": "5490176614"
+        },
+        "author": {
+          "forge": "github",
+          "instance": "github.com",
+          "login": "danielroe",
+          "id": "28706372",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/28706372?u=c4a5aa5232c09c3248533366d5c93a138d7e8987&v=4",
+          "url": "https://github.com/danielroe",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "state": "commented",
+        "stateRaw": "COMMENTED",
+        "body": "A submitted review from run 20261012113502.",
+        "submittedAt": "<now>",
+        "comments": [
+          {
+            "ref": {
+              "forge": "github",
+              "instance": "github.com",
+              "thread": {
+                "forge": "github",
+                "instance": "github.com",
+                "repo": {
+                  "forge": "github",
+                  "instance": "github.com",
+                  "owner": "forges-fixtures",
+                  "name": "forges-fixtures"
+                },
+                "kind": "pull_request",
+                "number": "93",
+                "externalId": "PR_kwDOVCTdtM8AAAABH9Hj-Q"
+              },
+              "id": "4247562567"
+            },
+            "body": "A line comment from run 20261012113502.",
+            "author": {
+              "forge": "github",
+              "instance": "github.com",
+              "login": "danielroe",
+              "id": "28706372",
+              "avatarUrl": "https://avatars.githubusercontent.com/u/28706372?v=4",
+              "url": "https://github.com/danielroe",
+              "typeRaw": "User",
+              "isBotHint": false
+            },
+            "path": "forges-fixtures/20261012113502-1.md",
+            "line": 1,
+            "side": "right",
+            "thread": {
+              "id": "PRRT_kwDOVCTdtM6rcK3H",
+              "resolved": false
+            },
+            "createdAt": "<now>",
+            "url": "https://github.com/forges-fixtures/forges-fixtures/pull/93#discussion_r4247562567"
+          }
+        ],
+        "url": "https://github.com/forges-fixtures/forges-fixtures/pull/93#pullrequestreview-5490176614"
+      }
+    ],
+    "rateLimit": {
+      "limit": 5000,
+      "remaining": 4991,
+      "resetAt": "<now>"
+    }
+  },
+  "reply": {
+    "ref": {
+      "forge": "github",
+      "instance": "github.com",
+      "thread": {
+        "forge": "github",
+        "instance": "github.com",
+        "repo": {
+          "forge": "github",
+          "instance": "github.com",
+          "owner": "forges-fixtures",
+          "name": "forges-fixtures"
+        },
+        "kind": "pull_request",
+        "number": "93",
+        "externalId": "PR_kwDOVCTdtM8AAAABH9Hj-Q"
+      },
+      "id": "4252516086"
+    },
+    "body": "A reply from run 20261012113502.",
+    "author": {
+      "forge": "github",
+      "instance": "github.com",
+      "login": "danielroe-bot",
+      "id": "57801166",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/57801166?v=4",
+      "url": "https://github.com/danielroe-bot",
+      "typeRaw": "User",
+      "isBotHint": false
+    },
+    "path": "forges-fixtures/20261012113502-1.md",
+    "line": 1,
+    "side": "right",
+    "inReplyTo": "4247562567",
+    "thread": {
+      "id": "PRRT_kwDOVCTdtM6rcK3H",
+      "resolved": false
+    },
+    "createdAt": "<now>",
+    "url": "https://github.com/forges-fixtures/forges-fixtures/pull/93#discussion_r4252516086"
+  }
+}
