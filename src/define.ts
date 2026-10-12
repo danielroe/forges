@@ -342,10 +342,10 @@ export interface ProviderDefinition<TOptions extends ForgeOptionsBase, TState = 
   authHeaders?: (base: ProviderBase<TOptions, TState>) => FetcherOptions['authHeaders']
   /** Query parameters for every request, such as an API version; see `FetcherOptions.query`. */
   query?: Record<string, string>
-  /** Whether the forge has a website, so the provider's `webOrigin` is typed `string`. */
+  /** Whether the forge has a website: `setup()` must then return `web`, and the provider's `webOrigin` is typed `string`. */
   hasWeb?: HasWeb
   /** Declares the verbs and the web links of one provider. */
-  setup: (ctx: ProviderContext<TOptions, TState>) => ProviderSpec
+  setup: (ctx: ProviderContext<TOptions, TState>) => HasWeb extends true ? ProviderSpec & { web: WebLinks } : ProviderSpec
   /** Delivery verification and translation. Omit it and `webhooks.ingest()` is unsupported. */
   webhooks?: WebhookHandlers<TOptions>
 }

@@ -48,6 +48,7 @@ import type {
   VerbScopes,
 } from '../provider.ts'
 import type { ForgeVerb } from '../supports.ts'
+import type { WebLinks } from '../web.ts'
 import type {
   ForgejoActionRun,
   ForgejoActionRunJob,
@@ -134,9 +135,10 @@ function sameLogin(user: ForgejoUser | null | undefined, login: string | undefin
 const FORGEJO_RESERVED_PATHS = ['-', '.well-known', 'admin', 'api', 'assets', 'attachments', 'avatars', 'captcha', 'explore', 'issues', 'login', 'milestones', 'notifications', 'org', 'pulls', 'repo', 'repo-avatars', 'search', 'user']
 
 /** The Forgejo implementation for one deployment family. Shared by `forgejo()` and `gitea()`. */
-export function forgejoDefinition(profile: ForgejoProfile): ProviderDefinition<ForgejoOptions> {
+export function forgejoDefinition(profile: ForgejoProfile): ProviderDefinition<ForgejoOptions, undefined, true> {
   return {
     forge: profile.forge,
+    hasWeb: true,
     baseUrl: profile.defaultBaseUrl,
     anonymous: true,
     apiPath: '/api/v1',
@@ -146,7 +148,7 @@ export function forgejoDefinition(profile: ForgejoProfile): ProviderDefinition<F
   }
 }
 
-function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: ProviderContext<ForgejoOptions, undefined>, profile: ForgejoProfile): ProviderSpec {
+function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: ProviderContext<ForgejoOptions, undefined>, profile: ForgejoProfile): ProviderSpec & { web: WebLinks } {
   const context = origin
   /** Collaborators, assignees, reviewers and permissions are served only to signed-in users. */
   const anonymous = options.auth?.type === 'anonymous'
@@ -909,10 +911,10 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
 const FORGEJO = /* @__PURE__ */ forgejoDefinition(FORGEJO_PROFILE)
 
 /** Creates a Forgejo provider for Codeberg or any self-hosted Forgejo instance. */
-export const forgejo: ProviderFactoryFunction<ForgejoOptions, true> = /* @__PURE__ */ defineForgeProvider({ ...FORGEJO, hasWeb: true, webhooks: forgejoWebhooks(FORGEJO_PROFILE) })
+export const forgejo: ProviderFactoryFunction<ForgejoOptions, true> = /* @__PURE__ */ defineForgeProvider({ ...FORGEJO, webhooks: forgejoWebhooks(FORGEJO_PROFILE) })
 
 /** `forgejo()` without webhook ingestion, for bundles that never receive a delivery. */
-export const forgejoLite: ProviderFactoryFunction<ForgejoOptions, true> = /* @__PURE__ */ defineForgeProvider({ ...FORGEJO, hasWeb: true })
+export const forgejoLite: ProviderFactoryFunction<ForgejoOptions, true> = /* @__PURE__ */ defineForgeProvider(FORGEJO)
 
 /**
  * Forgejo and Gitea token scopes, which are per resource group with a

@@ -190,8 +190,9 @@ function threadPath(ref: ResolvedThreadRef): string {
   }
 }
 
-const GITLAB: ProviderDefinition<GitLabOptions> = {
+const GITLAB: ProviderDefinition<GitLabOptions, undefined, true> = {
   forge: FORGE,
+  hasWeb: true,
   baseUrl: 'https://gitlab.com',
   anonymous: true,
   apiPath: '/api/v4',
@@ -1112,10 +1113,10 @@ const GITLAB: ProviderDefinition<GitLabOptions> = {
 }
 
 /** Creates a GitLab provider for gitlab.com or a self-managed instance. */
-export const gitlab: ProviderFactoryFunction<GitLabOptions, true> = /* @__PURE__ */ defineForgeProvider({ ...GITLAB, hasWeb: true, webhooks: gitlabWebhooks })
+export const gitlab: ProviderFactoryFunction<GitLabOptions, true> = /* @__PURE__ */ defineForgeProvider({ ...GITLAB, webhooks: gitlabWebhooks })
 
 /** `gitlab()` without webhook ingestion, for bundles that never receive a delivery. */
-export const gitlabLite: ProviderFactoryFunction<GitLabOptions, true> = /* @__PURE__ */ defineForgeProvider({ ...GITLAB, hasWeb: true })
+export const gitlabLite: ProviderFactoryFunction<GitLabOptions, true> = /* @__PURE__ */ defineForgeProvider(GITLAB)
 
 /** GitLab tokens carry coarse scopes; `api` covers writes and `read_api` reads. */
 export function gitlabScopesFor(verb: ForgeVerb): VerbScopes {

@@ -1,6 +1,7 @@
 import type { ProviderContext, ProviderDefinition, ProviderFactoryFunction, ProviderSpec } from '../define.ts'
 import type { BaseOptions, Check, CheckState, Comment, CommentRef, Cursor, ForgeEventInput, ForgeWarning, ListOptions, MergeMethod, Page, RepoRef, ResolvedThreadRef, Review, ReviewInput, SearchQuery, Thread, ThreadQuery, ThreadRef } from '../model.ts'
 import type { AnonymousAuth, BasicAuth, ForgeOptionsBase, TokenAuth } from '../provider.ts'
+import type { WebLinks } from '../web.ts'
 import type { AzureCommit, AzureCommitDiffs, AzureIdentity, AzureItem, AzurePolicyEvaluation, AzurePullRequest, AzureRef, AzureRepository, AzureReviewer, AzureStatus, AzureThread, AzureWorkItem, AzureWorkItemComment, AzureWorkItemUpdate } from './types.ts'
 import { toFileContent } from '../contents.ts'
 import { defineForgeProvider, perKind, verb } from '../define.ts'
@@ -51,7 +52,7 @@ function versionType(ref: string): 'commit' | 'branch' {
   return /^[0-9a-f]{40}$/i.test(ref) ? 'commit' : 'branch'
 }
 
-function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: ProviderContext<AzureDevOpsOptions, undefined>): ProviderSpec {
+function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: ProviderContext<AzureDevOpsOptions, undefined>): ProviderSpec & { web: WebLinks } {
   const enc = encodeURIComponent
   /** Pull request statuses, policy evaluations and WIQL queries redirect a request without credentials to sign in. */
   const anonymous = options.auth?.type === 'anonymous'
@@ -646,8 +647,9 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
   }
 }
 
-const AZURE_DEVOPS: ProviderDefinition<AzureDevOpsOptions> = {
+const AZURE_DEVOPS: ProviderDefinition<AzureDevOpsOptions, undefined, true> = {
   forge: FORGE,
+  hasWeb: true,
   baseUrl: 'https://dev.azure.com',
   anonymous: true,
   headers: { accept: 'application/json' },
@@ -662,7 +664,7 @@ const AZURE_DEVOPS: ProviderDefinition<AzureDevOpsOptions> = {
 }
 
 /** Creates an Azure DevOps provider for one organization on dev.azure.com, or a collection on Azure DevOps Server. */
-export const azureDevOps: ProviderFactoryFunction<AzureDevOpsOptions, true> = /* @__PURE__ */ defineForgeProvider({ ...AZURE_DEVOPS, hasWeb: true, webhooks: azureDevOpsWebhooks })
+export const azureDevOps: ProviderFactoryFunction<AzureDevOpsOptions, true> = /* @__PURE__ */ defineForgeProvider({ ...AZURE_DEVOPS, webhooks: azureDevOpsWebhooks })
 
 /** `azureDevOps()` without webhook ingestion, for bundles that never receive a delivery. */
-export const azureDevOpsLite: ProviderFactoryFunction<AzureDevOpsOptions, true> = /* @__PURE__ */ defineForgeProvider({ ...AZURE_DEVOPS, hasWeb: true })
+export const azureDevOpsLite: ProviderFactoryFunction<AzureDevOpsOptions, true> = /* @__PURE__ */ defineForgeProvider(AZURE_DEVOPS)

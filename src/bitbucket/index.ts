@@ -124,8 +124,9 @@ function page<T>(body: unknown) {
 }
 
 /** Creates a Bitbucket Cloud provider. Bitbucket Data Center has a different API and is not supported. */
-const BITBUCKET: ProviderDefinition<BitbucketOptions> = {
+const BITBUCKET: ProviderDefinition<BitbucketOptions, undefined, true> = {
   forge: FORGE,
+  hasWeb: true,
 
   baseUrl: 'https://api.bitbucket.org/2.0',
   anonymous: true,
@@ -639,10 +640,10 @@ const BITBUCKET: ProviderDefinition<BitbucketOptions> = {
 }
 
 /** Creates a Bitbucket Cloud provider. */
-export const bitbucket: ProviderFactoryFunction<BitbucketOptions, true> = /* @__PURE__ */ defineForgeProvider({ ...BITBUCKET, hasWeb: true, webhooks: bitbucketWebhooks })
+export const bitbucket: ProviderFactoryFunction<BitbucketOptions, true> = /* @__PURE__ */ defineForgeProvider({ ...BITBUCKET, webhooks: bitbucketWebhooks })
 
 /** `bitbucket()` without webhook ingestion, for bundles that never receive a delivery. */
-export const bitbucketLite: ProviderFactoryFunction<BitbucketOptions, true> = /* @__PURE__ */ defineForgeProvider({ ...BITBUCKET, hasWeb: true })
+export const bitbucketLite: ProviderFactoryFunction<BitbucketOptions, true> = /* @__PURE__ */ defineForgeProvider(BITBUCKET)
 
 /** Bitbucket Cloud scopes, as an app password or OAuth consumer grants them. */
 export function bitbucketScopesFor(verb: ForgeVerb): VerbScopes {

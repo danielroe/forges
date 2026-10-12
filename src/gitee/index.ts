@@ -2,6 +2,7 @@ import type { ProviderContext, ProviderDefinition, ProviderFactoryFunction, Prov
 import type { BaseOptions, Check, Comment, Cursor, EventKind, ForgeEventInput, ForgeWarning, ListOptions, Notification, NotificationListOptions, OwnerRepoQuery, Page, PageOptions, Release, Repo, RepoRef, RepoSearchQuery, ResolvedThreadRef, Review, ReviewInput, SearchQuery, Thread, ThreadQuery, ThreadRef, User } from '../model.ts'
 import type { AnonymousAuth, BulkNotificationOptions, ForgeOptionsBase, TokenAuth, VerbScopes } from '../provider.ts'
 import type { ForgeVerb } from '../supports.ts'
+import type { WebLinks } from '../web.ts'
 import type { GiteeBranch, GiteeCheckRun, GiteeComment, GiteeCommit, GiteeCommitFile, GiteeCompare, GiteeContentFile, GiteeHook, GiteeIssue, GiteeLabel, GiteeNotification, GiteeOperateLog, GiteePullRequest, GiteeRelease, GiteeRepository, GiteeTag, GiteeTree, GiteeUser } from './types.ts'
 import { fromBase64, toFileContent } from '../contents.ts'
 import { defineForgeProvider, perKind, verb } from '../define.ts'
@@ -33,7 +34,7 @@ export interface GiteeOptions extends ForgeOptionsBase {
 const PULL = { pull_request: true } as const
 const PER_PAGE = 50
 
-function setupGitee({ instance, origin: context, fetcher, baseUrl }: ProviderContext<GiteeOptions, undefined>): ProviderSpec {
+function setupGitee({ instance, origin: context, fetcher, baseUrl }: ProviderContext<GiteeOptions, undefined>): ProviderSpec & { web: WebLinks } {
   const repoPath = (repo: RepoRef) => `/repos/${encodeURIComponent(repo.owner)}/${encodeURIComponent(repo.name)}`
   async function readUser(path: string, signal?: AbortSignal): Promise<User> {
     const { data } = await fetcher.json<GiteeUser & { bio?: string | null, company?: string | null, blog?: string | null, created_at?: string, followers?: number, following?: number, public_repos?: number }>(path, { signal })
@@ -551,8 +552,9 @@ function setupGitee({ instance, origin: context, fetcher, baseUrl }: ProviderCon
   }
 }
 
-const GITEE: ProviderDefinition<GiteeOptions> = {
+const GITEE: ProviderDefinition<GiteeOptions, undefined, true> = {
   forge: FORGE,
+  hasWeb: true,
   baseUrl: 'https://gitee.com',
   anonymous: true,
   apiPath: '/api/v5',
@@ -562,10 +564,10 @@ const GITEE: ProviderDefinition<GiteeOptions> = {
 }
 
 /** Creates a Gitee provider for gitee.com. The enterprise edition (`e.gitee.com`) is not covered. */
-export const gitee: ProviderFactoryFunction<GiteeOptions, true> = /* @__PURE__ */ defineForgeProvider({ ...GITEE, hasWeb: true, webhooks: giteeWebhooks })
+export const gitee: ProviderFactoryFunction<GiteeOptions, true> = /* @__PURE__ */ defineForgeProvider({ ...GITEE, webhooks: giteeWebhooks })
 
 /** `gitee()` without webhook ingestion, for bundles that never receive a delivery. */
-export const giteeLite: ProviderFactoryFunction<GiteeOptions, true> = /* @__PURE__ */ defineForgeProvider({ ...GITEE, hasWeb: true })
+export const giteeLite: ProviderFactoryFunction<GiteeOptions, true> = /* @__PURE__ */ defineForgeProvider(GITEE)
 
 /** Gitee OAuth scopes, one per resource group. */
 export function giteeScopesFor(verb: ForgeVerb): VerbScopes {

@@ -67,6 +67,7 @@ import type {
   VerbScopes,
 } from '../provider.ts'
 import type { ForgeVerb } from '../supports.ts'
+import type { WebLinks } from '../web.ts'
 import type { AppCredentials, GitHubAuth } from './auth.ts'
 import type {
   DiscussionCommentsResult,
@@ -223,7 +224,7 @@ function advancedFreeText(text: string): string {
   return parts.map((part, index) => index % 2 ? part : part.replace(/[()\s]+/g, ' ')).join('"').trim()
 }
 
-function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, createFetcher, derive, state: credentials }: ProviderContext<GitHubOptions, AppCredentials | undefined>): ProviderSpec {
+function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, createFetcher, derive, state: credentials }: ProviderContext<GitHubOptions, AppCredentials | undefined>): ProviderSpec & { web: WebLinks } {
   const list = createListing(fetcher, 'per_page')
   const auth = options.auth ?? { type: 'anonymous' as const }
   /** GitHub GraphQL needs a credential, so anonymous providers stay on REST. */
@@ -1749,8 +1750,9 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
   }
 }
 
-const GITHUB: ProviderDefinition<GitHubOptions, AppCredentials | undefined> = {
+const GITHUB: ProviderDefinition<GitHubOptions, AppCredentials | undefined, true> = {
   forge: FORGE,
+  hasWeb: true,
   baseUrl: 'https://api.github.com',
   anonymous: true,
   instance: webHost,
@@ -1763,10 +1765,10 @@ const GITHUB: ProviderDefinition<GitHubOptions, AppCredentials | undefined> = {
 }
 
 /** Creates a GitHub provider for github.com or a GitHub Enterprise Server instance. */
-export const github: ProviderFactoryFunction<GitHubOptions, true> = /* @__PURE__ */ defineForgeProvider({ ...GITHUB, hasWeb: true, webhooks: githubWebhooks })
+export const github: ProviderFactoryFunction<GitHubOptions, true> = /* @__PURE__ */ defineForgeProvider({ ...GITHUB, webhooks: githubWebhooks })
 
 /** `github()` without webhook ingestion, for bundles that never receive a delivery. */
-export const githubLite: ProviderFactoryFunction<GitHubOptions, true> = /* @__PURE__ */ defineForgeProvider({ ...GITHUB, hasWeb: true })
+export const githubLite: ProviderFactoryFunction<GitHubOptions, true> = /* @__PURE__ */ defineForgeProvider(GITHUB)
 
 /**
  * Token scopes and fine-grained permissions GitHub documents per endpoint

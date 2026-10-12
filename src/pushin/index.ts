@@ -2,6 +2,7 @@ import type { ProviderContext, ProviderDefinition, ProviderFactoryFunction, Prov
 import type { BaseOptions, Comment, ForgeEventInput, ListOptions, Page, RepoRef, ResolvedThreadRef, Thread, ThreadQuery, ThreadRef } from '../model.ts'
 import type { AnonymousAuth, ForgeOptionsBase, TokenAuth, VerbScopes } from '../provider.ts'
 import type { ForgeVerb } from '../supports.ts'
+import type { WebLinks } from '../web.ts'
 import type { PushinCollaborator, PushinComment, PushinLabel, PushinNotification, PushinRepository, PushinThread, PushinUser } from './types.ts'
 import { defineForgeProvider, perKind, verb } from '../define.ts'
 import { createListing, getManyConcurrently, requireIssueOrPull, resolveToken, toPage } from '../utils.ts'
@@ -25,7 +26,7 @@ export interface PushinOptions extends ForgeOptionsBase {
   baseUrl?: string
 }
 
-function setupPushin({ options, instance, origin: context, fetcher, baseUrl }: ProviderContext<PushinOptions, undefined>): ProviderSpec {
+function setupPushin({ options, instance, origin: context, fetcher, baseUrl }: ProviderContext<PushinOptions, undefined>): ProviderSpec & { web: WebLinks } {
   const anonymous = options.auth?.type === 'anonymous'
   const list = createListing(fetcher, 'per_page')
   const repoPath = (repo: RepoRef) => `/repos/${encodeURIComponent(repo.owner)}/${encodeURIComponent(repo.name)}`
@@ -131,8 +132,9 @@ function setupPushin({ options, instance, origin: context, fetcher, baseUrl }: P
   }
 }
 
-const PUSHIN: ProviderDefinition<PushinOptions> = {
+const PUSHIN: ProviderDefinition<PushinOptions, undefined, true> = {
   forge: FORGE,
+  hasWeb: true,
   experimental: true,
   anonymous: true,
   baseUrl: 'https://pushin.eu',
@@ -143,7 +145,7 @@ const PUSHIN: ProviderDefinition<PushinOptions> = {
 }
 
 /** Creates a Pushin.eu provider. */
-export const pushin: ProviderFactoryFunction<PushinOptions, true> = /* @__PURE__ */ defineForgeProvider({ ...PUSHIN, hasWeb: true })
+export const pushin: ProviderFactoryFunction<PushinOptions, true> = /* @__PURE__ */ defineForgeProvider(PUSHIN)
 
 /** Scope requirements for a Pushin.eu operation. */
 export function pushinScopesFor(_verb: ForgeVerb): VerbScopes {

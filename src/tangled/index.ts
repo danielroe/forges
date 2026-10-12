@@ -125,8 +125,9 @@ export interface TangledOptions extends ForgeOptionsBase {
 
 const ISSUE_AND_PULL = { issue: true, pull_request: true } as const
 
-const TANGLED: ProviderDefinition<TangledOptions> = {
+const TANGLED: ProviderDefinition<TangledOptions, undefined, true> = {
   forge: FORGE,
+  hasWeb: true,
   experimental: true,
   baseUrl: 'https://tangled.org',
   headers: { accept: 'application/json' },
@@ -596,7 +597,7 @@ async function patchText(bytes: Uint8Array): Promise<string> {
 }
 
 /** Creates a Tangled provider. Records are read from PDSes; pushes arrive through Jetstream. */
-export const tangled: ProviderFactoryFunction<TangledOptions, true> = /* @__PURE__ */ defineForgeProvider({ ...TANGLED, hasWeb: true, webhooks: tangledWebhooks })
+export const tangled: ProviderFactoryFunction<TangledOptions, true> = /* @__PURE__ */ defineForgeProvider({ ...TANGLED, webhooks: tangledWebhooks })
 
 /** `tangled()` without webhook ingestion, for bundles that never receive a delivery. */
-export const tangledLite: ProviderFactoryFunction<TangledOptions, true> = /* @__PURE__ */ defineForgeProvider({ ...TANGLED, hasWeb: true })
+export const tangledLite: ProviderFactoryFunction<TangledOptions, true> = /* @__PURE__ */ defineForgeProvider(TANGLED)
