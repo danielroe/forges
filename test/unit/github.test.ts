@@ -891,6 +891,7 @@ describe('github webhook management', () => {
 
     expect(provider.scopesFor('webhooks.create')).toEqual({ token: ['admin:repo_hook', 'admin:org_hook'], permissions: { webhooks: 'admin' } })
     expect(provider.scopesFor('threads.close').permissions).toMatchObject({ issues: 'write' })
+    expect(provider.scopesFor('threads.replyToReviewComment').permissions).toMatchObject({ pull_requests: 'write' })
   })
 })
 

@@ -75,6 +75,7 @@ import type {
   GiteaActionRun,
 } from './types.ts'
 import type { WebhookHeaderNames } from './webhook-events.ts'
+import { WRITE_VERBS } from '../capabilities.ts'
 import { fromBase64, toFileContent } from '../contents.ts'
 import { defineForgeProvider, perKind, verb } from '../define.ts'
 import { ForgeError, NotFoundError, soleMergeMethod, toMergeError, UnsupportedOperationError } from '../errors.ts'
@@ -940,8 +941,7 @@ export const forgejoLite: ProviderFactoryFunction<ForgejoOptions, true, 'forgejo
  */
 export function forgejoScopesFor(verb: ForgeVerb): VerbScopes {
   const [group = '', name = ''] = verb.split('.')
-  const writes = new Set(['comment', 'upsertComment', 'editComment', 'deleteComment', 'create', 'update', 'close', 'reopen', 'setLabels', 'addLabels', 'removeLabels', 'setMilestone', 'react', 'unreact', 'setAssignees', 'requestReview', 'merge', 'approveAndMerge', 'createReview', 'submitReview', 'approve', 'createLabel', 'addCollaborator', 'subscribe', 'unsubscribe', 'report'])
-  const write = writes.has(name)
+  const write = WRITE_VERBS.has(verb)
   if (group === 'webhooks') {
     return name === 'verify' || name === 'ingest' ? {} : { token: ['write:repository', 'write:organization'] }
   }

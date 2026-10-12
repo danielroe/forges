@@ -478,4 +478,8 @@ describe('gitea review replies', () => {
     expect(gitea({ auth, baseUrl: 'https://git.example.org', instanceVersion: '1.27.0' }).create().capabilities.reviews.reply).toBe(true)
     expect(forgejo({ auth }).create().capabilities.reviews.reply).toBe(false)
   })
+
+  it('asks for write scopes to reply', () => {
+    expect(gitea({ auth }).create().scopesFor('threads.replyToReviewComment')).toEqual({ token: ['write:issue', 'write:repository'] })
+  })
 })
