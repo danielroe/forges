@@ -597,7 +597,7 @@ async function patchText(bytes: Uint8Array): Promise<string> {
 }
 
 /** Creates a Tangled provider. Records are read from PDSes; pushes arrive through Jetstream. */
-export const tangled: ProviderFactoryFunction<TangledOptions, true> = /* @__PURE__ */ defineForgeProvider({ ...TANGLED, webhooks: tangledWebhooks })
+export const tangled: ProviderFactoryFunction<TangledOptions, true, 'tangled', true> = /* @__PURE__ */ defineForgeProvider({ ...TANGLED, webhooks: tangledWebhooks })
 
 /** `tangled()` without webhook ingestion, for bundles that never receive a delivery. */
-export const tangledLite: ProviderFactoryFunction<TangledOptions, true> = /* @__PURE__ */ defineForgeProvider(TANGLED)
+export const tangledLite: ProviderFactoryFunction<TangledOptions, true, 'tangled', true> = /* @__PURE__ */ defineForgeProvider(TANGLED)

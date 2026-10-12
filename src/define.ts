@@ -689,17 +689,17 @@ function createProvider<TOptions extends ForgeOptionsBase, TState, HasWeb extend
  * `github({ auth })`. Nothing touches the network until `create()`.
  * @param definition The defaults, authentication and setup of the forge.
  */
-export function defineForgeProvider<TOptions extends ForgeOptionsBase, TState = undefined, HasWeb extends boolean = boolean>(
+export function defineForgeProvider<TOptions extends ForgeOptionsBase, TState = undefined, HasWeb extends boolean = boolean, Forge extends ForgeKind = ForgeKind, Experimental extends boolean = false>(
   definition: ProviderDefinition<TOptions, TState, HasWeb>,
-): ProviderFactoryFunction<TOptions, HasWeb> {
+): ProviderFactoryFunction<TOptions, HasWeb, Forge, Experimental> {
   return ((options: TOptions = {} as TOptions) => ({
     forge: definition.forge,
     ...definition.experimental ? { experimental: true as const } : {},
     create: () => createProvider<TOptions, TState, HasWeb>(definition, options),
-  })) as ProviderFactoryFunction<TOptions, HasWeb>
+  })) as ProviderFactoryFunction<TOptions, HasWeb, Forge, Experimental>
 }
 
 /** The function `defineForgeProvider()` returns. Options are optional when every option is. */
-export type ProviderFactoryFunction<TOptions, HasWeb extends boolean = boolean> = Record<never, never> extends TOptions
-  ? (options?: TOptions) => ForgeProviderFactory<ForgeProvider<HasWeb>>
-  : (options: TOptions) => ForgeProviderFactory<ForgeProvider<HasWeb>>
+export type ProviderFactoryFunction<TOptions, HasWeb extends boolean = boolean, Forge extends ForgeKind = ForgeKind, Experimental extends boolean = false> = Record<never, never> extends TOptions
+  ? (options?: TOptions) => ForgeProviderFactory<ForgeProvider<HasWeb>, Forge, Experimental>
+  : (options: TOptions) => ForgeProviderFactory<ForgeProvider<HasWeb>, Forge, Experimental>

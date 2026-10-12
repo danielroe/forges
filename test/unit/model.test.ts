@@ -7,6 +7,7 @@ import * as root from '../../src/index.ts'
 import * as kit from '../../src/kit.ts'
 import { commentMarker, notificationKey, repoKey, repoRef, threadKey } from '../../src/model.ts'
 import { createForges } from '../../src/provider.ts'
+import { pushin } from '../../src/pushin/index.ts'
 import { summariseChecks } from '../../src/utils.ts'
 import { sameRepo } from '../../src/web.ts'
 import { hangingFetch } from '../utils/fixtures.ts'
@@ -103,10 +104,21 @@ describe('createForges', () => {
     ])
 
     expect(forges.providers).toHaveLength(3)
-    expect(forges.get('github')!.instance).toBe('github.com')
+    expect(forges.get('github').instance).toBe('github.com')
     expect(forges.get('github', 'ghe.example.com')!.baseUrl).toBe('https://ghe.example.com/api/v3')
     expect(forges.all('github')).toHaveLength(2)
-    expect(forges.get('gitlab')).toBeUndefined()
+    expect(forges.get('github', 'unknown.example.com')).toBeUndefined()
+  })
+
+  it('narrows lookups and factory forges to the kinds registered', () => {
+    const auth = { type: 'token', token: 't' } as const
+    expectTypeOf(github({ auth }).forge).toEqualTypeOf<'github'>()
+    expectTypeOf(github({ auth }).experimental).toEqualTypeOf<undefined>()
+    expectTypeOf(pushin({ auth }).experimental).toEqualTypeOf<true | undefined>()
+    const forges = createForges([github({ auth }), forgejo({ auth })])
+    expectTypeOf(forges).toEqualTypeOf<Forges<'github' | 'forgejo'>>()
+    expectTypeOf(forges.get('github')).toEqualTypeOf<ForgeProvider>()
+    expectTypeOf(forges.get('github', 'github.com')).toEqualTypeOf<ForgeProvider | undefined>()
   })
 
   it('yields nothing when no provider is registered', async () => {

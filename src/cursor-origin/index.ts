@@ -426,10 +426,10 @@ const ORIGIN: ProviderDefinition<CursorOriginOptions, OriginAppCredentials | und
  * Creates a Cursor Origin provider. Experimental: built against the
  * `v1alpha1` API, which Cursor publishes as Early Beta.
  */
-export const cursorOrigin: ProviderFactoryFunction<CursorOriginOptions> = /* @__PURE__ */ defineForgeProvider({ ...ORIGIN, webhooks: cursorOriginWebhooks })
+export const cursorOrigin: ProviderFactoryFunction<CursorOriginOptions, boolean, 'cursor-origin', true> = /* @__PURE__ */ defineForgeProvider({ ...ORIGIN, webhooks: cursorOriginWebhooks })
 
 /** `cursorOrigin()` without webhook ingestion, for bundles that never receive a delivery. */
-export const cursorOriginLite: ProviderFactoryFunction<CursorOriginOptions> = /* @__PURE__ */ defineForgeProvider(ORIGIN)
+export const cursorOriginLite: ProviderFactoryFunction<CursorOriginOptions, boolean, 'cursor-origin', true> = /* @__PURE__ */ defineForgeProvider(ORIGIN)
 
 function createFetcherFor(baseUrl: string, headers: Record<string, string>, options: CursorOriginOptions, authHeaders: () => Promise<Record<string, string>>) {
   return createFetcherBase({ baseUrl, headers, fetch: options.fetch, timeout: options.timeout, authHeaders, context: { forge: FORGE } })
