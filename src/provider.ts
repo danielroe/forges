@@ -964,15 +964,6 @@ export interface SourcesApi {
 
 export type { ForgeVerb } from './supports.ts'
 
-/**
- * `urlFor()` for a provider whose forge has a website: the repository page is
- * the one target every such forge has, so it is typed `string`.
- */
-export interface UrlFor<HasWeb extends boolean = boolean> {
-  (target: { repo: RepoRef, section?: undefined }): HasWeb extends true ? string : string | undefined
-  (target: UrlTarget): string | undefined
-}
-
 /** A connection to one forge, with its identity, its capabilities and the namespaces of operations. */
 export interface ForgeProvider<HasWeb extends boolean = boolean> {
   /**
@@ -1037,7 +1028,10 @@ export interface ForgeProvider<HasWeb extends boolean = boolean> {
    * The web page for `target`, built without a request; `undefined` when the forge has no such page.
    * @param target What to link to: a repository or one of its sections, thread, comment, release, file, raw file, commit or comparison.
    */
-  urlFor: UrlFor<HasWeb>
+  urlFor: {
+    (target: { repo: RepoRef, section?: undefined }): HasWeb extends true ? string : string | undefined
+    (target: UrlTarget): string | undefined
+  }
   /**
    * The canonical origin of the forge's website for this instance, such as `https://github.com`
    * (without any deployment path), or `undefined` when the forge has no website. Useful for
