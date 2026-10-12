@@ -2,6 +2,7 @@ import type { ForgeEvent, Notification, NotificationReason, Page, Repo, Thread }
 import type { RecordingManifest, Step, StepContext } from './recording/steps.ts'
 import type { WriteContext, WriteManifest, WriteStep } from './recording/write-steps.ts'
 import { existsSync, readdirSync, readFileSync } from 'node:fs'
+import process from 'node:process'
 import { beforeAll, describe, expect, it, vi } from 'vitest'
 import { notificationThread, repoKey } from '../src/model.ts'
 import { recordedSteps } from './recording/layout.ts'
@@ -48,10 +49,14 @@ function parsed(text: string): unknown {
   }
 }
 
-/** One recording per instance host, under `<provider>/recorded/<host>/`, plus `<host>-anonymous/` for one made without credentials. */
+/**
+ * One recording per instance host, under `<provider>/recorded/<host>/`, plus `<host>-anonymous/` for one made without credentials.
+ * `FORGES_RECORDING`, such as `github/recorded/github.com-writes`, replays that recording alone.
+ */
 function recordings(name: string): string[] {
   const root = fixtureDirectory(`${name}/recorded`)
-  return existsSync(root) ? readdirSync(root, { withFileTypes: true }).filter(entry => entry.isDirectory()).map(entry => `${name}/recorded/${entry.name}`) : []
+  const all = existsSync(root) ? readdirSync(root, { withFileTypes: true }).filter(entry => entry.isDirectory()).map(entry => `${name}/recorded/${entry.name}`) : []
+  return process.env.FORGES_RECORDING ? all.filter(directory => directory === process.env.FORGES_RECORDING) : all
 }
 
 for (const { name, create } of REPLAYED_PROVIDERS) {

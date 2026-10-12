@@ -191,6 +191,18 @@ jobs:
           mkdir -p "$RUNNER_TEMP/recordings"
           node scripts/apply-recordings.ts "$RUNNER_TEMP/recordings" --kind "$KIND" --summary "$RUNNER_TEMP/summary.md"
 
+      - name: 🪢 Rename the identifiers write recordings created
+        if: needs.plan.outputs.kind == 'writes'
+        run: |
+          set -euo pipefail
+          {
+            echo '#### Identifiers renamed to those of the recordings replaced'
+            echo
+            echo '```text'
+            node scripts/stabilise-recordings.ts | tr -d '`'
+            echo '```'
+          } >> "$RUNNER_TEMP/summary.md"
+
       - name: 🧪 Update the golden output
         run: pnpm vitest run --project unit test/recorded.test.ts -u || echo "::warning::Some recordings do not replay; CI on the pull request shows which."
 
@@ -221,7 +233,7 @@ jobs:
           {
             echo "Recorded by the [\`fixtures\` workflow]($RUN_URL) against the live forges."
             echo
-            echo "A step whose responses differ only in rate limits, counters, activity times or the expiry of signed URLs keeps its files. A step that failed keeps its earlier recording where nothing it reads from was recorded since."
+            echo "A step whose responses differ only in rate limits, counters, activity times or the expiry of signed URLs keeps its files. A step that failed keeps its earlier recording where nothing it reads from was recorded since. Write recordings have the identifiers they created renamed to those of the recording they replace, where the renamed recording still replays to the same output."
             echo
             echo '<details><summary>Recorder output</summary>'
             echo

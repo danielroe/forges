@@ -10,7 +10,7 @@ function fixture(url: string, body: unknown, headers: Record<string, string> = {
   return { request: { method: 'GET', url }, response: { status: 200, headers, body } }
 }
 
-const repo = (stars: number, remaining: string) => fixture('https://api.github.com/repos/h3js/h3', { full_name: 'h3js/h3', stargazers_count: stars }, { 'x-ratelimit-remaining': remaining })
+const repo = (stars: number, remaining: string) => fixture('https://api.github.com/repos/h3js/h3', { full_name: 'h3js/h3', stargazers_count: stars, owner: { login: 'h3js', followers: stars * 2, local_time: `${stars}:00 PM` } }, { 'x-ratelimit-remaining': remaining })
 const comment = (id: number) => fixture(`https://api.github.com/repos/h3js/h3/issues/comments/${id}`, { id, body: 'Hello' })
 
 function step(name: string, fixtures: Fixture[], { needs = [] as string[], recordedAt = '2026-01-01T00:00:00.000Z' } = {}): StepRecording {
