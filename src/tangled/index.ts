@@ -16,6 +16,7 @@ import type {
   ThreadCreateInput,
   ThreadKind,
   ThreadRef,
+  ThreadUpdateInput,
 } from '../model.ts'
 import type { AnonymousAuth, ForgeOptionsBase, ReposApi, ThreadsApi } from '../provider.ts'
 import type { TangledContents } from './knot.ts'
@@ -252,14 +253,14 @@ const TANGLED: ProviderDefinition<TangledOptions, undefined, true> = {
       }
     }
 
-    const update: ThreadsApi['update'] = async (thread, input, options) => {
+    const editRecord = async (thread: ThreadRef, input: ThreadUpdateInput, signal?: AbortSignal) => {
       const { ref, uri } = subjectUri(thread)
       const record = await putOwnRecord(atUri(uri.did, uri.collection, uri.rkey), current => ({
         ...current,
         ...input.title === undefined ? {} : { title: input.title },
         ...input.body === undefined ? {} : { body: input.body },
-      }), options?.signal)
-      return toThread(ref, record as IssueRecord | PullRecord, await actorFor(uri.did, options?.signal), {}, 0)
+      }), signal)
+      return toThread(ref, record as IssueRecord | PullRecord, await actorFor(uri.did, signal), {}, 0)
     }
     const subscription: ThreadsApi['subscription'] = async (thread, options) => await findSubscription(thread, options?.signal) ? 'subscribed' : 'none'
     const subscribe: ThreadsApi['subscribe'] = async (thread, options) => {
@@ -363,14 +364,29 @@ const TANGLED: ProviderDefinition<TangledOptions, undefined, true> = {
       .flatMap(({ uri }) => [...state.get(uri) ?? []].map(value => ({ key: uri, value })))
     const has = (list: Array<{ key: string, value: string }>, item: { key: string, value: string }) => list.some(other => other.key === item.key && other.value === item.value)
 
-    const setLabels: ThreadsApi['setLabels'] = (thread, names, options) => changeLabels(thread, options?.signal, (labels) => {
+    /** What moves the thread's labels to `names`, leaving the assignee label alone. */
+    const labelChanges = (labels: TangledLabels, names: string[]) => {
       const wanted = operandsFor(labels, names)
       const current = labelled(labels)
       return [
         ...current.filter(item => !has(wanted, item)).map(item => ({ ...item, add: false })),
         ...wanted.filter(item => !has(current, item)).map(item => ({ ...item, add: true })),
       ]
-    })
+    }
+    /** What moves the thread's assignee label to `dids`. */
+    const assigneeChanges = ({ definitions, state }: TangledLabels, dids: string[]) => {
+      const assignee = definitions.find(({ definition }) => isAssigneeLabel(definition))
+      if (!assignee) {
+        throw new UnsupportedOperationError('This repository has no assignee label', context)
+      }
+      const current = [...state.get(assignee.uri) ?? []]
+      return [
+        ...current.filter(did => !dids.includes(did)).map(value => ({ key: assignee.uri, value, add: false })),
+        ...[...new Set(dids)].filter(did => !current.includes(did)).map(value => ({ key: assignee.uri, value, add: true })),
+      ]
+    }
+
+    const setLabels: ThreadsApi['setLabels'] = (thread, names, options) => changeLabels(thread, options?.signal, labels => labelChanges(labels, names))
     const addLabels: ThreadsApi['addLabels'] = (thread, names, options) => changeLabels(thread, options?.signal, (labels) => {
       const current = labelled(labels)
       return operandsFor(labels, names).filter(item => !has(current, item)).map(item => ({ ...item, add: true }))
@@ -381,17 +397,35 @@ const TANGLED: ProviderDefinition<TangledOptions, undefined, true> = {
     })
     const setAssignees: ThreadsApi['setAssignees'] = async (thread, assignees, options) => {
       const dids = await Promise.all(assignees.map(assignee => didOf(assignee, options?.signal)))
-      await changeLabels(thread, options?.signal, ({ definitions, state }) => {
-        const assignee = definitions.find(({ definition }) => isAssigneeLabel(definition))
-        if (!assignee) {
-          throw new UnsupportedOperationError('This repository has no assignee label', context)
-        }
-        const current = [...state.get(assignee.uri) ?? []]
-        return [
-          ...current.filter(did => !dids.includes(did)).map(value => ({ key: assignee.uri, value, add: false })),
-          ...[...new Set(dids)].filter(did => !current.includes(did)).map(value => ({ key: assignee.uri, value, add: true })),
-        ]
-      })
+      await changeLabels(thread, options?.signal, labels => assigneeChanges(labels, dids))
+    }
+    /** One label op carries labels and assignees, ahead of the rest, because it checks the names; the answer says what was written, since the backlink index lags. */
+    const update: ThreadsApi['update'] = async (thread, input, options) => {
+      const signal = options?.signal
+      if (!input.state && !input.labels && !input.assignees) {
+        return editRecord(thread, input, signal)
+      }
+      const edits = input.title !== undefined || input.body !== undefined
+      if (edits && subjectUri(thread).uri.did !== await viewerDid()) {
+        throw new InsufficientScopeError('Records can only be edited by the account that wrote them', 403, '', context)
+      }
+      const dids = input.assignees && await Promise.all(input.assignees.map(assignee => didOf(assignee, signal)))
+      if (input.labels || dids) {
+        await changeLabels(thread, signal, labels => [...input.labels ? labelChanges(labels, input.labels) : [], ...dids ? assigneeChanges(labels, dids) : []])
+      }
+      if (input.state) {
+        await setState(thread, input.state, signal)
+      }
+      if (edits) {
+        await editRecord(thread, input, signal)
+      }
+      const current = await readThread(thread, options)
+      return {
+        ...current,
+        state: input.state ?? current.state,
+        labels: input.labels ? input.labels.map(name => ({ name })) : current.labels,
+        assignees: dids ? await Promise.all([...new Set(dids)].map(did => actorFor(did, signal))) : current.assignees,
+      }
     }
 
     const create: ThreadsApi['create'] = async (repo, input, options) => {

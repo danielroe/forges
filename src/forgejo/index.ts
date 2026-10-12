@@ -818,13 +818,16 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
         })
         return toThread({ ...origin, repo, kind: 'pull_request', number: String(data.number) }, data)
       }),
+      /** An issue edit takes no labels, so an issue's labels go first and the edit answers with them. */
       update: perKind({ issue: true, pull_request: true }, async (thread, input, options) => {
         const ref = requireIssueOrPull(thread, context, 'update')
-        const { data } = await fetcher.json<ForgejoIssue>(ref.kind === 'pull_request' ? threadPath(ref) : issuePath(ref), {
-          method: 'PATCH',
-          json: input,
-          signal: options?.signal,
-        })
+        const labels = input.labels && await resolveLabels(ref.repo, input.labels)
+        const pull = ref.kind === 'pull_request'
+        if (labels && !pull) {
+          await fetcher.raw(`${issuePath(ref)}/labels`, { method: 'PUT', json: { labels }, signal: options?.signal })
+        }
+        const json = { title: input.title, body: input.body, state: input.state, assignees: input.assignees?.map(actorLogin), labels: pull ? labels : undefined }
+        const { data } = await fetcher.json<ForgejoIssue>(pull ? threadPath(ref) : issuePath(ref), { method: 'PATCH', json, signal: options?.signal })
         return toThread(ref, data)
       }),
       addLabels: perKind({ issue: true, pull_request: true }, async (thread, labels, options) => {

@@ -329,9 +329,17 @@ function setupOrigin({ options, baseUrl, instance, origin: context, fetcher, cre
         }
         return toThread(ref, data)
       }),
+      /** Labels have their own endpoint, so they go before the edit, which answers with them. */
       update: perKind(UNVERIFIED, async (thread, input, options) => {
         const ref = requireThread(thread, context)
-        return toThread(ref, (await fetcher.json<OriginPullRequest>(pullPath(ref), { method: 'PATCH', json: input, signal: options?.signal })).data)
+        if (input.assignees) {
+          throw new UnsupportedOperationError('Cursor Origin pull requests have no assignees', context)
+        }
+        if (input.labels) {
+          await fetcher.raw(`${pullPath(ref)}/labels`, { method: 'PUT', json: { labels: input.labels }, signal: options?.signal })
+        }
+        const json = { title: input.title, body: input.body, state: input.state }
+        return toThread(ref, (await fetcher.json<OriginPullRequest>(pullPath(ref), { method: 'PATCH', json, signal: options?.signal })).data)
       }),
       close: perKind(PULL, async (thread, options) => {
         await fetcher.raw(pullPath(requireThread(thread, context)), { method: 'PATCH', json: { state: 'closed' }, signal: options?.signal })

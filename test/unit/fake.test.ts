@@ -36,6 +36,23 @@ describe('fake forge', () => {
     expect(factory.store.events).toHaveLength(4)
   })
 
+  it('closes, relabels and reassigns a thread in one update, with an event for each change', async () => {
+    const forge = fake({ seed }).create()
+    const repo = (await forge.repos.get({ forge: 'fake', instance: 'fake.test', owner: 'acme', name: 'widgets' })).ref
+    const [issue] = (await forge.threads.listPage(repo, { kind: 'issue' })).items
+
+    const updated = await forge.threads.update(issue!.ref, { state: 'closed', labels: ['bug'], assignees: ['octocat'] })
+    const events = await Array.fromAsync(forge.threads.events(issue!.ref))
+
+    expect(updated).toMatchObject({ title: 'Crash on start', state: 'closed', labels: [{ name: 'bug' }], assignees: [{ login: 'octocat' }] })
+    expect(events.map(event => [event.kind, event.action])).toEqual([
+      ['state_change', 'closed'],
+      ['label', 'labelled'],
+      ['label', 'unlabelled'],
+      ['assignment', 'assigned'],
+    ])
+  })
+
   it('creates threads, merges pulls and reports checks', async () => {
     const forge = fake({ seed }).create()
     const repo = { forge: 'fake', instance: 'fake.test', owner: 'acme', name: 'widgets' }

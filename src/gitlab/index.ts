@@ -144,6 +144,7 @@ export interface GitLabOptions extends ForgeOptionsBase {
 const GITLAB_HOOK_EVENTS = '17.0'
 
 const ISSUE_LIKE = { issue: true, pull_request: true } as const
+const STATE_EVENTS = { open: 'reopen', closed: 'close' } as const
 
 /** Access level per normalised role, as `POST /projects/:id/members` takes it. */
 const ACCESS_LEVELS: Record<RepoRole, number> = { admin: 50, maintain: 40, write: 30, triage: 20, read: 10, none: 0 }
@@ -1037,7 +1038,13 @@ const GITLAB: ProviderDefinition<GitLabOptions, undefined, true> = {
           const ref = requireIssueOrPull(thread, context, 'update')
           const { data } = await fetcher.json<GitLabIssue>(threadPath(ref), {
             method: 'PUT',
-            json: { title: input.title, description: input.body },
+            json: {
+              title: input.title,
+              description: input.body,
+              state_event: input.state && STATE_EVENTS[input.state],
+              labels: input.labels?.join(','),
+              assignee_ids: input.assignees && await Promise.all(input.assignees.map(userId)),
+            },
             signal: options?.signal,
           })
           return toThread(ref, data)

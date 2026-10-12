@@ -1685,14 +1685,30 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
         })
         return toThread(ref, { ...pull, labels: issue.labels, assignees: issue.assignees })
       }),
+      /** The pulls endpoint takes no labels or assignees, so a pull request with them is edited as an issue. */
       update: perKind({ issue: true, pull_request: true, discussion: true }, async (thread, input, options) => {
         const ref = requireThread(thread, context)
         if (ref.kind === 'discussion') {
-          const data = await graphql<{ updateDiscussion: { discussion: GraphQLDiscussion } }>('UPDATE_DISCUSSION', { id: await discussionId(ref, options), title: input.title, body: input.body }, options)
+          if (input.labels || input.assignees) {
+            throw new UnsupportedOperationError('GitHub discussions take neither labels nor assignees here', context)
+          }
+          const id = await discussionId(ref, options)
+          if (input.state) {
+            await setState({ ...ref, externalId: id }, input.state, options)
+          }
+          if (input.title === undefined && input.body === undefined) {
+            return getDiscussion(ref, options)
+          }
+          const data = await graphql<{ updateDiscussion: { discussion: GraphQLDiscussion } }>('UPDATE_DISCUSSION', { id, title: input.title, body: input.body }, options)
           return (await import('./graphql.ts')).toDiscussionThread(ref, data.updateDiscussion.discussion)
         }
         const target = requireIssueOrPull(ref, context, 'update')
-        const { data } = await fetcher.json<GitHubIssue>(threadPath(target), { method: 'PATCH', json: input, signal: options?.signal })
+        const json = { title: input.title, body: input.body, state: input.state, labels: input.labels, assignees: input.assignees?.map(actorLogin) }
+        if (target.kind === 'pull_request' && (input.labels || input.assignees)) {
+          await issuePatch(target, json, 'update', options?.signal)
+          return toThread(target, (await fetcher.json<GitHubIssue>(threadPath(target), { signal: options?.signal })).data)
+        }
+        const { data } = await fetcher.json<GitHubIssue>(threadPath(target), { method: 'PATCH', json, signal: options?.signal })
         return toThread(target, data)
       }),
       addLabels: perKind({ issue: true, pull_request: true }, async (thread, labels, options) => {

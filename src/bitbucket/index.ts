@@ -612,10 +612,26 @@ const BITBUCKET: ProviderDefinition<BitbucketOptions, undefined, true> = {
           })
           return toPullThread({ forge: FORGE, instance, repo, kind: 'pull_request', number: String(data.id) }, data)
         }),
+        /** Declining is its own call, so any edit goes first and the decline answers with both. */
         update: perKind({ pull_request: true }, async (thread, input, options) => {
           const ref = requirePull(thread, 'updated')
-          const { data } = await fetcher.json<BitbucketPullRequest>(threadPath(ref), { method: 'PUT', json: { title: input.title, description: input.body }, signal: options?.signal })
-          return toPullThread(ref, data)
+          if (input.labels) {
+            throw new UnsupportedOperationError('Bitbucket has no labels', context)
+          }
+          if (input.assignees) {
+            throw new UnsupportedOperationError('Bitbucket pull requests have no assignees', context)
+          }
+          if (input.state === 'open') {
+            throw new UnsupportedOperationError('Bitbucket cannot reopen a declined pull request', context)
+          }
+          const edit = { title: input.title, description: input.body }
+          if (input.state !== 'closed') {
+            return toPullThread(ref, (await fetcher.json<BitbucketPullRequest>(threadPath(ref), { method: 'PUT', json: edit, signal: options?.signal })).data)
+          }
+          if (input.title !== undefined || input.body !== undefined) {
+            await fetcher.raw(threadPath(ref), { method: 'PUT', json: edit, signal: options?.signal })
+          }
+          return toPullThread(ref, (await fetcher.json<BitbucketPullRequest>(`${threadPath(ref)}/decline`, { method: 'POST', signal: options?.signal })).data)
         }),
         requestReview: perKind({ pull_request: true }, async (thread, reviewers, options) => {
           const ref = requireThread(thread, context)

@@ -1,12 +1,12 @@
 import type { ProviderContext, ProviderDefinition, ProviderFactoryFunction, ProviderSpec } from '../define.ts'
-import type { BaseOptions, Check, CheckState, Comment, CommentRef, Cursor, ForgeEventInput, ForgeWarning, ListOptions, MergeMethod, Page, RepoRef, ResolvedThreadRef, Review, ReviewInput, SearchQuery, Thread, ThreadQuery, ThreadRef } from '../model.ts'
+import type { Actor, BaseOptions, Check, CheckState, Comment, CommentRef, Cursor, ForgeEventInput, ForgeWarning, ListOptions, MergeMethod, Page, RepoRef, ResolvedThreadRef, Review, ReviewInput, SearchQuery, Thread, ThreadQuery, ThreadRef } from '../model.ts'
 import type { AnonymousAuth, BasicAuth, ForgeOptionsBase, TokenAuth } from '../provider.ts'
 import type { WebLinks } from '../web.ts'
 import type { AzureCommit, AzureCommitDiffs, AzureIdentity, AzureItem, AzurePolicyEvaluation, AzurePullRequest, AzureRef, AzureRepository, AzureReviewer, AzureStatus, AzureThread, AzureWorkItem, AzureWorkItemComment, AzureWorkItemUpdate } from './types.ts'
 import { toFileContent } from '../contents.ts'
 import { defineForgeProvider, perKind, verb } from '../define.ts'
 import { ForgeError, MergeMethodRequiredError, NotFoundError, toMergeError, UnsupportedOperationError } from '../errors.ts'
-import { getManyConcurrently, memo, mergeCommitMessage, phased, requireIssueOrPull, requireThread, resolveToken, summariseChecks, syntheticReview, toWarning } from '../utils.ts'
+import { actorLogin, getManyConcurrently, memo, mergeCommitMessage, phased, requireIssueOrPull, requireThread, resolveToken, summariseChecks, syntheticReview, toWarning } from '../utils.ts'
 import { FORGE, isConversationThread, projectRef, toActor, toBranch, toChangedFile, toCommit, toPolicyCheck, toPullComment, toPullThread, toRepo, toRepoRef, toStatusCheck, toTag, toThreadEvents, toTreeEntry, toWorkItemComment, toWorkItemEvents, toWorkItemThread } from './normalise.ts'
 import { azureWeb } from './web.ts'
 import { azureDevOpsWebhooks } from './webhooks.ts'
@@ -47,6 +47,7 @@ const PER_PAGE = 50
 /** System work item types that are not issues: test management and code review records. */
 const NOT_ISSUES = ['Test Case', 'Test Plan', 'Test Suite', 'Shared Steps', 'Shared Parameter', 'Code Review Request', 'Code Review Response', 'Feedback Request', 'Feedback Response']
 const MERGE_STRATEGIES = { merge: 'noFastForward', squash: 'squash', rebase: 'rebase', rebase_merge: 'rebaseMerge' } as const
+const PULL_STATUSES = { open: 'active', closed: 'abandoned' } as const
 
 function versionType(ref: string): 'commit' | 'branch' {
   return /^[0-9a-f]{40}$/i.test(ref) ? 'commit' : 'branch'
@@ -306,10 +307,33 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
   async function setState(thread: ThreadRef, state: 'open' | 'closed', options?: BaseOptions): Promise<void> {
     const ref = requireIssueOrPull(thread, context, state === 'open' ? 'reopen' : 'close')
     if (ref.kind === 'pull_request') {
-      await fetcher.raw(pullPath(ref), { method: 'PATCH', json: { status: state === 'open' ? 'active' : 'abandoned' }, signal: options?.signal })
+      await fetcher.raw(pullPath(ref), { method: 'PATCH', json: { status: PULL_STATUSES[state] }, signal: options?.signal })
       return
     }
-    await patchWorkItem(ref, { 'System.State': await stateIn(ref, state === 'open' ? ['Proposed', 'InProgress'] : ['Completed'], options) }, options?.signal)
+    await patchWorkItem(ref, { 'System.State': await workItemState(ref, state, options) }, options?.signal)
+  }
+
+  /** The `System.AssignedTo` value: work items take one assignee, and `''` clears it. */
+  function assignedTo(assignees: Array<string | Actor>): string {
+    if (assignees.length > 1) {
+      throw new UnsupportedOperationError('Azure DevOps work items take a single assignee', context)
+    }
+    return assignees[0] === undefined ? '' : actorLogin(assignees[0])
+  }
+
+  function workItemState(ref: ResolvedThreadRef, state: 'open' | 'closed', options?: BaseOptions): Promise<string> {
+    return stateIn(ref, state === 'open' ? ['Proposed', 'InProgress'] : ['Completed'], options)
+  }
+
+  async function setPullLabels(ref: ResolvedThreadRef, labels: string[], signal?: AbortSignal): Promise<void> {
+    const { data } = await fetcher.json<{ value: Array<{ id: string, name: string }> }>(`${pullPath(ref)}/labels`, { signal })
+    const current = data.value.map(label => label.name)
+    for (const label of data.value.filter(item => !labels.includes(item.name))) {
+      await fetcher.raw(`${pullPath(ref)}/labels/${enc(label.id)}`, { method: 'DELETE', signal })
+    }
+    for (const name of labels.filter(item => !current.includes(item))) {
+      await fetcher.raw(`${pullPath(ref)}/labels`, { method: 'POST', json: { name }, signal })
+    }
   }
 
   function splitCommentId(ref: CommentRef): { thread: string, comment: string } {
@@ -512,9 +536,6 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
       }),
       create: perKind({ issue: true, pull_request: true }, async (repo, input, writeOptions) => {
         if (input.kind === 'issue') {
-          if ((input.assignees?.length ?? 0) > 1) {
-            throw new UnsupportedOperationError('Azure DevOps work items take a single assignee', context)
-          }
           const fields: Record<string, unknown> = { 'System.Title': input.title }
           if (input.body) {
             fields['System.Description'] = input.body
@@ -522,8 +543,8 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
           if (input.labels?.length) {
             fields['System.Tags'] = input.labels.join('; ')
           }
-          if (input.assignees?.[0]) {
-            fields['System.AssignedTo'] = typeof input.assignees[0] === 'string' ? input.assignees[0] : input.assignees[0].login
+          if (input.assignees?.length) {
+            fields['System.AssignedTo'] = assignedTo(input.assignees)
           }
           const { data } = await fetcher.json<AzureWorkItem>(`${projectPath(repo)}/wit/workitems/$${enc(options.issueType ?? 'Issue')}`, {
             method: 'POST',
@@ -551,9 +572,11 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
         })
         return toPullThread({ forge: FORGE, instance, repo, kind: 'pull_request', number: String(data.pullRequestId) }, data)
       }),
+      /** Pull request labels have their own endpoint, so they go before the edit, which answers with them. */
       update: perKind({ issue: true, pull_request: true }, async (thread, input, options) => {
         const ref = requireIssueOrPull(thread, context, 'update')
         if (ref.kind === 'issue') {
+          const assignee = input.assignees && assignedTo(input.assignees)
           const fields: Record<string, unknown> = {}
           if (input.title !== undefined) {
             fields['System.Title'] = input.title
@@ -561,9 +584,28 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
           if (input.body !== undefined) {
             fields['System.Description'] = input.body
           }
+          if (input.state) {
+            fields['System.State'] = await workItemState(ref, input.state, options)
+          }
+          if (input.labels) {
+            fields['System.Tags'] = input.labels.join('; ')
+          }
+          if (assignee !== undefined) {
+            fields['System.AssignedTo'] = assignee
+          }
           return workItemThread(issueRef(ref.repo, ref.number), await patchWorkItem(ref, fields, options?.signal))
         }
-        const { data } = await fetcher.json<AzurePullRequest>(pullPath(ref), { method: 'PATCH', json: { title: input.title, description: input.body }, signal: options?.signal })
+        if (input.assignees) {
+          throw new UnsupportedOperationError('Azure DevOps pull requests have reviewers, not assignees', context)
+        }
+        if (input.labels) {
+          await setPullLabels(ref, input.labels, options?.signal)
+        }
+        const { data } = await fetcher.json<AzurePullRequest>(pullPath(ref), {
+          method: 'PATCH',
+          json: { title: input.title, description: input.body, status: input.state && PULL_STATUSES[input.state] },
+          signal: options?.signal,
+        })
         return toPullThread(ref, data)
       }),
       close: perKind(ISSUE_AND_PULL, (ref, options) => setState(ref, 'closed', options)),
@@ -574,21 +616,10 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
           await patchWorkItem(ref, { 'System.Tags': labels.join('; ') }, options?.signal)
           return
         }
-        const { data } = await fetcher.json<{ value: Array<{ id: string, name: string }> }>(`${pullPath(ref)}/labels`, { signal: options?.signal })
-        const current = data.value.map(label => label.name)
-        for (const label of data.value.filter(item => !labels.includes(item.name))) {
-          await fetcher.raw(`${pullPath(ref)}/labels/${enc(label.id)}`, { method: 'DELETE', signal: options?.signal })
-        }
-        for (const name of labels.filter(item => !current.includes(item))) {
-          await fetcher.raw(`${pullPath(ref)}/labels`, { method: 'POST', json: { name }, signal: options?.signal })
-        }
+        await setPullLabels(ref, labels, options?.signal)
       }),
       setAssignees: perKind({ issue: true }, async (thread, assignees, options) => {
-        if (assignees.length > 1) {
-          throw new UnsupportedOperationError('Azure DevOps work items take a single assignee', context)
-        }
-        const assignee = assignees[0]
-        await patchWorkItem(requireIssueOrPull(thread, context, 'assign'), { 'System.AssignedTo': assignee === undefined ? '' : typeof assignee === 'string' ? assignee : assignee.login }, options?.signal)
+        await patchWorkItem(requireIssueOrPull(thread, context, 'assign'), { 'System.AssignedTo': assignedTo(assignees) }, options?.signal)
       }),
       requestReview: perKind({ pull_request: true }, async (thread, reviewers, options) => {
         const ref = requireThread(thread, context)

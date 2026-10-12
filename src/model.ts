@@ -1504,6 +1504,12 @@ export interface ThreadCreateInput {
 export interface ThreadUpdateInput {
   title?: string
   body?: string
+  /** Closes or reopens the thread. `threads.close()` is the one that takes a reason. */
+  state?: 'open' | 'closed'
+  /** Names of the labels to replace the current ones; `[]` clears them. */
+  labels?: string[]
+  /** Logins, or actors where the forge needs ids, to replace the assignees; `[]` clears them. */
+  assignees?: Array<string | Actor>
 }
 
 /** One `threads.getMany()` entry, in input order; narrow on `ok`. */

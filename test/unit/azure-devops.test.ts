@@ -119,3 +119,49 @@ describe('azure devops single-item reads', () => {
     await expect(instance.threads.getComment(ref('7/2'))).rejects.toThrow(NotFoundError)
   })
 })
+
+describe('azure devops thread updates', () => {
+  const A = 'https://dev.azure.com/acme/Widgets/_apis'
+
+  it('changes every field of a work item in one patch', async () => {
+    const { instance, calls } = provider({
+      [`GET ${A}/wit/workitems/7?api-version=7.1`]: { status: 200, body: { id: 7, fields: { 'System.WorkItemType': 'Issue' } } },
+      [`PATCH ${A}/wit/workitems/7?api-version=7.1`]: { status: 200, body: { id: 7, fields: { 'System.WorkItemType': 'Issue', 'System.State': 'Done' } } },
+    })
+    await instance.threads.update({ ...pull, kind: 'issue', number: '7' }, { title: 'Retry uploads', state: 'closed', labels: ['bug', 'ui'], assignees: ['jane@acme.dev'] })
+
+    expect(calls.filter(call => call.method === 'PATCH').map(call => JSON.parse(call.body!))).toEqual([[
+      { op: 'add', path: '/fields/System.Title', value: 'Retry uploads' },
+      { op: 'add', path: '/fields/System.State', value: 'Done' },
+      { op: 'add', path: '/fields/System.Tags', value: 'bug; ui' },
+      { op: 'add', path: '/fields/System.AssignedTo', value: 'jane@acme.dev' },
+    ]])
+  })
+
+  it('moves pull request labels before the edit that abandons it', async () => {
+    const { instance, calls } = provider({
+      [`GET ${A}/git/repositories/widgets/pullRequests/42/labels?api-version=7.1`]: { status: 200, body: { value: [{ id: 'l-1', name: 'stale' }] } },
+      [`DELETE ${A}/git/repositories/widgets/pullRequests/42/labels/l-1?api-version=7.1`]: { status: 200, body: {} },
+      [`POST ${A}/git/repositories/widgets/pullRequests/42/labels?api-version=7.1`]: { status: 200, body: { id: 'l-2', name: 'bug' } },
+    })
+    const thread = await instance.threads.update(pull, { state: 'closed', labels: ['bug'] })
+
+    expect(calls.map(call => `${call.method} ${new URL(call.url).pathname.split('/pullRequests/')[1]}`)).toEqual(['GET 42/labels', 'DELETE 42/labels/l-1', 'POST 42/labels', 'PATCH 42'])
+    expect(JSON.parse(calls.at(-1)!.body!)).toEqual({ status: 'abandoned' })
+    expect(thread.state).toBe('closed')
+  })
+
+  it('refuses pull request assignees before it writes anything', async () => {
+    const { instance, calls } = provider()
+
+    await expect(instance.threads.update(pull, { state: 'closed', assignees: ['jane@acme.dev'] })).rejects.toThrow('Azure DevOps pull requests have reviewers, not assignees')
+    expect(calls).toEqual([])
+  })
+
+  it('refuses more than one work item assignee before it writes anything', async () => {
+    const { instance, calls } = provider()
+
+    await expect(instance.threads.update({ ...pull, kind: 'issue', number: '7' }, { assignees: ['jane@acme.dev', 'joe@acme.dev'] })).rejects.toThrow('single assignee')
+    expect(calls).toEqual([])
+  })
+})

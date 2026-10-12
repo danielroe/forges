@@ -672,3 +672,20 @@ describe('gitlab single-item reads', () => {
     await expect(provider.ci.job({ forge: 'gitlab', instance: 'gitlab.com', repo, id: '9' })).rejects.toThrow(UnsupportedOperationError)
   })
 })
+
+describe('gitlab thread updates', () => {
+  it('reopens, relabels and reassigns a merge request in one request', async () => {
+    const { instance, calls } = provider()
+    await instance.threads.update(mr, { title: 'Retry uploads', state: 'open', labels: ['bug', 'ui'], assignees: [{ forge: 'gitlab', instance: 'gitlab.com', login: 'jane', id: '42', isBotHint: false }] })
+
+    expect(calls.map(call => `${call.method} ${call.url}`)).toEqual([`PUT ${P}/merge_requests/23`])
+    expect(JSON.parse(calls[0]!.body!)).toEqual({ title: 'Retry uploads', state_event: 'reopen', labels: 'bug,ui', assignee_ids: [42] })
+  })
+
+  it('clears labels and assignees with an empty string and an empty list', async () => {
+    const { instance, calls } = provider()
+    await instance.threads.update(mr, { state: 'closed', labels: [], assignees: [] })
+
+    expect(JSON.parse(calls[0]!.body!)).toEqual({ state_event: 'close', labels: '', assignee_ids: [] })
+  })
+})

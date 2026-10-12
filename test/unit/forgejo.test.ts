@@ -4,8 +4,8 @@ import { forgejo } from '../../src/forgejo/index.ts'
 import { gitea } from '../../src/gitea/index.ts'
 import { fixtureFetch, hangingFetch } from '../utils/fixtures.ts'
 
-function provider() {
-  const { fetch, calls } = fixtureFetch('forgejo')
+function provider(overrides = {}) {
+  const { fetch, calls } = fixtureFetch('forgejo', overrides)
   return { instance: forgejo({ auth: { type: 'token', token: 't' }, fetch }).create(), calls }
 }
 
@@ -469,5 +469,42 @@ describe('gitea review replies', () => {
 
   it('asks for write scopes to reply', () => {
     expect(gitea({ auth }).create().scopesFor('threads.replyToReviewComment')).toEqual({ token: ['write:issue', 'write:repository'] })
+  })
+})
+
+describe('forgejo thread updates', () => {
+  const repo = { forge: 'forgejo', instance: 'codeberg.org', owner: 'acme', name: 'widgets' } as const
+  const labels = { 'GET https://codeberg.org/api/v1/repos/acme/widgets/labels?limit=50': { status: 200, body: [{ id: 3, name: 'bug' }, { id: 5, name: 'ui' }] } }
+  const thread = (kind: 'issue' | 'pull_request', number: string) => ({ forge: 'forgejo', instance: 'codeberg.org', repo, kind, number }) as const
+  const writes = <T extends { method: string }>(calls: T[]) => calls.filter(call => call.method !== 'GET')
+
+  it('closes, relabels and reassigns a pull request in one edit', async () => {
+    const { instance, calls } = provider({ ...labels, 'PATCH https://codeberg.org/api/v1/repos/acme/widgets/pulls/7': { status: 201, body: { number: 7, state: 'closed' } } })
+    await instance.threads.update(thread('pull_request', '7'), { state: 'closed', labels: ['bug', 'ui'], assignees: ['jane'] })
+
+    expect(writes(calls).map(call => `${call.method} ${call.url}`)).toEqual(['PATCH https://codeberg.org/api/v1/repos/acme/widgets/pulls/7'])
+    expect(JSON.parse(calls.at(-1)!.body!)).toEqual({ state: 'closed', labels: [3, 5], assignees: ['jane'] })
+  })
+
+  it('replaces the labels of an issue before the edit, which takes none', async () => {
+    const { instance, calls } = provider({
+      ...labels,
+      'PUT https://codeberg.org/api/v1/repos/acme/widgets/issues/9/labels': { status: 200, body: [] },
+      'PATCH https://codeberg.org/api/v1/repos/acme/widgets/issues/9': { status: 201, body: { number: 9, state: 'open' } },
+    })
+    await instance.threads.update(thread('issue', '9'), { state: 'open', labels: ['ui'], assignees: [] })
+
+    expect(writes(calls).map(call => `${call.method} ${call.url}`)).toEqual([
+      'PUT https://codeberg.org/api/v1/repos/acme/widgets/issues/9/labels',
+      'PATCH https://codeberg.org/api/v1/repos/acme/widgets/issues/9',
+    ])
+    expect(writes(calls).map(call => JSON.parse(call.body!))).toEqual([{ labels: [5] }, { state: 'open', assignees: [] }])
+  })
+
+  it('refuses a label the repository lacks before it writes anything', async () => {
+    const { instance, calls } = provider({ ...labels, 'GET https://codeberg.org/api/v1/orgs/acme/labels?limit=50': { status: 200, body: [] } })
+
+    await expect(instance.threads.update(thread('pull_request', '7'), { state: 'closed', labels: ['wontfix'] })).rejects.toThrow('No label named wontfix')
+    expect(writes(calls)).toEqual([])
   })
 })

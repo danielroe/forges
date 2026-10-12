@@ -143,3 +143,36 @@ describe('gitee label filters', () => {
     expect(page.items.map(thread => thread.title)).toEqual(['Both'])
   })
 })
+
+describe('gitee thread updates', () => {
+  function provider(overrides = {}) {
+    const { fetch, calls } = fixtureFetch('gitee', overrides)
+    return { instance: gitee({ auth: { type: 'token', token: 't' }, fetch }).create(), calls }
+  }
+
+  it('closes, relabels and reassigns an issue in one request', async () => {
+    const { instance, calls } = provider({ 'PATCH https://gitee.com/api/v5/repos/acme/issues/I8ABCD': { status: 200, body: { number: 'I8ABCD', state: 'closed', title: 'Retry uploads' } } })
+    await instance.threads.update(issue, { state: 'closed', labels: ['bug', 'ui'], assignees: [] })
+
+    expect(calls.map(call => `${call.method} ${call.url}`)).toEqual(['PATCH https://gitee.com/api/v5/repos/acme/issues/I8ABCD'])
+    expect(JSON.parse(calls[0]!.body!)).toEqual({ repo: 'widgets', state: 'closed', labels: 'bug,ui', assignee: '' })
+  })
+
+  it('closes and relabels a pull request in one request', async () => {
+    const { instance, calls } = provider()
+    await instance.threads.update(pull, { title: 'Retry uploads', state: 'closed', labels: ['bug'] })
+
+    expect(calls.map(call => `${call.method} ${call.url}`)).toEqual(['PATCH https://gitee.com/api/v5/repos/acme/widgets/pulls/7'])
+    expect(JSON.parse(calls[0]!.body!)).toEqual({ title: 'Retry uploads', state: 'closed', labels: 'bug' })
+  })
+
+  it.each([
+    [issue, ['jane', 'joe'], 'single assignee'],
+    [pull, ['jane'], 'reviewers, not assignees'],
+  ] as const)('refuses assignees it cannot set on %j before it writes anything', async (thread, assignees, message) => {
+    const { instance, calls } = provider()
+
+    await expect(instance.threads.update(thread, { state: 'closed', assignees: [...assignees] })).rejects.toThrow(message)
+    expect(calls).toEqual([])
+  })
+})

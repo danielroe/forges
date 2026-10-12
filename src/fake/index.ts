@@ -584,6 +584,27 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
     record(ref, 'state_change', action, action, { type: 'state_change', state })
   }
 
+  function setLabels(ref: ThreadRef, labels: string[]): void {
+    const thread = threadState(ref).thread
+    const before = new Set(thread.labels.map(item => item.name))
+    const after = new Set(labels)
+    thread.labels = labels.map(label)
+    for (const name of [...after].filter(name => !before.has(name))) {
+      record(ref, 'label', 'labelled', `added label ${name}`, { type: 'label', label: name })
+    }
+    for (const name of [...before].filter(name => !after.has(name))) {
+      record(ref, 'label', 'unlabelled', `removed label ${name}`, { type: 'label', label: name })
+    }
+  }
+
+  function setAssignees(ref: ThreadRef, assignees: Array<string | Actor>): void {
+    const thread = threadState(ref).thread
+    thread.assignees = assignees.map(item => typeof item === 'string' ? actor(item) : item)
+    for (const assignee of thread.assignees) {
+      record(ref, 'assignment', 'assigned', `assigned ${assignee.login}`, { type: 'assignment', assignee })
+    }
+  }
+
   function runState(ref: CiRunRef): FakeRunState {
     const found = repoState(ref.repo).runs.find(item => item.run.ref.id === ref.id)
     if (!found) {
@@ -831,8 +852,21 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
         }),
         update: perKind(kinds('threads.update', WRITABLE), async (ref, input) => {
           const thread = threadState(ref).thread
-          Object.assign(thread, input.title === undefined ? {} : { title: input.title }, input.body === undefined ? {} : { body: input.body })
-          record(ref, 'other', 'edited', 'edited the thread')
+          if (input.title !== undefined || input.body !== undefined) {
+            thread.title = input.title ?? thread.title
+            thread.body = input.body ?? thread.body
+            record(ref, 'other', 'edited', 'edited the thread')
+          }
+          if (input.state && input.state !== thread.state) {
+            thread.stateReason = undefined
+            setState(ref, input.state, input.state === 'open' ? 'reopened' : 'closed')
+          }
+          if (input.labels) {
+            setLabels(ref, input.labels)
+          }
+          if (input.assignees) {
+            setAssignees(ref, input.assignees)
+          }
           return thread
         }),
         close: perKind(kinds('threads.close', WRITABLE), async (ref, closeOptions = {}) => {
@@ -854,25 +888,8 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
             record(ref, 'label', 'unlabelled', `removed label ${name}`, { type: 'label', label: name })
           }
         }),
-        setLabels: perKind(kinds('threads.setLabels', WRITABLE), async (ref, labels) => {
-          const thread = threadState(ref).thread
-          const before = new Set(thread.labels.map(item => item.name))
-          const after = new Set(labels)
-          thread.labels = labels.map(label)
-          for (const name of [...after].filter(name => !before.has(name))) {
-            record(ref, 'label', 'labelled', `added label ${name}`, { type: 'label', label: name })
-          }
-          for (const name of [...before].filter(name => !after.has(name))) {
-            record(ref, 'label', 'unlabelled', `removed label ${name}`, { type: 'label', label: name })
-          }
-        }),
-        setAssignees: perKind(kinds('threads.setAssignees', WRITABLE), async (ref, assignees) => {
-          const thread = threadState(ref).thread
-          thread.assignees = assignees.map(item => typeof item === 'string' ? actor(item) : item)
-          for (const assignee of thread.assignees) {
-            record(ref, 'assignment', 'assigned', `assigned ${assignee.login}`, { type: 'assignment', assignee })
-          }
-        }),
+        setLabels: perKind(kinds('threads.setLabels', WRITABLE), async (ref, labels) => setLabels(ref, labels)),
+        setAssignees: perKind(kinds('threads.setAssignees', WRITABLE), async (ref, assignees) => setAssignees(ref, assignees)),
         requestReview: perKind(kinds('threads.requestReview', PULLS), async (ref, reviewers) => {
           const thread = threadState(ref).thread
           for (const reviewer of reviewers.map(item => typeof item === 'string' ? actor(item) : item)) {

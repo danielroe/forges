@@ -19,8 +19,8 @@ const repo = { forge: 'github', instance: 'github.com', owner: 'acme', name: 'wi
 const pull = { forge: 'github', instance: 'github.com', repo, kind: 'pull_request', number: '42' } as const
 const discussion: ThreadRef = { forge: 'github', instance: 'github.com', repo, kind: 'discussion', number: '31' }
 
-function tokenProvider() {
-  const { fetch, calls } = fixtureFetch('github')
+function tokenProvider(overrides = {}) {
+  const { fetch, calls } = fixtureFetch('github', overrides)
   return { provider: github({ auth: { type: 'token', token: 't' }, fetch }).create(), calls }
 }
 
@@ -334,6 +334,50 @@ describe('github discussions', () => {
   it('refuses to close a commit', async () => {
     const { provider } = tokenProvider()
     await expect(provider.threads.close!({ ...pull, kind: 'commit', number: 'adbc974' })).rejects.toThrow(UnsupportedOperationError)
+  })
+})
+
+describe('github thread updates', () => {
+  it('closes, relabels and reassigns an issue in one request', async () => {
+    const { provider, calls } = tokenProvider()
+    await provider.threads.update({ ...pull, kind: 'issue' }, { title: 'Retry uploads', state: 'closed', labels: ['bug'], assignees: ['octocat', { forge: 'github', instance: 'github.com', login: 'hubot', id: '2', isBotHint: true }] })
+
+    expect(calls.map(call => `${call.method} ${call.url}`)).toEqual(['PATCH https://api.github.com/repos/acme/widgets/issues/42'])
+    expect(JSON.parse(calls[0]!.body!)).toEqual({ title: 'Retry uploads', state: 'closed', labels: ['bug'], assignees: ['octocat', 'hubot'] })
+  })
+
+  it('sends a pull request with labels or assignees through the issue, then reads it back', async () => {
+    const { provider, calls } = tokenProvider()
+    const thread = await provider.threads.update(pull, { state: 'closed', labels: [], assignees: [] })
+
+    expect(calls.map(call => `${call.method} ${call.url}`)).toEqual([
+      'PATCH https://api.github.com/repos/acme/widgets/issues/42',
+      'GET https://api.github.com/repos/acme/widgets/pulls/42',
+    ])
+    expect(JSON.parse(calls[0]!.body!)).toEqual({ state: 'closed', labels: [], assignees: [] })
+    expect(thread.ref.kind).toBe('pull_request')
+  })
+
+  it('edits a pull request without labels or assignees through the pulls endpoint', async () => {
+    const { provider, calls } = tokenProvider({ 'PATCH https://api.github.com/repos/acme/widgets/pulls/42': { status: 200, body: { number: 42, state: 'closed', title: 'Retry uploads' } } })
+    await provider.threads.update(pull, { title: 'Retry uploads', state: 'closed' })
+
+    expect(calls.map(call => `${call.method} ${call.url}`)).toEqual(['PATCH https://api.github.com/repos/acme/widgets/pulls/42'])
+    expect(JSON.parse(calls[0]!.body!)).toEqual({ title: 'Retry uploads', state: 'closed' })
+  })
+
+  it('closes a discussion before it reads it back', async () => {
+    const { provider, calls } = tokenProvider()
+    await provider.threads.update(discussion, { state: 'closed' })
+
+    expect(calls.map(call => call.operationName)).toEqual(['DiscussionThread', 'CloseDiscussion', 'DiscussionThread'])
+  })
+
+  it('refuses labels on a discussion before it writes anything', async () => {
+    const { provider, calls } = tokenProvider()
+
+    await expect(provider.threads.update(discussion, { state: 'closed', labels: ['bug'] })).rejects.toThrow(UnsupportedOperationError)
+    expect(calls).toEqual([])
   })
 })
 

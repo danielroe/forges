@@ -169,3 +169,35 @@ describe('bitbucket queries', () => {
     await expect(forge.threads.listPage(repo, { kind: 'issue' })).rejects.toThrow(UnsupportedOperationError)
   })
 })
+
+describe('bitbucket thread updates', () => {
+  it('edits a pull request before declining it, and keeps what the decline answers', async () => {
+    const { fetch, calls } = fixtureFetch('bitbucket', { 'PUT https://api.bitbucket.org/2.0/repositories/acme/widgets/pullrequests/31': { status: 200, body: { id: 31, state: 'OPEN', title: 'Retry uploads' } } })
+    const thread = await bitbucket({ auth: { type: 'token', token: 't' }, fetch }).create().threads.update(pull, { title: 'Retry uploads', state: 'closed' })
+
+    expect(calls.map(call => `${call.method} ${call.url}`)).toEqual([
+      'PUT https://api.bitbucket.org/2.0/repositories/acme/widgets/pullrequests/31',
+      'POST https://api.bitbucket.org/2.0/repositories/acme/widgets/pullrequests/31/decline',
+    ])
+    expect(JSON.parse(calls[0]!.body!)).toEqual({ title: 'Retry uploads' })
+    expect(thread.state).toBe('closed')
+  })
+
+  it('only declines when nothing else changes', async () => {
+    const { instance, calls } = provider()
+    await instance.threads.update(pull, { state: 'closed' })
+
+    expect(calls.map(call => `${call.method} ${call.url}`)).toEqual(['POST https://api.bitbucket.org/2.0/repositories/acme/widgets/pullrequests/31/decline'])
+  })
+
+  it.each([
+    [{ state: 'open' } as const, 'cannot reopen'],
+    [{ labels: ['bug'] }, 'no labels'],
+    [{ assignees: ['jane'] }, 'no assignees'],
+  ])('refuses %j before it writes anything', async (input, message) => {
+    const { instance, calls } = provider()
+
+    await expect(instance.threads.update(pull, { title: 'Retry uploads', ...input })).rejects.toThrow(message)
+    expect(calls).toEqual([])
+  })
+})

@@ -1,5 +1,5 @@
 import type { ProviderContext, ProviderDefinition, ProviderFactoryFunction, ProviderSpec } from '../define.ts'
-import type { BaseOptions, Check, Comment, Cursor, EventKind, ForgeEventInput, ForgeWarning, ListOptions, Notification, NotificationListOptions, OwnerRepoQuery, Page, PageOptions, Release, Repo, RepoRef, RepoSearchQuery, ResolvedThreadRef, Review, ReviewInput, SearchQuery, Thread, ThreadQuery, ThreadRef, User } from '../model.ts'
+import type { Actor, BaseOptions, Check, Comment, Cursor, EventKind, ForgeEventInput, ForgeWarning, ListOptions, Notification, NotificationListOptions, OwnerRepoQuery, Page, PageOptions, Release, Repo, RepoRef, RepoSearchQuery, ResolvedThreadRef, Review, ReviewInput, SearchQuery, Thread, ThreadQuery, ThreadRef, User } from '../model.ts'
 import type { AnonymousAuth, BulkNotificationOptions, ForgeOptionsBase, TokenAuth, VerbScopes } from '../provider.ts'
 import type { ForgeVerb } from '../supports.ts'
 import type { WebLinks } from '../web.ts'
@@ -256,6 +256,14 @@ function setupGitee({ instance, origin: context, fetcher, baseUrl }: ProviderCon
     return { items: events.sort((a, b) => a.occurredAt.getTime() - b.occurredAt.getTime()) }
   }
 
+  /** The `assignee` of an issue write: Gitee issues take one, and `''` clears it. */
+  function issueAssignee(assignees: Array<string | Actor>): string {
+    if (assignees.length > 1) {
+      throw new UnsupportedOperationError('Gitee issues take a single assignee', context)
+    }
+    return assignees[0] ? actorLogin(assignees[0]) : ''
+  }
+
   /** Issue writes are addressed by owner, with the repository in the body. */
   function issueWrite(ref: ResolvedThreadRef, json: Record<string, unknown>, signal?: AbortSignal) {
     return fetcher.json<GiteeIssue>(`/repos/${encodeURIComponent(ref.repo.owner)}/issues/${encodeURIComponent(ref.number)}`, { method: 'PATCH', json: { repo: ref.repo.name, ...json }, signal })
@@ -470,11 +478,17 @@ function setupGitee({ instance, origin: context, fetcher, baseUrl }: ProviderCon
         })
         return toPullThread({ forge: FORGE, instance, repo, kind: 'pull_request', number: String(data.number) }, data)
       }),
-      update: perKind({ issue: 'unverified', pull_request: 'unverified' }, async (thread, input, options) => {
+      update: perKind({ issue: 'unverified', pull_request: true }, async (thread, input, options) => {
         const ref = requireIssueOrPull(thread, context, 'update')
-        return ref.kind === 'issue'
-          ? toIssueThread(ref, (await issueWrite(ref, { ...input }, options?.signal)).data)
-          : toPullThread(ref, (await fetcher.json<GiteePullRequest>(threadPath(ref), { method: 'PATCH', json: input, signal: options?.signal })).data)
+        const json = { title: input.title, body: input.body, state: input.state, labels: input.labels?.join(',') }
+        if (ref.kind === 'issue') {
+          const assignee = input.assignees && issueAssignee(input.assignees)
+          return toIssueThread(ref, (await issueWrite(ref, { ...json, assignee }, options?.signal)).data)
+        }
+        if (input.assignees) {
+          throw new UnsupportedOperationError('Gitee pull requests have reviewers, not assignees', context)
+        }
+        return toPullThread(ref, (await fetcher.json<GiteePullRequest>(threadPath(ref), { method: 'PATCH', json, signal: options?.signal })).data)
       }),
       close: perKind({ issue: 'unverified', pull_request: true }, (ref, options) => setState(ref, 'closed', options)),
       reopen: perKind({ issue: 'unverified', pull_request: true }, (ref, options) => setState(ref, 'open', options)),
@@ -491,10 +505,7 @@ function setupGitee({ instance, origin: context, fetcher, baseUrl }: ProviderCon
         await fetcher.raw(`${threadPath(requireIssueOrPull(thread, context, 'label'))}/labels`, { method: 'PUT', json: labels, signal: options?.signal })
       }),
       setAssignees: perKind({ issue: 'unverified' }, async (thread, assignees, options) => {
-        if (assignees.length > 1) {
-          throw new UnsupportedOperationError('Gitee issues take a single assignee', context)
-        }
-        await issueWrite(requireIssueOrPull(thread, context, 'assign'), { assignee: assignees[0] ? actorLogin(assignees[0]) : '' }, options?.signal)
+        await issueWrite(requireIssueOrPull(thread, context, 'assign'), { assignee: issueAssignee(assignees) }, options?.signal)
       }),
       requestReview: perKind({ pull_request: 'unverified' }, async (thread, reviewers, options) => {
         await fetcher.raw(`${threadPath(requireThread(thread, context))}/assignees`, { method: 'POST', json: { assignees: reviewers.map(actorLogin).join(',') }, signal: options?.signal })

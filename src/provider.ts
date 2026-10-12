@@ -553,7 +553,15 @@ export interface ThreadsApi {
   deleteComment: (ref: CommentRef, options?: BaseOptions) => Promise<void>
   /** Creates an issue, pull request or discussion. A pull request needs `head` and `base`. */
   create: (repo: RepoRef, input: ThreadCreateInput, options?: BaseOptions) => Promise<Thread>
-  /** Changes the title, body or other fields of a thread. Fields left out stay as they are. */
+  /**
+   * Changes the title, body, state, labels or assignees of a thread. Fields left out stay as they are.
+   * Where the forge takes them all in one request, that's one write and can't leave the thread half changed;
+   * elsewhere it's the calls `close()`, `setLabels()` and `setAssignees()` would make.
+   * @example
+   * ```ts
+   * await provider.threads.update(ref, { state: 'closed', labels: ['wontfix'], assignees: [] })
+   * ```
+   */
   update: (ref: ThreadRef, input: ThreadUpdateInput, options?: BaseOptions) => Promise<Thread>
   /** Replaces the thread's labels. */
   setLabels: (ref: ThreadRef, labels: string[], options?: BaseOptions) => Promise<void>

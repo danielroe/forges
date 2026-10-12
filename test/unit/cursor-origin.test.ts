@@ -56,3 +56,29 @@ describe('cursor origin merge', () => {
     expect(calls).toEqual([])
   })
 })
+
+describe('cursor origin thread updates', () => {
+  function serve() {
+    const calls: Array<{ method: string, path: string, body?: unknown }> = []
+    const instance = cursorOrigin({ auth: { type: 'token', token: 't' }, fetch: async (url, init) => {
+      calls.push({ method: init?.method ?? 'GET', path: new URL(String(url)).pathname, body: init?.body ? JSON.parse(String(init.body)) : undefined })
+      return Response.json({ number: 12, state: 'closed', title: 'Retry uploads' })
+    } }).create()
+    return { instance, calls }
+  }
+
+  it('puts the labels before the edit that closes the pull request', async () => {
+    const { instance, calls } = serve()
+    await instance.threads.update(pull, { title: 'Retry uploads', state: 'closed', labels: ['bug'] })
+
+    expect(calls.map(call => `${call.method} ${call.path.replace(/^.*\/pulls\//, '')}`)).toEqual(['PUT 12/labels', 'PATCH 12'])
+    expect(calls.map(call => call.body)).toEqual([{ labels: ['bug'] }, { title: 'Retry uploads', state: 'closed' }])
+  })
+
+  it('refuses assignees before it writes anything', async () => {
+    const { instance, calls } = serve()
+
+    await expect(instance.threads.update(pull, { labels: ['bug'], assignees: ['jane'] })).rejects.toThrow(UnsupportedOperationError)
+    expect(calls).toEqual([])
+  })
+})
