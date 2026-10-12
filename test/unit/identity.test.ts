@@ -88,6 +88,12 @@ describe('web links', () => {
     expectTypeOf(fake().create().webOrigin).toEqualTypeOf<string | undefined>()
   })
 
+  it('types a repository link as present where the forge has a website', () => {
+    expectTypeOf(gh.urlFor({ repo })).toEqualTypeOf<string>()
+    expectTypeOf(gh.urlFor({ repo, section: 'issues' })).toEqualTypeOf<string | undefined>()
+    expectTypeOf(fake().create().urlFor({ repo })).toEqualTypeOf<string | undefined>()
+  })
+
   const sha = 'a'.repeat(40)
   it.each([
     ['github', gh, repo, 'https://raw.githubusercontent.com/acme/widgets/v1.0.0/src/a%20b.ts', `https://github.com/acme/widgets/commit/${sha}`],
