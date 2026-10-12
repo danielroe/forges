@@ -1,0 +1,33 @@
+{
+  "ref": {
+    "forge": "forgejo",
+    "instance": "codeberg.org",
+    "thread": {
+      "forge": "forgejo",
+      "instance": "codeberg.org",
+      "repo": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "owner": "forgejo",
+        "name": "forgejo"
+      },
+      "kind": "issue",
+      "number": "14613"
+    },
+    "id": "24317943"
+  },
+  "body": "Thanks for reporting this issue @miguelmurran.  It will be fixed by #14621.",
+  "author": {
+    "forge": "forgejo",
+    "instance": "codeberg.org",
+    "login": "mfenniak",
+    "id": "222642",
+    "name": "Mathieu Fenniak",
+    "avatarUrl": "https://codeberg.org/avatars/561ee781e72bbbfd2865db7b4ba4fbf50f64da3d3cb0f4e1897b6da25224a2a7",
+    "url": "https://codeberg.org/mfenniak",
+    "isBotHint": false
+  },
+  "createdAt": "2026-09-30T17:31:03.000Z",
+  "updatedAt": "2026-09-30T17:31:03.000Z",
+  "url": "https://codeberg.org/forgejo/forgejo/issues/14613#issuecomment-24317943"
+}

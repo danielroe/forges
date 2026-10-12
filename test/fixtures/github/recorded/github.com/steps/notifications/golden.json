@@ -1,0 +1,107 @@
+{
+  "items": [
+    {
+      "ref": {
+        "forge": "github",
+        "instance": "github.com",
+        "id": "26260697380"
+      },
+      "subject": {
+        "type": "thread",
+        "thread": {
+          "forge": "github",
+          "instance": "github.com",
+          "repo": {
+            "forge": "github",
+            "instance": "github.com",
+            "owner": "nuxt",
+            "name": "nuxt",
+            "externalId": "71995937"
+          },
+          "kind": "pull_request",
+          "typeRaw": "PullRequest",
+          "number": "36558"
+        }
+      },
+      "subjectTypeRaw": "PullRequest",
+      "reason": "review_requested",
+      "reasonRaw": "review_requested",
+      "unread": true,
+      "title": "fix(nuxt): include builder-env types in nitro context when `nitroViteEnvironment` is enabled",
+      "subjectState": "unknown",
+      "updatedAt": "<now>",
+      "url": "https://api.github.com/repos/nuxt/nuxt/pulls/36558"
+    },
+    {
+      "ref": {
+        "forge": "github",
+        "instance": "github.com",
+        "id": "26260015773"
+      },
+      "subject": {
+        "type": "thread",
+        "thread": {
+          "forge": "github",
+          "instance": "github.com",
+          "repo": {
+            "forge": "github",
+            "instance": "github.com",
+            "owner": "nuxt",
+            "name": "nuxt",
+            "externalId": "71995937"
+          },
+          "kind": "pull_request",
+          "typeRaw": "PullRequest",
+          "number": "36556"
+        }
+      },
+      "subjectTypeRaw": "PullRequest",
+      "reason": "review_requested",
+      "reasonRaw": "review_requested",
+      "unread": true,
+      "title": "fix(nitro): keep workerd ssr conditions in miniflare dev runner",
+      "subjectState": "unknown",
+      "updatedAt": "2026-10-11T14:57:56.000Z",
+      "lastReadAt": "2026-10-11T14:50:53.000Z",
+      "url": "https://api.github.com/repos/nuxt/nuxt/pulls/36556"
+    },
+    {
+      "ref": {
+        "forge": "github",
+        "instance": "github.com",
+        "id": "26260073889"
+      },
+      "subject": {
+        "type": "thread",
+        "thread": {
+          "forge": "github",
+          "instance": "github.com",
+          "repo": {
+            "forge": "github",
+            "instance": "github.com",
+            "owner": "forges-fixtures",
+            "name": "forges-fixtures",
+            "externalId": "1411702196"
+          },
+          "kind": "issue",
+          "typeRaw": "Issue",
+          "number": "75"
+        }
+      },
+      "subjectTypeRaw": "Issue",
+      "reason": "comment",
+      "reasonRaw": "comment",
+      "unread": true,
+      "title": "forges fixture 20261011145244: issue, edited",
+      "subjectState": "unknown",
+      "updatedAt": "2026-10-11T14:54:41.000Z",
+      "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/issues/75"
+    }
+  ],
+  "cursor": {
+    "nextUrl": "https://api.github.com/notifications?all=false&per_page=3&page=2",
+    "etag": "W/\"1beb6c9252265c70f38cf7ce786119ba43f54b5924c8cd6ae9919d568f11804a\""
+  },
+  "etag": "W/\"1beb6c9252265c70f38cf7ce786119ba43f54b5924c8cd6ae9919d568f11804a\"",
+  "notModified": false
+}

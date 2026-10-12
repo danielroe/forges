@@ -1,0 +1,39 @@
+{
+  "items": [
+    {
+      "ref": {
+        "forge": "github",
+        "instance": "github.com",
+        "repo": {
+          "forge": "github",
+          "instance": "github.com",
+          "owner": "forges-fixtures",
+          "name": "forges-fixtures"
+        },
+        "id": "114460238060",
+        "run": {
+          "forge": "github",
+          "instance": "github.com",
+          "repo": {
+            "forge": "github",
+            "instance": "github.com",
+            "owner": "forges-fixtures",
+            "name": "forges-fixtures"
+          },
+          "id": "38136126086"
+        }
+      },
+      "name": "check",
+      "state": "success",
+      "stateRaw": "completed",
+      "url": "https://github.com/forges-fixtures/forges-fixtures/actions/runs/38136126086/job/114460238060",
+      "startedAt": "2026-10-11T11:35:34.000Z",
+      "completedAt": "2026-10-11T11:35:38.000Z"
+    }
+  ],
+  "rateLimit": {
+    "limit": 60,
+    "remaining": 17,
+    "resetAt": "<now>"
+  }
+}

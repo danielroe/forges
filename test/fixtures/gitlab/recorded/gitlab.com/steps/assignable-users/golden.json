@@ -1,0 +1,43 @@
+{
+  "items": [
+    {
+      "forge": "gitlab",
+      "instance": "gitlab.com",
+      "login": "sytses",
+      "id": "1",
+      "name": "Sid Sijbrandij",
+      "avatarUrl": "https://secure.gravatar.com/avatar/adcd204e48241a6528220c7450334cc5ffab2ea1c6a89d3d0ada01d01ed2b49e?s=80&d=identicon",
+      "url": "https://gitlab.com/sytses",
+      "isBotHint": false
+    },
+    {
+      "forge": "gitlab",
+      "instance": "gitlab.com",
+      "login": "brodock",
+      "id": "2293",
+      "name": "Gabriel Mazzetto",
+      "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/2293/avatar.png?v=1791695730",
+      "url": "https://gitlab.com/brodock",
+      "isBotHint": false
+    },
+    {
+      "forge": "gitlab",
+      "instance": "gitlab.com",
+      "login": "balasankarc",
+      "id": "4849",
+      "name": "Balasankar 'Balu' C",
+      "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/4849/avatar.png?v=1791723774",
+      "url": "https://gitlab.com/balasankarc",
+      "isBotHint": false
+    }
+  ],
+  "cursor": {
+    "nextUrl": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/users?id=gitlab-org%2Fcli&page=2&per_page=3",
+    "etag": "W/\"c82d215bced07ba46c905b8b68194eb9\""
+  },
+  "rateLimit": {
+    "limit": 2000,
+    "remaining": 1994,
+    "resetAt": "<now>"
+  }
+}

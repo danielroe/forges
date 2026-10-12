@@ -1,0 +1,78 @@
+{
+  "ref": {
+    "forge": "gitea",
+    "instance": "gitea.com",
+    "repo": {
+      "forge": "gitea",
+      "instance": "gitea.com",
+      "owner": "gitea",
+      "name": "tea"
+    },
+    "kind": "pull_request",
+    "number": "1099",
+    "externalId": "189782"
+  },
+  "kind": "pull_request",
+  "title": "Fix locale-dependent git repo detection",
+  "body": "Fixes #1089\n\n## Root cause\n`tea clone` initializes the command context by probing the current directory with `git rev-parse --show-toplevel`. `classifyRepoError` recognizes the \"not a git repository\" case by matching the English stderr text. When git emits localized errors (for example with `LANG=de_DE.UTF-8`), that match fails, and the otherwise harmless \"no repo here\" error is returned as fatal before cloning.\n\n## Fix\nPin the locale of git subprocesses to `C` by overriding `LC_ALL`, `LANG`, and `LANGUAGE` in `runGitCommand`. This keeps all git output stable for parsing while leaving the parent process locale untouched.\n\n## Tests\nAdded a regression test using a fake git executable that emits a German \"not a repository\" error unless the locale is forced to `C`, and verifies `ErrRepositoryNotExists` is returned.",
+  "state": "merged",
+  "stateRaw": "closed",
+  "isDraft": false,
+  "author": {
+    "forge": "gitea",
+    "instance": "gitea.com",
+    "login": "lunny",
+    "id": "1",
+    "name": "Lunny Xiao",
+    "avatarUrl": "https://seccdn.libravatar.org/avatar/b897d40dc87fdba4a024827c3967597434681a8f4f0f4eb5d73e0f8b1a0a9274?d=identicon",
+    "url": "https://gitea.com/lunny",
+    "isBotHint": false
+  },
+  "assignees": [],
+  "reviewers": [
+    {
+      "actor": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "login": "Zettat123",
+        "id": "39446",
+        "avatarUrl": "https://gitea.com/avatars/230ac7fa09681a12ecc1dd575f5ffe91003739cb181ab1cd9f670ab2e90eaab8",
+        "url": "https://gitea.com/Zettat123",
+        "isBotHint": false
+      },
+      "state": "pending",
+      "stateRaw": "requested"
+    }
+  ],
+  "labels": [],
+  "url": "https://gitea.com/gitea/tea/pulls/1099",
+  "createdAt": "2026-08-22T06:42:24.000Z",
+  "updatedAt": "2026-09-30T17:48:20.000Z",
+  "closedAt": "2026-09-30T17:48:19.000Z",
+  "lastActivityAt": "2026-09-30T17:48:20.000Z",
+  "locked": false,
+  "commentCount": 1,
+  "branches": {
+    "head": {
+      "ref": "refs/pull/1099/head",
+      "sha": "dbfa61205c14e48d13d95c55b277e55cc0ee1100",
+      "repo": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "owner": "lunny",
+        "name": "tea",
+        "externalId": "593"
+      }
+    },
+    "base": {
+      "ref": "main",
+      "sha": "bcd62a1fb2ce6fdd51ebea91cc33ddbcae000b68"
+    },
+    "mergeCommitSha": "6daaa7c05e7883d4468fc7b40c2f71e0ea75562a"
+  },
+  "checks": {
+    "state": "success",
+    "total": 2,
+    "failed": 0
+  }
+}

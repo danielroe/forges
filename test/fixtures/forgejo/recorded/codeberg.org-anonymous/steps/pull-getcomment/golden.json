@@ -1,0 +1,32 @@
+{
+  "ref": {
+    "forge": "forgejo",
+    "instance": "codeberg.org",
+    "thread": {
+      "forge": "forgejo",
+      "instance": "codeberg.org",
+      "repo": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "owner": "forgejo",
+        "name": "forgejo"
+      },
+      "kind": "pull_request",
+      "number": "5000"
+    },
+    "id": "2181409"
+  },
+  "body": "### ⚠️ Artifact update problem\n\nRenovate failed to update an artifact related to this branch. You probably do not want to merge this PR as-is.\n\n♻ Renovate will retry this branch, including artifacts, only when one of the following happens:\n\n - any of the package files in this branch needs updating, or \n - the branch becomes conflicted, or\n - you click the rebase/retry checkbox if found above, or\n - you rename this PR's title to start with \"rebase!\" to trigger it manually\n\nThe artifact failure details are included below:\n\n##### File name: package-lock.json\n\n```\nnpm error code ERESOLVE\nnpm error ERESOLVE unable to resolve dependency tree\nnpm error\nnpm error While resolving: undefined@undefined\nnpm error Found: eslint@9.9.0\nnpm error node_modules/eslint\nnpm error   dev eslint@\"9.9.0\" from the root project\nnpm error\nnpm error Could not resolve dependency:\nnpm error peer eslint@\"^8.0.1\" from eslint-plugin-github@5.0.1\nnpm error node_modules/eslint-plugin-github\nnpm error   dev eslint-plugin-github@\"5.0.1\" from the root project\nnpm error\nnpm error Fix the upstream dependency conflict, or retry\nnpm error this command with --force or --legacy-peer-deps\nnpm error to accept an incorrect (and potentially broken) dependency resolution.\nnpm error\nnpm error\nnpm error For a full report see:\nnpm error /workspace/forgejo/forgejo/.tmp/cache/others/npm/_logs/2024-08-18T06_02_10_783Z-eresolve-report.txt\nnpm error A complete log of this run can be found in: /workspace/forgejo/forgejo/.tmp/cache/others/npm/_logs/2024-08-18T06_02_10_783Z-debug-0.log\n\n```\n\n",
+  "author": {
+    "forge": "forgejo",
+    "instance": "codeberg.org",
+    "login": "forgejo-renovate-action",
+    "id": "165503",
+    "avatarUrl": "https://codeberg.org/avatars/4ac1fe8134d3be047891754798052f343835927de69c67a26386ca3a5becbbbc",
+    "url": "https://codeberg.org/forgejo-renovate-action",
+    "isBotHint": false
+  },
+  "createdAt": "2024-08-18T06:02:25.000Z",
+  "updatedAt": "2024-08-18T06:02:25.000Z",
+  "url": "https://codeberg.org/forgejo/forgejo/pulls/5000#issuecomment-2181409"
+}

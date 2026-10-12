@@ -1,0 +1,27 @@
+{
+  "ref": {
+    "forge": "gitlab",
+    "instance": "gitlab.com",
+    "target": {
+      "forge": "gitlab",
+      "instance": "gitlab.com",
+      "owner": "forges-fixtures",
+      "name": "forges-fixtures"
+    },
+    "id": "91274107"
+  },
+  "url": "https://example.com/hook",
+  "events": [
+    "comment",
+    "review_comment",
+    "push",
+    "ref"
+  ],
+  "nativeEvents": [
+    "push_events",
+    "note_events",
+    "confidential_note_events"
+  ],
+  "active": true,
+  "createdAt": "<now>"
+}

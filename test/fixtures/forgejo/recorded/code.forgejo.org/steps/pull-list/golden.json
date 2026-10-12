@@ -1,0 +1,124 @@
+{
+  "items": [
+    {
+      "ref": {
+        "forge": "forgejo",
+        "instance": "code.forgejo.org",
+        "repo": {
+          "forge": "forgejo",
+          "instance": "code.forgejo.org",
+          "owner": "forgejo",
+          "name": "runner"
+        },
+        "kind": "pull_request",
+        "number": "1759",
+        "externalId": "14648"
+      },
+      "kind": "pull_request",
+      "title": "WIP: feat(jobparser): support continue-on-error for jobs",
+      "body": "Uses the same evaluation rules/context as if\n\nforgejo/forgejo-actions-feature-requests#14\n\nNeeds some more work for reusable workflows and matrixes I think.\n\nRelated PRs:\n\n  - [forgejo](https://codeberg.org/forgejo/forgejo/pulls/14520)\n  - [end-to-end](https://code.forgejo.org/forgejo/end-to-end/pulls/2475)\n\n## Checklist\n\n### Compliance\n\n- [X] I confirm that I make this contribution in accordance with [Forgejo's AI Agreement](https://codeberg.org/forgejo/governance/src/commit/9084720dc6a7fbf1d3f358919d46bd6adfb55287/AIAgreement.md).\n\n<!--start release-notes-assistant-->\n<!--URL:https://code.forgejo.org/forgejo/runner-->\n- other\n  - [PR](https://code.forgejo.org/forgejo/runner/pulls/1759): <!--number 1759 --><!--line 0 --><!--description V0lQOiBmZWF0KGpvYnBhcnNlcik6IHN1cHBvcnQgY29udGludWUtb24tZXJyb3IgZm9yIGpvYnM=-->WIP: feat(jobparser): support continue-on-error for jobs<!--description-->\n<!--end release-notes-assistant-->\n",
+      "state": "open",
+      "stateRaw": "open",
+      "isDraft": true,
+      "author": {
+        "forge": "forgejo",
+        "instance": "code.forgejo.org",
+        "login": "ariaaaa",
+        "id": "2101",
+        "avatarUrl": "https://code.forgejo.org/avatars/7b5e762e9feb5c95255a6bc037e2bd2facc5262bc5f4c57f75caf943714022d7",
+        "url": "https://code.forgejo.org/ariaaaa",
+        "isBotHint": false
+      },
+      "assignees": [],
+      "reviewers": [],
+      "labels": [],
+      "url": "https://code.forgejo.org/forgejo/runner/pulls/1759",
+      "createdAt": "2026-09-22T10:30:38.000Z",
+      "updatedAt": "2026-09-22T10:36:46.000Z",
+      "lastActivityAt": "2026-09-22T10:36:46.000Z",
+      "locked": false,
+      "commentCount": 0
+    },
+    {
+      "ref": {
+        "forge": "forgejo",
+        "instance": "code.forgejo.org",
+        "repo": {
+          "forge": "forgejo",
+          "instance": "code.forgejo.org",
+          "owner": "forgejo",
+          "name": "runner"
+        },
+        "kind": "pull_request",
+        "number": "1742",
+        "externalId": "14529"
+      },
+      "kind": "pull_request",
+      "title": "fix: don't panic when a cancelled job runs composite post steps",
+      "body": "Post steps of a cancelled job run on a fresh context with no job error container, so SetJobError panics and kills the runner process along with every other job it is running.\n\n<!--start release-notes-assistant-->\n<!--URL:https://code.forgejo.org/forgejo/runner-->\n- bug fixes\n  - [PR](https://code.forgejo.org/forgejo/runner/pulls/1742): <!--number 1742 --><!--line 0 --><!--description Zml4OiBkb24ndCBwYW5pYyB3aGVuIGEgY2FuY2VsbGVkIGpvYiBydW5zIGNvbXBvc2l0ZSBwb3N0IHN0ZXBz-->fix: don't panic when a cancelled job runs composite post steps<!--description-->\n<!--end release-notes-assistant-->\n",
+      "state": "open",
+      "stateRaw": "open",
+      "isDraft": false,
+      "author": {
+        "forge": "forgejo",
+        "instance": "code.forgejo.org",
+        "login": "eleboucher",
+        "id": "2226",
+        "avatarUrl": "https://code.forgejo.org/avatars/fa961f95a1382909cca2eca507274a486b89a92a9c47635feab353ff60e10492",
+        "url": "https://code.forgejo.org/eleboucher",
+        "isBotHint": false
+      },
+      "assignees": [],
+      "reviewers": [],
+      "labels": [],
+      "url": "https://code.forgejo.org/forgejo/runner/pulls/1742",
+      "createdAt": "2026-09-15T14:34:15.000Z",
+      "updatedAt": "2026-09-18T01:35:04.000Z",
+      "lastActivityAt": "2026-09-18T01:35:04.000Z",
+      "locked": false,
+      "commentCount": 1
+    },
+    {
+      "ref": {
+        "forge": "forgejo",
+        "instance": "code.forgejo.org",
+        "repo": {
+          "forge": "forgejo",
+          "instance": "code.forgejo.org",
+          "owner": "forgejo",
+          "name": "runner"
+        },
+        "kind": "pull_request",
+        "number": "1740",
+        "externalId": "14510"
+      },
+      "kind": "pull_request",
+      "title": "fix(plugin): find requested files in CopyOut archives",
+      "body": "Single-file readers now find the requested entry in CopyOut archives, skipping directory headers and unrelated files. Adds regression tests and documents the accepted archive paths.\nFixes: #1680\n\n<!--start release-notes-assistant-->\n<!--URL:https://code.forgejo.org/forgejo/runner-->\n- bug fixes\n  - [PR](https://code.forgejo.org/forgejo/runner/pulls/1740): <!--number 1740 --><!--line 0 --><!--description Zml4KHBsdWdpbik6IGZpbmQgcmVxdWVzdGVkIGZpbGVzIGluIENvcHlPdXQgYXJjaGl2ZXM=-->fix(plugin): find requested files in CopyOut archives<!--description-->\n<!--end release-notes-assistant-->\n",
+      "state": "open",
+      "stateRaw": "open",
+      "isDraft": false,
+      "author": {
+        "forge": "forgejo",
+        "instance": "code.forgejo.org",
+        "login": "eleboucher",
+        "id": "2226",
+        "avatarUrl": "https://code.forgejo.org/avatars/fa961f95a1382909cca2eca507274a486b89a92a9c47635feab353ff60e10492",
+        "url": "https://code.forgejo.org/eleboucher",
+        "isBotHint": false
+      },
+      "assignees": [],
+      "reviewers": [],
+      "labels": [],
+      "url": "https://code.forgejo.org/forgejo/runner/pulls/1740",
+      "createdAt": "2026-09-12T15:48:03.000Z",
+      "updatedAt": "2026-09-18T01:23:52.000Z",
+      "lastActivityAt": "2026-09-18T01:23:52.000Z",
+      "locked": false,
+      "commentCount": 1
+    }
+  ],
+  "cursor": {
+    "nextUrl": "https://code.forgejo.org/api/v1/repos/forgejo/runner/issues?limit=3&page=2&state=open&type=pulls"
+  }
+}

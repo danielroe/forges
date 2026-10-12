@@ -1,0 +1,40 @@
+{
+  "ref": {
+    "forge": "gitea",
+    "instance": "gitea.com",
+    "repo": {
+      "forge": "gitea",
+      "instance": "gitea.com",
+      "owner": "gitea",
+      "name": "tea"
+    },
+    "kind": "issue",
+    "number": "1095",
+    "externalId": "488319"
+  },
+  "kind": "issue",
+  "title": "Feature request: read `--description` from stdin or a file for `issues create` / `pulls create`",
+  "body": "### Problem\n\n`tea comments add` already resolves its body from stdin — `cmd/comments/add.go` calls `interact.IsStdinPiped()` and `resolveBody(...)`, so `printf '…' | tea comments add 151` works nicely.\n\n`tea issues create` and `tea pulls create` do not. `cmd/flags/issue_pr.go` passes `Body: ctx.String(\"description\")` straight through, so the body can only ever arrive as a command-line argument.\n\n### Why that hurts\n\nOn Windows, PowerShell 5.1 builds the command line for native executables itself and does not escape inner double quotes. Any description containing `\"` — a quoted error message, a JSON snippet, anything realistic in a bug report — gets split into several arguments. Concretely, a description containing the text `--data-binary @file` ended up parsed by tea as a flag:\n\n```\nError: flag provided but not defined: -data-binary\n```\n\nNon-ASCII text is a second casualty: arguments are re-encoded through the ANSI code page on the way to the process, so German umlauts in a description come out mangled.\n\nThe result is that on Windows, `tea issues create` is unusable for anything longer than a single plain sentence, and the workaround is to call the REST API with `curl --data-binary @file` instead.\n\n### Proposal\n\nRoute `issues create` and `pulls create` through the same body resolution that `comments add` already uses:\n\n- read the body from stdin when stdin is piped\n- and/or add `--description-file <path>` (`-` for stdin)\n\nThe same applies to `pulls edit --description` and `issues edit --description`.\n\nThis is the non-interactive complement to #321, which added stdin support for comments back in 2021.\n\nTested against tea 0.15.1.",
+  "state": "closed",
+  "stateRaw": "closed",
+  "isDraft": false,
+  "author": {
+    "forge": "gitea",
+    "instance": "gitea.com",
+    "login": "DerGary",
+    "id": "233120",
+    "avatarUrl": "https://seccdn.libravatar.org/avatar/9f9333fd9c24b48f75a5869b26d55c86b5a46d0d46c5d0287cd96707af3e74f1?d=identicon",
+    "url": "https://gitea.com/DerGary",
+    "isBotHint": false
+  },
+  "assignees": [],
+  "reviewers": [],
+  "labels": [],
+  "url": "https://gitea.com/gitea/tea/issues/1095",
+  "createdAt": "2026-08-21T15:45:20.000Z",
+  "updatedAt": "2026-08-23T12:46:24.000Z",
+  "closedAt": "2026-08-23T12:46:23.000Z",
+  "lastActivityAt": "2026-08-23T12:46:24.000Z",
+  "locked": false,
+  "commentCount": 0
+}

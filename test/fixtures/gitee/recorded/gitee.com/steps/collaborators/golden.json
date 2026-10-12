@@ -1,0 +1,49 @@
+{
+  "items": [
+    {
+      "actor": {
+        "forge": "gitee",
+        "instance": "gitee.com",
+        "login": "charlseJ",
+        "id": "625070",
+        "name": "非yun",
+        "avatarUrl": "https://gitee.com/assets/no_portrait.png",
+        "url": "https://gitee.com/charlseJ",
+        "typeRaw": "User",
+        "isBotHint": false
+      },
+      "role": "read"
+    },
+    {
+      "actor": {
+        "forge": "gitee",
+        "instance": "gitee.com",
+        "login": "longlin7594",
+        "id": "1444807",
+        "name": "longlin",
+        "avatarUrl": "https://gitee.com/assets/no_portrait.png",
+        "url": "https://gitee.com/longlin7594",
+        "typeRaw": "User",
+        "isBotHint": false
+      },
+      "role": "read"
+    },
+    {
+      "actor": {
+        "forge": "gitee",
+        "instance": "gitee.com",
+        "login": "shanshi87hl",
+        "id": "4766708",
+        "name": "磊Ray",
+        "avatarUrl": "https://gitee.com/assets/no_portrait.png",
+        "url": "https://gitee.com/shanshi87hl",
+        "typeRaw": "User",
+        "isBotHint": false
+      },
+      "role": "read"
+    }
+  ],
+  "cursor": {
+    "nextUrl": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/collaborators?page=2&per_page=3"
+  }
+}

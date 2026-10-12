@@ -1,0 +1,20 @@
+{
+  "ref": {
+    "forge": "azure-devops",
+    "instance": "dev.azure.com",
+    "owner": "forges/forges-fixtures",
+    "name": "forges-fixtures",
+    "externalId": "c67c02dd-cbca-45aa-a679-021bd4d2c4a7"
+  },
+  "defaultBranch": "main",
+  "visibility": "private",
+  "visibilityRaw": "private",
+  "isFork": false,
+  "isArchived": false,
+  "topics": [],
+  "url": "https://dev.azure.com/forges/forges-fixtures/_git/forges-fixtures",
+  "cloneUrls": {
+    "https": "https://dev.azure.com/forges/forges-fixtures/_git/forges-fixtures",
+    "ssh": "git@ssh.dev.azure.com:v3/forges/forges-fixtures/forges-fixtures"
+  }
+}

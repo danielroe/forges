@@ -1,0 +1,65 @@
+{
+  "ref": {
+    "forge": "github",
+    "instance": "github.com",
+    "repo": {
+      "forge": "github",
+      "instance": "github.com",
+      "owner": "h3js",
+      "name": "h3"
+    },
+    "sha": "adbc974043a83820a5ae388265b5ee1465926561"
+  },
+  "sha": "adbc974043a83820a5ae388265b5ee1465926561",
+  "message": "chore: include `node_modules` in `.prettierignore`",
+  "author": {
+    "actor": {
+      "forge": "github",
+      "instance": "github.com",
+      "login": "iiio2",
+      "id": "47961062",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/47961062?v=4",
+      "url": "https://github.com/iiio2",
+      "typeRaw": "User",
+      "isBotHint": false
+    },
+    "name": "Mr. Robot",
+    "email": "redacted@example.invalid",
+    "date": "2025-03-31T13:48:41.000Z"
+  },
+  "committer": {
+    "actor": {
+      "forge": "github",
+      "instance": "github.com",
+      "login": "iiio2",
+      "id": "47961062",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/47961062?v=4",
+      "url": "https://github.com/iiio2",
+      "typeRaw": "User",
+      "isBotHint": false
+    },
+    "name": "Mr. Robot",
+    "email": "redacted@example.invalid",
+    "date": "2025-03-31T13:48:41.000Z"
+  },
+  "parents": [
+    "e5788bb16d62ac64e5fa13b14862ed719f768d04"
+  ],
+  "url": "https://github.com/h3js/h3/commit/adbc974043a83820a5ae388265b5ee1465926561",
+  "stats": {
+    "additions": 1,
+    "deletions": 0,
+    "total": 1
+  },
+  "files": [
+    {
+      "path": ".prettierignore",
+      "status": "modified",
+      "statusRaw": "modified",
+      "additions": 1,
+      "deletions": 0,
+      "patch": "@@ -3,3 +3,4 @@ lib\n .nuxt\n .output\n src/types/_headers.ts\n+node_modules\n\\ No newline at end of file",
+      "sha": "86167650d1b479a034773ee53ccb60428ce71427"
+    }
+  ]
+}

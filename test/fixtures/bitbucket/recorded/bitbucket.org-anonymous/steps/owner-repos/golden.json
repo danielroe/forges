@@ -1,0 +1,141 @@
+{
+  "items": [
+    {
+      "ref": {
+        "forge": "bitbucket",
+        "instance": "bitbucket.org",
+        "owner": "neelabo",
+        "name": "neeview",
+        "externalId": "{6b283030-4828-41db-b559-8b120365f356}"
+      },
+      "description": "Image viewer",
+      "defaultBranch": "master",
+      "visibility": "public",
+      "visibilityRaw": "public",
+      "isFork": false,
+      "isArchived": false,
+      "topics": [],
+      "url": "https://bitbucket.org/neelabo/neeview",
+      "cloneUrls": {
+        "https": "https://bitbucket.org/neelabo/neeview.git",
+        "ssh": "git@bitbucket.org:neelabo/neeview.git"
+      },
+      "createdAt": "2015-12-26T05:41:19.222Z",
+      "updatedAt": "2025-01-17T15:05:15.976Z",
+      "owner": {
+        "forge": "bitbucket",
+        "instance": "bitbucket.org",
+        "login": "neelabo-team",
+        "id": "{04a60307-bfb6-4dfc-9b19-e862ceab584f}",
+        "name": "Ito Mitsuhiro",
+        "avatarUrl": "https://bitbucket.org/account/neelabo-team/avatar/",
+        "url": "https://bitbucket.org/%7B04a60307-bfb6-4dfc-9b19-e862ceab584f%7D/",
+        "typeRaw": "team",
+        "isBotHint": false
+      },
+      "language": "c#",
+      "features": {
+        "issues": true,
+        "pullRequests": true,
+        "discussions": false,
+        "wiki": true,
+        "projects": false,
+        "releases": false
+      }
+    },
+    {
+      "ref": {
+        "forge": "bitbucket",
+        "instance": "bitbucket.org",
+        "owner": "neelabo",
+        "name": "iconmaker",
+        "externalId": "{608074f1-2d3e-448f-a448-ecec2320ed9e}"
+      },
+      "description": "WPFのレンダリング機能を利用してWindows用アプリアイコンを作成します。",
+      "defaultBranch": "master",
+      "visibility": "public",
+      "visibilityRaw": "public",
+      "isFork": false,
+      "isArchived": false,
+      "topics": [],
+      "url": "https://bitbucket.org/neelabo/iconmaker",
+      "cloneUrls": {
+        "https": "https://bitbucket.org/neelabo/iconmaker.git",
+        "ssh": "git@bitbucket.org:neelabo/iconmaker.git"
+      },
+      "createdAt": "2015-11-06T01:28:36.178Z",
+      "updatedAt": "2023-03-18T07:13:27.432Z",
+      "owner": {
+        "forge": "bitbucket",
+        "instance": "bitbucket.org",
+        "login": "neelabo-team",
+        "id": "{04a60307-bfb6-4dfc-9b19-e862ceab584f}",
+        "name": "Ito Mitsuhiro",
+        "avatarUrl": "https://bitbucket.org/account/neelabo-team/avatar/",
+        "url": "https://bitbucket.org/%7B04a60307-bfb6-4dfc-9b19-e862ceab584f%7D/",
+        "typeRaw": "team",
+        "isBotHint": false
+      },
+      "language": "c#",
+      "features": {
+        "issues": true,
+        "pullRequests": true,
+        "discussions": false,
+        "wiki": true,
+        "projects": false,
+        "releases": false
+      }
+    },
+    {
+      "ref": {
+        "forge": "bitbucket",
+        "instance": "bitbucket.org",
+        "owner": "neelabo",
+        "name": "resxxlsxconv",
+        "externalId": "{e6b99fd6-3045-4be1-8508-f1a418db6bf4}"
+      },
+      "description": "Multi Language ResX string to XLSX converter",
+      "defaultBranch": "master",
+      "visibility": "public",
+      "visibilityRaw": "public",
+      "isFork": false,
+      "isArchived": false,
+      "topics": [],
+      "url": "https://bitbucket.org/neelabo/resxxlsxconv",
+      "cloneUrls": {
+        "https": "https://bitbucket.org/neelabo/resxxlsxconv.git",
+        "ssh": "git@bitbucket.org:neelabo/resxxlsxconv.git"
+      },
+      "createdAt": "2017-06-13T09:51:12.165Z",
+      "updatedAt": "2021-05-29T12:01:54.438Z",
+      "owner": {
+        "forge": "bitbucket",
+        "instance": "bitbucket.org",
+        "login": "neelabo-team",
+        "id": "{04a60307-bfb6-4dfc-9b19-e862ceab584f}",
+        "name": "Ito Mitsuhiro",
+        "avatarUrl": "https://bitbucket.org/account/neelabo-team/avatar/",
+        "url": "https://bitbucket.org/%7B04a60307-bfb6-4dfc-9b19-e862ceab584f%7D/",
+        "typeRaw": "team",
+        "isBotHint": false
+      },
+      "language": "c#",
+      "features": {
+        "issues": false,
+        "pullRequests": true,
+        "discussions": false,
+        "wiki": false,
+        "projects": false,
+        "releases": false
+      }
+    }
+  ],
+  "cursor": {
+    "nextUrl": "https://api.bitbucket.org/2.0/repositories/neelabo?q=is_private+%3D+false&sort=-updated_on&pagelen=3&page=2",
+    "etag": "W/\"f40ac238b441202dea7b030a15e3c29a\""
+  },
+  "rateLimit": {
+    "remaining": 59,
+    "resetAt": "1970-01-01T00:16:40.000Z"
+  }
+}

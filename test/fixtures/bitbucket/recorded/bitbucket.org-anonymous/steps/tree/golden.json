@@ -1,0 +1,27 @@
+{
+  "items": [
+    {
+      "path": "MakePackage",
+      "type": "directory",
+      "sha": "6f202224c3c938d01c46892ed305df6e385ce13f"
+    },
+    {
+      "path": "NeeLaboratory.Remote",
+      "type": "directory",
+      "sha": "6f202224c3c938d01c46892ed305df6e385ce13f"
+    },
+    {
+      "path": "NeeLaboratory.Runtime",
+      "type": "directory",
+      "sha": "6f202224c3c938d01c46892ed305df6e385ce13f"
+    }
+  ],
+  "cursor": {
+    "nextUrl": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/src/master/?pagelen=3&page=ByUK",
+    "etag": "W/\"f2b870d7bb844a34494dace84771789e\""
+  },
+  "rateLimit": {
+    "remaining": 50,
+    "resetAt": "1970-01-01T00:57:56.000Z"
+  }
+}

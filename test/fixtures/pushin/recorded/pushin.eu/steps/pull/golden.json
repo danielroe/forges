@@ -1,0 +1,46 @@
+{
+  "ref": {
+    "forge": "pushin",
+    "instance": "pushin.eu",
+    "repo": {
+      "forge": "pushin",
+      "instance": "pushin.eu",
+      "owner": "danielroe",
+      "name": "roe.dev-test"
+    },
+    "kind": "pull_request",
+    "number": "1",
+    "externalId": "iss_034e44ro1buT7RXhslfKfW"
+  },
+  "kind": "pull_request",
+  "title": "test pr",
+  "body": "here we go",
+  "state": "open",
+  "stateRaw": "open",
+  "isDraft": false,
+  "author": {
+    "forge": "pushin",
+    "instance": "pushin.eu",
+    "login": "danielroe",
+    "id": "277",
+    "avatarUrl": "https://cdn.pushin.eu/-/avatars/u_034KGcbXmCJviF1JfQCAWY/0a945a3b",
+    "url": "https://pushin.eu/danielroe",
+    "typeRaw": "User",
+    "isBotHint": false
+  },
+  "assignees": [],
+  "reviewers": [],
+  "labels": [],
+  "url": "https://pushin.eu/danielroe/roe.dev-test/pulls/1",
+  "createdAt": "<now>",
+  "updatedAt": "<now>",
+  "lastActivityAt": "<now>",
+  "branches": {
+    "head": {
+      "ref": "test/pr"
+    },
+    "base": {
+      "ref": "main"
+    }
+  }
+}

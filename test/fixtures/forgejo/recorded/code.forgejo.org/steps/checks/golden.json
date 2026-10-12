@@ -1,0 +1,464 @@
+{
+  "items": [
+    {
+      "ref": {
+        "forge": "forgejo",
+        "instance": "code.forgejo.org",
+        "repo": {
+          "forge": "forgejo",
+          "instance": "code.forgejo.org",
+          "owner": "forgejo",
+          "name": "runner"
+        },
+        "id": "1",
+        "type": "status"
+      },
+      "name": "pr-checklist / warn-user (pull_request_target)",
+      "state": "unknown",
+      "stateRaw": "skipped",
+      "url": "/forgejo/runner/actions/runs/23878/jobs/0",
+      "startedAt": "2026-09-30T22:03:00.000Z",
+      "completedAt": "2026-09-30T22:03:00.000Z"
+    },
+    {
+      "ref": {
+        "forge": "forgejo",
+        "instance": "code.forgejo.org",
+        "repo": {
+          "forge": "forgejo",
+          "instance": "code.forgejo.org",
+          "owner": "forgejo",
+          "name": "runner"
+        },
+        "id": "2",
+        "type": "status"
+      },
+      "name": "issue-labels / release-notes (pull_request_target)",
+      "state": "unknown",
+      "stateRaw": "skipped",
+      "url": "/forgejo/runner/actions/runs/23879/jobs/0",
+      "startedAt": "2026-09-30T22:03:00.000Z",
+      "completedAt": "2026-09-30T22:03:00.000Z"
+    },
+    {
+      "ref": {
+        "forge": "forgejo",
+        "instance": "code.forgejo.org",
+        "repo": {
+          "forge": "forgejo",
+          "instance": "code.forgejo.org",
+          "owner": "forgejo",
+          "name": "runner"
+        },
+        "id": "12",
+        "type": "status"
+      },
+      "name": "cascade / debug (pull_request_target)",
+      "state": "unknown",
+      "stateRaw": "skipped",
+      "url": "/forgejo/runner/actions/runs/23882/jobs/0",
+      "startedAt": "2026-09-30T22:03:00.000Z",
+      "completedAt": "2026-09-30T22:03:00.000Z"
+    },
+    {
+      "ref": {
+        "forge": "forgejo",
+        "instance": "code.forgejo.org",
+        "repo": {
+          "forge": "forgejo",
+          "instance": "code.forgejo.org",
+          "owner": "forgejo",
+          "name": "runner"
+        },
+        "id": "16",
+        "type": "status"
+      },
+      "name": "test-multi-platform / Build Forgejo Runner (pull_request)",
+      "state": "unknown",
+      "stateRaw": "skipped",
+      "url": "/forgejo/runner/actions/runs/23885/jobs/1",
+      "startedAt": "2026-09-30T22:03:00.000Z",
+      "completedAt": "2026-09-30T22:03:00.000Z"
+    },
+    {
+      "ref": {
+        "forge": "forgejo",
+        "instance": "code.forgejo.org",
+        "repo": {
+          "forge": "forgejo",
+          "instance": "code.forgejo.org",
+          "owner": "forgejo",
+          "name": "runner"
+        },
+        "id": "17",
+        "type": "status"
+      },
+      "name": "test-multi-platform / Build unsupported platforms (pull_request)",
+      "state": "unknown",
+      "stateRaw": "skipped",
+      "url": "/forgejo/runner/actions/runs/23885/jobs/2",
+      "startedAt": "2026-09-30T22:03:00.000Z",
+      "completedAt": "2026-09-30T22:03:00.000Z"
+    },
+    {
+      "ref": {
+        "forge": "forgejo",
+        "instance": "code.forgejo.org",
+        "repo": {
+          "forge": "forgejo",
+          "instance": "code.forgejo.org",
+          "owner": "forgejo",
+          "name": "runner"
+        },
+        "id": "18",
+        "type": "status"
+      },
+      "name": "test-multi-platform / Run exec tests with Docker (docker-latest) (pull_request)",
+      "state": "unknown",
+      "stateRaw": "skipped",
+      "url": "/forgejo/runner/actions/runs/23885/jobs/3",
+      "startedAt": "2026-09-30T22:03:00.000Z",
+      "completedAt": "2026-09-30T22:03:00.000Z"
+    },
+    {
+      "ref": {
+        "forge": "forgejo",
+        "instance": "code.forgejo.org",
+        "repo": {
+          "forge": "forgejo",
+          "instance": "code.forgejo.org",
+          "owner": "forgejo",
+          "name": "runner"
+        },
+        "id": "19",
+        "type": "status"
+      },
+      "name": "test-multi-platform / Run integration tests with Docker (docker-latest) (pull_request)",
+      "state": "unknown",
+      "stateRaw": "skipped",
+      "url": "/forgejo/runner/actions/runs/23885/jobs/4",
+      "startedAt": "2026-09-30T22:03:00.000Z",
+      "completedAt": "2026-09-30T22:03:00.000Z"
+    },
+    {
+      "ref": {
+        "forge": "forgejo",
+        "instance": "code.forgejo.org",
+        "repo": {
+          "forge": "forgejo",
+          "instance": "code.forgejo.org",
+          "owner": "forgejo",
+          "name": "runner"
+        },
+        "id": "20",
+        "type": "status"
+      },
+      "name": "test-multi-platform / Run integration tests with Docker (docker-stable) (pull_request)",
+      "state": "unknown",
+      "stateRaw": "skipped",
+      "url": "/forgejo/runner/actions/runs/23885/jobs/5",
+      "startedAt": "2026-09-30T22:03:00.000Z",
+      "completedAt": "2026-09-30T22:03:00.000Z"
+    },
+    {
+      "ref": {
+        "forge": "forgejo",
+        "instance": "code.forgejo.org",
+        "repo": {
+          "forge": "forgejo",
+          "instance": "code.forgejo.org",
+          "owner": "forgejo",
+          "name": "runner"
+        },
+        "id": "21",
+        "type": "status"
+      },
+      "name": "test-multi-platform / Run integration tests with Podman (pull_request)",
+      "state": "unknown",
+      "stateRaw": "skipped",
+      "url": "/forgejo/runner/actions/runs/23885/jobs/6",
+      "startedAt": "2026-09-30T22:03:00.000Z",
+      "completedAt": "2026-09-30T22:03:00.000Z"
+    },
+    {
+      "ref": {
+        "forge": "forgejo",
+        "instance": "code.forgejo.org",
+        "repo": {
+          "forge": "forgejo",
+          "instance": "code.forgejo.org",
+          "owner": "forgejo",
+          "name": "runner"
+        },
+        "id": "22",
+        "type": "status"
+      },
+      "name": "test-multi-platform / validate mocks (pull_request)",
+      "state": "unknown",
+      "stateRaw": "skipped",
+      "url": "/forgejo/runner/actions/runs/23885/jobs/7",
+      "startedAt": "2026-09-30T22:03:00.000Z",
+      "completedAt": "2026-09-30T22:03:00.000Z"
+    },
+    {
+      "ref": {
+        "forge": "forgejo",
+        "instance": "code.forgejo.org",
+        "repo": {
+          "forge": "forgejo",
+          "instance": "code.forgejo.org",
+          "owner": "forgejo",
+          "name": "runner"
+        },
+        "id": "23",
+        "type": "status"
+      },
+      "name": "test-multi-platform / validate pre-commit-hooks file (pull_request)",
+      "state": "unknown",
+      "stateRaw": "skipped",
+      "url": "/forgejo/runner/actions/runs/23885/jobs/8",
+      "startedAt": "2026-09-30T22:03:00.000Z",
+      "completedAt": "2026-09-30T22:03:00.000Z"
+    },
+    {
+      "ref": {
+        "forge": "forgejo",
+        "instance": "code.forgejo.org",
+        "repo": {
+          "forge": "forgejo",
+          "instance": "code.forgejo.org",
+          "owner": "forgejo",
+          "name": "runner"
+        },
+        "id": "33",
+        "type": "status"
+      },
+      "name": "checks / validate pre-commit-hooks file (pull_request)",
+      "state": "success",
+      "stateRaw": "success",
+      "url": "/forgejo/runner/actions/runs/23881/jobs/7",
+      "startedAt": "2026-09-30T22:04:37.000Z",
+      "completedAt": "2026-09-30T22:04:37.000Z"
+    },
+    {
+      "ref": {
+        "forge": "forgejo",
+        "instance": "code.forgejo.org",
+        "repo": {
+          "forge": "forgejo",
+          "instance": "code.forgejo.org",
+          "owner": "forgejo",
+          "name": "runner"
+        },
+        "id": "34",
+        "type": "status"
+      },
+      "name": "checks / validate mocks (pull_request)",
+      "state": "success",
+      "stateRaw": "success",
+      "url": "/forgejo/runner/actions/runs/23881/jobs/6",
+      "startedAt": "2026-09-30T22:04:48.000Z",
+      "completedAt": "2026-09-30T22:04:48.000Z"
+    },
+    {
+      "ref": {
+        "forge": "forgejo",
+        "instance": "code.forgejo.org",
+        "repo": {
+          "forge": "forgejo",
+          "instance": "code.forgejo.org",
+          "owner": "forgejo",
+          "name": "runner"
+        },
+        "id": "36",
+        "type": "status"
+      },
+      "name": "checks / Build Forgejo Runner (pull_request)",
+      "state": "success",
+      "stateRaw": "success",
+      "url": "/forgejo/runner/actions/runs/23881/jobs/0",
+      "startedAt": "2026-09-30T22:06:26.000Z",
+      "completedAt": "2026-09-30T22:06:26.000Z"
+    },
+    {
+      "ref": {
+        "forge": "forgejo",
+        "instance": "code.forgejo.org",
+        "repo": {
+          "forge": "forgejo",
+          "instance": "code.forgejo.org",
+          "owner": "forgejo",
+          "name": "runner"
+        },
+        "id": "44",
+        "type": "status"
+      },
+      "name": "checks / Run exec tests with Docker (docker-latest) (pull_request)",
+      "state": "success",
+      "stateRaw": "success",
+      "url": "/forgejo/runner/actions/runs/23881/jobs/2",
+      "startedAt": "2026-09-30T22:29:33.000Z",
+      "completedAt": "2026-09-30T22:29:33.000Z"
+    },
+    {
+      "ref": {
+        "forge": "forgejo",
+        "instance": "code.forgejo.org",
+        "repo": {
+          "forge": "forgejo",
+          "instance": "code.forgejo.org",
+          "owner": "forgejo",
+          "name": "runner"
+        },
+        "id": "46",
+        "type": "status"
+      },
+      "name": "checks / Build unsupported platforms (pull_request)",
+      "state": "success",
+      "stateRaw": "success",
+      "url": "/forgejo/runner/actions/runs/23881/jobs/1",
+      "startedAt": "2026-09-30T22:29:47.000Z",
+      "completedAt": "2026-09-30T22:29:47.000Z"
+    },
+    {
+      "ref": {
+        "forge": "forgejo",
+        "instance": "code.forgejo.org",
+        "repo": {
+          "forge": "forgejo",
+          "instance": "code.forgejo.org",
+          "owner": "forgejo",
+          "name": "runner"
+        },
+        "id": "48",
+        "type": "status"
+      },
+      "name": "checks / Run integration tests with Docker (docker-latest) (pull_request)",
+      "state": "failure",
+      "stateRaw": "failure",
+      "url": "/forgejo/runner/actions/runs/23881/jobs/3",
+      "startedAt": "2026-09-30T22:43:45.000Z",
+      "completedAt": "2026-09-30T22:43:45.000Z"
+    },
+    {
+      "ref": {
+        "forge": "forgejo",
+        "instance": "code.forgejo.org",
+        "repo": {
+          "forge": "forgejo",
+          "instance": "code.forgejo.org",
+          "owner": "forgejo",
+          "name": "runner"
+        },
+        "id": "50",
+        "type": "status"
+      },
+      "name": "checks / Run integration tests with Docker (docker-stable) (pull_request)",
+      "state": "success",
+      "stateRaw": "success",
+      "url": "/forgejo/runner/actions/runs/23881/jobs/4",
+      "startedAt": "2026-09-30T22:45:44.000Z",
+      "completedAt": "2026-09-30T22:45:44.000Z"
+    },
+    {
+      "ref": {
+        "forge": "forgejo",
+        "instance": "code.forgejo.org",
+        "repo": {
+          "forge": "forgejo",
+          "instance": "code.forgejo.org",
+          "owner": "forgejo",
+          "name": "runner"
+        },
+        "id": "52",
+        "type": "status"
+      },
+      "name": "checks / Run integration tests with Podman (pull_request)",
+      "state": "success",
+      "stateRaw": "success",
+      "url": "/forgejo/runner/actions/runs/23881/jobs/5",
+      "startedAt": "2026-09-30T23:00:56.000Z",
+      "completedAt": "2026-09-30T23:00:56.000Z"
+    },
+    {
+      "ref": {
+        "forge": "forgejo",
+        "instance": "code.forgejo.org",
+        "repo": {
+          "forge": "forgejo",
+          "instance": "code.forgejo.org",
+          "owner": "forgejo",
+          "name": "runner"
+        },
+        "id": "55",
+        "type": "status"
+      },
+      "name": "example / docker-build-push-action-in-lxc (pull_request)",
+      "state": "success",
+      "stateRaw": "success",
+      "url": "/forgejo/runner/actions/runs/23880/jobs/0",
+      "startedAt": "2026-10-02T02:41:16.000Z",
+      "completedAt": "2026-10-02T02:41:16.000Z"
+    },
+    {
+      "ref": {
+        "forge": "forgejo",
+        "instance": "code.forgejo.org",
+        "repo": {
+          "forge": "forgejo",
+          "instance": "code.forgejo.org",
+          "owner": "forgejo",
+          "name": "runner"
+        },
+        "id": "59",
+        "type": "status"
+      },
+      "name": "test-multi-platform / arm64 (pull_request)",
+      "state": "unknown",
+      "stateRaw": "skipped",
+      "url": "/forgejo/runner/actions/runs/23958/jobs/0",
+      "startedAt": "2026-10-02T02:59:30.000Z",
+      "completedAt": "2026-10-02T02:59:30.000Z"
+    },
+    {
+      "ref": {
+        "forge": "forgejo",
+        "instance": "code.forgejo.org",
+        "repo": {
+          "forge": "forgejo",
+          "instance": "code.forgejo.org",
+          "owner": "forgejo",
+          "name": "runner"
+        },
+        "id": "61",
+        "type": "status"
+      },
+      "name": "cascade / forgejo (pull_request_target)",
+      "state": "success",
+      "stateRaw": "success",
+      "url": "/forgejo/runner/actions/runs/23956/jobs/1",
+      "startedAt": "2026-10-02T03:02:51.000Z",
+      "completedAt": "2026-10-02T03:02:51.000Z"
+    },
+    {
+      "ref": {
+        "forge": "forgejo",
+        "instance": "code.forgejo.org",
+        "repo": {
+          "forge": "forgejo",
+          "instance": "code.forgejo.org",
+          "owner": "forgejo",
+          "name": "runner"
+        },
+        "id": "63",
+        "type": "status"
+      },
+      "name": "cascade / end-to-end (pull_request_target)",
+      "state": "success",
+      "stateRaw": "success",
+      "url": "/forgejo/runner/actions/runs/23957/jobs/1",
+      "startedAt": "2026-10-02T03:03:05.000Z",
+      "completedAt": "2026-10-02T03:03:05.000Z"
+    }
+  ]
+}

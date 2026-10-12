@@ -1,0 +1,192 @@
+{
+  "items": [
+    {
+      "ref": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "owner": "rindeal",
+        "name": "__openpgp-proof-forgejo",
+        "externalId": "211684"
+      },
+      "description": "openpgp4fpr:98e0ba6c94af78a0927758f4359b59140114d6fa",
+      "defaultBranch": "master",
+      "visibility": "public",
+      "visibilityRaw": "public",
+      "isFork": false,
+      "isArchived": false,
+      "topics": [],
+      "url": "https://codeberg.org/rindeal/__openpgp-proof-forgejo",
+      "cloneUrls": {
+        "https": "https://codeberg.org/rindeal/__openpgp-proof-forgejo.git",
+        "ssh": "ssh://git@codeberg.org/rindeal/__openpgp-proof-forgejo.git"
+      },
+      "createdAt": "2024-04-27T01:12:41.000Z",
+      "updatedAt": "2024-04-27T02:59:15.000Z",
+      "openIssueCount": 0,
+      "openPullCount": 0,
+      "owner": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "login": "rindeal",
+        "id": "173329",
+        "avatarUrl": "https://codeberg.org/avatars/fe27fbb0726e703c3c5541e4b3abdc32",
+        "url": "https://codeberg.org/rindeal",
+        "isBotHint": false
+      },
+      "homepage": "https://keyoxide.org/hkp/98E0BA6C94AF78A0927758F4359B59140114D6FA",
+      "stars": 0,
+      "forks": 0,
+      "watchers": 1,
+      "mergeMethods": [
+        "merge",
+        "squash",
+        "rebase",
+        "rebase_merge"
+      ],
+      "defaultMergeMethod": "merge",
+      "deleteBranchOnMerge": false,
+      "features": {
+        "issues": true,
+        "pullRequests": true,
+        "discussions": false,
+        "wiki": true,
+        "projects": true,
+        "releases": true
+      },
+      "permissions": {
+        "admin": false,
+        "maintain": false,
+        "push": false,
+        "triage": false,
+        "pull": true
+      }
+    },
+    {
+      "ref": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "owner": "aleksandre-c",
+        "name": ".forgejo",
+        "externalId": "1169547"
+      },
+      "description": "Management/provisioning for repository entities on this SCM platform",
+      "defaultBranch": "main",
+      "visibility": "public",
+      "visibilityRaw": "public",
+      "isFork": false,
+      "isArchived": false,
+      "topics": [],
+      "url": "https://codeberg.org/aleksandre-c/.forgejo",
+      "cloneUrls": {
+        "https": "https://codeberg.org/aleksandre-c/.forgejo.git",
+        "ssh": "ssh://git@codeberg.org/aleksandre-c/.forgejo.git"
+      },
+      "createdAt": "2026-01-19T00:06:40.000Z",
+      "updatedAt": "2026-02-07T17:39:17.000Z",
+      "openIssueCount": 0,
+      "openPullCount": 0,
+      "owner": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "login": "aleksandre-c",
+        "id": "494749",
+        "name": "Aleksandre (Alex) Cochran",
+        "avatarUrl": "https://codeberg.org/avatars/09da5265d6d8265d4d5a9a64f589441462b8336e24af1ebaa06e52507331ce01",
+        "url": "https://codeberg.org/aleksandre-c",
+        "isBotHint": false
+      },
+      "language": "Python",
+      "stars": 0,
+      "forks": 0,
+      "watchers": 1,
+      "mergeMethods": [
+        "merge",
+        "squash",
+        "rebase",
+        "rebase_merge",
+        "fast_forward_only"
+      ],
+      "defaultMergeMethod": "merge",
+      "deleteBranchOnMerge": false,
+      "features": {
+        "issues": true,
+        "pullRequests": true,
+        "discussions": false,
+        "wiki": false,
+        "projects": false,
+        "releases": false
+      },
+      "permissions": {
+        "admin": false,
+        "maintain": false,
+        "push": false,
+        "triage": false,
+        "pull": true
+      }
+    },
+    {
+      "ref": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "owner": "endurain-project",
+        "name": ".forgejo",
+        "externalId": "1684724"
+      },
+      "defaultBranch": "main",
+      "visibility": "public",
+      "visibilityRaw": "public",
+      "isFork": false,
+      "isArchived": true,
+      "topics": [],
+      "url": "https://codeberg.org/endurain-project/.forgejo",
+      "cloneUrls": {
+        "https": "https://codeberg.org/endurain-project/.forgejo.git",
+        "ssh": "ssh://git@codeberg.org/endurain-project/.forgejo.git"
+      },
+      "createdAt": "2026-04-29T08:43:35.000Z",
+      "updatedAt": "2026-05-05T14:57:42.000Z",
+      "openIssueCount": 0,
+      "openPullCount": 0,
+      "owner": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "login": "endurain-project",
+        "id": "1053434",
+        "name": "Endurain",
+        "avatarUrl": "https://codeberg.org/avatars/73c2fcba0f143af2f6911efb8b35a57da5ec989e1f17a01eae402ea8f017cd85",
+        "url": "https://codeberg.org/endurain-project",
+        "isBotHint": false
+      },
+      "stars": 0,
+      "forks": 0,
+      "watchers": 2,
+      "mergeMethods": [
+        "merge",
+        "squash",
+        "rebase",
+        "rebase_merge",
+        "fast_forward_only"
+      ],
+      "defaultMergeMethod": "merge",
+      "deleteBranchOnMerge": false,
+      "features": {
+        "issues": true,
+        "pullRequests": true,
+        "discussions": false,
+        "wiki": false,
+        "projects": false,
+        "releases": false
+      },
+      "permissions": {
+        "admin": false,
+        "maintain": false,
+        "push": false,
+        "triage": false,
+        "pull": true
+      }
+    }
+  ],
+  "cursor": {
+    "nextUrl": "https://codeberg.org/api/v1/repos/search?limit=3&page=2&q=forgejo"
+  }
+}

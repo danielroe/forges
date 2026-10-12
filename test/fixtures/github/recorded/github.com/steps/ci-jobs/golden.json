@@ -1,0 +1,69 @@
+{
+  "items": [
+    {
+      "ref": {
+        "forge": "github",
+        "instance": "github.com",
+        "repo": {
+          "forge": "github",
+          "instance": "github.com",
+          "owner": "forges-fixtures",
+          "name": "forges-fixtures"
+        },
+        "id": "114498454598",
+        "run": {
+          "forge": "github",
+          "instance": "github.com",
+          "repo": {
+            "forge": "github",
+            "instance": "github.com",
+            "owner": "forges-fixtures",
+            "name": "forges-fixtures"
+          },
+          "id": "38149059061"
+        }
+      },
+      "name": "Analyze (javascript-typescript)",
+      "state": "success",
+      "stateRaw": "completed",
+      "url": "https://github.com/forges-fixtures/forges-fixtures/actions/runs/38149059061/job/114498454598",
+      "startedAt": "2026-10-11T14:54:11.000Z",
+      "completedAt": "2026-10-11T14:55:33.000Z"
+    },
+    {
+      "ref": {
+        "forge": "github",
+        "instance": "github.com",
+        "repo": {
+          "forge": "github",
+          "instance": "github.com",
+          "owner": "forges-fixtures",
+          "name": "forges-fixtures"
+        },
+        "id": "114498454834",
+        "run": {
+          "forge": "github",
+          "instance": "github.com",
+          "repo": {
+            "forge": "github",
+            "instance": "github.com",
+            "owner": "forges-fixtures",
+            "name": "forges-fixtures"
+          },
+          "id": "38149059061"
+        }
+      },
+      "name": "Analyze (actions)",
+      "state": "success",
+      "stateRaw": "completed",
+      "url": "https://github.com/forges-fixtures/forges-fixtures/actions/runs/38149059061/job/114498454834",
+      "startedAt": "2026-10-11T14:54:10.000Z",
+      "completedAt": "2026-10-11T14:54:49.000Z"
+    }
+  ],
+  "rateLimit": {
+    "limit": 5000,
+    "remaining": 4930,
+    "resetAt": "<now>"
+  }
+}

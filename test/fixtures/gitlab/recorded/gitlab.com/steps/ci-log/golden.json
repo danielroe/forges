@@ -1,0 +1,18 @@
+{
+  "length": 6632,
+  "head": [
+    "2026-10-11T15:05:55.045673Z 00O \u001b[0KRunning with gitlab-runner 19.5.0~pre.2272.g28a18501 (28a18501)\u001b[0;m",
+    "2026-10-11T15:05:55.045698Z 00O \u001b[0K  on k8s.saas-linux-small-amd64.runners-manager.gitlab.com/default nezyxEJex, system ID: r_GXhryNvSIEg7\u001b[0;m",
+    "2026-10-11T15:05:55.045700Z 00O \u001b[0K  UUID: 019fd6c6-56c4-78a2-8961-bbb53e204387\u001b[0;m",
+    "2026-10-11T15:05:55.045709Z 00O \u001b[0K  feature flags: FF_USE_GIT_PROACTIVE_AUTH:true, FF_HASH_CACHE_KEYS:true, FF_MACHINE_OPTIONS_EXPAND_ENV:true, FF_DOCKER_MACHINE_JSON_OUTPUT:true\u001b[0;m",
+    "2026-10-11T15:05:55.045742Z 00O section_start:1791731155:prepare_executor\r\u001b[0K",
+    "2026-10-11T15:05:55.045745Z 00O+\u001b[0K\u001b[36;1mPreparing the \"docker+machine\" executor\u001b[0;m\u001b[0;m",
+    "2026-10-11T15:05:55.126264Z 00O \u001b[0KUsing Docker executor with image alpine:latest ...\u001b[0;m",
+    "2026-10-11T15:05:55.126308Z 00O \u001b[0KUsing helper image:  registry.gitlab.com/gitlab-org/gitlab-runner/gitlab-runner-helper:x86_64-28a18501  (overridden, default would be  registry.gitlab.com/gitlab-org/gitlab-runner/gitlab-runner-helper:x86_64-v19.5.0 )\u001b[0;m",
+    "2026-10-11T15:05:55.126316Z 00O \u001b[0KUsing effective pull policy of [always] for container registry.gitlab.com/gitlab-org/gitlab-runner/gitlab-runner-helper:x86_64-28a18501\u001b[0;m",
+    "2026-10-11T15:05:55.127933Z 00O \u001b[0KAuthenticating with credentials from job payload (GitLab Registry)\u001b[0;m",
+    "2026-10-11T15:05:55.127941Z 00O \u001b[0KPulling docker image registry.gitlab.com/gitlab-org/gitlab-runner/gitlab-runner-helper:x86_64-28a18501 ...\u001b[0;m",
+    "2026-10-11T15:05:56.955457Z 00O \u001b[0KUsing docker image sha256:08749606eabcea842cbd189a80b2f3d7670b949f70dfc654d45d8b81554bd837 for registry.gitlab.com/gitlab-org/gitlab-runner/gitlab-runner-helper:x86_64-28a18501 with digest registry.gitlab.com/gitlab-org/gitlab-runner/gitlab-runner-helper@sha256:eea1152121f06d47f94871fef69559be0a87c75212f227e34e7617d1a3bbe6c3 ...\u001b[0;m",
+    "2026-10-11T15:05:58.673639Z 00O \u001b[0KUsing helper image:  registry.gitlab.com/gitlab-org/gitlab-runner/gitlab-runner-helper:x86_64-28a18501  (overridde"
+  ]
+}

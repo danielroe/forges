@@ -1,0 +1,37 @@
+{
+  "ref": {
+    "forge": "azure-devops",
+    "instance": "dev.azure.com",
+    "thread": {
+      "forge": "azure-devops",
+      "instance": "dev.azure.com",
+      "repo": {
+        "forge": "azure-devops",
+        "instance": "dev.azure.com",
+        "owner": "forges/forges-fixtures",
+        "name": "forges-fixtures"
+      },
+      "kind": "pull_request",
+      "number": "32",
+      "externalId": "vstfs:///Git/PullRequestId/b2332e32-1afe-4c85-9407-12e7af2bf24c%2fc67c02dd-cbca-45aa-a679-021bd4d2c4a7%2f32"
+    },
+    "id": "132/1"
+  },
+  "body": "An edited comment from run 20261011120150.",
+  "author": {
+    "forge": "azure-devops",
+    "instance": "dev.azure.com",
+    "login": "redacted@example.invalid",
+    "id": "567dfc49-0db7-43e6-83c1-d91d91db58b1",
+    "name": "danielroebot outlook.com",
+    "avatarUrl": "https://dev.azure.com/forges/_apis/GraphProfile/MemberAvatars/aad.MzE2OTUzNzAtY2RlZS03NzVkLWEwYjctMzUwYTkyZTJhMjc5",
+    "typeRaw": "user",
+    "isBotHint": false
+  },
+  "createdAt": "<now>",
+  "updatedAt": "<now>",
+  "thread": {
+    "id": "132",
+    "resolved": false
+  }
+}

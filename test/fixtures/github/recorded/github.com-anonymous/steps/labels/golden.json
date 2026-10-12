@@ -1,0 +1,28 @@
+{
+  "items": [
+    {
+      "name": "breaking change",
+      "colour": "DF8359",
+      "description": ""
+    },
+    {
+      "name": "bug",
+      "colour": "d73a4a",
+      "description": "Something isn't working"
+    },
+    {
+      "name": "bun",
+      "colour": "abb080",
+      "description": ""
+    }
+  ],
+  "cursor": {
+    "nextUrl": "https://api.github.com/repositories/313641207/labels?per_page=3&page=2",
+    "etag": "W/\"1c1f0a874f0c88e2b75d8c05ed0dbac7586cfda13656082884abca8933aa490e\""
+  },
+  "rateLimit": {
+    "limit": 60,
+    "remaining": 57,
+    "resetAt": "<now>"
+  }
+}

@@ -1,0 +1,179 @@
+{
+  "items": [
+    {
+      "ref": {
+        "forge": "github",
+        "instance": "github.com",
+        "owner": "uber",
+        "name": "h3",
+        "externalId": "114948816"
+      },
+      "description": "Hexagonal hierarchical geospatial indexing system",
+      "defaultBranch": "master",
+      "visibility": "public",
+      "visibilityRaw": "public",
+      "isFork": false,
+      "isArchived": false,
+      "topics": [
+        "geospatial",
+        "h3",
+        "hexagon",
+        "spatial-indexing",
+        "uber"
+      ],
+      "url": "https://github.com/uber/h3",
+      "cloneUrls": {
+        "https": "https://github.com/uber/h3.git",
+        "ssh": "git@github.com:uber/h3.git"
+      },
+      "createdAt": "2017-12-21T01:38:35.000Z",
+      "updatedAt": "2026-10-10T18:21:29.000Z",
+      "pushedAt": "2026-10-02T01:00:28.000Z",
+      "owner": {
+        "forge": "github",
+        "instance": "github.com",
+        "login": "uber",
+        "id": "538264",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/538264?v=4",
+        "url": "https://github.com/uber",
+        "typeRaw": "Organization",
+        "isBotHint": false
+      },
+      "language": "C",
+      "homepage": "https://h3geo.org",
+      "licence": "Apache-2.0",
+      "stars": 6585,
+      "forks": 630,
+      "features": {
+        "issues": true,
+        "pullRequests": true,
+        "discussions": true,
+        "wiki": false,
+        "projects": true,
+        "releases": true
+      },
+      "permissions": {
+        "admin": false,
+        "maintain": false,
+        "push": false,
+        "triage": false,
+        "pull": false
+      }
+    },
+    {
+      "ref": {
+        "forge": "github",
+        "instance": "github.com",
+        "owner": "h3js",
+        "name": "h3",
+        "externalId": "313641207"
+      },
+      "description": "⚡️ Minimal H(TTP) framework built for high performance and portability ",
+      "defaultBranch": "main",
+      "visibility": "public",
+      "visibilityRaw": "public",
+      "isFork": false,
+      "isArchived": false,
+      "topics": [],
+      "url": "https://github.com/h3js/h3",
+      "cloneUrls": {
+        "https": "https://github.com/h3js/h3.git",
+        "ssh": "git@github.com:h3js/h3.git"
+      },
+      "createdAt": "2020-11-17T14:15:44.000Z",
+      "updatedAt": "2026-10-10T19:37:23.000Z",
+      "pushedAt": "2026-10-07T12:37:26.000Z",
+      "owner": {
+        "forge": "github",
+        "instance": "github.com",
+        "login": "h3js",
+        "id": "208435796",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/208435796?v=4",
+        "url": "https://github.com/h3js",
+        "typeRaw": "Organization",
+        "isBotHint": false
+      },
+      "language": "TypeScript",
+      "homepage": "https://h3.dev",
+      "licence": "MIT",
+      "stars": 5455,
+      "forks": 374,
+      "features": {
+        "issues": true,
+        "pullRequests": true,
+        "discussions": true,
+        "wiki": false,
+        "projects": true,
+        "releases": true
+      },
+      "permissions": {
+        "admin": false,
+        "maintain": false,
+        "push": false,
+        "triage": false,
+        "pull": false
+      }
+    },
+    {
+      "ref": {
+        "forge": "github",
+        "instance": "github.com",
+        "owner": "AIMixer",
+        "name": "ComfyUI_MiniMaxH3_Director",
+        "externalId": "1322502505"
+      },
+      "description": "Multi-segment MiniMax H3 Director for official ComfyUI MiniMax-H3",
+      "defaultBranch": "main",
+      "visibility": "public",
+      "visibilityRaw": "public",
+      "isFork": false,
+      "isArchived": false,
+      "topics": [],
+      "url": "https://github.com/AIMixer/ComfyUI_MiniMaxH3_Director",
+      "cloneUrls": {
+        "https": "https://github.com/AIMixer/ComfyUI_MiniMaxH3_Director.git",
+        "ssh": "git@github.com:AIMixer/ComfyUI_MiniMaxH3_Director.git"
+      },
+      "createdAt": "2026-08-04T04:20:36.000Z",
+      "updatedAt": "<now>",
+      "pushedAt": "2026-10-10T02:10:37.000Z",
+      "owner": {
+        "forge": "github",
+        "instance": "github.com",
+        "login": "AIMixer",
+        "id": "149470765",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/149470765?v=4",
+        "url": "https://github.com/AIMixer",
+        "typeRaw": "User",
+        "isBotHint": false
+      },
+      "language": "JavaScript",
+      "licence": "Apache-2.0",
+      "stars": 2287,
+      "forks": 273,
+      "features": {
+        "issues": true,
+        "pullRequests": true,
+        "discussions": false,
+        "wiki": true,
+        "projects": true,
+        "releases": true
+      },
+      "permissions": {
+        "admin": false,
+        "maintain": false,
+        "push": false,
+        "triage": false,
+        "pull": false
+      }
+    }
+  ],
+  "cursor": {
+    "nextUrl": "https://api.github.com/search/repositories?q=h3&per_page=3&page=2"
+  },
+  "rateLimit": {
+    "limit": 30,
+    "remaining": 28,
+    "resetAt": "<now>"
+  }
+}

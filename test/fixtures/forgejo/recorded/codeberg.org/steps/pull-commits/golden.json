@@ -1,0 +1,63 @@
+{
+  "items": [
+    {
+      "ref": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "repo": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "owner": "forgejo",
+          "name": "forgejo"
+        },
+        "sha": "69c030a3335c84b5d9fb7277179c78b61473323b"
+      },
+      "sha": "69c030a3335c84b5d9fb7277179c78b61473323b",
+      "message": "Update linters\n",
+      "author": {
+        "actor": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "login": "forgejo-renovate-action",
+          "id": "165503",
+          "avatarUrl": "https://codeberg.org/avatars/4ac1fe8134d3be047891754798052f343835927de69c67a26386ca3a5becbbbc",
+          "url": "https://codeberg.org/forgejo-renovate-action",
+          "isBotHint": false
+        },
+        "name": "Renovate Bot",
+        "email": "redacted@example.invalid",
+        "date": "2024-08-18T06:02:11.000Z"
+      },
+      "committer": {
+        "actor": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "login": "forgejo-renovate-action",
+          "id": "165503",
+          "avatarUrl": "https://codeberg.org/avatars/4ac1fe8134d3be047891754798052f343835927de69c67a26386ca3a5becbbbc",
+          "url": "https://codeberg.org/forgejo-renovate-action",
+          "isBotHint": false
+        },
+        "name": "Renovate Bot",
+        "email": "redacted@example.invalid",
+        "date": "2024-08-18T06:02:11.000Z"
+      },
+      "parents": [
+        "adf4dcdbbf386aa8f86efbcbe04bb2ba29cb8f5b"
+      ],
+      "url": "https://codeberg.org/forgejo/forgejo/commit/69c030a3335c84b5d9fb7277179c78b61473323b",
+      "stats": {
+        "additions": 6,
+        "deletions": 6,
+        "total": 12
+      },
+      "files": [
+        {
+          "path": "package.json",
+          "status": "modified",
+          "statusRaw": "modified"
+        }
+      ]
+    }
+  ]
+}

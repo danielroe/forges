@@ -1,0 +1,45 @@
+{
+  "items": [
+    {
+      "ref": {
+        "forge": "bitbucket",
+        "instance": "bitbucket.org",
+        "owner": "danielroe",
+        "name": "forges-fixtures",
+        "externalId": "{245afeb9-21de-4a8c-81c0-d45efbf52a8c}"
+      },
+      "defaultBranch": "main",
+      "visibility": "public",
+      "visibilityRaw": "public",
+      "isFork": false,
+      "isArchived": false,
+      "topics": [],
+      "url": "https://bitbucket.org/danielroe/forges-fixtures",
+      "cloneUrls": {
+        "https": "https://bitbucket.org/danielroe/forges-fixtures.git",
+        "ssh": "git@bitbucket.org:danielroe/forges-fixtures.git"
+      },
+      "createdAt": "2026-10-09T11:53:36.202Z",
+      "updatedAt": "2026-10-10T23:23:07.418Z",
+      "owner": {
+        "forge": "bitbucket",
+        "instance": "bitbucket.org",
+        "login": "danielroe-team",
+        "id": "{764a1587-8648-414a-8d9d-5464a9241047}",
+        "name": "Daniel Roe",
+        "avatarUrl": "https://bitbucket.org/account/danielroe-team/avatar/",
+        "url": "https://bitbucket.org/%7B764a1587-8648-414a-8d9d-5464a9241047%7D/",
+        "typeRaw": "team",
+        "isBotHint": false
+      },
+      "features": {
+        "issues": false,
+        "pullRequests": true,
+        "discussions": false,
+        "wiki": false,
+        "projects": false,
+        "releases": false
+      }
+    }
+  ]
+}

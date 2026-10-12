@@ -1,0 +1,115 @@
+{
+  "items": [
+    {
+      "ref": {
+        "forge": "github",
+        "instance": "github.com",
+        "repo": {
+          "forge": "github",
+          "instance": "github.com",
+          "owner": "h3js",
+          "name": "h3"
+        },
+        "id": "38150613585"
+      },
+      "name": "ci",
+      "state": "failure",
+      "stateRaw": "completed",
+      "number": "4753",
+      "eventRaw": "pull_request",
+      "branch": "docs-fix-more-utils-code-example",
+      "sha": "d9a7f9259d7d90f78e3602391a2bb6a6ae97ef2a",
+      "url": "https://github.com/h3js/h3/actions/runs/38150613585",
+      "actor": {
+        "forge": "github",
+        "instance": "github.com",
+        "login": "otowa1",
+        "id": "90172742",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/90172742?v=4",
+        "url": "https://github.com/otowa1",
+        "typeRaw": "User",
+        "isBotHint": false
+      },
+      "createdAt": "<now>",
+      "startedAt": "<now>",
+      "completedAt": "<now>"
+    },
+    {
+      "ref": {
+        "forge": "github",
+        "instance": "github.com",
+        "repo": {
+          "forge": "github",
+          "instance": "github.com",
+          "owner": "h3js",
+          "name": "h3"
+        },
+        "id": "38150613568"
+      },
+      "name": "autofix.ci",
+      "state": "failure",
+      "stateRaw": "completed",
+      "number": "4260",
+      "eventRaw": "pull_request",
+      "branch": "docs-fix-more-utils-code-example",
+      "sha": "d9a7f9259d7d90f78e3602391a2bb6a6ae97ef2a",
+      "url": "https://github.com/h3js/h3/actions/runs/38150613568",
+      "actor": {
+        "forge": "github",
+        "instance": "github.com",
+        "login": "otowa1",
+        "id": "90172742",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/90172742?v=4",
+        "url": "https://github.com/otowa1",
+        "typeRaw": "User",
+        "isBotHint": false
+      },
+      "createdAt": "<now>",
+      "startedAt": "<now>",
+      "completedAt": "<now>"
+    },
+    {
+      "ref": {
+        "forge": "github",
+        "instance": "github.com",
+        "repo": {
+          "forge": "github",
+          "instance": "github.com",
+          "owner": "h3js",
+          "name": "h3"
+        },
+        "id": "38146323079"
+      },
+      "name": "autofix.ci",
+      "state": "failure",
+      "stateRaw": "completed",
+      "number": "4259",
+      "eventRaw": "pull_request",
+      "branch": "fix/serve-static-index-paths",
+      "sha": "73f9f488e57746e57de8919ea0358cbe6e5da1a9",
+      "url": "https://github.com/h3js/h3/actions/runs/38146323079",
+      "actor": {
+        "forge": "github",
+        "instance": "github.com",
+        "login": "TalhaHunter101",
+        "id": "51529912",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/51529912?v=4",
+        "url": "https://github.com/TalhaHunter101",
+        "typeRaw": "User",
+        "isBotHint": false
+      },
+      "createdAt": "2026-10-11T14:13:42.000Z",
+      "startedAt": "2026-10-11T14:13:42.000Z",
+      "completedAt": "2026-10-11T14:13:42.000Z"
+    }
+  ],
+  "cursor": {
+    "nextUrl": "https://api.github.com/repositories/313641207/actions/runs?per_page=3&page=2",
+    "etag": "W/\"71a9015f8a54d327ee53d6106cffb389338508ccbc76c1c8d40cc0c24d359ebd\""
+  },
+  "rateLimit": {
+    "limit": 5000,
+    "remaining": 4938,
+    "resetAt": "<now>"
+  }
+}

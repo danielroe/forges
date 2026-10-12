@@ -1,0 +1,40 @@
+{
+  "ref": {
+    "forge": "azure-devops",
+    "instance": "dev.azure.com",
+    "repo": {
+      "forge": "azure-devops",
+      "instance": "dev.azure.com",
+      "owner": "dnceng-public/public",
+      "name": "dotnet-public-wiki"
+    },
+    "sha": "3aae318f1661c50c34effbbf6882119ed161f2d6"
+  },
+  "sha": "3aae318f1661c50c34effbbf6882119ed161f2d6",
+  "message": "Inventory bootstrapping onboarding",
+  "author": {
+    "name": "GitOps",
+    "email": null,
+    "date": "2026-02-18T04:35:00.000Z"
+  },
+  "committer": {
+    "name": "MerlinBot",
+    "date": "2026-02-18T04:35:01.000Z"
+  },
+  "parents": [
+    "2adc745e20d7a07fb7f177853d3e78a95b007aef"
+  ],
+  "url": "https://dev.azure.com/dnceng-public/public/_git/dotnet-public-wiki/commit/3aae318f1661c50c34effbbf6882119ed161f2d6",
+  "stats": {
+    "additions": 1,
+    "deletions": 0
+  },
+  "files": [
+    {
+      "path": "es-metadata.yml",
+      "status": "added",
+      "statusRaw": "add",
+      "sha": "2e53db551b5289fde97df23188a309d10347d869"
+    }
+  ]
+}

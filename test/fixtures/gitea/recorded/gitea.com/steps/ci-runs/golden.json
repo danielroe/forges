@@ -1,0 +1,106 @@
+{
+  "items": [
+    {
+      "ref": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "repo": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "owner": "gitea",
+          "name": "tea"
+        },
+        "id": "1051680"
+      },
+      "name": "test-pr.yml",
+      "state": "success",
+      "stateRaw": "completed",
+      "number": "1717",
+      "eventRaw": "pull_request",
+      "sha": "d3ec77f8ea0c2e484f89194dc34fb7986a51a8f9",
+      "url": "https://gitea.com/gitea/tea/actions/runs/1051680",
+      "actor": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "login": "chrisbecker",
+        "id": "187077",
+        "name": "chris becker",
+        "avatarUrl": "https://seccdn.libravatar.org/avatar/4e91ba623a3fd068cd68c96a2fde2a9a5529826c57a20970b44b2cfff45fe190?d=identicon",
+        "url": "https://gitea.com/chrisbecker",
+        "isBotHint": false
+      },
+      "createdAt": "2026-10-10T23:03:39.000Z",
+      "startedAt": "2026-10-11T04:26:37.000Z",
+      "completedAt": "2026-10-11T04:29:03.000Z"
+    },
+    {
+      "ref": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "repo": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "owner": "gitea",
+          "name": "tea"
+        },
+        "id": "1047078"
+      },
+      "name": "test-pr.yml",
+      "state": "failure",
+      "stateRaw": "completed",
+      "number": "1716",
+      "eventRaw": "pull_request",
+      "sha": "a989fc5a3ecdea700f23e7ac12e2713bd51280a6",
+      "url": "https://gitea.com/gitea/tea/actions/runs/1047078",
+      "actor": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "login": "renovate-bot",
+        "id": "44044",
+        "name": "Renovate Bot",
+        "avatarUrl": "https://gitea.com/avatars/a7012524a51bf2c579579dca81161ad6d64bc1cc3ea8e16098d9cbec42a84216",
+        "url": "https://gitea.com/renovate-bot",
+        "isBotHint": false
+      },
+      "createdAt": "2026-10-10T00:11:23.000Z",
+      "startedAt": "2026-10-10T00:11:54.000Z",
+      "completedAt": "2026-10-10T00:13:37.000Z"
+    },
+    {
+      "ref": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "repo": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "owner": "gitea",
+          "name": "tea"
+        },
+        "id": "1047073"
+      },
+      "name": "test-pr.yml",
+      "state": "success",
+      "stateRaw": "completed",
+      "number": "1715",
+      "eventRaw": "pull_request",
+      "sha": "b1b66ebf10e8f5b07e37bfc59e73c46f9b850bf2",
+      "url": "https://gitea.com/gitea/tea/actions/runs/1047073",
+      "actor": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "login": "renovate-bot",
+        "id": "44044",
+        "name": "Renovate Bot",
+        "avatarUrl": "https://gitea.com/avatars/a7012524a51bf2c579579dca81161ad6d64bc1cc3ea8e16098d9cbec42a84216",
+        "url": "https://gitea.com/renovate-bot",
+        "isBotHint": false
+      },
+      "createdAt": "2026-10-10T00:11:07.000Z",
+      "startedAt": "2026-10-10T00:11:12.000Z",
+      "completedAt": "2026-10-10T00:12:34.000Z"
+    }
+  ],
+  "cursor": {
+    "nextUrl": "https://gitea.com/api/v1/repos/gitea/tea/actions/runs?limit=3&page=2"
+  }
+}

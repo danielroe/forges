@@ -1,0 +1,147 @@
+{
+  "items": [
+    {
+      "forge": "gitea",
+      "instance": "gitea.com",
+      "id": "1482273",
+      "kind": "referenced",
+      "kindRaw": "pull_ref",
+      "summary": "lunny referenced this from #1096",
+      "occurredAt": "2026-08-21T16:50:28.000Z",
+      "actor": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "login": "lunny",
+        "id": "1",
+        "name": "Lunny Xiao",
+        "avatarUrl": "https://seccdn.libravatar.org/avatar/b897d40dc87fdba4a024827c3967597434681a8f4f0f4eb5d73e0f8b1a0a9274?d=identicon",
+        "url": "https://gitea.com/lunny",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "owner": "gitea",
+        "name": "tea"
+      },
+      "thread": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "repo": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "owner": "gitea",
+          "name": "tea"
+        },
+        "kind": "issue",
+        "number": "1095"
+      },
+      "detail": {
+        "type": "referenced",
+        "from": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "repo": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "owner": "gitea",
+            "name": "tea",
+            "externalId": "550"
+          },
+          "kind": "pull_request",
+          "number": "1096"
+        },
+        "fromRepo": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "owner": "gitea",
+          "name": "tea",
+          "externalId": "550"
+        }
+      },
+      "source": "poll",
+      "action": "other"
+    },
+    {
+      "forge": "gitea",
+      "instance": "gitea.com",
+      "id": "1483713",
+      "kind": "state_change",
+      "kindRaw": "close",
+      "summary": "bircni close",
+      "occurredAt": "2026-08-23T12:46:23.000Z",
+      "actor": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "login": "bircni",
+        "id": "173651",
+        "name": "bircni",
+        "avatarUrl": "https://seccdn.libravatar.org/avatar/345fd80f2a069177c27dd0de27c99672940cce0923fca8de847119c573aab745?d=identicon",
+        "url": "https://gitea.com/bircni",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "owner": "gitea",
+        "name": "tea"
+      },
+      "thread": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "repo": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "owner": "gitea",
+          "name": "tea"
+        },
+        "kind": "issue",
+        "number": "1095"
+      },
+      "source": "poll",
+      "action": "closed"
+    },
+    {
+      "forge": "gitea",
+      "instance": "gitea.com",
+      "id": "1483714",
+      "kind": "commit",
+      "kindRaw": "commit_ref",
+      "summary": "bircni referenced bfda25b",
+      "occurredAt": "2026-08-23T12:46:24.000Z",
+      "actor": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "login": "bircni",
+        "id": "173651",
+        "name": "bircni",
+        "avatarUrl": "https://seccdn.libravatar.org/avatar/345fd80f2a069177c27dd0de27c99672940cce0923fca8de847119c573aab745?d=identicon",
+        "url": "https://gitea.com/bircni",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "owner": "gitea",
+        "name": "tea"
+      },
+      "thread": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "repo": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "owner": "gitea",
+          "name": "tea"
+        },
+        "kind": "issue",
+        "number": "1095"
+      },
+      "source": "poll",
+      "action": "other"
+    }
+  ],
+  "cursor": {
+    "nextUrl": "https://gitea.com/api/v1/repos/gitea/tea/issues/1095/timeline?limit=3&page=2"
+  }
+}

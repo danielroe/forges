@@ -1,0 +1,28 @@
+{
+  "items": [
+    {
+      "name": "build/compact",
+      "sha": "90936b21a372151098539e7deeec434f5f653058",
+      "isProtected": false
+    },
+    {
+      "name": "chore/bench",
+      "sha": "694bdc7f29fe5541d39b6efcc4f7c95370425316",
+      "isProtected": false
+    },
+    {
+      "name": "chore/playground",
+      "sha": "1e54e809d3cf7fd60f0a338883da65dd69033326",
+      "isProtected": false
+    }
+  ],
+  "cursor": {
+    "nextUrl": "https://api.github.com/repositories/313641207/branches?per_page=3&page=2",
+    "etag": "W/\"0dbcd95775dd4f74cbc919e05693ae9265cf9994137713263b649ef7f4274c18\""
+  },
+  "rateLimit": {
+    "limit": 60,
+    "remaining": 13,
+    "resetAt": "<now>"
+  }
+}

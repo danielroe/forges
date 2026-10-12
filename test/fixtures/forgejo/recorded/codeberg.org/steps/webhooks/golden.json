@@ -1,0 +1,35 @@
+{
+  "items": [
+    {
+      "ref": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "target": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "owner": "forges-fixtures",
+          "name": "forges-fixtures"
+        },
+        "id": "124905"
+      },
+      "url": "https://example.com/hook",
+      "events": [
+        "comment",
+        "state_change",
+        "label",
+        "assignment"
+      ],
+      "nativeEvents": [
+        "issues",
+        "issue_assign",
+        "issue_label",
+        "issue_milestone",
+        "issue_comment"
+      ],
+      "active": true,
+      "contentType": "json",
+      "createdAt": "2026-10-09T11:40:54.000Z",
+      "updatedAt": "2026-10-11T11:35:17.000Z"
+    }
+  ]
+}

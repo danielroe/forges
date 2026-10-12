@@ -1,0 +1,22 @@
+{
+  "items": [
+    {
+      "name": "main",
+      "sha": "c4a92ffa5e3a400ae7e9c40a2914e649eb338ad7",
+      "isProtected": true
+    },
+    {
+      "name": "support-v12.13.x",
+      "sha": "4140a19a2e1d1d865bbe5b9e7ee13e00c8c5f6a9",
+      "isProtected": false
+    },
+    {
+      "name": "validate-1460",
+      "sha": "1d4ec9e82fc6e6d3305898b3243d134a7ee6fafb",
+      "isProtected": false
+    }
+  ],
+  "cursor": {
+    "nextUrl": "https://code.forgejo.org/api/v1/repos/forgejo/runner/branches?limit=3&page=2"
+  }
+}

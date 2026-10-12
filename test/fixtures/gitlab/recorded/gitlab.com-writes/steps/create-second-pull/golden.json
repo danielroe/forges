@@ -1,0 +1,59 @@
+{
+  "ref": {
+    "forge": "gitlab",
+    "instance": "gitlab.com",
+    "repo": {
+      "forge": "gitlab",
+      "instance": "gitlab.com",
+      "owner": "forges-fixtures",
+      "name": "forges-fixtures"
+    },
+    "kind": "pull_request",
+    "number": "34",
+    "externalId": "546693348"
+  },
+  "kind": "pull_request",
+  "title": "forges fixture 20261011160520: pull 2",
+  "body": "Opened by run 20261011160520.",
+  "state": "open",
+  "stateRaw": "opened",
+  "isDraft": false,
+  "assignees": [],
+  "reviewers": [],
+  "lastActivityAt": "<now>",
+  "branches": {
+    "head": {
+      "ref": "forges-fixtures/20261011160520-2",
+      "sha": "319cc65e710c7a33ab65b2f7cafc892813f8059b",
+      "repo": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "owner": "forges-fixtures",
+        "name": "forges-fixtures"
+      }
+    },
+    "base": {
+      "ref": "main"
+    }
+  },
+  "author": {
+    "forge": "gitlab",
+    "instance": "gitlab.com",
+    "login": "roebot",
+    "id": "43193323",
+    "name": "Daniel Roe",
+    "avatarUrl": "https://secure.gravatar.com/avatar/14ceebcfdc10030d76768a65e9d7978b914694cebcbb6ab609b3a0e8243f0eb8?s=80&d=identicon",
+    "url": "https://gitlab.com/roebot",
+    "typeRaw": "user",
+    "isBotHint": false
+  },
+  "url": "https://gitlab.com/forges-fixtures/forges-fixtures/-/merge_requests/34",
+  "createdAt": "<now>",
+  "updatedAt": "<now>",
+  "labels": [],
+  "commentCount": 0,
+  "reactions": {
+    "total": 0,
+    "counts": {}
+  }
+}

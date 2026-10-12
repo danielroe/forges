@@ -1,0 +1,37 @@
+{
+  "items": [
+    {
+      "ref": {
+        "forge": "github",
+        "instance": "github.com",
+        "target": {
+          "forge": "github",
+          "instance": "github.com",
+          "owner": "forges-fixtures",
+          "name": "forges-fixtures"
+        },
+        "id": "694647722"
+      },
+      "url": "https://example.com/hook",
+      "events": [
+        "comment",
+        "state_change",
+        "label",
+        "assignment"
+      ],
+      "nativeEvents": [
+        "issues",
+        "issue_comment"
+      ],
+      "active": true,
+      "contentType": "json",
+      "createdAt": "2026-10-09T11:02:01.000Z",
+      "updatedAt": "2026-10-09T11:02:01.000Z"
+    }
+  ],
+  "rateLimit": {
+    "limit": 500,
+    "remaining": 499,
+    "resetAt": "<now>"
+  }
+}

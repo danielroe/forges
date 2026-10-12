@@ -1,0 +1,162 @@
+{
+  "items": [
+    {
+      "ref": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "repo": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "owner": "forgejo",
+          "name": "forgejo"
+        },
+        "kind": "pull_request",
+        "number": "14809",
+        "externalId": "7666935"
+      },
+      "kind": "pull_request",
+      "title": "feat: speedup `IsEmpty` check",
+      "body": "## Background\n\n- This command executes in 50ms-300ms on https://codeberg.org/forgejo/forgejo/actions\n- Codeberg has for every repository its references stored in reftable (https://git-scm.com/docs/reftable).\n- The forgejo repository has 13019 references.\n- All git data is stored on CephFS.\n\n## Changes\n\nFrom my understanding of git's source-code, `for-each-ref` is able to\niteratively go over refs (and stop after the first reference found).\nWhile `rev-list` is more feature-rich and goes through more hoops than\njust 'iterate over refs'.\n\n- Use `git-for-each-ref(1)` to detect if there's any reference.\n- Specify a custom format to avoid loading object storage. Mostly a\nnice-to-have as it avoids a few `access` syscalls to object storage, we\ndon't need that information for this function.\n\n## Benchmarks\n\nCodeberg (CephFS):\n\n```\n$ hyperfine -N 'git for-each-ref --count=1 --format=found' 'git for-each-ref --count=1' 'git rev-list -n 1 --all'\nBenchmark 1: git for-each-ref --count=1 --format=found\n  Time (mean ± σ):      12.3 ms ±  10.5 ms    [User: 3.2 ms, System: 3.0 ms]\n  Range (min … max):     4.6 ms …  78.0 ms    142 runs\n\n  Warning: Statistical outliers were detected. Consider re-running this benchmark on a quiet system without any interferences from other programs. It might help to use the '--warmup' or '--prepare' options.\n\nBenchmark 2: git for-each-ref --count=1\n  Time (mean ± σ):      23.2 ms ±  16.5 ms    [User: 3.6 ms, System: 4.1 ms]\n  Range (min … max):     7.9 ms …  87.6 ms    186 runs\n\nBenchmark 3: git rev-list -n 1 --all\n  Time (mean ± σ):     199.4 ms ±  75.4 ms    [User: 67.5 ms, System: 25.9 ms]\n  Range (min … max):   134.4 ms … 438.2 ms    16 runs\n\n  Warning: Statistical outliers were detected. Consider re-running this benchmark on a quiet system without any interferences from other programs. It might help to use the '--warmup' or '--prepare' options.\n\nSummary\n  git for-each-ref --count=1 --format=found ran\n    1.89 ± 2.10 times faster than git for-each-ref --count=1\n   16.24 ± 15.19 times faster than git rev-list -n 1 --all\n\n```\n\nLocally, same amount of refs (ext4):\n\n```\n$ hyperfine -N 'git for-each-ref --count=1 --format=found' 'git for-each-ref --count=1' 'git rev-list -n 1 --all'\nBenchmark 1: git for-each-ref --count=1 --format=found (2155 runs)\n                mean     ±       σ          min     …     max\n  Wall Time      1.1 ms  ±     0.1 ms       1.0 ms  …     1.7 ms\n  Memory         6.6 MiB ±     0.1 MiB      6.2 MiB …     7.0 MiB\n\nBenchmark 2: git for-each-ref --count=1 (2713 runs)\n                mean     ±       σ          min     …     max\n  Wall Time      1.1 ms  ±     0.1 ms       1.0 ms  …     1.8 ms            +4.2%\n  Memory         6.8 MiB ±     0.1 MiB      6.3 MiB …     7.1 MiB           +2.5%\n\nBenchmark 3: git rev-list -n 1 --all (591 runs)\n                mean     ±       σ          min     …     max\n  Wall Time      4.8 ms  ±     0.3 ms       4.3 ms  …     6.6 ms          +339.3%  (4.4x slower)\n  Memory         8.7 MiB ±     0.1 MiB      8.2 MiB …     8.9 MiB          +30.9%  (1.3x more)\n```\n\n### Compliance\n\n- [x] I confirm that I make this contribution in accordance with [Forgejo's AI Agreement](https://codeberg.org/forgejo/governance/src/commit/9084720dc6a7fbf1d3f358919d46bd6adfb55287/AIAgreement.md).",
+      "state": "open",
+      "stateRaw": "open",
+      "isDraft": false,
+      "author": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "login": "Gusted",
+        "id": "26734",
+        "avatarUrl": "https://codeberg.org/avatars/44a59264e976fa585ed9f0a92abad9d7",
+        "url": "https://codeberg.org/Gusted",
+        "isBotHint": false
+      },
+      "assignees": [],
+      "reviewers": [],
+      "labels": [
+        {
+          "name": "enhancement/feature",
+          "colour": "207de5",
+          "description": "New feature"
+        },
+        {
+          "name": "forgejo/scaling",
+          "colour": "eb6420",
+          "description": "Performance and scaling"
+        },
+        {
+          "name": "test/present",
+          "colour": "5319e7",
+          "description": "test has been added"
+        }
+      ],
+      "url": "https://codeberg.org/forgejo/forgejo/pulls/14809",
+      "createdAt": "2026-10-11T13:42:32.000Z",
+      "updatedAt": "2026-10-11T13:49:03.000Z",
+      "lastActivityAt": "2026-10-11T13:49:03.000Z",
+      "locked": false,
+      "commentCount": 1
+    },
+    {
+      "ref": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "repo": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "owner": "forgejo",
+          "name": "forgejo"
+        },
+        "kind": "pull_request",
+        "number": "14808",
+        "externalId": "7666911"
+      },
+      "kind": "pull_request",
+      "title": "[v17.0/forgejo] fix: avoid loading unnecessary data during tag creation",
+      "body": "**Backport:** https://codeberg.org/forgejo/forgejo/pulls/14785\r\n\r\nI noticed that creating a tag via the web UI of codeberg.org was quite\nslow (28-30s).\n\nTracing showed a interesting SQL query:\n\n```sql\nSELECT * FROM `attachment` WHERE `release_id` IN (0) ORDER BY `release_id` ASC, `name` ASC\n```\n\nJust before tracing showed that Forgejo was doing a lot of\napplication (non git/DB) code.\n\n---\n\n- `release_service.CreateNewTag` is called from the web router to handle\ncreating a new tag, this function prepares a release struct with all the\nnecessary information (every tag is stored as a release in the\ndatabase).\n- `createTag` is then called which as first thing calls\n`LoadAttributes`.\n- `LoadAttributes` assumes the given release was loaded from the\ndatabase and thus assumes the ID is non-zero. Loading 148026 attachments\ninto this release.\n\n\n### Compliance\n\n- [x] I confirm that I make this contribution in accordance with [Forgejo's AI Agreement](https://codeberg.org/forgejo/governance/src/commit/9084720dc6a7fbf1d3f358919d46bd6adfb55287/AIAgreement.md).",
+      "state": "open",
+      "stateRaw": "open",
+      "isDraft": false,
+      "author": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "login": "forgejo-backport-action",
+        "id": "165271",
+        "avatarUrl": "https://codeberg.org/avatars/e81deed440bbd430374b346c305a3d791ccc11dcfb89269840bbdcaa13887e88",
+        "url": "https://codeberg.org/forgejo-backport-action",
+        "isBotHint": false
+      },
+      "assignees": [],
+      "reviewers": [],
+      "labels": [
+        {
+          "name": "bug/confirmed",
+          "colour": "e11d21",
+          "description": "it can be reproduced"
+        },
+        {
+          "name": "forgejo/scaling",
+          "colour": "eb6420",
+          "description": "Performance and scaling"
+        },
+        {
+          "name": "test/present",
+          "colour": "5319e7",
+          "description": "test has been added"
+        }
+      ],
+      "url": "https://codeberg.org/forgejo/forgejo/pulls/14808",
+      "createdAt": "2026-10-11T13:37:49.000Z",
+      "updatedAt": "<now>",
+      "lastActivityAt": "<now>",
+      "locked": false,
+      "commentCount": 1
+    },
+    {
+      "ref": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "repo": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "owner": "forgejo",
+          "name": "forgejo"
+        },
+        "kind": "pull_request",
+        "number": "14806",
+        "externalId": "7665156"
+      },
+      "kind": "pull_request",
+      "title": "test: Use testify in more tests",
+      "body": "Use `testify` in more tests.\r\n\r\n### Compliance\r\n\r\n- [x] I confirm that I make this contribution in accordance with [Forgejo's AI Agreement](https://codeberg.org/forgejo/governance/src/commit/9084720dc6a7fbf1d3f358919d46bd6adfb55287/AIAgreement.md).\r\n\r\n### Tests for Go changes\r\n\r\n- [x] I ran `make pr-go` before pushing\r\n\r\n### Documentation\r\n\r\n- [ ] I created a pull request [to the documentation](https://codeberg.org/forgejo/docs) to explain to Forgejo users how to use this change.\r\n- [x] I did not document these changes and I do not expect someone else to do it.\r\n\r\n### Release notes\r\n\r\n- [ ] This change will be noticed by a Forgejo user or admin (feature, bug fix, performance, etc.). I suggest to include a release note for this change.\r\n- [x] This change is not visible to a Forgejo user or admin (refactor, dependency upgrade, etc.). I think there is no need to add a release note for this change.",
+      "state": "open",
+      "stateRaw": "open",
+      "isDraft": false,
+      "author": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "login": "nanobee",
+        "id": "1405727",
+        "avatarUrl": "https://codeberg.org/avatars/2fe7b47925e18f9546b1a898e399ae2203b6cc28e4a18ce4cd4f6ae521828bd0",
+        "url": "https://codeberg.org/nanobee",
+        "isBotHint": false
+      },
+      "assignees": [],
+      "reviewers": [],
+      "labels": [
+        {
+          "name": "test/not-needed",
+          "colour": "5319e7",
+          "description": "no additional test is needed"
+        }
+      ],
+      "url": "https://codeberg.org/forgejo/forgejo/pulls/14806",
+      "createdAt": "2026-10-11T09:20:35.000Z",
+      "updatedAt": "2026-10-11T13:38:13.000Z",
+      "lastActivityAt": "2026-10-11T13:38:13.000Z",
+      "locked": false,
+      "commentCount": 1
+    }
+  ],
+  "cursor": {
+    "nextUrl": "https://codeberg.org/api/v1/repos/forgejo/forgejo/issues?limit=3&page=2&state=open&type=pulls"
+  }
+}

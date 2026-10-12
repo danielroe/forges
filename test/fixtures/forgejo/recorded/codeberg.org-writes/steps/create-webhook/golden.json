@@ -1,0 +1,28 @@
+{
+  "ref": {
+    "forge": "forgejo",
+    "instance": "codeberg.org",
+    "target": {
+      "forge": "forgejo",
+      "instance": "codeberg.org",
+      "owner": "forges-fixtures",
+      "name": "forges-fixtures"
+    },
+    "id": "125706"
+  },
+  "url": "https://example.com/hook",
+  "events": [
+    "comment",
+    "review",
+    "review_comment"
+  ],
+  "nativeEvents": [
+    "issue_comment",
+    "pull_request_comment",
+    "pull_request_review_comment"
+  ],
+  "active": true,
+  "contentType": "json",
+  "createdAt": "<now>",
+  "updatedAt": "<now>"
+}

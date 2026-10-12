@@ -1,0 +1,36 @@
+{
+  "items": [
+    {
+      "ref": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "target": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "owner": "forges-fixtures",
+          "name": "forges-fixtures"
+        },
+        "id": "91113244"
+      },
+      "url": "https://example.com/hook",
+      "events": [
+        "comment",
+        "review_comment",
+        "state_change",
+        "label",
+        "assignment"
+      ],
+      "nativeEvents": [
+        "issues_events",
+        "note_events"
+      ],
+      "active": false,
+      "createdAt": "2026-10-09T11:33:33.035Z"
+    }
+  ],
+  "rateLimit": {
+    "limit": 2000,
+    "remaining": 1926,
+    "resetAt": "<now>"
+  }
+}

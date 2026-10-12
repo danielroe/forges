@@ -1,0 +1,47 @@
+{
+  "items": [
+    {
+      "ref": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "repo": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "owner": "gitea",
+          "name": "tea"
+        },
+        "kind": "pull_request",
+        "number": "1130",
+        "externalId": "509270"
+      },
+      "kind": "pull_request",
+      "title": "feat(login): support custom HTTP headers per login",
+      "body": "Allow a login to carry extra HTTP headers that are sent with every request to its server. This makes tea usable with forges behind an authenticating proxy such as Cloudflare Access, which needs CF-Access-Client-Id and CF-Access-Client-Secret service-token headers on each request.\r\n\r\nFixes #990 \r\n\r\n## Changes\r\n\r\n- Add `headers` to the login config and `Login.BuildTransport()`, which wraps tea's standard transport (timeouts, User-Agent, insecure TLS) with the login's headers. Use it for the SDK client, the raw API client and OAuth token refresh.\r\n- Pass the headers through the OAuth browser flow (token exchange and re-authentication).\r\n- Add a repeatable `--header`/`-H key:value` flag to `tea login add`, so the initial validation request, basic-auth token creation and the `--oauth` flow can reach a server behind the proxy.\r\n- Move `key:value` header parsing into `httputil.ParseHeaders` and reuse it for `tea api --header`.\r\n\r\nHeaders already set on a request are never overridden. Git operations over HTTPS do not use these transports; use git's `http.extraHeader` for those.\r\n\r\n## Testing\r\n\r\n- `go build ./...`, `go vet ./...`, `go test ./...`\r\n- New unit tests for `ParseHeaders` and `WithHeaders`\r\n- Manual: `tea login add -H ...` against a local server that rejects requests without the CF headers",
+      "state": "open",
+      "stateRaw": "open",
+      "isDraft": false,
+      "author": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "login": "chrisbecker",
+        "id": "187077",
+        "name": "chris becker",
+        "avatarUrl": "https://seccdn.libravatar.org/avatar/4e91ba623a3fd068cd68c96a2fde2a9a5529826c57a20970b44b2cfff45fe190?d=identicon",
+        "url": "https://gitea.com/chrisbecker",
+        "isBotHint": false
+      },
+      "assignees": [],
+      "reviewers": [],
+      "labels": [],
+      "url": "https://gitea.com/gitea/tea/pulls/1130",
+      "createdAt": "2026-10-10T23:03:37.000Z",
+      "updatedAt": "2026-10-10T23:03:38.000Z",
+      "lastActivityAt": "2026-10-10T23:03:38.000Z",
+      "locked": false,
+      "commentCount": 0
+    }
+  ],
+  "cursor": {
+    "nextUrl": "https://gitea.com/api/v1/repos/issues/search?limit=3&owner=gitea&page=2&q=fix&state=all"
+  }
+}

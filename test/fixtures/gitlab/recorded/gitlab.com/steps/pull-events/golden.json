@@ -1,0 +1,130 @@
+{
+  "items": [
+    {
+      "forge": "gitlab",
+      "instance": "gitlab.com",
+      "id": "3937819667",
+      "kind": "comment",
+      "kindRaw": "Note",
+      "summary": "gitlab-dependency-update-bot commented",
+      "occurredAt": "2026-10-01T13:13:42.551Z",
+      "actor": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "login": "gitlab-dependency-update-bot",
+        "id": "8420142",
+        "name": "GitLab Dependency Bot",
+        "avatarUrl": "https://secure.gravatar.com/avatar/3d0463f813f54718127bf38acba616ef6bc5160fea8111c47dd4088fcacdb91a?s=80&d=identicon",
+        "url": "https://gitlab.com/gitlab-dependency-update-bot",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "owner": "gitlab-org",
+        "name": "cli"
+      },
+      "thread": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "repo": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "owner": "gitlab-org",
+          "name": "cli"
+        },
+        "kind": "pull_request",
+        "number": "3988"
+      },
+      "source": "poll",
+      "action": "created"
+    },
+    {
+      "forge": "gitlab",
+      "instance": "gitlab.com",
+      "id": "3937820583",
+      "kind": "assignment",
+      "kindRaw": "system",
+      "summary": "gitlab-bot requested review from @jay_mccure",
+      "occurredAt": "2026-10-01T13:13:50.970Z",
+      "actor": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "login": "gitlab-bot",
+        "id": "1786152",
+        "name": "🤖 GitLab Bot 🤖",
+        "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/1786152/avatar.png?v=1791731748",
+        "url": "https://gitlab.com/gitlab-bot",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "owner": "gitlab-org",
+        "name": "cli"
+      },
+      "thread": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "repo": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "owner": "gitlab-org",
+          "name": "cli"
+        },
+        "kind": "pull_request",
+        "number": "3988"
+      },
+      "source": "poll",
+      "action": "other"
+    },
+    {
+      "forge": "gitlab",
+      "instance": "gitlab.com",
+      "id": "3937820589",
+      "kind": "assignment",
+      "kindRaw": "system",
+      "summary": "gitlab-bot assigned to @gitlab-dependency-update-bot",
+      "occurredAt": "2026-10-01T13:13:51.006Z",
+      "actor": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "login": "gitlab-bot",
+        "id": "1786152",
+        "name": "🤖 GitLab Bot 🤖",
+        "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/1786152/avatar.png?v=1791731748",
+        "url": "https://gitlab.com/gitlab-bot",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "owner": "gitlab-org",
+        "name": "cli"
+      },
+      "thread": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "repo": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "owner": "gitlab-org",
+          "name": "cli"
+        },
+        "kind": "pull_request",
+        "number": "3988"
+      },
+      "source": "poll",
+      "action": "other"
+    }
+  ],
+  "cursor": {
+    "nextUrl": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/merge_requests/3988/notes?activity_filter=all_notes&id=gitlab-org%2Fcli&noteable_id=3988&order_by=created_at&page=2&per_page=3&sort=asc",
+    "etag": "W/\"66dafc462215e19b795c7fa0e9d6572f\""
+  },
+  "rateLimit": {
+    "limit": 2000,
+    "remaining": 1990,
+    "resetAt": "<now>"
+  }
+}

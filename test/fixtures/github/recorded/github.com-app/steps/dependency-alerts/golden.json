@@ -1,0 +1,107 @@
+{
+  "items": [
+    {
+      "ref": {
+        "forge": "github",
+        "instance": "github.com",
+        "repo": {
+          "forge": "github",
+          "instance": "github.com",
+          "owner": "forges-fixtures",
+          "name": "forges-fixtures"
+        },
+        "id": "6",
+        "kind": "dependency",
+        "severityRaw": "high"
+      },
+      "kind": "dependency",
+      "kindRaw": "dependabot",
+      "severity": "high",
+      "severityRaw": "high",
+      "state": "open",
+      "stateRaw": "open",
+      "title": "lodash vulnerable to Code Injection via `_.template` imports key names",
+      "package": {
+        "ecosystem": "npm",
+        "name": "lodash",
+        "vulnerableRange": ">= 4.0.0, <= 4.17.23",
+        "fixedIn": "4.18.0"
+      },
+      "url": "https://github.com/forges-fixtures/forges-fixtures/security/dependabot/6",
+      "createdAt": "2026-10-09T11:16:40.000Z",
+      "updatedAt": "2026-10-09T11:16:40.000Z"
+    },
+    {
+      "ref": {
+        "forge": "github",
+        "instance": "github.com",
+        "repo": {
+          "forge": "github",
+          "instance": "github.com",
+          "owner": "forges-fixtures",
+          "name": "forges-fixtures"
+        },
+        "id": "5",
+        "kind": "dependency",
+        "severityRaw": "medium"
+      },
+      "kind": "dependency",
+      "kindRaw": "dependabot",
+      "severity": "medium",
+      "severityRaw": "medium",
+      "state": "open",
+      "stateRaw": "open",
+      "title": "lodash vulnerable to Prototype Pollution via array path bypass in `_.unset` and `_.omit`",
+      "package": {
+        "ecosystem": "npm",
+        "name": "lodash",
+        "vulnerableRange": "<= 4.17.23",
+        "fixedIn": "4.18.0"
+      },
+      "url": "https://github.com/forges-fixtures/forges-fixtures/security/dependabot/5",
+      "createdAt": "2026-10-09T11:16:40.000Z",
+      "updatedAt": "2026-10-09T11:16:40.000Z"
+    },
+    {
+      "ref": {
+        "forge": "github",
+        "instance": "github.com",
+        "repo": {
+          "forge": "github",
+          "instance": "github.com",
+          "owner": "forges-fixtures",
+          "name": "forges-fixtures"
+        },
+        "id": "4",
+        "kind": "dependency",
+        "severityRaw": "medium"
+      },
+      "kind": "dependency",
+      "kindRaw": "dependabot",
+      "severity": "medium",
+      "severityRaw": "medium",
+      "state": "open",
+      "stateRaw": "open",
+      "title": "Lodash has Prototype Pollution Vulnerability in `_.unset` and `_.omit` functions",
+      "package": {
+        "ecosystem": "npm",
+        "name": "lodash",
+        "vulnerableRange": ">= 4.0.0, <= 4.17.22",
+        "fixedIn": "4.17.23"
+      },
+      "url": "https://github.com/forges-fixtures/forges-fixtures/security/dependabot/4",
+      "createdAt": "2026-10-09T11:16:39.000Z",
+      "updatedAt": "2026-10-09T11:16:39.000Z"
+    }
+  ],
+  "cursor": {
+    "nextUrl": "https://api.github.com/repositories/1411702196/dependabot/alerts?per_page=3&after=Y3Vyc29yOnYyOpPPAAABoSBhJR7LQAGAAAAAAADPAAAAAc59BOc%3D",
+    "etag": "W/\"6ccf1e4b6434c749ab38dd72dcf140a1931cd0e979f1d441e5e18a04c89becc0\"",
+    "token": "0:"
+  },
+  "rateLimit": {
+    "limit": 5000,
+    "remaining": 4982,
+    "resetAt": "2026-10-11T17:05:26.000Z"
+  }
+}

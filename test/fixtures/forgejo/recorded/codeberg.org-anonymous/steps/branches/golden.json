@@ -1,0 +1,22 @@
+{
+  "items": [
+    {
+      "name": "bp-v17.0/forgejo-1b980f3",
+      "sha": "966fea683032ad0c6c0347c0d9134d854eb1748a",
+      "isProtected": false
+    },
+    {
+      "name": "forgejo",
+      "sha": "1b980f3558583271691afb2e6d5bfb96a67cc1e0",
+      "isProtected": true
+    },
+    {
+      "name": "v17.0/forgejo",
+      "sha": "6cb6155db7aae88a2a8d2658243795484564a1b3",
+      "isProtected": true
+    }
+  ],
+  "cursor": {
+    "nextUrl": "https://codeberg.org/api/v1/repos/forgejo/forgejo/branches?limit=3&page=2"
+  }
+}

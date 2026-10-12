@@ -1,0 +1,28 @@
+{
+  "ref": {
+    "forge": "forgejo",
+    "instance": "code.forgejo.org",
+    "repo": {
+      "forge": "forgejo",
+      "instance": "code.forgejo.org",
+      "owner": "forgejo",
+      "name": "runner"
+    },
+    "id": "407308",
+    "run": {
+      "forge": "forgejo",
+      "instance": "code.forgejo.org",
+      "repo": {
+        "forge": "forgejo",
+        "instance": "code.forgejo.org",
+        "owner": "forgejo",
+        "name": "runner"
+      },
+      "id": "196211"
+    }
+  },
+  "name": "arm64",
+  "state": "failure",
+  "stateRaw": "failure",
+  "url": "https://code.forgejo.org/forgejo/runner/actions/runs/23966/jobs/0/attempt/1"
+}

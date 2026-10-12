@@ -1,0 +1,170 @@
+{
+  "items": [
+    {
+      "ref": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "owner": "forges-fixtures",
+        "name": "forges-fixtures-transfer",
+        "externalId": "87428779"
+      },
+      "description": "Automated fixture target for danielroe/forges (transfer target)",
+      "defaultBranch": "main",
+      "visibility": "public",
+      "visibilityRaw": "public",
+      "isFork": false,
+      "isArchived": false,
+      "topics": [],
+      "url": "https://gitlab.com/forges-fixtures/forges-fixtures-transfer",
+      "cloneUrls": {
+        "https": "https://gitlab.com/forges-fixtures/forges-fixtures-transfer.git",
+        "ssh": "git@gitlab.com:forges-fixtures/forges-fixtures-transfer.git"
+      },
+      "createdAt": "2026-10-09T11:33:45.319Z",
+      "updatedAt": "2026-10-11T14:52:23.959Z",
+      "openIssueCount": 0,
+      "stars": 0,
+      "forks": 0,
+      "mergeMethods": [
+        "merge",
+        "squash"
+      ],
+      "defaultMergeMethod": "merge",
+      "deleteBranchOnMerge": true,
+      "features": {
+        "issues": true,
+        "pullRequests": true,
+        "discussions": false,
+        "wiki": false,
+        "projects": false,
+        "releases": true
+      },
+      "permissions": {
+        "admin": true,
+        "maintain": true,
+        "push": true,
+        "triage": true,
+        "pull": true
+      }
+    },
+    {
+      "ref": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "owner": "forges-fixtures",
+        "name": "forges-fixtures",
+        "externalId": "87428720"
+      },
+      "defaultBranch": "main",
+      "visibility": "public",
+      "visibilityRaw": "public",
+      "isFork": false,
+      "isArchived": false,
+      "topics": [],
+      "url": "https://gitlab.com/forges-fixtures/forges-fixtures",
+      "cloneUrls": {
+        "https": "https://gitlab.com/forges-fixtures/forges-fixtures.git",
+        "ssh": "git@gitlab.com:forges-fixtures/forges-fixtures.git"
+      },
+      "createdAt": "2026-10-09T11:31:15.397Z",
+      "updatedAt": "2026-10-11T14:52:06.548Z",
+      "openIssueCount": 1,
+      "stars": 0,
+      "forks": 1,
+      "mergeMethods": [
+        "merge",
+        "squash"
+      ],
+      "defaultMergeMethod": "merge",
+      "deleteBranchOnMerge": true,
+      "features": {
+        "issues": true,
+        "pullRequests": true,
+        "discussions": false,
+        "wiki": false,
+        "projects": false,
+        "releases": true
+      },
+      "permissions": {
+        "admin": true,
+        "maintain": true,
+        "push": true,
+        "triage": true,
+        "pull": true
+      }
+    },
+    {
+      "ref": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "owner": "danielroe",
+        "name": "eu-os.gitlab.io",
+        "externalId": "85529349"
+      },
+      "description": "Documentation for EU OS at https://eu-os.eu and Gitlab Issues for Project Planning.",
+      "defaultBranch": "main",
+      "visibility": "public",
+      "visibilityRaw": "public",
+      "isFork": true,
+      "isArchived": false,
+      "parent": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "owner": "eu-os",
+        "name": "eu-os.gitlab.io",
+        "externalId": "65688105"
+      },
+      "topics": [],
+      "url": "https://gitlab.com/danielroe/eu-os.gitlab.io",
+      "cloneUrls": {
+        "https": "https://gitlab.com/danielroe/eu-os.gitlab.io.git",
+        "ssh": "git@gitlab.com:danielroe/eu-os.gitlab.io.git"
+      },
+      "createdAt": "2026-08-18T22:30:42.097Z",
+      "updatedAt": "2026-08-18T22:30:41.958Z",
+      "openIssueCount": 0,
+      "owner": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "login": "danielroe",
+        "id": "2179675",
+        "name": "Daniel Roe",
+        "avatarUrl": "https://secure.gravatar.com/avatar/82a8f6237bb263bac46d7cc8ec3054d715ce6a55a8626d6e977769d57d2c94e6?s=80&d=identicon",
+        "url": "https://gitlab.com/danielroe",
+        "isBotHint": false
+      },
+      "stars": 0,
+      "forks": 0,
+      "mergeMethods": [
+        "merge",
+        "squash"
+      ],
+      "defaultMergeMethod": "merge",
+      "deleteBranchOnMerge": true,
+      "features": {
+        "issues": true,
+        "pullRequests": true,
+        "discussions": false,
+        "wiki": true,
+        "projects": false,
+        "releases": true
+      },
+      "permissions": {
+        "admin": true,
+        "maintain": true,
+        "push": true,
+        "triage": true,
+        "pull": true
+      }
+    }
+  ],
+  "cursor": {
+    "nextUrl": "https://gitlab.com/api/v4/projects?imported=false&include_hidden=false&membership=true&order_by=created_at&owned=false&page=2&per_page=3&repository_checksum_failed=false&simple=false&sort=desc&starred=false&statistics=false&wiki_checksum_failed=false&with_custom_attributes=false&with_issues_enabled=false&with_merge_requests_enabled=false",
+    "etag": "W/\"e6eb671f6a62dd97e23fcc72f904b887\""
+  },
+  "rateLimit": {
+    "limit": 2000,
+    "remaining": 1962,
+    "resetAt": "<now>"
+  }
+}

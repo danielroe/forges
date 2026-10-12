@@ -1,0 +1,40 @@
+{
+  "ref": {
+    "forge": "gitee",
+    "instance": "gitee.com",
+    "owner": "cmcc-oneos",
+    "name": "OneOS",
+    "externalId": "11463759"
+  },
+  "description": "OneOS是中国移动针对物联网领域推出的轻量级操作系统，具有可裁剪、跨平台、低功耗、高安全等特点，支持ARM Cortex-M/R/A、MIPS、RISC-V等主流CPU架构，兼容POSIX、CMSIS等标准接口，支持Micropython语言开发，提供图形化开发工具，能够有效提高开发效率并降低开发成本，帮助客户开发稳定可靠、安全易用的物联网应用。 \r\n官网地址：https://os.iot.10086.cn/",
+  "defaultBranch": "dev",
+  "visibility": "public",
+  "isFork": false,
+  "isArchived": false,
+  "topics": [],
+  "url": "https://gitee.com/cmcc-oneos/OneOS.git",
+  "cloneUrls": {
+    "https": "https://gitee.com/cmcc-oneos/OneOS.git.git",
+    "ssh": "git@gitee.com:cmcc-oneos/OneOS.git"
+  },
+  "createdAt": "2020-09-11T02:57:26.000Z",
+  "updatedAt": "2026-10-08T01:13:51.000Z",
+  "pushedAt": "2025-06-12T06:42:27.000Z",
+  "openIssueCount": 35,
+  "owner": {
+    "forge": "gitee",
+    "instance": "gitee.com",
+    "login": "cmcc-oneos-admin",
+    "id": "7894055",
+    "name": "CMCC-OneOS",
+    "avatarUrl": "https://foruda.gitee.com/avatar/1670466967165594212/7894055_cmcc-oneos-admin_1670466966.png",
+    "url": "https://gitee.com/cmcc-oneos-admin",
+    "typeRaw": "User",
+    "isBotHint": false
+  },
+  "language": "C",
+  "licence": "Apache-2.0",
+  "stars": 529,
+  "forks": 285,
+  "watchers": 120
+}

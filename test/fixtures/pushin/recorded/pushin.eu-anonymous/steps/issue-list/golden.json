@@ -1,0 +1,47 @@
+{
+  "items": [
+    {
+      "ref": {
+        "forge": "pushin",
+        "instance": "pushin.eu",
+        "repo": {
+          "forge": "pushin",
+          "instance": "pushin.eu",
+          "owner": "pjullrich",
+          "name": "pushin-cli"
+        },
+        "kind": "issue",
+        "number": "11",
+        "externalId": "iss_034dZWA51E0Js5gQaeOWt8"
+      },
+      "kind": "issue",
+      "title": "﻿nix flake doesnt have an aarch64-darwin package so doesnt work on my mac",
+      "body": "the repo actually has a mac binary but the flake doesnt include it. \n\nproposed fix:\n```diff\ndiff --git a/.github/workflows/nix.yml b/.github/workflows/nix.yml\n--- a/.github/workflows/nix.yml\n+++ b/.github/workflows/nix.yml\n@@ -21,4 +21,5 @@ jobs:\n         run: |\n           nix eval --raw .#packages.x86_64-linux.pun.drvPath\n           nix eval --raw .#packages.aarch64-linux.pun.drvPath\n+          nix eval --raw .#packages.aarch64-darwin.pun.drvPath\n           nix flake check --no-build --all-systems\ndiff --git a/README.md b/README.md\n--- a/README.md\n+++ b/README.md\n@@ -50,7 +50,8 @@ yay -S pushin-cli-bin\n #### Nix / NixOS\n\n The flake packages the checked-in, static Linux binary for `x86_64-linux` or\n-`aarch64-linux` (no Rust compilation). To run it once without installing:\n+`aarch64-linux`, and macOS binary for `aarch64-darwin` (no Rust\n+compilation). To run it once without installing:\n\n ```sh\n nix run 'git+https://git.pushin.eu/pjullrich/pushin-cli.git#pun' -- --version\ndiff --git a/flake.nix b/flake.nix\n--- a/flake.nix\n+++ b/flake.nix\n@@ -24,6 +24,7 @@\n       systems = [\n         \"x86_64-linux\"\n         \"aarch64-linux\"\n+        \"aarch64-darwin\"\n       ];\n       lib = nixpkgs.lib;\n       toolVersions = builtins.listToAttrs (\ndiff --git a/nix/package.nix b/nix/package.nix\n--- a/nix/package.nix\n+++ b/nix/package.nix\n@@ -9,6 +9,7 @@ let\n     {\n       x86_64-linux = \"linux-x86_64\";\n       aarch64-linux = \"linux-arm64\";\n+      aarch64-darwin = \"macos-universal\";\n     }\n     .${stdenvNoCC.hostPlatform.system}\n       or (throw \"pun: unsupported platform ${stdenvNoCC.hostPlatform.system}\");\n@@ -46,6 +47,7 @@ stdenvNoCC.mkDerivation {\n     platforms = [\n       \"x86_64-linux\"\n       \"aarch64-linux\"\n+      \"aarch64-darwin\"\n     ];\n     sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];\n   };\n```\n\njust fyi, cant do intel mac support because nixpkgs dropped support for that. just in case you were wondering.\n\ncant open PR for this because of issue #10 i filed. happy to submit once i can fork.",
+      "state": "open",
+      "stateRaw": "open",
+      "isDraft": false,
+      "author": {
+        "forge": "pushin",
+        "instance": "pushin.eu",
+        "login": "ellyse",
+        "id": "18",
+        "avatarUrl": "https://cdn.pushin.eu/-/avatars/u_033wC4SN6kvz561iIRQhvV",
+        "url": "https://pushin.eu/ellyse",
+        "typeRaw": "User",
+        "isBotHint": false
+      },
+      "assignees": [],
+      "reviewers": [],
+      "labels": [],
+      "url": "https://pushin.eu/pjullrich/pushin-cli/issues/11",
+      "createdAt": "2026-10-10T15:49:48.341Z",
+      "updatedAt": "2026-10-10T15:49:48.341Z",
+      "lastActivityAt": "2026-10-10T15:49:48.341Z"
+    }
+  ],
+  "rateLimit": {
+    "limit": 90,
+    "remaining": 79,
+    "resetAt": "<now>"
+  }
+}

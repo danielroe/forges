@@ -1,0 +1,30 @@
+{
+  "ref": {
+    "forge": "gitea",
+    "instance": "gitea.com",
+    "repo": {
+      "forge": "gitea",
+      "instance": "gitea.com",
+      "owner": "gitea",
+      "name": "tea"
+    },
+    "id": "1424769",
+    "run": {
+      "forge": "gitea",
+      "instance": "gitea.com",
+      "repo": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "owner": "gitea",
+        "name": "tea"
+      },
+      "id": "1051680"
+    }
+  },
+  "name": "Lint Build And Unit Coverage",
+  "state": "success",
+  "stateRaw": "completed",
+  "url": "https://gitea.com/gitea/tea/actions/runs/1051680/jobs/1424769",
+  "startedAt": "2026-10-11T04:26:37.000Z",
+  "completedAt": "2026-10-11T04:27:49.000Z"
+}

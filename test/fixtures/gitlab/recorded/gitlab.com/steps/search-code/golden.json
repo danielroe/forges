@@ -1,0 +1,38 @@
+{
+  "items": [
+    {
+      "repo": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "owner": "gitlab-org",
+        "name": "cli"
+      },
+      "path": "internal/commands/variable/import/import.go",
+      "ref": "main",
+      "fragments": [
+        {
+          "text": "// emitted by `glab variable export --output json`. Importing reads this back.\ntype importedVariable struct {\n\tKey              string `json:\"key\"`\n",
+          "line": 27
+        },
+        {
+          "text": "package importcmd\n\n",
+          "line": 1
+        },
+        {
+          "text": "\nimport (\n\t\"context\"\n",
+          "line": 2
+        }
+      ],
+      "url": "https://gitlab.com/gitlab-org/cli/-/blob/main/internal/commands/variable/import/import.go#L27"
+    }
+  ],
+  "cursor": {
+    "nextUrl": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/search?id=gitlab-org%2Fcli&page=2&per_page=3&scope=blobs&search=import",
+    "etag": "W/\"b4a2a0661912cf5aaaaf63ae886dbb7f\""
+  },
+  "rateLimit": {
+    "limit": 2000,
+    "remaining": 1930,
+    "resetAt": "<now>"
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "items": [
+    {
+      "ref": {
+        "forge": "github",
+        "instance": "github.com",
+        "hook": {
+          "forge": "github",
+          "instance": "github.com",
+          "target": {
+            "forge": "github",
+            "instance": "github.com",
+            "owner": "forges-fixtures",
+            "name": "forges-fixtures"
+          },
+          "id": "695806973"
+        },
+        "id": "3847726363943370752",
+        "guid": "5b8cf01c-c593-11f1-93e8-b72cdb559e1a"
+      },
+      "event": "ping",
+      "status": 502,
+      "ok": false,
+      "deliveredAt": "<now>",
+      "duration": 0
+    }
+  ],
+  "rateLimit": {
+    "limit": 500,
+    "remaining": 495,
+    "resetAt": "<now>"
+  }
+}

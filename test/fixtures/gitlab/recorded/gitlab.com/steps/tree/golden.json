@@ -1,0 +1,31 @@
+{
+  "items": [
+    {
+      "path": ".claude",
+      "type": "directory",
+      "sha": "85a5a1b44904319f73745a96186d5adcc813271b",
+      "mode": "040000"
+    },
+    {
+      "path": ".gitlab",
+      "type": "directory",
+      "sha": "47436bc50f176ab07066ecabdee7482c126d52eb",
+      "mode": "040000"
+    },
+    {
+      "path": ".vscode",
+      "type": "directory",
+      "sha": "4e0a120137a10582bf4e6bfea508d4e14cdeeb58",
+      "mode": "040000"
+    }
+  ],
+  "cursor": {
+    "nextUrl": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/repository/tree?id=gitlab-org%2Fcli&page=2&pagination=legacy&per_page=3&recursive=false&with_last_commit=false",
+    "etag": "W/\"a76707a0f6f676a79ce07f80a3625971\""
+  },
+  "rateLimit": {
+    "limit": 2000,
+    "remaining": 1945,
+    "resetAt": "<now>"
+  }
+}

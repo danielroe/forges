@@ -1,0 +1,67 @@
+{
+  "items": [
+    {
+      "ref": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "owner": "forges-fixtures",
+        "name": "forges-fixtures",
+        "externalId": "146918"
+      },
+      "description": "Automated fixture target for danielroe/forges",
+      "defaultBranch": "main",
+      "visibility": "public",
+      "visibilityRaw": "public",
+      "isFork": false,
+      "isArchived": false,
+      "topics": [],
+      "url": "https://gitea.com/forges-fixtures/forges-fixtures",
+      "cloneUrls": {
+        "https": "https://gitea.com/forges-fixtures/forges-fixtures.git",
+        "ssh": "git@gitea.com:forges-fixtures/forges-fixtures.git"
+      },
+      "createdAt": "2026-10-09T11:48:32.000Z",
+      "updatedAt": "2026-10-11T14:52:08.000Z",
+      "openIssueCount": 0,
+      "openPullCount": 0,
+      "owner": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "login": "forges-fixtures",
+        "id": "253593",
+        "avatarUrl": "https://gitea.com/avatars/2f66429c38ebf52cf476b4323acc02601adab84320994d41eb189d1427d5fb2e",
+        "url": "https://gitea.com/forges-fixtures",
+        "isBotHint": false
+      },
+      "language": "Markdown",
+      "licence": "MIT",
+      "stars": 0,
+      "forks": 0,
+      "watchers": 2,
+      "mergeMethods": [
+        "merge",
+        "squash",
+        "rebase",
+        "rebase_merge",
+        "fast_forward_only"
+      ],
+      "defaultMergeMethod": "merge",
+      "deleteBranchOnMerge": false,
+      "features": {
+        "issues": true,
+        "pullRequests": true,
+        "discussions": false,
+        "wiki": false,
+        "projects": false,
+        "releases": true
+      },
+      "permissions": {
+        "admin": true,
+        "maintain": true,
+        "push": true,
+        "triage": true,
+        "pull": true
+      }
+    }
+  ]
+}

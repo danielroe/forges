@@ -1,0 +1,76 @@
+{
+  "items": [
+    {
+      "name": "bug",
+      "colour": "DB2828"
+    },
+    {
+      "name": "ci_compile_failed",
+      "colour": "ec0019"
+    },
+    {
+      "name": "ci_compile_success",
+      "colour": "20c22e"
+    },
+    {
+      "name": "ci_compile_warning",
+      "colour": "febc08"
+    },
+    {
+      "name": "ci_failed",
+      "colour": "ec0019"
+    },
+    {
+      "name": "ci_scan_failed",
+      "colour": "ec0019"
+    },
+    {
+      "name": "ci_scan_success",
+      "colour": "20c22e"
+    },
+    {
+      "name": "ci_scan_warning",
+      "colour": "febc08"
+    },
+    {
+      "name": "ci_smoke_failed",
+      "colour": "ec0019"
+    },
+    {
+      "name": "ci_smoke_success",
+      "colour": "20c22e"
+    },
+    {
+      "name": "ci_smoke_warning",
+      "colour": "febc08"
+    },
+    {
+      "name": "ci_success",
+      "colour": "20c22e"
+    },
+    {
+      "name": "duplicate",
+      "colour": "767676"
+    },
+    {
+      "name": "enhancement",
+      "colour": "F2711C"
+    },
+    {
+      "name": "feature",
+      "colour": "B5CC18"
+    },
+    {
+      "name": "invalid",
+      "colour": "1B1C1D"
+    },
+    {
+      "name": "question",
+      "colour": "00B5AD"
+    },
+    {
+      "name": "wontfix",
+      "colour": "6435C9"
+    }
+  ]
+}

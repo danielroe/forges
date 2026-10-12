@@ -1,0 +1,25 @@
+{
+  "length": 16384,
+  "head": [
+    "2026-10-11T14:54:12.4552264Z Current runner version: '2.337.0'",
+    "2026-10-11T14:54:12.4581097Z ##[group]Runner Image Provisioner",
+    "2026-10-11T14:54:12.4582325Z Hosted Compute Agent",
+    "2026-10-11T14:54:12.4582946Z Version: 20261002.596",
+    "2026-10-11T14:54:12.4583759Z Commit: c3d12f3313a95f25162a1503be624f3b0617f8c0",
+    "2026-10-11T14:54:12.4584526Z Build Date: 2026-10-02T22:28:27Z",
+    "2026-10-11T14:54:12.4585236Z Worker ID: {4e67c312-48b7-4d17-a5d8-ce15bf8f86a7}",
+    "2026-10-11T14:54:12.4586079Z Region: westus",
+    "2026-10-11T14:54:12.4586653Z Cloud: Azure",
+    "2026-10-11T14:54:12.4587324Z ##[endgroup]",
+    "2026-10-11T14:54:12.4589391Z ##[group]Operating System",
+    "2026-10-11T14:54:12.4590093Z Ubuntu",
+    "2026-10-11T14:54:12.4590769Z 24.04.5",
+    "2026-10-11T14:54:12.4591355Z LTS",
+    "2026-10-11T14:54:12.4592025Z ##[endgroup]",
+    "2026-10-11T14:54:12.4592610Z ##[group]Runner Image",
+    "2026-10-11T14:54:12.4593635Z Image: ubuntu-24.04",
+    "2026-10-11T14:54:12.4594348Z Version: 20261004.327.1",
+    "2026-10-11T14:54:12.4595762Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20261004.327/images/ubuntu/Ubuntu2404-Readme.md",
+    "2026-10-11T14:54:12.4597436Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20261004.327"
+  ]
+}

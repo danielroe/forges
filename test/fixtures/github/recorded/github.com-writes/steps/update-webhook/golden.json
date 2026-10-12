@@ -1,0 +1,28 @@
+{
+  "ref": {
+    "forge": "github",
+    "instance": "github.com",
+    "target": {
+      "forge": "github",
+      "instance": "github.com",
+      "owner": "forges-fixtures",
+      "name": "forges-fixtures"
+    },
+    "id": "695806973"
+  },
+  "url": "https://example.com/hook",
+  "events": [
+    "comment",
+    "push"
+  ],
+  "nativeEvents": [
+    "commit_comment",
+    "discussion_comment",
+    "issue_comment",
+    "push"
+  ],
+  "active": true,
+  "contentType": "json",
+  "createdAt": "<now>",
+  "updatedAt": "<now>"
+}

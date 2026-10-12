@@ -1,0 +1,32 @@
+{
+  "ref": {
+    "forge": "tangled",
+    "instance": "tangled.org",
+    "thread": {
+      "forge": "tangled",
+      "instance": "tangled.org",
+      "repo": {
+        "forge": "tangled",
+        "instance": "tangled.org",
+        "owner": "did:plc:7qksav5io2s4qfg67pe7iqqk",
+        "name": "forges-fixtures",
+        "externalId": "did:plc:t73o44q7fppgagkrevtztyok"
+      },
+      "kind": "issue",
+      "typeRaw": "sh.tangled.repo.issue",
+      "number": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.issue/3mxmwlijmkm2y",
+      "externalId": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.issue/3mxmwlijmkm2y"
+    },
+    "id": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.feed.comment/3mxmwljizgu2y"
+  },
+  "body": "A seeded comment.",
+  "author": {
+    "forge": "tangled",
+    "instance": "tangled.org",
+    "login": "roebot.tngl.sh",
+    "id": "did:plc:7qksav5io2s4qfg67pe7iqqk",
+    "url": "https://tangled.org/roebot.tngl.sh",
+    "isBotHint": false
+  },
+  "createdAt": "<now>"
+}

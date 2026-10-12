@@ -1,0 +1,79 @@
+{
+  "items": [
+    {
+      "ref": {
+        "forge": "bitbucket",
+        "instance": "bitbucket.org",
+        "repo": {
+          "forge": "bitbucket",
+          "instance": "bitbucket.org",
+          "owner": "neelabo",
+          "name": "neeview"
+        },
+        "sha": "c695e01b1d8e100f0aa9ae1d95dcc041a25b0d0f"
+      },
+      "sha": "c695e01b1d8e100f0aa9ae1d95dcc041a25b0d0f",
+      "message": "Merged in Havokdan/ptbrrestext-alterados-online-com-o-bitbu-1724958740233 (pull request #37)\n\npt-BR.restext alterados online com o Bitbucket\n\nApproved-by: Ito Mitsuhiro",
+      "author": {
+        "actor": {
+          "forge": "bitbucket",
+          "instance": "bitbucket.org",
+          "login": "Havokdan",
+          "id": "{97fc50f7-c82e-4a3f-bd4a-e9877df29f39}",
+          "name": "Havokdan",
+          "avatarUrl": "https://secure.gravatar.com/avatar/9a050257614c5cfc943e4a599529de6b?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FH-5.png",
+          "url": "https://bitbucket.org/%7B97fc50f7-c82e-4a3f-bd4a-e9877df29f39%7D/",
+          "typeRaw": "user",
+          "isBotHint": false
+        },
+        "name": "Havokdan",
+        "email": "redacted@example.invalid",
+        "date": "2024-08-30T01:37:58.000Z"
+      },
+      "parents": [
+        "da15924148db9f9f9ca62050560ccfcb9f973005",
+        "8215aaf2e487324420e5d274d02975e255270fa7"
+      ],
+      "url": "https://bitbucket.org/neelabo/neeview/commits/c695e01b1d8e100f0aa9ae1d95dcc041a25b0d0f"
+    },
+    {
+      "ref": {
+        "forge": "bitbucket",
+        "instance": "bitbucket.org",
+        "repo": {
+          "forge": "bitbucket",
+          "instance": "bitbucket.org",
+          "owner": "neelabo",
+          "name": "neeview"
+        },
+        "sha": "8215aaf2e487324420e5d274d02975e255270fa7"
+      },
+      "sha": "8215aaf2e487324420e5d274d02975e255270fa7",
+      "message": "pt-BR.restext alterados online com o Bitbucket",
+      "author": {
+        "actor": {
+          "forge": "bitbucket",
+          "instance": "bitbucket.org",
+          "login": "Havokdan",
+          "id": "{97fc50f7-c82e-4a3f-bd4a-e9877df29f39}",
+          "name": "Havokdan",
+          "avatarUrl": "https://secure.gravatar.com/avatar/9a050257614c5cfc943e4a599529de6b?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FH-5.png",
+          "url": "https://bitbucket.org/%7B97fc50f7-c82e-4a3f-bd4a-e9877df29f39%7D/",
+          "typeRaw": "user",
+          "isBotHint": false
+        },
+        "name": "Havokdan",
+        "email": "redacted@example.invalid",
+        "date": "2024-08-29T19:12:41.000Z"
+      },
+      "parents": [
+        "da15924148db9f9f9ca62050560ccfcb9f973005"
+      ],
+      "url": "https://bitbucket.org/neelabo/neeview/commits/8215aaf2e487324420e5d274d02975e255270fa7"
+    }
+  ],
+  "rateLimit": {
+    "remaining": 59,
+    "resetAt": "1970-01-01T00:57:59.000Z"
+  }
+}

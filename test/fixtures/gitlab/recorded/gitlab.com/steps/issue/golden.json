@@ -1,0 +1,51 @@
+{
+  "ref": {
+    "forge": "gitlab",
+    "instance": "gitlab.com",
+    "repo": {
+      "forge": "gitlab",
+      "instance": "gitlab.com",
+      "owner": "gitlab-org",
+      "name": "cli"
+    },
+    "kind": "issue",
+    "number": "8572",
+    "externalId": "205066734"
+  },
+  "kind": "issue",
+  "title": "Add a way to close milestones",
+  "body": "### Problem to solve\n\nRight now you can do the basic CRUD operations on milestones, but you can not close them.\n\n### Proposal\n\nAdd a new flag: `glab milestone edit XXX --close` that would close the given milestone.\n\n### Further details\n\nOur milestones work on a time based, so whenever the period finishes, we create new milestones, move open work items to the these new milestones and finally we close the old milestones.\n\nSo far we can do all of it but the last part, closing milestones.\n\n### Links / references",
+  "state": "closed",
+  "stateRaw": "closed",
+  "isDraft": false,
+  "assignees": [],
+  "reviewers": [],
+  "lastActivityAt": "2026-10-06T11:38:09.546Z",
+  "author": {
+    "forge": "gitlab",
+    "instance": "gitlab.com",
+    "login": "gforcada",
+    "id": "163582",
+    "name": "Gil Forcada Codinachs",
+    "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/163582/avatar.png?v=1791706471",
+    "url": "https://gitlab.com/gforcada",
+    "isBotHint": false
+  },
+  "url": "https://gitlab.com/gitlab-org/cli/-/work_items/8572",
+  "createdAt": "2026-10-01T08:48:06.066Z",
+  "updatedAt": "2026-10-06T11:38:09.546Z",
+  "closedAt": "2026-10-01T09:05:16.165Z",
+  "labels": [
+    {
+      "name": "type::feature"
+    },
+    {
+      "name": "workflow::complete"
+    }
+  ],
+  "commentCount": 2,
+  "reactions": {
+    "total": 0,
+    "counts": {}
+  }
+}

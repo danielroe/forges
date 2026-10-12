@@ -1,0 +1,89 @@
+{
+  "items": [
+    {
+      "ref": {
+        "forge": "github",
+        "instance": "github.com",
+        "repo": {
+          "forge": "github",
+          "instance": "github.com",
+          "owner": "h3js",
+          "name": "h3"
+        },
+        "kind": "discussion",
+        "number": "1373",
+        "externalId": "D_kwDOErHI984Al4mI"
+      },
+      "kind": "discussion",
+      "title": "Idiomatic way to create a reusable auth middleware that supports both app.use() and per-route handler wrapping in H3 v2",
+      "body": "I'm building a reusable middleware library with H3 v2 and want to support two usage patterns from a single function:\r\n\r\n```ts\r\n// Pattern A: app-wide via app.use()\r\napp.use(withAuth({ role: 'user' }))\r\n\r\n// Pattern B: per-route handler wrapping (e.g. Nitro/Nuxt file routes)\r\nexport default withAuth({ role: 'user' }, async (event) => {\r\n  return event.context.authCtx\r\n})\r\n```\r\n\r\nMy current implementation returns `defineMiddleware(...)` for pattern A and `defineEventHandler({ middleware: [m], handler })` for pattern B.\r\n\r\nTwo questions:\r\n\r\n1. For pattern B, is `defineEventHandler({ middleware, handler })` the right approach, or is there a more idiomatic way to compose a pre-handler middleware with a route handler?\r\n\r\n2. For Nuxt's `server/middleware/` files, the convention is `export default defineEventHandler(...)` but pattern A returns a `Middleware` type. Is it safe/correct to export a `Middleware` directly from a Nitro server middleware file, or should it always be wrapped in `defineEventHandler`?\r\n\r\nThanks!",
+      "state": "open",
+      "stateRaw": "open",
+      "isDraft": false,
+      "author": {
+        "forge": "github",
+        "instance": "github.com",
+        "login": "targetlucked69",
+        "id": "72330740",
+        "name": "Alfred Trask",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/72330740?u=50fa4d4b7b6cc08c5a815c56a1e1144249dfbeb7&v=4",
+        "url": "https://github.com/targetlucked69",
+        "typeRaw": "User",
+        "isBotHint": false
+      },
+      "assignees": [],
+      "reviewers": [],
+      "lastActivityAt": "2026-04-23T06:47:56.000Z",
+      "url": "https://github.com/orgs/h3js/discussions/1373",
+      "createdAt": "2026-04-22T15:24:06.000Z",
+      "updatedAt": "2026-04-23T06:47:56.000Z",
+      "labels": [],
+      "locked": false,
+      "commentCount": 1
+    },
+    {
+      "ref": {
+        "forge": "github",
+        "instance": "github.com",
+        "repo": {
+          "forge": "github",
+          "instance": "github.com",
+          "owner": "h3js",
+          "name": "h3"
+        },
+        "kind": "discussion",
+        "number": "1371",
+        "externalId": "D_kwDOErHI984Al2dq"
+      },
+      "kind": "discussion",
+      "title": "Shorthand for throwing HTTP errors",
+      "body": "Hi, not sure if this has been discussed before, but wanted to share an idea.\r\n\r\nRight now when I want to return a 404 from a handler I write:\r\n\r\n```ts\r\nthrow createError({ statusCode: 404 })\r\n```\r\n\r\nIt would be nice if h3 accepted a simpler shorthand like:\r\n\r\n```ts\r\nthrow 404\r\n```\r\n\r\nBasically: let the thrown value map to an HTTP error directly, without the `createError({ statusCode: ... })` wrapper.\r\n\r\n`createError` / `new HTTPError({ ... })` would still be there for the richer cases (custom `data`, headers, message, etc.).\r\n\r\nPR: #1372\r\n\r\n## Custom strings\r\n\r\nWe could also tried supporting a string form to carry a message:\r\n\r\n```ts\r\nthrow \"404 Lesson not found\"\r\n```\r\n\r\nBut parsing the status out of the string needs a regex and bumps the bundle size a bit, so I left it out of the PR. For messages, sticking with `new HTTPError({ status: 404, message: \"Lesson not found\" })` feels cleaner.",
+      "state": "open",
+      "stateRaw": "open",
+      "isDraft": false,
+      "author": {
+        "forge": "github",
+        "instance": "github.com",
+        "login": "onmax",
+        "id": "22072217",
+        "name": "Max",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/22072217?u=5cd9a530f8cd1669cff4f085b71096f3372b6e1e&v=4",
+        "url": "https://github.com/onmax",
+        "typeRaw": "User",
+        "isBotHint": false
+      },
+      "assignees": [],
+      "reviewers": [],
+      "lastActivityAt": "2026-04-21T18:49:23.000Z",
+      "url": "https://github.com/orgs/h3js/discussions/1371",
+      "createdAt": "2026-04-21T08:54:02.000Z",
+      "updatedAt": "2026-04-21T18:49:23.000Z",
+      "labels": [],
+      "locked": false,
+      "commentCount": 1
+    }
+  ],
+  "cursor": {
+    "token": "Y3Vyc29yOnYyOpK0MjAyNi0wNC0yMVQwODo1NDowMlrOAJdnag=="
+  }
+}

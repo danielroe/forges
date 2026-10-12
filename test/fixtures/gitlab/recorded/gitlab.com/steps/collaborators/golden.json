@@ -1,0 +1,55 @@
+{
+  "items": [
+    {
+      "actor": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "login": "sytses",
+        "id": "1",
+        "name": "Sid Sijbrandij",
+        "avatarUrl": "https://secure.gravatar.com/avatar/adcd204e48241a6528220c7450334cc5ffab2ea1c6a89d3d0ada01d01ed2b49e?s=80&d=identicon",
+        "url": "https://gitlab.com/sytses",
+        "isBotHint": false
+      },
+      "role": "write",
+      "roleRaw": "30"
+    },
+    {
+      "actor": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "login": "dblessing",
+        "id": "13356",
+        "name": "Drew Blessing",
+        "avatarUrl": "https://secure.gravatar.com/avatar/f7a7e6e32e9c5482907025642135eb9546fae343ec42347aba492ba32575e603?s=80&d=identicon",
+        "url": "https://gitlab.com/dblessing",
+        "isBotHint": false
+      },
+      "role": "write",
+      "roleRaw": "30"
+    },
+    {
+      "actor": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "login": "ayufan",
+        "id": "12452",
+        "name": "Kamil Trzciński",
+        "avatarUrl": "https://secure.gravatar.com/avatar/4675c8e590e767232977b9b245d70da790b2b6fd9ea0870515cf951fc2ac8ccb?s=80&d=identicon",
+        "url": "https://gitlab.com/ayufan",
+        "isBotHint": false
+      },
+      "role": "write",
+      "roleRaw": "30"
+    }
+  ],
+  "cursor": {
+    "nextUrl": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/members/all?id=gitlab-org%2Fcli&page=2&per_page=3",
+    "etag": "W/\"4576367e10bc5dae3dab988bedc22369\""
+  },
+  "rateLimit": {
+    "limit": 2000,
+    "remaining": 1995,
+    "resetAt": "<now>"
+  }
+}

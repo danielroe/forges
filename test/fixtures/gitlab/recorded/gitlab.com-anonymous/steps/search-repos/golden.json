@@ -1,0 +1,85 @@
+{
+  "items": [
+    {
+      "ref": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "owner": "Ziwon90",
+        "name": "fedcli",
+        "externalId": "87492104"
+      },
+      "defaultBranch": "main",
+      "visibility": "public",
+      "visibilityRaw": "public",
+      "isFork": false,
+      "isArchived": false,
+      "topics": [],
+      "url": "https://gitlab.com/Ziwon90/fedcli",
+      "cloneUrls": {
+        "https": "https://gitlab.com/Ziwon90/fedcli.git",
+        "ssh": "git@gitlab.com:Ziwon90/fedcli.git"
+      },
+      "createdAt": "<now>",
+      "updatedAt": "<now>",
+      "stars": 0,
+      "forks": 0
+    },
+    {
+      "ref": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "owner": "Ziwon90",
+        "name": "fedcli-deletion_scheduled-87492080",
+        "externalId": "87492080"
+      },
+      "defaultBranch": "main",
+      "visibility": "public",
+      "visibilityRaw": "public",
+      "isFork": false,
+      "isArchived": false,
+      "topics": [],
+      "url": "https://gitlab.com/Ziwon90/fedcli-deletion_scheduled-87492080",
+      "cloneUrls": {
+        "https": "https://gitlab.com/Ziwon90/fedcli-deletion_scheduled-87492080.git",
+        "ssh": "git@gitlab.com:Ziwon90/fedcli-deletion_scheduled-87492080.git"
+      },
+      "createdAt": "<now>",
+      "updatedAt": "<now>",
+      "stars": 0,
+      "forks": 0
+    },
+    {
+      "ref": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "owner": "Ziwon90",
+        "name": "fedcli-deletion_scheduled-87491771",
+        "externalId": "87491771"
+      },
+      "defaultBranch": "main",
+      "visibility": "public",
+      "visibilityRaw": "public",
+      "isFork": false,
+      "isArchived": false,
+      "topics": [],
+      "url": "https://gitlab.com/Ziwon90/fedcli-deletion_scheduled-87491771",
+      "cloneUrls": {
+        "https": "https://gitlab.com/Ziwon90/fedcli-deletion_scheduled-87491771.git",
+        "ssh": "git@gitlab.com:Ziwon90/fedcli-deletion_scheduled-87491771.git"
+      },
+      "createdAt": "<now>",
+      "updatedAt": "<now>",
+      "stars": 0,
+      "forks": 0
+    }
+  ],
+  "cursor": {
+    "nextUrl": "https://gitlab.com/api/v4/projects?imported=false&include_hidden=false&membership=false&order_by=created_at&owned=false&page=2&per_page=3&repository_checksum_failed=false&search=cli&simple=false&sort=desc&starred=false&statistics=false&wiki_checksum_failed=false&with_custom_attributes=false&with_issues_enabled=false&with_merge_requests_enabled=false",
+    "etag": "W/\"05e06ebb53ddf354227042f61ba505b8\""
+  },
+  "rateLimit": {
+    "limit": 500,
+    "remaining": 456,
+    "resetAt": "<now>"
+  }
+}

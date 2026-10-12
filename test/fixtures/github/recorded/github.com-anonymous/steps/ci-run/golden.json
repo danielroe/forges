@@ -1,0 +1,34 @@
+{
+  "ref": {
+    "forge": "github",
+    "instance": "github.com",
+    "repo": {
+      "forge": "github",
+      "instance": "github.com",
+      "owner": "h3js",
+      "name": "h3"
+    },
+    "id": "38146323079"
+  },
+  "name": "autofix.ci",
+  "state": "failure",
+  "stateRaw": "completed",
+  "number": "4259",
+  "eventRaw": "pull_request",
+  "branch": "fix/serve-static-index-paths",
+  "sha": "73f9f488e57746e57de8919ea0358cbe6e5da1a9",
+  "url": "https://github.com/h3js/h3/actions/runs/38146323079",
+  "actor": {
+    "forge": "github",
+    "instance": "github.com",
+    "login": "TalhaHunter101",
+    "id": "51529912",
+    "avatarUrl": "https://avatars.githubusercontent.com/u/51529912?v=4",
+    "url": "https://github.com/TalhaHunter101",
+    "typeRaw": "User",
+    "isBotHint": false
+  },
+  "createdAt": "<now>",
+  "startedAt": "<now>",
+  "completedAt": "<now>"
+}

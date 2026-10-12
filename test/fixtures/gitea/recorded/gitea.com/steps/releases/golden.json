@@ -1,0 +1,2896 @@
+{
+  "items": [
+    {
+      "ref": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "repo": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "owner": "gitea",
+          "name": "tea"
+        },
+        "id": "945508",
+        "tag": "v0.16.0"
+      },
+      "name": "v0.16.0",
+      "tag": "v0.16.0",
+      "body": "## What's Changed\r\n* Make `tea issues create` honor `--output json` in [#1114](https://gitea.com/gitea/tea/pulls/1114)\r\n* fix(pulls): report the real reason when a merge is refused in [#1107](https://gitea.com/gitea/tea/pulls/1107)\r\n* Make `tea pulls create` honor `--output json` in [#1111](https://gitea.com/gitea/tea/pulls/1111)\r\n* fix(deps): update module golang.org/x/crypto to v0.56.0 [security] in [#1109](https://gitea.com/gitea/tea/pulls/1109)\r\n* fix(deps): update module golang.org/x/crypto to v0.55.0 [security] in [#1106](https://gitea.com/gitea/tea/pulls/1106)\r\n* feat(login): add status command (#1087) in [#1105](https://gitea.com/gitea/tea/pulls/1105)\r\n* fix(login): avoid panic when parsing auto-discovered SSH keys in [#1100](https://gitea.com/gitea/tea/pulls/1100)\r\n* Read issue/PR description from stdin or a file in [#1096](https://gitea.com/gitea/tea/pulls/1096)\r\n* fix(deps): update go toolchain directive to v1.26.6 [security] in [#1103](https://gitea.com/gitea/tea/pulls/1103)\r\n* chore(deps): update docker/login-action digest to dbcb813 in [#1082](https://gitea.com/gitea/tea/pulls/1082)\r\n* fix(oauth): don't wait for the browser opener to exit in [#1093](https://gitea.com/gitea/tea/pulls/1093)\r\n* Drop AWS S3 release upload, keep only Cloudflare R2 in [#1092](https://gitea.com/gitea/tea/pulls/1092)\r\n* chore: align go version handling with gitea in [#1088](https://gitea.com/gitea/tea/pulls/1088)\r\n\r\n## Contributors\r\n* @ongolk\r\n* @jbaer\r\n* @renovate-bot\r\n* @lunny\r\n* @jamesbraid\r\n* @silverwind\r\n\r\n## New Contributors\r\n* @jbaer made their first contribution in [#1107](https://gitea.com/gitea/tea/pulls/1107)\r\n* @ongolk made their first contribution in [#1111](https://gitea.com/gitea/tea/pulls/1111)\r\n* @jamesbraid made their first contribution in [#1093](https://gitea.com/gitea/tea/pulls/1093)\r\n* @silverwind made their first contribution in [#1088](https://gitea.com/gitea/tea/pulls/1088)\r\n\r\n**Full Changelog**: [v0.15.1...v0.16.0](https://gitea.com/gitea/tea/compare/v0.15.1...v0.16.0)\r\n",
+      "isDraft": false,
+      "isPrerelease": false,
+      "author": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "owner": "gitea",
+        "name": "bircni",
+        "login": "bircni",
+        "id": "173651",
+        "avatarUrl": "https://seccdn.libravatar.org/avatar/345fd80f2a069177c27dd0de27c99672940cce0923fca8de847119c573aab745?d=identicon",
+        "url": "https://gitea.com/bircni",
+        "isBotHint": false
+      },
+      "publishedAt": "2026-09-10T11:34:12.000Z",
+      "createdAt": "2026-09-10T04:29:39.000Z",
+      "url": "https://gitea.com/gitea/tea/releases/tag/v0.16.0",
+      "assets": [
+        {
+          "ref": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "repo": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "owner": "gitea",
+              "name": "tea"
+            },
+            "release": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "repo": {
+                "forge": "gitea",
+                "instance": "gitea.com",
+                "owner": "gitea",
+                "name": "tea"
+              },
+              "id": "945508",
+              "tag": "v0.16.0"
+            },
+            "id": "100083"
+          },
+          "name": "checksums.txt",
+          "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/checksums.txt",
+          "size": 1842,
+          "downloadCount": 4175
+        },
+        {
+          "ref": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "repo": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "owner": "gitea",
+              "name": "tea"
+            },
+            "release": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "repo": {
+                "forge": "gitea",
+                "instance": "gitea.com",
+                "owner": "gitea",
+                "name": "tea"
+              },
+              "id": "945508",
+              "tag": "v0.16.0"
+            },
+            "id": "100084"
+          },
+          "name": "checksums.txt.sig",
+          "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/checksums.txt.sig",
+          "size": 566,
+          "downloadCount": 549
+        },
+        {
+          "ref": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "repo": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "owner": "gitea",
+              "name": "tea"
+            },
+            "release": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "repo": {
+                "forge": "gitea",
+                "instance": "gitea.com",
+                "owner": "gitea",
+                "name": "tea"
+              },
+              "id": "945508",
+              "tag": "v0.16.0"
+            },
+            "id": "100112"
+          },
+          "name": "tea-0.16.0-darwin-amd64",
+          "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-darwin-amd64",
+          "size": 29379792,
+          "downloadCount": 106
+        },
+        {
+          "ref": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "repo": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "owner": "gitea",
+              "name": "tea"
+            },
+            "release": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "repo": {
+                "forge": "gitea",
+                "instance": "gitea.com",
+                "owner": "gitea",
+                "name": "tea"
+              },
+              "id": "945508",
+              "tag": "v0.16.0"
+            },
+            "id": "100102"
+          },
+          "name": "tea-0.16.0-darwin-amd64.xz",
+          "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-darwin-amd64.xz",
+          "size": 6612532,
+          "downloadCount": 75
+        },
+        {
+          "ref": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "repo": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "owner": "gitea",
+              "name": "tea"
+            },
+            "release": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "repo": {
+                "forge": "gitea",
+                "instance": "gitea.com",
+                "owner": "gitea",
+                "name": "tea"
+              },
+              "id": "945508",
+              "tag": "v0.16.0"
+            },
+            "id": "100092"
+          },
+          "name": "tea-0.16.0-darwin-amd64.xz.sha256",
+          "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-darwin-amd64.xz.sha256",
+          "size": 92,
+          "downloadCount": 79
+        },
+        {
+          "ref": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "repo": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "owner": "gitea",
+              "name": "tea"
+            },
+            "release": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "repo": {
+                "forge": "gitea",
+                "instance": "gitea.com",
+                "owner": "gitea",
+                "name": "tea"
+              },
+              "id": "945508",
+              "tag": "v0.16.0"
+            },
+            "id": "100114"
+          },
+          "name": "tea-0.16.0-darwin-arm64",
+          "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-darwin-arm64",
+          "size": 27243698,
+          "downloadCount": 271
+        },
+        {
+          "ref": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "repo": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "owner": "gitea",
+              "name": "tea"
+            },
+            "release": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "repo": {
+                "forge": "gitea",
+                "instance": "gitea.com",
+                "owner": "gitea",
+                "name": "tea"
+              },
+              "id": "945508",
+              "tag": "v0.16.0"
+            },
+            "id": "100101"
+          },
+          "name": "tea-0.16.0-darwin-arm64.xz",
+          "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-darwin-arm64.xz",
+          "size": 5916884,
+          "downloadCount": 173
+        },
+        {
+          "ref": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "repo": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "owner": "gitea",
+              "name": "tea"
+            },
+            "release": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "repo": {
+                "forge": "gitea",
+                "instance": "gitea.com",
+                "owner": "gitea",
+                "name": "tea"
+              },
+              "id": "945508",
+              "tag": "v0.16.0"
+            },
+            "id": "100090"
+          },
+          "name": "tea-0.16.0-darwin-arm64.xz.sha256",
+          "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-darwin-arm64.xz.sha256",
+          "size": 92,
+          "downloadCount": 122
+        },
+        {
+          "ref": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "repo": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "owner": "gitea",
+              "name": "tea"
+            },
+            "release": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "repo": {
+                "forge": "gitea",
+                "instance": "gitea.com",
+                "owner": "gitea",
+                "name": "tea"
+              },
+              "id": "945508",
+              "tag": "v0.16.0"
+            },
+            "id": "100106"
+          },
+          "name": "tea-0.16.0-freebsd-amd64",
+          "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-freebsd-amd64",
+          "size": 28786860,
+          "downloadCount": 54
+        },
+        {
+          "ref": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "repo": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "owner": "gitea",
+              "name": "tea"
+            },
+            "release": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "repo": {
+                "forge": "gitea",
+                "instance": "gitea.com",
+                "owner": "gitea",
+                "name": "tea"
+              },
+              "id": "945508",
+              "tag": "v0.16.0"
+            },
+            "id": "100099"
+          },
+          "name": "tea-0.16.0-freebsd-amd64.xz",
+          "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-freebsd-amd64.xz",
+          "size": 6520848,
+          "downloadCount": 23
+        },
+        {
+          "ref": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "repo": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "owner": "gitea",
+              "name": "tea"
+            },
+            "release": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "repo": {
+                "forge": "gitea",
+                "instance": "gitea.com",
+                "owner": "gitea",
+                "name": "tea"
+              },
+              "id": "945508",
+              "tag": "v0.16.0"
+            },
+            "id": "100085"
+          },
+          "name": "tea-0.16.0-freebsd-amd64.xz.sha256",
+          "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-freebsd-amd64.xz.sha256",
+          "size": 93,
+          "downloadCount": 52
+        },
+        {
+          "ref": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "repo": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "owner": "gitea",
+              "name": "tea"
+            },
+            "release": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "repo": {
+                "forge": "gitea",
+                "instance": "gitea.com",
+                "owner": "gitea",
+                "name": "tea"
+              },
+              "id": "945508",
+              "tag": "v0.16.0"
+            },
+            "id": "100104"
+          },
+          "name": "tea-0.16.0-linux-amd64",
+          "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-linux-amd64",
+          "size": 29229218,
+          "downloadCount": 6659
+        },
+        {
+          "ref": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "repo": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "owner": "gitea",
+              "name": "tea"
+            },
+            "release": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "repo": {
+                "forge": "gitea",
+                "instance": "gitea.com",
+                "owner": "gitea",
+                "name": "tea"
+              },
+              "id": "945508",
+              "tag": "v0.16.0"
+            },
+            "id": "100100"
+          },
+          "name": "tea-0.16.0-linux-amd64.xz",
+          "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-linux-amd64.xz",
+          "size": 6647460,
+          "downloadCount": 2293
+        },
+        {
+          "ref": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "repo": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "owner": "gitea",
+              "name": "tea"
+            },
+            "release": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "repo": {
+                "forge": "gitea",
+                "instance": "gitea.com",
+                "owner": "gitea",
+                "name": "tea"
+              },
+              "id": "945508",
+              "tag": "v0.16.0"
+            },
+            "id": "100091"
+          },
+          "name": "tea-0.16.0-linux-amd64.xz.sha256",
+          "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-linux-amd64.xz.sha256",
+          "size": 91,
+          "downloadCount": 1316
+        },
+        {
+          "ref": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "repo": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "owner": "gitea",
+              "name": "tea"
+            },
+            "release": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "repo": {
+                "forge": "gitea",
+                "instance": "gitea.com",
+                "owner": "gitea",
+                "name": "tea"
+              },
+              "id": "945508",
+              "tag": "v0.16.0"
+            },
+            "id": "100110"
+          },
+          "name": "tea-0.16.0-linux-arm-5",
+          "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-linux-arm-5",
+          "size": 27721890,
+          "downloadCount": 63
+        },
+        {
+          "ref": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "repo": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "owner": "gitea",
+              "name": "tea"
+            },
+            "release": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "repo": {
+                "forge": "gitea",
+                "instance": "gitea.com",
+                "owner": "gitea",
+                "name": "tea"
+              },
+              "id": "945508",
+              "tag": "v0.16.0"
+            },
+            "id": "100095"
+          },
+          "name": "tea-0.16.0-linux-arm-5.xz",
+          "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-linux-arm-5.xz",
+          "size": 5977360,
+          "downloadCount": 19
+        },
+        {
+          "ref": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "repo": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "owner": "gitea",
+              "name": "tea"
+            },
+            "release": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "repo": {
+                "forge": "gitea",
+                "instance": "gitea.com",
+                "owner": "gitea",
+                "name": "tea"
+              },
+              "id": "945508",
+              "tag": "v0.16.0"
+            },
+            "id": "100093"
+          },
+          "name": "tea-0.16.0-linux-arm-5.xz.sha256",
+          "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-linux-arm-5.xz.sha256",
+          "size": 91,
+          "downloadCount": 60
+        },
+        {
+          "ref": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "repo": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "owner": "gitea",
+              "name": "tea"
+            },
+            "release": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "repo": {
+                "forge": "gitea",
+                "instance": "gitea.com",
+                "owner": "gitea",
+                "name": "tea"
+              },
+              "id": "945508",
+              "tag": "v0.16.0"
+            },
+            "id": "100109"
+          },
+          "name": "tea-0.16.0-linux-arm-6",
+          "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-linux-arm-6",
+          "size": 27590818,
+          "downloadCount": 50
+        },
+        {
+          "ref": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "repo": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "owner": "gitea",
+              "name": "tea"
+            },
+            "release": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "repo": {
+                "forge": "gitea",
+                "instance": "gitea.com",
+                "owner": "gitea",
+                "name": "tea"
+              },
+              "id": "945508",
+              "tag": "v0.16.0"
+            },
+            "id": "100096"
+          },
+          "name": "tea-0.16.0-linux-arm-6.xz",
+          "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-linux-arm-6.xz",
+          "size": 5957244,
+          "downloadCount": 27
+        },
+        {
+          "ref": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "repo": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "owner": "gitea",
+              "name": "tea"
+            },
+            "release": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "repo": {
+                "forge": "gitea",
+                "instance": "gitea.com",
+                "owner": "gitea",
+                "name": "tea"
+              },
+              "id": "945508",
+              "tag": "v0.16.0"
+            },
+            "id": "100088"
+          },
+          "name": "tea-0.16.0-linux-arm-6.xz.sha256",
+          "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-linux-arm-6.xz.sha256",
+          "size": 91,
+          "downloadCount": 60
+        },
+        {
+          "ref": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "repo": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "owner": "gitea",
+              "name": "tea"
+            },
+            "release": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "repo": {
+                "forge": "gitea",
+                "instance": "gitea.com",
+                "owner": "gitea",
+                "name": "tea"
+              },
+              "id": "945508",
+              "tag": "v0.16.0"
+            },
+            "id": "100111"
+          },
+          "name": "tea-0.16.0-linux-arm-7",
+          "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-linux-arm-7",
+          "size": 27590818,
+          "downloadCount": 71
+        },
+        {
+          "ref": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "repo": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "owner": "gitea",
+              "name": "tea"
+            },
+            "release": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "repo": {
+                "forge": "gitea",
+                "instance": "gitea.com",
+                "owner": "gitea",
+                "name": "tea"
+              },
+              "id": "945508",
+              "tag": "v0.16.0"
+            },
+            "id": "100105"
+          },
+          "name": "tea-0.16.0-linux-arm-7.xz",
+          "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-linux-arm-7.xz",
+          "size": 5951740,
+          "downloadCount": 27
+        },
+        {
+          "ref": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "repo": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "owner": "gitea",
+              "name": "tea"
+            },
+            "release": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "repo": {
+                "forge": "gitea",
+                "instance": "gitea.com",
+                "owner": "gitea",
+                "name": "tea"
+              },
+              "id": "945508",
+              "tag": "v0.16.0"
+            },
+            "id": "100094"
+          },
+          "name": "tea-0.16.0-linux-arm-7.xz.sha256",
+          "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-linux-arm-7.xz.sha256",
+          "size": 91,
+          "downloadCount": 63
+        },
+        {
+          "ref": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "repo": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "owner": "gitea",
+              "name": "tea"
+            },
+            "release": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "repo": {
+                "forge": "gitea",
+                "instance": "gitea.com",
+                "owner": "gitea",
+                "name": "tea"
+              },
+              "id": "945508",
+              "tag": "v0.16.0"
+            },
+            "id": "100107"
+          },
+          "name": "tea-0.16.0-linux-arm64",
+          "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-linux-arm64",
+          "size": 26935458,
+          "downloadCount": 730
+        },
+        {
+          "ref": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "repo": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "owner": "gitea",
+              "name": "tea"
+            },
+            "release": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "repo": {
+                "forge": "gitea",
+                "instance": "gitea.com",
+                "owner": "gitea",
+                "name": "tea"
+              },
+              "id": "945508",
+              "tag": "v0.16.0"
+            },
+            "id": "100098"
+          },
+          "name": "tea-0.16.0-linux-arm64.xz",
+          "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-linux-arm64.xz",
+          "size": 5724112,
+          "downloadCount": 3263
+        },
+        {
+          "ref": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "repo": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "owner": "gitea",
+              "name": "tea"
+            },
+            "release": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "repo": {
+                "forge": "gitea",
+                "instance": "gitea.com",
+                "owner": "gitea",
+                "name": "tea"
+              },
+              "id": "945508",
+              "tag": "v0.16.0"
+            },
+            "id": "100089"
+          },
+          "name": "tea-0.16.0-linux-arm64.xz.sha256",
+          "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-linux-arm64.xz.sha256",
+          "size": 91,
+          "downloadCount": 502
+        },
+        {
+          "ref": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "repo": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "owner": "gitea",
+              "name": "tea"
+            },
+            "release": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "repo": {
+                "forge": "gitea",
+                "instance": "gitea.com",
+                "owner": "gitea",
+                "name": "tea"
+              },
+              "id": "945508",
+              "tag": "v0.16.0"
+            },
+            "id": "100113"
+          },
+          "name": "tea-0.16.0-windows-amd64.exe",
+          "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-windows-amd64.exe",
+          "size": 29696000,
+          "downloadCount": 1170
+        },
+        {
+          "ref": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "repo": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "owner": "gitea",
+              "name": "tea"
+            },
+            "release": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "repo": {
+                "forge": "gitea",
+                "instance": "gitea.com",
+                "owner": "gitea",
+                "name": "tea"
+              },
+              "id": "945508",
+              "tag": "v0.16.0"
+            },
+            "id": "100097"
+          },
+          "name": "tea-0.16.0-windows-amd64.exe.xz",
+          "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-windows-amd64.exe.xz",
+          "size": 6729704,
+          "downloadCount": 1000
+        },
+        {
+          "ref": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "repo": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "owner": "gitea",
+              "name": "tea"
+            },
+            "release": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "repo": {
+                "forge": "gitea",
+                "instance": "gitea.com",
+                "owner": "gitea",
+                "name": "tea"
+              },
+              "id": "945508",
+              "tag": "v0.16.0"
+            },
+            "id": "100087"
+          },
+          "name": "tea-0.16.0-windows-amd64.exe.xz.sha256",
+          "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-windows-amd64.exe.xz.sha256",
+          "size": 97,
+          "downloadCount": 651
+        },
+        {
+          "ref": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "repo": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "owner": "gitea",
+              "name": "tea"
+            },
+            "release": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "repo": {
+                "forge": "gitea",
+                "instance": "gitea.com",
+                "owner": "gitea",
+                "name": "tea"
+              },
+              "id": "945508",
+              "tag": "v0.16.0"
+            },
+            "id": "100108"
+          },
+          "name": "tea-0.16.0-windows-arm64.exe",
+          "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-windows-arm64.exe",
+          "size": 27001856,
+          "downloadCount": 213
+        },
+        {
+          "ref": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "repo": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "owner": "gitea",
+              "name": "tea"
+            },
+            "release": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "repo": {
+                "forge": "gitea",
+                "instance": "gitea.com",
+                "owner": "gitea",
+                "name": "tea"
+              },
+              "id": "945508",
+              "tag": "v0.16.0"
+            },
+            "id": "100103"
+          },
+          "name": "tea-0.16.0-windows-arm64.exe.xz",
+          "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-windows-arm64.exe.xz",
+          "size": 5715720,
+          "downloadCount": 65
+        },
+        {
+          "ref": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "repo": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "owner": "gitea",
+              "name": "tea"
+            },
+            "release": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "repo": {
+                "forge": "gitea",
+                "instance": "gitea.com",
+                "owner": "gitea",
+                "name": "tea"
+              },
+              "id": "945508",
+              "tag": "v0.16.0"
+            },
+            "id": "100086"
+          },
+          "name": "tea-0.16.0-windows-arm64.exe.xz.sha256",
+          "url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-windows-arm64.exe.xz.sha256",
+          "size": 97,
+          "downloadCount": 59
+        }
+      ]
+    },
+    {
+      "ref": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "repo": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "owner": "gitea",
+          "name": "tea"
+        },
+        "id": "909830",
+        "tag": "v0.15.1"
+      },
+      "name": "v0.15.1",
+      "tag": "v0.15.1",
+      "body": "## Changelog   \n* f34697c5ed65928e265d6f48e16928819ce0f332 chore(config): replace authgate SDK with signet (#1081)   \n* a613a344de3a33adc04a24fcee877de506d804b7 fix(test): disable gpg signing in worktree test repo (#1072)   \n* 6435b1220204ef047c1e79215990b9e53a21cb0d chore(deps): pin dependencies (#1064)\n\n",
+      "isDraft": false,
+      "isPrerelease": false,
+      "author": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "owner": "gitea",
+        "name": "Gitea Bot",
+        "login": "giteabot",
+        "id": "469",
+        "avatarUrl": "https://seccdn.libravatar.org/avatar/756159b7f503fa311e7b20ec6a639df9818839e43db1bb6fbd7f82aa8d84dbb7?d=identicon",
+        "url": "https://gitea.com/giteabot",
+        "isBotHint": false
+      },
+      "publishedAt": "2026-08-02T14:40:05.000Z",
+      "createdAt": "2026-08-02T14:40:05.000Z",
+      "url": "https://gitea.com/gitea/tea/releases/tag/v0.15.1",
+      "assets": [
+        {
+          "ref": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "repo": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "owner": "gitea",
+              "name": "tea"
+            },
+            "release": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "repo": {
+                "forge": "gitea",
+                "instance": "gitea.com",
+                "owner": "gitea",
+                "name": "tea"
+              },
+              "id": "909830",
+              "tag": "v0.15.1"
+            },
+            "id": "94388"
+          },
+          "name": "checksums.txt",
+          "url": "https://gitea.com/gitea/tea/releases/download/v0.15.1/checksums.txt",
+          "size": 1842,
+          "downloadCount": 1695
+        },
+        {
+          "ref": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "repo": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "owner": "gitea",
+              "name": "tea"
+            },
+            "release": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "repo": {
+                "forge": "gitea",
+                "instance": "gitea.com",
+                "owner": "gitea",
+                "name": "tea"
+              },
+              "id": "909830",
+              "tag": "v0.15.1"
+            },
+            "id": "94382"
+          },
+          "name": "checksums.txt.sig",
+          "url": "https://gitea.com/gitea/tea/releases/download/v0.15.1/checksums.txt.sig",
+          "size": 566,
+          "downloadCount": 116
+        },
+        {
+          "ref": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "repo": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "owner": "gitea",
+              "name": "tea"
+            },
+            "release": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "repo": {
+                "forge": "gitea",
+                "instance": "gitea.com",
+                "owner": "gitea",
+                "name": "tea"
+              },
+              "id": "909830",
+              "tag": "v0.15.1"
+            },
+            "id": "94406"
+          },
+          "name": "tea-0.15.1-darwin-amd64",
+          "url": "https://gitea.com/gitea/tea/releases/download/v0.15.1/tea-0.15.1-darwin-amd64",
+          "size": 29207280,
+          "downloadCount": 101
+        },
+        {
+          "ref": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "repo": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "owner": "gitea",
+              "name": "tea"
+            },
+            "release": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "repo": {
+                "forge": "gitea",
+                "instance": "gitea.com",
+                "owner": "gitea",
+                "name": "tea"
+              },
+              "id": "909830",
+              "tag": "v0.15.1"
+            },
+            "id": "94399"
+          },
+          "name": "tea-0.15.1-darwin-amd64.xz",
+          "url": "https://gitea.com/gitea/tea/releases/download/v0.15.1/tea-0.15.1-darwin-amd64.xz",
+          "size": 6595172,
+          "downloadCount": 78
+        },
+        {
+          "ref": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "repo": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "owner": "gitea",
+              "name": "tea"
+            },
+            "release": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "repo": {
+                "forge": "gitea",
+                "instance": "gitea.com",
+                "owner": "gitea",
+                "name": "tea"
+              },
+              "id": "909830",
+              "tag": "v0.15.1"
+            },
+            "id": "94389"
+          },
+          "name": "tea-0.15.1-darwin-amd64.xz.sha256",
+          "url": "https://gitea.com/gitea/tea/releases/download/v0.15.1/tea-0.15.1-darwin-amd64.xz.sha256",
+          "size": 92,
+          "downloadCount": 60
+        },
+        {
+          "ref": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "repo": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "owner": "gitea",
+              "name": "tea"
+            },
+            "release": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "repo": {
+                "forge": "gitea",
+                "instance": "gitea.com",
+                "owner": "gitea",
+                "name": "tea"
+              },
+              "id": "909830",
+              "tag": "v0.15.1"
+            },
+            "id": "94403"
+          },
+          "name": "tea-0.15.1-darwin-arm64",
+          "url": "https://gitea.com/gitea/tea/releases/download/v0.15.1/tea-0.15.1-darwin-arm64",
+          "size": 27045058,
+          "downloadCount": 337
+        },
+        {
+          "ref": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "repo": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "owner": "gitea",
+              "name": "tea"
+            },
+            "release": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "repo": {
+                "forge": "gitea",
+                "instance": "gitea.com",
+                "owner": "gitea",
+                "name": "tea"
+              },
+              "id": "909830",
+              "tag": "v0.15.1"
+            },
+            "id": "94400"
+          },
+          "name": "tea-0.15.1-darwin-arm64.xz",
+          "url": "https://gitea.com/gitea/tea/releases/download/v0.15.1/tea-0.15.1-darwin-arm64.xz",
+          "size": 5907300,
+          "downloadCount": 153
+        },
+        {
+          "ref": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "repo": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "owner": "gitea",
+              "name": "tea"
+            },
+            "release": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "repo": {
+                "forge": "gitea",
+                "instance": "gitea.com",
+                "owner": "gitea",
+                "name": "tea"
+              },
+              "id": "909830",
+              "tag": "v0.15.1"
+            },
+            "id": "94384"
+          },
+          "name": "tea-0.15.1-darwin-arm64.xz.sha256",
+          "url": "https://gitea.com/gitea/tea/releases/download/v0.15.1/tea-0.15.1-darwin-arm64.xz.sha256",
+          "size": 92,
+          "downloadCount": 95
+        },
+        {
+          "ref": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "repo": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "owner": "gitea",
+              "name": "tea"
+            },
+            "release": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "repo": {
+                "forge": "gitea",
+                "instance": "gitea.com",
+                "owner": "gitea",
+                "name": "tea"
+              },
+              "id": "909830",
+              "tag": "v0.15.1"
+            },
+            "id": "94405"
+          },
+          "name": "tea-0.15.1-freebsd-amd64",
+          "url": "https://gitea.com/gitea/tea/releases/download/v0.15.1/tea-0.15.1-freebsd-amd64",
+          "size": 28614828,
+          "downloadCount": 54
+        },
+        {
+          "ref": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "repo": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "owner": "gitea",
+              "name": "tea"
+            },
+            "release": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "repo": {
+                "forge": "gitea",
+                "instance": "gitea.com",
+                "owner": "gitea",
+                "name": "tea"
+              },
+              "id": "909830",
+              "tag": "v0.15.1"
+            },
+            "id": "94395"
+          },
+          "name": "tea-0.15.1-freebsd-amd64.xz",
+          "url": "https://gitea.com/gitea/tea/releases/download/v0.15.1/tea-0.15.1-freebsd-amd64.xz",
+          "size": 6504380,
+          "downloadCount": 28
+        },
+        {
+          "ref": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "repo": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "owner": "gitea",
+              "name": "tea"
+            },
+            "release": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "repo": {
+                "forge": "gitea",
+                "instance": "gitea.com",
+                "owner": "gitea",
+                "name": "tea"
+              },
+              "id": "909830",
+              "tag": "v0.15.1"
+            },
+            "id": "94386"
+          },
+          "name": "tea-0.15.1-freebsd-amd64.xz.sha256",
+          "url": "https://gitea.com/gitea/tea/releases/download/v0.15.1/tea-0.15.1-freebsd-amd64.xz.sha256",
+          "size": 93,
+          "downloadCount": 63
+        },
+        {
+          "ref": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "repo": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "owner": "gitea",
+              "name": "tea"
+            },
+            "release": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "repo": {
+                "forge": "gitea",
+                "instance": "gitea.com",
+                "owner": "gitea",
+                "name": "tea"
+              },
+              "id": "909830",
+              "tag": "v0.15.1"
+            },
+            "id": "94411"
+          },
+          "name": "tea-0.15.1-linux-amd64",
+          "url": "https://gitea.com/gitea/tea/releases/download/v0.15.1/tea-0.15.1-linux-amd64",
+          "size": 29061282,
+          "downloadCount": 7003
+        },
+        {
+          "ref": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "repo": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "owner": "gitea",
+              "name": "tea"
+            },
+            "release": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "repo": {
+                "forge": "gitea",
+                "instance": "gitea.com",
+                "owner": "gitea",
+                "name": "tea"
+              },
+              "id": "909830",
+              "tag": "v0.15.1"
+            },
+            "id": "94397"
+          },
+          "name": "tea-0.15.1-linux-amd64.xz",
+          "url": "https://gitea.com/gitea/tea/releases/download/v0.15.1/tea-0.15.1-linux-amd64.xz",
+          "size": 6632616,
+          "downloadCount": 1677
+        },
+        {
+          "ref": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "repo": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "owner": "gitea",
+              "name": "tea"
+            },
+            "release": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "repo": {
+                "forge": "gitea",
+                "instance": "gitea.com",
+                "owner": "gitea",
+                "name": "tea"
+              },
+              "id": "909830",
+              "tag": "v0.15.1"
+            },
+            "id": "94385"
+          },
+          "name": "tea-0.15.1-linux-amd64.xz.sha256",
+          "url": "https://gitea.com/gitea/tea/releases/download/v0.15.1/tea-0.15.1-linux-amd64.xz.sha256",
+          "size": 91,
+          "downloadCount": 569
+        },
+        {
+          "ref": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "repo": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "owner": "gitea",
+              "name": "tea"
+            },
+            "release": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "repo": {
+                "forge": "gitea",
+                "instance": "gitea.com",
+                "owner": "gitea",
+                "name": "tea"
+              },
+              "id": "909830",
+              "tag": "v0.15.1"
+            },
+            "id": "94408"
+          },
+          "name": "tea-0.15.1-linux-arm-5",
+          "url": "https://gitea.com/gitea/tea/releases/download/v0.15.1/tea-0.15.1-linux-arm-5",
+          "size": 27394210,
+          "downloadCount": 66
+        },
+        {
+          "ref": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "repo": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "owner": "gitea",
+              "name": "tea"
+            },
+            "release": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "repo": {
+                "forge": "gitea",
+                "instance": "gitea.com",
+                "owner": "gitea",
+                "name": "tea"
+              },
+              "id": "909830",
+              "tag": "v0.15.1"
+            },
+            "id": "94394"
+          },
+          "name": "tea-0.15.1-linux-arm-5.xz",
+          "url": "https://gitea.com/gitea/tea/releases/download/v0.15.1/tea-0.15.1-linux-arm-5.xz",
+          "size": 5945548,
+          "downloadCount": 27
+        },
+        {
+          "ref": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "repo": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "owner": "gitea",
+              "name": "tea"
+            },
+            "release": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "repo": {
+                "forge": "gitea",
+                "instance": "gitea.com",
+                "owner": "gitea",
+                "name": "tea"
+              },
+              "id": "909830",
+              "tag": "v0.15.1"
+            },
+            "id": "94381"
+          },
+          "name": "tea-0.15.1-linux-arm-5.xz.sha256",
+          "url": "https://gitea.com/gitea/tea/releases/download/v0.15.1/tea-0.15.1-linux-arm-5.xz.sha256",
+          "size": 91,
+          "downloadCount": 59
+        },
+        {
+          "ref": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "repo": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "owner": "gitea",
+              "name": "tea"
+            },
+            "release": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "repo": {
+                "forge": "gitea",
+                "instance": "gitea.com",
+                "owner": "gitea",
+                "name": "tea"
+              },
+              "id": "909830",
+              "tag": "v0.15.1"
+            },
+            "id": "94412"
+          },
+          "name": "tea-0.15.1-linux-arm-6",
+          "url": "https://gitea.com/gitea/tea/releases/download/v0.15.1/tea-0.15.1-linux-arm-6",
+          "size": 27328674,
+          "downloadCount": 65
+        },
+        {
+          "ref": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "repo": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "owner": "gitea",
+              "name": "tea"
+            },
+            "release": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "repo": {
+                "forge": "gitea",
+                "instance": "gitea.com",
+                "owner": "gitea",
+                "name": "tea"
+              },
+              "id": "909830",
+              "tag": "v0.15.1"
+            },
+            "id": "94396"
+          },
+          "name": "tea-0.15.1-linux-arm-6.xz",
+          "url": "https://gitea.com/gitea/tea/releases/download/v0.15.1/tea-0.15.1-linux-arm-6.xz",
+          "size": 5933748,
+          "downloadCount": 25
+        },
+        {
+          "ref": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "repo": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "owner": "gitea",
+              "name": "tea"
+            },
+            "release": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "repo": {
+                "forge": "gitea",
+                "instance": "gitea.com",
+                "owner": "gitea",
+                "name": "tea"
+              },
+              "id": "909830",
+              "tag": "v0.15.1"
+            },
+            "id": "94383"
+          },
+          "name": "tea-0.15.1-linux-arm-6.xz.sha256",
+          "url": "https://gitea.com/gitea/tea/releases/download/v0.15.1/tea-0.15.1-linux-arm-6.xz.sha256",
+          "size": 91,
+          "downloadCount": 54
+        },
+        {
+          "ref": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "repo": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "owner": "gitea",
+              "name": "tea"
+            },
+            "release": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "repo": {
+                "forge": "gitea",
+                "instance": "gitea.com",
+                "owner": "gitea",
+                "name": "tea"
+              },
+              "id": "909830",
+              "tag": "v0.15.1"
+            },
+            "id": "94410"
+          },
+          "name": "tea-0.15.1-linux-arm-7",
+          "url": "https://gitea.com/gitea/tea/releases/download/v0.15.1/tea-0.15.1-linux-arm-7",
+          "size": 27263138,
+          "downloadCount": 81
+        },
+        {
+          "ref": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "repo": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "owner": "gitea",
+              "name": "tea"
+            },
+            "release": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "repo": {
+                "forge": "gitea",
+                "instance": "gitea.com",
+                "owner": "gitea",
+                "name": "tea"
+              },
+              "id": "909830",
+              "tag": "v0.15.1"
+            },
+            "id": "94402"
+          },
+          "name": "tea-0.15.1-linux-arm-7.xz",
+          "url": "https://gitea.com/gitea/tea/releases/download/v0.15.1/tea-0.15.1-linux-arm-7.xz",
+          "size": 5926264,
+          "downloadCount": 28
+        },
+        {
+          "ref": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "repo": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "owner": "gitea",
+              "name": "tea"
+            },
+            "release": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "repo": {
+                "forge": "gitea",
+                "instance": "gitea.com",
+                "owner": "gitea",
+                "name": "tea"
+              },
+              "id": "909830",
+              "tag": "v0.15.1"
+            },
+            "id": "94391"
+          },
+          "name": "tea-0.15.1-linux-arm-7.xz.sha256",
+          "url": "https://gitea.com/gitea/tea/releases/download/v0.15.1/tea-0.15.1-linux-arm-7.xz.sha256",
+          "size": 91,
+          "downloadCount": 43
+        },
+        {
+          "ref": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "repo": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "owner": "gitea",
+              "name": "tea"
+            },
+            "release": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "repo": {
+                "forge": "gitea",
+                "instance": "gitea.com",
+                "owner": "gitea",
+                "name": "tea"
+              },
+              "id": "909830",
+              "tag": "v0.15.1"
+            },
+            "id": "94404"
+          },
+          "name": "tea-0.15.1-linux-arm64",
+          "url": "https://gitea.com/gitea/tea/releases/download/v0.15.1/tea-0.15.1-linux-arm64",
+          "size": 26738850,
+          "downloadCount": 742
+        },
+        {
+          "ref": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "repo": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "owner": "gitea",
+              "name": "tea"
+            },
+            "release": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "repo": {
+                "forge": "gitea",
+                "instance": "gitea.com",
+                "owner": "gitea",
+                "name": "tea"
+              },
+              "id": "909830",
+              "tag": "v0.15.1"
+            },
+            "id": "94398"
+          },
+          "name": "tea-0.15.1-linux-arm64.xz",
+          "url": "https://gitea.com/gitea/tea/releases/download/v0.15.1/tea-0.15.1-linux-arm64.xz",
+          "size": 5708692,
+          "downloadCount": 178
+        },
+        {
+          "ref": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "repo": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "owner": "gitea",
+              "name": "tea"
+            },
+            "release": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "repo": {
+                "forge": "gitea",
+                "instance": "gitea.com",
+                "owner": "gitea",
+                "name": "tea"
+              },
+              "id": "909830",
+              "tag": "v0.15.1"
+            },
+            "id": "94387"
+          },
+          "name": "tea-0.15.1-linux-arm64.xz.sha256",
+          "url": "https://gitea.com/gitea/tea/releases/download/v0.15.1/tea-0.15.1-linux-arm64.xz.sha256",
+          "size": 91,
+          "downloadCount": 123
+        },
+        {
+          "ref": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "repo": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "owner": "gitea",
+              "name": "tea"
+            },
+            "release": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "repo": {
+                "forge": "gitea",
+                "instance": "gitea.com",
+                "owner": "gitea",
+                "name": "tea"
+              },
+              "id": "909830",
+              "tag": "v0.15.1"
+            },
+            "id": "94407"
+          },
+          "name": "tea-0.15.1-windows-amd64.exe",
+          "url": "https://gitea.com/gitea/tea/releases/download/v0.15.1/tea-0.15.1-windows-amd64.exe",
+          "size": 29525504,
+          "downloadCount": 953
+        },
+        {
+          "ref": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "repo": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "owner": "gitea",
+              "name": "tea"
+            },
+            "release": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "repo": {
+                "forge": "gitea",
+                "instance": "gitea.com",
+                "owner": "gitea",
+                "name": "tea"
+              },
+              "id": "909830",
+              "tag": "v0.15.1"
+            },
+            "id": "94393"
+          },
+          "name": "tea-0.15.1-windows-amd64.exe.xz",
+          "url": "https://gitea.com/gitea/tea/releases/download/v0.15.1/tea-0.15.1-windows-amd64.exe.xz",
+          "size": 6710896,
+          "downloadCount": 412
+        },
+        {
+          "ref": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "repo": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "owner": "gitea",
+              "name": "tea"
+            },
+            "release": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "repo": {
+                "forge": "gitea",
+                "instance": "gitea.com",
+                "owner": "gitea",
+                "name": "tea"
+              },
+              "id": "909830",
+              "tag": "v0.15.1"
+            },
+            "id": "94392"
+          },
+          "name": "tea-0.15.1-windows-amd64.exe.xz.sha256",
+          "url": "https://gitea.com/gitea/tea/releases/download/v0.15.1/tea-0.15.1-windows-amd64.exe.xz.sha256",
+          "size": 97,
+          "downloadCount": 111
+        },
+        {
+          "ref": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "repo": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "owner": "gitea",
+              "name": "tea"
+            },
+            "release": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "repo": {
+                "forge": "gitea",
+                "instance": "gitea.com",
+                "owner": "gitea",
+                "name": "tea"
+              },
+              "id": "909830",
+              "tag": "v0.15.1"
+            },
+            "id": "94409"
+          },
+          "name": "tea-0.15.1-windows-arm64.exe",
+          "url": "https://gitea.com/gitea/tea/releases/download/v0.15.1/tea-0.15.1-windows-arm64.exe",
+          "size": 26808320,
+          "downloadCount": 133
+        },
+        {
+          "ref": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "repo": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "owner": "gitea",
+              "name": "tea"
+            },
+            "release": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "repo": {
+                "forge": "gitea",
+                "instance": "gitea.com",
+                "owner": "gitea",
+                "name": "tea"
+              },
+              "id": "909830",
+              "tag": "v0.15.1"
+            },
+            "id": "94401"
+          },
+          "name": "tea-0.15.1-windows-arm64.exe.xz",
+          "url": "https://gitea.com/gitea/tea/releases/download/v0.15.1/tea-0.15.1-windows-arm64.exe.xz",
+          "size": 5699332,
+          "downloadCount": 81
+        },
+        {
+          "ref": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "repo": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "owner": "gitea",
+              "name": "tea"
+            },
+            "release": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "repo": {
+                "forge": "gitea",
+                "instance": "gitea.com",
+                "owner": "gitea",
+                "name": "tea"
+              },
+              "id": "909830",
+              "tag": "v0.15.1"
+            },
+            "id": "94390"
+          },
+          "name": "tea-0.15.1-windows-arm64.exe.xz.sha256",
+          "url": "https://gitea.com/gitea/tea/releases/download/v0.15.1/tea-0.15.1-windows-arm64.exe.xz.sha256",
+          "size": 97,
+          "downloadCount": 66
+        }
+      ]
+    },
+    {
+      "ref": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "repo": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "owner": "gitea",
+          "name": "tea"
+        },
+        "id": "905731",
+        "tag": "v0.15.0"
+      },
+      "name": "v0.15.0",
+      "tag": "v0.15.0",
+      "body": "## What's Changed\r\n* ci(goreleaser): mirror release artifacts to Cloudflare R2 in [#1063](https://gitea.com/gitea/tea/pulls/1063)\r\n* fix(context): clarify the fallback login prompt wording in [#1061](https://gitea.com/gitea/tea/pulls/1061)\r\n* Fix notifications --mine outside git repositories in [#1056](https://gitea.com/gitea/tea/pulls/1056)\r\n* ci: wait for the gitea service to be ready before integration tests in [#1062](https://gitea.com/gitea/tea/pulls/1062)\r\n* feat(assignees): add set, add, and remove assignees APIs in [#1045](https://gitea.com/gitea/tea/pulls/1045)\r\n* fix(deps): update go dependencies in [#1057](https://gitea.com/gitea/tea/pulls/1057)\r\n* fix(deps): update go dependencies in [#1051](https://gitea.com/gitea/tea/pulls/1051)\r\n* fix(theme): don't query the terminal at start-up in [#1054](https://gitea.com/gitea/tea/pulls/1054)\r\n* upgrade go sdk and add test in [#1048](https://gitea.com/gitea/tea/pulls/1048)\r\n* feat(comments): accept -d/--description for comment body in [#1043](https://gitea.com/gitea/tea/pulls/1043)\r\n* Add reply to code review in [#978](https://gitea.com/gitea/tea/pulls/978)\r\n* fix(http): add transport timeouts so tea fails fast on stalled servers in [#1020](https://gitea.com/gitea/tea/pulls/1020)\r\n* fix(config): write to keychain before config in [#1044](https://gitea.com/gitea/tea/pulls/1044)\r\n\r\n## Contributors\r\n* @lunny\r\n* @zachwinter\r\n* @wingsallen\r\n* @renovate-bot\r\n* @willemkokke\r\n* @coffbr01\r\n* @dinsmoor\r\n* @techknowlogick\r\n\r\n## New Contributors\r\n* @zachwinter made their first contribution in [#1062](https://gitea.com/gitea/tea/pulls/1062)\r\n* @willemkokke made their first contribution in [#1054](https://gitea.com/gitea/tea/pulls/1054)\r\n* @coffbr01 made their first contribution in [#1043](https://gitea.com/gitea/tea/pulls/1043)\r\n\r\n**Full Changelog**: [v0.14.2...v0.15.0](https://gitea.com/gitea/tea/compare/v0.14.2...v0.15.0)\r\n",
+      "isDraft": false,
+      "isPrerelease": false,
+      "author": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "owner": "gitea",
+        "name": "bircni",
+        "login": "bircni",
+        "id": "173651",
+        "avatarUrl": "https://seccdn.libravatar.org/avatar/345fd80f2a069177c27dd0de27c99672940cce0923fca8de847119c573aab745?d=identicon",
+        "url": "https://gitea.com/bircni",
+        "isBotHint": false
+      },
+      "publishedAt": "2026-07-27T18:15:19.000Z",
+      "createdAt": "2026-07-27T18:15:19.000Z",
+      "url": "https://gitea.com/gitea/tea/releases/tag/v0.15.0",
+      "assets": [
+        {
+          "ref": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "repo": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "owner": "gitea",
+              "name": "tea"
+            },
+            "release": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "repo": {
+                "forge": "gitea",
+                "instance": "gitea.com",
+                "owner": "gitea",
+                "name": "tea"
+              },
+              "id": "905731",
+              "tag": "v0.15.0"
+            },
+            "id": "93410"
+          },
+          "name": "checksums.txt",
+          "url": "https://gitea.com/gitea/tea/releases/download/v0.15.0/checksums.txt",
+          "size": 1842,
+          "downloadCount": 309
+        },
+        {
+          "ref": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "repo": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "owner": "gitea",
+              "name": "tea"
+            },
+            "release": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "repo": {
+                "forge": "gitea",
+                "instance": "gitea.com",
+                "owner": "gitea",
+                "name": "tea"
+              },
+              "id": "905731",
+              "tag": "v0.15.0"
+            },
+            "id": "93418"
+          },
+          "name": "checksums.txt.sig",
+          "url": "https://gitea.com/gitea/tea/releases/download/v0.15.0/checksums.txt.sig",
+          "size": 566,
+          "downloadCount": 70
+        },
+        {
+          "ref": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "repo": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "owner": "gitea",
+              "name": "tea"
+            },
+            "release": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "repo": {
+                "forge": "gitea",
+                "instance": "gitea.com",
+                "owner": "gitea",
+                "name": "tea"
+              },
+              "id": "905731",
+              "tag": "v0.15.0"
+            },
+            "id": "93439"
+          },
+          "name": "tea-0.15.0-darwin-amd64",
+          "url": "https://gitea.com/gitea/tea/releases/download/v0.15.0/tea-0.15.0-darwin-amd64",
+          "size": 29207280,
+          "downloadCount": 85
+        },
+        {
+          "ref": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "repo": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "owner": "gitea",
+              "name": "tea"
+            },
+            "release": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "repo": {
+                "forge": "gitea",
+                "instance": "gitea.com",
+                "owner": "gitea",
+                "name": "tea"
+              },
+              "id": "905731",
+              "tag": "v0.15.0"
+            },
+            "id": "93422"
+          },
+          "name": "tea-0.15.0-darwin-amd64.xz",
+          "url": "https://gitea.com/gitea/tea/releases/download/v0.15.0/tea-0.15.0-darwin-amd64.xz",
+          "size": 6591644,
+          "downloadCount": 41
+        },
+        {
+          "ref": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "repo": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "owner": "gitea",
+              "name": "tea"
+            },
+            "release": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "repo": {
+                "forge": "gitea",
+                "instance": "gitea.com",
+                "owner": "gitea",
+                "name": "tea"
+              },
+              "id": "905731",
+              "tag": "v0.15.0"
+            },
+            "id": "93414"
+          },
+          "name": "tea-0.15.0-darwin-amd64.xz.sha256",
+          "url": "https://gitea.com/gitea/tea/releases/download/v0.15.0/tea-0.15.0-darwin-amd64.xz.sha256",
+          "size": 92,
+          "downloadCount": 52
+        },
+        {
+          "ref": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "repo": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "owner": "gitea",
+              "name": "tea"
+            },
+            "release": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "repo": {
+                "forge": "gitea",
+                "instance": "gitea.com",
+                "owner": "gitea",
+                "name": "tea"
+              },
+              "id": "905731",
+              "tag": "v0.15.0"
+            },
+            "id": "93431"
+          },
+          "name": "tea-0.15.0-darwin-arm64",
+          "url": "https://gitea.com/gitea/tea/releases/download/v0.15.0/tea-0.15.0-darwin-arm64",
+          "size": 27045058,
+          "downloadCount": 121
+        },
+        {
+          "ref": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "repo": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "owner": "gitea",
+              "name": "tea"
+            },
+            "release": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "repo": {
+                "forge": "gitea",
+                "instance": "gitea.com",
+                "owner": "gitea",
+                "name": "tea"
+              },
+              "id": "905731",
+              "tag": "v0.15.0"
+            },
+            "id": "93423"
+          },
+          "name": "tea-0.15.0-darwin-arm64.xz",
+          "url": "https://gitea.com/gitea/tea/releases/download/v0.15.0/tea-0.15.0-darwin-arm64.xz",
+          "size": 5898756,
+          "downloadCount": 51
+        },
+        {
+          "ref": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "repo": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "owner": "gitea",
+              "name": "tea"
+            },
+            "release": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "repo": {
+                "forge": "gitea",
+                "instance": "gitea.com",
+                "owner": "gitea",
+                "name": "tea"
+              },
+              "id": "905731",
+              "tag": "v0.15.0"
+            },
+            "id": "93419"
+          },
+          "name": "tea-0.15.0-darwin-arm64.xz.sha256",
+          "url": "https://gitea.com/gitea/tea/releases/download/v0.15.0/tea-0.15.0-darwin-arm64.xz.sha256",
+          "size": 92,
+          "downloadCount": 72
+        },
+        {
+          "ref": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "repo": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "owner": "gitea",
+              "name": "tea"
+            },
+            "release": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "repo": {
+                "forge": "gitea",
+                "instance": "gitea.com",
+                "owner": "gitea",
+                "name": "tea"
+              },
+              "id": "905731",
+              "tag": "v0.15.0"
+            },
+            "id": "93433"
+          },
+          "name": "tea-0.15.0-freebsd-amd64",
+          "url": "https://gitea.com/gitea/tea/releases/download/v0.15.0/tea-0.15.0-freebsd-amd64",
+          "size": 28614828,
+          "downloadCount": 71
+        },
+        {
+          "ref": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "repo": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "owner": "gitea",
+              "name": "tea"
+            },
+            "release": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "repo": {
+                "forge": "gitea",
+                "instance": "gitea.com",
+                "owner": "gitea",
+                "name": "tea"
+              },
+              "id": "905731",
+              "tag": "v0.15.0"
+            },
+            "id": "93427"
+          },
+          "name": "tea-0.15.0-freebsd-amd64.xz",
+          "url": "https://gitea.com/gitea/tea/releases/download/v0.15.0/tea-0.15.0-freebsd-amd64.xz",
+          "size": 6503676,
+          "downloadCount": 32
+        },
+        {
+          "ref": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "repo": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "owner": "gitea",
+              "name": "tea"
+            },
+            "release": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "repo": {
+                "forge": "gitea",
+                "instance": "gitea.com",
+                "owner": "gitea",
+                "name": "tea"
+              },
+              "id": "905731",
+              "tag": "v0.15.0"
+            },
+            "id": "93416"
+          },
+          "name": "tea-0.15.0-freebsd-amd64.xz.sha256",
+          "url": "https://gitea.com/gitea/tea/releases/download/v0.15.0/tea-0.15.0-freebsd-amd64.xz.sha256",
+          "size": 93,
+          "downloadCount": 67
+        },
+        {
+          "ref": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "repo": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "owner": "gitea",
+              "name": "tea"
+            },
+            "release": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "repo": {
+                "forge": "gitea",
+                "instance": "gitea.com",
+                "owner": "gitea",
+                "name": "tea"
+              },
+              "id": "905731",
+              "tag": "v0.15.0"
+            },
+            "id": "93437"
+          },
+          "name": "tea-0.15.0-linux-amd64",
+          "url": "https://gitea.com/gitea/tea/releases/download/v0.15.0/tea-0.15.0-linux-amd64",
+          "size": 29061282,
+          "downloadCount": 2750
+        },
+        {
+          "ref": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "repo": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "owner": "gitea",
+              "name": "tea"
+            },
+            "release": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "repo": {
+                "forge": "gitea",
+                "instance": "gitea.com",
+                "owner": "gitea",
+                "name": "tea"
+              },
+              "id": "905731",
+              "tag": "v0.15.0"
+            },
+            "id": "93429"
+          },
+          "name": "tea-0.15.0-linux-amd64.xz",
+          "url": "https://gitea.com/gitea/tea/releases/download/v0.15.0/tea-0.15.0-linux-amd64.xz",
+          "size": 6633868,
+          "downloadCount": 177
+        },
+        {
+          "ref": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "repo": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "owner": "gitea",
+              "name": "tea"
+            },
+            "release": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "repo": {
+                "forge": "gitea",
+                "instance": "gitea.com",
+                "owner": "gitea",
+                "name": "tea"
+              },
+              "id": "905731",
+              "tag": "v0.15.0"
+            },
+            "id": "93408"
+          },
+          "name": "tea-0.15.0-linux-amd64.xz.sha256",
+          "url": "https://gitea.com/gitea/tea/releases/download/v0.15.0/tea-0.15.0-linux-amd64.xz.sha256",
+          "size": 91,
+          "downloadCount": 161
+        },
+        {
+          "ref": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "repo": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "owner": "gitea",
+              "name": "tea"
+            },
+            "release": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "repo": {
+                "forge": "gitea",
+                "instance": "gitea.com",
+                "owner": "gitea",
+                "name": "tea"
+              },
+              "id": "905731",
+              "tag": "v0.15.0"
+            },
+            "id": "93432"
+          },
+          "name": "tea-0.15.0-linux-arm-5",
+          "url": "https://gitea.com/gitea/tea/releases/download/v0.15.0/tea-0.15.0-linux-arm-5",
+          "size": 27394210,
+          "downloadCount": 74
+        },
+        {
+          "ref": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "repo": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "owner": "gitea",
+              "name": "tea"
+            },
+            "release": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "repo": {
+                "forge": "gitea",
+                "instance": "gitea.com",
+                "owner": "gitea",
+                "name": "tea"
+              },
+              "id": "905731",
+              "tag": "v0.15.0"
+            },
+            "id": "93426"
+          },
+          "name": "tea-0.15.0-linux-arm-5.xz",
+          "url": "https://gitea.com/gitea/tea/releases/download/v0.15.0/tea-0.15.0-linux-arm-5.xz",
+          "size": 5954060,
+          "downloadCount": 34
+        },
+        {
+          "ref": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "repo": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "owner": "gitea",
+              "name": "tea"
+            },
+            "release": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "repo": {
+                "forge": "gitea",
+                "instance": "gitea.com",
+                "owner": "gitea",
+                "name": "tea"
+              },
+              "id": "905731",
+              "tag": "v0.15.0"
+            },
+            "id": "93415"
+          },
+          "name": "tea-0.15.0-linux-arm-5.xz.sha256",
+          "url": "https://gitea.com/gitea/tea/releases/download/v0.15.0/tea-0.15.0-linux-arm-5.xz.sha256",
+          "size": 91,
+          "downloadCount": 63
+        },
+        {
+          "ref": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "repo": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "owner": "gitea",
+              "name": "tea"
+            },
+            "release": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "repo": {
+                "forge": "gitea",
+                "instance": "gitea.com",
+                "owner": "gitea",
+                "name": "tea"
+              },
+              "id": "905731",
+              "tag": "v0.15.0"
+            },
+            "id": "93436"
+          },
+          "name": "tea-0.15.0-linux-arm-6",
+          "url": "https://gitea.com/gitea/tea/releases/download/v0.15.0/tea-0.15.0-linux-arm-6",
+          "size": 27328674,
+          "downloadCount": 52
+        },
+        {
+          "ref": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "repo": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "owner": "gitea",
+              "name": "tea"
+            },
+            "release": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "repo": {
+                "forge": "gitea",
+                "instance": "gitea.com",
+                "owner": "gitea",
+                "name": "tea"
+              },
+              "id": "905731",
+              "tag": "v0.15.0"
+            },
+            "id": "93428"
+          },
+          "name": "tea-0.15.0-linux-arm-6.xz",
+          "url": "https://gitea.com/gitea/tea/releases/download/v0.15.0/tea-0.15.0-linux-arm-6.xz",
+          "size": 5936184,
+          "downloadCount": 31
+        },
+        {
+          "ref": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "repo": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "owner": "gitea",
+              "name": "tea"
+            },
+            "release": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "repo": {
+                "forge": "gitea",
+                "instance": "gitea.com",
+                "owner": "gitea",
+                "name": "tea"
+              },
+              "id": "905731",
+              "tag": "v0.15.0"
+            },
+            "id": "93413"
+          },
+          "name": "tea-0.15.0-linux-arm-6.xz.sha256",
+          "url": "https://gitea.com/gitea/tea/releases/download/v0.15.0/tea-0.15.0-linux-arm-6.xz.sha256",
+          "size": 91,
+          "downloadCount": 57
+        },
+        {
+          "ref": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "repo": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "owner": "gitea",
+              "name": "tea"
+            },
+            "release": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "repo": {
+                "forge": "gitea",
+                "instance": "gitea.com",
+                "owner": "gitea",
+                "name": "tea"
+              },
+              "id": "905731",
+              "tag": "v0.15.0"
+            },
+            "id": "93435"
+          },
+          "name": "tea-0.15.0-linux-arm-7",
+          "url": "https://gitea.com/gitea/tea/releases/download/v0.15.0/tea-0.15.0-linux-arm-7",
+          "size": 27328674,
+          "downloadCount": 69
+        },
+        {
+          "ref": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "repo": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "owner": "gitea",
+              "name": "tea"
+            },
+            "release": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "repo": {
+                "forge": "gitea",
+                "instance": "gitea.com",
+                "owner": "gitea",
+                "name": "tea"
+              },
+              "id": "905731",
+              "tag": "v0.15.0"
+            },
+            "id": "93424"
+          },
+          "name": "tea-0.15.0-linux-arm-7.xz",
+          "url": "https://gitea.com/gitea/tea/releases/download/v0.15.0/tea-0.15.0-linux-arm-7.xz",
+          "size": 5934944,
+          "downloadCount": 35
+        },
+        {
+          "ref": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "repo": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "owner": "gitea",
+              "name": "tea"
+            },
+            "release": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "repo": {
+                "forge": "gitea",
+                "instance": "gitea.com",
+                "owner": "gitea",
+                "name": "tea"
+              },
+              "id": "905731",
+              "tag": "v0.15.0"
+            },
+            "id": "93411"
+          },
+          "name": "tea-0.15.0-linux-arm-7.xz.sha256",
+          "url": "https://gitea.com/gitea/tea/releases/download/v0.15.0/tea-0.15.0-linux-arm-7.xz.sha256",
+          "size": 91,
+          "downloadCount": 63
+        },
+        {
+          "ref": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "repo": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "owner": "gitea",
+              "name": "tea"
+            },
+            "release": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "repo": {
+                "forge": "gitea",
+                "instance": "gitea.com",
+                "owner": "gitea",
+                "name": "tea"
+              },
+              "id": "905731",
+              "tag": "v0.15.0"
+            },
+            "id": "93438"
+          },
+          "name": "tea-0.15.0-linux-arm64",
+          "url": "https://gitea.com/gitea/tea/releases/download/v0.15.0/tea-0.15.0-linux-arm64",
+          "size": 26738850,
+          "downloadCount": 240
+        },
+        {
+          "ref": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "repo": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "owner": "gitea",
+              "name": "tea"
+            },
+            "release": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "repo": {
+                "forge": "gitea",
+                "instance": "gitea.com",
+                "owner": "gitea",
+                "name": "tea"
+              },
+              "id": "905731",
+              "tag": "v0.15.0"
+            },
+            "id": "93420"
+          },
+          "name": "tea-0.15.0-linux-arm64.xz",
+          "url": "https://gitea.com/gitea/tea/releases/download/v0.15.0/tea-0.15.0-linux-arm64.xz",
+          "size": 5715120,
+          "downloadCount": 51
+        },
+        {
+          "ref": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "repo": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "owner": "gitea",
+              "name": "tea"
+            },
+            "release": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "repo": {
+                "forge": "gitea",
+                "instance": "gitea.com",
+                "owner": "gitea",
+                "name": "tea"
+              },
+              "id": "905731",
+              "tag": "v0.15.0"
+            },
+            "id": "93409"
+          },
+          "name": "tea-0.15.0-linux-arm64.xz.sha256",
+          "url": "https://gitea.com/gitea/tea/releases/download/v0.15.0/tea-0.15.0-linux-arm64.xz.sha256",
+          "size": 91,
+          "downloadCount": 73
+        },
+        {
+          "ref": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "repo": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "owner": "gitea",
+              "name": "tea"
+            },
+            "release": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "repo": {
+                "forge": "gitea",
+                "instance": "gitea.com",
+                "owner": "gitea",
+                "name": "tea"
+              },
+              "id": "905731",
+              "tag": "v0.15.0"
+            },
+            "id": "93434"
+          },
+          "name": "tea-0.15.0-windows-amd64.exe",
+          "url": "https://gitea.com/gitea/tea/releases/download/v0.15.0/tea-0.15.0-windows-amd64.exe",
+          "size": 29525504,
+          "downloadCount": 265
+        },
+        {
+          "ref": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "repo": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "owner": "gitea",
+              "name": "tea"
+            },
+            "release": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "repo": {
+                "forge": "gitea",
+                "instance": "gitea.com",
+                "owner": "gitea",
+                "name": "tea"
+              },
+              "id": "905731",
+              "tag": "v0.15.0"
+            },
+            "id": "93425"
+          },
+          "name": "tea-0.15.0-windows-amd64.exe.xz",
+          "url": "https://gitea.com/gitea/tea/releases/download/v0.15.0/tea-0.15.0-windows-amd64.exe.xz",
+          "size": 6708080,
+          "downloadCount": 157
+        },
+        {
+          "ref": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "repo": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "owner": "gitea",
+              "name": "tea"
+            },
+            "release": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "repo": {
+                "forge": "gitea",
+                "instance": "gitea.com",
+                "owner": "gitea",
+                "name": "tea"
+              },
+              "id": "905731",
+              "tag": "v0.15.0"
+            },
+            "id": "93417"
+          },
+          "name": "tea-0.15.0-windows-amd64.exe.xz.sha256",
+          "url": "https://gitea.com/gitea/tea/releases/download/v0.15.0/tea-0.15.0-windows-amd64.exe.xz.sha256",
+          "size": 97,
+          "downloadCount": 65
+        },
+        {
+          "ref": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "repo": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "owner": "gitea",
+              "name": "tea"
+            },
+            "release": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "repo": {
+                "forge": "gitea",
+                "instance": "gitea.com",
+                "owner": "gitea",
+                "name": "tea"
+              },
+              "id": "905731",
+              "tag": "v0.15.0"
+            },
+            "id": "93430"
+          },
+          "name": "tea-0.15.0-windows-arm64.exe",
+          "url": "https://gitea.com/gitea/tea/releases/download/v0.15.0/tea-0.15.0-windows-arm64.exe",
+          "size": 26808832,
+          "downloadCount": 56
+        },
+        {
+          "ref": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "repo": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "owner": "gitea",
+              "name": "tea"
+            },
+            "release": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "repo": {
+                "forge": "gitea",
+                "instance": "gitea.com",
+                "owner": "gitea",
+                "name": "tea"
+              },
+              "id": "905731",
+              "tag": "v0.15.0"
+            },
+            "id": "93421"
+          },
+          "name": "tea-0.15.0-windows-arm64.exe.xz",
+          "url": "https://gitea.com/gitea/tea/releases/download/v0.15.0/tea-0.15.0-windows-arm64.exe.xz",
+          "size": 5699544,
+          "downloadCount": 45
+        },
+        {
+          "ref": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "repo": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "owner": "gitea",
+              "name": "tea"
+            },
+            "release": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "repo": {
+                "forge": "gitea",
+                "instance": "gitea.com",
+                "owner": "gitea",
+                "name": "tea"
+              },
+              "id": "905731",
+              "tag": "v0.15.0"
+            },
+            "id": "93412"
+          },
+          "name": "tea-0.15.0-windows-arm64.exe.xz.sha256",
+          "url": "https://gitea.com/gitea/tea/releases/download/v0.15.0/tea-0.15.0-windows-arm64.exe.xz.sha256",
+          "size": 97,
+          "downloadCount": 65
+        }
+      ]
+    }
+  ],
+  "cursor": {
+    "nextUrl": "https://gitea.com/api/v1/repos/gitea/tea/releases?limit=3&page=2"
+  }
+}

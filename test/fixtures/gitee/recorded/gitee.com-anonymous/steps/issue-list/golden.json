@@ -1,0 +1,128 @@
+{
+  "items": [
+    {
+      "ref": {
+        "forge": "gitee",
+        "instance": "gitee.com",
+        "repo": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "owner": "cmcc-oneos",
+          "name": "OneOS"
+        },
+        "kind": "issue",
+        "number": "ICEGJY",
+        "externalId": "20830030"
+      },
+      "kind": "issue",
+      "title": "oos project",
+      "body": "oos project\r\n![g](https://foruda.gitee.com/images/1749647885448652552/f7f58ed6_9519554.png \"屏幕截图\")",
+      "state": "open",
+      "stateRaw": "open",
+      "isDraft": false,
+      "author": {
+        "forge": "gitee",
+        "instance": "gitee.com",
+        "login": "arctic603",
+        "id": "9519554",
+        "name": "飞雏Arctic",
+        "avatarUrl": "https://foruda.gitee.com/avatar/1699259994795560788/9519554_arcticlight_1699259994.png",
+        "url": "https://gitee.com/arctic603",
+        "typeRaw": "User",
+        "isBotHint": false
+      },
+      "assignees": [],
+      "reviewers": [],
+      "labels": [],
+      "url": "https://gitee.com/cmcc-oneos/OneOS/issues/ICEGJY",
+      "createdAt": "2025-06-11T13:18:17.000Z",
+      "updatedAt": "2025-06-12T03:05:45.000Z",
+      "lastActivityAt": "2025-06-12T03:05:45.000Z",
+      "commentCount": 2
+    },
+    {
+      "ref": {
+        "forge": "gitee",
+        "instance": "gitee.com",
+        "repo": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "owner": "cmcc-oneos",
+          "name": "OneOS"
+        },
+        "kind": "issue",
+        "number": "I9SI93",
+        "externalId": "16446567"
+      },
+      "kind": "issue",
+      "title": "关于ili9341驱动的问题",
+      "body": "请问一下，graphic文件夹里自带的ili9341驱动（ili9341.c）并没有将ili9341注册成graphic设备的代码，而os_graphic_ops结构体里所需的函数我也没在ili9341.c里发现，我该怎么将它注册成graphic设备？",
+      "state": "open",
+      "stateRaw": "open",
+      "isDraft": false,
+      "author": {
+        "forge": "gitee",
+        "instance": "gitee.com",
+        "login": "w-morning",
+        "id": "9910315",
+        "name": "w晨",
+        "avatarUrl": "https://gitee.com/assets/no_portrait.png",
+        "url": "https://gitee.com/w-morning",
+        "typeRaw": "User",
+        "isBotHint": false
+      },
+      "assignees": [],
+      "reviewers": [],
+      "labels": [],
+      "url": "https://gitee.com/cmcc-oneos/OneOS/issues/I9SI93",
+      "createdAt": "2024-05-27T07:46:21.000Z",
+      "updatedAt": "2024-05-29T03:29:53.000Z",
+      "lastActivityAt": "2024-05-29T03:29:53.000Z",
+      "commentCount": 1
+    },
+    {
+      "ref": {
+        "forge": "gitee",
+        "instance": "gitee.com",
+        "repo": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "owner": "cmcc-oneos",
+          "name": "OneOS"
+        },
+        "kind": "issue",
+        "number": "I9QK2Y",
+        "externalId": "16355626"
+      },
+      "kind": "issue",
+      "title": "oneos是否支持容器化部署？",
+      "body": "想问下oneos是否能支持容器化部署，然后最低的配置是什么呢？",
+      "state": "open",
+      "stateRaw": "open",
+      "isDraft": false,
+      "author": {
+        "forge": "gitee",
+        "instance": "gitee.com",
+        "login": "wu_mayunnnnnn",
+        "id": "7934778",
+        "name": "Handsome Wu",
+        "avatarUrl": "https://foruda.gitee.com/avatar/1677103811800513556/7934778_wu_mayunnnnnn_1617629638.png",
+        "url": "https://gitee.com/wu_mayunnnnnn",
+        "typeRaw": "User",
+        "isBotHint": false
+      },
+      "assignees": [],
+      "reviewers": [],
+      "labels": [],
+      "url": "https://gitee.com/cmcc-oneos/OneOS/issues/I9QK2Y",
+      "createdAt": "2024-05-20T03:01:58.000Z",
+      "updatedAt": "2024-05-20T03:01:58.000Z",
+      "lastActivityAt": "2024-05-20T03:01:58.000Z",
+      "commentCount": 0
+    }
+  ],
+  "cursor": {
+    "nextUrl": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/issues?state=open&sort=created&direction=desc&page=2&per_page=3",
+    "token": "0:"
+  }
+}

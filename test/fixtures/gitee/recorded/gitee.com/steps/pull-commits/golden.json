@@ -1,0 +1,39 @@
+{
+  "items": [
+    {
+      "ref": {
+        "forge": "gitee",
+        "instance": "gitee.com",
+        "repo": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "owner": "cmcc-oneos",
+          "name": "OneOS"
+        },
+        "sha": "4335303c9a57ffcf13225dcf39dfd23b8237e03b"
+      },
+      "sha": "4335303c9a57ffcf13225dcf39dfd23b8237e03b",
+      "message": "fix(cms): delete cms component from oneos.\n",
+      "author": {
+        "name": "zhangyong",
+        "email": "redacted@example.invalid",
+        "date": "2024-08-22T01:35:18.000Z"
+      },
+      "committer": {
+        "actor": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "id": "undefined",
+          "isBotHint": false
+        },
+        "name": "zhangyong",
+        "email": "redacted@example.invalid",
+        "date": "2024-08-22T01:35:18.000Z"
+      },
+      "parents": [
+        "7e3cd0d302f25794197b2c76855cc18b1dace36b"
+      ],
+      "url": "https://gitee.com/cmcc-oneos/OneOS/commits/4335303c9a57ffcf13225dcf39dfd23b8237e03b"
+    }
+  ]
+}

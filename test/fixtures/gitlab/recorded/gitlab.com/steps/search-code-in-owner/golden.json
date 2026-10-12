@@ -1,0 +1,39 @@
+{
+  "items": [
+    {
+      "repo": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "owner": "gitlab-org/ai-engineering/agent-foundations",
+        "name": "agentic-productivity",
+        "externalId": "80045070"
+      },
+      "path": "angusryer/harnex/framework/verification/import_extractors.py",
+      "ref": "main",
+      "fragments": [
+        {
+          "text": "@dataclass(frozen=True)\nclass Import:\n    specifier: str\n",
+          "line": 47
+        },
+        {
+          "text": "\ndef extract_imports(file_path: Path) -> list[Import]:\n    \"\"\"Return the imports in file_path as Import(specifier, kind, line).\n",
+          "line": 53
+        },
+        {
+          "text": "\"\"\"Import extractor for the boundary check (#127, INV-BOUNDARY-001).\n\n",
+          "line": 1
+        }
+      ],
+      "url": "https://gitlab.com/gitlab-org/ai-engineering/agent-foundations/agentic-productivity/-/blob/main/angusryer/harnex/framework/verification/import_extractors.py#L47"
+    }
+  ],
+  "cursor": {
+    "nextUrl": "https://gitlab.com/api/v4/groups/gitlab-org/search?id=gitlab-org&include_archived=false&page=2&per_page=3&scope=blobs&search=import",
+    "etag": "W/\"3296e800e124f86e31673ce9a12cc61b\""
+  },
+  "rateLimit": {
+    "limit": 2000,
+    "remaining": 1929,
+    "resetAt": "<now>"
+  }
+}

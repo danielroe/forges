@@ -1,0 +1,76 @@
+[
+  {
+    "ok": true,
+    "ref": {
+      "forge": "tangled",
+      "instance": "tangled.org",
+      "repo": {
+        "forge": "tangled",
+        "instance": "tangled.org",
+        "owner": "did:plc:7qksav5io2s4qfg67pe7iqqk",
+        "name": "forges-fixtures",
+        "externalId": "did:plc:t73o44q7fppgagkrevtztyok"
+      },
+      "kind": "issue",
+      "typeRaw": "sh.tangled.repo.issue",
+      "number": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.issue/3mxmwlijmkm2y",
+      "externalId": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.issue/3mxmwlijmkm2y"
+    },
+    "thread": {
+      "ref": {
+        "forge": "tangled",
+        "instance": "tangled.org",
+        "repo": {
+          "forge": "tangled",
+          "instance": "tangled.org",
+          "owner": "did:plc:7qksav5io2s4qfg67pe7iqqk",
+          "name": "forges-fixtures",
+          "externalId": "did:plc:t73o44q7fppgagkrevtztyok"
+        },
+        "kind": "issue",
+        "typeRaw": "sh.tangled.repo.issue",
+        "number": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.issue/3mxmwlijmkm2y",
+        "externalId": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.issue/3mxmwlijmkm2y"
+      },
+      "kind": "issue",
+      "title": "forges seed: issue",
+      "body": "An issue that read recordings read.",
+      "state": "open",
+      "stateRaw": "open",
+      "isDraft": false,
+      "author": {
+        "forge": "tangled",
+        "instance": "tangled.org",
+        "login": "roebot.tngl.sh",
+        "id": "did:plc:7qksav5io2s4qfg67pe7iqqk",
+        "url": "https://tangled.org/roebot.tngl.sh",
+        "isBotHint": false
+      },
+      "assignees": [
+        {
+          "forge": "tangled",
+          "instance": "tangled.org",
+          "login": "roebot.tngl.sh",
+          "id": "did:plc:7qksav5io2s4qfg67pe7iqqk",
+          "url": "https://tangled.org/roebot.tngl.sh",
+          "isBotHint": false
+        }
+      ],
+      "reviewers": [],
+      "createdAt": "<now>",
+      "updatedAt": "<now>",
+      "lastActivityAt": "<now>",
+      "labels": [
+        {
+          "name": "wontfix",
+          "colour": "64748b"
+        },
+        {
+          "name": "forges-seed",
+          "colour": "8b5cf6"
+        }
+      ],
+      "commentCount": 3
+    }
+  }
+]

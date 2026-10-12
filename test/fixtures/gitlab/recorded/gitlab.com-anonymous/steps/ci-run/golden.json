@@ -1,0 +1,34 @@
+{
+  "ref": {
+    "forge": "gitlab",
+    "instance": "gitlab.com",
+    "repo": {
+      "forge": "gitlab",
+      "instance": "gitlab.com",
+      "owner": "gitlab-org",
+      "name": "cli"
+    },
+    "id": "2935977998"
+  },
+  "name": "duo_workflow",
+  "state": "success",
+  "stateRaw": "success",
+  "number": "15082",
+  "eventRaw": "duo_workflow",
+  "branch": "refs/workloads/e129edfe7b5",
+  "sha": "9a7963a1f19651973a02d75b8a7ae16ba81e27e5",
+  "url": "https://gitlab.com/gitlab-org/cli/-/pipelines/2935977998",
+  "actor": {
+    "forge": "gitlab",
+    "instance": "gitlab.com",
+    "login": "duo-code-review-gitlab-org",
+    "id": "32742181",
+    "name": "Duo Code Review",
+    "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/32742181/code-review-flow.png?v=1791676816",
+    "url": "https://gitlab.com/duo-code-review-gitlab-org",
+    "isBotHint": false
+  },
+  "createdAt": "<now>",
+  "startedAt": "<now>",
+  "completedAt": "<now>"
+}

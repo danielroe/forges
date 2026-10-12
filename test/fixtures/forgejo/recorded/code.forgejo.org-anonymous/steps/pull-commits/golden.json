@@ -1,0 +1,63 @@
+{
+  "items": [
+    {
+      "ref": {
+        "forge": "forgejo",
+        "instance": "code.forgejo.org",
+        "repo": {
+          "forge": "forgejo",
+          "instance": "code.forgejo.org",
+          "owner": "forgejo",
+          "name": "runner"
+        },
+        "sha": "4348bba01b5300d6d0c0218dc48e3de88068018b"
+      },
+      "sha": "4348bba01b5300d6d0c0218dc48e3de88068018b",
+      "message": "Update dependency buildx to v0.37.2\n",
+      "author": {
+        "actor": {
+          "forge": "forgejo",
+          "instance": "code.forgejo.org",
+          "login": "viceice-bot",
+          "id": "163",
+          "avatarUrl": "https://code.forgejo.org/avatars/75f41dd71d2dc37a9932ce7c713016d30823076e66b85f6e3a8a8c0a68fc979b",
+          "url": "https://code.forgejo.org/viceice-bot",
+          "isBotHint": false
+        },
+        "name": "Renovate Bot",
+        "email": "redacted@example.invalid",
+        "date": "2026-09-30T22:02:59.000Z"
+      },
+      "committer": {
+        "actor": {
+          "forge": "forgejo",
+          "instance": "code.forgejo.org",
+          "login": "viceice-bot",
+          "id": "163",
+          "avatarUrl": "https://code.forgejo.org/avatars/75f41dd71d2dc37a9932ce7c713016d30823076e66b85f6e3a8a8c0a68fc979b",
+          "url": "https://code.forgejo.org/viceice-bot",
+          "isBotHint": false
+        },
+        "name": "Renovate Bot",
+        "email": "redacted@example.invalid",
+        "date": "2026-09-30T22:02:59.000Z"
+      },
+      "parents": [
+        "3cfcf5b674d1f8bf69b1215f7ba6283202299633"
+      ],
+      "url": "https://code.forgejo.org/forgejo/runner/commit/4348bba01b5300d6d0c0218dc48e3de88068018b",
+      "stats": {
+        "additions": 1,
+        "deletions": 1,
+        "total": 2
+      },
+      "files": [
+        {
+          "path": ".forgejo/workflows/docker-build-push-action-in-lxc.yml",
+          "status": "modified",
+          "statusRaw": "modified"
+        }
+      ]
+    }
+  ]
+}

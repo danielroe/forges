@@ -1,0 +1,63 @@
+{
+  "items": [
+    {
+      "ref": {
+        "forge": "github",
+        "instance": "github.com",
+        "repo": {
+          "forge": "github",
+          "instance": "github.com",
+          "owner": "h3js",
+          "name": "h3"
+        },
+        "kind": "issue",
+        "number": "1586",
+        "externalId": "I_kwDOErHI988AAAABWdirSA"
+      },
+      "kind": "issue",
+      "title": "The code example in “More utils” is incorrect.",
+      "body": "### Describe the change\n\nI'm sorry if this sounds like I'm nitpicking, but since I noticed it, I wanted to point it out. It looks like there's an extra semicolon.\n\n```\nconst api = new H3()\n .get(\"/\", () => \"Hello API!\");\nconst app = new H3();\n .use(\"/api/**\", withBase(\"/api\", api.handler));\n```\n\n### URLs\n\nhttps://h3.dev/utils/more#withbasebase-input\n\n### Additional information\n\n- [x] Would you be willing to help?",
+      "state": "open",
+      "stateRaw": "open",
+      "isDraft": false,
+      "author": {
+        "forge": "github",
+        "instance": "github.com",
+        "login": "otowa1",
+        "id": "90172742",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/90172742?v=4",
+        "url": "https://github.com/otowa1",
+        "typeRaw": "User",
+        "isBotHint": false
+      },
+      "assignees": [],
+      "reviewers": [],
+      "labels": [
+        {
+          "name": "documentation",
+          "colour": "0075ca",
+          "description": "Improvements or additions to documentation"
+        }
+      ],
+      "url": "https://github.com/h3js/h3/issues/1586",
+      "createdAt": "<now>",
+      "updatedAt": "<now>",
+      "lastActivityAt": "<now>",
+      "locked": false,
+      "commentCount": 0,
+      "reactions": {
+        "total": 0,
+        "counts": {}
+      }
+    }
+  ],
+  "cursor": {
+    "nextUrl": "https://api.github.com/repositories/313641207/issues?state=open&sort=created&direction=desc&per_page=3&after=Y3Vyc29yOnYyOpLPAAABoStP4lDPAAAAAVnRJdg%3D&page=2",
+    "etag": "W/\"2a720808916064384e4bc2ad09835eeeae36841b4a41c89614ee31c20d9b059f\""
+  },
+  "rateLimit": {
+    "limit": 5000,
+    "remaining": 4984,
+    "resetAt": "2026-10-11T17:05:29.000Z"
+  }
+}

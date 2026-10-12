@@ -1,0 +1,33 @@
+{
+  "ref": {
+    "forge": "gitea",
+    "instance": "gitea.com",
+    "repo": {
+      "forge": "gitea",
+      "instance": "gitea.com",
+      "owner": "gitea",
+      "name": "tea"
+    },
+    "id": "1051680"
+  },
+  "name": "test-pr.yml",
+  "state": "success",
+  "stateRaw": "completed",
+  "number": "1717",
+  "eventRaw": "pull_request",
+  "sha": "d3ec77f8ea0c2e484f89194dc34fb7986a51a8f9",
+  "url": "https://gitea.com/gitea/tea/actions/runs/1051680",
+  "actor": {
+    "forge": "gitea",
+    "instance": "gitea.com",
+    "login": "chrisbecker",
+    "id": "187077",
+    "name": "chris becker",
+    "avatarUrl": "https://seccdn.libravatar.org/avatar/4e91ba623a3fd068cd68c96a2fde2a9a5529826c57a20970b44b2cfff45fe190?d=identicon",
+    "url": "https://gitea.com/chrisbecker",
+    "isBotHint": false
+  },
+  "createdAt": "2026-10-10T23:03:39.000Z",
+  "startedAt": "2026-10-11T04:26:37.000Z",
+  "completedAt": "2026-10-11T04:29:03.000Z"
+}

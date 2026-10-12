@@ -1,0 +1,79 @@
+{
+  "items": [
+    {
+      "ref": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "repo": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "owner": "gitlab-org",
+          "name": "cli"
+        },
+        "id": "2935977998"
+      },
+      "name": "duo_workflow",
+      "state": "success",
+      "stateRaw": "success",
+      "number": "15082",
+      "eventRaw": "duo_workflow",
+      "branch": "refs/workloads/e129edfe7b5",
+      "sha": "9a7963a1f19651973a02d75b8a7ae16ba81e27e5",
+      "url": "https://gitlab.com/gitlab-org/cli/-/pipelines/2935977998",
+      "createdAt": "<now>"
+    },
+    {
+      "ref": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "repo": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "owner": "gitlab-org",
+          "name": "cli"
+        },
+        "id": "2935970571"
+      },
+      "name": "merge_request_event",
+      "state": "success",
+      "stateRaw": "success",
+      "number": "15081",
+      "eventRaw": "merge_request_event",
+      "branch": "refs/merge-requests/4072/merge",
+      "sha": "24eb45ed29f69281153dfb342fdda265bd88616d",
+      "url": "https://gitlab.com/gitlab-org/cli/-/pipelines/2935970571",
+      "createdAt": "<now>"
+    },
+    {
+      "ref": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "repo": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "owner": "gitlab-org",
+          "name": "cli"
+        },
+        "id": "2935970548"
+      },
+      "name": "duo_workflow",
+      "state": "success",
+      "stateRaw": "success",
+      "number": "15080",
+      "eventRaw": "duo_workflow",
+      "branch": "refs/workloads/488a30f365c",
+      "sha": "6e818f5dd79f566d698d4e92615623598157f26e",
+      "url": "https://gitlab.com/gitlab-org/cli/-/pipelines/2935970548",
+      "createdAt": "<now>"
+    }
+  ],
+  "cursor": {
+    "nextUrl": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/pipelines?id=gitlab-org%2Fcli&order_by=id&page=2&per_page=3&sort=desc",
+    "etag": "W/\"f3933604ee87704651075e77cba28101\""
+  },
+  "rateLimit": {
+    "limit": 500,
+    "remaining": 475,
+    "resetAt": "<now>"
+  }
+}

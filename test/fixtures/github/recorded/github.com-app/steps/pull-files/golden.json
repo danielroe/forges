@@ -1,0 +1,18 @@
+{
+  "items": [
+    {
+      "path": ".prettierignore",
+      "status": "modified",
+      "statusRaw": "modified",
+      "additions": 1,
+      "deletions": 0,
+      "patch": "@@ -3,3 +3,4 @@ lib\n .nuxt\n .output\n src/types/_headers.ts\n+node_modules\n\\ No newline at end of file",
+      "sha": "86167650d1b479a034773ee53ccb60428ce71427"
+    }
+  ],
+  "rateLimit": {
+    "limit": 5000,
+    "remaining": 4988,
+    "resetAt": "2026-10-11T17:05:29.000Z"
+  }
+}

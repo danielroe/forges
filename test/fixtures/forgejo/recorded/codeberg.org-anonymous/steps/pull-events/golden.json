@@ -1,0 +1,157 @@
+{
+  "items": [
+    {
+      "forge": "forgejo",
+      "instance": "codeberg.org",
+      "id": "2181407",
+      "kind": "label",
+      "kindRaw": "label",
+      "summary": "forgejo-renovate-action changed label dependency-upgrade",
+      "occurredAt": "2024-08-18T06:02:19.000Z",
+      "actor": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "login": "forgejo-renovate-action",
+        "id": "165503",
+        "avatarUrl": "https://codeberg.org/avatars/4ac1fe8134d3be047891754798052f343835927de69c67a26386ca3a5becbbbc",
+        "url": "https://codeberg.org/forgejo-renovate-action",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "owner": "forgejo",
+        "name": "forgejo"
+      },
+      "thread": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "repo": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "owner": "forgejo",
+          "name": "forgejo"
+        },
+        "kind": "pull_request",
+        "number": "5000"
+      },
+      "source": "poll",
+      "action": "other"
+    },
+    {
+      "forge": "forgejo",
+      "instance": "codeberg.org",
+      "id": "2181408",
+      "kind": "commit",
+      "kindRaw": "pull_push",
+      "summary": "forgejo-renovate-action referenced a commit",
+      "occurredAt": "2024-08-18T06:02:21.000Z",
+      "actor": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "login": "forgejo-renovate-action",
+        "id": "165503",
+        "avatarUrl": "https://codeberg.org/avatars/4ac1fe8134d3be047891754798052f343835927de69c67a26386ca3a5becbbbc",
+        "url": "https://codeberg.org/forgejo-renovate-action",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "owner": "forgejo",
+        "name": "forgejo"
+      },
+      "thread": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "repo": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "owner": "forgejo",
+          "name": "forgejo"
+        },
+        "kind": "pull_request",
+        "number": "5000"
+      },
+      "source": "poll",
+      "action": "other"
+    },
+    {
+      "forge": "forgejo",
+      "instance": "codeberg.org",
+      "id": "2181409",
+      "kind": "comment",
+      "kindRaw": "comment",
+      "summary": "forgejo-renovate-action commented",
+      "occurredAt": "2024-08-18T06:02:25.000Z",
+      "actor": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "login": "forgejo-renovate-action",
+        "id": "165503",
+        "avatarUrl": "https://codeberg.org/avatars/4ac1fe8134d3be047891754798052f343835927de69c67a26386ca3a5becbbbc",
+        "url": "https://codeberg.org/forgejo-renovate-action",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "owner": "forgejo",
+        "name": "forgejo"
+      },
+      "thread": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "repo": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "owner": "forgejo",
+          "name": "forgejo"
+        },
+        "kind": "pull_request",
+        "number": "5000"
+      },
+      "source": "poll",
+      "action": "created"
+    },
+    {
+      "forge": "forgejo",
+      "instance": "codeberg.org",
+      "id": "2182224",
+      "kind": "state_change",
+      "kindRaw": "close",
+      "summary": "earl-warren close",
+      "occurredAt": "2024-08-18T16:21:35.000Z",
+      "actor": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "login": "earl-warren",
+        "id": "73579",
+        "name": "Earl Warren",
+        "avatarUrl": "https://codeberg.org/avatars/baa02ddebf727ef06a0ded0aee5a25cc",
+        "url": "https://codeberg.org/earl-warren",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "owner": "forgejo",
+        "name": "forgejo"
+      },
+      "thread": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "repo": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "owner": "forgejo",
+          "name": "forgejo"
+        },
+        "kind": "pull_request",
+        "number": "5000"
+      },
+      "source": "poll",
+      "action": "closed"
+    }
+  ]
+}

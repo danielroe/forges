@@ -35,36 +35,5 @@
     "instance": "dev.azure.com",
     "owner": "forges/forges-fixtures",
     "name": "forges-fixtures"
-  },
-  "recordedAt": "2026-10-11T12:01:42.859Z",
-  "steps": [
-    "repo",
-    "repo licence",
-    "pull",
-    "pull list",
-    "pull getMany",
-    "pull events",
-    "pull comments",
-    "pull getComment",
-    "pull reviews",
-    "pull checks",
-    "pull commits",
-    "issue",
-    "issue list",
-    "issue getMany",
-    "issue events",
-    "issue comments",
-    "own repos",
-    "owner repos",
-    "checks",
-    "readme",
-    "tree",
-    "branches",
-    "tags",
-    "resolve default branch",
-    "commits",
-    "commit",
-    "compare",
-    "search threads"
-  ]
+  }
 }

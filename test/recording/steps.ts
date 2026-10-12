@@ -36,10 +36,8 @@ export interface RecordingManifest {
   pds?: string
   /** The Tangled notification service the recording read. */
   notificationsUrl?: string
-  /** When the recording was made; replay runs at this instant so fallback timestamps match. */
-  recordedAt: string
-  /** Names of the steps that recorded successfully, in order. */
-  steps: string[]
+  /** When webhook deliveries were recorded; replay runs at this instant. Step recordings keep it per step, in `step.json`. */
+  recordedAt?: string
 }
 
 /** Values earlier steps found, for later steps to use. */

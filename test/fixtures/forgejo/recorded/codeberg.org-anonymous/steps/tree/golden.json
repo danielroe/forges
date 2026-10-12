@@ -1,0 +1,32 @@
+{
+  "items": [
+    {
+      "path": ".air.toml",
+      "type": "file",
+      "sha": "65872e7382db56758f8998e21b580b3b255abe2c",
+      "size": 828,
+      "mode": "100644"
+    },
+    {
+      "path": ".deadcode-out",
+      "type": "file",
+      "sha": "5fb50cd42bd779b0419b3ad21ce61520e245c663",
+      "size": 6003,
+      "mode": "100644"
+    },
+    {
+      "path": ".devcontainer",
+      "type": "directory",
+      "sha": "0f9352da6256910167f8798ffb9e5d78b5da95bf",
+      "size": 0,
+      "mode": "040000"
+    }
+  ],
+  "warnings": [
+    {
+      "code": "tree_truncated",
+      "message": "forgejo truncated the tree; read it directory by directory instead",
+      "subject": "HEAD"
+    }
+  ]
+}

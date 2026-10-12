@@ -1,0 +1,86 @@
+{
+  "ref": {
+    "forge": "github",
+    "instance": "github.com",
+    "repo": {
+      "forge": "github",
+      "instance": "github.com",
+      "owner": "h3js",
+      "name": "h3"
+    },
+    "kind": "pull_request",
+    "number": "1000",
+    "externalId": "PR_kwDOErHI986Qx98s"
+  },
+  "kind": "pull_request",
+  "title": "chore: include `node_modules` in `.prettierignore`",
+  "body": "<!--\r\nPLEASE DO THIS BEFORE SUBMITTING A PR\r\n\r\n1) Make sure there is an issue covering the problem or idea first. If not, please create one. Reference it in the PR via \"resolves #12312312\" \r\n2) Please keep your changes minimal and split them if you need to.\r\n3) Ensure there is a minimal reproduction attached for bug fixes.\r\n\r\nThis will greatly help speed up the review process.\r\n\r\nThanks for your contribution ❤️\r\n-->\r\n",
+  "state": "closed",
+  "stateRaw": "closed",
+  "isDraft": false,
+  "author": {
+    "forge": "github",
+    "instance": "github.com",
+    "login": "iiio2",
+    "id": "47961062",
+    "avatarUrl": "https://avatars.githubusercontent.com/u/47961062?v=4",
+    "url": "https://github.com/iiio2",
+    "typeRaw": "User",
+    "isBotHint": false
+  },
+  "assignees": [],
+  "reviewers": [
+    {
+      "actor": {
+        "forge": "github",
+        "instance": "github.com",
+        "login": "pi0",
+        "id": "5158436",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?v=4",
+        "url": "https://github.com/pi0",
+        "typeRaw": "User",
+        "isBotHint": false
+      },
+      "state": "pending",
+      "stateRaw": "requested"
+    }
+  ],
+  "labels": [],
+  "url": "https://github.com/h3js/h3/pull/1000",
+  "createdAt": "2025-03-31T13:49:12.000Z",
+  "updatedAt": "2025-04-05T04:37:13.000Z",
+  "closedAt": "2025-04-01T18:18:21.000Z",
+  "lastActivityAt": "2025-04-05T04:37:13.000Z",
+  "locked": false,
+  "commentCount": 3,
+  "branches": {
+    "head": {
+      "ref": "chore/update-prettierignore",
+      "sha": "adbc974043a83820a5ae388265b5ee1465926561",
+      "repo": {
+        "forge": "github",
+        "instance": "github.com",
+        "owner": "iiio2",
+        "name": "h3",
+        "externalId": "812599578"
+      }
+    },
+    "base": {
+      "ref": "main",
+      "sha": "e5788bb16d62ac64e5fa13b14862ed719f768d04"
+    },
+    "mergeCommitSha": "ecb62300961be17e1f59cb23b4f2d083c83bcbf1"
+  },
+  "stats": {
+    "additions": 1,
+    "deletions": 0,
+    "changedFileCount": 1,
+    "commitCount": 1
+  },
+  "checks": {
+    "state": "unknown",
+    "total": 0,
+    "failed": 0,
+    "url": "https://github.com/h3js/h3/pull/1000/checks"
+  }
+}

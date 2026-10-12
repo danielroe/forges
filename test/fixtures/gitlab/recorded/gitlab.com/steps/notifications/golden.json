@@ -1,0 +1,100 @@
+{
+  "items": [
+    {
+      "ref": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "id": "782265196"
+      },
+      "subject": {
+        "type": "repo",
+        "repo": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "owner": "forges-fixtures",
+          "name": "forges-fixtures",
+          "externalId": "87428720"
+        }
+      },
+      "subjectTypeRaw": "Project",
+      "reason": "access_requested",
+      "reasonRaw": "member_access_requested",
+      "unread": true,
+      "title": "forges-fixtures/forges-fixtures",
+      "subjectState": "unknown",
+      "updatedAt": "2026-10-10T20:18:28.973Z",
+      "url": "https://gitlab.com/forges-fixtures/forges-fixtures/-/project_members?tab=access_requests"
+    },
+    {
+      "ref": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "id": "328868454"
+      },
+      "subject": {
+        "type": "thread",
+        "thread": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "repo": {
+            "forge": "gitlab",
+            "instance": "gitlab.com",
+            "owner": "24-heures-insa",
+            "name": "overbookd-mono",
+            "externalId": "31598236"
+          },
+          "kind": "pull_request",
+          "typeRaw": "MergeRequest",
+          "number": "1432"
+        }
+      },
+      "subjectTypeRaw": "MergeRequest",
+      "reason": "mention",
+      "reasonRaw": "mentioned",
+      "unread": true,
+      "title": "chore(deps): bump nuxt from 2.15.8 to 3.6.1 in /frontend",
+      "subjectState": "closed",
+      "subjectStateRaw": "closed",
+      "updatedAt": "2023-07-03T15:03:45.939Z",
+      "url": "https://gitlab.com/24-heures-insa/overbookd-mono/-/merge_requests/1432"
+    },
+    {
+      "ref": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "id": "327041785"
+      },
+      "subject": {
+        "type": "thread",
+        "thread": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "repo": {
+            "forge": "gitlab",
+            "instance": "gitlab.com",
+            "owner": "24-heures-insa",
+            "name": "overbookd-mono",
+            "externalId": "31598236"
+          },
+          "kind": "pull_request",
+          "typeRaw": "MergeRequest",
+          "number": "1416"
+        }
+      },
+      "subjectTypeRaw": "MergeRequest",
+      "reason": "mention",
+      "reasonRaw": "mentioned",
+      "unread": true,
+      "title": "chore(deps-dev): bump @nuxtjs/color-mode from 2.1.1 to 3.3.0 in /frontend",
+      "subjectState": "closed",
+      "subjectStateRaw": "closed",
+      "updatedAt": "2023-06-26T15:05:47.172Z",
+      "url": "https://gitlab.com/24-heures-insa/overbookd-mono/-/merge_requests/1416"
+    }
+  ],
+  "cursor": {
+    "nextUrl": "https://gitlab.com/api/v4/todos?page=2&per_page=3&state=pending",
+    "etag": "W/\"3ac4c967d7103190c3ed51642f5764eb\""
+  },
+  "notModified": false
+}

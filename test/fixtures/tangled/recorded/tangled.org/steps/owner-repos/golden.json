@@ -1,0 +1,33 @@
+{
+  "items": [
+    {
+      "ref": {
+        "forge": "tangled",
+        "instance": "tangled.org",
+        "owner": "did:plc:7qksav5io2s4qfg67pe7iqqk",
+        "name": "forges-fixtures",
+        "externalId": "did:plc:t73o44q7fppgagkrevtztyok"
+      },
+      "visibility": "public",
+      "isFork": false,
+      "isArchived": false,
+      "topics": [],
+      "url": "https://tangled.org/did:plc:7qksav5io2s4qfg67pe7iqqk/forges-fixtures",
+      "cloneUrls": {
+        "https": "https://tangled.org/did:plc:7qksav5io2s4qfg67pe7iqqk/forges-fixtures",
+        "ssh": "ssh://git@tangled.org/did:plc:7qksav5io2s4qfg67pe7iqqk/forges-fixtures"
+      },
+      "createdAt": "2026-10-09T17:02:20.000Z",
+      "mergeMethods": [
+        "rebase"
+      ],
+      "defaultMergeMethod": "rebase"
+    }
+  ],
+  "warnings": [
+    {
+      "code": "sort_unsupported",
+      "message": "Tangled lists repositories in the order of their records"
+    }
+  ]
+}

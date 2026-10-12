@@ -1,0 +1,35 @@
+{
+  "items": [
+    {
+      "ref": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "target": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "owner": "forges-fixtures",
+          "name": "forges-fixtures"
+        },
+        "id": "48070"
+      },
+      "url": "https://example.com/hook",
+      "events": [
+        "comment",
+        "state_change",
+        "label",
+        "assignment"
+      ],
+      "nativeEvents": [
+        "issue_assign",
+        "issue_milestone",
+        "issue_comment",
+        "issue_label",
+        "issues"
+      ],
+      "active": true,
+      "contentType": "json",
+      "createdAt": "2026-10-09T11:48:36.000Z",
+      "updatedAt": "2026-10-11T14:52:07.000Z"
+    }
+  ]
+}

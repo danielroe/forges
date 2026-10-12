@@ -1,0 +1,36 @@
+{
+  "ref": {
+    "forge": "azure-devops",
+    "instance": "dev.azure.com",
+    "thread": {
+      "forge": "azure-devops",
+      "instance": "dev.azure.com",
+      "repo": {
+        "forge": "azure-devops",
+        "instance": "dev.azure.com",
+        "owner": "dnceng-public/public",
+        "name": "dotnet-public-wiki"
+      },
+      "kind": "pull_request",
+      "number": "5"
+    },
+    "id": "12/1"
+  },
+  "body": "<img src=\"https://img.shields.io/static/v1?label=ES Metadata Validation&message=Information&color=green\">\n\n<p />\n\n\n## Valid\n---\n- /es-metadata.yml\n\n\n\n\n<p align=\"right\"><sub>Total execution time: 0.39 seconds</sub></p>\n\n<!-- Policy app identification https://img.shields.io/static/v1?label=EsMetadata. -->\n<!-- GitOpsUserAgent=GitOps.Outcome.Service.EsMetadata -->\n",
+  "author": {
+    "forge": "azure-devops",
+    "instance": "dev.azure.com",
+    "login": "MerlinBot",
+    "id": "56b0f042-b05e-86d9-b0f7-c5ddb1e76385",
+    "name": "MerlinBot",
+    "avatarUrl": null,
+    "typeRaw": "user",
+    "isBotHint": false
+  },
+  "createdAt": "2026-02-18T04:35:14.040Z",
+  "updatedAt": "2026-02-18T04:35:14.040Z",
+  "thread": {
+    "id": "12",
+    "resolved": true
+  }
+}

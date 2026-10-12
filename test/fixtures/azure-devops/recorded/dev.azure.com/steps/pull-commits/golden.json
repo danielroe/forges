@@ -1,0 +1,30 @@
+{
+  "items": [
+    {
+      "ref": {
+        "forge": "azure-devops",
+        "instance": "dev.azure.com",
+        "repo": {
+          "forge": "azure-devops",
+          "instance": "dev.azure.com",
+          "owner": "forges/forges-fixtures",
+          "name": "forges-fixtures"
+        },
+        "sha": "0f7fea462ab8103e55ca8aa0288ba85443f0e8f2"
+      },
+      "sha": "0f7fea462ab8103e55ca8aa0288ba85443f0e8f2",
+      "message": "edit",
+      "author": {
+        "name": "danielroe",
+        "email": "redacted@example.invalid",
+        "date": "2026-10-09T12:28:50.000Z"
+      },
+      "committer": {
+        "name": "danielroe",
+        "email": "redacted@example.invalid",
+        "date": "2026-10-09T12:28:50.000Z"
+      },
+      "parents": []
+    }
+  ]
+}

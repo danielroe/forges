@@ -1,0 +1,181 @@
+{
+  "items": [
+    {
+      "ref": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "owner": "Ziwon90",
+        "name": "fedcli",
+        "externalId": "87492104"
+      },
+      "defaultBranch": "main",
+      "visibility": "public",
+      "visibilityRaw": "public",
+      "isFork": false,
+      "isArchived": false,
+      "topics": [],
+      "url": "https://gitlab.com/Ziwon90/fedcli",
+      "cloneUrls": {
+        "https": "https://gitlab.com/Ziwon90/fedcli.git",
+        "ssh": "git@gitlab.com:Ziwon90/fedcli.git"
+      },
+      "createdAt": "2026-10-11T14:54:09.098Z",
+      "updatedAt": "2026-10-11T14:54:09.018Z",
+      "openIssueCount": 0,
+      "owner": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "login": "Ziwon90",
+        "id": "40039481",
+        "name": "Zi Won",
+        "avatarUrl": "https://secure.gravatar.com/avatar/c067f8781414e11fe0f4a26987b433d201a89a1abe74bce0b591bb890c02165e?s=80&d=identicon",
+        "url": "https://gitlab.com/Ziwon90",
+        "isBotHint": false
+      },
+      "stars": 0,
+      "forks": 0,
+      "mergeMethods": [
+        "merge",
+        "squash"
+      ],
+      "defaultMergeMethod": "merge",
+      "deleteBranchOnMerge": true,
+      "features": {
+        "issues": true,
+        "pullRequests": true,
+        "discussions": false,
+        "wiki": true,
+        "projects": false,
+        "releases": true
+      },
+      "permissions": {
+        "admin": false,
+        "maintain": false,
+        "push": false,
+        "triage": false,
+        "pull": false
+      }
+    },
+    {
+      "ref": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "owner": "Ziwon90",
+        "name": "fedcli-deletion_scheduled-87492080",
+        "externalId": "87492080"
+      },
+      "defaultBranch": "main",
+      "visibility": "public",
+      "visibilityRaw": "public",
+      "isFork": false,
+      "isArchived": false,
+      "topics": [],
+      "url": "https://gitlab.com/Ziwon90/fedcli-deletion_scheduled-87492080",
+      "cloneUrls": {
+        "https": "https://gitlab.com/Ziwon90/fedcli-deletion_scheduled-87492080.git",
+        "ssh": "git@gitlab.com:Ziwon90/fedcli-deletion_scheduled-87492080.git"
+      },
+      "createdAt": "2026-10-11T14:53:09.682Z",
+      "updatedAt": "2026-10-11T14:53:37.773Z",
+      "openIssueCount": 0,
+      "owner": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "login": "Ziwon90",
+        "id": "40039481",
+        "name": "Zi Won",
+        "avatarUrl": "https://secure.gravatar.com/avatar/c067f8781414e11fe0f4a26987b433d201a89a1abe74bce0b591bb890c02165e?s=80&d=identicon",
+        "url": "https://gitlab.com/Ziwon90",
+        "isBotHint": false
+      },
+      "stars": 0,
+      "forks": 0,
+      "mergeMethods": [
+        "merge",
+        "squash"
+      ],
+      "defaultMergeMethod": "merge",
+      "deleteBranchOnMerge": true,
+      "features": {
+        "issues": true,
+        "pullRequests": true,
+        "discussions": false,
+        "wiki": true,
+        "projects": false,
+        "releases": true
+      },
+      "permissions": {
+        "admin": false,
+        "maintain": false,
+        "push": false,
+        "triage": false,
+        "pull": false
+      }
+    },
+    {
+      "ref": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "owner": "Ziwon90",
+        "name": "fedcli-deletion_scheduled-87491771",
+        "externalId": "87491771"
+      },
+      "defaultBranch": "main",
+      "visibility": "public",
+      "visibilityRaw": "public",
+      "isFork": false,
+      "isArchived": false,
+      "topics": [],
+      "url": "https://gitlab.com/Ziwon90/fedcli-deletion_scheduled-87491771",
+      "cloneUrls": {
+        "https": "https://gitlab.com/Ziwon90/fedcli-deletion_scheduled-87491771.git",
+        "ssh": "git@gitlab.com:Ziwon90/fedcli-deletion_scheduled-87491771.git"
+      },
+      "createdAt": "2026-10-11T14:37:20.782Z",
+      "updatedAt": "2026-10-11T14:52:15.956Z",
+      "openIssueCount": 0,
+      "owner": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "login": "Ziwon90",
+        "id": "40039481",
+        "name": "Zi Won",
+        "avatarUrl": "https://secure.gravatar.com/avatar/c067f8781414e11fe0f4a26987b433d201a89a1abe74bce0b591bb890c02165e?s=80&d=identicon",
+        "url": "https://gitlab.com/Ziwon90",
+        "isBotHint": false
+      },
+      "stars": 0,
+      "forks": 0,
+      "mergeMethods": [
+        "merge",
+        "squash"
+      ],
+      "defaultMergeMethod": "merge",
+      "deleteBranchOnMerge": true,
+      "features": {
+        "issues": true,
+        "pullRequests": true,
+        "discussions": false,
+        "wiki": true,
+        "projects": false,
+        "releases": true
+      },
+      "permissions": {
+        "admin": false,
+        "maintain": false,
+        "push": false,
+        "triage": false,
+        "pull": false
+      }
+    }
+  ],
+  "cursor": {
+    "nextUrl": "https://gitlab.com/api/v4/projects?imported=false&include_hidden=false&membership=false&order_by=created_at&owned=false&page=2&per_page=3&repository_checksum_failed=false&search=cli&simple=false&sort=desc&starred=false&statistics=false&wiki_checksum_failed=false&with_custom_attributes=false&with_issues_enabled=false&with_merge_requests_enabled=false",
+    "etag": "W/\"b93c43ff139c2064da2df8df8773aa60\""
+  },
+  "rateLimit": {
+    "limit": 2000,
+    "remaining": 1932,
+    "resetAt": "<now>"
+  }
+}

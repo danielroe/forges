@@ -1,0 +1,85 @@
+{
+  "items": [
+    {
+      "ref": {
+        "forge": "github",
+        "instance": "github.com",
+        "hook": {
+          "forge": "github",
+          "instance": "github.com",
+          "target": {
+            "forge": "github",
+            "instance": "github.com",
+            "owner": "forges-fixtures",
+            "name": "forges-fixtures"
+          },
+          "id": "694647722"
+        },
+        "id": "3847711869341089792",
+        "guid": "a43e4cd0-c583-11f1-9b53-28581a6f157d"
+      },
+      "event": "issues.closed",
+      "status": 502,
+      "ok": false,
+      "deliveredAt": "2026-10-11T14:54:22.278Z",
+      "duration": 0
+    },
+    {
+      "ref": {
+        "forge": "github",
+        "instance": "github.com",
+        "hook": {
+          "forge": "github",
+          "instance": "github.com",
+          "target": {
+            "forge": "github",
+            "instance": "github.com",
+            "owner": "forges-fixtures",
+            "name": "forges-fixtures"
+          },
+          "id": "694647722"
+        },
+        "id": "3847711861787099136",
+        "guid": "a1c20230-c583-11f1-86aa-e4cb53fd8038"
+      },
+      "event": "issue_comment.created",
+      "status": 502,
+      "ok": false,
+      "deliveredAt": "2026-10-11T14:54:17.960Z",
+      "duration": 0
+    },
+    {
+      "ref": {
+        "forge": "github",
+        "instance": "github.com",
+        "hook": {
+          "forge": "github",
+          "instance": "github.com",
+          "target": {
+            "forge": "github",
+            "instance": "github.com",
+            "owner": "forges-fixtures",
+            "name": "forges-fixtures"
+          },
+          "id": "694647722"
+        },
+        "id": "3847711753932636160",
+        "guid": "8465d590-c583-11f1-830f-7aa889d0cd94"
+      },
+      "event": "issues.demilestoned",
+      "status": 502,
+      "ok": false,
+      "deliveredAt": "2026-10-11T14:53:28.559Z",
+      "duration": 0
+    }
+  ],
+  "cursor": {
+    "nextUrl": "https://api.github.com/repositories/1411702196/hooks/694647722/deliveries?per_page=3&cursor=v1_3847711752819081216",
+    "etag": "W/\"ef042f17d8a9ed3ff4f780ebfcee965de6b1e094bdc0d7a7a894b18d753d1567\""
+  },
+  "rateLimit": {
+    "limit": 500,
+    "remaining": 498,
+    "resetAt": "<now>"
+  }
+}

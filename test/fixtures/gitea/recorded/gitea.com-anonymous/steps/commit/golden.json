@@ -1,0 +1,122 @@
+{
+  "ref": {
+    "forge": "gitea",
+    "instance": "gitea.com",
+    "repo": {
+      "forge": "gitea",
+      "instance": "gitea.com",
+      "owner": "gitea",
+      "name": "tea"
+    },
+    "sha": "dbfa61205c14e48d13d95c55b277e55cc0ee1100"
+  },
+  "sha": "dbfa61205c14e48d13d95c55b277e55cc0ee1100",
+  "message": "Merge branch 'main' into issue-1089-locale-independent-git\n",
+  "author": {
+    "actor": {
+      "forge": "gitea",
+      "instance": "gitea.com",
+      "login": "lunny",
+      "id": "1",
+      "name": "Lunny Xiao",
+      "avatarUrl": "https://seccdn.libravatar.org/avatar/b897d40dc87fdba4a024827c3967597434681a8f4f0f4eb5d73e0f8b1a0a9274?d=identicon",
+      "url": "https://gitea.com/lunny",
+      "isBotHint": false
+    },
+    "name": "Lunny Xiao",
+    "email": "redacted@example.invalid",
+    "date": "2026-09-30T17:40:41.000Z"
+  },
+  "committer": {
+    "actor": {
+      "forge": "gitea",
+      "instance": "gitea.com",
+      "login": "lunny",
+      "id": "1",
+      "name": "Lunny Xiao",
+      "avatarUrl": "https://seccdn.libravatar.org/avatar/b897d40dc87fdba4a024827c3967597434681a8f4f0f4eb5d73e0f8b1a0a9274?d=identicon",
+      "url": "https://gitea.com/lunny",
+      "isBotHint": false
+    },
+    "name": "Lunny Xiao",
+    "email": "redacted@example.invalid",
+    "date": "2026-09-30T17:40:41.000Z"
+  },
+  "parents": [
+    "d98dd96cd86bd56539aa8fdad5c14e06abd4d2f1",
+    "9c12138d6273ba8feb6e7578833cc330c0cd6461"
+  ],
+  "url": "https://gitea.com/gitea/tea/commit/dbfa61205c14e48d13d95c55b277e55cc0ee1100",
+  "stats": {
+    "additions": 454,
+    "deletions": 46,
+    "total": 500
+  },
+  "files": [
+    {
+      "path": "cmd/issues/create_test.go",
+      "status": "added",
+      "statusRaw": "added"
+    },
+    {
+      "path": "cmd/pulls/create_app_test.go",
+      "status": "added",
+      "statusRaw": "added"
+    },
+    {
+      "path": "cmd/pulls/create_test.go",
+      "status": "added",
+      "statusRaw": "added"
+    },
+    {
+      "path": "modules/task/pull_merge_test.go",
+      "status": "added",
+      "statusRaw": "added"
+    },
+    {
+      "path": "cmd/issues/create.go",
+      "status": "modified",
+      "statusRaw": "modified"
+    },
+    {
+      "path": "cmd/pulls/create.go",
+      "status": "modified",
+      "statusRaw": "modified"
+    },
+    {
+      "path": "go.mod",
+      "status": "modified",
+      "statusRaw": "modified"
+    },
+    {
+      "path": "go.sum",
+      "status": "modified",
+      "statusRaw": "modified"
+    },
+    {
+      "path": "modules/interact/issue_create.go",
+      "status": "modified",
+      "statusRaw": "modified"
+    },
+    {
+      "path": "modules/interact/pull_create.go",
+      "status": "modified",
+      "statusRaw": "modified"
+    },
+    {
+      "path": "modules/task/issue_create.go",
+      "status": "modified",
+      "statusRaw": "modified"
+    },
+    {
+      "path": "modules/task/pull_create.go",
+      "status": "modified",
+      "statusRaw": "modified"
+    },
+    {
+      "path": "modules/task/pull_merge.go",
+      "status": "modified",
+      "statusRaw": "modified"
+    }
+  ]
+}

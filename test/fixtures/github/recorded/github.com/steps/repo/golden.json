@@ -1,0 +1,75 @@
+{
+  "ref": {
+    "forge": "github",
+    "instance": "github.com",
+    "owner": "h3js",
+    "name": "h3",
+    "externalId": "313641207"
+  },
+  "description": "⚡️ Minimal H(TTP) framework built for high performance and portability ",
+  "defaultBranch": "main",
+  "visibility": "public",
+  "visibilityRaw": "public",
+  "isFork": false,
+  "isArchived": false,
+  "topics": [],
+  "url": "https://github.com/h3js/h3",
+  "cloneUrls": {
+    "https": "https://github.com/h3js/h3.git",
+    "ssh": "git@github.com:h3js/h3.git"
+  },
+  "createdAt": "2020-11-17T14:15:44.000Z",
+  "updatedAt": "2026-10-10T19:37:23.000Z",
+  "pushedAt": "2026-10-07T12:37:26.000Z",
+  "owner": {
+    "forge": "github",
+    "instance": "github.com",
+    "login": "h3js",
+    "id": "208435796",
+    "avatarUrl": "https://avatars.githubusercontent.com/u/208435796?v=4",
+    "url": "https://github.com/h3js",
+    "typeRaw": "Organization",
+    "isBotHint": false
+  },
+  "language": "TypeScript",
+  "homepage": "https://h3.dev",
+  "licence": "MIT",
+  "stars": 5455,
+  "forks": 374,
+  "watchers": 17,
+  "mergeMethods": [
+    "merge",
+    "squash",
+    "rebase"
+  ],
+  "deleteBranchOnMerge": true,
+  "mergeCommit": {
+    "merge": {
+      "title": "merge_message",
+      "titleRaw": "MERGE_MESSAGE",
+      "message": "pull_request_title",
+      "messageRaw": "PR_TITLE"
+    },
+    "squash": {
+      "title": "commit_or_pull_request_title",
+      "titleRaw": "COMMIT_OR_PR_TITLE",
+      "message": "commit_messages",
+      "messageRaw": "COMMIT_MESSAGES"
+    }
+  },
+  "features": {
+    "issues": true,
+    "pullRequests": true,
+    "discussions": true,
+    "wiki": false,
+    "projects": true,
+    "releases": true
+  },
+  "permissions": {
+    "admin": false,
+    "maintain": false,
+    "push": true,
+    "triage": true,
+    "pull": true
+  }
+}

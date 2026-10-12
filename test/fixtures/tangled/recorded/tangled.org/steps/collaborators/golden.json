@@ -1,0 +1,42 @@
+{
+  "items": [
+    {
+      "actor": {
+        "forge": "tangled",
+        "instance": "tangled.org",
+        "login": "roebot.tngl.sh",
+        "id": "did:plc:7qksav5io2s4qfg67pe7iqqk",
+        "url": "https://tangled.org/roebot.tngl.sh",
+        "isBotHint": false
+      },
+      "role": "admin",
+      "roleRaw": "owner",
+      "permissions": {
+        "admin": true,
+        "maintain": true,
+        "push": true,
+        "triage": true,
+        "pull": true
+      }
+    },
+    {
+      "actor": {
+        "forge": "tangled",
+        "instance": "tangled.org",
+        "login": "forges-fixtures.tngl.sh",
+        "id": "did:plc:uxfnwnz5wfwl6tfgqwyfrqyv",
+        "url": "https://tangled.org/forges-fixtures.tngl.sh",
+        "isBotHint": false
+      },
+      "role": "write",
+      "roleRaw": "collaborator",
+      "permissions": {
+        "admin": false,
+        "maintain": false,
+        "push": true,
+        "triage": true,
+        "pull": true
+      }
+    }
+  ]
+}

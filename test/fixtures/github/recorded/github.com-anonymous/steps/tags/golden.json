@@ -1,0 +1,25 @@
+{
+  "items": [
+    {
+      "name": "v2.0.2",
+      "sha": "66cfb8a357b6285451bad498c2c40002601fae98"
+    },
+    {
+      "name": "v2.0.1",
+      "sha": "26d3d3d4fc60ebece9975eee5415b114cb8dbcd5"
+    },
+    {
+      "name": "v2.0.1-rc.33",
+      "sha": "3cbc7535a61bfb7d3fcce949f30de471a90d572b"
+    }
+  ],
+  "cursor": {
+    "nextUrl": "https://api.github.com/repositories/313641207/tags?per_page=3&page=2",
+    "etag": "W/\"41b81a8667f003eb334862eb3bcf669da26d2bf2cc71c36d6108510694ff6794\""
+  },
+  "rateLimit": {
+    "limit": 60,
+    "remaining": 12,
+    "resetAt": "<now>"
+  }
+}

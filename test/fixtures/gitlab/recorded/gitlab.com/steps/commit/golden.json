@@ -1,0 +1,42 @@
+{
+  "ref": {
+    "forge": "gitlab",
+    "instance": "gitlab.com",
+    "repo": {
+      "forge": "gitlab",
+      "instance": "gitlab.com",
+      "owner": "gitlab-org",
+      "name": "cli"
+    },
+    "sha": "37ea25e1cf97b7e40c6d862c45ab32cec0f10b99"
+  },
+  "sha": "37ea25e1cf97b7e40c6d862c45ab32cec0f10b99",
+  "message": "chore(deps): bump golangci-lint to v2.14.0\n",
+  "author": {
+    "name": "GitLab Renovate Bot",
+    "email": "redacted@example.invalid",
+    "date": "2026-10-01T13:13:33.000Z"
+  },
+  "committer": {
+    "name": "GitLab Renovate Bot",
+    "email": "redacted@example.invalid",
+    "date": "2026-10-01T13:13:33.000Z"
+  },
+  "parents": [
+    "5a38b3968afe46c133029595f4fcad920909a6fe"
+  ],
+  "url": "https://gitlab.com/gitlab-org/cli/-/commit/37ea25e1cf97b7e40c6d862c45ab32cec0f10b99",
+  "stats": {
+    "additions": 1,
+    "deletions": 1,
+    "total": 2
+  },
+  "files": [
+    {
+      "path": ".tool-versions",
+      "status": "modified",
+      "statusRaw": "modified",
+      "patch": "@@ -1,7 +1,7 @@\n golang 1.27.0\n \n # For linting and formatting Go code (includes gofumpt and goimports)\n-golangci-lint 2.13.2\n+golangci-lint 2.14.0\n \n # For linting shell scripts\n shellcheck 0.11.0\n"
+    }
+  ]
+}

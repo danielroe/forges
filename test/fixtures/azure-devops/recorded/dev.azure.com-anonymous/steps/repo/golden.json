@@ -1,0 +1,20 @@
+{
+  "ref": {
+    "forge": "azure-devops",
+    "instance": "dev.azure.com",
+    "owner": "dnceng-public/public",
+    "name": "dotnet-public-wiki",
+    "externalId": "2459d599-fdb2-4d28-9810-daeec061cf90"
+  },
+  "defaultBranch": "main",
+  "visibility": "public",
+  "visibilityRaw": "public",
+  "isFork": false,
+  "isArchived": false,
+  "topics": [],
+  "url": "https://dev.azure.com/dnceng-public/public/_git/dotnet-public-wiki",
+  "cloneUrls": {
+    "https": "https://dev.azure.com/dnceng-public/public/_git/dotnet-public-wiki",
+    "ssh": "git@ssh.dev.azure.com:v3/dnceng-public/public/dotnet-public-wiki"
+  }
+}

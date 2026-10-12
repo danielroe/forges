@@ -1,0 +1,46 @@
+{
+  "ref": {
+    "forge": "azure-devops",
+    "instance": "dev.azure.com",
+    "repo": {
+      "forge": "azure-devops",
+      "instance": "dev.azure.com",
+      "owner": "forges/forges-fixtures",
+      "name": "forges-fixtures"
+    },
+    "kind": "pull_request",
+    "number": "32",
+    "externalId": "vstfs:///Git/PullRequestId/b2332e32-1afe-4c85-9407-12e7af2bf24c%2fc67c02dd-cbca-45aa-a679-021bd4d2c4a7%2f32"
+  },
+  "kind": "pull_request",
+  "title": "forges fixture 20261011120150: pull, edited",
+  "body": "Edited by run 20261011120150.",
+  "state": "open",
+  "stateRaw": "active",
+  "isDraft": false,
+  "author": {
+    "forge": "azure-devops",
+    "instance": "dev.azure.com",
+    "login": "redacted@example.invalid",
+    "id": "567dfc49-0db7-43e6-83c1-d91d91db58b1",
+    "name": "danielroebot outlook.com",
+    "avatarUrl": "https://dev.azure.com/forges/_api/_common/identityImage?id=567dfc49-0db7-43e6-83c1-d91d91db58b1",
+    "typeRaw": "user",
+    "isBotHint": false
+  },
+  "assignees": [],
+  "reviewers": [],
+  "labels": [],
+  "createdAt": "<now>",
+  "lastActivityAt": "<now>",
+  "branches": {
+    "head": {
+      "ref": "forges-fixtures/20261011120150-1",
+      "sha": "5542ee955fd2b0e130a4ecfcba5c101610da11c2"
+    },
+    "base": {
+      "ref": "main",
+      "sha": "88cc1bb3d399bbdaa63e354f0c2b8517f7b22ba8"
+    }
+  }
+}

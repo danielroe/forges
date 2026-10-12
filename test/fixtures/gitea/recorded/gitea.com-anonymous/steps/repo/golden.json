@@ -1,0 +1,62 @@
+{
+  "ref": {
+    "forge": "gitea",
+    "instance": "gitea.com",
+    "owner": "gitea",
+    "name": "tea",
+    "externalId": "550"
+  },
+  "description": "A command line tool to interact with Gitea servers",
+  "defaultBranch": "main",
+  "visibility": "public",
+  "visibilityRaw": "public",
+  "isFork": false,
+  "isArchived": false,
+  "topics": [
+    "gitea",
+    "cli"
+  ],
+  "url": "https://gitea.com/gitea/tea",
+  "cloneUrls": {
+    "https": "https://gitea.com/gitea/tea.git",
+    "ssh": "git@gitea.com:gitea/tea.git"
+  },
+  "createdAt": "2019-05-19T11:37:14.000Z",
+  "updatedAt": "2026-10-10T00:11:23.000Z",
+  "openIssueCount": 114,
+  "openPullCount": 40,
+  "owner": {
+    "forge": "gitea",
+    "instance": "gitea.com",
+    "login": "gitea",
+    "id": "3",
+    "avatarUrl": "https://gitea.com/avatars/35dea380390772b3130aafbac7ca49e6",
+    "url": "https://gitea.com/gitea",
+    "isBotHint": false
+  },
+  "language": "Go",
+  "licence": "MIT",
+  "stars": 276,
+  "forks": 146,
+  "watchers": 74,
+  "mergeMethods": [
+    "squash"
+  ],
+  "defaultMergeMethod": "squash",
+  "deleteBranchOnMerge": true,
+  "features": {
+    "issues": true,
+    "pullRequests": true,
+    "discussions": false,
+    "wiki": true,
+    "projects": false,
+    "releases": true
+  },
+  "permissions": {
+    "admin": false,
+    "maintain": false,
+    "push": false,
+    "triage": false,
+    "pull": true
+  }
+}

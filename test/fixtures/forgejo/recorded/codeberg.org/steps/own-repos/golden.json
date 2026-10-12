@@ -1,0 +1,68 @@
+{
+  "items": [
+    {
+      "ref": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "owner": "forges-fixtures",
+        "name": "forges-fixtures",
+        "externalId": "2702328"
+      },
+      "description": "Automated fixture target for danielroe/forges",
+      "defaultBranch": "main",
+      "visibility": "public",
+      "visibilityRaw": "public",
+      "isFork": false,
+      "isArchived": false,
+      "topics": [],
+      "url": "https://codeberg.org/forges-fixtures/forges-fixtures",
+      "cloneUrls": {
+        "https": "https://codeberg.org/forges-fixtures/forges-fixtures.git",
+        "ssh": "ssh://git@codeberg.org/forges-fixtures/forges-fixtures.git"
+      },
+      "createdAt": "2026-10-09T11:40:47.000Z",
+      "updatedAt": "2026-10-11T11:36:23.000Z",
+      "openIssueCount": 0,
+      "openPullCount": 0,
+      "owner": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "login": "forges-fixtures",
+        "id": "1540806",
+        "avatarUrl": "https://codeberg.org/avatars/bfd7ebe0169eaad25c20eb9a3dc229ef",
+        "url": "https://codeberg.org/forges-fixtures",
+        "isBotHint": false
+      },
+      "stars": 0,
+      "forks": 0,
+      "watchers": 2,
+      "mergeMethods": [
+        "merge",
+        "squash",
+        "rebase",
+        "rebase_merge",
+        "fast_forward_only"
+      ],
+      "defaultMergeMethod": "merge",
+      "deleteBranchOnMerge": false,
+      "features": {
+        "issues": true,
+        "pullRequests": true,
+        "discussions": false,
+        "wiki": false,
+        "projects": false,
+        "releases": true
+      },
+      "permissions": {
+        "admin": true,
+        "maintain": true,
+        "push": true,
+        "triage": true,
+        "pull": true
+      }
+    }
+  ],
+  "cursor": {
+    "nextUrl": "https://codeberg.org/api/v1/user/repos?limit=3&page=2"
+  }
+}

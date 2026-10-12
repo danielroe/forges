@@ -1,0 +1,44 @@
+{
+  "items": [
+    {
+      "ref": {
+        "forge": "gitee",
+        "instance": "gitee.com",
+        "repo": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "owner": "cmcc-oneos",
+          "name": "OneOS"
+        },
+        "kind": "issue",
+        "number": "I6XZ2N",
+        "externalId": "11662799"
+      },
+      "kind": "issue",
+      "title": "fix little problem",
+      "body": "drivers/hal/beken/beken72XX_HAL/func/bk7011_cal/bk7231N_cal.c has little problem",
+      "state": "open",
+      "stateRaw": "progressing",
+      "isDraft": false,
+      "author": {
+        "forge": "gitee",
+        "instance": "gitee.com",
+        "login": "bushilei",
+        "id": "12770884",
+        "name": "bushilei",
+        "avatarUrl": "https://gitee.com/assets/no_portrait.png",
+        "url": "https://gitee.com/bushilei",
+        "typeRaw": "User",
+        "isBotHint": false
+      },
+      "assignees": [],
+      "reviewers": [],
+      "labels": [],
+      "url": "https://gitee.com/cmcc-oneos/OneOS/issues/I6XZ2N",
+      "createdAt": "2023-04-23T02:33:34.000Z",
+      "updatedAt": "2023-12-25T03:46:55.000Z",
+      "lastActivityAt": "2023-12-25T03:46:55.000Z",
+      "commentCount": 1
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "items": [
+    {
+      "ref": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "repo": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "owner": "gitlab-org",
+          "name": "cli"
+        },
+        "sha": "37ea25e1cf97b7e40c6d862c45ab32cec0f10b99"
+      },
+      "sha": "37ea25e1cf97b7e40c6d862c45ab32cec0f10b99",
+      "message": "chore(deps): bump golangci-lint to v2.14.0\n",
+      "author": {
+        "name": "GitLab Renovate Bot",
+        "email": "redacted@example.invalid",
+        "date": "2026-10-01T13:13:33.000Z"
+      },
+      "committer": {
+        "name": "GitLab Renovate Bot",
+        "email": "redacted@example.invalid",
+        "date": "2026-10-01T13:13:33.000Z"
+      },
+      "parents": [
+        "5a38b3968afe46c133029595f4fcad920909a6fe"
+      ],
+      "url": "https://gitlab.com/gitlab-org/cli/-/commit/37ea25e1cf97b7e40c6d862c45ab32cec0f10b99"
+    }
+  ],
+  "rateLimit": {
+    "limit": 500,
+    "remaining": 485,
+    "resetAt": "<now>"
+  }
+}

@@ -1,0 +1,327 @@
+{
+  "items": [
+    {
+      "ref": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "repo": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "owner": "gitea",
+          "name": "tea"
+        },
+        "sha": "dbfa61205c14e48d13d95c55b277e55cc0ee1100"
+      },
+      "sha": "dbfa61205c14e48d13d95c55b277e55cc0ee1100",
+      "message": "Merge branch 'main' into issue-1089-locale-independent-git\n",
+      "author": {
+        "actor": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "login": "lunny",
+          "id": "1",
+          "name": "Lunny Xiao",
+          "avatarUrl": "https://seccdn.libravatar.org/avatar/b897d40dc87fdba4a024827c3967597434681a8f4f0f4eb5d73e0f8b1a0a9274?d=identicon",
+          "url": "https://gitea.com/lunny",
+          "isBotHint": false
+        },
+        "name": "Lunny Xiao",
+        "email": "redacted@example.invalid",
+        "date": "2026-09-30T17:40:41.000Z"
+      },
+      "committer": {
+        "actor": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "login": "lunny",
+          "id": "1",
+          "name": "Lunny Xiao",
+          "avatarUrl": "https://seccdn.libravatar.org/avatar/b897d40dc87fdba4a024827c3967597434681a8f4f0f4eb5d73e0f8b1a0a9274?d=identicon",
+          "url": "https://gitea.com/lunny",
+          "isBotHint": false
+        },
+        "name": "Lunny Xiao",
+        "email": "redacted@example.invalid",
+        "date": "2026-09-30T17:40:41.000Z"
+      },
+      "parents": [
+        "d98dd96cd86bd56539aa8fdad5c14e06abd4d2f1",
+        "9c12138d6273ba8feb6e7578833cc330c0cd6461"
+      ],
+      "url": "https://gitea.com/gitea/tea/commit/dbfa61205c14e48d13d95c55b277e55cc0ee1100",
+      "stats": {
+        "additions": 454,
+        "deletions": 46,
+        "total": 500
+      },
+      "files": [
+        {
+          "path": "cmd/issues/create_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/pulls/create_app_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/pulls/create_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "modules/task/pull_merge_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/issues/create.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "cmd/pulls/create.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "go.mod",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "go.sum",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "modules/interact/issue_create.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "modules/interact/pull_create.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "modules/task/issue_create.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "modules/task/pull_create.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "modules/task/pull_merge.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        }
+      ]
+    },
+    {
+      "ref": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "repo": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "owner": "gitea",
+          "name": "tea"
+        },
+        "sha": "d98dd96cd86bd56539aa8fdad5c14e06abd4d2f1"
+      },
+      "sha": "d98dd96cd86bd56539aa8fdad5c14e06abd4d2f1",
+      "message": "Merge branch 'main' into issue-1089-locale-independent-git\n",
+      "author": {
+        "actor": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "login": "lunny",
+          "id": "1",
+          "name": "Lunny Xiao",
+          "avatarUrl": "https://seccdn.libravatar.org/avatar/b897d40dc87fdba4a024827c3967597434681a8f4f0f4eb5d73e0f8b1a0a9274?d=identicon",
+          "url": "https://gitea.com/lunny",
+          "isBotHint": false
+        },
+        "name": "Lunny Xiao",
+        "email": "redacted@example.invalid",
+        "date": "2026-08-28T23:55:42.000Z"
+      },
+      "committer": {
+        "actor": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "login": "lunny",
+          "id": "1",
+          "name": "Lunny Xiao",
+          "avatarUrl": "https://seccdn.libravatar.org/avatar/b897d40dc87fdba4a024827c3967597434681a8f4f0f4eb5d73e0f8b1a0a9274?d=identicon",
+          "url": "https://gitea.com/lunny",
+          "isBotHint": false
+        },
+        "name": "Lunny Xiao",
+        "email": "redacted@example.invalid",
+        "date": "2026-08-28T23:55:42.000Z"
+      },
+      "parents": [
+        "67f1b1a8f27b659102fd4d1507dc2ae7a49fec9c",
+        "8bfdec40c6708f8be14d10b05e69aea487e607c1"
+      ],
+      "url": "https://gitea.com/gitea/tea/commit/d98dd96cd86bd56539aa8fdad5c14e06abd4d2f1",
+      "stats": {
+        "additions": 799,
+        "deletions": 25,
+        "total": 824
+      },
+      "files": [
+        {
+          "path": "cmd/flags/body.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/flags/body_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/login/status.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "modules/interact/login_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "modules/print/login_status.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "modules/print/login_status_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "modules/task/login_status.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "modules/task/login_status_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/flags/issue_pr.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "cmd/login.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "docs/CLI.md",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "go.mod",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "modules/config/login.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "modules/interact/login.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "modules/task/login_create.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        }
+      ]
+    },
+    {
+      "ref": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "repo": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "owner": "gitea",
+          "name": "tea"
+        },
+        "sha": "67f1b1a8f27b659102fd4d1507dc2ae7a49fec9c"
+      },
+      "sha": "67f1b1a8f27b659102fd4d1507dc2ae7a49fec9c",
+      "message": "Fix locale-dependent git error handling (#1089)\n\nForce the C locale for git subprocesses so git output used for error classification remains stable and parseable regardless of the user shell language.\n\nAdd a regression test that simulates a localized git \"not a repository\" error and verifies it is classified as ErrRepositoryNotExists.\n\nSigned-off-by: Lunny Xiao <redacted@example.invalid>\n",
+      "author": {
+        "actor": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "login": "lunny",
+          "id": "1",
+          "name": "Lunny Xiao",
+          "avatarUrl": "https://seccdn.libravatar.org/avatar/b897d40dc87fdba4a024827c3967597434681a8f4f0f4eb5d73e0f8b1a0a9274?d=identicon",
+          "url": "https://gitea.com/lunny",
+          "isBotHint": false
+        },
+        "name": "Lunny Xiao",
+        "email": "redacted@example.invalid",
+        "date": "2026-08-22T06:41:58.000Z"
+      },
+      "committer": {
+        "actor": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "login": "lunny",
+          "id": "1",
+          "name": "Lunny Xiao",
+          "avatarUrl": "https://seccdn.libravatar.org/avatar/b897d40dc87fdba4a024827c3967597434681a8f4f0f4eb5d73e0f8b1a0a9274?d=identicon",
+          "url": "https://gitea.com/lunny",
+          "isBotHint": false
+        },
+        "name": "Lunny Xiao",
+        "email": "redacted@example.invalid",
+        "date": "2026-08-22T06:41:58.000Z"
+      },
+      "parents": [
+        "ee531914cd107a6c4239013f979e65835d4815f7"
+      ],
+      "url": "https://gitea.com/gitea/tea/commit/67f1b1a8f27b659102fd4d1507dc2ae7a49fec9c",
+      "stats": {
+        "additions": 56,
+        "deletions": 1,
+        "total": 57
+      },
+      "files": [
+        {
+          "path": "modules/git/cli_backend.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "modules/git/cli_backend_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        }
+      ]
+    }
+  ],
+  "cursor": {
+    "nextUrl": "https://gitea.com/api/v1/repos/gitea/tea/pulls/1099/commits?limit=3&page=2"
+  }
+}

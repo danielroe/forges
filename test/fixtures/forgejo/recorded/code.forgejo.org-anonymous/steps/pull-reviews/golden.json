@@ -1,0 +1,89 @@
+{
+  "items": [
+    {
+      "ref": {
+        "forge": "forgejo",
+        "instance": "code.forgejo.org",
+        "thread": {
+          "forge": "forgejo",
+          "instance": "code.forgejo.org",
+          "repo": {
+            "forge": "forgejo",
+            "instance": "code.forgejo.org",
+            "owner": "forgejo",
+            "name": "runner"
+          },
+          "kind": "pull_request",
+          "number": "1765"
+        },
+        "id": "11223"
+      },
+      "author": {
+        "forge": "forgejo",
+        "instance": "code.forgejo.org",
+        "repo": {
+          "forge": "forgejo",
+          "instance": "code.forgejo.org",
+          "owner": "forgejo",
+          "name": "runner"
+        },
+        "kind": "pull_request",
+        "number": "1765",
+        "login": "mfenniak",
+        "id": "1324",
+        "name": "Mathieu Fenniak",
+        "avatarUrl": "https://code.forgejo.org/avatars/02690dbc4a237b1617d46226d6132729cd0a2534d161edd6f7788708b68654c8",
+        "url": "https://code.forgejo.org/mfenniak",
+        "isBotHint": false
+      },
+      "state": "changes_requested",
+      "stateRaw": "REQUEST_CHANGES",
+      "body": "```\r\n::error::Cannot find Buildx release v0.37.2 in https://raw.githubusercontent.com/docker/actions-toolkit/main/.github/buildx-releases.json\r\n```\r\n\r\nPremature upgrade, I suppose.  Marking w/ rejected review until it can be retried later.\r\n",
+      "submittedAt": "2026-10-01T00:13:31.000Z",
+      "comments": [],
+      "url": "https://code.forgejo.org/forgejo/runner/pulls/1765#issuecomment-102175"
+    },
+    {
+      "ref": {
+        "forge": "forgejo",
+        "instance": "code.forgejo.org",
+        "thread": {
+          "forge": "forgejo",
+          "instance": "code.forgejo.org",
+          "repo": {
+            "forge": "forgejo",
+            "instance": "code.forgejo.org",
+            "owner": "forgejo",
+            "name": "runner"
+          },
+          "kind": "pull_request",
+          "number": "1765"
+        },
+        "id": "11230"
+      },
+      "author": {
+        "forge": "forgejo",
+        "instance": "code.forgejo.org",
+        "repo": {
+          "forge": "forgejo",
+          "instance": "code.forgejo.org",
+          "owner": "forgejo",
+          "name": "runner"
+        },
+        "kind": "pull_request",
+        "number": "1765",
+        "login": "mfenniak",
+        "id": "1324",
+        "name": "Mathieu Fenniak",
+        "avatarUrl": "https://code.forgejo.org/avatars/02690dbc4a237b1617d46226d6132729cd0a2534d161edd6f7788708b68654c8",
+        "url": "https://code.forgejo.org/mfenniak",
+        "isBotHint": false
+      },
+      "state": "approved",
+      "stateRaw": "APPROVED",
+      "submittedAt": "2026-10-02T02:59:16.000Z",
+      "comments": [],
+      "url": "https://code.forgejo.org/forgejo/runner/pulls/1765#issuecomment-102270"
+    }
+  ]
+}

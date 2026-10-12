@@ -1,0 +1,464 @@
+{
+  "items": [
+    {
+      "ref": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "repo": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "owner": "forgejo",
+          "name": "forgejo"
+        },
+        "sha": "1b980f3558583271691afb2e6d5bfb96a67cc1e0"
+      },
+      "sha": "1b980f3558583271691afb2e6d5bfb96a67cc1e0",
+      "message": "fix: avoid loading unnecessary data during tag creation (#14785)\n\nI noticed that creating a tag via the web UI of codeberg.org was quite slow (28-30s).\n\nTracing showed a interesting SQL query:\n\n```sql\nSELECT * FROM `attachment` WHERE `release_id` IN (0) ORDER BY `release_id` ASC, `name` ASC\n```\n\nTracing also showed that this SQL query was executed before a\ntime block where Forgejo was doing a lot of application (non git/DB) code.\n\n---\n\n- `release_service.CreateNewTag` is called from the web router to handle creating a new tag, this function prepares a release struct with all the necessary information (every tag is stored as a release in the database).\n- `createTag` is then called which as first thing calls `LoadAttributes`.\n- `LoadAttributes` assumes the given release was loaded from the database and thus assumes the ID is non-zero. Loading 148026 attachments into this release.\n\nReviewed-on: https://codeberg.org/forgejo/forgejo/pulls/14785\nReviewed-by: Andreas Ahlenstorf <redacted@example.invalid>\n",
+      "author": {
+        "actor": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "login": "Gusted",
+          "id": "26734",
+          "avatarUrl": "https://codeberg.org/avatars/44a59264e976fa585ed9f0a92abad9d7",
+          "url": "https://codeberg.org/Gusted",
+          "isBotHint": false
+        },
+        "name": "Gusted",
+        "email": "redacted@example.invalid",
+        "date": "2026-10-11T13:37:01.000Z"
+      },
+      "committer": {
+        "actor": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "login": "Gusted",
+          "id": "26734",
+          "avatarUrl": "https://codeberg.org/avatars/44a59264e976fa585ed9f0a92abad9d7",
+          "url": "https://codeberg.org/Gusted",
+          "isBotHint": false
+        },
+        "name": "Gusted",
+        "email": "redacted@example.invalid",
+        "date": "2026-10-11T13:37:01.000Z"
+      },
+      "parents": [
+        "0380b6d688eaf1390e4f24c618386737bf9fc6b1"
+      ],
+      "url": "https://codeberg.org/forgejo/forgejo/commit/1b980f3558583271691afb2e6d5bfb96a67cc1e0",
+      "stats": {
+        "additions": 50,
+        "deletions": 5,
+        "total": 55
+      },
+      "files": [
+        {
+          "path": "models/repo/release.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "models/repo/release_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "services/release/release.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        }
+      ]
+    },
+    {
+      "ref": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "repo": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "owner": "forgejo",
+          "name": "forgejo"
+        },
+        "sha": "0380b6d688eaf1390e4f24c618386737bf9fc6b1"
+      },
+      "sha": "0380b6d688eaf1390e4f24c618386737bf9fc6b1",
+      "message": "Update module github.com/go-co-op/gocron to v2 (forgejo) (#14803)\n\nReviewed-on: https://codeberg.org/forgejo/forgejo/pulls/14803\nReviewed-by: Gusted <redacted@example.invalid>\n",
+      "author": {
+        "actor": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "login": "viceice-bot",
+          "id": "141082",
+          "avatarUrl": "https://codeberg.org/avatars/b25a3a294c6f5514eb9f56b9c808425d05578e5f414b0d36ac88ade50e166d02",
+          "url": "https://codeberg.org/viceice-bot",
+          "isBotHint": false
+        },
+        "name": "Renovate Bot",
+        "email": "redacted@example.invalid",
+        "date": "2026-10-11T10:37:22.000Z"
+      },
+      "committer": {
+        "actor": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "login": "Gusted",
+          "id": "26734",
+          "avatarUrl": "https://codeberg.org/avatars/44a59264e976fa585ed9f0a92abad9d7",
+          "url": "https://codeberg.org/Gusted",
+          "isBotHint": false
+        },
+        "name": "Gusted",
+        "email": "redacted@example.invalid",
+        "date": "2026-10-11T10:37:22.000Z"
+      },
+      "parents": [
+        "7699483827b24e958772d10b363e087e1f4173c4"
+      ],
+      "url": "https://codeberg.org/forgejo/forgejo/commit/0380b6d688eaf1390e4f24c618386737bf9fc6b1",
+      "stats": {
+        "additions": 66,
+        "deletions": 44,
+        "total": 110
+      },
+      "files": [
+        {
+          "path": "assets/go-licenses.json",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "go.mod",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "go.sum",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "services/cron/cron.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "services/cron/tasks.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "services/cron/tasks_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        }
+      ]
+    },
+    {
+      "ref": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "repo": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "owner": "forgejo",
+          "name": "forgejo"
+        },
+        "sha": "7699483827b24e958772d10b363e087e1f4173c4"
+      },
+      "sha": "7699483827b24e958772d10b363e087e1f4173c4",
+      "message": "fix(i18n): fix faulty remap of mde tooltips (#14804)\n\nFixes forgejo/forgejo#14357.\n\nFix regression of https://codeberg.org/forgejo/forgejo/pulls/13954.\n\nThis re-remaps strings correctly in all languages as they were of commit f911f069b7fc7f3ed65b8ef3f9b12719c99d0757.\n\nThis rollback is needed because we currently have a mix of languages that were and weren't updated on Weblate.\n\nReviewed-on: https://codeberg.org/forgejo/forgejo/pulls/14804\nReviewed-by: Gusted <redacted@example.invalid>\n",
+      "author": {
+        "actor": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "login": "0ko",
+          "id": "35856",
+          "avatarUrl": "https://codeberg.org/avatars/679e72b1ca263a192b488b84af24e10c4f32e2c3f46eb2baa7928c986ba460ef",
+          "url": "https://codeberg.org/0ko",
+          "isBotHint": false
+        },
+        "name": "0ko",
+        "email": "redacted@example.invalid",
+        "date": "2026-10-11T08:50:17.000Z"
+      },
+      "committer": {
+        "actor": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "login": "0ko",
+          "id": "35856",
+          "avatarUrl": "https://codeberg.org/avatars/679e72b1ca263a192b488b84af24e10c4f32e2c3f46eb2baa7928c986ba460ef",
+          "url": "https://codeberg.org/0ko",
+          "isBotHint": false
+        },
+        "name": "0ko",
+        "email": "redacted@example.invalid",
+        "date": "2026-10-11T08:50:17.000Z"
+      },
+      "parents": [
+        "5c9a8a3d0a99aa55ae0db216b04aabba79945b4c"
+      ],
+      "url": "https://codeberg.org/forgejo/forgejo/commit/7699483827b24e958772d10b363e087e1f4173c4",
+      "stats": {
+        "additions": 198,
+        "deletions": 198,
+        "total": 396
+      },
+      "files": [
+        {
+          "path": "options/locale_next/locale_ar.json",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "options/locale_next/locale_bg.json",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "options/locale_next/locale_ca.json",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "options/locale_next/locale_cs-CZ.json",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "options/locale_next/locale_da.json",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "options/locale_next/locale_de-DE.json",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "options/locale_next/locale_el-GR.json",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "options/locale_next/locale_en-US.json",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "options/locale_next/locale_eo.json",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "options/locale_next/locale_es-ES.json",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "options/locale_next/locale_et.json",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "options/locale_next/locale_eu.json",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "options/locale_next/locale_fa-IR.json",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "options/locale_next/locale_fi-FI.json",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "options/locale_next/locale_fil.json",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "options/locale_next/locale_fr-FR.json",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "options/locale_next/locale_fr_CA.json",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "options/locale_next/locale_ga.json",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "options/locale_next/locale_gl.json",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "options/locale_next/locale_he.json",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "options/locale_next/locale_hi.json",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "options/locale_next/locale_hr.json",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "options/locale_next/locale_hu-HU.json",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "options/locale_next/locale_id-ID.json",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "options/locale_next/locale_it-IT.json",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "options/locale_next/locale_ja-JP.json",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "options/locale_next/locale_kab.json",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "options/locale_next/locale_ko-KR.json",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "options/locale_next/locale_kw.json",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "options/locale_next/locale_lt.json",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "options/locale_next/locale_lv-LV.json",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "options/locale_next/locale_nb_NO.json",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "options/locale_next/locale_nds.json",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "options/locale_next/locale_nl-NL.json",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "options/locale_next/locale_pl-PL.json",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "options/locale_next/locale_pt-BR.json",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "options/locale_next/locale_pt-PT.json",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "options/locale_next/locale_ro.json",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "options/locale_next/locale_ru-RU.json",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "options/locale_next/locale_sk-SK.json",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "options/locale_next/locale_sl.json",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "options/locale_next/locale_sv-SE.json",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "options/locale_next/locale_ta.json",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "options/locale_next/locale_th.json",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "options/locale_next/locale_tok.json",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "options/locale_next/locale_tr-TR.json",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "options/locale_next/locale_uk-UA.json",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "options/locale_next/locale_vi.json",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "options/locale_next/locale_zh-CN.json",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "options/locale_next/locale_zh-TW.json",
+          "status": "modified",
+          "statusRaw": "modified"
+        }
+      ]
+    }
+  ],
+  "cursor": {
+    "nextUrl": "https://codeberg.org/api/v1/repos/forgejo/forgejo/commits?limit=3&page=2"
+  }
+}

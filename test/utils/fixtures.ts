@@ -1,8 +1,9 @@
 import type { FetchLike } from '../../src/fetch.ts'
-import type { Fixture, FixtureFetch, FixtureFetchOptions } from '../../src/testing/index.ts'
-import { readdirSync, readFileSync } from 'node:fs'
+import type { Fixture, FixtureCall, FixtureFetch, FixtureFetchOptions } from '../../src/testing/index.ts'
+import { existsSync, readdirSync, readFileSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
 import { fixtureFetch as serveFixtures } from '../../src/testing/index.ts'
+import { recordedSteps, SETUP_DIRECTORY } from '../recording/layout.ts'
 import { markPayload, markResponse } from './provenance.ts'
 
 export type { Fixture, FixtureCall, FixtureFetch } from '../../src/testing/index.ts'
@@ -11,11 +12,20 @@ export function fixtureDirectory(provider: string): string {
   return fileURLToPath(new URL(`../fixtures/${provider}/`, import.meta.url))
 }
 
-/** The fixtures under `test/fixtures/<provider>/`, in the order their numbered names give. */
+/**
+ * The fixtures under `test/fixtures/<provider>/`, in the order their numbered
+ * names give. For a recording, the fixtures of `setup/` and of every step, in
+ * the order the steps run.
+ */
 export function loadFixtures(provider: string): Fixture[] {
   const directory = fixtureDirectory(provider)
+  const steps = recordedSteps(directory)
+  if (steps.length) {
+    const groups = [...existsSync(`${directory}${SETUP_DIRECTORY}/`) ? [SETUP_DIRECTORY] : [], ...steps.map(step => `steps/${step.slug}`)]
+    return groups.flatMap(group => loadFixtures(`${provider}/${group}`))
+  }
   return readdirSync(directory)
-    .filter(file => file.endsWith('.json') && file !== 'manifest.json')
+    .filter(file => file.endsWith('.json') && !['manifest.json', 'step.json', 'golden.json'].includes(file))
     .sort((a, b) => Number.parseInt(a) - Number.parseInt(b) || a.localeCompare(b))
     .map(file => JSON.parse(readFileSync(`${directory}${file}`, 'utf8')) as Fixture)
     .filter(fixture => fixture.request !== undefined)
@@ -39,6 +49,49 @@ export function fixtureFetch(provider: string, overrides: Record<string, Fixture
     return response
   }
   return { fetch, calls: served.calls }
+}
+
+/** A `fetch` that serves a recording one step at a time, as `fixtureFetch()` does. */
+export interface StepFixtureFetch extends FixtureFetch {
+  /** Serves the fixtures of the step in `steps/<slug>/` from now on, falling back to `setup/`. */
+  use: (slug: string) => void
+}
+
+/**
+ * Serves the recording under `test/fixtures/<recording>/` so that each step
+ * reads only the responses recorded for it, and those recorded outside any
+ * step.
+ */
+export function stepFixtureFetch(recording: string, options: FixtureFetchOptions = {}): StepFixtureFetch {
+  const setup = existsSync(`${fixtureDirectory(recording)}${SETUP_DIRECTORY}/`) ? fixtureFetch(`${recording}/${SETUP_DIRECTORY}`, {}, options) : undefined
+  const steps = new Map<string, FixtureFetch>()
+  const calls: FixtureCall[] = []
+  let current = ''
+  const fetch: FetchLike = async (input, init) => {
+    if (!steps.has(current)) {
+      steps.set(current, fixtureFetch(`${recording}/steps/${current}`, {}, options))
+    }
+    for (const source of [steps.get(current)!, setup]) {
+      const index = source?.calls.length ?? 0
+      try {
+        const response = await source?.fetch(input, init)
+        if (response) {
+          calls.push(source!.calls[index]!)
+          return response
+        }
+      }
+      catch (error) {
+        if (!(error instanceof Error) || !error.message.startsWith('No fixture for')) {
+          throw error
+        }
+      }
+    }
+    throw new Error(`No fixture for ${(init?.method ?? 'GET').toUpperCase()} ${input} in step ${current} or ${SETUP_DIRECTORY}`)
+  }
+  const use = (slug: string) => {
+    current = slug
+  }
+  return { fetch, calls, use }
 }
 
 /** A webhook body hand-authored from the forge's documentation, under `test/fixtures/<provider>/`. */

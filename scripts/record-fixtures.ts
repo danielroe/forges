@@ -3,26 +3,41 @@ import type * as Forges from '../src/index.ts'
 import type { Fixture } from '../src/testing/index.ts'
 import type { RecordingManifest, StepContext } from '../test/recording/steps.ts'
 import type { WriteContext, WriteManifest, WriteRun } from '../test/recording/write-steps.ts'
+import type { StepRecording, StepRun } from './recording-store.ts'
 import type { HookDelivery, WriteHarness } from './write-harness.ts'
 import { randomBytes } from 'node:crypto'
-import { mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
-import { env, exit } from 'node:process'
+import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
+import process, { env, exit } from 'node:process'
 import { fileURLToPath } from 'node:url'
 import { parseArgs } from 'node:util'
 import { azureDevOps, bitbucket, cursorOrigin, forgejo, gitea, gitee, github, gitlab, pushin, tangled } from '../src/index.ts'
 import { recordingFetch, signDelivery } from '../src/testing/index.ts'
+import { recordedSteps, stepSlug } from '../test/recording/layout.ts'
 import { redact } from '../test/recording/redact.ts'
 import { seedScratch } from '../test/recording/seed.ts'
 import { LOG_LIMIT, STEPS } from '../test/recording/steps.ts'
 import { FIXTURE_HOOK_SECRET, FIXTURE_HOOK_URL, FIXTURE_TITLE, fixtureLabel, WRITE_STEPS } from '../test/recording/write-steps.ts'
+import { connectedSteps, writeRecording } from './recording-store.ts'
 import { guardedFetch } from './write-guard.ts'
 import { writeHarness } from './write-harness.ts'
 
-const { positionals: [target], values: flags } = parseArgs({ allowPositionals: true, options: { anonymous: { type: 'boolean', default: false }, app: { type: 'boolean', default: false }, writes: { type: 'boolean', default: false }, webhooks: { type: 'boolean', default: false }, seed: { type: 'boolean', default: false } } })
+const { positionals: [target], values: flags } = parseArgs({ allowPositionals: true, options: { 'anonymous': { type: 'boolean', default: false }, 'app': { type: 'boolean', default: false }, 'writes': { type: 'boolean', default: false }, 'webhooks': { type: 'boolean', default: false }, 'seed': { type: 'boolean', default: false }, 'only': { type: 'string', multiple: true }, 'allow-fewer': { type: 'boolean', default: false } } })
 const TOKEN_VARIABLES: Record<string, string> = { 'github': 'GITHUB_TOKEN', 'forgejo': 'CODEBERG_TOKEN', 'gitlab': 'GITLAB_TOKEN', 'bitbucket': 'BITBUCKET_TOKEN', 'cursor-origin': 'CURSOR_AUTH_TOKEN', 'gitee': 'GITEE_TOKEN', 'azure-devops': 'AZURE_DEVOPS_TOKEN', 'gitea': 'GITEA_TOKEN', 'pushin': 'PUSHIN_TOKEN', 'tangled': 'TANGLED_PASSWORD' }
 
 if (!target || !(target in TOKEN_VARIABLES)) {
-  console.error('Usage: pnpm record-fixtures <github|forgejo|gitlab|bitbucket|tangled|cursor-origin|gitee|azure-devops|gitea|pushin> [--anonymous | --app | --writes | --webhooks | --seed]')
+  console.error('Usage: pnpm record-fixtures <github|forgejo|gitlab|bitbucket|tangled|cursor-origin|gitee|azure-devops|gitea|pushin> [--anonymous | --app | --writes [--allow-fewer] | --webhooks | --seed] [--only <step>]...')
+  exit(1)
+}
+
+/** The read steps to write, by name or by directory name; the steps before the last of them run too, as later steps read what earlier ones found. */
+const only = flags.only && new Set(flags.only.map(name => STEPS.find(step => step.name === name || stepSlug(step.name) === name)?.name ?? name))
+if (only && (flags.writes || flags.webhooks || flags.seed)) {
+  console.error('--only records read steps. A write recording runs one sequence of writes, so it is recorded as a whole.')
+  exit(1)
+}
+const unknown = [...only ?? []].filter(name => !STEPS.some(step => step.name === name))
+if (unknown.length) {
+  console.error(`No read steps named ${unknown.map(name => `\`${name}\``).join(', ')}.`)
   exit(1)
 }
 
@@ -56,12 +71,15 @@ let out = ''
 /**
  * Recordings are kept per instance host, so recording another instance never
  * replaces this one. Anonymous recordings go under `<host>-anonymous/`,
- * GitHub App recordings under `<host>-app/` and write recordings under
- * `<host>-writes/`.
+ * GitHub App recordings under `<host>-app/`, write recordings under
+ * `<host>-writes/` and webhook deliveries under `<host>-webhooks/`. Webhook
+ * deliveries replace the directory; other recordings update it step by step.
  */
 function useInstance(provider: Forges.ForgeProvider): void {
   out = `${root}${provider.instance}${anonymous ? '-anonymous' : app ? '-app' : flags.writes ? '-writes' : flags.webhooks ? '-webhooks' : ''}/`
-  rmSync(out, { recursive: true, force: true })
+  if (flags.webhooks) {
+    rmSync(out, { recursive: true, force: true })
+  }
   mkdirSync(out, { recursive: true })
 }
 
@@ -105,15 +123,71 @@ const recordLive = recorder.fetch
 /** Error responses from failed steps, left out of the recording. */
 const discarded = new Set<Fixture>()
 
-function writeFixtures(): void {
-  let sequence = 0
-  for (const fixture of recorder.fixtures) {
-    if (discarded.has(fixture)) {
-      continue
-    }
-    const { method, url, operationName } = fixture.request
-    const slug = `${String(++sequence).padStart(2, '0')}-${method.toLowerCase()}-${operationName ?? new URL(url).pathname.split('/').filter(Boolean).slice(-2).join('-')}`
-    writeFileSync(`${out}${slug}.json`, `${JSON.stringify(fixture, null, 2)}\n`)
+/** The steps that succeeded, with the responses each received, and those that failed. */
+const recorded: StepRecording[] = []
+const failed: StepRun[] = []
+
+/** The context steps share, recording which step wrote each finding and which findings each step read. */
+function trackedContext<T extends object>(target: T): { context: T, run: (name: string, run: () => Promise<unknown>) => Promise<boolean> } {
+  const writers = new Map<string, string>()
+  let reads = new Set<string>()
+  let current = ''
+  const context = new Proxy(target, {
+    get(object, key, receiver) {
+      const writer = typeof key === 'string' ? writers.get(key) : undefined
+      if (writer && writer !== current) {
+        reads.add(writer)
+      }
+      return Reflect.get(object, key, receiver)
+    },
+    set(object, key, value, receiver) {
+      if (typeof key === 'string') {
+        writers.set(key, current)
+      }
+      return Reflect.set(object, key, value, receiver)
+    },
+  })
+  return {
+    context,
+    run: async (name, run) => {
+      current = name
+      reads = new Set()
+      const start = recorder.fixtures.length
+      const recordedAt = new Date().toISOString()
+      const ok = await step(name, run)
+      const needs = [...reads]
+      if (ok) {
+        recorded.push({ name, recordedAt, needs, fixtures: recorder.fixtures.slice(start) })
+      }
+      else {
+        failed.push({ name, needs })
+      }
+      return ok
+    },
+  }
+}
+
+/** Writes the recorded steps, with the responses received outside any step, which replay falls back to. */
+function writeSteps(options: { keepFailed?: boolean } = {}): void {
+  const inSteps = new Set(recorded.flatMap(step => step.fixtures))
+  const setup = recorder.fixtures.filter(fixture => !inSteps.has(fixture) && !discarded.has(fixture))
+  const result = writeRecording(out, { steps: recorded, failed, setup, only, ...options })
+  const list = (names: string[]) => names.map(name => `\n  ${name}`).join('')
+  console.info(`${result.written.length} step(s) written, ${result.unchanged.length} unchanged apart from rate limits, counters and activity times.`)
+  if (result.extra.length) {
+    console.info(`Also wrote these steps, which changed and read from or are read by a written step:${list(result.extra)}`)
+  }
+  if (result.kept.length) {
+    console.error(`Kept the earlier recording of the steps that failed:${list(result.kept)}`)
+  }
+  if (result.dropped.length) {
+    console.error(`Removed the earlier recording of the steps that failed, as it read findings recorded since:${list(result.dropped)}`)
+  }
+  if (result.removed.length) {
+    console.info(`Removed steps the provider no longer records:${list(result.removed)}`)
+  }
+  if (result.stale.length) {
+    console.error(`These steps did not run, and read from or are read by a written step, so they may no longer replay; record them too with --only:${list(result.stale)}`)
   }
 }
 
@@ -217,6 +291,8 @@ interface Target {
   /** Fills in manifest refs the forge can only resolve by reading, before the steps run. */
   prepare?: (manifest: RecordingManifest) => Promise<void>
   after?: () => Promise<void>
+  /** Removes from the responses what the recording must not keep, before they are written. */
+  scrub?: () => Promise<void>
 }
 
 function targetFor(credentials: Credentials, fetch: FetchLike): Target {
@@ -294,6 +370,9 @@ function targetFor(credentials: Credentials, fetch: FetchLike): Target {
                 controller.abort()
               }
             }
+            if (!events) {
+              throw new Error(`${messages.length} jetstream messages since the cursor yielded no events; kept the earlier jetstream.json`)
+            }
             let others = 0
             const kept = messages.filter(message => (message as { kind?: string }).kind === 'commit' || others++ < 3)
             writeFileSync(`${out}jetstream.json`, `${JSON.stringify({ cursor, messages: kept }, null, 2)}\n`)
@@ -354,7 +433,7 @@ function targetFor(credentials: Credentials, fetch: FetchLike): Target {
           issue: { forge: 'gitlab', instance: provider.instance, repo, kind: 'issue', number: env.FIXTURE_GITLAB_ISSUE ?? '8572' },
           ...setupRepos('GITLAB', projectRepo),
         },
-        after: () => dropPrivateTodos(provider.baseUrl),
+        scrub: () => dropPrivateTodos(provider.baseUrl),
       }
     }
     case 'gitea': {
@@ -478,49 +557,64 @@ async function recordWrites(): Promise<void> {
     transfer,
     collaborators,
     run,
-    recordedAt: new Date().toISOString(),
-    steps: [],
   }
-  const context: WriteContext = { pulls: [], comments: {}, wait: ms => new Promise(resolve => setTimeout(resolve, ms)) }
+  const { context, run: recordStep } = trackedContext<WriteContext>({ pulls: [], comments: {}, wait: ms => new Promise(resolve => setTimeout(resolve, ms)) })
+  const succeeded = (name: string) => recorded.some(step => step.name === name)
   try {
     for (const item of WRITE_STEPS) {
       const provider = item.as === 'reviewer' ? reviewer : author.provider
       if (!provider?.can(item.verb, item.kind) || item.when?.(provider, manifest) === false) {
         continue
       }
-      if (await step(item.name, () => item.run(provider, manifest, context))) {
-        manifest.steps.push(item.name)
-      }
+      await recordStep(item.name, () => item.run(provider, manifest, context))
     }
   }
   finally {
-    await harness.cleanUp(run.branches, fixtureLabel(run), context.webhook && !manifest.steps.includes('delete webhook') ? [context.webhook.ref.id] : [])
-    if (collaborators && context.reviewer && manifest.steps.includes('add collaborator')) {
+    await harness.cleanUp(run.branches, fixtureLabel(run), context.webhook && !succeeded('delete webhook') ? [context.webhook.ref.id] : [])
+    if (collaborators && context.reviewer && succeeded('add collaborator')) {
       await harness.removeCollaborator?.(collaborators, context.reviewer.id)
     }
   }
-  writeFixtures()
+  const lost = recordedSteps(out).map(step => step.name).filter(name => !recorded.some(step => step.name === name))
+  if (lost.length && !flags['allow-fewer']) {
+    console.error(`Kept the earlier recording, as this run did not record these steps it has; pass --allow-fewer to replace it anyway:${lost.map(name => `\n  ${name}`).join('')}`)
+    process.exitCode = 1
+    return
+  }
+  // Every write step reads what the steps before it wrote in this run, so an earlier run's recording of a failed step cannot be kept.
+  writeSteps({ keepFailed: false })
   writeFileSync(`${out}manifest.json`, `${JSON.stringify(manifest, null, 2)}\n`)
 }
 
 async function recordReads(): Promise<void> {
-  const { provider, manifest: partial, prepare, after } = targetFor(readCredentials, recordLive)
+  const { provider, manifest: partial, prepare, after, scrub } = targetFor(readCredentials, recordLive)
   useInstance(provider)
-  const recorded: RecordingManifest = { baseUrl: provider.baseUrl, ...(anonymous && { anonymous }), ...partial, recordedAt: new Date().toISOString(), steps: [] }
-  await prepare?.(recorded)
-  const context: StepContext = {}
-  for (const item of STEPS) {
-    const thread = item.kind === 'issue' ? recorded.issue : item.kind === 'discussion' ? recorded.discussion : item.kind === 'pull_request' ? recorded.pull : true
-    if (!thread || !provider.can(item.verb, item.kind) || item.when?.(provider, recorded) === false) {
+  const manifest: RecordingManifest = { baseUrl: provider.baseUrl, ...(anonymous && { anonymous }), ...partial }
+  await prepare?.(manifest)
+  const json = `${JSON.stringify(manifest, null, 2)}\n`
+  const previous = only && existsSync(`${out}manifest.json`) ? JSON.parse(readFileSync(`${out}manifest.json`, 'utf8')) as Record<string, unknown> : undefined
+  const sorted = (value: unknown) => JSON.stringify(value, (_key, item: unknown) => item && typeof item === 'object' && !Array.isArray(item) ? Object.fromEntries(Object.entries(item).sort(([a], [b]) => a.localeCompare(b))) : item)
+  const differing = previous ? [...new Set([...Object.keys(previous), ...Object.keys(JSON.parse(json))])].filter(key => sorted(previous[key]) !== sorted((JSON.parse(json) as Record<string, unknown>)[key])) : []
+  if (differing.length) {
+    console.error(`${differing.map(key => `\`${key}\``).join(', ')} differ from ${out}manifest.json, so the other steps would no longer match. Record every step instead of passing --only.`)
+    exit(1)
+  }
+  const planned = only && connectedSteps(out, only)
+  const last = planned ? Math.max(...[...planned].map(name => STEPS.findIndex(step => step.name === name))) : STEPS.length - 1
+  const { context, run: recordStep } = trackedContext<StepContext>({})
+  for (const item of STEPS.slice(0, last + 1)) {
+    const thread = item.kind === 'issue' ? manifest.issue : item.kind === 'discussion' ? manifest.discussion : item.kind === 'pull_request' ? manifest.pull : true
+    if (!thread || !provider.can(item.verb, item.kind) || item.when?.(provider, manifest) === false) {
       continue
     }
-    if (await step(item.name, () => item.run(provider, recorded, context))) {
-      recorded.steps.push(item.name)
-    }
+    await recordStep(item.name, () => item.run(provider, manifest, context))
   }
-  await after?.()
-  writeFixtures()
-  writeFileSync(`${out}manifest.json`, `${JSON.stringify(recorded, null, 2)}\n`)
+  if (!only) {
+    await after?.()
+  }
+  await scrub?.()
+  writeSteps()
+  writeFileSync(`${out}manifest.json`, json)
 }
 
 interface DeliverySource {
@@ -629,5 +723,5 @@ async function seed(): Promise<void> {
 await (flags.seed ? seed() : flags.writes ? recordWrites() : flags.webhooks ? recordWebhooks() : recordReads())
 
 if (failures) {
-  console.error(`${failures} step(s) failed; the manifest lists only the steps that succeeded.`)
+  console.error(`${failures} step(s) failed.`)
 }

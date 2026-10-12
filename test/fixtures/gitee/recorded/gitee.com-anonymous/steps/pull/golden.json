@@ -1,0 +1,152 @@
+{
+  "ref": {
+    "forge": "gitee",
+    "instance": "gitee.com",
+    "repo": {
+      "forge": "gitee",
+      "instance": "gitee.com",
+      "owner": "cmcc-oneos",
+      "name": "OneOS"
+    },
+    "kind": "pull_request",
+    "number": "540",
+    "externalId": "12295976"
+  },
+  "kind": "pull_request",
+  "title": "删除cms组件，将其放到ability仓库中",
+  "body": "### 提交PR原因\r\n由于OneOS修改了组件pull方式，cms需要跟着统一修改，将cms放到ability仓库中,同时由于机制原因，需要删除cms文件夹。\r\n\r\n\r\n### 描述说明（配置修改、注意事项等说明）\r\n删除cms组件的文件夹。\r\n\r\n\r\n\r\n\r\n",
+  "state": "merged",
+  "stateRaw": "merged",
+  "isDraft": false,
+  "author": {
+    "forge": "gitee",
+    "instance": "gitee.com",
+    "login": "cmiot-zhangyong",
+    "id": "8273364",
+    "name": "JohnYoung",
+    "avatarUrl": "https://gitee.com/assets/no_portrait.png",
+    "url": "https://gitee.com/cmiot-zhangyong",
+    "typeRaw": "User",
+    "isBotHint": false
+  },
+  "assignees": [],
+  "reviewers": [
+    {
+      "actor": {
+        "forge": "gitee",
+        "instance": "gitee.com",
+        "login": "anandacoo",
+        "id": "5641649",
+        "name": "ZD",
+        "avatarUrl": "https://gitee.com/assets/no_portrait.png",
+        "url": "https://gitee.com/anandacoo",
+        "typeRaw": "User",
+        "isBotHint": false
+      },
+      "state": "pending",
+      "stateRaw": "requested"
+    },
+    {
+      "actor": {
+        "forge": "gitee",
+        "instance": "gitee.com",
+        "login": "yeslulin",
+        "id": "7762062",
+        "name": "yuanwai",
+        "avatarUrl": "https://gitee.com/assets/no_portrait.png",
+        "url": "https://gitee.com/yeslulin",
+        "typeRaw": "User",
+        "isBotHint": false
+      },
+      "state": "approved",
+      "stateRaw": "accepted"
+    },
+    {
+      "actor": {
+        "forge": "gitee",
+        "instance": "gitee.com",
+        "login": "pc-courage",
+        "id": "8078236",
+        "name": "chao",
+        "avatarUrl": "https://gitee.com/assets/no_portrait.png",
+        "url": "https://gitee.com/pc-courage",
+        "typeRaw": "User",
+        "isBotHint": false
+      },
+      "state": "approved",
+      "stateRaw": "accepted"
+    },
+    {
+      "actor": {
+        "forge": "gitee",
+        "instance": "gitee.com",
+        "login": "zhanghongwei_cmiot",
+        "id": "8157480",
+        "name": "zhanghongwei",
+        "avatarUrl": "https://gitee.com/assets/no_portrait.png",
+        "url": "https://gitee.com/zhanghongwei_cmiot",
+        "typeRaw": "User",
+        "isBotHint": false
+      },
+      "state": "pending",
+      "stateRaw": "requested"
+    },
+    {
+      "actor": {
+        "forge": "gitee",
+        "instance": "gitee.com",
+        "login": "cmiot_jixiaowei",
+        "id": "8337774",
+        "name": "jixiaowei",
+        "avatarUrl": "https://gitee.com/assets/no_portrait.png",
+        "url": "https://gitee.com/cmiot_jixiaowei",
+        "typeRaw": "User",
+        "isBotHint": false
+      },
+      "state": "pending",
+      "stateRaw": "requested"
+    }
+  ],
+  "labels": [
+    {
+      "name": "ci_smoke_success",
+      "colour": "20c22e"
+    },
+    {
+      "name": "ci_compile_warning",
+      "colour": "febc08"
+    },
+    {
+      "name": "ci_scan_success",
+      "colour": "20c22e"
+    }
+  ],
+  "url": "https://gitee.com/cmcc-oneos/OneOS/pulls/540",
+  "createdAt": "2024-08-22T01:39:20.000Z",
+  "updatedAt": "2024-11-21T07:26:46.000Z",
+  "closedAt": "2024-11-21T07:26:46.000Z",
+  "lastActivityAt": "2024-11-21T07:26:46.000Z",
+  "locked": false,
+  "branches": {
+    "head": {
+      "ref": "dev",
+      "sha": "4335303c9a57ffcf13225dcf39dfd23b8237e03b",
+      "repo": {
+        "forge": "gitee",
+        "instance": "gitee.com",
+        "owner": "cmiot-zhangyong",
+        "name": "OneOS",
+        "externalId": "22634517"
+      }
+    },
+    "base": {
+      "ref": "dev",
+      "sha": "7e3cd0d302f25794197b2c76855cc18b1dace36b"
+    }
+  },
+  "checks": {
+    "state": "unknown",
+    "total": 0,
+    "failed": 0
+  }
+}

@@ -25,35 +25,5 @@
       "forges-fixtures/20261011120208-2.md",
       "forges-fixtures/20261011120208-3.md"
     ]
-  },
-  "recordedAt": "2026-10-11T12:02:19.193Z",
-  "steps": [
-    "reviewer",
-    "create pull",
-    "create second pull",
-    "create third pull",
-    "pull comment",
-    "pull edit comment",
-    "pull get comment",
-    "pull upsert comment",
-    "pull delete comment",
-    "pull update",
-    "commit comment",
-    "commit edit comment",
-    "commit get comment",
-    "commit upsert comment",
-    "commit delete comment",
-    "request review",
-    "pending review",
-    "get review",
-    "report check",
-    "approve",
-    "merge",
-    "pull close",
-    "approve and merge",
-    "create webhook",
-    "update webhook",
-    "rotate webhook secret",
-    "delete webhook"
-  ]
+  }
 }

@@ -1,0 +1,34 @@
+{
+  "items": [
+    {
+      "name": "1-add-functionality-to-merge-merge-request",
+      "sha": "d8624041cd28c3c7b732d210f9fabcc2ccd5b81e",
+      "isDefault": false,
+      "isProtected": false,
+      "url": "https://gitlab.com/gitlab-org/cli/-/tree/1-add-functionality-to-merge-merge-request"
+    },
+    {
+      "name": "1-add-functionality-to-merge-merge-request-1",
+      "sha": "d8624041cd28c3c7b732d210f9fabcc2ccd5b81e",
+      "isDefault": false,
+      "isProtected": false,
+      "url": "https://gitlab.com/gitlab-org/cli/-/tree/1-add-functionality-to-merge-merge-request-1"
+    },
+    {
+      "name": "1-add-functionality-to-merge-merge-request-2",
+      "sha": "d8624041cd28c3c7b732d210f9fabcc2ccd5b81e",
+      "isDefault": false,
+      "isProtected": false,
+      "url": "https://gitlab.com/gitlab-org/cli/-/tree/1-add-functionality-to-merge-merge-request-2"
+    }
+  ],
+  "cursor": {
+    "nextUrl": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/repository/branches?id=gitlab-org%2Fcli&page=2&per_page=3",
+    "etag": "W/\"b29a5b6c83593279289b357f7ff2a3db\""
+  },
+  "rateLimit": {
+    "limit": 2000,
+    "remaining": 1944,
+    "resetAt": "<now>"
+  }
+}

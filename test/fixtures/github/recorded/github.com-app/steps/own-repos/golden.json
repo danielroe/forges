@@ -1,0 +1,62 @@
+{
+  "items": [
+    {
+      "ref": {
+        "forge": "github",
+        "instance": "github.com",
+        "owner": "forges-fixtures",
+        "name": "forges-fixtures",
+        "externalId": "1411702196"
+      },
+      "description": "Automated fixture target for danielroe/forges",
+      "defaultBranch": "main",
+      "visibility": "public",
+      "visibilityRaw": "public",
+      "isFork": false,
+      "isArchived": false,
+      "topics": [],
+      "url": "https://github.com/forges-fixtures/forges-fixtures",
+      "cloneUrls": {
+        "https": "https://github.com/forges-fixtures/forges-fixtures.git",
+        "ssh": "git@github.com:forges-fixtures/forges-fixtures.git"
+      },
+      "createdAt": "2026-10-09T11:01:15.000Z",
+      "updatedAt": "2026-10-11T14:54:09.000Z",
+      "pushedAt": "2026-10-11T14:54:27.000Z",
+      "owner": {
+        "forge": "github",
+        "instance": "github.com",
+        "login": "forges-fixtures",
+        "id": "340092031",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/340092031?v=4",
+        "url": "https://github.com/forges-fixtures",
+        "typeRaw": "Organization",
+        "isBotHint": false
+      },
+      "language": "JavaScript",
+      "licence": "MIT",
+      "stars": 0,
+      "forks": 0,
+      "features": {
+        "issues": true,
+        "pullRequests": true,
+        "discussions": true,
+        "wiki": false,
+        "projects": false,
+        "releases": true
+      },
+      "permissions": {
+        "admin": false,
+        "maintain": false,
+        "push": false,
+        "triage": false,
+        "pull": false
+      }
+    }
+  ],
+  "rateLimit": {
+    "limit": 5000,
+    "remaining": 4975,
+    "resetAt": "2026-10-11T17:05:29.000Z"
+  }
+}

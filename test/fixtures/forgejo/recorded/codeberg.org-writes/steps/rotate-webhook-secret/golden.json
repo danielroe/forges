@@ -1,0 +1,24 @@
+{
+  "ref": {
+    "forge": "forgejo",
+    "instance": "codeberg.org",
+    "target": {
+      "forge": "forgejo",
+      "instance": "codeberg.org",
+      "owner": "forges-fixtures",
+      "name": "forges-fixtures"
+    },
+    "id": "125706"
+  },
+  "url": "https://example.com/hook",
+  "events": [
+    "push"
+  ],
+  "nativeEvents": [
+    "push"
+  ],
+  "active": true,
+  "contentType": "json",
+  "createdAt": "<now>",
+  "updatedAt": "<now>"
+}

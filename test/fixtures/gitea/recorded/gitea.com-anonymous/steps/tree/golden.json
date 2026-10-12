@@ -1,0 +1,32 @@
+{
+  "items": [
+    {
+      "path": ".changelog.yml",
+      "type": "file",
+      "sha": "e1d6907b7aba9781666f793e13b488363fd1fd22",
+      "size": 918,
+      "mode": "100755"
+    },
+    {
+      "path": ".devcontainer",
+      "type": "directory",
+      "sha": "e6afddd3fe2b44ce0bd68e2e0178912523c5bf92",
+      "size": 0,
+      "mode": "040000"
+    },
+    {
+      "path": ".dockerignore",
+      "type": "file",
+      "sha": "d586e98b5abce19e9bd24bd509af35cddbac7743",
+      "size": 15,
+      "mode": "100644"
+    }
+  ],
+  "warnings": [
+    {
+      "code": "tree_truncated",
+      "message": "gitea truncated the tree; read it directory by directory instead",
+      "subject": "HEAD"
+    }
+  ]
+}

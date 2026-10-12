@@ -1,0 +1,131 @@
+{
+  "items": [
+    {
+      "ref": {
+        "forge": "gitee",
+        "instance": "gitee.com",
+        "owner": "cmcc-oneos",
+        "name": "docs",
+        "externalId": "23845690"
+      },
+      "description": "",
+      "defaultBranch": "master",
+      "visibility": "public",
+      "isFork": false,
+      "isArchived": false,
+      "topics": [],
+      "url": "https://gitee.com/cmcc-oneos/docs.git",
+      "cloneUrls": {
+        "https": "https://gitee.com/cmcc-oneos/docs.git.git",
+        "ssh": "git@gitee.com:cmcc-oneos/docs.git"
+      },
+      "createdAt": "2022-07-14T02:45:55.000Z",
+      "updatedAt": "2025-06-12T03:11:27.000Z",
+      "pushedAt": "2023-11-08T04:26:01.000Z",
+      "openIssueCount": 0,
+      "owner": {
+        "forge": "gitee",
+        "instance": "gitee.com",
+        "login": "cmcc-oneos-admin",
+        "id": "7894055",
+        "name": "CMCC-OneOS",
+        "avatarUrl": "https://foruda.gitee.com/avatar/1670466967165594212/7894055_cmcc-oneos-admin_1670466966.png",
+        "url": "https://gitee.com/cmcc-oneos-admin",
+        "typeRaw": "User",
+        "isBotHint": false
+      },
+      "licence": "Apache-2.0",
+      "stars": 2,
+      "forks": 2,
+      "watchers": 3
+    },
+    {
+      "ref": {
+        "forge": "gitee",
+        "instance": "gitee.com",
+        "owner": "cmcc-oneos",
+        "name": "OneOS-Metis",
+        "externalId": "17836162"
+      },
+      "description": "OneOS-Metis代码结构简单，配置方便，极易上手，非常适合用以进行RTOS的学习和研究。基于精简稳定的内核、适配广泛的外设驱动、丰富多样的组件，只需简单几步就可以快速实现应用开发，方便高效，尤其在资源紧张的MCU上更显游刃有余。",
+      "defaultBranch": "dev",
+      "visibility": "public",
+      "isFork": false,
+      "isArchived": false,
+      "topics": [],
+      "url": "https://gitee.com/cmcc-oneos/OneOS-Metis.git",
+      "cloneUrls": {
+        "https": "https://gitee.com/cmcc-oneos/OneOS-Metis.git.git",
+        "ssh": "git@gitee.com:cmcc-oneos/OneOS-Metis.git"
+      },
+      "createdAt": "2021-09-02T07:48:31.000Z",
+      "updatedAt": "2026-09-01T09:02:25.000Z",
+      "pushedAt": "2023-09-20T02:31:11.000Z",
+      "openIssueCount": 0,
+      "owner": {
+        "forge": "gitee",
+        "instance": "gitee.com",
+        "login": "cmcc-oneos-admin",
+        "id": "7894055",
+        "name": "CMCC-OneOS",
+        "avatarUrl": "https://foruda.gitee.com/avatar/1670466967165594212/7894055_cmcc-oneos-admin_1670466966.png",
+        "url": "https://gitee.com/cmcc-oneos-admin",
+        "typeRaw": "User",
+        "isBotHint": false
+      },
+      "language": "C",
+      "homepage": "https://gitee.com/cmcc-oneos/OneOS-Metis",
+      "licence": "Apache-2.0",
+      "stars": 128,
+      "forks": 58,
+      "watchers": 38
+    },
+    {
+      "ref": {
+        "forge": "gitee",
+        "instance": "gitee.com",
+        "owner": "cmcc-oneos",
+        "name": "one-os-cube",
+        "externalId": "15940320"
+      },
+      "description": "OneOS-Cube是针对OneOS操作系统设计的一款windows开发工具",
+      "defaultBranch": "OneOS-Cube-V2.1.8",
+      "visibility": "public",
+      "isFork": false,
+      "isArchived": false,
+      "topics": [],
+      "url": "https://gitee.com/cmcc-oneos/one-os-cube.git",
+      "cloneUrls": {
+        "https": "https://gitee.com/cmcc-oneos/one-os-cube.git.git",
+        "ssh": "git@gitee.com:cmcc-oneos/one-os-cube.git"
+      },
+      "createdAt": "2021-05-19T01:16:56.000Z",
+      "updatedAt": "2025-04-17T00:18:03.000Z",
+      "pushedAt": "2024-11-06T11:54:17.000Z",
+      "openIssueCount": 0,
+      "owner": {
+        "forge": "gitee",
+        "instance": "gitee.com",
+        "login": "cmcc-oneos-admin",
+        "id": "7894055",
+        "name": "CMCC-OneOS",
+        "avatarUrl": "https://foruda.gitee.com/avatar/1670466967165594212/7894055_cmcc-oneos-admin_1670466966.png",
+        "url": "https://gitee.com/cmcc-oneos-admin",
+        "typeRaw": "User",
+        "isBotHint": false
+      },
+      "stars": 8,
+      "forks": 3,
+      "watchers": 3
+    }
+  ],
+  "cursor": {
+    "nextUrl": "https://gitee.com/api/v5/orgs/cmcc-oneos/repos?type=public&page=2&per_page=3"
+  },
+  "warnings": [
+    {
+      "code": "sort_unsupported",
+      "message": "Gitee cannot sort the repositories of an organisation"
+    }
+  ]
+}

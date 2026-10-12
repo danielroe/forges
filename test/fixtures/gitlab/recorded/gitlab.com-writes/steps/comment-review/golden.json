@@ -1,0 +1,73 @@
+{
+  "ref": {
+    "forge": "gitlab",
+    "instance": "gitlab.com",
+    "thread": {
+      "forge": "gitlab",
+      "instance": "gitlab.com",
+      "repo": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "owner": "forges-fixtures",
+        "name": "forges-fixtures"
+      },
+      "kind": "pull_request",
+      "number": "33",
+      "externalId": "546693342"
+    },
+    "id": "discussion:89a2cd969f0bc1112bf68e16dd652c2c6e2f0dc4"
+  },
+  "author": {
+    "forge": "gitlab",
+    "instance": "gitlab.com",
+    "login": "danielroe",
+    "id": "2179675",
+    "name": "Daniel Roe",
+    "avatarUrl": "https://secure.gravatar.com/avatar/82a8f6237bb263bac46d7cc8ec3054d715ce6a55a8626d6e977769d57d2c94e6?s=80&d=identicon",
+    "url": "https://gitlab.com/danielroe",
+    "isBotHint": false
+  },
+  "state": "commented",
+  "stateRaw": "discussion",
+  "submittedAt": "<now>",
+  "comments": [
+    {
+      "ref": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "thread": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "repo": {
+            "forge": "gitlab",
+            "instance": "gitlab.com",
+            "owner": "forges-fixtures",
+            "name": "forges-fixtures"
+          },
+          "kind": "pull_request",
+          "number": "33",
+          "externalId": "546693342"
+        },
+        "id": "3993556866"
+      },
+      "body": "A review comment from run 20261011160520.",
+      "author": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "login": "danielroe",
+        "id": "2179675",
+        "name": "Daniel Roe",
+        "avatarUrl": "https://secure.gravatar.com/avatar/82a8f6237bb263bac46d7cc8ec3054d715ce6a55a8626d6e977769d57d2c94e6?s=80&d=identicon",
+        "url": "https://gitlab.com/danielroe",
+        "isBotHint": false
+      },
+      "createdAt": "<now>",
+      "updatedAt": "<now>",
+      "thread": {
+        "id": "89a2cd969f0bc1112bf68e16dd652c2c6e2f0dc4",
+        "resolved": false
+      }
+    }
+  ],
+  "body": "A review comment from run 20261011160520."
+}

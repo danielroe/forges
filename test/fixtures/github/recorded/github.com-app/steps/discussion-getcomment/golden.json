@@ -1,0 +1,34 @@
+{
+  "ref": {
+    "forge": "github",
+    "instance": "github.com",
+    "thread": {
+      "forge": "github",
+      "instance": "github.com",
+      "repo": {
+        "forge": "github",
+        "instance": "github.com",
+        "owner": "nuxt",
+        "name": "nuxt"
+      },
+      "kind": "discussion",
+      "number": "9303"
+    },
+    "id": "MDE3OkRpc2N1c3Npb25Db21tZW50NzQ3ODk3"
+  },
+  "body": "Hi. I suggest 3 approaches to try:\r\n\r\n## 1. Config\r\n\r\nWe can try to add `import 'newrelic'` to the top of `nuxt.config.js`? This should partially work as this is almost the topmost entry-point. \r\n\r\n## 2. CLI Wrapper\r\n\r\nWe may create a custom cli wrapper in the root of the project:\r\n\r\n`~/nuxt.js`:\r\n\r\n```js\r\nrequire('newrelic')\r\nrequire('nuxt/bin/nuxt')\r\n````\r\n\r\nAnd then inside `package.json`:\r\n\r\n```diff\r\nscripts: {\r\n-- \"start\": \"nuxt start\",\r\n++ \"start\": \"node ./nuxt start\",\r\n}\r\n```\r\n\r\n## 3. Module (best)\r\n\r\nIf newrelic is similar to sentry, this is not **required** to be the first import, we can do this via a nuxt module and it globally should register itself to the entire process:\r\n\r\n`modules/newrelic.js`\r\n\r\n```js\r\nexport default async function() {\r\n  await import('newrelic')\r\n}\r\n```\r\n\r\n`nuxt.config.js`\r\n\r\n```js\r\nexport default {\r\n    modules: [\r\n        '~/modules/newrelic'\r\n    ]\r\n}\r\n```\r\n\r\n\r\n",
+  "author": {
+    "forge": "github",
+    "instance": "github.com",
+    "login": "pi0",
+    "id": "5158436",
+    "name": "Pooya Parsa",
+    "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?u=3609b2822870b982f2b93c432569ee017e970148&v=4",
+    "url": "https://github.com/pi0",
+    "typeRaw": "User",
+    "isBotHint": false
+  },
+  "createdAt": "2019-08-15T17:39:22.000Z",
+  "updatedAt": "2022-06-13T06:48:02.000Z",
+  "url": "https://github.com/nuxt/nuxt/discussions/9303#discussioncomment-747897"
+}

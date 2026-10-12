@@ -1,0 +1,27 @@
+{
+  "items": [
+    {
+      "name": "#field-fyi",
+      "colour": "34495E",
+      "description": "Earmarked to notify the sales team of issue updates."
+    },
+    {
+      "name": "18.5",
+      "colour": "6699cc"
+    },
+    {
+      "name": "1st contribution",
+      "colour": "428bca",
+      "description": "First contribution from a community member (DRI: Contributor Success group)"
+    }
+  ],
+  "cursor": {
+    "nextUrl": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/labels?id=gitlab-org%2Fcli&include_ancestor_groups=true&page=2&per_page=3&with_counts=false",
+    "etag": "W/\"8a6d6d8bfd2f428305f8aa4bb2628495\""
+  },
+  "rateLimit": {
+    "limit": 2000,
+    "remaining": 1997,
+    "resetAt": "<now>"
+  }
+}

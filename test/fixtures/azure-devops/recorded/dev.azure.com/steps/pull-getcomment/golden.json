@@ -1,0 +1,36 @@
+{
+  "ref": {
+    "forge": "azure-devops",
+    "instance": "dev.azure.com",
+    "thread": {
+      "forge": "azure-devops",
+      "instance": "dev.azure.com",
+      "repo": {
+        "forge": "azure-devops",
+        "instance": "dev.azure.com",
+        "owner": "forges/forges-fixtures",
+        "name": "forges-fixtures"
+      },
+      "kind": "pull_request",
+      "number": "1"
+    },
+    "id": "1/1"
+  },
+  "body": "a comment",
+  "author": {
+    "forge": "azure-devops",
+    "instance": "dev.azure.com",
+    "login": "redacted@example.invalid",
+    "id": "48261c0d-8a6e-6a10-a9cb-c76b44ce18ce",
+    "name": "danielroe",
+    "avatarUrl": "https://dev.azure.com/forges/_apis/GraphProfile/MemberAvatars/aad.NDgyNjFjMGQtOGE2ZS03YTEwLWE5Y2ItYzc2YjQ0Y2UxOGNl",
+    "typeRaw": "user",
+    "isBotHint": false
+  },
+  "createdAt": "2026-10-09T12:29:10.473Z",
+  "updatedAt": "2026-10-09T12:29:10.473Z",
+  "thread": {
+    "id": "1",
+    "resolved": false
+  }
+}

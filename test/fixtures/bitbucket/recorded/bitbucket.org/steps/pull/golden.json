@@ -1,0 +1,64 @@
+{
+  "ref": {
+    "forge": "bitbucket",
+    "instance": "bitbucket.org",
+    "repo": {
+      "forge": "bitbucket",
+      "instance": "bitbucket.org",
+      "owner": "neelabo",
+      "name": "neeview",
+      "externalId": "{6b283030-4828-41db-b559-8b120365f356}"
+    },
+    "kind": "pull_request",
+    "number": "37"
+  },
+  "kind": "pull_request",
+  "title": "pt-BR.restext alterados online com o Bitbucket",
+  "body": "pt-BR.restext alterados online com o Bitbucket",
+  "state": "merged",
+  "stateRaw": "MERGED",
+  "isDraft": false,
+  "assignees": [],
+  "reviewers": [],
+  "lastActivityAt": "2024-08-30T01:38:03.366Z",
+  "branches": {
+    "head": {
+      "ref": "Havokdan/ptbrrestext-alterados-online-com-o-bitbu-1724958740233",
+      "sha": "8215aaf2e487",
+      "repo": {
+        "forge": "bitbucket",
+        "instance": "bitbucket.org",
+        "owner": "Havokdan",
+        "name": "neeview-3",
+        "externalId": "{5690e6b8-debd-4cb2-8721-31fe55d8ca4f}"
+      }
+    },
+    "base": {
+      "ref": "master",
+      "sha": "da15924148db"
+    },
+    "mergeCommitSha": "c695e01b1d8e"
+  },
+  "author": {
+    "forge": "bitbucket",
+    "instance": "bitbucket.org",
+    "login": "Havokdan",
+    "id": "{97fc50f7-c82e-4a3f-bd4a-e9877df29f39}",
+    "name": "Havokdan",
+    "avatarUrl": "https://secure.gravatar.com/avatar/9a050257614c5cfc943e4a599529de6b?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FH-5.png",
+    "url": "https://bitbucket.org/%7B97fc50f7-c82e-4a3f-bd4a-e9877df29f39%7D/",
+    "typeRaw": "user",
+    "isBotHint": false
+  },
+  "url": "https://bitbucket.org/neelabo/neeview/pull-requests/37",
+  "createdAt": "2024-08-29T19:12:45.576Z",
+  "updatedAt": "2024-08-30T01:38:03.366Z",
+  "closedAt": "2024-08-30T01:38:03.366Z",
+  "labels": [],
+  "commentCount": 0,
+  "checks": {
+    "state": "unknown",
+    "total": 0,
+    "failed": 0
+  }
+}

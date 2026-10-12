@@ -1,0 +1,44 @@
+{
+  "items": [
+    {
+      "ref": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "repo": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "owner": "gitea",
+          "name": "tea"
+        },
+        "id": "5",
+        "type": "status"
+      },
+      "name": "check-and-test / Integration Test (pull_request)",
+      "state": "success",
+      "stateRaw": "success",
+      "url": "/gitea/tea/actions/runs/999532/jobs/1355176",
+      "startedAt": "2026-09-30T17:42:10.000Z",
+      "completedAt": "2026-09-30T17:42:10.000Z"
+    },
+    {
+      "ref": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "repo": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "owner": "gitea",
+          "name": "tea"
+        },
+        "id": "6",
+        "type": "status"
+      },
+      "name": "check-and-test / Lint Build And Unit Coverage (pull_request)",
+      "state": "success",
+      "stateRaw": "success",
+      "url": "/gitea/tea/actions/runs/999532/jobs/1355175",
+      "startedAt": "2026-09-30T17:42:15.000Z",
+      "completedAt": "2026-09-30T17:42:15.000Z"
+    }
+  ]
+}

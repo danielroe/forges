@@ -1,0 +1,133 @@
+{
+  "items": [
+    {
+      "ref": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "owner": "gitea",
+        "name": "migrator",
+        "externalId": "42"
+      },
+      "description": "Migrator is a library and a command line tool, which allow to migrate all repositories data from github/gitlab/gitea/bitbucket to gitea",
+      "defaultBranch": "master",
+      "visibility": "public",
+      "visibilityRaw": "public",
+      "isFork": false,
+      "isArchived": true,
+      "topics": [],
+      "url": "https://gitea.com/gitea/migrator",
+      "cloneUrls": {
+        "https": "https://gitea.com/gitea/migrator.git",
+        "ssh": "git@gitea.com:gitea/migrator.git"
+      },
+      "createdAt": "2019-02-23T10:58:04.000Z",
+      "updatedAt": "2024-06-05T18:14:52.000Z",
+      "openIssueCount": 3,
+      "openPullCount": 0,
+      "owner": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "login": "gitea",
+        "id": "3",
+        "avatarUrl": "https://gitea.com/avatars/35dea380390772b3130aafbac7ca49e6",
+        "url": "https://gitea.com/gitea",
+        "isBotHint": false
+      },
+      "language": "Go",
+      "stars": 8,
+      "forks": 4,
+      "watchers": 52,
+      "mergeMethods": [
+        "merge",
+        "squash",
+        "rebase",
+        "rebase_merge"
+      ],
+      "defaultMergeMethod": "merge",
+      "deleteBranchOnMerge": false,
+      "features": {
+        "issues": true,
+        "pullRequests": true,
+        "discussions": false,
+        "wiki": false,
+        "projects": false,
+        "releases": true
+      },
+      "permissions": {
+        "admin": false,
+        "maintain": false,
+        "push": false,
+        "triage": false,
+        "pull": true
+      }
+    },
+    {
+      "ref": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "owner": "gitea",
+        "name": "log",
+        "externalId": "336"
+      },
+      "description": "Logger package for gitea repositories",
+      "defaultBranch": "master",
+      "visibility": "public",
+      "visibilityRaw": "public",
+      "isFork": false,
+      "isArchived": true,
+      "topics": [],
+      "url": "https://gitea.com/gitea/log",
+      "cloneUrls": {
+        "https": "https://gitea.com/gitea/log.git",
+        "ssh": "git@gitea.com:gitea/log.git"
+      },
+      "createdAt": "2019-04-03T14:15:50.000Z",
+      "updatedAt": "2025-05-15T20:24:16.000Z",
+      "openIssueCount": 5,
+      "openPullCount": 4,
+      "owner": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "login": "gitea",
+        "id": "3",
+        "avatarUrl": "https://gitea.com/avatars/35dea380390772b3130aafbac7ca49e6",
+        "url": "https://gitea.com/gitea",
+        "isBotHint": false
+      },
+      "language": "Go",
+      "stars": 4,
+      "forks": 7,
+      "watchers": 50,
+      "mergeMethods": [
+        "squash",
+        "fast_forward_only"
+      ],
+      "defaultMergeMethod": "merge",
+      "deleteBranchOnMerge": false,
+      "features": {
+        "issues": true,
+        "pullRequests": true,
+        "discussions": false,
+        "wiki": true,
+        "projects": false,
+        "releases": true
+      },
+      "permissions": {
+        "admin": false,
+        "maintain": false,
+        "push": false,
+        "triage": false,
+        "pull": true
+      }
+    }
+  ],
+  "cursor": {
+    "nextUrl": "https://gitea.com/api/v1/users/gitea/repos?limit=3&page=2"
+  },
+  "warnings": [
+    {
+      "code": "sort_unsupported",
+      "message": "gitea lists the repositories of an owner oldest first only"
+    }
+  ]
+}

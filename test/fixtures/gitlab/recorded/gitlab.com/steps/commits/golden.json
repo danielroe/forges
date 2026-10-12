@@ -1,0 +1,102 @@
+{
+  "items": [
+    {
+      "ref": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "repo": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "owner": "gitlab-org",
+          "name": "cli"
+        },
+        "sha": "9a7963a1f19651973a02d75b8a7ae16ba81e27e5"
+      },
+      "sha": "9a7963a1f19651973a02d75b8a7ae16ba81e27e5",
+      "message": "Merge branch 'chore/redundant-make-fix' into 'main'\n\nchore: remove redundant \"make fix\" tools\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4009\n\nMerged-by: Kai Armstrong <redacted@example.invalid>\nApproved-by: Kai Armstrong <redacted@example.invalid>\nReviewed-by: Kai Armstrong <redacted@example.invalid>\nCo-authored-by: Ville Skyttä <redacted@example.invalid>",
+      "author": {
+        "name": "Kai Armstrong",
+        "email": "redacted@example.invalid",
+        "date": "2026-10-09T22:32:13.000Z"
+      },
+      "committer": {
+        "name": "GitLab",
+        "email": "redacted@example.invalid",
+        "date": "2026-10-09T22:32:13.000Z"
+      },
+      "parents": [
+        "fa3b8d6792a8063eb03a5a8784517019d15829be",
+        "392ad277d67c1d64b3b1e32e1d93d520628d5895"
+      ],
+      "url": "https://gitlab.com/gitlab-org/cli/-/commit/9a7963a1f19651973a02d75b8a7ae16ba81e27e5"
+    },
+    {
+      "ref": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "repo": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "owner": "gitlab-org",
+          "name": "cli"
+        },
+        "sha": "392ad277d67c1d64b3b1e32e1d93d520628d5895"
+      },
+      "sha": "392ad277d67c1d64b3b1e32e1d93d520628d5895",
+      "message": "chore: remove redundant \"make fix\" tools\n",
+      "author": {
+        "name": "Ville Skyttä",
+        "email": "redacted@example.invalid",
+        "date": "2026-10-09T22:32:13.000Z"
+      },
+      "committer": {
+        "name": "GitLab",
+        "email": "redacted@example.invalid",
+        "date": "2026-10-09T22:32:13.000Z"
+      },
+      "parents": [
+        "fa3b8d6792a8063eb03a5a8784517019d15829be"
+      ],
+      "url": "https://gitlab.com/gitlab-org/cli/-/commit/392ad277d67c1d64b3b1e32e1d93d520628d5895"
+    },
+    {
+      "ref": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "repo": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "owner": "gitlab-org",
+          "name": "cli"
+        },
+        "sha": "fa3b8d6792a8063eb03a5a8784517019d15829be"
+      },
+      "sha": "fa3b8d6792a8063eb03a5a8784517019d15829be",
+      "message": "Merge branch 'jhahimanshu653/fix-registry-domains-7943' into 'main'\n\nfix(auth): persist registry domains for token logins\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4043\n\nMerged-by: Kai Armstrong <redacted@example.invalid>\nApproved-by: GitLab Duo <redacted@example.invalid>\nApproved-by: Kai Armstrong <redacted@example.invalid>\nReviewed-by: Kai Armstrong <redacted@example.invalid>\nCo-authored-by: Himanshu Jha <redacted@example.invalid>",
+      "author": {
+        "name": "Kai Armstrong",
+        "email": "redacted@example.invalid",
+        "date": "2026-10-09T19:38:45.000Z"
+      },
+      "committer": {
+        "name": "GitLab",
+        "email": "redacted@example.invalid",
+        "date": "2026-10-09T19:38:45.000Z"
+      },
+      "parents": [
+        "86c6176e8805aaa3b0ea1ff716b26c5a55e7176c",
+        "ba969f532feb4fe697fbdf944a54610358c333d7"
+      ],
+      "url": "https://gitlab.com/gitlab-org/cli/-/commit/fa3b8d6792a8063eb03a5a8784517019d15829be"
+    }
+  ],
+  "cursor": {
+    "nextUrl": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/repository/commits?id=gitlab-org%2Fcli&order=default&page=2&pagination=legacy&per_page=3&trailers=false",
+    "etag": "W/\"1fe7eed49827b1f86d08815dd584b21a\""
+  },
+  "rateLimit": {
+    "limit": 2000,
+    "remaining": 1941,
+    "resetAt": "<now>"
+  }
+}

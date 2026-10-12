@@ -1,0 +1,44 @@
+{
+  "ref": {
+    "forge": "tangled",
+    "instance": "tangled.org",
+    "repo": {
+      "forge": "tangled",
+      "instance": "tangled.org",
+      "owner": "did:plc:7qksav5io2s4qfg67pe7iqqk",
+      "name": "forges-fixtures",
+      "externalId": "did:plc:t73o44q7fppgagkrevtztyok"
+    },
+    "sha": "3d45c8062c15a3e747e20cbd14e6092a98aca072"
+  },
+  "sha": "3d45c8062c15a3e747e20cbd14e6092a98aca072",
+  "message": "chore: edit\n",
+  "author": {
+    "name": "Daniel Roe",
+    "email": "redacted@example.invalid",
+    "date": "2026-10-09T18:29:21.000Z"
+  },
+  "committer": {
+    "name": "Daniel Roe",
+    "email": "redacted@example.invalid",
+    "date": "2026-10-09T18:29:21.000Z"
+  },
+  "parents": [
+    "1cd76a776cc09a1acc55e0bfe498b39a5bb76bd0"
+  ],
+  "url": "https://tangled.org/did:plc:7qksav5io2s4qfg67pe7iqqk/forges-fixtures/commit/3d45c8062c15a3e747e20cbd14e6092a98aca072",
+  "files": [
+    {
+      "path": "README.md",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 0,
+      "patch": "@@ -1,2 +1,3 @@\n An automated fixture target for [`forges`](https://github.com/danielroe/forges). Issues and pull requests here aren't monitored.\n \n+test edit\n"
+    }
+  ],
+  "stats": {
+    "additions": 1,
+    "deletions": 0,
+    "total": 1
+  }
+}

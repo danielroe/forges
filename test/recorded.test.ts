@@ -1,30 +1,16 @@
-import type { FetchLike } from '../src/fetch.ts'
 import type { ForgeEvent, Notification, NotificationReason, Page, Repo, Thread } from '../src/model.ts'
-import type { ForgeProvider } from '../src/provider.ts'
-import type { RecordingManifest, StepContext } from './recording/steps.ts'
-import type { WriteContext, WriteManifest } from './recording/write-steps.ts'
-import type { FixtureCall } from './utils/fixtures.ts'
-import { generateKeyPairSync } from 'node:crypto'
+import type { RecordingManifest, Step, StepContext } from './recording/steps.ts'
+import type { WriteContext, WriteManifest, WriteStep } from './recording/write-steps.ts'
 import { existsSync, readdirSync, readFileSync } from 'node:fs'
 import { beforeAll, describe, expect, it, vi } from 'vitest'
-import { azureDevOps } from '../src/azure-devops/index.ts'
-import { bitbucket } from '../src/bitbucket/index.ts'
-import { forgejo } from '../src/forgejo/index.ts'
-import { gitea } from '../src/gitea/index.ts'
-import { gitee } from '../src/gitee/index.ts'
-import { github } from '../src/github/index.ts'
-import { gitlab } from '../src/gitlab/index.ts'
 import { notificationThread, repoKey } from '../src/model.ts'
-import { pushin } from '../src/pushin/index.ts'
-import { tangled } from '../src/tangled/index.ts'
+import { recordedSteps } from './recording/layout.ts'
 import { redact } from './recording/redact.ts'
+import { golden, REPLAYED_PROVIDERS } from './recording/replay.ts'
 import { STEPS } from './recording/steps.ts'
 import { WRITE_STEPS } from './recording/write-steps.ts'
-import { fixtureDirectory, fixtureFetch, loadFixtures as recordedFixtures } from './utils/fixtures.ts'
+import { fixtureDirectory, fixtureFetch, loadFixtures as recordedFixtures, stepFixtureFetch } from './utils/fixtures.ts'
 import { markPayload, markStream } from './utils/provenance.ts'
-import { FakeWebSocket } from './utils/websocket.ts'
-
-type Manifest = RecordingManifest
 
 const REASONS: NotificationReason[] = [
   'access_requested',
@@ -48,34 +34,6 @@ const REASONS: NotificationReason[] = [
   'unknown',
 ]
 
-type Create = (fetch: FetchLike, manifest: Manifest, messages?: unknown[]) => ForgeProvider
-
-const token = { type: 'token', token: 't' } as const
-const authFor = ({ anonymous }: Manifest) => anonymous ? undefined : token
-const { privateKey } = generateKeyPairSync('rsa', { modulusLength: 2048, privateKeyEncoding: { type: 'pkcs8', format: 'pem' }, publicKeyEncoding: { type: 'spki', format: 'pem' } })
-const githubAuthFor = (manifest: Manifest) => manifest.installation ? { type: 'app', appId: 1, privateKey, installationId: manifest.installation } as const : authFor(manifest)
-const providers: Array<{ name: string, create: Create }> = [
-  { name: 'github', create: (fetch, manifest) => github({ auth: githubAuthFor(manifest), baseUrl: manifest.baseUrl, webhookSecret: manifest.webhookSecret, fetch }).create() },
-  { name: 'forgejo', create: (fetch, manifest) => forgejo({ auth: authFor(manifest), baseUrl: manifest.baseUrl, instanceVersion: manifest.instanceVersion, webhookSecret: manifest.webhookSecret, fetch }).create() },
-  { name: 'gitea', create: (fetch, manifest) => gitea({ auth: authFor(manifest), baseUrl: manifest.baseUrl, webhookSecret: manifest.webhookSecret, fetch }).create() },
-  { name: 'gitlab', create: (fetch, manifest) => gitlab({ auth: authFor(manifest), baseUrl: manifest.baseUrl, webhookSecret: manifest.webhookSecret, fetch }).create() },
-  { name: 'bitbucket', create: (fetch, manifest) => bitbucket({ auth: authFor(manifest), baseUrl: manifest.baseUrl, webhookSecret: manifest.webhookSecret, fetch }).create() },
-  { name: 'pushin', create: (fetch, manifest) => pushin({ auth: authFor(manifest), baseUrl: manifest.baseUrl, fetch }).create() },
-  { name: 'gitee', create: (fetch, manifest) => gitee({ auth: authFor(manifest), fetch }).create() },
-  { name: 'azure-devops', create: (fetch, manifest) => azureDevOps({ auth: authFor(manifest), organization: manifest.repo.owner.split('/')[0]!, fetch }).create() },
-  {
-    name: 'tangled',
-    create: (fetch, manifest, messages = []) => tangled({
-      fetch,
-      recordsUrl: manifest.recordsUrl,
-      ...manifest.account && { auth: { type: 'app_password', identifier: manifest.account, password: 'p', pds: manifest.pds }, notificationsUrl: manifest.notificationsUrl },
-      webSocket: url => new FakeWebSocket(url, messages),
-    }).create(),
-  },
-]
-
-const RECENT = 60 * 60 * 1000
-
 /** Replaces timestamps a write stamps when it is sent, which a replay at a fixed instant cannot reproduce. */
 function withoutTimes(value: unknown): unknown {
   return JSON.parse(JSON.stringify(value).replace(/\d{4}-\d\d-\d\dT\d\d:\d\d:\d\d(?:\.\d+)?Z/g, '<time>'))
@@ -90,69 +48,52 @@ function parsed(text: string): unknown {
   }
 }
 
-/** Normalised output as stable JSON: no verbatim forge data, and fallback "now" timestamps masked. */
-function golden(value: unknown, now: number): string {
-  return `${JSON.stringify(value, function (key, item: unknown) {
-    if (key === 'raw' || key === 'payload') {
-      return undefined
-    }
-    const original = (this as Record<string, unknown>)[key]
-    if (original instanceof Date) {
-      return Math.abs(now - original.getTime()) < RECENT ? '<now>' : original.toISOString()
-    }
-    return item
-  }, 2)}\n`
-}
-
 /** One recording per instance host, under `<provider>/recorded/<host>/`, plus `<host>-anonymous/` for one made without credentials. */
 function recordings(name: string): string[] {
   const root = fixtureDirectory(`${name}/recorded`)
   return existsSync(root) ? readdirSync(root, { withFileTypes: true }).filter(entry => entry.isDirectory()).map(entry => `${name}/recorded/${entry.name}`) : []
 }
 
-for (const { name, create } of providers) {
+for (const { name, create } of REPLAYED_PROVIDERS) {
   for (const directory of recordings(name)) {
-    const manifestPath = `${fixtureDirectory(directory)}manifest.json`
-    const manifest = existsSync(manifestPath) ? JSON.parse(readFileSync(manifestPath, 'utf8')) as Manifest : undefined
-    const jetstreamPath = `${fixtureDirectory(directory)}jetstream.json`
+    const root = fixtureDirectory(directory)
+    const manifest = existsSync(`${root}manifest.json`) ? JSON.parse(readFileSync(`${root}manifest.json`, 'utf8')) as RecordingManifest : undefined
+    const writes = manifest && 'run' in manifest ? manifest as WriteManifest : undefined
+    const definitions = new Map<string, Step | WriteStep>((writes ? WRITE_STEPS : STEPS).map(step => [step.name, step]))
+    const steps = recordedSteps(root)
+    const recorded = new Set(steps.map(step => step.name))
+    const jetstreamPath = `${root}jetstream.json`
     const jetstream = existsSync(jetstreamPath)
       ? JSON.parse(readFileSync(jetstreamPath, 'utf8'), (key, value: unknown) => key === 'messages' ? markStream(value as unknown[], 'recorded') : value) as { cursor: string, messages: unknown[] }
       : undefined
 
     describe.skipIf(!manifest)(`recorded: ${directory.replace('/recorded/', ' ')}`, () => {
       const output: Record<string, unknown> = {}
-      const has = (name: string) => manifest!.steps.includes(name)
       const items = <T>(name: string) => (output[name] as Page<T> | undefined)?.items ?? []
-
-      const writes = manifest && 'run' in manifest ? manifest as WriteManifest : undefined
-      let calls: FixtureCall[] = []
+      const replay = stepFixtureFetch(directory, { sequential: !!writes })
 
       beforeAll(async () => {
-        vi.useFakeTimers({ now: new Date(manifest!.recordedAt), toFake: ['Date'] })
+        vi.useFakeTimers({ now: new Date(manifest!.recordedAt ?? steps[0]?.recordedAt ?? 0), toFake: ['Date'] })
         try {
-          if (writes) {
-            const replay = fixtureFetch(directory, {}, { sequential: true })
-            calls = replay.calls
-            const author = create(replay.fetch, writes)
-            const reviewer = create(replay.fetch, writes.reviewerAccount ? { ...writes, account: writes.reviewerAccount, pds: writes.reviewerPds } : writes)
-            const context: WriteContext = { pulls: [], comments: {}, wait: async () => {} }
-            for (const step of WRITE_STEPS.filter(step => has(step.name))) {
-              output[step.name] = await step.run(step.as === 'reviewer' ? reviewer : author, writes, context)
-            }
-            return
-          }
           if (manifest!.deliveries) {
             const instance = create(fixtureFetch(directory).fetch, manifest!)
             for (const name of manifest!.deliveries) {
-              const { headers, body } = JSON.parse(readFileSync(`${fixtureDirectory(directory)}${name}.delivery.json`, 'utf8')) as { headers: Record<string, string>, body: string }
+              const { headers, body } = JSON.parse(readFileSync(`${root}${name}.delivery.json`, 'utf8')) as { headers: Record<string, string>, body: string }
               output[name] = await instance.webhooks.ingest({ headers, body: markPayload(body, 'recorded') })
             }
             return
           }
-          const instance = create(fixtureFetch(directory).fetch, manifest!, jetstream?.messages)
-          const context: StepContext = {}
-          for (const step of STEPS.filter(step => has(step.name))) {
-            output[step.name] = await step.run(instance, manifest!, context)
+          const author = create(replay.fetch, manifest!, jetstream?.messages)
+          const reviewer = writes?.reviewerAccount ? create(replay.fetch, { ...writes, account: writes.reviewerAccount, pds: writes.reviewerPds }) : writes ? create(replay.fetch, writes) : author
+          const context: StepContext & WriteContext = { pulls: [], comments: {}, wait: async () => {} }
+          for (const { name, slug, recordedAt } of steps) {
+            const step = definitions.get(name)
+            if (!step) {
+              continue
+            }
+            replay.use(slug)
+            vi.setSystemTime(new Date(recordedAt))
+            output[name] = await step.run(('as' in step && step.as === 'reviewer' ? reviewer : author) as never, manifest as never, context)
           }
         }
         finally {
@@ -160,18 +101,27 @@ for (const { name, create } of providers) {
         }
       })
 
+      it('records only steps that exist', () => {
+        expect(steps.map(step => step.name).filter(name => !definitions.has(name))).toEqual([])
+      })
+
       it.skipIf(!writes)('sends the request bodies it recorded', () => {
-        const sent = calls.filter(call => call.body !== undefined).map(call => redact(parsed(call.body!)))
-        const recorded = recordedFixtures(directory).filter(fixture => fixture.request.body !== undefined).map(fixture => fixture.request.body)
+        const sent = replay.calls.filter(call => call.body !== undefined || call.fixture?.request.body !== undefined)
+        const served = new Set(sent.map(call => JSON.stringify(call.fixture)))
 
-        expect(withoutTimes(sent)).toEqual(withoutTimes(recorded))
+        expect(withoutTimes(sent.map(call => call.body === undefined ? undefined : redact(parsed(call.body))))).toEqual(withoutTimes(sent.map(call => call.fixture?.request.body)))
+        expect(recordedFixtures(directory).filter(fixture => fixture.request.body !== undefined && !served.has(JSON.stringify(fixture))).map(fixture => `${fixture.request.method} ${fixture.request.url}`)).toEqual([])
       })
 
-      it('matches the committed golden output (regenerate with `vitest -u`)', async () => {
-        await expect(golden(output, Date.parse(manifest!.recordedAt))).toMatchFileSnapshot(`${fixtureDirectory(directory)}golden.json`)
+      it.skipIf(!manifest?.deliveries)('matches the committed golden output (regenerate with `vitest -u`)', async () => {
+        await expect(golden(output, Date.parse(manifest!.recordedAt!))).toMatchFileSnapshot(`${root}golden.json`)
       })
 
-      it.skipIf(!manifest || !manifest.steps.includes('notifications'))('normalises the first notifications page', () => {
+      it.for(steps)('matches the committed golden output of $name (regenerate with `vitest -u`)', async ({ name, slug, recordedAt }) => {
+        await expect(golden(output[name] ?? null, Date.parse(recordedAt))).toMatchFileSnapshot(`${root}steps/${slug}/golden.json`)
+      })
+
+      it.skipIf(!recorded.has('notifications'))('normalises the first notifications page', () => {
         for (const notification of items<Notification>('notifications')) {
           expect(REASONS).toContain(notification.reason)
           expect(notification.updatedAt.getTime()).not.toBeNaN()
@@ -188,8 +138,10 @@ for (const { name, create } of providers) {
         }
       })
 
-      it.skipIf(!manifest?.steps.includes('repo'))('reads the repository its own web URL names', async () => {
-        const instance = create(fixtureFetch(directory).fetch, manifest!)
+      it.skipIf(!recorded.has('repo'))('reads the repository its own web URL names', async () => {
+        const repo = stepFixtureFetch(directory)
+        repo.use(steps.find(step => step.name === 'repo')!.slug)
+        const instance = create(repo.fetch, manifest!)
         const url = instance.urlFor({ repo: manifest!.repo })!
         const parsed = instance.parseUrl(url)
 
@@ -197,7 +149,7 @@ for (const { name, create } of providers) {
         expect(repoKey((await instance.repos.get(parsed!.repo)).ref)).toBe(repoKey((output.repo as Repo).ref))
       })
 
-      it.skipIf(!manifest?.steps.includes('pull'))('normalises a pull request and its first events', () => {
+      it.skipIf(!recorded.has('pull'))('normalises a pull request and its first events', () => {
         const thread = output.pull as Thread
 
         expect(thread.title).not.toBe('')
@@ -208,15 +160,15 @@ for (const { name, create } of providers) {
         }
       })
 
-      it.skipIf(!manifest?.steps.includes('pull events'))('recognises every recorded event when kinds are inferred from text', () => {
-        if (create(fixtureFetch(directory).fetch, manifest!).capabilities.eventKinds !== 'heuristic') {
+      it.skipIf(!recorded.has('pull events'))('recognises every recorded event when kinds are inferred from text', () => {
+        if (create(replay.fetch, manifest!).capabilities.eventKinds !== 'heuristic') {
           return
         }
 
         expect(items<ForgeEvent>('pull events').filter(event => event.kind === 'other').map(event => event.kindRaw)).toEqual([])
       })
 
-      it.skipIf(!manifest?.steps.includes('issue'))('normalises an issue and its events', () => {
+      it.skipIf(!recorded.has('issue'))('normalises an issue and its events', () => {
         const thread = output.issue as Thread
 
         expect(thread.kind).toBe('issue')
@@ -243,7 +195,7 @@ for (const { name, create } of providers) {
         expect((error as Error).name).toBe('SubscriptionClosedError')
       })
 
-      it.skipIf(!manifest?.steps.includes('discussion'))('normalises a discussion and its first comments', () => {
+      it.skipIf(!recorded.has('discussion'))('normalises a discussion and its first comments', () => {
         const thread = output.discussion as Thread
 
         expect(thread.kind).toBe('discussion')

@@ -1,0 +1,40 @@
+{
+  "items": [
+    {
+      "ref": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "repo": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "owner": "gitlab-org",
+          "name": "cli"
+        },
+        "id": "17094149986",
+        "run": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "repo": {
+            "forge": "gitlab",
+            "instance": "gitlab.com",
+            "owner": "gitlab-org",
+            "name": "cli"
+          },
+          "id": "2935977998"
+        }
+      },
+      "name": "workload",
+      "state": "success",
+      "stateRaw": "success",
+      "stage": "build",
+      "url": "https://gitlab.com/gitlab-org/cli/-/jobs/17094149986",
+      "startedAt": "2026-10-11T14:44:30.715Z",
+      "completedAt": "2026-10-11T14:45:41.024Z"
+    }
+  ],
+  "rateLimit": {
+    "limit": 2000,
+    "remaining": 1955,
+    "resetAt": "<now>"
+  }
+}

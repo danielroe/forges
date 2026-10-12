@@ -1,0 +1,43 @@
+{
+  "ref": {
+    "forge": "bitbucket",
+    "instance": "bitbucket.org",
+    "owner": "neelabo",
+    "name": "neeview",
+    "externalId": "{6b283030-4828-41db-b559-8b120365f356}"
+  },
+  "description": "Image viewer",
+  "defaultBranch": "master",
+  "visibility": "public",
+  "visibilityRaw": "public",
+  "isFork": false,
+  "isArchived": false,
+  "topics": [],
+  "url": "https://bitbucket.org/neelabo/neeview",
+  "cloneUrls": {
+    "https": "https://bitbucket.org/neelabo/neeview.git",
+    "ssh": "git@bitbucket.org:neelabo/neeview.git"
+  },
+  "createdAt": "2015-12-26T05:41:19.222Z",
+  "updatedAt": "2025-01-17T15:05:15.976Z",
+  "owner": {
+    "forge": "bitbucket",
+    "instance": "bitbucket.org",
+    "login": "neelabo-team",
+    "id": "{04a60307-bfb6-4dfc-9b19-e862ceab584f}",
+    "name": "Ito Mitsuhiro",
+    "avatarUrl": "https://bitbucket.org/account/neelabo-team/avatar/",
+    "url": "https://bitbucket.org/%7B04a60307-bfb6-4dfc-9b19-e862ceab584f%7D/",
+    "typeRaw": "team",
+    "isBotHint": false
+  },
+  "language": "c#",
+  "features": {
+    "issues": true,
+    "pullRequests": true,
+    "discussions": false,
+    "wiki": true,
+    "projects": false,
+    "releases": false
+  }
+}

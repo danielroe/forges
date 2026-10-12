@@ -1,0 +1,22 @@
+{
+  "items": [
+    {
+      "name": "renovate/dependencies",
+      "sha": "a989fc5a3ecdea700f23e7ac12e2713bd51280a6",
+      "isProtected": false
+    },
+    {
+      "name": "renovate/go-golang.org-x-net-vulnerability",
+      "sha": "b1b66ebf10e8f5b07e37bfc59e73c46f9b850bf2",
+      "isProtected": false
+    },
+    {
+      "name": "renovate/golang-version-go-vulnerability",
+      "sha": "676ab1afcbcaa3d08762637ec6c501c045111069",
+      "isProtected": false
+    }
+  ],
+  "cursor": {
+    "nextUrl": "https://gitea.com/api/v1/repos/gitea/tea/branches?limit=3&page=2"
+  }
+}

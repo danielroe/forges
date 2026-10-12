@@ -1,0 +1,123 @@
+{
+  "items": [
+    {
+      "forge": "gitea",
+      "instance": "gitea.com",
+      "id": "1482636",
+      "kind": "commit",
+      "kindRaw": "pull_push",
+      "summary": "lunny referenced a commit",
+      "occurredAt": "2026-08-22T06:42:24.000Z",
+      "actor": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "login": "lunny",
+        "id": "1",
+        "name": "Lunny Xiao",
+        "avatarUrl": "https://seccdn.libravatar.org/avatar/b897d40dc87fdba4a024827c3967597434681a8f4f0f4eb5d73e0f8b1a0a9274?d=identicon",
+        "url": "https://gitea.com/lunny",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "owner": "gitea",
+        "name": "tea"
+      },
+      "thread": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "repo": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "owner": "gitea",
+          "name": "tea"
+        },
+        "kind": "pull_request",
+        "number": "1099"
+      },
+      "source": "poll",
+      "action": "other"
+    },
+    {
+      "forge": "gitea",
+      "instance": "gitea.com",
+      "id": "1505747",
+      "kind": "commit",
+      "kindRaw": "pull_push",
+      "summary": "lunny referenced a commit",
+      "occurredAt": "2026-08-28T23:55:45.000Z",
+      "actor": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "login": "lunny",
+        "id": "1",
+        "name": "Lunny Xiao",
+        "avatarUrl": "https://seccdn.libravatar.org/avatar/b897d40dc87fdba4a024827c3967597434681a8f4f0f4eb5d73e0f8b1a0a9274?d=identicon",
+        "url": "https://gitea.com/lunny",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "owner": "gitea",
+        "name": "tea"
+      },
+      "thread": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "repo": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "owner": "gitea",
+          "name": "tea"
+        },
+        "kind": "pull_request",
+        "number": "1099"
+      },
+      "source": "poll",
+      "action": "other"
+    },
+    {
+      "forge": "gitea",
+      "instance": "gitea.com",
+      "id": "1718952",
+      "kind": "comment",
+      "kindRaw": "comment",
+      "summary": "qube132132 commented",
+      "occurredAt": "2026-09-27T21:20:53.000Z",
+      "actor": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "login": "qube132132",
+        "id": "248969",
+        "avatarUrl": "https://seccdn.libravatar.org/avatar/baf09f1e3dc46046832e5f27018d130f516dee0b2be8a59b205028905f7a8b7b?d=identicon",
+        "url": "https://gitea.com/qube132132",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "owner": "gitea",
+        "name": "tea"
+      },
+      "thread": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "repo": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "owner": "gitea",
+          "name": "tea"
+        },
+        "kind": "pull_request",
+        "number": "1099"
+      },
+      "source": "poll",
+      "action": "created"
+    }
+  ],
+  "cursor": {
+    "nextUrl": "https://gitea.com/api/v1/repos/gitea/tea/issues/1099/timeline?limit=3&page=2"
+  }
+}

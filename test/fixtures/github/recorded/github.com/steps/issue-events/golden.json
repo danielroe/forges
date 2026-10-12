@@ -1,0 +1,114 @@
+{
+  "items": [
+    {
+      "forge": "github",
+      "instance": "github.com",
+      "id": "1558-cross-referenced-2026-09-26T09:58:18Z",
+      "kind": "referenced",
+      "kindRaw": "cross-referenced",
+      "detail": {
+        "type": "referenced",
+        "from": {
+          "forge": "github",
+          "instance": "github.com",
+          "repo": {
+            "forge": "github",
+            "instance": "github.com",
+            "owner": "h3js",
+            "name": "h3",
+            "externalId": "313641207"
+          },
+          "kind": "pull_request",
+          "number": "1559"
+        },
+        "fromRepo": {
+          "forge": "github",
+          "instance": "github.com",
+          "owner": "h3js",
+          "name": "h3",
+          "externalId": "313641207"
+        }
+      },
+      "summary": "pi0x referenced this",
+      "occurredAt": "2026-09-26T09:58:18.000Z",
+      "actor": {
+        "forge": "github",
+        "instance": "github.com",
+        "login": "pi0x",
+        "id": "286783767",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/286783767?v=4",
+        "url": "https://github.com/pi0x",
+        "typeRaw": "User",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "github",
+        "instance": "github.com",
+        "owner": "h3js",
+        "name": "h3"
+      },
+      "thread": {
+        "forge": "github",
+        "instance": "github.com",
+        "repo": {
+          "forge": "github",
+          "instance": "github.com",
+          "owner": "h3js",
+          "name": "h3"
+        },
+        "kind": "issue",
+        "number": "1558"
+      },
+      "source": "poll",
+      "action": "other"
+    },
+    {
+      "forge": "github",
+      "instance": "github.com",
+      "id": "CE_lADOErHI988AAAABTVvvns8AAAAHdVMZGw",
+      "kind": "state_change",
+      "kindRaw": "closed",
+      "detail": {
+        "type": "state_change",
+        "state": "closed"
+      },
+      "summary": "pi0 closed",
+      "occurredAt": "2026-09-28T22:20:48.000Z",
+      "actor": {
+        "forge": "github",
+        "instance": "github.com",
+        "login": "pi0",
+        "id": "5158436",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?v=4",
+        "url": "https://github.com/pi0",
+        "typeRaw": "User",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "github",
+        "instance": "github.com",
+        "owner": "h3js",
+        "name": "h3"
+      },
+      "thread": {
+        "forge": "github",
+        "instance": "github.com",
+        "repo": {
+          "forge": "github",
+          "instance": "github.com",
+          "owner": "h3js",
+          "name": "h3"
+        },
+        "kind": "issue",
+        "number": "1558"
+      },
+      "source": "poll",
+      "action": "closed"
+    }
+  ],
+  "rateLimit": {
+    "limit": 5000,
+    "remaining": 4950,
+    "resetAt": "<now>"
+  }
+}

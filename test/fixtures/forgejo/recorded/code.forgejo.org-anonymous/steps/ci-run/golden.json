@@ -1,0 +1,33 @@
+{
+  "ref": {
+    "forge": "forgejo",
+    "instance": "code.forgejo.org",
+    "repo": {
+      "forge": "forgejo",
+      "instance": "code.forgejo.org",
+      "owner": "forgejo",
+      "name": "runner"
+    },
+    "id": "196211"
+  },
+  "name": "test-multi-platform.yml",
+  "state": "failure",
+  "stateRaw": "failure",
+  "number": "23966",
+  "eventRaw": "schedule",
+  "branch": "main",
+  "sha": "c4a92ffa5e3a400ae7e9c40a2914e649eb338ad7",
+  "url": "https://code.forgejo.org/forgejo/runner/actions/runs/23966",
+  "actor": {
+    "forge": "forgejo",
+    "instance": "code.forgejo.org",
+    "login": "forgejo-actions",
+    "id": "-2",
+    "name": "Forgejo Actions",
+    "avatarUrl": "https://code.forgejo.org/assets/img/avatar_default.png",
+    "url": "https://code.forgejo.org/forgejo-actions",
+    "isBotHint": true
+  },
+  "createdAt": "2026-10-09T12:00:15.000Z",
+  "completedAt": "2026-10-09T13:20:24.000Z"
+}

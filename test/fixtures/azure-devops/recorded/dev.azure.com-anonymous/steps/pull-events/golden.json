@@ -1,0 +1,199 @@
+{
+  "items": [
+    {
+      "forge": "azure-devops",
+      "instance": "dev.azure.com",
+      "id": "8/1",
+      "kind": "other",
+      "kindRaw": "ReviewersUpdate",
+      "summary": "Microsoft.VisualStudio.Services.TFS MerlinBot added 3 reviewers",
+      "occurredAt": "2026-02-18T04:35:03.630Z",
+      "actor": {
+        "forge": "azure-devops",
+        "instance": "dev.azure.com",
+        "login": "Microsoft.VisualStudio.Services.TFS",
+        "id": "00000002-0000-8888-8000-000000000000",
+        "name": "Microsoft.VisualStudio.Services.TFS",
+        "avatarUrl": null,
+        "typeRaw": "user",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "azure-devops",
+        "instance": "dev.azure.com",
+        "owner": "dnceng-public/public",
+        "name": "dotnet-public-wiki"
+      },
+      "thread": {
+        "forge": "azure-devops",
+        "instance": "dev.azure.com",
+        "repo": {
+          "forge": "azure-devops",
+          "instance": "dev.azure.com",
+          "owner": "dnceng-public/public",
+          "name": "dotnet-public-wiki"
+        },
+        "kind": "pull_request",
+        "number": "5"
+      },
+      "source": "poll",
+      "action": "other"
+    },
+    {
+      "forge": "azure-devops",
+      "instance": "dev.azure.com",
+      "id": "9/1",
+      "kind": "other",
+      "kindRaw": "AutoCompleteUpdate",
+      "summary": "Microsoft.VisualStudio.Services.TFS MerlinBot set auto-complete",
+      "occurredAt": "2026-02-18T04:35:04.080Z",
+      "actor": {
+        "forge": "azure-devops",
+        "instance": "dev.azure.com",
+        "login": "Microsoft.VisualStudio.Services.TFS",
+        "id": "00000002-0000-8888-8000-000000000000",
+        "name": "Microsoft.VisualStudio.Services.TFS",
+        "avatarUrl": null,
+        "typeRaw": "user",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "azure-devops",
+        "instance": "dev.azure.com",
+        "owner": "dnceng-public/public",
+        "name": "dotnet-public-wiki"
+      },
+      "thread": {
+        "forge": "azure-devops",
+        "instance": "dev.azure.com",
+        "repo": {
+          "forge": "azure-devops",
+          "instance": "dev.azure.com",
+          "owner": "dnceng-public/public",
+          "name": "dotnet-public-wiki"
+        },
+        "kind": "pull_request",
+        "number": "5"
+      },
+      "source": "poll",
+      "action": "other"
+    },
+    {
+      "forge": "azure-devops",
+      "instance": "dev.azure.com",
+      "id": "10/1",
+      "kind": "other",
+      "kindRaw": "StatusUpdate",
+      "summary": "MerlinBot MerlinBot updated the pull request status to Completed",
+      "occurredAt": "2026-02-18T04:35:05.380Z",
+      "actor": {
+        "forge": "azure-devops",
+        "instance": "dev.azure.com",
+        "login": "MerlinBot",
+        "id": "56b0f042-b05e-86d9-b0f7-c5ddb1e76385",
+        "name": "MerlinBot",
+        "avatarUrl": null,
+        "typeRaw": "user",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "azure-devops",
+        "instance": "dev.azure.com",
+        "owner": "dnceng-public/public",
+        "name": "dotnet-public-wiki"
+      },
+      "thread": {
+        "forge": "azure-devops",
+        "instance": "dev.azure.com",
+        "repo": {
+          "forge": "azure-devops",
+          "instance": "dev.azure.com",
+          "owner": "dnceng-public/public",
+          "name": "dotnet-public-wiki"
+        },
+        "kind": "pull_request",
+        "number": "5"
+      },
+      "source": "poll",
+      "action": "other"
+    },
+    {
+      "forge": "azure-devops",
+      "instance": "dev.azure.com",
+      "id": "12/1",
+      "kind": "comment",
+      "kindRaw": "text",
+      "summary": "MerlinBot commented",
+      "occurredAt": "2026-02-18T04:35:14.040Z",
+      "actor": {
+        "forge": "azure-devops",
+        "instance": "dev.azure.com",
+        "login": "MerlinBot",
+        "id": "56b0f042-b05e-86d9-b0f7-c5ddb1e76385",
+        "name": "MerlinBot",
+        "avatarUrl": null,
+        "typeRaw": "user",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "azure-devops",
+        "instance": "dev.azure.com",
+        "owner": "dnceng-public/public",
+        "name": "dotnet-public-wiki"
+      },
+      "thread": {
+        "forge": "azure-devops",
+        "instance": "dev.azure.com",
+        "repo": {
+          "forge": "azure-devops",
+          "instance": "dev.azure.com",
+          "owner": "dnceng-public/public",
+          "name": "dotnet-public-wiki"
+        },
+        "kind": "pull_request",
+        "number": "5"
+      },
+      "source": "poll",
+      "action": "created"
+    },
+    {
+      "forge": "azure-devops",
+      "instance": "dev.azure.com",
+      "id": "14/1",
+      "kind": "comment",
+      "kindRaw": "text",
+      "summary": "MerlinBot commented",
+      "occurredAt": "2026-02-18T04:35:26.667Z",
+      "actor": {
+        "forge": "azure-devops",
+        "instance": "dev.azure.com",
+        "login": "MerlinBot",
+        "id": "56b0f042-b05e-86d9-b0f7-c5ddb1e76385",
+        "name": "MerlinBot",
+        "avatarUrl": null,
+        "typeRaw": "user",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "azure-devops",
+        "instance": "dev.azure.com",
+        "owner": "dnceng-public/public",
+        "name": "dotnet-public-wiki"
+      },
+      "thread": {
+        "forge": "azure-devops",
+        "instance": "dev.azure.com",
+        "repo": {
+          "forge": "azure-devops",
+          "instance": "dev.azure.com",
+          "owner": "dnceng-public/public",
+          "name": "dotnet-public-wiki"
+        },
+        "kind": "pull_request",
+        "number": "5"
+      },
+      "source": "poll",
+      "action": "created"
+    }
+  ]
+}

@@ -1,0 +1,135 @@
+{
+  "items": [
+    {
+      "ref": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "repo": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "owner": "gitea",
+          "name": "tea"
+        },
+        "kind": "issue",
+        "number": "1129",
+        "externalId": "509070"
+      },
+      "kind": "issue",
+      "title": "我怎么列出所有 assignee 为空的 issues",
+      "body": "我怎么列出所有 assignee 为空的 issues",
+      "state": "open",
+      "stateRaw": "open",
+      "isDraft": false,
+      "author": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "login": "mfk1",
+        "id": "253804",
+        "avatarUrl": "https://seccdn.libravatar.org/avatar/da8709270d28b8fb16825abaa1827847a419079bd3d196d10d67e98fb2c3ef0b?d=identicon",
+        "url": "https://gitea.com/mfk1",
+        "isBotHint": false
+      },
+      "assignees": [],
+      "reviewers": [],
+      "labels": [],
+      "url": "https://gitea.com/gitea/tea/issues/1129",
+      "createdAt": "2026-10-10T02:27:48.000Z",
+      "updatedAt": "2026-10-10T02:27:48.000Z",
+      "lastActivityAt": "2026-10-10T02:27:48.000Z",
+      "locked": false,
+      "commentCount": 0
+    },
+    {
+      "ref": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "repo": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "owner": "gitea",
+          "name": "tea"
+        },
+        "kind": "issue",
+        "number": "1118",
+        "externalId": "503293"
+      },
+      "kind": "issue",
+      "title": "Bug: SSH login fails when REQUIRE_SIGNIN_VIEW is true",
+      "body": "### describe your environment\r\n- tea version used (`tea -v`): 0.16.0\r\n    - [ ] I also reproduced the issue [with the latest main build](https://dl.gitea.com/tea/main/)\r\n- Gitea version used: 1.27.3\r\n    - [ ] the issue only occurred after updating gitea recently\r\n- operating system: Linux\r\n- I make use of...\r\n    - [ ] non-standard default branch names (no `main`,`master`, or `trunk`)\r\n    - [ ] .ssh/config or .gitconfig host aliases in my git remotes\r\n    - [x] ssh_agent or similar\r\n    - [ ] non-standard ports for gitea and/or ssh\r\n    - [ ] something else that's likely to interact badly with tea: ...\r\n\r\n\r\nPlease provide the output of `git remote -v` (if the issue is related to tea not finding resources on Gitea):\r\n```\r\n\r\n```\r\n\r\n### describe the issue (observed vs expected behaviour)\r\n\r\nWhen `REQUIRE_SIGNIN_VIEW` is set to `true` the `/api/v1/version` endpoint is inaccessible unless logged in. Tea will attempt to check the servers version number before singing the request with the chosen ssh key. This causes the version request to return a 403 causing the tea login process to fail.",
+      "state": "open",
+      "stateRaw": "open",
+      "isDraft": false,
+      "author": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "login": "Arimil",
+        "id": "245812",
+        "avatarUrl": "https://seccdn.libravatar.org/avatar/d714245760f26bf1fdcb36f50133f50b7e8ce46cb6c7efb9f66bfdf84ea570d2?d=identicon",
+        "url": "https://gitea.com/Arimil",
+        "isBotHint": false
+      },
+      "assignees": [],
+      "reviewers": [],
+      "labels": [
+        {
+          "name": "kind/bug",
+          "colour": "fc2929"
+        }
+      ],
+      "url": "https://gitea.com/gitea/tea/issues/1118",
+      "createdAt": "2026-09-19T02:26:17.000Z",
+      "updatedAt": "2026-10-07T05:19:56.000Z",
+      "lastActivityAt": "2026-10-07T05:19:56.000Z",
+      "locked": false,
+      "commentCount": 0
+    },
+    {
+      "ref": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "repo": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "owner": "gitea",
+          "name": "tea"
+        },
+        "kind": "issue",
+        "number": "1116",
+        "externalId": "500910"
+      },
+      "kind": "issue",
+      "title": "`tea pr list` should have `--global` option",
+      "body": "It should be an equivalent of the gitea-wide list as what we have in the web UI as https://gitea.com/pulls (the same for `tea pr review`).",
+      "state": "open",
+      "stateRaw": "open",
+      "isDraft": false,
+      "author": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "login": "mcepl",
+        "id": "71724",
+        "name": "Matěj Cepl",
+        "avatarUrl": "https://seccdn.libravatar.org/avatar/89a46e16e83773e5c0b272d834d6401f208b4f2cce88b17b5e7e719c210b6c59?d=identicon",
+        "url": "https://gitea.com/mcepl",
+        "isBotHint": false
+      },
+      "assignees": [],
+      "reviewers": [],
+      "labels": [
+        {
+          "name": "kind/proposal",
+          "colour": "5319e7"
+        }
+      ],
+      "url": "https://gitea.com/gitea/tea/issues/1116",
+      "createdAt": "2026-09-11T17:17:25.000Z",
+      "updatedAt": "2026-10-07T05:19:56.000Z",
+      "lastActivityAt": "2026-10-07T05:19:56.000Z",
+      "locked": false,
+      "commentCount": 0
+    }
+  ],
+  "cursor": {
+    "nextUrl": "https://gitea.com/api/v1/repos/gitea/tea/issues?limit=3&page=2&state=open&type=issues"
+  }
+}

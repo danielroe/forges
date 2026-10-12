@@ -1,0 +1,42 @@
+{
+  "ref": {
+    "forge": "gitee",
+    "instance": "gitee.com",
+    "repo": {
+      "forge": "gitee",
+      "instance": "gitee.com",
+      "owner": "cmcc-oneos",
+      "name": "OneOS"
+    },
+    "id": "224819",
+    "tag": "OneOS-v2.2.1"
+  },
+  "name": "OneOS-v2.2.1",
+  "tag": "OneOS-v2.2.1",
+  "body": "# ReleaseNotes\r\n\r\n## [OneOS-V2.2.1]\r\n\r\n### 内核\r\n\r\n1、新增longArch支持\r\n2、新增AC6编译器支持\r\n3、新增ARMV5te（ARM9）架构支持\r\n4、新增GCC编译器9.3版本支持\r\n5、新增C++库适配\r\n6、支持CPU使用率统计、内存内容监测、运行信息维测统计\r\n\r\n### 驱动\r\n\r\n1、新增驱动库适配AC6编译器\r\n2、新增CODESYS支持（相关开发板适配）\r\n3、新增USB驱动框架\r\n4、新增国密一级认证芯片支持\r\n\r\n### 组件\r\n\r\n1、新增LWIP支持IPV6\r\n2、新增FOTA解决方案(电信云模式、主从模式)\r\n3、新增MOLINK蓝牙模组支持\r\n4、新增蜂窝网络日志统计\r\n5、新增电源管理能耗分析框架\r\n6、新增COAP3支持\r\n7、新增定位组件端侧RTK优化    ",
+  "isDraft": false,
+  "isPrerelease": false,
+  "author": {
+    "forge": "gitee",
+    "instance": "gitee.com",
+    "login": "cmcc-oneos-admin",
+    "id": "7894055",
+    "name": "CMCC-OneOS",
+    "avatarUrl": "https://foruda.gitee.com/avatar/1670466967165594212/7894055_cmcc-oneos-admin_1670466966.png",
+    "url": "https://gitee.com/cmcc-oneos-admin",
+    "typeRaw": "User",
+    "isBotHint": false
+  },
+  "publishedAt": "2022-05-19T05:19:24.000Z",
+  "createdAt": "2022-05-19T05:19:24.000Z",
+  "assets": [
+    {
+      "name": "OneOS-v2.2.1.zip",
+      "url": "https://gitee.com/cmcc-oneos/OneOS/archive/refs/tags/OneOS-v2.2.1.zip"
+    },
+    {
+      "name": "OneOS-v2.2.1.tar.gz",
+      "url": "https://gitee.com/cmcc-oneos/OneOS/archive/refs/tags/OneOS-v2.2.1.tar.gz"
+    }
+  ]
+}

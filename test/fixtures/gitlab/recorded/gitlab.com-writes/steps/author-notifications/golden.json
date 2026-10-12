@@ -1,0 +1,41 @@
+{
+  "items": [
+    {
+      "ref": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "id": "782432832"
+      },
+      "subject": {
+        "type": "thread",
+        "thread": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "repo": {
+            "forge": "gitlab",
+            "instance": "gitlab.com",
+            "owner": "forges-fixtures",
+            "name": "forges-fixtures",
+            "externalId": "87428720"
+          },
+          "kind": "issue",
+          "typeRaw": "Issue",
+          "number": "26"
+        }
+      },
+      "subjectTypeRaw": "Issue",
+      "reason": "mention",
+      "reasonRaw": "directly_addressed",
+      "unread": true,
+      "title": "forges fixture 20261011160520: issue, edited",
+      "subjectState": "open",
+      "subjectStateRaw": "opened",
+      "updatedAt": "<now>",
+      "url": "https://gitlab.com/forges-fixtures/forges-fixtures/-/work_items/26#note_3993557315"
+    }
+  ],
+  "cursor": {
+    "token": "done"
+  },
+  "notModified": false
+}

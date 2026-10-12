@@ -1,0 +1,14 @@
+{
+  "items": [],
+  "warnings": [
+    {
+      "code": "search_incomplete",
+      "message": "GitHub stopped the search before it finished; the page may be missing matches"
+    }
+  ],
+  "rateLimit": {
+    "limit": 10,
+    "remaining": 7,
+    "resetAt": "<now>"
+  }
+}

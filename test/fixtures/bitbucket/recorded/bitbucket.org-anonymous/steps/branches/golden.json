@@ -1,0 +1,27 @@
+{
+  "items": [
+    {
+      "name": "master",
+      "sha": "6f202224c3c938d01c46892ed305df6e385ce13f",
+      "url": "https://bitbucket.org/neelabo/neeview/branch/master"
+    },
+    {
+      "name": "version-39",
+      "sha": "fe9ce7cee75becaff7a1198f1d0403069ce532ef",
+      "url": "https://bitbucket.org/neelabo/neeview/branch/version-39"
+    },
+    {
+      "name": "version-41",
+      "sha": "f0a523158015c4527222b7b065862a01ce78df33",
+      "url": "https://bitbucket.org/neelabo/neeview/branch/version-41"
+    }
+  ],
+  "cursor": {
+    "nextUrl": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/refs/branches?pagelen=3&page=2",
+    "etag": "W/\"9ddd0149fcc6c781d8da6bbbe84d041f\""
+  },
+  "rateLimit": {
+    "remaining": 49,
+    "resetAt": "1970-01-01T00:57:55.000Z"
+  }
+}

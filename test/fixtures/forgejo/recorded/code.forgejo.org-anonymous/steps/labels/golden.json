@@ -1,0 +1,141 @@
+{
+  "items": [
+    {
+      "name": "FreeBSD",
+      "colour": "207de5"
+    },
+    {
+      "name": "Kind/Breaking",
+      "colour": "c62828",
+      "description": "Breaking change that won't be backward compatible"
+    },
+    {
+      "name": "Kind/Bug",
+      "colour": "ee0701",
+      "description": "Something is not working"
+    },
+    {
+      "name": "Kind/Chore",
+      "colour": "fbca04",
+      "description": "It is no fun but it needs to be done, this is a chore."
+    },
+    {
+      "name": "Kind/DependencyUpdate",
+      "colour": "fbca04",
+      "description": "for pull requests that are created by renovate when updating a dependency"
+    },
+    {
+      "name": "Kind/Documentation",
+      "colour": "37474f",
+      "description": "Documentation changes"
+    },
+    {
+      "name": "Kind/Enhancement",
+      "colour": "84b6eb",
+      "description": "Improve existing functionality"
+    },
+    {
+      "name": "Kind/Feature",
+      "colour": "0288d1",
+      "description": "New functionality"
+    },
+    {
+      "name": "Kind/Security",
+      "colour": "9c27b0",
+      "description": "This is security issue"
+    },
+    {
+      "name": "Kind/Testing",
+      "colour": "795548",
+      "description": "Issue or pull request related to testing"
+    },
+    {
+      "name": "Priority/Critical",
+      "colour": "b71c1c",
+      "description": "The priority is critical"
+    },
+    {
+      "name": "Priority/High",
+      "colour": "d32f2f",
+      "description": "The priority is high"
+    },
+    {
+      "name": "Priority/Low",
+      "colour": "4caf50",
+      "description": "The priority is low"
+    },
+    {
+      "name": "Priority/Medium",
+      "colour": "e64a19",
+      "description": "The priority is medium"
+    },
+    {
+      "name": "Reviewed/Confirmed",
+      "colour": "795548",
+      "description": "Issue has been confirmed"
+    },
+    {
+      "name": "Reviewed/Duplicate",
+      "colour": "616161",
+      "description": "This issue or pull request already exists"
+    },
+    {
+      "name": "Reviewed/Invalid",
+      "colour": "546e7a",
+      "description": "Invalid issue"
+    },
+    {
+      "name": "Reviewed/Won't Fix",
+      "colour": "eeeeee",
+      "description": "This issue won't be fixed"
+    },
+    {
+      "name": "Status/Abandoned",
+      "colour": "222222",
+      "description": "Somebody has started to work on this but abandoned work"
+    },
+    {
+      "name": "Status/Blocked",
+      "colour": "880e4f",
+      "description": "Something is blocking this issue or pull request"
+    },
+    {
+      "name": "Status/Need More Info",
+      "colour": "424242",
+      "description": "Feedback is required to reproduce issue or to continue work"
+    },
+    {
+      "name": "Windows",
+      "colour": "207de5",
+      "description": "Windows ports is an independent project, see https://github.com/Crown0815/Forgejo-runner-windows-builder"
+    },
+    {
+      "name": "linux-powerpc64le",
+      "colour": "207de5",
+      "description": "powerpc64le"
+    },
+    {
+      "name": "linux-riscv64",
+      "colour": "207de5"
+    },
+    {
+      "name": "linux-s390x",
+      "colour": "207de5"
+    },
+    {
+      "name": "run-end-to-end-tests",
+      "colour": "70c24a",
+      "description": "Run https://code.forgejo.org/forgejo/end-to-end with a runner compiled from this pull request"
+    },
+    {
+      "name": "run-forgejo-tests",
+      "colour": "70c24a",
+      "description": "Run https://codeberg.org/forgejo/forgejo tests importing the runner from this pull request"
+    },
+    {
+      "name": "run-multi-platform-tests",
+      "colour": "70c24a",
+      "description": "Label a PR for automatic execution of test suite on arm64 architecture."
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "ref": {
+    "forge": "gitea",
+    "instance": "gitea.com",
+    "target": {
+      "forge": "gitea",
+      "instance": "gitea.com",
+      "owner": "forges-fixtures",
+      "name": "forges-fixtures"
+    },
+    "id": "48084"
+  },
+  "url": "https://example.com/hook",
+  "events": [
+    "comment"
+  ],
+  "nativeEvents": [
+    "pull_request_comment",
+    "issue_comment"
+  ],
+  "active": true,
+  "contentType": "json",
+  "createdAt": "<now>",
+  "updatedAt": "<now>"
+}

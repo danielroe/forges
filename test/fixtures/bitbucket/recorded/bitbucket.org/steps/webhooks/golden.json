@@ -1,0 +1,27 @@
+{
+  "items": [
+    {
+      "ref": {
+        "forge": "bitbucket",
+        "instance": "bitbucket.org",
+        "target": {
+          "forge": "bitbucket",
+          "instance": "bitbucket.org",
+          "owner": "danielroe",
+          "name": "forges-fixtures"
+        },
+        "id": "{1f2a4878-47eb-4bf8-b099-1ec1933523aa}"
+      },
+      "url": "https://example.com/hook",
+      "events": [
+        "push",
+        "ref"
+      ],
+      "nativeEvents": [
+        "repo:push"
+      ],
+      "active": true,
+      "createdAt": "2026-10-09T11:58:05.944Z"
+    }
+  ]
+}

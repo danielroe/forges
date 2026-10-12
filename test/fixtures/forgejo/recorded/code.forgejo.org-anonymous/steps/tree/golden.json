@@ -1,0 +1,32 @@
+{
+  "items": [
+    {
+      "path": ".dockerignore",
+      "type": "file",
+      "sha": "7b6d2b2bd0c7c2b442731a1a3328e0dd3822993a",
+      "size": 26,
+      "mode": "100644"
+    },
+    {
+      "path": ".editorconfig",
+      "type": "file",
+      "sha": "deec24a1296fa9d475acc0aef5d394792383a9ba",
+      "size": 221,
+      "mode": "100644"
+    },
+    {
+      "path": ".forgejo",
+      "type": "directory",
+      "sha": "8323245fbcb269725ba0c287d195556c4eb01ec1",
+      "size": 0,
+      "mode": "040000"
+    }
+  ],
+  "warnings": [
+    {
+      "code": "tree_truncated",
+      "message": "forgejo truncated the tree; read it directory by directory instead",
+      "subject": "HEAD"
+    }
+  ]
+}

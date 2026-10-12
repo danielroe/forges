@@ -1,0 +1,6 @@
+{
+  "name": "ForbiddenError",
+  "status": 422,
+  "reason": "immutable_release",
+  "reasonRaw": "tag_name cannot be changed when release is immutable"
+}

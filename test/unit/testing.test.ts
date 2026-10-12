@@ -69,7 +69,7 @@ describe('forges/testing', () => {
   })
 
   it('loads a fixture directory', async () => {
-    const fixtures = await loadFixtures(new URL('../fixtures/github/recorded/github.com/', import.meta.url))
+    const fixtures = await loadFixtures(new URL('../fixtures/github/recorded/github.com/steps/repo/', import.meta.url))
 
     expect(fixtures.length).toBeGreaterThan(0)
     expect(fixtures.every(fixture => fixture.request.url.startsWith('https://'))).toBe(true)
