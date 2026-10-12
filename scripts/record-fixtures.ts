@@ -120,7 +120,7 @@ const recorder = recordingFetch(async (input, init) => {
 }, { requestBodies: flags.writes })
 const recordLive = recorder.fetch
 
-/** Error responses from failed steps, left out of the recording. */
+/** Responses to failed steps, left out of the recording. */
 const discarded = new Set<Fixture>()
 
 /** The steps that succeeded, with the responses each received, and those that failed. */
@@ -200,10 +200,9 @@ async function step(name: string, run: () => Promise<unknown>): Promise<boolean>
   catch (error) {
     failures++
     console.error(`FAILED   ${name}: ${(error as Error).message}`)
+    // A failed step isn't replayed from this run, so none of its responses belong in `setup/`.
     for (const fixture of recorder.fixtures.slice(start)) {
-      if (fixture.response.status >= 400) {
-        discarded.add(fixture)
-      }
+      discarded.add(fixture)
     }
     return false
   }
