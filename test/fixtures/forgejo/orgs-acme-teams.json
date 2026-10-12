@@ -1,0 +1,31 @@
+{
+  "handAuthored": true,
+  "request": {
+    "method": "GET",
+    "url": "https://codeberg.org/api/v1/orgs/acme/teams"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": [
+      {
+        "id": 11,
+        "name": "stewards",
+        "description": "Release stewards",
+        "permission": "write",
+        "includes_all_repositories": false,
+        "units": [
+          "repo.code",
+          "repo.issues",
+          "repo.pulls"
+        ]
+      },
+      {
+        "id": 12,
+        "name": "core",
+        "permission": "admin",
+        "includes_all_repositories": true
+      }
+    ]
+  }
+}

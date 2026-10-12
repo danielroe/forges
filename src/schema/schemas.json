@@ -1424,6 +1424,24 @@
           "sponsorable"
         ]
       },
+      "orgs": {
+        "type": "object",
+        "properties": {
+          "teams": {
+            "$ref": "#/components/schemas/Support",
+            "description": "Support for `orgs.teams()` and `orgs.teamsPage()`."
+          },
+          "teamMembers": {
+            "$ref": "#/components/schemas/Support",
+            "description": "Support for `orgs.teamMembers()` and `orgs.teamMembersPage()`."
+          }
+        },
+        "required": [
+          "teams",
+          "teamMembers"
+        ],
+        "description": "An organisation's teams and their members, where the forge has teams."
+      },
       "threads": {
         "type": "object",
         "properties": {
@@ -1956,6 +1974,7 @@
       "sources",
       "repos",
       "users",
+      "orgs",
       "threads",
       "comments",
       "reactions",

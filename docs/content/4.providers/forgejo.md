@@ -104,6 +104,10 @@ A label delivery doesn't say which labels were added or removed. When the set of
 
 `webhooks.deliveries()` and `webhooks.redeliver()` aren't available.
 
+## Organisation teams
+
+`orgs.teams()` reads `GET /orgs/{org}/teams`, and `orgs.teamMembers()` reads the members of one team. Forgejo addresses a team's members by id, so the provider resolves the `slug` (a team's name) to its id with the teams listing before it reads `GET /teams/{id}/members`. Both need a token with the `read:organization` scope, and a self-hosted instance older than 1.18 reports `false`.
+
 <!-- capabilities:start -->
 ## Capabilities
 
@@ -130,6 +134,8 @@ A label delivery doesn't say which labels were added or removed. When the set of
 | `repos.addCollaborator` | ✅ | ❌ |
 | `repos.assignableUsers` | ✅ | ❌ |
 | `repos.reviewerCandidates` | ✅ | ❌ |
+| `orgs.teams` | ✅ | ❌ |
+| `orgs.teamMembers` | ✅ | ❌ |
 | `threads.get` | issue, PR, commit | issue, PR, commit |
 | `threads.list` | issue, PR | issue, PR |
 | `threads.getMany` | ✅ | ✅ |

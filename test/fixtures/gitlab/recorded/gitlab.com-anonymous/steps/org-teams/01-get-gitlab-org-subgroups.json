@@ -1,0 +1,182 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitlab.com/api/v4/groups/gitlab-org/subgroups?per_page=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "<https://gitlab.com/api/v4/groups/gitlab-org/subgroups?id=gitlab-org&order_by=name&owned=false&page=2&per_page=3&sort=asc&statistics=false&with_custom_attributes=false>; rel=\"next\", <https://gitlab.com/api/v4/groups/gitlab-org/subgroups?id=gitlab-org&order_by=name&owned=false&page=1&per_page=3&sort=asc&statistics=false&with_custom_attributes=false>; rel=\"first\", <https://gitlab.com/api/v4/groups/gitlab-org/subgroups?id=gitlab-org&order_by=name&owned=false&page=36&per_page=3&sort=asc&statistics=false&with_custom_attributes=false>; rel=\"last\"",
+      "etag": "W/\"3f4750ffb957b36a27c78ab10a9962a5\"",
+      "ratelimit-limit": "500",
+      "ratelimit-remaining": "497",
+      "ratelimit-reset": "1791847500",
+      "x-total": "106",
+      "x-total-pages": "36",
+      "x-next-page": "2",
+      "x-page": "1",
+      "x-per-page": "3"
+    },
+    "body": [
+      {
+        "id": 10127741,
+        "web_url": "https://gitlab.com/groups/gitlab-org/5-minute-production-app",
+        "name": "5 minute production app",
+        "path": "5-minute-production-app",
+        "description": "Deploy application to production in less than 5 minutes",
+        "visibility": "public",
+        "share_with_group_lock": false,
+        "require_two_factor_authentication": false,
+        "two_factor_grace_period": 48,
+        "project_creation_level": "developer",
+        "auto_devops_enabled": null,
+        "subgroup_creation_level": "maintainer",
+        "emails_disabled": false,
+        "emails_enabled": "redacted@example.invalid",
+        "show_diff_preview_in_email": "redacted@example.invalid",
+        "mentions_disabled": null,
+        "lfs_enabled": true,
+        "archived": false,
+        "math_rendering_limits_enabled": true,
+        "lock_math_rendering_limits_enabled": false,
+        "crm_enabled": true,
+        "resource_access_token_notify_inherited": false,
+        "lock_resource_access_token_notify_inherited": false,
+        "default_branch": null,
+        "default_branch_protection": 2,
+        "default_branch_protection_defaults": {
+          "allowed_to_push": [
+            {
+              "access_level": 40
+            }
+          ],
+          "allow_force_push": false,
+          "allowed_to_merge": [
+            {
+              "access_level": 40
+            }
+          ]
+        },
+        "avatar_url": null,
+        "request_access_enabled": true,
+        "full_name": "GitLab.org / 5 minute production app",
+        "full_path": "gitlab-org/5-minute-production-app",
+        "created_at": "2020-11-16T15:39:11.739Z",
+        "parent_id": 9970,
+        "organization_id": 1,
+        "shared_runners_setting": "enabled",
+        "max_artifacts_size": null,
+        "marked_for_deletion_on": null,
+        "ldap_cn": null,
+        "ldap_access": null,
+        "wiki_access_level": "enabled"
+      },
+      {
+        "id": 74288765,
+        "web_url": "https://gitlab.com/groups/gitlab-org/ai-powered",
+        "name": "AI Powered",
+        "path": "ai-powered",
+        "description": "",
+        "visibility": "public",
+        "share_with_group_lock": false,
+        "require_two_factor_authentication": false,
+        "two_factor_grace_period": 48,
+        "project_creation_level": "developer",
+        "auto_devops_enabled": null,
+        "subgroup_creation_level": "maintainer",
+        "emails_disabled": false,
+        "emails_enabled": "redacted@example.invalid",
+        "show_diff_preview_in_email": "redacted@example.invalid",
+        "mentions_disabled": false,
+        "lfs_enabled": true,
+        "archived": false,
+        "math_rendering_limits_enabled": true,
+        "lock_math_rendering_limits_enabled": false,
+        "crm_enabled": false,
+        "resource_access_token_notify_inherited": false,
+        "lock_resource_access_token_notify_inherited": false,
+        "default_branch": null,
+        "default_branch_protection": 2,
+        "default_branch_protection_defaults": {
+          "allowed_to_push": [
+            {
+              "access_level": 40
+            }
+          ],
+          "allow_force_push": false,
+          "allowed_to_merge": [
+            {
+              "access_level": 40
+            }
+          ]
+        },
+        "avatar_url": null,
+        "request_access_enabled": false,
+        "full_name": "GitLab.org / AI Powered",
+        "full_path": "gitlab-org/ai-powered",
+        "created_at": "2023-09-22T17:01:45.579Z",
+        "parent_id": 9970,
+        "organization_id": 1,
+        "shared_runners_setting": "enabled",
+        "max_artifacts_size": null,
+        "marked_for_deletion_on": null,
+        "ldap_cn": null,
+        "ldap_access": null,
+        "wiki_access_level": "private"
+      },
+      {
+        "id": 98461187,
+        "web_url": "https://gitlab.com/groups/gitlab-org/api",
+        "name": "API",
+        "path": "api",
+        "description": "This subgroup contains various client for the GitLab APIs.",
+        "visibility": "public",
+        "share_with_group_lock": false,
+        "require_two_factor_authentication": false,
+        "two_factor_grace_period": 48,
+        "project_creation_level": "developer",
+        "auto_devops_enabled": null,
+        "subgroup_creation_level": "maintainer",
+        "emails_disabled": false,
+        "emails_enabled": "redacted@example.invalid",
+        "show_diff_preview_in_email": "redacted@example.invalid",
+        "mentions_disabled": false,
+        "lfs_enabled": true,
+        "archived": false,
+        "math_rendering_limits_enabled": true,
+        "lock_math_rendering_limits_enabled": false,
+        "crm_enabled": true,
+        "resource_access_token_notify_inherited": false,
+        "lock_resource_access_token_notify_inherited": false,
+        "default_branch": null,
+        "default_branch_protection": 2,
+        "default_branch_protection_defaults": {
+          "allowed_to_push": [
+            {
+              "access_level": 40
+            }
+          ],
+          "allow_force_push": false,
+          "allowed_to_merge": [
+            {
+              "access_level": 40
+            }
+          ]
+        },
+        "avatar_url": null,
+        "request_access_enabled": false,
+        "full_name": "GitLab.org / API",
+        "full_path": "gitlab-org/api",
+        "created_at": "2024-12-04T10:11:47.063Z",
+        "parent_id": 9970,
+        "organization_id": 1,
+        "shared_runners_setting": "enabled",
+        "max_artifacts_size": null,
+        "marked_for_deletion_on": null,
+        "ldap_cn": null,
+        "ldap_access": null,
+        "wiki_access_level": "enabled"
+      }
+    ]
+  }
+}

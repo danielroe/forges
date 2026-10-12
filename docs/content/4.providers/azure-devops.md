@@ -101,6 +101,20 @@ const events = await forge.webhooks.ingest({
 
 You manage service hook subscriptions at the level of the organization and not on a repository, so the management methods of `webhooks` aren't available.
 
+## Organisation teams
+
+Azure DevOps teams belong to a project rather than to the organization, so the organisation ref is a project namespace: `owner: 'organization/project'`. `orgs.teams()` reads the project's teams with `GET /{organization}/_apis/projects/{project}/teams`, and `orgs.teamMembers()` reads a team's members with `GET /{organization}/_apis/projects/{project}/teams/{team}/members`, which takes the team's name or id. Both need a token with the `vso.project` scope, so `can('orgs.teams')` is `false` without a credential.
+
+```ts
+const project = { forge: 'azure-devops', instance: 'dev.azure.com', owner: 'acme/Widgets', name: '', kind: 'namespace' } as const
+
+for await (const team of provider.orgs.teams(project)) {
+  for await (const member of provider.orgs.teamMembers(project, team.ref.slug)) {
+    console.log(team.name, member.login)
+  }
+}
+```
+
 <!-- capabilities:start -->
 ## Capabilities
 
@@ -127,6 +141,8 @@ You manage service hook subscriptions at the level of the organization and not o
 | `repos.addCollaborator` | ❌ | ❌ |
 | `repos.assignableUsers` | ❌ | ❌ |
 | `repos.reviewerCandidates` | ❌ | ❌ |
+| `orgs.teams` | ✅ | ❌ |
+| `orgs.teamMembers` | ✅ | ❌ |
 | `threads.get` | issue, PR | issue (unverified), PR |
 | `threads.list` | issue, PR | PR |
 | `threads.getMany` | ✅ | ✅ |

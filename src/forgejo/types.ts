@@ -8,6 +8,16 @@ export interface ForgejoUser {
   login_name?: string
 }
 
+export interface ForgejoTeam {
+  id: number
+  name: string
+  description?: string
+  permission?: string
+  organization?: ForgejoUser
+  includes_all_repositories?: boolean
+  units?: string[]
+}
+
 export interface ForgejoRepository {
   id?: number
   name: string

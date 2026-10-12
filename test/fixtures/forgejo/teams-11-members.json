@@ -1,0 +1,24 @@
+{
+  "handAuthored": true,
+  "request": {
+    "method": "GET",
+    "url": "https://codeberg.org/api/v1/teams/11/members"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": [
+      {
+        "id": 1,
+        "login": "octocat",
+        "full_name": "Mona Lisa",
+        "html_url": "https://codeberg.org/octocat"
+      },
+      {
+        "id": 2,
+        "login": "hubot",
+        "is_bot": true
+      }
+    ]
+  }
+}

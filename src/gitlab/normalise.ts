@@ -29,6 +29,7 @@ import type {
   SecurityAlert,
   SecuritySeverity,
   Tag,
+  Team,
   Thread,
   ThreadKind,
   ThreadRef,
@@ -38,7 +39,7 @@ import type {
   WebhookDeliveryRecord,
   WebhookRef,
 } from '../model.ts'
-import type { GitLabBranch, GitLabCommit, GitLabCommitComment, GitLabCommitDetail, GitLabCommitStatus, GitLabDiff, GitLabDiscussion, GitLabHook, GitLabHookEvent, GitLabIssue, GitLabJob, GitLabLabel, GitLabMilestone, GitLabNote, GitLabNoteDetail, GitLabPipeline, GitLabProjectDetail, GitLabRelease, GitLabTag, GitLabTodo, GitLabTreeEntry, GitLabUser, GitLabVulnerability } from './types.ts'
+import type { GitLabBranch, GitLabCommit, GitLabCommitComment, GitLabCommitDetail, GitLabCommitStatus, GitLabDiff, GitLabDiscussion, GitLabGroup, GitLabHook, GitLabHookEvent, GitLabIssue, GitLabJob, GitLabLabel, GitLabMilestone, GitLabNote, GitLabNoteDetail, GitLabPipeline, GitLabProjectDetail, GitLabRelease, GitLabTag, GitLabTodo, GitLabTreeEntry, GitLabUser, GitLabVulnerability } from './types.ts'
 import { toDate } from '../utils.ts'
 import { eventKindsOf } from '../webhooks.ts'
 import { GITLAB_NATIVE_EVENTS } from './webhook-events.ts'
@@ -88,6 +89,23 @@ export function toNamespaceRef(instance: string, fullPath: string, id?: number):
     owner: fullPath,
     name: '',
     externalId: id === undefined ? undefined : String(id),
+  }
+}
+
+/** An organisation ref for a team's ref, whatever form `org` arrived in. */
+export function toTeamOrg(org: RepoRef): RepoRef {
+  return org.kind === 'namespace' && !org.name ? org : { ...org, kind: 'namespace', name: '' }
+}
+
+/** GitLab has no teams of its own; a subgroup stands in for one. */
+export function toTeam(instance: string, org: RepoRef, raw: GitLabGroup): Team {
+  return {
+    ref: { forge: FORGE, instance, org, id: String(raw.id), slug: raw.path ?? raw.full_path },
+    name: raw.name ?? raw.path ?? raw.full_path,
+    description: raw.description || undefined,
+    visibilityRaw: raw.visibility,
+    url: raw.web_url,
+    raw,
   }
 }
 

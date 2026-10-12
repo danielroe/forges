@@ -1,0 +1,33 @@
+{
+  "handAuthored": true,
+  "request": {
+    "method": "GET",
+    "url": "https://dev.azure.com/acme/_apis/projects/Widgets/teams/stewards/members?api-version=7.1"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "count": 2,
+      "value": [
+        {
+          "isTeamAdmin": false,
+          "identity": {
+            "id": "33333333-3333-4333-8333-333333333333",
+            "displayName": "Mona Lisa",
+            "uniqueName": "octocat@example.com",
+            "imageUrl": "https://dev.azure.com/acme/_api/_common/identityImage?id=33333333-3333-4333-8333-333333333333"
+          }
+        },
+        {
+          "isTeamAdmin": true,
+          "identity": {
+            "id": "44444444-4444-4444-8444-444444444444",
+            "displayName": "Hubot",
+            "uniqueName": "hubot@example.com"
+          }
+        }
+      ]
+    }
+  }
+}

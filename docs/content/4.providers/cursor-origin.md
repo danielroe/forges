@@ -118,6 +118,8 @@ Deliveries of `installation.*` events become `installation` events. You register
 | `repos.addCollaborator` | ❌ | ❌ |
 | `repos.assignableUsers` | ❌ | ❌ |
 | `repos.reviewerCandidates` | ❌ | ❌ |
+| `orgs.teams` | ❌ | ❌ |
+| `orgs.teamMembers` | ❌ | ❌ |
 | `threads.get` | PR (experimental) | ❌ |
 | `threads.list` | PR (experimental) | ❌ |
 | `threads.getMany` | experimental | ❌ |

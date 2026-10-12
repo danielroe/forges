@@ -107,6 +107,7 @@ import type {
   GitHubRepositoryDetail,
   GitHubReview,
   GitHubReviewComment,
+  GitHubTeam,
   GitHubTimelineEntry,
   GitHubTree,
   GitHubUserDetail,
@@ -150,6 +151,8 @@ import {
   toSecretScanningAlert,
   toStatusCheck,
   toTag,
+  toTeam,
+  toTeamOrg,
   toThread,
   toTreeEntry,
   toUser,
@@ -1595,6 +1598,18 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
         return toPage(page, raw => raw.login === author ? undefined : toActor(instance, raw)!)
       }),
     },
+    orgs: {
+      teamsPage: verb(!anonymous, (org, listOptions = {}) => list(
+        `/orgs/${encodeURIComponent(org.owner)}/teams`,
+        listOptions,
+        (raw: GitHubTeam) => toTeam(instance, toTeamOrg(org), raw),
+      )),
+      teamMembersPage: verb(!anonymous, (org, slug, listOptions = {}) => list(
+        `/orgs/${encodeURIComponent(org.owner)}/teams/${encodeURIComponent(slug)}/members`,
+        listOptions,
+        (raw: GitHubUserDetail) => toActor(instance, raw)!,
+      )),
+    },
     notifications: {
       listPage: verb(true, notificationPage),
       markRead: verb(true, async (ref: NotificationRef, options) => {
@@ -1868,6 +1883,9 @@ export function githubScopesFor(verb: ForgeVerb): VerbScopes {
   }
   if (group === 'users' || group === 'search') {
     return { token: ['read:user'], permissions: {} }
+  }
+  if (group === 'orgs') {
+    return { token: ['read:org'], permissions: { members: 'read' } }
   }
   if (group === 'ci' || (group === 'checks' && name !== 'report')) {
     return { token: ['repo'], permissions: { actions: 'read', checks: name === 'rerun' ? 'write' : 'read' } }

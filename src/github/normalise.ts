@@ -32,6 +32,8 @@ import type {
   SecuritySeverity,
   SourceKind,
   Tag,
+  Team,
+  TeamRef,
   Thread,
   ThreadKind,
   ThreadRef,
@@ -68,6 +70,7 @@ import type {
   GitHubReviewComment,
   GitHubSecretScanningAlert,
   GitHubTag,
+  GitHubTeam,
   GitHubTimelineEntry,
   GitHubTreeEntry,
   GitHubUser,
@@ -262,6 +265,27 @@ export function toContributor(instance: string, raw: GitHubContributor): Contrib
     return { name: raw.name || undefined, email: raw.email || undefined, contributions: raw.contributions, raw }
   }
   return { actor: toActor(instance, raw), contributions: raw.contributions, raw }
+}
+
+/** An organisation ref for a team's ref, whatever form `org` arrived in. */
+export function toTeamOrg(org: RepoRef): RepoRef {
+  return org.kind === 'namespace' && !org.name ? org : { ...org, kind: 'namespace', name: '' }
+}
+
+export function toTeam(instance: string, org: RepoRef, raw: GitHubTeam): Team {
+  const parent: TeamRef | undefined = raw.parent
+    ? { forge: FORGE, instance, org, id: String(raw.parent.id), slug: raw.parent.slug }
+    : undefined
+  return {
+    ref: { forge: FORGE, instance, org, id: String(raw.id), slug: raw.slug },
+    name: raw.name,
+    description: raw.description ?? undefined,
+    permission: raw.permission,
+    visibilityRaw: raw.privacy,
+    parent,
+    url: raw.html_url ?? raw.url,
+    raw,
+  }
 }
 
 export function toThreadKind(subjectType: string): ThreadKind {

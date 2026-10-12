@@ -26,6 +26,7 @@ import type {
   ReviewComment,
   SourceKind,
   Tag,
+  Team,
   Thread,
   ThreadKind,
   ThreadRef,
@@ -55,6 +56,7 @@ import type {
   ForgejoReview,
   ForgejoReviewComment,
   ForgejoTag,
+  ForgejoTeam,
   ForgejoTimelineEntry,
   ForgejoTreeEntry,
   ForgejoUser,
@@ -93,6 +95,22 @@ export function toRepoRef(origin: ForgeOrigin, repo: ForgejoRepository): RepoRef
     owner: repo.owner?.login ?? owner ?? '',
     name: repo.name ?? name ?? '',
     externalId: repo.id === undefined ? undefined : String(repo.id),
+  }
+}
+
+/** An organisation ref for a team's ref, whatever form `org` arrived in. */
+export function toTeamOrg(org: RepoRef): RepoRef {
+  return org.kind === 'namespace' && !org.name ? org : { ...org, kind: 'namespace', name: '' }
+}
+
+/** Forgejo and Gitea teams have no slug, so the name stands in for one. */
+export function toTeam(origin: ForgeOrigin, org: RepoRef, raw: ForgejoTeam): Team {
+  return {
+    ref: { ...origin, org, id: String(raw.id), slug: raw.name },
+    name: raw.name,
+    description: raw.description || undefined,
+    permission: raw.permission,
+    raw,
   }
 }
 

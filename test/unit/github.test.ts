@@ -536,6 +536,35 @@ describe('github repository and thread metadata', () => {
   })
 })
 
+describe('github organisation teams', () => {
+  const org = { forge: 'github', instance: 'github.com', owner: 'acme', name: '', kind: 'namespace' } as const
+
+  it('lists an organisation\'s teams and their members', async () => {
+    const { provider, calls } = tokenProvider()
+
+    const teams = await Array.fromAsync(provider.orgs.teams(org))
+    const members = await Array.fromAsync(provider.orgs.teamMembers(org, 'stewards'))
+
+    expect(teams.map(team => [team.ref.slug, team.ref.id, team.name, team.visibilityRaw, team.parent?.slug])).toEqual([
+      ['stewards', '1', 'Stewards', 'closed', undefined],
+      ['core', '2', 'Core', 'secret', 'stewards'],
+    ])
+    expect(teams[0]!.ref.org).toMatchObject({ kind: 'namespace', owner: 'acme', name: '' })
+    expect(members.map(member => [member.login, member.isBotHint])).toEqual([['octocat', false], ['hubot', true]])
+    expect(calls.map(call => `${call.method} ${new URL(call.url).pathname}`)).toEqual([
+      'GET /orgs/acme/teams',
+      'GET /orgs/acme/teams/stewards/members',
+    ])
+  })
+
+  it('reports organisation teams unsupported without a credential', () => {
+    const anonymous = github({}).create()
+
+    expect(anonymous.can('orgs.teams')).toBe(false)
+    expect(anonymous.can('orgs.teamMembers')).toBe(false)
+  })
+})
+
 describe('github reviews', () => {
   it('lists reviews with their inline comments and resolution state', async () => {
     const { provider, calls } = tokenProvider()

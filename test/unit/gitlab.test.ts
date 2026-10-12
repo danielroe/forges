@@ -689,3 +689,24 @@ describe('gitlab thread updates', () => {
     expect(JSON.parse(calls[0]!.body!)).toEqual({ state_event: 'close', labels: '', assignee_ids: [] })
   })
 })
+
+describe('gitlab organisation subgroups and members', () => {
+  const org = { forge: 'gitlab', instance: 'gitlab.com', owner: 'acme', name: '', kind: 'namespace' } as const
+
+  it('lists a subgroup\'s members, including inherited and invited ones', async () => {
+    const { instance, calls } = provider()
+
+    const members = await Array.fromAsync(instance.orgs.teamMembers(org, 'platform'))
+
+    expect(members.map(member => member.login)).toEqual(['octocat', 'hubot'])
+    expect(calls.map(call => `${call.method} ${new URL(call.url).pathname}`)).toEqual([
+      'GET /api/v4/groups/acme%2Fplatform/members/all',
+    ])
+  })
+
+  it('reports subgroup members unsupported without a credential', () => {
+    const anonymous = gitlab({}).create()
+
+    expect(anonymous.can('orgs.teamMembers')).toBe(false)
+  })
+})

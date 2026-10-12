@@ -68,6 +68,7 @@ import type {
   ForgejoRepositoryDetail,
   ForgejoReview,
   ForgejoReviewComment,
+  ForgejoTeam,
   ForgejoTimelineEntry,
   ForgejoTree,
   ForgejoUser,
@@ -83,7 +84,7 @@ import { isNamespaceRef, reactionContent } from '../model.ts'
 import { actorLogin, createListing, getManyConcurrently, hasEveryLabel, hexColour, hostOf, memo, memoBy, milestoneId, requireIssueOrPull, requireThread, resolveToken, summariseChecks, toDate, toPage, toWarning, versionAtLeast } from '../utils.ts'
 import { githubShapedWeb } from '../web.ts'
 import { nativeEventsFor } from '../webhooks.ts'
-import { ACTION_STATES, actionBranch, GITEA_ACTION_STATES, numberFromUrl, toActionJob, toActionRun, toActor, toBranch, toChangedFile, toComment, toCommit, toEvent, toGiteaActionJob, toGiteaActionRun, toLabel, toMilestone, toNotification, toRelease, toRepo, toReview, toReviewComment, toRole, toStatusCheck, toStatusChecks, toTag, toThread, toThreadKind, toTreeEntry, toWebhook } from './normalise.ts'
+import { ACTION_STATES, actionBranch, GITEA_ACTION_STATES, numberFromUrl, toActionJob, toActionRun, toActor, toBranch, toChangedFile, toComment, toCommit, toEvent, toGiteaActionJob, toGiteaActionRun, toLabel, toMilestone, toNotification, toRelease, toRepo, toReview, toReviewComment, toRole, toStatusCheck, toStatusChecks, toTag, toTeam, toTeamOrg, toThread, toThreadKind, toTreeEntry, toWebhook } from './normalise.ts'
 import { countedNextUrl, countedPages } from './pages.ts'
 import { FORGEJO_HEADERS, FORGEJO_NATIVE_EVENTS } from './webhook-events.ts'
 import { forgejoWebhooks } from './webhooks.ts'
@@ -127,6 +128,10 @@ const GITEA_ACTION_LOGS = '1.24'
 
 /** Gitea version with replies to review comments. */
 const GITEA_REVIEW_REPLIES = '1.27'
+
+/** Forgejo and Gitea versions with the organisation teams API. */
+const FORGEJO_ORG_TEAMS = '1.18'
+const GITEA_ORG_TEAMS = '1.15'
 
 /** Timelines send no usable count, so only a full page of an explicit size shows that another follows. */
 const TIMELINE_PAGE_SIZE = 50
@@ -500,6 +505,24 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
   /** Gitea lists runs and serves job logs only with a token. */
   const giteaAnonymous = isGitea && anonymous
 
+  /** Organisation teams are read through the forge's API, which older self-hosted versions lack. */
+  const orgTeams: SupportInput = hostOf(baseUrl) === hostOf(profile.defaultBaseUrl)
+    ? true
+    : ({ version }) => versionAtLeast(version, isGitea ? GITEA_ORG_TEAMS : FORGEJO_ORG_TEAMS)
+
+  /** Forgejo and Gitea address a team's members by id, so its name is resolved once per organisation. */
+  const teamIdOf = memoBy(async (key: string) => {
+    const separator = key.indexOf('\n')
+    const org = key.slice(0, separator)
+    const slug = key.slice(separator + 1)
+    for await (const team of fetcher.items<ForgejoTeam>(`/orgs/${encodeURIComponent(org)}/teams`)) {
+      if (String(team.id) === slug || team.name.toLowerCase() === slug.toLowerCase()) {
+        return String(team.id)
+      }
+    }
+    throw new UnsupportedOperationError(`No team named ${slug} in ${org}`, context)
+  })
+
   /** One page of an Actions listing, read from `key` and continued from `total_count` when no `Link` header is sent. */
   async function actionsPage<T>(path: string, key: 'workflow_runs' | 'jobs', query: Record<string, string | number | undefined>, pageOptions: PageOptions): Promise<FetchResult<T[]>> {
     const url = pageOptions.cursor?.nextUrl ? fetcher.resolve(pageOptions.cursor.nextUrl) : fetcher.resolve(path, query)
@@ -596,6 +619,17 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
       }),
       assignableUsersPage: verb(!anonymous, (repo, listOptions = {}) => list(`${repoPath(repo)}/assignees`, listOptions, (raw: ForgejoUser) => toActor(origin, raw)!)),
       reviewerCandidatesPage: verb(!anonymous, (thread, listOptions = {}) => list(`${repoPath(requireThread(thread, context).repo)}/reviewers`, listOptions, (raw: ForgejoUser) => toActor(origin, raw)!)),
+    },
+    orgs: {
+      teamsPage: verb(anonymous ? false : orgTeams, (org, listOptions = {}) => list(
+        `/orgs/${encodeURIComponent(org.owner)}/teams`,
+        listOptions,
+        (raw: ForgejoTeam) => toTeam(origin, toTeamOrg(org), raw),
+      )),
+      teamMembersPage: verb(anonymous ? false : orgTeams, async (org, slug, listOptions = {}) => {
+        const id = /^\d+$/.test(slug) ? slug : await teamIdOf(`${org.owner}\n${slug}`)
+        return list(`/teams/${encodeURIComponent(id)}/members`, listOptions, (raw: ForgejoUser) => toActor(origin, raw)!)
+      }),
     },
     notifications: {
       listPage: verb(true, notificationPage),
@@ -974,6 +1008,9 @@ export function forgejoScopesFor(verb: ForgeVerb): VerbScopes {
   }
   if (group === 'users' || group === 'search') {
     return { token: ['read:user'] }
+  }
+  if (group === 'orgs') {
+    return { token: ['read:organization'] }
   }
   if (group === 'threads' || group === 'repos' || group === 'contents' || group === 'releases' || group === 'checks' || group === 'ci') {
     return { token: [write ? 'write:issue' : 'read:issue', write ? 'write:repository' : 'read:repository'] }

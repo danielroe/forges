@@ -93,6 +93,8 @@ Since `pushin()` contains no webhook code, there is no `pushinLite()` factory fo
 | `repos.addCollaborator` | ❌ | ❌ |
 | `repos.assignableUsers` | ❌ | ❌ |
 | `repos.reviewerCandidates` | ❌ | ❌ |
+| `orgs.teams` | ❌ | ❌ |
+| `orgs.teamMembers` | ❌ | ❌ |
 | `threads.get` | issue, PR | issue, PR |
 | `threads.list` | issue, PR | issue, PR |
 | `threads.getMany` | ✅ | ✅ |

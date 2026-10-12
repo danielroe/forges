@@ -1,0 +1,39 @@
+{
+  "handAuthored": true,
+  "request": {
+    "method": "GET",
+    "url": "https://api.github.com/orgs/acme/teams"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": [
+      {
+        "id": 1,
+        "node_id": "T_1",
+        "slug": "stewards",
+        "name": "Stewards",
+        "description": "Release stewards",
+        "privacy": "closed",
+        "permission": "push",
+        "html_url": "https://github.com/orgs/acme/teams/stewards"
+      },
+      {
+        "id": 2,
+        "node_id": "T_2",
+        "slug": "core",
+        "name": "Core",
+        "description": null,
+        "privacy": "secret",
+        "permission": "admin",
+        "html_url": "https://github.com/orgs/acme/teams/core",
+        "parent": {
+          "id": 1,
+          "node_id": "T_1",
+          "slug": "stewards",
+          "name": "Stewards"
+        }
+      }
+    ]
+  }
+}

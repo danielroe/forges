@@ -2,12 +2,12 @@ import type { ProviderContext, ProviderDefinition, ProviderFactoryFunction, Prov
 import type { Actor, BaseOptions, Check, CheckState, Comment, CommentRef, Cursor, ForgeEventInput, ForgeWarning, ListOptions, MergeMethod, Page, RepoRef, ResolvedThreadRef, Review, ReviewInput, SearchQuery, Thread, ThreadQuery, ThreadRef } from '../model.ts'
 import type { AnonymousAuth, BasicAuth, ForgeOptionsBase, TokenAuth } from '../provider.ts'
 import type { WebLinks } from '../web.ts'
-import type { AzureCommit, AzureCommitDiffs, AzureIdentity, AzureItem, AzurePolicyEvaluation, AzurePullRequest, AzureRef, AzureRepository, AzureReviewer, AzureStatus, AzureThread, AzureWorkItem, AzureWorkItemComment, AzureWorkItemUpdate } from './types.ts'
+import type { AzureCommit, AzureCommitDiffs, AzureIdentity, AzureItem, AzurePolicyEvaluation, AzurePullRequest, AzureRef, AzureRepository, AzureReviewer, AzureStatus, AzureTeam, AzureTeamMember, AzureThread, AzureWorkItem, AzureWorkItemComment, AzureWorkItemUpdate } from './types.ts'
 import { toFileContent } from '../contents.ts'
 import { defineForgeProvider, perKind, verb } from '../define.ts'
 import { ForgeError, MergeMethodRequiredError, NotFoundError, toMergeError, UnsupportedOperationError } from '../errors.ts'
 import { actorLogin, getManyConcurrently, memo, mergeCommitMessage, phased, requireIssueOrPull, requireThread, resolveToken, summariseChecks, syntheticReview, toWarning } from '../utils.ts'
-import { FORGE, isConversationThread, projectRef, toActor, toBranch, toChangedFile, toCommit, toPolicyCheck, toPullComment, toPullThread, toRepo, toRepoRef, toStatusCheck, toTag, toThreadEvents, toTreeEntry, toWorkItemComment, toWorkItemEvents, toWorkItemThread } from './normalise.ts'
+import { FORGE, isConversationThread, projectRef, toActor, toBranch, toChangedFile, toCommit, toPolicyCheck, toPullComment, toPullThread, toRepo, toRepoRef, toStatusCheck, toTag, toTeam, toTeamOrg, toThreadEvents, toTreeEntry, toWorkItemComment, toWorkItemEvents, toWorkItemThread } from './normalise.ts'
 import { azureWeb } from './web.ts'
 import { azureDevOpsWebhooks } from './webhooks.ts'
 
@@ -385,6 +385,19 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
         return query.sort ? { items, warnings: [{ code: 'sort_unsupported', message: 'Azure DevOps lists the repositories of a project in its own order' }] } : { items }
       }),
     },
+    orgs: {
+      /** Teams belong to a project, so `org` is a project namespace ref (`owner: 'organization/project'`). */
+      teamsPage: verb(!anonymous, async (org, listOptions = {}) => {
+        const { org: organization, project } = scope(org)
+        const { data } = await fetcher.json<{ value: AzureTeam[] }>(`/${enc(organization)}/_apis/projects/${enc(project)}/teams`, { signal: listOptions.signal })
+        return { items: data.value.map(raw => toTeam(instance, toTeamOrg(org), raw)) }
+      }),
+      teamMembersPage: verb(!anonymous, async (org, slug, listOptions = {}) => {
+        const { org: organization, project } = scope(org)
+        const { data } = await fetcher.json<{ value: AzureTeamMember[] }>(`/${enc(organization)}/_apis/projects/${enc(project)}/teams/${enc(slug)}/members`, { signal: listOptions.signal })
+        return { items: data.value.flatMap(member => toActor(instance, member.identity) ?? []) }
+      }),
+    },
     contents: {
       file: verb(true, async (repo, path, fileOptions = {}) => {
         const query = {
@@ -670,9 +683,15 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
     web: azureWeb(baseUrl),
     webhooks: {
     },
-    scopes: verb => verb.startsWith('webhooks.')
-      ? { token: ['vso.work_full'], note: 'Service hook subscriptions need project administrator rights' }
-      : { token: ['vso.code', 'vso.work'] },
+    scopes: (verb) => {
+      if (verb.startsWith('webhooks.')) {
+        return { token: ['vso.work_full'], note: 'Service hook subscriptions need project administrator rights' }
+      }
+      if (verb.startsWith('orgs.')) {
+        return { token: ['vso.project'], note: 'Read projects and their teams' }
+      }
+      return { token: ['vso.code', 'vso.work'] }
+    },
   }
 }
 

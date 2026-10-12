@@ -1,0 +1,26 @@
+{
+  "handAuthored": true,
+  "request": {
+    "method": "GET",
+    "url": "https://api.github.com/orgs/acme/teams/stewards/members"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": [
+      {
+        "login": "octocat",
+        "id": 1,
+        "type": "User",
+        "avatar_url": "https://avatars.githubusercontent.com/u/1",
+        "html_url": "https://github.com/octocat"
+      },
+      {
+        "login": "hubot",
+        "id": 2,
+        "type": "Bot",
+        "html_url": "https://github.com/hubot"
+      }
+    ]
+  }
+}

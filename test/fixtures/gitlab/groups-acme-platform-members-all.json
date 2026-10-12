@@ -1,0 +1,25 @@
+{
+  "handAuthored": true,
+  "request": {
+    "method": "GET",
+    "url": "https://gitlab.com/api/v4/groups/acme%2Fplatform/members/all"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": [
+      {
+        "id": 42,
+        "username": "octocat",
+        "name": "Mona Lisa",
+        "web_url": "https://gitlab.com/octocat",
+        "access_level": 50
+      },
+      {
+        "id": 43,
+        "username": "hubot",
+        "name": "Hubot"
+      }
+    ]
+  }
+}

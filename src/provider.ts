@@ -71,6 +71,7 @@ import type {
   SubscriptionState,
   Support,
   Tag,
+  Team,
   TextLimits,
   Thread,
   ThreadCreateInput,
@@ -215,6 +216,13 @@ export interface ForgeCapabilities {
     me: Support
     /** Support for `users.sponsorable()`. */
     sponsorable: Support
+  }
+  /** An organisation's teams and their members, where the forge has teams. */
+  orgs: {
+    /** Support for `orgs.teams()` and `orgs.teamsPage()`. */
+    teams: Support
+    /** Support for `orgs.teamMembers()` and `orgs.teamMembersPage()`. */
+    teamMembers: Support
   }
   threads: {
     /** Support for `threads.get()`, per thread kind. */
@@ -876,6 +884,30 @@ export interface MilestoneListOptions extends PageOptions {
   state?: 'open' | 'closed' | 'all'
 }
 
+/**
+ * The teams of an organisation and their members. An organisation is a
+ * namespace ref, as `repos.byOwner()` takes one. GitLab has no teams of its
+ * own, so its subgroups play the role of teams and their members are the
+ * subgroup's members.
+ */
+export interface OrgsApi {
+  /**
+   * Lists the teams of an organisation.
+   * @param org A namespace ref, such as `{ forge, instance, owner: 'acme', name: '', kind: 'namespace' }`.
+   */
+  teams: (org: RepoRef, options?: PageOptions) => ForgeIterable<Team>
+  /** One page of `teams()`. */
+  teamsPage: (org: RepoRef, options?: PageOptions) => Promise<Page<Team>>
+  /**
+   * Lists the members of a team, as actors.
+   * @param org The organisation the team belongs to.
+   * @param slug The team's `ref.slug`.
+   */
+  teamMembers: (org: RepoRef, slug: string, options?: PageOptions) => ForgeIterable<Actor>
+  /** One page of `teamMembers()`. */
+  teamMembersPage: (org: RepoRef, slug: string, options?: PageOptions) => Promise<Page<Actor>>
+}
+
 /** The installations of the app that the provider authenticates as. */
 export interface InstallationsApi {
   /** Lists the installations of the app. */
@@ -1038,6 +1070,7 @@ export interface ForgeProvider<HasWeb extends boolean = boolean> {
   readonly users: UsersApi
   readonly search: SearchApi
   readonly securityAlerts: SecurityAlertsApi
+  readonly orgs: OrgsApi
   /**
    * Whether `verb` is supported, for `kind` where support differs by kind,
    * including version gates. Every verb is always present and rejects with

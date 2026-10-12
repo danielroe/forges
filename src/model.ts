@@ -122,6 +122,55 @@ export interface AddCollaboratorResult {
   status: 'invited' | 'added'
 }
 
+/**
+ * Reference to a team of an organisation. A team belongs to the organisation,
+ * not to a repository, so the ref carries the namespace ref of the
+ * organisation rather than a repository.
+ */
+export interface TeamRef extends ForgeOrigin {
+  /** The organisation, group or workspace the team belongs to. */
+  org: RepoRef
+  /**
+   * Forge-native team id, where the forge has one. Forgejo and Gitea address a
+   * team's members by id, so `orgs.teamMembers()` resolves a slug to it.
+   */
+  id?: string
+  /**
+   * URL-safe identifier unique within the organisation. GitHub and GitLab have
+   * a slug; Forgejo and Gitea have none, so the team's name stands in.
+   */
+  slug: string
+}
+
+/**
+ * A team of an organisation, as `orgs.teams()` lists them. GitLab has no teams
+ * of its own, so a subgroup plays the role of one.
+ */
+export interface Team {
+  ref: TeamRef
+  name: string
+  description?: string
+  /**
+   * Forge-native repository permission the team grants, where the forge
+   * reports one (GitHub's `permission`, Gitea's `permission`).
+   */
+  permission?: string
+  /**
+   * Forge-native privacy or visibility value, where the forge reports one:
+   * GitHub's `privacy` (`closed` or `secret`), or a GitLab subgroup's
+   * `visibility` (`public`, `internal` or `private`).
+   */
+  visibilityRaw?: string
+  /**
+   * The team's parent team, where the forge nests teams. GitHub reports one;
+   * GitLab subgroups carry only a parent id, so this stays `undefined` there.
+   */
+  parent?: TeamRef
+  /** Web page of the team, where the forge has one. */
+  url?: string
+  raw: unknown
+}
+
 /** A repository as every forge reports it. Fields that not every forge has, such as `openPullCount`, are optional. */
 export interface Repo {
   ref: RepoRef

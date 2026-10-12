@@ -51,7 +51,7 @@ function forge(title: string, directory: string, names: RegExp[] = []) {
 
 const DATA_MODEL_SECTIONS: SectionConfig[] = [
   { title: 'Forges and refs', names: ['ForgeKind', 'KnownForgeKind', 'ForgeInstance', 'ForgeOrigin', 'ThreadKind', 'RepoRef', 'ThreadRef', 'ResolvedThreadRef', 'CommentRef', 'NotificationRef', 'repoKey', 'parseRepoKey', 'repoSlug', 'repoRef', 'threadKey', 'parseThreadKey', 'threadSlug', 'notificationKey', 'parseNotificationKey', 'notificationThread', 'isNamespaceRef', 'isResolvedThread', 'normaliseRepoName', 'namesAreCaseInsensitive'] },
-  { title: 'Accounts and repositories', names: [/^(?:Actor|User|Collaborator|Contributor|Repo|Installation)/, 'OwnerRepoQuery', 'AddCollaboratorResult', 'TextLimits'] },
+  { title: 'Accounts and repositories', names: [/^(?:Actor|User|Collaborator|Contributor|Repo|Installation|Team)/, 'OwnerRepoQuery', 'AddCollaboratorResult', 'TextLimits'] },
   { title: 'Threads and comments', names: [/^(?:Thread|SubscriptionState|SubscribeOptions|SubscriptionItem|Close|Upsert|Comment|Milestone|Label|GetMany|SearchQuery|Merge|ApproveAndMerge)/, 'commentMarker', 'hasCommentMarker'] },
   { title: 'Reactions', names: [/^React/, 'REACTION_CONTENTS'] },
   { title: 'Reviews', names: [/^Review/, 'PullBranches', 'PullStats', 'ThreadStack'] },
@@ -135,10 +135,10 @@ export const PAGES: PageConfig[] = [
     slug: 'repositories',
     title: 'Repositories',
     icon: 'i-lucide-folder-git-2',
-    description: 'Repositories, files, releases, accounts and search.',
-    overview: 'The `repos`, `contents`, `releases`, `users`, `installations` and `search` namespaces: repositories, their files, commits and releases, accounts, app installations and search.',
+    description: 'Repositories, files, releases, accounts, teams and search.',
+    overview: 'The `repos`, `contents`, `releases`, `users`, `installations`, `orgs` and `search` namespaces: repositories, their files, commits and releases, accounts, app installations, organisation teams and search.',
     intro: OPERATIONS,
-    sections: [{ namespaces: ['repos', 'contents', 'releases', 'users', 'installations', 'search'] }],
+    sections: [{ namespaces: ['repos', 'contents', 'releases', 'users', 'installations', 'orgs', 'search'] }],
   },
   {
     slug: 'notifications',

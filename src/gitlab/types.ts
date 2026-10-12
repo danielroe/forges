@@ -94,6 +94,11 @@ export interface GitLabGroup {
   name?: string
   path?: string
   full_path: string
+  description?: string | null
+  visibility?: string
+  web_url?: string
+  avatar_url?: string | null
+  parent_id?: number | null
 }
 
 export interface GitLabTodo {

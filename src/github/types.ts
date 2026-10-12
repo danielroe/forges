@@ -73,6 +73,20 @@ export type GitHubContributor
   = | (GitHubUser & { contributions: number })
     | { type: 'Anonymous', name?: string, email?: string, contributions: number }
 
+export interface GitHubTeam {
+  id: number
+  node_id?: string
+  slug: string
+  name: string
+  description?: string | null
+  privacy?: string
+  permission?: string
+  url?: string
+  html_url?: string
+  members_url?: string
+  parent?: GitHubTeam | null
+}
+
 export interface GitHubReactions {
   'total_count'?: number
   '+1'?: number

@@ -157,6 +157,10 @@ With each delivery, GitHub sends these headers:
 
 Deliveries of the `installation` and `installation_repositories` events become `installation` events.
 
+## Organisation teams
+
+`orgs.teams()` reads the teams of an organisation with `GET /orgs/{org}/teams`, and `orgs.teamMembers()` reads `GET /orgs/{org}/teams/{slug}/members`. Both need a token with the `read:org` scope, or the `members` read permission on a fine-grained token, so `can('orgs.teams')` is `false` without a credential. Team members include bot accounts, such as `dependabot[bot]`, which carry `isBotHint: true`.
+
 <!-- capabilities:start -->
 ## Capabilities
 
@@ -183,6 +187,8 @@ Deliveries of the `installation` and `installation_repositories` events become `
 | `repos.addCollaborator` | ✅ | ❌ |
 | `repos.assignableUsers` | ✅ | ✅ |
 | `repos.reviewerCandidates` | emulated | ❌ |
+| `orgs.teams` | ✅ | ❌ |
+| `orgs.teamMembers` | ✅ | ❌ |
 | `threads.get` | issue, PR, discussion, commit | issue, PR, commit |
 | `threads.list` | issue, PR, discussion | issue, PR |
 | `threads.getMany` | ✅ | ✅ |

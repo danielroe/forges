@@ -1,4 +1,4 @@
-import type { Branch, Check, CiJob, CiRun, Comment, Page, Release, Repo, RepoRef, Review, SecurityAlertKind, Thread, ThreadRef, TreeEntry, Webhook } from '../../src/model.ts'
+import type { Branch, Check, CiJob, CiRun, Comment, Page, Release, Repo, RepoRef, Review, SecurityAlertKind, Team, Thread, ThreadRef, TreeEntry, Webhook } from '../../src/model.ts'
 import type { ForgeProvider, ForgeVerb } from '../../src/provider.ts'
 import { sha256Hex } from '../../src/crypto.ts'
 import { ForbiddenError, InsufficientScopeError, NotFoundError } from '../../src/errors.ts'
@@ -56,6 +56,7 @@ export interface StepContext {
   review?: Review
   checks?: Check[]
   discussion?: Thread
+  teams?: Team[]
 }
 
 export interface Step {
@@ -217,6 +218,11 @@ export const STEPS: Step[] = [
   { name: 'collaborators', verb: 'repos.collaboratorsPage', run: (provider, manifest) => orScratch(manifest, repo => provider.repos.collaboratorsPage(repo, page)) },
   { name: 'contributors', verb: 'repos.contributorsPage', run: (provider, manifest) => provider.repos.contributorsPage(manifest.repo, page) },
   { name: 'assignable users', verb: 'repos.assignableUsersPage', run: (provider, manifest) => provider.repos.assignableUsersPage(manifest.repo, page) },
+  { name: 'org teams', verb: 'orgs.teamsPage', run: async (provider, manifest, context) => {
+    context.teams = (await provider.orgs.teamsPage(namespaceOf(manifest.repo, manifest.repo.owner), page)).items
+    return context.teams
+  } },
+  { name: 'org team members', verb: 'orgs.teamMembersPage', when: (_provider, manifest) => !manifest.anonymous, run: (provider, manifest, context) => provider.orgs.teamMembersPage(namespaceOf(manifest.repo, manifest.repo.owner), need(context.teams?.[0], 'a team').ref.slug, page) },
   ...threadSteps('pull_request', 'pull'),
   ...threadSteps('issue', 'issue'),
   ...threadSteps('discussion', 'discussion'),

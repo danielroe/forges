@@ -8,6 +8,23 @@ export interface AzureIdentity {
   descriptor?: string
 }
 
+/** A team of a project, as `GET /_apis/projects/{project}/teams` reports it. */
+export interface AzureTeam {
+  id: string
+  name: string
+  description?: string
+  url?: string
+  identityUrl?: string
+  projectId?: string
+  projectName?: string
+}
+
+/** One member of a team, as `GET /_apis/projects/{project}/teams/{team}/members` reports them. */
+export interface AzureTeamMember {
+  isTeamAdmin?: boolean
+  identity: AzureIdentity
+}
+
 export interface AzureReviewer extends AzureIdentity {
   /** 10 approved, 5 approved with suggestions, 0 no vote, -5 waiting for author, -10 rejected. */
   vote: number
