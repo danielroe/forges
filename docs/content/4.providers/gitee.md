@@ -41,7 +41,7 @@ The instance is `gitee.com`. The `baseUrl` defaults to `https://gitee.com`, and 
 
 ## Contributors
 
-`repos.contributors()` reads Gitee's aggregated contributor list, one entry per author email. Gitee reports no account for a contributor, so `Contributor.login` and `Contributor.email` are the author's email, and `Contributor.name` is the git author name. The endpoint is public, so an anonymous provider can read it.
+`repos.contributors()` reads Gitee's aggregated contributor list, sorted by commit count: one entry per author email. Gitee reports no account for a contributor, so a `Contributor` has the git author `name` and `email` and no `actor`. Gitee returns the whole list in one response, so the provider pages through it locally and each page costs one request; pass a large `perPage` to read every contributor at once. The endpoint is public, so an anonymous provider can read it.
 
 ## Issue numbers and states
 

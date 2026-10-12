@@ -366,10 +366,13 @@ function setupGitee({ instance, origin: context, fetcher, baseUrl }: ProviderCon
         }
       }),
       contributorsPage: verb(true, async (repo, listOptions = {}) => {
-        const page = await numberedPage<GiteeContributor>(`${repoPath(repo)}/contributors`, {}, listOptions)
+        const { data } = await fetcher.json<GiteeContributor[]>(`${repoPath(repo)}/contributors`, { signal: listOptions.signal })
+        const all = data ?? []
+        const offset = Number(listOptions.cursor?.token ?? 0)
+        const end = offset + (listOptions.perPage ?? PER_PAGE)
         return {
-          items: page.items.map(raw => ({ login: raw.email ?? raw.name ?? '', name: raw.name, email: raw.email, contributions: raw.contributions, raw })),
-          cursor: page.cursor,
+          items: all.slice(offset, end).map(raw => ({ name: raw.name || undefined, email: raw.email || undefined, contributions: raw.contributions, raw })),
+          cursor: end < all.length ? { token: String(end) } : undefined,
         }
       }),
     },

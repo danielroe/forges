@@ -791,36 +791,29 @@
   "Contributor": {
     "type": "object",
     "properties": {
-      "login": {
-        "type": "string",
-        "description": "The contributor's handle: the account login on GitHub, or the author's email address on forges that aggregate commits by author and expose no account (GitLab, Gitee)."
+      "actor": {
+        "$ref": "#/components/schemas/Actor",
+        "description": "The account, where the forge links the author to one."
       },
       "name": {
         "type": "string",
-        "description": "The contributor's display name, where the forge reports one."
+        "description": "The git author name, where the forge reports one."
       },
       "email": {
         "type": "string",
-        "description": "The author's email address, where the forge reports one."
+        "description": "The git author email, where the forge reports one."
       },
       "contributions": {
         "type": "number",
         "description": "Commits attributed to the contributor, as the forge counts them."
       },
-      "avatarUrl": {
-        "type": "string"
-      },
-      "url": {
-        "type": "string"
-      },
       "raw": {}
     },
     "required": [
-      "login",
       "contributions",
       "raw"
     ],
-    "description": "An account that has committed to a repository, as `repos.contributors()` reads it.",
+    "description": "A commit author on a repository, as `repos.contributors()` reads it.",
     "x-forges-type": "Contributor"
   },
   "Cursor": {

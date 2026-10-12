@@ -69,6 +69,7 @@ export type {
   CommitSearchQuery,
   CommitSignature,
   Comparison,
+  Contributor,
   Cursor,
   DownloadAssetOptions,
   EventAction,

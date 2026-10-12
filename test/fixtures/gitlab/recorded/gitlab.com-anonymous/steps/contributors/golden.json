@@ -1,27 +1,24 @@
 {
   "items": [
     {
-      "login": "redacted@example.invalid",
-      "name": "Mahidul Haque",
+      "name": "GitLab Renovate Bot",
       "email": "redacted@example.invalid",
-      "contributions": 1
+      "contributions": 501
     },
     {
-      "login": "redacted@example.invalid",
-      "name": "Casey Morris",
+      "name": "Kai Armstrong",
       "email": "redacted@example.invalid",
-      "contributions": 1
+      "contributions": 234
     },
     {
-      "login": "redacted@example.invalid",
-      "name": "Maksym Tymoshyk",
+      "name": "Timo Furrer",
       "email": "redacted@example.invalid",
-      "contributions": 1
+      "contributions": 186
     }
   ],
   "cursor": {
-    "nextUrl": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/repository/contributors?id=gitlab-org%2Fcli&order_by=commits&page=2&per_page=3&sort=asc",
-    "etag": "W/\"6003b3fde41f7741ee5a781d0d94840a\""
+    "nextUrl": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/repository/contributors?id=gitlab-org%2Fcli&order_by=commits&page=2&per_page=3&sort=desc",
+    "etag": "W/\"19b15f48efe4ad02e30500a9d2d97109\""
   },
   "rateLimit": {
     "limit": 500,

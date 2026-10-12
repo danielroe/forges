@@ -1,16 +1,16 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/repository/contributors?per_page=3"
+    "url": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/repository/contributors?order_by=commits&sort=desc&per_page=3"
   },
   "response": {
     "status": 200,
     "headers": {
-      "link": "<https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/repository/contributors?id=gitlab-org%2Fcli&order_by=commits&page=2&per_page=3&sort=asc>; rel=\"next\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/repository/contributors?id=gitlab-org%2Fcli&order_by=commits&page=1&per_page=3&sort=asc>; rel=\"first\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/repository/contributors?id=gitlab-org%2Fcli&order_by=commits&page=66&per_page=3&sort=asc>; rel=\"last\"",
-      "etag": "W/\"6003b3fde41f7741ee5a781d0d94840a\"",
+      "link": "<https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/repository/contributors?id=gitlab-org%2Fcli&order_by=commits&page=2&per_page=3&sort=desc>; rel=\"next\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/repository/contributors?id=gitlab-org%2Fcli&order_by=commits&page=1&per_page=3&sort=desc>; rel=\"first\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/repository/contributors?id=gitlab-org%2Fcli&order_by=commits&page=66&per_page=3&sort=desc>; rel=\"last\"",
+      "etag": "W/\"19b15f48efe4ad02e30500a9d2d97109\"",
       "ratelimit-limit": "500",
       "ratelimit-remaining": "497",
-      "ratelimit-reset": "1791841260",
+      "ratelimit-reset": "1791843180",
       "x-total": "198",
       "x-total-pages": "66",
       "x-next-page": "2",
@@ -19,23 +19,23 @@
     },
     "body": [
       {
-        "name": "Mahidul Haque",
+        "name": "GitLab Renovate Bot",
         "email": "redacted@example.invalid",
-        "commits": 1,
+        "commits": 501,
         "additions": 0,
         "deletions": 0
       },
       {
-        "name": "Casey Morris",
+        "name": "Kai Armstrong",
         "email": "redacted@example.invalid",
-        "commits": 1,
+        "commits": 234,
         "additions": 0,
         "deletions": 0
       },
       {
-        "name": "Maksym Tymoshyk",
+        "name": "Timo Furrer",
         "email": "redacted@example.invalid",
-        "commits": 1,
+        "commits": 186,
         "additions": 0,
         "deletions": 0
       }

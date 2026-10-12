@@ -257,8 +257,8 @@ export function toCollaborator(instance: string, raw: GitHubCollaborator): Colla
   return { actor: toActor(instance, raw)!, role: toRole(raw), roleRaw: raw.role_name, raw }
 }
 
-export function toContributor(raw: GitHubContributor): Contributor {
-  return { login: raw.login, name: raw.name ?? undefined, email: raw.email ?? undefined, contributions: raw.contributions, avatarUrl: raw.avatar_url, url: raw.html_url, raw }
+export function toContributor(instance: string, raw: GitHubContributor): Contributor {
+  return { actor: toActor(instance, raw), contributions: raw.contributions, raw }
 }
 
 export function toThreadKind(subjectType: string): ThreadKind {

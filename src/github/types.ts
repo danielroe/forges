@@ -71,7 +71,6 @@ export interface GitHubCollaborator extends GitHubUser {
 
 export interface GitHubContributor extends GitHubUser {
   contributions: number
-  email?: string | null
 }
 
 export interface GitHubReactions {

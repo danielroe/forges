@@ -75,6 +75,24 @@ describe('gitee', () => {
     expect(single.total).toBe(5)
   })
 
+  it('pages contributors from the whole list Gitee returns', async () => {
+    const urls: string[] = []
+    const forge = gitee({ fetch: async (url) => {
+      if (urls.push(url) > 4) {
+        return new Response(null, { status: 500 })
+      }
+      return Response.json(Array.from({ length: 5 }, (_, index) => ({ name: `author ${index}`, email: '', contributions: 5 - index })))
+    } }).create()
+
+    const all = await Array.fromAsync(forge.repos.contributors(repo, { perPage: 5 }))
+    const pages = await Array.fromAsync(forge.repos.contributors(repo, { perPage: 2 }))
+
+    expect(all.map(item => item.name)).toEqual(['author 0', 'author 1', 'author 2', 'author 3', 'author 4'])
+    expect(pages).toEqual(all)
+    expect(all[0]!.email).toBeUndefined()
+    expect(urls).toHaveLength(4)
+  })
+
   it('sends the token in the Authorization header, never the URL', async () => {
     const { fetch, calls } = fixtureFetch('gitee')
     await gitee({ auth: { type: 'token', token: 'gitee-token' }, fetch }).create().repos.get(repo)

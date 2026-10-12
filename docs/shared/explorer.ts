@@ -247,6 +247,7 @@ export const EXPLORER_OPERATIONS: ExplorerOperation[] = [
   repoRead('repos.labels', 'Page<Label>', (p, _, { repo }) => p.repos.labelsPage(repo, perPage)),
   repoRead('repos.milestones', 'Page<Milestone>', (p, _, { repo }) => p.repos.milestonesPage(repo, perPage)),
   repoRead('repos.collaborators', 'Page<Collaborator>', (p, _, { repo }) => p.repos.collaboratorsPage(repo, perPage)),
+  repoRead('repos.contributors', 'Page<Contributor>', (p, _, { repo }) => p.repos.contributorsPage(repo, perPage)),
   operation('repos.permissionFor', { returns: 'RepoRole', fields: fields('login'), args: ({ value }) => `repo, ${value('login')}` }),
   repoRead('repos.assignableUsers', 'Page<Actor>', (p, _, { repo }) => p.repos.assignableUsersPage(repo, perPage)),
   operation('repos.reviewerCandidates', { method: 'repos.reviewerCandidatesPage', returns: 'Page<Actor>', uses: 'thread', fields: fields('kind', 'number'), kind: threadKind, args: () => 'thread, { perPage: 5 }', run: (p, _, { thread }) => p.repos.reviewerCandidatesPage(thread, perPage) }),
