@@ -3,7 +3,7 @@ import type { WebLinks } from '../web.ts'
 
 const SECTIONS: Partial<Record<ThreadKind, string>> = { issue: 'issues', pull_request: 'pulls' }
 
-const repoPath = (repo: RepoRef) => `/${encodeURIComponent(repo.owner)}/${encodeURIComponent(repo.name)}`
+const repoPath = (repo: RepoRef) => `/${encodeURIComponent(repo.owner).replaceAll('%3A', ':')}/${encodeURIComponent(repo.name)}`
 
 /** Tangled pages address threads by their display number, so parsed refs carry `displayNumber` and need resolving. */
 export function tangledWeb(origin: string): WebLinks {

@@ -84,6 +84,10 @@ describe('web links', () => {
     expect(az.urlFor({ raw: { repo: { ...repo, forge: 'azure-devops', instance: 'dev.azure.com', owner: 'contoso/Widgets' }, path: 'README.md', at: sha } })).toContain(`versionDescriptor.version=${sha}&versionDescriptor.versionType=commit`)
   })
 
+  it('builds Tangled URLs with an unescaped DID owner', () => {
+    expect(tg.urlFor({ repo: { forge: 'tangled', instance: 'tangled.org', owner: 'did:plc:abc', name: 'core' } })).toBe('https://tangled.org/did:plc:abc/core')
+  })
+
   it('builds no raw file or commit URL for a namespace', () => {
     const group: RepoRef = { forge: 'gitlab', instance: 'gitlab.com', owner: 'acme', name: '', kind: 'namespace' }
     expect(gl.urlFor({ raw: { repo: group, path: 'README.md', at: 'main' } })).toBeUndefined()
