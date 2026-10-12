@@ -25,6 +25,8 @@ export interface ParsedForgeUrl {
   thread?: ThreadRef
   comment?: CommentRef
   release?: ReleaseRef
+  /** A file page: the repository-relative `path` and the revision `at`. */
+  file?: { path: string, at: string }
 }
 
 /** Options for `provider.referenceTo()`. */
@@ -166,6 +168,8 @@ export interface GitHubShape {
   commentFragment: string
   /** The path segment that leads to a file at a revision. */
   file: (at: string) => string
+  /** Reads a file page back from the segments after the repository name; defaults to `blob/{at}/{path}`. */
+  parseFile?: (segments: string[]) => { at: string, path: string } | undefined
   /** The path segment of commits; defaults to `commit`. */
   commit?: string
   /** Whether the forge serves raw files at `/raw/{at}/{path}`; defaults to `true`. */
@@ -180,12 +184,18 @@ export interface GitHubShape {
   reserved?: readonly string[]
 }
 
+/** Reads GitHub's file route, `blob/{at}/{path}`. */
+function parseGitHubFile([route, at, ...path]: string[]): { at: string, path: string } | undefined {
+  return route === 'blob' && at && path.length ? { at, path: path.join('/') } : undefined
+}
+
 /** Web links for forges laid out like GitHub: `/{owner}/{name}/issues/{n}` and friends. */
 export function githubShapedWeb(origin: string, shape: GitHubShape): WebLinks {
   const repoPath = (repo: RepoRef) => `/${encodePath(repo.owner)}/${encodeURIComponent(repo.name)}`
   const kindPath: Partial<Record<ThreadKind, string>> = { issue: 'issues', pull_request: shape.pull, commit: shape.commit ?? 'commit', ...shape.discussions ? { discussion: 'discussions' } : {} }
   const kindOf = new Map<string, ThreadKind>(Object.entries(kindPath).map(([kind, path]) => [path, kind as ThreadKind]))
   const reserved = new Set(shape.reserved?.map(segment => segment.toLowerCase()))
+  const parseFile = shape.parseFile ?? parseGitHubFile
   return {
     origin,
     repo: repoPath,
@@ -208,6 +218,10 @@ export function githubShapedWeb(origin: string, shape: GitHubShape): WebLinks {
         return undefined
       }
       const repo: RepoRef = { ...from, owner, name: name.replace(/\.git$/, '') }
+      const file = parseFile(segments.slice(2))
+      if (file) {
+        return { repo, file }
+      }
       const kind = section ? kindOf.get(section) : undefined
       if (section === 'releases' && id === 'tag' && segments[4]) {
         return { repo, release: { ...from, repo, id: segments[4], tag: segments[4] } }

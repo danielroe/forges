@@ -1,4 +1,4 @@
-import type { ForgeEvent, Notification, NotificationReason, Page, Repo, Thread } from '../src/model.ts'
+import type { FileContent, ForgeEvent, Notification, NotificationReason, Page, Repo, Thread } from '../src/model.ts'
 import type { RecordingManifest, Step, StepContext } from './recording/steps.ts'
 import type { WriteContext, WriteManifest, WriteStep } from './recording/write-steps.ts'
 import { existsSync, readdirSync, readFileSync } from 'node:fs'
@@ -152,6 +152,19 @@ for (const { name, create } of REPLAYED_PROVIDERS) {
 
         expect(parsed).toBeDefined()
         expect(repoKey((await instance.repos.get(parsed!.repo)).ref)).toBe(repoKey((output.repo as Repo).ref))
+      })
+
+      it.skipIf(!recorded.has('readme'))('reads the file its own web URL names', () => {
+        const readme = output.readme as FileContent
+        // Only some forges report a web URL for a file.
+        if (!readme.url) {
+          return
+        }
+        const parsed = create(replay.fetch, manifest!).parseUrl(readme.url)
+
+        expect(parsed?.repo).toMatchObject({ owner: manifest!.repo.owner, name: manifest!.repo.name })
+        expect(parsed?.file).toMatchObject({ path: readme.path })
+        expect(parsed?.file?.at).toBeTruthy()
       })
 
       it.skipIf(!recorded.has('pull'))('normalises a pull request and its first events', () => {

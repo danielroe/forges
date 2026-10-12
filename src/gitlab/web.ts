@@ -31,6 +31,9 @@ export function gitlabWeb(origin: string): WebLinks {
       }
       const repo: RepoRef = { ...from, owner: path.slice(0, -1).join('/'), name: path.at(-1)!.replace(/\.git$/, '') }
       const [section, id] = separator < 0 ? [] : segments.slice(separator + 1)
+      if (section === 'blob' && id && segments.length > separator + 3) {
+        return { repo, file: { at: id, path: segments.slice(separator + 3).join('/') } }
+      }
       if (section === 'releases' && id) {
         return { repo, release: { ...from, repo, id, tag: id } }
       }

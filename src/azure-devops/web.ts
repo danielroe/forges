@@ -6,6 +6,8 @@ const gitPath = (repo: RepoRef) => `/${encode(repo.owner)}/_git/${encodeURICompo
 const REPO_PAGES: Partial<Record<RepoSection, string>> = { pullRequests: 'pullrequests', compare: 'branchCompare' }
 const isSha = (at: string) => /^[0-9a-f]{40}$/i.test(at)
 const version = (at: string) => `${isSha(at) ? 'GC' : 'GB'}${encodeURIComponent(at)}`
+/** The `version` query of a file page: `GB` for a branch, `GC` for a commit or `GT` for a tag, then the revision. */
+const FILE_VERSION_RE = /^G[BCT](.+)$/
 
 export function azureWeb(origin: string): WebLinks {
   return {
@@ -29,7 +31,7 @@ export function azureWeb(origin: string): WebLinks {
     file: (repo, path, at, line) => `${gitPath(repo)}?path=${encodeURIComponent(`/${path}`)}&version=${version(at)}${line ? `&line=${line}` : ''}`,
     raw: (repo, path, at) => `/${encode(repo.owner)}/_apis/git/repositories/${encodeURIComponent(repo.name)}/items?path=${encodeURIComponent(`/${path}`)}&versionDescriptor.version=${encodeURIComponent(at)}&versionDescriptor.versionType=${isSha(at) ? 'commit' : 'branch'}&$format=octetStream`,
     compare: (repo, base, head) => `${gitPath(repo)}/branchCompare?baseVersion=${version(base)}&targetVersion=${version(head)}`,
-    parse: (segments, _url, from) => {
+    parse: (segments, url, from) => {
       const [org, project, section, ...rest] = segments
       if (!org || !project) {
         return undefined
@@ -43,6 +45,11 @@ export function azureWeb(origin: string): WebLinks {
         return { repo: { ...from, owner, name: '', kind: 'namespace' } }
       }
       const repo: RepoRef = { ...from, owner, name: rest[0] }
+      const path = url.searchParams.get('path')?.replace(/^\//, '')
+      const match = FILE_VERSION_RE.exec(url.searchParams.get('version') ?? '')
+      if (path && match) {
+        return { repo, file: { path, at: match[1]! } }
+      }
       const kind = rest[1] === 'pullrequest' ? 'pull_request' : rest[1] === 'commit' ? 'commit' : undefined
       if (!kind || !rest[2]) {
         return { repo }

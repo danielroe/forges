@@ -23,6 +23,9 @@ export function bitbucketWeb(origin: string): WebLinks {
         return undefined
       }
       const repo: RepoRef = { ...from, owner, name: name.replace(/\.git$/, '') }
+      if (section === 'src' && id && segments[4]) {
+        return { repo, file: { at: id, path: segments.slice(4).join('/') } }
+      }
       const kind = section ? KINDS.get(section) : undefined
       if (!kind || !id) {
         return { repo }

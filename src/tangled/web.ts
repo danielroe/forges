@@ -27,6 +27,9 @@ export function tangledWeb(origin: string): WebLinks {
         return undefined
       }
       const repo: RepoRef = { ...from, owner: owner.replace(/^@/, ''), name }
+      if (section === 'blob' && id && segments[4]) {
+        return { repo, file: { at: id, path: segments.slice(4).join('/') } }
+      }
       if (section === 'commit' && id) {
         return { repo, thread: { ...from, repo, kind: 'commit', number: id } }
       }
