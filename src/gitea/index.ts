@@ -21,7 +21,7 @@ export const GITEA_PROFILE: ForgejoProfile = {
 const GITEA = /* @__PURE__ */ forgejoDefinition(GITEA_PROFILE)
 
 /** Creates a Gitea provider for gitea.com or any self-hosted Gitea instance. */
-export const gitea: ProviderFactoryFunction<GiteaOptions, true, 'gitea'> = /* @__PURE__ */ defineForgeProvider({ ...GITEA, webhooks: forgejoWebhooks(GITEA_PROFILE) })
+export const gitea: ProviderFactoryFunction<GiteaOptions, true, 'gitea', false> = /* @__PURE__ */ defineForgeProvider({ ...GITEA, webhooks: forgejoWebhooks(GITEA_PROFILE) })
 
 /** `gitea()` without webhook ingestion, for bundles that never receive a delivery. */
-export const giteaLite: ProviderFactoryFunction<GiteaOptions, true, 'gitea'> = /* @__PURE__ */ defineForgeProvider(GITEA)
+export const giteaLite: ProviderFactoryFunction<GiteaOptions, true, 'gitea', false> = /* @__PURE__ */ defineForgeProvider(GITEA)

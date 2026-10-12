@@ -116,6 +116,15 @@ describe('createForges', () => {
     expectTypeOf(github({ auth }).forge).toEqualTypeOf<'github'>()
     expectTypeOf(github({ auth }).experimental).toEqualTypeOf<undefined>()
     expectTypeOf(pushin({ auth }).experimental).toEqualTypeOf<true | undefined>()
+    const custom = kit.defineForgeProvider({
+      forge: 'acme',
+      baseUrl: 'https://acme.example',
+      experimental: true,
+      setup: () => {
+        throw new Error('unused')
+      },
+    })
+    expectTypeOf(custom().experimental).toEqualTypeOf<true | undefined>()
     const forges = createForges([github({ auth }), forgejo({ auth })])
     expectTypeOf(forges).toEqualTypeOf<Forges<'github' | 'forgejo'>>()
     expectTypeOf(forges.get('github')).toEqualTypeOf<ForgeProvider>()
