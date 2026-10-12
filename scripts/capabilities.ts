@@ -36,7 +36,8 @@ export function matrixProviders(forges: typeof Forges): MatrixProvider[] {
   ]
 }
 
-const KINDS: Record<string, string> = { issue: 'issue', pull_request: 'PR', discussion: 'discussion', commit: 'commit', dependency: 'dependency', code_scanning: 'code scanning', secret: 'secret', advisory: 'advisory' }
+/** Labels for the thread and alert kinds of per-kind capabilities. */
+export const KINDS: Record<string, string> = { issue: 'issue', pull_request: 'PR', discussion: 'discussion', commit: 'commit', dependency: 'dependency', code_scanning: 'code scanning', secret: 'secret', advisory: 'advisory' }
 
 /** How far a provider supports a capability, as the docs show it. */
 export type SupportLevel = 'native' | 'experimental' | 'emulated' | 'unverified' | 'none'

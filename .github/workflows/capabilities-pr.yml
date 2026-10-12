@@ -1,0 +1,67 @@
+name: capability diff
+
+on:
+  workflow_run: # zizmor: ignore[dangerous-triggers] runs the default branch's code only; the artifact is parsed as data and validated before use
+    workflows:
+      - capabilities
+    types:
+      - completed
+
+permissions: {}
+
+jobs:
+  # Renders the snapshots that `capabilities.yml` uploaded into the body of
+  # the pull request, between `<!-- forges:capabilities:start -->` and
+  # `<!-- forges:capabilities:end -->`. The pull request is found by its
+  # head commit rather than from the artifact, and the Markdown is rendered
+  # here, so the pull request's code can supply nothing but support levels.
+  describe:
+    if: github.event.workflow_run.event == 'pull_request' && github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read # download the snapshot artifact of the triggering run
+      pull-requests: write # update the pull request body
+    concurrency:
+      group: capability-diff-${{ github.event.workflow_run.head_sha }}
+      cancel-in-progress: true
+
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+      - uses: pnpm/setup@a0881977cd8ea73b1ed212236c99ca10dcc80cf4 # v3.1.1
+        with:
+          cache: false
+          install: false
+
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: capability-snapshots
+          path: ${{ runner.temp }}/snapshots
+          run-id: ${{ github.event.workflow_run.id }}
+          github-token: ${{ github.token }}
+
+      - name: 📝 Update the pull request body
+        env:
+          GH_TOKEN: ${{ github.token }}
+          HEAD_SHA: ${{ github.event.workflow_run.head_sha }}
+          DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
+        run: |
+          set -euo pipefail
+          numbers=$(gh api --paginate "repos/$GITHUB_REPOSITORY/pulls?state=open&per_page=100" --jq '.[] | select(.head.sha == env.HEAD_SHA) | .number')
+          number=${numbers%%$'\n'*}
+          if [ -z "$number" ]; then
+            echo "No open pull request has head $HEAD_SHA."
+            exit 0
+          fi
+          gh api "repos/$GITHUB_REPOSITORY/pulls/$number" --jq '.body // ""' > "$RUNNER_TEMP/body.md"
+          node scripts/capability-diff.ts --base "$RUNNER_TEMP/snapshots/base.json" --head "$RUNNER_TEMP/snapshots/head.json" --body "$RUNNER_TEMP/body.md" --out "$RUNNER_TEMP/new-body.md" --icons "https://raw.githubusercontent.com/$GITHUB_REPOSITORY/$DEFAULT_BRANCH/assets/providers/"
+          if [ ! -f "$RUNNER_TEMP/new-body.md" ]; then
+            exit 0
+          fi
+          if [ "$(gh api "repos/$GITHUB_REPOSITORY/pulls/$number" --jq .head.sha)" != "$HEAD_SHA" ]; then
+            echo "#$number has moved on from $HEAD_SHA; its own run will update the body."
+            exit 0
+          fi
+          jq -n --rawfile body "$RUNNER_TEMP/new-body.md" '{ body: $body }' | gh api --method PATCH "repos/$GITHUB_REPOSITORY/pulls/$number" --input - --silent
+          echo "Updated the capability section of #$number."

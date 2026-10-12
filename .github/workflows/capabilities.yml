@@ -1,0 +1,43 @@
+name: capabilities
+
+on:
+  pull_request:
+    branches:
+      - main
+
+permissions: {}
+
+jobs:
+  # Snapshots the capability matrix of the merge commit and of its base, each
+  # with its own code. `capabilities-pr.yml` renders the difference into the
+  # pull request body, so this job needs no write access.
+  snapshot:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    concurrency:
+      group: capabilities-${{ github.event.pull_request.number }}
+      cancel-in-progress: true
+
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          fetch-depth: 2
+          persist-credentials: false
+      - uses: pnpm/setup@a0881977cd8ea73b1ed212236c99ca10dcc80cf4 # v3.1.1
+        with:
+          cache: false
+          install: false
+
+      - name: 📸 Snapshot capabilities
+        run: |
+          mkdir -p "$RUNNER_TEMP/snapshots"
+          node scripts/capability-snapshot.ts --out "$RUNNER_TEMP/snapshots/head.json"
+          node scripts/capability-snapshot.ts --ref HEAD^1 --out "$RUNNER_TEMP/snapshots/base.json"
+
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: capability-snapshots
+          path: ${{ runner.temp }}/snapshots/
+          retention-days: 7
+          if-no-files-found: error

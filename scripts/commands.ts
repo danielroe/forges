@@ -25,6 +25,7 @@ export const COMMANDS: Command[] = [
   { commands: ['pnpm test:size'], scripts: ['test:size'], description: 'Checks the browser bundle budgets. Run `pnpm build` first' },
   { commands: ['pnpm lint', 'pnpm lint:fix'], scripts: ['lint', 'lint:fix'], description: 'Lints, and fixes what it can' },
   { commands: ['pnpm capability-matrix'], scripts: ['capability-matrix'], description: 'Updates the capability matrix and the other tables of the docs' },
+  { commands: ['pnpm capability-diff [ref]'], scripts: ['capability-diff'], description: 'Shows how the capabilities differ from `ref`, `main` by default' },
   { commands: ['pnpm docs:api'], scripts: ['docs:api'], description: 'Updates the API reference. `--list` shows what lacks a description, and `--check` fails for it' },
   { commands: ['pnpm record-fixtures <forge>'], scripts: ['record-fixtures'], description: 'Records responses from a live forge' },
   { commands: ['pnpm recorded-coverage'], scripts: ['recorded-coverage'], description: 'Lists the capabilities that no recording of a live forge exercises' },
