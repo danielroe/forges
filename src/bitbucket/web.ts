@@ -13,6 +13,8 @@ export function bitbucketWeb(origin: string): WebLinks {
     thread: ref => SECTIONS[ref.kind] && `${repoPath(ref.repo)}/${SECTIONS[ref.kind]}/${encodeURIComponent(ref.number)}`,
     comment: ref => ref.thread.kind === 'commit' || !SECTIONS[ref.thread.kind] ? undefined : `${repoPath(ref.thread.repo)}/${SECTIONS[ref.thread.kind]}/${encodeURIComponent(ref.thread.number)}#comment-${ref.id}`,
     file: (repo, path, at, line) => `${repoPath(repo)}/src/${encodeURIComponent(at)}/${path.split('/').map(encodeURIComponent).join('/')}${line ? `#lines-${line}` : ''}`,
+    raw: (repo, path, at) => `${repoPath(repo)}/raw/${encodeURIComponent(at)}/${path.split('/').map(encodeURIComponent).join('/')}`,
+    commit: (repo, sha) => `${repoPath(repo)}/commits/${encodeURIComponent(sha)}`,
     compare: (repo, base, head) => `${repoPath(repo)}/branches/compare/${encodeURIComponent(head)}%0D${encodeURIComponent(base)}`,
     parse: (segments, url, from) => {
       const [owner, name, section, id] = segments

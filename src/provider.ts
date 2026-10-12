@@ -1026,7 +1026,7 @@ export interface ForgeProvider {
   support: (verb: ForgeVerb, kind?: ThreadKind | SecurityAlertKind) => Support
   /**
    * The web page for `target`, built without a request; `undefined` when the forge has no such page.
-   * @param target What to link to: a repository, thread, comment, release, file or comparison.
+   * @param target What to link to: a repository, thread, comment, release, file, raw file, commit or comparison.
    */
   urlFor: (target: UrlTarget) => string | undefined
   /**

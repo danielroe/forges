@@ -56,6 +56,13 @@ describe('web links', () => {
     expect(cb.urlFor({ release: { forge: 'forgejo', instance: 'codeberg.org', repo, id: '1', tag: 'v1.0.0' } })).toBe('https://codeberg.org/acme/widgets/releases/tag/v1.0.0')
     expect(bb.urlFor({ thread: { ...pull, forge: 'bitbucket', instance: 'bitbucket.org' } })).toBe('https://bitbucket.org/acme/widgets/pull-requests/42')
     expect(gh.urlFor({ thread: { ...pull, number: undefined } })).toBeUndefined()
+    expect(gh.urlFor({ raw: { repo, path: 'src/a b.ts', at: 'main' } })).toBe('https://github.com/acme/widgets/raw/main/src/a%20b.ts')
+    expect(gh.urlFor({ commit: { repo, sha: 'abc123' } })).toBe('https://github.com/acme/widgets/commit/abc123')
+    expect(cb.urlFor({ raw: { repo, path: 'README.md', at: 'main' } })).toBe('https://codeberg.org/acme/widgets/raw/branch/main/README.md')
+    expect(gl.urlFor({ raw: { repo: { ...repo, forge: 'gitlab', instance: 'gitlab.com', owner: 'acme/platform' }, path: 'README.md', at: 'main' } })).toBe('https://gitlab.com/acme/platform/widgets/-/raw/main/README.md')
+    expect(gl.urlFor({ commit: { repo: { ...repo, forge: 'gitlab', instance: 'gitlab.com', owner: 'acme/platform' }, sha: 'abc123' } })).toBe('https://gitlab.com/acme/platform/widgets/-/commit/abc123')
+    expect(bb.urlFor({ raw: { repo: { ...repo, forge: 'bitbucket', instance: 'bitbucket.org' }, path: 'README.md', at: 'main' } })).toBe('https://bitbucket.org/acme/widgets/raw/main/README.md')
+    expect(bb.urlFor({ commit: { repo: { ...repo, forge: 'bitbucket', instance: 'bitbucket.org' }, sha: 'abc123' } })).toBe('https://bitbucket.org/acme/widgets/commits/abc123')
   })
 
   it('parses web URLs on its own instance only', () => {
