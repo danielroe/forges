@@ -1,11 +1,11 @@
 {
   "request": {
     "method": "POST",
-    "url": "https://gitea.com/api/v1/repos/forges-fixtures/forges-fixtures/statuses/bd11934ab5eaf10068386ef0d5a3b06630a7e092",
+    "url": "https://gitea.com/api/v1/repos/forges-fixtures/forges-fixtures/statuses/4eb39273b84a1fa18062e263d5210f7b944a6efc",
     "body": {
       "state": "success",
       "context": "forges fixture",
-      "description": "Reported by run 20261012113905"
+      "description": "Reported by run 20261012220452"
     }
   },
   "response": {
@@ -15,8 +15,8 @@
       "id": 1,
       "status": "success",
       "target_url": "",
-      "description": "Reported by run 20261012113905",
-      "url": "https://gitea.com/api/v1/repos/forges-fixtures/forges-fixtures/statuses/bd11934ab5eaf10068386ef0d5a3b06630a7e092",
+      "description": "Reported by run 20261012220452",
+      "url": "https://gitea.com/api/v1/repos/forges-fixtures/forges-fixtures/statuses/4eb39273b84a1fa18062e263d5210f7b944a6efc",
       "context": "forges fixture",
       "creator": {
         "id": 253592,
@@ -36,8 +36,8 @@
         "starred_repos_count": 0,
         "username": "roebot"
       },
-      "created_at": "2026-10-12T11:39:31Z",
-      "updated_at": "2026-10-12T11:39:31Z"
+      "created_at": "2026-10-12T22:05:20Z",
+      "updated_at": "2026-10-12T22:05:20Z"
     }
   }
 }

@@ -1,0 +1,14 @@
+{
+  "request": {
+    "method": "PUT",
+    "url": "https://gitea.com/api/v1/repos/forges-fixtures/forges-fixtures/issues/55/labels",
+    "body": {
+      "labels": []
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": []
+  }
+}

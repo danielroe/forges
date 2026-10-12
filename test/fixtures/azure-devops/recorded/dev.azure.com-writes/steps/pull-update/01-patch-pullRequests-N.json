@@ -1,10 +1,10 @@
 {
   "request": {
     "method": "PATCH",
-    "url": "https://dev.azure.com/forges/forges-fixtures/_apis/git/repositories/forges-fixtures/pullRequests/35?api-version=7.1",
+    "url": "https://dev.azure.com/forges/forges-fixtures/_apis/git/repositories/forges-fixtures/pullRequests/38?api-version=7.1",
     "body": {
-      "title": "forges fixture 20261012114218: pull, edited",
-      "description": "Edited by run 20261012114218."
+      "title": "forges fixture 20261012220452: pull, edited",
+      "description": "Edited by run 20261012220452."
     }
   },
   "response": {
@@ -31,8 +31,8 @@
         "isDisabled": false,
         "isInMaintenance": false
       },
-      "pullRequestId": 35,
-      "codeReviewId": 35,
+      "pullRequestId": 38,
+      "codeReviewId": 38,
       "status": "active",
       "createdBy": {
         "displayName": "danielroebot outlook.com",
@@ -47,73 +47,73 @@
         "imageUrl": "https://dev.azure.com/forges/_api/_common/identityImage?id=567dfc49-0db7-43e6-83c1-d91d91db58b1",
         "descriptor": "aad.MzE2OTUzNzAtY2RlZS03NzVkLWEwYjctMzUwYTkyZTJhMjc5"
       },
-      "creationDate": "2026-10-12T11:42:25.6569422Z",
-      "title": "forges fixture 20261012114218: pull, edited",
-      "description": "Edited by run 20261012114218.",
-      "sourceRefName": "refs/heads/forges-fixtures/20261012114218-1",
+      "creationDate": "2026-10-12T22:04:58.6855549Z",
+      "title": "forges fixture 20261012220452: pull, edited",
+      "description": "Edited by run 20261012220452.",
+      "sourceRefName": "refs/heads/forges-fixtures/20261012220452-1",
       "targetRefName": "refs/heads/main",
       "mergeStatus": "succeeded",
       "isDraft": false,
-      "mergeId": "92681764-7bd6-41ec-b2b9-bb0f2a6a0195",
+      "mergeId": "bdf7d2c9-ea89-42f3-93ca-55dfc5f9db66",
       "lastMergeSourceCommit": {
-        "commitId": "bf3a8babc5124c0900994d84d3e8f790655ee1cf",
-        "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/commits/bf3a8babc5124c0900994d84d3e8f790655ee1cf"
+        "commitId": "e9810d151b24049b3303804d23ba5b5b4edf2f2a",
+        "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/commits/e9810d151b24049b3303804d23ba5b5b4edf2f2a"
       },
       "lastMergeTargetCommit": {
-        "commitId": "254a409567a9d8b9817dc70eab65fed5e7fcd5fe",
-        "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/commits/254a409567a9d8b9817dc70eab65fed5e7fcd5fe"
+        "commitId": "79dc1c065d5654772318dc4bfa5288a221bb5998",
+        "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/commits/79dc1c065d5654772318dc4bfa5288a221bb5998"
       },
       "lastMergeCommit": {
-        "commitId": "ccf8d9efbcbff66a292bb83bc4111ad3eb14919c",
+        "commitId": "167b26fe9a7f3b573fddd5c7eb63ad41a3fa91fd",
         "author": {
           "name": "danielroebot outlook.com",
           "email": "redacted@example.invalid",
-          "date": "2026-10-12T11:42:25Z"
+          "date": "2026-10-12T22:04:58Z"
         },
         "committer": {
           "name": "danielroebot outlook.com",
           "email": "redacted@example.invalid",
-          "date": "2026-10-12T11:42:25Z"
+          "date": "2026-10-12T22:04:58Z"
         },
-        "comment": "Merge pull request 35 from forges-fixtures/20261012114218-1 into main",
-        "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/commits/ccf8d9efbcbff66a292bb83bc4111ad3eb14919c"
+        "comment": "Merge pull request 38 from forges-fixtures/20261012220452-1 into main",
+        "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/commits/167b26fe9a7f3b573fddd5c7eb63ad41a3fa91fd"
       },
       "reviewers": [],
-      "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/pullRequests/35",
+      "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/pullRequests/38",
       "_links": {
         "self": {
-          "href": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/pullRequests/35"
+          "href": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/pullRequests/38"
         },
         "repository": {
           "href": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7"
         },
         "workItems": {
-          "href": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/pullRequests/35/workitems"
+          "href": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/pullRequests/38/workitems"
         },
         "sourceBranch": {
-          "href": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/refs/heads/forges-fixtures/20261012114218-1"
+          "href": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/refs/heads/forges-fixtures/20261012220452-1"
         },
         "targetBranch": {
           "href": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/refs/heads/main"
         },
         "statuses": {
-          "href": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/pullRequests/35/statuses"
+          "href": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/pullRequests/38/statuses"
         },
         "sourceCommit": {
-          "href": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/commits/bf3a8babc5124c0900994d84d3e8f790655ee1cf"
+          "href": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/commits/e9810d151b24049b3303804d23ba5b5b4edf2f2a"
         },
         "targetCommit": {
-          "href": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/commits/254a409567a9d8b9817dc70eab65fed5e7fcd5fe"
+          "href": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/commits/79dc1c065d5654772318dc4bfa5288a221bb5998"
         },
         "createdBy": {
           "href": "https://spsprodweu6.vssps.visualstudio.com/Ad6317e89-50cc-469c-b506-66b9601cf085/_apis/Identities/567dfc49-0db7-43e6-83c1-d91d91db58b1"
         },
         "iterations": {
-          "href": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/pullRequests/35/iterations"
+          "href": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/pullRequests/38/iterations"
         }
       },
       "supportsIterations": true,
-      "artifactId": "vstfs:///Git/PullRequestId/b2332e32-1afe-4c85-9407-12e7af2bf24c%2fc67c02dd-cbca-45aa-a679-021bd4d2c4a7%2f35"
+      "artifactId": "vstfs:///Git/PullRequestId/b2332e32-1afe-4c85-9407-12e7af2bf24c%2fc67c02dd-cbca-45aa-a679-021bd4d2c4a7%2f38"
     }
   }
 }

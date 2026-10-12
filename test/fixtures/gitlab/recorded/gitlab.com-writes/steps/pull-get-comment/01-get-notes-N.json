@@ -1,20 +1,20 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://gitlab.com/api/v4/projects/forges-fixtures%2Fforges-fixtures/merge_requests/36/notes/3997719690"
+    "url": "https://gitlab.com/api/v4/projects/forges-fixtures%2Fforges-fixtures/merge_requests/42/notes/4000961416"
   },
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"ae969ca4af0df49f3432235c81639a75\"",
+      "etag": "W/\"2648ac357eb889a7133fbfa179846fad\"",
       "ratelimit-limit": "2000",
-      "ratelimit-remaining": "1952",
-      "ratelimit-reset": "1791805260"
+      "ratelimit-remaining": "1950",
+      "ratelimit-reset": "1791842700"
     },
     "body": {
-      "id": 3997719690,
+      "id": 4000961416,
       "type": null,
-      "body": "An edited comment from run 20261012113957.",
+      "body": "An edited comment from run 20261012220341.",
       "author": {
         "id": 43193323,
         "username": "roebot",
@@ -25,10 +25,10 @@
         "avatar_url": "https://secure.gravatar.com/avatar/14ceebcfdc10030d76768a65e9d7978b914694cebcbb6ab609b3a0e8243f0eb8?s=80&d=identicon",
         "web_url": "https://gitlab.com/roebot"
       },
-      "created_at": "2026-10-12T11:40:22.780Z",
-      "updated_at": "2026-10-12T11:40:23.437Z",
+      "created_at": "2026-10-12T22:04:07.454Z",
+      "updated_at": "2026-10-12T22:04:08.130Z",
       "system": false,
-      "noteable_id": 547090208,
+      "noteable_id": 547385077,
       "noteable_type": "MergeRequest",
       "project_id": 87428720,
       "resolvable": false,
@@ -36,7 +36,7 @@
       "internal": false,
       "imported": false,
       "imported_from": "none",
-      "noteable_iid": 36,
+      "noteable_iid": 42,
       "commands_changes": {}
     }
   }

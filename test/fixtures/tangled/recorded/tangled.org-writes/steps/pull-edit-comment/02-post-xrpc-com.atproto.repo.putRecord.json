@@ -5,37 +5,37 @@
     "body": {
       "repo": "did:plc:7qksav5io2s4qfg67pe7iqqk",
       "collection": "sh.tangled.feed.comment",
-      "rkey": "3mxogt7s3af2y",
+      "rkey": "3mxpjm4ym5b2y",
       "record": {
         "body": {
           "$type": "sh.tangled.markup.markdown",
-          "text": "An edited comment from run 20261012114229.",
-          "original": "An edited comment from run 20261012114229."
+          "text": "An edited comment from run 20261012220452.",
+          "original": "An edited comment from run 20261012220452."
         },
         "$type": "sh.tangled.feed.comment",
         "subject": {
-          "cid": "bafyreiadvwxaamxsu2tunsrh5p767quwb6ealx5stnws5gxb24p2jahq7a",
-          "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.pull/3mxogt76cgf2y"
+          "cid": "bafyreifx3mus7iccgox53ob4hzc7qlladzbdq3ie3tbt5ykknwzhfhs6cu",
+          "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.pull/3mxpjm4dv2j2y"
         },
-        "createdAt": "2026-10-12T11:42:46.183Z"
+        "createdAt": "2026-10-12T22:05:09.334Z"
       },
-      "swapRecord": "bafyreiaaogrwnrkzi2gpdyyqpuo6czuzlnj2zwvxqqzon42nz2rscbsgb4"
+      "swapRecord": "bafyreidixlb555dszfecp3iph6wg52ooexuqmcsjc5v5npuikphnepuqwm"
     }
   },
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"11b-dbaR+Js2m3L2qOZo5o6KkrgFWn8\"",
+      "etag": "W/\"11b-lNfZr5dVxAUonaVNgEM8CQjcFZY\"",
       "ratelimit-limit": "3000",
-      "ratelimit-remaining": "2913",
-      "ratelimit-reset": "1791805651"
+      "ratelimit-remaining": "2894",
+      "ratelimit-reset": "1791842994"
     },
     "body": {
-      "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.feed.comment/3mxogt7s3af2y",
-      "cid": "bafyreib6awnhklzi6i5ob67sqoc636wt6ldygtludtxohuugjpfouznbfy",
+      "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.feed.comment/3mxpjm4ym5b2y",
+      "cid": "bafyreickwxxxneuucjzdstnkp4mgmdp3xnurxerd7oa75sxan5d4j2e3ly",
       "commit": {
-        "cid": "bafyreibj5ao2zg3tcohtia3ksei4hmn37pqjzedmh5j3glgo6mxh7jwb44",
-        "rev": "3mxogt7xd7f2y"
+        "cid": "bafyreicl6vm3mpmkz5te5jgishkct7hi3i33sl4c54vqmsgja5l7t7r2mq",
+        "rev": "3mxpjm55q7b2y"
       },
       "validationStatus": "unknown"
     }

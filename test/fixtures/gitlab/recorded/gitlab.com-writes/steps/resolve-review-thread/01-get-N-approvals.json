@@ -1,25 +1,25 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://gitlab.com/api/v4/projects/forges-fixtures%2Fforges-fixtures/merge_requests/36/approvals"
+    "url": "https://gitlab.com/api/v4/projects/forges-fixtures%2Fforges-fixtures/merge_requests/42/approvals"
   },
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"c7b6afcd24472de58fe24e3106f722c1\"",
+      "etag": "W/\"6c21656c5f440500ee050618474c0669\"",
       "ratelimit-limit": "2000",
-      "ratelimit-remaining": "1929",
-      "ratelimit-reset": "1791805260"
+      "ratelimit-remaining": "1922",
+      "ratelimit-reset": "1791842700"
     },
     "body": {
-      "id": 547090208,
-      "iid": 36,
+      "id": 547385077,
+      "iid": 42,
       "project_id": 87428720,
-      "title": "forges fixture 20261012113957: pull, edited",
-      "description": "Edited by run 20261012113957.",
+      "title": "forges fixture 20261012220341: pull, edited",
+      "description": "Edited by run 20261012220341.",
       "state": "opened",
-      "created_at": "2026-10-12T11:40:20.759Z",
-      "updated_at": "2026-10-12T11:40:30.959Z",
+      "created_at": "2026-10-12T22:04:05.100Z",
+      "updated_at": "2026-10-12T22:04:15.969Z",
       "merge_status": "can_be_merged",
       "approved": true,
       "approvals_required": 0,

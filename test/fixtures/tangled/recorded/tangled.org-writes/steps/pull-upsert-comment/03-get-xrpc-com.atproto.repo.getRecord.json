@@ -1,31 +1,31 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://tngl.sh/xrpc/com.atproto.repo.getRecord?repo=did%3Aplc%3A7qksav5io2s4qfg67pe7iqqk&collection=sh.tangled.feed.comment&rkey=3mxogt7s3af2y"
+    "url": "https://tngl.sh/xrpc/com.atproto.repo.getRecord?repo=did%3Aplc%3A7qksav5io2s4qfg67pe7iqqk&collection=sh.tangled.feed.comment&rkey=3mxpjm4ym5b2y"
   },
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"227-mBcw9rnWej21c+L8pdQVdrAuuO8\"",
+      "etag": "W/\"227-/60jwGzr/clCoiViL223Cf/hc7Q\"",
       "ratelimit-limit": "3000",
-      "ratelimit-remaining": "2911",
-      "ratelimit-reset": "1791805651"
+      "ratelimit-remaining": "2892",
+      "ratelimit-reset": "1791842994"
     },
     "body": {
-      "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.feed.comment/3mxogt7s3af2y",
-      "cid": "bafyreib6awnhklzi6i5ob67sqoc636wt6ldygtludtxohuugjpfouznbfy",
+      "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.feed.comment/3mxpjm4ym5b2y",
+      "cid": "bafyreickwxxxneuucjzdstnkp4mgmdp3xnurxerd7oa75sxan5d4j2e3ly",
       "value": {
         "body": {
-          "text": "An edited comment from run 20261012114229.",
+          "text": "An edited comment from run 20261012220452.",
           "$type": "sh.tangled.markup.markdown",
-          "original": "An edited comment from run 20261012114229."
+          "original": "An edited comment from run 20261012220452."
         },
         "$type": "sh.tangled.feed.comment",
         "subject": {
-          "cid": "bafyreiadvwxaamxsu2tunsrh5p767quwb6ealx5stnws5gxb24p2jahq7a",
-          "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.pull/3mxogt76cgf2y"
+          "cid": "bafyreifx3mus7iccgox53ob4hzc7qlladzbdq3ie3tbt5ykknwzhfhs6cu",
+          "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.pull/3mxpjm4dv2j2y"
         },
-        "createdAt": "2026-10-12T11:42:46.183Z"
+        "createdAt": "2026-10-12T22:05:09.334Z"
       }
     }
   }

@@ -8,26 +8,26 @@
       "record": {
         "$type": "sh.tangled.repo.issue",
         "repo": "did:plc:t73o44q7fppgagkrevtztyok",
-        "title": "forges fixture 20261012114229: issue",
-        "body": "Opened by run 20261012114229.",
-        "createdAt": "2026-10-12T11:42:37.984Z"
+        "title": "forges fixture 20261012220452: issue",
+        "body": "Opened by run 20261012220452.",
+        "createdAt": "2026-10-12T22:05:00.665Z"
       }
     }
   },
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"119-hAnLt1RcOiJdYKgmEBb7H0uRXsU\"",
+      "etag": "W/\"119-DehsBQHOD7UHDai1vWARI70m62g\"",
       "ratelimit-limit": "3000",
       "ratelimit-remaining": "2965",
-      "ratelimit-reset": "1791805651"
+      "ratelimit-reset": "1791842994"
     },
     "body": {
-      "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.issue/3mxogsxxwe52y",
-      "cid": "bafyreibeam4jugy2q64zzdfyn7wlq6jx5imcs2ea5fuzas3g5q2dbbg32u",
+      "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.issue/3mxpjlurceb2y",
+      "cid": "bafyreibryywxubhkn7mdoixironjlz7vloiqp463cpy2jgbzzmpgbmpo2e",
       "commit": {
-        "cid": "bafyreibm2msffraa62lj4enap4tt2hlzux7jtayl6x72qaddvo6mkxsb5a",
-        "rev": "3mxogsxyjv52y"
+        "cid": "bafyreicyskkows4vp2vr2j7rxun3cmu4desbf6tc664w6zpr4lwi3og4ku",
+        "rev": "3mxpjlurqyz2y"
       },
       "validationStatus": "unknown"
     }

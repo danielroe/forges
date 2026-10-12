@@ -1,44 +1,44 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://tngl.sh/xrpc/com.atproto.repo.getRecord?repo=did%3Aplc%3A7qksav5io2s4qfg67pe7iqqk&collection=sh.tangled.repo.pull&rkey=3mxogt7nhrn2y"
+    "url": "https://tngl.sh/xrpc/com.atproto.repo.getRecord?repo=did%3Aplc%3A7qksav5io2s4qfg67pe7iqqk&collection=sh.tangled.repo.pull&rkey=3mxpjm4ubhr2y"
   },
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"281-DStRk+RoyNnY9wgPmUMZMSCCXsQ\"",
+      "etag": "W/\"281-fk5o5NzZulXZYN6pNdWElDAXloM\"",
       "ratelimit-limit": "3000",
-      "ratelimit-remaining": "2882",
-      "ratelimit-reset": "1791805651"
+      "ratelimit-remaining": "2852",
+      "ratelimit-reset": "1791842994"
     },
     "body": {
-      "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.pull/3mxogt7nhrn2y",
-      "cid": "bafyreifv5fh3mmamywl6v4a6vkni3pg6raik6gmswavrfxvs5lqn6ijl6q",
+      "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.pull/3mxpjm4ubhr2y",
+      "cid": "bafyreigytaw66kzeqf6p2qhdm2lqull6mm4545fhp7lsp7ea52snxfls7a",
       "value": {
-        "body": "Opened by run 20261012114229.",
+        "body": "Opened by run 20261012220452.",
         "$type": "sh.tangled.repo.pull",
-        "title": "forges fixture 20261012114229: pull 3",
+        "title": "forges fixture 20261012220452: pull 3",
         "rounds": [
           {
-            "createdAt": "2026-10-12T11:42:45.951Z",
+            "createdAt": "2026-10-12T22:05:09.121Z",
             "patchBlob": {
               "ref": {
-                "$link": "bafkreiednletedvqkwg7thf7i6tmhbcgy3pateyutpii3yjhcxab7yzk44"
+                "$link": "bafkreifcqiayukbw65l6danfchmxdjxuei76ho6muvlu2szbtk7ezyauje"
               },
-              "size": 356,
+              "size": 357,
               "$type": "blob",
               "mimeType": "application/gzip"
             }
           }
         ],
         "source": {
-          "branch": "forges-fixtures/20261012114229-3"
+          "branch": "forges-fixtures/20261012220452-3"
         },
         "target": {
           "repo": "did:plc:t73o44q7fppgagkrevtztyok",
           "branch": "main"
         },
-        "createdAt": "2026-10-12T11:42:45.951Z"
+        "createdAt": "2026-10-12T22:05:09.121Z"
       }
     }
   }

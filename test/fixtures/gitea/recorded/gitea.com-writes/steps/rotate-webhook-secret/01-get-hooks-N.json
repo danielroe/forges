@@ -1,13 +1,13 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://gitea.com/api/v1/repos/forges-fixtures/forges-fixtures/hooks/48091"
+    "url": "https://gitea.com/api/v1/repos/forges-fixtures/forges-fixtures/hooks/48094"
   },
   "response": {
     "status": 200,
     "headers": {},
     "body": {
-      "id": 48091,
+      "id": 48094,
       "name": "",
       "type": "gitea",
       "branch_filter": "",
@@ -16,14 +16,14 @@
         "url": "https://example.com/hook"
       },
       "events": [
-        "pull_request_comment",
+        "push",
         "issue_comment",
-        "push"
+        "pull_request_comment"
       ],
       "authorization_header": "",
       "active": true,
-      "updated_at": "2026-10-12T11:39:46Z",
-      "created_at": "2026-10-12T11:39:46Z"
+      "updated_at": "2026-10-12T22:05:26Z",
+      "created_at": "2026-10-12T22:05:26Z"
     }
   }
 }

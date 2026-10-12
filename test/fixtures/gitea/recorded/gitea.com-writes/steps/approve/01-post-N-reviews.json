@@ -1,7 +1,7 @@
 {
   "request": {
     "method": "POST",
-    "url": "https://gitea.com/api/v1/repos/forges-fixtures/forges-fixtures/pulls/46/reviews",
+    "url": "https://gitea.com/api/v1/repos/forges-fixtures/forges-fixtures/pulls/58/reviews",
     "body": {
       "event": "APPROVED",
       "body": ""
@@ -11,7 +11,7 @@
     "status": 200,
     "headers": {},
     "body": {
-      "id": 383574,
+      "id": 383623,
       "user": {
         "id": 250665,
         "login": "danielroe",
@@ -33,15 +33,15 @@
       "team": null,
       "state": "APPROVED",
       "body": "",
-      "commit_id": "bd11934ab5eaf10068386ef0d5a3b06630a7e092",
+      "commit_id": "4eb39273b84a1fa18062e263d5210f7b944a6efc",
       "stale": false,
       "official": true,
       "dismissed": false,
       "comments_count": 0,
-      "submitted_at": "2026-10-12T11:39:31Z",
-      "updated_at": "2026-10-12T11:39:31Z",
-      "html_url": "https://gitea.com/forges-fixtures/forges-fixtures/pulls/46#pullrequestreview-383574",
-      "pull_request_url": "https://gitea.com/forges-fixtures/forges-fixtures/pulls/46"
+      "submitted_at": "2026-10-12T22:05:20Z",
+      "updated_at": "2026-10-12T22:05:20Z",
+      "html_url": "https://gitea.com/forges-fixtures/forges-fixtures/pulls/58#pullrequestreview-383623",
+      "pull_request_url": "https://gitea.com/forges-fixtures/forges-fixtures/pulls/58"
     }
   }
 }

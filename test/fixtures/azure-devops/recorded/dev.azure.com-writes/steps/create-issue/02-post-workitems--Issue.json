@@ -6,12 +6,12 @@
       {
         "op": "add",
         "path": "/fields/System.Title",
-        "value": "forges fixture 20261012114218: issue"
+        "value": "forges fixture 20261012220452: issue"
       },
       {
         "op": "add",
         "path": "/fields/System.Description",
-        "value": "Opened by run 20261012114218."
+        "value": "Opened by run 20261012220452."
       }
     ]
   },
@@ -19,7 +19,7 @@
     "status": 200,
     "headers": {},
     "body": {
-      "id": 24,
+      "id": 27,
       "rev": 1,
       "fields": {
         "System.AreaPath": "forges-fixtures",
@@ -28,7 +28,7 @@
         "System.WorkItemType": "Issue",
         "System.State": "To Do",
         "System.Reason": "Added to backlog",
-        "System.CreatedDate": "2026-10-12T11:42:23.583Z",
+        "System.CreatedDate": "2026-10-12T22:04:56.6Z",
         "System.CreatedBy": {
           "displayName": "danielroebot outlook.com",
           "url": "https://spsprodweu6.vssps.visualstudio.com/Ad6317e89-50cc-469c-b506-66b9601cf085/_apis/Identities/567dfc49-0db7-43e6-83c1-d91d91db58b1",
@@ -42,7 +42,7 @@
           "imageUrl": "https://dev.azure.com/forges/_apis/GraphProfile/MemberAvatars/aad.MzE2OTUzNzAtY2RlZS03NzVkLWEwYjctMzUwYTkyZTJhMjc5",
           "descriptor": "aad.MzE2OTUzNzAtY2RlZS03NzVkLWEwYjctMzUwYTkyZTJhMjc5"
         },
-        "System.ChangedDate": "2026-10-12T11:42:23.583Z",
+        "System.ChangedDate": "2026-10-12T22:04:56.6Z",
         "System.ChangedBy": {
           "displayName": "danielroebot outlook.com",
           "url": "https://spsprodweu6.vssps.visualstudio.com/Ad6317e89-50cc-469c-b506-66b9601cf085/_apis/Identities/567dfc49-0db7-43e6-83c1-d91d91db58b1",
@@ -57,29 +57,29 @@
           "descriptor": "aad.MzE2OTUzNzAtY2RlZS03NzVkLWEwYjctMzUwYTkyZTJhMjc5"
         },
         "System.CommentCount": 0,
-        "System.Title": "forges fixture 20261012114218: issue",
+        "System.Title": "forges fixture 20261012220452: issue",
         "Microsoft.VSTS.Common.Priority": 2,
-        "Microsoft.VSTS.Common.StateChangeDate": "2026-10-12T11:42:23.583Z",
-        "System.Description": "Opened by run 20261012114218."
+        "Microsoft.VSTS.Common.StateChangeDate": "2026-10-12T22:04:56.6Z",
+        "System.Description": "Opened by run 20261012220452."
       },
       "multilineFieldsFormat": {
         "System.Description": "html"
       },
       "_links": {
         "self": {
-          "href": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/wit/workItems/24"
+          "href": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/wit/workItems/27"
         },
         "workItemUpdates": {
-          "href": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/wit/workItems/24/updates"
+          "href": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/wit/workItems/27/updates"
         },
         "workItemRevisions": {
-          "href": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/wit/workItems/24/revisions"
+          "href": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/wit/workItems/27/revisions"
         },
         "workItemComments": {
-          "href": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/wit/workItems/24/comments"
+          "href": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/wit/workItems/27/comments"
         },
         "html": {
-          "href": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_workitems/edit/24"
+          "href": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_workitems/edit/27"
         },
         "workItemType": {
           "href": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/wit/workItemTypes/Issue"
@@ -88,7 +88,7 @@
           "href": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/wit/fields"
         }
       },
-      "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/wit/workItems/24"
+      "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/wit/workItems/27"
     }
   }
 }

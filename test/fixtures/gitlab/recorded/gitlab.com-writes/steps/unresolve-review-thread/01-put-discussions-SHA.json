@@ -1,26 +1,26 @@
 {
   "request": {
     "method": "PUT",
-    "url": "https://gitlab.com/api/v4/projects/forges-fixtures%2Fforges-fixtures/merge_requests/36/discussions/cc946452121469c1f72107e1c9f41e768d2fd2b0?resolved=false"
+    "url": "https://gitlab.com/api/v4/projects/forges-fixtures%2Fforges-fixtures/merge_requests/42/discussions/fd27582d289bf87aafa9acc523f5eba8bfe8bebe?resolved=false"
   },
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"774df24d5ea230a74007156977c9673d\"",
+      "etag": "W/\"b1423d31a31b51f6337ac05c0266f681\"",
       "ratelimit-limit": "2000",
-      "ratelimit-remaining": "1926",
-      "ratelimit-reset": "1791805260"
+      "ratelimit-remaining": "1919",
+      "ratelimit-reset": "1791842700"
     },
     "body": {
-      "id": "cc946452121469c1f72107e1c9f41e768d2fd2b0",
+      "id": "fd27582d289bf87aafa9acc523f5eba8bfe8bebe",
       "individual_note": false,
       "resolvable": true,
       "resolved": false,
       "notes": [
         {
-          "id": 3997721268,
+          "id": 4000962296,
           "type": "DiscussionNote",
-          "body": "A review comment from run 20261012113957.",
+          "body": "A review comment from run 20261012220341.",
           "author": {
             "id": 2179675,
             "username": "danielroe",
@@ -31,10 +31,10 @@
             "avatar_url": "https://secure.gravatar.com/avatar/82a8f6237bb263bac46d7cc8ec3054d715ce6a55a8626d6e977769d57d2c94e6?s=80&d=identicon",
             "web_url": "https://gitlab.com/danielroe"
           },
-          "created_at": "2026-10-12T11:40:34.864Z",
-          "updated_at": "2026-10-12T11:40:37.820Z",
+          "created_at": "2026-10-12T22:04:21.974Z",
+          "updated_at": "2026-10-12T22:04:25.793Z",
           "system": false,
-          "noteable_id": 547090208,
+          "noteable_id": 547385077,
           "noteable_type": "MergeRequest",
           "project_id": 87428720,
           "resolvable": true,
@@ -45,7 +45,38 @@
           "internal": false,
           "imported": false,
           "imported_from": "none",
-          "noteable_iid": 36,
+          "noteable_iid": 42,
+          "commands_changes": {}
+        },
+        {
+          "id": 4000962409,
+          "type": "DiscussionNote",
+          "body": "A reply from run 20261012220341.",
+          "author": {
+            "id": 43193323,
+            "username": "roebot",
+            "public_email": "",
+            "name": "Daniel Roe",
+            "state": "active",
+            "locked": false,
+            "avatar_url": "https://secure.gravatar.com/avatar/14ceebcfdc10030d76768a65e9d7978b914694cebcbb6ab609b3a0e8243f0eb8?s=80&d=identicon",
+            "web_url": "https://gitlab.com/roebot"
+          },
+          "created_at": "2026-10-12T22:04:24.182Z",
+          "updated_at": "2026-10-12T22:04:25.793Z",
+          "system": false,
+          "noteable_id": 547385077,
+          "noteable_type": "MergeRequest",
+          "project_id": 87428720,
+          "resolvable": true,
+          "resolved": false,
+          "resolved_by": null,
+          "resolved_at": null,
+          "confidential": false,
+          "internal": false,
+          "imported": false,
+          "imported_from": "none",
+          "noteable_iid": 42,
           "commands_changes": {}
         }
       ]

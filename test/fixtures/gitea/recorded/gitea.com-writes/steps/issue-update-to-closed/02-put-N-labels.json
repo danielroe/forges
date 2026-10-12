@@ -1,0 +1,26 @@
+{
+  "request": {
+    "method": "PUT",
+    "url": "https://gitea.com/api/v1/repos/forges-fixtures/forges-fixtures/issues/55/labels",
+    "body": {
+      "labels": [
+        62766
+      ]
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": [
+      {
+        "id": 62766,
+        "name": "forges-fixture-20261012220452",
+        "exclusive": false,
+        "is_archived": false,
+        "color": "0e8a16",
+        "description": "Created by run 20261012220452",
+        "url": "https://gitea.com/api/v1/repos/forges-fixtures/forges-fixtures/labels/62766"
+      }
+    ]
+  }
+}

@@ -1,35 +1,35 @@
 {
   "request": {
     "method": "POST",
-    "url": "https://gitlab.com/api/v4/projects/forges-fixtures%2Fforges-fixtures/statuses/264f819c91c0bfd8e7ffa8be03595d535ea7c16f",
+    "url": "https://gitlab.com/api/v4/projects/forges-fixtures%2Fforges-fixtures/statuses/3258ca97d295d3e994487362208bec500d6c078d",
     "body": {
       "state": "success",
       "name": "forges fixture",
-      "description": "Reported by run 20261012113957"
+      "description": "Reported by run 20261012220341"
     }
   },
   "response": {
     "status": 201,
     "headers": {
-      "etag": "W/\"22c406380983d12fe27c72c99202926f\"",
+      "etag": "W/\"ee1936d3f11df08faf9c32920592f9a2\"",
       "ratelimit-limit": "2000",
-      "ratelimit-remaining": "1925",
-      "ratelimit-reset": "1791805260"
+      "ratelimit-remaining": "1918",
+      "ratelimit-reset": "1791842700"
     },
     "body": {
-      "id": 17111274000,
-      "sha": "264f819c91c0bfd8e7ffa8be03595d535ea7c16f",
-      "ref": "refs/merge-requests/36/head",
+      "id": 17124483936,
+      "sha": "3258ca97d295d3e994487362208bec500d6c078d",
+      "ref": "refs/merge-requests/42/head",
       "status": "success",
       "name": "forges fixture",
       "target_url": null,
-      "description": "Reported by run 20261012113957",
-      "created_at": "2026-10-12T11:40:38.268Z",
+      "description": "Reported by run 20261012220341",
+      "created_at": "2026-10-12T22:04:26.237Z",
       "started_at": null,
-      "finished_at": "2026-10-12T11:40:38.266Z",
+      "finished_at": "2026-10-12T22:04:26.236Z",
       "allow_failure": false,
       "coverage": null,
-      "pipeline_id": 2938494768,
+      "pipeline_id": 2940255551,
       "author": {
         "id": 43193323,
         "username": "roebot",

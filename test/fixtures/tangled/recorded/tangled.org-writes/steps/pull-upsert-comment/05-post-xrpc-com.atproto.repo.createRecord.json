@@ -9,31 +9,31 @@
         "$type": "sh.tangled.feed.comment",
         "body": {
           "$type": "sh.tangled.markup.markdown",
-          "text": "An upserted comment from run 20261012114229.\n\n<!-- forges:key=forges-fixture -->",
-          "original": "An upserted comment from run 20261012114229.\n\n<!-- forges:key=forges-fixture -->"
+          "text": "An upserted comment from run 20261012220452.\n\n<!-- forges:key=forges-fixture -->",
+          "original": "An upserted comment from run 20261012220452.\n\n<!-- forges:key=forges-fixture -->"
         },
         "subject": {
-          "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.pull/3mxogt76cgf2y",
-          "cid": "bafyreiadvwxaamxsu2tunsrh5p767quwb6ealx5stnws5gxb24p2jahq7a"
+          "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.pull/3mxpjm4dv2j2y",
+          "cid": "bafyreifx3mus7iccgox53ob4hzc7qlladzbdq3ie3tbt5ykknwzhfhs6cu"
         },
-        "createdAt": "2026-10-12T11:42:47.112Z"
+        "createdAt": "2026-10-12T22:05:21.235Z"
       }
     }
   },
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"11b-YPvkktZIZFZHFg+G9p8YYM8ku/0\"",
+      "etag": "W/\"11b-BElWl/RQvYiFoN92IZ2CTMZjgxE\"",
       "ratelimit-limit": "3000",
-      "ratelimit-remaining": "2909",
-      "ratelimit-reset": "1791805651"
+      "ratelimit-remaining": "2890",
+      "ratelimit-reset": "1791842994"
     },
     "body": {
-      "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.feed.comment/3mxogtaojff2y",
-      "cid": "bafyreidsocdwfbsr5umylm2sszwpbpmuain53l4raw5wijcqiblmvcj764",
+      "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.feed.comment/3mxpjmie2yr2y",
+      "cid": "bafyreieua3rxpapvopzhmtiia3hprdngsmeesky2rc4aqnpdwwpaluhw4i",
       "commit": {
-        "cid": "bafyreid2yfrulprdl2reijxwftijxjyqthr2nbqxusjuljx7zxgaoagyiq",
-        "rev": "3mxogtaow3n2y"
+        "cid": "bafyreiazx5t3kayajyjr2ligiizukou4bh7m56v4up7cdffmmmdyq5z7iu",
+        "rev": "3mxpjmiedrz2y"
       },
       "validationStatus": "unknown"
     }

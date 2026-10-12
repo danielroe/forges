@@ -1,4 +1,8 @@
 {
   "name": "issue assign",
-  "recordedAt": "2026-10-12T11:42:43.476Z"
+  "recordedAt": "2026-10-12T22:05:04.722Z",
+  "needs": [
+    "create issue",
+    "author"
+  ]
 }

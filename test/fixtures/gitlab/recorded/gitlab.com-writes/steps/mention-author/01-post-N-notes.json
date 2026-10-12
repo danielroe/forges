@@ -1,23 +1,23 @@
 {
   "request": {
     "method": "POST",
-    "url": "https://gitlab.com/api/v4/projects/forges-fixtures%2Fforges-fixtures/issues/28/notes",
+    "url": "https://gitlab.com/api/v4/projects/forges-fixtures%2Fforges-fixtures/issues/34/notes",
     "body": {
-      "body": "@roebot a mention from run 20261012113957."
+      "body": "@roebot a mention from run 20261012220341."
     }
   },
   "response": {
     "status": 201,
     "headers": {
-      "etag": "W/\"e4f86d2181267ca1f32a2bff8a6c96b6\"",
+      "etag": "W/\"87150f6af263412c74bbf76bf6ab9a18\"",
       "ratelimit-limit": "2000",
       "ratelimit-remaining": "1988",
-      "ratelimit-reset": "1791805260"
+      "ratelimit-reset": "1791842700"
     },
     "body": {
-      "id": 3997723437,
+      "id": 4000963265,
       "type": null,
-      "body": "@roebot a mention from run 20261012113957.",
+      "body": "@roebot a mention from run 20261012220341.",
       "author": {
         "id": 2179675,
         "username": "danielroe",
@@ -28,10 +28,10 @@
         "avatar_url": "https://secure.gravatar.com/avatar/82a8f6237bb263bac46d7cc8ec3054d715ce6a55a8626d6e977769d57d2c94e6?s=80&d=identicon",
         "web_url": "https://gitlab.com/danielroe"
       },
-      "created_at": "2026-10-12T11:40:51.676Z",
-      "updated_at": "2026-10-12T11:40:51.676Z",
+      "created_at": "2026-10-12T22:04:37.799Z",
+      "updated_at": "2026-10-12T22:04:37.799Z",
       "system": false,
-      "noteable_id": 206267420,
+      "noteable_id": 206338555,
       "noteable_type": "Issue",
       "project_id": 87428720,
       "resolvable": false,
@@ -39,7 +39,7 @@
       "internal": false,
       "imported": false,
       "imported_from": "none",
-      "noteable_iid": 28,
+      "noteable_iid": 34,
       "commands_changes": {}
     }
   }

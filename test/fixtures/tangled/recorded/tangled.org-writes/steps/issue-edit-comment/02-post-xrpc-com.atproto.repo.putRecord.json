@@ -5,37 +5,37 @@
     "body": {
       "repo": "did:plc:7qksav5io2s4qfg67pe7iqqk",
       "collection": "sh.tangled.feed.comment",
-      "rkey": "3mxogsy5i3n2y",
+      "rkey": "3mxpjluvxrj2y",
       "record": {
         "body": {
           "$type": "sh.tangled.markup.markdown",
-          "text": "An edited comment from run 20261012114229.",
-          "original": "An edited comment from run 20261012114229."
+          "text": "An edited comment from run 20261012220452.",
+          "original": "An edited comment from run 20261012220452."
         },
         "$type": "sh.tangled.feed.comment",
         "subject": {
-          "cid": "bafyreibeam4jugy2q64zzdfyn7wlq6jx5imcs2ea5fuzas3g5q2dbbg32u",
-          "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.issue/3mxogsxxwe52y"
+          "cid": "bafyreibryywxubhkn7mdoixironjlz7vloiqp463cpy2jgbzzmpgbmpo2e",
+          "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.issue/3mxpjlurceb2y"
         },
-        "createdAt": "2026-10-12T11:42:38.148Z"
+        "createdAt": "2026-10-12T22:05:00.860Z"
       },
-      "swapRecord": "bafyreieal3nvdnrwn4zvdymx7whto7ors5g42jmprj2lpyfvj2rmt7iazq"
+      "swapRecord": "bafyreihp4wrrn4k6wbveb4yuedly6rragomhspkyjywmfbofqiwt32kkeu"
     }
   },
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"11b-n/UPgrk+EeO79f2PMrINXl2WECg\"",
+      "etag": "W/\"11b-Jy00xHeeK8/t3kQN58CO3Hidon0\"",
       "ratelimit-limit": "3000",
       "ratelimit-remaining": "2961",
-      "ratelimit-reset": "1791805651"
+      "ratelimit-reset": "1791842994"
     },
     "body": {
-      "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.feed.comment/3mxogsy5i3n2y",
-      "cid": "bafyreiclmwclbrj5htlcewqrb5xqk2hoa2p6kk6d2rcielctiu2vs2qf6u",
+      "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.feed.comment/3mxpjluvxrj2y",
+      "cid": "bafyreiboih7qo5gfnf7avauwtmbxs3wbvm3nbjs5lid64n4zjatyunoccu",
       "commit": {
-        "cid": "bafyreidvy3rzgvuhvbbxsz5uhe6k733mui6xiojie5icefixm5uzhxspve",
-        "rev": "3mxogsyd4qv2y"
+        "cid": "bafyreiccptt6jhl56behbypq3vfpbbk6nu4y6lsdd7igpvpqp2eb4nspiy",
+        "rev": "3mxpjlv3ijr2y"
       },
       "validationStatus": "unknown"
     }

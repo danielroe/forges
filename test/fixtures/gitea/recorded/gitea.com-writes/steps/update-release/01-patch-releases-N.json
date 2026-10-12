@@ -1,30 +1,30 @@
 {
   "request": {
     "method": "PATCH",
-    "url": "https://gitea.com/api/v1/repos/forges-fixtures/forges-fixtures/releases/972740",
+    "url": "https://gitea.com/api/v1/repos/forges-fixtures/forges-fixtures/releases/972940",
     "body": {
-      "name": "forges fixture 20261012113905: release, edited",
-      "body": "Edited by run 20261012113905."
+      "name": "forges fixture 20261012220452: release, edited",
+      "body": "Edited by run 20261012220452."
     }
   },
   "response": {
     "status": 200,
     "headers": {},
     "body": {
-      "id": 972740,
-      "tag_name": "forges-fixture-20261012113905",
+      "id": 972940,
+      "tag_name": "forges-fixture-20261012220452",
       "target_commitish": "main",
-      "name": "forges fixture 20261012113905: release, edited",
-      "body": "Edited by run 20261012113905.",
-      "url": "https://gitea.com/api/v1/repos/forges-fixtures/forges-fixtures/releases/972740",
-      "html_url": "https://gitea.com/forges-fixtures/forges-fixtures/releases/tag/forges-fixture-20261012113905",
-      "tarball_url": "https://gitea.com/forges-fixtures/forges-fixtures/archive/forges-fixture-20261012113905.tar.gz",
-      "zipball_url": "https://gitea.com/forges-fixtures/forges-fixtures/archive/forges-fixture-20261012113905.zip",
-      "upload_url": "https://gitea.com/api/v1/repos/forges-fixtures/forges-fixtures/releases/972740/assets",
+      "name": "forges fixture 20261012220452: release, edited",
+      "body": "Edited by run 20261012220452.",
+      "url": "https://gitea.com/api/v1/repos/forges-fixtures/forges-fixtures/releases/972940",
+      "html_url": "https://gitea.com/forges-fixtures/forges-fixtures/releases/tag/forges-fixture-20261012220452",
+      "tarball_url": "https://gitea.com/forges-fixtures/forges-fixtures/archive/forges-fixture-20261012220452.tar.gz",
+      "zipball_url": "https://gitea.com/forges-fixtures/forges-fixtures/archive/forges-fixture-20261012220452.zip",
+      "upload_url": "https://gitea.com/api/v1/repos/forges-fixtures/forges-fixtures/releases/972940/assets",
       "draft": false,
       "prerelease": false,
-      "created_at": "2026-10-12T11:39:34Z",
-      "published_at": "2026-10-12T11:39:46Z",
+      "created_at": "2026-10-12T22:05:23Z",
+      "published_at": "2026-10-12T22:05:26Z",
       "author": {
         "id": 253592,
         "login": "roebot",

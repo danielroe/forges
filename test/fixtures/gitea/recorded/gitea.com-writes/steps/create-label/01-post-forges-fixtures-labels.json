@@ -3,22 +3,22 @@
     "method": "POST",
     "url": "https://gitea.com/api/v1/repos/forges-fixtures/forges-fixtures/labels",
     "body": {
-      "name": "forges-fixture-20261012113905",
+      "name": "forges-fixture-20261012220452",
       "color": "#0e8a16",
-      "description": "Created by run 20261012113905"
+      "description": "Created by run 20261012220452"
     }
   },
   "response": {
     "status": 201,
     "headers": {},
     "body": {
-      "id": 62720,
-      "name": "forges-fixture-20261012113905",
+      "id": 62766,
+      "name": "forges-fixture-20261012220452",
       "exclusive": false,
       "is_archived": false,
       "color": "0e8a16",
-      "description": "Created by run 20261012113905",
-      "url": "https://gitea.com/api/v1/repos/forges-fixtures/forges-fixtures/labels/62720"
+      "description": "Created by run 20261012220452",
+      "url": "https://gitea.com/api/v1/repos/forges-fixtures/forges-fixtures/labels/62766"
     }
   }
 }

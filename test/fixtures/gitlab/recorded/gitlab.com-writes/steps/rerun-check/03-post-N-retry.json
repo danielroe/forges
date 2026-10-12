@@ -1,18 +1,18 @@
 {
   "request": {
     "method": "POST",
-    "url": "https://gitlab.com/api/v4/projects/forges-fixtures%2Fforges-fixtures/jobs/17094825107/retry"
+    "url": "https://gitlab.com/api/v4/projects/forges-fixtures%2Fforges-fixtures/jobs/17124073952/retry"
   },
   "response": {
     "status": 201,
     "headers": {
-      "etag": "W/\"a2517ffc806abf393204941f6a89b05c\"",
+      "etag": "W/\"f6da57030451249f141cff6048e9b7e2\"",
       "ratelimit-limit": "2000",
       "ratelimit-remaining": "1993",
-      "ratelimit-reset": "1791805260"
+      "ratelimit-reset": "1791842700"
     },
     "body": {
-      "id": 17111274889,
+      "id": 17124484142,
       "status": "running",
       "stage": "test",
       "name": "check",
@@ -20,12 +20,12 @@
       "tag": false,
       "coverage": null,
       "allow_failure": false,
-      "created_at": "2026-10-12T11:40:39.310Z",
-      "started_at": "2026-10-12T11:40:39.636Z",
+      "created_at": "2026-10-12T22:04:27.154Z",
+      "started_at": "2026-10-12T22:04:27.392Z",
       "finished_at": null,
       "erased_at": null,
-      "duration": 0.121212575,
-      "queued_duration": 0.113294,
+      "duration": 0.129402452,
+      "queued_duration": 0.063451,
       "user": {
         "id": 2179675,
         "username": "danielroe",
@@ -50,41 +50,41 @@
         "work_information": null,
         "followers": 0,
         "following": 0,
-        "local_time": "11:40 AM"
+        "local_time": "10:04 PM"
       },
       "commit": {
-        "id": "1fbd50f395a26d3af5a89288311d40dbae090f57",
-        "short_id": "1fbd50f3",
-        "created_at": "2026-10-11T16:06:11.000+00:00",
+        "id": "48f54f4b6969e789adb098d2242c87fff346f03c",
+        "short_id": "48f54f4b",
+        "created_at": "2026-10-12T21:34:19.000+00:00",
         "parent_ids": [
-          "67ac4c874df637c29bc708e0c8dadfe1a3380e1b",
-          "319cc65e710c7a33ab65b2f7cafc892813f8059b"
+          "9de936e3cf544748a60f50a04e7a8c3f4582a5f0",
+          "7dd0df8ec77130fa7262a19a85431dc9f0391798"
         ],
-        "title": "Merge run 20261011160520",
-        "message": "Merge run 20261011160520\n\nMerged by run 20261011160520",
+        "title": "Merge run 20261012213330",
+        "message": "Merge run 20261012213330\n\nMerged by run 20261012213330",
         "author_name": "Daniel Roe",
         "author_email": "redacted@example.invalid",
-        "authored_date": "2026-10-11T16:06:11.000+00:00",
+        "authored_date": "2026-10-12T21:34:19.000+00:00",
         "committer_name": "Daniel Roe",
         "committer_email": "redacted@example.invalid",
-        "committed_date": "2026-10-11T16:06:11.000+00:00",
+        "committed_date": "2026-10-12T21:34:19.000+00:00",
         "trailers": {},
         "extended_trailers": {},
-        "web_url": "https://gitlab.com/forges-fixtures/forges-fixtures/-/commit/1fbd50f395a26d3af5a89288311d40dbae090f57"
+        "web_url": "https://gitlab.com/forges-fixtures/forges-fixtures/-/commit/48f54f4b6969e789adb098d2242c87fff346f03c"
       },
       "pipeline": {
-        "id": 2936116377,
-        "iid": 103,
+        "id": 2940201860,
+        "iid": 121,
         "project_id": 87428720,
-        "sha": "1fbd50f395a26d3af5a89288311d40dbae090f57",
+        "sha": "48f54f4b6969e789adb098d2242c87fff346f03c",
         "ref": "main",
         "status": "running",
         "source": "push",
-        "created_at": "2026-10-11T16:06:13.396Z",
-        "updated_at": "2026-10-12T11:40:39.642Z",
-        "web_url": "https://gitlab.com/forges-fixtures/forges-fixtures/-/pipelines/2936116377"
+        "created_at": "2026-10-12T21:34:20.509Z",
+        "updated_at": "2026-10-12T22:04:27.383Z",
+        "web_url": "https://gitlab.com/forges-fixtures/forges-fixtures/-/pipelines/2940201860"
       },
-      "web_url": "https://gitlab.com/forges-fixtures/forges-fixtures/-/jobs/17111274889",
+      "web_url": "https://gitlab.com/forges-fixtures/forges-fixtures/-/jobs/17124484142",
       "project": {
         "ci_job_token_scope_enabled": false
       },
@@ -114,14 +114,14 @@
         "job_execution_status": "active"
       },
       "runner_manager": {
-        "id": 162179084,
-        "system_id": "r_fqZldzgXLtOi",
+        "id": 162251517,
+        "system_id": "r_xPh03T8BlGlr",
         "version": "19.5.0~pre.2302.g6414598a",
         "revision": "6414598a",
         "platform": "linux",
         "architecture": "amd64",
-        "created_at": "2026-10-12T10:56:02.295Z",
-        "contacted_at": "2026-10-12T11:40:39.580Z",
+        "created_at": "2026-10-12T18:49:06.662Z",
+        "contacted_at": "2026-10-12T22:04:27.336Z",
         "ip_address": "10.218.11.3",
         "status": "online",
         "job_execution_status": "active"

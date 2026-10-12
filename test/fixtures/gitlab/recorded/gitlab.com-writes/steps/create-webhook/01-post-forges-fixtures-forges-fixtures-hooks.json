@@ -12,17 +12,17 @@
   "response": {
     "status": 201,
     "headers": {
-      "etag": "W/\"25c4cb987cc73b81ec0290445a8bf041\"",
+      "etag": "W/\"ebcd1b514995b9ed5db8508937e952ab\"",
       "ratelimit-limit": "2000",
-      "ratelimit-remaining": "1918",
-      "ratelimit-reset": "1791805260"
+      "ratelimit-remaining": "1911",
+      "ratelimit-reset": "1791842700"
     },
     "body": {
-      "id": 91332390,
+      "id": 91367832,
       "url": "https://example.com/hook",
       "name": null,
       "description": null,
-      "created_at": "2026-10-12T11:40:50.343Z",
+      "created_at": "2026-10-12T22:04:36.384Z",
       "push_events": true,
       "tag_push_events": false,
       "merge_requests_events": false,

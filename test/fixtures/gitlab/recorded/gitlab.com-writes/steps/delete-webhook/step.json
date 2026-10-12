@@ -1,4 +1,7 @@
 {
   "name": "delete webhook",
-  "recordedAt": "2026-10-12T11:40:51.062Z"
+  "recordedAt": "2026-10-12T22:04:37.228Z",
+  "needs": [
+    "create webhook"
+  ]
 }

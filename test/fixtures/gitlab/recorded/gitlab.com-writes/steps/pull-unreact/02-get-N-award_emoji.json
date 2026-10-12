@@ -1,16 +1,16 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://gitlab.com/api/v4/projects/forges-fixtures%2Fforges-fixtures/merge_requests/36/award_emoji?per_page=100"
+    "url": "https://gitlab.com/api/v4/projects/forges-fixtures%2Fforges-fixtures/merge_requests/42/award_emoji?per_page=100"
   },
   "response": {
     "status": 200,
     "headers": {
-      "link": "<https://gitlab.com/api/v4/projects/forges-fixtures%2Fforges-fixtures/merge_requests/36/award_emoji?id=forges-fixtures%2Fforges-fixtures&merge_request_iid=36&page=1&per_page=100>; rel=\"first\", <https://gitlab.com/api/v4/projects/forges-fixtures%2Fforges-fixtures/merge_requests/36/award_emoji?id=forges-fixtures%2Fforges-fixtures&merge_request_iid=36&page=1&per_page=100>; rel=\"last\"",
-      "etag": "W/\"49e2d5707281e643e21f946c1a9c898e\"",
+      "link": "<https://gitlab.com/api/v4/projects/forges-fixtures%2Fforges-fixtures/merge_requests/42/award_emoji?id=forges-fixtures%2Fforges-fixtures&merge_request_iid=42&page=1&per_page=100>; rel=\"first\", <https://gitlab.com/api/v4/projects/forges-fixtures%2Fforges-fixtures/merge_requests/42/award_emoji?id=forges-fixtures%2Fforges-fixtures&merge_request_iid=42&page=1&per_page=100>; rel=\"last\"",
+      "etag": "W/\"97cc90211ed2445bdf3e33634cc8c708\"",
       "ratelimit-limit": "2000",
-      "ratelimit-remaining": "1947",
-      "ratelimit-reset": "1791805260",
+      "ratelimit-remaining": "1945",
+      "ratelimit-reset": "1791842700",
       "x-total": "1",
       "x-total-pages": "1",
       "x-next-page": "",
@@ -19,7 +19,7 @@
     },
     "body": [
       {
-        "id": 59159757,
+        "id": 59227158,
         "name": "thumbsup",
         "user": {
           "id": 43193323,
@@ -31,9 +31,9 @@
           "avatar_url": "https://secure.gravatar.com/avatar/14ceebcfdc10030d76768a65e9d7978b914694cebcbb6ab609b3a0e8243f0eb8?s=80&d=identicon",
           "web_url": "https://gitlab.com/roebot"
         },
-        "created_at": "2026-10-12T11:40:25.439Z",
-        "updated_at": "2026-10-12T11:40:25.439Z",
-        "awardable_id": 547090208,
+        "created_at": "2026-10-12T22:04:10.242Z",
+        "updated_at": "2026-10-12T22:04:10.242Z",
+        "awardable_id": 547385077,
         "awardable_type": "MergeRequest",
         "url": null
       }

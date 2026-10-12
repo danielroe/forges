@@ -1,7 +1,7 @@
 {
   "request": {
     "method": "PATCH",
-    "url": "https://gitea.com/api/v1/repos/forges-fixtures/forges-fixtures/issues/48",
+    "url": "https://gitea.com/api/v1/repos/forges-fixtures/forges-fixtures/issues/60",
     "body": {
       "state": "open"
     }
@@ -10,10 +10,10 @@
     "status": 201,
     "headers": {},
     "body": {
-      "id": 509789,
-      "url": "https://gitea.com/api/v1/repos/forges-fixtures/forges-fixtures/issues/48",
-      "html_url": "https://gitea.com/forges-fixtures/forges-fixtures/pulls/48",
-      "number": 48,
+      "id": 509996,
+      "url": "https://gitea.com/api/v1/repos/forges-fixtures/forges-fixtures/issues/60",
+      "html_url": "https://gitea.com/forges-fixtures/forges-fixtures/pulls/60",
+      "number": 60,
       "user": {
         "id": 253592,
         "login": "roebot",
@@ -34,8 +34,8 @@
       },
       "original_author": "",
       "original_author_id": 0,
-      "title": "forges fixture 20261012113905: pull 3",
-      "body": "Opened by run 20261012113905.",
+      "title": "forges fixture 20261012220452: pull 3",
+      "body": "Opened by run 20261012220452.",
       "ref": "",
       "assets": [],
       "labels": [],
@@ -46,8 +46,8 @@
       "state": "open",
       "is_locked": false,
       "comments": 0,
-      "created_at": "2026-10-12T11:39:23Z",
-      "updated_at": "2026-10-12T11:39:33Z",
+      "created_at": "2026-10-12T22:05:09Z",
+      "updated_at": "2026-10-12T22:05:22Z",
       "closed_at": null,
       "due_date": null,
       "time_estimate": 0,
@@ -55,7 +55,7 @@
         "merged": false,
         "merged_at": null,
         "draft": false,
-        "html_url": "https://gitea.com/forges-fixtures/forges-fixtures/pulls/48"
+        "html_url": "https://gitea.com/forges-fixtures/forges-fixtures/pulls/60"
       },
       "repository": {
         "id": 146918,

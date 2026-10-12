@@ -6,30 +6,30 @@
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"a8393593ec184d320cc17de12d73553e\"",
+      "etag": "W/\"3de73af41a998e13ce6ce6a0c96778d0\"",
       "ratelimit-limit": "2000",
       "ratelimit-remaining": "1995",
-      "ratelimit-reset": "1791805260"
+      "ratelimit-reset": "1791842700"
     },
     "body": {
-      "id": "1fbd50f395a26d3af5a89288311d40dbae090f57",
-      "short_id": "1fbd50f3",
-      "created_at": "2026-10-11T16:06:11.000+00:00",
+      "id": "48f54f4b6969e789adb098d2242c87fff346f03c",
+      "short_id": "48f54f4b",
+      "created_at": "2026-10-12T21:34:19.000+00:00",
       "parent_ids": [
-        "67ac4c874df637c29bc708e0c8dadfe1a3380e1b",
-        "319cc65e710c7a33ab65b2f7cafc892813f8059b"
+        "9de936e3cf544748a60f50a04e7a8c3f4582a5f0",
+        "7dd0df8ec77130fa7262a19a85431dc9f0391798"
       ],
-      "title": "Merge run 20261011160520",
-      "message": "Merge run 20261011160520\n\nMerged by run 20261011160520",
+      "title": "Merge run 20261012213330",
+      "message": "Merge run 20261012213330\n\nMerged by run 20261012213330",
       "author_name": "Daniel Roe",
       "author_email": "redacted@example.invalid",
-      "authored_date": "2026-10-11T16:06:11.000+00:00",
+      "authored_date": "2026-10-12T21:34:19.000+00:00",
       "committer_name": "Daniel Roe",
       "committer_email": "redacted@example.invalid",
-      "committed_date": "2026-10-11T16:06:11.000+00:00",
+      "committed_date": "2026-10-12T21:34:19.000+00:00",
       "trailers": {},
       "extended_trailers": {},
-      "web_url": "https://gitlab.com/forges-fixtures/forges-fixtures/-/commit/1fbd50f395a26d3af5a89288311d40dbae090f57",
+      "web_url": "https://gitlab.com/forges-fixtures/forges-fixtures/-/commit/48f54f4b6969e789adb098d2242c87fff346f03c",
       "stats": {
         "additions": 1,
         "deletions": 0,
@@ -38,16 +38,16 @@
       "status": "failed",
       "project_id": 87428720,
       "last_pipeline": {
-        "id": 2936116436,
-        "iid": 104,
+        "id": 2940201910,
+        "iid": 122,
         "project_id": 87428720,
-        "sha": "1fbd50f395a26d3af5a89288311d40dbae090f57",
-        "ref": "forges-fixture-20261011160520",
+        "sha": "48f54f4b6969e789adb098d2242c87fff346f03c",
+        "ref": "forges-fixture-20261012213330",
         "status": "failed",
         "source": "push",
-        "created_at": "2026-10-11T16:06:14.312Z",
-        "updated_at": "2026-10-11T16:06:14.312Z",
-        "web_url": "https://gitlab.com/forges-fixtures/forges-fixtures/-/pipelines/2936116436"
+        "created_at": "2026-10-12T21:34:22.456Z",
+        "updated_at": "2026-10-12T21:34:22.456Z",
+        "web_url": "https://gitlab.com/forges-fixtures/forges-fixtures/-/pipelines/2940201910"
       }
     }
   }

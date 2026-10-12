@@ -1,24 +1,24 @@
 {
   "request": {
     "method": "POST",
-    "url": "https://gitlab.com/api/v4/projects/forges-fixtures%2Fforges-fixtures/issues/30/notes",
+    "url": "https://gitlab.com/api/v4/projects/forges-fixtures%2Fforges-fixtures/issues/36/notes",
     "body": {
-      "body": "/duplicate #28"
+      "body": "/duplicate #34"
     }
   },
   "response": {
     "status": 202,
     "headers": {
       "ratelimit-limit": "2000",
-      "ratelimit-remaining": "1962",
-      "ratelimit-reset": "1791805260"
+      "ratelimit-remaining": "1960",
+      "ratelimit-reset": "1791842700"
     },
     "body": {
       "commands_changes": {
-        "canonical_issue_id": 206267420
+        "canonical_issue_id": 206338555
       },
       "summary": [
-        "Closed this Issue. Marked as related to, and a duplicate of, https://gitlab.com/forges-fixtures/forges-fixtures/-/work_items/28."
+        "Closed this Issue. Marked as related to, and a duplicate of, https://gitlab.com/forges-fixtures/forges-fixtures/-/work_items/34."
       ]
     }
   }

@@ -7,7 +7,7 @@
       "collection": "sh.tangled.label.op",
       "record": {
         "$type": "sh.tangled.label.op",
-        "subject": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.pull/3mxogt76cgf2y",
+        "subject": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.pull/3mxpjm4dv2j2y",
         "add": [
           {
             "key": "at://did:plc:wshs7t2adsemcrrd4snkeqli/sh.tangled.label.definition/assignee",
@@ -15,24 +15,24 @@
           }
         ],
         "delete": [],
-        "performedAt": "2026-10-12T11:42:48.742Z"
+        "performedAt": "2026-10-12T22:05:22.949Z"
       }
     }
   },
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"117-XzDDym5KDJvML7gHMz2nzepc8xw\"",
+      "etag": "W/\"117-CnKqeF803GCOWMJD+s7jW9wbpkY\"",
       "ratelimit-limit": "3000",
-      "ratelimit-remaining": "2895",
-      "ratelimit-reset": "1791805651"
+      "ratelimit-remaining": "2876",
+      "ratelimit-reset": "1791842994"
     },
     "body": {
-      "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.label.op/3mxogtcae4n2y",
-      "cid": "bafyreigl2vycio2cdfmodl44sjwp2dvtkzvt2vkkhm5t3wrklzw3tb4l7y",
+      "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.label.op/3mxpjmjy5yj2y",
+      "cid": "bafyreigivw7ga4g4sjwqxd6vrwl7jxt7mf2bahfcpbv2yomfrfr2mtbmfy",
       "commit": {
-        "cid": "bafyreibnzfbira7ls7cyhsafgo7r26osp7scyowa6573rj4rb7eb5jy6vq",
-        "rev": "3mxogtcamvv2y"
+        "cid": "bafyreidrbgxi7gsughdzmmztqwejr6ikw7kejyf2muurldt4il3dijd6pm",
+        "rev": "3mxpjmjyiqb2y"
       },
       "validationStatus": "unknown"
     }

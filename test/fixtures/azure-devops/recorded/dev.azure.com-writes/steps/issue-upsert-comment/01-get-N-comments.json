@@ -1,7 +1,7 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://dev.azure.com/forges/forges-fixtures/_apis/wit/workitems/24/comments?api-version=7.1-preview.4&%24top=50"
+    "url": "https://dev.azure.com/forges/forges-fixtures/_apis/wit/workitems/27/comments?api-version=7.1-preview.4&%24top=50"
   },
   "response": {
     "status": 200,
@@ -12,10 +12,10 @@
       "comments": [
         {
           "mentions": [],
-          "workItemId": 24,
-          "id": 1412683,
+          "workItemId": 27,
+          "id": 1412792,
           "version": 2,
-          "text": "An edited comment from run 20261012114218.",
+          "text": "An edited comment from run 20261012220452.",
           "createdBy": {
             "displayName": "danielroebot outlook.com",
             "url": "https://spsprodweu6.vssps.visualstudio.com/Ad6317e89-50cc-469c-b506-66b9601cf085/_apis/Identities/567dfc49-0db7-43e6-83c1-d91d91db58b1",
@@ -29,7 +29,7 @@
             "imageUrl": "https://dev.azure.com/forges/_apis/GraphProfile/MemberAvatars/aad.MzE2OTUzNzAtY2RlZS03NzVkLWEwYjctMzUwYTkyZTJhMjc5",
             "descriptor": "aad.MzE2OTUzNzAtY2RlZS03NzVkLWEwYjctMzUwYTkyZTJhMjc5"
           },
-          "createdDate": "2026-10-12T11:42:23.827Z",
+          "createdDate": "2026-10-12T22:04:56.81Z",
           "modifiedBy": {
             "displayName": "danielroebot outlook.com",
             "url": "https://spsprodweu6.vssps.visualstudio.com/Ad6317e89-50cc-469c-b506-66b9601cf085/_apis/Identities/567dfc49-0db7-43e6-83c1-d91d91db58b1",
@@ -43,10 +43,10 @@
             "imageUrl": "https://dev.azure.com/forges/_apis/GraphProfile/MemberAvatars/aad.MzE2OTUzNzAtY2RlZS03NzVkLWEwYjctMzUwYTkyZTJhMjc5",
             "descriptor": "aad.MzE2OTUzNzAtY2RlZS03NzVkLWEwYjctMzUwYTkyZTJhMjc5"
           },
-          "modifiedDate": "2026-10-12T11:42:23.953Z",
+          "modifiedDate": "2026-10-12T22:04:56.907Z",
           "format": "html",
           "renderedText": "",
-          "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/wit/workItems/24/comments/1412683"
+          "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/wit/workItems/27/comments/1412792"
         }
       ]
     }

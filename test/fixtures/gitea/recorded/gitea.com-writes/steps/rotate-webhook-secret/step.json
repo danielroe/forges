@@ -1,4 +1,7 @@
 {
   "name": "rotate webhook secret",
-  "recordedAt": "2026-10-12T11:39:46.990Z"
+  "recordedAt": "2026-10-12T22:05:26.914Z",
+  "needs": [
+    "create webhook"
+  ]
 }

@@ -1,23 +1,23 @@
 {
   "request": {
     "method": "POST",
-    "url": "https://gitlab.com/api/v4/projects/forges-fixtures%2Fforges-fixtures/merge_requests/36/notes",
+    "url": "https://gitlab.com/api/v4/projects/forges-fixtures%2Fforges-fixtures/merge_requests/42/notes",
     "body": {
-      "body": "An upserted comment from run 20261012113957.\n\n<!-- forges:key=forges-fixture -->"
+      "body": "An upserted comment from run 20261012220341.\n\n<!-- forges:key=forges-fixture -->"
     }
   },
   "response": {
     "status": 201,
     "headers": {
-      "etag": "W/\"79aefca9df95e0dfe0a823ae24544259\"",
+      "etag": "W/\"7e8c9ed4f68624fa05601b9dc9509e2d\"",
       "ratelimit-limit": "2000",
-      "ratelimit-remaining": "1950",
-      "ratelimit-reset": "1791805260"
+      "ratelimit-remaining": "1948",
+      "ratelimit-reset": "1791842700"
     },
     "body": {
-      "id": 3997719905,
+      "id": 4000961555,
       "type": null,
-      "body": "An upserted comment from run 20261012113957.\n\n<!-- forges:key=forges-fixture -->",
+      "body": "An upserted comment from run 20261012220341.\n\n<!-- forges:key=forges-fixture -->",
       "author": {
         "id": 43193323,
         "username": "roebot",
@@ -28,10 +28,10 @@
         "avatar_url": "https://secure.gravatar.com/avatar/14ceebcfdc10030d76768a65e9d7978b914694cebcbb6ab609b3a0e8243f0eb8?s=80&d=identicon",
         "web_url": "https://gitlab.com/roebot"
       },
-      "created_at": "2026-10-12T11:40:24.658Z",
-      "updated_at": "2026-10-12T11:40:24.658Z",
+      "created_at": "2026-10-12T22:04:09.381Z",
+      "updated_at": "2026-10-12T22:04:09.381Z",
       "system": false,
-      "noteable_id": 547090208,
+      "noteable_id": 547385077,
       "noteable_type": "MergeRequest",
       "project_id": 87428720,
       "resolvable": false,
@@ -39,7 +39,7 @@
       "internal": false,
       "imported": false,
       "imported_from": "none",
-      "noteable_iid": 36,
+      "noteable_iid": 42,
       "commands_changes": {}
     }
   }

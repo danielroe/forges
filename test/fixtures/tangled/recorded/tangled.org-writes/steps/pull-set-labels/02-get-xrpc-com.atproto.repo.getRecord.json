@@ -1,29 +1,29 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://tngl.sh/xrpc/com.atproto.repo.getRecord?repo=did%3Aplc%3A7qksav5io2s4qfg67pe7iqqk&collection=sh.tangled.repo.pull&rkey=3mxogt76cgf2y"
+    "url": "https://tngl.sh/xrpc/com.atproto.repo.getRecord?repo=did%3Aplc%3A7qksav5io2s4qfg67pe7iqqk&collection=sh.tangled.repo.pull&rkey=3mxpjm4dv2j2y"
   },
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"281-iowNj670T4yNE/7Eo7R0EkKoGnU\"",
+      "etag": "W/\"281-BpNhwZMj06qt40wlRUmK2eYlTP4\"",
       "ratelimit-limit": "3000",
-      "ratelimit-remaining": "2901",
-      "ratelimit-reset": "1791805651"
+      "ratelimit-remaining": "2882",
+      "ratelimit-reset": "1791842994"
     },
     "body": {
-      "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.pull/3mxogt76cgf2y",
-      "cid": "bafyreiadvwxaamxsu2tunsrh5p767quwb6ealx5stnws5gxb24p2jahq7a",
+      "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.pull/3mxpjm4dv2j2y",
+      "cid": "bafyreifx3mus7iccgox53ob4hzc7qlladzbdq3ie3tbt5ykknwzhfhs6cu",
       "value": {
-        "body": "Opened by run 20261012114229.",
+        "body": "Opened by run 20261012220452.",
         "$type": "sh.tangled.repo.pull",
-        "title": "forges fixture 20261012114229: pull 1",
+        "title": "forges fixture 20261012220452: pull 1",
         "rounds": [
           {
-            "createdAt": "2026-10-12T11:42:45.452Z",
+            "createdAt": "2026-10-12T22:05:08.560Z",
             "patchBlob": {
               "ref": {
-                "$link": "bafkreidhszgxlyh2537mj5fpcojxnebuj573d5y3citxxuhklrhhefzhxy"
+                "$link": "bafkreidjpvy4ysl7rumkvpgl736rla4g2iadkv5esrl3zgawnpzraxhwla"
               },
               "size": 358,
               "$type": "blob",
@@ -32,13 +32,13 @@
           }
         ],
         "source": {
-          "branch": "forges-fixtures/20261012114229-1"
+          "branch": "forges-fixtures/20261012220452-1"
         },
         "target": {
           "repo": "did:plc:t73o44q7fppgagkrevtztyok",
           "branch": "main"
         },
-        "createdAt": "2026-10-12T11:42:45.452Z"
+        "createdAt": "2026-10-12T22:05:08.560Z"
       }
     }
   }

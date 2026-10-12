@@ -7,46 +7,46 @@
       "collection": "sh.tangled.repo.pull",
       "record": {
         "$type": "sh.tangled.repo.pull",
-        "title": "forges fixture 20261012114229: pull 3",
-        "body": "Opened by run 20261012114229.",
+        "title": "forges fixture 20261012220452: pull 3",
+        "body": "Opened by run 20261012220452.",
         "target": {
           "repo": "did:plc:t73o44q7fppgagkrevtztyok",
           "branch": "main"
         },
         "source": {
-          "branch": "forges-fixtures/20261012114229-3"
+          "branch": "forges-fixtures/20261012220452-3"
         },
         "rounds": [
           {
-            "createdAt": "2026-10-12T11:42:45.951Z",
+            "createdAt": "2026-10-12T22:05:09.121Z",
             "patchBlob": {
               "$type": "blob",
               "ref": {
-                "$link": "bafkreiednletedvqkwg7thf7i6tmhbcgy3pateyutpii3yjhcxab7yzk44"
+                "$link": "bafkreifcqiayukbw65l6danfchmxdjxuei76ho6muvlu2szbtk7ezyauje"
               },
               "mimeType": "application/gzip",
-              "size": 356
+              "size": 357
             }
           }
         ],
-        "createdAt": "2026-10-12T11:42:45.951Z"
+        "createdAt": "2026-10-12T22:05:09.121Z"
       }
     }
   },
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"118-eW7kmcsRhgZcBz9+l5cVThTOViQ\"",
+      "etag": "W/\"118-r4y2+rBeLyPpzK0JqgvCvSF7piY\"",
       "ratelimit-limit": "3000",
-      "ratelimit-remaining": "2917",
-      "ratelimit-reset": "1791805651"
+      "ratelimit-remaining": "2898",
+      "ratelimit-reset": "1791842994"
     },
     "body": {
-      "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.pull/3mxogt7nhrn2y",
-      "cid": "bafyreifv5fh3mmamywl6v4a6vkni3pg6raik6gmswavrfxvs5lqn6ijl6q",
+      "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.pull/3mxpjm4ubhr2y",
+      "cid": "bafyreigytaw66kzeqf6p2qhdm2lqull6mm4545fhp7lsp7ea52snxfls7a",
       "commit": {
-        "cid": "bafyreig63jj2baxvtssfm44ddb473jhm5oovunek2y2327gysedcoywysu",
-        "rev": "3mxogt7nomf2y"
+        "cid": "bafyreie6vaupfksgzdsuuosgfnbnfhtemyw5v7dknh32u4i2gtllak7tjq",
+        "rev": "3mxpjm4ujbr2y"
       },
       "validationStatus": "unknown"
     }

@@ -9,31 +9,31 @@
         "$type": "sh.tangled.feed.comment",
         "body": {
           "$type": "sh.tangled.markup.markdown",
-          "text": "@roebot.tngl.sh a mention from run 20261012114229.",
-          "original": "@roebot.tngl.sh a mention from run 20261012114229."
+          "text": "@roebot.tngl.sh a mention from run 20261012220452.",
+          "original": "@roebot.tngl.sh a mention from run 20261012220452."
         },
         "subject": {
-          "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.issue/3mxogsxxwe52y",
-          "cid": "bafyreibxn33nid3yje4qjtlrv4vkiroxtoebc3gapbkntode4eumtizuva"
+          "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.issue/3mxpjlurceb2y",
+          "cid": "bafyreic3vf7mtsxoztze5nhkdowxan7rfxs255xm7nlku57fsyejpkfxxy"
         },
-        "createdAt": "2026-10-12T11:42:50.522Z"
+        "createdAt": "2026-10-12T22:05:26.747Z"
       }
     }
   },
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"11b-tajCRZ1Mr2SRxRXaNjuwUmmLd4Q\"",
+      "etag": "W/\"11b-aNNbbktlhfGNT09usHJXutkKO2Y\"",
       "ratelimit-limit": "3000",
-      "ratelimit-remaining": "2877",
-      "ratelimit-reset": "1791805651"
+      "ratelimit-remaining": "2847",
+      "ratelimit-reset": "1791842994"
     },
     "body": {
-      "uri": "at://did:plc:uxfnwnz5wfwl6tfgqwyfrqyv/sh.tangled.feed.comment/3mxogtdytqf2y",
-      "cid": "bafyreigof63bvpi5zrtdmqseftxrmseojexpjvgslm3zrwdjdlghw2qldi",
+      "uri": "at://did:plc:uxfnwnz5wfwl6tfgqwyfrqyv/sh.tangled.feed.comment/3mxpjmnm2xz2y",
+      "cid": "bafyreibtfunsvchocan25otcdbchvtbczvq5pgfceqa3oy7xsqbvclb2du",
       "commit": {
-        "cid": "bafyreifnbuzix4rebhfkmtme6uiwp6hkgjk2mf56jz5a7omjnnphegexxm",
-        "rev": "3mxogtdzsyf2y"
+        "cid": "bafyreihusy2yo2eukpm3xc36cvkv7mhlrkj7xqqi3urm2s3qxiu6tdftri",
+        "rev": "3mxpjmnmllb2y"
       },
       "validationStatus": "unknown"
     }

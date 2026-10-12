@@ -1,43 +1,30 @@
 {
   "request": {
     "method": "POST",
-    "url": "https://gitlab.com/api/v4/projects/forges-fixtures%2Fforges-fixtures/issues/28/unsubscribe"
+    "url": "https://gitlab.com/api/v4/projects/forges-fixtures%2Fforges-fixtures/issues/34/unsubscribe"
   },
   "response": {
     "status": 201,
     "headers": {
-      "etag": "W/\"62c3cfb40340f77ffa0d17830589eb19\"",
+      "etag": "W/\"296120a4b77e4a56c3f09286e517375c\"",
       "ratelimit-limit": "2000",
-      "ratelimit-remaining": "1913",
-      "ratelimit-reset": "1791805260"
+      "ratelimit-remaining": "1906",
+      "ratelimit-reset": "1791842700"
     },
     "body": {
-      "id": 206267420,
-      "iid": 28,
+      "id": 206338555,
+      "iid": 34,
       "project_id": 87428720,
-      "title": "forges fixture 20261012113957: issue, edited",
-      "description": "Edited by run 20261012113957.",
+      "title": "forges fixture 20261012220341: issue, edited",
+      "description": "Edited by run 20261012220341.",
       "state": "opened",
-      "created_at": "2026-10-12T11:40:04.823Z",
-      "updated_at": "2026-10-12T11:40:20.142Z",
+      "created_at": "2026-10-12T22:03:47.870Z",
+      "updated_at": "2026-10-12T22:04:04.583Z",
       "closed_at": null,
       "closed_by": null,
-      "labels": [
-        "forges-fixture-20261012113957"
-      ],
+      "labels": [],
       "milestone": null,
-      "assignees": [
-        {
-          "id": 43193323,
-          "username": "roebot",
-          "public_email": "",
-          "name": "Daniel Roe",
-          "state": "active",
-          "locked": false,
-          "avatar_url": "https://secure.gravatar.com/avatar/14ceebcfdc10030d76768a65e9d7978b914694cebcbb6ab609b3a0e8243f0eb8?s=80&d=identicon",
-          "web_url": "https://gitlab.com/roebot"
-        }
-      ],
+      "assignees": [],
       "author": {
         "id": 43193323,
         "username": "roebot",
@@ -49,16 +36,7 @@
         "web_url": "https://gitlab.com/roebot"
       },
       "type": "ISSUE",
-      "assignee": {
-        "id": 43193323,
-        "username": "roebot",
-        "public_email": "",
-        "name": "Daniel Roe",
-        "state": "active",
-        "locked": false,
-        "avatar_url": "https://secure.gravatar.com/avatar/14ceebcfdc10030d76768a65e9d7978b914694cebcbb6ab609b3a0e8243f0eb8?s=80&d=identicon",
-        "web_url": "https://gitlab.com/roebot"
-      },
+      "assignee": null,
       "user_notes_count": 2,
       "merge_requests_count": 0,
       "upvotes": 0,
@@ -68,7 +46,7 @@
       "confidential": false,
       "discussion_locked": null,
       "issue_type": "issue",
-      "web_url": "https://gitlab.com/forges-fixtures/forges-fixtures/-/work_items/28",
+      "web_url": "https://gitlab.com/forges-fixtures/forges-fixtures/-/work_items/34",
       "time_stats": {
         "time_estimate": 0,
         "total_time_spent": 0,
@@ -83,16 +61,16 @@
       "has_tasks": true,
       "task_status": "0 of 0 checklist items completed",
       "_links": {
-        "self": "https://gitlab.com/api/v4/projects/87428720/issues/28",
-        "notes": "https://gitlab.com/api/v4/projects/87428720/issues/28/notes",
-        "award_emoji": "https://gitlab.com/api/v4/projects/87428720/issues/28/award_emoji",
+        "self": "https://gitlab.com/api/v4/projects/87428720/issues/34",
+        "notes": "https://gitlab.com/api/v4/projects/87428720/issues/34/notes",
+        "award_emoji": "https://gitlab.com/api/v4/projects/87428720/issues/34/award_emoji",
         "project": "https://gitlab.com/api/v4/projects/87428720",
         "closed_as_duplicate_of": null
       },
       "references": {
-        "short": "#28",
-        "relative": "#28",
-        "full": "forges-fixtures/forges-fixtures#28"
+        "short": "#34",
+        "relative": "#34",
+        "full": "forges-fixtures/forges-fixtures#34"
       },
       "severity": "UNKNOWN",
       "subscribed": false,

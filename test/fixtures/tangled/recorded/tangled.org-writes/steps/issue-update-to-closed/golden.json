@@ -1,0 +1,53 @@
+{
+  "ref": {
+    "forge": "tangled",
+    "instance": "tangled.org",
+    "repo": {
+      "forge": "tangled",
+      "instance": "tangled.org",
+      "owner": "did:plc:7qksav5io2s4qfg67pe7iqqk",
+      "name": "forges-fixtures",
+      "externalId": "did:plc:t73o44q7fppgagkrevtztyok"
+    },
+    "kind": "issue",
+    "typeRaw": "sh.tangled.repo.issue",
+    "number": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.issue/3mxpjlurceb2y",
+    "externalId": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.issue/3mxpjlurceb2y"
+  },
+  "kind": "issue",
+  "title": "forges fixture 20261012220452: issue, edited",
+  "body": "Edited by run 20261012220452.",
+  "state": "closed",
+  "stateRaw": "closed",
+  "isDraft": false,
+  "author": {
+    "forge": "tangled",
+    "instance": "tangled.org",
+    "login": "roebot.tngl.sh",
+    "id": "did:plc:7qksav5io2s4qfg67pe7iqqk",
+    "url": "https://tangled.org/roebot.tngl.sh",
+    "isBotHint": false
+  },
+  "assignees": [
+    {
+      "forge": "tangled",
+      "instance": "tangled.org",
+      "login": "roebot.tngl.sh",
+      "id": "did:plc:7qksav5io2s4qfg67pe7iqqk",
+      "url": "https://tangled.org/roebot.tngl.sh",
+      "isBotHint": false
+    }
+  ],
+  "reviewers": [],
+  "createdAt": "<now>",
+  "updatedAt": "<now>",
+  "closedAt": "<now>",
+  "lastActivityAt": "<now>",
+  "labels": [
+    {
+      "name": "forges-fixture-20261012220452",
+      "colour": "0e8a16"
+    }
+  ],
+  "commentCount": 1
+}

@@ -1,7 +1,7 @@
 {
   "request": {
     "method": "PUT",
-    "url": "https://gitlab.com/api/v4/projects/forges-fixtures%2Fforges-fixtures/merge_requests/36",
+    "url": "https://gitlab.com/api/v4/projects/forges-fixtures%2Fforges-fixtures/merge_requests/42",
     "body": {
       "reviewer_ids": [
         2179675
@@ -11,27 +11,27 @@
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"86be1e009076b630a30fbe090bb17c92\"",
+      "etag": "W/\"f92f32edb39b4f323ffea6fc2fa74c4c\"",
       "ratelimit-limit": "2000",
-      "ratelimit-remaining": "1933",
-      "ratelimit-reset": "1791805260"
+      "ratelimit-remaining": "1929",
+      "ratelimit-reset": "1791842700"
     },
     "body": {
-      "id": 547090208,
-      "iid": 36,
+      "id": 547385077,
+      "iid": 42,
       "project_id": 87428720,
-      "title": "forges fixture 20261012113957: pull, edited",
-      "description": "Edited by run 20261012113957.",
+      "title": "forges fixture 20261012220341: pull, edited",
+      "description": "Edited by run 20261012220341.",
       "state": "opened",
-      "created_at": "2026-10-12T11:40:20.759Z",
-      "updated_at": "2026-10-12T11:40:30.959Z",
+      "created_at": "2026-10-12T22:04:05.100Z",
+      "updated_at": "2026-10-12T22:04:15.969Z",
       "merged_by": null,
       "merge_user": null,
       "merged_at": null,
       "closed_by": null,
       "closed_at": null,
       "target_branch": "main",
-      "source_branch": "forges-fixtures/20261012113957-1",
+      "source_branch": "forges-fixtures/20261012220341-1",
       "user_notes_count": 1,
       "upvotes": 0,
       "downvotes": 0,
@@ -83,7 +83,7 @@
       "source_project_id": 87428720,
       "target_project_id": 87428720,
       "labels": [
-        "forges-fixture-20261012113957"
+        "forges-fixture-20261012220341"
       ],
       "draft": false,
       "imported": false,
@@ -94,20 +94,20 @@
       "merge_status": "can_be_merged",
       "detailed_merge_status": "mergeable",
       "merge_after": null,
-      "sha": "264f819c91c0bfd8e7ffa8be03595d535ea7c16f",
+      "sha": "3258ca97d295d3e994487362208bec500d6c078d",
       "merge_commit_sha": null,
       "squash_commit_sha": null,
       "discussion_locked": null,
       "should_remove_source_branch": null,
       "force_remove_source_branch": true,
-      "prepared_at": "2026-10-12T11:40:22.470Z",
-      "reference": "!36",
+      "prepared_at": "2026-10-12T22:04:06.213Z",
+      "reference": "!42",
       "references": {
-        "short": "!36",
-        "relative": "!36",
-        "full": "forges-fixtures/forges-fixtures!36"
+        "short": "!42",
+        "relative": "!42",
+        "full": "forges-fixtures/forges-fixtures!42"
       },
-      "web_url": "https://gitlab.com/forges-fixtures/forges-fixtures/-/merge_requests/36",
+      "web_url": "https://gitlab.com/forges-fixtures/forges-fixtures/-/merge_requests/42",
       "time_stats": {
         "time_estimate": 0,
         "total_time_spent": 0,
@@ -130,17 +130,17 @@
       "first_deployed_to_production_at": null,
       "pipeline": null,
       "head_pipeline": {
-        "id": 2938494768,
-        "iid": 108,
+        "id": 2940255551,
+        "iid": 126,
         "project_id": 87428720,
-        "sha": "264f819c91c0bfd8e7ffa8be03595d535ea7c16f",
-        "ref": "refs/merge-requests/36/head",
+        "sha": "3258ca97d295d3e994487362208bec500d6c078d",
+        "ref": "refs/merge-requests/42/head",
         "status": "failed",
         "source": "merge_request_event",
-        "created_at": "2026-10-12T11:40:22.240Z",
-        "updated_at": "2026-10-12T11:40:22.240Z",
-        "web_url": "https://gitlab.com/forges-fixtures/forges-fixtures/-/pipelines/2938494768",
-        "before_sha": "264f819c91c0bfd8e7ffa8be03595d535ea7c16f",
+        "created_at": "2026-10-12T22:04:06.220Z",
+        "updated_at": "2026-10-12T22:04:06.220Z",
+        "web_url": "https://gitlab.com/forges-fixtures/forges-fixtures/-/pipelines/2940255551",
+        "before_sha": "3258ca97d295d3e994487362208bec500d6c078d",
         "tag": false,
         "yaml_errors": null,
         "user": {
@@ -154,7 +154,7 @@
           "web_url": "https://gitlab.com/roebot"
         },
         "started_at": null,
-        "finished_at": "2026-10-12T11:40:22.239Z",
+        "finished_at": "2026-10-12T22:04:06.219Z",
         "committed_at": null,
         "duration": null,
         "queued_duration": null,
@@ -166,16 +166,16 @@
           "group": "failed",
           "tooltip": "failed",
           "has_details": true,
-          "details_path": "/forges-fixtures/forges-fixtures/-/pipelines/2938494768",
+          "details_path": "/forges-fixtures/forges-fixtures/-/pipelines/2940255551",
           "illustration": null,
           "favicon": "/assets/ci_favicons/favicon_status_failed-41304d7f7e3828808b0c26771f0309e55296819a9beea3ea9fbf6689d9857c12.png"
         },
         "archived": false
       },
       "diff_refs": {
-        "base_sha": "1fbd50f395a26d3af5a89288311d40dbae090f57",
-        "head_sha": "264f819c91c0bfd8e7ffa8be03595d535ea7c16f",
-        "start_sha": "1fbd50f395a26d3af5a89288311d40dbae090f57"
+        "base_sha": "48f54f4b6969e789adb098d2242c87fff346f03c",
+        "head_sha": "3258ca97d295d3e994487362208bec500d6c078d",
+        "start_sha": "48f54f4b6969e789adb098d2242c87fff346f03c"
       },
       "merge_error": null,
       "user": {

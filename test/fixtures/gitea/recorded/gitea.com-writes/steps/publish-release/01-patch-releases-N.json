@@ -1,9 +1,9 @@
 {
   "request": {
     "method": "PATCH",
-    "url": "https://gitea.com/api/v1/repos/forges-fixtures/forges-fixtures/releases/972739",
+    "url": "https://gitea.com/api/v1/repos/forges-fixtures/forges-fixtures/releases/972939",
     "body": {
-      "body": "Published by run 20261012113905.",
+      "body": "Published by run 20261012220452.",
       "draft": false,
       "prerelease": false
     }
@@ -12,20 +12,20 @@
     "status": 200,
     "headers": {},
     "body": {
-      "id": 972739,
-      "tag_name": "forges-fixture-20261012113905-draft",
+      "id": 972939,
+      "tag_name": "forges-fixture-20261012220452-draft",
       "target_commitish": "main",
-      "name": "forges fixture 20261012113905: draft",
-      "body": "Published by run 20261012113905.",
-      "url": "https://gitea.com/api/v1/repos/forges-fixtures/forges-fixtures/releases/972739",
-      "html_url": "https://gitea.com/forges-fixtures/forges-fixtures/releases/tag/forges-fixture-20261012113905-draft",
-      "tarball_url": "https://gitea.com/forges-fixtures/forges-fixtures/archive/forges-fixture-20261012113905-draft.tar.gz",
-      "zipball_url": "https://gitea.com/forges-fixtures/forges-fixtures/archive/forges-fixture-20261012113905-draft.zip",
-      "upload_url": "https://gitea.com/api/v1/repos/forges-fixtures/forges-fixtures/releases/972739/assets",
+      "name": "forges fixture 20261012220452: draft",
+      "body": "Published by run 20261012220452.",
+      "url": "https://gitea.com/api/v1/repos/forges-fixtures/forges-fixtures/releases/972939",
+      "html_url": "https://gitea.com/forges-fixtures/forges-fixtures/releases/tag/forges-fixture-20261012220452-draft",
+      "tarball_url": "https://gitea.com/forges-fixtures/forges-fixtures/archive/forges-fixture-20261012220452-draft.tar.gz",
+      "zipball_url": "https://gitea.com/forges-fixtures/forges-fixtures/archive/forges-fixture-20261012220452-draft.zip",
+      "upload_url": "https://gitea.com/api/v1/repos/forges-fixtures/forges-fixtures/releases/972939/assets",
       "draft": false,
       "prerelease": false,
-      "created_at": "2026-10-12T11:39:34Z",
-      "published_at": "2026-10-12T11:39:45Z",
+      "created_at": "2026-10-12T22:05:23Z",
+      "published_at": "2026-10-12T22:05:25Z",
       "author": {
         "id": 253592,
         "login": "roebot",

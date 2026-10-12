@@ -7,26 +7,26 @@
       "collection": "sh.tangled.repo.pull.status",
       "record": {
         "$type": "sh.tangled.repo.pull.status",
-        "pull": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.pull/3mxogt7nhrn2y",
+        "pull": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.pull/3mxpjm4ubhr2y",
         "status": "sh.tangled.repo.pull.status.open",
-        "createdAt": "2026-10-12T11:42:49.940Z"
+        "createdAt": "2026-10-12T22:05:26.222Z"
       }
     }
   },
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"11f-pKCJorocy/5H8V6cKbR7JhiWDB0\"",
+      "etag": "W/\"11f-cn0gkEnt/3X898pPrgBrA6I4eIA\"",
       "ratelimit-limit": "3000",
-      "ratelimit-remaining": "2879",
-      "ratelimit-reset": "1791805651"
+      "ratelimit-remaining": "2849",
+      "ratelimit-reset": "1791842994"
     },
     "body": {
-      "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.pull.status/3mxogtdeq6n2y",
-      "cid": "bafyreicmstmnpoh46g6zk4qxwxuz6mxb724v5nv6ip3gx7y6inzsztwcdu",
+      "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.pull.status/3mxpjmn42br2y",
+      "cid": "bafyreicsiex4yhdcgpv5jdkjk54enjif5wdliw4jyd2ew4eizjgvtfhlja",
       "commit": {
-        "cid": "bafyreicxhlglv4kjenmuhbbcjqwfxbffklf4tzivn2sln6u2hzwbiwibsa",
-        "rev": "3mxogtdezx52y"
+        "cid": "bafyreicfh7a5kkibsthxbisbr6x5zi2oex4zvifuxsye2nqi7wv3xbs3je",
+        "rev": "3mxpjmn4hxb2y"
       },
       "validationStatus": "unknown"
     }

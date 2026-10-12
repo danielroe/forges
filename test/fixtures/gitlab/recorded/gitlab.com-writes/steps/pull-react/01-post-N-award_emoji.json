@@ -1,7 +1,7 @@
 {
   "request": {
     "method": "POST",
-    "url": "https://gitlab.com/api/v4/projects/forges-fixtures%2Fforges-fixtures/merge_requests/36/award_emoji",
+    "url": "https://gitlab.com/api/v4/projects/forges-fixtures%2Fforges-fixtures/merge_requests/42/award_emoji",
     "body": {
       "name": "thumbsup"
     }
@@ -9,13 +9,13 @@
   "response": {
     "status": 201,
     "headers": {
-      "etag": "W/\"ec45b1697937191b3621b659e9331325\"",
+      "etag": "W/\"f0cc4e2531ea538e9fda2556bede5f82\"",
       "ratelimit-limit": "2000",
-      "ratelimit-remaining": "1948",
-      "ratelimit-reset": "1791805260"
+      "ratelimit-remaining": "1946",
+      "ratelimit-reset": "1791842700"
     },
     "body": {
-      "id": 59159757,
+      "id": 59227158,
       "name": "thumbsup",
       "user": {
         "id": 43193323,
@@ -27,9 +27,9 @@
         "avatar_url": "https://secure.gravatar.com/avatar/14ceebcfdc10030d76768a65e9d7978b914694cebcbb6ab609b3a0e8243f0eb8?s=80&d=identicon",
         "web_url": "https://gitlab.com/roebot"
       },
-      "created_at": "2026-10-12T11:40:25.439Z",
-      "updated_at": "2026-10-12T11:40:25.439Z",
-      "awardable_id": 547090208,
+      "created_at": "2026-10-12T22:04:10.242Z",
+      "updated_at": "2026-10-12T22:04:10.242Z",
+      "awardable_id": 547385077,
       "awardable_type": "MergeRequest",
       "url": null
     }

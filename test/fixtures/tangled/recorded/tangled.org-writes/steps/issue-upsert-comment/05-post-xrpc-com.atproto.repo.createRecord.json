@@ -9,31 +9,31 @@
         "$type": "sh.tangled.feed.comment",
         "body": {
           "$type": "sh.tangled.markup.markdown",
-          "text": "An upserted comment from run 20261012114229.\n\n<!-- forges:key=forges-fixture -->",
-          "original": "An upserted comment from run 20261012114229.\n\n<!-- forges:key=forges-fixture -->"
+          "text": "An upserted comment from run 20261012220452.\n\n<!-- forges:key=forges-fixture -->",
+          "original": "An upserted comment from run 20261012220452.\n\n<!-- forges:key=forges-fixture -->"
         },
         "subject": {
-          "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.issue/3mxogsxxwe52y",
-          "cid": "bafyreibeam4jugy2q64zzdfyn7wlq6jx5imcs2ea5fuzas3g5q2dbbg32u"
+          "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.issue/3mxpjlurceb2y",
+          "cid": "bafyreibryywxubhkn7mdoixironjlz7vloiqp463cpy2jgbzzmpgbmpo2e"
         },
-        "createdAt": "2026-10-12T11:42:40.978Z"
+        "createdAt": "2026-10-12T22:05:02.241Z"
       }
     }
   },
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"11b-DhVfgb1Z6ztIYmho7mcJHbDO38E\"",
+      "etag": "W/\"11b-l4e403Vw49gYwgwAFG3WxmtWMNs\"",
       "ratelimit-limit": "3000",
       "ratelimit-remaining": "2957",
-      "ratelimit-reset": "1791805651"
+      "ratelimit-reset": "1791842994"
     },
     "body": {
-      "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.feed.comment/3mxogt2te552y",
-      "cid": "bafyreiac3togp3nb4x5r54jg7akos7rnu4wfv36uyvae3zlecxwgfbphnm",
+      "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.feed.comment/3mxpjlwah5j2y",
+      "cid": "bafyreiapyxcvfonat4qfljt4x3gimodrxkadurghumdivckhpo6b6lfhni",
       "commit": {
-        "cid": "bafyreihndoihjfs4mezc7ewpx3xrp6no5642iw4hq6vvzqszhkueywv6by",
-        "rev": "3mxogt2trsn2y"
+        "cid": "bafyreidmz7mh5e5lgwzowavtwe4onhjvow4pmr23tjoa5wjlr5yepwckte",
+        "rev": "3mxpjlwb6lj2y"
       },
       "validationStatus": "unknown"
     }

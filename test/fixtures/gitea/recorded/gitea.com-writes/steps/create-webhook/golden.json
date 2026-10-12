@@ -8,15 +8,15 @@
       "owner": "forges-fixtures",
       "name": "forges-fixtures"
     },
-    "id": "48091"
+    "id": "48094"
   },
   "url": "https://example.com/hook",
   "events": [
     "comment"
   ],
   "nativeEvents": [
-    "issue_comment",
-    "pull_request_comment"
+    "pull_request_comment",
+    "issue_comment"
   ],
   "active": true,
   "contentType": "json",
