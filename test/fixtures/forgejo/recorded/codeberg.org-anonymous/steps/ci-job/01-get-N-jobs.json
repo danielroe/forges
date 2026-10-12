@@ -1,17 +1,17 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/actions/runs/7644000/jobs"
+    "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/actions/runs/7667892/jobs"
   },
   "response": {
     "status": 200,
     "headers": {},
     "body": [
       {
-        "id": 14025669,
-        "run_id": 7644000,
+        "id": 14069751,
+        "run_id": 7667892,
         "attempt": 1,
-        "handle": "eaed11cd-fea9-4d33-afed-97680814b92a",
+        "handle": "c6fa05d4-de84-4832-90f0-17462dfd1de9",
         "repo_id": 73144,
         "owner_id": 70422,
         "name": "backend-checks",
@@ -19,14 +19,14 @@
         "runs_on": [
           "docker"
         ],
-        "task_id": 10345869,
+        "task_id": 10375656,
         "status": "success"
       },
       {
-        "id": 14025672,
-        "run_id": 7644000,
+        "id": 14069754,
+        "run_id": 7667892,
         "attempt": 1,
-        "handle": "8a0b7ac1-b809-44c0-bc41-82d7251f12eb",
+        "handle": "6f917378-9706-4c00-bf04-61bd4ef2a686",
         "repo_id": 73144,
         "owner_id": 70422,
         "name": "frontend-checks",
@@ -34,14 +34,14 @@
         "runs_on": [
           "docker"
         ],
-        "task_id": 10345878,
+        "task_id": 10375659,
         "status": "success"
       },
       {
-        "id": 14025675,
-        "run_id": 7644000,
+        "id": 14069757,
+        "run_id": 7667892,
         "attempt": 1,
-        "handle": "9522e03a-4b07-4415-ab86-7422be043611",
+        "handle": "9e30f83e-026c-40fd-9f56-fc00c5e8a15f",
         "repo_id": 73144,
         "owner_id": 70422,
         "name": "test-unit",
@@ -52,14 +52,14 @@
         "runs_on": [
           "docker"
         ],
-        "task_id": 0,
-        "status": "waiting"
+        "task_id": 10375869,
+        "status": "running"
       },
       {
-        "id": 14025678,
-        "run_id": 7644000,
+        "id": 14069760,
+        "run_id": 7667892,
         "attempt": 1,
-        "handle": "2dbc368d-3024-408f-b95f-a20fd6882350",
+        "handle": "587507da-ee28-4d75-851b-8d35afeb59d5",
         "repo_id": 73144,
         "owner_id": 70422,
         "name": "test-e2e",
@@ -70,14 +70,14 @@
         "runs_on": [
           "docker"
         ],
-        "task_id": 0,
-        "status": "waiting"
+        "task_id": 10375875,
+        "status": "running"
       },
       {
-        "id": 14025681,
-        "run_id": 7644000,
+        "id": 14069763,
+        "run_id": 7667892,
         "attempt": 1,
-        "handle": "00fcd758-ce08-4b7a-bbbe-74130ecf6062",
+        "handle": "bfc6d7c0-7d2b-4e5c-8f2c-909a16f89bb7",
         "repo_id": 73144,
         "owner_id": 70422,
         "name": "test-remote-cacher (redis)",
@@ -93,10 +93,10 @@
         "status": "blocked"
       },
       {
-        "id": 14025684,
-        "run_id": 7644000,
+        "id": 14069766,
+        "run_id": 7667892,
         "attempt": 1,
-        "handle": "ec489387-cf60-429d-9337-87a52cc03859",
+        "handle": "b939761b-dd19-42cd-a190-f23163fa8aae",
         "repo_id": 73144,
         "owner_id": 70422,
         "name": "test-remote-cacher (valkey)",
@@ -112,10 +112,10 @@
         "status": "blocked"
       },
       {
-        "id": 14025687,
-        "run_id": 7644000,
+        "id": 14069769,
+        "run_id": 7667892,
         "attempt": 1,
-        "handle": "5a1ec236-a3da-46f1-a8a4-da1e93929b48",
+        "handle": "c6e05c2b-2894-49f0-853e-052695605028",
         "repo_id": 73144,
         "owner_id": 70422,
         "name": "test-remote-cacher (garnet)",
@@ -131,10 +131,10 @@
         "status": "blocked"
       },
       {
-        "id": 14025690,
-        "run_id": 7644000,
+        "id": 14069772,
+        "run_id": 7667892,
         "attempt": 1,
-        "handle": "cdecbd9c-d46d-4e7e-90bb-ecdba4e3d187",
+        "handle": "8644f543-8ff7-486d-8caa-1e6cd91346dd",
         "repo_id": 73144,
         "owner_id": 70422,
         "name": "test-mysql",
@@ -145,14 +145,14 @@
         "runs_on": [
           "docker"
         ],
-        "task_id": 0,
-        "status": "waiting"
+        "task_id": 10375878,
+        "status": "running"
       },
       {
-        "id": 14025693,
-        "run_id": 7644000,
+        "id": 14069775,
+        "run_id": 7667892,
         "attempt": 1,
-        "handle": "02cb5607-f2b2-4428-85ac-e807384f005f",
+        "handle": "a18c92f9-b3bb-43cb-82fd-3973b1344068",
         "repo_id": 73144,
         "owner_id": 70422,
         "name": "test-pgsql",
@@ -163,14 +163,14 @@
         "runs_on": [
           "docker"
         ],
-        "task_id": 0,
-        "status": "waiting"
+        "task_id": 10375884,
+        "status": "running"
       },
       {
-        "id": 14025696,
-        "run_id": 7644000,
+        "id": 14069778,
+        "run_id": 7667892,
         "attempt": 1,
-        "handle": "a9c00347-d9ec-4127-8b73-c0a334d097f6",
+        "handle": "bb9da74e-f0b9-47f5-8a9d-ebee4ac52e9b",
         "repo_id": 73144,
         "owner_id": 70422,
         "name": "test-sqlite",
@@ -181,14 +181,33 @@
         "runs_on": [
           "docker"
         ],
-        "task_id": 0,
-        "status": "waiting"
+        "task_id": 10375887,
+        "status": "running"
       },
       {
-        "id": 14025699,
-        "run_id": 7644000,
+        "id": 14069781,
+        "run_id": 7667892,
         "attempt": 1,
-        "handle": "43203fde-d722-4560-967d-5f32b5a3a982",
+        "handle": "d7f4bb04-aa91-4165-a716-ccd244ffcd73",
+        "repo_id": 73144,
+        "owner_id": 70422,
+        "name": "coverage",
+        "needs": [
+          "test-unit",
+          "test-e2e",
+          "test-sqlite"
+        ],
+        "runs_on": [
+          "docker"
+        ],
+        "task_id": 0,
+        "status": "blocked"
+      },
+      {
+        "id": 14069784,
+        "run_id": 7667892,
+        "attempt": 1,
+        "handle": "1c0fff5e-9783-4b67-8f59-c6b5368dcdac",
         "repo_id": 73144,
         "owner_id": 70422,
         "name": "security-check",
@@ -206,10 +225,10 @@
         "status": "blocked"
       },
       {
-        "id": 14025702,
-        "run_id": 7644000,
+        "id": 14069787,
+        "run_id": 7667892,
         "attempt": 1,
-        "handle": "bf66f854-e9fd-4f77-8f60-72c6ac109d99",
+        "handle": "d1872433-76f6-4f10-b701-d5970c425460",
         "repo_id": 73144,
         "owner_id": 70422,
         "name": "semgrep/ci",
@@ -217,7 +236,7 @@
         "runs_on": [
           "docker"
         ],
-        "task_id": 10345896,
+        "task_id": 10375662,
         "status": "success"
       }
     ]

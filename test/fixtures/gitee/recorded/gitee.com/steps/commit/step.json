@@ -1,4 +1,7 @@
 {
   "name": "commit",
-  "recordedAt": "2026-10-11T12:12:49.754Z"
+  "recordedAt": "2026-10-11T12:12:49.754Z",
+  "needs": [
+    "pull"
+  ]
 }

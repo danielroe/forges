@@ -1,0 +1,19 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.github.com/orgs/iiio2/repos?per_page=3"
+  },
+  "response": {
+    "status": 404,
+    "headers": {
+      "x-ratelimit-limit": "5000",
+      "x-ratelimit-remaining": "4971",
+      "x-ratelimit-reset": "1791808136"
+    },
+    "body": {
+      "message": "Not Found",
+      "documentation_url": "https://docs.github.com/rest/repos/repos#list-organization-repositories",
+      "status": "404"
+    }
+  }
+}

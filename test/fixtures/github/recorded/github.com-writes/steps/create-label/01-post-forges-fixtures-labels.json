@@ -3,28 +3,28 @@
     "method": "POST",
     "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/labels",
     "body": {
-      "name": "forges-fixture-20261011164520",
+      "name": "forges-fixture-20261012113502",
       "color": "0e8a16",
-      "description": "Created by run 20261011164520"
+      "description": "Created by run 20261012113502"
     }
   },
   "response": {
     "status": 201,
     "headers": {
-      "etag": "\"2c229bf018ec937d4a68ca52bcbaf4fae279cb8c722eb1b116473d6cc198cb91\"",
-      "location": "https://api.github.com/repos/forges-fixtures/forges-fixtures/labels/forges-fixture-20261011164520",
+      "etag": "\"2985a00ab5667ef12f7ac3a62ae34d4b12af6b359ff56d4ee875c91d1a19895e\"",
+      "location": "https://api.github.com/repos/forges-fixtures/forges-fixtures/labels/forges-fixture-20261012113502",
       "x-ratelimit-limit": "5000",
-      "x-ratelimit-remaining": "4905",
-      "x-ratelimit-reset": "1791738365"
+      "x-ratelimit-remaining": "4993",
+      "x-ratelimit-reset": "1791808503"
     },
     "body": {
-      "id": 12640256060,
-      "node_id": "LA_kwDOVCTdtM8AAAAC8WsAPA",
-      "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/labels/forges-fixture-20261011164520",
-      "name": "forges-fixture-20261011164520",
+      "id": 12649878137,
+      "node_id": "LA_kwDOVCTdtM8AAAAC8f3SeQ",
+      "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/labels/forges-fixture-20261012113502",
+      "name": "forges-fixture-20261012113502",
       "color": "0e8a16",
       "default": false,
-      "description": "Created by run 20261011164520",
+      "description": "Created by run 20261012113502",
       "archived_at": null,
       "archived_by": null
     }

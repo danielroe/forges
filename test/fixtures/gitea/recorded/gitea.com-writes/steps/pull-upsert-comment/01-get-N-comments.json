@@ -1,7 +1,7 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://gitea.com/api/v1/repos/forges-fixtures/forges-fixtures/issues/40/comments"
+    "url": "https://gitea.com/api/v1/repos/forges-fixtures/forges-fixtures/issues/46/comments"
   },
   "response": {
     "status": 200,
@@ -10,9 +10,9 @@
     },
     "body": [
       {
-        "id": 1754279,
-        "html_url": "https://gitea.com/forges-fixtures/forges-fixtures/pulls/40#issuecomment-1754279",
-        "pull_request_url": "https://gitea.com/forges-fixtures/forges-fixtures/pulls/40",
+        "id": 1757968,
+        "html_url": "https://gitea.com/forges-fixtures/forges-fixtures/pulls/46#issuecomment-1757968",
+        "pull_request_url": "https://gitea.com/forges-fixtures/forges-fixtures/pulls/46",
         "issue_url": "",
         "user": {
           "id": 253592,
@@ -21,7 +21,7 @@
           "source_id": 0,
           "full_name": "",
           "email": "redacted@example.invalid",
-          "avatar_url": "https://seccdn.libravatar.org/avatar/7d0af08687f4da31dc47abdda8e558689d65a48bf3eb795bc032a553a4b0572b?d=identicon",
+          "avatar_url": "https://gitea.com/avatars/b11846681dda31096fab0f282eccd3ec09e70334712e42e2117c97b4918c3fbe",
           "html_url": "https://gitea.com/roebot",
           "active": false,
           "location": "",
@@ -34,10 +34,10 @@
         },
         "original_author": "",
         "original_author_id": 0,
-        "body": "An edited comment from run 20261011160505.",
+        "body": "An edited comment from run 20261012113905.",
         "assets": [],
-        "created_at": "2026-10-11T16:05:23Z",
-        "updated_at": "2026-10-11T16:05:23Z"
+        "created_at": "2026-10-12T11:39:23Z",
+        "updated_at": "2026-10-12T11:39:24Z"
       }
     ]
   }

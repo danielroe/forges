@@ -11,6 +11,57 @@
           "name": "forgejo"
         },
         "kind": "issue",
+        "number": "14823",
+        "externalId": "7678344"
+      },
+      "kind": "issue",
+      "title": "problem: Git LFS: split OID and Pointer types",
+      "body": "### Does your problem still exist on the latest Forgejo version?\n\nYes, the problem still exists (tested locally with the latest development version)\n\n### About your usage of Forgejo\n\nDevelopment and maintenance of the Git LFS integration.\n\n### Problem description\n\n*copied from https://codeberg.org/forgejo/discussions/issues/500*\r\n\r\n- We have a method for checking [whether an \"LFS pointer is valid\"](https://codeberg.org/forgejo/forgejo/src/commit/202d46b941cb3850ea87dd561da9a91c98a4d69f/modules/lfs/pointer.go#L88), but we don't always use it consistently. Matter of fact, we apply [different](https://codeberg.org/forgejo/forgejo/src/commit/202d46b941cb3850ea87dd561da9a91c98a4d69f/routers/web/repo/setting/lfs.go#L392) [criteria](https://codeberg.org/forgejo/forgejo/src/commit/202d46b941cb3850ea87dd561da9a91c98a4d69f/services/gitdiff/gitdiff.go#L952) [each](https://codeberg.org/forgejo/forgejo/src/commit/202d46b941cb3850ea87dd561da9a91c98a4d69f/models/git/lfs.go#L165) [time](https://codeberg.org/forgejo/forgejo/src/commit/202d46b941cb3850ea87dd561da9a91c98a4d69f/models/git/lfs.go#L188) when establishing the validity of a pointer, when we have a \"central function\" that lets us check that...\r\n  - yet we do not always *need* to check whether the entirety of a pointer object, [as defined by the git-lfs spec](https://codeberg.org/forgejo/forgejo/src/commit/202d46b941cb3850ea87dd561da9a91c98a4d69f/models/git/lfs.go#L188), is valid (including by containing a `size` whose value is above `0`); in some cases, we may use a pointer object for a database lookup, and we don't need to know the size. So we need a second validator just for the OID format.\r\n\r\nSee: https://codeberg.org/forgejo/discussions/issues/500#issuecomment-24886284\n\n### Potential workarounds\n\nSo far, we've separated validating functions into `p.IsOIDValid` and `p.Validate` (with `p` being a `Pointer` type), but that's not good. This should probably be fixed after https://codeberg.org/forgejo/forgejo/pulls/14364 and other open LFS PRs are merged.\n\n### Forgejo Version\n\n18.0.0-dev\n\n### Other details about your environment (software names and versions)\n\nN/A\n\n### Solutions\n\n*Accepted solutions to address this problem will go here*\n\n\n",
+      "state": "open",
+      "stateRaw": "open",
+      "isDraft": false,
+      "author": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "login": "n0toose",
+        "id": "33716",
+        "name": "Panagiotis \"Ivory\" Vasilopoulos",
+        "avatarUrl": "https://codeberg.org/avatars/d3e911eec058bc2605b5bf5a1af2c968f64815a2f6aedefd3e5f93cb6ba514a4",
+        "url": "https://codeberg.org/n0toose",
+        "isBotHint": false
+      },
+      "assignees": [],
+      "reviewers": [],
+      "labels": [
+        {
+          "name": "impact/unknown",
+          "colour": "545454",
+          "description": "Report was not yet triaged to assess impact."
+        },
+        {
+          "name": "problem",
+          "colour": "fbca04",
+          "description": "A user report about a problem. Needs to be triaged to find potential solutions."
+        }
+      ],
+      "url": "https://codeberg.org/forgejo/forgejo/issues/14823",
+      "createdAt": "<now>",
+      "updatedAt": "<now>",
+      "lastActivityAt": "<now>",
+      "locked": false,
+      "commentCount": 0
+    },
+    {
+      "ref": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "repo": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "owner": "forgejo",
+          "name": "forgejo"
+        },
+        "kind": "issue",
         "number": "14810",
         "externalId": "7667313"
       },
@@ -44,9 +95,9 @@
         }
       ],
       "url": "https://codeberg.org/forgejo/forgejo/issues/14810",
-      "createdAt": "<now>",
-      "updatedAt": "<now>",
-      "lastActivityAt": "<now>",
+      "createdAt": "2026-10-11T14:52:57.000Z",
+      "updatedAt": "2026-10-11T14:52:57.000Z",
+      "lastActivityAt": "2026-10-11T14:52:57.000Z",
       "locked": false,
       "commentCount": 0
     },
@@ -98,62 +149,6 @@
       "createdAt": "2026-10-11T12:56:32.000Z",
       "updatedAt": "2026-10-11T12:58:13.000Z",
       "lastActivityAt": "2026-10-11T12:58:13.000Z",
-      "locked": false,
-      "commentCount": 0
-    },
-    {
-      "ref": {
-        "forge": "forgejo",
-        "instance": "codeberg.org",
-        "repo": {
-          "forge": "forgejo",
-          "instance": "codeberg.org",
-          "owner": "forgejo",
-          "name": "forgejo"
-        },
-        "kind": "issue",
-        "number": "14801",
-        "externalId": "7662150"
-      },
-      "kind": "issue",
-      "title": "bug: server error when navigating to user/two_factor while not logged in",
-      "body": "### Can you reproduce the bug on the Forgejo test instance?\n\nYes, I've linked the repository below\n\n### Description\n\nWhen navigating to <root url>/user/two_factor, without having submitted the log in form, Forgejo returns a 500 server error.\n\nIn my opinion, this should be a bad request, or simply a redirect to the login page.\n\n### Screenshots\n\n![image](/attachments/93b5df1f-0773-43ad-ada4-d44af3cd32b3)\n\n### Forgejo Version\n\n_No response_\n\n### Browser Version\n\nFirefox 157.0.1\n\n",
-      "state": "open",
-      "stateRaw": "open",
-      "isDraft": false,
-      "author": {
-        "forge": "forgejo",
-        "instance": "codeberg.org",
-        "login": "Ghoelian",
-        "id": "153960",
-        "name": "Julian Vos",
-        "avatarUrl": "https://codeberg.org/avatars/cee03638ae1443b11c29d073043dce6478c8cb0ca493a31eb1ca74b007581428",
-        "url": "https://codeberg.org/Ghoelian",
-        "isBotHint": false
-      },
-      "assignees": [],
-      "reviewers": [],
-      "labels": [
-        {
-          "name": "bug/confirmed",
-          "colour": "e11d21",
-          "description": "it can be reproduced"
-        },
-        {
-          "name": "forgejo/ui",
-          "colour": "eb6420",
-          "description": "User interface"
-        },
-        {
-          "name": "good first issue",
-          "colour": "70c24a",
-          "description": "Optimal for first-timers! Make sure to look for further explanations and ask for help if needed. If you want, you can consider the person who added this label as a point of contact."
-        }
-      ],
-      "url": "https://codeberg.org/forgejo/forgejo/issues/14801",
-      "createdAt": "2026-10-10T21:36:31.000Z",
-      "updatedAt": "2026-10-10T22:12:34.000Z",
-      "lastActivityAt": "2026-10-10T22:12:34.000Z",
       "locked": false,
       "commentCount": 0
     }

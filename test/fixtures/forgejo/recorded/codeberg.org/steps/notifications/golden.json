@@ -4,7 +4,7 @@
       "ref": {
         "forge": "forgejo",
         "instance": "codeberg.org",
-        "id": "19600344"
+        "id": "19648392"
       },
       "subject": {
         "type": "thread",
@@ -20,23 +20,23 @@
           },
           "kind": "issue",
           "typeRaw": "Issue",
-          "number": "26"
+          "number": "31"
         }
       },
       "subjectTypeRaw": "Issue",
       "reason": "unknown",
       "unread": true,
-      "title": "forges fixture 20261011113416: issue, edited",
+      "title": "forges fixture 20261012113646: issue, edited",
       "subjectState": "closed",
       "subjectStateRaw": "closed",
-      "updatedAt": "2026-10-11T11:35:17.000Z",
-      "url": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/issues/26"
+      "updatedAt": "<now>",
+      "url": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/issues/31"
     },
     {
       "ref": {
         "forge": "forgejo",
         "instance": "codeberg.org",
-        "id": "19600347"
+        "id": "19648395"
       },
       "subject": {
         "type": "thread",
@@ -52,23 +52,23 @@
           },
           "kind": "issue",
           "typeRaw": "Issue",
-          "number": "27"
+          "number": "32"
         }
       },
       "subjectTypeRaw": "Issue",
       "reason": "unknown",
       "unread": true,
-      "title": "forges fixture 20261011113416: duplicate PvjXc1RJN6gdWCQ5YiWdRiC23woMceDk2GnUToN9uKX7mAdyKWHuTEjC0Ig_MsQm",
+      "title": "forges fixture 20261012113646: labelled issue s2-v8yaFqjbILt3YHl-KHr4gw-5NxHhEL0A40vn4fWik-GPXRO5Sjtgnk3I22eby",
       "subjectState": "closed",
       "subjectStateRaw": "closed",
-      "updatedAt": "2026-10-11T11:35:16.000Z",
-      "url": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/issues/27"
+      "updatedAt": "<now>",
+      "url": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/issues/32"
     },
     {
       "ref": {
         "forge": "forgejo",
         "instance": "codeberg.org",
-        "id": "19600353"
+        "id": "19648398"
       },
       "subject": {
         "type": "thread",
@@ -82,19 +82,19 @@
             "name": "forges-fixtures",
             "externalId": "2702328"
           },
-          "kind": "pull_request",
-          "typeRaw": "Pull",
-          "number": "29"
+          "kind": "issue",
+          "typeRaw": "Issue",
+          "number": "33"
         }
       },
-      "subjectTypeRaw": "Pull",
+      "subjectTypeRaw": "Issue",
       "reason": "unknown",
       "unread": true,
-      "title": "forges fixture 20261011113416: pull 2 UDi0Aok9u4bhoqF7pTfxTPP6QItJNvrrTUqlYZHwA7241KVXNSTz3x4RKJl4SUYI",
+      "title": "forges fixture 20261012113646: duplicate _vFHYLhcythVikYIN9m_EDVCc1HzJQKHOvb3cSgZ_EDDBxQ4t-EX6JmZYx6UV90f",
       "subjectState": "closed",
       "subjectStateRaw": "closed",
-      "updatedAt": "2026-10-11T11:35:16.000Z",
-      "url": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/pulls/29"
+      "updatedAt": "<now>",
+      "url": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/issues/33"
     }
   ],
   "notModified": false

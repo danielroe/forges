@@ -6,8 +6,8 @@
   "response": {
     "status": 200,
     "headers": {
-      "link": "<https://codeberg.org/api/v1/repos/search?limit=3&page=2&q=forgejo>; rel=\"next\",<https://codeberg.org/api/v1/repos/search?limit=3&page=700&q=forgejo>; rel=\"last\"",
-      "x-total-count": "2099"
+      "link": "<https://codeberg.org/api/v1/repos/search?limit=3&page=2&q=forgejo>; rel=\"next\",<https://codeberg.org/api/v1/repos/search?limit=3&page=701&q=forgejo>; rel=\"last\"",
+      "x-total-count": "2101"
     },
     "body": {
       "ok": true,

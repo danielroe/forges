@@ -1,0 +1,34 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitea.com/api/v1/repos/gitea/tea/contents/.changelog.yml"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "name": ".changelog.yml",
+      "path": ".changelog.yml",
+      "sha": "e1d6907b7aba9781666f793e13b488363fd1fd22",
+      "last_commit_sha": "1b4487e6c9e4a36063f459624f142ad61177e02d",
+      "last_committer_date": "2020-12-14T20:33:54+08:00",
+      "last_author_date": "2020-12-14T20:33:54+08:00",
+      "type": "file",
+      "mode": "100755",
+      "size": 918,
+      "encoding": "base64",
+      "content": "IyBUaGUgZnVsbCByZXBvc2l0b3J5IG5hbWUKcmVwbzogZ2l0ZWEvdGVhCgojIFNlcnZpY2UgdHlwZSAoZ2l0ZWEgb3IgZ2l0aHViKQpzZXJ2aWNlOiBnaXRlYQoKIyBCYXNlIFVSTCBmb3IgR2l0ZWEgaW5zdGFuY2UgaWYgdXNpbmcgZ2l0ZWEgc2VydmljZSB0eXBlIChvcHRpb25hbCkKYmFzZS11cmw6IGh0dHBzOi8vZ2l0ZWEuY29tCgojIENoYW5nZWxvZyBncm91cHMgYW5kIHdoaWNoIGxhYmVsZWQgUFJzIHRvIGFkZCB0byBlYWNoIGdyb3VwCmdyb3VwczoKICAtCiAgICBuYW1lOiBCUkVBS0lORwogICAgbGFiZWxzOgogICAgICAtIGtpbmQvYnJlYWtpbmcKICAtCiAgICBuYW1lOiBGRUFUVVJFUwogICAgbGFiZWxzOgogICAgICAtIGtpbmQvZmVhdHVyZQogIC0KICAgIG5hbWU6IEJVR0ZJWEVTCiAgICBsYWJlbHM6CiAgICAgIC0ga2luZC9idWcKICAtCiAgICBuYW1lOiBFTkhBTkNFTUVOVFMKICAgIGxhYmVsczoKICAgICAgLSBraW5kL2VuaGFuY2VtZW50CiAgLQogICAgbmFtZTogU0VDVVJJVFkKICAgIGxhYmVsczoKICAgICAgLSBraW5kL3NlY3VyaXR5CiAgLQogICAgbmFtZTogVEVTVElORwogICAgbGFiZWxzOgogICAgICAtIGtpbmQvdGVzdGluZwogIC0KICAgIG5hbWU6IFRSQU5TTEFUSU9OCiAgICBsYWJlbHM6CiAgICAgIC0ga2luZC90cmFuc2xhdGlvbgogIC0KICAgIG5hbWU6IEJVSUxECiAgICBsYWJlbHM6CiAgICAgIC0ga2luZC9idWlsZAogICAgICAtIGtpbmQvbGludAogIC0KICAgIG5hbWU6IERPQ1MKICAgIGxhYmVsczoKICAgIC0ga2luZC9kb2NzCiAgLQogICAgbmFtZTogTUlTQwogICAgZGVmYXVsdDogdHJ1ZQoKIyByZWdleCBpbmRpY2F0aW5nIHdoaWNoIGxhYmVscyB0byBza2lwIGZvciB0aGUgY2hhbmdlbG9nCnNraXAtbGFiZWxzOiBza2lwLWNoYW5nZWxvZ3xiYWNrcG9ydFwvLisK",
+      "target": null,
+      "url": "https://gitea.com/api/v1/repos/gitea/tea/contents/.changelog.yml?ref=main",
+      "html_url": "https://gitea.com/gitea/tea/src/branch/main/.changelog.yml",
+      "git_url": "https://gitea.com/api/v1/repos/gitea/tea/git/blobs/e1d6907b7aba9781666f793e13b488363fd1fd22",
+      "download_url": "https://gitea.com/gitea/tea/raw/branch/main/.changelog.yml",
+      "submodule_git_url": null,
+      "_links": {
+        "self": "https://gitea.com/api/v1/repos/gitea/tea/contents/.changelog.yml?ref=main",
+        "git": "https://gitea.com/api/v1/repos/gitea/tea/git/blobs/e1d6907b7aba9781666f793e13b488363fd1fd22",
+        "html": "https://gitea.com/gitea/tea/src/branch/main/.changelog.yml"
+      }
+    }
+  }
+}

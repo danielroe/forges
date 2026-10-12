@@ -10,24 +10,85 @@
           "owner": "gitea",
           "name": "tea"
         },
-        "sha": "bcd62a1fb2ce6fdd51ebea91cc33ddbcae000b68"
+        "sha": "33bb12729e6de375813fb94fbcfbfa110d45c107"
       },
-      "sha": "bcd62a1fb2ce6fdd51ebea91cc33ddbcae000b68",
-      "message": "fix(login): avoid SSH passphrase prompt with ssh-agent logins (#1102)\n\nFixes #866\n\n## Problem\n\n`tea` still prompts for an SSH key passphrase for logins created with\n`--ssh-agent-key` or `--ssh-agent-principal`. During `tea login add`, tea\nauto-discovers a matching private key in `~/.ssh` even when the login is\nconfigured to use the running ssh-agent. That on-disk key is stored in\n`ssh_key`, so later `Login.Client()` asks for its passphrase and tells the SDK\nto load the file from disk instead of signing through the agent.\n\n## Changes\n\n- Stop auto-discovering a private key when the login uses the ssh-agent.\n- Add `Login.SSHKeyPath()` and use it for HTTPSign and git auth, so agent\n  logins pass an empty key path and the SDK talks to `ssh-agent`.\n- Prefer SSH remotes for agent logins, matching key-file logins.\n- Add unit tests for the new key-path and auto-discovery behavior.\n\n## Testing\n\n- `go test ./modules/config ./modules/task ./modules/git`\n- `go build ./...`\n\n---------\n\nCo-authored-by: bircni <redacted@example.invalid>\nReviewed-on: https://gitea.com/gitea/tea/pulls/1102\nReviewed-by: bircni <redacted@example.invalid>\nCo-authored-by: Lunny Xiao <redacted@example.invalid>\n",
+      "sha": "33bb12729e6de375813fb94fbcfbfa110d45c107",
+      "message": "fix(deps): update go toolchain directive to v1.27.2 [security] (#1131)\n\nThis PR contains the following updates:\n\n| Package | Type | Update | Change |\n|---|---|---|---|\n| [go](https://go.dev/) ([source](https://github.com/golang/go)) | toolchain | patch | `1.27.1` → `1.27.2` |\n\n---\n\n### Reset context tracking on consecutive template expressions in html/template\n[CVE-2026-94448](https://nvd.nist.gov/vuln/detail/CVE-2026-94448) / [GO-2026-6599](https://pkg.go.dev/vuln/GO-2026-6599)\n\n<details>\n<summary>More information</summary>\n\n#### Details\nWhen a JavaScript template literal contains consecutive expressions, the context tracking state was not properly reset upon entering a new expression.\n\nWe now ensure that template-literal expression entries correctly reset context variables so all subsequent regular expression literals are accurately recognized and escaped.\n\n#### Severity\nUnknown\n\n#### References\n- [https://go.dev/cl/839866](https://go.dev/cl/839866)\n- [https://go.dev/issue/81821](https://go.dev/issue/81821)\n- [https://groups.google.com/g/golang-announce/c/U2fTuyDJznI](https://groups.google.com/g/golang-announce/c/U2fTuyDJznI)\n\nThis data is provided by [OSV](https://osv.dev/vulnerability/GO-2026-6599) and the [Go Vulnerability Database](https://github.com/golang/vulndb) ([CC-BY 4.0](https://github.com/golang/vulndb#license)).\n</details>\n\n---\n\n### Recognize yield as regexp preceder keyword in html/template\n[CVE-2026-97030](https://nvd.nist.gov/vuln/detail/CVE-2026-97030) / [GO-2026-6600](https://pkg.go.dev/vuln/GO-2026-6600)\n\n<details>\n<summary>More information</summary>\n\n#### Details\nA trusted template author may have previously written a valid template wherein the use of the 'yield' keyword would not be correctly escaped.\n\nWe now ensure that valid keyword uses are escaped and non-keyword uses are not escaped.\n\n#### Severity\nUnknown\n\n#### References\n- [https://go.dev/cl/840925](https://go.dev/cl/840925)\n- [https://go.dev/issue/81823](https://go.dev/issue/81823)\n- [https://groups.google.com/g/golang-announce/c/U2fTuyDJznI](https://groups.google.com/g/golang-announce/c/U2fTuyDJznI)\n\nThis data is provided by [OSV](https://osv.dev/vulnerability/GO-2026-6600) and the [Go Vulnerability Database](https://github.com/golang/vulndb) ([CC-BY 4.0](https://github.com/golang/vulndb#license)).\n</details>\n\n---\n\n### HTTP/2 server memory exhaustion due to Trailer headers in net/http\n[CVE-2026-78659](https://nvd.nist.gov/vuln/detail/CVE-2026-78659) / [GO-2026-6603](https://pkg.go.dev/vuln/GO-2026-6603)\n\n<details>\n<summary>More information</summary>\n\n#### Details\nWhen \"Trailer\" headers are sent by a client, the HTTP server internally uses the header values to populate the Request.Trailer map passed to the server handler. Because Request.Trailer is a map, each entry incurs memory overhead. For HTTP/2 servers, a malicious client can exploit this by sending a \"Trailer\" header that declares a large number of fields, causing the server to allocate a disproportionate amount of memory while bypassing Server.MaxHeaderValueCount and Server.MaxHeaderBytes limits. This exploit is not applicable for HTTP/1 servers, which do not support multiplexing a large number of requests over one TCP connection, and whose Server.MaxHeaderBytes are calculated differently.\n\n#### Severity\nUnknown\n\n#### References\n- [https://go.dev/cl/847185](https://go.dev/cl/847185)\n- [https://go.dev/cl/847314](https://go.dev/cl/847314)\n- [https://go.dev/issue/81857](https://go.dev/issue/81857)\n- [https://groups.google.com/g/golang-announce/c/U2fTuyDJznI](https://groups.google.com/g/golang-announce/c/U2fTuyDJznI)\n- [https://groups.google.com/g/golang-announce/c/ZPwCyRUuGBs](https://groups.google.com/g/golang-announce/c/ZPwCyRUuGBs)\n\nThis data is provided by [OSV](https://osv.dev/vulnerability/GO-2026-6603) and the [Go Vulnerability Database](https://github.com/golang/vulndb) ([CC-BY 4.0](https://github.com/golang/vulndb#license)).\n</details>\n\n---\n\n### Root.Mkdir(All) can follow junctions out of the root on Windows in os\n[CVE-2026-56857](https://nvd.nist.gov/vuln/detail/CVE-2026-56857) / [GO-2026-6604](https://pkg.go.dev/vuln/GO-2026-6604)\n\n<details>\n<summary>More information</summary>\n\n#### Details\nOn Windows, when the target of Root.Mkdir or Root.MkdirAll is a junction pointing to an empty location, the operation can create a directory at the junction target even when that target is located outside the root. This only applies to operations where the last path component is a junction (path/to/junction, but not path/junction/target).\n\n#### Severity\nUnknown\n\n#### References\n- [https://go.dev/cl/847305](https://go.dev/cl/847305)\n- [https://go.dev/issue/81739](https://go.dev/issue/81739)\n- [https://groups.google.com/g/golang-announce/c/U2fTuyDJznI](https://groups.google.com/g/golang-announce/c/U2fTuyDJznI)\n\nThis data is provided by [OSV](https://osv.dev/vulnerability/GO-2026-6604) and the [Go Vulnerability Database](https://github.com/golang/vulndb) ([CC-BY 4.0](https://github.com/golang/vulndb#license)).\n</details>\n\n---\n\n### HTTP/1 client connection desynchronization after CONNECT rejection in net/http\n[CVE-2026-56866](https://nvd.nist.gov/vuln/detail/CVE-2026-56866) / [GO-2026-6605](https://pkg.go.dev/vuln/GO-2026-6605)\n\n<details>\n<summary>More information</summary>\n\n#### Details\nWhen http.Transport sends an HTTP/1 CONNECT request with a non-empty Request.Body, it writes the body directly to the connection without framing after the request headers. If the server rejects the CONNECT request with a non-2xx keep-alive response, Transport returns the connection to the idle pool. Because CONNECT requests do not have a request body, the server may interpret the trailing body bytes as a subsequent pipelined HTTP/1.1 request on the connection, leaving the pooled connection desynchronized and causing the next caller that reuses it to read the response to the injected request. In reverse proxies (including httputil.ReverseProxy) that forward CONNECT requests through a shared Transport, this can lead to cross-user response poisoning.\n\n#### Severity\nUnknown\n\n#### References\n- [https://go.dev/cl/847306](https://go.dev/cl/847306)\n- [https://go.dev/issue/81740](https://go.dev/issue/81740)\n- [https://groups.google.com/g/golang-announce/c/U2fTuyDJznI](https://groups.google.com/g/golang-announce/c/U2fTuyDJznI)\n\nThis data is provided by [OSV](https://osv.dev/vulnerability/GO-2026-6605) and the [Go Vulnerability Database](https://github.com/golang/vulndb) ([CC-BY 4.0](https://github.com/golang/vulndb#license)).\n</details>\n\n---\n\n### Reject malformed ECH outer extension references in crypto/tls\n[CVE-2026-97031](https://nvd.nist.gov/vuln/detail/CVE-2026-97031) / [GO-2026-6607](https://pkg.go.dev/vuln/GO-2026-6607)\n\n<details>\n<summary>More information</summary>\n\n#### Details\nMultiple ECH outer extension references are not permitted under RFC 9849; previously, a client could send a well-crafted packet that could trigger memory exhaustion in the server process by specifying multiple references.\n\nWe now reject these as malformed and curb the memory amplification vector as a result.\n\n#### Severity\nUnknown\n\n#### References\n- [https://go.dev/cl/847312](https://go.dev/cl/847312)\n- [https://go.dev/issue/81855](https://go.dev/issue/81855)\n- [https://groups.google.com/g/golang-announce/c/U2fTuyDJznI](https://groups.google.com/g/golang-announce/c/U2fTuyDJznI)\n\nThis data is provided by [OSV](https://osv.dev/vulnerability/GO-2026-6607) and the [Go Vulnerability Database](https://github.com/golang/vulndb) ([CC-BY 4.0](https://github.com/golang/vulndb#license)).\n</details>\n\n---\n\n### Memory limit bypass when parsing MIME headers in net/textproto, mime/multipart\n[CVE-2026-94440](https://nvd.nist.gov/vuln/detail/CVE-2026-94440) / [GO-2026-6608](https://pkg.go.dev/vuln/GO-2026-6608)\n\n<details>\n<summary>More information</summary>\n\n#### Details\nParsing a multipart form can bypass memory limits and read an arbitrarily long line into memory when the remaining limit at the start of a part is less than 400 bytes.\n\n#### Severity\nUnknown\n\n#### References\n- [https://go.dev/cl/847307](https://go.dev/cl/847307)\n- [https://go.dev/issue/81741](https://go.dev/issue/81741)\n- [https://groups.google.com/g/golang-announce/c/U2fTuyDJznI](https://groups.google.com/g/golang-announce/c/U2fTuyDJznI)\n\nThis data is provided by [OSV](https://osv.dev/vulnerability/GO-2026-6608) and the [Go Vulnerability Database](https://github.com/golang/vulndb) ([CC-BY 4.0](https://github.com/golang/vulndb#license)).\n</details>\n\n---\n\n### Lack of limit on size of parsed Range headers in net/http\n[CVE-2026-78667](https://nvd.nist.gov/vuln/detail/CVE-2026-78667) / [GO-2026-6609](https://pkg.go.dev/vuln/GO-2026-6609)\n\n<details>\n<summary>More information</summary>\n\n#### Details\nWhen parsing a Range header containing a large number of small ranges, FileServer(FS), ServeContent, and ServeFile(FS) can consume an excessive amount of CPU.\n\n#### Severity\nUnknown\n\n#### References\n- [https://go.dev/cl/847309](https://go.dev/cl/847309)\n- [https://go.dev/issue/81858](https://go.dev/issue/81858)\n- [https://groups.google.com/g/golang-announce/c/U2fTuyDJznI](https://groups.google.com/g/golang-announce/c/U2fTuyDJznI)\n\nThis data is provided by [OSV](https://osv.dev/vulnerability/GO-2026-6609) and the [Go Vulnerability Database](https://github.com/golang/vulndb) ([CC-BY 4.0](https://github.com/golang/vulndb#license)).\n</details>\n\n---\n\n### HTTP/2 transport accepts malformed framing-related headers in net/http\n[CVE-2026-78660](https://nvd.nist.gov/vuln/detail/CVE-2026-78660) / [GO-2026-6610](https://pkg.go.dev/vuln/GO-2026-6610)\n\n<details>\n<summary>More information</summary>\n\n#### Details\nHistorically, we have been rather lax about malformed framing-related headers in our HTTP/2 implementation, as they cannot interfere with HTTP/2 framing. However, this makes it possible for our HTTP/2 implementation to forward responses containing such headers to an HTTP/1 client when acting as a reverse proxy. If the HTTP/1 client also does not behave strictly enough, this can result in response smuggling.\n\n#### Severity\nUnknown\n\n#### References\n- [https://go.dev/cl/835145](https://go.dev/cl/835145)\n- [https://go.dev/cl/836385](https://go.dev/cl/836385)\n- [https://go.dev/issue/81115](https://go.dev/issue/81115)\n- [https://groups.google.com/g/golang-announce/c/U2fTuyDJznI](https://groups.google.com/g/golang-announce/c/U2fTuyDJznI)\n\nThis data is provided by [OSV](https://osv.dev/vulnerability/GO-2026-6610) and the [Go Vulnerability Database](https://github.com/golang/vulndb) ([CC-BY 4.0](https://github.com/golang/vulndb#license)).\n</details>\n\n---\n\n### Excessive CPU consumption from repeated initial window changes in net/http\n[CVE-2026-78669](https://nvd.nist.gov/vuln/detail/CVE-2026-78669) / [GO-2026-6611](https://pkg.go.dev/vuln/GO-2026-6611)\n\n<details>\n<summary>More information</summary>\n\n#### Details\nA malicious HTTP/2 peer can cause excessive CPU consumption in the client or server by opening a large number of streams and then sending many small SETTINGS frames containing SETTINGS_INITIAL_WINDOW_SIZE values.\n\n#### Severity\nUnknown\n\n#### References\n- [https://go.dev/cl/847186](https://go.dev/cl/847186)\n- [https://go.dev/cl/847308](https://go.dev/cl/847308)\n- [https://go.dev/issue/81742](https://go.dev/issue/81742)\n- [https://groups.google.com/g/golang-announce/c/U2fTuyDJznI](https://groups.google.com/g/golang-announce/c/U2fTuyDJznI)\n- [https://groups.google.com/g/golang-announce/c/ZPwCyRUuGBs](https://groups.google.com/g/golang-announce/c/ZPwCyRUuGBs)\n\nThis data is provided by [OSV](https://osv.dev/vulnerability/GO-2026-6611) and the [Go Vulnerability Database](https://github.com/golang/vulndb) ([CC-BY 4.0](https://github.com/golang/vulndb#license)).\n</details>\n\n---\n\n### Double flow control refund on HTTP/2 server streams in net/http\n[CVE-2026-78663](https://nvd.nist.gov/vuln/detail/CVE-2026-78663) / [GO-2026-6612](https://pkg.go.dev/vuln/GO-2026-6612)\n\n<details>\n<summary>More information</summary>\n\n#### Details\nThe HTTP/2 server can refund connection-level flow control twice for the same data: Once when a client resets a stream (refunding data for any sent-but-unread portion of the stream), and again when a request handler reads the buffered data. A malicious client can exploit this to bypass the configured connection-level flow control limit (MaxReceiveBufferPerConnection). Total buffered data is still limited by the concurrent stream limit and stream-level flow control.\n\n#### Severity\nUnknown\n\n#### References\n- [https://go.dev/cl/847187](https://go.dev/cl/847187)\n- [https://go.dev/cl/847310](https://go.dev/cl/847310)\n- [https://go.dev/issue/81743](https://go.dev/issue/81743)\n- [https://groups.google.com/g/golang-announce/c/U2fTuyDJznI](https://groups.google.com/g/golang-announce/c/U2fTuyDJznI)\n- [https://groups.google.com/g/golang-announce/c/ZPwCyRUuGBs](https://groups.google.com/g/golang-announce/c/ZPwCyRUuGBs)\n\nThis data is provided by [OSV](https://osv.dev/vulnerability/GO-2026-6612) and the [Go Vulnerability Database](https://github.com/golang/vulndb) ([CC-BY 4.0](https://github.com/golang/vulndb#license)).\n</details>\n\n---\n\n### HTTP/1 server connection desynchronization after 2xx CONNECT response in net/http\n[CVE-2026-94439](https://nvd.nist.gov/vuln/detail/CVE-2026-94439) / [GO-2026-6613](https://pkg.go.dev/vuln/GO-2026-6613)\n\n<details>\n<summary>More information</summary>\n\n#### Details\nWhen an HTTP server handler sends a 2xx response to an HTTP/1 CONNECT request and returns without hijacking the connection, the server improperly continues to read and serve requests from the connection. Since a 2xx response to an HTTP/1 CONNECT converts the connection into a tunnel, the server should not treat the connection as continuing to contain HTTP.\n\nThe impact of this misbehavior is mostly limited to potential request smuggling, where an intermediate proxy considers the data on the connection to be tunneled and the server considers it to be HTTP.\n\n#### Severity\nUnknown\n\n#### References\n- [https://go.dev/cl/847311](https://go.dev/cl/847311)\n- [https://go.dev/issue/81744](https://go.dev/issue/81744)\n- [https://groups.google.com/g/golang-announce/c/U2fTuyDJznI](https://groups.google.com/g/golang-announce/c/U2fTuyDJznI)\n\nThis data is provided by [OSV](https://osv.dev/vulnerability/GO-2026-6613) and the [Go Vulnerability Database](https://github.com/golang/vulndb) ([CC-BY 4.0](https://github.com/golang/vulndb#license)).\n</details>\n\n---\n\n### HTTP/2 server crash due to HPACK encoder race in net/http\n[CVE-2026-97032](https://nvd.nist.gov/vuln/detail/CVE-2026-97032) / [GO-2026-6617](https://pkg.go.dev/vuln/GO-2026-6617)\n\n<details>\n<summary>More information</summary>\n\n#### Details\nHTTP/2 servers could end up crashing due to inadvertently modifying its HPACK encoder concurrently. This happens because the server modifies the HPACK encoder from two goroutines without synchronization: one uses the encoder to encode a HEADERS frame as part of a response sent to a client and the other modifies the encoder's table size when handling a SETTINGS frame containing SETTINGS_HEADER_TABLE_SIZE that a client sends. A malicious client can repeatedly send a request while changing the header table size to crash the server.\n\n#### Severity\nUnknown\n\n#### References\n- [https://go.dev/cl/847188](https://go.dev/cl/847188)\n- [https://go.dev/cl/847313](https://go.dev/cl/847313)\n- [https://go.dev/issue/81867](https://go.dev/issue/81867)\n- [https://groups.google.com/g/golang-announce/c/U2fTuyDJznI](https://groups.google.com/g/golang-announce/c/U2fTuyDJznI)\n- [https://groups.google.com/g/golang-announce/c/ZPwCyRUuGBs](https://groups.google.com/g/golang-announce/c/ZPwCyRUuGBs)\n\nThis data is provided by [OSV](https://osv.dev/vulnerability/GO-2026-6617) and the [Go Vulnerability Database](https://github.com/golang/vulndb) ([CC-BY 4.0](https://github.com/golang/vulndb#license)).\n</details>\n\n---\n\n### Configuration\n\n📅 **Schedule**: (UTC)\n\n- Branch creation\n  - \"\"\n- Automerge\n  - At any time (no schedule defined)\n\n🚦 **Automerge**: Disabled by config. Please merge this manually once you are satisfied.\n\n♻ **Rebasing**: Whenever PR becomes conflicted, or you tick the rebase/retry checkbox.\n\n🔕 **Ignore**: Close this PR and you won't be reminded about this update again.\n\n---\n\n - [ ] <!-- rebase-check -->If you want to rebase/retry this PR, check this box\n\n---\n\nThis PR has been generated by [Mend Renovate](https://github.com/renovatebot/renovate).\n<!--renovate-debug:eyJjcmVhdGVkSW5WZXIiOiI0My4xOTEuMiIsInVwZGF0ZWRJblZlciI6IjQzLjE5MS4yIiwidGFyZ2V0QnJhbmNoIjoibWFpbiIsImxhYmVscyI6W119-->\n\nReviewed-on: https://gitea.com/gitea/tea/pulls/1131\nReviewed-by: Lunny Xiao <redacted@example.invalid>\nCo-authored-by: Renovate Bot <redacted@example.invalid>\n",
       "author": {
+        "actor": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "login": "renovate-bot",
+          "id": "44044",
+          "name": "Renovate Bot",
+          "avatarUrl": "https://gitea.com/avatars/a7012524a51bf2c579579dca81161ad6d64bc1cc3ea8e16098d9cbec42a84216",
+          "url": "https://gitea.com/renovate-bot",
+          "isBotHint": false
+        },
+        "name": "Renovate Bot",
+        "email": "redacted@example.invalid",
+        "date": "2026-10-12T00:56:34.000Z"
+      },
+      "committer": {
         "actor": {
           "forge": "gitea",
           "instance": "gitea.com",
           "login": "lunny",
           "id": "1",
           "name": "Lunny Xiao",
-          "avatarUrl": "https://seccdn.libravatar.org/avatar/b897d40dc87fdba4a024827c3967597434681a8f4f0f4eb5d73e0f8b1a0a9274?d=identicon",
+          "avatarUrl": "https://gitea.com/avatars/5739143ce171af62d1ff0baa027dacfd5e5ffe9c28b7b92fc4ed02d952ab1cc3",
           "url": "https://gitea.com/lunny",
           "isBotHint": false
         },
         "name": "Lunny Xiao",
         "email": "redacted@example.invalid",
-        "date": "2026-10-01T19:58:41.000Z"
+        "date": "2026-10-12T00:56:34.000Z"
+      },
+      "parents": [
+        "f02245449bb87749279d528535afbcf08c620a32"
+      ],
+      "url": "https://gitea.com/gitea/tea/commit/33bb12729e6de375813fb94fbcfbfa110d45c107",
+      "stats": {
+        "additions": 1,
+        "deletions": 1,
+        "total": 2
+      },
+      "files": [
+        {
+          "path": "go.mod",
+          "status": "modified",
+          "statusRaw": "modified"
+        }
+      ]
+    },
+    {
+      "ref": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "repo": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "owner": "gitea",
+          "name": "tea"
+        },
+        "sha": "f02245449bb87749279d528535afbcf08c620a32"
+      },
+      "sha": "f02245449bb87749279d528535afbcf08c620a32",
+      "message": "feat!: rebuild tea on Cobra with explicit noun/verb commands (#1126)\n\n- **switch tea to the Cobra command tree:** `internal/app` wires the packages from parts 1–4 into explicit noun/verb commands with `--repo`, `--json` / `--jq`, `--sudo` and `--debug`; `main.go` points at it. Build, release and docs tooling (`tools/cli-docs`, Makefile, goreleaser, snap, CI) and README / CONTRIBUTING are updated.\n- **remove the urfave/cli command tree:** deletes `cmd/`, `modules/`, the old integration tests, contrib completion scripts and the generated `docs/CLI.md`, and drops their dependencies. This commit only deletes.\n\n## Breaking changes\n\nThis is a breaking release. It requires Gitea 28 or newer; configuration moves to separate `config.yml` and `hosts.yml` files and requires fresh authentication, and command names, aliases, flags and output formats change. `docs/migration-1.0.md` maps every old command, flag and environment variable to its replacement.\n\n## Issues\n\nfixes #1118\nfixes #1116\nfixes #1115\nfixes #1094\nfixes #1091\nfixes #1073\nfixes #1052\nfixes #1032\nfixes #1023\nfixes #966\nfixes #908\nfixes #833\nfixes #831\nfixes #817\nfixes #804\nfixes #779\nfixes #770\nfixes #737\nfixes #697\nfixes #726\nfixes #677\nfixes #672\nfixes #633\nfixes #632\nfixes #560\nfixes #556\nfixes #523\nfixes #516\nfixes #510\nfixes #504\nfixes #500\nfixes #482\nfixes #406\nfixes #403\nfixes #373\nfixes #351\nfixes #344\nfixes #326\nfixes #325\nfixes #323\nfixes #246\nfixes #240\nfixes #232\nfixes #197\nfixes #172\nfixes #141\nfixes #69\nfixes #1110\nfixes #569\nfixes #480\nfixes #666\nfixes #670\nfixes #457\nfixes #643\nfixes #498\nfixes #490\nfixes #1069\nfixes #834\nfixes #602\nfixes #328\nfixes #417\nfixes #571\nfixes #1029\nfixes #489\nfixes #1050\nfixes #162\nfixes #430\nfixes #1087\nfixes #683\n\nReviewed-on: https://gitea.com/gitea/tea/pulls/1126\nReviewed-by: TheFox0x7 <redacted@example.invalid>\n",
+      "author": {
+        "actor": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "login": "bircni",
+          "id": "173651",
+          "name": "bircni",
+          "avatarUrl": "https://gitea.com/avatars/6e5afe455623d71267c5c263a9c5a919f46f6d3a7838f4e17b4d72641b63432c",
+          "url": "https://gitea.com/bircni",
+          "isBotHint": false
+        },
+        "name": "bircni",
+        "email": "redacted@example.invalid",
+        "date": "2026-10-11T17:23:06.000Z"
       },
       "committer": {
         "actor": {
@@ -36,205 +97,2759 @@
           "login": "bircni",
           "id": "173651",
           "name": "bircni",
-          "avatarUrl": "https://seccdn.libravatar.org/avatar/345fd80f2a069177c27dd0de27c99672940cce0923fca8de847119c573aab745?d=identicon",
+          "avatarUrl": "https://gitea.com/avatars/6e5afe455623d71267c5c263a9c5a919f46f6d3a7838f4e17b4d72641b63432c",
           "url": "https://gitea.com/bircni",
           "isBotHint": false
         },
         "name": "bircni",
         "email": "redacted@example.invalid",
-        "date": "2026-10-01T19:58:41.000Z"
+        "date": "2026-10-11T17:23:06.000Z"
       },
       "parents": [
-        "6daaa7c05e7883d4468fc7b40c2f71e0ea75562a"
+        "12e415a7a7fcadc22745eae2b9fba98f00307a83"
       ],
-      "url": "https://gitea.com/gitea/tea/commit/bcd62a1fb2ce6fdd51ebea91cc33ddbcae000b68",
+      "url": "https://gitea.com/gitea/tea/commit/f02245449bb87749279d528535afbcf08c620a32",
       "stats": {
-        "additions": 90,
-        "deletions": 13,
-        "total": 103
+        "additions": 18892,
+        "deletions": 34015,
+        "total": 52907
       },
       "files": [
         {
-          "path": "modules/config/login.go",
-          "status": "modified",
-          "statusRaw": "modified"
-        },
-        {
-          "path": "modules/config/login_test.go",
-          "status": "modified",
-          "statusRaw": "modified"
-        },
-        {
-          "path": "modules/task/login_create.go",
-          "status": "modified",
-          "statusRaw": "modified"
-        },
-        {
-          "path": "modules/task/login_create_test.go",
-          "status": "modified",
-          "statusRaw": "modified"
-        },
-        {
-          "path": "modules/task/pull_checkout.go",
-          "status": "modified",
-          "statusRaw": "modified"
-        },
-        {
-          "path": "modules/task/pull_clean.go",
-          "status": "modified",
-          "statusRaw": "modified"
-        },
-        {
-          "path": "modules/task/pull_create.go",
-          "status": "modified",
-          "statusRaw": "modified"
-        },
-        {
-          "path": "modules/task/repo_clone.go",
-          "status": "modified",
-          "statusRaw": "modified"
-        }
-      ]
-    },
-    {
-      "ref": {
-        "forge": "gitea",
-        "instance": "gitea.com",
-        "repo": {
-          "forge": "gitea",
-          "instance": "gitea.com",
-          "owner": "gitea",
-          "name": "tea"
-        },
-        "sha": "6daaa7c05e7883d4468fc7b40c2f71e0ea75562a"
-      },
-      "sha": "6daaa7c05e7883d4468fc7b40c2f71e0ea75562a",
-      "message": "Fix locale-dependent git repo detection (#1099)\n\nFixes #1089\n\n## Root cause\n`tea clone` initializes the command context by probing the current directory with `git rev-parse --show-toplevel`. `classifyRepoError` recognizes the \"not a git repository\" case by matching the English stderr text. When git emits localized errors (for example with `LANG=de_DE.UTF-8`), that match fails, and the otherwise harmless \"no repo here\" error is returned as fatal before cloning.\n\n## Fix\nPin the locale of git subprocesses to `C` by overriding `LC_ALL`, `LANG`, and `LANGUAGE` in `runGitCommand`. This keeps all git output stable for parsing while leaving the parent process locale untouched.\n\n## Tests\nAdded a regression test using a fake git executable that emits a German \"not a repository\" error unless the locale is forced to `C`, and verifies `ErrRepositoryNotExists` is returned.\n\nReviewed-on: https://gitea.com/gitea/tea/pulls/1099\nReviewed-by: Zettat123 <redacted@example.invalid>\n",
-      "author": {
-        "actor": {
-          "forge": "gitea",
-          "instance": "gitea.com",
-          "login": "lunny",
-          "id": "1",
-          "name": "Lunny Xiao",
-          "avatarUrl": "https://seccdn.libravatar.org/avatar/b897d40dc87fdba4a024827c3967597434681a8f4f0f4eb5d73e0f8b1a0a9274?d=identicon",
-          "url": "https://gitea.com/lunny",
-          "isBotHint": false
-        },
-        "name": "Lunny Xiao",
-        "email": "redacted@example.invalid",
-        "date": "2026-09-30T17:48:18.000Z"
-      },
-      "committer": {
-        "actor": {
-          "forge": "gitea",
-          "instance": "gitea.com",
-          "login": "lunny",
-          "id": "1",
-          "name": "Lunny Xiao",
-          "avatarUrl": "https://seccdn.libravatar.org/avatar/b897d40dc87fdba4a024827c3967597434681a8f4f0f4eb5d73e0f8b1a0a9274?d=identicon",
-          "url": "https://gitea.com/lunny",
-          "isBotHint": false
-        },
-        "name": "Lunny Xiao",
-        "email": "redacted@example.invalid",
-        "date": "2026-09-30T17:48:18.000Z"
-      },
-      "parents": [
-        "9c12138d6273ba8feb6e7578833cc330c0cd6461"
-      ],
-      "url": "https://gitea.com/gitea/tea/commit/6daaa7c05e7883d4468fc7b40c2f71e0ea75562a",
-      "stats": {
-        "additions": 56,
-        "deletions": 1,
-        "total": 57
-      },
-      "files": [
-        {
-          "path": "modules/git/cli_backend_test.go",
+          "path": "docs/migration-1.0.md",
           "status": "added",
           "statusRaw": "added"
         },
         {
-          "path": "modules/git/cli_backend.go",
-          "status": "modified",
-          "statusRaw": "modified"
-        }
-      ]
-    },
-    {
-      "ref": {
-        "forge": "gitea",
-        "instance": "gitea.com",
-        "repo": {
-          "forge": "gitea",
-          "instance": "gitea.com",
-          "owner": "gitea",
-          "name": "tea"
-        },
-        "sha": "9c12138d6273ba8feb6e7578833cc330c0cd6461"
-      },
-      "sha": "9c12138d6273ba8feb6e7578833cc330c0cd6461",
-      "message": "Make `tea issues create` honor `--output json` (#1114)\n\n## Problem\n\nFollow-up to #1111, covering the issues side of the same hole: `tea issues create` accepts `--output` (it parses through the urfave/cli v3 ancestor-flag cascade — `issues` carries the flag via `AllDefaultFlags`, `create` never declares it) but the action never reads it. Without this fix, `tea issues create --output json | jq .url` feeds jq a markdown document.\n\nThe default output is doubly hostile to consumers: glamour renders the details as markdown (with OSC 8 hyperlinks around the URL when piped), and a second bare `fmt.Println(issue.HTMLURL)` line follows it.\n\n## What this changes\n\n- `task.CreateIssue` now returns the created `*gitea.Issue` instead of printing it.\n- `runIssuesCreate` switches on `--output`, mirroring the detail-command precedent and the merged create-PR behavior from #1111: `--output json` emits compact lean JSON; any other value (or no flag) falls through to the previous rendering, byte-identical to before.\n- Lean JSON shape: `index`, `title`, `url`, `state` — matching `createdPullJSON` in `cmd/pulls/create.go`, including its post-review compact encoding.\n- The interactive path is untouched — it only triggers when zero flags are set, so `--output` can never be active there.\n\nExample:\n\n```\n$ tea issues create --output json --title \"bug: thing\" | jq -r .url\nhttps://gitea.example.com/owner/repo/issues/42\n```\n\nThere is no agit-flow equivalent on issues, so no extra guard is needed — unlike the pulls side, every creation path produces an `*gitea.Issue`.\n\n---------\n\nCo-authored-by: Danilo Sousa <redacted@example.invalid>\nReviewed-on: https://gitea.com/gitea/tea/pulls/1114\nReviewed-by: Lunny Xiao <redacted@example.invalid>\nCo-authored-by: ongolk <redacted@example.invalid>\n",
-      "author": {
-        "actor": {
-          "forge": "gitea",
-          "instance": "gitea.com",
-          "login": "ongolk",
-          "id": "238961",
-          "name": "Danilo",
-          "avatarUrl": "https://gitea.com/avatars/bcf62ffea1913d84109a908a52d59504f020943568265ccb2627dc1e06ebe125",
-          "url": "https://gitea.com/ongolk",
-          "isBotHint": false
-        },
-        "name": "ongolk",
-        "email": "redacted@example.invalid",
-        "date": "2026-09-10T04:29:39.000Z"
-      },
-      "committer": {
-        "actor": {
-          "forge": "gitea",
-          "instance": "gitea.com",
-          "login": "lunny",
-          "id": "1",
-          "name": "Lunny Xiao",
-          "avatarUrl": "https://seccdn.libravatar.org/avatar/b897d40dc87fdba4a024827c3967597434681a8f4f0f4eb5d73e0f8b1a0a9274?d=identicon",
-          "url": "https://gitea.com/lunny",
-          "isBotHint": false
-        },
-        "name": "Lunny Xiao",
-        "email": "redacted@example.invalid",
-        "date": "2026-09-10T04:29:39.000Z"
-      },
-      "parents": [
-        "4d09587d4cb53dd3d7becee4514118993b01f7e0"
-      ],
-      "url": "https://gitea.com/gitea/tea/commit/9c12138d6273ba8feb6e7578833cc330c0cd6461",
-      "stats": {
-        "additions": 101,
-        "deletions": 14,
-        "total": 115
-      },
-      "files": [
-        {
-          "path": "cmd/issues/create_test.go",
+          "path": "internal/app/action_jobs.go",
           "status": "added",
           "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/action_logs.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/action_logs_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/action_values.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/action_values_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/actions.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/actions_integration_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/actions_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/admin_users.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/admin_users_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/alias_completion_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/api.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/api_integration_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/api_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/app.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/app_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/args.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/args_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/artifacts.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/artifacts_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/auth.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/auth_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/branches.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/branches_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/browser.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/browser_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/checkout.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/checkout_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/checks.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/checks_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/clone_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/comments.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/comments_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/config.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/config_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/deadline.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/deadline_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/diff_review.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/diff_review_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/discussion_search.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/discussion_search_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/discussion_view.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/discussion_view_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/doctor.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/doctor_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/download.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/download_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/editor.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/editor_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/git.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/git_credentials.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/git_credentials_integration_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/git_credentials_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/helpers_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/human_output.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/human_output_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/integration_helpers_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/integration_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/issue_attachments.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/issue_attachments_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/issue_bulk_edit_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/issue_create_form_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/issue_create_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/issue_edit.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/issue_edit_form_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/issue_filters_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/issue_inputs_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/issues.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/label_export.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/label_export_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/label_options_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/labelfile.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/labelfile_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/man.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/man_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/metadata.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/milestone_bulk_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/milestone_create_form_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/milestone_description_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/milestone_issues.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/milestone_names_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/milestone_state.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/mutations.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/notifications.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/notifications_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/organizations.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/output_fields_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/pull_clean.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/pull_clean_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/pull_create.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/pull_create_form_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/pull_create_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/pull_edit.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/pull_edit_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/pull_integration_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/pull_merge_form_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/pull_merge_title_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/pull_review.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/pull_review_form_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/pull_review_lifecycle.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/pull_review_requests.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/pull_review_requests_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/pull_review_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/pull_view_current_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/pulls.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/pulls_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/release_assets.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/release_assets_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/releases.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/releases_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/repos.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/repository_argument_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/repository_create.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/repository_create_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/repository_edit_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/repository_migrate.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/repository_sync.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/search.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/ssh_keys.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/ssh_keys_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/status.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/status_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/target.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/target_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/teams.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/time.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/time_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/validation_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/webhooks.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/wiki.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "main_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "scripts/integration-tokens.py",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "tools/cli-docs/main.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "tools/cli-docs/main_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/actions.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/actions/runs.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/actions/runs/delete.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/actions/runs/list.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/actions/runs/list_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/actions/runs/logs.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/actions/runs/view.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/actions/secrets.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/actions/secrets/create.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/actions/secrets/create_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/actions/secrets/delete.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/actions/secrets/delete_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/actions/secrets/list.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/actions/secrets/list_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/actions/variables.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/actions/variables/delete.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/actions/variables/delete_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/actions/variables/list.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/actions/variables/list_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/actions/variables/set.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/actions/variables/set_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/actions/workflows.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/actions/workflows/disable.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/actions/workflows/dispatch.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/actions/workflows/enable.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/actions/workflows/list.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/actions/workflows/view.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/admin.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/admin/users/create.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/admin/users/delete.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/admin/users/edit.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/admin/users/list.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/admin/users/shared.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/api.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/api_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/attachments.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/attachments/create.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/attachments/delete.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/attachments/list.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/branches.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/branches/list.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/branches/protect.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/branches/rename.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/branches/rename_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/categories.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/clone.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/cmd.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/comment.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/comments/add.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/comments/body.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/comments/body_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/comments/delete.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/comments/edit.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/comments/list.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/detail_json.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/flags/body.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/flags/body_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/flags/csvflag.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/flags/generic.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/flags/generic_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/flags/issue_pr.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/issues.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/issues/close.go",
+          "status": "removed",
+          "statusRaw": "removed"
         },
         {
           "path": "cmd/issues/create.go",
-          "status": "modified",
-          "statusRaw": "modified"
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/issues/create_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/issues/edit.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/issues/list.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/issues/list_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/issues/reopen.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/issues_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/labels.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/labels/create.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/labels/create_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/labels/delete.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/labels/list.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/labels/update.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/login.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/login/add.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/login/default.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/login/delete.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/login/edit.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/login/helper.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/login/list.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/login/oauth_refresh.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/login/status.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/logout.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/man.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/milestones.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/milestones/close.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/milestones/create.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/milestones/delete.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/milestones/issues.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/milestones/list.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/milestones/reopen.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/notifications.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/notifications/list.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/notifications/list_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/notifications/mark_as.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/open.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/organizations.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/organizations/create.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/organizations/delete.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/organizations/list.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/pulls.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/pulls/approve.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/pulls/checkout.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/pulls/clean.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/pulls/close.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/pulls/create.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/pulls/create_app_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/pulls/create_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/pulls/edit.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/pulls/list.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/pulls/merge.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/pulls/reject.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/pulls/reopen.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/pulls/reply.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/pulls/reply_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/pulls/resolve.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/pulls/review.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/pulls/review_comments.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/pulls/review_helpers.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/pulls/review_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/pulls/unresolve.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/releases.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/releases/create.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/releases/delete.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/releases/edit.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/releases/list.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/releases/utils.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/repos.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/repos/create.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/repos/create_from_template.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/repos/delete.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/repos/edit.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/repos/flags.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/repos/fork.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/repos/list.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/repos/migrate.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/repos/search.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/sshkeys.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/sshkeys/add.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/sshkeys/add_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/sshkeys/delete.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/sshkeys/list.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/times.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/times/add.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/times/delete.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/times/list.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/times/reset.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/webhooks.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/webhooks/create.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/webhooks/create_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/webhooks/delete.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/webhooks/delete_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/webhooks/list.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/webhooks/list_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/webhooks/update.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/webhooks/update_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/whoami.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/wiki.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/wiki/read.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/wiki/read_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/wiki/write.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/wiki/write_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "cmd/wiki_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "contrib/autocomplete.ps1",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "contrib/autocomplete.sh",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "contrib/autocomplete.zsh",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "demo.gif",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "docs/CLI.md",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "docs/docs.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "modules/api/client.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "modules/auth/oauth.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "modules/auth/oauth_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "modules/config/config.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "modules/config/credstore.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "modules/config/lock.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "modules/config/lock_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "modules/config/login.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "modules/config/login_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "modules/config/testtools.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "modules/context/context.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "modules/context/context_login.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "modules/context/context_prompt_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "modules/context/context_remote.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "modules/context/context_repo.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "modules/context/context_require.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "modules/context/context_require_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "modules/context/context_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "modules/debug/debug.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "modules/filelock/filelock.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "modules/filelock/filelock_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "modules/filelock/filelock_unix.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "modules/filelock/filelock_windows.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "modules/git/auth.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "modules/git/backend.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "modules/git/backend_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "modules/git/branch.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "modules/git/cli_backend.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "modules/git/cli_backend_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "modules/git/network.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "modules/git/remote.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "modules/git/repo.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "modules/git/repo_cli_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "modules/git/types.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "modules/git/url.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "modules/git/url_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "modules/httputil/httputil.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "modules/httputil/transport.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "modules/httputil/transport_stall_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "modules/interact/comments.go",
+          "status": "removed",
+          "statusRaw": "removed"
         },
         {
           "path": "modules/interact/issue_create.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "modules/interact/issue_edit.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "modules/interact/login.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "modules/interact/login_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "modules/interact/milestone_create.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "modules/interact/print.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "modules/interact/prompts.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "modules/interact/pull_create.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "modules/interact/pull_merge.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "modules/interact/pull_review.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "modules/print/actions.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "modules/print/actions_runs.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "modules/print/actions_runs_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "modules/print/actions_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "modules/print/attachment.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "modules/print/branch.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "modules/print/branch_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "modules/print/comment.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "modules/print/formatters.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "modules/print/issue.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "modules/print/label.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "modules/print/login.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "modules/print/login_status.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "modules/print/login_status_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "modules/print/markdown.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "modules/print/milestone.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "modules/print/notification.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "modules/print/organization.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "modules/print/pull.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "modules/print/pull_review_comment.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "modules/print/pull_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "modules/print/release.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "modules/print/repo.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "modules/print/repo_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "modules/print/sshkey.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "modules/print/table.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "modules/print/table_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "modules/print/times.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "modules/print/user.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "modules/print/webhook.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "modules/print/webhook_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "modules/print/wiki.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "modules/print/wiki_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "modules/task/assignees.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "modules/task/issue_create.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "modules/task/issue_edit.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "modules/task/labels.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "modules/task/labels_export.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "modules/task/login_create.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "modules/task/login_create_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "modules/task/login_httpsign.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "modules/task/login_ssh.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "modules/task/login_status.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "modules/task/login_status_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "modules/task/milestone_create.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "modules/task/pull_checkout.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "modules/task/pull_clean.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "modules/task/pull_create.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "modules/task/pull_create_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "modules/task/pull_edit.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "modules/task/pull_merge.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "modules/task/pull_merge_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "modules/task/pull_review.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "modules/task/pull_review_comment.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "modules/task/repo_clone.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "modules/task/wiki.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "modules/task/wiki_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "modules/theme/background.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "modules/theme/theme.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "modules/theme/theme_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "modules/utils/draft.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "modules/utils/draft_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "modules/utils/input.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "modules/utils/parse.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "modules/utils/parse_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "modules/utils/path.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "modules/utils/utils.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "modules/utils/validate.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "modules/version/version.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "tests/README.md",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "tests/integration/admin_users_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "tests/integration/cmd_labels_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "tests/integration/comments_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "tests/integration/config_lock_unix_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "tests/integration/context_init_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "tests/integration/git_branch_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "tests/integration/git_repo_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "tests/integration/helpers_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "tests/integration/pulls_reply_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "tests/integration/repos_create_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "tests/integration/sshkeys_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "tests/integration/task_issue_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "tests/integration/task_labels_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "tests/integration/task_pull_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "tests/integration/wiki_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": ".gitea/workflows/release-nightly.yml",
           "status": "modified",
           "statusRaw": "modified"
         },
         {
-          "path": "modules/task/issue_create.go",
+          "path": ".gitea/workflows/release-tag.yml",
           "status": "modified",
           "statusRaw": "modified"
+        },
+        {
+          "path": ".gitea/workflows/test-pr.yml",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": ".gitignore",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": ".golangci.yml",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": ".goreleaser.yaml",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "CONTRIBUTING.md",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "Makefile",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "README.md",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "docs/example-workflows.md",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "go.mod",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "go.sum",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "main.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "snap/snapcraft.yaml",
+          "status": "modified",
+          "statusRaw": "modified"
+        }
+      ]
+    },
+    {
+      "ref": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "repo": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "owner": "gitea",
+          "name": "tea"
+        },
+        "sha": "12e415a7a7fcadc22745eae2b9fba98f00307a83"
+      },
+      "sha": "12e415a7a7fcadc22745eae2b9fba98f00307a83",
+      "message": "refactor: add services layer on the Gitea Go SDK (#1125)\n\n- `internal/services`: typed Gitea workflows built on `gitea.dev/sdk`, independent of CLI flags and terminal I/O: issues, pull requests, reviews, comments, labels, milestones, releases and assets, repositories, branches, wiki, Actions (workflows, runs, jobs, logs, artifacts, secrets, variables), organizations, teams, webhooks, notifications, SSH keys, tracked time, admin users, search and status.\n- SDK types are mapped to tea's own output types, so `--json` stays a stable contract. Requests the SDK cannot express yet (e.g. pull list filters, multi-status run lists, org label archiving) go through small raw helpers, each marked `TODO(sdk)` with the missing SDK piece.\n- Targets Gitea 28 or newer: no version or API-schema probing. List helpers fill pages capped by `MAX_RESPONSE_ITEMS`.\n\nNothing imports this package yet.\n\nReviewed-on: https://gitea.com/gitea/tea/pulls/1125\nReviewed-by: TheFox0x7 <redacted@example.invalid>\n",
+      "author": {
+        "actor": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "login": "bircni",
+          "id": "173651",
+          "name": "bircni",
+          "avatarUrl": "https://gitea.com/avatars/6e5afe455623d71267c5c263a9c5a919f46f6d3a7838f4e17b4d72641b63432c",
+          "url": "https://gitea.com/bircni",
+          "isBotHint": false
+        },
+        "name": "bircni",
+        "email": "redacted@example.invalid",
+        "date": "2026-10-11T17:15:41.000Z"
+      },
+      "committer": {
+        "actor": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "login": "bircni",
+          "id": "173651",
+          "name": "bircni",
+          "avatarUrl": "https://gitea.com/avatars/6e5afe455623d71267c5c263a9c5a919f46f6d3a7838f4e17b4d72641b63432c",
+          "url": "https://gitea.com/bircni",
+          "isBotHint": false
+        },
+        "name": "bircni",
+        "email": "redacted@example.invalid",
+        "date": "2026-10-11T17:15:41.000Z"
+      },
+      "parents": [
+        "faea86cd948384deee5e192b7c3441c2d7861ef7"
+      ],
+      "url": "https://gitea.com/gitea/tea/commit/12e415a7a7fcadc22745eae2b9fba98f00307a83",
+      "stats": {
+        "additions": 9512,
+        "deletions": 0,
+        "total": 9512
+      },
+      "files": [
+        {
+          "path": "internal/services/action_logs.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/services/action_logs_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/services/action_values.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/services/action_values_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/services/actions.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/services/actions_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/services/admin_users.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/services/admin_users_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/services/api.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/services/api_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/services/artifacts.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/services/artifacts_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/services/attachments.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/services/branches.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/services/branches_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/services/checks.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/services/checks_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/services/comments.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/services/comments_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/services/convert.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/services/convert_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/services/draft.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/services/draft_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/services/errors.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/services/helpers.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/services/helpers_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/services/identity.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/services/identity_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/services/issue_attachments.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/services/issue_create_selectables.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/services/issue_create_selectables_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/services/issue_dependencies.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/services/issue_labels_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/services/issues.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/services/issues_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/services/label_selection.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/services/label_selection_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/services/metadata.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/services/metadata_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/services/milestone_deadline_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/services/milestone_selection.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/services/milestone_selection_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/services/notifications.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/services/notifications_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/services/organizations.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/services/organizations_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/services/pagination_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/services/pull_create_selectables.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/services/pulls.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/services/pulls_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/services/raw.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/services/raw_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/services/releases.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/services/releases_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/services/repositories.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/services/repositories_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/services/repository_search.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/services/repository_search_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/services/repository_setup.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/services/repository_setup_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/services/review_requests.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/services/review_requests_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/services/reviews.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/services/reviews_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/services/sdk.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/services/sdk_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/services/search.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/services/search_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/services/ssh_keys.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/services/ssh_keys_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/services/status.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/services/status_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/services/teams.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/services/teams_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/services/time.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/services/time_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/services/webhooks.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/services/webhooks_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/services/wiki.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/services/wiki_test.go",
+          "status": "added",
+          "statusRaw": "added"
         }
       ]
     }

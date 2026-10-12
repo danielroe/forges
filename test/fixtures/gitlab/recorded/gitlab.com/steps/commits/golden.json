@@ -10,25 +10,25 @@
           "owner": "gitlab-org",
           "name": "cli"
         },
-        "sha": "9a7963a1f19651973a02d75b8a7ae16ba81e27e5"
+        "sha": "b67f19b0f87455fc09d18e3b0314a14d022f3af6"
       },
-      "sha": "9a7963a1f19651973a02d75b8a7ae16ba81e27e5",
-      "message": "Merge branch 'chore/redundant-make-fix' into 'main'\n\nchore: remove redundant \"make fix\" tools\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4009\n\nMerged-by: Kai Armstrong <redacted@example.invalid>\nApproved-by: Kai Armstrong <redacted@example.invalid>\nReviewed-by: Kai Armstrong <redacted@example.invalid>\nCo-authored-by: Ville Skyttä <redacted@example.invalid>",
+      "sha": "b67f19b0f87455fc09d18e3b0314a14d022f3af6",
+      "message": "Merge branch '8577-ssh-key-add-replace' into 'main'\n\nfeat(ssh-key): add --replace flag to ssh-key add\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4034\n\nMerged-by: Ahmed Hemdan <redacted@example.invalid>\nApproved-by: Ahmed Hemdan <redacted@example.invalid>\nApproved-by: GitLab Duo <redacted@example.invalid>\nReviewed-by: Ahmed Hemdan <redacted@example.invalid>\nReviewed-by: GitLab Duo <redacted@example.invalid>\nCo-authored-by: Radek Antoniuk <redacted@example.invalid>",
       "author": {
-        "name": "Kai Armstrong",
+        "name": "Ahmed Hemdan",
         "email": "redacted@example.invalid",
-        "date": "2026-10-09T22:32:13.000Z"
+        "date": "<now>"
       },
       "committer": {
         "name": "GitLab",
         "email": "redacted@example.invalid",
-        "date": "2026-10-09T22:32:13.000Z"
+        "date": "<now>"
       },
       "parents": [
-        "fa3b8d6792a8063eb03a5a8784517019d15829be",
-        "392ad277d67c1d64b3b1e32e1d93d520628d5895"
+        "6ff113fb6793eb4963464a2923de28890f1127f9",
+        "c3151df7594b6208664ed7c51dd97ffd671067d6"
       ],
-      "url": "https://gitlab.com/gitlab-org/cli/-/commit/9a7963a1f19651973a02d75b8a7ae16ba81e27e5"
+      "url": "https://gitlab.com/gitlab-org/cli/-/commit/b67f19b0f87455fc09d18e3b0314a14d022f3af6"
     },
     {
       "ref": {
@@ -40,24 +40,24 @@
           "owner": "gitlab-org",
           "name": "cli"
         },
-        "sha": "392ad277d67c1d64b3b1e32e1d93d520628d5895"
+        "sha": "c3151df7594b6208664ed7c51dd97ffd671067d6"
       },
-      "sha": "392ad277d67c1d64b3b1e32e1d93d520628d5895",
-      "message": "chore: remove redundant \"make fix\" tools\n",
+      "sha": "c3151df7594b6208664ed7c51dd97ffd671067d6",
+      "message": "feat(ssh-key): add --replace flag to ssh-key add\n",
       "author": {
-        "name": "Ville Skyttä",
+        "name": "Radek Antoniuk",
         "email": "redacted@example.invalid",
-        "date": "2026-10-09T22:32:13.000Z"
+        "date": "<now>"
       },
       "committer": {
         "name": "GitLab",
         "email": "redacted@example.invalid",
-        "date": "2026-10-09T22:32:13.000Z"
+        "date": "<now>"
       },
       "parents": [
-        "fa3b8d6792a8063eb03a5a8784517019d15829be"
+        "9a7963a1f19651973a02d75b8a7ae16ba81e27e5"
       ],
-      "url": "https://gitlab.com/gitlab-org/cli/-/commit/392ad277d67c1d64b3b1e32e1d93d520628d5895"
+      "url": "https://gitlab.com/gitlab-org/cli/-/commit/c3151df7594b6208664ed7c51dd97ffd671067d6"
     },
     {
       "ref": {
@@ -69,34 +69,34 @@
           "owner": "gitlab-org",
           "name": "cli"
         },
-        "sha": "fa3b8d6792a8063eb03a5a8784517019d15829be"
+        "sha": "6ff113fb6793eb4963464a2923de28890f1127f9"
       },
-      "sha": "fa3b8d6792a8063eb03a5a8784517019d15829be",
-      "message": "Merge branch 'jhahimanshu653/fix-registry-domains-7943' into 'main'\n\nfix(auth): persist registry domains for token logins\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4043\n\nMerged-by: Kai Armstrong <redacted@example.invalid>\nApproved-by: GitLab Duo <redacted@example.invalid>\nApproved-by: Kai Armstrong <redacted@example.invalid>\nReviewed-by: Kai Armstrong <redacted@example.invalid>\nCo-authored-by: Himanshu Jha <redacted@example.invalid>",
+      "sha": "6ff113fb6793eb4963464a2923de28890f1127f9",
+      "message": "Merge branch '7977-time-tracking-update' into 'main'\n\nfeat: time tracking support on issue update\n\nCloses #7977\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4019\n\nMerged-by: Jay McCure <redacted@example.invalid>\nApproved-by: Erran Carey <redacted@example.invalid>\nApproved-by: Jay McCure <redacted@example.invalid>\nCo-authored-by: Giannis Kepas <redacted@example.invalid>",
       "author": {
-        "name": "Kai Armstrong",
+        "name": "Jay McCure",
         "email": "redacted@example.invalid",
-        "date": "2026-10-09T19:38:45.000Z"
+        "date": "2026-10-12T03:50:24.000Z"
       },
       "committer": {
         "name": "GitLab",
         "email": "redacted@example.invalid",
-        "date": "2026-10-09T19:38:45.000Z"
+        "date": "2026-10-12T03:50:24.000Z"
       },
       "parents": [
-        "86c6176e8805aaa3b0ea1ff716b26c5a55e7176c",
-        "ba969f532feb4fe697fbdf944a54610358c333d7"
+        "a969ac1df2dc0e9b2599ca55d7f0e512947e0044",
+        "75a8012317b9aee63bce29dc3bbf5a98d3b50b4e"
       ],
-      "url": "https://gitlab.com/gitlab-org/cli/-/commit/fa3b8d6792a8063eb03a5a8784517019d15829be"
+      "url": "https://gitlab.com/gitlab-org/cli/-/commit/6ff113fb6793eb4963464a2923de28890f1127f9"
     }
   ],
   "cursor": {
     "nextUrl": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/repository/commits?id=gitlab-org%2Fcli&order=default&page=2&pagination=legacy&per_page=3&trailers=false",
-    "etag": "W/\"1fe7eed49827b1f86d08815dd584b21a\""
+    "etag": "W/\"332a98ec0da1ab93fda3dfc00e9e7716\""
   },
   "rateLimit": {
     "limit": 2000,
-    "remaining": 1941,
+    "remaining": 1942,
     "resetAt": "<now>"
   }
 }

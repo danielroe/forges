@@ -1,16 +1,16 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/hooks/695806973/deliveries?per_page=3"
+    "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/hooks/696161298/deliveries?per_page=3"
   },
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"a45713f5ef52e0b39002b73073a70ec1213d24eda1fc9a9af633f2f01962f78f\"",
+      "etag": "W/\"602b6574295a66f57a72e44f8ec2e65a021058600527ab9ac579e43815762af5\"",
       "x-ratelimit-limit": "500",
       "x-ratelimit-remaining": "495",
-      "x-ratelimit-reset": "1791737271"
+      "x-ratelimit-reset": "1791805050"
     },
-    "body": "[{\"id\":3847726363943370752,\"guid\":\"5b8cf01c-c593-11f1-93e8-b72cdb559e1a\",\"delivered_at\":\"2026-10-11T16:46:51.881Z\",\"redelivery\":false,\"duration\":0,\"status\":\"failed to connect to host\",\"status_code\":502,\"event\":\"ping\",\"action\":null,\"installation_id\":null,\"repository_id\":1411702196,\"url\":\"\",\"throttled_at\":null}]"
+    "body": "[{\"id\":3847871919097380864,\"guid\":\"2b3a5fe6-c631-11f1-9980-843da93df583\",\"delivered_at\":\"2026-10-12T11:36:31.236Z\",\"redelivery\":false,\"duration\":0,\"status\":\"failed to connect to host\",\"status_code\":502,\"event\":\"ping\",\"action\":null,\"installation_id\":null,\"repository_id\":1411702196,\"url\":\"\",\"throttled_at\":null}]"
   }
 }

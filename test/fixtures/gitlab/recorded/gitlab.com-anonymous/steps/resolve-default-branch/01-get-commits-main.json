@@ -6,48 +6,48 @@
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"380c4daea550900021265b4cfa0a29c2\"",
+      "etag": "W/\"f122ccd0eecff038f358103f2541f85e\"",
       "ratelimit-limit": "500",
-      "ratelimit-remaining": "465",
-      "ratelimit-reset": "1791731100"
+      "ratelimit-remaining": "462",
+      "ratelimit-reset": "1791804660"
     },
     "body": {
-      "id": "9a7963a1f19651973a02d75b8a7ae16ba81e27e5",
-      "short_id": "9a7963a1",
-      "created_at": "2026-10-09T17:32:13.000-05:00",
+      "id": "b67f19b0f87455fc09d18e3b0314a14d022f3af6",
+      "short_id": "b67f19b0",
+      "created_at": "2026-10-12T12:58:35.000+02:00",
       "parent_ids": [
-        "fa3b8d6792a8063eb03a5a8784517019d15829be",
-        "392ad277d67c1d64b3b1e32e1d93d520628d5895"
+        "6ff113fb6793eb4963464a2923de28890f1127f9",
+        "c3151df7594b6208664ed7c51dd97ffd671067d6"
       ],
-      "title": "Merge branch 'chore/redundant-make-fix' into 'main'",
-      "message": "Merge branch 'chore/redundant-make-fix' into 'main'\n\nchore: remove redundant \"make fix\" tools\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4009\n\nMerged-by: Kai Armstrong <redacted@example.invalid>\nApproved-by: Kai Armstrong <redacted@example.invalid>\nReviewed-by: Kai Armstrong <redacted@example.invalid>\nCo-authored-by: Ville Skyttä <redacted@example.invalid>",
-      "author_name": "Kai Armstrong",
+      "title": "Merge branch '8577-ssh-key-add-replace' into 'main'",
+      "message": "Merge branch '8577-ssh-key-add-replace' into 'main'\n\nfeat(ssh-key): add --replace flag to ssh-key add\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4034\n\nMerged-by: Ahmed Hemdan <redacted@example.invalid>\nApproved-by: Ahmed Hemdan <redacted@example.invalid>\nApproved-by: GitLab Duo <redacted@example.invalid>\nReviewed-by: Ahmed Hemdan <redacted@example.invalid>\nReviewed-by: GitLab Duo <redacted@example.invalid>\nCo-authored-by: Radek Antoniuk <redacted@example.invalid>",
+      "author_name": "Ahmed Hemdan",
       "author_email": "redacted@example.invalid",
-      "authored_date": "2026-10-09T17:32:13.000-05:00",
+      "authored_date": "2026-10-12T12:58:35.000+02:00",
       "committer_name": "GitLab",
       "committer_email": "redacted@example.invalid",
-      "committed_date": "2026-10-09T17:32:13.000-05:00",
+      "committed_date": "2026-10-12T12:58:35.000+02:00",
       "trailers": {},
       "extended_trailers": {},
-      "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/9a7963a1f19651973a02d75b8a7ae16ba81e27e5",
+      "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/b67f19b0f87455fc09d18e3b0314a14d022f3af6",
       "stats": {
-        "additions": 2,
-        "deletions": 3,
-        "total": 5
+        "additions": 277,
+        "deletions": 24,
+        "total": 301
       },
       "status": "success",
       "project_id": 34675721,
       "last_pipeline": {
-        "id": 2934933529,
-        "iid": 15072,
+        "id": 2938354390,
+        "iid": 15128,
         "project_id": 34675721,
-        "sha": "9a7963a1f19651973a02d75b8a7ae16ba81e27e5",
+        "sha": "b67f19b0f87455fc09d18e3b0314a14d022f3af6",
         "ref": "main",
         "status": "success",
-        "source": "schedule",
-        "created_at": "2026-10-11T01:14:06.733Z",
-        "updated_at": "2026-10-11T01:34:56.169Z",
-        "web_url": "https://gitlab.com/gitlab-org/cli/-/pipelines/2934933529"
+        "source": "push",
+        "created_at": "2026-10-12T10:58:37.988Z",
+        "updated_at": "2026-10-12T11:11:55.378Z",
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/pipelines/2938354390"
       }
     }
   }

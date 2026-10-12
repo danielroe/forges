@@ -6,43 +6,43 @@
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"fa3060bbc4e52fc1ebd94990b71d93001a27156c570527feac96f5c21dec8b33\"",
+      "etag": "W/\"7affe41f44311c20e4fd66853930b8dff9dea4597ea8ded7a9d1f383f881a938\"",
       "x-ratelimit-limit": "5000",
-      "x-ratelimit-remaining": "4989",
-      "x-ratelimit-reset": "1791739103"
+      "x-ratelimit-remaining": "4802",
+      "x-ratelimit-reset": "1791807905"
     },
     "body": {
-      "sha": "e15fcc37ad0c5521a756e3557274999643a3ecfa",
-      "node_id": "C_kwDOVCTdtNoAKGUxNWZjYzM3YWQwYzU1MjFhNzU2ZTM1NTcyNzQ5OTk2NDNhM2VjZmE",
+      "sha": "16be8af10261689c1c7b28fac571d93a83cd900d",
+      "node_id": "C_kwDOVCTdtNoAKDE2YmU4YWYxMDI2MTY4OWMxYzdiMjhmYWM1NzFkOTNhODNjZDkwMGQ",
       "commit": {
         "author": {
           "name": "Daniel Roe",
           "email": "redacted@example.invalid",
-          "date": "2026-10-11T16:07:51Z"
+          "date": "2026-10-11T16:46:44Z"
         },
         "committer": {
           "name": "GitHub",
           "email": "redacted@example.invalid",
-          "date": "2026-10-11T16:07:51Z"
+          "date": "2026-10-11T16:46:44Z"
         },
-        "message": "Merge run 20261011160603\n\nMerged by run 20261011160603",
+        "message": "Merge run 20261011164520\n\nMerged by run 20261011164520",
         "tree": {
-          "sha": "e5f3970541d384133fd4d2343a3dc1df51ae17f5",
-          "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/git/trees/e5f3970541d384133fd4d2343a3dc1df51ae17f5"
+          "sha": "91fc6038cf9d2c2eca6e812647d4c33e15f3025a",
+          "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/git/trees/91fc6038cf9d2c2eca6e812647d4c33e15f3025a"
         },
-        "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/git/commits/e15fcc37ad0c5521a756e3557274999643a3ecfa",
+        "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/git/commits/16be8af10261689c1c7b28fac571d93a83cd900d",
         "comment_count": 0,
         "verification": {
           "verified": true,
           "reason": "valid",
-          "signature": "-----BEGIN PGP SIGNATURE-----\n\nwsFcBAABCAAQBQJqy7RXCRC1aQ7uu5UhlAAAncoQABUrbcXcaZ2XijXeP6MunMFu\naYLEjhizmljWTTCxWU+57RVGqPE4WD71gtwwbYV+OZI4NRGwqolx7W/2LWVh17sM\nu4eLCqJSkFAxZoJgANNVY6TIPSF1+NW19dDsCAmNyuSwZMNIpozOWRqvc7w4a07V\nN1edfmjTECnfykp9Zgnb/sPPui/LTW0k0A9MDf218o97f81AsCFBbHejp5DhiaeA\n//XT94mWjJBvodCX7GQi2r6WY8PDtW+NO/4XeZT58qxAp+j+ga8Kw+RjthQHcfg2\nePFfI6V8+7ZF6JuZbT3zpfCKI0F1IUFRs+fqlJ8AyPN0Oq4gJT2Bu1EEZIpcUeZ1\n09uZ6AzAfNYVQX8RpUNWjgaFzWRS3pEHU8YU9xfcEhLosD4K6Aa+V++0yLvqf/dR\naZzyZmgd4rmrc4zqXsDM3kMtcwkeq36qdvP2flnMl3hDVCaQiJR7JDwR7K0UZqOo\n3tGsj2B1Fyrpqe6wpYcG7pAnv8FaGbP+FiGBzrp6obldxozBspz3dPaKktSpSstz\nq8vjuOXWDfw2RHG06YmTN/G2aGNEua2jxwVZkzv0zjytSiEp8AGU57E0h/C08q3e\n7jHOjA0sQ+X4J2nDDWwu16QJ5iL3giXJjBN2wJu3/OeOdXfCukJ8JVeSNVZ+HrLh\ngv/cdTTnTaQ/mC4dbt87\n=+uWQ\n-----END PGP SIGNATURE-----\n",
-          "payload": "tree e5f3970541d384133fd4d2343a3dc1df51ae17f5\nparent 36e63e7ebc910a9b36efa97bdbdc6a410ee7231f\nparent 315b886c3b7144a799a4685745c125f200d41394\nauthor Daniel Roe <redacted@example.invalid> 1791734871 +0100\ncommitter GitHub <redacted@example.invalid> 1791734871 +0100\n\nMerge run 20261011160603\n\nMerged by run 20261011160603",
-          "verified_at": "2026-10-11T16:07:52Z"
+          "signature": "-----BEGIN PGP SIGNATURE-----\n\nwsFcBAABCAAQBQJqy710CRC1aQ7uu5UhlAAAFrAQAHNo8seWHcKCAPSAJgA7SzVH\npxIsJddEQq6maMeqV5Z7LKjUHwPVFOFr7rR0FfYaao59ZAZcKIRpz82BrBNaWI8t\npyocBSFeSDW75XMBC0CDh3OHXqoD0vCehjVhw7BD4cG1plvWbe6SePs77HTWp/Zh\naZ4CW+4IMx8ZxqlSqtqBA4ih7rgwSL+Xy6x7CUU8Oe8WccIvzn7IeW+gxrjTAmtZ\n+MpiBzQwvuLSfkkVSQiCW9V/TFChLCPkMtLXb7g2Gyj76BTJuH3oYKpjSf+cNA+e\nRyg9pMZA3N9kWzwYthbQi9VTVlUGA90BOskVWuEaY4nZiXIXKxYQ43K7qKqoYbBT\ne3Hmui/WJcAOaZXA+PY5UPpY0HPVs/zXH28S2b+Xx3xQYAU1qsYYbjnkzpgk0pa2\niDdF/kGTDvNCwwbwOI04bp9PM4aWASeN1dboNnJpDrNhWR9AwbTzL7XBZwd7Z8hD\nEmJqhqhyZN82C2zdQjcZi3OXh4X3A47xxZNJx7BjqfcA4YXiaWkLb3JWJq1Ddwgq\n/SJEJdP0VQsZNwf3oh+8f6F1eyxV+oYrxf1J0FGY8SHP2Es0jbDbl1p7pdgLPQ/j\nncJZ2AF6em8WiLeBq1rzfCyy9XQpxIDQp+43S9UsHuBIPApnz4ib+/7y0puJEG11\netcI0SrLqkVa5LCcq6jz\n=wMEH\n-----END PGP SIGNATURE-----\n",
+          "payload": "tree 91fc6038cf9d2c2eca6e812647d4c33e15f3025a\nparent b0196cf0b7c40edbd317b0103331f8888055256c\nparent 747b285dc9b495a16f08e60df0c0752a255f1b18\nauthor Daniel Roe <redacted@example.invalid> 1791737204 +0100\ncommitter GitHub <redacted@example.invalid> 1791737204 +0100\n\nMerge run 20261011164520\n\nMerged by run 20261011164520",
+          "verified_at": "2026-10-11T16:46:44Z"
         }
       },
-      "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/commits/e15fcc37ad0c5521a756e3557274999643a3ecfa",
-      "html_url": "https://github.com/forges-fixtures/forges-fixtures/commit/e15fcc37ad0c5521a756e3557274999643a3ecfa",
-      "comments_url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/commits/e15fcc37ad0c5521a756e3557274999643a3ecfa/comments",
+      "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/commits/16be8af10261689c1c7b28fac571d93a83cd900d",
+      "html_url": "https://github.com/forges-fixtures/forges-fixtures/commit/16be8af10261689c1c7b28fac571d93a83cd900d",
+      "comments_url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/commits/16be8af10261689c1c7b28fac571d93a83cd900d/comments",
       "author": {
         "login": "danielroe",
         "id": 28706372,
@@ -87,14 +87,14 @@
       },
       "parents": [
         {
-          "sha": "36e63e7ebc910a9b36efa97bdbdc6a410ee7231f",
-          "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/commits/36e63e7ebc910a9b36efa97bdbdc6a410ee7231f",
-          "html_url": "https://github.com/forges-fixtures/forges-fixtures/commit/36e63e7ebc910a9b36efa97bdbdc6a410ee7231f"
+          "sha": "b0196cf0b7c40edbd317b0103331f8888055256c",
+          "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/commits/b0196cf0b7c40edbd317b0103331f8888055256c",
+          "html_url": "https://github.com/forges-fixtures/forges-fixtures/commit/b0196cf0b7c40edbd317b0103331f8888055256c"
         },
         {
-          "sha": "315b886c3b7144a799a4685745c125f200d41394",
-          "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/commits/315b886c3b7144a799a4685745c125f200d41394",
-          "html_url": "https://github.com/forges-fixtures/forges-fixtures/commit/315b886c3b7144a799a4685745c125f200d41394"
+          "sha": "747b285dc9b495a16f08e60df0c0752a255f1b18",
+          "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/commits/747b285dc9b495a16f08e60df0c0752a255f1b18",
+          "html_url": "https://github.com/forges-fixtures/forges-fixtures/commit/747b285dc9b495a16f08e60df0c0752a255f1b18"
         }
       ],
       "stats": {
@@ -104,16 +104,16 @@
       },
       "files": [
         {
-          "sha": "4eb7e844dd6cea70af1ac052978faefe9b3f8895",
-          "filename": "forges-fixtures/20261011160603-2.md",
+          "sha": "12a0904e127035b21702e27db00e304dcce27347",
+          "filename": "forges-fixtures/20261011164520-2.md",
           "status": "added",
           "additions": 1,
           "deletions": 0,
           "changes": 1,
-          "blob_url": "https://github.com/forges-fixtures/forges-fixtures/blob/e15fcc37ad0c5521a756e3557274999643a3ecfa/forges-fixtures%2F20261011160603-2.md",
-          "raw_url": "https://github.com/forges-fixtures/forges-fixtures/raw/e15fcc37ad0c5521a756e3557274999643a3ecfa/forges-fixtures%2F20261011160603-2.md",
-          "contents_url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/contents/forges-fixtures%2F20261011160603-2.md?ref=e15fcc37ad0c5521a756e3557274999643a3ecfa",
-          "patch": "@@ -0,0 +1 @@\n+Added by the forges write recording on forges-fixtures/20261011160603-2."
+          "blob_url": "https://github.com/forges-fixtures/forges-fixtures/blob/16be8af10261689c1c7b28fac571d93a83cd900d/forges-fixtures%2F20261011164520-2.md",
+          "raw_url": "https://github.com/forges-fixtures/forges-fixtures/raw/16be8af10261689c1c7b28fac571d93a83cd900d/forges-fixtures%2F20261011164520-2.md",
+          "contents_url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/contents/forges-fixtures%2F20261011164520-2.md?ref=16be8af10261689c1c7b28fac571d93a83cd900d",
+          "patch": "@@ -0,0 +1 @@\n+Added by the forges write recording on forges-fixtures/20261011164520-2."
         }
       ]
     }

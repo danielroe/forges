@@ -4,20 +4,21 @@
       "ref": {
         "forge": "gitlab",
         "instance": "gitlab.com",
-        "owner": "Ziwon90",
-        "name": "fedcli",
-        "externalId": "87492104"
+        "owner": "rachel.green.r",
+        "name": "ecoscan-37671564-deletion_scheduled-87522990",
+        "externalId": "87522990"
       },
-      "defaultBranch": "main",
+      "description": "Free and open-source music streaming Android client for Subsonic API compatible servers",
+      "defaultBranch": "develop",
       "visibility": "public",
       "visibilityRaw": "public",
       "isFork": false,
       "isArchived": false,
       "topics": [],
-      "url": "https://gitlab.com/Ziwon90/fedcli",
+      "url": "https://gitlab.com/rachel.green.r/ecoscan-37671564-deletion_scheduled-87522990",
       "cloneUrls": {
-        "https": "https://gitlab.com/Ziwon90/fedcli.git",
-        "ssh": "git@gitlab.com:Ziwon90/fedcli.git"
+        "https": "https://gitlab.com/rachel.green.r/ecoscan-37671564-deletion_scheduled-87522990.git",
+        "ssh": "git@gitlab.com:rachel.green.r/ecoscan-37671564-deletion_scheduled-87522990.git"
       },
       "createdAt": "<now>",
       "updatedAt": "<now>",
@@ -28,20 +29,21 @@
       "ref": {
         "forge": "gitlab",
         "instance": "gitlab.com",
-        "owner": "Ziwon90",
-        "name": "fedcli-deletion_scheduled-87492080",
-        "externalId": "87492080"
+        "owner": "polyconnect",
+        "name": "omnipix-cli",
+        "externalId": "87522939"
       },
+      "description": "Public source repository for the Omnipix command-line client.",
       "defaultBranch": "main",
       "visibility": "public",
       "visibilityRaw": "public",
       "isFork": false,
       "isArchived": false,
       "topics": [],
-      "url": "https://gitlab.com/Ziwon90/fedcli-deletion_scheduled-87492080",
+      "url": "https://gitlab.com/polyconnect/omnipix-cli",
       "cloneUrls": {
-        "https": "https://gitlab.com/Ziwon90/fedcli-deletion_scheduled-87492080.git",
-        "ssh": "git@gitlab.com:Ziwon90/fedcli-deletion_scheduled-87492080.git"
+        "https": "https://gitlab.com/polyconnect/omnipix-cli.git",
+        "ssh": "git@gitlab.com:polyconnect/omnipix-cli.git"
       },
       "createdAt": "<now>",
       "updatedAt": "<now>",
@@ -52,20 +54,21 @@
       "ref": {
         "forge": "gitlab",
         "instance": "gitlab.com",
-        "owner": "Ziwon90",
-        "name": "fedcli-deletion_scheduled-87491771",
-        "externalId": "87491771"
+        "owner": "rachel.green.r",
+        "name": "ecoscan-5664378-deletion_scheduled-87522869",
+        "externalId": "87522869"
       },
-      "defaultBranch": "main",
+      "description": ":mailbox_with_mail: Easily and securely share files from the command line. A fully featured Firefox Send client.",
+      "defaultBranch": "master",
       "visibility": "public",
       "visibilityRaw": "public",
       "isFork": false,
       "isArchived": false,
       "topics": [],
-      "url": "https://gitlab.com/Ziwon90/fedcli-deletion_scheduled-87491771",
+      "url": "https://gitlab.com/rachel.green.r/ecoscan-5664378-deletion_scheduled-87522869",
       "cloneUrls": {
-        "https": "https://gitlab.com/Ziwon90/fedcli-deletion_scheduled-87491771.git",
-        "ssh": "git@gitlab.com:Ziwon90/fedcli-deletion_scheduled-87491771.git"
+        "https": "https://gitlab.com/rachel.green.r/ecoscan-5664378-deletion_scheduled-87522869.git",
+        "ssh": "git@gitlab.com:rachel.green.r/ecoscan-5664378-deletion_scheduled-87522869.git"
       },
       "createdAt": "<now>",
       "updatedAt": "<now>",
@@ -75,11 +78,11 @@
   ],
   "cursor": {
     "nextUrl": "https://gitlab.com/api/v4/projects?imported=false&include_hidden=false&membership=false&order_by=created_at&owned=false&page=2&per_page=3&repository_checksum_failed=false&search=cli&simple=false&sort=desc&starred=false&statistics=false&wiki_checksum_failed=false&with_custom_attributes=false&with_issues_enabled=false&with_merge_requests_enabled=false",
-    "etag": "W/\"05e06ebb53ddf354227042f61ba505b8\""
+    "etag": "W/\"ae0ce6762ccc20be5a93b6133d53ee5e\""
   },
   "rateLimit": {
     "limit": 500,
-    "remaining": 456,
+    "remaining": 452,
     "resetAt": "<now>"
   }
 }

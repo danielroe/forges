@@ -1,4 +1,7 @@
 {
   "name": "ci log",
-  "recordedAt": "2026-10-11T15:04:41.512Z"
+  "recordedAt": "2026-10-12T12:03:27.119Z",
+  "needs": [
+    "ci jobs"
+  ]
 }

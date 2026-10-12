@@ -24,7 +24,7 @@
           "login": "lunny",
           "id": "1",
           "name": "Lunny Xiao",
-          "avatarUrl": "https://seccdn.libravatar.org/avatar/b897d40dc87fdba4a024827c3967597434681a8f4f0f4eb5d73e0f8b1a0a9274?d=identicon",
+          "avatarUrl": "https://gitea.com/avatars/5739143ce171af62d1ff0baa027dacfd5e5ffe9c28b7b92fc4ed02d952ab1cc3",
           "url": "https://gitea.com/lunny",
           "isBotHint": false
         },
@@ -39,7 +39,7 @@
           "login": "lunny",
           "id": "1",
           "name": "Lunny Xiao",
-          "avatarUrl": "https://seccdn.libravatar.org/avatar/b897d40dc87fdba4a024827c3967597434681a8f4f0f4eb5d73e0f8b1a0a9274?d=identicon",
+          "avatarUrl": "https://gitea.com/avatars/5739143ce171af62d1ff0baa027dacfd5e5ffe9c28b7b92fc4ed02d952ab1cc3",
           "url": "https://gitea.com/lunny",
           "isBotHint": false
         },
@@ -146,7 +146,7 @@
           "login": "lunny",
           "id": "1",
           "name": "Lunny Xiao",
-          "avatarUrl": "https://seccdn.libravatar.org/avatar/b897d40dc87fdba4a024827c3967597434681a8f4f0f4eb5d73e0f8b1a0a9274?d=identicon",
+          "avatarUrl": "https://gitea.com/avatars/5739143ce171af62d1ff0baa027dacfd5e5ffe9c28b7b92fc4ed02d952ab1cc3",
           "url": "https://gitea.com/lunny",
           "isBotHint": false
         },
@@ -161,7 +161,7 @@
           "login": "lunny",
           "id": "1",
           "name": "Lunny Xiao",
-          "avatarUrl": "https://seccdn.libravatar.org/avatar/b897d40dc87fdba4a024827c3967597434681a8f4f0f4eb5d73e0f8b1a0a9274?d=identicon",
+          "avatarUrl": "https://gitea.com/avatars/5739143ce171af62d1ff0baa027dacfd5e5ffe9c28b7b92fc4ed02d952ab1cc3",
           "url": "https://gitea.com/lunny",
           "isBotHint": false
         },
@@ -278,7 +278,7 @@
           "login": "lunny",
           "id": "1",
           "name": "Lunny Xiao",
-          "avatarUrl": "https://seccdn.libravatar.org/avatar/b897d40dc87fdba4a024827c3967597434681a8f4f0f4eb5d73e0f8b1a0a9274?d=identicon",
+          "avatarUrl": "https://gitea.com/avatars/5739143ce171af62d1ff0baa027dacfd5e5ffe9c28b7b92fc4ed02d952ab1cc3",
           "url": "https://gitea.com/lunny",
           "isBotHint": false
         },
@@ -293,7 +293,7 @@
           "login": "lunny",
           "id": "1",
           "name": "Lunny Xiao",
-          "avatarUrl": "https://seccdn.libravatar.org/avatar/b897d40dc87fdba4a024827c3967597434681a8f4f0f4eb5d73e0f8b1a0a9274?d=identicon",
+          "avatarUrl": "https://gitea.com/avatars/5739143ce171af62d1ff0baa027dacfd5e5ffe9c28b7b92fc4ed02d952ab1cc3",
           "url": "https://gitea.com/lunny",
           "isBotHint": false
         },
@@ -312,14 +312,14 @@
       },
       "files": [
         {
-          "path": "modules/git/cli_backend.go",
-          "status": "modified",
-          "statusRaw": "modified"
-        },
-        {
           "path": "modules/git/cli_backend_test.go",
           "status": "added",
           "statusRaw": "added"
+        },
+        {
+          "path": "modules/git/cli_backend.go",
+          "status": "modified",
+          "statusRaw": "modified"
         }
       ]
     }

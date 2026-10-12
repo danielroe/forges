@@ -1,27 +1,27 @@
 {
   "request": {
     "method": "POST",
-    "url": "https://api.bitbucket.org/2.0/repositories/danielroe/forges-fixtures/pullrequests/14/comments",
+    "url": "https://api.bitbucket.org/2.0/repositories/danielroe/forges-fixtures/pullrequests/17/comments",
     "body": {
       "content": {
-        "raw": "An upserted comment from run 20261011120208.\n\n<!-- forges:key=forges-fixture -->"
+        "raw": "An upserted comment from run 20261012114132.\n\n<!-- forges:key=forges-fixture -->"
       }
     }
   },
   "response": {
     "status": 201,
     "headers": {
-      "location": "https://api.bitbucket.org/2.0/repositories/danielroe/forges-fixtures/pullrequests/14/comments/881502535"
+      "location": "https://api.bitbucket.org/2.0/repositories/danielroe/forges-fixtures/pullrequests/17/comments/881805459"
     },
     "body": {
-      "id": 881502535,
-      "created_on": "2026-10-11T12:02:24.323138+00:00",
-      "updated_on": "2026-10-11T12:02:24.328879+00:00",
+      "id": 881805459,
+      "created_on": "2026-10-12T11:41:49.193852+00:00",
+      "updated_on": "2026-10-12T11:41:49.198957+00:00",
       "content": {
         "type": "rendered",
-        "raw": "An upserted comment from run 20261011120208.\n\n<!-- forges:key=forges-fixture -->",
+        "raw": "An upserted comment from run 20261012114132.\n\n<!-- forges:key=forges-fixture -->",
         "markup": "markdown",
-        "html": "<p>An upserted comment from run <a href=\"https://bitbucket.org/danielroe/forges-fixtures/commits/20261011120208\" rel=\"nofollow\" class=\"ap-connect-link\">20261011120208</a>.</p>\n<p>&lt;!-- forges:key=forges-fixture --&gt;</p>"
+        "html": "<p>An upserted comment from run <a href=\"https://bitbucket.org/danielroe/forges-fixtures/commits/20261012114132\" rel=\"nofollow\" class=\"ap-connect-link\">20261012114132</a>.</p>\n<p>&lt;!-- forges:key=forges-fixture --&gt;</p>"
       },
       "user": {
         "type": "app_user",
@@ -42,23 +42,23 @@
       "type": "pullrequest_comment",
       "links": {
         "self": {
-          "href": "https://api.bitbucket.org/2.0/repositories/danielroe/forges-fixtures/pullrequests/14/comments/881502535"
+          "href": "https://api.bitbucket.org/2.0/repositories/danielroe/forges-fixtures/pullrequests/17/comments/881805459"
         },
         "html": {
-          "href": "https://bitbucket.org/danielroe/forges-fixtures/pull-requests/14/_/diff#comment-881502535"
+          "href": "https://bitbucket.org/danielroe/forges-fixtures/pull-requests/17/_/diff#comment-881805459"
         }
       },
       "pullrequest": {
         "type": "pullrequest",
-        "id": 14,
-        "title": "forges fixture 20261011120208: pull 1",
+        "id": 17,
+        "title": "forges fixture 20261012114132: pull 1",
         "draft": false,
         "links": {
           "self": {
-            "href": "https://api.bitbucket.org/2.0/repositories/danielroe/forges-fixtures/pullrequests/14"
+            "href": "https://api.bitbucket.org/2.0/repositories/danielroe/forges-fixtures/pullrequests/17"
           },
           "html": {
-            "href": "https://bitbucket.org/danielroe/forges-fixtures/pull-requests/14"
+            "href": "https://bitbucket.org/danielroe/forges-fixtures/pull-requests/17"
           }
         },
         "queued": false

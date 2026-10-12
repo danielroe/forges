@@ -11,12 +11,12 @@
           "name": "cli"
         },
         "kind": "issue",
-        "number": "8395",
-        "externalId": "194831813"
+        "number": "8345",
+        "externalId": "191616783"
       },
       "kind": "issue",
-      "title": "Follow-up from \"fix(auth): prevent stale config writes from clobbering rotated OAuth tokens\"",
-      "body": "The following discussion from !3501 should be addressed:\n\n- [ ] @phikai started a [discussion](https://gitlab.com/gitlab-org/cli/-/merge_requests/3501#note_3553777507):  (+1 comment)\n\n    > Consider moving this helper next to `unmarshal`/`marshal` in [`internal/oauth2/config.go`](internal/oauth2/config.go) as `MergeFresherCredentialsFromDisk(cfg, dir)` and calling it from `Write()` via a small hook. The logic is OAuth-specific (three named keys, expiry-date semantics, single-use refresh token) — the generic `config` package doesn't otherwise know about OAuth, and this is the layer that'd be extended if another single-use rotating credential ever showed up.\n    > \n    > Not a blocker if you'd rather keep it here for now, but call it out as a followup.",
+      "title": "glab mr merge --rebase --auto-merge doesn't rebase",
+      "body": "### Checklist\n\n<!-- Please test the latest versions, that will remove the possibility that you see a bug that is fixed in a newer version. -->\n\n- [x] I'm using the latest version of the extension (Run `glab --version`)\n  - Extension version: 1.101.0\n- [x] Operating system and version: Windows 11\n- [x] Gitlab.com or self-managed instance? self-managed instance\n- [x] GitLab version (if self-managed) 18.3.0-ee\n  (Use the `version` endpoint, like this: gitlab.my-company.com/api/v4/version) \n- [x] I have performed `glab auth status` to check for authentication issues\n- [x] Run the command in debug mode (like `DEBUG=true glab mr list`) and attach any useful output\n\n### Summary\n\n`glab mr merge --rebase --auto-merge` doesn't work as expected. I expected it does rebase on master then \"Set to auto-merge\" but it just merges already approved task without rebasing.",
       "state": "open",
       "stateRaw": "opened",
       "isDraft": false,
@@ -24,11 +24,11 @@
         {
           "forge": "gitlab",
           "instance": "gitlab.com",
-          "login": "HamzaHassanain",
-          "id": "30770856",
-          "name": "Hamza Hassanain",
-          "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/30770856/avatar.png?v=1791714951",
-          "url": "https://gitlab.com/HamzaHassanain",
+          "login": "rantoniuk",
+          "id": "241647",
+          "name": "Radek Antoniuk",
+          "avatarUrl": "https://secure.gravatar.com/avatar/6038a5e5dcb22639c7b07f7fb3515bb99b1a7d699ac2376f16d96b2fdb0094f1?s=80&d=identicon",
+          "url": "https://gitlab.com/rantoniuk",
           "isBotHint": false
         }
       ],
@@ -37,15 +37,91 @@
       "author": {
         "forge": "gitlab",
         "instance": "gitlab.com",
-        "login": "thiagocsf",
-        "id": "480804",
-        "name": "Thiago Figueiró",
-        "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/480804/avatar.png?v=1791676803",
-        "url": "https://gitlab.com/thiagocsf",
+        "login": "QuAzI",
+        "id": "721050",
+        "name": "Ruslan Yakauleu",
+        "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/721050/avatar.png?v=1789010864",
+        "url": "https://gitlab.com/QuAzI",
         "isBotHint": false
       },
-      "url": "https://gitlab.com/gitlab-org/cli/-/work_items/8395",
-      "createdAt": "2026-07-14T01:38:55.569Z",
+      "url": "https://gitlab.com/gitlab-org/cli/-/work_items/8345",
+      "createdAt": "2026-06-02T19:39:25.013Z",
+      "updatedAt": "<now>",
+      "labels": [
+        {
+          "name": "automation:ml"
+        },
+        {
+          "name": "bug::functional"
+        },
+        {
+          "name": "category:gitlab cli"
+        },
+        {
+          "name": "devops::ai coding"
+        },
+        {
+          "name": "group::code review"
+        },
+        {
+          "name": "section::ai"
+        },
+        {
+          "name": "type::bug"
+        }
+      ],
+      "commentCount": 4,
+      "reactions": {
+        "total": 0,
+        "counts": {}
+      }
+    },
+    {
+      "ref": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "repo": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "owner": "gitlab-org",
+          "name": "cli"
+        },
+        "kind": "issue",
+        "number": "8523",
+        "externalId": "200649074"
+      },
+      "kind": "issue",
+      "title": "Convert credentialhelper and git-credential to api.Client.Credential",
+      "body": "## Summary\n\nFinish the work !3805 started: make every consumer of `Client.AuthSource()` go through\n`Client.Credential`, so the auth-source-to-credential-kind mapping lives in exactly one place.\n\n!3805 added `Credential` and converted the two consumers no other open MR touched\n(`cluster graph`, `opentofu init`). Two remain, both blocked at the time on !3798 and !3794:\n\n- `internal/commands/auth/credentialhelper/credentialhelper.go`\n- `internal/commands/auth/login/helper.go`\n\n## Why it matters beyond tidiness\n\nEach remaining consumer re-derives whether the credential is OAuth2, and one of them gets it\nwrong. `login/helper.go` branches on `cfg.Get(host, \"is_oauth2\")` rather than on what the\nclient actually resolved, so with `OAUTH_TOKEN` set and nothing stored for the host it emits\n`username=personal-access-token` alongside an OAuth token. Measured on the merged\n!3798 + !3794 branches:\n\n```\nis_oauth2=\"\" job_token=\"\" token=\"env-oauth-token\" user=\"\" -> takes OAuth branch: false\n```\n\nOnly `internal/api` knows the answer, because only it applies the `GLAB_IS_OAUTH2` /\nvariable-provenance / stored-flag precedence. Any consumer that asks configuration instead is\nanswering a different question.\n\n## Scope\n\n1. `credentialhelper`: replace the type switch and `tokenFromHeader` with `Credential`.\n   `tokenFromHeader` recovers the kind by matching the header name and stripping `Bearer `,\n   which is information `internal/api` had and discarded.\n2. `login/helper.go`: switch on the resolved credential rather than on stored `is_oauth2`,\n   which fixes the `OAUTH_TOKEN` case above.\n3. Once both are converted, `api.OAuth2AccessTokenOnlyAuthSource` may no longer need to be\n   exported.\n\nNote that `AuthSource().Header()` cannot serve `git-credential`: `OAuthTokenSource` and the\naccess-token-only source both emit `Authorization: Bearer`, but only the first has an expiry\nand refresh token to report to Git. `Credential` carries both, which is why it is the right\nseam.\n\n## Out of scope\n\n`glab cluster graph` still refuses a personal access token supplied through `OAUTH_TOKEN`,\nbecause KAS accepts only the `pat:` authorization scheme and the token is classified as\nOAuth2. That is a separate question about the KAS scheme, not about this seam.\n\n<!-- implementation plan added during 2026-09 backlog triage -->\n\n## Implementation plan\n\n> **Note:** This plan was drafted during an AI-assisted triage of the backlog and has not been validated by a maintainer. Treat it as a starting point: file paths, line numbers, and the approach may need adjusting.\n\nScope items 1 and 3 landed in !3798. Only `internal/commands/auth/login/helper.go` is left.\n\n1. In `(*options).run` (`internal/commands/auth/login/helper.go:107`), stop using config to pick the branch. Keep `cfg.Get(host, \"user\")`, since the PAT username is not part of a credential, and drop the `is_oauth2`, `job_token` and `token` reads. Build the client once for every path: `apiClient, err := o.apiClient(host)`, then `cred, err := apiClient.Credential(ctx)`.\n2. Map the errors. `errors.Is(err, api.ErrUnauthenticated)` must return `cmdutils.SilentError`, matching today's `default:` arm at line 153, so Git falls through to the next helper on an unconfigured host instead of failing. Any other error keeps a wrapped message naming the host.\n3. Replace the `switch {}` at line 122 with `switch cred.Kind`. `api.CredentialOAuth2` keeps the existing body (username `oauth2`, `password_expiry_utc` when `cred.Expiry` is non-zero, `oauth_refresh_token` when non-empty) but no longer needs the kind re-check at line 133. `api.CredentialJobToken` emits `gitlab-ci-token`. `api.CredentialPAT` emits the configured user, falling back to `personalAccessTokenUsername`. Leave the `expectedParams[\"username\"]` mismatch check and the `capability[]=authtype` preamble untouched.\n4. Note the behavior change in the MR description: a host with both `token` and `job_token` stored now authenticates as a PAT, matching `internal/api/client.go:454`, where git-credential previously preferred the job token.\n5. Extend `Test_helperRun` in `internal/commands/auth/login/helper_test.go`. Every case now needs an API client, not just the `testOAuth2` ones, so in the runner at line 440 default `tt.opts.apiClient` when nil to `func(repoHost string) (*api.Client, error) { return api.NewClientFromConfig(repoHost, tt.opts.config(), false, \"test\") }`. Add two cases: a host with stored `is_oauth2: \"true\"` plus `GITLAB_TOKEN` set, which `internal/api/client.go:371` demotes to a PAT and which errors today; and a host with both `token` and `job_token` stored, asserting the PAT wins. The new env case must not clear `GITLAB_TOKEN` the way the table preamble at line 36 does, so give it its own `t.Setenv`.\n6. No help text or flags change, so `make gen-docs` is not needed. Run `go test ./internal/commands/auth/login/...` and `go test ./internal/api/...`.",
+      "state": "open",
+      "stateRaw": "opened",
+      "isDraft": false,
+      "assignees": [
+        {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "login": "rantoniuk",
+          "id": "241647",
+          "name": "Radek Antoniuk",
+          "avatarUrl": "https://secure.gravatar.com/avatar/6038a5e5dcb22639c7b07f7fb3515bb99b1a7d699ac2376f16d96b2fdb0094f1?s=80&d=identicon",
+          "url": "https://gitlab.com/rantoniuk",
+          "isBotHint": false
+        }
+      ],
+      "reviewers": [],
+      "lastActivityAt": "<now>",
+      "author": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "login": "phikai",
+        "id": "2935693",
+        "name": "Kai Armstrong",
+        "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/2935693/avatar.png?v=1791763705",
+        "url": "https://gitlab.com/phikai",
+        "isBotHint": false
+      },
+      "url": "https://gitlab.com/gitlab-org/cli/-/work_items/8523",
+      "createdAt": "2026-08-31T14:43:36.614Z",
       "updatedAt": "<now>",
       "labels": [
         {
@@ -58,16 +134,25 @@
           "name": "backend"
         },
         {
-          "name": "follow-up"
+          "name": "category:gitlab cli"
+        },
+        {
+          "name": "devops::ai coding"
+        },
+        {
+          "name": "group::code review"
         },
         {
           "name": "maintenance::refactor"
         },
         {
+          "name": "section::ai"
+        },
+        {
           "name": "type::maintenance"
         }
       ],
-      "commentCount": 5,
+      "commentCount": 4,
       "reactions": {
         "total": 0,
         "counts": {}
@@ -84,71 +169,12 @@
           "name": "cli"
         },
         "kind": "issue",
-        "number": "8565",
-        "externalId": "204136821"
+        "number": "8508",
+        "externalId": "198078977"
       },
       "kind": "issue",
-      "title": "lint CI job is non-deterministic: nolintlint flags different pre-existing directives across retries",
-      "body": "## Problem\n\nThe `lint` CI job (golangci-lint via `gitlab.com:443/gitlab-org/dependency_proxy/containers/golangci/golangci-lint:v2.13.1-alpine`) intermittently fails `nolintlint` on pre-existing `//nolint:staticcheck` directives that are unrelated to the changes in the triggering MR, and the specific set of flagged lines changes between retries of the same commit.\n\n## Evidence\n\nObserved on !3955 (`fix(iostreams): make background/color detection reachable, add --color mode`), which touches only `internal/iostreams/`, `internal/theme/`, `internal/commands/help/`, `internal/commands/root.go`, `internal/config/schema.go`, and `cmd/glab/main.go` — none of the flagged files below.\n\nRun 1 (job 16669762994):\n```\ninternal/commands/ci/cancel/job/job.go:117:5\ninternal/commands/issue/board/view/issue_board_view.go:596:30\ninternal/commands/issue/board/view/issue_board_view.go:597:39\ninternal/commands/issue/create/issue_create.go:164:41\ninternal/commands/mr/note/mr_note_publish.go:164:2\n```\n\nRun 2, a retry of the same commit (job 16698765802):\n```\ninternal/commands/ci/cancel/job/job.go:117:5\ninternal/commands/issue/board/view/issue_board_view.go:596:30\ninternal/commands/issue/board/view/issue_board_view.go:597:39\ninternal/commands/mr/note/mr_note_publish.go:164:2\ninternal/commands/mr/view/mr_view.go:278:50          <- different from run 1\n```\n\nRun 3, another retry of the same commit (job 16698812448):\n```\ninternal/commands/ci/cancel/job/job.go:117:5\ninternal/commands/issue/board/view/issue_board_view.go:596:30\ninternal/commands/issue/board/view/issue_board_view.go:597:39\ninternal/commands/issue/create/issue_create.go:164:41   <- back to run 1's set\ninternal/commands/mr/note/mr_note_publish.go:164:2\n```\n\nThree of the five lines are stable across all three runs (`job.go:117`, `issue_board_view.go:596` and `:597`, `mr_note_publish.go:164`); the fifth line alternates between `issue_create.go:164` and `mr_view.go:278`. All five commits are identical (same SHA, same merge ref) — only the job run differs.\n\nControl: `main`'s own scheduled/push pipelines (e.g. 2877065714, 2873335961, 2871184860) are all green, so this isn't a straightforward \"these nolint comments are stale\" finding — if it were, `main` would fail identically and deterministically every time.\n\n## Hypothesis (unconfirmed — MEASURED vs UNPROVEN)\n\n**UNPROVEN:** `nolintlint`'s \"is this directive unused\" check depends on `staticcheck` having actually run its own analysis at that location within the same invocation. If golangci-lint analyzes packages concurrently with a bounded worker pool, and `staticcheck`'s SA1019 (deprecated-symbol) analysis has some cross-package or cache-sharing state, a race in which packages have completed analysis by the time `nolintlint` evaluates a given file could explain why the flagged set varies between runs of the same commit. This needs someone who's traced golangci-lint's own concurrency model to confirm — I haven't done that here.\n\n**MEASURED:** the failing line set differs across 3 runs of the identical commit; `main`'s pipelines are consistently green; none of the flagged files are touched by the triggering MR's diff.\n\n## Impact\n\nAny MR can hit this regardless of what it touches, and a maintainer retrying the job has roughly even odds of getting a different failure rather than a pass, based on this sample. Worth investigating before it becomes a routine \"just retry lint\" tax on every MR.\n\n## Suggested next step\n\nSomeone with context on `!3920`'s (CI parallelization) cache-key work or golangci-lint's concurrency settings for this project should look at whether `nolintlint` + `staticcheck` need `GOMAXPROCS=1` or a `run.concurrency: 1` setting in `.golangci.yml`, or whether this is a known upstream golangci-lint issue with a version fix available.",
-      "state": "open",
-      "stateRaw": "opened",
-      "isDraft": false,
-      "assignees": [],
-      "reviewers": [],
-      "lastActivityAt": "2026-10-11T14:06:45.641Z",
-      "author": {
-        "forge": "gitlab",
-        "instance": "gitlab.com",
-        "login": "jhebden",
-        "id": "12294975",
-        "name": "James Hebden",
-        "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/12294975/avatar.png?v=1791676930",
-        "url": "https://gitlab.com/jhebden",
-        "isBotHint": false
-      },
-      "url": "https://gitlab.com/gitlab-org/cli/-/work_items/8565",
-      "createdAt": "2026-09-24T04:41:12.610Z",
-      "updatedAt": "2026-10-11T14:06:45.641Z",
-      "labels": [
-        {
-          "name": "automation:ml"
-        },
-        {
-          "name": "automation:quick-win-judged"
-        },
-        {
-          "name": "backend"
-        },
-        {
-          "name": "maintenance::pipelines"
-        },
-        {
-          "name": "type::maintenance"
-        }
-      ],
-      "commentCount": 3,
-      "reactions": {
-        "total": 0,
-        "counts": {}
-      }
-    },
-    {
-      "ref": {
-        "forge": "gitlab",
-        "instance": "gitlab.com",
-        "repo": {
-          "forge": "gitlab",
-          "instance": "gitlab.com",
-          "owner": "gitlab-org",
-          "name": "cli"
-        },
-        "kind": "issue",
-        "number": "8595",
-        "externalId": "205878365"
-      },
-      "kind": "issue",
-      "title": "`host` config key / GITLAB_HOST overrides repo remotes instead of acting as a fallback",
-      "body": "### Checklist\n\n- [x] I'm using the latest version of the extension (Run `glab --version`)\n  - Extension version: glab 1.120.0 (78790114c)\n  - Also reproduced from source at main (`glab DEV`)\n- [x] Operating system and version: Linux 7.2.8-200.fc44.x86_64 x86_64\n- [x] Gitlab.com or self-managed instance? _both_\n- [x] GitLab version (if self-managed) _v19.3.3_\n- [x] I have performed `glab auth status` to check for authentication issues\n- [x] Run the command in debug mode (like `GLAB_DEBUG=true glab mr list`) and attach any useful output\n\n### Summary\n\nThe top-level `host:` key in `config.yml` (or the `GITLAB_HOST` / `GITLAB_URI` / `GL_HOST` environment variables) is treated as an **override when inside a Git repository** instead of as a default for when no host can be resolved. When the key differs from the repo's remote host, glab filters the remotes down to the configured host and fails all repo-bound commands. The key is documented as \"Default GitLab instance, outside Git repositories\", so it should only apply when the remote (or a URL argument) doesn't determine the host.\n\n### Environment\n\n- OS: Linux 7.2.8-200.fc44.x86_64 x86_64\n- SHELL: /bin/bash\n- TERM: xterm-256color\n- GLAB: glab 1.120.0 (78790114c)\n\n### Steps to reproduce\n\nWith no network required (the failure happens before any API call):\n\n```sh\ngit init /tmp/repro && cd /tmp/repro\ngit remote add origin https://gitlab.com/gitlab-org/cli.git\nmkdir -p /tmp/cfg && cat > /tmp/cfg/config.yml <<'EOF'\ngit_protocol: https\nhost: gitlab.tuwien.ac.at\nhosts:\n  gitlab.tuwien.ac.at:\n    token: fake\n    api_protocol: https\n    git_protocol: https\nEOF\nchmod 600 /tmp/cfg/config.yml\nGLAB_CONFIG_DIR=/tmp/cfg glab issue list\n```\n\nSetting `host:` to anything other than `gitlab.com` (or setting `GITLAB_HOST`) triggers the filter in any repo whose remote points to a different instance.\n\n### What is the current _bug_ behavior?\n\n1. The command fails with `None of the git remotes configured for this repository correspond to the GITLAB_HOST environment variable` even when **no** environment variable is set and the value came from the `host:` key — the error message is misleading.\n2. With `-R OWNER/REPO` (no host in the argument), the request silently goes to the configured instance instead of the repo's remote host, targeting the wrong instance and token.\n\n### What is the expected _correct_ behavior?\n\n- Inside a Git repository, the remote (or a URL argument) determines the host; the `host:` key / `GITLAB_HOST` are only fallbacks when the host cannot be resolved (e.g. outside a repo).\n- The error message should say which source set the override (config key vs. env var).\n\n### Relevant logs and/or screenshots\n\n```\n$ GLAB_CONFIG_DIR=/tmp/cfg GLAB_DEBUG=true glab issue list\n2026/10/08 19:04:51 [Could not determine base repo in telemetry hook:  none of the git remotes\nconfigured for this repository correspond to the GITLAB_HOST environment variable. Try adding\na matching remote or unsetting the variable.\n\nGITLAB_HOST is currently set to gitlab.tuwien.ac.at\n\nConfigured remotes: gitlab.com]\n\n   ERROR\n\n  None of the git remotes configured for this repository correspond to the GITLAB_HOST\n  environment variable. Try adding a matching remote or unsetting the variable.\n\n  GITLAB_HOST is currently set to gitlab.tuwien.ac.at\n\n  Configured remotes: gitlab.com.\n```\n\n(Note: in the debug log line, the trailing `]` closes the `GLAB_DEBUG` log entry, which wraps the message in brackets; it is not part of the error text.)\n\n### Possible fixes\n\n- `internal/cmdutils/factory.go`: `defaultHostname` is set from `cfg.Get(\"\", \"host\")` before `BaseRepo()` resolves; `Remotes()` then sets `hostOverride` whenever the default differs from `gitlab.com` (\\~line 192).\n- `internal/cmdutils/remote_resolver.go`: the `hostOverride` block (\\~lines 103-127) drops all non-matching remotes, then errors out.\n- `RepoOverride` (`factory.go`) resolves `-R OWNER/REPO` against `defaultHostname` instead of the repo's remote host.\n- Note: `remote_resolver_test.go` (\\~line 428) locks in the current override behavior, so this needs a decision on intended semantics (env var as hard override vs. fallback), not just a test change.\n- Related: #8084 covers the URL-host case of the same host-resolution model.",
+      "title": "Let glab artifact-registry login write Maven's and sbt's config where the tool actually reads it",
+      "body": "Follow-up from !3710 ([thread](https://gitlab.com/gitlab-org/cli/-/merge_requests/3710#note_3709462370)), agreed with @timofurrer.\n\n`glab artifact-registry login --sbt` writes `~/.sbt/1.0/credentials.sbt`, and `--maven` writes `~/.m2/settings.xml`. Neither location is fixed, and neither tool exposes an environment variable this command can read, so a user whose tool looks elsewhere gets a green check and a build that still authenticates with nothing.\n\n- **sbt**: the global base is `defaultGlobalBase/<binary version>`, overridable with the JVM property `-Dsbt.global.base` from the sbt command line, `SBT_OPTS`, `JAVA_OPTS` or an `.sbtopts` file ([`BuildPaths.scala` at v1.10.7](https://github.com/sbt/sbt/blob/v1.10.7/main/src/main/scala/sbt/BuildPaths.scala)). The `1.0` segment is the binary version, so it is right for sbt 1.x only. On `develop` the default has moved off `~/.sbt` entirely and is env-driven (`SBT_CONFIG_HOME`, then `XDG_CONFIG_HOME/sbt`, then `LOCALAPPDATA/sbt`, else `user.home/.config/sbt`, see [`SysProp.scala`](https://github.com/sbt/sbt/blob/develop/main/src/main/scala/sbt/internal/SysProp.scala)).\n- **maven**: `settings.xml` can be pointed elsewhere with `-s`, so the same shape applies.\n\n`--gradle` and `--npm` need nothing here: !3710 honours `GRADLE_USER_HOME` and `npm_config_userconfig`, which are the variables those tools actually read.\n\n## Proposal\n\nOne explicit override for the file this command writes, serving both `--maven` and `--sbt`, rather than an sbt-specific knob. It covers sbt 1.x, sbt 2.x and `-Dsbt.global.base` without modelling any of them.\n\nParsing `SBT_OPTS` was considered and rejected: it covers one of the several places the property can come from and quietly misses the rest, so whether the login worked would depend on how the user happens to launch sbt. That is the same silent failure the writers are built to avoid, only harder to reason about.\n\n## Current state\n\n!3710 documents the assumption instead: `sbtCredentialsPathFor`'s doc comment says it assumes a stock sbt 1.x, and the `--sbt` bullet in the command's help says an sbt that moved its global base does not read that file.\n\n<!-- implementation plan added during 2026-09 backlog triage -->\n\n## Implementation plan\n\n> **Note:** This plan was drafted during an AI-assisted triage of the backlog and has not been validated by a maintainer. Treat it as a starting point: file paths, line numbers, and the approach may need adjusting.\n\nAdd one `--config-file` flag that overrides the file `--maven` and `--sbt` write. `--docker`, `--gradle` and `--npm` are out of scope: the last two already honour `GRADLE_USER_HOME` and `npm_config_userconfig` (`internal/commands/artifactregistry/login/gradle.go:105`, `npm.go:19`).\n\n1. **Add the flag.** In `NewCmd` (`internal/commands/artifactregistry/login/login.go`), add a `configFile string` field to `options` and register `cmd.Flags().StringVar(&opts.configFile, \"config-file\", \"\", \"Path to the file to write (Maven/sbt only). Defaults to ~/.m2/settings.xml for --maven and ~/.sbt/1.0/credentials.sbt for --sbt.\")`. `--config-file` already exists elsewhere in the tree (`internal/commands/changelog/generate/changelog_generate.go:128`), so the spelling is not new.\n\n2. **Reject the values that cannot work.** In `options.validate`, return a `*cmdutils.FlagError` when `--config-file` is set and the path is a directory, or when it is a relative path you cannot resolve. Follow the existing message shape: start with `invalid --config-file: ...`, never with the flag name capitalized (see the comment above `validate`).\n\n3. **Warn when it does not apply.** In `options.run`, mirror the `--registry-alias` precedent at `login.go:311`: if `o.configFile != \"\" && !o.maven && !o.sbt`, emit `o.io.LogErrorf(\"%s --config-file is ignored outside --maven/--sbt logins.\\n\", o.io.Color().WarnIcon())`. Silently writing the default path while the user named another one is the same \"green check, no credential\" failure this package is built to avoid.\n\n4. **Thread the resolved path into the writers.** Change `loginMaven(alias, token)` to take the target path and `loginSbt(registry, token)` likewise, resolving it in `run` as `o.configFile` when set and `mavenSettingsPathFor(home)` / `sbtCredentialsPathFor(home)` otherwise. `loginSbt` already calls `upsertLines(sbtCredentialsPathFor(home), ...)` (`sbt.go:136`), and `upsertLines` creates the parent directory itself, so only the path source changes. In `loginMaven` (`maven.go:148`) replace the `filepath.Join(home, \".m2\")` pair with `filepath.Dir(path)` and `path`.\n\n5. **Tests.** Extend `internal/commands/artifactregistry/login/maven_test.go` and `sbt_test.go` with a case each that passes an explicit path under `t.TempDir()` and asserts nothing is written under the home set by `setHome` (the shape `TestLoginGradle` already uses for `GRADLE_USER_HOME` at `gradle_test.go:283`). Add to `login_test.go`: the ignored-flag warning, and the validation error. Updating the existing `loginMaven`/`loginSbt` call sites for the new parameter is mechanical, about 50 lines across the two test files.\n\n6. **Docs.** Update the `--maven` and `--sbt` bullets in `Long`, including the sentence at `login.go:151` that today says an sbt which moved its global base does not read the file, then run `make gen-docs` and commit `docs/source/artifact-registry/login.md` in the same commit.",
       "state": "open",
       "stateRaw": "opened",
       "isDraft": false,
@@ -156,44 +182,53 @@
         {
           "forge": "gitlab",
           "instance": "gitlab.com",
-          "login": "HamzaHassanain",
-          "id": "30770856",
-          "name": "Hamza Hassanain",
-          "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/30770856/avatar.png?v=1791714951",
-          "url": "https://gitlab.com/HamzaHassanain",
+          "login": "rantoniuk",
+          "id": "241647",
+          "name": "Radek Antoniuk",
+          "avatarUrl": "https://secure.gravatar.com/avatar/6038a5e5dcb22639c7b07f7fb3515bb99b1a7d699ac2376f16d96b2fdb0094f1?s=80&d=identicon",
+          "url": "https://gitlab.com/rantoniuk",
           "isBotHint": false
         }
       ],
       "reviewers": [],
-      "lastActivityAt": "2026-10-10T15:14:11.535Z",
+      "lastActivityAt": "<now>",
       "author": {
         "forge": "gitlab",
         "instance": "gitlab.com",
-        "login": "ziegenberg",
-        "id": "156252",
-        "name": "Daniel Ziegenberg",
-        "avatarUrl": "https://secure.gravatar.com/avatar/6c9be80c9e1b23ec1c54f0f3e81bc4d58e034e2bf83b8a186b8f82aa347d564c?s=80&d=identicon",
-        "url": "https://gitlab.com/ziegenberg",
+        "login": "sylviashen",
+        "id": "27667902",
+        "name": "Sylvia Shen",
+        "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/27667902/avatar.png?v=1791758098",
+        "url": "https://gitlab.com/sylviashen",
         "isBotHint": false
       },
-      "url": "https://gitlab.com/gitlab-org/cli/-/work_items/8595",
-      "createdAt": "2026-10-08T17:19:18.480Z",
-      "updatedAt": "2026-10-10T15:14:11.535Z",
+      "url": "https://gitlab.com/gitlab-org/cli/-/work_items/8508",
+      "createdAt": "2026-08-20T14:16:41.379Z",
+      "updatedAt": "<now>",
       "labels": [
         {
-          "name": "automation:ml"
+          "name": "Category:Artifact Registry"
         },
         {
-          "name": "backend"
+          "name": "artifact-registry::authn"
         },
         {
-          "name": "bug::functional"
+          "name": "automation:quick-win-judged"
         },
         {
-          "name": "type::bug"
+          "name": "devops::package"
+        },
+        {
+          "name": "group::container registry"
+        },
+        {
+          "name": "section::ci"
+        },
+        {
+          "name": "type::feature"
         }
       ],
-      "commentCount": 4,
+      "commentCount": 2,
       "reactions": {
         "total": 0,
         "counts": {}
@@ -202,12 +237,12 @@
   ],
   "cursor": {
     "nextUrl": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/issues?id=gitlab-org%2Fcli&in=title%2Cdescription&order_by=updated_at&page=2&per_page=3&search=fix&sort=desc&state=all&with_labels_details=false",
-    "etag": "W/\"0fa940c52141a991f8a8bc228fe1fefd\"",
+    "etag": "W/\"7fbd9ce91351349da5ea872f49cda2be\"",
     "token": "0:"
   },
   "rateLimit": {
     "limit": 2000,
-    "remaining": 1933,
+    "remaining": 1934,
     "resetAt": "<now>"
   }
 }

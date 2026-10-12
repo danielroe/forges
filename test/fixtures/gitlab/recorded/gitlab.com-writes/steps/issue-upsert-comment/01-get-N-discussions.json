@@ -1,16 +1,16 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://gitlab.com/api/v4/projects/forges-fixtures%2Fforges-fixtures/issues/26/discussions"
+    "url": "https://gitlab.com/api/v4/projects/forges-fixtures%2Fforges-fixtures/issues/28/discussions"
   },
   "response": {
     "status": 200,
     "headers": {
-      "link": "<https://gitlab.com/api/v4/projects/forges-fixtures%2Fforges-fixtures/issues/26/discussions?id=forges-fixtures%2Fforges-fixtures&noteable_id=26&page=1&per_page=20>; rel=\"first\", <https://gitlab.com/api/v4/projects/forges-fixtures%2Fforges-fixtures/issues/26/discussions?id=forges-fixtures%2Fforges-fixtures&noteable_id=26&page=1&per_page=20>; rel=\"last\"",
-      "etag": "W/\"121adf1fce57de9a355e89b41c365057\"",
+      "link": "<https://gitlab.com/api/v4/projects/forges-fixtures%2Fforges-fixtures/issues/28/discussions?id=forges-fixtures%2Fforges-fixtures&noteable_id=28&page=1&per_page=20>; rel=\"first\", <https://gitlab.com/api/v4/projects/forges-fixtures%2Fforges-fixtures/issues/28/discussions?id=forges-fixtures%2Fforges-fixtures&noteable_id=28&page=1&per_page=20>; rel=\"last\"",
+      "etag": "W/\"05504b0a3c0373fa28cfc538ca8a148f\"",
       "ratelimit-limit": "2000",
       "ratelimit-remaining": "1980",
-      "ratelimit-reset": "1791734760",
+      "ratelimit-reset": "1791805260",
       "x-total": "1",
       "x-total-pages": "1",
       "x-next-page": "",
@@ -19,14 +19,14 @@
     },
     "body": [
       {
-        "id": "33d6cdc3e855850cbc013f55a8f6371b11c7f652",
+        "id": "f41f56f2fa1c07ac28b0c6eeae0aaa443ba60184",
         "individual_note": true,
         "resolvable": false,
         "notes": [
           {
-            "id": 3993556148,
+            "id": 3997717772,
             "type": null,
-            "body": "An edited comment from run 20261011160520.",
+            "body": "An edited comment from run 20261012113957.",
             "author": {
               "id": 43193323,
               "username": "roebot",
@@ -37,10 +37,10 @@
               "avatar_url": "https://secure.gravatar.com/avatar/14ceebcfdc10030d76768a65e9d7978b914694cebcbb6ab609b3a0e8243f0eb8?s=80&d=identicon",
               "web_url": "https://gitlab.com/roebot"
             },
-            "created_at": "2026-10-11T16:05:30.130Z",
-            "updated_at": "2026-10-11T16:05:30.866Z",
+            "created_at": "2026-10-12T11:40:05.566Z",
+            "updated_at": "2026-10-12T11:40:06.277Z",
             "system": false,
-            "noteable_id": 206196458,
+            "noteable_id": 206267420,
             "noteable_type": "Issue",
             "project_id": 87428720,
             "resolvable": false,
@@ -48,7 +48,7 @@
             "internal": false,
             "imported": false,
             "imported_from": "none",
-            "noteable_iid": 26,
+            "noteable_iid": 28,
             "commands_changes": {}
           }
         ]

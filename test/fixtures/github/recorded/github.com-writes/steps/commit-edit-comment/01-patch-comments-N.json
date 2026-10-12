@@ -1,24 +1,24 @@
 {
   "request": {
     "method": "PATCH",
-    "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/comments/204464289",
+    "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/comments/204555973",
     "body": {
-      "body": "An edited commit comment from run 20261011164520."
+      "body": "An edited commit comment from run 20261012113502."
     }
   },
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"c1562eacf7204ec8886f4b80efc93bb17ee1b33000d8075c149ca5435ff8bef3\"",
+      "etag": "W/\"8f75c029c65e9335b107b648d5c8f00beb95bea3482ebf670ce897d3d18a6cd6\"",
       "x-ratelimit-limit": "5000",
-      "x-ratelimit-remaining": "4861",
-      "x-ratelimit-reset": "1791738365"
+      "x-ratelimit-remaining": "4948",
+      "x-ratelimit-reset": "1791808503"
     },
     "body": {
-      "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/comments/204464289",
-      "html_url": "https://github.com/forges-fixtures/forges-fixtures/commit/b69ccb38106a131e3c0a78b0f4af6b0b5d78d162#commitcomment-204464289",
-      "id": 204464289,
-      "node_id": "CC_kwDOVCTdtM4ML-Ch",
+      "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/comments/204555973",
+      "html_url": "https://github.com/forges-fixtures/forges-fixtures/commit/67bb144479c23e0c1acec7312a82075aaa53eaf3#commitcomment-204555973",
+      "id": 204555973,
+      "node_id": "CC_kwDOVCTdtM4MMUbF",
       "user": {
         "login": "danielroe-bot",
         "id": 57801166,
@@ -43,13 +43,13 @@
       "position": null,
       "line": null,
       "path": null,
-      "commit_id": "b69ccb38106a131e3c0a78b0f4af6b0b5d78d162",
-      "created_at": "2026-10-11T16:46:21Z",
-      "updated_at": "2026-10-11T16:46:21Z",
-      "body": "An edited commit comment from run 20261011164520.",
+      "commit_id": "67bb144479c23e0c1acec7312a82075aaa53eaf3",
+      "created_at": "2026-10-12T11:36:01Z",
+      "updated_at": "2026-10-12T11:36:01Z",
+      "body": "An edited commit comment from run 20261012113502.",
       "author_association": "MEMBER",
       "reactions": {
-        "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/comments/204464289/reactions",
+        "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/comments/204555973/reactions",
         "total_count": 0,
         "+1": 0,
         "-1": 0,

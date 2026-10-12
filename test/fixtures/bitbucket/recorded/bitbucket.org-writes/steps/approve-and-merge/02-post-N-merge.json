@@ -1,10 +1,10 @@
 {
   "request": {
     "method": "POST",
-    "url": "https://api.bitbucket.org/2.0/repositories/danielroe/forges-fixtures/pullrequests/15/merge",
+    "url": "https://api.bitbucket.org/2.0/repositories/danielroe/forges-fixtures/pullrequests/18/merge",
     "body": {
       "merge_strategy": "merge_commit",
-      "message": "Merge run 20261011120208\n\nMerged by run 20261011120208"
+      "message": "Merge run 20261012114132\n\nMerged by run 20261012114132"
     }
   },
   "response": {
@@ -14,29 +14,29 @@
       "comment_count": 0,
       "task_count": 0,
       "type": "pullrequest",
-      "id": 15,
-      "title": "forges fixture 20261011120208: pull 2",
-      "description": "Opened by run 20261011120208.",
+      "id": 18,
+      "title": "forges fixture 20261012114132: pull 2",
+      "description": "Opened by run 20261012114132.",
       "rendered": {
         "title": {
           "type": "rendered",
-          "raw": "forges fixture 20261011120208: pull 2",
+          "raw": "forges fixture 20261012114132: pull 2",
           "markup": "markdown",
-          "html": "<p>forges fixture <a href=\"https://bitbucket.org/danielroe/forges-fixtures/commits/20261011120208\" rel=\"nofollow\" class=\"ap-connect-link\">20261011120208</a>: pull 2</p>"
+          "html": "<p>forges fixture <a href=\"https://bitbucket.org/danielroe/forges-fixtures/commits/20261012114132\" rel=\"nofollow\" class=\"ap-connect-link\">20261012114132</a>: pull 2</p>"
         },
         "description": {
           "type": "rendered",
-          "raw": "Opened by run 20261011120208.",
+          "raw": "Opened by run 20261012114132.",
           "markup": "markdown",
-          "html": "<p>Opened by run <a href=\"https://bitbucket.org/danielroe/forges-fixtures/commits/20261011120208\" rel=\"nofollow\" class=\"ap-connect-link\">20261011120208</a>.</p>"
+          "html": "<p>Opened by run <a href=\"https://bitbucket.org/danielroe/forges-fixtures/commits/20261012114132\" rel=\"nofollow\" class=\"ap-connect-link\">20261012114132</a>.</p>"
         }
       },
       "state": "MERGED",
       "draft": false,
       "merge_commit": {
         "type": "commit",
-        "hash": "4a3d7a6f4aeafa8964506e48ef182a83828c2774",
-        "date": "2026-10-11T12:02:37+00:00",
+        "hash": "e5526af9b4b47446713db1c4b90823dd2cb5f5d7",
+        "date": "2026-10-12T11:42:03+00:00",
         "author": {
           "type": "author",
           "raw": "roebot <redacted@example.invalid>",
@@ -55,19 +55,19 @@
             "kind": "repository_access_token"
           }
         },
-        "message": "Merge run 20261011120208\n\nMerged by run 20261011120208\n",
+        "message": "Merge run 20261012114132\n\nMerged by run 20261012114132\n",
         "summary": {
           "type": "rendered",
-          "raw": "Merge run 20261011120208\n\nMerged by run 20261011120208\n",
+          "raw": "Merge run 20261012114132\n\nMerged by run 20261012114132\n",
           "markup": "markdown",
-          "html": "<p>Merge run <a href=\"https://bitbucket.org/danielroe/forges-fixtures/commits/20261011120208\" rel=\"nofollow\" class=\"ap-connect-link\">20261011120208</a></p>\n<p>Merged by run <a href=\"https://bitbucket.org/danielroe/forges-fixtures/commits/20261011120208\" rel=\"nofollow\" class=\"ap-connect-link\">20261011120208</a></p>"
+          "html": "<p>Merge run <a href=\"https://bitbucket.org/danielroe/forges-fixtures/commits/20261012114132\" rel=\"nofollow\" class=\"ap-connect-link\">20261012114132</a></p>\n<p>Merged by run <a href=\"https://bitbucket.org/danielroe/forges-fixtures/commits/20261012114132\" rel=\"nofollow\" class=\"ap-connect-link\">20261012114132</a></p>"
         },
         "links": {
           "self": {
-            "href": "https://api.bitbucket.org/2.0/repositories/danielroe/forges-fixtures/commit/4a3d7a6f4aeafa8964506e48ef182a83828c2774"
+            "href": "https://api.bitbucket.org/2.0/repositories/danielroe/forges-fixtures/commit/e5526af9b4b47446713db1c4b90823dd2cb5f5d7"
           },
           "html": {
-            "href": "https://bitbucket.org/danielroe/forges-fixtures/commits/4a3d7a6f4aeafa8964506e48ef182a83828c2774"
+            "href": "https://bitbucket.org/danielroe/forges-fixtures/commits/e5526af9b4b47446713db1c4b90823dd2cb5f5d7"
           }
         }
       },
@@ -105,21 +105,21 @@
         "kind": "repository_access_token"
       },
       "reason": "",
-      "created_on": "2026-10-11T12:02:20.672826+00:00",
-      "updated_on": "2026-10-11T12:02:39.681539+00:00",
-      "closed_on": "2026-10-11T12:02:39.656313+00:00",
+      "created_on": "2026-10-12T11:41:45.444635+00:00",
+      "updated_on": "2026-10-12T11:42:06.001388+00:00",
+      "closed_on": "2026-10-12T11:42:05.968339+00:00",
       "destination": {
         "branch": {
           "name": "main"
         },
         "commit": {
-          "hash": "1e9078a6d278",
+          "hash": "a170f2a9c280",
           "links": {
             "self": {
-              "href": "https://api.bitbucket.org/2.0/repositories/danielroe/forges-fixtures/commit/1e9078a6d278"
+              "href": "https://api.bitbucket.org/2.0/repositories/danielroe/forges-fixtures/commit/a170f2a9c280"
             },
             "html": {
-              "href": "https://bitbucket.org/danielroe/forges-fixtures/commits/1e9078a6d278"
+              "href": "https://bitbucket.org/danielroe/forges-fixtures/commits/a170f2a9c280"
             }
           },
           "type": "commit"
@@ -144,7 +144,7 @@
       },
       "source": {
         "branch": {
-          "name": "forges-fixtures/20261011120208-2",
+          "name": "forges-fixtures/20261012114132-2",
           "links": {},
           "sync_strategies": [
             "merge_commit",
@@ -152,13 +152,13 @@
           ]
         },
         "commit": {
-          "hash": "cecc55eb00ef",
+          "hash": "c0d56bda89aa",
           "links": {
             "self": {
-              "href": "https://api.bitbucket.org/2.0/repositories/danielroe/forges-fixtures/commit/cecc55eb00ef"
+              "href": "https://api.bitbucket.org/2.0/repositories/danielroe/forges-fixtures/commit/c0d56bda89aa"
             },
             "html": {
-              "href": "https://bitbucket.org/danielroe/forges-fixtures/commits/cecc55eb00ef"
+              "href": "https://bitbucket.org/danielroe/forges-fixtures/commits/c0d56bda89aa"
             }
           },
           "type": "commit"
@@ -206,55 +206,55 @@
           "role": "PARTICIPANT",
           "approved": true,
           "state": "approved",
-          "participated_on": "2026-10-11T12:02:36.244032+00:00"
+          "participated_on": "2026-10-12T11:42:01.939095+00:00"
         }
       ],
       "links": {
         "self": {
-          "href": "https://api.bitbucket.org/2.0/repositories/danielroe/forges-fixtures/pullrequests/15"
+          "href": "https://api.bitbucket.org/2.0/repositories/danielroe/forges-fixtures/pullrequests/18"
         },
         "html": {
-          "href": "https://bitbucket.org/danielroe/forges-fixtures/pull-requests/15"
+          "href": "https://bitbucket.org/danielroe/forges-fixtures/pull-requests/18"
         },
         "commits": {
-          "href": "https://api.bitbucket.org/2.0/repositories/danielroe/forges-fixtures/pullrequests/15/commits"
+          "href": "https://api.bitbucket.org/2.0/repositories/danielroe/forges-fixtures/pullrequests/18/commits"
         },
         "approve": {
-          "href": "https://api.bitbucket.org/2.0/repositories/danielroe/forges-fixtures/pullrequests/15/approve"
+          "href": "https://api.bitbucket.org/2.0/repositories/danielroe/forges-fixtures/pullrequests/18/approve"
         },
         "request-changes": {
-          "href": "https://api.bitbucket.org/2.0/repositories/danielroe/forges-fixtures/pullrequests/15/request-changes"
+          "href": "https://api.bitbucket.org/2.0/repositories/danielroe/forges-fixtures/pullrequests/18/request-changes"
         },
         "diff": {
-          "href": "https://api.bitbucket.org/2.0/repositories/danielroe/forges-fixtures/diff/danielroe/forges-fixtures:cecc55eb00ef%0D1e9078a6d278?from_pullrequest_id=15&topic=true"
+          "href": "https://api.bitbucket.org/2.0/repositories/danielroe/forges-fixtures/diff/danielroe/forges-fixtures:c0d56bda89aa%0Da170f2a9c280?from_pullrequest_id=18&topic=true"
         },
         "diffstat": {
-          "href": "https://api.bitbucket.org/2.0/repositories/danielroe/forges-fixtures/diffstat/danielroe/forges-fixtures:cecc55eb00ef%0D1e9078a6d278?from_pullrequest_id=15&topic=true"
+          "href": "https://api.bitbucket.org/2.0/repositories/danielroe/forges-fixtures/diffstat/danielroe/forges-fixtures:c0d56bda89aa%0Da170f2a9c280?from_pullrequest_id=18&topic=true"
         },
         "comments": {
-          "href": "https://api.bitbucket.org/2.0/repositories/danielroe/forges-fixtures/pullrequests/15/comments"
+          "href": "https://api.bitbucket.org/2.0/repositories/danielroe/forges-fixtures/pullrequests/18/comments"
         },
         "activity": {
-          "href": "https://api.bitbucket.org/2.0/repositories/danielroe/forges-fixtures/pullrequests/15/activity"
+          "href": "https://api.bitbucket.org/2.0/repositories/danielroe/forges-fixtures/pullrequests/18/activity"
         },
         "merge": {
-          "href": "https://api.bitbucket.org/2.0/repositories/danielroe/forges-fixtures/pullrequests/15/merge"
+          "href": "https://api.bitbucket.org/2.0/repositories/danielroe/forges-fixtures/pullrequests/18/merge"
         },
         "decline": {
-          "href": "https://api.bitbucket.org/2.0/repositories/danielroe/forges-fixtures/pullrequests/15/decline"
+          "href": "https://api.bitbucket.org/2.0/repositories/danielroe/forges-fixtures/pullrequests/18/decline"
         },
         "statuses": {
-          "href": "https://api.bitbucket.org/2.0/repositories/danielroe/forges-fixtures/pullrequests/15/statuses"
+          "href": "https://api.bitbucket.org/2.0/repositories/danielroe/forges-fixtures/pullrequests/18/statuses"
         },
         "mergeability_checks": {
-          "href": "https://api.bitbucket.org/2.0/repositories/danielroe/forges-fixtures/pullrequests/15/mergeability/checks"
+          "href": "https://api.bitbucket.org/2.0/repositories/danielroe/forges-fixtures/pullrequests/18/mergeability/checks"
         }
       },
       "summary": {
         "type": "rendered",
-        "raw": "Opened by run 20261011120208.",
+        "raw": "Opened by run 20261012114132.",
         "markup": "markdown",
-        "html": "<p>Opened by run <a href=\"https://bitbucket.org/danielroe/forges-fixtures/commits/20261011120208\" rel=\"nofollow\" class=\"ap-connect-link\">20261011120208</a>.</p>"
+        "html": "<p>Opened by run <a href=\"https://bitbucket.org/danielroe/forges-fixtures/commits/20261012114132\" rel=\"nofollow\" class=\"ap-connect-link\">20261012114132</a>.</p>"
       },
       "queued": false
     }

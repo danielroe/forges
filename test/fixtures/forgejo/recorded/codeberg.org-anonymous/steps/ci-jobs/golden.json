@@ -10,7 +10,7 @@
           "owner": "forgejo",
           "name": "forgejo"
         },
-        "id": "14025669",
+        "id": "14069751",
         "run": {
           "forge": "forgejo",
           "instance": "codeberg.org",
@@ -20,7 +20,7 @@
             "owner": "forgejo",
             "name": "forgejo"
           },
-          "id": "7644000"
+          "id": "7667892"
         }
       },
       "name": "backend-checks",
@@ -37,7 +37,7 @@
           "owner": "forgejo",
           "name": "forgejo"
         },
-        "id": "14025672",
+        "id": "14069754",
         "run": {
           "forge": "forgejo",
           "instance": "codeberg.org",
@@ -47,7 +47,7 @@
             "owner": "forgejo",
             "name": "forgejo"
           },
-          "id": "7644000"
+          "id": "7667892"
         }
       },
       "name": "frontend-checks",
@@ -64,7 +64,7 @@
           "owner": "forgejo",
           "name": "forgejo"
         },
-        "id": "14025675",
+        "id": "14069757",
         "run": {
           "forge": "forgejo",
           "instance": "codeberg.org",
@@ -74,12 +74,12 @@
             "owner": "forgejo",
             "name": "forgejo"
           },
-          "id": "7644000"
+          "id": "7667892"
         }
       },
       "name": "test-unit",
       "state": "pending",
-      "stateRaw": "waiting"
+      "stateRaw": "running"
     },
     {
       "ref": {
@@ -91,7 +91,7 @@
           "owner": "forgejo",
           "name": "forgejo"
         },
-        "id": "14025678",
+        "id": "14069760",
         "run": {
           "forge": "forgejo",
           "instance": "codeberg.org",
@@ -101,12 +101,12 @@
             "owner": "forgejo",
             "name": "forgejo"
           },
-          "id": "7644000"
+          "id": "7667892"
         }
       },
       "name": "test-e2e",
       "state": "pending",
-      "stateRaw": "waiting"
+      "stateRaw": "running"
     },
     {
       "ref": {
@@ -118,7 +118,7 @@
           "owner": "forgejo",
           "name": "forgejo"
         },
-        "id": "14025681",
+        "id": "14069763",
         "run": {
           "forge": "forgejo",
           "instance": "codeberg.org",
@@ -128,7 +128,7 @@
             "owner": "forgejo",
             "name": "forgejo"
           },
-          "id": "7644000"
+          "id": "7667892"
         }
       },
       "name": "test-remote-cacher (redis)",
@@ -145,7 +145,7 @@
           "owner": "forgejo",
           "name": "forgejo"
         },
-        "id": "14025684",
+        "id": "14069766",
         "run": {
           "forge": "forgejo",
           "instance": "codeberg.org",
@@ -155,7 +155,7 @@
             "owner": "forgejo",
             "name": "forgejo"
           },
-          "id": "7644000"
+          "id": "7667892"
         }
       },
       "name": "test-remote-cacher (valkey)",
@@ -172,7 +172,7 @@
           "owner": "forgejo",
           "name": "forgejo"
         },
-        "id": "14025687",
+        "id": "14069769",
         "run": {
           "forge": "forgejo",
           "instance": "codeberg.org",
@@ -182,7 +182,7 @@
             "owner": "forgejo",
             "name": "forgejo"
           },
-          "id": "7644000"
+          "id": "7667892"
         }
       },
       "name": "test-remote-cacher (garnet)",
@@ -199,7 +199,7 @@
           "owner": "forgejo",
           "name": "forgejo"
         },
-        "id": "14025690",
+        "id": "14069772",
         "run": {
           "forge": "forgejo",
           "instance": "codeberg.org",
@@ -209,12 +209,12 @@
             "owner": "forgejo",
             "name": "forgejo"
           },
-          "id": "7644000"
+          "id": "7667892"
         }
       },
       "name": "test-mysql",
       "state": "pending",
-      "stateRaw": "waiting"
+      "stateRaw": "running"
     },
     {
       "ref": {
@@ -226,7 +226,7 @@
           "owner": "forgejo",
           "name": "forgejo"
         },
-        "id": "14025693",
+        "id": "14069775",
         "run": {
           "forge": "forgejo",
           "instance": "codeberg.org",
@@ -236,12 +236,12 @@
             "owner": "forgejo",
             "name": "forgejo"
           },
-          "id": "7644000"
+          "id": "7667892"
         }
       },
       "name": "test-pgsql",
       "state": "pending",
-      "stateRaw": "waiting"
+      "stateRaw": "running"
     },
     {
       "ref": {
@@ -253,7 +253,7 @@
           "owner": "forgejo",
           "name": "forgejo"
         },
-        "id": "14025696",
+        "id": "14069778",
         "run": {
           "forge": "forgejo",
           "instance": "codeberg.org",
@@ -263,12 +263,12 @@
             "owner": "forgejo",
             "name": "forgejo"
           },
-          "id": "7644000"
+          "id": "7667892"
         }
       },
       "name": "test-sqlite",
       "state": "pending",
-      "stateRaw": "waiting"
+      "stateRaw": "running"
     },
     {
       "ref": {
@@ -280,7 +280,7 @@
           "owner": "forgejo",
           "name": "forgejo"
         },
-        "id": "14025699",
+        "id": "14069781",
         "run": {
           "forge": "forgejo",
           "instance": "codeberg.org",
@@ -290,7 +290,34 @@
             "owner": "forgejo",
             "name": "forgejo"
           },
-          "id": "7644000"
+          "id": "7667892"
+        }
+      },
+      "name": "coverage",
+      "state": "pending",
+      "stateRaw": "blocked"
+    },
+    {
+      "ref": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "repo": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "owner": "forgejo",
+          "name": "forgejo"
+        },
+        "id": "14069784",
+        "run": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "repo": {
+            "forge": "forgejo",
+            "instance": "codeberg.org",
+            "owner": "forgejo",
+            "name": "forgejo"
+          },
+          "id": "7667892"
         }
       },
       "name": "security-check",
@@ -307,7 +334,7 @@
           "owner": "forgejo",
           "name": "forgejo"
         },
-        "id": "14025702",
+        "id": "14069787",
         "run": {
           "forge": "forgejo",
           "instance": "codeberg.org",
@@ -317,7 +344,7 @@
             "owner": "forgejo",
             "name": "forgejo"
           },
-          "id": "7644000"
+          "id": "7667892"
         }
       },
       "name": "semgrep/ci",

@@ -7,7 +7,7 @@
       "collection": "sh.tangled.label.op",
       "record": {
         "$type": "sh.tangled.label.op",
-        "subject": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.issue/3mxmz6pxjy42y",
+        "subject": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.issue/3mxogt5wwnv2y",
         "add": [
           {
             "key": "at://did:plc:wshs7t2adsemcrrd4snkeqli/sh.tangled.label.definition/assignee",
@@ -15,24 +15,24 @@
           }
         ],
         "delete": [],
-        "performedAt": "2026-10-11T22:06:00.644Z"
+        "performedAt": "2026-10-12T11:42:44.831Z"
       }
     }
   },
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"117-bp4wm1sCW9Tnu0isl1lN0ATWr44\"",
+      "etag": "W/\"117-AmNBHIhw972EwTDilpzDiiTZgmI\"",
       "ratelimit-limit": "3000",
       "ratelimit-remaining": "2928",
-      "ratelimit-reset": "1791756647"
+      "ratelimit-reset": "1791805651"
     },
     "body": {
-      "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.label.op/3mxmz6qia5u2y",
-      "cid": "bafyreicjhk566ywvkfb6bmwsxn5vgob5w7envo5r7m7lmje7pphbnst25a",
+      "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.label.op/3mxogt6iuuv2y",
+      "cid": "bafyreif42m5igvaplxlzy4rmmorhq3x256lcusra4insg4z6nasxio5hze",
       "commit": {
-        "cid": "bafyreidxfhmxcybmryybfxameq5wgra34ggyfyjys2ekykdgini3cbqeby",
-        "rev": "3mxmz6qirqe2y"
+        "cid": "bafyreibxjactu6gzl27gnyegeh52dvy2l2gbp5y4eel6p5jt2lylcat5by",
+        "rev": "3mxogt6j4ov2y"
       },
       "validationStatus": "unknown"
     }

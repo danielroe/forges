@@ -10,7 +10,7 @@
       "count": 3,
       "value": [
         {
-          "id": 21,
+          "id": 26,
           "rev": 1,
           "fields": {
             "System.AreaPath": "forges-fixtures",
@@ -19,7 +19,7 @@
             "System.WorkItemType": "Issue",
             "System.State": "To Do",
             "System.Reason": "Added to backlog",
-            "System.CreatedDate": "2026-10-11T11:34:22.157Z",
+            "System.CreatedDate": "2026-10-12T11:42:25.087Z",
             "System.CreatedBy": {
               "displayName": "danielroebot outlook.com",
               "url": "https://spsprodweu6.vssps.visualstudio.com/Ad6317e89-50cc-469c-b506-66b9601cf085/_apis/Identities/567dfc49-0db7-43e6-83c1-d91d91db58b1",
@@ -33,7 +33,7 @@
               "imageUrl": "https://dev.azure.com/forges/_apis/GraphProfile/MemberAvatars/aad.MzE2OTUzNzAtY2RlZS03NzVkLWEwYjctMzUwYTkyZTJhMjc5",
               "descriptor": "aad.MzE2OTUzNzAtY2RlZS03NzVkLWEwYjctMzUwYTkyZTJhMjc5"
             },
-            "System.ChangedDate": "2026-10-11T11:34:22.157Z",
+            "System.ChangedDate": "2026-10-12T11:42:25.087Z",
             "System.ChangedBy": {
               "displayName": "danielroebot outlook.com",
               "url": "https://spsprodweu6.vssps.visualstudio.com/Ad6317e89-50cc-469c-b506-66b9601cf085/_apis/Identities/567dfc49-0db7-43e6-83c1-d91d91db58b1",
@@ -48,29 +48,29 @@
               "descriptor": "aad.MzE2OTUzNzAtY2RlZS03NzVkLWEwYjctMzUwYTkyZTJhMjc5"
             },
             "System.CommentCount": 0,
-            "System.Title": "forges fixture 20261011113416: duplicate",
+            "System.Title": "forges fixture 20261012114218: duplicate",
             "Microsoft.VSTS.Common.Priority": 2,
-            "Microsoft.VSTS.Common.StateChangeDate": "2026-10-11T11:34:22.157Z",
-            "System.Description": "Opened by run 20261011113416."
+            "Microsoft.VSTS.Common.StateChangeDate": "2026-10-12T11:42:25.087Z",
+            "System.Description": "Opened by run 20261012114218."
           },
           "multilineFieldsFormat": {
             "System.Description": "html"
           },
           "_links": {
             "self": {
-              "href": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/wit/workItems/21"
+              "href": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/wit/workItems/26"
             },
             "workItemUpdates": {
-              "href": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/wit/workItems/21/updates"
+              "href": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/wit/workItems/26/updates"
             },
             "workItemRevisions": {
-              "href": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/wit/workItems/21/revisions"
+              "href": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/wit/workItems/26/revisions"
             },
             "workItemComments": {
-              "href": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/wit/workItems/21/comments"
+              "href": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/wit/workItems/26/comments"
             },
             "html": {
-              "href": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_workitems/edit/21"
+              "href": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_workitems/edit/26"
             },
             "workItemType": {
               "href": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/wit/workItemTypes/Issue"
@@ -79,10 +79,96 @@
               "href": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/wit/fields"
             }
           },
-          "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/wit/workItems/21"
+          "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/wit/workItems/26"
         },
         {
-          "id": 20,
+          "id": 25,
+          "rev": 1,
+          "fields": {
+            "System.AreaPath": "forges-fixtures",
+            "System.TeamProject": "forges-fixtures",
+            "System.IterationPath": "forges-fixtures",
+            "System.WorkItemType": "Issue",
+            "System.State": "To Do",
+            "System.Reason": "Added to backlog",
+            "System.AssignedTo": {
+              "displayName": "danielroebot outlook.com",
+              "url": "https://spsprodweu6.vssps.visualstudio.com/Ad6317e89-50cc-469c-b506-66b9601cf085/_apis/Identities/567dfc49-0db7-43e6-83c1-d91d91db58b1",
+              "_links": {
+                "avatar": {
+                  "href": "https://dev.azure.com/forges/_apis/GraphProfile/MemberAvatars/aad.MzE2OTUzNzAtY2RlZS03NzVkLWEwYjctMzUwYTkyZTJhMjc5"
+                }
+              },
+              "id": "567dfc49-0db7-43e6-83c1-d91d91db58b1",
+              "uniqueName": "redacted@example.invalid",
+              "imageUrl": "https://dev.azure.com/forges/_apis/GraphProfile/MemberAvatars/aad.MzE2OTUzNzAtY2RlZS03NzVkLWEwYjctMzUwYTkyZTJhMjc5",
+              "descriptor": "aad.MzE2OTUzNzAtY2RlZS03NzVkLWEwYjctMzUwYTkyZTJhMjc5"
+            },
+            "System.CreatedDate": "2026-10-12T11:42:24.88Z",
+            "System.CreatedBy": {
+              "displayName": "danielroebot outlook.com",
+              "url": "https://spsprodweu6.vssps.visualstudio.com/Ad6317e89-50cc-469c-b506-66b9601cf085/_apis/Identities/567dfc49-0db7-43e6-83c1-d91d91db58b1",
+              "_links": {
+                "avatar": {
+                  "href": "https://dev.azure.com/forges/_apis/GraphProfile/MemberAvatars/aad.MzE2OTUzNzAtY2RlZS03NzVkLWEwYjctMzUwYTkyZTJhMjc5"
+                }
+              },
+              "id": "567dfc49-0db7-43e6-83c1-d91d91db58b1",
+              "uniqueName": "redacted@example.invalid",
+              "imageUrl": "https://dev.azure.com/forges/_apis/GraphProfile/MemberAvatars/aad.MzE2OTUzNzAtY2RlZS03NzVkLWEwYjctMzUwYTkyZTJhMjc5",
+              "descriptor": "aad.MzE2OTUzNzAtY2RlZS03NzVkLWEwYjctMzUwYTkyZTJhMjc5"
+            },
+            "System.ChangedDate": "2026-10-12T11:42:24.88Z",
+            "System.ChangedBy": {
+              "displayName": "danielroebot outlook.com",
+              "url": "https://spsprodweu6.vssps.visualstudio.com/Ad6317e89-50cc-469c-b506-66b9601cf085/_apis/Identities/567dfc49-0db7-43e6-83c1-d91d91db58b1",
+              "_links": {
+                "avatar": {
+                  "href": "https://dev.azure.com/forges/_apis/GraphProfile/MemberAvatars/aad.MzE2OTUzNzAtY2RlZS03NzVkLWEwYjctMzUwYTkyZTJhMjc5"
+                }
+              },
+              "id": "567dfc49-0db7-43e6-83c1-d91d91db58b1",
+              "uniqueName": "redacted@example.invalid",
+              "imageUrl": "https://dev.azure.com/forges/_apis/GraphProfile/MemberAvatars/aad.MzE2OTUzNzAtY2RlZS03NzVkLWEwYjctMzUwYTkyZTJhMjc5",
+              "descriptor": "aad.MzE2OTUzNzAtY2RlZS03NzVkLWEwYjctMzUwYTkyZTJhMjc5"
+            },
+            "System.CommentCount": 0,
+            "System.Title": "forges fixture 20261012114218: labelled issue",
+            "Microsoft.VSTS.Common.Priority": 2,
+            "Microsoft.VSTS.Common.StateChangeDate": "2026-10-12T11:42:24.88Z",
+            "System.Description": "Opened by run 20261012114218.",
+            "System.Tags": "forges-fixture-20261012114218"
+          },
+          "multilineFieldsFormat": {
+            "System.Description": "html"
+          },
+          "_links": {
+            "self": {
+              "href": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/wit/workItems/25"
+            },
+            "workItemUpdates": {
+              "href": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/wit/workItems/25/updates"
+            },
+            "workItemRevisions": {
+              "href": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/wit/workItems/25/revisions"
+            },
+            "workItemComments": {
+              "href": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/wit/workItems/25/comments"
+            },
+            "html": {
+              "href": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_workitems/edit/25"
+            },
+            "workItemType": {
+              "href": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/wit/workItemTypes/Issue"
+            },
+            "fields": {
+              "href": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/wit/fields"
+            }
+          },
+          "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/wit/workItems/25"
+        },
+        {
+          "id": 24,
           "rev": 10,
           "fields": {
             "System.AreaPath": "forges-fixtures",
@@ -104,7 +190,7 @@
               "imageUrl": "https://dev.azure.com/forges/_apis/GraphProfile/MemberAvatars/aad.MzE2OTUzNzAtY2RlZS03NzVkLWEwYjctMzUwYTkyZTJhMjc5",
               "descriptor": "aad.MzE2OTUzNzAtY2RlZS03NzVkLWEwYjctMzUwYTkyZTJhMjc5"
             },
-            "System.CreatedDate": "2026-10-11T11:34:21.07Z",
+            "System.CreatedDate": "2026-10-12T11:42:23.583Z",
             "System.CreatedBy": {
               "displayName": "danielroebot outlook.com",
               "url": "https://spsprodweu6.vssps.visualstudio.com/Ad6317e89-50cc-469c-b506-66b9601cf085/_apis/Identities/567dfc49-0db7-43e6-83c1-d91d91db58b1",
@@ -118,7 +204,7 @@
               "imageUrl": "https://dev.azure.com/forges/_apis/GraphProfile/MemberAvatars/aad.MzE2OTUzNzAtY2RlZS03NzVkLWEwYjctMzUwYTkyZTJhMjc5",
               "descriptor": "aad.MzE2OTUzNzAtY2RlZS03NzVkLWEwYjctMzUwYTkyZTJhMjc5"
             },
-            "System.ChangedDate": "2026-10-11T11:34:22.46Z",
+            "System.ChangedDate": "2026-10-12T11:42:25.493Z",
             "System.ChangedBy": {
               "displayName": "danielroebot outlook.com",
               "url": "https://spsprodweu6.vssps.visualstudio.com/Ad6317e89-50cc-469c-b506-66b9601cf085/_apis/Identities/567dfc49-0db7-43e6-83c1-d91d91db58b1",
@@ -133,30 +219,30 @@
               "descriptor": "aad.MzE2OTUzNzAtY2RlZS03NzVkLWEwYjctMzUwYTkyZTJhMjc5"
             },
             "System.CommentCount": 1,
-            "System.Title": "forges fixture 20261011113416: issue, edited",
+            "System.Title": "forges fixture 20261012114218: issue, edited",
             "Microsoft.VSTS.Common.Priority": 2,
-            "Microsoft.VSTS.Common.StateChangeDate": "2026-10-11T11:34:22.46Z",
-            "System.Description": "Edited by run 20261011113416.",
-            "System.Tags": "forges-fixture-20261011113416"
+            "Microsoft.VSTS.Common.StateChangeDate": "2026-10-12T11:42:25.493Z",
+            "System.Description": "Edited by run 20261012114218.",
+            "System.Tags": "forges-fixture-20261012114218"
           },
           "multilineFieldsFormat": {
             "System.Description": "html"
           },
           "_links": {
             "self": {
-              "href": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/wit/workItems/20"
+              "href": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/wit/workItems/24"
             },
             "workItemUpdates": {
-              "href": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/wit/workItems/20/updates"
+              "href": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/wit/workItems/24/updates"
             },
             "workItemRevisions": {
-              "href": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/wit/workItems/20/revisions"
+              "href": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/wit/workItems/24/revisions"
             },
             "workItemComments": {
-              "href": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/wit/workItems/20/comments"
+              "href": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/wit/workItems/24/comments"
             },
             "html": {
-              "href": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_workitems/edit/20"
+              "href": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_workitems/edit/24"
             },
             "workItemType": {
               "href": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/wit/workItemTypes/Issue"
@@ -165,79 +251,7 @@
               "href": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/wit/fields"
             }
           },
-          "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/wit/workItems/20"
-        },
-        {
-          "id": 19,
-          "rev": 1,
-          "fields": {
-            "System.AreaPath": "forges-fixtures",
-            "System.TeamProject": "forges-fixtures",
-            "System.IterationPath": "forges-fixtures",
-            "System.WorkItemType": "Issue",
-            "System.State": "To Do",
-            "System.Reason": "Added to backlog",
-            "System.CreatedDate": "2026-10-10T23:23:35.687Z",
-            "System.CreatedBy": {
-              "displayName": "danielroebot outlook.com",
-              "url": "https://spsprodweu6.vssps.visualstudio.com/Ad6317e89-50cc-469c-b506-66b9601cf085/_apis/Identities/567dfc49-0db7-43e6-83c1-d91d91db58b1",
-              "_links": {
-                "avatar": {
-                  "href": "https://dev.azure.com/forges/_apis/GraphProfile/MemberAvatars/aad.MzE2OTUzNzAtY2RlZS03NzVkLWEwYjctMzUwYTkyZTJhMjc5"
-                }
-              },
-              "id": "567dfc49-0db7-43e6-83c1-d91d91db58b1",
-              "uniqueName": "redacted@example.invalid",
-              "imageUrl": "https://dev.azure.com/forges/_apis/GraphProfile/MemberAvatars/aad.MzE2OTUzNzAtY2RlZS03NzVkLWEwYjctMzUwYTkyZTJhMjc5",
-              "descriptor": "aad.MzE2OTUzNzAtY2RlZS03NzVkLWEwYjctMzUwYTkyZTJhMjc5"
-            },
-            "System.ChangedDate": "2026-10-10T23:23:35.687Z",
-            "System.ChangedBy": {
-              "displayName": "danielroebot outlook.com",
-              "url": "https://spsprodweu6.vssps.visualstudio.com/Ad6317e89-50cc-469c-b506-66b9601cf085/_apis/Identities/567dfc49-0db7-43e6-83c1-d91d91db58b1",
-              "_links": {
-                "avatar": {
-                  "href": "https://dev.azure.com/forges/_apis/GraphProfile/MemberAvatars/aad.MzE2OTUzNzAtY2RlZS03NzVkLWEwYjctMzUwYTkyZTJhMjc5"
-                }
-              },
-              "id": "567dfc49-0db7-43e6-83c1-d91d91db58b1",
-              "uniqueName": "redacted@example.invalid",
-              "imageUrl": "https://dev.azure.com/forges/_apis/GraphProfile/MemberAvatars/aad.MzE2OTUzNzAtY2RlZS03NzVkLWEwYjctMzUwYTkyZTJhMjc5",
-              "descriptor": "aad.MzE2OTUzNzAtY2RlZS03NzVkLWEwYjctMzUwYTkyZTJhMjc5"
-            },
-            "System.CommentCount": 0,
-            "System.Title": "forges fixture 20261010232329: duplicate",
-            "Microsoft.VSTS.Common.Priority": 2,
-            "Microsoft.VSTS.Common.StateChangeDate": "2026-10-10T23:23:35.687Z",
-            "System.Description": "Opened by run 20261010232329."
-          },
-          "multilineFieldsFormat": {
-            "System.Description": "html"
-          },
-          "_links": {
-            "self": {
-              "href": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/wit/workItems/19"
-            },
-            "workItemUpdates": {
-              "href": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/wit/workItems/19/updates"
-            },
-            "workItemRevisions": {
-              "href": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/wit/workItems/19/revisions"
-            },
-            "workItemComments": {
-              "href": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/wit/workItems/19/comments"
-            },
-            "html": {
-              "href": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_workitems/edit/19"
-            },
-            "workItemType": {
-              "href": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/wit/workItemTypes/Issue"
-            },
-            "fields": {
-              "href": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/wit/fields"
-            }
-          },
-          "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/wit/workItems/19"
+          "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/wit/workItems/24"
         }
       ]
     }

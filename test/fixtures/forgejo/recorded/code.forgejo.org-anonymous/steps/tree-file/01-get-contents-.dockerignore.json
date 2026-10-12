@@ -1,0 +1,32 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://code.forgejo.org/api/v1/repos/forgejo/runner/contents/.dockerignore"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "name": ".dockerignore",
+      "path": ".dockerignore",
+      "sha": "7b6d2b2bd0c7c2b442731a1a3328e0dd3822993a",
+      "last_commit_sha": "e9ba98411e4b1b805e5c2900765d5dbbcb11dcad",
+      "last_commit_when": "2023-08-23T14:44:47+02:00",
+      "type": "file",
+      "size": 26,
+      "encoding": "base64",
+      "content": "RG9ja2VyZmlsZQpmb3JnZWpvLXJ1bm5lcgo=",
+      "target": null,
+      "url": "https://code.forgejo.org/api/v1/repos/forgejo/runner/contents/.dockerignore?ref=main",
+      "html_url": "https://code.forgejo.org/forgejo/runner/src/branch/main/.dockerignore",
+      "git_url": "https://code.forgejo.org/api/v1/repos/forgejo/runner/git/blobs/7b6d2b2bd0c7c2b442731a1a3328e0dd3822993a",
+      "download_url": "https://code.forgejo.org/forgejo/runner/raw/branch/main/.dockerignore",
+      "submodule_git_url": null,
+      "_links": {
+        "self": "https://code.forgejo.org/api/v1/repos/forgejo/runner/contents/.dockerignore?ref=main",
+        "git": "https://code.forgejo.org/api/v1/repos/forgejo/runner/git/blobs/7b6d2b2bd0c7c2b442731a1a3328e0dd3822993a",
+        "html": "https://code.forgejo.org/forgejo/runner/src/branch/main/.dockerignore"
+      }
+    }
+  }
+}

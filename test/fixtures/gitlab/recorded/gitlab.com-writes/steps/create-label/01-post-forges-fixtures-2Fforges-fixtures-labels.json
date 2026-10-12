@@ -3,25 +3,25 @@
     "method": "POST",
     "url": "https://gitlab.com/api/v4/projects/forges-fixtures%2Fforges-fixtures/labels",
     "body": {
-      "name": "forges-fixture-20261011160520",
+      "name": "forges-fixture-20261012113957",
       "color": "#0e8a16",
-      "description": "Created by run 20261011160520"
+      "description": "Created by run 20261012113957"
     }
   },
   "response": {
     "status": 201,
     "headers": {
-      "etag": "W/\"42ec9922f40b967b16865591a321dc87\"",
+      "etag": "W/\"1d70cb79a1adbaaced9527a980550912\"",
       "ratelimit-limit": "2000",
       "ratelimit-remaining": "1987",
-      "ratelimit-reset": "1791734760"
+      "ratelimit-reset": "1791805260"
     },
     "body": {
-      "id": 54452743,
-      "name": "forges-fixture-20261011160520",
-      "description": "Created by run 20261011160520",
+      "id": 54476818,
+      "name": "forges-fixture-20261012113957",
+      "description": "Created by run 20261012113957",
       "text_color": "#FFFFFF",
-      "description_html": "Created by run 20261011160520",
+      "description_html": "Created by run 20261012113957",
       "color": "#0e8a16",
       "archived": false,
       "subscribed": false,

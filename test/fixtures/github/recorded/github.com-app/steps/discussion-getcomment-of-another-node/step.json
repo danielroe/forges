@@ -1,4 +1,8 @@
 {
   "name": "discussion getComment of another node",
-  "recordedAt": "2026-10-11T16:05:25.420Z"
+  "recordedAt": "2026-10-11T16:05:25.420Z",
+  "needs": [
+    "discussion",
+    "discussion comments"
+  ]
 }

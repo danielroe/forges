@@ -7,10 +7,10 @@
     "status": 200,
     "headers": {
       "link": "<https://gitlab.com/api/v4/todos?page=2&per_page=3&state=pending>; rel=\"next\", <https://gitlab.com/api/v4/todos?page=1&per_page=3&state=pending>; rel=\"first\", <https://gitlab.com/api/v4/todos?page=4&per_page=3&state=pending>; rel=\"last\"",
-      "etag": "W/\"3ac4c967d7103190c3ed51642f5764eb\"",
+      "etag": "W/\"839c99119dd1ab5bac0f388dc83195cf\"",
       "ratelimit-limit": "2000",
-      "ratelimit-remaining": "1961",
-      "ratelimit-reset": "1791734700",
+      "ratelimit-remaining": "1958",
+      "ratelimit-reset": "1791804600",
       "x-total": "11",
       "x-total-pages": "4",
       "x-next-page": "2",
@@ -59,7 +59,7 @@
           "forks_count": 1,
           "avatar_url": null,
           "star_count": 0,
-          "last_activity_at": "2026-10-11T14:52:06.548Z",
+          "last_activity_at": "2026-10-11T16:05:24.620Z",
           "visibility": "public",
           "namespace": {
             "id": 144355097,
@@ -134,7 +134,7 @@
           "import_status": "none",
           "open_issues_count": 1,
           "description_html": "",
-          "updated_at": "2026-10-11T15:06:05.769Z",
+          "updated_at": "2026-10-11T16:06:23.958Z",
           "ci_config_path": "",
           "public_jobs": true,
           "shared_with_groups": [],
@@ -186,7 +186,7 @@
           "name": "24-bot",
           "state": "active",
           "locked": false,
-          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/9575078/avatar.png?v=1791677048",
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/9575078/avatar.png?v=1791763483",
           "web_url": "https://gitlab.com/dsi11"
         },
         "action_name": "mentioned",
@@ -210,7 +210,7 @@
             "name": "Titouan-Joseph CICORELLA",
             "state": "active",
             "locked": false,
-            "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/8184503/avatar.png?v=1791677043",
+            "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/8184503/avatar.png?v=1791763479",
             "web_url": "https://gitlab.com/titouan-joseph"
           },
           "closed_at": "2023-07-11T10:20:04.483Z",
@@ -226,7 +226,7 @@
             "name": "24-bot",
             "state": "active",
             "locked": false,
-            "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/9575078/avatar.png?v=1791677048",
+            "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/9575078/avatar.png?v=1791763483",
             "web_url": "https://gitlab.com/dsi11",
             "bot": false
           },
@@ -313,7 +313,7 @@
           "name": "24-bot",
           "state": "active",
           "locked": false,
-          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/9575078/avatar.png?v=1791677048",
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/9575078/avatar.png?v=1791763483",
           "web_url": "https://gitlab.com/dsi11"
         },
         "action_name": "mentioned",
@@ -337,7 +337,7 @@
             "name": "Titouan-Joseph CICORELLA",
             "state": "active",
             "locked": false,
-            "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/8184503/avatar.png?v=1791677043",
+            "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/8184503/avatar.png?v=1791763479",
             "web_url": "https://gitlab.com/titouan-joseph"
           },
           "closed_at": "2023-07-11T10:20:30.131Z",
@@ -353,7 +353,7 @@
             "name": "24-bot",
             "state": "active",
             "locked": false,
-            "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/9575078/avatar.png?v=1791677048",
+            "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/9575078/avatar.png?v=1791763483",
             "web_url": "https://gitlab.com/dsi11",
             "bot": false
           },

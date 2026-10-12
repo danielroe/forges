@@ -1,7 +1,7 @@
 {
   "request": {
     "method": "PATCH",
-    "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/hooks/695806973",
+    "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/hooks/696161298",
     "body": {
       "config": {
         "url": "https://example.com/hook",
@@ -13,14 +13,14 @@
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"783f8aba897dc078600bbe4028905554ec48e6af4d7c56aca2b9f0715e3c6d17\"",
+      "etag": "W/\"8bf6b86e6c36285fd2bd3e9f143dfe78c5bdf036672156d9c68b86166c7a82e7\"",
       "x-ratelimit-limit": "500",
       "x-ratelimit-remaining": "496",
-      "x-ratelimit-reset": "1791737271"
+      "x-ratelimit-reset": "1791805050"
     },
     "body": {
       "type": "Repository",
-      "id": 695806973,
+      "id": 696161298,
       "name": "web",
       "active": true,
       "events": [
@@ -35,12 +35,12 @@
         "secret": "REDACTED",
         "url": "https://example.com/hook"
       },
-      "updated_at": "2026-10-11T16:46:52Z",
-      "created_at": "2026-10-11T16:46:51Z",
-      "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/hooks/695806973",
-      "test_url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/hooks/695806973/test",
-      "ping_url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/hooks/695806973/pings",
-      "deliveries_url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/hooks/695806973/deliveries",
+      "updated_at": "2026-10-12T11:36:31Z",
+      "created_at": "2026-10-12T11:36:30Z",
+      "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/hooks/696161298",
+      "test_url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/hooks/696161298/test",
+      "ping_url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/hooks/696161298/pings",
+      "deliveries_url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/hooks/696161298/deliveries",
       "last_response": {
         "code": 502,
         "status": "connection_error",

@@ -10,94 +10,90 @@
           "owner": "forgejo",
           "name": "forgejo"
         },
-        "id": "7644000"
+        "id": "7667739"
       },
-      "name": "testing.yml",
+      "name": "merge-requirements.yml",
       "state": "pending",
       "stateRaw": "waiting",
-      "number": "206655",
-      "eventRaw": "push",
-      "branch": "v16.0/forgejo",
-      "sha": "371ab0d3e49308c557f2415573f36e3cb4ccf28e",
-      "url": "https://codeberg.org/forgejo/forgejo/actions/runs/206655",
+      "number": "207002",
+      "eventRaw": "pull_request",
+      "sha": "8982a7a31dc48866f9b97274c486589047983f58",
+      "url": "https://codeberg.org/forgejo/forgejo/actions/runs/207002",
       "actor": {
         "forge": "forgejo",
         "instance": "codeberg.org",
-        "login": "mfenniak",
-        "id": "222642",
-        "name": "Mathieu Fenniak",
-        "avatarUrl": "https://codeberg.org/avatars/561ee781e72bbbfd2865db7b4ba4fbf50f64da3d3cb0f4e1897b6da25224a2a7",
-        "url": "https://codeberg.org/mfenniak",
+        "login": "n0toose",
+        "id": "33716",
+        "name": "Panagiotis \"Ivory\" Vasilopoulos",
+        "avatarUrl": "https://codeberg.org/avatars/d3e911eec058bc2605b5bf5a1af2c968f64815a2f6aedefd3e5f93cb6ba514a4",
+        "url": "https://codeberg.org/n0toose",
+        "isBotHint": false
+      },
+      "createdAt": "<now>"
+    },
+    {
+      "ref": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "repo": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "owner": "forgejo",
+          "name": "forgejo"
+        },
+        "id": "7667736"
+      },
+      "name": "release-notes-assistant.yml",
+      "state": "neutral",
+      "stateRaw": "skipped",
+      "number": "207001",
+      "eventRaw": "pull_request_target",
+      "sha": "8982a7a31dc48866f9b97274c486589047983f58",
+      "url": "https://codeberg.org/forgejo/forgejo/actions/runs/207001",
+      "actor": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "login": "n0toose",
+        "id": "33716",
+        "name": "Panagiotis \"Ivory\" Vasilopoulos",
+        "avatarUrl": "https://codeberg.org/avatars/d3e911eec058bc2605b5bf5a1af2c968f64815a2f6aedefd3e5f93cb6ba514a4",
+        "url": "https://codeberg.org/n0toose",
+        "isBotHint": false
+      },
+      "createdAt": "<now>",
+      "completedAt": "<now>"
+    },
+    {
+      "ref": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "repo": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "owner": "forgejo",
+          "name": "forgejo"
+        },
+        "id": "7667715"
+      },
+      "name": "testing.yml",
+      "state": "pending",
+      "stateRaw": "running",
+      "number": "207000",
+      "eventRaw": "pull_request",
+      "sha": "47668de707c5ed1b93c4ec4c5afc3f0602dcd045",
+      "url": "https://codeberg.org/forgejo/forgejo/actions/runs/207000",
+      "actor": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "login": "n0toose",
+        "id": "33716",
+        "name": "Panagiotis \"Ivory\" Vasilopoulos",
+        "avatarUrl": "https://codeberg.org/avatars/d3e911eec058bc2605b5bf5a1af2c968f64815a2f6aedefd3e5f93cb6ba514a4",
+        "url": "https://codeberg.org/n0toose",
         "isBotHint": false
       },
       "createdAt": "<now>",
       "startedAt": "<now>"
-    },
-    {
-      "ref": {
-        "forge": "forgejo",
-        "instance": "codeberg.org",
-        "repo": {
-          "forge": "forgejo",
-          "instance": "codeberg.org",
-          "owner": "forgejo",
-          "name": "forgejo"
-        },
-        "id": "7643997"
-      },
-      "name": "testing-integration.yml",
-      "state": "neutral",
-      "stateRaw": "skipped",
-      "number": "206654",
-      "eventRaw": "push",
-      "branch": "v16.0/forgejo",
-      "sha": "371ab0d3e49308c557f2415573f36e3cb4ccf28e",
-      "url": "https://codeberg.org/forgejo/forgejo/actions/runs/206654",
-      "actor": {
-        "forge": "forgejo",
-        "instance": "codeberg.org",
-        "login": "mfenniak",
-        "id": "222642",
-        "name": "Mathieu Fenniak",
-        "avatarUrl": "https://codeberg.org/avatars/561ee781e72bbbfd2865db7b4ba4fbf50f64da3d3cb0f4e1897b6da25224a2a7",
-        "url": "https://codeberg.org/mfenniak",
-        "isBotHint": false
-      },
-      "createdAt": "<now>",
-      "completedAt": "<now>"
-    },
-    {
-      "ref": {
-        "forge": "forgejo",
-        "instance": "codeberg.org",
-        "repo": {
-          "forge": "forgejo",
-          "instance": "codeberg.org",
-          "owner": "forgejo",
-          "name": "forgejo"
-        },
-        "id": "7643994"
-      },
-      "name": "milestone.yml",
-      "state": "success",
-      "stateRaw": "success",
-      "number": "206653",
-      "eventRaw": "pull_request_target",
-      "sha": "371ab0d3e49308c557f2415573f36e3cb4ccf28e",
-      "url": "https://codeberg.org/forgejo/forgejo/actions/runs/206653",
-      "actor": {
-        "forge": "forgejo",
-        "instance": "codeberg.org",
-        "login": "mfenniak",
-        "id": "222642",
-        "name": "Mathieu Fenniak",
-        "avatarUrl": "https://codeberg.org/avatars/561ee781e72bbbfd2865db7b4ba4fbf50f64da3d3cb0f4e1897b6da25224a2a7",
-        "url": "https://codeberg.org/mfenniak",
-        "isBotHint": false
-      },
-      "createdAt": "<now>",
-      "startedAt": "<now>",
-      "completedAt": "<now>"
     }
   ],
   "cursor": {

@@ -1,0 +1,8 @@
+{
+  "path": ".changelog.yml",
+  "sha": "e1d6907b7aba9781666f793e13b488363fd1fd22",
+  "size": 918,
+  "url": "https://gitea.com/gitea/tea/src/branch/main/.changelog.yml",
+  "content": "# The full repository name\nrepo: gitea/tea\n\n# Service type (gitea or github)\nservice: gitea\n\n# Base URL for Gitea instance if using gitea service type (optional)\nbase-url: https://gitea.com\n\n# Changelog groups and which labeled PRs to add to each group\ngroups:\n  -\n    name: BREAKING\n    labels:\n      - kind/breaking\n  -\n    name: FEATURES\n    labels:\n      - kind/feature\n  -\n    name: BUGFIXES\n    labels:\n      - kind/bug\n  -\n    name: ENHANCEMENTS\n    labels:\n      - kind/enhancement\n  -\n    name: SECURITY\n    labels:\n      - kind/security\n  -\n    name: TESTING\n    labels:\n      - kind/testing\n  -\n    name: TRANSLATION\n    labels:\n      - kind/translation\n  -\n    name: BUILD\n    labels:\n      - kind/build\n      - kind/lint\n  -\n    name: DOCS\n    labels:\n    - kind/docs\n  -\n    name: MISC\n    default: true\n\n# regex indicating which labels to skip for the changelog\nskip-labels: skip-changelog|backport\\/.+\n",
+  "encoding": "utf-8"
+}

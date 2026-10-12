@@ -33,8 +33,7 @@ export interface GiteeOptions extends ForgeOptionsBase {
 const PULL = { pull_request: true } as const
 const PER_PAGE = 50
 
-function setupGitee({ options, instance, origin: context, fetcher, baseUrl }: ProviderContext<GiteeOptions, undefined>): ProviderSpec {
-  const anonymous = options.auth?.type === 'anonymous'
+function setupGitee({ instance, origin: context, fetcher, baseUrl }: ProviderContext<GiteeOptions, undefined>): ProviderSpec {
   const repoPath = (repo: RepoRef) => `/repos/${encodeURIComponent(repo.owner)}/${encodeURIComponent(repo.name)}`
   async function readUser(path: string, signal?: AbortSignal): Promise<User> {
     const { data } = await fetcher.json<GiteeUser & { bio?: string | null, company?: string | null, blog?: string | null, created_at?: string, followers?: number, following?: number, public_repos?: number }>(path, { signal })
@@ -303,7 +302,7 @@ function setupGitee({ options, instance, origin: context, fetcher, baseUrl }: Pr
         const page = await numberedPage<GiteeRepository>('/user/repos', {}, listOptions)
         return { items: page.items.map(raw => toRepo(instance, raw)), cursor: page.cursor }
       }),
-      byOwnerPage: verb(anonymous ? 'unverified' : true, ownerReposPage),
+      byOwnerPage: verb(true, ownerReposPage),
       labelsPage: verb(true, async (repo, listOptions = {}) => {
         const page = await numberedPage<GiteeLabel>(`${repoPath(repo)}/labels`, {}, listOptions)
         return { items: page.items.map(raw => ({ name: raw.name, colour: raw.color ?? undefined })), cursor: page.cursor }

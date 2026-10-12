@@ -1,7 +1,7 @@
 {
   "request": {
     "method": "POST",
-    "url": "https://api.bitbucket.org/2.0/repositories/danielroe/forges-fixtures/pullrequests/15/approve"
+    "url": "https://api.bitbucket.org/2.0/repositories/danielroe/forges-fixtures/pullrequests/18/approve"
   },
   "response": {
     "status": 200,
@@ -29,7 +29,7 @@
       "role": "PARTICIPANT",
       "approved": true,
       "state": "approved",
-      "participated_on": "2026-10-11T12:02:36.244032+00:00"
+      "participated_on": "2026-10-12T11:42:01.939095+00:00"
     }
   }
 }

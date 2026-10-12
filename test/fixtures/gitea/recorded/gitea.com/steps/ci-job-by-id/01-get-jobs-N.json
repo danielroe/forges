@@ -1,23 +1,24 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://gitea.com/api/v1/repos/gitea/tea/actions/jobs/1424769"
+    "url": "https://gitea.com/api/v1/repos/gitea/tea/actions/jobs/1434630"
   },
   "response": {
     "status": 200,
     "headers": {},
     "body": {
-      "id": 1424769,
-      "url": "https://gitea.com/api/v1/repos/gitea/tea/actions/jobs/1424769",
-      "html_url": "https://gitea.com/gitea/tea/actions/runs/1051680/jobs/1424769",
-      "run_id": 1051680,
-      "run_url": "https://gitea.com/api/v1/repos/gitea/tea/actions/runs/1051680",
-      "name": "Lint Build And Unit Coverage",
+      "id": 1434630,
+      "url": "https://gitea.com/api/v1/repos/gitea/tea/actions/jobs/1434630",
+      "html_url": "https://gitea.com/gitea/tea/actions/runs/1057546/jobs/1434630",
+      "run_id": 1057546,
+      "run_url": "https://gitea.com/api/v1/repos/gitea/tea/actions/runs/1057546",
+      "name": "goreleaser",
       "labels": [
         "ubuntu-latest"
       ],
       "run_attempt": 1,
-      "head_sha": "d3ec77f8ea0c2e484f89194dc34fb7986a51a8f9",
+      "head_sha": "33bb12729e6de375813fb94fbcfbfa110d45c107",
+      "head_branch": "main",
       "status": "completed",
       "conclusion": "success",
       "runner_id": 4589,
@@ -28,37 +29,53 @@
           "number": 0,
           "status": "completed",
           "conclusion": "success",
-          "started_at": "2026-10-11T04:26:42Z",
-          "completed_at": "2026-10-11T04:26:45Z"
+          "started_at": "2026-10-12T00:56:48Z",
+          "completed_at": "2026-10-12T00:56:51Z"
         },
         {
-          "name": "Run actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e",
+          "name": "Run git fetch --force --tags",
           "number": 1,
           "status": "completed",
           "conclusion": "success",
-          "started_at": "2026-10-11T04:26:45Z",
-          "completed_at": "2026-10-11T04:27:05Z"
+          "started_at": "2026-10-12T00:56:51Z",
+          "completed_at": "2026-10-12T00:56:52Z"
         },
         {
-          "name": "lint and build",
+          "name": "check R2 configuration",
           "number": 2,
           "status": "completed",
           "conclusion": "success",
-          "started_at": "2026-10-11T04:27:05Z",
-          "completed_at": "2026-10-11T04:27:32Z"
+          "started_at": "2026-10-12T00:56:52Z",
+          "completed_at": "2026-10-12T00:56:52Z"
         },
         {
-          "name": "unit test and coverage",
+          "name": "Run actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e",
           "number": 3,
           "status": "completed",
           "conclusion": "success",
-          "started_at": "2026-10-11T04:27:33Z",
-          "completed_at": "2026-10-11T04:27:42Z"
+          "started_at": "2026-10-12T00:56:52Z",
+          "completed_at": "2026-10-12T00:57:03Z"
+        },
+        {
+          "name": "import gpg",
+          "number": 4,
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-10-12T00:57:03Z",
+          "completed_at": "2026-10-12T00:57:03Z"
+        },
+        {
+          "name": "goreleaser",
+          "number": 5,
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-10-12T00:57:03Z",
+          "completed_at": "2026-10-12T00:57:48Z"
         }
       ],
-      "created_at": "2026-10-10T23:03:39Z",
-      "started_at": "2026-10-11T04:26:37Z",
-      "completed_at": "2026-10-11T04:27:49Z"
+      "created_at": "2026-10-12T00:56:36Z",
+      "started_at": "2026-10-12T00:56:42Z",
+      "completed_at": "2026-10-12T00:58:15Z"
     }
   }
 }

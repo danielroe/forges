@@ -1,33 +1,25 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://tngl.sh/xrpc/com.atproto.repo.getRecord?repo=did%3Aplc%3A7qksav5io2s4qfg67pe7iqqk&collection=sh.tangled.label.definition&rkey=3mxmwnkuvum2y"
+    "url": "https://tngl.sh/xrpc/com.atproto.repo.getRecord?repo=did%3Aplc%3A7qksav5io2s4qfg67pe7iqqk&collection=sh.tangled.repo.issue&rkey=3mxmwlijmkm2y"
   },
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"190-p9S8PeS49Hyy/d60+LT+4+l2Ub0\"",
+      "etag": "W/\"15c-o81GNLv7aiwP+6h8BSLE1XAAbIU\"",
       "ratelimit-limit": "3000",
-      "ratelimit-remaining": "2777",
-      "ratelimit-reset": "1791756647"
+      "ratelimit-remaining": "2998",
+      "ratelimit-reset": "1791806333"
     },
     "body": {
-      "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.label.definition/3mxmwnkuvum2y",
-      "cid": "bafyreiaelkwlwnsk4f5ohlvqgkcp4uvtguzmwsvre5onjcdw73xgsnwuci",
+      "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.issue/3mxmwlijmkm2y",
+      "cid": "bafyreieu3ukzwub6wy2xdgrea7pzfwtn646h7yy4vhl3qslbofaky7rpti",
       "value": {
-        "name": "forges-seed",
-        "$type": "sh.tangled.label.definition",
-        "color": "#8b5cf6",
-        "scope": [
-          "sh.tangled.repo.issue",
-          "sh.tangled.repo.pull"
-        ],
-        "multiple": false,
-        "createdAt": "2026-10-11T21:20:36.873Z",
-        "valueType": {
-          "type": "null",
-          "format": "any"
-        }
+        "body": "An issue that read recordings read.",
+        "repo": "did:plc:t73o44q7fppgagkrevtztyok",
+        "$type": "sh.tangled.repo.issue",
+        "title": "forges seed: issue",
+        "createdAt": "2026-10-11T21:19:26.882Z"
       }
     }
   }

@@ -1,14 +1,32 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://gitea.com/api/v1/repos/gitea/tea/collaborators/lunny/permission"
+    "url": "https://gitea.com/api/v1/repos/forges-fixtures/forges-fixtures/collaborators/lunny/permission"
   },
   "response": {
-    "status": 403,
+    "status": 200,
     "headers": {},
     "body": {
-      "message": "Only admins can query all permissions, repo admins can query all repo permissions, collaborators can query only their own",
-      "url": "https://gitea.com/api/swagger"
+      "permission": "owner",
+      "role_name": "owner",
+      "user": {
+        "id": 1,
+        "login": "lunny",
+        "type": "User",
+        "source_id": 0,
+        "full_name": "Lunny Xiao",
+        "email": "redacted@example.invalid",
+        "avatar_url": "https://gitea.com/avatars/5739143ce171af62d1ff0baa027dacfd5e5ffe9c28b7b92fc4ed02d952ab1cc3",
+        "html_url": "https://gitea.com/lunny",
+        "active": false,
+        "location": "Silicon Valley",
+        "website": "https://gitea.com",
+        "description": "",
+        "followers_count": 114,
+        "following_count": 95,
+        "starred_repos_count": 366,
+        "username": "lunny"
+      }
     }
   }
 }

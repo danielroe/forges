@@ -1,0 +1,11 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://dev.azure.com/dnceng-public/public/_apis/git/repositories/dotnet-public-wiki/items?path=.order&download=true&%24format=octetStream&api-version=7.1"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": "Artifacts-Feeds"
+  }
+}

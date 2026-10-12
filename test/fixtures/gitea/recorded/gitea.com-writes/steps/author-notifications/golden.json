@@ -4,6 +4,102 @@
       "ref": {
         "forge": "gitea",
         "instance": "gitea.com",
+        "id": "564377"
+      },
+      "subject": {
+        "type": "thread",
+        "thread": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "repo": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "owner": "forges-fixtures",
+            "name": "forges-fixtures",
+            "externalId": "146918"
+          },
+          "kind": "issue",
+          "typeRaw": "Issue",
+          "number": "43"
+        }
+      },
+      "subjectTypeRaw": "Issue",
+      "reason": "unknown",
+      "unread": true,
+      "title": "forges fixture 20261012113905: issue, edited",
+      "subjectState": "open",
+      "subjectStateRaw": "open",
+      "updatedAt": "<now>",
+      "url": "https://gitea.com/api/v1/repos/forges-fixtures/forges-fixtures/issues/43"
+    },
+    {
+      "ref": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "id": "564376"
+      },
+      "subject": {
+        "type": "thread",
+        "thread": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "repo": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "owner": "forges-fixtures",
+            "name": "forges-fixtures",
+            "externalId": "146918"
+          },
+          "kind": "pull_request",
+          "typeRaw": "Pull",
+          "number": "47"
+        }
+      },
+      "subjectTypeRaw": "Pull",
+      "reason": "unknown",
+      "unread": true,
+      "title": "forges fixture 20261012113905: pull 2",
+      "subjectState": "merged",
+      "subjectStateRaw": "merged",
+      "updatedAt": "<now>",
+      "url": "https://gitea.com/api/v1/repos/forges-fixtures/forges-fixtures/issues/47"
+    },
+    {
+      "ref": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "id": "564375"
+      },
+      "subject": {
+        "type": "thread",
+        "thread": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "repo": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "owner": "forges-fixtures",
+            "name": "forges-fixtures",
+            "externalId": "146918"
+          },
+          "kind": "pull_request",
+          "typeRaw": "Pull",
+          "number": "46"
+        }
+      },
+      "subjectTypeRaw": "Pull",
+      "reason": "unknown",
+      "unread": false,
+      "title": "forges fixture 20261012113905: pull, edited",
+      "subjectState": "merged",
+      "subjectStateRaw": "merged",
+      "updatedAt": "<now>",
+      "url": "https://gitea.com/api/v1/repos/forges-fixtures/forges-fixtures/issues/46"
+    },
+    {
+      "ref": {
+        "forge": "gitea",
+        "instance": "gitea.com",
         "id": "561923"
       },
       "subject": {
@@ -25,11 +121,11 @@
       },
       "subjectTypeRaw": "Issue",
       "reason": "unknown",
-      "unread": true,
+      "unread": false,
       "title": "forges fixture 20261011160505: issue, edited",
-      "subjectState": "open",
-      "subjectStateRaw": "open",
-      "updatedAt": "<now>",
+      "subjectState": "closed",
+      "subjectStateRaw": "closed",
+      "updatedAt": "2026-10-11T16:05:41.000Z",
       "url": "https://gitea.com/api/v1/repos/forges-fixtures/forges-fixtures/issues/38"
     },
     {
@@ -57,11 +153,11 @@
       },
       "subjectTypeRaw": "Pull",
       "reason": "unknown",
-      "unread": true,
+      "unread": false,
       "title": "forges fixture 20261011160505: pull 2",
       "subjectState": "merged",
       "subjectStateRaw": "merged",
-      "updatedAt": "<now>",
+      "updatedAt": "2026-10-11T16:05:41.000Z",
       "url": "https://gitea.com/api/v1/repos/forges-fixtures/forges-fixtures/issues/41"
     },
     {
@@ -93,7 +189,7 @@
       "title": "forges fixture 20261011160505: pull, edited",
       "subjectState": "merged",
       "subjectStateRaw": "merged",
-      "updatedAt": "<now>",
+      "updatedAt": "2026-10-11T16:05:32.000Z",
       "url": "https://gitea.com/api/v1/repos/forges-fixtures/forges-fixtures/issues/40"
     },
     {

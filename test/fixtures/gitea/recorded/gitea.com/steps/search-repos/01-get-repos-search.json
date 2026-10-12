@@ -7,7 +7,7 @@
     "status": 200,
     "headers": {
       "link": "<https://gitea.com/api/v1/repos/search?limit=3&page=2&q=tea>; rel=\"next\",<https://gitea.com/api/v1/repos/search?limit=3&page=392&q=tea>; rel=\"last\"",
-      "x-total-count": "1174"
+      "x-total-count": "1175"
     },
     "body": {
       "ok": true,
@@ -208,7 +208,7 @@
             "source_id": 0,
             "full_name": "",
             "email": "redacted@example.invalid",
-            "avatar_url": "https://seccdn.libravatar.org/avatar/6d4db0de1301c724c85760ab0344a7ccfb0e8e8dfdee4def81523a46a37353b6?d=identicon",
+            "avatar_url": "https://gitea.com/avatars/0214eb01890466495d3bb3d55d1ee3fe",
             "html_url": "https://gitea.com/Kujio",
             "active": false,
             "location": "",
@@ -235,7 +235,7 @@
               "source_id": 0,
               "full_name": "",
               "email": "redacted@example.invalid",
-              "avatar_url": "https://seccdn.libravatar.org/avatar/dffc2d77f1339fa9dd7c1f6e9f0004d554f613fb5d35f88b4ff9fd3979032e8a?d=identicon",
+              "avatar_url": "https://gitea.com/avatars/57c88f7937955d14ea0f13a4f3cd193f",
               "html_url": "https://gitea.com/aznmamba24",
               "active": false,
               "location": "",

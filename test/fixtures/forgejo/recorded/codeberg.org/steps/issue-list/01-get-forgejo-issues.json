@@ -7,9 +7,77 @@
     "status": 200,
     "headers": {
       "link": "<https://codeberg.org/api/v1/repos/forgejo/forgejo/issues?limit=3&page=2&state=open&type=issues>; rel=\"next\",<https://codeberg.org/api/v1/repos/forgejo/forgejo/issues?limit=3&page=519&state=open&type=issues>; rel=\"last\"",
-      "x-total-count": "1555"
+      "x-total-count": "1556"
     },
     "body": [
+      {
+        "id": 7678344,
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/issues/14823",
+        "html_url": "https://codeberg.org/forgejo/forgejo/issues/14823",
+        "number": 14823,
+        "user": {
+          "id": 33716,
+          "login": "n0toose",
+          "source_id": 0,
+          "full_name": "Panagiotis \"Ivory\" Vasilopoulos",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://codeberg.org/avatars/d3e911eec058bc2605b5bf5a1af2c968f64815a2f6aedefd3e5f93cb6ba514a4",
+          "html_url": "https://codeberg.org/n0toose",
+          "active": false,
+          "location": "Aachen, Germany",
+          "pronouns": "",
+          "website": "",
+          "description": "tinkerer, g(r)eek, (fl)oss dev, musician, student. likes operating systems.\r\n\r\n@codeberg core team & ex-presidium member (2025-2026) :codeberg: & @forgejo contributor :forgejo:",
+          "followers_count": 110,
+          "following_count": 128,
+          "starred_repos_count": 147,
+          "username": "n0toose"
+        },
+        "original_author": "",
+        "original_author_id": 0,
+        "title": "problem: Git LFS: split OID and Pointer types",
+        "body": "### Does your problem still exist on the latest Forgejo version?\n\nYes, the problem still exists (tested locally with the latest development version)\n\n### About your usage of Forgejo\n\nDevelopment and maintenance of the Git LFS integration.\n\n### Problem description\n\n*copied from https://codeberg.org/forgejo/discussions/issues/500*\r\n\r\n- We have a method for checking [whether an \"LFS pointer is valid\"](https://codeberg.org/forgejo/forgejo/src/commit/202d46b941cb3850ea87dd561da9a91c98a4d69f/modules/lfs/pointer.go#L88), but we don't always use it consistently. Matter of fact, we apply [different](https://codeberg.org/forgejo/forgejo/src/commit/202d46b941cb3850ea87dd561da9a91c98a4d69f/routers/web/repo/setting/lfs.go#L392) [criteria](https://codeberg.org/forgejo/forgejo/src/commit/202d46b941cb3850ea87dd561da9a91c98a4d69f/services/gitdiff/gitdiff.go#L952) [each](https://codeberg.org/forgejo/forgejo/src/commit/202d46b941cb3850ea87dd561da9a91c98a4d69f/models/git/lfs.go#L165) [time](https://codeberg.org/forgejo/forgejo/src/commit/202d46b941cb3850ea87dd561da9a91c98a4d69f/models/git/lfs.go#L188) when establishing the validity of a pointer, when we have a \"central function\" that lets us check that...\r\n  - yet we do not always *need* to check whether the entirety of a pointer object, [as defined by the git-lfs spec](https://codeberg.org/forgejo/forgejo/src/commit/202d46b941cb3850ea87dd561da9a91c98a4d69f/models/git/lfs.go#L188), is valid (including by containing a `size` whose value is above `0`); in some cases, we may use a pointer object for a database lookup, and we don't need to know the size. So we need a second validator just for the OID format.\r\n\r\nSee: https://codeberg.org/forgejo/discussions/issues/500#issuecomment-24886284\n\n### Potential workarounds\n\nSo far, we've separated validating functions into `p.IsOIDValid` and `p.Validate` (with `p` being a `Pointer` type), but that's not good. This should probably be fixed after https://codeberg.org/forgejo/forgejo/pulls/14364 and other open LFS PRs are merged.\n\n### Forgejo Version\n\n18.0.0-dev\n\n### Other details about your environment (software names and versions)\n\nN/A\n\n### Solutions\n\n*Accepted solutions to address this problem will go here*\n\n\n",
+        "ref": "",
+        "assets": [],
+        "labels": [
+          {
+            "id": 841833,
+            "name": "impact/unknown",
+            "exclusive": true,
+            "is_archived": false,
+            "color": "545454",
+            "description": "Report was not yet triaged to assess impact.",
+            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/841833"
+          },
+          {
+            "id": 841206,
+            "name": "problem",
+            "exclusive": false,
+            "is_archived": false,
+            "color": "fbca04",
+            "description": "A user report about a problem. Needs to be triaged to find potential solutions.",
+            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/841206"
+          }
+        ],
+        "milestone": null,
+        "assignee": null,
+        "assignees": null,
+        "state": "open",
+        "is_locked": false,
+        "comments": 0,
+        "created_at": "2026-10-12T13:42:43+02:00",
+        "updated_at": "2026-10-12T13:42:43+02:00",
+        "closed_at": null,
+        "due_date": null,
+        "pull_request": null,
+        "repository": {
+          "id": 73144,
+          "name": "forgejo",
+          "owner": "forgejo",
+          "full_name": "forgejo/forgejo"
+        },
+        "pin_order": 0
+      },
       {
         "id": 7667313,
         "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/issues/14810",
@@ -30,7 +98,7 @@
           "description": "",
           "followers_count": 0,
           "following_count": 0,
-          "starred_repos_count": 4,
+          "starred_repos_count": 5,
           "username": "deadmeu"
         },
         "original_author": "",
@@ -135,94 +203,6 @@
         "comments": 0,
         "created_at": "2026-10-11T14:56:32+02:00",
         "updated_at": "2026-10-11T14:58:13+02:00",
-        "closed_at": null,
-        "due_date": null,
-        "pull_request": null,
-        "repository": {
-          "id": 73144,
-          "name": "forgejo",
-          "owner": "forgejo",
-          "full_name": "forgejo/forgejo"
-        },
-        "pin_order": 0
-      },
-      {
-        "id": 7662150,
-        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/issues/14801",
-        "html_url": "https://codeberg.org/forgejo/forgejo/issues/14801",
-        "number": 14801,
-        "user": {
-          "id": 153960,
-          "login": "Ghoelian",
-          "source_id": 0,
-          "full_name": "Julian Vos",
-          "email": "redacted@example.invalid",
-          "avatar_url": "https://codeberg.org/avatars/cee03638ae1443b11c29d073043dce6478c8cb0ca493a31eb1ca74b007581428",
-          "html_url": "https://codeberg.org/Ghoelian",
-          "active": false,
-          "location": "The Netherlands",
-          "pronouns": "he/him",
-          "website": "https://julianvos.nl",
-          "description": "![Years](https://codeberg-badges.vercel.app/Ghoelian/years)\r\n![Repos](https://codeberg-badges.vercel.app/Ghoelian/repos)\r\n![Contributions](https://codeberg-badges.vercel.app/Ghoelian/contributions/month)",
-          "followers_count": 0,
-          "following_count": 0,
-          "starred_repos_count": 1,
-          "username": "Ghoelian"
-        },
-        "original_author": "",
-        "original_author_id": 0,
-        "title": "bug: server error when navigating to user/two_factor while not logged in",
-        "body": "### Can you reproduce the bug on the Forgejo test instance?\n\nYes, I've linked the repository below\n\n### Description\n\nWhen navigating to <root url>/user/two_factor, without having submitted the log in form, Forgejo returns a 500 server error.\n\nIn my opinion, this should be a bad request, or simply a redirect to the login page.\n\n### Screenshots\n\n![image](/attachments/93b5df1f-0773-43ad-ada4-d44af3cd32b3)\n\n### Forgejo Version\n\n_No response_\n\n### Browser Version\n\nFirefox 157.0.1\n\n",
-        "ref": "",
-        "assets": [
-          {
-            "id": 2026242,
-            "name": "image.png",
-            "size": 40669,
-            "download_count": 0,
-            "created_at": "2026-10-10T23:35:30+02:00",
-            "uuid": "93b5df1f-0773-43ad-ada4-d44af3cd32b3",
-            "browser_download_url": "https://codeberg.org/attachments/93b5df1f-0773-43ad-ada4-d44af3cd32b3",
-            "type": "attachment"
-          }
-        ],
-        "labels": [
-          {
-            "id": 201023,
-            "name": "bug/confirmed",
-            "exclusive": true,
-            "is_archived": false,
-            "color": "e11d21",
-            "description": "it can be reproduced",
-            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/201023"
-          },
-          {
-            "id": 87703,
-            "name": "forgejo/ui",
-            "exclusive": false,
-            "is_archived": false,
-            "color": "eb6420",
-            "description": "User interface",
-            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/87703"
-          },
-          {
-            "id": 222666,
-            "name": "good first issue",
-            "exclusive": false,
-            "is_archived": false,
-            "color": "70c24a",
-            "description": "Optimal for first-timers! Make sure to look for further explanations and ask for help if needed. If you want, you can consider the person who added this label as a point of contact.",
-            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/222666"
-          }
-        ],
-        "milestone": null,
-        "assignee": null,
-        "assignees": null,
-        "state": "open",
-        "is_locked": false,
-        "comments": 0,
-        "created_at": "2026-10-10T23:36:31+02:00",
-        "updated_at": "2026-10-11T00:12:34+02:00",
         "closed_at": null,
         "due_date": null,
         "pull_request": null,

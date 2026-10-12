@@ -187,7 +187,7 @@ If you create a hook with `webhooks.create()`, `nativeEvents` takes the names of
 | `contents.branches` | ✅ | ✅ |
 | `contents.tags` | ✅ | ✅ |
 | `contents.resolveRef` | ✅ | ✅ |
-| `contents.commits` | ✅ | unverified |
+| `contents.commits` | ✅ | ✅ |
 | `contents.commit` | ✅ | ✅ |
 | `contents.compare` | ✅ | ✅ |
 | `contents.threadFiles` | ✅ | ✅ |

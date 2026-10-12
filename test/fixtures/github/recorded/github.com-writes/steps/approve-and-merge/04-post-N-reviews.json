@@ -1,7 +1,7 @@
 {
   "request": {
     "method": "POST",
-    "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/pulls/88/reviews",
+    "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/pulls/94/reviews",
     "body": {
       "event": "APPROVE"
     }
@@ -9,14 +9,14 @@
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"967978d6939e6680d80e18e7d3f23166d2ccf57e3a1affaf03310c16d0220e82\"",
+      "etag": "W/\"280e643c5781ef12b46baa79c1be4a1477573905e163303d878d88d2a87c072f\"",
       "x-ratelimit-limit": "5000",
-      "x-ratelimit-remaining": "4963",
-      "x-ratelimit-reset": "1791737987"
+      "x-ratelimit-remaining": "4971",
+      "x-ratelimit-reset": "1791807975"
     },
     "body": {
-      "id": 5484106771,
-      "node_id": "PRR_kwDOVCTdtM8AAAABRuDUEw",
+      "id": 5490179220,
+      "node_id": "PRR_kwDOVCTdtM8AAAABRz18lA",
       "user": {
         "login": "danielroe",
         "id": 28706372,
@@ -40,19 +40,19 @@
       },
       "body": "",
       "state": "APPROVED",
-      "html_url": "https://github.com/forges-fixtures/forges-fixtures/pull/88#pullrequestreview-5484106771",
-      "pull_request_url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/pulls/88",
+      "html_url": "https://github.com/forges-fixtures/forges-fixtures/pull/94#pullrequestreview-5490179220",
+      "pull_request_url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/pulls/94",
       "author_association": "MEMBER",
       "_links": {
         "html": {
-          "href": "https://github.com/forges-fixtures/forges-fixtures/pull/88#pullrequestreview-5484106771"
+          "href": "https://github.com/forges-fixtures/forges-fixtures/pull/94#pullrequestreview-5490179220"
         },
         "pull_request": {
-          "href": "https://api.github.com/repos/forges-fixtures/forges-fixtures/pulls/88"
+          "href": "https://api.github.com/repos/forges-fixtures/forges-fixtures/pulls/94"
         }
       },
-      "submitted_at": "2026-10-11T16:46:42Z",
-      "commit_id": "747b285dc9b495a16f08e60df0c0752a255f1b18"
+      "submitted_at": "2026-10-12T11:36:21Z",
+      "commit_id": "514f32fe84279b1bfec579923ebd697151a3a635"
     }
   }
 }

@@ -8,27 +8,27 @@
       "owner": "h3js",
       "name": "h3"
     },
-    "id": "38146323079"
+    "id": "38232588486"
   },
-  "name": "autofix.ci",
-  "state": "failure",
+  "name": "ci",
+  "state": "success",
   "stateRaw": "completed",
-  "number": "4259",
+  "number": "4762",
   "eventRaw": "pull_request",
-  "branch": "fix/serve-static-index-paths",
-  "sha": "73f9f488e57746e57de8919ea0358cbe6e5da1a9",
-  "url": "https://github.com/h3js/h3/actions/runs/38146323079",
+  "branch": "docs/static-assets-example-path",
+  "sha": "dd84e37fca0559506ad97022b5ac9438b427e6e2",
+  "url": "https://github.com/h3js/h3/actions/runs/38232588486",
   "actor": {
     "forge": "github",
     "instance": "github.com",
-    "login": "TalhaHunter101",
-    "id": "51529912",
-    "avatarUrl": "https://avatars.githubusercontent.com/u/51529912?v=4",
-    "url": "https://github.com/TalhaHunter101",
+    "login": "lx3133584",
+    "id": "24490353",
+    "avatarUrl": "https://avatars.githubusercontent.com/u/24490353?v=4",
+    "url": "https://github.com/lx3133584",
     "typeRaw": "User",
     "isBotHint": false
   },
-  "createdAt": "<now>",
-  "startedAt": "<now>",
-  "completedAt": "<now>"
+  "createdAt": "2026-10-12T09:51:31.000Z",
+  "startedAt": "2026-10-12T09:51:31.000Z",
+  "completedAt": "2026-10-12T09:52:43.000Z"
 }

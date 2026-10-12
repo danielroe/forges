@@ -18,20 +18,6 @@
       "actor": {
         "forge": "gitlab",
         "instance": "gitlab.com",
-        "login": "dblessing",
-        "id": "13356",
-        "name": "Drew Blessing",
-        "avatarUrl": "https://secure.gravatar.com/avatar/f7a7e6e32e9c5482907025642135eb9546fae343ec42347aba492ba32575e603?s=80&d=identicon",
-        "url": "https://gitlab.com/dblessing",
-        "isBotHint": false
-      },
-      "role": "write",
-      "roleRaw": "30"
-    },
-    {
-      "actor": {
-        "forge": "gitlab",
-        "instance": "gitlab.com",
         "login": "ayufan",
         "id": "12452",
         "name": "Kamil Trzciński",
@@ -41,11 +27,25 @@
       },
       "role": "write",
       "roleRaw": "30"
+    },
+    {
+      "actor": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "login": "dblessing",
+        "id": "13356",
+        "name": "Drew Blessing",
+        "avatarUrl": "https://secure.gravatar.com/avatar/f7a7e6e32e9c5482907025642135eb9546fae343ec42347aba492ba32575e603?s=80&d=identicon",
+        "url": "https://gitlab.com/dblessing",
+        "isBotHint": false
+      },
+      "role": "write",
+      "roleRaw": "30"
     }
   ],
   "cursor": {
     "nextUrl": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/members/all?id=gitlab-org%2Fcli&page=2&per_page=3",
-    "etag": "W/\"4576367e10bc5dae3dab988bedc22369\""
+    "etag": "W/\"6b90f86c91d56b4114c8aabba63aa2ee\""
   },
   "rateLimit": {
     "limit": 2000,

@@ -1,232 +1,216 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/actions/runs/38149059061/jobs?per_page=3"
+    "url": "https://api.github.com/repos/h3js/h3/actions/runs/38232588486/jobs?per_page=3"
   },
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"d0d618d184196f098dd9d5f207e5400677421edd8270334a2e4b78bc04591409\"",
+      "etag": "W/\"baee9ac6a9595d31abc7d2c23cd12bf55ae879c9ec3c4d8d61c415f6246820fa\"",
       "x-ratelimit-limit": "5000",
-      "x-ratelimit-remaining": "4962",
-      "x-ratelimit-reset": "1791738329"
+      "x-ratelimit-remaining": "4961",
+      "x-ratelimit-reset": "1791808136"
     },
     "body": {
       "total_count": 2,
       "jobs": [
         {
-          "id": 114498454598,
-          "run_id": 38149059061,
-          "workflow_name": "Push on main",
-          "head_branch": "main",
-          "run_url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/actions/runs/38149059061",
+          "id": 114755404558,
+          "run_id": 38232588486,
+          "workflow_name": "ci",
+          "head_branch": "docs/static-assets-example-path",
+          "run_url": "https://api.github.com/repos/h3js/h3/actions/runs/38232588486",
           "run_attempt": 1,
-          "node_id": "CR_kwDOVCTdtM8AAAAaqKPERg",
-          "head_sha": "9b4cc9f04c645ca64000a2e76b29e7a70a933d13",
-          "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/actions/jobs/114498454598",
-          "html_url": "https://github.com/forges-fixtures/forges-fixtures/actions/runs/38149059061/job/114498454598",
+          "node_id": "CR_kwDOErHI988AAAAat_SDDg",
+          "head_sha": "dd84e37fca0559506ad97022b5ac9438b427e6e2",
+          "url": "https://api.github.com/repos/h3js/h3/actions/jobs/114755404558",
+          "html_url": "https://github.com/h3js/h3/actions/runs/38232588486/job/114755404558",
           "status": "completed",
           "conclusion": "success",
-          "created_at": "2026-10-11T14:54:09Z",
-          "started_at": "2026-10-11T14:54:11Z",
-          "completed_at": "2026-10-11T14:55:33Z",
-          "name": "Analyze (javascript-typescript)",
+          "created_at": "2026-10-12T09:51:31Z",
+          "started_at": "2026-10-12T09:51:34Z",
+          "completed_at": "2026-10-12T09:52:17Z",
+          "name": "tests",
           "steps": [
             {
               "name": "Set up job",
               "status": "completed",
               "conclusion": "success",
               "number": 1,
-              "started_at": "2026-10-11T14:54:12Z",
-              "completed_at": "2026-10-11T14:54:13Z"
+              "started_at": "2026-10-12T09:51:35Z",
+              "completed_at": "2026-10-12T09:51:37Z"
             },
             {
-              "name": "Checkout repository",
+              "name": "Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
               "status": "completed",
               "conclusion": "success",
               "number": 2,
-              "started_at": "2026-10-11T14:54:13Z",
-              "completed_at": "2026-10-11T14:54:14Z"
+              "started_at": "2026-10-12T09:51:37Z",
+              "completed_at": "2026-10-12T09:51:38Z"
             },
             {
-              "name": "Setup proxy for registries",
+              "name": "Run unjs/setup-jup@85aa1e9e4cd2995fba3bee414cde74bf88637a2c",
               "status": "completed",
               "conclusion": "success",
               "number": 3,
-              "started_at": "2026-10-11T14:54:14Z",
-              "completed_at": "2026-10-11T14:54:14Z"
+              "started_at": "2026-10-12T09:51:38Z",
+              "completed_at": "2026-10-12T09:51:50Z"
             },
             {
-              "name": "Initialize CodeQL",
+              "name": "Run pnpm lint",
               "status": "completed",
               "conclusion": "success",
               "number": 4,
-              "started_at": "2026-10-11T14:54:14Z",
-              "completed_at": "2026-10-11T14:54:33Z"
+              "started_at": "2026-10-12T09:51:50Z",
+              "completed_at": "2026-10-12T09:51:51Z"
             },
             {
-              "name": "Perform CodeQL Analysis",
+              "name": "Run pnpm typecheck",
               "status": "completed",
               "conclusion": "success",
               "number": 5,
-              "started_at": "2026-10-11T14:54:33Z",
-              "completed_at": "2026-10-11T14:55:28Z"
+              "started_at": "2026-10-12T09:51:51Z",
+              "completed_at": "2026-10-12T09:51:52Z"
             },
             {
-              "name": "Post Perform CodeQL Analysis",
+              "name": "Run pnpm build",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 6,
+              "started_at": "2026-10-12T09:51:52Z",
+              "completed_at": "2026-10-12T09:51:53Z"
+            },
+            {
+              "name": "Run pnpm vitest --coverage",
               "status": "completed",
               "conclusion": "success",
               "number": 7,
-              "started_at": "2026-10-11T14:55:28Z",
-              "completed_at": "2026-10-11T14:55:28Z"
+              "started_at": "2026-10-12T09:51:53Z",
+              "completed_at": "2026-10-12T09:52:10Z"
             },
             {
-              "name": "Post Initialize CodeQL",
+              "name": "Run codecov/codecov-action@fb8b3582c8e4def4969c97caa2f19720cb33a72f",
               "status": "completed",
               "conclusion": "success",
               "number": 8,
-              "started_at": "2026-10-11T14:55:28Z",
-              "completed_at": "2026-10-11T14:55:29Z"
+              "started_at": "2026-10-12T09:52:10Z",
+              "completed_at": "2026-10-12T09:52:13Z"
             },
             {
-              "name": "Post Setup proxy for registries",
+              "name": "Post Run unjs/setup-jup@85aa1e9e4cd2995fba3bee414cde74bf88637a2c",
               "status": "completed",
               "conclusion": "success",
-              "number": 9,
-              "started_at": "2026-10-11T14:55:29Z",
-              "completed_at": "2026-10-11T14:55:30Z"
+              "number": 15,
+              "started_at": "2026-10-12T09:52:13Z",
+              "completed_at": "2026-10-12T09:52:15Z"
             },
             {
-              "name": "Post Checkout repository",
+              "name": "Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
               "status": "completed",
               "conclusion": "success",
-              "number": 10,
-              "started_at": "2026-10-11T14:55:30Z",
-              "completed_at": "2026-10-11T14:55:30Z"
+              "number": 16,
+              "started_at": "2026-10-12T09:52:15Z",
+              "completed_at": "2026-10-12T09:52:15Z"
             },
             {
               "name": "Complete job",
               "status": "completed",
               "conclusion": "success",
-              "number": 11,
-              "started_at": "2026-10-11T14:55:30Z",
-              "completed_at": "2026-10-11T14:55:30Z"
+              "number": 17,
+              "started_at": "2026-10-12T09:52:15Z",
+              "completed_at": "2026-10-12T09:52:15Z"
             }
           ],
-          "check_run_url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/check-runs/114498454598",
+          "check_run_url": "https://api.github.com/repos/h3js/h3/check-runs/114755404558",
           "labels": [
             "ubuntu-latest"
           ],
-          "runner_id": 1000000196,
-          "runner_name": "GitHub Actions 1000000196",
+          "runner_id": 1000013754,
+          "runner_name": "GitHub Actions 1000013754",
           "runner_group_id": 0,
           "runner_group_name": "GitHub Actions"
         },
         {
-          "id": 114498454834,
-          "run_id": 38149059061,
-          "workflow_name": "Push on main",
-          "head_branch": "main",
-          "run_url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/actions/runs/38149059061",
+          "id": 114755676725,
+          "run_id": 38232588486,
+          "workflow_name": "ci",
+          "head_branch": "docs/static-assets-example-path",
+          "run_url": "https://api.github.com/repos/h3js/h3/actions/runs/38232588486",
           "run_attempt": 1,
-          "node_id": "CR_kwDOVCTdtM8AAAAaqKPFMg",
-          "head_sha": "9b4cc9f04c645ca64000a2e76b29e7a70a933d13",
-          "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/actions/jobs/114498454834",
-          "html_url": "https://github.com/forges-fixtures/forges-fixtures/actions/runs/38149059061/job/114498454834",
+          "node_id": "CR_kwDOErHI988AAAAat_iqNQ",
+          "head_sha": "dd84e37fca0559506ad97022b5ac9438b427e6e2",
+          "url": "https://api.github.com/repos/h3js/h3/actions/jobs/114755676725",
+          "html_url": "https://github.com/h3js/h3/actions/runs/38232588486/job/114755676725",
           "status": "completed",
           "conclusion": "success",
-          "created_at": "2026-10-11T14:54:09Z",
-          "started_at": "2026-10-11T14:54:10Z",
-          "completed_at": "2026-10-11T14:54:49Z",
-          "name": "Analyze (actions)",
+          "created_at": "2026-10-12T09:52:17Z",
+          "started_at": "2026-10-12T09:52:19Z",
+          "completed_at": "2026-10-12T09:52:42Z",
+          "name": "publish-pkg-pr-new",
           "steps": [
             {
               "name": "Set up job",
               "status": "completed",
               "conclusion": "success",
               "number": 1,
-              "started_at": "2026-10-11T14:54:11Z",
-              "completed_at": "2026-10-11T14:54:12Z"
+              "started_at": "2026-10-12T09:52:20Z",
+              "completed_at": "2026-10-12T09:52:21Z"
             },
             {
-              "name": "Checkout repository",
+              "name": "Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
               "status": "completed",
               "conclusion": "success",
               "number": 2,
-              "started_at": "2026-10-11T14:54:12Z",
-              "completed_at": "2026-10-11T14:54:12Z"
+              "started_at": "2026-10-12T09:52:21Z",
+              "completed_at": "2026-10-12T09:52:22Z"
             },
             {
-              "name": "Setup proxy for registries",
+              "name": "Run unjs/setup-jup@85aa1e9e4cd2995fba3bee414cde74bf88637a2c",
               "status": "completed",
               "conclusion": "success",
               "number": 3,
-              "started_at": "2026-10-11T14:54:12Z",
-              "completed_at": "2026-10-11T14:54:13Z"
+              "started_at": "2026-10-12T09:52:22Z",
+              "completed_at": "2026-10-12T09:52:30Z"
             },
             {
-              "name": "Initialize CodeQL",
+              "name": "Run pnpm exec pkg-pr-new publish",
               "status": "completed",
               "conclusion": "success",
               "number": 4,
-              "started_at": "2026-10-11T14:54:13Z",
-              "completed_at": "2026-10-11T14:54:23Z"
+              "started_at": "2026-10-12T09:52:30Z",
+              "completed_at": "2026-10-12T09:52:39Z"
             },
             {
-              "name": "Perform CodeQL Analysis",
-              "status": "completed",
-              "conclusion": "success",
-              "number": 5,
-              "started_at": "2026-10-11T14:54:23Z",
-              "completed_at": "2026-10-11T14:54:46Z"
-            },
-            {
-              "name": "Post Perform CodeQL Analysis",
+              "name": "Post Run unjs/setup-jup@85aa1e9e4cd2995fba3bee414cde74bf88637a2c",
               "status": "completed",
               "conclusion": "success",
               "number": 7,
-              "started_at": "2026-10-11T14:54:46Z",
-              "completed_at": "2026-10-11T14:54:46Z"
+              "started_at": "2026-10-12T09:52:39Z",
+              "completed_at": "2026-10-12T09:52:40Z"
             },
             {
-              "name": "Post Initialize CodeQL",
+              "name": "Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
               "status": "completed",
               "conclusion": "success",
               "number": 8,
-              "started_at": "2026-10-11T14:54:46Z",
-              "completed_at": "2026-10-11T14:54:47Z"
-            },
-            {
-              "name": "Post Setup proxy for registries",
-              "status": "completed",
-              "conclusion": "success",
-              "number": 9,
-              "started_at": "2026-10-11T14:54:47Z",
-              "completed_at": "2026-10-11T14:54:47Z"
-            },
-            {
-              "name": "Post Checkout repository",
-              "status": "completed",
-              "conclusion": "success",
-              "number": 10,
-              "started_at": "2026-10-11T14:54:47Z",
-              "completed_at": "2026-10-11T14:54:47Z"
+              "started_at": "2026-10-12T09:52:40Z",
+              "completed_at": "2026-10-12T09:52:40Z"
             },
             {
               "name": "Complete job",
               "status": "completed",
               "conclusion": "success",
-              "number": 11,
-              "started_at": "2026-10-11T14:54:47Z",
-              "completed_at": "2026-10-11T14:54:47Z"
+              "number": 9,
+              "started_at": "2026-10-12T09:52:40Z",
+              "completed_at": "2026-10-12T09:52:40Z"
             }
           ],
-          "check_run_url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/check-runs/114498454834",
+          "check_run_url": "https://api.github.com/repos/h3js/h3/check-runs/114755676725",
           "labels": [
             "ubuntu-latest"
           ],
-          "runner_id": 1000000197,
-          "runner_name": "GitHub Actions 1000000197",
+          "runner_id": 1000013755,
+          "runner_name": "GitHub Actions 1000013755",
           "runner_group_id": 0,
           "runner_group_name": "GitHub Actions"
         }

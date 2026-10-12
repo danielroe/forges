@@ -1,0 +1,102 @@
+{
+  "items": [
+    {
+      "ref": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "repo": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "owner": "gitlab-org",
+          "name": "cli"
+        },
+        "sha": "b67f19b0f87455fc09d18e3b0314a14d022f3af6"
+      },
+      "sha": "b67f19b0f87455fc09d18e3b0314a14d022f3af6",
+      "message": "Merge branch '8577-ssh-key-add-replace' into 'main'\n\nfeat(ssh-key): add --replace flag to ssh-key add\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4034\n\nMerged-by: Ahmed Hemdan <redacted@example.invalid>\nApproved-by: Ahmed Hemdan <redacted@example.invalid>\nApproved-by: GitLab Duo <redacted@example.invalid>\nReviewed-by: Ahmed Hemdan <redacted@example.invalid>\nReviewed-by: GitLab Duo <redacted@example.invalid>\nCo-authored-by: Radek Antoniuk <redacted@example.invalid>",
+      "author": {
+        "name": "Ahmed Hemdan",
+        "email": "redacted@example.invalid",
+        "date": "<now>"
+      },
+      "committer": {
+        "name": "GitLab",
+        "email": "redacted@example.invalid",
+        "date": "<now>"
+      },
+      "parents": [
+        "6ff113fb6793eb4963464a2923de28890f1127f9",
+        "c3151df7594b6208664ed7c51dd97ffd671067d6"
+      ],
+      "url": "https://gitlab.com/gitlab-org/cli/-/commit/b67f19b0f87455fc09d18e3b0314a14d022f3af6"
+    },
+    {
+      "ref": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "repo": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "owner": "gitlab-org",
+          "name": "cli"
+        },
+        "sha": "c3151df7594b6208664ed7c51dd97ffd671067d6"
+      },
+      "sha": "c3151df7594b6208664ed7c51dd97ffd671067d6",
+      "message": "feat(ssh-key): add --replace flag to ssh-key add\n",
+      "author": {
+        "name": "Radek Antoniuk",
+        "email": "redacted@example.invalid",
+        "date": "<now>"
+      },
+      "committer": {
+        "name": "GitLab",
+        "email": "redacted@example.invalid",
+        "date": "<now>"
+      },
+      "parents": [
+        "9a7963a1f19651973a02d75b8a7ae16ba81e27e5"
+      ],
+      "url": "https://gitlab.com/gitlab-org/cli/-/commit/c3151df7594b6208664ed7c51dd97ffd671067d6"
+    },
+    {
+      "ref": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "repo": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "owner": "gitlab-org",
+          "name": "cli"
+        },
+        "sha": "6ff113fb6793eb4963464a2923de28890f1127f9"
+      },
+      "sha": "6ff113fb6793eb4963464a2923de28890f1127f9",
+      "message": "Merge branch '7977-time-tracking-update' into 'main'\n\nfeat: time tracking support on issue update\n\nCloses #7977\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4019\n\nMerged-by: Jay McCure <redacted@example.invalid>\nApproved-by: Erran Carey <redacted@example.invalid>\nApproved-by: Jay McCure <redacted@example.invalid>\nCo-authored-by: Giannis Kepas <redacted@example.invalid>",
+      "author": {
+        "name": "Jay McCure",
+        "email": "redacted@example.invalid",
+        "date": "2026-10-12T03:50:24.000Z"
+      },
+      "committer": {
+        "name": "GitLab",
+        "email": "redacted@example.invalid",
+        "date": "2026-10-12T03:50:24.000Z"
+      },
+      "parents": [
+        "a969ac1df2dc0e9b2599ca55d7f0e512947e0044",
+        "75a8012317b9aee63bce29dc3bbf5a98d3b50b4e"
+      ],
+      "url": "https://gitlab.com/gitlab-org/cli/-/commit/6ff113fb6793eb4963464a2923de28890f1127f9"
+    }
+  ],
+  "cursor": {
+    "nextUrl": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/repository/commits?id=gitlab-org%2Fcli&order=default&page=2&pagination=legacy&per_page=3&trailers=false",
+    "etag": "W/\"332a98ec0da1ab93fda3dfc00e9e7716\""
+  },
+  "rateLimit": {
+    "limit": 500,
+    "remaining": 461,
+    "resetAt": "<now>"
+  }
+}

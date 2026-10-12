@@ -1,20 +1,20 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/pulls/87/reviews"
+    "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/pulls/93/reviews"
   },
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"06fc903e347e4c25f2d6b4f076721e3917d1f02f426a2a17b1f0fe1d6ea72399\"",
+      "etag": "W/\"071d33133b42ef9eda77b8358cdb1e8248a2c27f0c8f03289a8daebaa6d682f4\"",
       "x-ratelimit-limit": "5000",
-      "x-ratelimit-remaining": "4852",
-      "x-ratelimit-reset": "1791738365"
+      "x-ratelimit-remaining": "4991",
+      "x-ratelimit-reset": "1791808502"
     },
     "body": [
       {
-        "id": 5484105954,
-        "node_id": "PRR_kwDOVCTdtM8AAAABRuDQ4g",
+        "id": 5490176614,
+        "node_id": "PRR_kwDOVCTdtM8AAAABRz1yZg",
         "user": {
           "login": "danielroe",
           "id": 28706372,
@@ -36,21 +36,21 @@
           "user_view_type": "public",
           "site_admin": false
         },
-        "body": "A submitted review from run 20261011164520.",
+        "body": "A submitted review from run 20261012113502.",
         "state": "COMMENTED",
-        "html_url": "https://github.com/forges-fixtures/forges-fixtures/pull/87#pullrequestreview-5484105954",
-        "pull_request_url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/pulls/87",
+        "html_url": "https://github.com/forges-fixtures/forges-fixtures/pull/93#pullrequestreview-5490176614",
+        "pull_request_url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/pulls/93",
         "author_association": "MEMBER",
         "_links": {
           "html": {
-            "href": "https://github.com/forges-fixtures/forges-fixtures/pull/87#pullrequestreview-5484105954"
+            "href": "https://github.com/forges-fixtures/forges-fixtures/pull/93#pullrequestreview-5490176614"
           },
           "pull_request": {
-            "href": "https://api.github.com/repos/forges-fixtures/forges-fixtures/pulls/87"
+            "href": "https://api.github.com/repos/forges-fixtures/forges-fixtures/pulls/93"
           }
         },
-        "submitted_at": "2026-10-11T16:46:26Z",
-        "commit_id": "b69ccb38106a131e3c0a78b0f4af6b0b5d78d162"
+        "submitted_at": "2026-10-12T11:36:05Z",
+        "commit_id": "67bb144479c23e0c1acec7312a82075aaa53eaf3"
       }
     ]
   }

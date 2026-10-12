@@ -1,19 +1,19 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://tngl.sh/xrpc/com.atproto.repo.getRecord?repo=did%3Aplc%3A7qksav5io2s4qfg67pe7iqqk&collection=sh.tangled.label.op&rkey=3mxmz7a34yu2y"
+    "url": "https://tngl.sh/xrpc/com.atproto.repo.getRecord?repo=did%3Aplc%3A7qksav5io2s4qfg67pe7iqqk&collection=sh.tangled.label.op&rkey=3mxogtnyn552y"
   },
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"1b8-YAbKSw+mUVFpwJ7CIHJ78Ejviy8\"",
+      "etag": "W/\"1b8-gJLi0ilEeJ07yEpYPt8qTq0803M\"",
       "ratelimit-limit": "3000",
-      "ratelimit-remaining": "2767",
-      "ratelimit-reset": "1791756647"
+      "ratelimit-remaining": "2980",
+      "ratelimit-reset": "1791806333"
     },
     "body": {
-      "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.label.op/3mxmz7a34yu2y",
-      "cid": "bafyreifhhvr2tvhu6d43lvldjjpk63yl7ncmeydbv426i4ky534focmqcq",
+      "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.label.op/3mxogtnyn552y",
+      "cid": "bafyreihdlff5cmnrl3bmt6mpovw22lpwzqoe4rjh5miipionimklv5agwy",
       "value": {
         "add": [
           {
@@ -24,7 +24,7 @@
         "$type": "sh.tangled.label.op",
         "delete": [],
         "subject": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.pull/3mxhm5yldov22",
-        "performedAt": "2026-10-11T22:06:17.005Z"
+        "performedAt": "2026-10-12T11:43:01.073Z"
       }
     }
   }

@@ -4,7 +4,7 @@
       "ref": {
         "forge": "github",
         "instance": "github.com",
-        "id": "26260697380"
+        "id": "26279135987"
       },
       "subject": {
         "type": "thread",
@@ -20,23 +20,24 @@
           },
           "kind": "pull_request",
           "typeRaw": "PullRequest",
-          "number": "36558"
+          "number": "36568"
         }
       },
       "subjectTypeRaw": "PullRequest",
-      "reason": "review_requested",
-      "reasonRaw": "review_requested",
+      "reason": "author",
+      "reasonRaw": "author",
       "unread": true,
-      "title": "fix(nuxt): include builder-env types in nitro context when `nitroViteEnvironment` is enabled",
+      "title": "refactor(webpack,rspack): inline friendly errors plugin",
       "subjectState": "unknown",
       "updatedAt": "<now>",
-      "url": "https://api.github.com/repos/nuxt/nuxt/pulls/36558"
+      "lastReadAt": "<now>",
+      "url": "https://api.github.com/repos/nuxt/nuxt/pulls/36568"
     },
     {
       "ref": {
         "forge": "github",
         "instance": "github.com",
-        "id": "26260015773"
+        "id": "26279062147"
       },
       "subject": {
         "type": "thread",
@@ -52,24 +53,23 @@
           },
           "kind": "pull_request",
           "typeRaw": "PullRequest",
-          "number": "36556"
+          "number": "36567"
         }
       },
       "subjectTypeRaw": "PullRequest",
-      "reason": "review_requested",
-      "reasonRaw": "review_requested",
+      "reason": "author",
+      "reasonRaw": "author",
       "unread": true,
-      "title": "fix(nitro): keep workerd ssr conditions in miniflare dev runner",
+      "title": "fix(kit): lowercase filename-derived handler method on nitro v2",
       "subjectState": "unknown",
-      "updatedAt": "2026-10-11T14:57:56.000Z",
-      "lastReadAt": "2026-10-11T14:50:53.000Z",
-      "url": "https://api.github.com/repos/nuxt/nuxt/pulls/36556"
+      "updatedAt": "<now>",
+      "url": "https://api.github.com/repos/nuxt/nuxt/pulls/36567"
     },
     {
       "ref": {
         "forge": "github",
         "instance": "github.com",
-        "id": "26260073889"
+        "id": "26268012458"
       },
       "subject": {
         "type": "thread",
@@ -79,29 +79,29 @@
           "repo": {
             "forge": "github",
             "instance": "github.com",
-            "owner": "forges-fixtures",
-            "name": "forges-fixtures",
-            "externalId": "1411702196"
+            "owner": "nuxt",
+            "name": "nuxt",
+            "externalId": "71995937"
           },
-          "kind": "issue",
-          "typeRaw": "Issue",
-          "number": "75"
+          "kind": "pull_request",
+          "typeRaw": "PullRequest",
+          "number": "36563"
         }
       },
-      "subjectTypeRaw": "Issue",
-      "reason": "comment",
-      "reasonRaw": "comment",
+      "subjectTypeRaw": "PullRequest",
+      "reason": "review_requested",
+      "reasonRaw": "review_requested",
       "unread": true,
-      "title": "forges fixture 20261011145244: issue, edited",
+      "title": "chore(deps): update all non-major dependencies (main)",
       "subjectState": "unknown",
-      "updatedAt": "2026-10-11T14:54:41.000Z",
-      "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/issues/75"
+      "updatedAt": "<now>",
+      "url": "https://api.github.com/repos/nuxt/nuxt/pulls/36563"
     }
   ],
   "cursor": {
     "nextUrl": "https://api.github.com/notifications?all=false&per_page=3&page=2",
-    "etag": "W/\"1beb6c9252265c70f38cf7ce786119ba43f54b5924c8cd6ae9919d568f11804a\""
+    "etag": "W/\"d243a78468cfba92c43bbf7a8b4f126f0edf1615a6841a15d27bd727a8f4991c\""
   },
-  "etag": "W/\"1beb6c9252265c70f38cf7ce786119ba43f54b5924c8cd6ae9919d568f11804a\"",
+  "etag": "W/\"d243a78468cfba92c43bbf7a8b4f126f0edf1615a6841a15d27bd727a8f4991c\"",
   "notModified": false
 }

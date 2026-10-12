@@ -6,10 +6,10 @@
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"1367938efeae25340f862a2fd02f1d48f45e67a8f07f0edf48b85c987cd9700f\"",
+      "etag": "W/\"fb34701b27fff556d3d5106d76fa723c343b4217e206b054803d0c19115f6d38\"",
       "x-ratelimit-limit": "5000",
-      "x-ratelimit-remaining": "4919",
-      "x-ratelimit-reset": "1791735363"
+      "x-ratelimit-remaining": "4878",
+      "x-ratelimit-reset": "1791807905"
     },
     "body": [
       {
@@ -81,7 +81,7 @@
             "state": "uploaded",
             "size": 47,
             "digest": "sha256:4b3d278361040a9b56be04636cfb74a96746dd8005dcb901bddeaf5f7790acfb",
-            "download_count": 17,
+            "download_count": 19,
             "created_at": "2026-10-09T11:03:43Z",
             "updated_at": "2026-10-09T11:03:44Z",
             "browser_download_url": "https://github.com/forges-fixtures/forges-fixtures/releases/download/v0.0.1/fixture.txt"

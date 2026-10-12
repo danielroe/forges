@@ -1,29 +1,29 @@
 {
   "request": {
     "method": "POST",
-    "url": "https://gitlab.com/api/v4/projects/forges-fixtures%2Fforges-fixtures/issues/26/unsubscribe"
+    "url": "https://gitlab.com/api/v4/projects/forges-fixtures%2Fforges-fixtures/issues/28/unsubscribe"
   },
   "response": {
     "status": 201,
     "headers": {
-      "etag": "W/\"e215acd15058cd9d433d347272a4342d\"",
+      "etag": "W/\"b054829e1f417c1ccdbc02fde58a6996\"",
       "ratelimit-limit": "2000",
       "ratelimit-remaining": "1967",
-      "ratelimit-reset": "1791734760"
+      "ratelimit-reset": "1791805260"
     },
     "body": {
-      "id": 206196458,
-      "iid": 26,
+      "id": 206267420,
+      "iid": 28,
       "project_id": 87428720,
-      "title": "forges fixture 20261011160520: issue",
-      "description": "Opened by run 20261011160520.",
+      "title": "forges fixture 20261012113957: issue",
+      "description": "Opened by run 20261012113957.",
       "state": "opened",
-      "created_at": "2026-10-11T16:05:29.456Z",
-      "updated_at": "2026-10-11T16:05:37.658Z",
+      "created_at": "2026-10-12T11:40:04.823Z",
+      "updated_at": "2026-10-12T11:40:11.989Z",
       "closed_at": null,
       "closed_by": null,
       "labels": [
-        "forges-fixture-20261011160520"
+        "forges-fixture-20261012113957"
       ],
       "milestone": null,
       "assignees": [
@@ -68,7 +68,7 @@
       "confidential": false,
       "discussion_locked": null,
       "issue_type": "issue",
-      "web_url": "https://gitlab.com/forges-fixtures/forges-fixtures/-/work_items/26",
+      "web_url": "https://gitlab.com/forges-fixtures/forges-fixtures/-/work_items/28",
       "time_stats": {
         "time_estimate": 0,
         "total_time_spent": 0,
@@ -83,16 +83,16 @@
       "has_tasks": true,
       "task_status": "0 of 0 checklist items completed",
       "_links": {
-        "self": "https://gitlab.com/api/v4/projects/87428720/issues/26",
-        "notes": "https://gitlab.com/api/v4/projects/87428720/issues/26/notes",
-        "award_emoji": "https://gitlab.com/api/v4/projects/87428720/issues/26/award_emoji",
+        "self": "https://gitlab.com/api/v4/projects/87428720/issues/28",
+        "notes": "https://gitlab.com/api/v4/projects/87428720/issues/28/notes",
+        "award_emoji": "https://gitlab.com/api/v4/projects/87428720/issues/28/award_emoji",
         "project": "https://gitlab.com/api/v4/projects/87428720",
         "closed_as_duplicate_of": null
       },
       "references": {
-        "short": "#26",
-        "relative": "#26",
-        "full": "forges-fixtures/forges-fixtures#26"
+        "short": "#28",
+        "relative": "#28",
+        "full": "forges-fixtures/forges-fixtures#28"
       },
       "severity": "UNKNOWN",
       "subscribed": false,

@@ -1,7 +1,7 @@
 {
   "request": {
     "method": "PATCH",
-    "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/pulls/89",
+    "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/pulls/95",
     "body": {
       "state": "closed"
     }
@@ -9,23 +9,23 @@
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"1660ed529d3eac9fb0ea5325dcb93ef569d54d9f0f9296b2a9bda9e14229112f\"",
+      "etag": "W/\"e7bae4c9a40e0f87883db5d915c4f9b69f12995a7409e911972bb39d0d89e40c\"",
       "x-ratelimit-limit": "5000",
-      "x-ratelimit-remaining": "4847",
-      "x-ratelimit-reset": "1791738365"
+      "x-ratelimit-remaining": "4935",
+      "x-ratelimit-reset": "1791808503"
     },
     "body": {
-      "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/pulls/89",
-      "id": 4820665014,
-      "node_id": "PR_kwDOVCTdtM8AAAABH1WCtg",
-      "html_url": "https://github.com/forges-fixtures/forges-fixtures/pull/89",
-      "diff_url": "https://github.com/forges-fixtures/forges-fixtures/pull/89.diff",
-      "patch_url": "https://github.com/forges-fixtures/forges-fixtures/pull/89.patch",
-      "issue_url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/issues/89",
-      "number": 89,
+      "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/pulls/95",
+      "id": 4828816748,
+      "node_id": "PR_kwDOVCTdtM8AAAABH9HlbA",
+      "html_url": "https://github.com/forges-fixtures/forges-fixtures/pull/95",
+      "diff_url": "https://github.com/forges-fixtures/forges-fixtures/pull/95.diff",
+      "patch_url": "https://github.com/forges-fixtures/forges-fixtures/pull/95.patch",
+      "issue_url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/issues/95",
+      "number": 95,
       "state": "closed",
       "locked": false,
-      "title": "forges fixture 20261011164520: pull 3",
+      "title": "forges fixture 20261012113502: pull 3",
       "user": {
         "login": "danielroe-bot",
         "id": 57801166,
@@ -47,27 +47,27 @@
         "user_view_type": "public",
         "site_admin": false
       },
-      "body": "Opened by run 20261011164520.",
-      "created_at": "2026-10-11T16:45:54Z",
-      "updated_at": "2026-10-11T16:46:39Z",
-      "closed_at": "2026-10-11T16:46:39Z",
+      "body": "Opened by run 20261012113502.",
+      "created_at": "2026-10-12T11:35:35Z",
+      "updated_at": "2026-10-12T11:36:18Z",
+      "closed_at": "2026-10-12T11:36:18Z",
       "merged_at": null,
-      "merge_commit_sha": "9555c76e5fe6306f0ae8adee5c6f5faa5ffbb5ff",
+      "merge_commit_sha": "230503b153dcc0b3ab936f9bd56cd3ab5b4fdc37",
       "assignees": [],
       "requested_reviewers": [],
       "requested_teams": [],
       "labels": [],
       "milestone": null,
       "draft": false,
-      "commits_url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/pulls/89/commits",
-      "review_comments_url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/pulls/89/comments",
+      "commits_url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/pulls/95/commits",
+      "review_comments_url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/pulls/95/comments",
       "review_comment_url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/pulls/comments{/number}",
-      "comments_url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/issues/89/comments",
-      "statuses_url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/statuses/9cb407d1b61bab31c1463535b79785916028731e",
+      "comments_url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/issues/95/comments",
+      "statuses_url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/statuses/656ffc01def44fc26d1d6f3762e04764fd4bd3f4",
       "head": {
-        "label": "forges-fixtures:forges-fixtures/20261011164520-3",
-        "ref": "forges-fixtures/20261011164520-3",
-        "sha": "9cb407d1b61bab31c1463535b79785916028731e",
+        "label": "forges-fixtures:forges-fixtures/20261012113502-3",
+        "ref": "forges-fixtures/20261012113502-3",
+        "sha": "656ffc01def44fc26d1d6f3762e04764fd4bd3f4",
         "user": {
           "login": "forges-fixtures",
           "id": 340092031,
@@ -157,14 +157,14 @@
           "releases_url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/releases{/id}",
           "deployments_url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/deployments",
           "created_at": "2026-10-09T11:01:15Z",
-          "updated_at": "2026-10-11T16:07:56Z",
-          "pushed_at": "2026-10-11T16:45:27Z",
+          "updated_at": "2026-10-11T16:47:08Z",
+          "pushed_at": "2026-10-12T11:36:15Z",
           "git_url": "git://github.com/forges-fixtures/forges-fixtures.git",
           "ssh_url": "git@github.com:forges-fixtures/forges-fixtures.git",
           "clone_url": "https://github.com/forges-fixtures/forges-fixtures.git",
           "svn_url": "https://github.com/forges-fixtures/forges-fixtures",
           "homepage": null,
-          "size": 33,
+          "size": 45,
           "stargazers_count": 0,
           "watchers_count": 0,
           "language": "JavaScript",
@@ -178,7 +178,7 @@
           "mirror_url": null,
           "archived": false,
           "disabled": false,
-          "open_issues_count": 2,
+          "open_issues_count": 3,
           "license": {
             "key": "mit",
             "name": "MIT License",
@@ -194,7 +194,7 @@
           "topics": [],
           "visibility": "public",
           "forks": 0,
-          "open_issues": 2,
+          "open_issues": 3,
           "watchers": 0,
           "default_branch": "main"
         }
@@ -202,7 +202,7 @@
       "base": {
         "label": "forges-fixtures:main",
         "ref": "main",
-        "sha": "e15fcc37ad0c5521a756e3557274999643a3ecfa",
+        "sha": "16be8af10261689c1c7b28fac571d93a83cd900d",
         "user": {
           "login": "forges-fixtures",
           "id": 340092031,
@@ -292,14 +292,14 @@
           "releases_url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/releases{/id}",
           "deployments_url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/deployments",
           "created_at": "2026-10-09T11:01:15Z",
-          "updated_at": "2026-10-11T16:07:56Z",
-          "pushed_at": "2026-10-11T16:45:27Z",
+          "updated_at": "2026-10-11T16:47:08Z",
+          "pushed_at": "2026-10-12T11:36:15Z",
           "git_url": "git://github.com/forges-fixtures/forges-fixtures.git",
           "ssh_url": "git@github.com:forges-fixtures/forges-fixtures.git",
           "clone_url": "https://github.com/forges-fixtures/forges-fixtures.git",
           "svn_url": "https://github.com/forges-fixtures/forges-fixtures",
           "homepage": null,
-          "size": 33,
+          "size": 45,
           "stargazers_count": 0,
           "watchers_count": 0,
           "language": "JavaScript",
@@ -313,7 +313,7 @@
           "mirror_url": null,
           "archived": false,
           "disabled": false,
-          "open_issues_count": 2,
+          "open_issues_count": 3,
           "license": {
             "key": "mit",
             "name": "MIT License",
@@ -329,35 +329,35 @@
           "topics": [],
           "visibility": "public",
           "forks": 0,
-          "open_issues": 2,
+          "open_issues": 3,
           "watchers": 0,
           "default_branch": "main"
         }
       },
       "_links": {
         "self": {
-          "href": "https://api.github.com/repos/forges-fixtures/forges-fixtures/pulls/89"
+          "href": "https://api.github.com/repos/forges-fixtures/forges-fixtures/pulls/95"
         },
         "html": {
-          "href": "https://github.com/forges-fixtures/forges-fixtures/pull/89"
+          "href": "https://github.com/forges-fixtures/forges-fixtures/pull/95"
         },
         "issue": {
-          "href": "https://api.github.com/repos/forges-fixtures/forges-fixtures/issues/89"
+          "href": "https://api.github.com/repos/forges-fixtures/forges-fixtures/issues/95"
         },
         "comments": {
-          "href": "https://api.github.com/repos/forges-fixtures/forges-fixtures/issues/89/comments"
+          "href": "https://api.github.com/repos/forges-fixtures/forges-fixtures/issues/95/comments"
         },
         "review_comments": {
-          "href": "https://api.github.com/repos/forges-fixtures/forges-fixtures/pulls/89/comments"
+          "href": "https://api.github.com/repos/forges-fixtures/forges-fixtures/pulls/95/comments"
         },
         "review_comment": {
           "href": "https://api.github.com/repos/forges-fixtures/forges-fixtures/pulls/comments{/number}"
         },
         "commits": {
-          "href": "https://api.github.com/repos/forges-fixtures/forges-fixtures/pulls/89/commits"
+          "href": "https://api.github.com/repos/forges-fixtures/forges-fixtures/pulls/95/commits"
         },
         "statuses": {
-          "href": "https://api.github.com/repos/forges-fixtures/forges-fixtures/statuses/9cb407d1b61bab31c1463535b79785916028731e"
+          "href": "https://api.github.com/repos/forges-fixtures/forges-fixtures/statuses/656ffc01def44fc26d1d6f3762e04764fd4bd3f4"
         }
       },
       "author_association": "MEMBER",
@@ -365,9 +365,9 @@
       "assignee": null,
       "active_lock_reason": null,
       "merged": false,
-      "mergeable": true,
-      "rebaseable": true,
-      "mergeable_state": "unstable",
+      "mergeable": null,
+      "rebaseable": null,
+      "mergeable_state": "unknown",
       "merged_by": null,
       "comments": 0,
       "review_comments": 0,

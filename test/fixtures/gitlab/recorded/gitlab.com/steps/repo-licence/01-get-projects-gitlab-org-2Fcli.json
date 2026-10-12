@@ -6,10 +6,10 @@
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"e9cc7152c3eed2e64dab785515e4b675\"",
+      "etag": "W/\"59f9b73f3b8f4bb5ef5a8852087a158b\"",
       "ratelimit-limit": "2000",
       "ratelimit-remaining": "1998",
-      "ratelimit-reset": "1791734700"
+      "ratelimit-reset": "1791804600"
     },
     "body": {
       "id": 34675721,
@@ -26,7 +26,7 @@
       "http_url_to_repo": "https://gitlab.com/gitlab-org/cli.git",
       "web_url": "https://gitlab.com/gitlab-org/cli",
       "readme_url": "https://gitlab.com/gitlab-org/cli/-/blob/main/README.md",
-      "forks_count": 485,
+      "forks_count": 488,
       "license_url": "https://gitlab.com/gitlab-org/cli/-/blob/main/LICENSE",
       "license": {
         "key": "mit",
@@ -35,9 +35,9 @@
         "html_url": "https://opensource.org/licenses/MIT",
         "source_url": null
       },
-      "avatar_url": "https://gitlab.com/uploads/-/system/project/avatar/34675721/cli-logo.png?v=1791733204",
-      "star_count": 1105,
-      "last_activity_at": "2026-10-11T15:40:04.771Z",
+      "avatar_url": "https://gitlab.com/uploads/-/system/project/avatar/34675721/cli-logo.png?v=1791802716",
+      "star_count": 1106,
+      "last_activity_at": "2026-10-12T10:27:18.511Z",
       "visibility": "public",
       "namespace": {
         "id": 9970,
@@ -110,9 +110,9 @@
       "lfs_enabled": false,
       "creator_id": 40375,
       "import_status": "finished",
-      "open_issues_count": 261,
+      "open_issues_count": 262,
       "description_html": "<p data-sourcepos=\"1:1-1:54\" dir=\"auto\">A GitLab CLI tool bringing GitLab to your command line</p>",
-      "updated_at": "2026-10-11T15:40:04.771Z",
+      "updated_at": "2026-10-12T10:58:36.803Z",
       "ci_config_path": "",
       "public_jobs": true,
       "shared_with_groups": [

@@ -1,18 +1,18 @@
 {
   "items": [
     {
+      "name": "main",
+      "sha": "33bb12729e6de375813fb94fbcfbfa110d45c107",
+      "isProtected": true
+    },
+    {
       "name": "renovate/dependencies",
-      "sha": "a989fc5a3ecdea700f23e7ac12e2713bd51280a6",
+      "sha": "07701ced4bb7d3387b06d1372d040e3257d533ae",
       "isProtected": false
     },
     {
-      "name": "renovate/go-golang.org-x-net-vulnerability",
-      "sha": "b1b66ebf10e8f5b07e37bfc59e73c46f9b850bf2",
-      "isProtected": false
-    },
-    {
-      "name": "renovate/golang-version-go-vulnerability",
-      "sha": "676ab1afcbcaa3d08762637ec6c501c045111069",
+      "name": "codet/tea-pull-stacks",
+      "sha": "b06d902687d40fbf15c20a202775927af3c0c7c8",
       "isProtected": false
     }
   ],

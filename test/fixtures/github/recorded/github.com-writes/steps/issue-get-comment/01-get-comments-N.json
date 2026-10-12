@@ -1,22 +1,22 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/issues/comments/6111313679"
+    "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/issues/comments/6123455519"
   },
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"9b6503ab5a36331b379e42c1457ff6d6cf308eba2ec3b3e61f789fc84e212ae7\"",
+      "etag": "W/\"342728bb4fbb230f9458b01d39d9e09ac588278d43026f836f098fe765a24370\"",
       "x-ratelimit-limit": "5000",
-      "x-ratelimit-remaining": "4899",
-      "x-ratelimit-reset": "1791738365"
+      "x-ratelimit-remaining": "4987",
+      "x-ratelimit-reset": "1791808503"
     },
     "body": {
-      "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/issues/comments/6111313679",
-      "html_url": "https://github.com/forges-fixtures/forges-fixtures/issues/85#issuecomment-6111313679",
-      "issue_url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/issues/85",
-      "id": 6111313679,
-      "node_id": "IC_kwDOVCTdtM8AAAABbEM_Dw",
+      "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/issues/comments/6123455519",
+      "html_url": "https://github.com/forges-fixtures/forges-fixtures/issues/90#issuecomment-6123455519",
+      "issue_url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/issues/90",
+      "id": 6123455519,
+      "node_id": "IC_kwDOVCTdtM8AAAABbPyEHw",
       "user": {
         "login": "danielroe-bot",
         "id": 57801166,
@@ -38,12 +38,12 @@
         "user_view_type": "public",
         "site_admin": false
       },
-      "created_at": "2026-10-11T16:45:30Z",
-      "updated_at": "2026-10-11T16:45:31Z",
+      "created_at": "2026-10-12T11:35:12Z",
+      "updated_at": "2026-10-12T11:35:13Z",
       "author_association": "MEMBER",
-      "body": "An edited comment from run 20261011164520.",
+      "body": "An edited comment from run 20261012113502.",
       "reactions": {
-        "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/issues/comments/6111313679/reactions",
+        "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/issues/comments/6123455519/reactions",
         "total_count": 0,
         "+1": 0,
         "-1": 0,

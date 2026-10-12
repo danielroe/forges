@@ -1,0 +1,140 @@
+{
+  "items": [
+    {
+      "ref": {
+        "forge": "forgejo",
+        "instance": "code.forgejo.org",
+        "owner": "forgejo",
+        "name": "runner",
+        "externalId": "2"
+      },
+      "description": "A daemon that connects to a Forgejo instance and runs jobs for continuous integration. The installation and usage instructions are part of the Forgejo documentation",
+      "defaultBranch": "main",
+      "visibility": "public",
+      "visibilityRaw": "public",
+      "isFork": false,
+      "isArchived": false,
+      "topics": [
+        "renovation"
+      ],
+      "url": "https://code.forgejo.org/forgejo/runner",
+      "cloneUrls": {
+        "https": "https://code.forgejo.org/forgejo/runner.git",
+        "ssh": "ssh://git@code.forgejo.org/forgejo/runner.git"
+      },
+      "createdAt": "2023-03-16T16:06:37.000Z",
+      "updatedAt": "2026-10-02T02:59:31.000Z",
+      "openIssueCount": 51,
+      "openPullCount": 11,
+      "owner": {
+        "forge": "forgejo",
+        "instance": "code.forgejo.org",
+        "login": "forgejo",
+        "id": "3",
+        "name": "Forgejo",
+        "avatarUrl": "https://code.forgejo.org/avatars/f820feb83e74d55da9a0edc013de4f990a643aa8909f9c7f01b557582ce39763",
+        "url": "https://code.forgejo.org/forgejo",
+        "isBotHint": false
+      },
+      "language": "Go",
+      "homepage": "https://forgejo.org/docs/latest/admin/actions/",
+      "stars": 118,
+      "forks": 118,
+      "watchers": 61,
+      "mergeMethods": [
+        "merge",
+        "squash",
+        "rebase",
+        "rebase_merge"
+      ],
+      "defaultMergeMethod": "squash",
+      "deleteBranchOnMerge": true,
+      "features": {
+        "issues": true,
+        "pullRequests": true,
+        "discussions": false,
+        "wiki": false,
+        "projects": false,
+        "releases": true
+      },
+      "permissions": {
+        "admin": false,
+        "maintain": false,
+        "push": false,
+        "triage": false,
+        "pull": true
+      }
+    },
+    {
+      "ref": {
+        "forge": "forgejo",
+        "instance": "code.forgejo.org",
+        "owner": "forgejo",
+        "name": "act",
+        "externalId": "4"
+      },
+      "description": "It was a soft fork of  https://github.com/nektos/act used by the Forgejo runner. July 2025 it was transplanted in the Forgejo runner source tree, see https://code.forgejo.org/forgejo/runner/pulls/753",
+      "defaultBranch": "main",
+      "visibility": "public",
+      "visibilityRaw": "public",
+      "isFork": false,
+      "isArchived": true,
+      "topics": [],
+      "url": "https://code.forgejo.org/forgejo/act",
+      "cloneUrls": {
+        "https": "https://code.forgejo.org/forgejo/act.git",
+        "ssh": "ssh://git@code.forgejo.org/forgejo/act.git"
+      },
+      "createdAt": "2023-03-16T16:35:03.000Z",
+      "updatedAt": "2026-08-03T16:35:32.000Z",
+      "openIssueCount": 0,
+      "openPullCount": 0,
+      "owner": {
+        "forge": "forgejo",
+        "instance": "code.forgejo.org",
+        "login": "forgejo",
+        "id": "3",
+        "name": "Forgejo",
+        "avatarUrl": "https://code.forgejo.org/avatars/f820feb83e74d55da9a0edc013de4f990a643aa8909f9c7f01b557582ce39763",
+        "url": "https://code.forgejo.org/forgejo",
+        "isBotHint": false
+      },
+      "language": "Go",
+      "stars": 5,
+      "forks": 16,
+      "watchers": 24,
+      "mergeMethods": [
+        "merge",
+        "squash",
+        "rebase",
+        "rebase_merge"
+      ],
+      "defaultMergeMethod": "squash",
+      "deleteBranchOnMerge": true,
+      "features": {
+        "issues": true,
+        "pullRequests": true,
+        "discussions": false,
+        "wiki": false,
+        "projects": false,
+        "releases": true
+      },
+      "permissions": {
+        "admin": false,
+        "maintain": false,
+        "push": false,
+        "triage": false,
+        "pull": true
+      }
+    }
+  ],
+  "cursor": {
+    "nextUrl": "https://code.forgejo.org/api/v1/users/forgejo/repos?limit=3&page=2"
+  },
+  "warnings": [
+    {
+      "code": "sort_unsupported",
+      "message": "forgejo lists the repositories of an owner oldest first only"
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.github.com/repos/h3js/h3/contents/.gitignore"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "\"95e76db7fdd5be39f1a24621061caafa0f37b2a7\"",
+      "x-ratelimit-limit": "60",
+      "x-ratelimit-remaining": "10",
+      "x-ratelimit-reset": "1791807414"
+    },
+    "body": {
+      "name": ".gitignore",
+      "path": ".gitignore",
+      "sha": "95e76db7fdd5be39f1a24621061caafa0f37b2a7",
+      "size": 142,
+      "url": "https://api.github.com/repos/h3js/h3/contents/.gitignore?ref=main",
+      "html_url": "https://github.com/h3js/h3/blob/main/.gitignore",
+      "git_url": "https://api.github.com/repos/h3js/h3/git/blobs/95e76db7fdd5be39f1a24621061caafa0f37b2a7",
+      "download_url": "https://raw.githubusercontent.com/h3js/h3/main/.gitignore",
+      "type": "file",
+      "content": "LnZzY29kZQpub2RlX21vZHVsZXMKKi5sb2cqCmRpc3QKY292ZXJhZ2UKLnBy\nb2ZpbGUKLmlkZWEKLmVzbGludGNhY2hlCnRzY29uZmlnLnZpdGVzdC10ZW1w\nLmpzb24KLkRTX1N0b3JlCnRzY29uZmlnLnRzYnVpbGRpbmZvCioudG1wKgou\nZGVlcHNlYw==\n",
+      "encoding": "base64",
+      "_links": {
+        "self": "https://api.github.com/repos/h3js/h3/contents/.gitignore?ref=main",
+        "git": "https://api.github.com/repos/h3js/h3/git/blobs/95e76db7fdd5be39f1a24621061caafa0f37b2a7",
+        "html": "https://github.com/h3js/h3/blob/main/.gitignore"
+      }
+    }
+  }
+}

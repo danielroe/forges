@@ -17,11 +17,11 @@
   "response": {
     "status": 201,
     "headers": {
-      "location": "https://api.bitbucket.org/2.0/repositories/danielroe/forges-fixtures/hooks/%7B185569fa-16d7-442e-97dc-8a871d2b2f4f%7D"
+      "location": "https://api.bitbucket.org/2.0/repositories/danielroe/forges-fixtures/hooks/%7B9e802850-0c69-4230-90d6-6b40c0a310a1%7D"
     },
     "body": {
       "description": "forges",
-      "uuid": "{185569fa-16d7-442e-97dc-8a871d2b2f4f}",
+      "uuid": "{9e802850-0c69-4230-90d6-6b40c0a310a1}",
       "url": "https://example.com/hook",
       "subject": {
         "type": "repository",
@@ -42,7 +42,7 @@
       },
       "active": true,
       "skip_cert_verification": false,
-      "created_at": "2026-10-11T12:02:40.785865146Z",
+      "created_at": "2026-10-12T11:42:07.503547725Z",
       "events": [
         "pullrequest:comment_created",
         "pullrequest:comment_deleted",
@@ -50,7 +50,7 @@
       ],
       "links": {
         "self": {
-          "href": "https://api.bitbucket.org/2.0/repositories/danielroe/forges-fixtures/hooks/%7B185569fa-16d7-442e-97dc-8a871d2b2f4f%7D"
+          "href": "https://api.bitbucket.org/2.0/repositories/danielroe/forges-fixtures/hooks/%7B9e802850-0c69-4230-90d6-6b40c0a310a1%7D"
         }
       },
       "secret_set": true,

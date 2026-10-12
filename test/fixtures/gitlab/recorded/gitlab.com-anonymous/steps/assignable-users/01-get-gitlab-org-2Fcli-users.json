@@ -6,13 +6,13 @@
   "response": {
     "status": 200,
     "headers": {
-      "link": "<https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/users?id=gitlab-org%2Fcli&page=2&per_page=3>; rel=\"next\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/users?id=gitlab-org%2Fcli&page=1&per_page=3>; rel=\"first\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/users?id=gitlab-org%2Fcli&page=982&per_page=3>; rel=\"last\"",
-      "etag": "W/\"c82d215bced07ba46c905b8b68194eb9\"",
+      "link": "<https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/users?id=gitlab-org%2Fcli&page=2&per_page=3>; rel=\"next\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/users?id=gitlab-org%2Fcli&page=1&per_page=3>; rel=\"first\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/users?id=gitlab-org%2Fcli&page=986&per_page=3>; rel=\"last\"",
+      "etag": "W/\"3d33caf7714921d336d82f7f0325af24\"",
       "ratelimit-limit": "500",
       "ratelimit-remaining": "495",
-      "ratelimit-reset": "1791731100",
-      "x-total": "2944",
-      "x-total-pages": "982",
+      "ratelimit-reset": "1791804660",
+      "x-total": "2956",
+      "x-total-pages": "986",
       "x-next-page": "2",
       "x-page": "1",
       "x-per-page": "3"
@@ -35,7 +35,7 @@
         "name": "Gabriel Mazzetto",
         "state": "active",
         "locked": false,
-        "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/2293/avatar.png?v=1791695730",
+        "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/2293/avatar.png?v=1791783930",
         "web_url": "https://gitlab.com/brodock"
       },
       {
@@ -45,7 +45,7 @@
         "name": "Balasankar 'Balu' C",
         "state": "active",
         "locked": false,
-        "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/4849/avatar.png?v=1791723774",
+        "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/4849/avatar.png?v=1791802325",
         "web_url": "https://gitlab.com/balasankarc"
       }
     ]

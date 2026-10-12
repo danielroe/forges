@@ -5,37 +5,37 @@
     "body": {
       "repo": "did:plc:7qksav5io2s4qfg67pe7iqqk",
       "collection": "sh.tangled.feed.comment",
-      "rkey": "3mxmz6rtoru2y",
+      "rkey": "3mxogt7s3af2y",
       "record": {
         "body": {
           "$type": "sh.tangled.markup.markdown",
-          "text": "An edited comment from run 20261011220545.",
-          "original": "An edited comment from run 20261011220545."
+          "text": "An edited comment from run 20261012114229.",
+          "original": "An edited comment from run 20261012114229."
         },
         "$type": "sh.tangled.feed.comment",
         "subject": {
-          "cid": "bafyreicyoobt6437hcbheqcbycwon5gslb2amdc6iw475ri7s4zcvcoaai",
-          "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.pull/3mxmz6r5rme2y"
+          "cid": "bafyreiadvwxaamxsu2tunsrh5p767quwb6ealx5stnws5gxb24p2jahq7a",
+          "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.pull/3mxogt76cgf2y"
         },
-        "createdAt": "2026-10-11T22:06:02.079Z"
+        "createdAt": "2026-10-12T11:42:46.183Z"
       },
-      "swapRecord": "bafyreibuggrcp5qscng6j7b5kvlo2a7qokzw3ih72lylbhsn6c4zfqf2oi"
+      "swapRecord": "bafyreiaaogrwnrkzi2gpdyyqpuo6czuzlnj2zwvxqqzon42nz2rscbsgb4"
     }
   },
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"11b-06gBSpWr+5N9yTei8qUSgqZ6Wyk\"",
+      "etag": "W/\"11b-dbaR+Js2m3L2qOZo5o6KkrgFWn8\"",
       "ratelimit-limit": "3000",
       "ratelimit-remaining": "2913",
-      "ratelimit-reset": "1791756647"
+      "ratelimit-reset": "1791805651"
     },
     "body": {
-      "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.feed.comment/3mxmz6rtoru2y",
-      "cid": "bafyreigfa63tqourne5xozj5qaldrvruwvxm66akjvrfal4sywlebr7oou",
+      "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.feed.comment/3mxogt7s3af2y",
+      "cid": "bafyreib6awnhklzi6i5ob67sqoc636wt6ldygtludtxohuugjpfouznbfy",
       "commit": {
-        "cid": "bafyreigtlqhumwzq7muygwh6az6daotvxuwv2coybb36rog2kvs6rw6vyu",
-        "rev": "3mxmz6rykzu2y"
+        "cid": "bafyreibj5ao2zg3tcohtia3ksei4hmn37pqjzedmh5j3glgo6mxh7jwb44",
+        "rev": "3mxogt7xd7f2y"
       },
       "validationStatus": "unknown"
     }

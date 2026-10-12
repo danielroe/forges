@@ -6,10 +6,10 @@
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"7e8468f067711d3a4379207562220fe3e52b5fff9d30314f8513d3b1b6606641\"",
+      "etag": "W/\"2b1748b6c4849c5a5ac6a96925ceccb96b9f94c77033af5a71bd65ca2024b160\"",
       "x-ratelimit-limit": "5000",
-      "x-ratelimit-remaining": "4987",
-      "x-ratelimit-reset": "1791737987"
+      "x-ratelimit-remaining": "4955",
+      "x-ratelimit-reset": "1791807975"
     },
     "body": [
       {
@@ -51,7 +51,7 @@
           "environment": "{\"build-mode\":\"none\",\"category\":\"/language:javascript-typescript\",\"language\":\"javascript-typescript\",\"runner\":\"[\\\"ubuntu-latest\\\"]\"}",
           "category": "/language:javascript-typescript",
           "state": "open",
-          "commit_sha": "9b4cc9f04c645ca64000a2e76b29e7a70a933d13",
+          "commit_sha": "10763d73680a7818159e9069b698de6dd0b873db",
           "message": {
             "text": "This replaces only the first occurrence of '\\''."
           },
@@ -66,7 +66,8 @@
         },
         "instances_url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/code-scanning/alerts/1/instances",
         "dismissal_approved_by": null,
-        "assignees": []
+        "assignees": [],
+        "linked_pull_requests": []
       }
     ]
   }

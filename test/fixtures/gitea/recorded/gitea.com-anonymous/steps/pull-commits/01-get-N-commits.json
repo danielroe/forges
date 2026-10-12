@@ -48,7 +48,7 @@
           "source_id": 0,
           "full_name": "Lunny Xiao",
           "email": "redacted@example.invalid",
-          "avatar_url": "https://seccdn.libravatar.org/avatar/b897d40dc87fdba4a024827c3967597434681a8f4f0f4eb5d73e0f8b1a0a9274?d=identicon",
+          "avatar_url": "https://gitea.com/avatars/5739143ce171af62d1ff0baa027dacfd5e5ffe9c28b7b92fc4ed02d952ab1cc3",
           "html_url": "https://gitea.com/lunny",
           "active": false,
           "location": "Silicon Valley",
@@ -66,7 +66,7 @@
           "source_id": 0,
           "full_name": "Lunny Xiao",
           "email": "redacted@example.invalid",
-          "avatar_url": "https://seccdn.libravatar.org/avatar/b897d40dc87fdba4a024827c3967597434681a8f4f0f4eb5d73e0f8b1a0a9274?d=identicon",
+          "avatar_url": "https://gitea.com/avatars/5739143ce171af62d1ff0baa027dacfd5e5ffe9c28b7b92fc4ed02d952ab1cc3",
           "html_url": "https://gitea.com/lunny",
           "active": false,
           "location": "Silicon Valley",
@@ -187,7 +187,7 @@
           "source_id": 0,
           "full_name": "Lunny Xiao",
           "email": "redacted@example.invalid",
-          "avatar_url": "https://seccdn.libravatar.org/avatar/b897d40dc87fdba4a024827c3967597434681a8f4f0f4eb5d73e0f8b1a0a9274?d=identicon",
+          "avatar_url": "https://gitea.com/avatars/5739143ce171af62d1ff0baa027dacfd5e5ffe9c28b7b92fc4ed02d952ab1cc3",
           "html_url": "https://gitea.com/lunny",
           "active": false,
           "location": "Silicon Valley",
@@ -205,7 +205,7 @@
           "source_id": 0,
           "full_name": "Lunny Xiao",
           "email": "redacted@example.invalid",
-          "avatar_url": "https://seccdn.libravatar.org/avatar/b897d40dc87fdba4a024827c3967597434681a8f4f0f4eb5d73e0f8b1a0a9274?d=identicon",
+          "avatar_url": "https://gitea.com/avatars/5739143ce171af62d1ff0baa027dacfd5e5ffe9c28b7b92fc4ed02d952ab1cc3",
           "html_url": "https://gitea.com/lunny",
           "active": false,
           "location": "Silicon Valley",
@@ -229,6 +229,34 @@
           }
         ],
         "files": [
+          {
+            "filename": "cmd/flags/issue_pr.go",
+            "status": "modified"
+          },
+          {
+            "filename": "cmd/login.go",
+            "status": "modified"
+          },
+          {
+            "filename": "docs/CLI.md",
+            "status": "modified"
+          },
+          {
+            "filename": "go.mod",
+            "status": "modified"
+          },
+          {
+            "filename": "modules/config/login.go",
+            "status": "modified"
+          },
+          {
+            "filename": "modules/interact/login.go",
+            "status": "modified"
+          },
+          {
+            "filename": "modules/task/login_create.go",
+            "status": "modified"
+          },
           {
             "filename": "cmd/flags/body.go",
             "status": "added"
@@ -260,34 +288,6 @@
           {
             "filename": "modules/task/login_status_test.go",
             "status": "added"
-          },
-          {
-            "filename": "cmd/flags/issue_pr.go",
-            "status": "modified"
-          },
-          {
-            "filename": "cmd/login.go",
-            "status": "modified"
-          },
-          {
-            "filename": "docs/CLI.md",
-            "status": "modified"
-          },
-          {
-            "filename": "go.mod",
-            "status": "modified"
-          },
-          {
-            "filename": "modules/config/login.go",
-            "status": "modified"
-          },
-          {
-            "filename": "modules/interact/login.go",
-            "status": "modified"
-          },
-          {
-            "filename": "modules/task/login_create.go",
-            "status": "modified"
           }
         ],
         "stats": {
@@ -334,7 +334,7 @@
           "source_id": 0,
           "full_name": "Lunny Xiao",
           "email": "redacted@example.invalid",
-          "avatar_url": "https://seccdn.libravatar.org/avatar/b897d40dc87fdba4a024827c3967597434681a8f4f0f4eb5d73e0f8b1a0a9274?d=identicon",
+          "avatar_url": "https://gitea.com/avatars/5739143ce171af62d1ff0baa027dacfd5e5ffe9c28b7b92fc4ed02d952ab1cc3",
           "html_url": "https://gitea.com/lunny",
           "active": false,
           "location": "Silicon Valley",
@@ -352,7 +352,7 @@
           "source_id": 0,
           "full_name": "Lunny Xiao",
           "email": "redacted@example.invalid",
-          "avatar_url": "https://seccdn.libravatar.org/avatar/b897d40dc87fdba4a024827c3967597434681a8f4f0f4eb5d73e0f8b1a0a9274?d=identicon",
+          "avatar_url": "https://gitea.com/avatars/5739143ce171af62d1ff0baa027dacfd5e5ffe9c28b7b92fc4ed02d952ab1cc3",
           "html_url": "https://gitea.com/lunny",
           "active": false,
           "location": "Silicon Valley",

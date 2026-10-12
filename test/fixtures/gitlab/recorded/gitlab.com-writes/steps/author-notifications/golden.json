@@ -4,7 +4,7 @@
       "ref": {
         "forge": "gitlab",
         "instance": "gitlab.com",
-        "id": "782432832"
+        "id": "782907554"
       },
       "subject": {
         "type": "thread",
@@ -20,18 +20,51 @@
           },
           "kind": "issue",
           "typeRaw": "Issue",
-          "number": "26"
+          "number": "28"
         }
       },
       "subjectTypeRaw": "Issue",
       "reason": "mention",
       "reasonRaw": "directly_addressed",
       "unread": true,
-      "title": "forges fixture 20261011160520: issue, edited",
+      "title": "forges fixture 20261012113957: issue, edited",
       "subjectState": "open",
       "subjectStateRaw": "opened",
       "updatedAt": "<now>",
-      "url": "https://gitlab.com/forges-fixtures/forges-fixtures/-/work_items/26#note_3993557315"
+      "url": "https://gitlab.com/forges-fixtures/forges-fixtures/-/work_items/28#note_3997723437"
+    },
+    {
+      "ref": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "id": "782906861"
+      },
+      "subject": {
+        "type": "thread",
+        "thread": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "repo": {
+            "forge": "gitlab",
+            "instance": "gitlab.com",
+            "owner": "forges-fixtures",
+            "name": "forges-fixtures",
+            "externalId": "87428720"
+          },
+          "kind": "issue",
+          "typeRaw": "Issue",
+          "number": "29"
+        }
+      },
+      "subjectTypeRaw": "Issue",
+      "reason": "assigned",
+      "reasonRaw": "assigned",
+      "unread": true,
+      "title": "forges fixture 20261012113957: labelled issue",
+      "subjectState": "open",
+      "subjectStateRaw": "opened",
+      "updatedAt": "<now>",
+      "url": "https://gitlab.com/forges-fixtures/forges-fixtures/-/work_items/29"
     }
   ],
   "cursor": {

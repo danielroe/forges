@@ -1,0 +1,8 @@
+{
+  "path": ".air.toml",
+  "sha": "65872e7382db56758f8998e21b580b3b255abe2c",
+  "size": 828,
+  "url": "https://codeberg.org/forgejo/forgejo/src/branch/forgejo/.air.toml",
+  "content": "root = \".\"\ntmp_dir = \".air\"\n\n[build]\npre_cmd = [\"killall -9 gitea 2>/dev/null || true\"] # kill off potential zombie processes from previous runs\ncmd = \"make --no-print-directory backend\"\nbin = \"gitea\"\ndelay = 2000\ninclude_ext = [\"go\", \"tmpl\"]\ninclude_file = [\"main.go\"]\ninclude_dir = [\"cmd\", \"models\", \"modules\", \"options\", \"routers\", \"services\"]\nexclude_dir = [\n  \"models/fixtures\",\n  \"models/gitea_migrations/fixtures\",\n  \"modules/avatar/identicon/testdata\",\n  \"modules/avatar/testdata\",\n  \"modules/git/tests\",\n  \"modules/migration/file_format_testdata\",\n  \"modules/markup/tests/repo/repo1_filepreview\",\n  \"routers/private/tests\",\n  \"services/gitdiff/testdata\",\n  \"services/migrations/testdata\",\n  \"services/webhook/sourcehut/testdata\",\n]\nexclude_regex = [\"_test.go$\", \"_gen.go$\"]\nstop_on_error = true\n\n[log]\nmain_only = true\n",
+  "encoding": "utf-8"
+}

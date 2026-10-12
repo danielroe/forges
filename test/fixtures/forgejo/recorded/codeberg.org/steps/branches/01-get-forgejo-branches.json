@@ -11,29 +11,33 @@
     },
     "body": [
       {
-        "name": "bp-v17.0/forgejo-1b980f3",
+        "name": "renovate/forgejo-renovate",
         "commit": {
-          "id": "966fea683032ad0c6c0347c0d9134d854eb1748a",
-          "message": "fix: avoid loading unnecessary data during tag creation (#14785)\n\nI noticed that creating a tag via the web UI of codeberg.org was quite slow (28-30s).\n\nTracing showed a interesting SQL query:\n\n```sql\nSELECT * FROM `attachment` WHERE `release_id` IN (0) ORDER BY `release_id` ASC, `name` ASC\n```\n\nTracing also showed that this SQL query was executed before a\ntime block where Forgejo was doing a lot of application (non git/DB) code.\n\n---\n\n- `release_service.CreateNewTag` is called from the web router to handle creating a new tag, this function prepares a release struct with all the necessary information (every tag is stored as a release in the database).\n- `createTag` is then called which as first thing calls `LoadAttributes`.\n- `LoadAttributes` assumes the given release was loaded from the database and thus assumes the ID is non-zero. Loading 148026 attachments into this release.\n\nReviewed-on: https://codeberg.org/forgejo/forgejo/pulls/14785\nReviewed-by: Andreas Ahlenstorf <redacted@example.invalid>\n(cherry picked from commit 1b980f3558583271691afb2e6d5bfb96a67cc1e0)\n",
-          "url": "https://codeberg.org/forgejo/forgejo/commit/966fea683032ad0c6c0347c0d9134d854eb1748a",
+          "id": "c259690430595fc45252e50f8e9fbd17d2fd60aa",
+          "message": "Update renovate Docker tag to v44.151.2\n",
+          "url": "https://codeberg.org/forgejo/forgejo/commit/c259690430595fc45252e50f8e9fbd17d2fd60aa",
           "author": {
-            "name": "Gusted",
+            "name": "Renovate Bot",
             "email": "redacted@example.invalid",
-            "username": "Gusted"
+            "username": "viceice-bot"
           },
           "committer": {
-            "name": "forgejo-backport-action",
+            "name": "Renovate Bot",
             "email": "redacted@example.invalid",
-            "username": "forgejo-backport-action"
+            "username": "viceice-bot"
           },
           "verification": {
-            "verified": false,
-            "reason": "gpg.error.not_signed_commit",
-            "signature": "",
-            "signer": null,
-            "payload": ""
+            "verified": true,
+            "reason": "viceice-bot / 8AC4BEEB5900F976",
+            "signature": "-----BEGIN PGP SIGNATURE-----\n\niHUEABYKAB0WIQT3nQW3uNw+hzJoFlCKxL7rWQD5dgUCasx90wAKCRCKxL7rWQD5\ndrHNAPsFSvBczJbgu1qUfX4hFrVFZ8meV+wYL4geoaTVfgDGtQD9HHhoK03LDNTK\nTcqqA68h1XWCO4h+OTNZzV5o3Clx1g8=\n=sRjT\n-----END PGP SIGNATURE-----\n",
+            "signer": {
+              "name": "viceice-bot",
+              "email": "redacted@example.invalid",
+              "username": ""
+            },
+            "payload": "tree a365d3c7d7803047c679db2a4149916b328e863e\nparent 5e50d27f1e39e2bf0ff5bda2046ea1a5c0db7a3d\nauthor Renovate Bot <redacted@example.invalid> 1791786451 +0000\ncommitter Renovate Bot <redacted@example.invalid> 1791786451 +0000\n\nUpdate renovate Docker tag to v44.151.2\n"
           },
-          "timestamp": "2026-10-11T15:37:01+02:00",
+          "timestamp": "2026-10-12T06:27:31Z",
           "added": null,
           "removed": null,
           "modified": null
@@ -47,20 +51,20 @@
         "effective_branch_protection_name": ""
       },
       {
-        "name": "forgejo",
+        "name": "v16.0/forgejo",
         "commit": {
-          "id": "1b980f3558583271691afb2e6d5bfb96a67cc1e0",
-          "message": "fix: avoid loading unnecessary data during tag creation (#14785)\n\nI noticed that creating a tag via the web UI of codeberg.org was quite slow (28-30s).\n\nTracing showed a interesting SQL query:\n\n```sql\nSELECT * FROM `attachment` WHERE `release_id` IN (0) ORDER BY `release_id` ASC, `name` ASC\n```\n\nTracing also showed that this SQL query was executed before a\ntime block where Forgejo was doing a lot of application (non git/DB) code.\n\n---\n\n- `release_service.CreateNewTag` is called from the web router to handle creating a new tag, this function prepares a release struct with all the necessary information (every tag is stored as a release in the database).\n- `createTag` is then called which as first thing calls `LoadAttributes`.\n- `LoadAttributes` assumes the given release was loaded from the database and thus assumes the ID is non-zero. Loading 148026 attachments into this release.\n\nReviewed-on: https://codeberg.org/forgejo/forgejo/pulls/14785\nReviewed-by: Andreas Ahlenstorf <redacted@example.invalid>\n",
-          "url": "https://codeberg.org/forgejo/forgejo/commit/1b980f3558583271691afb2e6d5bfb96a67cc1e0",
+          "id": "1aa13944143b3bc4312607239a68da23512d5ce3",
+          "message": "[v16.0/forgejo] 2026-10-12 security patches (#14813)\n\nReviewed-on: https://codeberg.org/forgejo/forgejo/pulls/14813\nReviewed-by: Michael Kriese <redacted@example.invalid>\n",
+          "url": "https://codeberg.org/forgejo/forgejo/commit/1aa13944143b3bc4312607239a68da23512d5ce3",
           "author": {
-            "name": "Gusted",
+            "name": "Michael Kriese",
             "email": "redacted@example.invalid",
-            "username": "Gusted"
+            "username": "viceice"
           },
           "committer": {
-            "name": "Gusted",
+            "name": "Michael Kriese",
             "email": "redacted@example.invalid",
-            "username": "Gusted"
+            "username": "viceice"
           },
           "verification": {
             "verified": false,
@@ -69,7 +73,7 @@
             "signer": null,
             "payload": ""
           },
-          "timestamp": "2026-10-11T15:37:01+02:00",
+          "timestamp": "2026-10-12T08:24:42+02:00",
           "added": null,
           "removed": null,
           "modified": null
@@ -90,20 +94,20 @@
         "effective_branch_protection_name": ""
       },
       {
-        "name": "v17.0/forgejo",
+        "name": "v15.0/forgejo",
         "commit": {
-          "id": "6cb6155db7aae88a2a8d2658243795484564a1b3",
-          "message": "[v17.0/forgejo] fix: pass merge commit messages to git via stdin (#14799)\n\n**Backport:** https://codeberg.org/forgejo/forgejo/pulls/14743\n\nThis PR fixes a bug with merging wherein merges that ended up with a commit message body that exceeded Linux's `MAX_ARG_STRLEN` (128 KB) would fail and return a 500 Internal Server Error response.\n\nMy workflow consists of squash merging pull requests when they're ready, and Renovate-opened PRs that sat un-reviewed by me but continually updated by Renovate would eventually generate a PR large enough to cause the issue to arise.\n\nThe fix involves using Git's `--flag=-` commit argument to pass the commit message to git via stdin rather than passing the potentially-over-128 KB message as an argument to git directly.\n\nFixes #9937\n\nCo-authored-by: Kevin Poitra <redacted@example.invalid>\nReviewed-on: https://codeberg.org/forgejo/forgejo/pulls/14799\nReviewed-by: Gusted <redacted@example.invalid>\n",
-          "url": "https://codeberg.org/forgejo/forgejo/commit/6cb6155db7aae88a2a8d2658243795484564a1b3",
+          "id": "17e1001d5e00e8ee3cbc1b6dd31be94ac38185f9",
+          "message": "[v15.0/forgejo] 2026-10-12 security patches (#14814)\n\nReviewed-on: https://codeberg.org/forgejo/forgejo/pulls/14814\nReviewed-by: Michael Kriese <redacted@example.invalid>\n",
+          "url": "https://codeberg.org/forgejo/forgejo/commit/17e1001d5e00e8ee3cbc1b6dd31be94ac38185f9",
           "author": {
-            "name": "forgejo-backport-action",
+            "name": "Michael Kriese",
             "email": "redacted@example.invalid",
-            "username": "forgejo-backport-action"
+            "username": "viceice"
           },
           "committer": {
-            "name": "Gusted",
+            "name": "Michael Kriese",
             "email": "redacted@example.invalid",
-            "username": "Gusted"
+            "username": "viceice"
           },
           "verification": {
             "verified": false,
@@ -112,7 +116,7 @@
             "signer": null,
             "payload": ""
           },
-          "timestamp": "2026-10-10T22:39:31+02:00",
+          "timestamp": "2026-10-12T08:23:41+02:00",
           "added": null,
           "removed": null,
           "modified": null

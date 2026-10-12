@@ -20,16 +20,16 @@
         "assignment"
       ],
       "nativeEvents": [
-        "issue_assign",
         "issue_milestone",
-        "issue_comment",
+        "issues",
         "issue_label",
-        "issues"
+        "issue_assign",
+        "issue_comment"
       ],
       "active": true,
       "contentType": "json",
       "createdAt": "2026-10-09T11:48:36.000Z",
-      "updatedAt": "2026-10-11T14:52:07.000Z"
+      "updatedAt": "<now>"
     }
   ]
 }

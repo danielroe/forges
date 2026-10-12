@@ -6,13 +6,13 @@
   "response": {
     "status": 200,
     "headers": {
-      "link": "<https://gitlab.com/api/v4/groups/gitlab-org/search?id=gitlab-org&include_archived=false&page=2&per_page=3&scope=blobs&search=import>; rel=\"next\", <https://gitlab.com/api/v4/groups/gitlab-org/search?id=gitlab-org&include_archived=false&page=1&per_page=3&scope=blobs&search=import>; rel=\"first\", <https://gitlab.com/api/v4/groups/gitlab-org/search?id=gitlab-org&include_archived=false&page=1119&per_page=3&scope=blobs&search=import>; rel=\"last\"",
+      "link": "<https://gitlab.com/api/v4/groups/gitlab-org/search?id=gitlab-org&include_archived=false&page=2&per_page=3&scope=blobs&search=import>; rel=\"next\", <https://gitlab.com/api/v4/groups/gitlab-org/search?id=gitlab-org&include_archived=false&page=1&per_page=3&scope=blobs&search=import>; rel=\"first\", <https://gitlab.com/api/v4/groups/gitlab-org/search?id=gitlab-org&include_archived=false&page=1112&per_page=3&scope=blobs&search=import>; rel=\"last\"",
       "etag": "W/\"3296e800e124f86e31673ce9a12cc61b\"",
       "ratelimit-limit": "2000",
-      "ratelimit-remaining": "1929",
-      "ratelimit-reset": "1791734760",
-      "x-total": "3357",
-      "x-total-pages": "1119",
+      "ratelimit-remaining": "1930",
+      "ratelimit-reset": "1791805800",
+      "x-total": "3334",
+      "x-total-pages": "1112",
       "x-next-page": "2",
       "x-page": "1",
       "x-per-page": "3"

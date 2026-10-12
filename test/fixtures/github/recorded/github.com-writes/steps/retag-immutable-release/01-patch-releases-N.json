@@ -1,17 +1,17 @@
 {
   "request": {
     "method": "PATCH",
-    "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/releases/409793210",
+    "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/releases/410537975",
     "body": {
-      "tag_name": "forges-fixture-20261011164520-retagged"
+      "tag_name": "forges-fixture-20261012113502-retagged"
     }
   },
   "response": {
     "status": 422,
     "headers": {
       "x-ratelimit-limit": "5000",
-      "x-ratelimit-remaining": "4841",
-      "x-ratelimit-reset": "1791738365"
+      "x-ratelimit-remaining": "4929",
+      "x-ratelimit-reset": "1791808503"
     },
     "body": {
       "message": "Validation Failed",

@@ -5,50 +5,50 @@
     "body": {
       "repo": "did:plc:7qksav5io2s4qfg67pe7iqqk",
       "collection": "sh.tangled.repo.pull",
-      "rkey": "3mxmz6r5rme2y",
+      "rkey": "3mxogt76cgf2y",
       "record": {
-        "body": "Edited by run 20261011220545.",
+        "body": "Edited by run 20261012114229.",
         "$type": "sh.tangled.repo.pull",
-        "title": "forges fixture 20261011220545: pull, edited",
+        "title": "forges fixture 20261012114229: pull, edited",
         "rounds": [
           {
-            "createdAt": "2026-10-11T22:06:01.270Z",
+            "createdAt": "2026-10-12T11:42:45.452Z",
             "patchBlob": {
               "ref": {
-                "$link": "bafkreibw2djy2wxfvwquiypwbv5lmxtinbukd4laseag6inhrrjaghdzsi"
+                "$link": "bafkreidhszgxlyh2537mj5fpcojxnebuj573d5y3citxxuhklrhhefzhxy"
               },
-              "size": 359,
+              "size": 358,
               "$type": "blob",
               "mimeType": "application/gzip"
             }
           }
         ],
         "source": {
-          "branch": "forges-fixtures/20261011220545-1"
+          "branch": "forges-fixtures/20261012114229-1"
         },
         "target": {
           "repo": "did:plc:t73o44q7fppgagkrevtztyok",
           "branch": "main"
         },
-        "createdAt": "2026-10-11T22:06:01.270Z"
+        "createdAt": "2026-10-12T11:42:45.452Z"
       },
-      "swapRecord": "bafyreicyoobt6437hcbheqcbycwon5gslb2amdc6iw475ri7s4zcvcoaai"
+      "swapRecord": "bafyreiadvwxaamxsu2tunsrh5p767quwb6ealx5stnws5gxb24p2jahq7a"
     }
   },
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"118-6UbHWk6uGKyWlV21cwe+pRr4HsU\"",
+      "etag": "W/\"118-yuO5WIQbJKsQ6MwjEeaT0PlepT0\"",
       "ratelimit-limit": "3000",
       "ratelimit-remaining": "2888",
-      "ratelimit-reset": "1791756647"
+      "ratelimit-reset": "1791805651"
     },
     "body": {
-      "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.pull/3mxmz6r5rme2y",
-      "cid": "bafyreihy2hpmjcwyi2ctygerbqxzksv4jmbrmh2mchajzp7fkhw67xzqqe",
+      "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.pull/3mxogt76cgf2y",
+      "cid": "bafyreidsduk4rcuad5cytohcfeckmya5ehu2twfh4agiamb3lzaiu3ukje",
       "commit": {
-        "cid": "bafyreicpyouu722kvq45xl2f6jw6yvmefn7h4zxvnxl5cx7em5ffdhy5be",
-        "rev": "3mxmz6uk4fu2y"
+        "cid": "bafyreiecquhlmsbv7cf27nnvbo36qaip6u2bf2hbxcjsfsznbchirbosgm",
+        "rev": "3mxogtcpcn52y"
       },
       "validationStatus": "unknown"
     }

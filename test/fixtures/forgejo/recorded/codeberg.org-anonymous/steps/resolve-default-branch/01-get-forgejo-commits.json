@@ -6,34 +6,34 @@
   "response": {
     "status": 200,
     "headers": {
-      "link": "<https://codeberg.org/api/v1/repos/forgejo/forgejo/commits?limit=1&page=2&sha=forgejo&stat=false>; rel=\"next\",<https://codeberg.org/api/v1/repos/forgejo/forgejo/commits?limit=1&page=25955&sha=forgejo&stat=false>; rel=\"last\"",
-      "x-total": "25955",
-      "x-total-count": "25955",
+      "link": "<https://codeberg.org/api/v1/repos/forgejo/forgejo/commits?limit=1&page=2&sha=forgejo&stat=false>; rel=\"next\",<https://codeberg.org/api/v1/repos/forgejo/forgejo/commits?limit=1&page=25961&sha=forgejo&stat=false>; rel=\"last\"",
+      "x-total": "25961",
+      "x-total-count": "25961",
       "x-page": "1"
     },
     "body": [
       {
-        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/1b980f3558583271691afb2e6d5bfb96a67cc1e0",
-        "sha": "1b980f3558583271691afb2e6d5bfb96a67cc1e0",
-        "created": "2026-10-11T15:37:01+02:00",
-        "html_url": "https://codeberg.org/forgejo/forgejo/commit/1b980f3558583271691afb2e6d5bfb96a67cc1e0",
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/5e50d27f1e39e2bf0ff5bda2046ea1a5c0db7a3d",
+        "sha": "5e50d27f1e39e2bf0ff5bda2046ea1a5c0db7a3d",
+        "created": "2026-10-12T08:19:06+02:00",
+        "html_url": "https://codeberg.org/forgejo/forgejo/commit/5e50d27f1e39e2bf0ff5bda2046ea1a5c0db7a3d",
         "commit": {
-          "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/1b980f3558583271691afb2e6d5bfb96a67cc1e0",
+          "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/5e50d27f1e39e2bf0ff5bda2046ea1a5c0db7a3d",
           "author": {
-            "name": "Gusted",
+            "name": "Michael Kriese",
             "email": "redacted@example.invalid",
-            "date": "2026-10-11T15:37:01+02:00"
+            "date": "2026-10-12T08:19:06+02:00"
           },
           "committer": {
-            "name": "Gusted",
+            "name": "Michael Kriese",
             "email": "redacted@example.invalid",
-            "date": "2026-10-11T15:37:01+02:00"
+            "date": "2026-10-12T08:19:06+02:00"
           },
-          "message": "fix: avoid loading unnecessary data during tag creation (#14785)\n\nI noticed that creating a tag via the web UI of codeberg.org was quite slow (28-30s).\n\nTracing showed a interesting SQL query:\n\n```sql\nSELECT * FROM `attachment` WHERE `release_id` IN (0) ORDER BY `release_id` ASC, `name` ASC\n```\n\nTracing also showed that this SQL query was executed before a\ntime block where Forgejo was doing a lot of application (non git/DB) code.\n\n---\n\n- `release_service.CreateNewTag` is called from the web router to handle creating a new tag, this function prepares a release struct with all the necessary information (every tag is stored as a release in the database).\n- `createTag` is then called which as first thing calls `LoadAttributes`.\n- `LoadAttributes` assumes the given release was loaded from the database and thus assumes the ID is non-zero. Loading 148026 attachments into this release.\n\nReviewed-on: https://codeberg.org/forgejo/forgejo/pulls/14785\nReviewed-by: Andreas Ahlenstorf <redacted@example.invalid>\n",
+          "message": "2026-10-12 security patches (#14811)\n\nReviewed-on: https://codeberg.org/forgejo/forgejo/pulls/14811\nReviewed-by: Michael Kriese <redacted@example.invalid>\n",
           "tree": {
-            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/trees/1b980f3558583271691afb2e6d5bfb96a67cc1e0",
-            "sha": "1b980f3558583271691afb2e6d5bfb96a67cc1e0",
-            "created": "2026-10-11T15:37:01+02:00"
+            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/trees/5e50d27f1e39e2bf0ff5bda2046ea1a5c0db7a3d",
+            "sha": "5e50d27f1e39e2bf0ff5bda2046ea1a5c0db7a3d",
+            "created": "2026-10-12T08:19:06+02:00"
           },
           "verification": {
             "verified": false,
@@ -44,60 +44,101 @@
           }
         },
         "author": {
-          "id": 26734,
-          "login": "Gusted",
+          "id": 76321,
+          "login": "viceice",
           "source_id": 0,
-          "full_name": "",
+          "full_name": "Michael Kriese",
           "email": "redacted@example.invalid",
-          "avatar_url": "https://codeberg.org/avatars/44a59264e976fa585ed9f0a92abad9d7",
-          "html_url": "https://codeberg.org/Gusted",
+          "avatar_url": "https://codeberg.org/avatars/e97548751762c9a393bdcd89c44d6c24",
+          "html_url": "https://codeberg.org/viceice",
           "active": false,
-          "location": "Error 451",
-          "pronouns": "",
-          "website": "https://gusted.xyz",
-          "description": "I’m aware (and the NSA is), that I’m pretty 🌈.\r\n\r\nForgejo contributor  \r\nCodeberg executive board member 2025-2026  \r\nCodeberg presidium member 2025-2027  \r\n\r\nFor more interesting repositories: https://git.gusted.xyz/Gusted",
-          "followers_count": 162,
-          "following_count": 30,
-          "starred_repos_count": 103,
-          "username": "Gusted"
+          "location": "Magdeburg, Germany",
+          "pronouns": "he/him",
+          "website": "",
+          "description": "[:github:](https://github.com/viceice)&nbsp;[:forgejo:](https://code.forgejo.org/viceice)",
+          "followers_count": 8,
+          "following_count": 14,
+          "starred_repos_count": 20,
+          "username": "viceice"
         },
         "committer": {
-          "id": 26734,
-          "login": "Gusted",
+          "id": 76321,
+          "login": "viceice",
           "source_id": 0,
-          "full_name": "",
+          "full_name": "Michael Kriese",
           "email": "redacted@example.invalid",
-          "avatar_url": "https://codeberg.org/avatars/44a59264e976fa585ed9f0a92abad9d7",
-          "html_url": "https://codeberg.org/Gusted",
+          "avatar_url": "https://codeberg.org/avatars/e97548751762c9a393bdcd89c44d6c24",
+          "html_url": "https://codeberg.org/viceice",
           "active": false,
-          "location": "Error 451",
-          "pronouns": "",
-          "website": "https://gusted.xyz",
-          "description": "I’m aware (and the NSA is), that I’m pretty 🌈.\r\n\r\nForgejo contributor  \r\nCodeberg executive board member 2025-2026  \r\nCodeberg presidium member 2025-2027  \r\n\r\nFor more interesting repositories: https://git.gusted.xyz/Gusted",
-          "followers_count": 162,
-          "following_count": 30,
-          "starred_repos_count": 103,
-          "username": "Gusted"
+          "location": "Magdeburg, Germany",
+          "pronouns": "he/him",
+          "website": "",
+          "description": "[:github:](https://github.com/viceice)&nbsp;[:forgejo:](https://code.forgejo.org/viceice)",
+          "followers_count": 8,
+          "following_count": 14,
+          "starred_repos_count": 20,
+          "username": "viceice"
         },
         "parents": [
           {
-            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/0380b6d688eaf1390e4f24c618386737bf9fc6b1",
-            "sha": "0380b6d688eaf1390e4f24c618386737bf9fc6b1",
+            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/1b980f3558583271691afb2e6d5bfb96a67cc1e0",
+            "sha": "1b980f3558583271691afb2e6d5bfb96a67cc1e0",
+            "created": "0001-01-01T00:00:00Z"
+          },
+          {
+            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/0edf5377c4040ab7f0b4b526f64e090c616769ab",
+            "sha": "0edf5377c4040ab7f0b4b526f64e090c616769ab",
             "created": "0001-01-01T00:00:00Z"
           }
         ],
         "files": [
           {
-            "filename": "models/repo/release.go",
+            "filename": "models/issues/label.go",
             "status": "modified"
           },
           {
-            "filename": "models/repo/release_test.go",
+            "filename": "models/issues/label_test.go",
             "status": "modified"
           },
           {
-            "filename": "services/release/release.go",
+            "filename": "routers/api/v1/org/label.go",
             "status": "modified"
+          },
+          {
+            "filename": "routers/api/v1/repo/issue_label.go",
+            "status": "modified"
+          },
+          {
+            "filename": "routers/api/v1/repo/label.go",
+            "status": "modified"
+          },
+          {
+            "filename": "routers/web/org/org_labels.go",
+            "status": "modified"
+          },
+          {
+            "filename": "routers/web/repo/issue_label.go",
+            "status": "modified"
+          },
+          {
+            "filename": "services/actions/notifier.go",
+            "status": "modified"
+          },
+          {
+            "filename": "tests/integration/actions_trigger_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "tests/integration/api_issue_label_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "release-notes/14813.md",
+            "status": "added"
+          },
+          {
+            "filename": "release-notes/14814.md",
+            "status": "added"
           }
         ],
         "stats": null

@@ -1,33 +1,33 @@
 {
   "request": {
     "method": "POST",
-    "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/statuses/b69ccb38106a131e3c0a78b0f4af6b0b5d78d162",
+    "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/statuses/67bb144479c23e0c1acec7312a82075aaa53eaf3",
     "body": {
       "state": "success",
       "context": "forges fixture",
-      "description": "Reported by run 20261011164520"
+      "description": "Reported by run 20261012113502"
     }
   },
   "response": {
     "status": 201,
     "headers": {
-      "etag": "\"2185f702a1642cee2aa1ddc7a9863182aee28f68ea2a23e9c85289130868e984\"",
-      "location": "https://api.github.com/repos/forges-fixtures/forges-fixtures/statuses/b69ccb38106a131e3c0a78b0f4af6b0b5d78d162",
+      "etag": "\"7402624434de29edb9fc9c99080fd95016d19c0cf6d8964fff4e590a61750fed\"",
+      "location": "https://api.github.com/repos/forges-fixtures/forges-fixtures/statuses/67bb144479c23e0c1acec7312a82075aaa53eaf3",
       "x-ratelimit-limit": "5000",
-      "x-ratelimit-remaining": "4978",
-      "x-ratelimit-reset": "1791738363"
+      "x-ratelimit-remaining": "4989",
+      "x-ratelimit-reset": "1791808502"
     },
     "body": {
-      "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/statuses/b69ccb38106a131e3c0a78b0f4af6b0b5d78d162",
+      "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/statuses/67bb144479c23e0c1acec7312a82075aaa53eaf3",
       "avatar_url": "https://avatars.githubusercontent.com/u/57801166?v=4",
-      "id": 56092694387,
-      "node_id": "SC_kwDOVCTdtM8AAAAND2KXcw",
+      "id": 56135920008,
+      "node_id": "SC_kwDOVCTdtM8AAAANEfYpiA",
       "state": "success",
-      "description": "Reported by run 20261011164520",
+      "description": "Reported by run 20261012113502",
       "target_url": null,
       "context": "forges fixture",
-      "created_at": "2026-10-11T16:46:30Z",
-      "updated_at": "2026-10-11T16:46:30Z",
+      "created_at": "2026-10-12T11:36:10Z",
+      "updated_at": "2026-10-12T11:36:10Z",
       "creator": {
         "login": "danielroe-bot",
         "id": 57801166,

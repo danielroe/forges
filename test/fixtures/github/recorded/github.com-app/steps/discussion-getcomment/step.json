@@ -1,4 +1,7 @@
 {
   "name": "discussion getComment",
-  "recordedAt": "2026-10-11T16:05:25.420Z"
+  "recordedAt": "2026-10-11T16:05:25.420Z",
+  "needs": [
+    "discussion comments"
+  ]
 }

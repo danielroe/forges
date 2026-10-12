@@ -1,7 +1,7 @@
 {
   "request": {
     "method": "PUT",
-    "url": "https://gitlab.com/api/v4/projects/forges-fixtures%2Fforges-fixtures/hooks/91274107",
+    "url": "https://gitlab.com/api/v4/projects/forges-fixtures%2Fforges-fixtures/hooks/91332390",
     "body": {
       "token": "REDACTED"
     }
@@ -9,17 +9,17 @@
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"ca1256cae291c8f3711307ef9dab9582\"",
+      "etag": "W/\"25c4cb987cc73b81ec0290445a8bf041\"",
       "ratelimit-limit": "2000",
-      "ratelimit-remaining": "1917",
-      "ratelimit-reset": "1791734820"
+      "ratelimit-remaining": "1916",
+      "ratelimit-reset": "1791805260"
     },
     "body": {
-      "id": 91274107,
+      "id": 91332390,
       "url": "https://example.com/hook",
       "name": null,
       "description": null,
-      "created_at": "2026-10-11T16:06:15.119Z",
+      "created_at": "2026-10-12T11:40:50.343Z",
       "push_events": true,
       "tag_push_events": false,
       "merge_requests_events": false,

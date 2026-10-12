@@ -1,64 +1,65 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://gitea.com/api/v1/repos/gitea/tea/actions/runs/1051680"
+    "url": "https://gitea.com/api/v1/repos/gitea/tea/actions/runs/1057546"
   },
   "response": {
     "status": 200,
     "headers": {},
     "body": {
-      "id": 1051680,
-      "url": "https://gitea.com/api/v1/repos/gitea/tea/actions/runs/1051680",
+      "id": 1057546,
+      "url": "https://gitea.com/api/v1/repos/gitea/tea/actions/runs/1057546",
       "previous_attempt_url": null,
-      "html_url": "https://gitea.com/gitea/tea/actions/runs/1051680",
-      "jobs_url": "https://gitea.com/api/v1/repos/gitea/tea/actions/runs/1051680/jobs",
-      "logs_url": "https://gitea.com/api/v1/repos/gitea/tea/actions/runs/1051680/logs",
-      "artifacts_url": "https://gitea.com/api/v1/repos/gitea/tea/actions/runs/1051680/artifacts",
-      "cancel_url": "https://gitea.com/api/v1/repos/gitea/tea/actions/runs/1051680/cancel",
-      "rerun_url": "https://gitea.com/api/v1/repos/gitea/tea/actions/runs/1051680/rerun",
-      "display_title": "feat(login): support custom HTTP headers per login",
-      "path": "test-pr.yml@refs/pull/1130/head",
-      "event": "pull_request",
+      "html_url": "https://gitea.com/gitea/tea/actions/runs/1057546",
+      "jobs_url": "https://gitea.com/api/v1/repos/gitea/tea/actions/runs/1057546/jobs",
+      "logs_url": "https://gitea.com/api/v1/repos/gitea/tea/actions/runs/1057546/logs",
+      "artifacts_url": "https://gitea.com/api/v1/repos/gitea/tea/actions/runs/1057546/artifacts",
+      "cancel_url": "https://gitea.com/api/v1/repos/gitea/tea/actions/runs/1057546/cancel",
+      "rerun_url": "https://gitea.com/api/v1/repos/gitea/tea/actions/runs/1057546/rerun",
+      "display_title": "fix(deps): update go toolchain directive to v1.27.2 [security] (#1131)",
+      "path": "release-nightly.yml@refs/heads/main",
+      "event": "push",
       "run_attempt": 1,
-      "run_number": 1717,
+      "run_number": 1735,
       "repository_id": 0,
-      "head_sha": "d3ec77f8ea0c2e484f89194dc34fb7986a51a8f9",
+      "head_sha": "33bb12729e6de375813fb94fbcfbfa110d45c107",
+      "head_branch": "main",
       "status": "completed",
       "actor": {
-        "id": 187077,
-        "login": "chrisbecker",
+        "id": 1,
+        "login": "lunny",
         "type": "User",
         "source_id": 0,
-        "full_name": "chris becker",
+        "full_name": "Lunny Xiao",
         "email": "redacted@example.invalid",
-        "avatar_url": "https://seccdn.libravatar.org/avatar/4e91ba623a3fd068cd68c96a2fde2a9a5529826c57a20970b44b2cfff45fe190?d=identicon",
-        "html_url": "https://gitea.com/chrisbecker",
+        "avatar_url": "https://gitea.com/avatars/5739143ce171af62d1ff0baa027dacfd5e5ffe9c28b7b92fc4ed02d952ab1cc3",
+        "html_url": "https://gitea.com/lunny",
         "active": false,
-        "location": "PHL",
-        "website": "https://becker.am",
+        "location": "Silicon Valley",
+        "website": "https://gitea.com",
         "description": "",
-        "followers_count": 0,
-        "following_count": 0,
-        "starred_repos_count": 0,
-        "username": "chrisbecker"
+        "followers_count": 114,
+        "following_count": 95,
+        "starred_repos_count": 366,
+        "username": "lunny"
       },
       "trigger_actor": {
-        "id": 187077,
-        "login": "chrisbecker",
+        "id": 1,
+        "login": "lunny",
         "type": "User",
         "source_id": 0,
-        "full_name": "chris becker",
+        "full_name": "Lunny Xiao",
         "email": "redacted@example.invalid",
-        "avatar_url": "https://seccdn.libravatar.org/avatar/4e91ba623a3fd068cd68c96a2fde2a9a5529826c57a20970b44b2cfff45fe190?d=identicon",
-        "html_url": "https://gitea.com/chrisbecker",
+        "avatar_url": "https://gitea.com/avatars/5739143ce171af62d1ff0baa027dacfd5e5ffe9c28b7b92fc4ed02d952ab1cc3",
+        "html_url": "https://gitea.com/lunny",
         "active": false,
-        "location": "PHL",
-        "website": "https://becker.am",
+        "location": "Silicon Valley",
+        "website": "https://gitea.com",
         "description": "",
-        "followers_count": 0,
-        "following_count": 0,
-        "starred_repos_count": 0,
-        "username": "chrisbecker"
+        "followers_count": 114,
+        "following_count": 95,
+        "starred_repos_count": 366,
+        "username": "lunny"
       },
       "repository": {
         "id": 550,
@@ -88,7 +89,7 @@
         "fork": false,
         "template": false,
         "mirror": false,
-        "size": 77949,
+        "size": 78562,
         "language": "Go",
         "languages_url": "https://gitea.com/api/v1/repos/gitea/tea/languages",
         "html_url": "https://gitea.com/gitea/tea",
@@ -100,15 +101,15 @@
         "website": "",
         "stars_count": 276,
         "forks_count": 146,
-        "watchers_count": 74,
-        "branch_count": 11,
-        "open_issues_count": 114,
-        "open_pr_counter": 40,
+        "watchers_count": 75,
+        "branch_count": 9,
+        "open_issues_count": 35,
+        "open_pr_counter": 20,
         "release_counter": 27,
         "default_branch": "main",
         "archived": false,
         "created_at": "2019-05-19T11:37:14Z",
-        "updated_at": "2026-10-10T00:11:23Z",
+        "updated_at": "2026-10-12T00:56:37Z",
         "archived_at": "1970-01-01T00:00:00Z",
         "permissions": {
           "admin": false,
@@ -158,35 +159,11 @@
         ]
       },
       "conclusion": "success",
-      "pull_requests": [
-        {
-          "id": 204948,
-          "number": 1130,
-          "url": "https://gitea.com/api/v1/repos/gitea/tea/pulls/1130",
-          "head": {
-            "ref": "main",
-            "sha": "d3ec77f8ea0c2e484f89194dc34fb7986a51a8f9",
-            "repo": {
-              "id": 126559,
-              "url": "https://gitea.com/api/v1/repos/chrisbecker/tea",
-              "name": "tea"
-            }
-          },
-          "base": {
-            "ref": "main",
-            "sha": "bcd62a1fb2ce6fdd51ebea91cc33ddbcae000b68",
-            "repo": {
-              "id": 550,
-              "url": "https://gitea.com/api/v1/repos/gitea/tea",
-              "name": "tea"
-            }
-          }
-        }
-      ],
-      "created_at": "2026-10-10T23:03:39Z",
-      "updated_at": "2026-10-11T04:29:03Z",
-      "started_at": "2026-10-11T04:26:37Z",
-      "completed_at": "2026-10-11T04:29:03Z"
+      "pull_requests": [],
+      "created_at": "2026-10-12T00:56:36Z",
+      "updated_at": "2026-10-12T01:00:43Z",
+      "started_at": "2026-10-12T00:56:42Z",
+      "completed_at": "2026-10-12T01:00:43Z"
     }
   }
 }

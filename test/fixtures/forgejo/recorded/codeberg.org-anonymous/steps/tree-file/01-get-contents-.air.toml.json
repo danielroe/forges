@@ -1,0 +1,32 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/contents/.air.toml"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "name": ".air.toml",
+      "path": ".air.toml",
+      "sha": "65872e7382db56758f8998e21b580b3b255abe2c",
+      "last_commit_sha": "a0be0f22fc34a20e90797dada527c19cd2e1eaf1",
+      "last_commit_when": "2025-10-14T14:40:49-06:00",
+      "type": "file",
+      "size": 828,
+      "encoding": "base64",
+      "content": "cm9vdCA9ICIuIgp0bXBfZGlyID0gIi5haXIiCgpbYnVpbGRdCnByZV9jbWQgPSBbImtpbGxhbGwgLTkgZ2l0ZWEgMj4vZGV2L251bGwgfHwgdHJ1ZSJdICMga2lsbCBvZmYgcG90ZW50aWFsIHpvbWJpZSBwcm9jZXNzZXMgZnJvbSBwcmV2aW91cyBydW5zCmNtZCA9ICJtYWtlIC0tbm8tcHJpbnQtZGlyZWN0b3J5IGJhY2tlbmQiCmJpbiA9ICJnaXRlYSIKZGVsYXkgPSAyMDAwCmluY2x1ZGVfZXh0ID0gWyJnbyIsICJ0bXBsIl0KaW5jbHVkZV9maWxlID0gWyJtYWluLmdvIl0KaW5jbHVkZV9kaXIgPSBbImNtZCIsICJtb2RlbHMiLCAibW9kdWxlcyIsICJvcHRpb25zIiwgInJvdXRlcnMiLCAic2VydmljZXMiXQpleGNsdWRlX2RpciA9IFsKICAibW9kZWxzL2ZpeHR1cmVzIiwKICAibW9kZWxzL2dpdGVhX21pZ3JhdGlvbnMvZml4dHVyZXMiLAogICJtb2R1bGVzL2F2YXRhci9pZGVudGljb24vdGVzdGRhdGEiLAogICJtb2R1bGVzL2F2YXRhci90ZXN0ZGF0YSIsCiAgIm1vZHVsZXMvZ2l0L3Rlc3RzIiwKICAibW9kdWxlcy9taWdyYXRpb24vZmlsZV9mb3JtYXRfdGVzdGRhdGEiLAogICJtb2R1bGVzL21hcmt1cC90ZXN0cy9yZXBvL3JlcG8xX2ZpbGVwcmV2aWV3IiwKICAicm91dGVycy9wcml2YXRlL3Rlc3RzIiwKICAic2VydmljZXMvZ2l0ZGlmZi90ZXN0ZGF0YSIsCiAgInNlcnZpY2VzL21pZ3JhdGlvbnMvdGVzdGRhdGEiLAogICJzZXJ2aWNlcy93ZWJob29rL3NvdXJjZWh1dC90ZXN0ZGF0YSIsCl0KZXhjbHVkZV9yZWdleCA9IFsiX3Rlc3QuZ28kIiwgIl9nZW4uZ28kIl0Kc3RvcF9vbl9lcnJvciA9IHRydWUKCltsb2ddCm1haW5fb25seSA9IHRydWUK",
+      "target": null,
+      "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/contents/.air.toml?ref=forgejo",
+      "html_url": "https://codeberg.org/forgejo/forgejo/src/branch/forgejo/.air.toml",
+      "git_url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/blobs/65872e7382db56758f8998e21b580b3b255abe2c",
+      "download_url": "https://codeberg.org/forgejo/forgejo/raw/branch/forgejo/.air.toml",
+      "submodule_git_url": null,
+      "_links": {
+        "self": "https://codeberg.org/api/v1/repos/forgejo/forgejo/contents/.air.toml?ref=forgejo",
+        "git": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/blobs/65872e7382db56758f8998e21b580b3b255abe2c",
+        "html": "https://codeberg.org/forgejo/forgejo/src/branch/forgejo/.air.toml"
+      }
+    }
+  }
+}

@@ -1,7 +1,7 @@
 {
   "request": {
     "method": "PATCH",
-    "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/issues/85",
+    "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/issues/90",
     "body": {
       "assignees": [
         "danielroe-bot"
@@ -12,22 +12,22 @@
     "status": 200,
     "headers": {
       "link": "<https://docs.github.com/en/rest/about-the-rest-api/api-versions>; rel=\"deprecation\"; type=\"text/html\"",
-      "etag": "W/\"cdfcd57082f7f6974b6037400eb6fd02bd3d8cb4cb94d6f367fa7425f74c660a\"",
+      "etag": "W/\"b9aa3527cc2382a7038bd122c667e8933043a06a9e9e792c672f71ba3badac55\"",
       "x-ratelimit-limit": "5000",
-      "x-ratelimit-remaining": "4886",
-      "x-ratelimit-reset": "1791738365"
+      "x-ratelimit-remaining": "4974",
+      "x-ratelimit-reset": "1791808503"
     },
     "body": {
-      "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/issues/85",
+      "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/issues/90",
       "repository_url": "https://api.github.com/repos/forges-fixtures/forges-fixtures",
-      "labels_url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/issues/85/labels{/name}",
-      "comments_url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/issues/85/comments",
-      "events_url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/issues/85/events",
-      "html_url": "https://github.com/forges-fixtures/forges-fixtures/issues/85",
-      "id": 5803080251,
-      "node_id": "I_kwDOVCTdtM8AAAABWeP6Ow",
-      "number": 85,
-      "title": "forges fixture 20261011164520: issue",
+      "labels_url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/issues/90/labels{/name}",
+      "comments_url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/issues/90/comments",
+      "events_url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/issues/90/events",
+      "html_url": "https://github.com/forges-fixtures/forges-fixtures/issues/90",
+      "id": 5813024699,
+      "node_id": "I_kwDOVCTdtM8AAAABWnu3uw",
+      "number": 90,
+      "title": "forges fixture 20261012113502: issue",
       "user": {
         "login": "danielroe-bot",
         "id": 57801166,
@@ -51,13 +51,13 @@
       },
       "labels": [
         {
-          "id": 12640256060,
-          "node_id": "LA_kwDOVCTdtM8AAAAC8WsAPA",
-          "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/labels/forges-fixture-20261011164520",
-          "name": "forges-fixture-20261011164520",
+          "id": 12649878137,
+          "node_id": "LA_kwDOVCTdtM8AAAAC8f3SeQ",
+          "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/labels/forges-fixture-20261012113502",
+          "name": "forges-fixture-20261012113502",
           "color": "0e8a16",
           "default": false,
-          "description": "Created by run 20261011164520",
+          "description": "Created by run 20261012113502",
           "archived_at": null,
           "archived_by": null
         }
@@ -89,8 +89,8 @@
       ],
       "milestone": null,
       "comments": 1,
-      "created_at": "2026-10-11T16:45:29Z",
-      "updated_at": "2026-10-11T16:45:41Z",
+      "created_at": "2026-10-12T11:35:11Z",
+      "updated_at": "2026-10-12T11:35:22Z",
       "closed_at": null,
       "assignee": {
         "login": "danielroe-bot",
@@ -128,10 +128,10 @@
         "blocking": 0,
         "total_blocking": 0
       },
-      "body": "Opened by run 20261011164520.",
+      "body": "Opened by run 20261012113502.",
       "closed_by": null,
       "reactions": {
-        "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/issues/85/reactions",
+        "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/issues/90/reactions",
         "total_count": 0,
         "+1": 0,
         "-1": 0,
@@ -142,7 +142,7 @@
         "rocket": 0,
         "eyes": 0
       },
-      "timeline_url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/issues/85/timeline",
+      "timeline_url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/issues/90/timeline",
       "performed_via_github_app": null,
       "state_reason": null,
       "pinned_comment": null

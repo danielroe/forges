@@ -9,31 +9,31 @@
         "$type": "sh.tangled.feed.comment",
         "body": {
           "$type": "sh.tangled.markup.markdown",
-          "text": "An upserted comment from run 20261011220545.\n\n<!-- forges:key=forges-fixture -->",
-          "original": "An upserted comment from run 20261011220545.\n\n<!-- forges:key=forges-fixture -->"
+          "text": "An upserted comment from run 20261012114229.\n\n<!-- forges:key=forges-fixture -->",
+          "original": "An upserted comment from run 20261012114229.\n\n<!-- forges:key=forges-fixture -->"
         },
         "subject": {
-          "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.pull/3mxmz6r5rme2y",
-          "cid": "bafyreicyoobt6437hcbheqcbycwon5gslb2amdc6iw475ri7s4zcvcoaai"
+          "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.pull/3mxogt76cgf2y",
+          "cid": "bafyreiadvwxaamxsu2tunsrh5p767quwb6ealx5stnws5gxb24p2jahq7a"
         },
-        "createdAt": "2026-10-11T22:06:02.952Z"
+        "createdAt": "2026-10-12T11:42:47.112Z"
       }
     }
   },
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"11b-tH1KrrMq+NFXK2wbR8vf7xGYmhU\"",
+      "etag": "W/\"11b-YPvkktZIZFZHFg+G9p8YYM8ku/0\"",
       "ratelimit-limit": "3000",
       "ratelimit-remaining": "2909",
-      "ratelimit-reset": "1791756647"
+      "ratelimit-reset": "1791805651"
     },
     "body": {
-      "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.feed.comment/3mxmz6sodd42y",
-      "cid": "bafyreiaejm6ayrdq5vtqv7wfoigs4w447abja25zg4nakio6hyvj5blema",
+      "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.feed.comment/3mxogtaojff2y",
+      "cid": "bafyreidsocdwfbsr5umylm2sszwpbpmuain53l4raw5wijcqiblmvcj764",
       "commit": {
-        "cid": "bafyreibtts6ixf7rmyp4zdwhk2pdh4i3vxmpphpor3iw63lmt3pd6klvdu",
-        "rev": "3mxmz6sp4pm2y"
+        "cid": "bafyreid2yfrulprdl2reijxwftijxjyqthr2nbqxusjuljx7zxgaoagyiq",
+        "rev": "3mxogtaow3n2y"
       },
       "validationStatus": "unknown"
     }

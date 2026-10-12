@@ -1,0 +1,138 @@
+{
+  "items": [
+    {
+      "ref": {
+        "forge": "gitee",
+        "instance": "gitee.com",
+        "owner": "cmiot-zhangyong",
+        "name": "OneOS",
+        "externalId": "22634517"
+      },
+      "description": "OneOS是中国移动针对物联网领域推出的轻量级操作系统，具有可裁剪、跨平台、低功耗、高安全等特点，支持ARM Cortex-M/R/A、MIPS、RISC-V等主流CPU架构，兼容POSIX、CMSIS等标准接口，支持Micropython语言开发，提供图形化开发工具，能够有效提高开发效率并降低开发成本，帮助客户开发稳定可靠、安全易用的物联网应用。 \r\n官网地址：https://os.iot.10086.cn/",
+      "defaultBranch": "dev",
+      "visibility": "public",
+      "isFork": true,
+      "isArchived": false,
+      "parent": {
+        "forge": "gitee",
+        "instance": "gitee.com",
+        "owner": "cmcc-oneos",
+        "name": "OneOS",
+        "externalId": "11463759"
+      },
+      "topics": [],
+      "url": "https://gitee.com/cmiot-zhangyong/OneOS.git",
+      "cloneUrls": {
+        "https": "https://gitee.com/cmiot-zhangyong/OneOS.git.git",
+        "ssh": "git@gitee.com:cmiot-zhangyong/OneOS.git"
+      },
+      "createdAt": "2022-05-10T06:47:30.000Z",
+      "updatedAt": "2024-11-26T08:14:00.000Z",
+      "pushedAt": "2024-11-26T08:14:00.000Z",
+      "openIssueCount": 0,
+      "owner": {
+        "forge": "gitee",
+        "instance": "gitee.com",
+        "login": "cmiot-zhangyong",
+        "id": "8273364",
+        "name": "JohnYoung",
+        "avatarUrl": "https://gitee.com/assets/no_portrait.png",
+        "url": "https://gitee.com/cmiot-zhangyong",
+        "typeRaw": "User",
+        "isBotHint": false
+      },
+      "language": "C",
+      "licence": "Apache-2.0",
+      "stars": 0,
+      "forks": 69,
+      "watchers": 1
+    },
+    {
+      "ref": {
+        "forge": "gitee",
+        "instance": "gitee.com",
+        "owner": "cmiot-zhangyong",
+        "name": "OneOS-Lite",
+        "externalId": "17853005"
+      },
+      "description": "OneOS Lite专用于资源受限的低成本MCU。定位精简、易用、创新。",
+      "defaultBranch": "master",
+      "visibility": "public",
+      "isFork": true,
+      "isArchived": false,
+      "parent": {
+        "forge": "gitee",
+        "instance": "gitee.com",
+        "owner": "cmcc-oneos",
+        "name": "OneOS-Metis",
+        "externalId": "17836162"
+      },
+      "topics": [],
+      "url": "https://gitee.com/cmiot-zhangyong/OneOS-Lite.git",
+      "cloneUrls": {
+        "https": "https://gitee.com/cmiot-zhangyong/OneOS-Lite.git.git",
+        "ssh": "git@gitee.com:cmiot-zhangyong/OneOS-Lite.git"
+      },
+      "createdAt": "2021-09-03T06:36:49.000Z",
+      "updatedAt": "2021-09-03T06:36:56.000Z",
+      "pushedAt": "2021-09-03T06:36:56.000Z",
+      "openIssueCount": 0,
+      "owner": {
+        "forge": "gitee",
+        "instance": "gitee.com",
+        "login": "cmiot-zhangyong",
+        "id": "8273364",
+        "name": "JohnYoung",
+        "avatarUrl": "https://gitee.com/assets/no_portrait.png",
+        "url": "https://gitee.com/cmiot-zhangyong",
+        "typeRaw": "User",
+        "isBotHint": false
+      },
+      "language": "C",
+      "licence": "Apache-2.0",
+      "stars": 0,
+      "forks": 7,
+      "watchers": 1
+    },
+    {
+      "ref": {
+        "forge": "gitee",
+        "instance": "gitee.com",
+        "owner": "cmiot-zhangyong",
+        "name": "httpclient",
+        "externalId": "13029615"
+      },
+      "description": "",
+      "defaultBranch": "master",
+      "visibility": "public",
+      "isFork": true,
+      "isArchived": false,
+      "topics": [],
+      "url": "https://gitee.com/cmiot-zhangyong/httpclient.git",
+      "cloneUrls": {
+        "https": "https://gitee.com/cmiot-zhangyong/httpclient.git.git",
+        "ssh": "git@gitee.com:cmiot-zhangyong/httpclient.git"
+      },
+      "createdAt": "2020-12-02T08:59:40.000Z",
+      "updatedAt": "2020-12-19T04:03:20.000Z",
+      "pushedAt": "2020-12-10T03:44:57.000Z",
+      "openIssueCount": 0,
+      "owner": {
+        "forge": "gitee",
+        "instance": "gitee.com",
+        "login": "cmiot-zhangyong",
+        "id": "8273364",
+        "name": "JohnYoung",
+        "avatarUrl": "https://gitee.com/assets/no_portrait.png",
+        "url": "https://gitee.com/cmiot-zhangyong",
+        "typeRaw": "User",
+        "isBotHint": false
+      },
+      "language": "C",
+      "licence": "Apache-2.0",
+      "stars": 0,
+      "forks": 0,
+      "watchers": 1
+    }
+  ]
+}

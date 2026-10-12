@@ -7,26 +7,26 @@
       "collection": "sh.tangled.repo.issue.state",
       "record": {
         "$type": "sh.tangled.repo.issue.state",
-        "issue": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.issue/3mxmz6jxjh42y",
+        "issue": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.issue/3mxogsxxwe52y",
         "state": "sh.tangled.repo.issue.state.open",
-        "createdAt": "2026-10-11T22:06:01.083Z"
+        "createdAt": "2026-10-12T11:42:45.274Z"
       }
     }
   },
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"11f-TJCR+haid5hEWU05oMaX7rF1OFM\"",
+      "etag": "W/\"11f-naRMwpZc/8tdln4/onIDdO66Ti8\"",
       "ratelimit-limit": "3000",
       "ratelimit-remaining": "2923",
-      "ratelimit-reset": "1791756647"
+      "ratelimit-reset": "1791805651"
     },
     "body": {
-      "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.issue.state/3mxmz6qv7742y",
-      "cid": "bafyreiavgaqjflwccok7digcascfgadunuklokboku7jvgh5cwjett2wae",
+      "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.issue.state/3mxogt6whh52y",
+      "cid": "bafyreidqgvxvm7a44kc5fipklqm2rpaq2m373lo35beyjyeqzu52lsxftu",
       "commit": {
-        "cid": "bafyreicnakso5ogfrmryy5iv43tcewu5bq2qb3nhzb6r4ufa26imffu7re",
-        "rev": "3mxmz6qvgz42y"
+        "cid": "bafyreice5bajs3g3hvatj6ikp7y3tc4w65y55qz5pcnkoejwihclidwxoy",
+        "rev": "3mxogt6wyzn2y"
       },
       "validationStatus": "unknown"
     }
