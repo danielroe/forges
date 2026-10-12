@@ -687,6 +687,13 @@ describe('tangled thread updates', () => {
     expect(thread.assignees.map(actor => actor.id)).toEqual([ADA])
   })
 
+  it('clears assignees as a no-op where the repository has no assignee label', async () => {
+    const { instance, calls } = provider({ ...labelled, ...definition('assignee', { name: 'owner', valueType: { type: 'string', format: 'any' } }) })
+    await instance.threads.update(pull, { labels: ['bug'], assignees: [] })
+
+    expect(written(calls).map(write => write.record)).toMatchObject([{ add: [{ key: `at://${OWNER}/sh.tangled.label.definition/bug`, value: 'null' }] }])
+  })
+
   it('checks the label names before it writes the state', async () => {
     const { instance, calls } = provider(labelled)
 

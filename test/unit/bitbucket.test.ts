@@ -190,8 +190,22 @@ describe('bitbucket thread updates', () => {
     expect(calls.map(call => `${call.method} ${call.url}`)).toEqual(['POST https://api.bitbucket.org/2.0/repositories/acme/widgets/pullrequests/31/decline'])
   })
 
+  it('keeps an open pull request open and edits it', async () => {
+    const { fetch, calls } = fixtureFetch('bitbucket', { 'PUT https://api.bitbucket.org/2.0/repositories/acme/widgets/pullrequests/31': { status: 200, body: { id: 31, state: 'OPEN', title: 'Retry uploads' } } })
+    const thread = await bitbucket({ auth: { type: 'token', token: 't' }, fetch }).create().threads.update(pull, { title: 'Retry uploads', state: 'open' })
+
+    expect(calls.map(call => call.method)).toEqual(['GET', 'PUT'])
+    expect(thread.state).toBe('open')
+  })
+
+  it('refuses to reopen a declined pull request before it writes anything', async () => {
+    const { fetch, calls } = fixtureFetch('bitbucket', { 'GET https://api.bitbucket.org/2.0/repositories/acme/widgets/pullrequests/31': { status: 200, body: { id: 31, state: 'DECLINED', title: 'Retry uploads' } } })
+
+    await expect(bitbucket({ auth: { type: 'token', token: 't' }, fetch }).create().threads.update(pull, { title: 'Retry uploads', state: 'open' })).rejects.toThrow('cannot reopen')
+    expect(calls.map(call => call.method)).toEqual(['GET'])
+  })
+
   it.each([
-    [{ state: 'open' } as const, 'cannot reopen'],
     [{ labels: ['bug'] }, 'no labels'],
     [{ assignees: ['jane'] }, 'no assignees'],
   ])('refuses %j before it writes anything', async (input, message) => {

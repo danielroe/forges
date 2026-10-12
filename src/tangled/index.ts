@@ -373,10 +373,13 @@ const TANGLED: ProviderDefinition<TangledOptions, undefined, true> = {
         ...wanted.filter(item => !has(current, item)).map(item => ({ ...item, add: true })),
       ]
     }
-    /** What moves the thread's assignee label to `dids`. */
+    /** What moves the thread's assignee label to `dids`; a repo without one has nothing to clear. */
     const assigneeChanges = ({ definitions, state }: TangledLabels, dids: string[]) => {
       const assignee = definitions.find(({ definition }) => isAssigneeLabel(definition))
       if (!assignee) {
+        if (!dids.length) {
+          return []
+        }
         throw new UnsupportedOperationError('This repository has no assignee label', context)
       }
       const current = [...state.get(assignee.uri) ?? []]

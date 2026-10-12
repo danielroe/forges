@@ -621,10 +621,16 @@ const BITBUCKET: ProviderDefinition<BitbucketOptions, undefined, true> = {
           if (input.assignees) {
             throw new UnsupportedOperationError('Bitbucket pull requests have no assignees', context)
           }
-          if (input.state === 'open') {
-            throw new UnsupportedOperationError('Bitbucket cannot reopen a declined pull request', context)
-          }
           const edit = { title: input.title, description: input.body }
+          if (input.state === 'open') {
+            const { data } = await fetcher.json<BitbucketPullRequest>(threadPath(ref), { signal: options?.signal })
+            if (data.state !== 'OPEN') {
+              throw new UnsupportedOperationError('Bitbucket cannot reopen a declined pull request', context)
+            }
+            if (input.title === undefined && input.body === undefined) {
+              return toPullThread(ref, data)
+            }
+          }
           if (input.state !== 'closed') {
             return toPullThread(ref, (await fetcher.json<BitbucketPullRequest>(threadPath(ref), { method: 'PUT', json: edit, signal: options?.signal })).data)
           }
