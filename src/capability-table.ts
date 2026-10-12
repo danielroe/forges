@@ -35,6 +35,7 @@ const TABLE = [
   { capability: 'repos.get' },
   { capability: 'users.get' },
   { capability: 'users.me', account: true },
+  { capability: 'users.sponsorable', account: true },
   { capability: 'repos.list', account: true, listing: true },
   { capability: 'repos.byOwner', listing: true },
   { capability: 'repos.labels', listing: true },

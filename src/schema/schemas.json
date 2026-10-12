@@ -1412,11 +1412,16 @@
           "me": {
             "$ref": "#/components/schemas/Support",
             "description": "Support for `users.me()`."
+          },
+          "sponsorable": {
+            "$ref": "#/components/schemas/Support",
+            "description": "Support for `users.sponsorable()`."
           }
         },
         "required": [
           "get",
-          "me"
+          "me",
+          "sponsorable"
         ]
       },
       "threads": {

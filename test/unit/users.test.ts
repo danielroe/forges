@@ -6,9 +6,10 @@ import { gitee } from '../../src/gitee/index.ts'
 import { github } from '../../src/github/index.ts'
 import { toActor } from '../../src/github/normalise.ts'
 import { gitlab } from '../../src/gitlab/index.ts'
-import { UnsupportedOperationError } from '../../src/index.ts'
+import { NotFoundError, UnsupportedOperationError } from '../../src/index.ts'
 import { tangled } from '../../src/tangled/index.ts'
 import { fixtureFetch } from '../../src/testing/index.ts'
+import { fixtureFetch as githubFixtures } from '../utils/fixtures.ts'
 
 describe('users.get', () => {
   it('reads a GitHub account anonymously', async () => {
@@ -50,6 +51,30 @@ describe('users.get', () => {
   it('ties a GitHub App bot account to its app', () => {
     expect(toActor('github.com', { login: 'renovate[bot]', id: 2, type: 'Bot' })?.app).toEqual({ slug: 'renovate' })
     expect(toActor('github.com', { login: 'octocat', id: 1, type: 'User' })?.app).toBeUndefined()
+  })
+})
+
+describe('users.sponsorable', () => {
+  const auth = { type: 'token', token: 't' } as const
+  const override = (body: unknown): Record<string, { status: number, body: unknown }> => ({ 'POST https://api.github.com/graphql Sponsorable': { status: 200, body } })
+
+  it('reports false for an account without a sponsors listing', async () => {
+    const { fetch } = githubFixtures('github', override({ data: { repositoryOwner: { hasSponsorsListing: false } } }))
+
+    await expect(github({ auth, fetch }).create().users.sponsorable('octocat')).resolves.toBe(false)
+  })
+
+  it('rejects for an account GitHub does not report', async () => {
+    const { fetch } = githubFixtures('github', override({ data: { repositoryOwner: null } }))
+
+    await expect(github({ auth, fetch }).create().users.sponsorable('nobody')).rejects.toThrow(NotFoundError)
+  })
+
+  it('is unsupported without a credential, and on a forge that cannot report it', async () => {
+    for (const provider of [github({}).create(), bitbucket({}).create()]) {
+      expect(provider.can('users.sponsorable')).toBe(false)
+      await expect(provider.users.sponsorable('danielroe')).rejects.toThrow(UnsupportedOperationError)
+    }
   })
 })
 

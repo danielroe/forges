@@ -115,6 +115,7 @@ You manage service hook subscriptions at the level of the organization and not o
 | `repos.get` | ✅ | ✅ |
 | `users.get` | ❌ | ❌ |
 | `users.me` | ❌ | ❌ |
+| `users.sponsorable` | ❌ | ❌ |
 | `repos.list` | ✅ | ❌ |
 | `repos.byOwner` | ✅ | ✅ |
 | `repos.labels` | ❌ | ❌ |

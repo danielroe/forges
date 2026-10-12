@@ -118,6 +118,7 @@ A label delivery doesn't say which labels were added or removed. When the set of
 | `repos.get` | ✅ | ✅ |
 | `users.get` | ✅ | ✅ |
 | `users.me` | ✅ | ❌ |
+| `users.sponsorable` | ❌ | ❌ |
 | `repos.list` | ✅ | ❌ |
 | `repos.byOwner` | ✅ | ✅ |
 | `repos.labels` | ✅ | ✅ |

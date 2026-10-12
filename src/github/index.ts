@@ -77,6 +77,7 @@ import type {
   NodeReactionsResult,
   RecentDiscussionsResult,
   ReviewThreadsResult,
+  SponsorableResult,
   ThreadsBatchResult,
 } from './graphql.ts'
 import type {
@@ -232,6 +233,8 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
   const auth = options.auth ?? { type: 'anonymous' as const }
   /** GitHub GraphQL needs a credential, so anonymous providers stay on REST. */
   const anonymous = auth.type === 'anonymous'
+  /** GraphQL accepts a user token or an app installation token, but not an app JWT or no credential at all. */
+  const graphqlAuth = auth.type === 'token' || (auth.type === 'app' && auth.installationId !== undefined)
   const host = hostOf(baseUrl)
   /** GitHub Enterprise Server; `ghe.com` data residency hosts follow github.com. */
   const enterprise = host !== 'api.github.com' && !isGheCom(host)
@@ -1538,6 +1541,13 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
     users: {
       get: verb(true, async (login, options) => toUser(instance, (await fetcher.json<GitHubUserDetail>(`/users/${encodeURIComponent(login)}`, { signal: options?.signal })).data)),
       me: verb(auth.type === 'token', async options => toUser(instance, (await fetcher.json<GitHubUserDetail>('/user', { signal: options?.signal })).data)),
+      sponsorable: verb(graphqlAuth, async (login, options) => {
+        const data = await graphql<SponsorableResult>('SPONSORABLE', { login }, options)
+        if (!data.repositoryOwner) {
+          throw new NotFoundError(`Account ${login} not found`, 404, '', context)
+        }
+        return data.repositoryOwner.hasSponsorsListing
+      }),
     },
     repos: {
       get: verb(true, async (ref, options) => {

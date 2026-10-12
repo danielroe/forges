@@ -44,6 +44,14 @@ If you leave out `auth` altogether, the provider makes anonymous reads of public
 
 `users.me()` needs a token. The token of an app installation doesn't belong to any account, so the capability table at the end of this page, which assumes app authentication, shows `users.me` as unsupported.
 
+## Sponsors
+
+`users.sponsorable(login)` reports whether a user or organisation has a GitHub Sponsors listing, so you can link to `https://github.com/sponsors/<login>` when it does. GitHub exposes this only over GraphQL, and GraphQL needs a credential, so it works with a user token or an app installation token and is unsupported for an anonymous provider:
+
+```ts
+const sponsorable = await forge.users.sponsorable('danielroe')
+```
+
 ## GitHub Enterprise Server
 
 To use GitHub Enterprise Server, set `baseUrl` to the API root of your server. The `instance` in every ref is then the host of the server:
@@ -159,6 +167,7 @@ Deliveries of the `installation` and `installation_repositories` events become `
 | `repos.get` | ✅ | ✅ |
 | `users.get` | ✅ | ✅ |
 | `users.me` | ❌ | ❌ |
+| `users.sponsorable` | ✅ | ❌ |
 | `repos.list` | ✅ | ❌ |
 | `repos.byOwner` | ✅ | ✅ |
 | `repos.labels` | ✅ | ✅ |

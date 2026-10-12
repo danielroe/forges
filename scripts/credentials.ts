@@ -206,7 +206,7 @@ export interface CredentialTask {
 }
 
 const TASKS: CredentialTask[] = [
-  { id: 'repos', group: 'Read', label: 'Repositories and people', capabilities: ['repos.get', 'repos.list', 'repos.byOwner', 'repos.labels', 'repos.milestones', 'repos.collaborators', 'repos.contributors', 'repos.permissionFor', 'repos.assignableUsers', 'repos.reviewerCandidates', 'users.get', 'users.me'] },
+  { id: 'repos', group: 'Read', label: 'Repositories and people', capabilities: ['repos.get', 'repos.list', 'repos.byOwner', 'repos.labels', 'repos.milestones', 'repos.collaborators', 'repos.contributors', 'repos.permissionFor', 'repos.assignableUsers', 'repos.reviewerCandidates', 'users.get', 'users.me', 'users.sponsorable'] },
   { id: 'threads', group: 'Read', label: 'Issues and PRs', capabilities: ['threads.get', 'threads.list', 'threads.getMany', 'threads.events', 'comments.list', 'comments.get', 'reactions.list', 'reviews.list', 'reviews.get', 'contents.threadFiles', 'contents.threadCommits'] },
   { id: 'code', group: 'Read', label: 'Code and history', capabilities: ['contents.file', 'contents.tree', 'contents.branches', 'contents.tags', 'contents.resolveRef', 'contents.commits', 'contents.commit', 'contents.compare'] },
   { id: 'releases', group: 'Read', label: 'Releases', capabilities: ['releases.list', 'releases.get', 'releases.latest', 'releases.getByTag', 'releases.downloadAsset'] },
