@@ -1763,10 +1763,10 @@ const GITHUB: ProviderDefinition<GitHubOptions, AppCredentials | undefined> = {
 }
 
 /** Creates a GitHub provider for github.com or a GitHub Enterprise Server instance. */
-export const github: ProviderFactoryFunction<GitHubOptions> = /* @__PURE__ */ defineForgeProvider({ ...GITHUB, webhooks: githubWebhooks })
+export const github: ProviderFactoryFunction<GitHubOptions, true> = /* @__PURE__ */ defineForgeProvider({ ...GITHUB, hasWeb: true, webhooks: githubWebhooks })
 
 /** `github()` without webhook ingestion, for bundles that never receive a delivery. */
-export const githubLite: ProviderFactoryFunction<GitHubOptions> = /* @__PURE__ */ defineForgeProvider(GITHUB)
+export const githubLite: ProviderFactoryFunction<GitHubOptions, true> = /* @__PURE__ */ defineForgeProvider({ ...GITHUB, hasWeb: true })
 
 /**
  * Token scopes and fine-grained permissions GitHub documents per endpoint

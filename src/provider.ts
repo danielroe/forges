@@ -965,7 +965,7 @@ export interface SourcesApi {
 export type { ForgeVerb } from './supports.ts'
 
 /** A connection to one forge, with its identity, its capabilities and the namespaces of operations. */
-export interface ForgeProvider {
+export interface ForgeProvider<HasWeb extends boolean = boolean> {
   /**
    * Requests endpoints relative to `baseUrl` or absolute HTTP(S) URLs.
    * Other origins omit default headers and provider credentials; explicit headers apply.
@@ -1034,7 +1034,7 @@ export interface ForgeProvider {
    * (without any deployment path), or `undefined` when the forge has no website. Useful for
    * resolving root-relative links and for building a content security policy.
    */
-  readonly webOrigin: string | undefined
+  readonly webOrigin: HasWeb extends true ? string : string | undefined
   /**
    * Token scopes or app permissions `verb` needs on this forge, as data for a
    * consent screen or a 403 explanation. Nothing in the library reads it, and

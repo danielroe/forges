@@ -143,7 +143,7 @@ const PUSHIN: ProviderDefinition<PushinOptions> = {
 }
 
 /** Creates a Pushin.eu provider. */
-export const pushin: ProviderFactoryFunction<PushinOptions> = /* @__PURE__ */ defineForgeProvider(PUSHIN)
+export const pushin: ProviderFactoryFunction<PushinOptions, true> = /* @__PURE__ */ defineForgeProvider({ ...PUSHIN, hasWeb: true })
 
 /** Scope requirements for a Pushin.eu operation. */
 export function pushinScopesFor(_verb: ForgeVerb): VerbScopes {

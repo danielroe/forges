@@ -662,7 +662,7 @@ const AZURE_DEVOPS: ProviderDefinition<AzureDevOpsOptions> = {
 }
 
 /** Creates an Azure DevOps provider for one organization on dev.azure.com, or a collection on Azure DevOps Server. */
-export const azureDevOps: ProviderFactoryFunction<AzureDevOpsOptions> = /* @__PURE__ */ defineForgeProvider({ ...AZURE_DEVOPS, webhooks: azureDevOpsWebhooks })
+export const azureDevOps: ProviderFactoryFunction<AzureDevOpsOptions, true> = /* @__PURE__ */ defineForgeProvider({ ...AZURE_DEVOPS, hasWeb: true, webhooks: azureDevOpsWebhooks })
 
 /** `azureDevOps()` without webhook ingestion, for bundles that never receive a delivery. */
-export const azureDevOpsLite: ProviderFactoryFunction<AzureDevOpsOptions> = /* @__PURE__ */ defineForgeProvider(AZURE_DEVOPS)
+export const azureDevOpsLite: ProviderFactoryFunction<AzureDevOpsOptions, true> = /* @__PURE__ */ defineForgeProvider({ ...AZURE_DEVOPS, hasWeb: true })

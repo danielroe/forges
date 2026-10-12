@@ -639,10 +639,10 @@ const BITBUCKET: ProviderDefinition<BitbucketOptions> = {
 }
 
 /** Creates a Bitbucket Cloud provider. */
-export const bitbucket: ProviderFactoryFunction<BitbucketOptions> = /* @__PURE__ */ defineForgeProvider({ ...BITBUCKET, webhooks: bitbucketWebhooks })
+export const bitbucket: ProviderFactoryFunction<BitbucketOptions, true> = /* @__PURE__ */ defineForgeProvider({ ...BITBUCKET, hasWeb: true, webhooks: bitbucketWebhooks })
 
 /** `bitbucket()` without webhook ingestion, for bundles that never receive a delivery. */
-export const bitbucketLite: ProviderFactoryFunction<BitbucketOptions> = /* @__PURE__ */ defineForgeProvider(BITBUCKET)
+export const bitbucketLite: ProviderFactoryFunction<BitbucketOptions, true> = /* @__PURE__ */ defineForgeProvider({ ...BITBUCKET, hasWeb: true })
 
 /** Bitbucket Cloud scopes, as an app password or OAuth consumer grants them. */
 export function bitbucketScopesFor(verb: ForgeVerb): VerbScopes {

@@ -317,7 +317,7 @@ export interface ProviderContext<TOptions, TState> extends ProviderBase<TOptions
 }
 
 /** The defaults, the authentication and the `setup()` of a forge. */
-export interface ProviderDefinition<TOptions extends ForgeOptionsBase, TState = undefined> {
+export interface ProviderDefinition<TOptions extends ForgeOptionsBase, TState = undefined, HasWeb extends boolean = boolean> {
   forge: ForgeKind
   /** The forge's API as a whole is unstable, so the provider can change with it. */
   experimental?: true
@@ -342,6 +342,8 @@ export interface ProviderDefinition<TOptions extends ForgeOptionsBase, TState = 
   authHeaders?: (base: ProviderBase<TOptions, TState>) => FetcherOptions['authHeaders']
   /** Query parameters for every request, such as an API version; see `FetcherOptions.query`. */
   query?: Record<string, string>
+  /** Whether the forge has a website, so the provider's `webOrigin` is typed `string`. */
+  hasWeb?: HasWeb
   /** Declares the verbs and the web links of one provider. */
   setup: (ctx: ProviderContext<TOptions, TState>) => ProviderSpec
   /** Delivery verification and translation. Omit it and `webhooks.ingest()` is unsupported. */
@@ -410,11 +412,11 @@ async function nonEmptyPage<T>(read: (cursor: Cursor | undefined) => Promise<Pag
   return { ...page, warnings: [...warnings, ...later] }
 }
 
-function createProvider<TOptions extends ForgeOptionsBase, TState>(
+function createProvider<TOptions extends ForgeOptionsBase, TState, HasWeb extends boolean = boolean>(
   definition: ProviderDefinition<TOptions, TState>,
   givenOptions: TOptions,
   givenState?: TState,
-): ForgeProvider {
+): ForgeProvider<HasWeb> {
   const givenAuth = (givenOptions as { auth?: { type: string } }).auth
   const anonymous = Boolean(definition.anonymous) && (!givenAuth || givenAuth.type === 'anonymous')
   const options = anonymous && !givenAuth ? { ...givenOptions, auth: { type: 'anonymous' } } as TOptions : givenOptions
@@ -444,7 +446,7 @@ function createProvider<TOptions extends ForgeOptionsBase, TState>(
     ...base,
     fetcher,
     createFetcher: makeFetcher,
-    derive: (derivedOptions, derivedState) => createProvider(definition, derivedOptions, derivedState ?? state),
+    derive: (derivedOptions, derivedState) => createProvider<TOptions, TState, HasWeb>(definition, derivedOptions, derivedState ?? state),
   }
   const declaredSpec = definition.setup(ctx)
   const handlers = definition.webhooks?.(ctx)
@@ -676,7 +678,7 @@ function createProvider<TOptions extends ForgeOptionsBase, TState>(
     can: (verb, kind) => supports(capabilities, verb, kind),
     support: (verb, kind) => supportOf(capabilities, verb, kind),
     urlFor: target => spec.web ? webUrlFor(spec.web, target) : undefined,
-    webOrigin: spec.web ? new URL(spec.web.origin).origin : undefined,
+    webOrigin: (spec.web ? new URL(spec.web.origin).origin : undefined) as HasWeb extends true ? string : string | undefined,
     parseUrl: url => spec.web ? parseWebUrl(spec.web, url, origin) : undefined,
     referenceTo: (ref, referenceOptions) => referenceFor(spec.web, ref, referenceOptions),
   }
@@ -687,17 +689,17 @@ function createProvider<TOptions extends ForgeOptionsBase, TState>(
  * `github({ auth })`. Nothing touches the network until `create()`.
  * @param definition The defaults, authentication and setup of the forge.
  */
-export function defineForgeProvider<TOptions extends ForgeOptionsBase, TState = undefined>(
-  definition: ProviderDefinition<TOptions, TState>,
-): ProviderFactoryFunction<TOptions> {
+export function defineForgeProvider<TOptions extends ForgeOptionsBase, TState = undefined, HasWeb extends boolean = boolean>(
+  definition: ProviderDefinition<TOptions, TState, HasWeb>,
+): ProviderFactoryFunction<TOptions, HasWeb> {
   return ((options: TOptions = {} as TOptions) => ({
     forge: definition.forge,
     ...definition.experimental ? { experimental: true as const } : {},
-    create: () => createProvider(definition, options),
-  })) as ProviderFactoryFunction<TOptions>
+    create: () => createProvider<TOptions, TState, HasWeb>(definition, options),
+  })) as ProviderFactoryFunction<TOptions, HasWeb>
 }
 
 /** The function `defineForgeProvider()` returns. Options are optional when every option is. */
-export type ProviderFactoryFunction<TOptions> = Record<never, never> extends TOptions
-  ? (options?: TOptions) => ForgeProviderFactory<ForgeProvider>
-  : (options: TOptions) => ForgeProviderFactory<ForgeProvider>
+export type ProviderFactoryFunction<TOptions, HasWeb extends boolean = boolean> = Record<never, never> extends TOptions
+  ? (options?: TOptions) => ForgeProviderFactory<ForgeProvider<HasWeb>>
+  : (options: TOptions) => ForgeProviderFactory<ForgeProvider<HasWeb>>

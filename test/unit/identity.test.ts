@@ -1,5 +1,5 @@
 import type { Page, RepoRef, RepoSection, SearchQuery, Thread, ThreadRef } from '../../src/index.ts'
-import { describe, expect, it } from 'vitest'
+import { describe, expect, expectTypeOf, it } from 'vitest'
 import { azureDevOps } from '../../src/azure-devops/index.ts'
 import { bitbucket } from '../../src/bitbucket/index.ts'
 import { fake } from '../../src/fake/index.ts'
@@ -81,6 +81,11 @@ describe('web links', () => {
     const subpath = gitlab({ auth, baseUrl: 'https://example.com/gitlab' }).create()
     expect(subpath.webOrigin).toBe('https://example.com')
     expect(subpath.urlFor({ repo: { forge: 'gitlab', instance: 'example.com', owner: 'a', name: 'b' } })).toBe('https://example.com/gitlab/a/b')
+  })
+
+  it('types webOrigin as a string where the forge has a website', () => {
+    expectTypeOf(gh.webOrigin).toEqualTypeOf<string>()
+    expectTypeOf(fake().create().webOrigin).toEqualTypeOf<string | undefined>()
   })
 
   const sha = 'a'.repeat(40)
