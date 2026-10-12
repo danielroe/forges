@@ -223,3 +223,14 @@ describe('small helpers', () => {
     expect(await provider.contents.resolveRef(repo, sha.toUpperCase())).toBe(sha)
   })
 })
+
+describe('defineForgeProvider', () => {
+  it('requires web links from a provider declared to have a website', () => {
+    const setup = (): kit.ProviderSpec => {
+      throw new Error('unused')
+    }
+    // @ts-expect-error `setup()` may omit `web`
+    kit.defineForgeProvider({ forge: 'acme', baseUrl: 'https://acme.example', hasWeb: true, setup })
+    kit.defineForgeProvider({ forge: 'acme', baseUrl: 'https://acme.example', setup })
+  })
+})
