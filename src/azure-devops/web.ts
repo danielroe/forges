@@ -3,6 +3,8 @@ import type { WebLinks } from '../web.ts'
 
 const encode = (path: string) => path.split('/').map(encodeURIComponent).join('/')
 const gitPath = (repo: RepoRef) => `/${encode(repo.owner)}/_git/${encodeURIComponent(repo.name)}`
+const isSha = (at: string) => /^[0-9a-f]{40}$/i.test(at)
+const version = (at: string) => `${isSha(at) ? 'GC' : 'GB'}${encodeURIComponent(at)}`
 
 export function azureWeb(origin: string): WebLinks {
   return {
@@ -17,9 +19,9 @@ export function azureWeb(origin: string): WebLinks {
       }
       return ref.kind === 'commit' ? `${gitPath(ref.repo)}/commit/${encodeURIComponent(ref.number)}` : undefined
     },
-    file: (repo, path, at, line) => `${gitPath(repo)}?path=${encodeURIComponent(`/${path}`)}&version=GB${encodeURIComponent(at)}${line ? `&line=${line}` : ''}`,
-    raw: (repo, path, at) => `/${encode(repo.owner)}/_apis/git/repositories/${encodeURIComponent(repo.name)}/items?path=${encodeURIComponent(`/${path}`)}&versionDescriptor.version=${encodeURIComponent(at)}&versionDescriptor.versionType=${/^[0-9a-f]{40}$/i.test(at) ? 'commit' : 'branch'}&$format=octetStream`,
-    compare: (repo, base, head) => `${gitPath(repo)}/branchCompare?baseVersion=GB${encodeURIComponent(base)}&targetVersion=GB${encodeURIComponent(head)}`,
+    file: (repo, path, at, line) => `${gitPath(repo)}?path=${encodeURIComponent(`/${path}`)}&version=${version(at)}${line ? `&line=${line}` : ''}`,
+    raw: (repo, path, at) => `/${encode(repo.owner)}/_apis/git/repositories/${encodeURIComponent(repo.name)}/items?path=${encodeURIComponent(`/${path}`)}&versionDescriptor.version=${encodeURIComponent(at)}&versionDescriptor.versionType=${isSha(at) ? 'commit' : 'branch'}&$format=octetStream`,
+    compare: (repo, base, head) => `${gitPath(repo)}/branchCompare?baseVersion=${version(base)}&targetVersion=${version(head)}`,
     parse: (segments, _url, from) => {
       const [org, project, section, ...rest] = segments
       if (!org || !project) {

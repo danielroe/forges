@@ -87,6 +87,13 @@ describe('web links', () => {
     expect(cb.urlFor({ file: { repo: target, path: 'README.md', at: sha } })).toBe(`https://codeberg.org/acme/widgets/src/commit/${sha}/README.md`)
   })
 
+  it('builds Azure DevOps file and comparison URLs at a commit', () => {
+    const target = { ...repo, forge: 'azure-devops', instance: 'dev.azure.com', owner: 'contoso/Widgets' }
+    expect(az.urlFor({ file: { repo: target, path: 'README.md', at: sha, line: 3 } })).toBe(`https://dev.azure.com/contoso/Widgets/_git/widgets?path=%2FREADME.md&version=GC${sha}&line=3`)
+    expect(az.urlFor({ file: { repo: target, path: 'README.md', at: 'main' } })).toBe('https://dev.azure.com/contoso/Widgets/_git/widgets?path=%2FREADME.md&version=GBmain')
+    expect(az.urlFor({ compare: { repo: target, base: 'main', head: sha } })).toBe(`https://dev.azure.com/contoso/Widgets/_git/widgets/branchCompare?baseVersion=GBmain&targetVersion=GC${sha}`)
+  })
+
   it('builds Tangled file URLs', () => {
     expect(tg.urlFor({ file: { repo: { ...repo, forge: 'tangled', instance: 'tangled.org', owner: 'acme.dev' }, path: 'src/a b.ts', at: 'feat/a', line: 3 } })).toBe('https://tangled.org/acme.dev/widgets/blob/feat%2Fa/src/a%20b.ts#L3')
   })
