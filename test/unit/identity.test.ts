@@ -80,6 +80,13 @@ describe('web links', () => {
     expect(provider.urlFor({ commit: { repo: target, sha: '' } })).toBeUndefined()
   })
 
+  it('builds Forgejo file URLs at a branch, tag or commit', () => {
+    const target = { ...repo, forge: 'forgejo', instance: 'codeberg.org' }
+    expect(cb.urlFor({ file: { repo: target, path: 'README.md', at: 'v1.0.0', line: 3 } })).toBe('https://codeberg.org/acme/widgets/src/v1.0.0/README.md#L3')
+    expect(cb.urlFor({ file: { repo: target, path: 'README.md', at: 'feat/a' } })).toBe('https://codeberg.org/acme/widgets/src/feat%2Fa/README.md')
+    expect(cb.urlFor({ file: { repo: target, path: 'README.md', at: sha } })).toBe(`https://codeberg.org/acme/widgets/src/commit/${sha}/README.md`)
+  })
+
   it('builds raw file URLs at a branch with a slash or a commit', () => {
     expect(gh.urlFor({ raw: { repo, path: 'README.md', at: 'feat/a' } })).toBe('https://raw.githubusercontent.com/acme/widgets/feat%2Fa/README.md')
     expect(az.urlFor({ raw: { repo: { ...repo, forge: 'azure-devops', instance: 'dev.azure.com', owner: 'contoso/Widgets' }, path: 'README.md', at: sha } })).toContain(`versionDescriptor.version=${sha}&versionDescriptor.versionType=commit`)

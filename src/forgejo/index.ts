@@ -865,7 +865,7 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
         },
       }),
     },
-    web: githubShapedWeb(baseUrl.replace(/\/api\/v1$/, ''), { pull: 'pulls', commentFragment: 'issuecomment-', file: at => /^[0-9a-f]{40}$/.test(at) ? `/src/commit/${at}` : `/src/branch/${encodeURIComponent(at)}`, lineFragment: line => `L${line}`, reserved: FORGEJO_RESERVED_PATHS }),
+    web: githubShapedWeb(baseUrl.replace(/\/api\/v1$/, ''), { pull: 'pulls', commentFragment: 'issuecomment-', file: at => /^[0-9a-f]{40}$/.test(at) ? `/src/commit/${at}` : `/src/${encodeURIComponent(at)}`, lineFragment: line => `L${line}`, reserved: FORGEJO_RESERVED_PATHS }),
     webhooks: {
       listPage: verb(true, (target, listOptions = {}) => list(hooksPath(target), listOptions, (raw: ForgejoHook) => toWebhook(target, raw))),
       create: verb(true, async (target, input, options) => toWebhook(target, (await fetcher.json<ForgejoHook>(hooksPath(target), {
