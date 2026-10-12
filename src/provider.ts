@@ -557,6 +557,7 @@ export interface ThreadsApi {
    * Changes the title, body, state, labels or assignees of a thread. Fields left out stay as they are.
    * This is one request where the forge accepts every field together. Elsewhere it makes the same calls as
    * `close()`, `setLabels()` and `setAssignees()`, so a failed call can leave earlier fields changed.
+   * A field the forge cannot set on this kind of thread throws `UnsupportedOperationError` before anything is written.
    * @example
    * ```ts
    * await provider.threads.update(ref, { state: 'closed', labels: ['wontfix'], assignees: [] })
