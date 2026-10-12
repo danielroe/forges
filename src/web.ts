@@ -29,8 +29,8 @@ export interface ReferenceOptions {
 }
 
 /**
- * How a provider builds and reads its web URLs. Paths are relative to
- * `origin`; any builder may return `undefined` when the forge has no such page.
+ * How a provider builds and reads its web URLs. Builders return a path relative
+ * to `origin` or an absolute URL, and may return `undefined` when the forge has no such page.
  */
 export interface WebLinks {
   /** The origin of the forge website, such as `https://github.com`. */
@@ -95,7 +95,7 @@ export function webUrlFor(web: WebLinks, target: UrlTarget): string | undefined 
   else {
     path = web.compare?.(target.compare.repo, target.compare.base, target.compare.head)
   }
-  return path === undefined ? undefined : `${web.origin}${path}`
+  return path === undefined ? undefined : path.startsWith('/') ? `${web.origin}${path}` : path
 }
 
 /** `ssh://user@host:port/path` or `git://host:port/path` with the host in group 1, or `user@host:path` with it in group 2; the path is group 3. */
@@ -157,6 +157,8 @@ export interface GitHubShape {
   commit?: string
   /** Whether the forge serves raw files at `/raw/{at}/{path}`; defaults to `true`. */
   raw?: boolean
+  /** The origin that serves raw files at `/{owner}/{name}/{at}/{path}`; when unset, raw files are linked at `/raw/{at}/{path}` on the forge. */
+  rawOrigin?: string
   /** The URL fragment that selects a line of a file. */
   lineFragment: (line: number) => string
   /** Reference prefix for pulls when it differs from issues. */
@@ -180,7 +182,11 @@ export function githubShapedWeb(origin: string, shape: GitHubShape): WebLinks {
       : `${repoPath(ref.thread.repo)}/${kindPath[ref.thread.kind]}/${encodeURIComponent(ref.thread.number)}#${shape.commentFragment}${ref.id}`,
     release: ref => ref.tag ? `${repoPath(ref.repo)}/releases/tag/${encodeURIComponent(ref.tag)}` : undefined,
     file: (repo, path, at, line) => `${repoPath(repo)}${shape.file(at)}/${encodePath(path)}${line ? `#${shape.lineFragment(line)}` : ''}`,
-    raw: (repo, path, at) => shape.raw === false ? undefined : `${repoPath(repo)}/raw/${encodeURIComponent(at)}/${encodePath(path)}`,
+    raw: (repo, path, at) => shape.raw === false
+      ? undefined
+      : shape.rawOrigin
+        ? `${shape.rawOrigin}${repoPath(repo)}/${encodeURIComponent(at)}/${encodePath(path)}`
+        : `${repoPath(repo)}/raw/${encodeURIComponent(at)}/${encodePath(path)}`,
     compare: (repo, base, head) => `${repoPath(repo)}/compare/${encodeURIComponent(base)}...${encodeURIComponent(head)}`,
     parse: (segments, url, from) => {
       const [owner, name, section, id] = segments

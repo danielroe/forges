@@ -63,7 +63,8 @@ describe('web links', () => {
 
   const sha = 'a'.repeat(40)
   it.each([
-    ['github', gh, repo, 'https://github.com/acme/widgets/raw/v1.0.0/src/a%20b.ts', `https://github.com/acme/widgets/commit/${sha}`],
+    ['github', gh, repo, 'https://raw.githubusercontent.com/acme/widgets/v1.0.0/src/a%20b.ts', `https://github.com/acme/widgets/commit/${sha}`],
+    ['github enterprise', github({ auth, baseUrl: 'https://ghe.example.com/api/v3' }).create(), { ...repo, instance: 'ghe.example.com' }, 'https://ghe.example.com/acme/widgets/raw/v1.0.0/src/a%20b.ts', `https://ghe.example.com/acme/widgets/commit/${sha}`],
     ['gitlab', gl, { ...repo, forge: 'gitlab', instance: 'gitlab.com', owner: 'acme/platform' }, 'https://gitlab.com/acme/platform/widgets/-/raw/v1.0.0/src/a%20b.ts', `https://gitlab.com/acme/platform/widgets/-/commit/${sha}`],
     ['forgejo', cb, { ...repo, forge: 'forgejo', instance: 'codeberg.org' }, 'https://codeberg.org/acme/widgets/raw/v1.0.0/src/a%20b.ts', `https://codeberg.org/acme/widgets/commit/${sha}`],
     ['gitea', gitea({ auth }).create(), { ...repo, forge: 'gitea', instance: 'gitea.com' }, 'https://gitea.com/acme/widgets/raw/v1.0.0/src/a%20b.ts', `https://gitea.com/acme/widgets/commit/${sha}`],
@@ -80,7 +81,7 @@ describe('web links', () => {
   })
 
   it('builds raw file URLs at a branch with a slash or a commit', () => {
-    expect(gh.urlFor({ raw: { repo, path: 'README.md', at: 'feat/a' } })).toBe('https://github.com/acme/widgets/raw/feat%2Fa/README.md')
+    expect(gh.urlFor({ raw: { repo, path: 'README.md', at: 'feat/a' } })).toBe('https://raw.githubusercontent.com/acme/widgets/feat%2Fa/README.md')
     expect(az.urlFor({ raw: { repo: { ...repo, forge: 'azure-devops', instance: 'dev.azure.com', owner: 'contoso/Widgets' }, path: 'README.md', at: sha } })).toContain(`versionDescriptor.version=${sha}&versionDescriptor.versionType=commit`)
   })
 

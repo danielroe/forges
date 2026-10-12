@@ -1456,7 +1456,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
     traits: { eventKinds: 'native', authKinds: ['token', 'app', 'anonymous'], limits: { bodyLength: 65536, commentLength: 65536, labelLength: 50 } },
     probeVersion: enterprise ? async () => (await fetcher.json<{ installed_version?: string }>('/meta')).data.installed_version : undefined,
     installations: credentials ? verb(true, createInstallationsApi(credentials)) : undefined,
-    web: githubShapedWeb(enterprise ? baseUrl.replace(/\/api\/v3$/, '') : `https://${webHost(host)}`, { pull: 'pull', discussions: true, commentFragment: 'issuecomment-', file: at => `/blob/${encodeURIComponent(at)}`, lineFragment: line => `L${line}`, reserved: GITHUB_RESERVED_PATHS }),
+    web: githubShapedWeb(enterprise ? baseUrl.replace(/\/api\/v3$/, '') : `https://${webHost(host)}`, { pull: 'pull', discussions: true, ...host === 'api.github.com' ? { rawOrigin: 'https://raw.githubusercontent.com' } : {}, commentFragment: 'issuecomment-', file: at => `/blob/${encodeURIComponent(at)}`, lineFragment: line => `L${line}`, reserved: GITHUB_RESERVED_PATHS }),
     webhooks: {
       listPage: verb(true, (target, listOptions = {}) => list(hooksPath(target), listOptions, (raw: GitHubHook) => toWebhook(target, raw), { mapError: scopeIs404 })),
       create: verb(true, async (target, input, options) => toWebhook(target, (await fetcher.json<GitHubHook>(hooksPath(target), {
