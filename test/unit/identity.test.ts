@@ -87,6 +87,10 @@ describe('web links', () => {
     expect(cb.urlFor({ file: { repo: target, path: 'README.md', at: sha } })).toBe(`https://codeberg.org/acme/widgets/src/commit/${sha}/README.md`)
   })
 
+  it('builds Tangled file URLs', () => {
+    expect(tg.urlFor({ file: { repo: { ...repo, forge: 'tangled', instance: 'tangled.org', owner: 'acme.dev' }, path: 'src/a b.ts', at: 'feat/a', line: 3 } })).toBe('https://tangled.org/acme.dev/widgets/blob/feat%2Fa/src/a%20b.ts#L3')
+  })
+
   it('builds raw file URLs at a branch with a slash or a commit', () => {
     expect(gh.urlFor({ raw: { repo, path: 'README.md', at: 'feat/a' } })).toBe('https://raw.githubusercontent.com/acme/widgets/feat%2Fa/README.md')
     expect(az.urlFor({ raw: { repo: { ...repo, forge: 'azure-devops', instance: 'dev.azure.com', owner: 'contoso/Widgets' }, path: 'README.md', at: sha } })).toContain(`versionDescriptor.version=${sha}&versionDescriptor.versionType=commit`)
