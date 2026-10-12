@@ -818,7 +818,7 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
         })
         return toThread({ ...origin, repo, kind: 'pull_request', number: String(data.number) }, data)
       }),
-      /** An issue edit takes no labels, so an issue's labels go first and the edit answers with them. */
+      /** An issue edit takes no labels, so an issue's labels are set first and the edit response includes them. */
       update: perKind({ issue: true, pull_request: true }, async (thread, input, options) => {
         const ref = requireIssueOrPull(thread, context, 'update')
         const labels = input.labels && await resolveLabels(ref.repo, input.labels)

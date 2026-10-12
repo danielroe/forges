@@ -572,7 +572,7 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
         })
         return toPullThread({ forge: FORGE, instance, repo, kind: 'pull_request', number: String(data.pullRequestId) }, data)
       }),
-      /** Pull request labels have their own endpoint, so they go before the edit, which answers with them. */
+      /** Pull request labels have their own endpoint, so they are set before the edit, whose response includes them. */
       update: perKind({ issue: true, pull_request: true }, async (thread, input, options) => {
         const ref = requireIssueOrPull(thread, context, 'update')
         if (ref.kind === 'issue') {
@@ -601,11 +601,9 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
         if (input.labels) {
           await setPullLabels(ref, input.labels, options?.signal)
         }
-        const { data } = await fetcher.json<AzurePullRequest>(pullPath(ref), {
-          method: 'PATCH',
-          json: { title: input.title, description: input.body, status: input.state && PULL_STATUSES[input.state] },
-          signal: options?.signal,
-        })
+        const json = { title: input.title, description: input.body, status: input.state && PULL_STATUSES[input.state] }
+        const edits = Object.values(json).some(value => value !== undefined)
+        const { data } = await fetcher.json<AzurePullRequest>(pullPath(ref), edits ? { method: 'PATCH', json, signal: options?.signal } : { signal: options?.signal })
         return toPullThread(ref, data)
       }),
       close: perKind(ISSUE_AND_PULL, (ref, options) => setState(ref, 'closed', options)),

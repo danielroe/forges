@@ -555,8 +555,8 @@ export interface ThreadsApi {
   create: (repo: RepoRef, input: ThreadCreateInput, options?: BaseOptions) => Promise<Thread>
   /**
    * Changes the title, body, state, labels or assignees of a thread. Fields left out stay as they are.
-   * Where the forge takes them all in one request, that's one write and can't leave the thread half changed;
-   * elsewhere it's the calls `close()`, `setLabels()` and `setAssignees()` would make.
+   * This is one request where the forge accepts every field together. Elsewhere it makes the same calls as
+   * `close()`, `setLabels()` and `setAssignees()`, so a failed call can leave earlier fields changed.
    * @example
    * ```ts
    * await provider.threads.update(ref, { state: 'closed', labels: ['wontfix'], assignees: [] })

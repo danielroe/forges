@@ -171,7 +171,7 @@ describe('bitbucket queries', () => {
 })
 
 describe('bitbucket thread updates', () => {
-  it('edits a pull request before declining it, and keeps what the decline answers', async () => {
+  it('edits a pull request before declining it and returns the declined pull request', async () => {
     const { fetch, calls } = fixtureFetch('bitbucket', { 'PUT https://api.bitbucket.org/2.0/repositories/acme/widgets/pullrequests/31': { status: 200, body: { id: 31, state: 'OPEN', title: 'Retry uploads' } } })
     const thread = await bitbucket({ auth: { type: 'token', token: 't' }, fetch }).create().threads.update(pull, { title: 'Retry uploads', state: 'closed' })
 
@@ -198,10 +198,10 @@ describe('bitbucket thread updates', () => {
     expect(thread.state).toBe('open')
   })
 
-  it('refuses to reopen a declined pull request before it writes anything', async () => {
-    const { fetch, calls } = fixtureFetch('bitbucket', { 'GET https://api.bitbucket.org/2.0/repositories/acme/widgets/pullrequests/31': { status: 200, body: { id: 31, state: 'DECLINED', title: 'Retry uploads' } } })
+  it.each(['DECLINED', 'MERGED'])('refuses to reopen a %s pull request before it writes anything', async (state) => {
+    const { fetch, calls } = fixtureFetch('bitbucket', { 'GET https://api.bitbucket.org/2.0/repositories/acme/widgets/pullrequests/31': { status: 200, body: { id: 31, state, title: 'Retry uploads' } } })
 
-    await expect(bitbucket({ auth: { type: 'token', token: 't' }, fetch }).create().threads.update(pull, { title: 'Retry uploads', state: 'open' })).rejects.toThrow('cannot reopen')
+    await expect(bitbucket({ auth: { type: 'token', token: 't' }, fetch }).create().threads.update(pull, { title: 'Retry uploads', state: 'open' })).rejects.toThrow(`cannot reopen a ${state.toLowerCase()} pull request`)
     expect(calls.map(call => call.method)).toEqual(['GET'])
   })
 

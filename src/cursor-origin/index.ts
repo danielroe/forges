@@ -329,7 +329,7 @@ function setupOrigin({ options, baseUrl, instance, origin: context, fetcher, cre
         }
         return toThread(ref, data)
       }),
-      /** Labels have their own endpoint, so they go before the edit, which answers with them. */
+      /** Labels have their own endpoint, so they are set before the edit, whose response includes them. */
       update: perKind(UNVERIFIED, async (thread, input, options) => {
         const ref = requireThread(thread, context)
         if (input.assignees) {
@@ -339,7 +339,8 @@ function setupOrigin({ options, baseUrl, instance, origin: context, fetcher, cre
           await fetcher.raw(`${pullPath(ref)}/labels`, { method: 'PUT', json: { labels: input.labels }, signal: options?.signal })
         }
         const json = { title: input.title, body: input.body, state: input.state }
-        return toThread(ref, (await fetcher.json<OriginPullRequest>(pullPath(ref), { method: 'PATCH', json, signal: options?.signal })).data)
+        const edits = Object.values(json).some(value => value !== undefined)
+        return toThread(ref, (await fetcher.json<OriginPullRequest>(pullPath(ref), edits ? { method: 'PATCH', json, signal: options?.signal } : { signal: options?.signal })).data)
       }),
       close: perKind(PULL, async (thread, options) => {
         await fetcher.raw(pullPath(requireThread(thread, context)), { method: 'PATCH', json: { state: 'closed' }, signal: options?.signal })

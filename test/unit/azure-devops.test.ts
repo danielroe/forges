@@ -151,6 +151,16 @@ describe('azure devops thread updates', () => {
     expect(thread.state).toBe('closed')
   })
 
+  it('reads a pull request back instead of patching it when only its labels change', async () => {
+    const { instance, calls } = provider({
+      [`GET ${A}/git/repositories/widgets/pullRequests/42/labels?api-version=7.1`]: { status: 200, body: { value: [] } },
+      [`POST ${A}/git/repositories/widgets/pullRequests/42/labels?api-version=7.1`]: { status: 200, body: { id: 'l-2', name: 'bug' } },
+    })
+    await instance.threads.update(pull, { labels: ['bug'] })
+
+    expect(calls.map(call => `${call.method} ${new URL(call.url).pathname.split('/pullRequests/')[1]}`)).toEqual(['GET 42/labels', 'POST 42/labels', 'GET 42'])
+  })
+
   it('refuses pull request assignees before it writes anything', async () => {
     const { instance, calls } = provider()
 

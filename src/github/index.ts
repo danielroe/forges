@@ -1690,7 +1690,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
         const ref = requireThread(thread, context)
         if (ref.kind === 'discussion') {
           if (input.labels || input.assignees) {
-            throw new UnsupportedOperationError('GitHub discussions take neither labels nor assignees here', context)
+            throw new UnsupportedOperationError('Setting labels or assignees on a GitHub discussion is not supported', context)
           }
           const id = await discussionId(ref, options)
           if (input.state) {

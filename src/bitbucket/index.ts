@@ -612,7 +612,7 @@ const BITBUCKET: ProviderDefinition<BitbucketOptions, undefined, true> = {
           })
           return toPullThread({ forge: FORGE, instance, repo, kind: 'pull_request', number: String(data.id) }, data)
         }),
-        /** Declining is its own call, so any edit goes first and the decline answers with both. */
+        /** Declining is a separate call, so an edit goes first and the decline response carries both. */
         update: perKind({ pull_request: true }, async (thread, input, options) => {
           const ref = requirePull(thread, 'updated')
           if (input.labels) {
@@ -625,7 +625,7 @@ const BITBUCKET: ProviderDefinition<BitbucketOptions, undefined, true> = {
           if (input.state === 'open') {
             const { data } = await fetcher.json<BitbucketPullRequest>(threadPath(ref), { signal: options?.signal })
             if (data.state !== 'OPEN') {
-              throw new UnsupportedOperationError('Bitbucket cannot reopen a declined pull request', context)
+              throw new UnsupportedOperationError(`Bitbucket cannot reopen a ${data.state.toLowerCase()} pull request`, context)
             }
             if (input.title === undefined && input.body === undefined) {
               return toPullThread(ref, data)

@@ -678,12 +678,12 @@ describe('tangled thread updates', () => {
     })
   })
 
-  it('answers with what it wrote, not with the backlink index that has yet to see it', async () => {
+  it('returns the state, labels and assignees it wrote', async () => {
     const { instance } = provider(labelled)
     const thread = await instance.threads.update(pull, { state: 'closed', labels: ['bug'], assignees: [ADA] })
 
     expect(thread.state).toBe('closed')
-    expect(thread.labels).toEqual([{ name: 'bug' }])
+    expect(thread.labels).toEqual([{ name: 'bug', colour: 'EF4444' }])
     expect(thread.assignees.map(actor => actor.id)).toEqual([ADA])
   })
 

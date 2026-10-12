@@ -402,7 +402,7 @@ const TANGLED: ProviderDefinition<TangledOptions, undefined, true> = {
       const dids = await Promise.all(assignees.map(assignee => didOf(assignee, options?.signal)))
       await changeLabels(thread, options?.signal, labels => assigneeChanges(labels, dids))
     }
-    /** One label op carries labels and assignees, ahead of the rest, because it checks the names; the answer says what was written, since the backlink index lags. */
+    /** Labels and assignees go in one label op, written first so an unknown name fails before any other write. The returned thread reflects the writes, since the backlink index lags. */
     const update: ThreadsApi['update'] = async (thread, input, options) => {
       const signal = options?.signal
       if (!input.state && !input.labels && !input.assignees) {
@@ -413,8 +413,12 @@ const TANGLED: ProviderDefinition<TangledOptions, undefined, true> = {
         throw new InsufficientScopeError('Records can only be edited by the account that wrote them', 403, '', context)
       }
       const dids = input.assignees && await Promise.all(input.assignees.map(assignee => didOf(assignee, signal)))
+      let written: Label[] | undefined
       if (input.labels || dids) {
-        await changeLabels(thread, signal, labels => [...input.labels ? labelChanges(labels, input.labels) : [], ...dids ? assigneeChanges(labels, dids) : []])
+        await changeLabels(thread, signal, (labels) => {
+          written = input.labels && operandsFor(labels, input.labels).map(({ key, value }) => toLabel(labels.definitions.find(({ uri }) => uri === key)!.definition, value))
+          return [...input.labels ? labelChanges(labels, input.labels) : [], ...dids ? assigneeChanges(labels, dids) : []]
+        })
       }
       if (input.state) {
         await setState(thread, input.state, signal)
@@ -426,7 +430,7 @@ const TANGLED: ProviderDefinition<TangledOptions, undefined, true> = {
       return {
         ...current,
         state: input.state ?? current.state,
-        labels: input.labels ? input.labels.map(name => ({ name })) : current.labels,
+        labels: written ?? current.labels,
         assignees: dids ? await Promise.all([...new Set(dids)].map(did => actorFor(did, signal))) : current.assignees,
       }
     }

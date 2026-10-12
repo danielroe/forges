@@ -1504,7 +1504,7 @@ export interface ThreadCreateInput {
 export interface ThreadUpdateInput {
   title?: string
   body?: string
-  /** Closes or reopens the thread. `threads.close()` is the one that takes a reason. */
+  /** Closes or reopens the thread. To give a reason, use `threads.close()`. */
   state?: 'open' | 'closed'
   /** Names of the labels to replace the current ones; `[]` clears them. */
   labels?: string[]

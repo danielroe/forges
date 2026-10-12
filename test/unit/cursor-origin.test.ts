@@ -75,6 +75,13 @@ describe('cursor origin thread updates', () => {
     expect(calls.map(call => call.body)).toEqual([{ labels: ['bug'] }, { title: 'Retry uploads', state: 'closed' }])
   })
 
+  it('reads the pull request back instead of patching it when only its labels change', async () => {
+    const { instance, calls } = serve()
+    await instance.threads.update(pull, { labels: ['bug'] })
+
+    expect(calls.map(call => `${call.method} ${call.path.replace(/^.*\/pulls\//, '')}`)).toEqual(['PUT 12/labels', 'GET 12'])
+  })
+
   it('refuses assignees before it writes anything', async () => {
     const { instance, calls } = serve()
 
