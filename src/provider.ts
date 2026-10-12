@@ -1034,7 +1034,7 @@ export interface ForgeProvider {
    * (without any deployment path), or `undefined` when the forge has no website. Useful for
    * resolving root-relative links and for building a content security policy.
    */
-  webOrigin: string | undefined
+  readonly webOrigin: string | undefined
   /**
    * Token scopes or app permissions `verb` needs on this forge, as data for a
    * consent screen or a 403 explanation. Nothing in the library reads it, and
