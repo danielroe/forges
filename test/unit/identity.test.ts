@@ -77,6 +77,12 @@ describe('web links', () => {
     expect(gitea({ auth, baseUrl: 'https://gitea.example.com' }).create().webOrigin).toBe('https://gitea.example.com')
   })
 
+  it('exposes the canonical origin for a subpath deployment, keeping the path for links', () => {
+    const subpath = gitlab({ auth, baseUrl: 'https://example.com/gitlab' }).create()
+    expect(subpath.webOrigin).toBe('https://example.com')
+    expect(subpath.urlFor({ repo: { forge: 'gitlab', instance: 'example.com', owner: 'a', name: 'b' } })).toBe('https://example.com/gitlab/a/b')
+  })
+
   const sha = 'a'.repeat(40)
   it.each([
     ['github', gh, repo, 'https://raw.githubusercontent.com/acme/widgets/v1.0.0/src/a%20b.ts', `https://github.com/acme/widgets/commit/${sha}`],

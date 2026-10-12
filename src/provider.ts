@@ -1030,9 +1030,9 @@ export interface ForgeProvider {
    */
   urlFor: (target: UrlTarget) => string | undefined
   /**
-   * The origin of the forge's website for this instance, such as `https://github.com`, or
-   * `undefined` when the forge has no website. Useful for resolving root-relative links and
-   * for building a content security policy.
+   * The canonical origin of the forge's website for this instance, such as `https://github.com`
+   * (without any deployment path), or `undefined` when the forge has no website. Useful for
+   * resolving root-relative links and for building a content security policy.
    */
   webOrigin: string | undefined
   /**
