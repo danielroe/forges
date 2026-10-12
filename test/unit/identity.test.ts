@@ -96,12 +96,14 @@ describe('web links', () => {
     expect(tg.urlFor({ repo: { forge: 'tangled', instance: 'tangled.org', owner: 'did:plc:abc', name: 'core' } })).toBe('https://tangled.org/did:plc:abc/core')
   })
 
-  it('builds no raw file or commit URL for a namespace', () => {
-    const group: RepoRef = { forge: 'gitlab', instance: 'gitlab.com', owner: 'acme', name: '', kind: 'namespace' }
-    expect(gl.urlFor({ raw: { repo: group, path: 'README.md', at: 'main' } })).toBeUndefined()
-    expect(gl.urlFor({ commit: { repo: group, sha } })).toBeUndefined()
-    expect(az.urlFor({ raw: { repo: { ...group, forge: 'azure-devops', instance: 'dev.azure.com' }, path: 'README.md', at: 'main' } })).toBeUndefined()
-    expect(az.urlFor({ commit: { repo: { ...group, forge: 'azure-devops', instance: 'dev.azure.com' }, sha } })).toBeUndefined()
+  it.each([
+    ['gitlab', gl, { forge: 'gitlab', instance: 'gitlab.com', owner: 'acme', name: '', kind: 'namespace' }],
+    ['azure-devops', az, { forge: 'azure-devops', instance: 'dev.azure.com', owner: 'contoso/Widgets', name: '', kind: 'namespace' }],
+  ] as const)('builds no file, raw file, commit or comparison URL for a %s namespace', (_, provider, group) => {
+    expect(provider.urlFor({ file: { repo: group, path: 'README.md', at: 'main' } })).toBeUndefined()
+    expect(provider.urlFor({ raw: { repo: group, path: 'README.md', at: 'main' } })).toBeUndefined()
+    expect(provider.urlFor({ commit: { repo: group, sha } })).toBeUndefined()
+    expect(provider.urlFor({ compare: { repo: group, base: 'main', head: 'next' } })).toBeUndefined()
   })
 
   it('parses web URLs on its own instance only', () => {

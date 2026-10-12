@@ -68,6 +68,10 @@ function encodePath(path: string): string {
 }
 
 export function webUrlFor(web: WebLinks, target: UrlTarget): string | undefined {
+  const revision = 'file' in target ? target.file : 'raw' in target ? target.raw : 'commit' in target ? target.commit : 'compare' in target ? target.compare : undefined
+  if (revision?.repo.kind === 'namespace') {
+    return undefined
+  }
   let path: string | undefined
   if ('repo' in target) {
     path = web.repo(target.repo)
@@ -90,7 +94,7 @@ export function webUrlFor(web: WebLinks, target: UrlTarget): string | undefined 
   }
   else if ('commit' in target) {
     const { repo, sha } = target.commit
-    path = sha && repo.kind !== 'namespace' ? web.thread({ forge: repo.forge, instance: repo.instance, repo, kind: 'commit', number: sha }) : undefined
+    path = sha ? web.thread({ forge: repo.forge, instance: repo.instance, repo, kind: 'commit', number: sha }) : undefined
   }
   else {
     path = web.compare?.(target.compare.repo, target.compare.base, target.compare.head)

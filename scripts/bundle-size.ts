@@ -13,12 +13,12 @@ import { rolldown } from 'rolldown'
 /** `absent` is a string only the webhook code contains; a Lite bundle must not carry it. */
 const BUDGETS: Array<{ name: string, source: string, imports: string, minified: number, gzipped: number, absent?: string }> = [
   { name: 'forges', source: 'index.mjs', imports: 'createForges', minified: 9_400, gzipped: 2_800 },
-  { name: 'forges/github', source: 'github/index.mjs', imports: 'github', minified: 108_900, gzipped: 33_200 },
-  { name: 'github lite', source: 'github/index.mjs', imports: 'githubLite', minified: 100_900, gzipped: 30_900, absent: 'x-hub-signature-256' },
-  { name: 'forges/gitlab', source: 'gitlab/index.mjs', imports: 'gitlab', minified: 85_800, gzipped: 26_700 },
-  { name: 'gitlab lite', source: 'gitlab/index.mjs', imports: 'gitlabLite', minified: 78_900, gzipped: 24_700, absent: 'x-gitlab-token' },
-  { name: 'forges/tangled', source: 'tangled/index.mjs', imports: 'tangled', minified: 77_000, gzipped: 25_100 },
-  { name: 'tangled lite', source: 'tangled/index.mjs', imports: 'tangledLite', minified: 73_200, gzipped: 23_900, absent: 'x-tangled-signature-256' },
+  { name: 'forges/github', source: 'github/index.mjs', imports: 'github', minified: 109_000, gzipped: 33_200 },
+  { name: 'github lite', source: 'github/index.mjs', imports: 'githubLite', minified: 101_000, gzipped: 30_900, absent: 'x-hub-signature-256' },
+  { name: 'forges/gitlab', source: 'gitlab/index.mjs', imports: 'gitlab', minified: 85_900, gzipped: 26_800 },
+  { name: 'gitlab lite', source: 'gitlab/index.mjs', imports: 'gitlabLite', minified: 79_000, gzipped: 24_800, absent: 'x-gitlab-token' },
+  { name: 'forges/tangled', source: 'tangled/index.mjs', imports: 'tangled', minified: 77_100, gzipped: 25_200 },
+  { name: 'tangled lite', source: 'tangled/index.mjs', imports: 'tangledLite', minified: 73_400, gzipped: 23_900, absent: 'x-tangled-signature-256' },
 ]
 
 async function measure(source: string, imports: string): Promise<{ minified: number, gzipped: number, lazy: number, code: string }> {

@@ -16,7 +16,7 @@ export function gitlabWeb(origin: string): WebLinks {
     comment: ref => ref.thread.repo.kind === 'namespace' || !SECTIONS[ref.thread.kind] ? undefined : `${projectPath(ref.thread.repo)}/-/${SECTIONS[ref.thread.kind]}/${encodeURIComponent(ref.thread.number)}#note_${ref.id}`,
     release: ref => ref.tag ? `${projectPath(ref.repo)}/-/releases/${encodeURIComponent(ref.tag)}` : undefined,
     file: (repo, path, at, line) => `${projectPath(repo)}/-/blob/${encodeURIComponent(at)}/${encode(path)}${line ? `#L${line}` : ''}`,
-    raw: (repo, path, at) => repo.kind === 'namespace' ? undefined : `${projectPath(repo)}/-/raw/${encodeURIComponent(at)}/${encode(path)}`,
+    raw: (repo, path, at) => `${projectPath(repo)}/-/raw/${encodeURIComponent(at)}/${encode(path)}`,
     compare: (repo, base, head) => `${projectPath(repo)}/-/compare/${encodeURIComponent(base)}...${encodeURIComponent(head)}`,
     parse: (segments, url, from) => {
       const separator = segments.indexOf('-')
