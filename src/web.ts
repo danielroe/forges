@@ -1,7 +1,10 @@
 import type { CommentRef, ForgeOrigin, ReleaseRef, RepoRef, ResolvedThreadRef, ThreadKind, ThreadRef } from './model.ts'
 import { isResolvedThread, normaliseRepoName } from './model.ts'
 
-/** Something with a web page. */
+/**
+ * Something with a web page. A revision (`at`, `base` or `head`) is a branch,
+ * tag or commit sha; Azure DevOps reads anything but a full commit sha as a branch.
+ */
 export type UrlTarget
   = | { repo: RepoRef }
     | { thread: ThreadRef }
