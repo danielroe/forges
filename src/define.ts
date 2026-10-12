@@ -676,6 +676,7 @@ function createProvider<TOptions extends ForgeOptionsBase, TState>(
     can: (verb, kind) => supports(capabilities, verb, kind),
     support: (verb, kind) => supportOf(capabilities, verb, kind),
     urlFor: target => spec.web ? webUrlFor(spec.web, target) : undefined,
+    webOrigin: spec.web?.origin,
     parseUrl: url => spec.web ? parseWebUrl(spec.web, url, origin) : undefined,
     referenceTo: (ref, referenceOptions) => referenceFor(spec.web, ref, referenceOptions),
   }

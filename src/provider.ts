@@ -1030,6 +1030,12 @@ export interface ForgeProvider {
    */
   urlFor: (target: UrlTarget) => string | undefined
   /**
+   * The origin of the forge's website for this instance, such as `https://github.com`, or
+   * `undefined` when the forge has no website. Useful for resolving root-relative links and
+   * for building a content security policy.
+   */
+  webOrigin: string | undefined
+  /**
    * Token scopes or app permissions `verb` needs on this forge, as data for a
    * consent screen or a 403 explanation. Nothing in the library reads it, and
    * an unmapped verb returns `{}`.

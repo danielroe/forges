@@ -61,6 +61,22 @@ describe('web links', () => {
     expect(gh.urlFor({ thread: { ...pull, number: undefined } })).toBeUndefined()
   })
 
+  it('exposes the forge web origin', () => {
+    expect(gh.webOrigin).toBe('https://github.com')
+    expect(gl.webOrigin).toBe('https://gitlab.com')
+    expect(cb.webOrigin).toBe('https://codeberg.org')
+    expect(bb.webOrigin).toBe('https://bitbucket.org')
+    expect(az.webOrigin).toBe('https://dev.azure.com')
+    expect(tg.webOrigin).toBe('https://tangled.org')
+  })
+
+  it('exposes the origin of a self-hosted instance', () => {
+    expect(github({ auth, baseUrl: 'https://ghe.example.com/api/v3' }).create().webOrigin).toBe('https://ghe.example.com')
+    expect(gitlab({ auth, baseUrl: 'https://git.example.com' }).create().webOrigin).toBe('https://git.example.com')
+    expect(forgejo({ auth, baseUrl: 'https://forgejo.example.com' }).create().webOrigin).toBe('https://forgejo.example.com')
+    expect(gitea({ auth, baseUrl: 'https://gitea.example.com' }).create().webOrigin).toBe('https://gitea.example.com')
+  })
+
   const sha = 'a'.repeat(40)
   it.each([
     ['github', gh, repo, 'https://raw.githubusercontent.com/acme/widgets/v1.0.0/src/a%20b.ts', `https://github.com/acme/widgets/commit/${sha}`],
