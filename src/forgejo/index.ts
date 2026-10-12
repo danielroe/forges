@@ -124,6 +124,9 @@ const FORGEJO_ACTION_JOBS = '16.0'
 const GITEA_ACTION_RUNS = '1.25'
 const GITEA_ACTION_LOGS = '1.24'
 
+/** The Gitea version that answers a review comment; Forgejo has no such endpoint. */
+const GITEA_REVIEW_REPLIES = '1.27'
+
 /** Timelines send no usable count, so only a full page of an explicit size shows that another follows. */
 const TIMELINE_PAGE_SIZE = 50
 
@@ -485,9 +488,12 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
   const isGitea = profile.forge === 'gitea'
 
   /** Codeberg and gitea.com run a current release, so only a self-hosted instance waits for its version. */
-  function actions(forgejoMinimum: string, giteaMinimum: string): SupportInput {
-    const minimum = isGitea ? giteaMinimum : forgejoMinimum
+  function released(minimum: string): SupportInput {
     return hostOf(baseUrl) === hostOf(profile.defaultBaseUrl) ? true : ({ version }) => versionAtLeast(version, minimum)
+  }
+
+  function actions(forgejoMinimum: string, giteaMinimum: string): SupportInput {
+    return released(isGitea ? giteaMinimum : forgejoMinimum)
   }
 
   /** Gitea lists runs and serves job logs only with a token. */
@@ -744,6 +750,18 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
           signal: options?.signal,
         })
         return toReview(pull, data, [])
+      }),
+      replyToReviewComment: verb(isGitea && released(GITEA_REVIEW_REPLIES), async (thread, comment, body, options) => {
+        const pull = requirePull(thread, 'reviewed')
+        if (comment.ref === undefined) {
+          throw new UnsupportedOperationError(`${profile.forge} replies to a review comment by its id; pass the comment with its \`ref\``, context)
+        }
+        const { data } = await fetcher.json<ForgejoReviewComment>(`${pullPath(pull)}/comments/${encodeURIComponent(comment.ref.id)}/replies`, {
+          method: 'POST',
+          json: { body },
+          signal: options?.signal,
+        })
+        return toReviewComment(pull, data)
       }),
       get: perKind({ issue: true, pull_request: true, commit: true }, get),
       getMany: verb(true, (refs, options) => getManyConcurrently(refs, get, options)),

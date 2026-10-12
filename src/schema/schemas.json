@@ -1695,6 +1695,10 @@
             "$ref": "#/components/schemas/Support",
             "description": "Support for `threads.approve()`."
           },
+          "reply": {
+            "$ref": "#/components/schemas/Support",
+            "description": "Support for `threads.replyToReviewComment()`."
+          },
           "resolveThread": {
             "$ref": "#/components/schemas/Support",
             "description": "Support for `threads.resolveReviewThread()` and `threads.unresolveReviewThread()`."
@@ -1706,6 +1710,7 @@
           "create",
           "submit",
           "approve",
+          "reply",
           "resolveThread"
         ],
         "description": "Reviews on a pull request. `list` is `'emulated'` where reviews are synthesised from approvals or votes; `create` then covers only the events the forge's approval endpoint can express."

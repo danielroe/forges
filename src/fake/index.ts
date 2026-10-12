@@ -626,11 +626,41 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
   }
 
   function setReviewThreadResolved(ref: ThreadRef, id: string, resolved: boolean): void {
-    const comment = threadState(ref).reviews.flatMap(review => review.comments === false ? [] : review.comments).find(item => item.thread?.id === id)
-    if (!comment?.thread) {
+    const comments = threadState(ref).reviews.flatMap(review => review.comments === false ? [] : review.comments).filter(item => item.thread?.id === id)
+    if (comments.length === 0) {
       throw notFound(`No review thread ${id}`)
     }
-    comment.thread = { id, resolved }
+    for (const comment of comments) {
+      comment.thread = { id, resolved }
+    }
+  }
+
+  function replyToReviewComment(ref: ThreadRef, comment: Pick<ReviewComment, 'ref' | 'thread' | 'inReplyTo'>, body: string): ReviewComment {
+    const state = threadState(ref)
+    for (const review of state.reviews) {
+      if (review.comments === false) {
+        continue
+      }
+      const parent = review.comments.find(item => comment.ref ? item.ref?.id === comment.ref.id : comment.thread !== undefined && item.thread?.id === comment.thread.id)
+      if (!parent?.ref) {
+        continue
+      }
+      const reply: ReviewComment = {
+        ref: { ...origin, thread: state.thread.ref, id: `${parent.ref.id}-reply-${review.comments.length + 1}` },
+        body,
+        author: actor(viewerLogin),
+        path: parent.path,
+        line: parent.line,
+        side: parent.side,
+        inReplyTo: parent.inReplyTo ?? parent.ref.id,
+        thread: parent.thread && { ...parent.thread },
+        createdAt: new Date(),
+        raw: { body },
+      }
+      review.comments.push(reply)
+      return reply
+    }
+    throw notFound(`No review comment ${comment.ref?.id ?? comment.thread?.id}`)
   }
 
   const factory = defineForgeProvider<FakeOptions>({
@@ -890,6 +920,7 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
           const shas = new Set(threadState(ref).commits)
           return pageOf(state.commits.filter(commit => shas.has(commit.sha)), listOptions)
         }),
+        replyToReviewComment: verb(support('threads.replyToReviewComment', true), async (ref, comment, body) => replyToReviewComment(ref, comment, body)),
         reviewThreads: verb(support('threads.resolveReviewThread', true), {
           resolveReviewThread: async (ref, id) => setReviewThreadResolved(ref, id, true),
           unresolveReviewThread: async (ref, id) => setReviewThreadResolved(ref, id, false),

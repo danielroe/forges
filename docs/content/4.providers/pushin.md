@@ -152,6 +152,7 @@ Since `pushin()` contains no webhook code, there is no `pushinLite()` factory fo
 | `reviews.create` | ❌ | ❌ |
 | `reviews.submit` | ❌ | ❌ |
 | `reviews.approve` | ❌ | ❌ |
+| `reviews.reply` | ❌ | ❌ |
 | `reviews.resolveThread` | ❌ | ❌ |
 | `releases.list` | ❌ | ❌ |
 | `releases.get` | ❌ | ❌ |

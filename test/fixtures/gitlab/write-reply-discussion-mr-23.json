@@ -1,0 +1,31 @@
+{
+  "handAuthored": true,
+  "request": {
+    "method": "POST",
+    "url": "https://gitlab.com/api/v4/projects/acme%2Fplatform%2Fwidgets/merge_requests/23/discussions/6a9c1750b37d513a43987b574953fceb50b03ce7/notes"
+  },
+  "response": {
+    "status": 201,
+    "headers": {},
+    "body": {
+      "id": 5550011,
+      "type": "DiscussionNote",
+      "body": "Yes, it does now.",
+      "system": false,
+      "author": {
+        "id": 4103,
+        "username": "ada",
+        "name": "Ada",
+        "avatar_url": null,
+        "web_url": "https://gitlab.com/ada",
+        "state": "active"
+      },
+      "created_at": "2025-09-16T10:00:00.000Z",
+      "updated_at": "2025-09-16T10:00:00.000Z",
+      "noteable_type": "MergeRequest",
+      "noteable_iid": 23,
+      "resolvable": true,
+      "resolved": false
+    }
+  }
+}

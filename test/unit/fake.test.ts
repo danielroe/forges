@@ -183,6 +183,22 @@ describe('fake forge', () => {
     expect((reviews[0]!.comments as Exclude<typeof submitted.comments, false>)[0]!.thread).toEqual({ id: comment.thread!.id, resolved: true })
     expect(factory.store.events.at(-1)!.detail).toMatchObject({ type: 'review', state: 'changes_requested' })
   })
+  it('replies to a review comment inside its conversation', async () => {
+    const forge = fake({ seed }).create()
+    const repo = { forge: 'fake', instance: 'fake.test', owner: 'acme', name: 'widgets' }
+    const [pull] = (await forge.threads.listPage(repo, { kind: 'pull_request' })).items
+
+    const review = await forge.threads.createReview(pull!.ref, { event: 'comment', comments: [{ path: 'src/index.ts', line: 3, body: 'rename' }] })
+    const comment = (review.comments as Exclude<typeof review.comments, false>)[0]!
+    const reply = await forge.threads.replyToReviewComment(pull!.ref, comment, 'renamed')
+    const second = await forge.threads.replyToReviewComment(pull!.ref, reply, 'and the tests')
+    await forge.threads.resolveReviewThread(pull!.ref, comment.thread!.id)
+    const [read] = await Array.fromAsync(forge.threads.reviews(pull!.ref))
+
+    expect(reply).toMatchObject({ body: 'renamed', path: 'src/index.ts', line: 3, inReplyTo: comment.ref!.id, thread: comment.thread })
+    expect(second.inReplyTo).toBe(comment.ref!.id)
+    expect((read!.comments as Exclude<typeof review.comments, false>).map(item => item.thread?.resolved)).toEqual([true, true, true])
+  })
   it('reports a commit status, lists it back and reads a job log', async () => {
     const forge = fake({ seed: { ...seed, runs: [{ repo: 'acme/widgets', name: 'ci', state: 'failure' as const, branch: 'main', jobs: [{ name: 'lint', state: 'failure' as const, log: 'lint failed\n' }] }] } }).create()
     const repo = { forge: 'fake', instance: 'fake.test', owner: 'acme', name: 'widgets' }

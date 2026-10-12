@@ -156,6 +156,7 @@ export interface ProviderSpec {
     getReview?: Verb<ThreadsApi['getReview']>
     createReview?: Verb<ThreadsApi['createReview']>
     submitReview?: Verb<ThreadsApi['submitReview']>
+    replyToReviewComment?: Verb<ThreadsApi['replyToReviewComment']>
     /** Omit to derive approval from `createReview`. */
     approve?: Verb<ThreadsApi['approve']>
     filesPage?: Verb<ThreadsApi['filesPage']>

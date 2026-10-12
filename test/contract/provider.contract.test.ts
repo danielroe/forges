@@ -700,6 +700,7 @@ describe.each(contracts)('contract: $name', (contract) => {
       ['threads.createReview', (forge: ForgeProvider) => forge.threads.createReview(threadRef(), { event: 'approve' })],
       ['threads.submitReview', (forge: ForgeProvider) => forge.threads.submitReview({ forge: contract.name, instance: contract.instance, thread: threadRef(), id: '1' }, 'approve')],
       ['threads.approve', (forge: ForgeProvider) => forge.threads.approve(threadRef())],
+      ['threads.replyToReviewComment', (forge: ForgeProvider) => forge.threads.replyToReviewComment(threadRef(), { ref: { forge: contract.name, instance: contract.instance, thread: threadRef(), id: '1' }, thread: { id: '1', resolved: false } }, 'b')],
       ['threads.resolveReviewThread', (forge: ForgeProvider) => forge.threads.resolveReviewThread(threadRef(), '1')],
       ['threads.unresolveReviewThread', (forge: ForgeProvider) => forge.threads.unresolveReviewThread(threadRef(), '1')],
       ['checks.list', (forge: ForgeProvider) => forge.checks.list(repoRef(), 'deadbeef')],

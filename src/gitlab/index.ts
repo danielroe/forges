@@ -913,6 +913,18 @@ const GITLAB: ProviderDefinition<GitLabOptions, undefined, true> = {
             raw: approvals,
           }
         }),
+        replyToReviewComment: verb(true, async (thread, comment, body, options) => {
+          const ref = requireMerge(thread, 'reviewed')
+          if (comment.thread === undefined) {
+            throw new UnsupportedOperationError('GitLab replies inside a discussion; pass a comment with its `thread` from `comments()`', context)
+          }
+          const { data } = await fetcher.json<GitLabNoteDetail>(`${threadPath(ref)}/discussions/${encodeURIComponent(comment.thread.id)}/notes`, {
+            method: 'POST',
+            json: { body },
+            signal: options?.signal,
+          })
+          return { ...toNoteComment(ref, data), thread: { id: comment.thread.id, resolved: Boolean(data.resolved) } }
+        }),
         reviewThreads: verb(true, {
           resolveReviewThread: (thread, id, options) => setDiscussionResolved(thread, id, true, options),
           unresolveReviewThread: (thread, id, options) => setDiscussionResolved(thread, id, false, options),

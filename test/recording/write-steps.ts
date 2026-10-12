@@ -1,4 +1,4 @@
-import type { Actor, Comment, CommentRef, Milestone, Notification, Release, RepoRef, Review, Thread, ThreadRef, Webhook, WebhookDeliveryRecord } from '../../src/model.ts'
+import type { Actor, Comment, CommentRef, Milestone, Notification, Release, RepoRef, Review, ReviewComment, Thread, ThreadRef, Webhook, WebhookDeliveryRecord } from '../../src/model.ts'
 import type { ForgeProvider, ForgeVerb } from '../../src/provider.ts'
 import type { RecordingManifest } from './steps.ts'
 import { createHash } from 'node:crypto'
@@ -281,6 +281,16 @@ export const WRITE_STEPS: WriteStep[] = [
     return review
   } },
   { name: 'get review comment', verb: 'threads.getComment', kind: 'pull_request', run: (provider, _manifest, context) => provider.threads.getComment(need(context.reviewComment, 'a review comment')) },
+  { name: 'reply to review comment', verb: 'threads.replyToReviewComment', kind: 'pull_request', run: async (provider, manifest, context) => {
+    const pull = threadOf(context, 'pull_request')
+    const reviews = await provider.threads.reviewsPage(pull)
+    let comment: ReviewComment | undefined = reviews.items.flatMap(review => review.comments || []).find(item => item.ref)
+    /** GitLab reviews are approvals, so its review comments are the notes of a resolvable discussion. */
+    const comments = comment ? undefined : await provider.threads.commentsPage(pull)
+    comment ??= comments?.items.find(item => item.thread)
+    const reply = await provider.threads.replyToReviewComment(pull, need(comment, 'a review comment'), `A reply from run ${manifest.run.id}.`)
+    return { reviews, comments, reply }
+  } },
   { name: 'resolve review thread', verb: 'threads.resolveReviewThread', kind: 'pull_request', run: async (provider, _manifest, context) => {
     const pull = threadOf(context, 'pull_request')
     const reviews = await provider.threads.reviewsPage(pull)

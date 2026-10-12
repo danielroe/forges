@@ -176,6 +176,7 @@ You can manage webhooks on repositories only. Gitee doesn't keep a delivery log,
 | `reviews.create` | unverified | ❌ |
 | `reviews.submit` | ❌ | ❌ |
 | `reviews.approve` | unverified | ❌ |
+| `reviews.reply` | ❌ | ❌ |
 | `reviews.resolveThread` | ❌ | ❌ |
 | `releases.list` | ✅ | ✅ |
 | `releases.get` | ✅ | ✅ |

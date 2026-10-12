@@ -457,3 +457,25 @@ describe('gitea single-item reads', () => {
     await expect(provider.threads.getComment({ forge: 'gitea', instance: 'gitea.com', thread, id: '9' })).rejects.toThrow(NotFoundError)
   })
 })
+
+describe('gitea review replies', () => {
+  const auth = { type: 'token', token: 't' } as const
+  const repo = { forge: 'gitea', instance: 'gitea.com', owner: 'acme', name: 'widgets' } as const
+  const pull = { forge: 'gitea', instance: 'gitea.com', repo, kind: 'pull_request', number: '7' } as const
+
+  it('replies to a review comment', async () => {
+    const { fetch, calls } = fixtureFetch('forgejo')
+    const provider = gitea({ auth, fetch }).create()
+
+    const reply = await provider.threads.replyToReviewComment(pull, { ref: { forge: 'gitea', instance: 'gitea.com', thread: pull, id: '7701' } }, 'Renamed.')
+
+    expect(JSON.parse(calls[0]!.body!)).toEqual({ body: 'Renamed.' })
+    expect(reply).toMatchObject({ ref: { id: '7702' }, body: 'Renamed.', path: 'src/index.ts', author: { login: 'grace' } })
+  })
+
+  it('waits for Gitea 1.27 on a self-hosted instance, and Forgejo has no replies', () => {
+    expect(gitea({ auth, baseUrl: 'https://git.example.org', instanceVersion: '1.26.4' }).create().capabilities.reviews.reply).toBe(false)
+    expect(gitea({ auth, baseUrl: 'https://git.example.org', instanceVersion: '1.27.0' }).create().capabilities.reviews.reply).toBe(true)
+    expect(forgejo({ auth }).create().capabilities.reviews.reply).toBe(false)
+  })
+})

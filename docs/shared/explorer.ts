@@ -283,6 +283,7 @@ export const EXPLORER_OPERATIONS: ExplorerOperation[] = [
   threadWrite('threads.approveAndMerge', 'void', ['method'], ({ value }) => `thread, { method: ${value('method')} }`),
   threadWrite('threads.createReview', 'Review', ['reviewEvent', 'body'], ({ value }) => `thread, { event: ${value('reviewEvent')}, body: ${value('body')} }`),
   threadWrite('threads.submitReview', 'Review', ['reviewId', 'reviewEvent', 'body'], ({ origin, value }) => `{ ${origin}, thread, id: ${value('reviewId')} }, ${value('reviewEvent')}, ${value('body')}`),
+  threadWrite('threads.replyToReviewComment', 'ReviewComment', ['commentId', 'reviewThread', 'body'], ({ origin, value }) => `thread, {\n  ref: { ${origin}, thread, id: ${value('commentId')} },\n  thread: { id: ${value('reviewThread')}, resolved: false },\n}, ${value('body')}`),
   threadWrite('threads.resolveReviewThread', 'void', ['reviewThread'], ({ value }) => `thread, ${value('reviewThread')}`),
   threadWrite('threads.unresolveReviewThread', 'void', ['reviewThread'], ({ value }) => `thread, ${value('reviewThread')}`),
   threadWrite('threads.requestReview', 'void', ['reviewers'], ({ list }) => `thread, ${list('reviewers')}`),

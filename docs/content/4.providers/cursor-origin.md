@@ -177,6 +177,7 @@ Deliveries of `installation.*` events become `installation` events. You register
 | `reviews.create` | unverified | ❌ |
 | `reviews.submit` | ❌ | ❌ |
 | `reviews.approve` | unverified | ❌ |
+| `reviews.reply` | ❌ | ❌ |
 | `reviews.resolveThread` | unverified | ❌ |
 | `releases.list` | ❌ | ❌ |
 | `releases.get` | ❌ | ❌ |

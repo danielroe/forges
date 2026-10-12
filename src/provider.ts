@@ -59,6 +59,7 @@ import type {
   RepoRole,
   RepoSearchQuery,
   Review,
+  ReviewComment,
   ReviewEvent,
   ReviewInput,
   ReviewRef,
@@ -341,6 +342,8 @@ export interface ForgeCapabilities {
     submit: Support
     /** Support for `threads.approve()`. */
     approve: Support
+    /** Support for `threads.replyToReviewComment()`. */
+    reply: Support
     /** Support for `threads.resolveReviewThread()` and `threads.unresolveReviewThread()`. */
     resolveThread: Support
   }
@@ -628,6 +631,11 @@ export interface ThreadsApi {
   commits: (ref: ThreadRef, options?: PageOptions) => ForgeIterable<Commit>
   /** One page of `commits()`. */
   commitsPage: (ref: ThreadRef, options?: PageOptions) => Promise<Page<Commit>>
+  /**
+   * Replies to a review comment, in the conversation it belongs to. Pass the comment as `reviews()` or `comments()`
+   * returned it: GitHub replies by `inReplyTo` or `ref`, Gitea by `ref`, GitLab by the discussion in `thread`.
+   */
+  replyToReviewComment: (ref: ThreadRef, comment: Pick<ReviewComment, 'ref' | 'thread' | 'inReplyTo'>, body: string, options?: BaseOptions) => Promise<ReviewComment>
   /** Resolves a review conversation, by the id on {@link ReviewComment.thread} or {@link Comment.thread}. */
   resolveReviewThread: (ref: ThreadRef, id: string, options?: BaseOptions) => Promise<void>
   /** Reopens a resolved review conversation, by the id on `ReviewComment.thread` or `Comment.thread`. */

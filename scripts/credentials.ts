@@ -217,7 +217,7 @@ const TASKS: CredentialTask[] = [
   { id: 'comment', group: 'Write', label: 'Comment and react', capabilities: ['writes.comment', 'writes.upsertComment', 'comments.edit', 'comments.delete', 'writes.react'] },
   { id: 'edit', group: 'Write', label: 'Open, edit and close', capabilities: ['writes.create', 'writes.update', 'writes.close', 'writes.reopen', 'writes.transfer', 'writes.markDuplicate'] },
   { id: 'triage', group: 'Write', label: 'Labels, assignees and milestones', capabilities: ['writes.setLabels', 'writes.addLabels', 'writes.removeLabels', 'writes.setMilestone', 'writes.setAssignees', 'repos.createLabel'] },
-  { id: 'review', group: 'Write', label: 'Review PRs', capabilities: ['writes.requestReview', 'reviews.create', 'reviews.submit', 'reviews.approve', 'reviews.resolveThread'] },
+  { id: 'review', group: 'Write', label: 'Review PRs', capabilities: ['writes.requestReview', 'reviews.create', 'reviews.submit', 'reviews.approve', 'reviews.reply', 'reviews.resolveThread'] },
   { id: 'merge', group: 'Write', label: 'Merge PRs', capabilities: ['writes.merge', 'writes.approveAndMerge'] },
   { id: 'checks', group: 'Write', label: 'Report checks', capabilities: ['checks.report', 'checks.rerun'] },
   { id: 'publish', group: 'Write', label: 'Publish releases', capabilities: ['releases.create', 'releases.update'] },

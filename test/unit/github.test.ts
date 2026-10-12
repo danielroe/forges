@@ -549,6 +549,29 @@ describe('github reviews', () => {
     expect(JSON.parse(calls[0]!.body!)).toMatchObject({ event: 'APPROVE', body: 'LGTM' })
     expect(calls[1]!.operationName).toBe('ResolveReviewThread')
   })
+
+  it('replies to a review comment, and to a reply through the comment it answers', async () => {
+    const { provider, calls } = tokenProvider()
+    const conversation = { id: 'PRRT_kwDOAAB5ac5abcde', resolved: false }
+    const comment = { ref: { forge: 'github', instance: 'github.com', thread: pull, id: '55001' }, thread: conversation }
+
+    const reply = await provider.threads.replyToReviewComment(pull, comment, 'Done, it is const now.')
+    await provider.threads.replyToReviewComment(pull, reply, 'Done, it is const now.')
+
+    expect(calls.map(call => `${call.method} ${new URL(call.url).pathname}`)).toEqual([
+      'POST /repos/acme/widgets/pulls/42/comments/55001/replies',
+      'POST /repos/acme/widgets/pulls/42/comments/55001/replies',
+    ])
+    expect(JSON.parse(calls[0]!.body!)).toEqual({ body: 'Done, it is const now.' })
+    expect(reply).toMatchObject({ ref: { id: '55002' }, inReplyTo: '55001', path: 'src/index.ts', line: 12, thread: conversation })
+  })
+
+  it('needs the id of the review comment it replies to', async () => {
+    const { provider, calls } = tokenProvider()
+
+    await expect(provider.threads.replyToReviewComment(pull, { thread: { id: 'PRRT_kwDOAAB5ac5abcde', resolved: false } }, 'hi')).rejects.toThrow(UnsupportedOperationError)
+    expect(calls).toHaveLength(0)
+  })
 })
 
 describe('github checks and CI', () => {

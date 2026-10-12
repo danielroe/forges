@@ -111,6 +111,7 @@ import type {
   GitHubWorkflowJob,
   GitHubWorkflowRun,
 } from './types.ts'
+import { WRITE_VERBS } from '../capabilities.ts'
 import { fromBase64, toFileContent } from '../contents.ts'
 import { defineForgeProvider, perKind, verb } from '../define.ts'
 import { ForbiddenError, ForgeApiError, ForgeError, ForgeTimeoutError, InsufficientScopeError, MergeBlockedError, NotFoundError, soleMergeMethod, toMergeError, UnsupportedOperationError } from '../errors.ts'
@@ -1599,6 +1600,20 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
         })
         return toReview(pull, data, [])
       }),
+      replyToReviewComment: verb(true, async (thread, comment, body, options) => {
+        const pull = requirePull(thread, 'reviewed')
+        /** GitHub hangs every reply off the first comment of a conversation and takes no reply to a reply. */
+        const id = comment.inReplyTo ?? comment.ref?.id
+        if (id === undefined) {
+          throw new UnsupportedOperationError('GitHub replies to a review comment by its id; pass the comment with its `ref`', context)
+        }
+        const { data } = await fetcher.json<GitHubReviewComment>(`${threadPath(pull)}/comments/${encodeURIComponent(id)}/replies`, {
+          method: 'POST',
+          json: { body },
+          signal: options?.signal,
+        })
+        return toReviewComment(pull, data, comment.thread)
+      }),
       reviewThreads: verb(true, {
         resolveReviewThread: async (_ref, id, options) => {
           await graphql('RESOLVE_REVIEW_THREAD', { id }, options)
@@ -1800,8 +1815,7 @@ export function githubScopesFor(verb: ForgeVerb): VerbScopes {
   if (verb === 'checks.report') {
     return { token: ['repo:status'], permissions: { checks: 'write', statuses: 'write' } }
   }
-  const writes = new Set(['comment', 'upsertComment', 'editComment', 'deleteComment', 'create', 'update', 'close', 'reopen', 'setLabels', 'addLabels', 'removeLabels', 'setMilestone', 'react', 'unreact', 'setAssignees', 'requestReview', 'merge', 'approveAndMerge', 'createReview', 'submitReview', 'approve', 'transfer', 'markDuplicate', 'resolveReviewThread', 'unresolveReviewThread', 'createLabel', 'addCollaborator', 'subscribe', 'unsubscribe'])
-  const write = writes.has(name)
+  const write = WRITE_VERBS.has(verb)
   if (group === 'threads') {
     return { token: ['repo', 'public_repo'], permissions: { issues: write ? 'write' : 'read', pull_requests: write ? 'write' : 'read' } }
   }

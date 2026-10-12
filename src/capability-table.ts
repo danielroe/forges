@@ -106,6 +106,7 @@ const TABLE = [
   { capability: 'reviews.create', write: true, spec: 'threads.createReview' },
   { capability: 'reviews.submit', write: true, spec: 'threads.submitReview' },
   { capability: 'reviews.approve', write: true, spec: 'threads.approve', derived: 'approve' },
+  { capability: 'reviews.reply', write: true, spec: 'threads.replyToReviewComment' },
   { capability: 'reviews.resolveThread', write: true, spec: 'threads.reviewThreads', verbs: ['threads.resolveReviewThread', 'threads.unresolveReviewThread'] },
   { capability: 'releases.list', listing: true },
   { capability: 'releases.get' },
