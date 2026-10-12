@@ -44,11 +44,21 @@ export function isFixtureFile(name: string): boolean {
   return /^\d+-.*\.json$/.test(name)
 }
 
-const SEGMENTS: Array<[RegExp, string]> = [
-  [/^\d+$/, 'N'],
-  [/^[\da-f]{7,64}$/i, 'SHA'],
-  [/^[\da-f]{8}-(?:[\da-f]{4}-){3}[\da-f]{12}$/i, 'ID'],
-]
+/** A path segment with its ids, UUIDs and SHAs, whole or within it, replaced. */
+function placeholder(segment: string): string {
+  let decoded = segment
+  try {
+    decoded = decodeURIComponent(segment)
+  }
+  catch {}
+  if (/^\d+$/.test(decoded)) {
+    return 'N'
+  }
+  return decoded
+    .replace(/\{?[\da-f]{8}-(?:[\da-f]{4}-){3}[\da-f]{12}\}?/gi, 'ID')
+    .replace(/(?<![\da-z])(?=\d*[a-f])(?=[a-f]*\d)[\da-f]{7,64}(?![\da-z])/gi, 'SHA')
+    .replace(/(?<!\d)\d{6,}(?!\d)/g, 'N')
+}
 
 /**
  * The file name of the `index`th fixture of a step, from its method and the
@@ -57,7 +67,7 @@ const SEGMENTS: Array<[RegExp, string]> = [
  */
 export function fixtureFileName(fixture: Fixture, index: number): string {
   const { method, url, operationName } = fixture.request
-  const path = new URL(url).pathname.split('/').filter(Boolean).slice(-2).map(segment => SEGMENTS.find(([pattern]) => pattern.test(segment))?.[1] ?? segment)
+  const path = new URL(url).pathname.split('/').filter(Boolean).slice(-2).map(placeholder)
   const label = (operationName ?? path.join('-')).replace(/[^\w.-]+/g, '-').slice(0, 80)
   return `${String(index + 1).padStart(2, '0')}-${method.toLowerCase()}-${label || 'root'}.json`
 }

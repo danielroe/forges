@@ -43,6 +43,16 @@ describe('recording store', () => {
     expect(JSON.parse(stepFile(directory, 'pull-getcomment', 'step.json'))).toEqual({ name: 'pull getComment', recordedAt: '2026-01-01T00:00:00.000Z', needs: ['pull comments'] })
   })
 
+  it('leaves ids out of the names of fixtures whose path holds them within a segment', () => {
+    const directory = recording()
+    const label = fixture('https://api.github.com/repos/h3js/h3/issues/85/labels/forges-fixture-20261012113502', [])
+    const hook = fixture('https://api.bitbucket.org/2.0/repositories/bot/forges-fixtures/hooks/%7B9e802850-0c69-4230-90d6-6b40c0a310a1%7D', {})
+    const compare = fixture('https://api.github.com/repos/h3js/h3/compare/main...4348bba01b5300d6d0c0218dc48e3de88068018b', {})
+    writeRecording(directory, { steps: [step('labels', [label, hook, compare])], failed: [], setup: [] })
+
+    expect(readdirSync(`${directory}steps/labels`).sort()).toEqual(['01-get-hooks-ID.json', '02-get-compare-main...SHA.json', '03-get-labels-forges-fixture-N.json', 'step.json'])
+  })
+
   it('keeps a step whose responses differ only in rate limits and counters', () => {
     const directory = recording()
     writeRecording(directory, { steps: [step('repo', [repo(10, '4999')])], failed: [], setup: [] })
