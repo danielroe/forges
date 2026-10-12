@@ -145,7 +145,7 @@ const TANGLED: ProviderDefinition<TangledOptions, undefined, true> = {
     const { writable, viewerDid, pdsCall, createRecord, putOwnRecord, deleteOwnRecord, ownRecords, serviceAuth, uploadBlob } = createTangledSession({ options, fetcher, atproto, context })
 
     /** The repo DID a thread record must reference, from the ref or the repo record. */
-    const { forgetRepos, forgetCollaborators, labelsOf, repoLabels, threadUri, reactionsPage, collaboratorsPage, permissionFor, stateAuthors, actorFor, resolveRepo, threadFor, subjectUri, activity, toStreamEvent, canonicalRepo, canonicalRef, repoDidOf, toRepo, readThread, wholePage, listPage, listComments, findSubscription } = createTangledRecords({ options, instance, webUrl, context, atproto, api, fetcher, ownRecords })
+    const { forgetRepos, forgetCollaborators, labelsOf, repoLabels, threadUri, reactionsPage, collaboratorsPage, permissionFor, stateAuthors, actorFor, resolveRepo, threadFor, subjectUri, activity, toStreamEvent, canonicalRepo, canonicalRef, repoDidOf, toRepo, repoCounts, readThread, wholePage, listPage, listComments, findSubscription } = createTangledRecords({ options, instance, webUrl, context, atproto, api, fetcher, ownRecords })
 
     let loaded: Promise<TangledContents> | undefined
     const knot = () => loaded ??= import('./knot.ts').then(({ createTangledContents }) => createTangledContents({ fetcher, instance, webUrl, context, canonicalRepo, serviceAuth }))
@@ -517,13 +517,17 @@ const TANGLED: ProviderDefinition<TangledOptions, undefined, true> = {
       repos: {
         get: verb(true, async (ref, options) => {
           const { ref: found, record } = await canonicalRepo(ref, options?.signal)
-          const defaultBranch = await (await knot()).defaultBranch(found, options?.signal).catch((error: unknown) => {
-            if (!degradesToWarning(error)) {
-              throw error
-            }
-            return undefined
-          })
-          return { ...toRepo(found, record.value, record), defaultBranch }
+          const contents = await knot()
+          const [defaultBranch, counts] = await Promise.all([
+            contents.defaultBranch(found, options?.signal).catch((error: unknown) => {
+              if (!degradesToWarning(error)) {
+                throw error
+              }
+              return undefined
+            }),
+            repoCounts(record, options?.signal),
+          ])
+          return { ...toRepo(found, record.value, record, counts), defaultBranch }
         }),
         collaboratorsPage: verb(true, collaboratorsPage),
         addCollaborator: verb(writable, addCollaborator),

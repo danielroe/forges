@@ -91,6 +91,39 @@ describe('tangled identity', () => {
   })
 })
 
+describe('tangled repo counts', () => {
+  const REPO_DID = 'did:plc:widgetsrepo2222222222222'
+  const API = 'https://api.tangled.org/xrpc'
+
+  it('reports the appview\'s star and fork counts', async () => {
+    const { instance } = provider({}, false)
+    const found = await instance.repos.get(repo)
+
+    expect(found.stars).toBe(4)
+    expect(found.forks).toBe(1)
+  })
+
+  it('reports zero stars for a repository nobody has starred', async () => {
+    const { instance } = provider({
+      [`GET ${API}/sh.tangled.feed.countStars?subject=${REPO_DID}`]: { status: 200, body: { count: 0, distinctAuthors: 0 } },
+    }, false)
+    const found = await instance.repos.get(repo)
+
+    expect(found.stars).toBe(0)
+    expect(found.forks).toBe(1)
+  })
+
+  it('leaves stars and forks out when the appview cannot be read', async () => {
+    const { instance } = provider({
+      [`GET ${API}/sh.tangled.feed.countStars?subject=${REPO_DID}`]: { status: 500, body: { error: 'InternalServerError' } },
+    }, false)
+    const found = await instance.repos.get(repo)
+
+    expect(found.stars).toBeUndefined()
+    expect(found.forks).toBeUndefined()
+  })
+})
+
 describe('tangled state', () => {
   it('ignores state records from anyone but the author, repo owner or a collaborator', async () => {
     const { instance } = provider()

@@ -1,0 +1,15 @@
+{
+  "handAuthored": true,
+  "request": {
+    "method": "GET",
+    "url": "https://api.tangled.org/xrpc/sh.tangled.repo.countForks?subject=did:plc:widgetsrepo2222222222222"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "count": 1,
+      "distinctAuthors": 1
+    }
+  }
+}

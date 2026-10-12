@@ -1,0 +1,14 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.tangled.org/xrpc/sh.tangled.repo.countForks?subject=did:plc:t73o44q7fppgagkrevtztyok"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "count": 0,
+      "distinctAuthors": 0
+    }
+  }
+}

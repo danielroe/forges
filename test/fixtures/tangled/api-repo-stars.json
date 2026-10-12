@@ -1,0 +1,15 @@
+{
+  "handAuthored": true,
+  "request": {
+    "method": "GET",
+    "url": "https://api.tangled.org/xrpc/sh.tangled.feed.countStars?subject=did:plc:widgetsrepo2222222222222"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "count": 4,
+      "distinctAuthors": 4
+    }
+  }
+}

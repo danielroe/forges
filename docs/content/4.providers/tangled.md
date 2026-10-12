@@ -82,6 +82,8 @@ In the refs that the provider returns, the `name` of a repo is the key of its re
 
 `repos.byOwner()` reads the repo records of an account, which you name by its handle or DID. Every Tangled repo is public, and the records come back in their own order, so if you pass `sort`, you get a `sort_unsupported` warning.
 
+`repos.get()` also reports `stars` and `forks`, from the appview's `sh.tangled.feed.countStars` and `sh.tangled.repo.countForks`. Both are optional metadata, so they are absent if the appview cannot be read. A listing leaves them out, because counting them would need a request for each repository.
+
 The numbers that you see in the Tangled UI and in webhooks come from the appview, because the records themselves don't store them. The provider reports them as `displayNumber`.
 
 A ref from a webhook has no `number` until it is matched to a record. To fill in `number` during `webhooks.ingest()`, pass a `resolveDisplayNumber(repo, kind, displayNumber)` function that returns the AT-URI.

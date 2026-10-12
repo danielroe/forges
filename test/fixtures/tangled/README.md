@@ -7,6 +7,9 @@ responses and Jetstream messages observed live, with every value replaced.
 - `plc-*.json`: DID documents from `plc.directory`.
 - `record-*.json`: `com.atproto.repo.getRecord` from the author's PDS.
 - `links-*.json`: Constellation backlinks (which records point at a target).
+- `api-*.json`: Tangled appview (`api.tangled.org`) responses. `api-repo-stars.json`
+  and `api-repo-forks.json` are the `sh.tangled.feed.countStars` and
+  `sh.tangled.repo.countForks` counts `repos.get()` reports.
 - `knot-collaborators.json`: `sh.tangled.repo.listCollaborators` from the knot
   named in the repo DID document.
 - `service-auth-*.json`, `notifications-*.json`: service-auth tokens and the
