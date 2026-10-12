@@ -120,6 +120,8 @@ function setupPushin({ options, instance, origin: context, fetcher, baseUrl }: P
     },
     web: githubShapedWeb(baseUrl.replace(/\/api\/v1$/, ''), {
       pull: 'pulls',
+      commit: 'commits',
+      raw: false,
       commentFragment: 'comment-',
       file: at => `/blob/${encodeURIComponent(at)}`,
       lineFragment: line => `L${line}`,

@@ -47,8 +47,6 @@ export interface WebLinks {
   file?: (repo: RepoRef, path: string, at: string, line?: number) => string | undefined
   /** The raw bytes of a file at a revision. */
   raw?: (repo: RepoRef, path: string, at: string) => string | undefined
-  /** The page of a commit. */
-  commit?: (repo: RepoRef, sha: string) => string | undefined
   /** The page that compares two revisions. */
   compare?: (repo: RepoRef, base: string, head: string) => string | undefined
   /** Reads a URL already known to be on `origin`, split into path segments. */
@@ -91,7 +89,8 @@ export function webUrlFor(web: WebLinks, target: UrlTarget): string | undefined 
     path = web.raw?.(target.raw.repo, target.raw.path, target.raw.at)
   }
   else if ('commit' in target) {
-    path = web.commit?.(target.commit.repo, target.commit.sha)
+    const { repo, sha } = target.commit
+    path = sha && repo.kind !== 'namespace' ? web.thread({ forge: repo.forge, instance: repo.instance, repo, kind: 'commit', number: sha }) : undefined
   }
   else {
     path = web.compare?.(target.compare.repo, target.compare.base, target.compare.head)
@@ -154,8 +153,10 @@ export interface GitHubShape {
   commentFragment: string
   /** The path segment that leads to a file at a revision. */
   file: (at: string) => string
-  /** The path that leads to a file's raw bytes at a revision; defaults to `/raw/{at}`. */
-  raw?: (at: string) => string
+  /** The path segment of commits; defaults to `commit`. */
+  commit?: string
+  /** Whether the forge serves raw files at `/raw/{at}/{path}`; defaults to `true`. */
+  raw?: boolean
   /** The URL fragment that selects a line of a file. */
   lineFragment: (line: number) => string
   /** Reference prefix for pulls when it differs from issues. */
@@ -167,7 +168,7 @@ export interface GitHubShape {
 /** Web links for forges laid out like GitHub: `/{owner}/{name}/issues/{n}` and friends. */
 export function githubShapedWeb(origin: string, shape: GitHubShape): WebLinks {
   const repoPath = (repo: RepoRef) => `/${encodePath(repo.owner)}/${encodeURIComponent(repo.name)}`
-  const kindPath: Partial<Record<ThreadKind, string>> = { issue: 'issues', pull_request: shape.pull, commit: 'commit', ...shape.discussions ? { discussion: 'discussions' } : {} }
+  const kindPath: Partial<Record<ThreadKind, string>> = { issue: 'issues', pull_request: shape.pull, commit: shape.commit ?? 'commit', ...shape.discussions ? { discussion: 'discussions' } : {} }
   const kindOf = new Map<string, ThreadKind>(Object.entries(kindPath).map(([kind, path]) => [path, kind as ThreadKind]))
   const reserved = new Set(shape.reserved?.map(segment => segment.toLowerCase()))
   return {
@@ -179,8 +180,7 @@ export function githubShapedWeb(origin: string, shape: GitHubShape): WebLinks {
       : `${repoPath(ref.thread.repo)}/${kindPath[ref.thread.kind]}/${encodeURIComponent(ref.thread.number)}#${shape.commentFragment}${ref.id}`,
     release: ref => ref.tag ? `${repoPath(ref.repo)}/releases/tag/${encodeURIComponent(ref.tag)}` : undefined,
     file: (repo, path, at, line) => `${repoPath(repo)}${shape.file(at)}/${encodePath(path)}${line ? `#${shape.lineFragment(line)}` : ''}`,
-    raw: (repo, path, at) => `${repoPath(repo)}${(shape.raw ?? (value => `/raw/${encodeURIComponent(value)}`))(at)}/${encodePath(path)}`,
-    commit: (repo, sha) => `${repoPath(repo)}/commit/${encodeURIComponent(sha)}`,
+    raw: (repo, path, at) => shape.raw === false ? undefined : `${repoPath(repo)}/raw/${encodeURIComponent(at)}/${encodePath(path)}`,
     compare: (repo, base, head) => `${repoPath(repo)}/compare/${encodeURIComponent(base)}...${encodeURIComponent(head)}`,
     parse: (segments, url, from) => {
       const [owner, name, section, id] = segments

@@ -18,6 +18,9 @@ export function azureWeb(origin: string): WebLinks {
       return ref.kind === 'commit' ? `${gitPath(ref.repo)}/commit/${encodeURIComponent(ref.number)}` : undefined
     },
     file: (repo, path, at, line) => `${gitPath(repo)}?path=${encodeURIComponent(`/${path}`)}&version=GB${encodeURIComponent(at)}${line ? `&line=${line}` : ''}`,
+    raw: (repo, path, at) => repo.kind === 'namespace'
+      ? undefined
+      : `/${encode(repo.owner)}/_apis/git/repositories/${encodeURIComponent(repo.name)}/items?path=${encodeURIComponent(`/${path}`)}&versionDescriptor.version=${encodeURIComponent(at)}&versionDescriptor.versionType=${/^[0-9a-f]{40}$/i.test(at) ? 'commit' : 'branch'}&$format=octetStream`,
     compare: (repo, base, head) => `${gitPath(repo)}/branchCompare?baseVersion=GB${encodeURIComponent(base)}&targetVersion=GB${encodeURIComponent(head)}`,
     parse: (segments, _url, from) => {
       const [org, project, section, ...rest] = segments

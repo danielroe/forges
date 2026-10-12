@@ -4,10 +4,13 @@ import { azureDevOps } from '../../src/azure-devops/index.ts'
 import { bitbucket } from '../../src/bitbucket/index.ts'
 import { fake } from '../../src/fake/index.ts'
 import { forgejo } from '../../src/forgejo/index.ts'
+import { gitea } from '../../src/gitea/index.ts'
+import { gitee } from '../../src/gitee/index.ts'
 import { github } from '../../src/github/index.ts'
 import { gitlab } from '../../src/gitlab/index.ts'
 import { createForges, parseNotificationKey, parseRepoKey, parseThreadKey, repoKey, repoSlug, threadKey, threadSlug, UnknownForgeError } from '../../src/index.ts'
 import { forgeIterable } from '../../src/kit.ts'
+import { pushin } from '../../src/pushin/index.ts'
 import { tangled } from '../../src/tangled/index.ts'
 
 const auth = { type: 'token', token: 't' } as const
@@ -56,13 +59,37 @@ describe('web links', () => {
     expect(cb.urlFor({ release: { forge: 'forgejo', instance: 'codeberg.org', repo, id: '1', tag: 'v1.0.0' } })).toBe('https://codeberg.org/acme/widgets/releases/tag/v1.0.0')
     expect(bb.urlFor({ thread: { ...pull, forge: 'bitbucket', instance: 'bitbucket.org' } })).toBe('https://bitbucket.org/acme/widgets/pull-requests/42')
     expect(gh.urlFor({ thread: { ...pull, number: undefined } })).toBeUndefined()
-    expect(gh.urlFor({ raw: { repo, path: 'src/a b.ts', at: 'main' } })).toBe('https://github.com/acme/widgets/raw/main/src/a%20b.ts')
-    expect(gh.urlFor({ commit: { repo, sha: 'abc123' } })).toBe('https://github.com/acme/widgets/commit/abc123')
-    expect(cb.urlFor({ raw: { repo, path: 'README.md', at: 'main' } })).toBe('https://codeberg.org/acme/widgets/raw/branch/main/README.md')
-    expect(gl.urlFor({ raw: { repo: { ...repo, forge: 'gitlab', instance: 'gitlab.com', owner: 'acme/platform' }, path: 'README.md', at: 'main' } })).toBe('https://gitlab.com/acme/platform/widgets/-/raw/main/README.md')
-    expect(gl.urlFor({ commit: { repo: { ...repo, forge: 'gitlab', instance: 'gitlab.com', owner: 'acme/platform' }, sha: 'abc123' } })).toBe('https://gitlab.com/acme/platform/widgets/-/commit/abc123')
-    expect(bb.urlFor({ raw: { repo: { ...repo, forge: 'bitbucket', instance: 'bitbucket.org' }, path: 'README.md', at: 'main' } })).toBe('https://bitbucket.org/acme/widgets/raw/main/README.md')
-    expect(bb.urlFor({ commit: { repo: { ...repo, forge: 'bitbucket', instance: 'bitbucket.org' }, sha: 'abc123' } })).toBe('https://bitbucket.org/acme/widgets/commits/abc123')
+  })
+
+  const sha = 'a'.repeat(40)
+  it.each([
+    ['github', gh, repo, 'https://github.com/acme/widgets/raw/v1.0.0/src/a%20b.ts', `https://github.com/acme/widgets/commit/${sha}`],
+    ['gitlab', gl, { ...repo, forge: 'gitlab', instance: 'gitlab.com', owner: 'acme/platform' }, 'https://gitlab.com/acme/platform/widgets/-/raw/v1.0.0/src/a%20b.ts', `https://gitlab.com/acme/platform/widgets/-/commit/${sha}`],
+    ['forgejo', cb, { ...repo, forge: 'forgejo', instance: 'codeberg.org' }, 'https://codeberg.org/acme/widgets/raw/v1.0.0/src/a%20b.ts', `https://codeberg.org/acme/widgets/commit/${sha}`],
+    ['gitea', gitea({ auth }).create(), { ...repo, forge: 'gitea', instance: 'gitea.com' }, 'https://gitea.com/acme/widgets/raw/v1.0.0/src/a%20b.ts', `https://gitea.com/acme/widgets/commit/${sha}`],
+    ['gitee', gitee({ auth }).create(), { ...repo, forge: 'gitee', instance: 'gitee.com' }, 'https://gitee.com/acme/widgets/raw/v1.0.0/src/a%20b.ts', `https://gitee.com/acme/widgets/commit/${sha}`],
+    ['pushin', pushin({ auth }).create(), { ...repo, forge: 'pushin', instance: 'pushin.eu' }, undefined, `https://pushin.eu/acme/widgets/commits/${sha}`],
+    ['bitbucket', bb, { ...repo, forge: 'bitbucket', instance: 'bitbucket.org' }, 'https://bitbucket.org/acme/widgets/raw/v1.0.0/src/a%20b.ts', `https://bitbucket.org/acme/widgets/commits/${sha}`],
+    ['azure-devops', az, { ...repo, forge: 'azure-devops', instance: 'dev.azure.com', owner: 'contoso/Widgets' }, 'https://dev.azure.com/contoso/Widgets/_apis/git/repositories/widgets/items?path=%2Fsrc%2Fa%20b.ts&versionDescriptor.version=v1.0.0&versionDescriptor.versionType=branch&$format=octetStream', `https://dev.azure.com/contoso/Widgets/_git/widgets/commit/${sha}`],
+    ['tangled', tg, { ...repo, forge: 'tangled', instance: 'tangled.org', owner: 'acme.dev' }, 'https://tangled.org/acme.dev/widgets/raw/v1.0.0/src/a%20b.ts', `https://tangled.org/acme.dev/widgets/commit/${sha}`],
+  ] as const)('builds raw file and commit URLs on %s', (_, provider, target, raw, commit) => {
+    expect(provider.urlFor({ raw: { repo: target, path: 'src/a b.ts', at: 'v1.0.0' } })).toBe(raw)
+    expect(provider.urlFor({ commit: { repo: target, sha } })).toBe(commit)
+    expect(provider.parseUrl(commit)).toMatchObject({ thread: { kind: 'commit', number: sha } })
+    expect(provider.urlFor({ commit: { repo: target, sha: '' } })).toBeUndefined()
+  })
+
+  it('builds raw file URLs at a branch with a slash or a commit', () => {
+    expect(gh.urlFor({ raw: { repo, path: 'README.md', at: 'feat/a' } })).toBe('https://github.com/acme/widgets/raw/feat%2Fa/README.md')
+    expect(az.urlFor({ raw: { repo: { ...repo, forge: 'azure-devops', instance: 'dev.azure.com', owner: 'contoso/Widgets' }, path: 'README.md', at: sha } })).toContain(`versionDescriptor.version=${sha}&versionDescriptor.versionType=commit`)
+  })
+
+  it('builds no raw file or commit URL for a namespace', () => {
+    const group: RepoRef = { forge: 'gitlab', instance: 'gitlab.com', owner: 'acme', name: '', kind: 'namespace' }
+    expect(gl.urlFor({ raw: { repo: group, path: 'README.md', at: 'main' } })).toBeUndefined()
+    expect(gl.urlFor({ commit: { repo: group, sha } })).toBeUndefined()
+    expect(az.urlFor({ raw: { repo: { ...group, forge: 'azure-devops', instance: 'dev.azure.com' }, path: 'README.md', at: 'main' } })).toBeUndefined()
+    expect(az.urlFor({ commit: { repo: { ...group, forge: 'azure-devops', instance: 'dev.azure.com' }, sha } })).toBeUndefined()
   })
 
   it('parses web URLs on its own instance only', () => {
