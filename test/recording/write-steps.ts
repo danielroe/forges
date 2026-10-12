@@ -285,7 +285,6 @@ export const WRITE_STEPS: WriteStep[] = [
     const pull = threadOf(context, 'pull_request')
     const reviews = await provider.threads.reviewsPage(pull)
     let comment: ReviewComment | undefined = reviews.items.flatMap(review => review.comments || []).find(item => item.ref)
-    /** GitLab reviews are approvals, so its review comments are the notes of a resolvable discussion. */
     const comments = comment ? undefined : await provider.threads.commentsPage(pull)
     comment ??= comments?.items.find(item => item.thread)
     const reply = await provider.threads.replyToReviewComment(pull, need(comment, 'a review comment'), `A reply from run ${manifest.run.id}.`)

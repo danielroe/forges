@@ -54,7 +54,7 @@ Because Gitea and Forgejo share an implementation, the following sections of the
 
 ## Review replies
 
-Gitea 1.27 can answer a review comment, which Forgejo still can't, so `replyToReviewComment()` works here. It replies by the comment's `ref`, and the reply lands in the same review. gitea.com runs a recent build. For a self-hosted instance, pass `instanceVersion` or call `refreshCapabilities()` first, as for Actions.
+`replyToReviewComment()` needs Gitea 1.27 or later. It replies by the comment's `ref`, and the reply joins the same review. gitea.com runs a recent build, so it works there out of the box. For a self-hosted instance, pass `instanceVersion` or call `refreshCapabilities()` first.
 
 ## Checks and CI
 

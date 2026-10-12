@@ -53,7 +53,7 @@ The head branch stays after `merge()`, even when `deleteBranchOnMerge` is `true`
 
 ## Reviews
 
-Forgejo supports reviews natively. `createReview()` without an `event` creates a pending review, and `submitReview()` submits it. The API doesn't expose whether a review conversation is resolved, so `resolveReviewThread()` isn't available. Forgejo has no endpoint to answer a review comment either, so `replyToReviewComment()` isn't there yet.
+Forgejo supports reviews natively. `createReview()` without an `event` creates a pending review, and `submitReview()` submits it. The API doesn't expose whether a review conversation is resolved, so `resolveReviewThread()` isn't available. The API has no endpoint to reply to a review comment either, so `replyToReviewComment()` isn't available.
 
 ## Checks and CI
 

@@ -632,8 +632,8 @@ export interface ThreadsApi {
   /** One page of `commits()`. */
   commitsPage: (ref: ThreadRef, options?: PageOptions) => Promise<Page<Commit>>
   /**
-   * Replies to a review comment, in the conversation it belongs to. Pass the comment as `reviews()` or `comments()`
-   * returned it: GitHub replies by `inReplyTo` or `ref`, Gitea by `ref`, GitLab by the discussion in `thread`.
+   * Replies to a review comment in its conversation. Pass the comment as `reviews()` or `comments()` returns it:
+   * GitHub uses its `inReplyTo` or `ref`, Gitea its `ref`, and GitLab the discussion in its `thread`.
    */
   replyToReviewComment: (ref: ThreadRef, comment: Pick<ReviewComment, 'ref' | 'thread' | 'inReplyTo'>, body: string, options?: BaseOptions) => Promise<ReviewComment>
   /** Resolves a review conversation, by the id on {@link ReviewComment.thread} or {@link Comment.thread}. */

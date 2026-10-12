@@ -1602,7 +1602,6 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
       }),
       replyToReviewComment: verb(true, async (thread, comment, body, options) => {
         const pull = requirePull(thread, 'reviewed')
-        /** GitHub hangs every reply off the first comment of a conversation and takes no reply to a reply. */
         const id = comment.inReplyTo ?? comment.ref?.id
         if (id === undefined) {
           throw new UnsupportedOperationError('GitHub replies to a review comment by its id; pass the comment with its `ref`', context)

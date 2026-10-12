@@ -84,7 +84,7 @@ Two options aren't available, and they reject with `UnsupportedOperationError`. 
 
 ## Review replies
 
-GitHub hangs every reply off the first comment of a conversation and doesn't take a reply to a reply. `replyToReviewComment()` sorts that out: pass it a reply and it answers the comment that reply belongs to, by its `inReplyTo`. The new comment comes back with the `thread` of the one you passed, so `resolveReviewThread()` can close the conversation straight after.
+GitHub doesn't support replies to replies, so when you pass a reply to `replyToReviewComment()`, it posts to the comment in its `inReplyTo` instead. The new comment carries the `thread` of the comment you pass, so you can call `resolveReviewThread()` with it.
 
 ## Checks
 

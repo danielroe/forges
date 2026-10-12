@@ -125,7 +125,7 @@ const FORGEJO_ACTION_JOBS = '16.0'
 const GITEA_ACTION_RUNS = '1.25'
 const GITEA_ACTION_LOGS = '1.24'
 
-/** The Gitea version that answers a review comment; Forgejo has no such endpoint. */
+/** Gitea version with replies to review comments. */
 const GITEA_REVIEW_REPLIES = '1.27'
 
 /** Timelines send no usable count, so only a full page of an explicit size shows that another follows. */
