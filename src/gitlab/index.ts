@@ -789,21 +789,10 @@ const GITLAB: ProviderDefinition<GitLabOptions, undefined, true> = {
         get: verb(true, async (ref, options) => toRelease(ref.repo, (await fetcher.json<GitLabRelease>(`${projectPath(ref.repo)}/releases/${encodeURIComponent(ref.tag ?? ref.id)}`, { signal: options?.signal })).data)),
         getByTag: verb(true, async (repo, tag, options) => toRelease(repo, (await fetcher.json<GitLabRelease>(`${projectPath(repo)}/releases/${encodeURIComponent(tag)}`, { signal: options?.signal })).data)),
         latest: verb(true, async (repo, options) => {
-          try {
-            // GitLab's permalink endpoint redirects (302) to the release with the
-            // newest `released_at`; GitLab has no drafts or prereleases.
-            const latest = toRelease(repo, (await fetcher.json<GitLabRelease>(`${projectPath(repo)}/releases/permalink/latest`, { signal: options?.signal })).data)
-            // The newest `released_at` can be an upcoming release, which is not
-            // published yet, so the list is read for the newest published one.
-            if (latest.publishedAt) {
-              return latest
-            }
-          }
-          catch (error) {
-            if (!(error instanceof NotFoundError)) {
-              throw error
-            }
-            return undefined
+          // Releases are listed newest `released_at` first, so an upcoming release can lead the list.
+          const [newest] = (await releasesPage(repo, { perPage: 1, signal: options?.signal })).items
+          if (!newest || newest.publishedAt) {
+            return newest
           }
           return (await releasesPage(repo, { perPage: 20, signal: options?.signal })).items.find(release => release.publishedAt)
         }),
