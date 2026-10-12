@@ -1,0 +1,238 @@
+name: fixtures
+
+on:
+  schedule:
+    - cron: '23 4 * * 1' # reads
+    - cron: '23 6 * * 1' # writes, once approved
+  workflow_dispatch:
+    inputs:
+      kind:
+        description: What to record
+        type: choice
+        options:
+          - reads
+          - writes
+        default: reads
+      forges:
+        description: Forges to record, separated by spaces, or `all`
+        default: all
+      only:
+        description: Read steps to record, separated by commas, or empty for every step
+        default: ''
+
+permissions: {}
+
+concurrency:
+  group: fixtures-${{ inputs.kind || (github.event.schedule == '23 6 * * 1' && 'writes' || 'reads') }}
+  cancel-in-progress: false
+
+env:
+  KIND: ${{ inputs.kind || (github.event.schedule == '23 6 * * 1' && 'writes' || 'reads') }}
+
+jobs:
+  # The recording environments deploy from the default branch only.
+  plan:
+    if: github.repository == 'danielroe/forges' && github.ref == format('refs/heads/{0}', github.event.repository.default_branch)
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    outputs:
+      forges: ${{ steps.plan.outputs.forges }}
+      kind: ${{ steps.plan.outputs.kind }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+      - uses: pnpm/setup@a0881977cd8ea73b1ed212236c99ca10dcc80cf4 # v3.1.1
+        with:
+          cache: false
+          install: false
+
+      - name: 🗺️ Plan
+        id: plan
+        env:
+          FORGES: ${{ inputs.forges || 'all' }}
+          ONLY: ${{ inputs.only }}
+        run: |
+          set -euo pipefail
+          known=$(node scripts/record-forge.ts --list "$KIND")
+          if [ "$FORGES" = all ]; then
+            selected=$known
+          else
+            selected=$(jq -cn --arg forges "$FORGES" '$forges | split(" ") | map(select(length > 0)) | unique')
+          fi
+          unknown=$(jq -cn --argjson selected "$selected" --argjson known "$known" '$selected - $known')
+          if [ "$unknown" != '[]' ]; then
+            echo "::error::These forges do not record $KIND: $unknown"
+            exit 1
+          fi
+          if [ "$KIND" = writes ] && [ -n "$ONLY" ]; then
+            echo '::error::`only` selects read steps.'
+            exit 1
+          fi
+          echo "forges=$selected" >> "$GITHUB_OUTPUT"
+          echo "kind=$KIND" >> "$GITHUB_OUTPUT"
+
+  # Each forge's environment holds only its credentials and, for writes, waits
+  # for approval. Nothing is installed, so no dependency runs beside them.
+  record:
+    needs: plan
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    strategy:
+      fail-fast: false
+      matrix:
+        forge: ${{ fromJSON(needs.plan.outputs.forges) }}
+    environment: fixtures-${{ matrix.forge }}${{ needs.plan.outputs.kind == 'writes' && '-writes' || '' }}
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+      - uses: pnpm/setup@a0881977cd8ea73b1ed212236c99ca10dcc80cf4 # v3.1.1
+        with:
+          cache: false
+          install: false
+
+      - name: 📼 Record
+        id: record
+        env:
+          FIXTURES_ENV: ${{ secrets.FIXTURES_ENV }}
+          FORGE: ${{ matrix.forge }}
+          ONLY: ${{ inputs.only }}
+        run: |
+          set -euo pipefail
+          if [ -z "$FIXTURES_ENV" ]; then
+            echo "::error::The fixtures-$FORGE environments have no FIXTURES_ENV secret. Create them with \`node scripts/fixtures-environments.ts\`."
+            exit 1
+          fi
+          umask 077
+          touch "$RUNNER_TEMP/summary.md"
+          printf '%s\n' "$FIXTURES_ENV" > "$RUNNER_TEMP/fixtures.env"
+          unset FIXTURES_ENV
+          node scripts/fixture-secrets.ts mask "$RUNNER_TEMP/fixtures.env"
+          only=()
+          IFS=',' read -ra steps <<< "$ONLY"
+          for step in "${steps[@]}"; do
+            step=$(echo "$step" | xargs)
+            if [ -n "$step" ]; then
+              only+=(--only "$step")
+            fi
+          done
+          if node scripts/record-forge.ts "$FORGE" --kind "$KIND" --env-file "$RUNNER_TEMP/fixtures.env" --summary "$RUNNER_TEMP/summary.md" "${only[@]}"; then
+            echo "failed=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "failed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: 🔍 Search the recording for credentials
+        env:
+          FORGE: ${{ matrix.forge }}
+        run: node scripts/fixture-secrets.ts scan "$RUNNER_TEMP/fixtures.env" "test/fixtures/$FORGE/recorded" "$RUNNER_TEMP/summary.md"
+
+      - name: 🧹 Remove credentials
+        if: always()
+        run: rm -f "$RUNNER_TEMP/fixtures.env"
+
+      - name: 📦 Stage the recording
+        env:
+          FORGE: ${{ matrix.forge }}
+        run: |
+          mkdir -p "$RUNNER_TEMP/artifact"
+          cp -R "test/fixtures/$FORGE/recorded" "$RUNNER_TEMP/artifact/recorded"
+          cp "$RUNNER_TEMP/summary.md" "$RUNNER_TEMP/artifact/summary.md"
+
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: recording-${{ needs.plan.outputs.kind }}-${{ matrix.forge }}
+          path: ${{ runner.temp }}/artifact/
+          retention-days: 7
+          if-no-files-found: error
+
+      - name: ❌ Report failed recordings
+        if: steps.record.outputs.failed == 'true'
+        run: |
+          echo "::error::Some recordings failed; the pull request keeps their earlier recording where it still replays."
+          exit 1
+
+  # A pull request opened with `GITHUB_TOKEN` starts no workflows, so CI is
+  # dispatched on its branch, and its checks land on the head commit.
+  pr:
+    needs: [plan, record]
+    if: always() && needs.plan.result == 'success' && needs.record.result != 'cancelled' && needs.record.result != 'skipped'
+    runs-on: ubuntu-latest
+    concurrency:
+      group: fixtures-pr-${{ needs.plan.outputs.kind }}
+      cancel-in-progress: false
+    permissions:
+      contents: write # push the `fixtures/<kind>` branch
+      pull-requests: write # open or update its pull request
+      actions: write # dispatch CI on the branch
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+      - uses: pnpm/setup@a0881977cd8ea73b1ed212236c99ca10dcc80cf4 # v3.1.1
+        with:
+          cache: false
+          install: false
+
+      - name: 📦 Install dependencies
+        run: pnpm install
+
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          pattern: recording-${{ needs.plan.outputs.kind }}-*
+          path: ${{ runner.temp }}/recordings
+
+      - name: 📥 Apply the recordings
+        run: |
+          mkdir -p "$RUNNER_TEMP/recordings"
+          node scripts/apply-recordings.ts "$RUNNER_TEMP/recordings" --kind "$KIND" --summary "$RUNNER_TEMP/summary.md"
+
+      - name: 🧪 Update the golden output
+        run: pnpm vitest run --project unit test/recorded.test.ts -u || echo "::warning::Some recordings do not replay; CI on the pull request shows which."
+
+      - name: 🔀 Open or update the pull request
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BRANCH: fixtures/${{ needs.plan.outputs.kind }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git checkout -q -B "$BRANCH"
+          git add -A test/fixtures
+          forges=$(git diff --cached --name-only -- test/fixtures | cut -d/ -f3 | sort -u)
+          git reset -q
+          if [ -z "$forges" ]; then
+            echo "No recording changed."
+            exit 0
+          fi
+          for forge in $forges; do
+            git add -A "test/fixtures/$forge"
+            git commit -q -m "test($forge): re-record $KIND"
+          done
+          auth=$(printf 'x-access-token:%s' "$GH_TOKEN" | base64 -w0)
+          echo "::add-mask::$auth"
+          git -c "http.https://github.com/.extraheader=AUTHORIZATION: basic $auth" push -q --force "https://github.com/$GITHUB_REPOSITORY.git" "HEAD:refs/heads/$BRANCH"
+          {
+            echo "Recorded by the [\`fixtures\` workflow]($RUN_URL) against the live forges."
+            echo
+            echo "A step whose responses differ only in rate limits, counters, activity times or the expiry of signed URLs keeps its files. A step that failed keeps its earlier recording where nothing it reads from was recorded since."
+            echo
+            echo '<details><summary>Recorder output</summary>'
+            echo
+            cat "$RUNNER_TEMP/summary.md"
+            echo
+            echo '</details>'
+          } > "$RUNNER_TEMP/body.md"
+          number=$(gh api "repos/$GITHUB_REPOSITORY/pulls?state=open&head=${GITHUB_REPOSITORY%%/*}:$BRANCH" --jq '.[0].number // empty')
+          if [ -n "$number" ]; then
+            jq -n --rawfile body "$RUNNER_TEMP/body.md" '{ body: $body }' | gh api --method PATCH "repos/$GITHUB_REPOSITORY/pulls/$number" --input - --silent
+          else
+            jq -n --rawfile body "$RUNNER_TEMP/body.md" --arg head "$BRANCH" --arg title "test: re-record fixture $KIND" '{ title: $title, head: $head, base: "main", body: $body }' | gh api --method POST "repos/$GITHUB_REPOSITORY/pulls" --input - --silent
+          fi
+          gh workflow run ci.yml --repo "$GITHUB_REPOSITORY" --ref "$BRANCH"
