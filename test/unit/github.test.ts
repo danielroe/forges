@@ -613,6 +613,30 @@ describe('github checks and CI', () => {
     expect(page.total).toBe(8)
   })
 
+  it('counts every page of commit statuses', async () => {
+    const statusUrl = (page: number) => `https://api.github.com/repos/acme/widgets/commits/${sha}/status?per_page=100${page > 1 ? `&page=${page}` : ''}`
+    const provider = github({
+      auth: { type: 'token', token: 't' },
+      fetch: async (url) => {
+        if (url.includes('/check-runs')) {
+          return Response.json({ total_count: 1, check_runs: [{ id: 1, name: 'build', status: 'completed', conclusion: 'success' }] })
+        }
+        if (url.includes('page=2')) {
+          return Response.json({ state: 'failure', total_count: 2, statuses: [{ id: 3, context: 'lint', state: 'failure' }] })
+        }
+        return new Response(JSON.stringify({ state: 'success', total_count: 2, statuses: [{ id: 2, context: 'test', state: 'success' }] }), {
+          status: 200,
+          headers: { link: `<${statusUrl(2)}>; rel="next"` },
+        })
+      },
+    }).create()
+
+    const page = await provider.checks.list(repo, sha)
+
+    expect(page.items).toHaveLength(3)
+    expect(page.total).toBe(3)
+  })
+
   it('rejects a checks read aborted after one of its two sources has answered', async () => {
     const controller = new AbortController()
     const reason = new Error('cancelled')

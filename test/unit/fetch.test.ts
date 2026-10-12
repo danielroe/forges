@@ -179,18 +179,26 @@ describe('createFetcher', () => {
     expect(result.total).toBe(262)
   })
 
-  it('reads an x-total-count header only when it exceeds the page, since timelines report their own length', async () => {
+  it('reads an x-total-count header even when it matches the page, except on a timeline', async () => {
     const counted = createFetcher({
       baseUrl: 'https://api.example',
       fetch: async () => new Response(JSON.stringify([1, 2, 3]), { status: 200, headers: { 'x-total-count': '35' } }),
     })
     expect((await counted.page<number>('/items')).total).toBe(35)
 
+    // A one-page listing still reports its exact total.
+    const onePage = createFetcher({
+      baseUrl: 'https://api.example',
+      fetch: async () => new Response(JSON.stringify([1, 2, 3]), { status: 200, headers: { 'x-total-count': '3' } }),
+    })
+    expect((await onePage.page<number>('/items')).total).toBe(3)
+
+    // A Forgejo or Gitea timeline reports the page's own length there.
     const timeline = createFetcher({
       baseUrl: 'https://api.example',
       fetch: async () => new Response(JSON.stringify([1, 2, 3]), { status: 200, headers: { 'x-total-count': '3' } }),
     })
-    expect((await timeline.page<number>('/items')).total).toBeUndefined()
+    expect((await timeline.page<number>('/issues/1/timeline')).total).toBeUndefined()
   })
 
   it('follows a next URL from the body when given a selector', async () => {

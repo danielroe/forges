@@ -365,7 +365,11 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
         },
         signal,
       }), raw => toCheckRun(repo, raw)),
-      fetcher.json<GitHubCombinedStatus>(`${repoPath(repo)}/commits/${sha}/status`, { query: { per_page: 100 }, signal }),
+      Array.fromAsync(fetcher.items<GitHubCombinedStatus['statuses'][number]>(`${repoPath(repo)}/commits/${sha}/status`, {
+        query: { per_page: 100 },
+        select: (body, next) => ({ items: (body as GitHubCombinedStatus).statuses, next }),
+        signal,
+      }), raw => toStatusCheck(repo, raw)),
     ])
     if (signal?.aborted) {
       throw signal.reason
@@ -373,7 +377,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
     if (runs.status === 'rejected' && status.status === 'rejected') {
       throw runs.reason
     }
-    const statuses = status.status === 'fulfilled' ? status.value.data.statuses.map(raw => toStatusCheck(repo, raw)) : []
+    const statuses = status.status === 'fulfilled' ? status.value : []
     // Only a complete read reports a total: check-runs report their own count,
     // and the older commit statuses add to it.
     const total = runs.status === 'fulfilled' && status.status === 'fulfilled' && checkRunTotal !== undefined ? checkRunTotal + statuses.length : undefined

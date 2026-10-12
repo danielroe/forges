@@ -50,6 +50,31 @@ describe('gitee', () => {
     expect(pagedPage.total).toBe(15)
   })
 
+  it('keeps the cursor page size when reporting a fallback total', async () => {
+    const forge = gitee({ fetch: async url => new URL(url).searchParams.get('page') === '1'
+      ? Response.json(Array.from({ length: 10 }, (_, index) => ({ name: `b${index}`, commit: { sha: 'a' } })), { headers: { total_page: '2' } })
+      : Response.json([{ name: 'last', commit: { sha: 'a' } }], { headers: { total_page: '2' } }) }).create()
+
+    const first = await forge.contents.branchesPage(repo, { perPage: 10 })
+    const second = await forge.contents.branchesPage(repo, { cursor: first.cursor })
+
+    // Both pages come from a 10-per-page listing, not this call's 50 default.
+    expect(first.total).toBe(20)
+    expect(second.total).toBe(20)
+  })
+
+  it('does not report one phase total for a multi-phase thread listing', async () => {
+    const forge = gitee({ fetch: async () => Response.json([], { headers: { total_count: '5' } }) }).create()
+
+    // Issues split into open and progressing phases, so no single total.
+    const multi = await forge.threads.listPage(repo, { kind: 'issue', state: 'open' })
+    // Pull requests page in one phase, so their total is the listing's.
+    const single = await forge.threads.listPage(repo, { kind: 'pull_request', state: 'open' })
+
+    expect(multi.total).toBeUndefined()
+    expect(single.total).toBe(5)
+  })
+
   it('sends the token in the Authorization header, never the URL', async () => {
     const { fetch, calls } = fixtureFetch('gitee')
     await gitee({ auth: { type: 'token', token: 'gitee-token' }, fetch }).create().repos.get(repo)

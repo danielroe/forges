@@ -59,15 +59,19 @@ function setupGitee({ instance, origin: context, fetcher, baseUrl }: ProviderCon
   async function numberedPage<T>(path: string, query: Record<string, string | number | boolean | undefined>, listOptions: PageOptions): Promise<{ items: T[], cursor?: Cursor, total?: number }> {
     const perPage = Math.min(listOptions.perPage ?? PER_PAGE, 100)
     const url = listOptions.cursor?.nextUrl ?? fetcher.resolve(path, { ...query, page: 1, per_page: perPage })
-    const page = Number(new URL(url).searchParams.get('page') ?? 1)
+    const selected = new URL(url)
+    const page = Number(selected.searchParams.get('page') ?? 1)
+    // A cursor keeps the page size the listing started with, which may differ
+    // from this call's default.
+    const pageSize = Number(selected.searchParams.get('per_page')) || perPage
     const { data, response } = await fetcher.json<T[]>(url, { signal: listOptions.signal })
     const items = data ?? []
     const totalPages = Number(response.headers.get('total_page'))
-    const more = Number.isFinite(totalPages) && totalPages > 0 ? page < totalPages : items.length === perPage
+    const more = Number.isFinite(totalPages) && totalPages > 0 ? page < totalPages : items.length === pageSize
     return {
       items,
       cursor: more ? { nextUrl: nextPage(url, page) } : undefined,
-      ...countedTotal(response, perPage),
+      ...countedTotal(response, pageSize),
     }
   }
 
@@ -198,7 +202,9 @@ function setupGitee({ instance, origin: context, fetcher, baseUrl }: ProviderCon
             return pulls ? toPullThread(ref, raw) : toIssueThread(ref, raw)
           }),
         cursor: result.cursor,
-        ...result.total !== undefined ? { total: result.total } : {},
+        // A listing that spans several phases has no single total, so one
+        // phase's count is not reported as the listing's.
+        ...phases.length === 1 && result.total !== undefined ? { total: result.total } : {},
       }
     }), query.cursor)
     return warnings.length ? { ...page, warnings: [...warnings, ...page.warnings ?? []] } : page

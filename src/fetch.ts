@@ -149,17 +149,21 @@ function pageSize(url: URL): number | undefined {
 
 /**
  * The exact total a response reports in a pagination header. GitLab sends
- * `x-total`; Forgejo and Gitea send `x-total-count`. A Forgejo or Gitea
- * timeline sets `x-total-count` to the page's own length, so it is trusted
- * only when it exceeds the items on the page.
+ * `x-total`, and Forgejo and Gitea send `x-total-count`. A Forgejo or Gitea
+ * timeline reports the page's own length there, so a count no larger than the
+ * page is ignored for timeline requests; everywhere else it is exact, even
+ * when it equals the number of items on a single page.
  */
-function headerTotal(response: Response, itemCount: number): number | undefined {
+function headerTotal(response: Response, itemCount: number, requestUrl: string): number | undefined {
   const total = headerNumber(response, 'x-total')
   if (total !== undefined) {
     return total
   }
   const counted = headerNumber(response, 'x-total-count')
-  return counted !== undefined && counted > itemCount ? counted : undefined
+  if (counted === undefined) {
+    return undefined
+  }
+  return counted <= itemCount && /\/timeline(?:\?|$)/.test(requestUrl) ? undefined : counted
 }
 
 /**
@@ -594,7 +598,7 @@ export function createFetcher(options: FetcherOptions): Fetcher {
     const result: FetchResult<unknown> = await json<unknown>(url, { ...requestOptions, etag: cursor?.nextUrl ? undefined : requestOptions.etag, query: undefined })
     const next = result.notModified ? undefined : select ? select(result.data, result.cursor?.nextUrl) : undefined
     const items = (next ? next.items : result.data ?? []) as unknown[]
-    const total = result.notModified ? undefined : next?.total ?? headerTotal(result.response, items.length) ?? linkTotal(result.response.headers.get('link'), url, items.length)
+    const total = result.notModified ? undefined : next?.total ?? headerTotal(result.response, items.length, url) ?? linkTotal(result.response.headers.get('link'), url, items.length)
     if (!next) {
       return { ...result, data: items as T[], cursor: result.cursor?.nextUrl ? result.cursor : undefined, ...total !== undefined ? { total } : {} }
     }
