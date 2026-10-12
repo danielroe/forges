@@ -41,6 +41,7 @@ const TABLE = [
   { capability: 'repos.createLabel', write: true },
   { capability: 'repos.milestones', listing: true },
   { capability: 'repos.collaborators', listing: true },
+  { capability: 'repos.contributors', listing: true },
   { capability: 'repos.permissionFor' },
   { capability: 'repos.addCollaborator', write: true },
   { capability: 'repos.assignableUsers', listing: true },

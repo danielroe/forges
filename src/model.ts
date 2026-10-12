@@ -100,6 +100,24 @@ export interface Collaborator {
   raw: unknown
 }
 
+/** An account that has committed to a repository, as `repos.contributors()` reads it. */
+export interface Contributor {
+  /**
+   * The contributor's handle: the account login on GitHub, or the author's email address on forges that aggregate
+   * commits by author and expose no account (GitLab, Gitee).
+   */
+  login: string
+  /** The contributor's display name, where the forge reports one. */
+  name?: string
+  /** The author's email address, where the forge reports one. */
+  email?: string
+  /** Commits attributed to the contributor, as the forge counts them. */
+  contributions: number
+  avatarUrl?: string
+  url?: string
+  raw: unknown
+}
+
 /** What `repos.addCollaborator()` did. */
 export interface AddCollaboratorResult {
   /**

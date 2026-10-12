@@ -59,6 +59,7 @@ import type {
   GitLabCommitDetail,
   GitLabCommitStatus,
   GitLabCompare,
+  GitLabContributor,
   GitLabDiff,
   GitLabDiscussion,
   GitLabFile,
@@ -710,6 +711,7 @@ const GITLAB: ProviderDefinition<GitLabOptions, undefined, true> = {
         })).data)),
         milestonesPage: verb(!anonymous, milestonesPage),
         collaboratorsPage: verb(!anonymous, (repo, listOptions = {}) => list(`${projectPath(repo)}/members/all`, listOptions, (raw: GitLabMember) => ({ actor: toActor(instance, raw)!, role: toRole(raw.access_level), roleRaw: String(raw.access_level), raw }))),
+        contributorsPage: verb(true, (repo, listOptions = {}) => list(`${projectPath(repo)}/repository/contributors`, listOptions, (raw: GitLabContributor) => ({ login: raw.email, name: raw.name, email: raw.email, contributions: raw.commits, raw }))),
         permissionFor: verb(!anonymous, async (repo, actor, options) => {
           try {
             const { data } = await fetcher.json<GitLabMember>(`${projectPath(repo)}/members/all/${await userId(actor)}`, { signal: options?.signal })

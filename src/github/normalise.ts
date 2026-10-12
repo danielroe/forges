@@ -10,6 +10,7 @@ import type {
   Collaborator,
   Comment,
   Commit,
+  Contributor,
   EventDetail,
   EventKind,
   ForgeEventInput,
@@ -51,6 +52,7 @@ import type {
   GitHubCommit,
   GitHubCommitFile,
   GitHubCommitStatus,
+  GitHubContributor,
   GitHubDependabotAlert,
   GitHubHook,
   GitHubHookDelivery,
@@ -253,6 +255,10 @@ export function toRole(raw: { role_name?: string, permissions?: { admin?: boolea
 
 export function toCollaborator(instance: string, raw: GitHubCollaborator): Collaborator {
   return { actor: toActor(instance, raw)!, role: toRole(raw), roleRaw: raw.role_name, raw }
+}
+
+export function toContributor(raw: GitHubContributor): Contributor {
+  return { login: raw.login, name: raw.name ?? undefined, email: raw.email ?? undefined, contributions: raw.contributions, avatarUrl: raw.avatar_url, url: raw.html_url, raw }
 }
 
 export function toThreadKind(subjectType: string): ThreadKind {

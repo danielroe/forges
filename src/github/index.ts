@@ -93,6 +93,7 @@ import type {
   GitHubCommitStatus,
   GitHubComparison,
   GitHubContentFile,
+  GitHubContributor,
   GitHubHook,
   GitHubHookDelivery,
   GitHubInstallation,
@@ -133,6 +134,7 @@ import {
   toCollaborator,
   toComment,
   toCommit,
+  toContributor,
   toDependabotAlert,
   toEvent,
   toLabel,
@@ -1559,6 +1561,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
       })).data)),
       milestonesPage: verb(true, milestonesPage),
       collaboratorsPage: verb(!anonymous, (repo, listOptions = {}) => list(`${repoPath(repo)}/collaborators`, listOptions, (raw: GitHubCollaborator) => toCollaborator(instance, raw))),
+      contributorsPage: verb(true, (repo, listOptions = {}) => list(`${repoPath(repo)}/contributors`, listOptions, (raw: GitHubContributor) => toContributor(raw))),
       permissionFor: verb(!anonymous, async (repo, actor, options) => {
         const { data } = await fetcher.json<{ permission?: string, role_name?: string, user?: GitHubCollaborator }>(
           `${repoPath(repo)}/collaborators/${encodeURIComponent(actorLogin(actor))}/permission`,

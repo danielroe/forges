@@ -75,6 +75,14 @@ export interface GitLabMember {
   access_level: number
 }
 
+export interface GitLabContributor {
+  name?: string
+  email: string
+  commits: number
+  additions?: number
+  deletions?: number
+}
+
 export interface GitLabAwardEmoji {
   id: number
   name: string

@@ -3,7 +3,7 @@ import type { Actor, BaseOptions, Check, Comment, Cursor, EventKind, ForgeEventI
 import type { AnonymousAuth, BulkNotificationOptions, ForgeOptionsBase, TokenAuth, VerbScopes } from '../provider.ts'
 import type { ForgeVerb } from '../supports.ts'
 import type { WebLinks } from '../web.ts'
-import type { GiteeBranch, GiteeCheckRun, GiteeComment, GiteeCommit, GiteeCommitFile, GiteeCompare, GiteeContentFile, GiteeHook, GiteeIssue, GiteeLabel, GiteeNotification, GiteeOperateLog, GiteePullRequest, GiteeRelease, GiteeRepository, GiteeTag, GiteeTree, GiteeUser } from './types.ts'
+import type { GiteeBranch, GiteeCheckRun, GiteeComment, GiteeCommit, GiteeCommitFile, GiteeCompare, GiteeContentFile, GiteeContributor, GiteeHook, GiteeIssue, GiteeLabel, GiteeNotification, GiteeOperateLog, GiteePullRequest, GiteeRelease, GiteeRepository, GiteeTag, GiteeTree, GiteeUser } from './types.ts'
 import { fromBase64, toFileContent } from '../contents.ts'
 import { defineForgeProvider, perKind, verb } from '../define.ts'
 import { ForgeError, MergeMethodRequiredError, NotFoundError, toMergeError, UnsupportedOperationError } from '../errors.ts'
@@ -363,6 +363,13 @@ function setupGitee({ instance, origin: context, fetcher, baseUrl }: ProviderCon
           })),
           cursor: page.cursor,
           ...page.total !== undefined ? { total: page.total } : {},
+        }
+      }),
+      contributorsPage: verb(true, async (repo, listOptions = {}) => {
+        const page = await numberedPage<GiteeContributor>(`${repoPath(repo)}/contributors`, {}, listOptions)
+        return {
+          items: page.items.map(raw => ({ login: raw.email ?? raw.name ?? '', name: raw.name, email: raw.email, contributions: raw.contributions, raw })),
+          cursor: page.cursor,
         }
       }),
     },

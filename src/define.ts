@@ -112,6 +112,7 @@ export interface ProviderSpec {
     createLabel?: Verb<ReposApi['createLabel']>
     milestonesPage?: Verb<ReposApi['milestonesPage']>
     collaboratorsPage?: Verb<ReposApi['collaboratorsPage']>
+    contributorsPage?: Verb<ReposApi['contributorsPage']>
     permissionFor?: Verb<ReposApi['permissionFor']>
     addCollaborator?: Verb<ReposApi['addCollaborator']>
     assignableUsersPage?: Verb<ReposApi['assignableUsersPage']>

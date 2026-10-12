@@ -113,6 +113,7 @@ A label delivery doesn't say which labels were added or removed. When the set of
 | `repos.createLabel` | ✅ | ❌ |
 | `repos.milestones` | ✅ | ✅ |
 | `repos.collaborators` | ✅ | ❌ |
+| `repos.contributors` | ❌ | ❌ |
 | `repos.permissionFor` | ✅ | ❌ |
 | `repos.addCollaborator` | ✅ | ❌ |
 | `repos.assignableUsers` | ✅ | ❌ |

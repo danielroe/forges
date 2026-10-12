@@ -66,6 +66,10 @@ GitHub lists pull requests in full pages. When you filter by label, author, assi
 
 With `visibility: 'public'`, `repos.byOwner()` lists the repositories of a user or an organisation in a single request. For any other visibility, it reads the repositories of an organisation first. When no organisation has that name, it reads the repositories of the user instead, so listing a user's repositories costs one more request. For the authenticated user, that includes private repositories. GitHub lists only the public repositories of other users, so for them, `visibility: 'private'` or `'internal'` returns an empty page with a `filter_unsupported` warning.
 
+## Contributors
+
+`repos.contributors()` lists the accounts that have committed to a repository, sorted by commit count. GitHub attributes commits by author email and links only the first 500 author emails in a repository to accounts; contributors beyond that appear as anonymous entries, and the provider leaves them out. The endpoint is public for public repositories, so an anonymous provider can read it.
+
 ## Merging
 
 If you call `merge()` without a `method`, the provider asks GitHub which merge methods the repository allows. When exactly one method is allowed, it uses that one. When several are allowed, it can't choose for you and throws `MergeMethodRequiredError`.
@@ -161,6 +165,7 @@ Deliveries of the `installation` and `installation_repositories` events become `
 | `repos.createLabel` | ✅ | ❌ |
 | `repos.milestones` | ✅ | ✅ |
 | `repos.collaborators` | ✅ | ❌ |
+| `repos.contributors` | ✅ | ✅ |
 | `repos.permissionFor` | ✅ | ❌ |
 | `repos.addCollaborator` | ✅ | ❌ |
 | `repos.assignableUsers` | ✅ | ✅ |

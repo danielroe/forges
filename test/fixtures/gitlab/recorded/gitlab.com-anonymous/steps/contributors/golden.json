@@ -1,0 +1,31 @@
+{
+  "items": [
+    {
+      "login": "redacted@example.invalid",
+      "name": "Mahidul Haque",
+      "email": "redacted@example.invalid",
+      "contributions": 1
+    },
+    {
+      "login": "redacted@example.invalid",
+      "name": "Casey Morris",
+      "email": "redacted@example.invalid",
+      "contributions": 1
+    },
+    {
+      "login": "redacted@example.invalid",
+      "name": "Maksym Tymoshyk",
+      "email": "redacted@example.invalid",
+      "contributions": 1
+    }
+  ],
+  "cursor": {
+    "nextUrl": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/repository/contributors?id=gitlab-org%2Fcli&order_by=commits&page=2&per_page=3&sort=asc",
+    "etag": "W/\"6003b3fde41f7741ee5a781d0d94840a\""
+  },
+  "rateLimit": {
+    "limit": 500,
+    "remaining": 497,
+    "resetAt": "<now>"
+  }
+}

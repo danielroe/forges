@@ -121,6 +121,7 @@ You manage service hook subscriptions at the level of the organization and not o
 | `repos.createLabel` | ❌ | ❌ |
 | `repos.milestones` | ❌ | ❌ |
 | `repos.collaborators` | ❌ | ❌ |
+| `repos.contributors` | ❌ | ❌ |
 | `repos.permissionFor` | ❌ | ❌ |
 | `repos.addCollaborator` | ❌ | ❌ |
 | `repos.assignableUsers` | ❌ | ❌ |

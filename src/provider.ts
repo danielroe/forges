@@ -23,6 +23,7 @@ import type {
   CommitQuery,
   CommitSearchQuery,
   Comparison,
+  Contributor,
   Cursor,
   DownloadAssetOptions,
   FileContent,
@@ -196,6 +197,8 @@ export interface ForgeCapabilities {
     milestones: Support
     /** Support for `repos.collaborators()` and `repos.collaboratorsPage()`. */
     collaborators: Support
+    /** Support for `repos.contributors()` and `repos.contributorsPage()`. */
+    contributors: Support
     /** Support for `repos.permissionFor()`. */
     permissionFor: Support
     /** Support for `repos.addCollaborator()`. */
@@ -845,6 +848,10 @@ export interface ReposApi {
   collaborators: (repo: RepoRef, options?: PageOptions) => ForgeIterable<Collaborator>
   /** One page of `collaborators()`. */
   collaboratorsPage: (repo: RepoRef, options?: PageOptions) => Promise<Page<Collaborator>>
+  /** Lists the contributors of a repository, with their commit counts. */
+  contributors: (repo: RepoRef, options?: PageOptions) => ForgeIterable<Contributor>
+  /** One page of `contributors()`. */
+  contributorsPage: (repo: RepoRef, options?: PageOptions) => Promise<Page<Contributor>>
   /** One account's role on the repository; `'none'` when it has no access. */
   permissionFor: (repo: RepoRef, actor: string | Actor, options?: BaseOptions) => Promise<RepoRole>
   /** Gives an account a role on a repository, or invites it where the forge asks the account to accept first. */

@@ -788,6 +788,41 @@
     "description": "The difference between two revisions.",
     "x-forges-type": "Comparison"
   },
+  "Contributor": {
+    "type": "object",
+    "properties": {
+      "login": {
+        "type": "string",
+        "description": "The contributor's handle: the account login on GitHub, or the author's email address on forges that aggregate commits by author and expose no account (GitLab, Gitee)."
+      },
+      "name": {
+        "type": "string",
+        "description": "The contributor's display name, where the forge reports one."
+      },
+      "email": {
+        "type": "string",
+        "description": "The author's email address, where the forge reports one."
+      },
+      "contributions": {
+        "type": "number",
+        "description": "Commits attributed to the contributor, as the forge counts them."
+      },
+      "avatarUrl": {
+        "type": "string"
+      },
+      "url": {
+        "type": "string"
+      },
+      "raw": {}
+    },
+    "required": [
+      "login",
+      "contributions",
+      "raw"
+    ],
+    "description": "An account that has committed to a repository, as `repos.contributors()` reads it.",
+    "x-forges-type": "Contributor"
+  },
   "Cursor": {
     "type": "object",
     "properties": {
@@ -1338,6 +1373,10 @@
             "$ref": "#/components/schemas/Support",
             "description": "Support for `repos.collaborators()` and `repos.collaboratorsPage()`."
           },
+          "contributors": {
+            "$ref": "#/components/schemas/Support",
+            "description": "Support for `repos.contributors()` and `repos.contributorsPage()`."
+          },
           "permissionFor": {
             "$ref": "#/components/schemas/Support",
             "description": "Support for `repos.permissionFor()`."
@@ -1363,6 +1402,7 @@
           "createLabel",
           "milestones",
           "collaborators",
+          "contributors",
           "permissionFor",
           "addCollaborator",
           "assignableUsers",

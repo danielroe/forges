@@ -1,0 +1,31 @@
+{
+  "items": [
+    {
+      "login": "pi0",
+      "contributions": 978,
+      "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?v=4",
+      "url": "https://github.com/pi0"
+    },
+    {
+      "login": "renovate[bot]",
+      "contributions": 156,
+      "avatarUrl": "https://avatars.githubusercontent.com/in/2740?v=4",
+      "url": "https://github.com/apps/renovate"
+    },
+    {
+      "login": "pi0x",
+      "contributions": 52,
+      "avatarUrl": "https://avatars.githubusercontent.com/u/286783767?v=4",
+      "url": "https://github.com/pi0x"
+    }
+  ],
+  "cursor": {
+    "nextUrl": "https://api.github.com/repositories/313641207/contributors?per_page=3&page=2",
+    "etag": "W/\"0ff4e7c3f068c138fcfa2b68e3debd8b1be6f659179abed5f554baa59475e70f\""
+  },
+  "rateLimit": {
+    "limit": 60,
+    "remaining": 54,
+    "resetAt": "<now>"
+  }
+}

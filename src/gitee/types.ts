@@ -7,6 +7,12 @@ export interface GiteeUser {
   type?: string
 }
 
+export interface GiteeContributor {
+  email?: string
+  name?: string
+  contributions: number
+}
+
 export interface GiteeNamespace {
   id?: number
   type?: string

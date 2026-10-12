@@ -112,6 +112,7 @@ Deliveries of `installation.*` events become `installation` events. You register
 | `repos.createLabel` | ❌ | ❌ |
 | `repos.milestones` | ❌ | ❌ |
 | `repos.collaborators` | ❌ | ❌ |
+| `repos.contributors` | ❌ | ❌ |
 | `repos.permissionFor` | ❌ | ❌ |
 | `repos.addCollaborator` | ❌ | ❌ |
 | `repos.assignableUsers` | ❌ | ❌ |

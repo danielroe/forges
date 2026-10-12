@@ -87,6 +87,7 @@ Since `pushin()` contains no webhook code, there is no `pushinLite()` factory fo
 | `repos.createLabel` | ❌ | ❌ |
 | `repos.milestones` | ❌ | ❌ |
 | `repos.collaborators` | ✅ | ❌ |
+| `repos.contributors` | ❌ | ❌ |
 | `repos.permissionFor` | ❌ | ❌ |
 | `repos.addCollaborator` | ❌ | ❌ |
 | `repos.assignableUsers` | ❌ | ❌ |
