@@ -338,6 +338,7 @@ describe('forgejo actions', () => {
 
     expect(urls).toEqual(['https://git.example.org/api/v1/repos/acme/widgets/actions/runs?status=failure&status=cancelled&ref=refs%2Fheads%2Fmain&page=1&limit=50'])
     expect(page.items).toMatchObject([{ number: '3', branch: 'main', state: 'failure', stateRaw: 'cancelled', startedAt: undefined }])
+    expect(page.total).toBe(3)
   })
 
   it('continues runs past a page that Forgejo capped below `perPage`', async () => {
@@ -352,6 +353,7 @@ describe('forgejo actions', () => {
     const second = await provider.ci.runsPage(repo, { perPage: 100, cursor: first.cursor })
 
     expect(first.items).toHaveLength(50)
+    expect(first.total).toBe(120)
     expect(urls).toEqual([
       'https://git.example.org/api/v1/repos/acme/widgets/actions/runs?page=1&limit=100',
       'https://git.example.org/api/v1/repos/acme/widgets/actions/runs?page=2&limit=50',

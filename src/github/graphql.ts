@@ -425,6 +425,7 @@ export const NODE_REACTIONS = `query NodeReactions($id: ID!, $after: String) {
   node(id: $id) {
     ... on Reactable {
       reactions(first: 100, after: $after) {
+        totalCount
         pageInfo { hasNextPage endCursor }
         nodes { content createdAt user { __typename login databaseId name avatarUrl url } }
       }
@@ -435,6 +436,7 @@ export const NODE_REACTIONS = `query NodeReactions($id: ID!, $after: String) {
 export interface NodeReactionsResult {
   node: {
     reactions: {
+      totalCount?: number
       pageInfo: { hasNextPage: boolean, endCursor: string | null }
       nodes: Array<{ content: string, createdAt?: string, user?: GraphQLActor | null }>
     }

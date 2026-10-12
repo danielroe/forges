@@ -1260,6 +1260,12 @@ export interface RateLimit {
  */
 export interface Page<T> {
   items: T[]
+  /**
+   * The forge's reported total for the whole listing, when it reports one.
+   * Absent when the forge reports no total, so an absent value is unknown and
+   * not zero.
+   */
+  total?: number
   /** From the response headers of the request behind this page. */
   rateLimit?: RateLimit
   /** Absent when the listing is exhausted. */

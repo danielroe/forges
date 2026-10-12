@@ -52,18 +52,34 @@ function setupGitee({ instance, origin: context, fetcher, baseUrl }: ProviderCon
   const threadPath = (ref: ResolvedThreadRef) => `${repoPath(ref.repo)}/${ref.kind === 'pull_request' ? 'pulls' : 'issues'}/${encodeURIComponent(ref.number)}`
 
   /**
-   * Gitee pages by number and reports the page count in `total_page`. The
-   * cursor carries the next page's URL, with the same filters.
+   * Gitee pages by number and reports the item count in `total_count`, or the
+   * page count in `total_page`. The cursor carries the next page's URL, with
+   * the same filters.
    */
-  async function numberedPage<T>(path: string, query: Record<string, string | number | boolean | undefined>, listOptions: PageOptions): Promise<{ items: T[], cursor?: Cursor }> {
+  async function numberedPage<T>(path: string, query: Record<string, string | number | boolean | undefined>, listOptions: PageOptions): Promise<{ items: T[], cursor?: Cursor, total?: number }> {
     const perPage = Math.min(listOptions.perPage ?? PER_PAGE, 100)
     const url = listOptions.cursor?.nextUrl ?? fetcher.resolve(path, { ...query, page: 1, per_page: perPage })
     const page = Number(new URL(url).searchParams.get('page') ?? 1)
     const { data, response } = await fetcher.json<T[]>(url, { signal: listOptions.signal })
     const items = data ?? []
-    const total = Number(response.headers.get('total_page'))
-    const more = Number.isFinite(total) && total > 0 ? page < total : items.length === perPage
-    return { items, cursor: more ? { nextUrl: nextPage(url, page) } : undefined }
+    const totalPages = Number(response.headers.get('total_page'))
+    const more = Number.isFinite(totalPages) && totalPages > 0 ? page < totalPages : items.length === perPage
+    return {
+      items,
+      cursor: more ? { nextUrl: nextPage(url, page) } : undefined,
+      ...countedTotal(response, perPage),
+    }
+  }
+
+  /** The exact item count Gitee reports in `total_count`, falling back to `total_page` times the page size. */
+  function countedTotal(response: Response, perPage: number): { total?: number } {
+    const count = response.headers.get('total_count')
+    const total = count === null ? Number.NaN : Number(count)
+    if (Number.isFinite(total)) {
+      return { total }
+    }
+    const pages = Number(response.headers.get('total_page'))
+    return Number.isFinite(pages) && pages > 0 ? { total: pages * perPage } : {}
   }
 
   function nextPage(url: string, page: number): string {
@@ -80,7 +96,7 @@ function setupGitee({ instance, origin: context, fetcher, baseUrl }: ProviderCon
     const visibility = query.visibility === 'all' ? undefined : query.visibility
     const read = async (path: string, params: Record<string, string | undefined>, warnings?: ForgeWarning[]): Promise<Page<Repo>> => {
       const page = await numberedPage<GiteeRepository>(path, params, query)
-      return { items: page.items.map(raw => toRepo(instance, raw)), cursor: page.cursor, ...warnings?.length ? { warnings } : {} }
+      return { items: page.items.map(raw => toRepo(instance, raw)), cursor: page.cursor, ...page.total !== undefined ? { total: page.total } : {}, ...warnings?.length ? { warnings } : {} }
     }
     try {
       return await read(`/orgs/${encodeURIComponent(owner.owner)}/repos`, { type: visibility === 'public' || visibility === 'private' ? visibility : 'all' }, query.sort && !query.cursor ? [{ code: 'sort_unsupported', message: 'Gitee cannot sort the repositories of an organisation' }] : undefined)
@@ -182,6 +198,7 @@ function setupGitee({ instance, origin: context, fetcher, baseUrl }: ProviderCon
             return pulls ? toPullThread(ref, raw) : toIssueThread(ref, raw)
           }),
         cursor: result.cursor,
+        ...result.total !== undefined ? { total: result.total } : {},
       }
     }), query.cursor)
     return warnings.length ? { ...page, warnings: [...warnings, ...page.warnings ?? []] } : page
@@ -220,6 +237,7 @@ function setupGitee({ instance, origin: context, fetcher, baseUrl }: ProviderCon
         return repo && hasEveryLabel(raw.labels, query.labels) ? [toIssueThread({ forge: FORGE, instance, repo, kind: 'issue', number: raw.number }, raw)] : []
       }),
       cursor: page.cursor,
+      ...page.total !== undefined ? { total: page.total } : {},
       ...warnings.length ? { warnings } : {},
     }
   }
@@ -233,13 +251,13 @@ function setupGitee({ instance, origin: context, fetcher, baseUrl }: ProviderCon
       order: query.direction ?? 'desc',
     }, { perPage: query.perPage, cursor: query.cursor, signal: query.signal })
     const warnings = query.sort === 'created' && !query.cursor ? [{ code: 'sort_unsupported', message: 'Gitee has no repository search by creation time; sorted by best match' }] : undefined
-    return { items: page.items.map(raw => toRepo(instance, raw)), cursor: page.cursor, warnings }
+    return { items: page.items.map(raw => toRepo(instance, raw)), cursor: page.cursor, ...page.total !== undefined ? { total: page.total } : {}, warnings }
   }
 
   async function commentsPage(thread: ThreadRef, listOptions: ListOptions = {}): Promise<Page<Comment>> {
     const ref = requireIssueOrPull(thread, context, 'list comments on')
     const page = await numberedPage<GiteeComment>(`${threadPath(ref)}/comments`, {}, listOptions)
-    return { items: page.items.filter(isConversationComment).map(raw => toComment(ref, raw)), cursor: page.cursor }
+    return { items: page.items.filter(isConversationComment).map(raw => toComment(ref, raw)), cursor: page.cursor, ...page.total !== undefined ? { total: page.total } : {} }
   }
 
   /** Comments and the operation log, merged and ordered by time, so one complete page. */
@@ -280,12 +298,17 @@ function setupGitee({ instance, origin: context, fetcher, baseUrl }: ProviderCon
     const more = Number.isFinite(totalPages) && totalPages > 0
       ? page < totalPages
       : data.total_count !== undefined ? page * perPage < data.total_count : items.length === perPage
-    return { items: items.map(raw => toNotification(instance, raw)), cursor: more ? { nextUrl: nextPage(url, page) } : undefined }
+    const reported = data.total_count === undefined ? undefined : Number(data.total_count)
+    return {
+      items: items.map(raw => toNotification(instance, raw)),
+      cursor: more ? { nextUrl: nextPage(url, page) } : undefined,
+      ...reported !== undefined && Number.isFinite(reported) ? { total: reported } : {},
+    }
   }
 
   async function releasesPage(repo: RepoRef, listOptions: PageOptions = {}): Promise<Page<Release>> {
     const page = await numberedPage<GiteeRelease>(`${repoPath(repo)}/releases`, {}, listOptions)
-    return { items: page.items.map(raw => toRelease(repo, raw)), cursor: page.cursor }
+    return { items: page.items.map(raw => toRelease(repo, raw)), cursor: page.cursor, ...page.total !== undefined ? { total: page.total } : {} }
   }
 
   return {
@@ -301,12 +324,12 @@ function setupGitee({ instance, origin: context, fetcher, baseUrl }: ProviderCon
       get: verb(true, async (ref, options) => toRepo(instance, (await fetcher.json<GiteeRepository>(repoPath(ref), { signal: options?.signal })).data)),
       listPage: verb(true, async (listOptions = {}) => {
         const page = await numberedPage<GiteeRepository>('/user/repos', {}, listOptions)
-        return { items: page.items.map(raw => toRepo(instance, raw)), cursor: page.cursor }
+        return { items: page.items.map(raw => toRepo(instance, raw)), cursor: page.cursor, ...page.total !== undefined ? { total: page.total } : {} }
       }),
       byOwnerPage: verb(true, ownerReposPage),
       labelsPage: verb(true, async (repo, listOptions = {}) => {
         const page = await numberedPage<GiteeLabel>(`${repoPath(repo)}/labels`, {}, listOptions)
-        return { items: page.items.map(raw => ({ name: raw.name, colour: raw.color ?? undefined })), cursor: page.cursor }
+        return { items: page.items.map(raw => ({ name: raw.name, colour: raw.color ?? undefined })), cursor: page.cursor, ...page.total !== undefined ? { total: page.total } : {} }
       }),
       createLabel: verb('unverified', async (repo, label, options) => {
         const { data } = await fetcher.json<GiteeLabel>(`${repoPath(repo)}/labels`, {
@@ -325,6 +348,7 @@ function setupGitee({ instance, origin: context, fetcher, baseUrl }: ProviderCon
             raw,
           })),
           cursor: page.cursor,
+          ...page.total !== undefined ? { total: page.total } : {},
         }
       }),
     },
@@ -365,7 +389,7 @@ function setupGitee({ instance, origin: context, fetcher, baseUrl }: ProviderCon
       }),
       branchesPage: verb(true, async (repo, listOptions = {}) => {
         const page = await numberedPage<GiteeBranch>(`${repoPath(repo)}/branches`, {}, listOptions)
-        return { items: page.items.map(toBranch), cursor: page.cursor }
+        return { items: page.items.map(toBranch), cursor: page.cursor, ...page.total !== undefined ? { total: page.total } : {} }
       }),
       tagsPage: verb(true, async (repo, listOptions = {}) => {
         const { data } = await fetcher.json<GiteeTag[]>(`${repoPath(repo)}/tags`, { signal: listOptions.signal })
@@ -380,7 +404,7 @@ function setupGitee({ instance, origin: context, fetcher, baseUrl }: ProviderCon
           since: query.since?.toISOString(),
           until: query.until?.toISOString(),
         }, query)
-        return { items: page.items.map(raw => toCommit(repo, raw)), cursor: page.cursor }
+        return { items: page.items.map(raw => toCommit(repo, raw)), cursor: page.cursor, ...page.total !== undefined ? { total: page.total } : {} }
       }),
       commit: verb(true, async (repo, sha, options) => toCommit(repo, (await fetcher.json<GiteeCommit>(`${repoPath(repo)}/commits/${sha}`, { signal: options?.signal })).data)),
       compare: verb(true, async (repo, base, head, options) => {
@@ -527,7 +551,7 @@ function setupGitee({ instance, origin: context, fetcher, baseUrl }: ProviderCon
     webhooks: {
       listPage: verb('unverified', async (target, listOptions = {}) => {
         const page = await numberedPage<GiteeHook>(`${repoPath(target)}/hooks`, {}, listOptions)
-        return { items: page.items.map(raw => toWebhook(target, raw)), cursor: page.cursor }
+        return { items: page.items.map(raw => toWebhook(target, raw)), cursor: page.cursor, ...page.total !== undefined ? { total: page.total } : {} }
       }),
       create: verb('unverified', async (target, input, options) => toWebhook(target, (await fetcher.json<GiteeHook>(`${repoPath(target)}/hooks`, {
         method: 'POST',

@@ -593,13 +593,24 @@ describe('github checks and CI', () => {
   it('lists the checks on a commit and re-runs a check run, refusing a status', async () => {
     const { provider } = tokenProvider()
 
-    const { items } = await provider.checks.list(repo, sha)
+    const page = await provider.checks.list(repo, sha)
     await provider.checks.rerun({ forge: 'github', instance: 'github.com', repo, id: '4002', type: 'check_run' })
 
-    expect(items.map(check => check.ref.type)).toContain('check_run')
+    expect(page.items.map(check => check.ref.type)).toContain('check_run')
     await expect(provider.checks.rerun({ forge: 'github', instance: 'github.com', repo, id: '4101', type: 'status' }))
       .rejects
       .toBeInstanceOf(UnsupportedOperationError)
+  })
+
+  it('adds the commit statuses to the check-run total', async () => {
+    const { fetch } = fixtureFetch('github/recorded/github.com-app/steps/check')
+    const provider = github({ auth: { type: 'token', token: 't' }, fetch }).create()
+
+    const page = await provider.checks.list({ forge: 'github', instance: 'github.com', owner: 'h3js', name: 'h3' }, 'dd84e37fca0559506ad97022b5ac9438b427e6e2')
+
+    // The recording has seven check runs and one commit status.
+    expect(page.items).toHaveLength(8)
+    expect(page.total).toBe(8)
   })
 
   it('rejects a checks read aborted after one of its two sources has answered', async () => {
@@ -835,6 +846,7 @@ describe('github search', () => {
       const page = await provider.search.codePage({ text: 'import', repo: h3, perPage: 3 })
 
       expect(page.items).toHaveLength(3)
+      expect(page.total).toBe(208)
       expect(page.warnings).toEqual([expect.objectContaining({ code: 'search_incomplete' })])
     })
   })

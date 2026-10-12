@@ -38,6 +38,18 @@ describe('gitee', () => {
     expect(created.warnings).toContainEqual(expect.objectContaining({ code: 'sort_unsupported' }))
   })
 
+  it('reports the total Gitee sends in `total_count`, falling back to `total_page`', async () => {
+    const branch = { name: 'main', commit: { sha: 'a' } }
+    const counted = gitee({ fetch: async () => Response.json([branch], { headers: { total_count: '15', total_page: '5' } }) }).create()
+    const paged = gitee({ fetch: async () => Response.json([branch], { headers: { total_page: '5' } }) }).create()
+
+    const countedPage = await counted.contents.branchesPage(repo, { perPage: 3 })
+    const pagedPage = await paged.contents.branchesPage(repo, { perPage: 3 })
+
+    expect(countedPage.total).toBe(15)
+    expect(pagedPage.total).toBe(15)
+  })
+
   it('sends the token in the Authorization header, never the URL', async () => {
     const { fetch, calls } = fixtureFetch('gitee')
     await gitee({ auth: { type: 'token', token: 'gitee-token' }, fetch }).create().repos.get(repo)

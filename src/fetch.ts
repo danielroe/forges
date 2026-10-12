@@ -52,9 +52,10 @@ export interface PaginateOptions extends RequestOptions {
    * paginate in the body (Bitbucket's `values` / `next`). Without it, the
    * body is the item array and the next page comes from the `Link` header.
    * `linkNext` is the `Link` header's next URL, for APIs that wrap items in
-   * the body but still paginate with `Link`.
+   * the body but still paginate with `Link`. `total` is the item total the
+   * body reports, such as a search's `total_count`.
    */
-  select?: (body: unknown, linkNext?: string) => { items: unknown[], next?: string }
+  select?: (body: unknown, linkNext?: string) => { items: unknown[], next?: string, total?: number }
 }
 
 /** A parsed response. */
@@ -65,6 +66,8 @@ export interface FetchResult<T> {
   notModified: boolean
   /** Where the next page starts, when there is one. */
   cursor?: Cursor
+  /** The total number of items the listing reports, where the response carries one. */
+  total?: number
 }
 
 /** A response whose body is read as it arrives rather than parsed. */
@@ -131,6 +134,65 @@ function cursorFrom(response: Response): Cursor | undefined {
     return undefined
   }
   return { nextUrl: next, etag }
+}
+
+/** The page size a URL carries, under the names forges use for it. */
+function pageSize(url: URL): number | undefined {
+  for (const name of ['per_page', 'limit', 'perPage', 'pagelen']) {
+    const value = Number(url.searchParams.get(name))
+    if (Number.isInteger(value) && value > 0) {
+      return value
+    }
+  }
+  return undefined
+}
+
+/**
+ * The exact total a response reports in a pagination header. GitLab sends
+ * `x-total`; Forgejo and Gitea send `x-total-count`. A Forgejo or Gitea
+ * timeline sets `x-total-count` to the page's own length, so it is trusted
+ * only when it exceeds the items on the page.
+ */
+function headerTotal(response: Response, itemCount: number): number | undefined {
+  const total = headerNumber(response, 'x-total')
+  if (total !== undefined) {
+    return total
+  }
+  const counted = headerNumber(response, 'x-total-count')
+  return counted !== undefined && counted > itemCount ? counted : undefined
+}
+
+/**
+ * The total a `Link` header implies: the page number of its `rel="last"`
+ * entry times the page size that URL, or the request URL, reports. GitHub,
+ * GitLab, Forgejo and Gitea page by number, so their last page times their
+ * page size approximates the total. A last page of one means a single page,
+ * whose total is the items on it. `undefined` when the header carries no
+ * usable last page.
+ */
+function linkTotal(header: string | null | undefined, requestUrl: string, itemCount: number): number | undefined {
+  const last = parseLinkHeader(header).last
+  if (!last) {
+    return undefined
+  }
+  let lastUrl: URL
+  let request: URL
+  try {
+    lastUrl = new URL(last)
+    request = new URL(requestUrl)
+  }
+  catch {
+    return undefined
+  }
+  const page = Number(lastUrl.searchParams.get('page'))
+  if (!Number.isInteger(page) || page < 1) {
+    return undefined
+  }
+  if (page === 1) {
+    return itemCount
+  }
+  const size = pageSize(lastUrl) ?? pageSize(request)
+  return size === undefined ? undefined : page * size
 }
 
 function retryAfterMs(response: Response): number | undefined {
@@ -531,10 +593,12 @@ export function createFetcher(options: FetcherOptions): Fetcher {
     }
     const result: FetchResult<unknown> = await json<unknown>(url, { ...requestOptions, etag: cursor?.nextUrl ? undefined : requestOptions.etag, query: undefined })
     const next = result.notModified ? undefined : select ? select(result.data, result.cursor?.nextUrl) : undefined
+    const items = (next ? next.items : result.data ?? []) as unknown[]
+    const total = result.notModified ? undefined : next?.total ?? headerTotal(result.response, items.length) ?? linkTotal(result.response.headers.get('link'), url, items.length)
     if (!next) {
-      return { ...result, data: (result.data ?? []) as T[], cursor: result.cursor?.nextUrl ? result.cursor : undefined }
+      return { ...result, data: items as T[], cursor: result.cursor?.nextUrl ? result.cursor : undefined, ...total !== undefined ? { total } : {} }
     }
-    return { ...result, data: next.items as T[], cursor: next.next ? { ...result.cursor, nextUrl: next.next } : undefined }
+    return { ...result, data: items as T[], cursor: next.next ? { ...result.cursor, nextUrl: next.next } : undefined, ...total !== undefined ? { total } : {} }
   }
 
   async function* items<T>(path: string, options_: PaginateOptions = {}): AsyncGenerator<T> {

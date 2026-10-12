@@ -93,6 +93,106 @@ describe('createFetcher', () => {
     expect(await Array.fromAsync(fetcher.items<number>('/items'))).toEqual([1, 2, 3])
   })
 
+  it('reports the total that a link header last page implies', async () => {
+    const fetcher = createFetcher({
+      baseUrl: 'https://api.example',
+      fetch: async () => new Response(JSON.stringify([1, 2, 3]), {
+        status: 200,
+        headers: { link: '<https://api.example/items?per_page=3&page=2>; rel="next", <https://api.example/items?per_page=3&page=11>; rel="last"' },
+      }),
+    })
+
+    const result = await fetcher.page<number>('/items', { query: { per_page: 3 } })
+
+    expect(result.total).toBe(33)
+  })
+
+  it('takes the total page size from the request when the last page omits it', async () => {
+    const fetcher = createFetcher({
+      baseUrl: 'https://api.example',
+      fetch: async () => new Response(JSON.stringify([1, 2, 3]), {
+        status: 200,
+        headers: { link: '<https://api.example/items?page=11>; rel="last"' },
+      }),
+    })
+
+    const result = await fetcher.page<number>('/items', { query: { limit: 3 } })
+
+    expect(result.total).toBe(33)
+  })
+
+  it('takes a single-page link total from the items on the page', async () => {
+    const fetcher = createFetcher({
+      baseUrl: 'https://api.example',
+      fetch: async () => new Response(JSON.stringify([1, 2]), {
+        status: 200,
+        headers: { link: '<https://api.example/items?per_page=50&page=1>; rel="last"' },
+      }),
+    })
+
+    const result = await fetcher.page<number>('/items', { query: { per_page: 50 } })
+
+    expect(result.total).toBe(2)
+  })
+
+  it('prefers a total that the selector reports over the link header', async () => {
+    const fetcher = createFetcher({
+      baseUrl: 'https://api.example',
+      fetch: async () => new Response(JSON.stringify({ items: [1], total_count: 7 }), {
+        status: 200,
+        headers: { link: '<https://api.example/items?per_page=1&page=99>; rel="last"' },
+      }),
+    })
+
+    const result = await fetcher.page<number>('/items', {
+      select: body => ({ items: (body as { items: number[] }).items, total: (body as { total_count: number }).total_count }),
+    })
+
+    expect(result.total).toBe(7)
+  })
+
+  it('leaves the total undefined when the response reports none', async () => {
+    const fetcher = createFetcher({
+      baseUrl: 'https://api.example',
+      fetch: async () => new Response(JSON.stringify([1])),
+    })
+
+    const result = await fetcher.page<number>('/items')
+
+    expect(result.total).toBeUndefined()
+  })
+
+  it('prefers the exact x-total header over the link estimate', async () => {
+    const fetcher = createFetcher({
+      baseUrl: 'https://api.example',
+      fetch: async () => new Response(JSON.stringify([1, 2, 3]), {
+        status: 200,
+        headers: {
+          'x-total': '262',
+          'link': '<https://api.example/items?per_page=3&page=88>; rel="last"',
+        },
+      }),
+    })
+
+    const result = await fetcher.page<number>('/items', { query: { per_page: 3 } })
+
+    expect(result.total).toBe(262)
+  })
+
+  it('reads an x-total-count header only when it exceeds the page, since timelines report their own length', async () => {
+    const counted = createFetcher({
+      baseUrl: 'https://api.example',
+      fetch: async () => new Response(JSON.stringify([1, 2, 3]), { status: 200, headers: { 'x-total-count': '35' } }),
+    })
+    expect((await counted.page<number>('/items')).total).toBe(35)
+
+    const timeline = createFetcher({
+      baseUrl: 'https://api.example',
+      fetch: async () => new Response(JSON.stringify([1, 2, 3]), { status: 200, headers: { 'x-total-count': '3' } }),
+    })
+    expect((await timeline.page<number>('/items')).total).toBeUndefined()
+  })
+
   it('follows a next URL from the body when given a selector', async () => {
     const fetcher = createFetcher({
       baseUrl: 'https://api.example',

@@ -182,6 +182,7 @@ export function toPage<R, T>(result: FetchResult<R[]>, map: (raw: R) => T | unde
       const item = map(raw)
       return item === undefined ? [] : [item]
     }),
+    ...result.total !== undefined ? { total: result.total } : {},
     cursor: result.cursor?.nextUrl || result.cursor?.token ? result.cursor : undefined,
     notModified: result.notModified || undefined,
     ...warnings?.length ? { warnings } : {},

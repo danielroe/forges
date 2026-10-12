@@ -7,6 +7,7 @@
       "patch": "@@ -1,7 +1,7 @@\n golang 1.27.0\n \n # For linting and formatting Go code (includes gofumpt and goimports)\n-golangci-lint 2.13.2\n+golangci-lint 2.14.0\n \n # For linting shell scripts\n shellcheck 0.11.0\n"
     }
   ],
+  "total": 1,
   "rateLimit": {
     "limit": 2000,
     "remaining": 1981,

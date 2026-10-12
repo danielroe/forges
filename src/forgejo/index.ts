@@ -509,9 +509,13 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
       signal: pageOptions.signal,
       // Both cap `limit` at their maximum page size.
       select: (body, next) => {
-        const listing = body as Record<string, unknown>
+        const listing = body as Record<string, unknown> & { total_count?: number }
         const items = (listing[key] ?? []) as T[]
-        return { items, next: next ?? countedNextUrl(url, items.length, listing.total_count === undefined ? null : String(listing.total_count)) }
+        return {
+          items,
+          next: next ?? countedNextUrl(url, items.length, listing.total_count === undefined ? null : String(listing.total_count)),
+          ...listing.total_count !== undefined ? { total: listing.total_count } : {},
+        }
       },
     })
   }

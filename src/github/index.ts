@@ -354,10 +354,15 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
   }
 
   async function headChecks(repo: RepoRef, sha: string, signal?: AbortSignal): Promise<Page<Check>> {
+    let checkRunTotal: number | undefined
     const [runs, status] = await Promise.allSettled([
       Array.fromAsync(fetcher.items<GitHubCheckRun>(`${repoPath(repo)}/commits/${sha}/check-runs`, {
         query: { per_page: 100 },
-        select: (body, next) => ({ items: (body as { check_runs: GitHubCheckRun[] }).check_runs, next }),
+        select: (body, next) => {
+          const { check_runs, total_count } = body as { check_runs: GitHubCheckRun[], total_count?: number }
+          checkRunTotal = total_count
+          return { items: check_runs, next }
+        },
         signal,
       }), raw => toCheckRun(repo, raw)),
       fetcher.json<GitHubCombinedStatus>(`${repoPath(repo)}/commits/${sha}/status`, { query: { per_page: 100 }, signal }),
@@ -368,11 +373,16 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
     if (runs.status === 'rejected' && status.status === 'rejected') {
       throw runs.reason
     }
+    const statuses = status.status === 'fulfilled' ? status.value.data.statuses.map(raw => toStatusCheck(repo, raw)) : []
+    // Only a complete read reports a total: check-runs report their own count,
+    // and the older commit statuses add to it.
+    const total = runs.status === 'fulfilled' && status.status === 'fulfilled' && checkRunTotal !== undefined ? checkRunTotal + statuses.length : undefined
     return {
       items: [
         ...runs.status === 'fulfilled' ? runs.value : [],
-        ...status.status === 'fulfilled' ? status.value.data.statuses.map(raw => toStatusCheck(repo, raw)) : [],
+        ...statuses,
       ],
+      ...total !== undefined ? { total } : {},
       warnings: [
         ...runs.status === 'rejected' ? [toWarning('checks_unreadable', runs.reason, 'check-runs')] : [],
         ...status.status === 'rejected' ? [toWarning('checks_unreadable', status.reason, 'statuses')] : [],
@@ -1016,7 +1026,10 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
       },
       cursor: query.cursor,
       signal: query.signal,
-      select: (body, next) => ({ items: (body as { items: GitHubIssue[] }).items, next }),
+      select: (body, next) => {
+        const { items, total_count } = body as { items: GitHubIssue[], total_count?: number }
+        return { items, next, total: total_count }
+      },
     })
     return toPage(result, (raw) => {
       const repo = query.repo ?? repoRefFromApiUrl(instance, raw.repository_url)
@@ -1048,7 +1061,10 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
       },
       cursor: query.cursor,
       signal: query.signal,
-      select: (body, next) => ({ items: (body as { items: GitHubRepositoryDetail[] }).items, next }),
+      select: (body, next) => {
+        const { items, total_count } = body as { items: GitHubRepositoryDetail[], total_count?: number }
+        return { items, next, total: total_count }
+      },
     })
     return toPage(result, raw => toRepo(instance, raw), warnings)
   }
@@ -1074,7 +1090,10 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
       },
       cursor: query.cursor,
       signal: query.signal,
-      select: (body, next) => ({ items: (body as { items: GitHubCommitSearchItem[] }).items, next }),
+      select: (body, next) => {
+        const { items, total_count } = body as { items: GitHubCommitSearchItem[], total_count?: number }
+        return { items, next, total: total_count }
+      },
     })
     return toPage(result, (raw) => {
       const repo = query.repo ?? (raw.repository && toRepoRef(instance, raw.repository))
@@ -1096,9 +1115,9 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
       cursor: query.cursor,
       signal: query.signal,
       select: (body, next) => {
-        const { items, incomplete_results } = body as { items: GitHubCodeSearchItem[], incomplete_results?: boolean }
+        const { items, incomplete_results, total_count } = body as { items: GitHubCodeSearchItem[], incomplete_results?: boolean, total_count?: number }
         incomplete = incomplete_results === true
-        return { items, next }
+        return { items, next, total: total_count }
       },
     })
     const warnings: ForgeWarning[] = incomplete
@@ -1275,6 +1294,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
           return actor ? [{ content: reactionContent(GRAPHQL_REACTIONS[raw.content] ?? raw.content), contentRaw: raw.content, actor, createdAt: toDate(raw.createdAt), raw }] : []
         }),
         cursor: reactions?.pageInfo.hasNextPage && reactions.pageInfo.endCursor ? { token: reactions.pageInfo.endCursor } : undefined,
+        ...reactions?.totalCount !== undefined ? { total: reactions.totalCount } : {},
       }
     }
     const result = await fetcher.page<GitHubReaction>(reactionPath(target), {
@@ -1358,7 +1378,10 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
       },
       cursor: query.cursor,
       signal: query.signal,
-      select: (body, next) => ({ items: (body as { workflow_runs: GitHubWorkflowRun[] }).workflow_runs, next }),
+      select: (body, next) => {
+        const { workflow_runs, total_count } = body as { workflow_runs: GitHubWorkflowRun[], total_count?: number }
+        return { items: workflow_runs, next, total: total_count }
+      },
     })
     return toPage(result, raw => toWorkflowRun(repo, raw))
   }
@@ -1392,7 +1415,12 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
     ci: {
       runsPage: verb(true, runsPage),
       run: verb(true, async (ref, options) => toWorkflowRun(ref.repo, (await fetcher.json<GitHubWorkflowRun>(`${repoPath(ref.repo)}/actions/runs/${encodeURIComponent(ref.id)}`, { signal: options?.signal })).data)),
-      jobsPage: verb(true, (ref, listOptions = {}) => list(`${repoPath(ref.repo)}/actions/runs/${encodeURIComponent(ref.id)}/jobs`, listOptions, (raw: GitHubWorkflowJob) => toWorkflowJob(ref, raw), { select: (body, next) => ({ items: (body as { jobs: GitHubWorkflowJob[] }).jobs, next }) })),
+      jobsPage: verb(true, (ref, listOptions = {}) => list(`${repoPath(ref.repo)}/actions/runs/${encodeURIComponent(ref.id)}/jobs`, listOptions, (raw: GitHubWorkflowJob) => toWorkflowJob(ref, raw), {
+        select: (body, next) => {
+          const { jobs, total_count } = body as { jobs: GitHubWorkflowJob[], total_count?: number }
+          return { items: jobs, next, total: total_count }
+        },
+      })),
       job: verb(true, getJob),
       log: verb(!anonymous, async (ref, options) => (await fetcher.stream(`${repoPath(ref.repo)}/actions/jobs/${encodeURIComponent(ref.id)}/logs`, { signal: options?.signal })).body),
     },
