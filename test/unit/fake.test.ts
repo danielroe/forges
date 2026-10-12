@@ -184,7 +184,8 @@ describe('fake forge', () => {
     expect(factory.store.events.at(-1)!.detail).toMatchObject({ type: 'review', state: 'changes_requested' })
   })
   it('replies to a review comment inside its conversation', async () => {
-    const forge = fake({ seed }).create()
+    const factory = fake({ seed })
+    const forge = factory.create()
     const repo = { forge: 'fake', instance: 'fake.test', owner: 'acme', name: 'widgets' }
     const [pull] = (await forge.threads.listPage(repo, { kind: 'pull_request' })).items
 
@@ -197,6 +198,7 @@ describe('fake forge', () => {
 
     expect(reply).toMatchObject({ body: 'renamed', path: 'src/index.ts', line: 3, inReplyTo: comment.ref!.id, thread: comment.thread })
     expect(second.inReplyTo).toBe(comment.ref!.id)
+    expect(factory.store.events.at(-1)!.detail).toMatchObject({ type: 'review_comment', comment: second.ref, body: 'and the tests', path: 'src/index.ts' })
     expect((read!.comments as Exclude<typeof review.comments, false>).map(item => item.thread?.resolved)).toEqual([true, true, true])
   })
   it('reports a commit status, lists it back and reads a job log', async () => {

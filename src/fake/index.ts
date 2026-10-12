@@ -658,6 +658,7 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
         raw: { body },
       }
       review.comments.push(reply)
+      record(state.thread.ref, 'review_comment', 'created', 'replied to a review comment', { type: 'review_comment', comment: reply.ref, body, path: reply.path, line: reply.line })
       return reply
     }
     throw notFound(`No review comment ${comment.ref?.id ?? comment.thread?.id}`)
