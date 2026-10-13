@@ -4,6 +4,7 @@ import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { afterEach, describe, expect, it } from 'vitest'
 import { differingKeys, planSplice, spliceSteps } from '../../scripts/partial-writes.ts'
+import { parsePendingSplice } from '../../scripts/splice-partial.ts'
 import { canReplay } from '../../scripts/stabilise-recordings.ts'
 
 const api = 'https://api.github.com/repos/bot/forges-fixtures'
@@ -90,6 +91,23 @@ describe('checking whether a recording can be replayed', () => {
     finally {
       rmSync(checkout, { recursive: true, force: true })
     }
+  })
+})
+
+describe('reading a saved write run', () => {
+  const saved = (overrides: Record<string, unknown> = {}) => JSON.stringify({ manifest: {}, steps: [{ name: 'commit comment', recordedAt: '', fixtures: [] }], setup: [], only: ['commit comment'], remove: [], ...overrides })
+
+  it('reads a run of write steps', () => {
+    expect(parsePendingSplice(saved()).only).toEqual(['commit comment'])
+  })
+
+  it.each([
+    ['a step that is not a write step', { steps: [{ name: '../../package', fixtures: [] }] }],
+    ['a selection that is not a write step', { only: ['repo'] }],
+    ['a step without fixtures', { steps: [{ name: 'commit comment' }] }],
+    ['no selection', { only: undefined }],
+  ])('refuses %s', (_, overrides) => {
+    expect(() => parsePendingSplice(saved(overrides))).toThrow(/partial\.json/)
   })
 })
 

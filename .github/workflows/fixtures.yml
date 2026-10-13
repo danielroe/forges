@@ -17,7 +17,10 @@ on:
         description: Forges to record, separated by spaces, or `all`
         default: all
       only:
-        description: Read steps to record, separated by commas, or empty for every step
+        description: Steps to record, separated by commas, or empty for every step
+        default: ''
+      ref:
+        description: Branch of this repository to record and open the pull request into, or empty for the default branch
         default: ''
 
 permissions: {}
@@ -39,6 +42,9 @@ jobs:
     outputs:
       forges: ${{ steps.plan.outputs.forges }}
       kind: ${{ steps.plan.outputs.kind }}
+      sha: ${{ steps.plan.outputs.sha }}
+      base: ${{ steps.plan.outputs.base }}
+      head: ${{ steps.plan.outputs.head }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
@@ -52,9 +58,28 @@ jobs:
         id: plan
         env:
           FORGES: ${{ inputs.forges || 'all' }}
-          ONLY: ${{ inputs.only }}
+          REF: ${{ inputs.ref }}
+          DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
+          GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
+          if [ -z "$REF" ] || [ "$REF" = "$DEFAULT_BRANCH" ]; then
+            echo "sha=$GITHUB_SHA" >> "$GITHUB_OUTPUT"
+            echo "base=$DEFAULT_BRANCH" >> "$GITHUB_OUTPUT"
+            echo "head=fixtures/$KIND" >> "$GITHUB_OUTPUT"
+          else
+            if ! git check-ref-format --branch "$REF" > /dev/null || [[ "$REF" == fixtures/* ]]; then
+              echo "::error::\`$REF\` is not a branch the fixtures can be recorded against."
+              exit 1
+            fi
+            if ! sha=$(gh api "repos/$GITHUB_REPOSITORY/git/ref/heads/$REF" --jq '.object.sha'); then
+              echo "::error::This repository has no branch \`$REF\`."
+              exit 1
+            fi
+            echo "sha=$sha" >> "$GITHUB_OUTPUT"
+            echo "base=$REF" >> "$GITHUB_OUTPUT"
+            echo "head=fixtures/$KIND-${REF//[^A-Za-z0-9._-]/-}" >> "$GITHUB_OUTPUT"
+          fi
           known=$(node scripts/record-forge.ts --list "$KIND")
           if [ "$FORGES" = all ]; then
             selected=$known
@@ -64,10 +89,6 @@ jobs:
           unknown=$(jq -cn --argjson selected "$selected" --argjson known "$known" '$selected - $known')
           if [ "$unknown" != '[]' ]; then
             echo "::error::These forges do not record $KIND: $unknown"
-            exit 1
-          fi
-          if [ "$KIND" = writes ] && [ -n "$ONLY" ]; then
-            echo '::error::`only` selects read steps.'
             exit 1
           fi
           echo "forges=$selected" >> "$GITHUB_OUTPUT"
@@ -89,6 +110,7 @@ jobs:
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
+          ref: ${{ needs.plan.outputs.sha }}
           persist-credentials: false
       - uses: pnpm/setup@a0881977cd8ea73b1ed212236c99ca10dcc80cf4 # v3.1.1
         with:
@@ -120,7 +142,7 @@ jobs:
               only+=(--only "$step")
             fi
           done
-          if node scripts/record-forge.ts "$FORGE" --kind "$KIND" --env-file "$RUNNER_TEMP/fixtures.env" --summary "$RUNNER_TEMP/summary.md" "${only[@]}"; then
+          if node scripts/record-forge.ts "$FORGE" --kind "$KIND" --env-file "$RUNNER_TEMP/fixtures.env" --summary "$RUNNER_TEMP/summary.md" --defer-splice "${only[@]}"; then
             echo "failed=false" >> "$GITHUB_OUTPUT"
           else
             echo "failed=true" >> "$GITHUB_OUTPUT"
@@ -166,7 +188,7 @@ jobs:
     if: always() && needs.plan.result == 'success' && needs.record.result != 'cancelled' && needs.record.result != 'skipped'
     runs-on: ubuntu-latest
     concurrency:
-      group: fixtures-pr-${{ needs.plan.outputs.kind }}
+      group: fixtures-pr-${{ needs.plan.outputs.head }}
       cancel-in-progress: false
     permissions:
       contents: write # push the `fixtures/<kind>` branch
@@ -175,6 +197,7 @@ jobs:
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
+          ref: ${{ needs.plan.outputs.sha }}
           persist-credentials: false
       - uses: pnpm/setup@a0881977cd8ea73b1ed212236c99ca10dcc80cf4 # v3.1.1
         with:
@@ -194,6 +217,22 @@ jobs:
         run: |
           mkdir -p "$RUNNER_TEMP/recordings"
           node scripts/apply-recordings.ts "$RUNNER_TEMP/recordings" --kind "$KIND" --summary "$RUNNER_TEMP/summary.md"
+
+      - name: 🪡 Splice partial write runs into their recordings
+        if: needs.plan.outputs.kind == 'writes'
+        run: |
+          set -euo pipefail
+          node scripts/splice-partial.ts > "$RUNNER_TEMP/spliced.txt" 2>&1 || echo "::warning::A write run could not be spliced, so its recording is left as committed."
+          cat "$RUNNER_TEMP/spliced.txt"
+          if [ -s "$RUNNER_TEMP/spliced.txt" ]; then
+            {
+              echo '#### spliced runs'
+              echo
+              echo '```text'
+              tr -d '`' < "$RUNNER_TEMP/spliced.txt"
+              echo '```'
+            } >> "$RUNNER_TEMP/summary.md"
+          fi
 
       - name: 🪢 Rename the identifiers write recordings created
         if: needs.plan.outputs.kind == 'writes'
@@ -215,7 +254,9 @@ jobs:
       - name: 🔀 Open or update the pull request
         env:
           GH_TOKEN: ${{ github.token }}
-          BRANCH: fixtures/${{ needs.plan.outputs.kind }}
+          BRANCH: ${{ needs.plan.outputs.head }}
+          BASE: ${{ needs.plan.outputs.base }}
+          DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
         run: |
           set -euo pipefail
@@ -238,7 +279,11 @@ jobs:
           git -c "http.https://github.com/.extraheader=AUTHORIZATION: basic $auth" push -q --force "https://github.com/$GITHUB_REPOSITORY.git" "HEAD:refs/heads/$BRANCH"
           {
             names=$(printf '`%s`, ' $forges)
-            echo "re-recorded the fixture $KIND for ${names%, } ([run]($RUN_URL)), with a commit per forge."
+            if [ "$BASE" = "$DEFAULT_BRANCH" ]; then
+              echo "re-recorded the fixture $KIND for ${names%, } ([run]($RUN_URL)), with a commit per forge."
+            else
+              echo "re-recorded the fixture $KIND for ${names%, } against \`$BASE\` ([run]($RUN_URL)), with a commit per forge."
+            fi
             echo
             echo "steps that only changed in rate limits, counters or timestamps are omitted."
             if [ "$KIND" = writes ]; then
@@ -256,6 +301,10 @@ jobs:
           if [ -n "$number" ]; then
             jq -n --rawfile body "$RUNNER_TEMP/body.md" '{ body: $body }' | gh api --method PATCH "repos/$GITHUB_REPOSITORY/pulls/$number" --input - --silent
           else
-            jq -n --rawfile body "$RUNNER_TEMP/body.md" --arg head "$BRANCH" --arg title "test: re-record fixture $KIND" '{ title: $title, head: $head, base: "main", body: $body }' | gh api --method POST "repos/$GITHUB_REPOSITORY/pulls" --input - --silent
+            title="test: re-record fixture $KIND"
+            if [ "$BASE" != "$DEFAULT_BRANCH" ]; then
+              title="$title for \`$BASE\`"
+            fi
+            jq -n --rawfile body "$RUNNER_TEMP/body.md" --arg head "$BRANCH" --arg base "$BASE" --arg title "$title" '{ title: $title, head: $head, base: $base, body: $body }' | gh api --method POST "repos/$GITHUB_REPOSITORY/pulls" --input - --silent
           fi
           gh workflow run ci.yml --repo "$GITHUB_REPOSITORY" --ref "$BRANCH"

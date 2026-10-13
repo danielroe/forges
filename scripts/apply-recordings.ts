@@ -17,7 +17,7 @@ import { parseArgs } from 'node:util'
 import { PLANS } from './record-forge.ts'
 
 const RECORDING = /^[a-z\d.-]+$/
-const FILE = /^(?:manifest|jetstream|golden)\.json$|^\d+-[\w.-]+\.delivery\.json$/
+const FILE = /^(?:manifest|jetstream|golden|partial)\.json$|^\d+-[\w.-]+\.delivery\.json$/
 const STEP_FILE = /^(?:step|golden)\.json$|^\d+-[\w.-]+\.json$/
 const MAX_FILE_BYTES = 8 * 1024 * 1024
 const MAX_TOTAL_BYTES = 256 * 1024 * 1024

@@ -3,6 +3,7 @@ import type * as Forges from '../src/index.ts'
 import type { Fixture } from '../src/testing/index.ts'
 import type { RecordingManifest, StepContext } from '../test/recording/steps.ts'
 import type { WriteContext, WriteManifest, WriteRun } from '../test/recording/write-steps.ts'
+import type { PendingSplice } from './partial-writes.ts'
 import type { StepRecording, StepRun } from './recording-store.ts'
 import type { HookDelivery, WriteHarness } from './write-harness.ts'
 import { randomBytes } from 'node:crypto'
@@ -17,18 +18,18 @@ import { redact } from '../test/recording/redact.ts'
 import { seedScratch } from '../test/recording/seed.ts'
 import { LOG_LIMIT, STEPS } from '../test/recording/steps.ts'
 import { FIXTURE_HOOK_SECRET, FIXTURE_HOOK_URL, FIXTURE_TITLE, fixtureLabel, WRITE_STEPS } from '../test/recording/write-steps.ts'
-import { differingKeys, spliceWrites } from './partial-writes.ts'
+import { differingKeys, PENDING_SPLICE, reportSplice, spliceWrites } from './partial-writes.ts'
 import { patientFetch } from './rate-limits.ts'
 import { connectedSteps, trackReads, writeRecording } from './recording-store.ts'
 import { canReplay, fixtures } from './stabilise-recordings.ts'
 import { guardedFetch } from './write-guard.ts'
 import { writeHarness } from './write-harness.ts'
 
-const { positionals: [target], values: flags } = parseArgs({ allowPositionals: true, options: { 'anonymous': { type: 'boolean', default: false }, 'app': { type: 'boolean', default: false }, 'writes': { type: 'boolean', default: false }, 'webhooks': { type: 'boolean', default: false }, 'seed': { type: 'boolean', default: false }, 'only': { type: 'string', multiple: true }, 'allow-fewer': { type: 'boolean', default: false } } })
+const { positionals: [target], values: flags } = parseArgs({ allowPositionals: true, options: { 'anonymous': { type: 'boolean', default: false }, 'app': { type: 'boolean', default: false }, 'writes': { type: 'boolean', default: false }, 'webhooks': { type: 'boolean', default: false }, 'seed': { type: 'boolean', default: false }, 'only': { type: 'string', multiple: true }, 'allow-fewer': { type: 'boolean', default: false }, 'defer-splice': { type: 'boolean', default: false } } })
 const TOKEN_VARIABLES: Record<string, string> = { 'github': 'GITHUB_TOKEN', 'forgejo': 'CODEBERG_TOKEN', 'gitlab': 'GITLAB_TOKEN', 'bitbucket': 'BITBUCKET_TOKEN', 'cursor-origin': 'CURSOR_AUTH_TOKEN', 'gitee': 'GITEE_TOKEN', 'azure-devops': 'AZURE_DEVOPS_TOKEN', 'gitea': 'GITEA_TOKEN', 'pushin': 'PUSHIN_TOKEN', 'tangled': 'TANGLED_PASSWORD', 'cloudflare-artifacts': 'CLOUDFLARE_ARTIFACTS_TOKEN' }
 
 if (!target || !(target in TOKEN_VARIABLES)) {
-  console.error('Usage: pnpm record-fixtures <github|forgejo|gitlab|bitbucket|tangled|cursor-origin|gitee|azure-devops|gitea|pushin|cloudflare-artifacts> [--anonymous | --app | --writes [--allow-fewer] | --webhooks | --seed] [--only <step>]...')
+  console.error('Usage: pnpm record-fixtures <github|forgejo|gitlab|bitbucket|tangled|cursor-origin|gitee|azure-devops|gitea|pushin|cloudflare-artifacts> [--anonymous | --app | --writes [--allow-fewer] [--defer-splice] | --webhooks | --seed] [--only <step>]...')
   exit(1)
 }
 
@@ -207,16 +208,13 @@ function writeSteps(options: { keepFailed?: boolean } = {}): void {
 function spliceSelected(recording: string, manifest: WriteManifest, selection: Set<string>, remove: string[] = []): boolean {
   const inSteps = new Set(recorded.flatMap(step => step.fixtures))
   const setup = recorder.fixtures.filter(fixture => !inSteps.has(fixture) && !discarded.has(fixture))
-  const result = spliceWrites(recording, { manifest, steps: recorded, setup }, selection, remove)
-  if (!result.saved) {
-    console.error(`Kept the committed recording, as ${result.reason}`)
-    return false
+  const run = { manifest, steps: recorded, setup }
+  if (flags['defer-splice']) {
+    writeFileSync(`${out}${PENDING_SPLICE}`, `${JSON.stringify({ ...run, only: [...selection], remove } satisfies PendingSplice)}\n`)
+    console.info(`Saved the run in ${out}${PENDING_SPLICE}, for \`node scripts/splice-partial.ts\` to splice into the committed recording.`)
+    return true
   }
-  console.info(`${result.written.length} step(s) written, ${result.unchanged.length} unchanged apart from timestamps.`)
-  if (result.extra.length) {
-    console.info(`Also wrote these steps, which changed and are read by a written step:${result.extra.map(name => `\n  ${name}`).join('')}`)
-  }
-  return true
+  return reportSplice(spliceWrites(recording, run, selection, remove))
 }
 
 async function step(name: string, run: () => Promise<unknown>): Promise<boolean> {
@@ -578,7 +576,7 @@ async function recordWrites(): Promise<void> {
     console.error(`--only adds steps to a write recording under test/fixtures/, and ${out} is not one. Record every step instead of passing --only.`)
     exit(1)
   }
-  if (only && !canReplay()) {
+  if (only && !flags['defer-splice'] && !canReplay()) {
     console.error('--only replays the recording with vitest, which is not installed. Run `pnpm install` first.')
     exit(1)
   }
@@ -658,7 +656,7 @@ async function recordWrites(): Promise<void> {
   const missing = recordedSteps(out).map(step => step.name).filter(name => !succeeded(name))
   const lost = missing.filter(name => WRITE_STEPS.some(step => step.name === name))
   if (lost.length && !flags['allow-fewer']) {
-    if (recording && canReplay() && spliceSelected(recording, manifest, new Set(recorded.map(step => step.name)), missing.filter(name => !lost.includes(name)))) {
+    if (recording && (flags['defer-splice'] || canReplay()) && spliceSelected(recording, manifest, new Set(recorded.map(step => step.name)), missing.filter(name => !lost.includes(name)))) {
       console.error(`Kept the committed recording of these steps, which this run did not record:${list(lost)}`)
       process.exitCode = 1
       return

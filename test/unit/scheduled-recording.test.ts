@@ -49,6 +49,16 @@ describe('applying scheduled recordings', () => {
     expect(readFileSync(`${fixtures}/github/recorded/github.com-writes/manifest.json`, 'utf8')).toBe('"kept"')
   })
 
+  it('applies a write run saved for splicing', () => {
+    const { downloads, recorded } = artifact('writes')
+    write(`${recorded}/github.com-writes/partial.json`, '{"steps":[]}')
+    const fixtures = temporary()
+
+    applyRecordings(downloads, 'writes', fixtures)
+
+    expect(readFileSync(`${fixtures}/github/recorded/github.com-writes/partial.json`, 'utf8')).toBe('{"steps":[]}')
+  })
+
   it.each([
     ['an unknown forge', ({ downloads }: ReturnType<typeof artifact>) => write(`${downloads}/recording-reads-evil/recorded/x/manifest.json`, '{}')],
     ['a file that is not fixture JSON', ({ recorded }: ReturnType<typeof artifact>) => write(`${recorded}/github.com/steps/repo/01-get-x.sh`, 'echo')],

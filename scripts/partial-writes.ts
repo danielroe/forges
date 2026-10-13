@@ -15,6 +15,15 @@ export interface PartialRun {
   setup: Fixture[]
 }
 
+/** The file in a recording's directory that holds a run saved with `--defer-splice`. */
+export const PENDING_SPLICE = 'partial.json'
+
+/** A run saved with `--defer-splice`, and the arguments to splice it with. */
+export interface PendingSplice extends PartialRun {
+  only: string[]
+  remove: string[]
+}
+
 export interface SpliceResult {
   /** Whether the steps were written; otherwise the committed recording is left as it was. */
   saved: boolean
@@ -72,6 +81,19 @@ export function differingKeys(a: Record<string, unknown>, b: Record<string, unkn
  * with every golden output matching. Otherwise the committed recording is
  * left as it was.
  */
+/** Logs what a splice wrote or why it did not; returns whether it did. */
+export function reportSplice(result: SpliceResult): boolean {
+  if (!result.saved) {
+    console.error(`Kept the committed recording, as ${result.reason}`)
+    return false
+  }
+  console.info(`${result.written.length} step(s) written, ${result.unchanged.length} unchanged apart from timestamps.`)
+  if (result.extra.length) {
+    console.info(`Also wrote these steps, which changed and are read by a written step:${result.extra.map(name => `\n  ${name}`).join('')}`)
+  }
+  return true
+}
+
 export function spliceWrites(recording: string, run: PartialRun, only: Set<string>, remove: string[] = []): SpliceResult {
   const directory = `${fixtures}${recording}/`
   const refused = (reason: string): SpliceResult => ({ saved: false, reason, written: [], extra: [], unchanged: [] })
