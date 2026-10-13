@@ -525,7 +525,7 @@ describe('request compatibility with Octokit', () => {
 
     it('exchanges a JWT for an installation token', async () => {
       const { provider, ours, theirs } = appHarness(55123)
-      await provider.notifications!.markRead!(notification)
+      await provider.repos.get(repo)
       const jwt = ours[0]!.authorization!.split(' ')[1]!
       await new Octokit({ auth: jwt, request: { fetch: theirs.fetch } }).rest.apps.createInstallationAccessToken({ installation_id: 55123 })
 

@@ -4,7 +4,7 @@ import type { AnonymousAuth, ForgeOptionsBase, InstallationsApi } from '../provi
 import type { CursorOriginAuth, OriginAppCredentials } from './auth.ts'
 import type { OriginBlob, OriginBranch, OriginCheckRun, OriginComment, OriginCommit, OriginCommitFile, OriginComparison, OriginContent, OriginGitRef, OriginInstallation, OriginPullRequest, OriginRepo, OriginReview, OriginTree } from './types.ts'
 import { fromBase64, toFileContent } from '../contents.ts'
-import { defineForgeProvider, perKind, verb } from '../define.ts'
+import { defineForgeProvider, perKind, supportOnly, verb } from '../define.ts'
 import { ForgeError, soleMergeMethod, toMergeError, UnsupportedOperationError } from '../errors.ts'
 import { createFetcher as createFetcherBase } from '../fetch.ts'
 import { forgeIterable, getManyConcurrently, iteratePages, phased, requireThread, resolveToken, summariseChecks, toWarning } from '../utils.ts'
@@ -201,9 +201,10 @@ function setupOrigin({ options, baseUrl, instance, origin: context, fetcher, cre
   }
 
   const auth = options.auth
-  const repoAccess = auth?.type === 'token' || (auth?.type === 'app' && auth.installationId !== undefined)
+  /** An app without an installation reaches only the `/app` endpoints. */
+  const appItself = auth?.type === 'app' && auth.installationId === undefined
 
-  return {
+  const spec: ProviderSpec = {
     checks: {
       list: verb('unverified', async (repo, sha, options) => ({ items: await headChecks(repo, sha, options?.signal) })),
     },
@@ -277,17 +278,9 @@ function setupOrigin({ options, baseUrl, instance, origin: context, fetcher, cre
     traits: { eventKinds: 'native', authKinds: ['token', 'app', 'anonymous'] },
     repos: {
       get: verb('experimental', async (ref, options) => toRepo(instance, (await fetcher.json<OriginRepo>(repoPath(ref), { signal: options?.signal })).data)),
-      listPage: verb(repoAccess && 'unverified', async (listOptions = {}) => {
-        if (auth?.type === 'app') {
-          if (auth.installationId === undefined) {
-            throw new UnsupportedOperationError('An app without an installation has no repositories; use installations.repos()', context)
-          }
-          return reposPage(listOptions)
-        }
-        return userReposPage(listOptions)
-      }),
+      listPage: verb('unverified', (listOptions = {}) => auth?.type === 'app' ? reposPage(listOptions) : userReposPage(listOptions)),
     },
-    installations: credentials && auth?.type === 'app' && auth.installationId === undefined ? verb('unverified', createInstallationsApi(credentials)) : undefined,
+    installations: credentials && appItself ? verb('unverified', createInstallationsApi(credentials)) : undefined,
     threads: {
       get: perKind(PULL, get),
       getMany: verb('experimental', (refs, options) => getManyConcurrently(refs, get, options)),
@@ -402,6 +395,7 @@ function setupOrigin({ options, baseUrl, instance, origin: context, fetcher, cre
     },
     scopes: () => ({ note: 'An Origin app installation token; Origin has no per-verb scopes' }),
   }
+  return appItself ? supportOnly(spec, ['installations']) : spec
 }
 
 const ORIGIN: ProviderDefinition<CursorOriginOptions, OriginAppCredentials | undefined> = {

@@ -42,7 +42,26 @@ For app authentication, `privateKey` is the PEM key of the app, in PKCS#1 or PKC
 
 If you leave out `auth` altogether, the provider makes anonymous reads of public data. GitHub serves job logs and code search only to authenticated requests, so `ci.log` and `search.code` aren't supported without `auth`.
 
-`users.me()` needs a token. The token of an app installation doesn't belong to any account, so the capability table at the end of this page, which assumes app authentication, shows `users.me` as unsupported.
+An app without an `installationId` can only use `installations`, so every other capability is unsupported for it.
+
+What a token can do depends on its kind, which the provider reads from the token's prefix:
+
+| `kind` | Prefix | Token |
+| --- | --- | --- |
+| `classic` | `ghp_`, `gho_` | A personal access token (classic) or an OAuth app token |
+| `fine-grained` | `github_pat_` | A fine-grained personal access token |
+| `app-user` | `ghu_` | A GitHub App user access token |
+| `installation` | `ghs_` | A GitHub App installation access token, such as the `GITHUB_TOKEN` of a workflow |
+
+If `token` is a function, pass `kind` as well, or the provider assumes that the token can do anything a token can:
+
+```ts
+const forge = github({
+  auth: { type: 'token', token: () => refreshUserToken(), kind: 'app-user' },
+}).create()
+```
+
+GitHub serves notifications only to `classic` tokens, so `notifications` is unsupported for every other kind and for app authentication. `users.me()` needs a token that belongs to an account, so it isn't supported for an `installation` token or an app installation.
 
 ## Sponsors
 
@@ -213,7 +232,7 @@ Deliveries of the `installation` and `installation_repositories` events become `
 | Capability | Support | Without credentials |
 | --- | --- | --- |
 | `experimental` | ❌ | ❌ |
-| `sources.poll` | ✅ | ❌ |
+| `sources.poll` | ❌ | ❌ |
 | `sources.webhook` | ✅ | ✅ |
 | `sources.subscribe` | ❌ | ❌ |
 | `repos.get` | ✅ | ✅ |
@@ -243,11 +262,11 @@ Deliveries of the `installation` and `installation_repositories` events become `
 | `comments.edit` | issue, PR, discussion, commit | ❌ |
 | `comments.delete` | issue, PR, discussion, commit | ❌ |
 | `reactions.list` | issue, PR, discussion | issue, PR |
-| `notifications.list` | ✅ | ❌ |
-| `notifications.markRead` | ✅ | ❌ |
-| `notifications.markDone` | ✅ | ❌ |
-| `notifications.unsubscribe` | ✅ | ❌ |
-| `notifications.markAllRead` | ✅ | ❌ |
+| `notifications.list` | ❌ | ❌ |
+| `notifications.markRead` | ❌ | ❌ |
+| `notifications.markDone` | ❌ | ❌ |
+| `notifications.unsubscribe` | ❌ | ❌ |
+| `notifications.markAllRead` | ❌ | ❌ |
 | `notifications.markAllDone` | ❌ | ❌ |
 | `notifications.unreadCount` | ❌ | ❌ |
 | `writes.comment` | issue, PR, discussion, commit | ❌ |

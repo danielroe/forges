@@ -140,7 +140,7 @@ export function capabilitiesOf(spec: ProviderSpec, env: CapabilityEnv, flags: Ca
 }
 
 /** Verbs `readOnly` blocks, by their {@link ForgeVerb} name. */
-export const WRITE_VERBS = new Set<string>(CAPABILITY_TABLE.flatMap(entry => entry.write ? entry.verbs ?? [] : []))
+export const WRITE_VERBS: Set<string> = new Set<string>(CAPABILITY_TABLE.flatMap(entry => entry.write ? entry.verbs ?? [] : []))
 
 function update(target: unknown, path: string, change: (value: unknown) => unknown): unknown {
   const [key, ...rest] = path.split('.')
@@ -170,4 +170,25 @@ export function restrict(spec: ProviderSpec, anonymous: boolean, webhooksOnly = 
   }
   const result = restricted as ProviderSpec
   return anonymous && webhooksOnly ? { ...result, securityAlerts: undefined } : result
+}
+
+/**
+ * Marks every declared verb unsupported except the capabilities in `keep` and
+ * anything under them, for a credential that reaches only part of the API.
+ * @param spec The spec that `setup()` declares.
+ * @param keep Capability paths, such as `installations`, that stay as declared.
+ * @example
+ * ```ts
+ * return appItself ? supportOnly(spec, ['installations']) : spec
+ * ```
+ */
+export function supportOnly<T extends ProviderSpec>(spec: T, keep: readonly string[]): T {
+  const kept = (capability: string) => keep.some(path => capability === path || capability.startsWith(`${path}.`))
+  let restricted: unknown = spec
+  for (const entry of CAPABILITY_TABLE) {
+    if (entry.spec && !kept(entry.capability)) {
+      restricted = update(restricted, entry.spec, entry.perKind ? unsupportedKinds : unsupported)
+    }
+  }
+  return kept('securityAlerts') ? restricted as T : { ...restricted as T, securityAlerts: undefined }
 }

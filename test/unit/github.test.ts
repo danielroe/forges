@@ -1,3 +1,4 @@
+import type { GitHubAuth } from '../../src/github/auth.ts'
 import type { TypedGraphQLDocument } from '../../src/github/index.ts'
 import type { GitHubNotification } from '../../src/github/types.ts'
 import type { ThreadRef } from '../../src/model.ts'
@@ -389,11 +390,44 @@ describe('github app installations', () => {
     expect(appProvider().provider.capabilities.installations).toBe(true)
   })
 
+  it('declares only installations for an app without an installation', async () => {
+    const { provider, calls } = appProvider()
+
+    expect(provider.can('installations.list')).toBe(true)
+    expect(provider.can('repos.get')).toBe(false)
+    expect(provider.can('threads.list', 'issue')).toBe(false)
+    expect(provider.can('notifications.list')).toBe(false)
+    await expect(provider.repos.get(repo)).rejects.toThrow(UnsupportedOperationError)
+    expect(calls).toEqual([])
+  })
+
+  it('declares notifications only for classic tokens', () => {
+    const can = (auth: GitHubAuth) => github({ auth }).create().can('notifications.list')
+
+    expect(can({ type: 'token', token: 'ghp_x' })).toBe(true)
+    expect(can({ type: 'token', token: 'gho_x' })).toBe(true)
+    expect(can({ type: 'token', token: () => 'github_pat_x' })).toBe(true)
+    expect(can({ type: 'token', token: 'github_pat_x' })).toBe(false)
+    expect(can({ type: 'token', token: 'ghu_x' })).toBe(false)
+    expect(can({ type: 'token', token: 'ghs_x' })).toBe(false)
+    expect(can({ type: 'token', token: () => 'x', kind: 'fine-grained' })).toBe(false)
+    expect(can({ type: 'app', appId: 1, privateKey: '', installationId: 1 })).toBe(false)
+  })
+
+  it('lists the repositories of an installation token', async () => {
+    const { fetch, calls } = fixtureFetch('github')
+    const provider = github({ auth: { type: 'token', token: 'ghs_x' }, fetch }).create()
+    await provider.repos.listPage()
+
+    expect(provider.can('users.me')).toBe(false)
+    expect(calls.map(call => new URL(call.url).pathname)).toEqual(['/installation/repositories'])
+  })
+
   it('exchanges app credentials for an installation token and reuses it', async () => {
     const { provider, calls } = appProvider(55123)
 
-    await provider.notifications!.markRead!({ forge: 'github', instance: 'github.com', id: '901234567' })
-    await provider.notifications!.markRead!({ forge: 'github', instance: 'github.com', id: '901234567' })
+    await provider.repos.get(repo)
+    await provider.repos.get(repo)
 
     const tokenCalls = calls.filter(call => call.url.endsWith('/access_tokens'))
     expect(tokenCalls).toHaveLength(1)
@@ -423,14 +457,14 @@ describe('github app installations', () => {
     const derived = []
     for await (const entry of provider.installations!.providers()) {
       derived.push(entry)
-      await entry.provider.notifications!.markRead!({ forge: 'github', instance: 'github.com', id: '901234567' })
+      await entry.provider.repos.get(repo)
     }
 
     expect(derived).toHaveLength(2)
     const jwtCalls = calls.filter(call => call.url.endsWith('/app/installations') || call.url.endsWith('/access_tokens'))
     expect(jwtCalls).toHaveLength(3)
     expect(new Set(jwtCalls.map(call => call.authorization)).size).toBe(1)
-    expect(calls.filter(call => call.method === 'PATCH').map(call => call.authorization)).toEqual([
+    expect(calls.filter(call => call.url.endsWith('/repos/acme/widgets')).map(call => call.authorization)).toEqual([
       'Bearer ghs_fixtureinstallationtoken',
       'Bearer ghs_fixtureinstallationtokentwo',
     ])

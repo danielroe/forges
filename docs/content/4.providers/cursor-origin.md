@@ -44,7 +44,7 @@ const app = cursorOrigin({
 
 A user access token is the value that the Origin CLI reads from `CURSOR_AUTH_TOKEN`. Personal Cursor API keys aren't Origin bearer tokens, so the provider doesn't accept them.
 
-For app authentication, `privateKey` is the Ed25519 private key of the app in PKCS#8 PEM format, and the provider uses it to sign an app JWT. If you pass an `installationId` as well, the provider creates installation tokens whenever it needs one. If you leave it out, the provider authenticates as the app itself. In that case, `installations.list()` lists the installations of the app, and `installations.provider(installation)` returns a provider for one of them.
+For app authentication, `privateKey` is the Ed25519 private key of the app in PKCS#8 PEM format, and the provider uses it to sign an app JWT. If you pass an `installationId` as well, the provider creates installation tokens whenever it needs one. If you leave it out, the provider authenticates as the app itself. In that case, `installations.list()` lists the installations of the app, and `installations.provider(installation)` returns a provider for one of them. An app without an `installationId` can only use `installations`, so every other capability is unsupported for it.
 
 Origin's API has no anonymous access. If you leave out `auth`, the provider can only verify and translate webhook deliveries, which it checks against Origin's public signing keys:
 

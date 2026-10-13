@@ -22,6 +22,20 @@ describe('cursor origin without credentials', () => {
   })
 })
 
+describe('cursor origin app', () => {
+  it('declares only installations without an installation', () => {
+    const app = { type: 'app', appId: 'app_1', privateKey: '' } as const
+    const forge = cursorOrigin({ auth: app }).create()
+    const installation = cursorOrigin({ auth: { ...app, installationId: 'i_1' } }).create()
+
+    expect(forge.can('installations.list')).toBe(true)
+    expect(forge.can('repos.get')).toBe(false)
+    expect(forge.can('repos.list')).toBe(false)
+    expect(installation.can('repos.get')).toBe(true)
+    expect(installation.can('repos.list')).toBe(true)
+  })
+})
+
 describe('cursor origin comments', () => {
   it('encodes the comment id when reading, editing and deleting a comment', async () => {
     const urls: string[] = []

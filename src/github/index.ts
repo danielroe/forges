@@ -118,14 +118,14 @@ import type {
 } from './types.ts'
 import { WRITE_VERBS } from '../capabilities.ts'
 import { fromBase64, toFileContent } from '../contents.ts'
-import { defineForgeProvider, perKind, verb } from '../define.ts'
+import { defineForgeProvider, perKind, supportOnly, verb } from '../define.ts'
 import { ForbiddenError, ForgeApiError, ForgeError, ForgeTimeoutError, InsufficientScopeError, MergeBlockedError, NotFoundError, ReadOnlyError, soleMergeMethod, toMergeError, UnsupportedOperationError } from '../errors.ts'
 import { anySignal, sleep } from '../fetch.ts'
 import { isNamespaceRef, isResolvedThread, reactionContent } from '../model.ts'
 import { actorLogin, createListing, forgeIterable, getManyConcurrently, hostOf, iteratePages, memo, milestoneId, phased, requireIssueOrPull, requireThread, resolveToken, summariseChecks, teamOrg, toDate, toPage, toWarning, versionAtLeast } from '../utils.ts'
 import { githubShapedWeb } from '../web.ts'
 import { nativeEventsFor } from '../webhooks.ts'
-import { createAppCredentials, createAuthHeaders } from './auth.ts'
+import { createAppCredentials, createAuthHeaders, tokenKindOf } from './auth.ts'
 import { createGraphQLClient, graphqlError, graphqlOperations, graphqlUrl } from './graphql-client.ts'
 import {
   FORGE,
@@ -169,7 +169,7 @@ import { githubWebhooks } from './webhooks.ts'
 const DISCUSSION_CLOSE_REASONS: Partial<Record<CloseReason, string>> = { completed: 'resolved', duplicate: 'duplicate' }
 const COLLABORATOR_PERMISSIONS: Partial<Record<RepoRole, string>> = { read: 'pull', write: 'push' }
 
-export type { GitHubAuth } from './auth.ts'
+export type { GitHubAuth, GitHubTokenAuth, GitHubTokenKind } from './auth.ts'
 
 /** Options for `github()`. */
 export interface GitHubOptions extends ForgeOptionsBase {
@@ -276,8 +276,13 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
   const auth = options.auth ?? { type: 'anonymous' as const }
   /** GitHub GraphQL needs a credential, so anonymous providers stay on REST. */
   const anonymous = auth.type === 'anonymous'
-  /** GraphQL needs a user token or an app installation token. */
-  const graphqlAuth = auth.type === 'token' || (auth.type === 'app' && auth.installationId !== undefined)
+  /** An app without an installation reaches only the `/app` endpoints. */
+  const appItself = auth.type === 'app' && auth.installationId === undefined
+  const tokenKind = auth.type === 'token' ? tokenKindOf(auth) : undefined
+  /** An installation, whether from app credentials or its token, acts as no account. */
+  const installation = auth.type === 'app' || tokenKind === 'installation'
+  /** GitHub serves notifications only to classic personal access tokens and OAuth app tokens. */
+  const notificationsAuth = auth.type === 'token' && (tokenKind === undefined || tokenKind === 'classic')
   const host = hostOf(baseUrl)
   /** GitHub Enterprise Server; `ghe.com` data residency hosts follow github.com. */
   const enterprise = host !== 'api.github.com' && !isGheCom(host)
@@ -969,7 +974,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
         throw error
       }
     }
-    if (auth.type === 'token' && (await viewerLogin()).toLowerCase() === owner.owner.toLowerCase()) {
+    if (auth.type === 'token' && !installation && (await viewerLogin()).toLowerCase() === owner.owner.toLowerCase()) {
       return read('/user/repos', { affiliation: 'owner', visibility: visibility === 'internal' ? undefined : visibility })
     }
     if (visibility) {
@@ -1061,7 +1066,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
    * can't search both kinds at once, so those read issues, then pull requests.
    */
   async function searchThreadsPage(query: SearchQuery): Promise<Page<Thread>> {
-    if (!query.kind && (enterprise || (auth.type === 'token' && (await resolveToken(auth)).startsWith('ghu_')))) {
+    if (!query.kind && (enterprise || (auth.type === 'token' && tokenKindOf(auth, await resolveToken(auth)) === 'app-user'))) {
       return phased((['issue', 'pull_request'] as const).map(kind => (cursor?: Cursor) => searchIssuesPage({ ...query, kind, cursor })), query.cursor)
     }
     return searchIssuesPage(query)
@@ -1452,7 +1457,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
     return toPage(result, raw => toWorkflowRun(repo, raw))
   }
 
-  return {
+  const spec: ProviderSpec<GitHubExtensions> & { web: WebLinks } = {
     extensions: {
       graphql: ((document: string | TypedGraphQLDocument<unknown, unknown>, variables: Record<string, unknown> = {}, graphqlOptions?: BaseOptions) => {
         const query = String(document)
@@ -1605,8 +1610,8 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
     scopes: githubScopesFor,
     users: {
       get: verb(true, async (login, options) => toUser(instance, (await fetcher.json<GitHubUserDetail>(`/users/${encodeURIComponent(login)}`, { signal: options?.signal })).data)),
-      me: verb(auth.type === 'token', async options => toUser(instance, (await fetcher.json<GitHubUserDetail>('/user', { signal: options?.signal })).data)),
-      sponsorable: verb(!enterprise && graphqlAuth, async (login, options) => {
+      me: verb(auth.type === 'token' && !installation, async options => toUser(instance, (await fetcher.json<GitHubUserDetail>('/user', { signal: options?.signal })).data)),
+      sponsorable: verb(!enterprise && !anonymous, async (login, options) => {
         const data = await graphql<SponsorableResult>('SPONSORABLE', { login }, options)
         if (!data.repositoryOwner) {
           throw new NotFoundError(`Account ${login} not found`, 404, '', context)
@@ -1618,15 +1623,9 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
       get: verb(true, async (ref, options) => {
         return toRepo(instance, (await fetcher.json<GitHubRepositoryDetail>(repoPath(ref), { signal: options?.signal })).data)
       }),
-      listPage: verb(auth.type === 'token' || (auth.type === 'app' && auth.installationId !== undefined), async (listOptions = {}) => {
-        if (auth.type === 'app') {
-          if (auth.installationId === undefined) {
-            throw new UnsupportedOperationError('An app without an installation has no repositories; use installations.repos()', context)
-          }
-          return reposPage(fetcher, '/installation/repositories', true, listOptions)
-        }
-        return reposPage(fetcher, '/user/repos', false, listOptions)
-      }),
+      listPage: verb(!anonymous, (listOptions = {}) => installation
+        ? reposPage(fetcher, '/installation/repositories', true, listOptions)
+        : reposPage(fetcher, '/user/repos', false, listOptions)),
       byOwnerPage: verb(true, ownerReposPage),
       labelsPage: verb(true, (repo, listOptions = {}) => list(`${repoPath(repo)}/labels`, listOptions, toLabel)),
       createLabel: verb(true, async (repo, label, options) => toLabel((await fetcher.json<GitHubLabel>(`${repoPath(repo)}/labels`, {
@@ -1674,17 +1673,17 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
       )),
     },
     notifications: {
-      listPage: verb(true, notificationPage),
-      markRead: verb(true, async (ref: NotificationRef, options) => {
+      listPage: verb(notificationsAuth, notificationPage),
+      markRead: verb(notificationsAuth, async (ref: NotificationRef, options) => {
         await fetcher.raw(`/notifications/threads/${encodeURIComponent(ref.id)}`, { method: 'PATCH', signal: options?.signal })
       }),
-      markDone: verb(enterprise ? ({ version }) => versionAtLeast(version, GHES_MARK_DONE) : true, async (ref: NotificationRef, options) => {
+      markDone: verb(notificationsAuth && (enterprise ? ({ version }) => versionAtLeast(version, GHES_MARK_DONE) : true), async (ref: NotificationRef, options) => {
         await fetcher.raw(`/notifications/threads/${encodeURIComponent(ref.id)}`, { method: 'DELETE', signal: options?.signal })
       }),
-      unsubscribe: verb(true, async (ref: NotificationRef, options) => {
+      unsubscribe: verb(notificationsAuth, async (ref: NotificationRef, options) => {
         await fetcher.raw(`/notifications/threads/${encodeURIComponent(ref.id)}/subscription`, { method: 'DELETE', signal: options?.signal })
       }),
-      markAllRead: verb(true, async (bulk: BulkNotificationOptions = {}) => {
+      markAllRead: verb(notificationsAuth, async (bulk: BulkNotificationOptions = {}) => {
         await fetcher.raw(bulk.repo ? `${repoPath(bulk.repo)}/notifications` : '/notifications', {
           method: 'PUT',
           ...bulk.before ? { json: { last_read_at: bulk.before.toISOString() } } : {},
@@ -1901,6 +1900,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
       }),
     },
   }
+  return appItself ? supportOnly(spec, ['installations']) : spec
 }
 
 const GITHUB: ProviderDefinition<GitHubOptions, AppCredentials | undefined, true, GitHubExtensions> = {
@@ -1936,7 +1936,7 @@ export function githubScopesFor(verb: ForgeVerb): VerbScopes {
       : { token: ['admin:repo_hook', 'admin:org_hook'], permissions: { webhooks: 'admin' } }
   }
   if (group === 'notifications') {
-    return { token: ['notifications'], permissions: { notifications: name.startsWith('mark') || name === 'unsubscribe' ? 'write' : 'read' } }
+    return { token: ['notifications'], note: 'Notifications need a classic personal access token or an OAuth app token; fine-grained tokens and GitHub Apps have no access to them' }
   }
   if (group === 'securityAlerts') {
     return { token: ['security_events', 'repo'], permissions: { vulnerability_alerts: 'read', secret_scanning_alerts: 'read', code_scanning_alerts: 'read' } }

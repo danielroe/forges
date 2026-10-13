@@ -91,6 +91,8 @@ export function perKind<F>(kinds: Partial<Record<VerbKind, SupportInput>>, run: 
   return { kinds, run }
 }
 
+export { supportOnly } from './capabilities.ts'
+
 type ThreadVerb<K extends keyof ThreadsApi> = KindVerb<NonNullable<ThreadsApi[K]>>
 
 /** Everything a provider declares. Methods and capabilities are both derived from it. */
