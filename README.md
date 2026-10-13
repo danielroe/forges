@@ -7,7 +7,7 @@
 
 One client, every forge.
 
-`forges` is a TypeScript library for working with issues, pull requests, notifications, checks and webhooks on ten forges: GitHub, GitLab, Bitbucket, Forgejo, Gitea, Gitee, Azure DevOps, Cursor Origin, Tangled and Pushin.eu. A forge is a service that hosts Git repositories and the collaboration around them. It also reads repositories from Cloudflare Artifacts, which keeps the Git and skips the collaboration. Each provider normalises the forge's responses into one data model and declares which operations it supports.
+`forges` is a TypeScript library for working with issues, pull requests, notifications, checks and webhooks on ten forges: GitHub, GitLab, Bitbucket, Forgejo, Gitea, Gitee, Azure DevOps, Cursor Origin, Tangled and Pushin.eu. A forge is a service that hosts Git repositories and the collaboration around them. It also reads repositories and their contents from Git hosts without the collaboration, such as Cloudflare Artifacts. Each provider normalises the forge's responses into one data model and declares which operations it supports.
 
 Read the documentation at [forges.link](https://forges.link).
 

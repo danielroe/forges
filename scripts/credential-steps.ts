@@ -202,6 +202,20 @@ export const credentialSteps: Record<string, Record<string, CredentialStep[]>> =
       },
     ],
   },
+  'cloudflare-artifacts': {
+    TOKEN: [
+      {
+        text: 'Create an account API token in the Cloudflare dashboard, under **Manage account > Account API tokens**.',
+        sources: ['https://developers.cloudflare.com/fundamentals/api/get-started/account-owned-tokens/'],
+        verified: '2026-10-13',
+      },
+      {
+        text: 'Grant it **Artifacts > Read**. The repository tokens Artifacts issues for `git clone` don\'t work with the REST API.',
+        sources: ['https://developers.cloudflare.com/artifacts/guides/authentication/', 'docs/content/4.providers/cloudflare-artifacts.md'],
+        verified: '2026-10-13',
+      },
+    ],
+  },
   'tangled': {
     'IDENTIFIER+PASSWORD': [
       {
@@ -252,6 +266,11 @@ export const forgeSteps: Record<string, CredentialStep> = {
     text: 'Set `ORGANIZATION` to the name in `dev.azure.com/<organization>`. For Azure DevOps Server, set `BASE_URL` to the server root and `ORGANIZATION` to the collection.',
     sources: ['docs/content/4.providers/azure-devops.md', 'src/env.ts'],
     verified: '2026-10-07',
+  },
+  'cloudflare-artifacts': {
+    text: 'Set `ACCOUNT_ID` to the account that holds the namespaces. In the dashboard, search for **Copy account ID**.',
+    sources: ['https://developers.cloudflare.com/fundamentals/account/find-account-and-zone-ids/', 'src/env.ts'],
+    verified: '2026-10-13',
   },
 }
 
