@@ -47,6 +47,7 @@ const TABLE = [
   { capability: 'repos.addCollaborator', write: true },
   { capability: 'repos.assignableUsers', listing: true },
   { capability: 'repos.reviewerCandidates', listing: true },
+  { capability: 'repos.contributorStats' },
   { capability: 'orgs.teams', listing: true },
   { capability: 'orgs.teamMembers', listing: true, account: true },
   { capability: 'threads.get', perKind: true },

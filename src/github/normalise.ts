@@ -11,6 +11,7 @@ import type {
   Comment,
   Commit,
   Contributor,
+  ContributorStats,
   EventDetail,
   EventKind,
   ForgeEventInput,
@@ -55,6 +56,7 @@ import type {
   GitHubCommitFile,
   GitHubCommitStatus,
   GitHubContributor,
+  GitHubContributorStats,
   GitHubDependabotAlert,
   GitHubHook,
   GitHubHookDelivery,
@@ -826,6 +828,20 @@ export function toCommit(repo: RepoRef, raw: GitHubCommit): Commit {
     url: raw.html_url,
     ...raw.stats ? { stats: { additions: raw.stats.additions ?? 0, deletions: raw.stats.deletions ?? 0, total: raw.stats.total } } : {},
     ...raw.files ? { files: raw.files.map(toChangedFile) } : {},
+    raw,
+  }
+}
+
+export function toContributorStats(instance: string, raw: GitHubContributorStats): ContributorStats {
+  return {
+    author: toActor(instance, raw.author)!,
+    total: raw.total ?? 0,
+    weeks: (raw.weeks ?? []).map(week => ({
+      week: toDate(week.w === undefined ? undefined : week.w * 1000)!,
+      additions: week.a ?? 0,
+      deletions: week.d ?? 0,
+      commits: week.c ?? 0,
+    })),
     raw,
   }
 }

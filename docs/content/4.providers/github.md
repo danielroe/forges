@@ -82,6 +82,12 @@ With `visibility: 'public'`, `repos.byOwner()` lists the repositories of a user 
 
 GitHub links at most the first 500 author emails in a repository to accounts. A contributor from `repos.contributors()` whose email is not linked has a `name` and an `email` but no `actor`. GitHub does not list the contributors of a repository whose history is too large.
 
+## Contributor statistics
+
+`repos.contributorStats()` reads per-contributor commit statistics over time: each contributor's total commits, and one bucket per week with the lines added, lines deleted and commits. The week bucket is a `Date`, taken from GitHub's Unix timestamp. GitHub computes these statistics asynchronously and answers `202 Accepted` with an empty body until they are ready, so the provider retries with a backoff up to six times and returns an empty array if they still are not ready.
+
+This is GitHub-only. On every other forge, the capability is `false` and the call rejects with `UnsupportedOperationError`.
+
 ## Merging
 
 If you call `merge()` without a `method`, the provider asks GitHub which merge methods the repository allows. When exactly one method is allowed, it uses that one. When several are allowed, it can't choose for you and throws `MergeMethodRequiredError`.
@@ -187,6 +193,7 @@ Deliveries of the `installation` and `installation_repositories` events become `
 | `repos.addCollaborator` | ✅ | ❌ |
 | `repos.assignableUsers` | ✅ | ✅ |
 | `repos.reviewerCandidates` | emulated | ❌ |
+| `repos.contributorStats` | ✅ | ✅ |
 | `orgs.teams` | ✅ | ❌ |
 | `orgs.teamMembers` | ✅ | ❌ |
 | `threads.get` | issue, PR, discussion, commit | issue, PR, commit |

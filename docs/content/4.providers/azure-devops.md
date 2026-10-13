@@ -141,6 +141,7 @@ for await (const team of provider.orgs.teams(project)) {
 | `repos.addCollaborator` | ❌ | ❌ |
 | `repos.assignableUsers` | ❌ | ❌ |
 | `repos.reviewerCandidates` | ❌ | ❌ |
+| `repos.contributorStats` | ❌ | ❌ |
 | `orgs.teams` | ✅ | ❌ |
 | `orgs.teamMembers` | ✅ | ❌ |
 | `threads.get` | issue, PR | issue (unverified), PR |

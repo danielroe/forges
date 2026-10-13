@@ -425,6 +425,21 @@ export interface GitHubCommitSearchItem extends GitHubCommit {
   repository?: GitHubRepository
 }
 
+/** One week of a contributor's commit statistics. `w` is a Unix timestamp in seconds. */
+export interface GitHubContributorStatsWeek {
+  w?: number
+  a?: number
+  d?: number
+  c?: number
+}
+
+/** One contributor's commit statistics over time, as `/stats/contributors` reports them. */
+export interface GitHubContributorStats {
+  author?: GitHubUser | null
+  total?: number
+  weeks?: GitHubContributorStatsWeek[]
+}
+
 export interface GitHubCodeSearchItem {
   path: string
   url: string

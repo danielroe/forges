@@ -16,6 +16,7 @@ import type {
   Commit,
   CommitQuery,
   CommitSearchQuery,
+  ContributorStats,
   Cursor,
   FileContent,
   FileOptions,
@@ -95,6 +96,7 @@ import type {
   GitHubComparison,
   GitHubContentFile,
   GitHubContributor,
+  GitHubContributorStats,
   GitHubHook,
   GitHubHookDelivery,
   GitHubInstallation,
@@ -137,6 +139,7 @@ import {
   toComment,
   toCommit,
   toContributor,
+  toContributorStats,
   toDependabotAlert,
   toEvent,
   toLabel,
@@ -184,6 +187,9 @@ const GHES_DEPENDABOT_ALERTS = '3.8'
 const GRAPHQL_BATCH = 20
 const REVIEW_CONTEXT_TTL = 5 * 60_000
 const POLL_DELAYS = [500, 1000, 2000]
+
+/** GitHub computes contributor statistics asynchronously, answering 202 until they are ready. */
+const CONTRIBUTOR_STATS_DELAYS = [500, 1000, 2000, 4000, 8000]
 
 const GITHUB_RESERVED_PATHS = ['about', 'account', 'apps', 'codespaces', 'collections', 'contact', 'customer-stories', 'dashboard', 'enterprise', 'enterprises', 'events', 'explore', 'features', 'gist', 'issues', 'join', 'login', 'logout', 'marketplace', 'new', 'notifications', 'organizations', 'orgs', 'pricing', 'pulls', 'search', 'security', 'settings', 'signup', 'site', 'sponsors', 'stars', 'topics', 'trending', 'users', 'watching']
 
@@ -1056,6 +1062,24 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
     return list(`${repoPath(repo)}/milestones`, listOptions, (raw: GitHubMilestone) => toMilestone(raw)!, { query: { state: listOptions.state ?? 'open' } })
   }
 
+  /**
+   * GitHub computes the statistics asynchronously and answers `202` with an
+   * empty body until they are ready, so this retries with a backoff. It gives
+   * up with an empty array once the attempts are spent.
+   */
+  async function contributorStats(repo: RepoRef, options?: BaseOptions): Promise<ContributorStats[]> {
+    for (let attempt = 0; ; attempt++) {
+      const { data, response } = await fetcher.json<GitHubContributorStats[]>(`${repoPath(repo)}/stats/contributors`, { signal: options?.signal })
+      if (response.status !== 202) {
+        return (data ?? []).map(raw => toContributorStats(instance, raw))
+      }
+      if (attempt >= CONTRIBUTOR_STATS_DELAYS.length) {
+        return []
+      }
+      await sleep(CONTRIBUTOR_STATS_DELAYS[attempt]!, options?.signal)
+    }
+  }
+
   const REPO_SEARCH_SORTS: Partial<Record<NonNullable<RepoSearchQuery['sort']>, string>> = { updated: 'updated', stars: 'stars' }
 
   async function searchReposPage(query: RepoSearchQuery): Promise<Page<Repo>> {
@@ -1596,6 +1620,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
         const author = (await get(ref, listOptions)).author?.login
         return toPage(page, raw => raw.login === author ? undefined : toActor(instance, raw)!)
       }),
+      contributorStats: verb(true, contributorStats),
     },
     orgs: {
       teamsPage: verb(!anonymous, (org, listOptions = {}) => list(

@@ -70,6 +70,7 @@ export type {
   CommitSignature,
   Comparison,
   Contributor,
+  ContributorStats,
   Cursor,
   DownloadAssetOptions,
   EventAction,

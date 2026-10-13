@@ -816,6 +816,56 @@
     "description": "A commit author on a repository, as `repos.contributors()` reads it.",
     "x-forges-type": "Contributor"
   },
+  "ContributorStats": {
+    "type": "object",
+    "properties": {
+      "author": {
+        "$ref": "#/components/schemas/Actor",
+        "description": "The account behind the commits."
+      },
+      "total": {
+        "type": "number",
+        "description": "Total commits by this contributor."
+      },
+      "weeks": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "week": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "additions": {
+              "type": "number"
+            },
+            "deletions": {
+              "type": "number"
+            },
+            "commits": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "week",
+            "additions",
+            "deletions",
+            "commits"
+          ]
+        },
+        "description": "The weeks the forge reports, oldest first."
+      },
+      "raw": {}
+    },
+    "required": [
+      "author",
+      "total",
+      "weeks",
+      "raw"
+    ],
+    "description": "A contributor's commit statistics over time, as `repos.contributorStats()` reads them. Each week is a bucket that the forge reports, so the first and last are partial where the history does not start or end on a Sunday.",
+    "x-forges-type": "ContributorStats"
+  },
   "Cursor": {
     "type": "object",
     "properties": {

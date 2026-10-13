@@ -565,6 +565,40 @@ describe('github organisation teams', () => {
   })
 })
 
+describe('github contributor statistics', () => {
+  it('reads per-contributor weekly commit statistics without a credential', async () => {
+    const { fetch } = fixtureFetch('github')
+    const provider = github({ fetch }).create()
+
+    const stats = await provider.repos.contributorStats(repo)
+
+    expect(stats.map(entry => entry.author.login)).toEqual(['octocat', 'hubot'])
+    expect(stats[0]).toMatchObject({ total: 12 })
+    expect(stats[0]!.author.isBotHint).toBe(false)
+    expect(stats[1]!.author.isBotHint).toBe(true)
+    expect(stats[0]!.weeks).toHaveLength(2)
+    expect(stats[0]!.weeks[0]).toMatchObject({ additions: 120, deletions: 30, commits: 5 })
+    expect(stats[0]!.weeks[0]!.week).toBeInstanceOf(Date)
+    expect(stats[0]!.weeks[0]!.week.toISOString()).toBe('2024-01-01T00:00:00.000Z')
+  })
+
+  it('retries while GitHub reports the statistics are not ready', async () => {
+    const responses = [
+      new Response(null, { status: 202 }),
+      Response.json([{ author: { login: 'octocat', id: 583231 }, total: 2, weeks: [{ w: 1704067200, a: 1, d: 0, c: 2 }] }]),
+    ]
+    let calls = 0
+    const provider = github({ fetch: async () => responses[calls++]! }).create()
+
+    const stats = await provider.repos.contributorStats(repo)
+
+    expect(calls).toBe(2)
+    expect(stats).toHaveLength(1)
+    expect(stats[0]!.author.login).toBe('octocat')
+    expect(stats[0]!.weeks[0]!.commits).toBe(2)
+  })
+})
+
 describe('github reviews', () => {
   it('lists reviews with their inline comments and resolution state', async () => {
     const { provider, calls } = tokenProvider()

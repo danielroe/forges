@@ -24,6 +24,7 @@ import type {
   CommitSearchQuery,
   Comparison,
   Contributor,
+  ContributorStats,
   Cursor,
   DownloadAssetOptions,
   FileContent,
@@ -875,6 +876,12 @@ export interface ReposApi {
   reviewerCandidates: (ref: ThreadRef, options?: PageOptions) => ForgeIterable<Actor>
   /** One page of `reviewerCandidates()`. */
   reviewerCandidatesPage: (ref: ThreadRef, options?: PageOptions) => Promise<Page<Actor>>
+  /**
+   * Per-contributor commit statistics over time: each contributor's total commits and a bucket per week with the
+   * lines added, lines deleted and commits. GitHub computes these asynchronously, so the provider retries while it
+   * reports them as not ready and returns `[]` if it still has not finished.
+   */
+  contributorStats: (repo: RepoRef, options?: BaseOptions) => Promise<ContributorStats[]>
 }
 
 /** Options for `repos.milestones()`. */

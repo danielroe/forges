@@ -166,6 +166,20 @@ export interface Team {
   raw: unknown
 }
 
+/**
+ * A contributor's commit statistics over time, as `repos.contributorStats()` reads them. Each week is a bucket
+ * that the forge reports, so the first and last are partial where the history does not start or end on a Sunday.
+ */
+export interface ContributorStats {
+  /** The account behind the commits. */
+  author: Actor
+  /** Total commits by this contributor. */
+  total: number
+  /** The weeks the forge reports, oldest first. */
+  weeks: Array<{ week: Date, additions: number, deletions: number, commits: number }>
+  raw: unknown
+}
+
 /** A repository as every forge reports it. Fields that not every forge has, such as `openPullCount`, are optional. */
 export interface Repo {
   ref: RepoRef
@@ -1808,7 +1822,7 @@ export interface Installation extends ForgeOrigin {
 }
 
 /** Every `Date` field in the model, by name. */
-export const DATE_FIELDS: ReadonlySet<string> = new Set(['closedAt', 'completedAt', 'createdAt', 'date', 'deliveredAt', 'dismissedAt', 'dueOn', 'expiresAt', 'lastActivityAt', 'lastReadAt', 'occurredAt', 'publishedAt', 'pushedAt', 'resetAt', 'startedAt', 'submittedAt', 'updatedAt'])
+export const DATE_FIELDS: ReadonlySet<string> = new Set(['closedAt', 'completedAt', 'createdAt', 'date', 'deliveredAt', 'dismissedAt', 'dueOn', 'expiresAt', 'lastActivityAt', 'lastReadAt', 'occurredAt', 'publishedAt', 'pushedAt', 'resetAt', 'startedAt', 'submittedAt', 'updatedAt', 'week'])
 
 const UNNORMALISED_FIELDS: ReadonlySet<string> = new Set(['payload', 'raw'])
 

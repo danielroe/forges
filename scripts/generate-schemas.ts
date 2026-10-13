@@ -23,6 +23,7 @@ export const ROOT_TYPES = [
   'Commit',
   'Comparison',
   'Contributor',
+  'ContributorStats',
   'Cursor',
   'FileContent',
   'ForgeCapabilities',
