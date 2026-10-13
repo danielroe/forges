@@ -24,6 +24,8 @@ export const GITHUB_WEBHOOK_EVENTS: WebhookEventType[] = [
   { kind: 'comment', action: 'deleted' },
   { kind: 'review', action: 'submitted' },
   { kind: 'review_comment', action: 'created' },
+  { kind: 'review_comment', action: 'edited' },
+  { kind: 'review_comment', action: 'deleted' },
   { kind: 'state_change', action: 'opened' },
   { kind: 'state_change', action: 'closed' },
   { kind: 'state_change', action: 'reopened' },

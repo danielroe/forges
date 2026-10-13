@@ -12,7 +12,8 @@
   },
   "url": "https://example.com/hook",
   "events": [
-    "comment"
+    "comment",
+    "review_comment"
   ],
   "nativeEvents": [
     "pullrequest:comment_created",

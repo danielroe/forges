@@ -9,6 +9,7 @@ import { fake } from '../../src/fake/index.ts'
 import { toEvent as toForgejoEvent, toReview as toForgejoReview } from '../../src/forgejo/normalise.ts'
 import { translateGitHubWebhook } from '../../src/github/events.ts'
 import { toEvent as toGitHubEvent, toReview } from '../../src/github/normalise.ts'
+import { GITHUB_WEBHOOK_EVENTS } from '../../src/github/webhook-events.ts'
 import { toFeedEvent as toGitLabFeedEvent } from '../../src/gitlab/feed.ts'
 import { toNoteEvent as toGitLabNoteEvent } from '../../src/gitlab/normalise.ts'
 import { translateGitLabWebhook } from '../../src/gitlab/webhooks.ts'
@@ -45,6 +46,13 @@ describe('github webhook detail', () => {
     const [event] = translateGitHubWebhook('github.com', github('pull_request', { action: 'closed', pull_request: { number: 4, merged: true } }))
 
     expect(event).toMatchObject({ kind: 'state_change', action: 'merged', actionRaw: 'closed', detail: { type: 'state_change', state: 'merged' } })
+  })
+
+  it.each(['created', 'edited', 'deleted'])('lists %s review comments among the events it delivers', (action) => {
+    const [event] = translateGitHubWebhook('github.com', github('pull_request_review_comment', { action, pull_request: { number: 4 }, comment: { id: 9, path: 'a.ts' } }))
+
+    expect(event).toMatchObject({ kind: 'review_comment', action })
+    expect(GITHUB_WEBHOOK_EVENTS).toContainEqual({ kind: 'review_comment', action })
   })
 
   it('types a comment on a pull as a pull request thread', () => {

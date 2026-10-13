@@ -1,5 +1,5 @@
 import type { WebhookHandlers } from '../define.ts'
-import type { EventKind, ForgeEventInput, ThreadRef } from '../model.ts'
+import type { EventKind, ForgeEventInput, ThreadRef, ThreadState } from '../model.ts'
 import type { WebhookDelivery } from '../provider.ts'
 import type { GiteeOptions } from './index.ts'
 import type { GiteeIssue, GiteePullRequest, GiteeRepository, GiteeUser } from './types.ts'
@@ -61,6 +61,8 @@ interface GiteeWebhookPayload {
   head_commit?: { id: string, timestamp?: string } | null
   user?: GiteeUser
 }
+
+const STATES: Record<string, ThreadState> = { open: 'open', reopen: 'open', close: 'closed', merge: 'merged' }
 
 const KINDS: Record<string, EventKind> = {
   open: 'state_change',
@@ -137,7 +139,8 @@ export function translateGiteeWebhook(instance: string, delivery: WebhookDeliver
     const comment = thread && payload.comment ? { forge: FORGE, instance, thread, id: String(payload.comment.id) } : undefined
     return [{ ...base, kind: 'comment', thread, detail: { type: 'comment', comment, body: payload.comment?.body }, summary: `${who} commented${thread ? ` on ${thread.kind === 'issue' ? '' : '!'}${thread.number}` : ''}` }]
   }
-  return [{ ...base, kind: KINDS[payload.action ?? ''] ?? 'other', thread, summary: `${who} ${payload.action ?? 'changed'} ${thread ? `${thread.kind === 'issue' ? '' : '!'}${thread.number}` : hook}` }]
+  const state = STATES[payload.action ?? '']
+  return [{ ...base, kind: KINDS[payload.action ?? ''] ?? 'other', thread, ...state ? { detail: { type: 'state_change', state } } : {}, summary: `${who} ${payload.action ?? 'changed'} ${thread ? `${thread.kind === 'issue' ? '' : '!'}${thread.number}` : hook}` }]
 }
 
 export const giteeWebhooks: WebhookHandlers<GiteeOptions> = ({ options, instance }) => ({

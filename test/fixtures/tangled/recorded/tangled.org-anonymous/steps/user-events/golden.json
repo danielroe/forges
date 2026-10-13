@@ -54,6 +54,10 @@
       "kindRaw": "sh.tangled.repo.pull",
       "action": "opened",
       "actionRaw": "create",
+      "detail": {
+        "type": "state_change",
+        "state": "open"
+      },
       "summary": "danielroe.dev opened a pull request",
       "occurredAt": "2026-08-01T17:48:36.000Z",
       "actor": {

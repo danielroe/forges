@@ -13,6 +13,7 @@
   "url": "https://example.com/hook",
   "events": [
     "comment",
+    "review_comment",
     "push",
     "ref"
   ],

@@ -48,7 +48,7 @@ export function toRepo(instance: string, raw: OriginRepo): Repo {
   }
 }
 
-function threadState(raw: OriginPullRequest): Thread['state'] {
+export function threadState(raw: OriginPullRequest): Thread['state'] {
   return raw.merged ? 'merged' : raw.state === 'open' ? 'open' : raw.state === 'closed' ? 'closed' : 'unknown'
 }
 

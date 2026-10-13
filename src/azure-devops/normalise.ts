@@ -1,4 +1,4 @@
-import type { Actor, Branch, ChangedFile, Check, CheckState, Comment, Commit, ForgeEventInput, Repo, RepoRef, ResolvedThreadRef, ReviewState, Tag, Team, Thread, ThreadRef, TreeEntry } from '../model.ts'
+import type { Actor, Branch, ChangedFile, Check, CheckState, Comment, Commit, ForgeEventInput, Repo, RepoRef, ResolvedThreadRef, ReviewState, Tag, Team, Thread, ThreadRef, ThreadState, TreeEntry } from '../model.ts'
 import type { AzureChange, AzureComment, AzureCommit, AzureIdentity, AzureItem, AzurePolicyEvaluation, AzurePullRequest, AzureRef, AzureRepository, AzureReviewer, AzureStatus, AzureTeam, AzureThread, AzureWorkItem, AzureWorkItemComment, AzureWorkItemUpdate } from './types.ts'
 import { eventTime } from '../events.ts'
 import { toDate } from '../utils.ts'
@@ -66,9 +66,13 @@ function toReviewer(instance: string, raw: AzureReviewer) {
 
 const branch = (ref: string) => ref.replace(/^refs\/heads\//, '')
 
+export function toPullState(status: AzurePullRequest['status']): ThreadState {
+  return status === 'active' ? 'open' : status === 'completed' ? 'merged' : status === 'abandoned' ? 'closed' : 'unknown'
+}
+
 export function toPullThread(ref: ResolvedThreadRef, raw: AzurePullRequest): Thread {
   const instance = ref.instance
-  const state = raw.status === 'active' ? 'open' : raw.status === 'completed' ? 'merged' : raw.status === 'abandoned' ? 'closed' : 'unknown'
+  const state = toPullState(raw.status)
   return {
     ref: { ...ref, kind: 'pull_request', number: String(raw.pullRequestId), externalId: raw.artifactId },
     kind: 'pull_request',

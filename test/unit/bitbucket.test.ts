@@ -3,6 +3,7 @@ import type { ResolvedThreadRef } from '../../src/model.ts'
 import { describe, expect, it } from 'vitest'
 import { bitbucket } from '../../src/bitbucket/index.ts'
 import { toMergeMethod } from '../../src/bitbucket/normalise.ts'
+import { translateBitbucketWebhook } from '../../src/bitbucket/webhooks.ts'
 import { MergeConflictError, UnsupportedOperationError } from '../../src/errors.ts'
 import { repoKey } from '../../src/model.ts'
 import { fixtureFetch } from '../utils/fixtures.ts'
@@ -149,6 +150,24 @@ describe('bitbucket webhooks', () => {
 
     expect(JSON.parse(bodies[0]!).events).toEqual(['repo:updated', 'repo:transfer'])
     expect(instance.webhooks.events).toContainEqual({ kind: 'repo', action: 'renamed' })
+  })
+
+  it('reads an inline comment and a review from pull request deliveries', () => {
+    const deliver = (event: string, payload: Record<string, unknown>) => translateBitbucketWebhook('bitbucket.org', {
+      headers: { 'x-event-key': event },
+      body: JSON.stringify({ repository: { full_name: 'acme/widgets', name: 'widgets' }, pullrequest: { id: 31, title: 'Widgets', state: 'OPEN' }, ...payload }),
+    })[0]
+
+    expect(deliver('pullrequest:comment_updated', { comment: { id: 7, content: { raw: 'Typo' }, inline: { path: 'src/a.ts', from: null, to: 12 } } })).toMatchObject({
+      kind: 'review_comment',
+      action: 'edited',
+      detail: { type: 'review_comment', comment: { id: '7' }, body: 'Typo', path: 'src/a.ts', line: 12 },
+    })
+    expect(deliver('pullrequest:changes_request_created', { changes_request: { date: '2026-01-02T03:04:05Z' } })).toMatchObject({
+      kind: 'review',
+      action: 'submitted',
+      detail: { type: 'review', state: 'changes_requested' },
+    })
   })
 })
 

@@ -5,6 +5,12 @@
       "instance": "bitbucket.org",
       "id": "1cbf57a7-9e5d-4055-a2a0-2db57487d725",
       "kind": "state_change",
+      "action": "opened",
+      "detail": {
+        "type": "state_change",
+        "state": "open",
+        "draft": false
+      },
       "kindRaw": "pullrequest:created",
       "summary": "roebot created",
       "occurredAt": "<now>",
@@ -38,8 +44,7 @@
         "kind": "pull_request",
         "number": "10"
       },
-      "source": "webhook",
-      "action": "created"
+      "source": "webhook"
     }
   ],
   "02-repo-push": [
@@ -117,6 +122,29 @@
       "instance": "bitbucket.org",
       "id": "ad167c84-fad6-4d4b-afa5-f789d43c0778",
       "kind": "comment",
+      "action": "created",
+      "detail": {
+        "type": "comment",
+        "comment": {
+          "forge": "bitbucket",
+          "instance": "bitbucket.org",
+          "thread": {
+            "forge": "bitbucket",
+            "instance": "bitbucket.org",
+            "repo": {
+              "forge": "bitbucket",
+              "instance": "bitbucket.org",
+              "owner": "danielroe",
+              "name": "forges-fixtures",
+              "externalId": "{245afeb9-21de-4a8c-81c0-d45efbf52a8c}"
+            },
+            "kind": "pull_request",
+            "number": "10"
+          },
+          "id": "880091483"
+        },
+        "body": "A comment from run 20261009201205."
+      },
       "kindRaw": "pullrequest:comment_created",
       "summary": "roebot comment created",
       "occurredAt": "<now>",
@@ -150,30 +178,7 @@
         "kind": "pull_request",
         "number": "10"
       },
-      "detail": {
-        "type": "comment",
-        "comment": {
-          "forge": "bitbucket",
-          "instance": "bitbucket.org",
-          "thread": {
-            "forge": "bitbucket",
-            "instance": "bitbucket.org",
-            "repo": {
-              "forge": "bitbucket",
-              "instance": "bitbucket.org",
-              "owner": "danielroe",
-              "name": "forges-fixtures",
-              "externalId": "{245afeb9-21de-4a8c-81c0-d45efbf52a8c}"
-            },
-            "kind": "pull_request",
-            "number": "10"
-          },
-          "id": "880091483"
-        },
-        "body": "A comment from run 20261009201205."
-      },
-      "source": "webhook",
-      "action": "created"
+      "source": "webhook"
     }
   ],
   "04-pullrequest-rejected": [
@@ -182,6 +187,12 @@
       "instance": "bitbucket.org",
       "id": "363b42aa-7f8b-4d13-9e27-e9845af07557",
       "kind": "state_change",
+      "action": "closed",
+      "detail": {
+        "type": "state_change",
+        "state": "closed",
+        "draft": false
+      },
       "kindRaw": "pullrequest:rejected",
       "summary": "roebot rejected",
       "occurredAt": "<now>",
@@ -215,8 +226,7 @@
         "kind": "pull_request",
         "number": "10"
       },
-      "source": "webhook",
-      "action": "other"
+      "source": "webhook"
     }
   ]
 }

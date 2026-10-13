@@ -28,7 +28,7 @@ export interface GitHubEventPayload {
   issue?: GitHubEventSubject & { pull_request?: unknown }
   pull_request?: GitHubEventSubject & { merged?: boolean | null, merged_at?: string | null, draft?: boolean, state?: string }
   discussion?: GitHubEventSubject
-  comment?: { id?: number, node_id?: string, body?: string, created_at?: string, updated_at?: string, user?: GitHubUser | null, path?: string, line?: number | null }
+  comment?: { id?: number, node_id?: string, body?: string, created_at?: string, updated_at?: string, user?: GitHubUser | null, path?: string, line?: number | null, commit_id?: string }
   review?: { id?: number, state?: string, body?: string | null, submitted_at?: string | null, user?: GitHubUser | null }
   assignee?: GitHubUser | null
   requested_reviewer?: GitHubUser | null
@@ -174,7 +174,7 @@ function threadOf(payload: GitHubEventPayload, repo: RepoRef | undefined, instan
       return { forge: FORGE, instance, repo, kind, number: String(subject.number), externalId: subject.node_id }
     }
   }
-  return undefined
+  return payload.comment?.commit_id ? { forge: FORGE, instance, repo, kind: 'commit', number: payload.comment.commit_id } : undefined
 }
 
 function eventKindFor(event: string, payload: GitHubEventPayload): EventKind {

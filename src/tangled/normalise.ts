@@ -224,9 +224,12 @@ function activityDetail(activity: ActivityRecord, kind: EventKind, thread: Resol
     const record = activity.record as FeedCommentRecord | LegacyCommentRecord | undefined
     return { type: 'comment', comment: thread && { forge: FORGE, instance: thread.instance, thread, id: activity.uri }, body: record?.body === undefined ? undefined : commentBody(record) }
   }
-  return kind === 'state_change' && (activity.collection === COLLECTIONS.issueState || activity.collection === COLLECTIONS.pullStatus)
+  if (kind !== 'state_change') {
+    return undefined
+  }
+  return activity.collection === COLLECTIONS.issueState || activity.collection === COLLECTIONS.pullStatus
     ? { type: 'state_change', state: toThreadState(stateToken(activity.record as StateRecord)) }
-    : undefined
+    : { type: 'state_change', state: 'open' }
 }
 
 export function toActivityEvent(

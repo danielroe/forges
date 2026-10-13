@@ -1,5 +1,5 @@
 import type { WebhookHandlers } from '../define.ts'
-import type { EventAction, EventKind, ForgeEventInput, RepoRef, WebhookEventType } from '../model.ts'
+import type { EventAction, EventKind, ForgeEventInput, RepoRef, ThreadState, WebhookEventType } from '../model.ts'
 import type { WebhookDelivery } from '../provider.ts'
 import type { TangledOptions } from './index.ts'
 import { bodyText, headerValue } from '../crypto.ts'
@@ -34,6 +34,8 @@ interface TangledWebhookPayload {
 /** A ref that did not exist before the push, or no longer exists after it. */
 const ZERO_SHA = '0000000000000000000000000000000000000000'
 
+const PULL_STATES: Record<string, ThreadState> = { created: 'open', reopened: 'open', merged: 'merged', closed: 'closed' }
+
 const PULL_KINDS: Record<string, EventKind> = {
   created: 'state_change',
   merged: 'state_change',
@@ -66,6 +68,7 @@ export function translateTangledWebhook(instance: string, delivery: WebhookDeliv
       instance,
       id: deliveryId,
       kind: PULL_KINDS[action] ?? 'other',
+      ...PULL_STATES[action] ? { detail: { type: 'state_change', state: PULL_STATES[action] } } : {},
       kindRaw: event,
       action: PULL_ACTIONS[action] ?? eventAction(action),
       actionRaw: action,

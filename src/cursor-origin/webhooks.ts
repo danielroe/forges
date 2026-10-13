@@ -1,6 +1,6 @@
 import type { Ed25519Jwk } from '../crypto.ts'
 import type { WebhookHandlers } from '../define.ts'
-import type { EventKind, ForgeEventInput, RepoRef, ThreadRef, WebhookEventType } from '../model.ts'
+import type { EventAction, EventDetail, EventKind, ForgeEventInput, RepoRef, ThreadRef, WebhookEventType } from '../model.ts'
 import type { WebhookDelivery } from '../provider.ts'
 import type { CursorOriginOptions } from './index.ts'
 import type { OriginWebhookEnvelope } from './types.ts'
@@ -8,7 +8,7 @@ import { bodyText, headerValue, sha256Hex, verifyEd25519 } from '../crypto.ts'
 import { eventTime } from '../events.ts'
 import { memo, toDate } from '../utils.ts'
 import { refEvent } from '../webhooks.ts'
-import { commentDetail, FORGE, toActor, toRepoRef, toReviewEvent } from './normalise.ts'
+import { commentDetail, FORGE, threadState, toActor, toRepoRef, toReviewEvent } from './normalise.ts'
 
 /** Deliveries older or newer than this are refused, as Origin documents. */
 const TOLERANCE_SECONDS = 300
@@ -53,6 +53,8 @@ const PULL_KINDS: Record<string, EventKind> = {
   'pull_request.head_ref.pushed': 'commit',
 }
 
+const STATE_ACTIONS: Record<string, EventAction> = { 'pull_request.created': 'opened' }
+
 export function translateOriginWebhook(instance: string, delivery: WebhookDelivery): ForgeEventInput[] {
   const envelope = JSON.parse(bodyText(delivery.body)) as OriginWebhookEnvelope
   const { event } = envelope
@@ -82,8 +84,12 @@ export function translateOriginWebhook(instance: string, delivery: WebhookDelive
   if (thread) {
     const actor = toActor(instance, payload.comment?.author ?? payload.actor ?? payload.createdBy ?? pull?.author)
     const kind: EventKind = payload.comment?.thread?.path ? 'review_comment' : PULL_KINDS[event.type] ?? 'other'
-    const detail = payload.comment && (kind === 'comment' || kind === 'review_comment') ? commentDetail(thread, payload.comment) : undefined
-    return [{ ...base, kind, actor, detail, summary: `${actor?.login ?? 'someone'}: ${event.type.replace(/^pull_request\./, '').replaceAll('.', ' ')} on #${thread.number}` }]
+    const detail: EventDetail | undefined = payload.comment && (kind === 'comment' || kind === 'review_comment')
+      ? commentDetail(thread, payload.comment)
+      : kind === 'state_change' && pull
+        ? { type: 'state_change', state: threadState(pull), draft: pull.draft }
+        : kind === 'label' && payload.label ? { type: 'label', label: payload.label.name } : undefined
+    return [{ ...base, kind, ...STATE_ACTIONS[event.type] ? { action: STATE_ACTIONS[event.type] } : {}, ...detail ? { detail } : {}, actor, summary: `${actor?.login ?? 'someone'}: ${event.type.replace(/^pull_request\./, '').replaceAll('.', ' ')} on #${thread.number}` }]
   }
   if (event.type === 'repository.pushed') {
     const pusher = toActor(instance, payload.pusher)

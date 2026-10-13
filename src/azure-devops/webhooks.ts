@@ -1,5 +1,5 @@
 import type { WebhookHandlers } from '../define.ts'
-import type { EventKind, ForgeEventInput, RepoRef, ThreadRef, WebhookEventType } from '../model.ts'
+import type { EventDetail, EventKind, ForgeEventInput, RepoRef, ThreadRef, WebhookEventType } from '../model.ts'
 import type { WebhookDelivery } from '../provider.ts'
 import type { AzureDevOpsOptions } from './index.ts'
 import type { AzureComment, AzureIdentity, AzurePullRequest, AzureRepository, AzureServiceHookEvent } from './types.ts'
@@ -7,7 +7,7 @@ import { bodyText, headerValue, timingSafeEqual } from '../crypto.ts'
 import { eventTime } from '../events.ts'
 import { toDate } from '../utils.ts'
 import { refEvent } from '../webhooks.ts'
-import { FORGE, projectRef, toActor, toRepoRef } from './normalise.ts'
+import { FORGE, projectRef, toActor, toPullState, toRepoRef } from './normalise.ts'
 
 /**
  * Service hooks carry no signature. A subscription can send basic
@@ -53,7 +53,10 @@ export function translateAzureWebhook(instance: string, organization: string, de
     const kind = PULL_KINDS[event.eventType] ?? 'other'
     const threadId = /\/threads\/(\d+)\/comments\/\d+$/.exec(comment?._links?.self?.href ?? '')?.[1]
     const commentRef = comment && threadId ? { forge: FORGE, instance, thread, id: `${threadId}/${comment.id}` } : undefined
-    return [{ ...base, kind, actor, thread, ...kind === 'comment' && { detail: { type: 'comment', comment: commentRef, body: comment?.content } }, summary: event.message?.text ?? `${actor?.login ?? 'someone'} ${event.eventType}` }]
+    const detail: EventDetail | undefined = kind === 'comment'
+      ? { type: 'comment', comment: commentRef, body: comment?.content }
+      : kind === 'state_change' ? { type: 'state_change', state: toPullState(pull.status), draft: pull.isDraft } : undefined
+    return [{ ...base, kind, ...event.eventType === 'git.pullrequest.created' ? { action: 'opened' } : {}, ...detail ? { detail } : {}, actor, thread, summary: event.message?.text ?? `${actor?.login ?? 'someone'} ${event.eventType}` }]
   }
   if (event.eventType.startsWith('workitem.')) {
     const fields = (resource.fields ?? (resource.revision as { fields?: Record<string, unknown> } | undefined)?.fields ?? {}) as Record<string, unknown>

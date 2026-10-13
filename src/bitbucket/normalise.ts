@@ -1,4 +1,4 @@
-import type { Actor, Branch, ChangedFile, Check, CheckState, Comment, Commit, EventDetail, EventKind, ForgeEventInput, MergeMethod, Repo, RepoRef, ResolvedThreadRef, Reviewer, ReviewState, Tag, Thread, ThreadRef, ThreadState, TreeEntry, Webhook } from '../model.ts'
+import type { Actor, Branch, ChangedFile, Check, CheckState, Comment, Commit, EventAction, EventDetail, EventKind, ForgeEventInput, MergeMethod, Repo, RepoRef, ResolvedThreadRef, Reviewer, ReviewState, Tag, Thread, ThreadRef, ThreadState, TreeEntry, Webhook } from '../model.ts'
 import type {
   BitbucketActivity,
   BitbucketComment,
@@ -75,6 +75,8 @@ export function toRepo(instance: string, raw: BitbucketRepositoryDetail): Repo {
     raw,
   }
 }
+
+const STATE_ACTIONS: Partial<Record<ThreadState, EventAction>> = { open: 'opened', closed: 'closed', merged: 'merged' }
 
 export function toPullState(state: string): ThreadState {
   switch (state) {
@@ -237,16 +239,20 @@ export function toActivityEvent(thread: ResolvedThreadRef, entry: BitbucketActiv
   }
   const update = entry.update
   const terminal = update?.state && update.state !== 'OPEN'
-  return event(
-    thread,
-    `update:${update?.date ?? index}`,
-    terminal ? 'state_change' : 'other',
-    terminal ? `update.${update!.state}` : 'update',
-    toActor(thread.instance, update?.author),
-    terminal ? update!.state!.toLowerCase() : 'updated the pull request',
-    update?.date,
-    entry,
-  )
+  const state = terminal ? toPullState(update!.state!) : undefined
+  return {
+    ...event(
+      thread,
+      `update:${update?.date ?? index}`,
+      terminal ? 'state_change' : 'other',
+      terminal ? `update.${update!.state}` : 'update',
+      toActor(thread.instance, update?.author),
+      terminal ? update!.state!.toLowerCase() : 'updated the pull request',
+      update?.date,
+      entry,
+    ),
+    ...state && { detail: { type: 'state_change', state }, ...STATE_ACTIONS[state] && { action: STATE_ACTIONS[state] } },
+  }
 }
 
 /** The review id that `threads.reviews()` gives the participant `user`. */
@@ -258,7 +264,7 @@ export function participantReview(thread: ThreadRef, user: BitbucketUser | undef
   return { type: 'review', state, stateRaw, review: { forge: FORGE, instance: thread.instance, thread, id: participantReviewId(thread.instance, user) } }
 }
 
-function commentDetail(thread: ThreadRef, comment: BitbucketComment): EventDetail {
+export function commentDetail(thread: ThreadRef, comment: BitbucketComment): EventDetail {
   const ref = { forge: FORGE, instance: thread.instance, thread, id: String(comment.id) }
   const body = comment.content?.raw
   return comment.inline
