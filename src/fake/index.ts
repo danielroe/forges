@@ -977,7 +977,7 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
     }
     state.reviews.push(review)
     if (input.event) {
-      record(state.thread.ref, 'review', 'submitted', `reviewed (${review.state})`, { type: 'review', state: review.state, body: input.body })
+      record(state.thread.ref, 'review', 'submitted', `reviewed (${review.state})`, { type: 'review', state: review.state, body: input.body, review: review.ref })
     }
     return review
   }
@@ -1291,7 +1291,7 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
           if (body !== undefined) {
             review.body = body
           }
-          record(ref.thread, 'review', 'submitted', `reviewed (${review.state})`, { type: 'review', state: review.state, body: review.body })
+          record(ref.thread, 'review', 'submitted', `reviewed (${review.state})`, { type: 'review', state: review.state, body: review.body, review: review.ref })
           return review
         }),
         filesPage: verb(support('threads.files', true), async (ref, listOptions = {}) => pageOf(threadState(ref).files, listOptions)),

@@ -118,6 +118,28 @@
         "number": "37"
       },
       "source": "poll",
+      "detail": {
+        "type": "review",
+        "state": "approved",
+        "stateRaw": "approval",
+        "review": {
+          "forge": "bitbucket",
+          "instance": "bitbucket.org",
+          "thread": {
+            "forge": "bitbucket",
+            "instance": "bitbucket.org",
+            "repo": {
+              "forge": "bitbucket",
+              "instance": "bitbucket.org",
+              "owner": "neelabo",
+              "name": "neeview"
+            },
+            "kind": "pull_request",
+            "number": "37"
+          },
+          "id": "participant:{7247b96a-9628-4fa3-b0ed-06bd83dc23a1}"
+        }
+      },
       "action": "submitted"
     },
     {

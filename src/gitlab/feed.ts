@@ -3,7 +3,7 @@ import type { GitLabEvent } from './types.ts'
 import { eventTime } from '../events.ts'
 import { toDate } from '../utils.ts'
 import { refEvent } from '../webhooks.ts'
-import { FORGE, toActor, toThreadKind } from './normalise.ts'
+import { approvalId, FORGE, toActor, toThreadKind } from './normalise.ts'
 
 const FEED_STATES: Record<string, { action: EventAction, state: ThreadState }> = {
   opened: { action: 'opened', state: 'open' },
@@ -48,7 +48,7 @@ function feedLevel(instance: string, raw: GitLabEvent, repo: RepoRef | undefined
     return { kind: 'state_change', action: state.action, thread, detail: { type: 'state_change', state: state.state }, summary: `${who} ${state.action} ${noun}` }
   }
   if (thread && raw.action_name === 'approved') {
-    return { kind: 'review', action: 'submitted', thread, detail: { type: 'review', state: 'approved', stateRaw: 'approved' }, summary: `${who} approved ${noun}` }
+    return { kind: 'review', action: 'submitted', thread, detail: { type: 'review', state: 'approved', stateRaw: 'approved', review: { forge: FORGE, instance: thread.instance, thread, id: approvalId(raw.author ?? { username: raw.author_username }) } }, summary: `${who} approved ${noun}` }
   }
   if (raw.target_type === 'Project' && (raw.action_name === 'joined' || raw.action_name === 'left')) {
     return {

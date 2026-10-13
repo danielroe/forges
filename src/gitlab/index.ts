@@ -92,6 +92,7 @@ import { createListing, degradesToWarning, getManyConcurrently, hexColour, memo,
 import { webUrlFor } from '../web.ts'
 import { nativeEventsFor } from '../webhooks.ts'
 import {
+  approvalId,
   BASE_METHODS,
   FORGE,
   projectId,
@@ -664,7 +665,7 @@ const GITLAB: ProviderDefinition<GitLabOptions, undefined, true> = {
 
     /** GitLab has approvals, not reviews: one synthesised review per approver, with no comments to hang on it. */
     function toApprovalReviews(ref: ResolvedThreadRef, approvals: GitLabApprovals): Review[] {
-      return (approvals.approved_by ?? []).map(({ user }) => syntheticReview(ref, `approval:${user?.username ?? user?.id ?? ''}`, 'approved', { author: toActor(instance, user), stateRaw: 'approved', raw: user }))
+      return (approvals.approved_by ?? []).map(({ user }) => syntheticReview(ref, approvalId(user), 'approved', { author: toActor(instance, user), stateRaw: 'approved', raw: user }))
     }
 
     async function approve(thread: ThreadRef, body?: string, options?: BaseOptions): Promise<GitLabApprovals> {

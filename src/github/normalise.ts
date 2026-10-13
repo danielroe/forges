@@ -558,7 +558,7 @@ function timelineDetail(instance: string, thread: ThreadRef, entry: GitHubTimeli
     case 'comment':
       return { type: 'comment', comment: entry.id !== undefined ? { forge: FORGE, instance, thread, id: String(entry.id) } : undefined, body: entry.body ?? undefined }
     case 'review':
-      return { type: 'review', state: reviewState(entry.state), stateRaw: entry.state, body: entry.body ?? undefined }
+      return { type: 'review', state: reviewState(entry.state), stateRaw: entry.state, body: entry.body ?? undefined, review: entry.id !== undefined ? { forge: FORGE, instance, thread, id: String(entry.id) } : undefined }
     case 'label':
       return entry.label ? { type: 'label', label: entry.label.name } : undefined
     case 'assignment':

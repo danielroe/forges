@@ -1,4 +1,4 @@
-import type { Comment, FileContent, ForgeEvent, Notification, NotificationReason, Page, Repo, ResolvedThreadRef, Thread } from '../src/model.ts'
+import type { Comment, FileContent, ForgeEvent, Notification, NotificationReason, Page, Repo, ResolvedThreadRef, Review, Thread } from '../src/model.ts'
 import type { RecordingManifest, Step, StepContext } from './recording/steps.ts'
 import type { WriteContext, WriteManifest, WriteStep } from './recording/write-steps.ts'
 import { existsSync, readdirSync, readFileSync } from 'node:fs'
@@ -157,6 +157,16 @@ for (const { name, create } of REPLAYED_PROVIDERS) {
         }
 
         expect(commented.flatMap(event => affectedKeys(event).comments).filter(key => listed.includes(key))).not.toEqual([])
+      })
+
+      it.skipIf(!recorded.has('pull events') || !recorded.has('pull reviews'))('names the reviews of pull events as its review listing does', (context) => {
+        const listed = items<Review>('pull reviews').map(review => review.ref.id)
+        const reviewed = items<ForgeEvent>('pull events').filter(event => event.kind === 'review')
+        if (!listed.length || !reviewed.length) {
+          return context.skip()
+        }
+
+        expect(reviewed.flatMap(event => event.detail?.type === 'review' && event.detail.review ? [event.detail.review.id] : []).filter(id => listed.includes(id))).not.toEqual([])
       })
 
       it.skipIf(!manifest?.deliveries)('matches the committed golden output (regenerate with `vitest -u`)', async () => {

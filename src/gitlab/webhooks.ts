@@ -8,7 +8,7 @@ import { WebhookVerificationError } from '../errors.ts'
 import { eventAction, eventTime } from '../events.ts'
 import { toDate } from '../utils.ts'
 import { refEvent, verifySharedToken } from '../webhooks.ts'
-import { FORGE, toActor, toRepoRef } from './normalise.ts'
+import { approvalId, FORGE, toActor, toRepoRef } from './normalise.ts'
 import { GITLAB_WEBHOOK_EVENTS } from './webhook-events.ts'
 
 export const TOKEN_HEADER = 'x-gitlab-token'
@@ -333,7 +333,9 @@ export function translateGitLabWebhook(instance: string, delivery: WebhookDelive
       ? { type: kind, comment: thread && attributes?.id !== undefined ? { forge: FORGE, instance, thread, id: String(attributes.id) } : undefined, body: attributes?.note }
       : kind === 'state_change'
         ? { type: 'state_change', state: action === 'merge' ? 'merged' : action === 'close' ? 'closed' : 'open' }
-        : undefined,
+        : kind === 'review'
+          ? { type: 'review', state: 'approved', stateRaw: action, review: thread && payload.user?.username ? { forge: FORGE, instance, thread, id: approvalId(payload.user) } : undefined }
+          : undefined,
     summary: payload.object_kind === 'note'
       ? `${user?.login ?? 'someone'} commented`
       : `${user?.login ?? 'someone'} ${action ? `${action} ` : ''}${payload.object_kind ?? event}`.trim(),

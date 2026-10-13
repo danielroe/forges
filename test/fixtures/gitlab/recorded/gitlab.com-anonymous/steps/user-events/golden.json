@@ -254,7 +254,25 @@
       "detail": {
         "type": "review",
         "state": "approved",
-        "stateRaw": "approved"
+        "stateRaw": "approved",
+        "review": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "thread": {
+            "forge": "gitlab",
+            "instance": "gitlab.com",
+            "repo": {
+              "forge": "gitlab",
+              "instance": "gitlab.com",
+              "owner": "forges-fixtures",
+              "name": "forges-fixtures",
+              "externalId": "87428720"
+            },
+            "kind": "pull_request",
+            "number": "43"
+          },
+          "id": "approval:danielroe"
+        }
       },
       "summary": "danielroe approved merge request",
       "occurredAt": "2026-10-12T22:04:32.017Z",
@@ -301,7 +319,25 @@
       "detail": {
         "type": "review",
         "state": "approved",
-        "stateRaw": "approved"
+        "stateRaw": "approved",
+        "review": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "thread": {
+            "forge": "gitlab",
+            "instance": "gitlab.com",
+            "repo": {
+              "forge": "gitlab",
+              "instance": "gitlab.com",
+              "owner": "forges-fixtures",
+              "name": "forges-fixtures",
+              "externalId": "87428720"
+            },
+            "kind": "pull_request",
+            "number": "42"
+          },
+          "id": "approval:danielroe"
+        }
       },
       "summary": "danielroe approved merge request",
       "occurredAt": "2026-10-12T22:04:27.937Z",
@@ -412,7 +448,25 @@
       "detail": {
         "type": "review",
         "state": "approved",
-        "stateRaw": "approved"
+        "stateRaw": "approved",
+        "review": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "thread": {
+            "forge": "gitlab",
+            "instance": "gitlab.com",
+            "repo": {
+              "forge": "gitlab",
+              "instance": "gitlab.com",
+              "owner": "forges-fixtures",
+              "name": "forges-fixtures",
+              "externalId": "87428720"
+            },
+            "kind": "pull_request",
+            "number": "44"
+          },
+          "id": "approval:danielroe"
+        }
       },
       "summary": "danielroe approved merge request",
       "occurredAt": "2026-10-12T22:04:21.406Z",

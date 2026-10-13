@@ -1,4 +1,4 @@
-import type { Actor, Branch, ChangedFile, Check, CheckState, Comment, Commit, EventDetail, EventKind, ForgeEventInput, MergeMethod, Repo, RepoRef, ResolvedThreadRef, Reviewer, Tag, Thread, ThreadRef, ThreadState, TreeEntry, Webhook } from '../model.ts'
+import type { Actor, Branch, ChangedFile, Check, CheckState, Comment, Commit, EventDetail, EventKind, ForgeEventInput, MergeMethod, Repo, RepoRef, ResolvedThreadRef, Reviewer, ReviewState, Tag, Thread, ThreadRef, ThreadState, TreeEntry, Webhook } from '../model.ts'
 import type {
   BitbucketActivity,
   BitbucketComment,
@@ -224,10 +224,16 @@ export function toActivityEvent(thread: ResolvedThreadRef, entry: BitbucketActiv
     return toCommentEvent(thread, entry.comment)
   }
   if (entry.approval) {
-    return event(thread, `approval:${entry.approval.user?.uuid ?? index}:${entry.approval.date}`, 'review', 'approval', toActor(thread.instance, entry.approval.user), 'approved', entry.approval.date, entry)
+    return {
+      ...event(thread, `approval:${entry.approval.user?.uuid ?? index}:${entry.approval.date}`, 'review', 'approval', toActor(thread.instance, entry.approval.user), 'approved', entry.approval.date, entry),
+      detail: participantReview(thread, entry.approval.user, 'approved', 'approval'),
+    }
   }
   if (entry.changes_requested) {
-    return event(thread, `changes_requested:${entry.changes_requested.user?.uuid ?? index}:${entry.changes_requested.date}`, 'review', 'changes_requested', toActor(thread.instance, entry.changes_requested.user), 'requested changes', entry.changes_requested.date, entry)
+    return {
+      ...event(thread, `changes_requested:${entry.changes_requested.user?.uuid ?? index}:${entry.changes_requested.date}`, 'review', 'changes_requested', toActor(thread.instance, entry.changes_requested.user), 'requested changes', entry.changes_requested.date, entry),
+      detail: participantReview(thread, entry.changes_requested.user, 'changes_requested', 'changes_requested'),
+    }
   }
   const update = entry.update
   const terminal = update?.state && update.state !== 'OPEN'
@@ -241,6 +247,15 @@ export function toActivityEvent(thread: ResolvedThreadRef, entry: BitbucketActiv
     update?.date,
     entry,
   )
+}
+
+/** The review id that `threads.reviews()` gives the participant `user`. */
+export function participantReviewId(instance: string, user: BitbucketUser | undefined): string {
+  return `participant:${user?.uuid ?? toActor(instance, user)?.login ?? ''}`
+}
+
+export function participantReview(thread: ThreadRef, user: BitbucketUser | undefined, state: ReviewState, stateRaw: string): EventDetail {
+  return { type: 'review', state, stateRaw, review: { forge: FORGE, instance: thread.instance, thread, id: participantReviewId(thread.instance, user) } }
 }
 
 function commentDetail(thread: ThreadRef, comment: BitbucketComment): EventDetail {

@@ -271,7 +271,13 @@ function detailOf(kind: EventKind, thread: ThreadRef | undefined, instance: stri
     case 'review_comment':
       return { type: 'review_comment', comment: commentRef, body: comment?.body, path: comment?.path, line: comment?.line ?? undefined }
     case 'review':
-      return { type: 'review', state: reviewState(payload.review?.state), stateRaw: payload.review?.state, body: payload.review?.body ?? undefined }
+      return {
+        type: 'review',
+        state: reviewState(payload.review?.state),
+        stateRaw: payload.review?.state,
+        body: payload.review?.body ?? undefined,
+        review: payload.review?.id !== undefined && thread ? { forge: FORGE, instance, thread, id: String(payload.review.id) } : undefined,
+      }
     case 'label':
       return payload.label?.name ? { type: 'label', label: payload.label.name } : undefined
     case 'assignment':

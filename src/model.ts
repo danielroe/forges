@@ -1250,7 +1250,8 @@ export type EventAction
 export type EventDetail
   = | { type: 'comment', comment?: CommentRef, body?: string }
     | { type: 'review_comment', comment?: CommentRef, body?: string, path?: string, line?: number }
-    | { type: 'review', state: ReviewState, stateRaw?: string, body?: string }
+    /** A review. `review` has the `id` that `threads.reviews()` lists for the review, where the forge reports it. */
+    | { type: 'review', state: ReviewState, stateRaw?: string, body?: string, review?: ReviewRef }
     | { type: 'state_change', state?: ThreadState, draft?: boolean }
     | { type: 'label', label: string }
     | { type: 'assignment', assignee?: Actor }

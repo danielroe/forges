@@ -1,5 +1,5 @@
 import type { WebhookHandlers } from '../define.ts'
-import type { EventAction, EventKind, ForgeEventInput, ThreadRef } from '../model.ts'
+import type { EventAction, EventKind, ForgeEventInput, ReviewState, ThreadRef } from '../model.ts'
 import type { WebhookDelivery } from '../provider.ts'
 import type { BitbucketOptions } from './index.ts'
 import type { BitbucketComment, BitbucketPullRequest, BitbucketRepository, BitbucketUser } from './types.ts'
@@ -8,7 +8,7 @@ import { WebhookVerificationError } from '../errors.ts'
 import { eventTime } from '../events.ts'
 import { toDate } from '../utils.ts'
 import { refEvent, verifyHmacSignature } from '../webhooks.ts'
-import { FORGE, toActor, toRepoRef } from './normalise.ts'
+import { FORGE, participantReview, toActor, toRepoRef } from './normalise.ts'
 import { BITBUCKET_WEBHOOK_EVENTS } from './webhook-events.ts'
 
 export const SIGNATURE_HEADER = 'x-hub-signature'
@@ -39,6 +39,13 @@ interface BitbucketWebhookPayload {
   }
   changes?: { name?: { old: string, new: string }, full_name?: { old: string, new: string } }
   previous_workspace?: { slug: string }
+}
+
+const REVIEW_STATES: Record<string, ReviewState> = {
+  'pullrequest:approved': 'approved',
+  'pullrequest:unapproved': 'dismissed',
+  'pullrequest:changes_request_created': 'changes_requested',
+  'pullrequest:changes_request_removed': 'dismissed',
 }
 
 const EVENT_ACTIONS: Record<string, EventAction> = {
@@ -140,6 +147,7 @@ export function translateBitbucketWebhook(instance: string, delivery: WebhookDel
     repo,
     thread,
     ...kind === 'comment' && { detail: { type: 'comment', comment, body: payload.comment?.content?.raw } },
+    ...kind === 'review' && thread && { detail: participantReview(thread, (payload.approval ?? payload.changes_request)?.user ?? payload.actor, REVIEW_STATES[event] ?? 'unknown', event) },
     source: 'webhook',
     payload,
   }]

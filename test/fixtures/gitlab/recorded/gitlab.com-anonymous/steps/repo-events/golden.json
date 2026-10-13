@@ -311,7 +311,24 @@
       "detail": {
         "type": "review",
         "state": "approved",
-        "stateRaw": "approved"
+        "stateRaw": "approved",
+        "review": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "thread": {
+            "forge": "gitlab",
+            "instance": "gitlab.com",
+            "repo": {
+              "forge": "gitlab",
+              "instance": "gitlab.com",
+              "owner": "gitlab-org",
+              "name": "cli"
+            },
+            "kind": "pull_request",
+            "number": "4061"
+          },
+          "id": "approval:GitLabDuo"
+        }
       },
       "summary": "GitLabDuo approved merge request",
       "occurredAt": "<now>",
@@ -356,7 +373,24 @@
       "detail": {
         "type": "review",
         "state": "approved",
-        "stateRaw": "approved"
+        "stateRaw": "approved",
+        "review": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "thread": {
+            "forge": "gitlab",
+            "instance": "gitlab.com",
+            "repo": {
+              "forge": "gitlab",
+              "instance": "gitlab.com",
+              "owner": "gitlab-org",
+              "name": "cli"
+            },
+            "kind": "pull_request",
+            "number": "4061"
+          },
+          "id": "approval:ahmed.hemdan"
+        }
       },
       "summary": "ahmed.hemdan approved merge request",
       "occurredAt": "<now>",

@@ -408,11 +408,18 @@ function crossReference(ref: ResolvedThreadRef, body: string): EventDetail {
     : { type: 'referenced', text }
 }
 
+/** The review id that `threads.reviews()` gives an approval by `user`. */
+export function approvalId(user: { id?: number, username?: string } | undefined): string {
+  return `approval:${user?.username ?? user?.id ?? ''}`
+}
+
 function noteDetail(ref: ResolvedThreadRef, note: GitLabNote, kind: EventKind): EventDetail | undefined {
   switch (kind) {
     case 'comment':
     case 'review_comment':
       return { type: kind, comment: { forge: FORGE, instance: ref.instance, thread: ref, id: String(note.id) }, body: note.body }
+    case 'review':
+      return { type: 'review', state: 'approved', stateRaw: 'approved', review: { forge: FORGE, instance: ref.instance, thread: ref, id: approvalId(note.author) } }
     case 'referenced':
       return crossReference(ref, note.body)
     default:

@@ -147,6 +147,7 @@ export function toReviewEvent(thread: ThreadRef, raw: OriginReview, source: Forg
     kind: 'review',
     kindRaw: raw.dismissal ? 'pull_request.review.dismissed' : `pull_request.review.${raw.verdict}`,
     summary: `${actor?.login ?? 'someone'} ${raw.dismissal ? 'dismissed a review' : `reviewed (${VERDICTS[raw.verdict] ?? raw.verdict})`}`,
+    detail: { type: 'review', state: raw.dismissal ? 'dismissed' : VERDICTS[raw.verdict] ?? 'unknown', stateRaw: raw.verdict, body: raw.body || undefined, review: { forge: FORGE, instance: thread.instance, thread, id: raw.id } },
     ...eventTime(toDate(raw.submittedAt), new Date(0)),
     actor,
     repo: thread.repo,

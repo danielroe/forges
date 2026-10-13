@@ -983,6 +983,9 @@
           },
           "body": {
             "type": "string"
+          },
+          "review": {
+            "$ref": "#/components/schemas/ReviewRef"
           }
         },
         "required": [

@@ -11,7 +11,25 @@
       "detail": {
         "type": "review",
         "state": "commented",
-        "stateRaw": "commented"
+        "stateRaw": "commented",
+        "review": {
+          "forge": "github",
+          "instance": "github.com",
+          "thread": {
+            "forge": "github",
+            "instance": "github.com",
+            "repo": {
+              "forge": "github",
+              "instance": "github.com",
+              "owner": "nuxt",
+              "name": "modules",
+              "externalId": "290526597"
+            },
+            "kind": "pull_request",
+            "number": "1607"
+          },
+          "id": "5500621596"
+        }
       },
       "summary": "danielroe submitted a review (commented)",
       "occurredAt": "<now>",

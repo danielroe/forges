@@ -393,6 +393,8 @@ function timelineDetail(thread: ThreadRef, entry: ForgejoTimelineEntry, kind: Ev
     case 'comment':
     case 'review_comment':
       return { type: kind, comment: entry.id === undefined ? undefined : { ...origin, thread, id: String(entry.id) }, body: entry.body ?? undefined }
+    case 'review':
+      return { type: 'review', state: 'unknown', body: entry.body || undefined, review: entry.review_id ? { ...origin, thread, id: String(entry.review_id) } : undefined }
     case 'referenced':
       return crossReference(thread, entry)
     default:

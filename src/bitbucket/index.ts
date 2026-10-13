@@ -65,6 +65,7 @@ import { nativeEventsFor } from '../webhooks.ts'
 import {
   FORGE,
   normaliseMarkdown,
+  participantReviewId,
   toActivityEvent,
   toActor,
   toBranch,
@@ -486,7 +487,7 @@ const BITBUCKET: ProviderDefinition<BitbucketOptions, undefined, true> = {
         }
         const actor = toActor(instance, participant.user)
         const state = stateRaw === 'approved' ? 'approved' : stateRaw === 'changes_requested' ? 'changes_requested' : 'unknown'
-        return [syntheticReview(ref, `participant:${participant.user?.uuid ?? actor?.login ?? ''}`, state, { author: actor, stateRaw, raw: participant })]
+        return [syntheticReview(ref, participantReviewId(instance, participant.user), state, { author: actor, stateRaw, raw: participant })]
       })
     }
 
