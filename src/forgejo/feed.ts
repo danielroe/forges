@@ -117,6 +117,7 @@ export function toFeedEvent(origin: ForgeOrigin, raw: ForgejoActivity): ForgeEve
     occurredAt: toDate(raw.created) ?? new Date(),
     actor,
     repo,
+    ...typeof raw.is_private === 'boolean' ? { isPublic: !raw.is_private } : {},
     source: 'poll',
     payload: raw,
   }

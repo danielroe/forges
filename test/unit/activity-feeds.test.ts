@@ -41,6 +41,17 @@ describe('github activity feeds', () => {
     expect(merged).toMatchObject({ source: 'poll', kindRaw: 'PullRequestEvent.merged', occurredAt: new Date('2026-01-02T03:04:05Z') })
   })
 
+  it('reports whether a feed event is public where the feed says', () => {
+    const visible = toGitHubFeedEvent('github.com', { ...feedItem('IssuesEvent', { action: 'closed', issue: { number: 4 } }), public: true })
+    const hidden = toGitHubFeedEvent('github.com', { ...feedItem('WatchEvent', { action: 'started' }), public: false })
+    const unknown = toGitHubFeedEvent('github.com', feedItem('WatchEvent', { action: 'started' }))
+    const forgejo = toForgejoFeedEvent({ forge: 'forgejo', instance: 'codeberg.org' }, { id: 1, op_type: 'star_repo', is_private: true, created: '2026-01-02T03:04:05Z' })
+
+    expect([visible.isPublic, hidden.isPublic, forgejo.isPublic]).toEqual([true, false, false])
+    expect(unknown).not.toHaveProperty('isPublic')
+    expect(webhook('issues', { action: 'closed', issue: { number: 4 } })).not.toHaveProperty('isPublic')
+  })
+
   it('keeps feed types with no shared kind as `other`', () => {
     const star = completeEvent(toGitHubFeedEvent('github.com', feedItem('WatchEvent', { action: 'started' })))
     const wiki = completeEvent(toGitHubFeedEvent('github.com', feedItem('GollumEvent', { pages: [] })))

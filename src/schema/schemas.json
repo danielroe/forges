@@ -2113,6 +2113,10 @@
       "thread": {
         "$ref": "#/components/schemas/ThreadRef"
       },
+      "isPublic": {
+        "type": "boolean",
+        "description": "Whether anyone can see the event, where the forge says so. `false` covers private and internal repositories alike."
+      },
       "detail": {
         "$ref": "#/components/schemas/EventDetail",
         "description": "The details that belong to the kind of event."

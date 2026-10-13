@@ -342,6 +342,7 @@ export function toFeedEvent(instance: string, raw: GitHubFeedEvent): ForgeEventI
   const [owner = '', name = ''] = raw.repo?.name.split('/') ?? []
   const repo: RepoRef | undefined = raw.repo ? { forge: FORGE, instance, owner, name, externalId: String(raw.repo.id) } : undefined
   const actor = toActor(instance, raw.actor)
+  const visibility = typeof raw.public === 'boolean' ? { isPublic: raw.public } : {}
   const context: GitHubEventContext = {
     id: raw.id,
     kindRaw: payload.action ? `${type}.${payload.action}` : type,
@@ -361,11 +362,10 @@ export function toFeedEvent(instance: string, raw: GitHubFeedEvent): ForgeEventI
       kind: 'other',
       summary: `${actor?.login ?? 'someone'} ${FEED_SUMMARIES[type] ?? type}`,
       occurredAt: context.occurredAt ?? new Date(),
+      ...visibility,
       payload: raw,
     }
   }
-  if (type === 'PullRequestReviewEvent' && payload.action === 'created') {
-    return toGitHubEvent(instance, event, { ...payload, action: 'submitted' }, context)
-  }
-  return toGitHubEvent(instance, event, payload, context)
+  const reviewed = type === 'PullRequestReviewEvent' && payload.action === 'created'
+  return { ...toGitHubEvent(instance, event, reviewed ? { ...payload, action: 'submitted' } : payload, context), ...visibility }
 }

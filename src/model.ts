@@ -1239,6 +1239,8 @@ export interface ForgeEvent extends ForgeOrigin {
   actor?: Actor
   repo?: RepoRef
   thread?: ThreadRef
+  /** Whether anyone can see the event, where the forge says so. `false` covers private and internal repositories alike. */
+  isPublic?: boolean
   /** The details that belong to the kind of event. */
   detail?: EventDetail
   /** App installation the delivery belongs to, for app webhooks. */
