@@ -563,6 +563,16 @@ describe('github repository and thread metadata', () => {
     expect(await provider.repos.addCollaborator(repo, 'hubot', 'write')).toEqual({ status: 'added' })
   })
 
+  it('ignores a label the thread no longer carries when removing labels', async () => {
+    const { provider } = tokenProvider({
+      'DELETE https://api.github.com/repos/acme/widgets/issues/42/labels/bug': { status: 404, body: { message: 'Label does not exist', documentation_url: 'https://docs.github.com/rest/issues/labels#remove-a-label-from-an-issue' } },
+      'DELETE https://api.github.com/repos/acme/widgets/issues/43/labels/bug': { status: 404, body: { message: 'Not Found' } },
+    })
+
+    await expect(provider.threads.removeLabels(pull, ['bug'])).resolves.toBeUndefined()
+    await expect(provider.threads.removeLabels({ ...pull, number: '43' }, ['bug'])).rejects.toThrow(NotFoundError)
+  })
+
   it('adds and removes labels without replacing the rest', async () => {
     const { provider, calls } = tokenProvider()
 

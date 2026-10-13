@@ -2009,7 +2009,14 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
       removeLabels: perKind({ issue: true, pull_request: true }, async (thread, labels, options) => {
         const ref = requireIssueOrPull(thread, context, 'label')
         for (const label of labels) {
-          await fetcher.raw(`${repoPath(ref.repo)}/issues/${encodeURIComponent(ref.number)}/labels/${encodeURIComponent(label)}`, { method: 'DELETE', signal: options?.signal })
+          try {
+            await fetcher.raw(`${repoPath(ref.repo)}/issues/${encodeURIComponent(ref.number)}/labels/${encodeURIComponent(label)}`, { method: 'DELETE', signal: options?.signal })
+          }
+          catch (error) {
+            if (!(error instanceof NotFoundError && error.body.includes('Label does not exist'))) {
+              throw error
+            }
+          }
         }
       }),
       setMilestone: perKind({ issue: true, pull_request: true }, async (thread, milestone, options) => issuePatch(
