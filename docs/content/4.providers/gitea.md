@@ -95,7 +95,7 @@ A label delivery doesn't say which labels were added or removed. When the set of
 
 ## Organisation teams
 
-`orgs.teams()` reads `GET /orgs/{org}/teams`, and `orgs.teamMembers()` reads the members of one team. Gitea addresses a team's members by id, so the provider resolves the `slug` (a team's name) to its id with the teams listing before it reads `GET /teams/{id}/members`. Both need a token with the `read:organization` scope, and a self-hosted instance older than 1.15 reports `false`.
+`orgs.teams()` reads `GET /orgs/{org}/teams`, and `orgs.teamMembers()` reads the members of one team. Gitea addresses a team's members by id, so the provider resolves the `slug` (a team's name) to its id with the teams listing before it reads `GET /teams/{id}/members`. Both need a token with the `read:organization` scope, and Gitea responds with a 403 when the account isn't a member of the organisation. A slug that names no team rejects with `NotFoundError`.
 
 <!-- capabilities:start -->
 ## Capabilities

@@ -533,6 +533,13 @@ describe('forgejo organisation teams', () => {
     ])
   })
 
+  it('rejects a slug that names no team, even one that matches a team id', async () => {
+    const { instance, calls } = provider()
+
+    await expect(instance.orgs.teamMembersPage(org, '12')).rejects.toThrow(NotFoundError)
+    expect(calls.map(call => new URL(call.url).pathname)).toEqual(['/api/v1/orgs/acme/teams'])
+  })
+
   it('reports organisation teams unsupported without a credential', () => {
     const anonymous = forgejo({}).create()
 

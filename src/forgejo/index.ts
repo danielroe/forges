@@ -129,10 +129,6 @@ const GITEA_ACTION_LOGS = '1.24'
 /** Gitea version with replies to review comments. */
 const GITEA_REVIEW_REPLIES = '1.27'
 
-/** Forgejo and Gitea versions with the organisation teams API. */
-const FORGEJO_ORG_TEAMS = '1.18'
-const GITEA_ORG_TEAMS = '1.15'
-
 /** Timelines send no usable count, so only a full page of an explicit size shows that another follows. */
 const TIMELINE_PAGE_SIZE = 50
 
@@ -505,22 +501,13 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
   /** Gitea lists runs and serves job logs only with a token. */
   const giteaAnonymous = isGitea && anonymous
 
-  /** Organisation teams are read through the forge's API, which older self-hosted versions lack. */
-  const orgTeams: SupportInput = hostOf(baseUrl) === hostOf(profile.defaultBaseUrl)
-    ? true
-    : ({ version }) => versionAtLeast(version, isGitea ? GITEA_ORG_TEAMS : FORGEJO_ORG_TEAMS)
-
-  /** Forgejo and Gitea address a team's members by id, so its name is resolved once per organisation. */
-  const teamIdOf = memoBy(async (key: string) => {
-    const separator = key.indexOf('\n')
-    const org = key.slice(0, separator)
-    const slug = key.slice(separator + 1)
+  /** Team ids of an organisation by lowercased name, which Forgejo and Gitea keep unique. */
+  const teamIdsOf = memoBy(async (org: string) => {
+    const map = new Map<string, number>()
     for await (const team of fetcher.items<ForgejoTeam>(`/orgs/${encodeURIComponent(org)}/teams`)) {
-      if (String(team.id) === slug || team.name.toLowerCase() === slug.toLowerCase()) {
-        return String(team.id)
-      }
+      map.set(team.name.toLowerCase(), team.id)
     }
-    throw new UnsupportedOperationError(`No team named ${slug} in ${org}`, context)
+    return map
   })
 
   /** One page of an Actions listing, read from `key` and continued from `total_count` when no `Link` header is sent. */
@@ -621,14 +608,17 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
       reviewerCandidatesPage: verb(!anonymous, (thread, listOptions = {}) => list(`${repoPath(requireThread(thread, context).repo)}/reviewers`, listOptions, (raw: ForgejoUser) => toActor(origin, raw)!)),
     },
     orgs: {
-      teamsPage: verb(anonymous ? false : orgTeams, (org, listOptions = {}) => list(
+      teamsPage: verb(!anonymous, (org, listOptions = {}) => list(
         `/orgs/${encodeURIComponent(org.owner)}/teams`,
         listOptions,
         (raw: ForgejoTeam) => toTeam(origin, teamOrg(org), raw),
       )),
-      teamMembersPage: verb(anonymous ? false : orgTeams, async (org, slug, listOptions = {}) => {
-        const id = /^\d+$/.test(slug) ? slug : await teamIdOf(`${org.owner}\n${slug}`)
-        return list(`/teams/${encodeURIComponent(id)}/members`, listOptions, (raw: ForgejoUser) => toActor(origin, raw)!)
+      teamMembersPage: verb(!anonymous, async (org, slug, listOptions = {}) => {
+        const id = (await teamIdsOf(org.owner)).get(slug.toLowerCase())
+        if (id === undefined) {
+          throw new NotFoundError(`${org.owner} has no team named ${slug}`, 404, '', context)
+        }
+        return list(`/teams/${id}/members`, listOptions, (raw: ForgejoUser) => toActor(origin, raw)!)
       }),
     },
     notifications: {
