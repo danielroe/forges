@@ -976,9 +976,8 @@ export interface UsersApi {
    */
   me: (options?: BaseOptions) => Promise<User>
   /**
-   * Whether an account can be sponsored, where the forge reports it. GitHub reads this over GraphQL, so it needs a
-   * credential; providers that cannot report it reject with `UnsupportedOperationError`, and `can('users.sponsorable')`
-   * is `false`.
+   * Whether an account accepts sponsorship on the forge, such as through a GitHub Sponsors listing. Rejects with
+   * `NotFoundError` when no account has the login.
    * @param login The account to check.
    * @example
    * ```ts

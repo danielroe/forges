@@ -348,6 +348,7 @@ export const EXPLORER_OPERATIONS: ExplorerOperation[] = [
   // Accounts and search
   operation('users.get', { returns: 'User', uses: 'none', fields: fields('login'), args: ({ value }) => value('login'), run: (p, input) => p.users.get(input.login) }),
   operation('users.me', { returns: 'User', uses: 'none', args: () => '' }),
+  operation('users.sponsorable', { returns: 'boolean', uses: 'none', fields: fields('login'), args: ({ value }) => value('login') }),
   operation('search.threads', { method: 'search.threadsPage', returns: 'Page<Thread>', fields: fields('query'), args: ({ value }) => `{ repo, text: ${value('query')}, perPage: 5 }`, run: (p, input, { repo }) => p.search.threadsPage({ repo, text: input.query, perPage: 5 }) }),
   operation('search.repos', { method: 'search.reposPage', returns: 'Page<Repo>', uses: 'none', fields: fields('query'), args: ({ value }) => `{ text: ${value('query')}, perPage: 5 }`, run: (p, input) => p.search.reposPage({ text: input.query, perPage: 5 }) }),
   operation('search.commits', { method: 'search.commitsPage', returns: 'Page<Commit>', fields: fields('query'), args: ({ value }) => `{ repo, text: ${value('query')}, perPage: 5 }`, run: (p, input, { repo }) => p.search.commitsPage({ repo, text: input.query, perPage: 5 }) }),
