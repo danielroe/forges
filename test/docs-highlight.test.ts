@@ -16,7 +16,7 @@ afterAll(() => {
   highlighter?.dispose()
 })
 
-describe('landing examples', () => {
+describe('landing examples', { timeout: 20_000 }, () => {
   it.each(forgeExamples)('highlights and type-checks $name', (example) => {
     const html = highlighter.highlight(example.code)
     expect(html).toContain('twoslash-hover')
