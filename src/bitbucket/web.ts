@@ -1,5 +1,6 @@
 import type { RepoRef, ThreadKind, ThreadRef } from '../model.ts'
 import type { RepoSection, WebLinks } from '../web.ts'
+import { lineOf } from '../web.ts'
 
 const SECTIONS: Partial<Record<ThreadKind, string>> = { issue: 'issues', pull_request: 'pull-requests', commit: 'commits' }
 const KINDS = new Map(Object.entries(SECTIONS).map(([kind, section]) => [section, kind as ThreadKind]))
@@ -24,7 +25,7 @@ export function bitbucketWeb(origin: string): WebLinks {
       }
       const repo: RepoRef = { ...from, owner, name: name.replace(/\.git$/, '') }
       if (section === 'src' && id && segments[4]) {
-        return { repo, file: { at: id, path: segments.slice(4).join('/') } }
+        return { repo, file: { at: id, path: segments.slice(4).join('/'), ...lineOf(url.hash.replace(/^#lines-/, '')) } }
       }
       const kind = section ? KINDS.get(section) : undefined
       if (!kind || !id) {

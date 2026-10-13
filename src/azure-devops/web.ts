@@ -1,5 +1,6 @@
 import type { RepoRef, ThreadRef } from '../model.ts'
 import type { RepoSection, WebLinks } from '../web.ts'
+import { lineOf } from '../web.ts'
 
 const encode = (path: string) => path.split('/').map(encodeURIComponent).join('/')
 const gitPath = (repo: RepoRef) => `/${encode(repo.owner)}/_git/${encodeURIComponent(repo.name)}`
@@ -46,9 +47,9 @@ export function azureWeb(origin: string): WebLinks {
       }
       const repo: RepoRef = { ...from, owner, name: rest[0] }
       const path = url.searchParams.get('path')?.replace(/^\//, '')
-      const match = FILE_VERSION_RE.exec(url.searchParams.get('version') ?? '')
-      if (!rest[1] && path && match) {
-        return { repo, file: { path, at: match[1]! } }
+      if (!rest[1] && path) {
+        const at = FILE_VERSION_RE.exec(url.searchParams.get('version') ?? '')?.[1]
+        return { repo, file: { path, ...at ? { at } : {}, ...lineOf(url.searchParams.get('line')) } }
       }
       const kind = rest[1] === 'pullrequest' ? 'pull_request' : rest[1] === 'commit' ? 'commit' : undefined
       if (!kind || !rest[2]) {

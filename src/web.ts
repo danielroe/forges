@@ -26,11 +26,12 @@ export interface ParsedForgeUrl {
   comment?: CommentRef
   release?: ReleaseRef
   /**
-   * A file page: the repository-relative `path` and the revision `at`. An unencoded `/` in
+   * A file page: the repository-relative `path`, the revision `at` and the first selected `line`.
+   * `at` is unset when the URL leaves the revision to the default branch. An unencoded `/` in
    * a branch name reads as the start of `path`. Forges that address files and folders
    * alike, such as Forgejo, Bitbucket and Azure DevOps, also set this for a folder.
    */
-  file?: { path: string, at: string }
+  file?: { path: string, at?: string, line?: number }
 }
 
 /** Options for `provider.referenceTo()`. */
@@ -76,6 +77,11 @@ export function sameRepo(a: RepoRef, b: RepoRef | undefined): boolean {
   }
   const [left, right] = [normaliseRepoName(a), normaliseRepoName(b)]
   return left.owner === right.owner && left.name === right.name
+}
+
+export function lineOf(value: string | null | undefined): { line?: number } {
+  const line = Number.parseInt(value ?? '', 10)
+  return line > 0 ? { line } : {}
 }
 
 function encodePath(path: string): string {
@@ -224,7 +230,7 @@ export function githubShapedWeb(origin: string, shape: GitHubShape): WebLinks {
       const repo: RepoRef = { ...from, owner, name: name.replace(/\.git$/, '') }
       const file = parseFile(segments.slice(2))
       if (file) {
-        return { repo, file }
+        return { repo, file: { ...file, ...lineOf(url.hash.replace(/^#L/, '')) } }
       }
       const kind = section ? kindOf.get(section) : undefined
       if (section === 'releases' && id === 'tag' && segments[4]) {

@@ -1,5 +1,6 @@
 import type { RepoRef, ThreadKind, ThreadRef } from '../model.ts'
 import type { RepoSection, WebLinks } from '../web.ts'
+import { lineOf } from '../web.ts'
 
 const SECTIONS: Partial<Record<ThreadKind, string>> = { issue: 'issues', pull_request: 'merge_requests', commit: 'commit' }
 const KINDS = new Map(Object.entries(SECTIONS).map(([kind, section]) => [section, kind as ThreadKind]))
@@ -32,7 +33,7 @@ export function gitlabWeb(origin: string): WebLinks {
       const repo: RepoRef = { ...from, owner: path.slice(0, -1).join('/'), name: path.at(-1)!.replace(/\.git$/, '') }
       const [section, id] = separator < 0 ? [] : segments.slice(separator + 1)
       if (section === 'blob' && id && segments.length > separator + 3) {
-        return { repo, file: { at: id, path: segments.slice(separator + 3).join('/') } }
+        return { repo, file: { at: id, path: segments.slice(separator + 3).join('/'), ...lineOf(url.hash.replace(/^#L/, '')) } }
       }
       if (section === 'releases' && id) {
         return { repo, release: { ...from, repo, id, tag: id } }
