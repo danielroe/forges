@@ -59,10 +59,12 @@ export function load(directory: string): Recording {
 export function replay(recording: string, { update = true } = {}): boolean {
   const report = join(mkdtempSync(join(tmpdir(), 'forges-replay-')), 'report.json')
   const result = spawnSync(`${root}node_modules/.bin/vitest`, ['run', '--project', 'unit', 'test/recorded.test.ts', ...update ? ['-u'] : [], '--reporter=json', `--outputFile=${report}`], { cwd: root, encoding: 'utf8', env: { ...process.env, FORGES_RECORDING: recording } })
-  const { numPassedTests = 0, numFailedTests = 1 } = existsSync(report) ? JSON.parse(readFileSync(report, 'utf8')) as { numPassedTests?: number, numFailedTests?: number } : {}
+  const { numPassedTests = 0, numFailedTests = 1, testResults = [] } = existsSync(report) ? JSON.parse(readFileSync(report, 'utf8')) as { numPassedTests?: number, numFailedTests?: number, testResults?: Array<{ message?: string, assertionResults?: Array<{ fullName: string, status: string, failureMessages?: string[] }> }> } : {}
   rmSync(report.slice(0, -'/report.json'.length), { recursive: true, force: true })
   if (result.status !== 0 || numFailedTests || !numPassedTests) {
-    process.stderr.write(`${recording} does not replay: ${numPassedTests} passed, ${numFailedTests} failed\n${result.stderr.slice(-4000)}`)
+    const failures = testResults.flatMap(file => [...file.message ? [file.message] : [], ...(file.assertionResults ?? []).filter(test => test.status === 'failed').map(test => `${test.fullName}: ${test.failureMessages?.[0] ?? ''}`)])
+    const details = failures.map(failure => failure.split('\n').slice(0, 12).join('\n')).join('\n').slice(0, 8000)
+    process.stderr.write(`${recording} does not replay: ${numPassedTests} passed, ${numFailedTests} failed\n${details || result.stderr.slice(-4000)}\n`)
     return false
   }
   return true

@@ -18,6 +18,7 @@ import { seedScratch } from '../test/recording/seed.ts'
 import { LOG_LIMIT, STEPS } from '../test/recording/steps.ts'
 import { FIXTURE_HOOK_SECRET, FIXTURE_HOOK_URL, FIXTURE_TITLE, fixtureLabel, WRITE_STEPS } from '../test/recording/write-steps.ts'
 import { differingKeys, spliceWrites } from './partial-writes.ts'
+import { patientFetch } from './rate-limits.ts'
 import { connectedSteps, trackReads, writeRecording } from './recording-store.ts'
 import { fixtures } from './stabilise-recordings.ts'
 import { guardedFetch } from './write-guard.ts'
@@ -127,9 +128,11 @@ function unsign(url: string): string {
   return signed ? parsed.toString() : url
 }
 
+const live = patientFetch(liveFetch, { writeGap: flags.writes || flags.webhooks || flags.seed ? 1000 : 0, timeout: 30_000, log: message => console.error(message) })
+
 const recorder = recordingFetch(async (input, init) => {
   const method = (init?.method ?? 'GET').toUpperCase()
-  const response = await liveFetch(input, init)
+  const response = await live.fetch(input, init)
   console.info(`${response.status < 400 ? 'recorded' : 'error   '} ${response.status} ${method} ${unsign(input)}`)
   return response
 }, ({ request, response }) => {
@@ -200,30 +203,20 @@ function writeSteps(options: { keepFailed?: boolean } = {}): void {
   }
 }
 
-/** Writes the selected write steps into the committed recording, with the identifiers this run created renamed to the committed ones. */
-function spliceSelected(recording: string, manifest: WriteManifest): void {
+/** Writes `selection` into the committed recording, with the identifiers this run created renamed to the committed ones, and removes the steps in `remove`; returns whether it did. */
+function spliceSelected(recording: string, manifest: WriteManifest, selection: Set<string>, remove: string[] = []): boolean {
   const inSteps = new Set(recorded.flatMap(step => step.fixtures))
   const setup = recorder.fixtures.filter(fixture => !inSteps.has(fixture) && !discarded.has(fixture))
-  const list = (names: string[]) => names.map(name => `\n  ${name}`).join('')
-  const skipped = [...only!].filter(name => !recorded.some(step => step.name === name) && !failed.some(step => step.name === name))
-  if (skipped.length) {
-    console.error(`These steps do not apply to this provider, so they did not run:${list(skipped)}`)
-  }
-  const result = spliceWrites(recording, { manifest, steps: recorded, setup }, only!)
+  const result = spliceWrites(recording, { manifest, steps: recorded, setup }, selection, remove)
   if (!result.saved) {
     console.error(`Kept the committed recording, as ${result.reason}`)
-    process.exitCode = 1
-    return
+    return false
   }
   console.info(`${result.written.length} step(s) written, ${result.unchanged.length} unchanged apart from timestamps.`)
   if (result.extra.length) {
-    console.info(`Also wrote these steps, which changed and are read by a written step:${list(result.extra)}`)
+    console.info(`Also wrote these steps, which changed and are read by a written step:${result.extra.map(name => `\n  ${name}`).join('')}`)
   }
-  const selectedFailures = failed.filter(step => only!.has(step.name)).map(step => step.name)
-  if (selectedFailures.length) {
-    console.error(`These selected steps failed, so they were not written:${list(selectedFailures)}`)
-    process.exitCode = 1
-  }
+  return true
 }
 
 async function step(name: string, run: () => Promise<unknown>): Promise<boolean> {
@@ -295,7 +288,8 @@ function setupRepos(prefix: string, toRef: (slug: string) => Forges.RepoRef): Pi
   return { ...scratch && { scratch: toRef(scratch) }, ...alerts && { alerts: toRef(alerts) }, ...transfer && { transfer: toRef(transfer) }, ...collaborators && { collaborators: toRef(collaborators) } }
 }
 
-const timeout = 30_000
+/** Long enough for `live` to wait out rate limits, which limits each attempt itself. */
+const timeout = 30 * 60_000
 
 /** What a provider signs in with: a token, Basic credentials, GitHub App credentials, or a Tangled app password with its account. */
 interface Credentials {
@@ -604,11 +598,17 @@ async function recordWrites(): Promise<void> {
   const { context, run: recordStep } = trackedContext<WriteContext>({ pulls: [], comments: {}, wait: ms => new Promise(resolve => setTimeout(resolve, ms)) })
   const succeeded = (name: string) => recorded.some(step => step.name === name)
   const last = only ? Math.max(...[...only].map(name => WRITE_STEPS.findIndex(step => step.name === name))) : WRITE_STEPS.length - 1
+  const inapplicable = new Set<string>()
   try {
     for (const item of WRITE_STEPS.slice(0, last + 1)) {
       const provider = item.as === 'reviewer' ? reviewer : author.provider
       if (!provider?.can(item.verb, item.kind) || item.when?.(provider, manifest) === false) {
+        inapplicable.add(item.name)
         continue
+      }
+      if (live.limited()) {
+        console.error(`Stopped before \`${item.name}\`, as ${live.limited()}.`)
+        break
       }
       await recordStep(item.name, () => item.run(provider, manifest, context))
     }
@@ -619,17 +619,35 @@ async function recordWrites(): Promise<void> {
       await harness.removeCollaborator?.(collaborators, context.reviewer.id)
     }
   }
+  const list = (names: string[]) => names.map(name => `\n  ${name}`).join('')
   if (only) {
-    spliceSelected(recording!, manifest)
+    const notRun = [...only].filter(name => !succeeded(name) && !failed.some(step => step.name === name))
+    const skipped = notRun.filter(name => !inapplicable.has(name))
+    if (notRun.length > skipped.length) {
+      console.info(`These selected steps do not apply to this provider:${list(notRun.filter(name => inapplicable.has(name)))}`)
+    }
+    if (skipped.length) {
+      console.error(`These selected steps did not run:${list(skipped)}`)
+    }
+    const selectedFailures = failed.filter(step => only.has(step.name)).map(step => step.name)
+    if (selectedFailures.length) {
+      console.error(`These selected steps failed, so they were not written:${list(selectedFailures)}`)
+    }
+    process.exitCode = spliceSelected(recording!, manifest, only) && !skipped.length && !selectedFailures.length ? 0 : 1
     return
   }
-  const lost = recordedSteps(out).map(step => step.name).filter(name => !recorded.some(step => step.name === name))
+  const missing = recordedSteps(out).map(step => step.name).filter(name => !succeeded(name))
+  const lost = missing.filter(name => WRITE_STEPS.some(step => step.name === name))
   if (lost.length && !flags['allow-fewer']) {
-    console.error(`Kept the earlier recording, as this run did not record these steps it has; pass --allow-fewer to replace it anyway:${lost.map(name => `\n  ${name}`).join('')}`)
+    if (recording && spliceSelected(recording, manifest, new Set(recorded.map(step => step.name)), missing.filter(name => !lost.includes(name)))) {
+      console.info(`Kept the committed recording of these steps, which this run did not record:${list(lost)}`)
+      return
+    }
+    console.error(`Kept the earlier recording, as this run did not record these steps it has; pass --allow-fewer to replace it anyway:${list(lost)}`)
     process.exitCode = 1
     return
   }
-  // Every write step reads what the steps before it wrote in this run, so an earlier run's recording of a failed step cannot be kept.
+  // Without renaming, an earlier run's recording of a failed step names identifiers this run did not create, so it cannot be kept.
   writeSteps({ keepFailed: false })
   writeFileSync(`${out}manifest.json`, `${JSON.stringify(manifest, null, 2)}\n`)
 }
@@ -702,7 +720,7 @@ const DELIVERY_HEADER = /^(?:x-(?!forwarded|real-ip|amz|vercel|webhook-site)[\w-
  */
 async function recordWebhooks(): Promise<void> {
   const { botToken, scratch, harness } = scratchSetup('--webhooks')
-  const plain = targetFor({ token: botToken }, guardedFetch(globalThis.fetch, { scope: harness.scope, allows: harness.allows, repos: [scratch] })).provider
+  const plain = targetFor({ token: botToken }, guardedFetch(live.fetch, { scope: harness.scope, allows: harness.allows, repos: [scratch] })).provider
   const id = new Date().toISOString().replace(/\D/g, '').slice(0, 14)
   const base = await harness.prepare()
   const relayed = forgeRecord(harness) ?? await relay()
@@ -760,8 +778,8 @@ async function seed(): Promise<void> {
   await harness.prepare()
   await harness.seed?.()
   const guard = { scope: harness.scope, allows: harness.allows, repos: [scratch, transfer, collaborators].filter(repo => repo !== undefined) }
-  const { provider } = targetFor({ token: botToken, identifier: env.TANGLED_BOT_IDENTIFIER, pds: env.TANGLED_BOT_PDS }, guardedFetch(globalThis.fetch, guard))
-  const reviewer = reviewerCredentials && targetFor(reviewerCredentials, guardedFetch(globalThis.fetch, guard)).provider
+  const { provider } = targetFor({ token: botToken, identifier: env.TANGLED_BOT_IDENTIFIER, pds: env.TANGLED_BOT_PDS }, guardedFetch(live.fetch, guard))
+  const reviewer = reviewerCredentials && targetFor(reviewerCredentials, guardedFetch(live.fetch, guard)).provider
   const pull = env[`FIXTURE_${prefix}_SCRATCH_PULL`]
   const seeded = await seedScratch(provider, scratch, pull ? { forge: provider.forge, instance: provider.instance, repo: scratch, kind: 'pull_request', number: pull } : undefined, reviewer)
   console.info(`seeded issue ${seeded.issue.number}${seeded.pull ? ` and pull ${seeded.pull.number}` : ''}`)

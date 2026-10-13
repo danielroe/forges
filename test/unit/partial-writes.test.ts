@@ -67,6 +67,14 @@ describe('splicing steps into a recording', () => {
     expect(['create-issue', 'issue-update-to-closed', 'issue-update', 'issue-close'].map(slug => readFileSync(`${committed}steps/${slug}/golden.json`, 'utf8'))).toEqual(['stabilised', 'stabilised', 'committed', 'committed'])
     expect(existsSync(`${committed}steps/create-issue/02-get-issues-N.json`)).toBe(false)
   })
+
+  it('removes the steps it is told to', () => {
+    const committed = recording({ 'create-issue': 'committed', 'retired-step': 'committed' })
+    spliceSteps(recording({}), committed, [], ['retired step'])
+
+    expect(existsSync(`${committed}steps/retired-step`)).toBe(false)
+    expect(existsSync(`${committed}steps/create-issue`)).toBe(true)
+  })
 })
 
 describe('comparing manifests', () => {

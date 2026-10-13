@@ -40,8 +40,11 @@ export function planSplice({ selected, ancestors, rewritten, skipped, steps }: {
   return { write, extra: write.filter(name => !selected.includes(name)), unchanged: selected.filter(name => !changed.has(name)), unrenamed }
 }
 
-/** Replaces the directories of the steps `names` in the recording `into` with those in `from`. */
-export function spliceSteps(from: string, into: string, names: string[]): void {
+/** Replaces the directories of the steps `names` in the recording `into` with those in `from`, and removes those of the steps in `remove`. */
+export function spliceSteps(from: string, into: string, names: string[], remove: string[] = []): void {
+  for (const name of remove) {
+    rmSync(`${into}steps/${stepSlug(name)}`, { recursive: true, force: true })
+  }
   for (const name of names) {
     const slug = stepSlug(name)
     rmSync(`${into}steps/${slug}`, { recursive: true, force: true })
@@ -58,7 +61,8 @@ export function differingKeys(a: Record<string, unknown>, b: Record<string, unkn
 /**
  * Writes the selected steps of a write run into the committed recording
  * `recording`, such as `github/recorded/github.com-writes`, with the
- * identifiers the run created renamed to the committed ones.
+ * identifiers the run created renamed to the committed ones, and removes the
+ * steps in `remove`.
  *
  * Every step that succeeded is stabilised against the committed recording,
  * as providers carry state such as cached lookups from one step to the next.
@@ -68,7 +72,7 @@ export function differingKeys(a: Record<string, unknown>, b: Record<string, unkn
  * with every golden output matching. Otherwise the committed recording is
  * left as it was.
  */
-export function spliceWrites(recording: string, run: PartialRun, only: Set<string>): SpliceResult {
+export function spliceWrites(recording: string, run: PartialRun, only: Set<string>, remove: string[] = []): SpliceResult {
   const directory = `${fixtures}${recording}/`
   const refused = (reason: string): SpliceResult => ({ saved: false, reason, written: [], extra: [], unchanged: [] })
   if (!existsSync(`${directory}manifest.json`)) {
@@ -88,32 +92,34 @@ export function spliceWrites(recording: string, run: PartialRun, only: Set<strin
     rmSync(directory, { recursive: true, force: true })
     cpSync(committed, directory, { recursive: true })
   }
+  const refuse = (reason: string): SpliceResult => {
+    const kept = mkdtempSync(join(tmpdir(), 'forges-refused-'))
+    cpSync(directory, kept, { recursive: true })
+    restore()
+    return refused(`${reason}. The recording as it was then is in ${kept}`)
+  }
   try {
     rmSync(directory, { recursive: true, force: true })
     writeRecording(directory, { steps: run.steps, failed: [], setup: run.setup })
     writeFileSync(`${directory}manifest.json`, `${JSON.stringify(run.manifest, null, 2)}\n`)
     const result = stabiliseRecording(recording, previousRoot)
     if (!result.stabilised) {
-      restore()
-      return refused(result.message)
+      return refuse(result.message)
     }
     const manifest = (path: string) => JSON.parse(readFileSync(`${path}manifest.json`, 'utf8')) as Record<string, unknown>
     const differing = differingKeys(manifest(committed), manifest(directory))
     if (differing.length) {
-      restore()
-      return refused(`${differing.map(key => `\`${key}\``).join(', ')} in the manifest differ from the committed one once renamed`)
+      return refuse(`${differing.map(key => `\`${key}\``).join(', ')} in the manifest differ from the committed one once renamed`)
     }
     const plan = planSplice({ selected, ancestors, rewritten: result.rewritten, skipped: result.skipped, steps: load(directory).steps })
     if (plan.unrenamed.length) {
-      restore()
-      return refused(`these identifiers could not be renamed to the committed recording's:${plan.unrenamed.map(line => `\n  ${line}`).join('')}`)
+      return refuse(`these identifiers could not be renamed to the committed recording's:${plan.unrenamed.map(line => `\n  ${line}`).join('')}`)
     }
     cpSync(directory, stabilised, { recursive: true })
     restore()
-    spliceSteps(stabilised, directory, plan.write)
+    spliceSteps(stabilised, directory, plan.write, remove)
     if (!replay(recording, { update: false })) {
-      restore()
-      return refused('the recording does not replay with the steps written into it')
+      return refuse('the recording does not replay with the steps written into it')
     }
     return { saved: true, written: plan.write, extra: plan.extra, unchanged: plan.unchanged }
   }
