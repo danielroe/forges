@@ -1,6 +1,6 @@
 /**
- * Measures browser entry bundles and checks that Lite bundles exclude webhook
- * code. `lazy` totals every chunk besides the entry. `--report` prints each
+ * Measures browser entry bundles, checks that Lite bundles exclude webhook
+ * code, and that the provider-free bundle stays within its budget. `lazy` totals every chunk besides the entry. `--report` prints each
  * of them without failing.
  */
 import { Buffer } from 'node:buffer'
@@ -13,8 +13,9 @@ import { parseArgs } from 'node:util'
 import { gzipSync } from 'node:zlib'
 import { rolldown } from 'rolldown'
 
-const BUNDLES: Array<{ name: string, source: string, imports: string, absent?: string }> = [
-  { name: 'forges', source: 'index.mjs', imports: 'createForges' },
+/** `absent` is a string only the webhook code holds; `budget` is the most the entry chunk may weigh, minified. */
+const BUNDLES: Array<{ name: string, source: string, imports: string, absent?: string, budget?: number }> = [
+  { name: 'forges', source: 'index.mjs', imports: 'createForges', budget: 5_000 },
   { name: 'forges/github', source: 'github/index.mjs', imports: 'github' },
   { name: 'github lite', source: 'github/index.mjs', imports: 'githubLite', absent: 'x-hub-signature-256' },
   { name: 'forges/gitlab', source: 'gitlab/index.mjs', imports: 'gitlab' },
@@ -63,7 +64,7 @@ const directory = mkdtempSync(join(tmpdir(), 'forges-bundle-size-'))
 const failures: string[] = []
 const bundles = []
 try {
-  for (const { name, source, imports, absent } of BUNDLES) {
+  for (const { name, source, imports, absent, budget } of BUNDLES) {
     const result = await measure(directory, source, imports).catch((error: unknown) => {
       if (!values.report) {
         throw error
@@ -83,6 +84,9 @@ try {
     }
     if (absent && code.includes(absent)) {
       failures.push(`${name} contains ${absent}`)
+    }
+    if (budget && minified > budget) {
+      failures.push(`${name} is ${minified} bytes minified, over its budget of ${budget}`)
     }
   }
   if (values.out) {

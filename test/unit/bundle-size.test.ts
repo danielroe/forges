@@ -12,7 +12,7 @@ let directory: string
 
 beforeEach(() => {
   directory = mkdtempSync(join(tmpdir(), 'forges-bundle-test-'))
-  writeFileSync(join(directory, 'index.mjs'), `export const createForges = ${JSON.stringify('x'.repeat(120_000))}`)
+  writeFileSync(join(directory, 'index.mjs'), `export const createForges = ${JSON.stringify('x'.repeat(4_000))}`)
   for (const name of ['github', 'gitlab', 'tangled']) {
     mkdirSync(join(directory, name))
     writeFileSync(join(directory, name, 'index.mjs'), `export const ${name} = 'full'; export const ${name}Lite = 'lite'`)
@@ -28,15 +28,24 @@ function measure(...args: string[]) {
 }
 
 describe('browser bundle measurements', () => {
-  it('reports large bundles without failing a size budget', () => {
+  it('writes the size of every bundle', () => {
     const out = join(directory, 'snapshot.json')
     const result = measure('--out', out)
     expect(result.stderr).toBe('')
     expect(result.status).toBe(0)
     const snapshot = parseBundleSnapshot(readFileSync(out, 'utf8'))
     expect(snapshot.bundles).toHaveLength(7)
-    expect(snapshot.bundles[0]!.minified).toBeGreaterThan(120_000)
+    expect(snapshot.bundles[0]!.minified).toBeGreaterThan(4_000)
     expect(snapshot.bundles.every(bundle => bundle.gzipped > 0)).toBe(true)
+  })
+
+  it('fails when the provider-free bundle is over its budget, except in report mode', () => {
+    writeFileSync(join(directory, 'index.mjs'), `export const createForges = ${JSON.stringify('x'.repeat(17_000))}`)
+    const result = measure()
+
+    expect(result.status).toBe(1)
+    expect(result.stderr).toMatch(/^forges is \d+ bytes minified, over its budget of 5000$/m)
+    expect(measure('--report').status).toBe(0)
   })
 
   it.each([
