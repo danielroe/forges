@@ -7,7 +7,7 @@ import { fromBase64, toFileContent } from '../contents.ts'
 import { defineForgeProvider, perKind, supportOnly, verb } from '../define.ts'
 import { ForgeError, soleMergeMethod, toMergeError, UnsupportedOperationError } from '../errors.ts'
 import { createFetcher as createFetcherBase } from '../fetch.ts'
-import { forgeIterable, getManyConcurrently, iteratePages, phased, rateLimitPart, requireThread, resolveToken, summariseChecks, toWarning } from '../utils.ts'
+import { forgeIterable, getManyConcurrently, isFirstPage, iteratePages, phased, rateLimitPart, requireThread, resolveToken, summariseChecks, toWarning } from '../utils.ts'
 import { createOriginAppCredentials } from './auth.ts'
 import { FORGE, isConversationComment, toBranch, toChangedFile, toCheck, toComment, toCommentEvent, toCommit, toRepo, toReview, toReviewEvent, toTag, toThread, toTreeEntry } from './normalise.ts'
 import { cursorOriginWebhooks } from './webhooks.ts'
@@ -105,7 +105,7 @@ function setupOrigin({ options, baseUrl, instance, origin: context, fetcher, cre
       return { items: [], warnings: [{ code: 'kind_unsupported', message: `Cursor Origin has pull requests only, no ${query.kind}s` }] }
     }
     const warnings: ForgeWarning[] = []
-    if (!query.cursor) {
+    if (isFirstPage(query.cursor)) {
       if (query.labels?.length || query.assignee) {
         warnings.push({ code: 'filter_unsupported', message: 'Cursor Origin cannot filter pull requests by label or assignee; those filters were ignored' })
       }

@@ -88,7 +88,7 @@ import { changeBase64, existingFiles, fromBase64, toFileContent } from '../conte
 import { defineForgeProvider, perKind, verb } from '../define.ts'
 import { AuthenticationRequiredError, BranchMovedError, ForgeApiError, InsufficientScopeError, NotFoundError, soleMergeMethod, TokenRevokedError, toMergeError, UnresolvedThreadError, UnsupportedOperationError } from '../errors.ts'
 import { isNamespaceRef, reactionContent } from '../model.ts'
-import { createListing, degradesToWarning, getManyConcurrently, hexColour, memo, memoBy, mergeCommitMessage, milestoneId, phased, rateLimitPart, requireIssueOrPull, requireThread, resolveToken, syntheticReview, teamOrg, toDate, toPage, toWarning, versionAtLeast, withEtag } from '../utils.ts'
+import { createListing, degradesToWarning, firstPageEtag, getManyConcurrently, hexColour, isFirstPage, memo, memoBy, mergeCommitMessage, milestoneId, phased, rateLimitPart, requireIssueOrPull, requireThread, resolveToken, syntheticReview, teamOrg, toDate, toPage, toWarning, versionAtLeast, withEtag } from '../utils.ts'
 import { webUrlFor } from '../web.ts'
 import { nativeEventsFor } from '../webhooks.ts'
 import {
@@ -212,13 +212,16 @@ const GITLAB: ProviderDefinition<GitLabOptions, undefined, true> = {
     const web = gitlabWeb(baseUrl.replace(/\/api\/v4$/, ''))
     /**
      * GitLab lists pending and done to-dos separately. With `all`, pending
-     * pages are followed by done pages; `cursor.token` marks the switch.
+     * pages are followed by done pages; `cursor.token` marks the switch. Only
+     * the pending listing on its own is conditional.
      */
     async function notificationPage(listOptions: NotificationListOptions = {}): Promise<Page<Notification>> {
       const cursor = listOptions.cursor
       const state = cursor?.token === 'done' ? 'done' : 'pending'
+      const conditional = !listOptions.all && isFirstPage(cursor)
       const result = await fetcher.json<GitLabTodo[]>(cursor?.nextUrl ?? '/todos', {
         query: cursor?.nextUrl ? undefined : { state, per_page: listOptions.perPage },
+        etag: conditional ? firstPageEtag(cursor) : undefined,
         signal: listOptions.signal,
       })
       const since = listOptions.since?.getTime()
@@ -229,7 +232,8 @@ const GITLAB: ProviderDefinition<GitLabOptions, undefined, true> = {
       const next = result.cursor?.nextUrl
         ? { ...result.cursor, token: phase === 'done' ? 'done' : undefined }
         : listOptions.all && phase !== 'done' ? { token: 'done' } : undefined
-      return { items, cursor: next, notModified: result.notModified, ...rateLimitPart(result.response) }
+      const page: Page<Notification> = { items, cursor: result.notModified ? undefined : next, notModified: result.notModified, ...rateLimitPart(result.response) }
+      return conditional ? withEtag(page, result, cursor) : page
     }
 
     /** GitLab assigns by user id, so logins are resolved once each. */
@@ -321,13 +325,13 @@ const GITLAB: ProviderDefinition<GitLabOptions, undefined, true> = {
     async function ownerReposPage(owner: RepoRef, query: OwnerRepoQuery = {}): Promise<Page<Repo>> {
       const read = (path: string, extra: Record<string, unknown>) => list(path, query, (raw: GitLabProjectDetail) => toRepo(instance, raw), {
         query: { visibility: query.visibility === 'all' ? undefined : query.visibility, order_by: query.sort && PROJECT_ORDER[query.sort], sort: query.direction, ...extra },
-        warnings: query.sort === 'pushed' && !query.cursor ? [{ code: 'sort_unsupported', message: 'GitLab does not report pushes; sorted by last activity, which includes issues and merge requests' }] : undefined,
+        warnings: query.sort === 'pushed' && isFirstPage(query.cursor) ? [{ code: 'sort_unsupported', message: 'GitLab does not report pushes; sorted by last activity, which includes issues and merge requests' }] : undefined,
       })
       try {
         return await read(`/groups/${encodeURIComponent(owner.externalId ?? owner.owner)}/projects`, { include_subgroups: query.subgroups || undefined, with_shared: false })
       }
       catch (error) {
-        if (!(error instanceof NotFoundError) || query.cursor || !owner.owner || owner.owner.includes('/')) {
+        if (!(error instanceof NotFoundError) || !isFirstPage(query.cursor) || !owner.owner || owner.owner.includes('/')) {
           throw error
         }
       }
@@ -435,7 +439,7 @@ const GITLAB: ProviderDefinition<GitLabOptions, undefined, true> = {
       if (query.kind === 'discussion') {
         return { items: [], warnings: [{ code: 'kind_unsupported', message: 'GitLab has no discussion threads' }] }
       }
-      const warnings: ForgeWarning[] = !query.cursor && query.sort === 'comments'
+      const warnings: ForgeWarning[] = isFirstPage(query.cursor) && query.sort === 'comments'
         ? [{ code: 'sort_unsupported', message: 'GitLab cannot sort by comment count; sorted by creation time' }]
         : []
       const state = query.state ?? 'open'
@@ -467,10 +471,10 @@ const GITLAB: ProviderDefinition<GitLabOptions, undefined, true> = {
     /** Cross-project search runs on the global issue and merge request listings, which take `search` and `in`. */
     async function searchThreadsPage(query: SearchQuery): Promise<Page<Thread>> {
       const warnings: ForgeWarning[] = []
-      if (!query.cursor && query.involves) {
+      if (isFirstPage(query.cursor) && query.involves) {
         warnings.push({ code: 'filter_unsupported', message: 'GitLab has no involves filter; it was ignored' })
       }
-      if (!query.cursor && query.sort === 'comments') {
+      if (isFirstPage(query.cursor) && query.sort === 'comments') {
         warnings.push({ code: 'sort_unsupported', message: 'GitLab cannot sort by comment count; sorted by update time' })
       }
       const state = query.state ?? 'all'
@@ -606,7 +610,6 @@ const GITLAB: ProviderDefinition<GitLabOptions, undefined, true> = {
       const result = await fetcher.page<GitLabEvent>(path, {
         query: { per_page: listOptions.perPage },
         cursor: listOptions.cursor,
-        etag: listOptions.cursor?.etag,
         signal: listOptions.signal,
       })
       const warnings: ForgeWarning[] = []
@@ -615,7 +618,7 @@ const GITLAB: ProviderDefinition<GitLabOptions, undefined, true> = {
         await resolveProjects(ids.filter(id => !projectRefs.has(id)), listOptions.signal, warnings)
       }
       const { toFeedEvent } = await import('./feed.ts')
-      return withEtag(toPage(result, raw => toFeedEvent(instance, raw, repo ?? (typeof raw.project_id === 'number' ? projectRefs.get(raw.project_id) : undefined)), warnings), result, listOptions.cursor)
+      return toPage(result, raw => toFeedEvent(instance, raw, repo ?? (typeof raw.project_id === 'number' ? projectRefs.get(raw.project_id) : undefined)), warnings)
     }
 
     async function setSubscribed(thread: ThreadRef, subscribed: boolean, options?: BaseOptions): Promise<void> {

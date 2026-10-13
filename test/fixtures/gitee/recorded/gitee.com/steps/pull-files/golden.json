@@ -243,5 +243,6 @@
       "patch": "@@ -1,4 +0,0 @@\n-# 子目录（支持条件表达式）\n-add_subdirectory:\n-  - port?{is_define('USING_CMS_CONNECT') or is_define('CMS_USING_ID')}\n-  - source?{is_define('USING_CMS_CONNECT') or is_define('CMS_USING_ID')}\n\\ No newline at end of file\n",
       "sha": "7e3cd0d302f25794197b2c76855cc18b1dace36b"
     }
-  ]
+  ],
+  "etag": "W/\"f89e604e9c751d86c18343e9d69909fc\""
 }

@@ -1,4 +1,6 @@
+import type { FetchLike } from '../src/fetch.ts'
 import type { Comment, FileContent, ForgeEvent, Notification, NotificationReason, Page, Repo, ResolvedThreadRef, Review, Thread } from '../src/model.ts'
+import type { ForgeProvider } from '../src/provider.ts'
 import type { RecordingManifest, Step, StepContext } from './recording/steps.ts'
 import type { WriteContext, WriteManifest, WriteStep } from './recording/write-steps.ts'
 import { existsSync, readdirSync, readFileSync } from 'node:fs'
@@ -34,6 +36,42 @@ const REASONS: NotificationReason[] = [
   'team_mention',
   'unknown',
 ]
+
+/** The forges, by display name, on which a recording reads each listing again with its first page's `etag`. */
+const conditionalListings = new Map<string, Set<string>>()
+
+const FORGE_NAMES: Record<string, string> = { 'github': 'GitHub', 'gitlab': 'GitLab', 'bitbucket': 'Bitbucket', 'forgejo': 'Forgejo', 'gitea': 'Gitea', 'gitee': 'Gitee', 'azure-devops': 'Azure DevOps', 'cursor-origin': 'Cursor Origin', 'pushin': 'Pushin.eu', 'tangled': 'Tangled', 'cloudflare-artifacts': 'Cloudflare Artifacts' }
+
+function sameRequest(a: string, b: string): boolean {
+  const [first, second] = [new URL(a), new URL(b)]
+  first.searchParams.sort()
+  second.searchParams.sort()
+  return first.toString() === second.toString()
+}
+
+/** `provider` with the options of every call to `verb` given `cursor: { etag }`, collecting the pages that the calls return. */
+function withEtag(provider: ForgeProvider, verb: string, etag: string, pages: Array<Page<unknown>>): ForgeProvider {
+  const [group, method] = verb.split('.') as [string, string]
+  return new Proxy(provider, {
+    get(target, key, receiver) {
+      const api = Reflect.get(target, key, receiver) as Record<string, unknown>
+      return key !== group
+        ? api
+        : new Proxy(api, {
+            get(apiTarget, apiKey, apiReceiver) {
+              const read = Reflect.get(apiTarget, apiKey, apiReceiver) as (...args: unknown[]) => Promise<Page<unknown>>
+              return apiKey !== method
+                ? read
+                : async (...args: unknown[]) => {
+                  const page = await read(...args.slice(0, -1), { ...args.at(-1) as object, cursor: { etag } })
+                  pages.push(page)
+                  return page
+                }
+            },
+          })
+    },
+  })
+}
 
 /** Replaces timestamps a write stamps when it is sent, which a replay at a fixed instant cannot reproduce. */
 function withoutTimes(value: unknown): unknown {
@@ -77,6 +115,24 @@ for (const { name, create } of REPLAYED_PROVIDERS) {
       const items = <T>(name: string) => (output[name] as Page<T> | undefined)?.items ?? []
       const replay = stepFixtureFetch(directory, { sequential: !!writes })
       let failure: unknown
+      let intercept: ((input: string, init?: RequestInit) => Response | undefined) | undefined
+      const replayFetch: FetchLike = (input, init) => {
+        const response = intercept?.(input, init)
+        return response ? Promise.resolve(response) : replay.fetch(input, init)
+      }
+      const contexts = new Map<string, StepContext & WriteContext>()
+      let author: ForgeProvider | undefined
+      let conditionalRequests: string[] = []
+      const forgeName = FORGE_NAMES[name] ?? name
+      const conditionalSteps = writes || manifest?.deliveries
+        ? []
+        : steps.flatMap((step) => {
+            const verb = definitions.get(step.name)?.verb
+            const goldenPath = `${root}steps/${step.slug}/golden.json`
+            const etag = verb?.endsWith('Page') && existsSync(goldenPath) ? (JSON.parse(readFileSync(goldenPath, 'utf8')) as { etag?: string } | null)?.etag : undefined
+            const url = etag && recordedFixtures(`${directory}/steps/${step.slug}`).find(fixture => fixture.response.headers?.etag === etag)?.request.url
+            return url ? [{ ...step, verb: verb!, etag: etag!, url }] : []
+          })
 
       beforeAll(async () => {
         vi.useFakeTimers({ now: new Date(manifest!.recordedAt ?? steps[0]?.recordedAt ?? 0), toFake: ['Date'] })
@@ -89,7 +145,7 @@ for (const { name, create } of REPLAYED_PROVIDERS) {
             }
             return
           }
-          const author = create(replay.fetch, manifest!, jetstream?.messages)
+          author = create(replayFetch, manifest!, jetstream?.messages)
           const reviewer = writes?.reviewerAccount ? create(replay.fetch, { ...writes, account: writes.reviewerAccount, pds: writes.reviewerPds }) : writes ? create(replay.fetch, writes) : author
           const context: StepContext & WriteContext = { pulls: [], comments: {}, wait: async () => {} }
           for (const { name, slug, recordedAt } of steps) {
@@ -99,8 +155,10 @@ for (const { name, create } of REPLAYED_PROVIDERS) {
             }
             replay.use(slug)
             vi.setSystemTime(new Date(recordedAt))
+            contexts.set(name, { ...context })
             output[name] = await step.run(('as' in step && step.as === 'reviewer' ? reviewer : author) as never, manifest as never, context)
           }
+          conditionalRequests = replay.calls.filter(call => call.headers.has('if-none-match')).map(call => `${call.method} ${call.url}`)
         }
         catch (error) {
           failure = error
@@ -114,6 +172,44 @@ for (const { name, create } of REPLAYED_PROVIDERS) {
         if (failure) {
           throw failure
         }
+      })
+
+      it('sends no `If-None-Match` without an etag from the caller', () => {
+        expect(conditionalRequests).toEqual([])
+      })
+
+      it.for(conditionalSteps)('reads the first page of $name again with its etag', async ({ name, slug, recordedAt, verb, etag, url }) => {
+        const sent: Array<{ url: string, headers: Headers }> = []
+        intercept = (input, init) => {
+          sent.push({ url: input, headers: new Headers(init?.headers) })
+          return sameRequest(input, url) ? new Response(null, { status: 304, headers: { etag } }) : undefined
+        }
+        const pages: Array<Page<unknown>> = []
+        const step = definitions.get(name) as Step
+        replay.use(slug)
+        vi.useFakeTimers({ now: new Date(recordedAt), toFake: ['Date'] })
+        try {
+          // A step may read on past the conditional page, into responses that were never recorded.
+          await step.run(withEtag(author!, verb, etag, pages), manifest!, { ...contexts.get(name)! }).catch((error: unknown) => {
+            if (!pages.some(page => page.notModified)) {
+              throw error
+            }
+          })
+        }
+        finally {
+          intercept = undefined
+          vi.useRealTimers()
+        }
+        const notModified = pages.find(page => page.notModified)
+
+        expect(sent.filter(call => sameRequest(call.url, url)).map(call => call.headers.get('if-none-match'))).toContain(etag)
+        expect(notModified).toMatchObject({ items: [], etag })
+        expect(notModified?.cursor).toBeUndefined()
+        if (verb === 'threads.listPage') {
+          expect(sent.filter(call => new URL(call.url).pathname.endsWith('/graphql'))).toEqual([])
+        }
+        const forges = conditionalListings.get(verb) ?? new Set()
+        conditionalListings.set(verb, forges.add(forgeName))
       })
 
       it('records only steps that exist', () => {
@@ -279,3 +375,18 @@ for (const { name, create } of REPLAYED_PROVIDERS) {
     })
   }
 }
+
+describe.skipIf(!!process.env.FORGES_RECORDING)('conditional listings', () => {
+  it('lists in the pagination guide the listings that a recording reads again with its etag', (context) => {
+    if (!conditionalListings.size) {
+      return context.skip()
+    }
+    const forges = Object.values(FORGE_NAMES).filter(forge => [...conditionalListings.values()].some(set => set.has(forge)))
+    const rows = [...conditionalListings].sort(([a], [b]) => a.localeCompare(b)).map(([verb, on]) => `| \`${verb}\` | ${forges.map(forge => on.has(forge) ? '✅' : '❌').join(' | ')} |`)
+    const table = [`| Listing | ${forges.join(' | ')} |`, `| --- |${' --- |'.repeat(forges.length)}`, ...rows].join('\n')
+    const guide = readFileSync(new URL('../docs/content/2.guides/7.pagination.md', import.meta.url), 'utf8')
+    const section = guide.slice(guide.indexOf('## Polling with conditional requests'))
+
+    expect(/^\|.*\|$(?:\n\|.*\|$)*/m.exec(section)?.[0], 'Update the table in docs/content/2.guides/7.pagination.md').toBe(table)
+  })
+})

@@ -883,7 +883,7 @@
       },
       "etag": {
         "type": "string",
-        "description": "A validator for a conditional request."
+        "description": "The `etag` of a first page, sent as `If-None-Match` when the cursor has neither `nextUrl` nor `token`."
       },
       "token": {
         "type": "string",

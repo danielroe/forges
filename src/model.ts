@@ -1368,7 +1368,7 @@ export interface Notification {
 export interface Cursor {
   /** Absolute URL of the next page, from a `Link` header or the body, on the requested origin. */
   nextUrl?: string
-  /** A validator for a conditional request. */
+  /** The `etag` of a first page, sent as `If-None-Match` when the cursor has neither `nextUrl` nor `token`. */
   etag?: string
   /** Opaque forge-native cursor, for example a GraphQL `endCursor`. */
   token?: string
@@ -1408,9 +1408,10 @@ export interface Page<T> {
   /**
    * Validator of the first page, where the forge supports conditional
    * requests. Pass it back as `cursor: { etag }` to read the first page again.
+   * Absent on later pages, and on listings that read more than one endpoint.
    */
   etag?: string
-  /** True when the forge reported no change since `cursor.etag`. */
+  /** True when the forge reported no change since `cursor.etag`. The page then has no items and no `cursor`. */
   notModified?: boolean
   /**
    * True when the provider sent no request, because the forge asked to wait longer between reads of this feed. The

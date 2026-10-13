@@ -21,7 +21,7 @@ const features = [
   {
     icon: 'i-lucide-package',
     title: 'small bundles',
-    description: 'Import a single forge from its subpath, and use a Lite factory in the browser to leave out the webhook code. The GitHub Lite provider is about 33 kB gzipped.',
+    description: 'Import a single forge from its subpath, and use a Lite factory in the browser to leave out the webhook code. The GitHub Lite provider is about 36 kB gzipped.',
     to: '/guides/bundling',
   },
   {

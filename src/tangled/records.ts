@@ -30,7 +30,7 @@ import type { TangledSession } from './session.ts'
 import type { FeedCommentRecord, IssueRecord, JetstreamCommitEvent, LabelDefinitionRecord, LabelOpRecord, PullRecord, ReactionRecord, RecordResponse, RepoRecord, StateRecord, SubscriptionRecord, TangledRecord } from './types.ts'
 import { ForgeApiError, ForgeError, NotFoundError, RateLimitedError, UnresolvedThreadError } from '../errors.ts'
 import { abortable } from '../fetch.ts'
-import { degradesToWarning, forgeIterable, mapConcurrent, phased, requireThread, toDate, toWarning } from '../utils.ts'
+import { degradesToWarning, forgeIterable, isFirstPage, mapConcurrent, phased, requireThread, toDate, toWarning } from '../utils.ts'
 import { atUri, parseAtUri } from './atproto.ts'
 import {
   COLLECTIONS,
@@ -566,7 +566,7 @@ export function createTangledRecords({ options, instance, webUrl, context, atpro
 
   async function listFromIndex(repo: RepoRef, query: ThreadQuery): Promise<Page<Thread>> {
     const warnings: ForgeWarning[] = []
-    if (!query.cursor) {
+    if (isFirstPage(query.cursor)) {
       warnings.push({ code: 'index_possibly_stale', message: 'Listed from the Bobbin index; states may lag behind the records' })
       if (query.sort && query.sort !== 'created') {
         warnings.push({ code: 'sort_unsupported', message: 'The index sorts by creation time only' })

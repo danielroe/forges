@@ -36,7 +36,7 @@ import { completeEvent } from './events.ts'
 import { createFetcher, createRequest } from './fetch.ts'
 import { commentMarker, hasCommentMarker } from './model.ts'
 import { supportOf, supports } from './supports.ts'
-import { forgeIterable, hostOf, iteratePages, memo } from './utils.ts'
+import { forgeIterable, hostOf, isFirstPage, iteratePages, memo } from './utils.ts'
 import { parseWebUrl, referenceFor, webUrlFor } from './web.ts'
 
 /** What support can depend on once the provider exists. */
@@ -578,9 +578,9 @@ function createProvider<TOptions extends ForgeOptionsBase, TState, HasWeb extend
   const native = spec.search?.queryRaw
   const search = (name: 'threadsPage' | 'reposPage' | 'commitsPage' | 'codePage') => {
     const run = gate(`search.${name}`, spec.search?.[name]?.support, spec.search?.[name]?.run)
-    return async ({ queryRaw, ...query }: { queryRaw?: string, cursor?: unknown } = {}) => {
+    return async ({ queryRaw, ...query }: { queryRaw?: string, cursor?: Cursor } = {}) => {
       const page = await run(native ? { queryRaw, ...query } : query) as Page<unknown>
-      return !queryRaw || native || query.cursor ? page : { ...page, warnings: [{ code: 'filter_unsupported', message: 'This search has no query syntax; queryRaw was ignored' }, ...page.warnings ?? []] }
+      return !queryRaw || native || !isFirstPage(query.cursor) ? page : { ...page, warnings: [{ code: 'filter_unsupported', message: 'This search has no query syntax; queryRaw was ignored' }, ...page.warnings ?? []] }
     }
   }
   const feed = (verb: 'repos.eventsPage' | 'users.eventsPage') => {

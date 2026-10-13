@@ -61,6 +61,12 @@ export interface PaginateOptions extends RequestOptions {
    * body reports, such as a search's `total_count`.
    */
   select?: (body: unknown, linkNext?: string) => { items: unknown[], next?: string, total?: number }
+  /**
+   * Whether the first page sends `cursor.etag` as `If-None-Match` and reports its validator in `etag`. Turn it off
+   * for a page that is built from more than this one response.
+   * @default true
+   */
+  conditional?: boolean
 }
 
 /** A parsed response. */
@@ -73,6 +79,8 @@ export interface FetchResult<T> {
   cursor?: Cursor
   /** The total number of items the listing reports, where the response carries one. */
   total?: number
+  /** The validator of a listing's first page, from {@link Fetcher.page}. */
+  etag?: string
 }
 
 /** A response whose body is read as it arrives rather than parsed. */
@@ -97,7 +105,10 @@ export interface Fetcher {
   stream: (path: string, options?: RequestOptions) => Promise<RawResponse>
   /** Sends a request and parses the JSON body. */
   json: <T>(path: string, options?: RequestOptions) => Promise<FetchResult<T>>
-  /** One page: `path` with its query, or `cursor.nextUrl` when given. */
+  /**
+   * One page: `path` with its query, or `cursor.nextUrl` when given. A first page, whose cursor has neither
+   * `nextUrl` nor `token`, sends `cursor.etag` as `If-None-Match` and reports the response's validator in `etag`.
+   */
   page: <T>(path: string, options?: PaginateOptions & { cursor?: Cursor }) => Promise<FetchResult<T[]>>
   /** Every item across every page, in order. */
   items: <T>(path: string, options?: PaginateOptions) => AsyncGenerator<T>
@@ -622,20 +633,27 @@ export function createFetcher(options: FetcherOptions): Fetcher {
   }
 
   async function page<T>(path: string, options_: PaginateOptions & { cursor?: Cursor } = {}): Promise<FetchResult<T[]>> {
-    const { select, cursor, ...requestOptions } = options_
+    const { select, cursor, conditional = true, ...requestOptions } = options_
     const initial = resolve(path, requestOptions.query)
     const url = cursor?.nextUrl ? resolve(cursor.nextUrl) : initial
     if (new URL(url).origin !== new URL(initial).origin) {
       throw new TypeError('Pagination URL must remain on the requested origin')
     }
-    const result: FetchResult<unknown> = await json<unknown>(url, { ...requestOptions, etag: cursor?.nextUrl ? undefined : requestOptions.etag, query: undefined })
-    const next = result.notModified ? undefined : select ? select(result.data, result.cursor?.nextUrl) : undefined
-    const items = (next ? next.items : result.data ?? []) as unknown[]
-    const total = result.notModified ? undefined : next?.total ?? headerTotal(result.response, items.length, url) ?? linkTotal(result.response.headers.get('link'), url, items.length)
-    if (!next) {
-      return { ...result, data: items as T[], cursor: result.cursor?.nextUrl ? result.cursor : undefined, ...total !== undefined ? { total } : {} }
+    const first = conditional && !cursor?.nextUrl && !cursor?.token
+    const sent = first ? requestOptions.etag ?? cursor?.etag : undefined
+    const result: FetchResult<unknown> = await json<unknown>(url, { ...requestOptions, etag: sent, query: undefined })
+    const validator = first ? result.response.headers.get('etag') ?? (result.notModified ? sent : undefined) : undefined
+    const etag = validator ? { etag: validator } : {}
+    if (result.notModified) {
+      return { ...result, data: [], cursor: undefined, ...etag }
     }
-    return { ...result, data: items as T[], cursor: next.next ? { ...result.cursor, nextUrl: next.next } : undefined, ...total !== undefined ? { total } : {} }
+    const next = select ? select(result.data, result.cursor?.nextUrl) : undefined
+    const items = (next ? next.items : result.data ?? []) as unknown[]
+    const total = next?.total ?? headerTotal(result.response, items.length, url) ?? linkTotal(result.response.headers.get('link'), url, items.length)
+    if (!next) {
+      return { ...result, data: items as T[], cursor: result.cursor?.nextUrl ? result.cursor : undefined, ...total !== undefined ? { total } : {}, ...etag }
+    }
+    return { ...result, data: items as T[], cursor: next.next ? { ...result.cursor, nextUrl: next.next } : undefined, ...total !== undefined ? { total } : {}, ...etag }
   }
 
   async function* items<T>(path: string, options_: PaginateOptions = {}): AsyncGenerator<T> {

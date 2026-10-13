@@ -86,7 +86,7 @@ import { changeBase64, existingFiles, fromBase64, inDirectories, toFileContent }
 import { defineForgeProvider, perKind, verb } from '../define.ts'
 import { BranchMovedError, ForgeError, NotFoundError, soleMergeMethod, toMergeError, UnsupportedOperationError } from '../errors.ts'
 import { isNamespaceRef, reactionContent } from '../model.ts'
-import { actorLogin, createListing, getManyConcurrently, hasEveryLabel, hexColour, hostOf, memo, memoBy, milestoneId, rateLimitPart, requireIssueOrPull, requireThread, resolveToken, summariseChecks, teamOrg, toDate, toPage, toWarning, versionAtLeast } from '../utils.ts'
+import { actorLogin, createListing, getManyConcurrently, hasEveryLabel, hexColour, hostOf, isFirstPage, memo, memoBy, milestoneId, rateLimitPart, requireIssueOrPull, requireThread, resolveToken, summariseChecks, teamOrg, toDate, toPage, toWarning, versionAtLeast } from '../utils.ts'
 import { githubShapedWeb } from '../web.ts'
 import { nativeEventsFor } from '../webhooks.ts'
 import { ACTION_STATES, actionBranch, GITEA_ACTION_STATES, numberFromUrl, toActionJob, toActionRun, toActor, toBranch, toChangedFile, toComment, toCommit, toEvent, toFileCommit, toGiteaActionJob, toGiteaActionRun, toLabel, toMilestone, toNotification, toRelease, toRepo, toReview, toReviewComment, toRole, toStatusCheck, toStatusChecks, toTag, toTeam, toThread, toThreadKind, toTreeEntry, toWebhook } from './normalise.ts'
@@ -171,7 +171,7 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
 
   /** Organisations are accounts too, so `/users/{owner}/repos` serves both. */
   function ownerReposPage(owner: RepoRef, query: OwnerRepoQuery = {}): Promise<Page<Repo>> {
-    return list(`/users/${encodeURIComponent(owner.owner)}/repos`, query, (raw: ForgejoRepositoryDetail) => toRepo(origin, raw), { warnings: !query.cursor && ((query.sort ?? 'created') !== 'created' || query.direction === 'desc') ? [{ code: 'sort_unsupported', message: `${profile.forge} lists the repositories of an owner oldest first only` }] : undefined })
+    return list(`/users/${encodeURIComponent(owner.owner)}/repos`, query, (raw: ForgejoRepositoryDetail) => toRepo(origin, raw), { warnings: isFirstPage(query.cursor) && ((query.sort ?? 'created') !== 'created' || query.direction === 'desc') ? [{ code: 'sort_unsupported', message: `${profile.forge} lists the repositories of an owner oldest first only` }] : undefined })
   }
 
   async function readUser(path: string, signal?: AbortSignal): Promise<User> {
@@ -490,7 +490,7 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
     }
     const sort = query.sort ?? 'created'
     const direction = query.direction ?? 'desc'
-    if (!query.cursor && (sort !== 'created' || direction !== 'desc')) {
+    if (isFirstPage(query.cursor) && (sort !== 'created' || direction !== 'desc')) {
       warnings.push({ code: 'sort_unsupported', message: `${profile.forge} lists repository issues newest first only` })
     }
     const createdAfter = query.createdAfter?.getTime()
@@ -520,10 +520,10 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
 
   async function searchThreadsPage(query: SearchQuery): Promise<Page<Thread>> {
     const warnings: ForgeWarning[] = []
-    if (!query.cursor && query.involves) {
+    if (isFirstPage(query.cursor) && query.involves) {
       warnings.push({ code: 'filter_unsupported', message: `${profile.forge} has no involves filter; it was ignored` })
     }
-    if (!query.cursor && query.sort && query.sort !== 'relevance') {
+    if (isFirstPage(query.cursor) && query.sort && query.sort !== 'relevance') {
       warnings.push({ code: 'sort_unsupported', message: `${profile.forge} searches issues newest first only` })
     }
     const result = await fetcher.page<ForgejoIssue>('/repos/issues/search', {
@@ -828,6 +828,7 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
           query: { limit: listOptions.perPage },
           cursor: listOptions.cursor,
           signal: listOptions.signal,
+          conditional: false,
         })
         const reviews = await Promise.all((result.data ?? []).map(async (raw) => {
           const comments = raw.comments_count === 0

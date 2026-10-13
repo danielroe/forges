@@ -191,6 +191,7 @@ export function toPage<R, T>(result: FetchResult<R[]>, map: (raw: R) => T | unde
     }),
     ...result.total !== undefined ? { total: result.total } : {},
     cursor: result.cursor?.nextUrl || result.cursor?.token ? result.cursor : undefined,
+    ...result.etag ? { etag: result.etag } : {},
     notModified: result.notModified || undefined,
     ...warnings?.length ? { warnings } : {},
     ...rateLimitPart(result.response),
@@ -202,11 +203,21 @@ export function toPage<R, T>(result: FetchResult<R[]>, map: (raw: R) => T | unde
  * `cursor` sent. Later pages are left as they are.
  */
 export function withEtag<T>(page: Page<T>, result: FetchResult<unknown>, cursor: Cursor | undefined): Page<T> {
-  if (cursor?.nextUrl || cursor?.token) {
+  if (!isFirstPage(cursor)) {
     return page
   }
-  const etag = result.response.headers.get('etag') ?? cursor?.etag
+  const etag = result.response.headers.get('etag') ?? (result.notModified ? cursor?.etag : undefined)
   return etag ? { ...page, etag } : page
+}
+
+/** Whether `cursor` asks for the first page of a listing: it has neither `nextUrl` nor `token`, though it may have an `etag`. */
+export function isFirstPage(cursor: Cursor | undefined): boolean {
+  return !cursor?.nextUrl && !cursor?.token
+}
+
+/** The `etag` of `cursor` when it asks for the first page, to send as `If-None-Match`. */
+export function firstPageEtag(cursor: Cursor | undefined): string | undefined {
+  return isFirstPage(cursor) ? cursor?.etag : undefined
 }
 
 /** Extra options for a listing: the query, how to select the items and map errors, and where to collect warnings. */
@@ -235,13 +246,19 @@ export function rateLimitPart(source: Response | Pick<Page<unknown>, 'rateLimit'
 
 /**
  * Chains listings that a forge serves from separate endpoints. The cursor
- * `token` records which phase is next, ahead of the phase's own token.
+ * `token` records which phase is next, ahead of the phase's own token. With
+ * one phase, the first page is conditional as that phase's is; with more,
+ * one validator cannot cover every endpoint, so no page has an `etag`.
  */
 export async function phased<T>(phases: Array<(cursor?: Cursor) => Promise<Page<T>>>, cursor?: Cursor): Promise<Page<T>> {
   const match = /^(\d+):(.*)$/s.exec(cursor?.token ?? '')
   const index = match ? Number(match[1]) : 0
-  const inner = cursor && (cursor.nextUrl || match?.[2]) ? { ...cursor, token: match?.[2] || undefined } : undefined
-  const page = await phases[index]!(inner)
+  const conditional = phases.length === 1
+  const inner = cursor && (cursor.nextUrl || match?.[2])
+    ? { ...cursor, token: match?.[2] || undefined }
+    : conditional && cursor?.etag ? { etag: cursor.etag } : undefined
+  const { etag, ...rest } = await phases[index]!(inner)
+  const page = conditional && etag ? { ...rest, etag } : rest
   if (page.cursor) {
     return { ...page, cursor: { ...page.cursor, token: `${index}:${page.cursor.token ?? ''}` } }
   }

@@ -6,7 +6,7 @@ import type { AzureCommit, AzureCommitDiffs, AzureIdentity, AzureItem, AzurePoli
 import { changeBase64, existingFiles, inDirectories, toFileContent } from '../contents.ts'
 import { defineForgeProvider, perKind, verb } from '../define.ts'
 import { BranchMovedError, ForgeApiError, ForgeError, MergeMethodRequiredError, NotFoundError, toMergeError, UnsupportedOperationError } from '../errors.ts'
-import { actorLogin, getManyConcurrently, memo, mergeCommitMessage, phased, rateLimitPart, requireIssueOrPull, requireThread, resolveToken, summariseChecks, syntheticReview, teamOrg, toWarning } from '../utils.ts'
+import { actorLogin, getManyConcurrently, isFirstPage, memo, mergeCommitMessage, phased, rateLimitPart, requireIssueOrPull, requireThread, resolveToken, summariseChecks, syntheticReview, teamOrg, toWarning } from '../utils.ts'
 import { FORGE, isConversationThread, projectRef, toActor, toBranch, toChangedFile, toCommit, toPolicyCheck, toPullComment, toPullThread, toRepo, toRepoRef, toStatusCheck, toTag, toTeam, toThreadEvents, toTreeEntry, toWorkItemComment, toWorkItemEvents, toWorkItemThread } from './normalise.ts'
 import { azureWeb } from './web.ts'
 import { azureDevOpsWebhooks } from './webhooks.ts'
@@ -315,7 +315,7 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
       return { items: [], warnings: [{ code: 'kind_unsupported', message: 'Azure DevOps has no discussions' }] }
     }
     const warnings: ForgeWarning[] = []
-    if (!query.cursor && query.kind !== 'issue') {
+    if (isFirstPage(query.cursor) && query.kind !== 'issue') {
       if (query.sort && query.sort !== 'created') {
         warnings.push({ code: 'sort_unsupported', message: 'Azure DevOps lists pull requests newest first only' })
       }
@@ -330,7 +330,7 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
       if (!anonymous) {
         phases.push(cursor => workItemPage(repo, query, cursor))
       }
-      else if (!query.cursor) {
+      else if (isFirstPage(query.cursor)) {
         warnings.push({ code: 'kind_unsupported', message: 'Azure DevOps lists work items only to signed-in users; this listing has pull requests only' })
       }
     }
@@ -441,7 +441,7 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
     if (query.kind === 'pull_request') {
       return { items: [], warnings: [{ code: 'kind_unsupported', message: 'Azure DevOps has no pull request search' }] }
     }
-    const warnings: ForgeWarning[] = query.involves && !query.cursor
+    const warnings: ForgeWarning[] = query.involves && isFirstPage(query.cursor)
       ? [{ code: 'filter_unsupported', message: 'Azure DevOps WIQL has no involves filter; it was ignored' }]
       : []
     const page = await workItemPage(query.repo, {

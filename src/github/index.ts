@@ -130,7 +130,7 @@ import { defineForgeProvider, perKind, supportOnly, verb } from '../define.ts'
 import { BranchMovedError, ForbiddenError, ForgeApiError, ForgeError, ForgeTimeoutError, InsufficientScopeError, MergeBlockedError, NotFoundError, ReadOnlyError, soleMergeMethod, toMergeError, UnsupportedOperationError } from '../errors.ts'
 import { anySignal, sleep } from '../fetch.ts'
 import { isNamespaceRef, isResolvedThread, reactionContent } from '../model.ts'
-import { actorLogin, createListing, forgeIterable, getManyConcurrently, hostOf, iteratePages, memo, milestoneId, phased, rateLimitPart, requireIssueOrPull, requireThread, resolveToken, summariseChecks, teamOrg, toDate, toPage, toWarning, versionAtLeast, withEtag } from '../utils.ts'
+import { actorLogin, createListing, forgeIterable, getManyConcurrently, hostOf, isFirstPage, iteratePages, memo, milestoneId, phased, rateLimitPart, requireIssueOrPull, requireThread, resolveToken, summariseChecks, teamOrg, toDate, toPage, toWarning, versionAtLeast } from '../utils.ts'
 import { githubShapedWeb } from '../web.ts'
 import { nativeEventsFor } from '../webhooks.ts'
 import { createAppCredentials, createAuthHeaders, tokenKindOf } from './auth.ts'
@@ -551,7 +551,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
       if (query.assignee) {
         return { items: [], warnings: [{ code: 'filter_unsupported', message: 'Discussions have no assignees' }] }
       }
-      const warnings: ForgeWarning[] = !query.cursor && query.sort === 'comments'
+      const warnings: ForgeWarning[] = isFirstPage(query.cursor) && query.sort === 'comments'
         ? [{ code: 'sort_unsupported', message: 'Discussions cannot be sorted by comments; sorted by update time' }]
         : []
       const data: { repository: { discussions: { pageInfo: { hasNextPage: boolean, endCursor: string | null }, nodes: GraphQLDiscussion[] } } | null } = await graphql('DISCUSSIONS_LIST', {
@@ -872,6 +872,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
       query: { per_page: listOptions.perPage },
       cursor: listOptions.cursor,
       signal: listOptions.signal,
+      conditional: false,
     })
     const now = Date.now()
     for (const [path, entry] of reviewContext) {
@@ -880,7 +881,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
       }
     }
     const key = threadPath(ref)
-    const kept = (listOptions.cursor && reviewContext.get(key)) || {
+    const kept = (!isFirstPage(listOptions.cursor) && reviewContext.get(key)) || {
       at: now,
       read: Promise.all([
         Array.fromAsync(fetcher.items<GitHubReviewComment>(`${key}/comments`, { query: { per_page: 100 }, signal: listOptions.signal })),
@@ -1006,7 +1007,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
       return await read(`/orgs/${encodeURIComponent(owner.owner)}/repos`, { type: visibility === 'internal' ? undefined : visibility })
     }
     catch (error) {
-      if (!(error instanceof NotFoundError) || query.cursor) {
+      if (!(error instanceof NotFoundError) || !isFirstPage(query.cursor)) {
         throw error
       }
     }
@@ -1244,7 +1245,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
   const nextPoll = new Map<string, number>()
 
   async function feedPage(path: string, listOptions: EventFeedOptions = {}): Promise<Page<ForgeEventInput>> {
-    const first = !listOptions.cursor?.nextUrl
+    const first = isFirstPage(listOptions.cursor)
     const wait = (nextPoll.get(path) ?? 0) - Date.now()
     if (first && !listOptions.force && wait > 0) {
       const warning = { code: 'feed_throttled', message: `GitHub asked to wait ${Math.ceil(wait / 1000)}s more before reading this feed again; no request was sent. Read it later, or pass force: true` }
@@ -1253,7 +1254,6 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
     const result = await fetcher.page<GitHubFeedEvent>(path, {
       query: { per_page: listOptions.perPage },
       cursor: listOptions.cursor,
-      etag: listOptions.cursor?.etag,
       signal: listOptions.signal,
     })
     const interval = Number(result.response.headers.get('x-poll-interval'))
@@ -1261,7 +1261,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
       nextPoll.set(path, Date.now() + interval * 1000)
     }
     const { toFeedEvent } = await import('./events.ts')
-    return withEtag(toPage(result, raw => toFeedEvent(instance, raw)), result, listOptions.cursor)
+    return toPage(result, raw => toFeedEvent(instance, raw))
   }
 
   function createInstallationsApi(app: AppCredentials): Omit<InstallationsApi, 'list' | 'repos'> {
@@ -1825,7 +1825,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
           cursor: listOptions.cursor,
           signal: listOptions.signal,
         })
-        const author = (await get(ref, listOptions)).author?.login
+        const author = page.notModified ? undefined : (await get(ref, listOptions)).author?.login
         return toPage(page, raw => raw.login === author ? undefined : toActor(instance, raw)!)
       }),
       eventsPage: verb(true, (repo, listOptions) => feedPage(`${repoPath(repo)}/events`, listOptions)),
