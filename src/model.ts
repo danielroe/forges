@@ -1035,6 +1035,7 @@ export type ForgeWarningCode
   = | 'checks_unreadable'
     | 'collaborators_unreachable'
     | 'discussion_unresolved'
+    | 'feed_throttled'
     | 'files_approximate'
     | 'filter_unsupported'
     | 'index_possibly_stale'
@@ -1362,7 +1363,7 @@ export interface Page<T> {
   notModified?: boolean
   /**
    * True when the provider sent no request, because the forge asked to wait longer between reads of this feed. The
-   * page has no items; read it again later, or pass `force: true`.
+   * page has no items and a `feed_throttled` warning; read it again later, or pass `force: true`.
    */
   throttled?: boolean
   /** The non-fatal problems that came up while reading the page. */

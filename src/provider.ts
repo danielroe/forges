@@ -898,7 +898,8 @@ export interface ReposApi {
    * One page of `events()`. Where the forge supports conditional requests, the first page has an `etag`; pass it
    * back as `cursor: { etag }` to read the first page again, which has `notModified: true` and no items when the
    * feed is unchanged. Where the forge sets a minimum wait between reads, reading the first page again sooner
-   * sends no request and returns a `throttled` page, unless you pass `force: true`.
+   * sends no request and returns a `throttled` page with a `feed_throttled` warning, unless you pass `force: true`.
+   * `events()` then yields nothing, and the warning lands in its `warnings`.
    * @example
    * ```ts
    * const page = await provider.repos.eventsPage(repo, { cursor: etag ? { etag } : undefined })

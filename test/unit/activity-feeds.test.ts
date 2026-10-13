@@ -116,12 +116,29 @@ describe('github activity feeds', () => {
       vi.advanceTimersByTime(60_000)
       await provider.repos.eventsPage(repo)
 
-      expect(soon).toEqual({ items: [], throttled: true, etag: 'W/"first"' })
+      expect(soon).toEqual({ items: [], throttled: true, etag: 'W/"first"', warnings: [{ code: 'feed_throttled', message: expect.stringContaining('wait 60s more') }] })
       expect(urls).toEqual(['/repos/acme/widgets/events', '/users/octocat/events', '/repos/acme/widgets/events', '/repos/acme/widgets/events'])
     }
     finally {
       vi.useRealTimers()
     }
+  })
+
+  it('tells a second iteration within the poll interval apart from an empty feed', async () => {
+    const provider = github({
+      fetch: async () => json([feedItem('WatchEvent', { action: 'started' })], { 'x-poll-interval': '60' }),
+    }).create()
+    const repo = { forge: 'github', instance: 'github.com', owner: 'acme', name: 'widgets' }
+
+    const first = provider.repos.events(repo)
+    const read = await Array.fromAsync(first)
+    const second = provider.repos.events(repo)
+    const reread = await Array.fromAsync(second)
+
+    expect(read).toHaveLength(1)
+    expect(first.warnings).toEqual([])
+    expect(reread).toEqual([])
+    expect(second.warnings).toEqual([{ code: 'feed_throttled', message: expect.stringMatching(/force: true/) }])
   })
 })
 

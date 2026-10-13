@@ -193,7 +193,19 @@ A read-only provider runs queries and rejects mutations with `ReadOnlyError`. Gi
 
 `repos.events()` and `users.events()` read GitHub's events API. A feed holds up to 300 events from the last 30 days, and GitHub can take from 30 seconds to 6 hours to add an event to it. Events come in the order GitHub added them, so an event that arrived late can follow one that happened after it. When the credential belongs to the account you read, `users.events()` includes its private activity too.
 
-GitHub asks clients to wait between reads of a feed, usually 60 seconds, in its `X-Poll-Interval` header. The provider remembers that wait for each feed. If you read the first page of a feed again before it's over, you get a page with `throttled: true` and no items, and no request is sent. The page keeps the `etag` you passed. To read anyway, pass `force: true`:
+GitHub asks clients to wait between reads of a feed, usually 60 seconds, in its `X-Poll-Interval` header. The provider remembers that wait for each feed. If you read the first page of a feed again before it's over, you get a page with `throttled: true` and no items, and no request is sent. The page keeps the `etag` you passed and carries a `feed_throttled` warning. A throttled feed and a quiet one both yield nothing from `events()`, so the warning is the only way to tell them apart:
+
+```ts
+const events = gh.repos.events(repo)
+for await (const event of events) {
+  console.log(event.summary)
+}
+if (events.warnings.some(warning => warning.code === 'feed_throttled')) {
+  // too soon, not empty
+}
+```
+
+To read anyway, pass `force: true`:
 
 ```ts
 const page = await gh.repos.eventsPage(repo, { force: true })

@@ -1211,8 +1211,10 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
 
   async function feedPage(path: string, listOptions: EventFeedOptions = {}): Promise<Page<ForgeEventInput>> {
     const first = !listOptions.cursor?.nextUrl
-    if (first && !listOptions.force && Date.now() < (nextPoll.get(path) ?? 0)) {
-      return { items: [], throttled: true, ...listOptions.cursor?.etag ? { etag: listOptions.cursor.etag } : {} }
+    const wait = (nextPoll.get(path) ?? 0) - Date.now()
+    if (first && !listOptions.force && wait > 0) {
+      const warning = { code: 'feed_throttled', message: `GitHub asked to wait ${Math.ceil(wait / 1000)}s more before reading this feed again; no request was sent. Read it later, or pass force: true` }
+      return { items: [], throttled: true, warnings: [warning], ...listOptions.cursor?.etag ? { etag: listOptions.cursor.etag } : {} }
     }
     const result = await fetcher.page<GitHubFeedEvent>(path, {
       query: { per_page: listOptions.perPage },
