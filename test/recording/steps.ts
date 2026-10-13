@@ -242,6 +242,7 @@ export const STEPS: Step[] = [
     return teams
   } },
   { name: 'org team members', verb: 'orgs.teamMembersPage', run: (provider, _manifest, context) => provider.orgs.teamMembersPage(need(context.teams?.[0], 'a team').ref, page) },
+  { name: 'contributor stats', verb: 'repos.contributorStats', run: (provider, manifest) => provider.repos.contributorStats(manifest.scratch ?? manifest.repo) },
   ...threadSteps('pull_request', 'pull'),
   ...threadSteps('issue', 'issue'),
   ...threadSteps('discussion', 'discussion'),

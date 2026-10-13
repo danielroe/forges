@@ -566,22 +566,6 @@ describe('github organisation teams', () => {
 })
 
 describe('github contributor statistics', () => {
-  it('reads per-contributor weekly commit statistics without a credential', async () => {
-    const { fetch } = fixtureFetch('github')
-    const provider = github({ fetch }).create()
-
-    const stats = await provider.repos.contributorStats(repo)
-
-    expect(stats.map(entry => entry.author.login)).toEqual(['octocat', 'hubot'])
-    expect(stats[0]).toMatchObject({ total: 12 })
-    expect(stats[0]!.author.isBotHint).toBe(false)
-    expect(stats[1]!.author.isBotHint).toBe(true)
-    expect(stats[0]!.weeks).toHaveLength(2)
-    expect(stats[0]!.weeks[0]).toMatchObject({ additions: 120, deletions: 30, commits: 5 })
-    expect(stats[0]!.weeks[0]!.week).toBeInstanceOf(Date)
-    expect(stats[0]!.weeks[0]!.week.toISOString()).toBe('2024-01-01T00:00:00.000Z')
-  })
-
   it('retries while GitHub reports the statistics are not ready', async () => {
     const responses = [
       new Response(null, { status: 202 }),
@@ -596,6 +580,7 @@ describe('github contributor statistics', () => {
     expect(stats).toHaveLength(1)
     expect(stats[0]!.author.login).toBe('octocat')
     expect(stats[0]!.weeks[0]!.commits).toBe(2)
+    expect(stats[0]!.weeks[0]!.week).toBeInstanceOf(Date)
   })
 })
 
