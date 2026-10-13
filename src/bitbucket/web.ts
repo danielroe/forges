@@ -8,9 +8,9 @@ const PAGES: Partial<Record<RepoSection, string>> = { issues: 'issues', pullRequ
 
 const repoPath = (repo: RepoRef) => `/${encodeURIComponent(repo.owner)}/${encodeURIComponent(repo.name)}`
 
-export function bitbucketWeb(origin: string): WebLinks {
+export function bitbucketWeb(baseUrl: string): WebLinks {
   return {
-    origin,
+    baseUrl,
     repo: repoPath,
     section: (repo, section) => repo.kind === 'namespace' || !PAGES[section] ? undefined : `${repoPath(repo)}/${PAGES[section]}`,
     thread: ref => SECTIONS[ref.kind] && `${repoPath(ref.repo)}/${SECTIONS[ref.kind]}/${encodeURIComponent(ref.number)}`,

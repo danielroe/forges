@@ -11,9 +11,9 @@ const GROUP_PAGES: Partial<Record<RepoSection, string>> = { issues: 'issues', pu
 const encode = (path: string) => path.split('/').map(encodeURIComponent).join('/')
 const projectPath = (repo: RepoRef) => `/${encode(repo.owner)}/${encodeURIComponent(repo.name)}`
 
-export function gitlabWeb(origin: string): WebLinks {
+export function gitlabWeb(baseUrl: string): WebLinks {
   return {
-    origin,
+    baseUrl,
     repo: repo => repo.kind === 'namespace' ? `/${encode(repo.owner)}` : projectPath(repo),
     section: (repo, section) => repo.kind === 'namespace'
       ? GROUP_PAGES[section] && `/groups/${encode(repo.owner)}/-/${GROUP_PAGES[section]}`

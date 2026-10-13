@@ -10,9 +10,9 @@ const version = (at: string) => `${isSha(at) ? 'GC' : 'GB'}${encodeURIComponent(
 /** The `version` query of a file page: `GB` for a branch, `GC` for a commit or `GT` for a tag, then the revision. */
 const FILE_VERSION_RE = /^G[BCT](.+)$/
 
-export function azureWeb(origin: string): WebLinks {
+export function azureWeb(baseUrl: string): WebLinks {
   return {
-    origin,
+    baseUrl,
     repo: repo => repo.kind === 'namespace' ? `/${encode(repo.owner)}` : gitPath(repo),
     section: (repo, section) => {
       if (section === 'issues') {

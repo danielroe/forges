@@ -144,7 +144,7 @@ const BITBUCKET: ProviderDefinition<BitbucketOptions, undefined, true> = {
   },
   setup({ options, instance, origin: context, fetcher, baseUrl }) {
     const list = createListing(fetcher, 'pagelen', 50)
-    const webOrigin = hostOf(baseUrl) === 'api.bitbucket.org' ? 'https://bitbucket.org' : baseUrl.replace(/\/2\.0$/, '')
+    const webBaseUrl = hostOf(baseUrl) === 'api.bitbucket.org' ? 'https://bitbucket.org' : baseUrl.replace(/\/2\.0$/, '')
     /** Repository search covers the signed-in account's workspaces. */
     const anonymous = options.auth?.type === 'anonymous'
     function repoPath(ref: ResolvedThreadRef): string {
@@ -443,7 +443,7 @@ const BITBUCKET: ProviderDefinition<BitbucketOptions, undefined, true> = {
           return { ...toActor(instance, data)!, raw: data }
         }),
       },
-      web: bitbucketWeb(webOrigin),
+      web: bitbucketWeb(webBaseUrl),
       webhooks: {
         listPage: verb(true, (target, listOptions = {}) => list(hooksPath(target), listOptions, (raw: BitbucketHook) => toWebhook(target, raw), { select: page<BitbucketHook> })),
         create: verb(true, async (target, input, options) => toWebhook(target, (await fetcher.json<BitbucketHook>(hooksPath(target), {
@@ -532,7 +532,7 @@ const BITBUCKET: ProviderDefinition<BitbucketOptions, undefined, true> = {
             state: STATUS_STATES[input.state],
             description: input.description,
             // Bitbucket requires a link; without one, the status links to the commit.
-            url: input.url ?? `${webOrigin}/${encodeURIComponent(repo.owner)}/${encodeURIComponent(repo.name)}/commits/${sha}`,
+            url: input.url ?? `${webBaseUrl}/${encodeURIComponent(repo.owner)}/${encodeURIComponent(repo.name)}/commits/${sha}`,
           },
           signal: options?.signal,
         })).data)),

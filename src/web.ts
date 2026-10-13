@@ -44,11 +44,11 @@ export interface ReferenceOptions {
 
 /**
  * How a provider builds and reads its web URLs. Builders return a path relative
- * to `origin` or an absolute URL, and may return `undefined` when the forge has no such page.
+ * to `baseUrl` or an absolute URL, and may return `undefined` when the forge has no such page.
  */
 export interface WebLinks {
-  /** The origin of the forge website, such as `https://github.com`. */
-  origin: string
+  /** The base URL of the forge website, such as `https://github.com` or `https://example.com/gitlab`. */
+  baseUrl: string
   /** The page of a repository. */
   repo: (repo: RepoRef) => string
   /** The page of one of a repository's sections, such as its issues or pull requests. */
@@ -65,7 +65,7 @@ export interface WebLinks {
   raw?: (repo: RepoRef, path: string, at: string) => string | undefined
   /** The page that compares two revisions. */
   compare?: (repo: RepoRef, base: string, head: string) => string | undefined
-  /** Reads a URL already known to be on `origin`, split into path segments. */
+  /** Reads a URL already known to be under `baseUrl`, split into the path segments after it. */
   parse: (segments: string[], url: URL, origin: ForgeOrigin) => ParsedForgeUrl | undefined
   /** The forge's cross-reference syntax; `undefined` falls back to the thread URL. */
   reference?: (ref: ResolvedThreadRef, sameRepo: boolean, expand: boolean) => string | undefined
@@ -120,7 +120,7 @@ export function webUrlFor(web: WebLinks, target: UrlTarget): string | undefined 
   else {
     path = web.compare?.(target.compare.repo, target.compare.base, target.compare.head)
   }
-  return path === undefined ? undefined : path.startsWith('/') ? `${web.origin}${path}` : path
+  return path === undefined ? undefined : path.startsWith('/') ? `${web.baseUrl}${path}` : path
 }
 
 /** `ssh://user@host:port/path` or `git://host:port/path` with the host in group 1, or `user@host:path` with it in group 2; the path is group 3. */
@@ -134,7 +134,7 @@ const SHORTHAND_RE = /^(github|gitlab|bitbucket):(?!\/)/i
 const SHORTHAND_HOSTS: Record<string, string> = { github: 'github.com', gitlab: 'gitlab.com', bitbucket: 'bitbucket.org' }
 
 export function parseWebUrl(web: WebLinks, input: string | URL, origin: ForgeOrigin): ParsedForgeUrl | undefined {
-  const base = new URL(web.origin)
+  const base = new URL(web.baseUrl)
   const prefix = base.pathname.replace(/\/$/, '')
   const source = String(input).replace(GIT_PLUS_RE, '').replace(SHORTHAND_RE, (_, forge: string) => `https://${SHORTHAND_HOSTS[forge.toLowerCase()]}/`)
   const clone = CLONE_URL_RE.exec(source)
@@ -200,14 +200,14 @@ function parseGitHubFile([route, at, ...path]: string[]): { at: string, path: st
 }
 
 /** Web links for forges laid out like GitHub: `/{owner}/{name}/issues/{n}` and friends. */
-export function githubShapedWeb(origin: string, shape: GitHubShape): WebLinks {
+export function githubShapedWeb(baseUrl: string, shape: GitHubShape): WebLinks {
   const repoPath = (repo: RepoRef) => `/${encodePath(repo.owner)}/${encodeURIComponent(repo.name)}`
   const kindPath: Partial<Record<ThreadKind, string>> = { issue: 'issues', pull_request: shape.pull, commit: shape.commit ?? 'commit', ...shape.discussions ? { discussion: 'discussions' } : {} }
   const kindOf = new Map<string, ThreadKind>(Object.entries(kindPath).map(([kind, path]) => [path, kind as ThreadKind]))
   const reserved = new Set(shape.reserved?.map(segment => segment.toLowerCase()))
   const parseFile = shape.parseFile ?? parseGitHubFile
   return {
-    origin,
+    baseUrl,
     repo: repoPath,
     section: (repo, section) => repo.kind === 'namespace' ? undefined : `${repoPath(repo)}/${section === 'pullRequests' ? 'pulls' : section}`,
     thread: ref => kindPath[ref.kind] && `${repoPath(ref.repo)}/${kindPath[ref.kind]}/${encodeURIComponent(ref.number)}`,

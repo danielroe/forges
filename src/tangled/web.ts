@@ -9,9 +9,9 @@ const encode = (path: string) => path.split('/').map(encodeURIComponent).join('/
 const repoPath = (repo: RepoRef) => `/${encodeURIComponent(repo.owner).replaceAll('%3A', ':')}/${encodeURIComponent(repo.name)}`
 
 /** Tangled pages address threads by their display number, so parsed refs carry `displayNumber` and need resolving. */
-export function tangledWeb(origin: string): WebLinks {
+export function tangledWeb(baseUrl: string): WebLinks {
   return {
-    origin,
+    baseUrl,
     repo: repoPath,
     section: (repo, section) => repo.kind === 'namespace' || !PAGES[section] ? undefined : `${repoPath(repo)}/${PAGES[section]}`,
     thread: (ref) => {
