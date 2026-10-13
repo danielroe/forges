@@ -1,0 +1,64 @@
+{
+  "ref": {
+    "forge": "github",
+    "instance": "github.com",
+    "repo": {
+      "forge": "github",
+      "instance": "github.com",
+      "owner": "forges-fixtures",
+      "name": "forges-fixtures"
+    },
+    "kind": "pull_request",
+    "number": "95",
+    "externalId": "PR_kwDOVCTdtM8AAAABH9HlbA"
+  },
+  "kind": "pull_request",
+  "title": "forges fixture 20261012113502: pull 3",
+  "body": "Opened by run 20261012113502.",
+  "state": "open",
+  "stateRaw": "open",
+  "isDraft": false,
+  "author": {
+    "forge": "github",
+    "instance": "github.com",
+    "login": "danielroe-bot",
+    "id": "57801166",
+    "avatarUrl": "https://avatars.githubusercontent.com/u/57801166?v=4",
+    "url": "https://github.com/danielroe-bot",
+    "typeRaw": "User",
+    "isBotHint": false
+  },
+  "assignees": [],
+  "reviewers": [],
+  "labels": [],
+  "url": "https://github.com/forges-fixtures/forges-fixtures/pull/95",
+  "createdAt": "<now>",
+  "updatedAt": "<now>",
+  "lastActivityAt": "<now>",
+  "locked": false,
+  "commentCount": 0,
+  "branches": {
+    "head": {
+      "ref": "forges-fixtures/20261012113502-3",
+      "sha": "656ffc01def44fc26d1d6f3762e04764fd4bd3f4",
+      "repo": {
+        "forge": "github",
+        "instance": "github.com",
+        "owner": "forges-fixtures",
+        "name": "forges-fixtures",
+        "externalId": "1411702196"
+      }
+    },
+    "base": {
+      "ref": "main",
+      "sha": "16be8af10261689c1c7b28fac571d93a83cd900d"
+    },
+    "mergeCommitSha": "bb5523dc4356496b19c883d5332cca5c9c01e150"
+  },
+  "stats": {
+    "additions": 1,
+    "deletions": 0,
+    "changedFileCount": 1,
+    "commitCount": 1
+  }
+}
