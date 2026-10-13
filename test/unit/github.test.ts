@@ -451,6 +451,25 @@ describe('github repository and thread metadata', () => {
     expect(collaborators.map(item => [item.actor.login, item.role])).toEqual([['octocat', 'maintain'], ['hubot', 'read']])
   })
 
+  it('lists contributors with and without an account', async () => {
+    const urls: string[] = []
+    const provider = github({ fetch: async (url) => {
+      urls.push(url)
+      return Response.json([
+        { login: 'octocat', id: 1, type: 'User', contributions: 10 },
+        { type: 'Anonymous', name: 'Ada', email: 'ada@example.com', contributions: 3 },
+      ])
+    } }).create()
+
+    const { items } = await provider.repos.contributorsPage(repo)
+
+    expect(new URL(urls[0]!).searchParams.get('anon')).toBe('1')
+    expect(items.map(({ actor, name, email, contributions }) => ({ login: actor?.login, name, email, contributions }))).toEqual([
+      { login: 'octocat', name: undefined, email: undefined, contributions: 10 },
+      { login: undefined, name: 'Ada', email: 'ada@example.com', contributions: 3 },
+    ])
+  })
+
   it('reads one account\'s role on a repository', async () => {
     const { provider } = tokenProvider()
 

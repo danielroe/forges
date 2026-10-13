@@ -258,6 +258,9 @@ export function toCollaborator(instance: string, raw: GitHubCollaborator): Colla
 }
 
 export function toContributor(instance: string, raw: GitHubContributor): Contributor {
+  if (!('login' in raw)) {
+    return { name: raw.name || undefined, email: raw.email || undefined, contributions: raw.contributions, raw }
+  }
   return { actor: toActor(instance, raw), contributions: raw.contributions, raw }
 }
 
