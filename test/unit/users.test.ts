@@ -70,8 +70,9 @@ describe('users.sponsorable', () => {
     await expect(github({ auth, fetch }).create().users.sponsorable('nobody')).rejects.toThrow(NotFoundError)
   })
 
-  it('is unsupported without a credential, and on a forge that cannot report it', async () => {
-    for (const provider of [github({}).create(), bitbucket({}).create()]) {
+  it('is unsupported without a credential, on GitHub Enterprise Server, and on a forge that cannot report it', async () => {
+    const ghes = github({ baseUrl: 'https://ghe.example.com/api/v3', auth }).create()
+    for (const provider of [github({}).create(), ghes, bitbucket({}).create()]) {
       expect(provider.can('users.sponsorable')).toBe(false)
       await expect(provider.users.sponsorable('danielroe')).rejects.toThrow(UnsupportedOperationError)
     }

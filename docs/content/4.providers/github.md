@@ -46,7 +46,7 @@ If you leave out `auth` altogether, the provider makes anonymous reads of public
 
 ## Sponsors
 
-`users.sponsorable(login)` reports whether a user or organisation has a GitHub Sponsors listing, so you can link to `https://github.com/sponsors/<login>` when it does. GitHub exposes this only over GraphQL, and GraphQL needs a credential, so it works with a user token or an app installation token and is unsupported for an anonymous provider:
+`users.sponsorable(login)` reports whether a user or organisation has a GitHub Sponsors listing, so you can link to `https://github.com/sponsors/<login>` when it does. GitHub exposes this only over GraphQL, and GraphQL needs a credential, so it works with a user token or an app installation token and is unsupported for an anonymous provider. GitHub Enterprise Server has no Sponsors schema, so it is unsupported there too:
 
 ```ts
 const sponsorable = await forge.users.sponsorable('danielroe')

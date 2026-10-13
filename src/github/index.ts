@@ -1541,7 +1541,8 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
     users: {
       get: verb(true, async (login, options) => toUser(instance, (await fetcher.json<GitHubUserDetail>(`/users/${encodeURIComponent(login)}`, { signal: options?.signal })).data)),
       me: verb(auth.type === 'token', async options => toUser(instance, (await fetcher.json<GitHubUserDetail>('/user', { signal: options?.signal })).data)),
-      sponsorable: verb(graphqlAuth, async (login, options) => {
+      // GitHub Enterprise Server's schema has no `Sponsorable`; GitHub Sponsors is github.com and Enterprise Cloud only.
+      sponsorable: verb(!enterprise && graphqlAuth, async (login, options) => {
         const data = await graphql<SponsorableResult>('SPONSORABLE', { login }, options)
         if (!data.repositoryOwner) {
           throw new NotFoundError(`Account ${login} not found`, 404, '', context)
