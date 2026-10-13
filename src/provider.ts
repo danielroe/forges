@@ -848,7 +848,7 @@ export interface ReposApi {
   collaborators: (repo: RepoRef, options?: PageOptions) => ForgeIterable<Collaborator>
   /** One page of `collaborators()`. */
   collaboratorsPage: (repo: RepoRef, options?: PageOptions) => Promise<Page<Collaborator>>
-  /** Lists the contributors of a repository, with their commit counts. */
+  /** Lists the commit authors of a repository with their commit counts, most commits first. */
   contributors: (repo: RepoRef, options?: PageOptions) => ForgeIterable<Contributor>
   /** One page of `contributors()`. */
   contributorsPage: (repo: RepoRef, options?: PageOptions) => Promise<Page<Contributor>>

@@ -68,7 +68,7 @@ With `visibility: 'public'`, `repos.byOwner()` lists the repositories of a user 
 
 ## Contributors
 
-`repos.contributors()` lists the accounts that have committed to a repository, sorted by commit count. GitHub attributes commits by author email and links only the first 500 author emails in a repository to accounts; contributors beyond that appear as anonymous entries. A `Contributor` linked to an account has it as its `actor`; an anonymous one has the git author `name` and `email` and no `actor`. GitHub refuses to list the contributors of a repository whose history is too large, and the provider throws a `ForbiddenError` with `reason: 'unknown'` and GitHub's wording in `reasonRaw`. The endpoint is public for public repositories, so an anonymous provider can read it.
+GitHub links at most the first 500 author emails in a repository to accounts. A contributor from `repos.contributors()` whose email is not linked has a `name` and an `email` but no `actor`. GitHub does not list the contributors of a repository whose history is too large.
 
 ## Merging
 

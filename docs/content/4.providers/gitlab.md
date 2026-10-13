@@ -51,7 +51,7 @@ GitLab projects can live in nested groups, so `RepoRef.owner` holds the full nam
 
 ## Contributors
 
-`repos.contributors()` reads GitLab's aggregated contributor list, sorted by commit count: one entry per author email, with the number of commits. GitLab reports no account for a contributor, so a `Contributor` has the git author `name` and `email` and no `actor`. The endpoint is public for public projects, so an anonymous provider can read it.
+GitLab counts commits per author email, so `repos.contributors()` returns one contributor per email, with a `name` and an `email` but no `actor`.
 
 ## Notifications are to-dos
 
