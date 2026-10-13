@@ -2,7 +2,7 @@
   "handAuthored": true,
   "request": {
     "method": "GET",
-    "url": "https://gitlab.com/api/v4/groups/acme%2Fplatform/members/all"
+    "url": "https://gitlab.com/api/v4/groups/acme%2Fplatform%2Fweb/members"
   },
   "response": {
     "status": 200,

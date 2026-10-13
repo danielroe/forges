@@ -90,20 +90,22 @@ async function orScratch<T>(manifest: RecordingManifest, read: (repo: RepoRef) =
   }
 }
 
-/** The teams of the recorded repository's owner or, where it refuses them or has none, of the scratch repository's owner. */
+/** The teams of the scratch repository's owner, whose teams the fixtures set up, or else of the recorded repository's owner. */
 async function orgTeams(provider: ForgeProvider, manifest: RecordingManifest): Promise<Page<Team>> {
-  try {
-    const teams = await provider.orgs.teamsPage(namespaceOf(manifest.repo, manifest.repo.owner), page)
-    if (teams.items.length || !manifest.scratch) {
-      return teams
+  if (manifest.scratch) {
+    try {
+      const teams = await provider.orgs.teamsPage(namespaceOf(manifest.scratch, manifest.scratch.owner), page)
+      if (teams.items.length) {
+        return teams
+      }
+    }
+    catch (error) {
+      if (!(error instanceof ForbiddenError || error instanceof InsufficientScopeError || error instanceof NotFoundError)) {
+        throw error
+      }
     }
   }
-  catch (error) {
-    if (!manifest.scratch || !(error instanceof ForbiddenError || error instanceof InsufficientScopeError || error instanceof NotFoundError)) {
-      throw error
-    }
-  }
-  return provider.orgs.teamsPage(namespaceOf(manifest.scratch, manifest.scratch.owner), page)
+  return provider.orgs.teamsPage(namespaceOf(manifest.repo, manifest.repo.owner), page)
 }
 
 async function firstWithJobs(provider: ForgeProvider, runs: CiRun[]): Promise<Page<CiJob> | undefined> {

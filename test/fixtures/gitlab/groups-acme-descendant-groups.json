@@ -1,0 +1,33 @@
+{
+  "handAuthored": true,
+  "request": {
+    "method": "GET",
+    "url": "https://gitlab.com/api/v4/groups/acme/descendant_groups?all_available=true"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": [
+      {
+        "id": 20,
+        "web_url": "https://gitlab.com/groups/acme/platform",
+        "name": "Platform",
+        "path": "platform",
+        "description": "Platform team",
+        "visibility": "public",
+        "parent_id": 10,
+        "full_path": "acme/platform"
+      },
+      {
+        "id": 21,
+        "web_url": "https://gitlab.com/groups/acme/platform/web",
+        "name": "Web",
+        "path": "web",
+        "description": "",
+        "visibility": "private",
+        "parent_id": 20,
+        "full_path": "acme/platform/web"
+      }
+    ]
+  }
+}

@@ -136,8 +136,9 @@ export interface TeamRef extends ForgeOrigin {
    */
   id?: string
   /**
-   * URL-safe identifier unique within the organisation. GitHub and GitLab have
-   * a slug; Forgejo and Gitea have none, so the team's name stands in.
+   * URL-safe identifier unique within the organisation. GitHub has a slug; on
+   * GitLab it is the subgroup's path below the group, such as `platform/web`;
+   * Forgejo and Gitea have none, so the team's name stands in.
    */
   slug: string
 }
@@ -162,8 +163,8 @@ export interface Team {
    */
   visibilityRaw?: string
   /**
-   * The team's parent team, where the forge nests teams. GitHub reports one;
-   * GitLab subgroups carry only a parent id, so this stays `undefined` there.
+   * The team's parent team, where the forge nests teams: a GitHub parent team,
+   * or the GitLab subgroup a nested subgroup belongs to.
    */
   parent?: TeamRef
   /** Web page of the team, where the forge has one. */

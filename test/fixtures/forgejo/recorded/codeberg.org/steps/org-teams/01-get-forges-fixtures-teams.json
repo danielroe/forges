@@ -17,16 +17,16 @@
         "includes_all_repositories": true,
         "permission": "owner",
         "units": [
-          "repo.issues",
-          "repo.pulls",
-          "repo.wiki",
           "repo.ext_wiki",
           "repo.packages",
           "repo.actions",
           "repo.ext_issues",
           "repo.releases",
           "repo.projects",
-          "repo.code"
+          "repo.code",
+          "repo.issues",
+          "repo.pulls",
+          "repo.wiki"
         ],
         "units_map": {
           "repo.actions": "owner",

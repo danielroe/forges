@@ -736,15 +736,13 @@ const GITLAB: ProviderDefinition<GitLabOptions, undefined, true> = {
       orgs: {
         /** GitLab has no teams, so a subgroup stands in for one. With a token, GitLab lists only the account's own subgroups unless `all_available` is set. */
         teamsPage: verb(true, (org, listOptions = {}) => list(
-          `/groups/${encodeURIComponent(org.externalId ?? org.owner)}/subgroups`,
+          `/groups/${encodeURIComponent(org.externalId ?? org.owner)}/descendant_groups`,
           listOptions,
           (raw: GitLabGroup) => toTeam(instance, teamOrg(org), raw),
           { query: { all_available: true } },
         )),
-        teamMembersPage: verb(!anonymous, (org, slug, listOptions = {}) => {
-          const path = [org.owner, slug].filter(Boolean).join('/')
-          return list(`/groups/${encodeURIComponent(path)}/members/all`, listOptions, (raw: GitLabMember) => toActor(instance, raw)!)
-        }),
+        teamMembersPage: verb(!anonymous, (org, slug, listOptions = {}) =>
+          list(`/groups/${encodeURIComponent(`${org.owner}/${slug}`)}/members`, listOptions, (raw: GitLabMember) => toActor(instance, raw)!)),
       },
       notifications: {
         listPage: verb(true, notificationPage),

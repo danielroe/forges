@@ -92,13 +92,16 @@ export function toNamespaceRef(instance: string, fullPath: string, id?: number):
   }
 }
 
-/** GitLab has no teams of its own; a subgroup stands in for one. */
+/** GitLab has no teams of its own; a subgroup stands in for one, with its path below `org` as the slug. */
 export function toTeam(instance: string, org: RepoRef, raw: GitLabGroup): Team {
+  const slug = raw.full_path.slice(org.owner.length + 1)
+  const parent = slug.includes('/') ? slug.slice(0, slug.lastIndexOf('/')) : undefined
   return {
-    ref: { forge: FORGE, instance, org, id: String(raw.id), slug: raw.path ?? raw.full_path },
-    name: raw.name ?? raw.path ?? raw.full_path,
+    ref: { forge: FORGE, instance, org, id: String(raw.id), slug },
+    name: raw.name ?? raw.path ?? slug,
     description: raw.description || undefined,
     visibilityRaw: raw.visibility,
+    parent: parent === undefined ? undefined : { forge: FORGE, instance, org, id: raw.parent_id == null ? undefined : String(raw.parent_id), slug: parent },
     url: raw.web_url,
     raw,
   }
