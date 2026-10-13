@@ -154,11 +154,10 @@ for (const { name, create } of REPLAYED_PROVIDERS) {
         expect(repoKey((await instance.repos.get(parsed!.repo)).ref)).toBe(repoKey((output.repo as Repo).ref))
       })
 
-      it.skipIf(!recorded.has('readme'))('reads the file its own web URL names', () => {
+      it.skipIf(!recorded.has('readme'))('parses the web URL of its README', (context) => {
         const readme = output.readme as FileContent
-        // Only some forges report a web URL for a file.
         if (!readme.url) {
-          return
+          return context.skip()
         }
         const parsed = create(replay.fetch, manifest!).parseUrl(readme.url)
 

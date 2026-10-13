@@ -898,16 +898,15 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
       commentFragment: 'issuecomment-',
       file: at => /^[0-9a-f]{40}$/.test(at) ? `/src/commit/${at}` : `/src/${encodeURIComponent(at)}`,
       parseFile: ([route, qualifier, ref, ...rest]) => {
-        if (route !== 'src' || !qualifier) {
+        if (route !== 'src' || !qualifier || !ref) {
           return undefined
         }
         // Gitea and Forgejo write `/src/branch/{ref}`, `/src/tag/{ref}` or
         // `/src/commit/{sha}`, and accept the shorter `/src/{ref}` too.
-        const qualified = qualifier === 'branch' || qualifier === 'tag' || (qualifier === 'commit' && /^[0-9a-f]{40}$/.test(ref ?? ''))
-        if (qualified && ref && rest.length) {
-          return { at: ref, path: rest.join('/') }
+        if (qualifier === 'branch' || qualifier === 'tag' || qualifier === 'commit') {
+          return rest.length ? { at: ref, path: rest.join('/') } : undefined
         }
-        return ref !== undefined ? { at: qualifier, path: [ref, ...rest].join('/') } : undefined
+        return { at: qualifier, path: [ref, ...rest].join('/') }
       },
       lineFragment: line => `L${line}`,
       reserved: FORGEJO_RESERVED_PATHS,

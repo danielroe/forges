@@ -25,7 +25,11 @@ export interface ParsedForgeUrl {
   thread?: ThreadRef
   comment?: CommentRef
   release?: ReleaseRef
-  /** A file page: the repository-relative `path` and the revision `at`. */
+  /**
+   * A file page: the repository-relative `path` and the revision `at`. An unencoded `/` in
+   * a branch name reads as the start of `path`. Forges that address files and folders
+   * alike, such as Forgejo, Bitbucket and Azure DevOps, also set this for a folder.
+   */
   file?: { path: string, at: string }
 }
 

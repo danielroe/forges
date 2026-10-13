@@ -47,7 +47,7 @@ export function azureWeb(origin: string): WebLinks {
       const repo: RepoRef = { ...from, owner, name: rest[0] }
       const path = url.searchParams.get('path')?.replace(/^\//, '')
       const match = FILE_VERSION_RE.exec(url.searchParams.get('version') ?? '')
-      if (path && match) {
+      if (!rest[1] && path && match) {
         return { repo, file: { path, at: match[1]! } }
       }
       const kind = rest[1] === 'pullrequest' ? 'pull_request' : rest[1] === 'commit' ? 'commit' : undefined

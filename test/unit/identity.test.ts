@@ -188,6 +188,7 @@ describe('web links', () => {
     ['forgejo at a branch', cb, 'https://codeberg.org/acme/widgets/src/branch/main/README.md', { owner: 'acme', name: 'widgets' }, { at: 'main', path: 'README.md' }],
     ['forgejo at a tag', cb, 'https://codeberg.org/acme/widgets/src/tag/v1.0.0/README.md', { owner: 'acme', name: 'widgets' }, { at: 'v1.0.0', path: 'README.md' }],
     ['forgejo at a commit', cb, `https://codeberg.org/acme/widgets/src/commit/${sha}/README.md`, { owner: 'acme', name: 'widgets' }, { at: sha, path: 'README.md' }],
+    ['forgejo at a short commit', cb, 'https://codeberg.org/acme/widgets/src/commit/abc1234/README.md', { owner: 'acme', name: 'widgets' }, { at: 'abc1234', path: 'README.md' }],
     ['forgejo at a branch with a slash', cb, 'https://codeberg.org/acme/widgets/src/branch/feat%2Fa/README.md', { owner: 'acme', name: 'widgets' }, { at: 'feat/a', path: 'README.md' }],
     ['forgejo at a branch with a nested path', cb, 'https://codeberg.org/forgejo/forgejo/src/branch/forgejo/release-notes-published/16.0.5.md', { owner: 'forgejo', name: 'forgejo' }, { at: 'forgejo', path: 'release-notes-published/16.0.5.md' }],
     ['forgejo at a branch without a qualifier', cb, 'https://codeberg.org/acme/widgets/src/main/README.md', { owner: 'acme', name: 'widgets' }, { at: 'main', path: 'README.md' }],
@@ -209,6 +210,13 @@ describe('web links', () => {
     expect(gh.parseUrl('https://github.com/acme/widgets/blob')?.file).toBeUndefined()
     expect(gl.parseUrl('https://gitlab.com/acme/platform/widgets/-/blob/main')?.file).toBeUndefined()
     expect(bb.parseUrl('https://bitbucket.org/acme/widgets/src/main')?.file).toBeUndefined()
+    expect(cb.parseUrl('https://codeberg.org/acme/widgets/src/branch/main')?.file).toBeUndefined()
+    expect(cb.parseUrl('https://codeberg.org/acme/widgets/src/tag/v1.0.0')?.file).toBeUndefined()
+    expect(cb.parseUrl(`https://codeberg.org/acme/widgets/src/commit/${sha}`)?.file).toBeUndefined()
+  })
+
+  it('reads an azure-devops pull request with a file query as the pull request', () => {
+    expect(az.parseUrl('https://dev.azure.com/contoso/Widgets/_git/widgets/pullrequest/12?_a=files&path=%2Fsrc%2Fa.ts&version=GBmain')).toMatchObject({ thread: { kind: 'pull_request', number: '12' } })
   })
 
   it('reads a file URL through the aggregate', () => {
