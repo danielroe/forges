@@ -149,16 +149,17 @@ function forgejo({ baseUrl, authorization, scratch }: HarnessOptions): WriteHarn
     async createBranch(base, branch, path) {
       await call(`${repo}/contents/${path}`, { method: 'POST', json: { message: `test: add ${path}`, content: base64(fixtureContent(branch)), branch: base, new_branch: branch } })
     },
-    async cleanUp(branches, label, hooks) {
+    async cleanUp(branches, _label, hooks) {
       const open = await call<Array<{ number: number, title: string }>>(`${repo}/issues?state=open&limit=50`).catch(() => [])
       const labels = await call<Array<{ id: number, name: string }>>(`${repo}/labels?limit=50`).catch(() => [])
       const releases = await call<Array<{ id: number, tag_name: string }>>(`${repo}/releases?limit=50`).catch(() => [])
       const tags = await call<Array<{ name: string }>>(`${repo}/tags?limit=50`).catch(() => [])
       // A tag that a release points to cannot be deleted, so the releases go first.
+      // Steps read the list of every label to find the run's, so every fixture label goes.
       await settle([
         ...open.filter(item => item.title.startsWith(FIXTURE_TITLE)).map(item => () => call(`${repo}/issues/${item.number}`, { method: 'PATCH', json: { state: 'closed' } })),
         ...branches.map(branch => () => call(`${repo}/branches/${enc(branch)}`, { method: 'DELETE' })),
-        ...labels.filter(item => item.name === label).map(item => () => call(`${repo}/labels/${item.id}`, { method: 'DELETE' })),
+        ...labels.filter(item => item.name.startsWith(FIXTURE_LABEL)).map(item => () => call(`${repo}/labels/${item.id}`, { method: 'DELETE' })),
         ...hooks.map(hook => () => call(`${repo}/hooks/${enc(hook)}`, { method: 'DELETE' })),
         ...releases.filter(item => item.tag_name.startsWith(FIXTURE_TAG)).map(item => () => call(`${repo}/releases/${item.id}`, { method: 'DELETE' })),
         ...tags.filter(item => item.name.startsWith(FIXTURE_TAG)).map(item => () => call(`${repo}/tags/${enc(item.name)}`, { method: 'DELETE' })),
