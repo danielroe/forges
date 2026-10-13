@@ -413,6 +413,17 @@ function tangled({ scratch, read, threads = [], account }: HarnessOptions): Writ
         links: ['https://forges.link'],
         bluesky: false,
       } } })
+      const { repoDid } = await knot()
+      for await (const star of records<{ subject?: { did?: string } }>('sh.tangled.feed.star')) {
+        if (star.value.subject?.did === repoDid) {
+          return
+        }
+      }
+      await call('com.atproto.repo.createRecord', { json: { repo: did, collection: 'sh.tangled.feed.star', record: {
+        $type: 'sh.tangled.feed.star',
+        subject: { $type: 'sh.tangled.feed.star#repo', did: repoDid },
+        createdAt: new Date().toISOString(),
+      } } })
     },
     async prepare() {
       const repo = await read!.repos.get(scratch)
