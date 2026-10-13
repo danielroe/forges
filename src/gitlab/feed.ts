@@ -1,5 +1,6 @@
 import type { EventAction, ForgeEventInput, RepoRef, ThreadRef, ThreadState } from '../model.ts'
 import type { GitLabEvent } from './types.ts'
+import { eventTime } from '../events.ts'
 import { toDate } from '../utils.ts'
 import { refEvent } from '../webhooks.ts'
 import { FORGE, toActor, toThreadKind } from './normalise.ts'
@@ -73,7 +74,7 @@ export function toFeedEvent(instance: string, raw: GitLabEvent, repo: RepoRef | 
     kindRaw: [raw.target_type, raw.action_name].filter(Boolean).join('.'),
     actionRaw: raw.action_name,
     ...feedLevel(instance, raw, repo, actor?.login ?? raw.author_username ?? 'someone'),
-    occurredAt: toDate(raw.created_at) ?? new Date(),
+    ...eventTime(toDate(raw.created_at)),
     actor,
     repo,
     source: 'poll',

@@ -40,6 +40,7 @@ import type {
   WebhookRef,
 } from '../model.ts'
 import type { GitLabBranch, GitLabCommit, GitLabCommitComment, GitLabCommitDetail, GitLabCommitStatus, GitLabDiff, GitLabDiscussion, GitLabGroup, GitLabHook, GitLabHookEvent, GitLabIssue, GitLabJob, GitLabLabel, GitLabMilestone, GitLabNote, GitLabNoteDetail, GitLabPipeline, GitLabProjectDetail, GitLabRelease, GitLabTag, GitLabTodo, GitLabTreeEntry, GitLabUser, GitLabVulnerability } from './types.ts'
+import { eventTime } from '../events.ts'
 import { toDate } from '../utils.ts'
 import { eventKindsOf } from '../webhooks.ts'
 import { GITLAB_NATIVE_EVENTS } from './webhook-events.ts'
@@ -432,7 +433,7 @@ export function toNoteEvent(ref: ResolvedThreadRef, note: GitLabNote): ForgeEven
     summary: note.system
       ? `${who} ${note.body.split('\n')[0]}`
       : `${who} ${kind === 'review_comment' ? 'commented on a line' : 'commented'}`,
-    occurredAt: toDate(note.created_at) ?? new Date(0),
+    ...eventTime(toDate(note.created_at), new Date(0)),
     actor,
     repo: ref.repo,
     thread: ref,
@@ -451,7 +452,7 @@ export function toCommitCommentEvent(ref: ResolvedThreadRef, comment: GitLabComm
     kind: comment.line_type ? 'review_comment' : 'comment',
     kindRaw: 'CommitComment',
     summary: `${actor?.login ?? 'someone'} commented`,
-    occurredAt: toDate(comment.created_at) ?? new Date(0),
+    ...eventTime(toDate(comment.created_at), new Date(0)),
     actor,
     repo: ref.repo,
     thread: ref,

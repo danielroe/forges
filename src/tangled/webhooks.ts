@@ -4,7 +4,7 @@ import type { WebhookDelivery } from '../provider.ts'
 import type { TangledOptions } from './index.ts'
 import { bodyText, headerValue } from '../crypto.ts'
 import { WebhookVerificationError } from '../errors.ts'
-import { eventAction } from '../events.ts'
+import { eventAction, eventTime } from '../events.ts'
 import { toDate } from '../utils.ts'
 import { refEvent, verifyHmacSignature } from '../webhooks.ts'
 import { FORGE } from './normalise.ts'
@@ -70,7 +70,7 @@ export function translateTangledWebhook(instance: string, delivery: WebhookDeliv
       action: PULL_ACTIONS[action] ?? eventAction(action),
       actionRaw: action,
       summary: `${who} ${action === 'resubmitted' ? 'pushed a new round to' : action} pull request #${payload.pull_request.number}`,
-      occurredAt: action === 'created' ? toDate(payload.pull_request.created_at) ?? new Date() : new Date(),
+      ...eventTime(action === 'created' ? toDate(payload.pull_request.created_at) : undefined),
       actor,
       repo,
       thread: repo
@@ -94,6 +94,7 @@ export function translateTangledWebhook(instance: string, delivery: WebhookDeliv
     id: deliveryId,
     kindRaw: event,
     occurredAt: new Date(),
+    undated: true,
     actor,
     repo,
     source: 'webhook' as const,

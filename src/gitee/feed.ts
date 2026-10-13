@@ -1,6 +1,6 @@
 import type { ForgeEventInput, RepoRef, ThreadRef } from '../model.ts'
 import type { GiteeEvent } from './types.ts'
-import { eventAction } from '../events.ts'
+import { eventAction, eventTime } from '../events.ts'
 import { toDate } from '../utils.ts'
 import { refEvent } from '../webhooks.ts'
 import { FORGE, toActor, toRepoRef } from './normalise.ts'
@@ -74,7 +74,7 @@ export function toFeedEvent(instance: string, raw: GiteeEvent): ForgeEventInput 
     kindRaw: action ? `${type}.${action}` : type,
     actionRaw: action,
     ...feedLevel(instance, raw, repo, actor?.login ?? 'someone'),
-    occurredAt: toDate(raw.created_at) ?? new Date(),
+    ...eventTime(toDate(raw.created_at)),
     actor,
     repo,
     source: 'poll',

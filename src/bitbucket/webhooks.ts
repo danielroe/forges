@@ -5,6 +5,7 @@ import type { BitbucketOptions } from './index.ts'
 import type { BitbucketComment, BitbucketPullRequest, BitbucketRepository, BitbucketUser } from './types.ts'
 import { bodyText, headerValue } from '../crypto.ts'
 import { WebhookVerificationError } from '../errors.ts'
+import { eventTime } from '../events.ts'
 import { toDate } from '../utils.ts'
 import { refEvent, verifyHmacSignature } from '../webhooks.ts'
 import { FORGE, toActor, toRepoRef } from './normalise.ts'
@@ -58,6 +59,27 @@ const EVENT_KINDS: Record<string, EventKind> = {
   'pullrequest:comment_deleted': 'comment',
 }
 
+/** The time of the change a pull request delivery reports, else the time the pull request last changed. */
+function pullTime(event: string, payload: BitbucketWebhookPayload): string | undefined {
+  const { comment, pullrequest: pull } = payload
+  switch (event) {
+    case 'pullrequest:created':
+      return pull?.created_on
+    case 'pullrequest:comment_created':
+      return comment?.created_on
+    case 'pullrequest:comment_updated':
+      return comment?.updated_on
+    case 'pullrequest:approved':
+    case 'pullrequest:unapproved':
+      return payload.approval?.date
+    case 'pullrequest:changes_request_created':
+    case 'pullrequest:changes_request_removed':
+      return payload.changes_request?.date
+    default:
+      return undefined
+  }
+}
+
 export function translateBitbucketWebhook(instance: string, delivery: WebhookDelivery): ForgeEventInput[] {
   const event = headerValue(delivery.headers, EVENT_HEADER)
   if (!event) {
@@ -90,17 +112,17 @@ export function translateBitbucketWebhook(instance: string, delivery: WebhookDel
           forced: change.forced,
           commits: (change.commits ?? []).map(commit => ({ sha: commit.hash, message: commit.message, author: commit.author?.raw, url: commit.links?.html?.href })),
         }),
-        occurredAt: toDate(change.commits?.[0]?.date) ?? new Date(),
+        ...eventTime(toDate(change.commits?.[0]?.date)),
       }
     })
   }
 
   if (event === 'repo:updated' && payload.changes?.name) {
-    return [{ forge: FORGE, instance, id: deliveryId, kind: 'repo', action: 'renamed', kindRaw: event, summary: `${who} renamed the repository`, occurredAt: new Date(), actor, repo, detail: { type: 'repo_renamed', from: payload.changes.name.old, to: payload.changes.name.new }, source: 'webhook', payload }]
+    return [{ forge: FORGE, instance, id: deliveryId, kind: 'repo', action: 'renamed', kindRaw: event, summary: `${who} renamed the repository`, occurredAt: new Date(), undated: true, actor, repo, detail: { type: 'repo_renamed', from: payload.changes.name.old, to: payload.changes.name.new }, source: 'webhook', payload }]
   }
 
   if (event === 'repo:transfer') {
-    return [{ forge: FORGE, instance, id: deliveryId, kind: 'repo', action: 'transferred', kindRaw: event, summary: `${who} transferred the repository`, occurredAt: new Date(), actor, repo, detail: { type: 'repo_transferred', fromOwner: payload.previous_workspace?.slug, toOwner: repo?.owner }, source: 'webhook', payload }]
+    return [{ forge: FORGE, instance, id: deliveryId, kind: 'repo', action: 'transferred', kindRaw: event, summary: `${who} transferred the repository`, occurredAt: new Date(), undated: true, actor, repo, detail: { type: 'repo_transferred', fromOwner: payload.previous_workspace?.slug, toOwner: repo?.owner }, source: 'webhook', payload }]
   }
 
   const kind = EVENT_KINDS[event] ?? 'other'
@@ -113,7 +135,7 @@ export function translateBitbucketWebhook(instance: string, delivery: WebhookDel
     ...EVENT_ACTIONS[event] && { action: EVENT_ACTIONS[event] },
     kindRaw: event,
     summary: `${who} ${event.split(':')[1]?.replaceAll('_', ' ') ?? event}`,
-    occurredAt: toDate(payload.comment?.created_on ?? payload.approval?.date ?? payload.pullrequest?.updated_on) ?? new Date(),
+    ...eventTime(EVENT_ACTIONS[event] === 'deleted' ? undefined : toDate(pullTime(event, payload) ?? payload.pullrequest?.updated_on)),
     actor,
     repo,
     thread,

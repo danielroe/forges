@@ -1,7 +1,7 @@
 import type { CommentRef, EventDetail, ForgeEvent, Notification, NotificationSubject, ReleaseRef, RepoRef, ResolvedThreadRef, ThreadRef } from '../../src/index.ts'
 import type { ForgeEventInput } from '../../src/model.ts'
 import { describe, expect, it } from 'vitest'
-import { toPullComment as toAzurePullComment } from '../../src/azure-devops/normalise.ts'
+import { toPullComment as toAzurePullComment, toWorkItemComment, toWorkItemEvents } from '../../src/azure-devops/normalise.ts'
 import { translateAzureWebhook } from '../../src/azure-devops/webhooks.ts'
 import { toComment as toBitbucketComment } from '../../src/bitbucket/normalise.ts'
 import { translateBitbucketWebhook } from '../../src/bitbucket/webhooks.ts'
@@ -11,6 +11,7 @@ import { completeEvent } from '../../src/events.ts'
 import { toComment as toGiteeComment } from '../../src/gitee/normalise.ts'
 import { translateGiteeWebhook } from '../../src/gitee/webhooks.ts'
 import { translateGitHubWebhook } from '../../src/github/events.ts'
+import { toDiscussionComment } from '../../src/github/graphql.ts'
 import { toEvent as toGitHubEvent } from '../../src/github/normalise.ts'
 import { affectedKeys, commentKey, parseCommentKey, parseReleaseKey, parseThreadKey, releaseKey, repoKey, threadKey } from '../../src/index.ts'
 import { payloadFixture } from '../utils/fixtures.ts'
@@ -217,5 +218,19 @@ describe('delivered comment keys', () => {
 
     expect(delivered(event)).toEqual(listed(toAzurePullComment(event!.thread!, { id: 5, comments: [] }, linked.resource.comment).ref))
     expect(delivered(unlinked)).toEqual([])
+  })
+
+  it('keys an Azure DevOps work item comment as the comment listing does', () => {
+    const thread = { forge: 'azure-devops', instance: 'dev.azure.com', repo: { forge: 'azure-devops', instance: 'dev.azure.com', owner: 'acme', name: 'Widgets' }, kind: 'issue', number: '12' } as const
+    const comment = { id: 3, workItemId: 12, text: 'Seen on staging', createdDate: '2026-09-20T09:00:00Z' }
+
+    expect(delivered(toWorkItemEvents(thread, [], [comment])[0])).toEqual(listed(toWorkItemComment(thread, comment).ref))
+  })
+
+  it('keys a GitHub discussion comment as the comment listing does', () => {
+    const comment = { id: 7001, node_id: 'DC_kwDOAAABCDE', body: 'Same here', created_at: '2026-09-20T09:00:00Z' }
+    const [event] = translateGitHubWebhook('github.com', { headers: { 'x-github-event': 'discussion_comment', 'x-github-delivery': 'id' }, body: JSON.stringify({ action: 'created', repository: { id: 1, name: 'widgets', full_name: 'acme/widgets', owner: { login: 'acme', id: 2 } }, discussion: { number: 6 }, comment }) })
+
+    expect(delivered(event)).toEqual(listed(toDiscussionComment(event!.thread!, { id: comment.node_id }).ref))
   })
 })

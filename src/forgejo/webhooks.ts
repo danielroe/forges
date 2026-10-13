@@ -6,7 +6,7 @@ import type { ForgejoRepository, ForgejoUser } from './types.ts'
 import type { WebhookHeaderNames } from './webhook-events.ts'
 import { bodyText } from '../crypto.ts'
 import { WebhookVerificationError } from '../errors.ts'
-import { eventAction, reviewState } from '../events.ts'
+import { eventAction, eventTime, reviewState } from '../events.ts'
 import { toDate } from '../utils.ts'
 import { firstHeader, refEvent, verifyHmacSignature } from '../webhooks.ts'
 import { toActor, toRepoRef } from './normalise.ts'
@@ -20,10 +20,10 @@ interface ForgejoWebhookPayload {
   action?: string
   sender?: ForgejoUser
   repository?: ForgejoRepository
-  issue?: { number: number, title?: string, pull_request?: unknown }
+  issue?: ForgejoEventSubject & { pull_request?: unknown }
   is_pull?: boolean
-  pull_request?: { number: number, title?: string, merged?: boolean, draft?: boolean }
-  comment?: { id?: number, body?: string, created_at?: string, user?: ForgejoUser, path?: string, line?: number }
+  pull_request?: ForgejoEventSubject & { merged?: boolean, merged_at?: string | null, draft?: boolean }
+  comment?: { id?: number, body?: string, created_at?: string, updated_at?: string, user?: ForgejoUser, path?: string, line?: number }
   assignee?: ForgejoUser
   review?: { type?: string, content?: string }
   label?: { name?: string }
@@ -33,7 +33,16 @@ interface ForgejoWebhookPayload {
   after?: string
   total_commits?: number
   commits?: Array<{ id: string, message: string, timestamp?: string, url?: string, author?: { name?: string, username?: string } }>
+  head_commit?: { id: string, timestamp?: string } | null
   release?: { id: number, tag_name?: string, name?: string, published_at?: string }
+}
+
+interface ForgejoEventSubject {
+  number: number
+  title?: string
+  created_at?: string
+  updated_at?: string
+  closed_at?: string | null
 }
 
 const EVENT_KINDS: Record<string, EventKind> = {
@@ -137,6 +146,24 @@ function detailOf(kind: EventKind, event: string, thread: ThreadRef | undefined,
   }
 }
 
+/** The time of the change a thread event reports, else the time its thread last changed, unless the event is a deletion. */
+function threadTime({ action, comment, pull_request: pull }: ForgejoWebhookPayload, subject: ForgejoEventSubject | undefined): Date | undefined {
+  if (action === 'deleted') {
+    return undefined
+  }
+  let own: string | null | undefined
+  if (comment) {
+    own = action === 'edited' ? comment.updated_at : comment.created_at
+  }
+  else if (action === 'opened') {
+    own = subject?.created_at
+  }
+  else if (action === 'closed' || action === 'merged') {
+    own = pull?.merged_at ?? subject?.closed_at
+  }
+  return toDate(own ?? subject?.updated_at)
+}
+
 export function translateForgejoWebhook(origin: ForgeOrigin, delivery: WebhookDelivery, names: WebhookHeaderNames = FORGEJO_HEADERS): ForgeEventInput[] {
   const event = firstHeader(delivery, names.event)
   if (!event) {
@@ -156,7 +183,7 @@ export function translateForgejoWebhook(origin: ForgeOrigin, delivery: WebhookDe
       action: level.action,
       kindRaw: payload.action ? `${event}.${payload.action}` : event,
       summary: level.summary,
-      occurredAt: toDate(payload.commits?.at(-1)?.timestamp ?? payload.release?.published_at) ?? new Date(),
+      ...eventTime(toDate(payload.head_commit?.timestamp ?? payload.commits?.at(-1)?.timestamp ?? payload.release?.published_at)),
       actor,
       repo,
       detail: level.detail,
@@ -179,7 +206,7 @@ export function translateForgejoWebhook(origin: ForgeOrigin, delivery: WebhookDe
     actionRaw: payload.action,
     detail: detailOf(kind, event, thread, origin, payload),
     summary: `${who} ${payload.action ? `${payload.action} ` : ''}${event}`.trim(),
-    occurredAt: toDate(payload.comment?.created_at) ?? new Date(),
+    ...eventTime(threadTime(payload, subject)),
     actor,
     repo,
     thread,

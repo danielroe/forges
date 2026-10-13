@@ -80,6 +80,11 @@ const REVIEW_STATES: Record<string, ReviewState> = {
   dismissed: 'dismissed',
 }
 
+/** Sets `occurredAt` to `time`, or to `fallback` with `undated` when the forge reported no time. */
+export function eventTime(time: Date | undefined, fallback: Date = new Date()): Pick<ForgeEventInput, 'occurredAt' | 'undated'> {
+  return time ? { occurredAt: time } : { occurredAt: fallback, undated: true }
+}
+
 /** Normalises a forge-native review verdict (`APPROVED`, `changes_requested`, ...) into a {@link ReviewState}. */
 export function reviewState(raw: string | undefined): ReviewState {
   return (raw && REVIEW_STATES[raw.toLowerCase()]) || 'unknown'

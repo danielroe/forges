@@ -1,5 +1,6 @@
 import type { EventAction, EventDetail, EventKind, ForgeEventInput, ForgeOrigin, RepoRef, ReviewState, ThreadRef, ThreadState } from '../model.ts'
 import type { ForgejoActivity, ForgejoPushContent } from './types.ts'
+import { eventTime } from '../events.ts'
 import { toDate } from '../utils.ts'
 import { refEvent } from '../webhooks.ts'
 import { toActor, toRepoRef } from './normalise.ts'
@@ -115,7 +116,7 @@ export function toFeedEvent(origin: ForgeOrigin, raw: ForgejoActivity): ForgeEve
     id: String(raw.id),
     kindRaw: raw.op_type,
     ...feedLevel(origin, raw, repo, actor?.login ?? 'someone'),
-    occurredAt: toDate(raw.created) ?? new Date(),
+    ...eventTime(toDate(raw.created)),
     actor,
     repo,
     ...typeof raw.is_private === 'boolean' ? { isPublic: !raw.is_private } : {},

@@ -64,7 +64,7 @@ import type {
   GiteaActionJob,
   GiteaActionRun,
 } from './types.ts'
-import { reviewState } from '../events.ts'
+import { eventTime, reviewState } from '../events.ts'
 import { toDate, toFileStatus, toPullStats } from '../utils.ts'
 import { eventKindsOf } from '../webhooks.ts'
 import { FORGEJO_NATIVE_EVENTS } from './webhook-events.ts'
@@ -414,7 +414,7 @@ export function toEvent(
     kind,
     kindRaw: entry.type,
     summary: summarise(entry, kind, actor),
-    occurredAt: toDate(entry.created_at) ?? new Date(0),
+    ...eventTime(toDate(entry.created_at), new Date(0)),
     actor,
     repo: thread.repo,
     thread,

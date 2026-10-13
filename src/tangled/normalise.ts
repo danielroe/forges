@@ -11,6 +11,7 @@ import type {
   StateRecord,
   TangledRecord,
 } from './types.ts'
+import { eventTime } from '../events.ts'
 import { toDate } from '../utils.ts'
 import { atUri } from './atproto.ts'
 
@@ -247,7 +248,7 @@ export function toActivityEvent(
     actionRaw: activity.operation,
     detail: activityDetail(activity, kind, thread),
     summary: summarise(activity, kind, actor.login),
-    occurredAt: occurredAt(activity.record) ?? fallbackTime,
+    ...eventTime(occurredAt(activity.record), fallbackTime),
     actor,
     repo: thread?.repo,
     thread,

@@ -3,7 +3,7 @@ import type { WebhookDelivery } from '../provider.ts'
 import type { GitHubFeedEvent, GitHubRepository, GitHubUser } from './types.ts'
 import { bodyText, headerValue } from '../crypto.ts'
 import { WebhookVerificationError } from '../errors.ts'
-import { eventAction, reviewState } from '../events.ts'
+import { eventAction, eventTime, reviewState } from '../events.ts'
 import { toDate } from '../utils.ts'
 import { refEvent } from '../webhooks.ts'
 import { FORGE, toActor, toRepoRef } from './normalise.ts'
@@ -11,14 +11,24 @@ import { FORGE, toActor, toRepoRef } from './normalise.ts'
 const EVENT_HEADER = 'x-github-event'
 const DELIVERY_HEADER = 'x-github-delivery'
 
+interface GitHubEventSubject {
+  number: number
+  title?: string
+  node_id?: string
+  created_at?: string
+  updated_at?: string
+  closed_at?: string | null
+}
+
 export interface GitHubEventPayload {
   action?: string
   sender?: GitHubUser
-  repository?: GitHubRepository
-  issue?: { number: number, title?: string, node_id?: string, pull_request?: unknown }
-  pull_request?: { number: number, title?: string, node_id?: string, merged?: boolean | null, draft?: boolean, state?: string }
-  discussion?: { number: number, title?: string, node_id?: string }
-  comment?: { id?: number, body?: string, created_at?: string, user?: GitHubUser | null, path?: string, line?: number | null }
+  /** Push webhooks send `pushed_at` in seconds since the epoch. */
+  repository?: GitHubRepository & { updated_at?: string | null, pushed_at?: string | number | null }
+  issue?: GitHubEventSubject & { pull_request?: unknown }
+  pull_request?: GitHubEventSubject & { merged?: boolean | null, merged_at?: string | null, draft?: boolean, state?: string }
+  discussion?: GitHubEventSubject
+  comment?: { id?: number, node_id?: string, body?: string, created_at?: string, updated_at?: string, user?: GitHubUser | null, path?: string, line?: number | null }
   review?: { id?: number, state?: string, body?: string | null, submitted_at?: string | null, user?: GitHubUser | null }
   assignee?: GitHubUser | null
   requested_reviewer?: GitHubUser | null
@@ -77,7 +87,7 @@ function repoLevel(instance: string, event: string, payload: GitHubEventPayload,
           commits: payload.commits?.map(commit => ({ sha: commit.id ?? commit.sha ?? '', message: commit.message, author: commit.author?.username ?? commit.author?.name, url: commit.url })),
           commitCount: payload.size,
         }),
-        occurredAt: payload.deleted ? undefined : toDate(payload.head_commit?.timestamp),
+        occurredAt: payload.deleted ? undefined : pushedAt(payload.repository?.pushed_at) ?? toDate(payload.head_commit?.timestamp),
       }
     case 'create':
     case 'delete':
@@ -92,14 +102,14 @@ function repoLevel(instance: string, event: string, payload: GitHubEventPayload,
       }
     case 'repository':
       if (payload.action === 'renamed') {
-        return { kind: 'repo', action: 'renamed', detail: { type: 'repo_renamed', from: payload.changes?.repository?.name?.from ?? '', to: payload.repository?.name ?? '' }, summary: `${who} renamed the repository` }
+        return { kind: 'repo', action: 'renamed', detail: { type: 'repo_renamed', from: payload.changes?.repository?.name?.from ?? '', to: payload.repository?.name ?? '' }, summary: `${who} renamed the repository`, occurredAt: toDate(payload.repository?.updated_at) }
       }
       if (payload.action === 'transferred') {
         const from = payload.changes?.owner?.from
-        return { kind: 'repo', action: 'transferred', detail: { type: 'repo_transferred', fromOwner: (from?.organization ?? from?.user)?.login, toOwner: payload.repository?.owner?.login }, summary: `${who} transferred the repository` }
+        return { kind: 'repo', action: 'transferred', detail: { type: 'repo_transferred', fromOwner: (from?.organization ?? from?.user)?.login, toOwner: payload.repository?.owner?.login }, summary: `${who} transferred the repository`, occurredAt: toDate(payload.repository?.updated_at) }
       }
       if (payload.action === 'archived' || payload.action === 'unarchived') {
-        return { kind: 'repo', action: payload.action, detail: { type: 'repo_archived', archived: payload.action === 'archived' }, summary: `${who} ${payload.action} the repository` }
+        return { kind: 'repo', action: payload.action, detail: { type: 'repo_archived', archived: payload.action === 'archived' }, summary: `${who} ${payload.action} the repository`, occurredAt: toDate(payload.repository?.updated_at) }
       }
       return undefined
     case 'installation':
@@ -219,6 +229,32 @@ function summarise(event: string, payload: GitHubEventPayload, actor: string): s
   }
 }
 
+function pushedAt(value: string | number | null | undefined): Date | undefined {
+  return typeof value === 'number' ? new Date(value * 1000) : toDate(value)
+}
+
+/** The time of the change a thread event reports, else the time its thread last changed, unless the event is a deletion. */
+function threadTime(payload: GitHubEventPayload): Date | undefined {
+  if (payload.action === 'deleted') {
+    return undefined
+  }
+  const subject = payload.pull_request ?? payload.discussion ?? payload.issue
+  return toDate(ownTime(payload, subject) ?? subject?.updated_at)
+}
+
+function ownTime({ action, comment, review, pull_request: pull }: GitHubEventPayload, subject: GitHubEventSubject | undefined): string | null | undefined {
+  if (comment) {
+    return action === 'edited' ? comment.updated_at : comment.created_at
+  }
+  if (review) {
+    return action === 'submitted' ? review.submitted_at : undefined
+  }
+  if (action === 'opened') {
+    return subject?.created_at
+  }
+  return action === 'closed' ? pull?.merged_at ?? subject?.closed_at : undefined
+}
+
 function actionOf(event: string, payload: GitHubEventPayload): EventAction | undefined {
   if (event === 'pull_request' && payload.action === 'closed' && payload.pull_request?.merged) {
     return 'merged'
@@ -228,7 +264,7 @@ function actionOf(event: string, payload: GitHubEventPayload): EventAction | und
 
 function detailOf(kind: EventKind, thread: ThreadRef | undefined, instance: string, payload: GitHubEventPayload): EventDetail | undefined {
   const comment = payload.comment
-  const commentRef = comment?.id !== undefined && thread ? { forge: FORGE, instance, thread, id: String(comment.id) } : undefined
+  const commentRef = comment?.id !== undefined && thread ? { forge: FORGE, instance, thread, id: thread.kind === 'discussion' && comment.node_id ? comment.node_id : String(comment.id) } : undefined
   switch (kind) {
     case 'comment':
       return { type: 'comment', comment: commentRef, body: comment?.body }
@@ -263,7 +299,7 @@ function toGitHubEvent(instance: string, event: string, payload: GitHubEventPayl
       action: level.action,
       kindRaw: context.kindRaw,
       summary: level.summary,
-      occurredAt: context.occurredAt ?? level.occurredAt ?? new Date(),
+      ...eventTime(context.occurredAt ?? level.occurredAt),
       actor,
       repo,
       detail: level.detail,
@@ -284,7 +320,7 @@ function toGitHubEvent(instance: string, event: string, payload: GitHubEventPayl
     actionRaw: context.actionRaw,
     detail: detailOf(kind, thread, instance, payload),
     summary: summarise(event, payload, actor?.login ?? 'someone'),
-    occurredAt: context.occurredAt ?? toDate(payload.comment?.created_at ?? payload.review?.submitted_at ?? payload.head_commit?.timestamp) ?? new Date(),
+    ...eventTime(context.occurredAt ?? threadTime(payload)),
     actor,
     repo,
     thread,
@@ -362,7 +398,7 @@ export function toFeedEvent(instance: string, raw: GitHubFeedEvent): ForgeEventI
       ...context,
       kind: 'other',
       summary: `${actor?.login ?? 'someone'} ${FEED_SUMMARIES[type] ?? type}`,
-      occurredAt: context.occurredAt ?? new Date(),
+      ...eventTime(context.occurredAt),
       ...visibility,
       payload: raw,
     }

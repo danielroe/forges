@@ -5,6 +5,7 @@ import type { ForgeVerb } from '../supports.ts'
 import type { WebLinks } from '../web.ts'
 import type { PushinCollaborator, PushinComment, PushinLabel, PushinNotification, PushinRepository, PushinThread, PushinUser } from './types.ts'
 import { defineForgeProvider, perKind, verb } from '../define.ts'
+import { eventTime } from '../events.ts'
 import { createListing, getManyConcurrently, requireIssueOrPull, resolveToken, toPage } from '../utils.ts'
 import { githubShapedWeb } from '../web.ts'
 import { FORGE, toActor, toCollaborator, toComment, toLabel, toNotification, toRepo, toThread } from './normalise.ts'
@@ -79,7 +80,7 @@ function setupPushin({ options, instance, origin: context, fetcher, baseUrl }: P
         kind: 'comment' as const,
         kindRaw: 'comment',
         summary: `${comment.author?.login ?? 'someone'} commented`,
-        occurredAt: comment.createdAt ?? new Date(0),
+        ...eventTime(comment.createdAt, new Date(0)),
         actor: comment.author,
         repo: ref.repo,
         thread: ref,

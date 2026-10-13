@@ -5,7 +5,7 @@ import type { GitLabOptions } from './index.ts'
 import type { GitLabUser } from './types.ts'
 import { bodyText, headerValue } from '../crypto.ts'
 import { WebhookVerificationError } from '../errors.ts'
-import { eventAction } from '../events.ts'
+import { eventAction, eventTime } from '../events.ts'
 import { toDate } from '../utils.ts'
 import { refEvent, verifySharedToken } from '../webhooks.ts'
 import { FORGE, toActor, toRepoRef } from './normalise.ts'
@@ -38,6 +38,7 @@ interface GitLabWebhookPayload {
     position?: unknown
     created_at?: string
     updated_at?: string
+    closed_at?: string | null
     note?: string
     oldrev?: string
     state?: string
@@ -58,6 +59,8 @@ interface GitLabWebhookPayload {
   tag?: string
   name?: string
   released_at?: string
+  created_at?: string
+  updated_at?: string
   user_name?: string
   user_email?: string
   user_id?: number
@@ -129,6 +132,33 @@ function repoLevel(instance: string, payload: GitLabWebhookPayload, who: string,
     default:
       return undefined
   }
+}
+
+/** The time of the change a project-level delivery reports, else the time its subject last changed. */
+function repoLevelTime(payload: GitLabWebhookPayload): string | undefined {
+  if (payload.object_kind === 'release') {
+    return payload.created_at ?? payload.released_at
+  }
+  if (payload.event_name?.startsWith('user_add_')) {
+    return payload.created_at
+  }
+  if (payload.event_name?.startsWith('user_remove_')) {
+    return undefined
+  }
+  return payload.commits?.at(-1)?.timestamp ?? payload.updated_at
+}
+
+/** The time of the change an issue, merge request or note delivery reports, else the time its subject last changed. */
+function threadTime(payload: GitLabWebhookPayload): string | null | undefined {
+  const attributes = payload.object_attributes
+  const action = attributes?.action
+  if (payload.object_kind === 'note') {
+    return action === 'update' ? attributes?.updated_at : attributes?.created_at ?? attributes?.updated_at
+  }
+  if (action === 'open') {
+    return attributes?.created_at
+  }
+  return (action === 'close' ? attributes?.closed_at : undefined) ?? attributes?.updated_at
 }
 
 function membershipAction(eventName: string | undefined): EventAction {
@@ -261,7 +291,7 @@ export function translateGitLabWebhook(instance: string, delivery: WebhookDelive
       action: level.action,
       kindRaw: payload.object_kind ?? payload.event_name ?? event,
       summary: level.summary,
-      occurredAt: toDate(payload.commits?.at(-1)?.timestamp ?? payload.released_at) ?? new Date(),
+      ...eventTime(toDate(repoLevelTime(payload))),
       actor: user,
       repo,
       detail: level.detail,
@@ -270,7 +300,7 @@ export function translateGitLabWebhook(instance: string, delivery: WebhookDelive
     }]
   }
 
-  const occurredAt = toDate(attributes?.created_at && payload.object_kind === 'note' ? attributes.created_at : attributes?.updated_at) ?? new Date()
+  const time = eventTime(toDate(threadTime(payload)))
   const changes = changeEvents(instance, payload, user?.login ?? 'someone')
   if (changes.length) {
     return changes.map((change, index) => ({
@@ -280,7 +310,7 @@ export function translateGitLabWebhook(instance: string, delivery: WebhookDelive
       ...change,
       kindRaw: `${payload.object_kind}.update`,
       actionRaw: 'update',
-      occurredAt,
+      ...time,
       actor: user,
       repo,
       thread,
@@ -307,7 +337,7 @@ export function translateGitLabWebhook(instance: string, delivery: WebhookDelive
     summary: payload.object_kind === 'note'
       ? `${user?.login ?? 'someone'} commented`
       : `${user?.login ?? 'someone'} ${action ? `${action} ` : ''}${payload.object_kind ?? event}`.trim(),
-    occurredAt,
+    ...time,
     actor: user,
     repo,
     thread,

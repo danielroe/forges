@@ -1278,7 +1278,10 @@ export interface ForgeEvent extends ForgeOrigin {
   actionRaw?: string
   /** Single line describing the event, suitable for a list row. */
   summary: string
+  /** When the event happened, from the forge's own timestamp unless `undated` is set. */
   occurredAt: Date
+  /** Whether the forge reported no time for the event. `occurredAt` is then the time the event reached `forges` (or Jetstream, for a Tangled subscription), or the Unix epoch for an entry of a thread's timeline. */
+  undated?: boolean
   actor?: Actor
   repo?: RepoRef
   thread?: ThreadRef

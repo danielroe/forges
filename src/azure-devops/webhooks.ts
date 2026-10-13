@@ -4,6 +4,7 @@ import type { WebhookDelivery } from '../provider.ts'
 import type { AzureDevOpsOptions } from './index.ts'
 import type { AzureComment, AzureIdentity, AzurePullRequest, AzureRepository, AzureServiceHookEvent } from './types.ts'
 import { bodyText, headerValue, timingSafeEqual } from '../crypto.ts'
+import { eventTime } from '../events.ts'
 import { toDate } from '../utils.ts'
 import { refEvent } from '../webhooks.ts'
 import { FORGE, projectRef, toActor, toRepoRef } from './normalise.ts'
@@ -40,7 +41,7 @@ export function translateAzureWebhook(instance: string, organization: string, de
     instance,
     id: event.id,
     kindRaw: event.eventType,
-    occurredAt: toDate(event.createdDate) ?? new Date(),
+    ...eventTime(toDate(event.createdDate)),
     repo,
     source: 'webhook' as const,
     payload: event,

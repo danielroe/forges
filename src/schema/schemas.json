@@ -2107,7 +2107,12 @@
       },
       "occurredAt": {
         "type": "string",
-        "format": "date-time"
+        "format": "date-time",
+        "description": "When the event happened, from the forge's own timestamp unless `undated` is set."
+      },
+      "undated": {
+        "type": "boolean",
+        "description": "Whether the forge reported no time for the event. `occurredAt` is then the time the event reached `forges` (or Jetstream, for a Tangled subscription), or the Unix epoch for an entry of a thread's timeline."
       },
       "actor": {
         "$ref": "#/components/schemas/Actor"

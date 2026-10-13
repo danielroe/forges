@@ -4,6 +4,7 @@ import type { WebhookDelivery } from '../provider.ts'
 import type { GiteeOptions } from './index.ts'
 import type { GiteeIssue, GiteePullRequest, GiteeRepository, GiteeUser } from './types.ts'
 import { bodyText, headerValue, hmacSha256Base64, timingSafeEqual } from '../crypto.ts'
+import { eventTime } from '../events.ts'
 import { toDate } from '../utils.ts'
 import { refEvent, verifySharedToken } from '../webhooks.ts'
 import { FORGE, toActor, toRepoRef } from './normalise.ts'
@@ -56,7 +57,8 @@ interface GiteeWebhookPayload {
   after?: string
   created?: boolean
   deleted?: boolean
-  commits?: Array<{ id: string, message: string, url?: string, author?: { name?: string, username?: string } }>
+  commits?: Array<{ id: string, message: string, timestamp?: string, url?: string, author?: { name?: string, username?: string } }>
+  head_commit?: { id: string, timestamp?: string } | null
   user?: GiteeUser
 }
 
@@ -72,6 +74,29 @@ const KINDS: Record<string, EventKind> = {
   label: 'label',
 }
 
+/**
+ * The time of the change a delivery reports, else the time its subject last
+ * changed, else the time of the pushed head commit.
+ */
+function giteeTime(hook: string, payload: GiteeWebhookPayload): Date | undefined {
+  const { action, comment, issue, pull_request: pull } = payload
+  const subject = pull ?? issue
+  let own: string | null | undefined
+  if (hook === 'note_hooks' || hook === 'Note Hook') {
+    own = comment?.created_at
+  }
+  else if (action === 'open') {
+    own = subject?.created_at
+  }
+  else if (action === 'merge') {
+    own = pull?.merged_at
+  }
+  else if (action === 'close') {
+    own = pull ? pull.closed_at : issue?.finished_at
+  }
+  return toDate(own ?? subject?.updated_at ?? payload.head_commit?.timestamp ?? payload.commits?.at(-1)?.timestamp)
+}
+
 export function translateGiteeWebhook(instance: string, delivery: WebhookDelivery): ForgeEventInput[] {
   const payload = JSON.parse(bodyText(delivery.body)) as GiteeWebhookPayload
   const hook = payload.hook_name ?? headerValue(delivery.headers, 'x-gitee-event') ?? ''
@@ -84,7 +109,7 @@ export function translateGiteeWebhook(instance: string, delivery: WebhookDeliver
     instance,
     id: headerValue(delivery.headers, 'x-gitee-delivery') ?? `${hook}:${payload.timestamp ?? Date.now()}`,
     kindRaw: payload.action ? `${hook}.${payload.action}` : hook,
-    occurredAt: toDate(payload.comment?.created_at) ?? (payload.timestamp ? new Date(Number(payload.timestamp)) : new Date()),
+    ...eventTime(giteeTime(hook, payload)),
     actor,
     repo,
     source: 'webhook' as const,

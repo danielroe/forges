@@ -14,6 +14,7 @@ import type {
   BitbucketSrcEntry,
   BitbucketUser,
 } from './types.ts'
+import { eventTime } from '../events.ts'
 import { toDate, toFileStatus } from '../utils.ts'
 import { eventKindsOf } from '../webhooks.ts'
 import { BITBUCKET_NATIVE_EVENTS } from './webhook-events.ts'
@@ -192,7 +193,7 @@ function event(
     kind,
     kindRaw,
     summary: `${actor?.login ?? 'someone'} ${summary}`,
-    occurredAt: toDate(at) ?? new Date(0),
+    ...eventTime(toDate(at), new Date(0)),
     actor,
     repo: thread.repo,
     thread,
