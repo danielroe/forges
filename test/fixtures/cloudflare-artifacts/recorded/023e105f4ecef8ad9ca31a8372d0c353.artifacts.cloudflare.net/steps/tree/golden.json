@@ -1,0 +1,28 @@
+{
+  "items": [
+    {
+      "path": "README.md",
+      "type": "file",
+      "sha": "dfddb823e9384325d0f7c9ec5c484c75dc427dec",
+      "mode": "100644"
+    },
+    {
+      "path": "docs",
+      "type": "directory",
+      "sha": "ff68f8bfc2fbc31dfe8648df42613002c56a8c0c",
+      "mode": "040000"
+    },
+    {
+      "path": "src",
+      "type": "directory",
+      "sha": "90af5ba43e97f9ac5729476a44a6aa9c179cf82e",
+      "mode": "040000"
+    },
+    {
+      "path": "test",
+      "type": "directory",
+      "sha": "54351bc3a81b515d2ea45032a99d2d8afc96e0ce",
+      "mode": "040000"
+    }
+  ]
+}

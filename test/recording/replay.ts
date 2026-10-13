@@ -4,6 +4,7 @@ import type { RecordingManifest } from './steps.ts'
 import { generateKeyPairSync } from 'node:crypto'
 import { azureDevOps } from '../../src/azure-devops/index.ts'
 import { bitbucket } from '../../src/bitbucket/index.ts'
+import { cloudflareArtifacts } from '../../src/cloudflare-artifacts/index.ts'
 import { forgejo } from '../../src/forgejo/index.ts'
 import { gitea } from '../../src/gitea/index.ts'
 import { gitee } from '../../src/gitee/index.ts'
@@ -27,6 +28,7 @@ export const REPLAYED_PROVIDERS: Array<{ name: string, create: Create }> = [
   { name: 'gitea', create: (fetch, manifest) => gitea({ auth: authFor(manifest), baseUrl: manifest.baseUrl, webhookSecret: manifest.webhookSecret, fetch }).create() },
   { name: 'gitlab', create: (fetch, manifest) => gitlab({ auth: authFor(manifest), baseUrl: manifest.baseUrl, webhookSecret: manifest.webhookSecret, fetch }).create() },
   { name: 'bitbucket', create: (fetch, manifest) => bitbucket({ auth: authFor(manifest), baseUrl: manifest.baseUrl, webhookSecret: manifest.webhookSecret, fetch }).create() },
+  { name: 'cloudflare-artifacts', create: (fetch, manifest) => cloudflareArtifacts({ auth: token, accountId: manifest.repo.instance.split('.')[0]!, baseUrl: manifest.baseUrl, fetch }).create() },
   { name: 'pushin', create: (fetch, manifest) => pushin({ auth: authFor(manifest), baseUrl: manifest.baseUrl, fetch }).create() },
   { name: 'gitee', create: (fetch, manifest) => gitee({ auth: authFor(manifest), fetch }).create() },
   { name: 'azure-devops', create: (fetch, manifest) => azureDevOps({ auth: authFor(manifest), organization: manifest.repo.owner.split('/')[0]!, fetch }).create() },

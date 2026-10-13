@@ -10,7 +10,7 @@ import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node
 import process, { env, exit } from 'node:process'
 import { fileURLToPath } from 'node:url'
 import { parseArgs } from 'node:util'
-import { azureDevOps, bitbucket, cursorOrigin, forgejo, gitea, gitee, github, gitlab, pushin, tangled } from '../src/index.ts'
+import { azureDevOps, bitbucket, cloudflareArtifacts, cursorOrigin, forgejo, gitea, gitee, github, gitlab, pushin, tangled } from '../src/index.ts'
 import { recordingFetch, signDelivery } from '../src/testing/index.ts'
 import { recordedSteps, stepSlug } from '../test/recording/layout.ts'
 import { redact } from '../test/recording/redact.ts'
@@ -22,10 +22,10 @@ import { guardedFetch } from './write-guard.ts'
 import { writeHarness } from './write-harness.ts'
 
 const { positionals: [target], values: flags } = parseArgs({ allowPositionals: true, options: { 'anonymous': { type: 'boolean', default: false }, 'app': { type: 'boolean', default: false }, 'writes': { type: 'boolean', default: false }, 'webhooks': { type: 'boolean', default: false }, 'seed': { type: 'boolean', default: false }, 'only': { type: 'string', multiple: true }, 'allow-fewer': { type: 'boolean', default: false } } })
-const TOKEN_VARIABLES: Record<string, string> = { 'github': 'GITHUB_TOKEN', 'forgejo': 'CODEBERG_TOKEN', 'gitlab': 'GITLAB_TOKEN', 'bitbucket': 'BITBUCKET_TOKEN', 'cursor-origin': 'CURSOR_AUTH_TOKEN', 'gitee': 'GITEE_TOKEN', 'azure-devops': 'AZURE_DEVOPS_TOKEN', 'gitea': 'GITEA_TOKEN', 'pushin': 'PUSHIN_TOKEN', 'tangled': 'TANGLED_PASSWORD' }
+const TOKEN_VARIABLES: Record<string, string> = { 'github': 'GITHUB_TOKEN', 'forgejo': 'CODEBERG_TOKEN', 'gitlab': 'GITLAB_TOKEN', 'bitbucket': 'BITBUCKET_TOKEN', 'cursor-origin': 'CURSOR_AUTH_TOKEN', 'gitee': 'GITEE_TOKEN', 'azure-devops': 'AZURE_DEVOPS_TOKEN', 'gitea': 'GITEA_TOKEN', 'pushin': 'PUSHIN_TOKEN', 'tangled': 'TANGLED_PASSWORD', 'cloudflare-artifacts': 'CLOUDFLARE_API_TOKEN' }
 
 if (!target || !(target in TOKEN_VARIABLES)) {
-  console.error('Usage: pnpm record-fixtures <github|forgejo|gitlab|bitbucket|tangled|cursor-origin|gitee|azure-devops|gitea|pushin> [--anonymous | --app | --writes [--allow-fewer] | --webhooks | --seed] [--only <step>]...')
+  console.error('Usage: pnpm record-fixtures <github|forgejo|gitlab|bitbucket|tangled|cursor-origin|gitee|azure-devops|gitea|pushin|cloudflare-artifacts> [--anonymous | --app | --writes [--allow-fewer] | --webhooks | --seed] [--only <step>]...')
   exit(1)
 }
 
@@ -56,13 +56,32 @@ function githubApp(): Forges.AppAuth & { installationId: string } {
 const bitbucketBasic = !flags.anonymous && target === 'bitbucket' && env.BITBUCKET_USERNAME && env.BITBUCKET_APP_PASSWORD
 const codeForgejo = target === 'forgejo' && env.CODEBERG_BASE_URL?.startsWith('https://code.forgejo.org')
 const token = flags.anonymous || app ? undefined : (codeForgejo && env.CODE_FORGEJO_TOKEN) || env[TOKEN_VARIABLES[target] ?? '']
-if (!token && target === 'cursor-origin') {
+if (!token && (target === 'cursor-origin' || target === 'cloudflare-artifacts')) {
   console.error(flags.anonymous ? `${target} has no anonymous access.` : `No ${TOKEN_VARIABLES[target]} in the environment or .env.`)
   exit(1)
 }
 const anonymous = !token && !bitbucketBasic && !app && !flags.writes && !flags.webhooks && !flags.seed
 if (anonymous) {
   console.info(flags.anonymous ? 'Recording anonymously.' : 'No token; recording anonymously.')
+}
+
+/** The example account id from Cloudflare's docs, so the real one stays out of recordings. */
+const ARTIFACTS_ACCOUNT = '023e105f4ecef8ad9ca31a8372d0c353'
+const artifactsAccount = target === 'cloudflare-artifacts' ? env.CLOUDFLARE_ACCOUNT_ID : undefined
+if (target === 'cloudflare-artifacts' && !artifactsAccount) {
+  console.error('No CLOUDFLARE_ACCOUNT_ID in the environment or .env.')
+  exit(1)
+}
+
+/** Sends a request to the real account and names the example one in the JSON it returns. */
+async function liveFetch(input: string, init?: RequestInit): Promise<Response> {
+  if (!artifactsAccount) {
+    return fetch(input, init)
+  }
+  const response = await fetch(input.replaceAll(ARTIFACTS_ACCOUNT, artifactsAccount), init)
+  return response.headers.get('content-type')?.includes('json')
+    ? new Response((await response.text()).replaceAll(artifactsAccount, ARTIFACTS_ACCOUNT), { status: response.status, statusText: response.statusText, headers: response.headers })
+    : response
 }
 
 const root = env.FIXTURES_OUT ?? fileURLToPath(new URL(`../test/fixtures/${target}/recorded/`, import.meta.url))
@@ -102,7 +121,7 @@ function unsign(url: string): string {
 
 const recorder = recordingFetch(async (input, init) => {
   const method = (init?.method ?? 'GET').toUpperCase()
-  const response = await fetch(input, init)
+  const response = await liveFetch(input, init)
   console.info(`${response.status < 400 ? 'recorded' : 'error   '} ${response.status} ${method} ${unsign(input)}`)
   return response
 }, ({ request, response }) => {
@@ -454,6 +473,10 @@ function targetFor(credentials: Credentials, fetch: FetchLike): Target {
         pull: ref('pushin', provider.instance, env.FIXTURE_PUSHIN_PULL_REPO ?? 'danielroe/roe.dev-test', 'pull_request', env.FIXTURE_PUSHIN_PULL ?? '1'),
         ...setupRepos('PUSHIN', slug => repoRef('pushin', provider.instance, slug)),
       } }
+    }
+    case 'cloudflare-artifacts': {
+      const provider = cloudflareArtifacts({ accountId: ARTIFACTS_ACCOUNT, auth: tokenAuth!, fetch, timeout }).create()
+      return { provider, manifest: { repo: repoRef('cloudflare-artifacts', provider.instance, env.FIXTURE_CLOUDFLARE_ARTIFACTS_REPO ?? 'forges-fixtures/forges-fixtures') } }
     }
     default: {
       const provider = forgejo({ baseUrl: env.CODEBERG_BASE_URL, auth: tokenAuth, fetch, timeout }).create()

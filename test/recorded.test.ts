@@ -143,10 +143,13 @@ for (const { name, create } of REPLAYED_PROVIDERS) {
         }
       })
 
-      it.skipIf(!recorded.has('repo'))('reads the repository its own web URL names', async () => {
+      it.skipIf(!recorded.has('repo'))('reads the repository its own web URL names', async (context) => {
         const repo = stepFixtureFetch(directory)
         repo.use(steps.find(step => step.name === 'repo')!.slug)
         const instance = create(repo.fetch, manifest!)
+        if (!instance.webOrigin) {
+          return context.skip()
+        }
         const url = instance.urlFor({ repo: manifest!.repo })!
         const parsed = instance.parseUrl(url)
 

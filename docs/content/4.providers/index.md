@@ -24,6 +24,7 @@ A provider is what connects `forges` to one particular forge. It translates the 
 | [Cursor Origin](/providers/cursor-origin) | `forges/cursor-origin` | `cursorOrigin()`, `cursorOriginLite()` |
 | [Pushin.eu](/providers/pushin) | `forges/pushin` | `pushin()` |
 | [Tangled](/providers/tangled) | `forges/tangled` | `tangled()`, `tangledLite()` |
+| [Cloudflare Artifacts](/providers/cloudflare-artifacts) | `forges/cloudflare-artifacts` | `cloudflareArtifacts()` |
 ::
 <!-- capabilities:end -->
 

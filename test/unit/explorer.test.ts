@@ -68,7 +68,9 @@ describe('explorer operations', () => {
     for (const forge of EXPLORER_FORGES) {
       const factory = (await forge.load() as Record<string, (options: object) => forges.ForgeProviderFactory>)[forge.factory]!
       const options = forge.options?.(forge.sample) ?? {}
-      expect(factory(options).create().authKind, forge.forge).toBe('anonymous')
+      if (!forge.signedIn) {
+        expect(factory(options).create().authKind, forge.forge).toBe('anonymous')
+      }
       expect(factory({ ...options, auth: placeholderAuth(forge.auth) }).create().authKind, forge.forge).toBe(forge.auth.type)
     }
   })

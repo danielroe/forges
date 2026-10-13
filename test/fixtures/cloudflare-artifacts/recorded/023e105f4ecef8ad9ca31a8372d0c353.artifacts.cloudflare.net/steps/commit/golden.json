@@ -1,0 +1,50 @@
+{
+  "ref": {
+    "forge": "cloudflare-artifacts",
+    "instance": "023e105f4ecef8ad9ca31a8372d0c353.artifacts.cloudflare.net",
+    "repo": {
+      "forge": "cloudflare-artifacts",
+      "instance": "023e105f4ecef8ad9ca31a8372d0c353.artifacts.cloudflare.net",
+      "owner": "forges-fixtures",
+      "name": "forges-fixtures"
+    },
+    "sha": "ffaeeb31a4119aa1807bd36f10f95b3d76347491"
+  },
+  "sha": "ffaeeb31a4119aa1807bd36f10f95b3d76347491",
+  "message": "chore: rename, edit, remove and add",
+  "author": {
+    "name": "forges fixtures",
+    "email": "redacted@example.invalid",
+    "date": "2026-10-03T10:00:00.000Z"
+  },
+  "committer": {
+    "name": "forges fixtures",
+    "email": "redacted@example.invalid",
+    "date": "2026-10-03T10:00:00.000Z"
+  },
+  "parents": [
+    "4d6fdedbe07be2cd627eec6e9b9380b25408683a"
+  ],
+  "files": [
+    {
+      "path": "README.md",
+      "status": "modified",
+      "sha": "dfddb823e9384325d0f7c9ec5c484c75dc427dec"
+    },
+    {
+      "path": "docs/start.md",
+      "status": "renamed",
+      "sha": "38afbc2c28c35e57cac12a04f167b5b62970f025",
+      "previousPath": "docs/guide.md"
+    },
+    {
+      "path": "src/util.ts",
+      "status": "removed"
+    },
+    {
+      "path": "test/index.test.ts",
+      "status": "added",
+      "sha": "a1d3c3b2b84ae5879eb5bb7f88a5e434257951c8"
+    }
+  ]
+}

@@ -48,6 +48,7 @@ export const PLANS: Record<string, { reads: Recording[], writes: Recording[] }> 
   'gitee': { reads: [{ label: 'gitee.com', args: [] }, { label: 'anonymous', args: ['--anonymous'] }], writes: [] },
   'azure-devops': { reads: [{ label: 'dev.azure.com', args: [] }, { label: 'anonymous', args: ['--anonymous'] }], writes: [{ label: 'writes', args: ['--writes'] }] },
   'pushin': { reads: [{ label: 'pushin.eu', args: [] }, { label: 'anonymous', args: ['--anonymous'] }], writes: [] },
+  'cloudflare-artifacts': { reads: [{ label: 'artifacts.cloudflare.net', args: [] }], writes: [] },
   'tangled': {
     reads: [{ label: 'tangled.org', args: [] }, { label: 'anonymous', args: ['--anonymous'] }],
     writes: [{ label: 'writes', args: ['--writes'] }, { label: 'seed', args: ['--seed'] }],

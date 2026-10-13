@@ -28,6 +28,7 @@ const PREFIXES: Record<string, string[]> = {
   'azure-devops': ['AZURE_DEVOPS_', 'FIXTURE_AZURE_DEVOPS_'],
   'pushin': ['PUSHIN_', 'FIXTURE_PUSHIN_'],
   'tangled': ['TANGLED_', 'FIXTURE_TANGLED_'],
+  'cloudflare-artifacts': ['CLOUDFLARE_', 'FIXTURE_CLOUDFLARE_ARTIFACTS_'],
 }
 
 /** Variables only write recordings and seeding use: the bot accounts and the Tangled reviewer. */

@@ -1,0 +1,61 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.cloudflare.com/client/v4/accounts/023e105f4ecef8ad9ca31a8372d0c353/artifacts/namespaces/forges-fixtures/repos?limit=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "result": [
+        {
+          "id": "p9r239g19dngui09",
+          "name": "forges-fixtures-fork",
+          "description": null,
+          "default_branch": "main",
+          "created_at": "2026-10-13T14:12:31.394Z",
+          "updated_at": "2026-10-13T14:12:34.035Z",
+          "last_push_at": null,
+          "source": "artifacts:forges-fixtures/forges-fixtures",
+          "read_only": false,
+          "remote": "https://023e105f4ecef8ad9ca31a8372d0c353.artifacts.cloudflare.net/git/forges-fixtures/forges-fixtures-fork.git",
+          "status": "ready"
+        },
+        {
+          "id": "kdzpgp4t535f5i3i",
+          "name": "forges-fixtures",
+          "description": "Fixtures for the forges Cloudflare Artifacts provider",
+          "default_branch": "main",
+          "created_at": "2026-10-13T14:09:38.177Z",
+          "updated_at": "2026-10-13T14:09:39.072Z",
+          "last_push_at": null,
+          "source": null,
+          "read_only": false,
+          "remote": "https://023e105f4ecef8ad9ca31a8372d0c353.artifacts.cloudflare.net/git/forges-fixtures/forges-fixtures.git",
+          "status": "ready"
+        },
+        {
+          "id": "0u8n7d6zpq2tqded",
+          "name": "forges",
+          "description": null,
+          "default_branch": "main",
+          "created_at": "2026-10-13T13:44:48.731Z",
+          "updated_at": "2026-10-13T13:44:55.108Z",
+          "last_push_at": null,
+          "source": "git:https://github.com/danielroe/forges.git",
+          "read_only": true,
+          "remote": "https://023e105f4ecef8ad9ca31a8372d0c353.artifacts.cloudflare.net/git/forges-fixtures/forges.git",
+          "status": "ready"
+        }
+      ],
+      "success": true,
+      "errors": [],
+      "messages": [],
+      "result_info": {
+        "cursor": "eyJ2IjoxNzkxODk5MDg4NzMxLCJpIjoiMHU4bjdkNnpwcTJ0cWRlZCIsInMiOiJjcmVhdGVkX2F0In0",
+        "per_page": 3,
+        "count": 3
+      }
+    }
+  }
+}

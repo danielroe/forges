@@ -2,6 +2,8 @@ export { AZURE_DEVOPS_API_VERSION, azureDevOps, azureDevOpsLite } from './azure-
 export type { AzureDevOpsAuth, AzureDevOpsOptions } from './azure-devops/index.ts'
 export { bitbucket, bitbucketLite } from './bitbucket/index.ts'
 export type { BitbucketAuth, BitbucketOptions } from './bitbucket/index.ts'
+export { cloudflareArtifacts } from './cloudflare-artifacts/index.ts'
+export type { CloudflareArtifactsAuth, CloudflareArtifactsOptions } from './cloudflare-artifacts/index.ts'
 export { cursorOrigin, cursorOriginLite, ORIGIN_API_VERSION } from './cursor-origin/index.ts'
 export type { CursorOriginAuth, CursorOriginOptions } from './cursor-origin/index.ts'
 export type { ProviderFactoryFunction } from './define.ts'

@@ -6,7 +6,10 @@ import { providersFromEnv } from '../src/env.ts'
 import { capabilityData, matrixProviders, supportCell } from './capabilities.ts'
 
 /** Forge-specific fields. `providersFromEnv()` is probed with combinations of them. */
-const CANDIDATES = ['TOKEN', 'APP_ID', 'PRIVATE_KEY', 'INSTALLATION_ID', 'USERNAME', 'IDENTIFIER', 'PASSWORD', 'PDS', 'ORGANIZATION', 'API_URL', 'NOTIFICATIONS_URL']
+const CANDIDATES = ['TOKEN', 'APP_ID', 'PRIVATE_KEY', 'INSTALLATION_ID', 'USERNAME', 'IDENTIFIER', 'PASSWORD', 'PDS', 'ORGANIZATION', 'ACCOUNT_ID', 'API_URL', 'NOTIFICATIONS_URL']
+
+/** Credential fields stay out of `required`, even where a set without them is skipped. */
+const CREDENTIAL_FIELDS = new Set(['TOKEN', 'APP_ID', 'PRIVATE_KEY', 'USERNAME', 'IDENTIFIER', 'PASSWORD'])
 
 const KEYS = [
   generateKeyPairSync('rsa', { modulusLength: 2048 }).privateKey.export({ type: 'pkcs8', format: 'pem' }) as string,
@@ -105,7 +108,7 @@ export async function forgeRequirements(forges: typeof Forges): Promise<ForgeReq
   return Promise.all(matrixProviders(forges).map(async ({ slug, name, provider: reference }) => {
     const kind = slug.toUpperCase().replaceAll('-', '_')
     const values = (fields: string[]) => Object.fromEntries(fields.map(field => [field, probeValue(field)]))
-    const required = CANDIDATES.filter(field => probe(kind, { ...values(CANDIDATES.filter(other => other !== field)), ENABLED: '1' }).skipped)
+    const required = CANDIDATES.filter(field => !CREDENTIAL_FIELDS.has(field) && probe(kind, { ...values(CANDIDATES.filter(other => other !== field)), ENABLED: '1' }).skipped)
     const supported = capabilityData(forges).groups.flatMap(group => group.rows.map(row => row.capability)).filter(capability => supportCell(at(reference.capabilities, capability)).level !== 'none')
     const unavailable = (provider?: Forges.ForgeProvider) => provider ? supported.filter(capability => supportCell(at(provider.capabilities, capability)).level === 'none') : supported
 

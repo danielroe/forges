@@ -1,6 +1,6 @@
 import type { ForgeCapabilities, ForgeProvider } from '../src/index.ts'
 import { existsSync, readdirSync, readFileSync } from 'node:fs'
-import { azureDevOps, bitbucket, cursorOrigin, forgejo, gitea, gitee, github, gitlab, pushin, tangled } from '../src/index.ts'
+import { azureDevOps, bitbucket, cloudflareArtifacts, cursorOrigin, forgejo, gitea, gitee, github, gitlab, pushin, tangled } from '../src/index.ts'
 
 /** The verbs a test run called, keyed `<forge>` and `<forge>:anonymous`, read from the files `test/setup/verbs.ts` writes. */
 export function readExercised(directory: URL): Map<string, Set<string>> {
@@ -36,6 +36,7 @@ export const CHECKED_PROVIDERS: Array<[string, ForgeProvider]> = [
   ['cursor-origin', cursorOrigin({ auth }).create()],
   ['tangled', tangled({ auth: { type: 'app_password', identifier: 'h', password: 'p' }, notificationsUrl: 'https://notifications.example' }).create()],
   ['pushin', pushin({ auth }).create()],
+  ['cloudflare-artifacts', cloudflareArtifacts({ auth, accountId: 'acme' }).create()],
   ['github:anonymous', github({}).create()],
   ['gitlab:anonymous', gitlab({}).create()],
   ['bitbucket:anonymous', bitbucket({}).create()],

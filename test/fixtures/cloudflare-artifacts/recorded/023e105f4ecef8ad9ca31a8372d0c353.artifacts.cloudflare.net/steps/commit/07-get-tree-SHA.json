@@ -1,0 +1,23 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.cloudflare.com/client/v4/accounts/023e105f4ecef8ad9ca31a8372d0c353/artifacts/namespaces/forges-fixtures/repos/forges-fixtures/tree/90af5ba43e97f9ac5729476a44a6aa9c179cf82e"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "result": [
+        {
+          "name": "index.ts",
+          "mode": "100644",
+          "hash": "7473ca36a30e978d34a96bdd091914d28116be0b",
+          "type": "blob"
+        }
+      ],
+      "success": true,
+      "errors": [],
+      "messages": []
+    }
+  }
+}

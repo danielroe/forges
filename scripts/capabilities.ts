@@ -9,17 +9,32 @@ export interface MatrixProvider {
   anonymous: Forges.ForgeProvider
 }
 
+/** Traits describe the provider, not an operation, so they stay the same without credentials. */
+const TRAITS = new Set(['experimental', 'eventKinds', 'authKinds', 'limits'])
+
+/** Without anonymous reads, a provider reaches nothing without credentials. Its traits stay. */
+function withoutCredentials(provider: Forges.ForgeProvider): Forges.ForgeProvider {
+  const capabilities = structuredClone(provider.capabilities) as unknown as Record<string, Record<string, unknown>>
+  for (const { capability } of CAPABILITY_TABLE.filter(entry => !TRAITS.has(entry.capability))) {
+    const [group, name] = capability.split('.') as [string, string | undefined]
+    if (name) {
+      capabilities[group]![name] = false
+    }
+    else {
+      (capabilities as Record<string, unknown>)[group] = false
+    }
+  }
+  return { ...provider, capabilities: capabilities as unknown as Forges.ForgeCapabilities }
+}
+
 /** Providers as the matrix and provider pages show them, keyed by their `docs/content/4.providers/<slug>.md` page. */
 export function matrixProviders(forges: typeof Forges): MatrixProvider[] {
-  const { azureDevOps, bitbucket, cursorOrigin, forgejo, gitea, gitee, github, gitlab, pushin, tangled } = forges
+  const { azureDevOps, bitbucket, cloudflareArtifacts, cursorOrigin, forgejo, gitea, gitee, github, gitlab, pushin, tangled } = forges
   const auth = { type: 'token', token: 'token' } as const
   const entry = <O>(slug: string, name: string, factory: (options: O) => Forges.ForgeProviderFactory, options: O): MatrixProvider => {
     const exported = Object.keys(forges).find(key => (forges as Record<string, unknown>)[key] === factory)!
     const provider = factory(options).create()
-    if (!provider.capabilities.authKinds.includes('anonymous')) {
-      throw new Error(`${name} has no anonymous provider to show support without credentials for`)
-    }
-    const anonymous = factory({ ...options, auth: undefined }).create()
+    const anonymous = provider.capabilities.authKinds.includes('anonymous') ? factory({ ...options, auth: undefined }).create() : withoutCredentials(provider)
     return { slug, name, factories: [exported, `${exported}Lite`].filter(key => key in forges), provider, anonymous }
   }
   return [
@@ -33,6 +48,7 @@ export function matrixProviders(forges: typeof Forges): MatrixProvider[] {
     entry('cursor-origin', 'Cursor Origin', cursorOrigin, { auth }),
     entry('pushin', 'Pushin.eu', pushin, { auth }),
     entry('tangled', 'Tangled', tangled, { auth: { type: 'app_password', identifier: 'handle', password: 'password' }, notificationsUrl: 'https://notifications.example' }),
+    entry('cloudflare-artifacts', 'Cloudflare Artifacts', cloudflareArtifacts, { auth, accountId: 'acme' }),
   ]
 }
 

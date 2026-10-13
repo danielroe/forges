@@ -1,0 +1,71 @@
+{
+  "items": [
+    {
+      "ref": {
+        "forge": "cloudflare-artifacts",
+        "instance": "023e105f4ecef8ad9ca31a8372d0c353.artifacts.cloudflare.net",
+        "owner": "forges-fixtures",
+        "name": "forges-fixtures-fork",
+        "externalId": "p9r239g19dngui09"
+      },
+      "defaultBranch": "main",
+      "visibility": "private",
+      "isFork": true,
+      "isArchived": false,
+      "parent": {
+        "forge": "cloudflare-artifacts",
+        "instance": "023e105f4ecef8ad9ca31a8372d0c353.artifacts.cloudflare.net",
+        "owner": "forges-fixtures",
+        "name": "forges-fixtures"
+      },
+      "topics": [],
+      "cloneUrls": {
+        "https": "https://023e105f4ecef8ad9ca31a8372d0c353.artifacts.cloudflare.net/git/forges-fixtures/forges-fixtures-fork.git"
+      },
+      "createdAt": "<now>",
+      "updatedAt": "<now>"
+    },
+    {
+      "ref": {
+        "forge": "cloudflare-artifacts",
+        "instance": "023e105f4ecef8ad9ca31a8372d0c353.artifacts.cloudflare.net",
+        "owner": "forges-fixtures",
+        "name": "forges-fixtures",
+        "externalId": "kdzpgp4t535f5i3i"
+      },
+      "description": "Fixtures for the forges Cloudflare Artifacts provider",
+      "defaultBranch": "main",
+      "visibility": "private",
+      "isFork": false,
+      "isArchived": false,
+      "topics": [],
+      "cloneUrls": {
+        "https": "https://023e105f4ecef8ad9ca31a8372d0c353.artifacts.cloudflare.net/git/forges-fixtures/forges-fixtures.git"
+      },
+      "createdAt": "<now>",
+      "updatedAt": "<now>"
+    },
+    {
+      "ref": {
+        "forge": "cloudflare-artifacts",
+        "instance": "023e105f4ecef8ad9ca31a8372d0c353.artifacts.cloudflare.net",
+        "owner": "forges-fixtures",
+        "name": "forges",
+        "externalId": "0u8n7d6zpq2tqded"
+      },
+      "defaultBranch": "main",
+      "visibility": "private",
+      "isFork": false,
+      "isArchived": false,
+      "topics": [],
+      "cloneUrls": {
+        "https": "https://023e105f4ecef8ad9ca31a8372d0c353.artifacts.cloudflare.net/git/forges-fixtures/forges.git"
+      },
+      "createdAt": "<now>",
+      "updatedAt": "<now>"
+    }
+  ],
+  "cursor": {
+    "token": "{\"namespace\":\"forges-fixtures\",\"next\":\"eyJ2IjoiZm9yZ2VzLWZpeHR1cmVzIiwicyI6Im5hbWVzcGFjZSJ9\",\"repos\":\"eyJ2IjoxNzkxODk5MDg4NzMxLCJpIjoiMHU4bjdkNnpwcTJ0cWRlZCIsInMiOiJjcmVhdGVkX2F0In0\"}"
+  }
+}

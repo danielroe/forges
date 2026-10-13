@@ -100,6 +100,8 @@ export interface ExplorerForge {
   options?: (input: ExplorerInput) => Record<string, string>
   /** Why calls can't run from a browser, when they can't. */
   blocked?: string
+  /** The forge has no anonymous reads, so the code passes `auth` for every call. */
+  signedIn?: true
   sample: ExplorerInput
 }
 
@@ -164,6 +166,19 @@ export const EXPLORER_FORGES: ExplorerForge[] = [
     options: () => ({ listSource: 'index', recordsUrl: 'https://slingshot.microcosm.blue' }),
     // A Tangled thread's number is the AT-URI of its record.
     sample: sample({ owner: 'tangled.org', name: 'core', number: 'at://did:plc:xasnlahkri4ewmbuzly2rlc5/sh.tangled.repo.pull/3mwqc5pt6dc5d', login: 'boltless.me' }),
+  },
+  {
+    name: 'Cloudflare Artifacts',
+    factory: 'cloudflareArtifacts',
+    module: 'cloudflare-artifacts',
+    load: () => import('forges/cloudflare-artifacts'),
+    forge: 'cloudflare-artifacts',
+    instance: '023e105f4ecef8ad9ca31a8372d0c353.artifacts.cloudflare.net',
+    auth: token('CLOUDFLARE_API_TOKEN'),
+    options: () => ({ accountId: '023e105f4ecef8ad9ca31a8372d0c353' }),
+    blocked: 'The Cloudflare API doesn\'t allow requests from browsers, and Artifacts has no anonymous reads.',
+    signedIn: true,
+    sample: sample({ owner: 'forges-fixtures', name: 'forges-fixtures', sha: 'main' }),
   },
 ]
 
@@ -509,6 +524,7 @@ function wrap(line: string): string {
 /**
  * The code that makes the same call, and where the form values appear in it. The code passes `auth` when
  * `auth` is set: by default for writes and reads of the account, which need credentials on every forge.
+ * A forge without anonymous reads gets `auth` on every call.
  */
 export function explorerCode(operation: ExplorerOperation, forge: ExplorerForge, input: ExplorerInput, auth = operation.auth): ExplorerCode {
   const context: CodeContext = {
@@ -523,7 +539,7 @@ export function explorerCode(operation: ExplorerOperation, forge: ExplorerForge,
   const factory = symbol(`factory:${forge.factory}`, forge.factory)
   const factoryOptions = [
     ...Object.entries(forge.options?.(input) ?? {}).map(([key, value]) => `${key}: ${literal(value)}`),
-    ...auth ? [`auth: ${authCode(forge.auth)}`] : [],
+    ...auth || forge.signedIn ? [`auth: ${authCode(forge.auth)}`] : [],
   ]
     .map(entry => entry.replace(/^(\w+):/, (_, key: string) => `${symbol(`option:${forge.factory}:${key}`, key)}:`))
 

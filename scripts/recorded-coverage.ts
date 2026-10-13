@@ -30,6 +30,7 @@ const FORGES: Array<[string, string]> = [
   ['cursor-origin', 'Cursor Origin'],
   ['pushin', 'Pushin.eu'],
   ['tangled', 'Tangled'],
+  ['cloudflare-artifacts', 'Cloudflare Artifacts'],
 ]
 
 const { values: flags } = parseArgs({ options: { out: { type: 'string' } } })

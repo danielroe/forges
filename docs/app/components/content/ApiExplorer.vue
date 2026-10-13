@@ -101,7 +101,7 @@ const anonymousSupport = computed(() => loaded.value?.anonymous.support(operatio
 const signedInSupport = computed(() => loaded.value?.signedIn.support(operation.verb, kind.value))
 const unsupported = computed(() => signedInSupport.value === false)
 /** The call needs credentials on this forge, so the code passes `auth`, and it doesn't run here. */
-const needsAuth = computed(() => operation.auth || (anonymousSupport.value === false && !unsupported.value))
+const needsAuth = computed(() => operation.auth || Boolean(forge.value.signedIn) || (anonymousSupport.value === false && !unsupported.value))
 const support = computed(() => needsAuth.value ? signedInSupport.value : anonymousSupport.value)
 const runnable = computed(() => Boolean(operation.run) && !forge.value.blocked && !needsAuth.value && !unsupported.value)
 

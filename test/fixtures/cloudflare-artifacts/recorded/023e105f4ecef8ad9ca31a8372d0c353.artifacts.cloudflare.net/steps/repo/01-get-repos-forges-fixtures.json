@@ -1,0 +1,27 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.cloudflare.com/client/v4/accounts/023e105f4ecef8ad9ca31a8372d0c353/artifacts/namespaces/forges-fixtures/repos/forges-fixtures"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "result": {
+        "id": "kdzpgp4t535f5i3i",
+        "name": "forges-fixtures",
+        "description": "Fixtures for the forges Cloudflare Artifacts provider",
+        "default_branch": "main",
+        "created_at": "2026-10-13T14:09:38.177Z",
+        "updated_at": "2026-10-13T14:09:39.072Z",
+        "last_push_at": null,
+        "source": null,
+        "read_only": false,
+        "remote": "https://023e105f4ecef8ad9ca31a8372d0c353.artifacts.cloudflare.net/git/forges-fixtures/forges-fixtures.git"
+      },
+      "success": true,
+      "errors": [],
+      "messages": []
+    }
+  }
+}

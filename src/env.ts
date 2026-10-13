@@ -2,6 +2,7 @@ import type { FetchLike } from './fetch.ts'
 import type { ForgeOptionsBase, ForgeProviderFactory, Forges } from './provider.ts'
 import { azureDevOps } from './azure-devops/index.ts'
 import { bitbucket } from './bitbucket/index.ts'
+import { cloudflareArtifacts } from './cloudflare-artifacts/index.ts'
 import { cursorOrigin } from './cursor-origin/index.ts'
 import { forgejo } from './forgejo/index.ts'
 import { gitea } from './gitea/index.ts'
@@ -12,7 +13,7 @@ import { createForges } from './provider.ts'
 import { pushin } from './pushin/index.ts'
 import { tangled } from './tangled/index.ts'
 
-const KINDS = ['GITHUB', 'GITLAB', 'BITBUCKET', 'FORGEJO', 'GITEA', 'TANGLED', 'CURSOR_ORIGIN', 'GITEE', 'AZURE_DEVOPS', 'PUSHIN'] as const
+const KINDS = ['GITHUB', 'GITLAB', 'BITBUCKET', 'FORGEJO', 'GITEA', 'TANGLED', 'CURSOR_ORIGIN', 'GITEE', 'AZURE_DEVOPS', 'PUSHIN', 'CLOUDFLARE_ARTIFACTS'] as const
 
 /** Field names, longest first so `INSTANCE_VERSION` is not read as `INSTANCE` with suffix `VERSION`. */
 const FIELDS = [
@@ -22,6 +23,7 @@ const FIELDS = [
   'WEBHOOK_SECRET',
   'PRIVATE_KEY',
   'ORGANIZATION',
+  'ACCOUNT_ID',
   'IDENTIFIER',
   'READ_ONLY',
   'BASE_URL',
@@ -163,6 +165,10 @@ function fromFields(kind: typeof KINDS[number], suffix: string, fields: Partial<
         ? { ...entry, factory: azureDevOps({ ...base, organization: fields.ORGANIZATION, ...auth ? { auth } : {} }) }
         : { ...entry, skipped: 'needs TOKEN, or USERNAME and PASSWORD, or ENABLED for anonymous reads' }
     }
+    case 'CLOUDFLARE_ARTIFACTS':
+      return fields.TOKEN && fields.ACCOUNT_ID
+        ? { ...entry, factory: cloudflareArtifacts({ ...base, accountId: fields.ACCOUNT_ID, auth: { type: 'token', token: fields.TOKEN } }) }
+        : { ...entry, skipped: 'needs TOKEN and ACCOUNT_ID' }
     case 'CURSOR_ORIGIN':
       if (fields.APP_ID && fields.PRIVATE_KEY) {
         return {

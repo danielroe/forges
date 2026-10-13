@@ -46,6 +46,8 @@ export interface StepContext {
   pull?: Thread
   login?: string
   headSha?: string
+  /** The sha the default branch resolves to. */
+  defaultSha?: string
   branches?: Branch[]
   tree?: TreeEntry[]
   releases?: Release[]
@@ -70,8 +72,8 @@ export interface Step {
 
 const page = { perPage: 3 }
 
-/** The pull's head, or for a forge whose pulls are patches without one, the head of a branch other than the default. */
-const headOf = (context: StepContext) => need(context.headSha ?? context.branches?.find(branch => !branch.isDefault)?.sha, 'the pull head sha')
+/** The pull's head, else the head of a branch other than the default, else the default branch. */
+const headOf = (context: StepContext) => need(context.headSha ?? context.branches?.find(branch => !branch.isDefault)?.sha ?? context.defaultSha, 'the pull head sha')
 
 /** The largest log, in characters, a step keeps, and the largest release asset, in bytes, it downloads. */
 export const LOG_LIMIT = 16_384
@@ -259,7 +261,7 @@ export const STEPS: Step[] = [
   { name: 'me', verb: 'users.me', run: provider => provider.users.me() },
   { name: 'own repos', verb: 'repos.listPage', run: provider => provider.repos.listPage(page) },
   { name: 'owner repos', verb: 'repos.byOwnerPage', run: (provider, manifest) => provider.repos.byOwnerPage(namespaceOf(manifest.repo, manifest.repo.owner), { visibility: 'public', sort: 'updated', subgroups: true, ...page }) },
-  { name: 'user repos', verb: 'repos.byOwnerPage', run: (provider, manifest, context) => provider.repos.byOwnerPage(namespaceOf(manifest.repo, need(context.login, 'a login')), page) },
+  { name: 'user repos', verb: 'repos.byOwnerPage', when: provider => provider.can('users.me'), run: (provider, manifest, context) => provider.repos.byOwnerPage(namespaceOf(manifest.repo, need(context.login, 'a login')), page) },
   { name: 'installations', verb: 'installations.listPage', run: provider => provider.installations.listPage(page) },
   { name: 'installation', verb: 'installations.get', run: (provider, manifest) => provider.installations.get(need(manifest.installation, 'manifest.installation')) },
   { name: 'installation repos', verb: 'installations.reposPage', run: (provider, manifest) => provider.installations.reposPage(need(manifest.installation, 'manifest.installation'), page) },
@@ -328,7 +330,10 @@ export const STEPS: Step[] = [
     return result
   } },
   { name: 'tags', verb: 'contents.tagsPage', run: (provider, manifest) => provider.contents.tagsPage(manifest.repo, page) },
-  { name: 'resolve default branch', verb: 'contents.resolveRef', run: (provider, manifest, context) => provider.contents.resolveRef(manifest.repo, need(context.repo?.defaultBranch, 'the default branch')) },
+  { name: 'resolve default branch', verb: 'contents.resolveRef', run: async (provider, manifest, context) => {
+    context.defaultSha = await provider.contents.resolveRef(manifest.repo, need(context.repo?.defaultBranch, 'the default branch'))
+    return context.defaultSha
+  } },
   { name: 'commits', verb: 'contents.commitsPage', run: (provider, manifest) => provider.contents.commitsPage(manifest.repo, page) },
   { name: 'commit', verb: 'contents.commit', run: (provider, manifest, context) => provider.contents.commit(manifest.repo, headOf(context)) },
   { name: 'compare', verb: 'contents.compare', run: (provider, manifest, context) => provider.contents.compare(manifest.repo, need(context.pull?.branches?.base.ref, 'the pull base'), headOf(context)) },
