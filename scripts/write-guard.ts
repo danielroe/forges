@@ -25,9 +25,12 @@ function within(url: string, prefixes: string[]): boolean {
   return prefixes.some(prefix => url === prefix || url.startsWith(prefix.endsWith('/') ? prefix : `${prefix}/`) || url.startsWith(`${prefix}?`))
 }
 
-/** Every string that is an id: under a key naming one (`id`, `labelIds`), or shaped like a GitHub node id. */
+/** Every string that is an id: under a key naming one (`id`, `labelIds`), or shaped like a GitHub node id. The zero oid names no object. */
 function ids(value: unknown, key = ''): string[] {
   if (typeof value === 'string') {
+    if (/^0{40}$/.test(value)) {
+      return []
+    }
     return /ids?$/i.test(key) || /^[A-Z][A-Z_]{0,5}_[\w-]{8,}$/i.test(value) || /^MD[A-Z0-9+/]{8,}={0,2}$/i.test(value) ? [value] : []
   }
   if (Array.isArray(value)) {

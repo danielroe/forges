@@ -272,6 +272,24 @@ export const WRITE_STEPS: WriteStep[] = [
     }
     throw new Error('The forge committed to a branch that had moved')
   } },
+  { name: 'commit files as an author to a moved branch', verb: 'contents.commitFiles', run: async (provider, manifest, context) => {
+    try {
+      await provider.contents.commitFiles(manifest.scratch, {
+        branch: filesBranch(manifest.run),
+        expectedHead: need(context.filesCommit, 'a commit of files').sha,
+        message: `test: change a file from run ${manifest.run.id}`,
+        author: { name: 'forges fixtures', email: 'fixtures@forges.link' },
+        changes: [{ path: filesPath(manifest.run, 'text.md'), content: 'Not written.\n' }],
+      })
+    }
+    catch (error) {
+      if (error instanceof BranchMovedError) {
+        return { name: error.name, status: error.status }
+      }
+      throw error
+    }
+    throw new Error('The forge committed to a branch that had moved')
+  } },
   { name: 'commit files deleting a missing file', verb: 'contents.commitFiles', run: async (provider, manifest) => {
     try {
       await provider.contents.commitFiles(manifest.scratch, {

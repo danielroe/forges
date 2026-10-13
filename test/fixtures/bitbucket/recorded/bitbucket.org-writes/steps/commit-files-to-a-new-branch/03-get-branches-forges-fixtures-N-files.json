@@ -1,0 +1,19 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.bitbucket.org/2.0/repositories/danielroe/forges-fixtures/refs/branches/forges-fixtures%2F20261012114132-files"
+  },
+  "response": {
+    "status": 404,
+    "headers": {
+      "etag": "\"c5a6e187835806446b713a88e7bbbe9d\"",
+      "x-ratelimit-limit": "1000"
+    },
+    "body": {
+      "type": "error",
+      "error": {
+        "message": "forges-fixtures/20261012114132-files"
+      }
+    }
+  }
+}

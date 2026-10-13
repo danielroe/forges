@@ -1,0 +1,50 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://api.github.com/graphql",
+    "operationName": "UpdateRefs",
+    "variables": {
+      "input": {
+        "repositoryId": "R_kgDOVCTdtA",
+        "refUpdates": [
+          {
+            "name": "refs/heads/forges-fixtures/20261012113502-files",
+            "beforeOid": "ab84d048fcb22a9aa3c0f150f70b09fcb205c2cc",
+            "afterOid": "813bcf7bff4533d9a39305032f80fe80dd398d00"
+          }
+        ]
+      }
+    },
+    "body": {
+      "query": "mutation UpdateRefs($input: UpdateRefsInput!) {\n  updateRefs(input: $input) { clientMutationId }\n}",
+      "variables": {
+        "input": {
+          "repositoryId": "R_kgDOVCTdtA",
+          "refUpdates": [
+            {
+              "name": "refs/heads/forges-fixtures/20261012113502-files",
+              "beforeOid": "ab84d048fcb22a9aa3c0f150f70b09fcb205c2cc",
+              "afterOid": "813bcf7bff4533d9a39305032f80fe80dd398d00"
+            }
+          ]
+        }
+      },
+      "operationName": "UpdateRefs"
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "x-ratelimit-limit": "5000",
+      "x-ratelimit-remaining": "4992",
+      "x-ratelimit-reset": "1791931278"
+    },
+    "body": {
+      "data": {
+        "updateRefs": {
+          "clientMutationId": null
+        }
+      }
+    }
+  }
+}

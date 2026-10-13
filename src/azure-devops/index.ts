@@ -138,7 +138,7 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
               }),
         }],
       },
-      mapError: error => !creating && error instanceof ForgeApiError && error.status === 409
+      mapError: error => !creating && error instanceof ForgeApiError && error.status === 409 && /GitReferenceStaleException|TF401028/.test(error.body)
         ? new BranchMovedError(`${input.branch} is no longer at ${head}`, error.status, error.body, context, { cause: error })
         : error,
       signal,

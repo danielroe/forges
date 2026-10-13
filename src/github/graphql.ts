@@ -463,6 +463,10 @@ export const REPOSITORY_ID = `query RepositoryId($owner: String!, $name: String!
   repository(owner: $owner, name: $name) { id }
 }`
 
+export const UPDATE_REFS = `mutation UpdateRefs($input: UpdateRefsInput!) {
+  updateRefs(input: $input) { clientMutationId }
+}`
+
 export const TRANSFER_ISSUE = `mutation TransferIssue($issue: ID!, $repo: ID!) {
   transferIssue(input: { issueId: $issue, repositoryId: $repo }) { issue { id number } }
 }`

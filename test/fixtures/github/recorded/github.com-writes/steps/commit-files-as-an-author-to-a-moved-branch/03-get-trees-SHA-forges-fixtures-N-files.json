@@ -1,0 +1,38 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/git/trees/6cfc5c7040cf8ed0b453cab0f08c8b2e02878b06%3Aforges-fixtures%2F20261012113502-files"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"8e88891ff15b15d22ff802ccd14853e944c9b1d14f2b2cce6b75f2943192461c\"",
+      "x-ratelimit-limit": "5000",
+      "x-ratelimit-remaining": "4899",
+      "x-ratelimit-reset": "1791931266"
+    },
+    "body": {
+      "sha": "ba57d87a423373f73ecc57dec7ef4703ac2febc3",
+      "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/git/trees/ba57d87a423373f73ecc57dec7ef4703ac2febc3",
+      "tree": [
+        {
+          "path": "bytes.bin",
+          "mode": "100644",
+          "type": "blob",
+          "sha": "25c851ed069d02318bf068f936150b642128f0e7",
+          "size": 5,
+          "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/git/blobs/25c851ed069d02318bf068f936150b642128f0e7"
+        },
+        {
+          "path": "text.md",
+          "mode": "100644",
+          "type": "blob",
+          "sha": "6ab3d6f18b10caee0a688a59687bb197f32103cf",
+          "size": 19,
+          "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/git/blobs/6ab3d6f18b10caee0a688a59687bb197f32103cf"
+        }
+      ],
+      "truncated": false
+    }
+  }
+}

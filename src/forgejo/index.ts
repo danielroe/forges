@@ -221,7 +221,7 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
       const existing = await existingFiles(input.changes, inDirectories(async (directory) => {
         try {
           const { data } = await fetcher.json<ForgejoContentFile[] | ForgejoContentFile>(`${repoPath(repo)}/contents${directory ? `/${directory.split('/').map(encodeURIComponent).join('/')}` : ''}`, { query: { ref }, signal })
-          return Array.isArray(data) ? new Map(data.filter(entry => entry.type === 'file').map(entry => [entry.path, entry.sha])) : undefined
+          return Array.isArray(data) ? new Map(data.filter(entry => entry.type === 'file' || entry.type === 'symlink').map(entry => [entry.path, entry.sha])) : undefined
         }
         catch (error) {
           if (error instanceof NotFoundError) {
@@ -246,7 +246,10 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
     }
     catch (error) {
       if (input.createFrom !== undefined) {
-        await fetcher.raw(branchPath, { method: 'DELETE' }).catch(() => {})
+        const created = await fetcher.json<ForgejoBranch>(branchPath).catch(() => undefined)
+        if (created?.data.commit?.id === head) {
+          await fetcher.raw(branchPath, { method: 'DELETE' }).catch(() => {})
+        }
       }
       throw error
     }

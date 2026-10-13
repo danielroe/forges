@@ -69,7 +69,7 @@ Forgejo before 15 ignores the branch filter, so `ci.runs()` drops the runs of ot
 
 ## Committing files
 
-Forgejo can't check the head of a branch as it commits, so with `expectedHead`, `contents.commitFiles()` reads the branch first and rejects with `BranchMovedError` when it has moved. A commit that lands between the two requests isn't caught. With `createFrom`, the provider creates the branch before the commit, and deletes it again when the commit fails. Forgejo records `author` as the committer too.
+Forgejo can't check the head of a branch as it commits, so with `expectedHead`, `contents.commitFiles()` reads the branch first and rejects with `BranchMovedError` when it has moved. A commit that lands between the two requests isn't caught. With `createFrom`, the provider creates the branch before the commit. If the commit fails, the provider deletes the branch again, unless it has moved since. Forgejo records `author` as the committer too.
 
 ## Listing an owner's repositories
 

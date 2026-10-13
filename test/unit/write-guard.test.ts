@@ -48,9 +48,10 @@ describe('write recording guard', () => {
     await fetch(`${api}/repos/bot/forges-fixtures/issues/1`)
     const commit = (repositoryNameWithOwner: string) => graphql('mutation CreateCommitOnBranch($input: CreateCommitOnBranchInput!) { x }', { input: { branch: { repositoryNameWithOwner, branchName: 'main' }, expectedHeadOid: 'I_kwDOscratch2' } })
     await commit('bot/forges-fixtures')
+    await graphql('mutation UpdateRefs($input: UpdateRefsInput!) { x }', { input: { repositoryId: 'I_kwDOscratch2', refUpdates: [{ name: 'refs/heads/new', beforeOid: '0'.repeat(40), afterOid: 'I_kwDOscratch2' }] } })
 
     await expect(commit('nuxt/nuxt')).rejects.toThrow(/other than the scratch repositories/)
-    expect(sent).toHaveLength(2)
+    expect(sent).toHaveLength(3)
   })
 
   it('allows a Tangled record only when it names the scratch repository or the account itself', () => {

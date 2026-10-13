@@ -620,8 +620,18 @@ function createProvider<TOptions extends ForgeOptionsBase, TState, HasWeb extend
       }
       const changes = input.changes.map(change => ({ ...change, path: change.path.replace(/^\/+/, '') }))
       const paths = new Set(changes.map(change => change.path))
-      if (!changes.length || paths.has('') || paths.size < changes.length) {
+      if (!changes.length || paths.size < changes.length) {
         throw new TypeError('`changes` must name at least one file, and each file once')
+      }
+      const invalid = changes.find(change => change.path.split('/').some(segment => segment === '' || segment === '.' || segment === '..'))
+      if (invalid) {
+        throw new TypeError(`\`${invalid.path}\` is not a path to a file: it has an empty, \`.\` or \`..\` segment`)
+      }
+      if (!input.branch || !input.message.trim()) {
+        throw new TypeError('`branch` and `message` cannot be empty')
+      }
+      if (input.expectedHead !== undefined && !isSha(input.expectedHead)) {
+        throw new TypeError('`expectedHead` must be a full commit sha')
       }
       if (input.expectedHead !== undefined && input.createFrom !== undefined) {
         throw new TypeError('`expectedHead` and `createFrom` cannot be combined: a branch created from `createFrom` has no head yet')

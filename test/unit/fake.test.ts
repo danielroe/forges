@@ -296,6 +296,11 @@ describe('fake forge', () => {
     await expect(forge.contents.commitFiles(repo, { branch: 'docs', message: 'missing', changes: [{ path: 'OLD.md', content: null }] })).rejects.toThrow(NotFoundError)
     await expect(forge.contents.commitFiles(repo, { branch: 'main', message: 'twice', changes: [{ path: 'a', content: '' }, { path: '/a', content: '' }] })).rejects.toThrow(TypeError)
     await expect(forge.contents.commitFiles(repo, { branch: 'new', createFrom: 'main', expectedHead: first.sha, message: 'both', changes: [{ path: 'a', content: '' }] })).rejects.toThrow(TypeError)
+    for (const path of ['docs/../README.md', './README.md', 'docs//README.md', 'docs/']) {
+      await expect(forge.contents.commitFiles(repo, { branch: 'docs', message: 'path', changes: [{ path, content: '' }] })).rejects.toThrow(TypeError)
+    }
+    await expect(forge.contents.commitFiles(repo, { branch: 'docs', expectedHead: first.sha.slice(0, 7), message: 'short', changes: [{ path: 'a', content: '' }] })).rejects.toThrow(TypeError)
+    await expect(forge.contents.commitFiles(repo, { branch: 'docs', message: ' ', changes: [{ path: 'a', content: '' }] })).rejects.toThrow(TypeError)
   })
   it('searches seeded threads and repositories', async () => {
     const forge = fake({ seed }).create()

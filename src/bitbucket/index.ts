@@ -223,14 +223,27 @@ const BITBUCKET: ProviderDefinition<BitbucketOptions, undefined, true> = {
     }
 
     /**
-     * Bitbucket commits on top of the `parents` it is given, and refuses when the branch is elsewhere,
-     * so the head of the branch is always named. Its response names the commit only in `location`.
+     * Bitbucket creates a branch that does not exist, and commits on top of the `parents` it is given, refusing
+     * when the branch is elsewhere. So the branch is read first and its head always named. File fields start with `/`,
+     * so that a file cannot replace `message` or `branch`. The response names the commit only in `location`.
      */
     async function commitFiles(repo: RepoRef, input: CommitFilesInput, options?: BaseOptions): Promise<Commit> {
       const signal = options?.signal
-      const parent = input.expectedHead ?? (input.createFrom === undefined
-        ? (await fetcher.json<BitbucketRef>(`${repoPathOf(repo)}/refs/branches/${encodeURIComponent(input.branch)}`, { signal })).data.target?.hash
-        : (await fetcher.json<BitbucketCommitDetail>(`${repoPathOf(repo)}/commit/${encodeURIComponent(input.createFrom)}`, { signal })).data.hash)
+      const branch = () => fetcher.json<BitbucketRef>(`${repoPathOf(repo)}/refs/branches/${encodeURIComponent(input.branch)}`, { signal }).then(result => result.data)
+      let parent: string | undefined
+      if (input.createFrom === undefined) {
+        parent = (await branch()).target?.hash
+        if (input.expectedHead !== undefined && parent !== input.expectedHead.toLowerCase()) {
+          throw new BranchMovedError(`${input.branch} is at ${parent}, not ${input.expectedHead}`, 409, '', context)
+        }
+      }
+      else {
+        const existing = await branch().catch((error: unknown) => error instanceof NotFoundError ? undefined : Promise.reject(error))
+        if (existing) {
+          throw new ForgeApiError(`${input.branch} already exists`, 409, '', context)
+        }
+        parent = (await fetcher.json<BitbucketCommitDetail>(`${repoPathOf(repo)}/commit/${encodeURIComponent(input.createFrom)}`, { signal })).data.hash
+      }
       const deletions = input.changes.filter(change => change.content === null)
       await existingFiles(deletions, async (path) => {
         try {
@@ -257,7 +270,7 @@ const BITBUCKET: ProviderDefinition<BitbucketOptions, undefined, true> = {
           form.append('files', path)
         }
         else {
-          form.set(path, new Blob([changeBytes(content) as Uint8Array<ArrayBuffer>]), path.slice(path.lastIndexOf('/') + 1))
+          form.set(`/${path}`, new Blob([changeBytes(content) as Uint8Array<ArrayBuffer>]), path.slice(path.lastIndexOf('/') + 1))
         }
       }
       const response = await fetcher.raw(`${repoPathOf(repo)}/src`, {

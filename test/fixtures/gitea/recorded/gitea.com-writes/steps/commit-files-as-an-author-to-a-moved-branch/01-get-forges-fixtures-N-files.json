@@ -1,0 +1,46 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitea.com/api/v1/repos/forges-fixtures/forges-fixtures/branches/forges-fixtures/20261012113905-files"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "name": "forges-fixtures/20261012113905-files",
+      "commit": {
+        "id": "247a7478cbd7ebdbb0a4ef68b468369b823da8a0",
+        "message": "test: add a file from run 20261012113905\n",
+        "url": "https://gitea.com/forges-fixtures/forges-fixtures/commit/247a7478cbd7ebdbb0a4ef68b468369b823da8a0",
+        "author": {
+          "name": "forges fixtures",
+          "email": "redacted@example.invalid",
+          "username": ""
+        },
+        "committer": {
+          "name": "forges fixtures",
+          "email": "redacted@example.invalid",
+          "username": ""
+        },
+        "verification": {
+          "verified": false,
+          "reason": "gpg.error.not_signed_commit",
+          "signature": "",
+          "signer": null,
+          "payload": ""
+        },
+        "timestamp": "2026-10-13T21:46:10Z",
+        "added": null,
+        "removed": null,
+        "modified": null
+      },
+      "protected": false,
+      "required_approvals": 0,
+      "enable_status_check": false,
+      "status_check_contexts": [],
+      "user_can_push": true,
+      "user_can_merge": true,
+      "effective_branch_protection_name": ""
+    }
+  }
+}

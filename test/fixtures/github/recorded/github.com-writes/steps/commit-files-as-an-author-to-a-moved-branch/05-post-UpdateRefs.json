@@ -1,0 +1,50 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://api.github.com/graphql",
+    "operationName": "UpdateRefs",
+    "variables": {
+      "input": {
+        "repositoryId": "R_kgDOVCTdtA",
+        "refUpdates": [
+          {
+            "name": "refs/heads/forges-fixtures/20261012113502-files",
+            "beforeOid": "6cfc5c7040cf8ed0b453cab0f08c8b2e02878b06",
+            "afterOid": "a3670f0daaaa9b8c1bde99243cb806eaf185acc5"
+          }
+        ]
+      }
+    },
+    "body": {
+      "query": "mutation UpdateRefs($input: UpdateRefsInput!) {\n  updateRefs(input: $input) { clientMutationId }\n}",
+      "variables": {
+        "input": {
+          "repositoryId": "R_kgDOVCTdtA",
+          "refUpdates": [
+            {
+              "name": "refs/heads/forges-fixtures/20261012113502-files",
+              "beforeOid": "6cfc5c7040cf8ed0b453cab0f08c8b2e02878b06",
+              "afterOid": "a3670f0daaaa9b8c1bde99243cb806eaf185acc5"
+            }
+          ]
+        }
+      },
+      "operationName": "UpdateRefs"
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "x-ratelimit-limit": "5000",
+      "x-ratelimit-remaining": "4969",
+      "x-ratelimit-reset": "1791931278"
+    },
+    "body": {
+      "errors": [
+        {
+          "message": "Something went wrong while executing your query on 2026-10-13T21:45:35Z. Please include `DBA8:343CCE:9ED9:A569:6ACEA67E` when reporting this issue."
+        }
+      ]
+    }
+  }
+}

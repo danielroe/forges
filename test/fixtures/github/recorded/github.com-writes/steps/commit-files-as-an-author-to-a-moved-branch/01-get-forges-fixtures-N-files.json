@@ -1,19 +1,16 @@
 {
   "request": {
-    "method": "PATCH",
-    "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/git/refs/heads/forges-fixtures/20261012113502-files",
-    "body": {
-      "sha": "813bcf7bff4533d9a39305032f80fe80dd398d00",
-      "force": false
-    }
+    "method": "GET",
+    "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/git/ref/heads/forges-fixtures/20261012113502-files"
   },
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"6fd8b32d1dc5538028e9c7dd48c6e6ea186bcb6ad7f20b95b236e019e77bd4e4\"",
+      "etag": "W/\"6e33970bede7672ca53c8ffb413b0dd0a193e73e8cf768d9e66be3ddb5137a18\"",
       "x-ratelimit-limit": "5000",
-      "x-ratelimit-remaining": "4971",
-      "x-ratelimit-reset": "1791924278"
+      "x-ratelimit-remaining": "4897",
+      "x-ratelimit-reset": "1791931266",
+      "x-poll-interval": "300"
     },
     "body": {
       "ref": "refs/heads/forges-fixtures/20261012113502-files",

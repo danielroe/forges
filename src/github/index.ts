@@ -249,6 +249,8 @@ function branchPath(branch: string): string {
  * GitHub's refusal to move a branch that is no longer at the commit a write built on, as `BranchMovedError`,
  * and to delete a file that does not exist, as `NotFoundError`.
  */
+const ZERO_OID = '0'.repeat(40)
+
 function commitError(error: unknown): unknown {
   if (!(error instanceof ForgeApiError) || error.constructor !== ForgeApiError) {
     return error
@@ -1349,15 +1351,20 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
     return input.expectedHead ?? (await fetcher.json<GitHubGitRef>(`${repoPath(repo)}/git/ref/heads/${branchPath(input.branch)}`, { signal: options?.signal })).data.object.sha
   }
 
-  async function createBranch(repo: RepoRef, branch: string, sha: string, options?: BaseOptions): Promise<void> {
-    await fetcher.json(`${repoPath(repo)}/git/refs`, { method: 'POST', json: { ref: `refs/heads/${branch}`, sha }, signal: options?.signal })
+  /** Moves `branch` from `before` to `after` only if it is still at `before`. The zero oid stands for a branch that does not exist. */
+  async function swapBranch(repo: RepoRef, branch: string, before: string, after: string, options?: BaseOptions): Promise<void> {
+    const { repository } = await graphql<{ repository: { id: string } | null }>('REPOSITORY_ID', { owner: repo.owner, name: repo.name }, options)
+    if (!repository) {
+      throw new NotFoundError(`${repo.owner}/${repo.name} does not exist`, 404, '', context)
+    }
+    await graphql('UPDATE_REFS', { input: { repositoryId: repository.id, refUpdates: [{ name: `refs/heads/${branch}`, beforeOid: before, afterOid: after }] } }, options)
   }
 
   /** One `createCommitOnBranch` mutation, which GitHub signs and attributes to the credential's account. */
   async function commitOnBranch(repo: RepoRef, input: CommitFilesInput, options?: BaseOptions): Promise<Commit> {
     const head = await commitParent(repo, input, options)
     if (input.createFrom !== undefined) {
-      await createBranch(repo, input.branch, head, options)
+      await fetcher.json(`${repoPath(repo)}/git/refs`, { method: 'POST', json: { ref: `refs/heads/${input.branch}`, sha: head }, signal: options?.signal })
     }
     const fileChanges = {
       additions: input.changes.flatMap(change => change.content === null ? [] : [{ path: change.path, contents: changeBase64(change.content) }]),
@@ -1374,7 +1381,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
     }
     catch (error) {
       if (input.createFrom !== undefined) {
-        await fetcher.raw(`${repoPath(repo)}/git/refs/heads/${branchPath(input.branch)}`, { method: 'DELETE' }).catch(() => {})
+        await swapBranch(repo, input.branch, head, ZERO_OID).catch(() => {})
       }
       throw commitError(error)
     }
@@ -1399,7 +1406,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
       }
     }), context)
     const entries = await Promise.all(input.changes.map(async ({ path, content }) => {
-      const mode = existing.get(path)?.mode ?? '100644'
+      const mode = existing.get(path)?.mode === '100755' ? '100755' : '100644'
       if (content === null || typeof content === 'string') {
         return { path, mode, type: 'blob', ...content === null ? { sha: null } : { content } }
       }
@@ -1412,11 +1419,19 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
       json: { message: input.message, tree: created.sha, parents: [parent], author: input.author },
       signal,
     })
-    if (input.createFrom !== undefined) {
-      await createBranch(repo, input.branch, commit.sha, options)
+    try {
+      await swapBranch(repo, input.branch, input.createFrom === undefined ? parent : ZERO_OID, commit.sha, options)
     }
-    else {
-      await fetcher.json(`${repoPath(repo)}/git/refs/heads/${branchPath(input.branch)}`, { method: 'PATCH', json: { sha: commit.sha, force: false }, mapError: commitError, signal })
+    catch (error) {
+      if (input.createFrom !== undefined) {
+        throw error
+      }
+      // GitHub reports a stale `beforeOid` only as an internal error, so the branch is read again to tell.
+      const { data } = await fetcher.json<GitHubGitRef>(`${repoPath(repo)}/git/ref/heads/${branchPath(input.branch)}`, { signal })
+      if (data.object.sha !== parent && error instanceof ForgeApiError) {
+        throw new BranchMovedError(`${input.branch} is at ${data.object.sha}, not ${parent}`, error.status, error.body, context, { cause: error })
+      }
+      throw error
     }
     return toGitCommit(repo, commit)
   }

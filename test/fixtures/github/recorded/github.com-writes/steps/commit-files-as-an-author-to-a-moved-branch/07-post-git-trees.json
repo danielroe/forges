@@ -3,19 +3,13 @@
     "method": "POST",
     "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/git/trees",
     "body": {
-      "base_tree": "ab84d048fcb22a9aa3c0f150f70b09fcb205c2cc",
+      "base_tree": "6cfc5c7040cf8ed0b453cab0f08c8b2e02878b06",
       "tree": [
         {
           "path": "forges-fixtures/20261012113502-files/text.md",
           "mode": "100644",
           "type": "blob",
-          "content": "Changed again by forges.\n"
-        },
-        {
-          "path": "forges-fixtures/20261012113502-files/author.md",
-          "mode": "100644",
-          "type": "blob",
-          "content": "Written by an author.\n"
+          "content": "Not written.\n"
         }
       ]
     }
@@ -23,15 +17,15 @@
   "response": {
     "status": 201,
     "headers": {
-      "etag": "\"bc043063464ce28f530614d5329256e30558293ada3a27cda31af487e660e3fe\"",
-      "location": "https://api.github.com/repos/forges-fixtures/forges-fixtures/git/trees/e006d046280bd13a8922f42c2197cc3af5a510ab",
+      "etag": "\"d9657496c64a2a54914bf8b45cc4d6673addbd831915fda596f0f8192665b8ab\"",
+      "location": "https://api.github.com/repos/forges-fixtures/forges-fixtures/git/trees/d35b70b73113d97b4981dd8870f12bca0e0bad6f",
       "x-ratelimit-limit": "5000",
-      "x-ratelimit-remaining": "4973",
-      "x-ratelimit-reset": "1791924278"
+      "x-ratelimit-remaining": "4914",
+      "x-ratelimit-reset": "1791931268"
     },
     "body": {
-      "sha": "e006d046280bd13a8922f42c2197cc3af5a510ab",
-      "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/git/trees/e006d046280bd13a8922f42c2197cc3af5a510ab",
+      "sha": "d35b70b73113d97b4981dd8870f12bca0e0bad6f",
+      "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/git/trees/d35b70b73113d97b4981dd8870f12bca0e0bad6f",
       "tree": [
         {
           "path": ".github",
@@ -60,8 +54,8 @@
           "path": "forges-fixtures",
           "mode": "040000",
           "type": "tree",
-          "sha": "12bc8e9738d571867ef572c0797dbc5220e46367",
-          "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/git/trees/12bc8e9738d571867ef572c0797dbc5220e46367"
+          "sha": "b16e04ad264ce80e91ee691116ae7d5a3c2d1445",
+          "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/git/trees/b16e04ad264ce80e91ee691116ae7d5a3c2d1445"
         },
         {
           "path": "package-lock.json",
