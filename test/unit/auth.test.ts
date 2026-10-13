@@ -3,6 +3,7 @@ import type { ForgeProviderFactory } from '../../src/provider.ts'
 import { describe, expect, it } from 'vitest'
 import { azureDevOps } from '../../src/azure-devops/index.ts'
 import { bitbucket } from '../../src/bitbucket/index.ts'
+import { cloudflareArtifacts } from '../../src/cloudflare-artifacts/index.ts'
 import { cursorOrigin } from '../../src/cursor-origin/index.ts'
 import { forgejo } from '../../src/forgejo/index.ts'
 import { gitee } from '../../src/gitee/index.ts'
@@ -21,6 +22,7 @@ const FACTORIES: Record<string, TokenFactory> = {
   'azure-devops': (token, fetch) => azureDevOps({ auth: { type: 'token', token }, organization: 'acme', fetch }),
   'cursor-origin': (token, fetch) => cursorOrigin({ auth: { type: 'token', token }, fetch }),
   'pushin': (token, fetch) => pushin({ auth: { type: 'token', token }, fetch }),
+  'cloudflare-artifacts': (token, fetch) => cloudflareArtifacts({ auth: { type: 'token', token }, accountId: 'acme', fetch }),
 }
 
 describe('token auth', () => {
