@@ -5,7 +5,7 @@ import type { ForgeVerb } from '../supports.ts'
 import type { ArtifactsCommit, ArtifactsEnvelope, ArtifactsNamespace, ArtifactsRepository, ArtifactsTreeEntry } from './types.ts'
 import { isSha, toFileContent } from '../contents.ts'
 import { defineForgeProvider, perKind, verb } from '../define.ts'
-import { NotFoundError, UnsupportedOperationError } from '../errors.ts'
+import { ForgeError, NotFoundError, UnsupportedOperationError } from '../errors.ts'
 import { mapConcurrent, resolveToken } from '../utils.ts'
 import { FORGE, toCommit, toRepo, toTreeType } from './normalise.ts'
 
@@ -35,7 +35,7 @@ const SORTS = { created: 'created_at', updated: 'updated_at', pushed: 'last_push
 /** Where the listing resumes: inside a namespace, or at the cursor of the next one. */
 type ListState = { namespace: string, next?: string, repos?: string } | { after: string }
 
-/** A whole page size above zero, or the default, so a page of `0` or `NaN` can't stall the listing. */
+/** A whole page size above zero, or the default, so `0` or `NaN` can't stall the listing. */
 function pageSize(perPage: number | undefined, max = Number.POSITIVE_INFINITY): number {
   return perPage !== undefined && Number.isInteger(perPage) && perPage > 0 ? Math.min(perPage, max) : DEFAULT_PAGE
 }
@@ -60,6 +60,9 @@ function setupArtifacts({ options, origin, fetcher }: ProviderContext<Cloudflare
   }
 
   async function reposIn(namespace: string, query: RepoQuery & OwnerRepoQuery, cursor?: string): Promise<Page<Repo>> {
+    if (query.visibility && query.visibility !== 'all' && query.visibility !== 'private') {
+      return { items: [] }
+    }
     const { result: items, result_info } = await result<ArtifactsRepository[]>(`${namespacePath(namespace)}/repos`, {
       limit: pageSize(query.perPage, MAX_REPOS),
       cursor,
@@ -69,12 +72,26 @@ function setupArtifacts({ options, origin, fetcher }: ProviderContext<Cloudflare
     return { items: items.map(raw => toRepo(origin, namespace, raw)), cursor: result_info?.cursor ? { token: result_info.cursor } : undefined }
   }
 
+  /** A cursor that `listRepos()` returned, or a `ForgeError` for one from anywhere else. */
+  function listState(token: string): ListState {
+    let state: unknown
+    try {
+      state = JSON.parse(token)
+    }
+    catch {}
+    const fields = state as Partial<Record<'namespace' | 'after', unknown>> | null | undefined
+    if (typeof fields?.namespace === 'string' || typeof fields?.after === 'string') {
+      return state as ListState
+    }
+    throw new ForgeError('The cursor did not come from repos.list() on Cloudflare Artifacts', origin)
+  }
+
   /** One namespace at a time, so a page holds the repositories of one namespace. */
   async function listRepos(query: RepoQuery = {}): Promise<Page<Repo>> {
     if (query.affiliation && !query.affiliation.includes('owner')) {
       return { items: [] }
     }
-    const state = query.cursor?.token ? JSON.parse(query.cursor.token) as ListState : undefined
+    const state = query.cursor?.token ? listState(query.cursor.token) : undefined
     let current = state && 'namespace' in state ? state : undefined
     if (!current) {
       const { result: [first], result_info } = await result<ArtifactsNamespace[]>(root, { limit: 1, cursor: state && 'after' in state ? state.after : undefined }, query.signal)
@@ -137,7 +154,7 @@ function setupArtifacts({ options, origin, fetcher }: ProviderContext<Cloudflare
         for (const name of new Set([...old, ...current].map(entry => entry.name))) {
           const was = old.find(entry => entry.name === name)
           const is = current.find(entry => entry.name === name)
-          if (was?.hash === is?.hash) {
+          if (was?.hash === is?.hash && was?.mode === is?.mode) {
             continue
           }
           const path = `${prefix}${name}`
@@ -147,7 +164,8 @@ function setupArtifacts({ options, origin, fetcher }: ProviderContext<Cloudflare
           const blobBefore = was && was.type !== 'tree' ? was.hash : undefined
           const blobAfter = is && is.type !== 'tree' ? is.hash : undefined
           if (blobBefore || blobAfter) {
-            files.push({ path, status: !blobBefore ? 'added' : !blobAfter ? 'removed' : 'modified', ...blobAfter ? { sha: blobAfter } : {}, before: blobBefore })
+            const status = !blobBefore ? 'added' : !blobAfter ? 'removed' : blobBefore === blobAfter ? 'changed' : 'modified'
+            files.push({ path, status, ...blobAfter ? { sha: blobAfter } : {}, before: blobBefore })
           }
         }
       }
@@ -155,7 +173,7 @@ function setupArtifacts({ options, origin, fetcher }: ProviderContext<Cloudflare
     return files.sort((a, b) => a.path < b.path ? -1 : a.path > b.path ? 1 : 0)
   }
 
-  /** Pairs a removed and an added file with the same blob, as Git does for a rename without edits. */
+  /** Pairs a removed and an added file with the same blob, as Git does for an unedited rename. */
   function withRenames(files: Array<ChangedFile & { before?: string }>): ChangedFile[] {
     const removedByBlob = new Map<string, string[]>()
     for (const file of files) {

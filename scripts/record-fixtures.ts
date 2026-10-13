@@ -73,15 +73,20 @@ if (target === 'cloudflare-artifacts' && !artifactsAccount) {
   exit(1)
 }
 
-/** Sends a request to the real account and names the example one in the JSON it returns. */
+/** Sends a request to the real account and names the example one in any text it returns. */
 async function liveFetch(input: string, init?: RequestInit): Promise<Response> {
   if (!artifactsAccount) {
     return fetch(input, init)
   }
   const response = await fetch(input.replaceAll(ARTIFACTS_ACCOUNT, artifactsAccount), init)
-  return response.headers.get('content-type')?.includes('json')
-    ? new Response((await response.text()).replaceAll(artifactsAccount, ARTIFACTS_ACCOUNT), { status: response.status, statusText: response.statusText, headers: response.headers })
-    : response
+  const bytes = new Uint8Array(await response.arrayBuffer())
+  let text: string | undefined
+  try {
+    text = new TextDecoder('utf-8', { fatal: true }).decode(bytes)
+  }
+  catch {}
+  const body = text === undefined ? bytes : text.replaceAll(artifactsAccount, ARTIFACTS_ACCOUNT)
+  return new Response(bytes.length ? body : null, { status: response.status, statusText: response.statusText, headers: response.headers })
 }
 
 const root = env.FIXTURES_OUT ?? fileURLToPath(new URL(`../test/fixtures/${target}/recorded/`, import.meta.url))

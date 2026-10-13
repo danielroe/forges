@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { cloudflareArtifacts } from '../../src/cloudflare-artifacts/index.ts'
-import { NotFoundError } from '../../src/errors.ts'
+import { ForgeError, NotFoundError } from '../../src/errors.ts'
 import { fixtureFetch } from '../../src/testing/index.ts'
 
 const account = '023e105f4ecef8ad9ca31a8372d0c353'
@@ -55,6 +55,13 @@ describe('cloudflare artifacts', () => {
     }
     expect(names).toEqual(['agents/notes', 'agents/plans', 'builds/cache'])
     expect((await forge.repos.listPage({ affiliation: ['collaborator'] })).items).toEqual([])
+    expect((await forge.repos.listPage({ visibility: 'public' })).items).toEqual([])
+  })
+
+  it.each(['more-agents', '"agents"', '{"repos":"x"}'])('rejects a listing cursor that `repos.list()` did not return: %s', async (token) => {
+    const { forge, calls } = provider({})
+    await expect(forge.repos.listPage({ cursor: { token } })).rejects.toThrow(ForgeError)
+    expect(calls).toHaveLength(0)
   })
 
   it('pages commits by offset and warns about the filters the log ignores', async () => {
@@ -88,6 +95,16 @@ describe('cloudflare artifacts', () => {
       { path: 'README.md', status: 'added', sha: sha('5') },
       { path: 'src/index.ts', status: 'added', sha: sha('6') },
     ])
+  })
+
+  it('reports a file whose mode alone changed as `changed`', async () => {
+    const { forge } = provider({
+      [`GET ${notes}/commit/${sha('a')}`]: ok(commit(sha('a'), [sha('b')], sha('1'))),
+      [`GET ${notes}/commit/${sha('b')}`]: ok(commit(sha('b'), [], sha('2'))),
+      [`GET ${notes}/tree/${sha('1')}`]: ok([{ name: 'run.sh', mode: '100755', hash: sha('5'), type: 'exec' }]),
+      [`GET ${notes}/tree/${sha('2')}`]: ok([{ name: 'run.sh', mode: '100644', hash: sha('5'), type: 'blob' }]),
+    })
+    expect((await forge.contents.commit(repo, sha('a'))).files).toEqual([{ path: 'run.sh', status: 'changed', sha: sha('5') }])
   })
 
   it('rejects a tree path that runs into a file, and warns that it lists one level', async () => {

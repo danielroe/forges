@@ -62,7 +62,7 @@ The log only knows branch and tag names. A full ref name such as `refs/heads/mai
 
 Artifacts has no diff endpoint. So `contents.commit()` compares the commit's tree with the tree of its first parent, and reads only the directories that changed. A small commit costs a few requests. A commit that touches hundreds of directories costs hundreds.
 
-The comparison finds a rename only when the file moved without an edit. Git would call an edited rename `renamed` too, but here it's a `removed` file and an `added` one. The files don't carry line counts either. A shallow import leaves out the parents past its depth, and for the oldest commits `files` is then `undefined`.
+The comparison finds a rename only when the file moved without an edit. Git would call an edited rename `renamed` too, but here it's a `removed` file and an `added` one. A file whose mode alone changed comes back as `changed`. The files don't carry line counts either. A shallow import leaves out the parents past its depth, and for the oldest commits `files` is then `undefined`.
 
 There are no endpoints for branches, tags or comparing two refs, so those operations are unsupported.
 
