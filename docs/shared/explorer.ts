@@ -6,7 +6,7 @@ export type ExplorerField
   = | 'owner' | 'name' | 'kind' | 'number' | 'state' | 'path' | 'ref' | 'sha' | 'tag' | 'releaseId' | 'base' | 'head'
     | 'login' | 'query' | 'runId' | 'title' | 'body' | 'labels' | 'assignees' | 'reviewers' | 'method' | 'reaction'
     | 'reviewEvent' | 'reviewId' | 'reviewThread' | 'closeReason' | 'milestone' | 'canonical' | 'targetOwner'
-    | 'targetName' | 'labelName' | 'colour' | 'role' | 'key' | 'commentId' | 'notificationId' | 'webhookId'
+    | 'targetName' | 'labelName' | 'colour' | 'role' | 'team' | 'key' | 'commentId' | 'notificationId' | 'webhookId'
     | 'deliveryId' | 'webhookUrl' | 'secret' | 'checkName' | 'checkState' | 'checkId'
 
 /** The values a form holds. Lists are comma-separated. */
@@ -64,6 +64,7 @@ export const EXPLORER_FIELDS: Record<ExplorerField, ExplorerFieldConfig> = {
   labelName: { label: 'Label', default: 'needs triage' },
   colour: { label: 'Colour', placeholder: 'six-digit hex', default: 'fbca04' },
   role: { label: 'Role', items: options('read', 'triage', 'write', 'maintain', 'admin'), default: 'write' },
+  team: { label: 'Team', default: 'stewards' },
   key: { label: 'Key', default: 'release-notes' },
   commentId: { label: 'Comment id', default: '123' },
   notificationId: { label: 'Notification id', default: '1' },
@@ -253,6 +254,10 @@ export const EXPLORER_OPERATIONS: ExplorerOperation[] = [
   operation('repos.reviewerCandidates', { method: 'repos.reviewerCandidatesPage', returns: 'Page<Actor>', uses: 'thread', fields: fields('kind', 'number'), kind: threadKind, args: () => 'thread, { perPage: 5 }', run: (p, _, { thread }) => p.repos.reviewerCandidatesPage(thread, perPage) }),
   operation('repos.createLabel', { returns: 'Label', fields: fields('labelName', 'colour'), args: ({ value }) => `repo, { name: ${value('labelName')}, colour: ${value('colour')} }` }),
   operation('repos.addCollaborator', { returns: 'AddCollaboratorResult', fields: fields('login', 'role'), args: ({ value }) => `repo, ${value('login')}, ${value('role')}` }),
+
+  // Organisation teams
+  operation('orgs.teams', { method: 'orgs.teamsPage', returns: 'Page<Team>', uses: 'none', fields: fields('owner'), args: ({ origin, value }) => `{ ${origin}, owner: ${value('owner')}, name: '', kind: 'namespace' }, { perPage: 5 }`, run: (p, input, { origin }) => p.orgs.teamsPage({ ...origin, owner: input.owner, name: '', kind: 'namespace' }, perPage) }),
+  operation('orgs.teamMembers', { method: 'orgs.teamMembersPage', returns: 'Page<Actor>', uses: 'none', fields: fields('owner', 'team'), args: ({ origin, value }) => `{ ${origin}, owner: ${value('owner')}, name: '', kind: 'namespace' }, ${value('team')}, { perPage: 5 }` }),
 
   // Threads
   threadRead('threads.get', 'Thread', (p, _, { thread }) => p.threads.get(thread)),
