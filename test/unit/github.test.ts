@@ -1,7 +1,8 @@
+import type { TypedGraphQLDocument } from '../../src/github/index.ts'
 import type { GitHubNotification } from '../../src/github/types.ts'
 import type { ThreadRef } from '../../src/model.ts'
 import { generateKeyPairSync } from 'node:crypto'
-import { describe, expect, it, vi } from 'vitest'
+import { describe, expect, expectTypeOf, it, vi } from 'vitest'
 import { ContentNotTextError, ForbiddenError, InsufficientScopeError, NotFoundError, ReadOnlyError, UnresolvedThreadError, UnsupportedOperationError } from '../../src/errors.ts'
 import { graphqlOperations, graphqlUrl } from '../../src/github/graphql-client.ts'
 import { github } from '../../src/github/index.ts'
@@ -1199,6 +1200,32 @@ describe('github graphql', () => {
 
     expect(await provider.graphql(search)).toEqual({ search: { issueCount: 0 } })
     expect(JSON.parse(calls[0]!.body!)).toEqual({ query: search, variables: {} })
+  })
+
+  it('sends a typed document as its text and types the result and variables from it', async () => {
+    class TypedDocumentString<TResult, TVariables> extends String implements TypedGraphQLDocument<TResult, TVariables> {
+      declare __apiType?: (variables: TVariables) => TResult
+    }
+    const Repo = new TypedDocumentString<{ repository: { stargazerCount: number } | null }, { owner: string, name: string }>('query Repo($owner: String!, $name: String!) { repository(owner: $owner, name: $name) { stargazerCount } }')
+    const Viewer = new TypedDocumentString<{ viewer: { login: string } }, { [key: string]: never }>(viewer)
+    const { fetch, calls } = fixtureFetch('github', {
+      'POST https://api.github.com/graphql Repo': { status: 200, body: { data: { repository: { stargazerCount: 3 } } } },
+      'POST https://api.github.com/graphql Viewer': { status: 200, body: { data: { viewer: { login: 'octocat' } } } },
+      'POST https://api.github.com/graphql': { status: 200, body: { data: { total: 1 } } },
+    })
+    const provider = github({ auth: { type: 'token', token: 't' }, fetch }).create()
+
+    const repository = await provider.graphql(Repo, { owner: 'o', name: 'n' })
+    expectTypeOf(repository).toEqualTypeOf<{ repository: { stargazerCount: number } | null }>()
+    expect(repository).toEqual({ repository: { stargazerCount: 3 } })
+    expect(JSON.parse(calls[0]!.body!)).toEqual({ query: String(Repo), variables: { owner: 'o', name: 'n' }, operationName: 'Repo' })
+    expectTypeOf(await provider.graphql(Viewer)).toEqualTypeOf<{ viewer: { login: string } }>()
+    expectTypeOf(await provider.graphql<{ total: number }>('query { total }')).toEqualTypeOf<{ total: number }>()
+
+    // @ts-expect-error Repo requires its variables
+    await provider.graphql(Repo).catch(() => {})
+    // @ts-expect-error owner is a string
+    await provider.graphql(Repo, { owner: 1, name: 'n' }).catch(() => {})
   })
 
   it('rejects with the errors of the response', async () => {

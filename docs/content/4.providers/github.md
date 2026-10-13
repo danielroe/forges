@@ -140,6 +140,34 @@ const { viewer } = await forge.graphql<{ viewer: { login: string } }>(
 )
 ```
 
+To have the result and the variables typed for you, pass a typed document instead of a string. [GraphQL Code Generator](https://the-guild.dev/graphql/codegen) creates them from GitHub's [public schema](https://docs.github.com/public/fpt/schema.docs.graphql) with its client preset and `documentMode: 'string'`, in `codegen.ts`:
+
+```ts
+import type { CodegenConfig } from '@graphql-codegen/cli'
+
+export default {
+  schema: 'https://docs.github.com/public/fpt/schema.docs.graphql',
+  documents: ['src/**/*.ts'],
+  generates: {
+    './src/gql/': { preset: 'client', config: { documentMode: 'string' } },
+  },
+} satisfies CodegenConfig
+```
+
+The result of `graphql()` then has the type of the document's selection, and the variables that the document requires must be passed:
+
+```ts
+import { graphql } from './gql'
+
+const Stars = graphql(`
+  query Stars($owner: String!, $name: String!) {
+    repository(owner: $owner, name: $name) { stargazerCount }
+  }
+`)
+
+const { repository } = await forge.graphql(Stars, { owner: 'danielroe', name: 'forges' })
+```
+
 A read-only provider runs queries and rejects mutations with `ReadOnlyError`. GitHub's GraphQL API needs a credential, so an anonymous provider can't use it. Accounts in the data model carry the numeric ID, which GraphQL calls `databaseId`, so select that field to compare them with your results.
 
 ## Webhook management

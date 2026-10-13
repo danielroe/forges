@@ -180,14 +180,31 @@ export interface GitHubOptions extends ForgeOptionsBase {
   auth?: GitHubAuth
 }
 
+/**
+ * A GraphQL document that carries the types of its result and variables, such as a `TypedDocumentString`
+ * from GraphQL Code Generator with `documentMode: 'string'`.
+ */
+export interface TypedGraphQLDocument<TResult, TVariables> {
+  /** The text of the document. */
+  valueOf: () => string
+  /** Carries the types; it has no value at runtime. */
+  __apiType?: (variables: TVariables) => TResult
+}
+
+/** `provider.graphql()`: the result type comes from a {@link TypedGraphQLDocument}, or from the type argument of a plain string. */
+export interface GitHubGraphQL {
+  <TResult, TVariables>(document: TypedGraphQLDocument<TResult, TVariables>, ...args: Record<string, never> extends TVariables
+    ? [variables?: TVariables, options?: BaseOptions]
+    : [variables: TVariables, options?: BaseOptions]): Promise<TResult>
+  <T = unknown>(query: string, variables?: Record<string, unknown>, options?: BaseOptions): Promise<T>
+}
+
 /** A provider that `github()` and `githubLite()` create: every {@link ForgeProvider} member, and GitHub's GraphQL API. */
 export interface GitHubProvider extends ForgeProvider<true> {
   /**
    * Runs a GraphQL query or mutation against the provider's GitHub API and returns its `data`. A read-only provider
-   * runs queries and rejects mutations with `ReadOnlyError`.
-   * @param query The GraphQL document.
-   * @param variables The values of the document's variables.
-   * @param options A `signal` to abort the request.
+   * runs queries and rejects mutations with `ReadOnlyError`. Variables are required when the document is typed
+   * and declares a required variable.
    * @throws {InsufficientScopeError} When the token lacks a scope that a field needs.
    * @throws {ForgeApiError} When the response carries errors or no data.
    * @example
@@ -195,7 +212,7 @@ export interface GitHubProvider extends ForgeProvider<true> {
    * const { viewer } = await provider.graphql<{ viewer: { login: string } }>('query { viewer { login } }')
    * ```
    */
-  graphql: <T = unknown>(query: string, variables?: Record<string, unknown>, options?: BaseOptions) => Promise<T>
+  graphql: GitHubGraphQL
 }
 
 type GitHubExtensions = Pick<GitHubProvider, 'graphql'>
@@ -1437,9 +1454,12 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
 
   return {
     extensions: {
-      graphql: (query, variables = {}, graphqlOptions) => options.readOnly && graphqlOperations(query).some(({ type }) => type === 'mutation')
-        ? Promise.reject(new ReadOnlyError('GraphQL mutations are writes and this github provider is read-only', context))
-        : graphql({ query }, variables, graphqlOptions),
+      graphql: ((document: string | TypedGraphQLDocument<unknown, unknown>, variables: Record<string, unknown> = {}, graphqlOptions?: BaseOptions) => {
+        const query = String(document)
+        return options.readOnly && graphqlOperations(query).some(({ type }) => type === 'mutation')
+          ? Promise.reject(new ReadOnlyError('GraphQL mutations are writes and this github provider is read-only', context))
+          : graphql({ query }, variables, graphqlOptions)
+      }) as GitHubGraphQL,
     },
     checks: {
       list: verb(true, (repo, sha, options) => headChecks(repo, sha, options?.signal)),
