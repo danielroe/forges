@@ -369,7 +369,7 @@ function setupGitee({ instance, origin: context, fetcher, baseUrl }: ProviderCon
         const { data } = await fetcher.json<GiteeContributor[]>(`${repoPath(repo)}/contributors`, { signal: listOptions.signal })
         const all = data ?? []
         const offset = Number(listOptions.cursor?.token ?? 0)
-        const end = offset + (listOptions.perPage ?? PER_PAGE)
+        const end = listOptions.perPage === undefined ? all.length : offset + listOptions.perPage
         return {
           items: all.slice(offset, end).map(raw => ({ name: raw.name || undefined, email: raw.email || undefined, contributions: raw.contributions, raw })),
           cursor: end < all.length ? { token: String(end) } : undefined,

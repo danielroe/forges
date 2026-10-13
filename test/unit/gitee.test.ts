@@ -78,19 +78,22 @@ describe('gitee', () => {
   it('pages contributors from the whole list Gitee returns', async () => {
     const urls: string[] = []
     const forge = gitee({ fetch: async (url) => {
-      if (urls.push(url) > 4) {
+      if (urls.push(url) > 5) {
         return new Response(null, { status: 500 })
       }
-      return Response.json(Array.from({ length: 5 }, (_, index) => ({ name: `author ${index}`, email: '', contributions: 5 - index })))
+      return Response.json(Array.from({ length: 60 }, (_, index) => ({ name: `author ${index}`, email: '', contributions: 60 - index })))
     } }).create()
 
-    const all = await Array.fromAsync(forge.repos.contributors(repo, { perPage: 5 }))
-    const pages = await Array.fromAsync(forge.repos.contributors(repo, { perPage: 2 }))
+    const all = await Array.fromAsync(forge.repos.contributors(repo))
+    expect(urls).toHaveLength(1)
+    const exact = await Array.fromAsync(forge.repos.contributors(repo, { perPage: 60 }))
+    const pages = await Array.fromAsync(forge.repos.contributors(repo, { perPage: 25 }))
 
-    expect(all.map(item => item.name)).toEqual(['author 0', 'author 1', 'author 2', 'author 3', 'author 4'])
+    expect(all.map(item => item.name)).toEqual(Array.from({ length: 60 }, (_, index) => `author ${index}`))
+    expect(exact).toEqual(all)
     expect(pages).toEqual(all)
     expect(all[0]!.email).toBeUndefined()
-    expect(urls).toHaveLength(4)
+    expect(urls).toHaveLength(5)
   })
 
   it('sends the token in the Authorization header, never the URL', async () => {
