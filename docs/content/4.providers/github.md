@@ -159,7 +159,7 @@ Deliveries of the `installation` and `installation_repositories` events become `
 
 ## Organisation teams
 
-`orgs.teams()` reads the teams of an organisation with `GET /orgs/{org}/teams`, and `orgs.teamMembers()` reads `GET /orgs/{org}/teams/{slug}/members`. Both need a token with the `read:org` scope, or the `members` read permission on a fine-grained token, so `can('orgs.teams')` is `false` without a credential. Team members include bot accounts, such as `dependabot[bot]`, which carry `isBotHint: true`.
+`orgs.teams()` reads the teams of an organisation with `GET /orgs/{org}/teams`, and `orgs.teamMembers()` reads `GET /orgs/{org}/teams/{slug}/members`. Both need a token with the `read:org` scope, or the `members` read permission on a fine-grained token, so `can('orgs.teams')` is `false` without a credential. A team's members include the members of its child teams.
 
 <!-- capabilities:start -->
 ## Capabilities

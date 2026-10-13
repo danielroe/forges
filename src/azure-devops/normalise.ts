@@ -37,7 +37,6 @@ export function toTeam(instance: string, org: RepoRef, raw: AzureTeam): Team {
     ref: { forge: FORGE, instance, org, id: raw.id, slug: raw.name },
     name: raw.name,
     description: raw.description || undefined,
-    url: raw.url,
     raw,
   }
 }

@@ -278,7 +278,7 @@ export function toTeam(instance: string, org: RepoRef, raw: GitHubTeam): Team {
     permission: raw.permission,
     visibilityRaw: raw.privacy,
     parent,
-    url: raw.html_url ?? raw.url,
+    url: raw.html_url,
     raw,
   }
 }
