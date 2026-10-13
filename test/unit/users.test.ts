@@ -9,7 +9,6 @@ import { gitlab } from '../../src/gitlab/index.ts'
 import { NotFoundError, UnsupportedOperationError } from '../../src/index.ts'
 import { tangled } from '../../src/tangled/index.ts'
 import { fixtureFetch } from '../../src/testing/index.ts'
-import { fixtureFetch as githubFixtures } from '../utils/fixtures.ts'
 
 describe('users.get', () => {
   it('reads a GitHub account anonymously', async () => {
@@ -56,23 +55,21 @@ describe('users.get', () => {
 
 describe('users.sponsorable', () => {
   const auth = { type: 'token', token: 't' } as const
-  const override = (body: unknown): Record<string, { status: number, body: unknown }> => ({ 'POST https://api.github.com/graphql Sponsorable': { status: 200, body } })
 
-  it('reports false for an account without a sponsors listing', async () => {
-    const { fetch } = githubFixtures('github', override({ data: { repositoryOwner: { hasSponsorsListing: false } } }))
-
-    await expect(github({ auth, fetch }).create().users.sponsorable('octocat')).resolves.toBe(false)
-  })
-
-  it('rejects for an account GitHub does not report', async () => {
-    const { fetch } = githubFixtures('github', override({ data: { repositoryOwner: null } }))
+  it('rejects with NotFoundError for an unknown login', async () => {
+    const { fetch } = fixtureFetch([], { 'POST https://api.github.com/graphql Sponsorable': { status: 200, body: { data: { repositoryOwner: null } } } })
 
     await expect(github({ auth, fetch }).create().users.sponsorable('nobody')).rejects.toThrow(NotFoundError)
   })
 
-  it('is unsupported without a credential, on GitHub Enterprise Server, and on a forge that cannot report it', async () => {
+  it('is supported for a GitHub App installation', () => {
+    expect(github({ auth: { type: 'app', appId: 1, privateKey: 'k', installationId: 2 } }).create().can('users.sponsorable')).toBe(true)
+  })
+
+  it('is unsupported without a credential, as an app without an installation, on GitHub Enterprise Server, and on a forge that cannot report it', async () => {
+    const app = github({ auth: { type: 'app', appId: 1, privateKey: 'k' } }).create()
     const ghes = github({ baseUrl: 'https://ghe.example.com/api/v3', auth }).create()
-    for (const provider of [github({}).create(), ghes, bitbucket({}).create()]) {
+    for (const provider of [github({}).create(), app, ghes, bitbucket({}).create()]) {
       expect(provider.can('users.sponsorable')).toBe(false)
       await expect(provider.users.sponsorable('danielroe')).rejects.toThrow(UnsupportedOperationError)
     }

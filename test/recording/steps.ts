@@ -223,7 +223,13 @@ export const STEPS: Step[] = [
   ...commitSteps(),
   { name: 'permission', verb: 'repos.permissionFor', run: (provider, manifest, context) => orScratch(manifest, repo => provider.repos.permissionFor(repo, need(context.login, 'a login'))) },
   { name: 'user', verb: 'users.get', run: (provider, _manifest, context) => provider.users.get(need(context.login, 'a login')) },
-  { name: 'sponsorable', verb: 'users.sponsorable', run: (provider, _manifest, context) => provider.users.sponsorable(need(context.login, 'a login')) },
+  { name: 'sponsorable', verb: 'users.sponsorable', run: async (provider, manifest, context) => {
+    const sponsorable: Record<string, boolean> = {}
+    for (const login of [need(context.login, 'a login'), manifest.repo.owner]) {
+      sponsorable[login] = await provider.users.sponsorable(login)
+    }
+    return sponsorable
+  } },
   { name: 'me', verb: 'users.me', run: provider => provider.users.me() },
   { name: 'own repos', verb: 'repos.listPage', run: provider => provider.repos.listPage(page) },
   { name: 'owner repos', verb: 'repos.byOwnerPage', run: (provider, manifest) => provider.repos.byOwnerPage(namespaceOf(manifest.repo, manifest.repo.owner), { visibility: 'public', sort: 'updated', subgroups: true, ...page }) },

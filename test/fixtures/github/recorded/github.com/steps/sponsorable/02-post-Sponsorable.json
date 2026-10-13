@@ -1,0 +1,25 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://api.github.com/graphql",
+    "operationName": "Sponsorable",
+    "variables": {
+      "login": "iiio2"
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "x-ratelimit-limit": "5000",
+      "x-ratelimit-remaining": "4755",
+      "x-ratelimit-reset": "1791885648"
+    },
+    "body": {
+      "data": {
+        "repositoryOwner": {
+          "hasSponsorsListing": false
+        }
+      }
+    }
+  }
+}

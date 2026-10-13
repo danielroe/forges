@@ -4,20 +4,20 @@
     "url": "https://api.github.com/graphql",
     "operationName": "Sponsorable",
     "variables": {
-      "login": "iiio2"
+      "login": "h3js"
     }
   },
   "response": {
     "status": 200,
     "headers": {
       "x-ratelimit-limit": "5000",
-      "x-ratelimit-remaining": "4965",
-      "x-ratelimit-reset": "1791843376"
+      "x-ratelimit-remaining": "4753",
+      "x-ratelimit-reset": "1791885648"
     },
     "body": {
       "data": {
         "repositoryOwner": {
-          "hasSponsorsListing": false
+          "hasSponsorsListing": true
         }
       }
     }
