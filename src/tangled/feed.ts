@@ -53,7 +53,7 @@ export async function accountFeedPage({ atproto, recordEvent }: AccountFeedConte
   }
   const threads = new Map<string, Promise<ResolvedThreadRef | undefined>>()
   const items = await mapConcurrent(merged, 4, ({ collection, record }: { collection: string, record: RecordResponse }) =>
-    recordEvent({ uri: record.uri, collection, record: record.value, operation: 'create' }, 'poll', new Date(0), threads, signal))
+    recordEvent({ uri: record.uri, collection, record: record.value, operation: 'create' }, 'poll', new Date(), threads, signal))
   return {
     items,
     ...Object.keys(next).length ? { cursor: { token: JSON.stringify(next) } } : {},
