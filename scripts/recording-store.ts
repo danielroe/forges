@@ -190,7 +190,8 @@ export function connectedSteps(directory: string, names: Iterable<string>): Set<
  * - With `only`, the steps outside it are written too where their responses
  *   changed and they read from or are read by a written step, so that every
  *   recorded step still replays. Without it, steps the recording no longer
- *   has are removed and `setup/` is rewritten.
+ *   has are removed, `setup/` is rewritten, and unchanged steps take the
+ *   `needs` of this run.
  */
 export function writeRecording(directory: string, { steps, failed, setup, only, keepFailed = true }: { steps: StepRecording[], failed: StepRun[], setup: Fixture[], only?: Set<string>, keepFailed?: boolean }): RecordingResult {
   const result: RecordingResult = { written: [], extra: [], unchanged: [], kept: [], dropped: [], removed: [], stale: [] }
@@ -231,7 +232,7 @@ export function writeRecording(directory: string, { steps, failed, setup, only, 
     }
     else if (!changed.has(step.name)) {
       const previous = stored.get(step.name)!
-      if (JSON.stringify(previous.needs ?? []) !== JSON.stringify(step.needs)) {
+      if (!only && JSON.stringify(previous.needs ?? []) !== JSON.stringify(step.needs)) {
         writeStep(`${directory}steps/${previous.slug}/`, { ...previous, needs: step.needs })
       }
       result.unchanged.push(step.name)

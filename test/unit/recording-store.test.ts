@@ -121,6 +121,19 @@ describe('recording store', () => {
     expect(readdirSync(`${directory}setup`)).toEqual(['01-get-comments-N.json'])
   })
 
+  it('updates what an unchanged step reads only when every step is recorded', () => {
+    const directory = recording()
+    writeRecording(directory, { steps: [step('pull', [comment(1)]), step('checks', [comment(2)]), step('labels', [comment(3)])], failed: [], setup: [] })
+    const second = [step('pull', [comment(1)]), step('checks', [comment(2)], { needs: ['pull'] }), step('labels', [comment(4)])]
+    writeRecording(directory, { steps: second, failed: [], setup: [], only: new Set(['labels']) })
+
+    expect(JSON.parse(stepFile(directory, 'checks', 'step.json')).needs).toBeUndefined()
+
+    writeRecording(directory, { steps: second, failed: [], setup: [] })
+
+    expect(JSON.parse(stepFile(directory, 'checks', 'step.json')).needs).toEqual(['pull'])
+  })
+
   it('finds the steps connected to a selection through what they read', () => {
     const directory = recording()
     writeRecording(directory, { steps: [step('pull', []), step('checks', [], { needs: ['pull'] }), step('pull events', [], { needs: ['pull'] }), step('labels', [])], failed: [], setup: [] })
