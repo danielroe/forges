@@ -183,7 +183,7 @@ describe('azure devops organisation teams', () => {
     const { instance, calls } = provider()
 
     const teams = await Array.fromAsync(instance.orgs.teams(org))
-    const members = await Array.fromAsync(instance.orgs.teamMembers(org, 'stewards'))
+    const members = await Array.fromAsync(instance.orgs.teamMembers(teams[0]!.ref))
 
     expect(teams.map(team => [team.ref.slug, team.ref.id, team.name, team.description])).toEqual([
       ['stewards', '11111111-1111-4111-8111-111111111111', 'stewards', 'Release stewards'],
@@ -193,7 +193,7 @@ describe('azure devops organisation teams', () => {
     expect(members.map(member => [member.login, member.name])).toEqual([['octocat@example.com', 'Mona Lisa'], ['hubot@example.com', 'Hubot']])
     expect(calls.map(call => `${call.method} ${new URL(call.url).pathname}`)).toEqual([
       'GET /acme/_apis/projects/Widgets/teams',
-      'GET /acme/_apis/projects/Widgets/teams/stewards/members',
+      'GET /acme/_apis/projects/Widgets/teams/11111111-1111-4111-8111-111111111111/members',
     ])
   })
 

@@ -404,8 +404,8 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
       /** Teams belong to a project, so `org` is a project namespace ref (`owner: 'organization/project'`). */
       teamsPage: verb(!anonymous, (org, listOptions = {}) =>
         teamsListing(org, '', listOptions, (raw: AzureTeam) => toTeam(instance, teamOrg(org), raw))),
-      teamMembersPage: verb(!anonymous, (org, slug, listOptions = {}) =>
-        teamsListing(org, `/${enc(slug)}/members`, listOptions, (member: AzureTeamMember) => toActor(instance, member.identity))),
+      teamMembersPage: verb(!anonymous, (team, listOptions = {}) =>
+        teamsListing(team.org, `/${enc(team.id ?? team.slug)}/members`, listOptions, (member: AzureTeamMember) => toActor(instance, member.identity))),
     },
     contents: {
       file: verb(true, async (repo, path, fileOptions = {}) => {

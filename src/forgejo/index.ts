@@ -613,12 +613,12 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
         listOptions,
         (raw: ForgejoTeam) => toTeam(origin, teamOrg(org), raw),
       )),
-      teamMembersPage: verb(!anonymous, async (org, slug, listOptions = {}) => {
-        const id = (await teamIdsOf(org.owner)).get(slug.toLowerCase())
+      teamMembersPage: verb(!anonymous, async (team, listOptions = {}) => {
+        const id = team.id ?? (await teamIdsOf(team.org.owner)).get(team.slug.toLowerCase())
         if (id === undefined) {
-          throw new NotFoundError(`${org.owner} has no team named ${slug}`, 404, '', context)
+          throw new NotFoundError(`${team.org.owner} has no team named ${team.slug}`, 404, '', context)
         }
-        return list(`/teams/${id}/members`, listOptions, (raw: ForgejoUser) => toActor(origin, raw)!)
+        return list(`/teams/${encodeURIComponent(id)}/members`, listOptions, (raw: ForgejoUser) => toActor(origin, raw)!)
       }),
     },
     notifications: {

@@ -704,10 +704,10 @@ describe('gitlab organisation subgroups and members', () => {
     ])
   })
 
-  it('lists the direct members of a nested subgroup', async () => {
+  it('lists the direct members of a nested subgroup, addressed by its path without an id', async () => {
     const { instance, calls } = provider()
 
-    const members = await Array.fromAsync(instance.orgs.teamMembers(org, 'platform/web'))
+    const members = await Array.fromAsync(instance.orgs.teamMembers({ forge: 'gitlab', instance: 'gitlab.com', org, slug: 'platform/web' }))
 
     expect(members.map(member => member.login)).toEqual(['octocat', 'hubot'])
     expect(calls.map(call => `${call.method} ${new URL(call.url).pathname}`)).toEqual([

@@ -741,8 +741,8 @@ const GITLAB: ProviderDefinition<GitLabOptions, undefined, true> = {
           (raw: GitLabGroup) => toTeam(instance, teamOrg(org), raw),
           { query: { all_available: true } },
         )),
-        teamMembersPage: verb(!anonymous, (org, slug, listOptions = {}) =>
-          list(`/groups/${encodeURIComponent(`${org.owner}/${slug}`)}/members`, listOptions, (raw: GitLabMember) => toActor(instance, raw)!)),
+        teamMembersPage: verb(!anonymous, (team, listOptions = {}) =>
+          list(`/groups/${encodeURIComponent(team.id ?? `${team.org.owner}/${team.slug}`)}/members`, listOptions, (raw: GitLabMember) => toActor(instance, raw)!)),
       },
       notifications: {
         listPage: verb(true, notificationPage),

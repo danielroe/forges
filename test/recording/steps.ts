@@ -241,10 +241,7 @@ export const STEPS: Step[] = [
     context.teams = teams.items
     return teams
   } },
-  { name: 'org team members', verb: 'orgs.teamMembersPage', run: (provider, _manifest, context) => {
-    const team = need(context.teams?.[0], 'a team')
-    return provider.orgs.teamMembersPage(team.ref.org, team.ref.slug, page)
-  } },
+  { name: 'org team members', verb: 'orgs.teamMembersPage', run: (provider, _manifest, context) => provider.orgs.teamMembersPage(need(context.teams?.[0], 'a team').ref, page) },
   ...threadSteps('pull_request', 'pull'),
   ...threadSteps('issue', 'issue'),
   ...threadSteps('discussion', 'discussion'),

@@ -72,6 +72,7 @@ import type {
   Support,
   Tag,
   Team,
+  TeamRef,
   TextLimits,
   Thread,
   ThreadCreateInput,
@@ -900,12 +901,11 @@ export interface OrgsApi {
   teamsPage: (org: RepoRef, options?: PageOptions) => Promise<Page<Team>>
   /**
    * Lists the members of a team, as actors.
-   * @param org The organisation the team belongs to.
-   * @param slug The team's `ref.slug`.
+   * @param team A team's `ref` from `teams()`, or a ref with only `org` and `slug`, such as `{ forge, instance, org, slug: 'stewards' }`.
    */
-  teamMembers: (org: RepoRef, slug: string, options?: PageOptions) => ForgeIterable<Actor>
+  teamMembers: (team: TeamRef, options?: PageOptions) => ForgeIterable<Actor>
   /** One page of `teamMembers()`. */
-  teamMembersPage: (org: RepoRef, slug: string, options?: PageOptions) => Promise<Page<Actor>>
+  teamMembersPage: (team: TeamRef, options?: PageOptions) => Promise<Page<Actor>>
 }
 
 /** The installations of the app that the provider authenticates as. */

@@ -130,10 +130,7 @@ export interface AddCollaboratorResult {
 export interface TeamRef extends ForgeOrigin {
   /** The organisation, group or workspace the team belongs to. */
   org: RepoRef
-  /**
-   * Forge-native team id, where the forge has one. Forgejo and Gitea address a
-   * team's members by id, so `orgs.teamMembers()` resolves a slug to it.
-   */
+  /** Forge-native team id. Where it is set, `orgs.teamMembers()` prefers it to `slug` on forges that address teams by id. */
   id?: string
   /**
    * URL-safe identifier unique within the organisation. GitHub has a slug; on
@@ -151,10 +148,7 @@ export interface Team {
   ref: TeamRef
   name: string
   description?: string
-  /**
-   * Forge-native repository permission the team grants, where the forge
-   * reports one (GitHub's `permission`, Gitea's `permission`).
-   */
+  /** Forge-native repository permission the team grants, where the forge reports one. */
   permission?: string
   /**
    * Forge-native privacy or visibility value, where the forge reports one:

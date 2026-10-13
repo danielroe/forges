@@ -17,7 +17,6 @@
         "includes_all_repositories": true,
         "permission": "owner",
         "units": [
-          "repo.ext_wiki",
           "repo.packages",
           "repo.actions",
           "repo.ext_issues",
@@ -26,7 +25,8 @@
           "repo.code",
           "repo.issues",
           "repo.pulls",
-          "repo.wiki"
+          "repo.wiki",
+          "repo.ext_wiki"
         ],
         "units_map": {
           "repo.actions": "owner",

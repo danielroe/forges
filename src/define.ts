@@ -1,5 +1,5 @@
 import type { Fetcher, FetcherOptions } from './fetch.ts'
-import type { ApproveAndMergeOptions, BaseOptions, Check, CiJobRef, Comment, CommentRef, Cursor, DownloadAssetOptions, ForgeEventInput, ForgeInstance, ForgeKind, Installation, ListOptions, MergeOptions, Notification, NotificationListOptions, OwnerRepoQuery, Page, PageOptions, ReleaseAssetRef, Repo, RepoRef, ReviewRef, SecurityAlertKind, SecurityAlertListOptions, Support, TextLimits, ThreadKind, ThreadQuery, ThreadRef, UpsertCommentInput, UpsertCommentResult, WebhookEventType } from './model.ts'
+import type { ApproveAndMergeOptions, BaseOptions, Check, CiJobRef, Comment, CommentRef, Cursor, DownloadAssetOptions, ForgeEventInput, ForgeInstance, ForgeKind, Installation, ListOptions, MergeOptions, Notification, NotificationListOptions, OwnerRepoQuery, Page, ReleaseAssetRef, Repo, RepoRef, ReviewRef, SecurityAlertKind, SecurityAlertListOptions, Support, TextLimits, ThreadKind, ThreadQuery, ThreadRef, UpsertCommentInput, UpsertCommentResult, WebhookEventType } from './model.ts'
 import type {
   AuthKind,
   ChecksApi,
@@ -532,9 +532,6 @@ function createProvider<TOptions extends ForgeOptionsBase, TState, HasWeb extend
     'search.reposPage': search('reposPage'),
     'search.commitsPage': search('commitsPage'),
     'search.codePage': search('codePage'),
-    // `teamMembers` takes the organisation and the slug before its options, which the derived iterable does not.
-    'orgs.teamMembers': (org: RepoRef, slug: string, listOptions: PageOptions = {}) =>
-      iteratePages(page => call('orgs.teamMembersPage')(org, slug, page), listOptions),
     'threads.listPage': async (repo: RepoRef, query: ThreadQuery = {}) => {
       if (query.state === 'merged' && query.kind && query.kind !== 'pull_request') {
         return { items: [] }

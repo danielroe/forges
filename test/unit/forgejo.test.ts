@@ -514,11 +514,11 @@ describe('forgejo thread updates', () => {
 describe('forgejo organisation teams', () => {
   const org = { forge: 'forgejo', instance: 'codeberg.org', owner: 'acme', name: '', kind: 'namespace' } as const
 
-  it('lists an organisation\'s teams and the members of one, resolving the name to its id', async () => {
+  it('lists an organisation\'s teams and the members of one by its id', async () => {
     const { instance, calls } = provider()
 
     const teams = await Array.fromAsync(instance.orgs.teams(org))
-    const members = await Array.fromAsync(instance.orgs.teamMembers(org, 'stewards'))
+    const members = await Array.fromAsync(instance.orgs.teamMembers(teams[0]!.ref))
 
     expect(teams.map(team => [team.ref.slug, team.ref.id, team.permission])).toEqual([
       ['stewards', '11', 'write'],
@@ -528,15 +528,23 @@ describe('forgejo organisation teams', () => {
     expect(members.map(member => [member.login, member.isBotHint])).toEqual([['octocat', false], ['hubot', true]])
     expect(calls.map(call => `${call.method} ${new URL(call.url).pathname}`)).toEqual([
       'GET /api/v1/orgs/acme/teams',
-      'GET /api/v1/orgs/acme/teams',
       'GET /api/v1/teams/11/members',
     ])
+  })
+
+  it('resolves a ref without an id by its slug', async () => {
+    const { instance, calls } = provider()
+
+    const members = await Array.fromAsync(instance.orgs.teamMembers({ forge: 'forgejo', instance: 'codeberg.org', org, slug: 'Stewards' }))
+
+    expect(members.map(member => member.login)).toEqual(['octocat', 'hubot'])
+    expect(calls.map(call => new URL(call.url).pathname)).toEqual(['/api/v1/orgs/acme/teams', '/api/v1/teams/11/members'])
   })
 
   it('rejects a slug that names no team, even one that matches a team id', async () => {
     const { instance, calls } = provider()
 
-    await expect(instance.orgs.teamMembersPage(org, '12')).rejects.toThrow(NotFoundError)
+    await expect(instance.orgs.teamMembersPage({ forge: 'forgejo', instance: 'codeberg.org', org, slug: '12' })).rejects.toThrow(NotFoundError)
     expect(calls.map(call => new URL(call.url).pathname)).toEqual(['/api/v1/orgs/acme/teams'])
   })
 

@@ -1,16 +1,16 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://gitlab.com/api/v4/groups/forges-fixtures%2Fstewards%2Fcore/members?per_page=3"
+    "url": "https://gitlab.com/api/v4/groups/144652343/members?per_page=3"
   },
   "response": {
     "status": 200,
     "headers": {
-      "link": "<https://gitlab.com/api/v4/groups/forges-fixtures%2Fstewards%2Fcore/members?id=forges-fixtures%2Fstewards%2Fcore&page=1&per_page=3>; rel=\"first\", <https://gitlab.com/api/v4/groups/forges-fixtures%2Fstewards%2Fcore/members?id=forges-fixtures%2Fstewards%2Fcore&page=1&per_page=3>; rel=\"last\"",
+      "link": "<https://gitlab.com/api/v4/groups/144652343/members?id=144652343&page=1&per_page=3>; rel=\"first\", <https://gitlab.com/api/v4/groups/144652343/members?id=144652343&page=1&per_page=3>; rel=\"last\"",
       "etag": "W/\"54f78a0bce3923ebe19765f17dad0ad7\"",
       "ratelimit-limit": "2000",
       "ratelimit-remaining": "1991",
-      "ratelimit-reset": "1791891780",
+      "ratelimit-reset": "1791892140",
       "x-total": "2",
       "x-total-pages": "1",
       "x-next-page": "",

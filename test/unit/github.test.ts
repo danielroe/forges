@@ -543,7 +543,7 @@ describe('github organisation teams', () => {
     const { provider, calls } = tokenProvider()
 
     const teams = await Array.fromAsync(provider.orgs.teams(org))
-    const members = await Array.fromAsync(provider.orgs.teamMembers(org, 'stewards'))
+    const members = await Array.fromAsync(provider.orgs.teamMembers(teams[0]!.ref))
 
     expect(teams.map(team => [team.ref.slug, team.ref.id, team.name, team.visibilityRaw, team.parent?.slug])).toEqual([
       ['stewards', '1', 'Stewards', 'closed', undefined],

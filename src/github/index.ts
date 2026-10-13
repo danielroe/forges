@@ -1603,8 +1603,8 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
         listOptions,
         (raw: GitHubTeam) => toTeam(instance, teamOrg(org), raw),
       )),
-      teamMembersPage: verb(!anonymous, (org, slug, listOptions = {}) => list(
-        `/orgs/${encodeURIComponent(org.owner)}/teams/${encodeURIComponent(slug)}/members`,
+      teamMembersPage: verb(!anonymous, (team, listOptions = {}) => list(
+        `/orgs/${encodeURIComponent(team.org.owner)}/teams/${encodeURIComponent(team.slug)}/members`,
         listOptions,
         (raw: GitHubUserDetail) => toActor(instance, raw)!,
       )),

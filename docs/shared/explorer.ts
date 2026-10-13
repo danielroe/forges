@@ -257,7 +257,7 @@ export const EXPLORER_OPERATIONS: ExplorerOperation[] = [
 
   // Organisation teams
   operation('orgs.teams', { method: 'orgs.teamsPage', returns: 'Page<Team>', uses: 'none', fields: fields('owner'), args: ({ origin, value }) => `{ ${origin}, owner: ${value('owner')}, name: '', kind: 'namespace' }, { perPage: 5 }`, run: (p, input, { origin }) => p.orgs.teamsPage({ ...origin, owner: input.owner, name: '', kind: 'namespace' }, perPage) }),
-  operation('orgs.teamMembers', { method: 'orgs.teamMembersPage', returns: 'Page<Actor>', uses: 'none', fields: fields('owner', 'team'), args: ({ origin, value }) => `{ ${origin}, owner: ${value('owner')}, name: '', kind: 'namespace' }, ${value('team')}, { perPage: 5 }` }),
+  operation('orgs.teamMembers', { method: 'orgs.teamMembersPage', returns: 'Page<Actor>', uses: 'none', fields: fields('owner', 'team'), args: ({ origin, value }) => `{ ${origin}, org: { ${origin}, owner: ${value('owner')}, name: '', kind: 'namespace' }, slug: ${value('team')} }, { perPage: 5 }` }),
 
   // Threads
   threadRead('threads.get', 'Thread', (p, _, { thread }) => p.threads.get(thread)),
@@ -359,11 +359,7 @@ export const EXPLORER_OPERATIONS: ExplorerOperation[] = [
   operation('search.commits', { method: 'search.commitsPage', returns: 'Page<Commit>', fields: fields('query'), args: ({ value }) => `{ repo, text: ${value('query')}, perPage: 5 }`, run: (p, input, { repo }) => p.search.commitsPage({ repo, text: input.query, perPage: 5 }) }),
 ]
 
-/**
- * The explorer picker's groups, in the order it lists them: every namespace the
- * operations above use, with the title it shows. `explorer.test.ts` fails if an
- * operation's namespace has no entry here, so none is ever missing from the picker.
- */
+/** The explorer picker's groups, in order: each namespace of the operations above, with its title. */
 export const EXPLORER_NAMESPACE_TITLES: Record<string, string> = {
   threads: 'Issues and pull requests',
   repos: 'Repositories',
