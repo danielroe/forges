@@ -4,7 +4,7 @@ import { existsSync, mkdtempSync, readdirSync, readFileSync, rmSync } from 'node
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { afterEach, describe, expect, it } from 'vitest'
-import { connectedSteps, writeRecording } from '../../scripts/recording-store.ts'
+import { connectedSteps, trackReads, withAncestors, writeRecording } from '../../scripts/recording-store.ts'
 
 function fixture(url: string, body: unknown, headers: Record<string, string> = {}): Fixture {
   return { request: { method: 'GET', url }, response: { status: 200, headers, body } }
@@ -126,5 +126,63 @@ describe('recording store', () => {
     writeRecording(directory, { steps: [step('pull', []), step('checks', [], { needs: ['pull'] }), step('pull events', [], { needs: ['pull'] }), step('labels', [])], failed: [], setup: [] })
 
     expect([...connectedSteps(directory, ['checks'])].sort()).toEqual(['checks', 'pull', 'pull events'])
+  })
+})
+
+describe('tracking what steps read', () => {
+  function runSteps(steps: Array<[string, (context: { author?: string, pulls: string[], comments: Record<string, string> }) => void]>): Record<string, string[]> {
+    const { context, start, reads } = trackReads<{ author?: string, pulls: string[], comments: Record<string, string> }>({ pulls: [], comments: {} })
+    return Object.fromEntries(steps.map(([name, run]) => {
+      start(name)
+      run(context)
+      return [name, reads()]
+    }))
+  }
+
+  it('records the step that set each finding a later step reads', () => {
+    expect(runSteps([
+      ['author', (context) => { context.author = 'bot' }],
+      ['create issue', (context) => { context.author ??= 'other' }],
+      ['assign', context => void context.author],
+    ])).toEqual({ 'author': [], 'create issue': ['author'], 'assign': ['author'] })
+  })
+
+  it('records the step that set an entry of an array or object the context starts with', () => {
+    expect(runSteps([
+      ['create pull', (context) => { context.pulls[0] = 'first' }],
+      ['create third pull', (context) => { context.pulls[2] = 'third' }],
+      ['pull comment', (context) => { context.comments.pull = `on ${context.pulls[0]}` }],
+      ['pull edit comment', context => void context.comments.pull],
+      ['pull close', context => void context.pulls[2]],
+    ])).toEqual({ 'create pull': [], 'create third pull': [], 'pull comment': ['create pull'], 'pull edit comment': ['pull comment'], 'pull close': ['create third pull'] })
+  })
+
+  it('records the step that replaced an array the context starts with', () => {
+    expect(runSteps([
+      ['existing pull', (context) => { context.pulls = ['pull', 'pull', 'pull'] }],
+      ['pull comment', context => void context.pulls[0]],
+    ])).toEqual({ 'existing pull': [], 'pull comment': ['existing pull'] })
+  })
+})
+
+describe('finding the steps a selection reads from', () => {
+  const steps = [
+    { name: 'author', needs: [] },
+    { name: 'create issue', needs: ['author'] },
+    { name: 'issue comment', needs: ['create issue'] },
+    { name: 'create pull', needs: [] },
+    { name: 'issue update to closed', needs: ['create issue', 'author'] },
+  ]
+
+  it('adds what the selected steps read, directly or through others, in the order the steps ran', () => {
+    expect([...withAncestors(['issue update to closed'], steps)]).toEqual(['author', 'create issue', 'issue update to closed'])
+  })
+
+  it('leaves out the steps that read from the selected ones', () => {
+    expect([...withAncestors(['create issue'], steps)]).toEqual(['author', 'create issue'])
+  })
+
+  it('leaves out steps that did not run', () => {
+    expect([...withAncestors(['issue comment'], steps.filter(step => step.name !== 'author'))]).toEqual(['create issue', 'issue comment'])
   })
 })

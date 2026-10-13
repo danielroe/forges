@@ -101,6 +101,65 @@ function storedSteps(directory: string): Map<string, RecordedStep & { slug: stri
   return steps
 }
 
+/**
+ * Wraps the context steps share so that it records which step wrote each
+ * finding, and which other steps' findings the current step reads. Arrays and
+ * plain objects the context starts with are tracked per entry, so a step that
+ * reads `pulls[0]` needs the step that set it.
+ */
+export function trackReads<T extends object>(target: T): { context: T, start: (name: string) => void, reads: () => string[] } {
+  const writers = new Map<string, string>()
+  let reads = new Set<string>()
+  let current = ''
+  const containers = new Map(Object.entries(target).filter(([, value]) => Array.isArray(value) || (value && typeof value === 'object' && Object.getPrototypeOf(value) === Object.prototype)))
+  const nested = new Map<string, object>()
+  const track = <O extends object>(object: O, prefix: string): O => new Proxy(object, {
+    get(object, key, receiver) {
+      const value = Reflect.get(object, key, receiver)
+      if (typeof key !== 'string') {
+        return value
+      }
+      const writer = writers.get(`${prefix}${key}`)
+      if (writer && writer !== current) {
+        reads.add(writer)
+      }
+      if (!prefix && value && containers.get(key) === value) {
+        if (!nested.has(key)) {
+          nested.set(key, track(value as object, `${key}.`))
+        }
+        return nested.get(key)
+      }
+      return value
+    },
+    set(object, key, value, receiver) {
+      if (typeof key === 'string') {
+        writers.set(`${prefix}${key}`, current)
+      }
+      return Reflect.set(object, key, value, receiver)
+    },
+  })
+  return {
+    context: track(target, ''),
+    start: (name) => {
+      current = name
+      reads = new Set()
+    },
+    reads: () => [...reads],
+  }
+}
+
+/** The steps `names` read from, directly or through others, in the order they ran, `names` included. */
+export function withAncestors(names: Iterable<string>, steps: StepRun[]): Set<string> {
+  const needs = new Map(steps.map(step => [step.name, step.needs]))
+  const found = new Set(names)
+  for (const name of found) {
+    for (const need of needs.get(name) ?? []) {
+      found.add(need)
+    }
+  }
+  return new Set(steps.map(step => step.name).filter(name => found.has(name)))
+}
+
 /** The steps connected to `names` in `directory` through what they read from each other, `names` included. */
 export function connectedSteps(directory: string, names: Iterable<string>): Set<string> {
   const edges = new Map<string, string[]>()

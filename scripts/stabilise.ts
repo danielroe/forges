@@ -156,6 +156,13 @@ function collect(value: unknown, key: string, into: Set<string>): void {
   }
 }
 
+/** The values in `value` that `stabilise()` treats as identifiers. */
+export function identifiersIn(value: unknown): Set<string> {
+  const found = new Set<string>()
+  collect(value, '', found)
+  return found
+}
+
 /** The fixtures with every timestamp masked. */
 export function withoutTimestamps(fixtures: Fixture[]): Fixture[] {
   return JSON.parse(JSON.stringify(fixtures).replace(new RegExp(TIME.source, 'g'), '<time>')) as Fixture[]

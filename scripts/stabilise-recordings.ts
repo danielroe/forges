@@ -26,7 +26,7 @@ import { sameResponses } from './recording-store.ts'
 import { rename, stabilise, withoutTimestamps } from './stabilise.ts'
 
 const root = fileURLToPath(new URL('..', import.meta.url))
-const fixtures = `${root}test/fixtures/`
+export const fixtures = `${root}test/fixtures/`
 
 interface Recording extends Run {
   /** The directory of each step, relative to the recording, by step name. */
@@ -40,7 +40,7 @@ function readGroup(directory: string): Fixture[] {
   return readdirSync(directory).filter(isFixtureFile).sort((a, b) => Number.parseInt(a) - Number.parseInt(b)).map(file => JSON.parse(readFileSync(`${directory}${file}`, 'utf8')) as Fixture)
 }
 
-function load(directory: string): Recording {
+export function load(directory: string): Recording {
   const steps = new Map<string, Fixture[]>()
   const paths = new Map<string, string>()
   for (const slug of readdirSync(`${directory}steps/`)) {
@@ -55,10 +55,10 @@ function load(directory: string): Recording {
   return { manifest: JSON.parse(readFileSync(`${directory}manifest.json`, 'utf8')) as Record<string, unknown>, steps, paths }
 }
 
-/** Replays one recording with `vitest -u`, so that its golden output is written; returns whether its tests ran and passed. */
-function replay(recording: string): boolean {
+/** Replays one recording, with `vitest -u` unless `update` is `false`, so that its golden output is written; returns whether its tests ran and passed. */
+export function replay(recording: string, { update = true } = {}): boolean {
   const report = join(mkdtempSync(join(tmpdir(), 'forges-replay-')), 'report.json')
-  const result = spawnSync(`${root}node_modules/.bin/vitest`, ['run', '--project', 'unit', 'test/recorded.test.ts', '-u', '--reporter=json', `--outputFile=${report}`], { cwd: root, encoding: 'utf8', env: { ...process.env, FORGES_RECORDING: recording } })
+  const result = spawnSync(`${root}node_modules/.bin/vitest`, ['run', '--project', 'unit', 'test/recorded.test.ts', ...update ? ['-u'] : [], '--reporter=json', `--outputFile=${report}`], { cwd: root, encoding: 'utf8', env: { ...process.env, FORGES_RECORDING: recording } })
   const { numPassedTests = 0, numFailedTests = 1 } = existsSync(report) ? JSON.parse(readFileSync(report, 'utf8')) as { numPassedTests?: number, numFailedTests?: number } : {}
   rmSync(report.slice(0, -'/report.json'.length), { recursive: true, force: true })
   if (result.status !== 0 || numFailedTests || !numPassedTests) {
@@ -94,15 +94,26 @@ function writeFixtures(directory: string, fixtures: Fixture[]): void {
   fixtures.forEach((fixture, index) => writeFileSync(`${directory}${fixtureFileName(fixture, index)}`, `${JSON.stringify(fixture, null, 2)}\n`))
 }
 
+export interface StabiliseResult {
+  /** Whether the recording was renamed; otherwise it is left as recorded. */
+  stabilised: boolean
+  message: string
+  /** Steps whose files were rewritten with their identifiers renamed. */
+  rewritten: string[]
+  /** Identifiers that could not be renamed, with the reason. */
+  skipped: Map<string, string>
+}
+
 /** Stabilises one recording, and returns what it did. */
-function stabiliseRecording(recording: string, previousRoot: string): string {
+export function stabiliseRecording(recording: string, previousRoot: string): StabiliseResult {
   const directory = `${fixtures}${recording}/`
   const before = `${previousRoot}${recording}/`
+  const notStabilised = (message: string): StabiliseResult => ({ stabilised: false, message: `${recording}: ${message}`, rewritten: [], skipped: new Map() })
   if (!existsSync(`${before}manifest.json`)) {
-    return `${recording}: nothing to compare with`
+    return notStabilised('nothing to compare with')
   }
   if (!replay(recording)) {
-    return `${recording}: left as recorded, as it does not replay`
+    return notStabilised('left as recorded, as it does not replay')
   }
   const backup = mkdtempSync(join(tmpdir(), 'forges-raw-'))
   cpSync(directory, backup, { recursive: true })
@@ -136,10 +147,10 @@ function stabiliseRecording(recording: string, previousRoot: string): string {
   else {
     writeFileSync(`${directory}manifest.json`, `${JSON.stringify(manifest, null, 2)}\n`)
   }
-  const restore = (reason: string) => {
+  const restore = (reason: string): StabiliseResult => {
     rmSync(directory, { recursive: true, force: true })
     cpSync(backup, directory, { recursive: true })
-    return `${recording}: left as recorded, as ${reason}`
+    return notStabilised(`left as recorded, as ${reason}`)
   }
   try {
     if (!replay(recording)) {
@@ -153,7 +164,7 @@ function stabiliseRecording(recording: string, previousRoot: string): string {
     if (differing.length) {
       return restore(`renaming changes the replayed output of ${differing.join(', ')}`)
     }
-    return `${recording}: ${kept.length} step(s) kept, ${rewritten.length} rewritten, ${renamed.size} identifier(s) renamed, ${skipped.size} left as recorded`
+    return { stabilised: true, message: `${recording}: ${kept.length} step(s) kept, ${rewritten.length} rewritten, ${renamed.size} identifier(s) renamed, ${skipped.size} left as recorded`, rewritten, skipped }
   }
   finally {
     rmSync(backup, { recursive: true, force: true })
@@ -182,7 +193,7 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
   }
   try {
     for (const recording of recordings) {
-      console.info(stabiliseRecording(recording, previousRoot))
+      console.info(stabiliseRecording(recording, previousRoot).message)
     }
   }
   finally {
