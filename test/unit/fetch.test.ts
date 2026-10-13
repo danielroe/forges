@@ -387,6 +387,14 @@ describe('403 classification', () => {
     expect((error as ForbiddenError).reason).toBe('sso_required')
   })
 
+  it('maps a contributor list that is too large to ForbiddenError', async () => {
+    const error = await forbidden('{"message":"The history or contributor list is too large to list contributors for this repository via the API.","status":"403"}').json('/thing').catch((error: unknown) => error)
+
+    expect(error).toBeInstanceOf(ForbiddenError)
+    expect((error as ForbiddenError).reason).toBe('unknown')
+    expect((error as ForbiddenError).reasonRaw).toBe('contributor list is too large to list contributors for this repository via the API')
+  })
+
   it('maps a 403 whose body reports a rate limit to RateLimitedError', async () => {
     const error = await forbidden('403 Forbidden (Rate Limit Exceeded)').json('/thing').catch((error: unknown) => error)
 

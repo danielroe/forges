@@ -116,6 +116,7 @@ const FORBIDDEN_PATTERNS: Array<[ForbiddenReason, RegExp]> = [
   ['sso_required', /SAML|single sign[- ]on|\bSSO\b|must be granted .* organization/i],
   ['rate_limit_abuse', /abuse detection|secondary rate limit/i],
   ['resource_protected', /archived|read[- ]only|protected branch|repository has been disabled|is disabled/i],
+  ['unknown', /contributor list is too large[^".]*/i],
 ]
 
 /**
