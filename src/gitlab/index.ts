@@ -86,7 +86,7 @@ import type {
 } from './types.ts'
 import { changeBase64, existingFiles, fromBase64, toFileContent } from '../contents.ts'
 import { defineForgeProvider, perKind, verb } from '../define.ts'
-import { AuthenticationRequiredError, BranchMovedError, InsufficientScopeError, NotFoundError, soleMergeMethod, TokenRevokedError, toMergeError, UnresolvedThreadError, UnsupportedOperationError } from '../errors.ts'
+import { AuthenticationRequiredError, BranchMovedError, ForgeApiError, InsufficientScopeError, NotFoundError, soleMergeMethod, TokenRevokedError, toMergeError, UnresolvedThreadError, UnsupportedOperationError } from '../errors.ts'
 import { isNamespaceRef, reactionContent } from '../model.ts'
 import { createListing, degradesToWarning, getManyConcurrently, hexColour, memo, memoBy, mergeCommitMessage, milestoneId, phased, requireIssueOrPull, requireThread, resolveToken, syntheticReview, teamOrg, toDate, toPage, toWarning, versionAtLeast, withEtag } from '../utils.ts'
 import { webUrlFor } from '../web.ts'
@@ -1150,7 +1150,14 @@ const GITLAB: ProviderDefinition<GitLabOptions, undefined, true> = {
         }),
         reactions: perKind({ issue: true, pull_request: true }, {
           async react(target, reaction, options) {
-            await fetcher.raw(`${awardPath(target)}/award_emoji`, { method: 'POST', json: { name: AWARD_EMOJI[reaction] }, signal: options?.signal })
+            try {
+              await fetcher.raw(`${awardPath(target)}/award_emoji`, { method: 'POST', json: { name: AWARD_EMOJI[reaction] }, signal: options?.signal })
+            }
+            catch (error) {
+              if (!(error instanceof ForgeApiError && error.body.includes('has already been taken'))) {
+                throw error
+              }
+            }
           },
           async unreact(target, reaction, options) {
             const path = `${awardPath(target)}/award_emoji`

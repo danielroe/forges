@@ -34,6 +34,15 @@ describe('gitlab provider', () => {
     expect(items.map(comment => comment.thread)).toEqual([{ id: '6a9c1750b37d513a43987b574953fceb50b03ce7', resolved: false }])
   })
 
+  it('treats a reaction the account already left as left', async () => {
+    const awards = `${P}/merge_requests/23/award_emoji`
+    const { instance } = provider({ [`POST ${awards}`]: { status: 404, body: { message: '404 Award Emoji Name has already been taken Not Found' } } })
+    const { instance: missing } = provider({ [`POST ${awards}`]: { status: 404, body: { message: '404 Not found' } } })
+
+    await expect(instance.threads.react(mr, '+1')).resolves.toBeUndefined()
+    await expect(missing.threads.react(mr, '+1')).rejects.toThrow(NotFoundError)
+  })
+
   it('opens a resolvable discussion for a comment review', async () => {
     const discussion = { id: 'd1', individual_note: false, notes: [{ id: 7, body: 'Looks off', system: false, created_at: '2025-09-16T09:00:00.000Z', resolvable: true, resolved: false }] }
     const { instance, calls } = provider({ 'POST https://gitlab.com/api/v4/projects/acme%2Fplatform%2Fwidgets/merge_requests/23/discussions': { status: 201, body: discussion } })
