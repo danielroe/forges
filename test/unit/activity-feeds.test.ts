@@ -67,6 +67,12 @@ describe('github activity feeds', () => {
     expect(push.detail).toHaveProperty('commitCount', undefined)
   })
 
+  it('reads the commits of a feed push that lists them', () => {
+    const push = toGitHubFeedEvent('github.com', feedItem('PushEvent', { ref: 'refs/heads/main', before: 'a', head: 'b', size: 2, commits: [{ sha: 'b', message: 'Fix', author: { name: 'Ada' } }] }))
+
+    expect(push).toMatchObject({ summary: 'octocat pushed 2 commit(s) to main', detail: { commitCount: 2, commits: [{ sha: 'b', message: 'Fix', author: 'Ada' }] } })
+  })
+
   it('reads the first page conditionally and leaves later pages unconditional', async () => {
     const conditions: Array<string | null> = []
     const provider = github({

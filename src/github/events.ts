@@ -23,7 +23,8 @@ export interface GitHubEventPayload {
   assignee?: GitHubUser | null
   requested_reviewer?: GitHubUser | null
   label?: { name?: string }
-  commits?: Array<{ id: string, message: string, timestamp?: string, url?: string, author?: { name?: string, username?: string } }>
+  /** Webhooks name each commit by `id`, and the feeds that list commits by `sha`. */
+  commits?: Array<{ id?: string, sha?: string, message: string, timestamp?: string, url?: string, author?: { name?: string, username?: string } }>
   head_commit?: { id: string, timestamp?: string } | null
   ref?: string | null
   ref_type?: string
@@ -73,7 +74,7 @@ function repoLevel(instance: string, event: string, payload: GitHubEventPayload,
           after: payload.after ?? payload.head,
           deleted: payload.deleted,
           forced: payload.forced,
-          commits: payload.commits?.map(commit => ({ sha: commit.id, message: commit.message, author: commit.author?.username ?? commit.author?.name, url: commit.url })),
+          commits: payload.commits?.map(commit => ({ sha: commit.id ?? commit.sha ?? '', message: commit.message, author: commit.author?.username ?? commit.author?.name, url: commit.url })),
           commitCount: payload.size,
         }),
         occurredAt: payload.deleted ? undefined : toDate(payload.head_commit?.timestamp),

@@ -889,8 +889,9 @@ export interface ReposApi {
   /** One page of `reviewerCandidates()`. */
   reviewerCandidatesPage: (ref: ThreadRef, options?: PageOptions) => Promise<Page<Actor>>
   /**
-   * Lists the activity feed of a repository, newest first: pushes, new branches and tags, and changes to its
-   * threads and releases. Each event has `source: 'poll'`.
+   * Lists the activity feed of a repository: pushes, new branches and tags, and changes to its threads and releases.
+   * Events come in the order the forge added them to the feed, latest first, which can differ from `occurredAt`
+   * where the forge adds events late. Each event has `source: 'poll'`.
    */
   events: (repo: RepoRef, options?: EventFeedOptions) => ForgeIterable<ForgeEvent>
   /**
@@ -1052,8 +1053,8 @@ export interface UsersApi {
    */
   sponsorable: (login: string, options?: BaseOptions) => Promise<boolean>
   /**
-   * Lists what an account did, newest first, across the repositories the credential can see. Each event has
-   * `source: 'poll'`.
+   * Lists what an account did across the repositories the credential can see, in the feed's order as for
+   * {@link ReposApi.events}. Each event has `source: 'poll'`.
    */
   events: (login: string, options?: EventFeedOptions) => ForgeIterable<ForgeEvent>
   /** One page of `events()`. Conditional requests and throttling work as for {@link ReposApi.eventsPage}. */
