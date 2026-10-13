@@ -444,6 +444,7 @@ function targetFor(credentials: Credentials, fetch: FetchLike): Target {
         repo: repoRef('gitee', provider.instance, slug),
         pull: ref('gitee', provider.instance, slug, 'pull_request', env.FIXTURE_GITEE_PULL ?? '540'),
         issue: ref('gitee', provider.instance, slug, 'issue', env.FIXTURE_GITEE_ISSUE ?? 'I8NUPF'),
+        feedUser: env.FIXTURE_GITEE_FEED_USER,
         ...setupRepos('GITEE', slug => repoRef('gitee', provider.instance, slug)),
       } }
     }

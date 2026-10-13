@@ -50,6 +50,19 @@ function withoutUnattachedUploads(assets: unknown[]): unknown[] {
   ]
 }
 
+function isPushContent(content: string): boolean {
+  if (!content.startsWith('{')) {
+    return false
+  }
+  try {
+    const parsed = JSON.parse(content) as unknown
+    return Boolean(parsed && typeof parsed === 'object' && 'Commits' in parsed)
+  }
+  catch {
+    return false
+  }
+}
+
 function isPrivate(value: unknown): boolean {
   const item = value as { private?: boolean, visibility?: string, is_private?: boolean } | null | undefined
   return Boolean(item && typeof item === 'object' && (item.private || item.is_private || item.visibility === 'private'))
@@ -99,7 +112,7 @@ export function redact(value: unknown): unknown {
       continue
     }
     // A Forgejo push activity carries its commits, with their authors' addresses, as JSON in a string.
-    else if (key === 'content' && typeof entry === 'string' && entry.startsWith('{"Commits"')) {
+    else if (key === 'content' && typeof entry === 'string' && isPushContent(entry)) {
       result[key] = JSON.stringify(redact(JSON.parse(entry)))
     }
     else if (key === 'assets' && 'tag_name' in value && Array.isArray(entry)) {

@@ -214,8 +214,8 @@ describe('fake activity feeds', () => {
 
 describe('feed redaction', () => {
   it('redacts the addresses in a Forgejo push activity', () => {
-    const content = JSON.stringify({ Commits: [{ Sha1: 'b', AuthorEmail: 'ada@example.com', CommitterEmail: 'bot@example.com' }] })
+    const content = JSON.stringify({ Len: 1, Commits: [{ Sha1: 'b', AuthorEmail: 'ada@example.com', CommitterEmail: 'bot@example.com' }] })
 
-    expect(JSON.parse((redact({ content }) as { content: string }).content)).toEqual({ Commits: [{ Sha1: 'b', AuthorEmail: 'redacted@example.invalid', CommitterEmail: 'redacted@example.invalid' }] })
+    expect(JSON.parse((redact({ content }) as { content: string }).content)).toEqual({ Len: 1, Commits: [{ Sha1: 'b', AuthorEmail: 'redacted@example.invalid', CommitterEmail: 'redacted@example.invalid' }] })
   })
 })
