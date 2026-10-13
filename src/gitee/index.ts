@@ -373,6 +373,7 @@ function setupGitee({ instance, origin: context, fetcher, baseUrl }: ProviderCon
         return {
           items: all.slice(offset, end).map(raw => ({ name: raw.name || undefined, email: raw.email || undefined, contributions: raw.contributions, raw })),
           cursor: end < all.length ? { token: String(end) } : undefined,
+          total: all.length,
         }
       }),
     },
