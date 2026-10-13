@@ -57,7 +57,8 @@ function pushContent(content: string | undefined): ForgejoPushContent {
 function feedLevel(origin: ForgeOrigin, raw: ForgejoActivity, repo: RepoRef | undefined, who: string): Pick<ForgeEventInput, 'kind' | 'action' | 'detail' | 'summary' | 'thread'> {
   const ref = raw.ref_name ?? ''
   const name = ref.replace(/^refs\/(?:heads|tags)\//, '')
-  const refType = ref.startsWith('refs/tags/') ? 'tag' : 'branch'
+  // Gitea before 1.14 stored the short name of a pushed tag, and those rows were never migrated
+  const refType = raw.op_type === 'push_tag' || raw.op_type === 'delete_tag' || ref.startsWith('refs/tags/') ? 'tag' : 'branch'
   switch (raw.op_type) {
     case 'commit_repo':
     case 'mirror_sync_push': {

@@ -188,6 +188,19 @@ describe('forgejo activity feeds', () => {
 
     expect(event).toMatchObject({ kind: 'push', summary: 'ada pushed 2 commit(s) to main', detail: { before: 'a', after: 'b', commitCount: 2, commits: [{ sha: 'b', message: 'Fix', author: 'Ada' }] } })
   })
+
+  it('takes a tag from the activity type, as Gitea before 1.14 stored the short name', () => {
+    for (const [op_type, action] of [['push_tag', 'created'], ['delete_tag', 'deleted']] as const) {
+      for (const ref_name of ['refs/tags/v1.0.0', 'v1.0.0']) {
+        expect(toForgejoFeedEvent(origin, { ...activity(op_type, ''), ref_name })).toMatchObject({
+          kind: 'ref',
+          action,
+          detail: { type: 'ref', ref: 'v1.0.0', refType: 'tag' },
+          summary: `ada ${action} tag v1.0.0`,
+        })
+      }
+    }
+  })
 })
 
 describe('gitee activity feeds', () => {
