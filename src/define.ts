@@ -1,5 +1,5 @@
 import type { Fetcher, FetcherOptions } from './fetch.ts'
-import type { ApproveAndMergeOptions, BaseOptions, Check, CiJobRef, Comment, CommentRef, CommitFilesInput, Cursor, DownloadAssetOptions, EventFeedOptions, ForgeEventInput, ForgeInstance, ForgeKind, Installation, ListOptions, MergeOptions, Notification, NotificationListOptions, OwnerRepoQuery, Page, ReleaseAssetRef, Repo, RepoRef, ReviewRef, SecurityAlertKind, SecurityAlertListOptions, Support, TextLimits, ThreadKind, ThreadQuery, ThreadRef, UpsertCommentInput, UpsertCommentResult, WebhookEventType } from './model.ts'
+import type { ApproveAndMergeOptions, BaseOptions, Check, CiJobRef, Comment, CommentRef, CommitFilesInput, CompareOptions, Comparison, Cursor, DownloadAssetOptions, EventFeedOptions, ForgeEventInput, ForgeInstance, ForgeKind, Installation, ListOptions, MergeOptions, Notification, NotificationListOptions, OwnerRepoQuery, Page, ReleaseAssetRef, Repo, RepoRef, ReviewRef, SecurityAlertKind, SecurityAlertListOptions, Support, TextLimits, ThreadKind, ThreadQuery, ThreadRef, UpsertCommentInput, UpsertCommentResult, WebhookEventType } from './model.ts'
 import type {
   AuthKind,
   ChecksApi,
@@ -609,6 +609,19 @@ function createProvider<TOptions extends ForgeOptionsBase, TState, HasWeb extend
       }
       const bytes = new Uint8Array(await new Response(stream).arrayBuffer())
       return options.as === 'text' ? decodeText(bytes, `Release asset ${ref.id}`, origin) : bytes
+    },
+    'contents.compare': async (repo: RepoRef, base: string, head: string, compareOptions: CompareOptions = {}) => {
+      const comparison: Comparison = await gate('contents.compare', spec.contents?.compare?.support, spec.contents?.compare?.run)(repo, base, head, compareOptions)
+      const { commitLimit, files } = compareOptions
+      if (commitLimit === undefined && files !== false) {
+        return comparison
+      }
+      const commits = commitLimit === undefined ? comparison.commits : comparison.commits.slice(0, Math.max(0, commitLimit))
+      return {
+        ...comparison,
+        commits: files === false ? commits.map(({ files: _files, ...commit }) => commit) : commits,
+        ...files === false ? { files: [] } : {},
+      }
     },
     'contents.resolveRef': (repo: RepoRef, ref: string, options?: BaseOptions) => isSha(ref)
       ? Promise.resolve(ref.toLowerCase())

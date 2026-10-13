@@ -261,7 +261,7 @@ function setupOrigin({ options, baseUrl, instance, origin: context, fetcher, cre
         const basehead = encodeURIComponent(`${base}...${head}`)
         const [comparison, files] = await Promise.all([
           fetcher.json<OriginComparison>(`${repoPath(repo)}/compare/${basehead}`, { signal: options?.signal }),
-          all<OriginCommitFile>(`${repoPath(repo)}/compare/${basehead}/files`, 'files', options),
+          options?.files === false ? [] : all<OriginCommitFile>(`${repoPath(repo)}/compare/${basehead}/files`, 'files', options),
         ])
         return {
           base,

@@ -389,6 +389,11 @@ export const STEPS: Step[] = [
   { name: 'commits', verb: 'contents.commitsPage', run: (provider, manifest) => provider.contents.commitsPage(manifest.repo, page) },
   { name: 'commit', verb: 'contents.commit', run: (provider, manifest, context) => provider.contents.commit(manifest.repo, headOf(context)) },
   { name: 'compare', verb: 'contents.compare', run: (provider, manifest, context) => provider.contents.compare(manifest.repo, need(context.pull?.branches?.base.ref, 'the pull base'), headOf(context)) },
+  { name: 'compare limited', verb: 'contents.compare', run: async (provider, manifest, context) => {
+    const branch = need(context.repo?.defaultBranch, 'the default branch')
+    const base = need((await provider.contents.commitsPage(manifest.repo, { ref: branch, perPage: 5 })).items[4], 'a fifth commit').sha
+    return provider.contents.compare(manifest.repo, base, branch, { commitLimit: 2, files: false })
+  } },
   { name: 'releases', verb: 'releases.listPage', run: async (provider, manifest, context) => {
     const result = await provider.releases.listPage(manifest.repo, page)
     context.releases = result.items

@@ -253,7 +253,7 @@ export function createTangledContents({ fetcher, instance, webUrl, context, cano
         'sh.tangled.repo.compare',
         { repo: knot.repo, rev1: base, rev2: head },
       )
-      const commits = (data.format_patch ?? []).map(header => fromHeader(knot.ref, header))
+      const commits = (data.format_patch ?? []).map(header => fromHeader(knot.ref, header)).toReversed()
       return {
         base,
         head,

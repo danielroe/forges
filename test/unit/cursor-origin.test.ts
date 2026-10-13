@@ -36,6 +36,22 @@ describe('cursor origin app', () => {
   })
 })
 
+describe('cursor origin comparison', () => {
+  it('reads no files when they are left out', async () => {
+    const urls: string[] = []
+    const instance = cursorOrigin({ auth: { type: 'token', token: 't' }, fetch: async (url) => {
+      urls.push(new URL(String(url)).pathname)
+      return Response.json(url.includes('/files') ? { files: [{ filename: 'a.ts', status: 'modified' }] } : { aheadBy: 3, behindBy: 0 })
+    } }).create()
+
+    expect((await instance.contents.compare(repo, 'main', 'feature')).files).toHaveLength(1)
+    expect(urls).toHaveLength(2)
+    urls.length = 0
+    expect(await instance.contents.compare(repo, 'main', 'feature', { files: false })).toMatchObject({ aheadBy: 3, files: [] })
+    expect(urls).toEqual(['/v1/origin/repos/acme/widgets/compare/main...feature'])
+  })
+})
+
 describe('cursor origin comments', () => {
   it('encodes the comment id when reading, editing and deleting a comment', async () => {
     const urls: string[] = []

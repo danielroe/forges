@@ -904,6 +904,20 @@ export interface CommitQuery extends PageOptions {
   author?: string
 }
 
+/** Options for `contents.compare()`. */
+export interface CompareOptions extends BaseOptions {
+  /**
+   * The most commits to return. The comparison keeps the newest ones. Where the forge can't send fewer, the provider
+   * drops the rest. `aheadBy` still counts every commit where the forge reports the count.
+   */
+  commitLimit?: number
+  /**
+   * Whether to read the changed files. With `false`, `files` is empty and the commits carry no files.
+   * @default true
+   */
+  files?: boolean
+}
+
 /** The difference between two revisions. */
 export interface Comparison {
   /** The revision that the comparison starts from. */
@@ -914,7 +928,7 @@ export interface Comparison {
   aheadBy?: number
   /** The number of commits that `base` has and `head` lacks. */
   behindBy?: number
-  /** The commits between the two revisions. */
+  /** The commits between the two revisions, newest first. Forges that cap the list leave out the oldest. */
   commits: Commit[]
   files: ChangedFile[]
   /** The merge base, where the forge reports it. */

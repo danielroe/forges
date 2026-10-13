@@ -57,6 +57,10 @@ To make sure that you merge what you reviewed, pass `sha`. The provider then che
 
 Bitbucket can't reopen a declined pull request, so `reopen()` rejects for pull requests.
 
+## Comparisons
+
+Bitbucket doesn't count the commits of a comparison, so `contents.compare()` reads all of them to give `aheadBy`. Bitbucket sends them newest first, so with `commitLimit`, the provider stops once it has that many, and `aheadBy` is absent when more commits remain. With `files: false`, it doesn't read the changed files at all.
+
 ## Participants as reviews
 
 Bitbucket has participants who vote on a pull request, and the provider presents them as reviews. `threads.reviews()` returns one review for each participant who has voted, with the ID `participant:<uuid>`. `createReview()` accepts the `approve` and `request_changes` events. If you pass a body or inline comments, it rejects with `UnsupportedOperationError`.

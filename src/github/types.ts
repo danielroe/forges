@@ -466,6 +466,7 @@ export interface GitHubCodeSearchItem {
 }
 
 export interface GitHubComparison {
+  total_commits?: number
   ahead_by?: number
   behind_by?: number
   merge_base_commit?: { sha: string }

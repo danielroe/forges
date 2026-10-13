@@ -1,0 +1,119 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/repository/commits?ref_name=main&per_page=5"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "<https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/repository/commits?id=gitlab-org%2Fcli&order=default&page=2&pagination=legacy&per_page=5&ref_name=main&trailers=false>; rel=\"next\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/repository/commits?id=gitlab-org%2Fcli&order=default&page=1&pagination=legacy&per_page=5&ref_name=main&trailers=false>; rel=\"first\"",
+      "etag": "W/\"2765d850e0eef22a8bd4169202409f59\"",
+      "ratelimit-limit": "2000",
+      "ratelimit-remaining": "1926",
+      "ratelimit-reset": "1791928020",
+      "x-next-page": "2",
+      "x-page": "1",
+      "x-per-page": "5"
+    },
+    "body": [
+      {
+        "id": "22ef0830b3575048b558d32c2d930d41a5b32ffc",
+        "short_id": "22ef0830",
+        "created_at": "2026-10-13T13:05:31.000-05:00",
+        "parent_ids": [
+          "24a87522cd40bd8a707416b85b57d5e2684def41",
+          "8fe3673c932ac91e4299dc16835bf33a002af7ff"
+        ],
+        "title": "Merge branch 'orbit-help-skill-pointer' into 'main'",
+        "message": "Merge branch 'orbit-help-skill-pointer' into 'main'\n\ndocs(orbit): point agents to the Orbit skill in help\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4072\n\nMerged-by: Kai Armstrong <redacted@example.invalid>\nApproved-by: GitLab Duo <redacted@example.invalid>\nApproved-by: Kai Armstrong <redacted@example.invalid>\nReviewed-by: Kai Armstrong <redacted@example.invalid>\nReviewed-by: GitLab Duo <redacted@example.invalid>\nCo-authored-by: Dmitry Gruzd <redacted@example.invalid>",
+        "author_name": "Kai Armstrong",
+        "author_email": "redacted@example.invalid",
+        "authored_date": "2026-10-13T13:05:31.000-05:00",
+        "committer_name": "GitLab",
+        "committer_email": "redacted@example.invalid",
+        "committed_date": "2026-10-13T13:05:31.000-05:00",
+        "trailers": {},
+        "extended_trailers": {},
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/22ef0830b3575048b558d32c2d930d41a5b32ffc"
+      },
+      {
+        "id": "8fe3673c932ac91e4299dc16835bf33a002af7ff",
+        "short_id": "8fe3673c",
+        "created_at": "2026-10-13T13:05:30.000-05:00",
+        "parent_ids": [
+          "b3bf6ccba7d855c656fb6bd4e1d8feb62fe8285f"
+        ],
+        "title": "docs(orbit): point agents to the Orbit skill in help",
+        "message": "docs(orbit): point agents to the Orbit skill in help\n",
+        "author_name": "Dmitry Gruzd",
+        "author_email": "redacted@example.invalid",
+        "authored_date": "2026-10-13T20:05:30.000+02:00",
+        "committer_name": "GitLab",
+        "committer_email": "redacted@example.invalid",
+        "committed_date": "2026-10-13T13:05:30.000-05:00",
+        "trailers": {},
+        "extended_trailers": {},
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/8fe3673c932ac91e4299dc16835bf33a002af7ff"
+      },
+      {
+        "id": "24a87522cd40bd8a707416b85b57d5e2684def41",
+        "short_id": "24a87522",
+        "created_at": "2026-10-13T18:52:09.000+02:00",
+        "parent_ids": [
+          "b3bf6ccba7d855c656fb6bd4e1d8feb62fe8285f",
+          "509e14e850a2a3dd66bb8a889f08b7529ccb5bbd"
+        ],
+        "title": "Merge branch '8552-keyring-missing-token-error' into 'main'",
+        "message": "Merge branch '8552-keyring-missing-token-error' into 'main'\n\nfix(auth): fail clearly on a missing keyring token\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4061\n\nMerged-by: Ahmed Hemdan <redacted@example.invalid>\nApproved-by: GitLab Duo <redacted@example.invalid>\nApproved-by: Kai Armstrong <redacted@example.invalid>\nApproved-by: Ahmed Hemdan <redacted@example.invalid>\nReviewed-by: Kai Armstrong <redacted@example.invalid>\nReviewed-by: Ahmed Hemdan <redacted@example.invalid>\nReviewed-by: GitLab Duo <redacted@example.invalid>\nCo-authored-by: Hamza Hassanain <redacted@example.invalid>",
+        "author_name": "Ahmed Hemdan",
+        "author_email": "redacted@example.invalid",
+        "authored_date": "2026-10-13T18:52:09.000+02:00",
+        "committer_name": "GitLab",
+        "committer_email": "redacted@example.invalid",
+        "committed_date": "2026-10-13T18:52:09.000+02:00",
+        "trailers": {},
+        "extended_trailers": {},
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/24a87522cd40bd8a707416b85b57d5e2684def41"
+      },
+      {
+        "id": "509e14e850a2a3dd66bb8a889f08b7529ccb5bbd",
+        "short_id": "509e14e8",
+        "created_at": "2026-10-13T18:52:06.000+02:00",
+        "parent_ids": [
+          "87bf8c8e8337829971c05f535c5d4385bda45dbf"
+        ],
+        "title": "fix(auth): fail clearly on a missing keyring token",
+        "message": "fix(auth): fail clearly on a missing keyring token\n",
+        "author_name": "Hamza Hassanain",
+        "author_email": "redacted@example.invalid",
+        "authored_date": "2026-10-13T19:52:06.000+03:00",
+        "committer_name": "GitLab",
+        "committer_email": "redacted@example.invalid",
+        "committed_date": "2026-10-13T18:52:06.000+02:00",
+        "trailers": {},
+        "extended_trailers": {},
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/509e14e850a2a3dd66bb8a889f08b7529ccb5bbd"
+      },
+      {
+        "id": "b3bf6ccba7d855c656fb6bd4e1d8feb62fe8285f",
+        "short_id": "b3bf6ccb",
+        "created_at": "2026-10-13T11:14:00.000-05:00",
+        "parent_ids": [
+          "87bf8c8e8337829971c05f535c5d4385bda45dbf",
+          "eeed2f768e6de25501f995094823e8bf77ebd95a"
+        ],
+        "title": "Merge branch 'binarymgr-progress-stderr' into 'main'",
+        "message": "Merge branch 'binarymgr-progress-stderr' into 'main'\n\nfix(binarymgr): write install progress to stderr\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4098\n\nMerged-by: Kai Armstrong <redacted@example.invalid>\nApproved-by: GitLab Duo <redacted@example.invalid>\nApproved-by: Kai Armstrong <redacted@example.invalid>\nReviewed-by: Kai Armstrong <redacted@example.invalid>\nCo-authored-by: Dmitry Gruzd <redacted@example.invalid>",
+        "author_name": "Kai Armstrong",
+        "author_email": "redacted@example.invalid",
+        "authored_date": "2026-10-13T11:14:00.000-05:00",
+        "committer_name": "GitLab",
+        "committer_email": "redacted@example.invalid",
+        "committed_date": "2026-10-13T11:14:00.000-05:00",
+        "trailers": {},
+        "extended_trailers": {},
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/b3bf6ccba7d855c656fb6bd4e1d8feb62fe8285f"
+      }
+    ]
+  }
+}

@@ -1,0 +1,701 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/compare/896a72bee3bb92044db4ad6f9062f77b7e6f6492...dev"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"5717286f84c0d25409eccb5dd18a257f\""
+    },
+    "body": {
+      "base_commit": {
+        "url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/commits/896a72bee3bb92044db4ad6f9062f77b7e6f6492",
+        "sha": "896a72bee3bb92044db4ad6f9062f77b7e6f6492",
+        "html_url": "https://gitee.com/cmcc-oneos/OneOS/commit/896a72bee3bb92044db4ad6f9062f77b7e6f6492",
+        "comments_url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/commits/896a72bee3bb92044db4ad6f9062f77b7e6f6492/comments",
+        "commit": {
+          "author": {
+            "name": "CMCC-OneOS",
+            "date": "2025-05-07T11:04:29+00:00",
+            "email": "redacted@example.invalid"
+          },
+          "committer": {
+            "name": "Gitee",
+            "date": "2025-05-07T11:04:29+00:00",
+            "email": "redacted@example.invalid"
+          },
+          "message": "删除文件 drivers/hal/semidrive",
+          "tree": {
+            "sha": "92228a2ffe86fb62aee30e4b39eebcd6956201fe",
+            "url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/git/trees/92228a2ffe86fb62aee30e4b39eebcd6956201fe"
+          }
+        },
+        "author": {
+          "id": 7894055,
+          "login": "cmcc-oneos-admin",
+          "name": "CMCC-OneOS",
+          "avatar_url": "https://foruda.gitee.com/avatar/1670466967165594212/7894055_cmcc-oneos-admin_1670466966.png",
+          "url": "https://gitee.com/api/v5/users/cmcc-oneos-admin",
+          "html_url": "https://gitee.com/cmcc-oneos-admin",
+          "remark": "",
+          "followers_url": "https://gitee.com/api/v5/users/cmcc-oneos-admin/followers",
+          "following_url": "https://gitee.com/api/v5/users/cmcc-oneos-admin/following_url{/other_user}",
+          "gists_url": "https://gitee.com/api/v5/users/cmcc-oneos-admin/gists{/gist_id}",
+          "starred_url": "https://gitee.com/api/v5/users/cmcc-oneos-admin/starred{/owner}{/repo}",
+          "subscriptions_url": "https://gitee.com/api/v5/users/cmcc-oneos-admin/subscriptions",
+          "organizations_url": "https://gitee.com/api/v5/users/cmcc-oneos-admin/orgs",
+          "repos_url": "https://gitee.com/api/v5/users/cmcc-oneos-admin/repos",
+          "events_url": "https://gitee.com/api/v5/users/cmcc-oneos-admin/events{/privacy}",
+          "received_events_url": "https://gitee.com/api/v5/users/cmcc-oneos-admin/received_events",
+          "type": "User"
+        },
+        "committer": {
+          "id": 10186697,
+          "login": "gitee-bot",
+          "name": "Gitee GPG Bot",
+          "avatar_url": "https://foruda.gitee.com/avatar/1677201213385506226/10186697_gitee-bot_1639518846.png",
+          "url": "https://gitee.com/api/v5/users/gitee-bot",
+          "html_url": "https://gitee.com/gitee-bot",
+          "remark": "",
+          "followers_url": "https://gitee.com/api/v5/users/gitee-bot/followers",
+          "following_url": "https://gitee.com/api/v5/users/gitee-bot/following_url{/other_user}",
+          "gists_url": "https://gitee.com/api/v5/users/gitee-bot/gists{/gist_id}",
+          "starred_url": "https://gitee.com/api/v5/users/gitee-bot/starred{/owner}{/repo}",
+          "subscriptions_url": "https://gitee.com/api/v5/users/gitee-bot/subscriptions",
+          "organizations_url": "https://gitee.com/api/v5/users/gitee-bot/orgs",
+          "repos_url": "https://gitee.com/api/v5/users/gitee-bot/repos",
+          "events_url": "https://gitee.com/api/v5/users/gitee-bot/events{/privacy}",
+          "received_events_url": "https://gitee.com/api/v5/users/gitee-bot/received_events",
+          "type": "User"
+        },
+        "parents": [
+          {
+            "sha": "9d0674c30d90b3988cc10db5159cfb3c38dfbf4a",
+            "url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/commits/9d0674c30d90b3988cc10db5159cfb3c38dfbf4a"
+          }
+        ]
+      },
+      "merge_base_commit": {
+        "url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/commits/896a72bee3bb92044db4ad6f9062f77b7e6f6492",
+        "sha": "896a72bee3bb92044db4ad6f9062f77b7e6f6492",
+        "html_url": "https://gitee.com/cmcc-oneos/OneOS/commit/896a72bee3bb92044db4ad6f9062f77b7e6f6492",
+        "comments_url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/commits/896a72bee3bb92044db4ad6f9062f77b7e6f6492/comments",
+        "commit": {
+          "author": {
+            "name": "CMCC-OneOS",
+            "date": "2025-05-07T11:04:29+00:00",
+            "email": "redacted@example.invalid"
+          },
+          "committer": {
+            "name": "Gitee",
+            "date": "2025-05-07T11:04:29+00:00",
+            "email": "redacted@example.invalid"
+          },
+          "message": "删除文件 drivers/hal/semidrive",
+          "tree": {
+            "sha": "92228a2ffe86fb62aee30e4b39eebcd6956201fe",
+            "url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/git/trees/92228a2ffe86fb62aee30e4b39eebcd6956201fe"
+          }
+        },
+        "author": {
+          "id": 7894055,
+          "login": "cmcc-oneos-admin",
+          "name": "CMCC-OneOS",
+          "avatar_url": "https://foruda.gitee.com/avatar/1670466967165594212/7894055_cmcc-oneos-admin_1670466966.png",
+          "url": "https://gitee.com/api/v5/users/cmcc-oneos-admin",
+          "html_url": "https://gitee.com/cmcc-oneos-admin",
+          "remark": "",
+          "followers_url": "https://gitee.com/api/v5/users/cmcc-oneos-admin/followers",
+          "following_url": "https://gitee.com/api/v5/users/cmcc-oneos-admin/following_url{/other_user}",
+          "gists_url": "https://gitee.com/api/v5/users/cmcc-oneos-admin/gists{/gist_id}",
+          "starred_url": "https://gitee.com/api/v5/users/cmcc-oneos-admin/starred{/owner}{/repo}",
+          "subscriptions_url": "https://gitee.com/api/v5/users/cmcc-oneos-admin/subscriptions",
+          "organizations_url": "https://gitee.com/api/v5/users/cmcc-oneos-admin/orgs",
+          "repos_url": "https://gitee.com/api/v5/users/cmcc-oneos-admin/repos",
+          "events_url": "https://gitee.com/api/v5/users/cmcc-oneos-admin/events{/privacy}",
+          "received_events_url": "https://gitee.com/api/v5/users/cmcc-oneos-admin/received_events",
+          "type": "User"
+        },
+        "committer": {
+          "id": 10186697,
+          "login": "gitee-bot",
+          "name": "Gitee GPG Bot",
+          "avatar_url": "https://foruda.gitee.com/avatar/1677201213385506226/10186697_gitee-bot_1639518846.png",
+          "url": "https://gitee.com/api/v5/users/gitee-bot",
+          "html_url": "https://gitee.com/gitee-bot",
+          "remark": "",
+          "followers_url": "https://gitee.com/api/v5/users/gitee-bot/followers",
+          "following_url": "https://gitee.com/api/v5/users/gitee-bot/following_url{/other_user}",
+          "gists_url": "https://gitee.com/api/v5/users/gitee-bot/gists{/gist_id}",
+          "starred_url": "https://gitee.com/api/v5/users/gitee-bot/starred{/owner}{/repo}",
+          "subscriptions_url": "https://gitee.com/api/v5/users/gitee-bot/subscriptions",
+          "organizations_url": "https://gitee.com/api/v5/users/gitee-bot/orgs",
+          "repos_url": "https://gitee.com/api/v5/users/gitee-bot/repos",
+          "events_url": "https://gitee.com/api/v5/users/gitee-bot/events{/privacy}",
+          "received_events_url": "https://gitee.com/api/v5/users/gitee-bot/received_events",
+          "type": "User"
+        },
+        "parents": [
+          {
+            "sha": "9d0674c30d90b3988cc10db5159cfb3c38dfbf4a",
+            "url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/commits/9d0674c30d90b3988cc10db5159cfb3c38dfbf4a"
+          }
+        ]
+      },
+      "commits": [
+        {
+          "url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/commits/107e129ad71b24c315f9c6bf00de9ae63da0e4f6",
+          "sha": "107e129ad71b24c315f9c6bf00de9ae63da0e4f6",
+          "html_url": "https://gitee.com/cmcc-oneos/OneOS/commit/107e129ad71b24c315f9c6bf00de9ae63da0e4f6",
+          "comments_url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/commits/107e129ad71b24c315f9c6bf00de9ae63da0e4f6/comments",
+          "commit": {
+            "author": {
+              "name": "CMCC-OneOS",
+              "date": "2025-06-12T06:33:45+00:00",
+              "email": "redacted@example.invalid"
+            },
+            "committer": {
+              "name": "Gitee",
+              "date": "2025-06-12T06:33:45+00:00",
+              "email": "redacted@example.invalid"
+            },
+            "message": "!550 delete Kconfig menu of semidrive\nMerge pull request !550 from chao/dev",
+            "tree": {
+              "sha": "e05ef50bafa2592cb51cbe220800b5cb1f361be2",
+              "url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/git/trees/e05ef50bafa2592cb51cbe220800b5cb1f361be2"
+            }
+          },
+          "author": {
+            "id": 7894055,
+            "login": "cmcc-oneos-admin",
+            "name": "CMCC-OneOS",
+            "avatar_url": "https://foruda.gitee.com/avatar/1670466967165594212/7894055_cmcc-oneos-admin_1670466966.png",
+            "url": "https://gitee.com/api/v5/users/cmcc-oneos-admin",
+            "html_url": "https://gitee.com/cmcc-oneos-admin",
+            "remark": "",
+            "followers_url": "https://gitee.com/api/v5/users/cmcc-oneos-admin/followers",
+            "following_url": "https://gitee.com/api/v5/users/cmcc-oneos-admin/following_url{/other_user}",
+            "gists_url": "https://gitee.com/api/v5/users/cmcc-oneos-admin/gists{/gist_id}",
+            "starred_url": "https://gitee.com/api/v5/users/cmcc-oneos-admin/starred{/owner}{/repo}",
+            "subscriptions_url": "https://gitee.com/api/v5/users/cmcc-oneos-admin/subscriptions",
+            "organizations_url": "https://gitee.com/api/v5/users/cmcc-oneos-admin/orgs",
+            "repos_url": "https://gitee.com/api/v5/users/cmcc-oneos-admin/repos",
+            "events_url": "https://gitee.com/api/v5/users/cmcc-oneos-admin/events{/privacy}",
+            "received_events_url": "https://gitee.com/api/v5/users/cmcc-oneos-admin/received_events",
+            "type": "User"
+          },
+          "committer": {
+            "id": 10186697,
+            "login": "gitee-bot",
+            "name": "Gitee GPG Bot",
+            "avatar_url": "https://foruda.gitee.com/avatar/1677201213385506226/10186697_gitee-bot_1639518846.png",
+            "url": "https://gitee.com/api/v5/users/gitee-bot",
+            "html_url": "https://gitee.com/gitee-bot",
+            "remark": "",
+            "followers_url": "https://gitee.com/api/v5/users/gitee-bot/followers",
+            "following_url": "https://gitee.com/api/v5/users/gitee-bot/following_url{/other_user}",
+            "gists_url": "https://gitee.com/api/v5/users/gitee-bot/gists{/gist_id}",
+            "starred_url": "https://gitee.com/api/v5/users/gitee-bot/starred{/owner}{/repo}",
+            "subscriptions_url": "https://gitee.com/api/v5/users/gitee-bot/subscriptions",
+            "organizations_url": "https://gitee.com/api/v5/users/gitee-bot/orgs",
+            "repos_url": "https://gitee.com/api/v5/users/gitee-bot/repos",
+            "events_url": "https://gitee.com/api/v5/users/gitee-bot/events{/privacy}",
+            "received_events_url": "https://gitee.com/api/v5/users/gitee-bot/received_events",
+            "type": "User"
+          },
+          "parents": [
+            {
+              "sha": "2fa826a00e1c4f42113d878d198584360e180eb0",
+              "url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/commits/2fa826a00e1c4f42113d878d198584360e180eb0"
+            },
+            {
+              "sha": "63e44b69ea1af37d309cce490c59cda5d190c8a1",
+              "url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/commits/63e44b69ea1af37d309cce490c59cda5d190c8a1"
+            }
+          ]
+        },
+        {
+          "url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/commits/63e44b69ea1af37d309cce490c59cda5d190c8a1",
+          "sha": "63e44b69ea1af37d309cce490c59cda5d190c8a1",
+          "html_url": "https://gitee.com/cmcc-oneos/OneOS/commit/63e44b69ea1af37d309cce490c59cda5d190c8a1",
+          "comments_url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/commits/63e44b69ea1af37d309cce490c59cda5d190c8a1/comments",
+          "commit": {
+            "author": {
+              "name": "pangchao",
+              "date": "2025-06-12T11:06:45+08:00",
+              "email": "redacted@example.invalid"
+            },
+            "committer": {
+              "name": "pangchao",
+              "date": "2025-06-12T11:06:45+08:00",
+              "email": "redacted@example.invalid"
+            },
+            "message": "delete Kconfig menu of semidrive\n",
+            "tree": {
+              "sha": "e05ef50bafa2592cb51cbe220800b5cb1f361be2",
+              "url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/git/trees/e05ef50bafa2592cb51cbe220800b5cb1f361be2"
+            }
+          },
+          "author": null,
+          "committer": null,
+          "parents": [
+            {
+              "sha": "2fa826a00e1c4f42113d878d198584360e180eb0",
+              "url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/commits/2fa826a00e1c4f42113d878d198584360e180eb0"
+            }
+          ]
+        },
+        {
+          "url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/commits/2fa826a00e1c4f42113d878d198584360e180eb0",
+          "sha": "2fa826a00e1c4f42113d878d198584360e180eb0",
+          "html_url": "https://gitee.com/cmcc-oneos/OneOS/commit/2fa826a00e1c4f42113d878d198584360e180eb0",
+          "comments_url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/commits/2fa826a00e1c4f42113d878d198584360e180eb0/comments",
+          "commit": {
+            "author": {
+              "name": "CMCC-OneOS",
+              "date": "2025-05-07T11:12:05+00:00",
+              "email": "redacted@example.invalid"
+            },
+            "committer": {
+              "name": "Gitee",
+              "date": "2025-05-07T11:12:05+00:00",
+              "email": "redacted@example.invalid"
+            },
+            "message": "删除文件 templates/configs/semidrive",
+            "tree": {
+              "sha": "2bc7a882d3178375b6997242c4d3f990c7863b0c",
+              "url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/git/trees/2bc7a882d3178375b6997242c4d3f990c7863b0c"
+            }
+          },
+          "author": {
+            "id": 7894055,
+            "login": "cmcc-oneos-admin",
+            "name": "CMCC-OneOS",
+            "avatar_url": "https://foruda.gitee.com/avatar/1670466967165594212/7894055_cmcc-oneos-admin_1670466966.png",
+            "url": "https://gitee.com/api/v5/users/cmcc-oneos-admin",
+            "html_url": "https://gitee.com/cmcc-oneos-admin",
+            "remark": "",
+            "followers_url": "https://gitee.com/api/v5/users/cmcc-oneos-admin/followers",
+            "following_url": "https://gitee.com/api/v5/users/cmcc-oneos-admin/following_url{/other_user}",
+            "gists_url": "https://gitee.com/api/v5/users/cmcc-oneos-admin/gists{/gist_id}",
+            "starred_url": "https://gitee.com/api/v5/users/cmcc-oneos-admin/starred{/owner}{/repo}",
+            "subscriptions_url": "https://gitee.com/api/v5/users/cmcc-oneos-admin/subscriptions",
+            "organizations_url": "https://gitee.com/api/v5/users/cmcc-oneos-admin/orgs",
+            "repos_url": "https://gitee.com/api/v5/users/cmcc-oneos-admin/repos",
+            "events_url": "https://gitee.com/api/v5/users/cmcc-oneos-admin/events{/privacy}",
+            "received_events_url": "https://gitee.com/api/v5/users/cmcc-oneos-admin/received_events",
+            "type": "User"
+          },
+          "committer": {
+            "id": 10186697,
+            "login": "gitee-bot",
+            "name": "Gitee GPG Bot",
+            "avatar_url": "https://foruda.gitee.com/avatar/1677201213385506226/10186697_gitee-bot_1639518846.png",
+            "url": "https://gitee.com/api/v5/users/gitee-bot",
+            "html_url": "https://gitee.com/gitee-bot",
+            "remark": "",
+            "followers_url": "https://gitee.com/api/v5/users/gitee-bot/followers",
+            "following_url": "https://gitee.com/api/v5/users/gitee-bot/following_url{/other_user}",
+            "gists_url": "https://gitee.com/api/v5/users/gitee-bot/gists{/gist_id}",
+            "starred_url": "https://gitee.com/api/v5/users/gitee-bot/starred{/owner}{/repo}",
+            "subscriptions_url": "https://gitee.com/api/v5/users/gitee-bot/subscriptions",
+            "organizations_url": "https://gitee.com/api/v5/users/gitee-bot/orgs",
+            "repos_url": "https://gitee.com/api/v5/users/gitee-bot/repos",
+            "events_url": "https://gitee.com/api/v5/users/gitee-bot/events{/privacy}",
+            "received_events_url": "https://gitee.com/api/v5/users/gitee-bot/received_events",
+            "type": "User"
+          },
+          "parents": [
+            {
+              "sha": "968660917d4ec12e0fe294a784e18775cc1aa288",
+              "url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/commits/968660917d4ec12e0fe294a784e18775cc1aa288"
+            }
+          ]
+        },
+        {
+          "url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/commits/968660917d4ec12e0fe294a784e18775cc1aa288",
+          "sha": "968660917d4ec12e0fe294a784e18775cc1aa288",
+          "html_url": "https://gitee.com/cmcc-oneos/OneOS/commit/968660917d4ec12e0fe294a784e18775cc1aa288",
+          "comments_url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/commits/968660917d4ec12e0fe294a784e18775cc1aa288/comments",
+          "commit": {
+            "author": {
+              "name": "CMCC-OneOS",
+              "date": "2025-05-07T11:06:37+00:00",
+              "email": "redacted@example.invalid"
+            },
+            "committer": {
+              "name": "Gitee",
+              "date": "2025-05-07T11:06:37+00:00",
+              "email": "redacted@example.invalid"
+            },
+            "message": "删除文件 templates/e3110-semidrive",
+            "tree": {
+              "sha": "75b9fc745b83ef9007e36900d2fac8d262bc44db",
+              "url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/git/trees/75b9fc745b83ef9007e36900d2fac8d262bc44db"
+            }
+          },
+          "author": {
+            "id": 7894055,
+            "login": "cmcc-oneos-admin",
+            "name": "CMCC-OneOS",
+            "avatar_url": "https://foruda.gitee.com/avatar/1670466967165594212/7894055_cmcc-oneos-admin_1670466966.png",
+            "url": "https://gitee.com/api/v5/users/cmcc-oneos-admin",
+            "html_url": "https://gitee.com/cmcc-oneos-admin",
+            "remark": "",
+            "followers_url": "https://gitee.com/api/v5/users/cmcc-oneos-admin/followers",
+            "following_url": "https://gitee.com/api/v5/users/cmcc-oneos-admin/following_url{/other_user}",
+            "gists_url": "https://gitee.com/api/v5/users/cmcc-oneos-admin/gists{/gist_id}",
+            "starred_url": "https://gitee.com/api/v5/users/cmcc-oneos-admin/starred{/owner}{/repo}",
+            "subscriptions_url": "https://gitee.com/api/v5/users/cmcc-oneos-admin/subscriptions",
+            "organizations_url": "https://gitee.com/api/v5/users/cmcc-oneos-admin/orgs",
+            "repos_url": "https://gitee.com/api/v5/users/cmcc-oneos-admin/repos",
+            "events_url": "https://gitee.com/api/v5/users/cmcc-oneos-admin/events{/privacy}",
+            "received_events_url": "https://gitee.com/api/v5/users/cmcc-oneos-admin/received_events",
+            "type": "User"
+          },
+          "committer": {
+            "id": 10186697,
+            "login": "gitee-bot",
+            "name": "Gitee GPG Bot",
+            "avatar_url": "https://foruda.gitee.com/avatar/1677201213385506226/10186697_gitee-bot_1639518846.png",
+            "url": "https://gitee.com/api/v5/users/gitee-bot",
+            "html_url": "https://gitee.com/gitee-bot",
+            "remark": "",
+            "followers_url": "https://gitee.com/api/v5/users/gitee-bot/followers",
+            "following_url": "https://gitee.com/api/v5/users/gitee-bot/following_url{/other_user}",
+            "gists_url": "https://gitee.com/api/v5/users/gitee-bot/gists{/gist_id}",
+            "starred_url": "https://gitee.com/api/v5/users/gitee-bot/starred{/owner}{/repo}",
+            "subscriptions_url": "https://gitee.com/api/v5/users/gitee-bot/subscriptions",
+            "organizations_url": "https://gitee.com/api/v5/users/gitee-bot/orgs",
+            "repos_url": "https://gitee.com/api/v5/users/gitee-bot/repos",
+            "events_url": "https://gitee.com/api/v5/users/gitee-bot/events{/privacy}",
+            "received_events_url": "https://gitee.com/api/v5/users/gitee-bot/received_events",
+            "type": "User"
+          },
+          "parents": [
+            {
+              "sha": "896a72bee3bb92044db4ad6f9062f77b7e6f6492",
+              "url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/commits/896a72bee3bb92044db4ad6f9062f77b7e6f6492"
+            }
+          ]
+        }
+      ],
+      "files": [
+        {
+          "sha": "7407eb96e104fa5cebd1eff5e04923b4226b2199",
+          "filename": "templates/configs/Kconfig",
+          "status": "modified",
+          "additions": 0,
+          "deletions": 7,
+          "changes": 7,
+          "blob_url": "https://gitee.com/cmcc-oneos/OneOS/blob/107e129ad71b24c315f9c6bf00de9ae63da0e4f6/templates/configs/Kconfig",
+          "raw_url": "https://gitee.com/cmcc-oneos/OneOS/raw/107e129ad71b24c315f9c6bf00de9ae63da0e4f6/templates/configs/Kconfig",
+          "content_url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/contents/templates/configs/Kconfig?ref=107e129ad71b24c315f9c6bf00de9ae63da0e4f6",
+          "patch": "@@ -62,9 +62,6 @@ choice\n     config MANUFACTOR_SAMSUNG\r\n         bool \"SAMSUNG\"\r\n         \r\n-    config MANUFACTOR_SEMIDRIVE\r\n-        bool \"SEMIDRIVE\"\r\n-        \r\n endchoice\r\n \r\n if MANUFACTOR_STM32\r\n@@ -150,7 +147,3 @@ endif\n if MANUFACTOR_SAMSUNG\r\n     source \"$OS_ROOT/templates/configs/samsung/Kconfig\"\r\n endif\r\n-\r\n-if MANUFACTOR_SEMIDRIVE\r\n-    source \"$OS_ROOT/templates/configs/semidrive/Kconfig\"\r\n-endif\r\n",
+          "truncated": false
+        },
+        {
+          "sha": "e93b357261155bc8b2e816cdea657e5384f718ae",
+          "filename": "templates/configs/semidrive/Kconfig",
+          "status": "removed",
+          "additions": 0,
+          "deletions": 15,
+          "changes": 15,
+          "blob_url": "https://gitee.com/cmcc-oneos/OneOS/blob/896a72bee3bb92044db4ad6f9062f77b7e6f6492/templates/configs/semidrive/Kconfig",
+          "raw_url": "https://gitee.com/cmcc-oneos/OneOS/raw/896a72bee3bb92044db4ad6f9062f77b7e6f6492/templates/configs/semidrive/Kconfig",
+          "content_url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/contents/templates/configs/semidrive/Kconfig?ref=896a72bee3bb92044db4ad6f9062f77b7e6f6492",
+          "patch": "@@ -1,15 +0,0 @@\n-choice\n-    prompt \"|--SERIES\"\n-        default SERIES_SEMIDRIVE_E3XXX\n-    help\n-        Select the device in semidrive\n-\n-    config SERIES_SEMIDRIVE_E3XXX\n-        bool \"SEMIDRIVE_E3XXX\"\n-endchoice\n-\n-\n-\n-if SERIES_SEMIDRIVE_E3XXX\n-    source \"$OS_ROOT/templates/configs/semidrive/e3xxx/Kconfig\"\n-endif\n\\ No newline at end of file\n",
+          "truncated": false
+        },
+        {
+          "sha": "263fa76b4b7bdfd25ccddc25f4f8667a4e41c66a",
+          "filename": "templates/configs/semidrive/SConscript",
+          "status": "removed",
+          "additions": 0,
+          "deletions": 29,
+          "changes": 29,
+          "blob_url": "https://gitee.com/cmcc-oneos/OneOS/blob/896a72bee3bb92044db4ad6f9062f77b7e6f6492/templates/configs/semidrive/SConscript",
+          "raw_url": "https://gitee.com/cmcc-oneos/OneOS/raw/896a72bee3bb92044db4ad6f9062f77b7e6f6492/templates/configs/semidrive/SConscript",
+          "content_url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/contents/templates/configs/semidrive/SConscript?ref=896a72bee3bb92044db4ad6f9062f77b7e6f6492",
+          "patch": "@@ -1,29 +0,0 @@\n-import os\n-import sys\n-import importlib\n-import importlib.util    \n-\n-inq_table = {}\n-inq_table['SERIES_SEMIDRIVE_E3'] = 'e3xxx'\n-    \n-def soc_type_inq(g):\n-    for inq in inq_table:\n-        if inq not in g:\n-            continue\n-            \n-        print(inq)\n-            \n-        realdir = os.path.dirname(os.path.realpath(__file__))\n-    \n-        sub_path = os.path.join(realdir, inq_table[inq])\n-        sub_script = os.path.join(sub_path, \"SConscript\")\n-\n-        loader = importlib.machinery.SourceFileLoader('SConscript', sub_script)\n-        spec   = importlib.util.spec_from_loader(loader.name, loader)\n-        mod    = importlib.util.module_from_spec(spec)\n-        loader.exec_module(mod)\n-        target_path = mod.soc_type_inq(g)\n-        \n-        return target_path\n-    \n-    return None\n",
+          "truncated": false
+        },
+        {
+          "sha": "7b7f6a47330b589900d9ce83a37748338a2cd67b",
+          "filename": "templates/configs/semidrive/e3xxx/Kconfig",
+          "status": "removed",
+          "additions": 0,
+          "deletions": 10,
+          "changes": 10,
+          "blob_url": "https://gitee.com/cmcc-oneos/OneOS/blob/896a72bee3bb92044db4ad6f9062f77b7e6f6492/templates/configs/semidrive/e3xxx/Kconfig",
+          "raw_url": "https://gitee.com/cmcc-oneos/OneOS/raw/896a72bee3bb92044db4ad6f9062f77b7e6f6492/templates/configs/semidrive/e3xxx/Kconfig",
+          "content_url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/contents/templates/configs/semidrive/e3xxx/Kconfig?ref=896a72bee3bb92044db4ad6f9062f77b7e6f6492",
+          "patch": "@@ -1,10 +0,0 @@\n-choice\n-    prompt \"|----SUB MODEL\"\n-        default TEMP_e3110-semidrive\n-    help\n-        Select the device in e3xxx\n-\n-    config TEMP_e3110-semidrive\n-        bool \"e3110-semidrive\"\n-\n-endchoice\n",
+          "truncated": false
+        },
+        {
+          "sha": "9a41648b1d521aa43334d44620d816151cd2d567",
+          "filename": "templates/configs/semidrive/e3xxx/SConscript",
+          "status": "removed",
+          "additions": 0,
+          "deletions": 18,
+          "changes": 18,
+          "blob_url": "https://gitee.com/cmcc-oneos/OneOS/blob/896a72bee3bb92044db4ad6f9062f77b7e6f6492/templates/configs/semidrive/e3xxx/SConscript",
+          "raw_url": "https://gitee.com/cmcc-oneos/OneOS/raw/896a72bee3bb92044db4ad6f9062f77b7e6f6492/templates/configs/semidrive/e3xxx/SConscript",
+          "content_url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/contents/templates/configs/semidrive/e3xxx/SConscript?ref=896a72bee3bb92044db4ad6f9062f77b7e6f6492",
+          "patch": "@@ -1,18 +0,0 @@\n-import os\n-import sys\n-import importlib\n-import importlib.util\n-\n-template_dir = \"../templates/semidrive-common/\"\n-\n-def soc_type_inq(g):\n-    target_path = None\n-\n-    target_script = \"../scripts/generate.py\"\n-    loader = importlib.machinery.SourceFileLoader(os.path.basename(target_script), target_script)\n-    spec   = importlib.util.spec_from_loader(loader.name, loader)\n-    mod    = importlib.util.module_from_spec(spec)\n-    loader.exec_module(mod)\n-    target_path = mod.template(template_dir, g)\n-    \n-    return target_path\n",
+          "truncated": false
+        },
+        {
+          "sha": "bfb5b971f4720b6ea103a7f4606ba8b2f69cf948",
+          "filename": "templates/e3110-semidrive/.config",
+          "status": "removed",
+          "additions": 0,
+          "deletions": 829,
+          "changes": 829,
+          "blob_url": "https://gitee.com/cmcc-oneos/OneOS/blob/896a72bee3bb92044db4ad6f9062f77b7e6f6492/templates/e3110-semidrive/.config",
+          "raw_url": "https://gitee.com/cmcc-oneos/OneOS/raw/896a72bee3bb92044db4ad6f9062f77b7e6f6492/templates/e3110-semidrive/.config",
+          "content_url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/contents/templates/e3110-semidrive/.config?ref=896a72bee3bb92044db4ad6f9062f77b7e6f6492",
+          "patch": "",
+          "truncated": true
+        },
+        {
+          "sha": "0723ff92c0a5fab601f3500bbdace2e20cd258ee",
+          "filename": "templates/e3110-semidrive/.gitignore",
+          "status": "removed",
+          "additions": 0,
+          "deletions": 34,
+          "changes": 34,
+          "blob_url": "https://gitee.com/cmcc-oneos/OneOS/blob/896a72bee3bb92044db4ad6f9062f77b7e6f6492/templates/e3110-semidrive/.gitignore",
+          "raw_url": "https://gitee.com/cmcc-oneos/OneOS/raw/896a72bee3bb92044db4ad6f9062f77b7e6f6492/templates/e3110-semidrive/.gitignore",
+          "content_url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/contents/templates/e3110-semidrive/.gitignore?ref=896a72bee3bb92044db4ad6f9062f77b7e6f6492",
+          "patch": "@@ -1,34 +0,0 @@\n-RTE\n-DebugConfig\n-Listings\n-Objects\n-EventRecorderStub.scvd\n-.config.old\n-.sconsign.dblite\n-__pycache__\n-build\n-oneos.bin\n-DebugConfig\n-*.uvguix.*\n-board/CubeMX_Config/MDK-ARM\n-board/CubeMX_Config/Drivers\n-*.o\n-*.pyc\n-*.log\n-*cconfig.h\n-JLinkLog.txt\n-JLinkSettings.ini\n-oneos.map\n-*.bak\n-*.db\n-*.mk\n-*.txt\n-*.cdkws\n-*.log\n-.config.*\n-.sconsign.*\n-Makefile\n-Lst\n-Obj\n-.cdk\n-org.eclipse.core.resources.prefs\n\\ No newline at end of file\n",
+          "truncated": false
+        },
+        {
+          "sha": "894db97c15b9a4f10518a32b160065f767282c1c",
+          "filename": "templates/e3110-semidrive/Kconfig",
+          "status": "removed",
+          "additions": 0,
+          "deletions": 12,
+          "changes": 12,
+          "blob_url": "https://gitee.com/cmcc-oneos/OneOS/blob/896a72bee3bb92044db4ad6f9062f77b7e6f6492/templates/e3110-semidrive/Kconfig",
+          "raw_url": "https://gitee.com/cmcc-oneos/OneOS/raw/896a72bee3bb92044db4ad6f9062f77b7e6f6492/templates/e3110-semidrive/Kconfig",
+          "content_url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/contents/templates/e3110-semidrive/Kconfig?ref=896a72bee3bb92044db4ad6f9062f77b7e6f6492",
+          "patch": "@@ -1,12 +0,0 @@\n-mainmenu \"OneOS Configuration\"\n-\n-#Define the relative path to root directory of os code\n-OS_ROOT=../..\n-SRC_HAL=semidrive\n-\n-config BOARD_E3110_DEMO\n-    bool\n-    select SOC_SEMIDRIVE_E3110\n-    default y\n-    \n-source \"$OS_ROOT/Kconfig\"\n",
+          "truncated": false
+        },
+        {
+          "sha": "12ef0968cc865b9ac4c3f4bf4d7b81dfb2e173cd",
+          "filename": "templates/e3110-semidrive/application/main.c",
+          "status": "removed",
+          "additions": 0,
+          "deletions": 67,
+          "changes": 67,
+          "blob_url": "https://gitee.com/cmcc-oneos/OneOS/blob/896a72bee3bb92044db4ad6f9062f77b7e6f6492/templates/e3110-semidrive/application/main.c",
+          "raw_url": "https://gitee.com/cmcc-oneos/OneOS/raw/896a72bee3bb92044db4ad6f9062f77b7e6f6492/templates/e3110-semidrive/application/main.c",
+          "content_url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/contents/templates/e3110-semidrive/application/main.c?ref=896a72bee3bb92044db4ad6f9062f77b7e6f6492",
+          "patch": "@@ -1,67 +0,0 @@\n-/**\n- ***********************************************************************************************************************\n- * Copyright (c) 2020, China Mobile Communications Group Co.,Ltd.\n- *\n- * Licensed under the Apache License, Version 2.0 (the \"License\"); you may not use this file except in compliance with\n- * the License. You may obtain a copy of the License at\n- *\n- *     http://www.apache.org/licenses/LICENSE-2.0\n- *\n- * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on\n- * an \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the\n- * specific language governing permissions and limitations under the License.\n- *\n- * @file        main.c\n- *\n- * @brief       User application entry\n- *\n- * @revision\n- * Date         Author          Notes\n- * 2020-09-01   OneOS Team      First Version\n- ***********************************************************************************************************************\n- */\n-#include \"os_types.h\"\n-#include \"board.h\"\n-#include \"os_task.h\"\n-#include \"os_assert.h\"\n-\n-static void user_task(void *parameter)\n-{\n-    int i = 0;\n-\n-    for (i = 0; i < led_table_size; i++)\n-    {\n-        os_pin_mode(led_table[i].pin, PIN_MODE_OUTPUT);\n-    }\n-\n-    while (1)\n-    {\n-          for (i = 0; i < led_table_size; i++)\n-          {\n-              os_pin_write(led_table[i].pin, led_table[i].active_level);\n-           os_task_msleep(500);\n-            \n-         \n-              os_pin_write(led_table[i].pin, !led_table[i].active_level);\n-              os_task_msleep(500);\n-          }\n-    }\n-}\n-\n-\n-\n-int main(void)\n-{\n-    os_task_id task;\n-\n-    task = os_task_create(OS_NULL, OS_NULL, 512, \"user\", user_task, OS_NULL, 3);\n-    OS_ASSERT(task);\n-    os_task_startup(task);\n-\n-    return 0;\n-}\n-\n-\n-\n-\n-\n",
+          "truncated": false
+        },
+        {
+          "sha": "0f8a12056236d99348a26aecf944b43b06561ad5",
+          "filename": "templates/e3110-semidrive/application/weave.yaml",
+          "status": "removed",
+          "additions": 0,
+          "deletions": 6,
+          "changes": 6,
+          "blob_url": "https://gitee.com/cmcc-oneos/OneOS/blob/896a72bee3bb92044db4ad6f9062f77b7e6f6492/templates/e3110-semidrive/application/weave.yaml",
+          "raw_url": "https://gitee.com/cmcc-oneos/OneOS/raw/896a72bee3bb92044db4ad6f9062f77b7e6f6492/templates/e3110-semidrive/application/weave.yaml",
+          "content_url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/contents/templates/e3110-semidrive/application/weave.yaml?ref=896a72bee3bb92044db4ad6f9062f77b7e6f6492",
+          "patch": "@@ -1,6 +0,0 @@\n-# 组名\n-group_name: application\n-\n-# 源码\n-source_file:\n-  - ./*.c\n\\ No newline at end of file\n",
+          "truncated": false
+        },
+        {
+          "sha": "776b91db78af6feca59e4c962bba23cf6942ae95",
+          "filename": "templates/e3110-semidrive/board/board.c",
+          "status": "removed",
+          "additions": 0,
+          "deletions": 178,
+          "changes": 178,
+          "blob_url": "https://gitee.com/cmcc-oneos/OneOS/blob/896a72bee3bb92044db4ad6f9062f77b7e6f6492/templates/e3110-semidrive/board/board.c",
+          "raw_url": "https://gitee.com/cmcc-oneos/OneOS/raw/896a72bee3bb92044db4ad6f9062f77b7e6f6492/templates/e3110-semidrive/board/board.c",
+          "content_url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/contents/templates/e3110-semidrive/board/board.c?ref=896a72bee3bb92044db4ad6f9062f77b7e6f6492",
+          "patch": "@@ -1,178 +0,0 @@\n-#include \"board.h\"\n-#include <sdrv_rstgen.h>\n-#include \"reset_ip.h\"\n-\n-\n-\n-#if CONFIG_ARCH_WITH_MPU\n-\n-__WEAK const mpu_config_t board_mpu_config[] = {\n-    /* background region, 4GB size, not accessable. */\n-    {0, 0x100000000, MPU_REGION_NO_ACCESS},\n-\n-#if IRAM1_BASE\n-#if ((CONFIG_E3210) || (CONFIG_E3110))\n-    /* iram region, normal */\n-    {IRAM1_BASE, 0x100000, MPU_REGION_NORMAL},\n-#elif (CONFIG_E3106)\n-    /* iram region, normal */\n-    {IRAM1_BASE, 0x80000, MPU_REGION_NORMAL},\n-#elif (CONFIG_E3104)\n-    /* iram region, normal */\n-    {IRAM1_BASE, 0x40000, MPU_REGION_NORMAL},\n-#endif\n-\n-    /* iram ecc region, normal */\n-    {IRAM1_ECC_BASE, 0x20000, MPU_REGION_NORMAL},\n-#endif\n-\n-    /* hsm reg region, device */\n-    {SEIP_SEIP_BASE, 0x100000, MPU_REGION_DEVICE},\n-\n-    /* xspi1 region, for flash, read only */\n-    {XSPI1_BASE, 0x10000000, MPU_REGION_NORMAL_RO},\n-\n-#if ((CONFIG_E3210) || (CONFIG_E3110))\n-    /* IP module, device */\n-    {0xF0000000, 0x4000000, MPU_REGION_DEVICE},\n-#else\n-    /* IP module, device */\n-    {0xF0000000, 0x2000000, MPU_REGION_DEVICE},\n-#endif\n-\n-    /* tcm region, normal */\n-    {CONFIG_ARMV7R_TCMB_BASE, 0x20000, MPU_REGION_NORMAL},\n-\n-    /* int vector, read only */\n-    {(addr_t)&__vector, 0x40, MPU_REGION_NORMAL_RO},\n-\n-    /* int vector, read only */\n-    {0, 0x40, MPU_REGION_NORMAL_RO},\n-};\n-\n-__WEAK uint32_t num_of_mpu_cfg = ARRAY_SIZE(board_mpu_config);\n-\n-void board_mpu_init(void)\n-{\n-    uint32_t index = 0;\n-\n-    mpu_enable(false);\n-\n-    mpu_clear_region();\n-\n-    for (uint32_t i = 0; i < num_of_mpu_cfg; i++) {\n-        const mpu_config_t *config = &board_mpu_config[i];\n-        if (config->size > 0) {\n-            mpu_add_region(index++, config->addr, config->size, config->type);\n-        }\n-    }\n-\n-    if (index > 0) {\n-        mpu_enable(true);\n-    }\n-}\n-#endif\n-\n-/*\n- * Call constructor functions.\n- * This is required when the project has C++ modules.\n- */\n-void call_constructors(void)\n-{\n-#if __GNUC__\n-    extern void (*__ctor_list[])(void);\n-    extern void (*__ctor_end[])(void);\n-    void (**ctor)(void);\n-\n-    for (ctor = __ctor_list; ctor != __ctor_end; ctor++)\n-        (*ctor)();\n-#elif __ICCARM__\n-    extern void __iar_dynamic_initialization(void);\n-    __iar_dynamic_initialization();\n-#endif\n-}\n-\n-extern uint32_t __vector;\n-void copy_intvec(void)\n-{\n-#if ((CONFIG_ARMV7R_USE_TCMB) && (CONFIG_ARMV7R_TCMB_BASE == 0x0))\n-\n-    if ((uint32_t)(&__vector) != (uint32_t)0x0) {\n-        /* copy intvec to tcm */\n-        volatile uint64_t *p_dst = (uint64_t *)0x0;\n-        volatile uint64_t *p_src = (uint64_t *)(&__vector);\n-\n-        for (int i = 0; i < 8; i++) {\n-            *p_dst++ = *p_src++;\n-        }\n-    }\n-\n-#endif\n-}\n-\n-\n-sdrv_rstgen_sig_t *g_board_reset_array[] = {\n-#if 0\n-    &rstsig_dma_rst0,\n-    &rstsig_canfd9_16,\n-    &rstsig_canfd17_24,\n-    &rstsig_vic1,\n-    &rstsig_xtrg,\n-    &rstsig_xspi1a,\n-    &rstsig_xspi1b,\n-#else\n-    &rstsig_vic1,\n-#endif\n-};\n-const uint16_t g_board_reset_array_size = sizeof(g_board_reset_array) / sizeof(sdrv_rstgen_sig_t *);\n-\n-static void chip_reset_init(void)\n-{\n-    uint32_t i = 0;\n-\n-    for (i = 0; i < g_board_reset_array_size; i++) {\n-        sdrv_rstgen_reset(g_board_reset_array[i]);\n-    }\n-\n-    sdrv_recovery_module(&recovery_module_array);\n-}\n-\n-extern sdrv_btm_cfg_t  g_btm_systick_config;\n-extern sdrv_ckgen_config_t g_clock_config;\n-void semidrive_chip_init(void)\n-{\n-    if (sdrv_ckgen_init(&g_clock_config) != 0)\n-        while(1);\n-\n-    chip_reset_init();\n-\n-    irq_initialize(VIC1_BASE, IRQ_MAX_INTR_NUM);\n-\n-    sdrv_pinctrl_clear_dispmux_config();\n-}\n-\n-#ifdef OS_USING_LED\n-const led_t led_table[] = {\n-    {25, PIN_LOW},\n-    {26, PIN_LOW},\n-   // {18, PIN_LOW},\n-};\n-\n-const int led_table_size = ARRAY_SIZE(led_table);\n-#endif\n-\n-\n-#ifdef OS_USING_PUSH_BUTTON\n-const struct push_button key_table[] = \n-{\n-    {GPIO_A9,     PIN_MODE_INPUT_PULLUP, PIN_IRQ_MODE_FALLING},\n-    {GPIO_Y10,    PIN_MODE_INPUT_PULLDOWN, PIN_IRQ_MODE_RISING},\n-    {GPIO_Y11,    PIN_MODE_INPUT_PULLDOWN, PIN_IRQ_MODE_RISING},\n-};\n-\n-const int key_table_size = ARRAY_SIZE(key_table);\n-\n-#endif\n-\n-\n-\n",
+          "truncated": false
+        },
+        {
+          "sha": "49f3239cbad9ff803ea16fcc90c4af7f76f1e940",
+          "filename": "templates/e3110-semidrive/board/board.h",
+          "status": "removed",
+          "additions": 0,
+          "deletions": 51,
+          "changes": 51,
+          "blob_url": "https://gitee.com/cmcc-oneos/OneOS/blob/896a72bee3bb92044db4ad6f9062f77b7e6f6492/templates/e3110-semidrive/board/board.h",
+          "raw_url": "https://gitee.com/cmcc-oneos/OneOS/raw/896a72bee3bb92044db4ad6f9062f77b7e6f6492/templates/e3110-semidrive/board/board.h",
+          "content_url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/contents/templates/e3110-semidrive/board/board.h?ref=896a72bee3bb92044db4ad6f9062f77b7e6f6492",
+          "patch": "@@ -1,51 +0,0 @@\n-\n-#ifndef __BOARD__\n-#define __BOARD__\n-\n-#include <sdrv_gpio.h>\n-#include <device_pin.h>\n-#include <regs_base.h>\n-#include <reg.h>\n-#include <sdrv_btm.h>\n-#include <sdrv_btm_hw.h>\n-#include <sdrv_ckgen.h>\n-#include <clock_ip.h>\n-#include <sdrv_uart.h>\n-#include <irq.h>\n-#include <irq_num.h>\n-\n-#include <os_types.h>\n-#include <drv_cfg.h>\n-#include <string.h>\n-#include <os_stddef.h>\n-#include <drv_gpio.h>\n-\n-#if defined(__CC_ARM) || defined(__CLANG_ARM)\n-extern int Image$$RW_IRAM1$$ZI$$Limit;\n-#define HEAP_BEGIN 0\n-#elif __ICCARM__\n-#pragma section = \"HEAP\"\n-#define HEAP_BEGIN 0\n-#else\n-extern int __heap_start;\n-extern int __heap_end;\n-#define HEAP_BEGIN (&__heap_start)\n-#define HEAP_END   (&__heap_end)\n-#endif\n-\n-#ifdef OS_USING_LED\n-extern const led_t led_table[];\n-extern const int   led_table_size;\n-#endif\n-\n-#ifdef OS_USING_PUSH_BUTTON\n-extern const struct push_button key_table[];\n-extern const int                key_table_size;\n-#endif\n-\n-\n-\n-extern void os_hw_console_output(char *log_buff);\n-void semidrive_chip_init(void);\n-\n-#endif\n",
+          "truncated": false
+        },
+        {
+          "sha": "e3659af9a711abe654ce002ad605495ceb1fe894",
+          "filename": "templates/e3110-semidrive/board/clock_config.c",
+          "status": "removed",
+          "additions": 0,
+          "deletions": 145,
+          "changes": 145,
+          "blob_url": "https://gitee.com/cmcc-oneos/OneOS/blob/896a72bee3bb92044db4ad6f9062f77b7e6f6492/templates/e3110-semidrive/board/clock_config.c",
+          "raw_url": "https://gitee.com/cmcc-oneos/OneOS/raw/896a72bee3bb92044db4ad6f9062f77b7e6f6492/templates/e3110-semidrive/board/clock_config.c",
+          "content_url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/contents/templates/e3110-semidrive/board/clock_config.c?ref=896a72bee3bb92044db4ad6f9062f77b7e6f6492",
+          "patch": "@@ -1,145 +0,0 @@\n-#include \"os_types.h\"\n-#include \"os_stddef.h\"\n-\n-#include <sdrv_ckgen.h>\n-#include <clock_ip.h>\n-\n-const sdrv_ckgen_bus_config_t g_pre_bus_config = {\n-#if CONFIG_XIP_MODE\n-    .config_num = 0,\n-#else\n-    .config_num = 4,\n-\n-    .config_nodes[0].clk_node = CLK_NODE(g_ckgen_bus_cr5_sf),\n-    .config_nodes[0].rate = 24000000,\n-    .config_nodes[0].post_div = CKGEN_BUS_DIV_4_2_1,\n-\n-    .config_nodes[1].clk_node = CLK_NODE(g_ckgen_bus_ap_bus),\n-    .config_nodes[1].rate = 24000000,\n-    .config_nodes[1].post_div = CKGEN_BUS_DIV_4_2_1,\n-\n-    .config_nodes[2].clk_node = CLK_NODE(g_ckgen_bus_disp_bus),\n-    .config_nodes[2].rate = 24000000,\n-    .config_nodes[2].post_div = CKGEN_BUS_DIV_4_2_1,\n-\n-    .config_nodes[3].clk_node = CLK_NODE(g_ckgen_bus_seip),\n-    .config_nodes[3].rate = 24000000,\n-    .config_nodes[3].post_div = CKGEN_BUS_DIV_4_2_1,\n-#endif\n-};\n-\n-const sdrv_ckgen_rate_config_t g_pll_config = {\n-#if CONFIG_XIP_MODE\n-    .config_num = 0,\n-#else\n-    .config_num = 10,\n-\n-    .config_nodes[0].clk_node = CLK_NODE(g_pll1_root),\n-    .config_nodes[0].rate = 500000000,\n-\n-    .config_nodes[1].clk_node = CLK_NODE(g_pll2_root),\n-    .config_nodes[1].rate = 600000000,\n-\n-    .config_nodes[2].clk_node = CLK_NODE(g_pll3_root),\n-    .config_nodes[2].rate = 532000000,\n-\n-    .config_nodes[3].clk_node = CLK_NODE(g_pll4_root),\n-    .config_nodes[3].rate = 600000000,\n-\n-    .config_nodes[4].clk_node = CLK_NODE(g_pll5_root),\n-    .config_nodes[4].rate = 786432000,\n-\n-    .config_nodes[5].clk_node = CLK_NODE(g_pll_lvds_root),\n-    .config_nodes[5].rate = 1039500000,\n-\n-    .config_nodes[6].clk_node = CLK_NODE(g_pll_lvds_nodiv),\n-    .config_nodes[6].rate = 1039500000,\n-\n-    .config_nodes[7].clk_node = CLK_NODE(g_pll_lvds_div2),\n-    .config_nodes[7].rate = 519750000,\n-\n-    .config_nodes[8].clk_node = CLK_NODE(g_pll_lvds_div7),\n-    .config_nodes[8].rate = 74250000,\n-\n-    .config_nodes[9].clk_node = CLK_NODE(g_pll_lvds_ckgen),\n-    .config_nodes[9].rate = 519750000,\n-#endif\n-};\n-\n-const sdrv_ckgen_bus_config_t g_bus_config = {\n-#if CONFIG_XIP_MODE\n-    .config_num = 0,\n-#else\n-    .config_num = 4,\n-\n-    .config_nodes[0].clk_node = CLK_NODE(g_ckgen_bus_cr5_sf),\n-    .config_nodes[0].rate = 300000000,\n-    .config_nodes[0].post_div = CKGEN_BUS_DIV_4_2_1,\n-\n-    .config_nodes[1].clk_node = CLK_NODE(g_ckgen_bus_ap_bus),\n-    .config_nodes[1].rate = 300000000,\n-    .config_nodes[1].post_div = CKGEN_BUS_DIV_4_2_1,\n-\n-    .config_nodes[2].clk_node = CLK_NODE(g_ckgen_bus_disp_bus),\n-    .config_nodes[2].rate = 300000000,\n-    .config_nodes[2].post_div = CKGEN_BUS_DIV_4_2_1,\n-\n-    .config_nodes[3].clk_node = CLK_NODE(g_ckgen_bus_seip),\n-    .config_nodes[3].rate = 300000000,\n-    .config_nodes[3].post_div = CKGEN_BUS_DIV_4_2_1,\n-#endif\n-};\n-\n-const sdrv_ckgen_rate_config_t g_ip_config = {\n-    .config_num = 12,\n-\t\n-\t/* UART频率 */\n-    .config_nodes[0].clk_node = CLK_NODE(g_ckgen_ip_uart_sf_1_to_8),\n-    .config_nodes[0].rate = 83000000,\n-\t\n-\t\n-\t/* xtrg频率 */\n-    .config_nodes[1].clk_node = CLK_NODE(g_ckgen_ip_xtrg),\n-    .config_nodes[1].rate = 250000000,\n-\t\n-\t/* epwm频率 */\n-    .config_nodes[2].clk_node = CLK_NODE(g_ckgen_ip_epwm1),\n-    .config_nodes[2].rate = 250000000,\n-    .config_nodes[3].clk_node = CLK_NODE(g_ckgen_ip_epwm2),\n-    .config_nodes[3].rate = 250000000,\n-\t\n-\t/* SPI频率 */\n-\t.config_nodes[4].clk_node = CLK_NODE(g_ckgen_ip_spi_sf_1_to_4),\n-    .config_nodes[4].rate = 133000000,\n-    .config_nodes[5].clk_node = CLK_NODE(g_ckgen_ip_spi_sf_5_to_8),\n-    .config_nodes[5].rate = 133000000,\n-\t\n-\t/* etimer频率 */\n-\t.config_nodes[6].clk_node = CLK_NODE(g_ckgen_ip_etmr1),\n-    .config_nodes[6].rate = 250000000,\n-    .config_nodes[7].clk_node = CLK_NODE(g_ckgen_ip_etmr2),\n-    .config_nodes[7].rate = 250000000,\n-\t\n-\t/* CAN频率 */\n-\t.config_nodes[8].clk_node = CLK_NODE(g_ckgen_ip_can),\n-    .config_nodes[8].rate = 40000000,\n-\t\n-\t/* ADC频率 */\n-\t.config_nodes[9].clk_node = CLK_NODE(g_ckgen_ip_adc1),\n-    .config_nodes[9].rate = 24000000,\n-\n-    .config_nodes[10].clk_node = CLK_NODE(g_ckgen_ip_adc2),\n-    .config_nodes[10].rate = 24000000,\n-\n-    .config_nodes[11].clk_node = CLK_NODE(g_ckgen_ip_adc3),\n-    .config_nodes[11].rate = 48000000,\n-};\n-\n-sdrv_ckgen_config_t g_clock_config = {\n-    .pre_bus_config     = &g_pre_bus_config,\n-    .pll_config         = &g_pll_config,\n-    .bus_config         = &g_bus_config,\n-    .core_config        = OS_NULL,\n-    .ip_config          = &g_ip_config,\n-    .gating_config      = OS_NULL,\n-};\n",
+          "truncated": false
+        },
+        {
+          "sha": "7072f52c27940c69c9b1998ac58ec9aba21eee1e",
+          "filename": "templates/e3110-semidrive/board/linker_scripts/ram_gcc.ld",
+          "status": "removed",
+          "additions": 0,
+          "deletions": 170,
+          "changes": 170,
+          "blob_url": "https://gitee.com/cmcc-oneos/OneOS/blob/896a72bee3bb92044db4ad6f9062f77b7e6f6492/templates/e3110-semidrive/board/linker_scripts/ram_gcc.ld",
+          "raw_url": "https://gitee.com/cmcc-oneos/OneOS/raw/896a72bee3bb92044db4ad6f9062f77b7e6f6492/templates/e3110-semidrive/board/linker_scripts/ram_gcc.ld",
+          "content_url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/contents/templates/e3110-semidrive/board/linker_scripts/ram_gcc.ld?ref=896a72bee3bb92044db4ad6f9062f77b7e6f6492",
+          "patch": "@@ -1,170 +0,0 @@\n-OUTPUT_FORMAT(\"elf32-littlearm\", \"elf32-littlearm\", \"elf32-littlearm\")\n-OUTPUT_ARCH(arm)\n-\n-CSTACK_SIZE = 0x1000;\n-SVC_STACK_SIZE = 0x1000;\n-IRQ_STACK_SIZE = 0x1000;\n-FIQ_STACK_SIZE = 0x1000;\n-UND_STACK_SIZE = 0x80;\n-ABT_STACK_SIZE = 0x80;\n-\n-ENTRY(Reset_Handler)\n-\n-MEMORY\n-{\n-  TCM (RW)      : ORIGIN = 0x00000040, LENGTH = 0x0001FFC0\n-  RAM (RW)      : ORIGIN = 0x00404000, LENGTH = 0x000FC000\n-  RAMECC (RW)   : ORIGIN = 0x00860000, LENGTH = 0x00020000\n-}\n-\n-SECTIONS\n-{\n-    /* text/read-only data */\n-    .text : {\n-        . = ALIGN(4);\n-        _stext = .;\n-\n-        KEEP(*(.intvec))\n-        *(.text* .sram.text.glue_7* .gnu.linkonce.t.*)\n-\n-       INCLUDE common.lds\n-\n-    } > RAM\n-\n-    . = ALIGN(4);\n-    _etext = .;\n-\n-    .dummy_post_text : {\n-        __code_end = .;\n-    } > RAM\n-\n-    .rodata : ALIGN(4) {\n-        __rodata_start = .;\n-        __fault_handler_table_start = .;\n-        KEEP(*(.rodata.fault_handler_table))\n-        __fault_handler_table_end = .;\n-        *(.rodata .rodata.* .gnu.linkonce.r.*)\n-    } > RAM\n-\n-    /*\n-     * extra linker scripts tend to insert sections just after .rodata,\n-     * so we want to make sure this symbol comes after anything inserted above,\n-     * but not aligned to the next section necessarily.\n-     */\n-    .dummy_post_rodata : {\n-        __rodata_end = .;\n-    } > RAM\n-\n-    .data : ALIGN(4) {\n-        __data_start = .;\n-        *(.data .data.* .gnu.linkonce.d.*)\n-        __commands_start = .;\n-        KEEP (*(.commands))\n-        __commands_end = .;\n-    } > RAM\n-\n-    .ctors : ALIGN(4) {\n-        __ctor_list = .;\n-        KEEP(*(.ctors .init_array))\n-        __ctor_end = .;\n-    } > RAM\n-    .dtors : ALIGN(4) {\n-        __dtor_list = .;\n-        KEEP(*(.dtors .fini_array))\n-        __dtor_end = .;\n-    } > RAM\n-    .got : { *(.got.plt) *(.got) } > RAM\n-    .dynamic : { *(.dynamic) } > RAM\n-\n-    /* List sections that have differet load address and link address,\n-     * requiring early section copy on start up.\n-     */\n-    .earlycopy : ALIGN(4) {\n-        __earlycopy_start = .;\n-\n-        /* TCM code and data section. */\n-        LONG(ADDR(.tcm))\n-        LONG(SIZEOF(.tcm))\n-        LONG(LOADADDR(.tcm))\n-\n-        /* Add other sections here. */\n-\n-        __earlycopy_end = .;\n-    } > RAM\n-\n-    .nocache : ALIGN(1024) {\n-        _nocacheable_start = .;\n-        KEEP(*(.nocache))\n-        . = ALIGN(1024);\n-        _nocacheable_end = .;\n-    } > RAM\n-\n-    .dummy_post_data : {\n-        /* End of initialized sections. */\n-        __data_end = ALIGN(4);\n-    } > RAM\n-\n-    /* uninitialized data (in same segment as writable data) */\n-    .bss (NOLOAD) : ALIGN(4) {\n-        KEEP(*(.bss.prebss.*))\n-        . = ALIGN(4);\n-        __bss_start = .;\n-        *(.bss .bss.*)\n-        *(.gnu.linkonce.b.*)\n-        *(COMMON)\n-        . = ALIGN(4);\n-        __bss_end = .;\n-    } > RAM\n-\n-    _end = .;\n-\n-    .heap : ALIGN(8) {\n-        __heap_start = .;\n-        *(.heap)\n-    } > RAM\n-\n-    _end_of_ram = ORIGIN(RAM) + LENGTH(RAM);\n-\n-    __heap_end = _end_of_ram;\n-\n-    /* IRAM none-ecc data sections. */\n-    .noneecc (NOLOAD) : ALIGN(4) {\n-        _noneecc_start = .;\n-        *(.noneeccdata)\n-        _noneecc_end = ORIGIN(RAMECC) + LENGTH(RAMECC);\n-    } > RAMECC\n-\n-    /* TCM code and data sections. */\n-    .tcm : AT (__data_end) {\n-        __tcm_start = .;\n-        *(.tcmcode)\n-\n-        . = ALIGN(4);\n-        *(.tcmdata)\n-\n-        __tcm_end = ALIGN(4);\n-        ASSERT(__tcm_end - __tcm_start <= LENGTH(TCM), \"TCM overflow!\");\n-    } > TCM\n-\n-    /* exception stack */\n-    .except.stack (NOLOAD) : ALIGN(8) {\n-        __except_stack_start = .;\n-        . += CSTACK_SIZE;\n-        __cstack_end = .;\n-        . += SVC_STACK_SIZE;\n-        __svc_stack_end = .;\n-        . += IRQ_STACK_SIZE;\n-        __irq_stack_end = .;\n-        . += FIQ_STACK_SIZE;\n-        __fiq_stack_end = .;\n-        . += UND_STACK_SIZE;\n-        __und_stack_end = .;\n-        . += ABT_STACK_SIZE;\n-        __abt_stack_end = .;\n-        __except_stack_end = .;\n-    } > TCM\n-\n-    /* Strip unnecessary stuff */\n-    /DISCARD/ : { *(.comment .note) }\n-}\n-\n",
+          "truncated": false
+        },
+        {
+          "sha": "1783923321e0d2945e35ab30ba481be98f5a3cb4",
+          "filename": "templates/e3110-semidrive/board/linker_scripts/xip_gcc.ld",
+          "status": "removed",
+          "additions": 0,
+          "deletions": 192,
+          "changes": 192,
+          "blob_url": "https://gitee.com/cmcc-oneos/OneOS/blob/896a72bee3bb92044db4ad6f9062f77b7e6f6492/templates/e3110-semidrive/board/linker_scripts/xip_gcc.ld",
+          "raw_url": "https://gitee.com/cmcc-oneos/OneOS/raw/896a72bee3bb92044db4ad6f9062f77b7e6f6492/templates/e3110-semidrive/board/linker_scripts/xip_gcc.ld",
+          "content_url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/contents/templates/e3110-semidrive/board/linker_scripts/xip_gcc.ld?ref=896a72bee3bb92044db4ad6f9062f77b7e6f6492",
+          "patch": "@@ -1,192 +0,0 @@\n-OUTPUT_FORMAT(\"elf32-littlearm\", \"elf32-littlearm\", \"elf32-littlearm\")\n-OUTPUT_ARCH(arm)\n-\n-CSTACK_SIZE = 0x1000;\n-SVC_STACK_SIZE = 0x1000;\n-IRQ_STACK_SIZE = 0x1000;\n-FIQ_STACK_SIZE = 0x1000;\n-UND_STACK_SIZE = 0x80;\n-ABT_STACK_SIZE = 0x80;\n-\n-ENTRY(Reset_Handler)\n-\n-MEMORY\n-{\n-  ROM (R)       : ORIGIN = 0x10140000, LENGTH = 0x00400000\n-  TCM (RW)      : ORIGIN = 0x00000040, LENGTH = 0x0001FFC0\n-  RAM (RW)      : ORIGIN = 0x00404000, LENGTH = 0x000FC000\n-  RAMECC (RW)   : ORIGIN = 0x00860000, LENGTH = 0x00020000\n-}\n-\n-SECTIONS\n-{\n-    /* text/read-only data */\n-    .text : {\n-        . = ALIGN(4);\n-        _stext = .;\n-\n-        KEEP(*(.intvec))\n-        *(.text* .sram.text.glue_7* .gnu.linkonce.t.*)\n-\n-       INCLUDE common.lds\n-\n-    } > ROM\n-\n-    . = ALIGN(4);\n-    _etext = .;\n-\n-    .dummy_post_text : {\n-        __code_end = .;\n-    } > ROM\n-\n-    .rodata : ALIGN(4) {\n-        __rodata_start = .;\n-        __fault_handler_table_start = .;\n-        KEEP(*(.rodata.fault_handler_table))\n-        __fault_handler_table_end = .;\n-        *(.rodata .rodata.* .gnu.linkonce.r.*)\n-    } > ROM\n-\n-    /*\n-     * extra linker scripts tend to insert sections just after .rodata,\n-     * so we want to make sure this symbol comes after anything inserted above,\n-     * but not aligned to the next section necessarily.\n-     */\n-    .dummy_post_rodata : {\n-        __rodata_end = .;\n-    } > ROM\n-\n-    /* List sections that have differet load address and link address,\n-     * requiring early section copy on start up.\n-     */\n-    .earlycopy : ALIGN(4) {\n-        __earlycopy_start = .;\n-\n-        /* TCM code and data section. */\n-        LONG(ADDR(.tcm))\n-        LONG(SIZEOF(.tcm))\n-        LONG(LOADADDR(.tcm))\n-\n-        /* RAM code section. */\n-        LONG(ADDR(.ram.text))\n-        LONG(SIZEOF(.ram.text))\n-        LONG(LOADADDR(.ram.text))\n-\n-        /* RAM data section. */\n-        LONG(ADDR(.data))\n-        LONG(SIZEOF(.data))\n-        LONG(LOADADDR(.data))\n-\n-        __earlycopy_end = .;\n-    } > ROM\n-\n-    .ctors : ALIGN(4) {\n-        __ctor_list = .;\n-        KEEP(*(.ctors .init_array))\n-        __ctor_end = .;\n-    } > ROM\n-\n-    .dtors : ALIGN(4) {\n-        __dtor_list = .;\n-        KEEP(*(.dtors .fini_array))\n-        __dtor_end = .;\n-    } > ROM\n-    .got : { *(.got.plt) *(.got) } > ROM\n-    .dynamic : { *(.dynamic) } > ROM\n-\n-    __rom_end = .;\n-\n-    /* TCM code and data sections. */\n-    .tcm : AT (__rom_end ) ALIGN(4) {\n-        __tcm_start = .;\n-        *(.tcmcode)\n-\n-        . = ALIGN(4);\n-        *(.tcmdata)\n-\n-        __tcm_end = ALIGN(4);\n-        ASSERT(__tcm_end - __tcm_start <= LENGTH(TCM), \"TCM overflow!\");\n-    } > TCM\n-\n-    /* exception stack */\n-    .except.stack (NOLOAD) : ALIGN(8) {\n-        __except_stack_start = .;\n-        . += CSTACK_SIZE;\n-        __cstack_end = .;\n-        . += SVC_STACK_SIZE;\n-        __svc_stack_end = .;\n-        . += IRQ_STACK_SIZE;\n-        __irq_stack_end = .;\n-        . += FIQ_STACK_SIZE;\n-        __fiq_stack_end = .;\n-        . += UND_STACK_SIZE;\n-        __und_stack_end = .;\n-        . += ABT_STACK_SIZE;\n-        __abt_stack_end = .;\n-        __except_stack_end = .;\n-    } > TCM\n-\n-    /* place R/W data and some code which cann't xip in the RAM */\n-    . = ORIGIN(RAM);\n-\n-    __data_load_start = LOADADDR(.tcm) + SIZEOF (.tcm);\n-    .data : AT (__data_load_start) ALIGN(4) {\n-        __data_start = .;\n-        *(.data .data.* .gnu.linkonce.d.*)\n-        __commands_start = .;\n-        KEEP (*(.commands))\n-        __commands_end = .;\n-    } > RAM\n-\n-    __ram_text_load_start = __data_load_start + SIZEOF (.data);\n-    /* code that is located in ram */\n-    .ram.text : AT (__ram_text_load_start) ALIGN(4) {\n-        KEEP (*(.ram.text*))\n-    } > RAM\n-\n-    .nocache : ALIGN(1024) {\n-        _nocacheable_start = .;\n-        KEEP(*(.nocache))\n-        . = ALIGN(1024);\n-        _nocacheable_end = .;\n-    } > RAM\n-\n-    .dummy_post_data : {\n-        /* End of initialized sections. */\n-        __data_end = ALIGN(4);\n-    } > RAM\n-\n-    /* uninitialized data (in same segment as writable data) */\n-    .bss (NOLOAD) : ALIGN(4) {\n-        KEEP(*(.bss.prebss.*))\n-        . = ALIGN(4);\n-        __bss_start = .;\n-        *(.bss .bss.*)\n-        *(.gnu.linkonce.b.*)\n-        *(COMMON)\n-        . = ALIGN(4);\n-        __bss_end = .;\n-    } > RAM\n-\n-    _end = .;\n-\n-    .heap : ALIGN(8) {\n-        __heap_start = .;\n-        *(.heap)\n-    } > RAM\n-\n-    _end_of_ram = ORIGIN(RAM) + LENGTH(RAM);\n-\n-    __heap_end = _end_of_ram;\n-\n-    /* IRAM none-ecc data sections. */\n-    .noneecc (NOLOAD) : ALIGN(4) {\n-        _noneecc_start = .;\n-        *(.noneeccdata)\n-        _noneecc_end = ORIGIN(RAMECC) + LENGTH(RAMECC);\n-    } > RAMECC\n-\n-    /* Strip unnecessary stuff */\n-    /DISCARD/ : { *(.comment .note) }\n-}\n-\n",
+          "truncated": false
+        },
+        {
+          "sha": "57baa1a4e314ed2754bc3db1e03ecdb4fce22467",
+          "filename": "templates/e3110-semidrive/board/peripherals.c",
+          "status": "removed",
+          "additions": 0,
+          "deletions": 227,
+          "changes": 227,
+          "blob_url": "https://gitee.com/cmcc-oneos/OneOS/blob/896a72bee3bb92044db4ad6f9062f77b7e6f6492/templates/e3110-semidrive/board/peripherals.c",
+          "raw_url": "https://gitee.com/cmcc-oneos/OneOS/raw/896a72bee3bb92044db4ad6f9062f77b7e6f6492/templates/e3110-semidrive/board/peripherals.c",
+          "content_url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/contents/templates/e3110-semidrive/board/peripherals.c?ref=896a72bee3bb92044db4ad6f9062f77b7e6f6492",
+          "patch": "@@ -1,227 +0,0 @@\n-#include \"oneos_config.h\"\n-#include \"os_types.h\"\n-\n-#include \"drv_cfg.h\"\n-\n-#include \"irq_num.h\"\n-#include \"regs_base.h\"\n-#include \"clock_ip.h\"\n-\n-#include \"sdrv_pinctrl.h\"\n-#include <drv_uart.h>\n-#include \"drv_hwtimer.h\"\n-\n-sdrv_btm_cfg_t  g_btm_systick_config = {\n-    .base               = APB_BTM3_BASE,\n-    .irq                = BTM3_O_BTM_INTR_NUM,\n-    .tmr_id             = SDRV_BTM_G0,\n-    .tmr_cfg            =\n-    {\n-        .si_val         = 74,                       /*输入时钟每(si_val + 1)cycle, G0计数器增加inc_val个*/\n-        .inc_val        = 1,\n-        .frc_rld_rst_cnt_en = true,                 /*默认是true，表示初始化时是否对counter清零。*/\n-        .term_use_mode  = SDRV_BTM_DIRECT,          /*设置overflow值立即生效，而不是等到下一周期生效。*/\n-        .cmp_use_mode   = SDRV_BTM_DIRECT,          /*设置compare值立即生效，而不是等到下一周期生效。*/\n-        .cnt_dir        = SDRV_BTM_CNT_UP,          /*设置计数器的值是向上增长*/\n-        .cnt_mode       = SDRV_BTM_CONTINOUS_MODE,  /*设置计数器是连续模式*/\n-    }\n-};\n-\n-#ifdef BSP_USING_UART5\n-const pin_settings_config_t g_uart5_pin_config[] = {\n-    /* Pin 19, GPIO_Y2, Mux:UART5.TXD */\n-    {\n-        .pin_index         =  GPIO_Y2,\n-        .mux               =  PIN_MUX_ALT4,\n-        .open_drain        =  PIN_PUSH_PULL,\n-        .pull_config       =  PIN_PULL_UP,\n-        .drive_strength    =  PIN_DS_8MA,\n-        .slew_rate         =  PIN_SR_FAST,\n-        .input_select      =  PIN_IS_CMOS,\n-        .data_direction    =  PIN_OUTPUT_DIRECTION,\n-        .interrupt_config  =  PIN_INTERRUPT_DISABLED,\n-        .initial_value     =  PIN_LEVEL_LOW,\n-        .force_input       =  PIN_FORCE_INPUT_NORMAL,\n-        .mode_select       =  PIN_MODE_DIGITAL,\n-    },\n-\n-    /* Pin 20, GPIO_Y3, Mux:UART6.RXD */\n-    {\n-        .pin_index         =  GPIO_Y3,\n-        .mux               =  PIN_MUX_ALT4,\n-        .open_drain        =  PIN_PUSH_PULL,\n-        .pull_config       =  PIN_PULL_UP,\n-        .drive_strength    =  PIN_DS_8MA,\n-        .slew_rate         =  PIN_SR_FAST,\n-        .input_select      =  PIN_IS_CMOS_SCHMITT,\n-        .data_direction    =  PIN_OUTPUT_DIRECTION,\n-        .interrupt_config  =  PIN_INTERRUPT_DISABLED,\n-        .initial_value     =  PIN_LEVEL_LOW,\n-        .force_input       =  PIN_FORCE_INPUT_NORMAL,\n-        .mode_select       =  PIN_MODE_DIGITAL,\n-    },\n-};\n-const uint8_t g_uart5_pin_num = sizeof(g_uart5_pin_config) / sizeof(pin_settings_config_t);\n-\n-static semidrive_uart_info_t uart5_info = {\n-    .base       = APB_UART5_BASE,\n-    .irq        = UART5_INTR_NUM,\n-    .pin_config         = &g_uart5_pin_config[0],\n-    .pin_num            = g_uart5_pin_num,\n-    .irq_priority       = 10,\n-    .ckgen              = CLK_NODE(g_ckgen_ip_uart_sf_1_to_8),\n-};\n-OS_HAL_DEVICE_DEFINE(\"semidrive_uart\", \"uart5\", uart5_info);\n-#endif\n-\n-#ifdef BSP_USING_UART6\n-const pin_settings_config_t g_uart6_pin_config[] = {\n-    /* Pin 21, GPIO_Y4, Mux:UART6.TXD */\n-    {\n-        .pin_index         =  GPIO_Y4,\n-        .mux               =  PIN_MUX_ALT4,\n-        .open_drain        =  PIN_PUSH_PULL,\n-        .pull_config       =  PIN_PULL_UP,\n-        .drive_strength    =  PIN_DS_8MA,\n-        .slew_rate         =  PIN_SR_FAST,\n-        .input_select      =  PIN_IS_CMOS,\n-        .data_direction    =  PIN_OUTPUT_DIRECTION,\n-        .interrupt_config  =  PIN_INTERRUPT_DISABLED,\n-        .initial_value     =  PIN_LEVEL_LOW,\n-        .force_input       =  PIN_FORCE_INPUT_NORMAL,\n-        .mode_select       =  PIN_MODE_DIGITAL,\n-    },\n-\n-    /* Pin 22, GPIO_Y5, Mux:UART6.RXD */\n-    {\n-        .pin_index         =  GPIO_Y5,\n-        .mux               =  PIN_MUX_ALT4,\n-        .open_drain        =  PIN_PUSH_PULL,\n-        .pull_config       =  PIN_PULL_UP,\n-        .drive_strength    =  PIN_DS_8MA,\n-        .slew_rate         =  PIN_SR_FAST,\n-        .input_select      =  PIN_IS_CMOS_SCHMITT,\n-        .data_direction    =  PIN_OUTPUT_DIRECTION,\n-        .interrupt_config  =  PIN_INTERRUPT_DISABLED,\n-        .initial_value     =  PIN_LEVEL_LOW,\n-        .force_input       =  PIN_FORCE_INPUT_NORMAL,\n-        .mode_select       =  PIN_MODE_DIGITAL,\n-    },\n-};\n-const uint8_t g_uart6_pin_num = sizeof(g_uart6_pin_config) / sizeof(pin_settings_config_t);\n-\n-static semidrive_uart_info_t uart6_info = {\n-    .base       = APB_UART6_BASE,\n-    .irq        = UART6_INTR_NUM,\n-    .pin_config         = &g_uart6_pin_config[0],\n-    .pin_num            = g_uart6_pin_num,\n-    .irq_priority       = 10,\n-    .ckgen              = CLK_NODE(g_ckgen_ip_uart_sf_1_to_8),\n-};\n-OS_HAL_DEVICE_DEFINE(\"semidrive_uart\", \"uart6\", uart6_info);\n-#endif\n-\n-#ifdef BSP_USING_UART7\n-const pin_settings_config_t g_uart7_pin_config[] = {\n-    /* Pin 23, GPIO_Y6, Mux:UART7.TXD */\n-    {\n-        .pin_index         =  GPIO_Y6,\n-        .mux               =  PIN_MUX_ALT4,\n-        .open_drain        =  PIN_PUSH_PULL,\n-        .pull_config       =  PIN_PULL_UP,\n-        .drive_strength    =  PIN_DS_8MA,\n-        .slew_rate         =  PIN_SR_FAST,\n-        .input_select      =  PIN_IS_CMOS,\n-        .data_direction    =  PIN_OUTPUT_DIRECTION,\n-        .interrupt_config  =  PIN_INTERRUPT_DISABLED,\n-        .initial_value     =  PIN_LEVEL_LOW,\n-        .force_input       =  PIN_FORCE_INPUT_NORMAL,\n-        .mode_select       =  PIN_MODE_DIGITAL,\n-    },\n-\n-    /* Pin 24, GPIO_Y7, Mux:UART7.RXD */\n-    {\n-        .pin_index         =  GPIO_Y7,\n-        .mux               =  PIN_MUX_ALT4,\n-        .open_drain        =  PIN_PUSH_PULL,\n-        .pull_config       =  PIN_PULL_UP,\n-        .drive_strength    =  PIN_DS_8MA,\n-        .slew_rate         =  PIN_SR_FAST,\n-        .input_select      =  PIN_IS_CMOS_SCHMITT,\n-        .data_direction    =  PIN_OUTPUT_DIRECTION,\n-        .interrupt_config  =  PIN_INTERRUPT_DISABLED,\n-        .initial_value     =  PIN_LEVEL_LOW,\n-        .force_input       =  PIN_FORCE_INPUT_NORMAL,\n-        .mode_select       =  PIN_MODE_DIGITAL,\n-    },\n-};\n-const uint8_t g_uart7_pin_num = sizeof(g_uart7_pin_config) / sizeof(pin_settings_config_t);\n-\n-static semidrive_uart_info_t uart7_info = {\n-    .base       = APB_UART7_BASE,\n-    .irq        = UART7_INTR_NUM,\n-    .pin_config         = &g_uart7_pin_config[0],\n-    .pin_num            = g_uart7_pin_num,\n-    .irq_priority       = 10,\n-    .ckgen              = CLK_NODE(g_ckgen_ip_uart_sf_1_to_8),\n-};\n-OS_HAL_DEVICE_DEFINE(\"semidrive_uart\", \"uart7\", uart7_info);\n-#endif\n-\n-#ifdef BSP_USING_BTM1\n-static semidrive_tim_info_t timer1_info = {\n-    .base = APB_BTM1_BASE,\n-    .irq = BTM1_O_BTM_INTR_NUM,\n-    .tmr_id = SDRV_BTM_G0,\n-};\n-OS_HAL_DEVICE_DEFINE(\"btm_timer\", \"btm1\", timer1_info);\n-#endif\n-\n-#ifdef BSP_USING_BTM2\n-static semidrive_tim_info_t timer2_info = {\n-    .base = APB_BTM2_BASE,\n-    .irq = BTM2_O_BTM_INTR_NUM,\n-    .tmr_id = SDRV_BTM_G0,\n-};\n-OS_HAL_DEVICE_DEFINE(\"btm_timer\", \"btm2\", timer2_info);\n-#endif\n-\n-#if 0\n-#ifdef BSP_USING_BTM3\n-static semidrive_tim_info_t timer3_info = {\n-    .base = APB_BTM3_BASE,\n-    .irq = BTM3_O_BTM_INTR_NUM,\n-    .tmr_id = SDRV_BTM_G0,\n-};\n-OS_HAL_DEVICE_DEFINE(\"btm_timer\", \"btm3\", timer3_info);\n-#endif\n-#endif\n-\n-\n-#ifdef BSP_USING_BTM4\n-static semidrive_tim_info_t timer4_info = {\n-    .base = APB_BTM4_BASE,\n-    .irq = BTM4_O_BTM_INTR_NUM,\n-    .tmr_id = SDRV_BTM_G0,\n-};\n-OS_HAL_DEVICE_DEFINE(\"btm_timer\", \"btm4\", timer4_info);\n-#endif\n-\n-#ifdef BSP_USING_BTM5\n-static semidrive_tim_info_t timer5_info = {\n-    .base = APB_BTM5_BASE,\n-    .irq = BTM5_O_BTM_INTR_NUM,\n-    .tmr_id = SDRV_BTM_G0,\n-};\n-OS_HAL_DEVICE_DEFINE(\"btm_timer\", \"btm5\", timer5_info);\n-#endif\n-\n-#ifdef BSP_USING_BTM6\n-static semidrive_tim_info_t timer6_info = {\n-    .base = APB_BTM6_BASE,\n-    .irq = BTM6_O_BTM_INTR_NUM,\n-    .tmr_id = SDRV_BTM_G0,\n-};\n-OS_HAL_DEVICE_DEFINE(\"btm_timer\", \"btm6\", timer6_info);\n-#endif\n-\n",
+          "truncated": false
+        },
+        {
+          "sha": "40ec938427ece272965946fedabeb717364c7a52",
+          "filename": "templates/e3110-semidrive/board/startup/startup_gcc.S",
+          "status": "removed",
+          "additions": 0,
+          "deletions": 307,
+          "changes": 307,
+          "blob_url": "https://gitee.com/cmcc-oneos/OneOS/blob/896a72bee3bb92044db4ad6f9062f77b7e6f6492/templates/e3110-semidrive/board/startup/startup_gcc.S",
+          "raw_url": "https://gitee.com/cmcc-oneos/OneOS/raw/896a72bee3bb92044db4ad6f9062f77b7e6f6492/templates/e3110-semidrive/board/startup/startup_gcc.S",
+          "content_url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/contents/templates/e3110-semidrive/board/startup/startup_gcc.S?ref=896a72bee3bb92044db4ad6f9062f77b7e6f6492",
+          "patch": "@@ -1,307 +0,0 @@\n-/*\n- * arm_start.S\n- *\n- * Copyright (c) 2020 Semidrive Semiconductor.\n- * All rights reserved.\n- *\n- * Description: ARM start function.\n- *\n- * Revision History:\n- * -----------------\n- */\n-\n-\n-.equ  MODE_USR,            0x10\n-.equ  MODE_FIQ,            0x11\n-.equ  MODE_IRQ,            0x12\n-.equ  MODE_SVC,            0x13\n-.equ  MODE_ABT,            0x17\n-.equ  MODE_UND,            0x1B\n-.equ  MODE_SYS,            0x1F\n-\n-.equ  MODE_MASK,           0x1F\n-\n-/* SCTLR */\n-\n-.equ  SCTLR_M,             (1 << 0)\n-.equ  SCTLR_A,             (1 << 1)\n-.equ  SCTLR_C,             (1 << 2)\n-.equ  SCTLR_CCP15BEN,      (1 << 5)\n-.equ  SCTLR_B,             (1 << 7)\n-.equ  SCTLR_SW,            (1 << 10)\n-.equ  SCTLR_Z,             (1 << 11)\n-.equ  SCTLR_I,             (1 << 12)\n-.equ  SCTLR_V,             (1 << 13)\n-.equ  SCTLR_RR,            (1 << 14)\n-.equ  SCTLR_BR,            (1 << 17)\n-.equ  SCTLR_DZ,            (1 << 19)\n-.equ  SCTLR_FI,            (1 << 21)\n-.equ  SCTLR_U,             (1 << 22)\n-.equ  SCTLR_VE,            (1 << 24)\n-.equ  SCTLR_EE,            (1 << 25)\n-.equ  SCTLR_NMFI,          (1 << 27)\n-.equ  SCTLR_TE,            (1 << 30)\n-.equ  SCTLR_IE,            (1 << 31)\n-\n-/* PSR */\n-\n-.equ  PSR_MODE_SHIFT,      (0)\n-.equ  PSR_MODE_MASK,       (0x1f << PSR_MODE_SHIFT)\n-.equ  PSR_MODE_USR,        (MODE_USR << PSR_MODE_SHIFT)\n-.equ  PSR_MODE_FIQ,        (MODE_FIQ << PSR_MODE_SHIFT)\n-.equ  PSR_MODE_IRQ,        (MODE_IRQ << PSR_MODE_SHIFT)\n-.equ  PSR_MODE_SVC,        (MODE_SVC << PSR_MODE_SHIFT)\n-.equ  PSR_MODE_ABT,        (MODE_ABT << PSR_MODE_SHIFT)\n-.equ  PSR_MODE_UND,        (MODE_UND << PSR_MODE_SHIFT)\n-.equ  PSR_MODE_SYS,        (MODE_SYS << PSR_MODE_SHIFT)\n-.equ  PSR_T_BIT,           (1 << 5)\n-.equ  PSR_F_BIT,           (1 << 6)\n-.equ  PSR_I_BIT,           (1 << 7)\n-.equ  PSR_A_BIT,           (1 << 8)\n-.equ  PSR_E_BIT,           (1 << 9)\n-.equ  PSR_IT27_SHIFT,      (10)\n-.equ  PSR_IT27_MASK,       (0x3f << PSR_IT27_SHIFT)\n-.equ  PSR_GE_SHIFT,        (16)\n-.equ  PSR_GE_MASK,         (15 << PSR_GE_SHIFT)\n-.equ  PSR_J_BIT,           (1 << 24)\n-.equ  PSR_IT01_SHIFT,      (25)\n-.equ  PSR_IT01_MASK,       (3 << PSR_IT01_SHIFT)\n-.equ  PSR_Q_BIT,           (1 << 27)\n-.equ  PSR_V_BIT,           (1 << 28)\n-.equ  PSR_C_BIT,           (1 << 29)\n-.equ  PSR_Z_BIT,           (1 << 30)\n-.equ  PSR_N_BIT,           (1 << 31)\n-\n-.equ ICACHE,                  1\n-.equ DCACHE,                  2\n-.equ UCACHE,                  (ICACHE|DCACHE)\n-\n-\n-.extern tcma_enable_early\n-.extern arm_fpu_enable\n-.extern copy_intvec\n-.extern device_init\n-.extern entry\n-\n-.globl __vector\n-.global Reset_Handler\n-.weak Undefined_Handler\n-.weak SWI_Handler\n-.weak Prefetch_Handler\n-.weak Abort_Handler\n-.weak IRQ_Handler\n-.weak FIQ_Handler\n-\n-    .section .intvec, \"ax\", %progbits\n-\n-__vector:\n-    LDR     PC,Reset_Addr\n-    LDR     PC,Undefined_Addr\n-    LDR     PC,SWI_Addr\n-    LDR     PC,Prefetch_Addr\n-    LDR     PC,Abort_Addr\n-    .word   0\n-    LDR     PC,IRQ_Addr\n-    LDR     PC,FIQ_Addr\n-\n-Reset_Addr:                 .word   Reset_Handler\n-Undefined_Addr:             .word   Undefined_Handler\n-SWI_Addr:                   .word   SWI_Handler\n-Prefetch_Addr:              .word   Prefetch_Handler\n-Abort_Addr:                 .word   Abort_Handler\n-IRQ_Addr:                   .word   IRQ_Handler\n-FIQ_Addr:                   .word   FIQ_Handler\n-\n-    .section .boot, \"ax\", %progbits\n-\n-.type Reset_Handler, %function\n-Reset_Handler:\n-    /* do some early cpu setup */\n-    mov     r0, #(PSR_MODE_SVC | PSR_I_BIT | PSR_F_BIT)\n-    msr     cpsr_c, r0\n-\n-    mrc     p15, 0, r12, c1, c0, 0\n-    bic     r12, r12, #(SCTLR_M | SCTLR_A | SCTLR_C)\n-    bic     r12, r12, #(SCTLR_SW | SCTLR_I | SCTLR_RR)\n-    bic     r12, r12, #(SCTLR_EE | SCTLR_TE)\n-    orr     r12, r12, #(SCTLR_Z)\n-#if CONFIG_ARM_HIGHVECTORS\n-    orr     r12, r12, #(SCTLR_V)\n-#else\n-    bic     r12, r12, #(SCTLR_V)\n-#endif\n-    mcr     p15, 0, r12, c1, c0, 0\n-\n-    /* Configure peripheral ports */\n-    mrc     p15, 0, r0, c15, c0, 1\n-    tst     r0, #(0x1F << 2)\n-    beq     .Lno_normal_axi_pp\n-    /* Enable LLPP normal AXI interface */\n-    orr     r0, r0, #1\n-    mcr     p15, 0, r0, c15, c0, 1\n-.Lno_normal_axi_pp:\n-    mrc     p15, 0, r0, c15, c0, 2\n-    tst     r0, #(0x1F << 2)\n-    beq     .Lno_virtual_axi_pp\n-    /* Enable LLPP virtual AXI interface */\n-    orr     r0, r0, #1\n-    mcr     p15, 0, r0, c15, c0, 2\n-.Lno_virtual_axi_pp:\n-    mrc     p15, 0, r0, c15, c0, 3\n-    tst     r0, #(0x1F << 2)\n-    beq     .Lno_ahb_pp\n-    /* Enable AHB peripheral interface */\n-    orr     r0, r0, #1\n-    mcr     p15, 0, r0, c15, c0, 3\n-.Lno_ahb_pp:\n-\n-    /* enable tcm before use stacks */\n-#if CONFIG_ARMV7R_USE_TCMA\n-    ldr     r0, =CONFIG_ARMV7R_TCMA_BASE\n-    mov     r1, #0\n-#if CONFIG_ARMV7R_TCMA_ECC\n-    add     r1, #1\n-#endif\n-    bl      tcma_enable_early\n-#endif\n-\n-#if CONFIG_ARMV7R_USE_TCMB\n-    ldr     r0, =CONFIG_ARMV7R_TCMB_BASE\n-    mov     r1, #0\n-#if CONFIG_ARMV7R_TCMB_ECC\n-    add     r1, #1\n-#endif\n-    bl      tcmb_enable_early\n-#endif\n-\n-.Lstack_setup:\n-    /* set up the stack for irq, fiq, abort, undefined, system/user, and lastly supervisor mode */\n-    mov     r12, #0\n-\n-    /* Setup normal interrupt stack */\n-    cpsid   i, #MODE_IRQ\n-    ldr     r12, =__irq_stack_end\n-    mov     sp, r12\n-\n-    /* Setup fast interrupt stack */\n-    cpsid   i, #MODE_FIQ\n-    ldr     r12, =__fiq_stack_end\n-    mov     sp, r12\n-\n-    /* Setup data abort stack */\n-    cpsid   i, #MODE_ABT\n-    ldr     r12, =__abt_stack_end\n-    mov     sp, r12\n-\n-    /* Setup undefined instruction stack */\n-    cpsid   i, #MODE_UND\n-    ldr     r12, =__und_stack_end\n-    mov     sp, r12\n-\n-    /* Setup system/user stack */\n-    cpsid   i, #MODE_SYS\n-    ldr     r12, =__cstack_end\n-    mov     sp, r12\n-\n-    /* Setup supervisor stack */\n-    cpsid   i, #MODE_SVC\n-    ldr     r12, =__svc_stack_end\n-    mov     sp, r12\n-\n-#if CONFIG_PM\n-    ldr     r0, arm_context_restore_const\n-    blx     r0\n-#endif\n-\n-    /* enable cache, use stack enable after stack init */\n-#if CONFIG_ARCH_EARLY_ENABLE_ICACHE\n-    ldr     r0, =ICACHE\n-    bl      arch_enable_cache\n-#endif\n-\n-#if CONFIG_ARCH_EARLY_ENABLE_DCACHE\n-    ldr     r0, =DCACHE\n-    bl      arch_enable_cache\n-#endif\n-\n-#if CONFIG_EARLYCOPY\n-    /* Copy sections from their load address to link address. */\n-    ldr     r4, =__earlycopy_start\n-    ldr     r5, =__earlycopy_end\n-.Lsection_loop:\n-    cmp     r4, r5\n-    beq     .Lbss_init\n-    ldmia   r4!, {r0, r1, r2}   /* vma, size, lma */\n-    mov     r6, r0\n-    mov     r7, r1\n-    add     r7, r6\n-\n-.Lcopy_loop:\n-    cmp     r6, r7\n-    ldrlt   r3, [r2], #4\n-    strlt   r3, [r6], #4\n-    blt     .Lcopy_loop\n-\n-    b       .Lsection_loop\n-#endif\n-\n-.Lbss_init:\n-    /* clear out the bss */\n-    ldr     r4, =__bss_start\n-    ldr     r5, =__bss_end\n-    mov     r6, #0\n-.Lbss_loop:\n-    cmp     r4, r5\n-    strlt   r6, [r4], #4\n-    blt     .Lbss_loop\n-\n-    /* change to system mode */\n-//    cpsid   i, #MODE_SYS\n-\n-#if CONFIG_ARCH_WITH_FPU\n-    bl      arm_fpu_enable\n-#endif\n-\n-    bl      copy_intvec\n-\n-    bl      device_init\n-\n-    bl      entry\n-    b       .\n-\n-#if CONFIG_PM\n-arm_context_restore_const:  .word arm_context_restore\n-#endif\n-\n-\n-.type uart_debug, %function\n-.global uart_debug\n-uart_debug:\n-uart_poll_retry:\n-    ldr r2, =0x36\n-    ldr r1, =0xF0960200\n-    str r2, [r1]\n-    bx lr\n-\n-\n-\n-.type os_uart_print, %function\n-.global os_uart_print\n-os_uart_print:\n-    ldr r2, =0xF0960200\n-    str r0, [r2]\n-    bx lr\n-\n-#if 1\n-.type get_fpexc, %function\n-.global get_fpexc\n-get_fpexc:\n-    VMRS R0, fpexc\n-    bx lr\n-\n-.type get_fpscr, %function\n-.global get_fpscr\n-get_fpscr:\n-    VMRS R0, fpscr\n-    bx lr\n-#endif\n",
+          "truncated": false
+        },
+        {
+          "sha": "7b0d8c9c16ba8c14e04c57729b4065805d6adc08",
+          "filename": "templates/e3110-semidrive/board/startup/startup_iar.S",
+          "status": "removed",
+          "additions": 0,
+          "deletions": 244,
+          "changes": 244,
+          "blob_url": "https://gitee.com/cmcc-oneos/OneOS/blob/896a72bee3bb92044db4ad6f9062f77b7e6f6492/templates/e3110-semidrive/board/startup/startup_iar.S",
+          "raw_url": "https://gitee.com/cmcc-oneos/OneOS/raw/896a72bee3bb92044db4ad6f9062f77b7e6f6492/templates/e3110-semidrive/board/startup/startup_iar.S",
+          "content_url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/contents/templates/e3110-semidrive/board/startup/startup_iar.S?ref=896a72bee3bb92044db4ad6f9062f77b7e6f6492",
+          "patch": "@@ -1,244 +0,0 @@\n-/*\n- * startup.S\n- *\n- * Copyright (c) 2020 Semidrive Semiconductor.\n- * All rights reserved.\n- *\n- * Description: ARM start function.\n- *\n- * Revision History:\n- * -----------------\n- */\n-\n-    INCLUDE config.h\n-    INCLUDE armv7-r/arm.h\n-    INCLUDE armv7-r/cache.h\n-\n-    MODULE  ?cstartup\n-\n-    ;; Forward declaration of sections.\n-    SECTION IRQ_STACK:DATA:NOROOT(3)\n-    SECTION FIQ_STACK:DATA:NOROOT(3)\n-    SECTION SVC_STACK:DATA:NOROOT(3)\n-    SECTION ABT_STACK:DATA:NOROOT(3)\n-    SECTION UND_STACK:DATA:NOROOT(3)\n-    SECTION CSTACK:DATA:NOROOT(3)\n-\n-    PUBLIC  __vector\n-    PUBLIC  __iar_program_start\n-    EXTERN  tcma_enable_early\n-    EXTERN  tcmb_enable_early\n-    EXTERN  arch_enable_cache\n-    EXTERN  copy_intvec\n-    EXTERN  call_constructors\n-    EXTERN  device_init\n-\n-    EXTERN Arm_Undefined_Handler\n-    EXTERN Arm_SWI_Handler\n-    EXTERN Arm_Prefetch_Handler\n-    EXTERN Arm_Abort_Handler\n-    EXTERN Arm_IRQ_Handler\n-    EXTERN Arm_FIQ_Handler\n-\n-    PUBWEAK Undefined_Handler\n-    PUBWEAK SWI_Handler\n-    PUBWEAK Prefetch_Handler\n-    PUBWEAK Abort_Handler\n-    PUBWEAK IRQ_Handler\n-    PUBWEAK FIQ_Handler\n-\n-    SECTION .intvec:CODE:NOROOT(2)\n-\n-__vector:\n-    ; All default exception handlers (except reset) are\n-    ; defined as weak symbol definitions.\n-    ; If a handler is defined by the application it will take precedence.\n-    LDR     PC,Reset_Addr           ; Reset\n-    LDR     PC,Undefined_Addr       ; Undefined instructions\n-    LDR     PC,SWI_Addr             ; Software interrupt (SWI/SVC)\n-    LDR     PC,Prefetch_Addr        ; Prefetch abort\n-    LDR     PC,Abort_Addr           ; Data abort\n-    DCD     0                       ; RESERVED\n-    LDR     PC,IRQ_Addr             ; IRQ\n-    LDR     PC,FIQ_Addr             ; FIQ\n-\n-    DATA\n-\n-Reset_Addr                  DC32   __iar_program_start\n-Undefined_Addr              DC32   Undefined_Handler\n-SWI_Addr                    DC32   SWI_Handler\n-Prefetch_Addr               DC32   Prefetch_Handler\n-Abort_Addr                  DC32   Abort_Handler\n-IRQ_Addr                    DC32   IRQ_Handler\n-FIQ_Addr                    DC32   FIQ_Handler\n-\n-        SECTION .boot:CODE:NOROOT(2)\n-\n-        EXTERN  main\n-        REQUIRE __vector\n-        EXTWEAK __iar_data_init3\n-        EXTWEAK __iar_init_core\n-        EXTWEAK __iar_init_vfp\n-        EXTWEAK __iar_argc_argv\n-\n-#if CONFIG_PM\n-        EXTERN arm_context_restore\n-#endif\n-\n-        ARM\n-\n-__iar_program_start:\n-?cstartup:\n-    /* do some early cpu setup */\n-    mov     r0, #(PSR_MODE_SVC | PSR_I_BIT | PSR_F_BIT)\n-    msr     cpsr_c, r0\n-\n-    mrc     p15, 0, r12, c1, c0, 0\n-    bic     r12, r12, #(SCTLR_M | SCTLR_A | SCTLR_C)\n-    bic     r12, r12, #(SCTLR_SW | SCTLR_I | SCTLR_RR)\n-    bic     r12, r12, #(SCTLR_EE | SCTLR_TE)\n-    orr     r12, r12, #(SCTLR_Z)\n-#if CONFIG_ARM_HIGHVECTORS\n-    orr     r12, r12, #(SCTLR_V)\n-#else\n-    bic     r12, r12, #(SCTLR_V)\n-#endif\n-    mcr     p15, 0, r12, c1, c0, 0\n-\n-    /* Configure peripheral ports */\n-    mrc     p15, 0, r0, c15, c0, 1\n-    tst     r0, #(0x1F << 2)\n-    beq     .Lno_normal_axi_pp\n-    /* Enable LLPP normal AXI interface */\n-    orr     r0, r0, #1\n-    mcr     p15, 0, r0, c15, c0, 1\n-.Lno_normal_axi_pp:\n-    mrc     p15, 0, r0, c15, c0, 2\n-    tst     r0, #(0x1F << 2)\n-    beq     .Lno_virtual_axi_pp\n-    /* Enable LLPP virtual AXI interface */\n-    orr     r0, r0, #1\n-    mcr     p15, 0, r0, c15, c0, 2\n-.Lno_virtual_axi_pp:\n-    mrc     p15, 0, r0, c15, c0, 3\n-    tst     r0, #(0x1F << 2)\n-    beq     .Lno_ahb_pp\n-    /* Enable AHB peripheral interface */\n-    orr     r0, r0, #1\n-    mcr     p15, 0, r0, c15, c0, 3\n-.Lno_ahb_pp:\n-\n-    /* enable tcm before use stacks */\n-#if CONFIG_ARMV7R_USE_TCMA\n-    ldr     r0, =CONFIG_ARMV7R_TCMA_BASE\n-    mov     r1, #0\n-#if CONFIG_ARMV7R_TCMA_ECC\n-    add     r1, #1\n-#endif\n-    bl      tcma_enable_early\n-#endif\n-\n-#if CONFIG_ARMV7R_USE_TCMB\n-    ldr     r0, =CONFIG_ARMV7R_TCMB_BASE\n-    mov     r1, #0\n-#if CONFIG_ARMV7R_TCMB_ECC\n-    add     r1, #1\n-#endif\n-    bl      tcmb_enable_early\n-#endif\n-\n-; Initialize the stack pointers.\n-; The pattern below can be used for any of the exception stacks:\n-; FIQ, IRQ, SVC, ABT, UND, SYS.\n-; The USR mode uses the same stack as SYS.\n-; The stack segments must be defined in the linker command file,\n-; and be declared above.\n-    cps     #MODE_SVC                           ; Set Supervisor mode bits\n-    ldr     sp,=SFE(SVC_STACK)                  ; End of SVC_STACK\n-\n-    cps     #MODE_ABT                           ; Change the mode\n-    ldr     sp,=SFE(ABT_STACK)                  ; End of ABT_STACK\n-\n-    cps     #MODE_UND                           ; Change the mode\n-    ldr     sp,=SFE(UND_STACK)                  ; End of UND_STACK\n-\n-    cps     #MODE_FIQ                           ; Change the mode\n-    ldr     sp,=SFE(FIQ_STACK)                  ; End of FIQ_STACK\n-\n-    cps     #MODE_IRQ                           ; Change the mode\n-    ldr     sp,=SFE(IRQ_STACK)                  ; End of IRQ_STACK\n-\n-    cps     #MODE_SYS                           ; Change the mode\n-    ldr     sp,=SFE(CSTACK)                     ; End of CSTACK\n-\n-#if CONFIG_PM\n-    cps     #MODE_SVC                           ; Set Supervisor mode bits\n-\n-    ldr     r0, arm_context_restore_const\n-    blx     r0\n-#endif\n-\n-    /* enable cache, use stack enable after stack init */\n-#if CONFIG_ARCH_EARLY_ENABLE_ICACHE\n-    ldr     r0, =ICACHE\n-    bl      arch_enable_cache\n-#endif\n-\n-#if CONFIG_ARCH_EARLY_ENABLE_DCACHE\n-    ldr     r0, =DCACHE\n-    bl      arch_enable_cache\n-#endif\n-\n-    /* Turn on core features assumed to be enabled */\n-    FUNCALL __iar_program_start, __iar_init_core\n-    bl      __iar_init_core\n-\n-    /* Initialize VFP (if needed) */\n-    FUNCALL __iar_program_start, __iar_init_vfp\n-    bl      __iar_init_vfp\n-\n-    /* Execute relocations & zero BSS */\n-    FUNCALL __iar_program_start, __iar_data_init3\n-    bl      __iar_data_init3\n-\n-    /* Setup command line */\n-    mov     r0, #0\n-    FUNCALL __iar_program_start, __iar_argc_argv\n-    bl      __iar_argc_argv\n-\n-    /* change to system mode */\n-    cpsid   i, #MODE_SYS\n-\n-    FUNCALL __iar_program_start, copy_intvec\n-    bl      copy_intvec\n-\n-    FUNCALL __iar_program_start, device_init\n-    bl      device_init\n-\n-    FUNCALL __iar_program_start, main\n-    bl      main\n-    b       .\n-\n-Undefined_Handler:\n-    b       Arm_Undefined_Handler\n-\n-SWI_Handler:\n-    b       Arm_SWI_Handler\n-\n-Prefetch_Handler:\n-    b       Arm_Prefetch_Handler\n-\n-Abort_Handler:\n-    b       Arm_Abort_Handler\n-\n-IRQ_Handler:\n-    b       Arm_IRQ_Handler\n-\n-FIQ_Handler:\n-    b       Arm_FIQ_Handler\n-\n-#if CONFIG_PM\n-arm_context_restore_const   DC32 arm_context_restore\n-#endif\n-\n-    END\n",
+          "truncated": false
+        },
+        {
+          "sha": "5810279c82e1a69553b0ab3742bfa3ab955b5ff5",
+          "filename": "templates/e3110-semidrive/board/weave.yaml",
+          "status": "removed",
+          "additions": 0,
+          "deletions": 70,
+          "changes": 70,
+          "blob_url": "https://gitee.com/cmcc-oneos/OneOS/blob/896a72bee3bb92044db4ad6f9062f77b7e6f6492/templates/e3110-semidrive/board/weave.yaml",
+          "raw_url": "https://gitee.com/cmcc-oneos/OneOS/raw/896a72bee3bb92044db4ad6f9062f77b7e6f6492/templates/e3110-semidrive/board/weave.yaml",
+          "content_url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/contents/templates/e3110-semidrive/board/weave.yaml?ref=896a72bee3bb92044db4ad6f9062f77b7e6f6492",
+          "patch": "@@ -1,70 +0,0 @@\n-# 组名\n-group_name: bsp\n-\n-# 编译连接信息\n-build_option:\n-  cpppath:\n-    - .\n-\n-  cppdefines:\n-    - CONFIG_ARCH_WITH_CACHE=1\n-    - CONFIG_ARCH_CACHE_LINE=32    \n-    - CONFIG_ARCH_EARLY_ENABLE_ICACHE=1\n-    - CONFIG_ARCH_EARLY_ENABLE_DCACHE=1    \n-    - CONFIG_ARCH_WITH_FPU=1\n-    - CONFIG_ARCH_CHIP_E3=1    \n-    - CONFIG_ARM_WITH_TCM=1    \n-    - CONFIG_ARM_WITH_CP15=1    \n-    - CONFIG_ARM_WITH_MPU=0    \n-    - CONFIG_ARM_WITH_PMU=1    \n-    - CONFIG_ARMV7R_USE_TCMA=1    \n-    - CONFIG_ARMV7R_TCMA_BASE=0x10000    \n-    - CONFIG_ARMV7R_USE_TCMB=1\n-    - CONFIG_ARMV7R_TCMB_BASE=0x00    \n-    - CONFIG_IRQ=1\n-    - CONFIG_VIC_IRQ_INTERRUPT_MODE=0\n-    - CONFIG_DEBUG=1\n-    - CONFIG_EARLYCOPY=1    \n-    - CONFIG_XIP_MODE=1    \n-    - CONFIG_ARM_HIGHVECTORS=0    \n-    - CONFIG_PM=0\n-    - CONFIG_DEBUG_LEVEL=4   \n-    - CONFIG_PRINTF_LIB=0    \n-    - CONFIG_E3110\n-    - CONFIG_ONEOS_FPU\n-    \n-  asdefines:\n-    - CONFIG_ARCH_WITH_CACHE=1\n-    - CONFIG_ARCH_CACHE_LINE=32    \n-    - CONFIG_ARCH_EARLY_ENABLE_ICACHE=1\n-    - CONFIG_ARCH_EARLY_ENABLE_DCACHE=1    \n-    - CONFIG_ARCH_WITH_FPU=1\n-    - CONFIG_ARCH_CHIP_E3=1    \n-    - CONFIG_ARM_WITH_TCM=1    \n-    - CONFIG_ARM_WITH_CP15=1    \n-    - CONFIG_ARM_WITH_MPU=0    \n-    - CONFIG_ARM_WITH_PMU=1    \n-    - CONFIG_ARMV7R_USE_TCMA=1    \n-    - CONFIG_ARMV7R_TCMA_BASE=0x10000    \n-    - CONFIG_ARMV7R_USE_TCMB=1\n-    - CONFIG_ARMV7R_TCMB_BASE=0x00    \n-    - CONFIG_IRQ=1\n-    - CONFIG_VIC_IRQ_INTERRUPT_MODE=0\n-    - CONFIG_DEBUG=1\n-    - CONFIG_EARLYCOPY=1    \n-    - CONFIG_XIP_MODE=1    \n-    - CONFIG_ARM_HIGHVECTORS=0    \n-    - CONFIG_PM=0\n-    - CONFIG_DEBUG_LEVEL=4   \n-    - CONFIG_PRINTF_LIB=0    \n-    - CONFIG_E3110\n-    - CONFIG_ONEOS_FPU\n-\n-# 源码\n-source_file:\n-  - board.c\n-  - clock_config.c\n-  - peripherals.c\n-  - startup/startup_gcc.S ? {is_compiler(\"gcc\")}\n-  - startup/startup_iar.S ? {is_compiler(\"iar\")}\n- \n\\ No newline at end of file\n",
+          "truncated": false
+        },
+        {
+          "sha": "c2288167f6f5d724568c27c3c71198e7adbfa766",
+          "filename": "templates/e3110-semidrive/code_download.rar",
+          "status": "removed",
+          "additions": 0,
+          "deletions": 0,
+          "changes": 0,
+          "blob_url": "https://gitee.com/cmcc-oneos/OneOS/blob/896a72bee3bb92044db4ad6f9062f77b7e6f6492/templates/e3110-semidrive/code_download.rar",
+          "raw_url": "https://gitee.com/cmcc-oneos/OneOS/raw/896a72bee3bb92044db4ad6f9062f77b7e6f6492/templates/e3110-semidrive/code_download.rar",
+          "content_url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/contents/templates/e3110-semidrive/code_download.rar?ref=896a72bee3bb92044db4ad6f9062f77b7e6f6492",
+          "patch": "Binary files a/templates/e3110-semidrive/code_download.rar and /dev/null differ\n",
+          "truncated": false
+        },
+        {
+          "sha": "d1ebb0aee058c363449a860135adb8af006abdb7",
+          "filename": "templates/e3110-semidrive/oneos_config.h",
+          "status": "removed",
+          "additions": 0,
+          "deletions": 539,
+          "changes": 539,
+          "blob_url": "https://gitee.com/cmcc-oneos/OneOS/blob/896a72bee3bb92044db4ad6f9062f77b7e6f6492/templates/e3110-semidrive/oneos_config.h",
+          "raw_url": "https://gitee.com/cmcc-oneos/OneOS/raw/896a72bee3bb92044db4ad6f9062f77b7e6f6492/templates/e3110-semidrive/oneos_config.h",
+          "content_url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/contents/templates/e3110-semidrive/oneos_config.h?ref=896a72bee3bb92044db4ad6f9062f77b7e6f6492",
+          "patch": "@@ -1,539 +0,0 @@\n-#ifndef __ONEOS_CONFIG_H__\r\n-#define __ONEOS_CONFIG_H__\r\n-\r\n-/* Generated by Kconfiglib (https://github.com/ulfalizer/Kconfiglib) */\r\n-#define BOARD_E3110_DEMO\r\n-#define ARCH_ARM\r\n-#define ARCH_ARM_V7R\r\n-#define ARCH_ARM_CORTEX_R5\r\n-#define ARCH_ARM_CORTEX_R\r\n-\r\n-/* Kernel */\r\n-\r\n-#define OS_NAME_MAX_15\r\n-#define OS_NAME_MAX 15\r\n-#define OS_TASK_PRIORITY_32\r\n-#define OS_TASK_PRIORITY_MAX 32\r\n-#define OS_TICK_PER_SECOND 1000\r\n-#define OS_SCHEDULE_TIME_SLICE 10\r\n-#define OS_USING_OVERFLOW_CHECK\r\n-#define OS_USING_ASSERT\r\n-#define OS_USING_KERNEL_LOCK_CHECK\r\n-#define OS_USING_KERNEL_DEBUG\r\n-#define KLOG_GLOBAL_LEVEL_WARNING\r\n-#define KLOG_GLOBAL_LEVEL 1\r\n-#define KLOG_USING_COLOR\r\n-#define KLOG_WITH_FUNC_LINE\r\n-#define OS_SYS_TASK_STACK_SIZE 2048\r\n-#define OS_IDLE_TASK_STACK_SIZE 512\r\n-#define OS_RECYCLE_TASK_STACK_SIZE 512\r\n-#define OS_USING_KERNEL_TIMER\r\n-#define OS_USING_HASH_BUCKET_TIMER\r\n-#define OS_TIMER_TASK_STACK_SIZE 512\r\n-#define OS_HASH_BUCKET_TIMER_POWER 3\r\n-#define OS_USING_WORKQUEUE\r\n-#define OS_USING_SYSTEM_WORKQUEUE\r\n-#define OS_SYSTEM_WORKQUEUE_STACK_SIZE 2048\r\n-#define OS_SYSTEM_WORKQUEUE_PRIORITY 0\r\n-\r\n-/* Inter-task communication and synchronization */\r\n-\r\n-#define OS_USING_MUTEX\r\n-#define OS_USING_SEMAPHORE\r\n-#define OS_USING_EVENT\r\n-#define OS_USING_MESSAGEQUEUE\r\n-#define OS_USING_MAILBOX\r\n-/* end of Inter-task communication and synchronization */\r\n-\r\n-/* Memory management */\r\n-\r\n-#define OS_USING_HEAP\r\n-#define OS_USING_HEAP\r\n-#define OS_USING_ALG_FIRSTFIT\r\n-#define OS_USING_MEM_POOL\r\n-/* end of Memory management */\r\n-\r\n-/* Debug */\r\n-\r\n-\r\n-/* Memory Monitor */\r\n-\r\n-/* end of Memory Monitor */\r\n-/* end of Debug */\r\n-/* end of Kernel */\r\n-\r\n-/* C standard library adapter */\r\n-\r\n-#define OS_USING_LIBC_ADAPTER\r\n-#define OS_USING_NEWLIB_ADAPTER\r\n-#define OS_USING_ARMCCLIB_ADAPTER\r\n-/* end of C standard library adapter */\r\n-\r\n-/* Osal */\r\n-\r\n-/* POSIX compatibility layer */\r\n-\r\n-/* end of POSIX compatibility layer */\r\n-\r\n-/* RT-Thread compatibility layer */\r\n-\r\n-/* end of RT-Thread compatibility layer */\r\n-\r\n-/* CMSIS compatibility layer */\r\n-\r\n-/* end of CMSIS compatibility layer */\r\n-\r\n-/* FreeRTOS compatibility layer */\r\n-\r\n-/* end of FreeRTOS compatibility layer */\r\n-\r\n-/* C++ Features */\r\n-\r\n-/* end of C++ Features */\r\n-/* end of Osal */\r\n-\r\n-/* Drivers */\r\n-\r\n-#define OS_USING_DEVICE\r\n-#define OS_USING_DEVICE_NOTIFY\r\n-\r\n-/* Audio */\r\n-\r\n-/* end of Audio */\r\n-\r\n-/* BLOCK */\r\n-\r\n-/* end of BLOCK */\r\n-\r\n-/* Boot */\r\n-\r\n-/* CORTEX-M Boot */\r\n-\r\n-/* end of CORTEX-M Boot */\r\n-/* end of Boot */\r\n-\r\n-/* Cache */\r\n-\r\n-#define BSP_CACHE_LINE_SIZE 32\r\n-/* end of Cache */\r\n-\r\n-/* Camera */\r\n-\r\n-/* end of Camera */\r\n-\r\n-/* CAN */\r\n-\r\n-/* end of CAN */\r\n-\r\n-/* CONSOLE */\r\n-\r\n-#define OS_USING_CONSOLE\r\n-#define OS_CONSOLE_DEVICE_NAME \"console_uart\"\r\n-/* end of CONSOLE */\r\n-\r\n-/* DMA */\r\n-\r\n-#define OS_USING_DMA\r\n-#define OS_USING_DMA_RAM\r\n-#define OS_USING_SOFT_DMA\r\n-#define OS_SOFT_DMA_SUPPORT_NORMAL_MODE\r\n-#define OS_SOFT_DMA_SUPPORT_CIRCLE_MODE\r\n-/* end of DMA */\r\n-\r\n-/* EEPROM */\r\n-\r\n-/* end of EEPROM */\r\n-\r\n-/* FAL */\r\n-\r\n-/* end of FAL */\r\n-\r\n-/* Graphic */\r\n-\r\n-/* end of Graphic */\r\n-\r\n-/* HAL */\r\n-\r\n-#define MANUFACTOR_SEMIDRIVER\r\n-#define SERIES_SEMIDRIVE_E3100\r\n-#define SOC_SEMIDRIVE_E3110\r\n-#define BSP_USING_UART\r\n-#define BSP_USING_UART1\r\n-/* end of HAL */\r\n-\r\n-/* HwCrypto */\r\n-\r\n-/* end of HwCrypto */\r\n-\r\n-/* I2C */\r\n-\r\n-/* end of I2C */\r\n-\r\n-/* Infrared */\r\n-\r\n-/* end of Infrared */\r\n-\r\n-/* LPMGR */\r\n-\r\n-/* end of LPMGR */\r\n-\r\n-/* MISC */\r\n-\r\n-/* end of MISC */\r\n-\r\n-/* MTD */\r\n-\r\n-/* end of MTD */\r\n-\r\n-/* NAND */\r\n-\r\n-/* end of NAND */\r\n-\r\n-/* NET */\r\n-\r\n-/* end of NET */\r\n-\r\n-/* PIN */\r\n-\r\n-/* end of PIN */\r\n-\r\n-/* RTC */\r\n-\r\n-/* end of RTC */\r\n-\r\n-/* SDIO */\r\n-\r\n-/* end of SDIO */\r\n-\r\n-/* Sensors */\r\n-\r\n-/* end of Sensors */\r\n-\r\n-/* Serial */\r\n-\r\n-#define OS_USING_SERIAL\r\n-#define OS_SERIAL_DELAY_CLOSE\r\n-#define OS_SERIAL_RX_BUFSZ 64\r\n-#define OS_SERIAL_TX_BUFSZ 64\r\n-\r\n-/* posix serial */\r\n-\r\n-/* end of posix serial */\r\n-\r\n-/* rtt uart */\r\n-\r\n-/* end of rtt uart */\r\n-/* end of Serial */\r\n-\r\n-/* SFLASH */\r\n-\r\n-/* end of SFLASH */\r\n-\r\n-/* SN */\r\n-\r\n-/* end of SN */\r\n-\r\n-/* SPI */\r\n-\r\n-/* end of SPI */\r\n-\r\n-/* Timer */\r\n-\r\n-/* end of Timer */\r\n-\r\n-/* TinyUSB */\r\n-\r\n-/* end of TinyUSB */\r\n-\r\n-/* Touch */\r\n-\r\n-/* end of Touch */\r\n-\r\n-/* USB */\r\n-\r\n-/* end of USB */\r\n-\r\n-/* USB WIFI */\r\n-\r\n-/* end of USB WIFI */\r\n-\r\n-/* WDG */\r\n-\r\n-/* end of WDG */\r\n-/* end of Drivers */\r\n-\r\n-/* Components */\r\n-\r\n-/* DBoT */\r\n-\r\n-/* end of DBoT */\r\n-\r\n-/* AMS */\r\n-\r\n-/* end of AMS */\r\n-\r\n-/* Atest */\r\n-\r\n-/* end of Atest */\r\n-\r\n-/* BLE */\r\n-\r\n-/* BLE is now only supported on NRF52 */\r\n-\r\n-/* end of BLE */\r\n-\r\n-/* cJSON */\r\n-\r\n-/* end of cJSON */\r\n-\r\n-/* CLI */\r\n-\r\n-/* end of CLI */\r\n-\r\n-/* Cloud */\r\n-\r\n-/* Aliyun */\r\n-\r\n-/* end of Aliyun */\r\n-\r\n-/* AWS */\r\n-\r\n-/* end of AWS */\r\n-\r\n-/* Baidu */\r\n-\r\n-/* end of Baidu */\r\n-\r\n-/* CTWing */\r\n-\r\n-/* MQTT */\r\n-\r\n-/* end of MQTT */\r\n-/* end of CTWing */\r\n-\r\n-/* Huawei */\r\n-\r\n-/* end of Huawei */\r\n-\r\n-/* OneNET */\r\n-\r\n-/* MQTT kit */\r\n-\r\n-/* end of MQTT kit */\r\n-\r\n-/* NB-IoT kit */\r\n-\r\n-/* end of NB-IoT kit */\r\n-\r\n-/* EDP */\r\n-\r\n-/* end of EDP */\r\n-/* end of OneNET */\r\n-/* end of Cloud */\r\n-\r\n-/* CMS */\r\n-\r\n-/* end of CMS */\r\n-\r\n-/* Diagnose */\r\n-\r\n-\r\n-/* eCoreDump */\r\n-\r\n-/* end of eCoreDump */\r\n-/* end of Diagnose */\r\n-\r\n-/* Dlog */\r\n-\r\n-#define OS_USING_DLOG\r\n-#define DLOG_PRINT_LVL_W\r\n-#define DLOG_GLOBAL_PRINT_LEVEL 4\r\n-#define DLOG_COMPILE_LVL_D\r\n-#define DLOG_COMPILE_LEVEL 7\r\n-#define DLOG_USING_ISR_LOG\r\n-#define DLOG_USING_FILTER\r\n-#define DLOG_USING_ASYNC_OUTPUT\r\n-#define DLOG_ASYNC_OUTPUT_BUF_SIZE 2048\r\n-#define DLOG_ASYNC_OUTPUT_TASK_STACK_SIZE 2048\r\n-#define DLOG_ASYNC_OUTPUT_TASK_PRIORITY 20\r\n-\r\n-/* Log format */\r\n-\r\n-#define DLOG_WITH_FUNC_LINE\r\n-#define DLOG_USING_COLOR\r\n-#define DLOG_OUTPUT_TIME_INFO\r\n-/* end of Log format */\r\n-\r\n-/* Dlog backend option */\r\n-\r\n-#define DLOG_BACKEND_USING_CONSOLE\r\n-/* end of Dlog backend option */\r\n-/* end of Dlog */\r\n-\r\n-/* Easyflash */\r\n-\r\n-/* end of Easyflash */\r\n-\r\n-/* FFmpeg */\r\n-\r\n-/* end of FFmpeg */\r\n-\r\n-/* FileSystem */\r\n-\r\n-/* end of FileSystem */\r\n-\r\n-/* GUI */\r\n-\r\n-#define OS_GUI_DISP_DEV_NAME \"lcd\"\r\n-#define OS_GUI_INPUT_DEV_NAME \"touch\"\r\n-/* end of GUI */\r\n-\r\n-/* IoTjs */\r\n-\r\n-/* end of IoTjs */\r\n-\r\n-/* JerryScript */\r\n-\r\n-/* end of JerryScript */\r\n-\r\n-/* Network */\r\n-\r\n-/* Acw */\r\n-\r\n-/* end of Acw */\r\n-\r\n-/* HGN */\r\n-\r\n-/* end of HGN */\r\n-\r\n-/* TCP/IP */\r\n-\r\n-/* LwIP */\r\n-\r\n-/* end of LwIP */\r\n-/* end of TCP/IP */\r\n-\r\n-/* Molink */\r\n-\r\n-/* end of Molink */\r\n-\r\n-/* Protocols */\r\n-\r\n-/* CoAP */\r\n-\r\n-/* end of CoAP */\r\n-\r\n-/* HTTP */\r\n-\r\n-/* httpclient-v1.1.0 */\r\n-\r\n-/* end of httpclient-v1.1.0 */\r\n-/* end of HTTP */\r\n-\r\n-/* LWM2M */\r\n-\r\n-/* LWM2M-v1.0.0 */\r\n-\r\n-/* end of LWM2M-v1.0.0 */\r\n-/* end of LWM2M */\r\n-\r\n-/* MQTT */\r\n-\r\n-/* end of MQTT */\r\n-\r\n-/* Websocket */\r\n-\r\n-/* end of Websocket */\r\n-/* end of Protocols */\r\n-\r\n-/* Socket */\r\n-\r\n-/* end of Socket */\r\n-/* end of Network */\r\n-\r\n-/* Iotivity */\r\n-\r\n-/* end of Iotivity */\r\n-\r\n-/* OneJS */\r\n-\r\n-/* end of OneJS */\r\n-\r\n-/* Optparse */\r\n-\r\n-/* end of Optparse */\r\n-\r\n-/* OTA */\r\n-\r\n-/* end of OTA */\r\n-\r\n-/* Position */\r\n-\r\n-/* end of Position */\r\n-\r\n-/* PowerManager */\r\n-\r\n-/* end of PowerManager */\r\n-\r\n-/* Python */\r\n-\r\n-/* end of Python */\r\n-\r\n-/* Ramdisk */\r\n-\r\n-/* end of Ramdisk */\r\n-\r\n-/* Security */\r\n-\r\n-\r\n-/* OneTLS */\r\n-\r\n-/* end of OneTLS */\r\n-/* end of Security */\r\n-\r\n-/* Shell */\r\n-\r\n-#define OS_USING_SHELL\r\n-#define SHELL_TASK_NAME \"shell\"\r\n-#define SHELL_TASK_PRIORITY 20\r\n-#define SHELL_TASK_STACK_SIZE 2048\r\n-#define SHELL_USING_HISTORY\r\n-#define SHELL_HISTORY_LINES 5\r\n-#define SHELL_USING_DESCRIPTION\r\n-#define SHELL_CMD_SIZE 80\r\n-#define SHELL_PROMPT_SIZE 256\r\n-#define SHELL_ARG_MAX 10\r\n-/* end of Shell */\r\n-\r\n-/* SQL */\r\n-\r\n-/* end of SQL */\r\n-\r\n-/* telnetd */\r\n-\r\n-/* end of telnetd */\r\n-\r\n-/* AI */\r\n-\r\n-/* end of AI */\r\n-/* end of Components */\r\n-\r\n-/* Demos */\r\n-\r\n-/* Component demos */\r\n-\r\n-/* Camera web server */\r\n-\r\n-/* end of Camera web server */\r\n-/* end of Component demos */\r\n-/* end of Demos */\r\n-\r\n-/* Debug */\r\n-\r\n-#define OS_DEBUG\r\n-#define LOG_BUFF_SIZE_256\r\n-#define OS_LOG_BUFF_SIZE 256\r\n-/* end of Debug */\r\n-\r\n-#endif /* __ONEOS_CONFIG_H__ */\r\n-\r\n",
+          "truncated": false
+        },
+        {
+          "sha": "efaf6f1fbe774890355f3ca96ca95d1e5bccf527",
+          "filename": "templates/e3110-semidrive/settings-gcc.yaml",
+          "status": "removed",
+          "additions": 0,
+          "deletions": 33,
+          "changes": 33,
+          "blob_url": "https://gitee.com/cmcc-oneos/OneOS/blob/896a72bee3bb92044db4ad6f9062f77b7e6f6492/templates/e3110-semidrive/settings-gcc.yaml",
+          "raw_url": "https://gitee.com/cmcc-oneos/OneOS/raw/896a72bee3bb92044db4ad6f9062f77b7e6f6492/templates/e3110-semidrive/settings-gcc.yaml",
+          "content_url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/contents/templates/e3110-semidrive/settings-gcc.yaml?ref=896a72bee3bb92044db4ad6f9062f77b7e6f6492",
+          "patch": "@@ -1,33 +0,0 @@\n-# 编译选项（支持条件表达式）\n-option:\n-  cflags: # General options that are passed to the C compiler (C only; not C++).\n-    - ' -mcpu=cortex-r5 -marm -mfpu=fpv5-d16 -mfloat-abi=hard -ffunction-sections -fdata-sections'\n-    - ' -Dgcc'\n-    - ' -O0 -gdwarf-2 -g ? {is_mode(\"O0\")}'\n-    - ' -O2 -g ? {is_mode(''O2'')}'\n-    - ' -Os -g ? {is_mode(''Os'')}'\n-  cxxflags: # General options that are passed to the C++ compiler.\n-    - ' -mcpu=cortex-r5 -marm -mfpu=fpv5-d16 -mfloat-abi=hard -ffunction-sections -fdata-sections'\n-    - ' -Dgcc'\n-    - ' -O0 -gdwarf-2 -g ? {is_mode(\"O0\")}'\n-    - ' -O2 -g ? {is_mode(''O2'')}'\n-    - ' -Os -g ? {is_mode(''Os'')}'\n-  asflags:  # General options passed to the assembler.\n-    - ' -c'\n-    - ' -mcpu=cortex-r5 -marm -mfpu=fpv5-d16 -mfloat-abi=hard -ffunction-sections -fdata-sections'\n-    - ' -x assembler-with-cpp -Wa,-mimplicit-it=thumb '\n-    - ' -gdwarf-2 ? {is_mode(''O0'')}'\n-  linkflags:  # General user options passed to the linker.\n-    - ' -mcpu=cortex-r5 -marm -mfpu=fpv5-d16 -mfloat-abi=hard -ffunction-sections -fdata-sections'\n-\n-    - ' -Wl,--gc-sections,-Map=oneos.map,-cref,-u,Reset_Handler'\n-    - '  -T board/linker_scripts/xip_gcc.ld'\n-    #- '  -T board/linker_scripts/ram_gcc.ld'\n-\n-  libpath:\n-    - '$OS_ROOT/drivers/link/'\n-# 构建前/后动作（支持条件表达式）\n-action:\n-  postbuild:  # 构建后处理\n-    - '$OBJCOPY -R .reserved_ram -O binary $TARGET oneos.bin'\n-    - '$SIZE $TARGET'\n\\ No newline at end of file\n",
+          "truncated": false
+        },
+        {
+          "sha": "282e8db69819a262dfb1d441a50c8dae144a9c40",
+          "filename": "templates/e3110-semidrive/~$说明（请先阅读该文档）.docx",
+          "status": "removed",
+          "additions": 0,
+          "deletions": 0,
+          "changes": 0,
+          "blob_url": "https://gitee.com/cmcc-oneos/OneOS/blob/896a72bee3bb92044db4ad6f9062f77b7e6f6492/templates/e3110-semidrive/~$%E8%AF%B4%E6%98%8E%EF%BC%88%E8%AF%B7%E5%85%88%E9%98%85%E8%AF%BB%E8%AF%A5%E6%96%87%E6%A1%A3%EF%BC%89.docx",
+          "raw_url": "https://gitee.com/cmcc-oneos/OneOS/raw/896a72bee3bb92044db4ad6f9062f77b7e6f6492/templates/e3110-semidrive/~$%E8%AF%B4%E6%98%8E%EF%BC%88%E8%AF%B7%E5%85%88%E9%98%85%E8%AF%BB%E8%AF%A5%E6%96%87%E6%A1%A3%EF%BC%89.docx",
+          "content_url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/contents/templates/e3110-semidrive/~$说明（请先阅读该文档）.docx?ref=896a72bee3bb92044db4ad6f9062f77b7e6f6492",
+          "patch": "Binary files \"a/templates/e3110-semidrive/~$\\350\\257\\264\\346\\230\\216\\357\\274\\210\\350\\257\\267\\345\\205\\210\\351\\230\\205\\350\\257\\273\\350\\257\\245\\346\\226\\207\\346\\241\\243\\357\\274\\211.docx\" and /dev/null differ\n",
+          "truncated": false
+        },
+        {
+          "sha": "2ffaee045d0245612de18c2d9478e3eed7a7ecf6",
+          "filename": "templates/e3110-semidrive/使用说明（请先阅读该文档）.docx",
+          "status": "removed",
+          "additions": 0,
+          "deletions": 0,
+          "changes": 0,
+          "blob_url": "https://gitee.com/cmcc-oneos/OneOS/blob/896a72bee3bb92044db4ad6f9062f77b7e6f6492/templates/e3110-semidrive/%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E%EF%BC%88%E8%AF%B7%E5%85%88%E9%98%85%E8%AF%BB%E8%AF%A5%E6%96%87%E6%A1%A3%EF%BC%89.docx",
+          "raw_url": "https://gitee.com/cmcc-oneos/OneOS/raw/896a72bee3bb92044db4ad6f9062f77b7e6f6492/templates/e3110-semidrive/%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E%EF%BC%88%E8%AF%B7%E5%85%88%E9%98%85%E8%AF%BB%E8%AF%A5%E6%96%87%E6%A1%A3%EF%BC%89.docx",
+          "content_url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/contents/templates/e3110-semidrive/使用说明（请先阅读该文档）.docx?ref=896a72bee3bb92044db4ad6f9062f77b7e6f6492",
+          "patch": "Binary files \"a/templates/e3110-semidrive/\\344\\275\\277\\347\\224\\250\\350\\257\\264\\346\\230\\216\\357\\274\\210\\350\\257\\267\\345\\205\\210\\351\\230\\205\\350\\257\\273\\350\\257\\245\\346\\226\\207\\346\\241\\243\\357\\274\\211.docx\" and /dev/null differ\n",
+          "truncated": false
+        }
+      ],
+      "truncated": false
+    }
+  }
+}

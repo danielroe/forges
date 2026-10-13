@@ -1,0 +1,89 @@
+{
+  "base": "896a72bee3bb92044db4ad6f9062f77b7e6f6492",
+  "head": "dev",
+  "aheadBy": 4,
+  "commits": [
+    {
+      "ref": {
+        "forge": "gitee",
+        "instance": "gitee.com",
+        "repo": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "owner": "cmcc-oneos",
+          "name": "OneOS"
+        },
+        "sha": "107e129ad71b24c315f9c6bf00de9ae63da0e4f6"
+      },
+      "sha": "107e129ad71b24c315f9c6bf00de9ae63da0e4f6",
+      "message": "!550 delete Kconfig menu of semidrive\nMerge pull request !550 from chao/dev",
+      "author": {
+        "actor": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "login": "cmcc-oneos-admin",
+          "id": "7894055",
+          "name": "CMCC-OneOS",
+          "avatarUrl": "https://foruda.gitee.com/avatar/1670466967165594212/7894055_cmcc-oneos-admin_1670466966.png",
+          "url": "https://gitee.com/cmcc-oneos-admin",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "name": "CMCC-OneOS",
+        "email": "redacted@example.invalid",
+        "date": "2025-06-12T06:33:45.000Z"
+      },
+      "committer": {
+        "actor": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "login": "gitee-bot",
+          "id": "10186697",
+          "name": "Gitee GPG Bot",
+          "avatarUrl": "https://foruda.gitee.com/avatar/1677201213385506226/10186697_gitee-bot_1639518846.png",
+          "url": "https://gitee.com/gitee-bot",
+          "typeRaw": "User",
+          "isBotHint": true
+        },
+        "name": "Gitee",
+        "email": "redacted@example.invalid",
+        "date": "2025-06-12T06:33:45.000Z"
+      },
+      "parents": [
+        "2fa826a00e1c4f42113d878d198584360e180eb0",
+        "63e44b69ea1af37d309cce490c59cda5d190c8a1"
+      ],
+      "url": "https://gitee.com/cmcc-oneos/OneOS/commit/107e129ad71b24c315f9c6bf00de9ae63da0e4f6"
+    },
+    {
+      "ref": {
+        "forge": "gitee",
+        "instance": "gitee.com",
+        "repo": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "owner": "cmcc-oneos",
+          "name": "OneOS"
+        },
+        "sha": "63e44b69ea1af37d309cce490c59cda5d190c8a1"
+      },
+      "sha": "63e44b69ea1af37d309cce490c59cda5d190c8a1",
+      "message": "delete Kconfig menu of semidrive\n",
+      "author": {
+        "name": "pangchao",
+        "email": "redacted@example.invalid",
+        "date": "2025-06-12T03:06:45.000Z"
+      },
+      "committer": {
+        "name": "pangchao",
+        "email": "redacted@example.invalid",
+        "date": "2025-06-12T03:06:45.000Z"
+      },
+      "parents": [
+        "2fa826a00e1c4f42113d878d198584360e180eb0"
+      ],
+      "url": "https://gitee.com/cmcc-oneos/OneOS/commit/63e44b69ea1af37d309cce490c59cda5d190c8a1"
+    }
+  ],
+  "files": []
+}

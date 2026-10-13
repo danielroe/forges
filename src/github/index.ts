@@ -17,6 +17,8 @@ import type {
   CommitFilesInput,
   CommitQuery,
   CommitSearchQuery,
+  CompareOptions,
+  Comparison,
   ContributorStats,
   Cursor,
   EventFeedOptions,
@@ -1335,6 +1337,32 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
     return toPage({ data: data.tree, response, notModified: false }, toTreeEntry, warnings)
   }
 
+  async function compare(repo: RepoRef, base: string, head: string, options: CompareOptions = {}): Promise<Comparison> {
+    const path = `${repoPath(repo)}/compare/${encodeURIComponent(base)}...${encodeURIComponent(head)}`
+    const limit = options.commitLimit
+    const perPage = limit === undefined ? undefined : Math.min(100, Math.max(1, limit))
+    const { data } = await fetcher.json<GitHubComparison>(path, { query: { per_page: perPage }, signal: options.signal })
+    let commits = data.commits ?? []
+    const total = data.total_commits ?? data.ahead_by
+    if (limit !== undefined && perPage !== undefined && total !== undefined && total > commits.length) {
+      const first = Math.floor(Math.max(0, total - limit) / perPage) + 1
+      const pages = Array.from({ length: Math.ceil(total / perPage) - first + 1 }, (_, index) => first + index)
+      commits = (await Promise.all(pages.map(async page => page === 1
+        ? commits
+        : (await fetcher.json<GitHubComparison>(path, { query: { per_page: perPage, page }, signal: options.signal })).data.commits ?? []))).flat()
+    }
+    return {
+      base,
+      head,
+      aheadBy: data.ahead_by,
+      behindBy: data.behind_by,
+      mergeBaseSha: data.merge_base_commit?.sha,
+      commits: commits.map(raw => toCommit(repo, raw)).toReversed(),
+      files: (data.files ?? []).map(toChangedFile),
+      raw: data,
+    }
+  }
+
   async function commitsPage(repo: RepoRef, query: CommitQuery = {}): Promise<Page<Commit>> {
     return list(`${repoPath(repo)}/commits`, query, (raw: GitHubCommit) => toCommit(repo, raw), { query: { sha: query.ref, path: query.path, author: query.author, since: query.since?.toISOString(), until: query.until?.toISOString() } })
   }
@@ -1661,19 +1689,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
       commitsPage: verb(true, commitsPage),
       commit: verb(true, async (repo, sha, options) => toCommit(repo, (await fetcher.json<GitHubCommit>(`${repoPath(repo)}/commits/${sha}`, { signal: options?.signal })).data)),
       commitFiles: verb(true, (repo, input, options) => input.author ? commitTree(repo, input, options) : commitOnBranch(repo, input, options)),
-      compare: verb(true, async (repo, base, head, options) => {
-        const { data } = await fetcher.json<GitHubComparison>(`${repoPath(repo)}/compare/${encodeURIComponent(base)}...${encodeURIComponent(head)}`, { signal: options?.signal })
-        return {
-          base,
-          head,
-          aheadBy: data.ahead_by,
-          behindBy: data.behind_by,
-          mergeBaseSha: data.merge_base_commit?.sha,
-          commits: (data.commits ?? []).map(raw => toCommit(repo, raw)),
-          files: (data.files ?? []).map(toChangedFile),
-          raw: data,
-        }
-      }),
+      compare: verb(true, compare),
     },
     search: {
       threadsPage: verb(true, searchThreadsPage),

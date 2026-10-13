@@ -133,6 +133,10 @@ What `checks.report()` writes depends on your credential. With the credential of
 
 Files over 1 MB are read through the Git blobs API, so the result of `contents.file()` has `encoding: 'none'` for them. When GitHub truncates a large tree, `contents.tree()` adds a `tree_truncated` warning to the result.
 
+## Comparisons
+
+Without `commitLimit`, `contents.compare()` returns the newest 250 commits of the comparison. GitHub pages a comparison from its oldest commit, so with `commitLimit`, the provider reads the first page, and then the last pages, which hold the newest commits. Each page holds `commitLimit` commits, up to 100. A comparison that fits on the first page takes one request. GitHub always sends the changed files with the first page, up to 300 of them, so `files: false` leaves them out of the result but not out of the response.
+
 ## Committing files
 
 Without `author`, `contents.commitFiles()` makes the commit with one GraphQL `createCommitOnBranch` mutation, so GitHub signs it and attributes it to the account of the credential. With `author`, the provider writes the commit through the Git database API instead, and moves the branch with the GraphQL `updateRefs` mutation, which checks that the branch is still where the change started. GitHub doesn't sign that commit, and it records `author` as the committer too.

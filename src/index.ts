@@ -72,6 +72,7 @@ export type {
   CommitRef,
   CommitSearchQuery,
   CommitSignature,
+  CompareOptions,
   Comparison,
   Contributor,
   ContributorStats,

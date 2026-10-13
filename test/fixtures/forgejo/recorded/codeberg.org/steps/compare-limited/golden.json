@@ -1,0 +1,115 @@
+{
+  "base": "33d24bb50dc6ddc93ed64d9f3f3f61f56fec3896",
+  "head": "forgejo",
+  "aheadBy": 4,
+  "commits": [
+    {
+      "ref": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "repo": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "owner": "forgejo",
+          "name": "forgejo"
+        },
+        "sha": "a90c6e8d072558d07683c6586bb922ec8253db6c"
+      },
+      "sha": "a90c6e8d072558d07683c6586bb922ec8253db6c",
+      "message": "fix: config.ini duration default values / fix SENDMAIL_TIMEOUT default (#14828)\n\nSince f8fc5b9daff5f591a2c88011657e251ce5de9fb6 / #10273 the default value for a duration ini key was no longer written to the value for the \"empty\" case, such that after\n\n```\n  sec.Key(\"VALUE\").MustDuration(defaultValue)\n```\n\nthe value would remain empty if it was empty to begin with.\n\nBecause we have no access to the private value field from `ini.Key`, we call `MustDuration()` on it. Compare https://github.com/go-ini/ini/blob/v1.67.3/key.go#L332C3-L332C35\n\nI reviewed the mentioned commit and, luckily, `[mailer] SENDMAIL_TIMEOUT` is the only affected ini key, because in all other cases, the return value of `MustDuration()` is assigned to the configuration field directly.\n\nFixes #14635\n\nReviewed-on: https://codeberg.org/forgejo/forgejo/pulls/14828\nReviewed-by: Andreas Ahlenstorf <redacted@example.invalid>\nReviewed-by: Gusted <redacted@example.invalid>\n",
+      "author": {
+        "actor": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "login": "slink",
+          "id": "381495",
+          "name": "Nils Goroll",
+          "avatarUrl": "https://codeberg.org/avatars/b5d63dc33281a8f89f64eed46eee13a2777e9d8944872537ba94ed13495e4c6b",
+          "url": "https://codeberg.org/slink",
+          "isBotHint": false
+        },
+        "name": "Nils Goroll",
+        "email": "redacted@example.invalid",
+        "date": "2026-10-13T20:07:13.000Z"
+      },
+      "committer": {
+        "actor": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "login": "Gusted",
+          "id": "26734",
+          "avatarUrl": "https://codeberg.org/avatars/44a59264e976fa585ed9f0a92abad9d7",
+          "url": "https://codeberg.org/Gusted",
+          "isBotHint": false
+        },
+        "name": "Gusted",
+        "email": "redacted@example.invalid",
+        "date": "2026-10-13T20:07:13.000Z"
+      },
+      "parents": [
+        "acce8bbc3efd2aaa6ee9097d3d3d5e72e7de401f"
+      ],
+      "url": "https://codeberg.org/forgejo/forgejo/commit/a90c6e8d072558d07683c6586bb922ec8253db6c",
+      "stats": {
+        "additions": 13,
+        "deletions": 1,
+        "total": 14
+      }
+    },
+    {
+      "ref": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "repo": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "owner": "forgejo",
+          "name": "forgejo"
+        },
+        "sha": "acce8bbc3efd2aaa6ee9097d3d3d5e72e7de401f"
+      },
+      "sha": "acce8bbc3efd2aaa6ee9097d3d3d5e72e7de401f",
+      "message": "testing: Exercise config file path test in temporary directory (#14805)\n\nReviewed-on: https://codeberg.org/forgejo/forgejo/pulls/14805\nReviewed-by: Mathieu Fenniak <redacted@example.invalid>\n",
+      "author": {
+        "actor": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "login": "slink",
+          "id": "381495",
+          "name": "Nils Goroll",
+          "avatarUrl": "https://codeberg.org/avatars/b5d63dc33281a8f89f64eed46eee13a2777e9d8944872537ba94ed13495e4c6b",
+          "url": "https://codeberg.org/slink",
+          "isBotHint": false
+        },
+        "name": "Nils Goroll",
+        "email": "redacted@example.invalid",
+        "date": "2026-10-12T21:41:40.000Z"
+      },
+      "committer": {
+        "actor": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "login": "mfenniak",
+          "id": "222642",
+          "name": "Mathieu Fenniak",
+          "avatarUrl": "https://codeberg.org/avatars/561ee781e72bbbfd2865db7b4ba4fbf50f64da3d3cb0f4e1897b6da25224a2a7",
+          "url": "https://codeberg.org/mfenniak",
+          "isBotHint": false
+        },
+        "name": "Mathieu Fenniak",
+        "email": "redacted@example.invalid",
+        "date": "2026-10-12T21:41:40.000Z"
+      },
+      "parents": [
+        "22a31532253c3b379692facc8237270ce304d967"
+      ],
+      "url": "https://codeberg.org/forgejo/forgejo/commit/acce8bbc3efd2aaa6ee9097d3d3d5e72e7de401f",
+      "stats": {
+        "additions": 6,
+        "deletions": 1,
+        "total": 7
+      }
+    }
+  ],
+  "files": []
+}

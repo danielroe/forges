@@ -1,0 +1,67 @@
+{
+  "base": "b3bf6ccba7d855c656fb6bd4e1d8feb62fe8285f",
+  "head": "main",
+  "aheadBy": 4,
+  "commits": [
+    {
+      "ref": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "repo": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "owner": "gitlab-org",
+          "name": "cli"
+        },
+        "sha": "22ef0830b3575048b558d32c2d930d41a5b32ffc"
+      },
+      "sha": "22ef0830b3575048b558d32c2d930d41a5b32ffc",
+      "message": "Merge branch 'orbit-help-skill-pointer' into 'main'\n\ndocs(orbit): point agents to the Orbit skill in help\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4072\n\nMerged-by: Kai Armstrong <redacted@example.invalid>\nApproved-by: GitLab Duo <redacted@example.invalid>\nApproved-by: Kai Armstrong <redacted@example.invalid>\nReviewed-by: Kai Armstrong <redacted@example.invalid>\nReviewed-by: GitLab Duo <redacted@example.invalid>\nCo-authored-by: Dmitry Gruzd <redacted@example.invalid>",
+      "author": {
+        "name": "Kai Armstrong",
+        "email": "redacted@example.invalid",
+        "date": "2026-10-13T18:05:31.000Z"
+      },
+      "committer": {
+        "name": "GitLab",
+        "email": "redacted@example.invalid",
+        "date": "2026-10-13T18:05:31.000Z"
+      },
+      "parents": [
+        "24a87522cd40bd8a707416b85b57d5e2684def41",
+        "8fe3673c932ac91e4299dc16835bf33a002af7ff"
+      ],
+      "url": "https://gitlab.com/gitlab-org/cli/-/commit/22ef0830b3575048b558d32c2d930d41a5b32ffc"
+    },
+    {
+      "ref": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "repo": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "owner": "gitlab-org",
+          "name": "cli"
+        },
+        "sha": "8fe3673c932ac91e4299dc16835bf33a002af7ff"
+      },
+      "sha": "8fe3673c932ac91e4299dc16835bf33a002af7ff",
+      "message": "docs(orbit): point agents to the Orbit skill in help\n",
+      "author": {
+        "name": "Dmitry Gruzd",
+        "email": "redacted@example.invalid",
+        "date": "2026-10-13T18:05:30.000Z"
+      },
+      "committer": {
+        "name": "GitLab",
+        "email": "redacted@example.invalid",
+        "date": "2026-10-13T18:05:30.000Z"
+      },
+      "parents": [
+        "b3bf6ccba7d855c656fb6bd4e1d8feb62fe8285f"
+      ],
+      "url": "https://gitlab.com/gitlab-org/cli/-/commit/8fe3673c932ac91e4299dc16835bf33a002af7ff"
+    }
+  ],
+  "files": []
+}

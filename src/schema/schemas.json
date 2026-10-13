@@ -764,7 +764,7 @@
         "items": {
           "$ref": "#/components/schemas/Commit"
         },
-        "description": "The commits between the two revisions."
+        "description": "The commits between the two revisions, newest first. Forges that cap the list leave out the oldest."
       },
       "files": {
         "type": "array",

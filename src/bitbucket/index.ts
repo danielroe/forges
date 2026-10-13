@@ -172,6 +172,24 @@ const BITBUCKET: ProviderDefinition<BitbucketOptions, undefined, true> = {
       })
     }
 
+    /** The commits in `head` and not in `base`, up to `limit`, and whether that is all of them. */
+    async function compareCommits(repo: RepoRef, base: string, head: string, limit: number | undefined, signal: AbortSignal | undefined): Promise<{ commits: Commit[], complete: boolean }> {
+      const commits: Commit[] = []
+      const wanted = limit ?? Infinity
+      let cursor: Cursor | undefined
+      do {
+        const result = await fetcher.page<BitbucketCommitDetail>(`${repoPathOf(repo)}/commits`, {
+          query: { include: head, exclude: base, pagelen: Math.min(50, Math.max(1, wanted)) },
+          select: page<BitbucketCommitDetail>,
+          cursor,
+          signal,
+        })
+        commits.push(...result.data.map(raw => toCommit(repo, raw)))
+        cursor = result.cursor
+      } while (cursor?.nextUrl && commits.length < wanted)
+      return { commits, complete: !cursor?.nextUrl }
+    }
+
     async function resolveMergeMethod(ref: ResolvedThreadRef, pull: BitbucketPullRequest | undefined, signal?: AbortSignal): Promise<MergeMethod> {
       const branch = pull?.destination?.branch?.name
         ?? (await fetcher.json<BitbucketPullRequest>(threadPath(ref), { signal })).data.destination?.branch?.name
@@ -577,18 +595,11 @@ const BITBUCKET: ProviderDefinition<BitbucketOptions, undefined, true> = {
           return toCommit(repo, commit.data, files)
         }),
         compare: verb(true, async (repo, base, head, options) => {
-          const [files, commits] = await Promise.all([
-            Array.fromAsync(all<BitbucketDiffStat>(`${repoPathOf(repo)}/diffstat/${encodeURIComponent(head)}..${encodeURIComponent(base)}`, { signal: options?.signal }), toChangedFile),
-            Array.fromAsync(
-              fetcher.items<BitbucketCommitDetail>(`${repoPathOf(repo)}/commits`, {
-                query: { include: head, exclude: base, pagelen: 50 },
-                select: page<BitbucketCommitDetail>,
-                signal: options?.signal,
-              }),
-              raw => toCommit(repo, raw),
-            ),
+          const [files, { commits, complete }] = await Promise.all([
+            options?.files === false ? [] : Array.fromAsync(all<BitbucketDiffStat>(`${repoPathOf(repo)}/diffstat/${encodeURIComponent(head)}..${encodeURIComponent(base)}`, { signal: options?.signal }), toChangedFile),
+            compareCommits(repo, base, head, options?.commitLimit, options?.signal),
           ])
-          return { base, head, aheadBy: commits.length, commits, files, raw: { files, commits } }
+          return { base, head, ...complete ? { aheadBy: commits.length } : {}, commits, files, raw: { files, commits } }
         }),
         commitFiles: verb(true, commitFiles),
       },

@@ -937,6 +937,27 @@ describe('github contents', () => {
     expect(comparison).toMatchObject({ aheadBy: 2, behindBy: 0, mergeBaseSha: '0'.repeat(40) })
   })
 
+  it('reads the newest commits of a comparison from its last pages', async () => {
+    const all = Array.from({ length: 250 }, (_, index) => ({ sha: String(index + 1), commit: { message: `commit ${index + 1}` } }))
+    const pages: Array<string | null> = []
+    const provider = github({ auth: { type: 'token', token: 't' }, fetch: async (input) => {
+      const url = new URL(String(input))
+      const perPage = Number(url.searchParams.get('per_page') ?? 250)
+      const page = Number(url.searchParams.get('page') ?? 1)
+      pages.push(`${url.searchParams.get('per_page')}:${url.searchParams.get('page')}`)
+      const commits = url.searchParams.has('per_page') ? all.slice((page - 1) * perPage, page * perPage) : all.slice(-250)
+      return Response.json({ total_commits: all.length, ahead_by: all.length, behind_by: 0, commits, files: page === 1 ? [{ filename: 'a.ts', status: 'modified' }] : [] })
+    } }).create()
+    const shas = async (commitLimit?: number) => (await provider.contents.compare(repo, 'v1.0.0', 'main', { commitLimit })).commits.map(commit => commit.sha)
+
+    expect(await shas(3)).toEqual(['250', '249', '248'])
+    expect(pages.splice(0)).toEqual(['3:null', '3:83', '3:84'])
+    expect(await shas(150)).toEqual(all.slice(100).map(commit => commit.sha).toReversed())
+    expect(pages.splice(0)).toEqual(['100:null', '100:2', '100:3'])
+    expect(await shas()).toEqual(all.map(commit => commit.sha).toReversed())
+    expect(pages.splice(0)).toEqual(['null:null'])
+  })
+
   it('resolves a sha without a request and a branch with one', async () => {
     const { provider, calls } = tokenProvider()
 

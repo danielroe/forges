@@ -1,0 +1,413 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://knot1.tangled.sh/xrpc/sh.tangled.repo.compare?repo=did%3Aplc%3At73o44q7fppgagkrevtztyok&rev1=61d1c3dcdd91f258c8f1167e2838288271c5918b&rev2=main"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "rev1": "61d1c3dcdd91f258c8f1167e2838288271c5918b",
+      "rev2": "529a0d09b8e207fe3ca5b299bd6c1b7135133703",
+      "merge_base": "61d1c3dcdd91f258c8f1167e2838288271c5918b",
+      "format_patch": [
+        {
+          "Files": [
+            {
+              "OldName": "",
+              "NewName": "forges-fixtures/20261011215242-1.md",
+              "IsNew": true,
+              "IsDelete": false,
+              "IsCopy": false,
+              "IsRename": false,
+              "OldMode": 0,
+              "NewMode": 33188,
+              "OldOIDPrefix": "0000000000000000000000000000000000000000",
+              "NewOIDPrefix": "e23f8d7dc0ab4d172661be2fb2faccf255fad3c7",
+              "Score": 0,
+              "TextFragments": [
+                {
+                  "Comment": "",
+                  "OldPosition": 0,
+                  "OldLines": 0,
+                  "NewPosition": 1,
+                  "NewLines": 1,
+                  "LinesAdded": 1,
+                  "LinesDeleted": 0,
+                  "LeadingContext": 0,
+                  "TrailingContext": 0,
+                  "Lines": [
+                    {
+                      "Op": 2,
+                      "Line": "Written by a forges fixture run on forges-fixtures/20261011215242-1.\n"
+                    }
+                  ]
+                }
+              ],
+              "IsBinary": false,
+              "BinaryFragment": null,
+              "ReverseBinaryFragment": null
+            }
+          ],
+          "SHA": "47894e682901c62f0b643e91bca548a265ba3f7b",
+          "Author": {
+            "Name": "forges fixtures",
+            "Email": "redacted@example.invalid"
+          },
+          "AuthorDate": "2026-10-11T21:52:47Z",
+          "Committer": null,
+          "CommitterDate": "0001-01-01T00:00:00Z",
+          "Title": "Add forges-fixtures/20261011215242-1.md",
+          "Body": "",
+          "SubjectPrefix": "[PATCH] ",
+          "BodyAppendix": " forges-fixtures/20261011215242-1.md | 1 +\n 1 file changed, 1 insertion(+)\n create mode 100644 forges-fixtures/20261011215242-1.md",
+          "RawHeaders": {
+            "Date": [
+              "Sun, 11 Oct 2026 21:52:47 +0000"
+            ],
+            "From": [
+              "forges fixtures <redacted@example.invalid>"
+            ],
+            "Subject": [
+              "[PATCH] Add forges-fixtures/20261011215242-1.md"
+            ]
+          },
+          "Raw": "From 47894e682901c62f0b643e91bca548a265ba3f7b Mon Sep 17 00:00:00 2001\nFrom: forges fixtures <redacted@example.invalid>\nDate: Sun, 11 Oct 2026 21:52:47 +0000\nSubject: [PATCH] Add forges-fixtures/20261011215242-1.md\n\n---\n forges-fixtures/20261011215242-1.md | 1 +\n 1 file changed, 1 insertion(+)\n create mode 100644 forges-fixtures/20261011215242-1.md\n\ndiff --git a/forges-fixtures/20261011215242-1.md b/forges-fixtures/20261011215242-1.md\nnew file mode 100644\nindex 0000000000000000000000000000000000000000..e23f8d7dc0ab4d172661be2fb2faccf255fad3c7\n--- /dev/null\n+++ b/forges-fixtures/20261011215242-1.md\n@@ -0,0 +1 @@\n+Written by a forges fixture run on forges-fixtures/20261011215242-1.\n-- \nknot"
+        },
+        {
+          "Files": [
+            {
+              "OldName": "",
+              "NewName": "forges-fixtures/20261011220545-1.md",
+              "IsNew": true,
+              "IsDelete": false,
+              "IsCopy": false,
+              "IsRename": false,
+              "OldMode": 0,
+              "NewMode": 33188,
+              "OldOIDPrefix": "0000000000000000000000000000000000000000",
+              "NewOIDPrefix": "0c368c25109ff74c9db4d6279ef0baf54b2d95c7",
+              "Score": 0,
+              "TextFragments": [
+                {
+                  "Comment": "",
+                  "OldPosition": 0,
+                  "OldLines": 0,
+                  "NewPosition": 1,
+                  "NewLines": 1,
+                  "LinesAdded": 1,
+                  "LinesDeleted": 0,
+                  "LeadingContext": 0,
+                  "TrailingContext": 0,
+                  "Lines": [
+                    {
+                      "Op": 2,
+                      "Line": "Written by a forges fixture run on forges-fixtures/20261011220545-1.\n"
+                    }
+                  ]
+                }
+              ],
+              "IsBinary": false,
+              "BinaryFragment": null,
+              "ReverseBinaryFragment": null
+            }
+          ],
+          "SHA": "7fe5b29fe4f22d60ea09c5ec20a3d85c3d56e40a",
+          "Author": {
+            "Name": "forges fixtures",
+            "Email": "redacted@example.invalid"
+          },
+          "AuthorDate": "2026-10-11T22:05:50Z",
+          "Committer": null,
+          "CommitterDate": "0001-01-01T00:00:00Z",
+          "Title": "Add forges-fixtures/20261011220545-1.md",
+          "Body": "",
+          "SubjectPrefix": "[PATCH] ",
+          "BodyAppendix": " forges-fixtures/20261011220545-1.md | 1 +\n 1 file changed, 1 insertion(+)\n create mode 100644 forges-fixtures/20261011220545-1.md",
+          "RawHeaders": {
+            "Date": [
+              "Sun, 11 Oct 2026 22:05:50 +0000"
+            ],
+            "From": [
+              "forges fixtures <redacted@example.invalid>"
+            ],
+            "Subject": [
+              "[PATCH] Add forges-fixtures/20261011220545-1.md"
+            ]
+          },
+          "Raw": "From 7fe5b29fe4f22d60ea09c5ec20a3d85c3d56e40a Mon Sep 17 00:00:00 2001\nFrom: forges fixtures <redacted@example.invalid>\nDate: Sun, 11 Oct 2026 22:05:50 +0000\nSubject: [PATCH] Add forges-fixtures/20261011220545-1.md\n\n---\n forges-fixtures/20261011220545-1.md | 1 +\n 1 file changed, 1 insertion(+)\n create mode 100644 forges-fixtures/20261011220545-1.md\n\ndiff --git a/forges-fixtures/20261011220545-1.md b/forges-fixtures/20261011220545-1.md\nnew file mode 100644\nindex 0000000000000000000000000000000000000000..0c368c25109ff74c9db4d6279ef0baf54b2d95c7\n--- /dev/null\n+++ b/forges-fixtures/20261011220545-1.md\n@@ -0,0 +1 @@\n+Written by a forges fixture run on forges-fixtures/20261011220545-1.\n-- \nknot"
+        },
+        {
+          "Files": [
+            {
+              "OldName": "",
+              "NewName": "forges-fixtures/20261012114229-1.md",
+              "IsNew": true,
+              "IsDelete": false,
+              "IsCopy": false,
+              "IsRename": false,
+              "OldMode": 0,
+              "NewMode": 33188,
+              "OldOIDPrefix": "0000000000000000000000000000000000000000",
+              "NewOIDPrefix": "9ad3c32b85be7ce5be23b7028d0af24923afb20e",
+              "Score": 0,
+              "TextFragments": [
+                {
+                  "Comment": "",
+                  "OldPosition": 0,
+                  "OldLines": 0,
+                  "NewPosition": 1,
+                  "NewLines": 1,
+                  "LinesAdded": 1,
+                  "LinesDeleted": 0,
+                  "LeadingContext": 0,
+                  "TrailingContext": 0,
+                  "Lines": [
+                    {
+                      "Op": 2,
+                      "Line": "Written by a forges fixture run on forges-fixtures/20261012114229-1.\n"
+                    }
+                  ]
+                }
+              ],
+              "IsBinary": false,
+              "BinaryFragment": null,
+              "ReverseBinaryFragment": null
+            }
+          ],
+          "SHA": "c0bb543486e6c8a1853dade35c3ac475ad062af3",
+          "Author": {
+            "Name": "forges fixtures",
+            "Email": "redacted@example.invalid"
+          },
+          "AuthorDate": "2026-10-12T11:42:34Z",
+          "Committer": null,
+          "CommitterDate": "0001-01-01T00:00:00Z",
+          "Title": "Add forges-fixtures/20261012114229-1.md",
+          "Body": "",
+          "SubjectPrefix": "[PATCH] ",
+          "BodyAppendix": " forges-fixtures/20261012114229-1.md | 1 +\n 1 file changed, 1 insertion(+)\n create mode 100644 forges-fixtures/20261012114229-1.md",
+          "RawHeaders": {
+            "Date": [
+              "Mon, 12 Oct 2026 11:42:34 +0000"
+            ],
+            "From": [
+              "forges fixtures <redacted@example.invalid>"
+            ],
+            "Subject": [
+              "[PATCH] Add forges-fixtures/20261012114229-1.md"
+            ]
+          },
+          "Raw": "From c0bb543486e6c8a1853dade35c3ac475ad062af3 Mon Sep 17 00:00:00 2001\nFrom: forges fixtures <redacted@example.invalid>\nDate: Mon, 12 Oct 2026 11:42:34 +0000\nSubject: [PATCH] Add forges-fixtures/20261012114229-1.md\n\n---\n forges-fixtures/20261012114229-1.md | 1 +\n 1 file changed, 1 insertion(+)\n create mode 100644 forges-fixtures/20261012114229-1.md\n\ndiff --git a/forges-fixtures/20261012114229-1.md b/forges-fixtures/20261012114229-1.md\nnew file mode 100644\nindex 0000000000000000000000000000000000000000..9ad3c32b85be7ce5be23b7028d0af24923afb20e\n--- /dev/null\n+++ b/forges-fixtures/20261012114229-1.md\n@@ -0,0 +1 @@\n+Written by a forges fixture run on forges-fixtures/20261012114229-1.\n-- \nknot"
+        },
+        {
+          "Files": [
+            {
+              "OldName": "",
+              "NewName": "forges-fixtures/20261012220452-1.md",
+              "IsNew": true,
+              "IsDelete": false,
+              "IsCopy": false,
+              "IsRename": false,
+              "OldMode": 0,
+              "NewMode": 33188,
+              "OldOIDPrefix": "0000000000000000000000000000000000000000",
+              "NewOIDPrefix": "3779caad250e34296d59466732e08eda92473628",
+              "Score": 0,
+              "TextFragments": [
+                {
+                  "Comment": "",
+                  "OldPosition": 0,
+                  "OldLines": 0,
+                  "NewPosition": 1,
+                  "NewLines": 1,
+                  "LinesAdded": 1,
+                  "LinesDeleted": 0,
+                  "LeadingContext": 0,
+                  "TrailingContext": 0,
+                  "Lines": [
+                    {
+                      "Op": 2,
+                      "Line": "Written by a forges fixture run on forges-fixtures/20261012220452-1.\n"
+                    }
+                  ]
+                }
+              ],
+              "IsBinary": false,
+              "BinaryFragment": null,
+              "ReverseBinaryFragment": null
+            }
+          ],
+          "SHA": "529a0d09b8e207fe3ca5b299bd6c1b7135133703",
+          "Author": {
+            "Name": "forges fixtures",
+            "Email": "redacted@example.invalid"
+          },
+          "AuthorDate": "2026-10-12T22:04:57Z",
+          "Committer": null,
+          "CommitterDate": "0001-01-01T00:00:00Z",
+          "Title": "Add forges-fixtures/20261012220452-1.md",
+          "Body": "",
+          "SubjectPrefix": "[PATCH] ",
+          "BodyAppendix": " forges-fixtures/20261012220452-1.md | 1 +\n 1 file changed, 1 insertion(+)\n create mode 100644 forges-fixtures/20261012220452-1.md",
+          "RawHeaders": {
+            "Date": [
+              "Mon, 12 Oct 2026 22:04:57 +0000"
+            ],
+            "From": [
+              "forges fixtures <redacted@example.invalid>"
+            ],
+            "Subject": [
+              "[PATCH] Add forges-fixtures/20261012220452-1.md"
+            ]
+          },
+          "Raw": "From 529a0d09b8e207fe3ca5b299bd6c1b7135133703 Mon Sep 17 00:00:00 2001\nFrom: forges fixtures <redacted@example.invalid>\nDate: Mon, 12 Oct 2026 22:04:57 +0000\nSubject: [PATCH] Add forges-fixtures/20261012220452-1.md\n\n---\n forges-fixtures/20261012220452-1.md | 1 +\n 1 file changed, 1 insertion(+)\n create mode 100644 forges-fixtures/20261012220452-1.md\n\ndiff --git a/forges-fixtures/20261012220452-1.md b/forges-fixtures/20261012220452-1.md\nnew file mode 100644\nindex 0000000000000000000000000000000000000000..3779caad250e34296d59466732e08eda92473628\n--- /dev/null\n+++ b/forges-fixtures/20261012220452-1.md\n@@ -0,0 +1 @@\n+Written by a forges fixture run on forges-fixtures/20261012220452-1.\n-- \nknot"
+        }
+      ],
+      "patch": "From 47894e682901c62f0b643e91bca548a265ba3f7b Mon Sep 17 00:00:00 2001\nFrom: forges fixtures <redacted@example.invalid>\nDate: Sun, 11 Oct 2026 21:52:47 +0000\nSubject: [PATCH] Add forges-fixtures/20261011215242-1.md\n\n---\n forges-fixtures/20261011215242-1.md | 1 +\n 1 file changed, 1 insertion(+)\n create mode 100644 forges-fixtures/20261011215242-1.md\n\ndiff --git a/forges-fixtures/20261011215242-1.md b/forges-fixtures/20261011215242-1.md\nnew file mode 100644\nindex 0000000000000000000000000000000000000000..e23f8d7dc0ab4d172661be2fb2faccf255fad3c7\n--- /dev/null\n+++ b/forges-fixtures/20261011215242-1.md\n@@ -0,0 +1 @@\n+Written by a forges fixture run on forges-fixtures/20261011215242-1.\n-- \nknot\n\n\nFrom 7fe5b29fe4f22d60ea09c5ec20a3d85c3d56e40a Mon Sep 17 00:00:00 2001\nFrom: forges fixtures <redacted@example.invalid>\nDate: Sun, 11 Oct 2026 22:05:50 +0000\nSubject: [PATCH] Add forges-fixtures/20261011220545-1.md\n\n---\n forges-fixtures/20261011220545-1.md | 1 +\n 1 file changed, 1 insertion(+)\n create mode 100644 forges-fixtures/20261011220545-1.md\n\ndiff --git a/forges-fixtures/20261011220545-1.md b/forges-fixtures/20261011220545-1.md\nnew file mode 100644\nindex 0000000000000000000000000000000000000000..0c368c25109ff74c9db4d6279ef0baf54b2d95c7\n--- /dev/null\n+++ b/forges-fixtures/20261011220545-1.md\n@@ -0,0 +1 @@\n+Written by a forges fixture run on forges-fixtures/20261011220545-1.\n-- \nknot\n\n\nFrom c0bb543486e6c8a1853dade35c3ac475ad062af3 Mon Sep 17 00:00:00 2001\nFrom: forges fixtures <redacted@example.invalid>\nDate: Mon, 12 Oct 2026 11:42:34 +0000\nSubject: [PATCH] Add forges-fixtures/20261012114229-1.md\n\n---\n forges-fixtures/20261012114229-1.md | 1 +\n 1 file changed, 1 insertion(+)\n create mode 100644 forges-fixtures/20261012114229-1.md\n\ndiff --git a/forges-fixtures/20261012114229-1.md b/forges-fixtures/20261012114229-1.md\nnew file mode 100644\nindex 0000000000000000000000000000000000000000..9ad3c32b85be7ce5be23b7028d0af24923afb20e\n--- /dev/null\n+++ b/forges-fixtures/20261012114229-1.md\n@@ -0,0 +1 @@\n+Written by a forges fixture run on forges-fixtures/20261012114229-1.\n-- \nknot\n\n\nFrom 529a0d09b8e207fe3ca5b299bd6c1b7135133703 Mon Sep 17 00:00:00 2001\nFrom: forges fixtures <redacted@example.invalid>\nDate: Mon, 12 Oct 2026 22:04:57 +0000\nSubject: [PATCH] Add forges-fixtures/20261012220452-1.md\n\n---\n forges-fixtures/20261012220452-1.md | 1 +\n 1 file changed, 1 insertion(+)\n create mode 100644 forges-fixtures/20261012220452-1.md\n\ndiff --git a/forges-fixtures/20261012220452-1.md b/forges-fixtures/20261012220452-1.md\nnew file mode 100644\nindex 0000000000000000000000000000000000000000..3779caad250e34296d59466732e08eda92473628\n--- /dev/null\n+++ b/forges-fixtures/20261012220452-1.md\n@@ -0,0 +1 @@\n+Written by a forges fixture run on forges-fixtures/20261012220452-1.\n-- \nknot\n\n\n",
+      "combined_patch": [
+        {
+          "OldName": "",
+          "NewName": "forges-fixtures/20261011215242-1.md",
+          "IsNew": true,
+          "IsDelete": false,
+          "IsCopy": false,
+          "IsRename": false,
+          "OldMode": 0,
+          "NewMode": 33188,
+          "OldOIDPrefix": "0000000000000000000000000000000000000000",
+          "NewOIDPrefix": "e23f8d7dc0ab4d172661be2fb2faccf255fad3c7",
+          "Score": 0,
+          "TextFragments": [
+            {
+              "Comment": "",
+              "OldPosition": 0,
+              "OldLines": 0,
+              "NewPosition": 1,
+              "NewLines": 1,
+              "LinesAdded": 1,
+              "LinesDeleted": 0,
+              "LeadingContext": 0,
+              "TrailingContext": 0,
+              "Lines": [
+                {
+                  "Op": 2,
+                  "Line": "Written by a forges fixture run on forges-fixtures/20261011215242-1.\n"
+                }
+              ]
+            }
+          ],
+          "IsBinary": false,
+          "BinaryFragment": null,
+          "ReverseBinaryFragment": null
+        },
+        {
+          "OldName": "",
+          "NewName": "forges-fixtures/20261011220545-1.md",
+          "IsNew": true,
+          "IsDelete": false,
+          "IsCopy": false,
+          "IsRename": false,
+          "OldMode": 0,
+          "NewMode": 33188,
+          "OldOIDPrefix": "0000000000000000000000000000000000000000",
+          "NewOIDPrefix": "0c368c25109ff74c9db4d6279ef0baf54b2d95c7",
+          "Score": 0,
+          "TextFragments": [
+            {
+              "Comment": "",
+              "OldPosition": 0,
+              "OldLines": 0,
+              "NewPosition": 1,
+              "NewLines": 1,
+              "LinesAdded": 1,
+              "LinesDeleted": 0,
+              "LeadingContext": 0,
+              "TrailingContext": 0,
+              "Lines": [
+                {
+                  "Op": 2,
+                  "Line": "Written by a forges fixture run on forges-fixtures/20261011220545-1.\n"
+                }
+              ]
+            }
+          ],
+          "IsBinary": false,
+          "BinaryFragment": null,
+          "ReverseBinaryFragment": null
+        },
+        {
+          "OldName": "",
+          "NewName": "forges-fixtures/20261012114229-1.md",
+          "IsNew": true,
+          "IsDelete": false,
+          "IsCopy": false,
+          "IsRename": false,
+          "OldMode": 0,
+          "NewMode": 33188,
+          "OldOIDPrefix": "0000000000000000000000000000000000000000",
+          "NewOIDPrefix": "9ad3c32b85be7ce5be23b7028d0af24923afb20e",
+          "Score": 0,
+          "TextFragments": [
+            {
+              "Comment": "",
+              "OldPosition": 0,
+              "OldLines": 0,
+              "NewPosition": 1,
+              "NewLines": 1,
+              "LinesAdded": 1,
+              "LinesDeleted": 0,
+              "LeadingContext": 0,
+              "TrailingContext": 0,
+              "Lines": [
+                {
+                  "Op": 2,
+                  "Line": "Written by a forges fixture run on forges-fixtures/20261012114229-1.\n"
+                }
+              ]
+            }
+          ],
+          "IsBinary": false,
+          "BinaryFragment": null,
+          "ReverseBinaryFragment": null
+        },
+        {
+          "OldName": "",
+          "NewName": "forges-fixtures/20261012220452-1.md",
+          "IsNew": true,
+          "IsDelete": false,
+          "IsCopy": false,
+          "IsRename": false,
+          "OldMode": 0,
+          "NewMode": 33188,
+          "OldOIDPrefix": "0000000000000000000000000000000000000000",
+          "NewOIDPrefix": "3779caad250e34296d59466732e08eda92473628",
+          "Score": 0,
+          "TextFragments": [
+            {
+              "Comment": "",
+              "OldPosition": 0,
+              "OldLines": 0,
+              "NewPosition": 1,
+              "NewLines": 1,
+              "LinesAdded": 1,
+              "LinesDeleted": 0,
+              "LeadingContext": 0,
+              "TrailingContext": 0,
+              "Lines": [
+                {
+                  "Op": 2,
+                  "Line": "Written by a forges fixture run on forges-fixtures/20261012220452-1.\n"
+                }
+              ]
+            }
+          ],
+          "IsBinary": false,
+          "BinaryFragment": null,
+          "ReverseBinaryFragment": null
+        }
+      ],
+      "combined_patch_raw": "diff --git a/forges-fixtures/20261011215242-1.md b/forges-fixtures/20261011215242-1.md\nnew file mode 100644\nindex 0000000000000000000000000000000000000000..e23f8d7dc0ab4d172661be2fb2faccf255fad3c7\n--- /dev/null\n+++ b/forges-fixtures/20261011215242-1.md\n@@ -0,0 +1 @@\n+Written by a forges fixture run on forges-fixtures/20261011215242-1.\ndiff --git a/forges-fixtures/20261011220545-1.md b/forges-fixtures/20261011220545-1.md\nnew file mode 100644\nindex 0000000000000000000000000000000000000000..0c368c25109ff74c9db4d6279ef0baf54b2d95c7\n--- /dev/null\n+++ b/forges-fixtures/20261011220545-1.md\n@@ -0,0 +1 @@\n+Written by a forges fixture run on forges-fixtures/20261011220545-1.\ndiff --git a/forges-fixtures/20261012114229-1.md b/forges-fixtures/20261012114229-1.md\nnew file mode 100644\nindex 0000000000000000000000000000000000000000..9ad3c32b85be7ce5be23b7028d0af24923afb20e\n--- /dev/null\n+++ b/forges-fixtures/20261012114229-1.md\n@@ -0,0 +1 @@\n+Written by a forges fixture run on forges-fixtures/20261012114229-1.\ndiff --git a/forges-fixtures/20261012220452-1.md b/forges-fixtures/20261012220452-1.md\nnew file mode 100644\nindex 0000000000000000000000000000000000000000..3779caad250e34296d59466732e08eda92473628\n--- /dev/null\n+++ b/forges-fixtures/20261012220452-1.md\n@@ -0,0 +1 @@\n+Written by a forges fixture run on forges-fixtures/20261012220452-1.\n"
+    }
+  }
+}

@@ -854,7 +854,7 @@ const GITLAB: ProviderDefinition<GitLabOptions, undefined, true> = {
             base,
             head,
             aheadBy: data.commits?.length,
-            commits: (data.commits ?? []).map(raw => toCommit(repo, raw)),
+            commits: (data.commits ?? []).map(raw => toCommit(repo, raw)).toReversed(),
             files: (data.diffs ?? []).map(toChangedFile),
             raw: data,
           }

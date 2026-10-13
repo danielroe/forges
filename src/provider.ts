@@ -23,6 +23,7 @@ import type {
   CommitFilesInput,
   CommitQuery,
   CommitSearchQuery,
+  CompareOptions,
   Comparison,
   Contributor,
   ContributorStats,
@@ -744,7 +745,7 @@ export interface ContentsApi {
   /** One commit, with its files and stats. */
   commit: (repo: RepoRef, sha: string, options?: BaseOptions) => Promise<Commit>
   /** Commits and files between two refs. */
-  compare: (repo: RepoRef, base: string, head: string, options?: BaseOptions) => Promise<Comparison>
+  compare: (repo: RepoRef, base: string, head: string, options?: CompareOptions) => Promise<Comparison>
   /**
    * Writes and deletes files in one commit on a branch, and moves the branch to it.
    * @param repo The repository to commit to.

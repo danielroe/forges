@@ -778,7 +778,10 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
       commitsPage: verb(true, (repo, query = {}) => list(`${repoPath(repo)}/commits`, query, (raw: ForgejoCommit) => toCommit(repo, raw), { query: { sha: query.ref, path: query.path, since: query.since?.toISOString(), until: query.until?.toISOString() } })),
       commit: verb(true, async (repo, sha, options) => toCommit(repo, (await fetcher.json<ForgejoCommit>(`${repoPath(repo)}/git/commits/${sha}`, { query: { stat: 'true', files: 'true' }, signal: options?.signal })).data)),
       compare: verb(true, async (repo, base, head, options) => {
-        const { data } = await fetcher.json<ForgejoCompare>(`${repoPath(repo)}/compare/${encodeURIComponent(base)}...${encodeURIComponent(head)}`, { signal: options?.signal })
+        const { data } = await fetcher.json<ForgejoCompare>(`${repoPath(repo)}/compare/${encodeURIComponent(base)}...${encodeURIComponent(head)}`, {
+          query: { files: options?.files === false ? false : undefined },
+          signal: options?.signal,
+        })
         return {
           base,
           head,

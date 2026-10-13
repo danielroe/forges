@@ -1,0 +1,496 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/commits/master?pagelen=5"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "values": [
+        {
+          "type": "commit",
+          "hash": "6f202224c3c938d01c46892ed305df6e385ce13f",
+          "date": "2025-01-17T15:05:14+00:00",
+          "author": {
+            "type": "author",
+            "raw": "Ito Mitsuhiro <redacted@example.invalid>",
+            "user": {
+              "display_name": "Ito Mitsuhiro",
+              "links": {
+                "self": {
+                  "href": "https://api.bitbucket.org/2.0/users/%7B7247b96a-9628-4fa3-b0ed-06bd83dc23a1%7D"
+                },
+                "avatar": {
+                  "href": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/557058:1c074cc5-5f7e-4f74-a716-6ade7135e7bd/4281deb6-857a-4a03-a588-29cb13085c34/128"
+                },
+                "html": {
+                  "href": "https://bitbucket.org/%7B7247b96a-9628-4fa3-b0ed-06bd83dc23a1%7D/"
+                }
+              },
+              "type": "user",
+              "uuid": "{7247b96a-9628-4fa3-b0ed-06bd83dc23a1}",
+              "account_id": "557058:1c074cc5-5f7e-4f74-a716-6ade7135e7bd",
+              "nickname": "neelabo"
+            }
+          },
+          "message": "README.md を Bitbucket 上でオンラインで編集しました。",
+          "summary": {
+            "type": "rendered",
+            "raw": "README.md を Bitbucket 上でオンラインで編集しました。",
+            "markup": "markdown",
+            "html": "<p>README.md を Bitbucket 上でオンラインで編集しました。</p>"
+          },
+          "links": {
+            "self": {
+              "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/commit/6f202224c3c938d01c46892ed305df6e385ce13f"
+            },
+            "html": {
+              "href": "https://bitbucket.org/neelabo/neeview/commits/6f202224c3c938d01c46892ed305df6e385ce13f"
+            },
+            "diff": {
+              "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/diff/6f202224c3c938d01c46892ed305df6e385ce13f"
+            },
+            "approve": {
+              "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/commit/6f202224c3c938d01c46892ed305df6e385ce13f/approve"
+            },
+            "comments": {
+              "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/commit/6f202224c3c938d01c46892ed305df6e385ce13f/comments"
+            },
+            "statuses": {
+              "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/commit/6f202224c3c938d01c46892ed305df6e385ce13f/statuses"
+            },
+            "patch": {
+              "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/patch/6f202224c3c938d01c46892ed305df6e385ce13f"
+            }
+          },
+          "parents": [
+            {
+              "hash": "56e41d7f141a970cebab5f816de3ea45342758db",
+              "links": {
+                "self": {
+                  "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/commit/56e41d7f141a970cebab5f816de3ea45342758db"
+                },
+                "html": {
+                  "href": "https://bitbucket.org/neelabo/neeview/commits/56e41d7f141a970cebab5f816de3ea45342758db"
+                }
+              },
+              "type": "commit"
+            }
+          ],
+          "rendered": {
+            "message": {
+              "type": "rendered",
+              "raw": "README.md を Bitbucket 上でオンラインで編集しました。",
+              "markup": "markdown",
+              "html": "<p>README.md を Bitbucket 上でオンラインで編集しました。</p>"
+            }
+          },
+          "repository": {
+            "type": "repository",
+            "full_name": "neelabo/neeview",
+            "links": {
+              "self": {
+                "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview"
+              },
+              "html": {
+                "href": "https://bitbucket.org/neelabo/neeview"
+              },
+              "avatar": {
+                "href": "https://bytebucket.org/ravatar/%7B6b283030-4828-41db-b559-8b120365f356%7D?ts=c_sharp"
+              }
+            },
+            "name": "NeeView",
+            "uuid": "{6b283030-4828-41db-b559-8b120365f356}"
+          }
+        },
+        {
+          "type": "commit",
+          "hash": "56e41d7f141a970cebab5f816de3ea45342758db",
+          "date": "2025-01-17T15:03:04+00:00",
+          "author": {
+            "type": "author",
+            "raw": "Ito Mitsuhiro <redacted@example.invalid>",
+            "user": {
+              "display_name": "Ito Mitsuhiro",
+              "links": {
+                "self": {
+                  "href": "https://api.bitbucket.org/2.0/users/%7B7247b96a-9628-4fa3-b0ed-06bd83dc23a1%7D"
+                },
+                "avatar": {
+                  "href": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/557058:1c074cc5-5f7e-4f74-a716-6ade7135e7bd/4281deb6-857a-4a03-a588-29cb13085c34/128"
+                },
+                "html": {
+                  "href": "https://bitbucket.org/%7B7247b96a-9628-4fa3-b0ed-06bd83dc23a1%7D/"
+                }
+              },
+              "type": "user",
+              "uuid": "{7247b96a-9628-4fa3-b0ed-06bd83dc23a1}",
+              "account_id": "557058:1c074cc5-5f7e-4f74-a716-6ade7135e7bd",
+              "nickname": "neelabo"
+            }
+          },
+          "message": "README.md を Bitbucket 上でオンラインで編集しました。",
+          "summary": {
+            "type": "rendered",
+            "raw": "README.md を Bitbucket 上でオンラインで編集しました。",
+            "markup": "markdown",
+            "html": "<p>README.md を Bitbucket 上でオンラインで編集しました。</p>"
+          },
+          "links": {
+            "self": {
+              "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/commit/56e41d7f141a970cebab5f816de3ea45342758db"
+            },
+            "html": {
+              "href": "https://bitbucket.org/neelabo/neeview/commits/56e41d7f141a970cebab5f816de3ea45342758db"
+            },
+            "diff": {
+              "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/diff/56e41d7f141a970cebab5f816de3ea45342758db"
+            },
+            "approve": {
+              "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/commit/56e41d7f141a970cebab5f816de3ea45342758db/approve"
+            },
+            "comments": {
+              "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/commit/56e41d7f141a970cebab5f816de3ea45342758db/comments"
+            },
+            "statuses": {
+              "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/commit/56e41d7f141a970cebab5f816de3ea45342758db/statuses"
+            },
+            "patch": {
+              "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/patch/56e41d7f141a970cebab5f816de3ea45342758db"
+            }
+          },
+          "parents": [
+            {
+              "hash": "bab2d8307ed1bbf5fe9cc7c7d573df4ea0d1a31f",
+              "links": {
+                "self": {
+                  "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/commit/bab2d8307ed1bbf5fe9cc7c7d573df4ea0d1a31f"
+                },
+                "html": {
+                  "href": "https://bitbucket.org/neelabo/neeview/commits/bab2d8307ed1bbf5fe9cc7c7d573df4ea0d1a31f"
+                }
+              },
+              "type": "commit"
+            }
+          ],
+          "rendered": {
+            "message": {
+              "type": "rendered",
+              "raw": "README.md を Bitbucket 上でオンラインで編集しました。",
+              "markup": "markdown",
+              "html": "<p>README.md を Bitbucket 上でオンラインで編集しました。</p>"
+            }
+          },
+          "repository": {
+            "type": "repository",
+            "full_name": "neelabo/neeview",
+            "links": {
+              "self": {
+                "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview"
+              },
+              "html": {
+                "href": "https://bitbucket.org/neelabo/neeview"
+              },
+              "avatar": {
+                "href": "https://bytebucket.org/ravatar/%7B6b283030-4828-41db-b559-8b120365f356%7D?ts=c_sharp"
+              }
+            },
+            "name": "NeeView",
+            "uuid": "{6b283030-4828-41db-b559-8b120365f356}"
+          }
+        },
+        {
+          "type": "commit",
+          "hash": "bab2d8307ed1bbf5fe9cc7c7d573df4ea0d1a31f",
+          "date": "2025-01-17T13:08:50+00:00",
+          "author": {
+            "type": "author",
+            "raw": "Ito Mitsuhiro <redacted@example.invalid>",
+            "user": {
+              "display_name": "Ito Mitsuhiro",
+              "links": {
+                "self": {
+                  "href": "https://api.bitbucket.org/2.0/users/%7B7247b96a-9628-4fa3-b0ed-06bd83dc23a1%7D"
+                },
+                "avatar": {
+                  "href": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/557058:1c074cc5-5f7e-4f74-a716-6ade7135e7bd/4281deb6-857a-4a03-a588-29cb13085c34/128"
+                },
+                "html": {
+                  "href": "https://bitbucket.org/%7B7247b96a-9628-4fa3-b0ed-06bd83dc23a1%7D/"
+                }
+              },
+              "type": "user",
+              "uuid": "{7247b96a-9628-4fa3-b0ed-06bd83dc23a1}",
+              "account_id": "557058:1c074cc5-5f7e-4f74-a716-6ade7135e7bd",
+              "nickname": "neelabo"
+            }
+          },
+          "message": "README.md を Bitbucket 上でオンラインで編集しました。",
+          "summary": {
+            "type": "rendered",
+            "raw": "README.md を Bitbucket 上でオンラインで編集しました。",
+            "markup": "markdown",
+            "html": "<p>README.md を Bitbucket 上でオンラインで編集しました。</p>"
+          },
+          "links": {
+            "self": {
+              "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/commit/bab2d8307ed1bbf5fe9cc7c7d573df4ea0d1a31f"
+            },
+            "html": {
+              "href": "https://bitbucket.org/neelabo/neeview/commits/bab2d8307ed1bbf5fe9cc7c7d573df4ea0d1a31f"
+            },
+            "diff": {
+              "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/diff/bab2d8307ed1bbf5fe9cc7c7d573df4ea0d1a31f"
+            },
+            "approve": {
+              "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/commit/bab2d8307ed1bbf5fe9cc7c7d573df4ea0d1a31f/approve"
+            },
+            "comments": {
+              "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/commit/bab2d8307ed1bbf5fe9cc7c7d573df4ea0d1a31f/comments"
+            },
+            "statuses": {
+              "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/commit/bab2d8307ed1bbf5fe9cc7c7d573df4ea0d1a31f/statuses"
+            },
+            "patch": {
+              "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/patch/bab2d8307ed1bbf5fe9cc7c7d573df4ea0d1a31f"
+            }
+          },
+          "parents": [
+            {
+              "hash": "be84cd06d63c97d0abc46a1b8e0518a304879538",
+              "links": {
+                "self": {
+                  "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/commit/be84cd06d63c97d0abc46a1b8e0518a304879538"
+                },
+                "html": {
+                  "href": "https://bitbucket.org/neelabo/neeview/commits/be84cd06d63c97d0abc46a1b8e0518a304879538"
+                }
+              },
+              "type": "commit"
+            }
+          ],
+          "rendered": {
+            "message": {
+              "type": "rendered",
+              "raw": "README.md を Bitbucket 上でオンラインで編集しました。",
+              "markup": "markdown",
+              "html": "<p>README.md を Bitbucket 上でオンラインで編集しました。</p>"
+            }
+          },
+          "repository": {
+            "type": "repository",
+            "full_name": "neelabo/neeview",
+            "links": {
+              "self": {
+                "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview"
+              },
+              "html": {
+                "href": "https://bitbucket.org/neelabo/neeview"
+              },
+              "avatar": {
+                "href": "https://bytebucket.org/ravatar/%7B6b283030-4828-41db-b559-8b120365f356%7D?ts=c_sharp"
+              }
+            },
+            "name": "NeeView",
+            "uuid": "{6b283030-4828-41db-b559-8b120365f356}"
+          }
+        },
+        {
+          "type": "commit",
+          "hash": "be84cd06d63c97d0abc46a1b8e0518a304879538",
+          "date": "2025-01-17T10:00:34+00:00",
+          "author": {
+            "type": "author",
+            "raw": "Ito Mitsuhiro <redacted@example.invalid>",
+            "user": {
+              "display_name": "Ito Mitsuhiro",
+              "links": {
+                "self": {
+                  "href": "https://api.bitbucket.org/2.0/users/%7B7247b96a-9628-4fa3-b0ed-06bd83dc23a1%7D"
+                },
+                "avatar": {
+                  "href": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/557058:1c074cc5-5f7e-4f74-a716-6ade7135e7bd/4281deb6-857a-4a03-a588-29cb13085c34/128"
+                },
+                "html": {
+                  "href": "https://bitbucket.org/%7B7247b96a-9628-4fa3-b0ed-06bd83dc23a1%7D/"
+                }
+              },
+              "type": "user",
+              "uuid": "{7247b96a-9628-4fa3-b0ed-06bd83dc23a1}",
+              "account_id": "557058:1c074cc5-5f7e-4f74-a716-6ade7135e7bd",
+              "nickname": "neelabo"
+            }
+          },
+          "message": "chore: パッケージのREADME生成を文字列配列として処理するようにした\n\nREADMEパーツをファイル単位でコピーと加工をしていたが、コンテンツとして取り込み文字列配列として加工するように処理を変更した\n",
+          "summary": {
+            "type": "rendered",
+            "raw": "chore: パッケージのREADME生成を文字列配列として処理するようにした\n\nREADMEパーツをファイル単位でコピーと加工をしていたが、コンテンツとして取り込み文字列配列として加工するように処理を変更した\n",
+            "markup": "markdown",
+            "html": "<p>chore: パッケージのREADME生成を文字列配列として処理するようにした</p>\n<p>READMEパーツをファイル単位でコピーと加工をしていたが、コンテンツとして取り込み文字列配列として加工するように処理を変更した</p>"
+          },
+          "links": {
+            "self": {
+              "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/commit/be84cd06d63c97d0abc46a1b8e0518a304879538"
+            },
+            "html": {
+              "href": "https://bitbucket.org/neelabo/neeview/commits/be84cd06d63c97d0abc46a1b8e0518a304879538"
+            },
+            "diff": {
+              "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/diff/be84cd06d63c97d0abc46a1b8e0518a304879538"
+            },
+            "approve": {
+              "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/commit/be84cd06d63c97d0abc46a1b8e0518a304879538/approve"
+            },
+            "comments": {
+              "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/commit/be84cd06d63c97d0abc46a1b8e0518a304879538/comments"
+            },
+            "statuses": {
+              "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/commit/be84cd06d63c97d0abc46a1b8e0518a304879538/statuses"
+            },
+            "patch": {
+              "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/patch/be84cd06d63c97d0abc46a1b8e0518a304879538"
+            }
+          },
+          "parents": [
+            {
+              "hash": "5c03e73f27194588cf9d74990804df53f000fe74",
+              "links": {
+                "self": {
+                  "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/commit/5c03e73f27194588cf9d74990804df53f000fe74"
+                },
+                "html": {
+                  "href": "https://bitbucket.org/neelabo/neeview/commits/5c03e73f27194588cf9d74990804df53f000fe74"
+                }
+              },
+              "type": "commit"
+            }
+          ],
+          "rendered": {
+            "message": {
+              "type": "rendered",
+              "raw": "chore: パッケージのREADME生成を文字列配列として処理するようにした\n\nREADMEパーツをファイル単位でコピーと加工をしていたが、コンテンツとして取り込み文字列配列として加工するように処理を変更した\n",
+              "markup": "markdown",
+              "html": "<p>chore: パッケージのREADME生成を文字列配列として処理するようにした</p>\n<p>READMEパーツをファイル単位でコピーと加工をしていたが、コンテンツとして取り込み文字列配列として加工するように処理を変更した</p>"
+            }
+          },
+          "repository": {
+            "type": "repository",
+            "full_name": "neelabo/neeview",
+            "links": {
+              "self": {
+                "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview"
+              },
+              "html": {
+                "href": "https://bitbucket.org/neelabo/neeview"
+              },
+              "avatar": {
+                "href": "https://bytebucket.org/ravatar/%7B6b283030-4828-41db-b559-8b120365f356%7D?ts=c_sharp"
+              }
+            },
+            "name": "NeeView",
+            "uuid": "{6b283030-4828-41db-b559-8b120365f356}"
+          }
+        },
+        {
+          "type": "commit",
+          "hash": "5c03e73f27194588cf9d74990804df53f000fe74",
+          "date": "2025-01-17T06:07:45+00:00",
+          "author": {
+            "type": "author",
+            "raw": "Ito Mitsuhiro <redacted@example.invalid>",
+            "user": {
+              "display_name": "Ito Mitsuhiro",
+              "links": {
+                "self": {
+                  "href": "https://api.bitbucket.org/2.0/users/%7B7247b96a-9628-4fa3-b0ed-06bd83dc23a1%7D"
+                },
+                "avatar": {
+                  "href": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/557058:1c074cc5-5f7e-4f74-a716-6ade7135e7bd/4281deb6-857a-4a03-a588-29cb13085c34/128"
+                },
+                "html": {
+                  "href": "https://bitbucket.org/%7B7247b96a-9628-4fa3-b0ed-06bd83dc23a1%7D/"
+                }
+              },
+              "type": "user",
+              "uuid": "{7247b96a-9628-4fa3-b0ed-06bd83dc23a1}",
+              "account_id": "557058:1c074cc5-5f7e-4f74-a716-6ade7135e7bd",
+              "nickname": "neelabo"
+            }
+          },
+          "message": "chore: Wiki のドキュメントを docs に追加\n",
+          "summary": {
+            "type": "rendered",
+            "raw": "chore: Wiki のドキュメントを docs に追加\n",
+            "markup": "markdown",
+            "html": "<p>chore: Wiki のドキュメントを docs に追加</p>"
+          },
+          "links": {
+            "self": {
+              "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/commit/5c03e73f27194588cf9d74990804df53f000fe74"
+            },
+            "html": {
+              "href": "https://bitbucket.org/neelabo/neeview/commits/5c03e73f27194588cf9d74990804df53f000fe74"
+            },
+            "diff": {
+              "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/diff/5c03e73f27194588cf9d74990804df53f000fe74"
+            },
+            "approve": {
+              "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/commit/5c03e73f27194588cf9d74990804df53f000fe74/approve"
+            },
+            "comments": {
+              "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/commit/5c03e73f27194588cf9d74990804df53f000fe74/comments"
+            },
+            "statuses": {
+              "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/commit/5c03e73f27194588cf9d74990804df53f000fe74/statuses"
+            },
+            "patch": {
+              "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/patch/5c03e73f27194588cf9d74990804df53f000fe74"
+            }
+          },
+          "parents": [
+            {
+              "hash": "75b7f30bf231d07672dbbb0dfd6161596be1e906",
+              "links": {
+                "self": {
+                  "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/commit/75b7f30bf231d07672dbbb0dfd6161596be1e906"
+                },
+                "html": {
+                  "href": "https://bitbucket.org/neelabo/neeview/commits/75b7f30bf231d07672dbbb0dfd6161596be1e906"
+                }
+              },
+              "type": "commit"
+            }
+          ],
+          "rendered": {
+            "message": {
+              "type": "rendered",
+              "raw": "chore: Wiki のドキュメントを docs に追加\n",
+              "markup": "markdown",
+              "html": "<p>chore: Wiki のドキュメントを docs に追加</p>"
+            }
+          },
+          "repository": {
+            "type": "repository",
+            "full_name": "neelabo/neeview",
+            "links": {
+              "self": {
+                "href": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview"
+              },
+              "html": {
+                "href": "https://bitbucket.org/neelabo/neeview"
+              },
+              "avatar": {
+                "href": "https://bytebucket.org/ravatar/%7B6b283030-4828-41db-b559-8b120365f356%7D?ts=c_sharp"
+              }
+            },
+            "name": "NeeView",
+            "uuid": "{6b283030-4828-41db-b559-8b120365f356}"
+          }
+        }
+      ],
+      "pagelen": 5,
+      "next": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/commits/master?pagelen=5&ctx=6c7f1c9aca79ae51bb477eb48a2a04f0&page=2"
+    }
+  }
+}

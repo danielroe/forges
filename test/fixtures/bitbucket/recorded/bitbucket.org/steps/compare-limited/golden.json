@@ -1,0 +1,77 @@
+{
+  "base": "5c03e73f27194588cf9d74990804df53f000fe74",
+  "head": "master",
+  "commits": [
+    {
+      "ref": {
+        "forge": "bitbucket",
+        "instance": "bitbucket.org",
+        "repo": {
+          "forge": "bitbucket",
+          "instance": "bitbucket.org",
+          "owner": "neelabo",
+          "name": "neeview"
+        },
+        "sha": "6f202224c3c938d01c46892ed305df6e385ce13f"
+      },
+      "sha": "6f202224c3c938d01c46892ed305df6e385ce13f",
+      "message": "README.md を Bitbucket 上でオンラインで編集しました。",
+      "author": {
+        "actor": {
+          "forge": "bitbucket",
+          "instance": "bitbucket.org",
+          "login": "neelabo",
+          "id": "{7247b96a-9628-4fa3-b0ed-06bd83dc23a1}",
+          "name": "Ito Mitsuhiro",
+          "avatarUrl": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/557058:1c074cc5-5f7e-4f74-a716-6ade7135e7bd/4281deb6-857a-4a03-a588-29cb13085c34/128",
+          "url": "https://bitbucket.org/%7B7247b96a-9628-4fa3-b0ed-06bd83dc23a1%7D/",
+          "typeRaw": "user",
+          "isBotHint": false
+        },
+        "name": "Ito Mitsuhiro",
+        "email": "redacted@example.invalid",
+        "date": "2025-01-17T15:05:14.000Z"
+      },
+      "parents": [
+        "56e41d7f141a970cebab5f816de3ea45342758db"
+      ],
+      "url": "https://bitbucket.org/neelabo/neeview/commits/6f202224c3c938d01c46892ed305df6e385ce13f"
+    },
+    {
+      "ref": {
+        "forge": "bitbucket",
+        "instance": "bitbucket.org",
+        "repo": {
+          "forge": "bitbucket",
+          "instance": "bitbucket.org",
+          "owner": "neelabo",
+          "name": "neeview"
+        },
+        "sha": "56e41d7f141a970cebab5f816de3ea45342758db"
+      },
+      "sha": "56e41d7f141a970cebab5f816de3ea45342758db",
+      "message": "README.md を Bitbucket 上でオンラインで編集しました。",
+      "author": {
+        "actor": {
+          "forge": "bitbucket",
+          "instance": "bitbucket.org",
+          "login": "neelabo",
+          "id": "{7247b96a-9628-4fa3-b0ed-06bd83dc23a1}",
+          "name": "Ito Mitsuhiro",
+          "avatarUrl": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/557058:1c074cc5-5f7e-4f74-a716-6ade7135e7bd/4281deb6-857a-4a03-a588-29cb13085c34/128",
+          "url": "https://bitbucket.org/%7B7247b96a-9628-4fa3-b0ed-06bd83dc23a1%7D/",
+          "typeRaw": "user",
+          "isBotHint": false
+        },
+        "name": "Ito Mitsuhiro",
+        "email": "redacted@example.invalid",
+        "date": "2025-01-17T15:03:04.000Z"
+      },
+      "parents": [
+        "bab2d8307ed1bbf5fe9cc7c7d573df4ea0d1a31f"
+      ],
+      "url": "https://bitbucket.org/neelabo/neeview/commits/56e41d7f141a970cebab5f816de3ea45342758db"
+    }
+  ],
+  "files": []
+}

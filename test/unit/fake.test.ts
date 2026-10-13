@@ -391,6 +391,19 @@ describe('fake forge', () => {
     await expect(forge.releases.update(release.ref, { draft: true })).rejects.toThrow('is immutable')
     expect((await forge.releases.update(release.ref, { body: 'new' })).body).toBe('new')
   })
+
+  it('limits the commits and leaves out the files of a comparison', async () => {
+    const commits = ['a', 'b', 'c', 'd'].map(char => ({ repo: 'acme/widgets', sha: char.repeat(40), message: `commit ${char}`, files: [{ path: `${char}.ts` }] }))
+    const forge = fake({ seed: { commits } }).create()
+    const repo = { forge: 'fake', instance: 'fake.test', owner: 'acme', name: 'widgets' }
+
+    const full = await forge.contents.compare(repo, 'a'.repeat(40), 'd'.repeat(40))
+    const limited = await forge.contents.compare(repo, 'a'.repeat(40), 'd'.repeat(40), { commitLimit: 2, files: false })
+
+    expect(full).toMatchObject({ aheadBy: 3, commits: [{ files: [{ path: 'd.ts' }] }, {}, {}], files: [{}, {}, {}] })
+    expect(limited).toMatchObject({ aheadBy: 3, commits: [{ sha: 'd'.repeat(40) }, { sha: 'c'.repeat(40) }], files: [] })
+    expect(limited.commits.map(commit => commit.files)).toEqual([undefined, undefined])
+  })
 })
 
 describe('fake webhook management', () => {

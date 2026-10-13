@@ -1,0 +1,56 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://dev.azure.com/forges/forges-fixtures/_apis/git/repositories/forges-fixtures/diffs/commits?baseVersion=254a409567a9d8b9817dc70eab65fed5e7fcd5fe&baseVersionType=commit&targetVersion=main&targetVersionType=branch&%24top=1000&api-version=7.1"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "allChangesIncluded": true,
+      "changeCounts": {
+        "Edit": 1,
+        "Add": 2
+      },
+      "changes": [
+        {
+          "item": {
+            "objectId": "73f7bcddc598b17b380827b239e6a62e3c9d5f73",
+            "originalObjectId": "d18de52d277d758511b505962ead056ff6de402b",
+            "gitObjectType": "tree",
+            "commitId": "654171c15f146e2f7b6ef555b395b1f9e265a941",
+            "path": "/forges-fixtures",
+            "isFolder": true,
+            "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/items/forges-fixtures?versionType=Commit&version=654171c15f146e2f7b6ef555b395b1f9e265a941"
+          },
+          "changeType": "edit"
+        },
+        {
+          "item": {
+            "objectId": "e196a8a7aa79d62f0375784a446d9940b815f96a",
+            "gitObjectType": "blob",
+            "commitId": "654171c15f146e2f7b6ef555b395b1f9e265a941",
+            "path": "/forges-fixtures/20261012114218-1.md",
+            "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/items/forges-fixtures%2F20261012114218-1.md?versionType=Commit&version=654171c15f146e2f7b6ef555b395b1f9e265a941"
+          },
+          "changeType": "add"
+        },
+        {
+          "item": {
+            "objectId": "9fed8f714ce700fd6c668dfe76f30d514b0206aa",
+            "gitObjectType": "blob",
+            "commitId": "654171c15f146e2f7b6ef555b395b1f9e265a941",
+            "path": "/forges-fixtures/20261012220452-1.md",
+            "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/items/forges-fixtures%2F20261012220452-1.md?versionType=Commit&version=654171c15f146e2f7b6ef555b395b1f9e265a941"
+          },
+          "changeType": "add"
+        }
+      ],
+      "commonCommit": "254a409567a9d8b9817dc70eab65fed5e7fcd5fe",
+      "baseCommit": "254a409567a9d8b9817dc70eab65fed5e7fcd5fe",
+      "targetCommit": "654171c15f146e2f7b6ef555b395b1f9e265a941",
+      "aheadCount": 4,
+      "behindCount": 0
+    }
+  }
+}
