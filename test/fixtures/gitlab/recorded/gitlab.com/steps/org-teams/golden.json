@@ -1,0 +1,70 @@
+{
+  "items": [
+    {
+      "ref": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "org": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "owner": "gitlab-org",
+          "name": "",
+          "kind": "namespace"
+        },
+        "id": "10127741",
+        "slug": "5-minute-production-app"
+      },
+      "name": "5 minute production app",
+      "description": "Deploy application to production in less than 5 minutes",
+      "visibilityRaw": "public",
+      "url": "https://gitlab.com/groups/gitlab-org/5-minute-production-app"
+    },
+    {
+      "ref": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "org": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "owner": "gitlab-org",
+          "name": "",
+          "kind": "namespace"
+        },
+        "id": "74288765",
+        "slug": "ai-powered"
+      },
+      "name": "AI Powered",
+      "visibilityRaw": "public",
+      "url": "https://gitlab.com/groups/gitlab-org/ai-powered"
+    },
+    {
+      "ref": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "org": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "owner": "gitlab-org",
+          "name": "",
+          "kind": "namespace"
+        },
+        "id": "98461187",
+        "slug": "api"
+      },
+      "name": "API",
+      "description": "This subgroup contains various client for the GitLab APIs.",
+      "visibilityRaw": "public",
+      "url": "https://gitlab.com/groups/gitlab-org/api"
+    }
+  ],
+  "total": 106,
+  "cursor": {
+    "nextUrl": "https://gitlab.com/api/v4/groups/gitlab-org/subgroups?all_available=true&id=gitlab-org&order_by=name&owned=false&page=2&per_page=3&sort=asc&statistics=false&with_custom_attributes=false",
+    "etag": "W/\"3f4750ffb957b36a27c78ab10a9962a5\""
+  },
+  "rateLimit": {
+    "limit": 2000,
+    "remaining": 1981,
+    "resetAt": "<now>"
+  }
+}

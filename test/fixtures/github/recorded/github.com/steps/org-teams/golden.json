@@ -1,0 +1,62 @@
+{
+  "items": [
+    {
+      "ref": {
+        "forge": "github",
+        "instance": "github.com",
+        "org": {
+          "forge": "github",
+          "instance": "github.com",
+          "owner": "forges-fixtures",
+          "name": "",
+          "kind": "namespace"
+        },
+        "id": "20070992",
+        "slug": "core"
+      },
+      "name": "core",
+      "description": "Nested fixture team for forges recordings",
+      "permission": "pull",
+      "visibilityRaw": "closed",
+      "parent": {
+        "forge": "github",
+        "instance": "github.com",
+        "org": {
+          "forge": "github",
+          "instance": "github.com",
+          "owner": "forges-fixtures",
+          "name": "",
+          "kind": "namespace"
+        },
+        "id": "20070990",
+        "slug": "stewards"
+      },
+      "url": "https://github.com/orgs/forges-fixtures/teams/core"
+    },
+    {
+      "ref": {
+        "forge": "github",
+        "instance": "github.com",
+        "org": {
+          "forge": "github",
+          "instance": "github.com",
+          "owner": "forges-fixtures",
+          "name": "",
+          "kind": "namespace"
+        },
+        "id": "20070990",
+        "slug": "stewards"
+      },
+      "name": "stewards",
+      "description": "Fixture team for forges recordings",
+      "permission": "pull",
+      "visibilityRaw": "closed",
+      "url": "https://github.com/orgs/forges-fixtures/teams/stewards"
+    }
+  ],
+  "rateLimit": {
+    "limit": 5000,
+    "remaining": 4360,
+    "resetAt": "<now>"
+  }
+}

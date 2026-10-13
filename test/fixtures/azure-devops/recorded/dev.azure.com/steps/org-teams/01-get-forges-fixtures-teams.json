@@ -1,0 +1,24 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://dev.azure.com/forges/_apis/projects/forges-fixtures/teams?%24top=3&%24skip=0&api-version=7.1"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "value": [
+        {
+          "id": "524f2f41-39ae-4385-9d02-260643b48476",
+          "name": "forges-fixtures Team",
+          "url": "https://dev.azure.com/forges/_apis/projects/b2332e32-1afe-4c85-9407-12e7af2bf24c/teams/524f2f41-39ae-4385-9d02-260643b48476",
+          "description": "The default project team.",
+          "identityUrl": "https://spsprodweu6.vssps.visualstudio.com/Ad6317e89-50cc-469c-b506-66b9601cf085/_apis/Identities/524f2f41-39ae-4385-9d02-260643b48476",
+          "projectName": "forges-fixtures",
+          "projectId": "b2332e32-1afe-4c85-9407-12e7af2bf24c"
+        }
+      ],
+      "count": 1
+    }
+  }
+}

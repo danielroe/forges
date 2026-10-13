@@ -1,0 +1,45 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://dev.azure.com/forges/_apis/projects/forges-fixtures/teams/forges-fixtures%20Team/members?%24top=3&%24skip=0&api-version=7.1"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "value": [
+        {
+          "identity": {
+            "displayName": "danielroe",
+            "url": "https://spsprodweu6.vssps.visualstudio.com/Ad6317e89-50cc-469c-b506-66b9601cf085/_apis/Identities/48261c0d-8a6e-6a10-a9cb-c76b44ce18ce",
+            "_links": {
+              "avatar": {
+                "href": "https://dev.azure.com/forges/_apis/GraphProfile/MemberAvatars/aad.NDgyNjFjMGQtOGE2ZS03YTEwLWE5Y2ItYzc2YjQ0Y2UxOGNl"
+              }
+            },
+            "id": "48261c0d-8a6e-6a10-a9cb-c76b44ce18ce",
+            "uniqueName": "redacted@example.invalid",
+            "imageUrl": "https://dev.azure.com/forges/_api/_common/identityImage?id=48261c0d-8a6e-6a10-a9cb-c76b44ce18ce",
+            "descriptor": "aad.NDgyNjFjMGQtOGE2ZS03YTEwLWE5Y2ItYzc2YjQ0Y2UxOGNl"
+          }
+        },
+        {
+          "identity": {
+            "displayName": "danielroebot outlook.com",
+            "url": "https://spsprodweu6.vssps.visualstudio.com/Ad6317e89-50cc-469c-b506-66b9601cf085/_apis/Identities/567dfc49-0db7-43e6-83c1-d91d91db58b1",
+            "_links": {
+              "avatar": {
+                "href": "https://dev.azure.com/forges/_apis/GraphProfile/MemberAvatars/aad.MzE2OTUzNzAtY2RlZS03NzVkLWEwYjctMzUwYTkyZTJhMjc5"
+              }
+            },
+            "id": "567dfc49-0db7-43e6-83c1-d91d91db58b1",
+            "uniqueName": "redacted@example.invalid",
+            "imageUrl": "https://dev.azure.com/forges/_api/_common/identityImage?id=567dfc49-0db7-43e6-83c1-d91d91db58b1",
+            "descriptor": "aad.MzE2OTUzNzAtY2RlZS03NzVkLWEwYjctMzUwYTkyZTJhMjc5"
+          }
+        }
+      ],
+      "count": 2
+    }
+  }
+}

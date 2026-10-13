@@ -1,0 +1,47 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://codeberg.org/api/v1/orgs/forges-fixtures/teams?limit=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "x-total-count": "1"
+    },
+    "body": [
+      {
+        "id": 174384,
+        "name": "Owners",
+        "description": "",
+        "organization": null,
+        "includes_all_repositories": true,
+        "permission": "owner",
+        "units": [
+          "repo.issues",
+          "repo.pulls",
+          "repo.wiki",
+          "repo.ext_wiki",
+          "repo.packages",
+          "repo.actions",
+          "repo.ext_issues",
+          "repo.releases",
+          "repo.projects",
+          "repo.code"
+        ],
+        "units_map": {
+          "repo.actions": "owner",
+          "repo.code": "owner",
+          "repo.ext_issues": "owner",
+          "repo.ext_wiki": "owner",
+          "repo.issues": "owner",
+          "repo.packages": "owner",
+          "repo.projects": "owner",
+          "repo.pulls": "owner",
+          "repo.releases": "owner",
+          "repo.wiki": "owner"
+        },
+        "can_create_org_repo": true
+      }
+    ]
+  }
+}

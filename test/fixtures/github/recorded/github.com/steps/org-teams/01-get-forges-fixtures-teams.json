@@ -1,0 +1,66 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.github.com/orgs/forges-fixtures/teams?per_page=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"80f34c712538724b573d0b29bab468d5fe0eb83f29d782bb0e27f22699195021\"",
+      "x-ratelimit-limit": "5000",
+      "x-ratelimit-remaining": "4360",
+      "x-ratelimit-reset": "1791892059"
+    },
+    "body": [
+      {
+        "name": "core",
+        "id": 20070992,
+        "node_id": "T_kwDOFEVkf84BMkJQ",
+        "slug": "core",
+        "description": "Nested fixture team for forges recordings",
+        "privacy": "closed",
+        "notification_setting": "notifications_enabled",
+        "url": "https://api.github.com/organizations/340092031/team/20070992",
+        "html_url": "https://github.com/orgs/forges-fixtures/teams/core",
+        "members_url": "https://api.github.com/organizations/340092031/team/20070992/members{/member}",
+        "repositories_url": "https://api.github.com/organizations/340092031/team/20070992/repos",
+        "type": "organization",
+        "organization_id": 340092031,
+        "permission": "pull",
+        "parent": {
+          "name": "stewards",
+          "id": 20070990,
+          "node_id": "T_kwDOFEVkf84BMkJO",
+          "slug": "stewards",
+          "description": "Fixture team for forges recordings",
+          "privacy": "closed",
+          "notification_setting": "notifications_enabled",
+          "url": "https://api.github.com/organizations/340092031/team/20070990",
+          "html_url": "https://github.com/orgs/forges-fixtures/teams/stewards",
+          "members_url": "https://api.github.com/organizations/340092031/team/20070990/members{/member}",
+          "repositories_url": "https://api.github.com/organizations/340092031/team/20070990/repos",
+          "type": "organization",
+          "organization_id": 340092031,
+          "permission": "pull"
+        }
+      },
+      {
+        "name": "stewards",
+        "id": 20070990,
+        "node_id": "T_kwDOFEVkf84BMkJO",
+        "slug": "stewards",
+        "description": "Fixture team for forges recordings",
+        "privacy": "closed",
+        "notification_setting": "notifications_enabled",
+        "url": "https://api.github.com/organizations/340092031/team/20070990",
+        "html_url": "https://github.com/orgs/forges-fixtures/teams/stewards",
+        "members_url": "https://api.github.com/organizations/340092031/team/20070990/members{/member}",
+        "repositories_url": "https://api.github.com/organizations/340092031/team/20070990/repos",
+        "type": "organization",
+        "organization_id": 340092031,
+        "permission": "pull",
+        "parent": null
+      }
+    ]
+  }
+}

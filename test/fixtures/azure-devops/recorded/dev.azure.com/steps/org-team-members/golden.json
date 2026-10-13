@@ -1,0 +1,24 @@
+{
+  "items": [
+    {
+      "forge": "azure-devops",
+      "instance": "dev.azure.com",
+      "login": "redacted@example.invalid",
+      "id": "48261c0d-8a6e-6a10-a9cb-c76b44ce18ce",
+      "name": "danielroe",
+      "avatarUrl": "https://dev.azure.com/forges/_api/_common/identityImage?id=48261c0d-8a6e-6a10-a9cb-c76b44ce18ce",
+      "typeRaw": "user",
+      "isBotHint": false
+    },
+    {
+      "forge": "azure-devops",
+      "instance": "dev.azure.com",
+      "login": "redacted@example.invalid",
+      "id": "567dfc49-0db7-43e6-83c1-d91d91db58b1",
+      "name": "danielroebot outlook.com",
+      "avatarUrl": "https://dev.azure.com/forges/_api/_common/identityImage?id=567dfc49-0db7-43e6-83c1-d91d91db58b1",
+      "typeRaw": "user",
+      "isBotHint": false
+    }
+  ]
+}

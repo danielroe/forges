@@ -1,0 +1,14 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://codeberg.org/api/v1/orgs/forgejo/teams?limit=3"
+  },
+  "response": {
+    "status": 403,
+    "headers": {},
+    "body": {
+      "message": "Must be an organization member",
+      "url": "https://codeberg.org/api/swagger"
+    }
+  }
+}

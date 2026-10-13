@@ -1,0 +1,50 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://codeberg.org/api/v1/teams/174384/members?limit=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "x-total-count": "2"
+    },
+    "body": [
+      {
+        "id": 1540800,
+        "login": "roebot",
+        "source_id": 0,
+        "full_name": "",
+        "email": "redacted@example.invalid",
+        "avatar_url": "https://codeberg.org/avatars/278913be448f1cbee39f7fbfb40634a9",
+        "html_url": "https://codeberg.org/roebot",
+        "active": false,
+        "location": "",
+        "pronouns": "",
+        "website": "",
+        "description": "Machine account operated by @danielroe",
+        "followers_count": 0,
+        "following_count": 0,
+        "starred_repos_count": 0,
+        "username": "roebot"
+      },
+      {
+        "id": 86052,
+        "login": "danielroe",
+        "source_id": 0,
+        "full_name": "Daniel Roe",
+        "email": "redacted@example.invalid",
+        "avatar_url": "https://codeberg.org/avatars/a0f09b705dcd4afd1d54b6e7c8f08e323a97921b70569acc891a2617d2d04125",
+        "html_url": "https://codeberg.org/danielroe",
+        "active": true,
+        "location": "",
+        "pronouns": "he/him",
+        "website": "",
+        "description": "",
+        "followers_count": 1,
+        "following_count": 2,
+        "starred_repos_count": 3,
+        "username": "danielroe"
+      }
+    ]
+  }
+}

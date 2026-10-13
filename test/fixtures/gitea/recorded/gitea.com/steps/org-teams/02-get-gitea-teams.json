@@ -1,0 +1,14 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitea.com/api/v1/orgs/gitea/teams?limit=3"
+  },
+  "response": {
+    "status": 403,
+    "headers": {},
+    "body": {
+      "message": "Must be an organization member",
+      "url": "https://gitea.com/api/swagger"
+    }
+  }
+}

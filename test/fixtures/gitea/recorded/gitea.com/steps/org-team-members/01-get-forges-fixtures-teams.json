@@ -1,0 +1,48 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitea.com/api/v1/orgs/forges-fixtures/teams"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "x-total-count": "1"
+    },
+    "body": [
+      {
+        "id": 14810,
+        "name": "Owners",
+        "description": "",
+        "organization": null,
+        "includes_all_repositories": true,
+        "permission": "owner",
+        "units": [
+          "repo.issues",
+          "repo.releases",
+          "repo.wiki",
+          "repo.ext_wiki",
+          "repo.ext_issues",
+          "repo.packages",
+          "repo.actions",
+          "repo.code",
+          "repo.pulls",
+          "repo.projects"
+        ],
+        "units_map": {
+          "repo.code": "owner",
+          "repo.issues": "owner",
+          "repo.releases": "owner",
+          "repo.wiki": "owner",
+          "repo.ext_wiki": "read",
+          "repo.ext_issues": "read",
+          "repo.projects": "owner",
+          "repo.actions": "owner",
+          "repo.pulls": "owner",
+          "repo.packages": "owner"
+        },
+        "can_create_org_repo": true,
+        "visibility": "limited"
+      }
+    ]
+  }
+}

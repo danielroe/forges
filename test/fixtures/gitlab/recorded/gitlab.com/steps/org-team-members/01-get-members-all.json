@@ -1,0 +1,75 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitlab.com/api/v4/groups/gitlab-org%2F5-minute-production-app/members/all?per_page=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "<https://gitlab.com/api/v4/groups/gitlab-org%2F5-minute-production-app/members/all?id=gitlab-org%2F5-minute-production-app&page=2&per_page=3>; rel=\"next\", <https://gitlab.com/api/v4/groups/gitlab-org%2F5-minute-production-app/members/all?id=gitlab-org%2F5-minute-production-app&page=1&per_page=3>; rel=\"first\", <https://gitlab.com/api/v4/groups/gitlab-org%2F5-minute-production-app/members/all?id=gitlab-org%2F5-minute-production-app&page=922&per_page=3>; rel=\"last\"",
+      "etag": "W/\"76154ed952d9a77ef9a841faffd17d39\"",
+      "ratelimit-limit": "2000",
+      "ratelimit-remaining": "1980",
+      "ratelimit-reset": "1791890400",
+      "x-total": "2765",
+      "x-total-pages": "922",
+      "x-next-page": "2",
+      "x-page": "1",
+      "x-per-page": "3"
+    },
+    "body": [
+      {
+        "id": 1,
+        "username": "sytses",
+        "public_email": "",
+        "name": "Sid Sijbrandij",
+        "state": "active",
+        "locked": false,
+        "avatar_url": "https://secure.gravatar.com/avatar/adcd204e48241a6528220c7450334cc5ffab2ea1c6a89d3d0ada01d01ed2b49e?s=80&d=identicon",
+        "web_url": "https://gitlab.com/sytses",
+        "access_level": 30,
+        "created_at": "2014-11-21T13:38:05.925Z",
+        "expires_at": null,
+        "membership_state": "active"
+      },
+      {
+        "id": 13356,
+        "username": "dblessing",
+        "public_email": "",
+        "name": "Drew Blessing",
+        "state": "active",
+        "locked": false,
+        "avatar_url": "https://secure.gravatar.com/avatar/f7a7e6e32e9c5482907025642135eb9546fae343ec42347aba492ba32575e603?s=80&d=identicon",
+        "web_url": "https://gitlab.com/dblessing",
+        "access_level": 30,
+        "created_at": "2014-11-21T13:38:05.925Z",
+        "expires_at": null,
+        "membership_state": "active"
+      },
+      {
+        "id": 12452,
+        "username": "ayufan",
+        "public_email": "",
+        "name": "Kamil Trzciński",
+        "state": "active",
+        "locked": false,
+        "avatar_url": "https://secure.gravatar.com/avatar/4675c8e590e767232977b9b245d70da790b2b6fd9ea0870515cf951fc2ac8ccb?s=80&d=identicon",
+        "web_url": "https://gitlab.com/ayufan",
+        "access_level": 30,
+        "created_at": "2015-04-27T20:55:33.087Z",
+        "created_by": {
+          "id": 1,
+          "username": "sytses",
+          "public_email": "",
+          "name": "Sid Sijbrandij",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://secure.gravatar.com/avatar/adcd204e48241a6528220c7450334cc5ffab2ea1c6a89d3d0ada01d01ed2b49e?s=80&d=identicon",
+          "web_url": "https://gitlab.com/sytses"
+        },
+        "expires_at": null,
+        "membership_state": "active"
+      }
+    ]
+  }
+}

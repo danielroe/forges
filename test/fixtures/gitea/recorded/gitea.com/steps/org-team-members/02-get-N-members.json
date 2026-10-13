@@ -1,0 +1,50 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitea.com/api/v1/teams/14810/members?limit=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "x-total-count": "2"
+    },
+    "body": [
+      {
+        "id": 253592,
+        "login": "roebot",
+        "type": "User",
+        "source_id": 0,
+        "full_name": "",
+        "email": "redacted@example.invalid",
+        "avatar_url": "https://gitea.com/avatars/b11846681dda31096fab0f282eccd3ec09e70334712e42e2117c97b4918c3fbe",
+        "html_url": "https://gitea.com/roebot",
+        "active": false,
+        "location": "",
+        "website": "",
+        "description": "Machine account operated by @danielroe",
+        "followers_count": 0,
+        "following_count": 0,
+        "starred_repos_count": 0,
+        "username": "roebot"
+      },
+      {
+        "id": 250665,
+        "login": "danielroe",
+        "type": "User",
+        "source_id": 1,
+        "full_name": "Daniel Roe",
+        "email": "redacted@example.invalid",
+        "avatar_url": "https://gitea.com/avatars/bd278c1af0d9b9480234a82515bf67abe7651f846069ebcee84e76317b2614ab",
+        "html_url": "https://gitea.com/danielroe",
+        "active": true,
+        "location": "",
+        "website": "",
+        "description": "",
+        "followers_count": 0,
+        "following_count": 0,
+        "starred_repos_count": 0,
+        "username": "danielroe"
+      }
+    ]
+  }
+}

@@ -90,6 +90,22 @@ async function orScratch<T>(manifest: RecordingManifest, read: (repo: RepoRef) =
   }
 }
 
+/** The teams of the recorded repository's owner or, where it refuses them or has none, of the scratch repository's owner. */
+async function orgTeams(provider: ForgeProvider, manifest: RecordingManifest): Promise<Page<Team>> {
+  try {
+    const teams = await provider.orgs.teamsPage(namespaceOf(manifest.repo, manifest.repo.owner), page)
+    if (teams.items.length || !manifest.scratch) {
+      return teams
+    }
+  }
+  catch (error) {
+    if (!manifest.scratch || !(error instanceof ForbiddenError || error instanceof InsufficientScopeError || error instanceof NotFoundError)) {
+      throw error
+    }
+  }
+  return provider.orgs.teamsPage(namespaceOf(manifest.scratch, manifest.scratch.owner), page)
+}
+
 async function firstWithJobs(provider: ForgeProvider, runs: CiRun[]): Promise<Page<CiJob> | undefined> {
   let result: Page<CiJob> | undefined
   for (const run of runs) {
@@ -219,10 +235,14 @@ export const STEPS: Step[] = [
   { name: 'contributors', verb: 'repos.contributorsPage', run: (provider, manifest) => provider.repos.contributorsPage(manifest.repo, page) },
   { name: 'assignable users', verb: 'repos.assignableUsersPage', run: (provider, manifest) => provider.repos.assignableUsersPage(manifest.repo, page) },
   { name: 'org teams', verb: 'orgs.teamsPage', run: async (provider, manifest, context) => {
-    context.teams = (await provider.orgs.teamsPage(namespaceOf(manifest.repo, manifest.repo.owner), page)).items
-    return context.teams
+    const teams = await orgTeams(provider, manifest)
+    context.teams = teams.items
+    return teams
   } },
-  { name: 'org team members', verb: 'orgs.teamMembersPage', when: (_provider, manifest) => !manifest.anonymous, run: (provider, manifest, context) => provider.orgs.teamMembersPage(namespaceOf(manifest.repo, manifest.repo.owner), need(context.teams?.[0], 'a team').ref.slug, page) },
+  { name: 'org team members', verb: 'orgs.teamMembersPage', run: (provider, _manifest, context) => {
+    const team = need(context.teams?.[0], 'a team')
+    return provider.orgs.teamMembersPage(team.ref.org, team.ref.slug, page)
+  } },
   ...threadSteps('pull_request', 'pull'),
   ...threadSteps('issue', 'issue'),
   ...threadSteps('discussion', 'discussion'),
