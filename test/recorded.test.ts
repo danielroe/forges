@@ -110,6 +110,18 @@ for (const { name, create } of REPLAYED_PROVIDERS) {
         expect(steps.map(step => step.name).filter(name => !definitions.has(name))).toEqual([])
       })
 
+      it.skipIf(!steps.length)('records only steps the recorder still runs', () => {
+        const author = create(fixtureFetch(directory).fetch, manifest!)
+        const reviewer = writes?.reviewerAccount ? create(fixtureFetch(directory).fetch, { ...writes, account: writes.reviewerAccount, pds: writes.reviewerPds }) : author
+        const threads: Record<string, unknown> = { issue: manifest!.issue, pull_request: manifest!.pull, discussion: manifest!.discussion }
+        const skipped = steps.flatMap(({ name }) => definitions.get(name) ?? []).filter((step) => {
+          const provider = 'as' in step && step.as === 'reviewer' ? reviewer : author
+          const thread = writes || !step.kind || !(step.kind in threads) || threads[step.kind]
+          return !thread || !provider.can(step.verb, step.kind) || step.when?.(provider, manifest as never) === false
+        })
+        expect(skipped.map(step => step.name)).toEqual([])
+      })
+
       it.skipIf(!writes)('sends the request bodies it recorded', () => {
         const sent = replay.calls.filter(call => call.body !== undefined || call.fixture?.request.body !== undefined)
         const served = new Set(sent.map(call => JSON.stringify(call.fixture)))
