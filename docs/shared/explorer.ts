@@ -359,6 +359,26 @@ export const EXPLORER_OPERATIONS: ExplorerOperation[] = [
   operation('search.commits', { method: 'search.commitsPage', returns: 'Page<Commit>', fields: fields('query'), args: ({ value }) => `{ repo, text: ${value('query')}, perPage: 5 }`, run: (p, input, { repo }) => p.search.commitsPage({ repo, text: input.query, perPage: 5 }) }),
 ]
 
+/**
+ * The explorer picker's groups, in the order it lists them: every namespace the
+ * operations above use, with the title it shows. `explorer.test.ts` fails if an
+ * operation's namespace has no entry here, so none is ever missing from the picker.
+ */
+export const EXPLORER_NAMESPACE_TITLES: Record<string, string> = {
+  threads: 'Issues and pull requests',
+  repos: 'Repositories',
+  orgs: 'Organisation teams',
+  contents: 'Contents',
+  releases: 'Releases',
+  checks: 'Checks',
+  ci: 'CI',
+  securityAlerts: 'Security alerts',
+  notifications: 'Notifications',
+  webhooks: 'Webhooks',
+  users: 'Accounts',
+  search: 'Search',
+}
+
 /** Whether the explorer has an operation for `verb`. */
 export function explorable(verb: string): boolean {
   return EXPLORER_OPERATIONS.some(operation => operation.verb === verb)

@@ -10,6 +10,7 @@ import { explorerHovers, explorerPageMembers } from '../../docs/shared/explorer-
 import {
   explorable,
   EXPLORER_FORGES,
+  EXPLORER_NAMESPACE_TITLES,
   EXPLORER_OPERATIONS,
   explorerCode,
   explorerRefs,
@@ -45,6 +46,11 @@ describe('explorer operations', () => {
   it('define at most one operation per verb', () => {
     const verbs = EXPLORER_OPERATIONS.map(operation => operation.verb)
     expect(new Set(verbs).size).toBe(verbs.length)
+  })
+
+  it('give every namespace an entry in the picker, so none is dropped', () => {
+    const namespaces = new Set(EXPLORER_OPERATIONS.map(operation => operation.verb.split('.')[0]!))
+    expect([...namespaces].filter(namespace => !(namespace in EXPLORER_NAMESPACE_TITLES))).toEqual([])
   })
 
   it('declare the type that the method they call resolves to', () => {

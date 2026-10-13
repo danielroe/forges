@@ -1,23 +1,10 @@
 <script setup lang="ts">
-import { EXPLORER_OPERATIONS } from '~~/shared/explorer'
+import { EXPLORER_NAMESPACE_TITLES, EXPLORER_OPERATIONS } from '~~/shared/explorer'
 
-const NAMESPACES: Record<string, string> = {
-  threads: 'Issues and pull requests',
-  repos: 'Repositories',
-  contents: 'Contents',
-  releases: 'Releases',
-  checks: 'Checks',
-  ci: 'CI',
-  securityAlerts: 'Security alerts',
-  notifications: 'Notifications',
-  webhooks: 'Webhooks',
-  users: 'Accounts',
-  search: 'Search',
-}
 const DEFAULT = 'threads.get'
 
 // Reads, which run here, come before the code-only writes in each group.
-const groups = Object.entries(NAMESPACES).map(([namespace, title]) => [
+const groups = Object.entries(EXPLORER_NAMESPACE_TITLES).map(([namespace, title]) => [
   { type: 'label' as const, label: title, value: '' },
   ...EXPLORER_OPERATIONS
     .filter(operation => operation.verb.startsWith(`${namespace}.`))
