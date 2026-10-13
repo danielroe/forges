@@ -32,5 +32,10 @@
       "stateRaw": "approved",
       "comments": false
     }
-  ]
+  ],
+  "rateLimit": {
+    "limit": 2000,
+    "remaining": 1985,
+    "resetAt": "<now>"
+  }
 }

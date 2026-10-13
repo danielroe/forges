@@ -135,5 +135,9 @@
       "watchers": 1
     }
   ],
-  "total": 3
+  "total": 3,
+  "rateLimit": {
+    "limit": 60,
+    "remaining": 31
+  }
 }

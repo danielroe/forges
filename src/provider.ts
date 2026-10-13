@@ -51,6 +51,7 @@ import type {
   OwnerRepoQuery,
   Page,
   PageOptions,
+  RateLimit,
   Reaction,
   ReactionContent,
   Release,
@@ -1160,6 +1161,19 @@ export interface ForgeProvider<HasWeb extends boolean = boolean> {
    * Updates `capabilities` and returns it.
    */
   refreshCapabilities: () => Promise<ForgeCapabilities>
+  /**
+   * The request budgets of the latest responses, one per `resource`, read without sending a request. GitHub keeps
+   * a budget per resource, such as `core`, `search` and `graphql`; other forges report one budget with no
+   * `resource`. Empty until a response reports a budget. A budget whose `resetAt` has passed is left out.
+   * @example
+   * ```ts
+   * const core = forge.rateLimits().find(budget => !budget.resource || budget.resource === 'core')
+   * if (core?.remaining !== undefined && core.limit && core.remaining / core.limit < 0.1) {
+   *   await slowDown(core.resetAt)
+   * }
+   * ```
+   */
+  rateLimits: () => RateLimit[]
   /** Rewrites Markdown into the dialect the forge renders; returns it unchanged where the forge renders CommonMark. */
   normaliseMarkdown: (body: string) => string
   readonly repos: ReposApi

@@ -1121,5 +1121,10 @@
     }
   ],
   "etag": "W/\"cb50f032c9b5db7d9f14e5636664652afd6ce673b600604af10db7b36862fd91\"",
-  "notModified": false
+  "notModified": false,
+  "rateLimit": {
+    "limit": 5000,
+    "remaining": 4928,
+    "resetAt": "<now>"
+  }
 }

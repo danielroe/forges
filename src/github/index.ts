@@ -130,7 +130,7 @@ import { defineForgeProvider, perKind, supportOnly, verb } from '../define.ts'
 import { BranchMovedError, ForbiddenError, ForgeApiError, ForgeError, ForgeTimeoutError, InsufficientScopeError, MergeBlockedError, NotFoundError, ReadOnlyError, soleMergeMethod, toMergeError, UnsupportedOperationError } from '../errors.ts'
 import { anySignal, sleep } from '../fetch.ts'
 import { isNamespaceRef, isResolvedThread, reactionContent } from '../model.ts'
-import { actorLogin, createListing, forgeIterable, getManyConcurrently, hostOf, iteratePages, memo, milestoneId, phased, requireIssueOrPull, requireThread, resolveToken, summariseChecks, teamOrg, toDate, toPage, toWarning, versionAtLeast, withEtag } from '../utils.ts'
+import { actorLogin, createListing, forgeIterable, getManyConcurrently, hostOf, iteratePages, memo, milestoneId, phased, rateLimitPart, requireIssueOrPull, requireThread, resolveToken, summariseChecks, teamOrg, toDate, toPage, toWarning, versionAtLeast, withEtag } from '../utils.ts'
 import { githubShapedWeb } from '../web.ts'
 import { nativeEventsFor } from '../webhooks.ts'
 import { createAppCredentials, createAuthHeaders, tokenKindOf } from './auth.ts'
@@ -378,6 +378,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
       ...etag ? { etag } : {},
       notModified: result.notModified,
       warnings: warnings.length ? warnings : undefined,
+      ...rateLimitPart(result.response),
     }
   }
 

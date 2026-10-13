@@ -72,5 +72,9 @@
       "name": "wontfix",
       "colour": "6435C9"
     }
-  ]
+  ],
+  "rateLimit": {
+    "limit": 60,
+    "remaining": 53
+  }
 }

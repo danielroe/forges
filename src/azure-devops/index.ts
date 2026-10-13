@@ -6,7 +6,7 @@ import type { AzureCommit, AzureCommitDiffs, AzureIdentity, AzureItem, AzurePoli
 import { changeBase64, existingFiles, inDirectories, toFileContent } from '../contents.ts'
 import { defineForgeProvider, perKind, verb } from '../define.ts'
 import { BranchMovedError, ForgeApiError, ForgeError, MergeMethodRequiredError, NotFoundError, toMergeError, UnsupportedOperationError } from '../errors.ts'
-import { actorLogin, getManyConcurrently, memo, mergeCommitMessage, phased, requireIssueOrPull, requireThread, resolveToken, summariseChecks, syntheticReview, teamOrg, toWarning } from '../utils.ts'
+import { actorLogin, getManyConcurrently, memo, mergeCommitMessage, phased, rateLimitPart, requireIssueOrPull, requireThread, resolveToken, summariseChecks, syntheticReview, teamOrg, toWarning } from '../utils.ts'
 import { FORGE, isConversationThread, projectRef, toActor, toBranch, toChangedFile, toCommit, toPolicyCheck, toPullComment, toPullThread, toRepo, toRepoRef, toStatusCheck, toTag, toTeam, toThreadEvents, toTreeEntry, toWorkItemComment, toWorkItemEvents, toWorkItemThread } from './normalise.ts'
 import { azureWeb } from './web.ts'
 import { azureDevOpsWebhooks } from './webhooks.ts'
@@ -243,20 +243,21 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
     const { org: organization, project } = scope(org)
     const skip = Number(listOptions.cursor?.token ?? 0)
     const top = listOptions.perPage ?? PER_PAGE
-    const { data } = await fetcher.json<{ value: R[] }>(`/${enc(organization)}/_apis/projects/${enc(project)}/teams${path}`, {
+    const { data, response } = await fetcher.json<{ value: R[] }>(`/${enc(organization)}/_apis/projects/${enc(project)}/teams${path}`, {
       query: { $top: top, $skip: skip },
       signal: listOptions.signal,
     })
     return {
       items: data.value.flatMap(raw => map(raw) ?? []),
       cursor: data.value.length === top ? { token: String(skip + top) } : undefined,
+      ...rateLimitPart(response),
     }
   }
 
   async function pullPage(repo: RepoRef, status: string, query: ThreadQuery, cursor?: Cursor): Promise<Page<Thread>> {
     const skip = Number(cursor?.token ?? 0)
     const top = Math.min(query.perPage ?? PER_PAGE, 1000)
-    const { data } = await fetcher.json<{ value: AzurePullRequest[] }>(`${repoPath(repo)}/pullrequests`, {
+    const { data, response } = await fetcher.json<{ value: AzurePullRequest[] }>(`${repoPath(repo)}/pullrequests`, {
       query: {
         'searchCriteria.status': status,
         'searchCriteria.minTime': query.createdAfter?.toISOString(),
@@ -273,6 +274,7 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
         .filter(raw => !query.labels?.length || query.labels.every(label => raw.labels?.some(item => item.name === label)))
         .map(raw => toPullThread({ forge: FORGE, instance, repo: toRepoRef(instance, org, raw.repository), kind: 'pull_request', number: String(raw.pullRequestId) }, raw)),
       cursor: data.value.length === top ? { token: String(skip + top) } : undefined,
+      ...rateLimitPart(response),
     }
   }
 
@@ -301,11 +303,11 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
     if (!ids.length) {
       return { items: [] }
     }
-    const { data: batch } = await fetcher.json<{ value: AzureWorkItem[] }>(`${projectPath(repo)}/wit/workitemsbatch`, { method: 'POST', json: { ids, $expand: 'Links' }, signal: query.signal })
+    const { data: batch, response } = await fetcher.json<{ value: AzureWorkItem[] }>(`${projectPath(repo)}/wit/workitemsbatch`, { method: 'POST', json: { ids, $expand: 'Links' }, signal: query.signal })
     const state = query.state ?? 'open'
     const items = (await Promise.all(batch.value.map(raw => workItemThread(issueRef(repo, String(raw.id)), raw))))
       .filter(thread => state === 'all' || thread.state === state)
-    return { items, cursor: offset + size < data.workItems.length ? { token: String(offset + size) } : undefined }
+    return { items, cursor: offset + size < data.workItems.length ? { token: String(offset + size) } : undefined, ...rateLimitPart(response) }
   }
 
   async function listPage(repo: RepoRef, query: ThreadQuery = {}): Promise<Page<Thread>> {
@@ -352,11 +354,11 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
       }
     }
     const issue = issueRef(ref.repo, ref.number)
-    const { data } = await fetcher.json<{ comments: AzureWorkItemComment[], continuationToken?: string }>(`${workItemPath(ref)}/comments`, {
+    const { data, response } = await fetcher.json<{ comments: AzureWorkItemComment[], continuationToken?: string }>(`${workItemPath(ref)}/comments`, {
       query: { 'api-version': COMMENTS_API_VERSION, '$top': listOptions.perPage ?? PER_PAGE, 'continuationToken': listOptions.cursor?.token },
       signal: listOptions.signal,
     })
-    return { items: data.comments.filter(comment => !comment.isDeleted).map(raw => toWorkItemComment(issue, raw)), cursor: data.continuationToken ? { token: data.continuationToken } : undefined }
+    return { items: data.comments.filter(comment => !comment.isDeleted).map(raw => toWorkItemComment(issue, raw)), cursor: data.continuationToken ? { token: data.continuationToken } : undefined, ...rateLimitPart(response) }
   }
 
   async function eventsPage(thread: ThreadRef, listOptions: ListOptions = {}): Promise<Page<ForgeEventInput>> {
@@ -466,13 +468,13 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
         return toRepo(instance, scope(ref).org, data)
       }),
       listPage: verb(true, async (listOptions) => {
-        const { data } = await fetcher.json<{ value: AzureRepository[] }>(`/${enc(options.organization)}/_apis/git/repositories`, { signal: listOptions?.signal })
-        return { items: data.value.map(raw => toRepo(instance, options.organization, raw)) }
+        const { data, response } = await fetcher.json<{ value: AzureRepository[] }>(`/${enc(options.organization)}/_apis/git/repositories`, { signal: listOptions?.signal })
+        return { items: data.value.map(raw => toRepo(instance, options.organization, raw)), ...rateLimitPart(response) }
       }),
       byOwnerPage: verb(true, async (owner, query = {}) => {
-        const { data } = await fetcher.json<{ value: AzureRepository[] }>(`${projectPath(owner)}/git/repositories`, { signal: query.signal })
+        const { data, response } = await fetcher.json<{ value: AzureRepository[] }>(`${projectPath(owner)}/git/repositories`, { signal: query.signal })
         const items = data.value.map(raw => toRepo(instance, scope(owner).org, raw))
-        return query.sort ? { items, warnings: [{ code: 'sort_unsupported', message: 'Azure DevOps lists the repositories of a project in its own order' }] } : { items }
+        return { items, ...rateLimitPart(response), ...query.sort ? { warnings: [{ code: 'sort_unsupported' as const, message: 'Azure DevOps lists the repositories of a project in its own order' }] } : {} }
       }),
     },
     orgs: {
@@ -494,7 +496,7 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
         return toFileContent(new Uint8Array(await response.arrayBuffer()), { path: path.replace(/^\//, '') }, fileOptions, context)
       }),
       treePage: verb(true, async (repo, treeOptions = {}) => {
-        const { data } = await fetcher.json<{ value: AzureItem[] }>(`${repoPath(repo)}/items`, {
+        const { data, response } = await fetcher.json<{ value: AzureItem[] }>(`${repoPath(repo)}/items`, {
           query: {
             scopePath: treeOptions.path ? `/${treeOptions.path.replace(/^\//, '')}` : '/',
             recursionLevel: treeOptions.recursive ? 'full' : 'oneLevel',
@@ -502,19 +504,19 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
           },
           signal: treeOptions.signal,
         })
-        return { items: data.value.filter(item => item.path !== '/').map(toTreeEntry) }
+        return { items: data.value.filter(item => item.path !== '/').map(toTreeEntry), ...rateLimitPart(response) }
       }),
       branchesPage: verb(true, async (repo, listOptions = {}) => {
-        const { data } = await fetcher.json<{ value: AzureRef[] }>(`${repoPath(repo)}/refs`, { query: { filter: 'heads/' }, signal: listOptions.signal })
-        return { items: data.value.map(toBranch) }
+        const { data, response } = await fetcher.json<{ value: AzureRef[] }>(`${repoPath(repo)}/refs`, { query: { filter: 'heads/' }, signal: listOptions.signal })
+        return { items: data.value.map(toBranch), ...rateLimitPart(response) }
       }),
       tagsPage: verb(true, async (repo, listOptions = {}) => {
-        const { data } = await fetcher.json<{ value: AzureRef[] }>(`${repoPath(repo)}/refs`, { query: { filter: 'tags/', peelTags: 'true' }, signal: listOptions.signal })
-        return { items: data.value.map(toTag) }
+        const { data, response } = await fetcher.json<{ value: AzureRef[] }>(`${repoPath(repo)}/refs`, { query: { filter: 'tags/', peelTags: 'true' }, signal: listOptions.signal })
+        return { items: data.value.map(toTag), ...rateLimitPart(response) }
       }),
       resolveRef: verb(true, (repo, ref, options) => resolveSha(repo, ref, options?.signal)),
       commitsPage: verb(true, async (repo, query = {}) => {
-        const { data } = await fetcher.json<{ value: AzureCommit[] }>(`${repoPath(repo)}/commits`, {
+        const { data, response } = await fetcher.json<{ value: AzureCommit[] }>(`${repoPath(repo)}/commits`, {
           query: {
             'searchCriteria.itemVersion.version': query.ref,
             'searchCriteria.itemPath': query.path,
@@ -525,7 +527,7 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
           },
           signal: query.signal,
         })
-        return { items: data.value.map(raw => toCommit(repo, raw)) }
+        return { items: data.value.map(raw => toCommit(repo, raw)), ...rateLimitPart(response) }
       }),
       commit: verb(true, async (repo, sha, options) => {
         const { data } = await fetcher.json<AzureCommit>(`${repoPath(repo)}/commits/${sha}`, { query: { changeCount: 100 }, signal: options?.signal })
@@ -573,8 +575,8 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
         if (ref.kind !== 'pull_request') {
           throw new UnsupportedOperationError('Only pull requests can be read for commits', context)
         }
-        const { data } = await fetcher.json<{ value: AzureCommit[] }>(`${pullPath(ref)}/commits`, { query: { $top: listOptions.perPage }, signal: listOptions.signal })
-        return { items: data.value.map(raw => toCommit(ref.repo, raw)) }
+        const { data, response } = await fetcher.json<{ value: AzureCommit[] }>(`${pullPath(ref)}/commits`, { query: { $top: listOptions.perPage }, signal: listOptions.signal })
+        return { items: data.value.map(raw => toCommit(ref.repo, raw)), ...rateLimitPart(response) }
       }),
       // Work item comments are a preview API.
       commentsPage: perKind({ issue: anonymous ? 'unverified' : 'experimental', pull_request: true }, commentsPage),
@@ -746,8 +748,8 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
       }),
       reviewsPage: verb('emulated', async (thread, listOptions) => {
         const ref = requireThread(thread, context)
-        const { data } = await fetcher.json<AzurePullRequest>(pullPath(ref), { signal: listOptions?.signal })
-        return { items: (data.reviewers ?? []).filter(reviewer => reviewer.vote !== 0).map(reviewer => toVoteReview(ref, reviewer)) }
+        const { data, response } = await fetcher.json<AzurePullRequest>(pullPath(ref), { signal: listOptions?.signal })
+        return { ...rateLimitPart(response), items: (data.reviewers ?? []).filter(reviewer => reviewer.vote !== 0).map(reviewer => toVoteReview(ref, reviewer)) }
       }),
       createReview: verb('emulated', createReview),
       reviewThreads: verb(true, {

@@ -63,6 +63,15 @@ describe('recording store', () => {
     expect(stepFile(directory, 'repo', '01-get-h3js-h3.json')).toContain('"stargazers_count": 10')
   })
 
+  it('keeps a step whose responses differ only in structured rate limit fields', () => {
+    const directory = recording()
+    const limited = (remaining: number) => fixture('https://codeberg.org/api/v1/repos/forgejo/forgejo', { full_name: 'forgejo/forgejo' }, { 'ratelimit': `"baseline";r=${remaining};t=600`, 'ratelimit-policy': '"baseline";q=2000;w=600' })
+    writeRecording(directory, { steps: [step('repo', [limited(1994)])], failed: [], setup: [] })
+    const result = writeRecording(directory, { steps: [step('repo', [limited(1500)])], failed: [], setup: [] })
+
+    expect(result.unchanged).toEqual(['repo'])
+  })
+
   it('keeps a step whose download was signed again', () => {
     const directory = recording()
     const asset = (expiry: string) => fixture(`https://release-assets.githubusercontent.com/asset/1?sp=r&se=${expiry}&sig=REDACTED`, 'fixture')

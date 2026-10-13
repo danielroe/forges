@@ -1,9 +1,11 @@
 import type { ResolvedThreadRef } from '../../src/model.ts'
+import type { Fixture } from '../../src/testing/index.ts'
+import { readFileSync } from 'node:fs'
 import { describe, expect, it } from 'vitest'
 import { cursorOrigin } from '../../src/cursor-origin/index.ts'
 import { UnsupportedOperationError } from '../../src/errors.ts'
 import { contracts, WEBHOOK_SECRET } from '../contract/providers.ts'
-import { fixtureFetch } from '../utils/fixtures.ts'
+import { fixtureDirectory, fixtureFetch } from '../utils/fixtures.ts'
 
 const repo = { forge: 'cursor-origin', instance: 'origin.cursor.com', owner: 'acme', name: 'widgets' } as const
 const pull: ResolvedThreadRef = { forge: 'cursor-origin', instance: 'origin.cursor.com', repo, kind: 'pull_request', number: '12' }
@@ -19,6 +21,19 @@ describe('cursor origin without credentials', () => {
     expect(calls.map(call => call.authorization)).toEqual([undefined])
     expect(forge.can('repos.get')).toBe(false)
     await expect(forge.repos.get(repo)).rejects.toThrow(UnsupportedOperationError)
+  })
+
+  it.each([
+    ['without credentials', undefined, [{ remaining: 59 }]],
+    ['with a token, whose budget the keys request does not report', { type: 'token', token: 't' } as const, []],
+  ])('reports the budget of the signing keys request %s', async (_, auth, budgets) => {
+    const { webhook } = contracts.find(contract => contract.name === 'cursor-origin')!
+    const keys = JSON.parse(readFileSync(`${fixtureDirectory('cursor-origin')}keys.json`, 'utf8')) as Fixture
+    const { fetch } = fixtureFetch('cursor-origin', { 'GET https://api.cursor.com/v1/origin/keys': { ...keys.response, headers: { 'x-ratelimit-limit': '60', 'x-ratelimit-remaining': '59' } } })
+    const forge = cursorOrigin({ auth, fetch }).create()
+    await forge.webhooks.ingest({ headers: webhook.headers(await webhook.sign(webhook.body, WEBHOOK_SECRET)), body: webhook.body })
+
+    expect(forge.rateLimits()).toMatchObject(budgets)
   })
 })
 

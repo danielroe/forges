@@ -19,5 +19,9 @@
   "cursor": {
     "token": "3"
   },
-  "total": 72
+  "total": 72,
+  "rateLimit": {
+    "limit": 60,
+    "remaining": 53
+  }
 }

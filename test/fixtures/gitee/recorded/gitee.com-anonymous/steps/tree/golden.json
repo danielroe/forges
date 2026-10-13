@@ -175,5 +175,9 @@
       "size": 115,
       "mode": "100644"
     }
-  ]
+  ],
+  "rateLimit": {
+    "limit": 60,
+    "remaining": 27
+  }
 }

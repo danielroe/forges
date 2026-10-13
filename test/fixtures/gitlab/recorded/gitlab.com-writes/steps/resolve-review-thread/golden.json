@@ -1,6 +1,11 @@
 {
   "reviews": {
-    "items": []
+    "items": [],
+    "rateLimit": {
+      "limit": 2000,
+      "remaining": 1922,
+      "resetAt": "<now>"
+    }
   },
   "comments": {
     "items": [

@@ -103,5 +103,10 @@
     "etag": "W/\"d243a78468cfba92c43bbf7a8b4f126f0edf1615a6841a15d27bd727a8f4991c\""
   },
   "etag": "W/\"d243a78468cfba92c43bbf7a8b4f126f0edf1615a6841a15d27bd727a8f4991c\"",
-  "notModified": false
+  "notModified": false,
+  "rateLimit": {
+    "limit": 5000,
+    "remaining": 4757,
+    "resetAt": "<now>"
+  }
 }

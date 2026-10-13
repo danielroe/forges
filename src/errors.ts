@@ -56,7 +56,7 @@ export class AuthenticationRequiredError extends ForgeApiError {
 /** A rate limit was hit and a retry didn't help. */
 export class RateLimitedError extends ForgeApiError {
   override name = 'RateLimitedError'
-  /** When the limit resets, when the forge says. */
+  /** When to send again: after the forge's `retry-after`, or when a used-up budget resets. Absent when the forge names neither. */
   readonly resetAt?: Date
   /** A secondary (abuse) limit, which has no remaining-request counter. */
   readonly secondary: boolean

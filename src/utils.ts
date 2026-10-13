@@ -227,8 +227,9 @@ export function createListing(fetcher: Fetcher, pageParam: string, defaultPerPag
   )
 }
 
-function rateLimitPart(response: Response | undefined): { rateLimit?: RateLimit } {
-  const rateLimit = response && rateLimitOf(response)
+/** The `rateLimit` of a page built by hand: the budget of the response behind it, or of the page it maps. */
+export function rateLimitPart(source: Response | Pick<Page<unknown>, 'rateLimit'> | undefined): { rateLimit?: RateLimit } {
+  const rateLimit = source && ('headers' in source ? rateLimitOf(source) : source.rateLimit)
   return rateLimit ? { rateLimit } : {}
 }
 

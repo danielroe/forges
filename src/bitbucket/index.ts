@@ -60,7 +60,7 @@ import { toBase64 } from '../crypto.ts'
 import { defineForgeProvider, perKind, verb } from '../define.ts'
 import { BranchMovedError, ForgeApiError, ForgeError, MergeConflictError, NotFoundError, soleMergeMethod, toMergeError, UnsupportedOperationError } from '../errors.ts'
 import { isNamespaceRef } from '../model.ts'
-import { createListing, getManyConcurrently, hostOf, mergeCommitMessage, phased, requireThread, resolveToken, summariseChecks, syntheticReview, toPage, toWarning } from '../utils.ts'
+import { createListing, getManyConcurrently, hostOf, mergeCommitMessage, phased, rateLimitPart, requireThread, resolveToken, summariseChecks, syntheticReview, toPage, toWarning } from '../utils.ts'
 import { nativeEventsFor } from '../webhooks.ts'
 import {
   FORGE,
@@ -629,7 +629,8 @@ const BITBUCKET: ProviderDefinition<BitbucketOptions, undefined, true> = {
           if (ref.kind !== 'pull_request') {
             throw new UnsupportedOperationError('Only pull requests have participants', context)
           }
-          return { items: toParticipantReviews(ref, (await fetcher.json<BitbucketPullRequest>(threadPath(ref), { signal: listOptions?.signal })).data) }
+          const { data, response } = await fetcher.json<BitbucketPullRequest>(threadPath(ref), { signal: listOptions?.signal })
+          return { items: toParticipantReviews(ref, data), ...rateLimitPart(response) }
         }),
         createReview: verb('emulated', createReview),
         get: perKind({ pull_request: true, commit: true }, get),

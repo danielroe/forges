@@ -226,13 +226,13 @@ function resetDate(response: Response, now: number): Date | undefined {
   return new Date(reset > 1_000_000_000 ? reset * 1000 : now + reset * 1000)
 }
 
-function rateLimitReset(response: Response): Date | undefined {
-  const reset = rateLimitOf(response)?.resetAt
-  if (reset) {
-    return reset
-  }
+/** A budget with requests left resets on its own schedule, which says nothing about when a secondary limit lifts. */
+function rateLimitReset(response: Response, budget: RateLimit | undefined): Date | undefined {
   const after = retryAfterMs(response)
-  return after === undefined ? undefined : new Date(Date.now() + after)
+  if (after !== undefined) {
+    return new Date(Date.now() + after)
+  }
+  return budget?.remaining ? undefined : budget?.resetAt
 }
 
 /** The leading number of the first of `names` to hold one, such as `60` of `60, 60;w=3600`. */
@@ -291,17 +291,15 @@ export function rateLimitOf(response: Response, now: number = Date.now()): RateL
   }
 }
 
-function isRateLimited(response: Response): boolean {
+function isRateLimited(response: Response, budget: RateLimit | undefined): boolean {
   if (response.status === 429) {
     return true
   }
-  const rateLimit = rateLimitOf(response)
   // A zero budget never resets; the request needs other credentials.
-  if (response.status !== 403 || rateLimit?.limit === 0) {
+  if (response.status !== 403 || budget?.limit === 0) {
     return false
   }
-  return rateLimit?.remaining === 0
-    || response.headers.has('retry-after')
+  return budget?.remaining === 0 || response.headers.has('retry-after')
 }
 
 /**
@@ -495,13 +493,6 @@ export function createFetcher(options: FetcherOptions): Fetcher {
       clearTimeout(timer)
     }
 
-    if (options.onRateLimit && target.origin === baseOrigin) {
-      const rateLimit = rateLimitOf(response)
-      if (rateLimit) {
-        options.onRateLimit({ url, method: options_.method ?? 'GET', rateLimit })
-      }
-    }
-
     if (response.type === 'opaqueredirect' && options_.redirect !== 'manual') {
       const method = (options_.method ?? 'GET').toUpperCase()
       if (options_.redirect === 'error' || (method !== 'GET' && method !== 'HEAD')) {
@@ -515,6 +506,10 @@ export function createFetcher(options: FetcherOptions): Fetcher {
         await response.body?.cancel()
         throw new TypeError('Unsafe request redirect')
       }
+    }
+    const budget = rateLimitOf(response)
+    if (budget && options.onRateLimit && target.origin === baseOrigin) {
+      options.onRateLimit({ url, method: options_.method ?? 'GET', rateLimit: budget })
     }
     const location = REDIRECT_STATUSES.has(response.status) ? response.headers.get('location') : null
     if (location && options_.redirect !== 'manual') {
@@ -558,7 +553,7 @@ export function createFetcher(options: FetcherOptions): Fetcher {
         ? new TokenRevokedError('Credentials were rejected by the forge', 401, body, context)
         : new AuthenticationRequiredError('Credentials are required for this request', 401, body, context)
     }
-    if (response.status === 403 && !credentialed && headerNumber(response, 'x-ratelimit-limit', 'ratelimit-limit') === 0) {
+    if (response.status === 403 && !credentialed && budget?.limit === 0) {
       throw new AuthenticationRequiredError('Credentials are required for this request', 403, body, context)
     }
 
@@ -568,7 +563,7 @@ export function createFetcher(options: FetcherOptions): Fetcher {
 
     // Some forges, such as Gitee, report a rate limit as a short plain-text 403 with no rate limit headers.
     // Only a body that starts with the phrase counts, so a message that quotes it stays a `ForbiddenError`.
-    if (isRateLimited(response) || (response.status === 403 && !rateLimitOf(response) && PLAIN_RATE_LIMIT_RE.test(body.trim()))) {
+    if (isRateLimited(response, budget) || (response.status === 403 && !budget && PLAIN_RATE_LIMIT_RE.test(body.trim()))) {
       const secondary = response.status === 403 || response.headers.has('retry-after')
       const wait = retryAfterMs(response)
       if (secondary && attempt === 0 && wait !== undefined && wait <= 60_000) {
@@ -578,7 +573,7 @@ export function createFetcher(options: FetcherOptions): Fetcher {
       }
       throw new RateLimitedError('Rate limited by the forge', response.status, body, {
         ...context,
-        resetAt: rateLimitReset(response),
+        resetAt: rateLimitReset(response, budget),
         secondary,
       })
     }

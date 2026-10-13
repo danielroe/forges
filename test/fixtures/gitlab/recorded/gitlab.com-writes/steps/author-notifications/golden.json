@@ -70,5 +70,10 @@
   "cursor": {
     "token": "done"
   },
-  "notModified": false
+  "notModified": false,
+  "rateLimit": {
+    "limit": 2000,
+    "remaining": 1907,
+    "resetAt": "<now>"
+  }
 }

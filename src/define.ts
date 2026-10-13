@@ -1,5 +1,5 @@
 import type { Fetcher, FetcherOptions } from './fetch.ts'
-import type { ApproveAndMergeOptions, BaseOptions, Check, CiJobRef, Comment, CommentRef, CommitFilesInput, CompareOptions, Comparison, Cursor, DownloadAssetOptions, EventFeedOptions, ForgeEventInput, ForgeInstance, ForgeKind, Installation, ListOptions, MergeOptions, Notification, NotificationListOptions, OwnerRepoQuery, Page, ReleaseAssetRef, Repo, RepoRef, ReviewRef, SecurityAlertKind, SecurityAlertListOptions, Support, TextLimits, ThreadKind, ThreadQuery, ThreadRef, UpsertCommentInput, UpsertCommentResult, WebhookEventType } from './model.ts'
+import type { ApproveAndMergeOptions, BaseOptions, Check, CiJobRef, Comment, CommentRef, CommitFilesInput, CompareOptions, Comparison, Cursor, DownloadAssetOptions, EventFeedOptions, ForgeEventInput, ForgeInstance, ForgeKind, Installation, ListOptions, MergeOptions, Notification, NotificationListOptions, OwnerRepoQuery, Page, RateLimit, ReleaseAssetRef, Repo, RepoRef, ReviewRef, SecurityAlertKind, SecurityAlertListOptions, Support, TextLimits, ThreadKind, ThreadQuery, ThreadRef, UpsertCommentInput, UpsertCommentResult, WebhookEventType } from './model.ts'
 import type {
   AuthKind,
   ChecksApi,
@@ -336,7 +336,11 @@ export interface ProviderBase<TOptions, TState> {
 export interface ProviderContext<TOptions, TState> extends ProviderBase<TOptions, TState> {
   /** Authenticated with the definition's `authHeaders`. */
   fetcher: Fetcher
-  /** Another fetcher with the same timeout, `fetch` and error context. */
+  /**
+   * Another fetcher with the same timeout, `fetch` and error context. It sends no credentials unless it sets
+   * its own `authHeaders`. Its budgets count towards `provider.rateLimits()` only when neither it nor
+   * `fetcher` sends credentials.
+   */
   createFetcher: (overrides: Partial<FetcherOptions> & { baseUrl: string }) => Fetcher
   /** Another provider from the same definition, for example one per app installation. */
   derive: (options: TOptions, state?: TState) => ForgeProvider
@@ -447,6 +451,21 @@ async function nonEmptyPage<T>(read: (cursor: Cursor | undefined) => Promise<Pag
   return { ...page, warnings: [...warnings, ...later] }
 }
 
+/** Resets this close together belong to one window, as a reset in seconds from now drifts between responses. */
+const RESET_TOLERANCE_MS = 1000
+
+/** Whether `next` was counted before `kept` though it arrived after it: from an older window, or with more requests left in the same one. */
+function countedBefore(next: RateLimit, kept: RateLimit): boolean {
+  if (!next.resetAt || !kept.resetAt) {
+    return false
+  }
+  const gap = next.resetAt.getTime() - kept.resetAt.getTime()
+  if (Math.abs(gap) > RESET_TOLERANCE_MS) {
+    return gap < 0
+  }
+  return next.remaining !== undefined && kept.remaining !== undefined && next.remaining > kept.remaining
+}
+
 function createProvider<TOptions extends ForgeOptionsBase, TState, HasWeb extends boolean = boolean, TExtensions extends object = Record<never, never>>(
   definition: ProviderDefinition<TOptions, TState, boolean, TExtensions>,
   givenOptions: TOptions,
@@ -467,17 +486,26 @@ function createProvider<TOptions extends ForgeOptionsBase, TState, HasWeb extend
   const prepared = { options, forge: definition.forge, instance, baseUrl, headers, origin, state: givenState }
   const state = (definition.prepare ? definition.prepare(prepared) : givenState) as TState
   const base: ProviderBase<TOptions, TState> = { ...prepared, state }
+  const budgets = new Map<string | undefined, RateLimit>()
+  const tracked: FetcherOptions['onRateLimit'] = (event) => {
+    const kept = budgets.get(event.rateLimit.resource)
+    if (!kept || !countedBefore(event.rateLimit, kept)) {
+      budgets.set(event.rateLimit.resource, event.rateLimit)
+    }
+    options.onRateLimit?.(event)
+  }
+  const authHeaders = anonymous ? undefined : definition.authHeaders?.(base)
   const makeFetcher = (overrides: Partial<FetcherOptions> & { baseUrl: string }) => createFetcher({
     fetch: options.fetch,
     timeout: options.timeout,
     onRetry: options.onRetry,
-    onRateLimit: options.onRateLimit,
+    onRateLimit: 'authHeaders' in overrides || authHeaders ? options.onRateLimit : tracked,
     headers,
     query: definition.query,
     context: origin,
     ...overrides,
   })
-  const fetcher = makeFetcher({ baseUrl, authHeaders: anonymous ? undefined : definition.authHeaders?.(base) })
+  const fetcher = makeFetcher({ baseUrl, authHeaders, onRateLimit: tracked })
   const ctx: ProviderContext<TOptions, TState> = {
     ...base,
     fetcher,
@@ -767,6 +795,15 @@ function createProvider<TOptions extends ForgeOptionsBase, TState, HasWeb extend
       : {}),
     get capabilities() {
       return capabilities
+    },
+    rateLimits() {
+      const now = Date.now()
+      for (const [resource, budget] of budgets) {
+        if (budget.resetAt && budget.resetAt.getTime() <= now) {
+          budgets.delete(resource)
+        }
+      }
+      return [...budgets.values()].map(budget => ({ ...budget }))
     },
     async refreshCapabilities() {
       if (!options.instanceVersion && probeVersion) {

@@ -6,7 +6,7 @@ import type { ArtifactsCommit, ArtifactsEnvelope, ArtifactsNamespace, ArtifactsR
 import { isSha, toFileContent } from '../contents.ts'
 import { defineForgeProvider, perKind, verb } from '../define.ts'
 import { ForgeError, NotFoundError, UnsupportedOperationError } from '../errors.ts'
-import { mapConcurrent, resolveToken } from '../utils.ts'
+import { mapConcurrent, rateLimitPart, resolveToken } from '../utils.ts'
 import { FORGE, toCommit, toRepo, toTreeType } from './normalise.ts'
 
 /** A Cloudflare API token with **Artifacts** > **Read**, sent as `Authorization: Bearer`. */
@@ -65,13 +65,16 @@ function setupArtifacts({ options, origin, fetcher }: ProviderContext<Cloudflare
     if (listsNothing(query)) {
       return { items: [] }
     }
-    const { result: items, result_info } = await result<ArtifactsRepository[]>(`${namespacePath(namespace)}/repos`, {
-      limit: pageSize(query.perPage, MAX_REPOS),
-      cursor,
-      sort: query.sort && SORTS[query.sort],
-      direction: query.direction,
-    }, query.signal)
-    return { items: items.map(raw => toRepo(origin, namespace, raw)), cursor: result_info?.cursor ? { token: result_info.cursor } : undefined }
+    const { data: { result: items, result_info }, response } = await fetcher.json<ArtifactsEnvelope<ArtifactsRepository[]>>(`${namespacePath(namespace)}/repos`, {
+      query: {
+        limit: pageSize(query.perPage, MAX_REPOS),
+        cursor,
+        sort: query.sort && SORTS[query.sort],
+        direction: query.direction,
+      },
+      signal: query.signal,
+    })
+    return { items: items.map(raw => toRepo(origin, namespace, raw)), cursor: result_info?.cursor ? { token: result_info.cursor } : undefined, ...rateLimitPart(response) }
   }
 
   /** A cursor that `listRepos()` returned, or a `ForgeError` for one from anywhere else. */
@@ -106,7 +109,7 @@ function setupArtifacts({ options, origin, fetcher }: ProviderContext<Cloudflare
     const next: ListState | undefined = page.cursor?.token
       ? { namespace: current.namespace, next: current.next, repos: page.cursor.token }
       : current.next ? { after: current.next } : undefined
-    return { items: page.items, cursor: next && { token: JSON.stringify(next) } }
+    return { items: page.items, cursor: next && { token: JSON.stringify(next) }, ...rateLimitPart(page) }
   }
 
   async function log(repo: RepoRef, ref: string | undefined, offset: number, limit: number, signal?: AbortSignal): Promise<ArtifactsCommit[]> {

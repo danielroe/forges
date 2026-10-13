@@ -2,5 +2,10 @@
   "items": [],
   "cursor": {
     "token": "eyJzZXZlcml0eSI6ImxvdyIsInZ1bG5lcmFiaWxpdHlfaWQiOiI0MDMyNzY5MDQifQ"
+  },
+  "rateLimit": {
+    "limit": 2000,
+    "remaining": 1924,
+    "resetAt": "<now>"
   }
 }

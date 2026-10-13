@@ -46,5 +46,9 @@
   "cursor": {
     "nextUrl": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/collaborators?page=2&per_page=3"
   },
-  "total": 29
+  "total": 29,
+  "rateLimit": {
+    "limit": 60,
+    "remaining": 52
+  }
 }

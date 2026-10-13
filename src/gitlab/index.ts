@@ -88,7 +88,7 @@ import { changeBase64, existingFiles, fromBase64, toFileContent } from '../conte
 import { defineForgeProvider, perKind, verb } from '../define.ts'
 import { AuthenticationRequiredError, BranchMovedError, ForgeApiError, InsufficientScopeError, NotFoundError, soleMergeMethod, TokenRevokedError, toMergeError, UnresolvedThreadError, UnsupportedOperationError } from '../errors.ts'
 import { isNamespaceRef, reactionContent } from '../model.ts'
-import { createListing, degradesToWarning, getManyConcurrently, hexColour, memo, memoBy, mergeCommitMessage, milestoneId, phased, requireIssueOrPull, requireThread, resolveToken, syntheticReview, teamOrg, toDate, toPage, toWarning, versionAtLeast, withEtag } from '../utils.ts'
+import { createListing, degradesToWarning, getManyConcurrently, hexColour, memo, memoBy, mergeCommitMessage, milestoneId, phased, rateLimitPart, requireIssueOrPull, requireThread, resolveToken, syntheticReview, teamOrg, toDate, toPage, toWarning, versionAtLeast, withEtag } from '../utils.ts'
 import { webUrlFor } from '../web.ts'
 import { nativeEventsFor } from '../webhooks.ts'
 import {
@@ -229,7 +229,7 @@ const GITLAB: ProviderDefinition<GitLabOptions, undefined, true> = {
       const next = result.cursor?.nextUrl
         ? { ...result.cursor, token: phase === 'done' ? 'done' : undefined }
         : listOptions.all && phase !== 'done' ? { token: 'done' } : undefined
-      return { items, cursor: next, notModified: result.notModified }
+      return { items, cursor: next, notModified: result.notModified, ...rateLimitPart(result.response) }
     }
 
     /** GitLab assigns by user id, so logins are resolved once each. */
@@ -380,7 +380,7 @@ const GITLAB: ProviderDefinition<GitLabOptions, undefined, true> = {
 
     async function vulnerabilitiesPage(repo: RepoRef, listOptions: SecurityAlertListOptions = {}): Promise<Page<SecurityAlert>> {
       const state = listOptions.state ?? 'open'
-      const { data } = await fetcher.json<{
+      const { data, response } = await fetcher.json<{
         data?: { project?: { vulnerabilities?: { pageInfo: { hasNextPage: boolean, endCursor: string | null }, nodes: GitLabVulnerability[] } | null } | null }
         errors?: Array<{ message: string }>
       }>(graphqlUrl, {
@@ -414,6 +414,7 @@ const GITLAB: ProviderDefinition<GitLabOptions, undefined, true> = {
       return {
         items: vulnerabilities.nodes.map(node => toVulnerability(repo, node)),
         cursor: vulnerabilities.pageInfo.hasNextPage && vulnerabilities.pageInfo.endCursor ? { token: vulnerabilities.pageInfo.endCursor } : undefined,
+        ...rateLimitPart(response),
       }
     }
 
@@ -957,8 +958,8 @@ const GITLAB: ProviderDefinition<GitLabOptions, undefined, true> = {
           if (ref.kind !== 'pull_request') {
             throw new UnsupportedOperationError('Only merge requests have approvals', context)
           }
-          const { data } = await fetcher.json<GitLabApprovals>(`${threadPath(ref)}/approvals`, { signal: listOptions?.signal })
-          return { items: toApprovalReviews(ref, data) }
+          const { data, response } = await fetcher.json<GitLabApprovals>(`${threadPath(ref)}/approvals`, { signal: listOptions?.signal })
+          return { items: toApprovalReviews(ref, data), ...rateLimitPart(response) }
         }),
         approve: verb(true, async (thread, body, options) => {
           await approve(thread, body, options)

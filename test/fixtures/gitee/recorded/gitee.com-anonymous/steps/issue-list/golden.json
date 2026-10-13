@@ -124,5 +124,9 @@
   "cursor": {
     "nextUrl": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/issues?state=open&sort=created&direction=desc&page=2&per_page=3",
     "token": "0:"
+  },
+  "rateLimit": {
+    "limit": 60,
+    "remaining": 37
   }
 }

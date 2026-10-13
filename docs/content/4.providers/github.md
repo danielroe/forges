@@ -147,7 +147,7 @@ A file keeps its mode when you write over it: an executable file stays executabl
 
 ## Search
 
-GitHub gives search a lower rate limit than the rest of its API, and commit search has a limit of its own, separate from issue and repository search. After a search, `page.rateLimit` reports the limit that the search used, and its `resource` names it, such as `search` or `code_search`. `onRateLimit` reports the same, so you can keep the search budget apart from the `core` one.
+GitHub gives search a lower rate limit than the rest of its API, and code search has a limit of its own, separate from the search for issues, commits and repositories. After a search, `page.rateLimit` reports the limit that the search used, and its `resource` names it, such as `search` or `code_search`. `rateLimits()` and `onRateLimit` keep it apart from the `core` budget of the rest of the API.
 
 Repository search can't sort by creation time. If you ask for that order, you get the results by relevance, together with a `sort_unsupported` warning.
 

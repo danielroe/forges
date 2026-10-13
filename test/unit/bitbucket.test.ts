@@ -23,6 +23,16 @@ describe('bitbucket provider', () => {
     expect(instance.can('notifications.list')).toBe(false)
   })
 
+  it('keeps the budget of a response, which names its reset in seconds from now', async () => {
+    const { fetch } = fixtureFetch('bitbucket', {
+      'GET https://api.bitbucket.org/2.0/user': { status: 200, headers: { 'x-ratelimit-limit': '1000', 'x-ratelimit-remaining': '998', 'x-ratelimit-reset': '3476' }, body: {} },
+    })
+    const instance = bitbucket({ auth: { type: 'token', token: 't' }, fetch }).create()
+    await instance.request('GET', '/user')
+
+    expect(instance.rateLimits()).toMatchObject([{ limit: 1000, remaining: 998 }])
+  })
+
   it('sends app passwords and API tokens as basic auth', async () => {
     const { instance, calls } = provider({ type: 'basic', username: 'ada', password: 'app-password' })
     await instance.threads.get(pull)
