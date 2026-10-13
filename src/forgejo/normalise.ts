@@ -45,6 +45,7 @@ import type {
   ForgejoCommit,
   ForgejoCommitFile,
   ForgejoCommitStatus,
+  ForgejoFileCommit,
   ForgejoHook,
   ForgejoIssue,
   ForgejoLabel,
@@ -602,6 +603,19 @@ export function toChangedFile(raw: ForgejoChangedFile | ForgejoCommitFile): Chan
     statusRaw: raw.status,
     additions: raw.additions,
     deletions: raw.deletions,
+  }
+}
+
+export function toFileCommit(repo: RepoRef, raw: ForgejoFileCommit): Commit {
+  return {
+    ref: { forge: repo.forge, instance: repo.instance, repo, sha: raw.sha },
+    sha: raw.sha,
+    message: raw.message ?? '',
+    author: { name: raw.author?.name, email: raw.author?.email, date: toDate(raw.author?.date) },
+    committer: { name: raw.committer?.name, email: raw.committer?.email, date: toDate(raw.committer?.date) },
+    parents: raw.parents?.flatMap(parent => parent.sha ? [parent.sha] : []) ?? [],
+    url: raw.html_url,
+    raw,
   }
 }
 

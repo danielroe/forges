@@ -1,0 +1,40 @@
+{
+  "ref": {
+    "forge": "github",
+    "instance": "github.com",
+    "repo": {
+      "forge": "github",
+      "instance": "github.com",
+      "owner": "forges-fixtures",
+      "name": "forges-fixtures"
+    },
+    "sha": "ab84d048fcb22a9aa3c0f150f70b09fcb205c2cc"
+  },
+  "sha": "ab84d048fcb22a9aa3c0f150f70b09fcb205c2cc",
+  "message": "test: change files from run 20261012113502\n\nUpdates one file and deletes another.",
+  "author": {
+    "actor": {
+      "forge": "github",
+      "instance": "github.com",
+      "login": "danielroe-bot",
+      "id": "57801166",
+      "name": null,
+      "avatarUrl": "https://avatars.githubusercontent.com/u/57801166?v=4",
+      "url": "https://github.com/danielroe-bot",
+      "typeRaw": "User",
+      "isBotHint": false
+    },
+    "name": "danielroe-bot",
+    "email": "redacted@example.invalid",
+    "date": "<now>"
+  },
+  "committer": {
+    "name": "GitHub",
+    "email": "redacted@example.invalid",
+    "date": "<now>"
+  },
+  "parents": [
+    "6cfc5c7040cf8ed0b453cab0f08c8b2e02878b06"
+  ],
+  "url": "https://github.com/forges-fixtures/forges-fixtures/commit/ab84d048fcb22a9aa3c0f150f70b09fcb205c2cc"
+}

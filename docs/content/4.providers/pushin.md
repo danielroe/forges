@@ -152,6 +152,7 @@ Since `pushin()` contains no webhook code, there is no `pushinLite()` factory fo
 | `contents.commits` | ❌ | ❌ |
 | `contents.commit` | ❌ | ❌ |
 | `contents.compare` | ❌ | ❌ |
+| `contents.commitFiles` | ❌ | ❌ |
 | `contents.threadFiles` | ❌ | ❌ |
 | `contents.threadCommits` | ❌ | ❌ |
 | `reviews.list` | ❌ | ❌ |

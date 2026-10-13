@@ -36,6 +36,16 @@ function ids(value: unknown, key = ''): string[] {
   return value && typeof value === 'object' ? Object.entries(value).flatMap(([name, item]) => ids(item, name)) : []
 }
 
+/** Every `owner/name` that `value` names under `repositoryNameWithOwner`, as `createCommitOnBranch` takes it. */
+function namesWithOwner(value: unknown): string[] {
+  if (Array.isArray(value)) {
+    return value.flatMap(namesWithOwner)
+  }
+  return value && typeof value === 'object'
+    ? Object.entries(value).flatMap(([key, item]) => key === 'repositoryNameWithOwner' && typeof item === 'string' ? [item] : namesWithOwner(item))
+    : []
+}
+
 function strings(value: unknown, into: Set<string>): void {
   if (typeof value === 'string') {
     into.add(value)
@@ -67,6 +77,9 @@ export function guardedFetch(fetch: FetchLike, options: GuardOptions): FetchLike
       const known = namedIds.every(id => seen.has(id))
       if (/^\s*mutation\b/.test(query) && (!known || !namedIds.length)) {
         throw new Error(`Refused the GraphQL mutation ${operationName ?? ''}: it names an id that did not come from the scratch repository`)
+      }
+      if (namesWithOwner(variables).some(name => !options.repos.some(repo => `${repo.owner}/${repo.name}` === name))) {
+        throw new Error(`Refused the GraphQL request ${operationName ?? ''}: it names a repository other than the scratch repositories`)
       }
       // A query that names neither a repository nor an id is not tied to the scratch repository, so its ids stay untrusted.
       trusted = known && (scoped(variables) ? named(variables) : namedIds.length > 0)

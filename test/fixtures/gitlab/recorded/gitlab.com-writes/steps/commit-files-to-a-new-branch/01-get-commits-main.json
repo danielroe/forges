@@ -1,0 +1,54 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitlab.com/api/v4/projects/forges-fixtures%2Fforges-fixtures/repository/commits/main"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"c152169762d6ae32b471e563d9c2c11d\"",
+      "ratelimit-limit": "2000",
+      "ratelimit-remaining": "1984",
+      "ratelimit-reset": "1791920880"
+    },
+    "body": {
+      "id": "5cafa2fc236c691776306f6b4e62d5d2747154cb",
+      "short_id": "5cafa2fc",
+      "created_at": "2026-10-12T22:04:33.000+00:00",
+      "parent_ids": [
+        "35174ee098e0bd6c3561ab7b5e5c9ef4b0065f26",
+        "1811bcd503315c2ea87ec3e881873f13f0e0b578"
+      ],
+      "title": "Merge run 20261012220341",
+      "message": "Merge run 20261012220341\n\nMerged by run 20261012220341",
+      "author_name": "Daniel Roe",
+      "author_email": "redacted@example.invalid",
+      "authored_date": "2026-10-12T22:04:33.000+00:00",
+      "committer_name": "Daniel Roe",
+      "committer_email": "redacted@example.invalid",
+      "committed_date": "2026-10-12T22:04:33.000+00:00",
+      "trailers": {},
+      "extended_trailers": {},
+      "web_url": "https://gitlab.com/forges-fixtures/forges-fixtures/-/commit/5cafa2fc236c691776306f6b4e62d5d2747154cb",
+      "stats": {
+        "additions": 1,
+        "deletions": 0,
+        "total": 1
+      },
+      "status": "failed",
+      "project_id": 87428720,
+      "last_pipeline": {
+        "id": 2940256789,
+        "iid": 131,
+        "project_id": 87428720,
+        "sha": "5cafa2fc236c691776306f6b4e62d5d2747154cb",
+        "ref": "forges-fixture-20261012220341",
+        "status": "failed",
+        "source": "push",
+        "created_at": "2026-10-12T22:04:36.002Z",
+        "updated_at": "2026-10-12T22:04:36.002Z",
+        "web_url": "https://gitlab.com/forges-fixtures/forges-fixtures/-/pipelines/2940256789"
+      }
+    }
+  }
+}

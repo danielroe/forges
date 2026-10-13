@@ -200,6 +200,7 @@ for await (const team of provider.orgs.teams(project)) {
 | `contents.commits` | ✅ | ✅ |
 | `contents.commit` | ✅ | ✅ |
 | `contents.compare` | ✅ | ✅ |
+| `contents.commitFiles` | ✅ | ❌ |
 | `contents.threadFiles` | ❌ | ❌ |
 | `contents.threadCommits` | ✅ | ✅ |
 | `reviews.list` | emulated | emulated |

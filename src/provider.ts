@@ -20,6 +20,7 @@ import type {
   Comment,
   CommentRef,
   Commit,
+  CommitFilesInput,
   CommitQuery,
   CommitSearchQuery,
   Comparison,
@@ -390,6 +391,8 @@ export interface ForgeCapabilities {
     commit: Support
     /** Support for `contents.compare()`. */
     compare: Support
+    /** Support for `contents.commitFiles()`. */
+    commitFiles: Support
     /** `threads.files` and `threads.commits` on a pull request. */
     threadFiles: Support
     /** Support for `threads.commits()` and `threads.commitsPage()`. */
@@ -742,6 +745,26 @@ export interface ContentsApi {
   commit: (repo: RepoRef, sha: string, options?: BaseOptions) => Promise<Commit>
   /** Commits and files between two refs. */
   compare: (repo: RepoRef, base: string, head: string, options?: BaseOptions) => Promise<Comparison>
+  /**
+   * Writes and deletes files in one commit on a branch, and moves the branch to it.
+   * @param repo The repository to commit to.
+   * @param input The branch, the message and the files, with the head the branch must have and the ref to create it from.
+   * @throws `BranchMovedError` when the branch no longer points at `expectedHead`.
+   * @throws `NotFoundError` when a file to delete does not exist.
+   * @example
+   * ```ts
+   * const commit = await provider.contents.commitFiles(repo, {
+   *   branch: 'docs/readme',
+   *   createFrom: 'main',
+   *   message: 'docs: update readme',
+   *   changes: [
+   *     { path: 'README.md', content: '# widgets\n' },
+   *     { path: 'OLD.md', content: null },
+   *   ],
+   * })
+   * ```
+   */
+  commitFiles: (repo: RepoRef, input: CommitFilesInput, options?: BaseOptions) => Promise<Commit>
 }
 
 /** Reading, creating and updating the releases of a repository, and downloading their assets. */

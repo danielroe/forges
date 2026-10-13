@@ -17,7 +17,7 @@ import { recordedSteps, stepSlug } from '../test/recording/layout.ts'
 import { redact } from '../test/recording/redact.ts'
 import { seedScratch } from '../test/recording/seed.ts'
 import { LOG_LIMIT, STEPS } from '../test/recording/steps.ts'
-import { FIXTURE_HOOK_SECRET, FIXTURE_HOOK_URL, FIXTURE_TITLE, fixtureLabel, WRITE_STEPS } from '../test/recording/write-steps.ts'
+import { filesBranch, FIXTURE_HOOK_SECRET, FIXTURE_HOOK_URL, FIXTURE_TITLE, fixtureLabel, WRITE_STEPS } from '../test/recording/write-steps.ts'
 import { differingKeys, PENDING_SPLICE, reportSplice, spliceWrites } from './partial-writes.ts'
 import { patientFetch } from './rate-limits.ts'
 import { connectedSteps, trackReads, writeRecording } from './recording-store.ts'
@@ -631,7 +631,7 @@ async function recordWrites(): Promise<void> {
     }
   }
   finally {
-    await harness.cleanUp(run.branches, fixtureLabel(run), context.webhook && !succeeded('delete webhook') ? [context.webhook.ref.id] : [])
+    await harness.cleanUp([...run.branches, filesBranch(run)], fixtureLabel(run), context.webhook && !succeeded('delete webhook') ? [context.webhook.ref.id] : [])
     if (collaborators && context.reviewer && succeeded('add collaborator')) {
       await harness.removeCollaborator?.(collaborators, context.reviewer.id)
     }

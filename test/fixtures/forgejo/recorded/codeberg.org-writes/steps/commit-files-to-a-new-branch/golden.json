@@ -1,0 +1,29 @@
+{
+  "ref": {
+    "forge": "forgejo",
+    "instance": "codeberg.org",
+    "repo": {
+      "forge": "forgejo",
+      "instance": "codeberg.org",
+      "owner": "forges-fixtures",
+      "name": "forges-fixtures"
+    },
+    "sha": "f04bd37bc1a541266199db164d9ac8be9ce22ea1"
+  },
+  "sha": "f04bd37bc1a541266199db164d9ac8be9ce22ea1",
+  "message": "test: add files from run 20261011075808\n",
+  "author": {
+    "name": "roebot",
+    "email": "redacted@example.invalid",
+    "date": "<now>"
+  },
+  "committer": {
+    "name": "roebot",
+    "email": "redacted@example.invalid",
+    "date": "<now>"
+  },
+  "parents": [
+    "196a797f54f2bb898565b73c6cf9ff347b8b4904"
+  ],
+  "url": "https://codeberg.org/forges-fixtures/forges-fixtures/commit/f04bd37bc1a541266199db164d9ac8be9ce22ea1"
+}

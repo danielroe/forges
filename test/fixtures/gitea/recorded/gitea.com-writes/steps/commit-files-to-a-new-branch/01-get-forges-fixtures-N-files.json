@@ -1,0 +1,14 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitea.com/api/v1/repos/forges-fixtures/forges-fixtures/contents/forges-fixtures/20261012113905-files?ref=2438db9db31a3a73fd8aa63bea21a4528c4b358b"
+  },
+  "response": {
+    "status": 404,
+    "headers": {},
+    "body": {
+      "message": "object does not exist [id: , rel_path: forges-fixtures/20261012113905-files]",
+      "url": "https://gitea.com/api/swagger"
+    }
+  }
+}

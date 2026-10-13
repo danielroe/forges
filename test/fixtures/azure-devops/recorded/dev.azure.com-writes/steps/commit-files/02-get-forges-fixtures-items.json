@@ -1,0 +1,37 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://dev.azure.com/forges/forges-fixtures/_apis/git/repositories/forges-fixtures/items?scopePath=%2Fforges-fixtures%2F20261012114218-files&recursionLevel=oneLevel&versionDescriptor.version=ec2cd4c125dff7bea530856dd577122c957d9629&versionDescriptor.versionType=commit&api-version=7.1"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "count": 3,
+      "value": [
+        {
+          "objectId": "ba57d87a423373f73ecc57dec7ef4703ac2febc3",
+          "gitObjectType": "tree",
+          "commitId": "ec2cd4c125dff7bea530856dd577122c957d9629",
+          "path": "/forges-fixtures/20261012114218-files",
+          "isFolder": true,
+          "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/items?path=%2Fforges-fixtures%2F20261012114218-files&versionType=Commit&version=ec2cd4c125dff7bea530856dd577122c957d9629&versionOptions=None"
+        },
+        {
+          "objectId": "25c851ed069d02318bf068f936150b642128f0e7",
+          "gitObjectType": "blob",
+          "commitId": "ec2cd4c125dff7bea530856dd577122c957d9629",
+          "path": "/forges-fixtures/20261012114218-files/bytes.bin",
+          "url": "https://dev.azure.com/forges/forges-fixtures/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/items//forges-fixtures/20261012114218-files/bytes.bin?versionType=Commit&version=ec2cd4c125dff7bea530856dd577122c957d9629&versionOptions=None"
+        },
+        {
+          "objectId": "6ab3d6f18b10caee0a688a59687bb197f32103cf",
+          "gitObjectType": "blob",
+          "commitId": "ec2cd4c125dff7bea530856dd577122c957d9629",
+          "path": "/forges-fixtures/20261012114218-files/text.md",
+          "url": "https://dev.azure.com/forges/forges-fixtures/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/items//forges-fixtures/20261012114218-files/text.md?versionType=Commit&version=ec2cd4c125dff7bea530856dd577122c957d9629&versionOptions=None"
+        }
+      ]
+    }
+  }
+}

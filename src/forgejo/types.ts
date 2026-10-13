@@ -311,6 +311,16 @@ export interface ForgejoBranch {
   protected?: boolean
 }
 
+/** The commit that a change to files made, which matches no accounts. */
+export interface ForgejoFileCommit {
+  sha: string
+  html_url?: string
+  message?: string
+  author?: { name?: string, email?: string, date?: string }
+  committer?: { name?: string, email?: string, date?: string }
+  parents?: Array<{ sha?: string }>
+}
+
 export interface ForgejoTag {
   name: string
   commit?: { sha?: string, url?: string }

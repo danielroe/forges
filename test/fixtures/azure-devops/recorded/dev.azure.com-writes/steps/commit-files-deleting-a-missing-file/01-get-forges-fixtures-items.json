@@ -1,0 +1,37 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://dev.azure.com/forges/forges-fixtures/_apis/git/repositories/forges-fixtures/items?scopePath=%2Fforges-fixtures%2F20261012114218-files&recursionLevel=oneLevel&versionDescriptor.version=7a70236803bc0e3b7bf97aa2af0e91066d5f8a5e&versionDescriptor.versionType=commit&api-version=7.1"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "count": 3,
+      "value": [
+        {
+          "objectId": "d3ec56f6af70dce21d560a255dffaeb53af77aab",
+          "gitObjectType": "tree",
+          "commitId": "7a70236803bc0e3b7bf97aa2af0e91066d5f8a5e",
+          "path": "/forges-fixtures/20261012114218-files",
+          "isFolder": true,
+          "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/items?path=%2Fforges-fixtures%2F20261012114218-files&versionType=Commit&version=7a70236803bc0e3b7bf97aa2af0e91066d5f8a5e&versionOptions=None"
+        },
+        {
+          "objectId": "999ce7e1f6c633f18eee74f473072eeb73167d2a",
+          "gitObjectType": "blob",
+          "commitId": "7a70236803bc0e3b7bf97aa2af0e91066d5f8a5e",
+          "path": "/forges-fixtures/20261012114218-files/author.md",
+          "url": "https://dev.azure.com/forges/forges-fixtures/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/items//forges-fixtures/20261012114218-files/author.md?versionType=Commit&version=7a70236803bc0e3b7bf97aa2af0e91066d5f8a5e&versionOptions=None"
+        },
+        {
+          "objectId": "837e66fa3cb8e2a9a33e0797af138ae8d495993f",
+          "gitObjectType": "blob",
+          "commitId": "7a70236803bc0e3b7bf97aa2af0e91066d5f8a5e",
+          "path": "/forges-fixtures/20261012114218-files/text.md",
+          "url": "https://dev.azure.com/forges/forges-fixtures/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/items//forges-fixtures/20261012114218-files/text.md?versionType=Commit&version=7a70236803bc0e3b7bf97aa2af0e91066d5f8a5e&versionOptions=None"
+        }
+      ]
+    }
+  }
+}

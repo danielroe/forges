@@ -14,6 +14,7 @@ import type {
   Comment,
   CommentRef,
   Commit,
+  CommitFilesInput,
   CommitQuery,
   CommitSearchQuery,
   ContributorStats,
@@ -72,6 +73,7 @@ import type { ForgeVerb } from '../supports.ts'
 import type { WebLinks } from '../web.ts'
 import type { AppCredentials, GitHubAuth } from './auth.ts'
 import type {
+  CreateCommitOnBranchResult,
   DiscussionCommentsResult,
   DiscussionThreadResult,
   GraphQLComment,
@@ -99,6 +101,8 @@ import type {
   GitHubContributor,
   GitHubContributorStats,
   GitHubFeedEvent,
+  GitHubGitCommit,
+  GitHubGitRef,
   GitHubHook,
   GitHubHookDelivery,
   GitHubInstallation,
@@ -119,9 +123,9 @@ import type {
   GitHubWorkflowRun,
 } from './types.ts'
 import { WRITE_VERBS } from '../capabilities.ts'
-import { fromBase64, toFileContent } from '../contents.ts'
+import { changeBase64, existingFiles, fromBase64, inDirectories, isSha, splitMessage, toFileContent } from '../contents.ts'
 import { defineForgeProvider, perKind, supportOnly, verb } from '../define.ts'
-import { ForbiddenError, ForgeApiError, ForgeError, ForgeTimeoutError, InsufficientScopeError, MergeBlockedError, NotFoundError, ReadOnlyError, soleMergeMethod, toMergeError, UnsupportedOperationError } from '../errors.ts'
+import { BranchMovedError, ForbiddenError, ForgeApiError, ForgeError, ForgeTimeoutError, InsufficientScopeError, MergeBlockedError, NotFoundError, ReadOnlyError, soleMergeMethod, toMergeError, UnsupportedOperationError } from '../errors.ts'
 import { anySignal, sleep } from '../fetch.ts'
 import { isNamespaceRef, isResolvedThread, reactionContent } from '../model.ts'
 import { actorLogin, createListing, forgeIterable, getManyConcurrently, hostOf, iteratePages, memo, milestoneId, phased, requireIssueOrPull, requireThread, resolveToken, summariseChecks, teamOrg, toDate, toPage, toWarning, versionAtLeast, withEtag } from '../utils.ts'
@@ -144,6 +148,7 @@ import {
   toContributorStats,
   toDependabotAlert,
   toEvent,
+  toGitCommit,
   toLabel,
   toMilestone,
   toNotification,
@@ -234,6 +239,29 @@ const ISSUE_LIKE = { issue: true, pull_request: true, discussion: true } as cons
 
 function repoPath(repo: RepoRef): string {
   return `/repos/${encodeURIComponent(repo.owner)}/${encodeURIComponent(repo.name)}`
+}
+
+function branchPath(branch: string): string {
+  return branch.split('/').map(encodeURIComponent).join('/')
+}
+
+/**
+ * GitHub's refusal to move a branch that is no longer at the commit a write built on, as `BranchMovedError`,
+ * and to delete a file that does not exist, as `NotFoundError`.
+ */
+function commitError(error: unknown): unknown {
+  if (!(error instanceof ForgeApiError) || error.constructor !== ForgeApiError) {
+    return error
+  }
+  const text = `${error.message} ${error.body}`
+  const context = { forge: error.forge, instance: error.instance, url: error.url, method: error.method }
+  if (/Expected branch to point to|not a fast[- ]forward/i.test(text)) {
+    return new BranchMovedError('The branch no longer points at the commit the change was made on', error.status, error.body, context, { cause: error })
+  }
+  if (/requested for deletion which does not exist/i.test(text)) {
+    return new NotFoundError('A file to delete does not exist', error.status, error.body, context, { cause: error })
+  }
+  return error
 }
 
 function threadPath(ref: ResolvedThreadRef): string {
@@ -1313,6 +1341,86 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
     return list(`${repoPath(repo)}/releases`, listOptions, (raw: GitHubRelease) => toRelease(repo, raw))
   }
 
+  /** The commit that `input` builds on: `createFrom` resolved, `expectedHead`, or the head of the branch. */
+  async function commitParent(repo: RepoRef, input: CommitFilesInput, options?: BaseOptions): Promise<string> {
+    if (input.createFrom !== undefined) {
+      return isSha(input.createFrom) ? input.createFrom : (await fetcher.json<GitHubCommit>(`${repoPath(repo)}/commits/${encodeURIComponent(input.createFrom)}`, { signal: options?.signal })).data.sha
+    }
+    return input.expectedHead ?? (await fetcher.json<GitHubGitRef>(`${repoPath(repo)}/git/ref/heads/${branchPath(input.branch)}`, { signal: options?.signal })).data.object.sha
+  }
+
+  async function createBranch(repo: RepoRef, branch: string, sha: string, options?: BaseOptions): Promise<void> {
+    await fetcher.json(`${repoPath(repo)}/git/refs`, { method: 'POST', json: { ref: `refs/heads/${branch}`, sha }, signal: options?.signal })
+  }
+
+  /** One `createCommitOnBranch` mutation, which GitHub signs and attributes to the credential's account. */
+  async function commitOnBranch(repo: RepoRef, input: CommitFilesInput, options?: BaseOptions): Promise<Commit> {
+    const head = await commitParent(repo, input, options)
+    if (input.createFrom !== undefined) {
+      await createBranch(repo, input.branch, head, options)
+    }
+    const fileChanges = {
+      additions: input.changes.flatMap(change => change.content === null ? [] : [{ path: change.path, contents: changeBase64(change.content) }]),
+      deletions: input.changes.flatMap(change => change.content === null ? [{ path: change.path }] : []),
+    }
+    try {
+      const [data, { toGraphQLCommit }] = await Promise.all([
+        graphql<CreateCommitOnBranchResult>('CREATE_COMMIT_ON_BRANCH', {
+          input: { branch: { repositoryNameWithOwner: `${repo.owner}/${repo.name}`, branchName: input.branch }, expectedHeadOid: head, message: splitMessage(input.message), fileChanges },
+        }, options),
+        import('./graphql.ts'),
+      ])
+      return toGraphQLCommit(repo, data.createCommitOnBranch.commit)
+    }
+    catch (error) {
+      if (input.createFrom !== undefined) {
+        await fetcher.raw(`${repoPath(repo)}/git/refs/heads/${branchPath(input.branch)}`, { method: 'DELETE' }).catch(() => {})
+      }
+      throw commitError(error)
+    }
+  }
+
+  /** Blobs, a tree, a commit and a ref update through the Git database API, which can name an author. */
+  async function commitTree(repo: RepoRef, input: CommitFilesInput, options?: BaseOptions): Promise<Commit> {
+    const signal = options?.signal
+    const parent = await commitParent(repo, input, options)
+    const tree = async (directory: string) => (await fetcher.json<GitHubTree>(`${repoPath(repo)}/git/trees/${encodeURIComponent(directory ? `${parent}:${directory}` : parent)}`, { signal })).data
+    const root = memo(() => tree(''))
+    const existing = await existingFiles(input.changes, inDirectories(async (directory) => {
+      try {
+        const data = directory ? await tree(directory) : await root()
+        return new Map(data.tree.filter(entry => entry.type === 'blob').map(entry => [directory ? `${directory}/${entry.path}` : entry.path, entry]))
+      }
+      catch (error) {
+        if (error instanceof NotFoundError) {
+          return undefined
+        }
+        throw error
+      }
+    }), context)
+    const entries = await Promise.all(input.changes.map(async ({ path, content }) => {
+      const mode = existing.get(path)?.mode ?? '100644'
+      if (content === null || typeof content === 'string') {
+        return { path, mode, type: 'blob', ...content === null ? { sha: null } : { content } }
+      }
+      const { data } = await fetcher.json<{ sha: string }>(`${repoPath(repo)}/git/blobs`, { method: 'POST', json: { content: changeBase64(content), encoding: 'base64' }, signal })
+      return { path, mode, type: 'blob', sha: data.sha }
+    }))
+    const { data: created } = await fetcher.json<GitHubTree>(`${repoPath(repo)}/git/trees`, { method: 'POST', json: { base_tree: (await root()).sha, tree: entries }, signal })
+    const { data: commit } = await fetcher.json<GitHubGitCommit>(`${repoPath(repo)}/git/commits`, {
+      method: 'POST',
+      json: { message: input.message, tree: created.sha, parents: [parent], author: input.author },
+      signal,
+    })
+    if (input.createFrom !== undefined) {
+      await createBranch(repo, input.branch, commit.sha, options)
+    }
+    else {
+      await fetcher.json(`${repoPath(repo)}/git/refs/heads/${branchPath(input.branch)}`, { method: 'PATCH', json: { sha: commit.sha, force: false }, mapError: commitError, signal })
+    }
+    return toGitCommit(repo, commit)
+  }
+
   async function writeRelease(repo: RepoRef, path: string, method: 'POST' | 'PATCH', input: ReleaseUpdate, options?: BaseOptions): Promise<Release> {
     const { data } = await fetcher.json<GitHubRelease>(path, {
       method,
@@ -1537,6 +1645,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
       resolveRef: verb(true, async (repo, ref, options) => (await fetcher.json<GitHubCommit>(`${repoPath(repo)}/commits/${encodeURIComponent(ref)}`, { signal: options?.signal })).data.sha),
       commitsPage: verb(true, commitsPage),
       commit: verb(true, async (repo, sha, options) => toCommit(repo, (await fetcher.json<GitHubCommit>(`${repoPath(repo)}/commits/${sha}`, { signal: options?.signal })).data)),
+      commitFiles: verb(true, (repo, input, options) => input.author ? commitTree(repo, input, options) : commitOnBranch(repo, input, options)),
       compare: verb(true, async (repo, base, head, options) => {
         const { data } = await fetcher.json<GitHubComparison>(`${repoPath(repo)}/compare/${encodeURIComponent(base)}...${encodeURIComponent(head)}`, { signal: options?.signal })
         return {

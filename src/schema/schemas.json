@@ -1878,6 +1878,10 @@
             "$ref": "#/components/schemas/Support",
             "description": "Support for `contents.compare()`."
           },
+          "commitFiles": {
+            "$ref": "#/components/schemas/Support",
+            "description": "Support for `contents.commitFiles()`."
+          },
           "threadFiles": {
             "$ref": "#/components/schemas/Support",
             "description": "`threads.files` and `threads.commits` on a pull request."
@@ -1896,6 +1900,7 @@
           "commits",
           "commit",
           "compare",
+          "commitFiles",
           "threadFiles",
           "threadCommits"
         ],

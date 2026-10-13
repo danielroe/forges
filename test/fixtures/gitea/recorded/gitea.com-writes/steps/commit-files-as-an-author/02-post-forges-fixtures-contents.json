@@ -1,0 +1,119 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://gitea.com/api/v1/repos/forges-fixtures/forges-fixtures/contents",
+    "body": {
+      "branch": "forges-fixtures/20261012113905-files",
+      "message": "test: add a file from run 20261012113905",
+      "author": {
+        "name": "forges fixtures",
+        "email": "redacted@example.invalid"
+      },
+      "files": [
+        {
+          "operation": "update",
+          "path": "forges-fixtures/20261012113905-files/text.md",
+          "content": "Q2hhbmdlZCBhZ2FpbiBieSBmb3JnZXMuCg==",
+          "sha": "822caeaed627727e132d529e319c0e4661e42a63"
+        },
+        {
+          "operation": "create",
+          "path": "forges-fixtures/20261012113905-files/author.md",
+          "content": "V3JpdHRlbiBieSBhbiBhdXRob3IuCg=="
+        }
+      ]
+    }
+  },
+  "response": {
+    "status": 201,
+    "headers": {},
+    "body": {
+      "files": [
+        {
+          "name": "text.md",
+          "path": "forges-fixtures/20261012113905-files/text.md",
+          "sha": "837e66fa3cb8e2a9a33e0797af138ae8d495993f",
+          "last_commit_sha": "247a7478cbd7ebdbb0a4ef68b468369b823da8a0",
+          "last_committer_date": "2026-10-13T19:51:28Z",
+          "last_author_date": "2026-10-13T19:51:28Z",
+          "type": "file",
+          "mode": "100644",
+          "size": 25,
+          "encoding": "base64",
+          "content": "Q2hhbmdlZCBhZ2FpbiBieSBmb3JnZXMuCg==",
+          "target": null,
+          "url": "https://gitea.com/api/v1/repos/forges-fixtures/forges-fixtures/contents/forges-fixtures/20261012113905-files/text.md?ref=forges-fixtures%2F20261012113905-files",
+          "html_url": "https://gitea.com/forges-fixtures/forges-fixtures/src/branch/forges-fixtures/20261012113905-files/forges-fixtures/20261012113905-files/text.md",
+          "git_url": "https://gitea.com/api/v1/repos/forges-fixtures/forges-fixtures/git/blobs/837e66fa3cb8e2a9a33e0797af138ae8d495993f",
+          "download_url": "https://gitea.com/forges-fixtures/forges-fixtures/raw/branch/forges-fixtures/20261012113905-files/forges-fixtures/20261012113905-files/text.md",
+          "submodule_git_url": null,
+          "_links": {
+            "self": "https://gitea.com/api/v1/repos/forges-fixtures/forges-fixtures/contents/forges-fixtures/20261012113905-files/text.md?ref=forges-fixtures%2F20261012113905-files",
+            "git": "https://gitea.com/api/v1/repos/forges-fixtures/forges-fixtures/git/blobs/837e66fa3cb8e2a9a33e0797af138ae8d495993f",
+            "html": "https://gitea.com/forges-fixtures/forges-fixtures/src/branch/forges-fixtures/20261012113905-files/forges-fixtures/20261012113905-files/text.md"
+          }
+        },
+        {
+          "name": "author.md",
+          "path": "forges-fixtures/20261012113905-files/author.md",
+          "sha": "999ce7e1f6c633f18eee74f473072eeb73167d2a",
+          "last_commit_sha": "247a7478cbd7ebdbb0a4ef68b468369b823da8a0",
+          "last_committer_date": "2026-10-13T19:51:28Z",
+          "last_author_date": "2026-10-13T19:51:28Z",
+          "type": "file",
+          "mode": "100644",
+          "size": 22,
+          "encoding": "base64",
+          "content": "V3JpdHRlbiBieSBhbiBhdXRob3IuCg==",
+          "target": null,
+          "url": "https://gitea.com/api/v1/repos/forges-fixtures/forges-fixtures/contents/forges-fixtures/20261012113905-files/author.md?ref=forges-fixtures%2F20261012113905-files",
+          "html_url": "https://gitea.com/forges-fixtures/forges-fixtures/src/branch/forges-fixtures/20261012113905-files/forges-fixtures/20261012113905-files/author.md",
+          "git_url": "https://gitea.com/api/v1/repos/forges-fixtures/forges-fixtures/git/blobs/999ce7e1f6c633f18eee74f473072eeb73167d2a",
+          "download_url": "https://gitea.com/forges-fixtures/forges-fixtures/raw/branch/forges-fixtures/20261012113905-files/forges-fixtures/20261012113905-files/author.md",
+          "submodule_git_url": null,
+          "_links": {
+            "self": "https://gitea.com/api/v1/repos/forges-fixtures/forges-fixtures/contents/forges-fixtures/20261012113905-files/author.md?ref=forges-fixtures%2F20261012113905-files",
+            "git": "https://gitea.com/api/v1/repos/forges-fixtures/forges-fixtures/git/blobs/999ce7e1f6c633f18eee74f473072eeb73167d2a",
+            "html": "https://gitea.com/forges-fixtures/forges-fixtures/src/branch/forges-fixtures/20261012113905-files/forges-fixtures/20261012113905-files/author.md"
+          }
+        }
+      ],
+      "commit": {
+        "url": "https://gitea.com/api/v1/repos/forges-fixtures/forges-fixtures/git/commits/247a7478cbd7ebdbb0a4ef68b468369b823da8a0",
+        "sha": "247a7478cbd7ebdbb0a4ef68b468369b823da8a0",
+        "created": "0001-01-01T00:00:00Z",
+        "html_url": "https://gitea.com/forges-fixtures/forges-fixtures/commit/247a7478cbd7ebdbb0a4ef68b468369b823da8a0",
+        "author": {
+          "name": "forges fixtures",
+          "email": "redacted@example.invalid",
+          "date": "2026-10-13T19:51:28Z"
+        },
+        "committer": {
+          "name": "forges fixtures",
+          "email": "redacted@example.invalid",
+          "date": "2026-10-13T19:51:28Z"
+        },
+        "parents": [
+          {
+            "url": "https://gitea.com/api/v1/repos/forges-fixtures/forges-fixtures/git/commits/d59f6823695cfd1586ca356035ffd40021ea834b",
+            "sha": "d59f6823695cfd1586ca356035ffd40021ea834b",
+            "created": "0001-01-01T00:00:00Z"
+          }
+        ],
+        "message": "test: add a file from run 20261012113905\n",
+        "tree": {
+          "url": "https://gitea.com/api/v1/repos/forges-fixtures/forges-fixtures/git/trees/04d6220be8b408b47c73c81bc33a46451ffbd79f",
+          "sha": "04d6220be8b408b47c73c81bc33a46451ffbd79f",
+          "created": "0001-01-01T00:00:00Z"
+        }
+      },
+      "verification": {
+        "verified": false,
+        "reason": "gpg.error.not_signed_commit",
+        "signature": "",
+        "signer": null,
+        "payload": ""
+      }
+    }
+  }
+}

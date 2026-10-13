@@ -1,0 +1,23 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/git/refs",
+    "body": {
+      "ref": "refs/heads/forges-fixtures/20261012113502-files",
+      "sha": "01a27db0455f964f5035ca452074eec5a33addb3"
+    }
+  },
+  "response": {
+    "status": 422,
+    "headers": {
+      "x-ratelimit-limit": "5000",
+      "x-ratelimit-remaining": "4955",
+      "x-ratelimit-reset": "1791924278"
+    },
+    "body": {
+      "message": "Reference already exists",
+      "documentation_url": "https://docs.github.com/rest/git/refs#create-a-reference",
+      "status": "422"
+    }
+  }
+}

@@ -155,6 +155,7 @@ Artifacts sends no webhooks. It publishes [events](https://developers.cloudflare
 | `contents.commits` | ✅ | ❌ |
 | `contents.commit` | ✅ | ❌ |
 | `contents.compare` | ❌ | ❌ |
+| `contents.commitFiles` | ❌ | ❌ |
 | `contents.threadFiles` | ❌ | ❌ |
 | `contents.threadCommits` | ❌ | ❌ |
 | `reviews.list` | ❌ | ❌ |

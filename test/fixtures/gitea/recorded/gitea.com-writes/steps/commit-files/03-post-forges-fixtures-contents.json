@@ -1,0 +1,92 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://gitea.com/api/v1/repos/forges-fixtures/forges-fixtures/contents",
+    "body": {
+      "branch": "forges-fixtures/20261012113905-files",
+      "message": "test: change files from run 20261012113905\n\nUpdates one file and deletes another.",
+      "files": [
+        {
+          "operation": "update",
+          "path": "forges-fixtures/20261012113905-files/text.md",
+          "content": "Q2hhbmdlZCBieSBmb3JnZXMuCg==",
+          "sha": "6ab3d6f18b10caee0a688a59687bb197f32103cf"
+        },
+        {
+          "operation": "delete",
+          "path": "forges-fixtures/20261012113905-files/bytes.bin",
+          "sha": "25c851ed069d02318bf068f936150b642128f0e7"
+        }
+      ]
+    }
+  },
+  "response": {
+    "status": 201,
+    "headers": {},
+    "body": {
+      "files": [
+        {
+          "name": "text.md",
+          "path": "forges-fixtures/20261012113905-files/text.md",
+          "sha": "822caeaed627727e132d529e319c0e4661e42a63",
+          "last_commit_sha": "d59f6823695cfd1586ca356035ffd40021ea834b",
+          "last_committer_date": "2026-10-13T19:51:27Z",
+          "last_author_date": "2026-10-13T19:51:27Z",
+          "type": "file",
+          "mode": "100644",
+          "size": 19,
+          "encoding": "base64",
+          "content": "Q2hhbmdlZCBieSBmb3JnZXMuCg==",
+          "target": null,
+          "url": "https://gitea.com/api/v1/repos/forges-fixtures/forges-fixtures/contents/forges-fixtures/20261012113905-files/text.md?ref=forges-fixtures%2F20261012113905-files",
+          "html_url": "https://gitea.com/forges-fixtures/forges-fixtures/src/branch/forges-fixtures/20261012113905-files/forges-fixtures/20261012113905-files/text.md",
+          "git_url": "https://gitea.com/api/v1/repos/forges-fixtures/forges-fixtures/git/blobs/822caeaed627727e132d529e319c0e4661e42a63",
+          "download_url": "https://gitea.com/forges-fixtures/forges-fixtures/raw/branch/forges-fixtures/20261012113905-files/forges-fixtures/20261012113905-files/text.md",
+          "submodule_git_url": null,
+          "_links": {
+            "self": "https://gitea.com/api/v1/repos/forges-fixtures/forges-fixtures/contents/forges-fixtures/20261012113905-files/text.md?ref=forges-fixtures%2F20261012113905-files",
+            "git": "https://gitea.com/api/v1/repos/forges-fixtures/forges-fixtures/git/blobs/822caeaed627727e132d529e319c0e4661e42a63",
+            "html": "https://gitea.com/forges-fixtures/forges-fixtures/src/branch/forges-fixtures/20261012113905-files/forges-fixtures/20261012113905-files/text.md"
+          }
+        },
+        null
+      ],
+      "commit": {
+        "url": "https://gitea.com/api/v1/repos/forges-fixtures/forges-fixtures/git/commits/d59f6823695cfd1586ca356035ffd40021ea834b",
+        "sha": "d59f6823695cfd1586ca356035ffd40021ea834b",
+        "created": "0001-01-01T00:00:00Z",
+        "html_url": "https://gitea.com/forges-fixtures/forges-fixtures/commit/d59f6823695cfd1586ca356035ffd40021ea834b",
+        "author": {
+          "name": "roebot",
+          "email": "redacted@example.invalid",
+          "date": "2026-10-13T19:51:27Z"
+        },
+        "committer": {
+          "name": "roebot",
+          "email": "redacted@example.invalid",
+          "date": "2026-10-13T19:51:27Z"
+        },
+        "parents": [
+          {
+            "url": "https://gitea.com/api/v1/repos/forges-fixtures/forges-fixtures/git/commits/fc8243f1acf0e642a441792b1a0d4c41b953a93a",
+            "sha": "fc8243f1acf0e642a441792b1a0d4c41b953a93a",
+            "created": "0001-01-01T00:00:00Z"
+          }
+        ],
+        "message": "test: change files from run 20261012113905\n\nUpdates one file and deletes another.\n",
+        "tree": {
+          "url": "https://gitea.com/api/v1/repos/forges-fixtures/forges-fixtures/git/trees/97fd1701b430c376464309151834e97de55cece4",
+          "sha": "97fd1701b430c376464309151834e97de55cece4",
+          "created": "0001-01-01T00:00:00Z"
+        }
+      },
+      "verification": {
+        "verified": false,
+        "reason": "gpg.error.not_signed_commit",
+        "signature": "",
+        "signer": null,
+        "payload": ""
+      }
+    }
+  }
+}

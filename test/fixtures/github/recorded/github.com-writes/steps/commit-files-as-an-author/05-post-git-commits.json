@@ -1,0 +1,62 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/git/commits",
+    "body": {
+      "message": "test: add a file from run 20261012113502",
+      "tree": "e006d046280bd13a8922f42c2197cc3af5a510ab",
+      "parents": [
+        "ab84d048fcb22a9aa3c0f150f70b09fcb205c2cc"
+      ],
+      "author": {
+        "name": "forges fixtures",
+        "email": "redacted@example.invalid"
+      }
+    }
+  },
+  "response": {
+    "status": 201,
+    "headers": {
+      "etag": "\"5cbd83f2b9eb460506b8b7b574ecf72298c3474e930c3216b2cfc430fbbb3b11\"",
+      "location": "https://api.github.com/repos/forges-fixtures/forges-fixtures/git/commits/813bcf7bff4533d9a39305032f80fe80dd398d00",
+      "x-ratelimit-limit": "5000",
+      "x-ratelimit-remaining": "4972",
+      "x-ratelimit-reset": "1791924278"
+    },
+    "body": {
+      "sha": "813bcf7bff4533d9a39305032f80fe80dd398d00",
+      "node_id": "C_kwDOVCTdtNoAKDgxM2JjZjdiZmY0NTMzZDlhMzkzMDUwMzJmODBmZTgwZGQzOThkMDA",
+      "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/git/commits/813bcf7bff4533d9a39305032f80fe80dd398d00",
+      "html_url": "https://github.com/forges-fixtures/forges-fixtures/commit/813bcf7bff4533d9a39305032f80fe80dd398d00",
+      "author": {
+        "name": "forges fixtures",
+        "email": "redacted@example.invalid",
+        "date": "2026-10-13T19:45:57Z"
+      },
+      "committer": {
+        "name": "forges fixtures",
+        "email": "redacted@example.invalid",
+        "date": "2026-10-13T19:45:57Z"
+      },
+      "tree": {
+        "sha": "e006d046280bd13a8922f42c2197cc3af5a510ab",
+        "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/git/trees/e006d046280bd13a8922f42c2197cc3af5a510ab"
+      },
+      "message": "test: add a file from run 20261012113502",
+      "parents": [
+        {
+          "sha": "ab84d048fcb22a9aa3c0f150f70b09fcb205c2cc",
+          "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/git/commits/ab84d048fcb22a9aa3c0f150f70b09fcb205c2cc",
+          "html_url": "https://github.com/forges-fixtures/forges-fixtures/commit/ab84d048fcb22a9aa3c0f150f70b09fcb205c2cc"
+        }
+      ],
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      }
+    }
+  }
+}

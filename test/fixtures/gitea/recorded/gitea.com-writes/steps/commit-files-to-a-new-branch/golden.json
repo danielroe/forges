@@ -1,0 +1,29 @@
+{
+  "ref": {
+    "forge": "gitea",
+    "instance": "gitea.com",
+    "repo": {
+      "forge": "gitea",
+      "instance": "gitea.com",
+      "owner": "forges-fixtures",
+      "name": "forges-fixtures"
+    },
+    "sha": "fc8243f1acf0e642a441792b1a0d4c41b953a93a"
+  },
+  "sha": "fc8243f1acf0e642a441792b1a0d4c41b953a93a",
+  "message": "test: add files from run 20261012113905\n",
+  "author": {
+    "name": "roebot",
+    "email": "redacted@example.invalid",
+    "date": "<now>"
+  },
+  "committer": {
+    "name": "roebot",
+    "email": "redacted@example.invalid",
+    "date": "<now>"
+  },
+  "parents": [
+    "2438db9db31a3a73fd8aa63bea21a4528c4b358b"
+  ],
+  "url": "https://gitea.com/forges-fixtures/forges-fixtures/commit/fc8243f1acf0e642a441792b1a0d4c41b953a93a"
+}

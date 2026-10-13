@@ -43,6 +43,16 @@ describe('write recording guard', () => {
     expect(sent).toHaveLength(3)
   })
 
+  it('allows a GraphQL commit only on a branch of the scratch repository', async () => {
+    const { fetch, graphql, sent } = guarded()
+    await fetch(`${api}/repos/bot/forges-fixtures/issues/1`)
+    const commit = (repositoryNameWithOwner: string) => graphql('mutation CreateCommitOnBranch($input: CreateCommitOnBranchInput!) { x }', { input: { branch: { repositoryNameWithOwner, branchName: 'main' }, expectedHeadOid: 'I_kwDOscratch2' } })
+    await commit('bot/forges-fixtures')
+
+    await expect(commit('nuxt/nuxt')).rejects.toThrow(/other than the scratch repositories/)
+    expect(sent).toHaveLength(2)
+  })
+
   it('allows a Tangled record only when it names the scratch repository or the account itself', () => {
     const harness = writeHarness({ forge: 'tangled', baseUrl: 'https://tangled.org', authorization: '', scratch: { forge: 'tangled', instance: 'tangled.org', owner: 'did:plc:bot', name: 'forges-fixtures' } })!
     const write = (method: string, body: unknown) => harness.allows!(`https://pds.example/xrpc/com.atproto.repo.${method}`, body)

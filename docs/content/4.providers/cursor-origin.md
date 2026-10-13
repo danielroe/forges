@@ -177,6 +177,7 @@ Deliveries of `installation.*` events become `installation` events. You register
 | `contents.commits` | unverified | unverified | ❌ | ❌ |
 | `contents.commit` | unverified | unverified | ❌ | ❌ |
 | `contents.compare` | unverified | unverified | ❌ | ❌ |
+| `contents.commitFiles` | ❌ | ❌ | ❌ | ❌ |
 | `contents.threadFiles` | unverified | unverified | ❌ | ❌ |
 | `contents.threadCommits` | unverified | unverified | ❌ | ❌ |
 | `reviews.list` | experimental | experimental | ❌ | ❌ |

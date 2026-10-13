@@ -1,0 +1,108 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.bitbucket.org/2.0/repositories/danielroe/forges-fixtures/refs/branches/forges-fixtures%2F20261012114132-files"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"643f3ae740fd5c859313855b7be89361\"",
+      "x-ratelimit-limit": "1000"
+    },
+    "body": {
+      "name": "forges-fixtures/20261012114132-files",
+      "target": {
+        "type": "commit",
+        "hash": "b0cb90c6d0c2f2e7b0339cb86df2972e7d8b8547",
+        "date": "2026-10-13T19:53:12+00:00",
+        "author": {
+          "type": "author",
+          "raw": "forges fixtures <redacted@example.invalid>"
+        },
+        "message": "test: add a file from run 20261012114132\n",
+        "links": {
+          "self": {
+            "href": "https://api.bitbucket.org/2.0/repositories/danielroe/forges-fixtures/commit/b0cb90c6d0c2f2e7b0339cb86df2972e7d8b8547"
+          },
+          "html": {
+            "href": "https://bitbucket.org/danielroe/forges-fixtures/commits/b0cb90c6d0c2f2e7b0339cb86df2972e7d8b8547"
+          },
+          "diff": {
+            "href": "https://api.bitbucket.org/2.0/repositories/danielroe/forges-fixtures/diff/b0cb90c6d0c2f2e7b0339cb86df2972e7d8b8547"
+          },
+          "approve": {
+            "href": "https://api.bitbucket.org/2.0/repositories/danielroe/forges-fixtures/commit/b0cb90c6d0c2f2e7b0339cb86df2972e7d8b8547/approve"
+          },
+          "comments": {
+            "href": "https://api.bitbucket.org/2.0/repositories/danielroe/forges-fixtures/commit/b0cb90c6d0c2f2e7b0339cb86df2972e7d8b8547/comments"
+          },
+          "statuses": {
+            "href": "https://api.bitbucket.org/2.0/repositories/danielroe/forges-fixtures/commit/b0cb90c6d0c2f2e7b0339cb86df2972e7d8b8547/statuses"
+          },
+          "patch": {
+            "href": "https://api.bitbucket.org/2.0/repositories/danielroe/forges-fixtures/patch/b0cb90c6d0c2f2e7b0339cb86df2972e7d8b8547"
+          }
+        },
+        "parents": [
+          {
+            "hash": "fd871213af606477aca31b25b19a43d8fdb785e6",
+            "links": {
+              "self": {
+                "href": "https://api.bitbucket.org/2.0/repositories/danielroe/forges-fixtures/commit/fd871213af606477aca31b25b19a43d8fdb785e6"
+              },
+              "html": {
+                "href": "https://bitbucket.org/danielroe/forges-fixtures/commits/fd871213af606477aca31b25b19a43d8fdb785e6"
+              }
+            },
+            "type": "commit"
+          }
+        ],
+        "repository": {
+          "type": "repository",
+          "full_name": "danielroe/forges-fixtures",
+          "links": {
+            "self": {
+              "href": "https://api.bitbucket.org/2.0/repositories/danielroe/forges-fixtures"
+            },
+            "html": {
+              "href": "https://bitbucket.org/danielroe/forges-fixtures"
+            },
+            "avatar": {
+              "href": "https://bytebucket.org/ravatar/%7B245afeb9-21de-4a8c-81c0-d45efbf52a8c%7D?ts=default"
+            }
+          },
+          "name": "forges-fixtures",
+          "uuid": "{245afeb9-21de-4a8c-81c0-d45efbf52a8c}"
+        }
+      },
+      "links": {
+        "self": {
+          "href": "https://api.bitbucket.org/2.0/repositories/danielroe/forges-fixtures/refs/branches/forges-fixtures/20261012114132-files"
+        },
+        "commits": {
+          "href": "https://api.bitbucket.org/2.0/repositories/danielroe/forges-fixtures/commits/forges-fixtures/20261012114132-files"
+        },
+        "html": {
+          "href": "https://bitbucket.org/danielroe/forges-fixtures/branch/forges-fixtures/20261012114132-files"
+        },
+        "pullrequest_create": {
+          "href": "https://bitbucket.org/danielroe/forges-fixtures/pull-requests/new?source=forges-fixtures/20261012114132-files&t=1"
+        }
+      },
+      "type": "branch",
+      "merge_strategies": [
+        "merge_commit",
+        "squash",
+        "fast_forward",
+        "squash_fast_forward",
+        "rebase_fast_forward",
+        "rebase_merge"
+      ],
+      "sync_strategies": [
+        "merge_commit",
+        "rebase"
+      ],
+      "default_merge_strategy": "merge_commit"
+    }
+  }
+}

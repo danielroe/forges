@@ -1,0 +1,44 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://dev.azure.com/forges/forges-fixtures/_apis/git/repositories/forges-fixtures/pushes?api-version=7.1",
+    "body": {
+      "refUpdates": [
+        {
+          "name": "refs/heads/forges-fixtures/20261012114218-files",
+          "oldObjectId": "ec2cd4c125dff7bea530856dd577122c957d9629"
+        }
+      ],
+      "commits": [
+        {
+          "comment": "test: change a file from run 20261012114218",
+          "changes": [
+            {
+              "changeType": "edit",
+              "item": {
+                "path": "/forges-fixtures/20261012114218-files/text.md"
+              },
+              "newContent": {
+                "content": "Not written.\n",
+                "contentType": "rawtext"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "response": {
+    "status": 409,
+    "headers": {},
+    "body": {
+      "$id": "1",
+      "innerException": null,
+      "message": "TF401028: The reference 'refs/heads/forges-fixtures/20261012114218-files' has already been updated by another client, so you cannot update it. Please try again.",
+      "typeName": "Microsoft.TeamFoundation.Git.Server.GitReferenceStaleException, Microsoft.TeamFoundation.Git.Server",
+      "typeKey": "GitReferenceStaleException",
+      "errorCode": 0,
+      "eventId": 3000
+    }
+  }
+}

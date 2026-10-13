@@ -1,0 +1,34 @@
+{
+  "ref": {
+    "forge": "gitlab",
+    "instance": "gitlab.com",
+    "repo": {
+      "forge": "gitlab",
+      "instance": "gitlab.com",
+      "owner": "forges-fixtures",
+      "name": "forges-fixtures"
+    },
+    "sha": "134155f1fd9b9699b495859865f3c11163cfa102"
+  },
+  "sha": "134155f1fd9b9699b495859865f3c11163cfa102",
+  "message": "test: change files from run 20261012113957\n\nUpdates one file and deletes another.",
+  "author": {
+    "name": "Daniel Roe",
+    "email": "redacted@example.invalid",
+    "date": "<now>"
+  },
+  "committer": {
+    "name": "Daniel Roe",
+    "email": "redacted@example.invalid",
+    "date": "<now>"
+  },
+  "parents": [
+    "c7acb7351137ca3860d25f4173ca30b86bcf22d2"
+  ],
+  "url": "https://gitlab.com/forges-fixtures/forges-fixtures/-/commit/134155f1fd9b9699b495859865f3c11163cfa102",
+  "stats": {
+    "additions": 1,
+    "deletions": 1,
+    "total": 2
+  }
+}

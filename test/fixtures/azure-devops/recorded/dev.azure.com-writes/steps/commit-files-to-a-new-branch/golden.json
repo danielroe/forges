@@ -1,0 +1,29 @@
+{
+  "ref": {
+    "forge": "azure-devops",
+    "instance": "dev.azure.com",
+    "repo": {
+      "forge": "azure-devops",
+      "instance": "dev.azure.com",
+      "owner": "forges/forges-fixtures",
+      "name": "forges-fixtures"
+    },
+    "sha": "ec2cd4c125dff7bea530856dd577122c957d9629"
+  },
+  "sha": "ec2cd4c125dff7bea530856dd577122c957d9629",
+  "message": "test: add files from run 20261012114218",
+  "author": {
+    "name": "danielroebot outlook.com",
+    "email": "redacted@example.invalid",
+    "date": "<now>"
+  },
+  "committer": {
+    "name": "danielroebot outlook.com",
+    "email": "redacted@example.invalid",
+    "date": "<now>"
+  },
+  "parents": [
+    "654171c15f146e2f7b6ef555b395b1f9e265a941"
+  ],
+  "url": "https://dev.azure.com/forges/forges-fixtures/_git/forges-fixtures/commit/ec2cd4c125dff7bea530856dd577122c957d9629"
+}

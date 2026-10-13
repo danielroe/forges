@@ -1,0 +1,50 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://gitea.com/api/v1/repos/forges-fixtures/forges-fixtures/branches",
+    "body": {
+      "new_branch_name": "forges-fixtures/20261012113905-files",
+      "old_ref_name": "main"
+    }
+  },
+  "response": {
+    "status": 201,
+    "headers": {},
+    "body": {
+      "name": "forges-fixtures/20261012113905-files",
+      "commit": {
+        "id": "2438db9db31a3a73fd8aa63bea21a4528c4b358b",
+        "message": "Merge run 20261012220452\n\nMerged by run 20261012220452\n",
+        "url": "https://gitea.com/forges-fixtures/forges-fixtures/commit/2438db9db31a3a73fd8aa63bea21a4528c4b358b",
+        "author": {
+          "name": "Daniel Roe",
+          "email": "redacted@example.invalid",
+          "username": "danielroe"
+        },
+        "committer": {
+          "name": "Daniel Roe",
+          "email": "redacted@example.invalid",
+          "username": "danielroe"
+        },
+        "verification": {
+          "verified": false,
+          "reason": "gpg.error.not_signed_commit",
+          "signature": "",
+          "signer": null,
+          "payload": ""
+        },
+        "timestamp": "2026-10-12T22:05:23Z",
+        "added": null,
+        "removed": null,
+        "modified": null
+      },
+      "protected": false,
+      "required_approvals": 0,
+      "enable_status_check": false,
+      "status_check_contexts": [],
+      "user_can_push": true,
+      "user_can_merge": true,
+      "effective_branch_protection_name": ""
+    }
+  }
+}

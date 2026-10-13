@@ -1,0 +1,33 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://dev.azure.com/forges/forges-fixtures/_apis/git/repositories/forges-fixtures/refs?filter=heads%2Fforges-fixtures%2F20261012114218-files&api-version=7.1"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "value": [
+        {
+          "name": "refs/heads/forges-fixtures/20261012114218-files",
+          "objectId": "a6079ababc85d0b5ea1c909dcd69f86b2eaa13ba",
+          "creator": {
+            "displayName": "danielroebot outlook.com",
+            "url": "https://spsprodweu6.vssps.visualstudio.com/Ad6317e89-50cc-469c-b506-66b9601cf085/_apis/Identities/567dfc49-0db7-43e6-83c1-d91d91db58b1",
+            "_links": {
+              "avatar": {
+                "href": "https://dev.azure.com/forges/_apis/GraphProfile/MemberAvatars/aad.MzE2OTUzNzAtY2RlZS03NzVkLWEwYjctMzUwYTkyZTJhMjc5"
+              }
+            },
+            "id": "567dfc49-0db7-43e6-83c1-d91d91db58b1",
+            "uniqueName": "redacted@example.invalid",
+            "imageUrl": "https://dev.azure.com/forges/_api/_common/identityImage?id=567dfc49-0db7-43e6-83c1-d91d91db58b1",
+            "descriptor": "aad.MzE2OTUzNzAtY2RlZS03NzVkLWEwYjctMzUwYTkyZTJhMjc5"
+          },
+          "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/refs?filter=heads%2Fforges-fixtures%2F20261012114218-files"
+        }
+      ],
+      "count": 1
+    }
+  }
+}

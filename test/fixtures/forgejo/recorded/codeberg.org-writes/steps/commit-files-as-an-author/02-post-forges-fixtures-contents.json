@@ -1,0 +1,115 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/contents",
+    "body": {
+      "branch": "forges-fixtures/20261011075808-files",
+      "message": "test: add a file from run 20261011075808",
+      "author": {
+        "name": "forges fixtures",
+        "email": "redacted@example.invalid"
+      },
+      "files": [
+        {
+          "operation": "update",
+          "path": "forges-fixtures/20261011075808-files/text.md",
+          "content": "Q2hhbmdlZCBhZ2FpbiBieSBmb3JnZXMuCg==",
+          "sha": "822caeaed627727e132d529e319c0e4661e42a63"
+        },
+        {
+          "operation": "create",
+          "path": "forges-fixtures/20261011075808-files/author.md",
+          "content": "V3JpdHRlbiBieSBhbiBhdXRob3IuCg=="
+        }
+      ]
+    }
+  },
+  "response": {
+    "status": 201,
+    "headers": {},
+    "body": {
+      "files": [
+        {
+          "name": "text.md",
+          "path": "forges-fixtures/20261011075808-files/text.md",
+          "sha": "837e66fa3cb8e2a9a33e0797af138ae8d495993f",
+          "last_commit_sha": "212bea6fbd5e74760e1d48875f5d8fc77b612d93",
+          "last_commit_when": "2026-10-13T21:50:39+02:00",
+          "type": "file",
+          "size": 25,
+          "encoding": "base64",
+          "content": "Q2hhbmdlZCBhZ2FpbiBieSBmb3JnZXMuCg==",
+          "target": null,
+          "url": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/contents/forges-fixtures/20261011075808-files/text.md?ref=forges-fixtures%2F20261011075808-files",
+          "html_url": "https://codeberg.org/forges-fixtures/forges-fixtures/src/branch/forges-fixtures/20261011075808-files/forges-fixtures/20261011075808-files/text.md",
+          "git_url": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/git/blobs/837e66fa3cb8e2a9a33e0797af138ae8d495993f",
+          "download_url": "https://codeberg.org/forges-fixtures/forges-fixtures/raw/branch/forges-fixtures/20261011075808-files/forges-fixtures/20261011075808-files/text.md",
+          "submodule_git_url": null,
+          "_links": {
+            "self": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/contents/forges-fixtures/20261011075808-files/text.md?ref=forges-fixtures%2F20261011075808-files",
+            "git": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/git/blobs/837e66fa3cb8e2a9a33e0797af138ae8d495993f",
+            "html": "https://codeberg.org/forges-fixtures/forges-fixtures/src/branch/forges-fixtures/20261011075808-files/forges-fixtures/20261011075808-files/text.md"
+          }
+        },
+        {
+          "name": "author.md",
+          "path": "forges-fixtures/20261011075808-files/author.md",
+          "sha": "999ce7e1f6c633f18eee74f473072eeb73167d2a",
+          "last_commit_sha": "212bea6fbd5e74760e1d48875f5d8fc77b612d93",
+          "last_commit_when": "2026-10-13T21:50:39+02:00",
+          "type": "file",
+          "size": 22,
+          "encoding": "base64",
+          "content": "V3JpdHRlbiBieSBhbiBhdXRob3IuCg==",
+          "target": null,
+          "url": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/contents/forges-fixtures/20261011075808-files/author.md?ref=forges-fixtures%2F20261011075808-files",
+          "html_url": "https://codeberg.org/forges-fixtures/forges-fixtures/src/branch/forges-fixtures/20261011075808-files/forges-fixtures/20261011075808-files/author.md",
+          "git_url": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/git/blobs/999ce7e1f6c633f18eee74f473072eeb73167d2a",
+          "download_url": "https://codeberg.org/forges-fixtures/forges-fixtures/raw/branch/forges-fixtures/20261011075808-files/forges-fixtures/20261011075808-files/author.md",
+          "submodule_git_url": null,
+          "_links": {
+            "self": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/contents/forges-fixtures/20261011075808-files/author.md?ref=forges-fixtures%2F20261011075808-files",
+            "git": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/git/blobs/999ce7e1f6c633f18eee74f473072eeb73167d2a",
+            "html": "https://codeberg.org/forges-fixtures/forges-fixtures/src/branch/forges-fixtures/20261011075808-files/forges-fixtures/20261011075808-files/author.md"
+          }
+        }
+      ],
+      "commit": {
+        "url": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/git/commits/212bea6fbd5e74760e1d48875f5d8fc77b612d93",
+        "sha": "212bea6fbd5e74760e1d48875f5d8fc77b612d93",
+        "created": "0001-01-01T00:00:00Z",
+        "html_url": "https://codeberg.org/forges-fixtures/forges-fixtures/commit/212bea6fbd5e74760e1d48875f5d8fc77b612d93",
+        "author": {
+          "name": "forges fixtures",
+          "email": "redacted@example.invalid",
+          "date": "2026-10-13T19:50:39Z"
+        },
+        "committer": {
+          "name": "forges fixtures",
+          "email": "redacted@example.invalid",
+          "date": "2026-10-13T19:50:39Z"
+        },
+        "parents": [
+          {
+            "url": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/git/commits/140421af4ef90ac072161d29f64eca59c7aa75c8",
+            "sha": "140421af4ef90ac072161d29f64eca59c7aa75c8",
+            "created": "0001-01-01T00:00:00Z"
+          }
+        ],
+        "message": "test: add a file from run 20261011075808\n",
+        "tree": {
+          "url": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/git/trees/d6946ec809e924c29440287a260d28b33765c23e",
+          "sha": "d6946ec809e924c29440287a260d28b33765c23e",
+          "created": "0001-01-01T00:00:00Z"
+        }
+      },
+      "verification": {
+        "verified": false,
+        "reason": "gpg.error.not_signed_commit",
+        "signature": "",
+        "signer": null,
+        "payload": ""
+      }
+    }
+  }
+}

@@ -1,4 +1,4 @@
-import type { Actor, ChecksSummary, Comment, ForgeEventInput, Milestone, ReactionContent, ResolvedThreadRef, Reviewer, SubscriptionState, Thread, ThreadRef } from '../model.ts'
+import type { Actor, ChecksSummary, Comment, Commit, CommitSignature, ForgeEventInput, Milestone, ReactionContent, RepoRef, ResolvedThreadRef, Reviewer, SubscriptionState, Thread, ThreadRef } from '../model.ts'
 import { toDate, toPullStats } from '../utils.ts'
 
 // Not imported from normalise.ts: when two lazy chunks of a provider import from its main chunk, rolldown keeps the provider in bundles that never use it.
@@ -63,6 +63,44 @@ export const SUBSCRIPTION_STATE = `query SubscriptionState($owner: String!, $nam
 export const UPDATE_SUBSCRIPTION = `mutation UpdateSubscription($id: ID!, $state: SubscriptionState!) {
   updateSubscription(input: { subscribableId: $id, state: $state }) { subscribable { viewerSubscription } }
 }`
+
+const GIT_ACTOR_FIELDS = `name email date user { ${USER_FIELDS} }`
+
+export const CREATE_COMMIT_ON_BRANCH = `mutation CreateCommitOnBranch($input: CreateCommitOnBranchInput!) {
+  createCommitOnBranch(input: $input) {
+    commit { oid message url author { ${GIT_ACTOR_FIELDS} } committer { ${GIT_ACTOR_FIELDS} } parents(first: 2) { nodes { oid } } }
+  }
+}`
+
+interface GraphQLGitActor {
+  name?: string | null
+  email?: string | null
+  date?: string | null
+  user?: GraphQLActor | null
+}
+
+export interface CreateCommitOnBranchResult {
+  createCommitOnBranch: {
+    commit: { oid: string, message: string, url?: string, author?: GraphQLGitActor | null, committer?: GraphQLGitActor | null, parents: { nodes: Array<{ oid: string }> } }
+  }
+}
+
+function toCommitSignature(instance: string, raw: GraphQLGitActor | null | undefined): CommitSignature {
+  return { actor: toGraphQLActor(instance, raw?.user), name: raw?.name ?? undefined, email: raw?.email ?? undefined, date: toDate(raw?.date) }
+}
+
+export function toGraphQLCommit(repo: RepoRef, raw: CreateCommitOnBranchResult['createCommitOnBranch']['commit']): Commit {
+  return {
+    ref: { forge: FORGE, instance: repo.instance, repo, sha: raw.oid },
+    sha: raw.oid,
+    message: raw.message,
+    author: toCommitSignature(repo.instance, raw.author),
+    committer: toCommitSignature(repo.instance, raw.committer),
+    parents: raw.parents.nodes.map(parent => parent.oid),
+    url: raw.url,
+    raw,
+  }
+}
 
 export const SPONSORABLE = `query Sponsorable($login: String!) {
   repositoryOwner(login: $login) {

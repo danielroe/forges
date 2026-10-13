@@ -1,0 +1,90 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/contents",
+    "body": {
+      "branch": "forges-fixtures/20261011075808-files",
+      "message": "test: change files from run 20261011075808\n\nUpdates one file and deletes another.",
+      "files": [
+        {
+          "operation": "update",
+          "path": "forges-fixtures/20261011075808-files/text.md",
+          "content": "Q2hhbmdlZCBieSBmb3JnZXMuCg==",
+          "sha": "6ab3d6f18b10caee0a688a59687bb197f32103cf"
+        },
+        {
+          "operation": "delete",
+          "path": "forges-fixtures/20261011075808-files/bytes.bin",
+          "sha": "25c851ed069d02318bf068f936150b642128f0e7"
+        }
+      ]
+    }
+  },
+  "response": {
+    "status": 201,
+    "headers": {},
+    "body": {
+      "files": [
+        {
+          "name": "text.md",
+          "path": "forges-fixtures/20261011075808-files/text.md",
+          "sha": "822caeaed627727e132d529e319c0e4661e42a63",
+          "last_commit_sha": "140421af4ef90ac072161d29f64eca59c7aa75c8",
+          "last_commit_when": "2026-10-13T21:50:37+02:00",
+          "type": "file",
+          "size": 19,
+          "encoding": "base64",
+          "content": "Q2hhbmdlZCBieSBmb3JnZXMuCg==",
+          "target": null,
+          "url": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/contents/forges-fixtures/20261011075808-files/text.md?ref=forges-fixtures%2F20261011075808-files",
+          "html_url": "https://codeberg.org/forges-fixtures/forges-fixtures/src/branch/forges-fixtures/20261011075808-files/forges-fixtures/20261011075808-files/text.md",
+          "git_url": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/git/blobs/822caeaed627727e132d529e319c0e4661e42a63",
+          "download_url": "https://codeberg.org/forges-fixtures/forges-fixtures/raw/branch/forges-fixtures/20261011075808-files/forges-fixtures/20261011075808-files/text.md",
+          "submodule_git_url": null,
+          "_links": {
+            "self": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/contents/forges-fixtures/20261011075808-files/text.md?ref=forges-fixtures%2F20261011075808-files",
+            "git": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/git/blobs/822caeaed627727e132d529e319c0e4661e42a63",
+            "html": "https://codeberg.org/forges-fixtures/forges-fixtures/src/branch/forges-fixtures/20261011075808-files/forges-fixtures/20261011075808-files/text.md"
+          }
+        },
+        null
+      ],
+      "commit": {
+        "url": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/git/commits/140421af4ef90ac072161d29f64eca59c7aa75c8",
+        "sha": "140421af4ef90ac072161d29f64eca59c7aa75c8",
+        "created": "0001-01-01T00:00:00Z",
+        "html_url": "https://codeberg.org/forges-fixtures/forges-fixtures/commit/140421af4ef90ac072161d29f64eca59c7aa75c8",
+        "author": {
+          "name": "roebot",
+          "email": "redacted@example.invalid",
+          "date": "2026-10-13T19:50:37Z"
+        },
+        "committer": {
+          "name": "roebot",
+          "email": "redacted@example.invalid",
+          "date": "2026-10-13T19:50:37Z"
+        },
+        "parents": [
+          {
+            "url": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/git/commits/f04bd37bc1a541266199db164d9ac8be9ce22ea1",
+            "sha": "f04bd37bc1a541266199db164d9ac8be9ce22ea1",
+            "created": "0001-01-01T00:00:00Z"
+          }
+        ],
+        "message": "test: change files from run 20261011075808\n\nUpdates one file and deletes another.\n",
+        "tree": {
+          "url": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/git/trees/011cde03db88b6c9cf3bb473ccad7f02650700b1",
+          "sha": "011cde03db88b6c9cf3bb473ccad7f02650700b1",
+          "created": "0001-01-01T00:00:00Z"
+        }
+      },
+      "verification": {
+        "verified": false,
+        "reason": "gpg.error.not_signed_commit",
+        "signature": "",
+        "signer": null,
+        "payload": ""
+      }
+    }
+  }
+}

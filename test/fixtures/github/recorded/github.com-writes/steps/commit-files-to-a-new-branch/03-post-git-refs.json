@@ -1,0 +1,30 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/git/refs",
+    "body": {
+      "ref": "refs/heads/forges-fixtures/20261012113502-files",
+      "sha": "01a27db0455f964f5035ca452074eec5a33addb3"
+    }
+  },
+  "response": {
+    "status": 201,
+    "headers": {
+      "etag": "\"ac37e76e4c636a32641d0d5a0025ad94c6af56499b4d993d48c116ab05e63758\"",
+      "location": "https://api.github.com/repos/forges-fixtures/forges-fixtures/git/refs/heads/forges-fixtures/20261012113502-files",
+      "x-ratelimit-limit": "5000",
+      "x-ratelimit-remaining": "4974",
+      "x-ratelimit-reset": "1791924278"
+    },
+    "body": {
+      "ref": "refs/heads/forges-fixtures/20261012113502-files",
+      "node_id": "REF_kwDOVCTdtNoAL3JlZnMvaGVhZHMvZm9yZ2VzLWZpeHR1cmVzLzIwMjYxMDEzMTk0NTM4LWZpbGVz",
+      "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/git/refs/heads/forges-fixtures/20261012113502-files",
+      "object": {
+        "sha": "01a27db0455f964f5035ca452074eec5a33addb3",
+        "type": "commit",
+        "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/git/commits/01a27db0455f964f5035ca452074eec5a33addb3"
+      }
+    }
+  }
+}

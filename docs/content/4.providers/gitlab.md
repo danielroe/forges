@@ -85,6 +85,10 @@ GitLab keys a release by its tag, so `releases.update()` can't change the tag or
 
 The assets of a GitLab release are links to arbitrary URLs and not files that GitLab hosts, so `releases.downloadAsset()` isn't available. To download an asset, fetch `asset.url` yourself.
 
+## Committing files
+
+GitLab can't check the head of a branch as it commits, so with `expectedHead`, `contents.commitFiles()` reads the branch first and rejects with `BranchMovedError` when it has moved. A commit that lands between the two requests isn't caught.
+
 ## Search
 
 `search.commits()` uses GitLab's Advanced Search. GitLab doesn't report whether an instance has Advanced Search enabled, so the capability is `'experimental'`. On an instance without it, the search returns an empty page.
@@ -211,6 +215,7 @@ GitLab has no teams, so a subgroup stands in for one. `orgs.teams()` reads `GET 
 | `contents.commits` | ✅ | ✅ |
 | `contents.commit` | ✅ | ✅ |
 | `contents.compare` | ✅ | ✅ |
+| `contents.commitFiles` | ✅ | ❌ |
 | `contents.threadFiles` | ✅ | ✅ |
 | `contents.threadCommits` | ✅ | ✅ |
 | `reviews.list` | emulated | emulated |

@@ -58,6 +58,7 @@ import type {
   GitHubContributor,
   GitHubContributorStats,
   GitHubDependabotAlert,
+  GitHubGitCommit,
   GitHubHook,
   GitHubHookDelivery,
   GitHubIssue,
@@ -842,6 +843,20 @@ export function toCommit(repo: RepoRef, raw: GitHubCommit): Commit {
     url: raw.html_url,
     ...raw.stats ? { stats: { additions: raw.stats.additions ?? 0, deletions: raw.stats.deletions ?? 0, total: raw.stats.total } } : {},
     ...raw.files ? { files: raw.files.map(toChangedFile) } : {},
+    raw,
+  }
+}
+
+/** A commit from the Git database API, which matches no accounts. */
+export function toGitCommit(repo: RepoRef, raw: GitHubGitCommit): Commit {
+  return {
+    ref: { forge: FORGE, instance: repo.instance, repo, sha: raw.sha },
+    sha: raw.sha,
+    message: raw.message,
+    author: { name: raw.author?.name, email: raw.author?.email, date: toDate(raw.author?.date) },
+    committer: { name: raw.committer?.name, email: raw.committer?.email, date: toDate(raw.committer?.date) },
+    parents: raw.parents?.map(parent => parent.sha) ?? [],
+    url: raw.html_url,
     raw,
   }
 }

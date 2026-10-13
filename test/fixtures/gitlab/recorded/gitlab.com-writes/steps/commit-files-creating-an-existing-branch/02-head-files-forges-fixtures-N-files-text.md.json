@@ -1,0 +1,14 @@
+{
+  "request": {
+    "method": "HEAD",
+    "url": "https://gitlab.com/api/v4/projects/forges-fixtures%2Fforges-fixtures/repository/files/forges-fixtures%2F20261012113957-files%2Ftext.md?ref=5cafa2fc236c691776306f6b4e62d5d2747154cb"
+  },
+  "response": {
+    "status": 404,
+    "headers": {
+      "ratelimit-limit": "2000",
+      "ratelimit-remaining": "1967",
+      "ratelimit-reset": "1791921480"
+    }
+  }
+}

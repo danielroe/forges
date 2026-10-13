@@ -6,6 +6,8 @@ import type {
   CheckState,
   Comment,
   CommentRef,
+  Commit,
+  CommitFilesInput,
   Cursor,
   ForgeEventInput,
   ForgeWarning,
@@ -53,10 +55,10 @@ import type {
   BitbucketSrcEntry,
   BitbucketUser,
 } from './types.ts'
-import { toFileContent } from '../contents.ts'
+import { changeBytes, existingFiles, toFileContent } from '../contents.ts'
 import { toBase64 } from '../crypto.ts'
 import { defineForgeProvider, perKind, verb } from '../define.ts'
-import { ForgeError, MergeConflictError, soleMergeMethod, toMergeError, UnsupportedOperationError } from '../errors.ts'
+import { BranchMovedError, ForgeApiError, ForgeError, MergeConflictError, NotFoundError, soleMergeMethod, toMergeError, UnsupportedOperationError } from '../errors.ts'
 import { isNamespaceRef } from '../model.ts'
 import { createListing, getManyConcurrently, hostOf, mergeCommitMessage, phased, requireThread, resolveToken, summariseChecks, syntheticReview, toPage, toWarning } from '../utils.ts'
 import { nativeEventsFor } from '../webhooks.ts'
@@ -218,6 +220,60 @@ const BITBUCKET: ProviderDefinition<BitbucketOptions, undefined, true> = {
         throw new UnsupportedOperationError(`Only pull requests can be ${action}`, context)
       }
       return ref
+    }
+
+    /**
+     * Bitbucket commits on top of the `parents` it is given, and refuses when the branch is elsewhere,
+     * so the head of the branch is always named. Its response names the commit only in `location`.
+     */
+    async function commitFiles(repo: RepoRef, input: CommitFilesInput, options?: BaseOptions): Promise<Commit> {
+      const signal = options?.signal
+      const parent = input.expectedHead ?? (input.createFrom === undefined
+        ? (await fetcher.json<BitbucketRef>(`${repoPathOf(repo)}/refs/branches/${encodeURIComponent(input.branch)}`, { signal })).data.target?.hash
+        : (await fetcher.json<BitbucketCommitDetail>(`${repoPathOf(repo)}/commit/${encodeURIComponent(input.createFrom)}`, { signal })).data.hash)
+      const deletions = input.changes.filter(change => change.content === null)
+      await existingFiles(deletions, async (path) => {
+        try {
+          return await fetcher.json(`${repoPathOf(repo)}/src/${encodeURIComponent(parent ?? input.branch)}/${path.split('/').map(encodeURIComponent).join('/')}`, { query: { format: 'meta' }, signal })
+        }
+        catch (error) {
+          if (error instanceof NotFoundError) {
+            return undefined
+          }
+          throw error
+        }
+      }, context)
+      const form = new FormData()
+      form.set('message', input.message)
+      form.set('branch', input.branch)
+      if (parent) {
+        form.set('parents', parent)
+      }
+      if (input.author) {
+        form.set('author', `${input.author.name} <${input.author.email}>`)
+      }
+      for (const { path, content } of input.changes) {
+        if (content === null) {
+          form.append('files', path)
+        }
+        else {
+          form.set(path, new Blob([changeBytes(content) as Uint8Array<ArrayBuffer>]), path.slice(path.lastIndexOf('/') + 1))
+        }
+      }
+      const response = await fetcher.raw(`${repoPathOf(repo)}/src`, {
+        method: 'POST',
+        body: form,
+        mapError: error => input.createFrom === undefined && error instanceof ForgeApiError && /is not the head of branch/i.test(error.body)
+          ? new BranchMovedError(`${input.branch} is no longer at ${parent}`, error.status, error.body, context, { cause: error })
+          : error,
+        signal,
+      })
+      await response.body?.cancel()
+      const sha = /\/commit\/(?<sha>[0-9a-f]+)$/i.exec(response.headers.get('location') ?? '')?.groups?.sha
+      if (!sha) {
+        throw new ForgeError('Bitbucket did not say which commit it made', context)
+      }
+      return toCommit(repo, (await fetcher.json<BitbucketCommitDetail>(`${repoPathOf(repo)}/commit/${sha}`, { signal })).data)
     }
 
     /** Bitbucket's source endpoints need an explicit commit or branch, so the main branch stands in. */
@@ -521,6 +577,7 @@ const BITBUCKET: ProviderDefinition<BitbucketOptions, undefined, true> = {
           ])
           return { base, head, aheadBy: commits.length, commits, files, raw: { files, commits } }
         }),
+        commitFiles: verb(true, commitFiles),
       },
       checks: {
         list: verb(true, async (repo, sha, options) => ({ items: await Array.fromAsync(all<BitbucketCommitStatus>(`${repoPathOf(repo)}/commit/${sha}/statuses`, { signal: options?.signal }), raw => toStatusCheck(repo, raw)) })),

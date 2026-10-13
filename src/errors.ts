@@ -143,6 +143,11 @@ export class MergeConflictError extends ForgeApiError {
   override name = 'MergeConflictError'
 }
 
+/** `contents.commitFiles()` was given an `expectedHead`, and the branch no longer points at it. */
+export class BranchMovedError extends ForgeApiError {
+  override name = 'BranchMovedError'
+}
+
 /** A request or a pending merge exceeded `timeout`. */
 export class ForgeTimeoutError extends ForgeError {
   override name = 'ForgeTimeoutError'

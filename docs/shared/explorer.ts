@@ -7,7 +7,7 @@ export type ExplorerField
     | 'login' | 'query' | 'runId' | 'title' | 'body' | 'labels' | 'assignees' | 'reviewers' | 'method' | 'reaction'
     | 'reviewEvent' | 'reviewId' | 'reviewThread' | 'closeReason' | 'milestone' | 'canonical' | 'targetOwner'
     | 'targetName' | 'labelName' | 'colour' | 'role' | 'team' | 'key' | 'commentId' | 'notificationId' | 'webhookId'
-    | 'deliveryId' | 'webhookUrl' | 'secret' | 'checkName' | 'checkState' | 'checkId'
+    | 'deliveryId' | 'webhookUrl' | 'secret' | 'checkName' | 'checkState' | 'checkId' | 'branch' | 'message' | 'content'
 
 /** The values a form holds. Lists are comma-separated. */
 export type ExplorerInput = Record<ExplorerField, string>
@@ -75,6 +75,9 @@ export const EXPLORER_FIELDS: Record<ExplorerField, ExplorerFieldConfig> = {
   checkName: { label: 'Check name', default: 'lint' },
   checkState: { label: 'Check state', items: options('success', 'failure', 'pending', 'neutral'), default: 'success' },
   checkId: { label: 'Check id', default: '789' },
+  branch: { label: 'Branch', default: 'docs/readme' },
+  message: { label: 'Commit message', default: 'docs: update readme' },
+  content: { label: 'File contents', default: '# widgets' },
 }
 
 /** Values for the fields that samples leave out. Writes never run, so these only fill the code. */
@@ -338,6 +341,7 @@ export const EXPLORER_OPERATIONS: ExplorerOperation[] = [
   repoRead('contents.commits', 'Page<Commit>', (p, _, { repo }) => p.contents.commitsPage(repo, perPage)),
   operation('contents.commit', { returns: 'Commit', fields: fields('sha'), args: ({ value }) => `repo, ${value('sha')}`, run: (p, input, { repo }) => p.contents.commit(repo, input.sha) }),
   operation('contents.compare', { returns: 'Comparison', fields: fields('base', 'sha'), args: ({ value }) => `repo, ${value('base')}, ${value('sha')}`, run: (p, input, { repo }) => p.contents.compare(repo, input.base, input.sha) }),
+  operation('contents.commitFiles', { returns: 'Commit', fields: fields('branch', 'message', 'path', 'content'), args: ({ value }) => `repo, {\n  branch: ${value('branch')},\n  message: ${value('message')},\n  changes: [{ path: ${value('path')}, content: ${value('content')} }],\n}` }),
 
   // Checks and CI
   operation('checks.list', { returns: 'Page<Check>', fields: fields('sha'), args: ({ value }) => `repo, ${value('sha')}`, run: (p, input, { repo }) => p.checks.list(repo, input.sha) }),

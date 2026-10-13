@@ -1,0 +1,46 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/branches/forges-fixtures/20261011075808-files"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "name": "forges-fixtures/20261011075808-files",
+      "commit": {
+        "id": "f04bd37bc1a541266199db164d9ac8be9ce22ea1",
+        "message": "test: add files from run 20261011075808\n",
+        "url": "https://codeberg.org/forges-fixtures/forges-fixtures/commit/f04bd37bc1a541266199db164d9ac8be9ce22ea1",
+        "author": {
+          "name": "roebot",
+          "email": "redacted@example.invalid",
+          "username": "roebot"
+        },
+        "committer": {
+          "name": "roebot",
+          "email": "redacted@example.invalid",
+          "username": "roebot"
+        },
+        "verification": {
+          "verified": false,
+          "reason": "gpg.error.not_signed_commit",
+          "signature": "",
+          "signer": null,
+          "payload": ""
+        },
+        "timestamp": "2026-10-13T21:50:35+02:00",
+        "added": null,
+        "removed": null,
+        "modified": null
+      },
+      "protected": false,
+      "required_approvals": 0,
+      "enable_status_check": false,
+      "status_check_contexts": [],
+      "user_can_push": true,
+      "user_can_merge": true,
+      "effective_branch_protection_name": ""
+    }
+  }
+}

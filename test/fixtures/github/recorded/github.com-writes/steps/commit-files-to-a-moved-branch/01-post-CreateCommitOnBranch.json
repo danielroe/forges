@@ -1,0 +1,81 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://api.github.com/graphql",
+    "operationName": "CreateCommitOnBranch",
+    "variables": {
+      "input": {
+        "branch": {
+          "repositoryNameWithOwner": "forges-fixtures/forges-fixtures",
+          "branchName": "forges-fixtures/20261012113502-files"
+        },
+        "expectedHeadOid": "6cfc5c7040cf8ed0b453cab0f08c8b2e02878b06",
+        "message": {
+          "headline": "test: change a file from run 20261012113502"
+        },
+        "fileChanges": {
+          "additions": [
+            {
+              "path": "forges-fixtures/20261012113502-files/text.md",
+              "contents": "Tm90IHdyaXR0ZW4uCg=="
+            }
+          ],
+          "deletions": []
+        }
+      }
+    },
+    "body": {
+      "query": "mutation CreateCommitOnBranch($input: CreateCommitOnBranchInput!) {\n  createCommitOnBranch(input: $input) {\n    commit { oid message url author { name email date user { __typename login avatarUrl url databaseId name } } committer { name email date user { __typename login avatarUrl url databaseId name } } parents(first: 2) { nodes { oid } } }\n  }\n}",
+      "variables": {
+        "input": {
+          "branch": {
+            "repositoryNameWithOwner": "forges-fixtures/forges-fixtures",
+            "branchName": "forges-fixtures/20261012113502-files"
+          },
+          "expectedHeadOid": "6cfc5c7040cf8ed0b453cab0f08c8b2e02878b06",
+          "message": {
+            "headline": "test: change a file from run 20261012113502"
+          },
+          "fileChanges": {
+            "additions": [
+              {
+                "path": "forges-fixtures/20261012113502-files/text.md",
+                "contents": "Tm90IHdyaXR0ZW4uCg=="
+              }
+            ],
+            "deletions": []
+          }
+        }
+      },
+      "operationName": "CreateCommitOnBranch"
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "x-ratelimit-limit": "5000",
+      "x-ratelimit-remaining": "4993",
+      "x-ratelimit-reset": "1791924288"
+    },
+    "body": {
+      "data": {
+        "createCommitOnBranch": null
+      },
+      "errors": [
+        {
+          "type": "STALE_DATA",
+          "path": [
+            "createCommitOnBranch"
+          ],
+          "locations": [
+            {
+              "line": 2,
+              "column": 3
+            }
+          ],
+          "message": "Expected branch to point to \"6cfc5c7040cf8ed0b453cab0f08c8b2e02878b06\" but it did not.  Pull and try again."
+        }
+      ]
+    }
+  }
+}

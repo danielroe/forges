@@ -1,0 +1,57 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://gitlab.com/api/v4/projects/forges-fixtures%2Fforges-fixtures/repository/commits",
+    "body": {
+      "branch": "forges-fixtures/20261012113957-files",
+      "commit_message": "test: change files from run 20261012113957\n\nUpdates one file and deletes another.",
+      "actions": [
+        {
+          "action": "update",
+          "file_path": "forges-fixtures/20261012113957-files/text.md",
+          "content": "Changed by forges.\n"
+        },
+        {
+          "action": "delete",
+          "file_path": "forges-fixtures/20261012113957-files/bytes.bin"
+        }
+      ]
+    }
+  },
+  "response": {
+    "status": 201,
+    "headers": {
+      "etag": "W/\"e4d6b9b07cedc614f4e26360ff28f6ac\"",
+      "ratelimit-limit": "2000",
+      "ratelimit-remaining": "1975",
+      "ratelimit-reset": "1791920880"
+    },
+    "body": {
+      "id": "134155f1fd9b9699b495859865f3c11163cfa102",
+      "short_id": "134155f1",
+      "created_at": "2026-10-13T19:47:55.000+00:00",
+      "parent_ids": [
+        "c7acb7351137ca3860d25f4173ca30b86bcf22d2"
+      ],
+      "title": "test: change files from run 20261012113957",
+      "message": "test: change files from run 20261012113957\n\nUpdates one file and deletes another.",
+      "author_name": "Daniel Roe",
+      "author_email": "redacted@example.invalid",
+      "authored_date": "2026-10-13T19:47:55.000+00:00",
+      "committer_name": "Daniel Roe",
+      "committer_email": "redacted@example.invalid",
+      "committed_date": "2026-10-13T19:47:55.000+00:00",
+      "trailers": {},
+      "extended_trailers": {},
+      "web_url": "https://gitlab.com/forges-fixtures/forges-fixtures/-/commit/134155f1fd9b9699b495859865f3c11163cfa102",
+      "stats": {
+        "additions": 1,
+        "deletions": 1,
+        "total": 2
+      },
+      "status": null,
+      "project_id": 87428720,
+      "last_pipeline": null
+    }
+  }
+}

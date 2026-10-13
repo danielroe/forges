@@ -12,6 +12,7 @@ import type {
   Comment,
   CommentRef,
   Commit,
+  CommitFilesInput,
   EventAction,
   EventDetail,
   EventKind,
@@ -48,7 +49,7 @@ import type { ForgeCapabilities, ForgeOptionsBase, ForgeProvider, ForgeProviderF
 import { toFileContent } from '../contents.ts'
 import { bodyText, headerValue } from '../crypto.ts'
 import { defineForgeProvider, perKind, verb } from '../define.ts'
-import { ForbiddenError, ForgeApiError, NotFoundError } from '../errors.ts'
+import { BranchMovedError, ForbiddenError, ForgeApiError, NotFoundError } from '../errors.ts'
 import { completeEvent } from '../events.ts'
 import { capabilityOf } from '../supports.ts'
 import { getManyConcurrently } from '../utils.ts'
@@ -223,6 +224,8 @@ export interface FakeStore {
     /** Seeded file bytes, keyed by `<ref>:<path>`, with `*` for a file on every ref. */
     files: Map<string, Uint8Array>
     commits: Commit[]
+    /** The head of each branch that `contents.commitFiles()` wrote to. A branch other than the default one holds only its own `<branch>:<path>` files. */
+    branches: Map<string, string>
     /** Seeded release asset bytes, keyed by `<releaseId>:<assetName>`. */
     assets: Map<string, Uint8Array>
   }>
@@ -337,6 +340,7 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
       runs: [],
       files: new Map(),
       commits: [],
+      branches: new Map(),
       assets: new Map(),
     })
   }
@@ -580,6 +584,91 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
       return fallback
     }
     return typeof given === 'object' ? given : Object.fromEntries(Object.keys(fallback).map(kind => [kind, given]))
+  }
+
+  type RepoState = ReturnType<typeof repoState>
+  let commitCount = 0
+
+  const defaultBranchOf = (state: RepoState) => state.repo.defaultBranch ?? 'main'
+
+  /** A branch that `commitFiles()` created holds only its own files, rather than falling back on `*`. */
+  const ownFiles = (state: RepoState, ref: string | undefined) => ref !== undefined && ref !== defaultBranchOf(state) && state.branches.has(ref)
+
+  function headOf(state: RepoState, branch: string): string | undefined {
+    return state.branches.get(branch) ?? (branch === defaultBranchOf(state) ? state.commits.at(-1)?.sha ?? '0'.repeat(40) : undefined)
+  }
+
+  function readFile(state: RepoState, ref: string | undefined, path: string): Uint8Array | undefined {
+    return ownFiles(state, ref)
+      ? state.files.get(`${ref}:${path}`)
+      : state.files.get(`${ref ?? '*'}:${path}`) ?? state.files.get(`*:${path}`)
+  }
+
+  function commitFiles(repo: RepoRef, input: CommitFilesInput): Commit {
+    const state = repoState(repo)
+    const main = defaultBranchOf(state)
+    if (!state.branches.has(main)) {
+      state.branches.set(main, headOf(state, main)!)
+    }
+    const head = headOf(state, input.branch)
+    const from = input.createFrom
+    if (from !== undefined && head !== undefined) {
+      throw new ForgeApiError(`Branch ${input.branch} already exists`, 422, '', origin)
+    }
+    const parent = from === undefined ? head : headOf(state, from) ?? state.commits.find(commit => commit.sha === from.toLowerCase())?.sha
+    if (parent === undefined) {
+      throw notFound(`No branch ${from ?? input.branch} in ${slugOf(repo)}`)
+    }
+    if (input.expectedHead !== undefined && input.expectedHead.toLowerCase() !== parent) {
+      throw new BranchMovedError(`Branch ${input.branch} is at ${parent}, not ${input.expectedHead}`, 409, '', origin)
+    }
+    const read = (path: string) => from === undefined ? readFile(state, input.branch, path) : readFile(state, from, path)
+    const missing = input.changes.find(change => change.content === null && !read(change.path))
+    if (missing) {
+      throw notFound(`No file ${missing.path} on ${from ?? input.branch} in ${slugOf(repo)}`)
+    }
+    if (from !== undefined) {
+      const paths = new Set([...state.files.keys()].flatMap((key) => {
+        const { ref, path } = splitFileKey(key)
+        return ref === '*' || ref === from ? [path] : []
+      }))
+      for (const path of paths) {
+        const bytes = readFile(state, from, path)
+        if (bytes) {
+          state.files.set(`${input.branch}:${path}`, bytes)
+        }
+      }
+    }
+    const files = input.changes.map((change): ChangedFile => {
+      const status: FileStatus = change.content === null ? 'removed' : read(change.path) ? 'modified' : 'added'
+      return { path: change.path, status, statusRaw: status }
+    })
+    const prefix = input.branch === main ? '*' : input.branch
+    for (const change of input.changes) {
+      state.files.delete(`${input.branch}:${change.path}`)
+      if (change.content === null) {
+        state.files.delete(`${prefix}:${change.path}`)
+      }
+      else {
+        state.files.set(`${prefix}:${change.path}`, typeof change.content === 'string' ? new TextEncoder().encode(change.content) : change.content)
+      }
+    }
+    const sha = `fa4e${String(++commitCount).padStart(36, '0')}`
+    const date = new Date()
+    const commit: Commit = {
+      ref: { ...origin, repo: state.repo.ref, sha },
+      sha,
+      message: input.message,
+      author: input.author ? { ...input.author, date } : { actor: actor(viewerLogin), name: viewerLogin, date },
+      committer: { actor: actor(viewerLogin), name: viewerLogin, date },
+      parents: /^0+$/.test(parent) ? [] : [parent],
+      url: `https://${instance}/${slugOf(repo)}/commit/${sha}`,
+      files,
+      raw: { ...input, changes: input.changes.map(change => ({ path: change.path, deleted: change.content === null })) },
+    }
+    state.commits.push(commit)
+    state.branches.set(input.branch, sha)
+    return commit
   }
 
   function setState(ref: ThreadRef, state: ThreadState, action: EventAction): void {
@@ -953,8 +1042,7 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
       },
       contents: {
         file: verb(support('contents.file', true), async (repo, path, fileOptions = {}) => {
-          const state = repoState(repo)
-          const bytes = state.files.get(`${fileOptions.ref ?? '*'}:${path}`) ?? state.files.get(`*:${path}`)
+          const bytes = readFile(repoState(repo), fileOptions.ref, path)
           if (!bytes) {
             throw notFound(`No file ${path} in ${slugOf(repo)}`)
           }
@@ -962,11 +1050,13 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
         }),
         treePage: verb(support('contents.tree', true), async (repo, treeOptions = {}) => {
           const prefix = treeOptions.path?.replace(/^\/|\/$/g, '')
-          const paths = [...repoState(repo).files.keys()]
+          const state = repoState(repo)
+          const own = ownFiles(state, treeOptions.ref)
+          const paths = [...new Set([...state.files.keys()]
             .flatMap((key) => {
               const { ref, path } = splitFileKey(key)
-              return ref === '*' || ref === treeOptions.ref ? [path] : []
-            })
+              return (ref === '*' && !own) || ref === treeOptions.ref ? [path] : []
+            }))]
             .filter(path => !prefix || path.startsWith(`${prefix}/`))
           const entries = treeOptions.recursive
             ? paths
@@ -977,13 +1067,14 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
           return pageOf(entries.toSorted().map((path): TreeEntry => ({
             path,
             type: paths.includes(path) ? 'file' : 'directory',
-            size: repoState(repo).files.get(`*:${path}`)?.byteLength,
+            size: readFile(state, treeOptions.ref, path)?.byteLength,
           })), treeOptions)
         }),
         branchesPage: verb(support('contents.branches', true), async (repo, listOptions = {}) => {
           const state = repoState(repo)
-          const name = state.repo.defaultBranch ?? 'main'
-          return pageOf([{ name, sha: state.commits.at(-1)?.sha ?? '0'.repeat(40), isDefault: true, raw: { name } }], listOptions)
+          const main = defaultBranchOf(state)
+          const names = [main, ...[...state.branches.keys()].filter(name => name !== main)]
+          return pageOf(names.map(name => ({ name, sha: headOf(state, name)!, isDefault: name === main, raw: { name } })), listOptions)
         }),
         tagsPage: verb(support('contents.tags', true), async (repo, listOptions = {}) => pageOf(
           repoState(repo).releases.map(release => ({ name: release.tag, sha: '0'.repeat(40), raw: release.raw })),
@@ -991,11 +1082,11 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
         )),
         resolveRef: verb(support('contents.resolveRef', true), async (repo, ref) => {
           const state = repoState(repo)
-          const commit = state.commits.find(item => item.sha === ref) ?? state.commits.at(-1)
-          if (!commit) {
+          const sha = state.branches.get(ref) ?? (state.commits.find(item => item.sha === ref) ?? state.commits.at(-1))?.sha
+          if (!sha) {
             throw notFound(`No commit for ${ref} in ${slugOf(repo)}`)
           }
-          return commit.sha
+          return sha
         }),
         commitsPage: verb(support('contents.commits', true), async (repo, query = {}) => pageOf(
           repoState(repo).commits
@@ -1027,6 +1118,7 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
             raw: { base, head },
           }
         }),
+        commitFiles: verb(support('contents.commitFiles', true), async (repo, input) => commitFiles(repo, input)),
       },
       checks: {
         list: verb(support('checks.list', true), async (repo, sha) => ({ items: repoState(repo).statuses.get(sha) ?? [] })),

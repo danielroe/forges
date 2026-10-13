@@ -1,0 +1,40 @@
+{
+  "ref": {
+    "forge": "github",
+    "instance": "github.com",
+    "repo": {
+      "forge": "github",
+      "instance": "github.com",
+      "owner": "forges-fixtures",
+      "name": "forges-fixtures"
+    },
+    "sha": "6cfc5c7040cf8ed0b453cab0f08c8b2e02878b06"
+  },
+  "sha": "6cfc5c7040cf8ed0b453cab0f08c8b2e02878b06",
+  "message": "test: add files from run 20261012113502",
+  "author": {
+    "actor": {
+      "forge": "github",
+      "instance": "github.com",
+      "login": "danielroe-bot",
+      "id": "57801166",
+      "name": null,
+      "avatarUrl": "https://avatars.githubusercontent.com/u/57801166?v=4",
+      "url": "https://github.com/danielroe-bot",
+      "typeRaw": "User",
+      "isBotHint": false
+    },
+    "name": "danielroe-bot",
+    "email": "redacted@example.invalid",
+    "date": "<now>"
+  },
+  "committer": {
+    "name": "GitHub",
+    "email": "redacted@example.invalid",
+    "date": "<now>"
+  },
+  "parents": [
+    "01a27db0455f964f5035ca452074eec5a33addb3"
+  ],
+  "url": "https://github.com/forges-fixtures/forges-fixtures/commit/6cfc5c7040cf8ed0b453cab0f08c8b2e02878b06"
+}

@@ -1,11 +1,11 @@
 import type { ProviderContext, ProviderDefinition, ProviderFactoryFunction, ProviderSpec } from '../define.ts'
-import type { Actor, BaseOptions, Check, CheckState, Comment, CommentRef, Cursor, ForgeEventInput, ForgeWarning, ListOptions, MergeMethod, Page, PageOptions, RepoRef, ResolvedThreadRef, Review, ReviewInput, SearchQuery, Thread, ThreadQuery, ThreadRef } from '../model.ts'
+import type { Actor, BaseOptions, Check, CheckState, Comment, CommentRef, Commit, CommitFilesInput, Cursor, ForgeEventInput, ForgeWarning, ListOptions, MergeMethod, Page, PageOptions, RepoRef, ResolvedThreadRef, Review, ReviewInput, SearchQuery, Thread, ThreadQuery, ThreadRef } from '../model.ts'
 import type { AnonymousAuth, BasicAuth, ForgeOptionsBase, TokenAuth } from '../provider.ts'
 import type { WebLinks } from '../web.ts'
 import type { AzureCommit, AzureCommitDiffs, AzureIdentity, AzureItem, AzurePolicyEvaluation, AzurePullRequest, AzureRef, AzureRepository, AzureReviewer, AzureStatus, AzureTeam, AzureTeamMember, AzureThread, AzureWorkItem, AzureWorkItemComment, AzureWorkItemUpdate } from './types.ts'
-import { toFileContent } from '../contents.ts'
+import { changeBase64, existingFiles, inDirectories, toFileContent } from '../contents.ts'
 import { defineForgeProvider, perKind, verb } from '../define.ts'
-import { ForgeError, MergeMethodRequiredError, NotFoundError, toMergeError, UnsupportedOperationError } from '../errors.ts'
+import { BranchMovedError, ForgeApiError, ForgeError, MergeMethodRequiredError, NotFoundError, toMergeError, UnsupportedOperationError } from '../errors.ts'
 import { actorLogin, getManyConcurrently, memo, mergeCommitMessage, phased, requireIssueOrPull, requireThread, resolveToken, summariseChecks, syntheticReview, teamOrg, toWarning } from '../utils.ts'
 import { FORGE, isConversationThread, projectRef, toActor, toBranch, toChangedFile, toCommit, toPolicyCheck, toPullComment, toPullThread, toRepo, toRepoRef, toStatusCheck, toTag, toTeam, toThreadEvents, toTreeEntry, toWorkItemComment, toWorkItemEvents, toWorkItemThread } from './normalise.ts'
 import { azureWeb } from './web.ts'
@@ -74,6 +74,81 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
   const repoPath = (repo: RepoRef) => `${projectPath(repo)}/git/repositories/${enc(repo.externalId ?? repo.name)}`
   const pullPath = (ref: ResolvedThreadRef) => `${repoPath(ref.repo)}/pullRequests/${ref.number}`
   const workItemPath = (ref: ResolvedThreadRef) => `${projectPath(ref.repo)}/wit/workitems/${ref.number}`
+
+  async function resolveSha(repo: RepoRef, ref: string, signal?: AbortSignal): Promise<string> {
+    const { data } = await fetcher.json<{ value: AzureCommit[] }>(`${repoPath(repo)}/commits`, {
+      query: { 'searchCriteria.itemVersion.version': ref, '$top': 1 },
+      signal,
+    })
+    const sha = data.value[0]?.commitId
+    if (!sha) {
+      throw new NotFoundError(`Azure DevOps has no commit for ${ref}`, 404, '', context)
+    }
+    return sha
+  }
+
+  /**
+   * A push names each change as an addition or an edit, so each directory the change touches is listed first.
+   * The ref update names the commit the branch is expected at, and Azure DevOps refuses it with a 409 otherwise.
+   */
+  async function commitFiles(repo: RepoRef, input: CommitFilesInput, options?: BaseOptions): Promise<Commit> {
+    const signal = options?.signal
+    const name = `refs/heads/${input.branch}`
+    let head = input.expectedHead
+    if (input.createFrom !== undefined) {
+      head = versionType(input.createFrom) === 'commit' ? input.createFrom : await resolveSha(repo, input.createFrom, signal)
+    }
+    else if (head === undefined) {
+      const { data } = await fetcher.json<{ value: AzureRef[] }>(`${repoPath(repo)}/refs`, { query: { filter: name.slice('refs/'.length) }, signal })
+      head = data.value.find(ref => ref.name === name)?.objectId
+      if (!head) {
+        throw new NotFoundError(`Azure DevOps has no branch ${input.branch}`, 404, '', context)
+      }
+    }
+    const existing = await existingFiles(input.changes, inDirectories(async (directory) => {
+      try {
+        const { data } = await fetcher.json<{ value: AzureItem[] }>(`${repoPath(repo)}/items`, {
+          query: { 'scopePath': `/${directory}`, 'recursionLevel': 'oneLevel', 'versionDescriptor.version': head, 'versionDescriptor.versionType': 'commit' },
+          signal,
+        })
+        return new Map(data.value.filter(item => !item.isFolder).map(item => [item.path.replace(/^\//, ''), item.objectId ?? item.path]))
+      }
+      catch (error) {
+        if (error instanceof NotFoundError) {
+          return undefined
+        }
+        throw error
+      }
+    }), context)
+    const creating = input.createFrom !== undefined
+    const { data } = await fetcher.json<{ commits?: AzureCommit[] }>(`${repoPath(repo)}/pushes`, {
+      method: 'POST',
+      json: {
+        refUpdates: [{ name, oldObjectId: creating ? '0'.repeat(40) : head }],
+        commits: [{
+          comment: input.message,
+          ...creating && { parents: [head] },
+          ...input.author && { author: input.author },
+          changes: input.changes.map(({ path, content }) => content === null
+            ? { changeType: 'delete', item: { path: `/${path}` } }
+            : {
+                changeType: existing.has(path) ? 'edit' : 'add',
+                item: { path: `/${path}` },
+                newContent: typeof content === 'string' ? { content, contentType: 'rawtext' } : { content: changeBase64(content), contentType: 'base64encoded' },
+              }),
+        }],
+      },
+      mapError: error => !creating && error instanceof ForgeApiError && error.status === 409
+        ? new BranchMovedError(`${input.branch} is no longer at ${head}`, error.status, error.body, context, { cause: error })
+        : error,
+      signal,
+    })
+    const pushed = data.commits?.[0]
+    if (!pushed) {
+      throw new ForgeError('Azure DevOps did not say which commit it made', context)
+    }
+    return toCommit(repo, (await fetcher.json<AzureCommit>(`${repoPath(repo)}/commits/${pushed.commitId}`, { signal })).data)
+  }
   const issueRef = (repo: RepoRef, id: string): ResolvedThreadRef => {
     const { org, project } = scope(repo)
     return { forge: FORGE, instance, repo: projectRef(instance, org, project), kind: 'issue', number: id }
@@ -437,17 +512,7 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
         const { data } = await fetcher.json<{ value: AzureRef[] }>(`${repoPath(repo)}/refs`, { query: { filter: 'tags/', peelTags: 'true' }, signal: listOptions.signal })
         return { items: data.value.map(toTag) }
       }),
-      resolveRef: verb(true, async (repo, ref, options) => {
-        const { data } = await fetcher.json<{ value: AzureCommit[] }>(`${repoPath(repo)}/commits`, {
-          query: { 'searchCriteria.itemVersion.version': ref, '$top': 1 },
-          signal: options?.signal,
-        })
-        const sha = data.value[0]?.commitId
-        if (!sha) {
-          throw new NotFoundError(`Azure DevOps has no commit for ${ref}`, 404, '', context)
-        }
-        return sha
-      }),
+      resolveRef: verb(true, (repo, ref, options) => resolveSha(repo, ref, options?.signal)),
       commitsPage: verb(true, async (repo, query = {}) => {
         const { data } = await fetcher.json<{ value: AzureCommit[] }>(`${repoPath(repo)}/commits`, {
           query: {
@@ -482,6 +547,7 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
           raw: data,
         }
       }),
+      commitFiles: verb(true, commitFiles),
     },
     checks: {
       list: verb(true, async (repo, sha, options) => ({ items: (await fetcher.json<{ value: AzureStatus[] }>(`${repoPath(repo)}/commits/${sha}/statuses`, { signal: options?.signal })).data.value.map(raw => toStatusCheck(repo, raw)) })),

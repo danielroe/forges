@@ -386,6 +386,21 @@ export interface GitHubBlob {
   content: string
 }
 
+export interface GitHubGitRef {
+  ref: string
+  object: { sha: string, type: string }
+}
+
+/** A commit from the Git database API, without the account matches and stats of `/commits`. */
+export interface GitHubGitCommit {
+  sha: string
+  html_url?: string
+  message: string
+  author?: { name?: string, email?: string, date?: string }
+  committer?: { name?: string, email?: string, date?: string }
+  parents?: Array<{ sha: string }>
+}
+
 export interface GitHubTreeEntry {
   path: string
   mode?: string

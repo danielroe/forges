@@ -1,0 +1,106 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://api.github.com/graphql",
+    "operationName": "CreateCommitOnBranch",
+    "variables": {
+      "input": {
+        "branch": {
+          "repositoryNameWithOwner": "forges-fixtures/forges-fixtures",
+          "branchName": "forges-fixtures/20261012113502-files"
+        },
+        "expectedHeadOid": "01a27db0455f964f5035ca452074eec5a33addb3",
+        "message": {
+          "headline": "test: add files from run 20261012113502"
+        },
+        "fileChanges": {
+          "additions": [
+            {
+              "path": "forges-fixtures/20261012113502-files/text.md",
+              "contents": "V3JpdHRlbiBieSBmb3JnZXMuCg=="
+            },
+            {
+              "path": "forges-fixtures/20261012113502-files/bytes.bin",
+              "contents": "AAEC/v8="
+            }
+          ],
+          "deletions": []
+        }
+      }
+    },
+    "body": {
+      "query": "mutation CreateCommitOnBranch($input: CreateCommitOnBranchInput!) {\n  createCommitOnBranch(input: $input) {\n    commit { oid message url author { name email date user { __typename login avatarUrl url databaseId name } } committer { name email date user { __typename login avatarUrl url databaseId name } } parents(first: 2) { nodes { oid } } }\n  }\n}",
+      "variables": {
+        "input": {
+          "branch": {
+            "repositoryNameWithOwner": "forges-fixtures/forges-fixtures",
+            "branchName": "forges-fixtures/20261012113502-files"
+          },
+          "expectedHeadOid": "01a27db0455f964f5035ca452074eec5a33addb3",
+          "message": {
+            "headline": "test: add files from run 20261012113502"
+          },
+          "fileChanges": {
+            "additions": [
+              {
+                "path": "forges-fixtures/20261012113502-files/text.md",
+                "contents": "V3JpdHRlbiBieSBmb3JnZXMuCg=="
+              },
+              {
+                "path": "forges-fixtures/20261012113502-files/bytes.bin",
+                "contents": "AAEC/v8="
+              }
+            ],
+            "deletions": []
+          }
+        }
+      },
+      "operationName": "CreateCommitOnBranch"
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "x-ratelimit-limit": "5000",
+      "x-ratelimit-remaining": "4995",
+      "x-ratelimit-reset": "1791924288"
+    },
+    "body": {
+      "data": {
+        "createCommitOnBranch": {
+          "commit": {
+            "oid": "6cfc5c7040cf8ed0b453cab0f08c8b2e02878b06",
+            "message": "test: add files from run 20261012113502",
+            "url": "https://github.com/forges-fixtures/forges-fixtures/commit/6cfc5c7040cf8ed0b453cab0f08c8b2e02878b06",
+            "author": {
+              "name": "danielroe-bot",
+              "email": "redacted@example.invalid",
+              "date": "2026-10-13T20:45:51+01:00",
+              "user": {
+                "__typename": "User",
+                "login": "danielroe-bot",
+                "avatarUrl": "https://avatars.githubusercontent.com/u/57801166?v=4",
+                "url": "https://github.com/danielroe-bot",
+                "databaseId": 57801166,
+                "name": null
+              }
+            },
+            "committer": {
+              "name": "GitHub",
+              "email": "redacted@example.invalid",
+              "date": "2026-10-13T20:45:51+01:00",
+              "user": null
+            },
+            "parents": {
+              "nodes": [
+                {
+                  "oid": "01a27db0455f964f5035ca452074eec5a33addb3"
+                }
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

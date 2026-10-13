@@ -1,0 +1,47 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.bitbucket.org/2.0/repositories/danielroe/forges-fixtures/src/54394a62d97c0a0e82340b2069a7af538547356a/forges-fixtures/20261012114132-files/bytes.bin?format=meta"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"cset:1:bf0697f76a239bf23e230dae214bf7314314c72d\"",
+      "x-ratelimit-limit": "1000"
+    },
+    "body": {
+      "path": "forges-fixtures/20261012114132-files/bytes.bin",
+      "commit": {
+        "hash": "54394a62d97c0a0e82340b2069a7af538547356a",
+        "links": {
+          "self": {
+            "href": "https://api.bitbucket.org/2.0/repositories/danielroe/forges-fixtures/commit/54394a62d97c0a0e82340b2069a7af538547356a"
+          },
+          "html": {
+            "href": "https://bitbucket.org/danielroe/forges-fixtures/commits/54394a62d97c0a0e82340b2069a7af538547356a"
+          }
+        },
+        "type": "commit"
+      },
+      "type": "commit_file",
+      "attributes": [
+        "binary"
+      ],
+      "escaped_path": "forges-fixtures/20261012114132-files/bytes.bin",
+      "size": 5,
+      "mimetype": "application/octet-stream",
+      "links": {
+        "self": {
+          "href": "https://api.bitbucket.org/2.0/repositories/danielroe/forges-fixtures/src/54394a62d97c0a0e82340b2069a7af538547356a/forges-fixtures/20261012114132-files/bytes.bin"
+        },
+        "meta": {
+          "href": "https://api.bitbucket.org/2.0/repositories/danielroe/forges-fixtures/src/54394a62d97c0a0e82340b2069a7af538547356a/forges-fixtures/20261012114132-files/bytes.bin?format=meta"
+        },
+        "history": {
+          "href": "https://api.bitbucket.org/2.0/repositories/danielroe/forges-fixtures/filehistory/54394a62d97c0a0e82340b2069a7af538547356a/forges-fixtures/20261012114132-files/bytes.bin"
+        }
+      },
+      "has_malware_warning": false
+    }
+  }
+}

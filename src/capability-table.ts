@@ -106,6 +106,7 @@ const TABLE = [
   { capability: 'contents.commits', listing: true },
   { capability: 'contents.commit' },
   { capability: 'contents.compare' },
+  { capability: 'contents.commitFiles', write: true },
   { capability: 'contents.threadFiles', spec: 'threads.filesPage' },
   { capability: 'contents.threadCommits', spec: 'threads.commitsPage' },
   { capability: 'reviews.list', spec: 'threads.reviewsPage' },

@@ -1,0 +1,50 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/branches",
+    "body": {
+      "new_branch_name": "forges-fixtures/20261011075808-files",
+      "old_ref_name": "main"
+    }
+  },
+  "response": {
+    "status": 201,
+    "headers": {},
+    "body": {
+      "name": "forges-fixtures/20261011075808-files",
+      "commit": {
+        "id": "196a797f54f2bb898565b73c6cf9ff347b8b4904",
+        "message": "Merge run 20261012220452\n\nMerged by run 20261012220452\n",
+        "url": "https://codeberg.org/forges-fixtures/forges-fixtures/commit/196a797f54f2bb898565b73c6cf9ff347b8b4904",
+        "author": {
+          "name": "Daniel Roe",
+          "email": "redacted@example.invalid",
+          "username": "danielroe"
+        },
+        "committer": {
+          "name": "Daniel Roe",
+          "email": "redacted@example.invalid",
+          "username": "danielroe"
+        },
+        "verification": {
+          "verified": false,
+          "reason": "gpg.error.not_signed_commit",
+          "signature": "",
+          "signer": null,
+          "payload": ""
+        },
+        "timestamp": "2026-10-13T00:05:49+02:00",
+        "added": null,
+        "removed": null,
+        "modified": null
+      },
+      "protected": false,
+      "required_approvals": 0,
+      "enable_status_check": false,
+      "status_check_contexts": [],
+      "user_can_push": true,
+      "user_can_merge": true,
+      "effective_branch_protection_name": ""
+    }
+  }
+}

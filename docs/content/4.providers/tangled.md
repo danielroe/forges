@@ -258,6 +258,7 @@ A `push` delivery becomes a `push` or `ref` event. Tangled has no API to registe
 | `contents.commits` | ✅ | ✅ |
 | `contents.commit` | ✅ | ✅ |
 | `contents.compare` | ✅ | ✅ |
+| `contents.commitFiles` | ❌ | ❌ |
 | `contents.threadFiles` | ✅ | ✅ |
 | `contents.threadCommits` | ✅ | ✅ |
 | `reviews.list` | ❌ | ❌ |

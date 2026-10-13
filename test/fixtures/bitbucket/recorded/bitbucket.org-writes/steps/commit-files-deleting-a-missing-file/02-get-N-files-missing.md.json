@@ -1,0 +1,13 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.bitbucket.org/2.0/repositories/danielroe/forges-fixtures/src/b0cb90c6d0c2f2e7b0339cb86df2972e7d8b8547/forges-fixtures/20261012114132-files/missing.md?format=meta"
+  },
+  "response": {
+    "status": 404,
+    "headers": {
+      "etag": "\"cset:1:25cb9e17cf3e0997557ee651a45ab76d9ee5dfcb\"",
+      "x-ratelimit-limit": "1000"
+    }
+  }
+}

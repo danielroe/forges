@@ -49,6 +49,7 @@ Because Gitea and Forgejo share an implementation, the following sections of the
 - [Merging](/providers/forgejo#merging)
 - [Reviews](/providers/forgejo#reviews)
 - [Changed files](/providers/forgejo#changed-files)
+- [Committing files](/providers/forgejo#committing-files)
 - [Listing an owner's repositories](/providers/forgejo#listing-an-owners-repositories)
 - [Activity feeds](/providers/forgejo#activity-feeds)
 - [Search](/providers/forgejo#search)
@@ -183,6 +184,7 @@ A label delivery doesn't say which labels were added or removed. When the set of
 | `contents.commits` | ✅ | ✅ |
 | `contents.commit` | ✅ | ✅ |
 | `contents.compare` | ✅ | ✅ |
+| `contents.commitFiles` | ✅ | ❌ |
 | `contents.threadFiles` | ✅ | ✅ |
 | `contents.threadCommits` | ✅ | ✅ |
 | `reviews.list` | ✅ | ✅ |

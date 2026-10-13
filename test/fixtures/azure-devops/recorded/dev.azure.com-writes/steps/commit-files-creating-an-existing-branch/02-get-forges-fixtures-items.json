@@ -1,0 +1,19 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://dev.azure.com/forges/forges-fixtures/_apis/git/repositories/forges-fixtures/items?scopePath=%2Fforges-fixtures%2F20261012114218-files&recursionLevel=oneLevel&versionDescriptor.version=654171c15f146e2f7b6ef555b395b1f9e265a941&versionDescriptor.versionType=commit&api-version=7.1"
+  },
+  "response": {
+    "status": 404,
+    "headers": {},
+    "body": {
+      "$id": "1",
+      "innerException": null,
+      "message": "TF401174: The item 'forges-fixtures/20261012114218-files' could not be found in the repository 'forges-fixtures' at the version specified by '<Commit: 654171c15f146e2f7b6ef555b395b1f9e265a941 >' (resolved to commit '654171c15f146e2f7b6ef555b395b1f9e265a941')",
+      "typeName": "Microsoft.TeamFoundation.Git.Server.GitItemNotFoundException, Microsoft.TeamFoundation.Git.Server",
+      "typeKey": "GitItemNotFoundException",
+      "errorCode": 0,
+      "eventId": 3000
+    }
+  }
+}

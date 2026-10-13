@@ -1,0 +1,34 @@
+{
+  "ref": {
+    "forge": "gitlab",
+    "instance": "gitlab.com",
+    "repo": {
+      "forge": "gitlab",
+      "instance": "gitlab.com",
+      "owner": "forges-fixtures",
+      "name": "forges-fixtures"
+    },
+    "sha": "f9a7b9f8bdbb550887b1673d558422ba3741aaed"
+  },
+  "sha": "f9a7b9f8bdbb550887b1673d558422ba3741aaed",
+  "message": "test: add a file from run 20261012113957",
+  "author": {
+    "name": "forges fixtures",
+    "email": "redacted@example.invalid",
+    "date": "<now>"
+  },
+  "committer": {
+    "name": "Daniel Roe",
+    "email": "redacted@example.invalid",
+    "date": "<now>"
+  },
+  "parents": [
+    "134155f1fd9b9699b495859865f3c11163cfa102"
+  ],
+  "url": "https://gitlab.com/forges-fixtures/forges-fixtures/-/commit/f9a7b9f8bdbb550887b1673d558422ba3741aaed",
+  "stats": {
+    "additions": 2,
+    "deletions": 1,
+    "total": 3
+  }
+}

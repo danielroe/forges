@@ -8,6 +8,7 @@ import type {
   Comment,
   CommentRef,
   Commit,
+  CommitFilesInput,
   CommitSearchQuery,
   Cursor,
   EventKind,
@@ -54,6 +55,7 @@ import type {
   GitLabApprovals,
   GitLabAwardEmoji,
   GitLabBlob,
+  GitLabBranch,
   GitLabCommit,
   GitLabCommitComment,
   GitLabCommitDetail,
@@ -82,9 +84,9 @@ import type {
   GitLabUser,
   GitLabVulnerability,
 } from './types.ts'
-import { fromBase64, toFileContent } from '../contents.ts'
+import { changeBase64, existingFiles, fromBase64, toFileContent } from '../contents.ts'
 import { defineForgeProvider, perKind, verb } from '../define.ts'
-import { AuthenticationRequiredError, InsufficientScopeError, NotFoundError, soleMergeMethod, TokenRevokedError, toMergeError, UnresolvedThreadError, UnsupportedOperationError } from '../errors.ts'
+import { AuthenticationRequiredError, BranchMovedError, InsufficientScopeError, NotFoundError, soleMergeMethod, TokenRevokedError, toMergeError, UnresolvedThreadError, UnsupportedOperationError } from '../errors.ts'
 import { isNamespaceRef, reactionContent } from '../model.ts'
 import { createListing, degradesToWarning, getManyConcurrently, hexColour, memo, memoBy, mergeCommitMessage, milestoneId, phased, requireIssueOrPull, requireThread, resolveToken, syntheticReview, teamOrg, toDate, toPage, toWarning, versionAtLeast, withEtag } from '../utils.ts'
 import { webUrlFor } from '../web.ts'
@@ -275,6 +277,44 @@ const GITLAB: ProviderDefinition<GitLabOptions, undefined, true> = {
 
     function projectPath(repo: RepoRef): string {
       return `/projects/${projectId(repo)}`
+    }
+
+    /** GitLab has no write that creates or updates, so each file is looked up first, at the commit the change builds on. */
+    async function commitFiles(repo: RepoRef, input: CommitFilesInput, options?: BaseOptions): Promise<Commit> {
+      const signal = options?.signal
+      const start = input.createFrom === undefined ? undefined : (await fetcher.json<GitLabCommitDetail>(`${projectPath(repo)}/repository/commits/${encodeURIComponent(input.createFrom)}`, { signal })).data.id
+      if (input.expectedHead !== undefined) {
+        const { data } = await fetcher.json<GitLabBranch>(`${projectPath(repo)}/repository/branches/${encodeURIComponent(input.branch)}`, { signal })
+        if (data.commit?.id !== input.expectedHead.toLowerCase()) {
+          throw new BranchMovedError(`${input.branch} is at ${data.commit?.id}, not ${input.expectedHead}`, 409, '', context)
+        }
+      }
+      const ref = start ?? input.expectedHead ?? input.branch
+      const existing = await existingFiles(input.changes, async (path) => {
+        try {
+          return await fetcher.raw(`${projectPath(repo)}/repository/files/${encodeURIComponent(path)}`, { method: 'HEAD', query: { ref }, signal })
+        }
+        catch (error) {
+          if (error instanceof NotFoundError) {
+            return undefined
+          }
+          throw error
+        }
+      }, context)
+      const { data } = await fetcher.json<GitLabCommitDetail>(`${projectPath(repo)}/repository/commits`, {
+        method: 'POST',
+        json: {
+          branch: input.branch,
+          commit_message: input.message,
+          ...start && { start_sha: start },
+          ...input.author && { author_name: input.author.name, author_email: input.author.email },
+          actions: input.changes.map(({ path, content }) => content === null
+            ? { action: 'delete', file_path: path }
+            : { action: existing.has(path) ? 'update' : 'create', file_path: path, ...typeof content === 'string' ? { content } : { content: changeBase64(content), encoding: 'base64' } }),
+        },
+        signal,
+      })
+      return toCommit(repo, data)
     }
 
     async function ownerReposPage(owner: RepoRef, query: OwnerRepoQuery = {}): Promise<Page<Repo>> {
@@ -819,6 +859,7 @@ const GITLAB: ProviderDefinition<GitLabOptions, undefined, true> = {
             raw: data,
           }
         }),
+        commitFiles: verb(true, commitFiles),
       },
       releases: {
         listPage: verb(true, releasesPage),

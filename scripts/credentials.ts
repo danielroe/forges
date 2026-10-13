@@ -232,6 +232,7 @@ const TASKS: CredentialTask[] = [
   { id: 'review', group: 'Write', label: 'Review PRs', capabilities: ['writes.requestReview', 'reviews.create', 'reviews.submit', 'reviews.approve', 'reviews.reply', 'reviews.resolveThread'] },
   { id: 'merge', group: 'Write', label: 'Merge PRs', capabilities: ['writes.merge', 'writes.approveAndMerge'] },
   { id: 'checks', group: 'Write', label: 'Report checks', capabilities: ['checks.report', 'checks.rerun'] },
+  { id: 'push', group: 'Write', label: 'Commit files', capabilities: ['contents.commitFiles'] },
   { id: 'publish', group: 'Write', label: 'Publish releases', capabilities: ['releases.create', 'releases.update'] },
   { id: 'inbox', group: 'Write', label: 'Triage notifications', capabilities: ['notifications.markRead', 'notifications.markDone', 'notifications.unsubscribe', 'notifications.markAllRead', 'notifications.markAllDone', 'subscriptions.set'] },
   { id: 'receive', group: 'Events', label: 'Receive webhooks', capabilities: ['sources.webhook'], fields: ['WEBHOOK_SECRET'] },

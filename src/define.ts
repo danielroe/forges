@@ -1,5 +1,5 @@
 import type { Fetcher, FetcherOptions } from './fetch.ts'
-import type { ApproveAndMergeOptions, BaseOptions, Check, CiJobRef, Comment, CommentRef, Cursor, DownloadAssetOptions, EventFeedOptions, ForgeEventInput, ForgeInstance, ForgeKind, Installation, ListOptions, MergeOptions, Notification, NotificationListOptions, OwnerRepoQuery, Page, ReleaseAssetRef, Repo, RepoRef, ReviewRef, SecurityAlertKind, SecurityAlertListOptions, Support, TextLimits, ThreadKind, ThreadQuery, ThreadRef, UpsertCommentInput, UpsertCommentResult, WebhookEventType } from './model.ts'
+import type { ApproveAndMergeOptions, BaseOptions, Check, CiJobRef, Comment, CommentRef, CommitFilesInput, Cursor, DownloadAssetOptions, EventFeedOptions, ForgeEventInput, ForgeInstance, ForgeKind, Installation, ListOptions, MergeOptions, Notification, NotificationListOptions, OwnerRepoQuery, Page, ReleaseAssetRef, Repo, RepoRef, ReviewRef, SecurityAlertKind, SecurityAlertListOptions, Support, TextLimits, ThreadKind, ThreadQuery, ThreadRef, UpsertCommentInput, UpsertCommentResult, WebhookEventType } from './model.ts'
 import type {
   AuthKind,
   ChecksApi,
@@ -237,6 +237,8 @@ export interface ProviderSpec<TExtensions extends object = Record<never, never>>
     commit?: Verb<ContentsApi['commit']>
     /** The implementation of `provider.contents.compare()`. */
     compare?: Verb<ContentsApi['compare']>
+    /** The implementation of `provider.contents.commitFiles()`, called once core has checked the input. */
+    commitFiles?: Verb<ContentsApi['commitFiles']>
   }
   /** Cross-repository search. Listings are declared as pages; core derives the iterables. */
   search?: {
@@ -611,6 +613,21 @@ function createProvider<TOptions extends ForgeOptionsBase, TState, HasWeb extend
     'contents.resolveRef': (repo: RepoRef, ref: string, options?: BaseOptions) => isSha(ref)
       ? Promise.resolve(ref.toLowerCase())
       : gate('contents.resolveRef', spec.contents?.resolveRef?.support, spec.contents?.resolveRef?.run)(repo, ref, options),
+    'contents.commitFiles': async (repo: RepoRef, input: CommitFilesInput, options?: BaseOptions) => {
+      const declared = spec.contents?.commitFiles
+      if (!declared || !resolve(declared.support, env)) {
+        throw unsupported('contents.commitFiles')
+      }
+      const changes = input.changes.map(change => ({ ...change, path: change.path.replace(/^\/+/, '') }))
+      const paths = new Set(changes.map(change => change.path))
+      if (!changes.length || paths.has('') || paths.size < changes.length) {
+        throw new TypeError('`changes` must name at least one file, and each file once')
+      }
+      if (input.expectedHead !== undefined && input.createFrom !== undefined) {
+        throw new TypeError('`expectedHead` and `createFrom` cannot be combined: a branch created from `createFrom` has no head yet')
+      }
+      return declared.run(repo, { ...input, changes }, options)
+    },
     'webhooks.verify': handlers ? handlers.verify : () => Promise.reject(unsupported('webhooks.verify')),
     'webhooks.ingest': async (delivery: WebhookDelivery) => {
       if (!handlers) {

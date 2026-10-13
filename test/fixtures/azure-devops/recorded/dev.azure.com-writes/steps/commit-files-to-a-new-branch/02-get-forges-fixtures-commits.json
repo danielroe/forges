@@ -1,0 +1,39 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://dev.azure.com/forges/forges-fixtures/_apis/git/repositories/forges-fixtures/commits?searchCriteria.itemVersion.version=main&%24top=1&api-version=7.1"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "<654171c15f146e2f7b6ef555b395b1f9e265a941>;rel=\"startingCommitId\", <https://dev.azure.com/_apis/git/repositories/forges-fixtures/commits>;rel=\"next\""
+    },
+    "body": {
+      "count": 1,
+      "value": [
+        {
+          "commitId": "654171c15f146e2f7b6ef555b395b1f9e265a941",
+          "author": {
+            "name": "danielroebot outlook.com",
+            "email": "redacted@example.invalid",
+            "date": "2026-10-12T22:05:01Z"
+          },
+          "committer": {
+            "name": "danielroebot outlook.com",
+            "email": "redacted@example.invalid",
+            "date": "2026-10-12T22:05:01Z"
+          },
+          "comment": "Merge run 20261012220452",
+          "commentTruncated": true,
+          "changeCounts": {
+            "Add": 1,
+            "Edit": 0,
+            "Delete": 0
+          },
+          "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/commits/654171c15f146e2f7b6ef555b395b1f9e265a941",
+          "remoteUrl": "https://dev.azure.com/forges/forges-fixtures/_git/forges-fixtures/commit/654171c15f146e2f7b6ef555b395b1f9e265a941"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/branches",
+    "body": {
+      "new_branch_name": "forges-fixtures/20261011075808-files",
+      "old_ref_name": "main"
+    }
+  },
+  "response": {
+    "status": 409,
+    "headers": {},
+    "body": {
+      "message": "The branch already exists.",
+      "url": "https://codeberg.org/api/swagger"
+    }
+  }
+}

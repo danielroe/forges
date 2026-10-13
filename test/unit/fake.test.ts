@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { ContentNotTextError, NotFoundError, UnsupportedOperationError } from '../../src/errors.ts'
+import { BranchMovedError, ContentNotTextError, NotFoundError, UnsupportedOperationError } from '../../src/errors.ts'
 import { fake } from '../../src/fake/index.ts'
 import { commentMarker } from '../../src/model.ts'
 import { signDelivery } from '../../src/testing/index.ts'
@@ -261,6 +261,41 @@ describe('fake forge', () => {
     expect(commit.stats).toEqual({ additions: 3, deletions: 0 })
     expect(files[0]).toMatchObject({ path: 'src/index.ts', status: 'added', patch: '@@ -0,0 +1 @@' })
     expect(commits[0]!.sha).toBe('a'.repeat(40))
+  })
+  it('commits files to a new branch without changing the default one', async () => {
+    const forge = fake({
+      seed: {
+        repos: [{ repo: 'acme/widgets' }],
+        files: [
+          { repo: 'acme/widgets', path: 'README.md', content: '# widgets\n' },
+          { repo: 'acme/widgets', path: 'OLD.md', content: 'old\n' },
+        ],
+        commits: [{ repo: 'acme/widgets', sha: 'a'.repeat(40), message: 'feat: add widgets' }],
+      },
+    }).create()
+    const repo = { forge: 'fake', instance: 'fake.test', owner: 'acme', name: 'widgets' }
+
+    const first = await forge.contents.commitFiles(repo, {
+      branch: 'docs',
+      createFrom: 'main',
+      message: 'docs: update readme',
+      changes: [{ path: '/README.md', content: '# Widgets\n' }, { path: 'OLD.md', content: null }, { path: 'icon.png', content: new Uint8Array([137, 80]) }],
+    })
+    const second = await forge.contents.commitFiles(repo, { branch: 'docs', expectedHead: first.sha, message: 'docs: add guide', changes: [{ path: 'GUIDE.md', content: 'guide\n' }], author: { name: 'Ada', email: 'ada@example.com' } })
+    const tree = await Array.fromAsync(forge.contents.tree(repo, { ref: 'docs' }))
+    const branches = await Array.fromAsync(forge.contents.branches(repo))
+
+    expect(first).toMatchObject({ parents: ['a'.repeat(40)], files: [{ path: 'README.md', status: 'modified' }, { path: 'OLD.md', status: 'removed' }, { path: 'icon.png', status: 'added' }] })
+    expect(second).toMatchObject({ parents: [first.sha], author: { name: 'Ada', email: 'ada@example.com' } })
+    expect((await forge.contents.file(repo, 'README.md', { ref: 'docs', as: 'text' })).content).toBe('# Widgets\n')
+    expect((await forge.contents.file(repo, 'README.md', { as: 'text' })).content).toBe('# widgets\n')
+    expect(tree.map(entry => entry.path)).toEqual(['GUIDE.md', 'README.md', 'icon.png'])
+    expect(branches.map(branch => [branch.name, branch.sha])).toEqual([['main', 'a'.repeat(40)], ['docs', second.sha]])
+    expect(await forge.contents.resolveRef(repo, 'docs')).toBe(second.sha)
+    await expect(forge.contents.commitFiles(repo, { branch: 'docs', expectedHead: first.sha, message: 'stale', changes: [{ path: 'GUIDE.md', content: '' }] })).rejects.toThrow(BranchMovedError)
+    await expect(forge.contents.commitFiles(repo, { branch: 'docs', message: 'missing', changes: [{ path: 'OLD.md', content: null }] })).rejects.toThrow(NotFoundError)
+    await expect(forge.contents.commitFiles(repo, { branch: 'main', message: 'twice', changes: [{ path: 'a', content: '' }, { path: '/a', content: '' }] })).rejects.toThrow(TypeError)
+    await expect(forge.contents.commitFiles(repo, { branch: 'new', createFrom: 'main', expectedHead: first.sha, message: 'both', changes: [{ path: 'a', content: '' }] })).rejects.toThrow(TypeError)
   })
   it('searches seeded threads and repositories', async () => {
     const forge = fake({ seed }).create()

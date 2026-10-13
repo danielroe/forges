@@ -1,0 +1,121 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/commits/main"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"12df008a8a34e95240f8ef8083d39eef40545f9821c78fd7ab017a559e5b09cb\"",
+      "x-ratelimit-limit": "5000",
+      "x-ratelimit-remaining": "4975",
+      "x-ratelimit-reset": "1791924278"
+    },
+    "body": {
+      "sha": "01a27db0455f964f5035ca452074eec5a33addb3",
+      "node_id": "C_kwDOVCTdtNoAKDAxYTI3ZGIwNDU1Zjk2NGY1MDM1Y2E0NTIwNzRlZWM1YTMzYWRkYjM",
+      "commit": {
+        "author": {
+          "name": "danielroe-bot",
+          "email": "redacted@example.invalid",
+          "date": "2026-10-12T22:02:19Z"
+        },
+        "committer": {
+          "name": "GitHub",
+          "email": "redacted@example.invalid",
+          "date": "2026-10-12T22:02:19Z"
+        },
+        "message": "Merge run 20261012220058\n\nMerged by run 20261012220058",
+        "tree": {
+          "sha": "3b9ca17cf513148accd4ff9e607b3154805e49f6",
+          "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/git/trees/3b9ca17cf513148accd4ff9e607b3154805e49f6"
+        },
+        "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/git/commits/01a27db0455f964f5035ca452074eec5a33addb3",
+        "comment_count": 0,
+        "verification": {
+          "verified": true,
+          "reason": "valid",
+          "signature": "-----BEGIN PGP SIGNATURE-----\n\nwsFcBAABCAAQBQJqzVjrCRC1aQ7uu5UhlAAAIrQQAAbF1Yqhui7xLfRGjiK1KSTd\nFguB7WB2DwSJ5EMb/Kq6ZpwgNcSB1hFaxlaAkj+vB9U4Ia99ax58/u1T5OVGh12K\nbcUVre6svqw6doHW2J39m11G2NE+OfqoPFmspy4XzSj/2UFPx8xBGcF64+P6GyME\nEItXsGUJaDOz6veZHL/aio2kcQlZhf2rIFpIVGlm9ja8nJmPBfHywY0rHtkfztke\nVPYR61ibasGB+j7E6QzvrTWZsfFMvaGigP6/7e9zwGH+O2i85rfCA40kAdRufysU\nxwgYnfdJOTgp2vNCwmVTTeXhDCn8XqbB9kQkWgUk5XD5ORjr6NUcBZRynZvtGoKE\nv3UThouUxFKGCxyG7e09Ty+fvxtRmC644ExDz9hlomOVz3SA3yjFI4MaQ0WiCoZH\ntGLZAivdKnjtNElzfutn5WD72g7TnhHAHQlpiEuxmyCM4eA1q2/gUvo5QDm+OsAd\nt9pj2fLqeCL+PaSvNy5MLo7wSgJgyC2MAuTYuumTU01kBcSq7HifOfuOcdT/sAWY\nOEFrsY6gC0w+2GSx+zdJUiTsLJDpoBFwAHu0jCnh/0uTHj8zFhD4b3L6SPKHivUp\nNpoL9JqLWGictMlecTu7UDmv8QUwgk1FUq0kK4G6x9NsHaZqCOJjbI9sTxJlm1PP\nRbf1XF9412dwSDtEPqSc\n=IzD5\n-----END PGP SIGNATURE-----\n",
+          "payload": "tree 3b9ca17cf513148accd4ff9e607b3154805e49f6\nparent 579f2aa0e61ba7d8309e3a8352ae35bbe61d3fe1\nparent c07d4e4de812daaa572f87b8fe23282790f01bfc\nauthor danielroe-bot <redacted@example.invalid> 1791842539 +0100\ncommitter GitHub <redacted@example.invalid> 1791842539 +0100\n\nMerge run 20261012220058\n\nMerged by run 20261012220058",
+          "verified_at": "2026-10-12T22:02:19Z"
+        }
+      },
+      "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/commits/01a27db0455f964f5035ca452074eec5a33addb3",
+      "html_url": "https://github.com/forges-fixtures/forges-fixtures/commit/01a27db0455f964f5035ca452074eec5a33addb3",
+      "comments_url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/commits/01a27db0455f964f5035ca452074eec5a33addb3/comments",
+      "author": {
+        "login": "danielroe-bot",
+        "id": 57801166,
+        "node_id": "REDACTED",
+        "avatar_url": "https://avatars.githubusercontent.com/u/57801166?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/danielroe-bot",
+        "html_url": "https://github.com/danielroe-bot",
+        "followers_url": "https://api.github.com/users/danielroe-bot/followers",
+        "following_url": "https://api.github.com/users/danielroe-bot/following{/other_user}",
+        "gists_url": "https://api.github.com/users/danielroe-bot/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/danielroe-bot/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/danielroe-bot/subscriptions",
+        "organizations_url": "https://api.github.com/users/danielroe-bot/orgs",
+        "repos_url": "https://api.github.com/users/danielroe-bot/repos",
+        "events_url": "https://api.github.com/users/danielroe-bot/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/danielroe-bot/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "committer": {
+        "login": "web-flow",
+        "id": 19864447,
+        "node_id": "REDACTED",
+        "avatar_url": "https://avatars.githubusercontent.com/u/19864447?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/web-flow",
+        "html_url": "https://github.com/web-flow",
+        "followers_url": "https://api.github.com/users/web-flow/followers",
+        "following_url": "https://api.github.com/users/web-flow/following{/other_user}",
+        "gists_url": "https://api.github.com/users/web-flow/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/web-flow/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/web-flow/subscriptions",
+        "organizations_url": "https://api.github.com/users/web-flow/orgs",
+        "repos_url": "https://api.github.com/users/web-flow/repos",
+        "events_url": "https://api.github.com/users/web-flow/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/web-flow/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "parents": [
+        {
+          "sha": "579f2aa0e61ba7d8309e3a8352ae35bbe61d3fe1",
+          "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/commits/579f2aa0e61ba7d8309e3a8352ae35bbe61d3fe1",
+          "html_url": "https://github.com/forges-fixtures/forges-fixtures/commit/579f2aa0e61ba7d8309e3a8352ae35bbe61d3fe1"
+        },
+        {
+          "sha": "c07d4e4de812daaa572f87b8fe23282790f01bfc",
+          "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/commits/c07d4e4de812daaa572f87b8fe23282790f01bfc",
+          "html_url": "https://github.com/forges-fixtures/forges-fixtures/commit/c07d4e4de812daaa572f87b8fe23282790f01bfc"
+        }
+      ],
+      "stats": {
+        "total": 1,
+        "additions": 1,
+        "deletions": 0
+      },
+      "files": [
+        {
+          "sha": "24695e182bbebcb2388bed316a0978d4b4d32d0e",
+          "filename": "forges-fixtures/20261012220058-1.md",
+          "status": "added",
+          "additions": 1,
+          "deletions": 0,
+          "changes": 1,
+          "blob_url": "https://github.com/forges-fixtures/forges-fixtures/blob/01a27db0455f964f5035ca452074eec5a33addb3/forges-fixtures%2F20261012220058-1.md",
+          "raw_url": "https://github.com/forges-fixtures/forges-fixtures/raw/01a27db0455f964f5035ca452074eec5a33addb3/forges-fixtures%2F20261012220058-1.md",
+          "contents_url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/contents/forges-fixtures%2F20261012220058-1.md?ref=01a27db0455f964f5035ca452074eec5a33addb3",
+          "patch": "@@ -0,0 +1 @@\n+Added by the forges write recording on forges-fixtures/20261012220058-1."
+        }
+      ]
+    }
+  }
+}

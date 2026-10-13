@@ -768,6 +768,30 @@ export interface FileOptions extends BaseOptions {
   as?: 'text' | 'binary'
 }
 
+/** A file that `contents.commitFiles()` writes or deletes. */
+export interface FileChange {
+  /** The path from the repository root. */
+  path: string
+  /** The new contents, with a string written as UTF-8, or `null` to delete the file. */
+  content: string | Uint8Array | null
+}
+
+/** The commit that `contents.commitFiles()` makes. */
+export interface CommitFilesInput {
+  /** The branch to commit to. */
+  branch: string
+  /** The commit message. */
+  message: string
+  /** The files to write or delete. A file that exists is overwritten. */
+  changes: FileChange[]
+  /** The sha that the branch must point at. When the branch has moved, the commit rejects with `BranchMovedError`. */
+  expectedHead?: string
+  /** Creates `branch` from this branch, tag or sha. The branch must not exist yet. */
+  createFrom?: string
+  /** Who wrote the change. Defaults to the account of the credential. Some forges record it as the committer too. */
+  author?: { name: string, email: string }
+}
+
 /** What a tree entry is. */
 export type TreeEntryType = 'file' | 'directory' | 'symlink' | 'submodule'
 

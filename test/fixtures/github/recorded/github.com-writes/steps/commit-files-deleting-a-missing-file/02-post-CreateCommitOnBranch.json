@@ -1,0 +1,79 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://api.github.com/graphql",
+    "operationName": "CreateCommitOnBranch",
+    "variables": {
+      "input": {
+        "branch": {
+          "repositoryNameWithOwner": "forges-fixtures/forges-fixtures",
+          "branchName": "forges-fixtures/20261012113502-files"
+        },
+        "expectedHeadOid": "813bcf7bff4533d9a39305032f80fe80dd398d00",
+        "message": {
+          "headline": "test: delete a missing file from run 20261012113502"
+        },
+        "fileChanges": {
+          "additions": [],
+          "deletions": [
+            {
+              "path": "forges-fixtures/20261012113502-files/missing.md"
+            }
+          ]
+        }
+      }
+    },
+    "body": {
+      "query": "mutation CreateCommitOnBranch($input: CreateCommitOnBranchInput!) {\n  createCommitOnBranch(input: $input) {\n    commit { oid message url author { name email date user { __typename login avatarUrl url databaseId name } } committer { name email date user { __typename login avatarUrl url databaseId name } } parents(first: 2) { nodes { oid } } }\n  }\n}",
+      "variables": {
+        "input": {
+          "branch": {
+            "repositoryNameWithOwner": "forges-fixtures/forges-fixtures",
+            "branchName": "forges-fixtures/20261012113502-files"
+          },
+          "expectedHeadOid": "813bcf7bff4533d9a39305032f80fe80dd398d00",
+          "message": {
+            "headline": "test: delete a missing file from run 20261012113502"
+          },
+          "fileChanges": {
+            "additions": [],
+            "deletions": [
+              {
+                "path": "forges-fixtures/20261012113502-files/missing.md"
+              }
+            ]
+          }
+        }
+      },
+      "operationName": "CreateCommitOnBranch"
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "x-ratelimit-limit": "5000",
+      "x-ratelimit-remaining": "4992",
+      "x-ratelimit-reset": "1791924288"
+    },
+    "body": {
+      "data": {
+        "createCommitOnBranch": null
+      },
+      "errors": [
+        {
+          "type": "NOT_FOUND",
+          "path": [
+            "createCommitOnBranch"
+          ],
+          "locations": [
+            {
+              "line": 2,
+              "column": 3
+            }
+          ],
+          "message": "A path was requested for deletion which does not exist as of commit oid `813bcf7bff4533d9a39305032f80fe80dd398d00`"
+        }
+      ]
+    }
+  }
+}

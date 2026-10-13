@@ -9,6 +9,7 @@ export type { CursorOriginAuth, CursorOriginOptions } from './cursor-origin/inde
 export type { ProviderFactoryFunction } from './define.ts'
 export {
   AuthenticationRequiredError,
+  BranchMovedError,
   ContentNotTextError,
   ForbiddenError,
   ForgeApiError,
@@ -66,6 +67,7 @@ export type {
   Comment,
   CommentRef,
   Commit,
+  CommitFilesInput,
   CommitQuery,
   CommitRef,
   CommitSearchQuery,
@@ -80,6 +82,7 @@ export type {
   EventDetail,
   EventFeedOptions,
   EventKind,
+  FileChange,
   FileContent,
   FileEncoding,
   FileMetadata,

@@ -1,0 +1,29 @@
+{
+  "ref": {
+    "forge": "forgejo",
+    "instance": "codeberg.org",
+    "repo": {
+      "forge": "forgejo",
+      "instance": "codeberg.org",
+      "owner": "forges-fixtures",
+      "name": "forges-fixtures"
+    },
+    "sha": "140421af4ef90ac072161d29f64eca59c7aa75c8"
+  },
+  "sha": "140421af4ef90ac072161d29f64eca59c7aa75c8",
+  "message": "test: change files from run 20261011075808\n\nUpdates one file and deletes another.\n",
+  "author": {
+    "name": "roebot",
+    "email": "redacted@example.invalid",
+    "date": "<now>"
+  },
+  "committer": {
+    "name": "roebot",
+    "email": "redacted@example.invalid",
+    "date": "<now>"
+  },
+  "parents": [
+    "f04bd37bc1a541266199db164d9ac8be9ce22ea1"
+  ],
+  "url": "https://codeberg.org/forges-fixtures/forges-fixtures/commit/140421af4ef90ac072161d29f64eca59c7aa75c8"
+}

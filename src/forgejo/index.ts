@@ -10,6 +10,8 @@ import type {
   CiRunRef,
   Comment,
   CommentRef,
+  Commit,
+  CommitFilesInput,
   ForgeEventInput,
   ForgeWarning,
   ListOptions,
@@ -53,12 +55,14 @@ import type {
   ForgejoActionRun,
   ForgejoActionRunJob,
   ForgejoActivity,
+  ForgejoBranch,
   ForgejoCombinedStatus,
   ForgejoComment,
   ForgejoCommit,
   ForgejoCommitStatus,
   ForgejoCompare,
   ForgejoContentFile,
+  ForgejoFileCommit,
   ForgejoHook,
   ForgejoIssue,
   ForgejoLabel,
@@ -78,14 +82,14 @@ import type {
 } from './types.ts'
 import type { WebhookHeaderNames } from './webhook-events.ts'
 import { WRITE_VERBS } from '../capabilities.ts'
-import { fromBase64, toFileContent } from '../contents.ts'
+import { changeBase64, existingFiles, fromBase64, inDirectories, toFileContent } from '../contents.ts'
 import { defineForgeProvider, perKind, verb } from '../define.ts'
-import { ForgeError, NotFoundError, soleMergeMethod, toMergeError, UnsupportedOperationError } from '../errors.ts'
+import { BranchMovedError, ForgeError, NotFoundError, soleMergeMethod, toMergeError, UnsupportedOperationError } from '../errors.ts'
 import { isNamespaceRef, reactionContent } from '../model.ts'
 import { actorLogin, createListing, getManyConcurrently, hasEveryLabel, hexColour, hostOf, memo, memoBy, milestoneId, requireIssueOrPull, requireThread, resolveToken, summariseChecks, teamOrg, toDate, toPage, toWarning, versionAtLeast } from '../utils.ts'
 import { githubShapedWeb } from '../web.ts'
 import { nativeEventsFor } from '../webhooks.ts'
-import { ACTION_STATES, actionBranch, GITEA_ACTION_STATES, numberFromUrl, toActionJob, toActionRun, toActor, toBranch, toChangedFile, toComment, toCommit, toEvent, toGiteaActionJob, toGiteaActionRun, toLabel, toMilestone, toNotification, toRelease, toRepo, toReview, toReviewComment, toRole, toStatusCheck, toStatusChecks, toTag, toTeam, toThread, toThreadKind, toTreeEntry, toWebhook } from './normalise.ts'
+import { ACTION_STATES, actionBranch, GITEA_ACTION_STATES, numberFromUrl, toActionJob, toActionRun, toActor, toBranch, toChangedFile, toComment, toCommit, toEvent, toFileCommit, toGiteaActionJob, toGiteaActionRun, toLabel, toMilestone, toNotification, toRelease, toRepo, toReview, toReviewComment, toRole, toStatusCheck, toStatusChecks, toTag, toTeam, toThread, toThreadKind, toTreeEntry, toWebhook } from './normalise.ts'
 import { countedNextUrl, countedPages } from './pages.ts'
 import { FORGEJO_HEADERS, FORGEJO_NATIVE_EVENTS } from './webhook-events.ts'
 import { forgejoWebhooks } from './webhooks.ts'
@@ -193,6 +197,60 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
   }
 
   const currentUser = memo(() => fetcher.json<ForgejoUser>('/user').then(result => result.data))
+
+  /**
+   * An update or a deletion names the blob it replaces, so each directory the change touches is listed first,
+   * at the commit the change builds on. A branch from `createFrom` is created before the commit.
+   */
+  async function commitFiles(repo: RepoRef, input: CommitFilesInput, options?: BaseOptions): Promise<Commit> {
+    const signal = options?.signal
+    const branchPath = `${repoPath(repo)}/branches/${input.branch.split('/').map(encodeURIComponent).join('/')}`
+    let head = input.expectedHead
+    if (input.createFrom !== undefined) {
+      const { data } = await fetcher.json<ForgejoBranch>(`${repoPath(repo)}/branches`, { method: 'POST', json: { new_branch_name: input.branch, old_ref_name: input.createFrom }, signal })
+      head = data.commit?.id
+    }
+    else if (head !== undefined) {
+      const { data } = await fetcher.json<ForgejoBranch>(branchPath, { signal })
+      if (data.commit?.id !== head.toLowerCase()) {
+        throw new BranchMovedError(`${input.branch} is at ${data.commit?.id}, not ${head}`, 409, '', context)
+      }
+    }
+    try {
+      const ref = head ?? input.branch
+      const existing = await existingFiles(input.changes, inDirectories(async (directory) => {
+        try {
+          const { data } = await fetcher.json<ForgejoContentFile[] | ForgejoContentFile>(`${repoPath(repo)}/contents${directory ? `/${directory.split('/').map(encodeURIComponent).join('/')}` : ''}`, { query: { ref }, signal })
+          return Array.isArray(data) ? new Map(data.filter(entry => entry.type === 'file').map(entry => [entry.path, entry.sha])) : undefined
+        }
+        catch (error) {
+          if (error instanceof NotFoundError) {
+            return undefined
+          }
+          throw error
+        }
+      }), context)
+      const { data } = await fetcher.json<{ commit: ForgejoFileCommit }>(`${repoPath(repo)}/contents`, {
+        method: 'POST',
+        json: {
+          branch: input.branch,
+          message: input.message,
+          ...input.author && { author: input.author },
+          files: input.changes.map(({ path, content }) => content === null
+            ? { operation: 'delete', path, sha: existing.get(path) }
+            : { operation: existing.has(path) ? 'update' : 'create', path, content: changeBase64(content), ...existing.has(path) && { sha: existing.get(path) } }),
+        },
+        signal,
+      })
+      return toFileCommit(repo, data.commit)
+    }
+    catch (error) {
+      if (input.createFrom !== undefined) {
+        await fetcher.raw(branchPath, { method: 'DELETE' }).catch(() => {})
+      }
+      throw error
+    }
+  }
 
   /** Labels are addressed by id in writes, so names are resolved once per repo. */
   /** Forgejo and Gitea address reactions on issues and on comments with the same body. */
@@ -727,6 +785,7 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
           raw: data,
         }
       }),
+      commitFiles: verb(true, commitFiles),
     },
     releases: {
       listPage: verb(true, releasesPage),

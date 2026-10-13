@@ -1,8 +1,8 @@
-import type { Actor, Comment, CommentRef, Milestone, Notification, Release, RepoRef, Review, ReviewComment, Thread, ThreadRef, Webhook, WebhookDeliveryRecord } from '../../src/model.ts'
+import type { Actor, Comment, CommentRef, Commit, Milestone, Notification, Release, RepoRef, Review, ReviewComment, Thread, ThreadRef, Webhook, WebhookDeliveryRecord } from '../../src/model.ts'
 import type { ForgeProvider, ForgeVerb } from '../../src/provider.ts'
 import type { RecordingManifest } from './steps.ts'
 import { createHash } from 'node:crypto'
-import { ForbiddenError, ForgeError, NotFoundError } from '../../src/errors.ts'
+import { BranchMovedError, ForbiddenError, ForgeApiError, ForgeError, NotFoundError } from '../../src/errors.ts'
 import { notificationThread } from '../../src/model.ts'
 
 /** What a write recording created before its steps ran, and the names its steps write. */
@@ -49,9 +49,20 @@ export function fixtureTag(run: WriteRun, suffix?: string): string {
   return `${FIXTURE_TAG}${run.id}${suffix ? `-${suffix}` : ''}`
 }
 
+/** The branch that the `commit files` steps create and commit to. */
+export function filesBranch(run: WriteRun): string {
+  return `forges-fixtures/${run.id}-files`
+}
+
+function filesPath(run: WriteRun, name: string): string {
+  return `${filesBranch(run)}/${name}`
+}
+
 /** Values earlier write steps created, for later steps to use. */
 export interface WriteContext {
   author?: Actor
+  /** The first commit of the `commit files` steps. */
+  filesCommit?: Commit
   reviewer?: Actor
   issue?: Thread
   discussion?: Thread
@@ -213,6 +224,87 @@ export const WRITE_STEPS: WriteStep[] = [
     return result
   } },
   { name: 'add collaborator', verb: 'repos.addCollaborator', run: (provider, manifest, context) => provider.repos.addCollaborator(manifest.collaborators ?? manifest.scratch, need(context.reviewer, 'the reviewer'), 'write') },
+
+  { name: 'commit files to a new branch', verb: 'contents.commitFiles', run: async (provider, manifest, context) => {
+    context.filesCommit = await provider.contents.commitFiles(manifest.scratch, {
+      branch: filesBranch(manifest.run),
+      createFrom: manifest.run.base,
+      message: `test: add files from run ${manifest.run.id}`,
+      changes: [
+        { path: filesPath(manifest.run, 'text.md'), content: 'Written by forges.\n' },
+        { path: filesPath(manifest.run, 'bytes.bin'), content: new Uint8Array([0, 1, 2, 254, 255]) },
+      ],
+    })
+    return context.filesCommit
+  } },
+  { name: 'commit files', verb: 'contents.commitFiles', run: (provider, manifest, context) => provider.contents.commitFiles(manifest.scratch, {
+    branch: filesBranch(manifest.run),
+    expectedHead: need(context.filesCommit, 'a commit of files').sha,
+    message: `test: change files from run ${manifest.run.id}\n\nUpdates one file and deletes another.`,
+    changes: [
+      { path: filesPath(manifest.run, 'text.md'), content: 'Changed by forges.\n' },
+      { path: filesPath(manifest.run, 'bytes.bin'), content: null },
+    ],
+  }) },
+  { name: 'commit files as an author', verb: 'contents.commitFiles', run: (provider, manifest) => provider.contents.commitFiles(manifest.scratch, {
+    branch: filesBranch(manifest.run),
+    message: `test: add a file from run ${manifest.run.id}`,
+    author: { name: 'forges fixtures', email: 'fixtures@forges.link' },
+    changes: [
+      { path: filesPath(manifest.run, 'text.md'), content: 'Changed again by forges.\n' },
+      { path: filesPath(manifest.run, 'author.md'), content: 'Written by an author.\n' },
+    ],
+  }) },
+  { name: 'commit files to a moved branch', verb: 'contents.commitFiles', run: async (provider, manifest, context) => {
+    try {
+      await provider.contents.commitFiles(manifest.scratch, {
+        branch: filesBranch(manifest.run),
+        expectedHead: need(context.filesCommit, 'a commit of files').sha,
+        message: `test: change a file from run ${manifest.run.id}`,
+        changes: [{ path: filesPath(manifest.run, 'text.md'), content: 'Not written.\n' }],
+      })
+    }
+    catch (error) {
+      if (error instanceof BranchMovedError) {
+        return { name: error.name, status: error.status }
+      }
+      throw error
+    }
+    throw new Error('The forge committed to a branch that had moved')
+  } },
+  { name: 'commit files deleting a missing file', verb: 'contents.commitFiles', run: async (provider, manifest) => {
+    try {
+      await provider.contents.commitFiles(manifest.scratch, {
+        branch: filesBranch(manifest.run),
+        message: `test: delete a missing file from run ${manifest.run.id}`,
+        changes: [{ path: filesPath(manifest.run, 'missing.md'), content: null }],
+      })
+    }
+    catch (error) {
+      if (error instanceof NotFoundError) {
+        return { name: error.name }
+      }
+      throw error
+    }
+    throw new Error('The forge deleted a file that does not exist')
+  } },
+  { name: 'commit files creating an existing branch', verb: 'contents.commitFiles', run: async (provider, manifest) => {
+    try {
+      await provider.contents.commitFiles(manifest.scratch, {
+        branch: filesBranch(manifest.run),
+        createFrom: manifest.run.base,
+        message: `test: recreate a branch from run ${manifest.run.id}`,
+        changes: [{ path: filesPath(manifest.run, 'text.md'), content: 'Not written.\n' }],
+      })
+    }
+    catch (error) {
+      if (error instanceof ForgeApiError) {
+        return { name: error.name }
+      }
+      throw error
+    }
+    throw new Error('The forge committed to a branch that already existed')
+  } },
 
   { name: 'create issue', verb: 'threads.create', kind: 'issue', run: async (provider, manifest, context) => {
     context.issue = await provider.threads.create(manifest.scratch, { kind: 'issue', title: fixtureTitle(manifest.run, 'issue'), body: `Opened by run ${manifest.run.id}.` })
