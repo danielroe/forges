@@ -654,10 +654,10 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
       const [page, { toDiscussionComment }] = await Promise.all([discussionCommentPage(ref, listOptions), import('./graphql.ts')])
       return { ...page, items: page.items.map(({ comment }) => toDiscussionComment(ref, comment)) }
     }
-    const path = ref.kind === 'commit'
-      ? `${repoPath(ref.repo)}/commits/${encodeURIComponent(ref.number)}/comments`
-      : `${repoPath(ref.repo)}/issues/${encodeURIComponent(ref.number)}/comments`
-    return list(path, listOptions, (raw: GitHubComment) => toComment(ref, raw))
+    if (ref.kind === 'commit') {
+      return list(`${repoPath(ref.repo)}/commits/${encodeURIComponent(ref.number)}/comments`, listOptions, (raw: GitHubComment) => toComment(ref, raw))
+    }
+    return list(`${repoPath(ref.repo)}/issues/${encodeURIComponent(ref.number)}/comments`, listOptions, (raw: GitHubComment) => toComment(ref, raw), { query: { since: listOptions.since?.toISOString() } })
   }
 
   function commentPath(ref: CommentRef): string {

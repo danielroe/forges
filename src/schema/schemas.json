@@ -4040,7 +4040,7 @@
       },
       "created": {
         "type": "boolean",
-        "description": "`false` when an existing comment with the same key was edited."
+        "description": "`false` when a comment with the same key already existed, and was edited or already had the body."
       }
     },
     "required": [

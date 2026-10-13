@@ -880,7 +880,7 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
       }),
       commentsPage: perKind(ISSUE_AND_PULL, async (thread: ThreadRef, listOptions: ListOptions = {}): Promise<Page<Comment>> => {
         const ref = requireIssueOrPull(thread, context, 'list comments on')
-        return list(`${issuePath(ref)}/comments`, listOptions, (raw: ForgejoComment) => toComment(ref, raw))
+        return list(`${issuePath(ref)}/comments`, listOptions, (raw: ForgejoComment) => toComment(ref, raw), { query: { since: listOptions.since?.toISOString() } })
       }),
       getComment: perKind(ISSUE_AND_PULL, async (ref, options) => {
         const { data } = await fetcher.json<ForgejoComment | undefined>(`${repoPath(ref.thread.repo)}/issues/comments/${encodeURIComponent(ref.id)}`, { signal: options?.signal })

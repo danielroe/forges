@@ -1623,13 +1623,19 @@ export interface UpsertCommentInput {
    */
   key: string
   body: string
+  /**
+   * Only comments updated at or after this time are searched for the key. When retrying a change, pass the time of its
+   * first attempt, less a margin for clock skew, so the retry lists only recent comments. A comment with the same key
+   * from before `since` is not found, and a new one is created.
+   */
+  since?: Date
 }
 
 /** What `threads.upsertComment()` did. */
 export interface UpsertCommentResult {
   /** The comment that was created or edited. */
   comment: Comment
-  /** `false` when an existing comment with the same key was edited. */
+  /** `false` when a comment with the same key already existed, and was edited or already had the body. */
   created: boolean
 }
 

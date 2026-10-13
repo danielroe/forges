@@ -4,6 +4,7 @@ import type {
   AuthKind,
   ChecksApi,
   CiApi,
+  CommentOptions,
   ContentsApi,
   ForgeCapabilities,
   ForgeIterable,
@@ -401,6 +402,15 @@ async function* completeItems(items: AsyncIterable<{ event: ForgeEventInput, cur
   }
 }
 
+function sameBody(a: string, b: string): boolean {
+  const normalise = (body: string) => body.replaceAll('\r\n', '\n').trim()
+  return normalise(a) === normalise(b)
+}
+
+function withMarker(body: string, key: string): string {
+  return hasCommentMarker(body, key) ? body : `${body}\n\n${commentMarker(key)}`
+}
+
 type AnyFunction = (...args: any[]) => any
 
 function readPath(source: unknown, path: string): any {
@@ -534,6 +544,8 @@ function createProvider<TOptions extends ForgeOptionsBase, TState, HasWeb extend
 
   const listThreads = kindGate('threads.listPage', spec.threads.listPage.kinds, spec.threads.listPage.run)
   const listOwnerRepos = gate('repos.byOwnerPage', spec.repos.byOwnerPage?.support, spec.repos.byOwnerPage?.run)
+  const listComments = kindGate('threads.commentsPage', spec.threads.commentsPage.kinds, spec.threads.commentsPage.run)
+  const addComment = kindGate('threads.comment', spec.threads.comment?.kinds, spec.threads.comment?.run)
   const listEvents = kindGate('threads.eventsPage', Object.fromEntries(KINDS.map(kind => [kind, (kindEnv: CapabilityEnv) => threadEventKinds(spec, kindEnv)[kind]])), spec.threads.eventsPage.run)
   const native = spec.search?.queryRaw
   const search = (name: 'threadsPage' | 'reposPage' | 'commitsPage' | 'codePage') => {
@@ -573,6 +585,17 @@ function createProvider<TOptions extends ForgeOptionsBase, TState, HasWeb extend
       const page = await listEvents(ref, listOptions) as Page<ForgeEventInput>
       return { ...page, items: page.items.map(completeEvent) }
     },
+    'threads.commentsPage': (ref: ThreadRef, listOptions: ListOptions = {}) => {
+      const since = listOptions.since
+      if (!since) {
+        return listComments(ref, listOptions)
+      }
+      return nonEmptyPage(async (cursor) => {
+        const page: Page<Comment> = await listComments(ref, { ...listOptions, cursor })
+        return { ...page, items: page.items.filter(comment => (comment.updatedAt ?? comment.createdAt ?? since) >= since) }
+      }, listOptions.cursor)
+    },
+    'threads.comment': async (ref: ThreadRef, body: string, { key, ...commentOptions }: CommentOptions = {}) => addComment(ref, key === undefined ? body : withMarker(body, key), commentOptions),
     'threads.upsertComment': kindGate(
       'threads.upsertComment',
       Object.fromEntries(KINDS.map(kind => [kind, (kindEnv: CapabilityEnv) => upsertKinds(spec, kindEnv)[kind]])),
@@ -716,16 +739,20 @@ function createProvider<TOptions extends ForgeOptionsBase, TState, HasWeb extend
   }
 
   async function upsertComment(ref: ThreadRef, input: UpsertCommentInput, options?: BaseOptions): Promise<UpsertCommentResult> {
-    const body = hasCommentMarker(input.body, input.key) ? input.body : `${input.body}\n\n${commentMarker(input.key)}`
+    const body = withMarker(input.body, input.key)
     let existing: Comment | undefined
-    for await (const candidate of threads.comments(ref, options)) {
+    for await (const candidate of threads.comments(ref, { ...options, since: input.since })) {
       if (hasCommentMarker(candidate.body, input.key)) {
         existing = candidate
       }
     }
-    return existing
-      ? { comment: await threads.editComment(existing.ref, body, options), created: false }
-      : { comment: await threads.comment(ref, body, options), created: true }
+    if (!existing) {
+      return { comment: await threads.comment(ref, body, options), created: true }
+    }
+    return {
+      comment: sameBody(existing.body, body) ? existing : await threads.editComment(existing.ref, body, options),
+      created: false,
+    }
   }
 
   return {

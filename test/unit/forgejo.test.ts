@@ -480,6 +480,13 @@ describe('forgejo thread updates', () => {
   const thread = (kind: 'issue' | 'pull_request', number: string) => ({ forge: 'forgejo', instance: 'codeberg.org', repo, kind, number }) as const
   const writes = <T extends { method: string }>(calls: T[]) => calls.filter(call => call.method !== 'GET')
 
+  it('lists comments since a time on the forge', async () => {
+    const { instance, calls } = provider({ 'GET https://codeberg.org/api/v1/repos/acme/widgets/issues/9/comments?since=2026-03-01T12:00:00.000Z': { status: 200, body: [] } })
+    await instance.threads.commentsPage(thread('issue', '9'), { since: new Date('2026-03-01T12:00:00Z') })
+
+    expect(new URL(calls[0]!.url).searchParams.get('since')).toBe('2026-03-01T12:00:00.000Z')
+  })
+
   it('closes, relabels and reassigns a pull request in one edit', async () => {
     const { instance, calls } = provider({ ...labels, 'PATCH https://codeberg.org/api/v1/repos/acme/widgets/pulls/7': { status: 201, body: { number: 7, state: 'closed' } } })
     await instance.threads.update(thread('pull_request', '7'), { state: 'closed', labels: ['bug', 'ui'], assignees: ['jane'] })

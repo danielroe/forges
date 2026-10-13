@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
 import { BranchMovedError, ContentNotTextError, NotFoundError, UnsupportedOperationError } from '../../src/errors.ts'
 import { fake } from '../../src/fake/index.ts'
 import { commentMarker } from '../../src/model.ts'
@@ -152,6 +152,89 @@ describe('fake forge', () => {
     expect(second.comment.body).toContain('Coverage: 84%')
     expect(second.comment.body).toContain(commentMarker('coverage'))
     expect(comments).toHaveLength(2)
+  })
+
+  describe('retrying a keyed comment', () => {
+    const firstAttemptAt = new Date('2026-03-01T12:00:00Z')
+
+    function seeded() {
+      const factory = fake({ seed })
+      const forge = factory.create()
+      const state = factory.store.repos.get('acme/widgets')!.threads.get('1')!
+      const ref = state.thread.ref
+      const comment = (id: string, body: string, createdAt: Date) => ({ ref: { forge: 'fake', instance: 'fake.test', thread: ref, id }, body, createdAt, raw: {} })
+      return { factory, forge, state, ref, comment }
+    }
+
+    it('lists only the comments updated since a time', async () => {
+      const { forge, state, ref, comment } = seeded()
+      state.comments.push(
+        comment('1-1', 'Old', new Date('2026-02-01T00:00:00Z')),
+        { ...comment('1-2', 'Edited', new Date('2026-02-01T00:00:00Z')), updatedAt: new Date('2026-03-01T12:00:01Z') },
+        comment('1-3', 'New', new Date('2026-03-01T12:00:02Z')),
+      )
+
+      const comments = await Array.fromAsync(forge.threads.comments(ref, { since: firstAttemptAt }))
+
+      expect(comments.map(item => item.body)).toEqual(['Edited', 'New'])
+    })
+
+    it('writes the marker of the key into a comment', async () => {
+      const { forge, state, ref } = seeded()
+
+      const comment = await forge.threads.comment(ref, 'Deployed', { key: 'mutation-1' })
+
+      expect(comment.body).toBe(`Deployed\n\n${commentMarker('mutation-1')}`)
+      expect(state.comments).toHaveLength(1)
+    })
+
+    it('rejects a key that would end the marker early', async () => {
+      const { forge, state, ref } = seeded()
+
+      await expect(forge.threads.comment(ref, 'Deployed', { key: 'mutation-->1' })).rejects.toThrow(TypeError)
+      expect(state.comments).toEqual([])
+    })
+
+    it('passes since to the listing upsertComment reads', async () => {
+      const { forge, ref } = seeded()
+      const commentsPage = vi.spyOn(forge.threads, 'commentsPage')
+
+      await forge.threads.upsertComment(ref, { key: 'mutation-1', body: 'Deployed', since: firstAttemptAt })
+
+      expect(commentsPage).toHaveBeenCalledWith(ref, expect.objectContaining({ since: firstAttemptAt }))
+    })
+
+    it('finds the comment that a first attempt left behind instead of posting another', async () => {
+      const { forge, state, ref, comment } = seeded()
+      state.comments.push(comment('1-1', `Deployed\r\n\r\n${commentMarker('mutation-1')}\n`, new Date('2026-03-01T12:00:03Z')))
+      const editComment = vi.spyOn(forge.threads, 'editComment')
+
+      const retry = await forge.threads.upsertComment(ref, { key: 'mutation-1', body: 'Deployed', since: firstAttemptAt })
+
+      expect(retry).toMatchObject({ created: false, comment: { ref: { id: '1-1' } } })
+      expect(state.comments).toHaveLength(1)
+      expect(editComment).not.toHaveBeenCalled()
+    })
+
+    it('edits the comment that an earlier call left behind when the body changed', async () => {
+      const { forge, state, ref, comment } = seeded()
+      state.comments.push(comment('1-1', `Deploying\n\n${commentMarker('mutation-1')}`, new Date('2026-03-01T12:00:03Z')))
+
+      const retry = await forge.threads.upsertComment(ref, { key: 'mutation-1', body: 'Deployed', since: firstAttemptAt })
+
+      expect(retry).toMatchObject({ created: false, comment: { body: `Deployed\n\n${commentMarker('mutation-1')}` } })
+      expect(state.comments[0]!.body).toBe(`Deployed\n\n${commentMarker('mutation-1')}`)
+    })
+
+    it('posts a new comment when the only one with the key predates since', async () => {
+      const { forge, state, ref, comment } = seeded()
+      state.comments.push(comment('1-1', `Deployed\n\n${commentMarker('mutation-1')}`, new Date('2026-02-01T00:00:00Z')))
+
+      const retry = await forge.threads.upsertComment(ref, { key: 'mutation-1', body: 'Deployed', since: firstAttemptAt })
+
+      expect(retry.created).toBe(true)
+      expect(state.comments).toHaveLength(2)
+    })
   })
 
   it('lists the reactions a write left on a thread and on a comment', async () => {

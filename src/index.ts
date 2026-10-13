@@ -192,6 +192,7 @@ export type {
   CiApi,
   CloseOptions,
   CloseReason,
+  CommentOptions,
   ContentsApi,
   ForgeCapabilities,
   ForgeIterable,
