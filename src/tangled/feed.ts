@@ -2,6 +2,7 @@ import type { EventFeedOptions, ForgeEventInput, Page, ResolvedThreadRef, Source
 import type { AtprotoClient } from './atproto.ts'
 import type { ActivityRecord } from './normalise.ts'
 import type { RecordResponse } from './types.ts'
+import { sha256Hex } from '../crypto.ts'
 import { mapConcurrent } from '../utils.ts'
 import { parseAtUri } from './atproto.ts'
 import { THREAD_COLLECTIONS } from './normalise.ts'
@@ -17,21 +18,22 @@ type Positions = Record<string, string>
 /**
  * One page of what an account did, read from the thread collections of its
  * repository and merged by record key, which orders records by when they
- * were created. The first page carries the repository's revision as its
- * `etag`; an unchanged revision means no record was written since.
+ * were created. The first page's `etag` pairs the repository's revision with
+ * a digest of the records on the page, since a Bluesky post moves the revision too.
  */
 export async function accountFeedPage({ atproto, recordEvent }: AccountFeedContext, did: string, options: EventFeedOptions = {}): Promise<Page<ForgeEventInput>> {
   const limit = Math.min(options.perPage ?? 30, 100)
   const signal = options.signal
   let positions: Positions
-  let etag: string | undefined
+  const [knownRevision, knownDigest] = options.cursor?.etag?.split(':') ?? []
+  let revision: string | undefined
   if (options.cursor?.token) {
     positions = JSON.parse(options.cursor.token) as Positions
   }
   else {
-    etag = await atproto.revisionOf(did, signal)
-    if (etag === options.cursor?.etag) {
-      return { items: [], notModified: true, etag }
+    revision = await atproto.revisionOf(did, signal)
+    if (revision === knownRevision) {
+      return { items: [], notModified: true, etag: options.cursor!.etag! }
     }
     const held = new Set(await atproto.collectionsOf(did, signal))
     positions = Object.fromEntries(THREAD_COLLECTIONS.filter(collection => held.has(collection)).map(collection => [collection, '']))
@@ -49,6 +51,14 @@ export async function accountFeedPage({ atproto, recordEvent }: AccountFeedConte
     const taken = merged.filter(item => item.collection === collection)
     if (records.length === limit || taken.length < records.length) {
       next[collection] = taken.at(-1)?.rkey ?? positions[collection]!
+    }
+  }
+  let etag: string | undefined
+  if (revision) {
+    const digest = (await sha256Hex(merged.map(({ record }) => `${record.uri} ${record.cid ?? ''}`).join('\n'))).slice(0, 16)
+    etag = `${revision}:${digest}`
+    if (digest === knownDigest) {
+      return { items: [], notModified: true, etag }
     }
   }
   const threads = new Map<string, Promise<ResolvedThreadRef | undefined>>()

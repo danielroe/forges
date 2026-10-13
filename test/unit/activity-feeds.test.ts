@@ -241,15 +241,21 @@ describe('tangled activity feeds', () => {
     'sh.tangled.feed.star': ['3m0000000009'],
   }
   const lists: Array<[string, string | undefined]> = []
+  let revision = 'rev1'
+  const cids: Record<string, string> = {}
   const atproto = {
-    revisionOf: async () => 'rev1',
+    revisionOf: async () => revision,
     collectionsOf: async () => Object.keys(records),
     listRecordsPage: async (_did: string, collection: string, { limit, cursor }: { limit: number, cursor?: string }) => {
       lists.push([collection, cursor])
-      return records[collection]!.filter(rkey => !cursor || rkey < cursor).slice(0, limit).map(rkey => ({ uri: `at://${did}/${collection}/${rkey}`, value: {} }))
+      return records[collection]!.filter(rkey => !cursor || rkey < cursor).slice(0, limit).map(rkey => ({ uri: `at://${did}/${collection}/${rkey}`, cid: cids[rkey] ?? 'cid1', value: {} }))
     },
   } as unknown as Parameters<typeof accountFeedPage>[0]['atproto']
-  const recordEvent: Parameters<typeof accountFeedPage>[0]['recordEvent'] = async activity => ({ forge: 'tangled', instance: 'tangled.org', id: activity.uri, kind: 'other', summary: '', occurredAt: new Date(0), source: 'poll', payload: {} })
+  const events: string[] = []
+  const recordEvent: Parameters<typeof accountFeedPage>[0]['recordEvent'] = async (activity) => {
+    events.push(activity.uri)
+    return { forge: 'tangled', instance: 'tangled.org', id: activity.uri, kind: 'other', summary: '', occurredAt: new Date(0), source: 'poll', payload: {} }
+  }
 
   it('merges the thread collections of an account newest first, across pages', async () => {
     const first = await accountFeedPage({ atproto, recordEvent }, did, { perPage: 2 })
@@ -258,11 +264,44 @@ describe('tangled activity feeds', () => {
 
     expect([first, second, third].map(page => page.items.map(item => item.id.slice(-2)))).toEqual([['05', '04'], ['03', '02'], ['01']])
     expect(third.cursor).toBeUndefined()
-    expect(first.etag).toBe('rev1')
+    expect(first.etag).toMatch(/^rev1:[\da-f]{16}$/)
     expect(lists.map(([collection]) => collection)).not.toContain('sh.tangled.feed.star')
   })
 
   it('reports an unchanged revision as not modified without listing records', async () => {
+    const { etag } = await accountFeedPage({ atproto, recordEvent }, did, { perPage: 2 })
+    lists.length = 0
+    const page = await accountFeedPage({ atproto, recordEvent }, did, { perPage: 2, cursor: { etag } })
+
+    expect(page).toEqual({ items: [], notModified: true, etag })
+    expect(lists).toEqual([])
+  })
+
+  it('reports a page whose records did not change as not modified, even after other writes', async () => {
+    const { etag } = await accountFeedPage({ atproto, recordEvent }, did, { perPage: 2 })
+    revision = 'rev2'
+    events.length = 0
+    const page = await accountFeedPage({ atproto, recordEvent }, did, { perPage: 2, cursor: { etag } })
+    revision = 'rev1'
+
+    expect(page).toEqual({ items: [], notModified: true, etag: `rev2:${etag!.split(':')[1]}` })
+    expect(events).toEqual([])
+  })
+
+  it('reads the page again when a record on it was edited', async () => {
+    const { etag } = await accountFeedPage({ atproto, recordEvent }, did, { perPage: 2 })
+    revision = 'rev2'
+    cids['3m0000000004'] = 'cid2'
+    const page = await accountFeedPage({ atproto, recordEvent }, did, { perPage: 2, cursor: { etag } })
+    revision = 'rev1'
+    delete cids['3m0000000004']
+
+    expect(page.notModified).toBeUndefined()
+    expect(page.items.map(item => item.id.slice(-2))).toEqual(['05', '04'])
+    expect(page.etag).not.toBe(etag)
+  })
+
+  it('still knows an `etag` that holds only the revision', async () => {
     lists.length = 0
     const page = await accountFeedPage({ atproto, recordEvent }, did, { cursor: { etag: 'rev1' } })
 
