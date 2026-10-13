@@ -20,7 +20,7 @@ import { FIXTURE_HOOK_SECRET, FIXTURE_HOOK_URL, FIXTURE_TITLE, fixtureLabel, WRI
 import { differingKeys, spliceWrites } from './partial-writes.ts'
 import { patientFetch } from './rate-limits.ts'
 import { connectedSteps, trackReads, writeRecording } from './recording-store.ts'
-import { fixtures } from './stabilise-recordings.ts'
+import { canReplay, fixtures } from './stabilise-recordings.ts'
 import { guardedFetch } from './write-guard.ts'
 import { writeHarness } from './write-harness.ts'
 
@@ -563,6 +563,10 @@ async function recordWrites(): Promise<void> {
     console.error(`--only adds steps to a write recording under test/fixtures/, and ${out} is not one. Record every step instead of passing --only.`)
     exit(1)
   }
+  if (only && !canReplay()) {
+    console.error('--only replays the recording with vitest, which is not installed. Run `pnpm install` first.')
+    exit(1)
+  }
   const id = new Date().toISOString().replace(/\D/g, '').slice(0, 14)
   const run: WriteRun = {
     id,
@@ -639,8 +643,9 @@ async function recordWrites(): Promise<void> {
   const missing = recordedSteps(out).map(step => step.name).filter(name => !succeeded(name))
   const lost = missing.filter(name => WRITE_STEPS.some(step => step.name === name))
   if (lost.length && !flags['allow-fewer']) {
-    if (recording && spliceSelected(recording, manifest, new Set(recorded.map(step => step.name)), missing.filter(name => !lost.includes(name)))) {
-      console.info(`Kept the committed recording of these steps, which this run did not record:${list(lost)}`)
+    if (recording && canReplay() && spliceSelected(recording, manifest, new Set(recorded.map(step => step.name)), missing.filter(name => !lost.includes(name)))) {
+      console.error(`Kept the committed recording of these steps, which this run did not record:${list(lost)}`)
+      process.exitCode = 1
       return
     }
     console.error(`Kept the earlier recording, as this run did not record these steps it has; pass --allow-fewer to replace it anyway:${list(lost)}`)

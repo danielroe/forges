@@ -4,6 +4,7 @@ import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { afterEach, describe, expect, it } from 'vitest'
 import { differingKeys, planSplice, spliceSteps } from '../../scripts/partial-writes.ts'
+import { canReplay } from '../../scripts/stabilise-recordings.ts'
 
 const api = 'https://api.github.com/repos/bot/forges-fixtures'
 
@@ -74,6 +75,21 @@ describe('splicing steps into a recording', () => {
 
     expect(existsSync(`${committed}steps/retired-step`)).toBe(false)
     expect(existsSync(`${committed}steps/create-issue`)).toBe(true)
+  })
+})
+
+describe('checking whether a recording can be replayed', () => {
+  it('needs vitest installed in the checkout', () => {
+    const checkout = `${mkdtempSync(join(tmpdir(), 'forges-checkout-'))}/`
+    try {
+      expect(canReplay(checkout)).toBe(false)
+      mkdirSync(`${checkout}node_modules/.bin`, { recursive: true })
+      writeFileSync(`${checkout}node_modules/.bin/vitest`, '')
+      expect(canReplay(checkout)).toBe(true)
+    }
+    finally {
+      rmSync(checkout, { recursive: true, force: true })
+    }
   })
 })
 

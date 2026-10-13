@@ -55,6 +55,11 @@ export function load(directory: string): Recording {
   return { manifest: JSON.parse(readFileSync(`${directory}manifest.json`, 'utf8')) as Record<string, unknown>, steps, paths }
 }
 
+/** Whether the checkout under `directory` has vitest installed, so that `replay()` can run. */
+export function canReplay(directory = root): boolean {
+  return existsSync(`${directory}node_modules/.bin/vitest`)
+}
+
 /** Replays one recording, with `vitest -u` unless `update` is `false`, so that its golden output is written; returns whether its tests ran and passed. */
 export function replay(recording: string, { update = true } = {}): boolean {
   const report = join(mkdtempSync(join(tmpdir(), 'forges-replay-')), 'report.json')
