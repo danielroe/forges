@@ -734,11 +734,12 @@ const GITLAB: ProviderDefinition<GitLabOptions, undefined, true> = {
         reviewerCandidatesPage: verb('emulated', (thread, listOptions = {}) => list(`${projectPath(requireThread(thread, context).repo)}/users`, listOptions, (raw: GitLabUser) => toActor(instance, raw)!)),
       },
       orgs: {
-        /** GitLab has no teams; a subgroup stands in for one, and listing public subgroups needs no credential. */
+        /** GitLab has no teams, so a subgroup stands in for one. With a token, GitLab lists only the account's own subgroups unless `all_available` is set. */
         teamsPage: verb(true, (org, listOptions = {}) => list(
           `/groups/${encodeURIComponent(org.externalId ?? org.owner)}/subgroups`,
           listOptions,
           (raw: GitLabGroup) => toTeam(instance, teamOrg(org), raw),
+          { query: { all_available: true } },
         )),
         teamMembersPage: verb(!anonymous, (org, slug, listOptions = {}) => {
           const path = [org.owner, slug].filter(Boolean).join('/')

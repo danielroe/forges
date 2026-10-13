@@ -1,16 +1,16 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://gitlab.com/api/v4/groups/gitlab-org/subgroups?per_page=3"
+    "url": "https://gitlab.com/api/v4/groups/gitlab-org/subgroups?all_available=true&per_page=3"
   },
   "response": {
     "status": 200,
     "headers": {
-      "link": "<https://gitlab.com/api/v4/groups/gitlab-org/subgroups?id=gitlab-org&order_by=name&owned=false&page=2&per_page=3&sort=asc&statistics=false&with_custom_attributes=false>; rel=\"next\", <https://gitlab.com/api/v4/groups/gitlab-org/subgroups?id=gitlab-org&order_by=name&owned=false&page=1&per_page=3&sort=asc&statistics=false&with_custom_attributes=false>; rel=\"first\", <https://gitlab.com/api/v4/groups/gitlab-org/subgroups?id=gitlab-org&order_by=name&owned=false&page=36&per_page=3&sort=asc&statistics=false&with_custom_attributes=false>; rel=\"last\"",
+      "link": "<https://gitlab.com/api/v4/groups/gitlab-org/subgroups?all_available=true&id=gitlab-org&order_by=name&owned=false&page=2&per_page=3&sort=asc&statistics=false&with_custom_attributes=false>; rel=\"next\", <https://gitlab.com/api/v4/groups/gitlab-org/subgroups?all_available=true&id=gitlab-org&order_by=name&owned=false&page=1&per_page=3&sort=asc&statistics=false&with_custom_attributes=false>; rel=\"first\", <https://gitlab.com/api/v4/groups/gitlab-org/subgroups?all_available=true&id=gitlab-org&order_by=name&owned=false&page=36&per_page=3&sort=asc&statistics=false&with_custom_attributes=false>; rel=\"last\"",
       "etag": "W/\"3f4750ffb957b36a27c78ab10a9962a5\"",
       "ratelimit-limit": "500",
-      "ratelimit-remaining": "497",
-      "ratelimit-reset": "1791847500",
+      "ratelimit-remaining": "494",
+      "ratelimit-reset": "1791890400",
       "x-total": "106",
       "x-total-pages": "36",
       "x-next-page": "2",
