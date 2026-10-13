@@ -1,13 +1,36 @@
 import type { CapabilityProvider, CapabilityRow, SupportCell, SupportLevel } from '#capabilities'
 
-/** A row's cells with credentials, or as each forge's anonymous provider reports them. */
-export function cellsFor(row: CapabilityRow, anonymous: boolean): SupportCell[] {
-  return anonymous ? row.anonymousCells : row.cells
+/**
+ * A credential view: `true` or `'anonymous'` for none, a credential id for
+ * one kind of credential, or anything else for the best of any credential.
+ */
+type View = boolean | string | undefined
+
+const isAnonymous = (view: View) => view === true || view === 'anonymous'
+
+/** A row's cells in a view. Forges without the credential show their best support. */
+export function cellsFor(row: CapabilityRow, view: View): SupportCell[] {
+  if (isAnonymous(view)) {
+    return row.anonymousCells
+  }
+  return typeof view === 'string' ? row.cells.map(cell => cell.byCredential?.[view] ?? cell) : row.cells
 }
 
-/** A provider's summary with credentials, or without. */
-export function summaryFor(provider: CapabilityProvider, anonymous: boolean): Record<SupportLevel, number> {
-  return anonymous ? provider.anonymousSummary : provider.summary
+/** A provider's summary in a view. */
+export function summaryFor(provider: CapabilityProvider, view: View): Record<SupportLevel, number> {
+  if (isAnonymous(view)) {
+    return provider.anonymousSummary
+  }
+  return (typeof view === 'string' && provider.credentials?.find(({ id }) => id === view)?.summary) || provider.summary
+}
+
+/** The labels of credentials by id, as prose such as "a classic token or an app". */
+export function credentialNames(ids: string[], provider: CapabilityProvider): string {
+  const names = ids.map((id) => {
+    const label = provider.credentials?.find(credential => credential.id === id)?.label ?? id
+    return `${/^[aeio]/i.test(label) ? 'an' : 'a'} ${label.charAt(0).toLowerCase()}${label.slice(1)}`
+  })
+  return new Intl.ListFormat('en-GB', { type: 'disjunction' }).format(names)
 }
 
 export const supportLevels: SupportLevel[] = ['native', 'experimental', 'emulated', 'unverified', 'none']
@@ -50,14 +73,14 @@ export function rotatedHeaderHeight(lengths: number[]): string {
 }
 
 /** Text for one cell, for screen readers. */
-export function describeCell(cell: SupportCell): string {
-  if (!cell.kinds) {
-    return shortSupportLabels[cell.level]
-  }
-  const supported = cell.kinds.filter(kind => kind.level !== 'none')
-  return supported.length
-    ? supported.map(kind => `${kind.label} ${shortSupportLabels[kind.level].toLowerCase()}`).join(', ')
-    : shortSupportLabels.none
+export function describeCell(cell: SupportCell, provider?: CapabilityProvider): string {
+  const supported = cell.kinds?.filter(kind => kind.level !== 'none')
+  const text = !supported
+    ? shortSupportLabels[cell.level]
+    : supported.length
+      ? supported.map(kind => `${kind.label} ${shortSupportLabels[kind.level].toLowerCase()}`).join(', ')
+      : shortSupportLabels.none
+  return cell.credentials && provider ? `${text}, only with ${credentialNames(cell.credentials, provider)}` : text
 }
 
 /** A provider's coverage as text, for the bars that only show the native count. */

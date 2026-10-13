@@ -1,14 +1,17 @@
-/** Whether the capability tables show what an anonymous provider supports, kept in `?auth=anonymous`. */
-export function useAnonymousView() {
+/**
+ * Which credential the capability tables show, kept in `?auth=`: `undefined`
+ * for the best of any credential, `'anonymous'` for none, or a credential id.
+ */
+export function useCredentialView() {
   const route = useRoute()
-  const anonymous = ref(false)
+  const view = ref<string>()
 
   onMounted(() => {
-    anonymous.value = route.query.auth === 'anonymous'
-    watch(anonymous, (value) => {
+    view.value = typeof route.query.auth === 'string' ? route.query.auth : undefined
+    watch(view, (value) => {
       const url = new URL(window.location.href)
       if (value) {
-        url.searchParams.set('auth', 'anonymous')
+        url.searchParams.set('auth', value)
       }
       else {
         url.searchParams.delete('auth')
@@ -18,5 +21,16 @@ export function useAnonymousView() {
     })
   })
 
-  return anonymous
+  return view
+}
+
+/** Whether the capability tables show what an anonymous provider supports, kept in `?auth=anonymous`. */
+export function useAnonymousView() {
+  const view = useCredentialView()
+  return computed({
+    get: () => view.value === 'anonymous',
+    set: (anonymous) => {
+      view.value = anonymous ? 'anonymous' : undefined
+    },
+  })
 }

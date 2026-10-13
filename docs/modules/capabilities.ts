@@ -35,7 +35,7 @@ export default defineNuxtModule({
       filename: 'capabilities.d.ts',
       getContents: () => [
         `import type { CapabilityGroup, CapabilityProvider } from '${resolve('../../scripts/capabilities.ts')}'`,
-        `export type { CapabilityGroup, CapabilityProvider, CapabilityRow, SupportCell, SupportLevel } from '${resolve('../../scripts/capabilities.ts')}'`,
+        `export type { CapabilityCredential, CapabilityGroup, CapabilityProvider, CapabilityRow, SupportCell, SupportLevel } from '${resolve('../../scripts/capabilities.ts')}'`,
         `export interface DocsProvider extends CapabilityProvider {`,
         `  title: string`,
         `  description: string`,

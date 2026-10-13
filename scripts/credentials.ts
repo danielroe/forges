@@ -103,13 +103,21 @@ function subsets<T>(items: T[], size: number): T[][] {
   return items.flatMap((item, index) => subsets(items.slice(index + 1), size - 1).map(rest => [item, ...rest]))
 }
 
+/** The capabilities each forge supports with any credential, keyed by slug, in table order. */
+function supportedCapabilities(forges: typeof Forges): Map<string, Set<string>> {
+  const { providers, groups } = capabilityData(forges)
+  const rows = groups.flatMap(group => group.rows)
+  return new Map(providers.map(({ slug }, index) => [slug, new Set(rows.filter(row => row.cells[index]!.level !== 'none').map(row => row.capability))]))
+}
+
 /** What each forge needs in `FORGES_<KIND>_*`, found by probing `providersFromEnv()`. */
 export async function forgeRequirements(forges: typeof Forges): Promise<ForgeRequirements[]> {
-  return Promise.all(matrixProviders(forges).map(async ({ slug, name, provider: reference }) => {
+  const reach = supportedCapabilities(forges)
+  return Promise.all(matrixProviders(forges).map(async ({ slug, name }) => {
     const kind = slug.toUpperCase().replaceAll('-', '_')
     const values = (fields: string[]) => Object.fromEntries(fields.map(field => [field, probeValue(field)]))
     const required = CANDIDATES.filter(field => !CREDENTIAL_FIELDS.has(field) && probe(kind, { ...values(CANDIDATES.filter(other => other !== field)), ENABLED: '1' }).skipped)
-    const supported = capabilityData(forges).groups.flatMap(group => group.rows.map(row => row.capability)).filter(capability => supportCell(at(reference.capabilities, capability)).level !== 'none')
+    const supported = [...reach.get(slug)!]
     const unavailable = (provider?: Forges.ForgeProvider) => provider ? supported.filter(capability => supportCell(at(provider.capabilities, capability)).level === 'none') : supported
 
     const rest = CANDIDATES.filter(field => !required.includes(field))
@@ -248,9 +256,10 @@ export function credentialTasks(forges: typeof Forges): CredentialTask[] {
 /** Distinct `scopesFor()` results for the verbs of each task a forge supports, keyed by task id. */
 export function taskScopes(forges: typeof Forges): Record<string, Record<string, Forges.VerbScopes[]>> {
   const verbs = new Map(CAPABILITY_TABLE.map(entry => [entry.capability, entry.verbs ?? []]))
+  const reach = supportedCapabilities(forges)
   return Object.fromEntries(matrixProviders(forges).map(({ slug, provider }) => [slug, Object.fromEntries(credentialTasks(forges).map((task) => {
     const scopes = task.capabilities
-      .filter(capability => supportCell(at(provider.capabilities, capability)).level !== 'none')
+      .filter(capability => reach.get(slug)!.has(capability))
       .flatMap(capability => verbs.get(capability)!)
       .map(verb => provider.scopesFor(verb as Forges.ForgeVerb))
       .filter(scopes => Object.keys(scopes).length)

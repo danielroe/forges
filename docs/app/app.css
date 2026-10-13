@@ -124,6 +124,11 @@ h2,
   background: color-mix(in oklab, var(--ui-bg-accented) 55%, transparent);
 }
 
+/* Support that only some of a forge's credentials have. */
+.capability-cell[data-credentials] {
+  clip-path: polygon(0 0, 55% 0, 100% 45%, 100% 100%, 0 100%);
+}
+
 /*
  * Sticky matrix headers blur the rows that scroll under them, like the site header.
  * The blur sits in a layer behind each cell, so a rotated label that overflows its

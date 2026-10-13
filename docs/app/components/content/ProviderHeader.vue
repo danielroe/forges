@@ -15,6 +15,7 @@ const total = Object.values(provider.summary).reduce((sum, count) => sum + count
 const sources = groups.find(group => group.name === 'sources')!.rows.map(row => ({
   name: row.capability.slice('sources.'.length),
   level: row.cells[index]!.level,
+  credentials: row.cells[index]!.credentials,
 }))
 const statement = `import { ${provider.factories.join(', ')} } from '${provider.import}'`
 
@@ -99,12 +100,17 @@ const { copied, copy, message } = useCopyToClipboard(() => statement)
           >
             <CapabilityCell
               :level="source.level"
+              :credentials="source.credentials"
               class="[--capability-cell-size:0.625rem]"
             />
             <span
               class="font-mono"
               :class="source.level === 'none' ? 'text-muted' : 'text-highlighted'"
             >{{ source.name }}</span>
+            <span
+              v-if="source.credentials"
+              class="text-[11px] text-muted"
+            >with {{ credentialNames(source.credentials, provider) }}</span>
             <span class="sr-only">{{ shortSupportLabels[source.level].toLowerCase() }}</span>
           </span>
         </dd>

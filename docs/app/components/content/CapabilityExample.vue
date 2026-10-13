@@ -102,6 +102,7 @@ const rows = props.capabilities.split(',').map((capability) => {
               >
                 <CapabilityCell
                   :level="kind.level"
+                  :credentials="cell.credentials"
                   class="[--capability-cell-size:0.625rem]"
                 />
                 {{ kind.label }}
@@ -115,10 +116,15 @@ const rows = props.capabilities.split(',').map((capability) => {
             >
               <CapabilityCell
                 :level="cell.level"
+                :credentials="cell.credentials"
                 class="[--capability-cell-size:0.75rem]"
               />
               {{ shortSupportLabels[cell.level] }}
             </span>
+            <span
+              v-if="cell.credentials"
+              class="mt-0.5 block text-[11px] text-muted"
+            >Only with {{ credentialNames(cell.credentials, columns[index]!.provider) }}</span>
           </td>
         </tr>
       </tbody>

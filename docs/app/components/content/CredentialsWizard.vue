@@ -104,6 +104,16 @@ const support = computed(() => selectedTasks.value
   }))
   .filter(task => task.levels.length))
 const missing = computed(() => gaps(option.value))
+
+/** The kinds of credential made of the chosen fields, with the chosen capabilities each one lacks, where some kinds lack them. */
+const kindGaps = computed(() => {
+  const kinds = (provider.value.credentials ?? []).filter(kind => kind.env.join() === option.value.fields.join())
+  const lacking = kinds.map(kind => ({
+    ...kind,
+    gaps: capabilities.value.filter(capability => cellOf(capability).level !== 'none' && !missing.value.includes(capability) && cellOf(capability).byCredential?.[kind.id]?.level === 'none'),
+  }))
+  return lacking.filter(kind => kind.gaps.length).map(kind => ({ ...kind, instead: lacking.filter(other => !other.gaps.length) }))
+})
 const alternatives = computed(() => options.value.filter(other => other !== option.value && !other.anonymous && !gaps(other).length))
 
 const steps = computed(() => [
@@ -541,6 +551,33 @@ const { copied, copy, message: copyMessage } = useCopyToClipboard(() => `${doten
                   </button>
                 </template>
                 instead.
+              </p>
+            </div>
+            <div
+              v-for="kind of kindGaps"
+              :key="kind.id"
+              class="rounded-md border border-warning/40 bg-warning/5 p-3 text-default"
+            >
+              <p class="flex items-center gap-2 font-medium">
+                <UIcon
+                  name="i-lucide-key-round"
+                  class="size-3.5 shrink-0 text-warning"
+                />
+                Not available with {{ credentialNames([kind.id], provider) }}
+              </p>
+              <p class="mt-1.5 flex flex-wrap gap-1">
+                <CredentialsField
+                  v-for="capability of kind.gaps"
+                  :key="capability"
+                >
+                  {{ capability }}
+                </CredentialsField>
+              </p>
+              <p
+                v-if="kind.instead.length"
+                class="mt-2 text-muted"
+              >
+                Use {{ credentialNames(kind.instead.map(other => other.id), provider) }} instead.
               </p>
             </div>
             <ul

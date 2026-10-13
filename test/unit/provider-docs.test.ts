@@ -37,4 +37,18 @@ describe('generated docs', () => {
     expect(providers[gitlab]!.anonymousSummary!.native).toBeLessThan(providers[gitlab]!.summary.native)
     expect(rows.get('sources.poll')!.cells[tangled]).toEqual({ level: 'experimental' })
   })
+
+  it('names the credentials that a capability needs when they are not the usual ones', () => {
+    const { providers, groups } = capabilityData(forges)
+    const rows = new Map(groups.flatMap(group => group.rows).map(row => [row.capability, row]))
+    const github = providers.findIndex(({ slug }) => slug === 'github')
+
+    expect(providers[github]!.credentials!.map(({ id, usual }) => [id, usual])).toEqual([['classic', true], ['fine-grained', true], ['installation', true], ['app', false]])
+    expect(rows.get('notifications.list')!.cells[github]!.credentials).toEqual(['classic'])
+    expect(rows.get('users.me')!.cells[github]!.credentials).toEqual(['classic', 'fine-grained'])
+    expect(rows.get('installations')!.cells[github]!.credentials).toEqual(['installation', 'app'])
+    expect(rows.get('sources.webhook')!.cells[github]!.credentials).toBeUndefined()
+    expect(rows.get('repos.get')!.cells[github]).toMatchObject({ level: 'native', byCredential: { classic: { level: 'native' }, app: { level: 'none' } } })
+    expect(rows.get('repos.get')!.cells[github]!.credentials).toBeUndefined()
+  })
 })

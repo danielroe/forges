@@ -94,6 +94,7 @@ function limits(values?: Record<string, number>) {
 
     <CapabilityLegend
       kinds
+      :credentials="!anonymous"
       explain
       class="mb-2"
     >
@@ -230,7 +231,11 @@ function limits(values?: Record<string, number>) {
                 :key="index"
                 role="cell"
               >
-                <CapabilityCell v-bind="cell" /><span class="sr-only">{{ describeCell(cell) }}</span>
+                <CapabilityCell
+                  :level="cell.level"
+                  :kinds="cell.kinds"
+                  :credentials="cell.credentials"
+                /><span class="sr-only">{{ describeCell(cell, providers[index]) }}</span>
               </td>
             </tr>
           </tbody>
@@ -333,8 +338,25 @@ function limits(values?: Record<string, number>) {
           />
           <span class="text-default">{{ supportLabels[tipCell!.level] }}</span>
         </div>
+        <ul
+          v-if="tipCell!.credentials && tipCell!.byCredential"
+          class="mt-3 space-y-1.5 border-t border-default pt-2"
+        >
+          <li
+            v-for="credential of providers[tip.column]!.credentials"
+            :key="credential.id"
+            class="flex items-center gap-2"
+          >
+            <CapabilityCell
+              :level="tipCell!.byCredential[credential.id]!.level"
+              class="[--capability-cell-size:0.75rem]"
+            />
+            <span class="text-toned">{{ credential.label }}</span>
+            <span class="ml-auto text-muted">{{ describeCell(tipCell!.byCredential[credential.id]!) }}</span>
+          </li>
+        </ul>
         <div class="mt-2 text-muted">
-          {{ anonymous ? 'With credentials' : 'Without credentials' }}: {{ describeCell(tipOther!).toLowerCase() }}
+          {{ anonymous ? 'With credentials' : 'Without credentials' }}: {{ describeCell(tipOther!, providers[tip.column]).toLowerCase() }}
         </div>
 
         <div

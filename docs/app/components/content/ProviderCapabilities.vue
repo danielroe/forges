@@ -12,15 +12,35 @@ if (!provider) {
 }
 
 const total = Object.values(provider.summary).reduce((sum, count) => sum + count, 0)
-const anonymous = useAnonymousView()
-const summary = computed(() => summaryFor(provider, anonymous.value))
+const view = useCredentialView()
+const anonymous = computed({
+  get: () => view.value === 'anonymous',
+  set: (value) => {
+    view.value = value ? 'anonymous' : undefined
+  },
+})
+const credential = computed(() => provider.credentials?.find(({ id }) => id === view.value))
+const views = provider.credentials && [
+  { label: 'Any credential', value: 'any' },
+  ...provider.credentials.map(({ id, label }) => ({ label, value: id })),
+  { label: 'Without credentials', value: 'anonymous' },
+]
+const selectedView = computed({
+  get: () => anonymous.value ? 'anonymous' : credential.value?.id ?? 'any',
+  set: (value: string) => {
+    view.value = value === 'any' ? undefined : value
+  },
+})
+const usual = provider.credentials?.filter(({ usual }) => usual).map(({ id }) => id) ?? []
+const viewText = computed(() => anonymous.value ? ' without credentials' : credential.value ? ` with ${credentialNames([credential.value.id], provider)}` : '')
+const summary = computed(() => summaryFor(provider, view.value))
 
 const sections = computed(() => groups.map(group => ({
   name: group.name,
   rows: group.rows.map(row => ({
     capability: row.capability,
     name: row.capability.includes('.') ? row.capability.slice(group.name.length + 1) : row.capability,
-    cell: cellsFor(row, anonymous.value)[index]!,
+    cell: cellsFor(row, view.value)[index]!,
   })),
 })))
 const available = computed(() => sections.value.filter(section => section.rows.some(row => row.cell.level !== 'none')))
@@ -45,9 +65,10 @@ const limits = provider.limits ? Object.entries(provider.limits).map(([key, leng
       <div class="flex flex-wrap items-end justify-between gap-3">
         <p class="text-sm text-muted">
           <span class="text-3xl font-semibold text-highlighted tabular-nums">{{ summary.native }}</span>
-          of {{ total }} capabilities native and verified{{ anonymous ? ' without credentials' : '' }}
+          of {{ total }} capabilities native and verified{{ viewText }}
         </p>
         <USwitch
+          v-if="!views"
           v-model="anonymous"
           label="Without credentials"
           size="sm"
@@ -61,6 +82,38 @@ const limits = provider.limits ? Object.entries(provider.limits).map(([key, leng
         >
           Compare forges
         </UButton>
+      </div>
+
+      <div
+        v-if="views"
+        class="mt-4"
+      >
+        <UTabs
+          v-model="selectedView"
+          :items="views"
+          :content="false"
+          size="xs"
+          variant="pill"
+          aria-label="Credential"
+          class="w-full overflow-x-auto"
+        />
+        <p
+          v-if="credential"
+          class="mt-2 text-xs text-muted"
+          v-html="stepHtml(`${credential.description}.`)"
+        />
+        <p
+          v-else-if="!anonymous"
+          class="mt-2 inline-flex flex-wrap items-center gap-1.5 text-xs text-muted"
+        >
+          <span>Unmarked rows work with {{ credentialNames(usual, provider) }}. Rows marked</span>
+          <CapabilityCell
+            level="native"
+            :credentials="['']"
+            class="[--capability-cell-size:0.625rem]"
+          />
+          <span>name the credentials that have them.</span>
+        </p>
       </div>
 
       <div
@@ -94,8 +147,9 @@ const limits = provider.limits ? Object.entries(provider.limits).map(([key, leng
 
       <CapabilityLegend
         :levels="[]"
+        :credentials="!!provider.credentials && !view"
         explain
-        class="mt-3"
+        class="mt-3 [--capability-cell-size:0.625rem]"
       />
 
       <dl class="mt-5 grid gap-4 border-t border-default pt-4 text-xs sm:grid-cols-3">
@@ -174,10 +228,22 @@ const limits = provider.limits ? Object.entries(provider.limits).map(([key, leng
               :key="row.capability"
               class="flex items-center justify-between gap-3 px-4 py-1.5 text-xs"
             >
-              <span
-                class="font-mono"
-                :class="row.cell.level === 'none' ? 'text-muted' : 'text-highlighted'"
-              >{{ row.name }}</span>
+              <span class="min-w-0">
+                <span
+                  class="block font-mono"
+                  :class="row.cell.level === 'none' ? 'text-muted' : 'text-highlighted'"
+                >{{ row.name }}</span>
+                <span
+                  v-if="row.cell.credentials"
+                  class="mt-0.5 flex items-center gap-1 text-[11px] text-muted"
+                >
+                  <UIcon
+                    name="i-lucide-key-round"
+                    class="size-3 shrink-0"
+                  />
+                  Only with {{ credentialNames(row.cell.credentials, provider) }}
+                </span>
+              </span>
               <span
                 v-if="row.cell.kinds && row.cell.level !== 'none'"
                 class="flex flex-wrap justify-end gap-x-2.5 gap-y-1"
@@ -189,6 +255,7 @@ const limits = provider.limits ? Object.entries(provider.limits).map(([key, leng
                 >
                   <CapabilityCell
                     :level="kind.level"
+                    :credentials="row.cell.credentials"
                     class="[--capability-cell-size:0.625rem]"
                   />
                   {{ kind.label }}
@@ -202,6 +269,7 @@ const limits = provider.limits ? Object.entries(provider.limits).map(([key, leng
               >
                 <CapabilityCell
                   :level="row.cell.level"
+                  :credentials="row.cell.credentials"
                   class="[--capability-cell-size:0.625rem]"
                 />
                 {{ shortSupportLabels[row.cell.level] }}

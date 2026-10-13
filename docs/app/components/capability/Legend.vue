@@ -2,6 +2,8 @@
 withDefaults(defineProps<{
   levels?: Array<'native' | 'experimental' | 'emulated' | 'unverified' | 'none'>
   kinds?: boolean
+  /** Adds the mark for support that depends on the kind of credential. */
+  credentials?: boolean
   /** Adds a disclosure that explains each level. */
   explain?: boolean
 }>(), {
@@ -14,7 +16,7 @@ const kindLabels = ['issue', 'PR', 'discussion', 'commit']
 <template>
   <div>
     <ul
-      v-if="levels.length || kinds || $slots.default"
+      v-if="levels.length || kinds || credentials || $slots.default"
       class="flex flex-wrap items-center gap-x-5 gap-y-2 text-xs text-muted"
     >
       <li
@@ -41,13 +43,23 @@ const kindLabels = ['issue', 'PR', 'discussion', 'commit']
         </span>
         <span>Per thread kind</span>
       </li>
+      <li
+        v-if="credentials"
+        class="inline-flex items-center gap-2"
+      >
+        <CapabilityCell
+          level="native"
+          :credentials="['']"
+        />
+        Depends on the credential
+      </li>
       <slot />
     </ul>
 
     <details
       v-if="explain"
       class="group text-xs"
-      :class="{ 'mt-3': levels.length || kinds || $slots.default }"
+      :class="{ 'mt-3': levels.length || kinds || credentials || $slots.default }"
     >
       <summary class="inline-flex cursor-pointer list-none items-center gap-1.5 text-muted hover:text-highlighted [&::-webkit-details-marker]:hidden">
         <UIcon
@@ -70,6 +82,19 @@ const kindLabels = ['issue', 'PR', 'discussion', 'commit']
           </dt>
           <dd class="text-muted max-sm:mb-1.5">
             {{ supportDescriptions[level] }}
+          </dd>
+        </template>
+        <template v-if="credentials">
+          <dt class="flex items-center gap-2 font-medium text-highlighted">
+            <CapabilityCell
+              level="native"
+              :credentials="['']"
+              class="[--capability-cell-size:0.75rem]"
+            />
+            Depends on the credential
+          </dt>
+          <dd class="text-muted max-sm:mb-1.5">
+            Only some of the forge's kinds of credential have this support, and the cell names them.
           </dd>
         </template>
         <slot name="explain" />
