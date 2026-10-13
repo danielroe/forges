@@ -295,6 +295,8 @@ export function toThread(ref: ThreadRef, raw: ForgejoIssue): Thread {
     createdAt: toDate(raw.created_at),
     updatedAt: toDate(raw.updated_at),
     closedAt: toDate(raw.closed_at),
+    mergedAt: toDate(raw.merged_at ?? raw.pull_request?.merged_at),
+    mergedBy: toActor(origin, raw.merged_by),
     lastActivityAt: toDate(raw.updated_at),
     locked: raw.is_locked,
     commentCount: raw.comments,

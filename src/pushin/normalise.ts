@@ -167,6 +167,7 @@ export function toThread(ref: ResolvedThreadRef, raw: PushinThread): Thread {
     createdAt: toDate(raw.created_at),
     updatedAt: toDate(raw.updated_at),
     closedAt: toDate(raw.closed_at ?? raw.merged_at ?? raw.pull_request?.merged_at),
+    mergedAt: kind === 'pull_request' ? toDate(raw.merged_at ?? raw.pull_request?.merged_at) : undefined,
     lastActivityAt: toDate(raw.updated_at),
     locked: raw.locked,
     commentCount: raw.comments,

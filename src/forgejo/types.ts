@@ -101,6 +101,8 @@ export interface ForgejoIssue {
   body?: string | null
   state: string
   merged?: boolean
+  merged_at?: string | null
+  merged_by?: ForgejoUser | null
   draft?: boolean
   is_locked?: boolean
   comments?: number
@@ -120,7 +122,7 @@ export interface ForgejoIssue {
   changed_files?: number | null
   /** Only on the cross-repository issue search, which reports the owner as a string. */
   repository?: { id?: number, name: string, full_name: string, owner?: string }
-  pull_request?: { merged?: boolean, draft?: boolean } | null
+  pull_request?: { merged?: boolean, merged_at?: string | null, draft?: boolean } | null
   milestone?: ForgejoMilestone | null
 }
 

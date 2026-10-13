@@ -167,6 +167,7 @@ export interface GitHubIssue {
   draft?: boolean
   merged?: boolean
   merged_at?: string | null
+  merged_by?: GitHubUser | null
   locked?: boolean
   comments?: number
   html_url?: string

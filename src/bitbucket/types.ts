@@ -54,6 +54,7 @@ export interface BitbucketPullRequest {
   source?: { branch?: { name: string }, commit?: { hash: string }, repository?: BitbucketRepository }
   destination?: { branch?: { name: string }, commit?: { hash: string }, repository?: BitbucketRepository }
   merge_commit?: { hash: string } | null
+  closed_by?: BitbucketUser | null
   reviewers?: BitbucketUser[]
   participants?: Array<{ user?: BitbucketUser, role?: string, approved?: boolean, state?: string | null }>
 }

@@ -1,0 +1,277 @@
+{
+  "listed": {
+    "ref": {
+      "forge": "gitlab",
+      "instance": "gitlab.com",
+      "repo": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "owner": "gitlab-org",
+        "name": "cli"
+      },
+      "kind": "pull_request",
+      "number": "4098",
+      "externalId": "547691658"
+    },
+    "kind": "pull_request",
+    "title": "fix(binarymgr): write install progress to stderr",
+    "body": "## Description\n\nInstall and download progress from the binary manager (for example the first run of `glab orbit`) was written to stdout. Redirecting a command, like `glab orbit --yes skills get orbit > SKILL.md`, put those progress lines into the output file. Progress and status messages now go to stderr, so stdout carries only the command's own output.\n\n## Related Issues\n\nNo project issue yet.\n\n## How has this been tested?\n\n`go test ./internal/binarymgr/... ./internal/commands/orbit/...` and `golangci-lint run ./internal/binarymgr/...`. The checksum and below-minimum-version tests assert stdout stays empty and the message lands on stderr. A new `HandleInstall` test runs the full download and install against a mocked registry and checks that stdout is empty while stderr has the progress lines.\n\n<details>\n<summary>Agent context</summary>\n\n- `manager.go`: download, checksum, and installed-path messages switched from `LogInfof` to `LogErrorf`.\n- `runner.go`: the custom-binary notice on the run path, the \"No version installed\" line in update, the below-minimum-version warning, and the warning helper also go to stderr.\n- Left on stdout: results of explicit `install`/`update` commands (for example \"already installed\", \"Successfully updated\"), because those are the command's own output.\n\n</details>",
+    "state": "merged",
+    "stateRaw": "merged",
+    "isDraft": false,
+    "assignees": [
+      {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "login": "dgruzd",
+        "id": "5054237",
+        "name": "Dmitry Gruzd",
+        "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/5054237/avatar.png?v=1791913354",
+        "url": "https://gitlab.com/dgruzd",
+        "isBotHint": false
+      }
+    ],
+    "reviewers": [
+      {
+        "actor": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "login": "phikai",
+          "id": "2935693",
+          "name": "Kai Armstrong",
+          "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/2935693/avatar.png?v=1791924320",
+          "url": "https://gitlab.com/phikai",
+          "isBotHint": false
+        },
+        "state": "unknown"
+      },
+      {
+        "actor": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "login": "GitLabDuo",
+          "id": "21826781",
+          "name": "GitLab Duo",
+          "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/21826781/duo-bot.png?v=1781708173",
+          "url": "https://gitlab.com/GitLabDuo",
+          "isBotHint": false
+        },
+        "state": "unknown"
+      }
+    ],
+    "lastActivityAt": "2026-10-13T16:14:10.575Z",
+    "branches": {
+      "head": {
+        "ref": "binarymgr-progress-stderr",
+        "sha": "eda9b216372c167f51da049fa5222922bbcd71c0",
+        "repo": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "owner": "gitlab-org",
+          "name": "cli"
+        }
+      },
+      "base": {
+        "ref": "main"
+      },
+      "mergeCommitSha": "b3bf6ccba7d855c656fb6bd4e1d8feb62fe8285f"
+    },
+    "author": {
+      "forge": "gitlab",
+      "instance": "gitlab.com",
+      "login": "dgruzd",
+      "id": "5054237",
+      "name": "Dmitry Gruzd",
+      "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/5054237/avatar.png?v=1791913354",
+      "url": "https://gitlab.com/dgruzd",
+      "typeRaw": "user",
+      "isBotHint": false
+    },
+    "url": "https://gitlab.com/gitlab-org/cli/-/merge_requests/4098",
+    "createdAt": "2026-10-13T12:04:43.342Z",
+    "updatedAt": "2026-10-13T16:14:10.575Z",
+    "mergedAt": "2026-10-13T16:14:16.990Z",
+    "mergedBy": {
+      "forge": "gitlab",
+      "instance": "gitlab.com",
+      "login": "phikai",
+      "id": "2935693",
+      "name": "Kai Armstrong",
+      "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/2935693/avatar.png?v=1791924320",
+      "url": "https://gitlab.com/phikai",
+      "isBotHint": false
+    },
+    "labels": [
+      {
+        "name": "category:gitlab cli"
+      },
+      {
+        "name": "devops::ai coding"
+      },
+      {
+        "name": "group::code review"
+      },
+      {
+        "name": "section::ai"
+      },
+      {
+        "name": "type::bug"
+      }
+    ],
+    "commentCount": 5,
+    "milestone": {
+      "id": "7324669",
+      "title": "19.6",
+      "state": "open",
+      "description": "",
+      "dueOn": "2026-11-13T00:00:00.000Z",
+      "url": "https://gitlab.com/groups/gitlab-org/-/milestones/144"
+    },
+    "reactions": {
+      "total": 0,
+      "counts": {}
+    }
+  },
+  "read": {
+    "ref": {
+      "forge": "gitlab",
+      "instance": "gitlab.com",
+      "repo": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "owner": "gitlab-org",
+        "name": "cli"
+      },
+      "kind": "pull_request",
+      "number": "4098",
+      "externalId": "547691658"
+    },
+    "kind": "pull_request",
+    "title": "fix(binarymgr): write install progress to stderr",
+    "body": "## Description\n\nInstall and download progress from the binary manager (for example the first run of `glab orbit`) was written to stdout. Redirecting a command, like `glab orbit --yes skills get orbit > SKILL.md`, put those progress lines into the output file. Progress and status messages now go to stderr, so stdout carries only the command's own output.\n\n## Related Issues\n\nNo project issue yet.\n\n## How has this been tested?\n\n`go test ./internal/binarymgr/... ./internal/commands/orbit/...` and `golangci-lint run ./internal/binarymgr/...`. The checksum and below-minimum-version tests assert stdout stays empty and the message lands on stderr. A new `HandleInstall` test runs the full download and install against a mocked registry and checks that stdout is empty while stderr has the progress lines.\n\n<details>\n<summary>Agent context</summary>\n\n- `manager.go`: download, checksum, and installed-path messages switched from `LogInfof` to `LogErrorf`.\n- `runner.go`: the custom-binary notice on the run path, the \"No version installed\" line in update, the below-minimum-version warning, and the warning helper also go to stderr.\n- Left on stdout: results of explicit `install`/`update` commands (for example \"already installed\", \"Successfully updated\"), because those are the command's own output.\n\n</details>",
+    "state": "merged",
+    "stateRaw": "merged",
+    "isDraft": false,
+    "assignees": [
+      {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "login": "dgruzd",
+        "id": "5054237",
+        "name": "Dmitry Gruzd",
+        "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/5054237/avatar.png?v=1791913354",
+        "url": "https://gitlab.com/dgruzd",
+        "isBotHint": false
+      }
+    ],
+    "reviewers": [
+      {
+        "actor": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "login": "phikai",
+          "id": "2935693",
+          "name": "Kai Armstrong",
+          "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/2935693/avatar.png?v=1791924320",
+          "url": "https://gitlab.com/phikai",
+          "isBotHint": false
+        },
+        "state": "unknown"
+      },
+      {
+        "actor": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "login": "GitLabDuo",
+          "id": "21826781",
+          "name": "GitLab Duo",
+          "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/21826781/duo-bot.png?v=1781708173",
+          "url": "https://gitlab.com/GitLabDuo",
+          "isBotHint": false
+        },
+        "state": "unknown"
+      }
+    ],
+    "lastActivityAt": "2026-10-13T16:14:10.575Z",
+    "branches": {
+      "head": {
+        "ref": "binarymgr-progress-stderr",
+        "sha": "eda9b216372c167f51da049fa5222922bbcd71c0",
+        "repo": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "owner": "gitlab-org",
+          "name": "cli"
+        }
+      },
+      "base": {
+        "ref": "main",
+        "sha": "5686d7484e65cb08b6e3b92f86d2ccffb415bdc0"
+      },
+      "mergeCommitSha": "b3bf6ccba7d855c656fb6bd4e1d8feb62fe8285f"
+    },
+    "stats": {
+      "changedFileCount": 4
+    },
+    "author": {
+      "forge": "gitlab",
+      "instance": "gitlab.com",
+      "login": "dgruzd",
+      "id": "5054237",
+      "name": "Dmitry Gruzd",
+      "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/5054237/avatar.png?v=1791913354",
+      "url": "https://gitlab.com/dgruzd",
+      "typeRaw": "user",
+      "isBotHint": false
+    },
+    "url": "https://gitlab.com/gitlab-org/cli/-/merge_requests/4098",
+    "createdAt": "2026-10-13T12:04:43.342Z",
+    "updatedAt": "2026-10-13T16:14:10.575Z",
+    "mergedAt": "2026-10-13T16:14:16.990Z",
+    "mergedBy": {
+      "forge": "gitlab",
+      "instance": "gitlab.com",
+      "login": "phikai",
+      "id": "2935693",
+      "name": "Kai Armstrong",
+      "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/2935693/avatar.png?v=1791924320",
+      "url": "https://gitlab.com/phikai",
+      "isBotHint": false
+    },
+    "labels": [
+      {
+        "name": "category:gitlab cli"
+      },
+      {
+        "name": "devops::ai coding"
+      },
+      {
+        "name": "group::code review"
+      },
+      {
+        "name": "section::ai"
+      },
+      {
+        "name": "type::bug"
+      }
+    ],
+    "commentCount": 5,
+    "milestone": {
+      "id": "7324669",
+      "title": "19.6",
+      "state": "open",
+      "description": "",
+      "dueOn": "2026-11-13T00:00:00.000Z",
+      "url": "https://gitlab.com/groups/gitlab-org/-/milestones/144"
+    },
+    "reactions": {
+      "total": 0,
+      "counts": {}
+    },
+    "checks": {
+      "state": "success",
+      "stateRaw": "success",
+      "url": "https://gitlab.com/gitlab-org/cli/-/pipelines/2943225405"
+    }
+  }
+}

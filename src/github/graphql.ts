@@ -123,6 +123,7 @@ const ISSUE_FIELDS = `id number title body state stateReason createdAt updatedAt
 
 const PULL_FIELDS = `id number title body state isDraft createdAt updatedAt closedAt mergedAt url locked
       author { ${ACTOR_FIELDS} }
+      mergedBy { ${ACTOR_FIELDS} }
       assignees(first: 20) { nodes { ${USER_FIELDS} } }
       labels(first: 50) { nodes { name color description } }
       comments { totalCount }
@@ -192,6 +193,7 @@ export interface GraphQLIssueOrPull {
   url?: string
   locked?: boolean
   author?: GraphQLActor | null
+  mergedBy?: GraphQLActor | null
   assignees?: { nodes: GraphQLActor[] }
   labels?: { nodes: GraphQLLabel[] }
   comments?: { totalCount: number }
@@ -270,6 +272,8 @@ export function toGraphQLThread(ref: ResolvedThreadRef, raw: GraphQLIssueOrPull)
     createdAt: toDate(raw.createdAt),
     updatedAt: toDate(raw.updatedAt),
     closedAt: toDate(raw.closedAt),
+    mergedAt: toDate(raw.mergedAt),
+    mergedBy: toGraphQLActor(instance, raw.mergedBy),
     lastActivityAt: toDate(raw.updatedAt),
     locked: raw.locked,
     commentCount: raw.comments?.totalCount,

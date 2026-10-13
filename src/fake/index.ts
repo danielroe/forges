@@ -675,6 +675,10 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
     const current = threadState(ref).thread
     current.state = state
     current.closedAt = state === 'open' ? undefined : new Date()
+    if (state === 'merged') {
+      current.mergedAt = current.closedAt
+      current.mergedBy = actor(viewerLogin)
+    }
     record(ref, 'state_change', action, action, { type: 'state_change', state })
   }
 

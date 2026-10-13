@@ -161,6 +161,8 @@ export interface GitLabIssue {
   state: string
   draft?: boolean
   merged_at?: string | null
+  merge_user?: GitLabUser | null
+  merged_by?: GitLabUser | null
   author?: GitLabUser
   labels?: Array<string | { name: string, color?: string, description?: string | null }>
   web_url?: string

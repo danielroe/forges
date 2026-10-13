@@ -273,6 +273,7 @@ export function toThread(
     createdAt: toDate(record.createdAt),
     updatedAt,
     closedAt: value === 'open' ? undefined : toDate(state.at),
+    mergedAt: value === 'merged' ? toDate(state.at) : undefined,
     lastActivityAt: updatedAt,
     labels: [],
     commentCount,

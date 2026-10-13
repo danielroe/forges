@@ -293,6 +293,10 @@ export const STEPS: Step[] = [
   } },
   { name: 'org team members', verb: 'orgs.teamMembersPage', run: (provider, _manifest, context) => provider.orgs.teamMembersPage(need(context.teams?.[0], 'a team').ref, page) },
   ...threadSteps('pull_request', 'pull'),
+  { name: 'merged pull', verb: 'threads.get', kind: 'pull_request', run: async (provider, manifest) => {
+    const listed = (await provider.threads.listPage(manifest.repo, { kind: 'pull_request', state: 'merged', perPage: 10 })).items[0]
+    return { listed, read: await provider.threads.get(need(listed, 'a merged pull request').ref) }
+  } },
   ...threadSteps('issue', 'issue'),
   ...threadSteps('discussion', 'discussion'),
   ...commitSteps(),

@@ -104,6 +104,7 @@ export function toPullThread(ref: ResolvedThreadRef, raw: GiteePullRequest): Thr
     createdAt: toDate(raw.created_at),
     updatedAt: toDate(raw.updated_at),
     closedAt: toDate(raw.closed_at),
+    mergedAt: toDate(raw.merged_at),
     lastActivityAt: toDate(raw.updated_at),
     locked: raw.locked,
     branches: raw.head && raw.base

@@ -1,0 +1,148 @@
+{
+  "listed": {
+    "ref": {
+      "forge": "github",
+      "instance": "github.com",
+      "repo": {
+        "forge": "github",
+        "instance": "github.com",
+        "owner": "h3js",
+        "name": "h3"
+      },
+      "kind": "pull_request",
+      "number": "1574",
+      "externalId": "PR_kwDOErHI988AAAABHHJ1TQ"
+    },
+    "kind": "pull_request",
+    "title": "fix(middleware): pass through handled responses in `onError`",
+    "body": "Follow-up to #1571 (part of #1569).\n\nWhen a stream piped by a `fromNodeHandler` handler fails, the handler rejects with h3's internal `kHandled` signal: the response is already committed and the error has been reported to the app `onError` hook. The `onError()` middleware treated that signal as an error:\n\n- its hook was called with a bogus `HTTPError` 500 (`cause: Symbol(h3.handled)`)\n- it re-threw that error, so the app `onError` hook ran a second time\n- the error was rendered and its JSON body appended to the already committed response (`item1{\"status\": 500, ...}` with status 200)\n\nThe middleware now re-throws `kHandled` untouched, without calling its hook.\n\nMiddleware-registered hooks still do not see stream errors (only the app `onError` config hook does). Reporting them there too would need a separate design.\n\nTest: a new `app.test.ts` case pipes a failing stream with an `onError()` middleware registered. It fails on `main` and passes with the change. Lint, typecheck and the full suite pass.\n\n🤖 Generated with AI assistant\n\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n\n## Summary by CodeRabbit\n\n* **Bug Fixes**\n  * Errors from a Node response stream no longer trigger the middleware error callback after the response has started; the application error hook still receives the error.\n  * The response content already sent to the client remains unchanged.\n\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
+    "state": "merged",
+    "stateRaw": "closed",
+    "isDraft": false,
+    "author": {
+      "forge": "github",
+      "instance": "github.com",
+      "login": "pi0x",
+      "id": "286783767",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/286783767?v=4",
+      "url": "https://github.com/pi0x",
+      "typeRaw": "User",
+      "isBotHint": false
+    },
+    "assignees": [],
+    "reviewers": [],
+    "labels": [],
+    "url": "https://github.com/h3js/h3/pull/1574",
+    "createdAt": "2026-10-07T11:54:45.000Z",
+    "updatedAt": "2026-10-07T11:58:37.000Z",
+    "closedAt": "2026-10-07T11:58:35.000Z",
+    "mergedAt": "2026-10-07T11:58:35.000Z",
+    "mergedBy": {
+      "forge": "github",
+      "instance": "github.com",
+      "login": "pi0",
+      "id": "5158436",
+      "name": "Pooya Parsa",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?u=3609b2822870b982f2b93c432569ee017e970148&v=4",
+      "url": "https://github.com/pi0",
+      "typeRaw": "User",
+      "isBotHint": false
+    },
+    "lastActivityAt": "2026-10-07T11:58:37.000Z",
+    "locked": false,
+    "commentCount": 3,
+    "reactions": {
+      "total": 0,
+      "counts": {}
+    },
+    "checks": {
+      "state": "success",
+      "stateRaw": "success",
+      "total": 8,
+      "failed": 0,
+      "url": "https://github.com/h3js/h3/pull/1574/checks"
+    }
+  },
+  "read": {
+    "ref": {
+      "forge": "github",
+      "instance": "github.com",
+      "repo": {
+        "forge": "github",
+        "instance": "github.com",
+        "owner": "h3js",
+        "name": "h3"
+      },
+      "kind": "pull_request",
+      "number": "1574",
+      "externalId": "PR_kwDOErHI988AAAABHHJ1TQ"
+    },
+    "kind": "pull_request",
+    "title": "fix(middleware): pass through handled responses in `onError`",
+    "body": "Follow-up to #1571 (part of #1569).\n\nWhen a stream piped by a `fromNodeHandler` handler fails, the handler rejects with h3's internal `kHandled` signal: the response is already committed and the error has been reported to the app `onError` hook. The `onError()` middleware treated that signal as an error:\n\n- its hook was called with a bogus `HTTPError` 500 (`cause: Symbol(h3.handled)`)\n- it re-threw that error, so the app `onError` hook ran a second time\n- the error was rendered and its JSON body appended to the already committed response (`item1{\"status\": 500, ...}` with status 200)\n\nThe middleware now re-throws `kHandled` untouched, without calling its hook.\n\nMiddleware-registered hooks still do not see stream errors (only the app `onError` config hook does). Reporting them there too would need a separate design.\n\nTest: a new `app.test.ts` case pipes a failing stream with an `onError()` middleware registered. It fails on `main` and passes with the change. Lint, typecheck and the full suite pass.\n\n🤖 Generated with AI assistant\n\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n\n## Summary by CodeRabbit\n\n* **Bug Fixes**\n  * Errors from a Node response stream no longer trigger the middleware error callback after the response has started; the application error hook still receives the error.\n  * The response content already sent to the client remains unchanged.\n\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
+    "state": "merged",
+    "stateRaw": "closed",
+    "isDraft": false,
+    "author": {
+      "forge": "github",
+      "instance": "github.com",
+      "login": "pi0x",
+      "id": "286783767",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/286783767?v=4",
+      "url": "https://github.com/pi0x",
+      "typeRaw": "User",
+      "isBotHint": false
+    },
+    "assignees": [],
+    "reviewers": [],
+    "labels": [],
+    "url": "https://github.com/h3js/h3/pull/1574",
+    "createdAt": "2026-10-07T11:54:45.000Z",
+    "updatedAt": "2026-10-07T11:58:37.000Z",
+    "closedAt": "2026-10-07T11:58:35.000Z",
+    "mergedAt": "2026-10-07T11:58:35.000Z",
+    "mergedBy": {
+      "forge": "github",
+      "instance": "github.com",
+      "login": "pi0",
+      "id": "5158436",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?v=4",
+      "url": "https://github.com/pi0",
+      "typeRaw": "User",
+      "isBotHint": false
+    },
+    "lastActivityAt": "2026-10-07T11:58:37.000Z",
+    "locked": false,
+    "commentCount": 3,
+    "branches": {
+      "head": {
+        "ref": "fix/on-error-middleware-handled",
+        "sha": "52905b9bab20050e8d0e503d36e04bb972a0c38c",
+        "repo": {
+          "forge": "github",
+          "instance": "github.com",
+          "owner": "h3js",
+          "name": "h3",
+          "externalId": "313641207"
+        }
+      },
+      "base": {
+        "ref": "main",
+        "sha": "bca3a8e8d5ab556c874c771aa5a9fade06194948"
+      },
+      "mergeCommitSha": "b52a9e7417bab5bbcdbf737d62c8fa0a61e84976"
+    },
+    "stats": {
+      "additions": 34,
+      "deletions": 2,
+      "changedFileCount": 2,
+      "commitCount": 1
+    },
+    "checks": {
+      "state": "success",
+      "total": 8,
+      "failed": 0,
+      "url": "https://github.com/h3js/h3/pull/1574/checks"
+    }
+  }
+}

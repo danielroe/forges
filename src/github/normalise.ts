@@ -452,6 +452,8 @@ export function toThread(ref: ThreadRef, raw: GitHubIssue): Thread {
     createdAt: toDate(raw.created_at),
     updatedAt: toDate(raw.updated_at),
     closedAt: toDate(raw.closed_at),
+    mergedAt: toDate(raw.merged_at ?? raw.pull_request?.merged_at),
+    mergedBy: toActor(ref.instance, raw.merged_by),
     lastActivityAt: toDate(raw.updated_at),
     locked: raw.locked,
     commentCount: raw.comments,

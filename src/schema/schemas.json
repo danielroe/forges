@@ -3822,6 +3822,15 @@
         "type": "string",
         "format": "date-time"
       },
+      "mergedAt": {
+        "type": "string",
+        "format": "date-time",
+        "description": "When the pull request was merged, where the forge reports it."
+      },
+      "mergedBy": {
+        "$ref": "#/components/schemas/Actor",
+        "description": "The account that merged the pull request, where the forge reports it."
+      },
       "lastActivityAt": {
         "type": "string",
         "format": "date-time",

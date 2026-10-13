@@ -149,6 +149,7 @@ export function toPullThread(ref: ResolvedThreadRef, raw: BitbucketPullRequest):
     createdAt: toDate(raw.created_on),
     updatedAt: toDate(raw.updated_on),
     closedAt: raw.state === 'OPEN' ? undefined : toDate(raw.updated_on),
+    mergedBy: raw.state === 'MERGED' ? toActor(ref.instance, raw.closed_by) : undefined,
     labels: [],
     commentCount: raw.comment_count,
     raw,

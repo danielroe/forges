@@ -1,0 +1,845 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://dev.azure.com/forges/forges-fixtures/_apis/git/repositories/forges-fixtures/pullrequests?searchCriteria.status=completed&%24top=10&%24skip=0&api-version=7.1"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "value": [
+        {
+          "repository": {
+            "id": "c67c02dd-cbca-45aa-a679-021bd4d2c4a7",
+            "name": "forges-fixtures",
+            "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7",
+            "project": {
+              "id": "b2332e32-1afe-4c85-9407-12e7af2bf24c",
+              "name": "forges-fixtures",
+              "state": "unchanged",
+              "visibility": "unchanged",
+              "lastUpdateTime": "0001-01-01T00:00:00"
+            }
+          },
+          "pullRequestId": 35,
+          "codeReviewId": 35,
+          "status": "completed",
+          "createdBy": {
+            "displayName": "danielroebot outlook.com",
+            "url": "https://spsprodweu6.vssps.visualstudio.com/Ad6317e89-50cc-469c-b506-66b9601cf085/_apis/Identities/567dfc49-0db7-43e6-83c1-d91d91db58b1",
+            "_links": {
+              "avatar": {
+                "href": "https://dev.azure.com/forges/_apis/GraphProfile/MemberAvatars/aad.MzE2OTUzNzAtY2RlZS03NzVkLWEwYjctMzUwYTkyZTJhMjc5"
+              }
+            },
+            "id": "567dfc49-0db7-43e6-83c1-d91d91db58b1",
+            "uniqueName": "redacted@example.invalid",
+            "imageUrl": "https://dev.azure.com/forges/_api/_common/identityImage?id=567dfc49-0db7-43e6-83c1-d91d91db58b1",
+            "descriptor": "aad.MzE2OTUzNzAtY2RlZS03NzVkLWEwYjctMzUwYTkyZTJhMjc5"
+          },
+          "creationDate": "2026-10-12T11:42:25.6569422Z",
+          "closedDate": "2026-10-12T11:42:29.0434791Z",
+          "title": "forges fixture 20261012114218: pull, edited",
+          "description": "Edited by run 20261012114218.",
+          "sourceRefName": "refs/heads/forges-fixtures/20261012114218-1",
+          "targetRefName": "refs/heads/main",
+          "mergeStatus": "succeeded",
+          "isDraft": false,
+          "mergeId": "92681764-7bd6-41ec-b2b9-bb0f2a6a0195",
+          "lastMergeSourceCommit": {
+            "commitId": "bf3a8babc5124c0900994d84d3e8f790655ee1cf",
+            "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/commits/bf3a8babc5124c0900994d84d3e8f790655ee1cf"
+          },
+          "lastMergeTargetCommit": {
+            "commitId": "254a409567a9d8b9817dc70eab65fed5e7fcd5fe",
+            "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/commits/254a409567a9d8b9817dc70eab65fed5e7fcd5fe"
+          },
+          "lastMergeCommit": {
+            "commitId": "79dc1c065d5654772318dc4bfa5288a221bb5998",
+            "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/commits/79dc1c065d5654772318dc4bfa5288a221bb5998"
+          },
+          "reviewers": [
+            {
+              "reviewerUrl": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/pullRequests/35/reviewers/48261c0d-8a6e-6a10-a9cb-c76b44ce18ce",
+              "vote": 10,
+              "hasDeclined": false,
+              "isFlagged": false,
+              "displayName": "danielroe",
+              "url": "https://spsprodweu6.vssps.visualstudio.com/Ad6317e89-50cc-469c-b506-66b9601cf085/_apis/Identities/48261c0d-8a6e-6a10-a9cb-c76b44ce18ce",
+              "_links": {
+                "avatar": {
+                  "href": "https://dev.azure.com/forges/_apis/GraphProfile/MemberAvatars/aad.NDgyNjFjMGQtOGE2ZS03YTEwLWE5Y2ItYzc2YjQ0Y2UxOGNl"
+                }
+              },
+              "id": "48261c0d-8a6e-6a10-a9cb-c76b44ce18ce",
+              "uniqueName": "redacted@example.invalid",
+              "imageUrl": "https://dev.azure.com/forges/_api/_common/identityImage?id=48261c0d-8a6e-6a10-a9cb-c76b44ce18ce"
+            }
+          ],
+          "labels": [
+            {
+              "id": "24e9854a-1d12-46d6-a2d3-b4ba4a039715",
+              "name": "forges-fixture-20261012114218",
+              "active": true
+            }
+          ],
+          "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/pullRequests/35",
+          "completionOptions": {
+            "mergeCommitMessage": "Merge run 20261012114218\n\nMerged by run 20261012114218",
+            "mergeStrategy": "noFastForward"
+          },
+          "supportsIterations": true,
+          "completionQueueTime": "2026-10-12T11:42:28.040231Z"
+        },
+        {
+          "repository": {
+            "id": "c67c02dd-cbca-45aa-a679-021bd4d2c4a7",
+            "name": "forges-fixtures",
+            "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7",
+            "project": {
+              "id": "b2332e32-1afe-4c85-9407-12e7af2bf24c",
+              "name": "forges-fixtures",
+              "state": "unchanged",
+              "visibility": "unchanged",
+              "lastUpdateTime": "0001-01-01T00:00:00"
+            }
+          },
+          "pullRequestId": 32,
+          "codeReviewId": 32,
+          "status": "completed",
+          "createdBy": {
+            "displayName": "danielroebot outlook.com",
+            "url": "https://spsprodweu6.vssps.visualstudio.com/Ad6317e89-50cc-469c-b506-66b9601cf085/_apis/Identities/567dfc49-0db7-43e6-83c1-d91d91db58b1",
+            "_links": {
+              "avatar": {
+                "href": "https://dev.azure.com/forges/_apis/GraphProfile/MemberAvatars/aad.MzE2OTUzNzAtY2RlZS03NzVkLWEwYjctMzUwYTkyZTJhMjc5"
+              }
+            },
+            "id": "567dfc49-0db7-43e6-83c1-d91d91db58b1",
+            "uniqueName": "redacted@example.invalid",
+            "imageUrl": "https://dev.azure.com/forges/_api/_common/identityImage?id=567dfc49-0db7-43e6-83c1-d91d91db58b1",
+            "descriptor": "aad.MzE2OTUzNzAtY2RlZS03NzVkLWEwYjctMzUwYTkyZTJhMjc5"
+          },
+          "creationDate": "2026-10-11T12:01:55.0519579Z",
+          "closedDate": "2026-10-11T12:01:58.6265343Z",
+          "title": "forges fixture 20261011120150: pull, edited",
+          "description": "Edited by run 20261011120150.",
+          "sourceRefName": "refs/heads/forges-fixtures/20261011120150-1",
+          "targetRefName": "refs/heads/main",
+          "mergeStatus": "succeeded",
+          "isDraft": false,
+          "mergeId": "1627e196-190b-47d3-9ad9-a498b3e3a604",
+          "lastMergeSourceCommit": {
+            "commitId": "5542ee955fd2b0e130a4ecfcba5c101610da11c2",
+            "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/commits/5542ee955fd2b0e130a4ecfcba5c101610da11c2"
+          },
+          "lastMergeTargetCommit": {
+            "commitId": "88cc1bb3d399bbdaa63e354f0c2b8517f7b22ba8",
+            "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/commits/88cc1bb3d399bbdaa63e354f0c2b8517f7b22ba8"
+          },
+          "lastMergeCommit": {
+            "commitId": "254a409567a9d8b9817dc70eab65fed5e7fcd5fe",
+            "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/commits/254a409567a9d8b9817dc70eab65fed5e7fcd5fe"
+          },
+          "reviewers": [
+            {
+              "reviewerUrl": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/pullRequests/32/reviewers/48261c0d-8a6e-6a10-a9cb-c76b44ce18ce",
+              "vote": 10,
+              "hasDeclined": false,
+              "isFlagged": false,
+              "displayName": "danielroe",
+              "url": "https://spsprodweu6.vssps.visualstudio.com/Ad6317e89-50cc-469c-b506-66b9601cf085/_apis/Identities/48261c0d-8a6e-6a10-a9cb-c76b44ce18ce",
+              "_links": {
+                "avatar": {
+                  "href": "https://dev.azure.com/forges/_apis/GraphProfile/MemberAvatars/aad.NDgyNjFjMGQtOGE2ZS03YTEwLWE5Y2ItYzc2YjQ0Y2UxOGNl"
+                }
+              },
+              "id": "48261c0d-8a6e-6a10-a9cb-c76b44ce18ce",
+              "uniqueName": "redacted@example.invalid",
+              "imageUrl": "https://dev.azure.com/forges/_api/_common/identityImage?id=48261c0d-8a6e-6a10-a9cb-c76b44ce18ce"
+            }
+          ],
+          "labels": [
+            {
+              "id": "4a5eca84-7987-45a8-9dc9-52e9eb3dc1b6",
+              "name": "forges-fixture-20261011120150",
+              "active": true
+            }
+          ],
+          "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/pullRequests/32",
+          "completionOptions": {
+            "mergeCommitMessage": "Merge run 20261011120150\n\nMerged by run 20261011120150",
+            "mergeStrategy": "noFastForward"
+          },
+          "supportsIterations": true,
+          "completionQueueTime": "2026-10-11T12:01:57.7692354Z"
+        },
+        {
+          "repository": {
+            "id": "c67c02dd-cbca-45aa-a679-021bd4d2c4a7",
+            "name": "forges-fixtures",
+            "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7",
+            "project": {
+              "id": "b2332e32-1afe-4c85-9407-12e7af2bf24c",
+              "name": "forges-fixtures",
+              "state": "unchanged",
+              "visibility": "unchanged",
+              "lastUpdateTime": "0001-01-01T00:00:00"
+            }
+          },
+          "pullRequestId": 29,
+          "codeReviewId": 29,
+          "status": "completed",
+          "createdBy": {
+            "displayName": "danielroebot outlook.com",
+            "url": "https://spsprodweu6.vssps.visualstudio.com/Ad6317e89-50cc-469c-b506-66b9601cf085/_apis/Identities/567dfc49-0db7-43e6-83c1-d91d91db58b1",
+            "_links": {
+              "avatar": {
+                "href": "https://dev.azure.com/forges/_apis/GraphProfile/MemberAvatars/aad.MzE2OTUzNzAtY2RlZS03NzVkLWEwYjctMzUwYTkyZTJhMjc5"
+              }
+            },
+            "id": "567dfc49-0db7-43e6-83c1-d91d91db58b1",
+            "uniqueName": "redacted@example.invalid",
+            "imageUrl": "https://dev.azure.com/forges/_api/_common/identityImage?id=567dfc49-0db7-43e6-83c1-d91d91db58b1",
+            "descriptor": "aad.MzE2OTUzNzAtY2RlZS03NzVkLWEwYjctMzUwYTkyZTJhMjc5"
+          },
+          "creationDate": "2026-10-11T11:34:22.571783Z",
+          "closedDate": "2026-10-11T11:34:25.8928785Z",
+          "title": "forges fixture 20261011113416: pull, edited",
+          "description": "Edited by run 20261011113416.",
+          "sourceRefName": "refs/heads/forges-fixtures/20261011113416-1",
+          "targetRefName": "refs/heads/main",
+          "mergeStatus": "succeeded",
+          "isDraft": false,
+          "mergeId": "99966bcd-c8de-42b7-b980-51b41846c2cb",
+          "lastMergeSourceCommit": {
+            "commitId": "ca6f5ba7017fb251267ce207175a0a841f891a8c",
+            "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/commits/ca6f5ba7017fb251267ce207175a0a841f891a8c"
+          },
+          "lastMergeTargetCommit": {
+            "commitId": "2ba27ee22ad566e85c2e14a3b77b07b68761ff1e",
+            "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/commits/2ba27ee22ad566e85c2e14a3b77b07b68761ff1e"
+          },
+          "lastMergeCommit": {
+            "commitId": "88cc1bb3d399bbdaa63e354f0c2b8517f7b22ba8",
+            "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/commits/88cc1bb3d399bbdaa63e354f0c2b8517f7b22ba8"
+          },
+          "reviewers": [
+            {
+              "reviewerUrl": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/pullRequests/29/reviewers/48261c0d-8a6e-6a10-a9cb-c76b44ce18ce",
+              "vote": 10,
+              "hasDeclined": false,
+              "isFlagged": false,
+              "displayName": "danielroe",
+              "url": "https://spsprodweu6.vssps.visualstudio.com/Ad6317e89-50cc-469c-b506-66b9601cf085/_apis/Identities/48261c0d-8a6e-6a10-a9cb-c76b44ce18ce",
+              "_links": {
+                "avatar": {
+                  "href": "https://dev.azure.com/forges/_apis/GraphProfile/MemberAvatars/aad.NDgyNjFjMGQtOGE2ZS03YTEwLWE5Y2ItYzc2YjQ0Y2UxOGNl"
+                }
+              },
+              "id": "48261c0d-8a6e-6a10-a9cb-c76b44ce18ce",
+              "uniqueName": "redacted@example.invalid",
+              "imageUrl": "https://dev.azure.com/forges/_api/_common/identityImage?id=48261c0d-8a6e-6a10-a9cb-c76b44ce18ce"
+            }
+          ],
+          "labels": [
+            {
+              "id": "d389dfc7-bb47-41df-b733-3c45ac5a756e",
+              "name": "forges-fixture-20261011113416",
+              "active": true
+            }
+          ],
+          "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/pullRequests/29",
+          "completionOptions": {
+            "mergeCommitMessage": "Merge run 20261011113416\n\nMerged by run 20261011113416",
+            "mergeStrategy": "noFastForward"
+          },
+          "supportsIterations": true,
+          "completionQueueTime": "2026-10-11T11:34:25.0947068Z"
+        },
+        {
+          "repository": {
+            "id": "c67c02dd-cbca-45aa-a679-021bd4d2c4a7",
+            "name": "forges-fixtures",
+            "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7",
+            "project": {
+              "id": "b2332e32-1afe-4c85-9407-12e7af2bf24c",
+              "name": "forges-fixtures",
+              "state": "unchanged",
+              "visibility": "unchanged",
+              "lastUpdateTime": "0001-01-01T00:00:00"
+            }
+          },
+          "pullRequestId": 26,
+          "codeReviewId": 26,
+          "status": "completed",
+          "createdBy": {
+            "displayName": "danielroebot outlook.com",
+            "url": "https://spsprodweu6.vssps.visualstudio.com/Ad6317e89-50cc-469c-b506-66b9601cf085/_apis/Identities/567dfc49-0db7-43e6-83c1-d91d91db58b1",
+            "_links": {
+              "avatar": {
+                "href": "https://dev.azure.com/forges/_apis/GraphProfile/MemberAvatars/aad.MzE2OTUzNzAtY2RlZS03NzVkLWEwYjctMzUwYTkyZTJhMjc5"
+              }
+            },
+            "id": "567dfc49-0db7-43e6-83c1-d91d91db58b1",
+            "uniqueName": "redacted@example.invalid",
+            "imageUrl": "https://dev.azure.com/forges/_api/_common/identityImage?id=567dfc49-0db7-43e6-83c1-d91d91db58b1",
+            "descriptor": "aad.MzE2OTUzNzAtY2RlZS03NzVkLWEwYjctMzUwYTkyZTJhMjc5"
+          },
+          "creationDate": "2026-10-10T23:23:36.1275095Z",
+          "closedDate": "2026-10-10T23:23:40.7156183Z",
+          "title": "forges fixture 20261010232329: pull, edited",
+          "description": "Edited by run 20261010232329.",
+          "sourceRefName": "refs/heads/forges-fixtures/20261010232329-1",
+          "targetRefName": "refs/heads/main",
+          "mergeStatus": "succeeded",
+          "isDraft": false,
+          "mergeId": "73287254-d4c3-433c-894a-ca23d69422fb",
+          "lastMergeSourceCommit": {
+            "commitId": "d738d10e141286662be1dbf31b24d9d01140242e",
+            "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/commits/d738d10e141286662be1dbf31b24d9d01140242e"
+          },
+          "lastMergeTargetCommit": {
+            "commitId": "ac936aa6757cdec77ff489fbcfbca46484bedb94",
+            "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/commits/ac936aa6757cdec77ff489fbcfbca46484bedb94"
+          },
+          "lastMergeCommit": {
+            "commitId": "2ba27ee22ad566e85c2e14a3b77b07b68761ff1e",
+            "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/commits/2ba27ee22ad566e85c2e14a3b77b07b68761ff1e"
+          },
+          "reviewers": [
+            {
+              "reviewerUrl": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/pullRequests/26/reviewers/48261c0d-8a6e-6a10-a9cb-c76b44ce18ce",
+              "vote": 10,
+              "hasDeclined": false,
+              "isFlagged": false,
+              "displayName": "danielroe",
+              "url": "https://spsprodweu6.vssps.visualstudio.com/Ad6317e89-50cc-469c-b506-66b9601cf085/_apis/Identities/48261c0d-8a6e-6a10-a9cb-c76b44ce18ce",
+              "_links": {
+                "avatar": {
+                  "href": "https://dev.azure.com/forges/_apis/GraphProfile/MemberAvatars/aad.NDgyNjFjMGQtOGE2ZS03YTEwLWE5Y2ItYzc2YjQ0Y2UxOGNl"
+                }
+              },
+              "id": "48261c0d-8a6e-6a10-a9cb-c76b44ce18ce",
+              "uniqueName": "redacted@example.invalid",
+              "imageUrl": "https://dev.azure.com/forges/_api/_common/identityImage?id=48261c0d-8a6e-6a10-a9cb-c76b44ce18ce"
+            }
+          ],
+          "labels": [
+            {
+              "id": "99c1c65e-3e41-4fbe-bf31-ba1997246503",
+              "name": "forges-fixture-20261010232329",
+              "active": true
+            }
+          ],
+          "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/pullRequests/26",
+          "completionOptions": {
+            "mergeCommitMessage": "Merge run 20261010232329\n\nMerged by run 20261010232329",
+            "mergeStrategy": "noFastForward"
+          },
+          "supportsIterations": true,
+          "completionQueueTime": "2026-10-10T23:23:39.6500775Z"
+        },
+        {
+          "repository": {
+            "id": "c67c02dd-cbca-45aa-a679-021bd4d2c4a7",
+            "name": "forges-fixtures",
+            "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7",
+            "project": {
+              "id": "b2332e32-1afe-4c85-9407-12e7af2bf24c",
+              "name": "forges-fixtures",
+              "state": "unchanged",
+              "visibility": "unchanged",
+              "lastUpdateTime": "0001-01-01T00:00:00"
+            }
+          },
+          "pullRequestId": 23,
+          "codeReviewId": 23,
+          "status": "completed",
+          "createdBy": {
+            "displayName": "danielroebot outlook.com",
+            "url": "https://spsprodweu6.vssps.visualstudio.com/Ad6317e89-50cc-469c-b506-66b9601cf085/_apis/Identities/567dfc49-0db7-43e6-83c1-d91d91db58b1",
+            "_links": {
+              "avatar": {
+                "href": "https://dev.azure.com/forges/_apis/GraphProfile/MemberAvatars/aad.MzE2OTUzNzAtY2RlZS03NzVkLWEwYjctMzUwYTkyZTJhMjc5"
+              }
+            },
+            "id": "567dfc49-0db7-43e6-83c1-d91d91db58b1",
+            "uniqueName": "redacted@example.invalid",
+            "imageUrl": "https://dev.azure.com/forges/_api/_common/identityImage?id=567dfc49-0db7-43e6-83c1-d91d91db58b1",
+            "descriptor": "aad.MzE2OTUzNzAtY2RlZS03NzVkLWEwYjctMzUwYTkyZTJhMjc5"
+          },
+          "creationDate": "2026-10-09T21:08:49.1590827Z",
+          "closedDate": "2026-10-09T21:08:53.8025885Z",
+          "title": "forges fixture 20261009210843: pull, edited",
+          "description": "Edited by run 20261009210843.",
+          "sourceRefName": "refs/heads/forges-fixtures/20261009210843-1",
+          "targetRefName": "refs/heads/main",
+          "mergeStatus": "succeeded",
+          "isDraft": false,
+          "mergeId": "dada2679-4217-4f35-b867-574fe6ec4a96",
+          "lastMergeSourceCommit": {
+            "commitId": "9a01bcd75f54d12908abf93c9c32b555a0bc6411",
+            "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/commits/9a01bcd75f54d12908abf93c9c32b555a0bc6411"
+          },
+          "lastMergeTargetCommit": {
+            "commitId": "e1bbe32af6a598438be5bb06efa3f6209b72812a",
+            "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/commits/e1bbe32af6a598438be5bb06efa3f6209b72812a"
+          },
+          "lastMergeCommit": {
+            "commitId": "ac936aa6757cdec77ff489fbcfbca46484bedb94",
+            "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/commits/ac936aa6757cdec77ff489fbcfbca46484bedb94"
+          },
+          "reviewers": [
+            {
+              "reviewerUrl": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/pullRequests/23/reviewers/48261c0d-8a6e-6a10-a9cb-c76b44ce18ce",
+              "vote": 10,
+              "hasDeclined": false,
+              "isFlagged": false,
+              "displayName": "danielroe",
+              "url": "https://spsprodweu6.vssps.visualstudio.com/Ad6317e89-50cc-469c-b506-66b9601cf085/_apis/Identities/48261c0d-8a6e-6a10-a9cb-c76b44ce18ce",
+              "_links": {
+                "avatar": {
+                  "href": "https://dev.azure.com/forges/_apis/GraphProfile/MemberAvatars/aad.NDgyNjFjMGQtOGE2ZS03YTEwLWE5Y2ItYzc2YjQ0Y2UxOGNl"
+                }
+              },
+              "id": "48261c0d-8a6e-6a10-a9cb-c76b44ce18ce",
+              "uniqueName": "redacted@example.invalid",
+              "imageUrl": "https://dev.azure.com/forges/_api/_common/identityImage?id=48261c0d-8a6e-6a10-a9cb-c76b44ce18ce"
+            }
+          ],
+          "labels": [
+            {
+              "id": "dda75e97-1ab7-4063-b138-cdd00791d00f",
+              "name": "forges-fixture-20261009210843",
+              "active": true
+            }
+          ],
+          "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/pullRequests/23",
+          "completionOptions": {
+            "mergeCommitMessage": "Merged by run 20261009210843",
+            "mergeStrategy": "noFastForward"
+          },
+          "supportsIterations": true,
+          "completionQueueTime": "2026-10-09T21:08:52.8117343Z"
+        },
+        {
+          "repository": {
+            "id": "c67c02dd-cbca-45aa-a679-021bd4d2c4a7",
+            "name": "forges-fixtures",
+            "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7",
+            "project": {
+              "id": "b2332e32-1afe-4c85-9407-12e7af2bf24c",
+              "name": "forges-fixtures",
+              "state": "unchanged",
+              "visibility": "unchanged",
+              "lastUpdateTime": "0001-01-01T00:00:00"
+            }
+          },
+          "pullRequestId": 20,
+          "codeReviewId": 20,
+          "status": "completed",
+          "createdBy": {
+            "displayName": "danielroebot outlook.com",
+            "url": "https://spsprodweu6.vssps.visualstudio.com/Ad6317e89-50cc-469c-b506-66b9601cf085/_apis/Identities/567dfc49-0db7-43e6-83c1-d91d91db58b1",
+            "_links": {
+              "avatar": {
+                "href": "https://dev.azure.com/forges/_apis/GraphProfile/MemberAvatars/aad.MzE2OTUzNzAtY2RlZS03NzVkLWEwYjctMzUwYTkyZTJhMjc5"
+              }
+            },
+            "id": "567dfc49-0db7-43e6-83c1-d91d91db58b1",
+            "uniqueName": "redacted@example.invalid",
+            "imageUrl": "https://dev.azure.com/forges/_api/_common/identityImage?id=567dfc49-0db7-43e6-83c1-d91d91db58b1",
+            "descriptor": "aad.MzE2OTUzNzAtY2RlZS03NzVkLWEwYjctMzUwYTkyZTJhMjc5"
+          },
+          "creationDate": "2026-10-09T21:06:42.7956376Z",
+          "closedDate": "2026-10-09T21:06:56.0555082Z",
+          "title": "forges fixture 20261009210636: pull, edited",
+          "description": "Edited by run 20261009210636.",
+          "sourceRefName": "refs/heads/forges-fixtures/20261009210636-1",
+          "targetRefName": "refs/heads/main",
+          "mergeStatus": "succeeded",
+          "isDraft": false,
+          "mergeId": "e38c4f75-fea7-47bb-87ae-17173e659c0a",
+          "lastMergeSourceCommit": {
+            "commitId": "10a5c71d700db3f2ee0379c9fb30a576ab46a045",
+            "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/commits/10a5c71d700db3f2ee0379c9fb30a576ab46a045"
+          },
+          "lastMergeTargetCommit": {
+            "commitId": "40bc179bd3acd61f703ebb0a8c6fc2534c89c550",
+            "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/commits/40bc179bd3acd61f703ebb0a8c6fc2534c89c550"
+          },
+          "lastMergeCommit": {
+            "commitId": "e1bbe32af6a598438be5bb06efa3f6209b72812a",
+            "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/commits/e1bbe32af6a598438be5bb06efa3f6209b72812a"
+          },
+          "reviewers": [
+            {
+              "reviewerUrl": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/pullRequests/20/reviewers/48261c0d-8a6e-6a10-a9cb-c76b44ce18ce",
+              "vote": 10,
+              "hasDeclined": false,
+              "isFlagged": false,
+              "displayName": "danielroe",
+              "url": "https://spsprodweu6.vssps.visualstudio.com/Ad6317e89-50cc-469c-b506-66b9601cf085/_apis/Identities/48261c0d-8a6e-6a10-a9cb-c76b44ce18ce",
+              "_links": {
+                "avatar": {
+                  "href": "https://dev.azure.com/forges/_apis/GraphProfile/MemberAvatars/aad.NDgyNjFjMGQtOGE2ZS03YTEwLWE5Y2ItYzc2YjQ0Y2UxOGNl"
+                }
+              },
+              "id": "48261c0d-8a6e-6a10-a9cb-c76b44ce18ce",
+              "uniqueName": "redacted@example.invalid",
+              "imageUrl": "https://dev.azure.com/forges/_api/_common/identityImage?id=48261c0d-8a6e-6a10-a9cb-c76b44ce18ce"
+            }
+          ],
+          "labels": [
+            {
+              "id": "be719e1c-04c3-456e-9405-660865d5bfa5",
+              "name": "forges-fixture-20261009210636",
+              "active": true
+            }
+          ],
+          "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/pullRequests/20",
+          "completionOptions": {
+            "mergeCommitMessage": "Merged by run 20261009210636",
+            "mergeStrategy": "noFastForward"
+          },
+          "supportsIterations": true,
+          "completionQueueTime": "2026-10-09T21:06:54.9761062Z"
+        },
+        {
+          "repository": {
+            "id": "c67c02dd-cbca-45aa-a679-021bd4d2c4a7",
+            "name": "forges-fixtures",
+            "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7",
+            "project": {
+              "id": "b2332e32-1afe-4c85-9407-12e7af2bf24c",
+              "name": "forges-fixtures",
+              "state": "unchanged",
+              "visibility": "unchanged",
+              "lastUpdateTime": "0001-01-01T00:00:00"
+            }
+          },
+          "pullRequestId": 17,
+          "codeReviewId": 17,
+          "status": "completed",
+          "createdBy": {
+            "displayName": "danielroebot outlook.com",
+            "url": "https://spsprodweu6.vssps.visualstudio.com/Ad6317e89-50cc-469c-b506-66b9601cf085/_apis/Identities/567dfc49-0db7-43e6-83c1-d91d91db58b1",
+            "_links": {
+              "avatar": {
+                "href": "https://dev.azure.com/forges/_apis/GraphProfile/MemberAvatars/aad.MzE2OTUzNzAtY2RlZS03NzVkLWEwYjctMzUwYTkyZTJhMjc5"
+              }
+            },
+            "id": "567dfc49-0db7-43e6-83c1-d91d91db58b1",
+            "uniqueName": "redacted@example.invalid",
+            "imageUrl": "https://dev.azure.com/forges/_api/_common/identityImage?id=567dfc49-0db7-43e6-83c1-d91d91db58b1",
+            "descriptor": "aad.MzE2OTUzNzAtY2RlZS03NzVkLWEwYjctMzUwYTkyZTJhMjc5"
+          },
+          "creationDate": "2026-10-09T14:24:34.7840907Z",
+          "closedDate": "2026-10-09T14:24:38.7237114Z",
+          "title": "forges fixture 20261009142428: pull, edited",
+          "description": "Edited by run 20261009142428.",
+          "sourceRefName": "refs/heads/forges-fixtures/20261009142428-1",
+          "targetRefName": "refs/heads/main",
+          "mergeStatus": "succeeded",
+          "isDraft": false,
+          "mergeId": "1076ef09-97f6-41a6-9404-eba1dd030994",
+          "lastMergeSourceCommit": {
+            "commitId": "c722b0f7aa03a4fd722b58da8571862ac98b03f5",
+            "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/commits/c722b0f7aa03a4fd722b58da8571862ac98b03f5"
+          },
+          "lastMergeTargetCommit": {
+            "commitId": "636c84b9c049c9370fe74413a356611a561e91a3",
+            "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/commits/636c84b9c049c9370fe74413a356611a561e91a3"
+          },
+          "lastMergeCommit": {
+            "commitId": "270434cf7871f50b8f284157577febc64a1523e3",
+            "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/commits/270434cf7871f50b8f284157577febc64a1523e3"
+          },
+          "reviewers": [
+            {
+              "reviewerUrl": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/pullRequests/17/reviewers/48261c0d-8a6e-6a10-a9cb-c76b44ce18ce",
+              "vote": 10,
+              "hasDeclined": false,
+              "isFlagged": false,
+              "displayName": "danielroe",
+              "url": "https://spsprodweu6.vssps.visualstudio.com/Ad6317e89-50cc-469c-b506-66b9601cf085/_apis/Identities/48261c0d-8a6e-6a10-a9cb-c76b44ce18ce",
+              "_links": {
+                "avatar": {
+                  "href": "https://dev.azure.com/forges/_apis/GraphProfile/MemberAvatars/aad.NDgyNjFjMGQtOGE2ZS03YTEwLWE5Y2ItYzc2YjQ0Y2UxOGNl"
+                }
+              },
+              "id": "48261c0d-8a6e-6a10-a9cb-c76b44ce18ce",
+              "uniqueName": "redacted@example.invalid",
+              "imageUrl": "https://dev.azure.com/forges/_api/_common/identityImage?id=48261c0d-8a6e-6a10-a9cb-c76b44ce18ce"
+            }
+          ],
+          "labels": [
+            {
+              "id": "baee750c-8bcc-4105-8816-b41b8974f25f",
+              "name": "forges-fixture-20261009142428",
+              "active": true
+            }
+          ],
+          "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/pullRequests/17",
+          "completionOptions": {
+            "mergeCommitMessage": "Merged by run 20261009142428",
+            "mergeStrategy": "noFastForward"
+          },
+          "supportsIterations": true,
+          "completionQueueTime": "2026-10-09T14:24:37.8922321Z"
+        },
+        {
+          "repository": {
+            "id": "c67c02dd-cbca-45aa-a679-021bd4d2c4a7",
+            "name": "forges-fixtures",
+            "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7",
+            "project": {
+              "id": "b2332e32-1afe-4c85-9407-12e7af2bf24c",
+              "name": "forges-fixtures",
+              "state": "unchanged",
+              "visibility": "unchanged",
+              "lastUpdateTime": "0001-01-01T00:00:00"
+            }
+          },
+          "pullRequestId": 14,
+          "codeReviewId": 14,
+          "status": "completed",
+          "createdBy": {
+            "displayName": "danielroebot outlook.com",
+            "url": "https://spsprodweu6.vssps.visualstudio.com/Ad6317e89-50cc-469c-b506-66b9601cf085/_apis/Identities/567dfc49-0db7-43e6-83c1-d91d91db58b1",
+            "_links": {
+              "avatar": {
+                "href": "https://dev.azure.com/forges/_apis/GraphProfile/MemberAvatars/aad.MzE2OTUzNzAtY2RlZS03NzVkLWEwYjctMzUwYTkyZTJhMjc5"
+              }
+            },
+            "id": "567dfc49-0db7-43e6-83c1-d91d91db58b1",
+            "uniqueName": "redacted@example.invalid",
+            "imageUrl": "https://dev.azure.com/forges/_api/_common/identityImage?id=567dfc49-0db7-43e6-83c1-d91d91db58b1",
+            "descriptor": "aad.MzE2OTUzNzAtY2RlZS03NzVkLWEwYjctMzUwYTkyZTJhMjc5"
+          },
+          "creationDate": "2026-10-09T14:21:02.2108098Z",
+          "closedDate": "2026-10-09T14:21:07.0502632Z",
+          "title": "forges fixture 20261009142055: pull, edited",
+          "description": "Edited by run 20261009142055.",
+          "sourceRefName": "refs/heads/forges-fixtures/20261009142055-1",
+          "targetRefName": "refs/heads/main",
+          "mergeStatus": "succeeded",
+          "isDraft": false,
+          "mergeId": "d5cfdfc8-24f5-455d-a68a-0fba9562506d",
+          "lastMergeSourceCommit": {
+            "commitId": "109d4f7170706f3025aac3156989e3314930b842",
+            "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/commits/109d4f7170706f3025aac3156989e3314930b842"
+          },
+          "lastMergeTargetCommit": {
+            "commitId": "94101ddbfe3feb7d6ed3d28b2295630aeaedf38a",
+            "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/commits/94101ddbfe3feb7d6ed3d28b2295630aeaedf38a"
+          },
+          "lastMergeCommit": {
+            "commitId": "83f4ca3324da04f6abfbe8eef3e8b270b810d94e",
+            "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/commits/83f4ca3324da04f6abfbe8eef3e8b270b810d94e"
+          },
+          "reviewers": [
+            {
+              "reviewerUrl": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/pullRequests/14/reviewers/48261c0d-8a6e-6a10-a9cb-c76b44ce18ce",
+              "vote": 10,
+              "hasDeclined": false,
+              "isFlagged": false,
+              "displayName": "danielroe",
+              "url": "https://spsprodweu6.vssps.visualstudio.com/Ad6317e89-50cc-469c-b506-66b9601cf085/_apis/Identities/48261c0d-8a6e-6a10-a9cb-c76b44ce18ce",
+              "_links": {
+                "avatar": {
+                  "href": "https://dev.azure.com/forges/_apis/GraphProfile/MemberAvatars/aad.NDgyNjFjMGQtOGE2ZS03YTEwLWE5Y2ItYzc2YjQ0Y2UxOGNl"
+                }
+              },
+              "id": "48261c0d-8a6e-6a10-a9cb-c76b44ce18ce",
+              "uniqueName": "redacted@example.invalid",
+              "imageUrl": "https://dev.azure.com/forges/_api/_common/identityImage?id=48261c0d-8a6e-6a10-a9cb-c76b44ce18ce"
+            }
+          ],
+          "labels": [
+            {
+              "id": "2fbed194-9f00-4321-a2a8-387731195244",
+              "name": "forges-fixture-20261009142055",
+              "active": true
+            }
+          ],
+          "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/pullRequests/14",
+          "completionOptions": {
+            "mergeCommitMessage": "Merged by run 20261009142055",
+            "mergeStrategy": "noFastForward"
+          },
+          "supportsIterations": true,
+          "completionQueueTime": "2026-10-09T14:21:06.0136813Z"
+        },
+        {
+          "repository": {
+            "id": "c67c02dd-cbca-45aa-a679-021bd4d2c4a7",
+            "name": "forges-fixtures",
+            "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7",
+            "project": {
+              "id": "b2332e32-1afe-4c85-9407-12e7af2bf24c",
+              "name": "forges-fixtures",
+              "state": "unchanged",
+              "visibility": "unchanged",
+              "lastUpdateTime": "0001-01-01T00:00:00"
+            }
+          },
+          "pullRequestId": 11,
+          "codeReviewId": 11,
+          "status": "completed",
+          "createdBy": {
+            "displayName": "danielroebot outlook.com",
+            "url": "https://spsprodweu6.vssps.visualstudio.com/Ad6317e89-50cc-469c-b506-66b9601cf085/_apis/Identities/567dfc49-0db7-43e6-83c1-d91d91db58b1",
+            "_links": {
+              "avatar": {
+                "href": "https://dev.azure.com/forges/_apis/GraphProfile/MemberAvatars/aad.MzE2OTUzNzAtY2RlZS03NzVkLWEwYjctMzUwYTkyZTJhMjc5"
+              }
+            },
+            "id": "567dfc49-0db7-43e6-83c1-d91d91db58b1",
+            "uniqueName": "redacted@example.invalid",
+            "imageUrl": "https://dev.azure.com/forges/_api/_common/identityImage?id=567dfc49-0db7-43e6-83c1-d91d91db58b1",
+            "descriptor": "aad.MzE2OTUzNzAtY2RlZS03NzVkLWEwYjctMzUwYTkyZTJhMjc5"
+          },
+          "creationDate": "2026-10-09T14:00:54.0248678Z",
+          "closedDate": "2026-10-09T14:00:58.3030372Z",
+          "title": "forges fixture 20261009140046: pull, edited",
+          "description": "Edited by run 20261009140046.",
+          "sourceRefName": "refs/heads/forges-fixtures/20261009140046-1",
+          "targetRefName": "refs/heads/main",
+          "mergeStatus": "succeeded",
+          "isDraft": false,
+          "mergeId": "6a2f1621-634d-4823-8a02-8e8bd4a967a0",
+          "lastMergeSourceCommit": {
+            "commitId": "4e67a3a8835789d5f7ff262b20d2b9054bcc4937",
+            "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/commits/4e67a3a8835789d5f7ff262b20d2b9054bcc4937"
+          },
+          "lastMergeTargetCommit": {
+            "commitId": "63858c85082245411d65313f6279c117a27964b8",
+            "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/commits/63858c85082245411d65313f6279c117a27964b8"
+          },
+          "lastMergeCommit": {
+            "commitId": "94101ddbfe3feb7d6ed3d28b2295630aeaedf38a",
+            "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/commits/94101ddbfe3feb7d6ed3d28b2295630aeaedf38a"
+          },
+          "reviewers": [
+            {
+              "reviewerUrl": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/pullRequests/11/reviewers/48261c0d-8a6e-6a10-a9cb-c76b44ce18ce",
+              "vote": 10,
+              "hasDeclined": false,
+              "isFlagged": false,
+              "displayName": "danielroe",
+              "url": "https://spsprodweu6.vssps.visualstudio.com/Ad6317e89-50cc-469c-b506-66b9601cf085/_apis/Identities/48261c0d-8a6e-6a10-a9cb-c76b44ce18ce",
+              "_links": {
+                "avatar": {
+                  "href": "https://dev.azure.com/forges/_apis/GraphProfile/MemberAvatars/aad.NDgyNjFjMGQtOGE2ZS03YTEwLWE5Y2ItYzc2YjQ0Y2UxOGNl"
+                }
+              },
+              "id": "48261c0d-8a6e-6a10-a9cb-c76b44ce18ce",
+              "uniqueName": "redacted@example.invalid",
+              "imageUrl": "https://dev.azure.com/forges/_api/_common/identityImage?id=48261c0d-8a6e-6a10-a9cb-c76b44ce18ce"
+            }
+          ],
+          "labels": [
+            {
+              "id": "81eb13df-3a7c-472f-bd83-b420d183a806",
+              "name": "forges-fixture-20261009140046",
+              "active": true
+            }
+          ],
+          "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/pullRequests/11",
+          "completionOptions": {
+            "mergeCommitMessage": "Merged by run 20261009140046",
+            "mergeStrategy": "noFastForward"
+          },
+          "supportsIterations": true,
+          "completionQueueTime": "2026-10-09T14:00:57.5302618Z"
+        },
+        {
+          "repository": {
+            "id": "c67c02dd-cbca-45aa-a679-021bd4d2c4a7",
+            "name": "forges-fixtures",
+            "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7",
+            "project": {
+              "id": "b2332e32-1afe-4c85-9407-12e7af2bf24c",
+              "name": "forges-fixtures",
+              "state": "unchanged",
+              "visibility": "unchanged",
+              "lastUpdateTime": "0001-01-01T00:00:00"
+            }
+          },
+          "pullRequestId": 8,
+          "codeReviewId": 8,
+          "status": "completed",
+          "createdBy": {
+            "displayName": "danielroebot outlook.com",
+            "url": "https://spsprodweu6.vssps.visualstudio.com/Ad6317e89-50cc-469c-b506-66b9601cf085/_apis/Identities/567dfc49-0db7-43e6-83c1-d91d91db58b1",
+            "_links": {
+              "avatar": {
+                "href": "https://dev.azure.com/forges/_apis/GraphProfile/MemberAvatars/aad.MzE2OTUzNzAtY2RlZS03NzVkLWEwYjctMzUwYTkyZTJhMjc5"
+              }
+            },
+            "id": "567dfc49-0db7-43e6-83c1-d91d91db58b1",
+            "uniqueName": "redacted@example.invalid",
+            "imageUrl": "https://dev.azure.com/forges/_api/_common/identityImage?id=567dfc49-0db7-43e6-83c1-d91d91db58b1",
+            "descriptor": "aad.MzE2OTUzNzAtY2RlZS03NzVkLWEwYjctMzUwYTkyZTJhMjc5"
+          },
+          "creationDate": "2026-10-09T13:52:39.0585154Z",
+          "closedDate": "2026-10-09T13:52:42.48854Z",
+          "title": "forges fixture 20261009135233: pull, edited",
+          "description": "Edited by run 20261009135233.",
+          "sourceRefName": "refs/heads/forges-fixtures/20261009135233-1",
+          "targetRefName": "refs/heads/main",
+          "mergeStatus": "succeeded",
+          "isDraft": false,
+          "mergeId": "e63b34e5-6c4a-4c9e-887b-436432357b37",
+          "lastMergeSourceCommit": {
+            "commitId": "e6292a37909a5afd3667406b75c18abc92ac5dc7",
+            "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/commits/e6292a37909a5afd3667406b75c18abc92ac5dc7"
+          },
+          "lastMergeTargetCommit": {
+            "commitId": "148352c9756cd600dbe4a6a09856388e4c72b17b",
+            "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/commits/148352c9756cd600dbe4a6a09856388e4c72b17b"
+          },
+          "lastMergeCommit": {
+            "commitId": "63858c85082245411d65313f6279c117a27964b8",
+            "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/commits/63858c85082245411d65313f6279c117a27964b8"
+          },
+          "reviewers": [
+            {
+              "reviewerUrl": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/pullRequests/8/reviewers/48261c0d-8a6e-6a10-a9cb-c76b44ce18ce",
+              "vote": 10,
+              "hasDeclined": false,
+              "isFlagged": false,
+              "displayName": "danielroe",
+              "url": "https://spsprodweu6.vssps.visualstudio.com/Ad6317e89-50cc-469c-b506-66b9601cf085/_apis/Identities/48261c0d-8a6e-6a10-a9cb-c76b44ce18ce",
+              "_links": {
+                "avatar": {
+                  "href": "https://dev.azure.com/forges/_apis/GraphProfile/MemberAvatars/aad.NDgyNjFjMGQtOGE2ZS03YTEwLWE5Y2ItYzc2YjQ0Y2UxOGNl"
+                }
+              },
+              "id": "48261c0d-8a6e-6a10-a9cb-c76b44ce18ce",
+              "uniqueName": "redacted@example.invalid",
+              "imageUrl": "https://dev.azure.com/forges/_api/_common/identityImage?id=48261c0d-8a6e-6a10-a9cb-c76b44ce18ce"
+            }
+          ],
+          "labels": [
+            {
+              "id": "79e5b55a-630d-4ffc-a1d7-3462f48a7dd4",
+              "name": "forges-fixture-20261009135233",
+              "active": true
+            }
+          ],
+          "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/pullRequests/8",
+          "completionOptions": {
+            "mergeCommitMessage": "Merged by run 20261009135233",
+            "mergeStrategy": "noFastForward"
+          },
+          "supportsIterations": true,
+          "completionQueueTime": "2026-10-09T13:52:41.9291195Z"
+        }
+      ],
+      "count": 10
+    }
+  }
+}

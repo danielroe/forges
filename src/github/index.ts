@@ -634,6 +634,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
         if (result.ok) {
           pulls[index]!.checks = result.thread.checks ?? pulls[index]!.checks
           pulls[index]!.commentCount ??= result.thread.commentCount
+          pulls[index]!.mergedBy ??= result.thread.mergedBy
         }
       }
     }

@@ -83,6 +83,8 @@ export function toPullThread(ref: ResolvedThreadRef, raw: AzurePullRequest): Thr
     url: raw._links?.web?.href,
     createdAt: toDate(raw.creationDate),
     closedAt: toDate(raw.closedDate),
+    mergedAt: state === 'merged' ? toDate(raw.closedDate) : undefined,
+    mergedBy: state === 'merged' ? toActor(instance, raw.closedBy) : undefined,
     lastActivityAt: toDate(raw.closedDate ?? raw.creationDate),
     branches: {
       head: { ref: branch(raw.sourceRefName), sha: raw.lastMergeSourceCommit?.commitId },

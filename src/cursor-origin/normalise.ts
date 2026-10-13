@@ -68,6 +68,7 @@ export function toThread(ref: ResolvedThreadRef, raw: OriginPullRequest): Thread
     createdAt: toDate(raw.createdAt),
     updatedAt: toDate(raw.updatedAt),
     closedAt: toDate(raw.closedAt),
+    mergedAt: toDate(raw.mergedAt),
     lastActivityAt: toDate(raw.updatedAt),
     branches: raw.head && raw.base
       ? { head: { ref: raw.head.ref, sha: raw.head.sha }, base: { ref: raw.base.ref, sha: raw.base.sha }, mergeCommitSha: raw.mergeCommitSha }

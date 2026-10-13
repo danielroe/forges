@@ -1,0 +1,288 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://pushin.eu/api/v1/repos/pjullrich/pushin-cli/pulls?state=closed&per_page=10"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "x-ratelimit-limit": "5000",
+      "x-ratelimit-remaining": "4988",
+      "x-ratelimit-reset": "1791928800"
+    },
+    "body": [
+      {
+        "id": 6166,
+        "state": "closed",
+        "user": {
+          "id": 18,
+          "type": "User",
+          "avatar_url": "https://cdn.pushin.eu/-/avatars/u_033wC4SN6kvz561iIRQhvV",
+          "html_url": "https://pushin.eu/ellyse",
+          "login": "ellyse",
+          "node_id": "REDACTED"
+        },
+        "number": 12,
+        "title": "add aarch64-darwin package to nix flake",
+        "head": {
+          "sha": "aae2ece23e9cfe17c124f7f4968b811cae3f1a4d",
+          "ref": "aarch64-darwin"
+        },
+        "body": "closes issue #11",
+        "base": {
+          "ref": "main"
+        },
+        "labels": [],
+        "url": "https://pushin.eu/api/v1/repos/pjullrich/pushin-cli/pulls/12",
+        "updated_at": "2026-10-12T13:49:59.740333Z",
+        "merged": true,
+        "created_at": "2026-10-10T18:16:31.043258Z",
+        "draft": false,
+        "merge_commit_sha": "72f577fadb08afb6e551a5b9a1611bcc2670edc0",
+        "closed_at": null,
+        "merged_at": "2026-10-12T13:49:59.722166Z",
+        "html_url": "https://pushin.eu/pjullrich/pushin-cli/pulls/12",
+        "node_id": "iss_034dd7ODMKhicicj6iPzoi",
+        "issue_url": "https://pushin.eu/api/v1/repos/pjullrich/pushin-cli/issues/12"
+      },
+      {
+        "id": 6125,
+        "state": "closed",
+        "user": {
+          "id": 2,
+          "type": "User",
+          "avatar_url": "https://cdn.pushin.eu/-/avatars/u_033jgKZKCNGC2kCrD0IBBG/72d51f75",
+          "html_url": "https://pushin.eu/pjullrich",
+          "login": "pjullrich",
+          "node_id": "REDACTED"
+        },
+        "number": 9,
+        "title": "Remove origin updates from import flow",
+        "head": {
+          "sha": "a4c54e66f7219c0db67c72e175ce0daf3377c73b",
+          "ref": "remove-import-move-origin"
+        },
+        "body": null,
+        "base": {
+          "ref": "main"
+        },
+        "labels": [],
+        "url": "https://pushin.eu/api/v1/repos/pjullrich/pushin-cli/pulls/9",
+        "updated_at": "2026-10-09T09:22:13.933896Z",
+        "merged": true,
+        "created_at": "2026-10-09T09:22:04.692688Z",
+        "draft": false,
+        "merge_commit_sha": "fb5dd661fffb7218f394c4061520df12fd75417b",
+        "closed_at": null,
+        "merged_at": "2026-10-09T09:22:13.916824Z",
+        "html_url": "https://pushin.eu/pjullrich/pushin-cli/pulls/9",
+        "node_id": "iss_034cqfCKi6exc9T6kQ0QMf",
+        "issue_url": "https://pushin.eu/api/v1/repos/pjullrich/pushin-cli/issues/9"
+      },
+      {
+        "id": 6071,
+        "state": "closed",
+        "user": {
+          "id": 2,
+          "type": "User",
+          "avatar_url": "https://cdn.pushin.eu/-/avatars/u_033jgKZKCNGC2kCrD0IBBG/72d51f75",
+          "html_url": "https://pushin.eu/pjullrich",
+          "login": "pjullrich",
+          "node_id": "REDACTED"
+        },
+        "number": 8,
+        "title": "Add bulk move-origin and ask during import",
+        "head": {
+          "sha": "1888c6f2deaf6da74acc65d2f10365a2c2da6f1c",
+          "ref": "bulk-move-origin"
+        },
+        "body": null,
+        "base": {
+          "ref": "main"
+        },
+        "labels": [],
+        "url": "https://pushin.eu/api/v1/repos/pjullrich/pushin-cli/pulls/8",
+        "updated_at": "2026-10-08T13:39:36.857530Z",
+        "merged": true,
+        "created_at": "2026-10-08T13:39:29.592502Z",
+        "draft": false,
+        "merge_commit_sha": "204c84a45abedba028cf3dab702ed59c389ba066",
+        "closed_at": null,
+        "merged_at": "2026-10-08T13:39:36.828184Z",
+        "html_url": "https://pushin.eu/pjullrich/pushin-cli/pulls/8",
+        "node_id": "iss_034cNdqTv5zmLZ48gzAGMF",
+        "issue_url": "https://pushin.eu/api/v1/repos/pjullrich/pushin-cli/issues/8"
+      },
+      {
+        "id": 6070,
+        "state": "closed",
+        "user": {
+          "id": 2,
+          "type": "User",
+          "avatar_url": "https://cdn.pushin.eu/-/avatars/u_033jgKZKCNGC2kCrD0IBBG/72d51f75",
+          "html_url": "https://pushin.eu/pjullrich",
+          "login": "pjullrich",
+          "node_id": "REDACTED"
+        },
+        "number": 7,
+        "title": "Accept GH_TOKEN as env variable for the GitHub token",
+        "head": {
+          "sha": "6b1271c677059d9a9aa84470b619d2098b3644b1",
+          "ref": "add-gh-token"
+        },
+        "body": null,
+        "base": {
+          "ref": "main"
+        },
+        "labels": [],
+        "url": "https://pushin.eu/api/v1/repos/pjullrich/pushin-cli/pulls/7",
+        "updated_at": "2026-10-08T13:45:58.508024Z",
+        "merged": true,
+        "created_at": "2026-10-08T13:39:11.373829Z",
+        "draft": false,
+        "merge_commit_sha": "2cbbc4e0dc108b955b5c7bfb8e8dddba30beced0",
+        "closed_at": null,
+        "merged_at": "2026-10-08T13:45:58.489064Z",
+        "html_url": "https://pushin.eu/pjullrich/pushin-cli/pulls/7",
+        "node_id": "iss_034cNdNpvs9nwhu4IOoQRp",
+        "issue_url": "https://pushin.eu/api/v1/repos/pjullrich/pushin-cli/issues/7"
+      },
+      {
+        "id": 6069,
+        "state": "closed",
+        "user": {
+          "id": 2,
+          "type": "User",
+          "avatar_url": "https://cdn.pushin.eu/-/avatars/u_033jgKZKCNGC2kCrD0IBBG/72d51f75",
+          "html_url": "https://pushin.eu/pjullrich",
+          "login": "pjullrich",
+          "node_id": "REDACTED"
+        },
+        "number": 6,
+        "title": "Migrate to integer IDs on the API",
+        "head": {
+          "sha": "3dfcc482bb976ec3c2673d0f0344344639c5db74",
+          "ref": "add-api-ids"
+        },
+        "body": null,
+        "base": {
+          "ref": "main"
+        },
+        "labels": [],
+        "url": "https://pushin.eu/api/v1/repos/pjullrich/pushin-cli/pulls/6",
+        "updated_at": "2026-10-08T13:42:02.255981Z",
+        "merged": true,
+        "created_at": "2026-10-08T13:38:37.379989Z",
+        "draft": false,
+        "merge_commit_sha": "c42b3a5a5078b50cdf6f4720ebfbf65f6e3ba933",
+        "closed_at": null,
+        "merged_at": "2026-10-08T13:42:02.235673Z",
+        "html_url": "https://pushin.eu/pjullrich/pushin-cli/pulls/6",
+        "node_id": "iss_034cNcWOC100SJbNR5Yq8G",
+        "issue_url": "https://pushin.eu/api/v1/repos/pjullrich/pushin-cli/issues/6"
+      },
+      {
+        "id": 6043,
+        "state": "closed",
+        "user": {
+          "id": 578,
+          "type": "User",
+          "avatar_url": "https://cdn.pushin.eu/-/avatars/u_034YEw7oIPyWrOzEh2xryn",
+          "html_url": "https://pushin.eu/pmarquez",
+          "login": "pmarquez",
+          "node_id": "REDACTED"
+        },
+        "number": 5,
+        "title": "Nix Packaging and Nix dev shell",
+        "head": {
+          "sha": "226c1102d4f287fb92b3153334bbeb1b09771cfd",
+          "ref": "main"
+        },
+        "body": "This PR adds\n- Nix packaging for Pushin CLI\n- Nix flake development env for developing the Pushin CLI",
+        "base": {
+          "ref": "main"
+        },
+        "labels": [],
+        "url": "https://pushin.eu/api/v1/repos/pjullrich/pushin-cli/pulls/5",
+        "updated_at": "2026-10-03T12:39:25.042191Z",
+        "merged": true,
+        "created_at": "2026-10-03T11:13:09.393256Z",
+        "draft": false,
+        "merge_commit_sha": "74e018556e1e3aeab8cb83bb927ec6ef6e7c0445",
+        "closed_at": null,
+        "merged_at": "2026-10-03T12:39:25.012462Z",
+        "html_url": "https://pushin.eu/pjullrich/pushin-cli/pulls/5",
+        "node_id": "iss_034ZTM5UfoQQW1pj2ilPgX",
+        "issue_url": "https://pushin.eu/api/v1/repos/pjullrich/pushin-cli/issues/5"
+      },
+      {
+        "id": 5414,
+        "state": "closed",
+        "user": {
+          "id": 112,
+          "type": "User",
+          "avatar_url": "https://cdn.pushin.eu/-/avatars/u_034JbQQwgL9yzYdcO7eJHP/60b922b8",
+          "html_url": "https://pushin.eu/ben",
+          "login": "ben",
+          "node_id": "REDACTED"
+        },
+        "number": 3,
+        "title": "add aur instructions",
+        "head": {
+          "sha": "44b6d11646f78225e89911a960adf948b6f4caeb",
+          "ref": "docs/arch-aur-install"
+        },
+        "body": "I packaged the CLI to the AUR as I am using Arch myself and I am not motivated to install Homebrew on a system where great package managers are available already. :)\n\nI am willing to collaborate / maintain the package. If you prefer to maintain this by yourself at some point, I can transfer the ownership. \n\nhttps://aur.archlinux.org/packages/pushin-cli-bin",
+        "base": {
+          "ref": "main"
+        },
+        "labels": [],
+        "url": "https://pushin.eu/api/v1/repos/pjullrich/pushin-cli/pulls/3",
+        "updated_at": "2026-09-10T11:31:24.800434Z",
+        "merged": true,
+        "created_at": "2026-09-08T07:16:27.855810Z",
+        "draft": false,
+        "merge_commit_sha": "5e391e0ceed9227580fa342cfd969c094f0621b9",
+        "closed_at": null,
+        "merged_at": "2026-09-10T11:31:24.757036Z",
+        "html_url": "https://pushin.eu/pjullrich/pushin-cli/pulls/3",
+        "node_id": "iss_034L84RogOef9bG11aNDD1",
+        "issue_url": "https://pushin.eu/api/v1/repos/pjullrich/pushin-cli/issues/3"
+      },
+      {
+        "id": 4293,
+        "state": "closed",
+        "user": {
+          "id": 2,
+          "type": "User",
+          "avatar_url": "https://cdn.pushin.eu/-/avatars/u_033jgKZKCNGC2kCrD0IBBG/72d51f75",
+          "html_url": "https://pushin.eu/pjullrich",
+          "login": "pjullrich",
+          "node_id": "REDACTED"
+        },
+        "number": 1,
+        "title": "Make Repo Create Interactive. Add Org commands",
+        "head": {
+          "sha": "a026f6774ea9e09fff818e701bad9974a85d9f31",
+          "ref": "feat/interactive-repo-and-org-cli"
+        },
+        "body": null,
+        "base": {
+          "ref": "main"
+        },
+        "labels": [],
+        "url": "https://pushin.eu/api/v1/repos/pjullrich/pushin-cli/pulls/1",
+        "updated_at": "2026-08-06T20:40:18.003512Z",
+        "merged": true,
+        "created_at": "2026-08-06T20:40:06.037817Z",
+        "draft": false,
+        "merge_commit_sha": "9522fa14d999f650d080749810216642ac1962b4",
+        "closed_at": null,
+        "merged_at": "2026-08-06T20:40:17.978240Z",
+        "html_url": "https://pushin.eu/pjullrich/pushin-cli/pulls/1",
+        "node_id": "iss_0342dbYBIuWjyHGVNIIri8",
+        "issue_url": "https://pushin.eu/api/v1/repos/pjullrich/pushin-cli/issues/1"
+      }
+    ]
+  }
+}

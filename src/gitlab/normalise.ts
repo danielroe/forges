@@ -332,6 +332,8 @@ export function toThread(ref: ResolvedThreadRef, raw: GitLabIssue): Thread {
     createdAt: toDate(raw.created_at),
     updatedAt: toDate(raw.updated_at),
     closedAt: toDate(raw.closed_at),
+    mergedAt: isMerge ? toDate(raw.merged_at) : undefined,
+    mergedBy: isMerge ? toActor(ref.instance, raw.merge_user ?? raw.merged_by) : undefined,
     labels: (raw.labels ?? []).map(label => typeof label === 'string'
       ? { name: label }
       : { name: label.name, colour: label.color, description: label.description ?? undefined }),

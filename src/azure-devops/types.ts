@@ -61,6 +61,7 @@ export interface AzurePullRequest {
   createdBy?: AzureIdentity
   creationDate?: string
   closedDate?: string
+  closedBy?: AzureIdentity
   sourceRefName: string
   targetRefName: string
   mergeStatus?: string
