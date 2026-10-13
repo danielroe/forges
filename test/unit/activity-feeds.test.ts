@@ -271,15 +271,14 @@ describe('tangled activity feeds', () => {
   })
 
   it('dates a record without `createdAt` by when it was read, not 1970', async () => {
-    const fallbacks: Date[] = []
     const before = Date.now()
-    await accountFeedPage({ atproto, recordEvent: async (activity, source, fallbackTime, threads, signal) => {
-      fallbacks.push(fallbackTime)
-      return recordEvent(activity, source, fallbackTime, threads, signal)
-    } }, did, { perPage: 2 })
+    const page = await accountFeedPage({ atproto, recordEvent: async (activity, source, fallbackTime, threads, signal) => ({
+      ...await recordEvent(activity, source, fallbackTime, threads, signal),
+      occurredAt: fallbackTime,
+    }) }, did, { perPage: 2 })
 
-    expect(fallbacks).toHaveLength(2)
-    expect(fallbacks.every(time => time.getTime() >= before)).toBe(true)
+    expect(page.items).toHaveLength(2)
+    expect(page.items.every(item => item.occurredAt.getTime() >= before)).toBe(true)
   })
 })
 
