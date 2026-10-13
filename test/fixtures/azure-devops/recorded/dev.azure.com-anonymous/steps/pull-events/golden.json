@@ -153,6 +153,27 @@
         "kind": "pull_request",
         "number": "5"
       },
+      "detail": {
+        "type": "comment",
+        "comment": {
+          "forge": "azure-devops",
+          "instance": "dev.azure.com",
+          "thread": {
+            "forge": "azure-devops",
+            "instance": "dev.azure.com",
+            "repo": {
+              "forge": "azure-devops",
+              "instance": "dev.azure.com",
+              "owner": "dnceng-public/public",
+              "name": "dotnet-public-wiki"
+            },
+            "kind": "pull_request",
+            "number": "5"
+          },
+          "id": "12/1"
+        },
+        "body": "<img src=\"https://img.shields.io/static/v1?label=ES Metadata Validation&message=Information&color=green\">\n\n<p />\n\n\n## Valid\n---\n- /es-metadata.yml\n\n\n\n\n<p align=\"right\"><sub>Total execution time: 0.39 seconds</sub></p>\n\n<!-- Policy app identification https://img.shields.io/static/v1?label=EsMetadata. -->\n<!-- GitOpsUserAgent=GitOps.Outcome.Service.EsMetadata -->\n"
+      },
       "source": "poll",
       "action": "created"
     },
@@ -191,6 +212,27 @@
         },
         "kind": "pull_request",
         "number": "5"
+      },
+      "detail": {
+        "type": "comment",
+        "comment": {
+          "forge": "azure-devops",
+          "instance": "dev.azure.com",
+          "thread": {
+            "forge": "azure-devops",
+            "instance": "dev.azure.com",
+            "repo": {
+              "forge": "azure-devops",
+              "instance": "dev.azure.com",
+              "owner": "dnceng-public/public",
+              "name": "dotnet-public-wiki"
+            },
+            "kind": "pull_request",
+            "number": "5"
+          },
+          "id": "14/1"
+        },
+        "body": "<img src=\"https://img.shields.io/static/v1?label=1ES+Inventory+Policy&message=Information&color=green\">\n\n<p />\n\n\n# 1ES inventory check has PASSED.\n## Valid\n---\nTotal number of valid files: 1\n- /es-metadata.yml\n\n\n\n\n<p align=\"right\"><sub>Total execution time: 13.05 seconds</sub></p>\n\n<!-- Policy app identification https://img.shields.io/static/v1?label=SpaceCodeOwnership. -->\n<!-- GitOpsUserAgent=GitOps.Outcome.Service.SpaceCodeOwnership -->\n"
       },
       "source": "poll",
       "action": "created"

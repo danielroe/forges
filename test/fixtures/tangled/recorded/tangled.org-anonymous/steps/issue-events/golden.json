@@ -100,6 +100,30 @@
       "kindRaw": "sh.tangled.feed.comment",
       "action": "created",
       "actionRaw": "create",
+      "detail": {
+        "type": "comment",
+        "comment": {
+          "forge": "tangled",
+          "instance": "tangled.org",
+          "thread": {
+            "forge": "tangled",
+            "instance": "tangled.org",
+            "repo": {
+              "forge": "tangled",
+              "instance": "tangled.org",
+              "owner": "did:plc:7qksav5io2s4qfg67pe7iqqk",
+              "name": "forges-fixtures",
+              "externalId": "did:plc:t73o44q7fppgagkrevtztyok"
+            },
+            "kind": "issue",
+            "typeRaw": "sh.tangled.repo.issue",
+            "number": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.issue/3mxmwlijmkm2y",
+            "externalId": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.issue/3mxmwlijmkm2y"
+          },
+          "id": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.feed.comment/3mxmwljizgu2y"
+        },
+        "body": "A seeded comment."
+      },
       "summary": "roebot.tngl.sh commented",
       "occurredAt": "<now>",
       "actor": {
@@ -142,6 +166,30 @@
       "kindRaw": "sh.tangled.feed.comment",
       "action": "created",
       "actionRaw": "create",
+      "detail": {
+        "type": "comment",
+        "comment": {
+          "forge": "tangled",
+          "instance": "tangled.org",
+          "thread": {
+            "forge": "tangled",
+            "instance": "tangled.org",
+            "repo": {
+              "forge": "tangled",
+              "instance": "tangled.org",
+              "owner": "did:plc:7qksav5io2s4qfg67pe7iqqk",
+              "name": "forges-fixtures",
+              "externalId": "did:plc:t73o44q7fppgagkrevtztyok"
+            },
+            "kind": "issue",
+            "typeRaw": "sh.tangled.repo.issue",
+            "number": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.issue/3mxmwlijmkm2y",
+            "externalId": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.issue/3mxmwlijmkm2y"
+          },
+          "id": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.feed.comment/3mxmwljnnuu2y"
+        },
+        "body": "Another seeded comment, with a reaction."
+      },
       "summary": "roebot.tngl.sh commented",
       "occurredAt": "<now>",
       "actor": {
@@ -394,6 +442,30 @@
       "kindRaw": "sh.tangled.feed.comment",
       "action": "created",
       "actionRaw": "create",
+      "detail": {
+        "type": "comment",
+        "comment": {
+          "forge": "tangled",
+          "instance": "tangled.org",
+          "thread": {
+            "forge": "tangled",
+            "instance": "tangled.org",
+            "repo": {
+              "forge": "tangled",
+              "instance": "tangled.org",
+              "owner": "did:plc:7qksav5io2s4qfg67pe7iqqk",
+              "name": "forges-fixtures",
+              "externalId": "did:plc:t73o44q7fppgagkrevtztyok"
+            },
+            "kind": "issue",
+            "typeRaw": "sh.tangled.repo.issue",
+            "number": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.issue/3mxmwlijmkm2y",
+            "externalId": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.issue/3mxmwlijmkm2y"
+          },
+          "id": "at://did:plc:uxfnwnz5wfwl6tfgqwyfrqyv/sh.tangled.feed.comment/3mxmxuvo6tu2y"
+        },
+        "body": "A seeded comment from the reviewer."
+      },
       "summary": "forges-fixtures.tngl.sh commented",
       "occurredAt": "<now>",
       "actor": {

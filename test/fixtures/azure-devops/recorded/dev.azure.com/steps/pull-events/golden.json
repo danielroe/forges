@@ -36,6 +36,27 @@
         "kind": "pull_request",
         "number": "1"
       },
+      "detail": {
+        "type": "comment",
+        "comment": {
+          "forge": "azure-devops",
+          "instance": "dev.azure.com",
+          "thread": {
+            "forge": "azure-devops",
+            "instance": "dev.azure.com",
+            "repo": {
+              "forge": "azure-devops",
+              "instance": "dev.azure.com",
+              "owner": "forges/forges-fixtures",
+              "name": "forges-fixtures"
+            },
+            "kind": "pull_request",
+            "number": "1"
+          },
+          "id": "1/1"
+        },
+        "body": "a comment"
+      },
       "source": "poll",
       "action": "created"
     }

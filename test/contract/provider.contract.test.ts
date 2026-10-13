@@ -14,7 +14,7 @@ import {
   UnsupportedOperationError,
   WebhookVerificationError,
 } from '../../src/errors.ts'
-import { isResolvedThread, notificationThread, repoKey, threadKey } from '../../src/model.ts'
+import { affectedKeys, isResolvedThread, notificationThread, parseCommentKey, parseRepoKey, parseThreadKey, repoKey, threadKey } from '../../src/model.ts'
 import { fixtureFetch, hangingFetch, stubFetch } from '../utils/fixtures.ts'
 import { FakeWebSocket } from '../utils/websocket.ts'
 import { contracts, WEBHOOK_SECRET } from './providers.ts'
@@ -317,6 +317,19 @@ describe.each(contracts)('contract: $name', (contract) => {
     expect(events[0]!.thread?.displayNumber).toBe(contract.webhook.expect.displayNumber)
     expect(events[0]!.thread?.repo.name).toBe('widgets')
     expect(events[0]!.occurredAt).toBeInstanceOf(Date)
+    expect(events[0]!.detail?.type === 'comment' ? events[0]!.detail.comment?.id : undefined).toBe(contract.webhook.expect.comment)
+  })
+
+  it('keys every webhook event so that each key reads back', async () => {
+    const { instance } = provider()
+    const signature = await contract.webhook.sign(contract.webhook.body, WEBHOOK_SECRET)
+    const events = await instance.webhooks.ingest({ headers: contract.webhook.headers(signature), body: contract.webhook.body })
+    const keys = events.map(event => affectedKeys(event))
+
+    expect(keys.flatMap(({ repos }) => repos).filter(key => !parseRepoKey(key))).toEqual([])
+    expect(keys.flatMap(({ threads }) => threads).filter(key => !parseThreadKey(key))).toEqual([])
+    expect(keys.flatMap(({ comments }) => comments).filter(key => !parseCommentKey(key))).toEqual([])
+    expect(keys.some(({ repos }) => repos.length)).toBe(true)
   })
 
   it('rejects a webhook with a bad signature', async () => {

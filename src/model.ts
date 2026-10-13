@@ -1825,6 +1825,9 @@ export function parseThreadKey(key: string): ResolvedThreadRef | undefined {
   }
   const kindText = rest.slice(0, slash)
   const number = rest.slice(slash + 1)
+  if (number.includes('#')) {
+    return undefined
+  }
   const origin = { forge: repo.forge, instance: repo.instance }
   if (kindText.startsWith('other:')) {
     return { ...origin, repo, kind: 'other', typeRaw: kindText.slice('other:'.length), number }
@@ -1852,6 +1855,175 @@ export function threadSlug(ref: ThreadRef): string {
 /** The thread a notification concerns, or `undefined` for repo, actor and other subjects. */
 export function notificationThread(notification: Notification): ThreadRef | undefined {
   return notification.subject.type === 'thread' ? notification.subject.thread : undefined
+}
+
+/** Stable identity key for a comment: the {@link threadKey} of its thread and the comment's forge-native id. */
+export function commentKey(ref: CommentRef & { thread: ResolvedThreadRef }): string {
+  return `${threadKey(ref.thread)}#comment/${ref.id}`
+}
+
+/** Reads a {@link commentKey} back. */
+export function parseCommentKey(key: string): (CommentRef & { thread: ResolvedThreadRef }) | undefined {
+  const marker = key.indexOf('#', key.indexOf('#') + 1)
+  const thread = marker > 0 && key.startsWith('#comment/', marker) ? parseThreadKey(key.slice(0, marker)) : undefined
+  const id = key.slice(marker + '#comment/'.length)
+  return thread && id ? { forge: thread.forge, instance: thread.instance, thread, id } : undefined
+}
+
+/** Stable identity key for a release: the {@link repoKey} of its repository and the release's forge-native id. */
+export function releaseKey(ref: ReleaseRef): string {
+  return `${repoKey(ref.repo)}#release/${ref.id}`
+}
+
+/** Reads a {@link releaseKey} back. The key carries no `tag`. */
+export function parseReleaseKey(key: string): ReleaseRef | undefined {
+  const hash = key.indexOf('#')
+  const repo = hash > 0 && key.startsWith('#release/', hash) ? parseRepoKey(key.slice(0, hash)) : undefined
+  const id = key.slice(hash + '#release/'.length)
+  return repo && id ? { forge: repo.forge, instance: repo.instance, repo, id } : undefined
+}
+
+/**
+ * The identity keys of what an event or a notification concerns, grouped by the key function that built them. Each
+ * list holds a key once.
+ */
+export interface AffectedKeys {
+  /**
+   * {@link repoKey}s of every repository the item concerns, including the repository of each thread, so that a
+   * listing keyed by repository is covered. For a renamed or transferred repository it also holds the key of the
+   * new path and, where the event names it, the old path.
+   */
+  repos: string[]
+  /** {@link threadKey}s. */
+  threads: string[]
+  /** {@link commentKey}s of the comment that a `comment` or `review_comment` event names in `detail.comment`. */
+  comments: string[]
+  /** {@link releaseKey}s. */
+  releases: string[]
+  /** {@link notificationKey}s. */
+  notifications: string[]
+  /**
+   * Threads without a `number`, which have no key, and neither has a comment on one. Their repositories are in
+   * `repos`, and every thread and comment key starts with the key of its repository followed by `#`.
+   */
+  unresolved: ThreadRef[]
+}
+
+/**
+ * Lists the identity keys of the repositories, threads, comments, releases and notifications that an event or a
+ * notification concerns, so that a cache can drop or read again the rows that it holds for them. It sends no request.
+ *
+ * A push or a ref event concerns its repository only: a pull request whose head branch moved has no key here, as
+ * finding it takes a read.
+ * @example
+ * ```ts
+ * for (const event of await provider.webhooks.ingest(delivery)) {
+ *   const affected = affectedKeys(event)
+ *   for (const key of affected.threads) {
+ *     cache.delete(key)
+ *   }
+ * }
+ * ```
+ */
+export function affectedKeys(item: ForgeEvent | Notification): AffectedKeys {
+  const repos = new Set<string>()
+  const threads = new Set<string>()
+  const comments = new Set<string>()
+  const releases = new Set<string>()
+  const unresolved = new Map<string, ThreadRef>()
+  const repo = (ref: RepoRef | undefined) => ref && repos.add(repoKey(ref))
+  const path = (ref: RepoRef, owner: string | undefined, name: string) => owner && name && repos.add(repoKey({ forge: ref.forge, instance: ref.instance, owner, name }))
+  const thread = (ref: ThreadRef | undefined) => {
+    if (!ref) {
+      return
+    }
+    repo(ref.repo)
+    if (isResolvedThread(ref)) {
+      threads.add(threadKey(ref))
+    }
+    else {
+      unresolved.set(JSON.stringify([repoKey(ref.repo), ref.kind, ref.typeRaw, ref.displayNumber, ref.externalId]), ref)
+    }
+  }
+  const release = (ref: ReleaseRef) => {
+    repo(ref.repo)
+    releases.add(releaseKey(ref))
+  }
+
+  if ('subject' in item) {
+    const subject = item.subject
+    switch (subject.type) {
+      case 'thread':
+        thread(subject.thread)
+        break
+      case 'repo':
+        repo(subject.repo)
+        break
+      case 'release':
+        release(subject.release)
+        break
+      case 'security_alert':
+        repo(subject.alert.repo)
+        break
+      case 'other':
+        repo(subject.repo)
+        break
+    }
+  }
+  else {
+    repo(item.repo)
+    thread(item.thread)
+    const detail = item.detail
+    switch (detail?.type) {
+      case 'comment':
+      case 'review_comment':
+        if (detail.comment) {
+          thread(detail.comment.thread)
+          if (isResolvedThread(detail.comment.thread)) {
+            comments.add(commentKey({ ...detail.comment, thread: detail.comment.thread }))
+          }
+        }
+        break
+      case 'repo_renamed':
+      case 'repo_transferred':
+        if (item.repo) {
+          path(item.repo, item.repo.owner, item.repo.name)
+          if (detail.type === 'repo_transferred') {
+            path(item.repo, detail.fromOwner, item.repo.name)
+          }
+          else {
+            const slash = detail.from.lastIndexOf('/')
+            path(item.repo, slash > 0 ? detail.from.slice(0, slash) : item.repo.owner, detail.from.slice(slash + 1))
+          }
+        }
+        break
+      case 'installation':
+        detail.added.forEach(repo)
+        detail.removed.forEach(repo)
+        break
+      case 'release':
+        release(detail.release)
+        break
+      case 'referenced':
+        if (detail.from && 'sha' in detail.from) {
+          repo(detail.from.repo)
+        }
+        else {
+          thread(detail.from)
+        }
+        repo(detail.fromRepo)
+        break
+    }
+  }
+
+  return {
+    repos: [...repos],
+    threads: [...threads],
+    comments: [...comments],
+    releases: [...releases],
+    notifications: 'subject' in item ? [notificationKey(item.ref)] : [],
+    unresolved: [...unresolved.values()],
+  }
 }
 
 /** How a pull request is merged. */

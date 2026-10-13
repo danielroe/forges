@@ -109,7 +109,8 @@ export function translateGiteeWebhook(instance: string, delivery: WebhookDeliver
       ? { forge: FORGE, instance, repo, kind: 'issue', number: payload.issue.number }
       : undefined
   if (hook === 'note_hooks' || hook === 'Note Hook') {
-    return [{ ...base, kind: 'comment', thread, summary: `${who} commented${thread ? ` on ${thread.kind === 'issue' ? '' : '!'}${thread.number}` : ''}` }]
+    const comment = thread && payload.comment ? { forge: FORGE, instance, thread, id: String(payload.comment.id) } : undefined
+    return [{ ...base, kind: 'comment', thread, detail: { type: 'comment', comment, body: payload.comment?.body }, summary: `${who} commented${thread ? ` on ${thread.kind === 'issue' ? '' : '!'}${thread.number}` : ''}` }]
   }
   return [{ ...base, kind: KINDS[payload.action ?? ''] ?? 'other', thread, summary: `${who} ${payload.action ?? 'changed'} ${thread ? `${thread.kind === 'issue' ? '' : '!'}${thread.number}` : hook}` }]
 }

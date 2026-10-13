@@ -8,6 +8,30 @@
       "kindRaw": "sh.tangled.feed.comment",
       "action": "created",
       "actionRaw": "create",
+      "detail": {
+        "type": "comment",
+        "comment": {
+          "forge": "tangled",
+          "instance": "tangled.org",
+          "thread": {
+            "forge": "tangled",
+            "instance": "tangled.org",
+            "repo": {
+              "forge": "tangled",
+              "instance": "tangled.org",
+              "owner": "did:plc:7qksav5io2s4qfg67pe7iqqk",
+              "name": "forges-fixtures",
+              "externalId": "did:plc:t73o44q7fppgagkrevtztyok"
+            },
+            "kind": "pull_request",
+            "typeRaw": "sh.tangled.repo.pull",
+            "number": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.pull/3mxhm5yldov22",
+            "externalId": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.pull/3mxhm5yldov22"
+          },
+          "id": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.feed.comment/3mxogtnkxn52y"
+        },
+        "body": "A seeded comment."
+      },
       "summary": "roebot.tngl.sh commented",
       "occurredAt": "<now>",
       "actor": {
@@ -50,6 +74,30 @@
       "kindRaw": "sh.tangled.feed.comment",
       "action": "created",
       "actionRaw": "create",
+      "detail": {
+        "type": "comment",
+        "comment": {
+          "forge": "tangled",
+          "instance": "tangled.org",
+          "thread": {
+            "forge": "tangled",
+            "instance": "tangled.org",
+            "repo": {
+              "forge": "tangled",
+              "instance": "tangled.org",
+              "owner": "did:plc:7qksav5io2s4qfg67pe7iqqk",
+              "name": "forges-fixtures",
+              "externalId": "did:plc:t73o44q7fppgagkrevtztyok"
+            },
+            "kind": "pull_request",
+            "typeRaw": "sh.tangled.repo.pull",
+            "number": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.pull/3mxhm5yldov22",
+            "externalId": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.pull/3mxhm5yldov22"
+          },
+          "id": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.feed.comment/3mxogtnptv52y"
+        },
+        "body": "Another seeded comment, with a reaction."
+      },
       "summary": "roebot.tngl.sh commented",
       "occurredAt": "<now>",
       "actor": {

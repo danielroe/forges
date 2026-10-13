@@ -134,6 +134,7 @@ export function toComment(thread: ThreadRef, raw: GiteeComment): Comment {
 export function toCommentEvent(thread: ThreadRef, raw: GiteeComment): ForgeEventInput {
   const actor = toActor(thread.instance, raw.user)
   const inline = !isConversationComment(raw)
+  const comment = { forge: FORGE, instance: thread.instance, thread, id: String(raw.id) }
   return {
     forge: FORGE,
     instance: thread.instance,
@@ -145,6 +146,7 @@ export function toCommentEvent(thread: ThreadRef, raw: GiteeComment): ForgeEvent
     actor,
     repo: thread.repo,
     thread,
+    detail: inline ? { type: 'review_comment', comment, body: raw.body, path: raw.path ?? undefined } : { type: 'comment', comment, body: raw.body },
     source: 'poll',
     payload: raw,
   }

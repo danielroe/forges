@@ -1,5 +1,5 @@
 import type { WebhookHandlers } from '../define.ts'
-import type { EventKind, ForgeEventInput, ThreadRef } from '../model.ts'
+import type { EventAction, EventKind, ForgeEventInput, ThreadRef } from '../model.ts'
 import type { WebhookDelivery } from '../provider.ts'
 import type { BitbucketOptions } from './index.ts'
 import type { BitbucketComment, BitbucketPullRequest, BitbucketRepository, BitbucketUser } from './types.ts'
@@ -40,6 +40,11 @@ interface BitbucketWebhookPayload {
   previous_workspace?: { slug: string }
 }
 
+const EVENT_ACTIONS: Record<string, EventAction> = {
+  'pullrequest:comment_updated': 'edited',
+  'pullrequest:comment_deleted': 'deleted',
+}
+
 const EVENT_KINDS: Record<string, EventKind> = {
   'pullrequest:created': 'state_change',
   'pullrequest:fulfilled': 'state_change',
@@ -49,6 +54,8 @@ const EVENT_KINDS: Record<string, EventKind> = {
   'pullrequest:changes_request_created': 'review',
   'pullrequest:changes_request_removed': 'review',
   'pullrequest:comment_created': 'comment',
+  'pullrequest:comment_updated': 'comment',
+  'pullrequest:comment_deleted': 'comment',
 }
 
 export function translateBitbucketWebhook(instance: string, delivery: WebhookDelivery): ForgeEventInput[] {
@@ -97,17 +104,20 @@ export function translateBitbucketWebhook(instance: string, delivery: WebhookDel
   }
 
   const kind = EVENT_KINDS[event] ?? 'other'
+  const comment = kind === 'comment' && thread && payload.comment ? { forge: FORGE, instance, thread, id: String(payload.comment.id) } : undefined
   return [{
     forge: FORGE,
     instance,
     id: deliveryId,
     kind,
+    ...EVENT_ACTIONS[event] && { action: EVENT_ACTIONS[event] },
     kindRaw: event,
     summary: `${who} ${event.split(':')[1]?.replaceAll('_', ' ') ?? event}`,
     occurredAt: toDate(payload.comment?.created_on ?? payload.approval?.date ?? payload.pullrequest?.updated_on) ?? new Date(),
     actor,
     repo,
     thread,
+    ...kind === 'comment' && { detail: { type: 'comment', comment, body: payload.comment?.content?.raw } },
     source: 'webhook',
     payload,
   }]

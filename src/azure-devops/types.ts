@@ -84,6 +84,8 @@ export interface AzureComment {
   publishedDate?: string
   lastUpdatedDate?: string
   isDeleted?: boolean
+  /** In a service hook event, `self` is the comment's URL, which names its thread. */
+  _links?: { self?: { href: string } }
 }
 
 export interface AzureThread {

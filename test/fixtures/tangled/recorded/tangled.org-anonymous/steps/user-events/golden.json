@@ -96,6 +96,30 @@
       "kindRaw": "sh.tangled.feed.comment",
       "action": "created",
       "actionRaw": "create",
+      "detail": {
+        "type": "comment",
+        "comment": {
+          "forge": "tangled",
+          "instance": "tangled.org",
+          "thread": {
+            "forge": "tangled",
+            "instance": "tangled.org",
+            "repo": {
+              "forge": "tangled",
+              "instance": "tangled.org",
+              "owner": "did:plc:jbeaa5kdaladzwq3r7f5xgwe",
+              "name": "synchub.to",
+              "externalId": "did:plc:g4lh56ouiwlcyhukzkjvy75g"
+            },
+            "kind": "pull_request",
+            "typeRaw": "sh.tangled.repo.pull",
+            "number": "at://did:plc:7r5c5jhtphcpkg3y55xu2y64/sh.tangled.repo.pull/3mrufxgcrdv22",
+            "externalId": "at://did:plc:7r5c5jhtphcpkg3y55xu2y64/sh.tangled.repo.pull/3mrufxgcrdv22"
+          },
+          "id": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.feed.comment/3mrzxt4w6sa22"
+        },
+        "body": "thank you ❤️"
+      },
       "summary": "danielroe.dev commented",
       "occurredAt": "2026-08-01T17:15:04.000Z",
       "actor": {
@@ -276,6 +300,30 @@
       "kindRaw": "sh.tangled.feed.comment",
       "action": "created",
       "actionRaw": "create",
+      "detail": {
+        "type": "comment",
+        "comment": {
+          "forge": "tangled",
+          "instance": "tangled.org",
+          "thread": {
+            "forge": "tangled",
+            "instance": "tangled.org",
+            "repo": {
+              "forge": "tangled",
+              "instance": "tangled.org",
+              "owner": "did:plc:jbeaa5kdaladzwq3r7f5xgwe",
+              "name": "synchub.to",
+              "externalId": "did:plc:g4lh56ouiwlcyhukzkjvy75g"
+            },
+            "kind": "pull_request",
+            "typeRaw": "sh.tangled.repo.pull",
+            "number": "at://did:plc:jthwx55n5kgyekhpaqajzuhw/sh.tangled.repo.pull/3mr5t7sut7r22",
+            "externalId": "at://did:plc:jthwx55n5kgyekhpaqajzuhw/sh.tangled.repo.pull/3mr5t7sut7r22"
+          },
+          "id": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.feed.comment/3mrzwpeomxg22"
+        },
+        "body": "oops, still getting to grips with tangled. I \"merged\" this in https://tangled.org/danielroe.dev/synchub.to/commit/02bf99e2224c7cc0a2f1f2363b199ec2795f9a39."
+      },
       "summary": "danielroe.dev commented",
       "occurredAt": "2026-08-01T16:55:04.000Z",
       "actor": {

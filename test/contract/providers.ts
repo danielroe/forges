@@ -67,7 +67,8 @@ export interface ProviderContract {
     body: string
     headers: (signature: string) => Record<string, string>
     sign: (body: string, secret: string) => Promise<string>
-    expect: { kind: string, action: string, threadKind: string, threadNumber?: string, displayNumber?: string, actor: string }
+    /** `comment` is the id that `threads.comments()` gives the delivered comment, where the delivery carries it. */
+    expect: { kind: string, action: string, threadKind: string, threadNumber?: string, displayNumber?: string, actor: string, comment?: string }
   }
   /** Present when the forge reports checks on pull requests. */
   checks?: { summary: { state: string, total?: number, failed?: number }, names: string[] }
@@ -150,7 +151,7 @@ export const contracts: ProviderContract[] = [
         'x-hub-signature-256': signature,
       }),
       sign: hmac,
-      expect: { kind: 'comment', action: 'created', threadKind: 'pull_request', threadNumber: '17', actor: 'octocat' },
+      expect: { kind: 'comment', action: 'created', threadKind: 'pull_request', threadNumber: '17', actor: 'octocat', comment: '770003' },
     },
   },
   {
@@ -196,7 +197,7 @@ export const contracts: ProviderContract[] = [
         'x-forgejo-signature': signature,
       }),
       sign: (body, secret) => hmacSha256Hex(secret, body),
-      expect: { kind: 'comment', action: 'created', threadKind: 'pull_request', threadNumber: '9', actor: 'grace' },
+      expect: { kind: 'comment', action: 'created', threadKind: 'pull_request', threadNumber: '9', actor: 'grace', comment: '880003' },
     },
   },
   {
@@ -242,7 +243,7 @@ export const contracts: ProviderContract[] = [
         'x-gitlab-token': token,
       }),
       sign: async (_body, secret) => secret,
-      expect: { kind: 'comment', action: 'created', threadKind: 'issue', threadNumber: '11', actor: 'grace' },
+      expect: { kind: 'comment', action: 'created', threadKind: 'issue', threadNumber: '11', actor: 'grace', comment: '5550011' },
     },
   },
   {
@@ -289,7 +290,7 @@ export const contracts: ProviderContract[] = [
         'x-hub-signature': signature,
       }),
       sign: hmac,
-      expect: { kind: 'comment', action: 'created', threadKind: 'pull_request', threadNumber: '31', actor: 'grace' },
+      expect: { kind: 'comment', action: 'created', threadKind: 'pull_request', threadNumber: '31', actor: 'grace', comment: '440011' },
     },
   },
   {
@@ -376,7 +377,7 @@ export const contracts: ProviderContract[] = [
         }
       },
       sign: signOrigin,
-      expect: { kind: 'comment', action: 'created', threadKind: 'pull_request', threadNumber: '9', actor: 'grace' },
+      expect: { kind: 'comment', action: 'created', threadKind: 'pull_request', threadNumber: '9', actor: 'grace', comment: 'cmt_09' },
     },
   },
   {
@@ -408,7 +409,7 @@ export const contracts: ProviderContract[] = [
       body: fixture('gitee', 'webhooks/note-on-pull-request'),
       headers: token => ({ 'x-gitee-event': 'Note Hook', 'x-gitee-token': token }),
       sign: async (_body, secret) => secret,
-      expect: { kind: 'comment', action: 'created', threadKind: 'pull_request', threadNumber: '9', actor: 'grace' },
+      expect: { kind: 'comment', action: 'created', threadKind: 'pull_request', threadNumber: '9', actor: 'grace', comment: '5504' },
     },
   },
   {

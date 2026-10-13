@@ -407,6 +407,18 @@ function crossReference(ref: ResolvedThreadRef, body: string): EventDetail {
     : { type: 'referenced', text }
 }
 
+function noteDetail(ref: ResolvedThreadRef, note: GitLabNote, kind: EventKind): EventDetail | undefined {
+  switch (kind) {
+    case 'comment':
+    case 'review_comment':
+      return { type: kind, comment: { forge: FORGE, instance: ref.instance, thread: ref, id: String(note.id) }, body: note.body }
+    case 'referenced':
+      return crossReference(ref, note.body)
+    default:
+      return undefined
+  }
+}
+
 export function toNoteEvent(ref: ResolvedThreadRef, note: GitLabNote): ForgeEventInput {
   const actor = toActor(ref.instance, note.author)
   const kind = toNoteKind(note)
@@ -424,7 +436,7 @@ export function toNoteEvent(ref: ResolvedThreadRef, note: GitLabNote): ForgeEven
     actor,
     repo: ref.repo,
     thread: ref,
-    ...kind === 'referenced' ? { detail: crossReference(ref, note.body) } : {},
+    detail: noteDetail(ref, note, kind),
     source: 'poll',
     payload: note,
   }
@@ -443,9 +455,15 @@ export function toCommitCommentEvent(ref: ResolvedThreadRef, comment: GitLabComm
     actor,
     repo: ref.repo,
     thread: ref,
+    detail: { type: comment.line_type ? 'review_comment' : 'comment', comment: { forge: FORGE, instance: ref.instance, thread: ref, id: commitCommentId(comment) }, body: comment.note },
     source: 'poll',
     payload: comment,
   }
+}
+
+/** GitLab commit comments carry no id, so they are keyed by creation time and author. */
+function commitCommentId(comment: GitLabCommitComment): string {
+  return `${comment.created_at ?? ''}:${comment.author?.id ?? ''}`
 }
 
 export function toNoteComment(thread: ThreadRef, note: GitLabNoteDetail, discussion?: GitLabDiscussion): Comment {
@@ -460,10 +478,9 @@ export function toNoteComment(thread: ThreadRef, note: GitLabNoteDetail, discuss
   }
 }
 
-/** GitLab commit comments carry no id, so they are keyed by creation time and author. */
 export function toCommitComment(thread: ThreadRef, comment: GitLabCommitComment): Comment {
   return {
-    ref: { forge: FORGE, instance: thread.instance, thread, id: `${comment.created_at ?? ''}:${comment.author?.id ?? ''}` },
+    ref: { forge: FORGE, instance: thread.instance, thread, id: commitCommentId(comment) },
     body: comment.note,
     author: toActor(thread.instance, comment.author),
     createdAt: toDate(comment.created_at),

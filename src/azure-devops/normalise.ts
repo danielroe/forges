@@ -153,7 +153,9 @@ export function toThreadEvents(ref: ThreadRef, thread: AzureThread): ForgeEventI
     const actor = toActor(ref.instance, comment.author)
     const system = comment.commentType === 'system'
     const vote = thread.properties?.CodeReviewThreadType?.$value === 'VoteUpdate'
-    const kind: ForgeEventInput['kind'] = vote ? 'review' : system ? 'other' : thread.threadContext?.filePath ? 'review_comment' : 'comment'
+    const path = thread.threadContext?.filePath
+    const kind: ForgeEventInput['kind'] = vote ? 'review' : system ? 'other' : path ? 'review_comment' : 'comment'
+    const commentRef = { forge: FORGE, instance: ref.instance, thread: ref, id: commentId(thread, comment) }
     return {
       forge: FORGE,
       instance: ref.instance,
@@ -165,6 +167,9 @@ export function toThreadEvents(ref: ThreadRef, thread: AzureThread): ForgeEventI
       actor,
       repo: ref.repo,
       thread: ref,
+      detail: kind === 'review_comment'
+        ? { type: 'review_comment' as const, comment: commentRef, body: comment.content, path }
+        : kind === 'comment' ? { type: 'comment' as const, comment: commentRef, body: comment.content } : undefined,
       source: 'poll' as const,
       payload: comment,
     }

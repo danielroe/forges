@@ -7,7 +7,7 @@ import type { OriginWebhookEnvelope } from './types.ts'
 import { bodyText, headerValue, sha256Hex, verifyEd25519 } from '../crypto.ts'
 import { memo, toDate } from '../utils.ts'
 import { refEvent } from '../webhooks.ts'
-import { FORGE, toActor, toRepoRef, toReviewEvent } from './normalise.ts'
+import { commentDetail, FORGE, toActor, toRepoRef, toReviewEvent } from './normalise.ts'
 
 /** Deliveries older or newer than this are refused, as Origin documents. */
 const TOLERANCE_SECONDS = 300
@@ -80,7 +80,8 @@ export function translateOriginWebhook(instance: string, delivery: WebhookDelive
   if (thread) {
     const actor = toActor(instance, payload.comment?.author ?? payload.actor ?? payload.createdBy ?? pull?.author)
     const kind: EventKind = payload.comment?.thread?.path ? 'review_comment' : PULL_KINDS[event.type] ?? 'other'
-    return [{ ...base, kind, actor, summary: `${actor?.login ?? 'someone'}: ${event.type.replace(/^pull_request\./, '').replaceAll('.', ' ')} on #${thread.number}` }]
+    const detail = payload.comment && (kind === 'comment' || kind === 'review_comment') ? commentDetail(thread, payload.comment) : undefined
+    return [{ ...base, kind, actor, detail, summary: `${actor?.login ?? 'someone'}: ${event.type.replace(/^pull_request\./, '').replaceAll('.', ' ')} on #${thread.number}` }]
   }
   if (event.type === 'repository.pushed') {
     const pusher = toActor(instance, payload.pusher)

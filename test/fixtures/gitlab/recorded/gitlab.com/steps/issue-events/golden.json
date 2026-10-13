@@ -75,6 +75,27 @@
         "kind": "issue",
         "number": "8572"
       },
+      "detail": {
+        "type": "comment",
+        "comment": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "thread": {
+            "forge": "gitlab",
+            "instance": "gitlab.com",
+            "repo": {
+              "forge": "gitlab",
+              "instance": "gitlab.com",
+              "owner": "gitlab-org",
+              "name": "cli"
+            },
+            "kind": "issue",
+            "number": "8572"
+          },
+          "id": "3936124937"
+        },
+        "body": "This is already supported: `glab milestone edit <id> --state close` closes a milestone, and `--state activate` reopens it. It works for project milestones and, with `--group`, for group milestones. It shipped in v1.77.0 via !2536 ([flag definition](https://gitlab.com/gitlab-org/cli/-/blob/main/internal/commands/milestone/edit/edit.go#L85), [docs](https://gitlab.com/gitlab-org/cli/-/blob/main/docs/source/milestone/edit.md)). Closing as already implemented.\n\nIf you think this should remain open or be revisited, please let us know."
+      },
       "source": "poll",
       "action": "created"
     },

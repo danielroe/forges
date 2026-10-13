@@ -113,6 +113,27 @@
         "kind": "pull_request",
         "number": "1099"
       },
+      "detail": {
+        "type": "comment",
+        "comment": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "thread": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "repo": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "owner": "gitea",
+              "name": "tea"
+            },
+            "kind": "pull_request",
+            "number": "1099"
+          },
+          "id": "1718952"
+        },
+        "body": "Context : git localized in french, gitea running normally. \n`tea clone [my repo] `\nfails with error \n`Error: git rev-parse --show-toplevel: fatal: ni ceci ni aucun de ses répertoires parents n'est un dépôt git : .git`\n..meanwhile \n`LANG=en_GB LC_ALL=en_GB LANGUAGE=en_GB tea clone [my repo]`\nworks as appropriate. \nI can't confirm the fix, but the analysis and the diff look good. \nSince pretty much any work starts with a tea clone, this bug prevents any non-english localized git user to start working right away...  "
+      },
       "source": "poll",
       "action": "created"
     }

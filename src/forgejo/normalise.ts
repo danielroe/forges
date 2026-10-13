@@ -387,6 +387,19 @@ function crossReference(thread: ThreadRef, entry: ForgejoTimelineEntry): EventDe
   }
 }
 
+function timelineDetail(thread: ThreadRef, entry: ForgejoTimelineEntry, kind: EventKind): EventDetail | undefined {
+  const origin = { forge: thread.forge, instance: thread.instance }
+  switch (kind) {
+    case 'comment':
+    case 'review_comment':
+      return { type: kind, comment: entry.id === undefined ? undefined : { ...origin, thread, id: String(entry.id) }, body: entry.body ?? undefined }
+    case 'referenced':
+      return crossReference(thread, entry)
+    default:
+      return undefined
+  }
+}
+
 export function toEvent(
   thread: ThreadRef,
   entry: ForgejoTimelineEntry,
@@ -405,7 +418,7 @@ export function toEvent(
     actor,
     repo: thread.repo,
     thread,
-    ...kind === 'referenced' ? { detail: crossReference(thread, entry) } : {},
+    detail: timelineDetail(thread, entry, kind),
     source,
     payload: entry,
   }

@@ -446,6 +446,7 @@ export function toDiscussionCommentEvent(ref: ResolvedThreadRef, comment: GraphQ
     actor,
     repo: ref.repo,
     thread: ref,
+    detail: { type: 'comment', comment: { forge: FORGE, instance: ref.instance, thread: ref, id: comment.id }, body: comment.body ?? undefined },
     source: 'poll',
     payload: comment,
   }

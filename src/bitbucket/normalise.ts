@@ -1,4 +1,4 @@
-import type { Actor, Branch, ChangedFile, Check, CheckState, Comment, Commit, EventKind, ForgeEventInput, MergeMethod, Repo, RepoRef, ResolvedThreadRef, Reviewer, Tag, Thread, ThreadRef, ThreadState, TreeEntry, Webhook } from '../model.ts'
+import type { Actor, Branch, ChangedFile, Check, CheckState, Comment, Commit, EventDetail, EventKind, ForgeEventInput, MergeMethod, Repo, RepoRef, ResolvedThreadRef, Reviewer, Tag, Thread, ThreadRef, ThreadState, TreeEntry, Webhook } from '../model.ts'
 import type {
   BitbucketActivity,
   BitbucketComment,
@@ -202,17 +202,19 @@ function event(
 }
 
 export function toCommentEvent(thread: ResolvedThreadRef, comment: BitbucketComment): ForgeEventInput {
-  const inline = Boolean(comment.inline)
-  return event(
-    thread,
-    `comment:${comment.id}`,
-    inline ? 'review_comment' : 'comment',
-    inline ? 'comment.inline' : 'comment',
-    toActor(thread.instance, comment.user),
-    inline ? 'commented on a line' : 'commented',
-    comment.created_on,
-    comment,
-  )
+  return {
+    ...event(
+      thread,
+      `comment:${comment.id}`,
+      comment.inline ? 'review_comment' : 'comment',
+      comment.inline ? 'comment.inline' : 'comment',
+      toActor(thread.instance, comment.user),
+      comment.inline ? 'commented on a line' : 'commented',
+      comment.created_on,
+      comment,
+    ),
+    detail: commentDetail(thread, comment),
+  }
 }
 
 /** Pull request activity entries are a union keyed by their single property. */
@@ -238,6 +240,14 @@ export function toActivityEvent(thread: ResolvedThreadRef, entry: BitbucketActiv
     update?.date,
     entry,
   )
+}
+
+function commentDetail(thread: ThreadRef, comment: BitbucketComment): EventDetail {
+  const ref = { forge: FORGE, instance: thread.instance, thread, id: String(comment.id) }
+  const body = comment.content?.raw
+  return comment.inline
+    ? { type: 'review_comment', comment: ref, body, path: comment.inline.path, line: comment.inline.to ?? comment.inline.from ?? undefined }
+    : { type: 'comment', comment: ref, body }
 }
 
 export function toComment(thread: ThreadRef, raw: BitbucketComment): Comment {

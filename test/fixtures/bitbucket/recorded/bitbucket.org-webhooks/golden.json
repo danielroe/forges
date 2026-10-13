@@ -150,6 +150,28 @@
         "kind": "pull_request",
         "number": "10"
       },
+      "detail": {
+        "type": "comment",
+        "comment": {
+          "forge": "bitbucket",
+          "instance": "bitbucket.org",
+          "thread": {
+            "forge": "bitbucket",
+            "instance": "bitbucket.org",
+            "repo": {
+              "forge": "bitbucket",
+              "instance": "bitbucket.org",
+              "owner": "danielroe",
+              "name": "forges-fixtures",
+              "externalId": "{245afeb9-21de-4a8c-81c0-d45efbf52a8c}"
+            },
+            "kind": "pull_request",
+            "number": "10"
+          },
+          "id": "880091483"
+        },
+        "body": "A comment from run 20261009201205."
+      },
       "source": "webhook",
       "action": "created"
     }

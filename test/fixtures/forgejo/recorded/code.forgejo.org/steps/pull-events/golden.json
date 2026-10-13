@@ -248,6 +248,27 @@
         "kind": "pull_request",
         "number": "1765"
       },
+      "detail": {
+        "type": "comment",
+        "comment": {
+          "forge": "forgejo",
+          "instance": "code.forgejo.org",
+          "thread": {
+            "forge": "forgejo",
+            "instance": "code.forgejo.org",
+            "repo": {
+              "forge": "forgejo",
+              "instance": "code.forgejo.org",
+              "owner": "forgejo",
+              "name": "runner"
+            },
+            "kind": "pull_request",
+            "number": "1765"
+          },
+          "id": "102160"
+        },
+        "body": "cascading-pr updated at https://code.forgejo.org/actions/setup-forgejo/pulls/1133"
+      },
       "source": "poll",
       "action": "created"
     },

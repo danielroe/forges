@@ -357,6 +357,27 @@
         "kind": "pull_request",
         "number": "540"
       },
+      "detail": {
+        "type": "comment",
+        "comment": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "thread": {
+            "forge": "gitee",
+            "instance": "gitee.com",
+            "repo": {
+              "forge": "gitee",
+              "instance": "gitee.com",
+              "owner": "cmcc-oneos",
+              "name": "OneOS"
+            },
+            "kind": "pull_request",
+            "number": "540"
+          },
+          "id": "31008545"
+        },
+        "body": "autotest"
+      },
       "source": "poll",
       "action": "created"
     },
@@ -476,6 +497,27 @@
         },
         "kind": "pull_request",
         "number": "540"
+      },
+      "detail": {
+        "type": "comment",
+        "comment": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "thread": {
+            "forge": "gitee",
+            "instance": "gitee.com",
+            "repo": {
+              "forge": "gitee",
+              "instance": "gitee.com",
+              "owner": "cmcc-oneos",
+              "name": "OneOS"
+            },
+            "kind": "pull_request",
+            "number": "540"
+          },
+          "id": "31012682"
+        },
+        "body": "autotest"
       },
       "source": "poll",
       "action": "created"
@@ -677,6 +719,27 @@
         "kind": "pull_request",
         "number": "540"
       },
+      "detail": {
+        "type": "comment",
+        "comment": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "thread": {
+            "forge": "gitee",
+            "instance": "gitee.com",
+            "repo": {
+              "forge": "gitee",
+              "instance": "gitee.com",
+              "owner": "cmcc-oneos",
+              "name": "OneOS"
+            },
+            "kind": "pull_request",
+            "number": "540"
+          },
+          "id": "33257524"
+        },
+        "body": "autotest"
+      },
       "source": "poll",
       "action": "created"
     },
@@ -717,6 +780,27 @@
         "kind": "pull_request",
         "number": "540"
       },
+      "detail": {
+        "type": "comment",
+        "comment": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "thread": {
+            "forge": "gitee",
+            "instance": "gitee.com",
+            "repo": {
+              "forge": "gitee",
+              "instance": "gitee.com",
+              "owner": "cmcc-oneos",
+              "name": "OneOS"
+            },
+            "kind": "pull_request",
+            "number": "540"
+          },
+          "id": "33257531"
+        },
+        "body": "已触发CI门禁构建，包含【静态检查】、【代码编译】、【冒烟测试】。完成时间约1小时，请耐心等待！"
+      },
       "source": "poll",
       "action": "created"
     },
@@ -756,6 +840,27 @@
         },
         "kind": "pull_request",
         "number": "540"
+      },
+      "detail": {
+        "type": "comment",
+        "comment": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "thread": {
+            "forge": "gitee",
+            "instance": "gitee.com",
+            "repo": {
+              "forge": "gitee",
+              "instance": "gitee.com",
+              "owner": "cmcc-oneos",
+              "name": "OneOS"
+            },
+            "kind": "pull_request",
+            "number": "540"
+          },
+          "id": "33259354"
+        },
+        "body": "<h4>build cost time:0:54:52.959265</h4>\n<table border=\"0\"><tr><th>Job Name</th><th>Build Result</th><th>Build Log</th></tr>\n<tr><td>build_config_keil_V3.1</td><td><b><font face=\"Segoe UI\">$\\color{Orange}{WARNING}$</font></b></td><td><a href=http://183.230.40.149:8099/build_result/gitee_report/build_config_keil_V3.1/435/>log>>></a></td></tr>\n<tr><td>build_config_gcc_V3.1</td><td><b><font face=\"Segoe UI\">$\\color{Orange}{WARNING}$</font></b></td><td><a href=http://183.230.40.149:8099/build_result/gitee_report/build_config_gcc_V3.1/450/>log>>></a></td></tr>\n<tr><td>buildall_gcc_linux3.1_release_Os</td><td><b><font face=\"Segoe UI\">$\\color{LimeGreen}{SUCCESS}$</font></b></td><td><a href=http://183.230.40.149:8099/build_result/gitee_report/buildall_gcc_linux3.1_release_Os/516/>log>>></a></td></tr>\n<tr><td>buildall_keil3.1_o2</td><td><b><font face=\"Segoe UI\">$\\color{LimeGreen}{SUCCESS}$</font></b></td><td><a href=http://183.230.40.149:8099/build_result/gitee_report/buildall_keil3.1_o2/495/>log>>></a></td></tr>\n<tr><td>os_build_smoke_keil_O2_V3.1</td><td><b><font face=\"Segoe UI\">$\\color{LimeGreen}{SUCCESS}$</font></b></td><td><a href=http://183.230.40.149:8099/build_result/gitee_report/os_build_smoke_keil_O2_V3.1/443/>log>>></a></td></tr>\n<tr><td>buildall_gcc_windows3.1_release_O2</td><td><b><font face=\"Segoe UI\">$\\color{LimeGreen}{SUCCESS}$</font></b></td><td><a href=http://183.230.40.149:8099/build_result/gitee_report/buildall_gcc_windows3.1_release_O2/528/>log>>></a></td></tr>\n</table>"
       },
       "source": "poll",
       "action": "created"

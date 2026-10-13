@@ -37,6 +37,27 @@
         "kind": "discussion",
         "number": "9303"
       },
+      "detail": {
+        "type": "comment",
+        "comment": {
+          "forge": "github",
+          "instance": "github.com",
+          "thread": {
+            "forge": "github",
+            "instance": "github.com",
+            "repo": {
+              "forge": "github",
+              "instance": "github.com",
+              "owner": "nuxt",
+              "name": "nuxt"
+            },
+            "kind": "discussion",
+            "number": "9303"
+          },
+          "id": "MDE3OkRpc2N1c3Npb25Db21tZW50NzQ3ODk3"
+        },
+        "body": "Hi. I suggest 3 approaches to try:\r\n\r\n## 1. Config\r\n\r\nWe can try to add `import 'newrelic'` to the top of `nuxt.config.js`? This should partially work as this is almost the topmost entry-point. \r\n\r\n## 2. CLI Wrapper\r\n\r\nWe may create a custom cli wrapper in the root of the project:\r\n\r\n`~/nuxt.js`:\r\n\r\n```js\r\nrequire('newrelic')\r\nrequire('nuxt/bin/nuxt')\r\n````\r\n\r\nAnd then inside `package.json`:\r\n\r\n```diff\r\nscripts: {\r\n-- \"start\": \"nuxt start\",\r\n++ \"start\": \"node ./nuxt start\",\r\n}\r\n```\r\n\r\n## 3. Module (best)\r\n\r\nIf newrelic is similar to sentry, this is not **required** to be the first import, we can do this via a nuxt module and it globally should register itself to the entire process:\r\n\r\n`modules/newrelic.js`\r\n\r\n```js\r\nexport default async function() {\r\n  await import('newrelic')\r\n}\r\n```\r\n\r\n`nuxt.config.js`\r\n\r\n```js\r\nexport default {\r\n    modules: [\r\n        '~/modules/newrelic'\r\n    ]\r\n}\r\n```\r\n\r\n\r\n"
+      },
       "source": "poll",
       "action": "created"
     },
@@ -76,6 +97,27 @@
         },
         "kind": "discussion",
         "number": "9303"
+      },
+      "detail": {
+        "type": "comment",
+        "comment": {
+          "forge": "github",
+          "instance": "github.com",
+          "thread": {
+            "forge": "github",
+            "instance": "github.com",
+            "repo": {
+              "forge": "github",
+              "instance": "github.com",
+              "owner": "nuxt",
+              "name": "nuxt"
+            },
+            "kind": "discussion",
+            "number": "9303"
+          },
+          "id": "MDE3OkRpc2N1c3Npb25Db21tZW50NzQ3ODk4"
+        },
+        "body": "I'm interested in this as well, did you attempt anything @theomjones ?\r\n\r\nThanks"
       },
       "source": "poll",
       "action": "created"
@@ -117,6 +159,27 @@
         "kind": "discussion",
         "number": "9303"
       },
+      "detail": {
+        "type": "comment",
+        "comment": {
+          "forge": "github",
+          "instance": "github.com",
+          "thread": {
+            "forge": "github",
+            "instance": "github.com",
+            "repo": {
+              "forge": "github",
+              "instance": "github.com",
+              "owner": "nuxt",
+              "name": "nuxt"
+            },
+            "kind": "discussion",
+            "number": "9303"
+          },
+          "id": "MDE3OkRpc2N1c3Npb25Db21tZW50NzQ3ODk5"
+        },
+        "body": "Hi @kezek, yeah we went with the CLI wrapper as new relic has to be the first required module for full metrics.\n\n<!--cmty_prevent_hook-->"
+      },
       "source": "poll",
       "action": "created"
     },
@@ -156,6 +219,27 @@
         },
         "kind": "discussion",
         "number": "9303"
+      },
+      "detail": {
+        "type": "comment",
+        "comment": {
+          "forge": "github",
+          "instance": "github.com",
+          "thread": {
+            "forge": "github",
+            "instance": "github.com",
+            "repo": {
+              "forge": "github",
+              "instance": "github.com",
+              "owner": "nuxt",
+              "name": "nuxt"
+            },
+            "kind": "discussion",
+            "number": "9303"
+          },
+          "id": "MDE3OkRpc2N1c3Npb25Db21tZW50NzQ3OTAw"
+        },
+        "body": "Thanks for the feedback. Do you also use PM2 by any chance ?"
       },
       "source": "poll",
       "action": "created"
@@ -197,6 +281,27 @@
         "kind": "discussion",
         "number": "9303"
       },
+      "detail": {
+        "type": "comment",
+        "comment": {
+          "forge": "github",
+          "instance": "github.com",
+          "thread": {
+            "forge": "github",
+            "instance": "github.com",
+            "repo": {
+              "forge": "github",
+              "instance": "github.com",
+              "owner": "nuxt",
+              "name": "nuxt"
+            },
+            "kind": "discussion",
+            "number": "9303"
+          },
+          "id": "MDE3OkRpc2N1c3Npb25Db21tZW50NzQ3OTAx"
+        },
+        "body": "Yeah we do, we went by these docs: https://pm2.keymetrics.io/docs/usage/docker-pm2-nodejs/\n\n<!--cmty_prevent_hook-->"
+      },
       "source": "poll",
       "action": "created"
     },
@@ -236,6 +341,27 @@
         },
         "kind": "discussion",
         "number": "9303"
+      },
+      "detail": {
+        "type": "comment",
+        "comment": {
+          "forge": "github",
+          "instance": "github.com",
+          "thread": {
+            "forge": "github",
+            "instance": "github.com",
+            "repo": {
+              "forge": "github",
+              "instance": "github.com",
+              "owner": "nuxt",
+              "name": "nuxt"
+            },
+            "kind": "discussion",
+            "number": "9303"
+          },
+          "id": "MDE3OkRpc2N1c3Npb25Db21tZW50NzQ3OTAy"
+        },
+        "body": "I used the CLI wrapper and it works properly.\r\nSadly, it's not integrating with the router and all the transactions are shown as /GET\r\nI was thinking of [binding the name with the router (in a middleware maybe)](https://docs.newrelic.com/docs/agents/nodejs-agent/api-guides/nodejs-agent-api#request-api) but dind't have time to get my hands into it.\r\n\r\nHas anyone faced that issue?"
       },
       "source": "poll",
       "action": "created"
@@ -277,6 +403,27 @@
         "kind": "discussion",
         "number": "9303"
       },
+      "detail": {
+        "type": "comment",
+        "comment": {
+          "forge": "github",
+          "instance": "github.com",
+          "thread": {
+            "forge": "github",
+            "instance": "github.com",
+            "repo": {
+              "forge": "github",
+              "instance": "github.com",
+              "owner": "nuxt",
+              "name": "nuxt"
+            },
+            "kind": "discussion",
+            "number": "9303"
+          },
+          "id": "MDE3OkRpc2N1c3Npb25Db21tZW50NzQ3OTAz"
+        },
+        "body": "After some hassle, I managed to set it up.\r\n\r\nI added newrelic as an external webpack dependency in nuxt.config.js\r\n```javascript\r\n    extend (config, ctx) {\r\n      config.externals = [\r\n        { newrelic: 'newrelic' }\r\n      ]\r\n    }\r\n```\r\n\r\nAnd then in nuxtServerInit I set the transaction name with code split so the bundle doesn't break in client side\r\n\r\n```javascript\r\nasync nuxtServerInit ({ dispatch, commit }, context) {\r\n    const newrelic = await import('newrelic')\r\n    newrelic.setTransactionName(context.route.matched[0].path)\r\n}\r\n```"
+      },
       "source": "poll",
       "action": "created"
     },
@@ -316,6 +463,27 @@
         },
         "kind": "discussion",
         "number": "9303"
+      },
+      "detail": {
+        "type": "comment",
+        "comment": {
+          "forge": "github",
+          "instance": "github.com",
+          "thread": {
+            "forge": "github",
+            "instance": "github.com",
+            "repo": {
+              "forge": "github",
+              "instance": "github.com",
+              "owner": "nuxt",
+              "name": "nuxt"
+            },
+            "kind": "discussion",
+            "number": "9303"
+          },
+          "id": "MDE3OkRpc2N1c3Npb25Db21tZW50NzQ3OTA0"
+        },
+        "body": "@nachogarcia can you see the time cosuming at the external requests on newrelic site? I have the configuration just like yours, but can't see this info."
       },
       "source": "poll",
       "action": "created"
@@ -357,6 +525,27 @@
         "kind": "discussion",
         "number": "9303"
       },
+      "detail": {
+        "type": "comment",
+        "comment": {
+          "forge": "github",
+          "instance": "github.com",
+          "thread": {
+            "forge": "github",
+            "instance": "github.com",
+            "repo": {
+              "forge": "github",
+              "instance": "github.com",
+              "owner": "nuxt",
+              "name": "nuxt"
+            },
+            "kind": "discussion",
+            "number": "9303"
+          },
+          "id": "MDE3OkRpc2N1c3Npb25Db21tZW50NzQ3OTA1"
+        },
+        "body": "Yeah, they show. Although for some reason I can only see the details of the calls to my PIM, not to my CMS (probably something related to the infra). It looks like this:\r\n![image](https://user-images.githubusercontent.com/9975630/81649244-4c707180-9430-11ea-8587-6d792e3e5881.png)\r\n"
+      },
       "source": "poll",
       "action": "created"
     },
@@ -385,6 +574,27 @@
         },
         "kind": "discussion",
         "number": "9303"
+      },
+      "detail": {
+        "type": "comment",
+        "comment": {
+          "forge": "github",
+          "instance": "github.com",
+          "thread": {
+            "forge": "github",
+            "instance": "github.com",
+            "repo": {
+              "forge": "github",
+              "instance": "github.com",
+              "owner": "nuxt",
+              "name": "nuxt"
+            },
+            "kind": "discussion",
+            "number": "9303"
+          },
+          "id": "MDE3OkRpc2N1c3Npb25Db21tZW50NzQ3OTA2"
+        },
+        "body": "@nachogarcia Hi, we tried your approach with implementing the two rows in 'nuxtServerInit' function to see the full path of Browser tracing names:\r\nconst newrelic = await import ('newrelic')\r\nnewrelic.SetTransactionName(context.route.matched[0].path)\r\n\r\nWe found out in our CI/CD process build, the script was broken every time when IIS physical path set to folder when we running the 'npm run build' script.\r\n\r\nWhen we removed the two mentioned rows everything was running as well.\r\n\r\nThe error we get is:\r\nERROR in ./node_modules/newrelic/lib/system-info.js\r\nModule not found: Error: Can't resolve 'child_process' in 'node_modules\\newrelic\\lib'\r\n\r\nCan you assists please?\r\nThank you,\r\nSP"
       },
       "source": "poll",
       "action": "created"
@@ -426,6 +636,27 @@
         "kind": "discussion",
         "number": "9303"
       },
+      "detail": {
+        "type": "comment",
+        "comment": {
+          "forge": "github",
+          "instance": "github.com",
+          "thread": {
+            "forge": "github",
+            "instance": "github.com",
+            "repo": {
+              "forge": "github",
+              "instance": "github.com",
+              "owner": "nuxt",
+              "name": "nuxt"
+            },
+            "kind": "discussion",
+            "number": "9303"
+          },
+          "id": "MDE3OkRpc2N1c3Npb25Db21tZW50NzQ3OTA3"
+        },
+        "body": "No idea. Did you set the external webpack dependency?\r\n\r\nAlso, I improved this a bit. There were some routes without match so now the line looks like\r\n`newrelic.setTransactionName(context.route.matched[0] ? context.route.matched[0].path : context.route.name)`\r\n\r\nAnd the GETs that didn't get logged were the calls to my healthcheck serverMiddleware so I added the env variable `NEW_RELIC_IGNORING_RULES: '^/health'`"
+      },
       "source": "poll",
       "action": "created"
     },
@@ -454,6 +685,27 @@
         },
         "kind": "discussion",
         "number": "9303"
+      },
+      "detail": {
+        "type": "comment",
+        "comment": {
+          "forge": "github",
+          "instance": "github.com",
+          "thread": {
+            "forge": "github",
+            "instance": "github.com",
+            "repo": {
+              "forge": "github",
+              "instance": "github.com",
+              "owner": "nuxt",
+              "name": "nuxt"
+            },
+            "kind": "discussion",
+            "number": "9303"
+          },
+          "id": "MDE3OkRpc2N1c3Npb25Db21tZW50NzQ3OTA4"
+        },
+        "body": "1. We did set the external webpack dependency as you suggested. I would like to add that our NuxtJS app is running as a Windows service. We can't find a reason why the build fails to import newrelic in the nuxtServerInit. Do you have any other thoughts on that?\n\n2. Thanks you for sharing your improvements. We'll try it once the above issue will be resolved.\n\n<!--cmty_prevent_hook-->"
       },
       "source": "poll",
       "action": "created"
@@ -495,6 +747,27 @@
         "kind": "discussion",
         "number": "9303"
       },
+      "detail": {
+        "type": "comment",
+        "comment": {
+          "forge": "github",
+          "instance": "github.com",
+          "thread": {
+            "forge": "github",
+            "instance": "github.com",
+            "repo": {
+              "forge": "github",
+              "instance": "github.com",
+              "owner": "nuxt",
+              "name": "nuxt"
+            },
+            "kind": "discussion",
+            "number": "9303"
+          },
+          "id": "MDE3OkRpc2N1c3Npb25Db21tZW50NzQ3OTA5"
+        },
+        "body": "Doing a quick search it seems like it's a rather common issue with other libraries. People fix it with\r\n\r\n```\r\nmodule.exports.node = {\r\n  child_process: 'empty'\r\n}\r\n```\r\n\r\nMaybe you can go through that route, or you can open an issue in https://github.com/newrelic/node-newrelic"
+      },
       "source": "poll",
       "action": "created"
     },
@@ -523,6 +796,27 @@
         },
         "kind": "discussion",
         "number": "9303"
+      },
+      "detail": {
+        "type": "comment",
+        "comment": {
+          "forge": "github",
+          "instance": "github.com",
+          "thread": {
+            "forge": "github",
+            "instance": "github.com",
+            "repo": {
+              "forge": "github",
+              "instance": "github.com",
+              "owner": "nuxt",
+              "name": "nuxt"
+            },
+            "kind": "discussion",
+            "number": "9303"
+          },
+          "id": "MDE3OkRpc2N1c3Npb25Db21tZW50NzQ3OTEw"
+        },
+        "body": "We tried child_process: 'false' and it didn't worked so I'm not sure if 'empty' will make a difference but I'll give it a shot.\n\nMuch appreciated.\n\n<!--cmty_prevent_hook-->"
       },
       "source": "poll",
       "action": "created"
@@ -564,6 +858,27 @@
         "kind": "discussion",
         "number": "9303"
       },
+      "detail": {
+        "type": "comment",
+        "comment": {
+          "forge": "github",
+          "instance": "github.com",
+          "thread": {
+            "forge": "github",
+            "instance": "github.com",
+            "repo": {
+              "forge": "github",
+              "instance": "github.com",
+              "owner": "nuxt",
+              "name": "nuxt"
+            },
+            "kind": "discussion",
+            "number": "9303"
+          },
+          "id": "MDE3OkRpc2N1c3Npb25Db21tZW50NzQ3OTEx"
+        },
+        "body": "@nachogarcia Hey! I've configured my newrelic as same as you did and its working fine, but on the client interactions, Im having this error:\r\n\r\n`logger.js?899e:6 Uncaught (in promise) TypeError: newrelic.noticeError is not a function`\r\n\r\nDo you have any idea of wahts possibly going on? thanks ;)"
+      },
       "source": "poll",
       "action": "created"
     },
@@ -603,6 +918,27 @@
         },
         "kind": "discussion",
         "number": "9303"
+      },
+      "detail": {
+        "type": "comment",
+        "comment": {
+          "forge": "github",
+          "instance": "github.com",
+          "thread": {
+            "forge": "github",
+            "instance": "github.com",
+            "repo": {
+              "forge": "github",
+              "instance": "github.com",
+              "owner": "nuxt",
+              "name": "nuxt"
+            },
+            "kind": "discussion",
+            "number": "9303"
+          },
+          "id": "MDE3OkRpc2N1c3Npb25Db21tZW50NzQ3OTEy"
+        },
+        "body": "We're using it on nuxtServerInit with the dynamic import for using server side only :/"
       },
       "source": "poll",
       "action": "created"
@@ -644,6 +980,27 @@
         "kind": "discussion",
         "number": "9303"
       },
+      "detail": {
+        "type": "comment",
+        "comment": {
+          "forge": "github",
+          "instance": "github.com",
+          "thread": {
+            "forge": "github",
+            "instance": "github.com",
+            "repo": {
+              "forge": "github",
+              "instance": "github.com",
+              "owner": "nuxt",
+              "name": "nuxt"
+            },
+            "kind": "discussion",
+            "number": "9303"
+          },
+          "id": "MDE3OkRpc2N1c3Npb25Db21tZW50NzQ3OTEz"
+        },
+        "body": "> We're using it on nuxtServerInit with the dynamic import for using server side only :/\r\n\r\nhumm I get it. Thanks!"
+      },
       "source": "poll",
       "action": "created"
     },
@@ -683,6 +1040,27 @@
         },
         "kind": "discussion",
         "number": "9303"
+      },
+      "detail": {
+        "type": "comment",
+        "comment": {
+          "forge": "github",
+          "instance": "github.com",
+          "thread": {
+            "forge": "github",
+            "instance": "github.com",
+            "repo": {
+              "forge": "github",
+              "instance": "github.com",
+              "owner": "nuxt",
+              "name": "nuxt"
+            },
+            "kind": "discussion",
+            "number": "9303"
+          },
+          "id": "MDE3OkRpc2N1c3Npb25Db21tZW50NzQ3OTE0"
+        },
+        "body": "I would take a look at how we handle in the Sentry module as inspiration: https://github.com/nuxt-community/sentry-module/blob/master/lib/module.js#L60-L73\r\n\r\nTo test easily without having to write a module, you can directly use hooks directly in your `nuxt.config.js`, example:\r\n\r\n```js\r\nexport default {\r\n  hooks: {\r\n    'render:errorMiddleware'(app) {\r\n      app.use((err, req, res, next) => {\r\n        // Catch the error with you error reported\r\n        console.error(`An error occured while rendering ${req.url}\\n`, err)\r\n        // Let Nuxt show the error page\r\n        // You can customize the HTML error page for production by creating app/views/error.html\r\n        next(err)\r\n      })\r\n    }\r\n  }\r\n}\r\n```"
       },
       "source": "poll",
       "action": "created"
@@ -724,6 +1102,27 @@
         "kind": "discussion",
         "number": "9303"
       },
+      "detail": {
+        "type": "comment",
+        "comment": {
+          "forge": "github",
+          "instance": "github.com",
+          "thread": {
+            "forge": "github",
+            "instance": "github.com",
+            "repo": {
+              "forge": "github",
+              "instance": "github.com",
+              "owner": "nuxt",
+              "name": "nuxt"
+            },
+            "kind": "discussion",
+            "number": "9303"
+          },
+          "id": "MDE3OkRpc2N1c3Npb25Db21tZW50NzQ3OTE1"
+        },
+        "body": "@claudiolcastro I' try to add newRelic to my project as well, an SSR based application, what I did is:\r\n- Import `newRelic` in `store/nuxtServerInit`\r\n- Registering `newrelic` as an external in webpack (same as you did)\r\n\r\nBut I'm having an error in the browser saying: **`ReferenceError: newrelic is not defined`**\r\nAny idea? anyone?"
+      },
       "source": "poll",
       "action": "created"
     },
@@ -763,6 +1162,27 @@
         },
         "kind": "discussion",
         "number": "9303"
+      },
+      "detail": {
+        "type": "comment",
+        "comment": {
+          "forge": "github",
+          "instance": "github.com",
+          "thread": {
+            "forge": "github",
+            "instance": "github.com",
+            "repo": {
+              "forge": "github",
+              "instance": "github.com",
+              "owner": "nuxt",
+              "name": "nuxt"
+            },
+            "kind": "discussion",
+            "number": "9303"
+          },
+          "id": "MDE3OkRpc2N1c3Npb25Db21tZW50NzQ3OTE2"
+        },
+        "body": "@Sletheren This might be relevant: https://github.com/nuxt/nuxt.js/issues/7960#issuecomment-832607715"
       },
       "source": "poll",
       "action": "created"
@@ -804,6 +1224,27 @@
         "kind": "discussion",
         "number": "9303"
       },
+      "detail": {
+        "type": "comment",
+        "comment": {
+          "forge": "github",
+          "instance": "github.com",
+          "thread": {
+            "forge": "github",
+            "instance": "github.com",
+            "repo": {
+              "forge": "github",
+              "instance": "github.com",
+              "owner": "nuxt",
+              "name": "nuxt"
+            },
+            "kind": "discussion",
+            "number": "9303"
+          },
+          "id": "MDE3OkRpc2N1c3Npb25Db21tZW50NzQ3OTE3"
+        },
+        "body": "@danielroe I tried the same setup, but I still get the same error `ReferenceError: newrelic is not defined` and noticed that the content of the script is `NREUM L(1)`\r\n```\r\n{\r\n    hid: 'newrelic',\r\n    innerHTML: '<!-- NREUM: (1) -->',\r\n    type: 'text/javascript'\r\n  }\r\n```"
+      },
       "source": "poll",
       "action": "created"
     },
@@ -843,6 +1284,27 @@
         },
         "kind": "discussion",
         "number": "9303"
+      },
+      "detail": {
+        "type": "comment",
+        "comment": {
+          "forge": "github",
+          "instance": "github.com",
+          "thread": {
+            "forge": "github",
+            "instance": "github.com",
+            "repo": {
+              "forge": "github",
+              "instance": "github.com",
+              "owner": "nuxt",
+              "name": "nuxt"
+            },
+            "kind": "discussion",
+            "number": "9303"
+          },
+          "id": "MDE3OkRpc2N1c3Npb25Db21tZW50NzQ3OTE4"
+        },
+        "body": "I didn't create a plugin because on further inspection it might not be neccesary to set the names on each request, though in my system I have the configuration that was quoted above.\r\n\r\nSince the change in configuration from some versions ago, you can just try to import newrelic in top of nuxt.config.js.\r\n\r\nAnd if you need further customization, use a hook like\r\n\r\n```\r\nhooks: {\r\n    'render:route' (url, result, context) {\r\n      try {\r\n        newrelic.setTransactionName(url)\r\n      } catch (error) {\r\n        // Ignore\r\n      }\r\n    }\r\n  }\r\n```\r\n\r\nPlease let me know what worked for you, so we can create a final and updated answer to anyone trying to setup newrelic with nuxt, and make a plugin if deemed neccesary :)"
       },
       "source": "poll",
       "action": "created"
@@ -884,6 +1346,27 @@
         "kind": "discussion",
         "number": "9303"
       },
+      "detail": {
+        "type": "comment",
+        "comment": {
+          "forge": "github",
+          "instance": "github.com",
+          "thread": {
+            "forge": "github",
+            "instance": "github.com",
+            "repo": {
+              "forge": "github",
+              "instance": "github.com",
+              "owner": "nuxt",
+              "name": "nuxt"
+            },
+            "kind": "discussion",
+            "number": "9303"
+          },
+          "id": "MDE3OkRpc2N1c3Npb25Db21tZW50NzUxNDUw"
+        },
+        "body": "@nachogarcia Thanks for your reply, I tried to do what you suggested, and here is a reproduction, https://github.com/Sletheren/nuxt-typescript-envs\r\nWhen you run `yarn build` you will see that the building phase is failing due to \"missing packages\", sounds like its coming from `@newrelic/Winston-enricher`"
+      },
       "source": "poll",
       "action": "created"
     },
@@ -923,6 +1406,27 @@
         },
         "kind": "discussion",
         "number": "9303"
+      },
+      "detail": {
+        "type": "comment",
+        "comment": {
+          "forge": "github",
+          "instance": "github.com",
+          "thread": {
+            "forge": "github",
+            "instance": "github.com",
+            "repo": {
+              "forge": "github",
+              "instance": "github.com",
+              "owner": "nuxt",
+              "name": "nuxt"
+            },
+            "kind": "discussion",
+            "number": "9303"
+          },
+          "id": "DC_kwDOBEqSIc4AJkzk"
+        },
+        "body": "If it helps, here's what we did: https://gist.github.com/Christopher-Hayes/60d03f2c8d274be31caf1658a84d3153\r\n\r\nIt pulls from different answers here. (Thank you! 🙏) Combined all changes we made into a single gist to make it a little easier for others."
       },
       "source": "poll",
       "action": "created"
@@ -964,6 +1468,27 @@
         "kind": "discussion",
         "number": "9303"
       },
+      "detail": {
+        "type": "comment",
+        "comment": {
+          "forge": "github",
+          "instance": "github.com",
+          "thread": {
+            "forge": "github",
+            "instance": "github.com",
+            "repo": {
+              "forge": "github",
+              "instance": "github.com",
+              "owner": "nuxt",
+              "name": "nuxt"
+            },
+            "kind": "discussion",
+            "number": "9303"
+          },
+          "id": "DC_kwDOBEqSIc4Am6tr"
+        },
+        "body": "Has anyone got a working solution for Nuxt 3?"
+      },
       "source": "poll",
       "action": "created"
     },
@@ -1003,6 +1528,27 @@
         },
         "kind": "discussion",
         "number": "9303"
+      },
+      "detail": {
+        "type": "comment",
+        "comment": {
+          "forge": "github",
+          "instance": "github.com",
+          "thread": {
+            "forge": "github",
+            "instance": "github.com",
+            "repo": {
+              "forge": "github",
+              "instance": "github.com",
+              "owner": "nuxt",
+              "name": "nuxt"
+            },
+            "kind": "discussion",
+            "number": "9303"
+          },
+          "id": "DC_kwDOBEqSIc4AnnTl"
+        },
+        "body": "I just published https://github.com/attributech/nuxt-newrelic that provides better integration between Nuxt and New Relic. This is my first Nuxt module and my first npm package. I'd be happy to receive some feedback on it 🫶"
       },
       "source": "poll",
       "action": "created"

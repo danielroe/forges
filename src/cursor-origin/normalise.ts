@@ -1,4 +1,4 @@
-import type { Actor, Branch, ChangedFile, Check, Comment, Commit, ForgeEventInput, Repo, RepoRef, ResolvedThreadRef, Review, ReviewState, Tag, Thread, ThreadRef, TreeEntry } from '../model.ts'
+import type { Actor, Branch, ChangedFile, Check, Comment, Commit, EventDetail, ForgeEventInput, Repo, RepoRef, ResolvedThreadRef, Review, ReviewState, Tag, Thread, ThreadRef, TreeEntry } from '../model.ts'
 import type { OriginActor, OriginBranch, OriginCheckRun, OriginComment, OriginCommit, OriginCommitFile, OriginGitRef, OriginPullRequest, OriginRepo, OriginRepositoryReference, OriginReview, OriginTreeEntry } from './types.ts'
 import { checkRunState, toDate, toFileStatus, toPullStats } from '../utils.ts'
 
@@ -104,6 +104,13 @@ export function toComment(thread: ThreadRef, raw: OriginComment): Comment {
   }
 }
 
+export function commentDetail(thread: ThreadRef, raw: OriginComment): EventDetail {
+  const comment = { forge: FORGE, instance: thread.instance, thread, id: raw.id }
+  return isConversationComment(raw)
+    ? { type: 'comment', comment, body: raw.body }
+    : { type: 'review_comment', comment, body: raw.body, path: raw.thread?.path, line: raw.thread?.endLine ?? raw.thread?.startLine }
+}
+
 export function toCommentEvent(thread: ThreadRef, raw: OriginComment): ForgeEventInput {
   const anchored = !isConversationComment(raw)
   const actor = toActor(thread.instance, raw.author)
@@ -118,6 +125,7 @@ export function toCommentEvent(thread: ThreadRef, raw: OriginComment): ForgeEven
     actor,
     repo: thread.repo,
     thread,
+    detail: commentDetail(thread, raw),
     source: 'poll',
     payload: raw,
   }
