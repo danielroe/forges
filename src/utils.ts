@@ -1,6 +1,6 @@
 import type { ForgeErrorContext } from './errors.ts'
 import type { Fetcher, FetchResult, PaginateOptions } from './fetch.ts'
-import type { Actor, BaseOptions, ChecksSummary, CheckState, Cursor, FileStatus, ForgeWarning, GetManyResult, ListOptions, MergeOptions, Milestone, Page, PageOptions, PullStats, RateLimit, ResolvedThreadRef, Review, ReviewState, Thread, ThreadRef } from './model.ts'
+import type { Actor, BaseOptions, ChecksSummary, CheckState, Cursor, FileStatus, ForgeWarning, GetManyResult, ListOptions, MergeOptions, Milestone, Page, PageOptions, PullStats, RateLimit, RepoRef, ResolvedThreadRef, Review, ReviewState, Thread, ThreadRef } from './model.ts'
 import type { ForgeIterable, MilestoneListOptions, TokenAuth } from './provider.ts'
 import { ForgeApiError, ForgeError, RateLimitedError, TokenRevokedError, UnresolvedThreadError, UnsupportedOperationError } from './errors.ts'
 import { rateLimitOf } from './fetch.ts'
@@ -111,6 +111,13 @@ export function toDate(value: string | number | null | undefined): Date | undefi
 /** The host of `baseUrl`, including the port when there is one. */
 export function hostOf(baseUrl: string): string {
   return new URL(baseUrl).host
+}
+
+/** The namespace ref of `ref`'s owner, for the `org` of a team's ref. */
+export function teamOrg(ref: RepoRef): RepoRef {
+  return ref.kind === 'namespace' && !ref.name
+    ? ref
+    : { forge: ref.forge, instance: ref.instance, owner: ref.owner, name: '', kind: 'namespace' }
 }
 
 /** Narrows a ref to one a provider can address, or throws {@link UnresolvedThreadError}. */

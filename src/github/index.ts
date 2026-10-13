@@ -120,7 +120,7 @@ import { defineForgeProvider, perKind, verb } from '../define.ts'
 import { ForbiddenError, ForgeApiError, ForgeError, ForgeTimeoutError, InsufficientScopeError, MergeBlockedError, NotFoundError, soleMergeMethod, toMergeError, UnsupportedOperationError } from '../errors.ts'
 import { anySignal, sleep } from '../fetch.ts'
 import { isNamespaceRef, isResolvedThread, reactionContent } from '../model.ts'
-import { actorLogin, createListing, forgeIterable, getManyConcurrently, hostOf, iteratePages, memo, milestoneId, phased, requireIssueOrPull, requireThread, resolveToken, summariseChecks, toDate, toPage, toWarning, versionAtLeast } from '../utils.ts'
+import { actorLogin, createListing, forgeIterable, getManyConcurrently, hostOf, iteratePages, memo, milestoneId, phased, requireIssueOrPull, requireThread, resolveToken, summariseChecks, teamOrg, toDate, toPage, toWarning, versionAtLeast } from '../utils.ts'
 import { githubShapedWeb } from '../web.ts'
 import { nativeEventsFor } from '../webhooks.ts'
 import { createAppCredentials, createAuthHeaders } from './auth.ts'
@@ -152,7 +152,6 @@ import {
   toStatusCheck,
   toTag,
   toTeam,
-  toTeamOrg,
   toThread,
   toTreeEntry,
   toUser,
@@ -1602,7 +1601,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
       teamsPage: verb(!anonymous, (org, listOptions = {}) => list(
         `/orgs/${encodeURIComponent(org.owner)}/teams`,
         listOptions,
-        (raw: GitHubTeam) => toTeam(instance, toTeamOrg(org), raw),
+        (raw: GitHubTeam) => toTeam(instance, teamOrg(org), raw),
       )),
       teamMembersPage: verb(!anonymous, (org, slug, listOptions = {}) => list(
         `/orgs/${encodeURIComponent(org.owner)}/teams/${encodeURIComponent(slug)}/members`,

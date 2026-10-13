@@ -98,11 +98,6 @@ export function toRepoRef(origin: ForgeOrigin, repo: ForgejoRepository): RepoRef
   }
 }
 
-/** An organisation ref for a team's ref, whatever form `org` arrived in. */
-export function toTeamOrg(org: RepoRef): RepoRef {
-  return org.kind === 'namespace' && !org.name ? org : { ...org, kind: 'namespace', name: '' }
-}
-
 /** Forgejo and Gitea teams have no slug, so the name stands in for one. */
 export function toTeam(origin: ForgeOrigin, org: RepoRef, raw: ForgejoTeam): Team {
   return {

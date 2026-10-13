@@ -6,8 +6,8 @@ import type { AzureCommit, AzureCommitDiffs, AzureIdentity, AzureItem, AzurePoli
 import { toFileContent } from '../contents.ts'
 import { defineForgeProvider, perKind, verb } from '../define.ts'
 import { ForgeError, MergeMethodRequiredError, NotFoundError, toMergeError, UnsupportedOperationError } from '../errors.ts'
-import { actorLogin, getManyConcurrently, memo, mergeCommitMessage, phased, requireIssueOrPull, requireThread, resolveToken, summariseChecks, syntheticReview, toWarning } from '../utils.ts'
-import { FORGE, isConversationThread, projectRef, toActor, toBranch, toChangedFile, toCommit, toPolicyCheck, toPullComment, toPullThread, toRepo, toRepoRef, toStatusCheck, toTag, toTeam, toTeamOrg, toThreadEvents, toTreeEntry, toWorkItemComment, toWorkItemEvents, toWorkItemThread } from './normalise.ts'
+import { actorLogin, getManyConcurrently, memo, mergeCommitMessage, phased, requireIssueOrPull, requireThread, resolveToken, summariseChecks, syntheticReview, teamOrg, toWarning } from '../utils.ts'
+import { FORGE, isConversationThread, projectRef, toActor, toBranch, toChangedFile, toCommit, toPolicyCheck, toPullComment, toPullThread, toRepo, toRepoRef, toStatusCheck, toTag, toTeam, toThreadEvents, toTreeEntry, toWorkItemComment, toWorkItemEvents, toWorkItemThread } from './normalise.ts'
 import { azureWeb } from './web.ts'
 import { azureDevOpsWebhooks } from './webhooks.ts'
 
@@ -390,7 +390,7 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
       teamsPage: verb(!anonymous, async (org, listOptions = {}) => {
         const { org: organization, project } = scope(org)
         const { data } = await fetcher.json<{ value: AzureTeam[] }>(`/${enc(organization)}/_apis/projects/${enc(project)}/teams`, { signal: listOptions.signal })
-        return { items: data.value.map(raw => toTeam(instance, toTeamOrg(org), raw)) }
+        return { items: data.value.map(raw => toTeam(instance, teamOrg(org), raw)) }
       }),
       teamMembersPage: verb(!anonymous, async (org, slug, listOptions = {}) => {
         const { org: organization, project } = scope(org)

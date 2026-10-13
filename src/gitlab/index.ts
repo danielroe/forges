@@ -85,7 +85,7 @@ import { fromBase64, toFileContent } from '../contents.ts'
 import { defineForgeProvider, perKind, verb } from '../define.ts'
 import { AuthenticationRequiredError, InsufficientScopeError, NotFoundError, soleMergeMethod, TokenRevokedError, toMergeError, UnresolvedThreadError, UnsupportedOperationError } from '../errors.ts'
 import { isNamespaceRef, reactionContent } from '../model.ts'
-import { createListing, degradesToWarning, getManyConcurrently, hexColour, memo, memoBy, mergeCommitMessage, milestoneId, phased, requireIssueOrPull, requireThread, resolveToken, syntheticReview, toDate, toPage, toWarning, versionAtLeast } from '../utils.ts'
+import { createListing, degradesToWarning, getManyConcurrently, hexColour, memo, memoBy, mergeCommitMessage, milestoneId, phased, requireIssueOrPull, requireThread, resolveToken, syntheticReview, teamOrg, toDate, toPage, toWarning, versionAtLeast } from '../utils.ts'
 import { webUrlFor } from '../web.ts'
 import { nativeEventsFor } from '../webhooks.ts'
 import {
@@ -117,7 +117,6 @@ import {
   toStatusCheck,
   toTag,
   toTeam,
-  toTeamOrg,
   toThread,
   toTreeEntry,
   toVulnerability,
@@ -739,7 +738,7 @@ const GITLAB: ProviderDefinition<GitLabOptions, undefined, true> = {
         teamsPage: verb(true, (org, listOptions = {}) => list(
           `/groups/${encodeURIComponent(org.externalId ?? org.owner)}/subgroups`,
           listOptions,
-          (raw: GitLabGroup) => toTeam(instance, toTeamOrg(org), raw),
+          (raw: GitLabGroup) => toTeam(instance, teamOrg(org), raw),
         )),
         teamMembersPage: verb(!anonymous, (org, slug, listOptions = {}) => {
           const path = [org.owner, slug].filter(Boolean).join('/')

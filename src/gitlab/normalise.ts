@@ -92,11 +92,6 @@ export function toNamespaceRef(instance: string, fullPath: string, id?: number):
   }
 }
 
-/** An organisation ref for a team's ref, whatever form `org` arrived in. */
-export function toTeamOrg(org: RepoRef): RepoRef {
-  return org.kind === 'namespace' && !org.name ? org : { ...org, kind: 'namespace', name: '' }
-}
-
 /** GitLab has no teams of its own; a subgroup stands in for one. */
 export function toTeam(instance: string, org: RepoRef, raw: GitLabGroup): Team {
   return {

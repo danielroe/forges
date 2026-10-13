@@ -31,11 +31,6 @@ export function projectRef(instance: string, organization: string, project: stri
   return { forge: FORGE, instance, owner: `${organization}/${project}`, name: '', kind: 'namespace' }
 }
 
-/** An organisation ref for a team's ref, whatever form `org` arrived in. */
-export function toTeamOrg(org: RepoRef): RepoRef {
-  return org.kind === 'namespace' && !org.name ? org : { ...org, kind: 'namespace', name: '' }
-}
-
 /** A team belongs to a project, so its ref carries the project as a namespace. */
 export function toTeam(instance: string, org: RepoRef, raw: AzureTeam): Team {
   return {

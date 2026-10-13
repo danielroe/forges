@@ -81,10 +81,10 @@ import { fromBase64, toFileContent } from '../contents.ts'
 import { defineForgeProvider, perKind, verb } from '../define.ts'
 import { ForgeError, NotFoundError, soleMergeMethod, toMergeError, UnsupportedOperationError } from '../errors.ts'
 import { isNamespaceRef, reactionContent } from '../model.ts'
-import { actorLogin, createListing, getManyConcurrently, hasEveryLabel, hexColour, hostOf, memo, memoBy, milestoneId, requireIssueOrPull, requireThread, resolveToken, summariseChecks, toDate, toPage, toWarning, versionAtLeast } from '../utils.ts'
+import { actorLogin, createListing, getManyConcurrently, hasEveryLabel, hexColour, hostOf, memo, memoBy, milestoneId, requireIssueOrPull, requireThread, resolveToken, summariseChecks, teamOrg, toDate, toPage, toWarning, versionAtLeast } from '../utils.ts'
 import { githubShapedWeb } from '../web.ts'
 import { nativeEventsFor } from '../webhooks.ts'
-import { ACTION_STATES, actionBranch, GITEA_ACTION_STATES, numberFromUrl, toActionJob, toActionRun, toActor, toBranch, toChangedFile, toComment, toCommit, toEvent, toGiteaActionJob, toGiteaActionRun, toLabel, toMilestone, toNotification, toRelease, toRepo, toReview, toReviewComment, toRole, toStatusCheck, toStatusChecks, toTag, toTeam, toTeamOrg, toThread, toThreadKind, toTreeEntry, toWebhook } from './normalise.ts'
+import { ACTION_STATES, actionBranch, GITEA_ACTION_STATES, numberFromUrl, toActionJob, toActionRun, toActor, toBranch, toChangedFile, toComment, toCommit, toEvent, toGiteaActionJob, toGiteaActionRun, toLabel, toMilestone, toNotification, toRelease, toRepo, toReview, toReviewComment, toRole, toStatusCheck, toStatusChecks, toTag, toTeam, toThread, toThreadKind, toTreeEntry, toWebhook } from './normalise.ts'
 import { countedNextUrl, countedPages } from './pages.ts'
 import { FORGEJO_HEADERS, FORGEJO_NATIVE_EVENTS } from './webhook-events.ts'
 import { forgejoWebhooks } from './webhooks.ts'
@@ -624,7 +624,7 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
       teamsPage: verb(anonymous ? false : orgTeams, (org, listOptions = {}) => list(
         `/orgs/${encodeURIComponent(org.owner)}/teams`,
         listOptions,
-        (raw: ForgejoTeam) => toTeam(origin, toTeamOrg(org), raw),
+        (raw: ForgejoTeam) => toTeam(origin, teamOrg(org), raw),
       )),
       teamMembersPage: verb(anonymous ? false : orgTeams, async (org, slug, listOptions = {}) => {
         const id = /^\d+$/.test(slug) ? slug : await teamIdOf(`${org.owner}\n${slug}`)
