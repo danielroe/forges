@@ -71,7 +71,7 @@ export function renderBundleSizeDiff(base: BundleSnapshot, head: BundleSnapshot)
     '<!-- forges:bundle-size -->',
     '## Bundle size',
     '',
-    'Browser entry bundles compared with the PR base. All sizes are in bytes; lazy chunks are minified and loaded on demand.',
+    'Browser entry bundles compared with the PR base. All sizes are in bytes. Lazy totals the minified chunks besides the entry, which load on demand or never.',
     '',
     '| Bundle | Minified | Gzip | Lazy |',
     '| --- | ---: | ---: | ---: |',

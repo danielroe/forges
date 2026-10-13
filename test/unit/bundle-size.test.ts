@@ -68,6 +68,20 @@ describe('browser bundle measurements', () => {
     expect(parseBundleSnapshot(readFileSync(out, 'utf8')).bundles.map(bundle => bundle.name)).toEqual(['forges', 'forges/github', 'github lite', 'forges/gitlab'])
   })
 
+  it('counts and reports every chunk besides the entry', () => {
+    writeFileSync(join(directory, 'shared.mjs'), `export const shared = ${JSON.stringify('s'.repeat(2_000))}`)
+    writeFileSync(join(directory, 'one.mjs'), `import { shared } from './shared.mjs'; export const one = shared + 1`)
+    writeFileSync(join(directory, 'two.mjs'), `import { shared } from './shared.mjs'; export const two = shared + 2`)
+    writeFileSync(join(directory, 'github/index.mjs'), 'export const github = "full"; export const githubLite = () => Promise.all([import("../one.mjs"), import("../two.mjs")])')
+    const out = join(directory, 'snapshot.json')
+    const result = measure('--report', '--out', out)
+    const lite = parseBundleSnapshot(readFileSync(out, 'utf8')).bundles.find(bundle => bundle.name === 'github lite')!
+
+    expect(result.stdout).toMatch(/one-\S+\.js \d+ \(dynamic import\)/)
+    expect(result.stdout).toMatch(/shared-\S+\.js \d+ \(shared\)/)
+    expect(lite.lazy).toBeGreaterThan(2_000)
+  })
+
   it('fails for a missing bundle outside report mode', () => {
     rmSync(join(directory, 'tangled'), { recursive: true })
     expect(measure().status).not.toBe(0)

@@ -1,4 +1,8 @@
-/** Measures browser entry bundles and checks that Lite bundles exclude webhook code. */
+/**
+ * Measures browser entry bundles and checks that Lite bundles exclude webhook
+ * code. `lazy` totals every chunk besides the entry. `--report` prints each
+ * of them without failing.
+ */
 import { Buffer } from 'node:buffer'
 import { mkdtempSync, rmSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
@@ -34,11 +38,21 @@ async function measure(directory: string, source: string, imports: string) {
   const bundle = await rolldown({ input: entry, platform: 'browser' })
   try {
     const { output } = await bundle.generate({ format: 'esm', minify: true })
-    const code = (chunk: (typeof output)[number]) => Buffer.from('code' in chunk ? chunk.code : '')
-    const loaded = output.filter(chunk => 'isEntry' in chunk && chunk.isEntry).map(code)
-    const lazy = output.filter(chunk => 'isDynamicEntry' in chunk && chunk.isDynamicEntry).map(code)
-    const eager = Buffer.concat(loaded)
-    return { minified: eager.byteLength, gzipped: gzipSync(eager).byteLength, lazy: Buffer.concat(lazy).byteLength, code: eager.toString() }
+    const chunks = output.flatMap(chunk => chunk.type === 'chunk' ? [chunk] : [])
+    const byName = new Map(chunks.map(chunk => [chunk.fileName, chunk]))
+    const reached = new Set(chunks.filter(chunk => chunk.isEntry).map(chunk => chunk.fileName))
+    for (const name of reached) {
+      for (const next of [...byName.get(name)?.imports ?? [], ...byName.get(name)?.dynamicImports ?? []]) {
+        reached.add(next)
+      }
+    }
+    const eager = Buffer.concat(chunks.filter(chunk => chunk.isEntry).map(chunk => Buffer.from(chunk.code)))
+    const others = chunks.filter(chunk => !chunk.isEntry).map(chunk => ({
+      name: chunk.fileName,
+      size: Buffer.byteLength(chunk.code),
+      kind: !reached.has(chunk.fileName) ? 'unreachable' : chunk.isDynamicEntry ? 'dynamic import' : 'shared',
+    }))
+    return { minified: eager.byteLength, gzipped: gzipSync(eager).byteLength, lazy: others.reduce((total, chunk) => total + chunk.size, 0), others, code: eager.toString() }
   }
   finally {
     await bundle.close()
@@ -59,9 +73,14 @@ try {
     if (!result) {
       continue
     }
-    const { minified, gzipped, lazy, code } = result
+    const { minified, gzipped, lazy, others, code } = result
     bundles.push({ name, minified, gzipped, lazy })
     console.info(`${name.padEnd(16)} ${String(minified).padStart(7)} min  ${String(gzipped).padStart(6)} gz  ${String(lazy).padStart(6)} lazy`)
+    if (values.report) {
+      for (const chunk of others) {
+        console.info(`  ${chunk.name} ${chunk.size} (${chunk.kind})`)
+      }
+    }
     if (absent && code.includes(absent)) {
       failures.push(`${name} contains ${absent}`)
     }
