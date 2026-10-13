@@ -673,11 +673,12 @@ async function recordWrites(): Promise<void> {
 async function recordReads(): Promise<void> {
   const { provider, manifest: partial, prepare, after, scrub } = targetFor(readCredentials, recordLive)
   useInstance(provider)
-  const manifest: RecordingManifest = { baseUrl: provider.baseUrl, ...(anonymous && { anonymous }), ...partial }
+  const previous = only && existsSync(`${out}manifest.json`) ? JSON.parse(readFileSync(`${out}manifest.json`, 'utf8')) as RecordingManifest : undefined
+  const committedRepos = Object.fromEntries((['scratch', 'alerts', 'transfer', 'collaborators'] as const).flatMap(key => previous?.[key] && !partial[key] ? [[key, previous[key]]] : []))
+  const manifest: RecordingManifest = { baseUrl: provider.baseUrl, ...(anonymous && { anonymous }), ...partial, ...committedRepos }
   await prepare?.(manifest)
   const json = `${JSON.stringify(manifest, null, 2)}\n`
-  const previous = only && existsSync(`${out}manifest.json`) ? JSON.parse(readFileSync(`${out}manifest.json`, 'utf8')) as Record<string, unknown> : undefined
-  const differing = previous ? differingKeys(previous, JSON.parse(json) as Record<string, unknown>) : []
+  const differing = previous ? differingKeys({ ...previous }, JSON.parse(json) as Record<string, unknown>) : []
   if (differing.length) {
     console.error(`${differing.map(key => `\`${key}\``).join(', ')} differ from ${out}manifest.json, so the other steps would no longer match. Record every step instead of passing --only.`)
     exit(1)
@@ -697,7 +698,9 @@ async function recordReads(): Promise<void> {
   }
   await scrub?.()
   writeSteps()
-  writeFileSync(`${out}manifest.json`, json)
+  if (!previous) {
+    writeFileSync(`${out}manifest.json`, json)
+  }
 }
 
 interface DeliverySource {
