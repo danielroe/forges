@@ -58,6 +58,13 @@ describe('cloudflare artifacts', () => {
     expect((await forge.repos.listPage({ visibility: 'public' })).items).toEqual([])
   })
 
+  it('lists nothing for filters no Artifacts repository matches, without a request', async () => {
+    const { forge, calls } = provider({})
+    expect((await forge.repos.listPage({ affiliation: ['collaborator'] })).items).toEqual([])
+    expect((await forge.repos.listPage({ visibility: 'public' })).items).toEqual([])
+    expect(calls).toHaveLength(0)
+  })
+
   it.each(['more-agents', '"agents"', '{"repos":"x"}'])('rejects a listing cursor that `repos.list()` did not return: %s', async (token) => {
     const { forge, calls } = provider({})
     await expect(forge.repos.listPage({ cursor: { token } })).rejects.toThrow(ForgeError)

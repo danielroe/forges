@@ -59,8 +59,10 @@ function setupArtifacts({ options, origin, fetcher }: ProviderContext<Cloudflare
     return (await fetcher.json<ArtifactsEnvelope<T>>(path, { query, signal })).data
   }
 
+  const listsNothing = (query: RepoQuery) => query.visibility !== undefined && query.visibility !== 'all' && query.visibility !== 'private'
+
   async function reposIn(namespace: string, query: RepoQuery & OwnerRepoQuery, cursor?: string): Promise<Page<Repo>> {
-    if (query.visibility && query.visibility !== 'all' && query.visibility !== 'private') {
+    if (listsNothing(query)) {
       return { items: [] }
     }
     const { result: items, result_info } = await result<ArtifactsRepository[]>(`${namespacePath(namespace)}/repos`, {
@@ -88,7 +90,7 @@ function setupArtifacts({ options, origin, fetcher }: ProviderContext<Cloudflare
 
   /** One namespace at a time, so a page holds the repositories of one namespace. */
   async function listRepos(query: RepoQuery = {}): Promise<Page<Repo>> {
-    if (query.affiliation && !query.affiliation.includes('owner')) {
+    if (listsNothing(query) || (query.affiliation && !query.affiliation.includes('owner'))) {
       return { items: [] }
     }
     const state = query.cursor?.token ? listState(query.cursor.token) : undefined
