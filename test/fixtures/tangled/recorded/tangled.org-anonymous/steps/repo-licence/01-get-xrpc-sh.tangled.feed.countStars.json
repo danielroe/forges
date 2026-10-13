@@ -1,8 +1,7 @@
 {
-  "handAuthored": true,
   "request": {
     "method": "GET",
-    "url": "https://api.tangled.org/xrpc/sh.tangled.repo.countForks?subject=did:plc:widgetsrepo2222222222222"
+    "url": "https://api.tangled.org/xrpc/sh.tangled.feed.countStars?subject=did%3Aplc%3At73o44q7fppgagkrevtztyok"
   },
   "response": {
     "status": 200,
