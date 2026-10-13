@@ -3,7 +3,7 @@ import type { RecordingManifest, Step, StepContext } from './recording/steps.ts'
 import type { WriteContext, WriteManifest, WriteStep } from './recording/write-steps.ts'
 import { existsSync, readdirSync, readFileSync } from 'node:fs'
 import process from 'node:process'
-import { beforeAll, describe, expect, it, vi } from 'vitest'
+import { beforeAll, beforeEach, describe, expect, it, vi } from 'vitest'
 import { notificationThread, repoKey } from '../src/model.ts'
 import { recordedSteps } from './recording/layout.ts'
 import { redact } from './recording/redact.ts'
@@ -76,6 +76,7 @@ for (const { name, create } of REPLAYED_PROVIDERS) {
       const output: Record<string, unknown> = {}
       const items = <T>(name: string) => (output[name] as Page<T> | undefined)?.items ?? []
       const replay = stepFixtureFetch(directory, { sequential: !!writes })
+      let failure: unknown
 
       beforeAll(async () => {
         vi.useFakeTimers({ now: new Date(manifest!.recordedAt ?? steps[0]?.recordedAt ?? 0), toFake: ['Date'] })
@@ -101,8 +102,17 @@ for (const { name, create } of REPLAYED_PROVIDERS) {
             output[name] = await step.run(('as' in step && step.as === 'reviewer' ? reviewer : author) as never, manifest as never, context)
           }
         }
+        catch (error) {
+          failure = error
+        }
         finally {
           vi.useRealTimers()
+        }
+      })
+
+      beforeEach(() => {
+        if (failure) {
+          throw failure
         }
       })
 
