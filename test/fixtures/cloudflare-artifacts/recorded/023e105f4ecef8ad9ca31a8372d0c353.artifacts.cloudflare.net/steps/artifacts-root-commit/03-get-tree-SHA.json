@@ -1,0 +1,23 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.cloudflare.com/client/v4/accounts/023e105f4ecef8ad9ca31a8372d0c353/artifacts/namespaces/forges-fixtures-more/repos/forges-history/tree/8d27ee938488458ce9ee9eca58634fb63a0e9458"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "result": [
+        {
+          "name": "build.sh",
+          "mode": "100644",
+          "hash": "75adf17945069812d12533afd5ddcf2d2f08dd56",
+          "type": "blob"
+        }
+      ],
+      "success": true,
+      "errors": [],
+      "messages": []
+    }
+  }
+}

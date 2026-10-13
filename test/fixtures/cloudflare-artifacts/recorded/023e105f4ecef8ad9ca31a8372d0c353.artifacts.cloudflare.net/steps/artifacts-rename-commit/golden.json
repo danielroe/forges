@@ -1,0 +1,36 @@
+{
+  "ref": {
+    "forge": "cloudflare-artifacts",
+    "instance": "023e105f4ecef8ad9ca31a8372d0c353.artifacts.cloudflare.net",
+    "repo": {
+      "forge": "cloudflare-artifacts",
+      "instance": "023e105f4ecef8ad9ca31a8372d0c353.artifacts.cloudflare.net",
+      "owner": "forges-fixtures-more",
+      "name": "forges-history"
+    },
+    "sha": "4c696f46079a68e6774773fd7e49474df3829a08"
+  },
+  "sha": "4c696f46079a68e6774773fd7e49474df3829a08",
+  "message": "refactor: rename the entry",
+  "author": {
+    "name": "forges fixtures",
+    "email": "redacted@example.invalid",
+    "date": "2026-10-01T10:02:00.000Z"
+  },
+  "committer": {
+    "name": "forges fixtures",
+    "email": "redacted@example.invalid",
+    "date": "2026-10-01T10:02:00.000Z"
+  },
+  "parents": [
+    "40ef9975a51a1d897edaa9bcbf08138febfe7074"
+  ],
+  "files": [
+    {
+      "path": "src/main.ts",
+      "status": "renamed",
+      "sha": "eab39ce89ca4e5ad3014211ebd8a6934a857c93e",
+      "previousPath": "src/index.ts"
+    }
+  ]
+}

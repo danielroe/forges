@@ -29,8 +29,8 @@ The provider takes a Cloudflare API token with the **Artifacts** > **Read** perm
 import { cloudflareArtifacts } from 'forges/cloudflare-artifacts'
 
 const forge = cloudflareArtifacts({
-  accountId: process.env.CLOUDFLARE_ACCOUNT_ID!,
-  auth: { type: 'token', token: process.env.CLOUDFLARE_API_TOKEN! },
+  accountId: process.env.CLOUDFLARE_ARTIFACTS_ACCOUNT_ID!,
+  auth: { type: 'token', token: process.env.CLOUDFLARE_ARTIFACTS_TOKEN! },
 }).create()
 ```
 
@@ -40,7 +40,7 @@ The repository tokens that Artifacts hands out for `git clone` and `git push` do
 
 ## Refs
 
-A namespace plays the owner, so `forges-fixtures/forges-fixtures` is the repository `forges-fixtures` in the namespace `forges-fixtures`. The instance is the host of the account's Git remotes, `<accountId>.artifacts.cloudflare.net`. Two accounts give two instances, so one `createForges()` can hold both without mixing up their refs.
+A namespace plays the owner, so `forges-fixtures/forges` is the repository `forges` in the namespace `forges-fixtures`. The instance is the host of the account's Git remotes, `<accountId>.artifacts.cloudflare.net`. Two accounts give two instances, so one `createForges()` can hold both without mixing up their refs.
 
 Artifacts has no website, so `urlFor()` and `parseUrl()` return `undefined`.
 

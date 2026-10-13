@@ -1,0 +1,31 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.cloudflare.com/client/v4/accounts/023e105f4ecef8ad9ca31a8372d0c353/artifacts/namespaces/forges-fixtures-more/repos/forges-history/commit/dd60772abb2766be477ea5be60edbbf9b33d3f56"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "result": {
+        "hash": "dd60772abb2766be477ea5be60edbbf9b33d3f56",
+        "treeHash": "de0fe6b8b34deaea0b8691d90d7dd0f5afb8abf6",
+        "message": "chore: initial commit",
+        "author": {
+          "name": "forges fixtures",
+          "email": "redacted@example.invalid"
+        },
+        "committer": {
+          "name": "forges fixtures",
+          "email": "redacted@example.invalid"
+        },
+        "parents": [],
+        "authoredAt": 1790848800,
+        "committedAt": 1790848800
+      },
+      "success": true,
+      "errors": [],
+      "messages": []
+    }
+  }
+}

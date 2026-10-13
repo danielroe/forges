@@ -5,8 +5,8 @@
         "forge": "cloudflare-artifacts",
         "instance": "023e105f4ecef8ad9ca31a8372d0c353.artifacts.cloudflare.net",
         "owner": "forges-fixtures",
-        "name": "forges-fixtures-fork",
-        "externalId": "p9r239g19dngui09"
+        "name": "forges-fork",
+        "externalId": "zd1m3a2vuw2rvdgx"
       },
       "defaultBranch": "main",
       "visibility": "private",
@@ -16,31 +16,11 @@
         "forge": "cloudflare-artifacts",
         "instance": "023e105f4ecef8ad9ca31a8372d0c353.artifacts.cloudflare.net",
         "owner": "forges-fixtures",
-        "name": "forges-fixtures"
+        "name": "forges"
       },
       "topics": [],
       "cloneUrls": {
-        "https": "https://023e105f4ecef8ad9ca31a8372d0c353.artifacts.cloudflare.net/git/forges-fixtures/forges-fixtures-fork.git"
-      },
-      "createdAt": "<now>",
-      "updatedAt": "<now>"
-    },
-    {
-      "ref": {
-        "forge": "cloudflare-artifacts",
-        "instance": "023e105f4ecef8ad9ca31a8372d0c353.artifacts.cloudflare.net",
-        "owner": "forges-fixtures",
-        "name": "forges-fixtures",
-        "externalId": "kdzpgp4t535f5i3i"
-      },
-      "description": "Fixtures for the forges Cloudflare Artifacts provider",
-      "defaultBranch": "main",
-      "visibility": "private",
-      "isFork": false,
-      "isArchived": false,
-      "topics": [],
-      "cloneUrls": {
-        "https": "https://023e105f4ecef8ad9ca31a8372d0c353.artifacts.cloudflare.net/git/forges-fixtures/forges-fixtures.git"
+        "https": "https://023e105f4ecef8ad9ca31a8372d0c353.artifacts.cloudflare.net/git/forges-fixtures/forges-fork.git"
       },
       "createdAt": "<now>",
       "updatedAt": "<now>"
@@ -51,7 +31,7 @@
         "instance": "023e105f4ecef8ad9ca31a8372d0c353.artifacts.cloudflare.net",
         "owner": "forges-fixtures",
         "name": "forges",
-        "externalId": "0u8n7d6zpq2tqded"
+        "externalId": "q4wwzbqjrqz1ofqg"
       },
       "defaultBranch": "main",
       "visibility": "private",
@@ -66,6 +46,6 @@
     }
   ],
   "cursor": {
-    "token": "{\"namespace\":\"forges-fixtures\",\"next\":\"eyJ2IjoiZm9yZ2VzLWZpeHR1cmVzIiwicyI6Im5hbWVzcGFjZSJ9\",\"repos\":\"eyJ2IjoxNzkxODk5MDg4NzMxLCJpIjoiMHU4bjdkNnpwcTJ0cWRlZCIsInMiOiJjcmVhdGVkX2F0In0\"}"
+    "token": "{\"after\":\"eyJ2IjoiZm9yZ2VzLWZpeHR1cmVzIiwicyI6Im5hbWVzcGFjZSJ9\"}"
   }
 }

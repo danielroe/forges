@@ -1,16 +1,16 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://api.cloudflare.com/client/v4/accounts/023e105f4ecef8ad9ca31a8372d0c353/artifacts/namespaces/forges-fixtures/repos/forges-fixtures/commit/4d6fdedbe07be2cd627eec6e9b9380b25408683a"
+    "url": "https://api.cloudflare.com/client/v4/accounts/023e105f4ecef8ad9ca31a8372d0c353/artifacts/namespaces/forges-fixtures/repos/forges/commit/4c696f46079a68e6774773fd7e49474df3829a08"
   },
   "response": {
     "status": 200,
     "headers": {},
     "body": {
       "result": {
-        "hash": "4d6fdedbe07be2cd627eec6e9b9380b25408683a",
-        "treeHash": "db6657e16b405d6587499a24ecf631a9674d256b",
-        "message": "feat: add a util",
+        "hash": "4c696f46079a68e6774773fd7e49474df3829a08",
+        "treeHash": "78309ce3f60e8d65493845d4a43e913433ff076a",
+        "message": "refactor: rename the entry",
         "author": {
           "name": "forges fixtures",
           "email": "redacted@example.invalid"
@@ -20,10 +20,10 @@
           "email": "redacted@example.invalid"
         },
         "parents": [
-          "df2c0d47c7250883142ef7b10f46e2928763aec7"
+          "40ef9975a51a1d897edaa9bcbf08138febfe7074"
         ],
-        "authoredAt": 1790935200,
-        "committedAt": 1790935200
+        "authoredAt": 1790848920,
+        "committedAt": 1790848920
       },
       "success": true,
       "errors": [],

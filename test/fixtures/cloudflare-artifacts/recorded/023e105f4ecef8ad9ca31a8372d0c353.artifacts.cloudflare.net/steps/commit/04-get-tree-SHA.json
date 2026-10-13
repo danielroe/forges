@@ -1,7 +1,7 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://api.cloudflare.com/client/v4/accounts/023e105f4ecef8ad9ca31a8372d0c353/artifacts/namespaces/forges-fixtures/repos/forges-fixtures/tree/45965d38e66d84fa6addb6eae89d87a10d5b43bc"
+    "url": "https://api.cloudflare.com/client/v4/accounts/023e105f4ecef8ad9ca31a8372d0c353/artifacts/namespaces/forges-fixtures/repos/forges/tree/78309ce3f60e8d65493845d4a43e913433ff076a"
   },
   "response": {
     "status": 200,
@@ -9,16 +9,22 @@
     "body": {
       "result": [
         {
-          "name": "index.ts",
+          "name": "README.md",
           "mode": "100644",
-          "hash": "7473ca36a30e978d34a96bdd091914d28116be0b",
+          "hash": "fd2031c48490db71b0d8bd58045b081a5068a38b",
           "type": "blob"
         },
         {
-          "name": "util.ts",
-          "mode": "100644",
-          "hash": "2dbb70cb1351714923d9fe52a65c8b442fe3c99c",
-          "type": "blob"
+          "name": "scripts",
+          "mode": "40000",
+          "hash": "9de51884800dea5a3e1872a6d07a0f4a7b492c81",
+          "type": "tree"
+        },
+        {
+          "name": "src",
+          "mode": "40000",
+          "hash": "f5b1698876a2ed841d2dff22265ce076fd9c4b3a",
+          "type": "tree"
         }
       ],
       "success": true,

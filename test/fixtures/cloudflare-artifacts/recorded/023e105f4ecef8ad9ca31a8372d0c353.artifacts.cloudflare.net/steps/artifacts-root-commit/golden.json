@@ -1,0 +1,43 @@
+{
+  "ref": {
+    "forge": "cloudflare-artifacts",
+    "instance": "023e105f4ecef8ad9ca31a8372d0c353.artifacts.cloudflare.net",
+    "repo": {
+      "forge": "cloudflare-artifacts",
+      "instance": "023e105f4ecef8ad9ca31a8372d0c353.artifacts.cloudflare.net",
+      "owner": "forges-fixtures-more",
+      "name": "forges-history"
+    },
+    "sha": "dd60772abb2766be477ea5be60edbbf9b33d3f56"
+  },
+  "sha": "dd60772abb2766be477ea5be60edbbf9b33d3f56",
+  "message": "chore: initial commit",
+  "author": {
+    "name": "forges fixtures",
+    "email": "redacted@example.invalid",
+    "date": "2026-10-01T10:00:00.000Z"
+  },
+  "committer": {
+    "name": "forges fixtures",
+    "email": "redacted@example.invalid",
+    "date": "2026-10-01T10:00:00.000Z"
+  },
+  "parents": [],
+  "files": [
+    {
+      "path": "README.md",
+      "status": "added",
+      "sha": "fd2031c48490db71b0d8bd58045b081a5068a38b"
+    },
+    {
+      "path": "scripts/build.sh",
+      "status": "added",
+      "sha": "75adf17945069812d12533afd5ddcf2d2f08dd56"
+    },
+    {
+      "path": "src/index.ts",
+      "status": "added",
+      "sha": "eab39ce89ca4e5ad3014211ebd8a6934a857c93e"
+    }
+  ]
+}

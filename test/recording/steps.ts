@@ -136,11 +136,9 @@ function need<T>(value: T | undefined, what: string): T {
   return value
 }
 
-/** Reads a discussion comment by the discussion's own node id, which must be rejected. */
-const discussionNodeStep: Step = { name: 'discussion getComment of another node', verb: 'threads.getComment', kind: 'discussion', run: async (provider, _manifest, context) => {
-  const id = need(need(context.discussion, 'the discussion').ref.externalId, 'the discussion node id')
+async function rejection(read: () => Promise<unknown>): Promise<{ rejected: string }> {
   try {
-    await provider.threads.getComment({ ...need(context.comment, 'a discussion comment').ref, id })
+    await read()
   }
   catch (error) {
     if (error instanceof NotFoundError) {
@@ -148,7 +146,13 @@ const discussionNodeStep: Step = { name: 'discussion getComment of another node'
     }
     throw error
   }
-  throw new Error('read a discussion comment from a node of another type')
+  throw new Error('read something that should not exist')
+}
+
+/** Reads a discussion comment by the discussion's own node id, which must be rejected. */
+const discussionNodeStep: Step = { name: 'discussion getComment of another node', verb: 'threads.getComment', kind: 'discussion', run: async (provider, _manifest, context) => {
+  const id = need(need(context.discussion, 'the discussion').ref.externalId, 'the discussion node id')
+  return rejection(() => provider.threads.getComment({ ...need(context.comment, 'a discussion comment').ref, id }))
 } }
 
 function threadSteps(kind: 'issue' | 'pull_request' | 'discussion', key: 'issue' | 'pull' | 'discussion'): Step[] {
@@ -220,6 +224,45 @@ function commitSteps(): Step[] {
     } },
     { name: 'commit getComment', verb: 'threads.getComment', kind: 'commit', run: (provider, _manifest, context) => provider.threads.getComment(need(context.comment, 'a commit comment').ref) },
   ]
+}
+
+/** Reads that only Cloudflare Artifacts records, of the repositories its recording guide sets up. */
+function artifactsSteps(): Step[] {
+  const history = (manifest: RecordingManifest): RepoRef => ({ ...manifest.repo, owner: 'forges-fixtures-more', name: 'forges-history' })
+  const steps: Step[] = [
+    { name: 'artifacts resolve symbolic refs', verb: 'contents.resolveRef', run: async (provider, manifest) => ({
+      head: await provider.contents.resolveRef(manifest.repo, 'HEAD'),
+      full: await provider.contents.resolveRef(manifest.repo, 'refs/heads/main'),
+    }) },
+    { name: 'artifacts resolve unknown ref', verb: 'contents.resolveRef', run: (provider, manifest) => rejection(() => provider.contents.resolveRef(manifest.repo, 'forges-fixtures-missing')) },
+    { name: 'artifacts file at HEAD', verb: 'contents.file', run: (provider, manifest) => provider.contents.file(manifest.repo, 'README.md', { ref: 'HEAD', as: 'text' }) },
+    { name: 'artifacts commits pages', verb: 'contents.commitsPage', run: async (provider, manifest) => {
+      const first = await provider.contents.commitsPage(manifest.repo, { perPage: 1, path: 'src' })
+      const second = await provider.contents.commitsPage(manifest.repo, { perPage: 1, cursor: need(first.cursor, 'a second page') })
+      return { first, second }
+    } },
+    { name: 'artifacts commits default page size', verb: 'contents.commitsPage', run: (provider, manifest) => provider.contents.commitsPage(manifest.repo, { perPage: 0 }) },
+    { name: 'artifacts tree into a file', verb: 'contents.treePage', run: (provider, manifest) => rejection(() => provider.contents.treePage(manifest.repo, { path: 'README.md' })) },
+    { name: 'artifacts recursive tree', verb: 'contents.treePage', run: async (provider, manifest) => (await provider.contents.treePage(manifest.repo, { recursive: true })).warnings },
+    { name: 'artifacts shallow commit', verb: 'contents.commit', run: async (provider, manifest) => {
+      const oldest = (await provider.contents.commitsPage(manifest.repo, { perPage: 10 })).items.at(-1)
+      return provider.contents.commit(manifest.repo, need(oldest, 'the oldest commit').sha)
+    } },
+    { name: 'artifacts root commit', verb: 'contents.commit', run: (provider, manifest) => provider.contents.commit(history(manifest), 'dd60772abb2766be477ea5be60edbbf9b33d3f56') },
+    { name: 'artifacts mode change commit', verb: 'contents.commit', run: (provider, manifest) => provider.contents.commit(history(manifest), '40ef9975a51a1d897edaa9bcbf08138febfe7074') },
+    { name: 'artifacts rename commit', verb: 'contents.commit', run: (provider, manifest) => provider.contents.commit(history(manifest), '4c696f46079a68e6774773fd7e49474df3829a08') },
+    { name: 'artifacts every namespace', verb: 'repos.listPage', run: async (provider) => {
+      const names: string[] = []
+      let cursor: Page<Repo>['cursor']
+      do {
+        const result = await provider.repos.listPage({ perPage: 1, cursor })
+        names.push(...result.items.map(repo => `${repo.ref.owner}/${repo.ref.name}`))
+        cursor = result.cursor
+      } while (cursor)
+      return names
+    } },
+  ]
+  return steps.map(step => ({ ...step, when: provider => provider.forge === 'cloudflare-artifacts' }))
 }
 
 /**
@@ -377,4 +420,5 @@ export const STEPS: Step[] = [
     kind,
     run: (provider, manifest) => provider.securityAlerts.listPage(manifest.alerts ?? manifest.repo, { kind, state: 'all', ...page }),
   })),
+  ...artifactsSteps(),
 ]

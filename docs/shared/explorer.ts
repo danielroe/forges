@@ -174,11 +174,11 @@ export const EXPLORER_FORGES: ExplorerForge[] = [
     load: () => import('forges/cloudflare-artifacts'),
     forge: 'cloudflare-artifacts',
     instance: '023e105f4ecef8ad9ca31a8372d0c353.artifacts.cloudflare.net',
-    auth: token('CLOUDFLARE_API_TOKEN'),
+    auth: token('CLOUDFLARE_ARTIFACTS_TOKEN'),
     options: () => ({ accountId: '023e105f4ecef8ad9ca31a8372d0c353' }),
     blocked: 'The Cloudflare API doesn\'t allow requests from browsers, and Artifacts has no anonymous reads.',
     signedIn: true,
-    sample: sample({ owner: 'forges-fixtures', name: 'forges-fixtures', sha: 'main' }),
+    sample: sample({ owner: 'forges-fixtures', name: 'forges', sha: 'main' }),
   },
 ]
 

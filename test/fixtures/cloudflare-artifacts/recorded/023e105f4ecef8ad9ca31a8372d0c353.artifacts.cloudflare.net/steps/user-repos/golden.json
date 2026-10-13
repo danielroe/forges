@@ -1,0 +1,48 @@
+{
+  "items": [
+    {
+      "ref": {
+        "forge": "cloudflare-artifacts",
+        "instance": "023e105f4ecef8ad9ca31a8372d0c353.artifacts.cloudflare.net",
+        "owner": "forges-fixtures",
+        "name": "forges-fork",
+        "externalId": "zd1m3a2vuw2rvdgx"
+      },
+      "defaultBranch": "main",
+      "visibility": "private",
+      "isFork": true,
+      "isArchived": false,
+      "parent": {
+        "forge": "cloudflare-artifacts",
+        "instance": "023e105f4ecef8ad9ca31a8372d0c353.artifacts.cloudflare.net",
+        "owner": "forges-fixtures",
+        "name": "forges"
+      },
+      "topics": [],
+      "cloneUrls": {
+        "https": "https://023e105f4ecef8ad9ca31a8372d0c353.artifacts.cloudflare.net/git/forges-fixtures/forges-fork.git"
+      },
+      "createdAt": "<now>",
+      "updatedAt": "<now>"
+    },
+    {
+      "ref": {
+        "forge": "cloudflare-artifacts",
+        "instance": "023e105f4ecef8ad9ca31a8372d0c353.artifacts.cloudflare.net",
+        "owner": "forges-fixtures",
+        "name": "forges",
+        "externalId": "q4wwzbqjrqz1ofqg"
+      },
+      "defaultBranch": "main",
+      "visibility": "private",
+      "isFork": false,
+      "isArchived": false,
+      "topics": [],
+      "cloneUrls": {
+        "https": "https://023e105f4ecef8ad9ca31a8372d0c353.artifacts.cloudflare.net/git/forges-fixtures/forges.git"
+      },
+      "createdAt": "<now>",
+      "updatedAt": "<now>"
+    }
+  ]
+}

@@ -9,40 +9,27 @@
     "body": {
       "result": [
         {
-          "id": "p9r239g19dngui09",
-          "name": "forges-fixtures-fork",
+          "id": "zd1m3a2vuw2rvdgx",
+          "name": "forges-fork",
           "description": null,
           "default_branch": "main",
-          "created_at": "2026-10-13T14:12:31.394Z",
-          "updated_at": "2026-10-13T14:12:34.035Z",
+          "created_at": "2026-10-13T16:10:14.380Z",
+          "updated_at": "2026-10-13T16:10:15.849Z",
           "last_push_at": null,
-          "source": "artifacts:forges-fixtures/forges-fixtures",
-          "read_only": false,
-          "remote": "https://023e105f4ecef8ad9ca31a8372d0c353.artifacts.cloudflare.net/git/forges-fixtures/forges-fixtures-fork.git",
+          "source": "artifacts:forges-fixtures/forges",
+          "read_only": true,
+          "remote": "https://023e105f4ecef8ad9ca31a8372d0c353.artifacts.cloudflare.net/git/forges-fixtures/forges-fork.git",
           "status": "ready"
         },
         {
-          "id": "kdzpgp4t535f5i3i",
-          "name": "forges-fixtures",
-          "description": "Fixtures for the forges Cloudflare Artifacts provider",
-          "default_branch": "main",
-          "created_at": "2026-10-13T14:09:38.177Z",
-          "updated_at": "2026-10-13T14:09:39.072Z",
-          "last_push_at": null,
-          "source": null,
-          "read_only": false,
-          "remote": "https://023e105f4ecef8ad9ca31a8372d0c353.artifacts.cloudflare.net/git/forges-fixtures/forges-fixtures.git",
-          "status": "ready"
-        },
-        {
-          "id": "0u8n7d6zpq2tqded",
+          "id": "q4wwzbqjrqz1ofqg",
           "name": "forges",
           "description": null,
           "default_branch": "main",
-          "created_at": "2026-10-13T13:44:48.731Z",
-          "updated_at": "2026-10-13T13:44:55.108Z",
+          "created_at": "2026-10-13T16:10:12.552Z",
+          "updated_at": "2026-10-13T16:10:13.191Z",
           "last_push_at": null,
-          "source": "git:https://github.com/danielroe/forges.git",
+          "source": "git:https://github.com/danielroe/forges-artifacts-fixture.git",
           "read_only": true,
           "remote": "https://023e105f4ecef8ad9ca31a8372d0c353.artifacts.cloudflare.net/git/forges-fixtures/forges.git",
           "status": "ready"
@@ -52,9 +39,11 @@
       "errors": [],
       "messages": [],
       "result_info": {
-        "cursor": "eyJ2IjoxNzkxODk5MDg4NzMxLCJpIjoiMHU4bjdkNnpwcTJ0cWRlZCIsInMiOiJjcmVhdGVkX2F0In0",
+        "page": 1,
         "per_page": 3,
-        "count": 3
+        "total_pages": 1,
+        "count": 2,
+        "total_count": 2
       }
     }
   }

@@ -8,24 +8,24 @@
           "forge": "cloudflare-artifacts",
           "instance": "023e105f4ecef8ad9ca31a8372d0c353.artifacts.cloudflare.net",
           "owner": "forges-fixtures",
-          "name": "forges-fixtures"
+          "name": "forges"
         },
-        "sha": "ffaeeb31a4119aa1807bd36f10f95b3d76347491"
+        "sha": "95d9018dd1ac8cbec290cdcc3f104445160d1135"
       },
-      "sha": "ffaeeb31a4119aa1807bd36f10f95b3d76347491",
-      "message": "chore: rename, edit, remove and add",
+      "sha": "95d9018dd1ac8cbec290cdcc3f104445160d1135",
+      "message": "docs: describe the fixture",
       "author": {
         "name": "forges fixtures",
         "email": "redacted@example.invalid",
-        "date": "2026-10-03T10:00:00.000Z"
+        "date": "2026-10-01T10:03:00.000Z"
       },
       "committer": {
         "name": "forges fixtures",
         "email": "redacted@example.invalid",
-        "date": "2026-10-03T10:00:00.000Z"
+        "date": "2026-10-01T10:03:00.000Z"
       },
       "parents": [
-        "4d6fdedbe07be2cd627eec6e9b9380b25408683a"
+        "4c696f46079a68e6774773fd7e49474df3829a08"
       ]
     },
     {
@@ -36,51 +36,25 @@
           "forge": "cloudflare-artifacts",
           "instance": "023e105f4ecef8ad9ca31a8372d0c353.artifacts.cloudflare.net",
           "owner": "forges-fixtures",
-          "name": "forges-fixtures"
+          "name": "forges"
         },
-        "sha": "4d6fdedbe07be2cd627eec6e9b9380b25408683a"
+        "sha": "4c696f46079a68e6774773fd7e49474df3829a08"
       },
-      "sha": "4d6fdedbe07be2cd627eec6e9b9380b25408683a",
-      "message": "feat: add a util",
+      "sha": "4c696f46079a68e6774773fd7e49474df3829a08",
+      "message": "refactor: rename the entry",
       "author": {
         "name": "forges fixtures",
         "email": "redacted@example.invalid",
-        "date": "2026-10-02T10:00:00.000Z"
+        "date": "2026-10-01T10:02:00.000Z"
       },
       "committer": {
         "name": "forges fixtures",
         "email": "redacted@example.invalid",
-        "date": "2026-10-02T10:00:00.000Z"
+        "date": "2026-10-01T10:02:00.000Z"
       },
       "parents": [
-        "df2c0d47c7250883142ef7b10f46e2928763aec7"
+        "40ef9975a51a1d897edaa9bcbf08138febfe7074"
       ]
-    },
-    {
-      "ref": {
-        "forge": "cloudflare-artifacts",
-        "instance": "023e105f4ecef8ad9ca31a8372d0c353.artifacts.cloudflare.net",
-        "repo": {
-          "forge": "cloudflare-artifacts",
-          "instance": "023e105f4ecef8ad9ca31a8372d0c353.artifacts.cloudflare.net",
-          "owner": "forges-fixtures",
-          "name": "forges-fixtures"
-        },
-        "sha": "df2c0d47c7250883142ef7b10f46e2928763aec7"
-      },
-      "sha": "df2c0d47c7250883142ef7b10f46e2928763aec7",
-      "message": "feat: first files",
-      "author": {
-        "name": "forges fixtures",
-        "email": "redacted@example.invalid",
-        "date": "2026-10-01T10:00:00.000Z"
-      },
-      "committer": {
-        "name": "forges fixtures",
-        "email": "redacted@example.invalid",
-        "date": "2026-10-01T10:00:00.000Z"
-      },
-      "parents": []
     }
   ]
 }

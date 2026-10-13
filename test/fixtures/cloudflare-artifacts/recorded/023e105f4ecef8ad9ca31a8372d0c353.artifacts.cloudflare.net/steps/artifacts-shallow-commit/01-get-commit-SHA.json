@@ -1,0 +1,22 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.cloudflare.com/client/v4/accounts/023e105f4ecef8ad9ca31a8372d0c353/artifacts/namespaces/forges-fixtures/repos/forges/commit/40ef9975a51a1d897edaa9bcbf08138febfe7074"
+  },
+  "response": {
+    "status": 404,
+    "headers": {},
+    "body": {
+      "result": null,
+      "success": false,
+      "errors": [
+        {
+          "code": 10200,
+          "message": "Commit not found",
+          "documentation_url": "https://developers.cloudflare.com/artifacts/api/errors#10200"
+        }
+      ],
+      "messages": []
+    }
+  }
+}

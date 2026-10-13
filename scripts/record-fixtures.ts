@@ -22,7 +22,7 @@ import { guardedFetch } from './write-guard.ts'
 import { writeHarness } from './write-harness.ts'
 
 const { positionals: [target], values: flags } = parseArgs({ allowPositionals: true, options: { 'anonymous': { type: 'boolean', default: false }, 'app': { type: 'boolean', default: false }, 'writes': { type: 'boolean', default: false }, 'webhooks': { type: 'boolean', default: false }, 'seed': { type: 'boolean', default: false }, 'only': { type: 'string', multiple: true }, 'allow-fewer': { type: 'boolean', default: false } } })
-const TOKEN_VARIABLES: Record<string, string> = { 'github': 'GITHUB_TOKEN', 'forgejo': 'CODEBERG_TOKEN', 'gitlab': 'GITLAB_TOKEN', 'bitbucket': 'BITBUCKET_TOKEN', 'cursor-origin': 'CURSOR_AUTH_TOKEN', 'gitee': 'GITEE_TOKEN', 'azure-devops': 'AZURE_DEVOPS_TOKEN', 'gitea': 'GITEA_TOKEN', 'pushin': 'PUSHIN_TOKEN', 'tangled': 'TANGLED_PASSWORD', 'cloudflare-artifacts': 'CLOUDFLARE_API_TOKEN' }
+const TOKEN_VARIABLES: Record<string, string> = { 'github': 'GITHUB_TOKEN', 'forgejo': 'CODEBERG_TOKEN', 'gitlab': 'GITLAB_TOKEN', 'bitbucket': 'BITBUCKET_TOKEN', 'cursor-origin': 'CURSOR_AUTH_TOKEN', 'gitee': 'GITEE_TOKEN', 'azure-devops': 'AZURE_DEVOPS_TOKEN', 'gitea': 'GITEA_TOKEN', 'pushin': 'PUSHIN_TOKEN', 'tangled': 'TANGLED_PASSWORD', 'cloudflare-artifacts': 'CLOUDFLARE_ARTIFACTS_TOKEN' }
 
 if (!target || !(target in TOKEN_VARIABLES)) {
   console.error('Usage: pnpm record-fixtures <github|forgejo|gitlab|bitbucket|tangled|cursor-origin|gitee|azure-devops|gitea|pushin|cloudflare-artifacts> [--anonymous | --app | --writes [--allow-fewer] | --webhooks | --seed] [--only <step>]...')
@@ -67,9 +67,9 @@ if (anonymous) {
 
 /** The example account id from Cloudflare's docs, so the real one stays out of recordings. */
 const ARTIFACTS_ACCOUNT = '023e105f4ecef8ad9ca31a8372d0c353'
-const artifactsAccount = target === 'cloudflare-artifacts' ? env.CLOUDFLARE_ACCOUNT_ID : undefined
+const artifactsAccount = target === 'cloudflare-artifacts' ? env.CLOUDFLARE_ARTIFACTS_ACCOUNT_ID : undefined
 if (target === 'cloudflare-artifacts' && !artifactsAccount) {
-  console.error('No CLOUDFLARE_ACCOUNT_ID in the environment or .env.')
+  console.error('No CLOUDFLARE_ARTIFACTS_ACCOUNT_ID in the environment or .env.')
   exit(1)
 }
 
@@ -481,7 +481,7 @@ function targetFor(credentials: Credentials, fetch: FetchLike): Target {
     }
     case 'cloudflare-artifacts': {
       const provider = cloudflareArtifacts({ accountId: ARTIFACTS_ACCOUNT, auth: tokenAuth!, fetch, timeout }).create()
-      return { provider, manifest: { repo: repoRef('cloudflare-artifacts', provider.instance, env.FIXTURE_CLOUDFLARE_ARTIFACTS_REPO ?? 'forges-fixtures/forges-fixtures') } }
+      return { provider, manifest: { repo: repoRef('cloudflare-artifacts', provider.instance, env.FIXTURE_CLOUDFLARE_ARTIFACTS_REPO ?? 'forges-fixtures/forges') } }
     }
     default: {
       const provider = forgejo({ baseUrl: env.CODEBERG_BASE_URL, auth: tokenAuth, fetch, timeout }).create()

@@ -1,0 +1,29 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.cloudflare.com/client/v4/accounts/023e105f4ecef8ad9ca31a8372d0c353/artifacts/namespaces?limit=1"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "result": [
+        {
+          "namespace": "forges-fixtures",
+          "jurisdiction": "unrestricted",
+          "repo_count": 2,
+          "created_at": "2026-10-13T15:29:23.142Z",
+          "updated_at": "2026-10-13T16:10:19.421Z"
+        }
+      ],
+      "success": true,
+      "errors": [],
+      "messages": [],
+      "result_info": {
+        "cursor": "eyJ2IjoiZm9yZ2VzLWZpeHR1cmVzIiwicyI6Im5hbWVzcGFjZSJ9",
+        "per_page": 1,
+        "count": 1
+      }
+    }
+  }
+}

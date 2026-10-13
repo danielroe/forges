@@ -1,0 +1,35 @@
+{
+  "ref": {
+    "forge": "cloudflare-artifacts",
+    "instance": "023e105f4ecef8ad9ca31a8372d0c353.artifacts.cloudflare.net",
+    "repo": {
+      "forge": "cloudflare-artifacts",
+      "instance": "023e105f4ecef8ad9ca31a8372d0c353.artifacts.cloudflare.net",
+      "owner": "forges-fixtures-more",
+      "name": "forges-history"
+    },
+    "sha": "40ef9975a51a1d897edaa9bcbf08138febfe7074"
+  },
+  "sha": "40ef9975a51a1d897edaa9bcbf08138febfe7074",
+  "message": "chore: make the build script executable",
+  "author": {
+    "name": "forges fixtures",
+    "email": "redacted@example.invalid",
+    "date": "2026-10-01T10:01:00.000Z"
+  },
+  "committer": {
+    "name": "forges fixtures",
+    "email": "redacted@example.invalid",
+    "date": "2026-10-01T10:01:00.000Z"
+  },
+  "parents": [
+    "dd60772abb2766be477ea5be60edbbf9b33d3f56"
+  ],
+  "files": [
+    {
+      "path": "scripts/build.sh",
+      "status": "changed",
+      "sha": "75adf17945069812d12533afd5ddcf2d2f08dd56"
+    }
+  ]
+}

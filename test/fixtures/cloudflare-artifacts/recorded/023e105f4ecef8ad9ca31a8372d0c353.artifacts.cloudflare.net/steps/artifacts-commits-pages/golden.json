@@ -1,0 +1,75 @@
+{
+  "first": {
+    "items": [
+      {
+        "ref": {
+          "forge": "cloudflare-artifacts",
+          "instance": "023e105f4ecef8ad9ca31a8372d0c353.artifacts.cloudflare.net",
+          "repo": {
+            "forge": "cloudflare-artifacts",
+            "instance": "023e105f4ecef8ad9ca31a8372d0c353.artifacts.cloudflare.net",
+            "owner": "forges-fixtures",
+            "name": "forges"
+          },
+          "sha": "95d9018dd1ac8cbec290cdcc3f104445160d1135"
+        },
+        "sha": "95d9018dd1ac8cbec290cdcc3f104445160d1135",
+        "message": "docs: describe the fixture",
+        "author": {
+          "name": "forges fixtures",
+          "email": "redacted@example.invalid",
+          "date": "2026-10-01T10:03:00.000Z"
+        },
+        "committer": {
+          "name": "forges fixtures",
+          "email": "redacted@example.invalid",
+          "date": "2026-10-01T10:03:00.000Z"
+        },
+        "parents": [
+          "4c696f46079a68e6774773fd7e49474df3829a08"
+        ]
+      }
+    ],
+    "cursor": {
+      "token": "1"
+    },
+    "warnings": [
+      {
+        "code": "filter_unsupported",
+        "message": "Artifacts does not filter commits by path; those filters were ignored"
+      }
+    ]
+  },
+  "second": {
+    "items": [
+      {
+        "ref": {
+          "forge": "cloudflare-artifacts",
+          "instance": "023e105f4ecef8ad9ca31a8372d0c353.artifacts.cloudflare.net",
+          "repo": {
+            "forge": "cloudflare-artifacts",
+            "instance": "023e105f4ecef8ad9ca31a8372d0c353.artifacts.cloudflare.net",
+            "owner": "forges-fixtures",
+            "name": "forges"
+          },
+          "sha": "4c696f46079a68e6774773fd7e49474df3829a08"
+        },
+        "sha": "4c696f46079a68e6774773fd7e49474df3829a08",
+        "message": "refactor: rename the entry",
+        "author": {
+          "name": "forges fixtures",
+          "email": "redacted@example.invalid",
+          "date": "2026-10-01T10:02:00.000Z"
+        },
+        "committer": {
+          "name": "forges fixtures",
+          "email": "redacted@example.invalid",
+          "date": "2026-10-01T10:02:00.000Z"
+        },
+        "parents": [
+          "40ef9975a51a1d897edaa9bcbf08138febfe7074"
+        ]
+      }
+    ]
+  }
+}

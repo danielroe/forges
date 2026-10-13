@@ -1,0 +1,23 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.cloudflare.com/client/v4/accounts/023e105f4ecef8ad9ca31a8372d0c353/artifacts/namespaces/forges-fixtures-more/repos/forges-history/tree/f5b1698876a2ed841d2dff22265ce076fd9c4b3a"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "result": [
+        {
+          "name": "main.ts",
+          "mode": "100644",
+          "hash": "eab39ce89ca4e5ad3014211ebd8a6934a857c93e",
+          "type": "blob"
+        }
+      ],
+      "success": true,
+      "errors": [],
+      "messages": []
+    }
+  }
+}
