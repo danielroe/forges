@@ -1,7 +1,7 @@
 /**
  * Checks every capability a provider declares against the forge data the
  * tests used, read from `test/.verbs/` (written by `test/setup/verbs.ts`
- * during `vitest run`):
+ * during `pnpm test:unit`, which has to run every unit test):
  *
  * - `true`, `'experimental'` and `'emulated'` need a call that used a
  *   recording of the live forge or a fixture hand-authored from its
@@ -16,11 +16,16 @@
 import { existsSync } from 'node:fs'
 import process from 'node:process'
 import { CAPABILITY_TABLE } from '../src/capability-table.ts'
-import { capabilityAt, CHECKED_PROVIDERS, readExercised } from './exercised.ts'
+import { capabilityAt, CHECKED_PROVIDERS, partialRun, readExercised } from './exercised.ts'
 
 const directory = new URL('../test/.verbs/', import.meta.url)
 if (!existsSync(directory)) {
-  console.error('No test/.verbs/ directory; run `vitest run` first.')
+  console.error('No test/.verbs/ directory; run `pnpm test:unit` first.')
+  process.exit(1)
+}
+const partial = partialRun(directory)
+if (partial.length) {
+  console.error(`test/.verbs/ comes from a partial test run, so capabilities that other tests verify would look unverified:\n  ${partial.join('\n  ')}\nRun \`pnpm test:unit\` first.`)
   process.exit(1)
 }
 

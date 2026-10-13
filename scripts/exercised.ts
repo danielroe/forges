@@ -1,6 +1,24 @@
 import type { ForgeCapabilities, ForgeProvider } from '../src/index.ts'
+import type { VerbRun } from '../test/setup/verbs-directory.ts'
 import { existsSync, readdirSync, readFileSync } from 'node:fs'
 import { azureDevOps, bitbucket, cloudflareArtifacts, cursorOrigin, forgejo, gitea, gitee, github, gitlab, pushin, tangled } from '../src/index.ts'
+import { VERB_RUN } from '../test/setup/verbs-directory.ts'
+
+/** Why the run that wrote `directory` left verbs out, or an empty list when it ran every test of the unit project. */
+export function partialRun(directory: URL): string[] {
+  const file = new URL(VERB_RUN, directory)
+  if (!existsSync(file)) {
+    return ['the run did not finish']
+  }
+  const run = JSON.parse(readFileSync(file, 'utf8')) as VerbRun
+  const list = (files: string[]) => files.length > 5 ? `${files.slice(0, 5).join(', ')} and ${files.length - 5} more` : files.join(', ')
+  return [
+    ...run.missing.length ? [`${run.missing.length} test files did not run: ${list(run.missing)}`] : [],
+    ...run.failed.length ? [`${run.failed.length} test files failed: ${list(run.failed)}`] : [],
+    ...run.testNamePattern ? [`it ran only the tests matching /${run.testNamePattern}/`] : [],
+    ...run.recording ? [`FORGES_RECORDING limited it to ${run.recording}`] : [],
+  ]
+}
 
 /** The verbs a test run called, keyed `<forge>` and `<forge>:anonymous`, read from the files `test/setup/verbs.ts` writes. */
 export function readExercised(directory: URL): Map<string, Set<string>> {
@@ -8,7 +26,7 @@ export function readExercised(directory: URL): Map<string, Set<string>> {
   if (!existsSync(directory)) {
     return exercised
   }
-  for (const file of readdirSync(directory)) {
+  for (const file of readdirSync(directory).filter(file => file !== VERB_RUN)) {
     const data = JSON.parse(readFileSync(new URL(file, directory), 'utf8')) as Record<string, string[]>
     for (const [forge, verbs] of Object.entries(data)) {
       const set = exercised.get(forge) ?? new Set<string>()
