@@ -62,7 +62,6 @@ export const UPDATE_SUBSCRIPTION = `mutation UpdateSubscription($id: ID!, $state
   updateSubscription(input: { subscribableId: $id, state: $state }) { subscribable { viewerSubscription } }
 }`
 
-/** Whether an account has a GitHub Sponsors listing, over an interface both users and organisations implement. */
 export const SPONSORABLE = `query Sponsorable($login: String!) {
   repositoryOwner(login: $login) {
     ... on Sponsorable { hasSponsorsListing }
