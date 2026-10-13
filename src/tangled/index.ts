@@ -517,9 +517,8 @@ const TANGLED: ProviderDefinition<TangledOptions, undefined, true> = {
       repos: {
         get: verb(true, async (ref, options) => {
           const { ref: found, record } = await canonicalRepo(ref, options?.signal)
-          const contents = await knot()
           const [defaultBranch, counts] = await Promise.all([
-            contents.defaultBranch(found, options?.signal).catch((error: unknown) => {
+            knot().then(contents => contents.defaultBranch(found, options?.signal)).catch((error: unknown) => {
               if (!degradesToWarning(error)) {
                 throw error
               }

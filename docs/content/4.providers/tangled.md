@@ -72,7 +72,7 @@ Tangled records are stored on many servers, so the provider has to read from sev
 | `recordsUrl` | Records, through a Slingshot-compatible cache | The PDS of each author |
 | `jetstreamUrl` | The live event stream | A public Bluesky Jetstream instance |
 | None | Repository contents, from the knot that the repo record names | The repo's knot |
-| `apiUrl` | `request()` and `listSource: 'index'` | `https://api.tangled.org` |
+| `apiUrl` | `request()`, `listSource: 'index'`, and star and fork counts | `https://api.tangled.org` |
 
 ## Refs and numbers
 
@@ -82,7 +82,7 @@ In the refs that the provider returns, the `name` of a repo is the key of its re
 
 `repos.byOwner()` reads the repo records of an account, which you name by its handle or DID. Every Tangled repo is public, and the records come back in their own order, so if you pass `sort`, you get a `sort_unsupported` warning.
 
-`repos.get()` also reports `stars` and `forks`, from the appview's `sh.tangled.feed.countStars` and `sh.tangled.repo.countForks`. Both are optional metadata, so they are absent if the appview cannot be read. A listing leaves them out, because counting them would need a request for each repository.
+`repos.get()` also reports `stars` and `forks`, from `sh.tangled.feed.countStars` and `sh.tangled.repo.countForks` on the index at `apiUrl`. The index can lag behind the appview, so these counts can be lower than the ones in the Tangled UI. Each count is absent when the index can't return it. Listings of repositories don't include them.
 
 The numbers that you see in the Tangled UI and in webhooks come from the appview, because the records themselves don't store them. The provider reports them as `displayNumber`.
 

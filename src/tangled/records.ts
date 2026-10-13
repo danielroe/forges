@@ -437,34 +437,20 @@ export function createTangledRecords({ options, instance, webUrl, context, atpro
     return count
   }
 
-  /**
-   * A repository's star and fork counts, from the Tangled appview, or
-   * `undefined` when it cannot be read. Both are optional metadata, so an
-   * unreachable appview must not fail the repository read.
-   *
-   * The appview counts, in one request each, the `sh.tangled.feed.star` and
-   * `sh.tangled.repo` records that point at the repository. Counting them
-   * itself would mean paging the backlinks index, which is a request per 100
-   * stars or forks and misses the shapes the star lexicon has used.
-   */
-  async function repoCounts(record: RecordResponse<RepoRecord>, signal?: AbortSignal): Promise<{ stars: number, forks: number } | undefined> {
+  /** A repository's star and fork counts from the index, each left out when the index cannot return it. */
+  async function repoCounts(record: RecordResponse<RepoRecord>, signal?: AbortSignal): Promise<Pick<Repo, 'stars' | 'forks'>> {
     const subject = record.value.repoDid
     if (!subject) {
-      return undefined
+      return {}
     }
-    try {
-      const [stars, forks] = await Promise.all([
-        api.json<{ count: number }>('/xrpc/sh.tangled.feed.countStars', { query: { subject }, signal }),
-        api.json<{ count: number }>('/xrpc/sh.tangled.repo.countForks', { query: { subject }, signal }),
-      ])
-      return { stars: stars.data.count, forks: forks.data.count }
-    }
-    catch (error) {
+    const count = (nsid: string) => api.json<{ count: number }>(`/xrpc/${nsid}`, { query: { subject }, signal }).then(({ data }) => data.count, (error: unknown) => {
       if (signal?.aborted || !degradesToWarning(error)) {
         throw error
       }
       return undefined
-    }
+    })
+    const [stars, forks] = await Promise.all([count('sh.tangled.feed.countStars'), count('sh.tangled.repo.countForks')])
+    return { stars, forks }
   }
 
   async function toStreamEvent(message: JetstreamCommitEvent): Promise<ForgeEventInput | undefined> {
@@ -535,7 +521,7 @@ export function createTangledRecords({ options, instance, webUrl, context, atpro
     return options.sshHosts?.[knot] ?? DEFAULT_SSH_HOSTS[knot] ?? knot
   }
 
-  function toRepo(ref: RepoRef, record: RepoRecord, raw: unknown, counts?: { stars: number, forks: number }): Repo {
+  function toRepo(ref: RepoRef, record: RepoRecord, raw: unknown, counts: Pick<Repo, 'stars' | 'forks'> = {}): Repo {
     const parent = record.source ? parseAtUri(record.source) : undefined
     const path = `${ref.owner}/${ref.name}`
     return {
@@ -553,8 +539,7 @@ export function createTangledRecords({ options, instance, webUrl, context, atpro
       homepage: record.website || undefined,
       mergeMethods: ['rebase'],
       defaultMergeMethod: 'rebase',
-      // Listings leave these out, since counting them would need a request per repository.
-      ...counts ? { stars: counts.stars, forks: counts.forks } : {},
+      ...counts,
       raw,
     }
   }

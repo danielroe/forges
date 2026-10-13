@@ -95,15 +95,15 @@ describe('tangled repo counts', () => {
   const REPO_DID = 'did:plc:widgetsrepo2222222222222'
   const API = 'https://api.tangled.org/xrpc'
 
-  it('leaves stars and forks out when the appview cannot be read', async () => {
+  it('leaves out a count the index cannot return', async () => {
     const { instance } = provider({
       [`GET ${API}/sh.tangled.feed.countStars?subject=${REPO_DID}`]: { status: 500, body: { error: 'InternalServerError' } },
-      [`GET ${API}/sh.tangled.repo.countForks?subject=${REPO_DID}`]: { status: 200, body: { count: 1, distinctAuthors: 1 } },
+      [`GET ${API}/sh.tangled.repo.countForks?subject=${REPO_DID}`]: { status: 200, body: { count: 3, distinctAuthors: 3 } },
     }, false)
     const found = await instance.repos.get(repo)
 
     expect(found.stars).toBeUndefined()
-    expect(found.forks).toBeUndefined()
+    expect(found.forks).toBe(3)
   })
 })
 
