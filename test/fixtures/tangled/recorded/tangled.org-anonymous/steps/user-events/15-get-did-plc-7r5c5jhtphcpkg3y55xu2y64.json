@@ -1,0 +1,38 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://plc.directory/did:plc:7r5c5jhtphcpkg3y55xu2y64"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"21b-UWflHu20hm92VUtByjLKD3LpI90\""
+    },
+    "body": {
+      "@context": [
+        "https://www.w3.org/ns/did/v1",
+        "https://w3id.org/security/multikey/v1",
+        "https://w3id.org/security/suites/secp256k1-2019/v1"
+      ],
+      "id": "did:plc:7r5c5jhtphcpkg3y55xu2y64",
+      "alsoKnownAs": [
+        "at://burrito.space"
+      ],
+      "verificationMethod": [
+        {
+          "id": "did:plc:7r5c5jhtphcpkg3y55xu2y64#atproto",
+          "type": "Multikey",
+          "controller": "did:plc:7r5c5jhtphcpkg3y55xu2y64",
+          "publicKeyMultibase": "zQ3shZRxeuk3KTEGgTADNgciroWw9odjiWwhwBmUEvRtomkxZ"
+        }
+      ],
+      "service": [
+        {
+          "id": "#atproto_pds",
+          "type": "AtprotoPersonalDataServer",
+          "serviceEndpoint": "https://eurosky.social"
+        }
+      ]
+    }
+  }
+}

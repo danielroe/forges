@@ -8,6 +8,7 @@ import { gitee } from '../../src/gitee/index.ts'
 import { toFeedEvent as toGitHubFeedEvent, translateGitHubWebhook } from '../../src/github/events.ts'
 import { github } from '../../src/github/index.ts'
 import { gitlab } from '../../src/gitlab/index.ts'
+import { accountFeedPage } from '../../src/tangled/feed.ts'
 import { redact } from '../recording/redact.ts'
 
 const repository = { id: 1, name: 'widgets', full_name: 'acme/widgets', owner: { login: 'acme', id: 2 } }
@@ -199,6 +200,44 @@ describe('gitee activity feeds', () => {
 
   it('does not read a user feed without credentials', () => {
     expect(gitee().create().can('users.events')).toBe(false)
+  })
+})
+
+describe('tangled activity feeds', () => {
+  const did = 'did:plc:ada'
+  const records: Record<string, string[]> = {
+    'sh.tangled.repo.issue': ['3m0000000004', '3m0000000001'],
+    'sh.tangled.feed.comment': ['3m0000000005', '3m0000000003', '3m0000000002'],
+    'sh.tangled.feed.star': ['3m0000000009'],
+  }
+  const lists: Array<[string, string | undefined]> = []
+  const atproto = {
+    revisionOf: async () => 'rev1',
+    collectionsOf: async () => Object.keys(records),
+    listRecordsPage: async (_did: string, collection: string, { limit, cursor }: { limit: number, cursor?: string }) => {
+      lists.push([collection, cursor])
+      return records[collection]!.filter(rkey => !cursor || rkey < cursor).slice(0, limit).map(rkey => ({ uri: `at://${did}/${collection}/${rkey}`, value: {} }))
+    },
+  } as unknown as Parameters<typeof accountFeedPage>[0]['atproto']
+  const recordEvent: Parameters<typeof accountFeedPage>[0]['recordEvent'] = async activity => ({ forge: 'tangled', instance: 'tangled.org', id: activity.uri, kind: 'other', summary: '', occurredAt: new Date(0), source: 'poll', payload: {} })
+
+  it('merges the thread collections of an account newest first, across pages', async () => {
+    const first = await accountFeedPage({ atproto, recordEvent }, did, { perPage: 2 })
+    const second = await accountFeedPage({ atproto, recordEvent }, did, { perPage: 2, cursor: first.cursor })
+    const third = await accountFeedPage({ atproto, recordEvent }, did, { perPage: 2, cursor: second.cursor })
+
+    expect([first, second, third].map(page => page.items.map(item => item.id.slice(-2)))).toEqual([['05', '04'], ['03', '02'], ['01']])
+    expect(third.cursor).toBeUndefined()
+    expect(first.etag).toBe('rev1')
+    expect(lists.map(([collection]) => collection)).not.toContain('sh.tangled.feed.star')
+  })
+
+  it('reports an unchanged revision as not modified without listing records', async () => {
+    lists.length = 0
+    const page = await accountFeedPage({ atproto, recordEvent }, did, { cursor: { etag: 'rev1' } })
+
+    expect(page).toEqual({ items: [], notModified: true, etag: 'rev1' })
+    expect(lists).toEqual([])
   })
 })
 

@@ -17,6 +17,7 @@ import type {
   RepoRef,
   RepoRole,
   ResolvedThreadRef,
+  SourceKind,
   Thread,
   ThreadQuery,
   ThreadRef,
@@ -24,6 +25,7 @@ import type {
 import type { ForgeIterable } from '../provider.ts'
 import type { AtprotoClient, AtUri } from './atproto.ts'
 import type { TangledOptions } from './index.ts'
+import type { ActivityRecord } from './normalise.ts'
 import type { TangledSession } from './session.ts'
 import type { FeedCommentRecord, IssueRecord, JetstreamCommitEvent, LabelDefinitionRecord, LabelOpRecord, PullRecord, ReactionRecord, RecordResponse, RepoRecord, StateRecord, SubscriptionRecord, TangledRecord } from './types.ts'
 import { ForgeApiError, ForgeError, NotFoundError, RateLimitedError, UnresolvedThreadError } from '../errors.ts'
@@ -453,21 +455,20 @@ export function createTangledRecords({ options, instance, webUrl, context, atpro
     return { stars, forks }
   }
 
-  async function toStreamEvent(message: JetstreamCommitEvent): Promise<ForgeEventInput | undefined> {
+  /** The event for one record, with the thread it is about where that thread can be read. */
+  async function recordEvent(activity: ActivityRecord, source: SourceKind, fallbackTime: Date, threads = new Map<string, Promise<ResolvedThreadRef | undefined>>(), signal?: AbortSignal): Promise<ForgeEventInput> {
+    const subject = activity.record ? subjectOf(activity.collection, activity.record, activity.uri) : undefined
+    if (subject && !threads.has(subject)) {
+      threads.set(subject, threadFor(subject, signal).then(({ ref }) => ref, () => undefined))
+    }
+    const thread = subject ? await threads.get(subject) : undefined
+    return toActivityEvent(instance, activity, await actorFor(parseAtUri(activity.uri)!.did, signal), thread, source, fallbackTime)
+  }
+
+  function toStreamEvent(message: JetstreamCommitEvent): Promise<ForgeEventInput | undefined> {
     const { commit } = message
     const uri = atUri(message.did, commit.collection, commit.rkey)
-    const subject = commit.record ? subjectOf(commit.collection, commit.record, uri) : undefined
-    const thread = subject
-      ? await threadFor(subject).then(({ ref }) => ref, () => undefined)
-      : undefined
-    return toActivityEvent(
-      instance,
-      { uri, collection: commit.collection, record: commit.record, operation: commit.operation, rev: commit.rev },
-      await actorFor(message.did),
-      thread,
-      'subscribe',
-      new Date(message.time_us / 1000),
-    )
+    return recordEvent({ uri, collection: commit.collection, record: commit.record, operation: commit.operation, rev: commit.rev }, 'subscribe', new Date(message.time_us / 1000))
   }
 
   const canonical = new Map<string, Promise<{ ref: RepoRef, record: RecordResponse<RepoRecord> }>>()
@@ -709,5 +710,5 @@ export function createTangledRecords({ options, instance, webUrl, context, atpro
     collaborators.clear()
   }
 
-  return { forgetRepos, forgetCollaborators, labelsOf, repoLabels, threadUri, reactionsPage, collaboratorsPage, permissionFor, stateAuthors, actorFor, resolveRepo, threadFor, subjectUri, activity, toStreamEvent, canonicalRepo, canonicalRef, repoDidOf, toRepo, repoCounts, readThread, wholePage, listPage, listComments, findSubscription }
+  return { forgetRepos, forgetCollaborators, labelsOf, repoLabels, threadUri, reactionsPage, collaboratorsPage, permissionFor, stateAuthors, actorFor, resolveRepo, threadFor, subjectUri, activity, recordEvent, toStreamEvent, canonicalRepo, canonicalRef, repoDidOf, toRepo, repoCounts, readThread, wholePage, listPage, listComments, findSubscription }
 }

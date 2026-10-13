@@ -1,0 +1,46 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://npmx.social/xrpc/com.atproto.repo.getRecord?repo=did%3Aplc%3Ajbeaa5kdaladzwq3r7f5xgwe&collection=sh.tangled.repo.pull&rkey=3mrzzp3744f22"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"276-25WFacnLabYmuoFIyzYdjYbz2Lg\"",
+      "ratelimit-limit": "3000",
+      "ratelimit-remaining": "2989",
+      "ratelimit-reset": "1791915188"
+    },
+    "body": {
+      "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo.pull/3mrzzp3744f22",
+      "cid": "bafyreiewbtnbjgmoi2t3n2jdmmjnc4so5ixrhm3kyckp5rbyg55x5mxdxa",
+      "value": {
+        "body": "",
+        "$type": "sh.tangled.repo.pull",
+        "title": "ci: add test workflows",
+        "rounds": [
+          {
+            "createdAt": "2026-08-01T20:48:36+03:00",
+            "patchBlob": {
+              "ref": {
+                "$link": "bafkreiefgh3s37tz3e77rmoxuolz64oxql6ew5u4l566ie5tfquselvobu"
+              },
+              "size": 1223,
+              "$type": "blob",
+              "mimeType": "application/gzip"
+            }
+          }
+        ],
+        "source": {
+          "branch": "ci/test-workflows"
+        },
+        "target": {
+          "repo": "did:plc:g4lh56ouiwlcyhukzkjvy75g",
+          "branch": "main",
+          "repoDid": "did:plc:g4lh56ouiwlcyhukzkjvy75g"
+        },
+        "createdAt": "2026-08-01T20:48:36+03:00"
+      }
+    }
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://eurosky.social/xrpc/com.atproto.repo.getRecord?repo=did%3Aplc%3Ajthwx55n5kgyekhpaqajzuhw&collection=sh.tangled.repo.pull&rkey=3mr5t7sut7r22"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"2e5-nqLp4lFrF/jduCTtKc2pMYHF6B8\"",
+      "ratelimit-limit": "3000",
+      "ratelimit-remaining": "2998",
+      "ratelimit-reset": "1791915215"
+    },
+    "body": {
+      "uri": "at://did:plc:jthwx55n5kgyekhpaqajzuhw/sh.tangled.repo.pull/3mr5t7sut7r22",
+      "cid": "bafyreifdhvww7d7k5ks6l2nxht7flu3rys4domgodykiklidemubrtif2i",
+      "value": {
+        "body": "",
+        "$type": "sh.tangled.repo.pull",
+        "title": "feat: filter dashboard repositories by enabled state",
+        "rounds": [
+          {
+            "createdAt": "2026-07-21T15:38:09+03:00",
+            "patchBlob": {
+              "ref": {
+                "$link": "bafkreigld56s5xhgte3dsijraw6hnm4cpfbql7k6x4po4vam7lf3nmj56u"
+              },
+              "size": 1513,
+              "$type": "blob",
+              "mimeType": "application/gzip"
+            }
+          }
+        ],
+        "source": {
+          "repo": "did:plc:2hvr57fq7asljzfehc6lmfe2",
+          "branch": "repo-filter",
+          "repoDid": "did:plc:2hvr57fq7asljzfehc6lmfe2"
+        },
+        "target": {
+          "repo": "did:plc:g4lh56ouiwlcyhukzkjvy75g",
+          "branch": "main",
+          "repoDid": "did:plc:g4lh56ouiwlcyhukzkjvy75g"
+        },
+        "createdAt": "2026-07-21T15:38:09+03:00"
+      }
+    }
+  }
+}

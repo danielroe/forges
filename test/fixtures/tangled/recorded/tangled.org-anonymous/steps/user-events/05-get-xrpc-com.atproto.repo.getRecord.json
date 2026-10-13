@@ -1,0 +1,29 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://npmx.social/xrpc/com.atproto.repo.getRecord?repo=did%3Aplc%3Ajbeaa5kdaladzwq3r7f5xgwe&collection=sh.tangled.repo.issue&rkey=3mpy7r7dvzc22"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"24a-zP0fyP14avfSOtc5bseSKF2ZCXM\"",
+      "ratelimit-limit": "3000",
+      "ratelimit-remaining": "2987",
+      "ratelimit-reset": "1791915188"
+    },
+    "body": {
+      "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo.issue/3mpy7r7dvzc22",
+      "cid": "bafyreie4w3v2yvlxvni4qeuekd5f7sv4nw546gppd7qhgazmev27gazuiy",
+      "value": {
+        "body": "reported by @andreijiroh.dev\n\nhttps://bsky.app/profile/andreijiroh.dev/post/3mpxy6krskk2o\n\n> I think we should not sync if there's already a repo of that name and instead should surface the error status in the dashboard ",
+        "repo": "did:plc:g4lh56ouiwlcyhukzkjvy75g",
+        "$type": "sh.tangled.repo.issue",
+        "title": "handle duplicate names ",
+        "mentions": [
+          "did:plc:wcx4c3osbuzrwmxkqdfqygwv"
+        ],
+        "createdAt": "2026-07-06T13:41:27Z"
+      }
+    }
+  }
+}

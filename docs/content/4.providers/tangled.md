@@ -140,6 +140,14 @@ for await (const { event, cursor } of reader.sources.subscribe({
 
 To close the connection, abort the signal or break out of the loop. If the connection drops, the iterator throws `SubscriptionClosedError` with the last cursor. The provider doesn't reconnect by itself, so call `subscribe()` again with that cursor.
 
+## Activity feeds
+
+An account's issues, pull requests, comments, state changes, reactions and label changes are records in its own repository, so `users.events()` reads them from its PDS. It takes a handle or a DID. Each page lists every collection the account has records in, and merges them by record key, which orders them by when they were written. The events are the ones `sources.subscribe()` yields for the same records, with `source: 'poll'`.
+
+The first page carries the repository's revision as its `etag`, and passing it back as `cursor: { etag }` returns a `notModified` page when the account has written nothing since. Any write changes the revision, including writes that aren't about Tangled, such as a Bluesky post. The feed lists the records as they are now, so deleted records don't appear, and an edited record appears once.
+
+Tangled has no feed of a repository's activity, because each contributor's records are in their own repository, and pushes go to the knot. `repos.events()` isn't available.
+
 ## Webhooks
 
 To verify deliveries, set `webhookSecret` to the secret that you configured on the hook:
@@ -180,7 +188,7 @@ A `push` delivery becomes a `push` or `ref` event. Tangled has no API to registe
 | `users.get` | ✅ | ✅ |
 | `users.me` | ✅ | ❌ |
 | `users.sponsorable` | ❌ | ❌ |
-| `users.events` | ❌ | ❌ |
+| `users.events` | ✅ | ✅ |
 | `repos.list` | ✅ | ❌ |
 | `repos.byOwner` | ✅ | ✅ |
 | `repos.labels` | ✅ | ✅ |

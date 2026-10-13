@@ -1,0 +1,80 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://npmx.social/xrpc/com.atproto.repo.listRecords?repo=did%3Aplc%3Ajbeaa5kdaladzwq3r7f5xgwe&collection=sh.tangled.feed.reaction&limit=10"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"840-fd25iavygzz7poEIJKvA7gUoPGM\"",
+      "ratelimit-limit": "3000",
+      "ratelimit-remaining": "2991",
+      "ratelimit-reset": "1791915188"
+    },
+    "body": {
+      "records": [
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.feed.reaction/3mru72v6ahb22",
+          "cid": "bafyreiaevnsahetlddqxvkprnhdyjvg3guvzsy5rkehyeccew7duxnopua",
+          "value": {
+            "$type": "sh.tangled.feed.reaction",
+            "subject": "at://did:plc:7r5c5jhtphcpkg3y55xu2y64/sh.tangled.feed.comment/3mru2zd34jh22",
+            "reaction": "❤️",
+            "createdAt": "2026-07-30T13:08:42+03:00"
+          }
+        },
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.feed.reaction/3mqzo2l4cas22",
+          "cid": "bafyreigzgfokn77i2ankdcxsx43l5djn2m3h37e5ihaxu6mu445yti4gyy",
+          "value": {
+            "$type": "sh.tangled.feed.reaction",
+            "subject": "at://did:plc:pbjvqaziagcyv2vqodldn5op/sh.tangled.feed.comment/3mqwriyvmu722",
+            "reaction": "❤️",
+            "createdAt": "2026-07-19T23:55:04+03:00"
+          }
+        },
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.feed.reaction/3mq2ymssrwf22",
+          "cid": "bafyreianmxw75ztqh22itjnlsvphe372yysm326doqtctmpdytd4xsujpm",
+          "value": {
+            "$type": "sh.tangled.feed.reaction",
+            "subject": "at://did:plc:wbtsi5vt3gt2xr4siqnzaigq/sh.tangled.repo.issue/3mpzfqajuiw22",
+            "reaction": "👍",
+            "createdAt": "2026-07-07T19:11:42+03:00"
+          }
+        },
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.feed.reaction/3mq2d7zzkpw22",
+          "cid": "bafyreibjoetu4ksvb5a3o2q3f65qiayknzdawrk3xqrsmeep4qedtyd4su",
+          "value": {
+            "$type": "sh.tangled.feed.reaction",
+            "subject": "at://did:plc:6ayddqghxhciedbaofoxkcbs/sh.tangled.repo.issue/3mpyp6gmrsp22",
+            "reaction": "👀",
+            "createdAt": "2026-07-07T12:48:45+03:00"
+          }
+        },
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.feed.reaction/3mkzrfdrool22",
+          "cid": "bafyreicqd7wjbrwhxabpn7y2jvqmagtkn24d6ptxcw75w4yqu6wndzuzsu",
+          "value": {
+            "$type": "sh.tangled.feed.reaction",
+            "subject": "at://did:plc:qfpnj4og54vl56wngdriaxug/sh.tangled.repo.issue/3m46d5s2osl22",
+            "reaction": "👍",
+            "createdAt": "2026-05-04T16:23:37+03:00"
+          }
+        },
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.feed.reaction/3metavj2hrc22",
+          "cid": "bafyreiame2oy3qqw4zbux7lg3lxwoafspiruxe5wviu4mi5uxlhplaaxq4",
+          "value": {
+            "$type": "sh.tangled.feed.reaction",
+            "subject": "at://did:plc:u5zp7npt5kpueado77kuihyz/sh.tangled.repo.issue/3meghrxx23s22",
+            "reaction": "❤️",
+            "createdAt": "2026-02-14T16:41:18+02:00"
+          }
+        }
+      ],
+      "cursor": "3metavj2hrc22"
+    }
+  }
+}

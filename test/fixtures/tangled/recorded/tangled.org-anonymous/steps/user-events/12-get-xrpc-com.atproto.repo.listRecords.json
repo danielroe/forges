@@ -1,0 +1,89 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://npmx.social/xrpc/com.atproto.repo.listRecords?repo=did%3Aplc%3Ajbeaa5kdaladzwq3r7f5xgwe&collection=sh.tangled.repo.pull&limit=10"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"5c6-YpEpACy2Hwv2Mof0DUkGXS+1l2Q\"",
+      "ratelimit-limit": "3000",
+      "ratelimit-remaining": "2994",
+      "ratelimit-reset": "1791915188"
+    },
+    "body": {
+      "records": [
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo.pull/3mrzzp3744f22",
+          "cid": "bafyreiewbtnbjgmoi2t3n2jdmmjnc4so5ixrhm3kyckp5rbyg55x5mxdxa",
+          "value": {
+            "body": "",
+            "$type": "sh.tangled.repo.pull",
+            "title": "ci: add test workflows",
+            "rounds": [
+              {
+                "createdAt": "2026-08-01T20:48:36+03:00",
+                "patchBlob": {
+                  "ref": {
+                    "$link": "bafkreiefgh3s37tz3e77rmoxuolz64oxql6ew5u4l566ie5tfquselvobu"
+                  },
+                  "size": 1223,
+                  "$type": "blob",
+                  "mimeType": "application/gzip"
+                }
+              }
+            ],
+            "source": {
+              "branch": "ci/test-workflows"
+            },
+            "target": {
+              "repo": "did:plc:g4lh56ouiwlcyhukzkjvy75g",
+              "branch": "main",
+              "repoDid": "did:plc:g4lh56ouiwlcyhukzkjvy75g"
+            },
+            "createdAt": "2026-08-01T20:48:36+03:00"
+          }
+        },
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo.pull/3mlbi7vfket22",
+          "cid": "bafyreidq5mk5ixzvd36kwwuzig6onslgrbxzg4duwdlrgjglv5ewgtr7b4",
+          "value": {
+            "body": "this adds the https://npmx.dev logomark\n\nfeel free to close if you don't want this 🙏",
+            "$type": "sh.tangled.repo.pull",
+            "title": "add npmx logomark",
+            "rounds": [
+              {
+                "createdAt": "2026-05-07T15:00:49Z",
+                "patchBlob": {
+                  "ref": {
+                    "$link": "bafkreicq6bhjh6eayqx6nxa77msvjw4swr557oyib6darbxz2vdllamk6a"
+                  },
+                  "size": 458,
+                  "$type": "blob",
+                  "mimeType": "application/gzip"
+                }
+              },
+              {
+                "createdAt": "2026-05-07T18:03:39+03:00",
+                "patchBlob": {
+                  "ref": {
+                    "$link": "bafkreicui4o3mvpvbj2eguztp55nev7j4shot4xcvfuvovtnglwsmqdgbe"
+                  },
+                  "size": 455,
+                  "$type": "blob",
+                  "mimeType": "application/gzip"
+                }
+              }
+            ],
+            "target": {
+              "repo": "did:plc:yr5tuei4ai5ccujxevyydmuh",
+              "branch": "main"
+            },
+            "createdAt": "2026-05-07T15:00:49Z"
+          }
+        }
+      ],
+      "cursor": "3mlbi7vfket22"
+    }
+  }
+}

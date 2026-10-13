@@ -31,6 +31,7 @@ import {
 } from '../errors.ts'
 import { degradesToWarning, forgeIterable, getManyConcurrently } from '../utils.ts'
 import { atUri, createAtprotoClient, parseAtUri } from './atproto.ts'
+import { accountFeedPage } from './feed.ts'
 import {
   COLLECTIONS,
   FORGE,
@@ -145,7 +146,7 @@ const TANGLED: ProviderDefinition<TangledOptions, undefined, true> = {
     const { writable, viewerDid, pdsCall, createRecord, putOwnRecord, deleteOwnRecord, ownRecords, serviceAuth, uploadBlob } = createTangledSession({ options, fetcher, atproto, context })
 
     /** The repo DID a thread record must reference, from the ref or the repo record. */
-    const { forgetRepos, forgetCollaborators, labelsOf, repoLabels, threadUri, reactionsPage, collaboratorsPage, permissionFor, stateAuthors, actorFor, resolveRepo, threadFor, subjectUri, activity, toStreamEvent, canonicalRepo, canonicalRef, repoDidOf, toRepo, repoCounts, readThread, wholePage, listPage, listComments, findSubscription } = createTangledRecords({ options, instance, webUrl, context, atproto, api, fetcher, ownRecords })
+    const { forgetRepos, forgetCollaborators, labelsOf, repoLabels, threadUri, reactionsPage, collaboratorsPage, permissionFor, stateAuthors, actorFor, resolveRepo, threadFor, subjectUri, activity, recordEvent, toStreamEvent, canonicalRepo, canonicalRef, repoDidOf, toRepo, repoCounts, readThread, wholePage, listPage, listComments, findSubscription } = createTangledRecords({ options, instance, webUrl, context, atproto, api, fetcher, ownRecords })
 
     let loaded: Promise<TangledContents> | undefined
     const knot = () => loaded ??= import('./knot.ts').then(({ createTangledContents }) => createTangledContents({ fetcher, instance, webUrl, context, canonicalRepo, serviceAuth }))
@@ -597,6 +598,11 @@ const TANGLED: ProviderDefinition<TangledOptions, undefined, true> = {
           }
         }),
         me: verb(writable, async (options?: BaseOptions) => ({ ...await actorFor(await viewerDid(), options?.signal), raw: undefined })),
+        eventsPage: verb(true, async (login, listOptions = {}) => {
+          const handle = login.replace(/^@/, '')
+          const did = handle.startsWith('did:') ? handle : await atproto.resolveHandle(handle, listOptions.signal)
+          return accountFeedPage({ atproto, recordEvent }, did, listOptions)
+        }),
       },
       threads: {
         ...threads,

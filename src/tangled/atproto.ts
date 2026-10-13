@@ -42,6 +42,12 @@ export interface AtprotoClient {
   getRecord: <T extends TangledRecord = TangledRecord>(uri: string, signal?: AbortSignal) => Promise<RecordResponse<T>>
   /** Every record in one collection of an account's repository, from its PDS. */
   listRecords: <T extends TangledRecord = TangledRecord>(did: string, collection: string, signal?: AbortSignal) => AsyncGenerator<RecordResponse<T>>
+  /** One page of a collection, newest first, continuing after the record key in `cursor`. */
+  listRecordsPage: <T extends TangledRecord = TangledRecord>(did: string, collection: string, page: { limit: number, cursor?: string, signal?: AbortSignal }) => Promise<Array<RecordResponse<T>>>
+  /** The collections an account's repository holds records in. */
+  collectionsOf: (did: string, signal?: AbortSignal) => Promise<string[]>
+  /** The revision of an account's repository, which changes with every write to it. */
+  revisionOf: (did: string, signal?: AbortSignal) => Promise<string>
   /** A blob's bytes, from its account's PDS. */
   getBlob: (did: string, cid: string, signal?: AbortSignal) => Promise<Uint8Array>
   /** Every record in `collection` whose `path` field points at `target`. */
@@ -125,6 +131,24 @@ export function createAtprotoClient(options: AtprotoClientOptions): AtprotoClien
     } while (cursor)
   }
 
+  async function listRecordsPage<T extends TangledRecord>(did: string, collection: string, page: { limit: number, cursor?: string, signal?: AbortSignal }): Promise<Array<RecordResponse<T>>> {
+    const { data } = await options.fetcher.json<{ records: Array<RecordResponse<T>> }>(`${await pdsOf(did, page.signal)}/xrpc/com.atproto.repo.listRecords`, {
+      query: { repo: did, collection, limit: page.limit, cursor: page.cursor },
+      signal: page.signal,
+    })
+    return data.records
+  }
+
+  async function collectionsOf(did: string, signal?: AbortSignal): Promise<string[]> {
+    const { data } = await options.fetcher.json<{ collections?: string[] }>(`${await pdsOf(did, signal)}/xrpc/com.atproto.repo.describeRepo`, { query: { repo: did }, signal })
+    return data.collections ?? []
+  }
+
+  async function revisionOf(did: string, signal?: AbortSignal): Promise<string> {
+    const { data } = await options.fetcher.json<{ rev: string }>(`${await pdsOf(did, signal)}/xrpc/com.atproto.sync.getLatestCommit`, { query: { did }, signal })
+    return data.rev
+  }
+
   async function getRecord<T extends TangledRecord>(uri: string, signal?: AbortSignal): Promise<RecordResponse<T>> {
     const parsed = parseAtUri(uri)
     if (!parsed) {
@@ -160,5 +184,5 @@ export function createAtprotoClient(options: AtprotoClientOptions): AtprotoClien
     } while (cursor)
   }
 
-  return { resolveDid, resolveHandle, getRecord, listRecords, getBlob, backlinks }
+  return { resolveDid, resolveHandle, getRecord, listRecords, listRecordsPage, collectionsOf, revisionOf, getBlob, backlinks }
 }

@@ -384,6 +384,7 @@ function targetFor(credentials: Credentials, fetch: FetchLike): Target {
         repo: placeholder,
         pull,
         issue,
+        feedUser: env.FIXTURE_TANGLED_FEED_USER ?? 'danielroe.dev',
         recordsUrl: env.TANGLED_RECORDS_URL,
         ...credentials.token && { account: credentials.identifier, pds: credentials.pds, notificationsUrl: env.TANGLED_NOTIFICATIONS_URL },
         ...setupRepos('TANGLED', slug => repoRef('tangled', provider.instance, slug)),
