@@ -142,11 +142,11 @@ GitLab has no teams, so a subgroup stands in for one. `orgs.teams()` reads `GET 
 | `repos.milestones` | ✅ | ❌ |
 | `repos.collaborators` | ✅ | ❌ |
 | `repos.contributors` | ✅ | ✅ |
+| `repos.contributorStats` | ❌ | ❌ |
 | `repos.permissionFor` | ✅ | ❌ |
 | `repos.addCollaborator` | ✅ | ❌ |
 | `repos.assignableUsers` | ✅ | ✅ |
 | `repos.reviewerCandidates` | emulated | emulated |
-| `repos.contributorStats` | ❌ | ❌ |
 | `orgs.teams` | ✅ | ✅ |
 | `orgs.teamMembers` | ✅ | ❌ |
 | `threads.get` | issue, PR, commit | issue, PR, commit |

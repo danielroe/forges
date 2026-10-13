@@ -84,9 +84,7 @@ GitHub links at most the first 500 author emails in a repository to accounts. A 
 
 ## Contributor statistics
 
-`repos.contributorStats()` reads per-contributor commit statistics over time: each contributor's total commits, and one bucket per week with the lines added, lines deleted and commits. The week bucket is a `Date`, taken from GitHub's Unix timestamp. GitHub computes these statistics asynchronously and answers `202 Accepted` with an empty body until they are ready, so the provider retries with a backoff up to six times and returns an empty array if they still are not ready.
-
-This is GitHub-only. On every other forge, the capability is `false` and the call rejects with `UnsupportedOperationError`.
+GitHub computes the statistics behind `repos.contributorStats()` in the background, and responds with `202 Accepted` until they are ready. The provider asks again for about 15 seconds, and then throws a `ForgeApiError` with status `202`, so you can try again later. The statistics leave out merge commits and empty commits. In a repository with 10,000 or more commits, GitHub reports `0` lines added and deleted for every week.
 
 ## Merging
 
@@ -189,11 +187,11 @@ Deliveries of the `installation` and `installation_repositories` events become `
 | `repos.milestones` | ✅ | ✅ |
 | `repos.collaborators` | ✅ | ❌ |
 | `repos.contributors` | ✅ | ✅ |
+| `repos.contributorStats` | ✅ | ✅ |
 | `repos.permissionFor` | ✅ | ❌ |
 | `repos.addCollaborator` | ✅ | ❌ |
 | `repos.assignableUsers` | ✅ | ✅ |
 | `repos.reviewerCandidates` | emulated | ❌ |
-| `repos.contributorStats` | ✅ | ✅ |
 | `orgs.teams` | ✅ | ❌ |
 | `orgs.teamMembers` | ✅ | ❌ |
 | `threads.get` | issue, PR, discussion, commit | issue, PR, commit |

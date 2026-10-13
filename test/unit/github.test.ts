@@ -578,9 +578,28 @@ describe('github contributor statistics', () => {
 
     expect(calls).toBe(2)
     expect(stats).toHaveLength(1)
-    expect(stats[0]!.author.login).toBe('octocat')
-    expect(stats[0]!.weeks[0]!.commits).toBe(2)
-    expect(stats[0]!.weeks[0]!.week).toBeInstanceOf(Date)
+    expect(stats[0]!.actor?.login).toBe('octocat')
+    expect(stats[0]!.weeks[0]).toEqual({ week: new Date('2024-01-01T00:00:00Z'), additions: 1, deletions: 0, commits: 2 })
+  })
+
+  it('throws once GitHub still reports the statistics are not ready', async () => {
+    let calls = 0
+    const provider = github({ fetch: async () => {
+      calls++
+      return new Response('{}', { status: 202 })
+    } }).create()
+    vi.useFakeTimers()
+    try {
+      const stats = provider.repos.contributorStats(repo)
+      const settled = expect(stats).rejects.toMatchObject({ name: 'ForgeApiError', status: 202 })
+      await vi.runAllTimersAsync()
+      await settled
+    }
+    finally {
+      vi.useRealTimers()
+    }
+
+    expect(calls).toBe(6)
   })
 })
 

@@ -116,11 +116,11 @@ Bitbucket doesn't keep a delivery log, so `webhooks.deliveries()` and `webhooks.
 | `repos.milestones` | ❌ | ❌ |
 | `repos.collaborators` | ❌ | ❌ |
 | `repos.contributors` | ❌ | ❌ |
+| `repos.contributorStats` | ❌ | ❌ |
 | `repos.permissionFor` | ❌ | ❌ |
 | `repos.addCollaborator` | ❌ | ❌ |
 | `repos.assignableUsers` | ❌ | ❌ |
 | `repos.reviewerCandidates` | ❌ | ❌ |
-| `repos.contributorStats` | ❌ | ❌ |
 | `orgs.teams` | ❌ | ❌ |
 | `orgs.teamMembers` | ❌ | ❌ |
 | `threads.get` | PR, commit | PR, commit |

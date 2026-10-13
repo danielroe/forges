@@ -114,11 +114,11 @@ Deliveries of `installation.*` events become `installation` events. You register
 | `repos.milestones` | ❌ | ❌ |
 | `repos.collaborators` | ❌ | ❌ |
 | `repos.contributors` | ❌ | ❌ |
+| `repos.contributorStats` | ❌ | ❌ |
 | `repos.permissionFor` | ❌ | ❌ |
 | `repos.addCollaborator` | ❌ | ❌ |
 | `repos.assignableUsers` | ❌ | ❌ |
 | `repos.reviewerCandidates` | ❌ | ❌ |
-| `repos.contributorStats` | ❌ | ❌ |
 | `orgs.teams` | ❌ | ❌ |
 | `orgs.teamMembers` | ❌ | ❌ |
 | `threads.get` | PR (experimental) | ❌ |

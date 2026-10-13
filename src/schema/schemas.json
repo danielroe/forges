@@ -819,52 +819,60 @@
   "ContributorStats": {
     "type": "object",
     "properties": {
-      "author": {
+      "actor": {
         "$ref": "#/components/schemas/Actor",
-        "description": "The account behind the commits."
+        "description": "The account, where the forge links the commits to one."
       },
-      "total": {
+      "commits": {
         "type": "number",
-        "description": "Total commits by this contributor."
+        "description": "Commits by the contributor across all weeks."
       },
       "weeks": {
         "type": "array",
         "items": {
-          "type": "object",
-          "properties": {
-            "week": {
-              "type": "string",
-              "format": "date-time"
-            },
-            "additions": {
-              "type": "number"
-            },
-            "deletions": {
-              "type": "number"
-            },
-            "commits": {
-              "type": "number"
-            }
-          },
-          "required": [
-            "week",
-            "additions",
-            "deletions",
-            "commits"
-          ]
+          "$ref": "#/components/schemas/ContributorWeek"
         },
-        "description": "The weeks the forge reports, oldest first."
+        "description": "One entry per week, oldest first."
       },
       "raw": {}
     },
     "required": [
-      "author",
-      "total",
+      "commits",
       "weeks",
       "raw"
     ],
-    "description": "A contributor's commit statistics over time, as `repos.contributorStats()` reads them. Each week is a bucket that the forge reports, so the first and last are partial where the history does not start or end on a Sunday.",
+    "description": "A contributor's commit activity over time, as `repos.contributorStats()` reads it.",
     "x-forges-type": "ContributorStats"
+  },
+  "ContributorWeek": {
+    "type": "object",
+    "properties": {
+      "week": {
+        "type": "string",
+        "format": "date-time",
+        "description": "Start of the week."
+      },
+      "additions": {
+        "type": "number",
+        "description": "Lines added."
+      },
+      "deletions": {
+        "type": "number",
+        "description": "Lines deleted."
+      },
+      "commits": {
+        "type": "number",
+        "description": "Commits that week."
+      }
+    },
+    "required": [
+      "week",
+      "additions",
+      "deletions",
+      "commits"
+    ],
+    "description": "One week of a contributor's commit activity.",
+    "x-forges-type": "ContributorWeek"
   },
   "Cursor": {
     "type": "object",
@@ -1420,6 +1428,10 @@
             "$ref": "#/components/schemas/Support",
             "description": "Support for `repos.contributors()` and `repos.contributorsPage()`."
           },
+          "contributorStats": {
+            "$ref": "#/components/schemas/Support",
+            "description": "Support for `repos.contributorStats()`."
+          },
           "permissionFor": {
             "$ref": "#/components/schemas/Support",
             "description": "Support for `repos.permissionFor()`."
@@ -1446,6 +1458,7 @@
           "milestones",
           "collaborators",
           "contributors",
+          "contributorStats",
           "permissionFor",
           "addCollaborator",
           "assignableUsers",

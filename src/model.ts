@@ -113,6 +113,29 @@ export interface Contributor {
   raw: unknown
 }
 
+/** A contributor's commit activity over time, as `repos.contributorStats()` reads it. */
+export interface ContributorStats {
+  /** The account, where the forge links the commits to one. */
+  actor?: Actor
+  /** Commits by the contributor across all weeks. */
+  commits: number
+  /** One entry per week, oldest first. */
+  weeks: ContributorWeek[]
+  raw: unknown
+}
+
+/** One week of a contributor's commit activity. */
+export interface ContributorWeek {
+  /** Start of the week. */
+  week: Date
+  /** Lines added. */
+  additions: number
+  /** Lines deleted. */
+  deletions: number
+  /** Commits that week. */
+  commits: number
+}
+
 /** What `repos.addCollaborator()` did. */
 export interface AddCollaboratorResult {
   /**
@@ -163,20 +186,6 @@ export interface Team {
   parent?: TeamRef
   /** Web page of the team, where the forge has one. */
   url?: string
-  raw: unknown
-}
-
-/**
- * A contributor's commit statistics over time, as `repos.contributorStats()` reads them. Each week is a bucket
- * that the forge reports, so the first and last are partial where the history does not start or end on a Sunday.
- */
-export interface ContributorStats {
-  /** The account behind the commits. */
-  author: Actor
-  /** Total commits by this contributor. */
-  total: number
-  /** The weeks the forge reports, oldest first. */
-  weeks: Array<{ week: Date, additions: number, deletions: number, commits: number }>
   raw: unknown
 }
 

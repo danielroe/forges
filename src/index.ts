@@ -71,6 +71,7 @@ export type {
   Comparison,
   Contributor,
   ContributorStats,
+  ContributorWeek,
   Cursor,
   DownloadAssetOptions,
   EventAction,

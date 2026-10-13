@@ -269,6 +269,20 @@ export function toContributor(instance: string, raw: GitHubContributor): Contrib
   return { actor: toActor(instance, raw), contributions: raw.contributions, raw }
 }
 
+export function toContributorStats(instance: string, raw: GitHubContributorStats): ContributorStats {
+  return {
+    actor: toActor(instance, raw.author),
+    commits: raw.total,
+    weeks: raw.weeks.map(week => ({
+      week: new Date(week.w * 1000),
+      additions: week.a ?? 0,
+      deletions: week.d ?? 0,
+      commits: week.c ?? 0,
+    })),
+    raw,
+  }
+}
+
 export function toTeam(instance: string, org: RepoRef, raw: GitHubTeam): Team {
   const parent: TeamRef | undefined = raw.parent
     ? { forge: FORGE, instance, org, id: String(raw.parent.id), slug: raw.parent.slug }
@@ -828,20 +842,6 @@ export function toCommit(repo: RepoRef, raw: GitHubCommit): Commit {
     url: raw.html_url,
     ...raw.stats ? { stats: { additions: raw.stats.additions ?? 0, deletions: raw.stats.deletions ?? 0, total: raw.stats.total } } : {},
     ...raw.files ? { files: raw.files.map(toChangedFile) } : {},
-    raw,
-  }
-}
-
-export function toContributorStats(instance: string, raw: GitHubContributorStats): ContributorStats {
-  return {
-    author: toActor(instance, raw.author)!,
-    total: raw.total ?? 0,
-    weeks: (raw.weeks ?? []).map(week => ({
-      week: toDate(week.w === undefined ? undefined : week.w * 1000)!,
-      additions: week.a ?? 0,
-      deletions: week.d ?? 0,
-      commits: week.c ?? 0,
-    })),
     raw,
   }
 }

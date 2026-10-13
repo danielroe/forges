@@ -73,6 +73,13 @@ export type GitHubContributor
   = | (GitHubUser & { contributions: number })
     | { type: 'Anonymous', name?: string, email?: string, contributions: number }
 
+export interface GitHubContributorStats {
+  author: GitHubUser | null
+  total: number
+  /** `w` is the start of the week in Unix seconds; `a`, `d` and `c` count additions, deletions and commits. */
+  weeks: Array<{ w: number, a?: number, d?: number, c?: number }>
+}
+
 export interface GitHubTeam {
   id: number
   node_id?: string
@@ -423,21 +430,6 @@ export interface GitHubCommit {
 /** A commit search result, which carries the repository the commit is in. */
 export interface GitHubCommitSearchItem extends GitHubCommit {
   repository?: GitHubRepository
-}
-
-/** One week of a contributor's commit statistics. `w` is a Unix timestamp in seconds. */
-export interface GitHubContributorStatsWeek {
-  w?: number
-  a?: number
-  d?: number
-  c?: number
-}
-
-/** One contributor's commit statistics over time, as `/stats/contributors` reports them. */
-export interface GitHubContributorStats {
-  author?: GitHubUser | null
-  total?: number
-  weeks?: GitHubContributorStatsWeek[]
 }
 
 export interface GitHubCodeSearchItem {

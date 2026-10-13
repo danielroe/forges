@@ -187,8 +187,6 @@ const GHES_DEPENDABOT_ALERTS = '3.8'
 const GRAPHQL_BATCH = 20
 const REVIEW_CONTEXT_TTL = 5 * 60_000
 const POLL_DELAYS = [500, 1000, 2000]
-
-/** GitHub computes contributor statistics asynchronously, answering 202 until they are ready. */
 const CONTRIBUTOR_STATS_DELAYS = [500, 1000, 2000, 4000, 8000]
 
 const GITHUB_RESERVED_PATHS = ['about', 'account', 'apps', 'codespaces', 'collections', 'contact', 'customer-stories', 'dashboard', 'enterprise', 'enterprises', 'events', 'explore', 'features', 'gist', 'issues', 'join', 'login', 'logout', 'marketplace', 'new', 'notifications', 'organizations', 'orgs', 'pricing', 'pulls', 'search', 'security', 'settings', 'signup', 'site', 'sponsors', 'stars', 'topics', 'trending', 'users', 'watching']
@@ -1062,21 +1060,17 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
     return list(`${repoPath(repo)}/milestones`, listOptions, (raw: GitHubMilestone) => toMilestone(raw)!, { query: { state: listOptions.state ?? 'open' } })
   }
 
-  /**
-   * GitHub computes the statistics asynchronously and answers `202` with an
-   * empty body until they are ready, so this retries with a backoff. It gives
-   * up with an empty array once the attempts are spent.
-   */
-  async function contributorStats(repo: RepoRef, options?: BaseOptions): Promise<ContributorStats[]> {
+  async function contributorStats(repo: RepoRef, statsOptions: BaseOptions = {}): Promise<ContributorStats[]> {
+    const path = `${repoPath(repo)}/stats/contributors`
     for (let attempt = 0; ; attempt++) {
-      const { data, response } = await fetcher.json<GitHubContributorStats[]>(`${repoPath(repo)}/stats/contributors`, { signal: options?.signal })
+      const { data, response } = await fetcher.json<GitHubContributorStats[] | undefined>(path, { signal: statsOptions.signal })
       if (response.status !== 202) {
         return (data ?? []).map(raw => toContributorStats(instance, raw))
       }
       if (attempt >= CONTRIBUTOR_STATS_DELAYS.length) {
-        return []
+        throw new ForgeApiError(`GitHub is still computing the contributor statistics of ${repo.owner}/${repo.name}`, 202, '', { ...context, url: fetcher.resolve(path), method: 'GET' })
       }
-      await sleep(CONTRIBUTOR_STATS_DELAYS[attempt]!, options?.signal)
+      await sleep(CONTRIBUTOR_STATS_DELAYS[attempt]!, statsOptions.signal)
     }
   }
 
@@ -1598,6 +1592,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
       milestonesPage: verb(true, milestonesPage),
       collaboratorsPage: verb(!anonymous, (repo, listOptions = {}) => list(`${repoPath(repo)}/collaborators`, listOptions, (raw: GitHubCollaborator) => toCollaborator(instance, raw))),
       contributorsPage: verb(true, (repo, listOptions = {}) => list(`${repoPath(repo)}/contributors`, listOptions, (raw: GitHubContributor) => toContributor(instance, raw), { query: { anon: 1 } })),
+      contributorStats: verb(true, contributorStats),
       permissionFor: verb(!anonymous, async (repo, actor, options) => {
         const { data } = await fetcher.json<{ permission?: string, role_name?: string, user?: GitHubCollaborator }>(
           `${repoPath(repo)}/collaborators/${encodeURIComponent(actorLogin(actor))}/permission`,
@@ -1620,7 +1615,6 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
         const author = (await get(ref, listOptions)).author?.login
         return toPage(page, raw => raw.login === author ? undefined : toActor(instance, raw)!)
       }),
-      contributorStats: verb(true, contributorStats),
     },
     orgs: {
       teamsPage: verb(!anonymous, (org, listOptions = {}) => list(
