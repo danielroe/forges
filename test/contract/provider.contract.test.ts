@@ -689,6 +689,7 @@ describe.each(contracts)('contract: $name', (contract) => {
       ['repos.addCollaborator', (forge: ForgeProvider) => forge.repos.addCollaborator(repoRef(), 'octocat', 'write')],
       ['repos.assignableUsersPage', (forge: ForgeProvider) => forge.repos.assignableUsersPage(repoRef())],
       ['repos.reviewerCandidatesPage', (forge: ForgeProvider) => forge.repos.reviewerCandidatesPage(threadRef())],
+      ['repos.contributorStats', (forge: ForgeProvider) => forge.repos.contributorStats(repoRef())],
       ['threads.addLabels', (forge: ForgeProvider) => forge.threads.addLabels(threadRef(), ['bug'])],
       ['threads.removeLabels', (forge: ForgeProvider) => forge.threads.removeLabels(threadRef(), ['bug'])],
       ['threads.setMilestone', (forge: ForgeProvider) => forge.threads.setMilestone(threadRef(), '1')],
