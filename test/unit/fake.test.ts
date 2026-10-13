@@ -111,9 +111,9 @@ describe('fake forge', () => {
     const issue = { forge: 'fake', instance: 'fake.test', repo: { forge: 'fake', instance: 'fake.test', owner: 'acme', name: 'widgets' }, kind: 'issue' as const, number: '1' }
     const iterator = forge.sources.subscribe({ signal: controller.signal })[Symbol.asyncIterator]()
     const received = iterator.next().then(result => result.value?.event)
-    await forge.threads.reopen(issue)
+    await forge.threads.close(issue)
 
-    expect(await received).toMatchObject({ kind: 'state_change', action: 'reopened' })
+    expect(await received).toMatchObject({ kind: 'state_change', action: 'closed' })
     controller.abort()
   })
 
