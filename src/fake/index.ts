@@ -118,7 +118,10 @@ export type FakeMergeability = 'clean' | 'blocked' | 'conflict'
 /** A delay in milliseconds for every request, or a function of the verb, which names a listing by its page, such as `threads.commentsPage`. */
 export type FakeLatency = number | ((verb: ForgeVerb) => number)
 
-/** A request budget that every request spends, starting a new window once `window` elapses on the clock. */
+/**
+ * A request budget that every request spends, starting a new window once `window` elapses on the clock.
+ * `provider.rateLimits()` reports it as the latest request left it, until its window ends.
+ */
 export interface FakeRateLimit {
   /** Requests per window. */
   limit: number
@@ -330,7 +333,7 @@ export interface FakeForgeFactory extends ForgeProviderFactory<ForgeProvider> {
   online: () => void
   /** Replaces the `latency` option. `undefined` removes the delay. */
   setLatency: (latency: FakeLatency | undefined) => void
-  /** Replaces the `rateLimit` option and starts a new window. `undefined` removes the budget. */
+  /** Replaces the `rateLimit` option and starts a new window, which `rateLimits()` reports from the next request. `undefined` removes the budget. */
   setRateLimit: (budget: FakeRateLimit | undefined) => void
 }
 
@@ -438,10 +441,12 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
   let connected = true
   let latency = options.latency
   let budget: { limit: number, remaining: number, window: number, resetAt: Date } | undefined
+  let seen: RateLimit | undefined
 
   function setRateLimit(given: FakeRateLimit | undefined): void {
     const window = given?.window ?? 3_600_000
     budget = given && { limit: given.limit, remaining: given.remaining ?? given.limit, window, resetAt: new Date(now().getTime() + window) }
+    seen = undefined
   }
   setRateLimit(options.rateLimit)
 
@@ -454,11 +459,17 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
       budget.remaining = budget.limit
       budget.resetAt = new Date(at.getTime() + budget.window)
     }
-    if (budget.remaining <= 0) {
+    const exhausted = budget.remaining <= 0
+    budget.remaining = Math.max(0, budget.remaining - 1)
+    seen = { limit: budget.limit, remaining: budget.remaining, resetAt: new Date(budget.resetAt) }
+    if (exhausted) {
       throw new RateLimitedError(`Rate limit of ${budget.limit} requests exhausted until ${budget.resetAt.toISOString()}`, 429, '', { ...origin, resetAt: new Date(budget.resetAt) })
     }
-    budget.remaining--
-    return { limit: budget.limit, remaining: budget.remaining, resetAt: new Date(budget.resetAt) }
+    return { ...seen, resetAt: new Date(budget.resetAt) }
+  }
+
+  function rateLimits(): RateLimit[] {
+    return seen?.resetAt && now() < seen.resetAt ? [{ ...seen, resetAt: new Date(seen.resetAt) }] : []
   }
 
   function takeFailure(verb: string): { error: Error, applied: boolean } | undefined {
@@ -509,6 +520,7 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
       // GitHub does not count a 304 against the rate limit.
       if ((result as Page<unknown>).notModified && budget) {
         rateLimit.remaining = ++budget.remaining
+        seen = seen && { ...seen, remaining: rateLimit.remaining }
       }
       return { ...result, rateLimit }
     }
@@ -1041,6 +1053,7 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
     }),
     setup: () => overNetwork({
       traits: { eventKinds: 'native', authKinds: ['token'] },
+      rateLimits,
       users: {
         me: verb(support('users.me', true), async () => ({ ...actor(viewerLogin), raw: undefined })),
         eventsPage: verb(support('users.events', true), async (login, listOptions = {}) => conditional(pageOf(feed(event => event.actor?.login === login), listOptions), listOptions)),

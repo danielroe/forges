@@ -324,6 +324,48 @@ describe('fake forge rate limit', () => {
 
     expect(first.rateLimit?.remaining).toBe(9)
     expect(again).toMatchObject({ notModified: true, rateLimit: { remaining: 9 } })
+    expect(forge.rateLimits()).toMatchObject([{ remaining: 9 }])
+  })
+
+  it('reports the budget of the latest request in rateLimits() until the window ends on its clock', async () => {
+    let time = Date.parse('2026-01-01T00:00:00Z')
+    const factory = fake({ seed, now: () => new Date(time), rateLimit: { limit: 1, window: 60_000 } })
+    const forge = factory.create()
+    const other = factory.create()
+
+    expect(forge.rateLimits()).toEqual([])
+
+    await forge.threads.get(issue)
+    const exhausted = [{ limit: 1, remaining: 0, resetAt: new Date('2026-01-01T00:01:00Z') }]
+
+    expect(forge.rateLimits()).toEqual(exhausted)
+    expect(other.rateLimits()).toEqual(exhausted)
+    await expect(other.threads.get(issue)).rejects.toThrow(RateLimitedError)
+    expect(other.rateLimits()).toEqual(exhausted)
+
+    time += 59_999
+    expect(forge.rateLimits()).toEqual(exhausted)
+    time += 1
+    expect(forge.rateLimits()).toEqual([])
+  })
+
+  it('forgets the reported budget when the budget is replaced', async () => {
+    const factory = fake({ seed, rateLimit: { limit: 5 } })
+    const forge = factory.create()
+    await forge.threads.get(issue)
+
+    factory.setRateLimit({ limit: 10 })
+
+    expect(forge.rateLimits()).toEqual([])
+  })
+
+  it('rejects with a secondary limit through failNext() while the budget has requests left', async () => {
+    const factory = fake({ seed, rateLimit: { limit: 10 } })
+    const forge = factory.create()
+    factory.failNext('threads.comment', new RateLimitedError('Secondary rate limit', 403, '', { secondary: true }))
+
+    await expect(forge.threads.comment(issue, 'Hello')).rejects.toMatchObject({ secondary: true, resetAt: undefined })
+    expect(forge.rateLimits()).toMatchObject([{ remaining: 9 }])
   })
 })
 

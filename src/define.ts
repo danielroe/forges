@@ -306,6 +306,8 @@ export interface ProviderSpec<TExtensions extends object = Record<never, never>>
   request?: Fetcher
   /** Reads the instance version for `refreshCapabilities()`. Omit when capabilities never depend on it. */
   probeVersion?: () => Promise<string | undefined>
+  /** The implementation of `provider.rateLimits()`, for a provider whose requests bypass its fetchers. */
+  rateLimits?: () => RateLimit[]
 }
 
 /** Hooks that a provider runs around a merge. */
@@ -796,7 +798,7 @@ function createProvider<TOptions extends ForgeOptionsBase, TState, HasWeb extend
     get capabilities() {
       return capabilities
     },
-    rateLimits() {
+    rateLimits: spec.rateLimits ?? (() => {
       const now = Date.now()
       for (const [resource, budget] of budgets) {
         if (budget.resetAt && budget.resetAt.getTime() <= now) {
@@ -804,7 +806,7 @@ function createProvider<TOptions extends ForgeOptionsBase, TState, HasWeb extend
         }
       }
       return [...budgets.values()].map(budget => ({ ...budget }))
-    },
+    }),
     async refreshCapabilities() {
       if (!options.instanceVersion && probeVersion) {
         env.version = await probeVersion()
