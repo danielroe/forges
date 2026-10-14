@@ -41,7 +41,7 @@ async function latest(provider: ForgeProvider, repo: RepoRef | undefined) {
   return {
     type: 'threads' as const,
     repo: `${repo.owner}/${repo.name}`,
-    items: page.items.slice(0, LATEST).map(thread => ({ key: thread.ref.number ? threadKey({ ...thread.ref, number: thread.ref.number }) : thread.title, title: thread.title, state: thread.state, updatedAt: thread.updatedAt, raw: thread.raw })),
+    items: page.items.slice(0, LATEST).map(thread => ({ key: threadKey(thread.ref), title: thread.title, state: thread.state, updatedAt: thread.updatedAt, raw: thread.raw })),
     warnings: page.warnings ?? [],
   }
 }

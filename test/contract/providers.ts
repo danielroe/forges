@@ -30,6 +30,8 @@ export interface ProviderContract {
   probe?: (instance: ForgeProvider) => Promise<unknown>
   /** `probe` and `request()` send no credential, so a 401 is `AuthenticationRequiredError`. */
   anonymousReads?: boolean
+  /** `editComment()` reads the thread from the comment, so it accepts a comment ref whose thread has no number. */
+  editsCommentWithoutThreadNumber?: boolean
   thread: { number: string, title: string, label?: string, eventKinds: EventKind[], botActor: boolean, stats?: PullStats }
   /** A raw path for `request()`, relative to the provider's API base, and a field its body must have. */
   request: { path: string, field: string }
@@ -297,6 +299,7 @@ export const contracts: ProviderContract[] = [
     name: 'tangled',
     fixtures: 'tangled',
     instance: 'tangled.org',
+    editsCommentWithoutThreadNumber: true,
     repo: { owner: 'did:plc:acmeowner222222222222222', name: 'widgets' },
     create: (fetch, options) => create(tangled({
       auth: { type: 'app_password', identifier: 'acme.example.com', password: 'app-password', pds: 'https://pds.example.com' },

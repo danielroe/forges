@@ -26,6 +26,7 @@ import type {
   Repo,
   RepoRef,
   RepoRole,
+  ResolvedThreadRef,
   Review,
   ReviewComment,
   Reviewer,
@@ -433,7 +434,7 @@ function toReviewers(instance: string, raw: GitHubIssue): Reviewer[] {
 }
 
 /** Builds a thread from an issue, a pull request, or a pull request as returned by the issues API. */
-export function toThread(ref: ThreadRef, raw: GitHubIssue): Thread {
+export function toThread(ref: ResolvedThreadRef, raw: GitHubIssue): Thread {
   const kind = raw.pull_request || raw.head ? 'pull_request' : ref.kind
   return {
     ref: { ...ref, kind, externalId: raw.node_id ?? ref.externalId },
@@ -471,7 +472,7 @@ export function toThread(ref: ThreadRef, raw: GitHubIssue): Thread {
   }
 }
 
-export function toComment(thread: ThreadRef, raw: GitHubComment): Comment {
+export function toComment(thread: ResolvedThreadRef, raw: GitHubComment): Comment {
   return {
     ref: { forge: FORGE, instance: thread.instance, thread, id: String(raw.id) },
     body: raw.body ?? '',
@@ -748,7 +749,7 @@ export function toSecretScanningAlert(repo: RepoRef, raw: GitHubSecretScanningAl
   }
 }
 
-export function toReviewComment(thread: ThreadRef, raw: GitHubReviewComment, reviewThread?: { id: string, resolved: boolean }): ReviewComment {
+export function toReviewComment(thread: ResolvedThreadRef, raw: GitHubReviewComment, reviewThread?: { id: string, resolved: boolean }): ReviewComment {
   return {
     ref: { forge: FORGE, instance: thread.instance, thread, id: String(raw.id) },
     body: raw.body ?? '',
@@ -764,7 +765,7 @@ export function toReviewComment(thread: ThreadRef, raw: GitHubReviewComment, rev
   }
 }
 
-export function toReview(thread: ThreadRef, raw: GitHubReview, comments: ReviewComment[]): Review {
+export function toReview(thread: ResolvedThreadRef, raw: GitHubReview, comments: ReviewComment[]): Review {
   return {
     ref: { forge: FORGE, instance: thread.instance, thread, id: String(raw.id) },
     author: toActor(thread.instance, raw.user),

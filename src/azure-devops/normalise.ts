@@ -137,7 +137,7 @@ export function commentId(thread: AzureThread, comment: AzureComment): string {
   return `${thread.id}/${comment.id}`
 }
 
-export function toPullComment(ref: ThreadRef, thread: AzureThread, raw: AzureComment): Comment {
+export function toPullComment(ref: ResolvedThreadRef, thread: AzureThread, raw: AzureComment): Comment {
   return {
     ref: { forge: FORGE, instance: ref.instance, thread: ref, id: commentId(thread, raw) },
     body: raw.content ?? '',
@@ -177,7 +177,7 @@ export function toThreadEvents(ref: ThreadRef, thread: AzureThread): ForgeEventI
   })
 }
 
-export function toWorkItemComment(ref: ThreadRef, raw: AzureWorkItemComment): Comment {
+export function toWorkItemComment(ref: ResolvedThreadRef, raw: AzureWorkItemComment): Comment {
   return {
     ref: { forge: FORGE, instance: ref.instance, thread: ref, id: String(raw.id) },
     body: raw.text,

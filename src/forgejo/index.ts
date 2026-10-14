@@ -885,11 +885,12 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
         return list(`${issuePath(ref)}/comments`, listOptions, (raw: ForgejoComment) => toComment(ref, raw), { query: { since: listOptions.since?.toISOString() } })
       }),
       getComment: perKind(ISSUE_AND_PULL, async (ref, options) => {
-        const { data } = await fetcher.json<ForgejoComment | undefined>(`${repoPath(ref.thread.repo)}/issues/comments/${encodeURIComponent(ref.id)}`, { signal: options?.signal })
+        const thread = requireThread(ref.thread, context)
+        const { data } = await fetcher.json<ForgejoComment | undefined>(`${repoPath(thread.repo)}/issues/comments/${encodeURIComponent(ref.id)}`, { signal: options?.signal })
         if (!data) {
           throw new NotFoundError(`Comment ${ref.id} not found`, 404, '', context)
         }
-        return toComment(ref.thread, data)
+        return toComment(thread, data)
       }),
       comment: perKind({ issue: true, pull_request: true }, async (thread, body, options) => {
         const ref = requireIssueOrPull(thread, context, 'comment on')
@@ -897,8 +898,9 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
         return toComment(ref, data)
       }),
       editComment: perKind({ issue: true, pull_request: true }, async (ref, body, options) => {
-        const { data } = await fetcher.json<ForgejoComment>(`${repoPath(ref.thread.repo)}/issues/comments/${encodeURIComponent(ref.id)}`, { method: 'PATCH', json: { body }, signal: options?.signal })
-        return toComment(ref.thread, data)
+        const thread = requireThread(ref.thread, context)
+        const { data } = await fetcher.json<ForgejoComment>(`${repoPath(thread.repo)}/issues/comments/${encodeURIComponent(ref.id)}`, { method: 'PATCH', json: { body }, signal: options?.signal })
+        return toComment(thread, data)
       }),
       deleteComment: perKind({ issue: true, pull_request: true }, async (ref, options) => {
         await fetcher.raw(`${repoPath(ref.thread.repo)}/issues/comments/${encodeURIComponent(ref.id)}`, { method: 'DELETE', signal: options?.signal })

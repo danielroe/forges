@@ -925,15 +925,16 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
   }
 
   async function getComment(ref: CommentRef, options?: BaseOptions): Promise<Comment> {
-    if (ref.thread.kind === 'discussion') {
+    const thread = requireThread(ref.thread, context)
+    if (thread.kind === 'discussion') {
       const data = await graphql<{ node: GraphQLComment | null }>('GET_DISCUSSION_COMMENT', { id: ref.id }, options)
       if (!data.node?.id) {
         throw new NotFoundError(`Comment ${ref.id} not found`, 404, '', context)
       }
-      return (await import('./graphql.ts')).toDiscussionComment(ref.thread, data.node)
+      return (await import('./graphql.ts')).toDiscussionComment(thread, data.node)
     }
     const { data } = await fetcher.json<GitHubComment>(commentPath(ref), { signal: options?.signal })
-    return toComment(ref.thread, data)
+    return toComment(thread, data)
   }
 
   async function getReview(ref: ReviewRef, options?: BaseOptions): Promise<Review> {
@@ -1940,12 +1941,13 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
         return toComment(ref, data)
       }),
       editComment: perKind({ issue: true, pull_request: true, discussion: true, commit: true }, async (ref, body, options) => {
-        if (ref.thread.kind === 'discussion') {
+        const thread = requireThread(ref.thread, context)
+        if (thread.kind === 'discussion') {
           const data = await graphql<{ updateDiscussionComment: { comment: GraphQLComment } }>('UPDATE_DISCUSSION_COMMENT', { id: ref.id, body }, options)
-          return (await import('./graphql.ts')).toDiscussionComment(ref.thread, data.updateDiscussionComment.comment)
+          return (await import('./graphql.ts')).toDiscussionComment(thread, data.updateDiscussionComment.comment)
         }
         const { data } = await fetcher.json<GitHubComment>(commentPath(ref), { method: 'PATCH', json: { body }, signal: options?.signal })
-        return toComment(ref.thread, data)
+        return toComment(thread, data)
       }),
       deleteComment: perKind({ issue: true, pull_request: true, discussion: true, commit: true }, async (ref, options) => {
         if (ref.thread.kind === 'discussion') {

@@ -666,8 +666,9 @@ const BITBUCKET: ProviderDefinition<BitbucketOptions, undefined, true> = {
           return toComment(ref, data)
         }),
         editComment: perKind({ pull_request: true, commit: true }, async (ref, body, options) => {
+          const thread = requireThread(ref.thread, context)
           const { data } = await fetcher.json<BitbucketComment>(commentPath(ref), { method: 'PUT', json: { content: { raw: body } }, signal: options?.signal })
-          return toComment(ref.thread, data)
+          return toComment(thread, data)
         }),
         deleteComment: perKind({ pull_request: true, commit: true }, async (ref, options) => {
           await fetcher.raw(commentPath(ref), { method: 'DELETE', signal: options?.signal })

@@ -3,8 +3,8 @@ import type {
   Forges,
   ForgeWarning,
   RepoRef,
+  ResolvedThreadRef,
   Thread,
-  ThreadRef,
 } from 'forges'
 
 export interface FailingPull {
@@ -58,7 +58,7 @@ async function openPulls(provider: ForgeProvider, repo: RepoRef, warnings: Forge
 }
 
 /** Failing check names and counts for one pull, from the single checks read. */
-async function checkFailures(provider: ForgeProvider, ref: ThreadRef, warnings: ForgeWarning[]): Promise<{ checks: string[], failed: number, total: number } | undefined> {
+async function checkFailures(provider: ForgeProvider, ref: ResolvedThreadRef, warnings: ForgeWarning[]): Promise<{ checks: string[], failed: number, total: number } | undefined> {
   if (!provider.can('threads.checks', 'pull_request')) {
     return undefined
   }
@@ -72,7 +72,7 @@ async function checkFailures(provider: ForgeProvider, ref: ThreadRef, warnings: 
     warnings.push({
       code: 'checks_unreadable',
       message: error instanceof Error ? error.message : 'could not read checks',
-      subject: `${repoName(ref.repo)}#${ref.number ?? '?'}`,
+      subject: `${repoName(ref.repo)}#${ref.number}`,
     })
     return undefined
   }
@@ -123,7 +123,7 @@ export async function buildDigest(forges: Forges, repos: readonly RepoRef[], opt
         continue
       }
       failing.push({
-        number: thread.ref.number ?? '?',
+        number: thread.ref.number,
         title: thread.title,
         url: thread.url,
         failed: result.failed,

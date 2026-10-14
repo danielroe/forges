@@ -22,6 +22,7 @@ import type {
   Repo,
   RepoRef,
   RepoRole,
+  ResolvedThreadRef,
   Review,
   ReviewComment,
   SourceKind,
@@ -265,7 +266,7 @@ export function toNotification(origin: ForgeOrigin, raw: ForgejoNotification): N
   }
 }
 
-export function toThread(ref: ThreadRef, raw: ForgejoIssue): Thread {
+export function toThread(ref: ResolvedThreadRef, raw: ForgejoIssue): Thread {
   const origin = { forge: ref.forge, instance: ref.instance }
   const isPull = Boolean(raw.pull_request) || Boolean(raw.head)
   const kind = isPull && ref.kind === 'issue' ? 'pull_request' : ref.kind
@@ -313,7 +314,7 @@ export function toThread(ref: ThreadRef, raw: ForgejoIssue): Thread {
   }
 }
 
-export function toComment(thread: ThreadRef, raw: ForgejoComment): Comment {
+export function toComment(thread: ResolvedThreadRef, raw: ForgejoComment): Comment {
   return {
     ref: { forge: thread.forge, instance: thread.instance, thread, id: String(raw.id) },
     body: raw.body ?? '',
@@ -584,7 +585,7 @@ export function toRelease(repo: RepoRef, raw: ForgejoRelease): Release {
   }
 }
 
-export function toReviewComment(thread: ThreadRef, raw: ForgejoReviewComment): ReviewComment {
+export function toReviewComment(thread: ResolvedThreadRef, raw: ForgejoReviewComment): ReviewComment {
   return {
     ref: { forge: thread.forge, instance: thread.instance, thread, id: String(raw.id) },
     body: raw.body ?? '',
@@ -598,7 +599,7 @@ export function toReviewComment(thread: ThreadRef, raw: ForgejoReviewComment): R
   }
 }
 
-export function toReview(thread: ThreadRef, raw: ForgejoReview, comments: ReviewComment[] | false): Review {
+export function toReview(thread: ResolvedThreadRef, raw: ForgejoReview, comments: ReviewComment[] | false): Review {
   return {
     ref: { forge: thread.forge, instance: thread.instance, thread, id: String(raw.id) },
     author: toActor(thread, raw.user),

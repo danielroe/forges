@@ -549,7 +549,7 @@
     "type": "object",
     "properties": {
       "ref": {
-        "$ref": "#/components/schemas/CommentRef"
+        "$ref": "#/components/schemas/ResolvedCommentRef"
       },
       "body": {
         "type": "string"
@@ -3332,11 +3332,108 @@
     "description": "Who can see a repository.",
     "x-forges-type": "RepoVisibility"
   },
+  "ResolvedCommentRef": {
+    "type": "object",
+    "properties": {
+      "forge": {
+        "$ref": "#/components/schemas/ForgeKind"
+      },
+      "instance": {
+        "$ref": "#/components/schemas/ForgeInstance",
+        "description": "The host of the instance, such as `github.com` or `git.example.com`."
+      },
+      "thread": {
+        "$ref": "#/components/schemas/ResolvedThreadRef"
+      },
+      "id": {
+        "type": "string",
+        "description": "Forge-native comment id; an AT-URI on Tangled."
+      }
+    },
+    "required": [
+      "forge",
+      "id",
+      "instance",
+      "thread"
+    ],
+    "description": "A comment ref whose thread is resolved, and which can therefore be keyed. Every comment read from a forge carries one.",
+    "x-forges-type": "ResolvedCommentRef"
+  },
+  "ResolvedReviewRef": {
+    "type": "object",
+    "properties": {
+      "forge": {
+        "$ref": "#/components/schemas/ForgeKind"
+      },
+      "instance": {
+        "$ref": "#/components/schemas/ForgeInstance",
+        "description": "The host of the instance, such as `github.com` or `git.example.com`."
+      },
+      "thread": {
+        "$ref": "#/components/schemas/ResolvedThreadRef"
+      },
+      "id": {
+        "type": "string",
+        "description": "Forge-native review id; a synthesised `approval:<login>` where the forge has approvals but no review objects."
+      }
+    },
+    "required": [
+      "forge",
+      "id",
+      "instance",
+      "thread"
+    ],
+    "description": "A review ref whose thread is resolved. Every review read from a forge carries one.",
+    "x-forges-type": "ResolvedReviewRef"
+  },
+  "ResolvedThreadRef": {
+    "type": "object",
+    "properties": {
+      "forge": {
+        "$ref": "#/components/schemas/ForgeKind"
+      },
+      "instance": {
+        "$ref": "#/components/schemas/ForgeInstance",
+        "description": "The host of the instance, such as `github.com` or `git.example.com`."
+      },
+      "repo": {
+        "$ref": "#/components/schemas/RepoRef"
+      },
+      "kind": {
+        "$ref": "#/components/schemas/ThreadKind"
+      },
+      "typeRaw": {
+        "type": "string",
+        "description": "Forge-native subject type, for example `PullRequest` or `MergeRequest`."
+      },
+      "number": {
+        "type": "string",
+        "description": "Per-repo thread number, the commit sha for `kind: 'commit'`, or the forge-native id for `kind: 'other'`."
+      },
+      "displayNumber": {
+        "type": "string",
+        "description": "Human-facing per-repo number, when it differs from `number`. Tangled identifies threads by AT-URI but shows numbers in its UI and webhooks."
+      },
+      "externalId": {
+        "type": "string",
+        "description": "Globally unique forge-native identifier, where one exists: a GitHub `node_id`, a GitLab global id, or an atproto record URI."
+      }
+    },
+    "required": [
+      "forge",
+      "instance",
+      "kind",
+      "number",
+      "repo"
+    ],
+    "description": "A thread ref whose number is known, and which can therefore be keyed and fetched. Every thread, comment and review read from a forge carries one.",
+    "x-forges-type": "ResolvedThreadRef"
+  },
   "Review": {
     "type": "object",
     "properties": {
       "ref": {
-        "$ref": "#/components/schemas/ReviewRef"
+        "$ref": "#/components/schemas/ResolvedReviewRef"
       },
       "author": {
         "$ref": "#/components/schemas/Actor"
@@ -3387,7 +3484,7 @@
     "type": "object",
     "properties": {
       "ref": {
-        "$ref": "#/components/schemas/CommentRef"
+        "$ref": "#/components/schemas/ResolvedCommentRef"
       },
       "body": {
         "type": "string"
@@ -3768,7 +3865,7 @@
     "type": "object",
     "properties": {
       "ref": {
-        "$ref": "#/components/schemas/ThreadRef"
+        "$ref": "#/components/schemas/ResolvedThreadRef"
       },
       "kind": {
         "$ref": "#/components/schemas/ThreadKind"
@@ -3978,7 +4075,7 @@
         "description": "Forge-native stack id, where the forge names stacks."
       },
       "parent": {
-        "$ref": "#/components/schemas/ThreadRef",
+        "$ref": "#/components/schemas/ResolvedThreadRef",
         "description": "The pull request this one is stacked on. Absent for the root of the stack."
       }
     },

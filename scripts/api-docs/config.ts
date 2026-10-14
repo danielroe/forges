@@ -50,11 +50,11 @@ function forge(title: string, directory: string, names: RegExp[] = []) {
 }
 
 const DATA_MODEL_SECTIONS: SectionConfig[] = [
-  { title: 'Forges and refs', names: ['ForgeKind', 'KnownForgeKind', 'ForgeInstance', 'ForgeOrigin', 'ThreadKind', 'RepoRef', 'ThreadRef', 'ResolvedThreadRef', 'CommentRef', 'NotificationRef', 'repoKey', 'parseRepoKey', 'repoSlug', 'repoRef', 'threadKey', 'parseThreadKey', 'threadSlug', 'commentKey', 'parseCommentKey', 'releaseKey', 'parseReleaseKey', 'notificationKey', 'parseNotificationKey', 'notificationThread', 'affectedKeys', 'AffectedKeys', 'isNamespaceRef', 'isResolvedThread', 'normaliseRepoName', 'namesAreCaseInsensitive'] },
+  { title: 'Forges and refs', names: ['ForgeKind', 'KnownForgeKind', 'ForgeInstance', 'ForgeOrigin', 'ThreadKind', 'RepoRef', 'ThreadRef', 'ResolvedThreadRef', 'CommentRef', 'ResolvedCommentRef', 'NotificationRef', 'repoKey', 'parseRepoKey', 'repoSlug', 'repoRef', 'threadKey', 'parseThreadKey', 'threadSlug', 'commentKey', 'parseCommentKey', 'releaseKey', 'parseReleaseKey', 'notificationKey', 'parseNotificationKey', 'notificationThread', 'affectedKeys', 'AffectedKeys', 'isNamespaceRef', 'isResolvedThread', 'normaliseRepoName', 'namesAreCaseInsensitive'] },
   { title: 'Accounts and repositories', names: [/^(?:Actor|User|Collaborator|Contributor|Repo|Installation|Team)/, 'OwnerRepoQuery', 'AddCollaboratorResult', 'TextLimits'] },
   { title: 'Threads and comments', names: [/^(?:Thread|SubscriptionState|SubscribeOptions|SubscriptionItem|Close|Upsert|Comment|Milestone|Label|GetMany|SearchQuery|Merge|ApproveAndMerge)/, 'commentMarker', 'hasCommentMarker'] },
   { title: 'Reactions', names: [/^React/, 'REACTION_CONTENTS'] },
-  { title: 'Reviews', names: [/^Review/, 'PullBranches', 'PullStats', 'ThreadStack'] },
+  { title: 'Reviews', names: [/^Review/, 'ResolvedReviewRef', 'PullBranches', 'PullStats', 'ThreadStack'] },
   { title: 'Checks and CI', names: [/^(?:Check|Ci)/] },
   { title: 'Files and commits', names: [/^(?:Commit|Code|File|Tree|Branch|Tag|ChangedFile|Compar)/] },
   { title: 'Releases', names: [/^Release/, 'DownloadAssetOptions'] },

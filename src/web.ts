@@ -1,4 +1,4 @@
-import type { CommentRef, ForgeOrigin, ReleaseRef, RepoRef, ResolvedThreadRef, ThreadKind, ThreadRef } from './model.ts'
+import type { CommentRef, ForgeOrigin, ReleaseRef, RepoRef, ResolvedCommentRef, ResolvedThreadRef, ThreadKind, ThreadRef } from './model.ts'
 import { isResolvedThread, normaliseRepoName } from './model.ts'
 
 /** A repository's section, for linking to the section itself rather than one entry in it. */
@@ -56,7 +56,7 @@ export interface WebLinks {
   /** The page of an issue or pull request. */
   thread: (ref: ResolvedThreadRef) => string | undefined
   /** The page of a comment, anchored on its thread. */
-  comment?: (ref: CommentRef & { thread: ResolvedThreadRef }) => string | undefined
+  comment?: (ref: ResolvedCommentRef) => string | undefined
   /** The page of a release. */
   release?: (ref: ReleaseRef) => string | undefined
   /** The page of a file at a revision, optionally at a line. */
@@ -102,7 +102,7 @@ export function webUrlFor(web: WebLinks, target: UrlTarget): string | undefined 
   }
   else if ('comment' in target) {
     const { comment } = target
-    path = isResolvedThread(comment.thread) ? web.comment?.(comment as CommentRef & { thread: ResolvedThreadRef }) : undefined
+    path = isResolvedThread(comment.thread) ? web.comment?.(comment as ResolvedCommentRef) : undefined
   }
   else if ('release' in target) {
     path = web.release?.(target.release)

@@ -9,7 +9,7 @@ import type {
   Thread,
   ThreadRef,
 } from 'forges'
-import { isResolvedThread, notificationKey, notificationThread, threadKey } from 'forges'
+import { notificationKey, notificationThread, threadKey } from 'forges'
 
 export interface InboxRow {
   /** Identity of the row, as accepted by `--done`. */
@@ -75,7 +75,7 @@ function rowFromNotification(provider: ForgeProvider, notification: Notification
 
 function rowFromThread(provider: ForgeProvider, thread: Thread): InboxRow {
   return {
-    key: isResolvedThread(thread.ref) ? threadKey(thread.ref) : `${repoName(thread.ref.repo)}#?`,
+    key: threadKey(thread.ref),
     at: thread.lastActivityAt ?? thread.updatedAt ?? thread.createdAt ?? new Date(0),
     forge: provider.forge,
     instance: provider.instance,

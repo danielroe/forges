@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest'
-import { BranchMovedError, ContentNotTextError, NotFoundError, UnsupportedOperationError } from '../../src/errors.ts'
+import { BranchMovedError, ContentNotTextError, NotFoundError, UnresolvedThreadError, UnsupportedOperationError } from '../../src/errors.ts'
 import { fake } from '../../src/fake/index.ts'
 import { commentMarker } from '../../src/model.ts'
 import { signDelivery } from '../../src/testing/index.ts'
@@ -103,6 +103,15 @@ describe('fake forge', () => {
 
     await expect(forge.repos.get(repo)).rejects.toThrow(NotFoundError)
     await expect(forge.threads.get({ forge: 'fake', instance: 'fake.test', repo: { ...repo, name: 'widgets' }, kind: 'issue', number: '99' })).rejects.toThrow(NotFoundError)
+  })
+
+  it('rejects a thread ref without a number with UnresolvedThreadError', async () => {
+    const forge = fake({ seed }).create()
+    const thread = { forge: 'fake', instance: 'fake.test', repo: { forge: 'fake', instance: 'fake.test', owner: 'acme', name: 'widgets' }, kind: 'issue' as const }
+
+    await expect(forge.threads.get(thread)).rejects.toThrow(UnresolvedThreadError)
+    await expect(forge.threads.comment(thread, 'Thanks!')).rejects.toThrow(UnresolvedThreadError)
+    await expect(forge.threads.editComment({ forge: 'fake', instance: 'fake.test', thread, id: '1-1' }, 'Edited')).rejects.toThrow(UnresolvedThreadError)
   })
 
   it('streams writes to subscribers as they happen', async () => {

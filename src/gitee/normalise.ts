@@ -120,7 +120,7 @@ export function isConversationComment(raw: GiteeComment): boolean {
   return raw.comment_type !== 'diff_comment' && !raw.path
 }
 
-export function toComment(thread: ThreadRef, raw: GiteeComment): Comment {
+export function toComment(thread: ResolvedThreadRef, raw: GiteeComment): Comment {
   return {
     ref: { forge: FORGE, instance: thread.instance, thread, id: String(raw.id) },
     body: raw.body,

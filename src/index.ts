@@ -137,6 +137,8 @@ export type {
   RepoRole,
   RepoSearchQuery,
   RepoVisibility,
+  ResolvedCommentRef,
+  ResolvedReviewRef,
   ResolvedThreadRef,
   Review,
   ReviewComment,

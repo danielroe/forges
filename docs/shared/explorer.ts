@@ -323,7 +323,7 @@ export const EXPLORER_OPERATIONS: ExplorerOperation[] = [
   threadWrite('threads.subscribe', 'void', [], () => 'thread'),
   threadWrite('threads.unsubscribe', 'void', [], () => 'thread'),
   threadWrite('threads.markDuplicate', 'void', ['canonical'], ({ origin, value, input }) => `thread, { ${origin}, repo, kind: '${input.kind}', number: ${value('canonical')} }`),
-  threadWrite('threads.transfer', 'ThreadRef', ['targetOwner', 'targetName'], ({ origin, value }) => `thread, { ${origin}, owner: ${value('targetOwner')}, name: ${value('targetName')} }`),
+  threadWrite('threads.transfer', 'ResolvedThreadRef', ['targetOwner', 'targetName'], ({ origin, value }) => `thread, { ${origin}, owner: ${value('targetOwner')}, name: ${value('targetName')} }`),
 
   // Releases
   repoRead('releases.list', 'Page<Release>', (p, _, { repo }) => p.releases.listPage(repo, perPage)),

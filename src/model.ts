@@ -524,9 +524,14 @@ export interface ReviewRef extends ForgeOrigin {
   id: string
 }
 
+/** A review ref whose thread is resolved. Every review read from a forge carries one. */
+export interface ResolvedReviewRef extends ReviewRef {
+  thread: ResolvedThreadRef
+}
+
 /** A comment left on a line of the diff as part of a review. */
 export interface ReviewComment {
-  ref?: CommentRef
+  ref?: ResolvedCommentRef
   body: string
   author?: Actor
   path?: string
@@ -548,7 +553,7 @@ export interface ReviewComment {
 
 /** A review of a pull request. */
 export interface Review {
-  ref: ReviewRef
+  ref: ResolvedReviewRef
   author?: Actor
   state: ReviewState
   stateRaw?: string
@@ -629,7 +634,7 @@ export interface ThreadStack {
   /** Forge-native stack id, where the forge names stacks. */
   id?: string
   /** The pull request this one is stacked on. Absent for the root of the stack. */
-  parent?: ThreadRef
+  parent?: ResolvedThreadRef
 }
 
 /**
@@ -1108,7 +1113,7 @@ export interface ForgeWarning {
 
 /** An issue, pull request, discussion or commit conversation. */
 export interface Thread {
-  ref: ThreadRef
+  ref: ResolvedThreadRef
   kind: ThreadKind
   title: string
   body?: string
@@ -1170,7 +1175,7 @@ export interface CommentRef extends ForgeOrigin {
 
 /** A comment on a thread. */
 export interface Comment {
-  ref: CommentRef
+  ref: ResolvedCommentRef
   body: string
   author?: Actor
   createdAt?: Date
@@ -1795,8 +1800,19 @@ export function repoRef(origin: ForgeOrigin, slug: string): RepoRef {
   return { forge: origin.forge, instance: origin.instance, owner: slug.slice(0, last), name: slug.slice(last + 1) }
 }
 
-/** A thread ref whose number is known, and which can therefore be keyed and fetched. */
-export type ResolvedThreadRef = ThreadRef & { number: string }
+/**
+ * A thread ref whose number is known, and which can therefore be keyed and
+ * fetched. Every thread, comment and review read from a forge carries one.
+ */
+export interface ResolvedThreadRef extends ThreadRef {
+  /** Per-repo thread number, the commit sha for `kind: 'commit'`, or the forge-native id for `kind: 'other'`. */
+  number: string
+}
+
+/** A comment ref whose thread is resolved, and which can therefore be keyed. Every comment read from a forge carries one. */
+export interface ResolvedCommentRef extends CommentRef {
+  thread: ResolvedThreadRef
+}
 
 /** Whether a thread ref has a number, so that it is a `ResolvedThreadRef`. */
 export function isResolvedThread(thread: ThreadRef): thread is ResolvedThreadRef {
@@ -1863,12 +1879,12 @@ export function notificationThread(notification: Notification): ThreadRef | unde
 }
 
 /** Stable identity key for a comment: the {@link threadKey} of its thread and the comment's forge-native id. */
-export function commentKey(ref: CommentRef & { thread: ResolvedThreadRef }): string {
+export function commentKey(ref: ResolvedCommentRef): string {
   return `${threadKey(ref.thread)}#comment/${ref.id}`
 }
 
 /** Reads a {@link commentKey} back. */
-export function parseCommentKey(key: string): (CommentRef & { thread: ResolvedThreadRef }) | undefined {
+export function parseCommentKey(key: string): ResolvedCommentRef | undefined {
   const marker = key.indexOf('#', key.indexOf('#') + 1)
   const thread = marker > 0 && key.startsWith('#comment/', marker) ? parseThreadKey(key.slice(0, marker)) : undefined
   const id = key.slice(marker + '#comment/'.length)

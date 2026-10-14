@@ -513,8 +513,9 @@ function setupGitee({ options, instance, origin: context, fetcher, baseUrl }: Pr
         return toComment(ref, (await fetcher.json<GiteeComment>(`${threadPath(ref)}/comments`, { method: 'POST', json: { body }, signal: options?.signal })).data)
       }),
       editComment: perKind({ issue: 'unverified', pull_request: 'unverified' }, async (ref, body, options) => {
-        const kind = ref.thread.kind === 'pull_request' ? 'pulls' : 'issues'
-        return toComment(ref.thread, (await fetcher.json<GiteeComment>(`${repoPath(ref.thread.repo)}/${kind}/comments/${ref.id}`, { method: 'PATCH', json: { body }, signal: options?.signal })).data)
+        const thread = requireThread(ref.thread, context)
+        const kind = thread.kind === 'pull_request' ? 'pulls' : 'issues'
+        return toComment(thread, (await fetcher.json<GiteeComment>(`${repoPath(thread.repo)}/${kind}/comments/${ref.id}`, { method: 'PATCH', json: { body }, signal: options?.signal })).data)
       }),
       deleteComment: perKind({ issue: 'unverified', pull_request: 'unverified' }, async (ref, options) => {
         const kind = ref.thread.kind === 'pull_request' ? 'pulls' : 'issues'

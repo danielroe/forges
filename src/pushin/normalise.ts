@@ -1,4 +1,4 @@
-import type { Actor, Collaborator, Comment, ForgeOrigin, Label, Notification, NotificationReason, Repo, RepoPermissions, RepoRef, RepoRole, ResolvedThreadRef, Thread, ThreadRef } from '../model.ts'
+import type { Actor, Collaborator, Comment, ForgeOrigin, Label, Notification, NotificationReason, Repo, RepoPermissions, RepoRef, RepoRole, ResolvedThreadRef, Thread } from '../model.ts'
 import type { PushinCollaborator, PushinComment, PushinLabel, PushinNotification, PushinRepository, PushinThread, PushinUser } from './types.ts'
 import { toDate } from '../utils.ts'
 
@@ -102,7 +102,7 @@ export function toCollaborator(origin: ForgeOrigin, raw: PushinCollaborator): Co
   }
 }
 
-export function toComment(thread: ThreadRef, raw: PushinComment): Comment {
+export function toComment(thread: ResolvedThreadRef, raw: PushinComment): Comment {
   return {
     ref: { forge: FORGE, instance: thread.instance, thread, id: String(raw.id) },
     body: raw.body,

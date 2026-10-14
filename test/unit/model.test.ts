@@ -1,11 +1,12 @@
-import type { ForgeKind, Notification, NotificationReason, NotificationRef, RepoRef, ResolvedThreadRef, ThreadRef } from '../../src/model.ts'
+import type { ForgeEvent, ForgeKind, Notification, NotificationReason, NotificationRef, NotificationSubject, RepoRef, ResolvedThreadRef, ThreadRef } from '../../src/model.ts'
 import type { ForgeProvider, Forges } from '../../src/provider.ts'
 import { describe, expect, expectTypeOf, it } from 'vitest'
+import { fake } from '../../src/fake/index.ts'
 import { forgejo } from '../../src/forgejo/index.ts'
 import { github } from '../../src/github/index.ts'
 import * as root from '../../src/index.ts'
 import * as kit from '../../src/kit.ts'
-import { commentMarker, notificationKey, repoKey, repoRef, threadKey } from '../../src/model.ts'
+import { commentKey, commentMarker, notificationKey, repoKey, repoRef, threadKey } from '../../src/model.ts'
 import { createForges } from '../../src/provider.ts'
 import { pushin } from '../../src/pushin/index.ts'
 import { summariseChecks } from '../../src/utils.ts'
@@ -40,6 +41,26 @@ describe('identity keys', () => {
 
   it('only accepts resolved refs when keying', () => {
     expectTypeOf(threadKey).parameter(0).toEqualTypeOf<ResolvedThreadRef>()
+  })
+
+  it('keys what a provider reads by the refs it returns, but not the thread of an event', async () => {
+    const provider = fake({ seed: { threads: [{ repo: 'acme/widgets', kind: 'pull_request', title: 'Fix crash' }] } }).create()
+    const [listed] = (await provider.threads.listPage({ forge: 'fake', instance: 'fake.test', owner: 'acme', name: 'widgets' })).items
+    const ref: ThreadRef = listed!.ref
+    const thread = await provider.threads.get(ref)
+    const comment = await provider.threads.comment(ref, 'Thanks!')
+    const { comment: upserted } = await provider.threads.upsertComment(ref, { key: 'status', body: 'Green' })
+    const review = await provider.threads.createReview(ref, { event: 'approve' })
+    const [event] = (await provider.threads.eventsPage(ref)).items
+
+    expect(threadKey(thread.ref)).toBe(threadKey(listed!.ref))
+    expect(commentKey(comment.ref)).toBe(`${threadKey(thread.ref)}#comment/${comment.ref.id}`)
+    expect(commentKey(upserted.ref)).toBe(`${threadKey(thread.ref)}#comment/${upserted.ref.id}`)
+    expect(threadKey(review.ref.thread)).toBe(threadKey(thread.ref))
+    // @ts-expect-error an event can name a thread without its number
+    expect(threadKey(event!.thread!)).toBe(threadKey(thread.ref))
+    expectTypeOf<ForgeEvent['thread']>().not.toExtend<ResolvedThreadRef | undefined>()
+    expectTypeOf<NotificationSubject>().extract<{ type: 'thread' }>().toHaveProperty('thread').toEqualTypeOf<ThreadRef>()
   })
 
   it('keys on externalId when the provider set one, so renames keep the key', () => {

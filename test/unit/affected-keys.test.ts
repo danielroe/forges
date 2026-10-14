@@ -1,4 +1,4 @@
-import type { CommentRef, EventDetail, ForgeEvent, Notification, NotificationSubject, ReleaseRef, RepoRef, ResolvedThreadRef, ThreadRef } from '../../src/index.ts'
+import type { EventDetail, ForgeEvent, Notification, NotificationSubject, ReleaseRef, RepoRef, ResolvedCommentRef, ResolvedThreadRef, ThreadRef } from '../../src/index.ts'
 import type { ForgeEventInput } from '../../src/model.ts'
 import { describe, expect, it } from 'vitest'
 import { toPullComment as toAzurePullComment, toWorkItemComment, toWorkItemEvents } from '../../src/azure-devops/normalise.ts'
@@ -21,7 +21,7 @@ const repo: RepoRef = { ...origin, owner: 'acme', name: 'widgets', externalId: '
 const other: RepoRef = { ...origin, owner: 'acme', name: 'gadgets', externalId: '2' }
 const pull: ResolvedThreadRef = { ...origin, repo, kind: 'pull_request', number: '42' }
 const issue: ResolvedThreadRef = { ...origin, repo: other, kind: 'issue', number: '7' }
-const comment: CommentRef & { thread: ResolvedThreadRef } = { ...origin, thread: pull, id: '900' }
+const comment: ResolvedCommentRef = { ...origin, thread: pull, id: '900' }
 const release: ReleaseRef = { ...origin, repo, id: '31', tag: 'v1.0.0' }
 const pathOf = (owner: string, name: string) => repoKey({ ...origin, owner, name })
 
@@ -48,7 +48,7 @@ describe('comment and release keys', () => {
   it('round-trips comment keys', () => {
     const nested: RepoRef = { forge: 'gitlab', instance: 'git.example.com', owner: 'acme/platform/web', name: 'widgets' }
     const tangledRepo: RepoRef = { forge: 'tangled', instance: 'tangled.org', owner: 'did:plc:abc', name: 'core' }
-    const refs: Array<CommentRef & { thread: ResolvedThreadRef }> = [
+    const refs: ResolvedCommentRef[] = [
       { forge: 'gitlab', instance: 'git.example.com', thread: { forge: 'gitlab', instance: 'git.example.com', repo: nested, kind: 'pull_request', number: '23' }, id: '1201' },
       { forge: 'tangled', instance: 'tangled.org', thread: { forge: 'tangled', instance: 'tangled.org', repo: tangledRepo, kind: 'issue', number: 'at://did:plc:abc/sh.tangled.repo.issue/3k' }, id: 'at://did:plc:xyz/sh.tangled.repo.issue.comment/3m#c' },
       { ...origin, thread: { ...origin, repo: { ...origin, owner: 'acme', name: 'widgets' }, kind: 'other', typeRaw: 'CheckSuite', number: '5' }, id: '6' },
@@ -178,13 +178,14 @@ describe('affectedKeys', () => {
 
 describe('delivered comment keys', () => {
   const delivered = (event: ForgeEventInput | undefined) => affectedKeys(completeEvent(event!)).comments
-  const listed = (ref: CommentRef) => [commentKey(ref as CommentRef & { thread: ResolvedThreadRef })]
+  const listed = (ref: ResolvedCommentRef) => [commentKey(ref)]
+  const threadOf = (event: ForgeEventInput | undefined) => event!.thread as ResolvedThreadRef
 
   it('keys a Bitbucket comment as the comment listing does', () => {
     const body = payloadFixture('bitbucket', 'webhooks/pullrequest-comment-created')
     const [event] = translateBitbucketWebhook('bitbucket.org', { headers: { 'x-event-key': 'pullrequest:comment_created' }, body })
 
-    expect(delivered(event)).toEqual(listed(toBitbucketComment(event!.thread!, JSON.parse(body).comment).ref))
+    expect(delivered(event)).toEqual(listed(toBitbucketComment(threadOf(event), JSON.parse(body).comment).ref))
   })
 
   it.each([['pullrequest:comment_updated', 'edited'], ['pullrequest:comment_deleted', 'deleted']])('reads %s as a comment that was %s', (key, action) => {
@@ -192,21 +193,21 @@ describe('delivered comment keys', () => {
     const [event] = translateBitbucketWebhook('bitbucket.org', { headers: { 'x-event-key': key }, body })
 
     expect(completeEvent(event!)).toMatchObject({ kind: 'comment', action })
-    expect(delivered(event)).toEqual(listed(toBitbucketComment(event!.thread!, JSON.parse(body).comment).ref))
+    expect(delivered(event)).toEqual(listed(toBitbucketComment(threadOf(event), JSON.parse(body).comment).ref))
   })
 
   it('keys a Gitee comment as the comment listing does', () => {
     const body = payloadFixture('gitee', 'webhooks/note-on-pull-request')
     const [event] = translateGiteeWebhook('gitee.com', { headers: { 'x-gitee-event': 'Note Hook' }, body })
 
-    expect(delivered(event)).toEqual(listed(toGiteeComment(event!.thread!, JSON.parse(body).comment).ref))
+    expect(delivered(event)).toEqual(listed(toGiteeComment(threadOf(event), JSON.parse(body).comment).ref))
   })
 
   it('keys a Cursor Origin comment as the comment listing does', () => {
     const body = payloadFixture('cursor-origin', 'webhooks/pull-request-comment-created')
     const [event] = translateOriginWebhook('origin.cursor.com', { headers: {}, body })
 
-    expect(delivered(event)).toEqual(listed(toOriginComment(event!.thread!, JSON.parse(body).event.payload.comment).ref))
+    expect(delivered(event)).toEqual(listed(toOriginComment(threadOf(event), JSON.parse(body).event.payload.comment).ref))
   })
 
   it('keys an Azure DevOps comment as the comment listing does, where the delivery links its thread', () => {
@@ -216,7 +217,7 @@ describe('delivered comment keys', () => {
     const [event] = translateAzureWebhook('dev.azure.com', 'acme', { headers: {}, body: JSON.stringify(linked) })
     const [unlinked] = translateAzureWebhook('dev.azure.com', 'acme', { headers: {}, body: JSON.stringify(payload) })
 
-    expect(delivered(event)).toEqual(listed(toAzurePullComment(event!.thread!, { id: 5, comments: [] }, linked.resource.comment).ref))
+    expect(delivered(event)).toEqual(listed(toAzurePullComment(threadOf(event), { id: 5, comments: [] }, linked.resource.comment).ref))
     expect(delivered(unlinked)).toEqual([])
   })
 
@@ -231,6 +232,6 @@ describe('delivered comment keys', () => {
     const comment = { id: 7001, node_id: 'DC_kwDOAAABCDE', body: 'Same here', created_at: '2026-09-20T09:00:00Z' }
     const [event] = translateGitHubWebhook('github.com', { headers: { 'x-github-event': 'discussion_comment', 'x-github-delivery': 'id' }, body: JSON.stringify({ action: 'created', repository: { id: 1, name: 'widgets', full_name: 'acme/widgets', owner: { login: 'acme', id: 2 } }, discussion: { number: 6 }, comment }) })
 
-    expect(delivered(event)).toEqual(listed(toDiscussionComment(event!.thread!, { id: comment.node_id }).ref))
+    expect(delivered(event)).toEqual(listed(toDiscussionComment(threadOf(event), { id: comment.node_id }).ref))
   })
 })

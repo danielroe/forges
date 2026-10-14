@@ -266,7 +266,7 @@ function commentDetail(thread: ThreadRef, comment: BitbucketComment): EventDetai
     : { type: 'comment', comment: ref, body }
 }
 
-export function toComment(thread: ThreadRef, raw: BitbucketComment): Comment {
+export function toComment(thread: ResolvedThreadRef, raw: BitbucketComment): Comment {
   return {
     ref: { forge: FORGE, instance: thread.instance, thread, id: String(raw.id) },
     body: raw.content?.raw ?? '',

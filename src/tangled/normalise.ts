@@ -1,4 +1,4 @@
-import type { Actor, Comment, EventAction, EventDetail, EventKind, ForgeEventInput, ForgeWarning, Label, NotificationReason, ReactionContent, RepoRef, ResolvedThreadRef, SourceKind, Thread, ThreadKind, ThreadRef, ThreadState } from '../model.ts'
+import type { Actor, Comment, EventAction, EventDetail, EventKind, ForgeEventInput, ForgeWarning, Label, NotificationReason, ReactionContent, RepoRef, ResolvedThreadRef, SourceKind, Thread, ThreadKind, ThreadState } from '../model.ts'
 import type { AtUri, Identity } from './atproto.ts'
 import type {
   FeedCommentRecord,
@@ -296,7 +296,7 @@ function commentBody(record: FeedCommentRecord | LegacyCommentRecord): string {
   return typeof record.body === 'string' ? record.body : record.body.original ?? record.body.text ?? ''
 }
 
-export function toRecordComment(thread: ThreadRef, uri: string, record: FeedCommentRecord | LegacyCommentRecord, author: Actor): Comment {
+export function toRecordComment(thread: ResolvedThreadRef, uri: string, record: FeedCommentRecord | LegacyCommentRecord, author: Actor): Comment {
   return {
     ref: { forge: FORGE, instance: thread.instance, thread, id: uri },
     body: commentBody(record),

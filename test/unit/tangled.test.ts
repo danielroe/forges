@@ -276,6 +276,36 @@ describe('tangled writes', () => {
     })
   })
 
+  describe('editing a comment whose ref has no thread number', () => {
+    const uri = `at://${OWNER}/sh.tangled.feed.comment/3mwqowncomment`
+    const unnumbered = { forge: 'tangled', instance: 'tangled.org', thread: { ...pull, number: undefined }, id: uri } as const
+    const edit = (subject: string) => provider({
+      [`GET ${PDS}/xrpc/com.atproto.repo.getRecord?repo=${OWNER}&collection=sh.tangled.feed.comment&rkey=3mwqowncomment`]: { status: 200, body: { uri, cid: 'bafyreiowncomment', value: {
+        $type: 'sh.tangled.feed.comment',
+        body: { $type: 'sh.tangled.markup.markdown', text: 'Before' },
+        subject: { uri: subject, cid: 'bafyreisubject' },
+        createdAt: '2025-09-16T09:00:00Z',
+      } } },
+      [`POST ${PDS}/xrpc/com.atproto.repo.putRecord`]: { status: 200, body: { uri, cid: 'bafyreiedited' } },
+    })
+
+    it('takes the thread from the comment record', async () => {
+      const { instance, calls } = edit(PULL)
+      const comment = await instance.threads.editComment(unnumbered, 'After')
+
+      expect(comment.ref.thread).toMatchObject({ kind: 'pull_request', number: PULL })
+      expect(comment.body).toBe('After')
+      expect(calls.filter(call => call.url.endsWith('putRecord'))).toHaveLength(1)
+    })
+
+    it('rejects before it writes when the record names no thread', async () => {
+      const { instance, calls } = edit(`at://${OWNER}/sh.tangled.repo/widgets`)
+
+      await expect(instance.threads.editComment(unnumbered, 'After')).rejects.toThrow(UnresolvedThreadError)
+      expect(calls.filter(call => call.url.endsWith('putRecord'))).toEqual([])
+    })
+  })
+
   it('signs in at the PDS a handle resolves to', async () => {
     const { fetch, calls } = fixtureFetch('tangled', {
       'GET https://public.api.bsky.app/xrpc/com.atproto.identity.resolveHandle?handle=acme.example.com': { status: 200, body: { did: OWNER } },

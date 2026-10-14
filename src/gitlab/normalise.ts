@@ -32,7 +32,6 @@ import type {
   Team,
   Thread,
   ThreadKind,
-  ThreadRef,
   ThreadState,
   TreeEntry,
   Webhook,
@@ -474,7 +473,7 @@ function commitCommentId(comment: GitLabCommitComment): string {
   return `${comment.created_at ?? ''}:${comment.author?.id ?? ''}`
 }
 
-export function toNoteComment(thread: ThreadRef, note: GitLabNoteDetail, discussion?: GitLabDiscussion): Comment {
+export function toNoteComment(thread: ResolvedThreadRef, note: GitLabNoteDetail, discussion?: GitLabDiscussion): Comment {
   return {
     ref: { forge: FORGE, instance: thread.instance, thread, id: String(note.id) },
     body: note.body,
@@ -486,7 +485,7 @@ export function toNoteComment(thread: ThreadRef, note: GitLabNoteDetail, discuss
   }
 }
 
-export function toCommitComment(thread: ThreadRef, comment: GitLabCommitComment): Comment {
+export function toCommitComment(thread: ResolvedThreadRef, comment: GitLabCommitComment): Comment {
   return {
     ref: { forge: FORGE, instance: thread.instance, thread, id: commitCommentId(comment) },
     body: comment.note,

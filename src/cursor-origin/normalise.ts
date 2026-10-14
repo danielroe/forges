@@ -94,7 +94,7 @@ export function isConversationComment(raw: OriginComment): boolean {
   return !raw.thread?.path
 }
 
-export function toComment(thread: ThreadRef, raw: OriginComment): Comment {
+export function toComment(thread: ResolvedThreadRef, raw: OriginComment): Comment {
   return {
     ref: { forge: FORGE, instance: thread.instance, thread, id: raw.id },
     body: raw.body,
@@ -171,7 +171,7 @@ export function toCheck(repo: RepoRef, raw: OriginCheckRun): Check {
   }
 }
 
-export function toReview(thread: ThreadRef, raw: OriginReview): Review {
+export function toReview(thread: ResolvedThreadRef, raw: OriginReview): Review {
   return {
     ref: { forge: FORGE, instance: thread.instance, thread, id: raw.id },
     author: toActor(thread.instance, raw.author),

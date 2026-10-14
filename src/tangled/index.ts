@@ -13,6 +13,7 @@ import type {
   PageOptions,
   Repo,
   RepoRef,
+  ResolvedThreadRef,
   ThreadCreateInput,
   ThreadKind,
   ThreadRef,
@@ -22,14 +23,15 @@ import type { AnonymousAuth, ForgeOptionsBase, ReposApi, ThreadsApi } from '../p
 import type { TangledContents } from './knot.ts'
 import type { TangledLabels } from './records.ts'
 import type { WebSocketFactory, WebSocketLike } from './subscribe.ts'
-import type { FeedCommentRecord, IssueRecord, LabelDefinitionRecord, ProfileRecord, PullRecord, ReactionRecord, RepoRecord } from './types.ts'
+import type { FeedCommentRecord, IssueRecord, LabelDefinitionRecord, LegacyCommentRecord, ProfileRecord, PullRecord, ReactionRecord, RepoRecord } from './types.ts'
 import { defineForgeProvider, perKind, verb } from '../define.ts'
 import {
   InsufficientScopeError,
   NotFoundError,
   UnsupportedOperationError,
 } from '../errors.ts'
-import { degradesToWarning, forgeIterable, getManyConcurrently } from '../utils.ts'
+import { isResolvedThread } from '../model.ts'
+import { degradesToWarning, forgeIterable, getManyConcurrently, requireThread } from '../utils.ts'
 import { atUri, createAtprotoClient, parseAtUri } from './atproto.ts'
 import { accountFeedPage } from './feed.ts'
 import {
@@ -208,12 +210,20 @@ const TANGLED: ProviderDefinition<TangledOptions, undefined, true> = {
       const created = await createRecord(COLLECTIONS.comment, { ...record }, options?.signal)
       return toRecordComment(ref, created.uri, record, await actorFor(await viewerDid(), options?.signal))
     }
+    const commentSubject = (repo: RepoRef, record: FeedCommentRecord & LegacyCommentRecord): ResolvedThreadRef | undefined => {
+      const uri = parseAtUri(record.subject?.uri ?? record.issue ?? record.pull ?? '')
+      return uri && THREAD_COLLECTIONS.includes(uri.collection) ? toThreadRef(instance, repo, uri) : undefined
+    }
     const editComment: ThreadsApi['editComment'] = async (ref, body, options) => {
-      const record = await putOwnRecord(ref.id, current => ({
-        ...current,
-        body: typeof (current as FeedCommentRecord).body === 'string' ? body : { $type: 'sh.tangled.markup.markdown', text: body, original: body },
-      }), options?.signal)
-      return toRecordComment(ref.thread, ref.id, record as FeedCommentRecord, await actorFor(await viewerDid(), options?.signal))
+      let thread: ResolvedThreadRef | undefined
+      const record = await putOwnRecord(ref.id, (current) => {
+        thread = isResolvedThread(ref.thread) ? ref.thread : commentSubject(ref.thread.repo, current as FeedCommentRecord & LegacyCommentRecord) ?? requireThread(ref.thread, context)
+        return {
+          ...current,
+          body: typeof (current as FeedCommentRecord).body === 'string' ? body : { $type: 'sh.tangled.markup.markdown', text: body, original: body },
+        }
+      }, options?.signal)
+      return toRecordComment(thread!, ref.id, record as FeedCommentRecord, await actorFor(await viewerDid(), options?.signal))
     }
     const deleteComment: ThreadsApi['deleteComment'] = (ref, options) => deleteOwnRecord(ref.id, options?.signal)
     const didOf = async (actor: string | Actor, signal?: AbortSignal) => {

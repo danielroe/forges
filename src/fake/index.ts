@@ -32,6 +32,7 @@ import type {
   ReleaseRef,
   Repo,
   RepoRef,
+  ResolvedThreadRef,
   Review,
   ReviewComment,
   ReviewEvent,
@@ -55,7 +56,7 @@ import { BranchMovedError, ForbiddenError, ForgeApiError, ForgeNetworkError, For
 import { completeEvent } from '../events.ts'
 import { sleep } from '../fetch.ts'
 import { capabilityOf } from '../supports.ts'
-import { getManyConcurrently } from '../utils.ts'
+import { getManyConcurrently, requireThread } from '../utils.ts'
 import { verifyHmacSignature } from '../webhooks.ts'
 
 /** A repository to seed, as `owner/name` plus whatever the test cares about. */
@@ -610,7 +611,8 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
   }
 
   function threadState(ref: ThreadRef): FakeThreadState {
-    const state = repoState(ref.repo).threads.get(String(ref.number))
+    const { number } = requireThread(ref, origin)
+    const state = repoState(ref.repo).threads.get(number)
     if (!state || state.thread.kind !== ref.kind) {
       throw notFound(`No ${ref.kind} ${slugOf(ref.repo)}#${ref.number}`)
     }
@@ -620,7 +622,7 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
   function addThread(seed: FakeThreadSeed): Thread {
     const repo = store.repos.get(seed.repo) ?? (addRepo({ repo: seed.repo }), store.repos.get(seed.repo)!)
     const number = String(seed.number ?? repo.threads.size + 1)
-    const ref: ThreadRef = { ...origin, repo: repo.repo.ref, kind: seed.kind, number }
+    const ref: ResolvedThreadRef = { ...origin, repo: repo.repo.ref, kind: seed.kind, number }
     const at = now()
     const thread: Thread = {
       ref,

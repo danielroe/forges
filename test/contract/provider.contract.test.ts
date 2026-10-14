@@ -11,6 +11,7 @@ import {
   RateLimitedError,
   SubscriptionClosedError,
   TokenRevokedError,
+  UnresolvedThreadError,
   UnsupportedOperationError,
   WebhookVerificationError,
 } from '../../src/errors.ts'
@@ -171,6 +172,22 @@ describe.each(contracts)('contract: $name', (contract) => {
     expect(results).toHaveLength(2)
     expect(results[0]!.ok && results[0]!.thread.title).toBe(contract.thread.title)
     expect(results[1]!.ok === false && results[1]!.warning.code).toBe('thread_unresolved')
+  })
+
+  it('rejects a comment ref whose thread has no number before it sends a request', async () => {
+    const { instance, calls } = provider()
+    const ref = { forge: contract.name, instance: contract.instance, thread: { ...threadRef(), number: undefined }, id: '1' }
+    const reads = {
+      'threads.getComment': () => instance.threads.getComment(ref),
+      ...contract.editsCommentWithoutThreadNumber ? {} : { 'threads.editComment': () => instance.threads.editComment(ref, 'Edited') },
+    }
+    const supported = Object.entries(reads).filter(([verb]) => instance.can(verb as ForgeVerb, 'pull_request'))
+
+    expect(supported.length).toBeGreaterThan(0)
+    for (const [verb, read] of supported) {
+      await expect(read(), verb).rejects.toThrow(UnresolvedThreadError)
+    }
+    expect(calls).toEqual([])
   })
 
   it('gives threads assignees, reviewers, draft status and pull branches', async () => {

@@ -297,12 +297,18 @@ function setupOrigin({ options, baseUrl, instance, origin: context, fetcher, cre
         return { ...page, items: page.items.map(raw => toCommit(thread.repo, raw)) }
       }),
       commentsPage: perKind(PULL, commentsPage),
-      getComment: perKind(UNVERIFIED, async (ref, options) => toComment(ref.thread, (await fetcher.json<OriginComment>(`${repoPath(ref.thread.repo)}/pulls/comments/${encodeURIComponent(ref.id)}`, { signal: options?.signal })).data)),
+      getComment: perKind(UNVERIFIED, async (ref, options) => {
+        const thread = requireThread(ref.thread, context)
+        return toComment(thread, (await fetcher.json<OriginComment>(`${repoPath(thread.repo)}/pulls/comments/${encodeURIComponent(ref.id)}`, { signal: options?.signal })).data)
+      }),
       comment: perKind(PULL, async (thread, body, options) => {
         const ref = requireThread(thread, context)
         return toComment(ref, (await fetcher.json<OriginComment>(`${pullPath(ref)}/comments`, { method: 'POST', json: { body }, signal: options?.signal })).data)
       }),
-      editComment: perKind(UNVERIFIED, async (ref, body, options) => toComment(ref.thread, (await fetcher.json<OriginComment>(`${repoPath(ref.thread.repo)}/pulls/comments/${encodeURIComponent(ref.id)}`, { method: 'PATCH', json: { body }, signal: options?.signal })).data)),
+      editComment: perKind(UNVERIFIED, async (ref, body, options) => {
+        const thread = requireThread(ref.thread, context)
+        return toComment(thread, (await fetcher.json<OriginComment>(`${repoPath(thread.repo)}/pulls/comments/${encodeURIComponent(ref.id)}`, { method: 'PATCH', json: { body }, signal: options?.signal })).data)
+      }),
       deleteComment: perKind(UNVERIFIED, async (ref, options) => {
         await fetcher.raw(`${repoPath(ref.thread.repo)}/pulls/comments/${encodeURIComponent(ref.id)}`, { method: 'DELETE', signal: options?.signal })
       }),

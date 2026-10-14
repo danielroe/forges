@@ -64,6 +64,7 @@ import type {
   RepoRef,
   RepoRole,
   RepoSearchQuery,
+  ResolvedThreadRef,
   Review,
   ReviewComment,
   ReviewEvent,
@@ -635,7 +636,7 @@ export interface ThreadsApi {
   /** Removes the account's reaction from the thread or comment. */
   unreact: (target: ThreadRef | CommentRef, reaction: ReactionContent, options?: BaseOptions) => Promise<void>
   /** Moves the thread to another repository, and returns its ref there. A repeat can reject once the thread has moved. */
-  transfer: (ref: ThreadRef, repo: RepoRef, options?: BaseOptions) => Promise<ThreadRef>
+  transfer: (ref: ThreadRef, repo: RepoRef, options?: BaseOptions) => Promise<ResolvedThreadRef>
   /** Marks the thread a duplicate of `canonical`, which must be in the same repository on most forges. */
   markDuplicate: (ref: ThreadRef, canonical: ThreadRef, options?: BaseOptions) => Promise<void>
   /** Replaces the thread's assignees. */
