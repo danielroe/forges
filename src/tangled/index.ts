@@ -426,12 +426,10 @@ const TANGLED: ProviderDefinition<TangledOptions, undefined, true> = {
       const current = labelled(labels)
       return operandsFor(labels, names).filter(item => !has(current, item)).map(item => ({ ...item, add: true }))
     })).labels
-    const removeLabels: ThreadsApi['removeLabels'] = async (thread, names, options) => {
-      await changeLabels(thread, options?.signal, (labels) => {
-        const current = labelled(labels)
-        return current.filter(item => names.includes(toLabel(labels.definitions.find(({ uri }) => uri === item.key)!.definition, item.value).name)).map(item => ({ ...item, add: false }))
-      })
-    }
+    const removeLabels: ThreadsApi['removeLabels'] = async (thread, names, options) => (await changeLabels(thread, options?.signal, (labels) => {
+      const current = labelled(labels)
+      return current.filter(item => names.includes(toLabel(labels.definitions.find(({ uri }) => uri === item.key)!.definition, item.value).name)).map(item => ({ ...item, add: false }))
+    })).labels
     const setAssignees: ThreadsApi['setAssignees'] = async (thread, assignees, options) => {
       const dids = await Promise.all(assignees.map(assignee => didOf(assignee, options?.signal)))
       const changed = await changeLabels(thread, options?.signal, labels => assigneeChanges(labels, dids))

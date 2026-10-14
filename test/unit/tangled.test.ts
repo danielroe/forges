@@ -749,6 +749,7 @@ describe('tangled thread updates', () => {
   it.each([
     ['setLabels', ['bug', 'priority:high'], [{ name: 'bug', colour: 'EF4444' }, { name: 'priority:high', colour: 'F59E0B' }]],
     ['addLabels', ['bug'], [{ name: 'priority:low', colour: 'F59E0B' }, { name: 'bug', colour: 'EF4444' }]],
+    ['removeLabels', ['priority:low'], []],
   ] as const)('resolves %s with the labels its op leaves, reading the label ops once', async (verb, names, expected) => {
     const { instance, calls } = provider(labelled)
 

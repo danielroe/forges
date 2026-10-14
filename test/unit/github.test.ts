@@ -607,10 +607,21 @@ describe('github repository and thread metadata', () => {
     const { provider } = tokenProvider({
       'DELETE https://api.github.com/repos/acme/widgets/issues/42/labels/bug': { status: 404, body: { message: 'Label does not exist', documentation_url: 'https://docs.github.com/rest/issues/labels#remove-a-label-from-an-issue' } },
       'DELETE https://api.github.com/repos/acme/widgets/issues/43/labels/bug': { status: 404, body: { message: 'Not Found' } },
+      'GET https://api.github.com/repos/acme/widgets/issues/42/labels?per_page=100': { status: 200, body: [{ name: 'triage', color: 'ededed' }] },
     })
 
-    await expect(provider.threads.removeLabels(pull, ['bug'])).resolves.toBeUndefined()
+    await expect(provider.threads.removeLabels(pull, ['bug'])).resolves.toEqual([{ name: 'triage', colour: 'ededed' }])
     await expect(provider.threads.removeLabels({ ...pull, number: '43' }, ['bug'])).rejects.toThrow(NotFoundError)
+  })
+
+  it('resolves removeLabels with the labels in the last delete response', async () => {
+    const { provider, calls } = tokenProvider({
+      'DELETE https://api.github.com/repos/acme/widgets/issues/42/labels/bug': { status: 200, body: [{ name: 'triage', color: 'ededed' }, { name: 'ui', color: '0e8a16' }] },
+      'DELETE https://api.github.com/repos/acme/widgets/issues/42/labels/ui': { status: 200, body: [{ name: 'triage', color: 'ededed' }] },
+    })
+
+    await expect(provider.threads.removeLabels(pull, ['bug', 'ui'])).resolves.toEqual([{ name: 'triage', colour: 'ededed' }])
+    expect(calls.map(call => call.method)).toEqual(['DELETE', 'DELETE'])
   })
 
   it.each(['setLabels', 'addLabels'] as const)('resolves %s with the labels in the response', async (verb) => {

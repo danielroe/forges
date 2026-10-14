@@ -2021,9 +2021,11 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
       }),
       removeLabels: perKind({ issue: true, pull_request: true }, async (thread, labels, options) => {
         const ref = requireIssueOrPull(thread, context, 'label')
+        const path = `${repoPath(ref.repo)}/issues/${encodeURIComponent(ref.number)}/labels`
+        let remaining: GitHubIssue['labels'] | undefined
         for (const label of labels) {
           try {
-            await fetcher.raw(`${repoPath(ref.repo)}/issues/${encodeURIComponent(ref.number)}/labels/${encodeURIComponent(label)}`, { method: 'DELETE', signal: options?.signal })
+            remaining = (await fetcher.json<GitHubIssue['labels']>(`${path}/${encodeURIComponent(label)}`, { method: 'DELETE', signal: options?.signal })).data
           }
           catch (error) {
             if (!(error instanceof NotFoundError && error.body.includes('Label does not exist'))) {
@@ -2031,6 +2033,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
             }
           }
         }
+        return toLabels(remaining ?? (await fetcher.json<GitHubIssue['labels']>(path, { query: { per_page: 100 }, signal: options?.signal })).data)
       }),
       setMilestone: perKind({ issue: true, pull_request: true }, async (thread, milestone, options) => toMilestone((await issuePatch(
         thread,

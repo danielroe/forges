@@ -158,6 +158,7 @@ describe('gitlab provider', () => {
   it.each([
     ['setLabels', { labels: 'bug' }],
     ['addLabels', { add_labels: 'bug' }],
+    ['removeLabels', { remove_labels: 'bug' }],
   ] as const)('resolves %s with the labels of the merge request in the response', async (verb, body) => {
     const { instance, calls } = provider({ [`PUT ${P}/merge_requests/23`]: { status: 200, body: { iid: 23, state: 'opened', labels: ['bug', 'triage'] } } })
 

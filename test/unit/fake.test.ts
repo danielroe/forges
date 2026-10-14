@@ -627,6 +627,16 @@ describe('fake write results', () => {
     expect(result).toEqual((await forge.threads.get(issue)).labels)
   })
 
+  it('resolves removeLabels with the labels that a following read returns', async () => {
+    const forge = fake({ seed }).create()
+    await forge.threads.setLabels(issue, ['bug', 'triage'])
+
+    const result = await forge.threads.removeLabels(issue, ['bug'])
+
+    expect(result.map(label => label.name)).toEqual(['triage'])
+    expect(result).toEqual((await forge.threads.get(issue)).labels)
+  })
+
   it('resolves close and reopen with the thread that a following read returns', async () => {
     const forge = fake({ seed }).create()
 

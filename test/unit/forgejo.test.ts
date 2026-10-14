@@ -294,6 +294,12 @@ describe('forgejo label names', () => {
       if (url === 'https://codeberg.org/api/v1/orgs/acme/labels?limit=50') {
         return Response.json([{ id: 9, name: 'triage', color: '00ff00' }])
       }
+      if (init?.method === 'DELETE') {
+        return new Response(null, { status: 204 })
+      }
+      if (!init?.method && url === 'https://codeberg.org/api/v1/repos/acme/widgets/issues/7/labels') {
+        return Response.json([{ id: 9, name: 'triage', color: '00ff00', description: 'Needs a look' }])
+      }
       return init?.method === 'POST' ? Response.json([{ id: 1, name: 'bug', color: 'ff0000', description: '' }, { id: 9, name: 'triage', color: '00ff00', description: 'Needs a look' }]) : Response.json({ message: 'not found' }, { status: 404 })
     }
     const thread = { forge: 'forgejo', instance: 'codeberg.org', repo: { forge: 'forgejo', instance: 'codeberg.org', owner, name: 'widgets' }, kind: 'issue', number: '7' } as const
@@ -306,6 +312,16 @@ describe('forgejo label names', () => {
     await expect(provider.threads.addLabels!(thread, ['bug', 'triage'])).resolves.toEqual([{ name: 'bug', colour: 'ff0000' }, { name: 'triage', colour: '00ff00', description: 'Needs a look' }])
 
     expect(calls.at(-1)).toMatchObject({ method: 'POST', body: '{"labels":[1,9]}' })
+  })
+
+  it('reads the labels after removing some, as the delete response has no body', async () => {
+    const { provider, thread, calls } = serve('acme')
+
+    await expect(provider.threads.removeLabels!(thread, ['bug'])).resolves.toEqual([{ name: 'triage', colour: '00ff00', description: 'Needs a look' }])
+    expect(calls.filter(call => call.url.includes('/issues/7/')).map(({ method, url }) => [method, url])).toEqual([
+      ['DELETE', 'https://codeberg.org/api/v1/repos/acme/widgets/issues/7/labels/1'],
+      ['GET', 'https://codeberg.org/api/v1/repos/acme/widgets/issues/7/labels'],
+    ])
   })
 
   it('names a label neither the repository nor its owner has', async () => {

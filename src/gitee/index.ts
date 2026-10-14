@@ -566,6 +566,8 @@ function setupGitee({ options, instance, origin: context, fetcher, baseUrl }: Pr
         for (const label of labels) {
           await fetcher.raw(`${threadPath(ref)}/labels/${encodeURIComponent(label)}`, { method: 'DELETE', signal: options?.signal })
         }
+        const { data } = await fetcher.json<GiteeLabel[]>(`${threadPath(ref)}/labels`, { signal: options?.signal })
+        return data.map(toLabel)
       }),
       setLabels: perKind({ issue: 'unverified', pull_request: 'unverified' }, async (thread, labels, options) => {
         const { data } = await fetcher.json<GiteeLabel[]>(`${threadPath(requireIssueOrPull(thread, context, 'label'))}/labels`, { method: 'PUT', json: labels, signal: options?.signal })

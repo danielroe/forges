@@ -948,11 +948,13 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
         const ref = requireIssueOrPull(thread, context, 'label')
         return (await fetcher.json<ForgejoLabel[]>(`${issuePath(ref)}/labels`, { method: 'POST', json: { labels: await resolveLabels(ref.repo, labels) }, signal: options?.signal })).data.map(toLabel)
       }),
+      /** The delete response has no body, so the labels are read afterwards. */
       removeLabels: perKind({ issue: true, pull_request: true }, async (thread, labels, options) => {
         const ref = requireIssueOrPull(thread, context, 'label')
         for (const id of await resolveLabels(ref.repo, labels)) {
           await fetcher.raw(`${issuePath(ref)}/labels/${id}`, { method: 'DELETE', signal: options?.signal })
         }
+        return (await fetcher.json<ForgejoLabel[]>(`${issuePath(ref)}/labels`, { signal: options?.signal })).data.map(toLabel)
       }),
       setMilestone: perKind({ issue: true, pull_request: true }, async (thread, milestone, options) => {
         const ref = requireIssueOrPull(thread, context, 'set the milestone of')

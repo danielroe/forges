@@ -1264,6 +1264,7 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
             thread.labels = thread.labels.filter(item => item.name !== name)
             record(ref, 'label', 'unlabelled', `removed label ${name}`, { type: 'label', label: name })
           }
+          return thread.labels
         }),
         setLabels: perKind(kinds('threads.setLabels', WRITABLE), async (ref, labels) => setLabels(ref, labels)),
         setAssignees: perKind(kinds('threads.setAssignees', WRITABLE), async (ref, assignees) => setAssignees(ref, assignees)),

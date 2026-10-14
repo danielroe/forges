@@ -255,6 +255,16 @@ describe('gitee labels', () => {
     await expect(gitee({ auth: { type: 'token', token: 't' }, fetch }).create().threads[verb](pull, ['bug'])).resolves.toEqual([{ name: 'bug', colour: 'd73a4a' }, { name: 'triage' }])
     expect(calls).toHaveLength(1)
   })
+
+  it('reads the labels after removing some, as the delete response has no body', async () => {
+    const { fetch, calls } = fixtureFetch('gitee', {
+      'DELETE https://gitee.com/api/v5/repos/acme/widgets/pulls/7/labels/bug': { status: 204 },
+      'GET https://gitee.com/api/v5/repos/acme/widgets/pulls/7/labels': { status: 200, body: [{ id: 2, name: 'triage', color: 'ededed' }] },
+    })
+
+    await expect(gitee({ auth: { type: 'token', token: 't' }, fetch }).create().threads.removeLabels(pull, ['bug'])).resolves.toEqual([{ name: 'triage', colour: 'ededed' }])
+    expect(calls.map(call => call.method)).toEqual(['DELETE', 'GET'])
+  })
 })
 
 describe('gitee state changes', () => {

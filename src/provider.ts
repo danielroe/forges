@@ -626,8 +626,11 @@ export interface ThreadsApi {
    * @returns The labels the thread carries afterwards. GitLab reports only their names.
    */
   addLabels: (ref: ThreadRef, labels: string[], options?: BaseOptions) => Promise<Label[]>
-  /** Removes labels, leaving the rest in place. Labels the thread does not carry are ignored. */
-  removeLabels: (ref: ThreadRef, labels: string[], options?: BaseOptions) => Promise<void>
+  /**
+   * Removes labels, leaving the rest in place. Labels the thread does not carry are ignored.
+   * @returns The labels the thread carries afterwards. GitLab reports only their names. Forgejo, Gitea and Gitee read the labels after removing them, and GitHub reads them when it removes none.
+   */
+  removeLabels: (ref: ThreadRef, labels: string[], options?: BaseOptions) => Promise<Label[]>
   /**
    * Sets the thread's milestone, by milestone, id or title, or clears it with `undefined`.
    * @returns The milestone the thread is in afterwards, or `undefined` once it is cleared.

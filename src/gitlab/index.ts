@@ -1139,7 +1139,7 @@ const GITLAB: ProviderDefinition<GitLabOptions, undefined, true> = {
         }),
         removeLabels: perKind({ issue: true, pull_request: true }, async (thread, labels, options) => {
           const ref = requireIssueOrPull(thread, context, 'label')
-          await fetcher.raw(threadPath(ref), { method: 'PUT', json: { remove_labels: labels.join(',') }, signal: options?.signal })
+          return toThread(ref, (await fetcher.json<GitLabIssue>(threadPath(ref), { method: 'PUT', json: { remove_labels: labels.join(',') }, signal: options?.signal })).data).labels
         }),
         setMilestone: perKind({ issue: true, pull_request: true }, async (thread, milestone, options) => {
           const ref = requireIssueOrPull(thread, context, 'set the milestone of')
