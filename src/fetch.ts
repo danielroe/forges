@@ -1,6 +1,6 @@
 import type { ForgeErrorContext } from './errors.ts'
 import type { BaseOptions, Cursor, RateLimit } from './model.ts'
-import { AuthenticationRequiredError, ForbiddenError, forbiddenReason, ForgeApiError, ForgeNetworkError, ForgeTimeoutError, InsufficientScopeError, NotFoundError, RateLimitedError, TokenRevokedError } from './errors.ts'
+import { AuthenticationRequiredError, ForbiddenError, forbiddenReason, ForgeApiError, ForgeNetworkError, ForgeTimeoutError, InsufficientScopeError, isSecondaryRateLimit, NotFoundError, RateLimitedError, TokenRevokedError } from './errors.ts'
 
 /** The subset of `fetch` that forges needs, so a test or a runtime without a global `fetch` can supply its own. */
 export type FetchLike = (input: string, init?: RequestInit) => Promise<Response>
@@ -26,8 +26,8 @@ export interface FetcherOptions {
   /** Attached to every error the fetcher throws. */
   context?: ForgeErrorContext
   /**
-   * Called before a request is retried. A secondary rate limit with a
-   * `retry-after` of at most a minute is retried once, after that wait.
+   * Called before a request is retried. A rate limit with a `retry-after`
+   * of at most a minute is retried once, after that wait.
    */
   onRetry?: (retry: { url: string, method: string, wait: number }) => void
   /**
@@ -238,7 +238,7 @@ function resetDate(response: Response, now: number): Date | undefined {
 }
 
 /** A budget with requests left resets on its own schedule, which says nothing about when a secondary limit lifts. */
-function rateLimitReset(response: Response, budget: RateLimit | undefined): Date | undefined {
+export function rateLimitReset(response: Response, budget: RateLimit | undefined): Date | undefined {
   const after = retryAfterMs(response)
   if (after !== undefined) {
     return new Date(Date.now() + after)
@@ -302,15 +302,35 @@ export function rateLimitOf(response: Response, now: number = Date.now()): RateL
   }
 }
 
-function isRateLimited(response: Response, budget: RateLimit | undefined): boolean {
+/** Whether the `message` or an `errors[].message` of a JSON error body names a secondary rate limit. */
+function namesSecondaryRateLimit(body: string): boolean {
+  let parsed: unknown
+  try {
+    parsed = JSON.parse(body)
+  }
+  catch {
+    return false
+  }
+  const { message, errors } = (parsed ?? {}) as { message?: unknown, errors?: unknown }
+  const messages = [message, ...Array.isArray(errors) ? errors.map(error => (error as { message?: unknown } | null)?.message) : []]
+  return messages.some(text => typeof text === 'string' && isSecondaryRateLimit(text))
+}
+
+/** GitHub sends a secondary limit as a 403 or a 429, and its content creation limit can arrive as a 422. */
+function isRateLimited(response: Response, budget: RateLimit | undefined, body: string): boolean {
   if (response.status === 429) {
+    return true
+  }
+  if ((response.status === 403 || response.status === 422) && namesSecondaryRateLimit(body)) {
     return true
   }
   // A zero budget never resets; the request needs other credentials.
   if (response.status !== 403 || budget?.limit === 0) {
     return false
   }
-  return budget?.remaining === 0 || response.headers.has('retry-after')
+  // Some forges, such as Gitee, report a rate limit as a short plain-text 403 with no rate limit headers.
+  // Only a body that starts with the phrase counts, so a message that quotes it stays a `ForbiddenError`.
+  return budget?.remaining === 0 || response.headers.has('retry-after') || (!budget && PLAIN_RATE_LIMIT_RE.test(body.trim()))
 }
 
 /**
@@ -555,7 +575,8 @@ export function createFetcher(options: FetcherOptions): Fetcher {
       return response
     }
 
-    const body = (await response.text()).slice(0, BODY_EXCERPT_LENGTH)
+    const text = await response.text()
+    const body = text.slice(0, BODY_EXCERPT_LENGTH)
     const context = { ...options.context, url, method: options_.method ?? 'GET' }
 
     const credentialed = (trusted && options.authenticated) || headers.has('authorization')
@@ -572,12 +593,10 @@ export function createFetcher(options: FetcherOptions): Fetcher {
       throw new NotFoundError(`Nothing found at ${options_.method ?? 'GET'} ${url}, or the credential cannot see it`, 404, body, context)
     }
 
-    // Some forges, such as Gitee, report a rate limit as a short plain-text 403 with no rate limit headers.
-    // Only a body that starts with the phrase counts, so a message that quotes it stays a `ForbiddenError`.
-    if (isRateLimited(response, budget) || (response.status === 403 && !budget && PLAIN_RATE_LIMIT_RE.test(body.trim()))) {
-      const secondary = response.status === 403 || response.headers.has('retry-after')
+    if (isRateLimited(response, budget, text)) {
+      const secondary = namesSecondaryRateLimit(text) || (budget?.remaining !== 0 && (response.status !== 429 || response.headers.has('retry-after')))
       const wait = retryAfterMs(response)
-      if (secondary && attempt === 0 && wait !== undefined && wait <= 60_000) {
+      if (attempt === 0 && wait !== undefined && wait <= 60_000) {
         options.onRetry?.({ url, method: options_.method ?? 'GET', wait })
         await sleep(wait, options_.signal)
         return send(url, options_, attempt + 1, authenticated, download, redirects, streaming, follow)

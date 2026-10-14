@@ -163,7 +163,7 @@ const page = await gh.search.threadsPage({ kind: 'pull_request', queryRaw: 'revi
 
 ## GraphQL
 
-For what the data model doesn't cover, a GitHub provider has `graphql()`, which sends a query or mutation to the GraphQL API of its instance with the provider's credentials. It resolves with the `data` of the response. When the response carries errors, it rejects with a `ForgeApiError`, or with an `InsufficientScopeError` when the token lacks a scope that a field needs:
+For what the data model doesn't cover, a GitHub provider has `graphql()`, which sends a query or mutation to the GraphQL API of its instance with the provider's credentials. It resolves with the `data` of the response. When the response carries errors, it rejects with a `ForgeApiError`, with an `InsufficientScopeError` when the token lacks a scope that a field needs, or with a `RateLimitedError` for a rate limit, which GitHub reports with a `200`:
 
 ```ts
 const { viewer } = await forge.graphql<{ viewer: { login: string } }>(

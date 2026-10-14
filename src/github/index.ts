@@ -127,10 +127,10 @@ import type {
 import { WRITE_VERBS } from '../capabilities.ts'
 import { changeBase64, existingFiles, fromBase64, inDirectories, isSha, splitMessage, toFileContent } from '../contents.ts'
 import { defineForgeProvider, perKind, supportOnly, verb } from '../define.ts'
-import { BranchMovedError, ForbiddenError, ForgeApiError, ForgeError, ForgeTimeoutError, InsufficientScopeError, MergeBlockedError, NotFoundError, ReadOnlyError, soleMergeMethod, toMergeError, UnsupportedOperationError } from '../errors.ts'
+import { BranchMovedError, ForbiddenError, ForgeApiError, ForgeError, ForgeTimeoutError, InsufficientScopeError, MergeBlockedError, NotFoundError, RateLimitedError, ReadOnlyError, soleMergeMethod, toMergeError, UnsupportedOperationError } from '../errors.ts'
 import { anySignal, sleep } from '../fetch.ts'
 import { isNamespaceRef, isResolvedThread, reactionContent } from '../model.ts'
-import { actorLogin, createListing, forgeIterable, getManyConcurrently, hostOf, isFirstPage, iteratePages, memo, milestoneId, phased, rateLimitPart, requireIssueOrPull, requireThread, resolveToken, summariseChecks, teamOrg, toDate, toPage, toWarning, versionAtLeast } from '../utils.ts'
+import { actorLogin, createListing, degradesToWarning, forgeIterable, getManyConcurrently, hostOf, isFirstPage, iteratePages, memo, milestoneId, phased, rateLimitPart, requireIssueOrPull, requireThread, resolveToken, summariseChecks, teamOrg, toDate, toPage, toWarning, versionAtLeast } from '../utils.ts'
 import { githubShapedWeb } from '../web.ts'
 import { nativeEventsFor } from '../webhooks.ts'
 import { createAppCredentials, createAuthHeaders, tokenKindOf } from './auth.ts'
@@ -215,7 +215,8 @@ export interface GitHubProvider extends ForgeProvider<true> {
    * runs queries and rejects mutations with `ReadOnlyError`. Variables are required when the document is typed
    * and declares a required variable.
    * @throws {InsufficientScopeError} When the token lacks a scope that a field needs.
-   * @throws {ForgeApiError} When the response carries errors or no data.
+   * @throws {RateLimitedError} When the response reports a rate limit, which GitHub sends with a `200`.
+   * @throws {ForgeApiError} When the response carries other errors or no data.
    * @example
    * ```ts
    * const { viewer } = await provider.graphql<{ viewer: { login: string } }>('query { viewer { login } }')
@@ -432,7 +433,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
         }
       }
       catch (error) {
-        if (!(error instanceof ForgeError)) {
+        if (!degradesToWarning(error)) {
           throw error
         }
         result.warnings = [...result.warnings ?? [], toWarning('checks_unreadable', error, ref.number)]
@@ -464,6 +465,11 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
     }
     if (runs.status === 'rejected' && status.status === 'rejected') {
       throw runs.reason
+    }
+    for (const result of [runs, status]) {
+      if (result.status === 'rejected' && !degradesToWarning(result.reason)) {
+        throw result.reason
+      }
     }
     const statuses = status.status === 'fulfilled' ? status.value : []
     // Only a complete read reports a total: check-runs report their own count,
@@ -514,12 +520,15 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
       const chunk = batchable.slice(start, start + GRAPHQL_BATCH)
       const { query, variables } = g.threadsBatchQuery(chunk.map(item => item.ref))
       const url = graphqlUrl(baseUrl)
-      const { data } = await fetcher.json<{ data?: ThreadsBatchResult, errors?: Array<{ message: string, type?: string, path?: Array<string | number> }> }>(url, {
+      const { data, response } = await fetcher.json<{ data?: ThreadsBatchResult, errors?: Array<{ message: string, type?: string, path?: Array<string | number> }> }>(url, {
         method: 'POST',
         json: { query, variables, operationName: 'ThreadsBatch' },
         signal: options?.signal,
       })
-      const failure = data.data ? undefined : graphqlError('ThreadsBatch', data.errors, url, { instance })
+      const failure = data.data ? undefined : graphqlError('ThreadsBatch', data.errors, url, { instance }, response)
+      if (failure instanceof RateLimitedError) {
+        throw failure
+      }
       chunk.forEach(({ index, ref }, offset) => {
         const node = data.data?.[`t${offset}`]
         const discussion = ref.kind === 'discussion' ? node?.discussion : undefined
@@ -642,7 +651,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
       }
     }
     catch (error) {
-      if (!(error instanceof ForgeError)) {
+      if (!degradesToWarning(error)) {
         throw error
       }
       page.warnings = [...page.warnings ?? [], toWarning('checks_unreadable', error)]

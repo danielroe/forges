@@ -1,6 +1,7 @@
 import type { Fetcher } from '../fetch.ts'
 import type { BaseOptions } from '../model.ts'
-import { ForgeApiError, InsufficientScopeError } from '../errors.ts'
+import { ForgeApiError, InsufficientScopeError, isSecondaryRateLimit, RateLimitedError } from '../errors.ts'
+import { rateLimitOf, rateLimitReset } from '../fetch.ts'
 import { FORGE } from './normalise.ts'
 
 type Documents = typeof import('./graphql.ts')
@@ -23,16 +24,22 @@ interface GraphQLResponse<T> {
 
 type GraphQLErrors = Array<{ message: string, type?: string }>
 
-/** A failed GraphQL response as an error: `InsufficientScopeError` when the token lacks a scope a field needs. */
-export function graphqlError(operationName: string | undefined, errors: GraphQLErrors | undefined, url: string, context: { instance: string }): ForgeApiError {
-  const message = errors?.map(error => error.message).join('; ') || 'Empty GraphQL response'
+/**
+ * A failed GraphQL response as an error: `InsufficientScopeError` when the token lacks a scope a field needs, and
+ * `RateLimitedError` for a rate limit, which GitHub reports with a `200`.
+ */
+export function graphqlError(operationName: string | undefined, errors: GraphQLErrors | undefined, url: string, context: { instance: string }, response?: Response): ForgeApiError {
+  const message = `GraphQL ${operationName ?? 'request'} failed: ${errors?.map(error => error.message).join('; ') || 'Empty GraphQL response'}`
+  const body = JSON.stringify(errors ?? null).slice(0, 512)
+  const errorContext = { forge: FORGE, instance: context.instance, url, method: 'POST' }
+  const secondary = errors?.some(error => isSecondaryRateLimit(error.message)) ?? false
+  if (secondary || errors?.some(error => error.type === 'RATE_LIMITED')) {
+    const budget = response && rateLimitOf(response)
+    const resetAt = response && (rateLimitReset(response, budget) ?? (secondary ? undefined : budget?.resetAt))
+    return new RateLimitedError(message, 200, body, { ...errorContext, resetAt, secondary })
+  }
   const ErrorClass = errors?.some(error => error.type === 'INSUFFICIENT_SCOPES') ? InsufficientScopeError : ForgeApiError
-  return new ErrorClass(`GraphQL ${operationName ?? 'request'} failed: ${message}`, 200, JSON.stringify(errors ?? null).slice(0, 512), {
-    forge: FORGE,
-    instance: context.instance,
-    url,
-    method: 'POST',
-  })
+  return new ErrorClass(message, 200, body, errorContext)
 }
 
 interface GraphQLOperation {
@@ -85,13 +92,13 @@ export function createGraphQLClient(fetcher: Fetcher, url: string, context: { in
   return async <T>(document: DocumentName | { query: string }, variables: Record<string, unknown>, options?: BaseOptions): Promise<T> => {
     const query = typeof document === 'string' ? (await import('./graphql.ts'))[document] : document.query
     const operationName = graphqlOperations(query)[0]?.name
-    const { data } = await fetcher.json<GraphQLResponse<T>>(url, {
+    const { data, response } = await fetcher.json<GraphQLResponse<T>>(url, {
       method: 'POST',
       json: { query, variables, operationName },
       signal: options?.signal,
     })
     if (data.errors?.length || !data.data) {
-      throw graphqlError(operationName, data.errors, url, context)
+      throw graphqlError(operationName, data.errors, url, context, response)
     }
     return data.data
   }

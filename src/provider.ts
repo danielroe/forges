@@ -167,7 +167,7 @@ export interface ForgeOptionsBase {
   instanceVersion?: string
   /** Every write, including a mutating `request()`, rejects with `ReadOnlyError` and reports `false`. */
   readOnly?: boolean
-  /** Called before a request is retried after a secondary rate limit, with the wait in milliseconds. */
+  /** Called before a request is retried after a rate limit that names a wait of at most a minute, with the wait in milliseconds. */
   onRetry?: FetcherOptions['onRetry']
   /**
    * Called with the rate limit of every API response that reports one, so that you can follow the budget without

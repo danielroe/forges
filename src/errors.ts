@@ -53,12 +53,15 @@ export class AuthenticationRequiredError extends ForgeApiError {
   override name = 'AuthenticationRequiredError'
 }
 
-/** A rate limit was hit and a retry didn't help. */
+/** The forge rate limited the request and a retry didn't help. Every rate limit rejects with this class, primary or secondary. */
 export class RateLimitedError extends ForgeApiError {
   override name = 'RateLimitedError'
   /** When to send again: after the forge's `retry-after`, or when a used-up budget resets. Absent when the forge names neither. */
   readonly resetAt?: Date
-  /** A secondary (abuse) limit, which has no remaining-request counter. */
+  /**
+   * Whether the forge applied a secondary limit, such as a limit on concurrent requests or on content creation,
+   * rather than a used-up request budget. No remaining-request counter predicts it.
+   */
   readonly secondary: boolean
 
   constructor(
@@ -88,13 +91,13 @@ export class InsufficientScopeError extends ForgeApiError {
  * Why the forge refused a request the credential is otherwise valid for.
  * `unknown` is a 403 whose body matched nothing recognised.
  */
-export type ForbiddenReason = 'org_restriction' | 'sso_required' | 'rate_limit_abuse' | 'immutable_release' | 'resource_protected' | 'unknown'
+export type ForbiddenReason = 'org_restriction' | 'sso_required' | 'immutable_release' | 'resource_protected' | 'unknown'
 
 /**
- * The forge refused the request for a reason other than a missing scope: an
- * organisation policy, an SSO requirement, an abuse limit, a protected
+ * The forge refused the request for a reason other than a missing scope or a
+ * rate limit: an organisation policy, an SSO requirement, a protected
  * resource, or a release the forge has marked immutable. A missing scope is
- * {@link InsufficientScopeError}.
+ * {@link InsufficientScopeError}, and a rate limit {@link RateLimitedError}.
  */
 export class ForbiddenError extends ForgeApiError {
   override name = 'ForbiddenError'
@@ -114,7 +117,6 @@ export class ForbiddenError extends ForgeApiError {
 const FORBIDDEN_PATTERNS: Array<[ForbiddenReason, RegExp]> = [
   ['org_restriction', /third[- ]party application|OAuth App access restrictions|organization has enabled OAuth|not authorized by the organization|blocked by the organization/i],
   ['sso_required', /SAML|single sign[- ]on|\bSSO\b|must be granted .* organization/i],
-  ['rate_limit_abuse', /abuse detection|secondary rate limit/i],
   ['resource_protected', /archived|read[- ]only|protected branch|repository has been disabled|is disabled/i],
   ['unknown', /contributor list is too large[^".]*/i],
 ]
@@ -131,6 +133,13 @@ export function forbiddenReason(body: string): { reason: ForbiddenReason, reason
     }
   }
   return undefined
+}
+
+const SECONDARY_RATE_LIMIT_RE = /secondary rate limit|abuse detection|submitted too quickly/i
+
+/** Whether an error message names a secondary rate limit, such as GitHub's limits on concurrency and content creation. */
+export function isSecondaryRateLimit(message: string): boolean {
+  return SECONDARY_RATE_LIMIT_RE.test(message)
 }
 
 /** The pull request cannot be merged yet, typically because of failing or pending checks or branch protection. */
