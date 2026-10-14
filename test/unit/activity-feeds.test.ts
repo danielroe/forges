@@ -5,7 +5,7 @@ import { fake } from '../../src/fake/index.ts'
 import { toFeedEvent as toForgejoFeedEvent } from '../../src/forgejo/feed.ts'
 import { toFeedEvent as toGiteeFeedEvent } from '../../src/gitee/feed.ts'
 import { gitee } from '../../src/gitee/index.ts'
-import { toFeedEvent as toGitHubFeedEvent, translateGitHubWebhook } from '../../src/github/events.ts'
+import { toFeedEvent as toGitHubFeedEvent, toFeedEvents as toGitHubFeedEvents, translateGitHubWebhook } from '../../src/github/events.ts'
 import { github } from '../../src/github/index.ts'
 import { gitlab } from '../../src/gitlab/index.ts'
 import { accountFeedPage } from '../../src/tangled/feed.ts'
@@ -62,11 +62,25 @@ describe('github activity feeds', () => {
   })
 
   it('keeps feed types with no shared kind as `other`', () => {
-    const star = completeEvent(toGitHubFeedEvent('github.com', feedItem('WatchEvent', { action: 'started' })))
-    const wiki = completeEvent(toGitHubFeedEvent('github.com', feedItem('GollumEvent', { pages: [] })))
+    const sponsorship = completeEvent(toGitHubFeedEvent('github.com', feedItem('SponsorshipEvent', { action: 'created' })))
 
-    expect(star).toMatchObject({ kind: 'other', kindRaw: 'WatchEvent.started', action: 'other', summary: 'octocat starred the repository' })
-    expect(wiki).toMatchObject({ kind: 'other', kindRaw: 'GollumEvent', summary: 'octocat edited the wiki' })
+    expect(sponsorship).toMatchObject({ kind: 'other', kindRaw: 'SponsorshipEvent.created', summary: 'octocat changed a sponsorship' })
+  })
+
+  it('reads stars, forks, visibility changes and wiki edits from the feed', () => {
+    const star = completeEvent(toGitHubFeedEvent('github.com', feedItem('WatchEvent', { action: 'started' })))
+    const fork = completeEvent(toGitHubFeedEvent('github.com', feedItem('ForkEvent', { forkee: { id: 9, name: 'widgets', full_name: 'ada/widgets' } })))
+    const visibility = completeEvent(toGitHubFeedEvent('github.com', feedItem('PublicEvent', {})))
+    const wiki = toGitHubFeedEvents('github.com', feedItem('GollumEvent', { pages: [{ title: 'Home', action: 'created', html_url: 'https://github.com/acme/widgets/wiki/Home' }, { title: 'FAQ', action: 'edited' }] })).map(completeEvent)
+
+    expect(star).toMatchObject({ kind: 'star', action: 'created', kindRaw: 'WatchEvent.started' })
+    expect(fork).toMatchObject({ kind: 'fork', action: 'created', detail: { type: 'fork', fork: { owner: 'ada', name: 'widgets' } } })
+    expect(visibility).toMatchObject({ kind: 'repo', action: 'edited', detail: { type: 'repo_visibility', isPublic: true } })
+    expect(wiki).toMatchObject([
+      { kind: 'wiki', action: 'created', detail: { type: 'wiki', title: 'Home', url: 'https://github.com/acme/widgets/wiki/Home' } },
+      { kind: 'wiki', action: 'edited', detail: { type: 'wiki', title: 'FAQ' } },
+    ])
+    expect(new Set(wiki.map(event => event.id)).size).toBe(2)
   })
 
   it('reports a push without a commit count as one of unknown size', () => {

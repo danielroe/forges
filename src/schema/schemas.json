@@ -1240,6 +1240,9 @@
           "release": {
             "$ref": "#/components/schemas/ReleaseRef"
           },
+          "tag": {
+            "type": "string"
+          },
           "name": {
             "type": "string"
           },
@@ -1257,8 +1260,56 @@
           }
         },
         "required": [
+          "type"
+        ]
+      },
+      {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "fork"
+          },
+          "fork": {
+            "$ref": "#/components/schemas/RepoRef"
+          }
+        },
+        "required": [
+          "type"
+        ]
+      },
+      {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "wiki"
+          },
+          "title": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "type"
+        ]
+      },
+      {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "repo_visibility"
+          },
+          "isPublic": {
+            "type": "boolean"
+          }
+        },
+        "required": [
           "type",
-          "release"
+          "isPublic"
         ]
       },
       {
@@ -1312,6 +1363,9 @@
       "installation",
       "membership",
       "release",
+      "star",
+      "fork",
+      "wiki",
       "other"
     ],
     "description": "What an event is about.",

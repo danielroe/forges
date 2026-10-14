@@ -39,6 +39,8 @@ interface BitbucketWebhookPayload {
   }
   changes?: { name?: { old: string, new: string }, full_name?: { old: string, new: string } }
   previous_workspace?: { slug: string }
+  /** On `repo:fork`, the new fork; `repository` is the repository that was forked. */
+  fork?: BitbucketRepository
 }
 
 interface PullEvent {
@@ -135,6 +137,11 @@ export function translateBitbucketWebhook(instance: string, delivery: WebhookDel
 
   if (event === 'repo:updated' && payload.changes?.name) {
     return [{ forge: FORGE, instance, id: deliveryId, kind: 'repo', action: 'renamed', kindRaw: event, summary: `${who} renamed the repository`, occurredAt: new Date(), undated: true, actor, repo, detail: { type: 'repo_renamed', from: payload.changes.name.old, to: payload.changes.name.new }, source: 'webhook', payload }]
+  }
+
+  if (event === 'repo:fork') {
+    const fork = payload.fork && toRepoRef(instance, payload.fork)
+    return [{ forge: FORGE, instance, id: deliveryId, kind: 'fork', action: 'created', kindRaw: event, summary: `${who} forked the repository${fork ? ` to ${fork.owner}/${fork.name}` : ''}`, occurredAt: new Date(), undated: true, actor, repo, detail: { type: 'fork', fork }, source: 'webhook', payload }]
   }
 
   if (event === 'repo:transfer') {

@@ -7,8 +7,6 @@ import { FORGE, toActor, toRepoRef } from './normalise.ts'
 
 /** Summaries of the feed event types that have no shared kind. */
 const FEED_SUMMARIES: Record<string, string> = {
-  ForkEvent: 'forked the repository',
-  StarEvent: 'starred the repository',
   WatchEvent: 'watched the repository',
 }
 
@@ -38,6 +36,10 @@ function feedLevel(instance: string, raw: GiteeEvent, repo: RepoRef | undefined,
       const action = type === 'CreateEvent' ? 'created' : 'deleted'
       return { kind: 'ref', action, detail: { type: 'ref', ref: payload.ref ?? '', refType: payload.ref_type ?? 'branch' }, summary: `${who} ${action} ${payload.ref_type ?? 'ref'} ${payload.ref ?? ''}`.trim() }
     }
+    case 'StarEvent':
+      return { kind: 'star', action: 'created', summary: `${who} starred the repository` }
+    case 'ForkEvent':
+      return { kind: 'fork', action: 'created', summary: `${who} forked the repository` }
     case 'MemberEvent':
       return {
         kind: 'membership',

@@ -31,6 +31,8 @@ export const FORGEJO_NATIVE_EVENTS: NativeEventMap = {
   push: ['push'],
   ref: ['create', 'delete'],
   release: ['release'],
+  fork: ['fork'],
+  wiki: ['wiki'],
 }
 
 /** Normalised kinds and actions Forgejo and Gitea deliveries translate into. */
@@ -52,4 +54,11 @@ export const FORGEJO_WEBHOOK_EVENTS: WebhookEventType[] = [
   { kind: 'ref', action: 'created' },
   { kind: 'ref', action: 'deleted' },
   { kind: 'release', action: 'published' },
+  { kind: 'release', action: 'edited' },
+  { kind: 'release', action: 'deleted' },
+  { kind: 'fork', action: 'created' },
+  { kind: 'wiki', action: 'created' },
+  { kind: 'wiki', action: 'edited' },
+  { kind: 'wiki', action: 'deleted' },
+  { kind: 'wiki', action: 'renamed' },
 ]

@@ -1,6 +1,6 @@
 import type { EventAction, ForgeEventInput, RepoRef, ThreadRef, ThreadState } from '../model.ts'
 import type { GitLabEvent } from './types.ts'
-import { eventTime } from '../events.ts'
+import { eventAction, eventTime } from '../events.ts'
 import { toDate } from '../utils.ts'
 import { refEvent } from '../webhooks.ts'
 import { approvalId, FORGE, toActor, toThreadKind } from './normalise.ts'
@@ -60,6 +60,10 @@ function feedLevel(instance: string, raw: GitLabEvent, repo: RepoRef | undefined
   }
   if (raw.target_type === 'Project' && (raw.action_name === 'created' || raw.action_name === 'deleted' || raw.action_name === 'destroyed')) {
     return { kind: 'repo', action: raw.action_name === 'created' ? 'created' : 'deleted', summary: `${who} ${raw.action_name} the project` }
+  }
+  if (raw.target_type === 'WikiPage::Meta') {
+    const action = raw.action_name === 'destroyed' ? 'deleted' : eventAction(raw.action_name) ?? 'other'
+    return { kind: 'wiki', action, detail: { type: 'wiki', title: raw.target_title ?? undefined }, summary: `${who} ${action} wiki page ${raw.target_title ?? ''}`.trim() }
   }
   return { kind: 'other', thread, summary: `${who} ${raw.action_name} ${raw.target_type ?? ''}`.trim() }
 }

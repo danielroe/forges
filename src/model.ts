@@ -1272,6 +1272,9 @@ export type EventKind
     | 'installation'
     | 'membership'
     | 'release'
+    | 'star'
+    | 'fork'
+    | 'wiki'
     | 'other'
 
 /** A commit as a push delivery reports it. */
@@ -1329,7 +1332,13 @@ export type EventDetail
     | { type: 'repo_archived', archived: boolean }
     | { type: 'installation', actionRaw: string, installationId?: string, added: RepoRef[], removed: RepoRef[] }
     | { type: 'membership', actionRaw: string, member?: Actor }
-    | { type: 'release', release: ReleaseRef, name?: string, body?: string, isPrerelease?: boolean, isDraft?: boolean, url?: string }
+    /** A release. `release` is absent when the source names the tag but not the release. */
+    | { type: 'release', release?: ReleaseRef, tag?: string, name?: string, body?: string, isPrerelease?: boolean, isDraft?: boolean, url?: string }
+    /** A fork of `repo`; `fork` is the new repository. */
+    | { type: 'fork', fork?: RepoRef }
+    /** One wiki page. */
+    | { type: 'wiki', title?: string, url?: string }
+    | { type: 'repo_visibility', isPublic: boolean }
     /** A cross-reference: another thread or commit mentioned this one. */
     | { type: 'referenced', from?: ThreadRef | CommitRef, fromRepo?: RepoRef, text?: string }
 
@@ -2134,7 +2143,12 @@ export function affectedKeys(item: ForgeEvent | Notification): AffectedKeys {
         detail.removed.forEach(repo)
         break
       case 'release':
-        release(detail.release)
+        if (detail.release) {
+          release(detail.release)
+        }
+        break
+      case 'fork':
+        repo(detail.fork)
         break
       case 'referenced':
         if (detail.from && 'sha' in detail.from) {

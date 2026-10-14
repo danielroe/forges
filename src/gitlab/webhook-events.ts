@@ -16,6 +16,7 @@ export const GITLAB_NATIVE_EVENTS: NativeEventMap = {
   ref: ['tag_push_events', 'push_events'],
   release: ['releases_events'],
   membership: ['member_events'],
+  wiki: ['wiki_page_events'],
 }
 
 /** Normalised kinds and actions GitLab deliveries translate into. */
@@ -36,5 +37,10 @@ export const GITLAB_WEBHOOK_EVENTS: WebhookEventType[] = [
   { kind: 'ref', action: 'created' },
   { kind: 'ref', action: 'deleted' },
   { kind: 'release', action: 'published' },
+  { kind: 'release', action: 'edited' },
+  { kind: 'release', action: 'deleted' },
   { kind: 'membership' },
+  { kind: 'wiki', action: 'created' },
+  { kind: 'wiki', action: 'edited' },
+  { kind: 'wiki', action: 'deleted' },
 ]

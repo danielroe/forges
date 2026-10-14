@@ -133,6 +133,14 @@ describe('affectedKeys', () => {
     expect(affectedKeys(event({ type: 'release', release }))).toMatchObject({ repos: [repoKey(repo)], releases: [releaseKey(release)] })
   })
 
+  it('keys only the repository of a release that names no release id', () => {
+    expect(affectedKeys(event({ type: 'release', tag: 'v1.2.0' }))).toMatchObject({ repos: [repoKey(repo)], releases: [] })
+  })
+
+  it('keys the repository that was forked and the new fork', () => {
+    expect(affectedKeys(event({ type: 'fork', fork: other })).repos).toEqual([repoKey(repo), repoKey(other)])
+  })
+
   it('keys the thread that referenced this one, or the repository of the commit', () => {
     expect(affectedKeys(event({ type: 'referenced', from: issue, fromRepo: other }, { thread: pull }))).toMatchObject({ repos: [repoKey(repo), repoKey(other)], threads: [threadKey(pull), threadKey(issue)] })
     expect(affectedKeys(event({ type: 'referenced', from: { ...origin, repo: other, sha: 'abc' } }, { thread: pull }))).toMatchObject({ repos: [repoKey(repo), repoKey(other)], threads: [threadKey(pull)] })

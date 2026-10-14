@@ -89,7 +89,9 @@ function feedLevel(origin: ForgeOrigin, raw: ForgejoActivity, repo: RepoRef | un
     case 'transfer_repo':
       return { kind: 'repo', action: 'transferred', detail: { type: 'repo_transferred', fromOwner: raw.content?.split('/')[0], toOwner: raw.repo?.owner?.login }, summary: `${who} transferred the repository` }
     case 'publish_release':
-      return { kind: 'release', action: 'published', summary: `${who} published ${raw.content || name || 'a release'}` }
+      return { kind: 'release', action: 'published', detail: { type: 'release', tag: name || undefined, name: raw.content || undefined }, summary: `${who} published ${raw.content || name || 'a release'}` }
+    case 'star_repo':
+      return { kind: 'star', action: 'created', summary: `${who} starred the repository` }
   }
   const op = FEED_THREAD_OPS[raw.op_type]
   if (!op) {

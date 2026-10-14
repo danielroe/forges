@@ -320,9 +320,12 @@
       "forge": "github",
       "instance": "github.com",
       "id": "17075345596",
+      "kind": "star",
+      "action": "created",
       "kindRaw": "WatchEvent.started",
       "actionRaw": "started",
-      "source": "poll",
+      "summary": "tsevdos starred the repository",
+      "occurredAt": "2026-10-13T07:24:00.000Z",
       "actor": {
         "forge": "github",
         "instance": "github.com",
@@ -338,11 +341,8 @@
         "name": "h3",
         "externalId": "313641207"
       },
-      "occurredAt": "2026-10-13T07:24:00.000Z",
-      "kind": "other",
-      "summary": "tsevdos starred the repository",
-      "isPublic": true,
-      "action": "other"
+      "source": "poll",
+      "isPublic": true
     },
     {
       "forge": "github",
@@ -664,9 +664,12 @@
       "forge": "github",
       "instance": "github.com",
       "id": "17058279960",
+      "kind": "fork",
+      "action": "created",
       "kindRaw": "ForkEvent.forked",
       "actionRaw": "forked",
-      "source": "poll",
+      "summary": "maxazure forked the repository to maxazure/h3",
+      "occurredAt": "2026-10-13T01:25:07.000Z",
       "actor": {
         "forge": "github",
         "instance": "github.com",
@@ -682,11 +685,18 @@
         "name": "h3",
         "externalId": "313641207"
       },
-      "occurredAt": "2026-10-13T01:25:07.000Z",
-      "kind": "other",
-      "summary": "maxazure forked the repository",
-      "isPublic": true,
-      "action": "other"
+      "detail": {
+        "type": "fork",
+        "fork": {
+          "forge": "github",
+          "instance": "github.com",
+          "owner": "maxazure",
+          "name": "h3",
+          "externalId": "1416304836"
+        }
+      },
+      "source": "poll",
+      "isPublic": true
     }
   ],
   "total": 300,

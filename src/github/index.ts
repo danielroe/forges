@@ -1331,8 +1331,9 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
       signal: listOptions.signal,
     })
     const poll = recordPoll(path, listOptions.cursor, result.response)
-    const { toFeedEvent } = await import('./events.ts')
-    return { ...toPage(result, raw => toFeedEvent(instance, raw)), ...poll }
+    const { toFeedEvents } = await import('./events.ts')
+    const page = toPage(result, raw => toFeedEvents(instance, raw))
+    return { ...page, items: page.items.flat(), ...poll }
   }
 
   function createInstallationsApi(app: AppCredentials): Omit<InstallationsApi, 'list' | 'repos'> {

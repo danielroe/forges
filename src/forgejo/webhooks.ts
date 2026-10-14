@@ -19,7 +19,7 @@ export function verifyForgejoSignature(delivery: WebhookDelivery, secret: string
 interface ForgejoWebhookPayload {
   action?: string
   sender?: ForgejoUser
-  repository?: ForgejoRepository
+  repository?: ForgejoRepository & { created_at?: string }
   issue?: ForgejoIssue
   is_pull?: boolean
   pull_request?: ForgejoIssue
@@ -34,6 +34,10 @@ interface ForgejoWebhookPayload {
   total_commits?: number
   commits?: Array<{ id: string, message: string, timestamp?: string, url?: string, author?: { name?: string, username?: string } }>
   head_commit?: { id: string, timestamp?: string } | null
+  /** On `fork`, the repository that was forked; `repository` is the new fork. */
+  forkee?: ForgejoRepository
+  /** On `wiki`, the page's name. */
+  page?: string
   release?: { id: number, tag_name?: string, name?: string, body?: string, prerelease?: boolean, draft?: boolean, html_url?: string, published_at?: string }
 }
 
@@ -96,23 +100,35 @@ function repoLevel(origin: ForgeOrigin, event: string, payload: ForgejoWebhookPa
         detail: { type: 'ref', ref: payload.ref ?? '', refType: payload.ref_type ?? 'branch' },
         summary: `${who} ${event === 'create' ? 'created' : 'deleted'} ${payload.ref_type ?? 'ref'} ${payload.ref ?? ''}`.trim(),
       }
+    case 'fork':
+      return {
+        kind: 'fork',
+        action: 'created',
+        detail: { type: 'fork', fork: payload.repository ? toRepoRef(origin, payload.repository) : undefined },
+        summary: `${who} forked the repository${payload.repository ? ` to ${payload.repository.full_name}` : ''}`,
+      }
+    case 'wiki': {
+      const action = eventAction(payload.action) ?? 'other'
+      return { kind: 'wiki', action, detail: { type: 'wiki', title: payload.page }, summary: `${who} ${payload.action ?? 'edited'} wiki page ${payload.page ?? ''}`.trim() }
+    }
     case 'release':
-      if (payload.action !== 'published' || !payload.release || !payload.repository) {
+      if (!payload.release || !payload.repository) {
         return undefined
       }
       return {
         kind: 'release',
-        action: 'published',
+        action: eventAction(payload.action) ?? 'other',
         detail: {
           type: 'release',
           release: { ...origin, repo: toRepoRef(origin, payload.repository), id: String(payload.release.id), tag: payload.release.tag_name },
+          tag: payload.release.tag_name,
           name: payload.release.name,
           body: payload.release.body || undefined,
           isPrerelease: payload.release.prerelease,
           isDraft: payload.release.draft,
           url: payload.release.html_url,
         },
-        summary: `${who} published ${payload.release.name || payload.release.tag_name || 'a release'}`,
+        summary: `${who} ${payload.action ?? 'published'} ${payload.release.name || payload.release.tag_name || 'a release'}`,
       }
     default:
       return undefined
@@ -167,7 +183,8 @@ export function translateForgejoWebhook(origin: ForgeOrigin, delivery: WebhookDe
   }
   const deliveryId = firstHeader(delivery, names.delivery) ?? crypto.randomUUID()
   const payload = JSON.parse(bodyText(delivery.body)) as ForgejoWebhookPayload
-  const repo = payload.repository ? toRepoRef(origin, payload.repository) : undefined
+  const source = event === 'fork' ? payload.forkee : payload.repository
+  const repo = source ? toRepoRef(origin, source) : undefined
   const actor = toActor(origin, payload.sender)
   const who = actor?.login ?? 'someone'
   const level = repoLevel(origin, event, payload, who)
@@ -179,7 +196,7 @@ export function translateForgejoWebhook(origin: ForgeOrigin, delivery: WebhookDe
       action: level.action,
       kindRaw: payload.action ? `${event}.${payload.action}` : event,
       summary: level.summary,
-      ...eventTime(toDate(payload.head_commit?.timestamp ?? payload.commits?.at(-1)?.timestamp ?? payload.release?.published_at)),
+      ...eventTime(toDate(payload.head_commit?.timestamp ?? payload.commits?.at(-1)?.timestamp ?? (payload.action === 'published' ? payload.release?.published_at : undefined) ?? (event === 'fork' ? payload.repository?.created_at : undefined))),
       actor,
       repo,
       detail: level.detail,

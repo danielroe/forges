@@ -11,10 +11,13 @@ export const GITHUB_NATIVE_EVENTS: NativeEventMap = {
   assignment: ['issues', 'pull_request'],
   push: ['push'],
   ref: ['create', 'delete'],
-  repo: ['repository'],
+  repo: ['repository', 'public'],
   installation: ['installation', 'installation_repositories'],
   membership: ['member', 'membership', 'organization', 'team'],
   release: ['release'],
+  star: ['star'],
+  fork: ['fork'],
+  wiki: ['gollum'],
 }
 
 /** Normalised kinds and actions GitHub deliveries translate into. */
@@ -44,7 +47,17 @@ export const GITHUB_WEBHOOK_EVENTS: WebhookEventType[] = [
   { kind: 'repo', action: 'transferred' },
   { kind: 'repo', action: 'archived' },
   { kind: 'repo', action: 'unarchived' },
+  { kind: 'repo', action: 'edited' },
   { kind: 'installation' },
   { kind: 'membership' },
+  { kind: 'release', action: 'created' },
   { kind: 'release', action: 'published' },
+  { kind: 'release', action: 'edited' },
+  { kind: 'release', action: 'deleted' },
+  { kind: 'release', action: 'other' },
+  { kind: 'star', action: 'created' },
+  { kind: 'star', action: 'deleted' },
+  { kind: 'fork', action: 'created' },
+  { kind: 'wiki', action: 'created' },
+  { kind: 'wiki', action: 'edited' },
 ]

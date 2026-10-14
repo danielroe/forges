@@ -404,9 +404,12 @@
       "forge": "github",
       "instance": "github.com",
       "id": "17374484372",
+      "kind": "star",
+      "action": "created",
       "kindRaw": "WatchEvent.started",
       "actionRaw": "started",
-      "source": "poll",
+      "summary": "Wangyaqi starred the repository",
+      "occurredAt": "2026-10-16T08:00:45.000Z",
       "actor": {
         "forge": "github",
         "instance": "github.com",
@@ -422,11 +425,8 @@
         "name": "h3",
         "externalId": "313641207"
       },
-      "occurredAt": "2026-10-16T08:00:45.000Z",
-      "kind": "other",
-      "summary": "Wangyaqi starred the repository",
-      "isPublic": true,
-      "action": "other"
+      "source": "poll",
+      "isPublic": true
     },
     {
       "forge": "github",

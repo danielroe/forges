@@ -119,16 +119,28 @@ function repoLevel(instance: string, payload: GitLabWebhookPayload, who: string,
         commits: (payload.commits ?? []).map(commit => ({ sha: commit.id, message: commit.message, author: commit.author?.name, url: commit.url })),
         commitCount: payload.total_commits_count,
       })
-    case 'release':
-      if (payload.action !== 'create' || !repo) {
+    case 'release': {
+      if (!repo) {
         return undefined
       }
+      const action = payload.action === 'create' ? 'published' : eventAction(payload.action) ?? 'other'
       return {
         kind: 'release',
-        action: 'published',
-        detail: { type: 'release', release: { forge: FORGE, instance, repo, id: payload.tag ?? String(payload.id), tag: payload.tag }, name: payload.name, body: payload.description || undefined, url: payload.url },
-        summary: `${who} published ${payload.name ?? payload.tag ?? 'a release'}`,
+        action,
+        detail: { type: 'release', release: { forge: FORGE, instance, repo, id: payload.tag ?? String(payload.id), tag: payload.tag }, tag: payload.tag, name: payload.name, body: payload.description || undefined, url: payload.url },
+        summary: `${who} ${action} ${payload.name ?? payload.tag ?? 'a release'}`,
       }
+    }
+    case 'wiki_page': {
+      const page = payload.object_attributes
+      const action = eventAction(page?.action) ?? 'other'
+      return {
+        kind: 'wiki',
+        action,
+        detail: { type: 'wiki', title: page?.title, url: page?.url },
+        summary: `${who} ${action} wiki page ${page?.title ?? ''}`.trim(),
+      }
+    }
     case 'project_rename':
       return {
         kind: 'repo',
@@ -174,7 +186,7 @@ function repoLevel(instance: string, payload: GitLabWebhookPayload, who: string,
 /** The time of the change a project-level delivery reports, else the time its subject last changed. */
 function repoLevelTime(payload: GitLabWebhookPayload): string | undefined {
   if (payload.object_kind === 'release') {
-    return payload.created_at ?? payload.released_at
+    return payload.action === 'create' ? payload.created_at ?? payload.released_at : undefined
   }
   if (payload.event_name?.startsWith('user_add_')) {
     return payload.created_at

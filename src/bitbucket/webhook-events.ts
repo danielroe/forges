@@ -10,6 +10,7 @@ export const BITBUCKET_NATIVE_EVENTS: NativeEventMap = {
   push: ['repo:push'],
   ref: ['repo:push'],
   repo: ['repo:updated', 'repo:transfer'],
+  fork: ['repo:fork'],
 }
 
 /** Normalised kinds and actions Bitbucket deliveries translate into. */
@@ -29,4 +30,5 @@ export const BITBUCKET_WEBHOOK_EVENTS: WebhookEventType[] = [
   { kind: 'ref', action: 'deleted' },
   { kind: 'repo', action: 'renamed' },
   { kind: 'repo', action: 'transferred' },
+  { kind: 'fork', action: 'created' },
 ]
