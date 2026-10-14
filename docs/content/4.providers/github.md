@@ -109,7 +109,7 @@ GitHub computes the statistics behind `repos.contributorStats()` in the backgrou
 
 If you call `merge()` without a `method`, the provider asks GitHub which merge methods the repository allows. When exactly one method is allowed, it uses that one. When several are allowed, it can't choose for you and throws `MergeMethodRequiredError`.
 
-Both `merge()` and `approveAndMerge()` request a direct merge through GitHub's asynchronous merge API, which means that neither of them adds the pull request to a merge queue. They wait for GitHub to report the result, within the `timeout` of the provider (30 seconds by default), and resolve once the pull request is merged. That includes a pull request that was already merged. In every other case, they reject with one of these errors:
+Both `merge()` and `approveAndMerge()` request a direct merge through GitHub's asynchronous merge API, which means that neither of them adds the pull request to a merge queue. They wait for GitHub to report the result, within the `timeout` of the provider (30 seconds by default), and resolve with the merge commit once the pull request is merged. That includes a pull request that was already merged. In every other case, they reject with one of these errors:
 
 - `MergeBlockedError` when GitHub refuses or fails the merge, for example because of a draft, a failing required check or a pull request that is already in a merge queue. If GitHub reports a failed merge, the message of the error is GitHub's description of the failure.
 - `MergeConflictError` when GitHub responds with a conflict status that doesn't name a pending merge request.

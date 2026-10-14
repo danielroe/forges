@@ -55,6 +55,8 @@ If you call `merge()` without a `method`, the provider reads the merge strategie
 
 To make sure that you merge what you reviewed, pass `sha`. The provider then checks the head of the pull request before it merges, and the call throws `MergeConflictError` if the head doesn't match. The `whenChecksPass` option isn't available.
 
+`merge()` resolves with the merge commit from the response. When the merge takes longer than Bitbucket's timeout, Bitbucket finishes it in the background, and `merge()` resolves with `status: 'queued'` and no `sha`.
+
 Bitbucket can't reopen a declined pull request, so `reopen()` rejects for pull requests.
 
 ## Comparisons

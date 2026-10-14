@@ -155,6 +155,43 @@ describe('gitlab provider', () => {
     expect(calls).toHaveLength(1)
   })
 
+  it.each([
+    ['setLabels', { labels: 'bug' }],
+    ['addLabels', { add_labels: 'bug' }],
+  ] as const)('resolves %s with the labels of the merge request in the response', async (verb, body) => {
+    const { instance, calls } = provider({ [`PUT ${P}/merge_requests/23`]: { status: 200, body: { iid: 23, state: 'opened', labels: ['bug', 'triage'] } } })
+
+    await expect(instance.threads[verb](mr, ['bug'])).resolves.toEqual([{ name: 'bug' }, { name: 'triage' }])
+    expect(calls.map(call => [call.method, JSON.parse(call.body!)])).toEqual([['PUT', body]])
+  })
+
+  it('resolves setAssignees with the assignees of the merge request in the response', async () => {
+    const { instance, calls } = provider({ [`PUT ${P}/merge_requests/23`]: { status: 200, body: { iid: 23, assignees: [{ id: 7, username: 'ada' }] } } })
+
+    await expect(instance.threads.setAssignees(mr, [{ forge: 'gitlab', instance: 'gitlab.com', login: 'ada', id: '7', isBotHint: false }])).resolves.toMatchObject([{ login: 'ada', id: '7' }])
+    expect(calls.map(call => [call.method, JSON.parse(call.body!)])).toEqual([['PUT', { assignee_ids: [7] }]])
+  })
+
+  it('resolves an approval with the only approver in the response, without reading the viewer', async () => {
+    const approvals = { iid: 23, approved: true, approved_by: [{ user: { id: 7, username: 'ada' }, approved_at: '2026-01-02T03:04:05Z' }] }
+    const { instance, calls } = provider({ [`POST ${P}/merge_requests/23/approve`]: { status: 201, body: approvals } })
+
+    await expect(instance.threads.approve(mr)).resolves.toMatchObject({ author: { login: 'ada' }, state: 'approved' })
+    expect(calls.map(call => `${call.method} ${call.url}`)).toEqual([`POST ${P}/merge_requests/23/approve`])
+  })
+
+  it('picks the viewer from several approvers, reading the viewer once', async () => {
+    const approvals = { iid: 23, approved: true, approved_by: [{ user: { id: 7, username: 'ada' } }, { user: { id: 8, username: 'grace' } }] }
+    const { instance, calls } = provider({
+      [`POST ${P}/merge_requests/23/approve`]: { status: 201, body: approvals },
+      'GET https://gitlab.com/api/v4/user': { status: 200, body: { id: 7, username: 'ada' } },
+    })
+
+    await expect(instance.threads.approve(mr)).resolves.toMatchObject({ author: { login: 'ada' } })
+    await expect(instance.threads.approve(mr)).resolves.toMatchObject({ author: { login: 'ada' } })
+    expect(calls.map(call => call.method)).toEqual(['POST', 'GET', 'POST'])
+  })
+
   it('maps a 401 from approve to InsufficientScopeError, not a revoked token', async () => {
     const { instance } = provider({
       [`POST ${P}/merge_requests/23/approve`]: { status: 401, body: { message: '401 Unauthorized' } },
@@ -209,10 +246,10 @@ describe('gitlab provider', () => {
   it('finds a milestone title among ancestor group milestones', async () => {
     const { instance, calls } = provider({
       [`GET ${P}/milestones?include_ancestors=true`]: { status: 200, body: [{ id: 41, iid: 2, group_id: 9, title: 'Group milestone', state: 'active' }] },
-      [`PUT ${P}/merge_requests/23`]: { status: 200, body: {} },
+      [`PUT ${P}/merge_requests/23`]: { status: 200, body: { iid: 23, milestone: { id: 41, iid: 2, group_id: 9, title: 'Group milestone', state: 'active' } } },
     })
 
-    await instance.threads.setMilestone!(mr, 'Group milestone')
+    await expect(instance.threads.setMilestone!(mr, 'Group milestone')).resolves.toMatchObject({ id: '41', title: 'Group milestone', state: 'open' })
 
     expect(calls.map(call => `${call.method} ${call.url}`)).toEqual([
       `GET ${P}/milestones?include_ancestors=true`,
@@ -415,10 +452,22 @@ describe('gitlab merge methods', () => {
   })
 
   it('can queue the merge until the pipeline succeeds', async () => {
-    const { instance, calls } = provider()
-    await instance.threads.merge!(mr, { method: 'squash', whenChecksPass: true })
+    const queued = { iid: 23, state: 'opened', merge_when_pipeline_succeeds: true }
+    const { instance, calls } = provider({ [`PUT ${P}/merge_requests/23/merge`]: { status: 200, body: queued } })
 
+    await expect(instance.threads.merge!(mr, { method: 'squash', whenChecksPass: true })).resolves.toEqual({ status: 'queued', raw: queued })
     expect(calls[0]!.body).toBe('{"squash":true,"merge_when_pipeline_succeeds":true}')
+  })
+
+  it.each([
+    ['merge commit', { merge_commit_sha: 'd18f3776502b8aae54697d46dec7fb47ca622c30', squash_commit_sha: '27323015bcac2e10b82b2e40a515887a8021f6d3' }, 'd18f3776502b8aae54697d46dec7fb47ca622c30'],
+    ['squash commit', { merge_commit_sha: null, squash_commit_sha: '27323015bcac2e10b82b2e40a515887a8021f6d3' }, '27323015bcac2e10b82b2e40a515887a8021f6d3'],
+  ])('resolves with the %s of the merged merge request in the response', async (_, shas, sha) => {
+    const merged = { iid: 23, state: 'merged', ...shas }
+    const { instance, calls } = provider({ [`PUT ${P}/merge_requests/23/merge`]: { status: 200, body: merged } })
+
+    await expect(instance.threads.merge!(mr, { method: 'squash' })).resolves.toEqual({ status: 'merged', sha, raw: merged })
+    expect(calls).toHaveLength(1)
   })
 
   it.each([

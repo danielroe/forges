@@ -17,6 +17,7 @@ import type {
   ListOptions,
   MergeMethod,
   MergeOptions,
+  MergeResult,
   Notification,
   NotificationListOptions,
   NotificationRef,
@@ -672,7 +673,7 @@ const GITLAB: ProviderDefinition<GitLabOptions, undefined, true> = {
       return (approvals.approved_by ?? []).map(({ user }) => syntheticReview(ref, approvalId(user), 'approved', { author: toActor(instance, user), stateRaw: 'approved', raw: user }))
     }
 
-    async function approve(thread: ThreadRef, body?: string, options?: BaseOptions): Promise<GitLabApprovals> {
+    async function approve(thread: ThreadRef, body?: string, options?: BaseOptions): Promise<Review> {
       const ref = requireThread(thread, context)
       if (ref.kind !== 'pull_request') {
         throw new UnsupportedOperationError('Only merge requests can be approved', context)
@@ -687,10 +688,18 @@ const GITLAB: ProviderDefinition<GitLabOptions, undefined, true> = {
           ? new InsufficientScopeError('Not allowed to approve this merge request', 401, error.body, { ...context, url: error.url, method: error.method }, { cause: error })
           : error,
       })
-      return data
+      const reviews = toApprovalReviews(ref, data)
+      const viewer = reviews.length > 1 ? await viewerLogin() : undefined
+      return reviews.find(review => viewer !== undefined && review.author?.login === viewer) ?? reviews.at(-1) ?? {
+        ref: { forge: FORGE, instance, thread: ref, id: 'approval:' },
+        state: 'approved',
+        stateRaw: 'approved',
+        comments: false,
+        raw: data,
+      }
     }
 
-    async function merge(thread: ThreadRef, mergeOptions: MergeOptions = {}, hooks: MergeHooks = {}): Promise<void> {
+    async function merge(thread: ThreadRef, mergeOptions: MergeOptions = {}, hooks: MergeHooks = {}): Promise<MergeResult> {
       const ref = requireThread(thread, context)
       if (ref.kind !== 'pull_request') {
         throw new UnsupportedOperationError('Only merge requests can be merged', context)
@@ -698,7 +707,7 @@ const GITLAB: ProviderDefinition<GitLabOptions, undefined, true> = {
       const method = await resolveMergeMethod(ref, mergeOptions.method, mergeOptions.signal)
       const message = mergeCommitMessage(mergeOptions)
       await hooks.beforeMerge?.()
-      await fetcher.raw(`${threadPath(ref)}/merge`, {
+      const { data } = await fetcher.json<GitLabIssue>(`${threadPath(ref)}/merge`, {
         method: 'PUT',
         json: {
           sha: mergeOptions.sha,
@@ -709,6 +718,9 @@ const GITLAB: ProviderDefinition<GitLabOptions, undefined, true> = {
         mapError: toMergeError,
         signal: mergeOptions.signal,
       })
+      return data.state === 'merged'
+        ? { status: 'merged', sha: data.merge_commit_sha ?? data.squash_commit_sha ?? undefined, raw: data }
+        : { status: 'queued', raw: data }
     }
 
     return {
@@ -964,9 +976,7 @@ const GITLAB: ProviderDefinition<GitLabOptions, undefined, true> = {
           const { data, response } = await fetcher.json<GitLabApprovals>(`${threadPath(ref)}/approvals`, { signal: listOptions?.signal })
           return { items: toApprovalReviews(ref, data), ...rateLimitPart(response) }
         }),
-        approve: verb(true, async (thread, body, options) => {
-          await approve(thread, body, options)
-        }),
+        approve: verb(true, approve),
         createReview: verb('emulated', async (thread, input, options) => {
           if (input.comments?.length) {
             throw new UnsupportedOperationError('GitLab reviews carry no inline comments yet', context)
@@ -984,16 +994,7 @@ const GITLAB: ProviderDefinition<GitLabOptions, undefined, true> = {
           if (input.event !== 'approve') {
             throw new UnsupportedOperationError('GitLab has approvals and discussions, not reviews; create `approve`, or `comment` with a body', context)
           }
-          const approvals = await approve(ref, input.body, options)
-          const viewer = await viewerLogin()
-          const reviews = toApprovalReviews(ref, approvals)
-          return reviews.find(review => review.author?.login === viewer) ?? reviews.at(-1) ?? {
-            ref: { forge: FORGE, instance, thread: ref, id: 'approval:' },
-            state: 'approved' as const,
-            stateRaw: 'approved',
-            comments: false as const,
-            raw: approvals,
-          }
+          return approve(ref, input.body, options)
         }),
         replyToReviewComment: verb(true, async (thread, comment, body, options) => {
           const ref = requireMerge(thread, 'reviewed')
@@ -1132,7 +1133,7 @@ const GITLAB: ProviderDefinition<GitLabOptions, undefined, true> = {
         }),
         addLabels: perKind({ issue: true, pull_request: true }, async (thread, labels, options) => {
           const ref = requireIssueOrPull(thread, context, 'label')
-          await fetcher.raw(threadPath(ref), { method: 'PUT', json: { add_labels: labels.join(',') }, signal: options?.signal })
+          return toThread(ref, (await fetcher.json<GitLabIssue>(threadPath(ref), { method: 'PUT', json: { add_labels: labels.join(',') }, signal: options?.signal })).data).labels
         }),
         removeLabels: perKind({ issue: true, pull_request: true }, async (thread, labels, options) => {
           const ref = requireIssueOrPull(thread, context, 'label')
@@ -1140,7 +1141,8 @@ const GITLAB: ProviderDefinition<GitLabOptions, undefined, true> = {
         }),
         setMilestone: perKind({ issue: true, pull_request: true }, async (thread, milestone, options) => {
           const ref = requireIssueOrPull(thread, context, 'set the milestone of')
-          await fetcher.raw(threadPath(ref), { method: 'PUT', json: { milestone_id: milestone === undefined ? 0 : await milestoneId(milestone, page => milestonesPage(ref.repo, page, true), context, options) }, signal: options?.signal })
+          const { data } = await fetcher.json<GitLabIssue>(threadPath(ref), { method: 'PUT', json: { milestone_id: milestone === undefined ? 0 : await milestoneId(milestone, page => milestonesPage(ref.repo, page, true), context, options) }, signal: options?.signal })
+          return toMilestone(data.milestone)
         }),
         reactionsPage: perKind(ISSUE_LIKE, async (target, listOptions = {}) => {
           const result = await fetcher.page<GitLabAwardEmoji & { created_at?: string }>(`${awardPath(target)}/award_emoji`, {
@@ -1192,11 +1194,12 @@ const GITLAB: ProviderDefinition<GitLabOptions, undefined, true> = {
         }),
         setLabels: perKind({ issue: true, pull_request: true }, async (thread, labels, options) => {
           const ref = requireIssueOrPull(thread, context, 'label')
-          await fetcher.raw(threadPath(ref), { method: 'PUT', json: { labels: labels.join(',') }, signal: options?.signal })
+          return toThread(ref, (await fetcher.json<GitLabIssue>(threadPath(ref), { method: 'PUT', json: { labels: labels.join(',') }, signal: options?.signal })).data).labels
         }),
         setAssignees: perKind({ issue: true, pull_request: true }, async (thread, assignees, options) => {
           const ref = requireIssueOrPull(thread, context, 'assign')
-          await fetcher.raw(threadPath(ref), { method: 'PUT', json: { assignee_ids: await Promise.all(assignees.map(userId)) }, signal: options?.signal })
+          const { data } = await fetcher.json<GitLabIssue>(threadPath(ref), { method: 'PUT', json: { assignee_ids: await Promise.all(assignees.map(userId)) }, signal: options?.signal })
+          return (data.assignees ?? []).flatMap(user => toActor(instance, user) ?? [])
         }),
         requestReview: perKind({ pull_request: true }, async (thread, reviewers, options) => {
           const ref = requireThread(thread, context)

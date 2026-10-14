@@ -33,6 +33,7 @@ export const ROOT_TYPES = [
   'Installation',
   'InstallationToken',
   'Label',
+  'MergeResult',
   'Milestone',
   'Notification',
   'Reaction',

@@ -14,6 +14,7 @@ import type {
   ListOptions,
   MergeMethod,
   MergeOptions,
+  MergeResult,
   OwnerRepoQuery,
   Page,
   PageOptions,
@@ -201,7 +202,8 @@ const BITBUCKET: ProviderDefinition<BitbucketOptions, undefined, true> = {
         .map(method => [method, true])), context)
     }
 
-    async function merge(thread: ThreadRef, mergeOptions: MergeOptions = {}, hooks: MergeHooks = {}): Promise<void> {
+    /** A merge that outlasts Bitbucket's own timeout responds with `202` and finishes in the background. */
+    async function merge(thread: ThreadRef, mergeOptions: MergeOptions = {}, hooks: MergeHooks = {}): Promise<MergeResult> {
       const ref = requireThread(thread, context)
       if (ref.kind !== 'pull_request') {
         throw new UnsupportedOperationError('Only pull requests can be merged', context)
@@ -219,12 +221,15 @@ const BITBUCKET: ProviderDefinition<BitbucketOptions, undefined, true> = {
       }
       const method = mergeOptions.method ?? await resolveMergeMethod(ref, pull, mergeOptions.signal)
       await hooks.beforeMerge?.()
-      await fetcher.raw(`${threadPath(ref)}/merge`, {
+      const { data, response } = await fetcher.json<BitbucketPullRequest | undefined>(`${threadPath(ref)}/merge`, {
         method: 'POST',
         json: { merge_strategy: toStrategy(method), message: mergeCommitMessage(mergeOptions) },
         mapError: toMergeError,
         signal: mergeOptions.signal,
       })
+      return response.status === 202 || data?.state !== 'MERGED'
+        ? { status: 'queued', raw: data }
+        : { status: 'merged', sha: data.merge_commit?.hash, raw: data }
     }
 
     const STATUS_STATES: Record<CheckState, string> = { pending: 'INPROGRESS', success: 'SUCCESSFUL', failure: 'FAILED', neutral: 'STOPPED', unknown: 'INPROGRESS' }

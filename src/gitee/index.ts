@@ -10,7 +10,7 @@ import { ForgeError, MergeMethodRequiredError, NotFoundError, toMergeError, Unsu
 import { actorLogin, firstPageEtag, getManyConcurrently, hasEveryLabel, hexColour, isFirstPage, iteratePages, phased, rateLimitPart, requireIssueOrPull, requireThread, resolveToken, summariseChecks, toDate, toPage, toWarning, withEtag } from '../utils.ts'
 import { githubShapedWeb } from '../web.ts'
 import { nativeEventsFor } from '../webhooks.ts'
-import { FORGE, isConversationComment, toActor, toBranch, toChangedFile, toCheck, toComment, toCommentEvent, toCommit, toIssueThread, toLogEvent, toNotification, toPullThread, toRelease, toRepo, toRepoRef, toTag, toTreeEntry, toWebhook } from './normalise.ts'
+import { FORGE, isConversationComment, toActor, toBranch, toChangedFile, toCheck, toComment, toCommentEvent, toCommit, toIssueThread, toLabel, toLogEvent, toNotification, toPullThread, toRelease, toRepo, toRepoRef, toTag, toTreeEntry, toWebhook } from './normalise.ts'
 import { GITEE_NATIVE_EVENTS } from './webhook-events.ts'
 import { giteeWebhooks } from './webhooks.ts'
 
@@ -373,7 +373,7 @@ function setupGitee({ options, instance, origin: context, fetcher, baseUrl }: Pr
       byOwnerPage: verb(true, ownerReposPage),
       labelsPage: verb(true, async (repo, listOptions = {}) => {
         const page = await numberedPage<GiteeLabel>(`${repoPath(repo)}/labels`, {}, listOptions)
-        return { ...page, items: page.items.map(raw => ({ name: raw.name, colour: raw.color ?? undefined })) }
+        return { ...page, items: page.items.map(toLabel) }
       }),
       createLabel: verb('unverified', async (repo, label, options) => {
         const { data } = await fetcher.json<GiteeLabel>(`${repoPath(repo)}/labels`, {
@@ -381,7 +381,7 @@ function setupGitee({ options, instance, origin: context, fetcher, baseUrl }: Pr
           json: { name: label.name, color: hexColour(label.colour) },
           signal: options?.signal,
         })
-        return { name: data.name, colour: data.color ?? undefined }
+        return toLabel(data)
       }),
       collaboratorsPage: verb(true, async (repo, listOptions = {}) => {
         const page = await numberedPage<GiteeUser & { permissions?: { admin?: boolean, push?: boolean, pull?: boolean } }>(`${repoPath(repo)}/collaborators`, {}, listOptions)
@@ -559,7 +559,8 @@ function setupGitee({ options, instance, origin: context, fetcher, baseUrl }: Pr
       close: perKind({ issue: 'unverified', pull_request: true }, (ref, options) => setState(ref, 'closed', options)),
       reopen: perKind({ issue: 'unverified', pull_request: true }, (ref, options) => setState(ref, 'open', options)),
       addLabels: perKind({ issue: 'unverified', pull_request: 'unverified' }, async (thread, labels, options) => {
-        await fetcher.raw(`${threadPath(requireIssueOrPull(thread, context, 'label'))}/labels`, { method: 'POST', json: labels, signal: options?.signal })
+        const { data } = await fetcher.json<GiteeLabel[]>(`${threadPath(requireIssueOrPull(thread, context, 'label'))}/labels`, { method: 'POST', json: labels, signal: options?.signal })
+        return data.map(toLabel)
       }),
       removeLabels: perKind({ issue: 'unverified', pull_request: 'unverified' }, async (thread, labels, options) => {
         const ref = requireIssueOrPull(thread, context, 'label')
@@ -568,10 +569,12 @@ function setupGitee({ options, instance, origin: context, fetcher, baseUrl }: Pr
         }
       }),
       setLabels: perKind({ issue: 'unverified', pull_request: 'unverified' }, async (thread, labels, options) => {
-        await fetcher.raw(`${threadPath(requireIssueOrPull(thread, context, 'label'))}/labels`, { method: 'PUT', json: labels, signal: options?.signal })
+        const { data } = await fetcher.json<GiteeLabel[]>(`${threadPath(requireIssueOrPull(thread, context, 'label'))}/labels`, { method: 'PUT', json: labels, signal: options?.signal })
+        return data.map(toLabel)
       }),
       setAssignees: perKind({ issue: 'unverified' }, async (thread, assignees, options) => {
-        await issueWrite(requireIssueOrPull(thread, context, 'assign'), { assignee: issueAssignee(assignees) }, options?.signal)
+        const { data } = await issueWrite(requireIssueOrPull(thread, context, 'assign'), { assignee: issueAssignee(assignees) }, options?.signal)
+        return data.assignee ? [toActor(instance, data.assignee)!] : []
       }),
       requestReview: perKind({ pull_request: 'unverified' }, async (thread, reviewers, options) => {
         await fetcher.raw(`${threadPath(requireThread(thread, context))}/assignees`, { method: 'POST', json: { assignees: reviewers.map(actorLogin).join(',') }, signal: options?.signal })
@@ -591,7 +594,8 @@ function setupGitee({ options, instance, origin: context, fetcher, baseUrl }: Pr
           throw new UnsupportedOperationError(`Gitee does not support the ${mergeOptions.method} merge method`, context)
         }
         await hooks.beforeMerge?.()
-        await fetcher.raw(`${threadPath(ref)}/merge`, { method: 'PUT', json: { merge_method: mergeOptions.method, title: mergeOptions.title, description: mergeOptions.message }, mapError: toMergeError, signal: mergeOptions.signal })
+        const { data } = await fetcher.json<{ sha?: string } | undefined>(`${threadPath(ref)}/merge`, { method: 'PUT', json: { merge_method: mergeOptions.method, title: mergeOptions.title, description: mergeOptions.message }, mapError: toMergeError, signal: mergeOptions.signal })
+        return { status: 'merged' as const, sha: data?.sha, raw: data }
       }),
       checks: perKind(PULL, async (thread, options) => {
         const ref = requireThread(thread, context)

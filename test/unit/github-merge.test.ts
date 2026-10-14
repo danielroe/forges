@@ -22,6 +22,7 @@ function pending(details: Record<string, unknown> = {}) {
   }
 }
 const merged = { status: 'merged', details: { message: 'Pull request merged', sha: '7a9c3e1f0b2d4c6e8a1f3b5d7c9e0a2b4d6f8a1c' } }
+const result = { status: 'merged', sha: merged.details.sha, raw: merged }
 
 function scripted(routes: Record<string, Reply | Reply[]>) {
   const calls: Array<{ method: string, path: string, body?: unknown }> = []
@@ -65,7 +66,7 @@ function forge(routes: Record<string, Reply | Reply[]>, options: { baseUrl?: str
     calls,
     aborted,
     async merge({ approve = true, ...mergeOptions }: Parameters<typeof provider.threads.approveAndMerge>[1] & { approve?: boolean } = {}): Promise<unknown> {
-      const result = (approve ? provider.threads.approveAndMerge(pull, mergeOptions) : provider.threads.merge(pull, mergeOptions)).then(() => undefined, (error: unknown) => error)
+      const result = (approve ? provider.threads.approveAndMerge(pull, mergeOptions) : provider.threads.merge(pull, mergeOptions)).catch((error: unknown) => error)
       await vi.runAllTimersAsync()
       return result
     },
@@ -90,7 +91,7 @@ describe('github merging', () => {
       [`GET ${POLL}`]: [{ status: 200, body: pending() }, { status: 200, body: merged }],
     })
 
-    expect(await merge({ method: 'squash', sha: SHA })).toBeUndefined()
+    expect(await merge({ method: 'squash', sha: SHA })).toEqual(result)
     expect(calls.map(({ method, path }) => `${method} ${path}`)).toEqual([
       `POST ${PULL}/reviews`,
       `PUT ${ASYNC}`,
@@ -107,14 +108,14 @@ describe('github merging', () => {
       [`GET ${POLL}`]: { status: 200, body: merged },
     })
 
-    expect(await merge({ approve: false, sha: SHA })).toBeUndefined()
+    expect(await merge({ approve: false, sha: SHA })).toEqual(result)
     expect(calls.find(call => call.method === 'PUT')!.body).toEqual({ merge_method: 'rebase', sha: SHA, merge_action: 'direct_merge' })
   })
 
   it('sends the merge commit message without approving', async () => {
     const { merge, calls } = forge({ [`PUT ${ASYNC}`]: { status: 200, body: merged } })
 
-    expect(await merge({ method: 'squash', message: 'Release widgets', approve: false })).toBeUndefined()
+    expect(await merge({ method: 'squash', message: 'Release widgets', approve: false })).toEqual(result)
     expect(calls).toHaveLength(1)
     expect(calls[0]!.body).toEqual({ merge_method: 'squash', merge_action: 'direct_merge', commit_message: 'Release widgets' })
   })
@@ -122,14 +123,14 @@ describe('github merging', () => {
   it('sends the merge commit title next to the message', async () => {
     const { merge, calls } = forge({ [`PUT ${ASYNC}`]: { status: 200, body: merged } })
 
-    expect(await merge({ method: 'squash', title: 'Release widgets (#42)', message: 'Ships the widgets', approve: false })).toBeUndefined()
+    expect(await merge({ method: 'squash', title: 'Release widgets (#42)', message: 'Ships the widgets', approve: false })).toEqual(result)
     expect(calls[0]!.body).toEqual({ merge_method: 'squash', merge_action: 'direct_merge', commit_title: 'Release widgets (#42)', commit_message: 'Ships the widgets' })
   })
 
   it('resolves without polling when the pull request is already merged', async () => {
     const { merge, calls } = forge({ [`PUT ${ASYNC}`]: { status: 200, body: merged } })
 
-    expect(await merge({ method: 'merge', approve: false })).toBeUndefined()
+    expect(await merge({ method: 'merge', approve: false })).toEqual(result)
     expect(calls).toHaveLength(1)
   })
 
@@ -235,7 +236,7 @@ describe('github merging', () => {
       [`GET ${POLL}`]: { status: 200, body: merged },
     })
 
-    expect(await merge({ method: 'squash', sha: SHA, approve: false })).toBeUndefined()
+    expect(await merge({ method: 'squash', sha: SHA, approve: false })).toEqual(result)
     expect(calls.map(call => call.method)).toEqual(['PUT', 'GET'])
   })
 
@@ -259,7 +260,7 @@ describe('github merging', () => {
       [`GET ${POLL}`]: { status: 200, body: merged },
     })
 
-    expect(await merge({ method: 'squash', approve: false })).toBeUndefined()
+    expect(await merge({ method: 'squash', approve: false })).toEqual(result)
   })
 
   it.each([
@@ -303,7 +304,7 @@ describe('github merging', () => {
         [`PUT ${PULL}/merge`]: { status: 200, body: { sha: SHA, merged: true, message: 'Pull Request successfully merged' } },
       }, { baseUrl })
 
-      expect(await merge({ method: 'squash', sha: SHA, message: 'Release widgets' })).toBeUndefined()
+      expect(await merge({ method: 'squash', sha: SHA, message: 'Release widgets' })).toEqual({ status: 'merged', sha: SHA, raw: { sha: SHA, merged: true, message: 'Pull Request successfully merged' } })
       expect(calls.map(({ method, path }) => `${method} ${path}`)).toEqual([
         `POST ${PULL}/reviews`,
         `PUT ${ASYNC}`,

@@ -297,9 +297,10 @@ describe('github discussions', () => {
         auth: { type: 'token', token: 't' },
         fetch: async (url, init) => {
           requests.push({ method: init?.method, url, body: init?.body && JSON.parse(String(init.body)) })
+          const milestones = [{ number: 3, title: 'v1.0', state: 'closed' }, { number: 4, title: 'v2.0', state: 'open' }]
           return url.includes('/milestones')
-            ? Response.json([{ number: 3, title: 'v1.0', state: 'closed' }, { number: 4, title: 'v2.0', state: 'open' }])
-            : new Response(null, { status: 204 })
+            ? Response.json(milestones)
+            : Response.json({ number: 7, milestone: milestones.find(milestone => milestone.number === (requests.at(-1)!.body as { milestone: number | null }).milestone) ?? null })
         },
       }).create()
       return { provider, requests }
@@ -308,7 +309,7 @@ describe('github discussions', () => {
     it('sends a numeric id as it is', async () => {
       const { provider, requests } = milestoneProvider()
 
-      await provider.threads.setMilestone(issue, '3')
+      await expect(provider.threads.setMilestone(issue, '3')).resolves.toMatchObject({ id: '3', title: 'v1.0', state: 'closed' })
 
       expect(requests).toEqual([{ method: 'PATCH', url: 'https://api.github.com/repos/acme/widgets/issues/7', body: { milestone: 3 } }])
     })
@@ -316,7 +317,7 @@ describe('github discussions', () => {
     it('looks a title up among open and closed milestones', async () => {
       const { provider, requests } = milestoneProvider()
 
-      await provider.threads.setMilestone(issue, 'v2.0')
+      await expect(provider.threads.setMilestone(issue, 'v2.0')).resolves.toMatchObject({ id: '4', title: 'v2.0', state: 'open' })
 
       expect(requests.map(request => request.url)).toEqual([
         'https://api.github.com/repos/acme/widgets/milestones?state=all',
@@ -597,6 +598,25 @@ describe('github repository and thread metadata', () => {
 
     await expect(provider.threads.removeLabels(pull, ['bug'])).resolves.toBeUndefined()
     await expect(provider.threads.removeLabels({ ...pull, number: '43' }, ['bug'])).rejects.toThrow(NotFoundError)
+  })
+
+  it.each(['setLabels', 'addLabels'] as const)('resolves %s with the labels in the response', async (verb) => {
+    const labels = [{ name: 'bug', color: 'd73a4a', description: 'Something is broken' }, { name: 'triage', color: 'ededed', description: null }]
+    const { provider, calls } = tokenProvider({
+      [`${verb === 'setLabels' ? 'PUT' : 'POST'} https://api.github.com/repos/acme/widgets/issues/42/labels`]: { status: 200, body: labels },
+    })
+
+    await expect(provider.threads[verb](pull, ['bug'])).resolves.toEqual([{ name: 'bug', colour: 'd73a4a', description: 'Something is broken' }, { name: 'triage', colour: 'ededed' }])
+    expect(calls).toHaveLength(1)
+  })
+
+  it('resolves setAssignees with the assignees in the response', async () => {
+    const { provider, calls } = tokenProvider({
+      'PATCH https://api.github.com/repos/acme/widgets/issues/42': { status: 200, body: { number: 42, assignees: [{ login: 'octocat', id: 583231, type: 'User' }] } },
+    })
+
+    await expect(provider.threads.setAssignees(pull, ['octocat'])).resolves.toMatchObject([{ login: 'octocat', id: '583231' }])
+    expect(calls.map(call => [call.method, JSON.parse(call.body!)])).toEqual([['PATCH', { assignees: ['octocat'] }]])
   })
 
   it('adds and removes labels without replacing the rest', async () => {

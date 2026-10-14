@@ -47,7 +47,7 @@ import {
   toThreadRef,
 } from './normalise.ts'
 import { createTangledNotifications } from './notifications.ts'
-import { createTangledRecords, STATE_COLLECTION } from './records.ts'
+import { applyLabelOp, createTangledRecords, labelsIn, STATE_COLLECTION } from './records.ts'
 import { createTangledSession } from './session.ts'
 import { subscribeJetstream } from './subscribe.ts'
 import { tangledWeb } from './web.ts'
@@ -317,6 +317,7 @@ const TANGLED: ProviderDefinition<TangledOptions, undefined, true> = {
       const { ref, record, text } = await pullPatch(thread, options.signal)
       await (await knot()).merge(ref.repo, record.target.branch, text, options.signal)
       await setState(ref, 'merged', options.signal)
+      return { status: 'merged' }
     }
     const addCollaborator: ReposApi['addCollaborator'] = async (repo, actor, role, options) => {
       if (role !== 'write') {
@@ -329,13 +330,16 @@ const TANGLED: ProviderDefinition<TangledOptions, undefined, true> = {
     const close: ThreadsApi['close'] = (thread, options) => setState(thread, 'closed', options?.signal)
     const reopen: ThreadsApi['reopen'] = (thread, options) => setState(thread, 'open', options?.signal)
 
-    /** Writes one label op that moves the thread's labels to what `change` returns, given the current values per definition. */
-    async function changeLabels(thread: ThreadRef, signal: AbortSignal | undefined, change: (labels: TangledLabels) => Array<{ key: string, value: string, add: boolean }>) {
+    /**
+     * Writes one label op that moves the thread's labels to what `change` returns, given the current values per
+     * definition, and resolves with the labels and assignee DIDs that the op leaves, since the backlink index lags.
+     */
+    async function changeLabels(thread: ThreadRef, signal: AbortSignal | undefined, change: (labels: TangledLabels) => Array<{ key: string, value: string, add: boolean }>): Promise<{ labels: Label[], assignees: string[] }> {
       const { uri } = subjectUri(thread)
       const target = atUri(uri.did, uri.collection, uri.rkey)
       const { ref } = await threadFor(target, signal)
       const warn = () => {}
-      const [viewer, allowed, definitions, { state }] = await Promise.all([
+      const [viewer, allowed, definitions, current] = await Promise.all([
         viewerDid(),
         stateAuthors(ref.repo.owner, ref.repo, warn, signal),
         repoLabels(ref.repo, warn, signal),
@@ -345,9 +349,9 @@ const TANGLED: ProviderDefinition<TangledOptions, undefined, true> = {
         throw new InsufficientScopeError('Only the repo owner or a collaborator can change labels; the appview would ignore the record', 403, '', context)
       }
       const usable = definitions.filter(({ definition }) => !definition.scope?.length || definition.scope.includes(uri.collection))
-      const operands = change({ definitions: usable, state })
+      const operands = change({ definitions: usable, state: current.state })
       if (!operands.length) {
-        return
+        return current
       }
       await createRecord(COLLECTIONS.labelOp, {
         subject: target,
@@ -355,6 +359,15 @@ const TANGLED: ProviderDefinition<TangledOptions, undefined, true> = {
         delete: operands.filter(operand => !operand.add).map(({ key, value }) => ({ key, value })),
         performedAt: new Date().toISOString(),
       }, signal)
+      const known = new Map([...current.definitions, ...usable.map(({ uri, definition }) => [uri, definition] as const)])
+      const state = new Map([...current.state].map(([key, values]) => [key, new Set(values)]))
+      for (const operand of operands.toSorted((a, b) => Number(a.add) - Number(b.add) || a.key.localeCompare(b.key) || a.value.localeCompare(b.value))) {
+        const definition = known.get(operand.key)
+        if (definition) {
+          applyLabelOp(state, definition, operand)
+        }
+      }
+      return labelsIn(state, known)
     }
 
     /** The definition and value each label name names: `name` for a label without values, `name:value` otherwise. */
@@ -400,18 +413,21 @@ const TANGLED: ProviderDefinition<TangledOptions, undefined, true> = {
       ]
     }
 
-    const setLabels: ThreadsApi['setLabels'] = (thread, names, options) => changeLabels(thread, options?.signal, labels => labelChanges(labels, names))
-    const addLabels: ThreadsApi['addLabels'] = (thread, names, options) => changeLabels(thread, options?.signal, (labels) => {
+    const setLabels: ThreadsApi['setLabels'] = async (thread, names, options) => (await changeLabels(thread, options?.signal, labels => labelChanges(labels, names))).labels
+    const addLabels: ThreadsApi['addLabels'] = async (thread, names, options) => (await changeLabels(thread, options?.signal, (labels) => {
       const current = labelled(labels)
       return operandsFor(labels, names).filter(item => !has(current, item)).map(item => ({ ...item, add: true }))
-    })
-    const removeLabels: ThreadsApi['removeLabels'] = (thread, names, options) => changeLabels(thread, options?.signal, (labels) => {
-      const current = labelled(labels)
-      return current.filter(item => names.includes(toLabel(labels.definitions.find(({ uri }) => uri === item.key)!.definition, item.value).name)).map(item => ({ ...item, add: false }))
-    })
+    })).labels
+    const removeLabels: ThreadsApi['removeLabels'] = async (thread, names, options) => {
+      await changeLabels(thread, options?.signal, (labels) => {
+        const current = labelled(labels)
+        return current.filter(item => names.includes(toLabel(labels.definitions.find(({ uri }) => uri === item.key)!.definition, item.value).name)).map(item => ({ ...item, add: false }))
+      })
+    }
     const setAssignees: ThreadsApi['setAssignees'] = async (thread, assignees, options) => {
       const dids = await Promise.all(assignees.map(assignee => didOf(assignee, options?.signal)))
-      await changeLabels(thread, options?.signal, labels => assigneeChanges(labels, dids))
+      const changed = await changeLabels(thread, options?.signal, labels => assigneeChanges(labels, dids))
+      return Promise.all(changed.assignees.map(did => actorFor(did, options?.signal)))
     }
     /** Labels and assignees go in one label op, written first so an unknown name fails before any other write. The returned thread reflects the writes, since the backlink index lags. */
     const update: ThreadsApi['update'] = async (thread, input, options) => {
@@ -424,13 +440,9 @@ const TANGLED: ProviderDefinition<TangledOptions, undefined, true> = {
         throw new InsufficientScopeError('Records can only be edited by the account that wrote them', 403, '', context)
       }
       const dids = input.assignees && await Promise.all(input.assignees.map(assignee => didOf(assignee, signal)))
-      let written: Label[] | undefined
-      if (input.labels || dids) {
-        await changeLabels(thread, signal, (labels) => {
-          written = input.labels && operandsFor(labels, input.labels).map(({ key, value }) => toLabel(labels.definitions.find(({ uri }) => uri === key)!.definition, value))
-          return [...input.labels ? labelChanges(labels, input.labels) : [], ...dids ? assigneeChanges(labels, dids) : []]
-        })
-      }
+      const changed = input.labels || dids
+        ? await changeLabels(thread, signal, labels => [...input.labels ? labelChanges(labels, input.labels) : [], ...dids ? assigneeChanges(labels, dids) : []])
+        : undefined
       if (input.state) {
         await setState(thread, input.state, signal)
       }
@@ -441,8 +453,8 @@ const TANGLED: ProviderDefinition<TangledOptions, undefined, true> = {
       return {
         ...current,
         state: input.state ?? current.state,
-        labels: written ?? current.labels,
-        assignees: dids ? await Promise.all([...new Set(dids)].map(did => actorFor(did, signal))) : current.assignees,
+        labels: changed && input.labels ? changed.labels : current.labels,
+        assignees: changed && dids ? await Promise.all(changed.assignees.map(did => actorFor(did, signal))) : current.assignees,
       }
     }
 

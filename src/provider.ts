@@ -44,6 +44,7 @@ import type {
   LabelInput,
   ListOptions,
   MergeOptions,
+  MergeResult,
   Milestone,
   Notification,
   NotificationListOptions,
@@ -615,14 +616,23 @@ export interface ThreadsApi {
    * ```
    */
   update: (ref: ThreadRef, input: ThreadUpdateInput, options?: BaseOptions) => Promise<Thread>
-  /** Replaces the thread's labels. */
-  setLabels: (ref: ThreadRef, labels: string[], options?: BaseOptions) => Promise<void>
-  /** Adds labels, leaving the rest in place. */
-  addLabels: (ref: ThreadRef, labels: string[], options?: BaseOptions) => Promise<void>
+  /**
+   * Replaces the thread's labels.
+   * @returns The labels the thread carries afterwards. GitLab and Azure DevOps report only their names.
+   */
+  setLabels: (ref: ThreadRef, labels: string[], options?: BaseOptions) => Promise<Label[]>
+  /**
+   * Adds labels, leaving the rest in place.
+   * @returns The labels the thread carries afterwards. GitLab reports only their names.
+   */
+  addLabels: (ref: ThreadRef, labels: string[], options?: BaseOptions) => Promise<Label[]>
   /** Removes labels, leaving the rest in place. Labels the thread does not carry are ignored. */
   removeLabels: (ref: ThreadRef, labels: string[], options?: BaseOptions) => Promise<void>
-  /** Sets the thread's milestone, by milestone, id or title, or clears it with `undefined`. */
-  setMilestone: (ref: ThreadRef, milestone: Milestone | string | undefined, options?: BaseOptions) => Promise<void>
+  /**
+   * Sets the thread's milestone, by milestone, id or title, or clears it with `undefined`.
+   * @returns The milestone the thread is in afterwards, or `undefined` once it is cleared.
+   */
+  setMilestone: (ref: ThreadRef, milestone: Milestone | string | undefined, options?: BaseOptions) => Promise<Milestone | undefined>
   /** Reactions left on the thread or on one of its comments. */
   reactions: (target: ThreadRef | CommentRef, options?: ListOptions) => ForgeIterable<Reaction>
   /** One page of `reactions()`. */
@@ -639,8 +649,11 @@ export interface ThreadsApi {
   transfer: (ref: ThreadRef, repo: RepoRef, options?: BaseOptions) => Promise<ResolvedThreadRef>
   /** Marks the thread a duplicate of `canonical`, which must be in the same repository on most forges. */
   markDuplicate: (ref: ThreadRef, canonical: ThreadRef, options?: BaseOptions) => Promise<void>
-  /** Replaces the thread's assignees. */
-  setAssignees: (ref: ThreadRef, assignees: Array<string | Actor>, options?: BaseOptions) => Promise<void>
+  /**
+   * Replaces the thread's assignees.
+   * @returns The accounts assigned afterwards.
+   */
+  setAssignees: (ref: ThreadRef, assignees: Array<string | Actor>, options?: BaseOptions) => Promise<Actor[]>
   /** Adds reviewers to a pull request. */
   requestReview: (ref: ThreadRef, reviewers: Array<string | Actor>, options?: BaseOptions) => Promise<void>
   /** Closes a thread, optionally with a reason. */
@@ -652,17 +665,19 @@ export interface ThreadsApi {
    * pull request has merged, so after a failure read the pull request to see whether it did.
    * @param ref The pull request to merge.
    * @param options The merge method, the head `sha` to expect and the commit message.
+   * @returns Whether the pull request merged or the forge queued the merge, and the merge commit where the response
+   * reports it. Forgejo, Gitea and Tangled report no merge commit.
    * @example
    * ```ts
-   * await provider.threads.merge(ref, { method: 'squash' })
+   * const { status, sha } = await provider.threads.merge(ref, { method: 'squash' })
    * ```
    */
-  merge: (ref: ThreadRef, options?: MergeOptions) => Promise<void>
+  merge: (ref: ThreadRef, options?: MergeOptions) => Promise<MergeResult>
   /**
-   * Approves, then merges. The merge method is checked before the approval is sent. A repeat approves again, as
-   * `approve()` does, so once the approval is in, retry with `merge()`.
+   * Approves, then merges, and resolves as `merge()` does. The merge method is checked before the approval is sent.
+   * A repeat approves again, as `approve()` does, so once the approval is in, retry with `merge()`.
    */
-  approveAndMerge: (ref: ThreadRef, options?: ApproveAndMergeOptions) => Promise<void>
+  approveAndMerge: (ref: ThreadRef, options?: ApproveAndMergeOptions) => Promise<MergeResult>
   /** The authenticated account's subscription to the thread. */
   subscription: (ref: ThreadRef, options?: BaseOptions) => Promise<SubscriptionState>
   /** Subscribes the account to the notifications of a thread. */
@@ -688,8 +703,10 @@ export interface ThreadsApi {
   /**
    * Approves without merging; `createReview({ event: 'approve' })` with nothing else to say. A repeat adds a second
    * approving review where the forge keeps reviews, and sets the same vote or rejects where it keeps votes.
+   * @returns The approval, as `createReview()` returns it. GitLab reads the signed-in account once per provider to
+   * pick the approval out of a response with more than one approver.
    */
-  approve: (ref: ThreadRef, body?: string, options?: BaseOptions) => Promise<void>
+  approve: (ref: ThreadRef, body?: string, options?: BaseOptions) => Promise<Review>
   /** Files a pull request changes, with a per-file `patch` where the forge returns one. */
   files: (ref: ThreadRef, options?: PageOptions) => ForgeIterable<ChangedFile>
   /** One page of `files()`. */

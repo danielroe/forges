@@ -106,6 +106,7 @@ export type {
   MergeCommitDefaults,
   MergeMethod,
   MergeOptions,
+  MergeResult,
   Milestone,
   Notification,
   NotificationListOptions,

@@ -733,6 +733,26 @@ describe('tangled thread updates', () => {
     expect(thread.assignees.map(actor => actor.id)).toEqual([ADA])
   })
 
+  it.each([
+    ['setLabels', ['bug', 'priority:high'], [{ name: 'bug', colour: 'EF4444' }, { name: 'priority:high', colour: 'F59E0B' }]],
+    ['addLabels', ['bug'], [{ name: 'priority:low', colour: 'F59E0B' }, { name: 'bug', colour: 'EF4444' }]],
+  ] as const)('resolves %s with the labels its op leaves, reading the label ops once', async (verb, names, expected) => {
+    const { instance, calls } = provider(labelled)
+
+    await expect(instance.threads[verb](pull, [...names])).resolves.toEqual(expected)
+    expect(calls.filter(call => call.url.includes('collection=sh.tangled.label.op&path=.subject'))).toHaveLength(1)
+    expect(written(calls).map(write => write.collection)).toEqual(['sh.tangled.label.op'])
+  })
+
+  it('resolves setAssignees with the assignees its op leaves, reading the label ops once', async () => {
+    const { instance, calls } = provider(labelled)
+
+    const assignees = await instance.threads.setAssignees(pull, [ADA, GRACE])
+
+    expect(assignees.map(actor => actor.id)).toEqual([GRACE, ADA])
+    expect(calls.filter(call => call.url.includes('collection=sh.tangled.label.op&path=.subject'))).toHaveLength(1)
+  })
+
   it('clears assignees as a no-op where the repository has no assignee label', async () => {
     const { instance, calls } = provider({ ...labelled, ...definition('assignee', { name: 'owner', valueType: { type: 'string', format: 'any' } }) })
     await instance.threads.update(pull, { labels: ['bug'], assignees: [] })

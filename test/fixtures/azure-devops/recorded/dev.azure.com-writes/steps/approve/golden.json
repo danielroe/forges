@@ -1,1 +1,33 @@
-null
+{
+  "ref": {
+    "forge": "azure-devops",
+    "instance": "dev.azure.com",
+    "thread": {
+      "forge": "azure-devops",
+      "instance": "dev.azure.com",
+      "repo": {
+        "forge": "azure-devops",
+        "instance": "dev.azure.com",
+        "owner": "forges/forges-fixtures",
+        "name": "forges-fixtures"
+      },
+      "kind": "pull_request",
+      "number": "35",
+      "externalId": "vstfs:///Git/PullRequestId/b2332e32-1afe-4c85-9407-12e7af2bf24c%2fc67c02dd-cbca-45aa-a679-021bd4d2c4a7%2f35"
+    },
+    "id": "vote:48261c0d-8a6e-6a10-a9cb-c76b44ce18ce"
+  },
+  "author": {
+    "forge": "azure-devops",
+    "instance": "dev.azure.com",
+    "login": "redacted@example.invalid",
+    "id": "48261c0d-8a6e-6a10-a9cb-c76b44ce18ce",
+    "name": "danielroe",
+    "avatarUrl": "https://dev.azure.com/forges/_api/_common/identityImage?id=48261c0d-8a6e-6a10-a9cb-c76b44ce18ce",
+    "typeRaw": "user",
+    "isBotHint": false
+  },
+  "state": "approved",
+  "stateRaw": "vote:10",
+  "comments": false
+}

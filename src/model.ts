@@ -2084,6 +2084,19 @@ export interface ApproveAndMergeOptions extends MergeOptions {
   body?: string
 }
 
+/** What `threads.merge()` and `threads.approveAndMerge()` resolve with. */
+export interface MergeResult {
+  /**
+   * `'merged'` once the pull request has merged. `'queued'` when the forge merges it later: with `whenChecksPass`,
+   * or where it completes the merge in the background (Azure DevOps, and Bitbucket when the merge outlasts its timeout).
+   */
+  status: 'merged' | 'queued'
+  /** The commit that the merge made on the base branch, where the response reports it. */
+  sha?: string
+  /** Unnormalised forge payload, retained for fidelity. Absent where the merge response has no body. */
+  raw?: unknown
+}
+
 /** An app installation on an account, with its own credential scope. */
 export interface Installation extends ForgeOrigin {
   id: string

@@ -10,8 +10,8 @@ import { fixtureFetch } from '../utils/fixtures.ts'
 const repo = { forge: 'bitbucket', instance: 'bitbucket.org', owner: 'acme', name: 'widgets' } as const
 const pull: ResolvedThreadRef = { forge: 'bitbucket', instance: 'bitbucket.org', repo, kind: 'pull_request', number: '31' }
 
-function provider(auth: BitbucketOptions['auth'] = { type: 'token', token: 't' }) {
-  const { fetch, calls } = fixtureFetch('bitbucket')
+function provider(auth: BitbucketOptions['auth'] = { type: 'token', token: 't' }, overrides: Parameters<typeof fixtureFetch>[1] = {}) {
+  const { fetch, calls } = fixtureFetch('bitbucket', overrides)
   return { instance: bitbucket({ auth, fetch }).create(), calls }
 }
 
@@ -80,6 +80,21 @@ describe('bitbucket provider', () => {
     await instance.threads.merge!(pull, { sha: '6dcb09b5b57875f334f61aebed695e2e4193db5e', method: 'squash' })
 
     expect(calls.at(-1)!.url).toMatch(/\/merge$/)
+  })
+
+  it('resolves with the merge commit from the merged pull request in the response', async () => {
+    const merged = { id: 31, state: 'MERGED', merge_commit: { hash: 'a170f2a9c280582207a93574cddc40064afe328e' } }
+    const { instance, calls } = provider(undefined, { 'POST https://api.bitbucket.org/2.0/repositories/acme/widgets/pullrequests/31/merge': { status: 200, body: merged } })
+
+    await expect(instance.threads.merge!(pull, { method: 'squash' })).resolves.toEqual({ status: 'merged', sha: 'a170f2a9c280582207a93574cddc40064afe328e', raw: merged })
+    expect(calls).toHaveLength(1)
+  })
+
+  it('resolves queued when the merge outlasts the timeout of Bitbucket', async () => {
+    const accepted = { task_status: 'PENDING' }
+    const { instance } = provider(undefined, { 'POST https://api.bitbucket.org/2.0/repositories/acme/widgets/pullrequests/31/merge': { status: 202, body: accepted } })
+
+    await expect(instance.threads.merge!(pull, { method: 'squash' })).resolves.toEqual({ status: 'queued', raw: accepted })
   })
 
   it('puts the merge commit title before the message', async () => {

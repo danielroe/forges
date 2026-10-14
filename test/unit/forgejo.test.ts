@@ -92,6 +92,34 @@ describe('forgejo provider', () => {
     expect(JSON.parse(calls[0]!.body!)).toEqual({ Do: 'squash', MergeTitleField: 'Release widgets (#7)', MergeMessageField: 'Ships the widgets' })
   })
 
+  it.each([
+    [200, false, 'merged'],
+    [200, true, 'merged'],
+    [201, true, 'queued'],
+  ] as const)('resolves a %i merge response with whenChecksPass %s as %s', async (status, whenChecksPass, expected) => {
+    const { instance, calls } = provider({ 'POST https://codeberg.org/api/v1/repos/acme/widgets/pulls/7/merge': { status } })
+    const pull = { forge: 'forgejo', instance: 'codeberg.org', repo: { forge: 'forgejo', instance: 'codeberg.org', owner: 'acme', name: 'widgets' }, kind: 'pull_request', number: '7' } as const
+
+    await expect(instance.threads.merge!(pull, { method: 'squash', whenChecksPass })).resolves.toEqual({ status: expected })
+    expect(calls).toHaveLength(1)
+  })
+
+  it('resolves setMilestone with the milestone of the issue in the response', async () => {
+    const issue = { forge: 'forgejo', instance: 'codeberg.org', repo: { forge: 'forgejo', instance: 'codeberg.org', owner: 'acme', name: 'widgets' }, kind: 'issue', number: '7' } as const
+    const { instance, calls } = provider({ 'PATCH https://codeberg.org/api/v1/repos/acme/widgets/issues/7': { status: 201, body: { number: 7, milestone: { id: 12, title: 'v1.0', state: 'open' } } } })
+
+    await expect(instance.threads.setMilestone!(issue, '12')).resolves.toMatchObject({ id: '12', title: 'v1.0', state: 'open' })
+    expect(calls.map(call => [call.method, JSON.parse(call.body!)])).toEqual([['PATCH', { milestone: 12 }]])
+  })
+
+  it('resolves setAssignees with the assignees of the issue in the response', async () => {
+    const pull = { forge: 'forgejo', instance: 'codeberg.org', repo: { forge: 'forgejo', instance: 'codeberg.org', owner: 'acme', name: 'widgets' }, kind: 'pull_request', number: '7' } as const
+    const { instance, calls } = provider({ 'PATCH https://codeberg.org/api/v1/repos/acme/widgets/issues/7': { status: 201, body: { number: 7, assignees: [{ id: 3, login: 'ada' }] } } })
+
+    await expect(instance.threads.setAssignees!(pull, ['ada'])).resolves.toMatchObject([{ login: 'ada', id: '3' }])
+    expect(calls).toHaveLength(1)
+  })
+
   it('reads on past a page of repositories that the visibility filter empties', async () => {
     const first = 'https://codeberg.org/api/v1/users/acme/repos?limit=1'
     const second = 'https://codeberg.org/api/v1/users/acme/repos?limit=1&page=2'
@@ -250,7 +278,7 @@ describe('forgejo label names', () => {
       if (url === 'https://codeberg.org/api/v1/orgs/acme/labels?limit=50') {
         return Response.json([{ id: 9, name: 'triage', color: '00ff00' }])
       }
-      return init?.method === 'POST' ? Response.json([]) : Response.json({ message: 'not found' }, { status: 404 })
+      return init?.method === 'POST' ? Response.json([{ id: 1, name: 'bug', color: 'ff0000', description: '' }, { id: 9, name: 'triage', color: '00ff00', description: 'Needs a look' }]) : Response.json({ message: 'not found' }, { status: 404 })
     }
     const thread = { forge: 'forgejo', instance: 'codeberg.org', repo: { forge: 'forgejo', instance: 'codeberg.org', owner, name: 'widgets' }, kind: 'issue', number: '7' } as const
     return { provider: forgejo({ auth: { type: 'token', token: 't' }, fetch }).create(), thread, calls }
@@ -259,7 +287,7 @@ describe('forgejo label names', () => {
   it('resolves a label the organisation shares', async () => {
     const { provider, thread, calls } = serve('acme')
 
-    await provider.threads.addLabels!(thread, ['bug', 'triage'])
+    await expect(provider.threads.addLabels!(thread, ['bug', 'triage'])).resolves.toEqual([{ name: 'bug', colour: 'ff0000' }, { name: 'triage', colour: '00ff00', description: 'Needs a look' }])
 
     expect(calls.at(-1)).toMatchObject({ method: 'POST', body: '{"labels":[1,9]}' })
   })

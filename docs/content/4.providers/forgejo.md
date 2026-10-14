@@ -49,6 +49,8 @@ Forgejo notifications have a read state but no done state. To give you `markDone
 
 If you call `merge()` without a `method`, the provider reads the merge styles that the repository allows. When exactly one style is allowed, it uses that one. When several are allowed, it throws `MergeMethodRequiredError`. If you pass `whenChecksPass`, Forgejo merges the pull request after its checks succeed.
 
+The merge response has no body, so `merge()` resolves without a `sha`. Its `status` is `'queued'` when Forgejo schedules the merge until the checks pass, and `'merged'` otherwise. Read the pull request to see the merge commit.
+
 The head branch stays after `merge()`, even when `deleteBranchOnMerge` is `true`, because Forgejo applies that setting only in its web interface. Gitea did the same before 1.25.
 
 ## Reviews

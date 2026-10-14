@@ -281,8 +281,9 @@ describe.each(contracts)('contract: $name', (contract) => {
 
     it('approves then merges with the only allowed method', async () => {
       const { instance, calls } = provider()
-      await instance.threads.approveAndMerge!(threadRef())
+      const result = await instance.threads.approveAndMerge!(threadRef())
 
+      expect({ ...result, raw: undefined }).toEqual(merge!.result)
       expect(calls.map(({ method, url }) => ({ method, url }))).toEqual([
         ...merge!.reads,
         { method: merge!.review.method, url: merge!.review.url },
@@ -292,10 +293,20 @@ describe.each(contracts)('contract: $name', (contract) => {
       expect(calls[merge!.reads.length + 1]!.body ?? '').toContain(merge!.merge.body)
     })
 
+    it('resolves an approval with the review from its one request', async () => {
+      const { instance, calls } = provider()
+      const review = await instance.threads.approve(threadRef())
+
+      expect(review.state).toBe('approved')
+      expect(review.ref.thread.number).toBe(contract.thread.number)
+      expect(calls.map(({ method, url }) => ({ method, url }))).toEqual([{ method: merge!.review.method, url: merge!.review.url }])
+    })
+
     it('merges with an explicit method without reading the repository', async () => {
       const { instance, calls } = provider()
-      await instance.threads.merge!(threadRef(), { method: merge!.explicit.method })
+      const result = await instance.threads.merge!(threadRef(), { method: merge!.explicit.method })
 
+      expect({ ...result, raw: undefined }).toEqual(merge!.result)
       expect(calls).toHaveLength(1 + (merge!.settle?.length ?? 0))
       expect(calls[0]!.url).toBe(merge!.merge.url)
       expect(calls[0]!.body).toContain(merge!.explicit.bodyContains)

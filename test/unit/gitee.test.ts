@@ -164,7 +164,11 @@ describe('gitee', () => {
 
   it('merges without approving, sending `message` as the description', async () => {
     const { fetch, calls } = fixtureFetch('gitee')
-    await gitee({ auth: { type: 'token', token: 't' }, fetch }).create().threads.merge!(pull, { method: 'merge', message: 'Ship it' })
+    await expect(gitee({ auth: { type: 'token', token: 't' }, fetch }).create().threads.merge!(pull, { method: 'merge', message: 'Ship it' })).resolves.toEqual({
+      status: 'merged',
+      sha: 'feedfacefeedfacefeedfacefeedfacefeedface',
+      raw: { sha: 'feedfacefeedfacefeedfacefeedfacefeedface', merged: true, message: 'Pull Request 已成功合并' },
+    })
 
     expect(calls.map(call => `${call.method} ${new URL(call.url).pathname}`)).toEqual(['PUT /api/v5/repos/acme/widgets/pulls/7/merge'])
     expect(JSON.parse(calls[0]!.body!)).toEqual({ merge_method: 'merge', description: 'Ship it' })
@@ -241,5 +245,24 @@ describe('gitee thread updates', () => {
 
     await expect(instance.threads.update(thread, { state: 'closed', assignees: [...assignees] })).rejects.toThrow(message)
     expect(calls).toEqual([])
+  })
+})
+
+describe('gitee labels', () => {
+  it.each([['setLabels', 'PUT'], ['addLabels', 'POST']] as const)('resolves %s with the labels in the response', async (verb, method) => {
+    const { fetch, calls } = fixtureFetch('gitee', { [`${method} https://gitee.com/api/v5/repos/acme/widgets/pulls/7/labels`]: { status: 200, body: [{ id: 1, name: 'bug', color: 'd73a4a' }, { id: 2, name: 'triage' }] } })
+
+    await expect(gitee({ auth: { type: 'token', token: 't' }, fetch }).create().threads[verb](pull, ['bug'])).resolves.toEqual([{ name: 'bug', colour: 'd73a4a' }, { name: 'triage' }])
+    expect(calls).toHaveLength(1)
+  })
+})
+
+describe('gitee assignees', () => {
+  it('resolves setAssignees with the assignee of the issue in the response', async () => {
+    const issue = { ...pull, kind: 'issue', number: 'I7' } as const
+    const { fetch, calls } = fixtureFetch('gitee', { 'PATCH https://gitee.com/api/v5/repos/acme/issues/I7': { status: 200, body: { number: 'I7', assignee: { id: 3, login: 'ada' } } } })
+
+    await expect(gitee({ auth: { type: 'token', token: 't' }, fetch }).create().threads.setAssignees(issue, ['ada'])).resolves.toMatchObject([{ login: 'ada', id: '3' }])
+    expect(calls).toHaveLength(1)
   })
 })

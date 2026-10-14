@@ -584,3 +584,64 @@ describe('fake capabilities', () => {
     expect(forge.can('threads.close', 'issue')).toBe(false)
   })
 })
+
+describe('fake write results', () => {
+  const repo = { forge: 'fake', instance: 'fake.test', owner: 'acme', name: 'widgets' }
+  const issue = { forge: 'fake', instance: 'fake.test', repo, kind: 'issue' as const, number: '1' }
+  const pull = { forge: 'fake', instance: 'fake.test', repo, kind: 'pull_request' as const, number: '2' }
+
+  it.each(['merge', 'approveAndMerge'] as const)('resolves %s with the merge commit that a following read reports', async (verb) => {
+    const forge = fake({ seed }).create()
+
+    const result = await forge.threads[verb](pull)
+
+    expect(result).toMatchObject({ status: 'merged', sha: expect.stringMatching(/^[0-9a-f]{40}$/) })
+    expect((await forge.threads.get(pull)).branches?.mergeCommitSha).toBe(result.sha)
+  })
+
+  it.each(['merge', 'approveAndMerge'] as const)('resolves %s with whenChecksPass as queued and leaves the pull request open', async (verb) => {
+    const forge = fake({ seed }).create()
+
+    await expect(forge.threads[verb](pull, { method: 'squash', whenChecksPass: true })).resolves.toEqual({ status: 'queued' })
+
+    const thread = await forge.threads.get(pull)
+    expect(thread.state).toBe('open')
+    expect(thread.branches?.mergeCommitSha).toBeUndefined()
+  })
+
+  it('queues a merge with whenChecksPass while the pull request is blocked', async () => {
+    const forge = fake({ seed: { ...seed, threads: seed.threads.map(thread => thread.kind === 'pull_request' ? { ...thread, mergeable: 'blocked' as const } : thread) } }).create()
+
+    await expect(forge.threads.merge(pull, { whenChecksPass: true })).resolves.toEqual({ status: 'queued' })
+  })
+
+  it.each([
+    ['setLabels', ['bug']],
+    ['addLabels', ['bug']],
+  ] as const)('resolves %s with the labels that a following read returns', async (verb, labels) => {
+    const forge = fake({ seed }).create()
+
+    const result = await forge.threads[verb](issue, [...labels])
+
+    expect(result.map(label => label.name)).toContain('bug')
+    expect(result).toEqual((await forge.threads.get(issue)).labels)
+  })
+
+  it('resolves setAssignees with the assignees that a following read returns', async () => {
+    const forge = fake({ seed }).create()
+
+    const result = await forge.threads.setAssignees(issue, ['octocat'])
+
+    expect(result.map(actor => actor.login)).toEqual(['octocat'])
+    expect(result).toEqual((await forge.threads.get(issue)).assignees)
+  })
+
+  it('resolves approve with the review that a following read returns', async () => {
+    const forge = fake({ seed }).create()
+
+    const review = await forge.threads.approve(pull, 'Ship it')
+
+    expect(review).toMatchObject({ state: 'approved', body: 'Ship it' })
+    expect(await forge.threads.getReview(review.ref)).toEqual(review)
+  })
+})

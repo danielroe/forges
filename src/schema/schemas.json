@@ -2421,6 +2421,31 @@
     "description": "How a pull request is merged.",
     "x-forges-type": "MergeMethod"
   },
+  "MergeResult": {
+    "type": "object",
+    "properties": {
+      "status": {
+        "type": "string",
+        "enum": [
+          "merged",
+          "queued"
+        ],
+        "description": "`'merged'` once the pull request has merged. `'queued'` when the forge merges it later: with `whenChecksPass`, or where it completes the merge in the background (Azure DevOps, and Bitbucket when the merge outlasts its timeout)."
+      },
+      "sha": {
+        "type": "string",
+        "description": "The commit that the merge made on the base branch, where the response reports it."
+      },
+      "raw": {
+        "description": "Unnormalised forge payload, retained for fidelity. Absent where the merge response has no body."
+      }
+    },
+    "required": [
+      "status"
+    ],
+    "description": "What `threads.merge()` and `threads.approveAndMerge()` resolve with.",
+    "x-forges-type": "MergeResult"
+  },
   "Milestone": {
     "type": "object",
     "properties": {

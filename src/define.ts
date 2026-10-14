@@ -1,5 +1,5 @@
 import type { Fetcher, FetcherOptions } from './fetch.ts'
-import type { ApproveAndMergeOptions, BaseOptions, Check, CiJobRef, Comment, CommentRef, CommitFilesInput, CompareOptions, Comparison, Cursor, DownloadAssetOptions, EventFeedOptions, ForgeEventInput, ForgeInstance, ForgeKind, Installation, ListOptions, MergeOptions, Notification, NotificationListOptions, OwnerRepoQuery, Page, RateLimit, ReleaseAssetRef, Repo, RepoRef, ReviewRef, SecurityAlertKind, SecurityAlertListOptions, Support, TextLimits, ThreadKind, ThreadQuery, ThreadRef, UpsertCommentInput, UpsertCommentResult, WebhookEventType } from './model.ts'
+import type { ApproveAndMergeOptions, BaseOptions, Check, CiJobRef, Comment, CommentRef, CommitFilesInput, CompareOptions, Comparison, Cursor, DownloadAssetOptions, EventFeedOptions, ForgeEventInput, ForgeInstance, ForgeKind, Installation, ListOptions, MergeOptions, MergeResult, Notification, NotificationListOptions, OwnerRepoQuery, Page, RateLimit, ReleaseAssetRef, Repo, RepoRef, ReviewRef, SecurityAlertKind, SecurityAlertListOptions, Support, TextLimits, ThreadKind, ThreadQuery, ThreadRef, UpsertCommentInput, UpsertCommentResult, WebhookEventType } from './model.ts'
 import type {
   AuthKind,
   ChecksApi,
@@ -169,7 +169,7 @@ export interface ProviderSpec<TExtensions extends object = Record<never, never>>
     setAssignees?: ThreadVerb<'setAssignees'>
     requestReview?: ThreadVerb<'requestReview'>
     /** `beforeMerge` runs once the merge is validated, just before it is sent. */
-    merge?: Verb<(ref: ThreadRef, options?: MergeOptions, hooks?: MergeHooks) => Promise<void>>
+    merge?: Verb<(ref: ThreadRef, options?: MergeOptions, hooks?: MergeHooks) => Promise<MergeResult>>
     /** Optional support override; approval and merging must also be supported. */
     approveAndMerge?: { support: SupportInput }
     /** One capability covers reading and changing the subscription. */
@@ -563,9 +563,7 @@ function createProvider<TOptions extends ForgeOptionsBase, TState, HasWeb extend
   const createReview = spec.threads.createReview
   const approve = spec.threads.approve ?? (createReview && {
     support: createReview.support,
-    run: async (ref: ThreadRef, body?: string, options?: BaseOptions) => {
-      await createReview.run(ref, { event: 'approve', body }, options)
-    },
+    run: (ref: ThreadRef, body?: string, options?: BaseOptions) => createReview.run(ref, { event: 'approve', body }, options),
   })
   const declaredSubscribe = spec.sources?.subscribe
   const alerts = spec.securityAlerts
@@ -653,9 +651,11 @@ function createProvider<TOptions extends ForgeOptionsBase, TState, HasWeb extend
     'threads.subscribe': kindGate('threads.subscribe', subscriptions?.kinds, subscriptions?.run.subscribe),
     'threads.unsubscribe': kindGate('threads.unsubscribe', subscriptions?.kinds, subscriptions?.run.unsubscribe),
     'threads.approve': gate('threads.approve', approve?.support, approve?.run),
-    'threads.approveAndMerge': gate('threads.approveAndMerge', (mergeEnv: CapabilityEnv) => approveAndMergeSupport(spec, mergeEnv), async (ref: ThreadRef, { body, ...mergeOptions }: ApproveAndMergeOptions = {}) => {
-      await spec.threads.merge!.run(ref, mergeOptions, { beforeMerge: () => call('threads.approve')(ref, body, { signal: mergeOptions.signal }) })
-    }),
+    'threads.approveAndMerge': gate('threads.approveAndMerge', (mergeEnv: CapabilityEnv) => approveAndMergeSupport(spec, mergeEnv), (ref: ThreadRef, { body, ...mergeOptions }: ApproveAndMergeOptions = {}) => spec.threads.merge!.run(ref, mergeOptions, {
+      beforeMerge: async () => {
+        await call('threads.approve')(ref, body, { signal: mergeOptions.signal })
+      },
+    })),
     'releases.downloadAsset': async (ref: ReleaseAssetRef, options?: DownloadAssetOptions) => {
       const stream: ReadableStream<Uint8Array> = await gate('releases.downloadAsset', spec.releases?.downloadAsset?.support, spec.releases?.downloadAsset?.run)(ref, options)
       if (!options?.as || options.as === 'stream') {

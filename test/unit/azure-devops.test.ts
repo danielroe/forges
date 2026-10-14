@@ -100,6 +100,21 @@ describe('azure devops', () => {
     expect(JSON.parse(calls.at(-1)!.body!)).toEqual({ status: 'completed', lastMergeSourceCommit: { commitId: '9e8d7c6b5a4f3e2d1c0b9a8f7e6d5c4b3a2f1e0d' }, completionOptions: { mergeStrategy: 'rebaseMerge' } })
   })
 
+  it('resolves with the merge commit of the completed pull request in the response', async () => {
+    const completed = { pullRequestId: 42, status: 'completed', mergeStatus: 'succeeded', lastMergeCommit: { commitId: 'c0ffee0000000000000000000000000000000001' } }
+    const { instance, calls } = provider({ ...me, 'PATCH https://dev.azure.com/acme/Widgets/_apis/git/repositories/widgets/pullRequests/42?api-version=7.1': { status: 200, body: completed } })
+
+    await expect(instance.threads.merge!(pull, { method: 'squash', sha: '9e8d7c6b5a4f3e2d1c0b9a8f7e6d5c4b3a2f1e0d' })).resolves.toEqual({ status: 'merged', sha: 'c0ffee0000000000000000000000000000000001', raw: completed })
+    expect(calls.map(call => call.method)).toEqual(['GET', 'PATCH'])
+  })
+
+  it('resolves queued while Azure DevOps completes the merge in the background', async () => {
+    const queued = { pullRequestId: 42, status: 'active', mergeStatus: 'queued' }
+    const { instance } = provider({ ...me, 'PATCH https://dev.azure.com/acme/Widgets/_apis/git/repositories/widgets/pullRequests/42?api-version=7.1': { status: 200, body: queued } })
+
+    await expect(instance.threads.merge!(pull, { method: 'squash' })).resolves.toEqual({ status: 'queued', raw: queued })
+  })
+
   it('puts the merge commit title before the message', async () => {
     const { instance, calls } = provider(me)
     await instance.threads.merge!(pull, { method: 'squash', title: 'Release widgets', message: 'Ships the widgets' })
@@ -159,6 +174,35 @@ describe('azure devops thread updates', () => {
     await instance.threads.update(pull, { labels: ['bug'] })
 
     expect(calls.map(call => `${call.method} ${new URL(call.url).pathname.split('/pullRequests/')[1]}`)).toEqual(['GET 42/labels', 'POST 42/labels', 'GET 42'])
+  })
+
+  it('resolves pull request labels with the kept labels and the ones it added', async () => {
+    const { instance, calls } = provider({
+      [`GET ${A}/git/repositories/widgets/pullRequests/42/labels?api-version=7.1`]: { status: 200, body: { value: [{ id: 'l-1', name: 'stale' }, { id: 'l-3', name: 'ui' }] } },
+      [`DELETE ${A}/git/repositories/widgets/pullRequests/42/labels/l-1?api-version=7.1`]: { status: 200, body: {} },
+      [`POST ${A}/git/repositories/widgets/pullRequests/42/labels?api-version=7.1`]: { status: 200, body: { id: 'l-2', name: 'bug' } },
+    })
+
+    await expect(instance.threads.setLabels(pull, ['ui', 'bug'])).resolves.toEqual([{ name: 'ui' }, { name: 'bug' }])
+    expect(calls.map(call => `${call.method} ${new URL(call.url).pathname.split('/pullRequests/')[1]}`)).toEqual(['GET 42/labels', 'DELETE 42/labels/l-1', 'POST 42/labels'])
+  })
+
+  it('resolves work item labels with the tags in the patch response', async () => {
+    const { instance, calls } = provider({
+      [`PATCH ${A}/wit/workitems/7?api-version=7.1`]: { status: 200, body: { id: 7, fields: { 'System.WorkItemType': 'Issue', 'System.Tags': 'bug; ui' } } },
+    })
+
+    await expect(instance.threads.setLabels({ ...pull, kind: 'issue', number: '7' }, ['bug', 'ui'])).resolves.toEqual([{ name: 'bug' }, { name: 'ui' }])
+    expect(calls.map(call => call.method)).toEqual(['PATCH'])
+  })
+
+  it('resolves setAssignees with the assignee in the patch response', async () => {
+    const { instance, calls } = provider({
+      [`PATCH ${A}/wit/workitems/7?api-version=7.1`]: { status: 200, body: { id: 7, fields: { 'System.WorkItemType': 'Issue', 'System.AssignedTo': { id: 'jane-0001', uniqueName: 'jane@acme.dev', displayName: 'Jane' } } } },
+    })
+
+    await expect(instance.threads.setAssignees({ ...pull, kind: 'issue', number: '7' }, ['jane@acme.dev'])).resolves.toMatchObject([{ login: 'jane@acme.dev', id: 'jane-0001' }])
+    expect(calls.map(call => call.method)).toEqual(['PATCH'])
   })
 
   it('refuses pull request assignees before it writes anything', async () => {

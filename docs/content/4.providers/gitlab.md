@@ -69,6 +69,8 @@ GitLab reports changes to labels, states and assignments as English text in syst
 
 GitLab has approvals instead of reviews, so the provider presents them as reviews. `threads.reviews()` returns one review for each approver, with the ID `approval:<username>`. `createReview({ event: 'approve' })` approves the merge request. `createReview({ event: 'comment', body })` opens a resolvable discussion on it instead, and the comment of the review it returns carries the discussion as its `thread`. For any other input, such as inline comments, it rejects with `UnsupportedOperationError`.
 
+`approve()` and `createReview({ event: 'approve' })` resolve with your approval, from the approvals in the response. When the merge request has more than one approver, the provider reads the signed-in account to tell which approval is yours, once per provider.
+
 Comments on a merge request are read by discussion, so a comment in a resolvable discussion has a `thread` whose ID `resolveReviewThread()` takes. `replyToReviewComment()` posts a note to that discussion, so pass it a comment that has a `thread`, such as one from `comments()`. A page holds whole discussions, so it can hold more comments than `perPage`.
 
 When the user isn't allowed to approve, GitLab responds with `401`. The provider raises this response as `InsufficientScopeError`.

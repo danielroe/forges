@@ -73,6 +73,8 @@ The provider doesn't read branch policies, so it can't tell which merge strategi
 
 `merge()` completes the pull request at its current source commit, and `approveAndMerge()` votes to approve it first. If you pass `whenChecksPass`, `merge()` sets auto-complete on the pull request instead of merging right away.
 
+Azure DevOps usually completes a pull request in the background, so `merge()` resolves with `status: 'queued'` and no `sha` until the response reports the pull request as completed. Read the pull request later to see the merge commit.
+
 ## Votes as reviews
 
 Azure DevOps has votes instead of reviews, so the provider presents votes as reviews. `threads.reviews()` returns one review for each reviewer who has voted, with the ID `vote:<id>`. A vote of 5 or 10 is `approved`, and a vote of -5 or -10 is `changes_requested`.

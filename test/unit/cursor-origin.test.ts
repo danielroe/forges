@@ -134,3 +134,19 @@ describe('cursor origin thread updates', () => {
     expect(calls).toEqual([])
   })
 })
+
+describe('cursor origin labels', () => {
+  const labelled = [{ id: 'l1', name: 'bug', color: 'd73a4a', description: '' }]
+
+  it.each([
+    ['a list of labels', labelled, [{ name: 'bug', colour: 'd73a4a' }]],
+    ['an object with labels', { labels: labelled }, [{ name: 'bug', colour: 'd73a4a' }]],
+    ['no body', undefined, [{ name: 'bug' }]],
+  ])('resolves setLabels from a response with %s', async (_, body, expected) => {
+    const { fetch, calls } = fixtureFetch('cursor-origin', { 'PUT https://api.cursor.com/v1/origin/repos/acme/widgets/pulls/12/labels': body === undefined ? { status: 204 } : { status: 200, body } })
+    const instance = cursorOrigin({ auth: { type: 'token', token: 't' }, fetch }).create()
+
+    await expect(instance.threads.setLabels(pull, ['bug'])).resolves.toEqual(expected)
+    expect(calls).toHaveLength(1)
+  })
+})

@@ -1,5 +1,5 @@
-import type { Actor, Branch, ChangedFile, Check, Comment, Commit, EventDetail, ForgeEventInput, Repo, RepoRef, ResolvedThreadRef, Review, ReviewState, Tag, Thread, ThreadRef, TreeEntry } from '../model.ts'
-import type { OriginActor, OriginBranch, OriginCheckRun, OriginComment, OriginCommit, OriginCommitFile, OriginGitRef, OriginPullRequest, OriginRepo, OriginRepositoryReference, OriginReview, OriginTreeEntry } from './types.ts'
+import type { Actor, Branch, ChangedFile, Check, Comment, Commit, EventDetail, ForgeEventInput, Label, Repo, RepoRef, ResolvedThreadRef, Review, ReviewState, Tag, Thread, ThreadRef, TreeEntry } from '../model.ts'
+import type { OriginActor, OriginBranch, OriginCheckRun, OriginComment, OriginCommit, OriginCommitFile, OriginGitRef, OriginLabel, OriginPullRequest, OriginRepo, OriginRepositoryReference, OriginReview, OriginTreeEntry } from './types.ts'
 import { eventTime } from '../events.ts'
 import { checkRunState, toDate, toFileStatus, toPullStats } from '../utils.ts'
 
@@ -65,7 +65,7 @@ export function toThread(ref: ResolvedThreadRef, raw: OriginPullRequest): Thread
     author: toActor(ref.instance, raw.author),
     assignees: [],
     reviewers: [],
-    labels: (raw.labels ?? []).map(label => ({ name: label.name, colour: label.color, description: label.description || undefined })),
+    labels: (raw.labels ?? []).map(toLabel),
     createdAt: toDate(raw.createdAt),
     updatedAt: toDate(raw.updatedAt),
     closedAt: toDate(raw.closedAt),
@@ -87,6 +87,10 @@ export function toThread(ref: ResolvedThreadRef, raw: OriginPullRequest): Thread
       : {},
     raw,
   }
+}
+
+export function toLabel(raw: OriginLabel): Label {
+  return { name: raw.name, colour: raw.color, description: raw.description || undefined }
 }
 
 /** General-discussion comments have no diff anchor; anchored ones are review comments. */

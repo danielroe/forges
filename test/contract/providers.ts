@@ -1,5 +1,5 @@
 import type { FetchLike } from '../../src/fetch.ts'
-import type { EventKind, MergeMethod, PullStats } from '../../src/model.ts'
+import type { EventKind, MergeMethod, MergeResult, PullStats } from '../../src/model.ts'
 import type { ForgeProvider, ForgeProviderFactory } from '../../src/provider.ts'
 import type { WebSocketFactory } from '../../src/tangled/index.ts'
 import { azureDevOps } from '../../src/azure-devops/index.ts'
@@ -64,6 +64,8 @@ export interface ProviderContract {
     settle?: Call[]
     /** An explicit merge method that needs no repository lookup, and a fragment of the resulting body. */
     explicit: { method: MergeMethod, bodyContains: string }
+    /** What the merge resolves with, without `raw`. */
+    result: Omit<MergeResult, 'raw'>
   }
   webhook: {
     body: string
@@ -144,6 +146,7 @@ export const contracts: ProviderContract[] = [
       merge: { method: 'PUT', url: 'https://api.github.com/repos/acme/widgets/pulls/42/merge-async', body: '{"merge_method":"squash","merge_action":"direct_merge"}' },
       settle: [{ method: 'GET', url: 'https://api.github.com/repos/acme/widgets/pulls/42/merge-async/3f1c2a9e-5b7d-4e8a-9c0f-1a2b3c4d5e6f' }],
       explicit: { method: 'rebase', bodyContains: '"merge_method":"rebase"' },
+      result: { status: 'merged', sha: '7a9c3e1f0b2d4c6e8a1f3b5d7c9e0a2b4d6f8a1c' },
     },
     webhook: {
       body: fixture('github', 'webhooks/issue-comment-on-pull-request'),
@@ -190,6 +193,7 @@ export const contracts: ProviderContract[] = [
       review: { method: 'POST', url: 'https://codeberg.org/api/v1/repos/acme/widgets/pulls/7/reviews', body: '{"event":"APPROVED","body":""}' },
       merge: { method: 'POST', url: 'https://codeberg.org/api/v1/repos/acme/widgets/pulls/7/merge', body: '{"Do":"squash"}' },
       explicit: { method: 'rebase', bodyContains: '"Do":"rebase"' },
+      result: { status: 'merged' },
     },
     webhook: {
       body: fixture('forgejo', 'webhooks/issue-comment-on-pull-request'),
@@ -236,6 +240,7 @@ export const contracts: ProviderContract[] = [
       review: { method: 'POST', url: 'https://gitlab.com/api/v4/projects/acme%2Fplatform%2Fwidgets/merge_requests/23/approve', body: '{}' },
       merge: { method: 'PUT', url: 'https://gitlab.com/api/v4/projects/acme%2Fplatform%2Fwidgets/merge_requests/23/merge', body: '{"squash":false,"merge_when_pipeline_succeeds":false}' },
       explicit: { method: 'squash', bodyContains: '"squash":true' },
+      result: { status: 'merged' },
     },
     webhook: {
       body: fixture('gitlab', 'webhooks/note-on-issue'),
@@ -282,6 +287,7 @@ export const contracts: ProviderContract[] = [
       review: { method: 'POST', url: 'https://api.bitbucket.org/2.0/repositories/acme/widgets/pullrequests/31/approve', body: '' },
       merge: { method: 'POST', url: 'https://api.bitbucket.org/2.0/repositories/acme/widgets/pullrequests/31/merge', body: '{"merge_strategy":"squash"}' },
       explicit: { method: 'rebase_merge', bodyContains: '"merge_strategy":"rebase_merge"' },
+      result: { status: 'merged' },
     },
     webhook: {
       body: fixture('bitbucket', 'webhooks/pullrequest-comment-created'),
@@ -367,6 +373,7 @@ export const contracts: ProviderContract[] = [
       review: { method: 'POST', url: 'https://api.cursor.com/v1/origin/repos/acme/widgets/pulls/12/reviews', body: '{"verdict":"approve","body":""}' },
       merge: { method: 'POST', url: 'https://api.cursor.com/v1/origin/repos/acme/widgets/pulls/12/merge', body: '{"mergeMethod":"squash"}' },
       explicit: { method: 'merge', bodyContains: '"mergeMethod":"merge"' },
+      result: { status: 'merged', sha: 'feedfacefeedfacefeedfacefeedfacefeedface' },
     },
     webhook: {
       body: fixture('cursor-origin', 'webhooks/pull-request-comment-created'),
