@@ -1514,6 +1514,7 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
           listOptions,
         )),
         create: verb(support('webhooks.create', true), async (target, input) => {
+          const { secret, ...settings } = input
           const hook: Webhook = {
             ref: { ...origin, target, id: String(store.webhooks.length + 1) },
             url: input.url,
@@ -1522,9 +1523,9 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
             active: input.active ?? true,
             contentType: input.contentType ?? 'json',
             createdAt: now(),
-            raw: input,
+            raw: settings,
           }
-          secrets.set(hook.ref.id, input.secret)
+          secrets.set(hook.ref.id, secret)
           store.webhooks.push(hook)
           return hook
         }),

@@ -503,6 +503,7 @@ describe('fake webhook management', () => {
 
     expect(hook).toMatchObject({ url: 'https://hooks.test/in', events: ['state_change'] })
     expect(hook.secret).toBeUndefined()
+    expect(JSON.stringify([hook, listed])).not.toContain('s3cret')
     expect(listed).toHaveLength(1)
     expect(listed[0]!.active).toBe(false)
     expect(factory.store.webhooks).toEqual([])
