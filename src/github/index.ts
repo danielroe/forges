@@ -1406,7 +1406,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
       }
     }), context)
     const entries = await Promise.all(input.changes.map(async ({ path, content }) => {
-      const mode = existing.get(path)?.mode === '100755' ? '100755' : '100644'
+      const mode = existing.get(path)?.mode ?? '100644'
       if (content === null || typeof content === 'string') {
         return { path, mode, type: 'blob', ...content === null ? { sha: null } : { content } }
       }

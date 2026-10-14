@@ -71,6 +71,8 @@ Forgejo before 15 ignores the branch filter, so `ci.runs()` drops the runs of ot
 
 Forgejo can't check the head of a branch as it commits, so with `expectedHead`, `contents.commitFiles()` reads the branch first and rejects with `BranchMovedError` when it has moved. A commit that lands between the two requests isn't caught. With `createFrom`, the provider creates the branch before the commit. If the commit fails, the provider deletes the branch again, unless it has moved since. Forgejo records `author` as the committer too.
 
+Forgejo refuses to write over a symlink, so a change with contents for one rejects with a `422` `ForgeApiError`. Deleting a symlink works.
+
 ## Listing an owner's repositories
 
 `repos.byOwner()` reads the repositories of a user or an organisation from the same listing, oldest first. Forgejo can't filter or sort that listing, so the provider filters by `visibility` itself, and if you ask for any other order, you get a `sort_unsupported` warning.

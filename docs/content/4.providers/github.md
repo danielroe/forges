@@ -139,6 +139,8 @@ Without `author`, `contents.commitFiles()` makes the commit with one GraphQL `cr
 
 Without `author`, `createFrom` creates the branch before the commit. If the commit fails, the provider deletes the branch again, unless it has moved since.
 
+A file keeps its mode when you write over it: an executable file stays executable, and a symlink stays a symlink, pointing at the new contents.
+
 ## Search
 
 GitHub gives search a lower rate limit than the rest of its API, and commit search has a limit of its own, separate from issue and repository search. After a search, `page.rateLimit` reports the limit that the search used.
