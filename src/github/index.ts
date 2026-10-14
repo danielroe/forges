@@ -245,12 +245,12 @@ function branchPath(branch: string): string {
   return branch.split('/').map(encodeURIComponent).join('/')
 }
 
-/**
- * GitHub's refusal to move a branch that is no longer at the commit a write built on, as `BranchMovedError`,
- * and to delete a file that does not exist, as `NotFoundError`.
- */
 const ZERO_OID = '0'.repeat(40)
 
+/**
+ * GitHub's refusal to move a branch that is no longer at the commit a write built on, as a 409 `BranchMovedError`,
+ * and to delete a file that does not exist, as a 404 `NotFoundError`, whatever the status of the response.
+ */
 function commitError(error: unknown): unknown {
   if (!(error instanceof ForgeApiError) || error.constructor !== ForgeApiError) {
     return error
@@ -258,10 +258,10 @@ function commitError(error: unknown): unknown {
   const text = `${error.message} ${error.body}`
   const context = { forge: error.forge, instance: error.instance, url: error.url, method: error.method }
   if (/Expected branch to point to|not a fast[- ]forward/i.test(text)) {
-    return new BranchMovedError('The branch no longer points at the commit the change was made on', error.status, error.body, context, { cause: error })
+    return new BranchMovedError('The branch no longer points at the commit the change was made on', 409, error.body, context, { cause: error })
   }
   if (/requested for deletion which does not exist/i.test(text)) {
-    return new NotFoundError('A file to delete does not exist', error.status, error.body, context, { cause: error })
+    return new NotFoundError('A file to delete does not exist', 404, error.body, context, { cause: error })
   }
   return error
 }
@@ -1429,7 +1429,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
       // GitHub reports a stale `beforeOid` only as an internal error, so the branch is read again to tell.
       const { data } = await fetcher.json<GitHubGitRef>(`${repoPath(repo)}/git/ref/heads/${branchPath(input.branch)}`, { signal })
       if (data.object.sha !== parent && error instanceof ForgeApiError) {
-        throw new BranchMovedError(`${input.branch} is at ${data.object.sha}, not ${parent}`, error.status, error.body, context, { cause: error })
+        throw new BranchMovedError(`${input.branch} is at ${data.object.sha}, not ${parent}`, 409, error.body, context, { cause: error })
       }
       throw error
     }
