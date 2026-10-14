@@ -92,6 +92,8 @@ A ref from a webhook has no `number` until it is matched to a record. To fill in
 
 The state of a thread is the latest state record that was written by the author of the thread, the owner of the repo or a collaborator. The provider ignores state records from other accounts. If another account calls `close()` or `reopen()`, the call throws `InsufficientScopeError` and writes no record.
 
+`close()` and `reopen()` read the thread after writing the state record, and resolve with it in the state they wrote, even while the backlink index still lists the earlier state.
+
 ## Labels and assignees
 
 Labels are `sh.tangled.label.definition` records, and a thread's labels are the label ops that the owner of the repo or a collaborator wrote for it, applied in order. A label with a value, such as `priority`, appears as `priority:high`. Tangled stores assignees as an `assignee` label whose values are DIDs, so they appear in `assignees` rather than in `labels`.

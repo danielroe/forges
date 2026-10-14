@@ -187,6 +187,26 @@ describe('azure devops thread updates', () => {
     expect(calls.map(call => `${call.method} ${new URL(call.url).pathname.split('/pullRequests/')[1]}`)).toEqual(['GET 42/labels', 'DELETE 42/labels/l-1', 'POST 42/labels'])
   })
 
+  it('resolves a pull request state change with the pull request in the response', async () => {
+    const { instance, calls } = provider({
+      [`PATCH ${A}/git/repositories/widgets/pullRequests/42?api-version=7.1`]: { status: 200, body: { pullRequestId: 42, title: 'Add widgets', status: 'abandoned', sourceRefName: 'refs/heads/feat', targetRefName: 'refs/heads/main' } },
+    })
+
+    await expect(instance.threads.close(pull)).resolves.toMatchObject({ title: 'Add widgets', state: 'closed', branches: { head: { ref: 'feat' }, base: { ref: 'main' } } })
+    expect(calls.map(call => call.method)).toEqual(['PATCH'])
+  })
+
+  it('resolves a work item state change with the work item in the patch response', async () => {
+    const { instance, calls } = provider({
+      [`GET ${A}/wit/workitems/7?api-version=7.1`]: { status: 200, body: { id: 7, fields: { 'System.WorkItemType': 'Issue', 'System.Title': 'Crash', 'System.State': 'Doing' } } },
+      [`PATCH ${A}/wit/workitems/7?api-version=7.1`]: { status: 200, body: { id: 7, fields: { 'System.WorkItemType': 'Issue', 'System.Title': 'Crash', 'System.State': 'Done' } } },
+    })
+
+    await expect(instance.threads.close({ ...pull, kind: 'issue', number: '7' })).resolves.toMatchObject({ kind: 'issue', title: 'Crash', state: 'closed', stateRaw: 'Done' })
+    expect(calls.filter(call => call.url.includes('/workitems/7')).map(call => call.method)).toEqual(['GET', 'PATCH'])
+    expect(calls.filter(call => call.url.includes('/states'))).toHaveLength(1)
+  })
+
   it('resolves work item labels with the tags in the patch response', async () => {
     const { instance, calls } = provider({
       [`PATCH ${A}/wit/workitems/7?api-version=7.1`]: { status: 200, body: { id: 7, fields: { 'System.WorkItemType': 'Issue', 'System.Tags': 'bug; ui' } } },

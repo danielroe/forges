@@ -90,6 +90,14 @@ describe('bitbucket provider', () => {
     expect(calls).toHaveLength(1)
   })
 
+  it('resolves a decline with the pull request in the response', async () => {
+    const declined = { id: 31, title: 'Add widgets', state: 'DECLINED', source: { branch: { name: 'feat' } }, destination: { branch: { name: 'main' } } }
+    const { instance, calls } = provider(undefined, { 'POST https://api.bitbucket.org/2.0/repositories/acme/widgets/pullrequests/31/decline': { status: 200, body: declined } })
+
+    await expect(instance.threads.close!(pull)).resolves.toMatchObject({ title: 'Add widgets', state: 'closed', stateRaw: 'DECLINED', branches: { head: { ref: 'feat' }, base: { ref: 'main' } } })
+    expect(calls).toHaveLength(1)
+  })
+
   it('resolves queued when the merge outlasts the timeout of Bitbucket', async () => {
     const accepted = { task_status: 'PENDING' }
     const { instance } = provider(undefined, { 'POST https://api.bitbucket.org/2.0/repositories/acme/widgets/pullrequests/31/merge': { status: 202, body: accepted } })

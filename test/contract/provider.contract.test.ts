@@ -250,9 +250,10 @@ describe.each(contracts)('contract: $name', (contract) => {
     const { instance, calls } = provider()
     const reopen = contract.writes.reopen
     expect(Boolean(capabilities.writes.reopen.pull_request)).toBe(Boolean(reopen))
-    await instance.threads.close!(threadRef())
+    const closed = await instance.threads.close!(threadRef())
+    expect(closed).toMatchObject({ ref: { number: contract.thread.number }, state: 'closed' })
     if (reopen) {
-      await instance.threads.reopen!(threadRef())
+      expect((await instance.threads.reopen!(threadRef())).ref.number).toBe(contract.thread.number)
     }
 
     const writes = calls.filter(call => call.method !== 'GET' && !contract.writes.ignore?.test(call.url))

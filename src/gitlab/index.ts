@@ -641,12 +641,14 @@ const GITLAB: ProviderDefinition<GitLabOptions, undefined, true> = {
       await fetcher.raw(`${threadPath(thread)}/unsubscribe`, { method: 'POST', signal: writeOptions.signal })
     }
 
-    async function setState(thread: ThreadRef, stateEvent: 'close' | 'reopen', options?: BaseOptions): Promise<void> {
-      await fetcher.raw(threadPath(requireIssueOrPull(thread, context, stateEvent)), {
+    async function setState(thread: ThreadRef, stateEvent: 'close' | 'reopen', options?: BaseOptions): Promise<Thread> {
+      const ref = requireIssueOrPull(thread, context, stateEvent)
+      const { data } = await fetcher.json<GitLabIssue>(threadPath(ref), {
         method: 'PUT',
         json: { state_event: stateEvent },
         signal: options?.signal,
       })
+      return toThread(ref, data)
     }
 
     async function resolveMergeMethod(ref: ResolvedThreadRef, requested?: MergeMethod, signal?: AbortSignal): Promise<MergeMethod> {

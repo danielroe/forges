@@ -1,1 +1,77 @@
-null
+{
+  "ref": {
+    "forge": "gitlab",
+    "instance": "gitlab.com",
+    "repo": {
+      "forge": "gitlab",
+      "instance": "gitlab.com",
+      "owner": "forges-fixtures",
+      "name": "forges-fixtures"
+    },
+    "kind": "pull_request",
+    "number": "38",
+    "externalId": "547090230"
+  },
+  "kind": "pull_request",
+  "title": "forges fixture 20261012113957: pull 3",
+  "body": "Opened by run 20261012113957.",
+  "state": "open",
+  "stateRaw": "opened",
+  "isDraft": false,
+  "assignees": [],
+  "reviewers": [
+    {
+      "actor": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "login": "danielroe",
+        "id": "2179675",
+        "name": "Daniel Roe",
+        "avatarUrl": "https://secure.gravatar.com/avatar/82a8f6237bb263bac46d7cc8ec3054d715ce6a55a8626d6e977769d57d2c94e6?s=80&d=identicon",
+        "url": "https://gitlab.com/danielroe",
+        "isBotHint": false
+      },
+      "state": "unknown"
+    }
+  ],
+  "lastActivityAt": "<now>",
+  "branches": {
+    "head": {
+      "ref": "forges-fixtures/20261012113957-3",
+      "sha": "f86dffdef622c4130b2097ae208eb6a40a018458",
+      "repo": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "owner": "forges-fixtures",
+        "name": "forges-fixtures"
+      }
+    },
+    "base": {
+      "ref": "main",
+      "sha": "1fbd50f395a26d3af5a89288311d40dbae090f57"
+    }
+  },
+  "stats": {
+    "changedFileCount": 1
+  },
+  "author": {
+    "forge": "gitlab",
+    "instance": "gitlab.com",
+    "login": "roebot",
+    "id": "43193323",
+    "name": "Daniel Roe",
+    "avatarUrl": "https://secure.gravatar.com/avatar/14ceebcfdc10030d76768a65e9d7978b914694cebcbb6ab609b3a0e8243f0eb8?s=80&d=identicon",
+    "url": "https://gitlab.com/roebot",
+    "typeRaw": "user",
+    "isBotHint": false
+  },
+  "url": "https://gitlab.com/forges-fixtures/forges-fixtures/-/merge_requests/38",
+  "createdAt": "<now>",
+  "updatedAt": "<now>",
+  "labels": [],
+  "commentCount": 0,
+  "reactions": {
+    "total": 0,
+    "counts": {}
+  }
+}

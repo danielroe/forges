@@ -396,13 +396,12 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
     throw new UnsupportedOperationError(`The ${type} work item type has no ${wanted.join(' or ')} state`, context)
   }
 
-  async function setState(thread: ThreadRef, state: 'open' | 'closed', options?: BaseOptions): Promise<void> {
+  async function setState(thread: ThreadRef, state: 'open' | 'closed', options?: BaseOptions): Promise<Thread> {
     const ref = requireIssueOrPull(thread, context, state === 'open' ? 'reopen' : 'close')
     if (ref.kind === 'pull_request') {
-      await fetcher.raw(pullPath(ref), { method: 'PATCH', json: { status: PULL_STATUSES[state] }, signal: options?.signal })
-      return
+      return toPullThread(ref, (await fetcher.json<AzurePullRequest>(pullPath(ref), { method: 'PATCH', json: { status: PULL_STATUSES[state] }, signal: options?.signal })).data)
     }
-    await patchWorkItem(ref, { 'System.State': await workItemState(ref, state, options) }, options?.signal)
+    return workItemThread(ref, await patchWorkItem(ref, { 'System.State': await workItemState(ref, state, options) }, options?.signal))
   }
 
   /** The `System.AssignedTo` value: work items take one assignee, and `''` clears it. */

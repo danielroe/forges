@@ -1,1 +1,43 @@
-null
+{
+  "ref": {
+    "forge": "github",
+    "instance": "github.com",
+    "repo": {
+      "forge": "github",
+      "instance": "github.com",
+      "owner": "forges-fixtures",
+      "name": "forges-fixtures"
+    },
+    "kind": "discussion",
+    "number": "33",
+    "externalId": "D_kwDOVCTdtM4Ap5qt"
+  },
+  "kind": "discussion",
+  "title": "forges fixture 20261012113502: discussion, edited",
+  "body": "Edited by run 20261012113502.",
+  "state": "closed",
+  "stateRaw": "closed",
+  "stateReason": "resolved",
+  "isDraft": false,
+  "author": {
+    "forge": "github",
+    "instance": "github.com",
+    "login": "danielroe-bot",
+    "id": "57801166",
+    "name": null,
+    "avatarUrl": "https://avatars.githubusercontent.com/u/57801166?v=4",
+    "url": "https://github.com/danielroe-bot",
+    "typeRaw": "User",
+    "isBotHint": false
+  },
+  "assignees": [],
+  "reviewers": [],
+  "lastActivityAt": "<now>",
+  "url": "https://github.com/forges-fixtures/forges-fixtures/discussions/33",
+  "createdAt": "2026-10-09T14:18:08.000Z",
+  "updatedAt": "<now>",
+  "closedAt": "<now>",
+  "labels": [],
+  "locked": false,
+  "commentCount": 2
+}

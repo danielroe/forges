@@ -172,6 +172,13 @@ describe('gitlab provider', () => {
     expect(calls.map(call => [call.method, JSON.parse(call.body!)])).toEqual([['PUT', { assignee_ids: [7] }]])
   })
 
+  it('resolves a state change with the merge request in the response', async () => {
+    const { instance, calls } = provider({ [`PUT ${P}/merge_requests/23`]: { status: 200, body: { iid: 23, title: 'Add widgets', state: 'closed', closed_at: '2025-09-18T09:00:00Z', source_branch: 'feat', target_branch: 'main' } } })
+
+    await expect(instance.threads.close(mr)).resolves.toMatchObject({ title: 'Add widgets', state: 'closed', closedAt: new Date('2025-09-18T09:00:00Z'), branches: { head: { ref: 'feat' }, base: { ref: 'main' } } })
+    expect(calls.map(call => [call.method, JSON.parse(call.body!)])).toEqual([['PUT', { state_event: 'close' }]])
+  })
+
   it('resolves an approval with the only approver in the response, without reading the viewer', async () => {
     const approvals = { iid: 23, approved: true, approved_by: [{ user: { id: 7, username: 'ada' }, approved_at: '2026-01-02T03:04:05Z' }] }
     const { instance, calls } = provider({ [`POST ${P}/merge_requests/23/approve`]: { status: 201, body: approvals } })

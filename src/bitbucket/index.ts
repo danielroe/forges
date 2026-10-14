@@ -742,7 +742,8 @@ const BITBUCKET: ProviderDefinition<BitbucketOptions, undefined, true> = {
           })
         }),
         close: perKind({ pull_request: true }, async (thread, options) => {
-          await fetcher.raw(`${threadPath(requirePull(thread, 'declined'))}/decline`, { method: 'POST', signal: options?.signal })
+          const ref = requirePull(thread, 'declined')
+          return toPullThread(ref, (await fetcher.json<BitbucketPullRequest>(`${threadPath(ref)}/decline`, { method: 'POST', signal: options?.signal })).data)
         }),
         merge: verb(true, merge),
       },

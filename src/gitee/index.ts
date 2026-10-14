@@ -317,13 +317,12 @@ function setupGitee({ options, instance, origin: context, fetcher, baseUrl }: Pr
     return fetcher.json<GiteeIssue>(`/repos/${encodeURIComponent(ref.repo.owner)}/issues/${encodeURIComponent(ref.number)}`, { method: 'PATCH', json: { repo: ref.repo.name, ...json }, signal })
   }
 
-  async function setState(thread: ThreadRef, state: 'open' | 'closed', options?: BaseOptions): Promise<void> {
+  async function setState(thread: ThreadRef, state: 'open' | 'closed', options?: BaseOptions): Promise<Thread> {
     const ref = requireIssueOrPull(thread, context, state === 'open' ? 'reopen' : 'close')
     if (ref.kind === 'issue') {
-      await issueWrite(ref, { state }, options?.signal)
-      return
+      return toIssueThread(ref, (await issueWrite(ref, { state }, options?.signal)).data)
     }
-    await fetcher.raw(threadPath(ref), { method: 'PATCH', json: { state }, signal: options?.signal })
+    return toPullThread(ref, (await fetcher.json<GiteePullRequest>(threadPath(ref), { method: 'PATCH', json: { state }, signal: options?.signal })).data)
   }
 
   async function notificationPage(listOptions: NotificationListOptions = {}): Promise<Page<Notification>> {

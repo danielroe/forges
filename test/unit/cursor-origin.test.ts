@@ -120,6 +120,13 @@ describe('cursor origin thread updates', () => {
     expect(calls.map(call => call.body)).toEqual([{ labels: ['bug'] }, { title: 'Retry uploads', state: 'closed' }])
   })
 
+  it('resolves a close with the pull request in the response', async () => {
+    const { instance, calls } = serve()
+
+    await expect(instance.threads.close!(pull)).resolves.toMatchObject({ title: 'Retry uploads', state: 'closed' })
+    expect(calls).toEqual([{ method: 'PATCH', path: expect.stringMatching(/\/pulls\/12$/), body: { state: 'closed' } }])
+  })
+
   it('reads the pull request back instead of patching it when only its labels change', async () => {
     const { instance, calls } = serve()
     await instance.threads.update(pull, { labels: ['bug'] })

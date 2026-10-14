@@ -1244,8 +1244,12 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
         close: perKind(kinds('threads.close', WRITABLE), async (ref, closeOptions = {}) => {
           threadState(ref).thread.stateReason = closeOptions.reasonRaw ?? closeOptions.reason
           setState(ref, 'closed', 'closed')
+          return threadState(ref).thread
         }),
-        reopen: perKind(kinds('threads.reopen', WRITABLE), async ref => setState(ref, 'open', 'reopened')),
+        reopen: perKind(kinds('threads.reopen', WRITABLE), async (ref) => {
+          setState(ref, 'open', 'reopened')
+          return threadState(ref).thread
+        }),
         addLabels: perKind(kinds('threads.addLabels', WRITABLE), async (ref, labels) => {
           const thread = threadState(ref).thread
           for (const name of labels.filter(name => !thread.labels.some(item => item.name === name))) {

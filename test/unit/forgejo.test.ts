@@ -104,6 +104,22 @@ describe('forgejo provider', () => {
     expect(calls).toHaveLength(1)
   })
 
+  it('changes the state of a pull request through the pulls endpoint, and resolves with the pull request in the response', async () => {
+    const pull = { forge: 'forgejo', instance: 'codeberg.org', repo: { forge: 'forgejo', instance: 'codeberg.org', owner: 'acme', name: 'widgets' }, kind: 'pull_request', number: '7' } as const
+    const { instance, calls } = provider({ 'PATCH https://codeberg.org/api/v1/repos/acme/widgets/pulls/7': { status: 201, body: { number: 7, title: 'Add widgets', state: 'open', head: { ref: 'feat', sha: 'abc' }, base: { ref: 'main' } } } })
+
+    await expect(instance.threads.reopen!(pull)).resolves.toMatchObject({ kind: 'pull_request', state: 'open', branches: { head: { ref: 'feat', sha: 'abc' }, base: { ref: 'main' } } })
+    expect(calls.map(call => [call.method, call.url, JSON.parse(call.body!)])).toEqual([['PATCH', 'https://codeberg.org/api/v1/repos/acme/widgets/pulls/7', { state: 'open' }]])
+  })
+
+  it('resolves an issue state change with the issue in the response', async () => {
+    const issue = { forge: 'forgejo', instance: 'codeberg.org', repo: { forge: 'forgejo', instance: 'codeberg.org', owner: 'acme', name: 'widgets' }, kind: 'issue', number: '8' } as const
+    const { instance, calls } = provider({ 'PATCH https://codeberg.org/api/v1/repos/acme/widgets/issues/8': { status: 201, body: { number: 8, title: 'Crash', state: 'closed', closed_at: '2025-09-18T09:00:00Z' } } })
+
+    await expect(instance.threads.close!(issue)).resolves.toMatchObject({ kind: 'issue', title: 'Crash', state: 'closed', closedAt: new Date('2025-09-18T09:00:00Z') })
+    expect(calls.map(call => call.url)).toEqual(['https://codeberg.org/api/v1/repos/acme/widgets/issues/8'])
+  })
+
   it('resolves setMilestone with the milestone of the issue in the response', async () => {
     const issue = { forge: 'forgejo', instance: 'codeberg.org', repo: { forge: 'forgejo', instance: 'codeberg.org', owner: 'acme', name: 'widgets' }, kind: 'issue', number: '7' } as const
     const { instance, calls } = provider({ 'PATCH https://codeberg.org/api/v1/repos/acme/widgets/issues/7': { status: 201, body: { number: 7, milestone: { id: 12, title: 'v1.0', state: 'open' } } } })

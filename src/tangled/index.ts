@@ -14,6 +14,7 @@ import type {
   Repo,
   RepoRef,
   ResolvedThreadRef,
+  Thread,
   ThreadCreateInput,
   ThreadKind,
   ThreadRef,
@@ -303,9 +304,11 @@ const TANGLED: ProviderDefinition<TangledOptions, undefined, true> = {
           context,
         )
       }
+      const createdAt = new Date().toISOString()
       await createRecord(STATE_COLLECTION[kind].collection, kind === 'issue'
-        ? { issue: target, state: `${COLLECTIONS.issueState}.${state}`, createdAt: new Date().toISOString() }
-        : { pull: target, status: `${COLLECTIONS.pullStatus}.${state}`, createdAt: new Date().toISOString() }, signal)
+        ? { issue: target, state: `${COLLECTIONS.issueState}.${state}`, createdAt }
+        : { pull: target, status: `${COLLECTIONS.pullStatus}.${state}`, createdAt }, signal)
+      return new Date(createdAt)
     }
     const merge: ThreadsApi['merge'] = async (thread, options = {}) => {
       if (options.method && options.method !== 'rebase') {
@@ -327,8 +330,13 @@ const TANGLED: ProviderDefinition<TangledOptions, undefined, true> = {
       forgetCollaborators()
       return { status: 'added' }
     }
-    const close: ThreadsApi['close'] = (thread, options) => setState(thread, 'closed', options?.signal)
-    const reopen: ThreadsApi['reopen'] = (thread, options) => setState(thread, 'open', options?.signal)
+    /** Writes the state record, then reads the thread back with that state laid over it, since the backlink index lags. */
+    const changeState = async (thread: ThreadRef, state: 'open' | 'closed', options?: BaseOptions): Promise<Thread> => {
+      const at = await setState(thread, state, options?.signal)
+      return { ...await readThread(thread, options), state, stateRaw: state, closedAt: state === 'open' ? undefined : at, updatedAt: at, lastActivityAt: at }
+    }
+    const close: ThreadsApi['close'] = (thread, options) => changeState(thread, 'closed', options)
+    const reopen: ThreadsApi['reopen'] = (thread, options) => changeState(thread, 'open', options)
 
     /**
      * Writes one label op that moves the thread's labels to what `change` returns, given the current values per
@@ -443,16 +451,12 @@ const TANGLED: ProviderDefinition<TangledOptions, undefined, true> = {
       const changed = input.labels || dids
         ? await changeLabels(thread, signal, labels => [...input.labels ? labelChanges(labels, input.labels) : [], ...dids ? assigneeChanges(labels, dids) : []])
         : undefined
-      if (input.state) {
-        await setState(thread, input.state, signal)
-      }
       if (edits) {
         await editRecord(thread, input, signal)
       }
-      const current = await readThread(thread, options)
+      const current = input.state ? await changeState(thread, input.state, options) : await readThread(thread, options)
       return {
         ...current,
-        state: input.state ?? current.state,
         labels: changed && input.labels ? changed.labels : current.labels,
         assignees: changed && dids ? await Promise.all(changed.assignees.map(did => actorFor(did, signal))) : current.assignees,
       }

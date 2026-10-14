@@ -358,12 +358,15 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
     return `${repoPath(ref.repo)}/issues/${encodeURIComponent(ref.number)}`
   }
 
-  async function setState(thread: ThreadRef, state: 'open' | 'closed', options?: BaseOptions): Promise<void> {
-    await fetcher.raw(issuePath(requireIssueOrPull(thread, context, state === 'open' ? 'reopen' : 'close')), {
+  /** A pull request is edited through the pulls endpoint, whose response carries its branches and reviewers. */
+  async function setState(thread: ThreadRef, state: 'open' | 'closed', options?: BaseOptions): Promise<Thread> {
+    const ref = requireIssueOrPull(thread, context, state === 'open' ? 'reopen' : 'close')
+    const { data } = await fetcher.json<ForgejoIssue>(ref.kind === 'pull_request' ? threadPath(ref) : issuePath(ref), {
       method: 'PATCH',
       json: { state },
       signal: options?.signal,
     })
+    return toThread(ref, data)
   }
 
   /** The merge response has no body, and a merge scheduled until checks pass responds with `201`. */

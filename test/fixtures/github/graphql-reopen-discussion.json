@@ -12,7 +12,36 @@
       "data": {
         "reopenDiscussion": {
           "discussion": {
-            "id": "D_kwDOAAB5ac4AAQ1f"
+            "id": "D_kwDOAAB5ac4AAQ1f",
+            "number": 31,
+            "title": "Weekly digest discussion",
+            "body": "What shipped this week?",
+            "closed": false,
+            "stateReason": null,
+            "url": "https://github.com/acme/widgets/discussions/31",
+            "createdAt": "2025-09-10T08:00:00Z",
+            "updatedAt": "2025-09-18T09:05:00Z",
+            "closedAt": null,
+            "locked": false,
+            "author": {
+              "__typename": "User",
+              "login": "octocat",
+              "databaseId": 583231,
+              "avatarUrl": "https://avatars.example/u/583231",
+              "url": "https://github.com/octocat"
+            },
+            "labels": {
+              "nodes": [
+                {
+                  "name": "digest",
+                  "color": "c5def5",
+                  "description": null
+                }
+              ]
+            },
+            "comments": {
+              "totalCount": 1
+            }
           }
         }
       }

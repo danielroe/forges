@@ -184,8 +184,8 @@ export const contracts: ProviderContract[] = [
     },
     writes: {
       comment: { method: 'POST', url: 'https://codeberg.org/api/v1/repos/acme/widgets/issues/7/comments' },
-      close: { method: 'PATCH', url: 'https://codeberg.org/api/v1/repos/acme/widgets/issues/7', bodyContains: '{"state":"closed"}' },
-      reopen: { method: 'PATCH', url: 'https://codeberg.org/api/v1/repos/acme/widgets/issues/7', bodyContains: '{"state":"open"}' },
+      close: { method: 'PATCH', url: 'https://codeberg.org/api/v1/repos/acme/widgets/pulls/7', bodyContains: '{"state":"closed"}' },
+      reopen: { method: 'PATCH', url: 'https://codeberg.org/api/v1/repos/acme/widgets/pulls/7', bodyContains: '{"state":"open"}' },
     },
     merge: {
       reads: [{ method: 'GET', url: 'https://codeberg.org/api/v1/repos/acme/widgets' }],

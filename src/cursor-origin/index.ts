@@ -344,10 +344,12 @@ function setupOrigin({ options, baseUrl, instance, origin: context, fetcher, cre
         return toThread(ref, (await fetcher.json<OriginPullRequest>(pullPath(ref), edits ? { method: 'PATCH', json, signal: options?.signal } : { signal: options?.signal })).data)
       }),
       close: perKind(PULL, async (thread, options) => {
-        await fetcher.raw(pullPath(requireThread(thread, context)), { method: 'PATCH', json: { state: 'closed' }, signal: options?.signal })
+        const ref = requireThread(thread, context)
+        return toThread(ref, (await fetcher.json<OriginPullRequest>(pullPath(ref), { method: 'PATCH', json: { state: 'closed' }, signal: options?.signal })).data)
       }),
       reopen: perKind(PULL, async (thread, options) => {
-        await fetcher.raw(pullPath(requireThread(thread, context)), { method: 'PATCH', json: { state: 'open' }, signal: options?.signal })
+        const ref = requireThread(thread, context)
+        return toThread(ref, (await fetcher.json<OriginPullRequest>(pullPath(ref), { method: 'PATCH', json: { state: 'open' }, signal: options?.signal })).data)
       }),
       setLabels: perKind(UNVERIFIED, async (thread, labels, options) => {
         const { data } = await fetcher.json<OriginLabel[] | { labels?: OriginLabel[] } | undefined>(`${pullPath(requireThread(thread, context))}/labels`, { method: 'PUT', json: { labels }, signal: options?.signal })

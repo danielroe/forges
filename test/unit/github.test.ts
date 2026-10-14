@@ -255,6 +255,17 @@ describe('github discussions', () => {
     expect(JSON.parse(calls[1]!.body!).variables).toEqual({ id: 'D_kwDOAAB5ac4AAQ1f', reason: 'RESOLVED' })
   })
 
+  it('resolves a discussion state change with the discussion from the mutation', async () => {
+    const { provider, calls } = tokenProvider()
+    const ref = { ...discussion, externalId: 'D_kwDOAAB5ac4AAQ1f' }
+
+    await expect(provider.threads.close(ref)).resolves.toMatchObject({ kind: 'discussion', title: 'Weekly digest discussion', state: 'closed', closedAt: new Date('2025-09-18T09:00:00Z') })
+    await expect(provider.threads.reopen!(ref)).resolves.toMatchObject({ kind: 'discussion', state: 'open', closedAt: undefined })
+
+    expect(calls.map(call => call.operationName)).toEqual(['CloseDiscussion', 'ReopenDiscussion'])
+    expect(JSON.parse(calls[0]!.body!).query).toContain('closeDiscussion(input: { discussionId: $id, reason: $reason }) { discussion { id number title body closed')
+  })
+
   it('maps close reasons a discussion has, and passes `reasonRaw` through', async () => {
     const { provider, calls } = tokenProvider()
     const ref = { ...discussion, externalId: 'D_kwDOAAB5ac4AAQ1f' }
@@ -279,11 +290,13 @@ describe('github discussions', () => {
       auth: { type: 'token', token: 't' },
       fetch: async (url, init) => {
         requests.push({ method: init?.method, url, body: init?.body && JSON.parse(String(init.body)) })
-        return new Response(null, { status: 204 })
+        return Response.json({ number: 7, title: 'Flaky test', state: 'closed', state_reason: 'not_planned', closed_at: '2025-09-18T09:00:00Z' })
       },
     }).create()
 
-    await provider.threads.close({ forge: 'github', instance: 'github.com', repo, kind: 'issue', number: '7' }, { reason: 'not_planned' })
+    const closed = await provider.threads.close({ forge: 'github', instance: 'github.com', repo, kind: 'issue', number: '7' }, { reason: 'not_planned' })
+
+    expect(closed).toMatchObject({ title: 'Flaky test', state: 'closed', stateReason: 'not_planned', closedAt: new Date('2025-09-18T09:00:00Z') })
 
     expect(requests).toEqual([{ method: 'PATCH', url: 'https://api.github.com/repos/acme/widgets/issues/7', body: { state: 'closed', state_reason: 'not_planned' } }])
   })
@@ -395,11 +408,11 @@ describe('github thread updates', () => {
     expect(JSON.parse(calls[0]!.body!)).toEqual({ title: 'Retry uploads', state: 'closed' })
   })
 
-  it('closes a discussion before it reads it back', async () => {
+  it('resolves a discussion state update with the discussion from the mutation', async () => {
     const { provider, calls } = tokenProvider()
-    await provider.threads.update(discussion, { state: 'closed' })
 
-    expect(calls.map(call => call.operationName)).toEqual(['DiscussionThread', 'CloseDiscussion', 'DiscussionThread'])
+    await expect(provider.threads.update(discussion, { state: 'closed' })).resolves.toMatchObject({ state: 'closed' })
+    expect(calls.map(call => call.operationName)).toEqual(['DiscussionThread', 'CloseDiscussion'])
   })
 
   it('refuses labels on a discussion before it writes anything', async () => {

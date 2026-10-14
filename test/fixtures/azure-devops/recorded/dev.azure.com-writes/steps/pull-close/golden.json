@@ -1,1 +1,62 @@
-null
+{
+  "ref": {
+    "forge": "azure-devops",
+    "instance": "dev.azure.com",
+    "repo": {
+      "forge": "azure-devops",
+      "instance": "dev.azure.com",
+      "owner": "forges/forges-fixtures",
+      "name": "forges-fixtures"
+    },
+    "kind": "pull_request",
+    "number": "37",
+    "externalId": "vstfs:///Git/PullRequestId/b2332e32-1afe-4c85-9407-12e7af2bf24c%2fc67c02dd-cbca-45aa-a679-021bd4d2c4a7%2f37"
+  },
+  "kind": "pull_request",
+  "title": "forges fixture 20261012114218: pull 3",
+  "body": "Opened by run 20261012114218.",
+  "state": "closed",
+  "stateRaw": "abandoned",
+  "isDraft": false,
+  "author": {
+    "forge": "azure-devops",
+    "instance": "dev.azure.com",
+    "login": "redacted@example.invalid",
+    "id": "567dfc49-0db7-43e6-83c1-d91d91db58b1",
+    "name": "danielroebot outlook.com",
+    "avatarUrl": "https://dev.azure.com/forges/_api/_common/identityImage?id=567dfc49-0db7-43e6-83c1-d91d91db58b1",
+    "typeRaw": "user",
+    "isBotHint": false
+  },
+  "assignees": [],
+  "reviewers": [
+    {
+      "actor": {
+        "forge": "azure-devops",
+        "instance": "dev.azure.com",
+        "login": "redacted@example.invalid",
+        "id": "48261c0d-8a6e-6a10-a9cb-c76b44ce18ce",
+        "name": "danielroe",
+        "avatarUrl": "https://dev.azure.com/forges/_api/_common/identityImage?id=48261c0d-8a6e-6a10-a9cb-c76b44ce18ce",
+        "typeRaw": "user",
+        "isBotHint": false
+      },
+      "state": "approved",
+      "stateRaw": "vote:10"
+    }
+  ],
+  "labels": [],
+  "createdAt": "<now>",
+  "closedAt": "<now>",
+  "lastActivityAt": "<now>",
+  "branches": {
+    "head": {
+      "ref": "forges-fixtures/20261012114218-3",
+      "sha": "b60ff550698a0a5659f7855e4f0ac474c3a094dc"
+    },
+    "base": {
+      "ref": "main",
+      "sha": "254a409567a9d8b9817dc70eab65fed5e7fcd5fe"
+    }
+  }
+}

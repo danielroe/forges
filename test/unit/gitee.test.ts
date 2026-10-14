@@ -257,6 +257,21 @@ describe('gitee labels', () => {
   })
 })
 
+describe('gitee state changes', () => {
+  it('resolves with the issue or pull request in the response', async () => {
+    const issue = { ...pull, kind: 'issue', number: 'I7' } as const
+    const { fetch, calls } = fixtureFetch('gitee', {
+      'PATCH https://gitee.com/api/v5/repos/acme/issues/I7': { status: 200, body: { number: 'I7', title: 'Crash', state: 'closed' } },
+      [`PATCH https://gitee.com/api/v5/repos/acme/widgets/pulls/${pull.number}`]: { status: 200, body: { number: Number(pull.number), title: 'Add widgets', state: 'closed', head: { ref: 'feat' }, base: { ref: 'main' } } },
+    })
+    const provider = gitee({ auth: { type: 'token', token: 't' }, fetch }).create()
+
+    await expect(provider.threads.close(issue)).resolves.toMatchObject({ kind: 'issue', title: 'Crash', state: 'closed' })
+    await expect(provider.threads.close(pull)).resolves.toMatchObject({ kind: 'pull_request', title: 'Add widgets', state: 'closed', branches: { head: { ref: 'feat' }, base: { ref: 'main' } } })
+    expect(calls.map(call => call.method)).toEqual(['PATCH', 'PATCH'])
+  })
+})
+
 describe('gitee assignees', () => {
   it('resolves setAssignees with the assignee of the issue in the response', async () => {
     const issue = { ...pull, kind: 'issue', number: 'I7' } as const

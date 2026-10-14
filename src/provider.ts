@@ -656,10 +656,16 @@ export interface ThreadsApi {
   setAssignees: (ref: ThreadRef, assignees: Array<string | Actor>, options?: BaseOptions) => Promise<Actor[]>
   /** Adds reviewers to a pull request. */
   requestReview: (ref: ThreadRef, reviewers: Array<string | Actor>, options?: BaseOptions) => Promise<void>
-  /** Closes a thread, optionally with a reason. */
-  close: (ref: ThreadRef, options?: CloseOptions) => Promise<void>
-  /** Reopens a closed thread. */
-  reopen: (ref: ThreadRef, options?: BaseOptions) => Promise<void>
+  /**
+   * Closes a thread, optionally with a reason.
+   * @returns The thread, closed. Tangled reads the thread after writing the state record.
+   */
+  close: (ref: ThreadRef, options?: CloseOptions) => Promise<Thread>
+  /**
+   * Reopens a closed thread.
+   * @returns The thread, open. Tangled reads the thread after writing the state record.
+   */
+  reopen: (ref: ThreadRef, options?: BaseOptions) => Promise<Thread>
   /**
    * Merges a pull request. Without a merge method, the repository must allow exactly one. A repeat rejects once the
    * pull request has merged, so after a failure read the pull request to see whether it did.

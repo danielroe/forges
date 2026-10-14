@@ -678,7 +678,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
       : `${repoPath(ref.thread.repo)}/issues/comments/${encodeURIComponent(ref.id)}`
   }
 
-  async function setState(thread: ThreadRef, state: 'open' | 'closed', options_: CloseOptions = {}): Promise<void> {
+  async function setState(thread: ThreadRef, state: 'open' | 'closed', options_: CloseOptions = {}): Promise<Thread> {
     const ref = requireThread(thread, context)
     if (ref.kind === 'commit') {
       throw new UnsupportedOperationError('Commits have no open or closed state', context)
@@ -689,17 +689,18 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
         throw new UnsupportedOperationError(`GitHub discussions have no ${options_.reason} close reason; pass reasonRaw: 'outdated'`, context)
       }
       const id = await discussionId(ref, options_)
-      await (state === 'closed'
-        ? graphql('CLOSE_DISCUSSION', { id, reason: reason?.toUpperCase() ?? null }, options_)
-        : graphql('REOPEN_DISCUSSION', { id }, options_))
-      return
+      const data = state === 'closed'
+        ? (await graphql<{ closeDiscussion: { discussion: GraphQLDiscussion } }>('CLOSE_DISCUSSION', { id, reason: reason?.toUpperCase() ?? null }, options_)).closeDiscussion
+        : (await graphql<{ reopenDiscussion: { discussion: GraphQLDiscussion } }>('REOPEN_DISCUSSION', { id }, options_)).reopenDiscussion
+      return (await import('./graphql.ts')).toDiscussionThread(ref, data.discussion)
     }
     const reason = options_.reasonRaw ?? options_.reason
-    await fetcher.raw(threadPath(ref), {
+    const { data } = await fetcher.json<GitHubIssue>(threadPath(ref), {
       method: 'PATCH',
       json: ref.kind === 'issue' && state === 'closed' && reason ? { state, state_reason: reason } : { state },
       signal: options_.signal,
     })
+    return toThread(ref, data)
   }
 
   async function merge(thread: ThreadRef, options_: MergeOptions = {}, hooks: MergeHooks = {}): Promise<MergeResult> {
@@ -1998,11 +1999,9 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
             throw new UnsupportedOperationError('Setting labels or assignees on a GitHub discussion is not supported', context)
           }
           const id = await discussionId(ref, options)
-          if (input.state) {
-            await setState({ ...ref, externalId: id }, input.state, options)
-          }
+          const changed = input.state && await setState({ ...ref, externalId: id }, input.state, options)
           if (input.title === undefined && input.body === undefined) {
-            return getDiscussion(ref, options)
+            return changed || getDiscussion(ref, options)
           }
           const data = await graphql<{ updateDiscussion: { discussion: GraphQLDiscussion } }>('UPDATE_DISCUSSION', { id, title: input.title, body: input.body }, options)
           return (await import('./graphql.ts')).toDiscussionThread(ref, data.updateDiscussion.discussion)

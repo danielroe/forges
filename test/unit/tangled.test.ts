@@ -331,7 +331,20 @@ describe('tangled writes', () => {
     })
     await instance.threads.reopen!(pull)
 
-    expect(calls.at(-1)!.url).toBe(`${PDS}/xrpc/com.atproto.repo.createRecord`)
+    expect(calls.filter(call => call.url === `${PDS}/xrpc/com.atproto.repo.createRecord`)).toHaveLength(1)
+  })
+
+  it('resolves a state change with the thread in its new state before the backlink index lists it', async () => {
+    const { instance, calls } = provider()
+    const before = await instance.threads.get(pull)
+
+    const closed = await instance.threads.close!(pull)
+
+    expect(before.state).toBe('open')
+    expect(closed).toMatchObject({ ref: { number: before.ref.number }, title: before.title, state: 'closed', stateRaw: 'closed', closedAt: expect.any(Date) })
+    expect(closed.updatedAt).toEqual(closed.closedAt)
+    expect((await instance.threads.reopen!(pull))).toMatchObject({ state: 'open', stateRaw: 'open', closedAt: undefined })
+    expect(calls.filter(call => call.method === 'POST' && call.url.endsWith('createRecord'))).toHaveLength(2)
   })
 
   it('refreshes an expired session once', async () => {
@@ -351,7 +364,7 @@ describe('tangled writes', () => {
     await instance.threads.close!(pull)
 
     expect(calls.map(call => call.url.split('/').at(-1))).toContain('com.atproto.server.refreshSession')
-    expect(calls.at(-1)!.authorization).toBe('Bearer fresh-jwt')
+    expect(calls.filter(call => call.url.endsWith('createRecord')).at(-1)!.authorization).toBe('Bearer fresh-jwt')
   })
 
   it('sends writes through the OAuth client fetch', async () => {

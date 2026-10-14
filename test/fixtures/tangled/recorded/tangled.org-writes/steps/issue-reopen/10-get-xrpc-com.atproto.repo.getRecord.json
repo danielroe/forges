@@ -6,10 +6,10 @@
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"170-FRrbJWEjTK5hoLvzFSOFVdsAAvs\"",
+      "etag": "W/\"170-JBmUHnAVqNUuxum/ievK29BeoVo\"",
       "ratelimit-limit": "3000",
-      "ratelimit-remaining": "2907",
-      "ratelimit-reset": "1791842994"
+      "ratelimit-remaining": "2900",
+      "ratelimit-reset": "1792009828"
     },
     "body": {
       "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.issue/3mxpjlurceb2y",
@@ -19,7 +19,7 @@
         "repo": "did:plc:t73o44q7fppgagkrevtztyok",
         "$type": "sh.tangled.repo.issue",
         "title": "forges fixture 20261012220452: issue, edited",
-        "createdAt": "2026-10-12T22:05:00.665Z"
+        "createdAt": "2026-10-14T20:25:59.467Z"
       }
     }
   }

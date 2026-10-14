@@ -332,11 +332,11 @@ export const ADD_DISCUSSION_COMMENT = `mutation AddDiscussionComment($id: ID!, $
 }`
 
 export const CLOSE_DISCUSSION = `mutation CloseDiscussion($id: ID!, $reason: DiscussionCloseReason) {
-  closeDiscussion(input: { discussionId: $id, reason: $reason }) { discussion { id } }
+  closeDiscussion(input: { discussionId: $id, reason: $reason }) { discussion { ${DISCUSSION_FIELDS} } }
 }`
 
 export const REOPEN_DISCUSSION = `mutation ReopenDiscussion($id: ID!) {
-  reopenDiscussion(input: { discussionId: $id }) { discussion { id } }
+  reopenDiscussion(input: { discussionId: $id }) { discussion { ${DISCUSSION_FIELDS} } }
 }`
 
 export interface GraphQLActor {

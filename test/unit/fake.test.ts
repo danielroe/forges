@@ -627,6 +627,18 @@ describe('fake write results', () => {
     expect(result).toEqual((await forge.threads.get(issue)).labels)
   })
 
+  it('resolves close and reopen with the thread that a following read returns', async () => {
+    const forge = fake({ seed }).create()
+
+    const closed = await forge.threads.close(issue, { reason: 'not_planned' })
+    expect(closed).toMatchObject({ state: 'closed', stateReason: 'not_planned' })
+    expect(closed).toEqual(await forge.threads.get(issue))
+
+    const reopened = await forge.threads.reopen(issue)
+    expect(reopened.state).toBe('open')
+    expect(reopened).toEqual(await forge.threads.get(issue))
+  })
+
   it('resolves setAssignees with the assignees that a following read returns', async () => {
     const forge = fake({ seed }).create()
 
