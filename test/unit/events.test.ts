@@ -4,10 +4,10 @@ import { toActivityEvent as toBitbucketActivityEvent } from '../../src/bitbucket
 import { translateBitbucketWebhook } from '../../src/bitbucket/webhooks.ts'
 import { toReview as toOriginReview, toReviewEvent as toOriginReviewEvent } from '../../src/cursor-origin/normalise.ts'
 import { translateOriginWebhook } from '../../src/cursor-origin/webhooks.ts'
-import { completeEvent, eventAction } from '../../src/events.ts'
+import { completeEvent, eventAction, threadSnapshot } from '../../src/events.ts'
 import { fake } from '../../src/fake/index.ts'
 import { toEvent as toForgejoEvent, toReview as toForgejoReview } from '../../src/forgejo/normalise.ts'
-import { translateGitHubWebhook } from '../../src/github/events.ts'
+import { toFeedEvent, translateGitHubWebhook } from '../../src/github/events.ts'
 import { toEvent as toGitHubEvent, toReview } from '../../src/github/normalise.ts'
 import { GITHUB_WEBHOOK_EVENTS } from '../../src/github/webhook-events.ts'
 import { toFeedEvent as toGitLabFeedEvent } from '../../src/gitlab/feed.ts'
@@ -38,6 +38,34 @@ describe('event actions', () => {
 
   it('normalises review verdicts', () => {
     expect(['APPROVED', 'request_changes', 'COMMENTED', 'weird'].map(reviewState)).toEqual(['approved', 'changes_requested', 'commented', 'unknown'])
+  })
+})
+
+describe('thread snapshots', () => {
+  it('keeps only the fields the source reports', () => {
+    expect(threadSnapshot({ title: 'Fix', state: 'unknown', labels: [], body: undefined })).toEqual({ title: 'Fix', labels: [] })
+    expect(threadSnapshot({ state: 'unknown' })).toBeUndefined()
+  })
+
+  it('carries a thin pull request from an activity feed as its branches alone', () => {
+    const event = toFeedEvent('github.com', {
+      id: '1',
+      type: 'PullRequestEvent',
+      actor: sender,
+      created_at: null,
+      repo: { id: 1, name: 'acme/widgets' },
+      payload: { action: 'opened', number: 4, pull_request: { number: 4, head: { ref: 'fix', sha: 'abc', repo: { id: 9, url: 'https://api.github.com/repos/fork/widgets', name: 'widgets' } }, base: { ref: 'main', sha: 'def' } } },
+    })
+
+    expect(event.threadSnapshot).toEqual({
+      branches: { head: { ref: 'fix', sha: 'abc', repo: { forge: 'github', instance: 'github.com', owner: 'fork', name: 'widgets', externalId: '9' } }, base: { ref: 'main', sha: 'def' } },
+    })
+  })
+
+  it('names who merged a pull request that a webhook reports merged', () => {
+    const [event] = translateGitHubWebhook('github.com', github('pull_request', { action: 'closed', pull_request: { number: 4, state: 'closed', merged: true, merged_by: { login: 'hubot', id: 4, type: 'User' } } }))
+
+    expect(event!.threadSnapshot).toMatchObject({ state: 'merged', mergedBy: { login: 'hubot' } })
   })
 })
 

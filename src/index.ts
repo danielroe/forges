@@ -171,6 +171,7 @@ export type {
   ThreadKind,
   ThreadQuery,
   ThreadRef,
+  ThreadSnapshot,
   ThreadStack,
   ThreadState,
   ThreadUpdateInput,

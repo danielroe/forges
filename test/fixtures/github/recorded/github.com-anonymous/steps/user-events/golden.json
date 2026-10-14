@@ -61,6 +61,25 @@
         "kind": "pull_request",
         "number": "1607"
       },
+      "threadSnapshot": {
+        "branches": {
+          "head": {
+            "ref": "update-nuxt-notify",
+            "sha": "735dcf70d936f5b40a793548dc9bac4be5e0f81f",
+            "repo": {
+              "forge": "github",
+              "instance": "github.com",
+              "owner": "nizaamomer",
+              "name": "modules",
+              "externalId": "1119742111"
+            }
+          },
+          "base": {
+            "ref": "main",
+            "sha": "884090f8067e4a7c34493ab628f7f6220d24286c"
+          }
+        }
+      },
       "source": "poll",
       "isPublic": true
     },
@@ -126,6 +145,31 @@
         "number": "140",
         "externalId": "MDU6SXNzdWU4NTU4MTEwNjA="
       },
+      "threadSnapshot": {
+        "title": "Nuxt GSAP Module",
+        "body": "https://github.com/ivodolenc/nuxt-gsap-module",
+        "state": "closed",
+        "stateRaw": "closed",
+        "stateReason": "not_planned",
+        "author": {
+          "forge": "github",
+          "instance": "github.com",
+          "login": "giticon",
+          "id": "27739275",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/27739275?v=4",
+          "url": "https://github.com/giticon",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "labels": [
+          {
+            "name": "module-request",
+            "colour": "7CB617",
+            "description": ""
+          }
+        ],
+        "url": "https://github.com/nuxt/modules/issues/140"
+      },
       "source": "poll",
       "isPublic": true
     },
@@ -190,6 +234,31 @@
         "kind": "issue",
         "number": "719",
         "externalId": "I_kwDOEVEVhc5tNM8e"
+      },
+      "threadSnapshot": {
+        "title": "[Module Listing Request]: nuxt-rate-limit",
+        "body": "### Description\n\nAdd rate limits to your Nuxt 3 API routes.\n\n### Repository\n\nhttps://github.com/timb-103/nuxt-rate-limit\n\n### npm\n\nhttps://www.npmjs.com/package/nuxt-rate-limit\n\n### Nuxt Compatibility\n\nNuxt 3",
+        "state": "closed",
+        "stateRaw": "closed",
+        "stateReason": "not_planned",
+        "author": {
+          "forge": "github",
+          "instance": "github.com",
+          "login": "timb-103",
+          "id": "105137815",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/105137815?v=4",
+          "url": "https://github.com/timb-103",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "labels": [
+          {
+            "name": "module-request",
+            "colour": "7CB617",
+            "description": ""
+          }
+        ],
+        "url": "https://github.com/nuxt/modules/issues/719"
       },
       "source": "poll",
       "isPublic": true
@@ -291,6 +360,30 @@
         "number": "129",
         "externalId": "MDU6SXNzdWU4Mjc5MTczNjc="
       },
+      "threadSnapshot": {
+        "title": "Add nuxt-modernizr",
+        "body": "Hey, I created a module that integrates Modernizr into Nuxt.js:\r\nhttps://github.com/dword-design/nuxt-modernizr\r\n\r\nDescription: Adds a Modernizr build to your Nuxt.js app.",
+        "state": "open",
+        "stateRaw": "open",
+        "author": {
+          "forge": "github",
+          "instance": "github.com",
+          "login": "dword-design",
+          "id": "13484795",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/13484795?v=4",
+          "url": "https://github.com/dword-design",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "labels": [
+          {
+            "name": "module-request",
+            "colour": "7CB617",
+            "description": ""
+          }
+        ],
+        "url": "https://github.com/nuxt/modules/issues/129"
+      },
       "source": "poll",
       "isPublic": true
     },
@@ -355,6 +448,30 @@
         "kind": "issue",
         "number": "874",
         "externalId": "I_kwDOEVEVhc58552z"
+      },
+      "threadSnapshot": {
+        "title": "Nuxt Papa Parse module",
+        "body": "### Description\n\nUploaded a module to use Papa Parse on Nuxt 3 easy with a composable\n\n### Repository\n\nhttps://github.com/Jesus-Glez60/nuxt-papa-parse/tree/v1.0.2\n\n### npm\n\nhttps://www.npmjs.com/package/nuxt-papa-parse\n\n### Nuxt Compatibility\n\nNuxt 3",
+        "state": "open",
+        "stateRaw": "open",
+        "author": {
+          "forge": "github",
+          "instance": "github.com",
+          "login": "Jesus-Glez60",
+          "id": "37312964",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/37312964?v=4",
+          "url": "https://github.com/Jesus-Glez60",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "labels": [
+          {
+            "name": "module-request",
+            "colour": "7CB617",
+            "description": ""
+          }
+        ],
+        "url": "https://github.com/nuxt/modules/issues/874"
       },
       "source": "poll",
       "isPublic": true
@@ -421,6 +538,30 @@
         "number": "909",
         "externalId": "I_kwDOEVEVhc6BtpIv"
       },
+      "threadSnapshot": {
+        "title": "[Module Listing Request]: `nuxt-token-authentication`",
+        "body": "### Description\n\nThis Nuxt module simplifies user authentication using HTTP headers, streamlining the integration of token-based authorization into your application.\n\n### Repository\n\nhttps://github.com/rrd108/nuxt-token-authentication\n\n### npm\n\nhttps://www.npmjs.com/package/nuxt-token-authentication\n\n### Nuxt Compatibility\n\nNuxt 3",
+        "state": "open",
+        "stateRaw": "open",
+        "author": {
+          "forge": "github",
+          "instance": "github.com",
+          "login": "rrd108",
+          "id": "3147489",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/3147489?v=4",
+          "url": "https://github.com/rrd108",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "labels": [
+          {
+            "name": "module-request",
+            "colour": "7CB617",
+            "description": ""
+          }
+        ],
+        "url": "https://github.com/nuxt/modules/issues/909"
+      },
       "source": "poll",
       "isPublic": true
     },
@@ -485,6 +626,30 @@
         "kind": "issue",
         "number": "936",
         "externalId": "I_kwDOEVEVhc6Fkghc"
+      },
+      "threadSnapshot": {
+        "title": "[Module Listing Request]: `notivue`",
+        "body": "### Description\n\nThis module implements Notivue, a powerful toast notification system for Vue and Nuxt. \r\n\r\n### Live Demo\r\n\r\nhttps://notivue.smastrom.io\n\n### Repository\n\nhttps://github.com/smastrom/notivue\n\n### npm\n\nhttps://www.npmjs.com/package/notivue\n\n### Nuxt Compatibility\n\nNuxt 3",
+        "state": "open",
+        "stateRaw": "open",
+        "author": {
+          "forge": "github",
+          "instance": "github.com",
+          "login": "smastrom",
+          "id": "60471784",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/60471784?v=4",
+          "url": "https://github.com/smastrom",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "labels": [
+          {
+            "name": "module-request",
+            "colour": "7CB617",
+            "description": ""
+          }
+        ],
+        "url": "https://github.com/nuxt/modules/issues/936"
       },
       "source": "poll",
       "isPublic": true
@@ -551,6 +716,30 @@
         "number": "968",
         "externalId": "I_kwDOEVEVhc6KqIhP"
       },
+      "threadSnapshot": {
+        "title": "[Module Listing Request]: `nuxt-countries-api`",
+        "body": "### Description\n\nThis is an open source module that generates server API routes with basic information about countries, its states and cities.\n\nThe project is operating publically at: https://countries.xamu.com.co/ but the module is provided as an alternative to get faster responses. Powered by the data of: https://github.com/dr5hn/countries-states-cities-database\n\nI'm using it myself in my own projects an other modules I'm developing.\n\n### Repository\n\nhttps://github.com/xamu-co/countries-api\n\n### npm\n\nhttps://www.npmjs.com/package/nuxt-countries-api\n\n### Nuxt Compatibility\n\nNuxt 3",
+        "state": "open",
+        "stateRaw": "open",
+        "author": {
+          "forge": "github",
+          "instance": "github.com",
+          "login": "vis97c",
+          "id": "45251845",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/45251845?v=4",
+          "url": "https://github.com/vis97c",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "labels": [
+          {
+            "name": "module-request",
+            "colour": "7CB617",
+            "description": ""
+          }
+        ],
+        "url": "https://github.com/nuxt/modules/issues/968"
+      },
       "source": "poll",
       "isPublic": true
     },
@@ -615,6 +804,30 @@
         "kind": "issue",
         "number": "1094",
         "externalId": "I_kwDOEVEVhc6a88pQ"
+      },
+      "threadSnapshot": {
+        "title": "[Module Listing Request]: `Nuxt State Monitor`",
+        "body": "### Description\n\nNuxt State Monitor is a lightweight Nuxt module that allows you to monitor and edit all variables stored in Nuxt's native state, including custom data of any type. This is useful for debugging, managing state, and keeping track of custom runtime data in a seamless and developer-friendly way.\n\nFeatures\n📊 State Monitoring: Real-time monitoring of all Nuxt native states.\n🔧 State Editing: Dynamically edit the state directly from the UI.\n🔍 Custom Data Monitoring: Watch and manage custom data objects and variables.\n⚡ Zero Configuration: Minimal setup and configuration needed.\n💻 Developer-Friendly UI: A sleek and intuitive UI to track and manage states.\n\n### Repository\n\nhttps://github.com/Laravel42/nuxt-state-monitor\n\n### npm\n\nhttps://www.npmjs.com/package/nuxt-state-monitor\n\n### Nuxt Compatibility\n\nNuxt 3",
+        "state": "open",
+        "stateRaw": "open",
+        "author": {
+          "forge": "github",
+          "instance": "github.com",
+          "login": "andrealune",
+          "id": "13441969",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/13441969?v=4",
+          "url": "https://github.com/andrealune",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "labels": [
+          {
+            "name": "module-request",
+            "colour": "7CB617",
+            "description": ""
+          }
+        ],
+        "url": "https://github.com/nuxt/modules/issues/1094"
       },
       "source": "poll",
       "isPublic": true

@@ -1028,6 +1028,9 @@
           },
           "draft": {
             "type": "boolean"
+          },
+          "reason": {
+            "type": "string"
           }
         },
         "required": [
@@ -1238,6 +1241,18 @@
             "$ref": "#/components/schemas/ReleaseRef"
           },
           "name": {
+            "type": "string"
+          },
+          "body": {
+            "type": "string"
+          },
+          "isPrerelease": {
+            "type": "boolean"
+          },
+          "isDraft": {
+            "type": "boolean"
+          },
+          "url": {
             "type": "string"
           }
         },
@@ -2153,6 +2168,10 @@
       },
       "thread": {
         "$ref": "#/components/schemas/ThreadRef"
+      },
+      "threadSnapshot": {
+        "$ref": "#/components/schemas/ThreadSnapshot",
+        "description": "What the event's source says about `thread`, as of when the forge built the payload."
       },
       "isPublic": {
         "type": "boolean",
@@ -4225,6 +4244,58 @@
     ],
     "description": "Reference to a thread. A thread `number` is unique only within its repo, so the repo is always carried alongside it.",
     "x-forges-type": "ThreadRef"
+  },
+  "ThreadSnapshot": {
+    "type": "object",
+    "properties": {
+      "title": {
+        "type": "string"
+      },
+      "body": {
+        "type": "string"
+      },
+      "state": {
+        "type": "string",
+        "enum": [
+          "open",
+          "closed",
+          "merged"
+        ],
+        "description": "Thread state. `'unknown'` is distinct from any real state and signals that the value was not present in the payload, so the caller may enrich it with `threads.get()`. Draft status is orthogonal; see `Thread.isDraft`."
+      },
+      "stateRaw": {
+        "type": "string"
+      },
+      "stateReason": {
+        "type": "string"
+      },
+      "isDraft": {
+        "type": "boolean"
+      },
+      "author": {
+        "$ref": "#/components/schemas/Actor"
+      },
+      "labels": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/Label"
+        }
+      },
+      "url": {
+        "type": "string"
+      },
+      "branches": {
+        "$ref": "#/components/schemas/PullBranches"
+      },
+      "stats": {
+        "$ref": "#/components/schemas/PullStats"
+      },
+      "mergedBy": {
+        "$ref": "#/components/schemas/Actor"
+      }
+    },
+    "description": "Fields of a {@link Thread} that an event's source carries. A field is absent when the source does not report it; `labels: []` means the source listed no labels. `threads.get()` reads the rest.",
+    "x-forges-type": "ThreadSnapshot"
   },
   "ThreadStack": {
     "type": "object",

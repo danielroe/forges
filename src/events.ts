@@ -1,4 +1,4 @@
-import type { EventAction, EventKind, ForgeEvent, ForgeEventInput, ReviewState } from './model.ts'
+import type { EventAction, EventKind, ForgeEvent, ForgeEventInput, ReviewState, Thread, ThreadSnapshot, ThreadState } from './model.ts'
 
 const ACTIONS: Record<string, EventAction> = {
   open: 'opened',
@@ -88,4 +88,15 @@ export function eventTime(time: Date | undefined, fallback: Date = new Date()): 
 /** Normalises a forge-native review verdict (`APPROVED`, `changes_requested`, ...) into a {@link ReviewState}. */
 export function reviewState(raw: string | undefined): ReviewState {
   return (raw && REVIEW_STATES[raw.toLowerCase()]) || 'unknown'
+}
+
+/** A {@link ThreadSnapshot} of the fields that are known, or `undefined` when none is. An `unknown` state is dropped. */
+export function threadSnapshot(fields: Omit<ThreadSnapshot, 'state'> & { state?: ThreadState }): ThreadSnapshot | undefined {
+  const known = Object.entries(fields).filter(([key, value]) => value !== undefined && !(key === 'state' && value === 'unknown'))
+  return known.length ? Object.fromEntries(known) : undefined
+}
+
+/** The {@link ThreadSnapshot} of a thread normalised from the issue or pull request an event embeds. */
+export function snapshotOfThread({ title, body, state, stateRaw, stateReason, isDraft, author, labels, url, branches, stats, mergedBy }: Partial<Thread>): ThreadSnapshot | undefined {
+  return threadSnapshot({ title, body, state, stateRaw, stateReason, isDraft, author, labels, url, branches, stats, mergedBy })
 }

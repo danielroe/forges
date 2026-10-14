@@ -1,14 +1,14 @@
 import type { Ed25519Jwk } from '../crypto.ts'
 import type { WebhookHandlers } from '../define.ts'
-import type { EventAction, EventDetail, EventKind, ForgeEventInput, RepoRef, ThreadRef, WebhookEventType } from '../model.ts'
+import type { EventAction, EventDetail, EventKind, ForgeEventInput, RepoRef, ResolvedThreadRef, WebhookEventType } from '../model.ts'
 import type { WebhookDelivery } from '../provider.ts'
 import type { CursorOriginOptions } from './index.ts'
 import type { OriginWebhookEnvelope } from './types.ts'
 import { bodyText, headerValue, sha256Hex, verifyEd25519 } from '../crypto.ts'
-import { eventTime } from '../events.ts'
+import { eventTime, snapshotOfThread } from '../events.ts'
 import { memo, toDate } from '../utils.ts'
 import { refEvent } from '../webhooks.ts'
-import { commentDetail, FORGE, threadState, toActor, toRepoRef, toReviewEvent } from './normalise.ts'
+import { commentDetail, FORGE, threadState, toActor, toRepoRef, toReviewEvent, toThread } from './normalise.ts'
 
 /** Deliveries older or newer than this are refused, as Origin documents. */
 const TOLERANCE_SECONDS = 300
@@ -61,9 +61,10 @@ export function translateOriginWebhook(instance: string, delivery: WebhookDelive
   const payload = event.payload ?? {}
   const repo: RepoRef | undefined = payload.repository ? toRepoRef(instance, payload.repository) : undefined
   const pull = payload.pullRequest
-  const thread: ThreadRef | undefined = pull && repo
+  const thread: ResolvedThreadRef | undefined = pull && repo
     ? { forge: FORGE, instance, repo, kind: 'pull_request', number: pull.number, externalId: pull.id }
     : undefined
+  const normalised = thread && pull && toThread(thread, pull)
   const base = {
     forge: FORGE,
     instance,
@@ -72,6 +73,7 @@ export function translateOriginWebhook(instance: string, delivery: WebhookDelive
     ...eventTime(toDate(event.eventTime ?? payload.review?.submittedAt)),
     repo,
     thread,
+    threadSnapshot: normalised && snapshotOfThread({ ...normalised, isDraft: pull?.draft, labels: pull?.labels && normalised.labels }),
     installationId: envelope.installationId,
     source: 'webhook' as const,
     payload: envelope,

@@ -44,6 +44,8 @@ export interface BitbucketPullRequest {
   title: string
   description?: string
   summary?: { raw?: string }
+  /** Why the pull request was declined. */
+  reason?: string
   state: string
   draft?: boolean
   author?: BitbucketUser

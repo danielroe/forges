@@ -345,6 +345,7 @@ describe.each(contracts)('contract: $name', (contract) => {
     expect(events[0]!.thread?.number).toBe(contract.webhook.expect.threadNumber)
     expect(events[0]!.thread?.displayNumber).toBe(contract.webhook.expect.displayNumber)
     expect(events[0]!.detail).toMatchObject(contract.webhook.expect.detail)
+    expect(events[0]!.threadSnapshot?.title).toBe(contract.webhook.expect.title)
     expect(events[0]!.thread?.repo.name).toBe('widgets')
     expect(events[0]!.occurredAt).toBeInstanceOf(Date)
     expect(events[0]!.detail?.type === 'comment' ? events[0]!.detail.comment?.id : undefined).toBe(contract.webhook.expect.comment)

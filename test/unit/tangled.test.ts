@@ -466,6 +466,32 @@ describe('tangled subscribe', () => {
     expect(url.searchParams.getAll('wantedCollections')).toEqual(['sh.tangled.repo.issue', 'sh.tangled.feed.comment'])
   })
 
+  it('fills a comment event from its record and the thread record it resolves', async () => {
+    const { fetch } = fixtureFetch('tangled')
+    const instance = tangled({
+      fetch,
+      webSocket: url => new FakeWebSocket(url, [{
+        did: ADA,
+        time_us: 1,
+        kind: 'commit',
+        commit: {
+          rev: 'r',
+          operation: 'create',
+          collection: 'sh.tangled.feed.comment',
+          rkey: '3mwqcomment22',
+          record: { subject: { uri: PULL, cid: 'c' }, body: 'Looks good.', createdAt: '2025-09-18T00:00:00Z' },
+        },
+      }]),
+    }).create()
+    const { value } = await instance.sources!.subscribe()[Symbol.asyncIterator]().next()
+
+    expect(value!.event).toMatchObject({
+      kind: 'comment',
+      detail: { type: 'comment', comment: { id: `at://${ADA}/sh.tangled.feed.comment/3mwqcomment22` }, body: 'Looks good.' },
+      threadSnapshot: { title: 'Cache compiled templates' },
+    })
+  })
+
   it('keeps events whose thread cannot be resolved, without a thread', async () => {
     const { fetch } = fixtureFetch('tangled')
     const instance = tangled({

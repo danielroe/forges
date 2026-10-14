@@ -128,6 +128,9 @@
         "kind": "pull_request",
         "number": "1131"
       },
+      "threadSnapshot": {
+        "title": "fix(deps): update go toolchain directive to v1.27.2 [security]"
+      },
       "detail": {
         "type": "state_change",
         "state": "merged"
@@ -346,6 +349,9 @@
         "kind": "pull_request",
         "number": "1130"
       },
+      "threadSnapshot": {
+        "title": "feat(login): support custom HTTP headers per login"
+      },
       "detail": {
         "type": "state_change",
         "state": "open"
@@ -391,6 +397,9 @@
         },
         "kind": "issue",
         "number": "1129"
+      },
+      "threadSnapshot": {
+        "title": "我怎么列出所有 assignee 为空的 issues"
       },
       "detail": {
         "type": "state_change",

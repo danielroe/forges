@@ -575,7 +575,7 @@ function timelineDetail(instance: string, thread: ThreadRef, entry: GitHubTimeli
     case 'state_change':
       return entry.event === 'convert_to_draft' || entry.event === 'ready_for_review'
         ? { type: 'state_change', state: 'open', draft: entry.event === 'convert_to_draft' }
-        : { type: 'state_change', state: entry.event === 'merged' ? 'merged' : entry.event === 'closed' ? 'closed' : 'open' }
+        : { type: 'state_change', state: entry.event === 'merged' ? 'merged' : entry.event === 'closed' ? 'closed' : 'open', reason: entry.state_reason ?? undefined }
     default:
       return undefined
   }

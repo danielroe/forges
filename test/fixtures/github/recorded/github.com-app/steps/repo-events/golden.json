@@ -62,6 +62,25 @@
         "number": "1601",
         "externalId": "PR_kwDOErHI988AAAABI1lRPA"
       },
+      "threadSnapshot": {
+        "title": "fix(body): match form content type case-insensitively in `readBody`",
+        "body": "`readBody()` decides whether to parse the body as url-encoded with a case-sensitive `startsWith(\"application/x-www-form-urlencoded\")`. Media types are case-insensitive (RFC 9110, section 8.3.1: \"The type and subtype tokens are case-insensitive.\"), so a request with a differently cased type falls through to `JSON.parse` and gets a 400:\n\n```js\napp.post(\"/\", (event) => readBody(event));\n```\n\n```\n$ curl -s localhost:3000 -H 'content-type: application/x-www-form-urlencoded' -d 'a=1&b=2'\n{\"a\":\"1\",\"b\":\"2\"}\n$ curl -s localhost:3000 -H 'content-type: Application/x-www-form-urlencoded' -d 'a=1&b=2'\n{\"status\":400,\"statusText\":\"Bad Request\",\"message\":\"Invalid JSON body\"}\n```\n\n`readBody(event, { type: \"formData\" })` already accepts the same request, since `Request.formData()` parses the header case-insensitively, so the default path was the odd one out.\n\nThe fix lowercases the header before the check. The new test sends two differently cased form content types (one with a `charset` parameter) through the web and node matrix; without the source change both fail with `expected { status: 400, ... } to deeply equal { field: 'value', ... }`.\n\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n\n## Summary by CodeRabbit\n\n* **Bug Fixes**\n  * URL-encoded form bodies are now parsed correctly when the `Content-Type` header uses uppercase or mixed-case letters, including with a charset parameter.\n\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
+        "state": "open",
+        "stateRaw": "open",
+        "isDraft": false,
+        "author": {
+          "forge": "github",
+          "instance": "github.com",
+          "login": "giaBaoJS",
+          "id": "39545125",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/39545125?v=4",
+          "url": "https://github.com/giaBaoJS",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "labels": [],
+        "url": "https://github.com/h3js/h3/pull/1601"
+      },
       "source": "poll",
       "isPublic": true
     },
@@ -126,6 +145,25 @@
         "kind": "pull_request",
         "number": "1583",
         "externalId": "PR_kwDOErHI988AAAABHzAV3Q"
+      },
+      "threadSnapshot": {
+        "title": "docs: fix file paths in static assets example",
+        "body": "Resolves #1578\n\nThe \"Read files\" example mounts the handler at `/public/**`, but `serveStatic` passes the full request path as `id` (e.g. `/public/index.html`). So `join(\"public\", id)` looks for `public/public/index.html` and every request returns 404. The text also says to open `http://localhost:3000`, which isn't matched by `/public/**`.\n\nChanges:\n- Strip the `/public` prefix from `id` before joining it with the directory.\n- Point readers to `http://localhost:3000/public/`, after the full example.\n\nI checked both versions against h3 2.0.2 with a `public/index.html` file:\n\n| Path | Before | After |\n| --- | --- | --- |\n| `/` | 404 | 404 (outside the mount, expected) |\n| `/public/` | 404 | 200 |\n| `/public/index.html` | 404 | 200 |\n\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n## Summary by CodeRabbit\n\n* **Documentation**\n  * Updated the static assets example to show creating `public/index.html` before opening `/public/` in a browser.\n  * Clarified that `/public` is removed from request paths before they’re used to read files or look up file metadata.\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
+        "state": "open",
+        "stateRaw": "open",
+        "isDraft": false,
+        "author": {
+          "forge": "github",
+          "instance": "github.com",
+          "login": "aaronanish-t",
+          "id": "217176403",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/217176403?v=4",
+          "url": "https://github.com/aaronanish-t",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "labels": [],
+        "url": "https://github.com/h3js/h3/pull/1583"
       },
       "source": "poll",
       "isPublic": true
@@ -192,6 +230,25 @@
         "number": "1601",
         "externalId": "PR_kwDOErHI988AAAABI1lRPA"
       },
+      "threadSnapshot": {
+        "title": "fix(body): match form content type case-insensitively in `readBody`",
+        "body": "`readBody()` decides whether to parse the body as url-encoded with a case-sensitive `startsWith(\"application/x-www-form-urlencoded\")`. Media types are case-insensitive (RFC 9110, section 8.3.1: \"The type and subtype tokens are case-insensitive.\"), so a request with a differently cased type falls through to `JSON.parse` and gets a 400:\n\n```js\napp.post(\"/\", (event) => readBody(event));\n```\n\n```\n$ curl -s localhost:3000 -H 'content-type: application/x-www-form-urlencoded' -d 'a=1&b=2'\n{\"a\":\"1\",\"b\":\"2\"}\n$ curl -s localhost:3000 -H 'content-type: Application/x-www-form-urlencoded' -d 'a=1&b=2'\n{\"status\":400,\"statusText\":\"Bad Request\",\"message\":\"Invalid JSON body\"}\n```\n\n`readBody(event, { type: \"formData\" })` already accepts the same request, since `Request.formData()` parses the header case-insensitively, so the default path was the odd one out.\n\nThe fix lowercases the header before the check. The new test sends two differently cased form content types (one with a `charset` parameter) through the web and node matrix; without the source change both fail with `expected { status: 400, ... } to deeply equal { field: 'value', ... }`.\n\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n\n## Summary by CodeRabbit\n\n* **Bug Fixes**\n  * URL-encoded form bodies are now parsed correctly when the `Content-Type` header uses uppercase or mixed-case letters, including with a charset parameter.\n\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
+        "state": "open",
+        "stateRaw": "open",
+        "isDraft": false,
+        "author": {
+          "forge": "github",
+          "instance": "github.com",
+          "login": "giaBaoJS",
+          "id": "39545125",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/39545125?v=4",
+          "url": "https://github.com/giaBaoJS",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "labels": [],
+        "url": "https://github.com/h3js/h3/pull/1601"
+      },
       "source": "poll",
       "isPublic": true
     },
@@ -257,6 +314,25 @@
         "number": "1601",
         "externalId": "PR_kwDOErHI988AAAABI1lRPA"
       },
+      "threadSnapshot": {
+        "title": "fix(body): match form content type case-insensitively in `readBody`",
+        "body": "`readBody()` decides whether to parse the body as url-encoded with a case-sensitive `startsWith(\"application/x-www-form-urlencoded\")`. Media types are case-insensitive (RFC 9110, section 8.3.1: \"The type and subtype tokens are case-insensitive.\"), so a request with a differently cased type falls through to `JSON.parse` and gets a 400:\n\n```js\napp.post(\"/\", (event) => readBody(event));\n```\n\n```\n$ curl -s localhost:3000 -H 'content-type: application/x-www-form-urlencoded' -d 'a=1&b=2'\n{\"a\":\"1\",\"b\":\"2\"}\n$ curl -s localhost:3000 -H 'content-type: Application/x-www-form-urlencoded' -d 'a=1&b=2'\n{\"status\":400,\"statusText\":\"Bad Request\",\"message\":\"Invalid JSON body\"}\n```\n\n`readBody(event, { type: \"formData\" })` already accepts the same request, since `Request.formData()` parses the header case-insensitively, so the default path was the odd one out.\n\nThe fix lowercases the header before the check. The new test sends two differently cased form content types (one with a `charset` parameter) through the web and node matrix; without the source change both fail with `expected { status: 400, ... } to deeply equal { field: 'value', ... }`.\n\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n\n## Summary by CodeRabbit\n\n* **Bug Fixes**\n  * URL-encoded form bodies are now parsed correctly when the `Content-Type` header uses uppercase or mixed-case letters, including with a charset parameter.\n\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
+        "state": "open",
+        "stateRaw": "open",
+        "isDraft": false,
+        "author": {
+          "forge": "github",
+          "instance": "github.com",
+          "login": "giaBaoJS",
+          "id": "39545125",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/39545125?v=4",
+          "url": "https://github.com/giaBaoJS",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "labels": [],
+        "url": "https://github.com/h3js/h3/pull/1601"
+      },
       "source": "poll",
       "isPublic": true
     },
@@ -301,6 +377,25 @@
         },
         "kind": "pull_request",
         "number": "1601"
+      },
+      "threadSnapshot": {
+        "branches": {
+          "head": {
+            "ref": "fix/readbody-media-type-case",
+            "sha": "04ba6e021cde76fa6fc0084866f231c575647beb",
+            "repo": {
+              "forge": "github",
+              "instance": "github.com",
+              "owner": "giaBaoJS",
+              "name": "h3",
+              "externalId": "1403836583"
+            }
+          },
+          "base": {
+            "ref": "main",
+            "sha": "66cfb8a357b6285451bad498c2c40002601fae98"
+          }
+        }
       },
       "source": "poll",
       "isPublic": true
@@ -395,6 +490,25 @@
         "number": "1599",
         "externalId": "PR_kwDOErHI988AAAABIivD8Q"
       },
+      "threadSnapshot": {
+        "title": "fix(static): normalize indexNames path join with single boundary slash",
+        "body": "<!--\nThank you for reporting an issue.\n\nThe issue tracker is for reporting bugs and discussing features.\n-->\n\n### 🔗 Linked issue\n\nCloses #1584\n\n### ❓ Type of change\n\n- [x] 📖 Documentation (updates to the documentation, readme or JSdoc annotations)\n- [x] 🐞 Bug fix (a non-breaking change that fixes an issue)\n- [ ] 👌 Enhancement (improving an existing functionality like performance)\n- [ ] ✨ New feature (a non-breaking change that adds functionality)\n- [ ] 🧹 Chore (updates to the build process or auxiliary tools and libraries)\n- [ ] ⚠️ Breaking change (fix or feature that would cause existing functionality to change)\n\n### 📚 Description\n\nWhen serving static index files, `idSearchPaths` previously constructed candidate asset IDs by simple string concatenation: `${id}${suffix}`.\n\nBecause `originalId` for root `GET /` retains a leading slash (`withoutTrailingSlash(\"/\") === \"/\"`):\n1. **Root double slash with default `indexNames: [\"/index.html\"]`**:\n   Concatenating `\"/\"` and `\"/index.html\"` resulted in `\"//index.html\"`. This non-canonical path fails canonical path lookup and asset table lookup in storage backends, returning a `404` for root index requests.\n2. **Missing directory separator with relative `indexNames: [\"index.html\"]`**:\n   When configuring relative index names without a leading slash, requesting a subdirectory like `GET /docs` concatenated `\"/docs\"` and `\"index.html\"`, producing `\"/docsindex.html\"`.\n\nThis fix normalizes index name boundary joining:\n```ts\nconst assetId = suffix ? `${id.replace(/\\/+$/, \"\")}/${suffix.replace(/^\\/+/, \"\")}` : id;\n```\nEnsuring a single slash boundary regardless of whether `id` is `\"/\"` or a subdirectory, and whether `suffix` contains a leading slash.\n\n### 📝 Checklist\n\n- [x] I have linked an issue or discussion.\n- [x] I have updated the documentation accordingly.\n- [x] I have added tests to cover my changes.\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n\n## Summary by CodeRabbit\n\n* **Bug Fixes**\n  * Fixed static asset lookup paths so root and directory index requests resolve correctly when paths contain leading or trailing slashes.\n* **Tests**\n  * Added coverage for index resolution at the root and in subdirectories.\n\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
+        "state": "open",
+        "stateRaw": "open",
+        "isDraft": false,
+        "author": {
+          "forge": "github",
+          "instance": "github.com",
+          "login": "lx3133584",
+          "id": "24490353",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/24490353?v=4",
+          "url": "https://github.com/lx3133584",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "labels": [],
+        "url": "https://github.com/h3js/h3/pull/1599"
+      },
       "source": "poll",
       "isPublic": true
     },
@@ -459,6 +573,25 @@
         "kind": "pull_request",
         "number": "1599",
         "externalId": "PR_kwDOErHI988AAAABIivD8Q"
+      },
+      "threadSnapshot": {
+        "title": "fix(static): normalize indexNames path join with single boundary slash",
+        "body": "<!--\nThank you for reporting an issue.\n\nThe issue tracker is for reporting bugs and discussing features.\n-->\n\n### 🔗 Linked issue\n\nCloses #1584\n\n### ❓ Type of change\n\n- [x] 📖 Documentation (updates to the documentation, readme or JSdoc annotations)\n- [x] 🐞 Bug fix (a non-breaking change that fixes an issue)\n- [ ] 👌 Enhancement (improving an existing functionality like performance)\n- [ ] ✨ New feature (a non-breaking change that adds functionality)\n- [ ] 🧹 Chore (updates to the build process or auxiliary tools and libraries)\n- [ ] ⚠️ Breaking change (fix or feature that would cause existing functionality to change)\n\n### 📚 Description\n\nWhen serving static index files, `idSearchPaths` previously constructed candidate asset IDs by simple string concatenation: `${id}${suffix}`.\n\nBecause `originalId` for root `GET /` retains a leading slash (`withoutTrailingSlash(\"/\") === \"/\"`):\n1. **Root double slash with default `indexNames: [\"/index.html\"]`**:\n   Concatenating `\"/\"` and `\"/index.html\"` resulted in `\"//index.html\"`. This non-canonical path fails canonical path lookup and asset table lookup in storage backends, returning a `404` for root index requests.\n2. **Missing directory separator with relative `indexNames: [\"index.html\"]`**:\n   When configuring relative index names without a leading slash, requesting a subdirectory like `GET /docs` concatenated `\"/docs\"` and `\"index.html\"`, producing `\"/docsindex.html\"`.\n\nThis fix normalizes index name boundary joining:\n```ts\nconst assetId = suffix ? `${id.replace(/\\/+$/, \"\")}/${suffix.replace(/^\\/+/, \"\")}` : id;\n```\nEnsuring a single slash boundary regardless of whether `id` is `\"/\"` or a subdirectory, and whether `suffix` contains a leading slash.\n\n### 📝 Checklist\n\n- [x] I have linked an issue or discussion.\n- [x] I have updated the documentation accordingly.\n- [x] I have added tests to cover my changes.\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n\n## Summary by CodeRabbit\n\n* **Bug Fixes**\n  * Fixed static asset lookup paths so root and directory index requests resolve correctly when paths contain leading or trailing slashes.\n* **Tests**\n  * Added coverage for index resolution at the root and in subdirectories.\n\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
+        "state": "open",
+        "stateRaw": "open",
+        "isDraft": false,
+        "author": {
+          "forge": "github",
+          "instance": "github.com",
+          "login": "lx3133584",
+          "id": "24490353",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/24490353?v=4",
+          "url": "https://github.com/lx3133584",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "labels": [],
+        "url": "https://github.com/h3js/h3/pull/1599"
       },
       "source": "poll",
       "isPublic": true
@@ -525,6 +658,25 @@
         "number": "1599",
         "externalId": "PR_kwDOErHI988AAAABIivD8Q"
       },
+      "threadSnapshot": {
+        "title": "fix(static): normalize indexNames path join with single boundary slash",
+        "body": "<!--\nThank you for reporting an issue.\n\nThe issue tracker is for reporting bugs and discussing features.\n-->\n\n### 🔗 Linked issue\n\nCloses #1584\n\n### ❓ Type of change\n\n- [x] 📖 Documentation (updates to the documentation, readme or JSdoc annotations)\n- [x] 🐞 Bug fix (a non-breaking change that fixes an issue)\n- [ ] 👌 Enhancement (improving an existing functionality like performance)\n- [ ] ✨ New feature (a non-breaking change that adds functionality)\n- [ ] 🧹 Chore (updates to the build process or auxiliary tools and libraries)\n- [ ] ⚠️ Breaking change (fix or feature that would cause existing functionality to change)\n\n### 📚 Description\n\nWhen serving static index files, `idSearchPaths` previously constructed candidate asset IDs by simple string concatenation: `${id}${suffix}`.\n\nBecause `originalId` for root `GET /` retains a leading slash (`withoutTrailingSlash(\"/\") === \"/\"`):\n1. **Root double slash with default `indexNames: [\"/index.html\"]`**:\n   Concatenating `\"/\"` and `\"/index.html\"` resulted in `\"//index.html\"`. This non-canonical path fails canonical path lookup and asset table lookup in storage backends, returning a `404` for root index requests.\n2. **Missing directory separator with relative `indexNames: [\"index.html\"]`**:\n   When configuring relative index names without a leading slash, requesting a subdirectory like `GET /docs` concatenated `\"/docs\"` and `\"index.html\"`, producing `\"/docsindex.html\"`.\n\nThis fix normalizes index name boundary joining:\n```ts\nconst assetId = suffix ? `${id.replace(/\\/+$/, \"\")}/${suffix.replace(/^\\/+/, \"\")}` : id;\n```\nEnsuring a single slash boundary regardless of whether `id` is `\"/\"` or a subdirectory, and whether `suffix` contains a leading slash.\n\n### 📝 Checklist\n\n- [x] I have linked an issue or discussion.\n- [x] I have updated the documentation accordingly.\n- [x] I have added tests to cover my changes.\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n\n## Summary by CodeRabbit\n\n* **Bug Fixes**\n  * Fixed static asset lookup paths so root and directory index requests resolve correctly when paths contain leading or trailing slashes.\n* **Tests**\n  * Added coverage for index resolution at the root and in subdirectories.\n\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
+        "state": "open",
+        "stateRaw": "open",
+        "isDraft": false,
+        "author": {
+          "forge": "github",
+          "instance": "github.com",
+          "login": "lx3133584",
+          "id": "24490353",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/24490353?v=4",
+          "url": "https://github.com/lx3133584",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "labels": [],
+        "url": "https://github.com/h3js/h3/pull/1599"
+      },
       "source": "poll",
       "isPublic": true
     },
@@ -569,6 +721,25 @@
         },
         "kind": "pull_request",
         "number": "1599"
+      },
+      "threadSnapshot": {
+        "branches": {
+          "head": {
+            "ref": "fix/static-index-names-join-path",
+            "sha": "21c2b0a09feebd8b495297a2c06eab742b130ebe",
+            "repo": {
+              "forge": "github",
+              "instance": "github.com",
+              "owner": "lx3133584",
+              "name": "h3",
+              "externalId": "1346891621"
+            }
+          },
+          "base": {
+            "ref": "main",
+            "sha": "66cfb8a357b6285451bad498c2c40002601fae98"
+          }
+        }
       },
       "source": "poll",
       "isPublic": true

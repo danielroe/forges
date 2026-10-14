@@ -214,6 +214,8 @@ export interface GitHubTimelineEntry {
   user?: GitHubUser
   body?: string | null
   state?: string
+  /** Only on `closed` and `reopened` entries. */
+  state_reason?: string | null
   label?: { name: string }
   assignee?: GitHubUser
   requested_reviewer?: GitHubUser

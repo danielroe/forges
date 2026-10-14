@@ -67,13 +67,15 @@ function feedLevel(instance: string, raw: GitLabEvent, repo: RepoRef | undefined
 /** Normalises an item of a project's or a user's activity feed; `repo` is the project, where it is known. */
 export function toFeedEvent(instance: string, raw: GitLabEvent, repo: RepoRef | undefined): ForgeEventInput {
   const actor = toActor(instance, raw.author)
+  const level = feedLevel(instance, raw, repo, actor?.login ?? raw.author_username ?? 'someone')
   return {
     forge: FORGE,
     instance,
     id: String(raw.id),
     kindRaw: [raw.target_type, raw.action_name].filter(Boolean).join('.'),
     actionRaw: raw.action_name,
-    ...feedLevel(instance, raw, repo, actor?.login ?? raw.author_username ?? 'someone'),
+    ...level,
+    ...level.thread && raw.target_title ? { threadSnapshot: { title: raw.target_title } } : {},
     ...eventTime(toDate(raw.created_at)),
     actor,
     repo,

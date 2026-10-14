@@ -44,6 +44,42 @@
         "kind": "pull_request",
         "number": "10"
       },
+      "threadSnapshot": {
+        "title": "forges fixture 20261009201205: webhooks",
+        "body": "Opened by run 20261009201205.",
+        "state": "open",
+        "stateRaw": "OPEN",
+        "isDraft": false,
+        "author": {
+          "forge": "bitbucket",
+          "instance": "bitbucket.org",
+          "login": "roebot",
+          "id": "{6cfdba34-c97e-4f75-b163-0f801a227ce8}",
+          "name": "roebot",
+          "avatarUrl": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/712020:9d3c7e45-eeca-4000-83c8-1687e1f37a88/fd4dd39c-24a8-4ef0-9d69-e68a0806b45f/128",
+          "typeRaw": "app_user",
+          "isBotHint": true
+        },
+        "labels": [],
+        "url": "https://bitbucket.org/danielroe/forges-fixtures/pull-requests/10",
+        "branches": {
+          "head": {
+            "ref": "forges-fixtures/20261009201205-webhooks",
+            "sha": "4c211e80f93b",
+            "repo": {
+              "forge": "bitbucket",
+              "instance": "bitbucket.org",
+              "owner": "danielroe",
+              "name": "forges-fixtures",
+              "externalId": "{245afeb9-21de-4a8c-81c0-d45efbf52a8c}"
+            }
+          },
+          "base": {
+            "ref": "main",
+            "sha": "f33cda6b2d8f"
+          }
+        }
+      },
       "source": "webhook"
     }
   ],
@@ -178,6 +214,42 @@
         "kind": "pull_request",
         "number": "10"
       },
+      "threadSnapshot": {
+        "title": "forges fixture 20261009201205: webhooks",
+        "body": "Opened by run 20261009201205.",
+        "state": "open",
+        "stateRaw": "OPEN",
+        "isDraft": false,
+        "author": {
+          "forge": "bitbucket",
+          "instance": "bitbucket.org",
+          "login": "roebot",
+          "id": "{6cfdba34-c97e-4f75-b163-0f801a227ce8}",
+          "name": "roebot",
+          "avatarUrl": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/712020:9d3c7e45-eeca-4000-83c8-1687e1f37a88/fd4dd39c-24a8-4ef0-9d69-e68a0806b45f/128",
+          "typeRaw": "app_user",
+          "isBotHint": true
+        },
+        "labels": [],
+        "url": "https://bitbucket.org/danielroe/forges-fixtures/pull-requests/10",
+        "branches": {
+          "head": {
+            "ref": "forges-fixtures/20261009201205-webhooks",
+            "sha": "4c211e80f93b",
+            "repo": {
+              "forge": "bitbucket",
+              "instance": "bitbucket.org",
+              "owner": "danielroe",
+              "name": "forges-fixtures",
+              "externalId": "{245afeb9-21de-4a8c-81c0-d45efbf52a8c}"
+            }
+          },
+          "base": {
+            "ref": "main",
+            "sha": "f33cda6b2d8f"
+          }
+        }
+      },
       "source": "webhook"
     }
   ],
@@ -225,6 +297,42 @@
         },
         "kind": "pull_request",
         "number": "10"
+      },
+      "threadSnapshot": {
+        "title": "forges fixture 20261009201205: webhooks",
+        "body": "Opened by run 20261009201205.",
+        "state": "closed",
+        "stateRaw": "DECLINED",
+        "isDraft": false,
+        "author": {
+          "forge": "bitbucket",
+          "instance": "bitbucket.org",
+          "login": "roebot",
+          "id": "{6cfdba34-c97e-4f75-b163-0f801a227ce8}",
+          "name": "roebot",
+          "avatarUrl": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/712020:9d3c7e45-eeca-4000-83c8-1687e1f37a88/fd4dd39c-24a8-4ef0-9d69-e68a0806b45f/128",
+          "typeRaw": "app_user",
+          "isBotHint": true
+        },
+        "labels": [],
+        "url": "https://bitbucket.org/danielroe/forges-fixtures/pull-requests/10",
+        "branches": {
+          "head": {
+            "ref": "forges-fixtures/20261009201205-webhooks",
+            "sha": "4c211e80f93b",
+            "repo": {
+              "forge": "bitbucket",
+              "instance": "bitbucket.org",
+              "owner": "danielroe",
+              "name": "forges-fixtures",
+              "externalId": "{245afeb9-21de-4a8c-81c0-d45efbf52a8c}"
+            }
+          },
+          "base": {
+            "ref": "main",
+            "sha": "f33cda6b2d8f"
+          }
+        }
       },
       "source": "webhook"
     }

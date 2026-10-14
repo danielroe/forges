@@ -25,7 +25,7 @@ import type {
 import type { ForgeIterable } from '../provider.ts'
 import type { AtprotoClient, AtUri } from './atproto.ts'
 import type { TangledOptions } from './index.ts'
-import type { ActivityRecord } from './normalise.ts'
+import type { ActivityRecord, ThreadRead } from './normalise.ts'
 import type { TangledSession } from './session.ts'
 import type { FeedCommentRecord, IssueRecord, JetstreamCommitEvent, LabelDefinitionRecord, LabelOpRecord, PullRecord, ReactionRecord, RecordResponse, RepoRecord, StateRecord, SubscriptionRecord, TangledRecord } from './types.ts'
 import { ForgeApiError, ForgeError, NotFoundError, RateLimitedError, UnresolvedThreadError } from '../errors.ts'
@@ -291,7 +291,7 @@ export function createTangledRecords({ options, instance, webUrl, context, atpro
     return abortable(repo, signal)
   }
 
-  async function threadFor(subject: string, signal?: AbortSignal): Promise<{ ref: ResolvedThreadRef, record: IssueRecord | PullRecord, cid?: string }> {
+  async function threadFor(subject: string, signal?: AbortSignal): Promise<ThreadRead & { cid?: string }> {
     const uri = parseAtUri(subject)
     if (!uri || !threadKindOf(uri.collection)) {
       throw new UnresolvedThreadError(`${subject} is not an issue or pull request`, context)
@@ -469,13 +469,13 @@ export function createTangledRecords({ options, instance, webUrl, context, atpro
   }
 
   /** The event for one record, with the thread it is about where that thread can be read. */
-  async function recordEvent(activity: ActivityRecord, source: SourceKind, fallbackTime: Date, threads = new Map<string, Promise<ResolvedThreadRef | undefined>>(), signal?: AbortSignal): Promise<ForgeEventInput> {
+  async function recordEvent(activity: ActivityRecord, source: SourceKind, fallbackTime: Date, threads = new Map<string, Promise<ThreadRead | undefined>>(), signal?: AbortSignal): Promise<ForgeEventInput> {
     const subject = activity.record ? subjectOf(activity.collection, activity.record, activity.uri) : undefined
     if (subject && !threads.has(subject)) {
-      threads.set(subject, threadFor(subject, signal).then(({ ref }) => ref, () => undefined))
+      threads.set(subject, threadFor(subject, signal).catch(() => undefined))
     }
     const thread = subject ? await threads.get(subject) : undefined
-    return toActivityEvent(instance, activity, await actorFor(parseAtUri(activity.uri)!.did, signal), thread, source, fallbackTime)
+    return toActivityEvent(instance, activity, await actorFor(parseAtUri(activity.uri)!.did, signal), thread?.ref, source, fallbackTime, thread?.record)
   }
 
   function toStreamEvent(message: JetstreamCommitEvent): Promise<ForgeEventInput | undefined> {

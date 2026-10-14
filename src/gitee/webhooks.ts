@@ -1,13 +1,13 @@
 import type { WebhookHandlers } from '../define.ts'
-import type { EventKind, ForgeEventInput, ThreadRef, ThreadState } from '../model.ts'
+import type { EventKind, ForgeEventInput, ResolvedThreadRef, ThreadState } from '../model.ts'
 import type { WebhookDelivery } from '../provider.ts'
 import type { GiteeOptions } from './index.ts'
 import type { GiteeIssue, GiteePullRequest, GiteeRepository, GiteeUser } from './types.ts'
 import { bodyText, headerValue, hmacSha256Base64, timingSafeEqual } from '../crypto.ts'
-import { eventTime } from '../events.ts'
+import { eventTime, snapshotOfThread } from '../events.ts'
 import { toDate } from '../utils.ts'
 import { refEvent, verifySharedToken } from '../webhooks.ts'
-import { FORGE, toActor, toRepoRef } from './normalise.ts'
+import { FORGE, toActor, toIssueThread, toPullThread, toRepoRef } from './normalise.ts'
 import { GITEE_WEBHOOK_EVENTS } from './webhook-events.ts'
 
 /** Gitee rejects signatures more than an hour from the request time. */
@@ -130,17 +130,20 @@ export function translateGiteeWebhook(instance: string, delivery: WebhookDeliver
       }),
     }]
   }
-  const thread: ThreadRef | undefined = repo && payload.pull_request
+  const thread: ResolvedThreadRef | undefined = repo && payload.pull_request
     ? { forge: FORGE, instance, repo, kind: 'pull_request', number: String(payload.pull_request.number) }
     : repo && payload.issue
       ? { forge: FORGE, instance, repo, kind: 'issue', number: payload.issue.number }
       : undefined
+  const raw = payload.pull_request ?? payload.issue
+  const normalised = thread && (payload.pull_request ? toPullThread(thread, payload.pull_request) : payload.issue && toIssueThread(thread, payload.issue))
+  const threadSnapshot = normalised && snapshotOfThread({ ...normalised, isDraft: payload.pull_request ? payload.pull_request.draft ?? undefined : false, labels: raw?.labels ? normalised.labels : undefined })
   if (hook === 'note_hooks' || hook === 'Note Hook') {
     const comment = thread && payload.comment ? { forge: FORGE, instance, thread, id: String(payload.comment.id) } : undefined
-    return [{ ...base, kind: 'comment', thread, detail: { type: 'comment', comment, body: payload.comment?.body }, summary: `${who} commented${thread ? ` on ${thread.kind === 'issue' ? '' : '!'}${thread.number}` : ''}` }]
+    return [{ ...base, kind: 'comment', thread, threadSnapshot, detail: { type: 'comment', comment, body: payload.comment?.body }, summary: `${who} commented${thread ? ` on ${thread.kind === 'issue' ? '' : '!'}${thread.number}` : ''}` }]
   }
   const state = STATES[payload.action ?? '']
-  return [{ ...base, kind: KINDS[payload.action ?? ''] ?? 'other', thread, ...state ? { detail: { type: 'state_change', state } } : {}, summary: `${who} ${payload.action ?? 'changed'} ${thread ? `${thread.kind === 'issue' ? '' : '!'}${thread.number}` : hook}` }]
+  return [{ ...base, kind: KINDS[payload.action ?? ''] ?? 'other', thread, threadSnapshot, ...state ? { detail: { type: 'state_change', state } } : {}, summary: `${who} ${payload.action ?? 'changed'} ${thread ? `${thread.kind === 'issue' ? '' : '!'}${thread.number}` : hook}` }]
 }
 
 export const giteeWebhooks: WebhookHandlers<GiteeOptions> = ({ options, instance }) => ({

@@ -4,10 +4,10 @@ import type { WebhookDelivery } from '../provider.ts'
 import type { TangledOptions } from './index.ts'
 import { bodyText, headerValue } from '../crypto.ts'
 import { WebhookVerificationError } from '../errors.ts'
-import { eventAction, eventTime } from '../events.ts'
+import { eventAction, eventTime, threadSnapshot } from '../events.ts'
 import { toDate } from '../utils.ts'
 import { refEvent, verifyHmacSignature } from '../webhooks.ts'
-import { FORGE } from './normalise.ts'
+import { FORGE, toActor } from './normalise.ts'
 
 export const SIGNATURE_HEADER = 'x-tangled-signature-256'
 export const EVENT_HEADER = 'x-tangled-event'
@@ -27,7 +27,17 @@ interface TangledWebhookPayload {
   pusher?: { did: string }
   sender?: { did: string }
   repository?: { name: string, full_name?: string, owner?: { did: string }, updated_at?: string }
-  pull_request?: { number: number, title?: string, state?: string, created_at?: string, html_url?: string }
+  pull_request?: {
+    number: number
+    title?: string
+    body?: string
+    state?: string
+    target_branch?: string
+    source?: { branch?: string, sha?: string }
+    owner?: { did: string }
+    created_at?: string
+    html_url?: string
+  }
   commits?: Array<{ sha?: string, id?: string, message?: string, author?: { did?: string, name?: string } }>
 }
 
@@ -63,6 +73,8 @@ export function translateTangledWebhook(instance: string, delivery: WebhookDeliv
 
   if (event.startsWith('pull_request:') && payload.pull_request) {
     const action = payload.action ?? event.slice('pull_request:'.length)
+    const pull = payload.pull_request
+    const state = pull.state === 'open' || pull.state === 'closed' || pull.state === 'merged' ? pull.state : undefined
     return [{
       forge: FORGE,
       instance,
@@ -86,6 +98,15 @@ export function translateTangledWebhook(instance: string, delivery: WebhookDeliv
             displayNumber: String(payload.pull_request.number),
           }
         : undefined,
+      threadSnapshot: threadSnapshot({
+        title: pull.title,
+        body: pull.body || undefined,
+        state,
+        stateRaw: pull.state,
+        author: pull.owner && toActor(instance, { did: pull.owner.did }, webUrl),
+        url: pull.html_url,
+        branches: pull.target_branch && pull.source?.branch ? { head: { ref: pull.source.branch, sha: pull.source.sha }, base: { ref: pull.target_branch } } : undefined,
+      }),
       source: 'webhook',
       payload,
     }]

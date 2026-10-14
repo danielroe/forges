@@ -44,6 +44,9 @@
         "number": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo.pull/3mrzzp3744f22",
         "externalId": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo.pull/3mrzzp3744f22"
       },
+      "threadSnapshot": {
+        "title": "ci: add test workflows"
+      },
       "source": "poll"
     },
     {
@@ -89,6 +92,9 @@
         "typeRaw": "sh.tangled.repo.pull",
         "number": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo.pull/3mrzzp3744f22",
         "externalId": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo.pull/3mrzzp3744f22"
+      },
+      "threadSnapshot": {
+        "title": "ci: add test workflows"
       },
       "source": "poll"
     },
@@ -156,6 +162,10 @@
         "number": "at://did:plc:7r5c5jhtphcpkg3y55xu2y64/sh.tangled.repo.pull/3mrufxgcrdv22",
         "externalId": "at://did:plc:7r5c5jhtphcpkg3y55xu2y64/sh.tangled.repo.pull/3mrufxgcrdv22"
       },
+      "threadSnapshot": {
+        "title": "fix: count tangled.create-repo jobs in the dashboard aggregation",
+        "body": "The per-repo job aggregation filtered on the three `github.*` ref kinds,\nomitting `tangled.create-repo` -- the kind enrollment and resync actually\nenqueue. A create-repo job that was retrying or sitting at `failed` could\ntherefore never move a repo to `behind` or `error`.\n\nOne line plus a comment in `dashboard.get.ts`. The kind already carries\nthe same `installationId`/`githubRepoId` payload shape, so the existing\ngrouping is unchanged. No dependency on any other fix.\n\nTests: full unit suite passes. No tests added: the change is a kind\nstring inside the raw `sql` filter in the `dashboard.get.ts` route\nhandler, and no route handler in this repo has unit coverage -- the suite\ntargets utils and pure functions. The consumer of that query's output,\n`repoHealth()`, is already covered directly."
+      },
       "source": "poll"
     },
     {
@@ -201,6 +211,10 @@
         "typeRaw": "sh.tangled.repo.pull",
         "number": "at://did:plc:7r5c5jhtphcpkg3y55xu2y64/sh.tangled.repo.pull/3mrufxgcrdv22",
         "externalId": "at://did:plc:7r5c5jhtphcpkg3y55xu2y64/sh.tangled.repo.pull/3mrufxgcrdv22"
+      },
+      "threadSnapshot": {
+        "title": "fix: count tangled.create-repo jobs in the dashboard aggregation",
+        "body": "The per-repo job aggregation filtered on the three `github.*` ref kinds,\nomitting `tangled.create-repo` -- the kind enrollment and resync actually\nenqueue. A create-repo job that was retrying or sitting at `failed` could\ntherefore never move a repo to `behind` or `error`.\n\nOne line plus a comment in `dashboard.get.ts`. The kind already carries\nthe same `installationId`/`githubRepoId` payload shape, so the existing\ngrouping is unchanged. No dependency on any other fix.\n\nTests: full unit suite passes. No tests added: the change is a kind\nstring inside the raw `sql` filter in the `dashboard.get.ts` route\nhandler, and no route handler in this repo has unit coverage -- the suite\ntargets utils and pure functions. The consumer of that query's output,\n`repoHealth()`, is already covered directly."
       },
       "source": "poll"
     },
@@ -248,6 +262,10 @@
         "number": "at://did:plc:pbjvqaziagcyv2vqodldn5op/sh.tangled.repo.pull/3mrfzlqgnwf22",
         "externalId": "at://did:plc:pbjvqaziagcyv2vqodldn5op/sh.tangled.repo.pull/3mrfzlqgnwf22"
       },
+      "threadSnapshot": {
+        "title": "docs: improve setup documentation for clarification",
+        "body": "### Description\n\nWhile setting up the project locally, I had a few confusing steps, which I would like to ease for new contributors in the future:\n\n- GitHub app webhook needs to be setup before configuring the event subscriptions\n- the app needs to be public in order to see the selection screen of where to install the app (otherwise only possible in your own account)\n- more intuitive order of operations: start with neon and smee to get webhook URL and db connection string, then all GitHub app configs are already known and only then, start with .env file creation. Last but not least, you can run the migration command.\n- add clear instructions to have 3 terminals open\n\nI know that it adds way more docs than technically necessary, but I believe that new contributors would really benefit from this."
+      },
       "source": "poll"
     },
     {
@@ -293,6 +311,9 @@
         "typeRaw": "sh.tangled.repo.pull",
         "number": "at://did:plc:jthwx55n5kgyekhpaqajzuhw/sh.tangled.repo.pull/3mr5t7sut7r22",
         "externalId": "at://did:plc:jthwx55n5kgyekhpaqajzuhw/sh.tangled.repo.pull/3mr5t7sut7r22"
+      },
+      "threadSnapshot": {
+        "title": "feat: filter dashboard repositories by enabled state"
       },
       "source": "poll"
     },
@@ -360,6 +381,9 @@
         "number": "at://did:plc:jthwx55n5kgyekhpaqajzuhw/sh.tangled.repo.pull/3mr5t7sut7r22",
         "externalId": "at://did:plc:jthwx55n5kgyekhpaqajzuhw/sh.tangled.repo.pull/3mr5t7sut7r22"
       },
+      "threadSnapshot": {
+        "title": "feat: filter dashboard repositories by enabled state"
+      },
       "source": "poll"
     },
     {
@@ -425,6 +449,10 @@
         "typeRaw": "sh.tangled.repo.issue",
         "number": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo.issue/3mpy7r7dvzc22",
         "externalId": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo.issue/3mpy7r7dvzc22"
+      },
+      "threadSnapshot": {
+        "title": "handle duplicate names ",
+        "body": "reported by @andreijiroh.dev\n\nhttps://bsky.app/profile/andreijiroh.dev/post/3mpxy6krskk2o\n\n> I think we should not sync if there's already a repo of that name and instead should surface the error status in the dashboard "
       },
       "source": "poll"
     },

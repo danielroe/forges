@@ -72,7 +72,7 @@ export interface ProviderContract {
     headers: (signature: string) => Record<string, string>
     sign: (body: string, secret: string) => Promise<string>
     /** `comment` is the id that `threads.comments()` gives the delivered comment, where the delivery carries it. */
-    expect: { kind: string, action: string, threadKind: string, threadNumber?: string, displayNumber?: string, actor: string, comment?: string, detail: Record<string, unknown> }
+    expect: { kind: string, action: string, threadKind: string, threadNumber?: string, displayNumber?: string, actor: string, comment?: string, detail: Record<string, unknown>, title: string }
   }
   /** Present when the forge reports checks on pull requests. */
   checks?: { summary: { state: string, total?: number, failed?: number }, names: string[] }
@@ -156,7 +156,7 @@ export const contracts: ProviderContract[] = [
         'x-hub-signature-256': signature,
       }),
       sign: hmac,
-      expect: { kind: 'comment', action: 'created', threadKind: 'pull_request', threadNumber: '17', actor: 'octocat', comment: '770003', detail: { type: 'comment', body: 'Still reproducible on 2.1.0.' } },
+      expect: { kind: 'comment', action: 'created', threadKind: 'pull_request', threadNumber: '17', actor: 'octocat', comment: '770003', detail: { type: 'comment', body: 'Still reproducible on 2.1.0.' }, title: 'Crash on empty config' },
     },
   },
   {
@@ -203,7 +203,7 @@ export const contracts: ProviderContract[] = [
         'x-forgejo-signature': signature,
       }),
       sign: (body, secret) => hmacSha256Hex(secret, body),
-      expect: { kind: 'comment', action: 'created', threadKind: 'pull_request', threadNumber: '9', actor: 'grace', comment: '880003', detail: { type: 'comment', body: 'Fixed in the latest push.' } },
+      expect: { kind: 'comment', action: 'created', threadKind: 'pull_request', threadNumber: '9', actor: 'grace', comment: '880003', detail: { type: 'comment', body: 'Fixed in the latest push.' }, title: 'Docs typo in README' },
     },
   },
   {
@@ -250,7 +250,7 @@ export const contracts: ProviderContract[] = [
         'x-gitlab-token': token,
       }),
       sign: async (_body, secret) => secret,
-      expect: { kind: 'comment', action: 'created', threadKind: 'issue', threadNumber: '11', actor: 'grace', comment: '5550011', detail: { type: 'comment', body: 'Reproduced on main.' } },
+      expect: { kind: 'comment', action: 'created', threadKind: 'issue', threadNumber: '11', actor: 'grace', comment: '5550011', detail: { type: 'comment', body: 'Reproduced on main.' }, title: 'Template cache never expires' },
     },
   },
   {
@@ -298,7 +298,7 @@ export const contracts: ProviderContract[] = [
         'x-hub-signature': signature,
       }),
       sign: hmac,
-      expect: { kind: 'comment', action: 'created', threadKind: 'pull_request', threadNumber: '31', actor: 'grace', comment: '440011', detail: { type: 'comment', body: 'Reproduced on main.' } },
+      expect: { kind: 'comment', action: 'created', threadKind: 'pull_request', threadNumber: '31', actor: 'grace', comment: '440011', detail: { type: 'comment', body: 'Reproduced on main.' }, title: 'Cache compiled templates' },
     },
   },
   {
@@ -339,7 +339,7 @@ export const contracts: ProviderContract[] = [
         'x-tangled-signature-256': signature,
       }),
       sign: hmac,
-      expect: { kind: 'state_change', action: 'opened', threadKind: 'pull_request', displayNumber: '4', actor: 'did:plc:adaauthor222222222222222', detail: { type: 'state_change', state: 'open' } },
+      expect: { kind: 'state_change', action: 'opened', threadKind: 'pull_request', displayNumber: '4', actor: 'did:plc:adaauthor222222222222222', detail: { type: 'state_change', state: 'open' }, title: 'Cache compiled templates' },
     },
     subscribe: {
       messages: (JSON.parse(fixture('tangled', 'jetstream/thread-activity')) as { messages: unknown[] }).messages,
@@ -387,7 +387,7 @@ export const contracts: ProviderContract[] = [
         }
       },
       sign: signOrigin,
-      expect: { kind: 'comment', action: 'created', threadKind: 'pull_request', threadNumber: '9', actor: 'grace', comment: 'cmt_09', detail: { type: 'comment', body: 'Rebased onto main.' } },
+      expect: { kind: 'comment', action: 'created', threadKind: 'pull_request', threadNumber: '9', actor: 'grace', comment: 'cmt_09', detail: { type: 'comment', body: 'Rebased onto main.' }, title: 'Fix ignition retry' },
     },
   },
   {
@@ -419,7 +419,7 @@ export const contracts: ProviderContract[] = [
       body: fixture('gitee', 'webhooks/note-on-pull-request'),
       headers: token => ({ 'x-gitee-event': 'Note Hook', 'x-gitee-token': token }),
       sign: async (_body, secret) => secret,
-      expect: { kind: 'comment', action: 'created', threadKind: 'pull_request', threadNumber: '9', actor: 'grace', comment: '5504', detail: { type: 'comment', body: 'Rebased.' } },
+      expect: { kind: 'comment', action: 'created', threadKind: 'pull_request', threadNumber: '9', actor: 'grace', comment: '5504', detail: { type: 'comment', body: 'Rebased.' }, title: 'Fix cache eviction' },
     },
   },
   {
@@ -447,7 +447,7 @@ export const contracts: ProviderContract[] = [
       body: fixture('azure-devops', 'webhooks/pull-request-comment'),
       headers: token => ({ authorization: `Basic ${token}` }),
       sign: async (_body, secret) => btoa(secret),
-      expect: { kind: 'comment', action: 'created', threadKind: 'pull_request', threadNumber: '9', actor: 'grace@contoso.com', detail: { type: 'comment', body: 'Rebased onto main.' } },
+      expect: { kind: 'comment', action: 'created', threadKind: 'pull_request', threadNumber: '9', actor: 'grace@contoso.com', detail: { type: 'comment', body: 'Rebased onto main.' }, title: 'Fix eviction' },
     },
   },
 ]

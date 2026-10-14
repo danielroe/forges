@@ -1,6 +1,6 @@
-import type { EventFeedOptions, ForgeEventInput, Page, ResolvedThreadRef, SourceKind } from '../model.ts'
+import type { EventFeedOptions, ForgeEventInput, Page, SourceKind } from '../model.ts'
 import type { AtprotoClient } from './atproto.ts'
-import type { ActivityRecord } from './normalise.ts'
+import type { ActivityRecord, ThreadRead } from './normalise.ts'
 import type { RecordResponse } from './types.ts'
 import { sha256Hex } from '../crypto.ts'
 import { mapConcurrent } from '../utils.ts'
@@ -9,7 +9,7 @@ import { THREAD_COLLECTIONS } from './normalise.ts'
 
 export interface AccountFeedContext {
   atproto: AtprotoClient
-  recordEvent: (activity: ActivityRecord, source: SourceKind, fallbackTime: Date, threads: Map<string, Promise<ResolvedThreadRef | undefined>>, signal?: AbortSignal) => Promise<ForgeEventInput>
+  recordEvent: (activity: ActivityRecord, source: SourceKind, fallbackTime: Date, threads: Map<string, Promise<ThreadRead | undefined>>, signal?: AbortSignal) => Promise<ForgeEventInput>
 }
 
 /** Where each collection's listing continues, by record key; `''` starts from the newest record. */
@@ -61,7 +61,7 @@ export async function accountFeedPage({ atproto, recordEvent }: AccountFeedConte
       return { items: [], notModified: true, etag }
     }
   }
-  const threads = new Map<string, Promise<ResolvedThreadRef | undefined>>()
+  const threads = new Map<string, Promise<ThreadRead | undefined>>()
   const items = await mapConcurrent(merged, 4, ({ collection, record }: { collection: string, record: RecordResponse }) =>
     recordEvent({ uri: record.uri, collection, record: record.value, operation: 'create' }, 'poll', new Date(), threads, signal))
   return {

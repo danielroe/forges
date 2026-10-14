@@ -1318,7 +1318,7 @@ export type EventDetail
     | { type: 'review_comment', comment?: CommentRef, body?: string, path?: string, line?: number }
     /** A review. `review` has the `id` that `threads.reviews()` lists for the review, where the forge reports it. */
     | { type: 'review', state: ReviewState, stateRaw?: string, body?: string, review?: ReviewRef }
-    | { type: 'state_change', state?: ThreadState, draft?: boolean }
+    | { type: 'state_change', state?: ThreadState, draft?: boolean, reason?: string }
     | { type: 'label', label: string }
     | { type: 'assignment', assignee?: Actor }
     /** A push. Forges cap `commits` or send only the newest one, so count with `commitCount`, which is absent when the forge reports neither the commits nor how many there were. */
@@ -1329,9 +1329,29 @@ export type EventDetail
     | { type: 'repo_archived', archived: boolean }
     | { type: 'installation', actionRaw: string, installationId?: string, added: RepoRef[], removed: RepoRef[] }
     | { type: 'membership', actionRaw: string, member?: Actor }
-    | { type: 'release', release: ReleaseRef, name?: string }
+    | { type: 'release', release: ReleaseRef, name?: string, body?: string, isPrerelease?: boolean, isDraft?: boolean, url?: string }
     /** A cross-reference: another thread or commit mentioned this one. */
     | { type: 'referenced', from?: ThreadRef | CommitRef, fromRepo?: RepoRef, text?: string }
+
+/**
+ * Fields of a {@link Thread} that an event's source carries. A field is absent
+ * when the source does not report it; `labels: []` means the source listed no
+ * labels. `threads.get()` reads the rest.
+ */
+export interface ThreadSnapshot {
+  title?: string
+  body?: string
+  state?: Exclude<ThreadState, 'unknown'>
+  stateRaw?: string
+  stateReason?: string
+  isDraft?: boolean
+  author?: Actor
+  labels?: Label[]
+  url?: string
+  branches?: PullBranches
+  stats?: PullStats
+  mergedBy?: Actor
+}
 
 /** An event on a forge, such as a comment, a state change or a push. */
 export interface ForgeEvent extends ForgeOrigin {
@@ -1352,6 +1372,8 @@ export interface ForgeEvent extends ForgeOrigin {
   actor?: Actor
   repo?: RepoRef
   thread?: ThreadRef
+  /** What the event's source says about `thread`, as of when the forge built the payload. */
+  threadSnapshot?: ThreadSnapshot
   /** Whether anyone can see the event, where the forge says so. `false` covers private and internal repositories alike. */
   isPublic?: boolean
   /** The details that belong to the kind of event. */

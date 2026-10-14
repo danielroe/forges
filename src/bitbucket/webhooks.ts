@@ -1,14 +1,14 @@
 import type { WebhookHandlers } from '../define.ts'
-import type { EventAction, EventDetail, EventKind, ForgeEventInput, ReviewState, ThreadRef } from '../model.ts'
+import type { EventAction, EventDetail, EventKind, ForgeEventInput, ResolvedThreadRef, ReviewState, ThreadRef } from '../model.ts'
 import type { WebhookDelivery } from '../provider.ts'
 import type { BitbucketOptions } from './index.ts'
 import type { BitbucketComment, BitbucketPullRequest, BitbucketRepository, BitbucketUser } from './types.ts'
 import { bodyText, headerValue } from '../crypto.ts'
 import { WebhookVerificationError } from '../errors.ts'
-import { eventTime } from '../events.ts'
+import { eventTime, snapshotOfThread } from '../events.ts'
 import { toDate } from '../utils.ts'
 import { refEvent, verifyHmacSignature } from '../webhooks.ts'
-import { commentDetail, FORGE, participantReview, toActor, toPullState, toRepoRef } from './normalise.ts'
+import { commentDetail, FORGE, participantReview, toActor, toPullState, toPullThread, toRepoRef } from './normalise.ts'
 import { BITBUCKET_WEBHOOK_EVENTS } from './webhook-events.ts'
 
 export const SIGNATURE_HEADER = 'x-hub-signature'
@@ -71,7 +71,7 @@ function pullDetail(event: string, pull: PullEvent, payload: BitbucketWebhookPay
     return payload.comment && commentDetail(thread, payload.comment)
   }
   return pull.kind === 'state_change' && payload.pullrequest
-    ? { type: 'state_change', state: toPullState(payload.pullrequest.state), draft: payload.pullrequest.draft }
+    ? { type: 'state_change', state: toPullState(payload.pullrequest.state), draft: payload.pullrequest.draft, reason: payload.pullrequest.reason || undefined }
     : undefined
 }
 
@@ -106,7 +106,7 @@ export function translateBitbucketWebhook(instance: string, delivery: WebhookDel
   const repo = payload.repository ? toRepoRef(instance, payload.repository) : undefined
   const actor = toActor(instance, payload.actor)
   const who = actor?.login ?? 'someone'
-  const thread: ThreadRef | undefined = repo && payload.pullrequest
+  const thread: ResolvedThreadRef | undefined = repo && payload.pullrequest
     ? { forge: FORGE, instance, repo, kind: 'pull_request', number: String(payload.pullrequest.id) }
     : undefined
 
@@ -156,6 +156,7 @@ export function translateBitbucketWebhook(instance: string, delivery: WebhookDel
     actor,
     repo,
     thread,
+    threadSnapshot: thread && payload.pullrequest && snapshotOfThread(toPullThread(thread, payload.pullrequest)),
     source: 'webhook',
     payload,
   }]

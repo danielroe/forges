@@ -1,15 +1,15 @@
 import type { WebhookHandlers } from '../define.ts'
-import type { EventDetail, EventKind, ForgeEventInput, ForgeOrigin, ThreadRef } from '../model.ts'
+import type { EventDetail, EventKind, ForgeEventInput, ForgeOrigin, ResolvedThreadRef, ThreadRef } from '../model.ts'
 import type { WebhookDelivery } from '../provider.ts'
 import type { ForgejoOptions, ForgejoProfile } from './index.ts'
-import type { ForgejoRepository, ForgejoUser } from './types.ts'
+import type { ForgejoIssue, ForgejoRepository, ForgejoUser } from './types.ts'
 import type { WebhookHeaderNames } from './webhook-events.ts'
 import { bodyText } from '../crypto.ts'
 import { WebhookVerificationError } from '../errors.ts'
-import { eventAction, eventTime, reviewState } from '../events.ts'
+import { eventAction, eventTime, reviewState, snapshotOfThread } from '../events.ts'
 import { toDate } from '../utils.ts'
 import { firstHeader, refEvent, verifyHmacSignature } from '../webhooks.ts'
-import { toActor, toRepoRef } from './normalise.ts'
+import { toActor, toRepoRef, toThread } from './normalise.ts'
 import { FORGEJO_HEADERS, FORGEJO_WEBHOOK_EVENTS } from './webhook-events.ts'
 
 export function verifyForgejoSignature(delivery: WebhookDelivery, secret: string | undefined, names: WebhookHeaderNames = FORGEJO_HEADERS): Promise<boolean> {
@@ -20,9 +20,9 @@ interface ForgejoWebhookPayload {
   action?: string
   sender?: ForgejoUser
   repository?: ForgejoRepository
-  issue?: ForgejoEventSubject & { pull_request?: unknown }
+  issue?: ForgejoIssue
   is_pull?: boolean
-  pull_request?: ForgejoEventSubject & { merged?: boolean, merged_at?: string | null, draft?: boolean }
+  pull_request?: ForgejoIssue
   comment?: { id?: number, body?: string, created_at?: string, updated_at?: string, user?: ForgejoUser, path?: string, line?: number }
   assignee?: ForgejoUser
   review?: { type?: string, content?: string }
@@ -34,15 +34,7 @@ interface ForgejoWebhookPayload {
   total_commits?: number
   commits?: Array<{ id: string, message: string, timestamp?: string, url?: string, author?: { name?: string, username?: string } }>
   head_commit?: { id: string, timestamp?: string } | null
-  release?: { id: number, tag_name?: string, name?: string, published_at?: string }
-}
-
-interface ForgejoEventSubject {
-  number: number
-  title?: string
-  created_at?: string
-  updated_at?: string
-  closed_at?: string | null
+  release?: { id: number, tag_name?: string, name?: string, body?: string, prerelease?: boolean, draft?: boolean, html_url?: string, published_at?: string }
 }
 
 const EVENT_KINDS: Record<string, EventKind> = {
@@ -115,6 +107,10 @@ function repoLevel(origin: ForgeOrigin, event: string, payload: ForgejoWebhookPa
           type: 'release',
           release: { ...origin, repo: toRepoRef(origin, payload.repository), id: String(payload.release.id), tag: payload.release.tag_name },
           name: payload.release.name,
+          body: payload.release.body || undefined,
+          isPrerelease: payload.release.prerelease,
+          isDraft: payload.release.draft,
+          url: payload.release.html_url,
         },
         summary: `${who} published ${payload.release.name || payload.release.tag_name || 'a release'}`,
       }
@@ -147,7 +143,7 @@ function detailOf(kind: EventKind, event: string, thread: ThreadRef | undefined,
 }
 
 /** The time of the change a thread event reports, else the time its thread last changed, unless the event is a deletion. */
-function threadTime({ action, comment, pull_request: pull }: ForgejoWebhookPayload, subject: ForgejoEventSubject | undefined): Date | undefined {
+function threadTime({ action, comment, pull_request: pull }: ForgejoWebhookPayload, subject: ForgejoIssue | undefined): Date | undefined {
   if (action === 'deleted') {
     return undefined
   }
@@ -193,7 +189,7 @@ export function translateForgejoWebhook(origin: ForgeOrigin, delivery: WebhookDe
   }
   const subject = payload.pull_request ?? payload.issue
   const isPull = Boolean(payload.pull_request || payload.is_pull || payload.issue?.pull_request)
-  const thread: ThreadRef | undefined = repo && subject
+  const thread: ResolvedThreadRef | undefined = repo && subject
     ? { ...origin, repo, kind: isPull ? 'pull_request' : 'issue', number: String(subject.number) }
     : undefined
   const kind = eventKindFor(event, payload)
@@ -210,6 +206,7 @@ export function translateForgejoWebhook(origin: ForgeOrigin, delivery: WebhookDe
     actor,
     repo,
     thread,
+    threadSnapshot: thread && subject && snapshotOfThread(toThread(thread, subject)),
     source: 'webhook',
     payload,
   }]

@@ -62,6 +62,25 @@
         "number": "1596",
         "externalId": "PR_kwDOErHI988AAAABIJJy6A"
       },
+      "threadSnapshot": {
+        "title": "fix(response): strip error response body for HEAD requests without onError",
+        "body": "### 🔗 Linked issue\n\nFixes #1594\n\n### ❓ Type of change\n\n- [x] 🐞 Bug fix (a non-breaking change that fixes an issue)\n- [ ] 👌 Enhancement (improving an existing functionality like performance)\n- [ ] ✨ New feature (a non-breaking change that adds functionality)\n- [ ] ⚠️ Breaking change (fix or feature that would cause existing functionality to change)\n\n### 📚 Description\n\nWhen a route matching failure occurs (404) or a handler throws `HTTPError` without an `onError` hook configured, `prepareResponse` returned `errorResponse(error, config.debug, errHeaders)` directly. Unlike successful responses and error responses processed through `onError`, this early return branch omitted checking for `HEAD` requests. Consequently, consumers of `app.request()` received a response with a JSON error payload for `HEAD` requests, violating RFC 9110 Section 9.3.2.\n\nThis PR checks `event.req.method === \"HEAD\"` and returns a `FastResponse` with a `null` body while preserving the status, status text, and error headers.\n\n### 📝 Checklist\n\n- [x] I have linked an issue or discussion.\n- [x] I have updated the documentation accordingly.\n- [x] I have added tests that prove my fix is effective or that my feature works.\n- [x] I have verified that all existing and new tests pass locally.\n\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n\n## Summary by CodeRabbit\n\n* **Bug Fixes**\n  * Error responses to `HEAD` requests now preserve their status and headers while returning an empty body.\n  * Added coverage for unmatched routes and synchronous or asynchronous HTTP errors.\n\n* **Tests**\n  * Updated bundle-size thresholds.\n\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
+        "state": "open",
+        "stateRaw": "open",
+        "isDraft": false,
+        "author": {
+          "forge": "github",
+          "instance": "github.com",
+          "login": "lx3133584",
+          "id": "24490353",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/24490353?v=4",
+          "url": "https://github.com/lx3133584",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "labels": [],
+        "url": "https://github.com/h3js/h3/pull/1596"
+      },
       "source": "poll",
       "isPublic": true
     },
@@ -126,6 +145,25 @@
         "kind": "pull_request",
         "number": "1596",
         "externalId": "PR_kwDOErHI988AAAABIJJy6A"
+      },
+      "threadSnapshot": {
+        "title": "fix(response): strip error response body for HEAD requests without onError",
+        "body": "### 🔗 Linked issue\n\nFixes #1594\n\n### ❓ Type of change\n\n- [x] 🐞 Bug fix (a non-breaking change that fixes an issue)\n- [ ] 👌 Enhancement (improving an existing functionality like performance)\n- [ ] ✨ New feature (a non-breaking change that adds functionality)\n- [ ] ⚠️ Breaking change (fix or feature that would cause existing functionality to change)\n\n### 📚 Description\n\nWhen a route matching failure occurs (404) or a handler throws `HTTPError` without an `onError` hook configured, `prepareResponse` returned `errorResponse(error, config.debug, errHeaders)` directly. Unlike successful responses and error responses processed through `onError`, this early return branch omitted checking for `HEAD` requests. Consequently, consumers of `app.request()` received a response with a JSON error payload for `HEAD` requests, violating RFC 9110 Section 9.3.2.\n\nThis PR checks `event.req.method === \"HEAD\"` and returns a `FastResponse` with a `null` body while preserving the status, status text, and error headers.\n\n### 📝 Checklist\n\n- [x] I have linked an issue or discussion.\n- [x] I have updated the documentation accordingly.\n- [x] I have added tests that prove my fix is effective or that my feature works.\n- [x] I have verified that all existing and new tests pass locally.\n\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n\n## Summary by CodeRabbit\n\n* **Bug Fixes**\n  * Error responses to `HEAD` requests now preserve their status and headers while returning an empty body.\n  * Added coverage for unmatched routes and synchronous or asynchronous HTTP errors.\n\n* **Tests**\n  * Updated bundle-size thresholds.\n\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
+        "state": "open",
+        "stateRaw": "open",
+        "isDraft": false,
+        "author": {
+          "forge": "github",
+          "instance": "github.com",
+          "login": "lx3133584",
+          "id": "24490353",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/24490353?v=4",
+          "url": "https://github.com/lx3133584",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "labels": [],
+        "url": "https://github.com/h3js/h3/pull/1596"
       },
       "source": "poll",
       "isPublic": true
@@ -192,6 +230,25 @@
         "number": "1596",
         "externalId": "PR_kwDOErHI988AAAABIJJy6A"
       },
+      "threadSnapshot": {
+        "title": "fix(response): strip error response body for HEAD requests without onError",
+        "body": "### 🔗 Linked issue\n\nFixes #1594\n\n### ❓ Type of change\n\n- [x] 🐞 Bug fix (a non-breaking change that fixes an issue)\n- [ ] 👌 Enhancement (improving an existing functionality like performance)\n- [ ] ✨ New feature (a non-breaking change that adds functionality)\n- [ ] ⚠️ Breaking change (fix or feature that would cause existing functionality to change)\n\n### 📚 Description\n\nWhen a route matching failure occurs (404) or a handler throws `HTTPError` without an `onError` hook configured, `prepareResponse` returned `errorResponse(error, config.debug, errHeaders)` directly. Unlike successful responses and error responses processed through `onError`, this early return branch omitted checking for `HEAD` requests. Consequently, consumers of `app.request()` received a response with a JSON error payload for `HEAD` requests, violating RFC 9110 Section 9.3.2.\n\nThis PR checks `event.req.method === \"HEAD\"` and returns a `FastResponse` with a `null` body while preserving the status, status text, and error headers.\n\n### 📝 Checklist\n\n- [x] I have linked an issue or discussion.\n- [x] I have updated the documentation accordingly.\n- [x] I have added tests that prove my fix is effective or that my feature works.\n- [x] I have verified that all existing and new tests pass locally.\n\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n\n## Summary by CodeRabbit\n\n* **Bug Fixes**\n  * Error responses to `HEAD` requests now preserve their status and headers while returning an empty body.\n  * Added coverage for unmatched routes and synchronous or asynchronous HTTP errors.\n\n* **Tests**\n  * Updated bundle-size thresholds.\n\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
+        "state": "open",
+        "stateRaw": "open",
+        "isDraft": false,
+        "author": {
+          "forge": "github",
+          "instance": "github.com",
+          "login": "lx3133584",
+          "id": "24490353",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/24490353?v=4",
+          "url": "https://github.com/lx3133584",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "labels": [],
+        "url": "https://github.com/h3js/h3/pull/1596"
+      },
       "source": "poll",
       "isPublic": true
     },
@@ -236,6 +293,25 @@
         },
         "kind": "pull_request",
         "number": "1596"
+      },
+      "threadSnapshot": {
+        "branches": {
+          "head": {
+            "ref": "fix/head-error-response-body",
+            "sha": "863dc486cda4fdd19af67c2d3e7771fa836eb600",
+            "repo": {
+              "forge": "github",
+              "instance": "github.com",
+              "owner": "lx3133584",
+              "name": "h3",
+              "externalId": "1346891621"
+            }
+          },
+          "base": {
+            "ref": "main",
+            "sha": "66cfb8a357b6285451bad498c2c40002601fae98"
+          }
+        }
       },
       "source": "poll",
       "isPublic": true
@@ -330,6 +406,25 @@
         "kind": "pull_request",
         "number": "1595"
       },
+      "threadSnapshot": {
+        "branches": {
+          "head": {
+            "ref": "fix/head-error-response",
+            "sha": "c3eacd57b1b1a9924eb9c85517369a9b43451abf",
+            "repo": {
+              "forge": "github",
+              "instance": "github.com",
+              "owner": "maxazure",
+              "name": "h3",
+              "externalId": "1416304836"
+            }
+          },
+          "base": {
+            "ref": "main",
+            "sha": "66cfb8a357b6285451bad498c2c40002601fae98"
+          }
+        }
+      },
       "source": "poll",
       "isPublic": true
     },
@@ -394,6 +489,25 @@
         },
         "kind": "pull_request",
         "number": "1595"
+      },
+      "threadSnapshot": {
+        "branches": {
+          "head": {
+            "ref": "fix/head-error-response",
+            "sha": "c3eacd57b1b1a9924eb9c85517369a9b43451abf",
+            "repo": {
+              "forge": "github",
+              "instance": "github.com",
+              "owner": "maxazure",
+              "name": "h3",
+              "externalId": "1416304836"
+            }
+          },
+          "base": {
+            "ref": "main",
+            "sha": "66cfb8a357b6285451bad498c2c40002601fae98"
+          }
+        }
       },
       "source": "poll",
       "isPublic": true
@@ -460,6 +574,25 @@
         "number": "1595",
         "externalId": "PR_kwDOErHI988AAAABIE9A2g"
       },
+      "threadSnapshot": {
+        "title": "fix(response): omit HEAD body for default errors",
+        "body": "Resolves #1594.\n\nWithout an `onError` hook, a missing HEAD route or a handler throwing `HTTPError` returns a JSON body through the web Response API. Node's HTTP transport strips it, and a no-op `onError` hook already makes the web response body empty.\n\nLet the generated default error response continue through the existing Response normalization path so HEAD bodies are removed consistently. The implementation changes one line; error serialization, status/statusText, error headers, cookies, and public APIs remain unchanged.\n\nThe regression matrix covers missing HEAD routes, synchronous/asynchronous HTTPError handlers, GET JSON responses, both hook configurations, preserved error headers, and hook invocation counts. Before the fix, three web HEAD cases fail and the other 17 matrix cases pass. The minimal reproduction is in #1594.\n\nValidation on Node.js 24.21.0 / pnpm 12.3.4:\n\n- Error handling and bundle-budget tests: 75 passed.\n- Lint, typecheck, build, and `git diff --check`: passed.\n- Full `pnpm test`: 3055 passed, 51 skipped, one Node body-limit test timed out after 5000ms. The unmodified main at `66cfb8a` also times out in the Node body-limit suite; a lower-worker retry did not eliminate it. The full suite is therefore not green locally.\n\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n\n## Summary by CodeRabbit\n\n* **Bug Fixes**\n  * Error responses now follow consistent response processing. Missing routes and thrown HTTP errors return the expected status and error details for `GET` requests, while `HEAD` responses remain bodyless.\n  * Error headers and cookies are preserved, and success-only headers are excluded from error responses.\n\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
+        "state": "open",
+        "stateRaw": "open",
+        "isDraft": false,
+        "author": {
+          "forge": "github",
+          "instance": "github.com",
+          "login": "maxazure",
+          "id": "405711",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/405711?v=4",
+          "url": "https://github.com/maxazure",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "labels": [],
+        "url": "https://github.com/h3js/h3/pull/1595"
+      },
       "source": "poll",
       "isPublic": true
     },
@@ -504,6 +637,25 @@
         },
         "kind": "pull_request",
         "number": "1595"
+      },
+      "threadSnapshot": {
+        "branches": {
+          "head": {
+            "ref": "fix/head-error-response",
+            "sha": "c3eacd57b1b1a9924eb9c85517369a9b43451abf",
+            "repo": {
+              "forge": "github",
+              "instance": "github.com",
+              "owner": "maxazure",
+              "name": "h3",
+              "externalId": "1416304836"
+            }
+          },
+          "base": {
+            "ref": "main",
+            "sha": "66cfb8a357b6285451bad498c2c40002601fae98"
+          }
+        }
       },
       "source": "poll",
       "isPublic": true

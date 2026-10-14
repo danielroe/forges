@@ -42,6 +42,9 @@
         "body": "Status: on `main`, `glab token rotate` only prints the new token to stdout and never updates the keyring or config file (`internal/commands/token/rotate/rotate.go`). The `--self` flag this issue builds on is in open MR !3915, and draft !4095 (stacked on it) adds the store-and-warn behavior with tests for keyring, config file, environment, no stored token, and a failed write. Until then, `glab token rotate --user @me <token-name> | glab auth login --stdin` re-stores the token (add `--hostname <host>` for a self-managed instance). Remaining work is medium: land !3915, then rebase and review !4095. Related: #7856.\n\n_This triage was AI-assisted and has not been validated by a maintainer. Treat the findings as a starting point._"
       },
       "summary": "phikai commented",
+      "threadSnapshot": {
+        "title": "glab token rotate --self leaves the revoked token in the keyring, config file, or environment"
+      },
       "occurredAt": "<now>",
       "actor": {
         "forge": "gitlab",
@@ -86,6 +89,9 @@
         "state": "closed"
       },
       "summary": "phikai closed issue",
+      "threadSnapshot": {
+        "title": "Resolve the overdue \"remove by GitLab 18.3\" TODO on the hidden global repo override"
+      },
       "occurredAt": "<now>",
       "actor": {
         "forge": "gitlab",
@@ -147,6 +153,9 @@
         "body": "Closing as a duplicate of #8204, which tracks removing the hidden global `-R` override from the root command, including why the 18.3 TODO no longer holds and the breaking-change impact. The TODO is still at [`internal/commands/root.go`](https://gitlab.com/gitlab-org/cli/-/blob/main/internal/commands/root.go#L157-160). !2947 implemented the removal and was closed for inactivity, so it can be reopened or picked up from there. Note that `internal/commands/mcp/serve/server_test.go` models the hidden root flag and needs updating with the removal.\n\nIf you think this should remain open or be revisited, please let us know."
       },
       "summary": "phikai commented",
+      "threadSnapshot": {
+        "title": "Resolve the overdue \"remove by GitLab 18.3\" TODO on the hidden global repo override"
+      },
       "occurredAt": "<now>",
       "actor": {
         "forge": "gitlab",
@@ -208,6 +217,9 @@
         "body": "Today [`ListGitLabTemplates`](https://gitlab.com/gitlab-org/cli/-/blob/main/internal/cmdutils/cmdutils.go#L129-159) returns an empty list for any error. Missing: distinguishing \"not exist\" and \"not in a repository\" (stay quiet) from other errors (return them), plus test cases for each. Callers in `issue create` and `mr create` already surface returned errors, so this is a small change confined to one function and its test.\n\n_This triage was AI-assisted and has not been validated by a maintainer. Treat the findings as a starting point._"
       },
       "summary": "phikai commented",
+      "threadSnapshot": {
+        "title": "ListGitLabTemplates swallows every error and returns an empty list"
+      },
       "occurredAt": "<now>",
       "actor": {
         "forge": "gitlab",
@@ -269,6 +281,9 @@
         "body": "I finished my review and found nothing to comment on. Nice work! :tada:\n\n- Login: the web and device flow now builds its client with `WithoutAuthentication`. The new `--device` test covers a keyring host with no stored token, so my earlier missing-test point is addressed.\n- Docker helper: it builds the default-host client without a token. Each registry lookup reads its own host's credentials, so a registry on another host still works. The new test covers that case, the default host's container registry and its artifact registry.\n- Client: `WithoutAuthentication` skips the token and job-token reads, so a locked keyring cannot fail the build. The new test covers this. Host transport settings (TLS, custom headers) are still applied, and a test checks that.\n- The keyring-missing error only fires in the tokenless default branch, and only when the host's own `use_keyring` is set. The env-token, job-token and `GLAB_USE_KEYRING` cases are covered and I found no regression."
       },
       "summary": "GitLabDuo commented",
+      "threadSnapshot": {
+        "title": "fix(auth): fail clearly on a missing keyring token"
+      },
       "occurredAt": "<now>",
       "actor": {
         "forge": "gitlab",
@@ -331,6 +346,9 @@
         }
       },
       "summary": "GitLabDuo approved merge request",
+      "threadSnapshot": {
+        "title": "fix(auth): fail clearly on a missing keyring token"
+      },
       "occurredAt": "<now>",
       "actor": {
         "forge": "gitlab",
@@ -393,6 +411,9 @@
         }
       },
       "summary": "ahmed.hemdan approved merge request",
+      "threadSnapshot": {
+        "title": "fix(auth): fail clearly on a missing keyring token"
+      },
       "occurredAt": "<now>",
       "actor": {
         "forge": "gitlab",
@@ -454,6 +475,9 @@
         "body": "@HamzaHassanain Thanks for addressing the feedback!\n\nLeft two non-blocking test-setup suggestions. Approved from my side. :white_check_mark:"
       },
       "summary": "ahmed.hemdan commented",
+      "threadSnapshot": {
+        "title": "fix(auth): fail clearly on a missing keyring token"
+      },
       "occurredAt": "<now>",
       "actor": {
         "forge": "gitlab",
@@ -515,6 +539,9 @@
         "body": "Thanks for addressing this! :white_check_mark:"
       },
       "summary": "ahmed.hemdan commented",
+      "threadSnapshot": {
+        "title": "fix(auth): fail clearly on a missing keyring token"
+      },
       "occurredAt": "<now>",
       "actor": {
         "forge": "gitlab",
@@ -576,6 +603,9 @@
         "body": "Thank you for fixing this! :pray_tone2:"
       },
       "summary": "ahmed.hemdan commented",
+      "threadSnapshot": {
+        "title": "fix(auth): fail clearly on a missing keyring token"
+      },
       "occurredAt": "<now>",
       "actor": {
         "forge": "gitlab",
