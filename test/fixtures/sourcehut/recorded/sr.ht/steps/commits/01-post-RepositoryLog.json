@@ -1,0 +1,528 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://git.sr.ht/query",
+    "operationName": "RepositoryLog",
+    "variables": {
+      "owner": "sircmpwn",
+      "name": "scdoc"
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "data": {
+        "user": {
+          "repository": {
+            "log": {
+              "cursor": "gAAAAABq0EL6JMYb4Sv8MdusuaRbK6kZpvnCXae6rFDWV4xNPFHmnbHBEkK73vDlQ42IekAG6cd3cYJASa_II0qoXE-q0OpznK4EZPJSVokyC29nzETma4FsVsZPZscqgBkMaiymD0lYTb2iQLXZ34Ah6D9kmwOMFKj7ztQmp8Ps6x1fvMMiYKQ=",
+              "results": [
+                {
+                  "id": "24be30ef17d5ca0162f11b35258c8fa2413d556a",
+                  "shortId": "24be30e",
+                  "author": {
+                    "name": "Drew DeVault",
+                    "email": "redacted@example.invalid",
+                    "time": "2026-07-07T09:06:57+02:00"
+                  },
+                  "committer": {
+                    "name": "Drew DeVault",
+                    "email": "redacted@example.invalid",
+                    "time": "2026-07-07T09:06:57+02:00"
+                  },
+                  "message": "Update version to 1.11.5\n",
+                  "parents": [
+                    {
+                      "id": "1d4143da79f22b71dd51da69a9f587f52d19dc84"
+                    }
+                  ]
+                },
+                {
+                  "id": "1d4143da79f22b71dd51da69a9f587f52d19dc84",
+                  "shortId": "1d4143d",
+                  "author": {
+                    "name": "Runxi Yu",
+                    "email": "redacted@example.invalid",
+                    "time": "2026-02-11T23:41:49+08:00"
+                  },
+                  "committer": {
+                    "name": "Drew DeVault",
+                    "email": "redacted@example.invalid",
+                    "time": "2026-02-12T09:08:30+01:00"
+                  },
+                  "message": "Substitute \"-\" with \"\\-\"\n\nThe previous behavior is to emit “-” literally when encountered in the\ninput stream.\n\nWhen using man(1) from mandoc(1), it renders “-” (U+002D HYPHEN-MINUS),\nbut when using man(1) from man-db, it renders as “‐” (U+2010 HYPHEN).\n\ngroff_char(7) says:\n\n    The hyphen-minus is a particularly unfortunate case of overloading.\n    Its awkward name in ISO 8859 and later standards reflects the many\n    distinguishable purposes to which it had already been put by the\n    1980s, including a hyphen, a minus sign, and (alone or in\n    repetition) dashes of varying widths.\n\n    For best results in roff systems, use the “-” character in input\n    outside an escape sequence only to mean a hyphen, as in the phrase\n    “long‐term”.\n\n    For a minus sign in running text or a Unix command‐line option dash,\n    use \\- (or \\[-] in groff if you find it helps the clarity of the\n    source document).\n\nSince scdoc has no way of determining whether a “-” in the input stream\nshould be a hyphen, a minus sign, a Unix command‐line option dash, or\nelse, it’s safer to emit overall “\\-” so users don’t have issues\nsearching or copying Unix command‐line options.\n\nReferences: https://gitlab.alpinelinux.org/alpine/aports/-/issues/17936\n",
+                  "parents": [
+                    {
+                      "id": "1c36cde87212494368ea218e871085ed2bc855fe"
+                    }
+                  ]
+                },
+                {
+                  "id": "1c36cde87212494368ea218e871085ed2bc855fe",
+                  "shortId": "1c36cde",
+                  "author": {
+                    "name": "Sotiris Papatheodorou",
+                    "email": "redacted@example.invalid",
+                    "time": "2025-12-15T23:20:24+02:00"
+                  },
+                  "committer": {
+                    "name": "Drew DeVault",
+                    "email": "redacted@example.invalid",
+                    "time": "2025-12-16T09:45:37+01:00"
+                  },
+                  "message": "Fix bold text followed by underlined text\n\nThe value of last was not updated upon encountering a star, so it would\ncontain whatever character happened to be before the star. If that\nhappened to be an alphanumeric character,\nparse_format(p, FORMAT_UNDERLINE); was never called since it was\ndetected as a case of an underscore between alphanumeric characters.\n",
+                  "parents": [
+                    {
+                      "id": "70de0e5e5d3bc40134ee65c35f1631656199f4be"
+                    }
+                  ]
+                },
+                {
+                  "id": "70de0e5e5d3bc40134ee65c35f1631656199f4be",
+                  "shortId": "70de0e5",
+                  "author": {
+                    "name": "Drew DeVault",
+                    "email": "redacted@example.invalid",
+                    "time": "2025-11-11T15:37:36+01:00"
+                  },
+                  "committer": {
+                    "name": "Drew DeVault",
+                    "email": "redacted@example.invalid",
+                    "time": "2025-11-11T15:37:36+01:00"
+                  },
+                  "message": "Update version to 1.11.4\n",
+                  "parents": [
+                    {
+                      "id": "9124ecb7ec4c667dea96b1d1eda942629caaec54"
+                    }
+                  ]
+                },
+                {
+                  "id": "9124ecb7ec4c667dea96b1d1eda942629caaec54",
+                  "shortId": "9124ecb",
+                  "author": {
+                    "name": "Jason Lenz",
+                    "email": "redacted@example.invalid",
+                    "time": "2025-09-29T18:36:35-05:00"
+                  },
+                  "committer": {
+                    "name": "Drew DeVault",
+                    "email": "redacted@example.invalid",
+                    "time": "2025-09-30T09:30:19+02:00"
+                  },
+                  "message": "Fix make check permissions mask\n\nMake check would only execute a test file if all permissions (ugo)\nwere executable. Now tests run if user executable bit is set.\n",
+                  "parents": [
+                    {
+                      "id": "d2a10f90d1ab905e14a570354eea9c205ce0c047"
+                    }
+                  ]
+                },
+                {
+                  "id": "d2a10f90d1ab905e14a570354eea9c205ce0c047",
+                  "shortId": "d2a10f9",
+                  "author": {
+                    "name": "Jason Lenz",
+                    "email": "redacted@example.invalid",
+                    "time": "2025-09-19T22:39:29-05:00"
+                  },
+                  "committer": {
+                    "name": "Drew DeVault",
+                    "email": "redacted@example.invalid",
+                    "time": "2025-09-20T08:53:06+02:00"
+                  },
+                  "message": "Fix unclosed indent at EOF\n\nscdoc wasn't including .RE at end of files if the last line was\ninside the .RS block.\n",
+                  "parents": [
+                    {
+                      "id": "0590b3a51f97d20add636b7cc4effc7e07f5c031"
+                    }
+                  ]
+                },
+                {
+                  "id": "0590b3a51f97d20add636b7cc4effc7e07f5c031",
+                  "shortId": "0590b3a",
+                  "author": {
+                    "name": "Sertonix",
+                    "email": "redacted@example.invalid",
+                    "time": "2025-09-04T21:33:18Z"
+                  },
+                  "committer": {
+                    "name": "Drew DeVault",
+                    "email": "redacted@example.invalid",
+                    "time": "2025-09-05T09:49:03+02:00"
+                  },
+                  "message": "gmtime: handle failure\n\nWhen gmtime fails it returns NULL which causes a segfault when\nnot handled.\n",
+                  "parents": [
+                    {
+                      "id": "5afbb7ac96354c3df85fbe6c86d44935f265f26a"
+                    }
+                  ]
+                },
+                {
+                  "id": "5afbb7ac96354c3df85fbe6c86d44935f265f26a",
+                  "shortId": "5afbb7a",
+                  "author": {
+                    "name": "Drew DeVault",
+                    "email": "redacted@example.invalid",
+                    "time": "2025-06-30T09:17:19+02:00"
+                  },
+                  "committer": {
+                    "name": "Drew DeVault",
+                    "email": "redacted@example.invalid",
+                    "time": "2025-06-30T09:17:20+02:00"
+                  },
+                  "message": "utf8_size: fix bug with array length\n\nThanks to Vursc for the bug report!\n",
+                  "parents": [
+                    {
+                      "id": "bc03bed3c2bb498ad0c19684cb557b4c3c9fcd08"
+                    }
+                  ]
+                },
+                {
+                  "id": "bc03bed3c2bb498ad0c19684cb557b4c3c9fcd08",
+                  "shortId": "bc03bed",
+                  "author": {
+                    "name": "Drew DeVault",
+                    "email": "redacted@example.invalid",
+                    "time": "2025-06-11T08:13:53+02:00"
+                  },
+                  "committer": {
+                    "name": "Drew DeVault",
+                    "email": "redacted@example.invalid",
+                    "time": "2025-06-11T08:13:57+02:00"
+                  },
+                  "message": "parse_preamble: remove useless branch\n\n\"if ($anything > UULONG_MAX)\" is kind of a pointless question to ask.\n",
+                  "parents": [
+                    {
+                      "id": "29306d8dde650f5ac2bcc067f3c1d3bcfcac7a1d"
+                    }
+                  ]
+                },
+                {
+                  "id": "29306d8dde650f5ac2bcc067f3c1d3bcfcac7a1d",
+                  "shortId": "29306d8",
+                  "author": {
+                    "name": "elij",
+                    "email": "redacted@example.invalid",
+                    "time": "2025-01-26T12:18:58-08:00"
+                  },
+                  "committer": {
+                    "name": "Drew DeVault",
+                    "email": "redacted@example.invalid",
+                    "time": "2025-02-02T09:26:13+01:00"
+                  },
+                  "message": "strip indentation after a hard line break `++`\n\n*   strip indentation (`\\t` and ' ') after a hard line break `++`\n*   add some tests to cover these cases\n",
+                  "parents": [
+                    {
+                      "id": "b0ea10a78a6ca890479fb6ef95bfbf21027acc2d"
+                    }
+                  ]
+                },
+                {
+                  "id": "b0ea10a78a6ca890479fb6ef95bfbf21027acc2d",
+                  "shortId": "b0ea10a",
+                  "author": {
+                    "name": "Viacheslav Kruglov",
+                    "email": "redacted@example.invalid",
+                    "time": "2024-10-11T12:31:06+02:00"
+                  },
+                  "committer": {
+                    "name": "Drew DeVault",
+                    "email": "redacted@example.invalid",
+                    "time": "2024-10-11T14:27:06+02:00"
+                  },
+                  "message": "Fix logical error in comparison with ULONG_MAX\n\nThe expression `epoch > ULONG_MAX` will always return false because\n`epoch` is of type `unsigned long long`.\n",
+                  "parents": [
+                    {
+                      "id": "3667cced504bc40b176d4570d99a83fe67599f3a"
+                    }
+                  ]
+                },
+                {
+                  "id": "3667cced504bc40b176d4570d99a83fe67599f3a",
+                  "shortId": "3667cce",
+                  "author": {
+                    "name": "Drew DeVault",
+                    "email": "redacted@example.invalid",
+                    "time": "2024-09-04T10:07:46+02:00"
+                  },
+                  "committer": {
+                    "name": "Drew DeVault",
+                    "email": "redacted@example.invalid",
+                    "time": "2024-09-04T10:07:46+02:00"
+                  },
+                  "message": "Makefile: drop -static\n",
+                  "parents": [
+                    {
+                      "id": "e11b48dc6a27517cca5ccf5b11838b3eefda2335"
+                    }
+                  ]
+                },
+                {
+                  "id": "e11b48dc6a27517cca5ccf5b11838b3eefda2335",
+                  "shortId": "e11b48d",
+                  "author": {
+                    "name": "Kirill Chibisov",
+                    "email": "redacted@example.invalid",
+                    "time": "2024-08-06T21:02:03+03:00"
+                  },
+                  "committer": {
+                    "name": "Drew DeVault",
+                    "email": "redacted@example.invalid",
+                    "time": "2024-08-07T10:06:35+02:00"
+                  },
+                  "message": "Emit \\(ti and \\(ha instead of ~ and ^\n\nGroff since 1.23 maps '^' and '~' by default to U+02C6 and U+02DC\nrespectively.\n\nThe suggestion in groff_man_style(7) is to use \\(ti and \\(ha when the\nlatin variants are desired.\n\nLinks: https://lists.gnu.org/archive/html/info-gnu/2023-07/msg00001.html\n",
+                  "parents": [
+                    {
+                      "id": "e760004f3012ab395d226a526fea323346c06d1b"
+                    }
+                  ]
+                },
+                {
+                  "id": "e760004f3012ab395d226a526fea323346c06d1b",
+                  "shortId": "e760004",
+                  "author": {
+                    "name": "Nico Wagner",
+                    "email": "redacted@example.invalid",
+                    "time": "2024-03-05T11:11:56+01:00"
+                  },
+                  "committer": {
+                    "name": "Drew DeVault",
+                    "email": "redacted@example.invalid",
+                    "time": "2024-03-05T11:15:27+01:00"
+                  },
+                  "message": "Makefile: remove unnecessary path separator\n\nThis commit removes an unnecessary path separator between $(DESTDIR) and\n$(BINDIR).\n\nSigned-off-by: Nico Wagner <redacted@example.invalid>\n",
+                  "parents": [
+                    {
+                      "id": "0528bcb993cac6c412acd3ae2e09539e994c0a59"
+                    }
+                  ]
+                },
+                {
+                  "id": "0528bcb993cac6c412acd3ae2e09539e994c0a59",
+                  "shortId": "0528bcb",
+                  "author": {
+                    "name": "Drew DeVault",
+                    "email": "redacted@example.invalid",
+                    "time": "2024-02-17T10:51:31+01:00"
+                  },
+                  "committer": {
+                    "name": "Drew DeVault",
+                    "email": "redacted@example.invalid",
+                    "time": "2024-02-17T10:51:31+01:00"
+                  },
+                  "message": "Update version to 1.11.3\n",
+                  "parents": [
+                    {
+                      "id": "5ea8873e33a5be55625e05673a47e440182bc09e"
+                    }
+                  ]
+                },
+                {
+                  "id": "5ea8873e33a5be55625e05673a47e440182bc09e",
+                  "shortId": "5ea8873",
+                  "author": {
+                    "name": "Drew DeVault",
+                    "email": "redacted@example.invalid",
+                    "time": "2024-02-17T10:50:18+01:00"
+                  },
+                  "committer": {
+                    "name": "Drew DeVault",
+                    "email": "redacted@example.invalid",
+                    "time": "2024-02-17T10:50:18+01:00"
+                  },
+                  "message": "README.md: mention system packages\n",
+                  "parents": [
+                    {
+                      "id": "deb7db796774461b006a01edc403d4b91c35162b"
+                    }
+                  ]
+                },
+                {
+                  "id": "deb7db796774461b006a01edc403d4b91c35162b",
+                  "shortId": "deb7db7",
+                  "author": {
+                    "name": "Simon Ser",
+                    "email": "redacted@example.invalid",
+                    "time": "2023-11-27T14:13:16Z"
+                  },
+                  "committer": {
+                    "name": "Drew DeVault",
+                    "email": "redacted@example.invalid",
+                    "time": "2023-12-04T12:53:02+01:00"
+                  },
+                  "message": "man: add section about SOURCE_DATE_EPOCH\n\nscdoc supports SOURCE_DATE_EPOCH but it's not documented anywhere.\n",
+                  "parents": [
+                    {
+                      "id": "ca7aad3e74178dda6ff93cadd962594ae0a2c174"
+                    }
+                  ]
+                },
+                {
+                  "id": "ca7aad3e74178dda6ff93cadd962594ae0a2c174",
+                  "shortId": "ca7aad3",
+                  "author": {
+                    "name": "Max Schillinger",
+                    "email": "redacted@example.invalid",
+                    "time": "2023-10-30T17:44:52+01:00"
+                  },
+                  "committer": {
+                    "name": "Drew DeVault",
+                    "email": "redacted@example.invalid",
+                    "time": "2023-10-31T08:12:15+01:00"
+                  },
+                  "message": "fix formatting of escaped backticks\n\nCurrently, an escaped backtick (\\`) is translated to \\\\` which gets\nrendered as \"Left Single Quotation Mark\" (‘) (for a UTF-8 locale).\n\nThis commit translates \\` to \\` which results in an actual backtick in\nthe rendered man page.\n",
+                  "parents": [
+                    {
+                      "id": "0b4a102bcf5408896c237a2c35ca7663f8d84ff2"
+                    }
+                  ]
+                },
+                {
+                  "id": "0b4a102bcf5408896c237a2c35ca7663f8d84ff2",
+                  "shortId": "0b4a102",
+                  "author": {
+                    "name": "jturtle",
+                    "email": "redacted@example.invalid",
+                    "time": "2023-10-27T05:06:41Z"
+                  },
+                  "committer": {
+                    "name": "Drew DeVault",
+                    "email": "redacted@example.invalid",
+                    "time": "2023-10-30T09:31:37+01:00"
+                  },
+                  "message": "Emit '\\e' instead of '\\\\'\n\nI noticed that the rc shell's docs are messed up when using\nman-db, but fine with mandoc. '\\e' is the standard way to emit a\nbackslash, and the way that makes man-db not cry.\n",
+                  "parents": [
+                    {
+                      "id": "afeda241f3f9b2c27e461f32d9c2a704ab82ef61"
+                    }
+                  ]
+                },
+                {
+                  "id": "afeda241f3f9b2c27e461f32d9c2a704ab82ef61",
+                  "shortId": "afeda24",
+                  "author": {
+                    "name": "Eli Schwartz",
+                    "email": "redacted@example.invalid",
+                    "time": "2023-03-08T12:14:00-05:00"
+                  },
+                  "committer": {
+                    "name": "Drew DeVault",
+                    "email": "redacted@example.invalid",
+                    "time": "2023-03-13T12:53:39+01:00"
+                  },
+                  "message": "get rid of some unused includes\n\nIn main.c, unistd.h is a fairly big stick to use just to get stdint\ntypes, so downgrade that header.\n",
+                  "parents": [
+                    {
+                      "id": "d562d7efb85fc4a498eedc6b1abc8a8e4443e1f4"
+                    }
+                  ]
+                },
+                {
+                  "id": "d562d7efb85fc4a498eedc6b1abc8a8e4443e1f4",
+                  "shortId": "d562d7e",
+                  "author": {
+                    "name": "Eli Schwartz",
+                    "email": "redacted@example.invalid",
+                    "time": "2023-03-08T11:56:09-05:00"
+                  },
+                  "committer": {
+                    "name": "Drew DeVault",
+                    "email": "redacted@example.invalid",
+                    "time": "2023-03-13T12:53:30+01:00"
+                  },
+                  "message": "remove useless re-declarations of standard functions\n\nHistorically, scdoc has used a project-local string.h, which overrode\nand masked <string.h> and caused issues.\n\nFor example, strstr and strerror were impossible to obtain definitions\nfor. Instead of fixing the clashing names, the definitions were locally\ncopied into main.c\n\nIn commit 309ff4672b7f5cba9bca1ce8657f767b51f32220 this was fixed\nproperly (by renaming string.h to str.h) as part of adding printf usage\nto the file as well. But the old hacks were never cleaned up.\n",
+                  "parents": [
+                    {
+                      "id": "1923fb61cd71182f05d029f280d056b21f66e8a0"
+                    }
+                  ]
+                },
+                {
+                  "id": "1923fb61cd71182f05d029f280d056b21f66e8a0",
+                  "shortId": "1923fb6",
+                  "author": {
+                    "name": "Dimitry Andric",
+                    "email": "redacted@example.invalid",
+                    "time": "2022-12-09T17:59:32+01:00"
+                  },
+                  "committer": {
+                    "name": "Drew DeVault",
+                    "email": "redacted@example.invalid",
+                    "time": "2022-12-19T12:01:40+01:00"
+                  },
+                  "message": "Fix clang 15 -Wstrict-prototypes warnings\n\nAs of https://github.com/llvm/llvm-project/commit/11da1b53d8c, clang 15\nhas started warning about functions which take no arguments, but are\ndeclared or defined using \"()\" instead of \"(void)\". See also [1].\n\nAt first this was even an error by default, but before clang 15 was\nreleased, it was again downgraded to a warning. Since scdoc builds\nwith both \"-std=c99 -pedantic\" and \"-Wall -Wextra -Werror\", this leads\nto two compile errors:\n\n    include/str.h:10:23: error: a function declaration without a prototype is deprecated in all versions of C [-Werror,-Wstrict-prototypes]\n    struct str *str_create();\n                          ^\n                           void\n    src/string.c:15:23: error: a function declaration without a prototype is deprecated in all versions of C [-Werror,-Wstrict-prototypes]\n    struct str *str_create() {\n                          ^\n                           void\n\nTo fix this, use \"(void)\" for both the declaration and definition of the\nstr_create function.\n\n[1] https://discourse.llvm.org/t/rfc-enabling-wstrict-prototypes-by-default-in-c/60521\n",
+                  "parents": [
+                    {
+                      "id": "4af1e1e3a8ebfddcc11a189254d60fc4ad74cd59"
+                    }
+                  ]
+                },
+                {
+                  "id": "4af1e1e3a8ebfddcc11a189254d60fc4ad74cd59",
+                  "shortId": "4af1e1e",
+                  "author": {
+                    "name": "Humm",
+                    "email": "redacted@example.invalid",
+                    "time": "2022-01-14T00:56:18Z"
+                  },
+                  "committer": {
+                    "name": "Drew DeVault",
+                    "email": "redacted@example.invalid",
+                    "time": "2022-01-14T08:47:25+01:00"
+                  },
+                  "message": "simplify list output\n\nFor lists, plain old indented paragraphs are the perfect tool.  To not\nhave vertical space between list items, we use .PD 0.\n\nShould the many needless .PP be removed, will the .PD 0 have to be moved\nafter the first list item, such that that introduces vertical space\nafter the last paragraph.\n",
+                  "parents": [
+                    {
+                      "id": "b16de454afc736a87c0386390c4cc91ba3cc8f29"
+                    }
+                  ]
+                },
+                {
+                  "id": "b16de454afc736a87c0386390c4cc91ba3cc8f29",
+                  "shortId": "b16de45",
+                  "author": {
+                    "name": "Humm",
+                    "email": "redacted@example.invalid",
+                    "time": "2022-01-02T01:54:26Z"
+                  },
+                  "committer": {
+                    "name": "Drew DeVault",
+                    "email": "redacted@example.invalid",
+                    "time": "2022-01-02T10:25:07+01:00"
+                  },
+                  "message": "scdoc(1), scdoc(5): follow conventions more closely\n\nThe man page title must be all caps.\n\nAlways traditionally and usually today, man page references using -man\nset the name in italic type:\n\n\tSee\n\t.IR man (1).\n",
+                  "parents": [
+                    {
+                      "id": "5061ecc8b3831ad38f8000a6c0c6edad190bf904"
+                    }
+                  ]
+                },
+                {
+                  "id": "5061ecc8b3831ad38f8000a6c0c6edad190bf904",
+                  "shortId": "5061ecc",
+                  "author": {
+                    "name": "Humm",
+                    "email": "redacted@example.invalid",
+                    "time": "2022-01-01T08:08:04Z"
+                  },
+                  "committer": {
+                    "name": "Drew DeVault",
+                    "email": "redacted@example.invalid",
+                    "time": "2022-01-01T10:38:03+01:00"
+                  },
+                  "message": "use .PP for paragraph breaks\n\n.P is an extension not in v7 -man.  This makes the man pages work with\nv7 -man.\n",
+                  "parents": [
+                    {
+                      "id": "74b8daa6e0e5152e9c49a64972dd26fd145b0698"
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

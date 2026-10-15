@@ -1,0 +1,53 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://lists.sr.ht/query",
+    "operationName": "Patchset",
+    "variables": {
+      "id": 71657
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "data": {
+        "patchset": {
+          "id": 71657,
+          "created": "2026-09-25T13:46:05.929132Z",
+          "updated": "2026-09-25T13:46:05.929132Z",
+          "subject": "Support introspection for OAuth2 personal tokens",
+          "version": 1,
+          "prefix": "meta.sr.ht",
+          "status": "PROPOSED",
+          "submitter": {
+            "canonicalName": "~bitfehler",
+            "id": 23515,
+            "updated": "2026-03-16T09:23:49.718511Z",
+            "username": "bitfehler",
+            "email": "redacted@example.invalid",
+            "url": "https://bitfehler.net",
+            "location": "Orion arm.",
+            "bio": "I turn computers on and off. Sometimes also this one."
+          },
+          "coverLetter": null,
+          "list": {
+            "id": 4,
+            "rid": "06dya72375yzk15a31a5gj4qr8",
+            "name": "sr.ht-dev",
+            "owner": {
+              "canonicalName": "~sircmpwn",
+              "id": 3,
+              "updated": "2026-05-20T08:58:29.386188Z",
+              "username": "sircmpwn",
+              "email": "redacted@example.invalid",
+              "url": "https://drewdevault.com",
+              "location": "Netherlands",
+              "bio": "I write code."
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://git.sr.ht/query",
+    "operationName": "RepositoryResolveRef",
+    "variables": {
+      "owner": "sircmpwn",
+      "name": "scdoc",
+      "revspec": "master"
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "data": {
+        "user": {
+          "repository": {
+            "revparse_single": {
+              "id": "24be30ef17d5ca0162f11b35258c8fa2413d556a"
+            }
+          }
+        }
+      }
+    }
+  }
+}

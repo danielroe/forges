@@ -1,0 +1,45 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://git.sr.ht/query",
+    "operationName": "RepositoryByOwner",
+    "variables": {
+      "owner": "sircmpwn",
+      "name": "scdoc"
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "data": {
+        "user": {
+          "repository": {
+            "id": 60,
+            "rid": "06dy9xv97nwfs07btfsgbqek94",
+            "created": "2017-12-10T06:13:45.10973Z",
+            "updated": "2026-07-07T07:07:12.501586Z",
+            "owner": {
+              "canonicalName": "~sircmpwn",
+              "id": 3,
+              "updated": "2026-05-20T08:58:30.228333Z",
+              "username": "sircmpwn",
+              "email": "redacted@example.invalid",
+              "url": "https://drewdevault.com",
+              "location": "Netherlands",
+              "bio": "I write code."
+            },
+            "name": "scdoc",
+            "description": "Small man page generator",
+            "visibility": "PUBLIC",
+            "HEAD": {
+              "name": "refs/heads/master",
+              "target": "24be30ef17d5ca0162f11b35258c8fa2413d556a"
+            },
+            "access": "RO"
+          }
+        }
+      }
+    }
+  }
+}

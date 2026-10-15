@@ -25,6 +25,7 @@ A provider is what connects `forges` to one particular forge. It translates the 
 | [Pushin.eu](/providers/pushin) | `forges/pushin` | `pushin()` |
 | [Tangled](/providers/tangled) | `forges/tangled` | `tangled()`, `tangledLite()` |
 | [Cloudflare Artifacts](/providers/cloudflare-artifacts) | `forges/cloudflare-artifacts` | `cloudflareArtifacts()` |
+| [Sourcehut](/providers/sourcehut) | `forges/sourcehut` | `sourcehut()`, `sourcehutLite()` |
 ::
 <!-- capabilities:end -->
 

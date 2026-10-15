@@ -1,0 +1,33 @@
+{
+  "items": [
+    {
+      "ref": {
+        "forge": "sourcehut",
+        "instance": "sr.ht",
+        "thread": {
+          "forge": "sourcehut",
+          "instance": "sr.ht",
+          "repo": {
+            "forge": "sourcehut",
+            "instance": "sr.ht",
+            "owner": "~sircmpwn",
+            "name": "sr.ht-dev"
+          },
+          "kind": "pull_request",
+          "number": "71657"
+        },
+        "id": "514170"
+      },
+      "body": "meta.sr.ht/patches/alpine.yml: SUCCESS in 2m11s\r\n\r\n[Support introspection for OAuth2 personal tokens][0] from [~bitfehler][1]\r\n\r\n[0]: https://lists.sr.ht/~sircmpwn/sr.ht-dev/patches/71657\r\n[1]: mailto:ch@bitfehler.net\r\n\r\n✓ #1895801 SUCCESS meta.sr.ht/patches/alpine.yml https://builds.sr.ht/~sircmpwn/job/1895801\r\n",
+      "author": {
+        "forge": "sourcehut",
+        "instance": "sr.ht",
+        "login": "builds.sr.ht <redacted@example.invalid>",
+        "id": "",
+        "isBotHint": false
+      },
+      "createdAt": "2026-09-25T13:48:19.772Z",
+      "url": "https://lists.sr.ht/~sircmpwn/sr.ht-dev/%3CDLOG0KUB27DC.3EGBEDGEZC0CI%40fra01%3E"
+    }
+  ]
+}

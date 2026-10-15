@@ -1,0 +1,30 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://git.sr.ht/query",
+    "operationName": "RepositoryCodeSearch",
+    "variables": {
+      "owner": "sircmpwn",
+      "name": "scdoc",
+      "query": "import"
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "data": {
+        "user": {
+          "repository": {
+            "codeSearch": {
+              "totalFiles": 0,
+              "totalMatches": 0,
+              "cursor": null,
+              "results": []
+            }
+          }
+        }
+      }
+    }
+  }
+}
