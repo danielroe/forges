@@ -116,6 +116,7 @@ Deliveries of `installation.*` events become `installation` events. You register
 | `repos.collaborators` | ❌ | ❌ | ❌ | ❌ |
 | `repos.contributors` | ❌ | ❌ | ❌ | ❌ |
 | `repos.contributorStats` | ❌ | ❌ | ❌ | ❌ |
+| `repos.templates` | ❌ | ❌ | ❌ | ❌ |
 | `repos.permissionFor` | ❌ | ❌ | ❌ | ❌ |
 | `repos.addCollaborator` | ❌ | ❌ | ❌ | ❌ |
 | `repos.assignableUsers` | ❌ | ❌ | ❌ | ❌ |

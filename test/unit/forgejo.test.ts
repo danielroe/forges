@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest'
 import { NotFoundError, UnsupportedOperationError } from '../../src/errors.ts'
 import { forgejo } from '../../src/forgejo/index.ts'
 import { gitea } from '../../src/gitea/index.ts'
-import { fixtureFetch, hangingFetch } from '../utils/fixtures.ts'
+import { contentsFile, contentsListing, fixtureFetch, hangingFetch } from '../utils/fixtures.ts'
 
 function provider(overrides = {}) {
   const { fetch, calls } = fixtureFetch('forgejo', overrides)
@@ -620,5 +620,66 @@ describe('forgejo organisation teams', () => {
 
     expect(anonymous.can('orgs.teams')).toBe(false)
     expect(anonymous.can('orgs.teamMembers')).toBe(false)
+  })
+})
+
+describe('forgejo templates', () => {
+  const repo = { forge: 'forgejo', instance: 'codeberg.org', owner: 'acme', name: 'widgets' } as const
+  const api = 'https://codeberg.org/api/v1/repos/acme/widgets'
+  const pullFiles = {
+    [`GET ${api}/contents`]: contentsListing('.forgejo/', '.github/', 'docs/'),
+    [`GET ${api}/contents/.forgejo`]: contentsListing('.forgejo/pull_request_template.md'),
+    [`GET ${api}/contents/.github`]: contentsListing('.github/PULL_REQUEST_TEMPLATE.md'),
+    [`GET ${api}/contents/docs`]: contentsListing('docs/pull_request_template.md'),
+    [`GET ${api}/contents/.forgejo/pull_request_template.md`]: contentsFile('.forgejo/pull_request_template.md', 'From .forgejo'),
+    [`GET ${api}/contents/.github/PULL_REQUEST_TEMPLATE.md`]: contentsFile('.github/PULL_REQUEST_TEMPLATE.md', 'From .github'),
+  }
+
+  it('reads an issue form as YAML, with the fields Forgejo parses from it', async () => {
+    const { instance } = provider({
+      [`GET ${api}/issue_templates`]: { status: 200, body: [{
+        name: 'Bug',
+        title: 'bug: ',
+        about: 'Something broke',
+        labels: ['bug'],
+        ref: 'refs/heads/',
+        content: '',
+        file_name: '.forgejo/issue_template/bug.yaml',
+        body: [{ type: 'textarea', id: 'what', attributes: { label: 'What happened?' }, validations: { required: true } }],
+      }] },
+      [`GET ${api}/contents/.forgejo/issue_template/bug.yaml`]: contentsFile('.forgejo/issue_template/bug.yaml', 'name: Bug\nbody: []\n'),
+    })
+
+    const templates = await instance.repos.templates(repo, { kind: 'issue' })
+
+    expect(templates).toEqual([expect.objectContaining({
+      kind: 'issue',
+      name: 'Bug',
+      path: '.forgejo/issue_template/bug.yaml',
+      format: 'form',
+      body: 'name: Bug\nbody: []\n',
+      title: 'bug: ',
+      about: 'Something broke',
+      labels: ['bug'],
+      fields: [{ type: 'textarea', id: 'what', attributes: { label: 'What happened?' }, validations: { required: true } }],
+    })])
+  })
+
+  it('reads the one pull request template the web UI would pick, `.forgejo` first', async () => {
+    const { instance } = provider(pullFiles)
+
+    const templates = await instance.repos.templates(repo, { kind: 'pull_request' })
+
+    expect(templates).toMatchObject([{ kind: 'pull_request', path: '.forgejo/pull_request_template.md', format: 'markdown', body: 'From .forgejo' }])
+  })
+
+  it('skips the directories Gitea does not look in', async () => {
+    const { fetch, calls } = fixtureFetch('forgejo', Object.fromEntries(Object.entries(pullFiles).map(([key, response]) => [key.replace('codeberg.org', 'gitea.com'), response])))
+    const instance = gitea({ auth: { type: 'token', token: 't' }, fetch }).create()
+
+    const templates = await instance.repos.templates({ ...repo, forge: 'gitea', instance: 'gitea.com' }, { kind: 'pull_request' })
+
+    expect(templates).toMatchObject([{ path: '.github/PULL_REQUEST_TEMPLATE.md', body: 'From .github' }])
+    expect(calls.map(call => new URL(call.url).pathname)).not.toContain('/api/v1/repos/acme/widgets/contents/docs')
   })
 })

@@ -1,0 +1,20 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/templates/issues/Bug"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"1b42e89cac22f2298ac9450ea61dbf5b\"",
+      "ratelimit-limit": "1",
+      "ratelimit-remaining": "50",
+      "ratelimit-reset": "1792105200",
+      "ratelimit-name": "unauthenticated_traffic_per_ip"
+    },
+    "body": {
+      "name": "Bug",
+      "content": "<!---\nPlease read this!\n\nBefore opening a new issue, make sure to search for keywords in the issues\nfiltered by the \"bug\" label:\n\n- https://gitlab.com/gitlab-org/cli/-/issues/?label_name%5B%5D=type%3A%3Abug\n\nand verify the issue you're about to submit isn't a duplicate.\n--->\n\n### Checklist\n\n<!-- Please test the latest versions, that will remove the possibility that you see a bug that is fixed in a newer version. -->\n\n- [ ] I'm using the latest version of the extension (Run `glab --version`)\n  - Extension version: _Put your extension version here_\n- [ ] Operating system and version: _Put your version here_\n- [ ] Gitlab.com or self-managed instance? _gitlab.com/self-managed instance/both_\n- [ ] GitLab version (if self-managed) _GitLab version here_\n  (Use the `version` endpoint, like this: gitlab.my-company.com/api/v4/version) \n- [ ] I have performed `glab auth status` to check for authentication issues\n- [ ] Run the command in debug mode (like `GLAB_DEBUG=true glab mr list`) and attach any useful output\n\n### Summary\n\n<!-- Summarize the bug encountered concisely -->\n\n### Environment\n\n<!--\n\non POSIX system (Linux, MacOS), run\n\nbash -c 'printf -- \"- OS: %s\\n- SHELL: %s\\n- TERM: %s\\n- GLAB: %s\" \"$(uname -srm)\" \"$SHELL\" \"$TERM\" \"$(glab --version)\"'\n\nand replace the following section with the result.\n\nIf you use non-POSIX system, fill in the section manually:\n\n- OS: Your operating system including version and architecture (Windows 11 - AMD64, MacOS Sonoma - ARM64)\n- SHELL: Your shell (bash, fish, zsh, ...)\n- TERM: Your terminal emulator (Kitty, Xterm2..)\n- GLAB: result of running `glab --version` (glab version 1.32.0 (2023-08-18))\n\n-->\n\n- OS:\n- SHELL:\n- TERM:\n- GLAB:\n\n<!--\nPlease include any other information that you believe might be relevant\nin debugging. For example, you may include a shell framework like oh-my-zsh\nor other customizations like editing the prompt (PS1, PS2, and others).\n-->\nOther:\n\n### Steps to reproduce\n\n<!-- How one can reproduce the issue - this is very important -->\n\n### What is the current _bug_ behavior?\n\n<!-- What actually happens -->\n\n### What is the expected _correct_ behavior?\n\n<!-- What you should see instead -->\n\n### Relevant logs and/or screenshots\n\n<!--- Paste the activity log from your command line -->\n\n### Possible fixes\n\n<!-- If you can, link to the line of code that might be responsible for the problem -->\n\n/label ~\"type::bug\" ~\"devops::ai clients\" ~\"group::developer clients\" ~\"category:gitlab cli\"\n"
+    }
+  }
+}

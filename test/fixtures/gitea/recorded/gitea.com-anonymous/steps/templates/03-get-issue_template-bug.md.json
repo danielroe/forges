@@ -1,0 +1,34 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitea.com/api/v1/repos/gitea/tea/contents/.gitea/issue_template/bug.md"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "name": "bug.md",
+      "path": ".gitea/issue_template/bug.md",
+      "sha": "b75142bd25ba6c6c030d8cc721e622c1d543792a",
+      "last_commit_sha": "7e700e36f89fcbd6c91249c75e4ce01456e65112",
+      "last_committer_date": "2024-07-18T18:11:32Z",
+      "last_author_date": "2024-07-18T18:11:32Z",
+      "type": "file",
+      "mode": "100644",
+      "size": 935,
+      "encoding": "base64",
+      "content": "LS0tCm5hbWU6ICJCdWcgUmVwb3J0IgphYm91dDogIlVzZSB0aGlzIHRlbXBsYXRlIHdoZW4gcmVwb3J0aW5nIGEgYnVnLCBzbyB5b3UgZG9uJ3QgZm9yZ2V0IGltcG9ydGFudCBpbmZvcm1hdGlvbiB3ZSdkIGFzayBmb3IgbGF0ZXIuIgp0aXRsZTogIkJ1ZzogIgpsYWJlbHM6IAotIGtpbmQvYnVnCi0tLQoKIyMjIGRlc2NyaWJlIHlvdXIgZW52aXJvbm1lbnQKLSB0ZWEgdmVyc2lvbiB1c2VkIChgdGVhIC12YCk6CiAgICAtIFsgXSBJIGFsc28gcmVwcm9kdWNlZCB0aGUgaXNzdWUgW3dpdGggdGhlIGxhdGVzdCBtYWluIGJ1aWxkXShodHRwczovL2RsLmdpdGVhLmNvbS90ZWEvbWFpbi8pCi0gR2l0ZWEgdmVyc2lvbiB1c2VkOgogICAgLSBbIF0gdGhlIGlzc3VlIG9ubHkgb2NjdXJyZWQgYWZ0ZXIgdXBkYXRpbmcgZ2l0ZWEgcmVjZW50bHkKLSBvcGVyYXRpbmcgc3lzdGVtOgotIEkgbWFrZSB1c2Ugb2YuLi4KICAgIC0gWyBdIG5vbi1zdGFuZGFyZCBkZWZhdWx0IGJyYW5jaCBuYW1lcyAobm8gYG1haW5gLGBtYXN0ZXJgLCBvciBgdHJ1bmtgKQogICAgLSBbIF0gLnNzaC9jb25maWcgb3IgLmdpdGNvbmZpZyBob3N0IGFsaWFzZXMgaW4gbXkgZ2l0IHJlbW90ZXMKICAgIC0gWyBdIHNzaF9hZ2VudCBvciBzaW1pbGFyCiAgICAtIFsgXSBub24tc3RhbmRhcmQgcG9ydHMgZm9yIGdpdGVhIGFuZC9vciBzc2gKICAgIC0gWyBdIHNvbWV0aGluZyBlbHNlIHRoYXQncyBsaWtlbHkgdG8gaW50ZXJhY3QgYmFkbHkgd2l0aCB0ZWE6IC4uLgoKClBsZWFzZSBwcm92aWRlIHRoZSBvdXRwdXQgb2YgYGdpdCByZW1vdGUgLXZgIChpZiB0aGUgaXNzdWUgaXMgcmVsYXRlZCB0byB0ZWEgbm90IGZpbmRpbmcgcmVzb3VyY2VzIG9uIEdpdGVhKToKYGBgCgpgYGAKCiMjIyBkZXNjcmliZSB0aGUgaXNzdWUgKG9ic2VydmVkIHZzIGV4cGVjdGVkIGJlaGF2aW91cikKCgo=",
+      "target": null,
+      "url": "https://gitea.com/api/v1/repos/gitea/tea/contents/.gitea/issue_template/bug.md?ref=main",
+      "html_url": "https://gitea.com/gitea/tea/src/branch/main/.gitea/issue_template/bug.md",
+      "git_url": "https://gitea.com/api/v1/repos/gitea/tea/git/blobs/b75142bd25ba6c6c030d8cc721e622c1d543792a",
+      "download_url": "https://gitea.com/gitea/tea/raw/branch/main/.gitea/issue_template/bug.md",
+      "submodule_git_url": null,
+      "_links": {
+        "self": "https://gitea.com/api/v1/repos/gitea/tea/contents/.gitea/issue_template/bug.md?ref=main",
+        "git": "https://gitea.com/api/v1/repos/gitea/tea/git/blobs/b75142bd25ba6c6c030d8cc721e622c1d543792a",
+        "html": "https://gitea.com/gitea/tea/src/branch/main/.gitea/issue_template/bug.md"
+      }
+    }
+  }
+}

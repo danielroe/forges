@@ -24,6 +24,7 @@ export const ROOT_TYPES = [
   'Comparison',
   'Contributor',
   'ContributorStats',
+  'RepoTemplate',
   'Cursor',
   'FileContent',
   'ForgeCapabilities',

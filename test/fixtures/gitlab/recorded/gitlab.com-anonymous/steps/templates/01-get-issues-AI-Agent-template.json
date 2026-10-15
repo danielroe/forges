@@ -1,0 +1,20 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/templates/issues/AI%20Agent%20template"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"fd40535ec6f55f174c08f18632197df8\"",
+      "ratelimit-limit": "500",
+      "ratelimit-remaining": "486",
+      "ratelimit-reset": "1792102080",
+      "ratelimit-name": "throttle_unauthenticated_api"
+    },
+    "body": {
+      "name": "AI Agent template",
+      "content": "# Epic: [Workstream] - Agent-[Agent Name]\n\n## Agent Overview\n\n- **Workstream**: [Your workstream]  \n- **Agent Role**: [What role does this agent play - e.g., Security Analyst, Test Engineer]\n- **Specialization**: [What domain expertise does this agent have]\n\n\n## Agent Capabilities\n\n- **Primary Functions**: [What can this agent do]\n- **Model Requirements**: [Which AI models work best for this agent]\n- **Tool/MCP Access**: [What tools/MCP servers does this agent need access to]\n- **Enterprise Controls**: [What permissions/governance does this agent need]\n\n\n## Integration Requirements  \n\n- **Used in Flows**: [Which flows will use this agent]\n- **Shared with Workstreams**: [Can other workstreams use this agent]\n- **Security Requirements**: [Any special security considerations]\n\n\n## Implementation Plan\n\n- [ ] Agent persona and instructions\n- [ ] Model selection and testing\n- [ ] Tool/MCP Dependencies and access permissions\n- [ ] Integration with flow orchestration\n- [ ] Testing with real scenarios\n\n## Links\n\n- [ ] **Parent Epic**: [Link to this main R&D Enablement epic]\n- [ ] **Related Flow Epics**: [Link flows that use this agent]\n- [ ] **Related Tool/MCP Issues**: [Link individual tool/integration issues]\n\n"
+    }
+  }
+}

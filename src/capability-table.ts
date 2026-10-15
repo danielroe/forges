@@ -45,6 +45,7 @@ const TABLE = [
   { capability: 'repos.collaborators', listing: true },
   { capability: 'repos.contributors', listing: true },
   { capability: 'repos.contributorStats' },
+  { capability: 'repos.templates' },
   { capability: 'repos.permissionFor' },
   { capability: 'repos.addCollaborator', write: true },
   { capability: 'repos.assignableUsers', listing: true },

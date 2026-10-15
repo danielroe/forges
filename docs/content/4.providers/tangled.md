@@ -201,6 +201,7 @@ A `push` delivery becomes a `push` or `ref` event. Tangled has no API to registe
 | `repos.collaborators` | ✅ | ✅ |
 | `repos.contributors` | ❌ | ❌ |
 | `repos.contributorStats` | ❌ | ❌ |
+| `repos.templates` | ❌ | ❌ |
 | `repos.permissionFor` | ✅ | ✅ |
 | `repos.addCollaborator` | ✅ | ❌ |
 | `repos.assignableUsers` | ❌ | ❌ |

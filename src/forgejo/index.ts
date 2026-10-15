@@ -12,6 +12,8 @@ import type {
   CommentRef,
   Commit,
   CommitFilesInput,
+  FileContent,
+  FileOptions,
   ForgeEventInput,
   ForgeWarning,
   ListOptions,
@@ -30,6 +32,8 @@ import type {
   Repo,
   RepoRef,
   RepoSearchQuery,
+  RepoTemplate,
+  RepoTemplateOptions,
   ResolvedThreadRef,
   Review,
   ReviewEvent,
@@ -66,6 +70,7 @@ import type {
   ForgejoFileCommit,
   ForgejoHook,
   ForgejoIssue,
+  ForgejoIssueTemplate,
   ForgejoLabel,
   ForgejoMilestone,
   ForgejoNotification,
@@ -87,13 +92,19 @@ import { changeBase64, existingFiles, fromBase64, inDirectories, toFileContent }
 import { defineForgeProvider, perKind, verb } from '../define.ts'
 import { BranchMovedError, ForgeError, NotFoundError, soleMergeMethod, toMergeError, UnsupportedOperationError } from '../errors.ts'
 import { isNamespaceRef, reactionContent } from '../model.ts'
-import { actorLogin, createListing, getManyConcurrently, hasEveryLabel, hexColour, hostOf, isFirstPage, memo, memoBy, milestoneId, rateLimitPart, requireIssueOrPull, requireThread, resolveToken, summariseChecks, teamOrg, toDate, toPage, toWarning, versionAtLeast } from '../utils.ts'
+import { actorLogin, createListing, getManyConcurrently, hasEveryLabel, hexColour, hostOf, isFirstPage, mapConcurrent, memo, memoBy, milestoneId, rateLimitPart, requireIssueOrPull, requireThread, resolveToken, summariseChecks, teamOrg, toDate, toPage, toWarning, versionAtLeast } from '../utils.ts'
 import { githubShapedWeb } from '../web.ts'
 import { nativeEventsFor } from '../webhooks.ts'
 import { ACTION_STATES, actionBranch, GITEA_ACTION_STATES, numberFromUrl, toActionJob, toActionRun, toActor, toBranch, toChangedFile, toComment, toCommit, toEvent, toFileCommit, toGiteaActionJob, toGiteaActionRun, toLabel, toMilestone, toNotification, toRelease, toRepo, toReview, toReviewComment, toRole, toStatusCheck, toStatusChecks, toTag, toTeam, toThread, toThreadKind, toTreeEntry, toWebhook } from './normalise.ts'
 import { countedNextUrl, countedPages } from './pages.ts'
 import { FORGEJO_HEADERS, FORGEJO_NATIVE_EVENTS } from './webhook-events.ts'
 import { forgejoWebhooks } from './webhooks.ts'
+
+const YAML_FILE = /\.ya?ml$/i
+
+/** The folders each web UI checks for a pull request template, in its order. Gitea skips `.forgejo` and `docs`. */
+const PULL_TEMPLATE_DIRECTORIES = { forgejo: ['', '.forgejo', '.gitea', '.github', 'docs'], gitea: ['', '.gitea', '.github'] }
+const PULL_TEMPLATE_FILES = ['PULL_REQUEST_TEMPLATE', 'pull_request_template'].flatMap(name => [`${name}.md`, `${name}.yaml`, `${name}.yml`])
 
 /** Forgejo and Gitea have no app-installation credential, so only tokens are accepted. */
 export type ForgejoAuth = TokenAuth | AnonymousAuth
@@ -221,8 +232,8 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
       const ref = head ?? input.branch
       const existing = await existingFiles(input.changes, inDirectories(async (directory) => {
         try {
-          const { data } = await fetcher.json<ForgejoContentFile[] | ForgejoContentFile>(`${repoPath(repo)}/contents${directory ? `/${directory.split('/').map(encodeURIComponent).join('/')}` : ''}`, { query: { ref }, signal })
-          return Array.isArray(data) ? new Map(data.filter(entry => entry.type === 'file' || entry.type === 'symlink').map(entry => [entry.path, entry.sha])) : undefined
+          const entries = await listDirectory(repo, directory, { ref, signal })
+          return entries && new Map(entries.filter(entry => entry.type === 'file' || entry.type === 'symlink').map(entry => [entry.path, entry.sha]))
         }
         catch (error) {
           if (error instanceof NotFoundError) {
@@ -646,6 +657,69 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
     return toPage(result, raw => toRepo(origin, raw))
   }
 
+  async function templates(repo: RepoRef, options: RepoTemplateOptions = {}): Promise<RepoTemplate[]> {
+    const [issues, pulls] = await Promise.all([
+      options.kind === 'pull_request' ? [] : issueTemplates(repo, options.signal),
+      options.kind === 'issue' ? [] : pullTemplate(repo, options.signal),
+    ])
+    return [...issues, ...pulls]
+  }
+
+  /** The API parses each template but drops its front matter and a form's YAML, so the file gets read too. */
+  async function issueTemplates(repo: RepoRef, signal?: AbortSignal): Promise<RepoTemplate[]> {
+    const { data } = await fetcher.json<ForgejoIssueTemplate[]>(`${repoPath(repo)}/issue_templates`, { signal })
+    return mapConcurrent(data ?? [], 4, async raw => ({
+      kind: 'issue' as const,
+      name: raw.name,
+      path: raw.file_name,
+      format: YAML_FILE.test(raw.file_name) ? 'form' as const : 'markdown' as const,
+      body: await readText(repo, raw.file_name, signal),
+      title: raw.title || undefined,
+      about: raw.about || undefined,
+      labels: raw.labels?.length ? raw.labels : undefined,
+      fields: raw.body?.map(field => ({ type: field.type, id: field.id || undefined, attributes: field.attributes ?? {}, validations: field.validations ?? undefined })),
+      raw,
+    }))
+  }
+
+  /** No API for pull request templates, so this finds the one file the web UI would pick. */
+  async function pullTemplate(repo: RepoRef, signal?: AbortSignal): Promise<RepoTemplate[]> {
+    const directories = PULL_TEMPLATE_DIRECTORIES[isGitea ? 'gitea' : 'forgejo']
+    const root = await listDirectory(repo, '', { signal }) ?? []
+    const nested = await Promise.all(directories.filter(directory => directory && root.some(entry => entry.type === 'dir' && entry.name === directory)).map(async directory => await listDirectory(repo, directory, { signal }) ?? []))
+    const files = new Map([root, ...nested].flat().filter(entry => entry.type === 'file').map(entry => [entry.path, entry]))
+    const entry = directories.flatMap(directory => PULL_TEMPLATE_FILES.map(name => files.get(directory ? `${directory}/${name}` : name))).find(Boolean)
+    if (!entry) {
+      return []
+    }
+    return [{ kind: 'pull_request', name: entry.name, path: entry.path, format: YAML_FILE.test(entry.name) ? 'form' : 'markdown', body: await readText(repo, entry.path, signal), raw: entry }]
+  }
+
+  async function readText(repo: RepoRef, path: string, signal?: AbortSignal): Promise<string> {
+    return (await readFile(repo, path, { as: 'text', signal })).content as string
+  }
+
+  /** The entries of a directory, `''` for the root, or `undefined` when the path names a file. */
+  async function listDirectory(repo: RepoRef, directory: string, options: { ref?: string, signal?: AbortSignal } = {}): Promise<ForgejoContentFile[] | undefined> {
+    const { data } = await fetcher.json<ForgejoContentFile[] | ForgejoContentFile>(`${repoPath(repo)}/contents${directory ? `/${directory.split('/').map(encodeURIComponent).join('/')}` : ''}`, { query: { ref: options.ref }, signal: options.signal })
+    return Array.isArray(data) ? data : undefined
+  }
+
+  /** Large files come back with a null `content`, so they come from the raw endpoint, which has no size limit. */
+  async function readFile(repo: RepoRef, path: string, fileOptions: FileOptions = {}): Promise<FileContent> {
+    const encoded = path.split('/').map(encodeURIComponent).join('/')
+    const { data } = await fetcher.json<ForgejoContentFile>(`${repoPath(repo)}/contents/${encoded}`, {
+      query: { ref: fileOptions.ref },
+      signal: fileOptions.signal,
+    })
+    const file = { path: data.path, sha: data.sha, size: data.size, url: data.html_url ?? undefined }
+    if (data.encoding === 'base64' && data.content) {
+      return toFileContent(fromBase64(data.content), file, fileOptions, context)
+    }
+    const response = await fetcher.raw(`${repoPath(repo)}/raw/${encoded}`, { query: { ref: fileOptions.ref }, signal: fileOptions.signal })
+    return toFileContent(new Uint8Array(await response.arrayBuffer()), file, fileOptions, context)
+  }
+
   return {
     traits: { eventKinds: 'native', authKinds: ['token', 'anonymous'] },
     search: {
@@ -684,6 +758,7 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
       }),
       assignableUsersPage: verb(!anonymous, (repo, listOptions = {}) => list(`${repoPath(repo)}/assignees`, listOptions, (raw: ForgejoUser) => toActor(origin, raw)!)),
       reviewerCandidatesPage: verb(!anonymous, (thread, listOptions = {}) => list(`${repoPath(requireThread(thread, context).repo)}/reviewers`, listOptions, (raw: ForgejoUser) => toActor(origin, raw)!)),
+      templates: verb(true, templates),
       eventsPage: verb(released(ACTIVITY_FEEDS), (repo, listOptions = {}) => feedPage(`${repoPath(repo)}/activities/feeds`, listOptions)),
     },
     orgs: {
@@ -745,20 +820,7 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
       log: verb(giteaAnonymous ? false : actions(FORGEJO_ACTION_JOBS, GITEA_ACTION_LOGS), async (ref, options) => (await fetcher.stream(`${repoPath(ref.repo)}/actions/jobs/${encodeURIComponent(ref.id)}/logs`, { signal: options?.signal })).body),
     },
     contents: {
-      file: verb(true, async (repo, path, fileOptions = {}) => {
-        const encoded = path.split('/').map(encodeURIComponent).join('/')
-        const { data } = await fetcher.json<ForgejoContentFile>(`${repoPath(repo)}/contents/${encoded}`, {
-          query: { ref: fileOptions.ref },
-          signal: fileOptions.signal,
-        })
-        const file = { path: data.path, sha: data.sha, size: data.size, url: data.html_url ?? undefined }
-        // Large files come back with a null `content`; the raw endpoint has no size limit.
-        if (data.encoding === 'base64' && data.content) {
-          return toFileContent(fromBase64(data.content), file, fileOptions, context)
-        }
-        const response = await fetcher.raw(`${repoPath(repo)}/raw/${encoded}`, { query: { ref: fileOptions.ref }, signal: fileOptions.signal })
-        return toFileContent(new Uint8Array(await response.arrayBuffer()), file, fileOptions, context)
-      }),
+      file: verb(true, readFile),
       treePage: verb(true, async (repo, treeOptions = {}) => {
         const ref = treeOptions.ref ?? 'HEAD'
         const { data, response } = await fetcher.json<ForgejoTree>(`${repoPath(repo)}/git/trees/${encodeURIComponent(ref)}`, {

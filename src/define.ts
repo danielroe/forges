@@ -120,6 +120,7 @@ export interface ProviderSpec<TExtensions extends object = Record<never, never>>
     collaboratorsPage?: Verb<ReposApi['collaboratorsPage']>
     contributorsPage?: Verb<ReposApi['contributorsPage']>
     contributorStats?: Verb<ReposApi['contributorStats']>
+    templates?: Verb<ReposApi['templates']>
     permissionFor?: Verb<ReposApi['permissionFor']>
     addCollaborator?: Verb<ReposApi['addCollaborator']>
     assignableUsersPage?: Verb<ReposApi['assignableUsersPage']>

@@ -9,7 +9,7 @@ import { graphqlOperations, graphqlUrl } from '../../src/github/graphql-client.t
 import { github } from '../../src/github/index.ts'
 import { toEvent, toNotification, toReason, toRepo } from '../../src/github/normalise.ts'
 import { commentMarker, notificationThread } from '../../src/model.ts'
-import { fixtureFetch, loadFixtures } from '../utils/fixtures.ts'
+import { contentsFile, contentsListing, fixtureFetch, loadFixtures } from '../utils/fixtures.ts'
 
 const { privateKey } = generateKeyPairSync('rsa', {
   modulusLength: 2048,
@@ -743,6 +743,106 @@ describe('github contributor statistics', () => {
     }
 
     expect(calls).toBe(6)
+  })
+})
+
+describe('github templates', () => {
+  const api = 'https://api.github.com/repos/acme'
+  const missing = { status: 404, body: { message: 'Not Found' } }
+
+  it('takes the pull request template from `.github` over the root and `docs`', async () => {
+    const { provider, calls } = tokenProvider({
+      [`GET ${api}/widgets/contents`]: contentsListing('.github/', 'docs/', 'pull_request_template.md'),
+      [`GET ${api}/widgets/contents/.github`]: contentsListing('.github/ISSUE_TEMPLATE/', '.github/PULL_REQUEST_TEMPLATE.md'),
+      [`GET ${api}/widgets/contents/docs`]: contentsListing('docs/pull_request_template.md'),
+      [`GET ${api}/widgets/contents/.github/ISSUE_TEMPLATE`]: contentsListing('.github/ISSUE_TEMPLATE/bug.yml', '.github/ISSUE_TEMPLATE/config.yml', '.github/ISSUE_TEMPLATE/question.md'),
+      [`GET ${api}/widgets/contents/.github/ISSUE_TEMPLATE/bug.yml`]: contentsFile('.github/ISSUE_TEMPLATE/bug.yml', 'name: Bug\nbody: []\n'),
+      [`GET ${api}/widgets/contents/.github/ISSUE_TEMPLATE/question.md`]: contentsFile('.github/ISSUE_TEMPLATE/question.md', '---\nname: Question\n---\nAsk away'),
+      [`GET ${api}/widgets/contents/.github/PULL_REQUEST_TEMPLATE.md`]: contentsFile('.github/PULL_REQUEST_TEMPLATE.md', '### Linked issue'),
+    })
+
+    const templates = await provider.repos.templates(repo)
+
+    expect(templates.map(({ kind, name, path, format, body, source }) => ({ kind, name, path, format, body, source }))).toEqual([
+      { kind: 'issue', name: 'bug.yml', path: '.github/ISSUE_TEMPLATE/bug.yml', format: 'form', body: 'name: Bug\nbody: []\n', source: undefined },
+      { kind: 'issue', name: 'question.md', path: '.github/ISSUE_TEMPLATE/question.md', format: 'markdown', body: '---\nname: Question\n---\nAsk away', source: undefined },
+      { kind: 'pull_request', name: 'PULL_REQUEST_TEMPLATE.md', path: '.github/PULL_REQUEST_TEMPLATE.md', format: 'markdown', body: '### Linked issue', source: undefined },
+    ])
+    expect(calls.some(call => call.url.includes('/acme/.github/'))).toBe(false)
+  })
+
+  it('falls back to the owner\'s `.github` repository only for the kinds the repository leaves out', async () => {
+    const { provider, calls } = tokenProvider({
+      [`GET ${api}/widgets/contents`]: contentsListing('.github/', 'README.md'),
+      [`GET ${api}/widgets/contents/.github`]: contentsListing('.github/ISSUE_TEMPLATE/'),
+      [`GET ${api}/widgets/contents/.github/ISSUE_TEMPLATE`]: contentsListing('.github/ISSUE_TEMPLATE/config.yml'),
+      [`GET ${api}/.github/contents`]: contentsListing('.github/', 'pull_request_template.md'),
+      [`GET ${api}/.github/contents/.github`]: contentsListing('.github/ISSUE_TEMPLATE/'),
+      [`GET ${api}/.github/contents/.github/ISSUE_TEMPLATE`]: contentsListing('.github/ISSUE_TEMPLATE/bug.yml'),
+      [`GET ${api}/.github/contents/.github/ISSUE_TEMPLATE/bug.yml`]: contentsFile('.github/ISSUE_TEMPLATE/bug.yml', 'name: Bug\n'),
+      [`GET ${api}/.github/contents/pull_request_template.md`]: contentsFile('pull_request_template.md', 'Thanks!'),
+    })
+
+    const templates = await provider.repos.templates(repo)
+
+    expect(templates).toEqual([expect.objectContaining({ kind: 'pull_request', path: 'pull_request_template.md', body: 'Thanks!', source: { forge: 'github', instance: 'github.com', owner: 'acme', name: '.github' } })])
+    expect(calls.map(call => new URL(call.url).pathname)).not.toContain('/repos/acme/.github/contents/.github/ISSUE_TEMPLATE')
+  })
+
+  it('keeps the repository\'s own templates when the `.github` fallback fails', async () => {
+    const refused = { status: 403, body: { message: 'Resource not accessible by integration' } }
+    const own = {
+      [`GET ${api}/widgets/contents`]: contentsListing('PULL_REQUEST_TEMPLATE.md'),
+      [`GET ${api}/widgets/contents/PULL_REQUEST_TEMPLATE.md`]: contentsFile('PULL_REQUEST_TEMPLATE.md', 'What changed'),
+      [`GET ${api}/.github/contents`]: refused,
+    }
+
+    await expect(tokenProvider(own).provider.repos.templates(repo)).resolves.toMatchObject([{ kind: 'pull_request', body: 'What changed' }])
+    await expect(tokenProvider({ [`GET ${api}/widgets/contents`]: contentsListing('README.md'), [`GET ${api}/.github/contents`]: refused }).provider.repos.templates(repo)).rejects.toBeInstanceOf(InsufficientScopeError)
+  })
+
+  it('finds nothing when the owner has no `.github` repository', async () => {
+    const { provider } = tokenProvider({
+      [`GET ${api}/widgets/contents`]: contentsListing('README.md'),
+      [`GET ${api}/.github/contents`]: missing,
+    })
+
+    await expect(provider.repos.templates(repo)).resolves.toEqual([])
+  })
+
+  it('reads the legacy single issue template when the repository has no template folder', async () => {
+    const { provider } = tokenProvider({
+      [`GET ${api}/widgets/contents`]: contentsListing('ISSUE_TEMPLATE.md', 'PULL_REQUEST_TEMPLATE.md'),
+      [`GET ${api}/widgets/contents/ISSUE_TEMPLATE.md`]: contentsFile('ISSUE_TEMPLATE.md', 'Steps to reproduce'),
+      [`GET ${api}/widgets/contents/PULL_REQUEST_TEMPLATE.md`]: contentsFile('PULL_REQUEST_TEMPLATE.md', 'What changed'),
+    })
+
+    const templates = await provider.repos.templates(repo)
+
+    expect(templates.map(({ kind, path, format }) => ({ kind, path, format }))).toEqual([
+      { kind: 'issue', path: 'ISSUE_TEMPLATE.md', format: 'markdown' },
+      { kind: 'pull_request', path: 'PULL_REQUEST_TEMPLATE.md', format: 'markdown' },
+    ])
+  })
+
+  it('reads every template of a `PULL_REQUEST_TEMPLATE` folder after the default one', async () => {
+    const { provider } = tokenProvider({
+      [`GET ${api}/widgets/contents`]: contentsListing('docs/', 'pull_request_template.md'),
+      [`GET ${api}/widgets/contents/docs`]: contentsListing('docs/PULL_REQUEST_TEMPLATE/'),
+      [`GET ${api}/widgets/contents/docs/PULL_REQUEST_TEMPLATE`]: contentsListing('docs/PULL_REQUEST_TEMPLATE/hotfix.md'),
+      [`GET ${api}/widgets/contents/pull_request_template.md`]: contentsFile('pull_request_template.md', 'Default'),
+      [`GET ${api}/widgets/contents/docs/PULL_REQUEST_TEMPLATE/hotfix.md`]: contentsFile('docs/PULL_REQUEST_TEMPLATE/hotfix.md', 'Hotfix'),
+    })
+
+    const templates = await provider.repos.templates(repo, { kind: 'pull_request' })
+
+    expect(templates.map(template => template.body)).toEqual(['Default', 'Hotfix'])
+  })
+
+  it('rejects with NotFoundError for a repository that does not exist', async () => {
+    const { provider } = tokenProvider({ [`GET ${api}/widgets/contents`]: missing })
+
+    await expect(provider.repos.templates(repo)).rejects.toBeInstanceOf(NotFoundError)
   })
 })
 

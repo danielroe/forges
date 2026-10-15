@@ -1,0 +1,14 @@
+[
+  {
+    "kind": "issue",
+    "name": "Bug Report",
+    "path": ".gitea/issue_template/bug.md",
+    "format": "markdown",
+    "body": "---\nname: \"Bug Report\"\nabout: \"Use this template when reporting a bug, so you don't forget important information we'd ask for later.\"\ntitle: \"Bug: \"\nlabels: \n- kind/bug\n---\n\n### describe your environment\n- tea version used (`tea -v`):\n    - [ ] I also reproduced the issue [with the latest main build](https://dl.gitea.com/tea/main/)\n- Gitea version used:\n    - [ ] the issue only occurred after updating gitea recently\n- operating system:\n- I make use of...\n    - [ ] non-standard default branch names (no `main`,`master`, or `trunk`)\n    - [ ] .ssh/config or .gitconfig host aliases in my git remotes\n    - [ ] ssh_agent or similar\n    - [ ] non-standard ports for gitea and/or ssh\n    - [ ] something else that's likely to interact badly with tea: ...\n\n\nPlease provide the output of `git remote -v` (if the issue is related to tea not finding resources on Gitea):\n```\n\n```\n\n### describe the issue (observed vs expected behaviour)\n\n\n",
+    "title": "Bug: ",
+    "about": "Use this template when reporting a bug, so you don't forget important information we'd ask for later.",
+    "labels": [
+      "kind/bug"
+    ]
+  }
+]

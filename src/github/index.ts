@@ -46,6 +46,8 @@ import type {
   RepoRef,
   RepoRole,
   RepoSearchQuery,
+  RepoTemplate,
+  RepoTemplateOptions,
   ResolvedThreadRef,
   Review,
   ReviewEvent,
@@ -1339,6 +1341,20 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
     return toFileContent(fromBase64(content), file, fileOptions, context)
   }
 
+  async function templates(repo: RepoRef, options: RepoTemplateOptions = {}): Promise<RepoTemplate[]> {
+    const signal = options.signal
+    return (await import('./templates.ts')).readTemplates(
+      repo,
+      options.kind ? [options.kind] : ['issue', 'pull_request'],
+      async (ref, path) => {
+        const { data } = await fetcher.json<GitHubContentFile[] | GitHubContentFile>(`${repoPath(ref)}/contents${path ? `/${path.split('/').map(encodeURIComponent).join('/')}` : ''}`, { signal })
+        return Array.isArray(data) ? data : []
+      },
+      async (ref, path) => (await readFile(ref, path, { as: 'text', signal })).content as string,
+      signal,
+    )
+  }
+
   async function treePage(repo: RepoRef, treeOptions: TreeOptions = {}): Promise<Page<TreeEntry>> {
     const ref = treeOptions.ref ?? 'HEAD'
     const target = treeOptions.path ? `${ref}:${treeOptions.path.replace(/^\/|\/$/g, '')}` : ref
@@ -1819,6 +1835,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
       collaboratorsPage: verb(!anonymous, (repo, listOptions = {}) => list(`${repoPath(repo)}/collaborators`, listOptions, (raw: GitHubCollaborator) => toCollaborator(instance, raw))),
       contributorsPage: verb(true, (repo, listOptions = {}) => list(`${repoPath(repo)}/contributors`, listOptions, (raw: GitHubContributor) => toContributor(instance, raw), { query: { anon: 1 } })),
       contributorStats: verb(true, contributorStats),
+      templates: verb(true, templates),
       permissionFor: verb(!anonymous, async (repo, actor, options) => {
         const { data } = await fetcher.json<{ permission?: string, role_name?: string, user?: GitHubCollaborator }>(
           `${repoPath(repo)}/collaborators/${encodeURIComponent(actorLogin(actor))}/permission`,

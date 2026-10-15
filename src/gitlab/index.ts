@@ -31,6 +31,8 @@ import type {
   RepoRef,
   RepoRole,
   RepoSearchQuery,
+  RepoTemplate,
+  RepoTemplateOptions,
   ResolvedThreadRef,
   Review,
   SearchQuery,
@@ -81,6 +83,8 @@ import type {
   GitLabProjectDetail,
   GitLabProjectSettings,
   GitLabRelease,
+  GitLabTemplate,
+  GitLabTemplateName,
   GitLabTodo,
   GitLabUser,
   GitLabVulnerability,
@@ -89,7 +93,7 @@ import { changeBase64, existingFiles, fromBase64, toFileContent } from '../conte
 import { defineForgeProvider, perKind, verb } from '../define.ts'
 import { AuthenticationRequiredError, BranchMovedError, ForgeApiError, InsufficientScopeError, NotFoundError, soleMergeMethod, TokenRevokedError, toMergeError, UnresolvedThreadError, UnsupportedOperationError } from '../errors.ts'
 import { isNamespaceRef, reactionContent } from '../model.ts'
-import { createListing, degradesToWarning, firstPageEtag, getManyConcurrently, hexColour, isFirstPage, memo, memoBy, mergeCommitMessage, milestoneId, phased, rateLimitPart, requireIssueOrPull, requireThread, resolveToken, syntheticReview, teamOrg, toDate, toPage, toWarning, versionAtLeast, withEtag } from '../utils.ts'
+import { createListing, degradesToWarning, firstPageEtag, getManyConcurrently, hexColour, isFirstPage, iteratePages, mapConcurrent, memo, memoBy, mergeCommitMessage, milestoneId, phased, rateLimitPart, requireIssueOrPull, requireThread, resolveToken, syntheticReview, teamOrg, toDate, toPage, toWarning, versionAtLeast, withEtag } from '../utils.ts'
 import { webUrlFor } from '../web.ts'
 import { nativeEventsFor } from '../webhooks.ts'
 import {
@@ -283,6 +287,21 @@ const GITLAB: ProviderDefinition<GitLabOptions, undefined, true> = {
 
     function projectPath(repo: RepoRef): string {
       return `/projects/${projectId(repo)}`
+    }
+
+    /** The listing gives only names, group templates included, so every body costs one more request. */
+    async function templates(repo: RepoRef, options: RepoTemplateOptions = {}): Promise<RepoTemplate[]> {
+      const signal = options.signal
+      const kinds = options.kind ? [options.kind] : ['issue', 'pull_request'] as const
+      const found = await Promise.all(kinds.map(async (kind) => {
+        const type = kind === 'issue' ? 'issues' : 'merge_requests'
+        const names = await Array.fromAsync(iteratePages(listOptions => list(`${projectPath(repo)}/templates/${type}`, { ...listOptions, perPage: 100, signal }, (raw: GitLabTemplateName) => raw)))
+        return mapConcurrent(names, 4, async ({ key }) => {
+          const { data } = await fetcher.json<GitLabTemplate>(`${projectPath(repo)}/templates/${type}/${encodeURIComponent(key)}`, { signal })
+          return { kind, name: data.name, format: 'markdown', body: data.content, raw: data } satisfies RepoTemplate
+        })
+      }))
+      return found.flat()
     }
 
     /** GitLab has no write that creates or updates, so each file is looked up first, at the commit the change builds on. */
@@ -791,6 +810,7 @@ const GITLAB: ProviderDefinition<GitLabOptions, undefined, true> = {
         })).data)),
         milestonesPage: verb(!anonymous, milestonesPage),
         collaboratorsPage: verb(!anonymous, (repo, listOptions = {}) => list(`${projectPath(repo)}/members/all`, listOptions, (raw: GitLabMember) => ({ actor: toActor(instance, raw)!, role: toRole(raw.access_level), roleRaw: String(raw.access_level), raw }))),
+        templates: verb(true, templates),
         contributorsPage: verb(true, (repo, listOptions = {}) => list(`${projectPath(repo)}/repository/contributors`, listOptions, (raw: GitLabContributor) => ({ name: raw.name || undefined, email: raw.email || undefined, contributions: raw.commits, raw }), { query: { order_by: 'commits', sort: 'desc' } })),
         permissionFor: verb(!anonymous, async (repo, actor, options) => {
           try {

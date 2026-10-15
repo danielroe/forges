@@ -105,6 +105,12 @@ GitHub links at most the first 500 author emails in a repository to accounts. A 
 
 GitHub computes the statistics behind `repos.contributorStats()` in the background, and responds with `202 Accepted` until they are ready. The provider asks again for about 15 seconds, and then throws a `ForgeApiError` with status `202`, so you can try again later. The statistics leave out merge commits and empty commits. In a repository with 10,000 or more commits, GitHub reports `0` lines added and deleted for every week.
 
+## Templates
+
+GitHub has no REST endpoint for templates, and GraphQL's `issueTemplates` quietly skips issue forms. So `repos.templates()` walks the folders GitHub itself reads: `.github/ISSUE_TEMPLATE/` for issues, and `.github/`, the root or `docs/` for the pull request template, first match wins. Every file in a `PULL_REQUEST_TEMPLATE/` folder comes after it. It's one request per folder and one per template.
+
+When a repository has nothing of a kind, the templates come from the owner's `.github` repository, like on the web, and carry it in `source`. A lone `config.yml` in `.github/ISSUE_TEMPLATE/` still counts as having issue templates, so GitHub skips the fallback, and so does the provider. GitHub parses neither forms nor front matter for you, so `body` is the raw file and `fields` stays empty.
+
 ## Merging
 
 If you call `merge()` without a `method`, the provider asks GitHub which merge methods the repository allows. When exactly one method is allowed, it uses that one. When several are allowed, it can't choose for you and throws `MergeMethodRequiredError`.
@@ -286,6 +292,7 @@ Deliveries of the `installation` and `installation_repositories` events become `
 | `repos.collaborators` | ✅ | ✅ | ✅ | ❌ | ❌ |
 | `repos.contributors` | ✅ | ✅ | ✅ | ❌ | ✅ |
 | `repos.contributorStats` | ✅ | ✅ | ✅ | ❌ | ✅ |
+| `repos.templates` | ✅ | ✅ | ✅ | ❌ | ✅ |
 | `repos.permissionFor` | ✅ | ✅ | ✅ | ❌ | ❌ |
 | `repos.addCollaborator` | ✅ | ✅ | ✅ | ❌ | ❌ |
 | `repos.assignableUsers` | ✅ | ✅ | ✅ | ❌ | ✅ |

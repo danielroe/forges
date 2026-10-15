@@ -278,6 +278,21 @@ export interface ForgejoReviewComment {
   pull_request_review_id?: number
 }
 
+export interface ForgejoIssueTemplate {
+  name: string
+  title?: string
+  about?: string
+  labels?: string[] | null
+  file_name: string
+  content?: string
+  body?: Array<{
+    type: string
+    id?: string
+    attributes?: Record<string, unknown> | null
+    validations?: Record<string, unknown> | null
+  }> | null
+}
+
 export interface ForgejoContentFile {
   type: string
   name: string

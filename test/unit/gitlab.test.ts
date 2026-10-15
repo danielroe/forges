@@ -787,3 +787,17 @@ describe('gitlab organisation subgroups and members', () => {
     expect(anonymous.can('orgs.teamMembers')).toBe(false)
   })
 })
+
+describe('gitlab templates', () => {
+  it('reads each merge request template by its key, and leaves issue templates alone when asked for one kind', async () => {
+    const { instance, calls } = provider({
+      [`GET ${P}/templates/merge_requests?per_page=100`]: { status: 200, body: [{ key: 'Security fix', name: 'Security fix' }] },
+      [`GET ${P}/templates/merge_requests/Security%20fix`]: { status: 200, body: { name: 'Security fix', content: '## Impact\n' } },
+    })
+
+    const templates = await instance.repos.templates(repo, { kind: 'pull_request' })
+
+    expect(templates).toEqual([{ kind: 'pull_request', name: 'Security fix', format: 'markdown', body: '## Impact\n', raw: { name: 'Security fix', content: '## Impact\n' } }])
+    expect(calls.some(call => call.url.includes('/templates/issues'))).toBe(false)
+  })
+})

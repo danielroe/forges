@@ -1,0 +1,35 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/contents/.forgejo/issue_template/2-enhancement.yaml"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "ratelimit": "\"baseline\";r=1992;t=600",
+      "ratelimit-policy": "\"baseline\";q=2000;w=600"
+    },
+    "body": {
+      "name": "2-enhancement.yaml",
+      "path": ".forgejo/issue_template/2-enhancement.yaml",
+      "sha": "68594152b60a0841319a3937dacfea77e92ede9c",
+      "last_commit_sha": "7894e1bb8fe95c409905797d720074454ccd0980",
+      "last_commit_when": "2026-01-21T14:54:15+01:00",
+      "type": "file",
+      "size": 2221,
+      "encoding": "base64",
+      "content": "bmFtZTogIlN0ZXAgMjogRW5oYW5jZW1lbnQiCmRlc2NyaXB0aW9uOiAiW0FkdmFuY2VkIHVzZXJzIG9ubHldIFN1Z2dlc3QgYSBzb2x1dGlvbiB0byBvbmUgb3IgbXVsdGlwbGUgcHJvYmxlbXMgdGhhdCBoYXZlIGFscmVhZHkgYmVlbiByZXBvcnRlZCAoc2VlIHN0ZXAgMSkuIgp0aXRsZTogImVuaDogIgpsYWJlbHM6IFsiZW5oYW5jZW1lbnQvZmVhdHVyZSJdCmJvZHk6Ci0gdHlwZTogbWFya2Rvd24KICBhdHRyaWJ1dGVzOgogICAgdmFsdWU6IHwKICAgICAgLSBQbGVhc2Ugc3BlYWsgRW5nbGlzaCwgYXMgdGhpcyBpcyB0aGUgbGFuZ3VhZ2UgYWxsIG1haW50YWluZXJzIGNhbiBzcGVhayBhbmQgd3JpdGUuCiAgICAgIC0gQmUgY2l2aWwsIGFuZCBmb2xsb3cgdGhlIFtGb3JnZWpvIENvZGUgb2YgQ29uZHVjdF0oaHR0cHM6Ly9jb2RlYmVyZy5vcmcvZm9yZ2Vqby9jb2RlLW9mLWNvbmR1Y3QpLgotIHR5cGU6IG1hcmtkb3duCiAgYXR0cmlidXRlczoKICAgIHZhbHVlOiB8CiAgICAgICMjIyBOZXcgd29ya2Zsb3cKICAgICAgCiAgICAgIFdlIGFyZSBjdXJyZW50bHkgZXhwZXJpbWVudGluZyB3aXRoIGEgbmV3IHdvcmtmbG93IHRvIG1hbmFnZSBpc3N1ZXMgYW5kIGJldHRlciB1bmRlcnN0YW5kIHlvdXIgcHJvYmxlbXMgYW5kIG5lZWRzLiBUaGlzIGlzIHN0ZXAgMiBvZiB0aGUgd29ya2Zsb3csIHdoaWNoIGlzIGludGVuZGVkIGZvciBGb3JnZWpvIGNvbnRyaWJ1dG9yczogSWYgeW91IGp1c3Qgd2FudCB0byByYWlzZSBhIHByb2JsZW0gb3IgbmVlZCB5b3UgaGF2ZSwgcGxlYXNlIHJlZmVyIHRvIHN0ZXAgMS4KICAgICAgCiAgICAgIFRoaXMgc3RlcCBhbGxvd3MgdG8gZG9jdW1lbnQgYSBzb2x1dGlvbiB0byBvbmUgb3IgbXVsdGlwbGUgcHJvYmxlbXMuIEl0IGFsbG93cyBkZXZlbG9wZXJzIHRvIGZvY3VzIG9uIGFjdGlvbmFibGUgaW1wbGVtZW50YXRpb24gdGFza3Mgd2l0aG91dCB0aGUgY2x1dHRlciBvZiBwcmV2aW91cyBkaXNjdXNzaW9ucyBvciB0cmlhZ2luZyB3b3JrLgogICAgICAKICAgICAgSWYgeW91IHdhbnQgdG8gbGVhcm4gbW9yZSBhYm91dCB0aGUgYmFja2dyb3VuZCBvZiBvdXIgd29ya2Zsb3csIGZlZWwgaW52aXRlZCB0byByZWFkIGFuZCBwYXJ0aWNpcGF0ZSBpbiBbdGhlIGRpc2N1c3Npb24gdGhhdCBsZWQgdG8gdGhlIGN1cnJlbnQgYXBwcm9hY2hdKGh0dHBzOi8vY29kZWJlcmcub3JnL2Zvcmdlam8vZGlzY3Vzc2lvbnMvaXNzdWVzLzQxNSkuIFdlIGFyZSBsb29raW5nIGZvcndhcmQgdG8geW91ciBmZWVkYmFjay4KLSB0eXBlOiB0ZXh0YXJlYQogIGlkOiBwcm9ibGVtcwogIGF0dHJpYnV0ZXM6CiAgICBsYWJlbDogRXhpc3RpbmcgcHJvYmxlbXMgdGhpcyBlbmhhbmNlbWVudCBhZGRyZXNzZXMKICAgIGRlc2NyaXB0aW9uOiBPbmx5IGxpc3QgdGhlIGlzc3VlIG51bWJlcnMgb2YgdGhlICoqZXhpc3RpbmcqKiBwcm9ibGVtcyB0aGF0IHlvdXIgcHJvcG9zYWwgYWRkcmVzc2VzLiAqKkRvIG5vdCBhZGQgbmV3IGRlc2NyaXB0aW9ucy4qKiBJZiB5b3UgaGF2ZW4ndCBwcmV2aW91c2x5IGRlc2NyaWJlZCBhIHByb2JsZW0sIHBsZWFzZSBbY29tcGxldGUgc3RlcCBvbmUgb2YgdGhlIHdvcmtmbG93XShodHRwczovL2NvZGViZXJnLm9yZy9mb3JnZWpvL2Zvcmdlam8vaXNzdWVzL25ldz90ZW1wbGF0ZT0uZm9yZ2VqbyUyZmlzc3VlX3RlbXBsYXRlJTJmcHJvYmxlbS55YW1sKSBhbmQgZGVzY3JpYmUgdGhlIHByb2JsZW0geW91J2QgbGlrZSB0byBzb2x2ZSBmaXJzdC4KICB2YWxpZGF0aW9uczoKICAgIHJlcXVpcmVkOiB0cnVlCi0gdHlwZTogdGV4dGFyZWEKICBpZDogZGVzY3JpcHRpb24KICBhdHRyaWJ1dGVzOgogICAgbGFiZWw6IEVuaGFuY2VtZW50IGRlc2NyaXB0aW9uCiAgICBkZXNjcmlwdGlvbjogRGVzY3JpYmUgdGhlIGNoYW5nZXMgeW91IHN1Z2dlc3QgZm9yIEZvcmdlam8gYW5kIGV4cGxhaW4gaG93IHRoZXkgYWRkcmVzcyB0aGUgcHJvYmxlbXMuCiAgdmFsaWRhdGlvbnM6CiAgICByZXF1aXJlZDogdHJ1ZQotIHR5cGU6IHRleHRhcmVhCiAgaWQ6IGRldGFpbHMKICBhdHRyaWJ1dGVzOgogICAgbGFiZWw6IERldGFpbHMgYW5kIG5vdGVzCiAgICBkZXNjcmlwdGlvbjogRmVlbCBmcmVlIHRvIHN1cHBseSBhZGRpdGlvbmFsIGluZm9ybWF0aW9uIGxpa2UgdGVjaG5pY2FsIGNvbnNpZGVyYXRpb25zLCBsaW5rIHRvIGFsdGVybmF0aXZlIHNvbHV0aW9ucywgVUkgbW9ja3VwcyBldGMuCg==",
+      "target": null,
+      "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/contents/.forgejo/issue_template/2-enhancement.yaml?ref=forgejo",
+      "html_url": "https://codeberg.org/forgejo/forgejo/src/branch/forgejo/.forgejo/issue_template/2-enhancement.yaml",
+      "git_url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/blobs/68594152b60a0841319a3937dacfea77e92ede9c",
+      "download_url": "https://codeberg.org/forgejo/forgejo/raw/branch/forgejo/.forgejo/issue_template/2-enhancement.yaml",
+      "submodule_git_url": null,
+      "_links": {
+        "self": "https://codeberg.org/api/v1/repos/forgejo/forgejo/contents/.forgejo/issue_template/2-enhancement.yaml?ref=forgejo",
+        "git": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/blobs/68594152b60a0841319a3937dacfea77e92ede9c",
+        "html": "https://codeberg.org/forgejo/forgejo/src/branch/forgejo/.forgejo/issue_template/2-enhancement.yaml"
+      }
+    }
+  }
+}

@@ -268,6 +268,7 @@ export const EXPLORER_OPERATIONS: ExplorerOperation[] = [
   repoRead('repos.collaborators', 'Page<Collaborator>', (p, _, { repo }) => p.repos.collaboratorsPage(repo, perPage)),
   repoRead('repos.contributors', 'Page<Contributor>', (p, _, { repo }) => p.repos.contributorsPage(repo, perPage)),
   repoRead('repos.contributorStats', 'ContributorStats[]', (p, _, { repo }) => p.repos.contributorStats(repo)),
+  repoRead('repos.templates', 'RepoTemplate[]', (p, _, { repo }) => p.repos.templates(repo)),
   operation('repos.permissionFor', { returns: 'RepoRole', fields: fields('login'), args: ({ value }) => `repo, ${value('login')}` }),
   repoRead('repos.assignableUsers', 'Page<Actor>', (p, _, { repo }) => p.repos.assignableUsersPage(repo, perPage)),
   repoRead('repos.events', 'Page<ForgeEvent>', (p, _, { repo }) => p.repos.eventsPage(repo, perPage)),

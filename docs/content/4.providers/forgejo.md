@@ -77,6 +77,12 @@ Forgejo can't check the head of a branch as it commits, so with `expectedHead`, 
 
 Forgejo refuses to write over a symlink, so a change with contents for one rejects with a `422` `ForgeApiError`. Deleting a symlink works.
 
+## Templates
+
+Issue templates come from Forgejo's own API, which does the parsing: `title`, `about`, `labels` and the `fields` of a form. It drops the front matter and a form's YAML, though, so the provider reads each file once more for `body`.
+
+Pull request templates have no endpoint at all. The provider picks the one file the web UI would fill a new pull request with: `PULL_REQUEST_TEMPLATE` or `pull_request_template`, as `.md`, `.yaml` or `.yml`, in the root, `.forgejo/`, `.gitea/`, `.github/` or `docs/`, in that order. Gitea looks only in the root, `.gitea/` and `.github/`.
+
 ## Listing an owner's repositories
 
 `repos.byOwner()` reads the repositories of a user or an organisation from the same listing, oldest first. Forgejo can't filter or sort that listing, so the provider filters by `visibility` itself, and if you ask for any other order, you get a `sort_unsupported` warning.
@@ -148,6 +154,7 @@ A label delivery doesn't say which labels were added or removed. When the set of
 | `repos.collaborators` | ✅ | ❌ |
 | `repos.contributors` | ❌ | ❌ |
 | `repos.contributorStats` | ❌ | ❌ |
+| `repos.templates` | ✅ | ✅ |
 | `repos.permissionFor` | ✅ | ❌ |
 | `repos.addCollaborator` | ✅ | ❌ |
 | `repos.assignableUsers` | ✅ | ❌ |

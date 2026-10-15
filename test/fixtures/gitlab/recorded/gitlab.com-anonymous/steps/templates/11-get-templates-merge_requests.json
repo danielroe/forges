@@ -1,0 +1,32 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/templates/merge_requests?per_page=100"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "<https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/templates/merge_requests?id=gitlab-org%2Fcli&page=1&per_page=100&type=merge_requests>; rel=\"first\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/templates/merge_requests?id=gitlab-org%2Fcli&page=1&per_page=100&type=merge_requests>; rel=\"last\"",
+      "etag": "W/\"949de7637cd757d9bcf2c4ae176a826b\"",
+      "ratelimit-limit": "500",
+      "ratelimit-remaining": "495",
+      "ratelimit-reset": "1792102080",
+      "ratelimit-name": "throttle_unauthenticated_api",
+      "x-total": "2",
+      "x-total-pages": "1",
+      "x-next-page": "",
+      "x-page": "1",
+      "x-per-page": "100"
+    },
+    "body": [
+      {
+        "key": "Default",
+        "name": "Default"
+      },
+      {
+        "key": "Documentation",
+        "name": "Documentation"
+      }
+    ]
+  }
+}

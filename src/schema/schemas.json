@@ -1434,6 +1434,10 @@
             "$ref": "#/components/schemas/Support",
             "description": "Support for `repos.contributorStats()`."
           },
+          "templates": {
+            "$ref": "#/components/schemas/Support",
+            "description": "Support for `repos.templates()`."
+          },
           "permissionFor": {
             "$ref": "#/components/schemas/Support",
             "description": "Support for `repos.permissionFor()`."
@@ -1465,6 +1469,7 @@
           "collaborators",
           "contributors",
           "contributorStats",
+          "templates",
           "permissionFor",
           "addCollaborator",
           "assignableUsers",
@@ -3346,6 +3351,103 @@
     ],
     "description": "A collaborator's role, highest first. `'none'` is an explicit absence of access.",
     "x-forges-type": "RepoRole"
+  },
+  "RepoTemplate": {
+    "type": "object",
+    "properties": {
+      "kind": {
+        "type": "string",
+        "enum": [
+          "issue",
+          "pull_request"
+        ],
+        "description": "What the template opens."
+      },
+      "name": {
+        "type": "string",
+        "description": "The name the forge shows for the template, or its file name where the forge shows none."
+      },
+      "path": {
+        "type": "string",
+        "description": "The file the template lives in. GitLab doesn't say."
+      },
+      "format": {
+        "type": "string",
+        "enum": [
+          "markdown",
+          "form"
+        ],
+        "description": "`'form'` for a form written in YAML, `'markdown'` for the rest."
+      },
+      "body": {
+        "type": "string",
+        "description": "The template as the repository stores it: Markdown with any front matter, or the YAML of a form."
+      },
+      "title": {
+        "type": "string",
+        "description": "The title a new thread starts with, where the forge parses one."
+      },
+      "about": {
+        "type": "string",
+        "description": "What the template is for, where the forge parses it."
+      },
+      "labels": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "description": "Labels a new thread gets, where the forge parses them."
+      },
+      "fields": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/RepoTemplateField"
+        },
+        "description": "The fields of a form, where the forge parses them."
+      },
+      "source": {
+        "$ref": "#/components/schemas/RepoRef",
+        "description": "Where the template comes from when the forge falls back to another repository, like GitHub's `.github`."
+      },
+      "raw": {}
+    },
+    "required": [
+      "kind",
+      "name",
+      "format",
+      "body",
+      "raw"
+    ],
+    "description": "An issue or pull request template of a repository, as `repos.templates()` reads it.",
+    "x-forges-type": "RepoTemplate"
+  },
+  "RepoTemplateField": {
+    "type": "object",
+    "properties": {
+      "type": {
+        "type": "string",
+        "description": "The kind of input, such as `'input'`, `'textarea'`, `'dropdown'`, `'checkboxes'` or `'markdown'`."
+      },
+      "id": {
+        "type": "string"
+      },
+      "attributes": {
+        "type": "object",
+        "additionalProperties": {},
+        "description": "The field's label, description, options and default value, as the form declares them."
+      },
+      "validations": {
+        "type": "object",
+        "additionalProperties": {},
+        "description": "Whether the field is required, and other checks the form declares."
+      }
+    },
+    "required": [
+      "type",
+      "attributes"
+    ],
+    "description": "One field of an issue form, as the forge parses it.",
+    "x-forges-type": "RepoTemplateField"
   },
   "RepoVisibility": {
     "type": "string",

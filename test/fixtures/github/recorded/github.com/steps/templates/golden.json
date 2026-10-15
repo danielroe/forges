@@ -1,0 +1,54 @@
+[
+  {
+    "kind": "issue",
+    "name": "1-bug-report.yml",
+    "path": ".github/ISSUE_TEMPLATE/1-bug-report.yml",
+    "format": "form",
+    "body": "name: \"🐛 Bug report\"\ndescription: Report an issue or a bug\nlabels: [\"bug\", \"pending triage\"]\nbody:\n  - type: markdown\n    attributes:\n      value: Thank you for taking the time to fill out this bug report!\n  - type: textarea\n    id: bug-env\n    attributes:\n      label: Environment\n      description: Package and Node.js version can be helpful to investigate issues\n      placeholder: Environment\n    validations:\n      required: true\n  - type: textarea\n    id: reproduction\n    attributes:\n      label: Reproduction\n      description: Please provide a link to a repo that can reproduce the problem you ran into. A **minimal reproduction** is required unless you are absolutely sure that the issue is obvious and the provided information is enough to understand the problem. If a report is vague (e.g. just a generic error message) and has no reproduction, it will receive a \"need reproduction\" label. If no reproduction is provided we might close it.\n      placeholder: Reproduction\n    validations:\n      required: true\n  - type: textarea\n    id: bug-description\n    attributes:\n      label: Describe the bug\n      description: A clear and concise description of what the bug is. If you intend to submit a PR for this issue, tell us in the description. Thanks!\n      placeholder: Bug description\n    validations:\n      required: true\n  - type: textarea\n    id: additional\n    attributes:\n      label: Additional context\n      description: If applicable, add any other context about the problem here.\n  - type: textarea\n    id: logs\n    attributes:\n      label: Logs\n      description: Optional if provided reproduction. Please try not to insert an image but copy paste the log text.\n      render: sh\n",
+    "source": {
+      "forge": "github",
+      "instance": "github.com",
+      "owner": "h3js",
+      "name": ".github"
+    }
+  },
+  {
+    "kind": "issue",
+    "name": "2-feature-request.yml",
+    "path": ".github/ISSUE_TEMPLATE/2-feature-request.yml",
+    "format": "form",
+    "body": "name: \"🚀 Feature request\"\ndescription: Suggest a feature or an improvement\nlabels: [\"enhancement\", \"pending triage\"]\nbody:\n  - type: markdown\n    attributes:\n      value: Thank you for taking the time to fill out this feature request!\n  - type: textarea\n    id: feature-description\n    attributes:\n      label: Describe the feature\n      description: A clear and concise description of what you think would be a helpful addition, including the possible use cases and alternatives you have considered. If you have a working prototype or module that implements it, please include a link.\n      placeholder: Feature description\n    validations:\n      required: true\n  - type: checkboxes\n    id: additional-info\n    attributes:\n      label: Additional information\n      description: Additional information that helps us decide how to proceed.\n      options:\n        - label: Would you be willing to help implement this feature?\n",
+    "source": {
+      "forge": "github",
+      "instance": "github.com",
+      "owner": "h3js",
+      "name": ".github"
+    }
+  },
+  {
+    "kind": "issue",
+    "name": "3-documentation.yml",
+    "path": ".github/ISSUE_TEMPLATE/3-documentation.yml",
+    "format": "form",
+    "body": "name: 📖 Documentation\ndescription: Report a documentation issue or suggest an improvement\nlabels: [\"documentation\", \"pending triage\"]\nbody:\n  - type: markdown\n    attributes:\n      value: Thank you for taking the time to fill out this documentation issue or suggestion!\n  - type: textarea\n    id: documentation-description\n    attributes:\n      label: Describe the change\n      description: A clear and concise description of what you think should be changed, including the possible use cases and alternatives you have considered.\n      placeholder: Description\n    validations:\n      required: true\n  - type: textarea\n    id: content-urls\n    attributes:\n      label: URLs\n      description: A list (or a link) to the URLs that you think should be changed (if applicable).\n      placeholder: URLs\n    validations:\n      required: false\n  - type: checkboxes\n    id: additional-info\n    attributes:\n      label: Additional information\n      description: Additional information that helps us decide how to proceed.\n      options:\n        - label: Would you be willing to help?\n",
+    "source": {
+      "forge": "github",
+      "instance": "github.com",
+      "owner": "h3js",
+      "name": ".github"
+    }
+  },
+  {
+    "kind": "pull_request",
+    "name": "PULL_REQUEST_TEMPLATE.md",
+    "path": ".github/PULL_REQUEST_TEMPLATE.md",
+    "format": "markdown",
+    "body": "<!--\nPLEASE DO THIS BEFORE SUBMITTING A PR\n\n1) Make sure there is an issue covering the problem or idea first. If not, please create one. Reference it in the PR via \"resolves #12312312\" \n2) Please keep your changes minimal and split them if you need to.\n3) Ensure there is a minimal reproduction attached for bug fixes.\n\nThis will greatly help speed up the review process.\n\nThanks for your contribution ❤️\n-->\n",
+    "source": {
+      "forge": "github",
+      "instance": "github.com",
+      "owner": "h3js",
+      "name": ".github"
+    }
+  }
+]

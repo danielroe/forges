@@ -136,6 +136,42 @@ export interface ContributorWeek {
   commits: number
 }
 
+/** An issue or pull request template of a repository, as `repos.templates()` reads it. */
+export interface RepoTemplate {
+  /** What the template opens. */
+  kind: 'issue' | 'pull_request'
+  /** The name the forge shows for the template, or its file name where the forge shows none. */
+  name: string
+  /** The file the template lives in. GitLab doesn't say. */
+  path?: string
+  /** `'form'` for a form written in YAML, `'markdown'` for the rest. */
+  format: 'markdown' | 'form'
+  /** The template as the repository stores it: Markdown with any front matter, or the YAML of a form. */
+  body: string
+  /** The title a new thread starts with, where the forge parses one. */
+  title?: string
+  /** What the template is for, where the forge parses it. */
+  about?: string
+  /** Labels a new thread gets, where the forge parses them. */
+  labels?: string[]
+  /** The fields of a form, where the forge parses them. */
+  fields?: RepoTemplateField[]
+  /** Where the template comes from when the forge falls back to another repository, like GitHub's `.github`. */
+  source?: RepoRef
+  raw: unknown
+}
+
+/** One field of an issue form, as the forge parses it. */
+export interface RepoTemplateField {
+  /** The kind of input, such as `'input'`, `'textarea'`, `'dropdown'`, `'checkboxes'` or `'markdown'`. */
+  type: string
+  id?: string
+  /** The field's label, description, options and default value, as the form declares them. */
+  attributes: Record<string, unknown>
+  /** Whether the field is required, and other checks the form declares. */
+  validations?: Record<string, unknown>
+}
+
 /** What `repos.addCollaborator()` did. */
 export interface AddCollaboratorResult {
   /**
@@ -1584,6 +1620,12 @@ export interface BaseOptions {
    * Writes the forge has already received are not undone.
    */
   signal?: AbortSignal
+}
+
+/** Options for `repos.templates()`. */
+export interface RepoTemplateOptions extends BaseOptions {
+  /** Only templates for this kind of thread. Defaults to both. */
+  kind?: 'issue' | 'pull_request'
 }
 
 /** Options for listings that take no filters: releases, installations, labels. */

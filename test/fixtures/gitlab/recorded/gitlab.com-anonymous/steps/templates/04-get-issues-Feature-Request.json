@@ -1,0 +1,20 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/templates/issues/Feature%20Request"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"99aa62fe54ddf81ccc65694faf81d40d\"",
+      "ratelimit-limit": "1",
+      "ratelimit-remaining": "49",
+      "ratelimit-reset": "1792105200",
+      "ratelimit-name": "unauthenticated_traffic_per_ip"
+    },
+    "body": {
+      "name": "Feature Request",
+      "content": "<!---\nPlease read this!\n\nBefore opening a new issue, make sure to search for keywords in the issues\nfiltered by the \"feature\" label:\n\n - https://gitlab.com/gitlab-org/cli/-/issues/?label_name%5B%5D=type%3A%3Afeature\n\nand verify the issue you're about to submit isn't a duplicate.\n--->\n\n### Problem to solve\n\n<!-- What problem do we solve? Try to define the who/what/why of the opportunity as a user story. For example, \"As a (who), I want (what), so I can (why/value).\" -->\n\n### Proposal\n\n<!-- How are we going to solve the problem? -->\n\n### Further details\n\n<!-- Include examples, use cases, benefits, goals, or any other details that will help us understand the problem better. -->\n\n### Links / references\n\n/label ~\"type::feature\" ~\"devops::ai clients\" ~\"group::developer clients\" ~\"category:gitlab cli\"\n"
+    }
+  }
+}

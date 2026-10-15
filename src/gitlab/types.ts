@@ -107,6 +107,16 @@ export interface GitLabMember {
   access_level: number
 }
 
+export interface GitLabTemplateName {
+  key: string
+  name: string
+}
+
+export interface GitLabTemplate {
+  name: string
+  content: string
+}
+
 export interface GitLabContributor {
   name?: string
   email: string

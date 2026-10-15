@@ -1,0 +1,32 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://code.forgejo.org/api/v1/repos/forgejo/runner/contents/.forgejo/pull_request_template.md"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "name": "pull_request_template.md",
+      "path": ".forgejo/pull_request_template.md",
+      "sha": "370a334803221eea9cb3591dd996d67c4b62c6a6",
+      "last_commit_sha": "5f3ef3e4099f9f8a0489eae2f9ab14370e597cde",
+      "last_commit_when": "2026-09-22T02:04:44Z",
+      "type": "file",
+      "size": 310,
+      "encoding": "base64",
+      "content": "LS0tCgpuYW1lOiAiUHVsbCBSZXF1ZXN0IFRlbXBsYXRlIgphYm91dDogIlRlbXBsYXRlIGZvciBhbGwgUHVsbCBSZXF1ZXN0cyIKCi0tLQoKIyMgQ2hlY2tsaXN0CgojIyMgQ29tcGxpYW5jZQoKLSBbIF0gSSBjb25maXJtIHRoYXQgSSBtYWtlIHRoaXMgY29udHJpYnV0aW9uIGluIGFjY29yZGFuY2Ugd2l0aCBbRm9yZ2VqbydzIEFJIEFncmVlbWVudF0oaHR0cHM6Ly9jb2RlYmVyZy5vcmcvZm9yZ2Vqby9nb3Zlcm5hbmNlL3NyYy9jb21taXQvOTA4NDcyMGRjNmE3ZmJmMWQzZjM1ODkxOWQ0NmJkNmFkZmI1NTI4Ny9BSUFncmVlbWVudC5tZCkuCg==",
+      "target": null,
+      "url": "https://code.forgejo.org/api/v1/repos/forgejo/runner/contents/.forgejo/pull_request_template.md?ref=main",
+      "html_url": "https://code.forgejo.org/forgejo/runner/src/branch/main/.forgejo/pull_request_template.md",
+      "git_url": "https://code.forgejo.org/api/v1/repos/forgejo/runner/git/blobs/370a334803221eea9cb3591dd996d67c4b62c6a6",
+      "download_url": "https://code.forgejo.org/forgejo/runner/raw/branch/main/.forgejo/pull_request_template.md",
+      "submodule_git_url": null,
+      "_links": {
+        "self": "https://code.forgejo.org/api/v1/repos/forgejo/runner/contents/.forgejo/pull_request_template.md?ref=main",
+        "git": "https://code.forgejo.org/api/v1/repos/forgejo/runner/git/blobs/370a334803221eea9cb3591dd996d67c4b62c6a6",
+        "html": "https://code.forgejo.org/forgejo/runner/src/branch/main/.forgejo/pull_request_template.md"
+      }
+    }
+  }
+}

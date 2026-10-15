@@ -53,6 +53,10 @@ GitLab projects can live in nested groups, so `RepoRef.owner` holds the full nam
 
 GitLab counts commits per author email, so `repos.contributors()` returns one contributor per email, with a `name` and an `email` but no `actor`.
 
+## Templates
+
+`repos.templates()` returns the description templates GitLab offers in the project, including those it inherits from its groups and the instance. The listing has names only, so each body costs one more request. A template has no `path`, since GitLab doesn't say which project it lives in.
+
 ## Notifications are to-dos
 
 On GitLab, `notifications.list()` reads the to-dos of the user. A to-do is either pending or done, and there is no separate read state, which affects how the notification operations behave:
@@ -156,6 +160,7 @@ GitLab has no teams, so a subgroup stands in for one. `orgs.teams()` reads `GET 
 | `repos.collaborators` | ✅ | ❌ |
 | `repos.contributors` | ✅ | ✅ |
 | `repos.contributorStats` | ❌ | ❌ |
+| `repos.templates` | ✅ | ✅ |
 | `repos.permissionFor` | ✅ | ❌ |
 | `repos.addCollaborator` | ✅ | ❌ |
 | `repos.assignableUsers` | ✅ | ✅ |

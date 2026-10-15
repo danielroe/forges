@@ -65,6 +65,8 @@ import type {
   RepoRef,
   RepoRole,
   RepoSearchQuery,
+  RepoTemplate,
+  RepoTemplateOptions,
   ResolvedThreadRef,
   Review,
   ReviewComment,
@@ -215,6 +217,8 @@ export interface ForgeCapabilities {
     contributors: Support
     /** Support for `repos.contributorStats()`. */
     contributorStats: Support
+    /** Support for `repos.templates()`. */
+    templates: Support
     /** Support for `repos.permissionFor()`. */
     permissionFor: Support
     /** Support for `repos.addCollaborator()`. */
@@ -965,6 +969,16 @@ export interface ReposApi {
    * background, the provider waits for them, and throws a `ForgeApiError` with status `202` if they are still not ready.
    */
   contributorStats: (repo: RepoRef, options?: BaseOptions) => Promise<ContributorStats[]>
+  /**
+   * The issue and pull request templates a repository offers, ready to fill in before `threads.create()`. On GitHub,
+   * a repository without its own falls back to the owner's `.github` repository, same as the web UI.
+   * @example
+   * ```ts
+   * const [template] = await provider.repos.templates(repo, { kind: 'pull_request' })
+   * const body = template?.body ?? ''
+   * ```
+   */
+  templates: (repo: RepoRef, options?: RepoTemplateOptions) => Promise<RepoTemplate[]>
   /** One account's role on the repository; `'none'` when it has no access. */
   permissionFor: (repo: RepoRef, actor: string | Actor, options?: BaseOptions) => Promise<RepoRole>
   /**
