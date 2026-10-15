@@ -11,6 +11,7 @@ import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node
 import process, { env, exit } from 'node:process'
 import { fileURLToPath } from 'node:url'
 import { parseArgs } from 'node:util'
+import { ForgeApiError } from '../src/errors.ts'
 import { azureDevOps, bitbucket, cloudflareArtifacts, cursorOrigin, forgejo, gitea, gitee, github, gitlab, pushin, tangled } from '../src/index.ts'
 import { recordingFetch, signDelivery } from '../src/testing/index.ts'
 import { recordedSteps, stepSlug } from '../test/recording/layout.ts'
@@ -217,6 +218,12 @@ function spliceSelected(recording: string, manifest: WriteManifest, selection: S
   return reportSplice(spliceWrites(recording, run, selection, remove))
 }
 
+export function failureMessage(error: unknown): string {
+  const message = error instanceof Error ? error.message : String(error)
+  const text = error instanceof ForgeApiError && error.body ? `${message}: ${error.body}` : message
+  return text.replace(/\s+/g, ' ').trim()
+}
+
 async function step(name: string, run: () => Promise<unknown>): Promise<boolean> {
   const start = recorder.fixtures.length
   try {
@@ -225,7 +232,7 @@ async function step(name: string, run: () => Promise<unknown>): Promise<boolean>
   }
   catch (error) {
     failures++
-    console.error(`FAILED   ${name}: ${(error as Error).message}`)
+    console.error(`FAILED   ${name}: ${failureMessage(error)}`)
     // A failed step isn't replayed from this run, so none of its responses belong in `setup/`.
     for (const fixture of recorder.fixtures.slice(start)) {
       discarded.add(fixture)
