@@ -1,0 +1,44 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://git.sr.ht/query",
+    "operationName": "RepositoryCommit",
+    "variables": {
+      "owner": "sircmpwn",
+      "name": "scdoc",
+      "revspec": "24be30ef17d5ca0162f11b35258c8fa2413d556a"
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "data": {
+        "user": {
+          "repository": {
+            "revparse_single": {
+              "id": "24be30ef17d5ca0162f11b35258c8fa2413d556a",
+              "shortId": "24be30e",
+              "author": {
+                "name": "Drew DeVault",
+                "email": "redacted@example.invalid",
+                "time": "2026-07-07T09:06:57+02:00"
+              },
+              "committer": {
+                "name": "Drew DeVault",
+                "email": "redacted@example.invalid",
+                "time": "2026-07-07T09:06:57+02:00"
+              },
+              "message": "Update version to 1.11.5\n",
+              "parents": [
+                {
+                  "id": "1d4143da79f22b71dd51da69a9f587f52d19dc84"
+                }
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

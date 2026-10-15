@@ -1,0 +1,91 @@
+{
+  "items": [
+    {
+      "path": ".build.yml",
+      "type": "file",
+      "sha": "152769b034a81761885e1b3aec21a3f2b0d82d22",
+      "size": 143,
+      "mode": "100644"
+    },
+    {
+      "path": ".editorconfig",
+      "type": "file",
+      "sha": "884f8f944c2d3d1632e6bc6cd2324ee0704d5bb3",
+      "size": 96,
+      "mode": "100644"
+    },
+    {
+      "path": ".gitignore",
+      "type": "file",
+      "sha": "ab855cf6063b857f7b056e46f396dea4e2bb7c12",
+      "size": 38,
+      "mode": "100644"
+    },
+    {
+      "path": "COPYING",
+      "type": "file",
+      "sha": "3be8ae82f1d9d12f53f9889101d5bf64ce8d85b0",
+      "size": 1063,
+      "mode": "100644"
+    },
+    {
+      "path": "Makefile",
+      "type": "file",
+      "sha": "28c3308e28729fd16ea1b3104263f3ba68377586",
+      "size": 1578,
+      "mode": "100644"
+    },
+    {
+      "path": "README.md",
+      "type": "file",
+      "sha": "4d4bf4399830bbbb9fec77769c349f07e274caa6",
+      "size": 625,
+      "mode": "100644"
+    },
+    {
+      "path": "contrib",
+      "type": "directory",
+      "sha": "c9eb0aba724450596d7569fe728b2fdccd8fdd55",
+      "mode": "40000"
+    },
+    {
+      "path": "include",
+      "type": "directory",
+      "sha": "74cb048de7b7b88b2c29c7d3657a0be9f596fb22",
+      "mode": "40000"
+    },
+    {
+      "path": "scdoc.1.scd",
+      "type": "file",
+      "sha": "9ba83b786b7af220785a0cc6866c0d39c59ce0c3",
+      "size": 717,
+      "mode": "100644"
+    },
+    {
+      "path": "scdoc.5.scd",
+      "type": "file",
+      "sha": "06cc212df3c7c84e3544b6cb727029615ed00f56",
+      "size": 4717,
+      "mode": "100644"
+    },
+    {
+      "path": "scdoc.pc.in",
+      "type": "file",
+      "sha": "e7df9963b45850337dac87a729fc8b11511cf001",
+      "size": 133,
+      "mode": "100644"
+    },
+    {
+      "path": "src",
+      "type": "directory",
+      "sha": "2f1f766ba56008208be55fbb89aa65c0d5cfe1d2",
+      "mode": "40000"
+    },
+    {
+      "path": "test",
+      "type": "directory",
+      "sha": "7589b184bc58b0c76be06352eb3c5902298cddfb",
+      "mode": "40000"
+    }
+  ]
+}

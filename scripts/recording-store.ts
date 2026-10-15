@@ -33,8 +33,8 @@ export interface RecordingResult {
 }
 
 const VOLATILE_HEADERS = /^(?:x-)?ratelimit(?:-|$)|^etag$|^retry-after$/
-/** Counters and activity timestamps of a repository or account, which change between any two recordings. */
-const VOLATILE_KEYS = new Set(['stargazers_count', 'watchers_count', 'watchers', 'forks_count', 'forks', 'open_issues_count', 'open_issues', 'subscribers_count', 'network_count', 'star_count', 'download_count', 'total_count', 'size', 'updated_at', 'pushed_at', 'last_activity_at', 'last_activity_on', 'local_time', 'duration', 'queued_duration', 'followers', 'following', 'public_repos', 'public_gists'])
+/** Values that change between any two recordings without meaning anything: counters, activity timestamps and opaque pagination cursors. */
+const VOLATILE_KEYS = new Set(['stargazers_count', 'watchers_count', 'watchers', 'forks_count', 'forks', 'open_issues_count', 'open_issues', 'subscribers_count', 'network_count', 'star_count', 'download_count', 'total_count', 'size', 'updated_at', 'pushed_at', 'last_activity_at', 'last_activity_on', 'local_time', 'duration', 'queued_duration', 'followers', 'following', 'public_repos', 'public_gists', 'cursor'])
 /** Query parameters of a signed download URL that hold when it was signed or when it expires. */
 const SIGNATURE_TIMES = new Set(['se', 'st', 'ske', 'skt', 'x-amz-date', 'x-amz-expires', 'expires'])
 

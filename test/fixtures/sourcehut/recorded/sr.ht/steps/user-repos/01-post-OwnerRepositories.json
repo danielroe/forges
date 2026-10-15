@@ -1,0 +1,100 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://git.sr.ht/query",
+    "operationName": "OwnerRepositories",
+    "variables": {
+      "owner": "bitfehler",
+      "filter": {
+        "count": 3
+      }
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "data": {
+        "user": {
+          "repositories": {
+            "cursor": "gAAAAABq0tE4vnnP4aanJpm9VA9DdyqS-jhoMY9dVDCpfvfr5zSpxWlJGUp15_lyFEux3rBDtBpNheeeIzT68z9SON6fKglm3MXICcVNlVBDfHKhEZmWyoFA2IHCzGkqsOa8Omr2Rbq7ntH_Qitd_v0DZB9pwzFx2A==",
+            "results": [
+              {
+                "id": 289908,
+                "rid": "06dy9xv7yssy31p2xm13caqa28",
+                "created": "2023-03-20T15:28:19.389268Z",
+                "updated": "2026-09-07T10:25:36.245231Z",
+                "owner": {
+                  "canonicalName": "~bitfehler",
+                  "id": 23515,
+                  "updated": "2026-03-16T09:23:49.545673Z",
+                  "username": "bitfehler",
+                  "email": "redacted@example.invalid",
+                  "url": "https://bitfehler.net",
+                  "location": "Orion arm.",
+                  "bio": "I turn computers on and off. Sometimes also this one."
+                },
+                "name": "anemos.io",
+                "description": "anemos.io website",
+                "visibility": "PUBLIC",
+                "HEAD": {
+                  "name": "refs/heads/master",
+                  "target": "a88999149554a5e992cb5db37aa140be258c6259"
+                },
+                "access": "RO"
+              },
+              {
+                "id": 420248,
+                "rid": "06dy9xv8shyef10jrczz5n13j0",
+                "created": "2023-10-25T14:28:15.977121Z",
+                "updated": "2026-08-20T20:03:33.689441Z",
+                "owner": {
+                  "canonicalName": "~bitfehler",
+                  "id": 23515,
+                  "updated": "2026-03-16T09:23:49.545673Z",
+                  "username": "bitfehler",
+                  "email": "redacted@example.invalid",
+                  "url": "https://bitfehler.net",
+                  "location": "Orion arm.",
+                  "bio": "I turn computers on and off. Sometimes also this one."
+                },
+                "name": "bitfehler-www",
+                "description": "Anemos definition for the main bitfehler.net server",
+                "visibility": "PUBLIC",
+                "HEAD": {
+                  "name": "refs/heads/master",
+                  "target": "0e9be211d3c46d2aaa455c7477abd1fd6d0c6d3a"
+                },
+                "access": "RO"
+              },
+              {
+                "id": 420329,
+                "rid": "06dy9xv8t5vmn2xz7nwjd5d7fr",
+                "created": "2023-10-26T09:36:57.937197Z",
+                "updated": "2026-08-20T19:27:35.321576Z",
+                "owner": {
+                  "canonicalName": "~bitfehler",
+                  "id": 23515,
+                  "updated": "2026-03-16T09:23:49.545673Z",
+                  "username": "bitfehler",
+                  "email": "redacted@example.invalid",
+                  "url": "https://bitfehler.net",
+                  "location": "Orion arm.",
+                  "bio": "I turn computers on and off. Sometimes also this one."
+                },
+                "name": "bitfehler-mx",
+                "description": "Anemos definition for the mx.bitfehler.net mail server",
+                "visibility": "PUBLIC",
+                "HEAD": {
+                  "name": "refs/heads/master",
+                  "target": "17d807da830bdfb77eb8c2671c3203febe948bf8"
+                },
+                "access": "RO"
+              }
+            ]
+          }
+        }
+      }
+    }
+  }
+}

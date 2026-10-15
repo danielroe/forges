@@ -11,15 +11,17 @@ import { github } from './github/index.ts'
 import { gitlab } from './gitlab/index.ts'
 import { createForges } from './provider.ts'
 import { pushin } from './pushin/index.ts'
+import { sourcehut } from './sourcehut/index.ts'
 import { tangled } from './tangled/index.ts'
 
-const KINDS = ['GITHUB', 'GITLAB', 'BITBUCKET', 'FORGEJO', 'GITEA', 'TANGLED', 'CURSOR_ORIGIN', 'GITEE', 'AZURE_DEVOPS', 'PUSHIN', 'CLOUDFLARE_ARTIFACTS'] as const
+const KINDS = ['GITHUB', 'GITLAB', 'BITBUCKET', 'FORGEJO', 'GITEA', 'TANGLED', 'CURSOR_ORIGIN', 'GITEE', 'AZURE_DEVOPS', 'PUSHIN', 'CLOUDFLARE_ARTIFACTS', 'SOURCEHUT'] as const
 
 /** Field names, longest first so `INSTANCE_VERSION` is not read as `INSTANCE` with suffix `VERSION`. */
 const FIELDS = [
   'NOTIFICATIONS_URL',
   'INSTANCE_VERSION',
   'INSTALLATION_ID',
+  'WEBHOOK_PUBLIC_KEY',
   'WEBHOOK_SECRET',
   'PRIVATE_KEY',
   'ORGANIZATION',
@@ -185,6 +187,10 @@ function fromFields(kind: typeof KINDS[number], suffix: string, fields: Partial<
       return isOn(fields.ENABLED)
         ? { ...entry, factory: cursorOrigin(base) }
         : { ...entry, skipped: 'needs TOKEN, or APP_ID and PRIVATE_KEY, or ENABLED for webhooks only' }
+    case 'SOURCEHUT':
+      return fields.TOKEN
+        ? { ...entry, factory: sourcehut({ ...base, ...fields.WEBHOOK_PUBLIC_KEY ? { webhookPublicKey: fields.WEBHOOK_PUBLIC_KEY } : {}, auth: { type: 'token', token: fields.TOKEN } }) }
+        : { ...entry, skipped: 'needs TOKEN' }
     case 'TANGLED':
       return {
         ...entry,

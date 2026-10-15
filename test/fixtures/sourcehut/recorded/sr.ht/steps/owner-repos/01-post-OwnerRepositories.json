@@ -1,0 +1,100 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://git.sr.ht/query",
+    "operationName": "OwnerRepositories",
+    "variables": {
+      "owner": "sircmpwn",
+      "filter": {
+        "count": 3
+      }
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "data": {
+        "user": {
+          "repositories": {
+            "cursor": "gAAAAABq0tE4Farup7jQI1s619bu-tpI2YPm6wt5H6hENh2hJcQgYWHkxZswRCjl63IJKQ3o6lzAepMyL9pac05hAVNa8JfGlnJgEF0H9-I4rNgmn_gyFNEW8Go_WYQzhsKD0_1mJn398SlpHq7gTBMiF2jaHxs6fA==",
+            "results": [
+              {
+                "id": 557862,
+                "rid": "06g54tddzns453p8npt38j9570",
+                "created": "2026-08-30T11:24:12.665697Z",
+                "updated": "2026-10-16T09:55:57.921948Z",
+                "owner": {
+                  "canonicalName": "~sircmpwn",
+                  "id": 3,
+                  "updated": "2026-05-20T08:58:30.228333Z",
+                  "username": "sircmpwn",
+                  "email": "redacted@example.invalid",
+                  "url": "https://drewdevault.com",
+                  "location": "Netherlands",
+                  "bio": "I write code."
+                },
+                "name": "absd-ports",
+                "description": "AlpineBSD software ports",
+                "visibility": "PUBLIC",
+                "HEAD": {
+                  "name": "refs/heads/main",
+                  "target": "4661ece725655be1abaa777ce47595b966cad3e7"
+                },
+                "access": "RO"
+              },
+              {
+                "id": 9367,
+                "rid": "06dy9xv7znx31057qp9zrn8nzc",
+                "created": "2019-08-07T01:12:47.414354Z",
+                "updated": "2026-10-16T08:57:08.74148Z",
+                "owner": {
+                  "canonicalName": "~sircmpwn",
+                  "id": 3,
+                  "updated": "2026-05-20T08:58:30.228333Z",
+                  "username": "sircmpwn",
+                  "email": "redacted@example.invalid",
+                  "url": "https://drewdevault.com",
+                  "location": "Netherlands",
+                  "bio": "I write code."
+                },
+                "name": "sr.ht-docs",
+                "description": "SourceHut documentation",
+                "visibility": "PUBLIC",
+                "HEAD": {
+                  "name": "refs/heads/master",
+                  "target": "98c1b5581450fb0e045b1ea44b84808352314b73"
+                },
+                "access": "RO"
+              },
+              {
+                "id": 104109,
+                "rid": "06dy9xvc3sr4q3c94x0wdx5tjg",
+                "created": "2022-04-17T08:24:33.111781Z",
+                "updated": "2026-10-15T16:11:43.750187Z",
+                "owner": {
+                  "canonicalName": "~sircmpwn",
+                  "id": 3,
+                  "updated": "2026-05-20T08:58:30.228333Z",
+                  "username": "sircmpwn",
+                  "email": "redacted@example.invalid",
+                  "url": "https://drewdevault.com",
+                  "location": "Netherlands",
+                  "bio": "I write code."
+                },
+                "name": "himitsu-totp",
+                "description": "TOTP support for Himitsu",
+                "visibility": "PUBLIC",
+                "HEAD": {
+                  "name": "refs/heads/master",
+                  "target": "65cdaa4d9ba785335f2e2d0255e6ec28fc750937"
+                },
+                "access": "RO"
+              }
+            ]
+          }
+        }
+      }
+    }
+  }
+}

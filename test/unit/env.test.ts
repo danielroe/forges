@@ -1,5 +1,7 @@
+import { generateKeyPairSync } from 'node:crypto'
 import { describe, expect, it } from 'vitest'
 import { forgesFromEnv, providersFromEnv } from '../../src/env.ts'
+import { signDelivery } from '../../src/testing/index.ts'
 
 describe('providersFromEnv', () => {
   it('reads one provider set per kind and suffix', () => {
@@ -29,6 +31,22 @@ describe('providersFromEnv', () => {
 
     expect(forges.providers.map(provider => provider.instance)).toEqual(['codeberg.org', 'gitlab.com'])
     expect(providersFromEnv({ FORGES_GITLAB_DEMO_REPO: 'acme/platform/widgets' })[0]!.demoRepo).toEqual({ owner: 'acme/platform', name: 'widgets' })
+  })
+
+  it('passes `WEBHOOK_PUBLIC_KEY` to the provider that verifies deliveries', async () => {
+    const { privateKey, publicKey } = generateKeyPairSync('ed25519', {
+      privateKeyEncoding: { type: 'pkcs8', format: 'der' },
+      publicKeyEncoding: { type: 'spki', format: 'der' },
+    })
+    const [entry] = providersFromEnv({
+      FORGES_SOURCEHUT_TOKEN: 't',
+      FORGES_SOURCEHUT_WEBHOOK_PUBLIC_KEY: publicKey.subarray(publicKey.length - 32).toString('base64'),
+    })
+    const body = JSON.stringify({ data: { webhook: { uuid: 'u1', event: 'REPO_UPDATE', date: '2021-01-01T00:00:00Z' } } })
+    const headers = await signDelivery('sourcehut', body, privateKey.toString('base64'))
+
+    // The default is sr.ht's key, so this only verifies when the variable reached the provider.
+    await expect(entry!.factory!.create().webhooks.ingest({ headers, body })).resolves.toHaveLength(1)
   })
 })
 

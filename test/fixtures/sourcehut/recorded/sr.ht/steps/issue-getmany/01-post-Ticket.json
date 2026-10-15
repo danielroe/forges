@@ -1,0 +1,62 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://todo.sr.ht/query",
+    "operationName": "Ticket",
+    "variables": {
+      "owner": "sircmpwn",
+      "name": "scdoc",
+      "id": 6
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "data": {
+        "user": {
+          "tracker": {
+            "ticket": {
+              "id": 6,
+              "created": "2018-05-12T01:09:16.094753Z",
+              "updated": "2024-04-04T17:48:11.813948Z",
+              "ref": "~sircmpwn/scdoc#6",
+              "subject": "Support `...` for inline literal text",
+              "body": "",
+              "status": "REPORTED",
+              "resolution": "UNRESOLVED",
+              "submitter": {
+                "canonicalName": "~sircmpwn",
+                "id": 3,
+                "updated": "2026-05-20T08:58:29.975145Z",
+                "username": "sircmpwn",
+                "email": "redacted@example.invalid",
+                "url": "https://drewdevault.com",
+                "location": "Netherlands",
+                "bio": "I write code."
+              },
+              "tracker": {
+                "id": 20,
+                "rid": "06dy9z0m4xs0q1y8z4akp71rc8",
+                "name": "scdoc",
+                "owner": {
+                  "canonicalName": "~sircmpwn",
+                  "id": 3,
+                  "updated": "2026-05-20T08:58:29.975145Z",
+                  "username": "sircmpwn",
+                  "email": "redacted@example.invalid",
+                  "url": "https://drewdevault.com",
+                  "location": "Netherlands",
+                  "bio": "I write code."
+                }
+              },
+              "labels": [],
+              "assignees": [],
+              "subscription": null
+            }
+          }
+        }
+      }
+    }
+  }
+}

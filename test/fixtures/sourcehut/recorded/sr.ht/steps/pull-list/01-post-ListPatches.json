@@ -1,0 +1,22 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://lists.sr.ht/query",
+    "operationName": "ListPatches",
+    "variables": {
+      "owner": "sircmpwn",
+      "name": "scdoc"
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "data": {
+        "user": {
+          "list": null
+        }
+      }
+    }
+  }
+}
