@@ -80,7 +80,19 @@ describe('pushin', () => {
       ref: { kind: 'pull_request' },
       state: 'merged',
       stateRaw: 'merged',
+      closedAt: new Date('2026-09-10T12:00:00Z'),
     })
+  })
+
+  it('dates merged pull requests as closed when `closed_at` is null', async () => {
+    const merged = { ...raw, state: 'closed', merged: true, merged_at: '2026-10-12T13:49:59.722166Z', closed_at: null }
+    const { forge } = provider({
+      [`GET ${base}/repos/acme/widgets/pulls/31`]: { status: 200, body: merged },
+      [`GET ${base}/repos/acme/widgets/pulls?state=closed`]: { status: 200, body: [merged] },
+    })
+    const closedAt = new Date('2026-10-12T13:49:59.722Z')
+    expect(await forge.threads.get(pull)).toMatchObject({ state: 'merged', closedAt })
+    expect((await forge.threads.listPage(repo, { kind: 'pull_request', state: 'merged' })).items).toMatchObject([{ state: 'merged', closedAt }])
   })
 
   it('normalises integer ids to strings and prefers node_id as the external id', () => {
