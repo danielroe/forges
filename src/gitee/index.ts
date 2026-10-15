@@ -33,6 +33,7 @@ export interface GiteeOptions extends ForgeOptionsBase {
 
 const PULL = { pull_request: true } as const
 const PER_PAGE = 50
+const COMPARE_COMMITS = 100
 
 function setupGitee({ options, instance, origin: context, fetcher, baseUrl }: ProviderContext<GiteeOptions, undefined>): ProviderSpec & { web: WebLinks } {
   const repoPath = (repo: RepoRef) => `/repos/${encodeURIComponent(repo.owner)}/${encodeURIComponent(repo.name)}`
@@ -452,7 +453,7 @@ function setupGitee({ options, instance, origin: context, fetcher, baseUrl }: Pr
         return {
           base,
           head,
-          aheadBy: data.commits?.length,
+          aheadBy: data.truncated && (data.commits?.length ?? 0) >= COMPARE_COMMITS ? undefined : data.commits?.length,
           commits: (data.commits ?? []).map(raw => toCommit(repo, raw)),
           files: (data.files ?? []).map(toChangedFile),
           raw: data,

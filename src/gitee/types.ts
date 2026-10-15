@@ -247,6 +247,8 @@ export interface GiteeCommit {
 export interface GiteeCompare {
   commits?: GiteeCommit[]
   files?: GiteeCommitFile[]
+  /** Set when Gitee cut the comparison to 100 commits or 200 files. */
+  truncated?: boolean
 }
 
 export interface GiteeHook {

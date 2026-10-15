@@ -73,6 +73,10 @@ The release that Gitee marks as the latest can be a prerelease. To avoid surpris
 
 Without credentials, Gitee returns an empty feed for every account, so `users.events()` needs a token. `repos.events()` works either way.
 
+## Comparing revisions
+
+Gitee returns no more than the newest 100 commits and 200 files of a comparison, so `contents.compare()` returns at most that many. When there are more than 100 commits, `aheadBy` is unset.
+
 ## Search
 
 `search.threads()` only searches issues. If you search with `kind: 'pull_request'`, you get an empty page with a `kind_unsupported` warning.

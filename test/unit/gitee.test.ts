@@ -50,6 +50,15 @@ describe('gitee', () => {
     expect(pagedPage.total).toBe(15)
   })
 
+  it('leaves `aheadBy` unset when Gitee truncates the commits of a comparison', async () => {
+    const commits = (length: number) => Array.from({ length }, (_, index) => ({ sha: `c${index}`, parents: [] }))
+    const compare = (body: object) => gitee({ fetch: async () => Response.json(body) }).create().contents.compare(repo, 'main', 'dev')
+
+    expect((await compare({ commits: commits(100), files: [], truncated: true })).aheadBy).toBeUndefined()
+    expect((await compare({ commits: commits(78), files: [], truncated: true })).aheadBy).toBe(78)
+    expect((await compare({ commits: commits(100), files: [], truncated: false })).aheadBy).toBe(100)
+  })
+
   it('keeps the cursor page size when reporting a fallback total', async () => {
     const forge = gitee({ fetch: async url => new URL(url).searchParams.get('page') === '1'
       ? Response.json(Array.from({ length: 10 }, (_, index) => ({ name: `b${index}`, commit: { sha: 'a' } })), { headers: { total_page: '2' } })
