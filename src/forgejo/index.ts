@@ -992,6 +992,8 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
     },
     web: githubShapedWeb(baseUrl.replace(/\/api\/v1$/, ''), {
       pull: 'pulls',
+      // Forgejo and Gitea list stargazers at `/stars`, not `/stargazers`.
+      sections: { stargazers: 'stars' },
       commentFragment: 'issuecomment-',
       file: at => /^[0-9a-f]{40}$/.test(at) ? `/src/commit/${at}` : `/src/${encodeURIComponent(at)}`,
       parseFile: ([route, qualifier, ref, ...rest]) => {

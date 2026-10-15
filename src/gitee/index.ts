@@ -590,7 +590,7 @@ function setupGitee({ options, instance, origin: context, fetcher, baseUrl }: Pr
       }),
       createReview: verb('unverified', createReview),
     },
-    web: githubShapedWeb(baseUrl.replace(/\/api\/v5$/, ''), { pull: 'pulls', commentFragment: 'note_', file: at => `/blob/${encodeURIComponent(at)}`, lineFragment: line => `L${line}`, pullPrefix: '!' }),
+    web: githubShapedWeb(baseUrl.replace(/\/api\/v5$/, ''), { pull: 'pulls', sections: { forks: 'members' }, commentFragment: 'note_', file: at => `/blob/${encodeURIComponent(at)}`, lineFragment: line => `L${line}`, pullPrefix: '!' }),
     webhooks: {
       listPage: verb('unverified', async (target, listOptions = {}) => {
         const page = await numberedPage<GiteeHook>(`${repoPath(target)}/hooks`, {}, listOptions)

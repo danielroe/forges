@@ -4,7 +4,7 @@ import { lineOf } from '../web.ts'
 
 const SECTIONS: Partial<Record<ThreadKind, string>> = { issue: 'issues', pull_request: 'pull-requests', commit: 'commits' }
 const KINDS = new Map(Object.entries(SECTIONS).map(([kind, section]) => [section, kind as ThreadKind]))
-const PAGES: Partial<Record<RepoSection, string>> = { issues: 'issues', pullRequests: 'pull-requests', compare: 'branches/compare' }
+const PAGES: Partial<Record<RepoSection, string>> = { issues: 'issues', pullRequests: 'pull-requests', compare: 'branches/compare', forks: 'forks' }
 
 const repoPath = (repo: RepoRef) => `/${encodeURIComponent(repo.owner)}/${encodeURIComponent(repo.name)}`
 

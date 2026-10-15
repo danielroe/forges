@@ -123,6 +123,7 @@ function setupPushin({ options, instance, origin: context, fetcher, baseUrl }: P
       pull: 'pulls',
       commit: 'commits',
       raw: false,
+      sections: { forks: null, watchers: null },
       commentFragment: 'comment-',
       file: at => `/blob/${encodeURIComponent(at)}`,
       lineFragment: line => `L${line}`,

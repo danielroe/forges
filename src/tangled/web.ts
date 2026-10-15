@@ -3,7 +3,7 @@ import type { RepoSection, WebLinks } from '../web.ts'
 import { lineOf } from '../web.ts'
 
 const SECTIONS: Partial<Record<ThreadKind, string>> = { issue: 'issues', pull_request: 'pulls' }
-const PAGES: Partial<Record<RepoSection, string>> = { issues: 'issues', pullRequests: 'pulls', compare: 'compare' }
+const PAGES: Partial<Record<RepoSection, string>> = { issues: 'issues', pullRequests: 'pulls', compare: 'compare', stargazers: 'stars', forks: 'forks' }
 
 const encode = (path: string) => path.split('/').map(encodeURIComponent).join('/')
 const repoPath = (repo: RepoRef) => `/${encodeURIComponent(repo.owner).replaceAll('%3A', ':')}/${encodeURIComponent(repo.name)}`

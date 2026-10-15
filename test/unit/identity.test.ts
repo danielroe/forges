@@ -164,6 +164,24 @@ describe('web links', () => {
     expect((['issues', 'pullRequests', 'compare', 'releases'] as const).map(section => provider.urlFor({ repo: target, section }))).toEqual(urls)
   })
 
+  it.each([
+    ['github', gh, repo, ['https://github.com/acme/widgets/stargazers', 'https://github.com/acme/widgets/forks', 'https://github.com/acme/widgets/watchers']],
+    ['github enterprise', github({ auth, baseUrl: 'https://ghe.example.com/api/v3' }).create(), { ...repo, instance: 'ghe.example.com' }, ['https://ghe.example.com/acme/widgets/stargazers', 'https://ghe.example.com/acme/widgets/forks', 'https://ghe.example.com/acme/widgets/watchers']],
+    ['gitlab', gl, { ...repo, forge: 'gitlab', instance: 'gitlab.com', owner: 'acme/platform' }, ['https://gitlab.com/acme/platform/widgets/-/starrers', 'https://gitlab.com/acme/platform/widgets/-/forks', undefined]],
+    ['gitlab group', gl, { forge: 'gitlab', instance: 'gitlab.com', owner: 'acme/platform', name: '', kind: 'namespace' }, [undefined, undefined, undefined]],
+    ['bitbucket', bb, { ...repo, forge: 'bitbucket', instance: 'bitbucket.org' }, [undefined, 'https://bitbucket.org/acme/widgets/forks', undefined]],
+    ['forgejo', cb, { ...repo, forge: 'forgejo', instance: 'codeberg.org' }, ['https://codeberg.org/acme/widgets/stars', 'https://codeberg.org/acme/widgets/forks', 'https://codeberg.org/acme/widgets/watchers']],
+    ['gitea', gitea({ auth }).create(), { ...repo, forge: 'gitea', instance: 'gitea.com' }, ['https://gitea.com/acme/widgets/stars', 'https://gitea.com/acme/widgets/forks', 'https://gitea.com/acme/widgets/watchers']],
+    ['gitee', gitee({ auth }).create(), { ...repo, forge: 'gitee', instance: 'gitee.com' }, ['https://gitee.com/acme/widgets/stargazers', 'https://gitee.com/acme/widgets/members', 'https://gitee.com/acme/widgets/watchers']],
+    ['pushin', pushin({ auth }).create(), { ...repo, forge: 'pushin', instance: 'pushin.eu' }, ['https://pushin.eu/acme/widgets/stargazers', undefined, undefined]],
+    ['tangled', tg, { ...repo, forge: 'tangled', instance: 'tangled.org', owner: 'acme.dev' }, ['https://tangled.org/acme.dev/widgets/stars', 'https://tangled.org/acme.dev/widgets/forks', undefined]],
+    ['azure-devops', az, { ...repo, forge: 'azure-devops', instance: 'dev.azure.com', owner: 'contoso/Widgets' }, [undefined, undefined, undefined]],
+    ['azure-devops project', az, { forge: 'azure-devops', instance: 'dev.azure.com', owner: 'contoso/Widgets', name: '', kind: 'namespace' }, [undefined, undefined, undefined]],
+    ['github namespace', gh, { ...repo, name: '', kind: 'namespace' }, [undefined, undefined, undefined]],
+  ] as const)('builds repository stargazer, fork and watcher URLs on %s', (_, provider, target, urls) => {
+    expect((['stargazers', 'forks', 'watchers'] as const).map(section => provider.urlFor({ repo: target, section }))).toEqual(urls)
+  })
+
   it('builds the repository URL when the section is undefined', () => {
     const section: RepoSection | undefined = undefined
     expect(gh.urlFor({ repo, section })).toBe('https://github.com/acme/widgets')
