@@ -30,6 +30,7 @@ const PREFIXES: Record<string, string[]> = {
   'pushin': ['PUSHIN_', 'FIXTURE_PUSHIN_'],
   'tangled': ['TANGLED_', 'FIXTURE_TANGLED_'],
   'cloudflare-artifacts': ['CLOUDFLARE_ARTIFACTS_', 'FIXTURE_CLOUDFLARE_ARTIFACTS_'],
+  'sourcehut': ['SOURCEHUT_', 'FIXTURE_SOURCEHUT_'],
 }
 
 /** Variables only write recordings and seeding use: the bot accounts and the Tangled reviewer. */

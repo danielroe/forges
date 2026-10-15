@@ -187,6 +187,20 @@ export const EXPLORER_FORGES: ExplorerForge[] = [
     signedIn: true,
     sample: sample({ owner: 'forges-fixtures', name: 'forges', sha: 'main' }),
   },
+  {
+    name: 'Sourcehut',
+    factory: 'sourcehutLite',
+    module: 'sourcehut',
+    load: () => import('forges/sourcehut'),
+    forge: 'sourcehut',
+    instance: 'sr.ht',
+    auth: token('SOURCEHUT_TOKEN'),
+    blocked: 'Sourcehut needs a token for every read, and its GraphQL services don\'t allow browser requests.',
+    signedIn: true,
+    // An issue lives on the repository's tracker, but a patchset lives on a mailing list, so the sample's
+    // number is the scdoc issue and a patch call reads the `scdoc` list, which has none.
+    sample: sample({ owner: '~sircmpwn', name: 'scdoc', number: '6', login: '~sircmpwn', sha: '24be30ef17d5ca0162f11b35258c8fa2413d556a', tag: '1.10.1', releaseId: '1.10.1', base: 'master', head: 'master', runId: '1' }),
+  },
 ]
 
 /** The refs a call takes, built from the form. */

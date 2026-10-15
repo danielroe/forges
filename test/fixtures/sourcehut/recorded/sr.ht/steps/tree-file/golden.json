@@ -1,0 +1,8 @@
+{
+  "path": ".build.yml",
+  "sha": "152769b034a81761885e1b3aec21a3f2b0d82d22",
+  "size": 143,
+  "url": "https://git.sr.ht/~sircmpwn/scdoc/tree/HEAD/item/.build.yml",
+  "content": "image: alpine/edge\nsources:\n- https://git.sr.ht/~sircmpwn/scdoc\ntasks:\n- build: |\n    cd scdoc\n    make\n- check: |\n    cd scdoc\n    make check\n",
+  "encoding": "utf-8"
+}

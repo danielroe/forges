@@ -40,7 +40,7 @@ const REASONS: NotificationReason[] = [
 /** The forges, by display name, on which a recording reads each listing again with its first page's `etag`. */
 const conditionalListings = new Map<string, Set<string>>()
 
-const FORGE_NAMES: Record<string, string> = { 'github': 'GitHub', 'gitlab': 'GitLab', 'bitbucket': 'Bitbucket', 'forgejo': 'Forgejo', 'gitea': 'Gitea', 'gitee': 'Gitee', 'azure-devops': 'Azure DevOps', 'cursor-origin': 'Cursor Origin', 'pushin': 'Pushin.eu', 'tangled': 'Tangled', 'cloudflare-artifacts': 'Cloudflare Artifacts' }
+const FORGE_NAMES: Record<string, string> = { 'github': 'GitHub', 'gitlab': 'GitLab', 'bitbucket': 'Bitbucket', 'forgejo': 'Forgejo', 'gitea': 'Gitea', 'gitee': 'Gitee', 'azure-devops': 'Azure DevOps', 'cursor-origin': 'Cursor Origin', 'pushin': 'Pushin.eu', 'tangled': 'Tangled', 'cloudflare-artifacts': 'Cloudflare Artifacts', 'sourcehut': 'Sourcehut' }
 
 function sameRequest(a: string, b: string): boolean {
   const [first, second] = [new URL(a), new URL(b)]

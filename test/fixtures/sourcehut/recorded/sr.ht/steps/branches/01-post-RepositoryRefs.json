@@ -1,0 +1,513 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://git.sr.ht/query",
+    "operationName": "RepositoryRefs",
+    "variables": {
+      "owner": "sircmpwn",
+      "name": "scdoc"
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "data": {
+        "user": {
+          "repository": {
+            "HEAD": {
+              "name": "refs/heads/master"
+            },
+            "references": {
+              "cursor": "gAAAAABq0EL5We5fvwEvVdR6n7-ljNxAUFr7xC8c52VoDhYdc-bXfHs6LoCC3QDfLPfMt64_82HObMEMJHSStBzUh80IJ2UuXI5_4o02iprBKIH1Qz0ixfDlg1QwKjR-hE3kkgSWLIidUhgxsGbe8X0P4Sd1cronAg==",
+              "results": [
+                {
+                  "name": "HEAD",
+                  "target": "refs/heads/master",
+                  "follow": {
+                    "id": "24be30ef17d5ca0162f11b35258c8fa2413d556a",
+                    "committer": {
+                      "time": "2026-07-07T09:06:57+02:00"
+                    }
+                  },
+                  "artifacts": {
+                    "results": [],
+                    "cursor": "gAAAAABq0EL5_ADukx0MLXfsKJYHA9equLD6Y7BXW6tdp8ZkTyN44ttRD1OCBjaR-fo10ZVKlzQI9nEJlBzuDTnMhyUybgRFTuFmhOVKTP8m-2R8oudkAFhC6nx2NEX7-mOSi_XpSxGv"
+                  }
+                },
+                {
+                  "name": "refs/heads/master",
+                  "target": "24be30ef17d5ca0162f11b35258c8fa2413d556a",
+                  "follow": {
+                    "id": "24be30ef17d5ca0162f11b35258c8fa2413d556a",
+                    "committer": {
+                      "time": "2026-07-07T09:06:57+02:00"
+                    }
+                  },
+                  "artifacts": {
+                    "results": [],
+                    "cursor": "gAAAAABq0EL5JmuUfELLm4dUp5YNwe49x7jjzbBr2gixQmnDJC__5-axL5t4X663nvn9Sr9zbHAn2qgczNbJTl5iuBr_mYI4BpV3JWYp59Gn2kqFcahaiqthIETNlXHd7MtycjRG6sSC"
+                  }
+                },
+                {
+                  "name": "refs/tags/1.0.0",
+                  "target": "5375ff4902b816ad0cb0754541eb0c78134aff89",
+                  "follow": {
+                    "tagger": {
+                      "time": "2017-12-10T01:35:45-05:00"
+                    },
+                    "target": {
+                      "id": "64f623387b83414c307ae3cfd14a05f71abfb42e",
+                      "committer": {
+                        "time": "2017-12-10T01:35:30-05:00"
+                      }
+                    }
+                  },
+                  "artifacts": {
+                    "results": [],
+                    "cursor": null
+                  }
+                },
+                {
+                  "name": "refs/tags/1.0.1",
+                  "target": "458dd8073e188b15c2cac8799dd13223ad7883b9",
+                  "follow": {
+                    "tagger": {
+                      "time": "2017-12-10T02:49:31-05:00"
+                    },
+                    "target": {
+                      "id": "175c566ceadcdd9c233194625bfc388c46677db9",
+                      "committer": {
+                        "time": "2017-12-10T02:49:25-05:00"
+                      }
+                    }
+                  },
+                  "artifacts": {
+                    "results": [],
+                    "cursor": null
+                  }
+                },
+                {
+                  "name": "refs/tags/1.1.0",
+                  "target": "a5619fc866994baefec60a9634a93e5f76481430",
+                  "follow": {
+                    "tagger": {
+                      "time": "2017-12-10T12:09:39-05:00"
+                    },
+                    "target": {
+                      "id": "4f0f1b778c1928571a0b90abe525e1af2579bd0f",
+                      "committer": {
+                        "time": "2017-12-10T12:09:34-05:00"
+                      }
+                    }
+                  },
+                  "artifacts": {
+                    "results": [],
+                    "cursor": null
+                  }
+                },
+                {
+                  "name": "refs/tags/1.10.0",
+                  "target": "b66d7c402cd33bcd0cd65fe496abc515f9aa8a5a",
+                  "follow": {
+                    "tagger": {
+                      "time": "2019-09-11T15:15:23-04:00"
+                    },
+                    "target": {
+                      "id": "c95b3ef042dfc1572d024e1ffc20620748b9b4c6",
+                      "committer": {
+                        "time": "2019-09-11T15:15:23-04:00"
+                      }
+                    }
+                  },
+                  "artifacts": {
+                    "results": [],
+                    "cursor": null
+                  }
+                },
+                {
+                  "name": "refs/tags/1.10.1",
+                  "target": "4faea7968d6efa361253fca69b5f41d9e4d3fd57",
+                  "follow": {
+                    "tagger": {
+                      "time": "2020-02-14T16:38:03-05:00"
+                    },
+                    "target": {
+                      "id": "9793e00eef81c53ebe747d560928b1d22e3d7e91",
+                      "committer": {
+                        "time": "2020-02-14T16:38:03-05:00"
+                      }
+                    }
+                  },
+                  "artifacts": {
+                    "results": [
+                      {
+                        "id": 3,
+                        "created": "2020-02-14T21:39:49.393865Z",
+                        "filename": "scdoc-1.10.1.tar.gz.sig",
+                        "checksum": "sha256:9a071693d44d22058059099ff32a8784d9334b98fea374d65ce1908bb0ac767b",
+                        "size": 310,
+                        "url": "https://git.sr.ht/query/artifact/sha256:9a071693d44d22058059099ff32a8784d9334b98fea374d65ce1908bb0ac767b/scdoc-1.10.1.tar.gz.sig"
+                      },
+                      {
+                        "id": 2,
+                        "created": "2020-02-14T21:39:46.229249Z",
+                        "filename": "scdoc-1.10.1.tar.gz",
+                        "checksum": "sha256:51b60a2e9c51c3160f24f88bed8ba68d2357b5a1bc0e34b7a2ff83245f132333",
+                        "size": 12447,
+                        "url": "https://git.sr.ht/query/artifact/sha256:51b60a2e9c51c3160f24f88bed8ba68d2357b5a1bc0e34b7a2ff83245f132333/scdoc-1.10.1.tar.gz"
+                      }
+                    ],
+                    "cursor": null
+                  }
+                },
+                {
+                  "name": "refs/tags/1.11.0",
+                  "target": "2f6276d07752f9b88c1ee1664e8bc60a853c322c",
+                  "follow": {
+                    "tagger": {
+                      "time": "2020-06-14T11:21:58-04:00"
+                    },
+                    "target": {
+                      "id": "274dafc88e4ad06a89063608866e0ed40882ece0",
+                      "committer": {
+                        "time": "2020-06-14T11:21:58-04:00"
+                      }
+                    }
+                  },
+                  "artifacts": {
+                    "results": [],
+                    "cursor": null
+                  }
+                },
+                {
+                  "name": "refs/tags/1.11.1",
+                  "target": "a6b35b6e7a6d68e69ed2c6f9827e6b0b9210a0cd",
+                  "follow": {
+                    "tagger": {
+                      "time": "2020-12-06T08:59:32-05:00"
+                    },
+                    "target": {
+                      "id": "badecfc64b76f518f695cd7403cc0df50168f36d",
+                      "committer": {
+                        "time": "2020-12-06T08:59:32-05:00"
+                      }
+                    }
+                  },
+                  "artifacts": {
+                    "results": [],
+                    "cursor": null
+                  }
+                },
+                {
+                  "name": "refs/tags/1.11.2",
+                  "target": "9886c40e8dcdc180d694d6be4b58f5fd08f1168e",
+                  "follow": {
+                    "tagger": {
+                      "time": "2021-11-13T09:04:45+01:00"
+                    },
+                    "target": {
+                      "id": "5a61910c227003dde9edc9128397e6f7c370b65c",
+                      "committer": {
+                        "time": "2021-11-13T09:04:45+01:00"
+                      }
+                    }
+                  },
+                  "artifacts": {
+                    "results": [],
+                    "cursor": null
+                  }
+                },
+                {
+                  "name": "refs/tags/1.11.3",
+                  "target": "f26eacacdb516106bdbed3a0c2e2a140d6cbc59e",
+                  "follow": {
+                    "tagger": {
+                      "time": "2024-02-17T10:51:31+01:00"
+                    },
+                    "target": {
+                      "id": "0528bcb993cac6c412acd3ae2e09539e994c0a59",
+                      "committer": {
+                        "time": "2024-02-17T10:51:31+01:00"
+                      }
+                    }
+                  },
+                  "artifacts": {
+                    "results": [],
+                    "cursor": null
+                  }
+                },
+                {
+                  "name": "refs/tags/1.11.4",
+                  "target": "878c9c5dc32a68fbabecd5662c12d8070b9a6846",
+                  "follow": {
+                    "tagger": {
+                      "time": "2025-11-11T15:37:36+01:00"
+                    },
+                    "target": {
+                      "id": "70de0e5e5d3bc40134ee65c35f1631656199f4be",
+                      "committer": {
+                        "time": "2025-11-11T15:37:36+01:00"
+                      }
+                    }
+                  },
+                  "artifacts": {
+                    "results": [],
+                    "cursor": null
+                  }
+                },
+                {
+                  "name": "refs/tags/1.11.5",
+                  "target": "1ed7454466a55bd0d50ab547aec109c335b15096",
+                  "follow": {
+                    "tagger": {
+                      "time": "2026-07-07T09:07:05+02:00"
+                    },
+                    "target": {
+                      "id": "24be30ef17d5ca0162f11b35258c8fa2413d556a",
+                      "committer": {
+                        "time": "2026-07-07T09:06:57+02:00"
+                      }
+                    }
+                  },
+                  "artifacts": {
+                    "results": [],
+                    "cursor": null
+                  }
+                },
+                {
+                  "name": "refs/tags/1.2.0",
+                  "target": "220b5939181db0ee97440cecf04fb7ceaeec45d1",
+                  "follow": {
+                    "tagger": {
+                      "time": "2017-12-10T12:22:14-05:00"
+                    },
+                    "target": {
+                      "id": "d8da572ac2bb100bd7182964c2804476bf5f70aa",
+                      "committer": {
+                        "time": "2017-12-10T12:22:07-05:00"
+                      }
+                    }
+                  },
+                  "artifacts": {
+                    "results": [],
+                    "cursor": null
+                  }
+                },
+                {
+                  "name": "refs/tags/1.2.1",
+                  "target": "b22e5675fa0e8bf3a810136508c3258960c197b3",
+                  "follow": {
+                    "tagger": {
+                      "time": "2017-12-10T12:36:14-05:00"
+                    },
+                    "target": {
+                      "id": "07734b1deb2b2648c2c3b197e2cc048478eb70a4",
+                      "committer": {
+                        "time": "2017-12-10T12:36:06-05:00"
+                      }
+                    }
+                  },
+                  "artifacts": {
+                    "results": [],
+                    "cursor": null
+                  }
+                },
+                {
+                  "name": "refs/tags/1.2.2",
+                  "target": "207b646bf1dc94a9cade2201876905d2094f6c3f",
+                  "follow": {
+                    "tagger": {
+                      "time": "2018-01-25T18:13:29-05:00"
+                    },
+                    "target": {
+                      "id": "2f38d508d64e0f396c89e7117222a8cdd99dc297",
+                      "committer": {
+                        "time": "2018-01-25T18:13:03-05:00"
+                      }
+                    }
+                  },
+                  "artifacts": {
+                    "results": [],
+                    "cursor": null
+                  }
+                },
+                {
+                  "name": "refs/tags/1.2.3",
+                  "target": "eea8afb65243f306f73bf4ca68a29173777985bf",
+                  "follow": {
+                    "tagger": {
+                      "time": "2018-01-25T19:02:35-05:00"
+                    },
+                    "target": {
+                      "id": "8ed8b6bd77d02c94a37dd7bca9f788c86596380f",
+                      "committer": {
+                        "time": "2018-01-25T19:02:23-05:00"
+                      }
+                    }
+                  },
+                  "artifacts": {
+                    "results": [],
+                    "cursor": null
+                  }
+                },
+                {
+                  "name": "refs/tags/1.3.0",
+                  "target": "95651d2feb07d14eff128ef6abf9f721fbb2c098",
+                  "follow": {
+                    "tagger": {
+                      "time": "2018-05-10T23:01:38-04:00"
+                    },
+                    "target": {
+                      "id": "e5dec0cbd0b022fbe020c374a9f1f8d649657437",
+                      "committer": {
+                        "time": "2018-05-10T23:01:03-04:00"
+                      }
+                    }
+                  },
+                  "artifacts": {
+                    "results": [],
+                    "cursor": null
+                  }
+                },
+                {
+                  "name": "refs/tags/1.3.1",
+                  "target": "d1ac625af98b79b823c8fd63101330e7626a7b9a",
+                  "follow": {
+                    "tagger": {
+                      "time": "2018-05-14T10:53:06-04:00"
+                    },
+                    "target": {
+                      "id": "0c25f932d2bb89aa8bc778f0d493debe2f239cf3",
+                      "committer": {
+                        "time": "2018-05-14T07:37:05-04:00"
+                      }
+                    }
+                  },
+                  "artifacts": {
+                    "results": [],
+                    "cursor": null
+                  }
+                },
+                {
+                  "name": "refs/tags/1.3.2",
+                  "target": "1d04256c3f48f7bd301d61341c31d46aaceaaa2b",
+                  "follow": {
+                    "tagger": {
+                      "time": "2018-05-14T18:44:07-04:00"
+                    },
+                    "target": {
+                      "id": "7d6ea069526ea719872eb410ab17b503d56501f3",
+                      "committer": {
+                        "time": "2018-05-14T18:42:44-04:00"
+                      }
+                    }
+                  },
+                  "artifacts": {
+                    "results": [],
+                    "cursor": null
+                  }
+                },
+                {
+                  "name": "refs/tags/1.3.3",
+                  "target": "ce256d4040ad3b36fbd453bf999d255960156094",
+                  "follow": {
+                    "tagger": {
+                      "time": "2018-05-14T20:21:46-04:00"
+                    },
+                    "target": {
+                      "id": "e75396b8d36066339978f50aa76637a630c3e09a",
+                      "committer": {
+                        "time": "2018-05-14T20:20:52-04:00"
+                      }
+                    }
+                  },
+                  "artifacts": {
+                    "results": [],
+                    "cursor": null
+                  }
+                },
+                {
+                  "name": "refs/tags/1.3.4",
+                  "target": "a9d0fe15ecd13a2cc540ed425bda993799088526",
+                  "follow": {
+                    "tagger": {
+                      "time": "2018-05-31T17:26:23-04:00"
+                    },
+                    "target": {
+                      "id": "e971203b15306dd7492a23830833eb32fdee44ea",
+                      "committer": {
+                        "time": "2018-05-31T17:26:15-04:00"
+                      }
+                    }
+                  },
+                  "artifacts": {
+                    "results": [],
+                    "cursor": null
+                  }
+                },
+                {
+                  "name": "refs/tags/1.4.0",
+                  "target": "cf2749b80cbf13038bbf676d4852e997627415ff",
+                  "follow": {
+                    "tagger": {
+                      "time": "2018-07-20T09:41:52-04:00"
+                    },
+                    "target": {
+                      "id": "0fabc9bb0c15c25df5ba10958efd2d71fe64e0e8",
+                      "committer": {
+                        "time": "2018-07-13T09:32:07-04:00"
+                      }
+                    }
+                  },
+                  "artifacts": {
+                    "results": [],
+                    "cursor": null
+                  }
+                },
+                {
+                  "name": "refs/tags/1.4.1",
+                  "target": "700bc1187b356b96c946c1fb8401ab1f2520f68c",
+                  "follow": {
+                    "tagger": {
+                      "time": "2018-07-22T17:55:44-04:00"
+                    },
+                    "target": {
+                      "id": "f131a31f6471233a22bd77b0a5cb01e8de0403dc",
+                      "committer": {
+                        "time": "2018-07-22T17:55:30-04:00"
+                      }
+                    }
+                  },
+                  "artifacts": {
+                    "results": [],
+                    "cursor": null
+                  }
+                },
+                {
+                  "name": "refs/tags/1.4.2",
+                  "target": "27d7660548dc03cec5cc856e549da8d1f487da0e",
+                  "follow": {
+                    "tagger": {
+                      "time": "2018-09-11T08:31:30-04:00"
+                    },
+                    "target": {
+                      "id": "d3030d866a8807f62e4941c368715f0fd6e60cc4",
+                      "committer": {
+                        "time": "2018-09-06T09:21:42-04:00"
+                      }
+                    }
+                  },
+                  "artifacts": {
+                    "results": [],
+                    "cursor": null
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

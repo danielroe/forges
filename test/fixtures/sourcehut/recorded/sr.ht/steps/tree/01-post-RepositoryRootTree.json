@@ -1,0 +1,172 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://git.sr.ht/query",
+    "operationName": "RepositoryRootTree",
+    "variables": {
+      "owner": "sircmpwn",
+      "name": "scdoc",
+      "revspec": "HEAD"
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "data": {
+        "user": {
+          "repository": {
+            "revparse_single": {
+              "tree": {
+                "entries": {
+                  "cursor": null,
+                  "results": [
+                    {
+                      "id": "152769b034a81761885e1b3aec21a3f2b0d82d22",
+                      "name": ".build.yml",
+                      "mode": 33188,
+                      "object": {
+                        "type": "BLOB",
+                        "id": "152769b034a81761885e1b3aec21a3f2b0d82d22",
+                        "shortId": "152769b",
+                        "size": 143
+                      }
+                    },
+                    {
+                      "id": "884f8f944c2d3d1632e6bc6cd2324ee0704d5bb3",
+                      "name": ".editorconfig",
+                      "mode": 33188,
+                      "object": {
+                        "type": "BLOB",
+                        "id": "884f8f944c2d3d1632e6bc6cd2324ee0704d5bb3",
+                        "shortId": "884f8f9",
+                        "size": 96
+                      }
+                    },
+                    {
+                      "id": "ab855cf6063b857f7b056e46f396dea4e2bb7c12",
+                      "name": ".gitignore",
+                      "mode": 33188,
+                      "object": {
+                        "type": "BLOB",
+                        "id": "ab855cf6063b857f7b056e46f396dea4e2bb7c12",
+                        "shortId": "ab855cf",
+                        "size": 38
+                      }
+                    },
+                    {
+                      "id": "3be8ae82f1d9d12f53f9889101d5bf64ce8d85b0",
+                      "name": "COPYING",
+                      "mode": 33188,
+                      "object": {
+                        "type": "BLOB",
+                        "id": "3be8ae82f1d9d12f53f9889101d5bf64ce8d85b0",
+                        "shortId": "3be8ae8",
+                        "size": 1063
+                      }
+                    },
+                    {
+                      "id": "28c3308e28729fd16ea1b3104263f3ba68377586",
+                      "name": "Makefile",
+                      "mode": 33188,
+                      "object": {
+                        "type": "BLOB",
+                        "id": "28c3308e28729fd16ea1b3104263f3ba68377586",
+                        "shortId": "28c3308",
+                        "size": 1578
+                      }
+                    },
+                    {
+                      "id": "4d4bf4399830bbbb9fec77769c349f07e274caa6",
+                      "name": "README.md",
+                      "mode": 33188,
+                      "object": {
+                        "type": "BLOB",
+                        "id": "4d4bf4399830bbbb9fec77769c349f07e274caa6",
+                        "shortId": "4d4bf43",
+                        "size": 625
+                      }
+                    },
+                    {
+                      "id": "c9eb0aba724450596d7569fe728b2fdccd8fdd55",
+                      "name": "contrib",
+                      "mode": 16384,
+                      "object": {
+                        "type": "TREE",
+                        "id": "c9eb0aba724450596d7569fe728b2fdccd8fdd55",
+                        "shortId": "c9eb0ab"
+                      }
+                    },
+                    {
+                      "id": "74cb048de7b7b88b2c29c7d3657a0be9f596fb22",
+                      "name": "include",
+                      "mode": 16384,
+                      "object": {
+                        "type": "TREE",
+                        "id": "74cb048de7b7b88b2c29c7d3657a0be9f596fb22",
+                        "shortId": "74cb048"
+                      }
+                    },
+                    {
+                      "id": "9ba83b786b7af220785a0cc6866c0d39c59ce0c3",
+                      "name": "scdoc.1.scd",
+                      "mode": 33188,
+                      "object": {
+                        "type": "BLOB",
+                        "id": "9ba83b786b7af220785a0cc6866c0d39c59ce0c3",
+                        "shortId": "9ba83b7",
+                        "size": 717
+                      }
+                    },
+                    {
+                      "id": "06cc212df3c7c84e3544b6cb727029615ed00f56",
+                      "name": "scdoc.5.scd",
+                      "mode": 33188,
+                      "object": {
+                        "type": "BLOB",
+                        "id": "06cc212df3c7c84e3544b6cb727029615ed00f56",
+                        "shortId": "06cc212",
+                        "size": 4717
+                      }
+                    },
+                    {
+                      "id": "e7df9963b45850337dac87a729fc8b11511cf001",
+                      "name": "scdoc.pc.in",
+                      "mode": 33188,
+                      "object": {
+                        "type": "BLOB",
+                        "id": "e7df9963b45850337dac87a729fc8b11511cf001",
+                        "shortId": "e7df996",
+                        "size": 133
+                      }
+                    },
+                    {
+                      "id": "2f1f766ba56008208be55fbb89aa65c0d5cfe1d2",
+                      "name": "src",
+                      "mode": 16384,
+                      "object": {
+                        "type": "TREE",
+                        "id": "2f1f766ba56008208be55fbb89aa65c0d5cfe1d2",
+                        "shortId": "2f1f766"
+                      }
+                    },
+                    {
+                      "id": "7589b184bc58b0c76be06352eb3c5902298cddfb",
+                      "name": "test",
+                      "mode": 16384,
+                      "object": {
+                        "type": "TREE",
+                        "id": "7589b184bc58b0c76be06352eb3c5902298cddfb",
+                        "shortId": "7589b18"
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

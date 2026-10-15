@@ -238,6 +238,8 @@ export type {
 } from './provider.ts'
 export { pushin } from './pushin/index.ts'
 export type { PushinAuth, PushinOptions } from './pushin/index.ts'
+export { sourcehut, sourcehutLite } from './sourcehut/index.ts'
+export type { SourcehutAuth, SourcehutOptions } from './sourcehut/index.ts'
 export { supportOf, supports } from './supports.ts'
 export type { ForgeVerb } from './supports.ts'
 export { tangled, tangledLite } from './tangled/index.ts'

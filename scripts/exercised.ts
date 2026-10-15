@@ -1,7 +1,7 @@
 import type { ForgeCapabilities, ForgeProvider } from '../src/index.ts'
 import type { VerbRun } from '../test/setup/verbs-directory.ts'
 import { existsSync, readdirSync, readFileSync } from 'node:fs'
-import { azureDevOps, bitbucket, cloudflareArtifacts, cursorOrigin, forgejo, gitea, gitee, github, gitlab, pushin, tangled } from '../src/index.ts'
+import { azureDevOps, bitbucket, cloudflareArtifacts, cursorOrigin, forgejo, gitea, gitee, github, gitlab, pushin, sourcehut, tangled } from '../src/index.ts'
 import { VERB_RUN } from '../test/setup/verbs-directory.ts'
 
 /** Why the run that wrote `directory` left verbs out, or an empty list when it ran every test of the unit project. */
@@ -55,6 +55,7 @@ export const CHECKED_PROVIDERS: Array<[string, ForgeProvider]> = [
   ['tangled', tangled({ auth: { type: 'app_password', identifier: 'h', password: 'p' }, notificationsUrl: 'https://notifications.example' }).create()],
   ['pushin', pushin({ auth }).create()],
   ['cloudflare-artifacts', cloudflareArtifacts({ auth, accountId: 'acme' }).create()],
+  ['sourcehut', sourcehut({ auth }).create()],
   ['github:anonymous', github({}).create()],
   ['gitlab:anonymous', gitlab({}).create()],
   ['bitbucket:anonymous', bitbucket({}).create()],

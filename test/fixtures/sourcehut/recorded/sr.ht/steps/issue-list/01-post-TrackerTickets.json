@@ -1,0 +1,978 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://todo.sr.ht/query",
+    "operationName": "TrackerTickets",
+    "variables": {
+      "owner": "sircmpwn",
+      "name": "scdoc"
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "data": {
+        "user": {
+          "tracker": {
+            "tickets": {
+              "cursor": "gAAAAABq0EL10OCAT6DDqwMRw2Yz5-QvWtTRanQ7tCriT0qfJsYRtW4kxEpHacBQr4mDZDQGDftUR8wiPjdVTMYwnU8dx_6ejnrHXkNyEwAynQePT43ooGCbAWFN1qQKbGpoEp8Idjk5",
+              "results": [
+                {
+                  "id": 28,
+                  "created": "2026-07-10T05:41:31.042369Z",
+                  "updated": "2026-07-10T06:42:27.344198Z",
+                  "ref": "~sircmpwn/scdoc#28",
+                  "subject": "[PATCH scdoc] Fix typo in scdoc.1.scd: 'This variables specifies' -> 'This variable specifies'",
+                  "body": "Fix a grammar error in the SOURCE_DATE_EPOCH documentation: \r\n'This variables specifies' -> 'This variable specifies'\r\n\r\nThe rendered man page currently shows:\r\n\"This variables specifies the date\"\r\n\r\nThis is incorrect - \"variables\" should be the singular \"variable\".\r\n\r\nPatch follows:\r\n\r\n--- a/scdoc.1.scd\r\n+++ b/scdoc.1.scd\r\n@@ -16,7 +16,7 @@ _man_(7) style roff to the standard output.\r\n # ENVIRONMENT\r\n \r\n The scdoc utility supports the standard _SOURCE_DATE_EPOCH_ environment\r\n-variable for reproducible builds. This variables specifies the date in number\r\n+variable for reproducible builds. This variable specifies the date in number\r\n of seconds since the Unix epoch, see:\r\n https://reproducible-builds.org/specs/source-date-epoch/\r\n",
+                  "status": "RESOLVED",
+                  "resolution": "INVALID",
+                  "submitter": {
+                    "canonicalName": "~lechynte",
+                    "id": 82960,
+                    "updated": "2026-07-19T10:49:42.717328Z",
+                    "username": "lechynte",
+                    "email": "redacted@example.invalid",
+                    "url": "https://sr.ht/~lechynte/",
+                    "location": "Earth",
+                    "bio": "Developer creating useful utilities and tools. Building entutils — a collection of everyday CLI tools. Interested in system programming, open source, and practical software."
+                  },
+                  "tracker": {
+                    "id": 20,
+                    "rid": "06dy9z0m4xs0q1y8z4akp71rc8",
+                    "name": "scdoc",
+                    "owner": {
+                      "canonicalName": "~sircmpwn",
+                      "id": 3,
+                      "updated": "2026-05-20T08:58:29.975145Z",
+                      "username": "sircmpwn",
+                      "email": "redacted@example.invalid",
+                      "url": "https://drewdevault.com",
+                      "location": "Netherlands",
+                      "bio": "I write code."
+                    }
+                  },
+                  "labels": [],
+                  "assignees": [],
+                  "subscription": null
+                },
+                {
+                  "id": 27,
+                  "created": "2024-03-08T21:35:52.82005Z",
+                  "updated": "2025-02-02T08:26:36.478821Z",
+                  "ref": "~sircmpwn/scdoc#27",
+                  "subject": "Eat leading spaces in list items after line breaks",
+                  "body": "Right now:\r\n\r\n```\r\n- Item 1++\r\n  Where am I rendered?\r\n```\r\n\r\nis rendered as:\r\n\r\n```\r\n- Item 1\r\n    Where am I rendered?\r\n```\r\n\r\nTo achieve proper rendering, one has to write it as:\r\n\r\n```\r\n- Item 1\r\nWhere am I rendered?\r\n```\r\n\r\nwhich is counter-intuitive.",
+                  "status": "RESOLVED",
+                  "resolution": "CLOSED",
+                  "submitter": {
+                    "canonicalName": "~przemoc",
+                    "id": 23,
+                    "updated": "2026-02-04T11:44:56.40574Z",
+                    "username": "przemoc",
+                    "email": "redacted@example.invalid",
+                    "url": null,
+                    "location": null,
+                    "bio": "Realist, pragmatist, strong-willed, strong-minded. Sometimes taciturn, sometimes loquacious. FLOSS enthusiast but still using Windows. Alpine Linux advocator."
+                  },
+                  "tracker": {
+                    "id": 20,
+                    "rid": "06dy9z0m4xs0q1y8z4akp71rc8",
+                    "name": "scdoc",
+                    "owner": {
+                      "canonicalName": "~sircmpwn",
+                      "id": 3,
+                      "updated": "2026-05-20T08:58:29.975145Z",
+                      "username": "sircmpwn",
+                      "email": "redacted@example.invalid",
+                      "url": "https://drewdevault.com",
+                      "location": "Netherlands",
+                      "bio": "I write code."
+                    }
+                  },
+                  "labels": [],
+                  "assignees": [],
+                  "subscription": null
+                },
+                {
+                  "id": 26,
+                  "created": "2020-08-03T03:22:59.683073Z",
+                  "updated": "2020-11-30T08:58:35.726599Z",
+                  "ref": "~sircmpwn/scdoc#26",
+                  "subject": "Ignoring underscores in the middle_of_words precludes certain use cases",
+                  "body": "I just tried `_width_*x*_height_` and noticed that the second underscore span is missing any formatting and is just output verbatim as `_height_`. I understand the reasons for this and the fact that it's just behaving as documented, but is there any way to force the underlining in this case...?",
+                  "status": "RESOLVED",
+                  "resolution": "WONT_FIX",
+                  "submitter": {
+                    "canonicalName": "~xcb",
+                    "id": 16226,
+                    "updated": "2020-05-17T19:36:50.001121Z",
+                    "username": "xcb",
+                    "email": "redacted@example.invalid",
+                    "url": "",
+                    "location": "",
+                    "bio": ""
+                  },
+                  "tracker": {
+                    "id": 20,
+                    "rid": "06dy9z0m4xs0q1y8z4akp71rc8",
+                    "name": "scdoc",
+                    "owner": {
+                      "canonicalName": "~sircmpwn",
+                      "id": 3,
+                      "updated": "2026-05-20T08:58:29.975145Z",
+                      "username": "sircmpwn",
+                      "email": "redacted@example.invalid",
+                      "url": "https://drewdevault.com",
+                      "location": "Netherlands",
+                      "bio": "I write code."
+                    }
+                  },
+                  "labels": [],
+                  "assignees": [],
+                  "subscription": null
+                },
+                {
+                  "id": 25,
+                  "created": "2020-02-10T20:32:54.477517Z",
+                  "updated": "2023-08-25T10:54:12.995227Z",
+                  "ref": "~sircmpwn/scdoc#25",
+                  "subject": "Add support for emails/hyperlinks",
+                  "body": "It would be nice to have a way to generate the `.MT`/`.ME` and the `.UR`/`.UE` roff macros.\r\n\r\nRef https://github.com/emersion/mako/pull/233",
+                  "status": "RESOLVED",
+                  "resolution": "WONT_FIX",
+                  "submitter": {
+                    "canonicalName": "~emersion",
+                    "id": 27,
+                    "updated": "2026-01-11T13:00:44.760588Z",
+                    "username": "emersion",
+                    "email": "redacted@example.invalid",
+                    "url": "https://emersion.fr",
+                    "location": "France",
+                    "bio": "I'm Simon Ser, I write open-source software."
+                  },
+                  "tracker": {
+                    "id": 20,
+                    "rid": "06dy9z0m4xs0q1y8z4akp71rc8",
+                    "name": "scdoc",
+                    "owner": {
+                      "canonicalName": "~sircmpwn",
+                      "id": 3,
+                      "updated": "2026-05-20T08:58:29.975145Z",
+                      "username": "sircmpwn",
+                      "email": "redacted@example.invalid",
+                      "url": "https://drewdevault.com",
+                      "location": "Netherlands",
+                      "bio": "I write code."
+                    }
+                  },
+                  "labels": [],
+                  "assignees": [],
+                  "subscription": null
+                },
+                {
+                  "id": 24,
+                  "created": "2020-01-24T14:41:01.213672Z",
+                  "updated": "2021-10-06T06:18:52.322541Z",
+                  "ref": "~sircmpwn/scdoc#24",
+                  "subject": "Add an #include-esque mechanism",
+                  "body": "To deduplicate for projects with lots of man pages.",
+                  "status": "RESOLVED",
+                  "resolution": "WONT_FIX",
+                  "submitter": {
+                    "canonicalName": "~sircmpwn",
+                    "id": 3,
+                    "updated": "2026-05-20T08:58:29.975145Z",
+                    "username": "sircmpwn",
+                    "email": "redacted@example.invalid",
+                    "url": "https://drewdevault.com",
+                    "location": "Netherlands",
+                    "bio": "I write code."
+                  },
+                  "tracker": {
+                    "id": 20,
+                    "rid": "06dy9z0m4xs0q1y8z4akp71rc8",
+                    "name": "scdoc",
+                    "owner": {
+                      "canonicalName": "~sircmpwn",
+                      "id": 3,
+                      "updated": "2026-05-20T08:58:29.975145Z",
+                      "username": "sircmpwn",
+                      "email": "redacted@example.invalid",
+                      "url": "https://drewdevault.com",
+                      "location": "Netherlands",
+                      "bio": "I write code."
+                    }
+                  },
+                  "labels": [],
+                  "assignees": [],
+                  "subscription": null
+                },
+                {
+                  "id": 23,
+                  "created": "2019-03-01T09:44:06.037184Z",
+                  "updated": "2021-10-06T13:16:32.508692Z",
+                  "ref": "~sircmpwn/scdoc#23",
+                  "subject": "pkg-config file hardcodes prefix",
+                  "body": "Prefix is hardcoded to `prefix=/usr` in the `.pc` file. We need to use the Makefile's PREFIX instead. This involves making the `.pc` file a `.pc.in` template.",
+                  "status": "RESOLVED",
+                  "resolution": "FIXED",
+                  "submitter": {
+                    "canonicalName": "~emersion",
+                    "id": 27,
+                    "updated": "2026-01-11T13:00:44.760588Z",
+                    "username": "emersion",
+                    "email": "redacted@example.invalid",
+                    "url": "https://emersion.fr",
+                    "location": "France",
+                    "bio": "I'm Simon Ser, I write open-source software."
+                  },
+                  "tracker": {
+                    "id": 20,
+                    "rid": "06dy9z0m4xs0q1y8z4akp71rc8",
+                    "name": "scdoc",
+                    "owner": {
+                      "canonicalName": "~sircmpwn",
+                      "id": 3,
+                      "updated": "2026-05-20T08:58:29.975145Z",
+                      "username": "sircmpwn",
+                      "email": "redacted@example.invalid",
+                      "url": "https://drewdevault.com",
+                      "location": "Netherlands",
+                      "bio": "I write code."
+                    }
+                  },
+                  "labels": [],
+                  "assignees": [],
+                  "subscription": null
+                },
+                {
+                  "id": 22,
+                  "created": "2019-02-28T10:11:20.455739Z",
+                  "updated": "2021-10-06T13:16:01.013759Z",
+                  "ref": "~sircmpwn/scdoc#22",
+                  "subject": "Add tests",
+                  "body": "There have been a lot of breakage in scdoc releases. For instance a recent one is: https://github.com/swaywm/sway/issues/3792\r\n\r\nA collection of tests would avoid breaking manpages.",
+                  "status": "RESOLVED",
+                  "resolution": "WONT_FIX",
+                  "submitter": {
+                    "canonicalName": "~emersion",
+                    "id": 27,
+                    "updated": "2026-01-11T13:00:44.760588Z",
+                    "username": "emersion",
+                    "email": "redacted@example.invalid",
+                    "url": "https://emersion.fr",
+                    "location": "France",
+                    "bio": "I'm Simon Ser, I write open-source software."
+                  },
+                  "tracker": {
+                    "id": 20,
+                    "rid": "06dy9z0m4xs0q1y8z4akp71rc8",
+                    "name": "scdoc",
+                    "owner": {
+                      "canonicalName": "~sircmpwn",
+                      "id": 3,
+                      "updated": "2026-05-20T08:58:29.975145Z",
+                      "username": "sircmpwn",
+                      "email": "redacted@example.invalid",
+                      "url": "https://drewdevault.com",
+                      "location": "Netherlands",
+                      "bio": "I write code."
+                    }
+                  },
+                  "labels": [],
+                  "assignees": [],
+                  "subscription": null
+                },
+                {
+                  "id": 21,
+                  "created": "2019-02-25T01:14:38.094631Z",
+                  "updated": "2019-02-25T01:19:22.416715Z",
+                  "ref": "~sircmpwn/scdoc#21",
+                  "subject": "underline in underline word behavior",
+                  "body": "This test currently fails, but I would expect it to succeed.\r\n\r\n```\r\ndiff --git a/test/inline-formatting b/test/inline-formatting\r\nindex 7f61ba6..91e46f3 100755\r\n--- a/test/inline-formatting\r\n+++ b/test/inline-formatting\r\n@@ -25,6 +25,14 @@ test(8)\r\n EOF\r\n end 0\r\n \r\n+begin \"Allows underscores in underlined words\"\r\n+scdoc <<EOF | grep '^\\\\fIhello_world\\\\fR' >/dev/null\r\n+test(8)\r\n+\r\n+_hello_world_\r\n+EOF\r\n+end 0\r\n+\r\n begin \"Emits bold text\"\r\n scdoc <<EOF | grep '^hello \\\\fBworld\\\\fR' >/dev/null\r\n test(8)\r\n```\r\n\r\n\r\nCurrent output:\r\n\r\n```\r\n$ scdoc <<EOF | grep hello \r\ntest(8)\r\n\r\n_hello_world_\r\nEOF\r\n\\fIhello\\fRworld_\r\n```\r\n\r\nThe work around is of course very straightforward (`_hello\\_world_`). The documentation seems to imply that underscores in the middle of words are disregarded, which led me to believe that the escape of the middle underscore was not necessary.\r\n\r\nSo maybe only a documentation update is required for clarification?",
+                  "status": "REPORTED",
+                  "resolution": "UNRESOLVED",
+                  "submitter": {
+                    "canonicalName": "~ixephus",
+                    "id": 2146,
+                    "updated": "2020-01-18T09:54:33.522021Z",
+                    "username": "ixephus",
+                    "email": "redacted@example.invalid",
+                    "url": "",
+                    "location": "",
+                    "bio": ""
+                  },
+                  "tracker": {
+                    "id": 20,
+                    "rid": "06dy9z0m4xs0q1y8z4akp71rc8",
+                    "name": "scdoc",
+                    "owner": {
+                      "canonicalName": "~sircmpwn",
+                      "id": 3,
+                      "updated": "2026-05-20T08:58:29.975145Z",
+                      "username": "sircmpwn",
+                      "email": "redacted@example.invalid",
+                      "url": "https://drewdevault.com",
+                      "location": "Netherlands",
+                      "bio": "I write code."
+                    }
+                  },
+                  "labels": [],
+                  "assignees": [],
+                  "subscription": null
+                },
+                {
+                  "id": 20,
+                  "created": "2019-01-31T15:10:51.732006Z",
+                  "updated": "2019-02-05T20:01:57.157497Z",
+                  "ref": "~sircmpwn/scdoc#20",
+                  "subject": "Can't check version given just the executable",
+                  "body": "Neither the `--version`, `-version`, or `-v` command-line option is supported, and the man-page doesn't show the version either. It's not super important, but it's a tad annoying when trying to make sure you have the correct version.",
+                  "status": "RESOLVED",
+                  "resolution": "FIXED",
+                  "submitter": {
+                    "canonicalName": "~las",
+                    "id": 6821,
+                    "updated": "2019-01-31T15:09:48.191371Z",
+                    "username": "las",
+                    "email": "redacted@example.invalid",
+                    "url": null,
+                    "location": null,
+                    "bio": null
+                  },
+                  "tracker": {
+                    "id": 20,
+                    "rid": "06dy9z0m4xs0q1y8z4akp71rc8",
+                    "name": "scdoc",
+                    "owner": {
+                      "canonicalName": "~sircmpwn",
+                      "id": 3,
+                      "updated": "2026-05-20T08:58:29.975145Z",
+                      "username": "sircmpwn",
+                      "email": "redacted@example.invalid",
+                      "url": "https://drewdevault.com",
+                      "location": "Netherlands",
+                      "bio": "I write code."
+                    }
+                  },
+                  "labels": [],
+                  "assignees": [],
+                  "subscription": null
+                },
+                {
+                  "id": 19,
+                  "created": "2019-01-31T14:25:13.295918Z",
+                  "updated": "2019-02-05T20:01:59.126432Z",
+                  "ref": "~sircmpwn/scdoc#19",
+                  "subject": "Consider shipping a pkg-config file",
+                  "body": "Something similar to:\r\n\r\n```\r\n> cat /usr/lib/pkgconfig/wayland-scanner.pc \r\nprefix=/usr\r\nexec_prefix=${prefix}\r\ndatarootdir=${prefix}/share\r\npkgdatadir=${datarootdir}/wayland\r\nwayland_scanner=${exec_prefix}/bin/wayland-scanner\r\n\r\nName: Wayland Scanner\r\nDescription: Wayland scanner\r\nVersion: 1.16.0\r\n```",
+                  "status": "RESOLVED",
+                  "resolution": "FIXED",
+                  "submitter": {
+                    "canonicalName": "~emersion",
+                    "id": 27,
+                    "updated": "2026-01-11T13:00:44.760588Z",
+                    "username": "emersion",
+                    "email": "redacted@example.invalid",
+                    "url": "https://emersion.fr",
+                    "location": "France",
+                    "bio": "I'm Simon Ser, I write open-source software."
+                  },
+                  "tracker": {
+                    "id": 20,
+                    "rid": "06dy9z0m4xs0q1y8z4akp71rc8",
+                    "name": "scdoc",
+                    "owner": {
+                      "canonicalName": "~sircmpwn",
+                      "id": 3,
+                      "updated": "2026-05-20T08:58:29.975145Z",
+                      "username": "sircmpwn",
+                      "email": "redacted@example.invalid",
+                      "url": "https://drewdevault.com",
+                      "location": "Netherlands",
+                      "bio": "I write code."
+                    }
+                  },
+                  "labels": [],
+                  "assignees": [],
+                  "subscription": null
+                },
+                {
+                  "id": 18,
+                  "created": "2019-01-31T13:43:51.1075Z",
+                  "updated": "2019-01-31T14:09:07.906686Z",
+                  "ref": "~sircmpwn/scdoc#18",
+                  "subject": "1.8.1 breaks some man pages",
+                  "body": "e.g. https://github.com/swaywm/sway/issues/3544#issuecomment-459284097\r\n\r\nI am not sure whether this is supposed to be fixed in the .scd file, or if this is a scdoc bug. The error happens here: https://github.com/swaywm/sway/blob/master/sway/sway-bar.5.scd#L21",
+                  "status": "RESOLVED",
+                  "resolution": "FIXED",
+                  "submitter": {
+                    "canonicalName": "~emersion",
+                    "id": 27,
+                    "updated": "2026-01-11T13:00:44.760588Z",
+                    "username": "emersion",
+                    "email": "redacted@example.invalid",
+                    "url": "https://emersion.fr",
+                    "location": "France",
+                    "bio": "I'm Simon Ser, I write open-source software."
+                  },
+                  "tracker": {
+                    "id": 20,
+                    "rid": "06dy9z0m4xs0q1y8z4akp71rc8",
+                    "name": "scdoc",
+                    "owner": {
+                      "canonicalName": "~sircmpwn",
+                      "id": 3,
+                      "updated": "2026-05-20T08:58:29.975145Z",
+                      "username": "sircmpwn",
+                      "email": "redacted@example.invalid",
+                      "url": "https://drewdevault.com",
+                      "location": "Netherlands",
+                      "bio": "I write code."
+                    }
+                  },
+                  "labels": [],
+                  "assignees": [],
+                  "subscription": null
+                },
+                {
+                  "id": 17,
+                  "created": "2019-01-03T03:43:51.190671Z",
+                  "updated": "2019-01-03T22:59:14.57518Z",
+                  "ref": "~sircmpwn/scdoc#17",
+                  "subject": "Environment LDFLAGS not honored",
+                  "body": "I'm not entirely sure where the breakdown occurs but the user's LDFLAGS environment variable isn't honored. In my case, building scdoc for Arch Linux should pull in RELRO and PIE protections. I can work around this by running:\r\n\r\n    make PREFIX=/usr LDFLAGS=\"$LDFLAGS\"",
+                  "status": "RESOLVED",
+                  "resolution": "BY_DESIGN",
+                  "submitter": {
+                    "canonicalName": "~ainola",
+                    "id": 5446,
+                    "updated": "2021-02-02T05:01:40.77834Z",
+                    "username": "ainola",
+                    "email": "redacted@example.invalid",
+                    "url": null,
+                    "location": null,
+                    "bio": null
+                  },
+                  "tracker": {
+                    "id": 20,
+                    "rid": "06dy9z0m4xs0q1y8z4akp71rc8",
+                    "name": "scdoc",
+                    "owner": {
+                      "canonicalName": "~sircmpwn",
+                      "id": 3,
+                      "updated": "2026-05-20T08:58:29.975145Z",
+                      "username": "sircmpwn",
+                      "email": "redacted@example.invalid",
+                      "url": "https://drewdevault.com",
+                      "location": "Netherlands",
+                      "bio": "I write code."
+                    }
+                  },
+                  "labels": [],
+                  "assignees": [],
+                  "subscription": null
+                },
+                {
+                  "id": 16,
+                  "created": "2018-07-22T21:55:01.306531Z",
+                  "updated": "2018-07-22T22:10:26.189915Z",
+                  "ref": "~sircmpwn/scdoc#16",
+                  "subject": "scdoc 1.4.0 and DVERSION='\"1.3.4\"",
+                  "body": "Looks like the version was not stepped for the new tag.\r\n\r\nFrom the build log\r\n\r\n```\r\n>>> scdoc: Unpacking /var/cache/distfiles/scdoc-1.4.0.tar.xz...\r\ngcc -std=c99 -pedantic -c -o .build/main.o -Os -fomit-frame-pointer -g -DVERSION='\"1.3.4\"' -Wall -Wextra -Werror -Wno-unused-parameter -Iinclude src/main.c\r\ngcc -std=c99 -pedantic -c -o .build/string.o -Os -fomit-frame-pointer -g -DVERSION='\"1.3.4\"' -Wall -Wextra -Werror -Wno-unused-parameter -Iinclude src/string.c\r\ngcc -std=c99 -pedantic -c -o .build/utf8_chsize.o -Os -fomit-frame-pointer -g -DVERSION='\"1.3.4\"' -Wall -Wextra -Werror -Wno-unused-parameter -Iinclude src/utf8_chsize.c\r\ngcc -std=c99 -pedantic -c -o .build/utf8_decode.o -Os -fomit-frame-pointer -g -DVERSION='\"1.3.4\"' -Wall -Wextra -Werror -Wno-unused-parameter -Iinclude src/utf8_decode.c\r\ngcc -std=c99 -pedantic -c -o .build/utf8_encode.o -Os -fomit-frame-pointer -g -DVERSION='\"1.3.4\"' -Wall -Wextra -Werror -Wno-unused-parameter -Iinclude src/utf8_encode.c\r\ngcc -std=c99 -pedantic -c -o .build/utf8_fgetch.o -Os -fomit-frame-pointer -g -DVERSION='\"1.3.4\"' -Wall -Wextra -Werror -Wno-unused-parameter -Iinclude src/utf8_fgetch.c\r\ngcc -std=c99 -pedantic -c -o .build/utf8_fputch.o -Os -fomit-frame-pointer -g -DVERSION='\"1.3.4\"' -Wall -Wextra -Werror -Wno-unused-parameter -Iinclude src/utf8_fputch.c\r\ngcc -std=c99 -pedantic -c -o .build/utf8_size.o -Os -fomit-frame-pointer -g -DVERSION='\"1.3.4\"' -Wall -Wextra -Werror -Wno-unused-parameter -Iinclude src/utf8_size.c\r\ngcc -std=c99 -pedantic -c -o .build/util.o -Os -fomit-frame-pointer -g -DVERSION='\"1.3.4\"' -Wall -Wextra -Werror -Wno-unused-parameter -Iinclude src/util.c\r\ngcc -Wl,--as-needed -static -o scdoc .build/main.o .build/string.o .build/utf8_chsize.o .build/utf8_decode.o .build/utf8_encode.o .build/utf8_fgetch.o .build/utf8_fputch.o .build/utf8_size.o .build/util.o\r\n```\r\n\r\nCheck in the Makefile\r\n\r\n```bash\r\n$ head -n 1 src/scdoc-1.4.0/Makefile\r\nVERSION=1.3.4\r\n```",
+                  "status": "RESOLVED",
+                  "resolution": "FIXED",
+                  "submitter": {
+                    "canonicalName": "~hrio",
+                    "id": 107,
+                    "updated": "2018-07-22T17:38:43.458305Z",
+                    "username": "hrio",
+                    "email": "redacted@example.invalid",
+                    "url": null,
+                    "location": null,
+                    "bio": null
+                  },
+                  "tracker": {
+                    "id": 20,
+                    "rid": "06dy9z0m4xs0q1y8z4akp71rc8",
+                    "name": "scdoc",
+                    "owner": {
+                      "canonicalName": "~sircmpwn",
+                      "id": 3,
+                      "updated": "2026-05-20T08:58:29.975145Z",
+                      "username": "sircmpwn",
+                      "email": "redacted@example.invalid",
+                      "url": "https://drewdevault.com",
+                      "location": "Netherlands",
+                      "bio": "I write code."
+                    }
+                  },
+                  "labels": [],
+                  "assignees": [],
+                  "subscription": null
+                },
+                {
+                  "id": 15,
+                  "created": "2018-07-13T11:33:43.917008Z",
+                  "updated": "2018-11-14T13:30:52.82501Z",
+                  "ref": "~sircmpwn/scdoc#15",
+                  "subject": "Don't use asserts with side-effects",
+                  "body": "",
+                  "status": "RESOLVED",
+                  "resolution": "FIXED",
+                  "submitter": {
+                    "canonicalName": "~sircmpwn",
+                    "id": 3,
+                    "updated": "2026-05-20T08:58:29.975145Z",
+                    "username": "sircmpwn",
+                    "email": "redacted@example.invalid",
+                    "url": "https://drewdevault.com",
+                    "location": "Netherlands",
+                    "bio": "I write code."
+                  },
+                  "tracker": {
+                    "id": 20,
+                    "rid": "06dy9z0m4xs0q1y8z4akp71rc8",
+                    "name": "scdoc",
+                    "owner": {
+                      "canonicalName": "~sircmpwn",
+                      "id": 3,
+                      "updated": "2026-05-20T08:58:29.975145Z",
+                      "username": "sircmpwn",
+                      "email": "redacted@example.invalid",
+                      "url": "https://drewdevault.com",
+                      "location": "Netherlands",
+                      "bio": "I write code."
+                    }
+                  },
+                  "labels": [],
+                  "assignees": [],
+                  "subscription": null
+                },
+                {
+                  "id": 14,
+                  "created": "2018-05-14T21:44:50.841133Z",
+                  "updated": "2018-05-14T22:36:21.812643Z",
+                  "ref": "~sircmpwn/scdoc#14",
+                  "subject": "Add comments",
+                  "body": "Ignore lines starting with `; `",
+                  "status": "RESOLVED",
+                  "resolution": "IMPLEMENTED",
+                  "submitter": {
+                    "canonicalName": "~sircmpwn",
+                    "id": 3,
+                    "updated": "2026-05-20T08:58:29.975145Z",
+                    "username": "sircmpwn",
+                    "email": "redacted@example.invalid",
+                    "url": "https://drewdevault.com",
+                    "location": "Netherlands",
+                    "bio": "I write code."
+                  },
+                  "tracker": {
+                    "id": 20,
+                    "rid": "06dy9z0m4xs0q1y8z4akp71rc8",
+                    "name": "scdoc",
+                    "owner": {
+                      "canonicalName": "~sircmpwn",
+                      "id": 3,
+                      "updated": "2026-05-20T08:58:29.975145Z",
+                      "username": "sircmpwn",
+                      "email": "redacted@example.invalid",
+                      "url": "https://drewdevault.com",
+                      "location": "Netherlands",
+                      "bio": "I write code."
+                    }
+                  },
+                  "labels": [],
+                  "assignees": [],
+                  "subscription": null
+                },
+                {
+                  "id": 13,
+                  "created": "2018-05-14T21:43:27.176416Z",
+                  "updated": "2018-05-14T22:22:20.640728Z",
+                  "ref": "~sircmpwn/scdoc#13",
+                  "subject": "Enforce that isalnum and isdigit are fed ascii characters",
+                  "body": "",
+                  "status": "RESOLVED",
+                  "resolution": "FIXED",
+                  "submitter": {
+                    "canonicalName": "~sircmpwn",
+                    "id": 3,
+                    "updated": "2026-05-20T08:58:29.975145Z",
+                    "username": "sircmpwn",
+                    "email": "redacted@example.invalid",
+                    "url": "https://drewdevault.com",
+                    "location": "Netherlands",
+                    "bio": "I write code."
+                  },
+                  "tracker": {
+                    "id": 20,
+                    "rid": "06dy9z0m4xs0q1y8z4akp71rc8",
+                    "name": "scdoc",
+                    "owner": {
+                      "canonicalName": "~sircmpwn",
+                      "id": 3,
+                      "updated": "2026-05-20T08:58:29.975145Z",
+                      "username": "sircmpwn",
+                      "email": "redacted@example.invalid",
+                      "url": "https://drewdevault.com",
+                      "location": "Netherlands",
+                      "bio": "I write code."
+                    }
+                  },
+                  "labels": [],
+                  "assignees": [],
+                  "subscription": null
+                },
+                {
+                  "id": 12,
+                  "created": "2018-05-14T20:37:04.700347Z",
+                  "updated": "2018-05-30T14:45:44.257427Z",
+                  "ref": "~sircmpwn/scdoc#12",
+                  "subject": "Consider automatically boldifying things that look like references",
+                  "body": "For example:\r\n\r\n```\r\nSee also foobar(8)\r\n```",
+                  "status": "RESOLVED",
+                  "resolution": "WONT_FIX",
+                  "submitter": {
+                    "canonicalName": "~sircmpwn",
+                    "id": 3,
+                    "updated": "2026-05-20T08:58:29.975145Z",
+                    "username": "sircmpwn",
+                    "email": "redacted@example.invalid",
+                    "url": "https://drewdevault.com",
+                    "location": "Netherlands",
+                    "bio": "I write code."
+                  },
+                  "tracker": {
+                    "id": 20,
+                    "rid": "06dy9z0m4xs0q1y8z4akp71rc8",
+                    "name": "scdoc",
+                    "owner": {
+                      "canonicalName": "~sircmpwn",
+                      "id": 3,
+                      "updated": "2026-05-20T08:58:29.975145Z",
+                      "username": "sircmpwn",
+                      "email": "redacted@example.invalid",
+                      "url": "https://drewdevault.com",
+                      "location": "Netherlands",
+                      "bio": "I write code."
+                    }
+                  },
+                  "labels": [],
+                  "assignees": [],
+                  "subscription": null
+                },
+                {
+                  "id": 11,
+                  "created": "2018-05-14T16:56:05.426358Z",
+                  "updated": "2018-05-14T16:56:05.42638Z",
+                  "ref": "~sircmpwn/scdoc#11",
+                  "subject": "Additional UTF-8 edge cases",
+                  "body": "This is some minor stuff.\r\n\r\n- Java encodes NULL as 0xC0 0x80.\r\n- MS writes a BOM (0xEF 0xBB 0xBF). I guess we could skip this.",
+                  "status": "REPORTED",
+                  "resolution": "UNRESOLVED",
+                  "submitter": {
+                    "canonicalName": "~sircmpwn",
+                    "id": 3,
+                    "updated": "2026-05-20T08:58:29.975145Z",
+                    "username": "sircmpwn",
+                    "email": "redacted@example.invalid",
+                    "url": "https://drewdevault.com",
+                    "location": "Netherlands",
+                    "bio": "I write code."
+                  },
+                  "tracker": {
+                    "id": 20,
+                    "rid": "06dy9z0m4xs0q1y8z4akp71rc8",
+                    "name": "scdoc",
+                    "owner": {
+                      "canonicalName": "~sircmpwn",
+                      "id": 3,
+                      "updated": "2026-05-20T08:58:29.975145Z",
+                      "username": "sircmpwn",
+                      "email": "redacted@example.invalid",
+                      "url": "https://drewdevault.com",
+                      "location": "Netherlands",
+                      "bio": "I write code."
+                    }
+                  },
+                  "labels": [],
+                  "assignees": [],
+                  "subscription": null
+                },
+                {
+                  "id": 10,
+                  "created": "2018-05-14T14:46:27.818656Z",
+                  "updated": "2026-07-19T10:49:17.254827Z",
+                  "ref": "~sircmpwn/scdoc#10",
+                  "subject": "UTF-8 decoder handles illegal sequences wrong",
+                  "body": "    0xC0 0xC1\r\n\r\n    0xF7 0xF7 0xF7 0xF7\r\n\r\nVia Baz <redacted@example.invalid>",
+                  "status": "RESOLVED",
+                  "resolution": "INVALID",
+                  "submitter": {
+                    "canonicalName": "~sircmpwn",
+                    "id": 3,
+                    "updated": "2026-05-20T08:58:29.975145Z",
+                    "username": "sircmpwn",
+                    "email": "redacted@example.invalid",
+                    "url": "https://drewdevault.com",
+                    "location": "Netherlands",
+                    "bio": "I write code."
+                  },
+                  "tracker": {
+                    "id": 20,
+                    "rid": "06dy9z0m4xs0q1y8z4akp71rc8",
+                    "name": "scdoc",
+                    "owner": {
+                      "canonicalName": "~sircmpwn",
+                      "id": 3,
+                      "updated": "2026-05-20T08:58:29.975145Z",
+                      "username": "sircmpwn",
+                      "email": "redacted@example.invalid",
+                      "url": "https://drewdevault.com",
+                      "location": "Netherlands",
+                      "bio": "I write code."
+                    }
+                  },
+                  "labels": [],
+                  "assignees": [],
+                  "subscription": null
+                },
+                {
+                  "id": 9,
+                  "created": "2018-05-14T14:45:00.819688Z",
+                  "updated": "2018-05-14T22:38:56.189386Z",
+                  "ref": "~sircmpwn/scdoc#9",
+                  "subject": "Dashes are stripped from the title of the man page",
+                  "body": "e.g.\r\n\r\n    sway-bar(5)\r\n\r\nBecomes swaybar in the generated man page.\r\n\r\nVia Marius <redacted@example.invalid>",
+                  "status": "RESOLVED",
+                  "resolution": "FIXED",
+                  "submitter": {
+                    "canonicalName": "~sircmpwn",
+                    "id": 3,
+                    "updated": "2026-05-20T08:58:29.975145Z",
+                    "username": "sircmpwn",
+                    "email": "redacted@example.invalid",
+                    "url": "https://drewdevault.com",
+                    "location": "Netherlands",
+                    "bio": "I write code."
+                  },
+                  "tracker": {
+                    "id": 20,
+                    "rid": "06dy9z0m4xs0q1y8z4akp71rc8",
+                    "name": "scdoc",
+                    "owner": {
+                      "canonicalName": "~sircmpwn",
+                      "id": 3,
+                      "updated": "2026-05-20T08:58:29.975145Z",
+                      "username": "sircmpwn",
+                      "email": "redacted@example.invalid",
+                      "url": "https://drewdevault.com",
+                      "location": "Netherlands",
+                      "bio": "I write code."
+                    }
+                  },
+                  "labels": [],
+                  "assignees": [],
+                  "subscription": null
+                },
+                {
+                  "id": 8,
+                  "created": "2018-05-14T14:44:36.976781Z",
+                  "updated": "2018-05-14T22:42:56.85775Z",
+                  "ref": "~sircmpwn/scdoc#8",
+                  "subject": "nroff complains about .RE without .RS",
+                  "body": "On line 292 of the scdoc.1 roff:\r\n\r\n    .RE without .RS ignored\r\n\r\nReported via Henrik Riomar <redacted@example.invalid>",
+                  "status": "RESOLVED",
+                  "resolution": "FIXED",
+                  "submitter": {
+                    "canonicalName": "~sircmpwn",
+                    "id": 3,
+                    "updated": "2026-05-20T08:58:29.975145Z",
+                    "username": "sircmpwn",
+                    "email": "redacted@example.invalid",
+                    "url": "https://drewdevault.com",
+                    "location": "Netherlands",
+                    "bio": "I write code."
+                  },
+                  "tracker": {
+                    "id": 20,
+                    "rid": "06dy9z0m4xs0q1y8z4akp71rc8",
+                    "name": "scdoc",
+                    "owner": {
+                      "canonicalName": "~sircmpwn",
+                      "id": 3,
+                      "updated": "2026-05-20T08:58:29.975145Z",
+                      "username": "sircmpwn",
+                      "email": "redacted@example.invalid",
+                      "url": "https://drewdevault.com",
+                      "location": "Netherlands",
+                      "bio": "I write code."
+                    }
+                  },
+                  "labels": [],
+                  "assignees": [],
+                  "subscription": null
+                },
+                {
+                  "id": 7,
+                  "created": "2018-05-12T01:09:30.71719Z",
+                  "updated": "2018-05-12T01:09:30.71721Z",
+                  "ref": "~sircmpwn/scdoc#7",
+                  "subject": "Support indented tables",
+                  "body": "Turns out we should be able to do this",
+                  "status": "REPORTED",
+                  "resolution": "UNRESOLVED",
+                  "submitter": {
+                    "canonicalName": "~sircmpwn",
+                    "id": 3,
+                    "updated": "2026-05-20T08:58:29.975145Z",
+                    "username": "sircmpwn",
+                    "email": "redacted@example.invalid",
+                    "url": "https://drewdevault.com",
+                    "location": "Netherlands",
+                    "bio": "I write code."
+                  },
+                  "tracker": {
+                    "id": 20,
+                    "rid": "06dy9z0m4xs0q1y8z4akp71rc8",
+                    "name": "scdoc",
+                    "owner": {
+                      "canonicalName": "~sircmpwn",
+                      "id": 3,
+                      "updated": "2026-05-20T08:58:29.975145Z",
+                      "username": "sircmpwn",
+                      "email": "redacted@example.invalid",
+                      "url": "https://drewdevault.com",
+                      "location": "Netherlands",
+                      "bio": "I write code."
+                    }
+                  },
+                  "labels": [],
+                  "assignees": [],
+                  "subscription": null
+                },
+                {
+                  "id": 6,
+                  "created": "2018-05-12T01:09:16.094753Z",
+                  "updated": "2024-04-04T17:48:11.813948Z",
+                  "ref": "~sircmpwn/scdoc#6",
+                  "subject": "Support `...` for inline literal text",
+                  "body": "",
+                  "status": "REPORTED",
+                  "resolution": "UNRESOLVED",
+                  "submitter": {
+                    "canonicalName": "~sircmpwn",
+                    "id": 3,
+                    "updated": "2026-05-20T08:58:29.975145Z",
+                    "username": "sircmpwn",
+                    "email": "redacted@example.invalid",
+                    "url": "https://drewdevault.com",
+                    "location": "Netherlands",
+                    "bio": "I write code."
+                  },
+                  "tracker": {
+                    "id": 20,
+                    "rid": "06dy9z0m4xs0q1y8z4akp71rc8",
+                    "name": "scdoc",
+                    "owner": {
+                      "canonicalName": "~sircmpwn",
+                      "id": 3,
+                      "updated": "2026-05-20T08:58:29.975145Z",
+                      "username": "sircmpwn",
+                      "email": "redacted@example.invalid",
+                      "url": "https://drewdevault.com",
+                      "location": "Netherlands",
+                      "bio": "I write code."
+                    }
+                  },
+                  "labels": [],
+                  "assignees": [],
+                  "subscription": null
+                },
+                {
+                  "id": 5,
+                  "created": "2018-05-12T01:09:01.613771Z",
+                  "updated": "2021-10-05T05:37:51.412263Z",
+                  "ref": "~sircmpwn/scdoc#5",
+                  "subject": "Error if a row of a table has a different number of columns",
+                  "body": "",
+                  "status": "RESOLVED",
+                  "resolution": "FIXED",
+                  "submitter": {
+                    "canonicalName": "~sircmpwn",
+                    "id": 3,
+                    "updated": "2026-05-20T08:58:29.975145Z",
+                    "username": "sircmpwn",
+                    "email": "redacted@example.invalid",
+                    "url": "https://drewdevault.com",
+                    "location": "Netherlands",
+                    "bio": "I write code."
+                  },
+                  "tracker": {
+                    "id": 20,
+                    "rid": "06dy9z0m4xs0q1y8z4akp71rc8",
+                    "name": "scdoc",
+                    "owner": {
+                      "canonicalName": "~sircmpwn",
+                      "id": 3,
+                      "updated": "2026-05-20T08:58:29.975145Z",
+                      "username": "sircmpwn",
+                      "email": "redacted@example.invalid",
+                      "url": "https://drewdevault.com",
+                      "location": "Netherlands",
+                      "bio": "I write code."
+                    }
+                  },
+                  "labels": [],
+                  "assignees": [],
+                  "subscription": null
+                },
+                {
+                  "id": 4,
+                  "created": "2017-12-10T15:48:34.400554Z",
+                  "updated": "2024-04-05T21:38:02.806807Z",
+                  "ref": "~sircmpwn/scdoc#4",
+                  "subject": "Clean up lists so they look good with  grohtml",
+                  "body": "",
+                  "status": "RESOLVED",
+                  "resolution": "FIXED",
+                  "submitter": {
+                    "canonicalName": "~sircmpwn",
+                    "id": 3,
+                    "updated": "2026-05-20T08:58:29.975145Z",
+                    "username": "sircmpwn",
+                    "email": "redacted@example.invalid",
+                    "url": "https://drewdevault.com",
+                    "location": "Netherlands",
+                    "bio": "I write code."
+                  },
+                  "tracker": {
+                    "id": 20,
+                    "rid": "06dy9z0m4xs0q1y8z4akp71rc8",
+                    "name": "scdoc",
+                    "owner": {
+                      "canonicalName": "~sircmpwn",
+                      "id": 3,
+                      "updated": "2026-05-20T08:58:29.975145Z",
+                      "username": "sircmpwn",
+                      "email": "redacted@example.invalid",
+                      "url": "https://drewdevault.com",
+                      "location": "Netherlands",
+                      "bio": "I write code."
+                    }
+                  },
+                  "labels": [],
+                  "assignees": [],
+                  "subscription": null
+                }
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

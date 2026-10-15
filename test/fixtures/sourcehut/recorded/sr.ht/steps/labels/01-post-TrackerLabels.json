@@ -1,0 +1,27 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://todo.sr.ht/query",
+    "operationName": "TrackerLabels",
+    "variables": {
+      "owner": "sircmpwn",
+      "name": "scdoc"
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "data": {
+        "user": {
+          "tracker": {
+            "labels": {
+              "cursor": null,
+              "results": []
+            }
+          }
+        }
+      }
+    }
+  }
+}

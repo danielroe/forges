@@ -11,6 +11,7 @@ import { gitee } from '../../src/gitee/index.ts'
 import { github } from '../../src/github/index.ts'
 import { gitlab } from '../../src/gitlab/index.ts'
 import { pushin } from '../../src/pushin/index.ts'
+import { sourcehut } from '../../src/sourcehut/index.ts'
 import { tangled } from '../../src/tangled/index.ts'
 import { FakeWebSocket } from '../utils/websocket.ts'
 
@@ -30,6 +31,7 @@ export const REPLAYED_PROVIDERS: Array<{ name: string, create: Create }> = [
   { name: 'bitbucket', create: (fetch, manifest) => bitbucket({ auth: authFor(manifest), baseUrl: manifest.baseUrl, webhookSecret: manifest.webhookSecret, fetch }).create() },
   { name: 'cloudflare-artifacts', create: (fetch, manifest) => cloudflareArtifacts({ auth: token, accountId: manifest.repo.instance.split('.')[0]!, baseUrl: manifest.baseUrl, fetch }).create() },
   { name: 'pushin', create: (fetch, manifest) => pushin({ auth: authFor(manifest), baseUrl: manifest.baseUrl, fetch }).create() },
+  { name: 'sourcehut', create: (fetch, manifest) => sourcehut({ auth: authFor(manifest) ?? token, baseUrl: manifest.baseUrl, fetch }).create() },
   { name: 'gitee', create: (fetch, manifest) => gitee({ auth: authFor(manifest), fetch }).create() },
   { name: 'azure-devops', create: (fetch, manifest) => azureDevOps({ auth: authFor(manifest), organization: manifest.repo.owner.split('/')[0]!, fetch }).create() },
   {

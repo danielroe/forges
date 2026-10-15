@@ -1,0 +1,36 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://git.sr.ht/query",
+    "operationName": "RepositoryFile",
+    "variables": {
+      "owner": "sircmpwn",
+      "name": "scdoc",
+      "revspec": "HEAD",
+      "path": ".build.yml"
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "data": {
+        "user": {
+          "repository": {
+            "path": {
+              "id": "152769b034a81761885e1b3aec21a3f2b0d82d22",
+              "object": {
+                "type": "BLOB",
+                "id": "152769b034a81761885e1b3aec21a3f2b0d82d22",
+                "shortId": "152769b",
+                "text": "image: alpine/edge\nsources:\n- https://git.sr.ht/~sircmpwn/scdoc\ntasks:\n- build: |\n    cd scdoc\n    make\n- check: |\n    cd scdoc\n    make check\n",
+                "size": 143,
+                "content": "https://git.sr.ht/query/blob/60/152769b034a81761885e1b3aec21a3f2b0d82d22"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

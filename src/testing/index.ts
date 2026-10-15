@@ -79,7 +79,8 @@ function fixtureKey(method: string, url: string, operationName?: string, variabl
 }
 
 function operationOf(url: string, body: string | undefined): { operationName?: string, variables?: Record<string, unknown> } {
-  if (!body || !url.endsWith('/graphql')) {
+  // GitHub sends GraphQL to `/graphql`; Sourcehut sends it to `/query`.
+  if (!body || !(url.endsWith('/graphql') || url.endsWith('/query'))) {
     return {}
   }
   try {
@@ -284,6 +285,13 @@ const SIGNERS: Partial<Record<ForgeKind, (body: string, secret: string) => Promi
   'gitee': async (_body, secret) => ({ 'x-gitee-token': secret }),
   'azure-devops': async (_body, secret) => ({ authorization: `Basic ${btoa(secret)}` }),
   'cursor-origin': (body, secret) => signStandardWebhook(crypto.randomUUID(), body, secret),
+  'sourcehut': async (body, secret) => {
+    const nonce = crypto.randomUUID()
+    const der = Uint8Array.from(atob(secret), char => char.charCodeAt(0))
+    const key = await crypto.subtle.importKey('pkcs8', der, { name: 'Ed25519' }, false, ['sign'])
+    const signature = new Uint8Array(await crypto.subtle.sign('Ed25519', key, new TextEncoder().encode(body + nonce)))
+    return { 'x-payload-nonce': nonce, 'x-payload-signature': toBase64(signature) }
+  },
   'fake': async (body, secret) => ({ 'x-fake-signature': await hmacSha256Hex(secret, body) }),
 }
 

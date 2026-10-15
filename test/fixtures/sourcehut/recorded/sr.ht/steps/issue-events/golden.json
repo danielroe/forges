@@ -1,0 +1,240 @@
+{
+  "items": [
+    {
+      "forge": "sourcehut",
+      "instance": "sr.ht",
+      "id": "341200-0",
+      "kindRaw": "TICKET_MENTIONED",
+      "repo": {
+        "forge": "sourcehut",
+        "instance": "sr.ht",
+        "owner": "~sircmpwn",
+        "name": "scdoc"
+      },
+      "thread": {
+        "forge": "sourcehut",
+        "instance": "sr.ht",
+        "repo": {
+          "forge": "sourcehut",
+          "instance": "sr.ht",
+          "owner": "~sircmpwn",
+          "name": "scdoc"
+        },
+        "kind": "issue",
+        "number": "6"
+      },
+      "source": "poll",
+      "occurredAt": "2024-04-04T17:48:12.975Z",
+      "kind": "referenced",
+      "actionRaw": "created",
+      "summary": "~tsdh referenced Support `...` for inline literal text",
+      "actor": {
+        "forge": "sourcehut",
+        "instance": "sr.ht",
+        "login": "~tsdh",
+        "id": "21372",
+        "url": "https://meta.sr.ht/~tsdh",
+        "isBotHint": false
+      },
+      "action": "created"
+    },
+    {
+      "forge": "sourcehut",
+      "instance": "sr.ht",
+      "id": "340706-0",
+      "kindRaw": "TICKET_MENTIONED",
+      "repo": {
+        "forge": "sourcehut",
+        "instance": "sr.ht",
+        "owner": "~sircmpwn",
+        "name": "scdoc"
+      },
+      "thread": {
+        "forge": "sourcehut",
+        "instance": "sr.ht",
+        "repo": {
+          "forge": "sourcehut",
+          "instance": "sr.ht",
+          "owner": "~sircmpwn",
+          "name": "scdoc"
+        },
+        "kind": "issue",
+        "number": "6"
+      },
+      "source": "poll",
+      "occurredAt": "2024-04-04T17:48:10.929Z",
+      "kind": "referenced",
+      "actionRaw": "created",
+      "summary": "~tsdh referenced Support `...` for inline literal text",
+      "actor": {
+        "forge": "sourcehut",
+        "instance": "sr.ht",
+        "login": "~tsdh",
+        "id": "21372",
+        "url": "https://meta.sr.ht/~tsdh",
+        "isBotHint": false
+      },
+      "action": "created"
+    },
+    {
+      "forge": "sourcehut",
+      "instance": "sr.ht",
+      "id": "335113-0",
+      "kindRaw": "COMMENT",
+      "repo": {
+        "forge": "sourcehut",
+        "instance": "sr.ht",
+        "owner": "~sircmpwn",
+        "name": "scdoc"
+      },
+      "thread": {
+        "forge": "sourcehut",
+        "instance": "sr.ht",
+        "repo": {
+          "forge": "sourcehut",
+          "instance": "sr.ht",
+          "owner": "~sircmpwn",
+          "name": "scdoc"
+        },
+        "kind": "issue",
+        "number": "6"
+      },
+      "source": "poll",
+      "occurredAt": "2024-03-08T21:27:31.899Z",
+      "kind": "comment",
+      "actionRaw": "created",
+      "summary": "~przemoc commented",
+      "actor": {
+        "forge": "sourcehut",
+        "instance": "sr.ht",
+        "login": "~przemoc",
+        "id": "23",
+        "url": "https://meta.sr.ht/~przemoc",
+        "isBotHint": false
+      },
+      "detail": {
+        "type": "comment",
+        "comment": {
+          "forge": "sourcehut",
+          "instance": "sr.ht",
+          "thread": {
+            "forge": "sourcehut",
+            "instance": "sr.ht",
+            "repo": {
+              "forge": "sourcehut",
+              "instance": "sr.ht",
+              "owner": "~sircmpwn",
+              "name": "scdoc"
+            },
+            "kind": "issue",
+            "number": "6"
+          },
+          "id": "335113"
+        },
+        "body": "That would be nice to have indeed."
+      },
+      "action": "created"
+    },
+    {
+      "forge": "sourcehut",
+      "instance": "sr.ht",
+      "id": "55717-0",
+      "kindRaw": "COMMENT",
+      "repo": {
+        "forge": "sourcehut",
+        "instance": "sr.ht",
+        "owner": "~sircmpwn",
+        "name": "scdoc"
+      },
+      "thread": {
+        "forge": "sourcehut",
+        "instance": "sr.ht",
+        "repo": {
+          "forge": "sourcehut",
+          "instance": "sr.ht",
+          "owner": "~sircmpwn",
+          "name": "scdoc"
+        },
+        "kind": "issue",
+        "number": "6"
+      },
+      "source": "poll",
+      "occurredAt": "2020-10-28T11:03:12.313Z",
+      "kind": "comment",
+      "actionRaw": "created",
+      "summary": "~mvdan commented",
+      "actor": {
+        "forge": "sourcehut",
+        "instance": "sr.ht",
+        "login": "~mvdan",
+        "id": "1342",
+        "url": "https://meta.sr.ht/~mvdan",
+        "isBotHint": false
+      },
+      "detail": {
+        "type": "comment",
+        "comment": {
+          "forge": "sourcehut",
+          "instance": "sr.ht",
+          "thread": {
+            "forge": "sourcehut",
+            "instance": "sr.ht",
+            "repo": {
+              "forge": "sourcehut",
+              "instance": "sr.ht",
+              "owner": "~sircmpwn",
+              "name": "scdoc"
+            },
+            "kind": "issue",
+            "number": "6"
+          },
+          "id": "55717"
+        },
+        "body": "I was about to file this issue. It seems like ronn renders backticks just like bold asterisks, so we could do the same."
+      },
+      "action": "created"
+    },
+    {
+      "forge": "sourcehut",
+      "instance": "sr.ht",
+      "id": "329-0",
+      "kindRaw": "CREATED",
+      "repo": {
+        "forge": "sourcehut",
+        "instance": "sr.ht",
+        "owner": "~sircmpwn",
+        "name": "scdoc"
+      },
+      "thread": {
+        "forge": "sourcehut",
+        "instance": "sr.ht",
+        "repo": {
+          "forge": "sourcehut",
+          "instance": "sr.ht",
+          "owner": "~sircmpwn",
+          "name": "scdoc"
+        },
+        "kind": "issue",
+        "number": "6"
+      },
+      "source": "poll",
+      "occurredAt": "2018-05-12T01:09:16.099Z",
+      "kind": "state_change",
+      "actionRaw": "opened",
+      "summary": "~sircmpwn opened this",
+      "actor": {
+        "forge": "sourcehut",
+        "instance": "sr.ht",
+        "login": "~sircmpwn",
+        "id": "3",
+        "url": "https://meta.sr.ht/~sircmpwn",
+        "isBotHint": false
+      },
+      "detail": {
+        "type": "state_change",
+        "state": "open"
+      },
+      "action": "opened"
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://git.sr.ht/query",
+    "operationName": "RepositoryAcls",
+    "variables": {
+      "owner": "sircmpwn",
+      "name": "scdoc"
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "errors": [
+        {
+          "message": "Access denied",
+          "path": [
+            "user",
+            "repository",
+            "acls"
+          ],
+          "extensions": {
+            "code": "ERR_ACCESS_DENIED"
+          }
+        }
+      ],
+      "data": {
+        "user": {
+          "repository": null
+        }
+      }
+    }
+  }
+}

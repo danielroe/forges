@@ -216,6 +216,20 @@ export const credentialSteps: Record<string, Record<string, CredentialStep[]>> =
       },
     ],
   },
+  'sourcehut': {
+    TOKEN: [
+      {
+        text: 'Create a [personal access token](https://meta.sr.ht/oauth2) with the listed grants, one per service and scope.',
+        sources: ['https://man.sr.ht/meta.sr.ht/oauth.md', 'https://man.sr.ht/graphql.md'],
+        verified: '2026-10-14',
+      },
+      {
+        text: 'A personal access token is the recommended credential for scripts; an OAuth 2.0 bearer token works too. The token\'s grants decide which services it reaches.',
+        sources: ['https://man.sr.ht/meta.sr.ht/oauth.md'],
+        verified: '2026-10-14',
+      },
+    ],
+  },
   'tangled': {
     'IDENTIFIER+PASSWORD': [
       {
@@ -271,6 +285,11 @@ export const forgeSteps: Record<string, CredentialStep> = {
     text: 'Set `ACCOUNT_ID` to the account that holds the namespaces. In the dashboard, search for **Copy account ID**.',
     sources: ['https://developers.cloudflare.com/fundamentals/account/find-account-and-zone-ids/', 'src/env.ts'],
     verified: '2026-10-13',
+  },
+  'sourcehut': {
+    text: 'On a self-hosted instance, create the token there and set `BASE_URL` to the instance root, such as `https://example.org`.',
+    sources: ['docs/content/4.providers/sourcehut.md'],
+    verified: '2026-10-14',
   },
 }
 

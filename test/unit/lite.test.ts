@@ -2,7 +2,7 @@ import type { ForgeProvider } from '../../src/provider.ts'
 import { describe, expect, it } from 'vitest'
 import { hmacSha256Hex } from '../../src/crypto.ts'
 import { UnsupportedOperationError } from '../../src/errors.ts'
-import { azureDevOps, azureDevOpsLite, bitbucket, bitbucketLite, cursorOrigin, cursorOriginLite, forgejo, forgejoLite, gitea, giteaLite, gitee, giteeLite, github, githubLite, gitlab, gitlabLite, tangled, tangledLite } from '../../src/index.ts'
+import { azureDevOps, azureDevOpsLite, bitbucket, bitbucketLite, cursorOrigin, cursorOriginLite, forgejo, forgejoLite, gitea, giteaLite, gitee, giteeLite, github, githubLite, gitlab, gitlabLite, sourcehut, sourcehutLite, tangled, tangledLite } from '../../src/index.ts'
 import { CASES } from './push-cases.ts'
 
 const auth = { type: 'token', token: 't' } as const
@@ -16,6 +16,7 @@ const PAIRS: Array<[string, () => ForgeProvider, () => ForgeProvider]> = [
   ['gitee', () => gitee({ auth }).create(), () => giteeLite({ auth }).create()],
   ['azure devops', () => azureDevOps({ auth, organization: 'acme' }).create(), () => azureDevOpsLite({ auth, organization: 'acme' }).create()],
   ['cursor origin', () => cursorOrigin({ auth }).create(), () => cursorOriginLite({ auth }).create()],
+  ['sourcehut', () => sourcehut({ auth }).create(), () => sourcehutLite({ auth }).create()],
   ['tangled', () => tangled({ auth: { type: 'app_password', identifier: 'h', password: 'p' } }).create(), () => tangledLite({ auth: { type: 'app_password', identifier: 'h', password: 'p' } }).create()],
 ]
 
