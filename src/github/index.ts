@@ -363,7 +363,34 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
     return []
   }
 
+  /** When each polled path may be read again, from GitHub's `X-Poll-Interval`. */
+  const nextPoll = new Map<string, number>()
+
+  function throttledPage<T>(path: string, listOptions: { cursor?: Cursor, force?: boolean }, subject: string): Page<T> | undefined {
+    const at = nextPoll.get(path) ?? 0
+    const wait = at - Date.now()
+    if (!isFirstPage(listOptions.cursor) || listOptions.force || wait <= 0) {
+      return undefined
+    }
+    const warning = { code: 'feed_throttled', message: `GitHub asked to wait ${Math.ceil(wait / 1000)}s more before reading ${subject} again; no request was sent. Read it later, or pass force: true` }
+    return { items: [], throttled: true, nextPollAt: new Date(at), warnings: [warning], ...listOptions.cursor?.etag ? { etag: listOptions.cursor.etag } : {} }
+  }
+
+  function recordPoll(path: string, cursor: Cursor | undefined, response: Response): { nextPollAt?: Date } {
+    const interval = Number(response.headers.get('x-poll-interval'))
+    if (!isFirstPage(cursor) || !(interval > 0)) {
+      return {}
+    }
+    const at = Date.now() + interval * 1000
+    nextPoll.set(path, at)
+    return { nextPollAt: new Date(at) }
+  }
+
   async function notificationPage(listOptions: NotificationListOptions = {}): Promise<Page<Notification>> {
+    const throttled = throttledPage<Notification>('/notifications', listOptions, 'notifications')
+    if (throttled) {
+      return throttled
+    }
     const result = await fetcher.json<GitHubNotification[]>(listOptions.cursor?.nextUrl ?? '/notifications', {
       query: listOptions.cursor?.nextUrl
         ? undefined
@@ -384,6 +411,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
       ...etag ? { etag } : {},
       notModified: result.notModified,
       warnings: warnings.length ? warnings : undefined,
+      ...recordPoll('/notifications', listOptions.cursor, result.response),
       ...rateLimitPart(result.response),
     }
   }
@@ -1292,27 +1320,19 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
     }), warnings)
   }
 
-  /** When each feed may be read again, from GitHub's `X-Poll-Interval`. */
-  const nextPoll = new Map<string, number>()
-
   async function feedPage(path: string, listOptions: EventFeedOptions = {}): Promise<Page<ForgeEventInput>> {
-    const first = isFirstPage(listOptions.cursor)
-    const wait = (nextPoll.get(path) ?? 0) - Date.now()
-    if (first && !listOptions.force && wait > 0) {
-      const warning = { code: 'feed_throttled', message: `GitHub asked to wait ${Math.ceil(wait / 1000)}s more before reading this feed again; no request was sent. Read it later, or pass force: true` }
-      return { items: [], throttled: true, warnings: [warning], ...listOptions.cursor?.etag ? { etag: listOptions.cursor.etag } : {} }
+    const throttled = throttledPage<ForgeEventInput>(path, listOptions, 'this feed')
+    if (throttled) {
+      return throttled
     }
     const result = await fetcher.page<GitHubFeedEvent>(path, {
       query: { per_page: listOptions.perPage },
       cursor: listOptions.cursor,
       signal: listOptions.signal,
     })
-    const interval = Number(result.response.headers.get('x-poll-interval'))
-    if (first && interval > 0) {
-      nextPoll.set(path, Date.now() + interval * 1000)
-    }
+    const poll = recordPoll(path, listOptions.cursor, result.response)
     const { toFeedEvent } = await import('./events.ts')
-    return toPage(result, raw => toFeedEvent(instance, raw))
+    return { ...toPage(result, raw => toFeedEvent(instance, raw)), ...poll }
   }
 
   function createInstallationsApi(app: AppCredentials): Omit<InstallationsApi, 'list' | 'repos'> {

@@ -116,8 +116,36 @@ describe('github activity feeds', () => {
       vi.advanceTimersByTime(60_000)
       await provider.repos.eventsPage(repo)
 
-      expect(soon).toEqual({ items: [], throttled: true, etag: 'W/"first"', warnings: [{ code: 'feed_throttled', message: expect.stringContaining('wait 60s more') }] })
+      expect(page.nextPollAt).toEqual(new Date('2026-01-02T00:01:00Z'))
+      expect(soon).toEqual({ items: [], throttled: true, nextPollAt: new Date('2026-01-02T00:01:00Z'), etag: 'W/"first"', warnings: [{ code: 'feed_throttled', message: expect.stringContaining('wait 60s more') }] })
       expect(urls).toEqual(['/repos/acme/widgets/events', '/users/octocat/events', '/repos/acme/widgets/events', '/repos/acme/widgets/events'])
+    }
+    finally {
+      vi.useRealTimers()
+    }
+  })
+
+  it('waits out the poll interval before reading notifications again, unless forced', async () => {
+    vi.useFakeTimers({ now: new Date('2026-01-02T00:00:00Z'), toFake: ['Date'] })
+    try {
+      const urls: string[] = []
+      const provider = github({
+        auth: { type: 'token', token: 'ghp_classic' },
+        fetch: async (url) => {
+          urls.push(new URL(url).pathname)
+          return json([], { 'etag': 'W/"first"', 'x-poll-interval': '60' })
+        },
+      }).create()
+
+      const page = await provider.notifications!.listPage()
+      const soon = await provider.notifications!.listPage({ cursor: { etag: page.etag }, all: true })
+      await provider.notifications!.listPage({ force: true })
+      vi.advanceTimersByTime(60_000)
+      await provider.notifications!.listPage()
+
+      expect(page.nextPollAt).toEqual(new Date('2026-01-02T00:01:00Z'))
+      expect(soon).toMatchObject({ items: [], throttled: true, etag: 'W/"first"', warnings: [{ code: 'feed_throttled', message: expect.stringContaining('reading notifications again') }] })
+      expect(urls).toEqual(['/notifications', '/notifications', '/notifications'])
     }
     finally {
       vi.useRealTimers()

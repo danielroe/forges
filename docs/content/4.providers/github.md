@@ -231,7 +231,9 @@ To read anyway, pass `force: true`:
 const page = await gh.repos.eventsPage(repo, { force: true })
 ```
 
-The provider only remembers the wait for as long as it exists, so a job that creates a new provider for every run isn't held back.
+The provider only remembers the wait for as long as it exists, so a job that creates a new provider for every run isn't held back. Such a job can keep the `nextPollAt` of the page it read, which says when GitHub allows the next read, and schedule its next run for then.
+
+`notifications.listPage()` follows the same rules, with one wait for the whole notifications listing, and takes `force: true` as well.
 
 Feed items are smaller than webhook deliveries. On GitHub.com, a push has no commits and no commit count, so its `detail` has no `commitCount` and its summary leaves the number out. GitHub Enterprise Server still sends both, and they fill in the detail there. A pull request event has no title, and GitHub reports a merge as the action `merged`, which the provider reads as `kind: 'state_change'` and `action: 'merged'`.
 

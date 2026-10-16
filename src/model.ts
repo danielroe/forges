@@ -1459,6 +1459,11 @@ export interface Page<T> {
    * page has no items and a `feed_throttled` warning; read it again later, or pass `force: true`.
    */
   throttled?: boolean
+  /**
+   * The earliest time the forge allows the first page to be read again, as GitHub sets with `X-Poll-Interval`.
+   * Until then, a read of the first page returns a `throttled` page unless it passes `force: true`.
+   */
+  nextPollAt?: Date
   /** The non-fatal problems that came up while reading the page. */
   warnings?: ForgeWarning[]
 }
@@ -1486,6 +1491,12 @@ export interface NotificationListOptions extends ListOptions {
    * @default false
    */
   all?: boolean
+  /**
+   * Read the first page even when the forge asked to wait longer between reads, as GitHub does with
+   * `X-Poll-Interval`. Without it, such a read returns a `throttled` page.
+   * @default false
+   */
+  force?: boolean
 }
 
 /** Filters for `threads.list()`. */
@@ -2154,7 +2165,7 @@ export interface Installation extends ForgeOrigin {
 }
 
 /** Every `Date` field in the model, by name. */
-export const DATE_FIELDS: ReadonlySet<string> = new Set(['closedAt', 'completedAt', 'createdAt', 'date', 'deliveredAt', 'dismissedAt', 'dueOn', 'expiresAt', 'lastActivityAt', 'lastReadAt', 'mergedAt', 'occurredAt', 'publishedAt', 'pushedAt', 'resetAt', 'startedAt', 'submittedAt', 'updatedAt', 'week'])
+export const DATE_FIELDS: ReadonlySet<string> = new Set(['closedAt', 'completedAt', 'createdAt', 'date', 'deliveredAt', 'dismissedAt', 'dueOn', 'expiresAt', 'lastActivityAt', 'lastReadAt', 'mergedAt', 'nextPollAt', 'occurredAt', 'publishedAt', 'pushedAt', 'resetAt', 'startedAt', 'submittedAt', 'updatedAt', 'week'])
 
 const UNNORMALISED_FIELDS: ReadonlySet<string> = new Set(['payload', 'raw'])
 
