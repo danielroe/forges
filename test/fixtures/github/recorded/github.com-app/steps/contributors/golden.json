@@ -1,0 +1,58 @@
+{
+  "items": [
+    {
+      "actor": {
+        "forge": "github",
+        "instance": "github.com",
+        "login": "pi0",
+        "id": "5158436",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?v=4",
+        "url": "https://github.com/pi0",
+        "typeRaw": "User",
+        "isBotHint": false
+      },
+      "contributions": 978
+    },
+    {
+      "actor": {
+        "forge": "github",
+        "instance": "github.com",
+        "login": "renovate[bot]",
+        "id": "29139614",
+        "avatarUrl": "https://avatars.githubusercontent.com/in/2740?v=4",
+        "url": "https://github.com/apps/renovate",
+        "typeRaw": "Bot",
+        "isBotHint": true,
+        "app": {
+          "slug": "renovate"
+        }
+      },
+      "contributions": 156
+    },
+    {
+      "actor": {
+        "forge": "github",
+        "instance": "github.com",
+        "login": "pi0x",
+        "id": "286783767",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/286783767?v=4",
+        "url": "https://github.com/pi0x",
+        "typeRaw": "User",
+        "isBotHint": false
+      },
+      "contributions": 52
+    }
+  ],
+  "total": 189,
+  "cursor": {
+    "nextUrl": "https://api.github.com/repositories/313641207/contributors?anon=1&per_page=3&page=2",
+    "etag": "W/\"2ce919d57597166a79b46f165c836ee9690768dfdf6f6c44ca94dc72e914632f\""
+  },
+  "etag": "W/\"2ce919d57597166a79b46f165c836ee9690768dfdf6f6c44ca94dc72e914632f\"",
+  "rateLimit": {
+    "limit": 5000,
+    "remaining": 4993,
+    "resetAt": "<now>",
+    "resource": "core"
+  }
+}

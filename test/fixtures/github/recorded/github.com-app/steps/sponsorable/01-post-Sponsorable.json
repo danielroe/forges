@@ -1,0 +1,26 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://api.github.com/graphql",
+    "operationName": "Sponsorable",
+    "variables": {
+      "login": "h3js"
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "x-ratelimit-limit": "5000",
+      "x-ratelimit-remaining": "4985",
+      "x-ratelimit-reset": "1792217942",
+      "x-ratelimit-resource": "graphql"
+    },
+    "body": {
+      "data": {
+        "repositoryOwner": {
+          "hasSponsorsListing": true
+        }
+      }
+    }
+  }
+}

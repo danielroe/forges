@@ -4,7 +4,7 @@
       "ref": {
         "forge": "github",
         "instance": "github.com",
-        "id": "26279135987"
+        "id": "26407023794"
       },
       "subject": {
         "type": "thread",
@@ -14,56 +14,23 @@
           "repo": {
             "forge": "github",
             "instance": "github.com",
-            "owner": "nuxt",
-            "name": "nuxt",
-            "externalId": "71995937"
+            "owner": "danielroe",
+            "name": "nuxt-web-bundle",
+            "externalId": "551896913"
           },
           "kind": "pull_request",
           "typeRaw": "PullRequest",
-          "number": "36568"
+          "number": "504"
         }
       },
       "subjectTypeRaw": "PullRequest",
       "reason": "author",
       "reasonRaw": "author",
       "unread": true,
-      "title": "refactor(webpack,rspack): inline friendly errors plugin",
+      "title": "feat: support nuxt v5",
       "subjectState": "unknown",
       "updatedAt": "<now>",
-      "lastReadAt": "<now>",
-      "url": "https://api.github.com/repos/nuxt/nuxt/pulls/36568"
-    },
-    {
-      "ref": {
-        "forge": "github",
-        "instance": "github.com",
-        "id": "26279062147"
-      },
-      "subject": {
-        "type": "thread",
-        "thread": {
-          "forge": "github",
-          "instance": "github.com",
-          "repo": {
-            "forge": "github",
-            "instance": "github.com",
-            "owner": "nuxt",
-            "name": "nuxt",
-            "externalId": "71995937"
-          },
-          "kind": "pull_request",
-          "typeRaw": "PullRequest",
-          "number": "36567"
-        }
-      },
-      "subjectTypeRaw": "PullRequest",
-      "reason": "author",
-      "reasonRaw": "author",
-      "unread": true,
-      "title": "fix(kit): lowercase filename-derived handler method on nitro v2",
-      "subjectState": "unknown",
-      "updatedAt": "<now>",
-      "url": "https://api.github.com/repos/nuxt/nuxt/pulls/36567",
+      "url": "https://api.github.com/repos/danielroe/nuxt-web-bundle/pulls/504",
       "latestComment": {
         "forge": "github",
         "instance": "github.com",
@@ -73,59 +40,55 @@
           "repo": {
             "forge": "github",
             "instance": "github.com",
-            "owner": "nuxt",
-            "name": "nuxt",
-            "externalId": "71995937"
+            "owner": "danielroe",
+            "name": "nuxt-web-bundle",
+            "externalId": "551896913"
           },
           "kind": "pull_request",
           "typeRaw": "PullRequest",
-          "number": "36567"
+          "number": "504"
         },
-        "id": "6123614777"
+        "id": "6223458587"
       }
     },
     {
       "ref": {
         "forge": "github",
         "instance": "github.com",
-        "id": "26268012458"
+        "id": "26406856138"
       },
       "subject": {
-        "type": "thread",
-        "thread": {
+        "type": "other",
+        "typeRaw": "CheckSuite",
+        "repo": {
           "forge": "github",
           "instance": "github.com",
-          "repo": {
-            "forge": "github",
-            "instance": "github.com",
-            "owner": "nuxt",
-            "name": "nuxt",
-            "externalId": "71995937"
-          },
-          "kind": "pull_request",
-          "typeRaw": "PullRequest",
-          "number": "36563"
+          "owner": "nuxt-modules",
+          "name": "turnstile",
+          "externalId": "544189832"
         }
       },
-      "subjectTypeRaw": "PullRequest",
-      "reason": "review_requested",
-      "reasonRaw": "review_requested",
+      "subjectTypeRaw": "CheckSuite",
+      "reason": "ci_activity",
+      "reasonRaw": "ci_activity",
       "unread": true,
-      "title": "chore(deps): update all non-major dependencies (main)",
+      "title": "ci workflow run failed for main branch",
       "subjectState": "unknown",
       "updatedAt": "<now>",
-      "url": "https://api.github.com/repos/nuxt/nuxt/pulls/36563"
+      "url": "https://api.github.com/notifications/threads/26406856138"
     }
   ],
   "cursor": {
     "nextUrl": "https://api.github.com/notifications?all=false&per_page=3&page=2",
-    "etag": "W/\"d243a78468cfba92c43bbf7a8b4f126f0edf1615a6841a15d27bd727a8f4991c\""
+    "etag": "W/\"eb589e2a6156d1f6cefdbe5bc15f48538ab07ac4870cef3c3dd1c68e372ba3ea\""
   },
-  "etag": "W/\"d243a78468cfba92c43bbf7a8b4f126f0edf1615a6841a15d27bd727a8f4991c\"",
+  "etag": "W/\"eb589e2a6156d1f6cefdbe5bc15f48538ab07ac4870cef3c3dd1c68e372ba3ea\"",
   "notModified": false,
+  "nextPollAt": "<now>",
   "rateLimit": {
     "limit": 5000,
-    "remaining": 4757,
-    "resetAt": "<now>"
+    "remaining": 4679,
+    "resetAt": "<now>",
+    "resource": "core"
   }
 }

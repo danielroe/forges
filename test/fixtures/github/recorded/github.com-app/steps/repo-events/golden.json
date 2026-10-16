@@ -1,0 +1,590 @@
+{
+  "items": [
+    {
+      "forge": "github",
+      "instance": "github.com",
+      "id": "17448519505",
+      "kind": "comment",
+      "kindRaw": "IssueCommentEvent.created",
+      "action": "created",
+      "actionRaw": "created",
+      "detail": {
+        "type": "comment",
+        "comment": {
+          "forge": "github",
+          "instance": "github.com",
+          "thread": {
+            "forge": "github",
+            "instance": "github.com",
+            "repo": {
+              "forge": "github",
+              "instance": "github.com",
+              "owner": "h3js",
+              "name": "h3",
+              "externalId": "313641207"
+            },
+            "kind": "pull_request",
+            "number": "1601",
+            "externalId": "PR_kwDOErHI988AAAABI1lRPA"
+          },
+          "id": "6215006084"
+        },
+        "body": "\n[Open in StackBlitz](https://pkg.pr.new/template/4ba1bb79-61c3-484b-92dd-a189443c0221)\n\n\n  ```\n  npm i https://pkg.pr.new/h3@1601\n  ```\n  \n\n_commit: <a href=\"https://github.com/h3js/h3/runs/116961038194\"><code>04ba6e0</code></a>_\n"
+      },
+      "summary": "pkg-pr-new[bot] created a comment",
+      "occurredAt": "2026-10-16T11:59:04.000Z",
+      "actor": {
+        "forge": "github",
+        "instance": "github.com",
+        "login": "pkg-pr-new[bot]",
+        "id": "167837488",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/167837488?",
+        "isBotHint": true
+      },
+      "repo": {
+        "forge": "github",
+        "instance": "github.com",
+        "owner": "h3js",
+        "name": "h3",
+        "externalId": "313641207"
+      },
+      "thread": {
+        "forge": "github",
+        "instance": "github.com",
+        "repo": {
+          "forge": "github",
+          "instance": "github.com",
+          "owner": "h3js",
+          "name": "h3",
+          "externalId": "313641207"
+        },
+        "kind": "pull_request",
+        "number": "1601",
+        "externalId": "PR_kwDOErHI988AAAABI1lRPA"
+      },
+      "source": "poll",
+      "isPublic": true
+    },
+    {
+      "forge": "github",
+      "instance": "github.com",
+      "id": "17436950167",
+      "kind": "comment",
+      "kindRaw": "IssueCommentEvent.created",
+      "action": "created",
+      "actionRaw": "created",
+      "detail": {
+        "type": "comment",
+        "comment": {
+          "forge": "github",
+          "instance": "github.com",
+          "thread": {
+            "forge": "github",
+            "instance": "github.com",
+            "repo": {
+              "forge": "github",
+              "instance": "github.com",
+              "owner": "h3js",
+              "name": "h3",
+              "externalId": "313641207"
+            },
+            "kind": "pull_request",
+            "number": "1583",
+            "externalId": "PR_kwDOErHI988AAAABHzAV3Q"
+          },
+          "id": "6223002251"
+        },
+        "body": "hey @pi0, friendly ping on this one whenever you have a moment. it's a small docs fix for #1578 (the static assets example 404s as written). happy to change anything.\n"
+      },
+      "summary": "aaronanish-t created a comment",
+      "occurredAt": "2026-10-16T19:22:10.000Z",
+      "actor": {
+        "forge": "github",
+        "instance": "github.com",
+        "login": "aaronanish-t",
+        "id": "217176403",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/217176403?",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "github",
+        "instance": "github.com",
+        "owner": "h3js",
+        "name": "h3",
+        "externalId": "313641207"
+      },
+      "thread": {
+        "forge": "github",
+        "instance": "github.com",
+        "repo": {
+          "forge": "github",
+          "instance": "github.com",
+          "owner": "h3js",
+          "name": "h3",
+          "externalId": "313641207"
+        },
+        "kind": "pull_request",
+        "number": "1583",
+        "externalId": "PR_kwDOErHI988AAAABHzAV3Q"
+      },
+      "source": "poll",
+      "isPublic": true
+    },
+    {
+      "forge": "github",
+      "instance": "github.com",
+      "id": "17422333860",
+      "kind": "comment",
+      "kindRaw": "IssueCommentEvent.created",
+      "action": "created",
+      "actionRaw": "created",
+      "detail": {
+        "type": "comment",
+        "comment": {
+          "forge": "github",
+          "instance": "github.com",
+          "thread": {
+            "forge": "github",
+            "instance": "github.com",
+            "repo": {
+              "forge": "github",
+              "instance": "github.com",
+              "owner": "h3js",
+              "name": "h3",
+              "externalId": "313641207"
+            },
+            "kind": "pull_request",
+            "number": "1601",
+            "externalId": "PR_kwDOErHI988AAAABI1lRPA"
+          },
+          "id": "6214993303"
+        },
+        "body": "<!-- This is an auto-generated comment: summarize by coderabbit.ai -->\n<!-- review_stack_entry_start -->\n\n<a href=\"https://app.coderabbit.ai/change-stack/h3js/h3/pull/1601?scope=ghh_OusAJGA4HG8ljoOV0wJvVx8NmnZIjc2DdjmxOu0xZWA&amp;cs_source=review_comment\"><picture><source media=\"(prefers-color-scheme: dark)\" srcset=\"https://storage.googleapis.com/coderabbit_public_assets/review-stack-in-coderabbit-ui-dark.svg?v=3\"><source media=\"(prefers-color-scheme: light)\" srcset=\"https://storage.googleapis.com/coderabbit_public_assets/review-stack-in-coderabbit-ui.svg?v=3\"><img src=\"https://storage.googleapis.com/coderabbit_public_assets/review-stack-in-coderabbit-ui.svg?v=3\" alt=\"Review in Change Stack →\" height=\"32\"></picture></a>\n\n<!-- review_stack_entry_end -->\n<!-- recent_review_start -->\n\nNo actionable comments were generated in the recent review. 🎉\n\n<details>\n<summary><strong>ℹ️ Recent review info</strong></summary>\n<dl>\n<dd>\n\n<details>\n<summary><strong>⚙️ Run configuration</strong></summary>\n<dl>\n<dd>\n\n- **Configuration used**: Organization UI\n- **Review profile**: CHILL\n- **Plan**: Advanced\n- **Run ID**: `0bb9002f-e3e7-41c7-a60b-90516e823878`\n\n</dd>\n</dl>\n</details>\n\n<details>\n<summary><strong>📥 Commits</strong></summary>\n<dl>\n<dd>\n\nReviewing files that changed from the base of the PR and between 66cfb8a357b6285451bad498c2c40002601fae98 and 04ba6e021cde76fa6fc0084866f231c575647beb.\n\n</dd>\n</dl>\n</details>\n\n<details>\n<summary><strong>📒 Files selected for processing: 2</strong></summary>\n<dl>\n<dd>\n\n* `src/utils/body.ts`\n* `test/body.test.ts`\n\n</dd>\n</dl>\n</details>\n\n**Included review availability:** This review used your included allowance. Your plan provides up to 8 included reviews per hour; 7 remain after this review.\n\n</dd>\n</dl>\n</details>\n\n\n\n\n\n<!-- recent_review_end -->\n<!-- walkthrough_start -->\n\n<details>\n<summary><strong>📝 Walkthrough</strong></summary>\n<dl>\n<dd>\n\n`readBody` now lowercases the request’s `Content-Type` header before checking the media type. A new test checks parsing of URL-encoded bodies with mixed-case and uppercase media types, including repeated fields.\n\n**Changes: Request body parsing**\n\n|Layer / File(s)|Summary|\n|:---|:---|\n|**Normalize Content-Type before parsing** <br> `src/utils/body.ts`, `test/body.test.ts`|`readBody` lowercases `Content-Type` before media-type checks. The test checks parsed fields and confirms that repeated `number` fields remain an array.|\n\n<!-- change_assessment_start -->\n**Priority:** ➖ Normal\n\n**Estimated code review effort:** 2 (Simple) | ~5 minutes\n\n<!-- change_assessment_commit:\"04ba6e021cde76fa6fc0084866f231c575647beb\" -->\n**Change:** Bug fix\n<!-- change_assessment_end -->\n\n</dd>\n</dl>\n</details>\n\n<!-- walkthrough_end -->\n<details>\n<summary><strong>Merge Risk:</strong> <strong>⚪ Minimal</strong> · up to <code>04ba6</code></summary>\n<dl>\n<dd>\n\n<!-- final_review_risk_start -->\n<!-- final_review_risk_label\n**Merge Risk:** **⚪ Minimal** · up to `04ba6`\n-->\n<!-- final_review_risk_coverage:{\"sourceCommitId\":\"04ba6e021cde76fa6fc0084866f231c575647beb\",\"coveredCommitId\":\"04ba6e021cde76fa6fc0084866f231c575647beb\",\"kind\":\"reviewed\"} -->\n\nThe change supports case-insensitive form media types, and the added test covers mixed-case inputs. No merge-blocking risk is established.\n<!-- final_review_risk_end -->\n\n</dd>\n</dl>\n</details>\n<!-- pre_merge_checks_walkthrough_start -->\n\n<details>\n<summary><strong>Pre-merge checks: <sup><picture><img src=\"https://storage.googleapis.com/coderabbit_public_assets/pre-merge-checks-counter-passed-14-v2.svg\" width=\"14\" height=\"14\" align=\"middle\" alt=\"Passed\" title=\"Passed\"></picture></sup> 5</strong></summary>\n<dl>\n<dd>\n\n|         Check name         |                                             Status                                             | Explanation                                                                                                                                                                               |\n| :------------------------ | :--------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n|      Description Check     | ![Passed](https://storage.googleapis.com/coderabbit_public_assets/pre-merge-checks-passed.svg) | Check skipped - CodeRabbit’s high-level summary is enabled.                                                                                                                               |\n|         Title check        | ![Passed](https://storage.googleapis.com/coderabbit_public_assets/pre-merge-checks-passed.svg) | The title clearly and concisely describes the main change: case-insensitive form content-type matching in `readBody`.                                                                     |\n|     Docstring Coverage     | ![Passed](https://storage.googleapis.com/coderabbit_public_assets/pre-merge-checks-passed.svg) | Docstring coverage is 100.00% which is sufficient. The required threshold is 80.00%. Docstring coverage is scoped to functions touched by this diff. Analyzed 1 functions across 2 files. |\n|     Linked Issues check    | ![Passed](https://storage.googleapis.com/coderabbit_public_assets/pre-merge-checks-passed.svg) | Check skipped because no linked issues were found for this pull request.                                                                                                                  |\n| Out of Scope Changes check | ![Passed](https://storage.googleapis.com/coderabbit_public_assets/pre-merge-checks-passed.svg) | Check skipped because no linked issues were found for this pull request.                                                                                                                  |\n\n</dd>\n</dl>\n</details>\n\n<!-- pre_merge_checks_walkthrough_end -->\n<!-- finishing_touch_checkbox_start -->\n\n<details>\n<summary><strong>✨ Finishing Touches</strong></summary>\n<dl>\n<dd>\n\n<details open>\n<summary><strong>🧪 Generate unit tests (beta)</strong></summary>\n<dl>\n<dd>\n\n- [ ] <!-- {\"checkboxId\": \"f47ac10b-58cc-4372-a567-0e02b2c3d479\", \"radioGroupId\": \"utg-output-choice-group-unknown_comment_id\"} --> Create a new PR\n\n</dd>\n</dl>\n</details>\n\n</dd>\n</dl>\n</details>\n\n<!-- finishing_touch_checkbox_end -->\n\n<!-- autopilot:start -->\n- [ ] <!-- {\"checkboxId\":\"2708ad07-9f24-4260-9c11-7dc76a49f2e3\"} --> <strong title=\"Keep fixing CodeRabbit findings and required CI, and resolving merge conflicts\">Autofix</strong> · Keep fixing CodeRabbit findings and required CI, and resolving merge conflicts\n<!-- autopilot:end -->\n<!-- tips_start -->\n\n\n\nThanks for using [CodeRabbit](https://coderabbit.ai?utm_source=oss&utm_medium=github&utm_campaign=h3js/h3&utm_content=1601)! It's free for OSS, and your support helps us grow. If you like it, consider giving us a shout-out.\n\n<details>\n<summary><strong>❤️ Share</strong></summary>\n<dl>\n<dd>\n\n- [X](https://twitter.com/intent/tweet?text=I%20just%20used%20%40coderabbitai%20for%20my%20code%20review%2C%20and%20it%27s%20fantastic%21%20It%27s%20free%20for%20OSS%20and%20offers%20a%20free%20trial%20for%20the%20proprietary%20code.%20Check%20it%20out%3A&url=https%3A//coderabbit.ai)\n- [Mastodon](https://mastodon.social/share?text=I%20just%20used%20%40coderabbitai%20for%20my%20code%20review%2C%20and%20it%27s%20fantastic%21%20It%27s%20free%20for%20OSS%20and%20offers%20a%20free%20trial%20for%20the%20proprietary%20code.%20Check%20it%20out%3A%20https%3A%2F%2Fcoderabbit.ai)\n- [Reddit](https://www.reddit.com/submit?title=Great%20tool%20for%20code%20review%20-%20CodeRabbit&text=I%20just%20used%20CodeRabbit%20for%20my%20code%20review%2C%20and%20it%27s%20fantastic%21%20It%27s%20free%20for%20OSS%20and%20offers%20a%20free%20trial%20for%20proprietary%20code.%20Check%20it%20out%3A%20https%3A//coderabbit.ai)\n- [LinkedIn](https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fcoderabbit.ai&mini=true&title=Great%20tool%20for%20code%20review%20-%20CodeRabbit&summary=I%20just%20used%20CodeRabbit%20for%20my%20code%20review%2C%20and%20it%27s%20fantastic%21%20It%27s%20free%20for%20OSS%20and%20offers%20a%20free%20trial%20for%20proprietary%20code)\n\n</dd>\n</dl>\n</details>\n\n\n<!-- poem_footer_start -->\n<sub>I’m a rabbit with a case-insensitive nose  <br>I sniff each header, wherever its letters go  <br>Forms come through, parsed just right  <br>Repeated numbers stay in a list  <br>I twitch my ears and hop away  <br>With body bytes in neat array!</sub>\n<!-- poem_footer_end -->\n\n<sub>Comment `@coderabbitai help` to get the list of available commands.</sub>\n\n<!-- tips_end -->"
+      },
+      "summary": "coderabbitai[bot] created a comment",
+      "occurredAt": "2026-10-16T11:58:14.000Z",
+      "actor": {
+        "forge": "github",
+        "instance": "github.com",
+        "login": "coderabbitai[bot]",
+        "id": "136622811",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/136622811?",
+        "isBotHint": true
+      },
+      "repo": {
+        "forge": "github",
+        "instance": "github.com",
+        "owner": "h3js",
+        "name": "h3",
+        "externalId": "313641207"
+      },
+      "thread": {
+        "forge": "github",
+        "instance": "github.com",
+        "repo": {
+          "forge": "github",
+          "instance": "github.com",
+          "owner": "h3js",
+          "name": "h3",
+          "externalId": "313641207"
+        },
+        "kind": "pull_request",
+        "number": "1601",
+        "externalId": "PR_kwDOErHI988AAAABI1lRPA"
+      },
+      "source": "poll",
+      "isPublic": true
+    },
+    {
+      "forge": "github",
+      "instance": "github.com",
+      "id": "17386926131",
+      "kind": "comment",
+      "kindRaw": "IssueCommentEvent.created",
+      "action": "created",
+      "actionRaw": "created",
+      "detail": {
+        "type": "comment",
+        "comment": {
+          "forge": "github",
+          "instance": "github.com",
+          "thread": {
+            "forge": "github",
+            "instance": "github.com",
+            "repo": {
+              "forge": "github",
+              "instance": "github.com",
+              "owner": "h3js",
+              "name": "h3",
+              "externalId": "313641207"
+            },
+            "kind": "pull_request",
+            "number": "1601",
+            "externalId": "PR_kwDOErHI988AAAABI1lRPA"
+          },
+          "id": "6215018841"
+        },
+        "body": "## [Codecov](https://app.codecov.io/gh/h3js/h3/pull/1601?dropdown=coverage&src=pr&el=h1&utm_medium=referral&utm_source=github&utm_content=comment&utm_campaign=pr+comments&utm_term=h3js) Report\n:white_check_mark: All modified and coverable lines are covered by tests.\n\n:loudspeaker: Thoughts on this report? [Let us know!](https://github.com/codecov/feedback/issues/255)"
+      },
+      "summary": "codecov[bot] created a comment",
+      "occurredAt": "2026-10-16T11:59:56.000Z",
+      "actor": {
+        "forge": "github",
+        "instance": "github.com",
+        "login": "codecov[bot]",
+        "id": "22429695",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/22429695?",
+        "isBotHint": true
+      },
+      "repo": {
+        "forge": "github",
+        "instance": "github.com",
+        "owner": "h3js",
+        "name": "h3",
+        "externalId": "313641207"
+      },
+      "thread": {
+        "forge": "github",
+        "instance": "github.com",
+        "repo": {
+          "forge": "github",
+          "instance": "github.com",
+          "owner": "h3js",
+          "name": "h3",
+          "externalId": "313641207"
+        },
+        "kind": "pull_request",
+        "number": "1601",
+        "externalId": "PR_kwDOErHI988AAAABI1lRPA"
+      },
+      "source": "poll",
+      "isPublic": true
+    },
+    {
+      "forge": "github",
+      "instance": "github.com",
+      "id": "17386817552",
+      "kind": "state_change",
+      "kindRaw": "PullRequestEvent.opened",
+      "action": "opened",
+      "actionRaw": "opened",
+      "detail": {
+        "type": "state_change",
+        "state": "open"
+      },
+      "summary": "giaBaoJS opened pull_request",
+      "occurredAt": "2026-10-16T11:57:58.000Z",
+      "actor": {
+        "forge": "github",
+        "instance": "github.com",
+        "login": "giaBaoJS",
+        "id": "39545125",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/39545125?",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "github",
+        "instance": "github.com",
+        "owner": "h3js",
+        "name": "h3",
+        "externalId": "313641207"
+      },
+      "thread": {
+        "forge": "github",
+        "instance": "github.com",
+        "repo": {
+          "forge": "github",
+          "instance": "github.com",
+          "owner": "h3js",
+          "name": "h3",
+          "externalId": "313641207"
+        },
+        "kind": "pull_request",
+        "number": "1601"
+      },
+      "source": "poll",
+      "isPublic": true
+    },
+    {
+      "forge": "github",
+      "instance": "github.com",
+      "id": "17374484372",
+      "kindRaw": "WatchEvent.started",
+      "actionRaw": "started",
+      "source": "poll",
+      "actor": {
+        "forge": "github",
+        "instance": "github.com",
+        "login": "Wangyaqi",
+        "id": "12015319",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/12015319?",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "github",
+        "instance": "github.com",
+        "owner": "h3js",
+        "name": "h3",
+        "externalId": "313641207"
+      },
+      "occurredAt": "2026-10-16T08:00:45.000Z",
+      "kind": "other",
+      "summary": "Wangyaqi starred the repository",
+      "isPublic": true,
+      "action": "other"
+    },
+    {
+      "forge": "github",
+      "instance": "github.com",
+      "id": "17301057126",
+      "kind": "comment",
+      "kindRaw": "IssueCommentEvent.created",
+      "action": "created",
+      "actionRaw": "created",
+      "detail": {
+        "type": "comment",
+        "comment": {
+          "forge": "github",
+          "instance": "github.com",
+          "thread": {
+            "forge": "github",
+            "instance": "github.com",
+            "repo": {
+              "forge": "github",
+              "instance": "github.com",
+              "owner": "h3js",
+              "name": "h3",
+              "externalId": "313641207"
+            },
+            "kind": "pull_request",
+            "number": "1599",
+            "externalId": "PR_kwDOErHI988AAAABIivD8Q"
+          },
+          "id": "6184532213"
+        },
+        "body": "<!-- This is an auto-generated comment: summarize by coderabbit.ai -->\n<!-- review_stack_entry_start -->\n\n<a href=\"https://app.coderabbit.ai/change-stack/h3js/h3/pull/1599?scope=ghh_OusAJGA4HG8ljoOV0wJvVx8NmnZIjc2DdjmxOu0xZWA&amp;cs_source=review_comment\"><picture><source media=\"(prefers-color-scheme: dark)\" srcset=\"https://storage.googleapis.com/coderabbit_public_assets/review-stack-in-coderabbit-ui-dark.svg?v=3\"><source media=\"(prefers-color-scheme: light)\" srcset=\"https://storage.googleapis.com/coderabbit_public_assets/review-stack-in-coderabbit-ui.svg?v=3\"><img src=\"https://storage.googleapis.com/coderabbit_public_assets/review-stack-in-coderabbit-ui.svg?v=3\" alt=\"Review in Change Stack →\" height=\"32\"></picture></a>\n\n<!-- review_stack_entry_end -->\n<!-- recent_review_start -->\n\nNo actionable comments were generated in the recent review. 🎉\n\n<details>\n<summary><strong>ℹ️ Recent review info</strong></summary>\n<dl>\n<dd>\n\n<details>\n<summary><strong>⚙️ Run configuration</strong></summary>\n<dl>\n<dd>\n\n- **Configuration used**: Organization UI\n- **Review profile**: CHILL\n- **Plan**: Advanced\n- **Run ID**: `d49179a2-6d5b-494f-a314-c8365f558a31`\n\n</dd>\n</dl>\n</details>\n\n<details>\n<summary><strong>📥 Commits</strong></summary>\n<dl>\n<dd>\n\nReviewing files that changed from the base of the PR and between 66cfb8a357b6285451bad498c2c40002601fae98 and 21c2b0a09feebd8b495297a2c06eab742b130ebe.\n\n</dd>\n</dl>\n</details>\n\n<details>\n<summary><strong>📒 Files selected for processing: 2</strong></summary>\n<dl>\n<dd>\n\n* `src/utils/static.ts`\n* `test/static.test.ts`\n\n</dd>\n</dl>\n</details>\n\n**Included review availability:** This review used your included allowance. Your plan provides up to 8 included reviews per hour; 7 remain after this review.\n\n</dd>\n</dl>\n</details>\n\n\n\n\n\n<!-- recent_review_end -->\n<!-- walkthrough_start -->\n\n<details>\n<summary><strong>📝 Walkthrough</strong></summary>\n<dl>\n<dd>\n\n`idSearchPaths` now joins index suffixes on a normalized slash boundary. Tests cover root and subdirectory requests with leading-slash and relative index names.\n\n**Changes: Static index lookup**\n\n|Layer / File(s)|Summary|\n|:---|:---|\n|**Normalize index paths** <br> `src/utils/static.ts`, `test/static.test.ts`|`idSearchPaths` trims trailing slashes from asset IDs and leading slashes from index suffixes before joining. Tests check root and subdirectory lookups for both `\"/index.html\"` and `\"index.html\"`.|\n\n<!-- change_assessment_start -->\n**Priority:** ➖ Normal\n\n**Estimated code review effort:** 2 (Simple) | ~10 minutes\n\n<!-- change_assessment_commit:\"21c2b0a09feebd8b495297a2c06eab742b130ebe\" -->\n**Change:** Bug fix · **Severity of issue fixed:** Medium\n<!-- change_assessment_end -->\n\n</dd>\n</dl>\n</details>\n\n<!-- walkthrough_end -->\n<details>\n<summary><strong>Merge Risk:</strong> <strong>⚪ Minimal</strong> · up to <code>21c2b</code></summary>\n<dl>\n<dd>\n\n<!-- final_review_risk_start -->\n<!-- final_review_risk_label\n**Merge Risk:** **⚪ Minimal** · up to `21c2b`\n-->\n<!-- final_review_risk_coverage:{\"sourceCommitId\":\"21c2b0a09feebd8b495297a2c06eab742b130ebe\",\"coveredCommitId\":\"21c2b0a09feebd8b495297a2c06eab742b130ebe\",\"kind\":\"reviewed\"} -->\n\nNo actionable merge-blocking risk is identified for the static index-path change; it is mergeable after normal checks.\n<!-- final_review_risk_end -->\n\n</dd>\n</dl>\n</details>\n<!-- pre_merge_checks_walkthrough_start -->\n\n<details>\n<summary><strong>Pre-merge checks: <sup><picture><img src=\"https://storage.googleapis.com/coderabbit_public_assets/pre-merge-checks-counter-passed-14-v2.svg\" width=\"14\" height=\"14\" align=\"middle\" alt=\"Passed\" title=\"Passed\"></picture></sup> 4 · <sup><picture><img src=\"https://storage.googleapis.com/coderabbit_public_assets/pre-merge-checks-counter-failed-14-v2.svg\" width=\"14\" height=\"14\" align=\"middle\" alt=\"Failed\" title=\"Failed\"></picture></sup> 1</strong></summary>\n<dl>\n<dd>\n\n<strong><sup><picture><img src=\"https://storage.googleapis.com/coderabbit_public_assets/pre-merge-checks-counter-failed-14-v2.svg\" width=\"14\" height=\"14\" align=\"middle\" alt=\"Failed\" title=\"Failed\"></picture></sup> Failed checks: 1 warning</strong>\n\n|     Check name     |                                              Status                                              | Explanation                                                                                                                                                                               | Resolution                                                                         |\n| :---------------- | :----------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------- |\n| Docstring Coverage | ![Warning](https://storage.googleapis.com/coderabbit_public_assets/pre-merge-checks-warning.svg) | Docstring coverage is 0.00% which is insufficient. The required threshold is 80.00%. Docstring coverage is scoped to functions touched by this diff. Analyzed 1 functions across 2 files. | Write docstrings for the functions missing them to satisfy the coverage threshold. |\n\n<details>\n<summary><strong><sup><picture><img src=\"https://storage.googleapis.com/coderabbit_public_assets/pre-merge-checks-counter-passed-14-v2.svg\" width=\"14\" height=\"14\" align=\"middle\" alt=\"Passed\" title=\"Passed\"></picture></sup> Passed checks: 4 passed</strong></summary>\n<dl>\n<dd>\n\n|         Check name         |                                             Status                                             | Explanation                                                                                                                                                                                               |\n| :------------------------ | :--------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n|      Description Check     | ![Passed](https://storage.googleapis.com/coderabbit_public_assets/pre-merge-checks-passed.svg) | Check skipped - CodeRabbit’s high-level summary is enabled.                                                                                                                                               |\n|         Title check        | ![Passed](https://storage.googleapis.com/coderabbit_public_assets/pre-merge-checks-passed.svg) | The title clearly and concisely describes the main change: normalizing the path join between the asset ID and index name with one boundary slash.                                                         |\n|     Linked Issues check    | ![Passed](https://storage.googleapis.com/coderabbit_public_assets/pre-merge-checks-passed.svg) | Issue `#1584` requires one slash boundary between the directory ID and each index name. `src/utils/static.ts` now removes trailing slashes from `id`, removes leading slashes from `suffix`, and inserts o… |\n| Out of Scope Changes check | ![Passed](https://storage.googleapis.com/coderabbit_public_assets/pre-merge-checks-passed.svg) | The reviewed changes are limited to the `idSearchPaths` join logic and tests for static index resolution. These changes directly support issue `#1584`. No unrelated implementation change is identified.   |\n\n</dd>\n</dl>\n</details>\n\n</dd>\n</dl>\n</details>\n\n<!-- pre_merge_checks_walkthrough_end -->\n\n- [ ] <!-- {\"checkboxId\":\"585bb3f6-faf5-4dbf-96d2-74e382adf19a\"} --> Fix all pre-merge checks with AI\n<!-- finishing_touch_checkbox_start -->\n\n<details>\n<summary><strong>✨ Finishing Touches</strong></summary>\n<dl>\n<dd>\n\n<details open>\n<summary><strong>🧪 Generate unit tests (beta)</strong></summary>\n<dl>\n<dd>\n\n- [ ] <!-- {\"checkboxId\": \"f47ac10b-58cc-4372-a567-0e02b2c3d479\", \"radioGroupId\": \"utg-output-choice-group-unknown_comment_id\"} --> Create a new PR\n\n</dd>\n</dl>\n</details>\n\n</dd>\n</dl>\n</details>\n\n<!-- finishing_touch_checkbox_end -->\n\n<!-- autopilot:start -->\n- [ ] <!-- {\"checkboxId\":\"2708ad07-9f24-4260-9c11-7dc76a49f2e3\"} --> <strong title=\"Keep fixing CodeRabbit findings and required CI, and resolving merge conflicts\">Autofix</strong> · Keep fixing CodeRabbit findings and required CI, and resolving merge conflicts\n<!-- autopilot:end -->\n<!-- tips_start -->\n\n\n\nThanks for using [CodeRabbit](https://coderabbit.ai?utm_source=oss&utm_medium=github&utm_campaign=h3js/h3&utm_content=1599)! It's free for OSS, and your support helps us grow. If you like it, consider giving us a shout-out.\n\n<details>\n<summary><strong>❤️ Share</strong></summary>\n<dl>\n<dd>\n\n- [X](https://twitter.com/intent/tweet?text=I%20just%20used%20%40coderabbitai%20for%20my%20code%20review%2C%20and%20it%27s%20fantastic%21%20It%27s%20free%20for%20OSS%20and%20offers%20a%20free%20trial%20for%20the%20proprietary%20code.%20Check%20it%20out%3A&url=https%3A//coderabbit.ai)\n- [Mastodon](https://mastodon.social/share?text=I%20just%20used%20%40coderabbitai%20for%20my%20code%20review%2C%20and%20it%27s%20fantastic%21%20It%27s%20free%20for%20OSS%20and%20offers%20a%20free%20trial%20for%20the%20proprietary%20code.%20Check%20it%20out%3A%20https%3A%2F%2Fcoderabbit.ai)\n- [Reddit](https://www.reddit.com/submit?title=Great%20tool%20for%20code%20review%20-%20CodeRabbit&text=I%20just%20used%20CodeRabbit%20for%20my%20code%20review%2C%20and%20it%27s%20fantastic%21%20It%27s%20free%20for%20OSS%20and%20offers%20a%20free%20trial%20for%20proprietary%20code.%20Check%20it%20out%3A%20https%3A//coderabbit.ai)\n- [LinkedIn](https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fcoderabbit.ai&mini=true&title=Great%20tool%20for%20code%20review%20-%20CodeRabbit&summary=I%20just%20used%20CodeRabbit%20for%20my%20code%20review%2C%20and%20it%27s%20fantastic%21%20It%27s%20free%20for%20OSS%20and%20offers%20a%20free%20trial%20for%20proprietary%20code)\n\n</dd>\n</dl>\n</details>\n\n\n<!-- poem_footer_start -->\n<sub>A rabbit checks the paths at night  <br>One slash keeps each join just right  <br>Root and folders find their page  <br>Tests record each lookup stage  <br>The rabbit hops away in light</sub>\n<!-- poem_footer_end -->\n\n<sub>Comment `@coderabbitai help` to get the list of available commands.</sub>\n\n<!-- tips_end -->"
+      },
+      "summary": "coderabbitai[bot] created a comment",
+      "occurredAt": "2026-10-15T04:37:56.000Z",
+      "actor": {
+        "forge": "github",
+        "instance": "github.com",
+        "login": "coderabbitai[bot]",
+        "id": "136622811",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/136622811?",
+        "isBotHint": true
+      },
+      "repo": {
+        "forge": "github",
+        "instance": "github.com",
+        "owner": "h3js",
+        "name": "h3",
+        "externalId": "313641207"
+      },
+      "thread": {
+        "forge": "github",
+        "instance": "github.com",
+        "repo": {
+          "forge": "github",
+          "instance": "github.com",
+          "owner": "h3js",
+          "name": "h3",
+          "externalId": "313641207"
+        },
+        "kind": "pull_request",
+        "number": "1599",
+        "externalId": "PR_kwDOErHI988AAAABIivD8Q"
+      },
+      "source": "poll",
+      "isPublic": true
+    },
+    {
+      "forge": "github",
+      "instance": "github.com",
+      "id": "17296038562",
+      "kind": "comment",
+      "kindRaw": "IssueCommentEvent.created",
+      "action": "created",
+      "actionRaw": "created",
+      "detail": {
+        "type": "comment",
+        "comment": {
+          "forge": "github",
+          "instance": "github.com",
+          "thread": {
+            "forge": "github",
+            "instance": "github.com",
+            "repo": {
+              "forge": "github",
+              "instance": "github.com",
+              "owner": "h3js",
+              "name": "h3",
+              "externalId": "313641207"
+            },
+            "kind": "pull_request",
+            "number": "1599",
+            "externalId": "PR_kwDOErHI988AAAABIivD8Q"
+          },
+          "id": "6184540746"
+        },
+        "body": "\n[Open in StackBlitz](https://pkg.pr.new/template/e25f0c66-4ba1-4f8c-ac06-8d59ea14a39b)\n\n\n  ```\n  npm i https://pkg.pr.new/h3@1599\n  ```\n  \n\n_commit: <a href=\"https://github.com/h3js/h3/runs/116250079670\"><code>21c2b0a</code></a>_\n"
+      },
+      "summary": "pkg-pr-new[bot] created a comment",
+      "occurredAt": "2026-10-15T04:38:41.000Z",
+      "actor": {
+        "forge": "github",
+        "instance": "github.com",
+        "login": "pkg-pr-new[bot]",
+        "id": "167837488",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/167837488?",
+        "isBotHint": true
+      },
+      "repo": {
+        "forge": "github",
+        "instance": "github.com",
+        "owner": "h3js",
+        "name": "h3",
+        "externalId": "313641207"
+      },
+      "thread": {
+        "forge": "github",
+        "instance": "github.com",
+        "repo": {
+          "forge": "github",
+          "instance": "github.com",
+          "owner": "h3js",
+          "name": "h3",
+          "externalId": "313641207"
+        },
+        "kind": "pull_request",
+        "number": "1599",
+        "externalId": "PR_kwDOErHI988AAAABIivD8Q"
+      },
+      "source": "poll",
+      "isPublic": true
+    },
+    {
+      "forge": "github",
+      "instance": "github.com",
+      "id": "17270801221",
+      "kind": "comment",
+      "kindRaw": "IssueCommentEvent.created",
+      "action": "created",
+      "actionRaw": "created",
+      "detail": {
+        "type": "comment",
+        "comment": {
+          "forge": "github",
+          "instance": "github.com",
+          "thread": {
+            "forge": "github",
+            "instance": "github.com",
+            "repo": {
+              "forge": "github",
+              "instance": "github.com",
+              "owner": "h3js",
+              "name": "h3",
+              "externalId": "313641207"
+            },
+            "kind": "pull_request",
+            "number": "1599",
+            "externalId": "PR_kwDOErHI988AAAABIivD8Q"
+          },
+          "id": "6184546089"
+        },
+        "body": "## [Codecov](https://app.codecov.io/gh/h3js/h3/pull/1599?dropdown=coverage&src=pr&el=h1&utm_medium=referral&utm_source=github&utm_content=comment&utm_campaign=pr+comments&utm_term=h3js) Report\n:white_check_mark: All modified and coverable lines are covered by tests.\n\n:loudspeaker: Thoughts on this report? [Let us know!](https://github.com/codecov/feedback/issues/255)"
+      },
+      "summary": "codecov[bot] created a comment",
+      "occurredAt": "2026-10-15T04:39:08.000Z",
+      "actor": {
+        "forge": "github",
+        "instance": "github.com",
+        "login": "codecov[bot]",
+        "id": "22429695",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/22429695?",
+        "isBotHint": true
+      },
+      "repo": {
+        "forge": "github",
+        "instance": "github.com",
+        "owner": "h3js",
+        "name": "h3",
+        "externalId": "313641207"
+      },
+      "thread": {
+        "forge": "github",
+        "instance": "github.com",
+        "repo": {
+          "forge": "github",
+          "instance": "github.com",
+          "owner": "h3js",
+          "name": "h3",
+          "externalId": "313641207"
+        },
+        "kind": "pull_request",
+        "number": "1599",
+        "externalId": "PR_kwDOErHI988AAAABIivD8Q"
+      },
+      "source": "poll",
+      "isPublic": true
+    },
+    {
+      "forge": "github",
+      "instance": "github.com",
+      "id": "17270732271",
+      "kind": "state_change",
+      "kindRaw": "PullRequestEvent.opened",
+      "action": "opened",
+      "actionRaw": "opened",
+      "detail": {
+        "type": "state_change",
+        "state": "open"
+      },
+      "summary": "lx3133584 opened pull_request",
+      "occurredAt": "2026-10-15T04:37:40.000Z",
+      "actor": {
+        "forge": "github",
+        "instance": "github.com",
+        "login": "lx3133584",
+        "id": "24490353",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/24490353?",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "github",
+        "instance": "github.com",
+        "owner": "h3js",
+        "name": "h3",
+        "externalId": "313641207"
+      },
+      "thread": {
+        "forge": "github",
+        "instance": "github.com",
+        "repo": {
+          "forge": "github",
+          "instance": "github.com",
+          "owner": "h3js",
+          "name": "h3",
+          "externalId": "313641207"
+        },
+        "kind": "pull_request",
+        "number": "1599"
+      },
+      "source": "poll",
+      "isPublic": true
+    }
+  ],
+  "total": 300,
+  "cursor": {
+    "nextUrl": "https://api.github.com/repositories/313641207/events?per_page=10&page=2",
+    "etag": "W/\"a084aa182852cd5de407266025c4931f0761fc90a9c9c6f0401b3c6f46d912df\""
+  },
+  "etag": "W/\"a084aa182852cd5de407266025c4931f0761fc90a9c9c6f0401b3c6f46d912df\"",
+  "rateLimit": {
+    "limit": 5000,
+    "remaining": 4962,
+    "resetAt": "<now>",
+    "resource": "core"
+  },
+  "nextPollAt": "<now>"
+}

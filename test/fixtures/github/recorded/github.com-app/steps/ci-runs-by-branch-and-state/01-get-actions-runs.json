@@ -6,14 +6,15 @@
   "response": {
     "status": 200,
     "headers": {
-      "link": "<https://api.github.com/repositories/313641207/actions/runs?branch=main&status=failure&per_page=3&page=2>; rel=\"next\", <https://api.github.com/repositories/313641207/actions/runs?branch=main&status=failure&per_page=3&page=43>; rel=\"last\"",
-      "etag": "W/\"d6070fe89fbdc735bd582c50ba2280fe9fca4055cdc2ac214cd2d4f0b6682057\"",
+      "link": "<https://api.github.com/repositories/313641207/actions/runs?branch=main&status=failure&per_page=3&page=2>; rel=\"next\", <https://api.github.com/repositories/313641207/actions/runs?branch=main&status=failure&per_page=3&page=42>; rel=\"last\"",
+      "etag": "W/\"ac6a2930714ff6075b6309c1c9b48222beb41811adc87ae1d285b538751da598\"",
       "x-ratelimit-limit": "5000",
-      "x-ratelimit-remaining": "4969",
-      "x-ratelimit-reset": "1791738329"
+      "x-ratelimit-remaining": "4953",
+      "x-ratelimit-reset": "1792217938",
+      "x-ratelimit-resource": "core"
     },
     "body": {
-      "total_count": 127,
+      "total_count": 125,
       "workflow_runs": [
         {
           "id": 37622425333,

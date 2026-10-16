@@ -10,7 +10,7 @@
           "owner": "h3js",
           "name": "h3"
         },
-        "id": "114755404558",
+        "id": "116960679490",
         "run": {
           "forge": "github",
           "instance": "github.com",
@@ -20,52 +20,23 @@
             "owner": "h3js",
             "name": "h3"
           },
-          "id": "38232588486"
+          "id": "38897280561"
         }
       },
-      "name": "tests",
+      "name": "autofix",
       "state": "success",
       "stateRaw": "completed",
-      "url": "https://github.com/h3js/h3/actions/runs/38232588486/job/114755404558",
-      "startedAt": "2026-10-12T09:51:34.000Z",
-      "completedAt": "2026-10-12T09:52:17.000Z"
-    },
-    {
-      "ref": {
-        "forge": "github",
-        "instance": "github.com",
-        "repo": {
-          "forge": "github",
-          "instance": "github.com",
-          "owner": "h3js",
-          "name": "h3"
-        },
-        "id": "114755676725",
-        "run": {
-          "forge": "github",
-          "instance": "github.com",
-          "repo": {
-            "forge": "github",
-            "instance": "github.com",
-            "owner": "h3js",
-            "name": "h3"
-          },
-          "id": "38232588486"
-        }
-      },
-      "name": "publish-pkg-pr-new",
-      "state": "success",
-      "stateRaw": "completed",
-      "url": "https://github.com/h3js/h3/actions/runs/38232588486/job/114755676725",
-      "startedAt": "2026-10-12T09:52:19.000Z",
-      "completedAt": "2026-10-12T09:52:42.000Z"
+      "url": "https://github.com/h3js/h3/actions/runs/38897280561/job/116960679490",
+      "startedAt": "2026-10-16T11:58:04.000Z",
+      "completedAt": "2026-10-16T11:58:21.000Z"
     }
   ],
-  "total": 2,
-  "etag": "W/\"baee9ac6a9595d31abc7d2c23cd12bf55ae879c9ec3c4d8d61c415f6246820fa\"",
+  "total": 1,
+  "etag": "W/\"cbb50b8f136628ab0a8da05f611593a386d984e376f1b0f89ecde96b30c900de\"",
   "rateLimit": {
     "limit": 5000,
-    "remaining": 4961,
-    "resetAt": "<now>"
+    "remaining": 4950,
+    "resetAt": "<now>",
+    "resource": "core"
   }
 }

@@ -14,8 +14,9 @@
     "status": 200,
     "headers": {
       "x-ratelimit-limit": "5000",
-      "x-ratelimit-remaining": "4987",
-      "x-ratelimit-reset": "1791738331"
+      "x-ratelimit-remaining": "4997",
+      "x-ratelimit-reset": "1792217941",
+      "x-ratelimit-resource": "graphql"
     },
     "body": {
       "data": {

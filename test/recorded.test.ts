@@ -49,6 +49,8 @@ function sameRequest(a: string, b: string): boolean {
   return first.toString() === second.toString()
 }
 
+const POLLED_LISTINGS = new Set(['notifications.listPage', 'repos.eventsPage', 'users.eventsPage'])
+
 /** `provider` with the options of every call to `verb` given `cursor: { etag }`, collecting the pages that the calls return. */
 function withEtag(provider: ForgeProvider, verb: string, etag: string, pages: Array<Page<unknown>>): ForgeProvider {
   const [group, method] = verb.split('.') as [string, string]
@@ -63,7 +65,7 @@ function withEtag(provider: ForgeProvider, verb: string, etag: string, pages: Ar
               return apiKey !== method
                 ? read
                 : async (...args: unknown[]) => {
-                  const page = await read(...args.slice(0, -1), { ...args.at(-1) as object, cursor: { etag } })
+                  const page = await read(...args.slice(0, -1), { ...args.at(-1) as object, cursor: { etag }, ...POLLED_LISTINGS.has(verb) ? { force: true } : {} })
                   pages.push(page)
                   return page
                 }

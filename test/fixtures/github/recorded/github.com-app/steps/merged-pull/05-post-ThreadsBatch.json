@@ -1,0 +1,1972 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://api.github.com/graphql",
+    "operationName": "ThreadsBatch",
+    "variables": {
+      "o0": "h3js",
+      "n0": "h3",
+      "k0": 1574,
+      "o1": "h3js",
+      "n1": "h3",
+      "k1": 1573,
+      "o2": "h3js",
+      "n2": "h3",
+      "k2": 1572,
+      "o3": "h3js",
+      "n3": "h3",
+      "k3": 1571,
+      "o4": "h3js",
+      "n4": "h3",
+      "k4": 1570,
+      "o5": "h3js",
+      "n5": "h3",
+      "k5": 1568,
+      "o6": "h3js",
+      "n6": "h3",
+      "k6": 1566,
+      "o7": "h3js",
+      "n7": "h3",
+      "k7": 1565,
+      "o8": "h3js",
+      "n8": "h3",
+      "k8": 1564,
+      "o9": "h3js",
+      "n9": "h3",
+      "k9": 1563
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "x-ratelimit-limit": "5000",
+      "x-ratelimit-remaining": "4996",
+      "x-ratelimit-reset": "1792217942",
+      "x-ratelimit-resource": "graphql"
+    },
+    "body": {
+      "data": {
+        "t0": {
+          "issueOrPullRequest": {
+            "__typename": "PullRequest",
+            "id": "PR_kwDOErHI988AAAABHHJ1TQ",
+            "number": 1574,
+            "title": "fix(middleware): pass through handled responses in `onError`",
+            "body": "Follow-up to #1571 (part of #1569).\n\nWhen a stream piped by a `fromNodeHandler` handler fails, the handler rejects with h3's internal `kHandled` signal: the response is already committed and the error has been reported to the app `onError` hook. The `onError()` middleware treated that signal as an error:\n\n- its hook was called with a bogus `HTTPError` 500 (`cause: Symbol(h3.handled)`)\n- it re-threw that error, so the app `onError` hook ran a second time\n- the error was rendered and its JSON body appended to the already committed response (`item1{\"status\": 500, ...}` with status 200)\n\nThe middleware now re-throws `kHandled` untouched, without calling its hook.\n\nMiddleware-registered hooks still do not see stream errors (only the app `onError` config hook does). Reporting them there too would need a separate design.\n\nTest: a new `app.test.ts` case pipes a failing stream with an `onError()` middleware registered. It fails on `main` and passes with the change. Lint, typecheck and the full suite pass.\n\n🤖 Generated with AI assistant\n\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n\n## Summary by CodeRabbit\n\n* **Bug Fixes**\n  * Errors from a Node response stream no longer trigger the middleware error callback after the response has started; the application error hook still receives the error.\n  * The response content already sent to the client remains unchanged.\n\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
+            "state": "MERGED",
+            "isDraft": false,
+            "createdAt": "2026-10-07T11:54:45Z",
+            "updatedAt": "2026-10-07T11:58:37Z",
+            "closedAt": "2026-10-07T11:58:35Z",
+            "mergedAt": "2026-10-07T11:58:35Z",
+            "url": "https://github.com/h3js/h3/pull/1574",
+            "locked": false,
+            "author": {
+              "__typename": "User",
+              "login": "pi0x",
+              "avatarUrl": "https://avatars.githubusercontent.com/u/286783767?u=880c7e98a9e910cc2184cf6ed383350bed41cb08&v=4",
+              "url": "https://github.com/pi0x",
+              "databaseId": 286783767,
+              "name": "pi0x"
+            },
+            "authorAssociation": "CONTRIBUTOR",
+            "mergedBy": {
+              "__typename": "User",
+              "login": "pi0",
+              "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?u=3609b2822870b982f2b93c432569ee017e970148&v=4",
+              "url": "https://github.com/pi0",
+              "databaseId": 5158436,
+              "name": "Pooya Parsa"
+            },
+            "assignees": {
+              "nodes": []
+            },
+            "labels": {
+              "nodes": []
+            },
+            "comments": {
+              "totalCount": 3
+            },
+            "participants": {
+              "nodes": [
+                {
+                  "__typename": "User",
+                  "login": "pi0x",
+                  "avatarUrl": "https://avatars.githubusercontent.com/u/286783767?u=880c7e98a9e910cc2184cf6ed383350bed41cb08&v=4",
+                  "url": "https://github.com/pi0x",
+                  "databaseId": 286783767,
+                  "name": "pi0x"
+                },
+                {
+                  "__typename": "User",
+                  "login": "pi0",
+                  "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?u=3609b2822870b982f2b93c432569ee017e970148&v=4",
+                  "url": "https://github.com/pi0",
+                  "databaseId": 5158436,
+                  "name": "Pooya Parsa"
+                }
+              ]
+            },
+            "milestone": null,
+            "viewerSubscription": "UNSUBSCRIBED",
+            "headRefName": "fix/on-error-middleware-handled",
+            "headRefOid": "52905b9bab20050e8d0e503d36e04bb972a0c38c",
+            "baseRefName": "main",
+            "baseRefOid": "bca3a8e8d5ab556c874c771aa5a9fade06194948",
+            "headRepository": {
+              "databaseId": 313641207,
+              "name": "h3",
+              "owner": {
+                "login": "h3js"
+              }
+            },
+            "mergeCommit": {
+              "oid": "b52a9e7417bab5bbcdbf737d62c8fa0a61e84976"
+            },
+            "additions": 34,
+            "deletions": 2,
+            "changedFiles": 2,
+            "commits": {
+              "totalCount": 1,
+              "nodes": [
+                {
+                  "commit": {
+                    "statusCheckRollup": {
+                      "state": "SUCCESS",
+                      "contexts": {
+                        "totalCount": 8,
+                        "checkRunCountsByState": [
+                          {
+                            "state": "ACTION_REQUIRED",
+                            "count": 0
+                          },
+                          {
+                            "state": "CANCELLED",
+                            "count": 0
+                          },
+                          {
+                            "state": "COMPLETED",
+                            "count": 0
+                          },
+                          {
+                            "state": "FAILURE",
+                            "count": 0
+                          },
+                          {
+                            "state": "IN_PROGRESS",
+                            "count": 0
+                          },
+                          {
+                            "state": "NEUTRAL",
+                            "count": 0
+                          },
+                          {
+                            "state": "PENDING",
+                            "count": 0
+                          },
+                          {
+                            "state": "QUEUED",
+                            "count": 0
+                          },
+                          {
+                            "state": "SKIPPED",
+                            "count": 0
+                          },
+                          {
+                            "state": "STALE",
+                            "count": 0
+                          },
+                          {
+                            "state": "STARTUP_FAILURE",
+                            "count": 0
+                          },
+                          {
+                            "state": "SUCCESS",
+                            "count": 7
+                          },
+                          {
+                            "state": "TIMED_OUT",
+                            "count": 0
+                          },
+                          {
+                            "state": "WAITING",
+                            "count": 0
+                          }
+                        ],
+                        "statusContextCountsByState": [
+                          {
+                            "state": "EXPECTED",
+                            "count": 0
+                          },
+                          {
+                            "state": "ERROR",
+                            "count": 0
+                          },
+                          {
+                            "state": "FAILURE",
+                            "count": 0
+                          },
+                          {
+                            "state": "PENDING",
+                            "count": 0
+                          },
+                          {
+                            "state": "SUCCESS",
+                            "count": 1
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              ]
+            },
+            "reviewRequests": {
+              "nodes": []
+            },
+            "timelineItems": {
+              "nodes": [
+                {
+                  "createdAt": "2026-10-07T11:54:46Z",
+                  "requestedReviewer": {
+                    "__typename": "User",
+                    "login": "pi0"
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "t1": {
+          "issueOrPullRequest": {
+            "__typename": "PullRequest",
+            "id": "PR_kwDOErHI988AAAABGunW6A",
+            "number": 1573,
+            "title": "chore(session): retarget legacy seal fallback removal to v3",
+            "body": "Addresses item 4 of #1569. The comment on the legacy PBKDF2 seal fallback in `unsealSession` said \"Remove this fallback before the v2 stable release\", but v2 is now stable. Removing the fallback in a v2 release would break existing sessions sealed with 1 iteration, so the comment now targets v3 and mentions `legacySealFallback`, which should go at the same time.\n\nThis is a comment-only change. I did not mark `legacySealFallback` as `@deprecated`, because it is still a valid way to opt out of the fallback in v2. Happy to add the tag if you'd prefer it.\n\n## Testing\n\n`oxfmt --check` and `oxlint` pass on the changed file. Comment-only, so no behavior change.\n\nPrepared with AI assistance (Claude Code).\n\n<!-- oss-routine -->\n\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n\n## Summary by CodeRabbit\n\n* **Documentation**\n  * Clarified the planned removal of the legacy session fallback in v3 and its potential impact if removed in v2. No runtime behavior changed.\n\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
+            "state": "MERGED",
+            "isDraft": false,
+            "createdAt": "2026-10-05T14:31:58Z",
+            "updatedAt": "2026-10-07T11:42:17Z",
+            "closedAt": "2026-10-07T11:42:17Z",
+            "mergedAt": "2026-10-07T11:42:17Z",
+            "url": "https://github.com/h3js/h3/pull/1573",
+            "locked": false,
+            "author": {
+              "__typename": "User",
+              "login": "dannyshafer",
+              "avatarUrl": "https://avatars.githubusercontent.com/u/7267702?u=fe1b41b2cb71424d318291f307da68981690c2f2&v=4",
+              "url": "https://github.com/dannyshafer",
+              "databaseId": 7267702,
+              "name": "Daniel Shafer"
+            },
+            "authorAssociation": "CONTRIBUTOR",
+            "mergedBy": {
+              "__typename": "User",
+              "login": "pi0",
+              "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?u=3609b2822870b982f2b93c432569ee017e970148&v=4",
+              "url": "https://github.com/pi0",
+              "databaseId": 5158436,
+              "name": "Pooya Parsa"
+            },
+            "assignees": {
+              "nodes": []
+            },
+            "labels": {
+              "nodes": []
+            },
+            "comments": {
+              "totalCount": 1
+            },
+            "participants": {
+              "nodes": [
+                {
+                  "__typename": "User",
+                  "login": "dannyshafer",
+                  "avatarUrl": "https://avatars.githubusercontent.com/u/7267702?u=fe1b41b2cb71424d318291f307da68981690c2f2&v=4",
+                  "url": "https://github.com/dannyshafer",
+                  "databaseId": 7267702,
+                  "name": "Daniel Shafer"
+                },
+                {
+                  "__typename": "User",
+                  "login": "pi0",
+                  "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?u=3609b2822870b982f2b93c432569ee017e970148&v=4",
+                  "url": "https://github.com/pi0",
+                  "databaseId": 5158436,
+                  "name": "Pooya Parsa"
+                },
+                {
+                  "__typename": "User",
+                  "login": "doorDASHafer",
+                  "avatarUrl": "https://avatars.githubusercontent.com/u/48293663?u=5300bea701fabf2c94d49c188f534eed81e3eaae&v=4",
+                  "url": "https://github.com/doorDASHafer",
+                  "databaseId": 48293663,
+                  "name": "Daniel Shafer"
+                }
+              ]
+            },
+            "milestone": null,
+            "viewerSubscription": "UNSUBSCRIBED",
+            "headRefName": "chore/session-legacy-seal-todo",
+            "headRefOid": "faf279e5bbdd93d8cc85125b972b15cbfe267107",
+            "baseRefName": "main",
+            "baseRefOid": "9adeeeef5275eb32ae3591af12d89dd24231e512",
+            "headRepository": {
+              "databaseId": 1405895822,
+              "name": "h3",
+              "owner": {
+                "login": "dannyshafer"
+              }
+            },
+            "mergeCommit": {
+              "oid": "024b278c4f4e9ccd79b7a68d3c1fb7204080bcb6"
+            },
+            "additions": 2,
+            "deletions": 1,
+            "changedFiles": 1,
+            "commits": {
+              "totalCount": 1,
+              "nodes": [
+                {
+                  "commit": {
+                    "statusCheckRollup": {
+                      "state": "SUCCESS",
+                      "contexts": {
+                        "totalCount": 3,
+                        "checkRunCountsByState": [
+                          {
+                            "state": "ACTION_REQUIRED",
+                            "count": 0
+                          },
+                          {
+                            "state": "CANCELLED",
+                            "count": 0
+                          },
+                          {
+                            "state": "COMPLETED",
+                            "count": 0
+                          },
+                          {
+                            "state": "FAILURE",
+                            "count": 0
+                          },
+                          {
+                            "state": "IN_PROGRESS",
+                            "count": 0
+                          },
+                          {
+                            "state": "NEUTRAL",
+                            "count": 0
+                          },
+                          {
+                            "state": "PENDING",
+                            "count": 0
+                          },
+                          {
+                            "state": "QUEUED",
+                            "count": 0
+                          },
+                          {
+                            "state": "SKIPPED",
+                            "count": 0
+                          },
+                          {
+                            "state": "STALE",
+                            "count": 0
+                          },
+                          {
+                            "state": "STARTUP_FAILURE",
+                            "count": 0
+                          },
+                          {
+                            "state": "SUCCESS",
+                            "count": 2
+                          },
+                          {
+                            "state": "TIMED_OUT",
+                            "count": 0
+                          },
+                          {
+                            "state": "WAITING",
+                            "count": 0
+                          }
+                        ],
+                        "statusContextCountsByState": [
+                          {
+                            "state": "EXPECTED",
+                            "count": 0
+                          },
+                          {
+                            "state": "ERROR",
+                            "count": 0
+                          },
+                          {
+                            "state": "FAILURE",
+                            "count": 0
+                          },
+                          {
+                            "state": "PENDING",
+                            "count": 0
+                          },
+                          {
+                            "state": "SUCCESS",
+                            "count": 1
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              ]
+            },
+            "reviewRequests": {
+              "nodes": []
+            },
+            "timelineItems": {
+              "nodes": [
+                {
+                  "createdAt": "2026-10-05T14:31:59Z",
+                  "requestedReviewer": {
+                    "__typename": "User",
+                    "login": "pi0"
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "t2": {
+          "issueOrPullRequest": {
+            "__typename": "PullRequest",
+            "id": "PR_kwDOErHI988AAAABGunA_w",
+            "number": 1572,
+            "title": "types(session): remove `@ts-nocheck` from iron-crypto",
+            "body": "Addresses item 3 of #1569: removes `// @ts-nocheck` from `src/utils/internal/iron-crypto.ts`.\n\nWith the check enabled there were 6 errors, all `Uint8Array<ArrayBufferLike>` not assignable to `BufferSource` in the `crypto.subtle` calls. The fix is type-only: the internal byte buffers are annotated as `Uint8Array<ArrayBuffer>`:\n\n- `Password`, `GenerateKeyOptions.iv` and `Key.iv`\n- `decrypt` / `getEncryptParams` data\n- `randomBits` / `randomBytes` return types\n- `base64Decode` return type in `internal/encoding.ts` (it always returns a fresh `new Uint8Array(...)`, so the narrower type is accurate; `iron-crypto` is its only caller)\n\nNo casts and no runtime changes. Session passwords are typed as `string` in `SessionConfig`, so nothing public changes.\n\n## Testing\n\n- `tsc --noEmit` is clean with the `@ts-nocheck` removed.\n- `oxlint` and `oxfmt --check` pass.\n- `vitest --run`: session tests pass. 3 tests fail locally (`canonicalPathname`, `/x%5Ey guards /x^y`, `getRequestFingerprint ... (node)`) and fail the same way on `main`, because I ran Node 22 while the repo requires Node 24.\n\nPrepared with AI assistance (Claude Code).\n\n<!-- oss-routine -->\n\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n## Summary by CodeRabbit\n\n* **Refactor**\n  * Updated byte-buffer type handling across encryption, decryption, and encoding. These changes are limited to type declarations; the way data is encrypted, decrypted, and encoded remains unchanged. No changes to the functionality or behavior of these operations are included in this update.\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
+            "state": "MERGED",
+            "isDraft": false,
+            "createdAt": "2026-10-05T14:31:31Z",
+            "updatedAt": "2026-10-07T11:51:12Z",
+            "closedAt": "2026-10-07T11:51:11Z",
+            "mergedAt": "2026-10-07T11:51:11Z",
+            "url": "https://github.com/h3js/h3/pull/1572",
+            "locked": false,
+            "author": {
+              "__typename": "User",
+              "login": "dannyshafer",
+              "avatarUrl": "https://avatars.githubusercontent.com/u/7267702?u=fe1b41b2cb71424d318291f307da68981690c2f2&v=4",
+              "url": "https://github.com/dannyshafer",
+              "databaseId": 7267702,
+              "name": "Daniel Shafer"
+            },
+            "authorAssociation": "CONTRIBUTOR",
+            "mergedBy": {
+              "__typename": "User",
+              "login": "pi0",
+              "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?u=3609b2822870b982f2b93c432569ee017e970148&v=4",
+              "url": "https://github.com/pi0",
+              "databaseId": 5158436,
+              "name": "Pooya Parsa"
+            },
+            "assignees": {
+              "nodes": []
+            },
+            "labels": {
+              "nodes": []
+            },
+            "comments": {
+              "totalCount": 3
+            },
+            "participants": {
+              "nodes": [
+                {
+                  "__typename": "User",
+                  "login": "dannyshafer",
+                  "avatarUrl": "https://avatars.githubusercontent.com/u/7267702?u=fe1b41b2cb71424d318291f307da68981690c2f2&v=4",
+                  "url": "https://github.com/dannyshafer",
+                  "databaseId": 7267702,
+                  "name": "Daniel Shafer"
+                },
+                {
+                  "__typename": "User",
+                  "login": "pi0",
+                  "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?u=3609b2822870b982f2b93c432569ee017e970148&v=4",
+                  "url": "https://github.com/pi0",
+                  "databaseId": 5158436,
+                  "name": "Pooya Parsa"
+                },
+                {
+                  "__typename": "User",
+                  "login": "doorDASHafer",
+                  "avatarUrl": "https://avatars.githubusercontent.com/u/48293663?u=5300bea701fabf2c94d49c188f534eed81e3eaae&v=4",
+                  "url": "https://github.com/doorDASHafer",
+                  "databaseId": 48293663,
+                  "name": "Daniel Shafer"
+                }
+              ]
+            },
+            "milestone": null,
+            "viewerSubscription": "UNSUBSCRIBED",
+            "headRefName": "chore/iron-crypto-ts-nocheck",
+            "headRefOid": "83245125185fc8b8531277674eac788b72479448",
+            "baseRefName": "main",
+            "baseRefOid": "9adeeeef5275eb32ae3591af12d89dd24231e512",
+            "headRepository": {
+              "databaseId": 1405895822,
+              "name": "h3",
+              "owner": {
+                "login": "dannyshafer"
+              }
+            },
+            "mergeCommit": {
+              "oid": "fb34b0f5144c9e2e5658fd30038a95582accd9d3"
+            },
+            "additions": 10,
+            "deletions": 12,
+            "changedFiles": 2,
+            "commits": {
+              "totalCount": 2,
+              "nodes": [
+                {
+                  "commit": {
+                    "statusCheckRollup": {
+                      "state": "PENDING",
+                      "contexts": {
+                        "totalCount": 8,
+                        "checkRunCountsByState": [
+                          {
+                            "state": "ACTION_REQUIRED",
+                            "count": 0
+                          },
+                          {
+                            "state": "CANCELLED",
+                            "count": 0
+                          },
+                          {
+                            "state": "COMPLETED",
+                            "count": 0
+                          },
+                          {
+                            "state": "FAILURE",
+                            "count": 0
+                          },
+                          {
+                            "state": "IN_PROGRESS",
+                            "count": 0
+                          },
+                          {
+                            "state": "NEUTRAL",
+                            "count": 0
+                          },
+                          {
+                            "state": "PENDING",
+                            "count": 0
+                          },
+                          {
+                            "state": "QUEUED",
+                            "count": 0
+                          },
+                          {
+                            "state": "SKIPPED",
+                            "count": 0
+                          },
+                          {
+                            "state": "STALE",
+                            "count": 0
+                          },
+                          {
+                            "state": "STARTUP_FAILURE",
+                            "count": 0
+                          },
+                          {
+                            "state": "SUCCESS",
+                            "count": 7
+                          },
+                          {
+                            "state": "TIMED_OUT",
+                            "count": 0
+                          },
+                          {
+                            "state": "WAITING",
+                            "count": 0
+                          }
+                        ],
+                        "statusContextCountsByState": [
+                          {
+                            "state": "EXPECTED",
+                            "count": 0
+                          },
+                          {
+                            "state": "ERROR",
+                            "count": 0
+                          },
+                          {
+                            "state": "FAILURE",
+                            "count": 0
+                          },
+                          {
+                            "state": "PENDING",
+                            "count": 1
+                          },
+                          {
+                            "state": "SUCCESS",
+                            "count": 0
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              ]
+            },
+            "reviewRequests": {
+              "nodes": []
+            },
+            "timelineItems": {
+              "nodes": [
+                {
+                  "createdAt": "2026-10-05T14:31:32Z",
+                  "requestedReviewer": {
+                    "__typename": "User",
+                    "login": "pi0"
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "t3": {
+          "issueOrPullRequest": {
+            "__typename": "PullRequest",
+            "id": "PR_kwDOErHI988AAAABGh7a3g",
+            "number": 1571,
+            "title": "fix(node): call `onError` for stream errors in Node.js handlers",
+            "body": "Second item of #1569.\n\nWhen the stream a `fromNodeHandler` handler pipes into the response errors, the response is already committed, so h3 only logged the error and `onError` never ran.\n\n`fromNodeHandler` now passes the event to `callNodeHandler`, which calls `event.app?.config.onError` with an unhandled `HTTPError` and settles once the hook is done. Since the source emits `close` right after `error`, its `close` listener is removed on that path. The hook's return value is ignored (the response can't change), and an error thrown by the hook is logged. The existing `console.error` stays.\n\nTests: the existing \"fromNodeHandler + piping (with Error and custom status)\" test now also checks that `onError` is called once, and a new test checks that an async `onError` finishes before `onResponse`. Both fail on `main` and pass with the change. Full suite: the only failure (`test/unit/cli.test.ts`, `fileURLToPath` on Windows) also fails on `main`. Typecheck and oxlint pass.\n\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n\n## Summary by CodeRabbit\n\n* **Bug Fixes**\n  * Errors that occur while streaming a response are reported to the configured error handler, even if the response has already started. If the handler fails, its failure is logged and stream handling still completes.\n  * A stream error no longer replaces a response that has already been sent: its status and emitted content are preserved. Asynchronous error handling completes before the response handler runs.\n\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
+            "state": "MERGED",
+            "isDraft": false,
+            "createdAt": "2026-10-04T09:12:29Z",
+            "updatedAt": "2026-10-07T11:55:24Z",
+            "closedAt": "2026-10-07T11:53:47Z",
+            "mergedAt": "2026-10-07T11:53:47Z",
+            "url": "https://github.com/h3js/h3/pull/1571",
+            "locked": false,
+            "author": {
+              "__typename": "User",
+              "login": "kaanisthatyou",
+              "avatarUrl": "https://avatars.githubusercontent.com/u/121812333?u=e73c9ea79ec026b3d41ea0b56e862429f658ad9b&v=4",
+              "url": "https://github.com/kaanisthatyou",
+              "databaseId": 121812333,
+              "name": "Kaan Çelebi"
+            },
+            "authorAssociation": "CONTRIBUTOR",
+            "mergedBy": {
+              "__typename": "User",
+              "login": "pi0",
+              "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?u=3609b2822870b982f2b93c432569ee017e970148&v=4",
+              "url": "https://github.com/pi0",
+              "databaseId": 5158436,
+              "name": "Pooya Parsa"
+            },
+            "assignees": {
+              "nodes": []
+            },
+            "labels": {
+              "nodes": []
+            },
+            "comments": {
+              "totalCount": 2
+            },
+            "participants": {
+              "nodes": [
+                {
+                  "__typename": "User",
+                  "login": "kaanisthatyou",
+                  "avatarUrl": "https://avatars.githubusercontent.com/u/121812333?u=e73c9ea79ec026b3d41ea0b56e862429f658ad9b&v=4",
+                  "url": "https://github.com/kaanisthatyou",
+                  "databaseId": 121812333,
+                  "name": "Kaan Çelebi"
+                },
+                {
+                  "__typename": "User",
+                  "login": "pi0",
+                  "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?u=3609b2822870b982f2b93c432569ee017e970148&v=4",
+                  "url": "https://github.com/pi0",
+                  "databaseId": 5158436,
+                  "name": "Pooya Parsa"
+                }
+              ]
+            },
+            "milestone": null,
+            "viewerSubscription": "UNSUBSCRIBED",
+            "headRefName": "fix/node-stream-error-hook",
+            "headRefOid": "a369e078613e0211e529423da5b34018b2f194b1",
+            "baseRefName": "main",
+            "baseRefOid": "9adeeeef5275eb32ae3591af12d89dd24231e512",
+            "headRepository": {
+              "databaseId": 1404182397,
+              "name": "h3",
+              "owner": {
+                "login": "kaanisthatyou"
+              }
+            },
+            "mergeCommit": {
+              "oid": "bca3a8e8d5ab556c874c771aa5a9fade06194948"
+            },
+            "additions": 82,
+            "deletions": 6,
+            "changedFiles": 2,
+            "commits": {
+              "totalCount": 3,
+              "nodes": [
+                {
+                  "commit": {
+                    "statusCheckRollup": {
+                      "state": "FAILURE",
+                      "contexts": {
+                        "totalCount": 8,
+                        "checkRunCountsByState": [
+                          {
+                            "state": "ACTION_REQUIRED",
+                            "count": 0
+                          },
+                          {
+                            "state": "CANCELLED",
+                            "count": 0
+                          },
+                          {
+                            "state": "COMPLETED",
+                            "count": 0
+                          },
+                          {
+                            "state": "FAILURE",
+                            "count": 0
+                          },
+                          {
+                            "state": "IN_PROGRESS",
+                            "count": 0
+                          },
+                          {
+                            "state": "NEUTRAL",
+                            "count": 0
+                          },
+                          {
+                            "state": "PENDING",
+                            "count": 0
+                          },
+                          {
+                            "state": "QUEUED",
+                            "count": 0
+                          },
+                          {
+                            "state": "SKIPPED",
+                            "count": 0
+                          },
+                          {
+                            "state": "STALE",
+                            "count": 0
+                          },
+                          {
+                            "state": "STARTUP_FAILURE",
+                            "count": 0
+                          },
+                          {
+                            "state": "SUCCESS",
+                            "count": 6
+                          },
+                          {
+                            "state": "TIMED_OUT",
+                            "count": 0
+                          },
+                          {
+                            "state": "WAITING",
+                            "count": 0
+                          }
+                        ],
+                        "statusContextCountsByState": [
+                          {
+                            "state": "EXPECTED",
+                            "count": 0
+                          },
+                          {
+                            "state": "ERROR",
+                            "count": 0
+                          },
+                          {
+                            "state": "FAILURE",
+                            "count": 1
+                          },
+                          {
+                            "state": "PENDING",
+                            "count": 1
+                          },
+                          {
+                            "state": "SUCCESS",
+                            "count": 0
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              ]
+            },
+            "reviewRequests": {
+              "nodes": []
+            },
+            "timelineItems": {
+              "nodes": []
+            }
+          }
+        },
+        "t4": {
+          "issueOrPullRequest": {
+            "__typename": "PullRequest",
+            "id": "PR_kwDOErHI988AAAABGgYKrw",
+            "number": 1570,
+            "title": "fix(response): use matching reason phrases in redirect and noContent",
+            "body": "`redirect()` labels every status other than 301 with \"Found\", and `noContent()` labels every status with \"No Content\". So the phrase is wrong whenever another status is passed:\n\n```js\napp.get(\"/a\", () => redirect(\"/b\", 308));\napp.get(\"/c\", () => redirect(\"/d\", 307));\napp.all(\"/api/**\", (event) => handleCors(event, { preflight: { statusCode: 200 } }) || \"ok\");\napp.use(routeRules({ \"/old/**\": { redirect: \"/new/**\" } }));\n```\n\n```\n$ curl -sI localhost:3000/a | head -1\nHTTP/1.1 308 Found\n$ curl -sI localhost:3000/c | head -1\nHTTP/1.1 307 Found\n$ curl -sI localhost:3000/old/x | head -1\nHTTP/1.1 307 Found\n$ curl -si -X OPTIONS -H 'Origin: https://x.test' -H 'Access-Control-Request-Method: PUT' localhost:3000/api/x | head -1\nHTTP/1.1 200 No Content\n```\n\nThe same label shows up in `res.statusText` for web consumers (`app.request()`, service workers). 307 is also the default status of the `redirect` route rule, so a rule redirect with the default status goes out as `307 Found`.\n\nReason phrases are only advisory (RFC 9110 section 15: they \"can be replaced by local equivalents or left out altogether without affecting the protocol\"), but a phrase that belongs to a different code is misleading in logs, curl output and devtools. Neither v1's `sendRedirect` nor `redirect()` before `HTTPResponse` set a phrase, so this came in with the hardcoded defaults.\n\nThe fix keeps the existing phrases for 204, 301 and 302 and uses the RFC 9110 phrases for 303, 307 and 308. Any other status gets no phrase, like a plain `200` response today, rather than one borrowed from 302 or 204. An explicit `statusText` passed to `redirect()` still wins.\n\nWith the change the same requests return `308 Permanent Redirect`, `307 Temporary Redirect` (also for the rule) and a bare `200`.\n\nTests (web and node matrix): each redirect status checks its phrase, 300 gets none, an explicit `statusText` is kept, and `noContent(200)` is no longer labelled \"No Content\". Without the source change, the 303/307/308/300 and `noContent(200)` cases fail with `expected 'Found' to be 'See Other'` (and similar) and `expected 'No Content' to be ''`.\n\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n## Summary by CodeRabbit\n\n* **Bug Fixes**\n  * Corrected response status text for empty responses and redirects. Unsupported statuses now use no default status text, while explicitly provided redirect text is preserved.\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
+            "state": "MERGED",
+            "isDraft": false,
+            "createdAt": "2026-10-04T03:20:57Z",
+            "updatedAt": "2026-10-07T11:56:49Z",
+            "closedAt": "2026-10-07T11:56:49Z",
+            "mergedAt": "2026-10-07T11:56:49Z",
+            "url": "https://github.com/h3js/h3/pull/1570",
+            "locked": false,
+            "author": {
+              "__typename": "User",
+              "login": "giaBaoJS",
+              "avatarUrl": "https://avatars.githubusercontent.com/u/39545125?u=77972354c2c5b76ccab7fb2341ffc50efb842cdf&v=4",
+              "url": "https://github.com/giaBaoJS",
+              "databaseId": 39545125,
+              "name": "Paul Nguyen"
+            },
+            "authorAssociation": "CONTRIBUTOR",
+            "mergedBy": {
+              "__typename": "User",
+              "login": "pi0",
+              "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?u=3609b2822870b982f2b93c432569ee017e970148&v=4",
+              "url": "https://github.com/pi0",
+              "databaseId": 5158436,
+              "name": "Pooya Parsa"
+            },
+            "assignees": {
+              "nodes": []
+            },
+            "labels": {
+              "nodes": []
+            },
+            "comments": {
+              "totalCount": 1
+            },
+            "participants": {
+              "nodes": [
+                {
+                  "__typename": "User",
+                  "login": "giaBaoJS",
+                  "avatarUrl": "https://avatars.githubusercontent.com/u/39545125?u=77972354c2c5b76ccab7fb2341ffc50efb842cdf&v=4",
+                  "url": "https://github.com/giaBaoJS",
+                  "databaseId": 39545125,
+                  "name": "Paul Nguyen"
+                },
+                {
+                  "__typename": "User",
+                  "login": "pi0",
+                  "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?u=3609b2822870b982f2b93c432569ee017e970148&v=4",
+                  "url": "https://github.com/pi0",
+                  "databaseId": 5158436,
+                  "name": "Pooya Parsa"
+                }
+              ]
+            },
+            "milestone": null,
+            "viewerSubscription": "UNSUBSCRIBED",
+            "headRefName": "fix/redirect-status-text",
+            "headRefOid": "c5b5206feb3519493001c5eb05145227ac3d09cf",
+            "baseRefName": "main",
+            "baseRefOid": "9adeeeef5275eb32ae3591af12d89dd24231e512",
+            "headRepository": {
+              "databaseId": 1403836583,
+              "name": "h3",
+              "owner": {
+                "login": "giaBaoJS"
+              }
+            },
+            "mergeCommit": {
+              "oid": "403bd029e5ee9ecd10c59682ea08f5b0ce90e05b"
+            },
+            "additions": 53,
+            "deletions": 2,
+            "changedFiles": 3,
+            "commits": {
+              "totalCount": 2,
+              "nodes": [
+                {
+                  "commit": {
+                    "statusCheckRollup": {
+                      "state": "PENDING",
+                      "contexts": {
+                        "totalCount": 3,
+                        "checkRunCountsByState": [
+                          {
+                            "state": "ACTION_REQUIRED",
+                            "count": 0
+                          },
+                          {
+                            "state": "CANCELLED",
+                            "count": 0
+                          },
+                          {
+                            "state": "COMPLETED",
+                            "count": 0
+                          },
+                          {
+                            "state": "FAILURE",
+                            "count": 0
+                          },
+                          {
+                            "state": "IN_PROGRESS",
+                            "count": 0
+                          },
+                          {
+                            "state": "NEUTRAL",
+                            "count": 0
+                          },
+                          {
+                            "state": "PENDING",
+                            "count": 0
+                          },
+                          {
+                            "state": "QUEUED",
+                            "count": 0
+                          },
+                          {
+                            "state": "SKIPPED",
+                            "count": 0
+                          },
+                          {
+                            "state": "STALE",
+                            "count": 0
+                          },
+                          {
+                            "state": "STARTUP_FAILURE",
+                            "count": 0
+                          },
+                          {
+                            "state": "SUCCESS",
+                            "count": 2
+                          },
+                          {
+                            "state": "TIMED_OUT",
+                            "count": 0
+                          },
+                          {
+                            "state": "WAITING",
+                            "count": 0
+                          }
+                        ],
+                        "statusContextCountsByState": [
+                          {
+                            "state": "EXPECTED",
+                            "count": 0
+                          },
+                          {
+                            "state": "ERROR",
+                            "count": 0
+                          },
+                          {
+                            "state": "FAILURE",
+                            "count": 0
+                          },
+                          {
+                            "state": "PENDING",
+                            "count": 1
+                          },
+                          {
+                            "state": "SUCCESS",
+                            "count": 0
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              ]
+            },
+            "reviewRequests": {
+              "nodes": []
+            },
+            "timelineItems": {
+              "nodes": [
+                {
+                  "createdAt": "2026-10-04T03:20:58Z",
+                  "requestedReviewer": {
+                    "__typename": "User",
+                    "login": "pi0"
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "t5": {
+          "issueOrPullRequest": {
+            "__typename": "PullRequest",
+            "id": "PR_kwDOErHI988AAAABGa6lvw",
+            "number": 1568,
+            "title": "chore: require Node.js >= 20.19 (rou3 v1)",
+            "body": "rou3 v1 (updated in 6d59f61, released in v2.0.1-rc.33) declares `\"engines\": { \"node\": \">=20.19.0\" }`, so h3's own `>=20.11.1` no longer reflects what actually runs.\n\n- `package.json`: `engines.node` → `>=20.19.0`\n- `MIGRATION.md`: Node.js requirement → `>= 20.19`\n\n🤖 Generated with AI assistant\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n\n## Summary by CodeRabbit\n\n* **Documentation**\n  * Updated the H3 v2 migration guide to specify Node.js 20.19 or later.\n* **Chores**\n  * Raised the package’s minimum Node.js requirement to 20.19.0.\n\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
+            "state": "MERGED",
+            "isDraft": false,
+            "createdAt": "2026-10-03T10:26:54Z",
+            "updatedAt": "2026-10-03T10:29:18Z",
+            "closedAt": "2026-10-03T10:29:16Z",
+            "mergedAt": "2026-10-03T10:29:16Z",
+            "url": "https://github.com/h3js/h3/pull/1568",
+            "locked": false,
+            "author": {
+              "__typename": "User",
+              "login": "pi0x",
+              "avatarUrl": "https://avatars.githubusercontent.com/u/286783767?u=880c7e98a9e910cc2184cf6ed383350bed41cb08&v=4",
+              "url": "https://github.com/pi0x",
+              "databaseId": 286783767,
+              "name": "pi0x"
+            },
+            "authorAssociation": "CONTRIBUTOR",
+            "mergedBy": {
+              "__typename": "User",
+              "login": "pi0",
+              "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?u=3609b2822870b982f2b93c432569ee017e970148&v=4",
+              "url": "https://github.com/pi0",
+              "databaseId": 5158436,
+              "name": "Pooya Parsa"
+            },
+            "assignees": {
+              "nodes": []
+            },
+            "labels": {
+              "nodes": []
+            },
+            "comments": {
+              "totalCount": 3
+            },
+            "participants": {
+              "nodes": [
+                {
+                  "__typename": "User",
+                  "login": "pi0x",
+                  "avatarUrl": "https://avatars.githubusercontent.com/u/286783767?u=880c7e98a9e910cc2184cf6ed383350bed41cb08&v=4",
+                  "url": "https://github.com/pi0x",
+                  "databaseId": 286783767,
+                  "name": "pi0x"
+                },
+                {
+                  "__typename": "User",
+                  "login": "pi0",
+                  "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?u=3609b2822870b982f2b93c432569ee017e970148&v=4",
+                  "url": "https://github.com/pi0",
+                  "databaseId": 5158436,
+                  "name": "Pooya Parsa"
+                }
+              ]
+            },
+            "milestone": null,
+            "viewerSubscription": "UNSUBSCRIBED",
+            "headRefName": "chore/node-engines",
+            "headRefOid": "be42a6d1757b31c84f497ae0d80a2ccedb6e5f66",
+            "baseRefName": "main",
+            "baseRefOid": "3cbc7535a61bfb7d3fcce949f30de471a90d572b",
+            "headRepository": {
+              "databaseId": 313641207,
+              "name": "h3",
+              "owner": {
+                "login": "h3js"
+              }
+            },
+            "mergeCommit": {
+              "oid": "c939539a70c91ae65b85292d3a1cdc804fc318ac"
+            },
+            "additions": 2,
+            "deletions": 2,
+            "changedFiles": 2,
+            "commits": {
+              "totalCount": 1,
+              "nodes": [
+                {
+                  "commit": {
+                    "statusCheckRollup": {
+                      "state": "PENDING",
+                      "contexts": {
+                        "totalCount": 8,
+                        "checkRunCountsByState": [
+                          {
+                            "state": "ACTION_REQUIRED",
+                            "count": 0
+                          },
+                          {
+                            "state": "CANCELLED",
+                            "count": 0
+                          },
+                          {
+                            "state": "COMPLETED",
+                            "count": 0
+                          },
+                          {
+                            "state": "FAILURE",
+                            "count": 0
+                          },
+                          {
+                            "state": "IN_PROGRESS",
+                            "count": 0
+                          },
+                          {
+                            "state": "NEUTRAL",
+                            "count": 0
+                          },
+                          {
+                            "state": "PENDING",
+                            "count": 0
+                          },
+                          {
+                            "state": "QUEUED",
+                            "count": 0
+                          },
+                          {
+                            "state": "SKIPPED",
+                            "count": 0
+                          },
+                          {
+                            "state": "STALE",
+                            "count": 0
+                          },
+                          {
+                            "state": "STARTUP_FAILURE",
+                            "count": 0
+                          },
+                          {
+                            "state": "SUCCESS",
+                            "count": 7
+                          },
+                          {
+                            "state": "TIMED_OUT",
+                            "count": 0
+                          },
+                          {
+                            "state": "WAITING",
+                            "count": 0
+                          }
+                        ],
+                        "statusContextCountsByState": [
+                          {
+                            "state": "EXPECTED",
+                            "count": 0
+                          },
+                          {
+                            "state": "ERROR",
+                            "count": 0
+                          },
+                          {
+                            "state": "FAILURE",
+                            "count": 0
+                          },
+                          {
+                            "state": "PENDING",
+                            "count": 1
+                          },
+                          {
+                            "state": "SUCCESS",
+                            "count": 0
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              ]
+            },
+            "reviewRequests": {
+              "nodes": [
+                {
+                  "requestedReviewer": {
+                    "__typename": "User",
+                    "login": "pi0",
+                    "databaseId": 5158436,
+                    "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?u=3609b2822870b982f2b93c432569ee017e970148&v=4",
+                    "url": "https://github.com/pi0"
+                  }
+                }
+              ]
+            },
+            "timelineItems": {
+              "nodes": [
+                {
+                  "createdAt": "2026-10-03T10:26:55Z",
+                  "requestedReviewer": {
+                    "__typename": "User",
+                    "login": "pi0"
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "t6": {
+          "issueOrPullRequest": {
+            "__typename": "PullRequest",
+            "id": "PR_kwDOErHI988AAAABGC9Bdw",
+            "number": 1566,
+            "title": "fix(mime): add .mjs and .cjs to COMMON_MIME_TYPES",
+            "body": "`.mjs` (ES module) and `.cjs` (CommonJS module) files are absent from `COMMON_MIME_TYPES`. When `serveStatic` serves a `.mjs` file, `getType` returns `undefined` and no `Content-Type` header is set.\n\nBrowsers enforce strict MIME checking for `<script type=\"module\">` — a missing content-type causes a network error and the module fails to load entirely.\n\nThe fix adds both extensions mapped to `\"text/javascript\"`, consistent with `.js` and with [RFC 9239](https://www.rfc-editor.org/rfc/rfc9239).\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n\n## Summary by CodeRabbit\n\n* **Bug Fixes**\n  * `.mjs` and `.cjs` files are now identified as JavaScript files.\n\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
+            "state": "MERGED",
+            "isDraft": false,
+            "createdAt": "2026-10-01T07:33:21Z",
+            "updatedAt": "2026-10-02T21:06:09Z",
+            "closedAt": "2026-10-02T21:05:08Z",
+            "mergedAt": "2026-10-02T21:05:08Z",
+            "url": "https://github.com/h3js/h3/pull/1566",
+            "locked": false,
+            "author": {
+              "__typename": "User",
+              "login": "okxint",
+              "avatarUrl": "https://avatars.githubusercontent.com/u/130782884?u=872361e9354f8e52231b8558ba87918b6f6d586e&v=4",
+              "url": "https://github.com/okxint",
+              "databaseId": 130782884,
+              "name": null
+            },
+            "authorAssociation": "CONTRIBUTOR",
+            "mergedBy": {
+              "__typename": "User",
+              "login": "pi0",
+              "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?u=3609b2822870b982f2b93c432569ee017e970148&v=4",
+              "url": "https://github.com/pi0",
+              "databaseId": 5158436,
+              "name": "Pooya Parsa"
+            },
+            "assignees": {
+              "nodes": []
+            },
+            "labels": {
+              "nodes": []
+            },
+            "comments": {
+              "totalCount": 2
+            },
+            "participants": {
+              "nodes": [
+                {
+                  "__typename": "User",
+                  "login": "okxint",
+                  "avatarUrl": "https://avatars.githubusercontent.com/u/130782884?u=872361e9354f8e52231b8558ba87918b6f6d586e&v=4",
+                  "url": "https://github.com/okxint",
+                  "databaseId": 130782884,
+                  "name": null
+                },
+                {
+                  "__typename": "User",
+                  "login": "pi0",
+                  "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?u=3609b2822870b982f2b93c432569ee017e970148&v=4",
+                  "url": "https://github.com/pi0",
+                  "databaseId": 5158436,
+                  "name": "Pooya Parsa"
+                }
+              ]
+            },
+            "milestone": null,
+            "viewerSubscription": "UNSUBSCRIBED",
+            "headRefName": "fix/mime-mjs-cjs",
+            "headRefOid": "b72d2ffb9c0d858115d3aebc4b38ee6740d2da26",
+            "baseRefName": "main",
+            "baseRefOid": "62c263298b41881759fe5bc38da4dd879856180c",
+            "headRepository": {
+              "databaseId": 1399404425,
+              "name": "h3",
+              "owner": {
+                "login": "okxint"
+              }
+            },
+            "mergeCommit": {
+              "oid": "3afe46b1709a5882e9c518b0e870f9fd8e492140"
+            },
+            "additions": 2,
+            "deletions": 0,
+            "changedFiles": 1,
+            "commits": {
+              "totalCount": 1,
+              "nodes": [
+                {
+                  "commit": {
+                    "statusCheckRollup": {
+                      "state": "SUCCESS",
+                      "contexts": {
+                        "totalCount": 8,
+                        "checkRunCountsByState": [
+                          {
+                            "state": "ACTION_REQUIRED",
+                            "count": 0
+                          },
+                          {
+                            "state": "CANCELLED",
+                            "count": 0
+                          },
+                          {
+                            "state": "COMPLETED",
+                            "count": 0
+                          },
+                          {
+                            "state": "FAILURE",
+                            "count": 0
+                          },
+                          {
+                            "state": "IN_PROGRESS",
+                            "count": 0
+                          },
+                          {
+                            "state": "NEUTRAL",
+                            "count": 0
+                          },
+                          {
+                            "state": "PENDING",
+                            "count": 0
+                          },
+                          {
+                            "state": "QUEUED",
+                            "count": 0
+                          },
+                          {
+                            "state": "SKIPPED",
+                            "count": 0
+                          },
+                          {
+                            "state": "STALE",
+                            "count": 0
+                          },
+                          {
+                            "state": "STARTUP_FAILURE",
+                            "count": 0
+                          },
+                          {
+                            "state": "SUCCESS",
+                            "count": 6
+                          },
+                          {
+                            "state": "TIMED_OUT",
+                            "count": 0
+                          },
+                          {
+                            "state": "WAITING",
+                            "count": 0
+                          }
+                        ],
+                        "statusContextCountsByState": [
+                          {
+                            "state": "EXPECTED",
+                            "count": 0
+                          },
+                          {
+                            "state": "ERROR",
+                            "count": 0
+                          },
+                          {
+                            "state": "FAILURE",
+                            "count": 0
+                          },
+                          {
+                            "state": "PENDING",
+                            "count": 0
+                          },
+                          {
+                            "state": "SUCCESS",
+                            "count": 2
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              ]
+            },
+            "reviewRequests": {
+              "nodes": []
+            },
+            "timelineItems": {
+              "nodes": [
+                {
+                  "createdAt": "2026-10-01T07:33:22Z",
+                  "requestedReviewer": {
+                    "__typename": "User",
+                    "login": "pi0"
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "t7": {
+          "issueOrPullRequest": {
+            "__typename": "PullRequest",
+            "id": "PR_kwDOErHI988AAAABF0wh2A",
+            "number": 1565,
+            "title": "fix(cookie): size cookie chunks by their encoded length",
+            "body": "## Summary\n\n`setChunkedCookie` splits the raw value every `chunkMaxLength` (default 4000) characters. Each chunk is then percent-encoded by `setCookie` (`encodeURIComponent` by default), and that encoding makes it longer: `\"`, `{`, `:`, `,` and spaces become 3 bytes, and non-ASCII characters become 6–12 bytes. So the stored chunks can be far larger than the ~4KB the chunking is meant to stay under.\n\n```ts\nsetChunkedCookie(event, \"cart\", JSON.stringify(cart)); // 7501 characters\n// Set-Cookie: cart=__chunked__2\n// Set-Cookie: cart.1=… (9195 bytes)\n// Set-Cookie: cart.2=… (7932 bytes)\n```\n\nBrowsers drop cookies over 4096 bytes, so the chunks never come back. On the next request `getChunkedCookie` sees `__chunked__2` with the chunks missing and returns `undefined`. The data is lost without any error.\n\nA second failure in the same slicing: `value.slice()` cuts at UTF-16 indexes, so a chunk boundary can split a surrogate pair (an emoji, for example). `encodeURIComponent` then throws `URIError: URI malformed`, and the handler fails with a 500.\n\nSession cookies aren't affected: the sealed value is URL-safe ASCII. It hits apps that put JSON or user text into chunked cookies.\n\n## Fix\n\nA new internal helper, `splitCookieValue`, splits the value on code point boundaries, so a surrogate pair is never split. Each chunk is the longest run whose encoded form, using the same `encode` as `setCookie` (`options.encode` or `encodeURIComponent`), fits in `chunkMaxLength`. The helper measures whole candidate chunks (gallop, then bisect), so custom encoders like base64 whose length isn't additive per character are sized correctly too. A code point that can't fit even alone throws before any header is written. For values that don't grow when encoded (such as sealed sessions), the chunks are exactly the same as before, so all existing chunk snapshots are unchanged. The chunk-count cap still applies, and the helper stops as soon as it's exceeded.\n\n## Test plan\n\n- [x] New tests in `test/cookies.test.ts` (web and node, both setups):\n  - `keeps every encoded chunk within chunkMaxLength and readable`: a 2771-character JSON value (7453 bytes encoded). Every `Set-Cookie` value is ≤ 4000 bytes, and `getChunkedCookie` reads back the original.\n  - `does not split a surrogate pair across chunks`: `\"12345678901😀abc\"` with `chunkMaxLength: 12` round-trips.\n  - `sizes chunks for a custom encoder by the whole encoded chunk`: a `btoa` encoder with budget 40 gives 4 chunks of 30 characters, which round-trip.\n  - `throws when a single character cannot fit in chunkMaxLength`\n  - on `main` (62c2632): 16 failures (`expected 7453 to be less than or equal to 4000`, `URIError: URI malformed` → 500, …)\n  - with this change: `test/cookies.test.ts` and `test/session.test.ts` 192/192\n- [x] Full `vitest run` (node 24): 2872 passed, 66 skipped\n- [x] `oxlint .`, `oxfmt --check .`, `tsc --noEmit`, `obuild` and `git diff --check` are clean\n\nThis bug was found and fixed by an AI agent (breken-ai) and verified with the red/green tests above.\n\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n\n## Summary by CodeRabbit\n\n* **Bug Fixes**\n  * Chunked cookies now respect size limits based on their encoded representation, including when values contain multibyte characters.\n  * Character pairs remain intact across chunks, and chunk sizes account for the complete output of custom encoders.\n  * If a single character cannot fit within the encoded size limit, the operation returns an HTTP 500 error without writing response headers.\n  * The existing 100-chunk limit remains in place.\n\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
+            "state": "MERGED",
+            "isDraft": false,
+            "createdAt": "2026-09-30T04:35:21Z",
+            "updatedAt": "2026-10-03T09:57:10Z",
+            "closedAt": "2026-10-03T09:55:50Z",
+            "mergedAt": "2026-10-03T09:55:50Z",
+            "url": "https://github.com/h3js/h3/pull/1565",
+            "locked": false,
+            "author": {
+              "__typename": "User",
+              "login": "breken-ai",
+              "avatarUrl": "https://avatars.githubusercontent.com/u/312387581?u=95710551adde5298709a5b3607e3f202b20542f8&v=4",
+              "url": "https://github.com/breken-ai",
+              "databaseId": 312387581,
+              "name": "breken"
+            },
+            "authorAssociation": "CONTRIBUTOR",
+            "mergedBy": {
+              "__typename": "User",
+              "login": "pi0",
+              "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?u=3609b2822870b982f2b93c432569ee017e970148&v=4",
+              "url": "https://github.com/pi0",
+              "databaseId": 5158436,
+              "name": "Pooya Parsa"
+            },
+            "assignees": {
+              "nodes": []
+            },
+            "labels": {
+              "nodes": []
+            },
+            "comments": {
+              "totalCount": 2
+            },
+            "participants": {
+              "nodes": [
+                {
+                  "__typename": "User",
+                  "login": "breken-ai",
+                  "avatarUrl": "https://avatars.githubusercontent.com/u/312387581?u=95710551adde5298709a5b3607e3f202b20542f8&v=4",
+                  "url": "https://github.com/breken-ai",
+                  "databaseId": 312387581,
+                  "name": "breken"
+                },
+                {
+                  "__typename": "User",
+                  "login": "pi0",
+                  "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?u=3609b2822870b982f2b93c432569ee017e970148&v=4",
+                  "url": "https://github.com/pi0",
+                  "databaseId": 5158436,
+                  "name": "Pooya Parsa"
+                }
+              ]
+            },
+            "milestone": null,
+            "viewerSubscription": "UNSUBSCRIBED",
+            "headRefName": "fix/chunked-cookie-encoded-size",
+            "headRefOid": "cd9c9735ec00babc221a6324deea65a165c84ee7",
+            "baseRefName": "main",
+            "baseRefOid": "62c263298b41881759fe5bc38da4dd879856180c",
+            "headRepository": {
+              "databaseId": 1396975903,
+              "name": "h3",
+              "owner": {
+                "login": "breken-ai"
+              }
+            },
+            "mergeCommit": {
+              "oid": "3c2a205ce2f797645065a1bd86f4fd05d727a9c9"
+            },
+            "additions": 138,
+            "deletions": 6,
+            "changedFiles": 2,
+            "commits": {
+              "totalCount": 2,
+              "nodes": [
+                {
+                  "commit": {
+                    "statusCheckRollup": {
+                      "state": "SUCCESS",
+                      "contexts": {
+                        "totalCount": 8,
+                        "checkRunCountsByState": [
+                          {
+                            "state": "ACTION_REQUIRED",
+                            "count": 0
+                          },
+                          {
+                            "state": "CANCELLED",
+                            "count": 0
+                          },
+                          {
+                            "state": "COMPLETED",
+                            "count": 0
+                          },
+                          {
+                            "state": "FAILURE",
+                            "count": 0
+                          },
+                          {
+                            "state": "IN_PROGRESS",
+                            "count": 0
+                          },
+                          {
+                            "state": "NEUTRAL",
+                            "count": 0
+                          },
+                          {
+                            "state": "PENDING",
+                            "count": 0
+                          },
+                          {
+                            "state": "QUEUED",
+                            "count": 0
+                          },
+                          {
+                            "state": "SKIPPED",
+                            "count": 0
+                          },
+                          {
+                            "state": "STALE",
+                            "count": 0
+                          },
+                          {
+                            "state": "STARTUP_FAILURE",
+                            "count": 0
+                          },
+                          {
+                            "state": "SUCCESS",
+                            "count": 6
+                          },
+                          {
+                            "state": "TIMED_OUT",
+                            "count": 0
+                          },
+                          {
+                            "state": "WAITING",
+                            "count": 0
+                          }
+                        ],
+                        "statusContextCountsByState": [
+                          {
+                            "state": "EXPECTED",
+                            "count": 0
+                          },
+                          {
+                            "state": "ERROR",
+                            "count": 0
+                          },
+                          {
+                            "state": "FAILURE",
+                            "count": 0
+                          },
+                          {
+                            "state": "PENDING",
+                            "count": 0
+                          },
+                          {
+                            "state": "SUCCESS",
+                            "count": 2
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              ]
+            },
+            "reviewRequests": {
+              "nodes": []
+            },
+            "timelineItems": {
+              "nodes": [
+                {
+                  "createdAt": "2026-09-30T04:35:22Z",
+                  "requestedReviewer": {
+                    "__typename": "User",
+                    "login": "pi0"
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "t8": {
+          "issueOrPullRequest": {
+            "__typename": "PullRequest",
+            "id": "PR_kwDOErHI988AAAABF0uHwA",
+            "number": 1564,
+            "title": "fix(static): resolve the MIME type of a precompressed variant from the requested asset",
+            "body": "## Summary\n\nWhen `serveStatic` is configured with `encodings` and picks a precompressed variant, it guesses the MIME type from the variant's id instead of the requested asset's id. `.gz` and `.br` aren't in the MIME map, so no `content-type` is set, and the runtime falls back to `text/plain;charset=UTF-8`.\n\n```ts\nserveStatic(event, {\n  encodings: { gzip: \".gz\", br: \".br\" },\n  getMeta: (id) => /* stat(id) → { size, mtime, encoding } (no `type`) */,\n  getContents: (id) => /* readFile(id) */,\n});\n```\n\n`GET /app.js` with `accept-encoding: gzip` serves `app.js.gz` as `text/plain;charset=UTF-8`. The same request without `accept-encoding` serves `app.js` as `text/javascript`. Browsers refuse a module script or a stylesheet served as `text/plain` (strict MIME checking), so turning on precompressed assets breaks the page for every client that sends `accept-encoding`, which is every browser. This affects any `getMeta` that returns `encoding` for precompressed variants but relies on the default MIME map (#1137) instead of returning `type`.\n\n## Fix\n\n`idSearchPaths` now returns each candidate's asset id (the path without the encoding extension) along with the id to look up. The default/custom MIME lookup (`getType`) runs on that asset id, so `app.js.gz` served for `/app.js` resolves to `text/javascript` and `docs/index.html.br` served for `/docs` to `text/html`. A direct request for `/app.js.gz` still resolves from `.gz`, as before. `meta.type` and a `content-type` that's already set still win. One side effect: a custom `getType` that maps `.gz`/`.br` is no longer consulted when a variant is served for the uncompressed path (it now gets `.js`, `.css`, ...).\n\n## Test plan\n\n- [x] New test in `test/static.test.ts` (`serve static MIME types`, web and node): checks the gzip and brotli variants of `/pre/app.js`, the identity fallback, a `.css.gz` asset and an index `.html.br`, including which variant was served.\n  - on `main` (62c2632): 2 failures, `/pre/app.js (gzip): expected 'text/plain;charset=UTF-8' to be 'text/javascript'` (and `'text/plain; charset=UTF-8'` on node)\n  - with this change: 72/72 in `test/static.test.ts`\n- [x] Full `vitest run` (node 24): 2858 passed, 66 skipped\n- [x] `oxlint .`, `oxfmt --check .`, `tsc --noEmit`, `obuild` and `git diff --check` are clean\n\nNote: this PR only fixes `content-type`. `content-encoding` still comes only from `meta.encoding`, as it does today. A `getMeta` that doesn't return `encoding` (like the one in the static assets guide, which returns `{ size, mtime }`) still sends compressed bytes without `content-encoding` once `encodings` is configured; that's a separate follow-up (derive it from the matched encoding, or document the requirement).\n\nThis bug was found and fixed by an AI agent (breken-ai) and verified with the red/green test above.\n\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n\n## Summary by CodeRabbit\n\n* **Bug Fixes**\n  * Static assets served in compressed formats now retain the correct content type for JavaScript, CSS, and HTML. Identity-encoded assets continue to use the correct content type.\n\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->\n",
+            "state": "MERGED",
+            "isDraft": false,
+            "createdAt": "2026-09-30T04:30:06Z",
+            "updatedAt": "2026-10-03T09:57:53Z",
+            "closedAt": "2026-10-03T09:56:55Z",
+            "mergedAt": "2026-10-03T09:56:55Z",
+            "url": "https://github.com/h3js/h3/pull/1564",
+            "locked": false,
+            "author": {
+              "__typename": "User",
+              "login": "breken-ai",
+              "avatarUrl": "https://avatars.githubusercontent.com/u/312387581?u=95710551adde5298709a5b3607e3f202b20542f8&v=4",
+              "url": "https://github.com/breken-ai",
+              "databaseId": 312387581,
+              "name": "breken"
+            },
+            "authorAssociation": "CONTRIBUTOR",
+            "mergedBy": {
+              "__typename": "User",
+              "login": "pi0",
+              "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?u=3609b2822870b982f2b93c432569ee017e970148&v=4",
+              "url": "https://github.com/pi0",
+              "databaseId": 5158436,
+              "name": "Pooya Parsa"
+            },
+            "assignees": {
+              "nodes": []
+            },
+            "labels": {
+              "nodes": []
+            },
+            "comments": {
+              "totalCount": 2
+            },
+            "participants": {
+              "nodes": [
+                {
+                  "__typename": "User",
+                  "login": "breken-ai",
+                  "avatarUrl": "https://avatars.githubusercontent.com/u/312387581?u=95710551adde5298709a5b3607e3f202b20542f8&v=4",
+                  "url": "https://github.com/breken-ai",
+                  "databaseId": 312387581,
+                  "name": "breken"
+                },
+                {
+                  "__typename": "User",
+                  "login": "pi0",
+                  "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?u=3609b2822870b982f2b93c432569ee017e970148&v=4",
+                  "url": "https://github.com/pi0",
+                  "databaseId": 5158436,
+                  "name": "Pooya Parsa"
+                }
+              ]
+            },
+            "milestone": null,
+            "viewerSubscription": "UNSUBSCRIBED",
+            "headRefName": "fix/static-precompressed-headers",
+            "headRefOid": "7a36dbb4550af062ff71ecf7e8ae074a563d52cd",
+            "baseRefName": "main",
+            "baseRefOid": "62c263298b41881759fe5bc38da4dd879856180c",
+            "headRepository": {
+              "databaseId": 1396975903,
+              "name": "h3",
+              "owner": {
+                "login": "breken-ai"
+              }
+            },
+            "mergeCommit": {
+              "oid": "e79bf69ff26376c68be62b6ae2bceb89d7cd5177"
+            },
+            "additions": 43,
+            "deletions": 5,
+            "changedFiles": 2,
+            "commits": {
+              "totalCount": 1,
+              "nodes": [
+                {
+                  "commit": {
+                    "statusCheckRollup": {
+                      "state": "SUCCESS",
+                      "contexts": {
+                        "totalCount": 8,
+                        "checkRunCountsByState": [
+                          {
+                            "state": "ACTION_REQUIRED",
+                            "count": 0
+                          },
+                          {
+                            "state": "CANCELLED",
+                            "count": 0
+                          },
+                          {
+                            "state": "COMPLETED",
+                            "count": 0
+                          },
+                          {
+                            "state": "FAILURE",
+                            "count": 0
+                          },
+                          {
+                            "state": "IN_PROGRESS",
+                            "count": 0
+                          },
+                          {
+                            "state": "NEUTRAL",
+                            "count": 0
+                          },
+                          {
+                            "state": "PENDING",
+                            "count": 0
+                          },
+                          {
+                            "state": "QUEUED",
+                            "count": 0
+                          },
+                          {
+                            "state": "SKIPPED",
+                            "count": 0
+                          },
+                          {
+                            "state": "STALE",
+                            "count": 0
+                          },
+                          {
+                            "state": "STARTUP_FAILURE",
+                            "count": 0
+                          },
+                          {
+                            "state": "SUCCESS",
+                            "count": 6
+                          },
+                          {
+                            "state": "TIMED_OUT",
+                            "count": 0
+                          },
+                          {
+                            "state": "WAITING",
+                            "count": 0
+                          }
+                        ],
+                        "statusContextCountsByState": [
+                          {
+                            "state": "EXPECTED",
+                            "count": 0
+                          },
+                          {
+                            "state": "ERROR",
+                            "count": 0
+                          },
+                          {
+                            "state": "FAILURE",
+                            "count": 0
+                          },
+                          {
+                            "state": "PENDING",
+                            "count": 0
+                          },
+                          {
+                            "state": "SUCCESS",
+                            "count": 2
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              ]
+            },
+            "reviewRequests": {
+              "nodes": []
+            },
+            "timelineItems": {
+              "nodes": [
+                {
+                  "createdAt": "2026-09-30T04:30:06Z",
+                  "requestedReviewer": {
+                    "__typename": "User",
+                    "login": "pi0"
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "t9": {
+          "issueOrPullRequest": {
+            "__typename": "PullRequest",
+            "id": "PR_kwDOErHI988AAAABFtYnqw",
+            "number": 1563,
+            "title": "feat: add `h3-v2` alias package",
+            "body": "Some package managers treat the common `\"h3-v2\": \"npm:h3@...\"` alias (e.g. used by TanStack Start) as a real package name and try to fetch `h3-v2` from the registry. This adds a static `h3-v2` package (on the orphan `h3-v2` branch) that re-exports `h3` so those installs still resolve to h3 v2.\n\n- Static `lib/*.mjs` + `lib/*.d.mts` files, each just `export * from \"h3/<subpath>\"` (no build step)\n- Re-exports all current subpaths: `.`, `node`, `bun`, `deno`, `cloudflare`, `service-worker`, `generic`, `tracing`, `rules`, `rules/cache`, `rules/proxy`, `rules/compiler`\n- `.` re-exports bare `h3`, so h3's own runtime conditions (deno/bun/workerd/browser/node) still apply\n- Regular dependency `h3: ^2.0.1-rc.32`; forwards h3's optional peers (`crossws`, `ocache`)\n- Version mirrors h3 (`2.0.1-rc.32`)\n\nVerified by packing and installing the tarball: every subpath exports the same bindings (identity-equal) as the matching `h3` subpath, and types resolve with `moduleResolution: nodenext`.\n\n🤖 Generated with AI assistant",
+            "state": "MERGED",
+            "isDraft": false,
+            "createdAt": "2026-09-29T13:52:51Z",
+            "updatedAt": "2026-09-29T13:54:56Z",
+            "closedAt": "2026-09-29T13:54:53Z",
+            "mergedAt": "2026-09-29T13:54:53Z",
+            "url": "https://github.com/h3js/h3/pull/1563",
+            "locked": false,
+            "author": {
+              "__typename": "User",
+              "login": "pi0x",
+              "avatarUrl": "https://avatars.githubusercontent.com/u/286783767?u=880c7e98a9e910cc2184cf6ed383350bed41cb08&v=4",
+              "url": "https://github.com/pi0x",
+              "databaseId": 286783767,
+              "name": "pi0x"
+            },
+            "authorAssociation": "CONTRIBUTOR",
+            "mergedBy": {
+              "__typename": "User",
+              "login": "pi0",
+              "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?u=3609b2822870b982f2b93c432569ee017e970148&v=4",
+              "url": "https://github.com/pi0",
+              "databaseId": 5158436,
+              "name": "Pooya Parsa"
+            },
+            "assignees": {
+              "nodes": []
+            },
+            "labels": {
+              "nodes": []
+            },
+            "comments": {
+              "totalCount": 2
+            },
+            "participants": {
+              "nodes": [
+                {
+                  "__typename": "User",
+                  "login": "pi0x",
+                  "avatarUrl": "https://avatars.githubusercontent.com/u/286783767?u=880c7e98a9e910cc2184cf6ed383350bed41cb08&v=4",
+                  "url": "https://github.com/pi0x",
+                  "databaseId": 286783767,
+                  "name": "pi0x"
+                },
+                {
+                  "__typename": "User",
+                  "login": "pi0",
+                  "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?u=3609b2822870b982f2b93c432569ee017e970148&v=4",
+                  "url": "https://github.com/pi0",
+                  "databaseId": 5158436,
+                  "name": "Pooya Parsa"
+                }
+              ]
+            },
+            "milestone": null,
+            "viewerSubscription": "UNSUBSCRIBED",
+            "headRefName": "feat/h3-v2-pkg",
+            "headRefOid": "4be40a4a7aec21154cc953c2f25683c36c60f33d",
+            "baseRefName": "h3-v2",
+            "baseRefOid": "ff2c48afdfd21af4ea8fe534abd75cb8d2945ab3",
+            "headRepository": {
+              "databaseId": 313641207,
+              "name": "h3",
+              "owner": {
+                "login": "h3js"
+              }
+            },
+            "mergeCommit": {
+              "oid": "5d8637be80475cbb60c2aa8cdad79faa06eafab8"
+            },
+            "additions": 116,
+            "deletions": 0,
+            "changedFiles": 27,
+            "commits": {
+              "totalCount": 1,
+              "nodes": [
+                {
+                  "commit": {
+                    "statusCheckRollup": {
+                      "state": "SUCCESS",
+                      "contexts": {
+                        "totalCount": 3,
+                        "checkRunCountsByState": [
+                          {
+                            "state": "ACTION_REQUIRED",
+                            "count": 0
+                          },
+                          {
+                            "state": "CANCELLED",
+                            "count": 0
+                          },
+                          {
+                            "state": "COMPLETED",
+                            "count": 0
+                          },
+                          {
+                            "state": "FAILURE",
+                            "count": 0
+                          },
+                          {
+                            "state": "IN_PROGRESS",
+                            "count": 0
+                          },
+                          {
+                            "state": "NEUTRAL",
+                            "count": 0
+                          },
+                          {
+                            "state": "PENDING",
+                            "count": 0
+                          },
+                          {
+                            "state": "QUEUED",
+                            "count": 0
+                          },
+                          {
+                            "state": "SKIPPED",
+                            "count": 0
+                          },
+                          {
+                            "state": "STALE",
+                            "count": 0
+                          },
+                          {
+                            "state": "STARTUP_FAILURE",
+                            "count": 0
+                          },
+                          {
+                            "state": "SUCCESS",
+                            "count": 2
+                          },
+                          {
+                            "state": "TIMED_OUT",
+                            "count": 0
+                          },
+                          {
+                            "state": "WAITING",
+                            "count": 0
+                          }
+                        ],
+                        "statusContextCountsByState": [
+                          {
+                            "state": "EXPECTED",
+                            "count": 0
+                          },
+                          {
+                            "state": "ERROR",
+                            "count": 0
+                          },
+                          {
+                            "state": "FAILURE",
+                            "count": 0
+                          },
+                          {
+                            "state": "PENDING",
+                            "count": 0
+                          },
+                          {
+                            "state": "SUCCESS",
+                            "count": 1
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              ]
+            },
+            "reviewRequests": {
+              "nodes": []
+            },
+            "timelineItems": {
+              "nodes": []
+            }
+          }
+        }
+      }
+    }
+  }
+}

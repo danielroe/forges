@@ -13,8 +13,9 @@
     "status": 200,
     "headers": {
       "x-ratelimit-limit": "5000",
-      "x-ratelimit-remaining": "4996",
-      "x-ratelimit-reset": "1791738331"
+      "x-ratelimit-remaining": "4995",
+      "x-ratelimit-reset": "1792217942",
+      "x-ratelimit-resource": "graphql"
     },
     "body": {
       "data": {
@@ -40,6 +41,7 @@
               "databaseId": 286783767,
               "name": "pi0x"
             },
+            "authorAssociation": "CONTRIBUTOR",
             "assignees": {
               "nodes": []
             },

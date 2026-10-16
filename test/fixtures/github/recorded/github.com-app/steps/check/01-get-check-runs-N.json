@@ -1,38 +1,39 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://api.github.com/repos/h3js/h3/check-runs/114755996750"
+    "url": "https://api.github.com/repos/h3js/h3/check-runs/116961343121"
   },
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"2fd2ea1604afd1e3c65f8d1720c77155389c06aa231d316441725a9d95ccac42\"",
+      "etag": "W/\"efe250374bd7c76818cfa8dc7e7dc99deeaa6448d106c757357b98d5cac872d3\"",
       "x-ratelimit-limit": "5000",
       "x-ratelimit-remaining": "4988",
-      "x-ratelimit-reset": "1791808133"
+      "x-ratelimit-reset": "1792217935",
+      "x-ratelimit-resource": "core"
     },
     "body": {
-      "id": 114755996750,
+      "id": 116961343121,
       "name": "codecov/patch",
-      "node_id": "CR_kwDOErHI988AAAAat_2MTg",
-      "head_sha": "dd84e37fca0559506ad97022b5ac9438b427e6e2",
+      "node_id": "CR_kwDOErHI988AAAAbO3B2kQ",
+      "head_sha": "04ba6e021cde76fa6fc0084866f231c575647beb",
       "external_id": "",
-      "url": "https://api.github.com/repos/h3js/h3/check-runs/114755996750",
-      "html_url": "https://github.com/h3js/h3/runs/114755996750",
-      "details_url": "https://app.codecov.io/gh/h3js/h3/pull/1593",
+      "url": "https://api.github.com/repos/h3js/h3/check-runs/116961343121",
+      "html_url": "https://github.com/h3js/h3/runs/116961343121",
+      "details_url": "https://app.codecov.io/gh/h3js/h3/pull/1601",
       "status": "completed",
       "conclusion": "success",
-      "started_at": "2026-10-12T09:53:12Z",
-      "completed_at": "2026-10-12T09:53:12Z",
+      "started_at": "2026-10-16T11:59:53Z",
+      "completed_at": "2026-10-16T11:59:54Z",
       "output": {
-        "title": "Coverage not affected when comparing 66cfb8a...dd84e37",
-        "summary": "[View this Pull Request on Codecov](https://app.codecov.io/gh/h3js/h3/pull/1593?dropdown=coverage&src=pr&el=h1&utm_medium=referral&utm_source=github&utm_content=checks&utm_campaign=pr+comments&utm_term=h3js)\n\nCoverage not affected when comparing 66cfb8a...dd84e37",
+        "title": "100.00% of diff hit (target 96.30%)",
+        "summary": "[View this Pull Request on Codecov](https://app.codecov.io/gh/h3js/h3/pull/1601?dropdown=coverage&src=pr&el=h1&utm_medium=referral&utm_source=github&utm_content=checks&utm_campaign=pr+comments&utm_term=h3js)\n\n100.00% of diff hit (target 96.30%)",
         "text": null,
         "annotations_count": 0,
-        "annotations_url": "https://api.github.com/repos/h3js/h3/check-runs/114755996750/annotations"
+        "annotations_url": "https://api.github.com/repos/h3js/h3/check-runs/116961343121/annotations"
       },
       "check_suite": {
-        "id": 103583980642
+        "id": 105412619898
       },
       "app": {
         "id": 254,

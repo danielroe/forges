@@ -17,7 +17,8 @@
     "headers": {
       "x-ratelimit-limit": "5000",
       "x-ratelimit-remaining": "4993",
-      "x-ratelimit-reset": "1791738331"
+      "x-ratelimit-reset": "1792217942",
+      "x-ratelimit-resource": "graphql"
     },
     "body": {
       "data": {
@@ -25,9 +26,37 @@
           "discussions": {
             "pageInfo": {
               "hasNextPage": true,
-              "endCursor": "Y3Vyc29yOnYyOpK0MjAyNi0wNC0yMVQwODo1NDowMlrOAJdnag=="
+              "endCursor": "Y3Vyc29yOnYyOpK0MjAyNi0wNC0yMlQxNToyNDowNlrOAJeJiA=="
             },
             "nodes": [
+              {
+                "id": "D_kwDOErHI984AqEUg",
+                "number": 1600,
+                "title": "Would it be possible to add the v2 announcement to the v1 documentation?",
+                "body": "Since the v1 documentation appeared higher in Google search results, I inadvertently worked while looking at the v1 documentation for a while without realizing it had been updated to v2. I believe having some kind of navigational link or guidance would make it much easier to understand.",
+                "closed": false,
+                "stateReason": null,
+                "url": "https://github.com/orgs/h3js/discussions/1600",
+                "createdAt": "2026-10-15T13:33:10Z",
+                "updatedAt": "2026-10-15T13:33:10Z",
+                "closedAt": null,
+                "locked": false,
+                "author": {
+                  "__typename": "User",
+                  "login": "otowa1",
+                  "avatarUrl": "https://avatars.githubusercontent.com/u/90172742?v=4",
+                  "url": "https://github.com/otowa1",
+                  "databaseId": 90172742,
+                  "name": null
+                },
+                "authorAssociation": "NONE",
+                "labels": {
+                  "nodes": []
+                },
+                "comments": {
+                  "totalCount": 0
+                }
+              },
               {
                 "id": "D_kwDOErHI984Anmkd",
                 "number": 1440,
@@ -48,6 +77,7 @@
                   "databaseId": 224257367,
                   "name": "Nayeem (Nym)"
                 },
+                "authorAssociation": "NONE",
                 "labels": {
                   "nodes": []
                 },
@@ -75,33 +105,7 @@
                   "databaseId": 72330740,
                   "name": "Alfred Trask"
                 },
-                "labels": {
-                  "nodes": []
-                },
-                "comments": {
-                  "totalCount": 1
-                }
-              },
-              {
-                "id": "D_kwDOErHI984Al2dq",
-                "number": 1371,
-                "title": "Shorthand for throwing HTTP errors",
-                "body": "Hi, not sure if this has been discussed before, but wanted to share an idea.\r\n\r\nRight now when I want to return a 404 from a handler I write:\r\n\r\n```ts\r\nthrow createError({ statusCode: 404 })\r\n```\r\n\r\nIt would be nice if h3 accepted a simpler shorthand like:\r\n\r\n```ts\r\nthrow 404\r\n```\r\n\r\nBasically: let the thrown value map to an HTTP error directly, without the `createError({ statusCode: ... })` wrapper.\r\n\r\n`createError` / `new HTTPError({ ... })` would still be there for the richer cases (custom `data`, headers, message, etc.).\r\n\r\nPR: #1372\r\n\r\n## Custom strings\r\n\r\nWe could also tried supporting a string form to carry a message:\r\n\r\n```ts\r\nthrow \"404 Lesson not found\"\r\n```\r\n\r\nBut parsing the status out of the string needs a regex and bumps the bundle size a bit, so I left it out of the PR. For messages, sticking with `new HTTPError({ status: 404, message: \"Lesson not found\" })` feels cleaner.",
-                "closed": false,
-                "stateReason": null,
-                "url": "https://github.com/orgs/h3js/discussions/1371",
-                "createdAt": "2026-04-21T08:54:02Z",
-                "updatedAt": "2026-04-21T18:49:23Z",
-                "closedAt": null,
-                "locked": false,
-                "author": {
-                  "__typename": "User",
-                  "login": "onmax",
-                  "avatarUrl": "https://avatars.githubusercontent.com/u/22072217?u=5cd9a530f8cd1669cff4f085b71096f3372b6e1e&v=4",
-                  "url": "https://github.com/onmax",
-                  "databaseId": 22072217,
-                  "name": "Max"
-                },
+                "authorAssociation": "NONE",
                 "labels": {
                   "nodes": []
                 },

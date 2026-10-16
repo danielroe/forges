@@ -103,15 +103,16 @@
       "completedAt": "2026-10-07T12:34:18.000Z"
     }
   ],
-  "total": 127,
+  "total": 125,
   "cursor": {
     "nextUrl": "https://api.github.com/repositories/313641207/actions/runs?branch=main&status=failure&per_page=3&page=2",
-    "etag": "W/\"d6070fe89fbdc735bd582c50ba2280fe9fca4055cdc2ac214cd2d4f0b6682057\""
+    "etag": "W/\"ac6a2930714ff6075b6309c1c9b48222beb41811adc87ae1d285b538751da598\""
   },
-  "etag": "W/\"d6070fe89fbdc735bd582c50ba2280fe9fca4055cdc2ac214cd2d4f0b6682057\"",
+  "etag": "W/\"ac6a2930714ff6075b6309c1c9b48222beb41811adc87ae1d285b538751da598\"",
   "rateLimit": {
     "limit": 5000,
-    "remaining": 4969,
-    "resetAt": "2026-10-11T17:05:29.000Z"
+    "remaining": 4953,
+    "resetAt": "<now>",
+    "resource": "core"
   }
 }

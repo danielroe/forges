@@ -6,10 +6,11 @@
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"f3c6b10ba7f7ee2794e43b035919f27420fd69564c4b7af9cdbd761a9634ada6\"",
+      "etag": "W/\"684429efb8fa1bdd895d3dd6bcdab46f238dc88f90f8b236aef01241b800bc7c\"",
       "x-ratelimit-limit": "5000",
-      "x-ratelimit-remaining": "4979",
-      "x-ratelimit-reset": "1791808133"
+      "x-ratelimit-remaining": "4999",
+      "x-ratelimit-reset": "1792217935",
+      "x-ratelimit-resource": "core"
     },
     "body": {
       "id": 313641207,
@@ -79,7 +80,7 @@
       "releases_url": "https://api.github.com/repos/h3js/h3/releases{/id}",
       "deployments_url": "https://api.github.com/repos/h3js/h3/deployments",
       "created_at": "2020-11-17T14:15:44Z",
-      "updated_at": "2026-10-10T19:37:23Z",
+      "updated_at": "2026-10-16T08:00:45Z",
       "pushed_at": "2026-10-07T12:37:26Z",
       "git_url": "git://github.com/h3js/h3.git",
       "ssh_url": "git@github.com:h3js/h3.git",
@@ -87,8 +88,8 @@
       "svn_url": "https://github.com/h3js/h3",
       "homepage": "https://h3.dev",
       "size": 8167,
-      "stargazers_count": 5455,
-      "watchers_count": 5455,
+      "stargazers_count": 5464,
+      "watchers_count": 5464,
       "language": "TypeScript",
       "has_issues": true,
       "has_projects": true,
@@ -96,11 +97,11 @@
       "has_wiki": false,
       "has_pages": false,
       "has_discussions": true,
-      "forks_count": 375,
+      "forks_count": 378,
       "mirror_url": null,
       "archived": false,
       "disabled": false,
-      "open_issues_count": 72,
+      "open_issues_count": 78,
       "license": {
         "key": "mit",
         "name": "MIT License",
@@ -115,9 +116,9 @@
       "pull_request_creation_policy": "all",
       "topics": [],
       "visibility": "public",
-      "forks": 375,
-      "open_issues": 72,
-      "watchers": 5455,
+      "forks": 378,
+      "open_issues": 78,
+      "watchers": 5464,
       "default_branch": "main",
       "permissions": {
         "admin": false,
@@ -149,7 +150,7 @@
         "user_view_type": "public",
         "site_admin": false
       },
-      "network_count": 375,
+      "network_count": 378,
       "subscribers_count": 17
     }
   }

@@ -8,27 +8,27 @@
       "owner": "h3js",
       "name": "h3"
     },
-    "id": "38232588486"
+    "id": "38897280561"
   },
-  "name": "ci",
+  "name": "autofix.ci",
   "state": "success",
   "stateRaw": "completed",
-  "number": "4762",
+  "number": "4276",
   "eventRaw": "pull_request",
-  "branch": "docs/static-assets-example-path",
-  "sha": "dd84e37fca0559506ad97022b5ac9438b427e6e2",
-  "url": "https://github.com/h3js/h3/actions/runs/38232588486",
+  "branch": "fix/readbody-media-type-case",
+  "sha": "04ba6e021cde76fa6fc0084866f231c575647beb",
+  "url": "https://github.com/h3js/h3/actions/runs/38897280561",
   "actor": {
     "forge": "github",
     "instance": "github.com",
-    "login": "lx3133584",
-    "id": "24490353",
-    "avatarUrl": "https://avatars.githubusercontent.com/u/24490353?v=4",
-    "url": "https://github.com/lx3133584",
+    "login": "giaBaoJS",
+    "id": "39545125",
+    "avatarUrl": "https://avatars.githubusercontent.com/u/39545125?v=4",
+    "url": "https://github.com/giaBaoJS",
     "typeRaw": "User",
     "isBotHint": false
   },
-  "createdAt": "2026-10-12T09:51:31.000Z",
-  "startedAt": "2026-10-12T09:51:31.000Z",
-  "completedAt": "2026-10-12T09:52:43.000Z"
+  "createdAt": "2026-10-16T11:58:02.000Z",
+  "startedAt": "2026-10-16T11:58:02.000Z",
+  "completedAt": "2026-10-16T11:58:22.000Z"
 }

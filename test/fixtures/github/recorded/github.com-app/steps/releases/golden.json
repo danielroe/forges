@@ -106,12 +106,13 @@
   "total": 90,
   "cursor": {
     "nextUrl": "https://api.github.com/repositories/313641207/releases?per_page=3&page=2",
-    "etag": "W/\"970b61cea7d0c322304c0f70781bbdd7c8a6fa8364d41d2cc3bf6830336c3155\""
+    "etag": "W/\"18fa69e9c604b2f974fa798ca7ed4bde7b44a6771979ce65eafd3882ca17a502\""
   },
-  "etag": "W/\"970b61cea7d0c322304c0f70781bbdd7c8a6fa8364d41d2cc3bf6830336c3155\"",
+  "etag": "W/\"18fa69e9c604b2f974fa798ca7ed4bde7b44a6771979ce65eafd3882ca17a502\"",
   "rateLimit": {
     "limit": 5000,
-    "remaining": 4952,
-    "resetAt": "2026-10-11T17:05:29.000Z"
+    "remaining": 4937,
+    "resetAt": "<now>",
+    "resource": "core"
   }
 }

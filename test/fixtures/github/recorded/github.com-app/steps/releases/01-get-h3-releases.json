@@ -7,10 +7,11 @@
     "status": 200,
     "headers": {
       "link": "<https://api.github.com/repositories/313641207/releases?per_page=3&page=2>; rel=\"next\", <https://api.github.com/repositories/313641207/releases?per_page=3&page=30>; rel=\"last\"",
-      "etag": "W/\"970b61cea7d0c322304c0f70781bbdd7c8a6fa8364d41d2cc3bf6830336c3155\"",
+      "etag": "W/\"18fa69e9c604b2f974fa798ca7ed4bde7b44a6771979ce65eafd3882ca17a502\"",
       "x-ratelimit-limit": "5000",
-      "x-ratelimit-remaining": "4952",
-      "x-ratelimit-reset": "1791738329"
+      "x-ratelimit-remaining": "4937",
+      "x-ratelimit-reset": "1792217938",
+      "x-ratelimit-resource": "core"
     },
     "body": [
       {
@@ -56,14 +57,14 @@
         "body": "[compare changes](https://github.com/h3js/h3/compare/v2.0.1...v2.0.2)\r\n\r\n### 🩹 Fixes\r\n\r\n- **node:** Call `onError` for stream errors in Node.js handlers ([#1571](https://github.com/h3js/h3/pull/1571))\r\n- **response:** Use matching reason phrases in redirect and noContent ([#1570](https://github.com/h3js/h3/pull/1570))\r\n- **middleware:** Pass through handled responses in `onError` ([#1574](https://github.com/h3js/h3/pull/1574))\r\n\r\n### 🌊 Types\r\n\r\n- **session:** Remove `@ts-nocheck` from iron-crypto ([#1572](https://github.com/h3js/h3/pull/1572))\r\n- **route:** Infer `defineRoute` handler input from validation schemas ([ec527f0](https://github.com/h3js/h3/commit/ec527f0))\r\n\r\n### 🏡 Chore\r\n\r\n- **session:** Retarget legacy seal fallback removal to v3 ([#1573](https://github.com/h3js/h3/pull/1573))\r\n- **session:** Mark `legacySealFallback` as deprecated ([44dbfb8](https://github.com/h3js/h3/commit/44dbfb8))\r\n\r\n### ❤️ Contributors\r\n\r\n- Pooya Parsa ([@pi0](https://github.com/pi0))\r\n- Bao Nguyen ([@giaBaoJS](https://github.com/giaBaoJS))\r\n- Kaan Çelebi ([@kaanisthatyou](https://github.com/kaanisthatyou))\r\n- Daniel Shafer ([@dannyshafer](https://github.com/dannyshafer))",
         "reactions": {
           "url": "https://api.github.com/repos/h3js/h3/releases/405748393/reactions",
-          "total_count": 6,
+          "total_count": 7,
           "+1": 0,
           "-1": 0,
           "laugh": 0,
           "hooray": 0,
           "confused": 0,
           "heart": 2,
-          "rocket": 2,
+          "rocket": 3,
           "eyes": 2
         }
       },
@@ -164,11 +165,11 @@
         "body": "H3 v2 is now stable! 🎉\n\n> [!NOTE]\n> A full release article is coming soon on the [H3 blog](https://h3.dev/blog).\n\nH3 v2 is a full rewrite on top of web standards (`Request`, `Response`, `URL`, `Headers`). It stays compatible with most v1 utilities and is faster and smaller than v1.\n\n👉 **Get started:** https://h3.dev/guide\n👉 **Upgrading from v1:** https://h3.dev/migration\n\n## Highlights\n\n- **🌐 Web standards first:** Handlers receive `event.req` (a standard `Request`) and `event.url`, and set response headers through `event.res`. Return any value (string, object, `Response`, stream, `Blob`, ...) and H3 converts it to a `Response`.\n- **🚀 Runs everywhere:** The same app runs on Node.js, Bun, Deno, Cloudflare Workers, Service Workers and browsers. [srvx](https://srvx.h3.dev) provides a universal server layer, and `event.req.runtime` gives access to runtime-specific details when needed.\n- **⚡ Fast and small:** Routing uses [rou3](https://github.com/h3js/rou3) v1, and the core is a fraction of v1's bundle size. Every handler can be called directly with `handler.fetch()`.\n- **🧩 Middleware and plugins:** Onion-style `(event, next)` middleware, built-in helpers (`onRequest`, `onResponse`, `onError`, `basicAuth`, `bodyLimit`, ...) and reusable `definePlugin()` extensions.\n- **🔒 Type safety:** Typed handlers, responses and errors (`HTTPError`), plus validated handlers and body/query/params validation with any [Standard Schema](https://standardschema.dev) library.\n- **📏 Route rules (`h3/rules`):** Add headers, redirects, CORS, caching and proxying to groups of routes with one config object. See the [Route Rules guide](https://h3.dev/guide/rules).\n- **🧰 Built-in utilities:** Cookies (including chunked), sessions, CORS, proxy, static files, cache headers, SSE, WebSockets via [crossws](https://crossws.h3.dev), JSON-RPC/MCP helpers and an `h3/tracing` plugin. See https://h3.dev/utils.\n\n## Requirements\n\n- Node.js `>= 20.19` (if you run on Node.js)\n\n## Upgrading\n\nMost v1 utilities keep working, and deprecated v1 names are still exported to make upgrading easier. Read the [migration guide](https://h3.dev/migration) for the breaking changes and their new equivalents.\n\n## Thanks\n\nThank you to everyone who tested the betas and release candidates, reported issues, and sent PRs, and to the [Nitro](https://nitro.build) community for using v2 throughout its development. ❤️\n\nFor background on the v2 design, see the [v2 beta announcement](https://h3.dev/blog/v2-beta).\n",
         "reactions": {
           "url": "https://api.github.com/repos/h3js/h3/releases/402594410/reactions",
-          "total_count": 30,
+          "total_count": 31,
           "+1": 0,
           "-1": 0,
           "laugh": 0,
-          "hooray": 7,
+          "hooray": 8,
           "confused": 0,
           "heart": 8,
           "rocket": 11,

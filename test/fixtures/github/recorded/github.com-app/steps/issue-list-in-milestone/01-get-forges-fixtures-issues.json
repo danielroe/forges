@@ -1,0 +1,17 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/issues?state=all&milestone=1&sort=created&direction=desc&per_page=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "\"a2535e2c5fd0d2d5a0a60e965b8972918bf064fce212571b1901734d9eb1722a\"",
+      "x-ratelimit-limit": "5000",
+      "x-ratelimit-remaining": "4970",
+      "x-ratelimit-reset": "1792217938",
+      "x-ratelimit-resource": "core"
+    },
+    "body": []
+  }
+}

@@ -15,13 +15,13 @@
           },
           "id": "694647722"
         },
-        "id": "3847871939886530560",
-        "guid": "30f89290-c631-11f1-995b-9564b6db6f07"
+        "id": "3848679182009638912",
+        "guid": "67a231c0-c99c-11f1-839c-3267a9c91ee7"
       },
       "event": "issues.closed",
       "status": 502,
       "ok": false,
-      "deliveredAt": "<now>",
+      "deliveredAt": "2026-10-16T20:01:42.349Z",
       "duration": 0
     },
     {
@@ -39,13 +39,13 @@
           },
           "id": "694647722"
         },
-        "id": "3847871938097717248",
-        "guid": "3067c440-c631-11f1-8d60-cf9b7dcb1ef4"
+        "id": "3848679180382248960",
+        "guid": "6722efa0-c99c-11f1-9bdf-4885644646b1"
       },
       "event": "issues.closed",
       "status": 502,
       "ok": false,
-      "deliveredAt": "<now>",
+      "deliveredAt": "2026-10-16T20:01:41.610Z",
       "duration": 0
     },
     {
@@ -63,24 +63,25 @@
           },
           "id": "694647722"
         },
-        "id": "3847871926932373504",
-        "guid": "2d5728e0-c631-11f1-869e-79e6a318813e"
+        "id": "3848679111035731968",
+        "guid": "53f51d90-c99c-11f1-968b-be093c1ecd9b"
       },
-      "event": "issue_comment.created",
+      "event": "issues.demilestoned",
       "status": 502,
       "ok": false,
-      "deliveredAt": "<now>",
+      "deliveredAt": "2026-10-16T20:01:09.296Z",
       "duration": 0
     }
   ],
   "cursor": {
-    "nextUrl": "https://api.github.com/repositories/1411702196/hooks/694647722/deliveries?per_page=3&cursor=v1_3847871823278546944",
-    "etag": "W/\"3b3b113cbe3c3056840dded111c9d973c36c3b10933c5939f69d5715b9b8fa7d\""
+    "nextUrl": "https://api.github.com/repositories/1411702196/hooks/694647722/deliveries?per_page=3&cursor=v1_3848679109307662336",
+    "etag": "W/\"99b299a1884101e37995ee1de5648efc85bcd081fa1ae7922944b8bc95ea5861\""
   },
-  "etag": "W/\"3b3b113cbe3c3056840dded111c9d973c36c3b10933c5939f69d5715b9b8fa7d\"",
+  "etag": "W/\"99b299a1884101e37995ee1de5648efc85bcd081fa1ae7922944b8bc95ea5861\"",
   "rateLimit": {
     "limit": 500,
     "remaining": 498,
-    "resetAt": "<now>"
+    "resetAt": "<now>",
+    "resource": "webhook_deliveries"
   }
 }

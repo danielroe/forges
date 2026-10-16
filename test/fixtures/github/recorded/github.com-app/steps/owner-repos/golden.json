@@ -5,60 +5,6 @@
         "forge": "github",
         "instance": "github.com",
         "owner": "h3js",
-        "name": "srvx",
-        "externalId": "858394625"
-      },
-      "description": "λ Universal Server based on web standards.",
-      "defaultBranch": "main",
-      "visibility": "public",
-      "visibilityRaw": "public",
-      "isFork": false,
-      "isArchived": false,
-      "topics": [],
-      "url": "https://github.com/h3js/srvx",
-      "cloneUrls": {
-        "https": "https://github.com/h3js/srvx.git",
-        "ssh": "git@github.com:h3js/srvx.git"
-      },
-      "createdAt": "2024-09-16T20:20:41.000Z",
-      "updatedAt": "2026-10-11T13:22:36.000Z",
-      "pushedAt": "2026-09-14T18:00:26.000Z",
-      "owner": {
-        "forge": "github",
-        "instance": "github.com",
-        "login": "h3js",
-        "id": "208435796",
-        "avatarUrl": "https://avatars.githubusercontent.com/u/208435796?v=4",
-        "url": "https://github.com/h3js",
-        "typeRaw": "Organization",
-        "isBotHint": false
-      },
-      "language": "TypeScript",
-      "homepage": "https://srvx.h3.dev",
-      "licence": "MIT",
-      "stars": 874,
-      "forks": 59,
-      "features": {
-        "issues": true,
-        "pullRequests": true,
-        "discussions": false,
-        "wiki": false,
-        "projects": true,
-        "releases": true
-      },
-      "permissions": {
-        "admin": false,
-        "maintain": false,
-        "push": false,
-        "triage": false,
-        "pull": false
-      }
-    },
-    {
-      "ref": {
-        "forge": "github",
-        "instance": "github.com",
-        "owner": "h3js",
         "name": "h3",
         "externalId": "313641207"
       },
@@ -75,7 +21,7 @@
         "ssh": "git@github.com:h3js/h3.git"
       },
       "createdAt": "2020-11-17T14:15:44.000Z",
-      "updatedAt": "2026-10-10T19:37:23.000Z",
+      "updatedAt": "2026-10-16T08:00:45.000Z",
       "pushedAt": "2026-10-07T12:37:26.000Z",
       "owner": {
         "forge": "github",
@@ -90,8 +36,8 @@
       "language": "TypeScript",
       "homepage": "https://h3.dev",
       "licence": "MIT",
-      "stars": 5455,
-      "forks": 375,
+      "stars": 5464,
+      "forks": 378,
       "features": {
         "issues": true,
         "pullRequests": true,
@@ -113,24 +59,24 @@
         "forge": "github",
         "instance": "github.com",
         "owner": "h3js",
-        "name": "logos",
-        "externalId": "970060682"
+        "name": "rou3",
+        "externalId": "431651080"
       },
-      "description": "🎨 H3 Logo",
+      "description": "🌳 Lightweight and fast rou(ter) for JavaScript",
       "defaultBranch": "main",
       "visibility": "public",
       "visibilityRaw": "public",
       "isFork": false,
       "isArchived": false,
       "topics": [],
-      "url": "https://github.com/h3js/logos",
+      "url": "https://github.com/h3js/rou3",
       "cloneUrls": {
-        "https": "https://github.com/h3js/logos.git",
-        "ssh": "git@github.com:h3js/logos.git"
+        "https": "https://github.com/h3js/rou3.git",
+        "ssh": "git@github.com:h3js/rou3.git"
       },
-      "createdAt": "2025-04-21T11:58:12.000Z",
-      "updatedAt": "2026-10-10T06:20:19.000Z",
-      "pushedAt": "2025-08-06T16:28:34.000Z",
+      "createdAt": "2021-11-24T23:02:09.000Z",
+      "updatedAt": "2026-10-16T04:27:36.000Z",
+      "pushedAt": "2026-10-03T10:07:23.000Z",
       "owner": {
         "forge": "github",
         "instance": "github.com",
@@ -141,9 +87,10 @@
         "typeRaw": "Organization",
         "isBotHint": false
       },
-      "homepage": "https://h3.dev",
-      "stars": 7,
-      "forks": 1,
+      "language": "TypeScript",
+      "licence": "MIT",
+      "stars": 758,
+      "forks": 43,
       "features": {
         "issues": true,
         "pullRequests": true,
@@ -159,17 +106,71 @@
         "triage": false,
         "pull": false
       }
+    },
+    {
+      "ref": {
+        "forge": "github",
+        "instance": "github.com",
+        "owner": "h3js",
+        "name": "crossws",
+        "externalId": "728445691"
+      },
+      "description": "🔌   Cross-platform WebSocket Servers for Node.js, Deno, Bun and Cloudflare Workers.",
+      "defaultBranch": "main",
+      "visibility": "public",
+      "visibilityRaw": "public",
+      "isFork": false,
+      "isArchived": false,
+      "topics": [],
+      "url": "https://github.com/h3js/crossws",
+      "cloneUrls": {
+        "https": "https://github.com/h3js/crossws.git",
+        "ssh": "git@github.com:h3js/crossws.git"
+      },
+      "createdAt": "2023-12-07T00:41:31.000Z",
+      "updatedAt": "2026-10-15T19:23:05.000Z",
+      "pushedAt": "2026-10-06T14:58:49.000Z",
+      "owner": {
+        "forge": "github",
+        "instance": "github.com",
+        "login": "h3js",
+        "id": "208435796",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/208435796?v=4",
+        "url": "https://github.com/h3js",
+        "typeRaw": "Organization",
+        "isBotHint": false
+      },
+      "language": "TypeScript",
+      "homepage": "https://crossws.h3.dev",
+      "stars": 735,
+      "forks": 44,
+      "features": {
+        "issues": true,
+        "pullRequests": true,
+        "discussions": false,
+        "wiki": false,
+        "projects": true,
+        "releases": true
+      },
+      "permissions": {
+        "admin": false,
+        "maintain": false,
+        "push": false,
+        "triage": false,
+        "pull": false
+      }
     }
   ],
   "total": 9,
   "cursor": {
     "nextUrl": "https://api.github.com/user/208435796/repos?type=owner&sort=updated&per_page=3&page=2",
-    "etag": "W/\"b65a5f1686cb5b4afbca04efcb3139f4dfc5268300cf3cf08048f1a924ef35c0\""
+    "etag": "W/\"7926478474021b6a00351c09c236b1dc7d1c2abf54b23e9cf55515d3c98f986c\""
   },
-  "etag": "W/\"b65a5f1686cb5b4afbca04efcb3139f4dfc5268300cf3cf08048f1a924ef35c0\"",
+  "etag": "W/\"7926478474021b6a00351c09c236b1dc7d1c2abf54b23e9cf55515d3c98f986c\"",
   "rateLimit": {
     "limit": 5000,
-    "remaining": 4972,
-    "resetAt": "<now>"
+    "remaining": 4960,
+    "resetAt": "<now>",
+    "resource": "core"
   }
 }

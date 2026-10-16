@@ -1,216 +1,109 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://api.github.com/repos/h3js/h3/actions/runs/38232588486/jobs?per_page=3"
+    "url": "https://api.github.com/repos/h3js/h3/actions/runs/38897280561/jobs?per_page=3"
   },
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"baee9ac6a9595d31abc7d2c23cd12bf55ae879c9ec3c4d8d61c415f6246820fa\"",
+      "etag": "W/\"cbb50b8f136628ab0a8da05f611593a386d984e376f1b0f89ecde96b30c900de\"",
       "x-ratelimit-limit": "5000",
-      "x-ratelimit-remaining": "4961",
-      "x-ratelimit-reset": "1791808136"
+      "x-ratelimit-remaining": "4950",
+      "x-ratelimit-reset": "1792217938",
+      "x-ratelimit-resource": "core"
     },
     "body": {
-      "total_count": 2,
+      "total_count": 1,
       "jobs": [
         {
-          "id": 114755404558,
-          "run_id": 38232588486,
-          "workflow_name": "ci",
-          "head_branch": "docs/static-assets-example-path",
-          "run_url": "https://api.github.com/repos/h3js/h3/actions/runs/38232588486",
+          "id": 116960679490,
+          "run_id": 38897280561,
+          "workflow_name": "autofix.ci",
+          "head_branch": "fix/readbody-media-type-case",
+          "run_url": "https://api.github.com/repos/h3js/h3/actions/runs/38897280561",
           "run_attempt": 1,
-          "node_id": "CR_kwDOErHI988AAAAat_SDDg",
-          "head_sha": "dd84e37fca0559506ad97022b5ac9438b427e6e2",
-          "url": "https://api.github.com/repos/h3js/h3/actions/jobs/114755404558",
-          "html_url": "https://github.com/h3js/h3/actions/runs/38232588486/job/114755404558",
+          "node_id": "CR_kwDOErHI988AAAAbO2ZWQg",
+          "head_sha": "04ba6e021cde76fa6fc0084866f231c575647beb",
+          "url": "https://api.github.com/repos/h3js/h3/actions/jobs/116960679490",
+          "html_url": "https://github.com/h3js/h3/actions/runs/38897280561/job/116960679490",
           "status": "completed",
           "conclusion": "success",
-          "created_at": "2026-10-12T09:51:31Z",
-          "started_at": "2026-10-12T09:51:34Z",
-          "completed_at": "2026-10-12T09:52:17Z",
-          "name": "tests",
+          "created_at": "2026-10-16T11:58:02Z",
+          "started_at": "2026-10-16T11:58:04Z",
+          "completed_at": "2026-10-16T11:58:21Z",
+          "name": "autofix",
           "steps": [
             {
               "name": "Set up job",
               "status": "completed",
               "conclusion": "success",
               "number": 1,
-              "started_at": "2026-10-12T09:51:35Z",
-              "completed_at": "2026-10-12T09:51:37Z"
+              "started_at": "2026-10-16T11:58:05Z",
+              "completed_at": "2026-10-16T11:58:07Z"
             },
             {
               "name": "Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
               "status": "completed",
               "conclusion": "success",
               "number": 2,
-              "started_at": "2026-10-12T09:51:37Z",
-              "completed_at": "2026-10-12T09:51:38Z"
+              "started_at": "2026-10-16T11:58:07Z",
+              "completed_at": "2026-10-16T11:58:07Z"
             },
             {
               "name": "Run unjs/setup-jup@85aa1e9e4cd2995fba3bee414cde74bf88637a2c",
               "status": "completed",
               "conclusion": "success",
               "number": 3,
-              "started_at": "2026-10-12T09:51:38Z",
-              "completed_at": "2026-10-12T09:51:50Z"
+              "started_at": "2026-10-16T11:58:07Z",
+              "completed_at": "2026-10-16T11:58:15Z"
             },
             {
-              "name": "Run pnpm lint",
+              "name": "Run pnpm fmt",
               "status": "completed",
               "conclusion": "success",
               "number": 4,
-              "started_at": "2026-10-12T09:51:50Z",
-              "completed_at": "2026-10-12T09:51:51Z"
+              "started_at": "2026-10-16T11:58:15Z",
+              "completed_at": "2026-10-16T11:58:17Z"
             },
             {
-              "name": "Run pnpm typecheck",
+              "name": "Run autofix-ci/action@c5b2d67aa2274e7b5a18224e8171550871fc7e4a",
               "status": "completed",
               "conclusion": "success",
               "number": 5,
-              "started_at": "2026-10-12T09:51:51Z",
-              "completed_at": "2026-10-12T09:51:52Z"
-            },
-            {
-              "name": "Run pnpm build",
-              "status": "completed",
-              "conclusion": "success",
-              "number": 6,
-              "started_at": "2026-10-12T09:51:52Z",
-              "completed_at": "2026-10-12T09:51:53Z"
-            },
-            {
-              "name": "Run pnpm vitest --coverage",
-              "status": "completed",
-              "conclusion": "success",
-              "number": 7,
-              "started_at": "2026-10-12T09:51:53Z",
-              "completed_at": "2026-10-12T09:52:10Z"
-            },
-            {
-              "name": "Run codecov/codecov-action@fb8b3582c8e4def4969c97caa2f19720cb33a72f",
-              "status": "completed",
-              "conclusion": "success",
-              "number": 8,
-              "started_at": "2026-10-12T09:52:10Z",
-              "completed_at": "2026-10-12T09:52:13Z"
+              "started_at": "2026-10-16T11:58:17Z",
+              "completed_at": "2026-10-16T11:58:18Z"
             },
             {
               "name": "Post Run unjs/setup-jup@85aa1e9e4cd2995fba3bee414cde74bf88637a2c",
-              "status": "completed",
-              "conclusion": "success",
-              "number": 15,
-              "started_at": "2026-10-12T09:52:13Z",
-              "completed_at": "2026-10-12T09:52:15Z"
-            },
-            {
-              "name": "Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
-              "status": "completed",
-              "conclusion": "success",
-              "number": 16,
-              "started_at": "2026-10-12T09:52:15Z",
-              "completed_at": "2026-10-12T09:52:15Z"
-            },
-            {
-              "name": "Complete job",
-              "status": "completed",
-              "conclusion": "success",
-              "number": 17,
-              "started_at": "2026-10-12T09:52:15Z",
-              "completed_at": "2026-10-12T09:52:15Z"
-            }
-          ],
-          "check_run_url": "https://api.github.com/repos/h3js/h3/check-runs/114755404558",
-          "labels": [
-            "ubuntu-latest"
-          ],
-          "runner_id": 1000013754,
-          "runner_name": "GitHub Actions 1000013754",
-          "runner_group_id": 0,
-          "runner_group_name": "GitHub Actions"
-        },
-        {
-          "id": 114755676725,
-          "run_id": 38232588486,
-          "workflow_name": "ci",
-          "head_branch": "docs/static-assets-example-path",
-          "run_url": "https://api.github.com/repos/h3js/h3/actions/runs/38232588486",
-          "run_attempt": 1,
-          "node_id": "CR_kwDOErHI988AAAAat_iqNQ",
-          "head_sha": "dd84e37fca0559506ad97022b5ac9438b427e6e2",
-          "url": "https://api.github.com/repos/h3js/h3/actions/jobs/114755676725",
-          "html_url": "https://github.com/h3js/h3/actions/runs/38232588486/job/114755676725",
-          "status": "completed",
-          "conclusion": "success",
-          "created_at": "2026-10-12T09:52:17Z",
-          "started_at": "2026-10-12T09:52:19Z",
-          "completed_at": "2026-10-12T09:52:42Z",
-          "name": "publish-pkg-pr-new",
-          "steps": [
-            {
-              "name": "Set up job",
-              "status": "completed",
-              "conclusion": "success",
-              "number": 1,
-              "started_at": "2026-10-12T09:52:20Z",
-              "completed_at": "2026-10-12T09:52:21Z"
-            },
-            {
-              "name": "Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
-              "status": "completed",
-              "conclusion": "success",
-              "number": 2,
-              "started_at": "2026-10-12T09:52:21Z",
-              "completed_at": "2026-10-12T09:52:22Z"
-            },
-            {
-              "name": "Run unjs/setup-jup@85aa1e9e4cd2995fba3bee414cde74bf88637a2c",
-              "status": "completed",
-              "conclusion": "success",
-              "number": 3,
-              "started_at": "2026-10-12T09:52:22Z",
-              "completed_at": "2026-10-12T09:52:30Z"
-            },
-            {
-              "name": "Run pnpm exec pkg-pr-new publish",
-              "status": "completed",
-              "conclusion": "success",
-              "number": 4,
-              "started_at": "2026-10-12T09:52:30Z",
-              "completed_at": "2026-10-12T09:52:39Z"
-            },
-            {
-              "name": "Post Run unjs/setup-jup@85aa1e9e4cd2995fba3bee414cde74bf88637a2c",
-              "status": "completed",
-              "conclusion": "success",
-              "number": 7,
-              "started_at": "2026-10-12T09:52:39Z",
-              "completed_at": "2026-10-12T09:52:40Z"
-            },
-            {
-              "name": "Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
-              "status": "completed",
-              "conclusion": "success",
-              "number": 8,
-              "started_at": "2026-10-12T09:52:40Z",
-              "completed_at": "2026-10-12T09:52:40Z"
-            },
-            {
-              "name": "Complete job",
               "status": "completed",
               "conclusion": "success",
               "number": 9,
-              "started_at": "2026-10-12T09:52:40Z",
-              "completed_at": "2026-10-12T09:52:40Z"
+              "started_at": "2026-10-16T11:58:18Z",
+              "completed_at": "2026-10-16T11:58:19Z"
+            },
+            {
+              "name": "Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 10,
+              "started_at": "2026-10-16T11:58:19Z",
+              "completed_at": "2026-10-16T11:58:19Z"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 11,
+              "started_at": "2026-10-16T11:58:19Z",
+              "completed_at": "2026-10-16T11:58:19Z"
             }
           ],
-          "check_run_url": "https://api.github.com/repos/h3js/h3/check-runs/114755676725",
+          "check_run_url": "https://api.github.com/repos/h3js/h3/check-runs/116960679490",
           "labels": [
             "ubuntu-latest"
           ],
-          "runner_id": 1000013755,
-          "runner_name": "GitHub Actions 1000013755",
+          "runner_id": 1000013767,
+          "runner_name": "GitHub Actions 1000013767",
           "runner_group_id": 0,
           "runner_group_name": "GitHub Actions"
         }

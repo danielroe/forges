@@ -11,6 +11,49 @@
           "name": "h3"
         },
         "kind": "discussion",
+        "number": "1600",
+        "externalId": "D_kwDOErHI984AqEUg"
+      },
+      "kind": "discussion",
+      "title": "Would it be possible to add the v2 announcement to the v1 documentation?",
+      "body": "Since the v1 documentation appeared higher in Google search results, I inadvertently worked while looking at the v1 documentation for a while without realizing it had been updated to v2. I believe having some kind of navigational link or guidance would make it much easier to understand.",
+      "state": "open",
+      "stateRaw": "open",
+      "isDraft": false,
+      "author": {
+        "forge": "github",
+        "instance": "github.com",
+        "login": "otowa1",
+        "id": "90172742",
+        "name": null,
+        "avatarUrl": "https://avatars.githubusercontent.com/u/90172742?v=4",
+        "url": "https://github.com/otowa1",
+        "typeRaw": "User",
+        "isBotHint": false
+      },
+      "authorAssociation": "none",
+      "authorAssociationRaw": "NONE",
+      "assignees": [],
+      "reviewers": [],
+      "lastActivityAt": "2026-10-15T13:33:10.000Z",
+      "url": "https://github.com/orgs/h3js/discussions/1600",
+      "createdAt": "2026-10-15T13:33:10.000Z",
+      "updatedAt": "2026-10-15T13:33:10.000Z",
+      "labels": [],
+      "locked": false,
+      "commentCount": 0
+    },
+    {
+      "ref": {
+        "forge": "github",
+        "instance": "github.com",
+        "repo": {
+          "forge": "github",
+          "instance": "github.com",
+          "owner": "h3js",
+          "name": "h3"
+        },
+        "kind": "discussion",
         "number": "1373",
         "externalId": "D_kwDOErHI984Al4mI"
       },
@@ -31,6 +74,8 @@
         "typeRaw": "User",
         "isBotHint": false
       },
+      "authorAssociation": "none",
+      "authorAssociationRaw": "NONE",
       "assignees": [],
       "reviewers": [],
       "lastActivityAt": "2026-04-23T06:47:56.000Z",
@@ -40,50 +85,9 @@
       "labels": [],
       "locked": false,
       "commentCount": 1
-    },
-    {
-      "ref": {
-        "forge": "github",
-        "instance": "github.com",
-        "repo": {
-          "forge": "github",
-          "instance": "github.com",
-          "owner": "h3js",
-          "name": "h3"
-        },
-        "kind": "discussion",
-        "number": "1371",
-        "externalId": "D_kwDOErHI984Al2dq"
-      },
-      "kind": "discussion",
-      "title": "Shorthand for throwing HTTP errors",
-      "body": "Hi, not sure if this has been discussed before, but wanted to share an idea.\r\n\r\nRight now when I want to return a 404 from a handler I write:\r\n\r\n```ts\r\nthrow createError({ statusCode: 404 })\r\n```\r\n\r\nIt would be nice if h3 accepted a simpler shorthand like:\r\n\r\n```ts\r\nthrow 404\r\n```\r\n\r\nBasically: let the thrown value map to an HTTP error directly, without the `createError({ statusCode: ... })` wrapper.\r\n\r\n`createError` / `new HTTPError({ ... })` would still be there for the richer cases (custom `data`, headers, message, etc.).\r\n\r\nPR: #1372\r\n\r\n## Custom strings\r\n\r\nWe could also tried supporting a string form to carry a message:\r\n\r\n```ts\r\nthrow \"404 Lesson not found\"\r\n```\r\n\r\nBut parsing the status out of the string needs a regex and bumps the bundle size a bit, so I left it out of the PR. For messages, sticking with `new HTTPError({ status: 404, message: \"Lesson not found\" })` feels cleaner.",
-      "state": "open",
-      "stateRaw": "open",
-      "isDraft": false,
-      "author": {
-        "forge": "github",
-        "instance": "github.com",
-        "login": "onmax",
-        "id": "22072217",
-        "name": "Max",
-        "avatarUrl": "https://avatars.githubusercontent.com/u/22072217?u=5cd9a530f8cd1669cff4f085b71096f3372b6e1e&v=4",
-        "url": "https://github.com/onmax",
-        "typeRaw": "User",
-        "isBotHint": false
-      },
-      "assignees": [],
-      "reviewers": [],
-      "lastActivityAt": "2026-04-21T18:49:23.000Z",
-      "url": "https://github.com/orgs/h3js/discussions/1371",
-      "createdAt": "2026-04-21T08:54:02.000Z",
-      "updatedAt": "2026-04-21T18:49:23.000Z",
-      "labels": [],
-      "locked": false,
-      "commentCount": 1
     }
   ],
   "cursor": {
-    "token": "Y3Vyc29yOnYyOpK0MjAyNi0wNC0yMVQwODo1NDowMlrOAJdnag=="
+    "token": "Y3Vyc29yOnYyOpK0MjAyNi0wNC0yMlQxNToyNDowNlrOAJeJiA=="
   }
 }

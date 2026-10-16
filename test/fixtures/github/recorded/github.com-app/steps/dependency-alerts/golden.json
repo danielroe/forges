@@ -96,13 +96,14 @@
   ],
   "cursor": {
     "nextUrl": "https://api.github.com/repositories/1411702196/dependabot/alerts?per_page=3&after=Y3Vyc29yOnYyOpPPAAABoSBhJR7LQAGAAAAAAADPAAAAAc59BOc%3D",
-    "etag": "W/\"6ccf1e4b6434c749ab38dd72dcf140a1931cd0e979f1d441e5e18a04c89becc0\"",
+    "etag": "W/\"bdf864c0d9af093da0f962ac29092c99cea73ab3d73f8d815f2953e1b8d592a9\"",
     "token": "0:"
   },
   "rateLimit": {
     "limit": 5000,
-    "remaining": 4982,
-    "resetAt": "2026-10-11T17:05:26.000Z"
+    "remaining": 4981,
+    "resetAt": "<now>",
+    "resource": "core"
   },
-  "etag": "W/\"6ccf1e4b6434c749ab38dd72dcf140a1931cd0e979f1d441e5e18a04c89becc0\""
+  "etag": "W/\"bdf864c0d9af093da0f962ac29092c99cea73ab3d73f8d815f2953e1b8d592a9\""
 }

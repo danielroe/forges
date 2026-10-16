@@ -7,10 +7,11 @@
     "status": 200,
     "headers": {
       "link": "<https://api.github.com/repositories/1411702196/dependabot/alerts?per_page=3&after=Y3Vyc29yOnYyOpPPAAABoSBhJR7LQAGAAAAAAADPAAAAAc59BOc%3D>; rel=\"next\"",
-      "etag": "W/\"6ccf1e4b6434c749ab38dd72dcf140a1931cd0e979f1d441e5e18a04c89becc0\"",
+      "etag": "W/\"bdf864c0d9af093da0f962ac29092c99cea73ab3d73f8d815f2953e1b8d592a9\"",
       "x-ratelimit-limit": "5000",
-      "x-ratelimit-remaining": "4982",
-      "x-ratelimit-reset": "1791738326"
+      "x-ratelimit-remaining": "4981",
+      "x-ratelimit-reset": "1792217935",
+      "x-ratelimit-resource": "core"
     },
     "body": [
       {
@@ -262,8 +263,8 @@
             }
           },
           "epss": {
-            "percentage": 0.00377,
-            "percentile": 0.29561
+            "percentage": 0.00402,
+            "percentile": 0.32803
           },
           "cvss": {
             "vector_string": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:L",

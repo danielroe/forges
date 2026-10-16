@@ -1082,7 +1082,7 @@ describe('github checks and CI', () => {
     const { fetch } = fixtureFetch('github/recorded/github.com-app/steps/check')
     const provider = github({ auth: { type: 'token', token: 't' }, fetch }).create()
 
-    const page = await provider.checks.list({ forge: 'github', instance: 'github.com', owner: 'h3js', name: 'h3' }, 'dd84e37fca0559506ad97022b5ac9438b427e6e2')
+    const page = await provider.checks.list({ forge: 'github', instance: 'github.com', owner: 'h3js', name: 'h3' }, '04ba6e021cde76fa6fc0084866f231c575647beb')
 
     // The recording has seven check runs and one commit status.
     expect(page.items).toHaveLength(8)

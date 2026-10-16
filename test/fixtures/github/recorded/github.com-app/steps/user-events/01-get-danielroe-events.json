@@ -1,0 +1,324 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.github.com/users/danielroe/events?per_page=10"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "<https://api.github.com/user/28706372/events?per_page=10&page=2>; rel=\"next\", <https://api.github.com/user/28706372/events?per_page=10&page=30>; rel=\"last\"",
+      "etag": "W/\"d93a5fdd0d631b7b947d0d10ae17e8629b78ec2776e37fc6cabbe8a996ad6550\"",
+      "x-ratelimit-limit": "5000",
+      "x-ratelimit-remaining": "4963",
+      "x-ratelimit-reset": "1792217938",
+      "x-ratelimit-resource": "core",
+      "x-poll-interval": "60"
+    },
+    "body": [
+      {
+        "id": "24279187159",
+        "type": "PushEvent",
+        "actor": {
+          "id": 28706372,
+          "login": "danielroe",
+          "display_login": "danielroe",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/danielroe",
+          "avatar_url": "https://avatars.githubusercontent.com/u/28706372?"
+        },
+        "repo": {
+          "id": 1403631860,
+          "name": "danielroe/forges",
+          "url": "https://api.github.com/repos/danielroe/forges"
+        },
+        "payload": {
+          "repository_id": 1403631860,
+          "push_id": 46647540574,
+          "ref": "refs/heads/main",
+          "head": "96e3dbbf4aa0d894f46f4b7138a3069cf8ff154d",
+          "before": "43c044d4ece1c6469bdef9dca903bd66d20c915a"
+        },
+        "public": true,
+        "created_at": "2026-10-15T21:34:10Z"
+      },
+      {
+        "id": "24278373418",
+        "type": "PushEvent",
+        "actor": {
+          "id": 28706372,
+          "login": "danielroe",
+          "display_login": "danielroe",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/danielroe",
+          "avatar_url": "https://avatars.githubusercontent.com/u/28706372?"
+        },
+        "repo": {
+          "id": 71995937,
+          "name": "nuxt/nuxt",
+          "url": "https://api.github.com/repos/nuxt/nuxt"
+        },
+        "payload": {
+          "repository_id": 71995937,
+          "push_id": 46657445194,
+          "ref": "refs/heads/renovate/4.x-all-non-major",
+          "head": "935fcc1305e5e26d02b33fa502337f98b4250b88",
+          "before": "bb8550d50b8892cf9bbdac088c12264d36a3877d"
+        },
+        "public": true,
+        "created_at": "2026-10-15T23:48:48Z",
+        "org": {
+          "id": 23360933,
+          "login": "nuxt",
+          "gravatar_id": "",
+          "url": "https://api.github.com/orgs/nuxt",
+          "avatar_url": "https://avatars.githubusercontent.com/u/23360933?"
+        }
+      },
+      {
+        "id": "24278274500",
+        "type": "DeleteEvent",
+        "actor": {
+          "id": 28706372,
+          "login": "danielroe",
+          "display_login": "danielroe",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/danielroe",
+          "avatar_url": "https://avatars.githubusercontent.com/u/28706372?"
+        },
+        "repo": {
+          "id": 71995937,
+          "name": "nuxt/nuxt",
+          "url": "https://api.github.com/repos/nuxt/nuxt"
+        },
+        "payload": {
+          "ref": "docs/deep-wiki-badge",
+          "ref_type": "branch",
+          "full_ref": "refs/heads/docs/deep-wiki-badge",
+          "pusher_type": "user"
+        },
+        "public": true,
+        "created_at": "2026-10-16T10:08:40Z",
+        "org": {
+          "id": 23360933,
+          "login": "nuxt",
+          "gravatar_id": "",
+          "url": "https://api.github.com/orgs/nuxt",
+          "avatar_url": "https://avatars.githubusercontent.com/u/23360933?"
+        }
+      },
+      {
+        "id": "24275078766",
+        "type": "PushEvent",
+        "actor": {
+          "id": 28706372,
+          "login": "danielroe",
+          "display_login": "danielroe",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/danielroe",
+          "avatar_url": "https://avatars.githubusercontent.com/u/28706372?"
+        },
+        "repo": {
+          "id": 227208134,
+          "name": "danielroe/roe.dev",
+          "url": "https://api.github.com/repos/danielroe/roe.dev"
+        },
+        "payload": {
+          "repository_id": 227208134,
+          "push_id": 46719029853,
+          "ref": "refs/heads/feat/nuxt-v5",
+          "head": "f731e4c340646544e6957198f6da778944efbdd0",
+          "before": "2534815e94506523a82b1d86fa95c60fac8a9374"
+        },
+        "public": true,
+        "created_at": "2026-10-16T13:13:55Z"
+      },
+      {
+        "id": "24271668041",
+        "type": "PushEvent",
+        "actor": {
+          "id": 28706372,
+          "login": "danielroe",
+          "display_login": "danielroe",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/danielroe",
+          "avatar_url": "https://avatars.githubusercontent.com/u/28706372?"
+        },
+        "repo": {
+          "id": 71995937,
+          "name": "nuxt/nuxt",
+          "url": "https://api.github.com/repos/nuxt/nuxt"
+        },
+        "payload": {
+          "repository_id": 71995937,
+          "push_id": 46696193766,
+          "ref": "refs/heads/main",
+          "head": "2449cc5601fc4668863e90c9d5d8ca44d1c9a867",
+          "before": "74cb4a9c46ceea097c6d7a887022469d146a377e"
+        },
+        "public": true,
+        "created_at": "2026-10-16T08:56:39Z",
+        "org": {
+          "id": 23360933,
+          "login": "nuxt",
+          "gravatar_id": "",
+          "url": "https://api.github.com/orgs/nuxt",
+          "avatar_url": "https://avatars.githubusercontent.com/u/23360933?"
+        }
+      },
+      {
+        "id": "24271307894",
+        "type": "DeleteEvent",
+        "actor": {
+          "id": 28706372,
+          "login": "danielroe",
+          "display_login": "danielroe",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/danielroe",
+          "avatar_url": "https://avatars.githubusercontent.com/u/28706372?"
+        },
+        "repo": {
+          "id": 71995937,
+          "name": "nuxt/nuxt",
+          "url": "https://api.github.com/repos/nuxt/nuxt"
+        },
+        "payload": {
+          "ref": "fix/vapor-slot-detection",
+          "ref_type": "branch",
+          "full_ref": "refs/heads/fix/vapor-slot-detection",
+          "pusher_type": "user"
+        },
+        "public": true,
+        "created_at": "2026-10-16T09:25:49Z",
+        "org": {
+          "id": 23360933,
+          "login": "nuxt",
+          "gravatar_id": "",
+          "url": "https://api.github.com/orgs/nuxt",
+          "avatar_url": "https://avatars.githubusercontent.com/u/23360933?"
+        }
+      },
+      {
+        "id": "24271274901",
+        "type": "PushEvent",
+        "actor": {
+          "id": 28706372,
+          "login": "danielroe",
+          "display_login": "danielroe",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/danielroe",
+          "avatar_url": "https://avatars.githubusercontent.com/u/28706372?"
+        },
+        "repo": {
+          "id": 71995937,
+          "name": "nuxt/nuxt",
+          "url": "https://api.github.com/repos/nuxt/nuxt"
+        },
+        "payload": {
+          "repository_id": 71995937,
+          "push_id": 46696392498,
+          "ref": "refs/heads/main",
+          "head": "764faae4f1465e9fef40e6b5583cd108e37d495b",
+          "before": "2449cc5601fc4668863e90c9d5d8ca44d1c9a867"
+        },
+        "public": true,
+        "created_at": "2026-10-16T08:58:57Z",
+        "org": {
+          "id": 23360933,
+          "login": "nuxt",
+          "gravatar_id": "",
+          "url": "https://api.github.com/orgs/nuxt",
+          "avatar_url": "https://avatars.githubusercontent.com/u/23360933?"
+        }
+      },
+      {
+        "id": "24270037802",
+        "type": "DeleteEvent",
+        "actor": {
+          "id": 28706372,
+          "login": "danielroe",
+          "display_login": "danielroe",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/danielroe",
+          "avatar_url": "https://avatars.githubusercontent.com/u/28706372?"
+        },
+        "repo": {
+          "id": 71995937,
+          "name": "nuxt/nuxt",
+          "url": "https://api.github.com/repos/nuxt/nuxt"
+        },
+        "payload": {
+          "ref": "renovate/4.x-codspeed-vitest-plugin-6.x",
+          "ref_type": "branch",
+          "full_ref": "refs/heads/renovate/4.x-codspeed-vitest-plugin-6.x",
+          "pusher_type": "user"
+        },
+        "public": true,
+        "created_at": "2026-10-16T09:13:13Z",
+        "org": {
+          "id": 23360933,
+          "login": "nuxt",
+          "gravatar_id": "",
+          "url": "https://api.github.com/orgs/nuxt",
+          "avatar_url": "https://avatars.githubusercontent.com/u/23360933?"
+        }
+      },
+      {
+        "id": "24269562034",
+        "type": "DeleteEvent",
+        "actor": {
+          "id": 28706372,
+          "login": "danielroe",
+          "display_login": "danielroe",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/danielroe",
+          "avatar_url": "https://avatars.githubusercontent.com/u/28706372?"
+        },
+        "repo": {
+          "id": 71995937,
+          "name": "nuxt/nuxt",
+          "url": "https://api.github.com/repos/nuxt/nuxt"
+        },
+        "payload": {
+          "ref": "fix/h3-import-warnings",
+          "ref_type": "branch",
+          "full_ref": "refs/heads/fix/h3-import-warnings",
+          "pusher_type": "user"
+        },
+        "public": true,
+        "created_at": "2026-10-16T08:34:49Z",
+        "org": {
+          "id": 23360933,
+          "login": "nuxt",
+          "gravatar_id": "",
+          "url": "https://api.github.com/orgs/nuxt",
+          "avatar_url": "https://avatars.githubusercontent.com/u/23360933?"
+        }
+      },
+      {
+        "id": "24269434431",
+        "type": "DeleteEvent",
+        "actor": {
+          "id": 28706372,
+          "login": "danielroe",
+          "display_login": "danielroe",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/danielroe",
+          "avatar_url": "https://avatars.githubusercontent.com/u/28706372?"
+        },
+        "repo": {
+          "id": 1403631860,
+          "name": "danielroe/forges",
+          "url": "https://api.github.com/repos/danielroe/forges"
+        },
+        "payload": {
+          "ref": "feat/rate-limits",
+          "ref_type": "branch",
+          "full_ref": "refs/heads/feat/rate-limits",
+          "pusher_type": "user"
+        },
+        "public": true,
+        "created_at": "2026-10-16T08:33:27Z"
+      }
+    ]
+  }
+}

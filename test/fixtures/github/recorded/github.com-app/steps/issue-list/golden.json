@@ -11,22 +11,22 @@
           "name": "h3"
         },
         "kind": "issue",
-        "number": "1586",
-        "externalId": "I_kwDOErHI988AAAABWdirSA"
+        "number": "1594",
+        "externalId": "I_kwDOErHI988AAAABWxJCfg"
       },
       "kind": "issue",
-      "title": "The code example in “More utils” is incorrect.",
-      "body": "### Describe the change\n\nI'm sorry if this sounds like I'm nitpicking, but since I noticed it, I wanted to point it out. It looks like there's an extra semicolon.\n\n```\nconst api = new H3()\n .get(\"/\", () => \"Hello API!\");\nconst app = new H3();\n .use(\"/api/**\", withBase(\"/api\", api.handler));\n```\n\n### URLs\n\nhttps://h3.dev/utils/more#withbasebase-input\n\n### Additional information\n\n- [x] Would you be willing to help?",
+      "title": "HEAD error responses include a JSON body when no onError hook is configured",
+      "body": "### Environment\n\n- h3 main at `66cfb8a357b6285451bad498c2c40002601fae98` (package version 2.0.2)\n- Node.js v24.21.0, macOS arm64\n- pnpm 12.3.4\n- Direct web response API (`app.request`)\n\n### Reproduction\n\nStarting with Node.js 24 and pnpm 12.3.4:\n\n```sh\ngit clone https://github.com/h3js/h3.git h3-head-repro\ncd h3-head-repro\ngit checkout 66cfb8a357b6285451bad498c2c40002601fae98\npnpm install --frozen-lockfile\n```\n\nSave the following as `repro.mjs` in the repository root and run `node repro.mjs`:\n\n```js\nimport assert from \"node:assert/strict\";\nimport { H3 } from \"./src/index.ts\";\n\nconst app = new H3();\nconst res = await app.request(\"/missing\", { method: \"HEAD\" });\nconst body = await res.text();\nconsole.log(JSON.stringify({ status: res.status, body }));\nassert.equal(res.status, 404);\nassert.equal(body, \"\");\n```\n\nActual output before the assertion fails:\n\n```json\n{\"status\":404,\"body\":\"{\\\"status\\\":404,\\\"message\\\":\\\"Cannot find any route matching [HEAD] http://localhost/missing\\\"}\"}\n```\n\n### Describe the bug\n\nA HEAD request to a missing route returns a JSON body through `app.request()` when the app has no `onError` hook. A handler that throws `HTTPError` synchronously or asynchronously has the same behavior. The expected response has the same error status and headers with an empty body.\n\nAdding a no-op `onError` hook (`new H3({ onError() {} })`) makes the body empty. Node's HTTP transport also strips the body, so the problem is visible to consumers of the web Response API.\n\nI intend to submit a small PR for this issue, with regression tests for missing routes and synchronous/asynchronous HTTPError handlers, both with and without onError.\n\n### Additional context\n\nIn `prepareResponse`, the error branch returns `errorResponse(...)` immediately. With an onError hook, the generated Response passes through response preparation again and reaches the existing HEAD body stripping logic.\n\n#1490 addressed HEAD body stripping while merging prepared headers into a native Response; this report concerns the early return for default error responses.\n",
       "state": "open",
       "stateRaw": "open",
       "isDraft": false,
       "author": {
         "forge": "github",
         "instance": "github.com",
-        "login": "otowa1",
-        "id": "90172742",
-        "avatarUrl": "https://avatars.githubusercontent.com/u/90172742?v=4",
-        "url": "https://github.com/otowa1",
+        "login": "maxazure",
+        "id": "405711",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/405711?v=4",
+        "url": "https://github.com/maxazure",
         "typeRaw": "User",
         "isBotHint": false
       },
@@ -34,17 +34,11 @@
       "authorAssociationRaw": "NONE",
       "assignees": [],
       "reviewers": [],
-      "labels": [
-        {
-          "name": "documentation",
-          "colour": "0075ca",
-          "description": "Improvements or additions to documentation"
-        }
-      ],
-      "url": "https://github.com/h3js/h3/issues/1586",
-      "createdAt": "2026-10-11T15:15:36.000Z",
-      "updatedAt": "2026-10-11T15:15:36.000Z",
-      "lastActivityAt": "2026-10-11T15:15:36.000Z",
+      "labels": [],
+      "url": "https://github.com/h3js/h3/issues/1594",
+      "createdAt": "2026-10-13T01:24:48.000Z",
+      "updatedAt": "2026-10-13T01:24:48.000Z",
+      "lastActivityAt": "2026-10-13T01:24:48.000Z",
       "locked": false,
       "commentCount": 0,
       "reactions": {
@@ -54,12 +48,13 @@
     }
   ],
   "cursor": {
-    "nextUrl": "https://api.github.com/repositories/313641207/issues?state=open&sort=created&direction=desc&per_page=3&after=Y3Vyc29yOnYyOpLPAAABoStP4lDPAAAAAVnRJdg%3D&page=4",
-    "etag": "W/\"5fac1b99d3360de8c1acb2baed983ed6638539dba248c8330ae431c30cd97269\""
+    "nextUrl": "https://api.github.com/repositories/313641207/issues?state=open&sort=created&direction=desc&per_page=3&after=Y3Vyc29yOnYyOpLPAAABoTLctwDPAAAAAVsSQn4%3D&page=3",
+    "etag": "W/\"0cbc37c0002b0d0c3d0cfe566ecef999ba5e9304916b4ad51f889ca89415e8bb\""
   },
   "rateLimit": {
     "limit": 5000,
-    "remaining": 4982,
-    "resetAt": "<now>"
+    "remaining": 4976,
+    "resetAt": "<now>",
+    "resource": "core"
   }
 }

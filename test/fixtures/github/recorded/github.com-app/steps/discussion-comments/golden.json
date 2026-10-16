@@ -30,6 +30,8 @@
         "typeRaw": "User",
         "isBotHint": false
       },
+      "authorAssociation": "member",
+      "authorAssociationRaw": "MEMBER",
       "createdAt": "2019-08-15T17:39:22.000Z",
       "url": "https://github.com/nuxt/nuxt/discussions/9303#discussioncomment-747897"
     },
@@ -63,6 +65,8 @@
         "typeRaw": "User",
         "isBotHint": false
       },
+      "authorAssociation": "none",
+      "authorAssociationRaw": "NONE",
       "createdAt": "2019-12-18T16:59:26.000Z",
       "url": "https://github.com/nuxt/nuxt/discussions/9303#discussioncomment-747898"
     },
@@ -96,6 +100,8 @@
         "typeRaw": "User",
         "isBotHint": false
       },
+      "authorAssociation": "none",
+      "authorAssociationRaw": "NONE",
       "createdAt": "2019-12-18T19:57:12.000Z",
       "url": "https://github.com/nuxt/nuxt/discussions/9303#discussioncomment-747899"
     },
@@ -129,6 +135,8 @@
         "typeRaw": "User",
         "isBotHint": false
       },
+      "authorAssociation": "none",
+      "authorAssociationRaw": "NONE",
       "createdAt": "2019-12-18T20:12:10.000Z",
       "url": "https://github.com/nuxt/nuxt/discussions/9303#discussioncomment-747900"
     },
@@ -162,6 +170,8 @@
         "typeRaw": "User",
         "isBotHint": false
       },
+      "authorAssociation": "none",
+      "authorAssociationRaw": "NONE",
       "createdAt": "2019-12-18T20:38:49.000Z",
       "url": "https://github.com/nuxt/nuxt/discussions/9303#discussioncomment-747901"
     },
@@ -195,6 +205,8 @@
         "typeRaw": "User",
         "isBotHint": false
       },
+      "authorAssociation": "none",
+      "authorAssociationRaw": "NONE",
       "createdAt": "2020-04-22T09:25:36.000Z",
       "url": "https://github.com/nuxt/nuxt/discussions/9303#discussioncomment-747902"
     },
@@ -228,6 +240,8 @@
         "typeRaw": "User",
         "isBotHint": false
       },
+      "authorAssociation": "none",
+      "authorAssociationRaw": "NONE",
       "createdAt": "2020-04-27T11:54:42.000Z",
       "url": "https://github.com/nuxt/nuxt/discussions/9303#discussioncomment-747903"
     },
@@ -261,6 +275,8 @@
         "typeRaw": "User",
         "isBotHint": false
       },
+      "authorAssociation": "none",
+      "authorAssociationRaw": "NONE",
       "createdAt": "2020-05-11T21:30:10.000Z",
       "url": "https://github.com/nuxt/nuxt/discussions/9303#discussioncomment-747904"
     },
@@ -294,6 +310,8 @@
         "typeRaw": "User",
         "isBotHint": false
       },
+      "authorAssociation": "none",
+      "authorAssociationRaw": "NONE",
       "createdAt": "2020-05-12T07:10:22.000Z",
       "url": "https://github.com/nuxt/nuxt/discussions/9303#discussioncomment-747905"
     },
@@ -316,6 +334,8 @@
         "id": "MDE3OkRpc2N1c3Npb25Db21tZW50NzQ3OTA2"
       },
       "body": "@nachogarcia Hi, we tried your approach with implementing the two rows in 'nuxtServerInit' function to see the full path of Browser tracing names:\r\nconst newrelic = await import ('newrelic')\r\nnewrelic.SetTransactionName(context.route.matched[0].path)\r\n\r\nWe found out in our CI/CD process build, the script was broken every time when IIS physical path set to folder when we running the 'npm run build' script.\r\n\r\nWhen we removed the two mentioned rows everything was running as well.\r\n\r\nThe error we get is:\r\nERROR in ./node_modules/newrelic/lib/system-info.js\r\nModule not found: Error: Can't resolve 'child_process' in 'node_modules\\newrelic\\lib'\r\n\r\nCan you assists please?\r\nThank you,\r\nSP",
+      "authorAssociation": "none",
+      "authorAssociationRaw": "NONE",
       "createdAt": "2020-05-26T18:05:57.000Z",
       "url": "https://github.com/nuxt/nuxt/discussions/9303#discussioncomment-747906"
     },
@@ -349,6 +369,8 @@
         "typeRaw": "User",
         "isBotHint": false
       },
+      "authorAssociation": "none",
+      "authorAssociationRaw": "NONE",
       "createdAt": "2020-05-26T19:22:30.000Z",
       "url": "https://github.com/nuxt/nuxt/discussions/9303#discussioncomment-747907"
     },
@@ -371,6 +393,8 @@
         "id": "MDE3OkRpc2N1c3Npb25Db21tZW50NzQ3OTA4"
       },
       "body": "1. We did set the external webpack dependency as you suggested. I would like to add that our NuxtJS app is running as a Windows service. We can't find a reason why the build fails to import newrelic in the nuxtServerInit. Do you have any other thoughts on that?\n\n2. Thanks you for sharing your improvements. We'll try it once the above issue will be resolved.\n\n<!--cmty_prevent_hook-->",
+      "authorAssociation": "none",
+      "authorAssociationRaw": "NONE",
       "createdAt": "2020-05-26T20:41:28.000Z",
       "url": "https://github.com/nuxt/nuxt/discussions/9303#discussioncomment-747908"
     },
@@ -404,6 +428,8 @@
         "typeRaw": "User",
         "isBotHint": false
       },
+      "authorAssociation": "none",
+      "authorAssociationRaw": "NONE",
       "createdAt": "2020-05-27T05:05:25.000Z",
       "url": "https://github.com/nuxt/nuxt/discussions/9303#discussioncomment-747909"
     },
@@ -426,6 +452,8 @@
         "id": "MDE3OkRpc2N1c3Npb25Db21tZW50NzQ3OTEw"
       },
       "body": "We tried child_process: 'false' and it didn't worked so I'm not sure if 'empty' will make a difference but I'll give it a shot.\n\nMuch appreciated.\n\n<!--cmty_prevent_hook-->",
+      "authorAssociation": "none",
+      "authorAssociationRaw": "NONE",
       "createdAt": "2020-05-27T06:21:35.000Z",
       "url": "https://github.com/nuxt/nuxt/discussions/9303#discussioncomment-747910"
     },
@@ -459,6 +487,8 @@
         "typeRaw": "User",
         "isBotHint": false
       },
+      "authorAssociation": "none",
+      "authorAssociationRaw": "NONE",
       "createdAt": "2020-10-01T15:20:51.000Z",
       "url": "https://github.com/nuxt/nuxt/discussions/9303#discussioncomment-747911"
     },
@@ -492,6 +522,8 @@
         "typeRaw": "User",
         "isBotHint": false
       },
+      "authorAssociation": "none",
+      "authorAssociationRaw": "NONE",
       "createdAt": "2020-10-01T17:24:31.000Z",
       "url": "https://github.com/nuxt/nuxt/discussions/9303#discussioncomment-747912"
     },
@@ -525,6 +557,8 @@
         "typeRaw": "User",
         "isBotHint": false
       },
+      "authorAssociation": "none",
+      "authorAssociationRaw": "NONE",
       "createdAt": "2020-10-01T17:40:50.000Z",
       "url": "https://github.com/nuxt/nuxt/discussions/9303#discussioncomment-747913"
     },
@@ -558,6 +592,8 @@
         "typeRaw": "User",
         "isBotHint": false
       },
+      "authorAssociation": "member",
+      "authorAssociationRaw": "MEMBER",
       "createdAt": "2020-11-10T11:28:13.000Z",
       "url": "https://github.com/nuxt/nuxt/discussions/9303#discussioncomment-747914"
     },
@@ -591,6 +627,8 @@
         "typeRaw": "User",
         "isBotHint": false
       },
+      "authorAssociation": "none",
+      "authorAssociationRaw": "NONE",
       "createdAt": "2021-05-14T12:41:17.000Z",
       "url": "https://github.com/nuxt/nuxt/discussions/9303#discussioncomment-747915"
     },
@@ -624,6 +662,8 @@
         "typeRaw": "User",
         "isBotHint": false
       },
+      "authorAssociation": "member",
+      "authorAssociationRaw": "MEMBER",
       "createdAt": "2021-05-17T08:18:52.000Z",
       "url": "https://github.com/nuxt/nuxt/discussions/9303#discussioncomment-747916"
     },
@@ -657,6 +697,8 @@
         "typeRaw": "User",
         "isBotHint": false
       },
+      "authorAssociation": "none",
+      "authorAssociationRaw": "NONE",
       "createdAt": "2021-05-17T12:28:25.000Z",
       "url": "https://github.com/nuxt/nuxt/discussions/9303#discussioncomment-747917"
     },
@@ -690,6 +732,8 @@
         "typeRaw": "User",
         "isBotHint": false
       },
+      "authorAssociation": "none",
+      "authorAssociationRaw": "NONE",
       "createdAt": "2021-05-17T12:45:43.000Z",
       "url": "https://github.com/nuxt/nuxt/discussions/9303#discussioncomment-747918"
     },
@@ -723,6 +767,8 @@
         "typeRaw": "User",
         "isBotHint": false
       },
+      "authorAssociation": "none",
+      "authorAssociationRaw": "NONE",
       "createdAt": "2021-05-18T07:28:26.000Z",
       "url": "https://github.com/nuxt/nuxt/discussions/9303#discussioncomment-751450"
     },
@@ -756,6 +802,8 @@
         "typeRaw": "User",
         "isBotHint": false
       },
+      "authorAssociation": "none",
+      "authorAssociationRaw": "NONE",
       "createdAt": "2022-04-05T17:35:15.000Z",
       "url": "https://github.com/nuxt/nuxt/discussions/9303#discussioncomment-2510052"
     },
@@ -789,6 +837,8 @@
         "typeRaw": "User",
         "isBotHint": false
       },
+      "authorAssociation": "none",
+      "authorAssociationRaw": "NONE",
       "createdAt": "2024-07-31T13:56:25.000Z",
       "url": "https://github.com/nuxt/nuxt/discussions/9303#discussioncomment-10201963"
     },
@@ -822,6 +872,8 @@
         "typeRaw": "User",
         "isBotHint": false
       },
+      "authorAssociation": "none",
+      "authorAssociationRaw": "NONE",
       "createdAt": "2024-08-19T14:19:07.000Z",
       "url": "https://github.com/nuxt/nuxt/discussions/9303#discussioncomment-10384613"
     }

@@ -14,7 +14,8 @@
     "headers": {
       "x-ratelimit-limit": "5000",
       "x-ratelimit-remaining": "4999",
-      "x-ratelimit-reset": "1791738331"
+      "x-ratelimit-reset": "1792217942",
+      "x-ratelimit-resource": "graphql"
     },
     "body": {
       "data": {
@@ -41,6 +42,8 @@
               "databaseId": 47961062,
               "name": "abeer0"
             },
+            "authorAssociation": "CONTRIBUTOR",
+            "mergedBy": null,
             "assignees": {
               "nodes": []
             },
@@ -106,6 +109,17 @@
                     "databaseId": 5158436,
                     "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?u=3609b2822870b982f2b93c432569ee017e970148&v=4",
                     "url": "https://github.com/pi0"
+                  }
+                }
+              ]
+            },
+            "timelineItems": {
+              "nodes": [
+                {
+                  "createdAt": "2025-03-31T13:49:13Z",
+                  "requestedReviewer": {
+                    "__typename": "User",
+                    "login": "pi0"
                   }
                 }
               ]

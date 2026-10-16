@@ -1,0 +1,70 @@
+{
+  "items": [
+    {
+      "ref": {
+        "forge": "github",
+        "instance": "github.com",
+        "repo": {
+          "forge": "github",
+          "instance": "github.com",
+          "owner": "h3js",
+          "name": "h3"
+        },
+        "kind": "issue",
+        "number": "1437",
+        "externalId": "I_kwDOErHI988AAAABHt1RnA"
+      },
+      "kind": "issue",
+      "title": "RFC: evolving `defineValidatedHandler` / `defineRoute` into a richer validated-routing core and types",
+      "body": "### Describe the feature\n\nI've been building [`h3-route-tools`](https://github.com/sandros94/h3-typed-routes) on top of h3 v2 — essentially a playground for a fully-typed, validated-routing experience. A good chunk of it grew straight out of the Standard Schema work (#963/#964, #1146) as well as @productdevbook implementations (#1143, #1237 and #1339), and by now a few pieces feel like they might belong upstream rather than living in a side package. I'd like to open the discussion before we're out of the rc window, so there's still room for the breaking changes some of this would imply.\n\nScope up front, so nobody panics at the diff: I'm **not** proposing to move the typed-fetch client, the codegen, or the Nitro module into core, and OpenAPI I'd specifically want to _stay_ an opt-in plugin (happy for it to become a first-party one down the line). What I think is worth discussing for core is the **validated-handler surface itself**: `params` + `response` validation, per-method dispatch, uniform async validation and the contract sidecar (definitions and types).\n\nCore already ships `defineValidatedHandler` (experimental), `defineRoute`, and the `getValidated*` helpers. The h3-route-tools versions are supersets of those same APIs — which is exactly why the diff looks scary at a glance. This issue is my attempt to make it legible.\n\n### On async validation\n\nThe one concrete gap I keep bumping into: the declarative `defineValidatedHandler` path can't run async schemas for `query`/`headers`. `syncValidate` throws `Asynchronous validation is not supported for ${source}` the moment a Standard Schema returns a `Promise` — only `body` is awaited (lazily, via `.json()`), and `params`/`response` aren't validated there at all. The standalone `getValidated*` helpers _do_ await, so the capability is already in core — it just isn't wired through the handler.\n\nIn h3-route-tools everything runs through a single async `validateData`, so async refinements work uniformly across `params`, `query`, `headers`, `body` **and** `response` — e.g. an async uniqueness/remote lookup on a query param, or a DB-backed check inside a response schema. That uniformity is the piece I'd most like to see land upstream.\n\n```ts\n// works in h3-route-tools; the query path throws in core's defineValidatedHandler today\ndefineRouteHandler({\n  params: v.object({ id: v.pipe(v.string(), v.transform(Number)) }),\n  get: {\n    validate: {\n      query: v.pipeAsync(v.object({ slug: v.string() }), v.checkAsync(isUnique)),\n      response: User, // validated too — 500 on contract breach, not 400\n    },\n    handler: (event) => getUser(event.context.params.id),\n  },\n})\n```\n\n### What h3-route-tools does that core doesn't (yet)\n\nCore candidates — the bits I think are worth discussing for upstream:\n\n- **`params` validation** as a first-class, route-level slot — schema-coerced (`:id` → `number`), inferred into the handler's `event.context.params`.\n- **`response` validation** — a bare schema (sugars to `200`) or a status-code map (`{ 200: User, 404: NotFound }`); a failure is a `500` (server-side contract breach), never a `400`.\n- **Fully async validation** across every source; no sync-only restriction anywhere.\n- **Multi-method dispatch from one definition** (`defineRouteHandler` / `defineRoute`): per-method `validate` inference in a single object literal, auto-HEAD (runs GET, drops the body), auto-OPTIONS (`Allow`), and `405` with a correct `Allow` computed across every handler on the path.\n- **Content-type-aware body**: media-type maps (`{ \"application/json\": A, \"multipart/form-data\": B }`), `415` when nothing matches, and raw-stream passthrough for bodies that shouldn't be buffered.\n- **Per-status streamed responses** (doc-only, validation skipped), with a guard that fails loudly if a schema-validated status accidentally returns a stream.\n- **`onValidationError` cascade**: app → route → method override, per source (builds directly on #1146).\n\nStays downstream (listed for completeness, _not_ proposed for core):\n\n- Wire-shape response typing (`Serialize`, `Date` → `string` — the same round-trip type Nitro uses) and the typed fetch client / route-contract inference (`InferRoutes`, `H3Typed`).\n- OpenAPI generation from the same contracts — opt-in plugin, ideally first-party in the future.\n- The Nitro module (types `$fetch`, method-lock checks, OpenAPI overlay).\n\n### The contract sidecar (`~routeDef` & friends)\n\nNone of the three `define*` _only_ return a plain handler — each carries its own validation contract as a sidecar, both at runtime and in the type system, and that's really the connective tissue the whole \"stays downstream\" list hangs off:\n\n- **Runtime stamps** (real values): `defineRouteHandler` → `~routeDef`, `defineValidatedHandler` → `~validatedDef`, both with `~options`; `defineRoute` carries a `~routePlugin` brand. OpenAPI generation and the Nitro module read these to build docs and type `$fetch` straight from the definition — the author never re-declares anything.\n- **Type-only stamps** (phantom, never present at runtime): `~inferMethods` / `~inferEndpoint` / `~inferRoute`, read through `InferMethods` / `InferRoutes` to reconstruct the typed route map for the fetch client at zero runtime cost.\n\n```ts\nconst handler = defineRouteHandler({\n  params: v.object({ id: v.pipe(v.string(), v.transform(Number)) }),\n  get: { validate: { response: User }, handler: (e) => getUser(e.context.params.id) },\n})\n\n// runtime: the resolved contract travels with the handler\nhandler[\"~routeDef\"].get?.validate?.response // → the `User` schema, no re-declaration\n// (exactly what the OpenAPI generator and the Nitro module read off it)\n\n// type-level: the phantom stamp reconstructs the typed route map at zero runtime cost\ntype Methods = InferMethods<typeof handler>\n//   → { get: { params: { id: number }; response: User; … } }\n```\n\nThe `~` prefix is a deliberate nod to `~standard` — \"tooling-facing, not user API\". The open question for core: is there interest in blessing a convention like this, a validated handler exposing its resolved contract as an introspectable property? If core did, a first-party OpenAPI plugin (or anyone else) could read one normalized shape instead of every tool reinventing its own extraction. That, more than any single feature above, is what makes the one-definition-as-source-of-truth story work.\n\n### What I'd like to figure out\n\n- Is there appetite to grow core's `defineValidatedHandler`/`defineRoute` toward `params` + `response` + uniform async, or is that firmly plugin/community territory?\n- If yes, how much of it can be additive vs. genuinely breaking (params/response are additive; making query/headers async in the handler is the breaking one)?\n- Entry points: h3-route-tools keeps two shapes on purpose — `defineRouteHandler` returns a self-dispatching `EventHandlerWithFetch` (mount it directly, and it doubles as a valid Nitro route default-export), while `defineRoute` returns a structured `H3Plugin` for `app.register()`. Core's `defineRoute` today is the single-method plugin; its multi-method, Nitro-compatible sibling is what I've called `defineRouteHandler`. They _could_ converge — a little wiring and each adapts to both h3 and Nitro — but the internals and scope differ enough that I've kept them distinct. Worth agreeing on the split (and the names) before rc closes IMO.\n\n### Personal considerations\n\nNone of this is urgent enough to block the release — but the _breaking_ subset (async query/headers in the handler) only fits cleanly while we're still in rc, hence opening it now rather than later. I'm happy to do the implementation, as always.\n\nOne thing I'm deliberately leaving out for now: I'd love to eventually give `defineJsonRpcHandler` (#1180) the same schema-validation treatment — but that only makes sense to bring up once/if the core bits above are actually wanted. Flagging it so it's on the radar, not proposing it here.\n\nI've also created H3Typed which extends H3, but provides the same type and DX of the above functions but in the object form of each `.get`/`.post`/..etc, as well as an added `.route` one. Then a typed client (and codegen) simply requires as input the `typeof app` (thanks to the sidecars explained above).\n\n### Additional info (and context for agents like @pi0x)\n\nSome of the original rationale behind this is that in h3 we have great coverage of anything that is low-level, I really cannot think of something missing that isn't duable. But we are lacking a bit on what is mid-to-high level coding.\nThat type of coding that internally is slightly opinionated such as Elysia's schema validation, openapi and type modeling. Which I'm finding that agents and new developers have an easier time to understand and use because everything is strongly typed, as well as they are not forced to do everything manually in the _handler's wild-west_ (`handler: (event) => { ALL_DONE_MANUALLY }`), which seems to scare and demotivate more than I could think off.\n\n### Additional information\n\n- [x] Would you be willing to help implement this feature?",
+      "state": "open",
+      "stateRaw": "open",
+      "isDraft": false,
+      "author": {
+        "forge": "github",
+        "instance": "github.com",
+        "login": "sandros94",
+        "id": "13056429",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/13056429?v=4",
+        "url": "https://github.com/sandros94",
+        "typeRaw": "User",
+        "isBotHint": false
+      },
+      "authorAssociation": "member",
+      "authorAssociationRaw": "MEMBER",
+      "assignees": [],
+      "reviewers": [],
+      "labels": [
+        {
+          "name": "enhancement",
+          "colour": "a2eeef",
+          "description": "New feature or request"
+        }
+      ],
+      "url": "https://github.com/h3js/h3/issues/1437",
+      "createdAt": "2026-07-05T12:15:57.000Z",
+      "updatedAt": "2026-09-07T08:46:14.000Z",
+      "lastActivityAt": "2026-09-07T08:46:14.000Z",
+      "locked": false,
+      "commentCount": 5,
+      "reactions": {
+        "total": 3,
+        "counts": {
+          "+1": 2,
+          "heart": 1
+        }
+      }
+    }
+  ],
+  "cursor": {
+    "nextUrl": "https://api.github.com/repositories/313641207/issues?state=all&mentioned=danielroe&sort=created&direction=desc&per_page=3&after=Y3Vyc29yOnYyOpLPAAABmdG6G7jO0O19Dw%3D%3D&page=2",
+    "etag": "W/\"62267c3f206f915e867fc53c825f473f108ffdddd866cc47e7f2fbc5c26a61e1\""
+  },
+  "etag": "W/\"62267c3f206f915e867fc53c825f473f108ffdddd866cc47e7f2fbc5c26a61e1\"",
+  "rateLimit": {
+    "limit": 5000,
+    "remaining": 4973,
+    "resetAt": "<now>",
+    "resource": "core"
+  }
+}

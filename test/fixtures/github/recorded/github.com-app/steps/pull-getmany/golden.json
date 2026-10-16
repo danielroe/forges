@@ -44,6 +44,8 @@
         "typeRaw": "User",
         "isBotHint": false
       },
+      "authorAssociation": "contributor",
+      "authorAssociationRaw": "CONTRIBUTOR",
       "assignees": [],
       "participants": [
         {
@@ -83,7 +85,8 @@
             "isBotHint": false
           },
           "state": "pending",
-          "stateRaw": "requested"
+          "stateRaw": "requested",
+          "requestedAt": "2025-03-31T13:49:13.000Z"
         }
       ],
       "labels": [],

@@ -12,7 +12,8 @@
     "headers": {
       "x-ratelimit-limit": "5000",
       "x-ratelimit-remaining": "4989",
-      "x-ratelimit-reset": "1791738331"
+      "x-ratelimit-reset": "1792217942",
+      "x-ratelimit-resource": "graphql"
     },
     "body": {
       "data": {
@@ -30,7 +31,8 @@
             "url": "https://github.com/pi0",
             "databaseId": 5158436,
             "name": "Pooya Parsa"
-          }
+          },
+          "authorAssociation": "MEMBER"
         }
       },
       "extensions": {

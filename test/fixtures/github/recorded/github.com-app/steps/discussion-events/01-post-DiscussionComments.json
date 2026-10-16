@@ -15,7 +15,8 @@
     "headers": {
       "x-ratelimit-limit": "5000",
       "x-ratelimit-remaining": "4991",
-      "x-ratelimit-reset": "1791738331"
+      "x-ratelimit-reset": "1792217942",
+      "x-ratelimit-resource": "graphql"
     },
     "body": {
       "data": {
@@ -41,6 +42,7 @@
                     "databaseId": 5158436,
                     "name": "Pooya Parsa"
                   },
+                  "authorAssociation": "MEMBER",
                   "replies": {
                     "nodes": []
                   }
@@ -59,6 +61,7 @@
                     "databaseId": 790391,
                     "name": "Andrei Mocanu"
                   },
+                  "authorAssociation": "NONE",
                   "replies": {
                     "nodes": []
                   }
@@ -77,6 +80,7 @@
                     "databaseId": 11282659,
                     "name": "Theo M Jones"
                   },
+                  "authorAssociation": "NONE",
                   "replies": {
                     "nodes": []
                   }
@@ -95,6 +99,7 @@
                     "databaseId": 790391,
                     "name": "Andrei Mocanu"
                   },
+                  "authorAssociation": "NONE",
                   "replies": {
                     "nodes": []
                   }
@@ -113,6 +118,7 @@
                     "databaseId": 11282659,
                     "name": "Theo M Jones"
                   },
+                  "authorAssociation": "NONE",
                   "replies": {
                     "nodes": []
                   }
@@ -131,6 +137,7 @@
                     "databaseId": 9975630,
                     "name": "Nacho García"
                   },
+                  "authorAssociation": "NONE",
                   "replies": {
                     "nodes": []
                   }
@@ -149,6 +156,7 @@
                     "databaseId": 9975630,
                     "name": "Nacho García"
                   },
+                  "authorAssociation": "NONE",
                   "replies": {
                     "nodes": []
                   }
@@ -167,6 +175,7 @@
                     "databaseId": 12899666,
                     "name": "Marcio Chagas"
                   },
+                  "authorAssociation": "NONE",
                   "replies": {
                     "nodes": []
                   }
@@ -185,6 +194,7 @@
                     "databaseId": 9975630,
                     "name": "Nacho García"
                   },
+                  "authorAssociation": "NONE",
                   "replies": {
                     "nodes": []
                   }
@@ -196,6 +206,7 @@
                   "createdAt": "2020-05-26T18:05:57Z",
                   "url": "https://github.com/nuxt/nuxt/discussions/9303#discussioncomment-747906",
                   "author": null,
+                  "authorAssociation": "NONE",
                   "replies": {
                     "nodes": []
                   }
@@ -214,6 +225,7 @@
                     "databaseId": 9975630,
                     "name": "Nacho García"
                   },
+                  "authorAssociation": "NONE",
                   "replies": {
                     "nodes": []
                   }
@@ -225,6 +237,7 @@
                   "createdAt": "2020-05-26T20:41:28Z",
                   "url": "https://github.com/nuxt/nuxt/discussions/9303#discussioncomment-747908",
                   "author": null,
+                  "authorAssociation": "NONE",
                   "replies": {
                     "nodes": []
                   }
@@ -243,6 +256,7 @@
                     "databaseId": 9975630,
                     "name": "Nacho García"
                   },
+                  "authorAssociation": "NONE",
                   "replies": {
                     "nodes": []
                   }
@@ -254,6 +268,7 @@
                   "createdAt": "2020-05-27T06:21:35Z",
                   "url": "https://github.com/nuxt/nuxt/discussions/9303#discussioncomment-747910",
                   "author": null,
+                  "authorAssociation": "NONE",
                   "replies": {
                     "nodes": []
                   }
@@ -272,6 +287,7 @@
                     "databaseId": 20761700,
                     "name": "Cláudio Luiz Castro"
                   },
+                  "authorAssociation": "NONE",
                   "replies": {
                     "nodes": []
                   }
@@ -290,6 +306,7 @@
                     "databaseId": 9975630,
                     "name": "Nacho García"
                   },
+                  "authorAssociation": "NONE",
                   "replies": {
                     "nodes": []
                   }
@@ -308,6 +325,7 @@
                     "databaseId": 20761700,
                     "name": "Cláudio Luiz Castro"
                   },
+                  "authorAssociation": "NONE",
                   "replies": {
                     "nodes": []
                   }
@@ -326,6 +344,7 @@
                     "databaseId": 904724,
                     "name": "Sébastien Chopin"
                   },
+                  "authorAssociation": "MEMBER",
                   "replies": {
                     "nodes": []
                   }
@@ -344,6 +363,7 @@
                     "databaseId": 12659402,
                     "name": "Abdo Rakhma"
                   },
+                  "authorAssociation": "NONE",
                   "replies": {
                     "nodes": []
                   }
@@ -362,6 +382,7 @@
                     "databaseId": 28706372,
                     "name": "Daniel Roe"
                   },
+                  "authorAssociation": "MEMBER",
                   "replies": {
                     "nodes": []
                   }
@@ -380,6 +401,7 @@
                     "databaseId": 12659402,
                     "name": "Abdo Rakhma"
                   },
+                  "authorAssociation": "NONE",
                   "replies": {
                     "nodes": []
                   }
@@ -398,6 +420,7 @@
                     "databaseId": 9975630,
                     "name": "Nacho García"
                   },
+                  "authorAssociation": "NONE",
                   "replies": {
                     "nodes": [
                       {
@@ -413,7 +436,8 @@
                           "url": "https://github.com/Sletheren",
                           "databaseId": 12659402,
                           "name": "Abdo Rakhma"
-                        }
+                        },
+                        "authorAssociation": "NONE"
                       }
                     ]
                   }
@@ -432,6 +456,7 @@
                     "databaseId": 6013871,
                     "name": "Chris​‌​‮ ‬Hayes‌​​​"
                   },
+                  "authorAssociation": "NONE",
                   "replies": {
                     "nodes": []
                   }
@@ -450,6 +475,7 @@
                     "databaseId": 503095,
                     "name": "Lukas von Blarer"
                   },
+                  "authorAssociation": "NONE",
                   "replies": {
                     "nodes": [
                       {
@@ -465,7 +491,8 @@
                           "url": "https://github.com/luksak",
                           "databaseId": 503095,
                           "name": "Lukas von Blarer"
-                        }
+                        },
+                        "authorAssociation": "NONE"
                       }
                     ]
                   }
