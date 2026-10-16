@@ -392,16 +392,19 @@ export function toGraphQLActor(instance: string, actor: GraphQLActor | null | un
   if (!actor) {
     return undefined
   }
+  const isBot = actor.__typename === 'Bot'
+  const slug = isBot ? actor.login.replace(/\[bot\]$/, '') : undefined
   return {
     forge: FORGE,
     instance,
-    login: actor.login,
+    login: slug ? `${slug}[bot]` : actor.login,
     id: String(actor.databaseId ?? actor.login),
     name: actor.name,
     avatarUrl: actor.avatarUrl,
     url: actor.url,
     typeRaw: actor.__typename,
-    isBotHint: actor.__typename === 'Bot' || actor.login.endsWith('[bot]'),
+    isBotHint: isBot || actor.login.endsWith('[bot]'),
+    ...slug ? { app: { slug } } : {},
   }
 }
 

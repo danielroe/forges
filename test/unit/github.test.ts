@@ -247,6 +247,17 @@ describe('github discussions', () => {
     ])
   })
 
+  it('names a bot from GraphQL as the REST API does', async () => {
+    const { provider } = tokenProvider()
+    const events = []
+    for await (const event of provider.threads.events(discussion)) {
+      events.push(event)
+    }
+
+    expect(events[1]!.actor).toMatchObject({ login: 'github-actions[bot]', id: '41898282', app: { slug: 'github-actions' } })
+    expect(events[0]!.actor).not.toHaveProperty('app')
+  })
+
   it('looks up the node id once before mutating a discussion without one', async () => {
     const { provider, calls } = tokenProvider()
     await provider.threads.close(discussion, { reason: 'completed' })
