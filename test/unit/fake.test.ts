@@ -575,6 +575,55 @@ describe('fake event sources', () => {
   })
 })
 
+describe('fake writes by someone else', () => {
+  const repo = { forge: 'fake', instance: 'fake.test', owner: 'acme', name: 'widgets' } as const
+  const issue = (number: string) => ({ forge: 'fake', instance: 'fake.test', repo, kind: 'issue', number }) as const
+
+  function forge() {
+    const factory = fake({
+      seed: {
+        threads: [
+          { repo: 'acme/widgets', kind: 'issue', title: 'Mine' },
+          { repo: 'acme/widgets', kind: 'issue', title: 'Theirs', author: 'ada' },
+          { repo: 'acme/widgets', kind: 'pull_request', title: 'Fix', author: 'ada' },
+        ],
+        notifications: [{ repo: 'acme/widgets', number: 1, unread: false }],
+      },
+    })
+    factory.store.repos.get('acme/widgets')!.threads.get('2')!.subscription = 'none'
+    return { factory, viewer: factory.create(), octocat: factory.as('octocat') }
+  }
+
+  it('records the write as theirs and marks the viewer\'s notification for the thread unread again', async () => {
+    const { factory, viewer, octocat } = forge()
+
+    const comment = await octocat.threads.comment(issue('1'), 'Any news?')
+
+    expect(comment.author?.login).toBe('octocat')
+    expect(factory.store.events.at(-1)).toMatchObject({ actor: { login: 'octocat' }, summary: 'octocat commented' })
+    expect((await viewer.notifications.listPage()).items).toMatchObject([{ ref: { id: '1' }, reason: 'author', unread: true }])
+    expect((await octocat.users.me()).login).toBe('octocat')
+  })
+
+  it('notifies the viewer of a mention or a review request on a thread the viewer is not subscribed to', async () => {
+    const { viewer, octocat } = forge()
+
+    await octocat.threads.comment(issue('2'), 'Nothing to see')
+    await octocat.threads.comment(issue('2'), 'cc @fake-user')
+    await octocat.threads.requestReview({ ...issue('3'), kind: 'pull_request' }, ['fake-user'])
+    await viewer.threads.comment(issue('1'), 'Own comment')
+
+    expect((await viewer.notifications.listPage()).items.map(item => [item.subject.type === 'thread' && item.subject.thread.number, item.reason])).toEqual([['2', 'mention'], ['3', 'review_requested']])
+  })
+
+  it('has no notifications or subscriptions of the viewer', async () => {
+    const { octocat } = forge()
+
+    expect(octocat.can('notifications.list')).toBe(false)
+    expect(octocat.can('threads.subscription', 'issue')).toBe(false)
+  })
+})
+
 describe('fake security alerts', () => {
   const repo = { forge: 'fake', instance: 'fake.test', owner: 'acme', name: 'widgets' } as const
   const forge = fake({

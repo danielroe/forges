@@ -361,6 +361,17 @@ export interface FakeForgeFactory extends ForgeProviderFactory<ForgeProvider> {
   setLatency: (latency: FakeLatency | undefined) => void
   /** Replaces the `rateLimit` option and starts a new window, which `rateLimits()` reports from the next request. `undefined` removes the budget. */
   setRateLimit: (budget: FakeRateLimit | undefined) => void
+  /**
+   * A provider on the same store whose writes are by `login`, with no notifications or subscriptions of its own.
+   * A comment, review, state change or assignment by `login` notifies the viewer when it mentions the viewer,
+   * assigns the viewer or requests the viewer's review, or when the viewer is subscribed to the thread. The
+   * notification for the thread then becomes unread, or is added.
+   * @example
+   * ```ts
+   * await factory.as('octocat').threads.comment(issue, 'Any news, @fake-user?')
+   * ```
+   */
+  as: (login: string) => ForgeProvider
 }
 
 /** Verbs that send no request of their own, with what to fail instead. */
@@ -468,6 +479,7 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
   let latency = options.latency
   let budget: { limit: number, remaining: number, window: number, resetAt: Date } | undefined
   let seen: RateLimit | undefined
+  let notificationCount = 0
 
   function setRateLimit(given: FakeRateLimit | undefined): void {
     const window = given?.window ?? 3_600_000
@@ -699,8 +711,11 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
   }
 
   function mentioned(thread: Thread, comments: Comment[], login: string): boolean {
-    const mention = new RegExp(`(?:^|[^\\w@])@${login.replace(/\W/g, '\\$&')}(?![\\w-])`, 'i')
-    return [thread.body, ...comments.map(comment => comment.body)].some(body => body !== undefined && mention.test(body))
+    return [thread.body, ...comments.map(comment => comment.body)].some(body => mentions(body, login))
+  }
+
+  function mentions(body: string | undefined, login: string): boolean {
+    return body !== undefined && new RegExp(`(?:^|[^\\w@])@${login.replace(/\W/g, '\\$&')}(?![\\w-])`, 'i').test(body)
   }
 
   function involved(thread: Thread, comments: Comment[], login: string): boolean {
@@ -736,16 +751,16 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
     return { ...event, id: `${listing}-${event.id}`, source: 'poll' }
   }
 
-  function record(thread: ThreadRef, kind: EventKind, action: EventAction, summary: string, detail?: EventDetail): void {
+  function record(by: string, thread: ThreadRef, kind: EventKind, action: EventAction, summary: string, detail?: EventDetail): void {
     const event = completeEvent({
       ...origin,
       id: String(store.events.length + 1),
       kind,
       action,
       actionRaw: action,
-      summary: `${viewerLogin} ${summary}`,
+      summary: `${by} ${summary}`,
       occurredAt: now(),
-      actor: actor(viewerLogin),
+      actor: actor(by),
       repo: thread.repo,
       thread,
       detail,
@@ -757,9 +772,53 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
     if (state) {
       state.thread.updatedAt = event.occurredAt
       state.thread.lastActivityAt = event.occurredAt
+      if (by !== viewerLogin) {
+        notify(state, event)
+      }
     }
     for (const listener of listeners) {
       listener(event)
+    }
+  }
+
+  function reasonFor(state: FakeThreadState, event: ForgeEvent): NotificationReason | undefined {
+    const detail = event.detail
+    if (detail?.type === 'assignment') {
+      return detail.assignee?.login !== viewerLogin ? undefined : event.action === 'review_requested' ? 'review_requested' : event.action === 'assigned' ? 'assigned' : undefined
+    }
+    if (!['comment', 'review', 'review_comment', 'state_change'].includes(event.kind) || event.action === 'deleted') {
+      return undefined
+    }
+    const body = detail && 'body' in detail ? detail.body : undefined
+    if (mentions(body, viewerLogin)) {
+      return 'mention'
+    }
+    if (state.subscription !== 'subscribed') {
+      return undefined
+    }
+    return state.thread.author?.login === viewerLogin ? 'author' : state.comments.some(comment => comment.author?.login === viewerLogin) ? 'comment' : 'subscribed'
+  }
+
+  function notify(state: FakeThreadState, event: ForgeEvent): void {
+    const reason = reasonFor(state, event)
+    if (!reason) {
+      return
+    }
+    const { thread } = state
+    const existing = store.notifications.find(item => item.subject.type === 'thread' && slugOf(item.subject.thread.repo) === slugOf(thread.ref.repo) && item.subject.thread.number === thread.ref.number)
+    const notification: Notification = existing ?? {
+      ref: { ...origin, id: String(++notificationCount) },
+      subject: { type: 'thread', thread: thread.ref },
+      reason,
+      unread: true,
+      title: thread.title,
+      subjectState: thread.state,
+      updatedAt: event.occurredAt,
+      raw: { reason },
+    }
+    Object.assign(notification, { reason, reasonRaw: reason, unread: true, title: thread.title, subjectState: thread.state, updatedAt: event.occurredAt })
+    if (!existing) {
+      store.notifications.push(notification)
     }
   }
 
@@ -850,13 +909,13 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
       raw: seed,
     })
   }
-  for (const [index, seed] of (options.seed?.notifications ?? []).entries()) {
+  for (const seed of options.seed?.notifications ?? []) {
     const state = store.repos.get(seed.repo)?.threads.get(String(seed.number))
     if (!state) {
       throw new Error(`Notification seed references unknown thread ${seed.repo}#${seed.number}`)
     }
     store.notifications.push({
-      ref: { ...origin, id: String(index + 1) },
+      ref: { ...origin, id: String(++notificationCount) },
       subject: { type: 'thread', thread: state.thread.ref },
       reason: seed.reason ?? 'subscribed',
       reasonRaw: seed.reason ?? 'subscribed',
@@ -923,7 +982,7 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
       : state.files.get(`${ref ?? '*'}:${path}`) ?? state.files.get(`*:${path}`)
   }
 
-  function commitFiles(repo: RepoRef, input: CommitFilesInput): Commit {
+  function commitFiles(by: string, repo: RepoRef, input: CommitFilesInput): Commit {
     const state = repoState(repo)
     const main = defaultBranchOf(state)
     if (!state.branches.has(main)) {
@@ -978,8 +1037,8 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
       ref: { ...origin, repo: state.repo.ref, sha },
       sha,
       message: input.message,
-      author: input.author ? { ...input.author, date } : { actor: actor(viewerLogin), name: viewerLogin, date },
-      committer: { actor: actor(viewerLogin), name: viewerLogin, date },
+      author: input.author ? { ...input.author, date } : { actor: actor(by), name: by, date },
+      committer: { actor: actor(by), name: by, date },
       parents: /^0+$/.test(parent) ? [] : [parent],
       url: `https://${instance}/${slugOf(repo)}/commit/${sha}`,
       files,
@@ -992,7 +1051,7 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
 
   let merges = 0
 
-  function setState(ref: ThreadRef, state: ThreadState, action: EventAction): void {
+  function setState(by: string, ref: ThreadRef, state: ThreadState, action: EventAction): void {
     const current = threadState(ref).thread
     if (current.state === state) {
       return
@@ -1001,34 +1060,34 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
     current.closedAt = state === 'open' ? undefined : now()
     if (state === 'merged') {
       current.mergedAt = current.closedAt
-      current.mergedBy = actor(viewerLogin)
+      current.mergedBy = actor(by)
     }
-    record(ref, 'state_change', action, action, { type: 'state_change', state })
+    record(by, ref, 'state_change', action, action, { type: 'state_change', state })
   }
 
-  function setLabels(ref: ThreadRef, labels: string[]): Label[] {
+  function setLabels(by: string, ref: ThreadRef, labels: string[]): Label[] {
     const thread = threadState(ref).thread
     const before = new Set(thread.labels.map(item => item.name))
     const after = new Set(labels)
     thread.labels = labels.map(label)
     for (const name of [...after].filter(name => !before.has(name))) {
-      record(ref, 'label', 'labelled', `added label ${name}`, { type: 'label', label: name })
+      record(by, ref, 'label', 'labelled', `added label ${name}`, { type: 'label', label: name })
     }
     for (const name of [...before].filter(name => !after.has(name))) {
-      record(ref, 'label', 'unlabelled', `removed label ${name}`, { type: 'label', label: name })
+      record(by, ref, 'label', 'unlabelled', `removed label ${name}`, { type: 'label', label: name })
     }
     return thread.labels
   }
 
-  function setAssignees(ref: ThreadRef, assignees: Array<string | Actor>): Actor[] {
+  function setAssignees(by: string, ref: ThreadRef, assignees: Array<string | Actor>): Actor[] {
     const thread = threadState(ref).thread
     const before = thread.assignees
     thread.assignees = assignees.map(item => typeof item === 'string' ? actor(item) : { ...item })
     for (const assignee of thread.assignees.filter(item => !before.some(existing => existing.login === item.login))) {
-      record(ref, 'assignment', 'assigned', `assigned ${assignee.login}`, { type: 'assignment', assignee })
+      record(by, ref, 'assignment', 'assigned', `assigned ${assignee.login}`, { type: 'assignment', assignee })
     }
     for (const assignee of before.filter(item => !thread.assignees.some(kept => kept.login === item.login))) {
-      record(ref, 'assignment', 'unassigned', `unassigned ${assignee.login}`, { type: 'assignment', assignee })
+      record(by, ref, 'assignment', 'unassigned', `unassigned ${assignee.login}`, { type: 'assignment', assignee })
     }
     return thread.assignees
   }
@@ -1043,13 +1102,13 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
 
   const REVIEW_STATES: Record<ReviewEvent, ReviewState> = { approve: 'approved', request_changes: 'changes_requested', comment: 'commented' }
 
-  function createReview(ref: ThreadRef, input: ReviewInput): Review {
+  function createReview(by: string, ref: ThreadRef, input: ReviewInput): Review {
     const state = threadState(ref)
     const id = String(state.reviews.length + 1)
     const comments = (input.comments ?? []).map((comment, index): ReviewComment => ({
       ref: { ...origin, thread: state.thread.ref, id: `${ref.number}-review-${id}-${index + 1}` },
       body: comment.body,
-      author: actor(viewerLogin),
+      author: actor(by),
       path: comment.path,
       line: comment.line,
       side: comment.side ?? 'right',
@@ -1059,7 +1118,7 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
     }))
     const review: Review = {
       ref: { ...origin, thread: state.thread.ref, id },
-      author: actor(viewerLogin),
+      author: actor(by),
       state: input.event ? REVIEW_STATES[input.event] : 'pending',
       stateRaw: input.event ?? 'pending',
       body: input.body,
@@ -1069,7 +1128,7 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
     }
     state.reviews.push(review)
     if (input.event) {
-      record(state.thread.ref, 'review', 'submitted', `reviewed (${review.state})`, { type: 'review', state: review.state, body: input.body, review: review.ref })
+      record(by, state.thread.ref, 'review', 'submitted', `reviewed (${review.state})`, { type: 'review', state: review.state, body: input.body, review: review.ref })
     }
     return review
   }
@@ -1084,7 +1143,7 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
     }
   }
 
-  function replyToReviewComment(ref: ThreadRef, comment: Pick<ReviewComment, 'ref' | 'thread' | 'inReplyTo'>, body: string): ReviewComment {
+  function replyToReviewComment(by: string, ref: ThreadRef, comment: Pick<ReviewComment, 'ref' | 'thread' | 'inReplyTo'>, body: string): ReviewComment {
     const state = threadState(ref)
     for (const review of state.reviews) {
       if (review.comments === false) {
@@ -1097,7 +1156,7 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
       const reply: ReviewComment = {
         ref: { ...origin, thread: state.thread.ref, id: `${parent.ref.id}-reply-${review.comments.length + 1}` },
         body,
-        author: actor(viewerLogin),
+        author: actor(by),
         path: parent.path,
         line: parent.line,
         side: parent.side,
@@ -1107,7 +1166,7 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
         raw: { body },
       }
       review.comments.push(reply)
-      record(state.thread.ref, 'review_comment', 'created', 'replied to a review comment', { type: 'review_comment', comment: reply.ref, body, path: reply.path, line: reply.line })
+      record(by, state.thread.ref, 'review_comment', 'created', 'replied to a review comment', { type: 'review_comment', comment: reply.ref, body, path: reply.path, line: reply.line })
       return reply
     }
     throw notFound(`No review comment ${comment.ref?.id ?? comment.thread?.id}`)
@@ -1142,11 +1201,11 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
       },
       events: FAKE_WEBHOOK_EVENTS,
     }),
-    setup: () => overNetwork({
+    setup: ({ options: { viewer: by = viewerLogin } }) => actingAs(by, overNetwork({
       traits: { eventKinds: 'native', authKinds: ['token'] },
       rateLimits,
       users: {
-        me: verb(support('users.me', true), async () => ({ ...actor(viewerLogin), raw: undefined })),
+        me: verb(support('users.me', true), async () => ({ ...actor(by), raw: undefined })),
         eventsPage: verb(support('users.events', true), async (login, listOptions = {}) => conditional(pageOf(feed(event => event.actor?.login === login), listOptions), listOptions)),
       },
       repos: {
@@ -1252,32 +1311,32 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
             const state = threadState(thread)
             const key = 'thread' in target ? target.id : ''
             const left = state.reactions.get(key) ?? []
-            if (left.some(item => item.content === reaction && item.actor.login === viewerLogin)) {
+            if (left.some(item => item.content === reaction && item.actor.login === by)) {
               return
             }
-            left.push({ content: reaction, contentRaw: reaction, actor: actor(viewerLogin), createdAt: now(), raw: { content: reaction } })
+            left.push({ content: reaction, contentRaw: reaction, actor: actor(by), createdAt: now(), raw: { content: reaction } })
             state.reactions.set(key, left)
-            record(thread, 'reaction', 'created', `reacted ${reaction}`)
+            record(by, thread, 'reaction', 'created', `reacted ${reaction}`)
           },
           async unreact(target, reaction) {
             const thread = 'thread' in target ? target.thread : target
             const state = threadState(thread)
             const key = 'thread' in target ? target.id : ''
             const before = state.reactions.get(key) ?? []
-            const left = before.filter(item => !(item.content === reaction && item.actor.login === viewerLogin))
+            const left = before.filter(item => !(item.content === reaction && item.actor.login === by))
             if (left.length === before.length) {
               return
             }
             state.reactions.set(key, left)
-            record(thread, 'reaction', 'deleted', `removed a ${reaction} reaction`)
+            record(by, thread, 'reaction', 'deleted', `removed a ${reaction} reaction`)
           },
         }),
         comment: perKind(kinds('threads.comment', WRITABLE), async (ref, body) => {
           const state = threadState(ref)
-          const comment: Comment = { ref: { ...origin, thread: state.thread.ref, id: `${ref.number}-${state.comments.length + 1}` }, body, author: actor(viewerLogin), createdAt: now(), raw: { body } }
+          const comment: Comment = { ref: { ...origin, thread: state.thread.ref, id: `${ref.number}-${state.comments.length + 1}` }, body, author: actor(by), createdAt: now(), raw: { body } }
           state.comments.push(comment)
           state.thread.commentCount = state.comments.length
-          record(state.thread.ref, 'comment', 'created', 'commented', { type: 'comment', comment: comment.ref, body })
+          record(by, state.thread.ref, 'comment', 'created', 'commented', { type: 'comment', comment: comment.ref, body })
           return comment
         }),
         editComment: perKind(kinds('threads.editComment', WRITABLE), async (ref: CommentRef, body: string) => {
@@ -1287,7 +1346,7 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
           }
           comment.body = body
           comment.updatedAt = now()
-          record(ref.thread, 'comment', 'edited', 'edited a comment', { type: 'comment', comment: comment.ref, body })
+          record(by, ref.thread, 'comment', 'edited', 'edited a comment', { type: 'comment', comment: comment.ref, body })
           return comment
         }),
         deleteComment: perKind(kinds('threads.deleteComment', WRITABLE), async (ref: CommentRef) => {
@@ -1298,7 +1357,7 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
           }
           state.comments.splice(index, 1)
           state.thread.commentCount = state.comments.length
-          record(ref.thread, 'comment', 'deleted', 'deleted a comment', { type: 'comment', comment: ref })
+          record(by, ref.thread, 'comment', 'deleted', 'deleted a comment', { type: 'comment', comment: ref })
         }),
         create: perKind(kinds('threads.create', { issue: true, pull_request: true, discussion: true }), async (repo, input) => {
           const existing = store.repos.get(slugOf(repo))
@@ -1308,11 +1367,11 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
           if (open) {
             throw new ForgeApiError(`A pull request already exists for ${input.head}`, 422, '', origin)
           }
-          const thread = addThread({ repo: slugOf(repo), kind: input.kind, title: input.title, body: input.body, labels: input.labels, assignees: input.assignees?.map(item => typeof item === 'string' ? item : item.login), ...input.head === undefined ? {} : { head: { ref: input.head } } })
+          const thread = addThread({ repo: slugOf(repo), kind: input.kind, title: input.title, body: input.body, author: by, labels: input.labels, assignees: input.assignees?.map(item => typeof item === 'string' ? item : item.login), ...input.head === undefined ? {} : { head: { ref: input.head } } })
           if (thread.branches) {
             thread.branches.base.ref = base
           }
-          record(thread.ref, 'state_change', 'opened', `opened ${thread.kind === 'pull_request' ? 'a pull request' : `a ${thread.kind}`}`, { type: 'state_change', state: 'open' })
+          record(by, thread.ref, 'state_change', 'opened', `opened ${thread.kind === 'pull_request' ? 'a pull request' : `a ${thread.kind}`}`, { type: 'state_change', state: 'open' })
           return thread
         }),
         update: perKind(kinds('threads.update', WRITABLE), async (ref, input) => {
@@ -1320,34 +1379,34 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
           if (input.title !== undefined || input.body !== undefined) {
             thread.title = input.title ?? thread.title
             thread.body = input.body ?? thread.body
-            record(ref, 'other', 'edited', 'edited the thread')
+            record(by, ref, 'other', 'edited', 'edited the thread')
           }
           if (input.state && input.state !== thread.state) {
             thread.stateReason = undefined
-            setState(ref, input.state, input.state === 'open' ? 'reopened' : 'closed')
+            setState(by, ref, input.state, input.state === 'open' ? 'reopened' : 'closed')
           }
           if (input.labels) {
-            setLabels(ref, input.labels)
+            setLabels(by, ref, input.labels)
           }
           if (input.assignees) {
-            setAssignees(ref, input.assignees)
+            setAssignees(by, ref, input.assignees)
           }
           return thread
         }),
         close: perKind(kinds('threads.close', WRITABLE), async (ref, closeOptions = {}) => {
           threadState(ref).thread.stateReason = closeOptions.reasonRaw ?? closeOptions.reason
-          setState(ref, 'closed', 'closed')
+          setState(by, ref, 'closed', 'closed')
           return threadState(ref).thread
         }),
         reopen: perKind(kinds('threads.reopen', WRITABLE), async (ref) => {
-          setState(ref, 'open', 'reopened')
+          setState(by, ref, 'open', 'reopened')
           return threadState(ref).thread
         }),
         addLabels: perKind(kinds('threads.addLabels', WRITABLE), async (ref, labels) => {
           const thread = threadState(ref).thread
           for (const name of labels.filter(name => !thread.labels.some(item => item.name === name))) {
             thread.labels = [...thread.labels, label(name)]
-            record(ref, 'label', 'labelled', `added label ${name}`, { type: 'label', label: name })
+            record(by, ref, 'label', 'labelled', `added label ${name}`, { type: 'label', label: name })
           }
           return thread.labels
         }),
@@ -1355,17 +1414,17 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
           const thread = threadState(ref).thread
           for (const name of labels.filter(name => thread.labels.some(item => item.name === name))) {
             thread.labels = thread.labels.filter(item => item.name !== name)
-            record(ref, 'label', 'unlabelled', `removed label ${name}`, { type: 'label', label: name })
+            record(by, ref, 'label', 'unlabelled', `removed label ${name}`, { type: 'label', label: name })
           }
           return thread.labels
         }),
-        setLabels: perKind(kinds('threads.setLabels', WRITABLE), async (ref, labels) => setLabels(ref, labels)),
-        setAssignees: perKind(kinds('threads.setAssignees', WRITABLE), async (ref, assignees) => setAssignees(ref, assignees)),
+        setLabels: perKind(kinds('threads.setLabels', WRITABLE), async (ref, labels) => setLabels(by, ref, labels)),
+        setAssignees: perKind(kinds('threads.setAssignees', WRITABLE), async (ref, assignees) => setAssignees(by, ref, assignees)),
         requestReview: perKind(kinds('threads.requestReview', PULLS), async (ref, reviewers) => {
           const thread = threadState(ref).thread
           for (const reviewer of reviewers.map(item => typeof item === 'string' ? actor(item) : { ...item }).filter(item => !thread.reviewers.some(existing => existing.actor.login === item.login))) {
             thread.reviewers.push({ actor: reviewer, state: 'pending' })
-            record(ref, 'assignment', 'review_requested', `requested review from ${reviewer.login}`, { type: 'assignment', assignee: reviewer })
+            record(by, ref, 'assignment', 'review_requested', `requested review from ${reviewer.login}`, { type: 'assignment', assignee: reviewer })
           }
         }),
         ...givenSupport('threads.approveAndMerge') === undefined ? {} : { approveAndMerge: { support: support('threads.approveAndMerge', true) } },
@@ -1391,7 +1450,7 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
           if (state.thread.branches) {
             state.thread.branches = { ...state.thread.branches, mergeCommitSha: sha }
           }
-          setState(ref, 'merged', 'merged')
+          setState(by, ref, 'merged', 'merged')
           return { status: 'merged', sha, raw: { sha } }
         }),
         subscriptions: perKind(kinds('threads.subscription', WRITABLE), {
@@ -1405,7 +1464,7 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
         }),
         checks: perKind(kinds('threads.checks', PULLS), async ref => ({ items: threadState(ref).checks })),
         reviewsPage: verb(support('threads.reviews', true), async (ref, listOptions = {}) => pageOf(threadState(ref).reviews, listOptions)),
-        createReview: verb(support('threads.createReview', true), async (ref, input) => createReview(ref, input)),
+        createReview: verb(support('threads.createReview', true), async (ref, input) => createReview(by, ref, input)),
         submitReview: verb(support('threads.submitReview', true), async (ref, event, body) => {
           const review = threadState(ref.thread).reviews.find(item => item.ref.id === ref.id)
           if (!review || review.state !== 'pending') {
@@ -1417,7 +1476,7 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
           if (body !== undefined) {
             review.body = body
           }
-          record(ref.thread, 'review', 'submitted', `reviewed (${review.state})`, { type: 'review', state: review.state, body: review.body, review: review.ref })
+          record(by, ref.thread, 'review', 'submitted', `reviewed (${review.state})`, { type: 'review', state: review.state, body: review.body, review: review.ref })
           return review
         }),
         filesPage: verb(support('threads.files', true), async (ref, listOptions = {}) => pageOf(threadState(ref).files, listOptions)),
@@ -1426,7 +1485,7 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
           const shas = new Set(threadState(ref).commits)
           return pageOf(state.commits.filter(commit => shas.has(commit.sha)), listOptions)
         }),
-        replyToReviewComment: verb(support('threads.replyToReviewComment', true), async (ref, comment, body) => replyToReviewComment(ref, comment, body)),
+        replyToReviewComment: verb(support('threads.replyToReviewComment', true), async (ref, comment, body) => replyToReviewComment(by, ref, comment, body)),
         reviewThreads: verb(support('threads.resolveReviewThread', true), {
           resolveReviewThread: async (ref, id) => setReviewThreadResolved(ref, id, true),
           unresolveReviewThread: async (ref, id) => setReviewThreadResolved(ref, id, false),
@@ -1510,7 +1569,7 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
             raw: { base, head },
           }
         }),
-        commitFiles: verb(support('contents.commitFiles', true), async (repo, input) => commitFiles(repo, input)),
+        commitFiles: verb(support('contents.commitFiles', true), async (repo, input) => commitFiles(by, repo, input)),
       },
       checks: {
         list: verb(support('checks.list', true), async (repo, sha) => ({ items: repoState(repo).statuses.get(sha) ?? [] })),
@@ -1577,7 +1636,7 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
             body: input.body,
             isDraft: input.draft ?? false,
             isPrerelease: input.prerelease ?? false,
-            author: actor(viewerLogin),
+            author: actor(by),
             createdAt: at,
             publishedAt: input.draft ? undefined : at,
             assets: [],
@@ -1697,8 +1756,17 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
           return hook
         }),
       },
-    }),
+    })),
   })
+
+  /** Leaves the viewer's notifications and subscriptions out of a provider that acts as someone else. */
+  function actingAs<T extends { notifications?: unknown, threads: { subscriptions?: unknown } }>(by: string, spec: T): T {
+    if (by !== viewerLogin) {
+      delete spec.notifications
+      delete spec.threads.subscriptions
+    }
+    return spec
+  }
 
   async function* subscribeTo(subscribeOptions: SubscribeOptions): AsyncGenerator<{ event: ForgeEventInput, cursor: string }> {
     if (!connected) {
@@ -1781,5 +1849,6 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
       latency = given
     },
     setRateLimit,
+    as: (login: string) => factory({ ...options, viewer: login }).create(),
   })
 }
