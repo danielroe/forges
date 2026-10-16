@@ -801,6 +801,31 @@ describe('gitlab templates', () => {
     expect(calls.some(call => call.url.includes('/templates/issues'))).toBe(false)
   })
 
+  it('reads the project\'s own template as well as a group\'s of the same name', async () => {
+    const { instance } = provider({
+      [`GET ${P}/templates/issues?per_page=100`]: { status: 200, body: [{ key: 'Bug', name: 'Bug' }, { key: 'Feature', name: 'Feature' }, { key: 'Bug', name: 'Bug' }] },
+      [`GET ${P}`]: { status: 200, body: { id: 7, path_with_namespace: 'acme/platform/widgets' } },
+      [`GET ${P}/templates/issues/Bug`]: { status: 200, body: { name: 'Bug', content: 'From the group' } },
+      [`GET ${P}/templates/issues/Feature`]: { status: 200, body: { name: 'Feature', content: 'Ideas' } },
+      [`GET ${P}/templates/issues/Bug?source_template_project_id=7`]: { status: 200, body: { name: 'Bug', content: 'From the project' } },
+    })
+
+    const templates = await instance.repos.templates(repo, { kind: 'issue' })
+
+    expect(templates.map(template => template.body)).toEqual(['From the group', 'Ideas', 'From the project'])
+  })
+
+  it('reads a name two groups share once, when the project has none of its own', async () => {
+    const { instance } = provider({
+      [`GET ${P}/templates/issues?per_page=100`]: { status: 200, body: [{ key: 'Bug', name: 'Bug' }, { key: 'Bug', name: 'Bug' }] },
+      [`GET ${P}`]: { status: 200, body: { id: 7, path_with_namespace: 'acme/platform/widgets' } },
+      [`GET ${P}/templates/issues/Bug`]: { status: 200, body: { name: 'Bug', content: 'From the closest group' } },
+      [`GET ${P}/templates/issues/Bug?source_template_project_id=7`]: { status: 404, body: { message: '404 Template Not Found' } },
+    })
+
+    await expect(instance.repos.templates(repo, { kind: 'issue' })).resolves.toMatchObject([{ body: 'From the closest group' }])
+  })
+
   it('asks only for a read scope', () => {
     expect(provider().instance.scopesFor('repos.templates')).toEqual({ token: ['read_api'] })
   })

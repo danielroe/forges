@@ -80,6 +80,7 @@ import type {
   GitLabNote,
   GitLabNoteDetail,
   GitLabPipeline,
+  GitLabProject,
   GitLabProjectDetail,
   GitLabProjectSettings,
   GitLabRelease,
@@ -289,17 +290,33 @@ const GITLAB: ProviderDefinition<GitLabOptions, undefined, true> = {
       return `/projects/${projectId(repo)}`
     }
 
-    /** The listing gives only names, group templates included, so every body costs one more request. */
+    /**
+     * The listing gives only names, group templates included, so every body costs one more request. A name in both
+     * the project and a group reads as the group's template unless the project's id picks the project's own.
+     */
     async function templates(repo: RepoRef, options: RepoTemplateOptions = {}): Promise<RepoTemplate[]> {
       const signal = options.signal
       const kinds = options.kind ? [options.kind] : ['issue', 'pull_request'] as const
       const found = await Promise.all(kinds.map(async (kind) => {
         const type = kind === 'issue' ? 'issues' : 'merge_requests'
         const names = await Array.fromAsync(iteratePages(listOptions => list(`${projectPath(repo)}/templates/${type}`, { ...listOptions, perPage: 100, signal }, (raw: GitLabTemplateName) => raw)))
-        return mapConcurrent(names, 4, async ({ key }) => {
-          const { data } = await fetcher.json<GitLabTemplate>(`${projectPath(repo)}/templates/${type}/${encodeURIComponent(key)}`, { signal })
-          return { kind, name: data.name, format: 'markdown', body: data.content, raw: data } satisfies RepoTemplate
-        })
+        const keys = [...new Set(names.map(({ key }) => key))]
+        const shared = keys.filter(key => names.filter(name => name.key === key).length > 1)
+        const id = shared.length ? repo.externalId ?? String((await fetcher.json<GitLabProject>(projectPath(repo), { signal })).data.id) : undefined
+        const read = async (key: string, source?: string): Promise<RepoTemplate> => {
+          const { data } = await fetcher.json<GitLabTemplate>(`${projectPath(repo)}/templates/${type}/${encodeURIComponent(key)}`, { query: { source_template_project_id: source }, signal })
+          return { kind, name: data.name, format: 'markdown', body: data.content, raw: data }
+        }
+        const [inherited, own] = await Promise.all([
+          mapConcurrent(keys, 4, key => read(key)),
+          mapConcurrent(shared, 4, key => read(key, id).catch((error: unknown) => {
+            if (error instanceof NotFoundError) {
+              return undefined
+            }
+            throw error
+          })),
+        ])
+        return [...inherited, ...own.filter(template => template !== undefined)]
       }))
       return found.flat()
     }
