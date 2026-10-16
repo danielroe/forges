@@ -704,7 +704,12 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
 
   /** The recorded events that `match`, newest first, as a feed reads them. */
   function feed(match: (event: ForgeEvent) => boolean): ForgeEvent[] {
-    return store.events.filter(match).toReversed().map(event => ({ ...event, source: 'poll' }))
+    return store.events.filter(match).toReversed().map(event => polled(event, 'feed'))
+  }
+
+  /** Each listing gives an event an id of its own. */
+  function polled(event: ForgeEvent, listing: 'feed' | 'timeline'): ForgeEvent {
+    return { ...event, id: `${listing}-${event.id}`, source: 'poll' }
   }
 
   function record(thread: ThreadRef, kind: EventKind, action: EventAction, summary: string, detail?: EventDetail): void {
@@ -1060,6 +1065,9 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
     throw notFound(`No review comment ${comment.ref?.id ?? comment.thread?.id}`)
   }
 
+  /** An `'emulated'` `markDone()` marks the notification read and keeps it. */
+  const markDone = support('notifications.markDone', true)
+
   const factory = defineForgeProvider<FakeOptions>({
     forge,
     baseUrl: `https://${instance}`,
@@ -1176,7 +1184,7 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
         }),
         listFilters: ['involves', 'mentions', 'milestone'],
         getMany: verb(support('threads.getMany', true), refs => getManyConcurrently(refs, async ref => threadState(ref).thread)),
-        eventsPage: verb(true, async (ref, listOptions = {}) => conditional(pageOf(store.events.filter(event => event.thread?.repo.owner === ref.repo.owner && event.thread.repo.name === ref.repo.name && event.thread.number === ref.number), listOptions), listOptions)),
+        eventsPage: verb(true, async (ref, listOptions = {}) => conditional(pageOf(store.events.filter(event => event.thread?.repo.owner === ref.repo.owner && event.thread.repo.name === ref.repo.name && event.thread.number === ref.number).map(event => polled(event, 'timeline')), listOptions), listOptions)),
         commentsPage: perKind(kinds('threads.comments', ALL_KINDS), async (ref, listOptions = {}) => conditional(pageOf(threadState(ref).comments, listOptions), listOptions)),
         reactionsPage: perKind(kinds('threads.reactions', ALL_KINDS), async (target, listOptions = {}) => {
           const thread = 'thread' in target ? target.thread : target
@@ -1548,7 +1556,14 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
             notification.unread = false
           }
         }),
-        markDone: verb(support('notifications.markDone', true), async (ref) => {
+        markDone: verb(markDone, async (ref) => {
+          if (markDone === 'emulated') {
+            const notification = store.notifications.find(item => item.ref.id === ref.id)
+            if (notification) {
+              notification.unread = false
+            }
+            return
+          }
           store.notifications = store.notifications.filter(item => item.ref.id !== ref.id)
         }),
         unsubscribe: verb(support('notifications.unsubscribe', true), async (ref) => {

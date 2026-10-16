@@ -548,6 +548,33 @@ describe('fake listing filters', () => {
   })
 })
 
+describe('fake event sources', () => {
+  it('reads polled events with source poll and an id of the listing\'s own', async () => {
+    const factory = fake({ seed })
+    const forge = factory.create()
+    const issue = { forge: 'fake', instance: 'fake.test', repo: { forge: 'fake', instance: 'fake.test', owner: 'acme', name: 'widgets' }, kind: 'issue', number: '1' } as const
+    await forge.threads.comment(issue, 'Hello')
+
+    const [timeline] = (await forge.threads.eventsPage(issue)).items
+    const [feed] = (await forge.repos.eventsPage(issue.repo)).items
+    const [pushed] = factory.store.events
+
+    expect([pushed!.source, timeline!.source, feed!.source]).toEqual(['subscribe', 'poll', 'poll'])
+    expect(new Set([pushed!.id, timeline!.id, feed!.id]).size).toBe(3)
+    expect(timeline!.detail).toEqual(pushed!.detail)
+  })
+
+  it('marks a notification read and keeps it on done where done is emulated', async () => {
+    const forge = fake({ seed, support: { 'notifications.markDone': 'emulated' } }).create()
+    const [notification] = (await forge.notifications.listPage()).items
+
+    await forge.notifications.markDone(notification!.ref)
+
+    expect((await forge.notifications.listPage()).items).toEqual([])
+    expect((await forge.notifications.listPage({ all: true })).items).toMatchObject([{ ref: notification!.ref, unread: false }])
+  })
+})
+
 describe('fake webhook management', () => {
   it('registers, updates and removes a hook without ever returning its secret', async () => {
     const factory = fake({ seed })
