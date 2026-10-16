@@ -376,6 +376,7 @@ export interface GitHubContentFile {
   size?: number
   encoding?: string
   content?: string
+  url?: string
   html_url?: string | null
   download_url?: string | null
 }

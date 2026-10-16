@@ -107,9 +107,11 @@ GitHub computes the statistics behind `repos.contributorStats()` in the backgrou
 
 ## Templates
 
-GitHub has no REST endpoint for templates, and GraphQL's `issueTemplates` quietly skips issue forms. So `repos.templates()` walks the folders GitHub itself reads: `.github/ISSUE_TEMPLATE/` for issues, and `.github/`, the root or `docs/` for the pull request template, first match wins. Every file in a `PULL_REQUEST_TEMPLATE/` folder comes after it. It's one request per folder and one per template.
+`repos.templates()` reads the folders GitHub reads: `.github/ISSUE_TEMPLATE/` for issues, forms first and then Markdown templates, as in the template chooser, and `.github/`, the root or `docs/` for the pull request template, first match wins. Every file in a `PULL_REQUEST_TEMPLATE/` folder comes after it. It's one request per folder and one per template.
 
-When a repository has nothing of a kind, the templates come from the owner's `.github` repository, like on the web, and carry it in `source`. A lone `config.yml` in `.github/ISSUE_TEMPLATE/` still counts as having issue templates, so GitHub skips the fallback, and so does the provider. GitHub parses neither forms nor front matter for you, so `body` is the raw file and `fields` stays empty.
+When a repository has nothing of a kind, the templates come from the `.github` repository of its owner, like on the web, and carry it in `source`. That is the owner the repository lives under now, so a transferred repository gets the templates of its new owner. The provider uses a `.github` repository only while it is public, or internal, as GitHub does, which costs one more request. A lone `config.yml` in `.github/ISSUE_TEMPLATE/` still counts as having issue templates, so GitHub skips the fallback, and so does the provider. If reading the `.github` repository fails for any reason other than a `404`, `repos.templates()` rejects.
+
+The provider returns each file as it is, so `body` is the raw file, `name` is the file name, and `title`, `about`, `labels` and `fields` stay empty. Parse the front matter or the form in `body` for the name GitHub shows.
 
 ## Merging
 

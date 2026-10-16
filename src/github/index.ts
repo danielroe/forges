@@ -1343,16 +1343,14 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
 
   async function templates(repo: RepoRef, options: RepoTemplateOptions = {}): Promise<RepoTemplate[]> {
     const signal = options.signal
-    return (await import('./templates.ts')).readTemplates(
-      repo,
-      options.kind ? [options.kind] : ['issue', 'pull_request'],
-      async (ref, path) => {
+    return (await import('./templates.ts')).readTemplates(repo, options.kind ? [options.kind] : ['issue', 'pull_request'], {
+      list: async (ref, path) => {
         const { data } = await fetcher.json<GitHubContentFile[] | GitHubContentFile>(`${repoPath(ref)}/contents${path ? `/${path.split('/').map(encodeURIComponent).join('/')}` : ''}`, { signal })
         return Array.isArray(data) ? data : []
       },
-      async (ref, path) => (await readFile(ref, path, { as: 'text', signal })).content as string,
-      signal,
-    )
+      read: async (ref, path) => (await readFile(ref, path, { as: 'text', signal })).content as string,
+      repository: async ref => (await fetcher.json<GitHubRepositoryDetail>(repoPath(ref), { signal })).data,
+    })
   }
 
   async function treePage(repo: RepoRef, treeOptions: TreeOptions = {}): Promise<Page<TreeEntry>> {
