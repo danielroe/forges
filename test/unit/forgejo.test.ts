@@ -696,6 +696,29 @@ describe('forgejo templates', () => {
   })
 })
 
+describe('forgejo thread listing filters', () => {
+  it('leaves out the filters the listing does not apply, with a warning on the first page only', async () => {
+    const urls: string[] = []
+    const fetch = async (input: string | URL | Request) => {
+      urls.push(String(input))
+      return new Response('[]', { headers: { 'content-type': 'application/json', 'link': '<https://codeberg.org/api/v1/repos/acme/widgets/issues?page=2>; rel="next"' } })
+    }
+    const instance = forgejo({ auth: { type: 'token', token: 't' }, fetch }).create()
+    const repo = { forge: 'forgejo', instance: 'codeberg.org', owner: 'acme', name: 'widgets' } as const
+
+    const first = await instance.threads.listPage(repo, { kind: 'issue', involves: 'ada', mentions: 'ada', milestone: 'v1' })
+    const next = await instance.threads.listPage(repo, { kind: 'issue', involves: 'ada', cursor: { nextUrl: 'https://codeberg.org/api/v1/repos/acme/widgets/issues?page=2' } })
+
+    expect(first.warnings?.filter(warning => warning.code === 'filter_unsupported').map(warning => warning.message)).toEqual([
+      'This listing has no involves filter; it was ignored',
+      'This listing has no mentions filter; it was ignored',
+      'This listing has no milestone filter; it was ignored',
+    ])
+    expect(next.warnings?.some(warning => warning.code === 'filter_unsupported')).toBeFalsy()
+    expect(urls.some(url => /ada|=v1/.test(url))).toBe(false)
+  })
+})
+
 describe('forgejo getMany', () => {
   const repo = { forge: 'forgejo', instance: 'codeberg.org', owner: 'acme', name: 'widgets' } as const
   const refs = Array.from({ length: 8 }, (_, index) => ({ forge: 'forgejo', instance: 'codeberg.org', repo, kind: 'issue', number: String(index + 1) }) as const)

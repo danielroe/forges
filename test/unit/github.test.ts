@@ -1289,6 +1289,61 @@ describe('github release assets', () => {
   })
 })
 
+describe('github thread listing filters', () => {
+  function listing(milestones: Array<{ number: number, title: string }> = []) {
+    const urls: URL[] = []
+    const fetch = async (input: string | URL | Request) => {
+      const url = new URL(String(input))
+      urls.push(url)
+      const body = url.pathname.endsWith('/milestones')
+        ? milestones.map(milestone => ({ ...milestone, id: milestone.number, state: 'open' }))
+        : url.pathname.startsWith('/search/') ? { total_count: 0, items: [] } : []
+      return new Response(JSON.stringify(body), { headers: { 'content-type': 'application/json' } })
+    }
+    return { urls, provider: github({ auth: { type: 'token', token: 't' }, fetch }).create() }
+  }
+
+  it('sends mentions and the number of the milestone titled in the query, reading pull requests from the issues listing', async () => {
+    const { urls, provider } = listing([{ number: 3, title: 'v2' }, { number: 7, title: '3' }])
+
+    await provider.threads.listPage(repo, { kind: 'pull_request', mentions: 'ada', milestone: '3' })
+
+    expect(urls.map(url => url.pathname)).toEqual(['/repos/acme/widgets/milestones', '/repos/acme/widgets/issues'])
+    expect(urls[0]!.searchParams.get('state')).toBe('all')
+    expect(urls[1]!.searchParams.get('mentioned')).toBe('ada')
+    expect(urls[1]!.searchParams.get('milestone')).toBe('7')
+  })
+
+  it('lists nothing for a milestone title the repository lacks, and passes none on', async () => {
+    const { urls, provider } = listing()
+
+    const missing = await provider.threads.listPage(repo, { milestone: 'v9' })
+    await provider.threads.listPage(repo, { milestone: 'none' })
+
+    expect(missing.items).toEqual([])
+    expect(urls.map(url => url.pathname)).toEqual(['/repos/acme/widgets/milestones', '/repos/acme/widgets/issues'])
+    expect(urls[1]!.searchParams.get('milestone')).toBe('none')
+  })
+
+  it('warns that the issues listing has no involves filter', async () => {
+    const { urls, provider } = listing()
+
+    const page = await provider.threads.listPage(repo, { involves: 'ada' })
+
+    expect(page.warnings?.map(warning => warning.code)).toEqual(['filter_unsupported'])
+    expect(urls[0]!.search).not.toContain('ada')
+  })
+
+  it('adds mentions and the milestone to the search behind merged pull requests', async () => {
+    const { urls, provider } = listing()
+
+    await provider.threads.listPage(repo, { state: 'merged', involves: 'ada', mentions: 'bob', milestone: 'v "2"' })
+
+    expect(urls[0]!.searchParams.get('q')).toContain('is:merged mentions:bob milestone:"v 2"')
+    expect(urls[0]!.searchParams.get('q')).toContain('involves:ada')
+  })
+})
+
 describe('github search', () => {
   it('translates a structured query into qualifiers and reads the repo from each result', async () => {
     const { provider, calls } = tokenProvider()

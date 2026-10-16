@@ -1504,7 +1504,10 @@ export interface ThreadQuery extends PageOptions {
   author?: string
   /** Assignee login. */
   assignee?: string
-  /** Threads the login authored, is assigned, commented on or was mentioned in. */
+  /**
+   * Threads the login authored, is assigned, commented on or was mentioned in.
+   * A listing without this filter ignores it and warns with `filter_unsupported`, as for `mentions` and `milestone`.
+   */
   involves?: string
   /** Threads the login was mentioned in. */
   mentions?: string

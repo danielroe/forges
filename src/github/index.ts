@@ -32,6 +32,7 @@ import type {
   MergeMethod,
   MergeOptions,
   MergeResult,
+  Milestone,
   Notification,
   NotificationListOptions,
   NotificationRef,
@@ -564,9 +565,17 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
       if (query.assignee) {
         return { items: [], warnings: [{ code: 'filter_unsupported', message: 'Discussions have no assignees' }] }
       }
+      if (query.milestone && query.milestone !== 'none') {
+        return { items: [], warnings: [{ code: 'filter_unsupported', message: 'Discussions have no milestones' }] }
+      }
       const warnings: ForgeWarning[] = isFirstPage(query.cursor) && query.sort === 'comments'
         ? [{ code: 'sort_unsupported', message: 'Discussions cannot be sorted by comments; sorted by update time' }]
         : []
+      for (const filter of ['involves', 'mentions'] as const) {
+        if (isFirstPage(query.cursor) && query[filter]) {
+          warnings.push({ code: 'filter_unsupported', message: `GitHub lists discussions without a ${filter} filter; it was ignored` })
+        }
+      }
       const data: { repository: { discussions: { pageInfo: { hasNextPage: boolean, endCursor: string | null }, nodes: GraphQLDiscussion[] } } | null } = await graphql('DISCUSSIONS_LIST', {
         owner: repo.owner,
         name: repo.name,
@@ -599,7 +608,12 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
         assignee: query.assignee,
         involves: query.involves,
         since: query.since,
-        queryRaw: `is:merged${query.createdAfter ? ` created:>=${query.createdAfter.toISOString()}` : ''}`,
+        queryRaw: [
+          'is:merged',
+          query.createdAfter && `created:>=${query.createdAfter.toISOString()}`,
+          query.mentions && `mentions:${query.mentions}`,
+          query.milestone && (query.milestone === 'none' ? 'no:milestone' : `milestone:"${query.milestone.replaceAll('"', '')}"`),
+        ].filter(Boolean).join(' '),
         sort: query.sort ?? 'created',
         direction,
         perPage: query.perPage,
@@ -609,14 +623,25 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
       await withPullChecks(page, query)
       return page
     }
-    // `/pulls` returns full pages but has no label, author, assignee or since filter.
-    const pullsOnly = query.kind === 'pull_request' && !query.labels?.length && !query.author && !query.assignee && !query.since && query.sort !== 'comments'
+    const milestone = query.milestone === undefined || query.milestone === 'none' || !isFirstPage(query.cursor)
+      ? query.milestone
+      : await milestoneNumber(repo, query.milestone, query)
+    if (milestone === null) {
+      return { items: [] }
+    }
+    const warnings: ForgeWarning[] = isFirstPage(query.cursor) && query.involves
+      ? [{ code: 'filter_unsupported', message: 'GitHub lists issues and pull requests without an involves filter; it was ignored. search.threads() has one' }]
+      : []
+    // `/pulls` returns full pages but has no label, author, assignee, mention, milestone or since filter.
+    const pullsOnly = query.kind === 'pull_request' && !query.labels?.length && !query.author && !query.assignee && !query.mentions && !query.milestone && !query.since && query.sort !== 'comments'
     const result = await fetcher.page<GitHubIssue>(`${repoPath(repo)}/${pullsOnly ? 'pulls' : 'issues'}`, {
       query: {
         state,
         labels: query.labels?.join(','),
         creator: query.author,
         assignee: query.assignee,
+        mentioned: query.mentions,
+        milestone,
         since: query.since?.toISOString(),
         sort: query.sort ?? 'created',
         direction,
@@ -635,7 +660,18 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
     })
     const ordered = (query.sort ?? 'created') === 'created' && direction === 'desc'
     await withPullChecks(page, query)
-    return ordered && (result.data ?? []).some(older) ? { ...page, cursor: undefined } : page
+    const listed = warnings.length ? { ...page, warnings: [...warnings, ...page.warnings ?? []] } : page
+    return ordered && (result.data ?? []).some(older) ? { ...listed, cursor: undefined } : listed
+  }
+
+  /** The number of the milestone titled `title`, or `null` when the repository has none by that title. */
+  async function milestoneNumber(repo: RepoRef, title: string, options: BaseOptions): Promise<string | null> {
+    for await (const milestone of iteratePages<Milestone, MilestoneListOptions>(page => milestonesPage(repo, page), { state: 'all', signal: options.signal })) {
+      if (milestone.title === title) {
+        return milestone.id
+      }
+    }
+    return null
   }
 
   /** Fills `checks`, and a missing `commentCount`, on every pull in the page with one batched read. */
@@ -1893,6 +1929,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
       get: perKind({ issue: true, pull_request: true, discussion: !anonymous, commit: true }, get),
       getMany: verb(true, getMany),
       listPage: perKind({ ...ISSUE_LIKE, discussion: !anonymous }, listPage),
+      listFilters: ['involves', 'mentions', 'milestone'],
       eventsPage: verb(true, async (thread: ThreadRef, listOptions: ListOptions = {}): Promise<Page<ForgeEventInput>> => {
         const ref = requireThread(thread, context)
         if (ref.kind === 'discussion') {

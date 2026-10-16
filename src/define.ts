@@ -51,6 +51,11 @@ export type SupportInput = Support | ((env: CapabilityEnv) => Support)
 /** The thread kinds that verbs can differ by. */
 export type VerbKind = Exclude<ThreadKind, 'other'>
 
+/** The `ThreadQuery` filters that a provider declares in `threads.listFilters` when its listing applies them. */
+export type ThreadFilter = 'involves' | 'mentions' | 'milestone'
+
+const THREAD_FILTERS: readonly ThreadFilter[] = ['involves', 'mentions', 'milestone']
+
 /** The security alert kinds that support can differ by. */
 export type AlertKind = Exclude<SecurityAlertKind, 'other'>
 
@@ -146,6 +151,11 @@ export interface ProviderSpec<TExtensions extends object = Record<never, never>>
   threads: {
     get: ThreadVerb<'get'>
     listPage: ThreadVerb<'listPage'>
+    /**
+     * The {@link ThreadFilter}s that `listPage` applies, or reports with its own warning. Core leaves the others out
+     * of the query and adds a `filter_unsupported` warning to the first page.
+     */
+    listFilters?: readonly ThreadFilter[]
     getMany: Verb<ThreadsApi['getMany']>
     eventsPage: Verb<(ref: ThreadRef, options?: ListOptions) => Promise<Page<ForgeEventInput>>>
     commentsPage: ThreadVerb<'commentsPage'>
@@ -599,12 +609,22 @@ function createProvider<TOptions extends ForgeOptionsBase, TState, HasWeb extend
     'search.reposPage': search('reposPage'),
     'search.commitsPage': search('commitsPage'),
     'search.codePage': search('codePage'),
-    'threads.listPage': async (repo: RepoRef, query: ThreadQuery = {}) => {
-      if (query.state === 'merged' && query.kind && query.kind !== 'pull_request') {
+    'threads.listPage': async (repo: RepoRef, given: ThreadQuery = {}) => {
+      if (given.state === 'merged' && given.kind && given.kind !== 'pull_request') {
         return { items: [] }
       }
+      const query = { ...given }
+      const ignored = THREAD_FILTERS.filter(filter => query[filter] !== undefined && !spec.threads.listFilters?.includes(filter))
+      for (const filter of ignored) {
+        delete query[filter]
+      }
       const run = (cursor: Cursor | undefined) => listThreads(repo, { ...query, ...query.state === 'merged' ? { kind: 'pull_request' } : {}, cursor })
-      return nonEmptyPage(run, query.cursor)
+      const page = await nonEmptyPage(run, query.cursor)
+      if (!ignored.length || !isFirstPage(query.cursor)) {
+        return page
+      }
+      const warnings = ignored.map(filter => ({ code: 'filter_unsupported', message: `This listing has no ${filter} filter; it was ignored` }))
+      return { ...page, warnings: [...warnings, ...page.warnings ?? []] }
     },
     'repos.byOwnerPage': (owner: RepoRef, query: OwnerRepoQuery = {}) => nonEmptyPage(async (cursor) => {
       const page: Page<Repo> = await listOwnerRepos(owner, { ...query, cursor })
