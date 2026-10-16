@@ -1,4 +1,4 @@
-import type { SupportInput, VerbKind } from '../define.ts'
+import type { AlertKind, SupportInput, VerbKind } from '../define.ts'
 import type {
   Actor,
   ChangedFile,
@@ -38,6 +38,10 @@ import type {
   ReviewEvent,
   ReviewInput,
   ReviewState,
+  SecurityAlert,
+  SecurityAlertKind,
+  SecurityAlertListOptions,
+  SecuritySeverity,
   SubscriptionState,
   Thread,
   ThreadKind,
@@ -215,6 +219,23 @@ export interface FakeReleaseSeed {
   assets?: Array<{ name: string, content: string | Uint8Array, contentType?: string }>
 }
 
+/** A security alert to seed. Alerts of each kind are numbered separately, from 1. */
+export interface FakeSecurityAlertSeed {
+  /** The repository as `owner/name`. */
+  repo: string
+  kind: Exclude<SecurityAlertKind, 'other'>
+  title: string
+  /**
+   * @default medium
+   */
+  severity?: SecuritySeverity
+  /**
+   * @default open
+   */
+  state?: 'open' | 'fixed' | 'dismissed'
+  package?: SecurityAlert['package']
+}
+
 /** The data a fake forge starts with. */
 export interface FakeSeed {
   repos?: FakeRepoSeed[]
@@ -224,6 +245,7 @@ export interface FakeSeed {
   threads?: FakeThreadSeed[]
   notifications?: FakeNotificationSeed[]
   releases?: FakeReleaseSeed[]
+  securityAlerts?: FakeSecurityAlertSeed[]
 }
 
 /** Support for one verb: a level, or a level per thread kind for per-kind verbs. */
@@ -289,6 +311,7 @@ export interface FakeStore {
     branches: Map<string, string>
     /** Seeded release asset bytes, keyed by `<releaseId>:<assetName>`. */
     assets: Map<string, Uint8Array>
+    securityAlerts: SecurityAlert[]
   }>
   notifications: Notification[]
   /** Every event a write produced, in order. */
@@ -587,6 +610,7 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
       commits: [],
       branches: new Map(),
       assets: new Map(),
+      securityAlerts: [],
     })
   }
 
@@ -844,6 +868,30 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
     })
   }
 
+  for (const seed of options.seed?.securityAlerts ?? []) {
+    const repo = store.repos.get(seed.repo) ?? (addRepo({ repo: seed.repo }), store.repos.get(seed.repo)!)
+    const id = String(repo.securityAlerts.filter(alert => alert.kind === seed.kind).length + 1)
+    const severity = seed.severity ?? 'medium'
+    const state = seed.state ?? 'open'
+    const at = now()
+    repo.securityAlerts.push({
+      ref: { ...origin, repo: repo.repo.ref, id, kind: seed.kind, severityRaw: severity },
+      kind: seed.kind,
+      kindRaw: seed.kind,
+      severity,
+      severityRaw: severity,
+      state,
+      stateRaw: state,
+      title: seed.title,
+      package: seed.package,
+      url: `https://${instance}/${seed.repo}/security/${seed.kind}/${id}`,
+      createdAt: at,
+      updatedAt: at,
+      ...state === 'dismissed' ? { dismissedAt: at } : {},
+      raw: seed,
+    })
+  }
+
   const givenSupport = (name: ForgeVerb): FakeSupport | undefined => options.support?.[name] ?? (options.capabilities && capabilityOf(options.capabilities, name))
   const support = (name: ForgeVerb, fallback: SupportInput): SupportInput => {
     const given = givenSupport(name)
@@ -1064,6 +1112,14 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
     }
     throw notFound(`No review comment ${comment.ref?.id ?? comment.thread?.id}`)
   }
+
+  const alertKinds = ((): Partial<Record<AlertKind, SupportInput>> => {
+    const given = givenSupport('securityAlerts.list') as SupportInput | Partial<Record<AlertKind, SupportInput>> | undefined
+    if (given !== undefined && typeof given === 'object') {
+      return given
+    }
+    return { dependency: given ?? true, code_scanning: given ?? true, secret: given ?? true }
+  })()
 
   /** An `'emulated'` `markDone()` marks the notification read and keeps it. */
   const markDone = support('notifications.markDone', true)
@@ -1581,6 +1637,15 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
           store.notifications = store.notifications.filter(item => !inBulk(item, bulk))
         }),
         unreadCount: verb(support('notifications.unreadCount', true), async () => store.notifications.filter(item => item.unread).length),
+      },
+      securityAlerts: {
+        kinds: alertKinds,
+        listPage: request('securityAlerts.listPage', async (repo: RepoRef, listOptions: SecurityAlertListOptions = {}) => {
+          const state = listOptions.state ?? 'open'
+          const items = repoState(repo).securityAlerts.filter(alert => (!listOptions.kind || alert.kind === listOptions.kind)
+            && (state === 'all' || (state === 'open') === (alert.state === 'open')))
+          return conditional(pageOf(items.toReversed(), listOptions), listOptions)
+        }) as (repo: RepoRef, options?: SecurityAlertListOptions) => Promise<Page<SecurityAlert>>,
       },
       sources: {
         subscribe: verb(support('sources.subscribe', true), (subscribeOptions: SubscribeOptions = {}) => subscribeTo(subscribeOptions)),

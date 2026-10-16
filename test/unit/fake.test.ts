@@ -575,6 +575,28 @@ describe('fake event sources', () => {
   })
 })
 
+describe('fake security alerts', () => {
+  const repo = { forge: 'fake', instance: 'fake.test', owner: 'acme', name: 'widgets' } as const
+  const forge = fake({
+    seed: {
+      securityAlerts: [
+        { repo: 'acme/widgets', kind: 'dependency', title: 'Prototype pollution', severity: 'high', package: { ecosystem: 'npm', name: 'lodash', fixedIn: '4.17.21' } },
+        { repo: 'acme/widgets', kind: 'secret', title: 'Token in config' },
+        { repo: 'acme/widgets', kind: 'dependency', title: 'ReDoS', state: 'fixed' },
+      ],
+    },
+  }).create()
+
+  it('lists seeded alerts by kind and state, numbering each kind separately', async () => {
+    const open = await forge.securityAlerts.listPage(repo)
+    const closed = await forge.securityAlerts.listPage(repo, { kind: 'dependency', state: 'closed' })
+
+    expect(open.items.map(alert => [alert.kind, alert.ref.id, alert.severity])).toEqual([['secret', '1', 'medium'], ['dependency', '1', 'high']])
+    expect(closed.items).toMatchObject([{ ref: { id: '2', kind: 'dependency' }, title: 'ReDoS', state: 'fixed' }])
+    expect(forge.capabilities.securityAlerts).toMatchObject({ dependency: true, code_scanning: true, secret: true })
+  })
+})
+
 describe('fake webhook management', () => {
   it('registers, updates and removes a hook without ever returning its secret', async () => {
     const factory = fake({ seed })
