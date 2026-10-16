@@ -40,7 +40,7 @@ export async function readTemplates(repo: RepoRef, kinds: TemplateKind[], list: 
   }
 }
 
-/** A chooser `config.yml` alone still makes issue templates the repository's own, so GitHub skips the `.github` ones. */
+/** A chooser `config.yml` alone still makes issue templates the repository's own, while any other file there doesn't. */
 async function templatesOf(repo: RepoRef, kinds: TemplateKind[], list: ListDirectory, read: ReadText) {
   const root = await list(repo, '')
   const locations = await Promise.all(LOCATIONS.map(directory => !directory
@@ -66,7 +66,7 @@ async function templatesOf(repo: RepoRef, kinds: TemplateKind[], list: ListDirec
     else if (legacy) {
       found.push({ kind: 'issue', format: 'markdown', entry: legacy })
     }
-    ownsIssues = issueFiles.length > 0 || legacy !== undefined
+    ownsIssues = templates.length > 0 || issueFiles.some(entry => CHOOSER_CONFIG.test(entry.name)) || legacy !== undefined
   }
   if (kinds.includes('pull_request')) {
     const single = firstFile(locations, 'pull_request_template')

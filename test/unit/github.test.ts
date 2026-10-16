@@ -789,6 +789,22 @@ describe('github templates', () => {
     expect(calls.map(call => new URL(call.url).pathname)).not.toContain('/repos/acme/.github/contents/.github/ISSUE_TEMPLATE')
   })
 
+  it('still falls back for issues when the template folder holds nothing GitHub reads', async () => {
+    const { provider } = tokenProvider({
+      [`GET ${api}/widgets/contents`]: contentsListing('.github/'),
+      [`GET ${api}/widgets/contents/.github`]: contentsListing('.github/ISSUE_TEMPLATE/'),
+      [`GET ${api}/widgets/contents/.github/ISSUE_TEMPLATE`]: contentsListing('.github/ISSUE_TEMPLATE/README.txt'),
+      [`GET ${api}/.github/contents`]: contentsListing('.github/'),
+      [`GET ${api}/.github/contents/.github`]: contentsListing('.github/ISSUE_TEMPLATE/'),
+      [`GET ${api}/.github/contents/.github/ISSUE_TEMPLATE`]: contentsListing('.github/ISSUE_TEMPLATE/bug.yml'),
+      [`GET ${api}/.github/contents/.github/ISSUE_TEMPLATE/bug.yml`]: contentsFile('.github/ISSUE_TEMPLATE/bug.yml', 'name: Bug\n'),
+    })
+
+    const templates = await provider.repos.templates(repo, { kind: 'issue' })
+
+    expect(templates).toMatchObject([{ kind: 'issue', path: '.github/ISSUE_TEMPLATE/bug.yml', source: { name: '.github' } }])
+  })
+
   it('keeps the repository\'s own templates when the `.github` fallback fails', async () => {
     const refused = { status: 403, body: { message: 'Resource not accessible by integration' } }
     const own = {
