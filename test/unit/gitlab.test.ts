@@ -800,4 +800,8 @@ describe('gitlab templates', () => {
     expect(templates).toEqual([{ kind: 'pull_request', name: 'Security fix', format: 'markdown', body: '## Impact\n', raw: { name: 'Security fix', content: '## Impact\n' } }])
     expect(calls.some(call => call.url.includes('/templates/issues'))).toBe(false)
   })
+
+  it('asks only for a read scope', () => {
+    expect(provider().instance.scopesFor('repos.templates')).toEqual({ token: ['read_api'] })
+  })
 })
