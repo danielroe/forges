@@ -1152,6 +1152,20 @@ export interface ForgeWarning {
   }
 }
 
+/**
+ * How the author of a thread or comment relates to its repository:
+ *
+ * - `owner` owns the repository.
+ * - `member` belongs to the organisation that owns it.
+ * - `collaborator` was invited to collaborate on it.
+ * - `contributor` has committed to it before.
+ * - `first_time_contributor` has not committed to it before.
+ * - `first_timer` has not committed to any repository on the forge before.
+ * - `none` has none of these, or is a placeholder for an unclaimed account.
+ * - `unknown` is an association with no normalised value; `authorAssociationRaw` names it.
+ */
+export type AuthorAssociation = 'owner' | 'member' | 'collaborator' | 'contributor' | 'first_time_contributor' | 'first_timer' | 'none' | 'unknown'
+
 /** An issue, pull request, discussion or commit conversation. */
 export interface Thread {
   ref: ResolvedThreadRef
@@ -1165,6 +1179,10 @@ export interface Thread {
   stateReason?: string
   isDraft: boolean
   author?: Actor
+  /** How the author relates to the repository, where the forge reports it. */
+  authorAssociation?: AuthorAssociation
+  /** Forge-native association the normalised `authorAssociation` was derived from. */
+  authorAssociationRaw?: string
   assignees: Actor[]
   /**
    * Reviewers the thread read reports. Some forges report outstanding requests
@@ -1217,6 +1235,10 @@ export interface Comment {
   ref: ResolvedCommentRef
   body: string
   author?: Actor
+  /** How the author relates to the repository, where the forge reports it. */
+  authorAssociation?: AuthorAssociation
+  /** Forge-native association the normalised `authorAssociation` was derived from. */
+  authorAssociationRaw?: string
   createdAt?: Date
   updatedAt?: Date
   url?: string

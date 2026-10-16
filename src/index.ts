@@ -48,6 +48,7 @@ export type {
   AddCollaboratorResult,
   AffectedKeys,
   ApproveAndMergeOptions,
+  AuthorAssociation,
   BaseOptions,
   Branch,
   ChangedFile,

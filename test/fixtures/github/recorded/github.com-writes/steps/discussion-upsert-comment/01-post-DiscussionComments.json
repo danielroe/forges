@@ -10,7 +10,7 @@
       "after": null
     },
     "body": {
-      "query": "query DiscussionComments($owner: String!, $name: String!, $number: Int!, $after: String) {\n  repository(owner: $owner, name: $name) {\n    discussion(number: $number) {\n      comments(first: 50, after: $after) {\n        pageInfo { hasNextPage endCursor }\n        nodes {\n          id databaseId body createdAt url\n          author { __typename login avatarUrl url ... on User { databaseId name } ... on Bot { databaseId } }\n          replies(first: 50) { nodes { id databaseId body createdAt url author { __typename login avatarUrl url ... on User { databaseId name } ... on Bot { databaseId } } } }\n        }\n      }\n    }\n  }\n}",
+      "query": "query DiscussionComments($owner: String!, $name: String!, $number: Int!, $after: String) {\n  repository(owner: $owner, name: $name) {\n    discussion(number: $number) {\n      comments(first: 50, after: $after) {\n        pageInfo { hasNextPage endCursor }\n        nodes {\n          id databaseId body createdAt url\n          author { __typename login avatarUrl url ... on User { databaseId name } ... on Bot { databaseId } } authorAssociation\n          replies(first: 50) { nodes { id databaseId body createdAt url author { __typename login avatarUrl url ... on User { databaseId name } ... on Bot { databaseId } } authorAssociation } }\n        }\n      }\n    }\n  }\n}",
       "variables": {
         "owner": "forges-fixtures",
         "name": "forges-fixtures",
@@ -24,8 +24,9 @@
     "status": 200,
     "headers": {
       "x-ratelimit-limit": "5000",
-      "x-ratelimit-remaining": "4984",
-      "x-ratelimit-reset": "1791808523"
+      "x-ratelimit-remaining": "4976",
+      "x-ratelimit-reset": "1792184408",
+      "x-ratelimit-resource": "graphql"
     },
     "body": {
       "data": {
@@ -51,6 +52,7 @@
                     "databaseId": 57801166,
                     "name": null
                   },
+                  "authorAssociation": "MEMBER",
                   "replies": {
                     "nodes": []
                   }
@@ -69,6 +71,7 @@
                     "databaseId": 57801166,
                     "name": null
                   },
+                  "authorAssociation": "MEMBER",
                   "replies": {
                     "nodes": []
                   }
@@ -77,7 +80,7 @@
                   "id": "DC_kwDOVCTdtM4BIBTS",
                   "databaseId": 18879698,
                   "body": "An edited comment from run 20261012113502.",
-                  "createdAt": "2026-10-12T11:35:51Z",
+                  "createdAt": "2026-10-16T20:01:21Z",
                   "url": "https://github.com/forges-fixtures/forges-fixtures/discussions/33#discussioncomment-18879698",
                   "author": {
                     "__typename": "User",
@@ -87,6 +90,7 @@
                     "databaseId": 57801166,
                     "name": null
                   },
+                  "authorAssociation": "MEMBER",
                   "replies": {
                     "nodes": []
                   }

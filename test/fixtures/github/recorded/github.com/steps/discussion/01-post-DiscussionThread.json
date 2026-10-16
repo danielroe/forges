@@ -13,8 +13,9 @@
     "status": 200,
     "headers": {
       "x-ratelimit-limit": "5000",
-      "x-ratelimit-remaining": "4940",
-      "x-ratelimit-reset": "1791737440"
+      "x-ratelimit-remaining": "4975",
+      "x-ratelimit-reset": "1792183590",
+      "x-ratelimit-resource": "graphql"
     },
     "body": {
       "data": {
@@ -39,6 +40,7 @@
               "databaseId": 11282659,
               "name": "Theo M Jones"
             },
+            "authorAssociation": "NONE",
             "labels": {
               "nodes": [
                 {

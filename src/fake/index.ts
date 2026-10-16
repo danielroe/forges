@@ -1,6 +1,7 @@
 import type { AlertKind, SupportInput, VerbKind } from '../define.ts'
 import type {
   Actor,
+  AuthorAssociation,
   ChangedFile,
   Check,
   ChecksSummary,
@@ -97,11 +98,12 @@ export interface FakeThreadSeed {
   isDraft?: boolean
   /** The login of the author. Defaults to the viewer. */
   author?: string
+  authorAssociation?: AuthorAssociation
   labels?: string[]
   assignees?: string[]
   /** The title of the milestone the thread belongs to. */
   milestone?: string
-  comments?: Array<{ body: string, author?: string }>
+  comments?: Array<{ body: string, author?: string, authorAssociation?: AuthorAssociation }>
   checks?: Array<{ name: string, state: CheckState }>
   /** Files the pull request changes. */
   files?: Array<{ path: string, status?: FileStatus, additions?: number, deletions?: number, patch?: string }>
@@ -670,6 +672,7 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
       state: seed.state ?? 'open',
       isDraft: seed.isDraft ?? false,
       author: actor(seed.author ?? viewerLogin),
+      ...seed.authorAssociation ? { authorAssociation: seed.authorAssociation } : {},
       assignees: (seed.assignees ?? []).map(actor),
       reviewers: [],
       labels: (seed.labels ?? []).map(label),
@@ -685,6 +688,7 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
       ref: { ...origin, thread: ref, id: `${number}-${index + 1}` },
       body: comment.body,
       author: actor(comment.author ?? viewerLogin),
+      ...comment.authorAssociation ? { authorAssociation: comment.authorAssociation } : {},
       createdAt: at,
       raw: comment,
     }))

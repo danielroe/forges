@@ -9,7 +9,7 @@
       "body": "Edited by run 20261012113502."
     },
     "body": {
-      "query": "mutation UpdateDiscussion($id: ID!, $title: String, $body: String) {\n  updateDiscussion(input: { discussionId: $id, title: $title, body: $body }) { discussion { id number title body closed stateReason url createdAt updatedAt closedAt locked\n      author { __typename login avatarUrl url ... on User { databaseId name } ... on Bot { databaseId } }\n      labels(first: 50) { nodes { name color description } }\n      comments { totalCount } } }\n}",
+      "query": "mutation UpdateDiscussion($id: ID!, $title: String, $body: String) {\n  updateDiscussion(input: { discussionId: $id, title: $title, body: $body }) { discussion { id number title body closed stateReason url createdAt updatedAt closedAt locked\n      author { __typename login avatarUrl url ... on User { databaseId name } ... on Bot { databaseId } } authorAssociation\n      labels(first: 50) { nodes { name color description } }\n      comments { totalCount } } }\n}",
       "variables": {
         "id": "D_kwDOVCTdtM4Ap5qt",
         "title": "forges fixture 20261012113502: discussion, edited",
@@ -22,8 +22,9 @@
     "status": 200,
     "headers": {
       "x-ratelimit-limit": "5000",
-      "x-ratelimit-remaining": "4976",
-      "x-ratelimit-reset": "1791808523"
+      "x-ratelimit-remaining": "4967",
+      "x-ratelimit-reset": "1792184408",
+      "x-ratelimit-resource": "graphql"
     },
     "body": {
       "data": {
@@ -37,7 +38,7 @@
             "stateReason": "REOPENED",
             "url": "https://github.com/forges-fixtures/forges-fixtures/discussions/33",
             "createdAt": "2026-10-09T14:18:08Z",
-            "updatedAt": "2026-10-12T11:35:58Z",
+            "updatedAt": "2026-10-16T20:01:34Z",
             "closedAt": null,
             "locked": false,
             "author": {
@@ -48,6 +49,7 @@
               "databaseId": 57801166,
               "name": null
             },
+            "authorAssociation": "MEMBER",
             "labels": {
               "nodes": []
             },

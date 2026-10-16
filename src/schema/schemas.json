@@ -115,6 +115,21 @@
     "description": "The credential types that a provider can accept.",
     "x-forges-type": "AuthKind"
   },
+  "AuthorAssociation": {
+    "type": "string",
+    "enum": [
+      "owner",
+      "member",
+      "collaborator",
+      "contributor",
+      "first_time_contributor",
+      "first_timer",
+      "none",
+      "unknown"
+    ],
+    "description": "How the author of a thread or comment relates to its repository:\n\n- `owner` owns the repository.\n- `member` belongs to the organisation that owns it.\n- `collaborator` was invited to collaborate on it.\n- `contributor` has committed to it before.\n- `first_time_contributor` has not committed to it before.\n- `first_timer` has not committed to any repository on the forge before.\n- `none` has none of these, or is a placeholder for an unclaimed account.\n- `unknown` is an association with no normalised value; `authorAssociationRaw` names it.",
+    "x-forges-type": "AuthorAssociation"
+  },
   "Branch": {
     "type": "object",
     "properties": {
@@ -556,6 +571,14 @@
       },
       "author": {
         "$ref": "#/components/schemas/Actor"
+      },
+      "authorAssociation": {
+        "$ref": "#/components/schemas/AuthorAssociation",
+        "description": "How the author relates to the repository, where the forge reports it."
+      },
+      "authorAssociationRaw": {
+        "type": "string",
+        "description": "Forge-native association the normalised `authorAssociation` was derived from."
       },
       "createdAt": {
         "type": "string",
@@ -4028,6 +4051,14 @@
       },
       "author": {
         "$ref": "#/components/schemas/Actor"
+      },
+      "authorAssociation": {
+        "$ref": "#/components/schemas/AuthorAssociation",
+        "description": "How the author relates to the repository, where the forge reports it."
+      },
+      "authorAssociationRaw": {
+        "type": "string",
+        "description": "Forge-native association the normalised `authorAssociation` was derived from."
       },
       "assignees": {
         "type": "array",

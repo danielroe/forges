@@ -7,7 +7,7 @@
       "id": "D_kwDOVCTdtM4Ap5qt"
     },
     "body": {
-      "query": "mutation ReopenDiscussion($id: ID!) {\n  reopenDiscussion(input: { discussionId: $id }) { discussion { id number title body closed stateReason url createdAt updatedAt closedAt locked\n      author { __typename login avatarUrl url ... on User { databaseId name } ... on Bot { databaseId } }\n      labels(first: 50) { nodes { name color description } }\n      comments { totalCount } } }\n}",
+      "query": "mutation ReopenDiscussion($id: ID!) {\n  reopenDiscussion(input: { discussionId: $id }) { discussion { id number title body closed stateReason url createdAt updatedAt closedAt locked\n      author { __typename login avatarUrl url ... on User { databaseId name } ... on Bot { databaseId } } authorAssociation\n      labels(first: 50) { nodes { name color description } }\n      comments { totalCount } } }\n}",
       "variables": {
         "id": "D_kwDOVCTdtM4Ap5qt"
       },
@@ -18,8 +18,9 @@
     "status": 200,
     "headers": {
       "x-ratelimit-limit": "5000",
-      "x-ratelimit-remaining": "4973",
-      "x-ratelimit-reset": "1792013021"
+      "x-ratelimit-remaining": "4965",
+      "x-ratelimit-reset": "1792184408",
+      "x-ratelimit-resource": "graphql"
     },
     "body": {
       "data": {
@@ -33,7 +34,7 @@
             "stateReason": "REOPENED",
             "url": "https://github.com/forges-fixtures/forges-fixtures/discussions/33",
             "createdAt": "2026-10-09T14:18:08Z",
-            "updatedAt": "2026-10-14T20:24:40Z",
+            "updatedAt": "2026-10-16T20:01:35Z",
             "closedAt": null,
             "locked": false,
             "author": {
@@ -44,6 +45,7 @@
               "databaseId": 57801166,
               "name": null
             },
+            "authorAssociation": "MEMBER",
             "labels": {
               "nodes": []
             },

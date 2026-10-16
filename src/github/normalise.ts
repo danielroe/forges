@@ -86,6 +86,7 @@ import { eventTime, reviewState } from '../events.ts'
 import { REACTION_CONTENTS } from '../model.ts'
 import { checkRunState, latestCommentOf, toDate, toFileStatus, toPullStats } from '../utils.ts'
 import { eventKindsOf } from '../webhooks.ts'
+import { toAuthorAssociation } from './association.ts'
 import { GITHUB_NATIVE_EVENTS } from './webhook-events.ts'
 
 export const FORGE = 'github' as const
@@ -449,6 +450,7 @@ export function toThread(ref: ResolvedThreadRef, raw: GitHubIssue): Thread {
     stateReason: raw.state_reason ?? undefined,
     isDraft: raw.draft ?? false,
     author: toActor(ref.instance, raw.user),
+    ...toAuthorAssociation(raw.author_association),
     assignees: (raw.assignees ?? []).flatMap(user => toActor(ref.instance, user) ?? []),
     reviewers: toReviewers(ref.instance, raw),
     labels: toLabels(raw.labels),
@@ -480,6 +482,7 @@ export function toComment(thread: ResolvedThreadRef, raw: GitHubComment): Commen
     ref: { forge: FORGE, instance: thread.instance, thread, id: String(raw.id) },
     body: raw.body ?? '',
     author: toActor(thread.instance, raw.user),
+    ...toAuthorAssociation(raw.author_association),
     createdAt: toDate(raw.created_at),
     updatedAt: toDate(raw.updated_at),
     url: raw.html_url,

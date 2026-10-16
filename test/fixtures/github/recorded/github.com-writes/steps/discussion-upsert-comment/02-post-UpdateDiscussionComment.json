@@ -8,7 +8,7 @@
       "body": "An upserted comment from run 20261012113502.\n\n<!-- forges:key=forges-fixture -->"
     },
     "body": {
-      "query": "mutation UpdateDiscussionComment($id: ID!, $body: String!) {\n  updateDiscussionComment(input: { commentId: $id, body: $body }) { comment { id databaseId body createdAt updatedAt url author { __typename login avatarUrl url ... on User { databaseId name } ... on Bot { databaseId } } } }\n}",
+      "query": "mutation UpdateDiscussionComment($id: ID!, $body: String!) {\n  updateDiscussionComment(input: { commentId: $id, body: $body }) { comment { id databaseId body createdAt updatedAt url author { __typename login avatarUrl url ... on User { databaseId name } ... on Bot { databaseId } } authorAssociation } }\n}",
       "variables": {
         "id": "DC_kwDOVCTdtM4BH241",
         "body": "An upserted comment from run 20261012113502.\n\n<!-- forges:key=forges-fixture -->"
@@ -20,8 +20,9 @@
     "status": 200,
     "headers": {
       "x-ratelimit-limit": "5000",
-      "x-ratelimit-remaining": "4983",
-      "x-ratelimit-reset": "1791808523"
+      "x-ratelimit-remaining": "4975",
+      "x-ratelimit-reset": "1792184408",
+      "x-ratelimit-resource": "graphql"
     },
     "body": {
       "data": {
@@ -31,7 +32,7 @@
             "databaseId": 18837045,
             "body": "An upserted comment from run 20261012113502.\n\n<!-- forges:key=forges-fixture -->",
             "createdAt": "2026-10-09T14:21:47Z",
-            "updatedAt": "2026-10-12T11:35:53Z",
+            "updatedAt": "2026-10-16T20:01:25Z",
             "url": "https://github.com/forges-fixtures/forges-fixtures/discussions/33#discussioncomment-18837045",
             "author": {
               "__typename": "User",
@@ -40,7 +41,8 @@
               "url": "https://github.com/danielroe-bot",
               "databaseId": 57801166,
               "name": null
-            }
+            },
+            "authorAssociation": "MEMBER"
           }
         }
       }

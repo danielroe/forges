@@ -8,7 +8,7 @@
       "reason": "RESOLVED"
     },
     "body": {
-      "query": "mutation CloseDiscussion($id: ID!, $reason: DiscussionCloseReason) {\n  closeDiscussion(input: { discussionId: $id, reason: $reason }) { discussion { id number title body closed stateReason url createdAt updatedAt closedAt locked\n      author { __typename login avatarUrl url ... on User { databaseId name } ... on Bot { databaseId } }\n      labels(first: 50) { nodes { name color description } }\n      comments { totalCount } } }\n}",
+      "query": "mutation CloseDiscussion($id: ID!, $reason: DiscussionCloseReason) {\n  closeDiscussion(input: { discussionId: $id, reason: $reason }) { discussion { id number title body closed stateReason url createdAt updatedAt closedAt locked\n      author { __typename login avatarUrl url ... on User { databaseId name } ... on Bot { databaseId } } authorAssociation\n      labels(first: 50) { nodes { name color description } }\n      comments { totalCount } } }\n}",
       "variables": {
         "id": "D_kwDOVCTdtM4Ap5qt",
         "reason": "RESOLVED"
@@ -20,8 +20,9 @@
     "status": 200,
     "headers": {
       "x-ratelimit-limit": "5000",
-      "x-ratelimit-remaining": "4974",
-      "x-ratelimit-reset": "1792013021"
+      "x-ratelimit-remaining": "4966",
+      "x-ratelimit-reset": "1792184408",
+      "x-ratelimit-resource": "graphql"
     },
     "body": {
       "data": {
@@ -35,8 +36,8 @@
             "stateReason": "RESOLVED",
             "url": "https://github.com/forges-fixtures/forges-fixtures/discussions/33",
             "createdAt": "2026-10-09T14:18:08Z",
-            "updatedAt": "2026-10-14T20:24:39Z",
-            "closedAt": "2026-10-14T20:24:39Z",
+            "updatedAt": "2026-10-16T20:01:34Z",
+            "closedAt": "2026-10-16T20:01:34Z",
             "locked": false,
             "author": {
               "__typename": "User",
@@ -46,6 +47,7 @@
               "databaseId": 57801166,
               "name": null
             },
+            "authorAssociation": "MEMBER",
             "labels": {
               "nodes": []
             },
