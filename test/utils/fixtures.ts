@@ -2,6 +2,7 @@ import type { FetchLike } from '../../src/fetch.ts'
 import type { Fixture, FixtureCall, FixtureFetch, FixtureFetchOptions } from '../../src/testing/index.ts'
 import { existsSync, readdirSync, readFileSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
+import { toBase64 } from '../../src/crypto.ts'
 import { fixtureFetch as serveFixtures } from '../../src/testing/index.ts'
 import { recordedSteps, SETUP_DIRECTORY } from '../recording/layout.ts'
 import { markPayload, markResponse } from './provenance.ts'
@@ -141,7 +142,7 @@ export function contentsListing(...paths: string[]): Fixture['response'] {
 
 /** One file from the contents API, base64 encoded the way GitHub, Forgejo and Gitea serve it. */
 export function contentsFile(path: string, text: string): Fixture['response'] {
-  return { status: 200, body: { ...contentsEntry(path), encoding: 'base64', content: btoa(text) } }
+  return { status: 200, body: { ...contentsEntry(path), encoding: 'base64', content: toBase64(new TextEncoder().encode(text)) } }
 }
 
 function contentsEntry(path: string) {
