@@ -53,20 +53,27 @@ export function degradesToWarning(error: unknown): boolean {
   return error instanceof ForgeError && !(error instanceof RateLimitedError) && !(error instanceof TokenRevokedError)
 }
 
-/** Maps with at most `limit` calls in flight, preserving order. */
+/** Maps with at most `limit` calls in flight, preserving order. Once a call rejects, no further calls start. */
 export async function mapConcurrent<T, R>(items: readonly T[], limit: number, fn: (item: T) => Promise<R>): Promise<R[]> {
   const results: R[] = Array.from({ length: items.length })
   let next = 0
+  let failed = false
   await Promise.all(Array.from({ length: Math.min(limit, items.length) }, async () => {
-    while (next < items.length) {
+    while (!failed && next < items.length) {
       const index = next++
-      results[index] = await fn(items[index]!)
+      try {
+        results[index] = await fn(items[index]!)
+      }
+      catch (error) {
+        failed = true
+        throw error
+      }
     }
   }))
   return results
 }
 
-/** `threads.getMany` for forges without a batch endpoint. */
+/** `threads.getMany` for forges without a batch endpoint. A rate limit or a rejected credential rejects the call; other failures become per-item warnings. */
 export function getManyConcurrently(
   refs: ThreadRef[],
   get: (ref: ThreadRef, options?: BaseOptions) => Promise<Thread>,
@@ -77,6 +84,9 @@ export function getManyConcurrently(
     (error: unknown) => {
       if (options.signal?.aborted) {
         throw options.signal.reason
+      }
+      if (error instanceof ForgeError && !degradesToWarning(error)) {
+        throw error
       }
       return { ok: false, ref, warning: toWarning(error instanceof UnresolvedThreadError ? 'thread_unresolved' : 'thread_unreadable', error, ref.number) }
     },

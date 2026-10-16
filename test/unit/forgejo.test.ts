@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { NotFoundError, UnsupportedOperationError } from '../../src/errors.ts'
+import { NotFoundError, TokenRevokedError, UnsupportedOperationError } from '../../src/errors.ts'
 import { forgejo } from '../../src/forgejo/index.ts'
 import { gitea } from '../../src/gitea/index.ts'
 import { contentsFile, contentsListing, fixtureFetch, hangingFetch } from '../utils/fixtures.ts'
@@ -693,5 +693,41 @@ describe('forgejo templates', () => {
 
     expect(templates).toMatchObject([{ path: '.github/PULL_REQUEST_TEMPLATE.md', body: 'From .github' }])
     expect(calls.map(call => new URL(call.url).pathname)).not.toContain('/api/v1/repos/acme/widgets/contents/docs')
+  })
+})
+
+describe('forgejo getMany', () => {
+  const repo = { forge: 'forgejo', instance: 'codeberg.org', owner: 'acme', name: 'widgets' } as const
+  const refs = Array.from({ length: 8 }, (_, index) => ({ forge: 'forgejo', instance: 'codeberg.org', repo, kind: 'issue', number: String(index + 1) }) as const)
+
+  function failing(status: number, headers: Record<string, string> = {}) {
+    const urls: string[] = []
+    const fetch = async (input: string | URL | Request) => {
+      urls.push(String(input))
+      return new Response('{"message":"refused"}', { status, headers: { 'content-type': 'application/json', ...headers } })
+    }
+    return { urls, instance: forgejo({ auth: { type: 'token', token: 't' }, fetch }).create() }
+  }
+
+  it('rejects a rejected credential instead of warning per thread, and starts no further reads', async () => {
+    const { urls, instance } = failing(401)
+
+    await expect(instance.threads.getMany(refs)).rejects.toBeInstanceOf(TokenRevokedError)
+    expect(urls.length).toBeLessThanOrEqual(4)
+  })
+
+  it('rejects a rate limit with its reset', async () => {
+    const reset = Math.floor(Date.now() / 1000) + 3600
+    const { instance } = failing(429, { 'x-ratelimit-remaining': '0', 'x-ratelimit-reset': String(reset) })
+
+    await expect(instance.threads.getMany(refs.slice(0, 1))).rejects.toMatchObject({ name: 'RateLimitedError', resetAt: new Date(reset * 1000) })
+  })
+
+  it('still turns a missing thread into a per-item warning', async () => {
+    const { instance } = failing(404)
+
+    const results = await instance.threads.getMany(refs.slice(0, 2))
+
+    expect(results.map(result => result.ok ? 'ok' : result.warning.code)).toEqual(['thread_unreadable', 'thread_unreadable'])
   })
 })

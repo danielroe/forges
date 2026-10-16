@@ -560,7 +560,10 @@ export interface ThreadsApi {
    * credential cannot see it.
    */
   get: (ref: ThreadRef, options?: BaseOptions) => Promise<Thread>
-  /** Reads several threads, batched where the forge allows. Failures become per-item warnings. */
+  /**
+   * Reads several threads, batched where the forge allows. Failures become per-item warnings, except a rate limit
+   * (`RateLimitedError`) or a rejected credential (`TokenRevokedError`), which reject the call.
+   */
   getMany: (refs: ThreadRef[], options?: BaseOptions) => Promise<GetManyResult[]>
   /** Lists the threads of a repository. */
   list: (repo: RepoRef, query?: ThreadQuery) => ForgeIterable<Thread>
