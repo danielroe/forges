@@ -4086,14 +4086,6 @@
         },
         "description": "Everyone who authored or commented on the thread, where the forge reports them."
       },
-      "readState": {
-        "type": "string",
-        "enum": [
-          "read",
-          "unread"
-        ],
-        "description": "Whether the authenticated account has read the thread, where the forge tracks it per thread."
-      },
       "subscription": {
         "$ref": "#/components/schemas/SubscriptionState",
         "description": "The authenticated account's subscription, where the thread read already carries it."

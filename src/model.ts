@@ -1187,8 +1187,6 @@ export interface Thread {
   commentCount?: number
   /** Everyone who authored or commented on the thread, where the forge reports them. */
   participants?: Actor[]
-  /** Whether the authenticated account has read the thread, where the forge tracks it per thread. */
-  readState?: 'read' | 'unread'
   /** The authenticated account's subscription, where the thread read already carries it. */
   subscription?: SubscriptionState
   milestone?: Milestone
