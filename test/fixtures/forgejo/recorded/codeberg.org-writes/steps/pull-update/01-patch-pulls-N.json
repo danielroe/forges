@@ -1,19 +1,22 @@
 {
   "request": {
     "method": "PATCH",
-    "url": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/pulls/23",
+    "url": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/pulls/80",
     "body": {
-      "title": "forges fixture 20261011075808: pull, edited",
-      "body": "Edited by run 20261011075808."
+      "title": "forges fixture 20261016024347: pull, edited",
+      "body": "Edited by run 20261016024347."
     }
   },
   "response": {
     "status": 201,
-    "headers": {},
+    "headers": {
+      "ratelimit": "\"git_op\";r=249;t=600, \"baseline\";r=1924;t=600",
+      "ratelimit-policy": "\"git_op\";q=250;w=600, \"baseline\";q=2000;w=600"
+    },
     "body": {
-      "id": 3349671,
-      "url": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/pulls/23",
-      "number": 23,
+      "id": 3389005,
+      "url": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/pulls/80",
+      "number": 80,
       "user": {
         "id": 1540800,
         "login": "roebot",
@@ -32,17 +35,17 @@
         "starred_repos_count": 0,
         "username": "roebot"
       },
-      "title": "forges fixture 20261011075808: pull, edited",
-      "body": "Edited by run 20261011075808.",
+      "title": "forges fixture 20261016024347: pull, edited",
+      "body": "Edited by run 20261016024347.",
       "labels": [
         {
-          "id": 2240238,
-          "name": "forges-fixture-20261011075808",
+          "id": 2254615,
+          "name": "forges-fixture-20261016024347",
           "exclusive": false,
           "is_archived": false,
           "color": "0e8a16",
-          "description": "Created by run 20261011075808",
-          "url": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/labels/2240238"
+          "description": "Created by run 20261016024347",
+          "url": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/labels/2254615"
         }
       ],
       "milestone": null,
@@ -94,9 +97,9 @@
       "additions": 1,
       "deletions": 0,
       "changed_files": 1,
-      "html_url": "https://codeberg.org/forges-fixtures/forges-fixtures/pulls/23",
-      "diff_url": "https://codeberg.org/forges-fixtures/forges-fixtures/pulls/23.diff",
-      "patch_url": "https://codeberg.org/forges-fixtures/forges-fixtures/pulls/23.patch",
+      "html_url": "https://codeberg.org/forges-fixtures/forges-fixtures/pulls/80",
+      "diff_url": "https://codeberg.org/forges-fixtures/forges-fixtures/pulls/80.diff",
+      "patch_url": "https://codeberg.org/forges-fixtures/forges-fixtures/pulls/80.patch",
       "mergeable": true,
       "merged": false,
       "merged_at": null,
@@ -106,7 +109,7 @@
       "base": {
         "label": "main",
         "ref": "main",
-        "sha": "a20110fd92de2d1b95ac12d0b3a22b6e6d984bb7",
+        "sha": "41bf21b9fb9fc3d27f3272777e66ee6f32caa56c",
         "repo_id": 2702328,
         "repo": {
           "id": 2702328,
@@ -137,7 +140,7 @@
           "template": false,
           "parent": null,
           "mirror": false,
-          "size": 36,
+          "size": 96,
           "language": "",
           "languages_url": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/languages",
           "html_url": "https://codeberg.org/forges-fixtures/forges-fixtures",
@@ -150,13 +153,13 @@
           "stars_count": 0,
           "forks_count": 0,
           "watchers_count": 2,
-          "open_issues_count": 2,
+          "open_issues_count": 3,
           "open_pr_counter": 3,
           "release_counter": 1,
           "default_branch": "main",
           "archived": false,
           "created_at": "2026-10-09T13:40:47+02:00",
-          "updated_at": "2026-10-11T09:58:17+02:00",
+          "updated_at": "2026-10-16T04:44:00+02:00",
           "archived_at": "1970-01-01T01:00:00+01:00",
           "permissions": {
             "admin": true,
@@ -201,9 +204,9 @@
         }
       },
       "head": {
-        "label": "forges-fixtures/20261011075808-1",
-        "ref": "forges-fixtures/20261011075808-1",
-        "sha": "13b36b8eedfe3579e59c309bc6e43d9450c96601",
+        "label": "forges-fixtures/20261016024347-1",
+        "ref": "forges-fixtures/20261016024347-1",
+        "sha": "33bd0250ecbd43030be5476938be00e43f5917ef",
         "repo_id": 2702328,
         "repo": {
           "id": 2702328,
@@ -234,7 +237,7 @@
           "template": false,
           "parent": null,
           "mirror": false,
-          "size": 36,
+          "size": 96,
           "language": "",
           "languages_url": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/languages",
           "html_url": "https://codeberg.org/forges-fixtures/forges-fixtures",
@@ -247,13 +250,13 @@
           "stars_count": 0,
           "forks_count": 0,
           "watchers_count": 2,
-          "open_issues_count": 2,
+          "open_issues_count": 3,
           "open_pr_counter": 3,
           "release_counter": 1,
           "default_branch": "main",
           "archived": false,
           "created_at": "2026-10-09T13:40:47+02:00",
-          "updated_at": "2026-10-11T09:58:17+02:00",
+          "updated_at": "2026-10-16T04:44:00+02:00",
           "archived_at": "1970-01-01T01:00:00+01:00",
           "permissions": {
             "admin": true,
@@ -297,10 +300,10 @@
           "topics": []
         }
       },
-      "merge_base": "a20110fd92de2d1b95ac12d0b3a22b6e6d984bb7",
+      "merge_base": "41bf21b9fb9fc3d27f3272777e66ee6f32caa56c",
       "due_date": null,
-      "created_at": "2026-10-11T09:58:42+02:00",
-      "updated_at": "2026-10-11T09:59:07+02:00",
+      "created_at": "2026-10-16T04:44:25+02:00",
+      "updated_at": "2026-10-16T04:49:45+02:00",
       "closed_at": null,
       "pin_order": 0,
       "flow": 0

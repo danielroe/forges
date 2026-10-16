@@ -9,12 +9,12 @@
       "name": "forges-fixtures"
     },
     "kind": "pull_request",
-    "number": "25",
-    "externalId": "7664661"
+    "number": "82",
+    "externalId": "3389014"
   },
   "kind": "pull_request",
-  "title": "forges fixture 20261011075808: pull 3 5f-9rAE9dc7jaV5CsPCvOoaLE7wtuJ_HbOW1knPhuzo4CnKmPep5zEcWfY1CUEmi",
-  "body": "Opened by run 20261011075808.",
+  "title": "forges fixture 20261016024347: pull 3 jZiHqm8F3Hwop51EpL3E-XK8MkH7JPabMPapDjTUQIg7qTA_zYp2tAPibn1xPT95",
+  "body": "Opened by run 20261016024347.",
   "state": "closed",
   "stateRaw": "closed",
   "isDraft": false,
@@ -30,11 +30,33 @@
   "assignees": [],
   "reviewers": [],
   "labels": [],
-  "url": "https://codeberg.org/forges-fixtures/forges-fixtures/pulls/25",
+  "url": "https://codeberg.org/forges-fixtures/forges-fixtures/pulls/82",
   "createdAt": "<now>",
   "updatedAt": "<now>",
   "closedAt": "<now>",
   "lastActivityAt": "<now>",
   "locked": false,
-  "commentCount": 0
+  "commentCount": 0,
+  "branches": {
+    "head": {
+      "ref": "forges-fixtures/20261016024347-3",
+      "sha": "37739f41c60a6fc461ec4e41c9e3fcaa54cd829f",
+      "repo": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "owner": "forges-fixtures",
+        "name": "forges-fixtures",
+        "externalId": "2702328"
+      }
+    },
+    "base": {
+      "ref": "main",
+      "sha": "c3cf2a4646c12c21af85a0ff88e59afef556d140"
+    }
+  },
+  "stats": {
+    "additions": 1,
+    "deletions": 0,
+    "changedFileCount": 1
+  }
 }

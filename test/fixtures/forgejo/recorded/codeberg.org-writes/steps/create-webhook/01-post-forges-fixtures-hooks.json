@@ -18,9 +18,12 @@
   },
   "response": {
     "status": 201,
-    "headers": {},
+    "headers": {
+      "ratelimit": "\"baseline\";r=1904;t=600",
+      "ratelimit-policy": "\"baseline\";q=2000;w=600"
+    },
     "body": {
-      "id": 125706,
+      "id": 128449,
       "type": "gitea",
       "branch_filter": "",
       "url": "https://example.com/hook",
@@ -37,8 +40,8 @@
       "content_type": "json",
       "metadata": null,
       "active": true,
-      "updated_at": "2026-10-11T09:59:36+02:00",
-      "created_at": "2026-10-11T09:59:36+02:00"
+      "updated_at": "2026-10-16T04:50:04+02:00",
+      "created_at": "2026-10-16T04:50:04+02:00"
     }
   }
 }

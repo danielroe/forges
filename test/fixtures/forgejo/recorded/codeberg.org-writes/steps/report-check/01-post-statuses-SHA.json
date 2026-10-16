@@ -1,22 +1,25 @@
 {
   "request": {
     "method": "POST",
-    "url": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/statuses/13b36b8eedfe3579e59c309bc6e43d9450c96601",
+    "url": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/statuses/33bd0250ecbd43030be5476938be00e43f5917ef",
     "body": {
       "state": "success",
       "context": "forges fixture",
-      "description": "Reported by run 20261011075808"
+      "description": "Reported by run 20261016024347"
     }
   },
   "response": {
     "status": 201,
-    "headers": {},
+    "headers": {
+      "ratelimit": "\"baseline\";r=1915;t=600",
+      "ratelimit-policy": "\"baseline\";q=2000;w=600"
+    },
     "body": {
       "id": 1,
       "status": "success",
       "target_url": "",
-      "description": "Reported by run 20261011075808",
-      "url": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/statuses/13b36b8eedfe3579e59c309bc6e43d9450c96601",
+      "description": "Reported by run 20261016024347",
+      "url": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/statuses/33bd0250ecbd43030be5476938be00e43f5917ef",
       "context": "forges fixture",
       "creator": {
         "id": 1540800,
@@ -36,8 +39,8 @@
         "starred_repos_count": 0,
         "username": "roebot"
       },
-      "created_at": "2026-10-11T09:59:09+02:00",
-      "updated_at": "2026-10-11T09:59:09+02:00"
+      "created_at": "2026-10-16T04:49:51+02:00",
+      "updated_at": "2026-10-16T04:49:51+02:00"
     }
   }
 }

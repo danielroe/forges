@@ -6,26 +6,19 @@
   "response": {
     "status": 200,
     "headers": {
-      "x-total-count": "2"
+      "ratelimit": "\"baseline\";r=1965;t=600",
+      "ratelimit-policy": "\"baseline\";q=2000;w=600",
+      "x-total-count": "1"
     },
     "body": [
       {
-        "id": 2240205,
-        "name": "forges-fixture-20261011074423",
+        "id": 2254615,
+        "name": "forges-fixture-20261016024347",
         "exclusive": false,
         "is_archived": false,
         "color": "0e8a16",
-        "description": "Created by run 20261011074423",
-        "url": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/labels/2240205"
-      },
-      {
-        "id": 2240238,
-        "name": "forges-fixture-20261011075808",
-        "exclusive": false,
-        "is_archived": false,
-        "color": "0e8a16",
-        "description": "Created by run 20261011075808",
-        "url": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/labels/2240238"
+        "description": "Created by run 20261016024347",
+        "url": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/labels/2254615"
       }
     ]
   }

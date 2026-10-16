@@ -1,0 +1,91 @@
+{
+  "ref": {
+    "forge": "forgejo",
+    "instance": "codeberg.org",
+    "thread": {
+      "forge": "forgejo",
+      "instance": "codeberg.org",
+      "repo": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "owner": "forges-fixtures",
+        "name": "forges-fixtures"
+      },
+      "kind": "pull_request",
+      "number": "80",
+      "externalId": "3389005"
+    },
+    "id": "2110687"
+  },
+  "author": {
+    "forge": "forgejo",
+    "instance": "codeberg.org",
+    "repo": {
+      "forge": "forgejo",
+      "instance": "codeberg.org",
+      "owner": "forges-fixtures",
+      "name": "forges-fixtures"
+    },
+    "kind": "pull_request",
+    "number": "80",
+    "externalId": "3389005",
+    "login": "danielroe",
+    "id": "86052",
+    "name": "Daniel Roe",
+    "avatarUrl": "https://codeberg.org/avatars/a0f09b705dcd4afd1d54b6e7c8f08e323a97921b70569acc891a2617d2d04125",
+    "url": "https://codeberg.org/danielroe",
+    "isBotHint": false
+  },
+  "state": "commented",
+  "stateRaw": "COMMENT",
+  "body": "A submitted review from run 20261016024347.",
+  "submittedAt": "<now>",
+  "comments": [
+    {
+      "ref": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "thread": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "repo": {
+            "forge": "forgejo",
+            "instance": "codeberg.org",
+            "owner": "forges-fixtures",
+            "name": "forges-fixtures"
+          },
+          "kind": "pull_request",
+          "number": "80",
+          "externalId": "3389005"
+        },
+        "id": "25405960"
+      },
+      "body": "A line comment from run 20261016024347.",
+      "author": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "repo": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "owner": "forges-fixtures",
+          "name": "forges-fixtures"
+        },
+        "kind": "pull_request",
+        "number": "80",
+        "externalId": "3389005",
+        "login": "danielroe",
+        "id": "86052",
+        "name": "Daniel Roe",
+        "avatarUrl": "https://codeberg.org/avatars/a0f09b705dcd4afd1d54b6e7c8f08e323a97921b70569acc891a2617d2d04125",
+        "url": "https://codeberg.org/danielroe",
+        "isBotHint": false
+      },
+      "path": "forges-fixtures/20261016024347-1.md",
+      "line": 1,
+      "side": "right",
+      "createdAt": "<now>",
+      "url": "https://codeberg.org/forges-fixtures/forges-fixtures/pulls/80#issuecomment-25405960"
+    }
+  ],
+  "url": "https://codeberg.org/forges-fixtures/forges-fixtures/pulls/80#issuecomment-25405963"
+}

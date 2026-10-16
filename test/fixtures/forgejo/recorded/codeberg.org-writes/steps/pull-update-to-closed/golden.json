@@ -1,0 +1,78 @@
+{
+  "ref": {
+    "forge": "forgejo",
+    "instance": "codeberg.org",
+    "repo": {
+      "forge": "forgejo",
+      "instance": "codeberg.org",
+      "owner": "forges-fixtures",
+      "name": "forges-fixtures"
+    },
+    "kind": "pull_request",
+    "number": "82",
+    "externalId": "3389014"
+  },
+  "kind": "pull_request",
+  "title": "forges fixture 20261016024347: pull 3 jZiHqm8F3Hwop51EpL3E-XK8MkH7JPabMPapDjTUQIg7qTA_zYp2tAPibn1xPT95",
+  "body": "Opened by run 20261016024347.",
+  "state": "closed",
+  "stateRaw": "closed",
+  "isDraft": false,
+  "author": {
+    "forge": "forgejo",
+    "instance": "codeberg.org",
+    "login": "roebot",
+    "id": "1540800",
+    "avatarUrl": "https://codeberg.org/avatars/278913be448f1cbee39f7fbfb40634a9",
+    "url": "https://codeberg.org/roebot",
+    "isBotHint": false
+  },
+  "assignees": [
+    {
+      "forge": "forgejo",
+      "instance": "codeberg.org",
+      "login": "roebot",
+      "id": "1540800",
+      "avatarUrl": "https://codeberg.org/avatars/278913be448f1cbee39f7fbfb40634a9",
+      "url": "https://codeberg.org/roebot",
+      "isBotHint": false
+    }
+  ],
+  "reviewers": [],
+  "labels": [
+    {
+      "name": "forges-fixture-20261016024347",
+      "colour": "0e8a16",
+      "description": "Created by run 20261016024347"
+    }
+  ],
+  "url": "https://codeberg.org/forges-fixtures/forges-fixtures/pulls/82",
+  "createdAt": "<now>",
+  "updatedAt": "<now>",
+  "closedAt": "<now>",
+  "lastActivityAt": "<now>",
+  "locked": false,
+  "commentCount": 0,
+  "branches": {
+    "head": {
+      "ref": "forges-fixtures/20261016024347-3",
+      "sha": "37739f41c60a6fc461ec4e41c9e3fcaa54cd829f",
+      "repo": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "owner": "forges-fixtures",
+        "name": "forges-fixtures",
+        "externalId": "2702328"
+      }
+    },
+    "base": {
+      "ref": "main",
+      "sha": "41bf21b9fb9fc3d27f3272777e66ee6f32caa56c"
+    }
+  },
+  "stats": {
+    "additions": 1,
+    "deletions": 0,
+    "changedFileCount": 1
+  }
+}

@@ -1,7 +1,7 @@
 {
   "request": {
     "method": "POST",
-    "url": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/pulls/23/requested_reviewers",
+    "url": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/pulls/80/requested_reviewers",
     "body": {
       "reviewers": [
         "danielroe"
@@ -10,10 +10,13 @@
   },
   "response": {
     "status": 201,
-    "headers": {},
+    "headers": {
+      "ratelimit": "\"git_op\";r=246;t=600, \"baseline\";r=1921;t=600",
+      "ratelimit-policy": "\"git_op\";q=250;w=600, \"baseline\";q=2000;w=600"
+    },
     "body": [
       {
-        "id": 2095377,
+        "id": 2110684,
         "user": {
           "id": 86052,
           "login": "danielroe",
@@ -40,10 +43,10 @@
         "official": true,
         "dismissed": false,
         "comments_count": 0,
-        "submitted_at": "2026-10-11T09:59:08+02:00",
-        "updated_at": "2026-10-11T09:59:08+02:00",
+        "submitted_at": "2026-10-16T04:49:48+02:00",
+        "updated_at": "2026-10-16T04:49:48+02:00",
         "html_url": "",
-        "pull_request_url": "https://codeberg.org/forges-fixtures/forges-fixtures/pulls/23"
+        "pull_request_url": "https://codeberg.org/forges-fixtures/forges-fixtures/pulls/80"
       }
     ]
   }

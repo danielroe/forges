@@ -1,17 +1,20 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/branches/forges-fixtures/20261011075808-files"
+    "url": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/branches/forges-fixtures/20261016024347-files"
   },
   "response": {
     "status": 200,
-    "headers": {},
+    "headers": {
+      "ratelimit": "\"baseline\";r=1978;t=600",
+      "ratelimit-policy": "\"baseline\";q=2000;w=600"
+    },
     "body": {
-      "name": "forges-fixtures/20261011075808-files",
+      "name": "forges-fixtures/20261016024347-files",
       "commit": {
-        "id": "212bea6fbd5e74760e1d48875f5d8fc77b612d93",
-        "message": "test: add a file from run 20261011075808\n",
-        "url": "https://codeberg.org/forges-fixtures/forges-fixtures/commit/212bea6fbd5e74760e1d48875f5d8fc77b612d93",
+        "id": "1880b1b45a5891f176d32945421dab12bc3bd40d",
+        "message": "test: add a file from run 20261016024347\n",
+        "url": "https://codeberg.org/forges-fixtures/forges-fixtures/commit/1880b1b45a5891f176d32945421dab12bc3bd40d",
         "author": {
           "name": "forges fixtures",
           "email": "redacted@example.invalid",
@@ -29,7 +32,7 @@
           "signer": null,
           "payload": ""
         },
-        "timestamp": "2026-10-13T21:50:39+02:00",
+        "timestamp": "2026-10-16T04:43:58+02:00",
         "added": null,
         "removed": null,
         "modified": null

@@ -1,4 +1,8 @@
 {
   "name": "pull set milestone",
-  "recordedAt": "2026-10-11T07:58:16.851Z"
+  "recordedAt": "2026-10-16T02:49:39.259Z",
+  "needs": [
+    "create pull",
+    "milestones"
+  ]
 }

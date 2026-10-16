@@ -1,10 +1,13 @@
 {
   "request": {
     "method": "PUT",
-    "url": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/issues/23/subscriptions/roebot"
+    "url": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/issues/80/subscriptions/roebot"
   },
   "response": {
     "status": 201,
-    "headers": {}
+    "headers": {
+      "ratelimit": "\"baseline\";r=1925;t=600",
+      "ratelimit-policy": "\"baseline\";q=2000;w=600"
+    }
   }
 }

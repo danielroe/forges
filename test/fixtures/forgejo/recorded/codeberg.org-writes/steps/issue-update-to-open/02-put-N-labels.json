@@ -1,0 +1,17 @@
+{
+  "request": {
+    "method": "PUT",
+    "url": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/issues/77/labels",
+    "body": {
+      "labels": []
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "ratelimit": "\"baseline\";r=1951;t=600",
+      "ratelimit-policy": "\"baseline\";q=2000;w=600"
+    },
+    "body": []
+  }
+}

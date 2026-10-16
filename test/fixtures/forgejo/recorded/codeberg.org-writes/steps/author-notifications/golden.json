@@ -4,7 +4,7 @@
       "ref": {
         "forge": "forgejo",
         "instance": "codeberg.org",
-        "id": "19592175"
+        "id": "19864519"
       },
       "subject": {
         "type": "thread",
@@ -20,17 +20,529 @@
           },
           "kind": "pull_request",
           "typeRaw": "Pull",
-          "number": "24"
+          "number": "81"
         }
       },
       "subjectTypeRaw": "Pull",
       "reason": "unknown",
       "unread": true,
-      "title": "forges fixture 20261011075808: pull 2 yia1ZHv93Dn_4FX6qxyYJSwug9fRk2nQxCMn7ZuffFlAdBDCqCH9sjf0dS6zVjjX",
+      "title": "forges fixture 20261016024347: pull 2 oDg3oFYnXo5jI9dOfBZLjyObCmLZJLmkC7_r41l6kDKTz6TuiPgf1zh7N8tUsN0g",
       "subjectState": "merged",
       "subjectStateRaw": "merged",
       "updatedAt": "<now>",
-      "url": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/pulls/24"
+      "url": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/pulls/81"
+    },
+    {
+      "ref": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "id": "19864516"
+      },
+      "subject": {
+        "type": "thread",
+        "thread": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "repo": {
+            "forge": "forgejo",
+            "instance": "codeberg.org",
+            "owner": "forges-fixtures",
+            "name": "forges-fixtures",
+            "externalId": "2702328"
+          },
+          "kind": "pull_request",
+          "typeRaw": "Pull",
+          "number": "80"
+        }
+      },
+      "subjectTypeRaw": "Pull",
+      "reason": "unknown",
+      "unread": true,
+      "title": "forges fixture 20261016024347: pull, edited",
+      "subjectState": "merged",
+      "subjectStateRaw": "merged",
+      "updatedAt": "<now>",
+      "url": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/pulls/80"
+    },
+    {
+      "ref": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "id": "19863724"
+      },
+      "subject": {
+        "type": "thread",
+        "thread": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "repo": {
+            "forge": "forgejo",
+            "instance": "codeberg.org",
+            "owner": "forges-fixtures",
+            "name": "forges-fixtures",
+            "externalId": "2702328"
+          },
+          "kind": "pull_request",
+          "typeRaw": "Pull",
+          "number": "74"
+        }
+      },
+      "subjectTypeRaw": "Pull",
+      "reason": "unknown",
+      "unread": false,
+      "title": "forges fixture 20261016013622: pull, edited",
+      "subjectState": "merged",
+      "subjectStateRaw": "merged",
+      "updatedAt": "2026-10-16T01:42:33.000Z",
+      "url": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/pulls/74"
+    },
+    {
+      "ref": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "id": "19680337"
+      },
+      "subject": {
+        "type": "thread",
+        "thread": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "repo": {
+            "forge": "forgejo",
+            "instance": "codeberg.org",
+            "owner": "forges-fixtures",
+            "name": "forges-fixtures",
+            "externalId": "2702328"
+          },
+          "kind": "issue",
+          "typeRaw": "Issue",
+          "number": "46"
+        }
+      },
+      "subjectTypeRaw": "Issue",
+      "reason": "unknown",
+      "unread": false,
+      "title": "forges fixture 20261012221035: issue, edited",
+      "subjectState": "closed",
+      "subjectStateRaw": "closed",
+      "updatedAt": "2026-10-14T20:37:19.000Z",
+      "url": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/issues/46"
+    },
+    {
+      "ref": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "id": "19680154"
+      },
+      "subject": {
+        "type": "thread",
+        "thread": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "repo": {
+            "forge": "forgejo",
+            "instance": "codeberg.org",
+            "owner": "forges-fixtures",
+            "name": "forges-fixtures",
+            "externalId": "2702328"
+          },
+          "kind": "pull_request",
+          "typeRaw": "Pull",
+          "number": "44"
+        }
+      },
+      "subjectTypeRaw": "Pull",
+      "reason": "unknown",
+      "unread": false,
+      "title": "forges fixture 20261012220452: pull, edited",
+      "subjectState": "merged",
+      "subjectStateRaw": "merged",
+      "updatedAt": "2026-10-12T22:11:05.000Z",
+      "url": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/pulls/44"
+    },
+    {
+      "ref": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "id": "19680160"
+      },
+      "subject": {
+        "type": "thread",
+        "thread": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "repo": {
+            "forge": "forgejo",
+            "instance": "codeberg.org",
+            "owner": "forges-fixtures",
+            "name": "forges-fixtures",
+            "externalId": "2702328"
+          },
+          "kind": "issue",
+          "typeRaw": "Issue",
+          "number": "41"
+        }
+      },
+      "subjectTypeRaw": "Issue",
+      "reason": "unknown",
+      "unread": false,
+      "title": "forges fixture 20261012220452: issue, edited",
+      "subjectState": "closed",
+      "subjectStateRaw": "closed",
+      "updatedAt": "2026-10-12T22:11:05.000Z",
+      "url": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/issues/41"
+    },
+    {
+      "ref": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "id": "19680157"
+      },
+      "subject": {
+        "type": "thread",
+        "thread": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "repo": {
+            "forge": "forgejo",
+            "instance": "codeberg.org",
+            "owner": "forges-fixtures",
+            "name": "forges-fixtures",
+            "externalId": "2702328"
+          },
+          "kind": "pull_request",
+          "typeRaw": "Pull",
+          "number": "45"
+        }
+      },
+      "subjectTypeRaw": "Pull",
+      "reason": "unknown",
+      "unread": false,
+      "title": "forges fixture 20261012220452: pull 2 x9TLhZlb5jaEDLy04b7INT7cL6ycaill-GOisVot4ma3JA5PJYSwJBTgMkH1Z5LL",
+      "subjectState": "merged",
+      "subjectStateRaw": "merged",
+      "updatedAt": "2026-10-12T22:05:56.000Z",
+      "url": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/pulls/45"
+    },
+    {
+      "ref": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "id": "19649619"
+      },
+      "subject": {
+        "type": "thread",
+        "thread": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "repo": {
+            "forge": "forgejo",
+            "instance": "codeberg.org",
+            "owner": "forges-fixtures",
+            "name": "forges-fixtures",
+            "externalId": "2702328"
+          },
+          "kind": "issue",
+          "typeRaw": "Issue",
+          "number": "36"
+        }
+      },
+      "subjectTypeRaw": "Issue",
+      "reason": "unknown",
+      "unread": false,
+      "title": "forges fixture 20261012115543: issue, edited",
+      "subjectState": "closed",
+      "subjectStateRaw": "closed",
+      "updatedAt": "2026-10-12T12:00:31.000Z",
+      "url": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/issues/36"
+    },
+    {
+      "ref": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "id": "19649610"
+      },
+      "subject": {
+        "type": "thread",
+        "thread": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "repo": {
+            "forge": "forgejo",
+            "instance": "codeberg.org",
+            "owner": "forges-fixtures",
+            "name": "forges-fixtures",
+            "externalId": "2702328"
+          },
+          "kind": "pull_request",
+          "typeRaw": "Pull",
+          "number": "40"
+        }
+      },
+      "subjectTypeRaw": "Pull",
+      "reason": "unknown",
+      "unread": false,
+      "title": "forges fixture 20261012115543: pull 2 yMdiboPSOwsjuGeyRHIEMZbBY715Mafdm6O7IJHiHdz4s2tCvtcOOIDTRX00V4vh",
+      "subjectState": "merged",
+      "subjectStateRaw": "merged",
+      "updatedAt": "2026-10-12T12:00:29.000Z",
+      "url": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/pulls/40"
+    },
+    {
+      "ref": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "id": "19649607"
+      },
+      "subject": {
+        "type": "thread",
+        "thread": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "repo": {
+            "forge": "forgejo",
+            "instance": "codeberg.org",
+            "owner": "forges-fixtures",
+            "name": "forges-fixtures",
+            "externalId": "2702328"
+          },
+          "kind": "pull_request",
+          "typeRaw": "Pull",
+          "number": "39"
+        }
+      },
+      "subjectTypeRaw": "Pull",
+      "reason": "unknown",
+      "unread": false,
+      "title": "forges fixture 20261012115543: pull, edited",
+      "subjectState": "merged",
+      "subjectStateRaw": "merged",
+      "updatedAt": "2026-10-12T11:56:49.000Z",
+      "url": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/pulls/39"
+    },
+    {
+      "ref": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "id": "19648428"
+      },
+      "subject": {
+        "type": "thread",
+        "thread": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "repo": {
+            "forge": "forgejo",
+            "instance": "codeberg.org",
+            "owner": "forges-fixtures",
+            "name": "forges-fixtures",
+            "externalId": "2702328"
+          },
+          "kind": "pull_request",
+          "typeRaw": "Pull",
+          "number": "34"
+        }
+      },
+      "subjectTypeRaw": "Pull",
+      "reason": "unknown",
+      "unread": false,
+      "title": "forges fixture 20261012113646: pull, edited",
+      "subjectState": "merged",
+      "subjectStateRaw": "merged",
+      "updatedAt": "2026-10-12T11:38:32.000Z",
+      "url": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/pulls/34"
+    },
+    {
+      "ref": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "id": "19648434"
+      },
+      "subject": {
+        "type": "thread",
+        "thread": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "repo": {
+            "forge": "forgejo",
+            "instance": "codeberg.org",
+            "owner": "forges-fixtures",
+            "name": "forges-fixtures",
+            "externalId": "2702328"
+          },
+          "kind": "pull_request",
+          "typeRaw": "Pull",
+          "number": "35"
+        }
+      },
+      "subjectTypeRaw": "Pull",
+      "reason": "unknown",
+      "unread": false,
+      "title": "forges fixture 20261012113646: pull 2 sdbNYqCptF8Tnf3doic7GDXidTZcWrXJarlpYsnCtE8RRwat9HPLkY71JMhWyJU1",
+      "subjectState": "merged",
+      "subjectStateRaw": "merged",
+      "updatedAt": "2026-10-12T11:38:32.000Z",
+      "url": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/pulls/35"
+    },
+    {
+      "ref": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "id": "19648437"
+      },
+      "subject": {
+        "type": "thread",
+        "thread": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "repo": {
+            "forge": "forgejo",
+            "instance": "codeberg.org",
+            "owner": "forges-fixtures",
+            "name": "forges-fixtures",
+            "externalId": "2702328"
+          },
+          "kind": "issue",
+          "typeRaw": "Issue",
+          "number": "31"
+        }
+      },
+      "subjectTypeRaw": "Issue",
+      "reason": "unknown",
+      "unread": false,
+      "title": "forges fixture 20261012113646: issue, edited",
+      "subjectState": "closed",
+      "subjectStateRaw": "closed",
+      "updatedAt": "2026-10-12T11:38:32.000Z",
+      "url": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/issues/31"
+    },
+    {
+      "ref": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "id": "19600365"
+      },
+      "subject": {
+        "type": "thread",
+        "thread": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "repo": {
+            "forge": "forgejo",
+            "instance": "codeberg.org",
+            "owner": "forges-fixtures",
+            "name": "forges-fixtures",
+            "externalId": "2702328"
+          },
+          "kind": "pull_request",
+          "typeRaw": "Pull",
+          "number": "29"
+        }
+      },
+      "subjectTypeRaw": "Pull",
+      "reason": "unknown",
+      "unread": false,
+      "title": "forges fixture 20261011113416: pull 2 UDi0Aok9u4bhoqF7pTfxTPP6QItJNvrrTUqlYZHwA7241KVXNSTz3x4RKJl4SUYI",
+      "subjectState": "closed",
+      "subjectStateRaw": "closed",
+      "updatedAt": "2026-10-11T11:36:21.000Z",
+      "url": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/pulls/29"
+    },
+    {
+      "ref": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "id": "19600368"
+      },
+      "subject": {
+        "type": "thread",
+        "thread": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "repo": {
+            "forge": "forgejo",
+            "instance": "codeberg.org",
+            "owner": "forges-fixtures",
+            "name": "forges-fixtures",
+            "externalId": "2702328"
+          },
+          "kind": "issue",
+          "typeRaw": "Issue",
+          "number": "26"
+        }
+      },
+      "subjectTypeRaw": "Issue",
+      "reason": "unknown",
+      "unread": false,
+      "title": "forges fixture 20261011113416: issue, edited",
+      "subjectState": "closed",
+      "subjectStateRaw": "closed",
+      "updatedAt": "2026-10-11T11:35:13.000Z",
+      "url": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/issues/26"
+    },
+    {
+      "ref": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "id": "19592178"
+      },
+      "subject": {
+        "type": "thread",
+        "thread": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "repo": {
+            "forge": "forgejo",
+            "instance": "codeberg.org",
+            "owner": "forges-fixtures",
+            "name": "forges-fixtures",
+            "externalId": "2702328"
+          },
+          "kind": "issue",
+          "typeRaw": "Issue",
+          "number": "21"
+        }
+      },
+      "subjectTypeRaw": "Issue",
+      "reason": "unknown",
+      "unread": false,
+      "title": "forges fixture 20261011075808: issue, edited",
+      "subjectState": "closed",
+      "subjectStateRaw": "closed",
+      "updatedAt": "2026-10-11T11:35:13.000Z",
+      "url": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/issues/21"
+    },
+    {
+      "ref": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "id": "19600362"
+      },
+      "subject": {
+        "type": "thread",
+        "thread": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "repo": {
+            "forge": "forgejo",
+            "instance": "codeberg.org",
+            "owner": "forges-fixtures",
+            "name": "forges-fixtures",
+            "externalId": "2702328"
+          },
+          "kind": "pull_request",
+          "typeRaw": "Pull",
+          "number": "28"
+        }
+      },
+      "subjectTypeRaw": "Pull",
+      "reason": "unknown",
+      "unread": false,
+      "title": "forges fixture 20261011113416: pull, edited",
+      "subjectState": "merged",
+      "subjectStateRaw": "merged",
+      "updatedAt": "2026-10-11T11:34:44.000Z",
+      "url": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/pulls/28"
     },
     {
       "ref": {
@@ -57,12 +569,44 @@
       },
       "subjectTypeRaw": "Pull",
       "reason": "unknown",
-      "unread": true,
+      "unread": false,
       "title": "forges fixture 20261011075808: pull, edited",
       "subjectState": "merged",
       "subjectStateRaw": "merged",
-      "updatedAt": "<now>",
+      "updatedAt": "2026-10-11T07:59:38.000Z",
       "url": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/pulls/23"
+    },
+    {
+      "ref": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "id": "19592175"
+      },
+      "subject": {
+        "type": "thread",
+        "thread": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "repo": {
+            "forge": "forgejo",
+            "instance": "codeberg.org",
+            "owner": "forges-fixtures",
+            "name": "forges-fixtures",
+            "externalId": "2702328"
+          },
+          "kind": "pull_request",
+          "typeRaw": "Pull",
+          "number": "24"
+        }
+      },
+      "subjectTypeRaw": "Pull",
+      "reason": "unknown",
+      "unread": false,
+      "title": "forges fixture 20261011075808: pull 2 yia1ZHv93Dn_4FX6qxyYJSwug9fRk2nQxCMn7ZuffFlAdBDCqCH9sjf0dS6zVjjX",
+      "subjectState": "merged",
+      "subjectStateRaw": "merged",
+      "updatedAt": "2026-10-11T07:59:38.000Z",
+      "url": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/pulls/24"
     },
     {
       "ref": {
@@ -93,7 +637,7 @@
       "title": "forges fixture 20261010231953: issue, edited",
       "subjectState": "closed",
       "subjectStateRaw": "closed",
-      "updatedAt": "<now>",
+      "updatedAt": "2026-10-11T07:46:53.000Z",
       "url": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/issues/15"
     },
     {
@@ -289,5 +833,11 @@
       "url": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/issues/6"
     }
   ],
-  "notModified": false
+  "notModified": false,
+  "rateLimit": {
+    "limit": 2000,
+    "remaining": 1898,
+    "resetAt": "<now>",
+    "resource": "baseline"
+  }
 }

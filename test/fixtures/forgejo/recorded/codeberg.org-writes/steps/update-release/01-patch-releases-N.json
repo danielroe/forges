@@ -1,31 +1,34 @@
 {
   "request": {
     "method": "PATCH",
-    "url": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/releases/12842259",
+    "url": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/releases/12939415",
     "body": {
-      "name": "forges fixture 20261011075808: release, edited",
-      "body": "Edited by run 20261011075808."
+      "name": "forges fixture 20261016024347: release, edited",
+      "body": "Edited by run 20261016024347."
     }
   },
   "response": {
     "status": 200,
-    "headers": {},
+    "headers": {
+      "ratelimit": "\"baseline\";r=1905;t=600",
+      "ratelimit-policy": "\"baseline\";q=2000;w=600"
+    },
     "body": {
-      "id": 12842259,
-      "tag_name": "forges-fixture-20261011075808",
+      "id": 12939415,
+      "tag_name": "forges-fixture-20261016024347",
       "target_commitish": "main",
-      "name": "forges fixture 20261011075808: release, edited",
-      "body": "Edited by run 20261011075808.",
-      "url": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/releases/12842259",
-      "html_url": "https://codeberg.org/forges-fixtures/forges-fixtures/releases/tag/forges-fixture-20261011075808",
-      "tarball_url": "https://codeberg.org/forges-fixtures/forges-fixtures/archive/forges-fixture-20261011075808.tar.gz",
-      "zipball_url": "https://codeberg.org/forges-fixtures/forges-fixtures/archive/forges-fixture-20261011075808.zip",
+      "name": "forges fixture 20261016024347: release, edited",
+      "body": "Edited by run 20261016024347.",
+      "url": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/releases/12939415",
+      "html_url": "https://codeberg.org/forges-fixtures/forges-fixtures/releases/tag/forges-fixture-20261016024347",
+      "tarball_url": "https://codeberg.org/forges-fixtures/forges-fixtures/archive/forges-fixture-20261016024347.tar.gz",
+      "zipball_url": "https://codeberg.org/forges-fixtures/forges-fixtures/archive/forges-fixture-20261016024347.zip",
       "hide_archive_links": false,
-      "upload_url": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/releases/12842259/assets",
+      "upload_url": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/releases/12939415/assets",
       "draft": false,
       "prerelease": false,
-      "created_at": "2026-10-11T09:59:36+02:00",
-      "published_at": "2026-10-11T09:59:36+02:00",
+      "created_at": "2026-10-16T04:50:02+02:00",
+      "published_at": "2026-10-16T04:50:02+02:00",
       "author": {
         "id": 1540800,
         "login": "roebot",

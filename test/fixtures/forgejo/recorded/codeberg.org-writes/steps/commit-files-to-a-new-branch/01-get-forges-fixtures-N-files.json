@@ -1,16 +1,19 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/contents/forges-fixtures/20261011075808-files?ref=196a797f54f2bb898565b73c6cf9ff347b8b4904"
+    "url": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/contents/forges-fixtures/20261016024347-files?ref=41bf21b9fb9fc3d27f3272777e66ee6f32caa56c"
   },
   "response": {
     "status": 404,
-    "headers": {},
+    "headers": {
+      "ratelimit": "\"baseline\";r=1985;t=600",
+      "ratelimit-policy": "\"baseline\";q=2000;w=600"
+    },
     "body": {
       "message": "GetContentsOrList",
       "url": "https://codeberg.org/api/swagger",
       "errors": [
-        "object does not exist [id: , rel_path: forges-fixtures/20261011075808-files]"
+        "object does not exist [id: , rel_path: forges-fixtures/20261016024347-files]"
       ]
     }
   }

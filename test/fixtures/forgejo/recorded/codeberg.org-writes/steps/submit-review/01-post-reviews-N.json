@@ -1,17 +1,20 @@
 {
   "request": {
     "method": "POST",
-    "url": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/pulls/23/reviews/2095380",
+    "url": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/pulls/80/reviews/2110687",
     "body": {
       "event": "COMMENT",
-      "body": "A submitted review from run 20261011075808."
+      "body": "A submitted review from run 20261016024347."
     }
   },
   "response": {
     "status": 200,
-    "headers": {},
+    "headers": {
+      "ratelimit": "\"git_op\";r=244;t=600, \"baseline\";r=1919;t=600",
+      "ratelimit-policy": "\"git_op\";q=250;w=600, \"baseline\";q=2000;w=600"
+    },
     "body": {
-      "id": 2095380,
+      "id": 2110687,
       "user": {
         "id": 86052,
         "login": "danielroe",
@@ -32,16 +35,16 @@
       },
       "team": null,
       "state": "COMMENT",
-      "body": "A submitted review from run 20261011075808.",
-      "commit_id": "13b36b8eedfe3579e59c309bc6e43d9450c96601",
+      "body": "A submitted review from run 20261016024347.",
+      "commit_id": "33bd0250ecbd43030be5476938be00e43f5917ef",
       "stale": false,
       "official": false,
       "dismissed": false,
       "comments_count": 1,
-      "submitted_at": "2026-10-11T09:59:08+02:00",
-      "updated_at": "2026-10-11T09:59:08+02:00",
-      "html_url": "https://codeberg.org/forges-fixtures/forges-fixtures/pulls/23#issuecomment-25077501",
-      "pull_request_url": "https://codeberg.org/forges-fixtures/forges-fixtures/pulls/23"
+      "submitted_at": "2026-10-16T04:49:49+02:00",
+      "updated_at": "2026-10-16T04:49:50+02:00",
+      "html_url": "https://codeberg.org/forges-fixtures/forges-fixtures/pulls/80#issuecomment-25405963",
+      "pull_request_url": "https://codeberg.org/forges-fixtures/forges-fixtures/pulls/80"
     }
   }
 }

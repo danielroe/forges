@@ -1,18 +1,21 @@
 {
   "request": {
     "method": "PATCH",
-    "url": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/issues/comments/25077465",
+    "url": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/issues/comments/25405912",
     "body": {
-      "body": "An edited comment from run 20261011075808."
+      "body": "An edited comment from run 20261016024347."
     }
   },
   "response": {
     "status": 200,
-    "headers": {},
+    "headers": {
+      "ratelimit": "\"baseline\";r=1940;t=600",
+      "ratelimit-policy": "\"baseline\";q=2000;w=600"
+    },
     "body": {
-      "id": 25077465,
-      "html_url": "https://codeberg.org/forges-fixtures/forges-fixtures/pulls/23#issuecomment-25077465",
-      "pull_request_url": "https://codeberg.org/forges-fixtures/forges-fixtures/pulls/23",
+      "id": 25405912,
+      "html_url": "https://codeberg.org/forges-fixtures/forges-fixtures/pulls/80#issuecomment-25405912",
+      "pull_request_url": "https://codeberg.org/forges-fixtures/forges-fixtures/pulls/80",
       "issue_url": "",
       "user": {
         "id": 1540800,
@@ -34,10 +37,10 @@
       },
       "original_author": "",
       "original_author_id": 0,
-      "body": "An edited comment from run 20261011075808.",
+      "body": "An edited comment from run 20261016024347.",
       "assets": [],
-      "created_at": "2026-10-11T09:58:45+02:00",
-      "updated_at": "2026-10-11T09:58:45+02:00"
+      "created_at": "2026-10-16T04:49:31+02:00",
+      "updated_at": "2026-10-16T04:49:32+02:00"
     }
   }
 }

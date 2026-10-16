@@ -1,10 +1,13 @@
 {
   "request": {
     "method": "DELETE",
-    "url": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/issues/21/labels/2240238"
+    "url": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/issues/77/labels/2254615"
   },
   "response": {
     "status": 204,
-    "headers": {}
+    "headers": {
+      "ratelimit": "\"baseline\";r=1963;t=600",
+      "ratelimit-policy": "\"baseline\";q=2000;w=600"
+    }
   }
 }

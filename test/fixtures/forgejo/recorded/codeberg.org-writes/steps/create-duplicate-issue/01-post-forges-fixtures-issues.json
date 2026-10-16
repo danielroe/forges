@@ -3,18 +3,21 @@
     "method": "POST",
     "url": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/issues",
     "body": {
-      "title": "forges fixture 20261011075808: duplicate dCWnMcTiaHGNELjSkge0GmHcxb8gfYwnYo-GFy8ahi70ERxeFZV999r_IqnFP_6e",
-      "body": "Opened by run 20261011075808."
+      "title": "forges fixture 20261016024347: duplicate pjVioZ9952q3kL35kjupe4Wso9qhGOean7uu8B3BxBfiNKqVw92T_8SLnfi0KI8q",
+      "body": "Opened by run 20261016024347."
     }
   },
   "response": {
     "status": 201,
-    "headers": {},
+    "headers": {
+      "ratelimit": "\"baseline\";r=1948;t=600",
+      "ratelimit-policy": "\"baseline\";q=2000;w=600"
+    },
     "body": {
-      "id": 7664652,
-      "url": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/issues/22",
-      "html_url": "https://codeberg.org/forges-fixtures/forges-fixtures/issues/22",
-      "number": 22,
+      "id": 7731700,
+      "url": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/issues/79",
+      "html_url": "https://codeberg.org/forges-fixtures/forges-fixtures/issues/79",
+      "number": 79,
       "user": {
         "id": 1540800,
         "login": "roebot",
@@ -35,8 +38,8 @@
       },
       "original_author": "",
       "original_author_id": 0,
-      "title": "forges fixture 20261011075808: duplicate dCWnMcTiaHGNELjSkge0GmHcxb8gfYwnYo-GFy8ahi70ERxeFZV999r_IqnFP_6e",
-      "body": "Opened by run 20261011075808.",
+      "title": "forges fixture 20261016024347: duplicate pjVioZ9952q3kL35kjupe4Wso9qhGOean7uu8B3BxBfiNKqVw92T_8SLnfi0KI8q",
+      "body": "Opened by run 20261016024347.",
       "ref": "",
       "assets": [],
       "labels": [],
@@ -46,8 +49,8 @@
       "state": "open",
       "is_locked": false,
       "comments": 0,
-      "created_at": "2026-10-11T09:58:41+02:00",
-      "updated_at": "2026-10-11T09:58:41+02:00",
+      "created_at": "2026-10-16T04:44:21+02:00",
+      "updated_at": "2026-10-16T04:44:21+02:00",
       "closed_at": null,
       "due_date": null,
       "pull_request": null,

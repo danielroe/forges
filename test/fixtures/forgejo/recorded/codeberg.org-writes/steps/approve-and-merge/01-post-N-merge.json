@@ -1,15 +1,18 @@
 {
   "request": {
     "method": "POST",
-    "url": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/pulls/24/merge",
+    "url": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/pulls/81/merge",
     "body": {
       "Do": "merge",
-      "MergeTitleField": "Merge run 20261011075808",
-      "MergeMessageField": "Merged by run 20261011075808"
+      "MergeTitleField": "Merge run 20261016024347",
+      "MergeMessageField": "Merged by run 20261016024347"
     }
   },
   "response": {
     "status": 200,
-    "headers": {}
+    "headers": {
+      "ratelimit": "\"git_op\";r=236;t=600, \"baseline\";r=1909;t=600",
+      "ratelimit-policy": "\"git_op\";q=250;w=600, \"baseline\";q=2000;w=600"
+    }
   }
 }
