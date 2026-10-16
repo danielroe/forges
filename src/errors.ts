@@ -85,6 +85,19 @@ export class TokenRevokedError extends ForgeApiError {
 /** The credential is valid but lacks the scope or permission for this call. */
 export class InsufficientScopeError extends ForgeApiError {
   override name = 'InsufficientScopeError'
+  /** Scopes that would allow the request, any one of them, where the forge names them (GitHub's `X-Accepted-OAuth-Scopes`). */
+  readonly acceptedScopes?: string[]
+  /** Scopes the credential holds, where the forge reports them (GitHub's `X-OAuth-Scopes`). */
+  readonly grantedScopes?: string[]
+  /** Fine-grained permissions that would allow the request, verbatim, such as `issues=write` (GitHub's `X-Accepted-GitHub-Permissions`). */
+  readonly acceptedPermissionsRaw?: string
+
+  constructor(message: string, status: number, body: string, context?: ForgeErrorContext & Pick<InsufficientScopeError, 'acceptedScopes' | 'grantedScopes' | 'acceptedPermissionsRaw'>, options?: ErrorOptions) {
+    super(message, status, body, context, options)
+    this.acceptedScopes = context?.acceptedScopes
+    this.grantedScopes = context?.grantedScopes
+    this.acceptedPermissionsRaw = context?.acceptedPermissionsRaw
+  }
 }
 
 /**
@@ -105,11 +118,14 @@ export class ForbiddenError extends ForgeApiError {
   readonly reason: ForbiddenReason
   /** The forge's own wording, for diagnostics and for reasons that have no `ForbiddenReason`. */
   readonly reasonRaw?: string
+  /** Where the user authorises the credential for the organisation, when `reason` is `sso_required` and the forge links it (GitHub's `X-GitHub-SSO`). */
+  readonly ssoUrl?: string
 
-  constructor(message: string, status: number, body: string, reason: ForbiddenReason, context?: ForgeErrorContext & { reasonRaw?: string }, options?: ErrorOptions) {
+  constructor(message: string, status: number, body: string, reason: ForbiddenReason, context?: ForgeErrorContext & { reasonRaw?: string, ssoUrl?: string }, options?: ErrorOptions) {
     super(message, status, body, context, options)
     this.reason = reason
     this.reasonRaw = context?.reasonRaw
+    this.ssoUrl = context?.ssoUrl
   }
 }
 

@@ -1562,6 +1562,16 @@ describe('github checks, releases and security alerts', () => {
     expect(results.map(result => !result.ok && result.warning)).toEqual(Array.from({ length: 2 }, () => expect.objectContaining({ code: 'insufficient_scope', message: `GraphQL ThreadsBatch failed: ${message}`, cause: expect.objectContaining({ name: 'InsufficientScopeError' }) })))
   })
 
+  it('reads the scopes that a GraphQL scope error names', async () => {
+    const message = 'Your token has not been granted the required scopes to execute this query. The \'email\' field requires one of the following scopes: [\'user:email\', \'read:user\'], but your token has only been granted the: [\'repo\'] scopes. Please modify your token\'s scopes at: https://github.com/settings/tokens.'
+    const provider = github({
+      auth: { type: 'token', token: 't' },
+      fetch: async () => Response.json({ errors: [{ type: 'INSUFFICIENT_SCOPES', message }] }),
+    }).create()
+
+    await expect(provider.graphql('query { viewer { email } }')).rejects.toMatchObject({ name: 'InsufficientScopeError', acceptedScopes: ['user:email', 'read:user'], grantedScopes: ['repo'] })
+  })
+
   it('reports a missing GraphQL scope only on the thread whose alias was denied', async () => {
     const message = 'Your token has not been granted the required scopes to execute this query.'
     const provider = github({

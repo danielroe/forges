@@ -38,8 +38,19 @@ export function graphqlError(operationName: string | undefined, errors: GraphQLE
     const resetAt = response && (rateLimitReset(response, budget) ?? (secondary ? undefined : budget?.resetAt))
     return new RateLimitedError(message, 200, body, { ...errorContext, resetAt, secondary })
   }
-  const ErrorClass = errors?.some(error => error.type === 'INSUFFICIENT_SCOPES') ? InsufficientScopeError : ForgeApiError
-  return new ErrorClass(message, 200, body, errorContext)
+  const scopeError = errors?.find(error => error.type === 'INSUFFICIENT_SCOPES')
+  if (!scopeError) {
+    return new ForgeApiError(message, 200, body, errorContext)
+  }
+  return new InsufficientScopeError(message, 200, body, {
+    ...errorContext,
+    acceptedScopes: quotedScopes(scopeError.message.match(/requires one of the following scopes: \[([^\]]*)\]/)?.[1]),
+    grantedScopes: quotedScopes(scopeError.message.match(/has only been granted the: \[([^\]]*)\]/)?.[1]),
+  })
+}
+
+function quotedScopes(list: string | undefined): string[] | undefined {
+  return list === undefined ? undefined : [...list.matchAll(/'([^']+)'/g)].map(match => match[1]!)
 }
 
 interface GraphQLOperation {

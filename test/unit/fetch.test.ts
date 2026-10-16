@@ -474,13 +474,34 @@ describe('403 classification', () => {
     expect(error).not.toBeInstanceOf(RateLimitedError)
   })
 
-  it('keeps a scope mismatch as InsufficientScopeError', async () => {
-    const error = await forbidden('{"message":"nope"}', { 'x-accepted-oauth-scopes': 'repo', 'x-oauth-scopes': 'read:user' })
+  it('keeps a scope mismatch as InsufficientScopeError, with the scopes the forge named', async () => {
+    const error = await forbidden('{"message":"nope"}', { 'x-accepted-oauth-scopes': 'repo, public_repo', 'x-oauth-scopes': 'read:user, gist' })
       .json('/thing')
       .catch((error: unknown) => error)
 
     expect(error).toBeInstanceOf(InsufficientScopeError)
     expect(error).not.toBeInstanceOf(ForbiddenError)
+    expect(error).toMatchObject({ acceptedScopes: ['repo', 'public_repo'], grantedScopes: ['read:user', 'gist'] })
+  })
+
+  it('reports the fine-grained permissions a refused request needs', async () => {
+    const error = await forbidden('{"message":"Resource not accessible by personal access token"}', { 'x-accepted-github-permissions': 'issues=write; pull_requests=write' })
+      .json('/thing')
+      .catch((error: unknown) => error)
+
+    expect(error).toBeInstanceOf(InsufficientScopeError)
+    expect(error).toMatchObject({ acceptedPermissionsRaw: 'issues=write; pull_requests=write' })
+    expect((error as InsufficientScopeError).acceptedScopes).toBeUndefined()
+  })
+
+  it('reads where to authorise SSO from the X-GitHub-SSO header', async () => {
+    const url = 'https://github.com/orgs/acme/sso?authorization_request=A1B2'
+    const error = await forbidden('{"message":"Resource protected by organization SAML enforcement. You must grant your Personal Access token access to this organization."}', { 'x-github-sso': `required; url=${url}` })
+      .json('/thing')
+      .catch((error: unknown) => error)
+
+    expect(error).toBeInstanceOf(ForbiddenError)
+    expect(error).toMatchObject({ reason: 'sso_required', ssoUrl: url })
   })
 
   it('keeps an unrecognised 403 as InsufficientScopeError', async () => {

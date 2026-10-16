@@ -303,6 +303,10 @@ export function rateLimitOf(response: Response, now: number = Date.now()): RateL
 }
 
 /** Whether the `message` or an `errors[].message` of a JSON error body names a secondary rate limit. */
+function scopeList(header: string | null): string[] | undefined {
+  return header === null ? undefined : header.split(',').map(scope => scope.trim()).filter(Boolean)
+}
+
 function namesSecondaryRateLimit(body: string): boolean {
   let parsed: unknown
   try {
@@ -609,15 +613,16 @@ export function createFetcher(options: FetcherOptions): Fetcher {
     }
 
     if (response.status === 403) {
-      const accepted = response.headers.get('x-accepted-oauth-scopes')
-      const held = response.headers.get('x-oauth-scopes')
-      const missingScope = accepted !== null && accepted !== ''
-        && !accepted.split(',').some(scope => (held ?? '').split(',').map(value => value.trim()).includes(scope.trim()))
-      const forbidden = missingScope ? undefined : forbiddenReason(body)
+      const acceptedScopes = scopeList(response.headers.get('x-accepted-oauth-scopes'))
+      const grantedScopes = scopeList(response.headers.get('x-oauth-scopes'))
+      const missingScope = acceptedScopes?.length && !acceptedScopes.some(scope => grantedScopes?.includes(scope))
+      const ssoUrl = response.headers.get('x-github-sso')?.match(/\burl=(\S+)/)?.[1]
+      const forbidden = missingScope ? undefined : ssoUrl ? { reason: 'sso_required' as const, reasonRaw: forbiddenReason(body)?.reasonRaw } : forbiddenReason(body)
       if (!forbidden) {
-        throw new InsufficientScopeError('Credentials lack the scope or permission for this request', 403, body, context)
+        const acceptedPermissionsRaw = response.headers.get('x-accepted-github-permissions') || undefined
+        throw new InsufficientScopeError('Credentials lack the scope or permission for this request', 403, body, { ...context, acceptedScopes, grantedScopes, acceptedPermissionsRaw })
       }
-      throw new ForbiddenError(`Forge refused the request (${forbidden.reason})`, 403, body, forbidden.reason, { ...context, reasonRaw: forbidden.reasonRaw })
+      throw new ForbiddenError(`Forge refused the request (${forbidden.reason})`, 403, body, forbidden.reason, { ...context, reasonRaw: forbidden.reasonRaw, ssoUrl })
     }
 
     throw new ForgeApiError(
