@@ -2534,6 +2534,10 @@
       "url": {
         "type": "string"
       },
+      "latestComment": {
+        "$ref": "#/components/schemas/ResolvedCommentRef",
+        "description": "The latest comment on a thread subject, where the forge links it. Read it with `threads.getComment()`. Absent when the latest activity is not a comment on the thread, such as a review comment."
+      },
       "raw": {
         "description": "Unnormalised forge payload, retained for fidelity."
       }

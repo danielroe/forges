@@ -30,7 +30,26 @@
       "subjectState": "closed",
       "subjectStateRaw": "closed",
       "updatedAt": "<now>",
-      "url": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/issues/31"
+      "url": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/issues/31",
+      "latestComment": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "thread": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "repo": {
+            "forge": "forgejo",
+            "instance": "codeberg.org",
+            "owner": "forges-fixtures",
+            "name": "forges-fixtures",
+            "externalId": "2702328"
+          },
+          "kind": "issue",
+          "typeRaw": "Issue",
+          "number": "31"
+        },
+        "id": "25158678"
+      }
     },
     {
       "ref": {

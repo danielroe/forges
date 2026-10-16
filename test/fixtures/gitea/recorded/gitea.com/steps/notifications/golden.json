@@ -62,7 +62,26 @@
       "subjectState": "closed",
       "subjectStateRaw": "closed",
       "updatedAt": "<now>",
-      "url": "https://gitea.com/api/v1/repos/forges-fixtures/forges-fixtures/issues/43"
+      "url": "https://gitea.com/api/v1/repos/forges-fixtures/forges-fixtures/issues/43",
+      "latestComment": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "thread": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "repo": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "owner": "forges-fixtures",
+            "name": "forges-fixtures",
+            "externalId": "146918"
+          },
+          "kind": "issue",
+          "typeRaw": "Issue",
+          "number": "43"
+        },
+        "id": "1757987"
+      }
     },
     {
       "ref": {

@@ -1401,6 +1401,11 @@ export interface Notification {
   updatedAt: Date
   lastReadAt?: Date
   url?: string
+  /**
+   * The latest comment on a thread subject, where the forge links it. Read it with `threads.getComment()`.
+   * Absent when the latest activity is not a comment on the thread, such as a review comment.
+   */
+  latestComment?: ResolvedCommentRef
   /** Unnormalised forge payload, retained for fidelity. */
   raw: unknown
 }
@@ -2048,6 +2053,9 @@ export function affectedKeys(item: ForgeEvent | Notification): AffectedKeys {
       case 'other':
         repo(subject.repo)
         break
+    }
+    if (item.latestComment) {
+      comments.add(commentKey(item.latestComment))
     }
   }
   else {

@@ -158,6 +158,11 @@ describe('affectedKeys', () => {
     expect(affectedKeys(notification(subject))).toEqual({ repos: [], threads: [], comments: [], releases: [], unresolved: [], ...expected, notifications: ['github:github.com:notification/n1'] })
   })
 
+  it('keys the latest comment that a notification links', () => {
+    const latestComment = { ...origin, thread: pull, id: '770001' }
+    expect(affectedKeys({ ...notification({ type: 'thread', thread: pull }), latestComment }).comments).toEqual([commentKey(latestComment)])
+  })
+
   it('returns a discussion notification without a number as unresolved', () => {
     const discussion: ThreadRef = { ...origin, repo, kind: 'discussion', typeRaw: 'Discussion' }
     expect(affectedKeys(notification({ type: 'thread', thread: discussion }))).toMatchObject({ repos: [repoKey(repo)], threads: [], unresolved: [discussion] })

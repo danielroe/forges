@@ -66,7 +66,7 @@ import type {
   GiteaActionRun,
 } from './types.ts'
 import { eventTime, reviewState } from '../events.ts'
-import { toDate, toFileStatus, toPullStats } from '../utils.ts'
+import { latestCommentOf, toDate, toFileStatus, toPullStats } from '../utils.ts'
 import { eventKindsOf } from '../webhooks.ts'
 import { FORGEJO_NATIVE_EVENTS } from './webhook-events.ts'
 
@@ -251,9 +251,11 @@ export function toSubject(origin: ForgeOrigin, raw: ForgejoNotification): Notifi
 }
 
 export function toNotification(origin: ForgeOrigin, raw: ForgejoNotification): Notification {
+  const subject = toSubject(origin, raw)
+  const latestComment = latestCommentOf(subject, raw.subject.latest_comment_url)
   return {
     ref: { ...origin, id: String(raw.id) },
-    subject: toSubject(origin, raw),
+    subject,
     subjectTypeRaw: raw.subject.type,
     reason: 'unknown',
     unread: raw.unread,
@@ -262,6 +264,7 @@ export function toNotification(origin: ForgeOrigin, raw: ForgejoNotification): N
     subjectStateRaw: raw.subject.state,
     updatedAt: toDate(raw.updated_at) ?? new Date(0),
     url: raw.subject.url ?? raw.url,
+    ...latestComment ? { latestComment } : {},
     raw,
   }
 }

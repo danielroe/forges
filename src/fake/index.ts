@@ -817,6 +817,9 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
       raw: { reason },
     }
     Object.assign(notification, { reason, reasonRaw: reason, unread: true, title: thread.title, subjectState: thread.state, updatedAt: event.occurredAt })
+    if (event.detail?.type === 'comment' && event.detail.comment) {
+      notification.latestComment = { ...event.detail.comment, thread: thread.ref }
+    }
     if (!existing) {
       store.notifications.push(notification)
     }

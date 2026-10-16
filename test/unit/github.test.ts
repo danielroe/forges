@@ -147,6 +147,24 @@ describe('github provider', () => {
     })
   })
 
+  it('links the latest comment only when the notification names an issue comment', () => {
+    const notification = (latest: string | null) => toNotification('github.com', {
+      id: '901234572',
+      unread: true,
+      reason: 'comment',
+      updated_at: '2025-09-18T09:12:44Z',
+      last_read_at: null,
+      url: 'https://api.github.com/notifications/threads/901234572',
+      repository: { name: 'widgets', full_name: 'acme/widgets' },
+      subject: { title: 'Bug', url: 'https://api.github.com/repos/acme/widgets/pulls/7', latest_comment_url: latest, type: 'PullRequest' },
+    })
+
+    expect(notification('https://api.github.com/repos/acme/widgets/issues/comments/770001').latestComment).toMatchObject({ id: '770001', thread: { kind: 'pull_request', number: '7' } })
+    expect(notification('https://api.github.com/repos/acme/widgets/pulls/7').latestComment).toBeUndefined()
+    expect(notification('https://api.github.com/repos/acme/widgets/pulls/comments/880001').latestComment).toBeUndefined()
+    expect(notification(null).latestComment).toBeUndefined()
+  })
+
   it('refuses to address an unresolved or other thread', async () => {
     const { provider } = tokenProvider()
     await expect(provider.threads.get({ ...pull, number: undefined })).rejects.toThrow(UnresolvedThreadError)

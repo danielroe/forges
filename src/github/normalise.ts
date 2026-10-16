@@ -84,7 +84,7 @@ import type {
 } from './types.ts'
 import { eventTime, reviewState } from '../events.ts'
 import { REACTION_CONTENTS } from '../model.ts'
-import { checkRunState, toDate, toFileStatus, toPullStats } from '../utils.ts'
+import { checkRunState, latestCommentOf, toDate, toFileStatus, toPullStats } from '../utils.ts'
 import { eventKindsOf } from '../webhooks.ts'
 import { GITHUB_NATIVE_EVENTS } from './webhook-events.ts'
 
@@ -390,9 +390,11 @@ export function toSubject(instance: string, raw: GitHubNotification): Notificati
 }
 
 export function toNotification(instance: string, raw: GitHubNotification): Notification {
+  const subject = toSubject(instance, raw)
+  const latestComment = latestCommentOf(subject, raw.subject.latest_comment_url)
   return {
     ref: { forge: FORGE, instance, id: raw.id },
-    subject: toSubject(instance, raw),
+    subject,
     subjectTypeRaw: raw.subject.type,
     reason: toReason(raw.reason),
     reasonRaw: raw.reason,
@@ -402,6 +404,7 @@ export function toNotification(instance: string, raw: GitHubNotification): Notif
     updatedAt: toDate(raw.updated_at) ?? new Date(0),
     lastReadAt: toDate(raw.last_read_at),
     url: raw.subject.url ?? raw.url,
+    ...latestComment ? { latestComment } : {},
     raw,
   }
 }

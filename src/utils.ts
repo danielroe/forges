@@ -1,6 +1,6 @@
 import type { ForgeErrorContext } from './errors.ts'
 import type { Fetcher, FetchResult, PaginateOptions } from './fetch.ts'
-import type { Actor, BaseOptions, ChecksSummary, CheckState, Cursor, FileStatus, ForgeWarning, GetManyResult, ListOptions, MergeOptions, Milestone, Page, PageOptions, PullStats, RateLimit, RepoRef, ResolvedThreadRef, Review, ReviewState, Thread, ThreadRef } from './model.ts'
+import type { Actor, BaseOptions, ChecksSummary, CheckState, Cursor, FileStatus, ForgeWarning, GetManyResult, ListOptions, MergeOptions, Milestone, NotificationSubject, Page, PageOptions, PullStats, RateLimit, RepoRef, ResolvedCommentRef, ResolvedThreadRef, Review, ReviewState, Thread, ThreadRef } from './model.ts'
 import type { ForgeIterable, MilestoneListOptions, TokenAuth } from './provider.ts'
 import { ForgeApiError, ForgeError, RateLimitedError, TokenRevokedError, UnresolvedThreadError, UnsupportedOperationError } from './errors.ts'
 import { rateLimitOf } from './fetch.ts'
@@ -91,6 +91,15 @@ export function getManyConcurrently(
       return { ok: false, ref, warning: toWarning(error instanceof UnresolvedThreadError ? 'thread_unresolved' : 'thread_unreadable', error, ref.number) }
     },
   ))
+}
+
+/** The issue comment that a notification's `latest_comment_url` names, for a thread subject with a number. */
+export function latestCommentOf(subject: NotificationSubject, url: string | null | undefined): ResolvedCommentRef | undefined {
+  const id = /\/issues\/comments\/(\d+)$/.exec(url ?? '')?.[1]
+  if (!id || subject.type !== 'thread' || !isResolvedThread(subject.thread)) {
+    return undefined
+  }
+  return { forge: subject.thread.forge, instance: subject.thread.instance, thread: subject.thread, id }
 }
 
 /** Compares dotted numeric versions, ignoring any suffix after the numbers. */

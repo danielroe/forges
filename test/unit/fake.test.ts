@@ -601,7 +601,9 @@ describe('fake writes by someone else', () => {
 
     expect(comment.author?.login).toBe('octocat')
     expect(factory.store.events.at(-1)).toMatchObject({ actor: { login: 'octocat' }, summary: 'octocat commented' })
-    expect((await viewer.notifications.listPage()).items).toMatchObject([{ ref: { id: '1' }, reason: 'author', unread: true }])
+    const [notification] = (await viewer.notifications.listPage()).items
+    expect(notification).toMatchObject({ ref: { id: '1' }, reason: 'author', unread: true, latestComment: { id: comment.ref.id } })
+    expect((await viewer.threads.getComment(notification!.latestComment!)).body).toBe('Any news?')
     expect((await octocat.users.me()).login).toBe('octocat')
   })
 
