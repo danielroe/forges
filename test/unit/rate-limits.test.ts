@@ -26,6 +26,10 @@ describe('reading the wait a rate limit asks for', () => {
     expect(await rateLimitWait(response(403, { 'x-ratelimit-remaining': '4000' }, '{"message":"You have exceeded a secondary rate limit."}'), now)).toBeNaN()
   })
 
+  it('reads the window of a limit named in the body', async () => {
+    expect(await rateLimitWait(response(429, {}, '{"message":"newIssue: NewIssue: \\"roebot\\" posted 5 issues in under 5 minutes: rate limited","url":"https://codeberg.org/api/swagger"}'), now)).toBe(300_000)
+  })
+
   it('leaves other refusals alone', async () => {
     expect(await rateLimitWait(response(403, { 'x-ratelimit-remaining': '4973' }, '{"message":"Resource not accessible by personal access token"}'), now)).toBeUndefined()
     expect(await rateLimitWait(response(422, {}, '{"message":"Validation Failed"}'), now)).toBeUndefined()
