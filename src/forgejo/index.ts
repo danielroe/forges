@@ -686,9 +686,10 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
   async function pullTemplate(repo: RepoRef, signal?: AbortSignal): Promise<RepoTemplate[]> {
     const directories = PULL_TEMPLATE_DIRECTORIES[isGitea ? 'gitea' : 'forgejo']
     const root = await listDirectory(repo, '', { signal }) ?? []
-    const nested = await Promise.all(directories.filter(directory => directory && root.some(entry => entry.type === 'dir' && entry.name === directory)).map(async directory => await listDirectory(repo, directory, { signal }) ?? []))
-    const files = new Map([root, ...nested].flat().filter(entry => entry.type === 'file').map(entry => [entry.path, entry]))
-    const entry = directories.flatMap(directory => PULL_TEMPLATE_FILES.map(name => files.get(directory ? `${directory}/${name}` : name))).find(Boolean)
+    const pick = (entries: ForgejoContentFile[]) => PULL_TEMPLATE_FILES.map(name => entries.find(entry => entry.type === 'file' && entry.name === name)).find(Boolean)
+    const inRoot = pick(root)
+    const nested = inRoot ? [] : await Promise.all(directories.filter(directory => directory && root.some(entry => entry.type === 'dir' && entry.name === directory)).map(async directory => await listDirectory(repo, directory, { signal }) ?? []))
+    const entry = inRoot ?? nested.map(pick).find(Boolean)
     if (!entry) {
       return []
     }

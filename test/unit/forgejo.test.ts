@@ -673,6 +673,18 @@ describe('forgejo templates', () => {
     expect(templates).toMatchObject([{ kind: 'pull_request', path: '.forgejo/pull_request_template.md', format: 'markdown', body: 'From .forgejo' }])
   })
 
+  it('stops at a template in the root, which wins over every folder', async () => {
+    const { instance, calls } = provider({
+      [`GET ${api}/contents`]: contentsListing('.forgejo/', 'PULL_REQUEST_TEMPLATE.md'),
+      [`GET ${api}/contents/PULL_REQUEST_TEMPLATE.md`]: contentsFile('PULL_REQUEST_TEMPLATE.md', 'Prêt à merger ✓'),
+    })
+
+    const templates = await instance.repos.templates(repo, { kind: 'pull_request' })
+
+    expect(templates).toMatchObject([{ path: 'PULL_REQUEST_TEMPLATE.md', body: 'Prêt à merger ✓' }])
+    expect(calls.map(call => new URL(call.url).pathname)).not.toContain('/api/v1/repos/acme/widgets/contents/.forgejo')
+  })
+
   it('skips the directories Gitea does not look in', async () => {
     const { fetch, calls } = fixtureFetch('forgejo', Object.fromEntries(Object.entries(pullFiles).map(([key, response]) => [key.replace('codeberg.org', 'gitea.com'), response])))
     const instance = gitea({ auth: { type: 'token', token: 't' }, fetch }).create()
