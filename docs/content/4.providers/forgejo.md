@@ -43,7 +43,7 @@ forgejo({ baseUrl: 'https://git.example.com', auth })
 
 ## Marking notifications done
 
-Forgejo notifications have a read state but no done state. To give you `markDone()` anyway, the provider emulates it, which is why it is `'emulated'` in the capabilities. It marks the notification as read and unsubscribes you from the thread.
+Forgejo notifications have a read state but no done state. To give you `markDone()` anyway, the provider emulates it, which is why it is `'emulated'` in the capabilities. It marks the notification as read, so it leaves the unread listing, and you stay subscribed to the thread. A later change to the thread brings the notification back as unread. To stop those notifications as well, call `unsubscribe()`.
 
 ## Merging
 

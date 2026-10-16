@@ -19,16 +19,13 @@ describe('forgejo provider', () => {
     expect(selfHosted.baseUrl).toBe('https://git.example.org/api/v1')
   })
 
-  it('emulates done as read plus unsubscribe', async () => {
+  it('emulates done as read, keeping the subscription', async () => {
     const { instance, calls } = provider()
 
     await instance.notifications!.markDone!({ forge: 'forgejo', instance: 'codeberg.org', id: '5512' })
 
     expect(calls.map(call => `${call.method} ${call.url}`)).toEqual([
       'PATCH https://codeberg.org/api/v1/notifications/threads/5512?to-status=read',
-      'GET https://codeberg.org/api/v1/notifications/threads/5512',
-      'GET https://codeberg.org/api/v1/user',
-      'DELETE https://codeberg.org/api/v1/repos/acme/widgets/issues/7/subscriptions/testuser',
     ])
   })
 
@@ -55,11 +52,10 @@ describe('forgejo provider', () => {
       number: '7',
     } as const
 
-    await instance.notifications!.markDone!({ forge: 'forgejo', instance: 'codeberg.org', id: '5512' }, { thread })
+    await instance.notifications!.unsubscribe!({ forge: 'forgejo', instance: 'codeberg.org', id: '5512' }, { thread })
     await instance.notifications!.unsubscribe!({ forge: 'forgejo', instance: 'codeberg.org', id: '5512' }, { thread })
 
     expect(calls.map(call => `${call.method} ${call.url}`)).toEqual([
-      'PATCH https://codeberg.org/api/v1/notifications/threads/5512?to-status=read',
       'GET https://codeberg.org/api/v1/user',
       'DELETE https://codeberg.org/api/v1/repos/acme/widgets/issues/7/subscriptions/testuser',
       'DELETE https://codeberg.org/api/v1/repos/acme/widgets/issues/7/subscriptions/testuser',

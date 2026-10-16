@@ -779,10 +779,7 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
     notifications: {
       listPage: verb(true, notificationPage),
       markRead: verb(true, (ref, options) => setStatus(ref, 'read', options)),
-      markDone: verb('emulated', async (ref, writeOptions) => {
-        await setStatus(ref, 'read', writeOptions)
-        await unsubscribe(ref, writeOptions)
-      }),
+      markDone: verb('emulated', (ref, writeOptions) => setStatus(ref, 'read', writeOptions)),
       unsubscribe: verb(true, unsubscribe),
       markAllRead: verb(true, async (bulk: BulkNotificationOptions = {}) => {
         await fetcher.raw(bulk.repo ? `${repoPath(bulk.repo)}/notifications` : '/notifications', {
