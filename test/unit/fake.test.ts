@@ -498,6 +498,56 @@ describe('fake forge', () => {
   })
 })
 
+describe('fake listing filters', () => {
+  const repo = { forge: 'fake', instance: 'fake.test', owner: 'acme', name: 'widgets' } as const
+
+  function clocked() {
+    let at = Date.parse('2026-01-01T00:00:00Z')
+    const factory = fake({
+      now: () => new Date(at),
+      seed: {
+        threads: [
+          { repo: 'acme/widgets', kind: 'issue', title: 'Old', author: 'ada', milestone: 'v1' },
+          { repo: 'acme/widgets', kind: 'issue', title: 'Mentions bob', body: 'cc @bob', comments: [{ body: 'one', author: 'cy' }, { body: 'two' }] },
+          { repo: 'acme/other', kind: 'issue', title: 'Elsewhere' },
+        ],
+        notifications: [{ repo: 'acme/widgets', number: 1 }, { repo: 'acme/widgets', number: 2 }, { repo: 'acme/other', number: 1 }],
+      },
+    })
+    return { factory, forge: factory.create(), tick: (ms: number) => (at += ms) }
+  }
+
+  it('filters threads by mention, involvement, milestone, update and creation time, and sorts them', async () => {
+    const { forge, tick } = clocked()
+    tick(60_000)
+    await forge.threads.comment({ forge: 'fake', instance: 'fake.test', repo, kind: 'issue', number: '1' }, 'bump')
+    const titles = async (query: Parameters<typeof forge.threads.listPage>[1]) => (await forge.threads.listPage(repo, query)).items.map(thread => thread.title)
+
+    expect(await titles({ mentions: 'bob' })).toEqual(['Mentions bob'])
+    expect(await titles({ involves: 'cy' })).toEqual(['Mentions bob'])
+    expect(await titles({ involves: 'ada' })).toEqual(['Old'])
+    expect(await titles({ milestone: 'v1' })).toEqual(['Old'])
+    expect(await titles({ milestone: 'none' })).toEqual(['Mentions bob'])
+    expect(await titles({ since: new Date('2026-01-01T00:00:30Z') })).toEqual(['Old'])
+    expect(await titles({ createdAfter: new Date('2026-01-01T00:00:30Z') })).toEqual([])
+    expect(await titles({ sort: 'updated' })).toEqual(['Old', 'Mentions bob'])
+    expect(await titles({ sort: 'comments', direction: 'asc' })).toEqual(['Old', 'Mentions bob'])
+    expect((await forge.threads.listPage(repo, { mentions: 'bob' })).warnings).toBeUndefined()
+  })
+
+  it('lists notifications updated since a time, and marks only those of a repository or before a time', async () => {
+    const { factory, forge, tick } = clocked()
+    factory.store.notifications[1]!.updatedAt = new Date(tick(60_000))
+    const unread = async () => (await forge.notifications.listPage()).items.map(item => item.ref.id)
+
+    expect((await forge.notifications.listPage({ since: new Date('2026-01-01T00:00:30Z') })).items.map(item => item.ref.id)).toEqual(['2'])
+    await forge.notifications.markAllRead({ before: new Date('2026-01-01T00:00:30Z'), repo })
+    expect(await unread()).toEqual(['2', '3'])
+    await forge.notifications.markAllDone({ repo })
+    expect((await forge.notifications.listPage({ all: true })).items.map(item => item.ref.id)).toEqual(['3'])
+  })
+})
+
 describe('fake webhook management', () => {
   it('registers, updates and removes a hook without ever returning its secret', async () => {
     const factory = fake({ seed })

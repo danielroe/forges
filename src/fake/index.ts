@@ -48,7 +48,7 @@ import type {
   WebhookEventType,
   WebhookRef,
 } from '../model.ts'
-import type { ForgeCapabilities, ForgeOptionsBase, ForgeProvider, ForgeProviderFactory, ForgeVerb, SubscribeOptions } from '../provider.ts'
+import type { BulkNotificationOptions, ForgeCapabilities, ForgeOptionsBase, ForgeProvider, ForgeProviderFactory, ForgeVerb, SubscribeOptions } from '../provider.ts'
 import { toFileContent } from '../contents.ts'
 import { bodyText, headerValue } from '../crypto.ts'
 import { defineForgeProvider, perKind, verb } from '../define.ts'
@@ -95,6 +95,8 @@ export interface FakeThreadSeed {
   author?: string
   labels?: string[]
   assignees?: string[]
+  /** The title of the milestone the thread belongs to. */
+  milestone?: string
   comments?: Array<{ body: string, author?: string }>
   checks?: Array<{ name: string, state: CheckState }>
   /** Files the pull request changes. */
@@ -635,6 +637,7 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
       assignees: (seed.assignees ?? []).map(actor),
       reviewers: [],
       labels: (seed.labels ?? []).map(label),
+      ...seed.milestone === undefined ? {} : { milestone: { id: seed.milestone, title: seed.milestone, state: 'open' as const, raw: { title: seed.milestone } } },
       url: `https://${instance}/${seed.repo}/${seed.kind === 'pull_request' ? 'pull' : seed.kind === 'discussion' ? 'discussions' : 'issues'}/${number}`,
       createdAt: at,
       updatedAt: at,
@@ -669,6 +672,24 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
     }))
     repo.threads.set(number, { thread, files, commits: seed.commits ?? [], comments, reactions: new Map(), checks, reviews: [], subscription: 'subscribed', mergeable: seed.mergeable ?? 'clean' })
     return thread
+  }
+
+  function mentioned(thread: Thread, comments: Comment[], login: string): boolean {
+    const mention = new RegExp(`(?:^|[^\\w@])@${login.replace(/\W/g, '\\$&')}(?![\\w-])`, 'i')
+    return [thread.body, ...comments.map(comment => comment.body)].some(body => body !== undefined && mention.test(body))
+  }
+
+  function involved(thread: Thread, comments: Comment[], login: string): boolean {
+    return thread.author?.login === login
+      || thread.assignees.some(item => item.login === login)
+      || comments.some(comment => comment.author?.login === login)
+      || mentioned(thread, comments, login)
+  }
+
+  function inBulk(notification: Notification, bulk: BulkNotificationOptions): boolean {
+    const repo = notification.subject.type === 'thread' ? notification.subject.thread.repo : 'repo' in notification.subject ? notification.subject.repo : undefined
+    return (!bulk.repo || (repo !== undefined && slugOf(repo) === slugOf(bulk.repo)))
+      && (!bulk.before || notification.updatedAt < bulk.before)
   }
 
   function summaryState(checks: Check[]): ChecksSummary['state'] {
@@ -1137,15 +1158,23 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
         get: perKind(kinds('threads.get', ALL_KINDS), async ref => threadState(ref).thread),
         listPage: perKind(kinds('threads.list', ALL_KINDS), async (repo, query = {}) => {
           const state = query.state ?? 'open'
+          const sortKey = (entry: FakeThreadState) => query.sort === 'comments' ? entry.thread.commentCount ?? 0 : query.sort === 'updated' ? entry.thread.updatedAt?.getTime() ?? 0 : entry.thread.createdAt?.getTime() ?? 0
           const items = [...repoState(repo).threads.values()]
-            .map(entry => entry.thread)
-            .filter(thread => (!query.kind || thread.kind === query.kind)
+            .filter(({ thread, comments }) => (!query.kind || thread.kind === query.kind)
               && (state === 'all' || (state === 'open' ? thread.state === 'open' : state === 'merged' ? thread.state === 'merged' : thread.state !== 'open'))
               && (!query.labels?.length || query.labels.every(name => thread.labels.some(item => item.name === name)))
               && (!query.author || thread.author?.login === query.author)
-              && (!query.assignee || thread.assignees.some(item => item.login === query.assignee)))
+              && (!query.assignee || thread.assignees.some(item => item.login === query.assignee))
+              && (!query.mentions || mentioned(thread, comments, query.mentions))
+              && (!query.involves || involved(thread, comments, query.involves))
+              && (!query.milestone || (query.milestone === 'none' ? !thread.milestone : thread.milestone?.title === query.milestone))
+              && (!query.since || (thread.updatedAt?.getTime() ?? 0) >= query.since.getTime())
+              && (!query.createdAfter || (thread.createdAt?.getTime() ?? 0) >= query.createdAfter.getTime()))
+            .toSorted((a, b) => sortKey(a) - sortKey(b))
+            .map(entry => entry.thread)
           return conditional(pageOf(query.direction === 'asc' ? items : items.toReversed(), query), query)
         }),
+        listFilters: ['involves', 'mentions', 'milestone'],
         getMany: verb(support('threads.getMany', true), refs => getManyConcurrently(refs, async ref => threadState(ref).thread)),
         eventsPage: verb(true, async (ref, listOptions = {}) => conditional(pageOf(store.events.filter(event => event.thread?.repo.owner === ref.repo.owner && event.thread.repo.name === ref.repo.name && event.thread.number === ref.number), listOptions), listOptions)),
         commentsPage: perKind(kinds('threads.comments', ALL_KINDS), async (ref, listOptions = {}) => conditional(pageOf(threadState(ref).comments, listOptions), listOptions)),
@@ -1512,7 +1541,7 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
         }),
       },
       notifications: {
-        listPage: verb(support('notifications.list', true), async (listOptions = {}) => conditional(pageOf(store.notifications.filter(item => listOptions.all || item.unread), listOptions), listOptions)),
+        listPage: verb(support('notifications.list', true), async (listOptions = {}) => conditional(pageOf(store.notifications.filter(item => (listOptions.all || item.unread) && (!listOptions.since || item.updatedAt >= listOptions.since)), listOptions), listOptions)),
         markRead: verb(support('notifications.markRead', true), async (ref) => {
           const notification = store.notifications.find(item => item.ref.id === ref.id)
           if (notification) {
@@ -1528,13 +1557,13 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
             threadState(notification.subject.thread).subscription = 'none'
           }
         }),
-        markAllRead: verb(support('notifications.markAllRead', true), async () => {
-          for (const notification of store.notifications) {
+        markAllRead: verb(support('notifications.markAllRead', true), async (bulk: BulkNotificationOptions = {}) => {
+          for (const notification of store.notifications.filter(item => inBulk(item, bulk))) {
             notification.unread = false
           }
         }),
-        markAllDone: verb(support('notifications.markAllDone', true), async () => {
-          store.notifications = []
+        markAllDone: verb(support('notifications.markAllDone', true), async (bulk: BulkNotificationOptions = {}) => {
+          store.notifications = store.notifications.filter(item => !inBulk(item, bulk))
         }),
         unreadCount: verb(support('notifications.unreadCount', true), async () => store.notifications.filter(item => item.unread).length),
       },
