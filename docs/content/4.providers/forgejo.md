@@ -79,9 +79,9 @@ Forgejo refuses to write over a symlink, so a change with contents for one rejec
 
 ## Templates
 
-Issue templates come from Forgejo's own API, which does the parsing: `title`, `about`, `labels` and the `fields` of a form. It drops the front matter and a form's YAML, though, so the provider reads each file once more for `body`.
+Issue templates come from Forgejo's API, which parses `title`, `about`, `labels` and the `fields` of a form. The provider reads each file once more for `body`, with its front matter or the YAML of the form.
 
-Pull request templates have no endpoint at all. The provider picks the one file the web UI would fill a new pull request with: `PULL_REQUEST_TEMPLATE` or `pull_request_template`, as `.md`, `.yaml` or `.yml`, in the root, `.forgejo/`, `.gitea/`, `.github/` or `docs/`, in that order. Gitea looks only in the root, `.gitea/` and `.github/`.
+Pull request templates come from the files themselves. The provider picks the one file the web UI would fill a new pull request with: `PULL_REQUEST_TEMPLATE` or `pull_request_template`, as `.md`, `.yaml` or `.yml`, in the root, `.forgejo/`, `.gitea/`, `.github/` or `docs/`, in that order. Gitea looks only in the root, `.gitea/` and `.github/`. The provider takes the first file that exists without validating it, while the web UI skips a template it can't parse and tries the next.
 
 ## Listing an owner's repositories
 

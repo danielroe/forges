@@ -3365,11 +3365,11 @@
       },
       "name": {
         "type": "string",
-        "description": "The name the forge shows for the template, or its file name where the forge shows none."
+        "description": "The name of the template, where the forge's API parses one, or its file name."
       },
       "path": {
         "type": "string",
-        "description": "The file the template lives in. GitLab doesn't say."
+        "description": "The file the template lives in. Not available on GitLab."
       },
       "format": {
         "type": "string",

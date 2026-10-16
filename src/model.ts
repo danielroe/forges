@@ -140,9 +140,9 @@ export interface ContributorWeek {
 export interface RepoTemplate {
   /** What the template opens. */
   kind: 'issue' | 'pull_request'
-  /** The name the forge shows for the template, or its file name where the forge shows none. */
+  /** The name of the template, where the forge's API parses one, or its file name. */
   name: string
-  /** The file the template lives in. GitLab doesn't say. */
+  /** The file the template lives in. Not available on GitLab. */
   path?: string
   /** `'form'` for a form written in YAML, `'markdown'` for the rest. */
   format: 'markdown' | 'form'
