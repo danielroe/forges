@@ -136,7 +136,8 @@ const PULL_FIELDS = `id number title body state isDraft createdAt updatedAt clos
       mergeCommit { oid }
       additions deletions changedFiles
       commits(last: 1) { totalCount nodes { commit { statusCheckRollup { state contexts { totalCount checkRunCountsByState { state count } statusContextCountsByState { state count } } } } } }
-      reviewRequests(first: 20) { nodes { requestedReviewer { __typename ... on User { login databaseId avatarUrl url } ... on Bot { login databaseId avatarUrl url } ... on Team { slug databaseId name url } } } }`
+      reviewRequests(first: 20) { nodes { requestedReviewer { __typename ... on User { login databaseId avatarUrl url } ... on Bot { login databaseId avatarUrl url } ... on Team { slug databaseId name url } } } }
+      timelineItems(itemTypes: [REVIEW_REQUESTED_EVENT], last: 20) { nodes { ... on ReviewRequestedEvent { createdAt requestedReviewer { __typename ... on User { login } ... on Bot { login } ... on Team { slug } } } } }`
 
 /** One aliased query reading many issues, pull requests and discussions. */
 export function threadsBatchQuery(refs: ResolvedThreadRef[]): { query: string, variables: Record<string, unknown> } {
@@ -212,6 +213,7 @@ export interface GraphQLIssueOrPull {
   changedFiles?: number
   commits?: { totalCount?: number, nodes: Array<{ commit: { statusCheckRollup?: GraphQLStatusRollup | null } }> }
   reviewRequests?: { nodes: Array<{ requestedReviewer: (GraphQLActor & { slug?: string }) | null }> }
+  timelineItems?: { nodes: Array<{ createdAt?: string, requestedReviewer?: { __typename: string, login?: string, slug?: string } | null }> }
 }
 
 export interface GraphQLStatusRollup {
@@ -243,6 +245,13 @@ export function toGraphQLThread(ref: ResolvedThreadRef, raw: GraphQLIssueOrPull)
   const isPull = raw.__typename === 'PullRequest'
   const kind = isPull ? 'pull_request' : 'issue'
   const state = raw.state === 'MERGED' ? 'merged' : raw.state === 'OPEN' ? 'open' : raw.state === 'CLOSED' ? 'closed' : 'unknown'
+  const requestedAt = new Map<string, string>()
+  for (const { createdAt, requestedReviewer } of raw.timelineItems?.nodes ?? []) {
+    const name = requestedReviewer?.slug ?? requestedReviewer?.login
+    if (createdAt && name) {
+      requestedAt.set(`${requestedReviewer!.__typename}:${name}`, createdAt)
+    }
+  }
   const reviewers: Reviewer[] = (raw.reviewRequests?.nodes ?? []).flatMap(({ requestedReviewer: reviewer }) => {
     if (!reviewer) {
       return []
@@ -251,7 +260,8 @@ export function toGraphQLThread(ref: ResolvedThreadRef, raw: GraphQLIssueOrPull)
     const actor = isTeam
       ? { forge: FORGE, instance, login: reviewer.slug ?? '', id: String(reviewer.databaseId ?? reviewer.slug), name: reviewer.name, url: reviewer.url, typeRaw: 'Team', isBotHint: false }
       : toGraphQLActor(instance, reviewer)!
-    return [{ actor, state: 'pending' as const, stateRaw: 'requested', ...isTeam ? { isTeam: true } : {} }]
+    const at = requestedAt.get(`${reviewer.__typename}:${isTeam ? reviewer.slug : reviewer.login}`)
+    return [{ actor, state: 'pending' as const, stateRaw: 'requested', ...isTeam ? { isTeam: true } : {}, ...at ? { requestedAt: new Date(at) } : {} }]
   })
   return {
     ref: { ...ref, kind, externalId: raw.id },

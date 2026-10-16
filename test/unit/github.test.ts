@@ -1543,6 +1543,14 @@ describe('github checks, releases and security alerts', () => {
     expect(result?.ok && result.thread.stats).toEqual({ additions: 24, deletions: 3, changedFileCount: 2, commitCount: 2 })
   })
 
+  it('reads when each pending review was last requested when reading several pull requests', async () => {
+    const { fetch } = fixtureFetch('github')
+    const provider = github({ auth: { type: 'token', token: 't' }, fetch }).create()
+    const [result] = await provider.threads.getMany([{ forge: 'github', instance: 'github.com', repo: widgets, kind: 'pull_request', number: '42' }])
+
+    expect(result?.ok && result.thread.reviewers?.map(reviewer => [reviewer.actor.login, reviewer.requestedAt])).toEqual([['hubot', new Date('2025-09-17T11:30:00Z')]])
+  })
+
   it('reports a token missing a GraphQL scope on every thread it could not read', async () => {
     const message = 'Your token has not been granted the required scopes to execute this query.'
     const provider = github({

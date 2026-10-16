@@ -634,6 +634,11 @@ export interface Reviewer {
   stateRaw?: string
   /** True when the reviewer is a team rather than an account. */
   isTeam?: boolean
+  /**
+   * When the pending review was last requested. Absent where the forge doesn't report it; on GitHub,
+   * `threads.getMany()` reports it.
+   */
+  requestedAt?: Date
 }
 
 /** The branches of a pull request. */
@@ -2165,7 +2170,7 @@ export interface Installation extends ForgeOrigin {
 }
 
 /** Every `Date` field in the model, by name. */
-export const DATE_FIELDS: ReadonlySet<string> = new Set(['closedAt', 'completedAt', 'createdAt', 'date', 'deliveredAt', 'dismissedAt', 'dueOn', 'expiresAt', 'lastActivityAt', 'lastReadAt', 'mergedAt', 'nextPollAt', 'occurredAt', 'publishedAt', 'pushedAt', 'resetAt', 'startedAt', 'submittedAt', 'updatedAt', 'week'])
+export const DATE_FIELDS: ReadonlySet<string> = new Set(['closedAt', 'completedAt', 'createdAt', 'date', 'deliveredAt', 'dismissedAt', 'dueOn', 'expiresAt', 'lastActivityAt', 'lastReadAt', 'mergedAt', 'nextPollAt', 'occurredAt', 'publishedAt', 'pushedAt', 'requestedAt', 'resetAt', 'startedAt', 'submittedAt', 'updatedAt', 'week'])
 
 const UNNORMALISED_FIELDS: ReadonlySet<string> = new Set(['payload', 'raw'])
 

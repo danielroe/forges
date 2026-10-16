@@ -3757,6 +3757,11 @@
       "isTeam": {
         "type": "boolean",
         "description": "True when the reviewer is a team rather than an account."
+      },
+      "requestedAt": {
+        "type": "string",
+        "format": "date-time",
+        "description": "When the pending review was last requested. Absent where the forge doesn't report it; on GitHub, `threads.getMany()` reports it."
       }
     },
     "required": [
