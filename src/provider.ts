@@ -1351,9 +1351,10 @@ export interface ForgeProvider<HasWeb extends boolean = boolean> {
   can: (verb: ForgeVerb, kind?: ThreadKind | SecurityAlertKind) => boolean
   /**
    * How well `verb` is supported: `true`, `'experimental'`, `'emulated'`,
-   * `'unverified'` or `false`, for `kind` where support differs by kind. `can()` is `true` for
-   * every level but `false`. Without `kind`, a per-kind verb reports its
-   * strongest level across kinds.
+   * `'unverified'`, `'not_applicable'` or `false`, for `kind` where support
+   * differs by kind. `can()` is `true` for every level but `false` and
+   * `'not_applicable'`. Without `kind`, a per-kind verb reports its strongest
+   * level across kinds.
    * @param verb The operation, named by its path on the provider, such as `threads.comment`.
    * @param kind The thread kind, for an operation whose support differs by kind.
    */

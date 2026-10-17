@@ -165,6 +165,9 @@ type VerbsOf<R> = R extends { verbs: readonly (infer V extends string)[] } ? V :
 /** A provider verb, named by its path on `ForgeProvider`. */
 export type ForgeVerb = VerbsOf<(typeof TABLE)[number]>
 
+/** A capability, named by its path on `ForgeCapabilities`. */
+export type CapabilityPath = Exclude<(typeof TABLE)[number]['capability'], 'experimental' | 'eventKinds' | 'authKinds' | 'limits'>
+
 /** Every `ProviderSpec` path the table declares. */
 export type TableSpecPath = SpecOf<(typeof TABLE)[number]>
 

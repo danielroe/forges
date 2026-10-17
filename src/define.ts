@@ -1,3 +1,4 @@
+import type { CapabilityPath } from './capability-table.ts'
 import type { Fetcher, FetcherOptions } from './fetch.ts'
 import type { ApproveAndMergeOptions, BaseOptions, Check, CiJobRef, Comment, CommentRef, CommitFilesInput, CompareOptions, Comparison, Cursor, DownloadAssetOptions, EventFeedOptions, ForgeEventInput, ForgeInstance, ForgeKind, Installation, ListOptions, MergeOptions, MergeResult, Notification, NotificationListOptions, OwnerRepoQuery, Page, RateLimit, ReleaseAssetRef, Repo, RepoRef, ReviewRef, SecurityAlertKind, SecurityAlertListOptions, Support, TextLimits, ThreadKind, ThreadQuery, ThreadRef, UpsertCommentInput, UpsertCommentResult, WebhookEventType } from './model.ts'
 import type {
@@ -28,13 +29,13 @@ import type {
 } from './provider.ts'
 import type { ForgeVerb } from './supports.ts'
 import type { UrlTarget, WebLinks } from './web.ts'
-import { ALERT_KINDS, approveAndMergeSupport, capabilitiesOf, ciJobSupport, getCommentKinds, getReviewSupport, KINDS, resolve, restrict, threadEventKinds, upsertKinds, WRITE_VERBS } from './capabilities.ts'
+import { ALERT_KINDS, applyNotApplicable, approveAndMergeSupport, capabilitiesOf, ciJobSupport, getCommentKinds, getReviewSupport, KINDS, resolve, restrict, threadEventKinds, upsertKinds, WRITE_VERBS } from './capabilities.ts'
 import { CAPABILITY_TABLE } from './capability-table.ts'
 import { decodeText, isSha } from './contents.ts'
 import { NotFoundError, ReadOnlyError, UnsupportedOperationError, WebhookVerificationError } from './errors.ts'
 import { completeEvent } from './events.ts'
 import { createFetcher, createRequest } from './fetch.ts'
-import { commentMarker, hasCommentMarker } from './model.ts'
+import { commentMarker, hasCommentMarker, isUnsupported } from './model.ts'
 import { supportOf, supports } from './supports.ts'
 import { forgeIterable, hostOf, isFirstPage, iteratePages, memo } from './utils.ts'
 import { parseWebUrl, referenceFor, webUrlFor } from './web.ts'
@@ -105,6 +106,11 @@ type ThreadVerb<K extends keyof ThreadsApi> = KindVerb<NonNullable<ThreadsApi[K]
 export interface ProviderSpec<TExtensions extends object = Record<never, never>> {
   /** Members that only this forge's providers have, such as `graphql()` on GitHub. They are added to the provider unchanged. */
   extensions?: TExtensions
+  /**
+   * Capabilities the forge has no such operation for, reported as
+   * `'not_applicable'` rather than `false`.
+   */
+  notApplicable?: readonly CapabilityPath[]
   /** Capabilities that no single verb carries. */
   traits: {
     /** Whether event kinds come from the forge or are inferred from text. See `ForgeCapabilities.eventKinds`. */
@@ -536,7 +542,7 @@ function createProvider<TOptions extends ForgeOptionsBase, TState, HasWeb extend
     createFetcher: makeFetcher,
     derive: (derivedOptions, derivedState) => createProvider<TOptions, TState, HasWeb>(definition, derivedOptions, derivedState ?? state),
   }
-  const declaredSpec = definition.setup(ctx)
+  const declaredSpec = applyNotApplicable(definition.setup(ctx))
   const handlers = definition.webhooks?.(ctx)
   const spec = anonymous || options.readOnly ? restrict(declaredSpec, anonymous, definition.anonymous === 'webhooks') : declaredSpec
   const authKind = anonymous ? 'anonymous' : (givenAuth?.type ?? spec.traits.authKinds[0] ?? 'anonymous') as AuthKind
@@ -546,29 +552,36 @@ function createProvider<TOptions extends ForgeOptionsBase, TState, HasWeb extend
   const flags = { experimental: Boolean(definition.experimental), readOnly: Boolean(options.readOnly), webhook: Boolean(handlers) }
   let capabilities = capabilitiesOf(spec, env, flags)
 
-  const unsupported = (verb: string) => options.readOnly && WRITE_VERBS.has(verb)
+  const unsupported = (verb: string, support?: Support, kind?: string) => options.readOnly && WRITE_VERBS.has(verb)
     ? new ReadOnlyError(`${verb} is a write and this ${definition.forge} provider is read-only`, origin)
-    : new UnsupportedOperationError(`${definition.forge} does not support ${verb}`, origin)
+    : new UnsupportedOperationError(`${definition.forge} ${support === 'not_applicable' ? 'has no' : 'does not support'} ${verb}${kind ? ` for a ${kind.replace('_', ' ')}` : ''}`, origin)
   /** An iterable that rejects on first read, for listings the forge does not have. */
-  const emptyIterable = <T>(verb: string): ForgeIterable<T> => forgeIterable<T>(async function* () {
-    throw unsupported(verb)
+  const emptyIterable = <T>(verb: string, support?: Support): ForgeIterable<T> => forgeIterable<T>(async function* () {
+    throw unsupported(verb, support)
   })
 
   /** Support is resolved at call time, so a version gate is honoured once the version is known. */
   function gate(verb: string, support: SupportInput | undefined, run: AnyFunction | undefined): AnyFunction {
-    return (...args) => run && resolve(support, env) ? run(...args) : Promise.reject(unsupported(verb))
+    return (...args) => {
+      const level = resolve(support, env)
+      return run && !isUnsupported(level) ? run(...args) : Promise.reject(unsupported(verb, level))
+    }
   }
 
   /** A per-kind verb: rejects for kinds it does not support, or entirely when undeclared. */
   function kindGate(verb: string, kinds: Partial<Record<VerbKind, SupportInput>> | undefined, run: AnyFunction | undefined): AnyFunction {
     const name = verb.slice(verb.indexOf('.') + 1)
     return (...args) => {
-      if (!run || (options.readOnly && WRITE_VERBS.has(verb))) {
-        return Promise.reject(unsupported(verb))
-      }
       const kind = kindOf(name, args)
-      if (kind && (KINDS as string[]).includes(kind) && !resolve(kinds?.[kind as VerbKind], env)) {
-        return Promise.reject(new UnsupportedOperationError(`${definition.forge} does not support ${verb} for a ${kind.replace('_', ' ')}`, origin))
+      const knownKind = kind && (KINDS as string[]).includes(kind) ? kind as VerbKind : undefined
+      if (!run || (options.readOnly && WRITE_VERBS.has(verb))) {
+        return Promise.reject(unsupported(verb, kinds && resolve(kinds[knownKind ?? 'issue'], env)))
+      }
+      if (knownKind) {
+        const level = resolve(kinds?.[knownKind], env)
+        if (isUnsupported(level)) {
+          return Promise.reject(unsupported(verb, level, knownKind))
+        }
       }
       return run(...args)
     }
@@ -585,12 +598,12 @@ function createProvider<TOptions extends ForgeOptionsBase, TState, HasWeb extend
   const createReview = spec.threads.createReview
   const approve = spec.threads.approve ?? (createReview && {
     support: createReview.support,
-    run: (ref: ThreadRef, body?: string, options?: BaseOptions) => createReview.run(ref, { event: 'approve', body }, options),
+    ...createReview.run ? { run: (ref: ThreadRef, body?: string, options?: BaseOptions) => createReview.run(ref, { event: 'approve', body }, options) } : {},
   })
   const declaredSubscribe = spec.sources?.subscribe
   const alerts = spec.securityAlerts
   const declaredInstallations = spec.installations
-  const installationsSupported = () => Boolean(declaredInstallations && resolve(declaredInstallations.support, env))
+  const installationsSupported = () => Boolean(declaredInstallations?.run && !isUnsupported(resolve(declaredInstallations.support, env)))
 
   const listThreads = kindGate('threads.listPage', spec.threads.listPage.kinds, spec.threads.listPage.run)
   const listOwnerRepos = gate('repos.byOwnerPage', spec.repos.byOwnerPage?.support, spec.repos.byOwnerPage?.run)
@@ -664,15 +677,15 @@ function createProvider<TOptions extends ForgeOptionsBase, TState, HasWeb extend
     'threads.getComment': kindGate(
       'threads.getComment',
       Object.fromEntries(KINDS.map(kind => [kind, (kindEnv: CapabilityEnv) => getCommentKinds(spec, kindEnv)[kind]])),
-      (ref: CommentRef, options?: BaseOptions) => resolve(spec.threads.getComment?.kinds[ref.thread.kind as VerbKind], env)
+      (ref: CommentRef, options?: BaseOptions) => !isUnsupported(resolve(spec.threads.getComment?.kinds[ref.thread.kind as VerbKind], env))
         ? spec.threads.getComment!.run(ref, options)
         : listed(call('threads.comments')(ref.thread, options), ref.id, 'Comment'),
     ),
-    'threads.getReview': gate('threads.getReview', (reviewEnv: CapabilityEnv) => getReviewSupport(spec, reviewEnv), (ref: ReviewRef, options?: BaseOptions) => resolve(spec.threads.getReview?.support, env)
+    'threads.getReview': gate('threads.getReview', (reviewEnv: CapabilityEnv) => getReviewSupport(spec, reviewEnv), (ref: ReviewRef, options?: BaseOptions) => !isUnsupported(resolve(spec.threads.getReview?.support, env))
       ? spec.threads.getReview!.run(ref, options)
       : listed(call('threads.reviews')(ref.thread, options), ref.id, 'Review')),
     'ci.job': gate('ci.job', (jobEnv: CapabilityEnv) => ciJobSupport(spec, jobEnv), (ref: CiJobRef, options?: BaseOptions) => {
-      if (resolve(spec.ci?.job?.support, env)) {
+      if (!isUnsupported(resolve(spec.ci?.job?.support, env))) {
         return spec.ci!.job!.run(ref, options)
       }
       if (!ref.run) {
@@ -680,8 +693,8 @@ function createProvider<TOptions extends ForgeOptionsBase, TState, HasWeb extend
       }
       return listed(call('ci.jobs')(ref.run, options), ref.id, 'CI job')
     }),
-    'threads.subscribe': kindGate('threads.subscribe', subscriptions?.kinds, subscriptions?.run.subscribe),
-    'threads.unsubscribe': kindGate('threads.unsubscribe', subscriptions?.kinds, subscriptions?.run.unsubscribe),
+    'threads.subscribe': kindGate('threads.subscribe', subscriptions?.kinds, subscriptions?.run?.subscribe),
+    'threads.unsubscribe': kindGate('threads.unsubscribe', subscriptions?.kinds, subscriptions?.run?.unsubscribe),
     'threads.approve': gate('threads.approve', approve?.support, approve?.run),
     'threads.approveAndMerge': gate('threads.approveAndMerge', (mergeEnv: CapabilityEnv) => approveAndMergeSupport(spec, mergeEnv), (ref: ThreadRef, { body, ...mergeOptions }: ApproveAndMergeOptions = {}) => spec.threads.merge!.run(ref, mergeOptions, {
       beforeMerge: async () => {
@@ -714,8 +727,9 @@ function createProvider<TOptions extends ForgeOptionsBase, TState, HasWeb extend
       : gate('contents.resolveRef', spec.contents?.resolveRef?.support, spec.contents?.resolveRef?.run)(repo, ref, options),
     'contents.commitFiles': async (repo: RepoRef, input: CommitFilesInput, options?: BaseOptions) => {
       const declared = spec.contents?.commitFiles
-      if (!declared || !resolve(declared.support, env)) {
-        throw unsupported('contents.commitFiles')
+      const level = resolve(declared?.support, env)
+      if (!declared?.run || isUnsupported(level)) {
+        throw unsupported('contents.commitFiles', level)
       }
       const changes = input.changes.map(change => ({ ...change, path: change.path.replace(/^\/+/, '') }))
       const paths = new Set(changes.map(change => change.path))
@@ -737,35 +751,38 @@ function createProvider<TOptions extends ForgeOptionsBase, TState, HasWeb extend
       }
       return declared.run(repo, { ...input, changes }, options)
     },
-    'webhooks.verify': handlers ? handlers.verify : () => Promise.reject(unsupported('webhooks.verify')),
+    'webhooks.verify': handlers ? handlers.verify : () => Promise.reject(unsupported('webhooks.verify', capabilities.sources.webhook)),
     'webhooks.ingest': async (delivery: WebhookDelivery) => {
       if (!handlers) {
-        throw unsupported('webhooks.ingest')
+        throw unsupported('webhooks.ingest', capabilities.sources.webhook)
       }
       if (!await handlers.verify(delivery)) {
         throw new WebhookVerificationError('Webhook signature verification failed', origin)
       }
       return (await handlers.translate(delivery)).map(completeEvent)
     },
-    'sources.subscribe': (subscribeOptions?: SubscribeOptions) => declaredSubscribe && resolve(declaredSubscribe.support, env)
+    'sources.subscribe': (subscribeOptions?: SubscribeOptions) => declaredSubscribe?.run && !isUnsupported(resolve(declaredSubscribe.support, env))
       ? completeItems(declaredSubscribe.run(subscribeOptions))
-      : emptyIterable('sources.subscribe'),
+      : emptyIterable('sources.subscribe', resolve(declaredSubscribe?.support, env)),
     'securityAlerts.listPage': (repo: RepoRef, listOptions: SecurityAlertListOptions = {}) => {
-      const supported = alerts && (listOptions.kind ? resolve(alerts.kinds[listOptions.kind as AlertKind], env) : ALERT_KINDS.some(kind => resolve(alerts.kinds[kind], env)))
+      const supported = alerts?.listPage && (listOptions.kind ? !isUnsupported(resolve(alerts.kinds[listOptions.kind as AlertKind], env)) : ALERT_KINDS.some(kind => !isUnsupported(resolve(alerts.kinds[kind], env))))
       if (!supported) {
+        const level = listOptions.kind
+          ? resolve(alerts?.kinds[listOptions.kind as AlertKind], env)
+          : ALERT_KINDS.every(kind => resolve(alerts?.kinds[kind], env) === 'not_applicable') ? 'not_applicable' : false
         return Promise.reject(listOptions.kind
-          ? new UnsupportedOperationError(`${definition.forge} cannot list ${listOptions.kind.replace('_', ' ')} alerts`, origin)
-          : unsupported('securityAlerts.list'))
+          ? new UnsupportedOperationError(`${definition.forge} ${level === 'not_applicable' ? 'has no' : 'cannot list'} ${listOptions.kind.replace('_', ' ')} alerts`, origin)
+          : unsupported('securityAlerts.list', level))
       }
       return alerts.listPage(repo, listOptions)
     },
     'installations.provider': (installation: Installation | string) => {
       if (!installationsSupported()) {
-        throw unsupported('installations.provider')
+        throw unsupported('installations.provider', resolve(declaredInstallations?.support, env))
       }
       return declaredInstallations!.run.provider(installation)
     },
-    'installations.providers': () => installationsSupported() ? declaredInstallations!.run.providers() : emptyIterable('installations.providers'),
+    'installations.providers': () => installationsSupported() ? declaredInstallations!.run.providers() : emptyIterable('installations.providers', resolve(declaredInstallations?.support, env)),
   }
 
   for (const entry of CAPABILITY_TABLE) {

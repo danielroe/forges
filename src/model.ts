@@ -15,8 +15,8 @@ export type ForgeKind = KnownForgeKind | (string & {})
 export type KnownForgeKind = 'github' | 'gitlab' | 'bitbucket' | 'forgejo' | 'gitea' | 'tangled' | 'gitee' | 'azure-devops' | 'cursor-origin' | 'pushin' | 'cloudflare-artifacts' | 'sourcehut'
 
 /**
- * Capability flag. Every value other than `false` means the operation is
- * available:
+ * Capability flag. Every value other than `false` and `'not_applicable'` means the
+ * operation is available:
  *
  * - `true`: native, and verified against the forge's responses.
  * - `'experimental'`: native and verified, but built on an API the forge marks
@@ -24,8 +24,16 @@ export type KnownForgeKind = 'github' | 'gitlab' | 'bitbucket' | 'forgejo' | 'gi
  * - `'emulated'`: composed from other calls, so the result is approximate.
  * - `'unverified'`: implemented, but not yet verified against the forge's
  *   responses, so it may not work.
+ * - `false`: not available, for any reason.
+ * - `'not_applicable'`: the forge has no such operation, so there is nothing to
+ *   implement.
  */
-export type Support = boolean | 'emulated' | 'experimental' | 'unverified'
+export type Support = boolean | 'emulated' | 'experimental' | 'not_applicable' | 'unverified'
+
+/** Whether `support` means the operation cannot be called. Test this rather than `support === false`: `'not_applicable'` is a non-empty string. */
+export function isUnsupported(support: Support): boolean {
+  return support === false || support === 'not_applicable'
+}
 
 /** Host of a single forge deployment, for example `github.com` or `codeberg.org`. */
 export type ForgeInstance = string

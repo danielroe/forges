@@ -120,7 +120,7 @@ export const PAGES: PageConfig[] = [
       { title: 'Properties', members: { of: 'ForgeProvider', kind: 'property', withoutNamespaces: true } },
       { title: 'Methods', members: { of: 'ForgeProvider', kind: 'method' } },
       { title: 'Unsupported operations', intro: 'A method for an operation that the forge lacks rejects with {@link UnsupportedOperationError}, or with {@link ReadOnlyError} on a read-only provider. Call `provider.can(verb)` first, or `provider.support(verb)` for the level of support.' },
-      { title: 'Check support', names: ['supports', 'supportOf'] },
+      { title: 'Check support', names: ['supports', 'supportOf', 'isUnsupported'] },
       { title: 'Capability types', names: ['ForgeVerb', 'ForgeCapabilities', 'Support', 'PerKind', 'AlertSupport', 'VerbScopes'] },
     ],
   },
