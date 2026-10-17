@@ -192,7 +192,7 @@ GitLab has no teams, so a subgroup stands in for one. `orgs.teams()` reads `GET 
 | `threads.events` | issue, PR, commit | ❌ |
 | `comments.list` | issue, PR, commit | commit |
 | `comments.get` | issue, PR, commit (emulated) | commit (unverified) |
-| `comments.edit` | issue, PR | ❌ |
+| `comments.update` | issue, PR | ❌ |
 | `comments.delete` | issue, PR | ❌ |
 | `comments.hide` | ❌ | ❌ |
 | `reactions.list` | issue, PR | issue, PR |
@@ -203,7 +203,7 @@ GitLab has no teams, so a subgroup stands in for one. `orgs.teams()` reads `GET 
 | `notifications.markAllRead` | ❌ | ❌ |
 | `notifications.markAllDone` | ✅ | ❌ |
 | `notifications.unreadCount` | ✅ | ❌ |
-| `writes.comment` | issue, PR, commit | ❌ |
+| `writes.createComment` | issue, PR, commit | ❌ |
 | `writes.close` | issue, PR | ❌ |
 | `writes.reopen` | issue, PR | ❌ |
 | `writes.lock` | issue, PR | ❌ |

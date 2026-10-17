@@ -64,14 +64,14 @@ describe('forgejo provider', () => {
 
   it('refuses to comment on a commit', async () => {
     const { instance } = provider()
-    await expect(instance.threads.comment!({
+    await expect(instance.threads.createComment!({
       forge: 'forgejo',
       instance: 'codeberg.org',
       repo: { forge: 'forgejo', instance: 'codeberg.org', owner: 'acme', name: 'widgets' },
       kind: 'commit',
       number: 'adbc9741',
-    }, 'hi')).rejects.toThrow('forgejo does not support threads.comment for a commit')
-    expect(instance.capabilities.writes.comment.commit).toBe(false)
+    }, 'hi')).rejects.toThrow('forgejo does not support threads.createComment for a commit')
+    expect(instance.capabilities.writes.createComment.commit).toBe(false)
   })
 
   it('updates a branch by the style it is given, and compares the head sha with a read first', async () => {
@@ -186,7 +186,7 @@ describe('forgejo path safety', () => {
     } })
     const repo = { forge: 'forgejo', instance: 'codeberg.org', owner: 'acme/x', name: 'widgets' }
 
-    await provider.threads.comment({ forge: 'forgejo', instance: 'codeberg.org', repo, kind: 'pull_request', number: '1?x=' }, 'hi')
+    await provider.threads.createComment({ forge: 'forgejo', instance: 'codeberg.org', repo, kind: 'pull_request', number: '1?x=' }, 'hi')
 
     expect(urls).toEqual(['https://codeberg.org/api/v1/repos/acme%2Fx/widgets/issues/1%3Fx%3D/comments'])
   })

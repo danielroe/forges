@@ -510,11 +510,11 @@ function setupGitee({ options, instance, origin: context, fetcher, baseUrl }: Pr
       filesPage: verb(true, (thread, listOptions = {}) => wholeListing(`${threadPath(requirePull(thread, 'read for changed files'))}/files`, listOptions, toChangedFile)),
       commitsPage: verb(true, (thread, listOptions = {}) => wholeListing(`${threadPath(requirePull(thread, 'read for commits'))}/commits`, listOptions, (raw: GiteeCommit) => toCommit(thread.repo, raw))),
       commentsPage: perKind({ issue: true, pull_request: true }, commentsPage),
-      comment: perKind({ issue: 'unverified', pull_request: true }, async (thread, body, options) => {
+      createComment: perKind({ issue: 'unverified', pull_request: true }, async (thread, body, options) => {
         const ref = requireIssueOrPull(thread, context, 'comment on')
         return toComment(ref, (await fetcher.json<GiteeComment>(`${threadPath(ref)}/comments`, { method: 'POST', json: { body }, signal: options?.signal })).data)
       }),
-      editComment: perKind({ issue: 'unverified', pull_request: 'unverified' }, async (ref, body, options) => {
+      updateComment: perKind({ issue: 'unverified', pull_request: 'unverified' }, async (ref, body, options) => {
         const thread = requireThread(ref.thread, context)
         const kind = thread.kind === 'pull_request' ? 'pulls' : 'issues'
         return toComment(thread, (await fetcher.json<GiteeComment>(`${repoPath(thread.repo)}/${kind}/comments/${ref.id}`, { method: 'PATCH', json: { body }, signal: options?.signal })).data)

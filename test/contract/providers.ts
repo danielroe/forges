@@ -30,7 +30,7 @@ export interface ProviderContract {
   probe?: (instance: ForgeProvider) => Promise<unknown>
   /** `probe` and `request()` send no credential, so a 401 is `AuthenticationRequiredError`. */
   anonymousReads?: boolean
-  /** `editComment()` reads the thread from the comment, so it accepts a comment ref whose thread has no number. */
+  /** `updateComment()` reads the thread from the comment, so it accepts a comment ref whose thread has no number. */
   editsCommentWithoutThreadNumber?: boolean
   thread: { number: string, title: string, label?: string, eventKinds: EventKind[], botActor: boolean, stats?: PullStats }
   /** A raw path for `request()`, relative to the provider's API base, and a field its body must have. */

@@ -1007,12 +1007,12 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
         }
         return toComment(thread, data)
       }),
-      comment: perKind({ issue: true, pull_request: true }, async (thread, body, options) => {
+      createComment: perKind({ issue: true, pull_request: true }, async (thread, body, options) => {
         const ref = requireIssueOrPull(thread, context, 'comment on')
         const { data } = await fetcher.json<ForgejoComment>(`${issuePath(ref)}/comments`, { method: 'POST', json: { body }, signal: options?.signal })
         return toComment(ref, data)
       }),
-      editComment: perKind({ issue: true, pull_request: true }, async (ref, body, options) => {
+      updateComment: perKind({ issue: true, pull_request: true }, async (ref, body, options) => {
         const thread = requireThread(ref.thread, context)
         const { data } = await fetcher.json<ForgejoComment>(`${repoPath(thread.repo)}/issues/comments/${encodeURIComponent(ref.id)}`, { method: 'PATCH', json: { body }, signal: options?.signal })
         return toComment(thread, data)

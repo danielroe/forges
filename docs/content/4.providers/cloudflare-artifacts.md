@@ -112,7 +112,7 @@ Artifacts sends no webhooks. It publishes [events](https://developers.cloudflare
 | `threads.events` | ❌ | ❌ |
 | `comments.list` | ❌ | ❌ |
 | `comments.get` | ❌ | ❌ |
-| `comments.edit` | ❌ | ❌ |
+| `comments.update` | ❌ | ❌ |
 | `comments.delete` | ❌ | ❌ |
 | `comments.hide` | ❌ | ❌ |
 | `reactions.list` | ❌ | ❌ |
@@ -123,7 +123,7 @@ Artifacts sends no webhooks. It publishes [events](https://developers.cloudflare
 | `notifications.markAllRead` | ❌ | ❌ |
 | `notifications.markAllDone` | ❌ | ❌ |
 | `notifications.unreadCount` | ❌ | ❌ |
-| `writes.comment` | ❌ | ❌ |
+| `writes.createComment` | ❌ | ❌ |
 | `writes.close` | ❌ | ❌ |
 | `writes.reopen` | ❌ | ❌ |
 | `writes.lock` | ❌ | ❌ |

@@ -161,7 +161,7 @@ for await (const team of provider.orgs.teams(project)) {
 | `threads.events` | issue, PR | issue (unverified), PR |
 | `comments.list` | issue (experimental), PR | issue (unverified), PR |
 | `comments.get` | issue (experimental), PR | issue (unverified), PR |
-| `comments.edit` | issue (experimental), PR | ❌ |
+| `comments.update` | issue (experimental), PR | ❌ |
 | `comments.delete` | issue (experimental), PR | ❌ |
 | `comments.hide` | ❌ | ❌ |
 | `reactions.list` | ❌ | ❌ |
@@ -172,7 +172,7 @@ for await (const team of provider.orgs.teams(project)) {
 | `notifications.markAllRead` | ❌ | ❌ |
 | `notifications.markAllDone` | ❌ | ❌ |
 | `notifications.unreadCount` | ❌ | ❌ |
-| `writes.comment` | issue (experimental), PR | ❌ |
+| `writes.createComment` | issue (experimental), PR | ❌ |
 | `writes.close` | issue, PR | ❌ |
 | `writes.reopen` | issue, PR | ❌ |
 | `writes.lock` | ❌ | ❌ |

@@ -66,7 +66,7 @@ describe('secondary rate limits', () => {
 
   it('rejects a 403 secondary limit without `retry-after` with RateLimitedError, without retrying', async () => {
     const { instance, onRetry, sent } = provider({ status: 403, headers: budget('core', 4321), body: SECONDARY })
-    const error = await failure(instance.threads.comment(issueRef, 'Hello'))
+    const error = await failure(instance.threads.createComment(issueRef, 'Hello'))
 
     expect(error).toBeInstanceOf(RateLimitedError)
     expect(error).toMatchObject({ status: 403, secondary: true, resetAt: undefined })

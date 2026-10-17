@@ -24,7 +24,7 @@ async function seedThread(provider: ForgeProvider, thread: ThreadRef, labels: st
   const comments = (await provider.threads.commentsPage(thread)).items
   for (const body of COMMENTS) {
     if (!comments.some(comment => comment.body === body)) {
-      comments.push(await provider.threads.comment(thread, body))
+      comments.push(await provider.threads.createComment(thread, body))
     }
   }
   if (provider.can('threads.setLabels', thread.kind)) {
@@ -74,7 +74,7 @@ export async function seedScratch(provider: ForgeProvider, scratch: RepoRef, pul
   if (reviewer) {
     const comments = (await reviewer.threads.commentsPage(issue.ref)).items
     if (!comments.some(comment => comment.body === REVIEWER_COMMENT)) {
-      await reviewer.threads.comment(issue.ref, REVIEWER_COMMENT)
+      await reviewer.threads.createComment(issue.ref, REVIEWER_COMMENT)
     }
     if (reviewer.can('threads.react', 'issue')) {
       await reviewer.threads.react(issue.ref, 'eyes')

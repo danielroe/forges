@@ -208,7 +208,7 @@ describe('request compatibility with Octokit', () => {
 
   it('comments on a pull request through the issues API', async () => {
     await compare(
-      provider => provider.threads.comment!(pull, 'Thanks!'),
+      provider => provider.threads.createComment!(pull, 'Thanks!'),
       octokit => octokit.rest.issues.createComment({ owner, repo: name, issue_number: 42, body: 'Thanks!' }),
     )
   })
@@ -427,7 +427,7 @@ describe('request compatibility with Octokit', () => {
     await compare(
       async (provider) => {
         await drain(provider.threads.comments(pull))
-        await provider.threads.editComment!(commentRef, 'Edited')
+        await provider.threads.updateComment!(commentRef, 'Edited')
         await provider.threads.deleteComment!(commentRef)
       },
       async (octokit) => {

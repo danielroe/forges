@@ -301,11 +301,11 @@ function setupOrigin({ options, baseUrl, instance, origin: context, fetcher, cre
         const thread = requireThread(ref.thread, context)
         return toComment(thread, (await fetcher.json<OriginComment>(`${repoPath(thread.repo)}/pulls/comments/${encodeURIComponent(ref.id)}`, { signal: options?.signal })).data)
       }),
-      comment: perKind(PULL, async (thread, body, options) => {
+      createComment: perKind(PULL, async (thread, body, options) => {
         const ref = requireThread(thread, context)
         return toComment(ref, (await fetcher.json<OriginComment>(`${pullPath(ref)}/comments`, { method: 'POST', json: { body }, signal: options?.signal })).data)
       }),
-      editComment: perKind(UNVERIFIED, async (ref, body, options) => {
+      updateComment: perKind(UNVERIFIED, async (ref, body, options) => {
         const thread = requireThread(ref.thread, context)
         return toComment(thread, (await fetcher.json<OriginComment>(`${repoPath(thread.repo)}/pulls/comments/${encodeURIComponent(ref.id)}`, { method: 'PATCH', json: { body }, signal: options?.signal })).data)
       }),

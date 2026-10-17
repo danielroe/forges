@@ -142,7 +142,7 @@ Bitbucket doesn't keep a delivery log, so `webhooks.deliveries()` and `webhooks.
 | `threads.events` | PR, commit | PR, commit |
 | `comments.list` | PR, commit | PR, commit |
 | `comments.get` | PR (emulated), commit (emulated) | PR (unverified), commit (unverified) |
-| `comments.edit` | PR, commit | ❌ |
+| `comments.update` | PR, commit | ❌ |
 | `comments.delete` | PR, commit | ❌ |
 | `comments.hide` | ❌ | ❌ |
 | `reactions.list` | ❌ | ❌ |
@@ -153,7 +153,7 @@ Bitbucket doesn't keep a delivery log, so `webhooks.deliveries()` and `webhooks.
 | `notifications.markAllRead` | ❌ | ❌ |
 | `notifications.markAllDone` | ❌ | ❌ |
 | `notifications.unreadCount` | ❌ | ❌ |
-| `writes.comment` | PR, commit | ❌ |
+| `writes.createComment` | PR, commit | ❌ |
 | `writes.close` | PR | ❌ |
 | `writes.reopen` | ❌ | ❌ |
 | `writes.lock` | ❌ | ❌ |

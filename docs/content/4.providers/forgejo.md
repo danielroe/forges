@@ -178,7 +178,7 @@ A label delivery doesn't say which labels were added or removed. When the set of
 | `threads.events` | issue, PR, commit | issue, PR, commit |
 | `comments.list` | issue, PR | issue, PR |
 | `comments.get` | issue, PR | issue, PR |
-| `comments.edit` | issue, PR | ❌ |
+| `comments.update` | issue, PR | ❌ |
 | `comments.delete` | issue, PR | ❌ |
 | `comments.hide` | ❌ | ❌ |
 | `reactions.list` | issue, PR | issue, PR |
@@ -189,7 +189,7 @@ A label delivery doesn't say which labels were added or removed. When the set of
 | `notifications.markAllRead` | ✅ | ❌ |
 | `notifications.markAllDone` | ❌ | ❌ |
 | `notifications.unreadCount` | ✅ | ❌ |
-| `writes.comment` | issue, PR | ❌ |
+| `writes.createComment` | issue, PR | ❌ |
 | `writes.close` | issue, PR | ❌ |
 | `writes.reopen` | issue, PR | ❌ |
 | `writes.lock` | ❌ | ❌ |

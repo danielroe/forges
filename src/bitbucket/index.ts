@@ -662,7 +662,7 @@ const BITBUCKET: ProviderDefinition<BitbucketOptions, undefined, true> = {
           const ref = requireThread(thread, context)
           return list(commentsPath(ref), listOptions, (comment: BitbucketComment) => toComment(ref, comment), { select: page<BitbucketComment> })
         }),
-        comment: perKind({ pull_request: true, commit: true }, async (thread, body, options) => {
+        createComment: perKind({ pull_request: true, commit: true }, async (thread, body, options) => {
           const ref = requireThread(thread, context)
           const { data } = await fetcher.json<BitbucketComment>(commentsPath(ref), {
             method: 'POST',
@@ -671,7 +671,7 @@ const BITBUCKET: ProviderDefinition<BitbucketOptions, undefined, true> = {
           })
           return toComment(ref, data)
         }),
-        editComment: perKind({ pull_request: true, commit: true }, async (ref, body, options) => {
+        updateComment: perKind({ pull_request: true, commit: true }, async (ref, body, options) => {
           const thread = requireThread(ref.thread, context)
           const { data } = await fetcher.json<BitbucketComment>(commentPath(ref), { method: 'PUT', json: { content: { raw: body } }, signal: options?.signal })
           return toComment(thread, data)

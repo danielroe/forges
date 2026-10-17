@@ -208,7 +208,7 @@ describe('tangled cancellation', () => {
     const controller = new AbortController()
     const reason = new Error('cancelled')
 
-    const pending = instance.threads.comment(pull, 'Thanks!', { signal: controller.signal })
+    const pending = instance.threads.createComment(pull, 'Thanks!', { signal: controller.signal })
     await reached
     controller.abort(reason)
 
@@ -251,14 +251,14 @@ describe('tangled writes', () => {
   it('is read-only without credentials', async () => {
     const { instance } = provider({}, false)
 
-    expect(instance.can('threads.comment', 'issue')).toBe(false)
+    expect(instance.can('threads.createComment', 'issue')).toBe(false)
     expect(instance.can('notifications.list')).toBe(false)
-    await expect(instance.threads.comment(pull, 'x')).rejects.toThrow(UnsupportedOperationError)
+    await expect(instance.threads.createComment(pull, 'x')).rejects.toThrow(UnsupportedOperationError)
   })
 
   it('writes a feed comment with a strong ref to the thread', async () => {
     const { instance, calls } = provider()
-    const comment = await instance.threads.comment!(pull, 'Thanks!')
+    const comment = await instance.threads.createComment!(pull, 'Thanks!')
     const write = JSON.parse(calls.find(call => call.url.endsWith('createRecord'))!.body!)
 
     expect(comment.ref.id).toBe('at://did:plc:acmeowner222222222222222/sh.tangled.feed.comment/3mwqcreated22')
@@ -291,7 +291,7 @@ describe('tangled writes', () => {
 
     it('takes the thread from the comment record', async () => {
       const { instance, calls } = edit(PULL)
-      const comment = await instance.threads.editComment(unnumbered, 'After')
+      const comment = await instance.threads.updateComment(unnumbered, 'After')
 
       expect(comment.ref.thread).toMatchObject({ kind: 'pull_request', number: PULL })
       expect(comment.body).toBe('After')
@@ -301,7 +301,7 @@ describe('tangled writes', () => {
     it('rejects before it writes when the record names no thread', async () => {
       const { instance, calls } = edit(`at://${OWNER}/sh.tangled.repo/widgets`)
 
-      await expect(instance.threads.editComment(unnumbered, 'After')).rejects.toThrow(UnresolvedThreadError)
+      await expect(instance.threads.updateComment(unnumbered, 'After')).rejects.toThrow(UnresolvedThreadError)
       expect(calls.filter(call => call.url.endsWith('putRecord'))).toEqual([])
     })
   })
@@ -311,7 +311,7 @@ describe('tangled writes', () => {
       'GET https://public.api.bsky.app/xrpc/com.atproto.identity.resolveHandle?handle=acme.example.com': { status: 200, body: { did: OWNER } },
     })
     const instance = tangled({ auth: { type: 'app_password', identifier: 'acme.example.com', password: 'pw' }, fetch })
-    await instance.threads.comment!(pull, 'Thanks!')
+    await instance.threads.createComment!(pull, 'Thanks!')
 
     expect(calls.find(call => call.url.endsWith('createSession'))!.url).toBe(`${PDS}/xrpc/com.atproto.server.createSession`)
   })
@@ -392,7 +392,7 @@ describe('tangled writes', () => {
       [`POST ${PDS}/xrpc/com.atproto.server.createSession`]: { status: 401, body: { error: 'AuthenticationRequired', message: 'Invalid identifier or password' } },
     })
 
-    await expect(instance.threads.comment(pull, 'x')).rejects.toThrow(TokenRevokedError)
+    await expect(instance.threads.createComment(pull, 'x')).rejects.toThrow(TokenRevokedError)
   })
 
   it('maps a 401 through the OAuth client fetch to TokenRevokedError', async () => {
@@ -539,7 +539,7 @@ describe('tangled anonymous auth', () => {
   it('treats `{ type: \'anonymous\' }` like no credentials', () => {
     const provider = tangled({ auth: { type: 'anonymous' } })
 
-    expect(provider.capabilities.writes.comment.issue).toBe(false)
+    expect(provider.capabilities.writes.createComment.issue).toBe(false)
   })
 })
 

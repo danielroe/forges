@@ -134,7 +134,7 @@ Deliveries of `installation.*` events become `installation` events. You register
 | `threads.events` | PR (experimental) | PR (experimental) | ❌ | ❌ |
 | `comments.list` | PR (experimental) | PR (experimental) | ❌ | ❌ |
 | `comments.get` | PR (unverified) | PR (unverified) | ❌ | ❌ |
-| `comments.edit` | PR (unverified) | PR (unverified) | ❌ | ❌ |
+| `comments.update` | PR (unverified) | PR (unverified) | ❌ | ❌ |
 | `comments.delete` | PR (unverified) | PR (unverified) | ❌ | ❌ |
 | `comments.hide` | ❌ | ❌ | ❌ | ❌ |
 | `reactions.list` | ❌ | ❌ | ❌ | ❌ |
@@ -145,7 +145,7 @@ Deliveries of `installation.*` events become `installation` events. You register
 | `notifications.markAllRead` | ❌ | ❌ | ❌ | ❌ |
 | `notifications.markAllDone` | ❌ | ❌ | ❌ | ❌ |
 | `notifications.unreadCount` | ❌ | ❌ | ❌ | ❌ |
-| `writes.comment` | PR (experimental) | PR (experimental) | ❌ | ❌ |
+| `writes.createComment` | PR (experimental) | PR (experimental) | ❌ | ❌ |
 | `writes.close` | PR (experimental) | PR (experimental) | ❌ | ❌ |
 | `writes.reopen` | PR (experimental) | PR (experimental) | ❌ | ❌ |
 | `writes.lock` | ❌ | ❌ | ❌ | ❌ |

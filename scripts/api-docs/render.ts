@@ -4,7 +4,7 @@ import { cell, code, prose, typeCell, typeToMarkdown } from './markdown.ts'
 
 export interface RenderContext {
   resolve: LinkResolver
-  /** A sentence about the capability that a verb such as `threads.comment` belongs to. */
+  /** A sentence about the capability that a verb such as `threads.createComment` belongs to. */
   capability: (verb: string) => string | undefined
   /** The block that shows the explorer for a verb, when the docs have one. */
   explorer?: (verb: string) => string | undefined
@@ -15,7 +15,7 @@ export interface RenderContext {
 export interface MemberOptions {
   /** The `...Page` method that goes with an iterable, documented in the same section. */
   twin?: ApiMember
-  /** The verb that the member backs, such as `threads.comment`. */
+  /** The verb that the member backs, such as `threads.createComment`. */
   verb?: string
   /** What to put before the name in the heading, such as `repos.`. */
   qualifier?: string
@@ -95,7 +95,7 @@ function overloadLabel(index: number, count: number): string | undefined {
   return count > 1 ? `**Overload ${index + 1} of ${count}**` : undefined
 }
 
-/** The call as written in code, such as `comment(ref: ThreadRef, body: string): Promise<Comment>`. */
+/** The call as written in code, such as `createComment(ref: ThreadRef, body: string): Promise<Comment>`. */
 export function signatureText(name: string, signature: ApiSignature, kind: 'function' | 'method' | 'constructor'): string {
   const params = signature.params.map(paramText).join(', ')
   const generics = signature.typeParameters ?? ''

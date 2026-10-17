@@ -17,9 +17,9 @@ describe('anonymous providers', () => {
     expect(calls[0]!.authorization).toBeUndefined()
     expect(forge.capabilities.authKinds).toContain('anonymous')
     expect(forge.authKind).toBe('anonymous')
-    expect(['threads.comment', 'threads.close', 'notifications.list', 'repos.list', 'installations.list', 'threads.subscribe', 'ci.log'].filter(verb => forge.can(verb as never))).toEqual([])
+    expect(['threads.createComment', 'threads.close', 'notifications.list', 'repos.list', 'installations.list', 'threads.subscribe', 'ci.log'].filter(verb => forge.can(verb as never))).toEqual([])
     expect(forge.can('threads.get', 'issue')).toBe(true)
-    await expect(forge.threads.comment(issue, 'hi')).rejects.toThrow(UnsupportedOperationError)
+    await expect(forge.threads.createComment(issue, 'hi')).rejects.toThrow(UnsupportedOperationError)
   })
 
   it('rejects GitHub job logs without a request', async () => {

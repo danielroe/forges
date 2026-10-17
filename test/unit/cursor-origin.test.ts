@@ -77,7 +77,7 @@ describe('cursor origin comments', () => {
     const ref = { forge: 'cursor-origin', instance: 'origin.cursor.com', thread: pull, id: 'c/1' }
 
     await instance.threads.getComment(ref)
-    await instance.threads.editComment(ref, 'Edited')
+    await instance.threads.updateComment(ref, 'Edited')
     await instance.threads.deleteComment(ref)
 
     expect(urls.map(url => url.replace(/^(\w+) .*\/pulls\/comments\//, '$1 '))).toEqual(['GET c%2F1', 'PATCH c%2F1', 'DELETE c%2F1'])

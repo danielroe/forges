@@ -45,11 +45,11 @@ export function hasCommentMarker(body: string, key: string): boolean {
 }
 
 /**
- * `body` with the marker for `key` at the end, unless it carries it already. Post it with `threads.comment()` so that
+ * `body` with the marker for `key` at the end, unless it carries it already. Post it with `threads.createComment()` so that
  * {@link upsertComment} with the same key edits that comment instead of posting another.
  * @example
  * ```ts
- * await provider.threads.comment(ref, withCommentMarker('Deployed to staging', mutationId))
+ * await provider.threads.createComment(ref, withCommentMarker('Deployed to staging', mutationId))
  * ```
  */
 export function withCommentMarker(body: string, key: string): string {
@@ -64,8 +64,8 @@ function sameBody(a: string, b: string): boolean {
 /**
  * Creates the comment, or edits the one an earlier call with the same `key` left behind, unless that one already has
  * the same body. The key is carried in the body as a hidden marker; see {@link commentMarker}. It lists the comments
- * of the thread on every call, which `since` bounds, so the provider needs `threads.comments()`, `threads.comment()`
- * and `threads.editComment()` for the kind of thread.
+ * of the thread on every call, which `since` bounds, so the provider needs `threads.comments()`, `threads.createComment()`
+ * and `threads.updateComment()` for the kind of thread.
  * @param provider The provider to comment with.
  * @param ref The thread to comment on.
  * @param input The `key` that identifies the comment across runs, its `body`, and `since` to look at recent comments only.
@@ -85,10 +85,10 @@ export async function upsertComment(provider: ForgeProvider, ref: ThreadRef, inp
     }
   }
   if (!existing) {
-    return { comment: await provider.threads.comment(ref, body, options), created: true }
+    return { comment: await provider.threads.createComment(ref, body, options), created: true }
   }
   return {
-    comment: sameBody(existing.body, body) ? existing : await provider.threads.editComment(existing.ref, body, options),
+    comment: sameBody(existing.body, body) ? existing : await provider.threads.updateComment(existing.ref, body, options),
     created: false,
   }
 }
